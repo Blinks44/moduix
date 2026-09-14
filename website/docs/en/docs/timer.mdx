@@ -1,10 +1,22 @@
 ---
 title: Timer
 component: timer
-description: A timer for tracking elapsed or remaining time with explicit controls.
+description: A timer for tracking elapsed or remaining time with explicit controls in React or Solid.
 ---
 
-import * as TimerDocs from '@/components/examples/timer';
+import * as TimerDocs from '@/components/examples/timer/css-properties';
+import TimerBasic from '@/components/examples/timer/basic.tsx';
+import TimerCountdown from '@/components/examples/timer/countdown.tsx';
+import TimerEvents from '@/components/examples/timer/events.tsx';
+import TimerInterval from '@/components/examples/timer/interval.tsx';
+import TimerPomodoro from '@/components/examples/timer/pomodoro.tsx';
+import TimerRootProvider from '@/components/examples/timer/root-provider.tsx';
+import timerSolidBasic from '../../../snippets/timer/solid/basic.tsx?raw';
+import timerSolidCountdown from '../../../snippets/timer/solid/countdown.tsx?raw';
+import timerSolidEvents from '../../../snippets/timer/solid/events.tsx?raw';
+import timerSolidInterval from '../../../snippets/timer/solid/interval.tsx?raw';
+import timerSolidPomodoro from '../../../snippets/timer/solid/pomodoro.tsx?raw';
+import timerSolidRootProvider from '../../../snippets/timer/solid/root-provider.tsx?raw';
 
 ## API Reference
 
@@ -12,25 +24,73 @@ import * as TimerDocs from '@/components/examples/timer';
 
 ## Basic
 
-`Timer.Segments` is the quickest way to render a conventional time display separated by colons. By default, it
-shows hours, minutes, and seconds. Pass `types` to choose a different set of units. Use the individual parts when
-you need unit labels, custom separators, or per-item styling.
+Timer ships for React and Solid in both the CSS Modules and Tailwind packages. The rendered preview on this page uses
+the React CSS Modules package; the framework tabs show native source for the same public contract.
+
+`Timer.Segments` is the quickest way to render a conventional time display separated by colons. By default, it shows
+hours, minutes, and seconds. Pass `types` to choose a different set of units. Use the individual parts when you need
+unit labels, custom separators, or per-item styling.
 
 `Timer.Segments` accepts all `Timer.Area` props except `children` and `asChild`, and forwards the area ref. Because
 it creates the items and separators itself, use `Timer.Area` when you need to replace its host element or provide
 custom children.
 
-<style>{TimerDocs.timerExampleCss}</style>
+<ExampleFrame variant="component">
+  <TimerBasic />
+</ExampleFrame>
 
-<PreviewFrame contentWidth="fit-content" maxWidth="sm">
-```tsx preview file="./_snippets/timer/basic.tsx"
+<ExampleCode>
+<div className="docs-reference">
+  <Tabs
+    groupId="framework"
+    values={[
+      { label: 'React', value: 'react' },
+      { label: 'Solid', value: 'solid' },
+    ]}
+    className="docs-tabs"
+  >
+    <Tab value="react">
 
+```tsx pure file="../../../src/components/examples/timer/basic.tsx"
 ```
-</PreviewFrame>
+
+    </Tab>
+    <Tab value="solid">
+
+<CodeBlockRuntime lang="tsx" code={timerSolidBasic} />
+
+    </Tab>
+  </Tabs>
+</div>
+
+</ExampleCode>
 
 ## Install with shadcn
 
-<ShadcnInstall packageName="timer" />
+See [Quick Start](/docs/quick-start) for full package setup, registry configuration, and styling guidance.
+
+<Tabs groupId="framework">
+  <Tab label="React" value="react">
+
+<ShadcnInstallOptions
+  options={[
+    { label: 'CSS Modules', command: 'shadcn@latest add @moduix-react/timer' },
+    { label: 'Tailwind CSS', command: 'shadcn@latest add @moduix-react-tailwind/timer' },
+  ]}
+/>
+
+  </Tab>
+  <Tab label="Solid" value="solid">
+
+<ShadcnInstallOptions
+  options={[
+    { label: 'CSS Modules', command: 'shadcn@latest add @moduix-solid/timer' },
+    { label: 'Tailwind CSS', command: 'shadcn@latest add @moduix-solid-tailwind/timer' },
+  ]}
+/>
+
+  </Tab>
+</Tabs>
 
 ## Anatomy
 
@@ -62,55 +122,13 @@ Timer.Segments
 
 ## Composition
 
-### Recommended composition
+`Timer` is equivalent to `Timer.Root` and owns the timer state. `Timer.Segments` creates its own `Timer.Area`,
+`Timer.Item`, and `Timer.Separator` parts, so use the full `Timer.Area` composition when you need unit labels,
+custom separators, or per-item layout.
 
-`Timer` is the abbreviated root component and is equivalent to `Timer.Root`. Use `Timer.Segments` for the default
-hours, minutes, and seconds display without repeating items and separators by hand. Pass `types` when you need a
-different set of units.
-
-Use `targetMs` to set the value at which the timer completes. Use `startMs` to set the initial elapsed or remaining
-time. For a countdown, combine `countdown` with `startMs` to start from a specified duration.
-
-### When to go custom
-
-Use `Timer.RootProvider` with `useTimer()` when you need to create the timer API separately from the markup that
-consumes it. Use `Timer.Context` or `useTimerContext()` when other UI needs access to `running`, `paused`, `time`,
-`formattedTime`, `progressPercent`, or the programmatic `start()`, `pause()`, `resume()`, `reset()`, and `restart()`
-methods.
-
-Use `interval` for sub-second updates. Keep it as large as the UI allows; Ark defaults to `1000` milliseconds.
-
-### Default props
-
-| Prop              | Default   | Notes                                                               |
-| ----------------- | --------- | ------------------------------------------------------------------- |
-| `autoStart`       | `false`   | Starts the timer on mount.                                          |
-| `countdown`       | `false`   | Counts down instead of up.                                          |
-| `startMs`         | `0`       | Initial elapsed or remaining time in milliseconds.                   |
-| `targetMs`        | -         | Completion boundary in milliseconds.                                |
-| `interval`        | `1000`    | Tick interval in milliseconds.                                      |
-| `ids`             | generated | Overrides the generated root and area ids.                           |
-| `translations`    | built in  | Sets the accessible area label, including through `areaLabel`.       |
-| `onTick(details)` | -         | Runs after each timer tick.                                           |
-| `onComplete()`    | -         | Runs when the timer reaches its completion boundary.                  |
-
-### Behavioral notes
-
-`Timer.ActionTrigger` renders a button by default, so keyboard activation follows native button semantics. Ark hides
-the state-dependent `start`, `pause`, `resume`, and `reset` actions when they are unavailable; `restart` remains
-available when rendered. The timer does not implement composite keyboard navigation or automatic focus movement
-between controls.
-
-The Ark parts exposed by moduix, including `Timer.Root`, `Timer.RootProvider`, `Timer.Area`, `Timer.Item`,
-`Timer.Separator`, `Timer.Control`, and `Timer.ActionTrigger`, support `asChild` through Ark's polymorphic
-composition. Keep replacement elements semantic, especially for `Timer.ActionTrigger`. `Timer.Segments`
-intentionally does not support `asChild` because it owns the generated area and children.
-
-`Timer.Item` preserves Ark's `data-scope="timer"`, `data-part="item"`, `data-type`, and `--value` attributes.
-`Timer.Segments` is limited to standard items and separators, so unit labels remain an explicit composition around
-`Timer.Item`. moduix adds a centered root layout, a time area that wraps when needed,
-stable `data-slot` selectors, SVG icon sizing inside action triggers, and CSS defaults without changing
-the Ark timer machine.
+Use `Timer.RootProvider` with `useTimer()` when the state must be created outside the rendered part tree. Use
+`Timer.Context` or `useTimerContext()` when other UI needs the timer state or methods. In Solid, the store and context
+are accessors, so read them as `timer()` and `api()`.
 
 ## Examples
 
@@ -118,62 +136,197 @@ the Ark timer machine.
 
 Set `countdown` and `startMs` when the display should count down to zero.
 
-<style>{TimerDocs.timerExampleCss}</style>
+<ExampleFrame variant="component">
+  <TimerCountdown />
+</ExampleFrame>
 
-<PreviewFrame contentWidth="fit-content" maxWidth="sm">
-```tsx preview file="./_snippets/timer/countdown.tsx"
+<ExampleCode>
+<div className="docs-reference">
+  <Tabs
+    groupId="framework"
+    values={[
+      { label: 'React', value: 'react' },
+      { label: 'Solid', value: 'solid' },
+    ]}
+    className="docs-tabs"
+  >
+    <Tab value="react">
 
+```tsx pure file="../../../src/components/examples/timer/countdown.tsx"
 ```
-</PreviewFrame>
+
+    </Tab>
+    <Tab value="solid">
+
+<CodeBlockRuntime lang="tsx" code={timerSolidCountdown} />
+
+    </Tab>
+  </Tabs>
+
+**Styles**
+
+```css file="../../../src/components/examples/timer/timer-countdown.module.css"
+```
+</div>
+
+</ExampleCode>
 
 ### Events
 
 Use `onTick` and `onComplete` for side effects tied to the timer lifecycle.
 
-<style>{TimerDocs.timerExampleCss}</style>
+<ExampleFrame variant="component">
+  <TimerEvents />
+</ExampleFrame>
 
-<PreviewFrame contentWidth="fit-content" maxWidth="sm">
-```tsx preview file="./_snippets/timer/events.tsx"
+<ExampleCode>
+<div className="docs-reference">
+  <Tabs
+    groupId="framework"
+    values={[
+      { label: 'React', value: 'react' },
+      { label: 'Solid', value: 'solid' },
+    ]}
+    className="docs-tabs"
+  >
+    <Tab value="react">
 
+```tsx pure file="../../../src/components/examples/timer/events.tsx"
 ```
-</PreviewFrame>
+
+    </Tab>
+    <Tab value="solid">
+
+<CodeBlockRuntime lang="tsx" code={timerSolidEvents} />
+
+    </Tab>
+  </Tabs>
+
+**Styles**
+
+```css file="../../../src/components/examples/timer/timer-events.module.css"
+```
+</div>
+
+</ExampleCode>
 
 ### Interval
 
 Use a shorter `interval` with a `milliseconds` item when the UI needs sub-second updates.
 
-<style>{TimerDocs.timerExampleCss}</style>
+<ExampleFrame variant="component">
+  <TimerInterval />
+</ExampleFrame>
 
-<PreviewFrame contentWidth="fit-content" maxWidth="sm">
-```tsx preview file="./_snippets/timer/interval.tsx"
+<ExampleCode>
+<div className="docs-reference">
+  <Tabs
+    groupId="framework"
+    values={[
+      { label: 'React', value: 'react' },
+      { label: 'Solid', value: 'solid' },
+    ]}
+    className="docs-tabs"
+  >
+    <Tab value="react">
 
+```tsx pure file="../../../src/components/examples/timer/interval.tsx"
 ```
-</PreviewFrame>
+
+    </Tab>
+    <Tab value="solid">
+
+<CodeBlockRuntime lang="tsx" code={timerSolidInterval} />
+
+    </Tab>
+  </Tabs>
+
+**Styles**
+
+```css file="../../../src/components/examples/timer/timer-interval.module.css"
+```
+</div>
+
+</ExampleCode>
 
 ### Pomodoro
 
 Use `onComplete` to switch between work and break durations when the timer should advance to the next cycle.
 
-<style>{TimerDocs.timerExampleCss}</style>
+<ExampleFrame variant="component">
+  <TimerPomodoro />
+</ExampleFrame>
 
-<PreviewFrame contentWidth="fit-content" maxWidth="sm">
-```tsx preview file="./_snippets/timer/pomodoro.tsx"
+<ExampleCode>
+<div className="docs-reference">
+  <Tabs
+    groupId="framework"
+    values={[
+      { label: 'React', value: 'react' },
+      { label: 'Solid', value: 'solid' },
+    ]}
+    className="docs-tabs"
+  >
+    <Tab value="react">
 
+```tsx pure file="../../../src/components/examples/timer/pomodoro.tsx"
 ```
-</PreviewFrame>
+
+    </Tab>
+    <Tab value="solid">
+
+<CodeBlockRuntime lang="tsx" code={timerSolidPomodoro} />
+
+    </Tab>
+  </Tabs>
+
+**Styles**
+
+```css file="../../../src/components/examples/timer/timer-pomodoro.module.css"
+```
+</div>
+
+</ExampleCode>
 
 ### Advanced Customization
 
 Use `useTimer()` when the timer state and methods must also be available outside the rendered part tree. This is
 also the right composition for unit labels and other custom item layouts.
 
-<style>{TimerDocs.timerExampleCss}</style>
+<ExampleFrame variant="component">
+  <TimerRootProvider />
+</ExampleFrame>
 
-<PreviewFrame contentWidth="fit-content" maxWidth="sm">
-```tsx preview file="./_snippets/timer/root-provider.tsx"
+<ExampleCode>
+<div className="docs-reference">
+  <Tabs
+    groupId="framework"
+    values={[
+      { label: 'React', value: 'react' },
+      { label: 'Solid', value: 'solid' },
+    ]}
+    className="docs-tabs"
+  >
+    <Tab value="react">
 
+```tsx pure file="../../../src/components/examples/timer/root-provider.tsx"
 ```
-</PreviewFrame>
+
+    </Tab>
+    <Tab value="solid">
+
+<CodeBlockRuntime lang="tsx" code={timerSolidRootProvider} />
+
+    </Tab>
+  </Tabs>
+
+**Styles**
+
+```css file="../../../src/components/examples/timer/timer-root-provider.module.css"
+```
+</div>
+
+</ExampleCode>
 
 ## Styling
 

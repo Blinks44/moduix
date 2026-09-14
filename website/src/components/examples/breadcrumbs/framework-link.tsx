@@ -1,0 +1,35 @@
+import { Breadcrumbs } from '@moduix/react/breadcrumbs';
+import { Fragment, type ComponentProps } from 'react';
+import styles from '@/components/examples/breadcrumbs/breadcrumbs-framework-link.module.css';
+
+const pathItems = [
+  { href: '/', label: 'Home' },
+  { href: '/docs', label: 'Docs' },
+  { href: '/docs/breadcrumbs', label: 'Breadcrumbs' },
+] as const;
+
+function AppLink(props: ComponentProps<'a'>) {
+  return <a data-framework-link className={styles.link} {...props} />;
+}
+
+export default function BreadcrumbsWithAppLinkDemo() {
+  return (
+    <Breadcrumbs>
+      <Breadcrumbs.List>
+        {pathItems.map((item) => (
+          <Fragment key={item.href}>
+            <Breadcrumbs.Item>
+              <Breadcrumbs.Link asChild>
+                <AppLink href={item.href}>{item.label}</AppLink>
+              </Breadcrumbs.Link>
+            </Breadcrumbs.Item>
+            <Breadcrumbs.Separator />
+          </Fragment>
+        ))}
+        <Breadcrumbs.Item>
+          <Breadcrumbs.Page>Go Developer</Breadcrumbs.Page>
+        </Breadcrumbs.Item>
+      </Breadcrumbs.List>
+    </Breadcrumbs>
+  );
+}

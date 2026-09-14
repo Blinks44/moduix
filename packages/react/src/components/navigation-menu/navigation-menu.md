@@ -1,12 +1,10 @@
 ## Upstream reference
 
-Ark UI has no dedicated Navigation Menu page yet. This wrapper follows the Ark React source:
+This wrapper follows Ark UI's Navigation Menu documentation and React source:
 
+- https://ark-ui.com/docs/components/navigation-menu
 - https://github.com/chakra-ui/ark/tree/main/packages/react/src/components/navigation-menu
-  (accessed 2026-08-23)
-- https://github.com/chakra-ui/zag/blob/main/shared/src/css/navigation-menu-viewport.css
-- https://github.com/chakra-ui/zag/blob/main/shared/src/css/navigation-menu-keyframes.css
-  (accessed 2026-08-23)
+  (accessed 2026-09-01)
 
 ## Purpose
 
@@ -42,9 +40,9 @@ the callback detail object unchanged. `Trigger` requires an enclosing `Item`; `I
 `Content` connect through the item's `value`.
 
 `Viewport` is opt-in. Render it inside `ViewportPositioner`; Ark then moves matching `Content` nodes into
-the viewport while keeping their item relationships intact. When used, an optional shared `Indicator` with
-an `Arrow` belongs before `Viewport` inside `ViewportPositioner`. Without a viewport, an optional indicator
-instead belongs inside its `Content`. The recommended basic composition does not render an arrow.
+the viewport while keeping their item relationships intact. An optional `Indicator` belongs inside `List`.
+Use its `Arrow` only with a shared viewport, following Ark's viewport composition. `Content` preserves its
+children unchanged. The recommended basic composition does not render an arrow.
 Navigation menu panels intentionally stay in the root instead of using `OverlayPortal`: Ark measures trigger,
 indicator, and viewport coordinates in that shared local coordinate system.
 Use `RootProvider` with `useNavigationMenu()`
@@ -61,9 +59,7 @@ dimensions and incoming or outgoing content and disable motion when the user pre
 The root shrink-wraps its list up to the available inline size. Viewport content keeps the same minimum
 and maximum size constraints as standalone content, so Ark measures the actual panel and the viewport
 follows that element through `--viewport-width` and `--viewport-height`. Its size, entrance, and directional
-content motion follow Zag's viewport recipe and default to the shared `--moduix-popup-motion-*` tokens; the
-surface and arrow use the moduix `Menu` tokens. The default arrow overlaps only the popup outline, not its first
-item.
+content motion follow Zag's viewport recipe and default to the shared `--moduix-popup-motion-*` tokens.
 
 ## Differences from upstream
 

@@ -4,7 +4,43 @@ component: checkbox
 description: Компонент флажка для отдельных вариантов и групп с множественным выбором.
 ---
 
-import * as CheckboxDocs from '@/components/examples/checkbox';
+import * as CheckboxDocs from '@/components/examples/checkbox/css-properties';
+import CheckboxBasic from '@/components/examples/checkbox/basic.tsx';
+import CheckboxControlled from '@/components/examples/checkbox/controlled.tsx';
+import CheckboxControlledGroup from '@/components/examples/checkbox/controlled-group.tsx';
+import CheckboxCustomIndicator from '@/components/examples/checkbox/custom-indicator.tsx';
+import CheckboxDefaultChecked from '@/components/examples/checkbox/default-checked.tsx';
+import CheckboxDisabled from '@/components/examples/checkbox/disabled.tsx';
+import CheckboxGroup from '@/components/examples/checkbox/group.tsx';
+import CheckboxGroupWithFieldset from '@/components/examples/checkbox/group-with-fieldset.tsx';
+import CheckboxGroupWithForm from '@/components/examples/checkbox/group-with-form.tsx';
+import CheckboxIndeterminate from '@/components/examples/checkbox/indeterminate.tsx';
+import CheckboxInvalidGroup from '@/components/examples/checkbox/invalid-group.tsx';
+import CheckboxMaxSelected from '@/components/examples/checkbox/max-selected.tsx';
+import CheckboxReadOnly from '@/components/examples/checkbox/read-only.tsx';
+import CheckboxRootProvider from '@/components/examples/checkbox/root-provider.tsx';
+import CheckboxSelectAll from '@/components/examples/checkbox/select-all.tsx';
+import CheckboxSizes from '@/components/examples/checkbox/sizes.tsx';
+import CheckboxWithField from '@/components/examples/checkbox/with-field.tsx';
+import CheckboxWithForm from '@/components/examples/checkbox/with-form.tsx';
+import checkboxSolidBasic from '../../../snippets/checkbox/solid/basic.tsx?raw';
+import checkboxSolidControlled from '../../../snippets/checkbox/solid/controlled.tsx?raw';
+import checkboxSolidControlledGroup from '../../../snippets/checkbox/solid/controlled-group.tsx?raw';
+import checkboxSolidCustomIndicator from '../../../snippets/checkbox/solid/custom-indicator.tsx?raw';
+import checkboxSolidDefaultChecked from '../../../snippets/checkbox/solid/default-checked.tsx?raw';
+import checkboxSolidDisabled from '../../../snippets/checkbox/solid/disabled.tsx?raw';
+import checkboxSolidGroup from '../../../snippets/checkbox/solid/group.tsx?raw';
+import checkboxSolidGroupWithFieldset from '../../../snippets/checkbox/solid/group-with-fieldset.tsx?raw';
+import checkboxSolidGroupWithForm from '../../../snippets/checkbox/solid/group-with-form.tsx?raw';
+import checkboxSolidIndeterminate from '../../../snippets/checkbox/solid/indeterminate.tsx?raw';
+import checkboxSolidInvalidGroup from '../../../snippets/checkbox/solid/invalid-group.tsx?raw';
+import checkboxSolidMaxSelected from '../../../snippets/checkbox/solid/max-selected.tsx?raw';
+import checkboxSolidReadOnly from '../../../snippets/checkbox/solid/read-only.tsx?raw';
+import checkboxSolidRootProvider from '../../../snippets/checkbox/solid/root-provider.tsx?raw';
+import checkboxSolidSelectAll from '../../../snippets/checkbox/solid/select-all.tsx?raw';
+import checkboxSolidSizes from '../../../snippets/checkbox/solid/sizes.tsx?raw';
+import checkboxSolidWithField from '../../../snippets/checkbox/solid/with-field.tsx?raw';
+import checkboxSolidWithForm from '../../../snippets/checkbox/solid/with-form.tsx?raw';
 
 Используйте `Checkbox`, когда пользователь может выбрать один или несколько независимых вариантов
 в форме, настройках или списке фильтров. Если нужно выбрать только один вариант, используйте
@@ -16,254 +52,609 @@ import * as CheckboxDocs from '@/components/examples/checkbox';
 
 ## Базовый пример
 
-Соберите флажок из частей Ark. Обычно `Checkbox.Control` можно оставить пустым: moduix сам добавит
-встроенные иконки выбранного и неопределённого состояния. Добавьте `Checkbox.Label`, чтобы показать
-подпись. Нативное поле формы moduix добавляет автоматически.
+Checkbox доступен для React и Solid как в пакетах с CSS Modules, так и в вариантах на Tailwind.
+Интерактивный пример на этой странице использует React и CSS Modules, а вкладки с кодом показывают
+нативную реализацию того же публичного контракта для каждого фреймворка.
 
-```tsx preview file="../../en/docs/_snippets/checkbox/basic.tsx"
+Соберите флажок из частей Ark. Оставьте `Checkbox.Control` пустым, чтобы использовать встроенные
+иконки выбранного и неопределённого состояния от moduix. Добавьте `Checkbox.Label` для видимой
+подписи и `Checkbox.HiddenInput` для нативного взаимодействия и работы с формой.
 
+<ExampleFrame variant="component">
+  <CheckboxBasic />
+</ExampleFrame>
+
+<ExampleCode>
+<div className="docs-reference">
+  <Tabs
+    groupId="framework"
+    values={[
+      { label: 'React', value: 'react' },
+      { label: 'Solid', value: 'solid' },
+    ]}
+    className="docs-tabs"
+  >
+    <Tab value="react">
+
+```tsx pure file="../../../src/components/examples/checkbox/basic.tsx"
 ```
+
+    </Tab>
+    <Tab value="solid">
+
+<CodeBlockRuntime lang="tsx" code={checkboxSolidBasic} />
+
+    </Tab>
+  </Tabs>
+</div>
+</ExampleCode>
 
 ## Установка через shadcn
 
-<ShadcnInstall packageName="checkbox" />
+Полную настройку пакета, реестра и стилей см. в разделе [Быстрый старт](/docs/quick-start).
+
+<Tabs groupId="framework">
+  <Tab label="React" value="react">
+
+<ShadcnInstallOptions
+  options={[
+    { label: 'CSS Modules', command: 'shadcn@latest add @moduix-react/checkbox' },
+    { label: 'Tailwind CSS', command: 'shadcn@latest add @moduix-react-tailwind/checkbox' },
+  ]}
+/>
+
+  </Tab>
+  <Tab label="Solid" value="solid">
+
+<ShadcnInstallOptions
+  options={[
+    { label: 'CSS Modules', command: 'shadcn@latest add @moduix-solid/checkbox' },
+    { label: 'Tailwind CSS', command: 'shadcn@latest add @moduix-solid-tailwind/checkbox' },
+  ]}
+/>
+
+  </Tab>
+</Tabs>
 
 ## Анатомия
 
 ```text
-Checkbox.Root
+Checkbox / Checkbox.Root
 ├─ Checkbox.Control
 │  ├─ Checkbox.Indicator
-│  └─ Checkbox.Indicator[indeterminate] (optional)
+│  └─ Checkbox.Indicator[indeterminate] (необязательно)
 ├─ Checkbox.Label
-└─ native input (automatic)
+└─ Checkbox.HiddenInput (явно)
 
 Checkbox.RootProvider
-└─ same part tree connected to useCheckbox()
+└─ то же дерево частей, подключённое к состоянию из useCheckbox()
 
 Checkbox.Group
 └─ Checkbox.Root[value]
    ├─ Checkbox.Control
    ├─ Checkbox.Label
-   └─ the native form input
+   └─ Checkbox.HiddenInput
 ```
 
-| Часть                         | Назначение                                                                              |
-| ---------------------------- | ---------------------------------------------------------------------------------------- |
-| `Checkbox` / `Checkbox.Root` | Хранит состояние одного флажка и отрисовывает содержащий его `label`.                       |
-| `Checkbox.RootProvider`      | Связывает части с состоянием Ark, созданным вне дерева компонентов.                         |
-| `Checkbox.Control`           | Видимая часть флажка. Если оставить пустой, отображает встроенные иконки состояния.           |
-| `Checkbox.Indicator`         | Необязательный слот для собственной иконки. Для неопределённого состояния передайте `indeterminate`. |
-| `Checkbox.Label`             | Видимая подпись флажка.                                                                       |
-| `Checkbox.Group`             | Управляет выбранными значениями нескольких флажков.                                          |
+| Часть                         | Назначение                                                                            |
+| ---------------------------- | ------------------------------------------------------------------------------------- |
+| `Checkbox` / `Checkbox.Root` | Хранит состояние одного флажка и отрисовывает содержащий его `label`.                |
+| `Checkbox.HiddenInput`       | Нативное поле Ark; добавляйте его явно внутрь корневого компонента.                   |
+| `Checkbox.RootProvider`      | Связывает части с состоянием Ark, созданным вне дерева компонентов.                   |
+| `Checkbox.Control`           | Видимая часть флажка; если оставить пустой, отображает встроенные иконки состояния.   |
+| `Checkbox.Indicator`         | Необязательный слот для собственной иконки. Для этого состояния передайте `indeterminate`. |
+| `Checkbox.Label`             | Видимая подпись флажка.                                                               |
+| `Checkbox.Group`             | Управляет выбранными значениями нескольких флажков.                                  |
 
 ## Композиция
 
-### Рекомендуемая композиция
+`Checkbox.HiddenInput` - нативное поле Ark. Добавляйте его явно внутрь `Checkbox.Root` или
+`Checkbox.RootProvider`, даже вне формы: оно отвечает за нативный фокус, работу с клавиатурой,
+доступность и участие в форме. Для отдельного поля задайте `name` и `value` на корневом компоненте;
+для группы задайте `name` на `Checkbox.Group`, а `value` - на каждом `Checkbox.Root`.
 
-Сохраняйте дерево частей Ark в разметке. `Checkbox.Root` принимает стандартные свойства корневого
-компонента Ark, например `checked`, `defaultChecked`, `onCheckedChange(details)`, `disabled`,
-`readOnly`, `invalid`, `required`, `name`, `value`, `form`, `ids` и `asChild`. Свойства `checked` и
-`defaultChecked` могут иметь значение `true`, `false` или `"indeterminate"`.
+`Checkbox.Group` хранит массив выбранных значений, а каждый дочерний элемент является
+`Checkbox.Root` со своим `value`. Оставьте `Checkbox.Control` пустым, чтобы использовать встроенные
+иконки moduix. Добавляйте `Checkbox.Indicator` внутрь `Checkbox.Control` только для собственной
+иконки.
 
-`Checkbox.Group` принимает `value`, `defaultValue`, `onValueChange(value)`, `disabled`, `readOnly`,
-`invalid`, `maxSelectedValues` и `name`.
-
-`Checkbox.Control` - удобное сокращение moduix. Оставьте его пустым, чтобы использовать встроенные
-иконки, или передайте дочерние элементы для собственного индикатора. `size` - единственное
-дополнительное свойство moduix у `Checkbox.Root` и `Checkbox.RootProvider`.
-
-### Когда нужна собственная композиция
-
-Используйте `Checkbox.RootProvider`, если состояние флажка нужно хранить или изменять вне дерева
-компонента. moduix экспортирует `useCheckbox()` из `@moduix/react/checkbox` для этого сценария.
-Передайте полученное состояние в `Checkbox.RootProvider` через свойство `value`.
-`Checkbox.Context`, `useCheckboxContext()`, `useCheckboxGroup()` и `useCheckboxGroupContext()` дают
-доступ к состоянию Ark для более сложных композиций. Если состояние группы должно находиться вне
-дерева компонентов, свяжите `useCheckboxGroup()` с `Checkbox.GroupProvider` из
-`@ark-ui/react/checkbox`. Добавляйте
-`Checkbox.Indicator` явно только тогда, когда нужна собственная иконка или нестандартная компоновка
-индикатора.
-
-### Свойства по умолчанию
-
-| Компонент                     | Значение по умолчанию | Примечания                                            |
-| ----------------------------- | -------------------- | ----------------------------------------------------- |
-| `Checkbox` / `Checkbox.Root` | -                    | Дополнительное поведение не добавляется, используются настройки Ark. |
-| `size`                       | `md`                 | Применяется к `Checkbox.Root` и `Checkbox.RootProvider`.             |
-
-### Особенности поведения
-
-`Checkbox.Root` и `Checkbox.RootProvider` всегда отрисовывают нативное поле, поэтому флажок может
-участвовать в нативной валидации, сбросе и отправке формы. Чтобы отдельный флажок попал в данные
-отправляемой формы, передайте `name` и `value` в `Checkbox.Root`. Для группы передайте `name` в
-`Checkbox.Group`, а `value` - в каждый `Checkbox.Root`.
-
-При миграции с shadcn `Checkbox.Control` уже содержит стандартное оформление иконки. В разметке
-`Checkbox.Control` и `Checkbox.Label` остаются явными частями, а скрытое поле ввода создаётся внутри
-компонента.
-
-`Checkbox.Root` и `Checkbox.RootProvider` из Ark по умолчанию отрисовывают `label`. При использовании
-`asChild` непосредственным дочерним элементом тоже должен быть семантический `label`, иначе у
-флажка не будет корректной подписи.
-
-При `readOnly` moduix отражает это состояние в `aria-readonly` автоматически созданного нативного
-поля, а Ark по-прежнему блокирует взаимодействие.
-
-`ref`, переданный части, указывает на соответствующий узел DOM Ark. Чтобы переключить флажок в
-фокусе, нажмите <kbd>Space</kbd>.
+Если состояние нужно создать вне дерева компонентов, создайте его с помощью `useCheckbox()` и
+передайте хранилище в `Checkbox.RootProvider`. Не используйте для того же состояния `Checkbox` или
+`Checkbox.Root`.
 
 ## Примеры
 
 ### Управляемое состояние
 
-Используйте управляемый флажок, если его значение хранится в состоянии React или зависит от других
-частей интерфейса.
+Используйте управляемый флажок, если его значение хранится в другой части интерфейса.
 
-```tsx preview file="../../en/docs/_snippets/checkbox/controlled.tsx"
+<ExampleFrame variant="component">
+  <CheckboxControlled />
+</ExampleFrame>
 
+<ExampleCode>
+<div className="docs-reference">
+  <Tabs groupId="framework" values={[{ label: 'React', value: 'react' }, { label: 'Solid', value: 'solid' }]} className="docs-tabs">
+    <Tab value="react">
+
+```tsx pure file="../../../src/components/examples/checkbox/controlled.tsx"
 ```
+
+    </Tab>
+    <Tab value="solid">
+
+<CodeBlockRuntime lang="tsx" code={checkboxSolidControlled} />
+
+    </Tab>
+  </Tabs>
+
+**Стили**
+
+```css file="../../../src/components/examples/checkbox/checkbox-controlled.module.css"
+```
+</div>
+</ExampleCode>
 
 ### Управляемая группа
 
 Используйте управляемую группу, если выбранные варианты влияют на фильтры, сводки или действия.
 
-```tsx preview file="../../en/docs/_snippets/checkbox/controlled-group.tsx"
+<ExampleFrame variant="component">
+  <CheckboxControlledGroup />
+</ExampleFrame>
 
+<ExampleCode>
+<div className="docs-reference">
+  <Tabs groupId="framework" values={[{ label: 'React', value: 'react' }, { label: 'Solid', value: 'solid' }]} className="docs-tabs">
+    <Tab value="react">
+
+```tsx pure file="../../../src/components/examples/checkbox/controlled-group.tsx"
 ```
+
+    </Tab>
+    <Tab value="solid">
+
+<CodeBlockRuntime lang="tsx" code={checkboxSolidControlledGroup} />
+
+    </Tab>
+  </Tabs>
+</div>
+</ExampleCode>
 
 ### Пользовательский индикатор
 
-Замените встроенную галочку собственной иконкой, сохранив поведение `Checkbox` и его доступность.
+Замените встроенную галочку собственной иконкой, сохранив поведение Checkbox и доступность Ark.
 
-```tsx preview file="../../en/docs/_snippets/checkbox/custom-indicator.tsx"
+<ExampleFrame variant="component">
+  <CheckboxCustomIndicator />
+</ExampleFrame>
 
+<ExampleCode>
+<div className="docs-reference">
+  <Tabs groupId="framework" values={[{ label: 'React', value: 'react' }, { label: 'Solid', value: 'solid' }]} className="docs-tabs">
+    <Tab value="react">
+
+```tsx pure file="../../../src/components/examples/checkbox/custom-indicator.tsx"
 ```
+
+    </Tab>
+    <Tab value="solid">
+
+<CodeBlockRuntime lang="tsx" code={checkboxSolidCustomIndicator} />
+
+    </Tab>
+  </Tabs>
+</div>
+</ExampleCode>
 
 ### Выбрано по умолчанию
 
 Используйте `defaultChecked`, если нужно задать начальное значение, а дальше флажок может сам
 управлять своим состоянием.
 
-```tsx preview file="../../en/docs/_snippets/checkbox/default-checked.tsx"
+<ExampleFrame variant="component">
+  <CheckboxDefaultChecked />
+</ExampleFrame>
 
+<ExampleCode>
+<div className="docs-reference">
+  <Tabs groupId="framework" values={[{ label: 'React', value: 'react' }, { label: 'Solid', value: 'solid' }]} className="docs-tabs">
+    <Tab value="react">
+
+```tsx pure file="../../../src/components/examples/checkbox/default-checked.tsx"
 ```
 
-### Отключённое состояние
+    </Tab>
+    <Tab value="solid">
 
-Используйте `disabled` для недоступного варианта, с которым нельзя взаимодействовать.
+<CodeBlockRuntime lang="tsx" code={checkboxSolidDefaultChecked} />
 
-```tsx preview file="../../en/docs/_snippets/checkbox/disabled.tsx"
+    </Tab>
+  </Tabs>
+</div>
+</ExampleCode>
 
+### Отключённый вариант
+
+Используйте `disabled`, когда вариант недоступен и не должен реагировать на взаимодействие.
+
+<ExampleFrame variant="component">
+  <CheckboxDisabled />
+</ExampleFrame>
+
+<ExampleCode>
+<div className="docs-reference">
+  <Tabs groupId="framework" values={[{ label: 'React', value: 'react' }, { label: 'Solid', value: 'solid' }]} className="docs-tabs">
+    <Tab value="react">
+
+```tsx pure file="../../../src/components/examples/checkbox/disabled.tsx"
 ```
+
+    </Tab>
+    <Tab value="solid">
+
+<CodeBlockRuntime lang="tsx" code={checkboxSolidDisabled} />
+
+    </Tab>
+  </Tabs>
+</div>
+</ExampleCode>
 
 ### Группа
 
 Используйте `Checkbox.Group`, когда несколько флажков используют общий массив выбранных значений.
 
-```tsx preview file="../../en/docs/_snippets/checkbox/group.tsx"
+<ExampleFrame variant="component">
+  <CheckboxGroup />
+</ExampleFrame>
 
+<ExampleCode>
+<div className="docs-reference">
+  <Tabs groupId="framework" values={[{ label: 'React', value: 'react' }, { label: 'Solid', value: 'solid' }]} className="docs-tabs">
+    <Tab value="react">
+
+```tsx pure file="../../../src/components/examples/checkbox/group.tsx"
 ```
+
+    </Tab>
+    <Tab value="solid">
+
+<CodeBlockRuntime lang="tsx" code={checkboxSolidGroup} />
+
+    </Tab>
+  </Tabs>
+</div>
+</ExampleCode>
 
 ### Группа с Fieldset
 
-Используйте `Fieldset`, когда группа флажков образует одно поле формы и ей нужна общая легенда.
+Используйте `Fieldset`, когда группа представляет одно поле формы и ей нужна общая легенда.
 
-<PreviewFrame contentWidth="fit-content" maxWidth="sm">
-```tsx preview file="../../en/docs/_snippets/checkbox/group-with-fieldset.tsx"
+<ExampleFrame variant="component">
+  <CheckboxGroupWithFieldset />
+</ExampleFrame>
 
+<ExampleCode>
+<div className="docs-reference">
+  <Tabs groupId="framework" values={[{ label: 'React', value: 'react' }, { label: 'Solid', value: 'solid' }]} className="docs-tabs">
+    <Tab value="react">
+
+```tsx pure file="../../../src/components/examples/checkbox/group-with-fieldset.tsx"
 ```
-</PreviewFrame>
 
-### Группа с формой
+    </Tab>
+    <Tab value="solid">
 
-Поместите `Checkbox.Group` в форму, если нужно получить все выбранные значения в `FormData`. Чтобы
-прочитать их, используйте `FormData.getAll(name)`.
+<CodeBlockRuntime lang="tsx" code={checkboxSolidGroupWithFieldset} />
 
-```tsx preview file="../../en/docs/_snippets/checkbox/group-with-form.tsx"
+    </Tab>
+  </Tabs>
 
+**Стили**
+
+```css file="../../../src/components/examples/checkbox/checkbox-group-with-fieldset.module.css"
 ```
+</div>
+</ExampleCode>
+
+### Группа в форме
+
+Поместите `Checkbox.Group` внутрь формы, если нужно получить все выбранные значения в `FormData`.
+Прочитайте их с помощью `FormData.getAll(name)`.
+
+<ExampleFrame variant="component">
+  <CheckboxGroupWithForm />
+</ExampleFrame>
+
+<ExampleCode>
+<div className="docs-reference">
+  <Tabs groupId="framework" values={[{ label: 'React', value: 'react' }, { label: 'Solid', value: 'solid' }]} className="docs-tabs">
+    <Tab value="react">
+
+```tsx pure file="../../../src/components/examples/checkbox/group-with-form.tsx"
+```
+
+    </Tab>
+    <Tab value="solid">
+
+<CodeBlockRuntime lang="tsx" code={checkboxSolidGroupWithForm} />
+
+    </Tab>
+  </Tabs>
+
+**Стили**
+
+```css file="../../../src/components/examples/checkbox/checkbox-group-with-form.module.css"
+```
+</div>
+</ExampleCode>
 
 ### Неопределённое состояние
 
-Используйте `checked="indeterminate"`, если флажок показывает частичный выбор. Такой вариант часто
-нужен для команды «Выбрать всё».
+Используйте `checked="indeterminate"`, когда флажок обозначает частичный выбор. Это часто нужно
+для управления «Выбрать все».
 
-```tsx preview file="../../en/docs/_snippets/checkbox/indeterminate.tsx"
+<ExampleFrame variant="component">
+  <CheckboxIndeterminate />
+</ExampleFrame>
 
+<ExampleCode>
+<div className="docs-reference">
+  <Tabs groupId="framework" values={[{ label: 'React', value: 'react' }, { label: 'Solid', value: 'solid' }]} className="docs-tabs">
+    <Tab value="react">
+
+```tsx pure file="../../../src/components/examples/checkbox/indeterminate.tsx"
 ```
 
-### Недопустимая группа
+    </Tab>
+    <Tab value="solid">
 
-Установите `invalid` у группы, если проверяется весь выбор целиком.
+<CodeBlockRuntime lang="tsx" code={checkboxSolidIndeterminate} />
 
-```tsx preview file="../../en/docs/_snippets/checkbox/invalid-group.tsx"
+    </Tab>
+  </Tabs>
+</div>
+</ExampleCode>
 
+### Некорректная группа
+
+Задайте `invalid` на группе, если проверка относится ко всему выбору.
+
+<ExampleFrame variant="component">
+  <CheckboxInvalidGroup />
+</ExampleFrame>
+
+<ExampleCode>
+<div className="docs-reference">
+  <Tabs groupId="framework" values={[{ label: 'React', value: 'react' }, { label: 'Solid', value: 'solid' }]} className="docs-tabs">
+    <Tab value="react">
+
+```tsx pure file="../../../src/components/examples/checkbox/invalid-group.tsx"
 ```
 
-### Максимум выбранных
+    </Tab>
+    <Tab value="solid">
 
-Используйте `maxSelectedValues`, чтобы ограничить количество вариантов, выбранных одновременно.
+<CodeBlockRuntime lang="tsx" code={checkboxSolidInvalidGroup} />
 
-```tsx preview file="../../en/docs/_snippets/checkbox/max-selected.tsx"
+    </Tab>
+  </Tabs>
+</div>
+</ExampleCode>
 
+### Ограничение выбора
+
+Используйте `maxSelectedValues`, чтобы ограничить количество одновременно выбранных вариантов.
+
+<ExampleFrame variant="component">
+  <CheckboxMaxSelected />
+</ExampleFrame>
+
+<ExampleCode>
+<div className="docs-reference">
+  <Tabs groupId="framework" values={[{ label: 'React', value: 'react' }, { label: 'Solid', value: 'solid' }]} className="docs-tabs">
+    <Tab value="react">
+
+```tsx pure file="../../../src/components/examples/checkbox/max-selected.tsx"
 ```
+
+    </Tab>
+    <Tab value="solid">
+
+<CodeBlockRuntime lang="tsx" code={checkboxSolidMaxSelected} />
+
+    </Tab>
+  </Tabs>
+</div>
+</ExampleCode>
 
 ### Только для чтения
 
-Используйте `readOnly`, чтобы показать значение, но запретить пользователю его менять.
+Используйте `readOnly`, чтобы показать значение без возможности его изменить.
 
-```tsx preview file="../../en/docs/_snippets/checkbox/read-only.tsx"
+<ExampleFrame variant="component">
+  <CheckboxReadOnly />
+</ExampleFrame>
 
+<ExampleCode>
+<div className="docs-reference">
+  <Tabs groupId="framework" values={[{ label: 'React', value: 'react' }, { label: 'Solid', value: 'solid' }]} className="docs-tabs">
+    <Tab value="react">
+
+```tsx pure file="../../../src/components/examples/checkbox/read-only.tsx"
 ```
+
+    </Tab>
+    <Tab value="solid">
+
+<CodeBlockRuntime lang="tsx" code={checkboxSolidReadOnly} />
+
+    </Tab>
+  </Tabs>
+</div>
+</ExampleCode>
 
 ### Root Provider
 
-Используйте `Checkbox.RootProvider`, если состояние флажка должно находиться вне дерева компонента.
-Импортируйте `useCheckbox` из `@moduix/react/checkbox`.
+Используйте `Checkbox.RootProvider`, когда состояние флажка нужно хранить вне дерева компонентов.
+Импортируйте `useCheckbox` из пакета выбранного фреймворка.
 
-```tsx preview file="../../en/docs/_snippets/checkbox/root-provider.tsx"
+<ExampleFrame variant="component">
+  <CheckboxRootProvider />
+</ExampleFrame>
 
+<ExampleCode>
+<div className="docs-reference">
+  <Tabs groupId="framework" values={[{ label: 'React', value: 'react' }, { label: 'Solid', value: 'solid' }]} className="docs-tabs">
+    <Tab value="react">
+
+```tsx pure file="../../../src/components/examples/checkbox/root-provider.tsx"
 ```
 
-### Выбрать всё
+    </Tab>
+    <Tab value="solid">
 
-Свяжите родительский флажок с управляемой группой, чтобы одним элементом выбрать или снять все
-варианты.
+<CodeBlockRuntime lang="tsx" code={checkboxSolidRootProvider} />
 
-```tsx preview file="../../en/docs/_snippets/checkbox/select-all.tsx"
+    </Tab>
+  </Tabs>
 
+**Стили**
+
+```css file="../../../src/components/examples/checkbox/checkbox-root-provider.module.css"
 ```
+</div>
+</ExampleCode>
+
+### Выбрать все
+
+Объедините родительский флажок с управляемой группой, если один элемент должен выбирать или
+снимать выбор со всех вариантов.
+
+<ExampleFrame variant="component">
+  <CheckboxSelectAll />
+</ExampleFrame>
+
+<ExampleCode>
+<div className="docs-reference">
+  <Tabs groupId="framework" values={[{ label: 'React', value: 'react' }, { label: 'Solid', value: 'solid' }]} className="docs-tabs">
+    <Tab value="react">
+
+```tsx pure file="../../../src/components/examples/checkbox/select-all.tsx"
+```
+
+    </Tab>
+    <Tab value="solid">
+
+<CodeBlockRuntime lang="tsx" code={checkboxSolidSelectAll} />
+
+    </Tab>
+  </Tabs>
+
+**Стили**
+
+```css file="../../../src/components/examples/checkbox/checkbox-select-all.module.css"
+```
+</div>
+</ExampleCode>
 
 ### Размеры
 
-Используйте свойство `size`, чтобы размер флажка соответствовал окружающей форме или экрану настроек.
+Используйте `size`, чтобы согласовать плотность флажка с окружающей формой или экраном настроек.
 
-```tsx preview file="../../en/docs/_snippets/checkbox/sizes.tsx"
+<ExampleFrame variant="component">
+  <CheckboxSizes />
+</ExampleFrame>
 
+<ExampleCode>
+<div className="docs-reference">
+  <Tabs groupId="framework" values={[{ label: 'React', value: 'react' }, { label: 'Solid', value: 'solid' }]} className="docs-tabs">
+    <Tab value="react">
+
+```tsx pure file="../../../src/components/examples/checkbox/sizes.tsx"
 ```
+
+    </Tab>
+    <Tab value="solid">
+
+<CodeBlockRuntime lang="tsx" code={checkboxSolidSizes} />
+
+    </Tab>
+  </Tabs>
+</div>
+</ExampleCode>
 
 ### С Field
 
-Используйте `Field`, если флажку нужны поясняющий текст, сообщение о проверке или общее состояние
-поля.
+Используйте `Field`, когда флажку нужны вспомогательный текст, сообщения проверки или общее
+состояние поля.
 
-<PreviewFrame contentWidth="fit-content" maxWidth="sm">
-```tsx preview file="../../en/docs/_snippets/checkbox/with-field.tsx"
+<ExampleFrame variant="component">
+  <CheckboxWithField />
+</ExampleFrame>
 
+<ExampleCode>
+<div className="docs-reference">
+  <Tabs groupId="framework" values={[{ label: 'React', value: 'react' }, { label: 'Solid', value: 'solid' }]} className="docs-tabs">
+    <Tab value="react">
+
+```tsx pure file="../../../src/components/examples/checkbox/with-field.tsx"
 ```
-</PreviewFrame>
+
+    </Tab>
+    <Tab value="solid">
+
+<CodeBlockRuntime lang="tsx" code={checkboxSolidWithField} />
+
+    </Tab>
+  </Tabs>
+
+**Стили**
+
+```css file="../../../src/components/examples/checkbox/checkbox-with-field.module.css"
+```
+</div>
+</ExampleCode>
 
 ### С формой
 
-Передайте `name` и `value` в `Checkbox.Root`, чтобы автоматически созданное нативное поле попало в
-`FormData`.
+Передайте `name` и `value` в `Checkbox.Root` и отрисуйте `Checkbox.HiddenInput`, чтобы включить
+флажок в `FormData`.
 
-```tsx preview file="../../en/docs/_snippets/checkbox/with-form.tsx"
+<ExampleFrame variant="component">
+  <CheckboxWithForm />
+</ExampleFrame>
 
+<ExampleCode>
+<div className="docs-reference">
+  <Tabs groupId="framework" values={[{ label: 'React', value: 'react' }, { label: 'Solid', value: 'solid' }]} className="docs-tabs">
+    <Tab value="react">
+
+```tsx pure file="../../../src/components/examples/checkbox/with-form.tsx"
 ```
 
+    </Tab>
+    <Tab value="solid">
+
+<CodeBlockRuntime lang="tsx" code={checkboxSolidWithForm} />
+
+    </Tab>
+  </Tabs>
+
+**Стили**
+
+```css file="../../../src/components/examples/checkbox/checkbox-with-form.module.css"
+```
+</div>
+</ExampleCode>
+
 ## Стилизация
+
+Используйте `className` в React или `class` в Solid на экспортируемых частях для структурных стилей.
+Для стилей состояний используйте атрибуты данных Ark, например `data-state`, `data-disabled` и
+`data-invalid`, вместе с селекторами moduix `data-slot`. Варианты на Tailwind используют обычные
+утилиты и классы потребителя; переменные ниже настраивают варианты с CSS Modules. Атрибуты данных и
+хуки `data-slot` общие для обоих вариантов стилизации.
 
 ### CSS-свойства
 
@@ -271,9 +662,9 @@ Checkbox.Group
 
 ### Хуки стилизации
 
-- У `Checkbox.Root` есть `data-slot="checkbox-root"`, `data-size` и атрибуты состояния Ark, включая `data-state`, `data-active`, `data-disabled`, `data-readonly`, `data-invalid`, `data-required`, `data-hover`, `data-focus` и `data-focus-visible`.
-- У `Checkbox.RootProvider` есть `data-slot="checkbox-root-provider"` и тот же контракт стилизации, что у корневого компонента.
-- У `Checkbox.Control` есть `data-slot="checkbox-control"`, `data-state="checked" | "indeterminate" | "unchecked"` и `data-active`.
-- У `Checkbox.Indicator` есть `data-slot="checkbox-indicator"` и атрибуты состояния флажка из Ark.
-- У `Checkbox.Label` есть `data-slot="checkbox-label"` и атрибуты состояния флажка из Ark.
-- У `Checkbox.Group` есть `data-slot="checkbox-group"`.
+- `Checkbox.Root` предоставляет `data-slot="checkbox-root"`, `data-size` и атрибуты состояния Ark, включая `data-state`, `data-active`, `data-disabled`, `data-readonly`, `data-invalid`, `data-required`, `data-hover`, `data-focus` и `data-focus-visible`.
+- `Checkbox.RootProvider` предоставляет `data-slot="checkbox-root-provider"` и тот же контракт стилизации корневого компонента.
+- `Checkbox.Control` предоставляет `data-slot="checkbox-control"` и атрибуты состояния Ark, включая `data-state="checked" | "indeterminate" | "unchecked"` и `data-active`.
+- `Checkbox.Indicator` предоставляет `data-slot="checkbox-indicator"` и наследует атрибуты состояния Checkbox Ark.
+- `Checkbox.Label` предоставляет `data-slot="checkbox-label"` и атрибуты состояния Checkbox Ark.
+- `Checkbox.Group` предоставляет `data-slot="checkbox-group"`.

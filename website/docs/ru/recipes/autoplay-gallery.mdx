@@ -4,6 +4,7 @@ description: Рецепт галереи с автопрокруткой на Ca
 ---
 
 import { AutoplayGalleryPreview } from '@/components/recipes/autoplay-gallery-preview';
+import autoplayGallerySolid from '../../../snippets/recipes/solid/autoplay-gallery.tsx?raw';
 
 # Галерея с автопрокруткой
 
@@ -11,30 +12,48 @@ import { AutoplayGalleryPreview } from '@/components/recipes/autoplay-gallery-pr
 под управлением пользователя. В нём `Carousel` показывает соседние слайды частично, выводит текст поверх изображения,
 добавляет стрелки навигации и заполняющийся индикатор для каждого интервала автопрокрутки.
 
-<ExampleFrame clientOnly>
+Живое превью использует React-пакет. Во вкладках исходников приведены нативные реализации для React и Solid с общими стилями.
+
+<ExampleFrame variant="recipe" clientOnly>
   <AutoplayGalleryPreview />
 </ExampleFrame>
 
+<ExampleCode>
 <div className="docs-reference">
-  <Tabs values={[{ label: 'Компонент', value: 'Компонент' }, { label: 'Стили', value: 'Стили' }]} className="docs-tabs">
-    <Tab value="Компонент">
+  <Tabs
+    groupId="framework"
+    values={[
+      { label: 'React', value: 'react' },
+      { label: 'Solid', value: 'solid' },
+    ]}
+    className="docs-tabs"
+  >
+    <Tab value="react">
 
-```tsx file="../../../src/components/recipes/autoplay-gallery.tsx"
+```tsx pure file="../../../src/components/recipes/autoplay-gallery.tsx"
+
 ```
 
     </Tab>
-    <Tab value="Стили">
+    <Tab value="solid">
 
-```css file="../../../src/components/recipes/autoplay-gallery.module.css"
-```
+<CodeBlockRuntime lang="tsx" code={autoplayGallerySolid} />
 
     </Tab>
   </Tabs>
+
+**Styles**
+
+```css file="../../../src/components/recipes/autoplay-gallery.module.css"
+
+```
 </div>
+
+</ExampleCode>
 
 ## Установка
 
-<ShadcnInstall packageName="carousel" itemKind="recipe" copiedSource />
+<ShadcnInstall packageName="carousel" itemKind="recipe" frameworks copiedSource />
 
 Эта команда добавляет `Carousel` в проект. Скопируйте компонент рецепта и его таблицу стилей из вкладок выше, затем
 замените демонстрационные данные своим контентом.
@@ -60,11 +79,15 @@ import { AutoplayGalleryPreview } from '@/components/recipes/autoplay-gallery-pr
 карусели, отмечает активный слайд и выводит кнопки перехода назад и вперёд. Второй создаёт индикаторы прогресса из
 `api.pageSnapPoints` и отмечает текущий индикатор атрибутом `data-current`.
 
+У каждого индикатора `overflow: visible`, поэтому прозрачная область `::after` увеличивает удобную зону нажатия у
+тонкой линии прогресса. Видимое заполнение анимирует `width`, а не использует `scaleX`: так унаследованное скругление
+сохраняется на переднем крае линии во время заполнения.
+
 При нажатии на стрелку или индикатор вызывается `requestAnimationFrame(api.play)`. Ручная навигация приостанавливает
 автопрокрутку, поэтому запуск в следующем кадре даёт карусели сначала завершить переход, а затем начать новый
-интервал. Взаимодействие свайпом или колёсиком мыши тоже ставит автопрокрутку на паузу. Если после такого действия
-воспроизведение должно возобновляться автоматически, добавьте это в свою логику взаимодействия или выведите
-`Carousel.AutoplayTrigger`.
+интервал. Взаимодействие свайпом или горизонтальная прокрутка колёсиком мыши тоже ставят автопрокрутку на паузу. Если
+после такого действия воспроизведение должно возобновляться автоматически, добавьте это в свою логику взаимодействия
+или выведите `Carousel.AutoplayTrigger`.
 
 Ark приостанавливает автопрокрутку, пока документ скрыт. Рецепт отслеживает `visibilitychange` и вызывает публичный
 метод `api.play()`, когда документ снова становится видимым.

@@ -9,6 +9,10 @@ Read this reference whenever a preview frame, metadata control, or snippet chang
 - Use `maxWidth="sm"` or `maxWidth="lg"` as a cap, not a forced width. Use `contentWidth="fit-content"` only when a naturally full-width root should shrink-wrap.
 - Preserve deliberate component layout. Set `inline-size: 100%` on the direct demo root when the component should fill the frame.
 - Preview snippets run from a virtual directory: do not use relative CSS imports in them.
+- For source-only `tsx` and `jsx` fences with a `file` directive, write `pure` before `file`, as in
+  `tsx pure file="..."`. This keeps Rspress's preview plugin from rendering the source file as a
+  component. Reserve `preview file=...` for fences that are meant to render a live preview, and do
+  not combine it with `pure`.
 
 ## Auxiliary demo UI
 

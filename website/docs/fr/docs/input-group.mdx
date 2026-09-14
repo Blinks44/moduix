@@ -1,10 +1,24 @@
 ---
 title: Input Group
 component: input-group
-description: Associez un champ de saisie natif à des préfixes, suffixes, textes et actions intégrés.
+description: Créez des groupes de saisie accessibles avec React ou Solid, installés par paquet ou avec la CLI shadcn.
 ---
 
-import * as InputGroupDocs from '@/components/examples/input-group';
+import * as InputGroupDocs from '@/components/examples/input-group/css-properties';
+import InputGroupAsChild from '@/components/examples/input-group/as-child.tsx';
+import InputGroupBasic from '@/components/examples/input-group/basic.tsx';
+import InputGroupDisabled from '@/components/examples/input-group/disabled.tsx';
+import InputGroupFieldState from '@/components/examples/input-group/field-state.tsx';
+import InputGroupPrefixAndSuffix from '@/components/examples/input-group/prefix-and-suffix.tsx';
+import InputGroupSizes from '@/components/examples/input-group/sizes.tsx';
+import InputGroupWithAction from '@/components/examples/input-group/with-action.tsx';
+import inputGroupSolidAsChild from '../../../snippets/input-group/solid/as-child.tsx?raw';
+import inputGroupSolidBasic from '../../../snippets/input-group/solid/basic.tsx?raw';
+import inputGroupSolidDisabled from '../../../snippets/input-group/solid/disabled.tsx?raw';
+import inputGroupSolidFieldState from '../../../snippets/input-group/solid/field-state.tsx?raw';
+import inputGroupSolidPrefixAndSuffix from '../../../snippets/input-group/solid/prefix-and-suffix.tsx?raw';
+import inputGroupSolidSizes from '../../../snippets/input-group/solid/sizes.tsx?raw';
+import inputGroupSolidWithAction from '../../../snippets/input-group/solid/with-action.tsx?raw';
 
 ## Référence de l’API
 
@@ -24,73 +38,105 @@ suit les recommandations d’Ark pour la [composition](https://ark-ui.com/docs/g
 
 ## Exemple de base
 
-Composez un champ de saisie en ajoutant uniquement les parties nécessaires.
+`InputGroup` est disponible pour React et Solid, dans les paquets CSS Modules comme dans les variantes
+Tailwind. L’aperçu interactif de cette page utilise React avec CSS Modules ; les onglets de code
+présentent la source native correspondant au même contrat public.
 
-<PreviewFrame contentWidth="fit-content" maxWidth="sm">
-  ```tsx preview file="../../en/docs/_snippets/input-group/basic.tsx"
-  ```
-</PreviewFrame>
+Utilisez `InputGroup` comme racine et composez un seul `InputGroup.Input` avec les parties
+`Addon`, `Text` ou `Button` nécessaires.
+
+<ExampleFrame variant="component">
+  <InputGroupBasic />
+</ExampleFrame>
+
+<ExampleCode>
+<div className="docs-reference">
+  <Tabs
+    groupId="framework"
+    values={[
+      { label: 'React', value: 'react' },
+      { label: 'Solid', value: 'solid' },
+    ]}
+    className="docs-tabs"
+  >
+    <Tab value="react">
+
+```tsx pure file="../../../src/components/examples/input-group/basic.tsx"
+```
+
+    </Tab>
+    <Tab value="solid">
+
+<CodeBlockRuntime lang="tsx" code={inputGroupSolidBasic} />
+
+    </Tab>
+  </Tabs>
+
+**Styles**
+
+```css file="../../../src/components/examples/input-group/input-group-basic.module.css"
+```
+</div>
+
+</ExampleCode>
 
 ## Installation avec shadcn
 
-<ShadcnInstall packageName="input-group" />
+Consultez le [Démarrage rapide](/docs/quick-start) pour la configuration complète du paquet, du registre et des styles.
+
+<Tabs groupId="framework">
+  <Tab label="React" value="react">
+
+<ShadcnInstallOptions
+  options={[
+    { label: 'CSS Modules', command: 'shadcn@latest add @moduix-react/input-group' },
+    { label: 'Tailwind CSS', command: 'shadcn@latest add @moduix-react-tailwind/input-group' },
+  ]}
+/>
+
+  </Tab>
+  <Tab label="Solid" value="solid">
+
+<ShadcnInstallOptions
+  options={[
+    { label: 'CSS Modules', command: 'shadcn@latest add @moduix-solid/input-group' },
+    { label: 'Tailwind CSS', command: 'shadcn@latest add @moduix-solid-tailwind/input-group' },
+  ]}
+/>
+
+  </Tab>
+</Tabs>
 
 ## Anatomie
 
 ```text
 InputGroup / InputGroup.Root
-├─ InputGroup.Addon (optional)
+├─ InputGroup.Addon (facultatif)
 ├─ InputGroup.Input
-├─ InputGroup.Text (optional)
-└─ InputGroup.Button (optional)
+├─ InputGroup.Text (facultatif)
+└─ InputGroup.Button (facultatif)
 ```
 
-| Partie                            | Rôle                                                         |
-| --------------------------------- | ------------------------------------------------------------ |
-| `InputGroup` / `InputGroup.Root` | Mise en page, bordure, anneau de focus et contexte de taille partagés. |
-| `InputGroup.Input`               | Élément `<input>` natif qui contient la valeur du formulaire. |
-| `InputGroup.Addon`               | Préfixe ou suffixe avec un fond.                              |
-| `InputGroup.Text`                | Texte intégré sans fond.                                     |
-| `InputGroup.Button`              | Bouton d’action associé au champ.                            |
+| Partie                            | Rôle                                                       |
+| --------------------------------- | ---------------------------------------------------------- |
+| `InputGroup` / `InputGroup.Root` | Conteneur passif avec styles et contexte de taille partagés. |
+| `InputGroup.Input`               | Élément `<input>` natif qui possède la valeur et l’état du champ. |
+| `InputGroup.Addon`               | Préfixe ou suffixe avec un fond.                           |
+| `InputGroup.Text`                | Texte intégré sans fond.                                  |
+| `InputGroup.Button`              | Bouton d’action associé au champ.                         |
 
 ## Composition
 
-### Composition recommandée
+Conservez un seul `InputGroup.Input` dans chaque groupe. Le champ imbriqué possède la valeur, le
+comportement du formulaire, l’état de validation et la `ref` ; les props contrôlées ou non contrôlées
+se placent donc sur ce champ, tandis que le libellé et les messages de validation vont dans `Field`.
+La taille de la racine est héritée par `InputGroup.Input` et `InputGroup.Button` ; les boutons ont
+par défaut `type="button"` et n’héritent pas de `disabled` depuis `Field`. En React, utilisez
+`onChange` pour un champ contrôlé ; en Solid, utilisez `onInput`.
 
-Utilisez un seul `InputGroup.Input`. Placez `Addon`, `Text` ou `Button` avant ou après le champ.
-Entourez le groupe de `Field` si le champ a besoin d’un libellé, d’un texte d’aide, d’un message
-d’erreur, d’identifiants générés ou d’un état partagé.
-
-`InputGroup.Input` reste un champ natif. Pour un champ contrôlé, passez `value` et mettez-le à jour
-dans `onChange(event)`. Pour un champ non contrôlé, utilisez `defaultValue`. La propriété `size` de
-la racine est héritée par `InputGroup.Input` et `InputGroup.Button`; les autres parties reprennent
-la même densité visuelle.
-
-### Quand créer une composition personnalisée
-
-La racine, `InputGroup.Addon` et `InputGroup.Text` prennent en charge `asChild` d’Ark. Passez un seul
-enfant avec cette option. L’enfant de la racine doit rester un conteneur de mise en page sémantique.
-Un enfant d’addon ou de texte doit rester non interactif et accepter les props transmises ainsi que la ref.
-
-Utilisez `InputGroup.Button` pour les actions au lieu de rendre un addon interactif. N’ajoutez
-`role="group"` et un nom accessible que si la composition autonome doit être annoncée comme un groupe.
-
-### Propriétés par défaut
-
-| Partie / propriété          | Valeur par défaut       |
-| --------------------------- | ----------------------- |
-| `InputGroup.size`           | `md`                    |
-| `InputGroup.Input.size`     | héritée de la racine    |
-| `InputGroup.Button.size`    | héritée de la racine    |
-| `InputGroup.Button.variant` | `ghost`                 |
-| `InputGroup.Button.type`    | `button`                |
-
-### Comportement
-
-- La `ref` de `InputGroup.Input` pointe vers le véritable `HTMLInputElement`.
-- La racine est un conteneur passif. Elle ne gère ni la valeur ni la validation, ne génère pas d’identifiants ARIA, ne fournit pas de hooks de contexte et ne rend pas de `HiddenInput`.
-- L’apparence de la racine pour les états `invalid`, `disabled` et `readOnly` dépend de l’état du champ imbriqué.
-- Les boutons n’héritent pas de `disabled` depuis `Field`; désactivez chaque action séparément si nécessaire.
+Utilisez `Addon` et `Text` pour du contenu intégré non interactif, et `Button` pour les actions. La
+racine, `Addon` et `Text` prennent en charge `asChild` avec un seul enfant sémantique qui accepte les
+props fusionnées et la ref. Utilisez `Editable` lorsque la valeur doit passer du mode lecture au mode édition.
 
 ## Exemples
 
@@ -99,49 +145,199 @@ Utilisez `InputGroup.Button` pour les actions au lieu de rendre un addon interac
 Placez `disabled` sur le champ natif. Désactivez aussi les boutons associés s’ils doivent être
 indisponibles.
 
-<PreviewFrame contentWidth="fit-content" maxWidth="sm">
-  ```tsx preview file="../../en/docs/_snippets/input-group/disabled.tsx"
-  ```
-</PreviewFrame>
+<ExampleFrame variant="component">
+  <InputGroupDisabled />
+</ExampleFrame>
+
+<ExampleCode>
+<div className="docs-reference">
+  <Tabs
+    groupId="framework"
+    values={[
+      { label: 'React', value: 'react' },
+      { label: 'Solid', value: 'solid' },
+    ]}
+    className="docs-tabs"
+  >
+    <Tab value="react">
+
+```tsx pure file="../../../src/components/examples/input-group/disabled.tsx"
+```
+
+    </Tab>
+    <Tab value="solid">
+
+<CodeBlockRuntime lang="tsx" code={inputGroupSolidDisabled} />
+
+    </Tab>
+  </Tabs>
+
+**Styles**
+
+```css file="../../../src/components/examples/input-group/input-group-disabled.module.css"
+```
+</div>
+
+</ExampleCode>
 
 ### État du champ
 
 Définissez `invalid` sur `Field` lorsque la validation échoue. Ark transmet l’état et les attributs
 ARIA nécessaires à `InputGroup.Input`, puis le groupe reflète cet état.
 
-<PreviewFrame contentWidth="fit-content" maxWidth="sm">
-  ```tsx preview file="../../en/docs/_snippets/input-group/field-state.tsx"
-  ```
-</PreviewFrame>
+<ExampleFrame variant="component">
+  <InputGroupFieldState />
+</ExampleFrame>
+
+<ExampleCode>
+<div className="docs-reference">
+  <Tabs
+    groupId="framework"
+    values={[
+      { label: 'React', value: 'react' },
+      { label: 'Solid', value: 'solid' },
+    ]}
+    className="docs-tabs"
+  >
+    <Tab value="react">
+
+```tsx pure file="../../../src/components/examples/input-group/field-state.tsx"
+```
+
+    </Tab>
+    <Tab value="solid">
+
+<CodeBlockRuntime lang="tsx" code={inputGroupSolidFieldState} />
+
+    </Tab>
+  </Tabs>
+
+**Styles**
+
+```css file="../../../src/components/examples/input-group/input-group-field-state.module.css"
+```
+</div>
+
+</ExampleCode>
 
 ### Préfixe et suffixe
 
 Utilisez `Addon` pour un préfixe ou un suffixe avec fond et `Text` pour un texte intégré sans fond.
 
-<PreviewFrame contentWidth="fit-content" maxWidth="sm">
-  ```tsx preview file="../../en/docs/_snippets/input-group/prefix-and-suffix.tsx"
-  ```
-</PreviewFrame>
+<ExampleFrame variant="component">
+  <InputGroupPrefixAndSuffix />
+</ExampleFrame>
+
+<ExampleCode>
+<div className="docs-reference">
+  <Tabs
+    groupId="framework"
+    values={[
+      { label: 'React', value: 'react' },
+      { label: 'Solid', value: 'solid' },
+    ]}
+    className="docs-tabs"
+  >
+    <Tab value="react">
+
+```tsx pure file="../../../src/components/examples/input-group/prefix-and-suffix.tsx"
+```
+
+    </Tab>
+    <Tab value="solid">
+
+<CodeBlockRuntime lang="tsx" code={inputGroupSolidPrefixAndSuffix} />
+
+    </Tab>
+  </Tabs>
+
+**Styles**
+
+```css file="../../../src/components/examples/input-group/input-group-prefix-and-suffix.module.css"
+```
+</div>
+
+</ExampleCode>
 
 ### Tailles
 
 Définissez `size` une seule fois sur la racine pour que le champ, l’addon, le texte et le bouton
 restent alignés.
 
-<PreviewFrame contentWidth="fit-content" maxWidth="sm">
-  ```tsx preview file="../../en/docs/_snippets/input-group/sizes.tsx"
-  ```
-</PreviewFrame>
+<ExampleFrame variant="component">
+  <InputGroupSizes />
+</ExampleFrame>
+
+<ExampleCode>
+<div className="docs-reference">
+  <Tabs
+    groupId="framework"
+    values={[
+      { label: 'React', value: 'react' },
+      { label: 'Solid', value: 'solid' },
+    ]}
+    className="docs-tabs"
+  >
+    <Tab value="react">
+
+```tsx pure file="../../../src/components/examples/input-group/sizes.tsx"
+```
+
+    </Tab>
+    <Tab value="solid">
+
+<CodeBlockRuntime lang="tsx" code={inputGroupSolidSizes} />
+
+    </Tab>
+  </Tabs>
+
+**Styles**
+
+```css file="../../../src/components/examples/input-group/input-group-sizes.module.css"
+```
+</div>
+
+</ExampleCode>
 
 ### Avec une action
 
 Utilisez `InputGroup.Button` pour une action liée à la valeur du champ. Dans cet exemple, le champ
 est contrôlé et `Send` ne devient disponible qu’après la saisie d’une valeur.
 
-<PreviewFrame contentWidth="fit-content" maxWidth="sm">
-  ```tsx preview file="../../en/docs/_snippets/input-group/with-action.tsx"
-  ```
-</PreviewFrame>
+<ExampleFrame variant="component">
+  <InputGroupWithAction />
+</ExampleFrame>
+
+<ExampleCode>
+<div className="docs-reference">
+  <Tabs
+    groupId="framework"
+    values={[
+      { label: 'React', value: 'react' },
+      { label: 'Solid', value: 'solid' },
+    ]}
+    className="docs-tabs"
+  >
+    <Tab value="react">
+
+```tsx pure file="../../../src/components/examples/input-group/with-action.tsx"
+```
+
+    </Tab>
+    <Tab value="solid">
+
+<CodeBlockRuntime lang="tsx" code={inputGroupSolidWithAction} />
+
+    </Tab>
+  </Tabs>
+
+**Styles**
+
+```css file="../../../src/components/examples/input-group/input-group-with-action.module.css"
+```
+</div>
+
+</ExampleCode>
 
 ### Personnalisation avancée
 
@@ -149,31 +345,58 @@ Utilisez `asChild` lorsque la racine doit rendre un conteneur personnalisé à l
 défaut. Le groupe conserve ses styles et son contexte de taille, tandis que l’enfant doit rester un
 conteneur de mise en page sémantique.
 
-<PreviewFrame contentWidth="fit-content" maxWidth="sm">
-  ```tsx preview file="../../en/docs/_snippets/input-group/as-child.tsx"
-  ```
-</PreviewFrame>
+<ExampleFrame variant="component">
+  <InputGroupAsChild />
+</ExampleFrame>
+
+<ExampleCode>
+<div className="docs-reference">
+  <Tabs
+    groupId="framework"
+    values={[
+      { label: 'React', value: 'react' },
+      { label: 'Solid', value: 'solid' },
+    ]}
+    className="docs-tabs"
+  >
+    <Tab value="react">
+
+```tsx pure file="../../../src/components/examples/input-group/as-child.tsx"
+```
+
+    </Tab>
+    <Tab value="solid">
+
+<CodeBlockRuntime lang="tsx" code={inputGroupSolidAsChild} />
+
+    </Tab>
+  </Tabs>
+
+**Styles**
+
+```css file="../../../src/components/examples/input-group/input-group-as-child.module.css"
+```
+</div>
+
+</ExampleCode>
 
 ## Styles
 
+Utilisez `className` en React ou `class` en Solid sur les parties exportées pour appliquer les styles
+structurels. Pour les styles liés à l’état, privilégiez les attributs de données Ark comme
+`data-invalid`, `data-disabled` et `data-readonly`, ainsi que les sélecteurs `data-slot` de moduix.
+Les variantes Tailwind se personnalisent avec des utilitaires et des classes supplémentaires ; les
+variables ci-dessous concernent uniquement les variantes CSS Modules. Les attributs de données et les
+sélecteurs `data-slot` sont communs aux deux approches.
+
 ### Propriétés CSS
 
-<div className="docs-reference">
-  <Tabs
-    values={[{ label: 'Variables CSS', value: 'CSS Variables' }]}
-    className="docs-reference-tabs"
-    contentItemClassName="docs-reference-panel"
-  >
-    <Tab>
-      <InputGroupDocs.InputGroupCssPropertiesPanel />
-    </Tab>
-  </Tabs>
-</div>
+<CssPropertiesSection properties={InputGroupDocs.inputGroupOverrideCssProperties} />
 
 ### Points d’accroche CSS
 
 - `data-slot="input-group-root"` et `data-size="xs" | "sm" | "md" | "lg" | "xl"` sur la racine
-- `data-scope="input-group"` et `data-part="root" | "addon" | "text"` sur les parties créées par la fabrique Ark
+- `data-scope="input-group"` et `data-part="root" | "addon" | "text"` sur les parties de la fabrique Ark
 - `data-slot="input-root"` et les attributs d’état du champ Ark
 - `data-slot="input-group-addon"`
 - `data-slot="input-group-text"`
@@ -181,4 +404,5 @@ conteneur de mise en page sémantique.
 - les états imbriqués `data-invalid`, `aria-invalid="true"`, `data-disabled`/`:disabled` et `data-readonly`/`:read-only` sont reflétés sur la racine via `:has(...)`
 
 Les hooks `data-slot`, `data-scope`, `data-part` et `data-size` gérés par le composant restent
-stables même si vous fournissez vos propres propriétés. `className` s’ajoute toujours aux styles du composant.
+stables même si vous fournissez vos propres propriétés. `className` en React et `class` en Solid
+s’ajoutent toujours aux styles du composant.

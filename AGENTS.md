@@ -1,30 +1,39 @@
 # moduix-monorepo
 
-`moduix` is an Ark UI-backed React component library with a shadcn-compatible registry and an Rspress documentation site.
+`moduix` is a multi-framework, Ark UI-backed component system distributed as CSS Modules and Tailwind packages, with shadcn-compatible registries and an Rspress documentation site. React and Solid adapters ship today; Vue and Svelte adapters are planned. Shared workflows must be framework-neutral and discover shipped adapters instead of assuming that the current package count is permanent.
 
 ## Workspace map
 
-- `packages/react` — the shipped `@moduix/react` component library, stories, tests, and component-local docs.
-- `packages/solid` — the native Solid component library kept contract-compatible with shipped React components as they are ported.
-- `playgrounds` — private React and Solid Vite Storybooks for manual visual and interaction parity checks.
-- `website` — the Rspress documentation site, runnable component examples, and generated registry artifacts.
-- `registry/registry.json` — source manifest for the hosted React registry; its source files point into `packages/react/src`.
-- `packages/oxlint-config` and `packages/oxfmt-config` — shared linting and formatting configuration.
+- `packages/<framework>`: public framework-native CSS Modules adapters, tests, and component-local docs. The current adapters are `react` and `solid`.
+- `packages/<framework>-tailwind`: public Tailwind variants kept behaviorally aligned with the CSS Modules adapter for that framework. The current variants are `react-tailwind` and `solid-tailwind`.
+- `playgrounds/<framework>` and `playgrounds/<framework>-tailwind`: private playgrounds for parity checks when that adapter ships.
+- `website` - the Rspress documentation site, runnable component examples, and generated registry artifacts.
+- `packages/foundation/registry.json` and each public package's `registry.json` - source manifests for the hosted registries; each manifest owns files within its package.
+- `packages/oxlint-config` and `packages/oxfmt-config` - shared linting and formatting configuration.
+
+## README package-manager commands
+
+GitHub Markdown does not provide the interactive package-manager tabs used by Rspress. Use `pnpm`
+for installation, CLI, and repository commands in the root and package README files. npm badges and
+links may still identify the registry where a package is published.
 
 ## Skill routing
 
 Use project skills from [`.agents/skills/`](.agents/skills/README.md). Apply only the skills that match the changed surface.
 
 - **Any coding task:** `engineering-principles`.
-- **React or TypeScript in `packages/react`:** `js-react-conventions` and `ui-component-workflow`; also use
-  `css-authoring` for styles, `upstream-library-docs` for Ark/Chakra/shadcn behavior, and
-  `local-component-docs` when component markdown changes. Check and synchronize an existing Solid counterpart through
-  `ui-component-workflow`.
-- **React-to-Solid component ports or synchronization:** `react-to-solid`; additionally use `css-authoring` for styles,
-  `upstream-library-docs` for current Ark Solid behavior, `rstest-best-practices` for tests, and
-  `rslib-best-practices` when creating or changing the Solid package build. Keep paired framework-native stories in
-  `playgrounds/react` and `playgrounds/solid`.
-- **Rspress pages, examples, or CSS-variable documentation in `website`:** `docs-workflow`; additionally use
+- **Any component implementation or public contract change:** `component-workflow`; it owns the shipped-adapter impact check and synchronization of existing counterparts, tests, stories, exports, and registries.
+- **React implementation in `packages/react` or `packages/react-tailwind`:** `conventions-react`.
+- **Framework-specific implementation:** use the matching native convention or migration skill when
+  it exists. Add a focused framework skill when a new adapter enters development instead of expanding
+  React or Solid instructions into generic pseudocode.
+- **React-to-Solid component ports or synchronization:** `migration-react-to-solid`; additionally use `conventions-css` for styles,
+  `research-upstream-libraries` for current Ark Solid behavior, `rstest-best-practices` for tests, and
+  `rslib-best-practices` when changing a Solid package build.
+- **CSS Modules-to-Tailwind component migrations:** `migration-css-modules-to-tailwind`; also use `conventions-css`, the applicable framework skill, and `rstest-best-practices` when tests change.
+- **Component styles or shared tokens:** `conventions-css`; synchronize existing CSS Modules and Tailwind counterparts through `component-workflow`.
+- **Component-local markdown:** `component-contract-docs`.
+- **Rspress pages, examples, framework synchronization, or CSS-variable documentation in `website`:** `docs-workflow`; additionally use
   `rspress-description-generator` for new-page or description-frontmatter work, `rspress-best-practices` for
   Rspress configuration, navigation, build, deployment, or debugging, `rspress-localization` for any localization
   work, and `rspress-custom-theme` for theme
@@ -33,9 +42,7 @@ Use project skills from [`.agents/skills/`](.agents/skills/README.md). Apply onl
 - **Rslib configuration or library build issues:** `rslib-best-practices`.
 - **Changesets:** `changeset-workflow`, only when the user explicitly requests one.
 
-For work that changes both `packages/react` and `website`, apply the relevant component skills first, then the
-relevant documentation skills. `ui-component-workflow` owns synchronization across the React package, an existing
-Solid counterpart, playground stories, and consumer-facing surfaces.
+For work that changes packages and `website`, apply component skills first and documentation skills second. Do not duplicate framework mechanics: `component-workflow` coordinates parity, while migration and convention skills own native implementation details.
 
 ## Required validation
 

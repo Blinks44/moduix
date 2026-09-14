@@ -1,0 +1,24 @@
+.root {
+  align-items: center;
+  display: flex;
+  inline-size: 100%;
+  justify-content: center;
+  min-block-size: 21rem;
+}
+
+.productsContent {
+  inline-size: 20rem;
+}
+
+.productsLinks {
+  display: grid;
+  grid-template-columns: repeat(2, minmax(0, 1fr));
+}
+
+.companyContent {
+  inline-size: 14rem;
+}
+
+.resourcesContent {
+  inline-size: 7rem;
+}

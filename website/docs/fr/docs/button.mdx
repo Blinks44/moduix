@@ -4,7 +4,24 @@ component: button
 description: Un bouton stylisé pour les actions, construit avec le modèle de composition d’Ark factory.
 ---
 
-import * as ButtonDocs from '@/components/examples/button';
+import * as ButtonDocs from '@/components/examples/button/css-properties';
+import ButtonAsChildLink from '@/components/examples/button/as-child-link.tsx';
+import ButtonBasic from '@/components/examples/button/basic.tsx';
+import ButtonDisabled from '@/components/examples/button/disabled.tsx';
+import ButtonIcons from '@/components/examples/button/icons.tsx';
+import ButtonPendingState from '@/components/examples/button/pending-state.tsx';
+import ButtonRef from '@/components/examples/button/ref.tsx';
+import ButtonSizes from '@/components/examples/button/sizes.tsx';
+import ButtonVariants from '@/components/examples/button/variants.tsx';
+
+import buttonSolidAsChildLink from '../../../snippets/button/solid/as-child-link.tsx?raw';
+import buttonSolidBasic from '../../../snippets/button/solid/basic.tsx?raw';
+import buttonSolidDisabled from '../../../snippets/button/solid/disabled.tsx?raw';
+import buttonSolidIcons from '../../../snippets/button/solid/icons.tsx?raw';
+import buttonSolidPendingState from '../../../snippets/button/solid/pending-state.tsx?raw';
+import buttonSolidRef from '../../../snippets/button/solid/ref.tsx?raw';
+import buttonSolidSizes from '../../../snippets/button/solid/sizes.tsx?raw';
+import buttonSolidVariants from '../../../snippets/button/solid/variants.tsx?raw';
 
 ## Référence de l’API
 
@@ -13,18 +30,71 @@ Ark UI ne fournit pas de primitive `button` dédiée. moduix construit ce compos
 [composition](https://ark-ui.com/docs/guides/composition), le [style](https://ark-ui.com/docs/guides/styling) et la
 [gestion des refs](https://ark-ui.com/docs/guides/ref).
 
+
+Les mêmes exports sont disponibles depuis `@moduix/solid/button` pour Solid.
 ## Exemple de base
 
 Pour la plupart des actions, utilisez la forme courte `<Button>...</Button>`. Vous pouvez aussi utiliser
 `Button.Root`, qui expose la même API dans un espace de noms.
 
-```tsx preview file="../../en/docs/_snippets/button/basic.tsx"
 
+Ce composant est disponible pour React et Solid, avec des variantes CSS Modules et Tailwind. L’aperçu utilise React avec CSS Modules ; les onglets affichent le code natif correspondant à chaque framework.
+<ExampleFrame variant="component">
+  <ButtonBasic />
+</ExampleFrame>
+
+<ExampleCode>
+<div className="docs-reference">
+  <Tabs
+    groupId="framework"
+    values={[
+      { label: 'React', value: 'react' },
+      { label: 'Solid', value: 'solid' },
+    ]}
+    className="docs-tabs"
+  >
+    <Tab value="react">
+
+```tsx pure file="../../../src/components/examples/button/basic.tsx"
 ```
+
+    </Tab>
+    <Tab value="solid">
+
+<CodeBlockRuntime lang="tsx" code={buttonSolidBasic} />
+
+    </Tab>
+  </Tabs>
+</div>
+
+</ExampleCode>
 
 ## Installation avec shadcn
 
-<ShadcnInstall packageName="button" />
+Consultez le [Démarrage rapide](/docs/quick-start) pour la configuration complète du paquet, du registre et des styles.
+
+<Tabs groupId="framework">
+  <Tab label="React" value="react">
+
+<ShadcnInstallOptions
+  options={[
+    { label: 'CSS Modules', command: 'shadcn@latest add @moduix-react/button' },
+    { label: 'Tailwind CSS', command: 'shadcn@latest add @moduix-react-tailwind/button' },
+  ]}
+/>
+
+  </Tab>
+  <Tab label="Solid" value="solid">
+
+<ShadcnInstallOptions
+  options={[
+    { label: 'CSS Modules', command: 'shadcn@latest add @moduix-solid/button' },
+    { label: 'Tailwind CSS', command: 'shadcn@latest add @moduix-solid-tailwind/button' },
+  ]}
+/>
+
+  </Tab>
+</Tabs>
 
 ## Anatomie
 
@@ -43,78 +113,123 @@ Button.Root
 
 ## Composition
 
-### Composition recommandée
+`Button` est une racine à partie unique. Utilisez `asChild` lorsqu’un autre élément sémantique doit porter le nœud DOM rendu : React reçoit exactement un enfant, tandis que Solid utilise une fonction de rendu avec `asChild`. Lorsqu’une partie Ark compose Button, le parent reste propriétaire de `data-scope` et `data-part` ; Button conserve ses classes de recette et son `data-slot` stable.
 
-Pour une action, utilisez l’élément racine natif. Il utilise `type="button"` par défaut, ce qui évite de
-soumettre accidentellement le formulaire. Définissez explicitement `type="submit"` lorsque le bouton
-doit envoyer le formulaire.
-
-### Propriétés par défaut
-
-| Propriété | Valeur par défaut | Valeurs                                                                                |
-| --------- | ----------------- | -------------------------------------------------------------------------------------- |
-| `loading` | `false`           | `boolean`                                                                              |
-| `variant` | `default`         | `default`, `outline`, `secondary`, `destructive`, `destructive-outline`, `ghost`, `link` |
-| `size`    | `md`              | `xs`, `sm`, `md`, `lg`, `xl`, `icon-sm`, `icon-md`, `icon-lg`                         |
-| `type`    | `button`          | Éléments racine natifs uniquement                                                      |
-| `asChild` | `false`           | Utilise l’unique enfant comme racine rendue                                             |
-
-### Quand utiliser un élément personnalisé
-
-Utilisez `asChild` lorsqu’un élément sémantique existant doit porter le nœud DOM rendu. La composition
-Ark exige exactement un enfant. La valeur par défaut `type="button"` n’est pas ajoutée à l’élément
-utilisé avec `asChild`.
-
-Lorsque `Dialog.Trigger`, `Menu.Trigger` ou une autre partie d’Ark compose Button comme enfant, les
-`data-scope` et `data-part` de la partie parente sont prioritaires sur le nœud DOM partagé. Button
-conserve ses classes de style et son `data-slot` stable ; Ark continue de fusionner les gestionnaires
-du déclencheur et les refs.
-
-Pour la navigation, utilisez un véritable élément `<a>`. Sur l’élément utilisé avec `asChild`, les
-propriétés `disabled`, `loading` et `aria-disabled="true"` signalent l’état désactivé via
-`aria-disabled`, appliquent les styles correspondants et bloquent l’activation au clic. L’attribut
-natif `disabled` n’est pas ajouté à cet élément.
-
-### Comportement
-
-- Les attributs natifs, `style` et les gestionnaires d’événements sont transmis à la racine. `className`
-  est combiné avec les styles moduix, et l’activation est bloquée lorsque la racine est désactivée.
-- La ref transmise pointe vers l’élément racine rendu.
-- Les propriétés `disabled`, `aria-disabled="true"` et `loading` ajoutent `data-disabled`.
-- `loading` est un raccourci qui configure uniquement l’état : il définit `data-loading`, `aria-busy` et
-  les styles désactivés. Vous gardez la main sur le libellé et l’indicateur de chargement.
-- Les éléments `svg` enfants directs héritent de `currentColor` et utilisent `--moduix-button-icon-size`.
-- Un bouton composé uniquement d’une icône doit avoir un nom accessible.
-- Les API propres à Chakra, comme `colorPalette`, les propriétés de recette responsives, `ButtonGroup` et
-  les propriétés de chargement gérées, ne font volontairement pas partie du contrat moduix à un seul
-  élément racine.
-
+La propriété `loading` ne gère que l’état occupé et désactivé (`data-loading`, `aria-busy` et `data-disabled`) ; l’application reste responsable de l’indicateur de chargement, du libellé et du cycle asynchrone. Les racines natives utilisent `type="button"` par défaut, mais les cibles `asChild` ne reçoivent pas cette valeur par défaut.
 ## Exemples
 
 ### État désactivé
 
 Utilisez `disabled` avec les boutons natifs et les éléments utilisés avec `asChild`.
 
-```tsx preview file="../../en/docs/_snippets/button/disabled.tsx"
+<ExampleFrame variant="component">
+  <ButtonDisabled />
+</ExampleFrame>
 
+<ExampleCode>
+<div className="docs-reference">
+  <Tabs
+    groupId="framework"
+    values={[
+      { label: 'React', value: 'react' },
+      { label: 'Solid', value: 'solid' },
+    ]}
+    className="docs-tabs"
+  >
+    <Tab value="react">
+
+```tsx pure file="../../../src/components/examples/button/disabled.tsx"
 ```
+
+    </Tab>
+    <Tab value="solid">
+
+<CodeBlockRuntime lang="tsx" code={buttonSolidDisabled} />
+
+    </Tab>
+  </Tabs>
+
+**Styles**
+
+```css file="../../../src/components/examples/button/button-disabled.module.css"
+```
+</div>
+
+</ExampleCode>
 
 ### Icônes
 
 Les icônes peuvent se placer avant ou après le texte. Leur ordre dans le JSX et le `gap` de l’élément racine Button déterminent la disposition.
 
-```tsx preview file="../../en/docs/_snippets/button/icons.tsx"
+<ExampleFrame variant="component">
+  <ButtonIcons />
+</ExampleFrame>
 
+<ExampleCode>
+<div className="docs-reference">
+  <Tabs
+    groupId="framework"
+    values={[
+      { label: 'React', value: 'react' },
+      { label: 'Solid', value: 'solid' },
+    ]}
+    className="docs-tabs"
+  >
+    <Tab value="react">
+
+```tsx pure file="../../../src/components/examples/button/icons.tsx"
 ```
+
+    </Tab>
+    <Tab value="solid">
+
+<CodeBlockRuntime lang="tsx" code={buttonSolidIcons} />
+
+    </Tab>
+  </Tabs>
+
+**Styles**
+
+```css file="../../../src/components/examples/button/button-icons.module.css"
+```
+</div>
+
+</ExampleCode>
 
 ### Lien avec `asChild`
 
 Utilisez `asChild` pour la navigation afin que l’élément `<a>` conserve sa sémantique de lien tout en
 recevant les styles du bouton.
 
-```tsx preview file="../../en/docs/_snippets/button/as-child-link.tsx"
+<ExampleFrame variant="component">
+  <ButtonAsChildLink />
+</ExampleFrame>
 
+<ExampleCode>
+<div className="docs-reference">
+  <Tabs
+    groupId="framework"
+    values={[
+      { label: 'React', value: 'react' },
+      { label: 'Solid', value: 'solid' },
+    ]}
+    className="docs-tabs"
+  >
+    <Tab value="react">
+
+```tsx pure file="../../../src/components/examples/button/as-child-link.tsx"
 ```
+
+    </Tab>
+    <Tab value="solid">
+
+<CodeBlockRuntime lang="tsx" code={buttonSolidAsChildLink} />
+
+    </Tab>
+  </Tabs>
+</div>
+
+</ExampleCode>
 
 ### État de chargement
 
@@ -122,33 +237,152 @@ Utilisez `loading` pour signaler l’état de chargement tout en gardant le libe
 de vie asynchrone sous le contrôle de votre application. Avec `asChild`, cette propriété bloque également
 l’activation au clic.
 
-```tsx preview file="../../en/docs/_snippets/button/pending-state.tsx"
+<ExampleFrame variant="component">
+  <ButtonPendingState />
+</ExampleFrame>
 
+<ExampleCode>
+<div className="docs-reference">
+  <Tabs
+    groupId="framework"
+    values={[
+      { label: 'React', value: 'react' },
+      { label: 'Solid', value: 'solid' },
+    ]}
+    className="docs-tabs"
+  >
+    <Tab value="react">
+
+```tsx pure file="../../../src/components/examples/button/pending-state.tsx"
 ```
+
+    </Tab>
+    <Tab value="solid">
+
+<CodeBlockRuntime lang="tsx" code={buttonSolidPendingState} />
+
+    </Tab>
+  </Tabs>
+</div>
+
+</ExampleCode>
 
 ### Ref
 
 La ref transmise pointe vers l’élément racine rendu ; vous pouvez l’utiliser pour lui donner le focus par programmation ou le mesurer.
 
-```tsx preview file="../../en/docs/_snippets/button/ref.tsx"
+<ExampleFrame variant="component">
+  <ButtonRef />
+</ExampleFrame>
 
+<ExampleCode>
+<div className="docs-reference">
+  <Tabs
+    groupId="framework"
+    values={[
+      { label: 'React', value: 'react' },
+      { label: 'Solid', value: 'solid' },
+    ]}
+    className="docs-tabs"
+  >
+    <Tab value="react">
+
+```tsx pure file="../../../src/components/examples/button/ref.tsx"
 ```
+
+    </Tab>
+    <Tab value="solid">
+
+<CodeBlockRuntime lang="tsx" code={buttonSolidRef} />
+
+    </Tab>
+  </Tabs>
+
+**Styles**
+
+```css file="../../../src/components/examples/button/button-ref.module.css"
+```
+</div>
+
+</ExampleCode>
 
 ### Tailles
 
 Les boutons avec texte et les boutons composés uniquement d’une icône utilisent la même API racine.
 
-```tsx preview file="../../en/docs/_snippets/button/sizes.tsx"
+<ExampleFrame variant="component">
+  <ButtonSizes />
+</ExampleFrame>
 
+<ExampleCode>
+<div className="docs-reference">
+  <Tabs
+    groupId="framework"
+    values={[
+      { label: 'React', value: 'react' },
+      { label: 'Solid', value: 'solid' },
+    ]}
+    className="docs-tabs"
+  >
+    <Tab value="react">
+
+```tsx pure file="../../../src/components/examples/button/sizes.tsx"
 ```
+
+    </Tab>
+    <Tab value="solid">
+
+<CodeBlockRuntime lang="tsx" code={buttonSolidSizes} />
+
+    </Tab>
+  </Tabs>
+
+**Styles**
+
+```css file="../../../src/components/examples/button/button-sizes.module.css"
+```
+</div>
+
+</ExampleCode>
 
 ### Variantes
 
 Utilisez les variantes pour exprimer la priorité et l’intention de l’action.
 
-```tsx preview file="../../en/docs/_snippets/button/variants.tsx"
+<ExampleFrame variant="component">
+  <ButtonVariants />
+</ExampleFrame>
 
+<ExampleCode>
+<div className="docs-reference">
+  <Tabs
+    groupId="framework"
+    values={[
+      { label: 'React', value: 'react' },
+      { label: 'Solid', value: 'solid' },
+    ]}
+    className="docs-tabs"
+  >
+    <Tab value="react">
+
+```tsx pure file="../../../src/components/examples/button/variants.tsx"
 ```
+
+    </Tab>
+    <Tab value="solid">
+
+<CodeBlockRuntime lang="tsx" code={buttonSolidVariants} />
+
+    </Tab>
+  </Tabs>
+
+**Styles**
+
+```css file="../../../src/components/examples/button/button-variants.module.css"
+```
+</div>
+
+</ExampleCode>
 
 ## Styles
 

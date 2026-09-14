@@ -4,7 +4,15 @@ component: close-button
 description: Кнопка только со значком для закрытия уведомлений, карточек, оверлеев и других элементов интерфейса.
 ---
 
-import * as CloseButtonDocs from '@/components/examples/close-button';
+import * as CloseButtonDocs from '@/components/examples/close-button/css-properties';
+import CloseButtonAsChild from '@/components/examples/close-button/as-child.tsx';
+import CloseButtonBasic from '@/components/examples/close-button/basic.tsx';
+import CloseButtonCustomChildren from '@/components/examples/close-button/custom-children.tsx';
+import CloseButtonDisabled from '@/components/examples/close-button/disabled-state.tsx';
+import closeButtonSolidAsChild from '../../../snippets/close-button/solid/as-child.tsx?raw';
+import closeButtonSolidBasic from '../../../snippets/close-button/solid/basic.tsx?raw';
+import closeButtonSolidCustomChildren from '../../../snippets/close-button/solid/custom-children.tsx?raw';
+import closeButtonSolidDisabled from '../../../snippets/close-button/solid/disabled-state.tsx?raw';
 
 ## Справочник API
 
@@ -15,23 +23,75 @@ import * as CloseButtonDocs from '@/components/examples/close-button';
 
 ## Базовый пример
 
+`CloseButton` доступен для React и Solid в вариантах с CSS Modules и Tailwind. Предпросмотр на этой странице
+работает через React CSS Modules, а во вкладках показан нативный исходный код для того же публичного контракта.
+
 Используйте `CloseButton`, чтобы добавить кнопку закрытия к уведомлению, карточке, оверлею или другой области
 интерфейса. Свяжите обработчик `onClick` с состоянием, которое скрывает или удаляет эту область. Компонент
 рендерит семантическую кнопку, задаёт доступное имя по умолчанию и показывает иконку `CloseIcon`, но не управляет
 состоянием закрываемого элемента.
 
-<PreviewFrame maxWidth="sm">
-```tsx preview file="../../en/docs/_snippets/close-button/basic.tsx"
+<ExampleFrame variant="component">
+  <CloseButtonBasic />
+</ExampleFrame>
 
+<ExampleCode>
+<div className="docs-reference">
+  <Tabs
+    groupId="framework"
+    values={[
+      { label: 'React', value: 'react' },
+      { label: 'Solid', value: 'solid' },
+    ]}
+    className="docs-tabs"
+  >
+    <Tab value="react">
+
+```tsx pure file="../../../src/components/examples/close-button/basic.tsx"
 ```
-</PreviewFrame>
+
+    </Tab>
+    <Tab value="solid">
+
+<CodeBlockRuntime lang="tsx" code={closeButtonSolidBasic} />
+
+    </Tab>
+  </Tabs>
+
+**Стили**
+
+```css file="../../../src/components/examples/close-button/close-button-basic.module.css"
+```
+</div>
+
+</ExampleCode>
 
 ## Установка через shadcn
 
-<ShadcnInstall packageName="close-button" />
+Полную настройку пакета, реестра и стилей см. в разделе [Быстрый старт](/docs/quick-start).
 
-Эта команда также устанавливает общие файлы moduix, от которых зависит `CloseButton`: стили, иконки и небольшие
-утилиты.
+<Tabs groupId="framework">
+  <Tab label="React" value="react">
+
+<ShadcnInstallOptions
+  options={[
+    { label: 'CSS Modules', command: 'shadcn@latest add @moduix-react/close-button' },
+    { label: 'Tailwind CSS', command: 'shadcn@latest add @moduix-react-tailwind/close-button' },
+  ]}
+/>
+
+  </Tab>
+  <Tab label="Solid" value="solid">
+
+<ShadcnInstallOptions
+  options={[
+    { label: 'CSS Modules', command: 'shadcn@latest add @moduix-solid/close-button' },
+    { label: 'Tailwind CSS', command: 'shadcn@latest add @moduix-solid-tailwind/close-button' },
+  ]}
+/>
+
+  </Tab>
+</Tabs>
 
 ## Анатомия
 
@@ -49,80 +109,152 @@ CloseButton / CloseButton.Root
 
 ## Композиция
 
-### Рекомендуемая композиция
+`CloseButton` не хранит состояние закрываемой области: обработчик `onClick` должен изменить состояние, которое
+скрывает или удаляет её. Если у Dialog, Drawer или другого оверлея уже есть триггер закрытия, используйте его,
+чтобы родительский компонент сохранил управление закрытием и возвратом фокуса.
 
-Используйте `CloseButton` напрямую, если компонент должен отрисовать нативный элемент `<button>`. Он передаёт
-свойства кнопки из Ark factory, нативные атрибуты, обработчики событий и `ref`.
-
-### Когда нужна другая разметка
-
-Используйте `asChild`, если другой компонент кнопки должен отвечать за итоговый DOM-узел. Передайте ровно один
-дочерний элемент и поместите иконку внутрь него.
-
-Если оверлей уже предоставляет триггер закрытия, используйте его: он сам управляет закрытием и возвратом фокуса.
-
-### Свойства по умолчанию
-
-| Свойство     | По умолчанию                                | Значения и примечания                           |
-| ------------ | ------------------------------------------- | ----------------------------------------------- |
-| `type`       | `button`                                    | Только для нативной кнопки                      |
-| `aria-label` | `Close`, если оба атрибута доступного имени не заданы | Укажите, что именно закрывает кнопка            |
-| `children`   | `CloseIcon`                                         | Заменяет содержимое по умолчанию                 |
-| `asChild`    | `false`                                             | Использует один дочерний элемент как корневой    |
-
-### Особенности поведения
-
-- `CloseButton` сам ничего не закрывает. Передайте `onClick` с логикой закрытия или используйте триггер закрытия,
-  который предоставляет оверлей.
-- Если не заданы ни `aria-label`, ни `aria-labelledby`, доступным именем будет `Close`. В интерфейсе указывайте
-  название конкретного элемента, например `Dismiss notification`.
-- Свойства `disabled` и `aria-disabled="true"` задают `data-disabled` и блокируют активацию по клику.
-- Для нативного корня `type="button"` задаётся по умолчанию. При использовании `asChild` укажите `type` на
-  дочернем элементе сами, особенно если кнопка находится внутри формы.
-- При `asChild` свойство `disabled` представлено атрибутом `aria-disabled="true"`, а не нативным `disabled`.
-  Активация по клику всё равно блокируется.
-- Можно также использовать `CloseButton.Root`. Это эквивалентная форма записи.
+Используйте `asChild`, если другой семантический элемент `<button>` должен отвечать за итоговый DOM-узел. Разместите
+иконку в дочернем элементе и при необходимости явно укажите на нём `type="button"`, особенно внутри формы. В Solid
+`asChild` принимает функцию рендера: передайте её результат в дочерний элемент через `props()`.
 
 ## Примеры
-
-### Использование `asChild`
-
-Используйте `asChild`, чтобы существующая семантическая кнопка осталась итоговым DOM-элементом и получила стили и
-`data-*`-атрибуты `CloseButton`. Укажите `type="button"` на дочерней кнопке и поместите иконку внутрь неё.
-
-```tsx preview file="../../en/docs/_snippets/close-button/as-child.tsx"
-
-```
 
 ### Пользовательское содержимое
 
 Передайте содержимое через `children`, чтобы заменить стандартную иконку и сохранить контракт корневой кнопки.
-В примере используется простой крестик, скрытый от вспомогательных технологий с помощью `aria-hidden="true"`.
+Если имя кнопки задаётся отдельной подписью, сделайте пользовательскую иконку декоративной с помощью
+`aria-hidden="true"`.
 
-```tsx preview file="../../en/docs/_snippets/close-button/custom-children.tsx"
+<ExampleFrame variant="component">
+  <CloseButtonCustomChildren />
+</ExampleFrame>
 
+<ExampleCode>
+<div className="docs-reference">
+  <Tabs
+    groupId="framework"
+    values={[
+      { label: 'React', value: 'react' },
+      { label: 'Solid', value: 'solid' },
+    ]}
+    className="docs-tabs"
+  >
+    <Tab value="react">
+
+```tsx pure file="../../../src/components/examples/close-button/custom-children.tsx"
 ```
+
+    </Tab>
+    <Tab value="solid">
+
+<CodeBlockRuntime lang="tsx" code={closeButtonSolidCustomChildren} />
+
+    </Tab>
+  </Tabs>
+
+**Стили**
+
+```css file="../../../src/components/examples/close-button/close-button-custom-children.module.css"
+```
+</div>
+
+</ExampleCode>
 
 ### Отключённое состояние
 
-Используйте нативный `disabled`, если кнопка не должна получать фокус. Применяйте `aria-disabled="true"`, если
+Используйте нативное `disabled`, если кнопка не должна получать фокус. Применяйте `aria-disabled="true"`, если
 кнопка должна оставаться доступной для фокуса, но не должна активироваться.
 
-```tsx preview file="../../en/docs/_snippets/close-button/disabled-state.tsx"
+<ExampleFrame variant="component">
+  <CloseButtonDisabled />
+</ExampleFrame>
 
+<ExampleCode>
+<div className="docs-reference">
+  <Tabs
+    groupId="framework"
+    values={[
+      { label: 'React', value: 'react' },
+      { label: 'Solid', value: 'solid' },
+    ]}
+    className="docs-tabs"
+  >
+    <Tab value="react">
+
+```tsx pure file="../../../src/components/examples/close-button/disabled-state.tsx"
 ```
 
+    </Tab>
+    <Tab value="solid">
+
+<CodeBlockRuntime lang="tsx" code={closeButtonSolidDisabled} />
+
+    </Tab>
+  </Tabs>
+
+**Стили**
+
+```css file="../../../src/components/examples/close-button/close-button-disabled-state.module.css"
+```
+</div>
+
+</ExampleCode>
+
+### Использование `asChild`
+
+Используйте `asChild`, если существующая семантическая кнопка должна остаться итоговым DOM-элементом и получить стили
+и `data-*`-атрибуты `CloseButton`. Поместите иконку в дочерний элемент и явно укажите его тип.
+
+<ExampleFrame variant="component">
+  <CloseButtonAsChild />
+</ExampleFrame>
+
+<ExampleCode>
+<div className="docs-reference">
+  <Tabs
+    groupId="framework"
+    values={[
+      { label: 'React', value: 'react' },
+      { label: 'Solid', value: 'solid' },
+    ]}
+    className="docs-tabs"
+  >
+    <Tab value="react">
+
+```tsx pure file="../../../src/components/examples/close-button/as-child.tsx"
+```
+
+    </Tab>
+    <Tab value="solid">
+
+<CodeBlockRuntime lang="tsx" code={closeButtonSolidAsChild} />
+
+    </Tab>
+  </Tabs>
+
+**Стили**
+
+```css file="../../../src/components/examples/close-button/close-button-as-child.module.css"
+```
+</div>
+
+</ExampleCode>
+
 ## Стилизация
+
+Используйте `className` в React или `class` в Solid на корневом элементе для структурных стилей. Варианты Tailwind
+используют обычные utility-классы и классы приложения; переменные ниже относятся к вариантам с CSS Modules. Атрибуты
+состояния и хуки `data-slot` общие для обоих вариантов стилизации.
 
 ### CSS-свойства
 
 <CssPropertiesSection properties={CloseButtonDocs.closeButtonOverrideCssProperties} />
 
-### Атрибуты для стилизации
+### Хуки стилизации
 
 - `data-scope="close-button"` определяет семейство компонента.
 - `data-part="root"` определяет единственную экспортируемую часть.
-- `data-slot="close-button-root"` служит стабильным селектором слота moduix.
+- `data-slot="close-button-root"` служит хуком слота moduix.
 - `data-disabled` указывает на нормализованное отключённое состояние для `disabled` и `aria-disabled="true"`.
-- `className` объединяется со стандартными стилями компонента на корневом элементе.
-- У непосредственно вложенных SVG-элементов ширина и высота задаются через `--moduix-close-button-icon-size`.
+- `className`/`class` объединяется со стандартными стилями компонента на корневом элементе.
+- В вариантах с CSS Modules размер непосредственно вложенных SVG задаётся через `--moduix-close-button-icon-size`.

@@ -1,43 +1,117 @@
 ---
 title: Tabs
 component: tabs
-description: Переключайте связанные панели с доступной клавиатурной навигацией, управляемым состоянием, ленивым монтированием, ссылками и вертикальной ориентацией.
+description: Переключение между связанными панелями с доступной клавиатурной навигацией, управляемым состоянием, ленивым монтированием, ссылками и вертикальной ориентацией.
 ---
 
-import * as TabsDocs from '@/components/examples/tabs';
+import * as TabsDocs from '@/components/examples/tabs/css-properties';
+import TabsBasic from '@/components/examples/tabs/basic.tsx';
+import TabsControlledValue from '@/components/examples/tabs/controlled-value.tsx';
+import TabsCustomIcons from '@/components/examples/tabs/custom-icons.tsx';
+import TabsDisabledTab from '@/components/examples/tabs/disabled-tab.tsx';
+import TabsLazyMount from '@/components/examples/tabs/lazy-mount.tsx';
+import TabsLine from '@/components/examples/tabs/line.tsx';
+import TabsLinks from '@/components/examples/tabs/links.tsx';
+import TabsManualActivation from '@/components/examples/tabs/manual-activation.tsx';
+import TabsRootProvider from '@/components/examples/tabs/root-provider.tsx';
+import TabsVertical from '@/components/examples/tabs/vertical.tsx';
+import tabsPreviewStyles from '@/components/examples/tabs/tabs-preview.module.css';
+import tabsSolidBasic from '../../../snippets/tabs/solid/basic.tsx?raw';
+import tabsSolidControlledValue from '../../../snippets/tabs/solid/controlled-value.tsx?raw';
+import tabsSolidCustomIcons from '../../../snippets/tabs/solid/custom-icons.tsx?raw';
+import tabsSolidDisabledTab from '../../../snippets/tabs/solid/disabled-tab.tsx?raw';
+import tabsSolidLazyMount from '../../../snippets/tabs/solid/lazy-mount.tsx?raw';
+import tabsSolidLine from '../../../snippets/tabs/solid/line.tsx?raw';
+import tabsSolidLinks from '../../../snippets/tabs/solid/links.tsx?raw';
+import tabsSolidManualActivation from '../../../snippets/tabs/solid/manual-activation.tsx?raw';
+import tabsSolidRootProvider from '../../../snippets/tabs/solid/root-provider.tsx?raw';
+import tabsSolidVertical from '../../../snippets/tabs/solid/vertical.tsx?raw';
 
 ## Справочник API
 
 <PrimitiveReference href="https://ark-ui.com/docs/components/tabs" />
 
-## Выбор подходящего компонента
+## Какой компонент выбрать
 
-Используйте `Tabs`, чтобы переключаться между связанными представлениями в одной области страницы. Выбранная вкладка
-показывает соответствующую панель, а остальные скрываются.
+Используйте `Tabs`, чтобы переключаться между связанными представлениями в одной области страницы.
+При выборе вкладки открывается соответствующая панель, а остальные панели скрываются.
 
-- Выберите **`Tabs`**, если каждая вкладка должна показывать связанную с ней панель содержимого.
-- Выберите **`Accordion`**, если разделы должны располагаться друг под другом и раскрываться независимо.
-- Выберите **`ToggleGroup`**, если элемент управления меняет состояние или режим, но не отвечает за содержимое панелей.
+- Выбирайте **`Tabs`**, когда каждая вкладка должна открывать одну связанную с ней панель.
+- Выбирайте **`Accordion`**, когда разделы должны оставаться расположенными друг под другом и открываться независимо.
+- Выбирайте **`ToggleGroup`**, когда элемент управления меняет состояние или режим, но не владеет содержимым панели.
 
 ## Базовый пример
 
-Начните с `Tabs` и укажите одинаковое значение `value` у каждой пары `Tabs.Trigger` и `Tabs.Content`. Добавляйте
-`Tabs.Indicator` явно, если хотите визуально выделить выбранную вкладку.
+`Tabs` доступен для React и Solid в пакетах с CSS Modules и в вариантах на Tailwind. Интерактивный
+пример на этой странице использует пакет React с CSS Modules, а вкладки с кодом показывают нативный
+исходный код для того же публичного контракта.
 
-<PreviewFrame maxWidth="lg">
-  ```tsx preview file="../../en/docs/_snippets/tabs/basic.tsx"
+Начните с `Tabs` и задайте одинаковое значение `value` для каждой пары `Tabs.Trigger` и
+`Tabs.Content`. Добавьте `Tabs.Indicator`, если выбранную вкладку нужно отметить визуально.
 
-  ```
-</PreviewFrame>
+<ExampleFrame variant="component">
+  <div className={tabsPreviewStyles.root}>
+    <TabsBasic />
+  </div>
+</ExampleFrame>
+
+<ExampleCode>
+<div className="docs-reference">
+  <Tabs
+    groupId="framework"
+    values={[
+      { label: 'React', value: 'react' },
+      { label: 'Solid', value: 'solid' },
+    ]}
+    className="docs-tabs"
+  >
+    <Tab value="react">
+
+```tsx pure file="../../../src/components/examples/tabs/basic.tsx"
+```
+
+    </Tab>
+    <Tab value="solid">
+
+<CodeBlockRuntime lang="tsx" code={tabsSolidBasic} />
+
+    </Tab>
+  </Tabs>
+</div>
+
+</ExampleCode>
 
 ## Установка через shadcn
 
-<ShadcnInstall packageName="tabs" />
+Полную настройку пакета, реестра и стилей см. в разделе [Быстрый старт](/docs/quick-start).
+
+<Tabs groupId="framework">
+  <Tab label="React" value="react">
+
+<ShadcnInstallOptions
+  options={[
+    { label: 'CSS Modules', command: 'shadcn@latest add @moduix-react/tabs' },
+    { label: 'Tailwind CSS', command: 'shadcn@latest add @moduix-react-tailwind/tabs' },
+  ]}
+/>
+
+  </Tab>
+  <Tab label="Solid" value="solid">
+
+<ShadcnInstallOptions
+  options={[
+    { label: 'CSS Modules', command: 'shadcn@latest add @moduix-solid/tabs' },
+    { label: 'Tailwind CSS', command: 'shadcn@latest add @moduix-solid-tailwind/tabs' },
+  ]}
+/>
+
+  </Tab>
+</Tabs>
 
 ## Анатомия
 
 ```text
-Tabs
+Tabs / Tabs.Root
 ├─ Tabs.List
 │  ├─ Tabs.Trigger[value]
 │  ├─ Tabs.Trigger[value]
@@ -45,182 +119,385 @@ Tabs
 └─ Tabs.Content[value]
 
 Tabs.RootProvider
-└─ Tabs.* + useTabs()
+└─ те же части, подключённые к состоянию из useTabs()
 
 Tabs.Context
 └─ render prop
 ```
 
-| Часть               | Назначение                                                        |
-| ------------------- | ----------------------------------------------------------------- |
-| `Tabs`              | Корневой компонент, который управляет выбранным значением, фокусом, ориентацией и режимом. |
-| `Tabs.RootProvider` | Подключает части к состоянию, созданному через `useTabs()` в moduix. |
-| `Tabs.Context`      | Передаёт текущее состояние вкладок через render prop.             |
-| `Tabs.List`         | Объединяет вкладки и управляет перемещением фокуса между ними.    |
-| `Tabs.Trigger`      | Интерактивная вкладка или элемент-носитель `asChild` с обязательным значением. |
-| `Tabs.Indicator`    | Необязательный индикатор выбранной вкладки.                      |
-| `Tabs.Content`      | Панель содержимого, связанная с вкладкой через совпадающее значение. |
+| Часть                 | Назначение                                                         |
+| --------------------- | ------------------------------------------------------------------ |
+| `Tabs` / `Tabs.Root`  | Корневая часть, управляющая выбранным значением, фокусом, ориентацией и режимом. |
+| `Tabs.RootProvider`   | Подключает части к состоянию, созданному с помощью `useTabs()` в moduix. |
+| `Tabs.Context`        | Передаёт текущее состояние вкладок через render prop.             |
+| `Tabs.List`           | Группирует триггеры и управляет перемещением фокуса между ними.   |
+| `Tabs.Trigger`        | Интерактивная кнопка вкладки или хост `asChild` с обязательным `value`. |
+| `Tabs.Indicator`      | Необязательный индикатор выбранной вкладки.                       |
+| `Tabs.Content`        | Панель содержимого, связанная с триггером с таким же `value`.     |
 
 ## Композиция
 
-### Рекомендуемая композиция
-
-В обычном случае используйте `<Tabs>`. Компонент управляет клавиатурной навигацией, перемещением фокуса и
-выбранным значением. Укажите `defaultValue`, чтобы задать начальную вкладку, или передайте `value` вместе с
-`onValueChange(details)`, если выбранное значение должно храниться в состоянии React. Новое значение находится в
+Используйте `defaultValue` для неконтролируемого компонента. Если выбором управляет другая часть
+приложения, передайте `value` и `onValueChange(details)`, а выбранное значение прочитайте из
 `details.value`.
 
-Корневой компонент также принимает `onFocusChange(details)`, `activationMode`, `orientation`, `loopFocus`,
-`deselectable`, `lazyMount`, `unmountOnExit`, `ids` и `navigate`, передавая их в Ark UI.
-
-Сохраняйте структуру частей явной. `Tabs.List` объединяет вкладки, но не создаёт индикатор автоматически. Если
-нужно визуально выделить выбранную вкладку, добавьте `Tabs.Indicator`.
-
-### Когда нужна собственная композиция
-
-Используйте `asChild` у `Tabs.Trigger`, если вкладка должна отображаться как ссылка или компонент вашего
-маршрутизатора. Дочерний элемент должен быть единственным семантическим элементом и сохранять клавиатурное
-поведение, фокус и ARIA-атрибуты Ark.
-
-Используйте `useTabs()` или `Tabs.useTabs()` вместе с `Tabs.RootProvider`, если состояние вкладок нужно создать вне
-дерева компонентов либо читать или изменять из соседнего элемента интерфейса. Не оборачивайте тот же экземпляр
-состояния в другой корневой компонент `Tabs`.
-
-Используйте `Tabs.Context` для функции рендера (`render prop`) или `useTabsContext()`, чтобы прочитать текущее
-состояние из потомков `Tabs` или `Tabs.RootProvider`.
-
-### Свойства по умолчанию
-
-| Свойство              | По умолчанию | Примечание                                                               |
-| --------------------- | ------------ | ------------------------------------------------------------------------ |
-| `Tabs.variant`        | `default`    | Вариант оформления: `default` или `line`.                               |
-| `Tabs.activationMode` | `automatic`  | В фокусе вкладка выбирается автоматически; `manual` требует активации.  |
-| `Tabs.orientation`    | `horizontal` | Для горизонтальных вкладок используются стрелки влево/вправо, для вертикальных вверх/вниз. |
-| `Tabs.loopFocus`      | `true`       | После последней вкладки фокус переходит к первой.                       |
-| `Tabs.lazyMount`      | `false`      | Монтирует панель только после первого выбора вкладки.                    |
-| `Tabs.unmountOnExit`  | `false`      | Размонтирует неактивные панели, обычно вместе с `lazyMount`.             |
-
-### Особенности поведения
-
-- `Tabs.Trigger` и `Tabs.Content` связываются одинаковыми строковыми значениями свойства `value`.
-- В режиме `activationMode="automatic"` перемещение фокуса выбирает вкладку. В режиме `manual` фокус сначала перемещается, а вкладка выбирается после активации.
-- `onValueChange` получает объект `details` из Ark UI. Выбранное значение находится в `details.value`.
-- Отключённая `Tabs.Trigger` остаётся видимой, но не получает фокус и не может быть выбрана.
-- `variant="line"` работает только для горизонтальных вкладок. Вертикальные `Tabs` и `Tabs.RootProvider` используют заполненный вариант `default`.
-- Ark UI управляет ARIA-атрибутами, связями вкладок и панелей, клавиатурной навигацией, перемещением фокуса и поведением отключённых вкладок.
+Используйте `Tabs.RootProvider` вместе с `useTabs()`, если состояние нужно создать вне дерева
+компонента или разделить с соседним интерфейсом. Передайте хранилище в `RootProvider` и не
+создавайте для него ещё один корень `Tabs`. Для ссылки или компонента роутера используйте
+`asChild` на `Tabs.Trigger`, а `Tabs.Indicator` добавляйте явно: `Tabs.List` не создаёт его
+автоматически.
 
 ## Примеры
 
 ### Управляемое состояние
 
-Храните выбранную вкладку в состоянии React, если активная панель должна согласовываться с другими элементами
-интерфейса.
+Управляйте выбранной вкладкой через состояние приложения, если активной панели нужно синхронизироваться
+с другими элементами интерфейса.
 
-<PreviewFrame maxWidth="lg">
-  ```tsx preview file="../../en/docs/_snippets/tabs/controlled-value.tsx"
+<ExampleFrame variant="component">
+  <div className={tabsPreviewStyles.root}>
+    <TabsControlledValue />
+  </div>
+</ExampleFrame>
 
-  ```
-</PreviewFrame>
+<ExampleCode>
+<div className="docs-reference">
+  <Tabs
+    groupId="framework"
+    values={[
+      { label: 'React', value: 'react' },
+      { label: 'Solid', value: 'solid' },
+    ]}
+    className="docs-tabs"
+  >
+    <Tab value="react">
+
+```tsx pure file="../../../src/components/examples/tabs/controlled-value.tsx"
+```
+
+    </Tab>
+    <Tab value="solid">
+
+<CodeBlockRuntime lang="tsx" code={tabsSolidControlledValue} />
+
+    </Tab>
+  </Tabs>
+</div>
+
+</ExampleCode>
 
 ### Собственные значки
 
 Размещайте значки и подписи непосредственно внутри `Tabs.Trigger`.
 
-<PreviewFrame maxWidth="lg">
-  ```tsx preview file="../../en/docs/_snippets/tabs/custom-icons.tsx"
+<ExampleFrame variant="component">
+  <div className={tabsPreviewStyles.root}>
+    <TabsCustomIcons />
+  </div>
+</ExampleFrame>
 
-  ```
-</PreviewFrame>
+<ExampleCode>
+<div className="docs-reference">
+  <Tabs
+    groupId="framework"
+    values={[
+      { label: 'React', value: 'react' },
+      { label: 'Solid', value: 'solid' },
+    ]}
+    className="docs-tabs"
+  >
+    <Tab value="react">
+
+```tsx pure file="../../../src/components/examples/tabs/custom-icons.tsx"
+```
+
+    </Tab>
+    <Tab value="solid">
+
+<CodeBlockRuntime lang="tsx" code={tabsSolidCustomIcons} />
+
+    </Tab>
+  </Tabs>
+</div>
+
+</ExampleCode>
 
 ### Отключённая вкладка
 
-Отключите вкладку, которая должна оставаться видимой, но пока недоступна пользователю.
+Отключите вкладку, если она должна оставаться видимой, но пока недоступна.
 
-<PreviewFrame maxWidth="lg">
-  ```tsx preview file="../../en/docs/_snippets/tabs/disabled-tab.tsx"
+<ExampleFrame variant="component">
+  <div className={tabsPreviewStyles.root}>
+    <TabsDisabledTab />
+  </div>
+</ExampleFrame>
 
-  ```
-</PreviewFrame>
+<ExampleCode>
+<div className="docs-reference">
+  <Tabs
+    groupId="framework"
+    values={[
+      { label: 'React', value: 'react' },
+      { label: 'Solid', value: 'solid' },
+    ]}
+    className="docs-tabs"
+  >
+    <Tab value="react">
+
+```tsx pure file="../../../src/components/examples/tabs/disabled-tab.tsx"
+```
+
+    </Tab>
+    <Tab value="solid">
+
+<CodeBlockRuntime lang="tsx" code={tabsSolidDisabledTab} />
+
+    </Tab>
+  </Tabs>
+</div>
+
+</ExampleCode>
 
 ### Ленивое монтирование
 
-Используйте `lazyMount`, чтобы панель монтировалась только после выбора вкладки. Добавьте `unmountOnExit`, чтобы
-после переключения на другую вкладку удалять её из DOM.
+Используйте `lazyMount`, если неактивные панели не должны монтироваться до выбора. Добавьте
+`unmountOnExit`, чтобы после ухода с вкладки удалять их из DOM.
 
-<PreviewFrame maxWidth="lg">
-  ```tsx preview file="../../en/docs/_snippets/tabs/lazy-mount.tsx"
+<ExampleFrame variant="component">
+  <div className={tabsPreviewStyles.root}>
+    <TabsLazyMount />
+  </div>
+</ExampleFrame>
 
-  ```
-</PreviewFrame>
+<ExampleCode>
+<div className="docs-reference">
+  <Tabs
+    groupId="framework"
+    values={[
+      { label: 'React', value: 'react' },
+      { label: 'Solid', value: 'solid' },
+    ]}
+    className="docs-tabs"
+  >
+    <Tab value="react">
+
+```tsx pure file="../../../src/components/examples/tabs/lazy-mount.tsx"
+```
+
+    </Tab>
+    <Tab value="solid">
+
+<CodeBlockRuntime lang="tsx" code={tabsSolidLazyMount} />
+
+    </Tab>
+  </Tabs>
+</div>
+
+</ExampleCode>
 
 ### Вариант с линией
 
-Используйте `variant="line"`, если индикатор должен располагаться у активного края, а не заполнять выбранную
-вкладку. Этот вариант доступен для горизонтальных вкладок.
+Используйте `variant="line"`, если индикатор должен располагаться на активном краю, а не заполнять
+выбранную вкладку. Этот вариант доступен для горизонтальных вкладок.
 
-<PreviewFrame maxWidth="lg">
-  ```tsx preview file="../../en/docs/_snippets/tabs/line.tsx"
+<ExampleFrame variant="component">
+  <div className={tabsPreviewStyles.root}>
+    <TabsLine />
+  </div>
+</ExampleFrame>
 
-  ```
-</PreviewFrame>
+<ExampleCode>
+<div className="docs-reference">
+  <Tabs
+    groupId="framework"
+    values={[
+      { label: 'React', value: 'react' },
+      { label: 'Solid', value: 'solid' },
+    ]}
+    className="docs-tabs"
+  >
+    <Tab value="react">
+
+```tsx pure file="../../../src/components/examples/tabs/line.tsx"
+```
+
+    </Tab>
+    <Tab value="solid">
+
+<CodeBlockRuntime lang="tsx" code={tabsSolidLine} />
+
+    </Tab>
+  </Tabs>
+</div>
+
+</ExampleCode>
 
 ### Ссылки
 
-Используйте `asChild`, если триггеры вкладок должны рендериться как якоря или ссылки, которыми управляет ваш
-маршрутизатор.
+Используйте `asChild`, если триггеры вкладок должны отображаться как ссылки, которыми управляет
+ваш роутер.
 
-<PreviewFrame maxWidth="lg">
-  ```tsx preview file="../../en/docs/_snippets/tabs/links.tsx"
+<ExampleFrame variant="component">
+  <div className={tabsPreviewStyles.root}>
+    <TabsLinks />
+  </div>
+</ExampleFrame>
 
-  ```
-</PreviewFrame>
+<ExampleCode>
+<div className="docs-reference">
+  <Tabs
+    groupId="framework"
+    values={[
+      { label: 'React', value: 'react' },
+      { label: 'Solid', value: 'solid' },
+    ]}
+    className="docs-tabs"
+  >
+    <Tab value="react">
+
+```tsx pure file="../../../src/components/examples/tabs/links.tsx"
+```
+
+    </Tab>
+    <Tab value="solid">
+
+<CodeBlockRuntime lang="tsx" code={tabsSolidLinks} />
+
+    </Tab>
+  </Tabs>
+</div>
+
+</ExampleCode>
 
 ### Ручная активация
 
-Задайте `activationMode="manual"`, если стрелки должны перемещать фокус, не меняя выбранную вкладку. Активируйте
-её щелчком, клавишей Enter или пробелом.
+Установите `activationMode="manual"`, если стрелки должны перемещать фокус, не меняя выбранную
+вкладку. Активируйте её кликом, клавишей Enter или пробелом.
 
-<PreviewFrame maxWidth="lg">
-  ```tsx preview file="../../en/docs/_snippets/tabs/manual-activation.tsx"
+<ExampleFrame variant="component">
+  <div className={tabsPreviewStyles.root}>
+    <TabsManualActivation />
+  </div>
+</ExampleFrame>
 
-  ```
-</PreviewFrame>
+<ExampleCode>
+<div className="docs-reference">
+  <Tabs
+    groupId="framework"
+    values={[
+      { label: 'React', value: 'react' },
+      { label: 'Solid', value: 'solid' },
+    ]}
+    className="docs-tabs"
+  >
+    <Tab value="react">
+
+```tsx pure file="../../../src/components/examples/tabs/manual-activation.tsx"
+```
+
+    </Tab>
+    <Tab value="solid">
+
+<CodeBlockRuntime lang="tsx" code={tabsSolidManualActivation} />
+
+    </Tab>
+  </Tabs>
+</div>
+
+</ExampleCode>
 
 ### Вертикальная ориентация
 
-Используйте `orientation="vertical"`, если список вкладок должен располагаться рядом с активной панелью. В
-вертикальных вкладках используется заполненный индикатор, поэтому выбранный элемент легче заметить.
+Используйте `orientation="vertical"`, если список вкладок должен располагаться рядом с активной
+панелью. В вертикальном варианте используется заполненный индикатор, поэтому выбранный элемент
+легко заметить.
 
-<PreviewFrame maxWidth="lg">
-  ```tsx preview file="../../en/docs/_snippets/tabs/vertical.tsx"
+<ExampleFrame variant="component">
+  <div className={tabsPreviewStyles.root}>
+    <TabsVertical />
+  </div>
+</ExampleFrame>
 
-  ```
-</PreviewFrame>
+<ExampleCode>
+<div className="docs-reference">
+  <Tabs
+    groupId="framework"
+    values={[
+      { label: 'React', value: 'react' },
+      { label: 'Solid', value: 'solid' },
+    ]}
+    className="docs-tabs"
+  >
+    <Tab value="react">
+
+```tsx pure file="../../../src/components/examples/tabs/vertical.tsx"
+```
+
+    </Tab>
+    <Tab value="solid">
+
+<CodeBlockRuntime lang="tsx" code={tabsSolidVertical} />
+
+    </Tab>
+  </Tabs>
+</div>
+
+</ExampleCode>
 
 ### Расширенная настройка
 
-Создайте состояние вкладок через `useTabs()`, если оно должно существовать до отображения дерева частей или если
-соседнему элементу интерфейса нужно читать выбранное значение.
+Создайте состояние вкладок через `useTabs()`, если оно должно существовать до отображения дерева
+частей или если соседнему интерфейсу нужно читать выбранное значение.
 
-<style>{TabsDocs.tabsExampleCss}</style>
+<ExampleFrame variant="component">
+  <div className={tabsPreviewStyles.root}>
+    <TabsRootProvider />
+  </div>
+</ExampleFrame>
 
-<PreviewFrame maxWidth="lg">
-  ```tsx preview file="../../en/docs/_snippets/tabs/root-provider.tsx"
+<ExampleCode>
+<div className="docs-reference">
+  <Tabs
+    groupId="framework"
+    values={[
+      { label: 'React', value: 'react' },
+      { label: 'Solid', value: 'solid' },
+    ]}
+    className="docs-tabs"
+  >
+    <Tab value="react">
 
-  ```
-</PreviewFrame>
+```tsx pure file="../../../src/components/examples/tabs/root-provider.tsx"
+```
+
+    </Tab>
+    <Tab value="solid">
+
+<CodeBlockRuntime lang="tsx" code={tabsSolidRootProvider} />
+
+    </Tab>
+  </Tabs>
+
+**Стили**
+
+```css file="../../../src/components/examples/tabs/tabs-root-provider.module.css"
+```
+</div>
+
+</ExampleCode>
 
 ## Стилизация
 
-Настраивайте `Tabs` через `className`, стабильные точки подключения `data-slot="tabs-*"`, атрибуты Ark `data-scope`
-и `data-part`, атрибут `data-variant` корневого элемента и публичные CSS-переменные `--moduix-tabs-*`, перечисленные
-ниже.
+Используйте `className` в React или `class` в Solid на экспортируемых частях для структурных
+стилей. Для стилей состояний предпочитайте атрибуты Ark, такие как `data-selected`,
+`data-disabled` и `data-orientation`, вместе с селекторами moduix `data-slot`. Варианты на Tailwind
+используют нативные утилиты и классы потребителя, а переменные ниже настраивают варианты с CSS Modules.
 
-### CSS-переменные
+### CSS-свойства
 
 <div className="docs-reference">
   <Tabs
-    values={[{ label: 'CSS-переменные', value: 'CSS-переменные' }]}
+    values={[{ label: 'CSS Variables', value: 'CSS Variables' }]}
     className="docs-reference-tabs"
     contentItemClassName="docs-reference-panel"
   >
@@ -230,20 +507,20 @@ Tabs.Context
   </Tabs>
 </div>
 
-### Точки подключения для стилей
+### Хуки стилизации
 
-Настраивайте ту часть, которая отвечает за нужный визуальный элемент:
+Выбирайте часть, которая отвечает за нужный визуальный аспект:
 
-- `Tabs` отвечает за ширину, общий интервал, ориентацию и переопределения варианта
-- `Tabs.List` отвечает за оформление списка, границы, фон и отступы вокруг индикатора
-- `Tabs.Trigger` отвечает за расположение подписи, интервал рядом со значком, выбранное и отключённое состояния, а также фокус
-- `Tabs.Indicator` отвечает за цвет, размер и анимацию индикатора
-- `Tabs.Content` отвечает за фон панели, внутренние отступы и оформление фокуса
+- `Tabs` для ширины, общего расстояния, ориентации и переопределений на уровне варианта
+- `Tabs.List` для фона, границ, оформления списка и расстояния вокруг индикатора
+- `Tabs.Trigger` для раскладки подписи, расстояния до значка, выбранного и отключённого состояний, а также фокуса
+- `Tabs.Indicator` для цвета, размера и переходов индикатора
+- `Tabs.Content` для поверхности панели, внутренних отступов и стилей фокуса
 
-Основные публичные точки подключения: `data-slot="tabs-root"`, `data-slot="tabs-root-provider"`,
+Основные публичные хуки: `data-slot="tabs-root"`, `data-slot="tabs-root-provider"`,
 `data-slot="tabs-list"`, `data-slot="tabs-trigger"`, `data-slot="tabs-indicator"` и
 `data-slot="tabs-content"`.
 
-Полезные атрибуты Ark: `data-scope="tabs"`, `data-part`, `data-orientation`, `data-selected`, `data-disabled`,
-`data-focus`, а также переменные позиционирования индикатора `--left`, `--top`, `--width`, `--height` и
-`--transition-property`.
+Полезные хуки Ark: `data-scope="tabs"`, `data-part`, `data-orientation`, `data-selected`,
+`data-disabled`, `data-focus`, а также переменные индикатора `--left`, `--top`, `--width`,
+`--height` и `--transition-property`.

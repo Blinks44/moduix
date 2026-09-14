@@ -4,7 +4,43 @@ component: checkbox
 description: Un composant de case à cocher pour les options individuelles et les groupes à sélection multiple.
 ---
 
-import * as CheckboxDocs from '@/components/examples/checkbox';
+import * as CheckboxDocs from '@/components/examples/checkbox/css-properties';
+import CheckboxBasic from '@/components/examples/checkbox/basic.tsx';
+import CheckboxControlled from '@/components/examples/checkbox/controlled.tsx';
+import CheckboxControlledGroup from '@/components/examples/checkbox/controlled-group.tsx';
+import CheckboxCustomIndicator from '@/components/examples/checkbox/custom-indicator.tsx';
+import CheckboxDefaultChecked from '@/components/examples/checkbox/default-checked.tsx';
+import CheckboxDisabled from '@/components/examples/checkbox/disabled.tsx';
+import CheckboxGroup from '@/components/examples/checkbox/group.tsx';
+import CheckboxGroupWithFieldset from '@/components/examples/checkbox/group-with-fieldset.tsx';
+import CheckboxGroupWithForm from '@/components/examples/checkbox/group-with-form.tsx';
+import CheckboxIndeterminate from '@/components/examples/checkbox/indeterminate.tsx';
+import CheckboxInvalidGroup from '@/components/examples/checkbox/invalid-group.tsx';
+import CheckboxMaxSelected from '@/components/examples/checkbox/max-selected.tsx';
+import CheckboxReadOnly from '@/components/examples/checkbox/read-only.tsx';
+import CheckboxRootProvider from '@/components/examples/checkbox/root-provider.tsx';
+import CheckboxSelectAll from '@/components/examples/checkbox/select-all.tsx';
+import CheckboxSizes from '@/components/examples/checkbox/sizes.tsx';
+import CheckboxWithField from '@/components/examples/checkbox/with-field.tsx';
+import CheckboxWithForm from '@/components/examples/checkbox/with-form.tsx';
+import checkboxSolidBasic from '../../../snippets/checkbox/solid/basic.tsx?raw';
+import checkboxSolidControlled from '../../../snippets/checkbox/solid/controlled.tsx?raw';
+import checkboxSolidControlledGroup from '../../../snippets/checkbox/solid/controlled-group.tsx?raw';
+import checkboxSolidCustomIndicator from '../../../snippets/checkbox/solid/custom-indicator.tsx?raw';
+import checkboxSolidDefaultChecked from '../../../snippets/checkbox/solid/default-checked.tsx?raw';
+import checkboxSolidDisabled from '../../../snippets/checkbox/solid/disabled.tsx?raw';
+import checkboxSolidGroup from '../../../snippets/checkbox/solid/group.tsx?raw';
+import checkboxSolidGroupWithFieldset from '../../../snippets/checkbox/solid/group-with-fieldset.tsx?raw';
+import checkboxSolidGroupWithForm from '../../../snippets/checkbox/solid/group-with-form.tsx?raw';
+import checkboxSolidIndeterminate from '../../../snippets/checkbox/solid/indeterminate.tsx?raw';
+import checkboxSolidInvalidGroup from '../../../snippets/checkbox/solid/invalid-group.tsx?raw';
+import checkboxSolidMaxSelected from '../../../snippets/checkbox/solid/max-selected.tsx?raw';
+import checkboxSolidReadOnly from '../../../snippets/checkbox/solid/read-only.tsx?raw';
+import checkboxSolidRootProvider from '../../../snippets/checkbox/solid/root-provider.tsx?raw';
+import checkboxSolidSelectAll from '../../../snippets/checkbox/solid/select-all.tsx?raw';
+import checkboxSolidSizes from '../../../snippets/checkbox/solid/sizes.tsx?raw';
+import checkboxSolidWithField from '../../../snippets/checkbox/solid/with-field.tsx?raw';
+import checkboxSolidWithForm from '../../../snippets/checkbox/solid/with-form.tsx?raw';
 
 Utilisez `Checkbox` lorsque l’utilisateur peut sélectionner une ou plusieurs options indépendantes
 dans un formulaire, un panneau de réglages ou une liste de filtres. Utilisez `RadioGroup` lorsqu’un
@@ -16,259 +52,612 @@ seul choix est possible, et `Switch` lorsqu’un réglage doit s’appliquer imm
 
 ## Exemple de base
 
-Composez une case à cocher avec les parties Ark. Dans la plupart des cas, laissez `Checkbox.Control`
-vide pour utiliser les icônes intégrées de moduix pour les états coché et indéterminé. Ajoutez
-`Checkbox.Label` pour afficher le libellé. moduix ajoute automatiquement le champ natif du formulaire.
+Checkbox est disponible pour React et Solid, dans les paquets CSS Modules comme dans les variantes
+Tailwind. L’aperçu interactif de cette page utilise React et CSS Modules ; les onglets de code
+présentent la source native correspondant au même contrat public pour chaque framework.
 
-```tsx preview file="../../en/docs/_snippets/checkbox/basic.tsx"
+Composez une case à cocher avec les parties Ark. Laissez `Checkbox.Control` vide pour utiliser les
+icônes intégrées de moduix pour les états coché et indéterminé. Ajoutez `Checkbox.Label` pour le
+libellé visible et `Checkbox.HiddenInput` pour l’interaction et le formulaire natifs.
 
+<ExampleFrame variant="component">
+  <CheckboxBasic />
+</ExampleFrame>
+
+<ExampleCode>
+<div className="docs-reference">
+  <Tabs
+    groupId="framework"
+    values={[
+      { label: 'React', value: 'react' },
+      { label: 'Solid', value: 'solid' },
+    ]}
+    className="docs-tabs"
+  >
+    <Tab value="react">
+
+```tsx pure file="../../../src/components/examples/checkbox/basic.tsx"
 ```
+
+    </Tab>
+    <Tab value="solid">
+
+<CodeBlockRuntime lang="tsx" code={checkboxSolidBasic} />
+
+    </Tab>
+  </Tabs>
+</div>
+</ExampleCode>
 
 ## Installation avec shadcn
 
-<ShadcnInstall packageName="checkbox" />
+Consultez le [Démarrage rapide](/docs/quick-start) pour la configuration complète du paquet, du registre et des styles.
+
+<Tabs groupId="framework">
+  <Tab label="React" value="react">
+
+<ShadcnInstallOptions
+  options={[
+    { label: 'CSS Modules', command: 'shadcn@latest add @moduix-react/checkbox' },
+    { label: 'Tailwind CSS', command: 'shadcn@latest add @moduix-react-tailwind/checkbox' },
+  ]}
+/>
+
+  </Tab>
+  <Tab label="Solid" value="solid">
+
+<ShadcnInstallOptions
+  options={[
+    { label: 'CSS Modules', command: 'shadcn@latest add @moduix-solid/checkbox' },
+    { label: 'Tailwind CSS', command: 'shadcn@latest add @moduix-solid-tailwind/checkbox' },
+  ]}
+/>
+
+  </Tab>
+</Tabs>
 
 ## Anatomie
 
 ```text
-Checkbox.Root
+Checkbox / Checkbox.Root
 ├─ Checkbox.Control
 │  ├─ Checkbox.Indicator
-│  └─ Checkbox.Indicator[indeterminate] (optional)
+│  └─ Checkbox.Indicator[indeterminate] (facultatif)
 ├─ Checkbox.Label
-└─ native input (automatic)
+└─ Checkbox.HiddenInput (explicite)
 
 Checkbox.RootProvider
-└─ same part tree connected to useCheckbox()
+└─ même arbre de parties relié à l’état fourni par useCheckbox()
 
 Checkbox.Group
 └─ Checkbox.Root[value]
    ├─ Checkbox.Control
    ├─ Checkbox.Label
-   └─ the native form input
+   └─ Checkbox.HiddenInput
 ```
 
-| Partie                        | Rôle                                                                                                      |
-| ----------------------------- | --------------------------------------------------------------------------------------------------------- |
-| `Checkbox` / `Checkbox.Root`  | Gère l’état d’une case à cocher et rend le `label` qui l’enveloppe.                                      |
-| `Checkbox.RootProvider`       | Relie les parties à un état Ark créé en dehors de l’arbre rendu.                                          |
-| `Checkbox.Control`            | Partie visible de la case à cocher. Vide, elle affiche les icônes d’état intégrées.                      |
-| `Checkbox.Indicator`          | Emplacement facultatif pour une icône personnalisée. Passez `indeterminate` pour cet état.               |
-| `Checkbox.Label`              | Libellé visible de la case à cocher.                                                                      |
-| `Checkbox.Group`              | Gère les valeurs sélectionnées de plusieurs cases à cocher.                                              |
+| Partie                        | Rôle                                                                                  |
+| ----------------------------- | ------------------------------------------------------------------------------------- |
+| `Checkbox` / `Checkbox.Root`  | Gère l’état d’une case à cocher et rend le `label` qui l’enveloppe.                   |
+| `Checkbox.HiddenInput`        | Champ natif d’Ark ; ajoutez-le explicitement dans la racine.                          |
+| `Checkbox.RootProvider`       | Relie les parties à un état Ark créé en dehors de l’arbre rendu.                      |
+| `Checkbox.Control`            | Partie visible ; vide, elle affiche les icônes d’état intégrées.                     |
+| `Checkbox.Indicator`          | Emplacement facultatif pour une icône personnalisée. Passez `indeterminate` pour cet état. |
+| `Checkbox.Label`              | Libellé visible de la case à cocher.                                                  |
+| `Checkbox.Group`              | Gère les valeurs sélectionnées de plusieurs cases à cocher.                          |
 
 ## Composition
 
-### Composition recommandée
+`Checkbox.HiddenInput` est le champ natif d’Ark. Ajoutez-le explicitement dans `Checkbox.Root` ou
+`Checkbox.RootProvider`, même en dehors d’un formulaire : il assure le focus natif, les interactions
+au clavier, l’accessibilité et la participation au formulaire. Pour une case seule, définissez
+`name` et `value` sur la racine ; pour un groupe, définissez `name` sur `Checkbox.Group` et `value`
+sur chaque `Checkbox.Root`.
 
-Conservez l’arborescence des parties Ark dans votre balisage. `Checkbox.Root` accepte les propriétés
-usuelles du composant racine Ark, notamment `checked`, `defaultChecked`,
-`onCheckedChange(details)`, `disabled`, `readOnly`, `invalid`, `required`, `name`, `value`, `form`,
-`ids` et `asChild`. Les propriétés `checked` et `defaultChecked` acceptent `true`, `false` ou
-`"indeterminate"`.
+`Checkbox.Group` gère un tableau de valeurs sélectionnées, et chaque enfant est un `Checkbox.Root`
+avec son propre `value`. Laissez `Checkbox.Control` vide pour utiliser les icônes intégrées de
+moduix. Ajoutez `Checkbox.Indicator` dans `Checkbox.Control` uniquement pour une icône personnalisée.
 
-`Checkbox.Group` accepte `value`, `defaultValue`, `onValueChange(value)`, `disabled`, `readOnly`,
-`invalid`, `maxSelectedValues` et `name`.
-
-`Checkbox.Control` est le raccourci pratique proposé par moduix. Laissez-le vide pour utiliser les
-icônes intégrées, ou transmettez des enfants pour fournir un indicateur personnalisé. `size` est la
-seule propriété supplémentaire de moduix sur `Checkbox.Root` et `Checkbox.RootProvider`.
-
-### Quand créer une composition personnalisée
-
-Utilisez `Checkbox.RootProvider` lorsque l’état de la case à cocher doit être géré en dehors de
-l’arbre rendu. moduix réexporte `useCheckbox()` depuis `@moduix/react/checkbox` pour ce scénario.
-Passez l’état renvoyé à `Checkbox.RootProvider` via sa propriété `value`.
-`Checkbox.Context`, `useCheckboxContext()`, `useCheckboxGroup()` et `useCheckboxGroupContext()`
-exposent l’état Ark pour des compositions plus avancées. Pour gérer l’état d’un groupe en dehors de
-l’arbre rendu, associez `useCheckboxGroup()` à `Checkbox.GroupProvider` d’Ark depuis
-`@ark-ui/react/checkbox`. Rendez
-`Checkbox.Indicator` explicitement uniquement si vous avez besoin d’une icône personnalisée ou
-d’une disposition différente.
-
-### Propriétés par défaut
-
-| Élément                       | Valeur par défaut | Remarques                                                        |
-| ----------------------------- | ----------------- | ---------------------------------------------------------------- |
-| `Checkbox` / `Checkbox.Root` | -                 | Aucun comportement supplémentaire, les valeurs Ark s’appliquent. |
-| `size`                       | `md`              | S’applique à `Checkbox.Root` et `Checkbox.RootProvider`.         |
-
-### Comportement
-
-`Checkbox.Root` et `Checkbox.RootProvider` rendent toujours un champ natif. La case à cocher peut
-ainsi participer à la validation native, à la réinitialisation et à l’envoi du formulaire. Pour
-inclure une case seule dans les données envoyées, transmettez `name` et `value` à `Checkbox.Root`.
-Pour un groupe, transmettez `name` à `Checkbox.Group` et `value` à chaque `Checkbox.Root`.
-
-Lors d’une migration depuis shadcn, `Checkbox.Control` inclut déjà l’icône par défaut.
-`Checkbox.Control` et `Checkbox.Label` restent explicites dans l’arborescence, tandis que
-le champ masqué reste interne au composant.
-
-`Checkbox.Root` et `Checkbox.RootProvider` d’Ark rendent un `label` par défaut. Avec `asChild`,
-l’enfant direct doit aussi être un `label` sémantique ; sinon, la case à cocher n’a plus de libellé de
-formulaire valide.
-
-Lorsque `readOnly` est défini, moduix reflète cet état avec `aria-readonly` sur le champ natif créé
-automatiquement. Ark empêche toujours les interactions.
-
-Une `ref` transmise à une partie pointe vers le nœud DOM Ark correspondant. Pour basculer une case à
-cocher qui a le focus, appuyez sur <kbd>Espace</kbd>.
+Lorsque l’état doit être créé en dehors de l’arbre rendu, créez-le avec `useCheckbox()` et transmettez
+le store à `Checkbox.RootProvider`. Ne rendez pas `Checkbox` ou `Checkbox.Root` pour ce même store.
 
 ## Exemples
 
 ### État contrôlé
 
-Utilisez une case à cocher contrôlée lorsque sa valeur est gérée par une autre partie de l’interface.
+Utilisez une case à cocher contrôlée lorsqu’une autre partie de l’interface gère sa valeur.
 
-```tsx preview file="../../en/docs/_snippets/checkbox/controlled.tsx"
+<ExampleFrame variant="component">
+  <CheckboxControlled />
+</ExampleFrame>
 
+<ExampleCode>
+<div className="docs-reference">
+  <Tabs groupId="framework" values={[{ label: 'React', value: 'react' }, { label: 'Solid', value: 'solid' }]} className="docs-tabs">
+    <Tab value="react">
+
+```tsx pure file="../../../src/components/examples/checkbox/controlled.tsx"
 ```
+
+    </Tab>
+    <Tab value="solid">
+
+<CodeBlockRuntime lang="tsx" code={checkboxSolidControlled} />
+
+    </Tab>
+  </Tabs>
+
+**Styles**
+
+```css file="../../../src/components/examples/checkbox/checkbox-controlled.module.css"
+```
+</div>
+</ExampleCode>
 
 ### Groupe contrôlé
 
-Utilisez un groupe contrôlé lorsque les options sélectionnées influencent des filtres, des
-récapitulatifs ou des actions.
+Utilisez un groupe contrôlé lorsque les options sélectionnées pilotent des filtres, des récapitulatifs
+ou des actions.
 
-```tsx preview file="../../en/docs/_snippets/checkbox/controlled-group.tsx"
+<ExampleFrame variant="component">
+  <CheckboxControlledGroup />
+</ExampleFrame>
 
+<ExampleCode>
+<div className="docs-reference">
+  <Tabs groupId="framework" values={[{ label: 'React', value: 'react' }, { label: 'Solid', value: 'solid' }]} className="docs-tabs">
+    <Tab value="react">
+
+```tsx pure file="../../../src/components/examples/checkbox/controlled-group.tsx"
 ```
+
+    </Tab>
+    <Tab value="solid">
+
+<CodeBlockRuntime lang="tsx" code={checkboxSolidControlledGroup} />
+
+    </Tab>
+  </Tabs>
+</div>
+</ExampleCode>
 
 ### Indicateur personnalisé
 
-Remplacez la coche intégrée par votre propre icône tout en conservant le comportement et
-l’accessibilité d’Ark.
+Remplacez la coche intégrée par votre propre icône tout en conservant le comportement de Checkbox et
+les sémantiques d’accessibilité d’Ark.
 
-```tsx preview file="../../en/docs/_snippets/checkbox/custom-indicator.tsx"
+<ExampleFrame variant="component">
+  <CheckboxCustomIndicator />
+</ExampleFrame>
 
+<ExampleCode>
+<div className="docs-reference">
+  <Tabs groupId="framework" values={[{ label: 'React', value: 'react' }, { label: 'Solid', value: 'solid' }]} className="docs-tabs">
+    <Tab value="react">
+
+```tsx pure file="../../../src/components/examples/checkbox/custom-indicator.tsx"
 ```
+
+    </Tab>
+    <Tab value="solid">
+
+<CodeBlockRuntime lang="tsx" code={checkboxSolidCustomIndicator} />
+
+    </Tab>
+  </Tabs>
+</div>
+</ExampleCode>
 
 ### Cochée par défaut
 
-Utilisez `defaultChecked` lorsque la case à cocher doit avoir une valeur initiale, puis laissez-la
-gérer elle-même son état.
+Utilisez `defaultChecked` lorsque la case à cocher doit avoir une valeur initiale, puis gérer elle-même
+son état.
 
-```tsx preview file="../../en/docs/_snippets/checkbox/default-checked.tsx"
+<ExampleFrame variant="component">
+  <CheckboxDefaultChecked />
+</ExampleFrame>
 
+<ExampleCode>
+<div className="docs-reference">
+  <Tabs groupId="framework" values={[{ label: 'React', value: 'react' }, { label: 'Solid', value: 'solid' }]} className="docs-tabs">
+    <Tab value="react">
+
+```tsx pure file="../../../src/components/examples/checkbox/default-checked.tsx"
 ```
 
-### État désactivé
+    </Tab>
+    <Tab value="solid">
 
-Utilisez `disabled` pour une option indisponible avec laquelle l’utilisateur ne peut pas interagir.
+<CodeBlockRuntime lang="tsx" code={checkboxSolidDefaultChecked} />
 
-```tsx preview file="../../en/docs/_snippets/checkbox/disabled.tsx"
+    </Tab>
+  </Tabs>
+</div>
+</ExampleCode>
 
+### Désactivée
+
+Utilisez `disabled` lorsqu’une option est indisponible et ne doit pas être interactive.
+
+<ExampleFrame variant="component">
+  <CheckboxDisabled />
+</ExampleFrame>
+
+<ExampleCode>
+<div className="docs-reference">
+  <Tabs groupId="framework" values={[{ label: 'React', value: 'react' }, { label: 'Solid', value: 'solid' }]} className="docs-tabs">
+    <Tab value="react">
+
+```tsx pure file="../../../src/components/examples/checkbox/disabled.tsx"
 ```
+
+    </Tab>
+    <Tab value="solid">
+
+<CodeBlockRuntime lang="tsx" code={checkboxSolidDisabled} />
+
+    </Tab>
+  </Tabs>
+</div>
+</ExampleCode>
 
 ### Groupe
 
-Utilisez `Checkbox.Group` lorsque plusieurs cases à cocher partagent un tableau de valeurs
-sélectionnées.
+Utilisez `Checkbox.Group` lorsque plusieurs cases partagent un tableau de valeurs sélectionnées.
 
-```tsx preview file="../../en/docs/_snippets/checkbox/group.tsx"
+<ExampleFrame variant="component">
+  <CheckboxGroup />
+</ExampleFrame>
 
+<ExampleCode>
+<div className="docs-reference">
+  <Tabs groupId="framework" values={[{ label: 'React', value: 'react' }, { label: 'Solid', value: 'solid' }]} className="docs-tabs">
+    <Tab value="react">
+
+```tsx pure file="../../../src/components/examples/checkbox/group.tsx"
 ```
+
+    </Tab>
+    <Tab value="solid">
+
+<CodeBlockRuntime lang="tsx" code={checkboxSolidGroup} />
+
+    </Tab>
+  </Tabs>
+</div>
+</ExampleCode>
 
 ### Groupe avec Fieldset
 
-Utilisez `Fieldset` lorsque le groupe représente un seul champ de formulaire et a besoin d’une
+Utilisez `Fieldset` lorsque le groupe représente un champ de formulaire unique qui a besoin d’une
 légende commune.
 
-<PreviewFrame contentWidth="fit-content" maxWidth="sm">
-```tsx preview file="../../en/docs/_snippets/checkbox/group-with-fieldset.tsx"
+<ExampleFrame variant="component">
+  <CheckboxGroupWithFieldset />
+</ExampleFrame>
 
+<ExampleCode>
+<div className="docs-reference">
+  <Tabs groupId="framework" values={[{ label: 'React', value: 'react' }, { label: 'Solid', value: 'solid' }]} className="docs-tabs">
+    <Tab value="react">
+
+```tsx pure file="../../../src/components/examples/checkbox/group-with-fieldset.tsx"
 ```
-</PreviewFrame>
+
+    </Tab>
+    <Tab value="solid">
+
+<CodeBlockRuntime lang="tsx" code={checkboxSolidGroupWithFieldset} />
+
+    </Tab>
+  </Tabs>
+
+**Styles**
+
+```css file="../../../src/components/examples/checkbox/checkbox-group-with-fieldset.module.css"
+```
+</div>
+</ExampleCode>
 
 ### Groupe dans un formulaire
 
-Placez `Checkbox.Group` dans un formulaire lorsque vous devez récupérer toutes les valeurs
-sélectionnées dans `FormData`. Lisez-les avec `FormData.getAll(name)`.
+Placez `Checkbox.Group` dans un formulaire pour récupérer toutes les valeurs sélectionnées dans
+`FormData`. Lisez-les avec `FormData.getAll(name)`.
 
-```tsx preview file="../../en/docs/_snippets/checkbox/group-with-form.tsx"
+<ExampleFrame variant="component">
+  <CheckboxGroupWithForm />
+</ExampleFrame>
 
+<ExampleCode>
+<div className="docs-reference">
+  <Tabs groupId="framework" values={[{ label: 'React', value: 'react' }, { label: 'Solid', value: 'solid' }]} className="docs-tabs">
+    <Tab value="react">
+
+```tsx pure file="../../../src/components/examples/checkbox/group-with-form.tsx"
 ```
+
+    </Tab>
+    <Tab value="solid">
+
+<CodeBlockRuntime lang="tsx" code={checkboxSolidGroupWithForm} />
+
+    </Tab>
+  </Tabs>
+
+**Styles**
+
+```css file="../../../src/components/examples/checkbox/checkbox-group-with-form.module.css"
+```
+</div>
+</ExampleCode>
 
 ### État indéterminé
 
-Utilisez `checked="indeterminate"` lorsqu’une case à cocher représente une sélection partielle. C’est
-fréquent pour une commande « Tout sélectionner ».
+Utilisez `checked="indeterminate"` lorsqu’une case représente une sélection partielle. C’est courant
+pour un contrôle « Tout sélectionner ».
 
-```tsx preview file="../../en/docs/_snippets/checkbox/indeterminate.tsx"
+<ExampleFrame variant="component">
+  <CheckboxIndeterminate />
+</ExampleFrame>
 
+<ExampleCode>
+<div className="docs-reference">
+  <Tabs groupId="framework" values={[{ label: 'React', value: 'react' }, { label: 'Solid', value: 'solid' }]} className="docs-tabs">
+    <Tab value="react">
+
+```tsx pure file="../../../src/components/examples/checkbox/indeterminate.tsx"
 ```
+
+    </Tab>
+    <Tab value="solid">
+
+<CodeBlockRuntime lang="tsx" code={checkboxSolidIndeterminate} />
+
+    </Tab>
+  </Tabs>
+</div>
+</ExampleCode>
 
 ### Groupe invalide
 
 Définissez `invalid` sur le groupe lorsque la validation porte sur l’ensemble de la sélection.
 
-```tsx preview file="../../en/docs/_snippets/checkbox/invalid-group.tsx"
+<ExampleFrame variant="component">
+  <CheckboxInvalidGroup />
+</ExampleFrame>
 
+<ExampleCode>
+<div className="docs-reference">
+  <Tabs groupId="framework" values={[{ label: 'React', value: 'react' }, { label: 'Solid', value: 'solid' }]} className="docs-tabs">
+    <Tab value="react">
+
+```tsx pure file="../../../src/components/examples/checkbox/invalid-group.tsx"
 ```
 
-### Nombre maximal de sélections
+    </Tab>
+    <Tab value="solid">
+
+<CodeBlockRuntime lang="tsx" code={checkboxSolidInvalidGroup} />
+
+    </Tab>
+  </Tabs>
+</div>
+</ExampleCode>
+
+### Nombre maximal
 
 Utilisez `maxSelectedValues` pour limiter le nombre d’options sélectionnées simultanément.
 
-```tsx preview file="../../en/docs/_snippets/checkbox/max-selected.tsx"
+<ExampleFrame variant="component">
+  <CheckboxMaxSelected />
+</ExampleFrame>
 
+<ExampleCode>
+<div className="docs-reference">
+  <Tabs groupId="framework" values={[{ label: 'React', value: 'react' }, { label: 'Solid', value: 'solid' }]} className="docs-tabs">
+    <Tab value="react">
+
+```tsx pure file="../../../src/components/examples/checkbox/max-selected.tsx"
 ```
+
+    </Tab>
+    <Tab value="solid">
+
+<CodeBlockRuntime lang="tsx" code={checkboxSolidMaxSelected} />
+
+    </Tab>
+  </Tabs>
+</div>
+</ExampleCode>
 
 ### Lecture seule
 
-Utilisez `readOnly` pour afficher une valeur sans permettre à l’utilisateur de la modifier.
+Utilisez `readOnly` pour afficher une valeur sans permettre sa modification.
 
-```tsx preview file="../../en/docs/_snippets/checkbox/read-only.tsx"
+<ExampleFrame variant="component">
+  <CheckboxReadOnly />
+</ExampleFrame>
 
+<ExampleCode>
+<div className="docs-reference">
+  <Tabs groupId="framework" values={[{ label: 'React', value: 'react' }, { label: 'Solid', value: 'solid' }]} className="docs-tabs">
+    <Tab value="react">
+
+```tsx pure file="../../../src/components/examples/checkbox/read-only.tsx"
 ```
+
+    </Tab>
+    <Tab value="solid">
+
+<CodeBlockRuntime lang="tsx" code={checkboxSolidReadOnly} />
+
+    </Tab>
+  </Tabs>
+</div>
+</ExampleCode>
 
 ### Root Provider
 
-Utilisez `Checkbox.RootProvider` lorsque l’état de la case à cocher doit être géré en dehors de
-l’arbre rendu. Importez `useCheckbox` depuis `@moduix/react/checkbox`.
+Utilisez `Checkbox.RootProvider` lorsque l’état de la case doit vivre en dehors de l’arbre rendu.
+Importez `useCheckbox` depuis le paquet correspondant au framework.
 
-```tsx preview file="../../en/docs/_snippets/checkbox/root-provider.tsx"
+<ExampleFrame variant="component">
+  <CheckboxRootProvider />
+</ExampleFrame>
 
+<ExampleCode>
+<div className="docs-reference">
+  <Tabs groupId="framework" values={[{ label: 'React', value: 'react' }, { label: 'Solid', value: 'solid' }]} className="docs-tabs">
+    <Tab value="react">
+
+```tsx pure file="../../../src/components/examples/checkbox/root-provider.tsx"
 ```
+
+    </Tab>
+    <Tab value="solid">
+
+<CodeBlockRuntime lang="tsx" code={checkboxSolidRootProvider} />
+
+    </Tab>
+  </Tabs>
+
+**Styles**
+
+```css file="../../../src/components/examples/checkbox/checkbox-root-provider.module.css"
+```
+</div>
+</ExampleCode>
 
 ### Tout sélectionner
 
-Associez une case à cocher parente à un groupe contrôlé pour permettre à un seul élément de
-sélectionner ou de désélectionner toutes les options.
+Associez une case parente à un groupe contrôlé lorsqu’un seul contrôle doit sélectionner ou désélectionner
+toutes les options.
 
-```tsx preview file="../../en/docs/_snippets/checkbox/select-all.tsx"
+<ExampleFrame variant="component">
+  <CheckboxSelectAll />
+</ExampleFrame>
 
+<ExampleCode>
+<div className="docs-reference">
+  <Tabs groupId="framework" values={[{ label: 'React', value: 'react' }, { label: 'Solid', value: 'solid' }]} className="docs-tabs">
+    <Tab value="react">
+
+```tsx pure file="../../../src/components/examples/checkbox/select-all.tsx"
 ```
+
+    </Tab>
+    <Tab value="solid">
+
+<CodeBlockRuntime lang="tsx" code={checkboxSolidSelectAll} />
+
+    </Tab>
+  </Tabs>
+
+**Styles**
+
+```css file="../../../src/components/examples/checkbox/checkbox-select-all.module.css"
+```
+</div>
+</ExampleCode>
 
 ### Tailles
 
-Utilisez la propriété `size` pour adapter la taille de la case à cocher au formulaire ou à l’écran de
-réglages.
+Utilisez `size` pour adapter la densité de la case à cocher au formulaire ou à l’écran de réglages.
 
-```tsx preview file="../../en/docs/_snippets/checkbox/sizes.tsx"
+<ExampleFrame variant="component">
+  <CheckboxSizes />
+</ExampleFrame>
 
+<ExampleCode>
+<div className="docs-reference">
+  <Tabs groupId="framework" values={[{ label: 'React', value: 'react' }, { label: 'Solid', value: 'solid' }]} className="docs-tabs">
+    <Tab value="react">
+
+```tsx pure file="../../../src/components/examples/checkbox/sizes.tsx"
 ```
+
+    </Tab>
+    <Tab value="solid">
+
+<CodeBlockRuntime lang="tsx" code={checkboxSolidSizes} />
+
+    </Tab>
+  </Tabs>
+</div>
+</ExampleCode>
 
 ### Avec Field
 
 Utilisez `Field` lorsqu’une case à cocher a besoin d’un texte d’aide, de messages de validation ou
 d’un état de champ partagé.
 
-<PreviewFrame contentWidth="fit-content" maxWidth="sm">
-```tsx preview file="../../en/docs/_snippets/checkbox/with-field.tsx"
+<ExampleFrame variant="component">
+  <CheckboxWithField />
+</ExampleFrame>
 
+<ExampleCode>
+<div className="docs-reference">
+  <Tabs groupId="framework" values={[{ label: 'React', value: 'react' }, { label: 'Solid', value: 'solid' }]} className="docs-tabs">
+    <Tab value="react">
+
+```tsx pure file="../../../src/components/examples/checkbox/with-field.tsx"
 ```
-</PreviewFrame>
 
-### Dans un formulaire
+    </Tab>
+    <Tab value="solid">
 
-Transmettez `name` et `value` à `Checkbox.Root` pour inclure son champ natif créé automatiquement
-dans `FormData`.
+<CodeBlockRuntime lang="tsx" code={checkboxSolidWithField} />
 
-```tsx preview file="../../en/docs/_snippets/checkbox/with-form.tsx"
+    </Tab>
+  </Tabs>
 
+**Styles**
+
+```css file="../../../src/components/examples/checkbox/checkbox-with-field.module.css"
 ```
+</div>
+</ExampleCode>
+
+### Avec un formulaire
+
+Transmettez `name` et `value` à `Checkbox.Root` et rendez `Checkbox.HiddenInput` pour inclure la
+case à cocher dans `FormData`.
+
+<ExampleFrame variant="component">
+  <CheckboxWithForm />
+</ExampleFrame>
+
+<ExampleCode>
+<div className="docs-reference">
+  <Tabs groupId="framework" values={[{ label: 'React', value: 'react' }, { label: 'Solid', value: 'solid' }]} className="docs-tabs">
+    <Tab value="react">
+
+```tsx pure file="../../../src/components/examples/checkbox/with-form.tsx"
+```
+
+    </Tab>
+    <Tab value="solid">
+
+<CodeBlockRuntime lang="tsx" code={checkboxSolidWithForm} />
+
+    </Tab>
+  </Tabs>
+
+**Styles**
+
+```css file="../../../src/components/examples/checkbox/checkbox-with-form.module.css"
+```
+</div>
+</ExampleCode>
 
 ## Styles
+
+Utilisez `className` dans React ou `class` dans Solid sur les parties exportées pour les styles
+structurels. Pour les styles liés à l’état, préférez les attributs de données d’Ark comme `data-state`,
+`data-disabled` et `data-invalid`, avec les sélecteurs `data-slot` de moduix. Les variantes Tailwind
+utilisent les utilitaires natifs et les classes du consommateur ; les variables ci-dessous personnalisent
+les variantes CSS Modules. Les attributs de données et les hooks `data-slot` sont communs aux deux
+approches de style.
 
 ### Propriétés CSS
 
@@ -276,9 +665,9 @@ dans `FormData`.
 
 ### Points d’accroche CSS
 
-- `Checkbox.Root` expose `data-slot="checkbox-root"`, `data-size` et les attributs d’état Ark tels que `data-state`, `data-active`, `data-disabled`, `data-readonly`, `data-invalid`, `data-required`, `data-hover`, `data-focus` et `data-focus-visible`.
-- `Checkbox.RootProvider` expose `data-slot="checkbox-root-provider"` et le même contrat de style que le composant racine.
-- `Checkbox.Control` expose `data-slot="checkbox-control"`, `data-state="checked" | "indeterminate" | "unchecked"` et `data-active`.
-- `Checkbox.Indicator` expose `data-slot="checkbox-indicator"` et hérite des attributs d’état de la case à cocher d’Ark.
-- `Checkbox.Label` expose `data-slot="checkbox-label"` et les attributs d’état de la case à cocher d’Ark.
+- `Checkbox.Root` expose `data-slot="checkbox-root"`, `data-size` et les attributs d’état Ark comme `data-state`, `data-active`, `data-disabled`, `data-readonly`, `data-invalid`, `data-required`, `data-hover`, `data-focus` et `data-focus-visible`.
+- `Checkbox.RootProvider` expose `data-slot="checkbox-root-provider"` et le même contrat de style que la racine.
+- `Checkbox.Control` expose `data-slot="checkbox-control"` et les attributs d’état Ark, notamment `data-state="checked" | "indeterminate" | "unchecked"` et `data-active`.
+- `Checkbox.Indicator` expose `data-slot="checkbox-indicator"` et hérite des attributs d’état de Checkbox.
+- `Checkbox.Label` expose `data-slot="checkbox-label"` et les attributs d’état de Checkbox.
 - `Checkbox.Group` expose `data-slot="checkbox-group"`.

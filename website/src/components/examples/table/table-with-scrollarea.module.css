@@ -1,0 +1,10 @@
+.root {
+  height: 16rem;
+  border: var(--moduix-border-width-sm) solid var(--moduix-color-border);
+  border-radius: var(--moduix-radius-lg);
+  background-color: var(--moduix-color-card);
+}
+
+.table {
+  min-width: 56rem;
+}

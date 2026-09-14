@@ -13,10 +13,9 @@ import {
   useSelectItemContext,
 } from '@ark-ui/react/select';
 import { clsx } from 'clsx';
-import type { ComponentProps, ComponentRef, ForwardedRef, ReactElement, ReactNode } from 'react';
-import { Children, cloneElement, forwardRef } from 'react';
+import type { ComponentProps, ComponentRef, ForwardedRef, ReactNode } from 'react';
+import { forwardRef } from 'react';
 import { CheckIcon, ChevronUpDownIcon } from '@/lib/moduix/icons/ui';
-import { normalizeClassName } from '@/lib/moduix/normalizeClassName';
 import {
   OverlayPortal,
   OverlayPortalProvider,
@@ -25,15 +24,11 @@ import {
 import { CloseButton } from '../close-button';
 import styles from './Select.module.css';
 
-type SelectNativeFormControl = 'select' | 'input';
-type SelectRootOwnProps = OverlayPortalProps & {
-  nativeFormControl?: SelectNativeFormControl;
-};
-type SelectRootProps<T extends CollectionItem> = ArkSelectRootProps<T> & SelectRootOwnProps;
+type SelectRootProps<T extends CollectionItem> = ArkSelectRootProps<T> & OverlayPortalProps;
 type SelectRootProviderProps<T extends CollectionItem> = ArkSelectRootProviderProps<T> &
-  SelectRootOwnProps;
-type SelectRootComponent = ArkSelectRootComponent<SelectRootOwnProps>;
-type SelectRootProviderComponent = ArkSelectRootProviderComponent<SelectRootOwnProps>;
+  OverlayPortalProps;
+type SelectRootComponent = ArkSelectRootComponent<OverlayPortalProps>;
+type SelectRootProviderComponent = ArkSelectRootProviderComponent<OverlayPortalProps>;
 type SelectFieldProps = Omit<
   ComponentProps<typeof SelectPrimitive.Control>,
   'asChild' | 'children'
@@ -49,7 +44,6 @@ const SelectRoot = forwardRef(function SelectRoot<T extends CollectionItem>(
     children,
     className,
     lazyMount = true,
-    nativeFormControl = 'select',
     portalled,
     portalRef,
     unmountOnExit = true,
@@ -62,13 +56,13 @@ const SelectRoot = forwardRef(function SelectRoot<T extends CollectionItem>(
       <SelectPrimitive.Root
         ref={ref}
         data-slot="select-root"
-        className={clsx(styles.root, normalizeClassName(className))}
+        className={clsx(styles.root, className)}
         asChild={asChild}
         lazyMount={lazyMount}
         unmountOnExit={unmountOnExit}
         {...props}
       >
-        {withNativeFormControl(children, asChild, nativeFormControl)}
+        {children}
       </SelectPrimitive.Root>
     </OverlayPortalProvider>
   );
@@ -80,7 +74,6 @@ const SelectRootProvider = forwardRef(function SelectRootProvider<T extends Coll
     children,
     className,
     lazyMount = true,
-    nativeFormControl = 'select',
     portalled,
     portalRef,
     unmountOnExit = true,
@@ -93,13 +86,13 @@ const SelectRootProvider = forwardRef(function SelectRootProvider<T extends Coll
       <SelectPrimitive.RootProvider
         ref={ref}
         data-slot="select-root-provider"
-        className={clsx(styles.root, normalizeClassName(className))}
+        className={clsx(styles.root, className)}
         asChild={asChild}
         lazyMount={lazyMount}
         unmountOnExit={unmountOnExit}
         {...props}
       >
-        {withNativeFormControl(children, asChild, nativeFormControl)}
+        {children}
       </SelectPrimitive.RootProvider>
     </OverlayPortalProvider>
   );
@@ -113,7 +106,7 @@ const SelectLabel = forwardRef<
     <SelectPrimitive.Label
       ref={ref}
       data-slot="select-label"
-      className={clsx(styles.label, normalizeClassName(className))}
+      className={clsx(styles.label, className)}
       {...props}
     />
   );
@@ -127,7 +120,7 @@ const SelectControl = forwardRef<
     <SelectPrimitive.Control
       ref={ref}
       data-slot="select-control"
-      className={clsx(styles.control, normalizeClassName(className))}
+      className={clsx(styles.control, className)}
       {...props}
     />
   );
@@ -142,7 +135,7 @@ const SelectTrigger = forwardRef<
       ref={ref}
       data-slot="select-trigger"
       asChild={asChild}
-      className={clsx(!asChild && styles.trigger, normalizeClassName(className))}
+      className={clsx(!asChild && styles.trigger, className)}
       {...props}
     />
   );
@@ -156,7 +149,7 @@ const SelectValueText = forwardRef<
     <SelectPrimitive.ValueText
       ref={ref}
       data-slot="select-value-text"
-      className={clsx(styles.valueText, normalizeClassName(className))}
+      className={clsx(styles.valueText, className)}
       {...props}
     />
   );
@@ -176,23 +169,7 @@ const SelectClearTrigger = forwardRef<
   },
   ref,
 ) {
-  const triggerClassName = clsx(styles.clearTrigger, normalizeClassName(className));
-
-  if (asChild) {
-    return (
-      <SelectPrimitive.ClearTrigger
-        ref={ref}
-        asChild
-        data-slot="select-clear-trigger"
-        className={triggerClassName}
-        aria-label={ariaLabel}
-        aria-labelledby={ariaLabelledBy}
-        {...props}
-      >
-        {children}
-      </SelectPrimitive.ClearTrigger>
-    );
-  }
+  const triggerClassName = clsx(styles.clearTrigger, className);
 
   return (
     <SelectPrimitive.ClearTrigger
@@ -200,14 +177,20 @@ const SelectClearTrigger = forwardRef<
       asChild
       data-slot="select-clear-trigger"
       className={triggerClassName}
+      aria-label={asChild ? ariaLabel : undefined}
+      aria-labelledby={asChild ? ariaLabelledBy : undefined}
       {...props}
     >
-      <CloseButton.Root
-        aria-label={ariaLabel ?? (ariaLabelledBy == null ? 'Clear selection' : undefined)}
-        aria-labelledby={ariaLabelledBy}
-      >
-        {children}
-      </CloseButton.Root>
+      {asChild ? (
+        children
+      ) : (
+        <CloseButton.Root
+          aria-label={ariaLabel ?? (ariaLabelledBy == null ? 'Clear selection' : undefined)}
+          aria-labelledby={ariaLabelledBy}
+        >
+          {children}
+        </CloseButton.Root>
+      )}
     </SelectPrimitive.ClearTrigger>
   );
 });
@@ -220,7 +203,7 @@ const SelectIndicator = forwardRef<
     <SelectPrimitive.Indicator
       ref={ref}
       data-slot="select-indicator"
-      className={clsx(styles.indicator, normalizeClassName(className))}
+      className={clsx(styles.indicator, className)}
       {...props}
     >
       {children ?? <ChevronUpDownIcon />}
@@ -234,9 +217,9 @@ const SelectField = forwardRef<ComponentRef<typeof SelectPrimitive.Control>, Sel
       <SelectControl ref={ref} {...props}>
         <SelectTrigger>
           <SelectValueText placeholder={placeholder} />
-          <SelectIndicator>{indicator}</SelectIndicator>
         </SelectTrigger>
         {clearLabel && <SelectClearTrigger aria-label={clearLabel} />}
+        <SelectIndicator>{indicator}</SelectIndicator>
       </SelectControl>
     );
   },
@@ -251,7 +234,7 @@ const SelectPositioner = forwardRef<
       <SelectPrimitive.Positioner
         ref={ref}
         data-slot="select-positioner"
-        className={clsx(styles.positioner, normalizeClassName(className))}
+        className={clsx(styles.positioner, className)}
         {...props}
       />
     </OverlayPortal>
@@ -266,7 +249,7 @@ const SelectContent = forwardRef<
     <SelectPrimitive.Content
       ref={ref}
       data-slot="select-content"
-      className={clsx(styles.content, normalizeClassName(className))}
+      className={clsx(styles.content, className)}
       {...props}
     />
   );
@@ -280,7 +263,7 @@ const SelectList = forwardRef<
     <SelectPrimitive.List
       ref={ref}
       data-slot="select-list"
-      className={clsx(styles.list, normalizeClassName(className))}
+      className={clsx(styles.list, className)}
       {...props}
     />
   );
@@ -294,7 +277,7 @@ const SelectItemGroup = forwardRef<
     <SelectPrimitive.ItemGroup
       ref={ref}
       data-slot="select-item-group"
-      className={clsx(styles.itemGroup, normalizeClassName(className))}
+      className={clsx(styles.itemGroup, className)}
       {...props}
     />
   );
@@ -308,7 +291,7 @@ const SelectItemGroupLabel = forwardRef<
     <SelectPrimitive.ItemGroupLabel
       ref={ref}
       data-slot="select-item-group-label"
-      className={clsx(styles.itemGroupLabel, normalizeClassName(className))}
+      className={clsx(styles.itemGroupLabel, className)}
       {...props}
     />
   );
@@ -322,7 +305,7 @@ const SelectItem = forwardRef<
     <SelectPrimitive.Item
       ref={ref}
       data-slot="select-item"
-      className={clsx(styles.item, normalizeClassName(className))}
+      className={clsx(styles.item, className)}
       {...props}
     />
   );
@@ -336,7 +319,7 @@ const SelectItemText = forwardRef<
     <SelectPrimitive.ItemText
       ref={ref}
       data-slot="select-item-text"
-      className={clsx(styles.itemText, normalizeClassName(className))}
+      className={clsx(styles.itemText, className)}
       {...props}
     />
   );
@@ -350,7 +333,7 @@ const SelectItemIndicator = forwardRef<
     <SelectPrimitive.ItemIndicator
       ref={ref}
       data-slot="select-item-indicator"
-      className={clsx(styles.itemIndicator, normalizeClassName(className))}
+      className={clsx(styles.itemIndicator, className)}
       {...props}
     >
       {children ?? <CheckIcon />}
@@ -358,68 +341,13 @@ const SelectItemIndicator = forwardRef<
   );
 });
 
-function withNativeFormControl(
-  children: ReactNode,
-  asChild: boolean | undefined,
-  nativeFormControl: SelectNativeFormControl,
-) {
-  const formControl = <SelectFormControl nativeFormControl={nativeFormControl} />;
-
-  if (!asChild) {
-    return (
-      <>
-        {children}
-        {formControl}
-      </>
-    );
-  }
-
-  const child = Children.only(children) as ReactElement<{ children?: ReactNode }>;
-
-  return cloneElement(child, {}, child.props.children, formControl);
-}
-
-function SelectFormControl({ nativeFormControl }: { nativeFormControl: SelectNativeFormControl }) {
-  const select = useSelectContext();
-
-  if (nativeFormControl === 'select') {
-    return <SelectPrimitive.HiddenSelect data-slot="select-hidden-select" />;
-  }
-
-  const hiddenSelectProps = select.getHiddenSelectProps();
-
-  return (
-    <>
-      <select
-        {...hiddenSelectProps}
-        aria-hidden
-        data-slot="select-hidden-input-proxy"
-        name={undefined}
-        required={false}
-      />
-      {select.value.map((value) => (
-        <input
-          key={value}
-          type="hidden"
-          data-slot="select-hidden-input"
-          name={hiddenSelectProps.name}
-          form={hiddenSelectProps.form}
-          autoComplete={hiddenSelectProps.autoComplete}
-          disabled={hiddenSelectProps.disabled}
-          value={value}
-        />
-      ))}
-    </>
-  );
-}
-
 const SelectItemTextContent = forwardRef<ComponentRef<typeof ark.span>, HTMLArkProps<'span'>>(
   function SelectItemTextContent({ className, ...props }, ref) {
     return (
       <ark.span
         ref={ref}
         data-slot="select-item-text-content"
-        className={clsx(styles.itemTextContent, normalizeClassName(className))}
+        className={clsx(styles.itemTextContent, className)}
         {...props}
       />
     );
@@ -432,7 +360,7 @@ const SelectItemTextIcon = forwardRef<ComponentRef<typeof ark.span>, HTMLArkProp
       <ark.span
         ref={ref}
         data-slot="select-item-text-icon"
-        className={clsx(styles.itemTextIcon, normalizeClassName(className))}
+        className={clsx(styles.itemTextIcon, className)}
         {...props}
       />
     );
@@ -445,7 +373,7 @@ const SelectItemTextLabel = forwardRef<ComponentRef<typeof ark.span>, HTMLArkPro
       <ark.span
         ref={ref}
         data-slot="select-item-text-label"
-        className={clsx(styles.itemTextLabel, normalizeClassName(className))}
+        className={clsx(styles.itemTextLabel, className)}
         {...props}
       />
     );
@@ -456,6 +384,7 @@ const Select = Object.assign(SelectRoot, {
   Root: SelectRoot,
   RootProvider: SelectRootProvider,
   Context: SelectPrimitive.Context,
+  HiddenSelect: SelectPrimitive.HiddenSelect,
   ItemContext: SelectPrimitive.ItemContext,
   useSelect,
   useSelectContext,

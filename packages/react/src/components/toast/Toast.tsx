@@ -11,7 +11,6 @@ import {
 import { clsx } from 'clsx';
 import type { ComponentProps, ComponentRef } from 'react';
 import { forwardRef } from 'react';
-import { normalizeClassName } from '@/lib/moduix/normalizeClassName';
 import type { OverlayPortalProps } from '@/lib/moduix/overlayPortal';
 import { CloseButton } from '../close-button';
 import styles from './Toast.module.css';
@@ -32,7 +31,7 @@ const Toaster = forwardRef<ComponentRef<typeof ToasterPrimitive>, ToasterProps>(
       <ToasterPrimitive
         ref={ref}
         data-slot="toast-toaster"
-        className={clsx(styles.toaster, normalizeClassName(className))}
+        className={clsx(styles.toaster, className)}
         {...props}
       >
         {props.children ?? ((toast) => <DefaultToast toast={toast} />)}
@@ -60,7 +59,7 @@ const ToastRoot = forwardRef<
     <ToastPrimitive.Root
       ref={ref}
       data-slot="toast-root"
-      className={clsx(styles.root, normalizeClassName(className))}
+      className={clsx(styles.root, className)}
       {...props}
     />
   );
@@ -76,7 +75,7 @@ const ToastTitle = forwardRef<
     <ToastPrimitive.Title
       ref={ref}
       data-slot="toast-title"
-      className={clsx(styles.title, normalizeClassName(className))}
+      className={clsx(styles.title, className)}
       {...props}
     >
       {children === undefined ? toast.title : children}
@@ -94,7 +93,7 @@ const ToastDescription = forwardRef<
     <ToastPrimitive.Description
       ref={ref}
       data-slot="toast-description"
-      className={clsx(styles.description, normalizeClassName(className))}
+      className={clsx(styles.description, className)}
       {...props}
     >
       {children === undefined ? toast.description : children}
@@ -111,7 +110,7 @@ const ToastActionTrigger = forwardRef<
       ref={ref}
       asChild={asChild}
       data-slot="toast-action-trigger"
-      className={clsx(!asChild && styles.actionTrigger, normalizeClassName(className))}
+      className={clsx(!asChild && styles.actionTrigger, className)}
       {...props}
     >
       {children}
@@ -133,7 +132,7 @@ const ToastCloseTrigger = forwardRef<
         asChild
         data-slot="toast-close-trigger"
         aria-label={ariaLabel}
-        className={normalizeClassName(className)}
+        className={className}
         {...props}
       >
         {children}
@@ -147,7 +146,7 @@ const ToastCloseTrigger = forwardRef<
         ref={ref}
         data-slot="toast-close-trigger"
         aria-label={ariaLabel}
-        className={clsx(styles.closeTrigger, normalizeClassName(className))}
+        className={clsx(styles.closeTrigger, className)}
         {...props}
       >
         {children}

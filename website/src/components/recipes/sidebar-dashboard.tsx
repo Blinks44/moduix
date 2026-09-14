@@ -121,26 +121,28 @@ export function SidebarDashboard() {
                 </Menu.Trigger>
                 <Menu.Positioner>
                   <Menu.Content className={styles.workspaceMenu}>
-                    <Menu.Item value="workspace-settings">
-                      <Menu.ItemText>
-                        <Menu.ItemTextContent>
-                          <Menu.ItemTextIcon>
-                            <Settings />
-                          </Menu.ItemTextIcon>
-                          <Menu.ItemTextLabel>Workspace settings</Menu.ItemTextLabel>
-                        </Menu.ItemTextContent>
-                      </Menu.ItemText>
-                    </Menu.Item>
-                    <Menu.Item value="manage-members">
-                      <Menu.ItemText>
-                        <Menu.ItemTextContent>
-                          <Menu.ItemTextIcon>
-                            <Users />
-                          </Menu.ItemTextIcon>
-                          <Menu.ItemTextLabel>Manage members</Menu.ItemTextLabel>
-                        </Menu.ItemTextContent>
-                      </Menu.ItemText>
-                    </Menu.Item>
+                    <Menu.Viewport>
+                      <Menu.Item value="workspace-settings">
+                        <Menu.ItemText>
+                          <Menu.ItemTextContent>
+                            <Menu.ItemTextIcon>
+                              <Settings />
+                            </Menu.ItemTextIcon>
+                            <Menu.ItemTextLabel>Workspace settings</Menu.ItemTextLabel>
+                          </Menu.ItemTextContent>
+                        </Menu.ItemText>
+                      </Menu.Item>
+                      <Menu.Item value="manage-members">
+                        <Menu.ItemText>
+                          <Menu.ItemTextContent>
+                            <Menu.ItemTextIcon>
+                              <Users />
+                            </Menu.ItemTextIcon>
+                            <Menu.ItemTextLabel>Manage members</Menu.ItemTextLabel>
+                          </Menu.ItemTextContent>
+                        </Menu.ItemText>
+                      </Menu.Item>
+                    </Menu.Viewport>
                   </Menu.Content>
                 </Menu.Positioner>
               </Menu>

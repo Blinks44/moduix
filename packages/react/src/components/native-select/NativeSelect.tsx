@@ -3,7 +3,6 @@ import { clsx } from 'clsx';
 import type { ComponentProps, ComponentRef } from 'react';
 import { forwardRef } from 'react';
 import { ChevronDownIcon } from '@/lib/moduix/icons/ui';
-import { normalizeClassName } from '@/lib/moduix/normalizeClassName';
 import styles from './NativeSelect.module.css';
 
 type NativeSelectRootProps = ComponentProps<typeof FieldPrimitive.Select> & {
@@ -20,13 +19,13 @@ const NativeSelectRoot = forwardRef<
       data-scope="native-select"
       data-part="control"
       data-slot="native-select-control"
-      className={clsx(styles.control, normalizeClassName(controlProps?.className))}
+      className={clsx(styles.control, controlProps?.className)}
     >
       <FieldPrimitive.Select
         {...props}
         ref={ref}
         data-slot="native-select-root"
-        className={clsx(styles.root, normalizeClassName(className))}
+        className={clsx(styles.root, className)}
       />
       <span
         aria-hidden="true"

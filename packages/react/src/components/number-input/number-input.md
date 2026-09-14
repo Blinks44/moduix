@@ -63,7 +63,7 @@ NumberInput.RootProvider
 | ---------------------------------- | -------------------------------- | ----------------------------------------------- |
 | `NumberInput` / `NumberInput.Root` | `number-input-root`              | Root state, parsing, formatting, and a11y.      |
 | `NumberInput.RootProvider`         | `number-input-root-provider`     | Connects to Ark `useNumberInput()` state.       |
-| `NumberInput.Context`              | —                                | Renders access to the current Ark state.        |
+| `NumberInput.Context`              | -                                | Renders access to the current Ark state.        |
 | `NumberInput.Label`                | `number-input-label`             | Accessible label for the input.                 |
 | `NumberInput.Scrubber`             | `number-input-scrubber`          | Optional drag-to-change affordance.             |
 | `NumberInput.Control`              | `number-input-control`           | Wrapper around triggers and input.              |

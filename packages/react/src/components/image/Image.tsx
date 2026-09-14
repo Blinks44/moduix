@@ -2,7 +2,6 @@ import type { ImageProps as UnpicImageProps, SourceProps as UnpicSourceProps } f
 import { Image as ImagePrimitive, Source as ImageSourcePrimitive } from '@unpic/react';
 import { clsx } from 'clsx';
 import { forwardRef, type CSSProperties } from 'react';
-import { normalizeClassName } from '@/lib/moduix/normalizeClassName';
 import styles from './Image.module.css';
 
 type ImageProps = UnpicImageProps & { style?: CSSProperties };
@@ -17,7 +16,7 @@ const ImageRoot = forwardRef<HTMLImageElement, ImageProps>(function ImageRoot(
       {...(props as UnpicImageProps)}
       fetchpriority={(fetchPriority ?? fetchpriority) as 'high' | 'low' | undefined}
       data-slot="image-root"
-      className={clsx(styles.root, normalizeClassName(className))}
+      className={clsx(styles.root, className)}
     />
   );
 });

@@ -1,0 +1,5 @@
+.root {
+  display: block;
+  inline-size: min(100%, 50rem);
+  margin-inline: auto;
+}

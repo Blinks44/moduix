@@ -15,21 +15,21 @@ visual.
 The component follows Ark UI React `@ark-ui/react/segment-group`, which is backed by Zag
 `radio-group` behavior for segmented controls. Keep the Ark anatomy, single-value state, callback
 detail objects, `RootProvider`, `asChild` behavior, measured `Indicator`, and native form input
-integration intact. Each item renders its input internally.
+integration intact. `Items` includes each input; direct item composition is explicit.
 
 ### Release review sources
 
 Reviewed on 2026-08-12:
 
-- Ark UI: https://ark-ui.com/docs/components/segment-group — required correctness: radio-group
+- Ark UI: https://ark-ui.com/docs/components/segment-group - required correctness: radio-group
   semantics, roving focus, arrow-key selection, `RootProvider`, measured indicator, and native
   input lifecycle.
-- Chakra UI: https://chakra-ui.com/docs/components/segmented-control — consumer ergonomics:
+- Chakra UI: https://chakra-ui.com/docs/components/segmented-control - consumer ergonomics:
   `Items` is the appropriate concise path for standard item lists.
-- shadcn/ui: https://ui.shadcn.com/docs/components/base/toggle-group — consumer expectation:
+- shadcn/ui: https://ui.shadcn.com/docs/components/base/toggle-group - consumer expectation:
   keep the default composition concise and make orientation and disabled states discoverable.
 
-Intentional differences: moduix keeps Ark-shaped parts, automatic native inputs, and CSS-variable
+Intentional differences: moduix keeps Ark-shaped parts, explicit native inputs, and CSS-variable
 theming instead of adding Chakra `size` or shadcn-style visual variants. Those APIs would widen the
 surface without improving correctness or composability for this component.
 
@@ -63,10 +63,10 @@ moduix defaults `orientation` to `horizontal` on `SegmentGroup.Root`. Explicit
 | --------------------------- | ----------------------------- | ------------------------------------------ |
 | `SegmentGroup` / `Root`     | `segment-group-root`          | Ark root, value state, orientation, forms. |
 | `SegmentGroup.RootProvider` | `segment-group-root-provider` | Uses state from `useSegmentGroup`.         |
-| `SegmentGroup.Context`      | —                             | Advanced render-prop access to root state. |
-| `SegmentGroup.ItemContext`  | —                             | Advanced render-prop access to item state. |
+| `SegmentGroup.Context`      | -                             | Advanced render-prop access to root state. |
+| `SegmentGroup.ItemContext`  | -                             | Advanced render-prop access to item state. |
 | `SegmentGroup.Label`        | `segment-group-label`         | Optional Ark group label.                  |
-| `SegmentGroup.Items`        | —                             | Renders standard text items.               |
+| `SegmentGroup.Items`        | -                             | Renders standard text items.               |
 | `SegmentGroup.Item`         | `segment-group-item`          | Ark item, renders a `label` by default.    |
 | `SegmentGroup.ItemControl`  | `segment-group-item-control`  | Hidden visual control part for Ark state.  |
 | `SegmentGroup.ItemText`     | `segment-group-item-text`     | Visible item text.                         |
@@ -101,8 +101,8 @@ export function SegmentGroupDemo() {
 
 Use `SegmentGroup.RootProvider` with moduix `useSegmentGroup` when state must be controlled from
 outside the rendered tree. Do not render `Root` and `RootProvider` for the same state instance.
-`ItemHiddenInput` is intentionally internal: every `Item` renders exactly one synchronized native
-radio input, including with `asChild`. Do not add Ark's `ItemHiddenInput` again.
+`ItemHiddenInput` is public and explicit for direct item composition. `SegmentGroup.Items` includes it
+in its fixed convenience tree.
 
 ## Upstream feature coverage
 
@@ -110,7 +110,7 @@ radio input, including with `asChild`. Do not add Ark's `ItemHiddenInput` again.
   value control, form usage, and focus control are supported through the same Ark parts and props.
 - `asChild` is supported on Ark parts. `SegmentGroup.Item` renders a `label` by default; when
   `asChild` is used, the direct child must still be a semantic `label`.
-- Both `Items` and explicit `Item` composition render a native form input automatically for every item.
+- `Items` includes a native input for every item; direct `Item` composition requires `ItemHiddenInput`.
 - `ids` is forwarded from `Root`/`RootProvider` for explicit accessibility composition.
 - `Indicator` preserves Ark CSS variables: `--left`, `--top`, `--width`, and `--height`.
 - `Field` state propagates through Ark for `disabled`, `invalid`, `required`, and `readOnly`.
@@ -154,7 +154,7 @@ rendered but visually hidden because the segmented-control affordance comes from
 
 - The short root export `<SegmentGroup>` is equivalent to `<SegmentGroup.Root>`.
 - The wrapper adds only moduix styling defaults and `data-slot` hooks.
-- `SegmentGroup.Items` renders the fixed standard item tree: `Item`, `ItemText`, and `ItemControl`; each `Item` renders its native form input automatically. Use `Item` directly for custom markup or per-item styling.
+- `SegmentGroup.Items` renders the fixed standard item tree: `Item`, `ItemText`, `ItemControl`, and `ItemHiddenInput`. Use `Item` directly with an explicit `ItemHiddenInput` for custom markup or per-item styling.
 - `useSegmentGroup` is re-exported from moduix for the documented `RootProvider` workflow.
 - Horizontal orientation is a moduix default because this component is visually a segmented
   control. Ark/Zag behavior remains available through explicit `orientation`.
@@ -170,14 +170,15 @@ rendered but visually hidden because the segmented-control affordance comes from
 
 ## Local changelog
 
+- 2026-09-04: Exposed Ark `ItemHiddenInput`; custom item trees now compose it explicitly.
 - 2026-08-12: Prevented root and item disabled opacity from compounding, expanded regression
-  coverage for native radio semantics, wrapper refs, disabled state, and read-only automatic native
+  coverage for native radio semantics, wrapper refs, disabled state, and read-only native
   inputs, and re-checked Ark, Chakra, and shadcn guidance.
 
 - 2026-07-21: Routed shared dimensions, spacing, icon geometry, and focus-ring fallbacks through foundation tokens so density and theme presets can retune the component consistently.
-- 2026-07-13: Native form controls are now rendered automatically; the former public form-control part was removed.
+- 2026-07-13: Native form controls were rendered automatically at this point in the wrapper history.
 
-- 2026-07-30: Clarified the automatic native-input contract, Field/Fieldset integration, and the
+- 2026-07-30: Clarified the native-input contract, Field/Fieldset integration, and the
   moduix-owned context exports.
 
 - 2026-07-11: Added `SegmentGroup.Items` for standard segment lists and re-exported

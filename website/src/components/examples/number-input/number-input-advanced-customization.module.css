@@ -1,0 +1,10 @@
+.button {
+  --moduix-number-input-button-bg: var(--moduix-color-muted);
+  --moduix-number-input-button-bg-hover: var(--moduix-color-accent);
+  --moduix-number-input-icon-size: 1rem;
+}
+
+.input {
+  --moduix-number-input-input-width: 7rem;
+  --moduix-number-input-input-font-size: var(--moduix-text-lg);
+}

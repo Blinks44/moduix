@@ -101,30 +101,100 @@
     "ru": "На базе Ark UI",
     "fr": "Propulsé par Ark UI"
   },
-  "homeCssModules": {
-    "en": "CSS Modules",
-    "ru": "CSS Modules",
-    "fr": "CSS Modules"
-  },
   "homeShadcnInspired": {
     "en": "shadcn-inspired",
     "ru": "В духе shadcn",
     "fr": "Inspiré par shadcn"
   },
   "homeLead": {
-    "en": "Accessible components with calm defaults and explicit composition. CSS Modules keep component styles scoped, while shared tokens make them easy to theme; your own styles stay in your app.",
-    "ru": "Доступные компоненты с продуманными настройками по умолчанию и явной композицией. CSS Modules изолируют стили компонентов, а общие токены помогают настроить тему привычными средствами; собственные стили остаются в приложении.",
-    "fr": "Des composants accessibles, avec des valeurs par défaut soignées et une composition explicite. Les CSS Modules isolent les styles des composants, tandis que les tokens partagés facilitent la personnalisation du thème ; vos propres styles restent dans l’application."
+    "en": "A multi-framework component system built on Ark UI. React and Solid ship with native APIs, accessible behavior, considered defaults, and matching CSS Modules and Tailwind styling tracks.",
+    "ru": "Мультифреймворковая система компонентов на базе Ark UI. React и Solid уже доступны с нативными API, доступным поведением, продуманными настройками и равноправными вариантами на CSS Modules и Tailwind.",
+    "fr": "Un système de composants multi-framework fondé sur Ark UI. React et Solid proposent des API natives, un comportement accessible, des valeurs par défaut soignées et deux approches équivalentes avec CSS Modules et Tailwind."
+  },
+  "homeFrameworkStatus": {
+    "en": "React and Solid are available today. Vue and Svelte are planned.",
+    "ru": "React и Solid доступны сейчас. Vue и Svelte запланированы.",
+    "fr": "React et Solid sont disponibles dès maintenant. Vue et Svelte sont prévus."
   },
   "homeGetStarted": {
     "en": "Get started",
     "ru": "Начать работу",
     "fr": "Démarrer"
   },
-  "homeComponents": {
+  "homeDocumentationEyebrow": {
+    "en": "One system, clear paths",
+    "ru": "Одна система, понятные разделы",
+    "fr": "Un seul système, des parcours clairs"
+  },
+  "homeDocumentationTitle": {
+    "en": "From primitives to product patterns.",
+    "ru": "От примитивов до продуктовых сценариев",
+    "fr": "Des primitives aux scénarios produit"
+  },
+  "homeDocumentationDescription": {
+    "en": "Use the layer you need. Each section follows a consistent structure and shows native React and Solid source where the runtime matters.",
+    "ru": "Выберите нужный уровень. Все разделы построены единообразно и показывают нативный код для React и Solid там, где важен фреймворк.",
+    "fr": "Choisissez le niveau dont vous avez besoin. Chaque section suit une structure cohérente et présente du code natif React et Solid lorsque le framework compte."
+  },
+  "homeAreaComponents": {
     "en": "Components",
     "ru": "Компоненты",
     "fr": "Composants"
+  },
+  "homeAreaComponentsDescription": {
+    "en": "Styled building blocks with accessible behavior and explicit composition.",
+    "ru": "Стилизованные блоки с доступным поведением и явной композицией.",
+    "fr": "Des blocs stylisés au comportement accessible et à la composition explicite."
+  },
+  "homeAreaCollections": {
+    "en": "Ark Collections",
+    "ru": "Ark Collections",
+    "fr": "Ark Collections"
+  },
+  "homeAreaCollectionsDescription": {
+    "en": "Data models for lists, trees, selection, and asynchronous sources.",
+    "ru": "Модели данных для списков, деревьев, выбора и асинхронных источников.",
+    "fr": "Des modèles de données pour les listes, les arbres, la sélection et les sources asynchrones."
+  },
+  "homeAreaUtilities": {
+    "en": "Ark Utilities",
+    "ru": "Ark Utilities",
+    "fr": "Ark Utilities"
+  },
+  "homeAreaUtilitiesDescription": {
+    "en": "Focused helpers for rendering, focus, formatting, locale, and presence.",
+    "ru": "Точечные инструменты для рендеринга, фокуса, форматирования, локали и присутствия.",
+    "fr": "Des outils ciblés pour le rendu, le focus, le formatage, la locale et la présence."
+  },
+  "homeAreaForms": {
+    "en": "Forms",
+    "ru": "Формы",
+    "fr": "Formulaires"
+  },
+  "homeAreaFormsDescription": {
+    "en": "Integration guides for Formisch, React Hook Form, and TanStack Form.",
+    "ru": "Руководства по интеграции с Formisch, React Hook Form и TanStack Form.",
+    "fr": "Des guides d’intégration pour Formisch, React Hook Form et TanStack Form."
+  },
+  "homeAreaGuides": {
+    "en": "Guides",
+    "ru": "Руководства",
+    "fr": "Guides"
+  },
+  "homeAreaGuidesDescription": {
+    "en": "Practical guidance for styling, composition, motion, RTL, and updates.",
+    "ru": "Практические рекомендации по стилям, композиции, анимации, RTL и обновлениям.",
+    "fr": "Des conseils pratiques sur les styles, la composition, les animations, le RTL et les mises à jour."
+  },
+  "homeAreaRecipes": {
+    "en": "Recipes",
+    "ru": "Рецепты",
+    "fr": "Recettes"
+  },
+  "homeAreaRecipesDescription": {
+    "en": "Complete product patterns with copyable React and Solid implementations.",
+    "ru": "Готовые продуктовые сценарии с копируемыми реализациями для React и Solid.",
+    "fr": "Des scénarios produit complets avec des implémentations React et Solid prêtes à copier."
   },
   "homeCompositionInPractice": {
     "en": "Composition in practice",
@@ -356,6 +426,11 @@
     "ru": "Документация Ark UI",
     "fr": "Référence de l’API Ark UI"
   },
+  "showCode": {
+    "en": "Show code",
+    "ru": "Показать код",
+    "fr": "Afficher le code"
+  },
   "primitiveReferenceDescription": {
     "en": "For behavior, accessibility guidance, and low-level props, see the Ark UI reference.",
     "ru": "Описание поведения, требований доступности и низкоуровневых свойств смотрите в документации Ark UI.",
@@ -375,6 +450,11 @@
     "en": "To add this recipe to your project source instead of node_modules, install it from the hosted moduix registry:",
     "ru": "Чтобы добавить этот рецепт в исходный код проекта, а не устанавливать его из node_modules, используйте размещённый реестр moduix:",
     "fr": "Pour ajouter cette recette au code source de votre projet plutôt que dans node_modules, installez-la depuis le registre moduix hébergé :"
+  },
+  "shadcnImportHint": {
+    "en": "The examples below use package imports. With the shadcn CLI, use the local import path shown below instead.",
+    "ru": "В примерах ниже используются импорты из пакета. При установке через shadcn CLI используйте вместо них локальный путь импорта из примера ниже.",
+    "fr": "Les exemples ci-dessous utilisent les imports du paquet. Avec la CLI shadcn, utilisez plutôt le chemin d’import local indiqué ci-dessous."
   },
   "shadcnCopyComponent": {
     "en": "Copy this component and its CSS from the tabs above, then add the moduix components it uses:",
@@ -632,6 +712,11 @@
     "fr": "Opacité"
   },
   "tokensOverviewTypography": {
+    "en": "Typography",
+    "ru": "Типографика",
+    "fr": "Typographie"
+  },
+  "tokensOverviewTypographyNote": {
     "en": "Font families, sizes, line heights, weights, and tracking tokens.",
     "ru": "Семейства шрифтов, размеры, межстрочные интервалы, начертания и межбуквенные интервалы.",
     "fr": "Familles de polices, tailles, hauteurs de ligne, graisses et espacement des caractères."
@@ -642,6 +727,11 @@
     "fr": "Familles de polices"
   },
   "tokensOverviewMotion": {
+    "en": "Motion",
+    "ru": "Анимация",
+    "fr": "Animations"
+  },
+  "tokensOverviewMotionNote": {
     "en": "Durations, easing, transition shorthands, and reusable animations.",
     "ru": "Длительности, кривые плавности, сокращённые записи переходов и повторно используемые анимации.",
     "fr": "Durées, fonctions d'accélération, raccourcis de transition et animations réutilisables."
@@ -1007,9 +1097,9 @@
     "fr": "Contrôle"
   },
   "ownershipLayersStyling": {
-    "en": "CSS Modules + tokens",
-    "ru": "CSS Modules + токены",
-    "fr": "CSS Modules + tokens"
+    "en": "CSS Modules or Tailwind + tokens",
+    "ru": "CSS Modules или Tailwind + токены",
+    "fr": "CSS Modules ou Tailwind + tokens"
   },
   "ownershipLayersPackageSource": {
     "en": "Package or source",
@@ -1027,9 +1117,9 @@
     "fr": "Un système, trois couches claires"
   },
   "ownershipLayersSummary": {
-    "en": "Ark UI owns interaction behavior, moduix supplies styled components through CSS Modules and tokens, and your application owns the final theme and composition.",
-    "ru": "Ark UI отвечает за поведение компонентов, moduix предоставляет стилизованные компоненты на CSS Modules и токенах, а приложение управляет итоговой темой и композицией.",
-    "fr": "Ark UI gère le comportement des interactions, moduix fournit des composants stylés avec des CSS Modules et des tokens, et votre application garde la main sur le thème et la composition finaux."
+    "en": "Ark UI owns interaction behavior, moduix supplies framework-native React and Solid components with shared tokens, and your application owns the final theme and composition.",
+    "ru": "Ark UI отвечает за поведение, moduix предоставляет нативные компоненты для React и Solid с общими токенами, а приложение управляет итоговой темой и композицией.",
+    "fr": "Ark UI gère le comportement, moduix fournit des composants natifs pour React et Solid avec des tokens partagés, et l’application garde la main sur le thème et la composition finaux."
   },
   "ownershipLayersTokenFirstStyling": {
     "en": "Token-first styling",
@@ -1101,6 +1191,11 @@
     "ru": "Русский, Французский",
     "fr": "Russe, Français"
   },
+  "localizationHeroTitle": {
+    "en": "Three languages",
+    "ru": "Три языка",
+    "fr": "Trois langues"
+  },
   "localizationHeroSummary": {
     "en": "Russian and French are here. More translations are next.",
     "ru": "Документация на русском и французском уже доступна. Позже появятся и другие языки.",
@@ -1157,9 +1252,9 @@
     "fr": "Les valeurs par défaut de l’arrière-plan, des fenêtres contextuelles et de leurs animations sont partagées par les familles de superpositions ; chaque composant peut ensuite appliquer ses tokens locaux."
   },
   "frameworkAstroDescription": {
-    "en": "Interactive React islands in Astro.",
-    "ru": "Интерактивные React-острова для Astro.",
-    "fr": "Îlots React interactifs pour Astro."
+    "en": "Interactive React and Solid islands.",
+    "ru": "Интерактивные острова на React и Solid.",
+    "fr": "Îlots interactifs en React et Solid."
   },
   "frameworkNextDescription": {
     "en": "App Router and React Server Components.",
@@ -1172,19 +1267,24 @@
     "fr": "Applications en mode framework ou en mode data."
   },
   "frameworkRsbuildDescription": {
-    "en": "React apps powered by Rspack.",
-    "ru": "React-приложения на базе Rspack.",
-    "fr": "Applications React basées sur Rspack."
+    "en": "React and Solid apps powered by Rspack.",
+    "ru": "React- и Solid-приложения на базе Rspack.",
+    "fr": "Applications React et Solid basées sur Rspack."
   },
   "frameworkTanStackStartDescription": {
-    "en": "Full-stack React on Vite.",
-    "ru": "Full-stack-приложения на React и Vite.",
-    "fr": "Applications React full-stack sur Vite."
+    "en": "Full-stack React and Solid with TanStack Router.",
+    "ru": "Full-stack-приложения на React и Solid с TanStack Router.",
+    "fr": "Applications full-stack React et Solid avec TanStack Router."
+  },
+  "frameworkSolidStartDescription": {
+    "en": "The full-stack framework for Solid.",
+    "ru": "Full-stack-фреймворк для Solid.",
+    "fr": "Le framework full-stack pour Solid."
   },
   "frameworkViteDescription": {
-    "en": "Standard React apps and SPAs.",
-    "ru": "Обычные React-приложения и SPA.",
-    "fr": "Applications React classiques et SPA."
+    "en": "React and Solid apps and SPAs.",
+    "ru": "React- и Solid-приложения, включая SPA.",
+    "fr": "Applications React et Solid, y compris les SPA."
   },
   "frameworkSupportGroupLabel": {
     "en": "Framework support",
@@ -1196,15 +1296,15 @@
     "ru": "React доступен",
     "fr": "React est disponible"
   },
+  "frameworkSolidAvailable": {
+    "en": "Solid is available",
+    "ru": "Solid доступен",
+    "fr": "Solid est disponible"
+  },
   "frameworkSupportPlanned": {
     "en": "Planned",
     "ru": "Запланировано",
     "fr": "Prévu"
-  },
-  "frameworkSupportInProgress": {
-    "en": "In progress",
-    "ru": "В разработке",
-    "fr": "En cours"
   },
   "copyMarkdownText": {
     "en": "Copy Markdown",

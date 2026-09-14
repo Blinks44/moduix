@@ -1,10 +1,30 @@
 ---
 title: Angle Slider
 component: angle-slider
-description: A circular control for selecting an angle between 0 and 360 degrees.
+description: A circular control for selecting an angle between 0 and 360 degrees in React or Solid.
 ---
 
-import * as AngleSliderDocs from '@/components/examples/angle-slider';
+import * as AngleSliderDocs from '@/components/examples/angle-slider/css-properties';
+import AngleSliderAdvancedCustomization from '@/components/examples/angle-slider/advanced-customization.tsx';
+import AngleSliderBasic from '@/components/examples/angle-slider/basic.tsx';
+import AngleSliderControlled from '@/components/examples/angle-slider/controlled.tsx';
+import AngleSliderDisabled from '@/components/examples/angle-slider/disabled.tsx';
+import AngleSliderForm from '@/components/examples/angle-slider/form.tsx';
+import AngleSliderInvalid from '@/components/examples/angle-slider/invalid.tsx';
+import AngleSliderReadOnly from '@/components/examples/angle-slider/read-only.tsx';
+import AngleSliderRootProvider from '@/components/examples/angle-slider/root-provider.tsx';
+import AngleSliderSteps from '@/components/examples/angle-slider/steps.tsx';
+import AngleSliderWithMarks from '@/components/examples/angle-slider/with-marks.tsx';
+import angleSliderSolidAdvancedCustomization from '../../../snippets/angle-slider/solid/advanced-customization.tsx?raw';
+import angleSliderSolidBasic from '../../../snippets/angle-slider/solid/basic.tsx?raw';
+import angleSliderSolidControlled from '../../../snippets/angle-slider/solid/controlled.tsx?raw';
+import angleSliderSolidDisabled from '../../../snippets/angle-slider/solid/disabled.tsx?raw';
+import angleSliderSolidForm from '../../../snippets/angle-slider/solid/form.tsx?raw';
+import angleSliderSolidInvalid from '../../../snippets/angle-slider/solid/invalid.tsx?raw';
+import angleSliderSolidReadOnly from '../../../snippets/angle-slider/solid/read-only.tsx?raw';
+import angleSliderSolidRootProvider from '../../../snippets/angle-slider/solid/root-provider.tsx?raw';
+import angleSliderSolidSteps from '../../../snippets/angle-slider/solid/steps.tsx?raw';
+import angleSliderSolidWithMarks from '../../../snippets/angle-slider/solid/with-marks.tsx?raw';
 
 ## API Reference
 
@@ -20,101 +40,118 @@ Use `AngleSlider` when users need to set a direction or rotation on a circular d
 
 ## Basic
 
-Start with the smallest useful composition: `Dial`. `AngleSlider` accepts one angle from 0 to 360
-degrees. Add a visible `Label` when possible. If the dial has no visible label, add `aria-label` to
-the root.
+AngleSlider ships for React and Solid in both the CSS Modules and Tailwind packages. The rendered
+preview on this page uses the React CSS Modules package; the framework tabs show native source for
+the same public contract.
 
-<style>{AngleSliderDocs.angleSliderBasicCss}</style>
+Start with `Dial`, which combines the circular control and thumb. `AngleSlider` accepts one angle
+from 0 to 360 degrees. Add a visible `Label` when possible. If the dial has no visible label, add
+`aria-label` to the root.
 
-<PreviewFrame maxWidth="fit-content">
-  ```tsx preview file="./_snippets/angle-slider/basic.tsx"
+<ExampleFrame variant="component">
+  <AngleSliderBasic />
+</ExampleFrame>
 
+<ExampleCode>
+<div className="docs-reference">
+  <Tabs
+    groupId="framework"
+    values={[
+      { label: 'React', value: 'react' },
+      { label: 'Solid', value: 'solid' },
+    ]}
+    className="docs-tabs"
+  >
+    <Tab value="react">
+
+```tsx pure file="../../../src/components/examples/angle-slider/basic.tsx"
 ```
-</PreviewFrame>
+
+    </Tab>
+    <Tab value="solid">
+
+<CodeBlockRuntime lang="tsx" code={angleSliderSolidBasic} />
+
+    </Tab>
+  </Tabs>
+
+**Styles**
+
+```css file="../../../src/components/examples/angle-slider/angle-slider-basic.module.css"
+```
+</div>
+
+</ExampleCode>
 
 ## Install with shadcn
 
-<ShadcnInstall packageName="angle-slider" />
+See [Quick Start](/docs/quick-start) for full package setup, registry configuration, and styling guidance.
+
+<Tabs groupId="framework">
+  <Tab label="React" value="react">
+
+<ShadcnInstallOptions
+  options={[
+    { label: 'CSS Modules', command: 'shadcn@latest add @moduix-react/angle-slider' },
+    { label: 'Tailwind CSS', command: 'shadcn@latest add @moduix-react-tailwind/angle-slider' },
+  ]}
+/>
+
+  </Tab>
+  <Tab label="Solid" value="solid">
+
+<ShadcnInstallOptions
+  options={[
+    { label: 'CSS Modules', command: 'shadcn@latest add @moduix-solid/angle-slider' },
+    { label: 'Tailwind CSS', command: 'shadcn@latest add @moduix-solid-tailwind/angle-slider' },
+  ]}
+/>
+
+  </Tab>
+</Tabs>
 
 ## Anatomy
 
 ```text
-AngleSlider.Root
+AngleSlider / AngleSlider.Root
 ├─ AngleSlider.Label
-├─ AngleSlider.Control
-│  ├─ AngleSlider.MarkerGroup
-│  │  └─ AngleSlider.Marker[value]
+├─ AngleSlider.Dial
 │  └─ AngleSlider.Thumb
+├─ AngleSlider.Marks (optional)
+│  └─ AngleSlider.Marker[value]
 ├─ AngleSlider.ValueText
-└─ hidden native form input (added automatically)
+└─ AngleSlider.HiddenInput (explicit)
+
+AngleSlider.RootProvider
+└─ same part tree connected to a useAngleSlider() store
 ```
 
 | Part                               | Role                                                                  |
 | ---------------------------------- | --------------------------------------------------------------------- |
-| `AngleSlider` / `AngleSlider.Root` | Styled root that holds controlled or uncontrolled slider state.       |
-| `AngleSlider.RootProvider`         | Connects the parts to Ark state created outside the rendered tree.    |
+| `AngleSlider` / `AngleSlider.Root` | Styled root that owns controlled or uncontrolled slider state.        |
+| `AngleSlider.RootProvider`         | Connects the parts to state created with `useAngleSlider()`.          |
 | `AngleSlider.Label`                | Associates a visible label with the slider.                           |
 | `AngleSlider.Control`              | Provides the circular pointer interaction area.                       |
-| `AngleSlider.Dial`                 | Composition of `Control` and `Thumb`; accepts children and `thumbClassName`.             |
-| `AngleSlider.MarkerGroup`          | Contains optional reference markers.                                  |
-| `AngleSlider.Marker`               | Places a numeric marker and exposes its relation to the current value. |
-| `AngleSlider.Marks`                | Convenience composition that creates markers from a `values` array.    |
+| `AngleSlider.Dial`                 | Convenience composition of `Control` and `Thumb`.                     |
 | `AngleSlider.Thumb`                | Focusable handle that indicates the current angle.                     |
-| `AngleSlider.ValueText`            | Displays the current value in degrees.                                |
-
-moduix adds the hidden native form input automatically when you use `Root` or `RootProvider`. You
-do not need to render `HiddenInput` yourself.
+| `AngleSlider.MarkerGroup`          | Contains optional reference markers.                                  |
+| `AngleSlider.Marker`               | Places a numeric marker around the dial.                               |
+| `AngleSlider.Marks`                | Convenience composition that creates markers from a `values` array.    |
+| `AngleSlider.ValueText`             | Displays the current value in degrees.                                |
+| `AngleSlider.HiddenInput`           | Native form control; compose it explicitly when submitting the value. |
 
 ## Composition
 
-### Recommended composition
+Use `defaultValue` for an uncontrolled slider and `value` with `onValueChange(details)` when
+another part of the application owns the angle. Use `AngleSlider.RootProvider` with
+`useAngleSlider()` from the matching framework package only when the store must be created outside
+the rendered slider tree; do not render `Root` and `RootProvider` for the same state instance. In
+Solid, read the provider store through its accessor, for example `angleSlider().value`.
 
-Start with `Dial`, then add only the parts you need:
-
-- add `Label` or `aria-label` to give the control an accessible name
-- add `Marks` when users need reference points around the dial
-- add `ValueText` when the numeric angle should remain visible
-- set `name` when the angle should be included in native form submission
-- set `form` when the native input belongs to a form that does not contain the slider
-
-### When to go custom
-
-Use explicit `Control`, `Thumb`, `MarkerGroup`, and `Marker` parts when you need custom children,
-per-marker props, or a different order. Use `useAngleSlider()` from `@moduix/react/angle-slider`
-with `AngleSlider.RootProvider` when state must be available outside the rendered slider tree. To
-read the state in a descendant, use `AngleSlider.Context` or `useAngleSliderContext()` from
-`@moduix/react/angle-slider`. Do not render `Root` and `RootProvider` for the same state instance.
-
-Ark DOM parts support `asChild`; provide one compatible child that preserves their keyboard, focus,
-ARIA, and pointer behavior. `Dial` and `Marks` always render a fixed multi-part composition, so they
-do not accept `asChild`. With `Root` or `RootProvider`, use a container that can hold the internally
-rendered hidden input and slider parts. Use `ids` on `Root` when composed elements need stable shared
-IDs. Refs are forwarded to the DOM element rendered by each wrapped Ark part.
-
-### Default props
-
-| Prop           | Default | Notes                                      |
-| -------------- | ------- | ------------------------------------------ |
-| `defaultValue` | `0`     | Initial angle in uncontrolled mode         |
-| `step`         | `1`     | Keyboard and pointer increment             |
-| `disabled`     | `false` | Prevents focus and interaction             |
-| `readOnly`     | `false` | Keeps the value visible but prevents changes |
-| `invalid`      | `false` | Exposes invalid state to ARIA and styling  |
-
-### Behavioral notes
-
-- `value` is a single number. `onValueChange(details)` and `onValueChangeEnd(details)` receive Ark
-  callback objects with `details.value` and `details.valueAsDegree`.
-- The thumb supports Ark's slider keyboard behavior and pointer dragging around the circular control.
-- `AngleSlider.Marks` renders the same marker DOM and styling hooks as explicit `MarkerGroup` /
-  `Marker` composition.
-- `Root` and `RootProvider` render a hidden native form input automatically. Set `name` to include
-  the angle in form submission and `form` to associate it with an external form. A native reset
-  returns an uncontrolled `Root` to `defaultValue` and a `RootProvider` to the value it had when it
-  mounted. In controlled mode, the external owner remains authoritative.
-- `ValueText` renders Ark's degree string when no custom children are provided.
-- `data-disabled`, `data-invalid`, `data-readonly`, marker `data-state`, `--value`, `--angle`,
-  `--marker-value`, and `--marker-display-value` remain available for styling.
+`Dial` and `Marks` are convenience compositions. Use `Control` with `Thumb`, or
+`MarkerGroup` with `Marker`, when you need custom children, a different order, or per-marker props.
+Compose `HiddenInput` explicitly for native forms. Set `name` on the root for a form in the same
+tree, or set `form` on `HiddenInput` when the form is elsewhere.
 
 ## Examples
 
@@ -122,96 +159,279 @@ IDs. Refs are forwarded to the DOM element rendered by each wrapped Ark part.
 
 Use controlled state when the angle needs to stay synchronized with application state.
 
-<style>{AngleSliderDocs.angleSliderControlledCss}</style>
+<ExampleFrame variant="component">
+  <AngleSliderControlled />
+</ExampleFrame>
 
-<PreviewFrame maxWidth="fit-content">
-  ```tsx preview file="./_snippets/angle-slider/controlled.tsx"
+<ExampleCode>
+<div className="docs-reference">
+  <Tabs
+    groupId="framework"
+    values={[
+      { label: 'React', value: 'react' },
+      { label: 'Solid', value: 'solid' },
+    ]}
+    className="docs-tabs"
+  >
+    <Tab value="react">
 
+```tsx pure file="../../../src/components/examples/angle-slider/controlled.tsx"
 ```
 
-</PreviewFrame>
+    </Tab>
+    <Tab value="solid">
+
+<CodeBlockRuntime lang="tsx" code={angleSliderSolidControlled} />
+
+    </Tab>
+  </Tabs>
+
+**Styles**
+
+```css file="../../../src/components/examples/angle-slider/angle-slider-controlled.module.css"
+```
+</div>
+
+</ExampleCode>
 
 ### Disabled
 
 Use `disabled` when the control should be unavailable and excluded from focus and interaction.
 
-<style>{AngleSliderDocs.angleSliderDisabledCss}</style>
+<ExampleFrame variant="component">
+  <AngleSliderDisabled />
+</ExampleFrame>
 
-<PreviewFrame maxWidth="fit-content">
-  ```tsx preview file="./_snippets/angle-slider/disabled.tsx"
+<ExampleCode>
+<div className="docs-reference">
+  <Tabs
+    groupId="framework"
+    values={[
+      { label: 'React', value: 'react' },
+      { label: 'Solid', value: 'solid' },
+    ]}
+    className="docs-tabs"
+  >
+    <Tab value="react">
 
+```tsx pure file="../../../src/components/examples/angle-slider/disabled.tsx"
 ```
 
-</PreviewFrame>
+    </Tab>
+    <Tab value="solid">
+
+<CodeBlockRuntime lang="tsx" code={angleSliderSolidDisabled} />
+
+    </Tab>
+  </Tabs>
+
+**Styles**
+
+```css file="../../../src/components/examples/angle-slider/angle-slider-disabled.module.css"
+```
+</div>
+
+</ExampleCode>
 
 ### In a Form
 
-Add `name` to include the angle in native form submission. moduix renders the hidden native input
-automatically, and the Reset button demonstrates native form reset. Use `form` when the form is not
-an ancestor of the slider.
+Add `AngleSlider.HiddenInput` and `name` to include the angle in native form submission. The Reset
+button demonstrates Ark's native form reset. Set `form` on `AngleSlider.HiddenInput` when the form
+is not an ancestor of the slider.
 
-<style>{AngleSliderDocs.angleSliderFormCss}</style>
+<ExampleFrame variant="component">
+  <AngleSliderForm />
+</ExampleFrame>
 
-<PreviewFrame contentWidth="fit-content" maxWidth="sm">
-  ```tsx preview file="./_snippets/angle-slider/form.tsx"
+<ExampleCode>
+<div className="docs-reference">
+  <Tabs
+    groupId="framework"
+    values={[
+      { label: 'React', value: 'react' },
+      { label: 'Solid', value: 'solid' },
+    ]}
+    className="docs-tabs"
+  >
+    <Tab value="react">
 
+```tsx pure file="../../../src/components/examples/angle-slider/form.tsx"
 ```
 
-</PreviewFrame>
+    </Tab>
+    <Tab value="solid">
+
+<CodeBlockRuntime lang="tsx" code={angleSliderSolidForm} />
+
+    </Tab>
+  </Tabs>
+
+**Styles**
+
+```css file="../../../src/components/examples/angle-slider/angle-slider-form.module.css"
+```
+</div>
+
+</ExampleCode>
 
 ### Invalid
 
 Use `invalid` when the selected angle fails validation. The dial then exposes error styling and the
 corresponding ARIA state without changing its interaction model.
 
-<style>{AngleSliderDocs.angleSliderInvalidCss}</style>
+<ExampleFrame variant="component">
+  <AngleSliderInvalid />
+</ExampleFrame>
 
-<PreviewFrame maxWidth="fit-content">
-  ```tsx preview file="./_snippets/angle-slider/invalid.tsx"
+<ExampleCode>
+<div className="docs-reference">
+  <Tabs
+    groupId="framework"
+    values={[
+      { label: 'React', value: 'react' },
+      { label: 'Solid', value: 'solid' },
+    ]}
+    className="docs-tabs"
+  >
+    <Tab value="react">
 
+```tsx pure file="../../../src/components/examples/angle-slider/invalid.tsx"
 ```
 
-</PreviewFrame>
+    </Tab>
+    <Tab value="solid">
+
+<CodeBlockRuntime lang="tsx" code={angleSliderSolidInvalid} />
+
+    </Tab>
+  </Tabs>
+
+**Styles**
+
+```css file="../../../src/components/examples/angle-slider/angle-slider-invalid.module.css"
+```
+</div>
+
+</ExampleCode>
 
 ### Read Only
 
 Use `readOnly` when the current value should remain focusable and visible but not editable.
 
-<style>{AngleSliderDocs.angleSliderReadOnlyCss}</style>
+<ExampleFrame variant="component">
+  <AngleSliderReadOnly />
+</ExampleFrame>
 
-<PreviewFrame maxWidth="fit-content">
-  ```tsx preview file="./_snippets/angle-slider/read-only.tsx"
+<ExampleCode>
+<div className="docs-reference">
+  <Tabs
+    groupId="framework"
+    values={[
+      { label: 'React', value: 'react' },
+      { label: 'Solid', value: 'solid' },
+    ]}
+    className="docs-tabs"
+  >
+    <Tab value="react">
 
+```tsx pure file="../../../src/components/examples/angle-slider/read-only.tsx"
 ```
 
-</PreviewFrame>
+    </Tab>
+    <Tab value="solid">
+
+<CodeBlockRuntime lang="tsx" code={angleSliderSolidReadOnly} />
+
+    </Tab>
+  </Tabs>
+
+**Styles**
+
+```css file="../../../src/components/examples/angle-slider/angle-slider-read-only.module.css"
+```
+</div>
+
+</ExampleCode>
 
 ### Root Provider
 
-Use `useAngleSlider()` from `@moduix/react/angle-slider` with `AngleSlider.RootProvider` when another component
-needs direct access to the same state machine. The external state can then drive surrounding UI.
+Use `useAngleSlider()` from the matching framework package with `AngleSlider.RootProvider` when
+another component needs direct access to the same state machine. The external state can then drive
+surrounding UI.
 
-<style>{AngleSliderDocs.angleSliderRootProviderCss}</style>
+<ExampleFrame variant="component">
+  <AngleSliderRootProvider />
+</ExampleFrame>
 
-<PreviewFrame maxWidth="fit-content">
-  ```tsx preview file="./_snippets/angle-slider/root-provider.tsx"
+<ExampleCode>
+<div className="docs-reference">
+  <Tabs
+    groupId="framework"
+    values={[
+      { label: 'React', value: 'react' },
+      { label: 'Solid', value: 'solid' },
+    ]}
+    className="docs-tabs"
+  >
+    <Tab value="react">
 
+```tsx pure file="../../../src/components/examples/angle-slider/root-provider.tsx"
 ```
 
-</PreviewFrame>
+    </Tab>
+    <Tab value="solid">
+
+<CodeBlockRuntime lang="tsx" code={angleSliderSolidRootProvider} />
+
+    </Tab>
+  </Tabs>
+
+**Styles**
+
+```css file="../../../src/components/examples/angle-slider/angle-slider-root-provider.module.css"
+```
+</div>
+
+</ExampleCode>
 
 ### Steps
 
 Use `step` to snap pointer and keyboard interaction to fixed angular increments.
 
-<style>{AngleSliderDocs.angleSliderStepCss}</style>
+<ExampleFrame variant="component">
+  <AngleSliderSteps />
+</ExampleFrame>
 
-<PreviewFrame maxWidth="fit-content">
-  ```tsx preview file="./_snippets/angle-slider/steps.tsx"
+<ExampleCode>
+<div className="docs-reference">
+  <Tabs
+    groupId="framework"
+    values={[
+      { label: 'React', value: 'react' },
+      { label: 'Solid', value: 'solid' },
+    ]}
+    className="docs-tabs"
+  >
+    <Tab value="react">
 
+```tsx pure file="../../../src/components/examples/angle-slider/steps.tsx"
 ```
 
-</PreviewFrame>
+    </Tab>
+    <Tab value="solid">
+
+<CodeBlockRuntime lang="tsx" code={angleSliderSolidSteps} />
+
+    </Tab>
+  </Tabs>
+
+**Styles**
+
+```css file="../../../src/components/examples/angle-slider/angle-slider-steps.module.css"
+```
+</div>
+
+</ExampleCode>
 
 ### With Marks
 
@@ -219,34 +439,88 @@ Use `AngleSlider.Marks` when the dial should show common reference angles withou
 `MarkerGroup` and `Marker` boilerplate. `AngleSlider.Dial` keeps the `Control` and `Thumb`
 composition together.
 
-<style>{AngleSliderDocs.angleSliderWithMarksCss}</style>
+<ExampleFrame variant="component">
+  <AngleSliderWithMarks />
+</ExampleFrame>
 
-<PreviewFrame maxWidth="fit-content">
-  ```tsx preview file="./_snippets/angle-slider/with-marks.tsx"
+<ExampleCode>
+<div className="docs-reference">
+  <Tabs
+    groupId="framework"
+    values={[
+      { label: 'React', value: 'react' },
+      { label: 'Solid', value: 'solid' },
+    ]}
+    className="docs-tabs"
+  >
+    <Tab value="react">
 
+```tsx pure file="../../../src/components/examples/angle-slider/with-marks.tsx"
 ```
 
-</PreviewFrame>
+    </Tab>
+    <Tab value="solid">
+
+<CodeBlockRuntime lang="tsx" code={angleSliderSolidWithMarks} />
+
+    </Tab>
+  </Tabs>
+
+**Styles**
+
+```css file="../../../src/components/examples/angle-slider/angle-slider-with-marks.module.css"
+```
+</div>
+
+</ExampleCode>
 
 ### Advanced Customization
 
 Use the explicit parts instead of `AngleSlider.Dial` and `AngleSlider.Marks` when the dial needs a
 custom marker composition or extra children inside the control.
 
-<style>{AngleSliderDocs.angleSliderWithMarksCss}</style>
+<ExampleFrame variant="component">
+  <AngleSliderAdvancedCustomization />
+</ExampleFrame>
 
-<PreviewFrame maxWidth="fit-content">
-  ```tsx preview file="./_snippets/angle-slider/advanced-customization.tsx"
+<ExampleCode>
+<div className="docs-reference">
+  <Tabs
+    groupId="framework"
+    values={[
+      { label: 'React', value: 'react' },
+      { label: 'Solid', value: 'solid' },
+    ]}
+    className="docs-tabs"
+  >
+    <Tab value="react">
 
+```tsx pure file="../../../src/components/examples/angle-slider/advanced-customization.tsx"
 ```
 
-</PreviewFrame>
+    </Tab>
+    <Tab value="solid">
+
+<CodeBlockRuntime lang="tsx" code={angleSliderSolidAdvancedCustomization} />
+
+    </Tab>
+  </Tabs>
+
+**Styles**
+
+```css file="../../../src/components/examples/angle-slider/angle-slider-advanced-customization.module.css"
+```
+</div>
+
+</ExampleCode>
 
 ## Styling
 
-Style the component with `className`, stable `data-slot="angle-slider-*"` hooks, Ark
-`data-scope="angle-slider"` / `data-part` attributes, state attributes, and the public CSS
-variables below.
+Use `className` in React or `class` in Solid on exported parts for structural styles. For state-based
+styles, prefer Ark data attributes such as `data-state`, `data-disabled`, `data-invalid`, and
+`data-readonly`, together with moduix `data-slot` selectors. Tailwind variants use native utilities
+and consumer classes; the component variables below customize the CSS Modules variants. Ark runtime
+variables and the listed data hooks remain available in both styling tracks.
 
 ### CSS Properties
 
@@ -254,16 +528,12 @@ variables below.
 
 ### Styling hooks
 
-- `data-slot="angle-slider-root"` and `data-slot="angle-slider-root-provider"` provide shared layout.
-- `data-slot="angle-slider-control"` styles the dial and receives `data-disabled`, `data-invalid`,
-  and `data-readonly`.
-- `data-slot="angle-slider-thumb"` styles the focusable rotating indicator and can be targeted with
-  `:focus-visible`.
-- `data-slot="angle-slider-marker"` exposes `data-value` and
-  `data-state="under-value | at-value | over-value"`.
-- `AngleSlider.Marks` renders the same `data-slot="angle-slider-marker-group"` and
-  `data-slot="angle-slider-marker"` hooks as the explicit marker parts.
-- Ark root variables `--value` and `--angle` and marker variables `--marker-value` and
-  `--marker-display-value` remain available.
-- Hover and active ring colors apply only while the dial is interactive. Thumb motion is removed
-  when the user prefers reduced motion.
+- Stable `data-slot` selectors include `angle-slider-root`, `angle-slider-root-provider`,
+  `angle-slider-label`, `angle-slider-control`, `angle-slider-thumb`, `angle-slider-marker-group`,
+  `angle-slider-marker`, and `angle-slider-value-text`.
+- Ark part selectors use `data-scope="angle-slider"` and `data-part`.
+- `AngleSlider.Marks` renders the same marker hooks as the explicit `MarkerGroup` and `Marker`
+  parts.
+- Root variables `--value` and `--angle`, and marker variables `--marker-value` and
+  `--marker-display-value`, remain available for styling.
+- Thumb motion is removed when the user prefers reduced motion.

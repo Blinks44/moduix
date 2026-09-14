@@ -1,19 +1,39 @@
 ---
 title: Lightbox
 component: lightbox
-description: Композиция на основе диалога Ark UI для модального просмотра изображений.
+description: Доступный просмотр изображений и медиаконтента в React и Solid с установкой пакетом или через shadcn.
 ---
 
-import * as LightboxDocs from '@/components/examples/lightbox';
+import * as LightboxDocs from '@/components/examples/lightbox/css-properties';
+import LightboxAdvancedCustomization from '@/components/examples/lightbox/advanced-customization.tsx';
+import LightboxBasic from '@/components/examples/lightbox/basic.tsx';
+import LightboxBindCmsContent from '@/components/examples/lightbox/bind-cms-content.tsx';
+import LightboxClickToCloseImage from '@/components/examples/lightbox/click-to-close-image.tsx';
+import LightboxControlled from '@/components/examples/lightbox/controlled.tsx';
+import LightboxFocusAndIds from '@/components/examples/lightbox/focus-and-ids.tsx';
+import LightboxGallery from '@/components/examples/lightbox/gallery.tsx';
+import LightboxMultipleTriggers from '@/components/examples/lightbox/multiple-triggers.tsx';
+import LightboxNonModal from '@/components/examples/lightbox/non-modal.tsx';
+import LightboxRootProviderAndContext from '@/components/examples/lightbox/root-provider-and-context.tsx';
+import lightboxSolidAdvancedCustomization from '../../../snippets/lightbox/solid/advanced-customization.tsx?raw';
+import lightboxSolidBasic from '../../../snippets/lightbox/solid/basic.tsx?raw';
+import lightboxSolidBindCmsContent from '../../../snippets/lightbox/solid/bind-cms-content.tsx?raw';
+import lightboxSolidClickToCloseImage from '../../../snippets/lightbox/solid/click-to-close-image.tsx?raw';
+import lightboxSolidControlled from '../../../snippets/lightbox/solid/controlled.tsx?raw';
+import lightboxSolidFocusAndIds from '../../../snippets/lightbox/solid/focus-and-ids.tsx?raw';
+import lightboxSolidGallery from '../../../snippets/lightbox/solid/gallery.tsx?raw';
+import lightboxSolidMultipleTriggers from '../../../snippets/lightbox/solid/multiple-triggers.tsx?raw';
+import lightboxSolidNonModal from '../../../snippets/lightbox/solid/non-modal.tsx?raw';
+import lightboxSolidRootProviderAndContext from '../../../snippets/lightbox/solid/root-provider-and-context.tsx?raw';
 
 ## Справочник API
 
 <PrimitiveReference href="https://ark-ui.com/docs/components/dialog" />
 
-В Ark UI нет отдельного примитива `lightbox`. В moduix этот компонент построен на основе `Dialog`
-из Ark UI. Он следует рекомендациям Ark по [композиции](https://ark-ui.com/docs/guides/composition),
+В Ark UI нет отдельного примитива `lightbox`. В moduix этот компонент построен на основе `Dialog`,
+следует рекомендациям Ark по [композиции](https://ark-ui.com/docs/guides/composition),
 [стилизации](https://ark-ui.com/docs/guides/styling) и работе с
-[ref](https://ark-ui.com/docs/guides/ref), поэтому `Dialog` определяет его поведение.
+[ref](https://ark-ui.com/docs/guides/ref), а поведение определяется контрактом `Dialog`.
 
 ## Выбор подходящего компонента
 
@@ -29,15 +49,67 @@ import * as LightboxDocs from '@/components/examples/lightbox';
 `Lightbox.Backdrop`, `Lightbox.Positioner` и `Lightbox.Content`. С помощью `asChild` передайте
 один семантический элемент, который открывает окно просмотра.
 
-<style>{LightboxDocs.lightboxBasicCss}</style>
+<ExampleFrame variant="component">
+  <LightboxBasic />
+</ExampleFrame>
 
-```tsx preview file="../../en/docs/_snippets/lightbox/basic.tsx"
+<ExampleCode>
+<div className="docs-reference">
+  <Tabs
+    groupId="framework"
+    values={[
+      { label: 'React', value: 'react' },
+      { label: 'Solid', value: 'solid' },
+    ]}
+    className="docs-tabs"
+  >
+    <Tab value="react">
 
+```tsx pure file="../../../src/components/examples/lightbox/basic.tsx"
 ```
+
+    </Tab>
+    <Tab value="solid">
+
+<CodeBlockRuntime lang="tsx" code={lightboxSolidBasic} />
+
+    </Tab>
+  </Tabs>
+
+**Стили**
+
+```css file="../../../src/components/examples/lightbox/lightbox-basic.module.css"
+```
+</div>
+
+</ExampleCode>
 
 ## Установка через shadcn
 
-<ShadcnInstall packageName="lightbox" />
+Полную настройку пакета, реестра и стилей см. в разделе [Быстрый старт](/docs/quick-start).
+
+<Tabs groupId="framework">
+  <Tab label="React" value="react">
+
+<ShadcnInstallOptions
+  options={[
+    { label: 'CSS Modules', command: 'shadcn@latest add @moduix-react/lightbox' },
+    { label: 'Tailwind CSS', command: 'shadcn@latest add @moduix-react-tailwind/lightbox' },
+  ]}
+/>
+
+  </Tab>
+  <Tab label="Solid" value="solid">
+
+<ShadcnInstallOptions
+  options={[
+    { label: 'CSS Modules', command: 'shadcn@latest add @moduix-solid/lightbox' },
+    { label: 'Tailwind CSS', command: 'shadcn@latest add @moduix-solid-tailwind/lightbox' },
+  ]}
+/>
+
+  </Tab>
+</Tabs>
 
 ## Анатомия
 
@@ -81,161 +153,269 @@ Lightbox.RootProvider
 
 ## Композиция
 
-По умолчанию корневой компонент выводит `Backdrop` и `Positioner` через портал. Задайте
-`portalled={false}`, чтобы вывести их в текущем дереве, или передайте `portalRef`, чтобы выбрать
-свой контейнер. Структурные части остаются явными, и их можно стилизовать отдельно.
+`Lightbox` управляет состоянием `Dialog`, а `Backdrop`, `Positioner` и `Content` остаются явными.
+По умолчанию части окна выводятся через портал. Используйте `portalled={false}`, чтобы оставить их
+на месте, или `portalRef`, чтобы выбрать контейнер. Размещайте `CloseIcon` рядом с `Content` внутри
+`Positioner`, если кнопку нужно закрепить относительно окна, а не перемещать вместе с содержимым.
+Для `asChild` передавайте один семантический элемент. В Solid это render-функция, получающая его props.
 
-### Рекомендуемая композиция
-
-Явно описывайте структуру модального окна. `Lightbox.Content` является частью содержимого Ark UI.
-Он не создаёт автоматически подложку, контейнер позиционирования, изображение, галерею или кнопку закрытия.
-
-Используйте `Lightbox.Image` для одного изображения. Компонент выводит нативный `<img>`, принимает
-его обычные свойства и передаёт ref элемента `HTMLImageElement`. `Lightbox.Header`, `Body` и
-`Footer` помогают визуально разделить текст, медиа и действия.
-
-Оберните `Carousel` в `Lightbox.Gallery`, если у вас есть готовая коллекция изображений. `Gallery`
-задаёт область просмотра, выравнивание стрелок, размеры медиа и расположение индикаторов, а
-`Carousel` по-прежнему управляет слайдами.
-
-Разместите `Lightbox.CloseIcon` рядом с `Lightbox.Content` внутри `Lightbox.Positioner`, если кнопку
-нужно закрепить в углу окна просмотра. Внутри `Lightbox.Content` она следует за трансформациями
-содержимого во время анимации появления и исчезновения.
-
-### Когда нужна собственная композиция
-
-Выводите пользовательское содержимое прямо внутри `Lightbox.Content`, если это не отдельное изображение
-и не галерея `Carousel`. Используйте `Lightbox.Bind` для внешней разметки, в которую нельзя добавить
-`Lightbox.Trigger`. Если изображения уже представлены структурированным массивом, используйте явные
-триггеры и поместите `Carousel` внутрь `Lightbox.Gallery`.
-
-### Свойства по умолчанию
-
-Содержимое в портале по умолчанию создаётся только при первом открытии и удаляется после анимации
-закрытия. Установите `unmountOnExit={false}`, чтобы оставить его в DOM после первого открытия.
-Отключайте `lazyMount` и `unmountOnExit` только тогда, когда содержимое нужно создать сразу при загрузке страницы.
-
-| Свойство | По умолчанию | Примечания |
-| ------------------------ | ------------ | ------------------------------------------------------------------------ |
-| `closeOnEscape` | `true` | Наследуется от Dialog из Ark UI. |
-| `closeOnInteractOutside` | `true` | Наследуется от Dialog из Ark UI. |
-| `defaultOpen` | `false` | Начальное состояние в неуправляемом режиме. |
-| `modal` | `true` | Блокирует взаимодействие с фоном и скрывает содержимое под модальным окном. |
-| `preventScroll` | `true` | Блокирует прокрутку страницы, пока окно просмотра открыто. |
-| `role` | `"dialog"` | Для доступного имени задайте `aria-label` или используйте `Lightbox.Title`. Свойство `ids` только делает связи между элементами стабильными. |
-| `trapFocus` | `true` | Удерживает клавиатурный фокус внутри модального окна, пока оно открыто. |
-| `lazyMount` | `true` | Откладывает создание тяжёлого медиаконтента до первого открытия. |
-| `unmountOnExit` | `true` | Удаляет узлы модального окна после анимации закрытия. |
-
-### Особенности поведения
-
-`onOpenChange` и `onTriggerValueChange` получают объект `details` в формате Ark UI. Для управления
-открытием читайте `details.open`, а для галереи с несколькими триггерами `details.value`.
-
-Используйте `useLightbox()` с `Lightbox.RootProvider`, когда элементы управления находятся за пределами
-корневого компонента. В дочерних компонентах читайте состояние диалога через `useLightboxContext()`.
-Оба API экспортируются из `@moduix/react` и доступны в пространстве имён `Lightbox`.
-
-`Lightbox.Image closeOnClick` закрывает окно просмотра по клику на изображение. `Lightbox.Bind`
-связывает разметку из CMS или стороннего сервиса с Lightbox, когда её нельзя обернуть в
-`Lightbox.Trigger`. Компонент нужно разместить внутри `Lightbox`; выбранное изображение он передаёт
-через `onImageSelect(details)`. В объекте `details` есть `src`, необязательный `alt` и исходный
-`HTMLImageElement` в свойстве `element`. Свойство `selector` обязательно и должно указывать на
-семантическую кнопку или ссылку, чтобы окно просмотра можно было открыть с клавиатуры.
-
-Остальные свойства `Dialog` передаются без изменений. В их числе `id`, `ids`, `initialFocusEl`,
-`finalFocusEl`, `persistentElements`, `restoreFocus`, `present`, `immediate`,
-`skipAnimationOnMount` и колбэки внешнего взаимодействия.
+В галереях храните выбранное изображение и страницу `Carousel` в состоянии приложения. Передавайте
+ключ изображения в `Lightbox.Trigger value` и обновляйте состояние из `onTriggerValueChange(details)`
+или callback страницы `Carousel`. Используйте `RootProvider` с `useLightbox()`, если состояние или
+кнопка открытия находятся за пределами корня, а в дочерних компонентах читайте его через
+`useLightboxContext()`. `Bind` не выводит разметку и только выбирает изображение во внешнем DOM, поэтому
+остальные части Lightbox нужно собрать явно. `Image closeOnClick` закрывает окно после клика по изображению.
 
 ## Примеры
 
 ### Привязка содержимого из CMS
 
-Используйте `Lightbox.Bind`, если изображения для просмотра приходят из CMS или сторонней разметки,
-которую вы не выводите напрямую через `Lightbox.Trigger`. Укажите контейнер с помощью `rootRef` или
-`rootSelector`, задайте `selector` и обработайте объект `{ src, alt, element }` в `onImageSelect`.
-`Bind` открывает родительский Lightbox, но не создаёт элементы модального окна. Поэтому подложка,
-содержимое, элементы закрытия и раскладка изображения остаются под вашим контролем. Компонент ищет
-источник сначала в `data-lightbox-src`, затем в `currentSrc` и после этого в `src`, а при наведении
-указателя или фокусе с клавиатуры заранее загружает найденное изображение. В `selector` указывайте
-семантическую кнопку или ссылку, чтобы её можно было активировать с клавиатуры и открыть Lightbox.
-Если сервер уже возвращает структурированный массив изображений, используйте описанную выше
+Используйте `Lightbox.Bind`, если изображения приходят из CMS или сторонней разметки, которую нельзя
+вывести напрямую через `Lightbox.Trigger`. Укажите контейнер через `rootRef` или `rootSelector`,
+задайте `selector` и обработайте `{ src, alt, element }` в `onImageSelect`. `Bind` открывает родительский
+Lightbox, но не создаёт его подложку, содержимое и элементы закрытия. Источник читается из
+`data-lightbox-src`, затем `currentSrc` и `src`, а найденное изображение заранее загружается при
+наведении указателя или фокусе с клавиатуры. В `selector` указывайте семантическую кнопку или ссылку,
+чтобы открытие работало с клавиатуры. Для структурированного массива изображений используйте
 композицию `Lightbox.Gallery + Carousel`.
 
-<style>{LightboxDocs.lightboxBindCmsContentCss}</style>
+<ExampleFrame variant="component">
+  <LightboxBindCmsContent />
+</ExampleFrame>
 
-```tsx preview file="../../en/docs/_snippets/lightbox/bind-cms-content.tsx"
+<ExampleCode>
+<div className="docs-reference">
+  <Tabs
+    groupId="framework"
+    values={[
+      { label: 'React', value: 'react' },
+      { label: 'Solid', value: 'solid' },
+    ]}
+    className="docs-tabs"
+  >
+    <Tab value="react">
 
+```tsx pure file="../../../src/components/examples/lightbox/bind-cms-content.tsx"
 ```
+
+    </Tab>
+    <Tab value="solid">
+
+<CodeBlockRuntime lang="tsx" code={lightboxSolidBindCmsContent} />
+
+    </Tab>
+  </Tabs>
+
+**Стили**
+
+```css file="../../../src/components/examples/lightbox/lightbox-bind-cms-content.module.css"
+```
+</div>
+
+</ExampleCode>
 
 ### Закрытие по клику на изображение
 
 Используйте `Lightbox.Image closeOnClick`, если клик по изображению должен закрывать окно просмотра.
-Иконка закрытия остаётся доступной и сохраняет стандартную для Ark UI семантику закрытия.
+Иконка закрытия остаётся доступной и сохраняет стандартную семантику Ark UI.
 
-<style>{LightboxDocs.lightboxClickToCloseImageCss}</style>
+<ExampleFrame variant="component">
+  <LightboxClickToCloseImage />
+</ExampleFrame>
 
-```tsx preview file="../../en/docs/_snippets/lightbox/click-to-close-image.tsx"
+<ExampleCode>
+<div className="docs-reference">
+  <Tabs
+    groupId="framework"
+    values={[
+      { label: 'React', value: 'react' },
+      { label: 'Solid', value: 'solid' },
+    ]}
+    className="docs-tabs"
+  >
+    <Tab value="react">
 
+```tsx pure file="../../../src/components/examples/lightbox/click-to-close-image.tsx"
 ```
+
+    </Tab>
+    <Tab value="solid">
+
+<CodeBlockRuntime lang="tsx" code={lightboxSolidClickToCloseImage} />
+
+    </Tab>
+  </Tabs>
+
+**Стили**
+
+```css file="../../../src/components/examples/lightbox/lightbox-click-to-close-image.module.css"
+```
+</div>
+
+</ExampleCode>
 
 ### Управляемое состояние
 
-Используйте обработчик `onOpenChange(details)` из Ark UI, если состояние Lightbox нужно синхронизировать с React.
+Используйте callback `onOpenChange(details)` из Ark UI, если состояние Lightbox нужно синхронизировать
+с состоянием приложения на React или Solid.
 
-<style>{LightboxDocs.lightboxControlledCss}</style>
+<ExampleFrame variant="component">
+  <LightboxControlled />
+</ExampleFrame>
 
-```tsx preview file="../../en/docs/_snippets/lightbox/controlled.tsx"
+<ExampleCode>
+<div className="docs-reference">
+  <Tabs
+    groupId="framework"
+    values={[
+      { label: 'React', value: 'react' },
+      { label: 'Solid', value: 'solid' },
+    ]}
+    className="docs-tabs"
+  >
+    <Tab value="react">
 
+```tsx pure file="../../../src/components/examples/lightbox/controlled.tsx"
 ```
+
+    </Tab>
+    <Tab value="solid">
+
+<CodeBlockRuntime lang="tsx" code={lightboxSolidControlled} />
+
+    </Tab>
+  </Tabs>
+
+**Стили**
+
+```css file="../../../src/components/examples/lightbox/lightbox-controlled.module.css"
+```
+</div>
+
+</ExampleCode>
 
 ### Фокус и идентификаторы
 
-Используйте `initialFocusEl`, `finalFocusEl` и `ids`, если нужно явно задать элементы, которые получают
-фокус, или стабильные идентификаторы для внешних связей доступности. После закрытия целевой элемент
-подсвечивается, поэтому возврат фокуса легко заметить.
+Используйте `initialFocusEl`, `finalFocusEl` и `ids`, если нужны явные цели фокуса или стабильные
+идентификаторы для внешних связей доступности. После закрытия целевая кнопка подсвечивается, поэтому
+возврат фокуса легко заметить.
 
-<style>{LightboxDocs.lightboxFocusAndIdsCss}</style>
+<ExampleFrame variant="component">
+  <LightboxFocusAndIds />
+</ExampleFrame>
 
-```tsx preview file="../../en/docs/_snippets/lightbox/focus-and-ids.tsx"
+<ExampleCode>
+<div className="docs-reference">
+  <Tabs
+    groupId="framework"
+    values={[
+      { label: 'React', value: 'react' },
+      { label: 'Solid', value: 'solid' },
+    ]}
+    className="docs-tabs"
+  >
+    <Tab value="react">
 
+```tsx pure file="../../../src/components/examples/lightbox/focus-and-ids.tsx"
 ```
+
+    </Tab>
+    <Tab value="solid">
+
+<CodeBlockRuntime lang="tsx" code={lightboxSolidFocusAndIds} />
+
+    </Tab>
+  </Tabs>
+
+**Стили**
+
+```css file="../../../src/components/examples/lightbox/lightbox-focus-and-ids.module.css"
+```
+</div>
+
+</ExampleCode>
 
 ### Галерея
 
 Если CMS или API возвращает структурированный массив изображений, храните выбранное изображение и
-текущую страницу `Carousel` в состоянии React, а сам `Carousel` поместите внутрь `Lightbox.Gallery`.
-Используйте `Lightbox.Trigger.value`, чтобы выбрать начальный слайд, и синхронизируйте страницу
-`Carousel` во время навигации.
+текущую страницу `Carousel` в состоянии React или Solid, а сам `Carousel` поместите внутрь
+`Lightbox.Gallery`. Используйте `Lightbox.Trigger.value`, чтобы выбрать начальный слайд, и
+синхронизируйте страницу `Carousel` во время навигации.
 
-<style>{LightboxDocs.lightboxGalleryExampleCss}</style>
+<ExampleFrame variant="component">
+  <LightboxGallery />
+</ExampleFrame>
 
-```tsx preview file="../../en/docs/_snippets/lightbox/gallery.tsx"
+<ExampleCode>
+<div className="docs-reference">
+  <Tabs
+    groupId="framework"
+    values={[
+      { label: 'React', value: 'react' },
+      { label: 'Solid', value: 'solid' },
+    ]}
+    className="docs-tabs"
+  >
+    <Tab value="react">
 
+```tsx pure file="../../../src/components/examples/lightbox/gallery.tsx"
 ```
 
-### Ленивое монтирование
+    </Tab>
+    <Tab value="solid">
 
-Тяжёлый медиаконтент по умолчанию создаётся при первом открытии и удаляется после закрытия.
-`lazyMount` откладывает создание до первого открытия, а `unmountOnExit` удаляет модальное окно после
-завершения анимации закрытия.
+<CodeBlockRuntime lang="tsx" code={lightboxSolidGallery} />
 
-<style>{LightboxDocs.lightboxLazyMountCss}</style>
+    </Tab>
+  </Tabs>
 
-```tsx preview file="../../en/docs/_snippets/lightbox/lazy-mount.tsx"
+**Стили**
 
+```css file="../../../src/components/examples/lightbox/lightbox-gallery.module.css"
 ```
+</div>
+
+</ExampleCode>
 
 ### Несколько триггеров
 
 Используйте `Lightbox.Trigger.value` и `onTriggerValueChange(details)` для миниатюр галереи.
 Компонент не создаёт скрытый реестр изображений.
 
-<style>{LightboxDocs.lightboxMultipleTriggersCss}</style>
+<ExampleFrame variant="component">
+  <LightboxMultipleTriggers />
+</ExampleFrame>
 
-```tsx preview file="../../en/docs/_snippets/lightbox/multiple-triggers.tsx"
+<ExampleCode>
+<div className="docs-reference">
+  <Tabs
+    groupId="framework"
+    values={[
+      { label: 'React', value: 'react' },
+      { label: 'Solid', value: 'solid' },
+    ]}
+    className="docs-tabs"
+  >
+    <Tab value="react">
 
+```tsx pure file="../../../src/components/examples/lightbox/multiple-triggers.tsx"
 ```
+
+    </Tab>
+    <Tab value="solid">
+
+<CodeBlockRuntime lang="tsx" code={lightboxSolidMultipleTriggers} />
+
+    </Tab>
+  </Tabs>
+
+**Стили**
+
+```css file="../../../src/components/examples/lightbox/lightbox-multiple-triggers.module.css"
+```
+</div>
+
+</ExampleCode>
 
 ### Немодальный режим
 
@@ -243,34 +423,121 @@ Lightbox.RootProvider
 режиме Ark отключает удержание фокуса и блокировку прокрутки. Не добавляйте `Backdrop`, чтобы
 действия на фоне оставались доступными, пока изображение открыто.
 
-<style>{LightboxDocs.lightboxNonModalCss}</style>
+<ExampleFrame variant="component">
+  <LightboxNonModal />
+</ExampleFrame>
 
-```tsx preview file="../../en/docs/_snippets/lightbox/non-modal.tsx"
+<ExampleCode>
+<div className="docs-reference">
+  <Tabs
+    groupId="framework"
+    values={[
+      { label: 'React', value: 'react' },
+      { label: 'Solid', value: 'solid' },
+    ]}
+    className="docs-tabs"
+  >
+    <Tab value="react">
 
+```tsx pure file="../../../src/components/examples/lightbox/non-modal.tsx"
 ```
+
+    </Tab>
+    <Tab value="solid">
+
+<CodeBlockRuntime lang="tsx" code={lightboxSolidNonModal} />
+
+    </Tab>
+  </Tabs>
+
+**Стили**
+
+```css file="../../../src/components/examples/lightbox/lightbox-non-modal.module.css"
+```
+</div>
+
+</ExampleCode>
 
 ### Root Provider
 
-Создайте состояние с помощью `useLightbox()`, если кнопка открытия находится за пределами корневого
-компонента. В дочернем компоненте читайте это состояние через `useLightboxContext()`. Внешняя кнопка
+Создайте состояние через `useLightbox()`, если кнопка открытия находится за пределами корневого
+компонента. В дочернем компоненте читайте состояние через `useLightboxContext()`. Внешняя кнопка
 остаётся обычным компонентом `Button` из moduix.
 
-<style>{LightboxDocs.lightboxRootProviderCss}</style>
+<ExampleFrame variant="component">
+  <LightboxRootProviderAndContext />
+</ExampleFrame>
 
-```tsx preview file="../../en/docs/_snippets/lightbox/root-provider-and-context.tsx"
+<ExampleCode>
+<div className="docs-reference">
+  <Tabs
+    groupId="framework"
+    values={[
+      { label: 'React', value: 'react' },
+      { label: 'Solid', value: 'solid' },
+    ]}
+    className="docs-tabs"
+  >
+    <Tab value="react">
 
+```tsx pure file="../../../src/components/examples/lightbox/root-provider-and-context.tsx"
 ```
+
+    </Tab>
+    <Tab value="solid">
+
+<CodeBlockRuntime lang="tsx" code={lightboxSolidRootProviderAndContext} />
+
+    </Tab>
+  </Tabs>
+
+**Стили**
+
+```css file="../../../src/components/examples/lightbox/lightbox-root-provider-and-context.module.css"
+```
+</div>
+
+</ExampleCode>
 
 ### Расширенная настройка
 
 Не используйте необязательные компоненты компоновки, если для медиаконтента нужны собственные классы
 слотов и переопределения токенов. `Backdrop`, `Positioner` и `Content` остаются явными.
 
-<style>{LightboxDocs.lightboxAdvancedCustomizationCss}</style>
+<ExampleFrame variant="component">
+  <LightboxAdvancedCustomization />
+</ExampleFrame>
 
-```tsx preview file="../../en/docs/_snippets/lightbox/advanced-customization.tsx"
+<ExampleCode>
+<div className="docs-reference">
+  <Tabs
+    groupId="framework"
+    values={[
+      { label: 'React', value: 'react' },
+      { label: 'Solid', value: 'solid' },
+    ]}
+    className="docs-tabs"
+  >
+    <Tab value="react">
 
+```tsx pure file="../../../src/components/examples/lightbox/advanced-customization.tsx"
 ```
+
+    </Tab>
+    <Tab value="solid">
+
+<CodeBlockRuntime lang="tsx" code={lightboxSolidAdvancedCustomization} />
+
+    </Tab>
+  </Tabs>
+
+**Стили**
+
+```css file="../../../src/components/examples/lightbox/lightbox-advanced-customization.module.css"
+```
+</div>
+
+</ExampleCode>
 
 ## Стилизация
 
@@ -290,12 +557,12 @@ Lightbox.RootProvider
 
 ### Хуки стилизации
 
-- Слоты moduix: `lightbox-trigger`, `lightbox-backdrop`, `lightbox-positioner`, `lightbox-content`,
-  `lightbox-title`, `lightbox-description`, `lightbox-close-trigger`, `lightbox-close-icon`,
-  `lightbox-header`, `lightbox-body`, `lightbox-footer`, `lightbox-image` и `lightbox-gallery`.
-- Атрибуты состояния и анатомии Ark: `data-scope="dialog"`, `data-part`,
-  `data-state="open|closed"`, `data-nested`, `data-has-nested`, `--layer-index` и
-  `--nested-layer-count`.
+- Слоты moduix: `lightbox-trigger`, `lightbox-backdrop`, `lightbox-positioner`,
+  `lightbox-content`, `lightbox-title`, `lightbox-description`, `lightbox-close-trigger`,
+  `lightbox-close-icon`, `lightbox-header`, `lightbox-body`, `lightbox-footer`, `lightbox-image`
+  и `lightbox-gallery`.
+- Атрибуты состояния и анатомии Ark: `data-scope="dialog"`, `data-part`, `data-state="open|closed"`,
+  `data-nested`, `data-has-nested`, `--layer-index` и `--nested-layer-count`.
 - Локальные точки настройки: `Lightbox.Image` добавляет `data-slot="lightbox-image"` и, если
   включено закрытие по клику, `data-close-on-click`. `Lightbox.Gallery` добавляет
   `data-slot="lightbox-gallery"` и стилизует вложенные слоты Carousel.

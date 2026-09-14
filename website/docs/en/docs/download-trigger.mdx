@@ -1,66 +1,138 @@
 ---
 title: Download Trigger
-description: Trigger downloads for strings, Blobs, Files, and generated data with Ark UI, then style the action with moduix.
+description: Trigger browser downloads from strings, Blobs, Files, or data generated on demand with Ark UI.
 ---
+
+import DownloadTriggerBasic from '@/components/examples/download-trigger/basic.tsx';
+import DownloadTriggerAsyncData from '@/components/examples/download-trigger/async-data.tsx';
+import downloadTriggerSolidBasic from '../../../snippets/download-trigger/solid/basic.tsx?raw';
+import downloadTriggerSolidAsyncData from '../../../snippets/download-trigger/solid/async-data.tsx?raw';
+
+Use Ark UI's `DownloadTrigger` to turn file data into a browser download. Pair it with a moduix `Button` when the
+action should match the rest of your interface.
 
 ## API Reference
 
 <PrimitiveReference href="https://ark-ui.com/docs/utilities/download-trigger" />
 
-## What it does
+Import the utility from the matching Ark UI package:
 
-`DownloadTrigger` is an Ark UI utility that renders a native button by default and starts a browser download when the
-user activates it. The `data` prop accepts file contents as a string, a `Blob`, a `File`, or a function that returns
-one of these values directly or through a promise. A string is treated as file contents, not as a remote URL. To
-download a remote resource, fetch it in your application and return `await response.blob()` from the function passed to
-`data`.
-
-Import the generic utility directly from Ark UI. It is not re-exported by `@moduix/react`:
+<Tabs
+  groupId="framework"
+  values={[
+    { label: 'React', value: 'react' },
+    { label: 'Solid', value: 'solid' },
+  ]}
+  className="docs-tabs"
+>
+  <Tab value="react">
 
 ```tsx
 import { DownloadTrigger } from '@ark-ui/react/download-trigger';
 ```
 
+  </Tab>
+  <Tab value="solid">
+
+```tsx
+import { DownloadTrigger } from '@ark-ui/solid/download-trigger';
+```
+
+  </Tab>
+</Tabs>
+
 ## Basic
 
-Use `data` for content that is already available, then set `fileName` and `mimeType`. With `asChild`, Ark applies the
-download behavior to the child element. In this example, the child is a moduix `Button`.
+Pass ready-to-use content through `data`. It accepts a string, `Blob`, or `File`. `fileName` and `mimeType` describe the
+file saved by the browser.
 
-<PreviewFrame maxWidth="sm">
-  ```tsx preview file="./_snippets/download-trigger/basic.tsx"
+The preview uses React. The source tabs contain native React and Solid examples with the same behavior.
 
-  ```
-</PreviewFrame>
+<ExampleFrame clientOnly variant="component">
+  <PreviewFrame maxWidth="sm">
+    <DownloadTriggerBasic />
+  </PreviewFrame>
+</ExampleFrame>
+
+<ExampleCode>
+<div className="docs-reference">
+  <Tabs
+    groupId="framework"
+    values={[
+      { label: 'React', value: 'react' },
+      { label: 'Solid', value: 'solid' },
+    ]}
+    className="docs-tabs"
+  >
+    <Tab value="react">
+
+```tsx pure file="../../../src/components/examples/download-trigger/basic.tsx"
+```
+
+    </Tab>
+    <Tab value="solid">
+
+<CodeBlockRuntime lang="tsx" code={downloadTriggerSolidBasic} />
+
+    </Tab>
+  </Tabs>
+</div>
+
+</ExampleCode>
 
 ## Generate data on demand
 
-Pass a function when the file needs to be created before it can be downloaded. Ark calls it after the user activates
-the trigger. If it returns a promise, Ark waits for it to resolve before saving the file.
+Pass a function when the file should be created after the user activates the trigger. Ark calls the function on
+activation and waits for a returned promise before saving the result.
 
-<PreviewFrame maxWidth="sm">
-  ```tsx preview file="./_snippets/download-trigger/async-data.tsx"
+<ExampleFrame clientOnly variant="component">
+  <PreviewFrame maxWidth="sm">
+    <DownloadTriggerAsyncData />
+  </PreviewFrame>
+</ExampleFrame>
 
-  ```
-</PreviewFrame>
+<ExampleCode>
+<div className="docs-reference">
+  <Tabs
+    groupId="framework"
+    values={[
+      { label: 'React', value: 'react' },
+      { label: 'Solid', value: 'solid' },
+    ]}
+    className="docs-tabs"
+  >
+    <Tab value="react">
 
-`DownloadTrigger` does not expose loading state or an error callback. If generation can take time, track its state in
-your application and handle errors inside the function passed to `data`. Disable or replace the trigger while the
-operation is in progress.
+```tsx pure file="../../../src/components/examples/download-trigger/async-data.tsx"
+```
 
-## Choosing file metadata
+    </Tab>
+    <Tab value="solid">
 
-Give `fileName` an extension that matches the content and provide the corresponding `mimeType`, such as
-`application/json`, `text/csv`, `image/svg+xml`, or `application/pdf`. When you return a `Blob` or `File`, keep its
-`type` consistent with `mimeType` as well.
+<CodeBlockRuntime lang="tsx" code={downloadTriggerSolidAsyncData} />
 
-## Using moduix
+    </Tab>
+  </Tabs>
+</div>
 
-`DownloadTrigger` has no visual styles of its own. Compose it with `asChild` and a moduix `Button` so the action fits
-the rest of your interface. For an image generated by the moduix `QrCode` component, prefer `QrCode.DownloadTrigger`
-on the [QrCode](/docs/qr-code) page. It reads the image from the nearest QR code and exports it for you.
+</ExampleCode>
 
-## What comes from Ark UI
+There is no built-in loading state or error callback. If generation can take time, manage that state in your
+application, disable or replace the trigger while it runs, and handle failures in the function passed to `data`. To
+download a remote resource, fetch it in your application and return `response.blob()`. A string is treated as file
+contents, not as a URL.
 
-Ark UI owns the generic download behavior and the `data`, `fileName`, and `mimeType` API. moduix documents how to
-combine that utility with its components, but does not provide a generic `DownloadTrigger` export or add styles to
-the Ark component.
+## File metadata
+
+Use a `fileName` extension that matches the content and set the corresponding `mimeType`, such as `application/json`,
+`text/csv`, `image/svg+xml`, or `application/pdf`. When you return a `Blob` or `File`, keep its `type` consistent with
+the requested MIME type as well.
+
+## Composition
+
+`DownloadTrigger` renders a native button by default. Use `asChild` when a moduix `Button` should own the button element
+and its states. React uses a boolean `asChild` prop with a child element; Solid uses a render-function `asChild` prop.
+Both compositions keep one accessible button in the DOM.
+
+For QR code images, use `QrCode.DownloadTrigger` on the [QrCode](/docs/qr-code) page. It reads the image from the
+nearest QR code and exports it with the required file metadata.

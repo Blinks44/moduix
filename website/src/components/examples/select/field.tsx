@@ -1,0 +1,55 @@
+import { createListCollection } from '@ark-ui/react/collection';
+import { Field } from '@moduix/react/field';
+import { Select } from '@moduix/react/select';
+import styles from '@/components/examples/select/select-field.module.css';
+
+const frameworks = createListCollection({
+  items: [
+    {
+      label: 'React',
+      value: 'react',
+    },
+    {
+      label: 'Solid',
+      value: 'solid',
+    },
+    {
+      label: 'Vue',
+      value: 'vue',
+    },
+    {
+      label: 'Svelte',
+      value: 'svelte',
+      disabled: true,
+    },
+  ],
+});
+
+export default function SelectFieldDemo() {
+  return (
+    <Field.Root className={styles.root} required>
+      <Select collection={frameworks} name="framework">
+        <Select.Label>Framework</Select.Label>
+        <Select.Control>
+          <Select.Trigger>
+            <Select.ValueText placeholder="Select framework" />
+          </Select.Trigger>
+          <Select.Indicator />
+          <Select.ClearTrigger aria-label="Clear selection" />
+        </Select.Control>
+        <Select.Positioner>
+          <Select.Content>
+            {frameworks.items.map((item) => (
+              <Select.Item key={item.value} item={item}>
+                <Select.ItemText>{item.label}</Select.ItemText>
+                <Select.ItemIndicator />
+              </Select.Item>
+            ))}
+          </Select.Content>
+        </Select.Positioner>
+        <Select.HiddenSelect />
+      </Select>
+      <Field.HelperText>Pick the framework used by this project.</Field.HelperText>
+    </Field.Root>
+  );
+}

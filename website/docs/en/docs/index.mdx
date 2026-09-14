@@ -1,6 +1,6 @@
 ---
 title: Introduction
-description: How moduix is built, how its styles reach your app, and which ownership model fits your project.
+description: Multi-framework moduix architecture, React and Solid support, styling tracks, ownership models, documentation areas, and Ark UI foundations.
 ---
 
 import { OwnershipLayers } from '@/components/docs/ownership-layers';
@@ -8,29 +8,80 @@ import { Card, Cards } from '@/components/mdx/Components';
 
 # moduix
 
-moduix is a styled component library built on [Ark UI](https://ark-ui.com/). It pairs Ark's
-accessible interaction primitives with considered defaults, explicit composition, and CSS Modules
-backed by shared design tokens.
+moduix is a multi-framework component system built on [Ark UI](https://ark-ui.com/). It pairs Ark's
+accessible interaction primitives with considered defaults, explicit composition, and shared design
+tokens. Every adapter keeps the public API native to its framework.
 
-To try it now, choose an installation method in [Quick start](/docs/quick-start), render a Button,
-and return here when you want to understand the broader system.
+Start with [Quick start](/docs/quick-start) to choose an installation method and render your first
+component.
 
-The visual language and source-ownership model are [inspired by shadcn/ui](https://ui.shadcn.com/):
-components should look considered out of the box, and their source should remain understandable and
-easy to adapt in your application.
+## Framework support
+
+React and Solid are available today. Vue and Svelte are planned, and will follow the same component
+contracts and styling choices when they ship.
+
+| Framework | Status | Documentation |
+| --------- | ------ | ------------- |
+| React | Available | Native React source and live previews |
+| Solid | Available | Native Solid source alongside the React preview |
+| Vue | Planned | Added only after the adapter ships |
+| Svelte | Planned | Added only after the adapter ships |
+
+Framework-specific examples use tabs only when the code genuinely differs. Shared concepts stay
+outside the tabs, so the documentation remains concise as new adapters are added.
 
 ## Choose how you own it
 
-Choose the npm package when you want updates through your package manager. Choose the shadcn registry
+Choose a package when you want updates through your package manager. Choose the shadcn registry
 when you want the component source, styles, and supporting utilities inside your repository.
 
-| Workflow                   | Imports                 | Best fit                                                               |
-| -------------------------- | ----------------------- | ---------------------------------------------------------------------- |
-| npm package                | `@moduix/react/*`       | Centralized updates and the smallest amount of application-owned code. |
-| Copy-owned shadcn registry | `@/components/moduix/*` | Direct source ownership and deliberate local changes.                 |
+| Workflow                   | Imports                                           | Best fit                                                               |
+| -------------------------- | ------------------------------------------------- | ---------------------------------------------------------------------- |
+| Package                    | `@moduix/react/*` or `@moduix/solid/*`            | Centralized updates and the smallest amount of application-owned code. |
+| Copy-owned shadcn registry | `@/components/ui/*`                               | Direct source ownership and deliberate local changes.                  |
 
-Both workflows expose the same component contracts, CSS Modules styling, and token system.
-[Quick start](/docs/quick-start) covers the complete setup for each path.
+Both workflows expose the same framework-native component contracts and token system. Choose the
+runtime and styling track independently from where the source lives:
+
+<table className="packageMatrix">
+  <thead>
+    <tr>
+      <th scope="col">Runtime</th>
+      <th scope="col">CSS Modules</th>
+      <th scope="col">Tailwind CSS</th>
+    </tr>
+  </thead>
+  <tbody>
+    <tr>
+      <th scope="row">React</th>
+      <td><code>@moduix/react</code></td>
+      <td><code>@moduix/react-tailwind</code></td>
+    </tr>
+    <tr>
+      <th scope="row">Solid</th>
+      <td><code>@moduix/solid</code></td>
+      <td><code>@moduix/solid-tailwind</code></td>
+    </tr>
+  </tbody>
+</table>
+
+CSS Modules and Tailwind packages both ship for React and Solid. Check the target component page for
+its exact package and registry availability. [Quick start](/docs/quick-start) covers the complete
+setup for each path.
+
+## Supported versions
+
+The package peer dependencies define the supported framework range:
+
+| Technology | Supported versions | Used by |
+| ---------- | ------------------ | ------- |
+| React and React DOM | 18 and 19 | `@moduix/react`, `@moduix/react-tailwind` |
+| Solid | 1.9 and later 1.x releases | `@moduix/solid`, `@moduix/solid-tailwind` |
+| Tailwind CSS | 4.x | Tailwind packages and registries only |
+| Ark UI | `^5.37.2` | The matching React or Solid package |
+
+Your package manager checks these ranges during installation. CSS Modules packages do not require
+Tailwind CSS.
 
 <OwnershipLayers />
 
@@ -49,91 +100,69 @@ opinionated product layer that sits on top.
 The influence is practical rather than cosmetic:
 
 - polished defaults that feel coherent before customization;
-- readable composition instead of configuration-heavy wrappers;
-- open CSS variables and source code that are straightforward to inspect;
-- a shadcn registry for copy-owned installation;
-- documentation that teaches the common path first and keeps escape hatches visible.
+- readable composition, open CSS variables, and source code that is straightforward to inspect;
+- a shadcn registry for copy-owned installation.
 
-moduix does not require Tailwind CSS and does not replace Ark anatomy with shadcn-specific wrapper
-contracts. Its own component styles use CSS Modules and shared CSS tokens.
+This influence does not couple CSS Modules to Tailwind or replace Ark anatomy with shadcn-specific
+wrapper contracts. Tailwind packages are available for components that have already been ported.
 
 ## How styling works
 
-moduix uses CSS Modules for component styles. CSS Modules are regular CSS files with locally scoped
-class names, so a component's selectors do not leak into the rest of your application.
+The CSS Modules packages use regular CSS files with locally scoped class names, so component
+selectors do not leak into the rest of your application. Their packages deliver component styles
+with each imported entry point, while their registries copy the same source and `.module.css` files
+into your repository.
 
-The npm package delivers each component's styles alongside the component entry point you import. The
-shadcn registry copies the same component source and `.module.css` files into your repository. Both
-workflows use the same styling contract:
+The Tailwind packages express the same visual defaults as utility classes and use Tailwind Preflight
+instead of the optional moduix reset. Both styling tracks share semantic foundation colors, selected
+global tokens, animations, and component behavior:
 
 - import `style.css` once for shared tokens and base layer styles;
-- use `className` on the root or named parts for local selectors;
+- use `className` in React or `class` in Solid on roots and named parts;
 - target stable `data-slot` and Ark state attributes when a state-specific rule is needed;
 - override `--moduix-*` variables for themes and shared visual decisions.
 
-Your application can still use regular CSS, Tailwind CSS, or another styling tool for layout and
-application-owned styles. You do not need to add a utility framework or a CSS-in-JS runtime just to
-use moduix. If you want to edit the component CSS itself, use the copy-owned registry workflow.
-
-## The styling contract
-
-The default density uses `36px` primary controls and `32px` popup rows through `--moduix-size-md`
-and `--moduix-size-sm`. Inputs, buttons, select and combobox triggers, date controls, pagination,
-menu items, and related patterns share the same scale.
-
-Colors, spacing, radii, typography, focus rings, motion, shadows, and component-specific decisions
-are expressed as CSS custom properties. Override a semantic token to change the whole system, a
-shared family token to tune related components, or a `--<component>-*` variable for one local
-exception. See [Tokens](/docs/tokens) for the full hierarchy and [Themes](/docs/themes) for
+In the CSS Modules packages, colors, spacing, radii, typography, focus rings, motion, shadows, and
+component-specific decisions are expressed as CSS custom properties. Override a semantic token to
+change the whole system, a shared family token to tune related components, or a
+`--<component>-*` variable for one local exception. Tailwind variants use semantic utilities and
+consumer classes instead of reproducing that component-variable API. Choose CSS Modules when you do
+not want Tailwind as a dependency; choose Tailwind when utilities should remain directly editable
+with copied source. See [Tokens](/docs/tokens) for the full hierarchy and [Themes](/docs/themes) for
 ready-made presets.
 
-## Start here
+## Explore the documentation
 
 <Cards>
   <Card
-    title="Quick start"
-    description="Choose package-managed or source-owned installation and render the first component."
-    href="/docs/quick-start"
+    title="Components"
+    description="Browse styled, accessible building blocks and their framework-native examples."
+    href="/docs/components"
   />
   <Card
-    title="Themes"
-    description="Adopt a curated preset or use one as the starting point for your own theme."
-    href="/docs/themes"
-  />
-  <Card
-    title="Tokens"
-    description="Understand global tokens, shared defaults, and local override scopes."
-    href="/docs/tokens"
-  />
-</Cards>
-
-## Continue with
-
-<Cards>
-  <Card
-    title="Animations"
-    description="Tune shared motion and component-level transitions."
-    href="/docs/animations"
-  />
-  <Card
-    title="Collections"
-    description="Model data for selects, comboboxes, trees, and other collection components."
+    title="Ark Collections"
+    description="Model lists, trees, selection, and asynchronous data for Ark components."
     href="/docs/collections"
   />
   <Card
-    title="Composition Patterns"
-    description="Learn recommended part trees, wrappers, providers, and low-level escape hatches."
-    href="/docs/composition-patterns"
+    title="Ark Utilities"
+    description="Use focused Ark helpers for rendering, focus, formatting, locale, and presence."
+    href="/docs/utilities"
   />
   <Card
     title="Forms"
-    description="Connect controls to native forms and form-state libraries."
+    description="Connect moduix controls to Formisch, React Hook Form, or TanStack Form."
     href="/docs/forms"
   />
   <Card
-    title="Utilities"
-    description="Use Ark utilities directly when a styled wrapper is unnecessary."
-    href="/docs/utilities"
+    title="Guides"
+    description="Apply the library's styling, composition, motion, RTL, and update conventions."
+    href="/docs/styling"
+  />
+  <Card
+    title="Recipes"
+    description="Copy complete product patterns with native React and Solid implementations."
+    href="/recipes"
   />
 </Cards>
 
@@ -147,6 +176,7 @@ moduix is possible because of the work and ideas of these projects:
   craft that continue to inform moduix.
 - [shadcn/ui](https://ui.shadcn.com/) for open-code distribution, beautiful defaults, and a
   documentation style centered on practical ownership.
+- [Lucide](https://lucide.dev/) for the open-source icon set used throughout the component library.
 - [UnoCSS](https://unocss.dev/) and [Tailwind CSS](https://tailwindcss.com/) for the foundations
   adapted by the optional reset.
 - [Rstack](https://rstack.rs/) for its Rust-based ecosystem: Rspress for documentation, Rslib for library builds, and

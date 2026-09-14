@@ -1,0 +1,45 @@
+.root {
+  width: min(220px, 100%);
+  align-self: center;
+}
+
+.customTrigger {
+  display: flex;
+  width: 100%;
+  align-items: center;
+  justify-content: space-between;
+  gap: var(--moduix-spacing-2);
+  padding: var(--moduix-spacing-2) var(--moduix-spacing-3);
+  border: 0;
+  border-radius: var(--moduix-radius-md);
+  background-color: var(--moduix-color-muted);
+  color: var(--moduix-color-foreground);
+}
+
+@media (hover: hover) {
+  .customTrigger:hover {
+    background-color: var(--moduix-color-accent);
+  }
+}
+
+.customIndicator {
+  --moduix-collapsible-indicator-open-transform: rotate(180deg);
+  color: var(--moduix-color-primary);
+}
+
+.customContentBody {
+  margin-top: var(--moduix-spacing-1);
+  --moduix-collapsible-body-padding: var(--moduix-spacing-2) var(--moduix-spacing-3);
+
+  border-radius: var(--moduix-radius-md);
+  background-color: var(--moduix-color-muted);
+  color: var(--moduix-color-muted-foreground);
+}
+
+.keysList {
+  display: flex;
+  flex-direction: column;
+  gap: var(--moduix-spacing-1);
+  margin: 0;
+  padding-inline-start: 0;
+}

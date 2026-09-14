@@ -4,7 +4,6 @@ import { Toggle as TogglePrimitive, ToggleContext, useToggleContext } from '@ark
 import { clsx } from 'clsx';
 import type { ComponentProps, ComponentRef } from 'react';
 import { forwardRef } from 'react';
-import { normalizeClassName } from '@/lib/moduix/normalizeClassName';
 import styles from './Toggle.module.css';
 
 type ToggleVariant = 'default' | 'outline' | 'ghost';
@@ -22,7 +21,7 @@ const ToggleRoot = forwardRef<ComponentRef<typeof TogglePrimitive.Root>, ToggleR
         data-slot="toggle-root"
         data-variant={variant}
         data-size={size}
-        className={clsx(styles.root, normalizeClassName(className))}
+        className={clsx(styles.root, className)}
         {...props}
       />
     );
@@ -37,7 +36,7 @@ const ToggleIndicator = forwardRef<
     <TogglePrimitive.Indicator
       ref={ref}
       data-slot="toggle-indicator"
-      className={clsx(styles.indicator, normalizeClassName(className))}
+      className={clsx(styles.indicator, className)}
       {...props}
     />
   );

@@ -9,7 +9,6 @@ import { clsx } from 'clsx';
 import type { ComponentProps, ComponentRef } from 'react';
 import { forwardRef } from 'react';
 import { ChevronLeftIcon, ChevronRightIcon } from '@/lib/moduix/icons/ui';
-import { normalizeClassName } from '@/lib/moduix/normalizeClassName';
 import styles from './Carousel.module.css';
 
 const CarouselRoot = forwardRef<
@@ -20,7 +19,7 @@ const CarouselRoot = forwardRef<
     <CarouselPrimitive.Root
       ref={ref}
       data-slot="carousel-root"
-      className={clsx(styles.root, normalizeClassName(className))}
+      className={clsx(styles.root, className)}
       {...props}
     />
   );
@@ -34,7 +33,7 @@ const CarouselRootProvider = forwardRef<
     <CarouselPrimitive.RootProvider
       ref={ref}
       data-slot="carousel-root-provider"
-      className={clsx(styles.root, normalizeClassName(className))}
+      className={clsx(styles.root, className)}
       {...props}
     />
   );
@@ -48,7 +47,7 @@ const CarouselControl = forwardRef<
     <CarouselPrimitive.Control
       ref={ref}
       data-slot="carousel-control"
-      className={clsx(styles.control, normalizeClassName(className))}
+      className={clsx(styles.control, className)}
       {...props}
     />
   );
@@ -62,7 +61,7 @@ const CarouselItemGroup = forwardRef<
     <CarouselPrimitive.ItemGroup
       ref={ref}
       data-slot="carousel-item-group"
-      className={clsx(styles.itemGroup, normalizeClassName(className))}
+      className={clsx(styles.itemGroup, className)}
       {...props}
     />
   );
@@ -76,7 +75,7 @@ const CarouselItem = forwardRef<
     <CarouselPrimitive.Item
       ref={ref}
       data-slot="carousel-item"
-      className={clsx(styles.item, normalizeClassName(className))}
+      className={clsx(styles.item, className)}
       {...props}
     />
   );
@@ -90,7 +89,7 @@ const CarouselPrevTrigger = forwardRef<
     <CarouselPrimitive.PrevTrigger
       ref={ref}
       data-slot="carousel-prev-trigger"
-      className={clsx(styles.prevTrigger, normalizeClassName(className))}
+      className={clsx(styles.prevTrigger, className)}
       {...props}
     >
       {children ?? (
@@ -110,7 +109,7 @@ const CarouselNextTrigger = forwardRef<
     <CarouselPrimitive.NextTrigger
       ref={ref}
       data-slot="carousel-next-trigger"
-      className={clsx(styles.nextTrigger, normalizeClassName(className))}
+      className={clsx(styles.nextTrigger, className)}
       {...props}
     >
       {children ?? (
@@ -130,7 +129,7 @@ const CarouselIndicatorGroup = forwardRef<
     <CarouselPrimitive.IndicatorGroup
       ref={ref}
       data-slot="carousel-indicator-group"
-      className={clsx(styles.indicatorGroup, normalizeClassName(className))}
+      className={clsx(styles.indicatorGroup, className)}
       {...props}
     />
   );
@@ -144,7 +143,7 @@ const CarouselIndicator = forwardRef<
     <CarouselPrimitive.Indicator
       ref={ref}
       data-slot="carousel-indicator"
-      className={clsx(styles.indicator, normalizeClassName(className))}
+      className={clsx(styles.indicator, className)}
       {...props}
     />
   );
@@ -177,7 +176,7 @@ const CarouselAutoplayTrigger = forwardRef<
     <CarouselPrimitive.AutoplayTrigger
       ref={ref}
       data-slot="carousel-autoplay-trigger"
-      className={clsx(styles.autoplayTrigger, normalizeClassName(className))}
+      className={clsx(styles.autoplayTrigger, className)}
       {...props}
     />
   );
@@ -191,7 +190,7 @@ const CarouselAutoplayIndicator = forwardRef<
     <CarouselPrimitive.AutoplayIndicator
       ref={ref}
       data-slot="carousel-autoplay-indicator"
-      className={clsx(styles.autoplayIndicator, normalizeClassName(className))}
+      className={clsx(styles.autoplayIndicator, className)}
       {...props}
     />
   );
@@ -205,7 +204,7 @@ const CarouselProgressText = forwardRef<
     <CarouselPrimitive.ProgressText
       ref={ref}
       data-slot="carousel-progress-text"
-      className={clsx(styles.progressText, normalizeClassName(className))}
+      className={clsx(styles.progressText, className)}
       {...props}
     />
   );

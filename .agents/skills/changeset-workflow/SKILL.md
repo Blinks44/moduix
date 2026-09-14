@@ -10,7 +10,7 @@ Use this skill only when the user explicitly asks to create or update a changese
 ## Scope
 
 - `.changeset/*.md` release note files
-- choosing the release bump level for the requested change
+- choosing release bump levels for one or more public packages
 - writing summaries that render correctly in the custom changelog
 
 ## Rules
@@ -19,6 +19,15 @@ Use this skill only when the user explicitly asks to create or update a changese
 - Reuse an existing pending `.changeset/*.md` file when the task is clearly updating the same unreleased change; otherwise create a new one.
 - Match the requested or implied bump level exactly. If the bump level is unclear, ask instead of guessing.
 - Keep summaries short, consumer-facing, and release-note shaped.
+- The public packages are `@moduix/react`, `@moduix/solid`, `@moduix/react-tailwind`, and
+  `@moduix/solid-tailwind`. They are independently versioned; do not add `fixed` or `linked` groups.
+- Use one changeset for one logical change and list every public package whose shipped behavior,
+  styles, types, or distribution changed. Do not create one file per package for the same change.
+- `packages/foundation` is not published directly. When a foundation change reaches npm output,
+  list each public package that receives that output.
+- Use `patch` for compatible fixes, `minor` for new components or public capabilities, and `major`
+  for breaking stable-package changes. A Tailwind package may remain on `0.x` while its component set
+  is incomplete.
 
 ## Summary format
 
@@ -39,6 +48,17 @@ Cross-cutting:
 
 ```md
 Update registry build output paths.
+```
+
+Multi-package:
+
+```md
+---
+'@moduix/react': patch
+'@moduix/solid': patch
+---
+
+Accordion: Keep keyboard navigation aligned across affected framework adapters.
 ```
 
 Multi-line:

@@ -7,7 +7,7 @@ const commands = createListCollection({
   items: [{ label: 'Open settings', value: 'settings' }],
 });
 
-test('opens and closes from the shortcut while ignoring editable and repeated events', async () => {
+test('opens and closes from the Ark shortcut while suppressing repeated events', async () => {
   render(
     <>
       <input aria-label="Editable target" />
@@ -123,6 +123,7 @@ test('provides an accessible search control that clears without losing focus', a
   fireEvent.pointerDown(clear, { button: 0 });
   fireEvent.click(clear);
 
-  await waitFor(() => expect(search).toHaveValue(''));
-  expect(search).toHaveFocus();
+  const clearedSearch = await screen.findByRole('combobox', { name: 'Search commands' });
+  await waitFor(() => expect(clearedSearch).toHaveValue(''));
+  expect(clearedSearch).toHaveFocus();
 });

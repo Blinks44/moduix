@@ -1,0 +1,21 @@
+.root {
+  width: min(28rem, 100%);
+  border: var(--moduix-border-width-sm) solid var(--moduix-color-border);
+  border-radius: var(--moduix-radius-lg);
+  padding: var(--moduix-spacing-4);
+  background-color: color-mix(
+    in oklab,
+    var(--moduix-color-muted) 32%,
+    var(--moduix-color-background)
+  );
+}
+
+.actions {
+  display: flex;
+  flex-wrap: wrap;
+  gap: var(--moduix-spacing-2);
+  --moduix-file-upload-action-size: var(
+    --moduix-file-upload-trigger-height,
+    var(--moduix-button-size-md, var(--moduix-size-md))
+  );
+}

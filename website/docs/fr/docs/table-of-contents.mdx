@@ -4,9 +4,15 @@ component: table-of-contents
 description: Synchronisez un sommaire accessible avec la section consultée.
 ---
 
-import * as TocDocs from '@/components/examples/toc';
-
-<style>{TocDocs.tocExampleCss}</style>
+import TocBasic from '@/components/examples/table-of-contents/basic.tsx';
+import TocRail from '@/components/examples/table-of-contents/rail.tsx';
+import TocRootProvider from '@/components/examples/table-of-contents/root-provider.tsx';
+import TocWithCollapsible from '@/components/examples/table-of-contents/with-collapsible.tsx';
+import * as TocDocs from '@/components/examples/table-of-contents/css-properties';
+import tocSolidBasic from '../../../snippets/table-of-contents/solid/basic.tsx?raw';
+import tocSolidRail from '../../../snippets/table-of-contents/solid/rail.tsx?raw';
+import tocSolidRootProvider from '../../../snippets/table-of-contents/solid/root-provider.tsx?raw';
+import tocSolidWithCollapsible from '../../../snippets/table-of-contents/solid/with-collapsible.tsx?raw';
 
 ## Référence de l’API
 
@@ -17,26 +23,82 @@ import * as TocDocs from '@/components/examples/toc';
 `Toc` est la forme abrégée de `Toc.Root`. Passez-lui un tableau `items` contenant les titres à
 suivre. Chaque élément doit avoir une `value` correspondant à l’attribut `id` d’un titre et un
 `depth` correspondant à son niveau sémantique, par exemple `2` pour `<h2>`. Utilisez le même objet
-pour rendre `Toc.Item`, puis définissez sur `Toc.Link` un `href` de la forme `#${item.value}`.
+pour rendre `Toc.Item`, puis construisez le fragment de `Toc.Link` à partir de sa `value`.
+
+`Toc` est disponible pour React et Solid dans les packages CSS Modules et Tailwind. L’aperçu
+ci-dessous utilise le package React CSS Modules ; les onglets de framework affichent le code natif
+pour le même contrat public.
 
 Sur une page classique, omettez `scrollEl` et le composant observe la fenêtre. L’aperçu ci-dessous
 utilise sa propre zone de défilement. Passez cet élément à `scrollEl` pour que le suivi et la
 navigation par lien restent dans l’aperçu.
 
-<PreviewFrame maxWidth="lg">
-  ```tsx preview file="../../en/docs/_snippets/table-of-contents/basic.tsx"
+<ExampleFrame variant="component">
+  <TocBasic />
+</ExampleFrame>
 
+<ExampleCode>
+<div className="docs-reference">
+  <Tabs
+    groupId="framework"
+    values={[
+      { label: 'React', value: 'react' },
+      { label: 'Solid', value: 'solid' },
+    ]}
+    className="docs-tabs"
+  >
+    <Tab value="react">
+
+```tsx pure file="../../../src/components/examples/table-of-contents/basic.tsx"
 ```
-</PreviewFrame>
+
+    </Tab>
+    <Tab value="solid">
+
+<CodeBlockRuntime lang="tsx" code={tocSolidBasic} />
+
+    </Tab>
+  </Tabs>
+
+**Styles**
+
+```css file="../../../src/components/examples/table-of-contents/table-of-contents-basic.module.css"
+```
+</div>
+
+</ExampleCode>
 
 ## Installation avec shadcn
 
-<ShadcnInstall packageName="table-of-contents" />
+Consultez le [Démarrage rapide](/docs/quick-start) pour la configuration complète du paquet, du registre et des styles.
+
+<Tabs groupId="framework">
+  <Tab label="React" value="react">
+
+<ShadcnInstallOptions
+  options={[
+    { label: 'CSS Modules', command: 'shadcn@latest add @moduix-react/toc' },
+    { label: 'Tailwind CSS', command: 'shadcn@latest add @moduix-react-tailwind/toc' },
+  ]}
+/>
+
+  </Tab>
+  <Tab label="Solid" value="solid">
+
+<ShadcnInstallOptions
+  options={[
+    { label: 'CSS Modules', command: 'shadcn@latest add @moduix-solid/toc' },
+    { label: 'Tailwind CSS', command: 'shadcn@latest add @moduix-solid-tailwind/toc' },
+  ]}
+/>
+
+  </Tab>
+</Tabs>
 
 ## Anatomie
 
 ```text
-Toc.Root (également exporté sous le nom Toc)
+Toc / Toc.Root
 ├─ Toc.Content
 └─ Toc.Nav
    ├─ Toc.Title
@@ -52,81 +114,32 @@ Toc.RootProvider
 
 | Partie              | Rôle                                                                    |
 | ------------------- | ----------------------------------------------------------------------- |
-| `Toc`               | Forme abrégée de `Toc.Root`, qui crée l’état de suivi à partir des éléments. |
+| `Toc` / `Toc.Root`  | Partie racine qui gère l’état de suivi à partir de la liste d’éléments. |
 | `Toc.Content`       | Article contenant les titres dont les ID correspondent aux valeurs.     |
 | `Toc.Nav`           | Zone de navigation liée au titre du sommaire.                           |
 | `Toc.Title`         | Nom accessible et titre visible de la navigation.                       |
 | `Toc.List`          | Liste des liens vers les titres et de l’indicateur facultatif.          |
-| `Toc.Item`          | Élément de liste associé à un titre, avec son niveau et son état actif. |
-| `Toc.Link`          | Lien vers une section de la même page.   |
+| `Toc.Item`          | Élément associé à un titre, avec son niveau et son état actif.          |
+| `Toc.Link`          | Lien vers une section de la même page.                                  |
 | `Toc.Indicator`     | Repère discret qui suit la plage active dans la liste.                  |
 | `Toc.RootProvider`  | Relie les parties à un état de suivi créé en dehors de l’arbre.          |
-| `Toc.Rail`          | Branche SVG facultative qui relie les niveaux de titres voisins.        |
+| `Toc.Rail`          | Branche SVG facultative qui relie les niveaux de titres voisins.         |
 
 ## Composition
 
-### Composition recommandée
+Passez un élément pour chaque titre suivi. `item.value`, l’attribut `id` du titre et le fragment de
+`Toc.Link` doivent être identiques, tandis que `depth` doit correspondre au niveau sémantique du
+titre. Omettez `scrollEl` lorsque la fenêtre gère le défilement ; passez la zone de lecture lorsqu’elle
+possède son propre conteneur défilant.
 
-Créez un élément dans `items` pour chaque titre à suivre. Placez dans `value` l’ID du titre sans
-`#` et utilisez son niveau sémantique pour `depth`, par exemple `2` pour `<h2>` ou `3` pour `<h3>`.
-Par défaut, la racine observe la fenêtre de la page. Utilisez `scrollEl` lorsque le contenu défile
-dans un conteneur dédié.
-
-La racine expose les options Ark `activeIds`, `defaultActiveIds`, `onActiveChange(details)`,
-`rootMargin`, `threshold`, `autoScroll`, `scrollBehavior` et `ids`. Lorsque les titres actifs
-changent, `onActiveChange` reçoit `details.activeIds` et `details.activeItems`.
-
-### Quand personnaliser la composition
-
-Utilisez `asChild` sur `Toc.Link` lorsque l’élément `<a>` doit être rendu par votre routeur.
-Conservez un seul élément `<a>` sémantique comme enfant afin qu’Ark puisse lui transmettre
-`aria-current`, la gestion du clic et les propriétés de focus.
-
-Créez l’état avec `useToc()` et reliez-le avec `Toc.RootProvider` lorsque des contrôles extérieurs à
-l’arbre ont besoin de `activeIds`, `setActiveIds`, `scrollTo` ou `getItemState`. Dans l’arbre, le
-même état est disponible avec `Toc.Context` et le hook `useTocContext()`.
-
-### Propriétés par défaut
-
-| Propriété         | Valeur par défaut     | Remarque                                                              |
-| ----------------- | --------------------- | --------------------------------------------------------------------- |
-| `items`           | obligatoire            | Fournissez les valeurs et niveaux sémantiques des titres suivis.      |
-| `rootMargin`      | `-20px 0px -40% 0px`  | Ajuste la zone d’observation effective.                               |
-| `threshold`       | `0`                   | Active un titre dès qu’il intersecte la zone d’observation.           |
-| `autoScroll`      | `false`               | Valeur par défaut de moduix. Activez-la après avoir vérifié le défilement des conteneurs parents. |
-| `scrollBehavior`  | `smooth`              | S’applique aux liens, à `scrollTo` et au défilement de la liste.      |
-
-### Notes de comportement
-
-- Les liens actifs reçoivent `aria-current="location"` et `data-active`.
-- `Toc.Item` expose `data-value`, `data-depth`, `data-active`, `data-first`, `data-last` et la
-  variable numérique `--depth`. `Toc.Link` expose `data-value`, `data-active` et `aria-current`
-  lorsqu’il est actif.
-- L’indicateur utilise les variables mesurées `--top` et `--height` d’Ark. Il reste masqué tant
-  qu’il n’existe pas de plage active.
-- Par défaut, le contenu et une navigation fixe sont placés côte à côte. En dessous de 48rem, ils
-  passent sur une seule colonne.
-- Définissez `placement="left"` ou `placement="right"` sur `Toc.Nav` pour choisir le côté de la
-  barre latérale sur grand écran.
-- Moduix désactive par défaut le défilement automatique de la liste du sommaire. Les changements
-  de section active ne font ainsi pas défiler un conteneur parent. Activez `autoScroll` uniquement
-  pour un panneau isolé, après avoir vérifié son comportement de défilement.
-- Lorsque la préférence de réduction des animations est activée, le défilement fluide CSS et les
-  transitions de l’indicateur sont désactivés. Transmettez `scrollBehavior="auto"` si le défilement
-  déclenché par Ark ne doit pas être animé.
-
-### Bonnes pratiques pour la production
-
-- Utilisez des ID de titres stables et uniques dans toute la page. `item.value`, l’attribut `id` du
-  titre et la partie de l’URL située après `#` doivent être identiques.
-- Dans un lecteur intégré, confiez le défilement à un seul élément, transmettez-le avec `scrollEl`
-  et ajoutez `overscroll-behavior: contain` si le défilement ne doit pas continuer sur la page.
-- Laissez `autoScroll` désactivé pour les pages de documentation et les lecteurs intégrés. Activez-le
-  seulement après avoir vérifié que l’affichage du lien actif ne fait pas défiler un conteneur parent.
-- Faites correspondre `depth` aux niveaux de titres sémantiques. La liste standard indente les
-  éléments imbriqués ; utilisez `Toc.Rail` uniquement si un connecteur visuel clarifie la hiérarchie.
-- Utilisez `Toc.RootProvider` uniquement lorsque des contrôles extérieurs au sommaire ont besoin du
-  même état. Dans les autres cas, `Toc` est la composition la plus simple.
+Utilisez `Toc.RootProvider` avec `useToc()` uniquement lorsque des contrôles extérieurs à l’arbre
+ont besoin du même état de suivi, par exemple `activeIds` ou `scrollTo`. React expose le store comme
+un objet ; Solid donne accès à son état réactif au moyen de la fonction retournée. Utilisez
+`Toc.Context` si une composition environnante, comme `Collapsible`, a besoin des éléments actifs.
+Pour les liens d’un routeur, utilisez `Toc.Link asChild` avec un seul enfant `<a>` sémantique ; en
+Solid, transmettez cet enfant avec la fonction de rendu attendue par `asChild`. Choisissez
+`Toc.Indicator` pour marquer la plage active ou `Toc.Rail` pour montrer la hiérarchie de chaque
+lien ; ne rendez pas les deux dans la même liste.
 
 ## Exemples
 
@@ -135,11 +148,40 @@ même état est disponible avec `Toc.Context` et le hook `useTocContext()`.
 Utilisez `useToc()` lorsqu’un autre contrôle doit lire les titres actifs ou faire défiler la zone de
 lecture.
 
-<PreviewFrame maxWidth="lg">
-  ```tsx preview file="../../en/docs/_snippets/table-of-contents/root-provider.tsx"
+<ExampleFrame variant="component">
+  <TocRootProvider />
+</ExampleFrame>
 
+<ExampleCode>
+<div className="docs-reference">
+  <Tabs
+    groupId="framework"
+    values={[
+      { label: 'React', value: 'react' },
+      { label: 'Solid', value: 'solid' },
+    ]}
+    className="docs-tabs"
+  >
+    <Tab value="react">
+
+```tsx pure file="../../../src/components/examples/table-of-contents/root-provider.tsx"
 ```
-</PreviewFrame>
+
+    </Tab>
+    <Tab value="solid">
+
+<CodeBlockRuntime lang="tsx" code={tocSolidRootProvider} />
+
+    </Tab>
+  </Tabs>
+
+**Styles**
+
+```css file="../../../src/components/examples/table-of-contents/table-of-contents-root-provider.module.css"
+```
+</div>
+
+</ExampleCode>
 
 ### Rail
 
@@ -148,48 +190,98 @@ Transmettez les profondeurs courante, précédente et suivante depuis le même t
 Le rail du lien actif reprend la couleur de l’indicateur. N’ajoutez pas `Toc.Indicator` dans cette
 même liste.
 
-<PreviewFrame maxWidth="lg">
-  ```tsx preview file="../../en/docs/_snippets/table-of-contents/rail.tsx"
+<ExampleFrame variant="component">
+  <TocRail />
+</ExampleFrame>
 
+<ExampleCode>
+<div className="docs-reference">
+  <Tabs
+    groupId="framework"
+    values={[
+      { label: 'React', value: 'react' },
+      { label: 'Solid', value: 'solid' },
+    ]}
+    className="docs-tabs"
+  >
+    <Tab value="react">
+
+```tsx pure file="../../../src/components/examples/table-of-contents/rail.tsx"
 ```
-</PreviewFrame>
 
-### Avec un panneau repliable
+    </Tab>
+    <Tab value="solid">
+
+<CodeBlockRuntime lang="tsx" code={tocSolidRail} />
+
+    </Tab>
+  </Tabs>
+
+**Styles**
+
+```css file="../../../src/components/examples/table-of-contents/table-of-contents-rail.module.css"
+```
+</div>
+
+</ExampleCode>
+
+### Avec une navigation repliable
 
 Placez la liste de navigation dans `Collapsible` lorsque le lecteur doit pouvoir masquer le sommaire
-complet. `Toc.Context` fournit l’élément actif au libellé du bouton et à l’anneau de progression,
+complet. `Toc.Context` fournit le titre de l’élément actif au bouton et à l’anneau de progression,
 tandis que les liens ciblent toujours la même zone de lecture.
 
-<PreviewFrame maxWidth="lg">
-  ```tsx preview file="../../en/docs/_snippets/table-of-contents/with-collapsible.tsx"
+<ExampleFrame variant="component">
+  <TocWithCollapsible />
+</ExampleFrame>
 
+<ExampleCode>
+<div className="docs-reference">
+  <Tabs
+    groupId="framework"
+    values={[
+      { label: 'React', value: 'react' },
+      { label: 'Solid', value: 'solid' },
+    ]}
+    className="docs-tabs"
+  >
+    <Tab value="react">
+
+```tsx pure file="../../../src/components/examples/table-of-contents/with-collapsible.tsx"
 ```
-</PreviewFrame>
+
+    </Tab>
+    <Tab value="solid">
+
+<CodeBlockRuntime lang="tsx" code={tocSolidWithCollapsible} />
+
+    </Tab>
+  </Tabs>
+
+**Styles**
+
+```css file="../../../src/components/examples/table-of-contents/table-of-contents-with-collapsible.module.css"
+```
+</div>
+
+</ExampleCode>
 
 ## Styles
 
-Stylisez le composant avec `className`, les attributs Ark, les hooks moduix `data-slot` et les
-variables publiques `--moduix-table-of-contents-*`.
+Stylisez le composant avec `className` en React ou `class` en Solid, les attributs Ark, les hooks
+`data-slot` de moduix et les variables publiques `--moduix-table-of-contents-*`. Les packages CSS
+Modules utilisent ces variables ; les packages Tailwind utilisent les classes utilitaires natives et
+les classes du consommateur pour les surcharges.
 
 ### Propriétés CSS
 
-<div className="docs-reference">
-  <Tabs
-    values={[{ label: 'Variables CSS', value: 'Variables CSS' }]}
-    className="docs-reference-tabs"
-    contentItemClassName="docs-reference-panel"
-  >
-    <Tab>
-      <TocDocs.TocCssPropertiesPanel />
-    </Tab>
-  </Tabs>
-</div>
+<CssPropertiesSection properties={TocDocs.tableOfContentsOverrideCssProperties} />
 
 ### Points d’accroche CSS
 
 - `data-slot="toc-root"`, `toc-root-provider`, `toc-content`, `toc-nav`, `toc-title`, `toc-list`,
   `toc-item`, `toc-link`, `toc-indicator` et `toc-rail`
 - Les attributs Ark `data-scope="toc"` et `data-part` sur les parties primitives
-- Les attributs et variables de `Toc.Item` : `data-value`, `data-depth`, `data-active`, `data-first`, `data-last` et
-  `--depth` ; `Toc.Link` expose `data-value`, `data-active` et `aria-current`
+- Les attributs et variables de `Toc.Item` : `data-value`, `data-depth`, `data-active`, `data-first`,
+  `data-last` et `--depth` ; `Toc.Link` expose `data-value`, `data-active` et `aria-current`
 - Les variables d’exécution Ark `--top`, `--left`, `--width` et `--height` sur la racine

@@ -1,234 +1,107 @@
 ---
 title: Formisch
-description: Connectez les composants moduix à Formisch et Valibot pour un état de formulaire et une validation typés.
+description: Reliez les composants Moduix à Formisch et Valibot dans chaque framework pris en charge.
 ---
+
+import ProjectForm from '@/components/examples/formisch/complete-form.tsx';
+import formischSolidCompleteForm from '../../../snippets/formisch/solid/complete-form.tsx?raw';
 
 # Formisch
 
-[Formisch](https://formisch.dev) et [Valibot](https://valibot.dev) documentent en détail les API de
-schéma, de stockage et de validation. Cette page explique comment connecter la version stable v1 de
-Formisch aux composants moduix.
+[Formisch](https://formisch.dev) est une bibliothèque de formulaires fondée sur des schémas et
+dotée d’adaptateurs natifs. Ce guide relie son état validé par Valibot aux composants Moduix.
 
-Formisch part du schéma : transmettez un schéma Valibot à `useForm`, puis affichez chaque champ avec
-le composant `Field` de Formisch, qui ne génère pas de structure visuelle. Passez `field.props` aux
-éléments natifs. Lorsqu’un composant composite gère sa valeur sur son élément racine, transmettez-lui
-`field.input` et reliez son gestionnaire de changement à `field.onChange`.
+## Prise en charge des frameworks
 
-```bash
-npm install @formisch/react valibot
-```
+<Tabs groupId="framework" values={[{ label: 'React', value: 'react' }, { label: 'Solid', value: 'solid' }]} className="docs-tabs">
+  <Tab value="react">
 
-## Relier les champs à moduix
+<PackageManagerTabs command="install @formisch/react valibot" />
 
-Formisch et moduix exportent tous deux un composant nommé `Field`. Donnez un alias à l’import de
-Formisch afin que le rôle de chaque composant soit clair dans le même fichier :
+React crée le store avec `useForm` et met à jour les composants composés avec `field.onChange`.
 
-- le `Field` de Formisch relie un chemin du schéma à l’état du champ ;
-- le `Field` de moduix affiche le libellé, le message d’erreur et l’état d’accessibilité du champ.
+  </Tab>
+  <Tab value="solid">
 
-`field.props` contient le nom, la ref et les gestionnaires liés au focus d’un champ natif. `field.input`
-est sa valeur actuelle, `field.errors` vaut `null` ou contient un tableau de messages, et
-`field.onChange` met à jour la valeur d’un composant personnalisé.
+<PackageManagerTabs command="install @formisch/solid valibot" />
 
-| Composant | Intégration à Formisch |
-| --- | --- |
-| `Input`, `Textarea` | Passez `field.props` et définissez `value={field.input ?? ''}`. |
-| `Select` | Passez `name={field.props.name}`, contrôlez `value` comme un tableau de chaînes et reliez `onValueChange` à `field.onChange`. moduix génère l’élément natif. |
-| `Combobox` | Passez `name={field.props.name}`, contrôlez la valeur sélectionnée et reliez `onValueChange` à `field.onChange`. Passez les gestionnaires de focus à `Combobox.Input`. |
-| `Checkbox` | Passez `name={field.props.name}`, contrôlez `checked` et reliez `onCheckedChange` à `field.onChange`. moduix génère l’élément natif. |
+Solid crée le store avec `createForm` et met à jour les composants composés avec `field.onInput`.
 
-N’ajoutez pas de champ masqué supplémentaire pour `Select` ou `Checkbox`. Leurs racines moduix
-génèrent déjà l’élément natif nécessaire à la soumission et à la réinitialisation. Pour
-`Combobox`, le nom du champ se définit sur la racine.
+  </Tab>
+</Tabs>
+
+## Relier les composants
+
+Donnez un alias au `Field` de Formisch pour le distinguer du `Field` de Moduix. Le composant Formisch
+relie un chemin du schéma à l’état du champ, tandis que le composant Moduix rend le libellé, l’erreur
+et l’état d’accessibilité.
+
+| Composant           | Correspondance                                                        |
+| ------------------- | --------------------------------------------------------------------- |
+| `Input`, `Textarea` | Transmettez `field.props` et la valeur courante `field.input`.        |
+| `Select`            | Convertissez la valeur scalaire vers le tableau de chaînes d’Ark.     |
+| `Combobox`          | Reliez séparément la sélection, le filtrage et le focus.              |
+| `Checkbox`          | Convertissez `details.checked === true` en valeur booléenne.          |
+
+Transmettez `field.props.name` à la racine Moduix. Conservez `HiddenSelect` ou `HiddenInput` dans la
+composition, sans ajouter un autre élément input enregistré pour la même valeur.
 
 ## Validation et réinitialisation
 
-Passez directement le schéma Valibot à `useForm` : Formisch v1 n’a pas besoin de resolver. Par
-défaut, la première validation a lieu à la soumission, puis les valeurs sont revalidées à la saisie.
-Utilisez `validate: 'blur'`, `validate: 'input'` ou `validate: 'initial'` pour choisir un autre
-déclencheur initial. Définissez `revalidate` pour modifier le moment des validations suivantes.
+Transmettez directement le schéma Valibot à `useForm` ou `createForm`. `validate` détermine le premier
+contrôle et `revalidate` les suivants. L’exemple complet valide à la soumission, puis à la saisie
+après la première tentative.
 
-Le composant `Form` empêche la soumission native du navigateur, définit `noValidate` et n’appelle
-`onSubmit` que lorsque les valeurs courantes respectent le schéma. Pendant l’exécution d’un
-gestionnaire asynchrone, `form.isSubmitting` vaut `true`. Vous pouvez ainsi empêcher les requêtes
-en double et afficher l’état de chargement sur le bouton de soumission.
+Transmettez `field.errors !== null` à `Field invalid` et rendez le premier message avec
+`Field.ErrorText`. Appelez `reset(form)` pour les valeurs contrôlées, car une réinitialisation du DOM
+ne remplace pas le store du champ.
 
-Sans `initialInput`, un champ chaîne obligatoire commence par `''`. Utilisez `initialInput` pour des
-données chargées ou lorsque la valeur initiale doit être explicite. Un champ contrôlé doit recevoir
-sa valeur depuis `field.input`, sinon un appel à `reset` ou `setInput` ne pourra pas mettre à jour ce
-que voit l’utilisateur.
+## Formulaire complet
 
-`field.errors` contient les messages d’un champ. Passez sa présence à `Field invalid` et affichez le
-premier message avec `Field.ErrorText`, comme dans l’exemple ci-dessous. Pour restaurer les valeurs
-courantes à leurs valeurs initiales, appelez la méthode `reset` de Formisch au lieu de réinitialiser
-uniquement le formulaire DOM :
+L’exemple intègre `Input`, `Select`, `Combobox`, `Textarea` et `Checkbox`. Chaque adaptateur pris en charge partage le
+même schéma, le même comportement, la même composition Moduix et les mêmes styles. L’aperçu utilise React.
 
-```tsx
-import { reset } from '@formisch/react';
+<ExampleFrame variant="component">
+  <PreviewFrame maxWidth="sm">
+    <ProjectForm />
+  </PreviewFrame>
+</ExampleFrame>
 
-reset(form);
-reset(form, { initialInput: { name: '', team: '' } });
+<ExampleCode>
+<div className="docs-reference">
+  <Tabs groupId="framework" values={[{ label: 'React', value: 'react' }, { label: 'Solid', value: 'solid' }]} className="docs-tabs">
+    <Tab value="react">
+
+```tsx pure file="../../../src/components/examples/formisch/complete-form.tsx"
 ```
 
-## Exemple complet
+    </Tab>
+    <Tab value="solid">
 
-Ce formulaire valide à la soumission, puis revalide les valeurs modifiées pendant la saisie. `Input`
-et `Textarea` reçoivent directement les props de Formisch. `Select`, `Combobox` et `Checkbox`
-conservent leurs valeurs sur leurs racines moduix et transmettent les changements via
-`field.onChange`.
+<CodeBlockRuntime lang="tsx" code={formischSolidCompleteForm} />
 
-<style>{`
-      .form {
-        width: min(24rem, 100%);
-        margin-inline: auto;
-      }
+    </Tab>
+  </Tabs>
 
-      .fields {
-        display: grid;
-        gap: var(--moduix-spacing-4);
-      }
+**Styles**
 
-      .fields [data-slot="select-root"],
-      .fields [data-slot="combobox-root"] {
-        --moduix-select-width: 100%;
-        --moduix-combobox-width: 100%;
-      }
-
-      .submit {
-        width: 100%;
-      }
-    `}</style>
-
-```tsx preview file="../../en/docs/_snippets/formisch/complete-form.tsx"
-
+```css file="../../../src/components/examples/formisch/formisch-complete-form.module.css"
 ```
+</div>
+</ExampleCode>
 
-## Champs répétés
+## Champs répétés et erreurs du serveur
 
-Utilisez `FieldArray` pour une liste de champs que l’utilisateur peut ajouter ou supprimer. Son
-tableau `items` contient des identifiants stables à utiliser comme clés React. Gardez l’index dans
-le chemin Formisch, mais ne l’utilisez jamais comme clé React. Placez les erreurs du tableau dans
-`fieldArray.errors` ; utilisez `Fieldset` si la liste a besoin d’une légende commune ou d’une erreur
-de groupe.
+Utilisez `FieldArray` avec `insert`, `remove` et les identifiants stables de `fieldArray.items`.
+L’index appartient au chemin du schéma et l’identifiant stable au rendu indexé du framework.
+Placez une liste liée dans `Fieldset` et gardez le message de chaque ligne dans son propre `Field`.
 
-L’exemple suivant est complet : il crée le formulaire, affiche le tableau dans `Form` et utilise les
-méthodes v1 `insert` et `remove`.
+Après l’échec d’une requête, appelez `setErrors` avec un `path` pour une erreur de champ, ou sans
+chemin pour une erreur du formulaire. Conservez la saisie afin que l’utilisateur puisse la corriger.
 
-```tsx
-import { Field as FormischField, FieldArray, Form, insert, remove, useForm } from '@formisch/react';
-import { Button } from '@moduix/react/button';
-import { Fieldset } from '@moduix/react/fieldset';
-import { Field } from '@moduix/react/field';
-import { Input } from '@moduix/react/input';
-import * as v from 'valibot';
+## Focus et comportement
 
-const formSchema = v.object({
-  emails: v.pipe(
-    v.array(
-      v.object({
-        address: v.pipe(v.string(), v.email('Enter a valid email address.')),
-      }),
-    ),
-    v.minLength(1, 'Add at least one email address.'),
-  ),
-});
-
-export default function EmailForm() {
-  const form = useForm({
-    schema: formSchema,
-    initialInput: { emails: [{ address: '' }] },
-  });
-
-  return (
-    <Form of={form} onSubmit={(values) => console.log(values)}>
-      <FieldArray of={form} path={['emails']}>
-        {(fieldArray) => (
-          <Fieldset invalid={fieldArray.errors !== null}>
-            <Fieldset.Legend>Email addresses</Fieldset.Legend>
-
-            {fieldArray.items.map((item, index) => (
-              <FormischField key={item} of={form} path={['emails', index, 'address']}>
-                {(field) => (
-                  <Field invalid={field.errors !== null}>
-                    <Field.Label>Email {index + 1}</Field.Label>
-                    <Input type="email" {...field.props} value={field.input ?? ''} />
-                    <Field.ErrorText>{field.errors?.[0]}</Field.ErrorText>
-                    <Button
-                      type="button"
-                      onClick={() => remove(form, { path: ['emails'], at: index })}
-                    >
-                      Remove email
-                    </Button>
-                  </Field>
-                )}
-              </FormischField>
-            ))}
-
-            <Fieldset.ErrorText>{fieldArray.errors?.[0]}</Fieldset.ErrorText>
-            <Button
-              type="button"
-              onClick={() => insert(form, { path: ['emails'], initialInput: { address: '' } })}
-            >
-              Add email
-            </Button>
-          </Fieldset>
-        )}
-      </FieldArray>
-    </Form>
-  );
-}
-```
-
-## Erreurs renvoyées par le serveur
-
-La validation du schéma couvre les erreurs vérifiables dans le navigateur. Si le serveur refuse une
-requête, appelez `setErrors` après la requête. Indiquez `path` pour un message lié à un champ précis
-et omettez-le pour un message au niveau du formulaire. Effacez les erreurs de la requête précédente
-avant de réessayer.
-
-`form.errors` ne contient que les erreurs au niveau du formulaire. Les erreurs d’un champ restent dans
-le `field.errors` correspondant : affichez chaque type à l’endroit attendu et conservez les valeurs
-saisies par l’utilisateur.
-
-```tsx
-import { Form, setErrors } from '@formisch/react';
-
-<Form
-  of={form}
-  onSubmit={async (values) => {
-    setErrors(form, { path: ['name'], errors: null });
-    setErrors(form, { errors: null });
-
-    const result = await createProject(values);
-
-    if (result.nameError) {
-      setErrors(form, { path: ['name'], errors: [result.nameError] });
-    }
-
-    if (result.message) {
-      setErrors(form, { errors: [result.message] });
-    }
-  }}
->
-  {form.errors ? <p role="alert">{form.errors[0]}</p> : null}
-  {/* Fields */}
-</Form>;
-```
-
-## Comportement et focus
-
-- Passez `field.props` à `Input` et `Textarea`, puis définissez `value={field.input ?? ''}` afin que
-  `initialInput`, `setInput` et `reset` mettent à jour l’élément visible.
-- Utilisez `field.onChange` pour un composant qui gère lui-même sa valeur. Ne transmettez pas son
-  objet `details` au gestionnaire natif `field.props.onChange` : celui-ci attend un événement DOM et
-  lit une chaîne dans l’élément.
-- Gardez `name`, `form` et les options de formulaire propres au composant sur la racine moduix. Les
-  racines de `Select` et `Checkbox` gèrent leurs éléments natifs, tandis que `Combobox` utilise le nom de sa
-  racine pour la soumission.
-- Pour `Combobox`, transmettez `field.props.ref`, `field.props.onFocus` et `field.props.onBlur` à
-  `Combobox.Input`, c’est-à-dire à l’élément réellement mis au focus par l’utilisateur.
-- Les wrappers moduix `Select` et `Checkbox` gardent leurs parties natives en interne. Ne forcez pas
-  le type de `field.props.ref` pour le passer à leur racine. Si l’un de ces composants peut être le
-  premier contrôle invalide et que l’application doit gérer elle-même le focus après un échec de
-  soumission, conservez une ref vers son trigger ou contrôle visible et donnez-lui le focus dans le
-  gestionnaire de soumission de l’application.
+- Transmettez `field.props.ref`, `onFocus` et `onBlur` à l’élément réellement focalisé.
+- Dans React, utilisez `field.onChange` pour les valeurs composées. Dans Solid, utilisez `field.onInput`.
+- Gardez la valeur contrôlée afin que `initialInput`, `setInput` et `reset` mettent l’interface à jour.
+- Ne transmettez pas un objet de détails Ark à un gestionnaire d’événement natif de `field.props`.

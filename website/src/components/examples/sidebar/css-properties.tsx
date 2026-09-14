@@ -1,0 +1,83 @@
+import type { CssProperty } from '../../mdx/reference';
+import { CSSPropertiesReferenceTable } from '../../mdx/reference';
+
+const sidebarCssDefaults = {
+  '--moduix-sidebar-accent-bg': 'var(--moduix-color-accent)',
+  '--moduix-sidebar-accent-color': 'var(--moduix-color-accent-foreground)',
+  '--moduix-sidebar-active-font-weight': 'var(--moduix-weight-medium)',
+  '--moduix-sidebar-bg': 'var(--moduix-color-card)',
+  '--moduix-sidebar-border-color': 'var(--moduix-color-border)',
+  '--moduix-sidebar-border-width': 'var(--moduix-border-width-sm)',
+  '--moduix-sidebar-collapsed-item-size': 'var(--moduix-size-md)',
+  '--moduix-sidebar-collapsed-padding-x': 'var(--moduix-spacing-1)',
+  '--moduix-sidebar-color': 'var(--moduix-color-card-foreground)',
+  '--moduix-sidebar-disabled-opacity': 'var(--moduix-opacity-disabled)',
+  '--moduix-sidebar-focus-ring-color': 'var(--moduix-color-ring)',
+  '--moduix-sidebar-focus-ring-offset': 'var(--moduix-focus-ring-offset)',
+  '--moduix-sidebar-focus-ring-width': 'var(--moduix-border-width-md)',
+  '--moduix-sidebar-gap': 'var(--moduix-spacing-2)',
+  '--moduix-sidebar-group-gap': 'var(--moduix-spacing-1)',
+  '--moduix-sidebar-group-label-font-size': 'var(--moduix-text-xs)',
+  '--moduix-sidebar-group-label-font-weight': 'var(--moduix-weight-medium)',
+  '--moduix-sidebar-group-label-line-height': 'var(--moduix-line-height-text-xs)',
+  '--moduix-sidebar-group-label-padding-x': 'var(--moduix-spacing-2)',
+  '--moduix-sidebar-group-label-text-transform': 'none',
+  '--moduix-sidebar-group-action-size': '1.5rem',
+  '--moduix-sidebar-group-padding': 'var(--moduix-spacing-3)',
+  '--moduix-sidebar-header-footer-padding': 'var(--moduix-spacing-3)',
+  '--moduix-sidebar-height': '100dvh',
+  '--moduix-sidebar-icon-size': '1rem',
+  '--moduix-sidebar-inset-bg': 'var(--moduix-color-background)',
+  '--moduix-sidebar-inset-color': 'var(--moduix-color-foreground)',
+  '--moduix-sidebar-navigation-button-border-width': '0',
+  '--moduix-sidebar-navigation-button-font-size': 'var(--moduix-text-sm)',
+  '--moduix-sidebar-navigation-button-font-size-sm': 'var(--moduix-text-xs)',
+  '--moduix-sidebar-navigation-button-gap': 'var(--moduix-spacing-2)',
+  '--moduix-sidebar-navigation-button-height': 'var(--moduix-size-md)',
+  '--moduix-sidebar-navigation-button-height-lg': 'var(--moduix-size-lg)',
+  '--moduix-sidebar-navigation-button-height-sm': 'var(--moduix-size-sm)',
+  '--moduix-sidebar-navigation-button-line-height': 'var(--moduix-line-height-text-sm)',
+  '--moduix-sidebar-navigation-button-padding-x': 'var(--moduix-spacing-2)',
+  '--moduix-sidebar-navigation-button-padding-y': 'var(--moduix-spacing-1)',
+  '--moduix-sidebar-navigation-button-radius': 'var(--moduix-radius-md)',
+  '--moduix-sidebar-navigation-gap': 'var(--moduix-spacing-1)',
+  '--moduix-sidebar-navigation-indicator-size': '1.5rem',
+  '--moduix-sidebar-navigation-sub-border-width': 'var(--moduix-border-width-sm)',
+  '--moduix-sidebar-navigation-sub-button-font-size': 'var(--moduix-text-sm)',
+  '--moduix-sidebar-navigation-sub-button-gap': 'var(--moduix-spacing-2)',
+  '--moduix-sidebar-navigation-sub-button-height': 'var(--moduix-size-sm)',
+  '--moduix-sidebar-navigation-sub-button-line-height': 'var(--moduix-line-height-text-sm)',
+  '--moduix-sidebar-navigation-sub-button-padding-x': 'var(--moduix-spacing-2)',
+  '--moduix-sidebar-navigation-sub-margin-x': 'var(--moduix-spacing-4)',
+  '--moduix-sidebar-navigation-sub-margin-y': 'var(--moduix-spacing-1)',
+  '--moduix-sidebar-navigation-sub-padding-x': 'var(--moduix-spacing-2)',
+  '--moduix-sidebar-min-height': '24rem',
+  '--moduix-sidebar-muted-color': 'var(--moduix-color-muted-foreground)',
+  '--moduix-sidebar-radius': '0',
+  '--moduix-sidebar-resize-hit-area': '0.75rem',
+  '--moduix-sidebar-section-border-width': '0',
+  '--moduix-sidebar-shadow': 'none',
+  '--moduix-sidebar-transition': 'var(--moduix-transition-default)',
+  '--moduix-sidebar-trigger-bg': 'var(--moduix-color-background)',
+  '--moduix-sidebar-trigger-border-color': 'var(--moduix-color-border)',
+  '--moduix-sidebar-trigger-border-width': 'var(--moduix-border-width-sm)',
+  '--moduix-sidebar-trigger-offset-y': '40px',
+  '--moduix-sidebar-trigger-radius': 'var(--moduix-radius-full)',
+  '--moduix-sidebar-trigger-shadow': 'var(--moduix-shadow-sm)',
+  '--moduix-sidebar-trigger-size': '1.75rem',
+  '--moduix-sidebar-width': '100%',
+} satisfies Record<`--moduix-sidebar-${string}`, string>;
+
+const sidebarOverrideCssProperties: CssProperty[] = Object.entries(sidebarCssDefaults).map(
+  ([name, defaultValue]) => ({
+    name: name as `--${string}`,
+    defaultValue,
+    description: `Controls the Sidebar ${name
+      .slice('--moduix-sidebar-'.length)
+      .replaceAll('-', ' ')}.`,
+  }),
+);
+
+export function SidebarCssPropertiesPanel() {
+  return <CSSPropertiesReferenceTable properties={sidebarOverrideCssProperties} />;
+}

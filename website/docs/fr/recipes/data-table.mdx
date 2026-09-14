@@ -4,6 +4,10 @@ description: Créez des tableaux triables, filtrables et paginés avec moduix Ta
 ---
 
 import { DataTable } from '@/components/recipes/data-table';
+import DataTableBasic from '@/components/recipes/data-table/basic';
+import InteractiveDataTable from '@/components/recipes/data-table/sorting-filtering-and-pagination';
+import dataTableSolid from '../../../snippets/recipes/solid/data-table.tsx?raw';
+import dataTableBasicSolid from '../../../snippets/recipes/solid/data-table-basic.tsx?raw';
 
 # Tableau de données
 
@@ -30,56 +34,82 @@ puis remplacez les enregistrements et les actions d’exemple par les données d
 N’utilisez que les contrôles nécessaires. Retirez la sélection, la visibilité des colonnes, les actions ou
 la pagination si ces fonctions ne sont pas utiles aux utilisateurs.
 
-<ExampleFrame clientOnly>
+Les aperçus interactifs utilisent le paquet React. Les onglets de code présentent des implémentations natives de TanStack Table v9 pour React et Solid.
+
+<ExampleFrame variant="recipe" clientOnly>
   <DataTable />
 </ExampleFrame>
 
+<ExampleCode>
 <div className="docs-reference">
-  <Tabs values={[{ label: 'Composant', value: 'Component' }, { label: 'Styles', value: 'Styles' }]} className="docs-tabs">
-    <Tab value="Component">
+  <Tabs
+    groupId="framework"
+    values={[
+      { label: 'React', value: 'react' },
+      { label: 'Solid', value: 'solid' },
+    ]}
+    className="docs-tabs"
+  >
+    <Tab value="react">
 
-```tsx file="../../../src/components/recipes/data-table.tsx"
+```tsx pure file="../../../src/components/recipes/data-table.tsx"
 
 ```
 
     </Tab>
-    <Tab value="Styles">
+    <Tab value="solid">
+
+<CodeBlockRuntime lang="tsx" code={dataTableSolid} />
+
+    </Tab>
+  </Tabs>
+
+**Styles**
 
 ```css file="../../../src/components/recipes/data-table.module.css"
 
 ```
-
-    </Tab>
-  </Tabs>
 </div>
+
+</ExampleCode>
 
 ## Installation
 
 <ShadcnInstall
   packageName={['badge', 'button', 'checkbox', 'input', 'input-group', 'menu', 'table']}
   itemKind="recipe"
+  frameworks
   copiedSource
-  dependencies={['@tanstack/react-table@^9.2.3', 'lucide-react']}
+  dependencies={['@tanstack/react-table@^9.2.4', 'lucide-react']}
+  solidDependencies={['@tanstack/solid-table@^9.2.4', 'lucide-solid']}
 />
 
 ## Configuration
 
 Installez TanStack Table dans l’application ou la fonctionnalité qui gère la logique de la grille de données :
 
-```bash
-npm install @tanstack/react-table@^9.2.3
-```
+<Tabs groupId="framework">
+  <Tab label="React" value="react">
 
-`Table` est disponible dans `@moduix/react/table`. TanStack Table n’y est volontairement pas inclus : les
+<PackageManagerTabs command="install @tanstack/react-table@^9.2.4" />
+
+  </Tab>
+  <Tab label="Solid" value="solid">
+
+<PackageManagerTabs command="install @tanstack/solid-table@^9.2.4" />
+
+  </Tab>
+</Tabs>
+
+`Table` est disponible dans le paquet `@moduix/<framework>/table` correspondant. TanStack Table n’y est volontairement pas inclus : les
 applications qui n’ont besoin que d’un tableau sémantique ne chargent donc pas de logique de grille inutile.
 
 ## Exemple de base
 
-Déclarez l’ensemble des fonctionnalités avec `tableFeatures()`, définissez des entrées
-`ColumnDef<typeof features, Payment>` typées, puis créez une instance avec `useTable`. Insérez ses groupes
-d’en-têtes et ses cellules visibles sur l’anatomie de tableau moduix. Utilisez `flexRender` pour les en-têtes
-et les cellules, car les définitions de colonnes peuvent contenir de simples valeurs ou des fonctions de rendu
-React.
+Déclarez l’ensemble des fonctionnalités avec `tableFeatures()` et définissez des entrées
+`ColumnDef<typeof features, Payment>` typées. React crée l’instance avec `useTable` et utilise
+`flexRender`; Solid utilise `createTable` et `table.FlexRender`. Dans les deux cas, insérez les groupes
+d’en-têtes et les cellules visibles dans l’anatomie de tableau moduix.
 
 L’exemple affiche les colonnes et les cellules visibles : il enregistre donc `columnVisibilityFeature`.
 N’ajoutez les autres fonctionnalités que lorsque le tableau en a besoin.
@@ -95,20 +125,46 @@ N’ajoutez les autres fonctionnalités que lorsque le tableau en a besoin.
       }
     `}</style>
 
-```tsx preview file="../../en/recipes/_snippets/data-table/basic.tsx"
+<ExampleFrame variant="recipe">
+  <DataTableBasic />
+</ExampleFrame>
+
+<ExampleCode>
+<div className="docs-reference">
+  <Tabs
+    groupId="framework"
+    values={[
+      { label: 'React', value: 'react' },
+      { label: 'Solid', value: 'solid' },
+    ]}
+    className="docs-tabs"
+  >
+    <Tab value="react">
+
+```tsx pure file="../../../src/components/recipes/data-table/basic.tsx"
 
 ```
+
+    </Tab>
+    <Tab value="solid">
+
+<CodeBlockRuntime lang="tsx" code={dataTableBasicSolid} />
+
+    </Tab>
+  </Tabs>
+</div>
+
+</ExampleCode>
 
 Conservez les colonnes près du type de données de la fonctionnalité. C’est l’endroit naturel pour le
 formatage, l’alignement numérique, les actions de ligne et les filtres propres au métier.
 
 ## Références stables
 
-Dans les exemples, `features`, `payments` et `columns` sont définis en dehors des composants : TanStack Table
-reçoit donc les mêmes références d’un rendu à l’autre. Si les données ou les colonnes dépendent des propriétés
-ou de l’état, mémorisez le tableau obtenu avec `useMemo` au lieu de le créer dans le composant ou de transmettre
-`data.filter(...)` directement à `useTable`. Une nouvelle référence à chaque rendu force TanStack Table à
-recalculer son état et peut provoquer des boucles de rendu React. Consultez la
+Dans les exemples, `features`, `payments` et `columns` sont définis en dehors des composants afin de fournir
+des entrées stables à TanStack Table. Avec React, mémorisez les tableaux dérivés au lieu de transmettre une
+nouvelle référence à `useTable` à chaque rendu. Avec Solid, exposez les données variables à `createTable` par
+le getter réactif `data`. Consultez la
 [FAQ](https://tanstack.com/table/latest/docs/faq) de TanStack pour plus de détails.
 
 ## Largeur des colonnes
@@ -120,7 +176,7 @@ disponible, tandis qu’une icône de tri qui change ne redimensionne pas sa col
 ## Contrôles du tableau
 
 Ajoutez uniquement les fonctionnalités et modèles de lignes TanStack dont le tableau a besoin. L’exemple
-interactif conserve dans l’état React le tri, les filtres de colonnes et la sélection des lignes. Il filtre la
+interactif conserve le tri, les filtres de colonnes et la sélection dans l’état natif du framework. Il filtre la
 colonne d’e-mail, utilise les identifiants de paiement stables avec `getRowId` et affiche cinq lignes par page.
 
 Importez les fonctions intégrées de filtrage et de tri utilisées par le tableau, puis enregistrez-les dans
@@ -171,9 +227,36 @@ Importez les fonctions intégrées de filtrage et de tri utilisées par le table
       }
     `}</style>
 
-```tsx preview file="../../en/recipes/_snippets/data-table/sorting-filtering-and-pagination.tsx"
+<ExampleFrame variant="recipe">
+  <InteractiveDataTable />
+</ExampleFrame>
+
+<ExampleCode>
+<div className="docs-reference">
+  <Tabs
+    groupId="framework"
+    values={[
+      { label: 'React', value: 'react' },
+      { label: 'Solid', value: 'solid' },
+    ]}
+    className="docs-tabs"
+  >
+    <Tab value="react">
+
+```tsx pure file="../../../src/components/recipes/data-table/sorting-filtering-and-pagination.tsx"
 
 ```
+
+    </Tab>
+    <Tab value="solid">
+
+<CodeBlockRuntime lang="tsx" code={dataTableSolid} />
+
+    </Tab>
+  </Tabs>
+</div>
+
+</ExampleCode>
 
 Pour un en-tête triable, affichez un vrai bouton dans `Table.ColumnHeader`. L’exemple utilise des icônes
 Lucide de taille uniforme et définit `aria-sort="none" | "ascending" | "descending"` sur les en-têtes

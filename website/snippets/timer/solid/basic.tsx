@@ -1,0 +1,24 @@
+import { Timer } from '@moduix/solid/timer';
+import { Pause as PauseIcon, Play as PlayIcon, RotateCcw as RotateCcwIcon } from 'lucide-solid';
+
+export default function TimerDemo() {
+  return (
+    <Timer targetMs={60 * 60 * 1000} startMs={40 * 60 * 1000}>
+      <Timer.Segments />
+      <Timer.Control>
+        <Timer.ActionTrigger action="start">
+          <PlayIcon /> Start
+        </Timer.ActionTrigger>
+        <Timer.ActionTrigger action="resume">
+          <PlayIcon /> Resume
+        </Timer.ActionTrigger>
+        <Timer.ActionTrigger action="pause">
+          <PauseIcon /> Pause
+        </Timer.ActionTrigger>
+        <Timer.ActionTrigger action="reset">
+          <RotateCcwIcon /> Reset
+        </Timer.ActionTrigger>
+      </Timer.Control>
+    </Timer>
+  );
+}

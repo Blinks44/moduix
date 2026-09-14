@@ -1,10 +1,36 @@
 ---
 title: Dialog
 component: dialog
-description: Fenêtre modale pour les formulaires, les confirmations et les autres tâches qui demandent de l’attention.
+description: Fenêtre modale pour les tâches ciblées comme les formulaires, les confirmations et les détails.
 ---
 
-import { DialogCssPropertiesPanel } from '@/components/examples/dialog';
+import { DialogCssPropertiesPanel } from '@/components/examples/dialog/css-properties';
+import DialogAdvancedCustomization from '@/components/examples/dialog/advanced-customization.tsx';
+import DialogAlertDialog from '@/components/examples/dialog/alert-dialog.tsx';
+import DialogBasic from '@/components/examples/dialog/basic.tsx';
+import DialogConfirmation from '@/components/examples/dialog/confirmation.tsx';
+import DialogControlled from '@/components/examples/dialog/controlled.tsx';
+import DialogInsideScroll from '@/components/examples/dialog/inside-scroll.tsx';
+import DialogMountingAndFocusLifecycle from '@/components/examples/dialog/mounting-and-focus-lifecycle.tsx';
+import DialogMultipleTriggers from '@/components/examples/dialog/multiple-triggers.tsx';
+import DialogNested from '@/components/examples/dialog/nested.tsx';
+import DialogNonModal from '@/components/examples/dialog/non-modal.tsx';
+import DialogOpenFromMenu from '@/components/examples/dialog/open-from-menu.tsx';
+import DialogOutsideScroll from '@/components/examples/dialog/outside-scroll.tsx';
+import DialogRootProvider from '@/components/examples/dialog/root-provider-and-ark-context-hooks.tsx';
+import dialogSolidAdvancedCustomization from '../../../snippets/dialog/solid/advanced-customization.tsx?raw';
+import dialogSolidAlertDialog from '../../../snippets/dialog/solid/alert-dialog.tsx?raw';
+import dialogSolidBasic from '../../../snippets/dialog/solid/basic.tsx?raw';
+import dialogSolidConfirmation from '../../../snippets/dialog/solid/confirmation.tsx?raw';
+import dialogSolidControlled from '../../../snippets/dialog/solid/controlled.tsx?raw';
+import dialogSolidInsideScroll from '../../../snippets/dialog/solid/inside-scroll.tsx?raw';
+import dialogSolidMountingAndFocusLifecycle from '../../../snippets/dialog/solid/mounting-and-focus-lifecycle.tsx?raw';
+import dialogSolidMultipleTriggers from '../../../snippets/dialog/solid/multiple-triggers.tsx?raw';
+import dialogSolidNested from '../../../snippets/dialog/solid/nested.tsx?raw';
+import dialogSolidNonModal from '../../../snippets/dialog/solid/non-modal.tsx?raw';
+import dialogSolidOpenFromMenu from '../../../snippets/dialog/solid/open-from-menu.tsx?raw';
+import dialogSolidOutsideScroll from '../../../snippets/dialog/solid/outside-scroll.tsx?raw';
+import dialogSolidRootProvider from '../../../snippets/dialog/solid/root-provider-and-ark-context-hooks.tsx?raw';
 
 ## Référence de l’API
 
@@ -12,24 +38,76 @@ import { DialogCssPropertiesPanel } from '@/components/examples/dialog';
 
 ## Choisir le bon composant
 
-Utilisez `Dialog` pour les formulaires, les confirmations, l’affichage de détails et les autres tâches qui doivent rester
-dans le contexte de la page actuelle. Préférez `Drawer` lorsque le panneau doit rester fixé à un bord de la fenêtre ou
-pouvoir être déplacé.
+Utilisez `Dialog` pour les formulaires, les confirmations, les détails et les autres tâches qui
+doivent garder l’utilisateur sur la page courante. Préférez `Drawer` lorsque le panneau doit rester
+attaché au bord de la fenêtre ou pouvoir être déplacé.
 
 ## Exemple de base
 
-Utilisez `Dialog` comme racine et composez explicitement ses parties structurelles. `Dialog.Backdrop` fournit le fond
-modal, `Dialog.Positioner` positionne le dialogue et `Dialog.Content` contient sa surface.
+Dialog est disponible pour React et Solid, dans les paquets CSS Modules comme dans les variantes
+Tailwind. L’aperçu interactif de cette page utilise React avec CSS Modules ; les onglets de code
+présentent la source native correspondant au même contrat public pour chaque framework.
 
-<PreviewFrame maxWidth="lg">
-  ```tsx preview file="../../en/docs/_snippets/dialog/basic.tsx"
+Utilisez `Dialog` comme racine et composez explicitement ses parties structurelles.
+`Dialog.Backdrop` est l’arrière-plan modal, `Dialog.Positioner` positionne le dialogue et
+`Dialog.Content` contient sa surface.
 
+<ExampleFrame variant="component">
+  <DialogBasic />
+</ExampleFrame>
+
+<ExampleCode>
+<div className="docs-reference">
+  <Tabs
+    groupId="framework"
+    values={[
+      { label: 'React', value: 'react' },
+      { label: 'Solid', value: 'solid' },
+    ]}
+    className="docs-tabs"
+  >
+    <Tab value="react">
+
+```tsx pure file="../../../src/components/examples/dialog/basic.tsx"
 ```
-</PreviewFrame>
+
+    </Tab>
+    <Tab value="solid">
+
+<CodeBlockRuntime lang="tsx" code={dialogSolidBasic} />
+
+    </Tab>
+  </Tabs>
+</div>
+
+</ExampleCode>
 
 ## Installation avec shadcn
 
-<ShadcnInstall packageName="dialog" />
+Consultez le [Démarrage rapide](/docs/quick-start) pour la configuration complète du paquet, du registre et des styles.
+
+<Tabs groupId="framework">
+  <Tab label="React" value="react">
+
+<ShadcnInstallOptions
+  options={[
+    { label: 'CSS Modules', command: 'shadcn@latest add @moduix-react/dialog' },
+    { label: 'Tailwind CSS', command: 'shadcn@latest add @moduix-react-tailwind/dialog' },
+  ]}
+/>
+
+  </Tab>
+  <Tab label="Solid" value="solid">
+
+<ShadcnInstallOptions
+  options={[
+    { label: 'CSS Modules', command: 'shadcn@latest add @moduix-solid/dialog' },
+    { label: 'Tailwind CSS', command: 'shadcn@latest add @moduix-solid-tailwind/dialog' },
+  ]}
+/>
+
+  </Tab>
+</Tabs>
 
 ## Anatomie
 
@@ -48,237 +126,503 @@ Dialog / Dialog.Root
          └─ Dialog.Footer (aide de mise en page moduix)
 
 Dialog.RootProvider
-└─ la même arborescence reliée à l’état créé avec useDialog() de moduix
+└─ même arbre de parties relié à l’état fourni par useDialog() de moduix
 
 Dialog.Context
-└─ une fonction de rendu qui reçoit l’état et les méthodes actuels du dialogue
+└─ fonction de rendu qui reçoit l’état et les méthodes actuels du dialogue
 ```
 
-| Partie                  | Rôle                                                                  |
-| ----------------------- | --------------------------------------------------------------------- |
-| `Dialog` / `Dialog.Root` | Gère l’état d’ouverture, le focus et la fermeture du dialogue.         |
-| `Dialog.RootProvider`   | Relie les parties à l’état créé avec `useDialog()`.                    |
-| `Dialog.Trigger`        | Ouvre le dialogue.                                                     |
-| `Dialog.Backdrop`       | Couche d’arrière-plan facultative du dialogue modal.                  |
-| `Dialog.Positioner`     | Positionne le contenu du dialogue.                                     |
-| `Dialog.Content`        | Contient la surface visible du dialogue.                              |
-| `Dialog.Title`          | Donne au dialogue un titre accessible.                                |
-| `Dialog.Description`    | Ajoute un texte complémentaire accessible.                            |
-| `Dialog.CloseTrigger`   | Ferme le dialogue.                                                     |
-| `Dialog.CloseIcon`      | Bouton de fermeture moduix qui ferme aussi le dialogue.               |
-| `Dialog.Header`         | Aide moduix pour organiser l’en-tête.                                 |
-| `Dialog.Body`           | Aide moduix pour organiser le contenu principal.                      |
-| `Dialog.Footer`         | Aide moduix pour organiser les actions.                               |
-| `Dialog.Context`        | Rend ses enfants avec l’état et les méthodes actuels du dialogue.      |
+| Partie                    | Rôle                                                               |
+| ------------------------ | ------------------------------------------------------------------ |
+| `Dialog` / `Dialog.Root` | Gère l’état d’ouverture, le focus et la fermeture du dialogue.      |
+| `Dialog.RootProvider`    | Relie les parties à l’état créé avec `useDialog()`.                |
+| `Dialog.Trigger`         | Ouvre le dialogue.                                                   |
+| `Dialog.Backdrop`        | Couche d’arrière-plan facultative du dialogue modal.                |
+| `Dialog.Positioner`      | Positionne le contenu du dialogue.                                  |
+| `Dialog.Content`         | Contient la surface visible du dialogue.                            |
+| `Dialog.Title`           | Donne au dialogue un titre accessible.                              |
+| `Dialog.Description`     | Ajoute un texte complémentaire accessible.                          |
+| `Dialog.CloseTrigger`    | Ferme le dialogue.                                                   |
+| `Dialog.CloseIcon`       | Aide moduix qui associe un bouton de fermeture au dialogue.          |
+| `Dialog.Header`          | Aide de mise en page moduix pour l’en-tête.                         |
+| `Dialog.Body`            | Aide de mise en page moduix pour le contenu principal.              |
+| `Dialog.Footer`          | Aide de mise en page moduix pour les actions.                       |
+| `Dialog.Context`         | Rend les enfants avec l’état et les méthodes actuels du dialogue.   |
 
-Importez `useDialog()` lorsque l’état doit être géré en dehors de l’arbre rendu du dialogue. Lisez-le ou mettez-le à jour
-avec `Dialog.Context` ou `useDialogContext()` depuis `@moduix/react`.
+Importez `useDialog()` lorsque l’état doit vivre en dehors de l’arbre rendu du dialogue. Lisez-le ou
+mettez-le à jour avec `Dialog.Context` ou `useDialogContext()` depuis le paquet correspondant.
 
 ## Composition
 
-Le composant racine place automatiquement `Dialog.Backdrop` et `Dialog.Positioner` dans un portail. Définissez
-`portalled={false}` pour les afficher dans l’arbre courant, ou transmettez `portalRef` pour utiliser un conteneur
-personnalisé. Gardez les parties structurelles explicites afin de pouvoir les styliser et les personnaliser séparément.
+Par défaut, `Dialog` gère son état d’ouverture. Utilisez `open` avec `onOpenChange(details)` lorsque
+cet état appartient à une autre partie de l’application. Si l’état doit être créé en dehors de
+l’arbre du dialogue, créez un seul store avec `useDialog()` et transmettez-le à
+`Dialog.RootProvider` ; ne rendez pas une autre racine pour ce même store.
 
-### Composition recommandée
-
-Rendez explicitement `Dialog.Backdrop`, `Dialog.Positioner` et `Dialog.Content`. Ajoutez l’arrière-plan pour un dialogue
-modal et omettez-le lorsque le dialogue doit être non modal.
-
-Utilisez `Dialog.Trigger asChild` et `Dialog.CloseTrigger asChild` avec un seul élément enfant sémantique. Cet élément doit
-pouvoir recevoir le focus et conserver le comportement d’un bouton. `Dialog.CloseIcon` est une aide moduix qui associe le
-`CloseTrigger` d’Ark au bouton de fermeture de la bibliothèque.
-
-### Quand créer une composition personnalisée
-
-Utilisez `open` et `onOpenChange(details)` lorsque React doit gérer l’état d’ouverture. Le callback reçoit un objet
-`details` d’Ark ; lisez donc le nouvel état dans `details.open`.
-
-Utilisez `useDialog()` avec `Dialog.RootProvider` lorsque l’état ou les méthodes doivent être accessibles en dehors de
-l’arbre du dialogue. Ne rendez pas un second `Dialog` pour la même instance. Si un composant enfant réutilisable doit lire
-cet état, utilisez `Dialog.Context` ou `useDialogContext()`.
-
-Utilisez `ids` lorsque des parties composées séparément ont besoin d’identifiants d’accessibilité stables et communs.
-Utilisez `initialFocusEl` et `finalFocusEl` pour choisir explicitement les cibles du focus. Définissez
-`role="alertdialog"` pour les décisions dangereuses ou particulièrement critiques.
-
-Gardez la racine montée lorsque l’état d’ouverture change. Utilisez `lazyMount` et `unmountOnExit` pour contrôler le
-moment où le contenu placé dans le portail entre dans le DOM et en sort. Définissez `present` uniquement lorsqu’une
-animation de sortie pilotée par JavaScript doit contrôler le maintien du contenu dans le DOM.
-
-### Propriétés par défaut
-
-Les deux premières valeurs sont définies par moduix. Les autres sont héritées d’Ark UI.
-
-| Propriété                 | Valeur par défaut | Remarques                                                         |
-| ------------------------- | ----------------- | ----------------------------------------------------------------- |
-| `lazyMount`               | `true`            | Monte le contenu placé dans le portail à la première ouverture.   |
-| `unmountOnExit`            | `true`            | Démonte le contenu après son animation de sortie.                 |
-| `modal`                    | `true`            | Empêche les interactions avec le contenu situé hors du dialogue.  |
-| `preventScroll`            | `true`            | Empêche le défilement de la page lorsque le dialogue est ouvert.  |
-| `trapFocus`                | `true`            | Retient le focus dans un dialogue modal.                          |
-| `closeOnEscape`            | `true`            | Ferme le dialogue lorsque l’utilisateur appuie sur `Escape`.      |
-| `closeOnInteractOutside`   | `true`            | Ferme le dialogue après une interaction extérieure.               |
-| `role`                     | `"dialog"`        | Utilise par défaut la sémantique d’un dialogue ordinaire.         |
-
-### Comportement
-
-- Un dialogue modal retient le focus, empêche le défilement de la page, masque le contenu situé derrière lui aux
-  technologies d’assistance et restaure le focus après sa fermeture.
-- Définissez `modal={false}` pour désactiver la rétention du focus et le blocage du défilement. Dans ce mode, omettez
-  `Dialog.Backdrop` afin que la page reste interactive.
-- `closeOnEscape`, `closeOnInteractOutside`, `trapFocus`, `preventScroll`, `restoreFocus`, `persistentElements` et les
-  callbacks d’interaction extérieure sont transmis à Ark UI.
-- Rendez `Dialog.Title` ou définissez `aria-label` sur la racine pour donner au dialogue un nom accessible. Utilisez
-  `Dialog.Description` lorsque les utilisateurs ont besoin d’une explication complémentaire.
-- Lorsque la préférence système de réduction des animations est activée, moduix raccourcit les animations d’entrée et de
-  sortie, tandis qu’Ark UI termine normalement le cycle de présence.
-- Si un dialogue contient plusieurs contrôles de fermeture, donnez à chaque `Dialog.CloseTrigger` un `id` explicite et
-  unique. Un seul `Dialog.CloseIcon` n’en a pas besoin.
-- Pour les dialogues imbriqués, le contenu parent reçoit `data-has-nested` et `--nested-layer-count`. moduix s’en sert
-  pour réduire le parent et le décaler vers le bas tant que le dialogue imbriqué est ouvert.
-- Ne démontez pas la racine conditionnellement pour fermer le dialogue. Gardez-la montée et contrôlez `open`, ou utilisez
-  `lazyMount` et `unmountOnExit` lorsque le contenu placé dans le portail ne doit pas rester dans le DOM.
+La racine place automatiquement `Dialog.Backdrop` et `Dialog.Positioner` dans un portail. Définissez
+`portalled={false}` pour les conserver dans l’arbre courant, ou transmettez `portalRef` pour choisir
+un conteneur personnalisé. Gardez l’arbre des parties explicite et utilisez `Dialog.Header`,
+`Dialog.Body` et `Dialog.Footer` uniquement lorsque leurs aides de mise en page conviennent à la
+composition.
 
 ## Exemples
 
-### Dialogue d’alerte
+### Alert Dialog
 
-Utilisez `role="alertdialog"` pour les décisions lourdes de conséquences. Ajoutez une action d’annulation claire et une
-action distincte pour confirmer la décision.
+Utilisez `role="alertdialog"` pour les décisions aux conséquences importantes. Ajoutez une action
+d’annulation claire et une action distincte pour confirmer la décision.
 
-<PreviewFrame maxWidth="lg">
-  ```tsx preview file="../../en/docs/_snippets/dialog/alert-dialog.tsx"
+<ExampleFrame variant="component">
+  <DialogAlertDialog />
+</ExampleFrame>
 
+<ExampleCode>
+<div className="docs-reference">
+  <Tabs
+    groupId="framework"
+    values={[
+      { label: 'React', value: 'react' },
+      { label: 'Solid', value: 'solid' },
+    ]}
+    className="docs-tabs"
+  >
+    <Tab value="react">
+
+```tsx pure file="../../../src/components/examples/dialog/alert-dialog.tsx"
 ```
-</PreviewFrame>
+
+    </Tab>
+    <Tab value="solid">
+
+<CodeBlockRuntime lang="tsx" code={dialogSolidAlertDialog} />
+
+    </Tab>
+  </Tabs>
+</div>
+
+</ExampleCode>
 
 ### Confirmation
 
-Interceptez la demande de fermeture du dialogue parent lorsqu’un formulaire contient des modifications non enregistrées et
-demandez à l’utilisateur s’il souhaite les abandonner.
+Interceptez la demande de fermeture du dialogue parent lorsqu’un formulaire contient des
+modifications non enregistrées et demandez à l’utilisateur s’il souhaite les abandonner.
 
-<PreviewFrame maxWidth="lg">
-  ```tsx preview file="../../en/docs/_snippets/dialog/confirmation.tsx"
+<ExampleFrame variant="component">
+  <DialogConfirmation />
+</ExampleFrame>
 
+<ExampleCode>
+<div className="docs-reference">
+  <Tabs
+    groupId="framework"
+    values={[
+      { label: 'React', value: 'react' },
+      { label: 'Solid', value: 'solid' },
+    ]}
+    className="docs-tabs"
+  >
+    <Tab value="react">
+
+```tsx pure file="../../../src/components/examples/dialog/confirmation.tsx"
 ```
-</PreviewFrame>
+
+    </Tab>
+    <Tab value="solid">
+
+<CodeBlockRuntime lang="tsx" code={dialogSolidConfirmation} />
+
+    </Tab>
+  </Tabs>
+</div>
+
+</ExampleCode>
 
 ### État contrôlé
 
-Conservez `open` dans l’état React et lisez `details.open` dans `onOpenChange` pour synchroniser le dialogue avec le reste
-de l’application.
+Conservez `open` dans l’état React ou dans un signal Solid et lisez `details.open` dans
+`onOpenChange` pour synchroniser le dialogue avec le reste de l’application.
 
-<PreviewFrame maxWidth="lg">
-  ```tsx preview file="../../en/docs/_snippets/dialog/controlled.tsx"
+<ExampleFrame variant="component">
+  <DialogControlled />
+</ExampleFrame>
 
+<ExampleCode>
+<div className="docs-reference">
+  <Tabs
+    groupId="framework"
+    values={[
+      { label: 'React', value: 'react' },
+      { label: 'Solid', value: 'solid' },
+    ]}
+    className="docs-tabs"
+  >
+    <Tab value="react">
+
+```tsx pure file="../../../src/components/examples/dialog/controlled.tsx"
 ```
-</PreviewFrame>
 
-### Défilement du contenu
+    </Tab>
+    <Tab value="solid">
 
-Rendez uniquement le contenu principal défilable lorsque le titre et les actions doivent rester visibles.
+<CodeBlockRuntime lang="tsx" code={dialogSolidControlled} />
 
-<PreviewFrame maxWidth="lg">
-  ```tsx preview file="../../en/docs/_snippets/dialog/inside-scroll.tsx"
+    </Tab>
+  </Tabs>
+</div>
 
+</ExampleCode>
+
+### Défilement interne
+
+Rendez uniquement le contenu principal défilable lorsque le titre et les actions doivent rester
+visibles.
+
+<ExampleFrame variant="component">
+  <DialogInsideScroll />
+</ExampleFrame>
+
+<ExampleCode>
+<div className="docs-reference">
+  <Tabs
+    groupId="framework"
+    values={[
+      { label: 'React', value: 'react' },
+      { label: 'Solid', value: 'solid' },
+    ]}
+    className="docs-tabs"
+  >
+    <Tab value="react">
+
+```tsx pure file="../../../src/components/examples/dialog/inside-scroll.tsx"
 ```
-</PreviewFrame>
 
-### Montage et cycle de focus
+    </Tab>
+    <Tab value="solid">
 
-Utilisez `lazyMount` et `unmountOnExit` pour gérer le cycle de présence. Utilisez `initialFocusEl` et `finalFocusEl` lorsque
-le focus doit aller vers des éléments précis à l’ouverture et à la fermeture.
+<CodeBlockRuntime lang="tsx" code={dialogSolidInsideScroll} />
 
-<PreviewFrame maxWidth="lg">
-  ```tsx preview file="../../en/docs/_snippets/dialog/mounting-and-focus-lifecycle.tsx"
+    </Tab>
+  </Tabs>
 
+**Styles**
+
+```css file="../../../src/components/examples/dialog/dialog-inside-scroll.module.css"
 ```
-</PreviewFrame>
+</div>
+
+</ExampleCode>
+
+### Cycle de montage et de focus
+
+Utilisez `lazyMount` et `unmountOnExit` pour gérer le cycle de présence. Utilisez `initialFocusEl`
+et `finalFocusEl` lorsque le focus doit aller vers des éléments précis à l’ouverture ou à la
+fermeture.
+
+<ExampleFrame variant="component">
+  <DialogMountingAndFocusLifecycle />
+</ExampleFrame>
+
+<ExampleCode>
+<div className="docs-reference">
+  <Tabs
+    groupId="framework"
+    values={[
+      { label: 'React', value: 'react' },
+      { label: 'Solid', value: 'solid' },
+    ]}
+    className="docs-tabs"
+  >
+    <Tab value="react">
+
+```tsx pure file="../../../src/components/examples/dialog/mounting-and-focus-lifecycle.tsx"
+```
+
+    </Tab>
+    <Tab value="solid">
+
+<CodeBlockRuntime lang="tsx" code={dialogSolidMountingAndFocusLifecycle} />
+
+    </Tab>
+  </Tabs>
+</div>
+
+</ExampleCode>
 
 ### Plusieurs déclencheurs
 
-Partagez un même dialogue entre plusieurs déclencheurs en attribuant une `value` à chacun et en gérant
-`onTriggerValueChange(details)`.
+Partagez un même dialogue entre plusieurs déclencheurs en attribuant une `value` à chacun et en
+gérant `onTriggerValueChange(details)`.
 
-<PreviewFrame maxWidth="lg">
-  ```tsx preview file="../../en/docs/_snippets/dialog/multiple-triggers.tsx"
+<ExampleFrame variant="component">
+  <DialogMultipleTriggers />
+</ExampleFrame>
 
+<ExampleCode>
+<div className="docs-reference">
+  <Tabs
+    groupId="framework"
+    values={[
+      { label: 'React', value: 'react' },
+      { label: 'Solid', value: 'solid' },
+    ]}
+    className="docs-tabs"
+  >
+    <Tab value="react">
+
+```tsx pure file="../../../src/components/examples/dialog/multiple-triggers.tsx"
 ```
-</PreviewFrame>
+
+    </Tab>
+    <Tab value="solid">
+
+<CodeBlockRuntime lang="tsx" code={dialogSolidMultipleTriggers} />
+
+    </Tab>
+  </Tabs>
+</div>
+
+</ExampleCode>
 
 ### Dialogues imbriqués
 
-Utilisez des instances distinctes de `useDialog()` pour les dialogues imbriqués. Ark UI gère la pile des calques et moduix
-utilise cet état pour faire reculer le parent lorsque le dialogue imbriqué est ouvert.
+Utilisez des stores `useDialog()` distincts pour les dialogues imbriqués. Ark UI gère la pile des
+calques, et moduix s’appuie sur cet état pour faire reculer le parent lorsque l’enfant est ouvert.
 
-<PreviewFrame maxWidth="lg">
-  ```tsx preview file="../../en/docs/_snippets/dialog/nested.tsx"
+<ExampleFrame variant="component">
+  <DialogNested />
+</ExampleFrame>
 
+<ExampleCode>
+<div className="docs-reference">
+  <Tabs
+    groupId="framework"
+    values={[
+      { label: 'React', value: 'react' },
+      { label: 'Solid', value: 'solid' },
+    ]}
+    className="docs-tabs"
+  >
+    <Tab value="react">
+
+```tsx pure file="../../../src/components/examples/dialog/nested.tsx"
 ```
-</PreviewFrame>
 
-### Mode non modal
+    </Tab>
+    <Tab value="solid">
 
-Définissez `modal={false}` et omettez l’arrière-plan lorsque les utilisateurs doivent pouvoir continuer à interagir avec
-la page en dehors du dialogue.
+<CodeBlockRuntime lang="tsx" code={dialogSolidNested} />
 
-<PreviewFrame maxWidth="lg">
-  ```tsx preview file="../../en/docs/_snippets/dialog/non-modal.tsx"
+    </Tab>
+  </Tabs>
 
+**Styles**
+
+```css file="../../../src/components/examples/dialog/dialog-nested.module.css"
 ```
-</PreviewFrame>
+</div>
+
+</ExampleCode>
+
+### Dialogue non modal
+
+Définissez `modal={false}` et omettez l’arrière-plan lorsque l’utilisateur doit pouvoir interagir
+avec la page en dehors du dialogue.
+
+<ExampleFrame variant="component">
+  <DialogNonModal />
+</ExampleFrame>
+
+<ExampleCode>
+<div className="docs-reference">
+  <Tabs
+    groupId="framework"
+    values={[
+      { label: 'React', value: 'react' },
+      { label: 'Solid', value: 'solid' },
+    ]}
+    className="docs-tabs"
+  >
+    <Tab value="react">
+
+```tsx pure file="../../../src/components/examples/dialog/non-modal.tsx"
+```
+
+    </Tab>
+    <Tab value="solid">
+
+<CodeBlockRuntime lang="tsx" code={dialogSolidNonModal} />
+
+    </Tab>
+  </Tabs>
+</div>
+
+</ExampleCode>
 
 ### Ouverture depuis un menu
 
-Contrôlez `open` depuis un élément de menu lorsqu’une action contextuelle doit ouvrir un dialogue de confirmation.
+Contrôlez `open` depuis un élément de menu lorsqu’une action contextuelle doit ouvrir un dialogue de
+confirmation.
 
-<PreviewFrame maxWidth="lg">
-  ```tsx preview file="../../en/docs/_snippets/dialog/open-from-menu.tsx"
+<ExampleFrame variant="component">
+  <DialogOpenFromMenu />
+</ExampleFrame>
 
+<ExampleCode>
+<div className="docs-reference">
+  <Tabs
+    groupId="framework"
+    values={[
+      { label: 'React', value: 'react' },
+      { label: 'Solid', value: 'solid' },
+    ]}
+    className="docs-tabs"
+  >
+    <Tab value="react">
+
+```tsx pure file="../../../src/components/examples/dialog/open-from-menu.tsx"
 ```
-</PreviewFrame>
 
-### Défilement de l’ensemble du dialogue
+    </Tab>
+    <Tab value="solid">
 
-Laissez `Dialog.Positioner` faire défiler l’ensemble du dialogue lorsque son contenu est long et doit conserver sa hauteur
-naturelle.
+<CodeBlockRuntime lang="tsx" code={dialogSolidOpenFromMenu} />
 
-<PreviewFrame maxWidth="lg">
-  ```tsx preview file="../../en/docs/_snippets/dialog/outside-scroll.tsx"
+    </Tab>
+  </Tabs>
+</div>
 
+</ExampleCode>
+
+### Défilement externe
+
+Laissez `Dialog.Positioner` faire défiler l’ensemble du dialogue lorsque son contenu est long et
+doit conserver sa hauteur naturelle.
+
+<ExampleFrame variant="component">
+  <DialogOutsideScroll />
+</ExampleFrame>
+
+<ExampleCode>
+<div className="docs-reference">
+  <Tabs
+    groupId="framework"
+    values={[
+      { label: 'React', value: 'react' },
+      { label: 'Solid', value: 'solid' },
+    ]}
+    className="docs-tabs"
+  >
+    <Tab value="react">
+
+```tsx pure file="../../../src/components/examples/dialog/outside-scroll.tsx"
 ```
-</PreviewFrame>
+
+    </Tab>
+    <Tab value="solid">
+
+<CodeBlockRuntime lang="tsx" code={dialogSolidOutsideScroll} />
+
+    </Tab>
+  </Tabs>
+
+**Styles**
+
+```css file="../../../src/components/examples/dialog/dialog-outside-scroll.module.css"
+```
+</div>
+
+</ExampleCode>
 
 ### Root Provider
 
-Créez l’état avec `useDialog()` lorsque les contrôles se trouvent en dehors du dialogue. Reliez-le avec
-`Dialog.RootProvider`, puis lisez-le avec `Dialog.Context` ou `useDialogContext()` dans des composants réutilisables.
+Créez l’état avec `useDialog()` lorsque les contrôles se trouvent en dehors du dialogue. Reliez-le
+avec `Dialog.RootProvider`, puis lisez-le avec `Dialog.Context` ou `useDialogContext()` dans des
+composants réutilisables.
 
-<PreviewFrame maxWidth="lg">
-  ```tsx preview file="../../en/docs/_snippets/dialog/root-provider-and-ark-context-hooks.tsx"
+<ExampleFrame variant="component">
+  <DialogRootProvider />
+</ExampleFrame>
 
+<ExampleCode>
+<div className="docs-reference">
+  <Tabs
+    groupId="framework"
+    values={[
+      { label: 'React', value: 'react' },
+      { label: 'Solid', value: 'solid' },
+    ]}
+    className="docs-tabs"
+  >
+    <Tab value="react">
+
+```tsx pure file="../../../src/components/examples/dialog/root-provider-and-ark-context-hooks.tsx"
 ```
-</PreviewFrame>
+
+    </Tab>
+    <Tab value="solid">
+
+<CodeBlockRuntime lang="tsx" code={dialogSolidRootProvider} />
+
+    </Tab>
+  </Tabs>
+</div>
+
+</ExampleCode>
 
 ### Personnalisation avancée
 
-N’utilisez pas `Header`, `Body`, `Footer` ni `CloseIcon` lorsqu’une mise en page personnalisée doit contrôler directement
-chaque partie du dialogue Ark.
+N’utilisez pas `Header`, `Body`, `Footer` ni `CloseIcon` lorsque la mise en page personnalisée doit
+contrôler directement chaque partie du dialogue Ark.
 
-<PreviewFrame maxWidth="lg">
-  ```tsx preview file="../../en/docs/_snippets/dialog/advanced-customization.tsx"
+<ExampleFrame variant="component">
+  <DialogAdvancedCustomization />
+</ExampleFrame>
 
+<ExampleCode>
+<div className="docs-reference">
+  <Tabs
+    groupId="framework"
+    values={[
+      { label: 'React', value: 'react' },
+      { label: 'Solid', value: 'solid' },
+    ]}
+    className="docs-tabs"
+  >
+    <Tab value="react">
+
+```tsx pure file="../../../src/components/examples/dialog/advanced-customization.tsx"
 ```
-</PreviewFrame>
+
+    </Tab>
+    <Tab value="solid">
+
+<CodeBlockRuntime lang="tsx" code={dialogSolidAdvancedCustomization} />
+
+    </Tab>
+  </Tabs>
+
+**Styles**
+
+```css file="../../../src/components/examples/dialog/dialog-advanced-customization.module.css"
+```
+</div>
+
+</ExampleCode>
 
 ## Styles
+
+Utilisez `className` en React ou `class` en Solid sur les parties exportées pour appliquer les styles
+structurels. Pour les styles liés à l’état, privilégiez les attributs de données Ark comme
+`data-state` et `data-has-nested`, ainsi que les sélecteurs `data-slot` de moduix. Les variantes
+Tailwind se personnalisent avec des utilitaires et des classes supplémentaires ; les variables ci-
+dessous concernent les variantes CSS Modules. Les attributs de données et les sélecteurs `data-slot`
+sont communs aux deux approches.
 
 ### Propriétés CSS
 
 <div className="docs-reference">
   <Tabs
-    values={[{ label: 'Variables CSS', value: 'CSS Variables' }]}
+    values={[{ label: 'CSS Variables', value: 'CSS Variables' }]}
     className="docs-reference-tabs"
     contentItemClassName="docs-reference-panel"
   >
@@ -290,11 +634,13 @@ chaque partie du dialogue Ark.
 
 ### Points d’accroche CSS
 
-- Valeurs `data-slot` de moduix : `dialog-trigger`, `dialog-backdrop`, `dialog-positioner`, `dialog-content`,
-  `dialog-title`, `dialog-description`, `dialog-close-trigger`, `dialog-close-icon`, `dialog-header`, `dialog-body` et
-  `dialog-footer`.
-- Attributs Ark : `data-scope="dialog"` et `data-part="trigger|backdrop|positioner|content|title|description|close-trigger"`.
-- Attributs d’état : `data-state="open|closed"`, `data-has-nested`, `data-nested`, `data-current` et `data-value`.
+- Valeurs `data-slot` de moduix : `dialog-trigger`, `dialog-backdrop`, `dialog-positioner`,
+  `dialog-content`, `dialog-title`, `dialog-description`, `dialog-close-trigger`,
+  `dialog-close-icon`, `dialog-header`, `dialog-body` et `dialog-footer`.
+- Attributs Ark : `data-scope="dialog"` et
+  `data-part="trigger|backdrop|positioner|content|title|description|close-trigger"`.
+- Attributs d’état : `data-state="open|closed"`, `data-has-nested`, `data-nested`, `data-current`
+  et `data-value`.
 - Variables d’exécution : `--layer-index` et `--nested-layer-count`.
-- `Dialog.CloseIcon` est positionné par rapport à l’angle de `Dialog.Content`, et son emplacement ne dépend donc pas de
-  `Dialog.Header`.
+- `Dialog.CloseIcon` est positionné par rapport à l’angle de `Dialog.Content`, son placement ne
+  dépend donc pas de `Dialog.Header`.

@@ -1,0 +1,11 @@
+.root {
+  width: min(24rem, 100%);
+  border: var(--moduix-border-width-sm) solid var(--moduix-color-border);
+  border-radius: var(--moduix-radius-lg);
+}
+
+.copy {
+  width: 50rem;
+  margin: 0;
+  padding: var(--moduix-spacing-3);
+}

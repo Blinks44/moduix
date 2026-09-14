@@ -1,102 +1,172 @@
 ---
 title: Hotkeys
-description: Use Ark UI Hotkeys to register platform-aware keyboard shortcuts, sequences, and commands in a moduix application.
+description: Register platform-aware keyboard shortcuts, sequences, and command metadata in a React or Solid application.
 ---
 
-## API reference
+import HotkeysBasicDemo from '@/components/examples/hotkeys/basic.tsx';
+import HotkeysSequencesDemo from '@/components/examples/hotkeys/sequences.tsx';
+import hotkeysSolidBasic from '../../../snippets/hotkeys/solid/basic.tsx?raw';
+import hotkeysSolidSequences from '../../../snippets/hotkeys/solid/sequences.tsx?raw';
+
+`Hotkeys` is Ark UI's utility for registering keyboard commands. It listens on a document or another
+target, while your application owns the command action and the visible controls.
+
+## API Reference
 
 <PrimitiveReference href="https://ark-ui.com/docs/utilities/hotkeys" />
 
-## When to use it
+The API is available from the root entry point of the matching Ark UI package:
 
-Hotkeys is Ark UI's utility for registering keyboard commands. Use it for actions such as saving a draft, opening search, or navigating a workspace. `useHotkey` listens for keyboard events on the document and removes its registration when the component unmounts.
-
-Import the hooks directly from Ark UI:
+<Tabs
+  groupId="framework"
+  values={[
+    { label: 'React', value: 'react' },
+    { label: 'Solid', value: 'solid' },
+  ]}
+  className="docs-tabs"
+>
+  <Tab value="react">
 
 ```tsx
 import { useFormatHotkey, useHotkey, useHotkeys } from '@ark-ui/react';
 ```
 
-## Basic shortcut
-
-Use `mod` instead of choosing Control or Command yourself. The same shortcut works on macOS, Windows, and Linux. After the component mounts, `useFormatHotkey` displays the notation used by the visitor's platform.
-
-<PreviewFrame maxWidth="sm">
-
-```tsx preview file="./_snippets/hotkeys/basic.tsx"
-```
-
-</PreviewFrame>
-
-When your application needs to handle a shortcut normally reserved for the browser, add `preventDefault`. Otherwise, the browser may perform its own action as well.
-
-## Multiple shortcuts and sequences
-
-Use `useHotkeys` when a screen has several commands or the command list comes from data. It accepts an array of commands. Each command needs a `hotkey` and an `action`; add `label`, `category`, or `keywords` when another part of the application needs command metadata.
-
-Separate the keys in a sequence with `>`, such as `g > i`. By default, the user has one second to press the next key.
-
-<PreviewFrame maxWidth="sm">
-
-```tsx preview file="./_snippets/hotkeys/sequences.tsx"
-```
-
-</PreviewFrame>
-
-## Form fields and scopes
-
-Single-key shortcuts are ignored while focus is in an `input`, `textarea`, or `select` by default. Shortcuts with a modifier still work, so `mod+S` can save a form. Enable a single-key shortcut in form fields only when that behavior is intentional:
+  </Tab>
+  <Tab value="solid">
 
 ```tsx
-useHotkey({
-  action: focusSearch,
-  hotkey: '/',
-  options: { enableOnFormTags: true },
-});
+import { useFormatHotkey, useHotkey, useHotkeys } from '@ark-ui/solid';
 ```
 
-Use `scopes` to limit a command to a part of the application. The command fires only when one of its scopes is active.
+  </Tab>
+</Tabs>
 
-## Create a dedicated store
+## Register a shortcut
 
-Create a store when different parts of the application need independent commands or different defaults. Keep it outside the component or memoize it. A store created during render is recreated on every render and loses its registrations.
+Use `useHotkey` for one command. The command is registered when the component mounts and removed when
+it unmounts. `mod` means Command on macOS and Control on Windows and Linux, so the same declaration
+works across platforms.
 
-```tsx
-import { createHotkeyStore, useHotkey } from '@ark-ui/react';
+<ExampleFrame variant="component">
+  <PreviewFrame maxWidth="sm">
+    <HotkeysBasicDemo />
+  </PreviewFrame>
+</ExampleFrame>
 
-const editorHotkeys = createHotkeyStore({
-  activeScopes: ['editor'],
-  sequenceTimeoutMs: 800,
-});
+<ExampleCode>
+<div className="docs-reference">
+  <Tabs
+    groupId="framework"
+    values={[
+      { label: 'React', value: 'react' },
+      { label: 'Solid', value: 'solid' },
+    ]}
+    className="docs-tabs"
+  >
+    <Tab value="react">
 
-function Editor() {
-  const save = () => {
-    // Save the current document.
-  };
-
-  useHotkey({
-    action: save,
-    hotkey: 'mod+S',
-    scopes: ['editor'],
-    store: editorHotkeys,
-  });
-}
+```tsx pure file="../../../src/components/examples/hotkeys/basic.tsx"
 ```
 
-Call `editorHotkeys.setScope('preview')` when the active part of the application changes. Pass the same store to `useHotkeys` or `useHotkey` to keep their commands in one isolated registry.
+    </Tab>
+    <Tab value="solid">
 
-## Displaying a shortcut
+<CodeBlockRuntime lang="tsx" code={hotkeysSolidBasic} />
 
-`useFormatHotkey` returns a formatter for the current platform. For example, `mod+K` becomes `⌘ K` on macOS and `Ctrl K` elsewhere. In an SSR application, use this hook inside a component instead of importing `formatHotkey` directly during render. This keeps the server and browser markup consistent during hydration.
+    </Tab>
+  </Tabs>
+</div>
+</ExampleCode>
 
-## Other useful options
+The `action` receives the `KeyboardEvent`, so it can inspect the event when needed. Add
+`options.preventDefault` when the shortcut intentionally replaces a browser command. Keep a visible
+button or another accessible action as an alternative to the keyboard shortcut.
 
-Use `enabled` to turn a command on or off. It can be a function when the value must be read from current application state without re-registering the command. Set `options.eventType` to `'keyup'` to run an action when the key is released, and use `usePressedKeys` or `useIsKeyPressed` when a held key changes the interaction.
+## Register several shortcuts
 
-## Using moduix
+Use `useHotkeys` with a `commands` array when a screen has multiple commands or the commands come from
+data. Each command needs a `hotkey` and an `action`; `id`, `label`, `description`, `category`, and
+`keywords` are available for stable references and command-palette metadata.
 
-Use moduix `Kbd` to make shortcuts easy to scan, and place it beside the related action. `Card`, `Stack`, and `Button` keep shortcut hints visually connected to the controls they describe. These components display the hint; Ark UI Hotkeys still handles registration and keyboard events.
+Separate the steps in a sequence with `>`. The default sequence timeout is 1000 milliseconds.
 
-## What belongs in your application
+<ExampleFrame variant="component">
+  <PreviewFrame maxWidth="sm">
+    <HotkeysSequencesDemo />
+  </PreviewFrame>
+</ExampleFrame>
 
-Hotkeys registers commands, matches key presses, formats shortcut labels, and manages scopes. `useHotkeyRegistrations` exposes the registered commands and their metadata, which can keep a command palette in sync with the hotkey registry. Your application owns command side effects, the command-palette UI, persistence, and navigation.
+<ExampleCode>
+<div className="docs-reference">
+  <Tabs
+    groupId="framework"
+    values={[
+      { label: 'React', value: 'react' },
+      { label: 'Solid', value: 'solid' },
+    ]}
+    className="docs-tabs"
+  >
+    <Tab value="react">
+
+```tsx pure file="../../../src/components/examples/hotkeys/sequences.tsx"
+```
+
+    </Tab>
+    <Tab value="solid">
+
+<CodeBlockRuntime lang="tsx" code={hotkeysSolidSequences} />
+
+    </Tab>
+  </Tabs>
+</div>
+</ExampleCode>
+
+## Scope behavior and options
+
+Hotkeys uses a shared store by default. Create a stable store with `createHotkeyStore` when a part of
+the application needs its own commands, defaults, or active scopes. Create it outside the component,
+or memoize it in React, so it is not recreated during render. Pass the same store to `useHotkey`,
+`useHotkeys`, `useHotkeyRegistrations`, or `useHotkeyStore`.
+
+- `scopes` can be a string or an array. A command fires when one of its scopes is active. Use
+  `store.setScope('preview')` to replace the active scopes, or `addScope`, `removeScope`, and
+  `toggleScope` to update them.
+- `enabled` accepts a boolean or a function. A function is checked when the key fires, so it can read
+  current application state without re-registering the command.
+- `options.enableOnFormTags` is `false` for single-key shortcuts by default. Set it to `true`, or to
+  an array of `input`, `textarea`, and `select`, only when the shortcut should work while typing.
+  Shortcuts with a modifier still work in form fields.
+- Use `options.enableOnContentEditable` for editable regions, `options.target` for a DOM subtree,
+  and `options.stopPropagation` when the action must stop the event from travelling further.
+- Set `options.eventType` to `'keyup'` to run on release and `options.requireReset` to prevent key
+  repeat from firing the command more than once before release.
+- `conflictBehavior` controls duplicate shortcuts in a store: `'warn'` is the default, while
+  `'error'`, `'replace'`, and `'allow'` provide stricter or quieter alternatives. Set the sequence
+  window with `sequenceTimeoutMs` and shared command defaults with `defaultOptions`.
+
+## Display a shortcut
+
+Hotkeys does not render a hint. Use `useFormatHotkey` inside a component to display a platform-aware
+label, for example `mod+K` becomes `⌘ K` on macOS and `Ctrl K` elsewhere. In an SSR application,
+prefer this hook over calling `formatHotkey` directly during component render so the server and
+browser use the same initial markup.
+
+## Read registrations and key state
+
+Use the additional hooks when the application needs to build on the registry rather than register a
+command only:
+
+| Need | API |
+| --- | --- |
+| Show registered commands in a command palette | `useHotkeyRegistrations` |
+| Let users record a new shortcut | `useHotkeyRecorder` |
+| React to keys held during another interaction | `usePressedKeys` or `useIsKeyPressed` |
+| Read the current platform | `usePlatform` |
+
+In Solid, state returned by these hooks is an accessor, so read it as `registrations()`,
+`pressedKeys()`, `isPressed()`, or `platform()`. React returns the current value directly. A recorded
+shortcut can be committed with `stop`, discarded with `cancel`, or removed with `clear`.
+
+Hotkeys manages registration, matching, formatting, scopes, and recorder state. Your application
+still owns side effects, navigation, persistence, command-palette UI, focus management, and an
+accessible non-keyboard path for every important action.

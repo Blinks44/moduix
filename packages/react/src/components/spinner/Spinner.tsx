@@ -2,7 +2,6 @@ import type { HTMLArkProps } from '@ark-ui/react/factory';
 import { ark } from '@ark-ui/react/factory';
 import { clsx } from 'clsx';
 import { forwardRef } from 'react';
-import { normalizeClassName } from '@/lib/moduix/normalizeClassName';
 import styles from './Spinner.module.css';
 
 type SpinnerProps = HTMLArkProps<'span'> & {
@@ -40,7 +39,7 @@ const SpinnerRoot = forwardRef<HTMLSpanElement, SpinnerProps>(function SpinnerRo
       aria-hidden={decorative && !asChild ? true : undefined}
       aria-label={accessibleLabel}
       aria-labelledby={decorative ? undefined : ariaLabelledBy}
-      className={clsx(styles.root, normalizeClassName(className))}
+      className={clsx(styles.root, className)}
     >
       {asChild ? (
         children

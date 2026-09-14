@@ -1,0 +1,49 @@
+# FileUpload (Solid)
+
+`FileUpload` preserves the React component's Ark-backed file selection, drag-and-drop, validation,
+preview, removal, native form, provider, and context contracts.
+
+## Composition
+
+```tsx
+import { FileUpload } from '@moduix/solid/file-upload';
+
+export function FileUploadDemo() {
+  return (
+    <FileUpload maxFiles={3}>
+      <FileUpload.Label>Attachments</FileUpload.Label>
+      <FileUpload.Trigger>Choose files</FileUpload.Trigger>
+      <FileUpload.ItemGroup>
+        <FileUpload.Items />
+      </FileUpload.ItemGroup>
+      <FileUpload.HiddenInput />
+    </FileUpload>
+  );
+}
+```
+
+Compose `FileUpload.HiddenInput` explicitly inside `Root` or `RootProvider`. Use
+`name`, `required`, `disabled`, `readOnly`, and the other Ark file-upload root props for native
+form behavior and validation. `FileUpload.Context`, `useFileUpload`, and
+`useFileUploadContext` expose the unchanged Ark state and callback details.
+Set `form` directly on `HiddenInput` for an external form.
+
+## Solid composition
+
+Ark Solid uses a render-function `asChild` prop:
+
+```tsx
+<FileUpload asChild={(props) => <section {...props()} aria-label="Attachments" />}>
+  <FileUpload.Label>Attachments</FileUpload.Label>
+  <FileUpload.Trigger>Choose files</FileUpload.Trigger>
+  <FileUpload.HiddenInput />
+</FileUpload>
+```
+
+Ordinary refs are forwarded to rendered Ark parts. Ark Solid does not forward refs through
+`asChild`, so custom-host composition and ordinary refs are supported as separate native paths.
+`Dropzone.disableClick` remains required when a nested `Trigger` opens the file picker.
+
+The `Items` convenience part renders image previews for `image/*` files and a generic file icon
+for other files, including files whose filename looks like an image but has no image MIME type.
+Use explicit `Context` composition for rejected files or MIME-specific previews.

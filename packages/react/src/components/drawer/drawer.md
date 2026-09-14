@@ -34,7 +34,7 @@ lifecycle, dismissal controls, `ids`, `present`, `lazyMount`, and `unmountOnExit
 exit animations finish.
 
 The wrapper adds visual defaults, four narrow layout helpers (`CloseIcon`, `Header`, `Body`, and
-`Footer`), and an opt-in `Content variant="island"` presentation. It does not hide structural parts.
+`Footer`), and an opt-in `Root variant="island"` presentation. It does not hide structural parts.
 
 ## Anatomy and exported parts
 
@@ -142,10 +142,10 @@ Runtime variables include `--drawer-translate`, `--drawer-translate-x`, `--drawe
 ## Defaults and styling
 
 Default drawer and close controls use `--moduix-size-md` with `--moduix-spacing-1` block padding.
-`Content variant="island"` insets the surface from the viewport, rounds all content corners, and
-removes the directional `Content::after` overdrag bleed. Set `--moduix-drawer-island-inset` to
-adjust the viewport inset; safe-area insets remain respected. Its enter and exit keyframes include
-the same directional inset so the surface leaves the viewport completely before Ark hides it.
+`Root variant="island"` uses the full default snap point (`[1]`) and passes the island presentation
+to `Content`. The `swipeDirection` remains controlled by the caller. The island surface is inset
+from the viewport, has rounded corners, and removes the directional `Content::after` overdrag bleed.
+Set `--moduix-drawer-island-inset` to adjust the viewport inset; safe-area insets remain respected.
 
 Every visual part accepts `className`; Ark polymorphic parts also retain `asChild`. The component
 uses moduix colors, spacing, radii, shadows, and motion tokens.
@@ -188,8 +188,10 @@ Public theme variables are declared in `packages/foundation/src/styles/variables
   accessible label to `Close drawer`.
 - `Drawer.Header`, `Drawer.Body`, and `Drawer.Footer` are native layout helpers only; they add no
   state or hidden structure.
-- `Drawer.Content variant="island"` is an opt-in presentation variant for a detached surface. It
-  preserves Ark swipe, snap-point, focus, and stack behavior while disabling only the visual bleed.
+- `Drawer.Root variant="island"` is an opt-in detached surface with a full default snap point;
+  `swipeDirection` remains caller-controlled. `Drawer.Content variant="island"` remains supported
+  for explicitly selecting the presentation while preserving Ark swipe, snap-point, focus, and
+  stack behavior.
 - `Drawer.Trigger` and `Drawer.CloseTrigger` receive moduix button visuals only when `asChild` is
   not used.
 - moduix re-exports `useDrawer`, `useDrawerContext`, `useDrawerStackContext`, and `Drawer.Context`

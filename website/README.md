@@ -2,6 +2,8 @@
 
 This is the moduix documentation site built with Rspress.
 
+The site documents a multi-framework library. React and Solid adapters ship today; its page structure, shared prose, and framework tabs are designed to accept Vue and Svelte when those adapters ship.
+
 ## Commands
 
 Run commands from the monorepo root:
@@ -20,10 +22,10 @@ directory as Cloudflare Workers Static Assets.
 
 ```text
 website/
-  docs/en/              # English MDX pages, navigation metadata, and snippets
+  docs/<locale>/        # Localized MDX pages and navigation metadata
   docs/public/          # Static and hosted registry assets shared by locales
   i18n.json             # Locale-aware UI strings
-  src/components/       # Home, examples, recipes, and focused MDX support components
+  src/components/       # Home, runnable examples, recipes, and focused MDX support components
   theme/                # Rspress theme wrapper and moduix visual tokens
   rspress.config.ts     # Rspress and official plugin configuration
   wrangler.jsonc        # Cloudflare Workers Static Assets deployment
@@ -35,7 +37,7 @@ per-page Markdown, `llms.txt`, `llms-full.txt`, and `sitemap.xml`.
 
 ## Localization
 
-English is the default locale. Russian translation is delivered incrementally: until a page has a
-Russian counterpart, omit it from Russian navigation and locale-filtered collections. Do not add an
-implicit English fallback or a link that produces a Russian 404. Add the page and its navigation entry
-when its translation is ready, and keep existing locale pairs aligned when the English source changes.
+English is the default locale. Russian and French are supported localized trees. Keep matching pages,
+navigation, framework coverage, and shared examples aligned across every configured locale. Do not add
+an implicit English fallback or a locale link that produces a 404; add a page to localized navigation
+only when that translation is ready.

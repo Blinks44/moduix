@@ -1,10 +1,24 @@
 ---
 title: Input Group
 component: input-group
-description: Комбинируйте нативное поле ввода со встроенными префиксами, суффиксами, текстом и действиями.
+description: Создавайте доступные группы полей ввода в React и Solid с установкой из пакета или через shadcn CLI.
 ---
 
-import * as InputGroupDocs from '@/components/examples/input-group';
+import * as InputGroupDocs from '@/components/examples/input-group/css-properties';
+import InputGroupAsChild from '@/components/examples/input-group/as-child.tsx';
+import InputGroupBasic from '@/components/examples/input-group/basic.tsx';
+import InputGroupDisabled from '@/components/examples/input-group/disabled.tsx';
+import InputGroupFieldState from '@/components/examples/input-group/field-state.tsx';
+import InputGroupPrefixAndSuffix from '@/components/examples/input-group/prefix-and-suffix.tsx';
+import InputGroupSizes from '@/components/examples/input-group/sizes.tsx';
+import InputGroupWithAction from '@/components/examples/input-group/with-action.tsx';
+import inputGroupSolidAsChild from '../../../snippets/input-group/solid/as-child.tsx?raw';
+import inputGroupSolidBasic from '../../../snippets/input-group/solid/basic.tsx?raw';
+import inputGroupSolidDisabled from '../../../snippets/input-group/solid/disabled.tsx?raw';
+import inputGroupSolidFieldState from '../../../snippets/input-group/solid/field-state.tsx?raw';
+import inputGroupSolidPrefixAndSuffix from '../../../snippets/input-group/solid/prefix-and-suffix.tsx?raw';
+import inputGroupSolidSizes from '../../../snippets/input-group/solid/sizes.tsx?raw';
+import inputGroupSolidWithAction from '../../../snippets/input-group/solid/with-action.tsx?raw';
 
 ## Справочник API
 
@@ -13,7 +27,7 @@ import * as InputGroupDocs from '@/components/examples/input-group';
 соответствует рекомендациям Ark по [композиции](https://ark-ui.com/docs/guides/composition),
 [стилизации](https://ark-ui.com/docs/guides/styling) и [работе с ref](https://ark-ui.com/docs/guides/ref).
 
-## Выбор подходящего компонента
+## Какой компонент выбрать
 
 - Используйте **`Input`** для обычного однострочного поля.
 - Используйте **`InputGroup`**, если в поле нужно разместить префикс, суффикс или действие.
@@ -24,75 +38,106 @@ import * as InputGroupDocs from '@/components/examples/input-group';
 
 ## Базовый пример
 
-Соберите композицию вокруг поля и добавьте только необходимые части.
+`InputGroup` доступен для React и Solid как в пакетах с CSS Modules, так и в вариантах на Tailwind.
+Интерактивное превью на этой странице использует React и CSS Modules, а вкладки с кодом показывают
+нативную реализацию того же публичного контракта.
 
-<PreviewFrame contentWidth="fit-content" maxWidth="sm">
-  ```tsx preview file="../../en/docs/_snippets/input-group/basic.tsx"
-  ```
-</PreviewFrame>
+Используйте `InputGroup` как корневой компонент и добавляйте к единственному
+`InputGroup.Input` только необходимые части `Addon`, `Text` или `Button`.
+
+<ExampleFrame variant="component">
+  <InputGroupBasic />
+</ExampleFrame>
+
+<ExampleCode>
+<div className="docs-reference">
+  <Tabs
+    groupId="framework"
+    values={[
+      { label: 'React', value: 'react' },
+      { label: 'Solid', value: 'solid' },
+    ]}
+    className="docs-tabs"
+  >
+    <Tab value="react">
+
+```tsx pure file="../../../src/components/examples/input-group/basic.tsx"
+```
+
+    </Tab>
+    <Tab value="solid">
+
+<CodeBlockRuntime lang="tsx" code={inputGroupSolidBasic} />
+
+    </Tab>
+  </Tabs>
+
+**Стили**
+
+```css file="../../../src/components/examples/input-group/input-group-basic.module.css"
+```
+</div>
+
+</ExampleCode>
 
 ## Установка через shadcn
 
-<ShadcnInstall packageName="input-group" />
+Полную настройку пакета, реестра и стилей см. в разделе [Быстрый старт](/docs/quick-start).
+
+<Tabs groupId="framework">
+  <Tab label="React" value="react">
+
+<ShadcnInstallOptions
+  options={[
+    { label: 'CSS Modules', command: 'shadcn@latest add @moduix-react/input-group' },
+    { label: 'Tailwind CSS', command: 'shadcn@latest add @moduix-react-tailwind/input-group' },
+  ]}
+/>
+
+  </Tab>
+  <Tab label="Solid" value="solid">
+
+<ShadcnInstallOptions
+  options={[
+    { label: 'CSS Modules', command: 'shadcn@latest add @moduix-solid/input-group' },
+    { label: 'Tailwind CSS', command: 'shadcn@latest add @moduix-solid-tailwind/input-group' },
+  ]}
+/>
+
+  </Tab>
+</Tabs>
 
 ## Анатомия
 
 ```text
 InputGroup / InputGroup.Root
-├─ InputGroup.Addon (optional)
+├─ InputGroup.Addon (необязательно)
 ├─ InputGroup.Input
-├─ InputGroup.Text (optional)
-└─ InputGroup.Button (optional)
+├─ InputGroup.Text (необязательно)
+└─ InputGroup.Button (необязательно)
 ```
 
-| Часть                            | Назначение                                                   |
-| -------------------------------- | ------------------------------------------------------------ |
-| `InputGroup` / `InputGroup.Root` | Общая разметка, граница, кольцо фокуса и контекст размера.   |
-| `InputGroup.Input`               | Нативный `<input>`, который содержит значение формы.        |
-| `InputGroup.Addon`               | Префикс или суффикс с заливкой.                              |
-| `InputGroup.Text`                | Встроенный текст без заливки.                                |
-| `InputGroup.Button`              | Кнопка действия, связанного с полем.                        |
+| Часть                            | Назначение                                                  |
+| -------------------------------- | ----------------------------------------------------------- |
+| `InputGroup` / `InputGroup.Root` | Пассивный контейнер с общей стилизацией и контекстом размера. |
+| `InputGroup.Input`               | Нативный `<input>`, который содержит значение формы и состояние поля. |
+| `InputGroup.Addon`               | Префикс или суффикс с заливкой.                             |
+| `InputGroup.Text`                | Встроенный текст без заливки.                               |
+| `InputGroup.Button`              | Кнопка действия, связанного с полем.                       |
 
 ## Композиция
 
-### Рекомендуемая композиция
+В каждой группе оставляйте ровно один `InputGroup.Input`. Вложенное поле отвечает за значение,
+поведение формы, состояние валидации и `ref`, поэтому управляемые и неуправляемые свойства
+задавайте на нём, а метку и сообщения валидации размещайте в `Field`. Размер корневого элемента
+наследуют `InputGroup.Input` и `InputGroup.Button`; для кнопок по умолчанию используется
+`type="button"`, но состояние `disabled` от `Field` они не наследуют. В React для управляемого
+поля используйте `onChange`, а в Solid - `onInput`.
 
-Используйте ровно один `InputGroup.Input`. Размещайте `Addon`, `Text` или `Button` перед полем или
-после него. Поместите группу в `Field`, если полю нужны метка, поясняющий текст, сообщение об
-ошибке, сгенерированные идентификаторы или общее состояние.
-
-`InputGroup.Input` остается нативным полем. Для управляемого поля передавайте `value` и обновляйте
-его в `onChange(event)`. Для неуправляемого поля используйте `defaultValue`. Размер, заданный у
-корневого элемента, наследуют `InputGroup.Input` и `InputGroup.Button`; остальные части
-подстраиваются под ту же визуальную плотность.
-
-### Когда нужна нестандартная композиция
-
-Корневой элемент, `InputGroup.Addon` и `InputGroup.Text` поддерживают `asChild` из Ark. При
-использовании этой опции передавайте ровно один дочерний элемент. Дочерний элемент корня должен
-оставаться семантическим контейнером для разметки. Дочерний элемент `Addon` или `Text` должен
-оставаться декоративным и принимать переданные свойства и ref.
-
-Для действий используйте `InputGroup.Button`, а не делайте `Addon` интерактивным.
-Добавляйте `role="group"` и доступное имя только тогда, когда автономная композиция должна
-объявляться группой.
-
-### Свойства по умолчанию
-
-| Часть / свойство            | По умолчанию          |
-| --------------------------- | --------------------- |
-| `InputGroup.size`           | `md`                  |
-| `InputGroup.Input.size`     | наследуется от корня  |
-| `InputGroup.Button.size`    | наследуется от корня  |
-| `InputGroup.Button.variant` | `ghost`               |
-| `InputGroup.Button.type`    | `button`              |
-
-### Особенности поведения
-
-- `ref` у `InputGroup.Input` указывает на настоящий `HTMLInputElement`.
-- Корневой элемент служит пассивным контейнером. Он не управляет значением и валидацией, не генерирует ARIA-идентификаторы, не предоставляет хуки контекста и не рендерит `HiddenInput`.
-- Оформление корня для состояний `invalid`, `disabled` и `readOnly` определяется состоянием вложенного поля.
-- Кнопки не наследуют `disabled` от `Field`. Если действие должно быть недоступно, отключайте каждую кнопку отдельно.
+Используйте `Addon` и `Text` для неинтерактивного содержимого, а `Button` - для действий. Корень,
+`Addon` и `Text` поддерживают `asChild` с одним семантическим дочерним элементом, принимающим
+объединённые свойства и `ref`. Используйте `Editable`, если значение должно переключаться между
+режимами просмотра и редактирования.
 
 ## Примеры
 
@@ -101,74 +146,250 @@ InputGroup / InputGroup.Root
 Передайте `disabled` нативному полю. Связанные кнопки отключайте отдельно, если они тоже должны
 быть недоступны.
 
-<PreviewFrame contentWidth="fit-content" maxWidth="sm">
-  ```tsx preview file="../../en/docs/_snippets/input-group/disabled.tsx"
-  ```
-</PreviewFrame>
+<ExampleFrame variant="component">
+  <InputGroupDisabled />
+</ExampleFrame>
+
+<ExampleCode>
+<div className="docs-reference">
+  <Tabs
+    groupId="framework"
+    values={[
+      { label: 'React', value: 'react' },
+      { label: 'Solid', value: 'solid' },
+    ]}
+    className="docs-tabs"
+  >
+    <Tab value="react">
+
+```tsx pure file="../../../src/components/examples/input-group/disabled.tsx"
+```
+
+    </Tab>
+    <Tab value="solid">
+
+<CodeBlockRuntime lang="tsx" code={inputGroupSolidDisabled} />
+
+    </Tab>
+  </Tabs>
+
+**Стили**
+
+```css file="../../../src/components/examples/input-group/input-group-disabled.module.css"
+```
+</div>
+
+</ExampleCode>
 
 ### Состояние поля
 
 Задайте `invalid` у `Field`, если проверка не пройдена. Ark передаст это состояние и нужные
 ARIA-атрибуты в `InputGroup.Input`, а группа отразит состояние поля.
 
-<PreviewFrame contentWidth="fit-content" maxWidth="sm">
-  ```tsx preview file="../../en/docs/_snippets/input-group/field-state.tsx"
-  ```
-</PreviewFrame>
+<ExampleFrame variant="component">
+  <InputGroupFieldState />
+</ExampleFrame>
+
+<ExampleCode>
+<div className="docs-reference">
+  <Tabs
+    groupId="framework"
+    values={[
+      { label: 'React', value: 'react' },
+      { label: 'Solid', value: 'solid' },
+    ]}
+    className="docs-tabs"
+  >
+    <Tab value="react">
+
+```tsx pure file="../../../src/components/examples/input-group/field-state.tsx"
+```
+
+    </Tab>
+    <Tab value="solid">
+
+<CodeBlockRuntime lang="tsx" code={inputGroupSolidFieldState} />
+
+    </Tab>
+  </Tabs>
+
+**Стили**
+
+```css file="../../../src/components/examples/input-group/input-group-field-state.module.css"
+```
+</div>
+
+</ExampleCode>
 
 ### Префикс и суффикс
 
-Используйте `Addon` для префикса или суффикса с заливкой, а `Text` для встроенного текста без заливки.
+Используйте `Addon` для префикса или суффикса с заливкой, а `Text` - для встроенного текста без заливки.
 
-<PreviewFrame contentWidth="fit-content" maxWidth="sm">
-  ```tsx preview file="../../en/docs/_snippets/input-group/prefix-and-suffix.tsx"
-  ```
-</PreviewFrame>
+<ExampleFrame variant="component">
+  <InputGroupPrefixAndSuffix />
+</ExampleFrame>
+
+<ExampleCode>
+<div className="docs-reference">
+  <Tabs
+    groupId="framework"
+    values={[
+      { label: 'React', value: 'react' },
+      { label: 'Solid', value: 'solid' },
+    ]}
+    className="docs-tabs"
+  >
+    <Tab value="react">
+
+```tsx pure file="../../../src/components/examples/input-group/prefix-and-suffix.tsx"
+```
+
+    </Tab>
+    <Tab value="solid">
+
+<CodeBlockRuntime lang="tsx" code={inputGroupSolidPrefixAndSuffix} />
+
+    </Tab>
+  </Tabs>
+
+**Стили**
+
+```css file="../../../src/components/examples/input-group/input-group-prefix-and-suffix.module.css"
+```
+</div>
+
+</ExampleCode>
 
 ### Размеры
 
 Задайте `size` один раз у корневого элемента, чтобы поле, дополнение, текст и кнопка оставались выровнены.
 
-<PreviewFrame contentWidth="fit-content" maxWidth="sm">
-  ```tsx preview file="../../en/docs/_snippets/input-group/sizes.tsx"
-  ```
-</PreviewFrame>
+<ExampleFrame variant="component">
+  <InputGroupSizes />
+</ExampleFrame>
+
+<ExampleCode>
+<div className="docs-reference">
+  <Tabs
+    groupId="framework"
+    values={[
+      { label: 'React', value: 'react' },
+      { label: 'Solid', value: 'solid' },
+    ]}
+    className="docs-tabs"
+  >
+    <Tab value="react">
+
+```tsx pure file="../../../src/components/examples/input-group/sizes.tsx"
+```
+
+    </Tab>
+    <Tab value="solid">
+
+<CodeBlockRuntime lang="tsx" code={inputGroupSolidSizes} />
+
+    </Tab>
+  </Tabs>
+
+**Стили**
+
+```css file="../../../src/components/examples/input-group/input-group-sizes.module.css"
+```
+</div>
+
+</ExampleCode>
 
 ### С действием
 
 Используйте `InputGroup.Button` для действия, связанного со значением поля. В этом примере поле
 управляемое, а кнопка `Send` становится доступной только после ввода значения.
 
-<PreviewFrame contentWidth="fit-content" maxWidth="sm">
-  ```tsx preview file="../../en/docs/_snippets/input-group/with-action.tsx"
-  ```
-</PreviewFrame>
+<ExampleFrame variant="component">
+  <InputGroupWithAction />
+</ExampleFrame>
+
+<ExampleCode>
+<div className="docs-reference">
+  <Tabs
+    groupId="framework"
+    values={[
+      { label: 'React', value: 'react' },
+      { label: 'Solid', value: 'solid' },
+    ]}
+    className="docs-tabs"
+  >
+    <Tab value="react">
+
+```tsx pure file="../../../src/components/examples/input-group/with-action.tsx"
+```
+
+    </Tab>
+    <Tab value="solid">
+
+<CodeBlockRuntime lang="tsx" code={inputGroupSolidWithAction} />
+
+    </Tab>
+  </Tabs>
+
+**Стили**
+
+```css file="../../../src/components/examples/input-group/input-group-with-action.module.css"
+```
+</div>
+
+</ExampleCode>
 
 ### Расширенная настройка
 
 Используйте `asChild`, если вместо стандартного `div` нужен собственный контейнер. Группа сохранит
 оформление и контекст размера, а дочерний элемент должен остаться семантическим контейнером для разметки.
 
-<PreviewFrame contentWidth="fit-content" maxWidth="sm">
-  ```tsx preview file="../../en/docs/_snippets/input-group/as-child.tsx"
-  ```
-</PreviewFrame>
+<ExampleFrame variant="component">
+  <InputGroupAsChild />
+</ExampleFrame>
+
+<ExampleCode>
+<div className="docs-reference">
+  <Tabs
+    groupId="framework"
+    values={[
+      { label: 'React', value: 'react' },
+      { label: 'Solid', value: 'solid' },
+    ]}
+    className="docs-tabs"
+  >
+    <Tab value="react">
+
+```tsx pure file="../../../src/components/examples/input-group/as-child.tsx"
+```
+
+    </Tab>
+    <Tab value="solid">
+
+<CodeBlockRuntime lang="tsx" code={inputGroupSolidAsChild} />
+
+    </Tab>
+  </Tabs>
+
+**Стили**
+
+```css file="../../../src/components/examples/input-group/input-group-as-child.module.css"
+```
+</div>
+
+</ExampleCode>
 
 ## Стилизация
 
+Для структурных стилей передавайте экспортируемым частям `className` в React или `class` в Solid.
+Состояния лучше оформлять через атрибуты данных Ark, например `data-invalid`, `data-disabled` и
+`data-readonly`, вместе с селекторами `data-slot` moduix. Варианты на Tailwind настраиваются
+обычными утилитами и пользовательскими классами; перечисленные ниже переменные относятся к
+вариантам с CSS Modules. Атрибуты данных и селекторы `data-slot` общие для обоих подходов.
+
 ### CSS-свойства
 
-<div className="docs-reference">
-  <Tabs
-    values={[{ label: 'CSS-переменные', value: 'CSS Variables' }]}
-    className="docs-reference-tabs"
-    contentItemClassName="docs-reference-panel"
-  >
-    <Tab>
-      <InputGroupDocs.InputGroupCssPropertiesPanel />
-    </Tab>
-  </Tabs>
-</div>
+<CssPropertiesSection properties={InputGroupDocs.inputGroupOverrideCssProperties} />
 
 ### Хуки стилизации
 
@@ -181,5 +402,5 @@ ARIA-атрибуты в `InputGroup.Input`, а группа отразит со
 - вложенные состояния `data-invalid`, `aria-invalid="true"`, `data-disabled`/`:disabled` и `data-readonly`/`:read-only` отражаются на корне через `:has(...)`
 
 Слоты и атрибуты `data-slot`, `data-scope`, `data-part` и `data-size`, которыми управляет
-компонент, остаются неизменными, даже если вы передаёте собственные свойства. `className` всегда
-объединяется со стилями компонента.
+компонент, остаются неизменными, даже если вы передаёте собственные свойства. `className` в React
+и `class` в Solid объединяются со стилями компонента.

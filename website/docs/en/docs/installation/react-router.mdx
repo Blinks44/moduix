@@ -1,6 +1,6 @@
 ---
 title: React Router
-description: Install moduix in a React Router framework app, load the foundation styles, and use a component in a route module.
+description: Integrate moduix with React Router Framework Mode through packages or shadcn, including styles, aliases, routes, SSR, and hydration.
 ---
 
 # React Router
@@ -9,7 +9,21 @@ This guide covers React Router in Framework Mode. If you already have a Framewor
 steps below. For Data Mode or Declarative Mode, follow the [Vite setup](/docs/installation/vite); the moduix imports
 stay the same.
 
-## Install the package
+## Choose your setup
+
+- **Runtime:** React in Framework Mode. Use the Vite guide for Data or Declarative Mode.
+- **Styling:** CSS Modules or Tailwind CSS v4.
+- **Distribution:** a package or source copied with the shadcn CLI.
+
+Complete the shared [package setup](/docs/quick-start#install-as-a-package) or
+[shadcn setup](/docs/quick-start#install-with-the-shadcn-cli) for your styling track first. This page
+uses CSS Modules package imports; the React Router entry files, aliases, SSR, and hydration checks stay
+the same with the React Tailwind package or registry.
+
+All package commands and stylesheet imports shown below belong to CSS Modules. With Tailwind, keep the global stylesheet
+configured in Quick Start instead.
+
+## Install as a package
 
 <PackageManagerTabs command="install @moduix/react @ark-ui/react" />
 
@@ -57,6 +71,15 @@ setup](/docs/quick-start#install-with-the-shadcn-cli). The standard React Router
 ```
 
 Framework Mode uses Vite. Make the same alias available to the bundler by following the [Vite setup](/docs/installation/vite#install-with-the-shadcn-cli) and changing `./src` to `./app`. Keep the React Router plugin and any other existing Vite configuration in place.
+
+Add the Button from the namespace for your styling track:
+
+<ShadcnInstallOptions
+  options={[
+    { label: 'CSS Modules', command: 'shadcn@latest add @moduix-react/button' },
+    { label: 'Tailwind CSS', command: 'shadcn@latest add @moduix-react-tailwind/button' },
+  ]}
+/>
 
 After shadcn generates the files, replace the package stylesheet import in `app/root.tsx` with the generated one:
 

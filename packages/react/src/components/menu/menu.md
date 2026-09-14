@@ -18,6 +18,9 @@ The wrapper follows Ark UI `@ark-ui/react/menu` directly. Preserve the Ark parts
 `Item`, `TriggerItem`, `Separator`, `ItemGroup`, `ItemGroupLabel`, `CheckboxItem`,
 `RadioItemGroup`, `RadioItem`, `ItemIndicator`, and `ItemText`.
 
+moduix additionally exports `Viewport`, an explicit styled container for the scrollable item region.
+It is not an Ark state part and does not alter menu behavior.
+
 Callbacks and state shapes must remain Ark-shaped: `onOpenChange(details)`,
 `onHighlightChange(details)`, `onSelect(details)`, `onValueChange(details)`,
 `onCheckedChange(checked)`, `open`, `defaultOpen`, `highlightedValue`, `defaultHighlightedValue`,
@@ -39,7 +42,7 @@ Breaking legacy APIs were removed:
 - no `MenuSubmenu`; nested menus are regular `Menu` roots opened by `Menu.TriggerItem`
 - no `MenuLinkItem`; use `Menu.Item asChild` with an anchor
 - no high-level `Menu.Content` wrapper that hides `Positioner`
-- no `createMenuHandle`, `MenuPopup`, `MenuViewport`, `MenuBackdrop`, or `MenuPortal` aliases
+- no `createMenuHandle`, `MenuPopup`, `MenuBackdrop`, or `MenuPortal` aliases
 
 ## Anatomy and exported parts
 
@@ -50,20 +53,24 @@ Breaking legacy APIs were removed:
   </Menu.Trigger>
   <Menu.Positioner>
     <Menu.Content>
-      <Menu.Item value="edit" />
-      <Menu.CheckboxItem value="toolbar" checked={checked}>
-        <Menu.ItemIndicator />
-        <Menu.ItemText />
-      </Menu.CheckboxItem>
-      <Menu.RadioItemGroup value={value}>
-        <Menu.RadioItem value="date" />
-      </Menu.RadioItemGroup>
-      <Menu>
-        <Menu.TriggerItem />
-        <Menu.Positioner>
-          <Menu.Content />
-        </Menu.Positioner>
-      </Menu>
+      <Menu.Viewport>
+        <Menu.Item value="edit" />
+        <Menu.CheckboxItem value="toolbar" checked={checked}>
+          <Menu.ItemIndicator />
+          <Menu.ItemText />
+        </Menu.CheckboxItem>
+        <Menu.RadioItemGroup value={value}>
+          <Menu.RadioItem value="date" />
+        </Menu.RadioItemGroup>
+        <Menu>
+          <Menu.TriggerItem />
+          <Menu.Positioner>
+            <Menu.Content>
+              <Menu.Viewport />
+            </Menu.Content>
+          </Menu.Positioner>
+        </Menu>
+      </Menu.Viewport>
     </Menu.Content>
   </Menu.Positioner>
 </Menu>
@@ -72,7 +79,7 @@ Breaking legacy APIs were removed:
 Stable slots:
 
 - `menu-trigger`, `menu-trigger-icon`, `menu-indicator`, `menu-context-trigger`
-- `menu-positioner`, `menu-content`, `menu-arrow`, `menu-arrow-tip`
+- `menu-positioner`, `menu-content`, `menu-viewport`, `menu-arrow`, `menu-arrow-tip`
 - `menu-item`, `menu-trigger-item`, `menu-trigger-item-icon`, `menu-separator`
 - `menu-item-group`, `menu-item-group-label`
 - `menu-radio-item-group`, `menu-radio-item`, `menu-checkbox-item`
@@ -95,8 +102,10 @@ export function Example() {
       </Menu.Trigger>
       <Menu.Positioner>
         <Menu.Content>
-          <Menu.Item value="edit">Edit</Menu.Item>
-          <Menu.Item value="duplicate">Duplicate</Menu.Item>
+          <Menu.Viewport>
+            <Menu.Item value="edit">Edit</Menu.Item>
+            <Menu.Item value="duplicate">Duplicate</Menu.Item>
+          </Menu.Viewport>
         </Menu.Content>
       </Menu.Positioner>
     </Menu>
@@ -137,10 +146,11 @@ IDs internally for item lookup.
 Refs forward to the corresponding Ark DOM part. `Menu.Trigger` targets the trigger button,
 `Menu.Content` targets the menu content element, and item refs target their item elements.
 
-`Menu.Content` scrolls when its height reaches `--moduix-menu-popup-max-height` or Ark's available
-viewport height. Its internal viewport leaves a direct `Menu.Arrow` outside the scroll clip. The
-default `Menu.TriggerItemIcon` flips in RTL so its direction matches submenu navigation. With
-`asChild`, `Menu.Content` preserves the supplied single host element instead of adding that viewport.
+`Menu.Viewport` scrolls when its height reaches `--moduix-menu-popup-max-height` or Ark's available
+viewport height. Keep an optional `Menu.Arrow` as a direct child of `Menu.Content`, next to the
+viewport, so it remains outside the scroll clip. The default `Menu.TriggerItemIcon` flips in RTL so
+its direction matches submenu navigation. Both `Content` and `Viewport` support `asChild` without
+reordering or inspecting their children, including during SSR.
 
 ## Defaults and styling
 
@@ -190,11 +200,10 @@ These helpers must not hide the Ark part tree or remap Ark callback detail objec
 
 ## Agent notes
 
-Keep `Menu.Content` as the real Ark content part. Do not reintroduce a wrapper that renders
-`Positioner` or `Arrow` internally; only portal transport belongs to the root.
-
-`Menu.Content` may use a private scroll viewport for direct non-arrow children. Keep `Menu.Arrow`
-as a direct child so it can extend beyond the popup outline.
+Keep `Menu.Content` as the real Ark content part. Do not reintroduce a wrapper that renders,
+reorders, or detects `Positioner`, `Viewport`, or `Arrow` internally; only portal transport belongs
+to the root. Consumers compose `Menu.Viewport` explicitly around the scrollable item collection and
+keep `Menu.Arrow` as a direct content child so it can extend beyond the popup outline.
 
 Keep `useMenu` and `Menu.ItemContext` aligned with Ark because the public provider and item-state
 examples use them. Other Ark state surfaces remain escape hatches until moduix documents them.
@@ -206,6 +215,10 @@ DOM until first open and is removed after its exit animation. Set `unmountOnExit
 content after the first open; set both props to `false` only when eager initial rendering is needed.
 
 ## Local changelog
+
+- 2026-09-08: Added the explicit `Menu.Viewport` part and removed child inspection/reordering from
+  `Menu.Content`, making the popup structure deterministic across client rendering, SSR, and
+  hydration. Existing content must wrap its scrollable item collection in `Menu.Viewport`.
 
 - 2026-08-11: Added a reduced-motion path for popup and trigger transitions, corrected the public
   CSS-variable reference, and covered the automatic and inline portal contracts.

@@ -1,0 +1,4 @@
+.root {
+  width: 100%;
+  --moduix-doc-preview-max-inline-size: 32rem;
+}

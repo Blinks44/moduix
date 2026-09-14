@@ -9,9 +9,8 @@ import {
 } from '@ark-ui/react/menu';
 import { clsx } from 'clsx';
 import type { ComponentProps, ComponentRef } from 'react';
-import { Children, forwardRef, isValidElement } from 'react';
+import { forwardRef } from 'react';
 import { CheckIcon, ChevronDownIcon, ChevronRightIcon } from '@/lib/moduix/icons/ui';
-import { normalizeClassName } from '@/lib/moduix/normalizeClassName';
 import {
   OverlayPortal,
   OverlayPortalProvider,
@@ -70,7 +69,7 @@ const MenuTrigger = forwardRef<
       ref={ref}
       data-slot="menu-trigger"
       asChild={asChild}
-      className={clsx(!asChild && styles.trigger, normalizeClassName(className))}
+      className={clsx(!asChild && styles.trigger, className)}
       {...props}
     />
   );
@@ -92,7 +91,7 @@ const MenuIndicator = forwardRef<
     <MenuPrimitive.Indicator
       ref={ref}
       data-slot="menu-indicator"
-      className={clsx(styles.indicator, normalizeClassName(className))}
+      className={clsx(styles.indicator, className)}
       {...props}
     >
       {children ?? <ChevronDownIcon className={styles.iconSvg} />}
@@ -109,7 +108,7 @@ const MenuContextTrigger = forwardRef<
       ref={ref}
       data-slot="menu-context-trigger"
       asChild={asChild}
-      className={clsx(!asChild && styles.contextTrigger, normalizeClassName(className))}
+      className={clsx(!asChild && styles.contextTrigger, className)}
       {...props}
     />
   );
@@ -124,7 +123,7 @@ const MenuPositioner = forwardRef<
       <MenuPrimitive.Positioner
         ref={ref}
         data-slot="menu-positioner"
-        className={clsx(styles.positioner, normalizeClassName(className))}
+        className={clsx(styles.positioner, className)}
         {...props}
       />
     </OverlayPortal>
@@ -135,39 +134,33 @@ const MenuContent = forwardRef<
   ComponentRef<typeof MenuPrimitive.Content>,
   ComponentProps<typeof MenuPrimitive.Content>
 >(function MenuContent({ asChild, className, children, ...props }, ref) {
-  if (asChild) {
-    return (
-      <MenuPrimitive.Content
-        ref={ref}
-        data-slot="menu-content"
-        asChild
-        className={clsx(styles.content, normalizeClassName(className))}
-        {...props}
-      >
-        {children}
-      </MenuPrimitive.Content>
-    );
-  }
-
-  const childrenArray = Children.toArray(children);
-  const arrows = childrenArray.filter((child) => isValidElement(child) && child.type === MenuArrow);
-  const content = childrenArray.filter(
-    (child) => !isValidElement(child) || child.type !== MenuArrow,
-  );
-
   return (
     <MenuPrimitive.Content
       ref={ref}
       data-slot="menu-content"
       asChild={asChild}
-      className={clsx(styles.content, normalizeClassName(className))}
+      className={clsx(styles.content, className)}
       {...props}
     >
-      {arrows}
-      <div className={styles.contentViewport}>{content}</div>
+      {children}
     </MenuPrimitive.Content>
   );
 });
+
+const MenuViewport = forwardRef<ComponentRef<typeof ark.div>, HTMLArkProps<'div'>>(
+  function MenuViewport({ className, ...props }, ref) {
+    return (
+      <ark.div
+        ref={ref}
+        data-scope="menu"
+        data-part="viewport"
+        data-slot="menu-viewport"
+        className={clsx(styles.viewport, className)}
+        {...props}
+      />
+    );
+  },
+);
 
 const MenuArrow = forwardRef<
   ComponentRef<typeof MenuPrimitive.Arrow>,
@@ -177,7 +170,7 @@ const MenuArrow = forwardRef<
     <MenuPrimitive.Arrow
       ref={ref}
       data-slot="menu-arrow"
-      className={clsx(styles.arrow, normalizeClassName(className))}
+      className={clsx(styles.arrow, className)}
       {...props}
     >
       {children ?? <MenuArrowTip />}
@@ -193,7 +186,7 @@ const MenuArrowTip = forwardRef<
     <MenuPrimitive.ArrowTip
       ref={ref}
       data-slot="menu-arrow-tip"
-      className={clsx(styles.arrowTip, normalizeClassName(className))}
+      className={clsx(styles.arrowTip, className)}
       {...props}
     />
   );
@@ -206,7 +199,7 @@ const MenuItem = forwardRef<ComponentRef<typeof MenuPrimitive.Item>, MenuItemPro
         ref={ref}
         data-slot="menu-item"
         data-tone={tone}
-        className={clsx(styles.item, normalizeClassName(className))}
+        className={clsx(styles.item, className)}
         {...props}
       />
     );
@@ -221,7 +214,7 @@ const MenuTriggerItem = forwardRef<
     <MenuPrimitive.TriggerItem
       ref={ref}
       data-slot="menu-trigger-item"
-      className={clsx(styles.triggerItem, normalizeClassName(className))}
+      className={clsx(styles.triggerItem, className)}
       {...props}
     >
       {children}
@@ -249,7 +242,7 @@ const MenuSeparator = forwardRef<
     <MenuPrimitive.Separator
       ref={ref}
       data-slot="menu-separator"
-      className={clsx(styles.separator, normalizeClassName(className))}
+      className={clsx(styles.separator, className)}
       {...props}
     />
   );
@@ -263,7 +256,7 @@ const MenuItemGroup = forwardRef<
     <MenuPrimitive.ItemGroup
       ref={ref}
       data-slot="menu-item-group"
-      className={clsx(styles.itemGroup, normalizeClassName(className))}
+      className={clsx(styles.itemGroup, className)}
       {...props}
     />
   );
@@ -277,7 +270,7 @@ const MenuItemGroupLabel = forwardRef<
     <MenuPrimitive.ItemGroupLabel
       ref={ref}
       data-slot="menu-item-group-label"
-      className={clsx(styles.itemGroupLabel, normalizeClassName(className))}
+      className={clsx(styles.itemGroupLabel, className)}
       {...props}
     />
   );
@@ -291,7 +284,7 @@ const MenuRadioItemGroup = forwardRef<
     <MenuPrimitive.RadioItemGroup
       ref={ref}
       data-slot="menu-radio-item-group"
-      className={clsx(styles.radioItemGroup, normalizeClassName(className))}
+      className={clsx(styles.radioItemGroup, className)}
       {...props}
     />
   );
@@ -304,7 +297,7 @@ const MenuRadioItem = forwardRef<ComponentRef<typeof MenuPrimitive.RadioItem>, M
         ref={ref}
         data-slot="menu-radio-item"
         data-indicator-position={indicator}
-        className={clsx(styles.radioItem, normalizeClassName(className))}
+        className={clsx(styles.radioItem, className)}
         {...props}
       />
     );
@@ -320,7 +313,7 @@ const MenuCheckboxItem = forwardRef<
       ref={ref}
       data-slot="menu-checkbox-item"
       data-indicator-position={indicator}
-      className={clsx(styles.checkboxItem, normalizeClassName(className))}
+      className={clsx(styles.checkboxItem, className)}
       {...props}
     />
   );
@@ -334,7 +327,7 @@ const MenuItemIndicator = forwardRef<
     <MenuPrimitive.ItemIndicator
       ref={ref}
       data-slot="menu-item-indicator"
-      className={clsx(styles.itemIndicator, normalizeClassName(className))}
+      className={clsx(styles.itemIndicator, className)}
       {...props}
     >
       {children ?? <CheckIcon className={styles.itemIndicatorIcon} />}
@@ -350,7 +343,7 @@ const MenuItemText = forwardRef<
     <MenuPrimitive.ItemText
       ref={ref}
       data-slot="menu-item-text"
-      className={clsx(styles.itemText, normalizeClassName(className))}
+      className={clsx(styles.itemText, className)}
       {...props}
     />
   );
@@ -362,7 +355,7 @@ const MenuItemTextContent = forwardRef<ComponentRef<typeof ark.span>, HTMLArkPro
       <ark.span
         ref={ref}
         data-slot="menu-item-text-content"
-        className={clsx(styles.itemTextContent, normalizeClassName(className))}
+        className={clsx(styles.itemTextContent, className)}
         {...props}
       />
     );
@@ -375,7 +368,7 @@ const MenuItemTextIcon = forwardRef<ComponentRef<typeof ark.span>, HTMLArkProps<
       <ark.span
         ref={ref}
         data-slot="menu-item-text-icon"
-        className={clsx(styles.itemTextIcon, normalizeClassName(className))}
+        className={clsx(styles.itemTextIcon, className)}
         {...props}
       />
     );
@@ -388,7 +381,7 @@ const MenuItemTextLabel = forwardRef<ComponentRef<typeof ark.span>, HTMLArkProps
       <ark.span
         ref={ref}
         data-slot="menu-item-text-label"
-        className={clsx(styles.itemTextLabel, normalizeClassName(className))}
+        className={clsx(styles.itemTextLabel, className)}
         {...props}
       />
     );
@@ -401,7 +394,7 @@ const MenuItemShortcut = forwardRef<ComponentRef<typeof ark.span>, HTMLArkProps<
       <ark.span
         ref={ref}
         data-slot="menu-item-shortcut"
-        className={clsx(styles.itemShortcut, normalizeClassName(className))}
+        className={clsx(styles.itemShortcut, className)}
         {...props}
       />
     );
@@ -418,6 +411,7 @@ const Menu = Object.assign(MenuRoot, {
   ContextTrigger: MenuContextTrigger,
   Positioner: MenuPositioner,
   Content: MenuContent,
+  Viewport: MenuViewport,
   Arrow: MenuArrow,
   ArrowTip: MenuArrowTip,
   Item: MenuItem,

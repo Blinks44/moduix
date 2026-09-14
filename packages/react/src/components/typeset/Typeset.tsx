@@ -3,7 +3,6 @@ import { ark } from '@ark-ui/react/factory';
 import { clsx } from 'clsx';
 import type { ComponentRef, Ref } from 'react';
 import { forwardRef } from 'react';
-import { normalizeClassName } from '@/lib/moduix/normalizeClassName';
 import styles from './Typeset.module.css';
 
 const TypesetRoot = forwardRef<HTMLElement, HTMLArkProps<'div'>>(function TypesetRoot(
@@ -17,7 +16,7 @@ const TypesetRoot = forwardRef<HTMLElement, HTMLArkProps<'div'>>(function Typese
       data-scope="typeset"
       data-part="root"
       data-slot="typeset"
-      className={clsx(styles.root, normalizeClassName(className))}
+      className={clsx(styles.root, className)}
     />
   );
 });
@@ -42,7 +41,7 @@ const TypesetScroll = forwardRef<HTMLElement, HTMLArkProps<'div'>>(function Type
       data-scope="typeset"
       data-part="scroll"
       data-slot="typeset-scroll"
-      className={clsx(styles.scroll, normalizeClassName(className))}
+      className={clsx(styles.scroll, className)}
       role={role ?? (ariaLabel || ariaLabelledBy ? 'region' : undefined)}
       tabIndex={tabIndex}
     />

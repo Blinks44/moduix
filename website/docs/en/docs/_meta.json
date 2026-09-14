@@ -68,6 +68,7 @@
   {
     "type": "file",
     "name": "angle-slider",
+    "label": "Angle Slider",
     "tag": "component"
   },
   {
@@ -160,6 +161,7 @@
   {
     "type": "file",
     "name": "date-input",
+    "label": "Date Input",
     "tag": "component"
   },
   {

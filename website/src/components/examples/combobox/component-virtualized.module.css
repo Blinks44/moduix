@@ -1,0 +1,30 @@
+.content {
+  min-width: var(--reference-width);
+  transform-origin: var(--transform-origin);
+}
+
+.virtualContent {
+  overflow: hidden;
+}
+
+.virtualScroller {
+  height: min(16rem, var(--available-height, 16rem));
+  overflow: auto;
+}
+
+.virtualList {
+  position: relative;
+  overflow: visible;
+}
+
+.virtualItem {
+  position: absolute;
+  top: 0;
+  left: 0;
+  width: 100%;
+}
+
+.content :global([data-slot='combobox-item'][data-highlighted]) {
+  background: var(--moduix-combobox-highlight-bg, var(--moduix-color-accent));
+  color: var(--moduix-combobox-highlight-color, var(--moduix-color-accent-foreground));
+}

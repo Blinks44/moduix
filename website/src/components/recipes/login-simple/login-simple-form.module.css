@@ -1,0 +1,57 @@
+.root {
+  width: min(100%, 26rem);
+}
+
+.header {
+  display: flex;
+  flex-direction: column;
+  gap: var(--moduix-spacing-2);
+  text-align: center;
+}
+
+.stack {
+  display: grid;
+  gap: var(--moduix-spacing-4);
+}
+
+.passwordLabel {
+  display: flex;
+  flex-wrap: wrap;
+  align-items: baseline;
+  justify-content: space-between;
+  gap: var(--moduix-spacing-2);
+  width: 100%;
+}
+
+.link {
+  color: var(--moduix-color-primary);
+  font-size: var(--moduix-text-sm);
+  font-weight: var(--moduix-weight-medium);
+  text-underline-offset: 0.2em;
+
+  &:hover {
+    color: var(--moduix-color-foreground);
+    text-decoration: underline;
+  }
+
+  &:focus-visible {
+    outline: var(--moduix-border-width-md) solid var(--moduix-color-ring);
+    outline-offset: var(--moduix-border-width-sm);
+    border-radius: var(--moduix-radius-xs);
+  }
+}
+
+.submit {
+  width: 100%;
+}
+
+.footer {
+  justify-content: center;
+  text-align: center;
+}
+
+.footer p {
+  margin: 0;
+  color: var(--moduix-color-muted-foreground);
+  font-size: var(--moduix-text-sm);
+}

@@ -4,7 +4,17 @@ component: kbd
 description: Un composant compact pour afficher des raccourcis clavier, des commandes et des libellés de touches dans l’interface.
 ---
 
-import * as KbdDocs from '@/components/examples/kbd';
+import * as KbdDocs from '@/components/examples/kbd/css-properties';
+import KbdBasic from '@/components/examples/kbd/basic.tsx';
+import KbdCompactDensity from '@/components/examples/kbd/compact-density.tsx';
+import KbdCustomElement from '@/components/examples/kbd/custom-element.tsx';
+import KbdShortcutList from '@/components/examples/kbd/shortcut-list.tsx';
+import KbdSingleKey from '@/components/examples/kbd/single-key.tsx';
+import kbdSolidBasic from '../../../snippets/kbd/solid/basic.tsx?raw';
+import kbdSolidCompactDensity from '../../../snippets/kbd/solid/compact-density.tsx?raw';
+import kbdSolidCustomElement from '../../../snippets/kbd/solid/custom-element.tsx?raw';
+import kbdSolidShortcutList from '../../../snippets/kbd/solid/shortcut-list.tsx?raw';
+import kbdSolidSingleKey from '../../../snippets/kbd/solid/single-key.tsx?raw';
 
 ## Référence de l’API
 
@@ -12,22 +22,71 @@ Ark UI ne fournit pas de primitive dédiée à l’affichage des touches. `Kbd` 
 
 ## Exemple de base
 
-Utilisez `Kbd` pour afficher une touche. Pour un raccourci composé de plusieurs touches, placez les touches et leurs
-séparateurs textuels dans `Kbd.Group`.
+Kbd est disponible pour React et Solid dans les variantes CSS Modules et Tailwind. L’aperçu de cette page utilise le package React CSS Modules ; les onglets de framework montrent le code source natif correspondant au même contrat public.
 
-<style>{`
-      .kbd-demo-shortcut {
-        display: inline-flex;
-      }
-    `}</style>
+Utilisez `Kbd` pour afficher une touche. Pour un raccourci composé de plusieurs touches, placez les touches et leurs séparateurs textuels dans `Kbd.Group`.
 
-```tsx preview file="../../en/docs/_snippets/kbd/basic.tsx"
+<ExampleFrame variant="component">
+  <KbdBasic />
+</ExampleFrame>
 
+<ExampleCode>
+<div className="docs-reference">
+  <Tabs
+    groupId="framework"
+    values={[
+      { label: 'React', value: 'react' },
+      { label: 'Solid', value: 'solid' },
+    ]}
+    className="docs-tabs"
+  >
+    <Tab value="react">
+
+```tsx pure file="../../../src/components/examples/kbd/basic.tsx"
 ```
+
+    </Tab>
+    <Tab value="solid">
+
+<CodeBlockRuntime lang="tsx" code={kbdSolidBasic} />
+
+    </Tab>
+  </Tabs>
+
+**Styles**
+
+```css file="../../../src/components/examples/kbd/kbd-basic.module.css"
+```
+</div>
+
+</ExampleCode>
 
 ## Installation avec shadcn
 
-<ShadcnInstall packageName="kbd" />
+Consultez le [Démarrage rapide](/docs/quick-start) pour la configuration complète du paquet, du registre et des styles.
+
+<Tabs groupId="framework">
+  <Tab label="React" value="react">
+
+<ShadcnInstallOptions
+  options={[
+    { label: 'CSS Modules', command: 'shadcn@latest add @moduix-react/kbd' },
+    { label: 'Tailwind CSS', command: 'shadcn@latest add @moduix-react-tailwind/kbd' },
+  ]}
+/>
+
+  </Tab>
+  <Tab label="Solid" value="solid">
+
+<ShadcnInstallOptions
+  options={[
+    { label: 'CSS Modules', command: 'shadcn@latest add @moduix-solid/kbd' },
+    { label: 'Tailwind CSS', command: 'shadcn@latest add @moduix-solid-tailwind/kbd' },
+  ]}
+/>
+
+  </Tab>
+</Tabs>
 
 ## Anatomie
 
@@ -42,104 +101,166 @@ Kbd.Group
 
 | Partie              | Rôle                                                                      |
 | ------------------- | ------------------------------------------------------------------------- |
-| `Kbd` / `Kbd.Root` | Élément racine, rendu sous forme de `<kbd>` par défaut.                    |
+| `Kbd` / `Kbd.Root`  | Élément racine, rendu sous forme de `<kbd>` par défaut.                   |
 | `Kbd.Group`         | Conteneur en ligne pour les touches liées ; utilise le rôle `group` par défaut. |
 
 ## Composition
 
-### Composition recommandée
+Utilisez `Kbd` comme raccourci vers `Kbd.Root` pour afficher une touche, et `Kbd.Group` pour regrouper les touches liées. Gardez les séparateurs comme `+` sous forme de texte ordinaire dans le groupe et ajoutez un `aria-label` lorsque les symboles ou abréviations visuels ont besoin d’un nom accessible plus explicite.
 
-Dans le cas courant, utilisez `Kbd` comme raccourci vers `Kbd.Root` pour afficher une touche. Utilisez `Kbd.Group` pour
-regrouper un raccourci, une indication dans un menu de commandes ou une aide intégrée à l’interface.
-
-`Kbd` et `Kbd.Root` acceptent `HTMLArkProps<'kbd'>`. `Kbd.Group` accepte `HTMLArkProps<'span'>` et utilise par défaut
-`role="group"`. Chaque partie transmet `ref` à l’élément rendu et accepte `asChild`.
-Le composant ne propose aucune API pour les variantes, les tailles, les séparateurs, les callbacks ou l’état.
-
-### Quand créer une composition personnalisée
-
-Utilisez `asChild` lorsqu’un autre composant rend déjà l’élément sémantique `<kbd>` et que vous souhaitez lui appliquer les styles
-de Kbd. Fournissez exactement un enfant et conservez la sémantique de la touche.
-
-### Comportement
-
-- `Kbd`, `Kbd.Root` et `Kbd.Group` affichent des libellés statiques de touches. Ce ne sont pas des contrôles interactifs.
-- Gardez `+`, `/` et les mots comme `then` sous forme de texte ordinaire, en dehors de `Kbd`.
-- Ajoutez un `aria-label` à `Kbd.Group` lorsqu’une abréviation ou un symbole risque d’être mal interprété par une technologie d’assistance.
-- Les parties exposent `data-scope="kbd"`, `data-part` et des attributs `data-slot` stables.
+Kbd est statique et ne gère ni état ni interaction clavier. Utilisez `asChild` uniquement lorsqu’un autre composant doit rendre l’élément sémantique `<kbd>` et fournissez exactement un enfant.
 
 ## Exemples
 
 ### Format compact
 
-Utilisez des variables CSS locales lorsque vous souhaitez réduire les touches dans une zone précise de l’interface, sans ajouter
-de props au composant.
+Utilisez des variables CSS locales lorsque vous souhaitez réduire les touches dans une zone précise de l’interface, sans ajouter de props au composant.
 
-<style>{`
-      .kbd-demo-row {
-        display: flex;
-        flex-wrap: wrap;
-        align-items: center;
-        gap: var(--moduix-spacing-2);
-      }
+<ExampleFrame variant="component">
+  <KbdCompactDensity />
+</ExampleFrame>
 
-      .kbd-demo-dense {
-        --moduix-kbd-height: 1.25rem;
-        --moduix-kbd-min-width: 1.25rem;
-        --moduix-kbd-padding-x: var(--moduix-spacing-1);
-      }
-    `}</style>
+<ExampleCode>
+<div className="docs-reference">
+  <Tabs
+    groupId="framework"
+    values={[
+      { label: 'React', value: 'react' },
+      { label: 'Solid', value: 'solid' },
+    ]}
+    className="docs-tabs"
+  >
+    <Tab value="react">
 
-```tsx preview file="../../en/docs/_snippets/kbd/compact-density.tsx"
-
+```tsx pure file="../../../src/components/examples/kbd/compact-density.tsx"
 ```
+
+    </Tab>
+    <Tab value="solid">
+
+<CodeBlockRuntime lang="tsx" code={kbdSolidCompactDensity} />
+
+    </Tab>
+  </Tabs>
+
+**Styles**
+
+```css file="../../../src/components/examples/kbd/kbd-compact-density.module.css"
+```
+</div>
+
+</ExampleCode>
 
 ### Élément personnalisé
 
-Utilisez `asChild` lorsqu’un autre composant rend déjà l’élément sémantique `<kbd>` et que vous souhaitez lui appliquer les styles
-de Kbd.
+Utilisez `asChild` lorsqu’un autre composant rend déjà l’élément sémantique `<kbd>` et que vous souhaitez lui appliquer les styles de Kbd.
 
-```tsx preview file="../../en/docs/_snippets/kbd/custom-element.tsx"
+<ExampleFrame variant="component">
+  <KbdCustomElement />
+</ExampleFrame>
 
+<ExampleCode>
+<div className="docs-reference">
+  <Tabs
+    groupId="framework"
+    values={[
+      { label: 'React', value: 'react' },
+      { label: 'Solid', value: 'solid' },
+    ]}
+    className="docs-tabs"
+  >
+    <Tab value="react">
+
+```tsx pure file="../../../src/components/examples/kbd/custom-element.tsx"
 ```
+
+    </Tab>
+    <Tab value="solid">
+
+<CodeBlockRuntime lang="tsx" code={kbdSolidCustomElement} />
+
+    </Tab>
+  </Tabs>
+</div>
+
+</ExampleCode>
 
 ### Liste de raccourcis
 
 Associez `Kbd.Group` à un texte explicatif pour présenter plusieurs raccourcis disponibles.
 
-<style>{`
-      .kbd-demo-shortcut-list {
-        display: grid;
-        gap: var(--moduix-spacing-3);
-      }
+<ExampleFrame variant="component">
+  <KbdShortcutList />
+</ExampleFrame>
 
-      .kbd-demo-shortcut-row {
-        display: grid;
-        grid-template-columns: max-content 1fr;
-        align-items: center;
-        gap: var(--moduix-spacing-3);
-        color: var(--moduix-color-muted-foreground);
-        font-size: var(--moduix-text-sm);
-        line-height: var(--moduix-line-height-text-sm);
-      }
-    `}</style>
+<ExampleCode>
+<div className="docs-reference">
+  <Tabs
+    groupId="framework"
+    values={[
+      { label: 'React', value: 'react' },
+      { label: 'Solid', value: 'solid' },
+    ]}
+    className="docs-tabs"
+  >
+    <Tab value="react">
 
-```tsx preview file="../../en/docs/_snippets/kbd/shortcut-list.tsx"
-
+```tsx pure file="../../../src/components/examples/kbd/shortcut-list.tsx"
 ```
+
+    </Tab>
+    <Tab value="solid">
+
+<CodeBlockRuntime lang="tsx" code={kbdSolidShortcutList} />
+
+    </Tab>
+  </Tabs>
+
+**Styles**
+
+```css file="../../../src/components/examples/kbd/kbd-shortcut-list.module.css"
+```
+</div>
+
+</ExampleCode>
 
 ### Touche unique
 
 Utilisez `Kbd` directement pour afficher une seule touche, par exemple `Esc`.
 
-```tsx preview file="../../en/docs/_snippets/kbd/single-key.tsx"
+<ExampleFrame variant="component">
+  <KbdSingleKey />
+</ExampleFrame>
 
+<ExampleCode>
+<div className="docs-reference">
+  <Tabs
+    groupId="framework"
+    values={[
+      { label: 'React', value: 'react' },
+      { label: 'Solid', value: 'solid' },
+    ]}
+    className="docs-tabs"
+  >
+    <Tab value="react">
+
+```tsx pure file="../../../src/components/examples/kbd/single-key.tsx"
 ```
+
+    </Tab>
+    <Tab value="solid">
+
+<CodeBlockRuntime lang="tsx" code={kbdSolidSingleKey} />
+
+    </Tab>
+  </Tabs>
+</div>
+
+</ExampleCode>
 
 ## Styles
 
-Personnalisez `Kbd` et `Kbd.Group` avec `className`, les attributs d’anatomie Ark, les points d’accroche `data-slot` stables et les
-variables CSS publiques `--moduix-kbd-*` listées ci-dessous.
+Personnalisez `Kbd` et `Kbd.Group` avec `className` en React ou `class` en Solid, les attributs d’anatomie Ark, les points d’accroche `data-slot` stables et les variables CSS publiques `--moduix-kbd-*` listées ci-dessous. Les variantes Tailwind utilisent des classes utilitaires natives ; les variantes CSS Modules utilisent les variables du composant et le CSS de l’application.
 
 ### Propriétés CSS
 

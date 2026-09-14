@@ -6,7 +6,7 @@ Upstream docs:
 - Chakra UI: https://chakra-ui.com/docs/components/hover-card
 - shadcn/ui: https://ui.shadcn.com/docs/components/hover-card
 
-Last compared: 2026-08-11.
+Last compared: 2026-09-03.
 
 ## Purpose
 
@@ -36,7 +36,9 @@ high-level content wrapper are intentionally removed.
     <a href="#profile">@sarah_chen</a>
   </HoverCard.Trigger>
   <HoverCard.Positioner>
-    <HoverCard.Content></HoverCard.Content>
+    <HoverCard.Content>
+      <HoverCard.Body>Profile details</HoverCard.Body>
+    </HoverCard.Content>
   </HoverCard.Positioner>
 </HoverCard>
 ```
@@ -48,6 +50,12 @@ high-level content wrapper are intentionally removed.
 - `HoverCard.Content`: `data-slot="hover-card-content"`, visible styled popup surface.
 - `HoverCard.Arrow`: `data-slot="hover-card-arrow"`, renders `HoverCard.ArrowTip` by default.
 - `HoverCard.ArrowTip`: `data-slot="hover-card-arrow-tip"`.
+- `HoverCard.Body`: `data-slot="hover-card-body"`, optional scrollable content region.
+
+When used, `HoverCard.Arrow` belongs inside `HoverCard.Content`, matching Ark's composition and
+allowing the popup border to render behind the arrow. Wrap long content in `HoverCard.Body` so
+the surface stays overflow-visible for the arrow while the body scrolls within the available
+height.
 
 ## Composition
 
@@ -61,7 +69,9 @@ export function Example() {
         <a href="#profile">@sarah_chen</a>
       </HoverCard.Trigger>
       <HoverCard.Positioner>
-        <HoverCard.Content>Profile details</HoverCard.Content>
+        <HoverCard.Content>
+          <HoverCard.Body>Profile details</HoverCard.Body>
+        </HoverCard.Content>
       </HoverCard.Positioner>
     </HoverCard>
   );
@@ -89,9 +99,12 @@ advanced state reads or external state ownership, use `HoverCard.Context`, `useH
 ## Defaults and styling
 
 Content motion falls back to the shared `--moduix-popup-motion-*` tokens; `--moduix-hover-card-*` motion
-variables remain the more specific override.
+variables remain the more specific override. When the available viewport height limits the popup,
+content inside `HoverCard.Body` scrolls inside the surface instead of escaping it. `Content` keeps
+overflow visible so an in-surface `Arrow` is not clipped.
 
-Moduix adds default visual styling to `Trigger`, `Positioner`, `Content`, `Arrow`, and `ArrowTip`.
+Moduix adds default visual styling to `Trigger`, `Positioner`, `Content`, `Arrow`, `ArrowTip`, and
+`Body`.
 Content animation uses Ark `data-state='open' | 'closed'` and `--transform-origin`, and is disabled
 when the user requests reduced motion. Long unbroken text wraps instead of overflowing the card.
 Positioning and sizing use Ark runtime variables such as `--available-width`, `--available-height`,
@@ -130,6 +143,9 @@ DOM until first open and is removed after its exit animation. Set `unmountOnExit
 content after the first open; set both props to `false` only when eager initial rendering is needed.
 
 ## Local changelog
+
+- 2026-09-03: Kept the Ark arrow inside `Content` for correct border layering and added
+  `HoverCard.Body` as the scroll region for constrained popup content.
 
 - 2026-08-11: Made the recommended composition arrowless and documented `HoverCard.Arrow` as an
   explicit visual-anchor option.

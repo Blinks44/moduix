@@ -1,0 +1,325 @@
+import type { JSX } from 'solid-js';
+import { createSignal } from 'solid-js';
+import type { Meta, StoryObj } from 'storybook-solidjs-vite';
+import { Tabs, useTabs } from '@/components/tabs/Tabs';
+import styles from './Tabs.stories.module.css';
+
+const meta = {
+  title: 'Components/Tabs',
+  component: Tabs,
+  tags: ['autodocs'],
+  parameters: {
+    layout: 'centered',
+  },
+} satisfies Meta<typeof Tabs>;
+
+export default meta;
+
+type Story = StoryObj<typeof meta>;
+
+const tabItems = [
+  {
+    value: 'overview',
+    title: 'Overview',
+    content:
+      'Review project status, team velocity, workloads and activity highlights in one place.',
+  },
+  {
+    value: 'projects',
+    title: 'Projects',
+    content: 'Track active workstreams, owners and milestones across all departments.',
+  },
+  {
+    value: 'account',
+    title: 'Account',
+    content: 'Manage personal settings, team settings, notifications and access preferences.',
+  },
+];
+
+const decorativeSvgProps = { 'aria-hidden': 'true', focusable: 'false' } as const;
+
+function HandshakeIcon(props: JSX.SvgSVGAttributes<SVGSVGElement>) {
+  return (
+    <svg
+      {...decorativeSvgProps}
+      xmlns="http://www.w3.org/2000/svg"
+      width="24"
+      height="24"
+      viewBox="0 0 24 24"
+      fill="none"
+      stroke="currentColor"
+      stroke-width="2"
+      stroke-linecap="round"
+      stroke-linejoin="round"
+      {...props}
+    >
+      <path d="M8 2v4" />
+      <path d="M16 2v4" />
+      <rect width="18" height="18" x="3" y="4" rx="2" />
+      <path d="M3 10h18" />
+      <path d="M8 14h.01" />
+      <path d="M12 14h.01" />
+      <path d="M16 14h.01" />
+      <path d="M8 18h.01" />
+      <path d="M12 18h.01" />
+      <path d="M16 18h.01" />
+    </svg>
+  );
+}
+
+function PresentIcon(props: JSX.SvgSVGAttributes<SVGSVGElement>) {
+  return (
+    <svg
+      {...decorativeSvgProps}
+      xmlns="http://www.w3.org/2000/svg"
+      width="24"
+      height="24"
+      viewBox="0 0 24 24"
+      fill="none"
+      stroke="currentColor"
+      stroke-width="2"
+      stroke-linecap="round"
+      stroke-linejoin="round"
+      {...props}
+    >
+      <path d="M12 7v14" />
+      <path d="M20 11v8a2 2 0 0 1-2 2H6a2 2 0 0 1-2-2v-8" />
+      <path d="M7.5 7a1 1 0 0 1 0-5A4.8 8 0 0 1 12 7a4.8 8 0 0 1 4.5-5 1 1 0 0 1 0 5" />
+      <rect x="3" y="7" width="18" height="4" rx="1" />
+    </svg>
+  );
+}
+
+function MapIcon(props: JSX.SvgSVGAttributes<SVGSVGElement>) {
+  return (
+    <svg
+      {...decorativeSvgProps}
+      xmlns="http://www.w3.org/2000/svg"
+      width="24"
+      height="24"
+      viewBox="0 0 24 24"
+      fill="none"
+      stroke="currentColor"
+      stroke-width="2"
+      stroke-linecap="round"
+      stroke-linejoin="round"
+      {...props}
+    >
+      <path d="M18 8c0 3.613-3.869 7.429-5.393 8.795a1 1 0 0 1-1.214 0C9.87 15.429 6 11.613 6 8a6 6 0 0 1 12 0" />
+      <circle cx="12" cy="8" r="2" />
+      <path d="M8.714 14h-3.71a1 1 0 0 0-.948.683l-2.004 6A1 1 0 0 0 3 22h18a1 1 0 0 0 .948-1.316l-2-6a1 1 0 0 0-.949-.684h-3.712" />
+    </svg>
+  );
+}
+
+function TabsStoryContent() {
+  return (
+    <>
+      <Tabs.List>
+        {tabItems.map((item) => (
+          <Tabs.Trigger value={item.value}>{item.title}</Tabs.Trigger>
+        ))}
+        <Tabs.Indicator />
+      </Tabs.List>
+      {tabItems.map((item) => (
+        <Tabs.Content value={item.value}>
+          <p class={styles.panelText}>{item.content}</p>
+        </Tabs.Content>
+      ))}
+    </>
+  );
+}
+
+export const Basic: Story = {
+  render: () => (
+    <Tabs defaultValue="overview" class={styles.demoRoot}>
+      <TabsStoryContent />
+    </Tabs>
+  ),
+};
+
+export const Controlled: Story = {
+  render: () => {
+    const [value, setValue] = createSignal('projects');
+
+    return (
+      <Tabs
+        value={value()}
+        onValueChange={(details) => setValue(details.value)}
+        class={styles.demoRoot}
+      >
+        <TabsStoryContent />
+      </Tabs>
+    );
+  },
+};
+
+export const Vertical: Story = {
+  render: () => (
+    <Tabs defaultValue="overview" orientation="vertical" class={styles.demoRoot}>
+      <TabsStoryContent />
+    </Tabs>
+  ),
+};
+
+export const ManualActivation: Story = {
+  render: () => (
+    <Tabs defaultValue="overview" activationMode="manual" class={styles.demoRoot}>
+      <TabsStoryContent />
+    </Tabs>
+  ),
+};
+
+export const Indicator: Story = {
+  render: () => (
+    <Tabs defaultValue="overview" class={styles.demoRoot}>
+      <Tabs.List>
+        {tabItems.map((item) => (
+          <Tabs.Trigger value={item.value}>{item.title}</Tabs.Trigger>
+        ))}
+        <Tabs.Indicator />
+      </Tabs.List>
+      {tabItems.map((item) => (
+        <Tabs.Content value={item.value}>
+          <p class={styles.panelText}>{item.content}</p>
+        </Tabs.Content>
+      ))}
+    </Tabs>
+  ),
+};
+
+export const Line: Story = {
+  render: () => (
+    <Tabs defaultValue="overview" variant="line" class={styles.demoRoot}>
+      <TabsStoryContent />
+    </Tabs>
+  ),
+};
+
+export const Links: Story = {
+  render: () => (
+    <Tabs defaultValue="overview" class={styles.demoRoot}>
+      <Tabs.List>
+        {tabItems.map((item) => (
+          <Tabs.Trigger
+            value={item.value}
+            asChild={(props) => (
+              <a {...props()} href={`#${item.value}`}>
+                {item.title}
+              </a>
+            )}
+          />
+        ))}
+      </Tabs.List>
+      {tabItems.map((item) => (
+        <Tabs.Content value={item.value}>
+          <p id={item.value} class={styles.panelText}>
+            {item.content}
+          </p>
+        </Tabs.Content>
+      ))}
+    </Tabs>
+  ),
+};
+
+export const WithIcons: Story = {
+  render: () => (
+    <Tabs defaultValue="overview" class={styles.demoRoot}>
+      <Tabs.List>
+        <Tabs.Trigger value="overview">
+          <HandshakeIcon />
+          <span>Overview</span>
+        </Tabs.Trigger>
+        <Tabs.Trigger value="projects">
+          <PresentIcon />
+          <span>Projects</span>
+        </Tabs.Trigger>
+        <Tabs.Trigger value="account">
+          <MapIcon />
+          <span>Account</span>
+        </Tabs.Trigger>
+      </Tabs.List>
+      {tabItems.map((item) => (
+        <Tabs.Content value={item.value}>
+          <p class={styles.panelText}>{item.content}</p>
+        </Tabs.Content>
+      ))}
+    </Tabs>
+  ),
+};
+
+export const DisabledTab: Story = {
+  render: () => (
+    <Tabs defaultValue="overview" class={styles.demoRoot}>
+      <Tabs.List>
+        <Tabs.Trigger value="overview">Overview</Tabs.Trigger>
+        <Tabs.Trigger value="projects" disabled>
+          Projects
+        </Tabs.Trigger>
+        <Tabs.Trigger value="account">Account</Tabs.Trigger>
+      </Tabs.List>
+      {tabItems.map((item) => (
+        <Tabs.Content value={item.value}>
+          <p class={styles.panelText}>{item.content}</p>
+        </Tabs.Content>
+      ))}
+    </Tabs>
+  ),
+};
+
+export const LazyMount: Story = {
+  render: () => (
+    <Tabs defaultValue="overview" lazyMount unmountOnExit class={styles.demoRoot}>
+      <TabsStoryContent />
+    </Tabs>
+  ),
+};
+
+export const RootProvider: Story = {
+  render: () => {
+    const tabs = useTabs({ defaultValue: 'overview' });
+
+    return (
+      <div class={styles.providerStack}>
+        <output>selected: {tabs().value}</output>
+        <Tabs.RootProvider value={tabs} class={styles.demoRoot}>
+          <TabsStoryContent />
+        </Tabs.RootProvider>
+      </div>
+    );
+  },
+};
+
+export const RootProviderVertical: Story = {
+  render: () => {
+    const tabs = useTabs({ defaultValue: 'overview', orientation: 'vertical' });
+
+    return (
+      <Tabs.RootProvider value={tabs} variant="line" class={styles.demoRoot}>
+        <TabsStoryContent />
+      </Tabs.RootProvider>
+    );
+  },
+};
+
+export const CustomStyling: Story = {
+  render: () => (
+    <Tabs defaultValue="name" class={styles.inlineRoot}>
+      <Tabs.List class={styles.inlineList}>
+        <Tabs.Trigger value="name" class={styles.inlineTrigger}>
+          Name
+        </Tabs.Trigger>
+        <Tabs.Trigger value="email" class={styles.inlineTrigger}>
+          Email
+        </Tabs.Trigger>
+        <Tabs.Indicator class={styles.inlineIndicator} />
+      </Tabs.List>
+      <Tabs.Content value="name" class={styles.inlineContent}>
+        <input class={styles.inlineInput} placeholder="Full name" aria-label="Full name" />
+      </Tabs.Content>
+      <Tabs.Content value="email" class={styles.inlineContent}>
+        <input class={styles.inlineInput} placeholder="Email" aria-label="Email" />
+      </Tabs.Content>
+    </Tabs>
+  ),
+};

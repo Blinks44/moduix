@@ -58,20 +58,20 @@ Pagination.RootProvider
 └─ same trigger, item, ellipsis, and context tree connected to usePagination()
 ```
 
-| Export                            | `data-slot`                | Notes                                                       |
-| --------------------------------- | -------------------------- | ----------------------------------------------------------- |
-| `Pagination`                      | `pagination-root`          | Ark root with default `aria-label="Pagination"`.            |
-| `Pagination.RootProvider`         | `pagination-root-provider` | Ark root provider with default `aria-label="Pagination"`.   |
-| `Pagination.Items`                | —                          | Renders the standard computed page items and ellipses.      |
-| `Pagination.Context`              | Ark render prop            | Reads page state, helpers, pages, ranges, and slice helper. |
-| `Pagination.usePagination`        | —                          | Creates Ark pagination state outside the rendered root.     |
-| `Pagination.usePaginationContext` | —                          | Reads Ark pagination state from a descendant.               |
-| `Pagination.Item`                 | `pagination-item`          | Ark page item; pass `{...page}` from `pagination.pages`.    |
-| `Pagination.Ellipsis`             | `pagination-ellipsis`      | Ark ellipsis; `index` is required.                          |
-| `Pagination.PrevTrigger`          | `pagination-prev-trigger`  | Ark previous trigger with default Moduix chevron.           |
-| `Pagination.NextTrigger`          | `pagination-next-trigger`  | Ark next trigger with default Moduix chevron.               |
-| `Pagination.FirstTrigger`         | `pagination-first-trigger` | Ark first trigger with default double-chevron visual.       |
-| `Pagination.LastTrigger`          | `pagination-last-trigger`  | Ark last trigger with default double-chevron visual.        |
+| Export                            | `data-slot`                | Notes                                                             |
+| --------------------------------- | -------------------------- | ----------------------------------------------------------------- |
+| `Pagination`                      | `pagination-root`          | Ark root; its label comes from `translations.rootLabel`.          |
+| `Pagination.RootProvider`         | `pagination-root-provider` | Ark root provider; its label comes from `translations.rootLabel`. |
+| `Pagination.Items`                | -                          | Renders the standard computed page items and ellipses.            |
+| `Pagination.Context`              | Ark render prop            | Reads page state, helpers, pages, ranges, and slice helper.       |
+| `Pagination.usePagination`        | -                          | Creates Ark pagination state outside the rendered root.           |
+| `Pagination.usePaginationContext` | -                          | Reads Ark pagination state from a descendant.                     |
+| `Pagination.Item`                 | `pagination-item`          | Ark page item; pass `{...page}` from `pagination.pages`.          |
+| `Pagination.Ellipsis`             | `pagination-ellipsis`      | Ark ellipsis; `index` is required.                                |
+| `Pagination.PrevTrigger`          | `pagination-prev-trigger`  | Ark previous trigger with default Moduix chevron.                 |
+| `Pagination.NextTrigger`          | `pagination-next-trigger`  | Ark next trigger with default Moduix chevron.                     |
+| `Pagination.FirstTrigger`         | `pagination-first-trigger` | Ark first trigger with default double-chevron visual.             |
+| `Pagination.LastTrigger`          | `pagination-last-trigger`  | Ark last trigger with default double-chevron visual.              |
 
 ## Composition
 
@@ -119,7 +119,7 @@ State and attributes to preserve:
 - `data-selected` marks the active `Pagination.Item`.
 - `data-disabled` marks unavailable triggers.
 - `ids` can provide stable IDs for root, item, ellipsis, and trigger parts.
-- All exported parts preserve Ark `asChild`.
+- All exported parts preserve Ark `asChild`; provide one semantic child when using it.
 
 ## Defaults and styling
 
@@ -132,7 +132,6 @@ Moduix adds visual defaults only:
 - default chevrons for previous/next triggers;
 - default double-chevron visuals for first/last triggers;
 - default `...` text for ellipsis;
-- default `aria-label="Pagination"` on root and root provider;
 - default trigger icons mirror in RTL contexts.
 
 Public CSS variables:
@@ -167,8 +166,8 @@ Public CSS variables:
 ## Intentional sugar and differences from upstream
 
 The wrapper keeps Ark API names and does not expose flat aliases. Moduix sugar is limited to
-`Pagination.Items`, Ark hook namespace re-exports, default icons, default ellipsis text, root label
-default, `data-slot` hooks, and styling tokens.
+`Pagination.Items`, Ark hook namespace re-exports, default icons, default ellipsis text, `data-slot`
+hooks, and styling tokens.
 
 ## Agent notes
 
@@ -178,6 +177,7 @@ list. Custom renderers must pass page objects directly into `Pagination.Item`.
 
 ## Local changelog
 
+- 2026-08-31: Root and root-provider labels now preserve Ark `translations.rootLabel`.
 - 2026-08-12: Stabilized the default footprint across one- and two-digit page labels while
   preserving expansion for longer numeric content, and added a numeric-content story.
 

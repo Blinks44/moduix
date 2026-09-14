@@ -4,31 +4,107 @@ component: table
 description: Нативный компонент таблицы с необязательным контейнером для прокрутки, числовыми столбцами, подписями и состоянием «нет данных».
 ---
 
-import * as TableDocs from '@/components/examples/table';
+import * as TableDocs from '@/components/examples/table/css-properties';
+import TableBasic from '@/components/examples/table/basic.tsx';
+import TableCaptionAndFooter from '@/components/examples/table/caption-and-footer.tsx';
+import TableColumnGroupAndBorders from '@/components/examples/table/column-group-and-borders.tsx';
+import TableCustomComposition from '@/components/examples/table/custom-composition.tsx';
+import TableEmptyState from '@/components/examples/table/empty-state.tsx';
+import TableInsideCard from '@/components/examples/table/inside-card.tsx';
+import TableNumericColumns from '@/components/examples/table/numeric-columns.tsx';
+import TableRowActions from '@/components/examples/table/row-actions-with-menu.tsx';
+import TableSizesAndVariants from '@/components/examples/table/sizes-and-variants.tsx';
+import TableStickyHeaderAndColumn from '@/components/examples/table/sticky-header-and-column.tsx';
+import TableStripedRows from '@/components/examples/table/striped-rows.tsx';
+import TableWithScrollarea from '@/components/examples/table/with-scrollarea.tsx';
+import tableSolidBasic from '../../../snippets/table/solid/basic.tsx?raw';
+import tableSolidCaptionAndFooter from '../../../snippets/table/solid/caption-and-footer.tsx?raw';
+import tableSolidColumnGroupAndBorders from '../../../snippets/table/solid/column-group-and-borders.tsx?raw';
+import tableSolidCustomComposition from '../../../snippets/table/solid/custom-composition.tsx?raw';
+import tableSolidEmptyState from '../../../snippets/table/solid/empty-state.tsx?raw';
+import tableSolidInsideCard from '../../../snippets/table/solid/inside-card.tsx?raw';
+import tableSolidNumericColumns from '../../../snippets/table/solid/numeric-columns.tsx?raw';
+import tableSolidRowActions from '../../../snippets/table/solid/row-actions-with-menu.tsx?raw';
+import tableSolidSizesAndVariants from '../../../snippets/table/solid/sizes-and-variants.tsx?raw';
+import tableSolidStickyHeaderAndColumn from '../../../snippets/table/solid/sticky-header-and-column.tsx?raw';
+import tableSolidStripedRows from '../../../snippets/table/solid/striped-rows.tsx?raw';
+import tableSolidWithScrollarea from '../../../snippets/table/solid/with-scrollarea.tsx?raw';
 
 ## Справочник API
 
 В Ark UI нет отдельного примитива для таблиц. moduix собирает `Table` через официальную [фабрику Ark](https://ark-ui.com/docs/guides/composition#the-ark-factory) и следует рекомендациям Ark по [композиции](https://ark-ui.com/docs/guides/composition), [стилизации](https://ark-ui.com/docs/guides/styling) и работе с [ref](https://ark-ui.com/docs/guides/ref).
 
-Каждая часть по умолчанию рендерит соответствующий нативный HTML-элемент, принимает его свойства и
-`className`, передаёт `ref` и поддерживает `asChild`. При использовании `asChild` передавайте один
-семантический элемент. У `Table.Empty` есть особенность: это свойство заменяет только созданную
-`td`-ячейку.
+Каждая часть по умолчанию рендерит соответствующий нативный HTML-элемент, принимает его свойства,
+`className` в React или `class` в Solid, передаёт `ref` и поддерживает `asChild`. При использовании
+`asChild` передавайте один семантический элемент. У `Table.Empty` есть особенность: это свойство
+заменяет только созданную `td`-ячейку.
 
 ## Базовый пример
+
+`Table` доступен в каждом текущем фреймворке и варианте стилей. Превью на этой
+странице использует React с CSS Modules, а вкладки фреймворков показывают нативный исходный код
+того же публичного контракта.
 
 Если таблица может не поместиться по ширине, оберните её в `Table.ScrollArea`. Затем соберите `Table`
 из `Table.Header`, `Table.Body`, `Table.Row` и соответствующих частей для заголовков и ячеек. Такой
 вариант подходит для счётов, сводок и таблиц с данными только для чтения в административных интерфейсах.
 
-<PreviewFrame maxWidth="lg">
-  ```tsx preview file="../../en/docs/_snippets/table/basic.tsx"
-  ```
-</PreviewFrame>
+<ExampleFrame variant="component">
+  <TableBasic />
+</ExampleFrame>
+
+<ExampleCode>
+<div className="docs-reference">
+  <Tabs
+    groupId="framework"
+    values={[
+      { label: 'React', value: 'react' },
+      { label: 'Solid', value: 'solid' },
+    ]}
+    className="docs-tabs"
+  >
+    <Tab value="react">
+
+```tsx pure file="../../../src/components/examples/table/basic.tsx"
+```
+
+    </Tab>
+    <Tab value="solid">
+
+<CodeBlockRuntime lang="tsx" code={tableSolidBasic} />
+
+    </Tab>
+  </Tabs>
+</div>
+
+</ExampleCode>
 
 ## Установка через shadcn
 
-<ShadcnInstall packageName="table" />
+Полную настройку пакета, реестра и стилей см. в разделе [Быстрый старт](/docs/quick-start).
+
+<Tabs groupId="framework">
+  <Tab label="React" value="react">
+
+<ShadcnInstallOptions
+  options={[
+    { label: 'CSS Modules', command: 'shadcn@latest add @moduix-react/table' },
+    { label: 'Tailwind CSS', command: 'shadcn@latest add @moduix-react-tailwind/table' },
+  ]}
+/>
+
+  </Tab>
+  <Tab label="Solid" value="solid">
+
+<ShadcnInstallOptions
+  options={[
+    { label: 'CSS Modules', command: 'shadcn@latest add @moduix-solid/table' },
+    { label: 'Tailwind CSS', command: 'shadcn@latest add @moduix-solid-tailwind/table' },
+  ]}
+/>
+
+  </Tab>
+</Tabs>
 
 ## Анатомия
 
@@ -67,55 +143,15 @@ Table.ScrollArea (optional)
 
 ## Композиция
 
-### Рекомендуемая композиция
+Используйте `Table.ScrollArea`, если таблице нужен контейнер с рамкой и горизонтальной прокруткой.
+Не используйте его, если родительская разметка уже отвечает за прокрутку, отступы, границы или
+фон, и разместите нативные части таблицы в своём контейнере.
 
-Для большинства таблиц с данными только для чтения используйте семантические части и добавляйте
-`Table.ScrollArea`, если нужна рамка с горизонтальной прокруткой.
-
-Указывайте `numeric` у `Table.ColumnHeader` и `Table.Cell` для сумм, счётчиков, процентов, показателей задержки
-и других числовых показателей. Используйте `Table.Caption` для краткого названия или описания, а
-`Table.Footer` - для итогов. Свойства `striped`, `interactive`, `showColumnBorder`, `stickyHeader`,
-`size` и `variant` меняют внешний вид, но не добавляют состояние таблицы.
-
-### Когда нужна собственная композиция
-
-Не используйте `Table.ScrollArea`, если родительский контейнер уже отвечает за прокрутку, отступы,
-границы или фон. Оставьте `Table`, а оформление контейнера задайте в своей разметке или компоненте.
-
-`Table` не управляет сортировкой, фильтрацией, выбором, пагинацией, виртуализацией или действиями
-над строками. Это визуальная и семантическая основа для более сложных решений. Для управления
-состоянием и отображением данных через TanStack Table используйте руководство [Data Table](/recipes/data-table).
-
-### Свойства по умолчанию
-
-Все части принимают нативные свойства соответствующего HTML-элемента, а также поддерживают
-`className`, передачу `ref` и `asChild`, как описано выше.
-
-| Компонент            | Свойство           | По умолчанию    | Примечание                                                        |
-| -------------------- | ------------------ | --------------- | ----------------------------------------------------------------- |
-| `Table`              | `interactive`      | `false`         | Подсвечивает строки тела при наведении.                           |
-| `Table`              | `showColumnBorder` | `false`         | Добавляет границы между видимыми столбцами.                       |
-| `Table`              | `size`             | `'md'`          | Поддерживает `'sm'`, `'md'` и `'lg'`.                              |
-| `Table`              | `stickyHeader`     | `false`         | Закрепляет `Table.Header` внутри контейнера прокрутки.            |
-| `Table`              | `striped`          | `false`         | Чередует фон строк тела, кроме пустых строк.                       |
-| `Table`              | `variant`          | `'line'`        | Поддерживает `'line'` и `'outline'`.                              |
-| `Table.Caption`      | `side`             | `'bottom'`      | Поддерживает `'top'` и `'bottom'`.                                |
-| `Table.Column`       | `htmlWidth`        | -               | Передаёт значение нативному атрибуту `width` элемента `col`.      |
-| `Table.ColumnHeader` | `numeric`          | `false`         | Выравнивает содержимое по концу строки и использует табличные цифры. |
-| `Table.Cell`         | `numeric`          | `false`         | Выравнивает содержимое по концу строки и использует табличные цифры. |
-| `Table.Empty`        | `colSpan`          | обязательное    | Должно совпадать с текущим числом столбцов.                       |
-| `Table.Empty`        | `children`         | `'No results.'` | Текст по умолчанию, если содержимое не передано.                  |
-
-### Особенности поведения
-
-- `Table.Empty` отображает полноценную строку пустого состояния. Передайте количество столбцов через `colSpan`.
-  Свойство `asChild` заменяет только созданную ячейку, поэтому передавайте один семантический `td`;
-  для настройки самой строки соберите `Table.Row` и `Table.Cell` напрямую. Созданная строка
-  получает `data-empty`, но на неё не распространяются чередование фона и интерактивные стили.
-- Строки заголовка и тела имеют общий нижний разделитель, а у последней строки тела граница убирается.
-- При `interactive` строки с данными подсвечиваются при наведении и сохраняют этот контекст, когда
-  фокус с клавиатуры получает вложенный элемент управления.
-- `Table.Caption` использует приглушённую типографику и отступы от краёв таблицы.
+`Table.Empty` создаёт полную строку пустого состояния внутри `Table.Body`, поэтому обязательный
+`colSpan` должен совпадать с текущим числом столбцов. Его `asChild` заменяет только созданную
+`td`-ячейку; если нужно настроить саму строку, соберите напрямую `Table.Row` и `Table.Cell`.
+`Table` отвечает только за представление: сортировка, фильтрация, выбор, пагинация, виртуализация
+и действия над строками относятся к композиции более высокого уровня, например [Data Table](/recipes/data-table).
 
 ### Доступность
 
@@ -132,88 +168,323 @@ Table.ScrollArea (optional)
 Используйте `Table.Caption side="top"`, если подпись должна находиться перед данными, а
 `Table.Footer` - для итогов или сводных значений.
 
-<PreviewFrame maxWidth="lg">
-  ```tsx preview file="../../en/docs/_snippets/table/caption-and-footer.tsx"
-  ```
-</PreviewFrame>
+<ExampleFrame variant="component">
+  <TableCaptionAndFooter />
+</ExampleFrame>
+
+<ExampleCode>
+<div className="docs-reference">
+  <Tabs
+    groupId="framework"
+    values={[
+      { label: 'React', value: 'react' },
+      { label: 'Solid', value: 'solid' },
+    ]}
+    className="docs-tabs"
+  >
+    <Tab value="react">
+
+```tsx pure file="../../../src/components/examples/table/caption-and-footer.tsx"
+```
+
+    </Tab>
+    <Tab value="solid">
+
+<CodeBlockRuntime lang="tsx" code={tableSolidCaptionAndFooter} />
+
+    </Tab>
+  </Tabs>
+</div>
+
+</ExampleCode>
 
 ### Группа столбцов и границы
 
 Используйте `Table.ColumnGroup` и `Table.Column`, чтобы задать нативную ширину столбцов, а
 `showColumnBorder` - когда границы между столбцами должны быть видимыми.
 
-<PreviewFrame maxWidth="lg">
-  ```tsx preview file="../../en/docs/_snippets/table/column-group-and-borders.tsx"
-  ```
-</PreviewFrame>
+<ExampleFrame variant="component">
+  <TableColumnGroupAndBorders />
+</ExampleFrame>
+
+<ExampleCode>
+<div className="docs-reference">
+  <Tabs
+    groupId="framework"
+    values={[
+      { label: 'React', value: 'react' },
+      { label: 'Solid', value: 'solid' },
+    ]}
+    className="docs-tabs"
+  >
+    <Tab value="react">
+
+```tsx pure file="../../../src/components/examples/table/column-group-and-borders.tsx"
+```
+
+    </Tab>
+    <Tab value="solid">
+
+<CodeBlockRuntime lang="tsx" code={tableSolidColumnGroupAndBorders} />
+
+    </Tab>
+  </Tabs>
+</div>
+
+</ExampleCode>
 
 ### Пустое состояние
 
 Используйте `Table.Empty`, если в теле таблицы нет строк. Значение `colSpan` должно совпадать с
 текущим числом столбцов.
 
-<PreviewFrame maxWidth="lg">
-  ```tsx preview file="../../en/docs/_snippets/table/empty-state.tsx"
-  ```
-</PreviewFrame>
+<ExampleFrame variant="component">
+  <TableEmptyState />
+</ExampleFrame>
+
+<ExampleCode>
+<div className="docs-reference">
+  <Tabs
+    groupId="framework"
+    values={[
+      { label: 'React', value: 'react' },
+      { label: 'Solid', value: 'solid' },
+    ]}
+    className="docs-tabs"
+  >
+    <Tab value="react">
+
+```tsx pure file="../../../src/components/examples/table/empty-state.tsx"
+```
+
+    </Tab>
+    <Tab value="solid">
+
+<CodeBlockRuntime lang="tsx" code={tableSolidEmptyState} />
+
+    </Tab>
+  </Tabs>
+</div>
+
+</ExampleCode>
 
 ### Внутри Card
 
 Размещайте `Table.ScrollArea` в `Card.Body`, если таблица должна находиться на поверхности карточки.
 
-<PreviewFrame maxWidth="lg">
-  ```tsx preview file="../../en/docs/_snippets/table/inside-card.tsx"
-  ```
-</PreviewFrame>
+<ExampleFrame variant="component">
+  <TableInsideCard />
+</ExampleFrame>
+
+<ExampleCode>
+<div className="docs-reference">
+  <Tabs
+    groupId="framework"
+    values={[
+      { label: 'React', value: 'react' },
+      { label: 'Solid', value: 'solid' },
+    ]}
+    className="docs-tabs"
+  >
+    <Tab value="react">
+
+```tsx pure file="../../../src/components/examples/table/inside-card.tsx"
+```
+
+    </Tab>
+    <Tab value="solid">
+
+<CodeBlockRuntime lang="tsx" code={tableSolidInsideCard} />
+
+    </Tab>
+  </Tabs>
+</div>
+
+</ExampleCode>
 
 ### Числовые столбцы
 
 Указывайте `numeric` и в заголовке, и в ячейках, чтобы суммы, проценты и другие числовые показатели
 выравнивались одинаково.
 
-<PreviewFrame maxWidth="lg">
-  ```tsx preview file="../../en/docs/_snippets/table/numeric-columns.tsx"
-  ```
-</PreviewFrame>
+<ExampleFrame variant="component">
+  <TableNumericColumns />
+</ExampleFrame>
+
+<ExampleCode>
+<div className="docs-reference">
+  <Tabs
+    groupId="framework"
+    values={[
+      { label: 'React', value: 'react' },
+      { label: 'Solid', value: 'solid' },
+    ]}
+    className="docs-tabs"
+  >
+    <Tab value="react">
+
+```tsx pure file="../../../src/components/examples/table/numeric-columns.tsx"
+```
+
+    </Tab>
+    <Tab value="solid">
+
+<CodeBlockRuntime lang="tsx" code={tableSolidNumericColumns} />
+
+    </Tab>
+  </Tabs>
+</div>
+
+</ExampleCode>
 
 ### Действия в строках с меню
 
 Поместите действия для строки в последний столбец. `Menu` добавит компактный список команд, не
 меняя нативную структуру таблицы.
 
-<PreviewFrame maxWidth="lg">
-  ```tsx preview file="../../en/docs/_snippets/table/row-actions-with-menu.tsx"
-  ```
-</PreviewFrame>
+<ExampleFrame variant="component">
+  <TableRowActions />
+</ExampleFrame>
+
+<ExampleCode>
+<div className="docs-reference">
+  <Tabs
+    groupId="framework"
+    values={[
+      { label: 'React', value: 'react' },
+      { label: 'Solid', value: 'solid' },
+    ]}
+    className="docs-tabs"
+  >
+    <Tab value="react">
+
+```tsx pure file="../../../src/components/examples/table/row-actions-with-menu.tsx"
+```
+
+    </Tab>
+    <Tab value="solid">
+
+<CodeBlockRuntime lang="tsx" code={tableSolidRowActions} />
+
+    </Tab>
+  </Tabs>
+</div>
+
+</ExampleCode>
 
 ### Размеры и варианты
 
 Используйте `size` для выбора плотности, а `variant` - для оформления разделителей. Эти свойства
 меняют только внешний вид и не добавляют состояние таблицы.
 
-<PreviewFrame maxWidth="lg">
-  ```tsx preview file="../../en/docs/_snippets/table/sizes-and-variants.tsx"
-  ```
-</PreviewFrame>
+<ExampleFrame variant="component">
+  <TableSizesAndVariants />
+</ExampleFrame>
+
+<ExampleCode>
+<div className="docs-reference">
+  <Tabs
+    groupId="framework"
+    values={[
+      { label: 'React', value: 'react' },
+      { label: 'Solid', value: 'solid' },
+    ]}
+    className="docs-tabs"
+  >
+    <Tab value="react">
+
+```tsx pure file="../../../src/components/examples/table/sizes-and-variants.tsx"
+```
+
+    </Tab>
+    <Tab value="solid">
+
+<CodeBlockRuntime lang="tsx" code={tableSolidSizesAndVariants} />
+
+    </Tab>
+  </Tabs>
+
+**Styles**
+
+```css file="../../../src/components/examples/table/table-sizes-and-variants.module.css"
+```
+</div>
+
+</ExampleCode>
 
 ### Закрепление заголовка и столбца
 
 Используйте `stickyHeader` у корня и `data-sticky="start" | "end"` у ячеек, чтобы при прокрутке
 заголовок и важный столбец оставались видимыми.
 
-<PreviewFrame maxWidth="lg">
-  ```tsx preview file="../../en/docs/_snippets/table/sticky-header-and-column.tsx"
-  ```
-</PreviewFrame>
+<ExampleFrame variant="component">
+  <TableStickyHeaderAndColumn />
+</ExampleFrame>
+
+<ExampleCode>
+<div className="docs-reference">
+  <Tabs
+    groupId="framework"
+    values={[
+      { label: 'React', value: 'react' },
+      { label: 'Solid', value: 'solid' },
+    ]}
+    className="docs-tabs"
+  >
+    <Tab value="react">
+
+```tsx pure file="../../../src/components/examples/table/sticky-header-and-column.tsx"
+```
+
+    </Tab>
+    <Tab value="solid">
+
+<CodeBlockRuntime lang="tsx" code={tableSolidStickyHeaderAndColumn} />
+
+    </Tab>
+  </Tabs>
+
+**Styles**
+
+```css file="../../../src/components/examples/table/table-sticky-header-and-column.module.css"
+```
+</div>
+
+</ExampleCode>
 
 ### Чередование фона строк
 
 Используйте `striped`, чтобы строки длинной таблицы с данными только для чтения было легче различать.
 
-<PreviewFrame maxWidth="lg">
-  ```tsx preview file="../../en/docs/_snippets/table/striped-rows.tsx"
-  ```
-</PreviewFrame>
+<ExampleFrame variant="component">
+  <TableStripedRows />
+</ExampleFrame>
+
+<ExampleCode>
+<div className="docs-reference">
+  <Tabs
+    groupId="framework"
+    values={[
+      { label: 'React', value: 'react' },
+      { label: 'Solid', value: 'solid' },
+    ]}
+    className="docs-tabs"
+  >
+    <Tab value="react">
+
+```tsx pure file="../../../src/components/examples/table/striped-rows.tsx"
+```
+
+    </Tab>
+    <Tab value="solid">
+
+<CodeBlockRuntime lang="tsx" code={tableSolidStripedRows} />
+
+    </Tab>
+  </Tabs>
+</div>
+
+</ExampleCode>
 
 ### С компонентом ScrollArea
 
@@ -222,10 +493,40 @@ Table.ScrollArea (optional)
 рамкой и горизонтальной прокруткой. Сохраняйте структуру `ScrollArea` явной, чтобы `Table` оставался
 лёгкой обёрткой над нативной таблицей.
 
-<PreviewFrame maxWidth="lg">
-  ```tsx preview file="../../en/docs/_snippets/table/with-scrollarea.tsx"
-  ```
-</PreviewFrame>
+<ExampleFrame variant="component">
+  <TableWithScrollarea />
+</ExampleFrame>
+
+<ExampleCode>
+<div className="docs-reference">
+  <Tabs
+    groupId="framework"
+    values={[
+      { label: 'React', value: 'react' },
+      { label: 'Solid', value: 'solid' },
+    ]}
+    className="docs-tabs"
+  >
+    <Tab value="react">
+
+```tsx pure file="../../../src/components/examples/table/with-scrollarea.tsx"
+```
+
+    </Tab>
+    <Tab value="solid">
+
+<CodeBlockRuntime lang="tsx" code={tableSolidWithScrollarea} />
+
+    </Tab>
+  </Tabs>
+
+**Styles**
+
+```css file="../../../src/components/examples/table/table-with-scrollarea.module.css"
+```
+</div>
+
+</ExampleCode>
 
 ### Расширенная настройка
 
@@ -233,15 +534,47 @@ Table.ScrollArea (optional)
 отвечает за фон или прокрутку. При этом композиция нативных частей таблицы останется явной, а
 оформление контейнера будет полностью под вашим контролем.
 
-<PreviewFrame maxWidth="lg">
-  ```tsx preview file="../../en/docs/_snippets/table/custom-composition.tsx"
-  ```
-</PreviewFrame>
+<ExampleFrame variant="component">
+  <TableCustomComposition />
+</ExampleFrame>
+
+<ExampleCode>
+<div className="docs-reference">
+  <Tabs
+    groupId="framework"
+    values={[
+      { label: 'React', value: 'react' },
+      { label: 'Solid', value: 'solid' },
+    ]}
+    className="docs-tabs"
+  >
+    <Tab value="react">
+
+```tsx pure file="../../../src/components/examples/table/custom-composition.tsx"
+```
+
+    </Tab>
+    <Tab value="solid">
+
+<CodeBlockRuntime lang="tsx" code={tableSolidCustomComposition} />
+
+    </Tab>
+  </Tabs>
+
+**Styles**
+
+```css file="../../../src/components/examples/table/table-custom-composition.module.css"
+```
+</div>
+
+</ExampleCode>
 
 ## Стилизация
 
-Настраивайте `Table` через `className`, публичные хуки `data-slot`, `data-scope` и `data-part`,
-атрибуты `data-side` и `data-numeric`, а также перечисленные ниже CSS-переменные `--moduix-table-*`.
+Настраивайте `Table` через `className` в React или `class` в Solid, публичные хуки `data-slot`,
+`data-scope` и `data-part`, атрибуты `data-side` и `data-numeric`, а также перечисленные ниже
+CSS-переменные `--moduix-table-*`. Варианты Tailwind используют нативные utility-классы и классы
+потребителя, а переменные ниже относятся к вариантам CSS Modules.
 
 ### CSS-переменные
 

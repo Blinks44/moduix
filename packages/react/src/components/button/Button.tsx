@@ -2,7 +2,6 @@ import type { HTMLArkProps } from '@ark-ui/react/factory';
 import { ark } from '@ark-ui/react/factory';
 import { clsx } from 'clsx';
 import { forwardRef } from 'react';
-import { normalizeClassName } from '@/lib/moduix/normalizeClassName';
 import styles from './Button.module.css';
 
 const ButtonRoot = forwardRef<
@@ -81,7 +80,7 @@ const ButtonRoot = forwardRef<
       data-size={size}
       data-disabled={isDisabled ? '' : undefined}
       data-loading={loading ? '' : undefined}
-      className={clsx(styles.root, normalizeClassName(className))}
+      className={clsx(styles.root, className)}
     />
   );
 });

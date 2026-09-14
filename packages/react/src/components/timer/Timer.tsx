@@ -4,7 +4,6 @@ import { Timer as TimerPrimitive, useTimer, useTimerContext } from '@ark-ui/reac
 import { clsx } from 'clsx';
 import type { ComponentProps, ComponentRef, ReactNode } from 'react';
 import { Fragment, forwardRef } from 'react';
-import { normalizeClassName } from '@/lib/moduix/normalizeClassName';
 import styles from './Timer.module.css';
 
 const TimerRoot = forwardRef<
@@ -15,7 +14,7 @@ const TimerRoot = forwardRef<
     <TimerPrimitive.Root
       ref={ref}
       data-slot="timer-root"
-      className={clsx(styles.root, normalizeClassName(className))}
+      className={clsx(styles.root, className)}
       {...props}
     />
   );
@@ -29,7 +28,7 @@ const TimerRootProvider = forwardRef<
     <TimerPrimitive.RootProvider
       ref={ref}
       data-slot="timer-root-provider"
-      className={clsx(styles.root, normalizeClassName(className))}
+      className={clsx(styles.root, className)}
       {...props}
     />
   );
@@ -43,7 +42,7 @@ const TimerArea = forwardRef<
     <TimerPrimitive.Area
       ref={ref}
       data-slot="timer-area"
-      className={clsx(styles.area, normalizeClassName(className))}
+      className={clsx(styles.area, className)}
       {...props}
     />
   );
@@ -57,7 +56,7 @@ const TimerItem = forwardRef<
     <TimerPrimitive.Item
       ref={ref}
       data-slot="timer-item"
-      className={clsx(styles.item, normalizeClassName(className))}
+      className={clsx(styles.item, className)}
       {...props}
     />
   );
@@ -71,7 +70,7 @@ const TimerSeparator = forwardRef<
     <TimerPrimitive.Separator
       ref={ref}
       data-slot="timer-separator"
-      className={clsx(styles.separator, normalizeClassName(className))}
+      className={clsx(styles.separator, className)}
       {...props}
     />
   );
@@ -85,7 +84,7 @@ const TimerControl = forwardRef<
     <TimerPrimitive.Control
       ref={ref}
       data-slot="timer-control"
-      className={clsx(styles.control, normalizeClassName(className))}
+      className={clsx(styles.control, className)}
       {...props}
     />
   );
@@ -99,7 +98,7 @@ const TimerActionTrigger = forwardRef<
     <TimerPrimitive.ActionTrigger
       ref={ref}
       data-slot="timer-action-trigger"
-      className={clsx(styles.actionTrigger, normalizeClassName(className))}
+      className={clsx(styles.actionTrigger, className)}
       {...props}
     />
   );

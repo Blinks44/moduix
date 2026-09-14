@@ -4,7 +4,19 @@ component: heading
 description: Composant sémantique pour les titres, basé sur la fabrique Ark et les tokens typographiques de moduix.
 ---
 
-import * as HeadingDocs from '@/components/examples/heading';
+import * as HeadingDocs from '@/components/examples/heading/css-properties';
+import HeadingBasic from '@/components/examples/heading/basic.tsx';
+import HeadingLevels from '@/components/examples/heading/heading-levels.tsx';
+import SemanticLevelAndVisualSize from '@/components/examples/heading/semantic-level-and-visual-size.tsx';
+import HeadingVisualSizes from '@/components/examples/heading/visual-sizes.tsx';
+import HeadingWeights from '@/components/examples/heading/weights.tsx';
+import CustomHostHeading from '@/components/examples/heading/custom-host.tsx';
+import headingSolidBasic from '../../../snippets/heading/solid/basic.tsx?raw';
+import headingSolidLevels from '../../../snippets/heading/solid/heading-levels.tsx?raw';
+import headingSolidSemanticLevelAndVisualSize from '../../../snippets/heading/solid/semantic-level-and-visual-size.tsx?raw';
+import headingSolidVisualSizes from '../../../snippets/heading/solid/visual-sizes.tsx?raw';
+import headingSolidWeights from '../../../snippets/heading/solid/weights.tsx?raw';
+import headingSolidCustomHost from '../../../snippets/heading/solid/custom-host.tsx?raw';
 
 ## Référence de l’API
 
@@ -15,19 +27,70 @@ et le [transfert de ref](https://ark-ui.com/docs/guides/ref).
 
 ## Exemple de base
 
+`Heading` est disponible pour React et Solid dans les variantes CSS Modules et Tailwind. L’aperçu rendu
+sur cette page utilise le paquet React CSS Modules ; les onglets de framework présentent le code source
+natif correspondant au même contrat public.
+
 Par défaut, `Heading` rend un `h1`. Utilisez-le pour les titres du document et choisissez la valeur de `as`
-en fonction de sa place dans la structure du document. Définissez `size` séparément lorsque l’importance visuelle
-doit différer du niveau sémantique.
+en fonction de sa place dans la structure du document. Définissez `size` séparément lorsque l’importance
+visuelle doit différer du niveau sémantique.
 
-<PreviewFrame maxWidth="sm">
-  ```tsx preview file="../../en/docs/_snippets/heading/basic.tsx"
+<ExampleFrame variant="component">
+  <HeadingBasic />
+</ExampleFrame>
 
+<ExampleCode>
+<div className="docs-reference">
+  <Tabs
+    groupId="framework"
+    values={[
+      { label: 'React', value: 'react' },
+      { label: 'Solid', value: 'solid' },
+    ]}
+    className="docs-tabs"
+  >
+    <Tab value="react">
+
+```tsx pure file="../../../src/components/examples/heading/basic.tsx"
 ```
-</PreviewFrame>
+
+    </Tab>
+    <Tab value="solid">
+
+<CodeBlockRuntime lang="tsx" code={headingSolidBasic} />
+
+    </Tab>
+  </Tabs>
+</div>
+
+</ExampleCode>
 
 ## Installation avec shadcn
 
-<ShadcnInstall packageName="heading" />
+Consultez le [Démarrage rapide](/docs/quick-start) pour la configuration complète du paquet, du registre et des styles.
+
+<Tabs groupId="framework">
+  <Tab label="React" value="react">
+
+<ShadcnInstallOptions
+  options={[
+    { label: 'CSS Modules', command: 'shadcn@latest add @moduix-react/heading' },
+    { label: 'Tailwind CSS', command: 'shadcn@latest add @moduix-react-tailwind/heading' },
+  ]}
+/>
+
+  </Tab>
+  <Tab label="Solid" value="solid">
+
+<ShadcnInstallOptions
+  options={[
+    { label: 'CSS Modules', command: 'shadcn@latest add @moduix-solid/heading' },
+    { label: 'Tailwind CSS', command: 'shadcn@latest add @moduix-solid-tailwind/heading' },
+  ]}
+/>
+
+  </Tab>
+</Tabs>
 
 ## Anatomie
 
@@ -44,48 +107,12 @@ Heading / Heading.Root
 
 ## Composition
 
-### Composition recommandée
-
-Utilisez `<Heading>` dans le cas courant d’un `h1`. Pour choisir un autre niveau sémantique, transmettez
-à `as` une valeur de `h2` à `h6` :
-
-```tsx
-import { Heading } from '@moduix/react/heading';
-
-<Heading as="h2" size="2xl">
-  Page title rendered as h2
-</Heading>
-```
-
-Utilisez `asChild` pour composer avec la fabrique lorsqu’un unique élément enfant sémantique de titre doit
-porter le nœud DOM rendu. L’enfant reçoit les propriétés du composant, sa `className`, ses attributs `data-*`
-et la `ref` transmise.
-
-### Quand créer une composition personnalisée
-
-Pour ajuster localement l’apparence, utilisez `className` et les variables publiques `--moduix-heading-*`.
-Utilisez `Text` pour le texte courant, les libellés auxiliaires ou le texte en ligne, plutôt que pour un titre
-de document.
-
-### Propriétés par défaut
-
-| Propriété   | Valeur par défaut        | Valeurs et remarques                            |
-| ----------- | ------------------------ | ----------------------------------------------- |
-| `as`        | `h1`                     | `h1` à `h6`                                     |
-| `size`      | selon l’élément rendu    | `xs`, `sm`, `md`, `lg`, `xl`, `2xl`             |
-| `weight`    | `semibold`               | `regular`, `medium`, `semibold`, `bold`         |
-| `asChild`   | `false`                  | Composition via la fabrique Ark                |
-| `className` | -                        | Appliqué à l’élément racine du titre rendu      |
-
-### Comportement
-
-- Lorsque `size` n’est pas défini, la taille visuelle dépend de l’élément rendu : `h1 -> 2xl`, `h2 -> xl`,
-  `h3 -> lg`, `h4 -> md`, `h5 -> sm` et `h6 -> xs`.
-- Une valeur `size` explicite remplace cette correspondance sans modifier la sémantique.
-- La racine transmet la ref à l’élément de titre rendu.
-- Les éléments de titre natifs fournissent la sémantique requise et n’ont pas besoin d’attribut ARIA supplémentaire.
-  Ne transmettez pas à `asChild` un élément qui n’est pas un titre.
-- `Heading` ne gère aucun état et n’expose ni callback, ni interaction au clavier, ni provider, ni hook de contexte.
+`Heading` est un composant sans état limité à sa racine : il n’a donc besoin ni de provider ni de parties
+coordonnées. Utilisez `<Heading>` ou la forme équivalente `<Heading.Root>`, transmettez `as` pour choisir
+le niveau sémantique de `h1` à `h6`, et définissez `size` séparément si l’importance visuelle doit différer.
+Sans `size` explicite, l’élément rendu choisit l’échelle de `2xl` pour `h1` à `xs` pour `h6`, et `weight`
+vaut `semibold` par défaut. Utilisez `asChild` uniquement lorsqu’un autre élément sémantique de titre doit
+porter le nœud DOM rendu.
 
 ## Exemples
 
@@ -94,58 +121,180 @@ de document.
 Utilisez `as` pour choisir un niveau de `h2` à `h6`. Lorsque `size` n’est pas défini, la taille visuelle
 dépend de l’élément de titre rendu.
 
-<PreviewFrame maxWidth="lg">
-  ```tsx preview file="../../en/docs/_snippets/heading/heading-levels.tsx"
+<ExampleFrame variant="component">
+  <HeadingLevels />
+</ExampleFrame>
 
+<ExampleCode>
+<div className="docs-reference">
+  <Tabs
+    groupId="framework"
+    values={[
+      { label: 'React', value: 'react' },
+      { label: 'Solid', value: 'solid' },
+    ]}
+    className="docs-tabs"
+  >
+    <Tab value="react">
+
+```tsx pure file="../../../src/components/examples/heading/heading-levels.tsx"
 ```
-</PreviewFrame>
+
+    </Tab>
+    <Tab value="solid">
+
+<CodeBlockRuntime lang="tsx" code={headingSolidLevels} />
+
+    </Tab>
+  </Tabs>
+</div>
+
+</ExampleCode>
 
 ### Niveau sémantique et taille visuelle
 
 Séparez la hiérarchie du document de l’importance visuelle. Utilisez `as` pour le niveau sémantique et
 `size` pour la taille visuelle.
 
-<PreviewFrame maxWidth="sm">
-  ```tsx preview file="../../en/docs/_snippets/heading/semantic-level-and-visual-size.tsx"
+<ExampleFrame variant="component">
+  <SemanticLevelAndVisualSize />
+</ExampleFrame>
 
+<ExampleCode>
+<div className="docs-reference">
+  <Tabs
+    groupId="framework"
+    values={[
+      { label: 'React', value: 'react' },
+      { label: 'Solid', value: 'solid' },
+    ]}
+    className="docs-tabs"
+  >
+    <Tab value="react">
+
+```tsx pure file="../../../src/components/examples/heading/semantic-level-and-visual-size.tsx"
 ```
-</PreviewFrame>
+
+    </Tab>
+    <Tab value="solid">
+
+<CodeBlockRuntime lang="tsx" code={headingSolidSemanticLevelAndVisualSize} />
+
+    </Tab>
+  </Tabs>
+</div>
+
+</ExampleCode>
 
 ### Tailles visuelles
 
 Utilisez `size` lorsque plusieurs titres partagent le même niveau sémantique mais doivent avoir une importance visuelle différente.
 
-<PreviewFrame maxWidth="lg">
-  ```tsx preview file="../../en/docs/_snippets/heading/visual-sizes.tsx"
+<ExampleFrame variant="component">
+  <HeadingVisualSizes />
+</ExampleFrame>
 
+<ExampleCode>
+<div className="docs-reference">
+  <Tabs
+    groupId="framework"
+    values={[
+      { label: 'React', value: 'react' },
+      { label: 'Solid', value: 'solid' },
+    ]}
+    className="docs-tabs"
+  >
+    <Tab value="react">
+
+```tsx pure file="../../../src/components/examples/heading/visual-sizes.tsx"
 ```
-</PreviewFrame>
+
+    </Tab>
+    <Tab value="solid">
+
+<CodeBlockRuntime lang="tsx" code={headingSolidVisualSizes} />
+
+    </Tab>
+  </Tabs>
+</div>
+
+</ExampleCode>
 
 ### Graisse
 
 Utilisez `weight` pour choisir l’une des graisses typographiques intégrées.
 
-<PreviewFrame maxWidth="lg">
-  ```tsx preview file="../../en/docs/_snippets/heading/weights.tsx"
+<ExampleFrame variant="component">
+  <HeadingWeights />
+</ExampleFrame>
 
+<ExampleCode>
+<div className="docs-reference">
+  <Tabs
+    groupId="framework"
+    values={[
+      { label: 'React', value: 'react' },
+      { label: 'Solid', value: 'solid' },
+    ]}
+    className="docs-tabs"
+  >
+    <Tab value="react">
+
+```tsx pure file="../../../src/components/examples/heading/weights.tsx"
 ```
-</PreviewFrame>
+
+    </Tab>
+    <Tab value="solid">
+
+<CodeBlockRuntime lang="tsx" code={headingSolidWeights} />
+
+    </Tab>
+  </Tabs>
+</div>
+
+</ExampleCode>
 
 ### Personnalisation avancée
 
 Utilisez `asChild` lorsqu’un autre élément sémantique de titre doit porter le nœud DOM rendu. Pour les cas
 courants avec `h1` à `h6`, utilisez plutôt `as`.
 
-<PreviewFrame maxWidth="sm">
-  ```tsx preview file="../../en/docs/_snippets/heading/custom-host.tsx"
+<ExampleFrame variant="component">
+  <CustomHostHeading />
+</ExampleFrame>
 
+<ExampleCode>
+<div className="docs-reference">
+  <Tabs
+    groupId="framework"
+    values={[
+      { label: 'React', value: 'react' },
+      { label: 'Solid', value: 'solid' },
+    ]}
+    className="docs-tabs"
+  >
+    <Tab value="react">
+
+```tsx pure file="../../../src/components/examples/heading/custom-host.tsx"
 ```
-</PreviewFrame>
+
+    </Tab>
+    <Tab value="solid">
+
+<CodeBlockRuntime lang="tsx" code={headingSolidCustomHost} />
+
+    </Tab>
+  </Tabs>
+</div>
+
+</ExampleCode>
 
 ## Styles
 
-Personnalisez `Heading` avec `className`, les attributs de données de la racine et les variables CSS publiques
-`--moduix-heading-*` présentées dans la référence CSS ci-dessous.
+Personnalisez `Heading` avec `className` en React ou `class` en Solid, les attributs de données de la racine
+et les variables CSS publiques `--moduix-heading-*` présentées dans la référence CSS ci-dessous. Les paquets
+CSS Modules exposent ces variables ; les paquets Tailwind utilisent des classes utilitaires natives et les
+surcharges de classes fournies par l’application.
 
 ### Propriétés CSS
 
@@ -168,4 +317,4 @@ Personnalisez `Heading` avec `className`, les attributs de données de la racine
 - `data-size` est présent lorsque `size` est défini explicitement.
 - `data-weight` indique la graisse choisie : `regular`, `medium`, `semibold` ou `bold`.
 - `Heading` définit lui-même ces attributs. Les propriétés `data-*` correspondantes ne peuvent pas remplacer le contrat de style du composant.
-- Utilisez `className` et les variables `--moduix-heading-*` pour ajuster localement l’apparence.
+- Utilisez `className` ou `class` pour les classes utilitaires de l’application et les ajustements de style locaux.

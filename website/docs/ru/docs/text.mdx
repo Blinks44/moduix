@@ -4,7 +4,23 @@ component: text
 description: Компонент для оформления обычного и встроенного текста, смысловых акцентов и усечённых превью.
 ---
 
-import * as TextDocs from '@/components/examples/text';
+import * as TextDocs from '@/components/examples/text/css-properties';
+import TextAlignment from '@/components/examples/text/alignment.tsx';
+import TextBasic from '@/components/examples/text/basic.tsx';
+import TextCustomComposition from '@/components/examples/text/custom-composition.tsx';
+import TextSemantics from '@/components/examples/text/semantics.tsx';
+import TextSize from '@/components/examples/text/size.tsx';
+import TextTone from '@/components/examples/text/tone.tsx';
+import TextTruncation from '@/components/examples/text/truncation.tsx';
+import TextWeight from '@/components/examples/text/weight.tsx';
+import textSolidAlignment from '../../../snippets/text/solid/alignment.tsx?raw';
+import textSolidBasic from '../../../snippets/text/solid/basic.tsx?raw';
+import textSolidCustomComposition from '../../../snippets/text/solid/custom-composition.tsx?raw';
+import textSolidSemantics from '../../../snippets/text/solid/semantics.tsx?raw';
+import textSolidSize from '../../../snippets/text/solid/size.tsx?raw';
+import textSolidTone from '../../../snippets/text/solid/tone.tsx?raw';
+import textSolidTruncation from '../../../snippets/text/solid/truncation.tsx?raw';
+import textSolidWeight from '../../../snippets/text/solid/weight.tsx?raw';
 
 ## Справочник API
 
@@ -24,18 +40,73 @@ import * as TextDocs from '@/components/examples/text';
 
 ## Базовый пример
 
-Для абзаца используйте корневой элемент `p`, который выбран по умолчанию. Передавайте `as`, когда нужна другая
+`Text` доступен для React и Solid в вариантах с CSS Modules и Tailwind. Превью на этой странице
+работает на React и CSS Modules, а вкладки фреймворков показывают нативный исходный код с тем же API.
+
+Для абзаца используйте корневой элемент `p`, выбранный по умолчанию. Передавайте `as`, когда нужен другой
 семантический HTML-элемент, но оформление `Text` должно сохраниться.
 
-<PreviewFrame maxWidth="lg">
-  ```tsx preview file="../../en/docs/_snippets/text/basic.tsx"
+<ExampleFrame variant="component">
+  <TextBasic />
+</ExampleFrame>
 
+<ExampleCode>
+<div className="docs-reference">
+  <Tabs
+    groupId="framework"
+    values={[
+      { label: 'React', value: 'react' },
+      { label: 'Solid', value: 'solid' },
+    ]}
+    className="docs-tabs"
+  >
+    <Tab value="react">
+
+```tsx pure file="../../../src/components/examples/text/basic.tsx"
 ```
-</PreviewFrame>
+
+    </Tab>
+    <Tab value="solid">
+
+<CodeBlockRuntime lang="tsx" code={textSolidBasic} />
+
+    </Tab>
+  </Tabs>
+
+**Стили**
+
+```css file="../../../src/components/examples/text/text-basic.module.css"
+```
+</div>
+
+</ExampleCode>
 
 ## Установка через shadcn
 
-<ShadcnInstall packageName="text" />
+Полную настройку пакета, реестра и стилей см. в разделе [Быстрый старт](/docs/quick-start).
+
+<Tabs groupId="framework">
+  <Tab label="React" value="react">
+
+<ShadcnInstallOptions
+  options={[
+    { label: 'CSS Modules', command: 'shadcn@latest add @moduix-react/text' },
+    { label: 'Tailwind CSS', command: 'shadcn@latest add @moduix-react-tailwind/text' },
+  ]}
+/>
+
+  </Tab>
+  <Tab label="Solid" value="solid">
+
+<ShadcnInstallOptions
+  options={[
+    { label: 'CSS Modules', command: 'shadcn@latest add @moduix-solid/text' },
+    { label: 'Tailwind CSS', command: 'shadcn@latest add @moduix-solid-tailwind/text' },
+  ]}
+/>
+
+  </Tab>
+</Tabs>
 
 ## Анатомия
 
@@ -52,38 +123,10 @@ Text / Text.Root
 
 ## Композиция
 
-### Рекомендуемая композиция
-
-Используйте краткую запись `<Text>` для обычного текста и подписей. Она эквивалентна `<Text.Root>`, по умолчанию
-выводит `p` и передаёт `ref` на получившийся `HTMLElement`.
-
-### Когда нужна собственная композиция
-
-Используйте `as`, чтобы выбрать поддерживаемый встроенный HTML-элемент и изменить семантику. Используйте `asChild`,
-если уже существующий элемент, например ссылка, должен стать корневым и получить класс moduix, стиль, data-атрибуты
-и `ref`. Дочерний элемент должен быть единственным и принимать передаваемые свойства.
-
-`Text` также принимает стандартные HTML-атрибуты корневого элемента, включая `className`, `style`, обработчики
-событий и переданный `ref`.
-
-### Значения по умолчанию
-
-| Свойство    | По умолчанию                         | Примечания                                                    |
-| ----------- | ------------------------------------ | ------------------------------------------------------------- |
-| `as`        | `p`                                  | `p`, `span`, `small`, `strong`, `em` или `div`.               |
-| `asChild`   | `false`                              | Использует единственный дочерний элемент как корневой.       |
-| `size`      | Зависит от элемента                  | Для `small` по умолчанию `sm`; для остальных элементов `md`. |
-| `weight`    | Зависит от элемента                  | Для `strong` по умолчанию `semibold`; для остальных `regular`. |
-| `tone`      | `default`                            | `default`, `muted`, `subtle`, `primary` или `destructive`.   |
-| `align`     | Не задано (визуально `start`)        | `start`, `center`, `end`, `left`, `right` или `justify`.     |
-| `truncate`  | `false`                              | Усечение одной строки с многоточием через CSS.               |
-| `lineClamp` | Не задано                            | Положительное целое число; некорректные значения отключают ограничение. |
-
-### Особенности поведения
-
-`Text` отвечает за оформление и семантику текста. Он не управляет состоянием, клавиатурными взаимодействиями или
-раскрытием содержимого. `truncate` и `lineClamp` задают только визуальные CSS-ограничения. Кнопку или другой элемент
-управления для показа полного текста нужно добавить отдельно.
+`Text` состоит только из корневого элемента и не владеет состоянием или дочерними частями. Используйте `<Text>`
+или `<Text.Root>` для одного и того же корня, `as` для поддерживаемого семантического элемента, а `asChild` только
+когда один существующий элемент должен получить свойства и `ref` текста. Усечение ограничивает только отображение,
+поэтому состояние раскрытия и управляющий элемент остаются в окружающем интерфейсе.
 
 ## Примеры
 
@@ -91,78 +134,277 @@ Text / Text.Root
 
 Используйте `align`, когда выравнивание относится к тексту, а не к окружающему контейнеру.
 
-<PreviewFrame maxWidth="lg">
-  ```tsx preview file="../../en/docs/_snippets/text/alignment.tsx"
+<ExampleFrame variant="component">
+  <TextAlignment />
+</ExampleFrame>
 
+<ExampleCode>
+<div className="docs-reference">
+  <Tabs
+    groupId="framework"
+    values={[
+      { label: 'React', value: 'react' },
+      { label: 'Solid', value: 'solid' },
+    ]}
+    className="docs-tabs"
+  >
+    <Tab value="react">
+
+```tsx pure file="../../../src/components/examples/text/alignment.tsx"
 ```
-</PreviewFrame>
+
+    </Tab>
+    <Tab value="solid">
+
+<CodeBlockRuntime lang="tsx" code={textSolidAlignment} />
+
+    </Tab>
+  </Tabs>
+
+**Стили**
+
+```css file="../../../src/components/examples/text/text-alignment.module.css"
+```
+</div>
+
+</ExampleCode>
 
 ### Семантика
 
 Используйте `as`, чтобы выбрать семантический HTML-элемент и сохранить типографические стили `Text`.
 
-<PreviewFrame maxWidth="lg">
-  ```tsx preview file="../../en/docs/_snippets/text/semantics.tsx"
+<ExampleFrame variant="component">
+  <TextSemantics />
+</ExampleFrame>
 
+<ExampleCode>
+<div className="docs-reference">
+  <Tabs
+    groupId="framework"
+    values={[
+      { label: 'React', value: 'react' },
+      { label: 'Solid', value: 'solid' },
+    ]}
+    className="docs-tabs"
+  >
+    <Tab value="react">
+
+```tsx pure file="../../../src/components/examples/text/semantics.tsx"
 ```
-</PreviewFrame>
+
+    </Tab>
+    <Tab value="solid">
+
+<CodeBlockRuntime lang="tsx" code={textSolidSemantics} />
+
+    </Tab>
+  </Tabs>
+
+**Стили**
+
+```css file="../../../src/components/examples/text/text-semantics.module.css"
+```
+</div>
+
+</ExampleCode>
 
 ### Размер
 
 Используйте `size`, чтобы изменить визуальную иерархию, не переходя на другой типографический компонент.
 
-<PreviewFrame maxWidth="lg">
-  ```tsx preview file="../../en/docs/_snippets/text/size.tsx"
+<ExampleFrame variant="component">
+  <TextSize />
+</ExampleFrame>
 
+<ExampleCode>
+<div className="docs-reference">
+  <Tabs
+    groupId="framework"
+    values={[
+      { label: 'React', value: 'react' },
+      { label: 'Solid', value: 'solid' },
+    ]}
+    className="docs-tabs"
+  >
+    <Tab value="react">
+
+```tsx pure file="../../../src/components/examples/text/size.tsx"
 ```
-</PreviewFrame>
+
+    </Tab>
+    <Tab value="solid">
+
+<CodeBlockRuntime lang="tsx" code={textSolidSize} />
+
+    </Tab>
+  </Tabs>
+
+**Стили**
+
+```css file="../../../src/components/examples/text/text-size.module.css"
+```
+</div>
+
+</ExampleCode>
 
 ### Тон
 
 Используйте `tone`, чтобы показать роль текста без локальных классов цвета.
 
-<PreviewFrame maxWidth="lg">
-  ```tsx preview file="../../en/docs/_snippets/text/tone.tsx"
+<ExampleFrame variant="component">
+  <TextTone />
+</ExampleFrame>
 
+<ExampleCode>
+<div className="docs-reference">
+  <Tabs
+    groupId="framework"
+    values={[
+      { label: 'React', value: 'react' },
+      { label: 'Solid', value: 'solid' },
+    ]}
+    className="docs-tabs"
+  >
+    <Tab value="react">
+
+```tsx pure file="../../../src/components/examples/text/tone.tsx"
 ```
-</PreviewFrame>
+
+    </Tab>
+    <Tab value="solid">
+
+<CodeBlockRuntime lang="tsx" code={textSolidTone} />
+
+    </Tab>
+  </Tabs>
+
+**Стили**
+
+```css file="../../../src/components/examples/text/text-tone.module.css"
+```
+</div>
+
+</ExampleCode>
 
 ### Усечение
 
 Используйте `truncate` для однострочного усечения с многоточием, а `lineClamp` для компактных многострочных превью.
 Логику раскрытия полного текста добавляйте отдельно, в окружающем интерфейсе.
 
-<PreviewFrame maxWidth="sm">
-  ```tsx preview file="../../en/docs/_snippets/text/truncation.tsx"
+<ExampleFrame variant="component">
+  <TextTruncation />
+</ExampleFrame>
 
+<ExampleCode>
+<div className="docs-reference">
+  <Tabs
+    groupId="framework"
+    values={[
+      { label: 'React', value: 'react' },
+      { label: 'Solid', value: 'solid' },
+    ]}
+    className="docs-tabs"
+  >
+    <Tab value="react">
+
+```tsx pure file="../../../src/components/examples/text/truncation.tsx"
 ```
-</PreviewFrame>
+
+    </Tab>
+    <Tab value="solid">
+
+<CodeBlockRuntime lang="tsx" code={textSolidTruncation} />
+
+    </Tab>
+  </Tabs>
+
+**Стили**
+
+```css file="../../../src/components/examples/text/text-truncation.module.css"
+```
+</div>
+
+</ExampleCode>
 
 ### Насыщенность
 
 Используйте `weight`, когда акцент должен остаться в пределах того же семантического элемента.
 
-<PreviewFrame maxWidth="lg">
-  ```tsx preview file="../../en/docs/_snippets/text/weight.tsx"
+<ExampleFrame variant="component">
+  <TextWeight />
+</ExampleFrame>
 
+<ExampleCode>
+<div className="docs-reference">
+  <Tabs
+    groupId="framework"
+    values={[
+      { label: 'React', value: 'react' },
+      { label: 'Solid', value: 'solid' },
+    ]}
+    className="docs-tabs"
+  >
+    <Tab value="react">
+
+```tsx pure file="../../../src/components/examples/text/weight.tsx"
 ```
-</PreviewFrame>
+
+    </Tab>
+    <Tab value="solid">
+
+<CodeBlockRuntime lang="tsx" code={textSolidWeight} />
+
+    </Tab>
+  </Tabs>
+
+**Стили**
+
+```css file="../../../src/components/examples/text/text-weight.module.css"
+```
+</div>
+
+</ExampleCode>
 
 ### Расширенная настройка
 
 Используйте `asChild`, когда корнем должен стать существующий пользовательский элемент, а не одно из поддерживаемых
 встроенных значений `as`. Дочерний элемент должен быть единственным и принимать передаваемые свойства и `ref`.
 
-<PreviewFrame>
-  ```tsx preview file="../../en/docs/_snippets/text/custom-composition.tsx"
+<ExampleFrame variant="component">
+  <TextCustomComposition />
+</ExampleFrame>
 
+<ExampleCode>
+<div className="docs-reference">
+  <Tabs
+    groupId="framework"
+    values={[
+      { label: 'React', value: 'react' },
+      { label: 'Solid', value: 'solid' },
+    ]}
+    className="docs-tabs"
+  >
+    <Tab value="react">
+
+```tsx pure file="../../../src/components/examples/text/custom-composition.tsx"
 ```
-</PreviewFrame>
+
+    </Tab>
+    <Tab value="solid">
+
+<CodeBlockRuntime lang="tsx" code={textSolidCustomComposition} />
+
+    </Tab>
+  </Tabs>
+</div>
+
+</ExampleCode>
 
 ## Стилизация
 
-Оформляйте `Text` с помощью `className`, data-атрибутов корневого элемента и публичных CSS-переменных
-`--moduix-text-*`, перечисленных в справочнике CSS API.
+Оформляйте `Text` с помощью `className`, data-атрибутов корневого элемента и публичного CSS API. Варианты
+с CSS Modules предоставляют перечисленные ниже переменные `--moduix-text-*`, а варианты Tailwind используют
+классы-утилиты и переопределения классов на стороне приложения.
 
 ### CSS-свойства
 

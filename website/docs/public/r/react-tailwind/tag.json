@@ -1,0 +1,27 @@
+{
+  "$schema": "https://ui.shadcn.com/schema/registry-item.json",
+  "name": "tag",
+  "title": "Tag",
+  "description": "moduix React Tailwind Tag component.",
+  "dependencies": ["@ark-ui/react", "class-variance-authority", "clsx", "tailwind-merge"],
+  "registryDependencies": [
+    "@moduix-react-tailwind/foundation",
+    "@moduix-react-tailwind/cn",
+    "@moduix-react-tailwind/close-button"
+  ],
+  "files": [
+    {
+      "path": "src/components/tag/Tag.tsx",
+      "content": "import type { HTMLArkProps } from '@ark-ui/react/factory';\nimport { ark } from '@ark-ui/react/factory';\nimport { cva } from 'class-variance-authority';\nimport { forwardRef, type ComponentRef } from 'react';\nimport { cn } from '@/lib/moduix/cn';\nimport { CloseButton } from '../close-button';\n\ntype TagVariant = 'default' | 'secondary' | 'outline' | 'ghost' | 'destructive';\ntype TagSize = 'sm' | 'md';\ntype TagRootProps = HTMLArkProps<'span'> & {\n  variant?: TagVariant;\n  size?: TagSize;\n};\ntype TagLabelProps = HTMLArkProps<'span'>;\ntype TagStartElementProps = HTMLArkProps<'span'>;\ntype TagEndElementProps = HTMLArkProps<'span'>;\ntype TagCloseTriggerProps = HTMLArkProps<'button'>;\n\nconst tagVariants = cva(\n  'inline-flex min-h-control-xs w-fit max-w-full min-w-0 items-center gap-1.5 rounded-full border px-2 py-0.5 align-middle font-medium text-xs whitespace-nowrap transition-colors duration-200 ease-in-out motion-reduce:transition-none [&>svg]:pointer-events-none [&>svg]:size-3 [&>svg]:shrink-0',\n  {\n    variants: {\n      variant: {\n        default: 'border-transparent bg-primary text-primary-foreground',\n        secondary: 'border-transparent bg-secondary text-secondary-foreground',\n        outline: 'border-border bg-transparent text-foreground',\n        ghost: 'border-transparent bg-transparent text-foreground',\n        destructive: 'border-transparent bg-destructive text-destructive-foreground',\n      },\n      size: {\n        sm: 'min-h-5 gap-1 px-1.5 py-0',\n        md: '',\n      },\n    },\n    defaultVariants: {\n      variant: 'default',\n      size: 'md',\n    },\n  },\n);\n\nconst TagRoot = forwardRef<HTMLSpanElement, TagRootProps>(function TagRoot(\n  { className, size = 'md', variant = 'default', ...props },\n  ref,\n) {\n  return (\n    <ark.span\n      ref={ref}\n      {...props}\n      data-scope=\"tag\"\n      data-part=\"root\"\n      data-slot=\"tag-root\"\n      data-size={size}\n      data-variant={variant}\n      className={cn(tagVariants({ size, variant }), className)}\n    />\n  );\n});\n\nconst TagLabel = forwardRef<HTMLSpanElement, TagLabelProps>(function TagLabel(\n  { className, ...props },\n  ref,\n) {\n  return (\n    <ark.span\n      ref={ref}\n      {...props}\n      data-scope=\"tag\"\n      data-part=\"label\"\n      data-slot=\"tag-label\"\n      className={cn('min-w-0 overflow-hidden text-ellipsis', className)}\n    />\n  );\n});\n\nconst TagStartElement = forwardRef<HTMLSpanElement, TagStartElementProps>(function TagStartElement(\n  { className, ...props },\n  ref,\n) {\n  return (\n    <ark.span\n      ref={ref}\n      {...props}\n      data-scope=\"tag\"\n      data-part=\"start-element\"\n      data-slot=\"tag-start-element\"\n      className={cn(\n        'inline-flex min-w-0 shrink-0 items-center justify-center [&>svg]:pointer-events-none [&>svg]:size-3 [&>svg]:shrink-0',\n        className,\n      )}\n    />\n  );\n});\n\nconst TagEndElement = forwardRef<HTMLSpanElement, TagEndElementProps>(function TagEndElement(\n  { className, ...props },\n  ref,\n) {\n  return (\n    <ark.span\n      ref={ref}\n      {...props}\n      data-scope=\"tag\"\n      data-part=\"end-element\"\n      data-slot=\"tag-end-element\"\n      className={cn(\n        'inline-flex min-w-0 shrink-0 items-center justify-center [&>svg]:pointer-events-none [&>svg]:size-3 [&>svg]:shrink-0',\n        className,\n      )}\n    />\n  );\n});\n\nconst TagCloseTrigger = forwardRef<ComponentRef<typeof CloseButton.Root>, TagCloseTriggerProps>(\n  function TagCloseTrigger(\n    {\n      asChild,\n      className,\n      children,\n      'aria-label': ariaLabel,\n      'aria-labelledby': ariaLabelledBy,\n      ...props\n    },\n    ref,\n  ) {\n    return (\n      <CloseButton.Root\n        ref={ref}\n        asChild={asChild}\n        {...props}\n        data-scope=\"tag\"\n        data-part=\"close-trigger\"\n        data-slot=\"tag-close-trigger\"\n        aria-label={\n          ariaLabel ??\n          (!asChild && children == null && ariaLabelledBy == null ? 'Remove tag' : undefined)\n        }\n        aria-labelledby={ariaLabelledBy}\n        className={cn(\n          'size-4 rounded-full bg-transparent p-0 text-inherit focus-visible:outline-1 focus-visible:outline-offset-0 [&>svg]:size-2.5 [@media(hover:hover)]:[&:not([data-disabled]):hover]:bg-current/10 [@media(hover:hover)]:[&:not([data-disabled]):hover]:text-inherit',\n          className,\n        )}\n      >\n        {children}\n      </CloseButton.Root>\n    );\n  },\n);\n\nconst Tag = Object.assign(TagRoot, {\n  Root: TagRoot,\n  Label: TagLabel,\n  StartElement: TagStartElement,\n  EndElement: TagEndElement,\n  CloseTrigger: TagCloseTrigger,\n});\n\nexport { Tag };",
+      "type": "registry:component",
+      "target": "@components/ui/tag/Tag.tsx"
+    },
+    {
+      "path": "src/components/tag/index.ts",
+      "content": "export { Tag } from './Tag.js';",
+      "type": "registry:component",
+      "target": "@components/ui/tag/index.ts"
+    }
+  ],
+  "type": "registry:item"
+}

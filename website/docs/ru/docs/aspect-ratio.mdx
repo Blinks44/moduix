@@ -4,7 +4,16 @@ component: aspect-ratio
 description: Помещает медиаконтент и встроенное содержимое в адаптивный контейнер с фиксированным соотношением сторон.
 ---
 
-import * as AspectRatioDocs from '@/components/examples/aspect-ratio';
+import AspectRatioAdvancedCustomization from '@/components/examples/aspect-ratio/advanced-customization.tsx';
+import AspectRatioBasic from '@/components/examples/aspect-ratio/basic.tsx';
+import AspectRatioCardGrid from '@/components/examples/aspect-ratio/card-grid.tsx';
+import AspectRatioEmbeddedContent from '@/components/examples/aspect-ratio/embedded-content.tsx';
+import AspectRatioMigration from '@/components/examples/aspect-ratio/migrating-from-shadcn.tsx';
+import aspectRatioSolidAdvancedCustomization from '../../../snippets/aspect-ratio/solid/advanced-customization.tsx?raw';
+import aspectRatioSolidBasic from '../../../snippets/aspect-ratio/solid/basic.tsx?raw';
+import aspectRatioSolidCardGrid from '../../../snippets/aspect-ratio/solid/card-grid.tsx?raw';
+import aspectRatioSolidEmbeddedContent from '../../../snippets/aspect-ratio/solid/embedded-content.tsx?raw';
+import aspectRatioSolidMigration from '../../../snippets/aspect-ratio/solid/migrating-from-shadcn.tsx?raw';
 
 ## Справочник API
 
@@ -13,27 +22,85 @@ import * as AspectRatioDocs from '@/components/examples/aspect-ratio';
 [композиции](https://ark-ui.com/docs/guides/composition), [стилизации](https://ark-ui.com/docs/guides/styling) и
 [работе с ref](https://ark-ui.com/docs/guides/ref).
 
+Импортируйте `AspectRatio` из пакета, соответствующего фреймворку и способу стилизации: для CSS Modules это
+`@moduix/react/aspect-ratio` или `@moduix/solid/aspect-ratio`, а для Tailwind - по соответствующему пути
+`@moduix/react-tailwind/aspect-ratio` или `@moduix/solid-tailwind/aspect-ratio`.
+
 ## Базовый пример
+
+AspectRatio доступен для React и Solid в пакетах с CSS Modules и в вариантах на Tailwind. Интерактивный пример
+на этой странице использует пакет React с CSS Modules, а вкладки с фреймворками показывают нативный исходный код
+того же публичного API.
 
 Используйте `AspectRatio` как корневой элемент адаптивного контейнера. По умолчанию он занимает всю доступную
 ширину родительского контейнера. Если размер нужно ограничить или изменить, задайте корневому элементу `width`
 или `max-width`, а в `ratio` передайте конечное положительное число.
 
-Прямые дочерние элементы `img`, `video`, `iframe`, `canvas` и `svg` автоматически заполняют контейнер. Для остальных
-элементов размер не задаётся автоматически, поэтому добавьте необходимые стили. Для изображений и видео используйте
-`object-fit`, чтобы выбрать между обрезкой содержимого и его вписыванием в контейнер.
+`AspectRatio` управляет только соотношением сторон. Размеры и оформление дочерних элементов задавайте явно:
+например, укажите изображению полную ширину и высоту вместе с `object-fit`. Обрезку и радиус добавляйте корневому
+элементу только там, где они нужны композиции.
 
-<style>{AspectRatioDocs.aspectRatioBasicCss}</style>
+<ExampleFrame variant="component">
+  <AspectRatioBasic />
+</ExampleFrame>
 
-<PreviewFrame maxWidth="lg">
-  ```tsx preview file="../../en/docs/_snippets/aspect-ratio/basic.tsx"
+<ExampleCode>
+<div className="docs-reference">
+  <Tabs
+    groupId="framework"
+    values={[
+      { label: 'React', value: 'react' },
+      { label: 'Solid', value: 'solid' },
+    ]}
+    className="docs-tabs"
+  >
+    <Tab value="react">
 
+```tsx pure file="../../../src/components/examples/aspect-ratio/basic.tsx"
 ```
-</PreviewFrame>
+
+    </Tab>
+    <Tab value="solid">
+
+<CodeBlockRuntime lang="tsx" code={aspectRatioSolidBasic} />
+
+    </Tab>
+  </Tabs>
+
+**Стили**
+
+```css file="../../../src/components/examples/aspect-ratio/aspect-ratio-basic.module.css"
+```
+</div>
+
+</ExampleCode>
 
 ## Установка через shadcn
 
-<ShadcnInstall packageName="aspect-ratio" />
+Полную настройку пакета, реестра и стилей см. в разделе [Быстрый старт](/docs/quick-start).
+
+<Tabs groupId="framework">
+  <Tab label="React" value="react">
+
+<ShadcnInstallOptions
+  options={[
+    { label: 'CSS Modules', command: 'shadcn@latest add @moduix-react/aspect-ratio' },
+    { label: 'Tailwind CSS', command: 'shadcn@latest add @moduix-react-tailwind/aspect-ratio' },
+  ]}
+/>
+
+  </Tab>
+  <Tab label="Solid" value="solid">
+
+<ShadcnInstallOptions
+  options={[
+    { label: 'CSS Modules', command: 'shadcn@latest add @moduix-solid/aspect-ratio' },
+    { label: 'Tailwind CSS', command: 'shadcn@latest add @moduix-solid-tailwind/aspect-ratio' },
+  ]}
+/>
+
+  </Tab>
+</Tabs>
 
 ## Анатомия
 
@@ -44,62 +111,16 @@ AspectRatio / AspectRatio.Root
 
 | Часть                              | Назначение                                      |
 | ---------------------------------- | ----------------------------------------------- |
-| `AspectRatio` / `AspectRatio.Root` | Адаптивный контейнер, который обрезает содержимое. |
+| `AspectRatio` / `AspectRatio.Root` | Адаптивный контейнер с заданным соотношением сторон. |
 
 ## Композиция
 
-### Рекомендуемая композиция
-
-В большинстве случаев используйте `AspectRatio` для контейнеров с медиаконтентом. Задавайте ширину, радиус
-скругления и стили раскладки на корневом элементе. `AspectRatio.Root` предоставляет тот же корневой элемент
-через пространство имён, чтобы API оставался единообразным с остальными компонентами библиотеки. Корневой
-элемент также принимает стандартные свойства `div`, поддерживаемые фабрикой Ark.
-
-- `ratio` обязателен и должен быть конечным положительным числом. Недопустимое значение вызывает `RangeError`.
-- `asChild` использует композицию фабрики Ark и требует ровно одного элемента React.
-- Прямые дочерние элементы `img`, `video`, `iframe`, `canvas` и `svg` автоматически заполняют контейнер. Задайте
-  `object-fit` для изображений и видео, чтобы выбрать между обрезкой и вписыванием содержимого целиком.
-- Остальные дочерние элементы не получают размер автоматически. Задайте им необходимые стили.
-- `className` применяет стили и задаёт размеры корневого элемента.
-- `--moduix-aspect-ratio-radius` управляет радиусом скругления контейнера по умолчанию.
-
-### Когда нужна внешняя обёртка
-
-Используйте внешнюю обёртку, если тени, кольцо фокуса или декоративные элементы должны выходить за пределы
-обрезаемой области. Само обрезание оставьте на корневом элементе. Чтобы менять соотношение сторон при разных
-ширинах экрана, переопределите `aspect-ratio` в своём CSS.
-
-### Свойства по умолчанию
-
-| Параметр                       | По умолчанию              | Значения / примечания                           |
-| ------------------------------ | ------------------------- | ----------------------------------------------- |
-| `ratio`                        | -                         | Обязательное конечное положительное число       |
-| `className`                    | `undefined`               | Стилизует корневой элемент и задаёт его размеры |
-| `style`                        | `undefined`               | Может напрямую переопределить `aspect-ratio`    |
-| `asChild`                      | `undefined`               | Композиция через фабрику Ark                    |
-| Стандартные свойства `div`     | -                         | Передаются отрисованному корневому элементу    |
-| `--moduix-aspect-ratio-radius` | `var(--moduix-radius-md)` | Значение длины CSS или токен                    |
-
-### Особенности поведения
-
-- Корневой элемент получает атрибуты `data-scope="aspect-ratio"`, `data-part="root"` и
-  `data-slot="aspect-ratio-root"`.
-- Корневой элемент блочный и использует `box-sizing: border-box`. Это сохраняется и при использовании `asChild`,
-  когда меняется HTML-элемент.
-- Переданный `ref` указывает на отрисованный корневой элемент, а при использовании `asChild` указывает на единственный
-  дочерний элемент.
-- `position: relative` задан намеренно. Он позволяет использовать дочерние элементы с абсолютным позиционированием,
-  которые заполняют контейнер, например `Image` из Next.js с `fill`.
-- Прямые дочерние `iframe` заполняют контейнер без стандартной рамки браузера.
-- Ранее компонент поддерживал строковые пресеты (`square`, `video`, `portrait`, `photo`), но после миграции на Ark
-  они были удалены. Используйте числовые значения: `1`, `16 / 9`, `9 / 16` и `4 / 3`.
-
-### Доступность
-
-`AspectRatio` отвечает только за раскладку. Компонент не добавляет роль, не управляет состоянием и не меняет
-поведение дочерних элементов с точки зрения доступности. Если содержимому нужен семантический элемент, например
-`figure`, используйте `asChild`. Для информативных изображений указывайте содержательный `alt`, а для встроенного
-содержимого, например `iframe`, задавайте `title`.
+`AspectRatio` отвечает только за раскладку и не владеет состоянием. Обычно используйте вызываемый корневой
+компонент `AspectRatio`; `AspectRatio.Root` - его псевдоним, если корневую часть нужно обозначить явно. У
+компонента одна корневая часть, и дополнительные части не нужно комбинировать. Используйте `asChild` только если
+отрисованным корневым элементом должен владеть другой семантический элемент: передайте ровно одного дочернего
+элемента в React или используйте показанную в примере «Расширенная настройка» функцию рендера Solid. Размеры,
+вписывание, границы, радиус и обрезка дочернего содержимого остаются ответственностью приложения.
 
 ## Примеры
 
@@ -108,69 +129,169 @@ AspectRatio / AspectRatio.Root
 Одинаковое соотношение сторон у медиаконтента помогает выровнять карточки в списке, даже если исходные изображения
 имеют разные размеры.
 
-<style>{AspectRatioDocs.aspectRatioGridCss}</style>
+<ExampleFrame variant="component">
+  <AspectRatioCardGrid />
+</ExampleFrame>
 
-<PreviewFrame maxWidth="lg">
-  ```tsx preview file="../../en/docs/_snippets/aspect-ratio/card-grid.tsx"
+<ExampleCode>
+<div className="docs-reference">
+  <Tabs
+    groupId="framework"
+    values={[
+      { label: 'React', value: 'react' },
+      { label: 'Solid', value: 'solid' },
+    ]}
+    className="docs-tabs"
+  >
+    <Tab value="react">
 
+```tsx pure file="../../../src/components/examples/aspect-ratio/card-grid.tsx"
 ```
-</PreviewFrame>
+
+    </Tab>
+    <Tab value="solid">
+
+<CodeBlockRuntime lang="tsx" code={aspectRatioSolidCardGrid} />
+
+    </Tab>
+  </Tabs>
+
+**Стили**
+
+```css file="../../../src/components/examples/aspect-ratio/aspect-ratio-card-grid.module.css"
+```
+</div>
+
+</ExampleCode>
 
 ### Встроенное содержимое
 
 Оберните видео или другой встроенный элемент в `AspectRatio`, чтобы размер контейнера не менялся во время загрузки
 внешнего содержимого.
 
-<style>{AspectRatioDocs.aspectRatioEmbedCss}</style>
+<ExampleFrame variant="component">
+  <AspectRatioEmbeddedContent />
+</ExampleFrame>
 
-<PreviewFrame maxWidth="lg">
-  ```tsx preview file="../../en/docs/_snippets/aspect-ratio/embedded-content.tsx"
+<ExampleCode>
+<div className="docs-reference">
+  <Tabs
+    groupId="framework"
+    values={[
+      { label: 'React', value: 'react' },
+      { label: 'Solid', value: 'solid' },
+    ]}
+    className="docs-tabs"
+  >
+    <Tab value="react">
 
+```tsx pure file="../../../src/components/examples/aspect-ratio/embedded-content.tsx"
 ```
 
-</PreviewFrame>
+    </Tab>
+    <Tab value="solid">
+
+<CodeBlockRuntime lang="tsx" code={aspectRatioSolidEmbeddedContent} />
+
+    </Tab>
+  </Tabs>
+
+**Стили**
+
+```css file="../../../src/components/examples/aspect-ratio/aspect-ratio-embedded-content.module.css"
+```
+</div>
+
+</ExampleCode>
 
 ### Миграция с shadcn
 
-При переходе с shadcn перенесите классы ширины и радиуса с внешней обёртки на сам `AspectRatio`. Такой же корневой
-компонент подходит для `Image` из Next.js с `fill`.
+При переходе с shadcn задайте `AspectRatio` ширину, обрезку и радиус, а размер вложенного медиаконтента укажите явно.
+Такой же корневой компонент подходит для `Image` из Next.js с `fill`.
 
-<style>{AspectRatioDocs.aspectRatioMigrationCss}</style>
+<ExampleFrame variant="component">
+  <AspectRatioMigration />
+</ExampleFrame>
 
-<PreviewFrame maxWidth="lg">
-  ```tsx preview file="../../en/docs/_snippets/aspect-ratio/migrating-from-shadcn.tsx"
+<ExampleCode>
+<div className="docs-reference">
+  <Tabs
+    groupId="framework"
+    values={[
+      { label: 'React', value: 'react' },
+      { label: 'Solid', value: 'solid' },
+    ]}
+    className="docs-tabs"
+  >
+    <Tab value="react">
 
+```tsx pure file="../../../src/components/examples/aspect-ratio/migrating-from-shadcn.tsx"
 ```
 
-</PreviewFrame>
+    </Tab>
+    <Tab value="solid">
+
+<CodeBlockRuntime lang="tsx" code={aspectRatioSolidMigration} />
+
+    </Tab>
+  </Tabs>
+
+**Стили**
+
+```css file="../../../src/components/examples/aspect-ratio/aspect-ratio-migrating-from-shadcn.module.css"
+```
+</div>
+
+</ExampleCode>
 
 ### Расширенная настройка
 
 Используйте `asChild`, если корневым элементом должен быть семантический тег, например `figure`. Фабрика Ark
 передаёт свойства компонента его единственному дочернему элементу.
 
-<style>{AspectRatioDocs.aspectRatioBasicCss}</style>
+<ExampleFrame variant="component">
+  <AspectRatioAdvancedCustomization />
+</ExampleFrame>
 
-<PreviewFrame maxWidth="lg">
-  ```tsx preview file="../../en/docs/_snippets/aspect-ratio/advanced-customization.tsx"
+<ExampleCode>
+<div className="docs-reference">
+  <Tabs
+    groupId="framework"
+    values={[
+      { label: 'React', value: 'react' },
+      { label: 'Solid', value: 'solid' },
+    ]}
+    className="docs-tabs"
+  >
+    <Tab value="react">
 
+```tsx pure file="../../../src/components/examples/aspect-ratio/advanced-customization.tsx"
 ```
 
-</PreviewFrame>
+    </Tab>
+    <Tab value="solid">
+
+<CodeBlockRuntime lang="tsx" code={aspectRatioSolidAdvancedCustomization} />
+
+    </Tab>
+  </Tabs>
+
+**Стили**
+
+```css file="../../../src/components/examples/aspect-ratio/aspect-ratio-advanced-customization.module.css"
+```
+</div>
+
+</ExampleCode>
 
 ## Стилизация
 
-### CSS-свойства
-
-<CssPropertiesSection properties={AspectRatioDocs.aspectRatioCssProperties} />
-
 ### Атрибуты для стилизации
 
-- `data-scope="aspect-ratio"` и `data-part="root"` служат селекторами для стилизации, согласованными с Ark, на корневом элементе.
+- `data-scope="aspect-ratio"` и `data-part="root"` служат согласованными с Ark селекторами для корневого элемента.
 - `data-slot="aspect-ratio-root"` - стабильный селектор moduix для корневого элемента.
 - Задавайте ширину, максимальную ширину и стили раскладки на корневом элементе. Если при определённой ширине экрана
   нужно другое соотношение сторон, переопределите `aspect-ratio` в своём CSS.
-- Прямой медиаконтент использует `box-sizing: border-box`. Изображения и видео сохраняют своё значение `object-fit`,
-  поэтому вы сами выбираете между обрезкой и вписыванием содержимого целиком.
-- `overflow: hidden` задан намеренно. Если декоративный элемент должен выходить за пределы контейнера, поместите его
-  во внешнюю обёртку, а не убирайте обрезку корневого элемента.
+- Компонент не оформляет дочернее содержимое. Задавайте размеры медиаконтента и `object-fit` непосредственно
+  дочернему элементу.
+- Добавляйте `overflow: hidden` и радиус корневому элементу только там, где содержимое действительно нужно обрезать.

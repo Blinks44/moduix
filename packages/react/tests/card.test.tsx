@@ -1,6 +1,5 @@
 import { expect, test } from '@rstest/core';
 import { fireEvent, render, screen } from '@testing-library/react';
-import { createRef } from 'react';
 import { Button, Card } from '../src';
 
 test('renders the default root with stable hooks', () => {
@@ -59,7 +58,10 @@ test('renders every part with its semantic default and stable hooks', () => {
 });
 
 test('forwards an HTMLElement ref and props to an asChild root', () => {
-  const ref = createRef<HTMLElement>();
+  let current: HTMLElement | null = null;
+  const ref = (element: HTMLElement | null) => {
+    current = element;
+  };
 
   render(
     <Card asChild ref={ref} size="lg" variant="elevated">
@@ -69,13 +71,16 @@ test('forwards an HTMLElement ref and props to an asChild root', () => {
 
   const link = screen.getByRole('link', { name: 'Release health' });
 
-  expect(ref.current).toBe(link);
+  expect(current).toBe(link);
   expect(link).toHaveAttribute('data-size', 'lg');
   expect(link).toHaveAttribute('data-variant', 'elevated');
 });
 
 test('forwards an HTMLElement ref through an asChild part', () => {
-  const ref = createRef<HTMLElement>();
+  let current: HTMLElement | null = null;
+  const ref = (element: HTMLElement | null) => {
+    current = element;
+  };
 
   render(
     <Card.Title asChild ref={ref}>
@@ -85,13 +90,16 @@ test('forwards an HTMLElement ref through an asChild part', () => {
 
   const heading = screen.getByRole('heading', { level: 2, name: 'Release health' });
 
-  expect(ref.current).toBe(heading);
+  expect(current).toBe(heading);
   expect(heading).toHaveAttribute('data-part', 'title');
   expect(heading).toHaveAttribute('data-slot', 'card-title');
 });
 
 test('forwards an HTMLElement ref through an asChild background', () => {
-  const ref = createRef<HTMLElement>();
+  let current: HTMLElement | null = null;
+  const ref = (element: HTMLElement | null) => {
+    current = element;
+  };
 
   render(
     <Card.Background asChild ref={ref}>
@@ -103,7 +111,7 @@ test('forwards an HTMLElement ref through an asChild background', () => {
 
   const background = screen.getByTestId('background');
 
-  expect(ref.current).toBe(background);
+  expect(current).toBe(background);
   expect(background).toHaveAttribute('data-part', 'background');
   expect(background).toHaveAttribute('data-slot', 'card-background');
 });

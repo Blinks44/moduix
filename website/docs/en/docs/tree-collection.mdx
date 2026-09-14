@@ -3,90 +3,121 @@ title: Tree Collection
 description: Create, query, traverse, filter, and update hierarchical data for Tree View and custom tree interfaces.
 ---
 
+import TreeCollectionBasic from '@/components/examples/tree-collection/basic.tsx';
+import treeCollectionSolidCustomNodes from '../../../snippets/tree-collection/solid/custom-nodes.tsx?raw';
+import treeCollectionSolidFilePaths from '../../../snippets/tree-collection/solid/file-paths.tsx?raw';
+import treeCollectionSolidBasic from '../../../snippets/tree-collection/solid/basic.tsx?raw';
+
 # Tree Collection
 
-## API
+A tree collection stores hierarchical data for `TreeView` and custom tree interfaces. It has no UI,
+selection, focus, or keyboard behavior. Use it to create a typed hierarchy, query relationships,
+traverse and filter nodes, and produce immutable updates.
+
+## API Reference
 
 <PrimitiveReference href="https://ark-ui.com/docs/collections/tree-collection" />
 
-A tree collection turns hierarchical data into a consistent structure for `TreeView` and custom tree
-interfaces. It lets you look up nodes by value, inspect parent and descendant relationships, work
-with index paths, traverse the tree, and apply immutable updates.
+Import the collection helpers from the Ark UI entry point for your framework:
+
+<Tabs
+  groupId="framework"
+  values={[
+    { label: 'React', value: 'react' },
+    { label: 'Solid', value: 'solid' },
+  ]}
+  className="docs-tabs"
+>
+  <Tab value="react">
 
 ```tsx
-import { createFileTreeCollection, createTreeCollection } from '@moduix/react/tree-view';
+import { createFileTreeCollection, createTreeCollection } from '@ark-ui/react/collection';
 ```
 
-## Create a collection
-
-The default node shape uses `value`, `label`, `children`, and an optional `disabled` property:
+  </Tab>
+  <Tab value="solid">
 
 ```tsx
-const tree = createTreeCollection({
-  rootNode: {
-    value: 'root',
-    label: 'Project',
-    children: [
-      {
-        value: 'src',
-        label: 'src',
-        children: [
-          { value: 'button', label: 'Button.tsx' },
-          { value: 'input', label: 'Input.tsx' },
-        ],
-      },
-      { value: 'readme', label: 'README.md' },
-    ],
-  },
-});
+import { createFileTreeCollection, createTreeCollection } from '@ark-ui/solid/collection';
 ```
 
-The root node is a container, so it is not included in `getValues()`. Pass the collection directly to
-`TreeView`, then render nodes from `collection.rootNode.children`.
+  </Tab>
+</Tabs>
 
-## Tree View
+Moduix also re-exports both helpers from each `tree-view` entry point. The component-based examples
+below use that path so `TreeView` and its collection helpers come from the same package.
 
-The collection stores the hierarchy. `TreeView` manages branch expansion, focus, keyboard navigation,
-and selection. Render each branch recursively with the node and index path supplied by the collection.
+## Basic
 
-```tsx preview file="./_snippets/tree-view/basic.tsx"
+`createTreeCollection` accepts a `rootNode`. The default node shape reads `value`, `label`,
+`children`, and the optional `disabled` property. The root is a container and is not included in
+`getValues()`.
 
+Use the collection as the data source for `TreeView`. Render `collection.rootNode.children` and pass
+each node's numeric position as its `indexPath`.
+
+<ExampleFrame variant="component">
+  <PreviewFrame maxWidth="sm">
+    <TreeCollectionBasic />
+  </PreviewFrame>
+</ExampleFrame>
+
+<ExampleCode>
+<div className="docs-reference">
+  <Tabs
+    groupId="framework"
+    values={[
+      { label: 'React', value: 'react' },
+      { label: 'Solid', value: 'solid' },
+    ]}
+    className="docs-tabs"
+  >
+    <Tab value="react">
+
+```tsx pure file="../../../src/components/examples/tree-collection/basic.tsx"
 ```
+
+    </Tab>
+    <Tab value="solid">
+
+<CodeBlockRuntime lang="tsx" code={treeCollectionSolidBasic} />
+
+    </Tab>
+  </Tabs>
+</div>
+
+</ExampleCode>
+
+`TreeView.Label` gives the tree an accessible name, while `TreeView` provides focus management,
+keyboard navigation, expansion, and selection. For the complete component anatomy and behavior, see
+[Tree View](/docs/tree-view).
 
 ## Custom nodes
 
-If your nodes use different field names, tell the collection how to read them:
+Map application-specific fields with `nodeToValue`, `nodeToString`, `nodeToChildren`,
+`nodeToChildrenCount`, and `isNodeDisabled`. `nodeToChildrenCount` is useful when a branch has a
+known count before its children are loaded.
 
-```tsx
-type NavigationNode = {
-  id: string;
-  name: string;
-  items?: NavigationNode[];
-  unavailable?: boolean;
-};
+<Tabs
+  groupId="framework"
+  values={[
+    { label: 'React', value: 'react' },
+    { label: 'Solid', value: 'solid' },
+  ]}
+  className="docs-tabs"
+>
+  <Tab value="react">
 
-const navigation: NavigationNode = {
-  id: 'root',
-  name: 'Documentation',
-  items: [
-    {
-      id: 'guides',
-      name: 'Guides',
-      items: [{ id: 'getting-started', name: 'Getting started' }],
-    },
-    { id: 'components', name: 'Components' },
-  ],
-};
-
-const tree = createTreeCollection<NavigationNode>({
-  rootNode: navigation,
-  nodeToValue: (node) => node.id,
-  nodeToString: (node) => node.name,
-  nodeToChildren: (node) => node.items ?? [],
-  nodeToChildrenCount: (node) => node.items?.length,
-  isNodeDisabled: (node) => node.unavailable ?? false,
-});
+```tsx pure file="../../../src/components/examples/tree-collection/custom-nodes.tsx"
 ```
+
+  </Tab>
+  <Tab value="solid">
+
+<CodeBlockRuntime lang="tsx" code={treeCollectionSolidCustomNodes} />
+
+  </Tab>
+</Tabs>
 
 | Option                | Purpose                                                         |
 | --------------------- | --------------------------------------------------------------- |
@@ -97,142 +128,131 @@ const tree = createTreeCollection<NavigationNode>({
 | `nodeToChildrenCount` | Returns a known child count, including for lazily loaded nodes. |
 | `isNodeDisabled`      | Returns whether the node is disabled.                           |
 
-## Lookup
+## Query and navigation
 
-Use values to find nodes and index paths to identify their position. An index path records the
-numeric position of a node at each tree level:
+An `indexPath` is the numeric position of a node at each level below the root. Values are stable
+identifiers; use them in application state and resolve index paths when an operation needs one.
 
 ```tsx
-const path = tree.getIndexPath('input')!; // [0, 1]
-tree.at(path); // Input.tsx node
-tree.getValue(path); // 'input'
-tree.getValuePath(path); // ['src', 'input']
-tree.getDepth('input'); // 2
+const treePath = collection.getIndexPath('src/components/Tree.tsx')!; // [0, 1, 1]
+
+collection.findNode('src');
+collection.findNodes(['src', 'public']);
+collection.at(treePath);
+collection.getValue(treePath); // 'src/components/Tree.tsx'
+collection.getValuePath(treePath); // ['src', 'src/components', 'src/components/Tree.tsx']
+collection.getDepth('src/components/Tree.tsx'); // 3
+collection.getValues(); // descendant values in traversal order
 ```
 
 | API                              | Result                                           |
 | -------------------------------- | ------------------------------------------------ |
-| `findNode(value)`                | First node with the value.                       |
-| `findNodes(values)`              | Nodes matching several values.                   |
+| `findNode(value, rootNode?)`     | First node with the value, or `undefined`.       |
+| `findNodes(values, rootNode?)`   | Nodes matching several values.                   |
 | `getIndexPath(valueOrValuePath)` | Numeric path for a value or explicit value path. |
-| `at(indexPath)`                  | Node at an index path.                           |
-| `getValue(indexPath)`            | Value at an index path.                          |
-| `getValuePath(indexPath)`        | Ancestor values followed by the target value.    |
-| `getDepth(value)`                | Node depth below the root.                       |
-| `getValues(rootNode?)`           | All descendant values in traversal order.        |
-| `getNodeChildren(node)`          | Normalized child nodes.                          |
-| `getNodeChildrenCount(node)`     | Known child count, or `undefined`.               |
-| `getNodeValue(node)`             | Normalized node value.                           |
-| `stringifyNode(node)`            | Normalized node text.                            |
-| `stringify(value)`               | Node text for a value, or `null` if not found.   |
-| `getNodeDisabled(node)`          | Normalized disabled state.                       |
-| `isRootNode(node)`               | Whether the node is the collection root.         |
-| `isSameNode(node, other)`        | Whether two nodes have the same value.          |
+| `at(indexPath)`                  | Node at an index path, or `undefined`.           |
+| `getValue(indexPath)`             | Value at an index path, or `undefined`.          |
+| `getValuePath(indexPath)`         | Ancestor values followed by the target value.    |
+| `getDepth(value)`                 | Node depth below the root.                       |
+| `getValues(rootNode?)`            | Descendant values in traversal order.            |
 
-`sort(values)` orders values by their position in the tree. `isEqual(other)` compares collections, and
-`toJSON()` returns the collection's values.
+Use the normalized accessors when the node shape is custom:
 
-## Navigation
+| API                          | Result                                    |
+| ---------------------------- | ----------------------------------------- |
+| `getNodeChildren(node)`      | Child nodes.                              |
+| `getNodeChildrenCount(node)` | Known child count, or `undefined`.        |
+| `getNodeValue(node)`         | Node value.                               |
+| `stringifyNode(node)`        | Node display text.                        |
+| `stringify(value)`           | Display text for a value, or `null`.      |
+| `getNodeDisabled(node)`      | Disabled state.                           |
+| `isRootNode(node)`           | Whether the node is the collection root.  |
+| `isSameNode(node, other)`    | Whether two nodes have the same value.    |
 
-Move between nodes and inspect their parent, ancestor, and descendant relationships:
+Navigate the tree in traversal order or by sibling relationships:
 
 ```tsx
-tree.getFirstNode();
-tree.getLastNode();
-tree.getNextNode('button');
-tree.getPreviousNode('input');
+collection.getFirstNode();
+collection.getLastNode();
+collection.getNextNode('src');
+collection.getPreviousNode('README.md');
 
-tree.getParentNode('input'); // src node
-tree.getParentNodes('input'); // ancestor nodes
-tree.getDescendantNodes('src'); // Button.tsx and Input.tsx nodes
-tree.getDescendantValues('src'); // ['button', 'input']
+collection.getParentNode('src/components/Tree.tsx');
+collection.getParentNodes('src/components/Tree.tsx');
+collection.getDescendantNodes('src');
+collection.getDescendantValues('src');
+
+collection.getNextSibling(treePath);
+collection.getPreviousSibling(treePath);
+collection.getSiblingNodes(treePath);
+collection.contains(collection.getIndexPath('src')!, treePath);
 ```
 
-`getFirstNode`, `getLastNode`, `getNextNode`, and `getPreviousNode` accept an options object with a
-`skip` callback for nodes that should not participate in traversal.
+`getFirstNode`, `getLastNode`, `getNextNode`, and `getPreviousNode` accept `{ skip }`. The callback
+receives `{ value, node, indexPath }` and skips a node when it returns `true`. Pass
+`{ withBranch: true }` to `getDescendantNodes` or `getDescendantValues` when branch nodes should be
+included.
 
-Sibling methods work with index paths:
+`sort(values)` orders values by their position in the tree. `isEqual(other)` compares collections,
+and `toJSON()` returns the collection's descendant values.
 
-```tsx
-const path = tree.getIndexPath('button')!;
+## Traversal and filtering
 
-tree.getNextSibling(path);
-tree.getPreviousSibling(path);
-tree.getSiblingNodes(path);
-```
-
-Use `contains(parentPath, valuePath)` to check whether one index path contains another.
-`getDescendantNodes` and `getDescendantValues` accept `{ withBranch: true }` when branch nodes
-should be included with leaves.
-
-## Traversal
-
-Inspect branches, flatten the tree, or visit every node:
+Use `isBranchNode` and `getBranchValues` to inspect branches. `getBranchValues` also accepts a
+`depth` filter and the same `skip` callback as the navigation methods.
 
 ```tsx
-const src = tree.findNode('src');
+const src = collection.findNode('src');
 
-if (src) tree.isBranchNode(src);
-tree.getBranchValues();
-tree.flatten();
-```
+if (src) collection.isBranchNode(src);
+collection.getBranchValues();
 
-`flatten()` returns nodes with `_index`, `_parent`, and `_children` metadata, which is useful for
-virtualized or flat rendering.
+const flatNodes = collection.flatten();
+// Each result keeps the original node fields and adds _index, _parent, and _children.
 
-Use `visit` when every node must be processed:
-
-```tsx
-tree.visit({
+collection.visit({
   onEnter(node, indexPath) {
-    console.log(tree.getNodeValue(node), indexPath.length);
+    console.log(collection.getNodeValue(node), indexPath.length);
 
-    if (tree.getNodeValue(node) === 'src') {
-      return 'skip';
-    }
+    if (collection.getNodeValue(node) === 'src') return 'skip';
   },
 });
 ```
 
-## Filtering
-
-`filter` returns a new tree containing matching nodes while preserving the hierarchy needed to
-reach them:
+`visit` calls `onEnter` for each node. Return `'skip'` to omit a branch's descendants or `'stop'` to
+end the traversal. `filter(predicate)` returns a new collection, keeps the hierarchy needed to reach
+matching nodes, and passes `(node, indexPath)` to the predicate:
 
 ```tsx
-const filteredTree = tree.filter((node) =>
-  tree.stringifyNode(node).toLocaleLowerCase().includes('input'),
+const filteredTree = collection.filter((node) =>
+  collection.stringifyNode(node).toLocaleLowerCase().includes('tree'),
 );
 ```
 
-Use the returned collection for rendering. The original tree is unchanged.
+## Immutable updates
 
-## Updates
-
-Every update is immutable and returns a new `TreeCollection`. The examples below each start from
-`tree`; to chain changes, use the collection returned by the previous operation:
+Update methods return a new collection and leave the original unchanged. Index paths belong to one
+collection snapshot. After inserting, removing, replacing, or moving nodes, resolve paths again from
+the returned collection instead of reusing old numeric paths.
 
 ```tsx
-const srcPath = tree.getIndexPath('src')!;
-const buttonPath = tree.getIndexPath('button')!;
-const readmePath = tree.getIndexPath('readme')!;
+const buttonPath = collection.getIndexPath('src/components/Button.tsx')!;
+const readmePath = collection.getIndexPath('README.md')!;
+const srcPath = collection.getIndexPath('src')!;
 
-const withFile = tree.insertAfter(buttonPath, [{ value: 'select', label: 'Select.tsx' }]);
-
-const withoutReadme = tree.remove([readmePath]);
-const renamed = tree.replace(buttonPath, {
-  value: 'button',
+const withFile = collection.insertAfter(buttonPath, [
+  { value: 'src/components/Select.tsx', label: 'Select.tsx' },
+]);
+const withoutReadme = collection.remove([readmePath]);
+const renamed = collection.replace(buttonPath, {
+  value: 'src/components/Button.new.tsx',
   label: 'Button.new.tsx',
 });
-const moved = tree.move([readmePath], srcPath);
+const moved = collection.move([readmePath], srcPath);
 ```
 
-Index paths describe positions in one collection snapshot. After inserting, removing, reordering, or
-moving nodes, discard stored paths and resolve them again from the returned collection before the next
-operation. Store stable node values in application state instead of numeric paths.
-
-`insertBefore` and `insertAfter` can return `undefined` when the target path is invalid. Guard paths
-that come from dynamic data before using them.
+`insertBefore` and `insertAfter` return `undefined` when the target path is invalid. Guard paths that
+come from dynamic data before using them.
 
 | API                         | Operation                                    |
 | --------------------------- | -------------------------------------------- |
@@ -244,21 +264,41 @@ that come from dynamic data before using them.
 | `move(fromPaths, toPath)`   | Move subtrees to another location.           |
 | `filter(predicate)`         | Return a filtered tree.                      |
 
-## File trees
+When the collection is rendered by `TreeView`, store the collection returned by an update in the
+state that owns the tree and render its new `rootNode`.
 
-Use `createFileTreeCollection` when your data is already a list of paths:
+## File paths
 
-```tsx
-const files = createFileTreeCollection([
-  'src/components/Button.tsx',
-  'src/components/Input.tsx',
-  'src/utils/format.ts',
-  'README.md',
-]);
+`createFileTreeCollection` builds the standard `value`/`label` hierarchy from slash-separated paths:
 
-files.getBranchValues(); // ['src', 'components', 'utils']
+<Tabs
+  groupId="framework"
+  values={[
+    { label: 'React', value: 'react' },
+    { label: 'Solid', value: 'solid' },
+  ]}
+  className="docs-tabs"
+>
+  <Tab value="react">
+
+```tsx pure file="../../../src/components/examples/tree-collection/file-paths.tsx"
 ```
 
-For the complete `TreeView` composition, expansion, selection, lazy loading, and recursive nodes, see
-[Tree View](/docs/tree-view). For remote children, see its Async loading example and update the
-collection only after the request succeeds.
+  </Tab>
+  <Tab value="solid">
+
+<CodeBlockRuntime lang="tsx" code={treeCollectionSolidFilePaths} />
+
+  </Tab>
+</Tabs>
+
+For async children, update the collection only after the request succeeds. The
+[Tree View](/docs/tree-view) async-loading example shows how to connect that new collection to an
+accessible tree.
+
+## Integration and accessibility
+
+The collection manages hierarchy only. Use `TreeView` for tree semantics, focus, keyboard
+navigation, expansion, and selection. A custom renderer must provide those behaviors itself. Keep
+stable node values in application state, and resolve fresh index paths from the current collection
+after an immutable update.

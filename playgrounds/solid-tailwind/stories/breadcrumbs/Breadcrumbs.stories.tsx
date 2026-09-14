@@ -1,0 +1,232 @@
+import type { JSX } from 'solid-js';
+import type { Meta, StoryObj } from 'storybook-solidjs-vite';
+import { Breadcrumbs } from '@/components/breadcrumbs/Breadcrumbs';
+import { Menu } from '@/components/menu/Menu';
+import { SeparatorMarkIcon } from '@/lib/moduix/icons/ui';
+
+const defaultItems = [
+  { href: '#', label: 'Home' },
+  { href: '#', label: 'Vacancies' },
+  { label: 'Go Developer' },
+] as const;
+
+const collapsedMenuContentStyle = {
+  '--moduix-menu-item-font-size': 'var(--moduix-text-xs)',
+  '--moduix-menu-item-padding-x-end': '0.5rem',
+  '--moduix-menu-item-padding-x-start': '0.5rem',
+  '--moduix-menu-item-padding-y': '0.25rem',
+} as JSX.CSSProperties;
+
+const collapsedMenuTriggerStyle = {
+  minWidth: 'auto',
+  minHeight: 'auto',
+  padding: 0,
+  border: 'none',
+  background: 'transparent',
+  color: 'inherit',
+} as JSX.CSSProperties;
+
+function DefaultBreadcrumbs() {
+  return (
+    <Breadcrumbs>
+      <Breadcrumbs.Path items={defaultItems} />
+    </Breadcrumbs>
+  );
+}
+
+const meta = {
+  title: 'Components/Breadcrumbs',
+  component: Breadcrumbs,
+  tags: ['autodocs'],
+  parameters: {
+    layout: 'centered',
+  },
+} satisfies Meta<typeof Breadcrumbs>;
+
+export default meta;
+
+type Story = StoryObj<typeof meta>;
+
+export const Default: Story = {
+  render: () => <DefaultBreadcrumbs />,
+};
+
+export const Collapsed: Story = {
+  render: () => (
+    <Breadcrumbs>
+      <Breadcrumbs.List>
+        <Breadcrumbs.Item>
+          <Breadcrumbs.Link href="#">Home</Breadcrumbs.Link>
+        </Breadcrumbs.Item>
+        <Breadcrumbs.Separator />
+        <Breadcrumbs.Item>
+          <Menu positioning={{ placement: 'bottom-start' }}>
+            <Menu.Trigger
+              asChild={(props) => (
+                <button
+                  {...props()}
+                  type="button"
+                  aria-label="Show hidden path items"
+                  style={collapsedMenuTriggerStyle}
+                >
+                  <Breadcrumbs.Ellipsis />
+                </button>
+              )}
+            />
+            <Menu.Positioner>
+              <Menu.Content style={collapsedMenuContentStyle}>
+                <Menu.Viewport>
+                  <Menu.Item
+                    value="engineering"
+                    asChild={(props) => (
+                      <a {...props()} href="#">
+                        Engineering
+                      </a>
+                    )}
+                  />
+                  <Menu.Item
+                    value="backend"
+                    asChild={(props) => (
+                      <a {...props()} href="#">
+                        Backend
+                      </a>
+                    )}
+                  />
+                  <Menu.Item
+                    value="golang"
+                    asChild={(props) => (
+                      <a {...props()} href="#">
+                        Golang
+                      </a>
+                    )}
+                  />
+                </Menu.Viewport>
+              </Menu.Content>
+            </Menu.Positioner>
+          </Menu>
+        </Breadcrumbs.Item>
+        <Breadcrumbs.Separator />
+        <Breadcrumbs.Item>
+          <Breadcrumbs.Link href="#">Vacancies</Breadcrumbs.Link>
+        </Breadcrumbs.Item>
+        <Breadcrumbs.Separator />
+        <Breadcrumbs.Item>
+          <Breadcrumbs.Page>Go Developer</Breadcrumbs.Page>
+        </Breadcrumbs.Item>
+      </Breadcrumbs.List>
+    </Breadcrumbs>
+  ),
+};
+
+export const CustomSeparator: Story = {
+  render: () => (
+    <Breadcrumbs>
+      <Breadcrumbs.Path
+        items={defaultItems}
+        separator={<SeparatorMarkIcon style={{ width: '0.75rem', height: '0.25rem' }} />}
+      />
+    </Breadcrumbs>
+  ),
+};
+
+export const RightToLeft: Story = {
+  render: () => (
+    <Breadcrumbs dir="rtl" aria-label="مسار التنقل">
+      <Breadcrumbs.Path
+        items={[
+          { href: '#', label: 'الرئيسية' },
+          { href: '#', label: 'الوظائف' },
+          { label: 'مطور Go' },
+        ]}
+      />
+    </Breadcrumbs>
+  ),
+};
+
+export const FrameworkLink: Story = {
+  render: () => (
+    <Breadcrumbs>
+      <Breadcrumbs.List>
+        <Breadcrumbs.Item>
+          <Breadcrumbs.Link
+            asChild={(props) => (
+              <a {...props()} href="#home" data-framework-link>
+                Home
+              </a>
+            )}
+          />
+        </Breadcrumbs.Item>
+        <Breadcrumbs.Separator />
+        <Breadcrumbs.Item>
+          <Breadcrumbs.Link
+            asChild={(props) => (
+              <a {...props()} href="#vacancies" data-framework-link>
+                Vacancies
+              </a>
+            )}
+          />
+        </Breadcrumbs.Item>
+        <Breadcrumbs.Separator />
+        <Breadcrumbs.Item>
+          <Breadcrumbs.Page>Go Developer</Breadcrumbs.Page>
+        </Breadcrumbs.Item>
+      </Breadcrumbs.List>
+    </Breadcrumbs>
+  ),
+};
+
+export const LongCurrentLabel: Story = {
+  render: () => (
+    <Breadcrumbs>
+      <Breadcrumbs.Path
+        items={[
+          { href: '#', label: 'Home' },
+          { href: '#', label: 'Vacancies' },
+          {
+            label:
+              'Go lang developer to production team with cross-functional ownership and platform support',
+          },
+        ]}
+      />
+    </Breadcrumbs>
+  ),
+};
+
+export const AdvancedCustomization: Story = {
+  render: () => (
+    <Breadcrumbs>
+      <Breadcrumbs.List>
+        <Breadcrumbs.Item>
+          <Breadcrumbs.Link
+            asChild={(props) => (
+              <a {...props()} href="#home" data-framework-link>
+                Home
+              </a>
+            )}
+          />
+        </Breadcrumbs.Item>
+        <Breadcrumbs.Separator />
+        <Breadcrumbs.Item>
+          <Breadcrumbs.Link
+            asChild={(props) => (
+              <a {...props()} href="#engineering" data-framework-link>
+                Engineering
+              </a>
+            )}
+          />
+        </Breadcrumbs.Item>
+        <Breadcrumbs.Separator>
+          <SeparatorMarkIcon style={{ width: '0.75rem', height: '0.25rem' }} />
+        </Breadcrumbs.Separator>
+        <Breadcrumbs.Item>
+          <Breadcrumbs.Page>
+            <span title="Go lang developer to production team with cross-functional ownership and platform support">
+              Go lang developer to production team with cross-functional ownership and platform
+              support
+            </span>
+          </Breadcrumbs.Page>
+        </Breadcrumbs.Item>
+      </Breadcrumbs.List>
+    </Breadcrumbs>
+  ),
+};

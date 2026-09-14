@@ -4,7 +4,20 @@ component: alert
 description: Messages intégrés à la page pour les mises à jour de statut, la validation et les messages système.
 ---
 
-import * as AlertDocs from '@/components/examples/alert';
+import * as AlertDocs from '@/components/examples/alert/css-properties';
+import AlertBasic from '@/components/examples/alert/basic.tsx';
+import AlertCustomComposition from '@/components/examples/alert/custom-composition.tsx';
+import AlertCustomHeading from '@/components/examples/alert/custom-heading.tsx';
+import AlertError from '@/components/examples/alert/error.tsx';
+import AlertStatuses from '@/components/examples/alert/statuses.tsx';
+import AlertWithIcon from '@/components/examples/alert/with-icon.tsx';
+
+import alertSolidBasic from '../../../snippets/alert/solid/basic.tsx?raw';
+import alertSolidCustomComposition from '../../../snippets/alert/solid/custom-composition.tsx?raw';
+import alertSolidCustomHeading from '../../../snippets/alert/solid/custom-heading.tsx?raw';
+import alertSolidError from '../../../snippets/alert/solid/error.tsx?raw';
+import alertSolidStatuses from '../../../snippets/alert/solid/statuses.tsx?raw';
+import alertSolidWithIcon from '../../../snippets/alert/solid/with-icon.tsx?raw';
 
 ## Référence de l’API
 
@@ -28,37 +41,82 @@ flux normal du document.
 - Utilisez **`Alert`** pour les mises à jour de statut, les résultats de validation et les messages système dans les formulaires, les panneaux ou le contenu de la page.
 - Utilisez **`Toast`** pour les notifications temporaires qui s’affichent au-dessus de la page, n’occupent pas de place dans le flux du document et se ferment automatiquement.
 
+
+Les mêmes exports sont disponibles depuis `@moduix/solid/alert` pour Solid.
 ## Exemple de base
 
 Pour un message intégré courant, utilisez la forme courte `<Alert>` avec `Alert.Title` et
 `Alert.Description`. Ajoutez `Alert.Indicator` lorsqu’une icône aide à comprendre plus rapidement le
 type de message.
 
-<PreviewFrame maxWidth="sm">
-  ```tsx preview file="../../en/docs/_snippets/alert/basic.tsx"
 
+Ce composant est disponible pour React et Solid, avec des variantes CSS Modules et Tailwind. L’aperçu utilise React avec CSS Modules ; les onglets affichent le code natif correspondant à chaque framework.
+<ExampleFrame variant="component">
+  <AlertBasic />
+</ExampleFrame>
+
+<ExampleCode>
+<div className="docs-reference">
+  <Tabs
+    groupId="framework"
+    values={[
+      { label: 'React', value: 'react' },
+      { label: 'Solid', value: 'solid' },
+    ]}
+    className="docs-tabs"
+  >
+    <Tab value="react">
+
+```tsx pure file="../../../src/components/examples/alert/basic.tsx"
 ```
-</PreviewFrame>
+
+    </Tab>
+    <Tab value="solid">
+
+<CodeBlockRuntime lang="tsx" code={alertSolidBasic} />
+
+    </Tab>
+  </Tabs>
+</div>
+
+</ExampleCode>
 
 ## Installation avec shadcn
 
-<ShadcnInstall packageName="alert" />
+Consultez le [Démarrage rapide](/docs/quick-start) pour la configuration complète du paquet, du registre et des styles.
 
-Cette commande ajoute aussi les fichiers de base partagés dont `Alert` a besoin, notamment les styles,
-les icônes et quelques utilitaires.
+<Tabs groupId="framework">
+  <Tab label="React" value="react">
+
+<ShadcnInstallOptions
+  options={[
+    { label: 'CSS Modules', command: 'shadcn@latest add @moduix-react/alert' },
+    { label: 'Tailwind CSS', command: 'shadcn@latest add @moduix-react-tailwind/alert' },
+  ]}
+/>
+
+  </Tab>
+  <Tab label="Solid" value="solid">
+
+<ShadcnInstallOptions
+  options={[
+    { label: 'CSS Modules', command: 'shadcn@latest add @moduix-solid/alert' },
+    { label: 'Tailwind CSS', command: 'shadcn@latest add @moduix-solid-tailwind/alert' },
+  ]}
+/>
+
+  </Tab>
+</Tabs>
 
 ## Anatomie
 
-Pour un message compact, placez `Alert.Title` et `Alert.Description` directement dans l’élément racine.
-Lorsque l’indicateur doit être placé à côté d’un texte et de contrôles regroupés, placez-les dans
-`Alert.Content`.
+Placez le contenu du message dans `Alert.Content`. `Alert.Indicator` est facultatif et se place à
+côté de ce contenu lorsqu’il aide à identifier le message.
 
 ```text
 Alert / Alert.Root
 ├─ Alert.Indicator (optional)
-├─ Alert.Title
-├─ Alert.Description
-└─ Alert.Content (optional)
+└─ Alert.Content
    ├─ Alert.Title
    ├─ Alert.Description
    ├─ Alert.Actions (optional)
@@ -69,57 +127,16 @@ Alert / Alert.Root
 | ---------------------- | --------------------------------------------------------------------- | ------------- |
 | `Alert` / `Alert.Root` | Élément racine. Applique les styles du statut et la sémantique automatique de région dynamique. | `root`        |
 | `Alert.Indicator`      | Repère visuel facultatif. Les icônes SVG qu’il contient ont une taille cohérente. | `indicator`   |
-| `Alert.Content`        | Conteneur en colonne facultatif pour regrouper le texte et les actions. | `content`     |
+| `Alert.Content`        | Conteneur en colonne obligatoire pour le contenu et les actions.   | `content`     |
 | `Alert.Title`          | Titre de l’alerte. Rend un `p` par défaut.                              | `title`       |
 | `Alert.Description`    | Texte complémentaire du message.                                       | `description` |
 | `Alert.Actions`        | Ligne d’actions facultative avec retour à la ligne dans `Content`.     | `actions`     |
 
 ## Composition
 
-### Composition recommandée
+`Alert` est un composant de présentation : le composant qui l’affiche gère sa visibilité et sa fermeture. Il ne prend pas en charge le focus ni le clavier des boutons et des liens qu’il contient. `Alert.Content` est obligatoire et regroupe le titre, la description, les contrôles et le reste du contenu. Placez les contrôles dans `Alert.Actions` lorsqu’ils doivent bénéficier de la mise en ligne avec retour à la ligne.
 
-Pour le cas courant d’un message intégré à la page, composez `<Alert>` avec `Alert.Title` et
-`Alert.Description`.
-
-Définissez `status` pour choisir le type de message : `info`, `success`, `warning` ou `error`.
-
-Ajoutez `Alert.Indicator` lorsque l’alerte a besoin d’un repère visuel explicite. Les actions restent
-du contenu ordinaire à placer dans `Alert.Content` ; le composant ne crée ni boutons ni slots d’action.
-
-### Quand personnaliser la composition
-
-Ajoutez `Alert.Content` lorsque le titre, la description et les contrôles supplémentaires doivent
-rester regroupés dans une même colonne à côté de l’indicateur. Utilisez `Alert.Actions` pour une ligne
-d’actions avec retour à la ligne dans cette colonne. Avec `asChild`, fournissez un seul enfant
-sémantiquement adapté afin qu’il prenne en charge l’élément DOM rendu.
-
-Si la hiérarchie des titres du document exige un autre élément, utilisez `Alert.Title asChild` :
-
-```tsx
-<Alert.Title asChild>
-  <h2>Billing issue</h2>
-</Alert.Title>
-```
-
-### Propriétés par défaut
-
-| Propriété | Valeur par défaut | Valeurs et remarques                                             |
-| --------- | ----------------- | ----------------------------------------------------------------- |
-| `status`  | `info`            | `info`, `success`, `warning`, `error`                             |
-| `role`    | Automatique       | `role="status"` par défaut, `role="alert"` pour `status="error"` |
-
-### Comportement
-
-- `Alert.Root` utilise `role="status"` par défaut et passe à `role="alert"` pour `status="error"`.
-- `role="status"` annonce généralement les mises à jour sans interrompre la lecture en cours, tandis que `role="alert"` les annonce immédiatement. Si le message doit être annoncé, montez l’alerte avant de mettre son texte à jour. Un contenu déjà présent au chargement de la page peut ne pas être annoncé.
-- Remplacez `role` lorsque l’alerte est un encart statique et non un message signalant une mise à jour. Pour une information statique complémentaire, utilisez `role="note"`.
-- `Alert.Indicator` utilise `aria-hidden="true"` par défaut.
-- Gardez le sens essentiel dans le titre ou la description, car l’indicateur est masqué pour les technologies d’assistance.
-- `Alert.Title` rend un `p` par défaut. Utilisez `asChild` d’Ark lorsque le titre doit être rendu avec un autre élément.
-- `Alert.Content` est facultatif. Utilisez-le lorsque le titre, la description et les contrôles supplémentaires doivent partager une même colonne à côté de l’indicateur.
-- `Alert.Actions` est facultatif. Utilisez-le lorsque des boutons ou des liens doivent utiliser les styles par défaut de la ligne d’actions avec retour à la ligne.
-- Le composant se limite à l’affichage. Il ne gère ni l’état de fermeture, ni le focus, ni le comportement clavier des actions que vous placez à l’intérieur.
-
+Si le titre doit utiliser un autre élément sémantique, utilisez `Alert.Title asChild` avec un seul enfant sémantique. En Solid, `asChild` utilise la forme avec fonction de rendu d’Ark UI, comme dans l’exemple « Titre personnalisé ».
 ## Exemples
 
 ### Titre personnalisé
@@ -127,49 +144,144 @@ Si la hiérarchie des titres du document exige un autre élément, utilisez `Ale
 Utilisez `asChild` sur `Alert.Title` lorsque le titre de l’alerte doit s’inscrire dans la hiérarchie
 des titres de la page.
 
-<PreviewFrame maxWidth="sm">
-  ```tsx preview file="../../en/docs/_snippets/alert/custom-heading.tsx"
+<ExampleFrame variant="component">
+  <AlertCustomHeading />
+</ExampleFrame>
 
+<ExampleCode>
+<div className="docs-reference">
+  <Tabs
+    groupId="framework"
+    values={[
+      { label: 'React', value: 'react' },
+      { label: 'Solid', value: 'solid' },
+    ]}
+    className="docs-tabs"
+  >
+    <Tab value="react">
+
+```tsx pure file="../../../src/components/examples/alert/custom-heading.tsx"
 ```
 
-</PreviewFrame>
+    </Tab>
+    <Tab value="solid">
+
+<CodeBlockRuntime lang="tsx" code={alertSolidCustomHeading} />
+
+    </Tab>
+  </Tabs>
+</div>
+
+</ExampleCode>
 
 ### Erreur
 
 Définissez `status="error"` lorsque le message doit être annoncé avec une priorité élevée et bénéficier
 d’un accent visuel plus marqué.
 
-<PreviewFrame maxWidth="sm">
-  ```tsx preview file="../../en/docs/_snippets/alert/error.tsx"
+<ExampleFrame variant="component">
+  <AlertError />
+</ExampleFrame>
 
+<ExampleCode>
+<div className="docs-reference">
+  <Tabs
+    groupId="framework"
+    values={[
+      { label: 'React', value: 'react' },
+      { label: 'Solid', value: 'solid' },
+    ]}
+    className="docs-tabs"
+  >
+    <Tab value="react">
+
+```tsx pure file="../../../src/components/examples/alert/error.tsx"
 ```
 
-</PreviewFrame>
+    </Tab>
+    <Tab value="solid">
+
+<CodeBlockRuntime lang="tsx" code={alertSolidError} />
+
+    </Tab>
+  </Tabs>
+</div>
+
+</ExampleCode>
 
 ### Statuts
 
 Utilisez les quatre statuts pour distinguer les messages d’information, de réussite, d’avertissement et
 d’erreur. Ajoutez `Alert.Indicator` avec l’icône de votre choix lorsque ce repère visuel est utile.
 
-<style>{AlertDocs.alertStatusesCss}</style>
+<ExampleFrame variant="component">
+  <AlertStatuses />
+</ExampleFrame>
 
-<PreviewFrame maxWidth="sm">
-  ```tsx preview file="../../en/docs/_snippets/alert/statuses.tsx"
+<ExampleCode>
+<div className="docs-reference">
+  <Tabs
+    groupId="framework"
+    values={[
+      { label: 'React', value: 'react' },
+      { label: 'Solid', value: 'solid' },
+    ]}
+    className="docs-tabs"
+  >
+    <Tab value="react">
 
+```tsx pure file="../../../src/components/examples/alert/statuses.tsx"
 ```
 
-</PreviewFrame>
+    </Tab>
+    <Tab value="solid">
+
+<CodeBlockRuntime lang="tsx" code={alertSolidStatuses} />
+
+    </Tab>
+  </Tabs>
+
+**Styles**
+
+```css file="../../../src/components/examples/alert/alert-statuses.module.css"
+```
+</div>
+
+</ExampleCode>
 
 ### Avec icône
 
 Placez une icône moduix ou un SVG personnalisé dans `Alert.Indicator`.
 
-<PreviewFrame maxWidth="sm">
-  ```tsx preview file="../../en/docs/_snippets/alert/with-icon.tsx"
+<ExampleFrame variant="component">
+  <AlertWithIcon />
+</ExampleFrame>
 
+<ExampleCode>
+<div className="docs-reference">
+  <Tabs
+    groupId="framework"
+    values={[
+      { label: 'React', value: 'react' },
+      { label: 'Solid', value: 'solid' },
+    ]}
+    className="docs-tabs"
+  >
+    <Tab value="react">
+
+```tsx pure file="../../../src/components/examples/alert/with-icon.tsx"
 ```
 
-</PreviewFrame>
+    </Tab>
+    <Tab value="solid">
+
+<CodeBlockRuntime lang="tsx" code={alertSolidWithIcon} />
+
+    </Tab>
+  </Tabs>
+</div>
+
+</ExampleCode>
 
 ### Personnalisation avancée
 
@@ -177,23 +289,52 @@ Utilisez `Alert.Content` et `Alert.Actions` lorsque le message doit proposer des
 un problème ou poursuivre le parcours. Gérez l’état de fermeture dans le composant qui affiche
 l’alerte si vous devez pouvoir la masquer localement.
 
-<style>{AlertDocs.alertCustomCompositionCss}</style>
+<ExampleFrame variant="component">
+  <AlertCustomComposition />
+</ExampleFrame>
 
-<PreviewFrame maxWidth="sm">
-  ```tsx preview file="../../en/docs/_snippets/alert/custom-composition.tsx"
+<ExampleCode>
+<div className="docs-reference">
+  <Tabs
+    groupId="framework"
+    values={[
+      { label: 'React', value: 'react' },
+      { label: 'Solid', value: 'solid' },
+    ]}
+    className="docs-tabs"
+  >
+    <Tab value="react">
 
+```tsx pure file="../../../src/components/examples/alert/custom-composition.tsx"
 ```
 
-</PreviewFrame>
+    </Tab>
+    <Tab value="solid">
+
+<CodeBlockRuntime lang="tsx" code={alertSolidCustomComposition} />
+
+    </Tab>
+  </Tabs>
+
+**Styles**
+
+```css file="../../../src/components/examples/alert/alert-custom-composition.module.css"
+```
+</div>
+
+</ExampleCode>
 
 ## Styles
 
-Utilisez `className` sur la racine ou sur les différentes parties pour appliquer des styles locaux.
-Définissez les variables `--moduix-alert-*` sur la racine lorsqu’une alerte nécessite un thème local.
+Utilisez `className` en React ou `class` en Solid sur la racine et ses différentes parties pour
+appliquer des styles locaux. Les variantes Tailwind se personnalisent avec des utilitaires et des
+classes supplémentaires. Dans les variantes CSS Modules, définissez les variables
+`--moduix-alert-*` sur la racine lorsqu’une alerte nécessite un thème local.
 
-Les variables communes `--moduix-alert-bg`, `--moduix-alert-border-color`, `--moduix-alert-color` et
-`--moduix-alert-indicator-color` s’appliquent à tous les statuts. Utilisez les variables
-`--moduix-alert-<status>-*` correspondantes lorsqu’un seul statut doit changer.
+Dans les variantes CSS Modules, les variables communes `--moduix-alert-bg`,
+`--moduix-alert-border-color`, `--moduix-alert-color` et `--moduix-alert-indicator-color`
+s’appliquent à tous les statuts. Utilisez les variables `--moduix-alert-<status>-*` correspondantes
+lorsqu’un seul statut doit changer.
 
 Les statuts intégrés utilisent également les tokens de palette partagée :
 

@@ -4,11 +4,29 @@ component: input
 description: Champ de saisie natif sur une ligne, fondé sur Field.Input d’Ark UI, avec les événements natifs et les styles moduix.
 ---
 
-import * as InputDocs from '@/components/examples/input';
+import * as InputDocs from '@/components/examples/input/css-properties';
+import InputAsChild from '@/components/examples/input/as-child.tsx';
+import InputBasic from '@/components/examples/input/basic.tsx';
+import InputControlled from '@/components/examples/input/controlled.tsx';
+import InputFieldState from '@/components/examples/input/field-state.tsx';
+import InputFile from '@/components/examples/input/file-input.tsx';
+import InputNativeAttributes from '@/components/examples/input/native-attributes.tsx';
+import InputSizes from '@/components/examples/input/sizes.tsx';
+import InputStandalone from '@/components/examples/input/standalone-input.tsx';
+import InputStates from '@/components/examples/input/disabled-and-readonly.tsx';
+import inputSolidAsChild from '../../../snippets/input/solid/as-child.tsx?raw';
+import inputSolidBasic from '../../../snippets/input/solid/basic.tsx?raw';
+import inputSolidControlled from '../../../snippets/input/solid/controlled.tsx?raw';
+import inputSolidFieldState from '../../../snippets/input/solid/field-state.tsx?raw';
+import inputSolidFile from '../../../snippets/input/solid/file-input.tsx?raw';
+import inputSolidNativeAttributes from '../../../snippets/input/solid/native-attributes.tsx?raw';
+import inputSolidSizes from '../../../snippets/input/solid/sizes.tsx?raw';
+import inputSolidStandalone from '../../../snippets/input/solid/standalone-input.tsx?raw';
+import inputSolidStates from '../../../snippets/input/solid/disabled-and-readonly.tsx?raw';
 
 ## Référence de l’API
 
-`Input` est un composant stylé fondé sur [`Field.Input` d’Ark UI](https://ark-ui.com/docs/components/field). Il suit les recommandations d’Ark pour la [composition](https://ark-ui.com/docs/guides/composition), le [style](https://ark-ui.com/docs/guides/styling) et le [transfert de la ref](https://ark-ui.com/docs/guides/ref). Il rend un `<input>` natif sur une seule ligne et conserve le comportement du navigateur dans les formulaires ainsi que l’API native des événements React.
+`Input` est un composant stylé fondé sur [`Field.Input` d’Ark UI](https://ark-ui.com/docs/components/field). Il suit les recommandations d’Ark pour la [composition](https://ark-ui.com/docs/guides/composition), le [style](https://ark-ui.com/docs/guides/styling) et le [transfert de la ref](https://ark-ui.com/docs/guides/ref). Il rend un `<input>` natif sur une seule ligne et conserve le comportement du navigateur dans les formulaires ainsi que l’API native des événements de chaque framework.
 
 Utilisez `Field` lorsque le champ doit être relié à un libellé, à un texte d’aide ou d’erreur, recevoir des identifiants générés ou partager un état.
 
@@ -23,17 +41,73 @@ Utilisez `Field` lorsque le champ doit être relié à un libellé, à un texte 
 
 ## Exemple de base
 
+`Input` est disponible pour React et Solid dans les paquets CSS Modules et Tailwind. L’aperçu de
+cette page utilise React avec CSS Modules ; les onglets de framework affichent le code natif du même
+contrat public.
+
 Placez `Input` dans `Field` lorsque vous avez besoin d’un libellé, d’un texte d’aide ou d’un message d’erreur. `Field` relie ces éléments au champ, génère les identifiants nécessaires et lui transmet son état.
 
-<PreviewFrame maxWidth="sm">
-  ```tsx preview file="../../en/docs/_snippets/input/basic.tsx"
+<ExampleFrame variant="component">
+  <InputBasic />
+</ExampleFrame>
 
+<ExampleCode>
+<div className="docs-reference">
+  <Tabs
+    groupId="framework"
+    values={[
+      { label: 'React', value: 'react' },
+      { label: 'Solid', value: 'solid' },
+    ]}
+    className="docs-tabs"
+  >
+    <Tab value="react">
+
+```tsx pure file="../../../src/components/examples/input/basic.tsx"
 ```
-</PreviewFrame>
+
+    </Tab>
+    <Tab value="solid">
+
+<CodeBlockRuntime lang="tsx" code={inputSolidBasic} />
+
+    </Tab>
+  </Tabs>
+
+**Styles**
+
+```css file="../../../src/components/examples/input/input-basic.module.css"
+```
+</div>
+
+</ExampleCode>
 
 ## Installation avec shadcn
 
-<ShadcnInstall packageName="input" />
+Consultez le [Démarrage rapide](/docs/quick-start) pour la configuration complète du paquet, du registre et des styles.
+
+<Tabs groupId="framework">
+  <Tab label="React" value="react">
+
+<ShadcnInstallOptions
+  options={[
+    { label: 'CSS Modules', command: 'shadcn@latest add @moduix-react/input' },
+    { label: 'Tailwind CSS', command: 'shadcn@latest add @moduix-react-tailwind/input' },
+  ]}
+/>
+
+  </Tab>
+  <Tab label="Solid" value="solid">
+
+<ShadcnInstallOptions
+  options={[
+    { label: 'CSS Modules', command: 'shadcn@latest add @moduix-solid/input' },
+    { label: 'Tailwind CSS', command: 'shadcn@latest add @moduix-solid-tailwind/input' },
+  ]}
+/>
+
+  </Tab>
+</Tabs>
 
 ## Anatomie
 
@@ -50,46 +124,57 @@ Field (conteneur facultatif)
 
 ## Composition
 
-### Composition recommandée
+`Field` prend en charge le libellé, le texte d’aide ou d’erreur, les identifiants générés et l’état
+partagé `disabled`, `invalid`, `required` ou `readOnly`. `Input` reste le contrôle natif : pour un
+champ React contrôlé, utilisez `value` avec `onChange(event)`, ou `defaultValue` pour un champ non
+contrôlé. Le composant ne gère ni la validation, ni le focus, ni la navigation au clavier.
 
-Placez `Input` dans `Field` lorsque le champ a besoin d’un libellé accessible, d’un texte d’aide ou d’erreur, d’identifiants générés ou d’un état partagé `disabled`, `invalid`, `required` ou `readOnly`. `Fieldset` peut désactiver plusieurs champs imbriqués en une seule fois.
-
-Transmettez directement à `Input` les propriétés et gestionnaires d’événements natifs de `<input>`. Pour un champ contrôlé, utilisez `value` et mettez-le à jour dans `onChange(event)`. Pour un champ non contrôlé, utilisez `defaultValue`.
-
-### Quand créer une composition personnalisée
-
-Utilisez `asChild` uniquement lorsqu’un autre élément compatible avec un champ de saisie doit devenir le véritable nœud DOM. Fournissez un seul élément enfant sémantique et focusable. Ark fusionne dans cet élément les propriétés du composant et de `Field`, la classe et la `ref`.
-
-Si l’élément n’est pas compatible avec un champ de saisie, préférez le composant qui fournit la primitive Ark adaptée au lieu de le forcer dans `Input`.
-
-### Propriétés par défaut
-
-| Propriété   | Valeur par défaut | Remarques                                                                                     |
-| ----------- | ----------------- | --------------------------------------------------------------------------------------------- |
-| `size`      | `md`              | Taille visuelle : `xs`, `sm`, `md`, `lg` ou `xl`.                                             |
-| `htmlSize`  | Non défini        | Définit la valeur native de `input[size]` en caractères. Par défaut, la largeur du champ est calculée à partir de cette valeur. |
-| `asChild`   | `false`           | Lorsqu’il est activé, transmet les propriétés à un seul enfant sémantique via Ark Slot.                 |
-
-### Comportement
-
-- La `ref` pointe vers le véritable `HTMLInputElement`, ce qui permet à une bibliothèque de formulaires
-  de lui donner le focus après l’échec de la soumission.
-- Aucun `HiddenInput` n’est nécessaire : `Input` est déjà un contrôle de formulaire natif.
-- `Field` d’Ark fournit `aria-describedby`, `aria-invalid`, les identifiants et les propriétés d’état.
-- `Input` ne gère pas la valeur, sa validité, le focus ni la navigation au clavier.
+Pour un champ autonome, fournissez vous-même son nom accessible. Utilisez `asChild` uniquement avec
+un seul enfant focusable et compatible avec un champ de saisie ; Ark fusionne les propriétés de
+`Input` et de `Field`, la classe et la `ref` dans ce nœud DOM.
 
 ## Exemples
 
 ### Valeur contrôlée
 
-Utilisez cet exemple lorsque l’état React doit piloter la valeur courante. Lisez la nouvelle valeur
-dans l’événement natif `onChange(event)` et transmettez-la via `value`.
+Utilisez cet exemple lorsque le composant parent doit piloter la valeur courante. Dans React, lisez la
+nouvelle valeur dans l’événement natif `onChange(event)` ; dans Solid, utilisez `onInput`. Transmettez
+la valeur courante via `value`.
 
-<PreviewFrame maxWidth="sm">
-  ```tsx preview file="../../en/docs/_snippets/input/controlled.tsx"
+<ExampleFrame variant="component">
+  <InputControlled />
+</ExampleFrame>
 
+<ExampleCode>
+<div className="docs-reference">
+  <Tabs
+    groupId="framework"
+    values={[
+      { label: 'React', value: 'react' },
+      { label: 'Solid', value: 'solid' },
+    ]}
+    className="docs-tabs"
+  >
+    <Tab value="react">
+
+```tsx pure file="../../../src/components/examples/input/controlled.tsx"
 ```
-</PreviewFrame>
+
+    </Tab>
+    <Tab value="solid">
+
+<CodeBlockRuntime lang="tsx" code={inputSolidControlled} />
+
+    </Tab>
+  </Tabs>
+
+**Styles**
+
+```css file="../../../src/components/examples/input/input-controlled.module.css"
+```
+</div>
+
+</ExampleCode>
 
 ### Désactivé et en lecture seule
 
@@ -98,22 +183,80 @@ lorsqu’il peut consulter et sélectionner la valeur, sans pouvoir la modifier.
 directement sur `Input` pour un seul contrôle, ou sur `Field` lorsque le libellé, le texte associé et
 le champ doivent partager le même état.
 
-<PreviewFrame maxWidth="sm">
-  ```tsx preview file="../../en/docs/_snippets/input/disabled-and-readonly.tsx"
+<ExampleFrame variant="component">
+  <InputStates />
+</ExampleFrame>
 
+<ExampleCode>
+<div className="docs-reference">
+  <Tabs
+    groupId="framework"
+    values={[
+      { label: 'React', value: 'react' },
+      { label: 'Solid', value: 'solid' },
+    ]}
+    className="docs-tabs"
+  >
+    <Tab value="react">
+
+```tsx pure file="../../../src/components/examples/input/disabled-and-readonly.tsx"
 ```
-</PreviewFrame>
+
+    </Tab>
+    <Tab value="solid">
+
+<CodeBlockRuntime lang="tsx" code={inputSolidStates} />
+
+    </Tab>
+  </Tabs>
+
+**Styles**
+
+```css file="../../../src/components/examples/input/input-disabled-and-readonly.module.css"
+```
+</div>
+
+</ExampleCode>
 
 ### Validation du champ
 
 Définissez `invalid` sur `Field` lorsque la validation échoue. Ark ajoute `aria-invalid` et
 `data-invalid` à `Input` et l’associe au message d’erreur.
 
-<PreviewFrame maxWidth="sm">
-  ```tsx preview file="../../en/docs/_snippets/input/field-state.tsx"
+<ExampleFrame variant="component">
+  <InputFieldState />
+</ExampleFrame>
 
+<ExampleCode>
+<div className="docs-reference">
+  <Tabs
+    groupId="framework"
+    values={[
+      { label: 'React', value: 'react' },
+      { label: 'Solid', value: 'solid' },
+    ]}
+    className="docs-tabs"
+  >
+    <Tab value="react">
+
+```tsx pure file="../../../src/components/examples/input/field-state.tsx"
 ```
-</PreviewFrame>
+
+    </Tab>
+    <Tab value="solid">
+
+<CodeBlockRuntime lang="tsx" code={inputSolidFieldState} />
+
+    </Tab>
+  </Tabs>
+
+**Styles**
+
+```css file="../../../src/components/examples/input/input-field-state.module.css"
+```
+</div>
+
+</ExampleCode>
 
 ### Sélection de fichier
 
@@ -121,34 +264,121 @@ Dans un formulaire simple, `Input` suffit pour proposer le sélecteur de fichier
 `FileUpload` lorsque l’application doit conserver les fichiers sélectionnés dans son état, afficher
 une zone de dépôt ou gérer le processus de téléversement.
 
-<PreviewFrame maxWidth="sm">
-  ```tsx preview file="../../en/docs/_snippets/input/file-input.tsx"
+<ExampleFrame variant="component">
+  <InputFile />
+</ExampleFrame>
 
+<ExampleCode>
+<div className="docs-reference">
+  <Tabs
+    groupId="framework"
+    values={[
+      { label: 'React', value: 'react' },
+      { label: 'Solid', value: 'solid' },
+    ]}
+    className="docs-tabs"
+  >
+    <Tab value="react">
+
+```tsx pure file="../../../src/components/examples/input/file-input.tsx"
 ```
-</PreviewFrame>
+
+    </Tab>
+    <Tab value="solid">
+
+<CodeBlockRuntime lang="tsx" code={inputSolidFile} />
+
+    </Tab>
+  </Tabs>
+
+**Styles**
+
+```css file="../../../src/components/examples/input/input-file-input.module.css"
+```
+</div>
+
+</ExampleCode>
 
 ### Attributs natifs
 
 Utilisez les attributs natifs pour les comportements du navigateur, comme la validation, le mode
 de saisie, l’autocomplétion et l’envoi du formulaire. Utilisez `htmlSize` pour définir une largeur
-en caractères et `size` pour modifier la taille visuelle.
+en caractères et `size` pour modifier la taille visuelle dans React comme dans Solid.
 
-<PreviewFrame contentWidth="fit-content" maxWidth="sm">
-  ```tsx preview file="../../en/docs/_snippets/input/native-attributes.tsx"
+<ExampleFrame variant="component">
+  <InputNativeAttributes />
+</ExampleFrame>
 
+<ExampleCode>
+<div className="docs-reference">
+  <Tabs
+    groupId="framework"
+    values={[
+      { label: 'React', value: 'react' },
+      { label: 'Solid', value: 'solid' },
+    ]}
+    className="docs-tabs"
+  >
+    <Tab value="react">
+
+```tsx pure file="../../../src/components/examples/input/native-attributes.tsx"
 ```
-</PreviewFrame>
+
+    </Tab>
+    <Tab value="solid">
+
+<CodeBlockRuntime lang="tsx" code={inputSolidNativeAttributes} />
+
+    </Tab>
+  </Tabs>
+
+**Styles**
+
+```css file="../../../src/components/examples/input/input-native-attributes.module.css"
+```
+</div>
+
+</ExampleCode>
 
 ### Tailles
 
 La propriété `size` de moduix contrôle la taille visuelle. `htmlSize` est indépendante et définit la
 largeur native exprimée en caractères.
 
-<PreviewFrame maxWidth="sm">
-  ```tsx preview file="../../en/docs/_snippets/input/sizes.tsx"
+<ExampleFrame variant="component">
+  <InputSizes />
+</ExampleFrame>
 
+<ExampleCode>
+<div className="docs-reference">
+  <Tabs
+    groupId="framework"
+    values={[
+      { label: 'React', value: 'react' },
+      { label: 'Solid', value: 'solid' },
+    ]}
+    className="docs-tabs"
+  >
+    <Tab value="react">
+
+```tsx pure file="../../../src/components/examples/input/sizes.tsx"
 ```
-</PreviewFrame>
+
+    </Tab>
+    <Tab value="solid">
+
+<CodeBlockRuntime lang="tsx" code={inputSolidSizes} />
+
+    </Tab>
+  </Tabs>
+
+**Styles**
+
+```css file="../../../src/components/examples/input/input-sizes.module.css"
+```
+</div>
+
+</ExampleCode>
 
 ### Champ autonome
 
@@ -157,11 +387,40 @@ largeur native exprimée en caractères.
 toujours, mais sans contexte `Field`, les identifiants ne sont pas générés automatiquement et les
 textes d’aide ou d’erreur ne sont pas associés au champ.
 
-<PreviewFrame maxWidth="sm">
-  ```tsx preview file="../../en/docs/_snippets/input/standalone-input.tsx"
+<ExampleFrame variant="component">
+  <InputStandalone />
+</ExampleFrame>
 
+<ExampleCode>
+<div className="docs-reference">
+  <Tabs
+    groupId="framework"
+    values={[
+      { label: 'React', value: 'react' },
+      { label: 'Solid', value: 'solid' },
+    ]}
+    className="docs-tabs"
+  >
+    <Tab value="react">
+
+```tsx pure file="../../../src/components/examples/input/standalone-input.tsx"
 ```
-</PreviewFrame>
+
+    </Tab>
+    <Tab value="solid">
+
+<CodeBlockRuntime lang="tsx" code={inputSolidStandalone} />
+
+    </Tab>
+  </Tabs>
+
+**Styles**
+
+```css file="../../../src/components/examples/input/input-standalone-input.module.css"
+```
+</div>
+
+</ExampleCode>
 
 ### Personnalisation avancée
 
@@ -169,13 +428,47 @@ Utilisez `asChild` uniquement lorsqu’un autre nœud DOM doit être rendu à la
 champ. Fournissez un seul élément sémantique et focusable, capable de recevoir les propriétés
 fusionnées et la `ref`.
 
-<PreviewFrame maxWidth="sm">
-  ```tsx preview file="../../en/docs/_snippets/input/as-child.tsx"
+<ExampleFrame variant="component">
+  <InputAsChild />
+</ExampleFrame>
 
+<ExampleCode>
+<div className="docs-reference">
+  <Tabs
+    groupId="framework"
+    values={[
+      { label: 'React', value: 'react' },
+      { label: 'Solid', value: 'solid' },
+    ]}
+    className="docs-tabs"
+  >
+    <Tab value="react">
+
+```tsx pure file="../../../src/components/examples/input/as-child.tsx"
 ```
-</PreviewFrame>
+
+    </Tab>
+    <Tab value="solid">
+
+<CodeBlockRuntime lang="tsx" code={inputSolidAsChild} />
+
+    </Tab>
+  </Tabs>
+
+**Styles**
+
+```css file="../../../src/components/examples/input/input-as-child.module.css"
+```
+</div>
+
+</ExampleCode>
 
 ## Styles
+
+Utilisez `className` dans React ou `class` dans Solid sur `Input`. Les variantes CSS Modules
+exposent les variables ci-dessous, tandis que les variantes Tailwind utilisent les classes utilitaires
+natives et les classes du consommateur. Pour les états du champ, utilisez les attributs de données
+partagés et les sélecteurs d’état natifs.
 
 ### Propriétés CSS
 

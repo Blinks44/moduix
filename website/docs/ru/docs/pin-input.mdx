@@ -4,7 +4,25 @@ component: pin-input
 description: Компонент для ввода коротких PIN-кодов и кодов подтверждения по отдельным ячейкам, с автоматическим переводом фокуса и поддержкой OTP.
 ---
 
-import * as PinInputDocs from '@/components/examples/pin-input';
+import * as PinInputDocs from '@/components/examples/pin-input/css-properties';
+import PinInputBasic from '@/components/examples/pin-input/basic.tsx';
+import PinInputBlurOnComplete from '@/components/examples/pin-input/blur-on-complete.tsx';
+import PinInputChangeEvents from '@/components/examples/pin-input/change-events.tsx';
+import PinInputField from '@/components/examples/pin-input/field.tsx';
+import PinInputGroupedLayout from '@/components/examples/pin-input/grouped-layout.tsx';
+import PinInputMasking from '@/components/examples/pin-input/masking.tsx';
+import PinInputOtpMode from '@/components/examples/pin-input/otp-mode.tsx';
+import PinInputPlaceholder from '@/components/examples/pin-input/placeholder.tsx';
+import PinInputRootProvider from '@/components/examples/pin-input/root-provider.tsx';
+import pinInputSolidBasic from '../../../snippets/pin-input/solid/basic.tsx?raw';
+import pinInputSolidBlurOnComplete from '../../../snippets/pin-input/solid/blur-on-complete.tsx?raw';
+import pinInputSolidChangeEvents from '../../../snippets/pin-input/solid/change-events.tsx?raw';
+import pinInputSolidField from '../../../snippets/pin-input/solid/field.tsx?raw';
+import pinInputSolidGroupedLayout from '../../../snippets/pin-input/solid/grouped-layout.tsx?raw';
+import pinInputSolidMasking from '../../../snippets/pin-input/solid/masking.tsx?raw';
+import pinInputSolidOtpMode from '../../../snippets/pin-input/solid/otp-mode.tsx?raw';
+import pinInputSolidPlaceholder from '../../../snippets/pin-input/solid/placeholder.tsx?raw';
+import pinInputSolidRootProvider from '../../../snippets/pin-input/solid/root-provider.tsx?raw';
 
 ## Справочник API
 
@@ -20,19 +38,70 @@ import * as PinInputDocs from '@/components/examples/pin-input';
 
 ## Базовый пример
 
-Для стандартной разметки используйте `<PinInput>`. Это сокращённая запись `<PinInput.Root>`. Явно задайте
-`count`, чтобы SSR-разметка и ARIA-атрибуты были предсказуемыми.
+PinInput доступен для React и Solid в пакетах с CSS Modules и в вариантах на Tailwind. Интерактивное превью на
+этой странице использует React и CSS Modules, а вкладки показывают нативный исходный код с тем же публичным
+контрактом. Настройку пакета и выбор способа стилизации см. в [Quick Start](/docs/quick-start).
 
-moduix автоматически добавляет в корневой элемент скрытое нативное поле формы. Передайте `name`, чтобы значение
-попало в отправляемую форму. Если компонент находится вне дерева этой формы, укажите также `form`.
+Используйте `PinInput` как корневой компонент и явно задайте `count`. Добавьте `Label` для доступного имени,
+поместите `Inputs` внутрь `Control` и явно добавьте `HiddenInput`, если значение должно участвовать в работе
+нативной формы.
 
-```tsx preview file="../../en/docs/_snippets/pin-input/basic.tsx"
+<ExampleFrame variant="component">
+  <PinInputBasic />
+</ExampleFrame>
 
+<ExampleCode>
+<div className="docs-reference">
+  <Tabs
+    groupId="framework"
+    values={[
+      { label: 'React', value: 'react' },
+      { label: 'Solid', value: 'solid' },
+    ]}
+    className="docs-tabs"
+  >
+    <Tab value="react">
+
+```tsx pure file="../../../src/components/examples/pin-input/basic.tsx"
 ```
+
+    </Tab>
+    <Tab value="solid">
+
+<CodeBlockRuntime lang="tsx" code={pinInputSolidBasic} />
+
+    </Tab>
+  </Tabs>
+</div>
+
+</ExampleCode>
 
 ## Установка через shadcn
 
-<ShadcnInstall packageName="pin-input" />
+Полную настройку пакета, реестра и стилей см. в разделе [Быстрый старт](/docs/quick-start).
+
+<Tabs groupId="framework">
+  <Tab label="React" value="react">
+
+<ShadcnInstallOptions
+  options={[
+    { label: 'CSS Modules', command: 'shadcn@latest add @moduix-react/pin-input' },
+    { label: 'Tailwind CSS', command: 'shadcn@latest add @moduix-react-tailwind/pin-input' },
+  ]}
+/>
+
+  </Tab>
+  <Tab label="Solid" value="solid">
+
+<ShadcnInstallOptions
+  options={[
+    { label: 'CSS Modules', command: 'shadcn@latest add @moduix-solid/pin-input' },
+    { label: 'Tailwind CSS', command: 'shadcn@latest add @moduix-solid-tailwind/pin-input' },
+  ]}
+/>
+
+  </Tab>
+</Tabs>
 
 ## Анатомия
 
@@ -43,72 +112,37 @@ PinInput / PinInput.Root
 │  ├─ PinInput.Input[index=0]
 │  ├─ PinInput.Input[index=1]
 │  └─ PinInput.Input[index=2]
-└─ скрытое нативное поле (добавляется автоматически)
+└─ PinInput.HiddenInput (явно)
+
+PinInput.RootProvider
+└─ то же дерево частей, связанное с состоянием usePinInput()
 ```
 
-| Часть                                  | Назначение                                                                                         |
-| -------------------------------------- | --------------------------------------------------------------------------------------------------- |
-| `PinInput` / `PinInput.Root`           | Корневой компонент и машина состояний: количество ячеек, массив значений, проверка и параметры формы. |
-| `PinInput.RootProvider`                | Создаёт дерево компонента на основе состояния, возвращённого `usePinInput`.                         |
-| `PinInput.Context`                     | Передаёт потомкам состояние корневого элемента через render prop.                                  |
-| `PinInput.Label`                       | Подпись группы для ввода PIN-кода или кода подтверждения.                                          |
-| `PinInput.Control`                     | Контейнер видимых полей с индексами.                                                               |
-| `PinInput.Input`                       | Одна видимая ячейка для символа. Передайте индекс `index`, начиная с нуля.                         |
-| `PinInput.Inputs`                      | Создаёт по одному `Input` с индексом для каждой ячейки контекста Ark. Его `className` передаётся каждой ячейке. |
-| `PinInput.Separator`                   | Декоративный вспомогательный компонент moduix для группировки. Это не часть примитива Ark.         |
-| `usePinInput`                          | Создаёт состояние для `PinInput.RootProvider`.                                                     |
-| `usePinInputContext`                    | Читает текущее состояние Pin Input внутри дерева компонента.                                      |
+| Часть | Назначение |
+| --- | --- |
+| `PinInput` / `PinInput.Root` | Управляет количеством ячеек, состоянием значения, проверкой и параметрами формы. |
+| `PinInput.HiddenInput` | Нативное поле Ark, которое нужно добавлять явно. |
+| `PinInput.RootProvider` | Подключает части к состоянию, созданному через `usePinInput()`. |
+| `PinInput.Context` | Передаёт текущее состояние корневого компонента потомкам через render prop. |
+| `PinInput.Label` | Задаёт подпись для группы PIN-кода или кода подтверждения. |
+| `PinInput.Control` | Контейнер видимых ячеек с индексами. |
+| `PinInput.Input` | Одна видимая ячейка для символа. Передайте индекс, начиная с нуля. |
+| `PinInput.Inputs` | Создаёт по одному `Input` с индексом для каждой ячейки контекста Ark. |
+| `PinInput.Separator` | Декоративный вспомогательный компонент moduix для группировки, а не часть примитива Ark. |
+| `usePinInput` | Создаёт состояние для `PinInput.RootProvider`. |
+| `usePinInputContext` | Читает текущее состояние Pin Input внутри дерева компонента. |
 
 ## Композиция
 
-### Рекомендуемая композиция
+Явно добавьте `PinInput.HiddenInput` внутрь `PinInput` или `PinInput.RootProvider`, если значение должно
+отправляться с нативной формой и сбрасываться вместе с ней. Задайте корню `name`, а `form` используйте, если
+форма находится вне дерева компонента.
 
-Используйте компактную форму `<PinInput>`, добавьте видимую `Label` и поместите `Inputs` внутрь `Control`.
-Передайте `name`, если код должен отправляться вместе с формой.
-
-### Когда нужна собственная композиция
-
-Явно добавьте части `Input` с индексами и `Separator`, если код нужно разделить на группы или отдельным
-ячейкам требуются разные свойства. Используйте `PinInput.RootProvider` и `usePinInput`, когда состояние нужно
-создать за пределами дерева компонентов. Индексы должны начинаться с нуля и идти непрерывно во всей композиции.
-
-### Свойства по умолчанию
-
-| Свойство         | По умолчанию    | Примечания                                                                                     |
-| ---------------- | --------------- | ----------------------------------------------------------------------------------------------- |
-| `count`          | -               | Количество ячеек. Указывайте явно для предсказуемой SSR-разметки и ARIA-атрибутов.              |
-| `type`           | `numeric`       | `numeric`, `alphabetic` или `alphanumeric`.                                                      |
-| `placeholder`    | `''` в moduix   | В Ark по умолчанию отображается `○`, а moduix использует пустую строку, пока свойство не задано. |
-| `otp`            | `false`         | Добавляет `autocomplete="one-time-code"` видимым полям.                                         |
-| `mask`           | `false`         | Скрывает введённые символы, как поле с `type="password"`.                                      |
-| `blurOnComplete` | `false`         | Убирает фокус с последнего поля после заполнения всех ячеек.                                    |
-| `selectOnFocus`  | -               | Выделяет текущее значение при получении фокуса.                                                 |
-| `autoFocus`      | -               | Переводит фокус в первую ячейку при монтировании компонента.                                    |
-| `autoSubmit`     | -               | Отправляет связанную форму после заполнения всех ячеек.                                         |
-| `pattern`        | -               | Пользовательское регулярное выражение для допустимых символов.                                  |
-| `sanitizeValue`  | -               | Очищает вставленное значение до проверки, например удаляет пробелы или дефисы.                 |
-| `defaultValue`   | `[]`            | Начальное значение для неконтролируемого режима, массив строк.                                  |
-| `value`          | -               | Управляемое значение, массив строк.                                                             |
-
-### Особенности поведения
-
-`value` и `defaultValue` принимают массивы строк. Колбэки `onValueChange(details)` и `onValueComplete(details)`
-передают `details.value` и `details.valueAsString`. Колбэк `onValueInvalid(details)` передаёт отклонённое значение
-в `details.value` и его индекс `details.index`.
-
-Используйте `type` для встроенных наборов допустимых символов, а `pattern` для собственного регулярного выражения.
-`sanitizeValue` получает вставленный текст и возвращает значение, которое нужно проверить.
-
-`Field.Root` и `Fieldset.Root` могут передавать через контекст Ark состояния `disabled`, `invalid`, `required` и
-`readOnly`. Передавайте в `PinInput` корневые свойства, например `name`, `form`, `ids` и `translations`. Корневой
-элемент и его части поддерживают `asChild`.
-
-Передайте `className` в `PinInput.Inputs`, если всем созданным ячейкам нужен один класс. Используйте явные части
-`Input`, если для отдельных ячеек нужны разные свойства или стили.
-
-Включайте `autoSubmit` только тогда, когда завершение ввода должно отправлять связанную форму. Компонент использует
-клавиатурное поведение Ark: клавиши со стрелками перемещают фокус между ячейками, Backspace очищает ячейку и при
-необходимости возвращает фокус назад, Delete очищает текущую ячейку, а вставка заполняет оставшиеся ячейки.
+`PinInput.Inputs` создаёт по одной индексированной ячейке для каждого элемента контекста Ark. Используйте явные
+части `Input` с непрерывными индексами от нуля и `Separator`, если код нужно разделить на группы. Значения
+представлены массивом строк. Используйте `RootProvider` с `usePinInput`, когда состоянием или императивными
+методами нужно управлять за пределами дерева компонентов. В React передаётся объект состояния, а в Solid
+реактивный accessor.
 
 ## Примеры
 
@@ -116,73 +150,269 @@ PinInput / PinInput.Root
 
 Укажите `blurOnComplete`, если после заполнения всех ячеек фокус должен покинуть последнее поле.
 
-```tsx preview file="../../en/docs/_snippets/pin-input/blur-on-complete.tsx"
+<ExampleFrame variant="component">
+  <PinInputBlurOnComplete />
+</ExampleFrame>
 
+<ExampleCode>
+<div className="docs-reference">
+  <Tabs
+    groupId="framework"
+    values={[{ label: 'React', value: 'react' }, { label: 'Solid', value: 'solid' }]}
+    className="docs-tabs"
+  >
+    <Tab value="react">
+
+```tsx pure file="../../../src/components/examples/pin-input/blur-on-complete.tsx"
 ```
+
+    </Tab>
+    <Tab value="solid">
+
+<CodeBlockRuntime lang="tsx" code={pinInputSolidBlurOnComplete} />
+
+    </Tab>
+  </Tabs>
+</div>
+
+</ExampleCode>
 
 ### События изменения
 
-Храните массив значений в состоянии React и читайте `details.value` или `details.valueAsString` из колбэков Ark.
+Храните массив значений в состоянии и читайте `details.value` или `details.valueAsString` из колбэков Ark.
 
-```tsx preview file="../../en/docs/_snippets/pin-input/change-events.tsx"
+<ExampleFrame variant="component">
+  <PinInputChangeEvents />
+</ExampleFrame>
 
+<ExampleCode>
+<div className="docs-reference">
+  <Tabs
+    groupId="framework"
+    values={[{ label: 'React', value: 'react' }, { label: 'Solid', value: 'solid' }]}
+    className="docs-tabs"
+  >
+    <Tab value="react">
+
+```tsx pure file="../../../src/components/examples/pin-input/change-events.tsx"
 ```
+
+    </Tab>
+    <Tab value="solid">
+
+<CodeBlockRuntime lang="tsx" code={pinInputSolidChangeEvents} />
+
+    </Tab>
+  </Tabs>
+
+**Стили**
+
+```css file="../../../src/components/examples/pin-input/pin-input-change-events.module.css"
+```
+</div>
+
+</ExampleCode>
 
 ### Field
 
 Поместите `PinInput` внутрь `Field`, если подпись, вспомогательный текст, сообщение об ошибке и состояние поля
-должны быть связаны с видимыми ячейками благодаря механизмам доступности Ark для форм.
+должны быть связаны с видимыми ячейками механизмами доступности Ark для форм.
 
-<PreviewFrame contentWidth="fit-content" maxWidth="sm">
-  ```tsx preview file="../../en/docs/_snippets/pin-input/field.tsx"
+<ExampleFrame variant="component">
+  <PinInputField />
+</ExampleFrame>
 
-  ```
+<ExampleCode>
+<div className="docs-reference">
+  <Tabs
+    groupId="framework"
+    values={[{ label: 'React', value: 'react' }, { label: 'Solid', value: 'solid' }]}
+    className="docs-tabs"
+  >
+    <Tab value="react">
 
-</PreviewFrame>
+```tsx pure file="../../../src/components/examples/pin-input/field.tsx"
+```
+
+    </Tab>
+    <Tab value="solid">
+
+<CodeBlockRuntime lang="tsx" code={pinInputSolidField} />
+
+    </Tab>
+  </Tabs>
+
+**Стили**
+
+```css file="../../../src/components/examples/pin-input/pin-input-field.module.css"
+```
+</div>
+
+</ExampleCode>
 
 ### Сгруппированная раскладка
 
-Используйте явные части `Input` с индексами, если разделитель должен разделить код на группы. Сохраняйте
-непрерывную последовательность индексов, даже если поля отображаются в разных группах.
+Используйте явные части `Input` с `Separator`, если разделитель должен разделить код на группы. Индексы должны
+идти непрерывно во всей композиции.
 
-```tsx preview file="../../en/docs/_snippets/pin-input/grouped-layout.tsx"
+<ExampleFrame variant="component">
+  <PinInputGroupedLayout />
+</ExampleFrame>
 
+<ExampleCode>
+<div className="docs-reference">
+  <Tabs
+    groupId="framework"
+    values={[{ label: 'React', value: 'react' }, { label: 'Solid', value: 'solid' }]}
+    className="docs-tabs"
+  >
+    <Tab value="react">
+
+```tsx pure file="../../../src/components/examples/pin-input/grouped-layout.tsx"
 ```
+
+    </Tab>
+    <Tab value="solid">
+
+<CodeBlockRuntime lang="tsx" code={pinInputSolidGroupedLayout} />
+
+    </Tab>
+  </Tabs>
+</div>
+
+</ExampleCode>
 
 ### Маскирование
 
 Включите `mask`, если введённый код нельзя показывать открыто.
 
-```tsx preview file="../../en/docs/_snippets/pin-input/masking.tsx"
+<ExampleFrame variant="component">
+  <PinInputMasking />
+</ExampleFrame>
 
+<ExampleCode>
+<div className="docs-reference">
+  <Tabs
+    groupId="framework"
+    values={[{ label: 'React', value: 'react' }, { label: 'Solid', value: 'solid' }]}
+    className="docs-tabs"
+  >
+    <Tab value="react">
+
+```tsx pure file="../../../src/components/examples/pin-input/masking.tsx"
 ```
+
+    </Tab>
+    <Tab value="solid">
+
+<CodeBlockRuntime lang="tsx" code={pinInputSolidMasking} />
+
+    </Tab>
+  </Tabs>
+</div>
+
+</ExampleCode>
 
 ### Режим OTP
 
 Включите `otp`, чтобы добавить видимым полям `autocomplete="one-time-code"` и включить подсказки одноразовых
 кодов в поддерживаемых мобильных браузерах.
 
-```tsx preview file="../../en/docs/_snippets/pin-input/otp-mode.tsx"
+<ExampleFrame variant="component">
+  <PinInputOtpMode />
+</ExampleFrame>
 
+<ExampleCode>
+<div className="docs-reference">
+  <Tabs
+    groupId="framework"
+    values={[{ label: 'React', value: 'react' }, { label: 'Solid', value: 'solid' }]}
+    className="docs-tabs"
+  >
+    <Tab value="react">
+
+```tsx pure file="../../../src/components/examples/pin-input/otp-mode.tsx"
 ```
+
+    </Tab>
+    <Tab value="solid">
+
+<CodeBlockRuntime lang="tsx" code={pinInputSolidOtpMode} />
+
+    </Tab>
+  </Tabs>
+</div>
+
+</ExampleCode>
 
 ### Символ-заполнитель
 
 Передайте `placeholder`, чтобы показывать символ в каждой пустой ячейке. По умолчанию moduix оставляет заполнитель
 пустым.
 
-```tsx preview file="../../en/docs/_snippets/pin-input/placeholder.tsx"
+<ExampleFrame variant="component">
+  <PinInputPlaceholder />
+</ExampleFrame>
 
+<ExampleCode>
+<div className="docs-reference">
+  <Tabs
+    groupId="framework"
+    values={[{ label: 'React', value: 'react' }, { label: 'Solid', value: 'solid' }]}
+    className="docs-tabs"
+  >
+    <Tab value="react">
+
+```tsx pure file="../../../src/components/examples/pin-input/placeholder.tsx"
 ```
+
+    </Tab>
+    <Tab value="solid">
+
+<CodeBlockRuntime lang="tsx" code={pinInputSolidPlaceholder} />
+
+    </Tab>
+  </Tabs>
+</div>
+
+</ExampleCode>
 
 ### Расширенная настройка
 
 Используйте `usePinInput` с `RootProvider`, когда состоянием и императивными методами нужно управлять за пределами
 дерева компонентов. В этом примере `Inputs` заменён явными частями `Input` с индексами.
 
-```tsx preview file="../../en/docs/_snippets/pin-input/root-provider.tsx"
+<ExampleFrame variant="component">
+  <PinInputRootProvider />
+</ExampleFrame>
 
+<ExampleCode>
+<div className="docs-reference">
+  <Tabs
+    groupId="framework"
+    values={[{ label: 'React', value: 'react' }, { label: 'Solid', value: 'solid' }]}
+    className="docs-tabs"
+  >
+    <Tab value="react">
+
+```tsx pure file="../../../src/components/examples/pin-input/root-provider.tsx"
 ```
+
+    </Tab>
+    <Tab value="solid">
+
+<CodeBlockRuntime lang="tsx" code={pinInputSolidRootProvider} />
+
+    </Tab>
+  </Tabs>
+
+**Стили**
+
+```css file="../../../src/components/examples/pin-input/pin-input-root-provider.module.css"
+```
+</div>
+
+</ExampleCode>
 
 ## Доступность
 
@@ -191,9 +421,6 @@ Ark управляет переводом фокуса, распределени
 
 `PinInput.Separator` по умолчанию является декоративным и получает `aria-hidden` и `role="presentation"`. Не
 размещайте внутри него содержательный текст.
-
-Для отправки значения в нативную форму передайте корневому элементу `name`. Используйте также `form`, если форма
-находится в другом месте документа. Корневой элемент автоматически добавляет скрытое нативное поле.
 
 ## Стилизация
 
@@ -211,14 +438,16 @@ Ark управляет переводом фокуса, распределени
   </Tabs>
 </div>
 
+Пакеты с CSS Modules предоставляют описанные выше публичные переменные. В Tailwind-вариантах используются
+нативные utility-классы и пользовательские переопределения через `className` или `class`.
+
 ### Хуки стилизации
 
 - Корневой элемент и `RootProvider` имеют `data-slot="pin-input-root"` и `data-slot="pin-input-root-provider"`.
-- `Label`, `Control`, `Input` и скрытое поле имеют `data-slot="pin-input-label"`,
-  `data-slot="pin-input-control"`, `data-slot="pin-input-input"` и `data-slot="pin-input-hidden-input"`.
+- `Label`, `Control` и `Input` имеют `data-slot="pin-input-label"`, `data-slot="pin-input-control"` и
+  `data-slot="pin-input-input"`.
 - Части Ark используют `data-scope="pin-input"` и `data-part="root" | "label" | "control" | "input"`.
-- Для стилизации состояния корневого элемента используются `data-disabled`, `data-invalid`, `data-complete` и
-  `data-readonly`.
-- Для стилизации состояния ячейки используются `data-disabled`, `data-invalid`, `data-complete`, `data-filled` и
+- Для стилей состояния корня используются `data-disabled`, `data-invalid`, `data-complete` и `data-readonly`.
+- Для стилей состояния ячейки используются `data-disabled`, `data-invalid`, `data-complete`, `data-filled` и
   `data-index`.
 - `PinInput.Separator` имеет `data-slot="pin-input-separator"` и по умолчанию является декоративным.

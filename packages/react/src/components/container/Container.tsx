@@ -2,7 +2,6 @@ import type { HTMLArkProps } from '@ark-ui/react/factory';
 import { ark } from '@ark-ui/react/factory';
 import { clsx } from 'clsx';
 import { forwardRef } from 'react';
-import { normalizeClassName } from '@/lib/moduix/normalizeClassName';
 import styles from './Container.module.css';
 
 type ContainerSize = 'xs' | 'sm' | 'md' | 'lg' | 'xl' | 'full';
@@ -26,7 +25,7 @@ const ContainerRoot = forwardRef<HTMLDivElement, ContainerRootProps>(function Co
       data-slot="container-root"
       data-size={size}
       data-gutter={gutter}
-      className={clsx(styles.root, normalizeClassName(className))}
+      className={clsx(styles.root, className)}
     />
   );
 });

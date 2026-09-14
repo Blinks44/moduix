@@ -1,0 +1,42 @@
+.row {
+  display: flex;
+  align-items: center;
+  gap: var(--moduix-spacing-2);
+}
+
+.stack {
+  display: flex;
+  flex-direction: column;
+  align-items: flex-start;
+  gap: var(--moduix-spacing-3);
+}
+
+.hint {
+  color: var(--moduix-color-muted-foreground);
+  font-size: var(--moduix-text-xs);
+  line-height: var(--moduix-line-height-text-xs);
+}
+
+.underline {
+  text-decoration: underline;
+}
+
+.customGroup {
+  --moduix-toggle-group-bg: color-mix(in oklab, var(--moduix-color-primary) 8%, transparent);
+  --moduix-toggle-group-border-color: color-mix(
+    in oklab,
+    var(--moduix-color-primary) 38%,
+    var(--moduix-color-border)
+  );
+  --moduix-toggle-group-gap: var(--moduix-spacing-1);
+  --moduix-toggle-group-padding: var(--moduix-spacing-1);
+  --moduix-toggle-group-radius: var(--moduix-radius-md);
+  --moduix-toggle-default-bg-pressed: var(--moduix-color-primary);
+  --moduix-toggle-default-border-color-pressed: var(--moduix-color-primary);
+  --moduix-toggle-default-color-pressed: var(--moduix-color-primary-foreground);
+}
+
+.customItem {
+  --moduix-toggle-group-item-radius: var(--moduix-radius-sm);
+  --moduix-toggle-padding-x-md: var(--moduix-spacing-3);
+}

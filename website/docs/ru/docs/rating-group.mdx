@@ -4,9 +4,27 @@ component: rating-group
 description: Компонент для выбора оценки в виде набора звёзд на основе примитива rating-group из Ark UI.
 ---
 
-import * as RatingGroupDocs from '@/components/examples/rating-group';
+import * as RatingGroupDocs from '@/components/examples/rating-group/css-properties';
+import RatingGroupBasic from '@/components/examples/rating-group/basic.tsx';
+import RatingGroupControlled from '@/components/examples/rating-group/controlled.tsx';
+import RatingGroupCustomIcon from '@/components/examples/rating-group/custom-icon.tsx';
+import RatingGroupDisabledAndReadonly from '@/components/examples/rating-group/disabled-and-readonly.tsx';
+import RatingGroupField from '@/components/examples/rating-group/field.tsx';
+import RatingGroupForms from '@/components/examples/rating-group/forms.tsx';
+import RatingGroupHalfRating from '@/components/examples/rating-group/half-rating.tsx';
+import RatingGroupSizes from '@/components/examples/rating-group/sizes.tsx';
+import RatingGroupAdvancedCustomization from '@/components/examples/rating-group/advanced-customization.tsx';
+import ratingGroupSolidAdvancedCustomization from '../../../snippets/rating-group/solid/advanced-customization.tsx?raw';
+import ratingGroupSolidBasic from '../../../snippets/rating-group/solid/basic.tsx?raw';
+import ratingGroupSolidControlled from '../../../snippets/rating-group/solid/controlled.tsx?raw';
+import ratingGroupSolidCustomIcon from '../../../snippets/rating-group/solid/custom-icon.tsx?raw';
+import ratingGroupSolidDisabledAndReadonly from '../../../snippets/rating-group/solid/disabled-and-readonly.tsx?raw';
+import ratingGroupSolidField from '../../../snippets/rating-group/solid/field.tsx?raw';
+import ratingGroupSolidForms from '../../../snippets/rating-group/solid/forms.tsx?raw';
+import ratingGroupSolidHalfRating from '../../../snippets/rating-group/solid/half-rating.tsx?raw';
+import ratingGroupSolidSizes from '../../../snippets/rating-group/solid/sizes.tsx?raw';
 
-Используйте `RatingGroup`, когда пользователю нужно выбрать числовую оценку с помощью ряда звёзд или других одинаковых значков.
+Используйте `RatingGroup`, когда пользователю нужно выбрать числовую оценку в ряду звёзд или других повторяющихся значков.
 
 ## Справочник API
 
@@ -14,20 +32,67 @@ import * as RatingGroupDocs from '@/components/examples/rating-group';
 
 ## Базовый пример
 
-В обычном случае используйте сокращённую форму корневого компонента с `RatingGroup.Label`,
-`RatingGroup.Control` и `RatingGroup.Items`.
+`RatingGroup` доступен для React и Solid как в пакетах с CSS Modules, так и в вариантах на
+Tailwind. Предпросмотр на этой странице использует пакет React с CSS Modules, а вкладки с кодом
+показывают нативный исходный код для того же публичного контракта.
 
-<style>{RatingGroupDocs.ratingGroupExampleCss}</style>
+Используйте `RatingGroup` как корневой компонент и добавьте `RatingGroup.Label`,
+`RatingGroup.Control` и `RatingGroup.Items` для стандартного рейтинга со звёздами. Если значение
+должно отправляться нативной формой, явно добавьте `RatingGroup.HiddenInput`.
 
-<PreviewFrame contentWidth="fit-content" maxWidth="sm">
-  ```tsx preview file="../../en/docs/_snippets/rating-group/basic.tsx"
+<ExampleFrame variant="component">
+  <RatingGroupBasic />
+</ExampleFrame>
 
-  ```
-</PreviewFrame>
+<ExampleCode>
+<div className="docs-reference">
+  <Tabs
+    groupId="framework"
+    values={[{ label: 'React', value: 'react' }, { label: 'Solid', value: 'solid' }]}
+    className="docs-tabs"
+  >
+    <Tab value="react">
+
+```tsx pure file="../../../src/components/examples/rating-group/basic.tsx"
+```
+
+    </Tab>
+    <Tab value="solid">
+
+<CodeBlockRuntime lang="tsx" code={ratingGroupSolidBasic} />
+
+    </Tab>
+  </Tabs>
+</div>
+
+</ExampleCode>
 
 ## Установка через shadcn
 
-<ShadcnInstall packageName="rating-group" />
+Полную настройку пакета, реестра и стилей см. в разделе [Быстрый старт](/docs/quick-start).
+
+<Tabs groupId="framework">
+  <Tab label="React" value="react">
+
+<ShadcnInstallOptions
+  options={[
+    { label: 'CSS Modules', command: 'shadcn@latest add @moduix-react/rating-group' },
+    { label: 'Tailwind CSS', command: 'shadcn@latest add @moduix-react-tailwind/rating-group' },
+  ]}
+/>
+
+  </Tab>
+  <Tab label="Solid" value="solid">
+
+<ShadcnInstallOptions
+  options={[
+    { label: 'CSS Modules', command: 'shadcn@latest add @moduix-solid/rating-group' },
+    { label: 'Tailwind CSS', command: 'shadcn@latest add @moduix-solid-tailwind/rating-group' },
+  ]}
+/>
+
+  </Tab>
+</Tabs>
 
 ## Анатомия
 
@@ -35,196 +100,346 @@ import * as RatingGroupDocs from '@/components/examples/rating-group';
 RatingGroup / RatingGroup.Root
 ├─ RatingGroup.Label
 └─ RatingGroup.Control
-   ├─ RatingGroup.Items (рекомендуемый вариант)
+   ├─ RatingGroup.Items
    │  └─ RatingGroup.Item[index]
    │     └─ RatingGroup.ItemIndicator
-   ├─ RatingGroup.Context (расширенный вариант, необязательно)
+   ├─ RatingGroup.Context
    │  └─ RatingGroup.Item[index]
    │     └─ RatingGroup.ItemIndicator
-   └─ скрытое нативное поле формы (добавляется автоматически)
+   └─ RatingGroup.HiddenInput (явно)
 
 RatingGroup.RootProvider
-└─ та же структура, подключённая к состоянию moduix из useRatingGroup()
+└─ то же дерево частей, подключённое к состоянию moduix из useRatingGroup()
 ```
 
-| Часть                               | Назначение                                                     |
-| ---------------------------------- | -------------------------------------------------------------- |
+| Часть                               | Назначение                                                        |
+| ---------------------------------- | ----------------------------------------------------------------- |
 | `RatingGroup` / `RatingGroup.Root` | Хранит состояние оценки, управляет клавиатурной навигацией, фокусом и интеграцией с формами. |
-| `RatingGroup.RootProvider`         | Подключает части к состоянию, созданному через `useRatingGroup()`.                         |
-| `RatingGroup.Context`              | Даёт доступ к текущему состоянию корня через render prop.                                  |
-| `RatingGroup.ItemContext`          | Даёт доступ к текущему состоянию элемента через render prop.                               |
-| `RatingGroup.Label`                | Доступная подпись группы рейтинга.                                                         |
-| `RatingGroup.Control`              | Объединяет интерактивные элементы рейтинга.                                                |
-| `RatingGroup.Items`                | Создаёт элементы для каждого значения и добавляет звезду по умолчанию.                     |
-| `RatingGroup.Item`                 | Один выбираемый элемент рейтинга; требует числовой `index`.                                |
-| `RatingGroup.ItemIndicator`        | Стандартный визуальный индикатор moduix, который учитывает состояние элемента.             |
+| `RatingGroup.HiddenInput`          | Нативное поле Ark, которое нужно добавить явно.                  |
+| `RatingGroup.RootProvider`          | Подключает части к состоянию, созданному с помощью `useRatingGroup()`. |
+| `RatingGroup.Context`               | Даёт доступ к текущему состоянию корня через render prop.        |
+| `RatingGroup.ItemContext`           | Даёт доступ к текущему состоянию элемента через render prop.     |
+| `RatingGroup.Label`                 | Доступная подпись группы рейтинга.                                |
+| `RatingGroup.Control`               | Объединяет интерактивные элементы рейтинга.                       |
+| `RatingGroup.Items`                 | Создаёт элемент для каждого значения и добавляет звезду по умолчанию. |
+| `RatingGroup.Item`                  | Один выбираемый элемент рейтинга, которому нужен числовой `index`. |
+| `RatingGroup.ItemIndicator`         | Стандартный визуальный индикатор moduix для элемента.             |
 
 ## Композиция
 
-### Рекомендуемая композиция
+Используйте `RatingGroup.Items` для стандартного дерева элементов, создаваемого автоматически. Чтобы
+заменить повторяющийся значок, передайте свой `RatingGroup.ItemIndicator` дочерним элементом. После
+`Items` компонент не добавляет `RatingGroup.HiddenInput` автоматически, поэтому разместите его явно
+внутри корневого компонента или `RatingGroup.RootProvider`; задайте `name` на корне, если значение
+должно отправляться нативной формой.
 
-`RatingGroup` - сокращённая форма `RatingGroup.Root`. Компонент хранит состояние оценки, управляет
-фокусом, подписями и интеграцией с формами, а также обрабатывает взаимодействие с клавиатурой и указателем. Для стандартного ряда звёзд
-добавьте `RatingGroup.Items`: он создаёт элемент для каждого значения до `count` и добавляет звезду
-по умолчанию. Корневой компонент также автоматически добавляет синхронизированное нативное поле
-формы. Чтобы заменить значок, сохранив прежнее поведение, передайте свой
-`RatingGroup.ItemIndicator` дочерним элементом `RatingGroup.Items`.
-
-### Когда нужна собственная композиция
-
-Используйте `RatingGroup.Context` или `RatingGroup.ItemContext`, когда нужно вывести собственное
-дерево элементов или построить визуальное представление на основе состояния корня или элемента.
-В пользовательском компоненте для доступа к этому состоянию используйте
-`useRatingGroupContext()` или `useRatingGroupItemContext()` из `@moduix/react`. Используйте
-`RatingGroup.RootProvider` с `useRatingGroup()`, когда состояние рейтинга нужно создать вне
-отрисовываемого дерева.
-
-DOM-части Ark, доступные через компонент, поддерживают `asChild`. Оставляйте непосредственный
-дочерний элемент единственным семантическим элементом, способным сохранить фокус и взаимодействие
-этой части. `RatingGroup.ItemIndicator` - удобная визуальная обёртка moduix, а не замена DOM-части Ark.
-
-### Свойства по умолчанию
-
-| Элемент                       | По умолчанию | Примечания                                               |
-| ----------------------------- | ------------ | -------------------------------------------------------- |
-| `count`                       | `5`          | Количество элементов рейтинга.                           |
-| `size`                        | `md`         | Размер moduix: `xs`, `sm`, `md`, `lg` или `xl`.          |
-| `RatingGroup.Items`           | -            | Создаёт элементы от `1` до `count`.                      |
-| `RatingGroup.ItemIndicator`   | звезда       | По умолчанию показывает две наложенные звёзды: фоновую и активную. |
-
-### Особенности поведения
-
-- `value` и `defaultValue` - числа. Используйте `defaultValue` для неконтролируемого рейтинга.
-- `onValueChange(details)` получает детали Ark; выбранное значение находится в `details.value`.
-- `onHoverChange(details)` получает детали наведения Ark; их можно использовать для предпросмотра и
-  связанного интерфейса.
-- `allowHalf` включает выбор с шагом в половину и отображение половины звезды.
-- `autoFocus` переводит фокус на рейтинг сразу после монтирования.
-- `name`, `form` и `required` применяются к нативному полю формы, которое корневой компонент
-  добавляет автоматически.
-- Ark обрабатывает `disabled` и `readOnly` и отражает эти состояния через атрибуты данных.
-- Ark управляет клавиатурной навигацией: `ArrowRight` и `ArrowLeft` перемещают фокус между
-  элементами, а `Enter` выбирает элемент в фокусе. При `allowHalf` стрелки также перемещают фокус
-  с шагом в половину.
-- Используйте `ids`, чтобы задавать предсказуемые идентификаторы для составной разметки, а
-  `translations` - чтобы переопределить локализованные сообщения Ark для доступности.
-
-У `Root`, `RootProvider`, `Label`, `Control` и `Item` ref указывает на соответствующую DOM-часть
-Ark. `ItemIndicator` передаёт ref своей визуальной обёртке.
+Для собственного дерева элементов используйте `RatingGroup.Context` вместе с `RatingGroup.Item`.
+Если хранилище нужно создать вне дерева, используйте `RatingGroup.RootProvider` и
+`useRatingGroup()`. В React состояние читается как объект, а в Solid реактивное состояние доступно
+через возвращаемую функцию.
 
 ## Примеры
 
 ### Управляемое состояние
 
-Используйте управляемый режим, если оценка зависит от другого состояния, влияет на соседний интерфейс
-или должна сбрасываться родителем.
+Используйте `value` вместе с `useState` в React или `createSignal` в Solid, когда оценка зависит от
+другого состояния, влияет на соседний интерфейс или должна сбрасываться родителем.
 
-<style>{RatingGroupDocs.ratingGroupExampleCss}</style>
+<ExampleFrame variant="component">
+  <RatingGroupControlled />
+</ExampleFrame>
 
-<PreviewFrame contentWidth="fit-content" maxWidth="sm">
-  ```tsx preview file="../../en/docs/_snippets/rating-group/controlled.tsx"
+<ExampleCode>
+<div className="docs-reference">
+  <Tabs
+    groupId="framework"
+    values={[{ label: 'React', value: 'react' }, { label: 'Solid', value: 'solid' }]}
+    className="docs-tabs"
+  >
+    <Tab value="react">
 
-  ```
-</PreviewFrame>
+```tsx pure file="../../../src/components/examples/rating-group/controlled.tsx"
+```
+
+    </Tab>
+    <Tab value="solid">
+
+<CodeBlockRuntime lang="tsx" code={ratingGroupSolidControlled} />
+
+    </Tab>
+  </Tabs>
+
+**Стили**
+
+```css file="../../../src/components/examples/rating-group/component-controlled.module.css"
+```
+</div>
+
+</ExampleCode>
 
 ### Пользовательский значок
 
-Передайте свой `RatingGroup.ItemIndicator` дочерним элементом `RatingGroup.Items`, если всем элементам
-нужен один и тот же значок. Индикатор сохраняет атрибуты состояния Ark `data-highlighted` и `data-half`,
-которые можно использовать для стилизации.
+Передайте свой `RatingGroup.ItemIndicator` дочерним элементом `RatingGroup.Items`, если всем
+элементам нужен один и тот же значок. Индикатор сохраняет атрибуты состояния Ark `data-highlighted`
+и `data-half`, которые можно использовать для стилизации.
 
-<style>{RatingGroupDocs.ratingGroupCustomIconCss}</style>
+<ExampleFrame variant="component">
+  <RatingGroupCustomIcon />
+</ExampleFrame>
 
-<PreviewFrame contentWidth="fit-content" maxWidth="sm">
-  ```tsx preview file="../../en/docs/_snippets/rating-group/custom-icon.tsx"
+<ExampleCode>
+<div className="docs-reference">
+  <Tabs
+    groupId="framework"
+    values={[{ label: 'React', value: 'react' }, { label: 'Solid', value: 'solid' }]}
+    className="docs-tabs"
+  >
+    <Tab value="react">
 
-  ```
-</PreviewFrame>
+```tsx pure file="../../../src/components/examples/rating-group/custom-icon.tsx"
+```
+
+    </Tab>
+    <Tab value="solid">
+
+<CodeBlockRuntime lang="tsx" code={ratingGroupSolidCustomIcon} />
+
+    </Tab>
+  </Tabs>
+
+**Стили**
+
+```css file="../../../src/components/examples/rating-group/component-custom-icon.module.css"
+```
+</div>
+
+</ExampleCode>
 
 ### Отключённое состояние и режим только для чтения
 
-Используйте `disabled`, чтобы отключить взаимодействие. Используйте `readOnly`, чтобы оставить оценку
-видимой, но запретить её изменение.
+Используйте `disabled`, чтобы отключить взаимодействие. Используйте `readOnly`, чтобы оставить
+оценку видимой, но запретить её изменение.
 
-<style>{RatingGroupDocs.ratingGroupExampleCss}</style>
+<ExampleFrame variant="component">
+  <RatingGroupDisabledAndReadonly />
+</ExampleFrame>
 
-<PreviewFrame contentWidth="fit-content" maxWidth="sm">
-  ```tsx preview file="../../en/docs/_snippets/rating-group/disabled-and-readonly.tsx"
+<ExampleCode>
+<div className="docs-reference">
+  <Tabs
+    groupId="framework"
+    values={[{ label: 'React', value: 'react' }, { label: 'Solid', value: 'solid' }]}
+    className="docs-tabs"
+  >
+    <Tab value="react">
 
-  ```
-</PreviewFrame>
+```tsx pure file="../../../src/components/examples/rating-group/disabled-and-readonly.tsx"
+```
+
+    </Tab>
+    <Tab value="solid">
+
+<CodeBlockRuntime lang="tsx" code={ratingGroupSolidDisabledAndReadonly} />
+
+    </Tab>
+  </Tabs>
+
+**Стили**
+
+```css file="../../../src/components/examples/rating-group/component-disabled-and-readonly.module.css"
+```
+</div>
+
+</ExampleCode>
 
 ### Field
 
-Оберните группу рейтинга в `Field`, если поясняющий текст или сообщение о валидации нужно связать с её
-автоматическим полем формы. Ark передаёт группе состояния `disabled`, `readOnly` и `required` от поля;
-состоянием валидации по-прежнему управляют `Field` и код приложения.
+Оберните рейтинг в `Field`, если текст подсказки или валидации должен быть связан с его
+`RatingGroup.HiddenInput`. Ark наследует от поля свойства `disabled`, `readOnly` и `required`, а
+состояние валидации по-прежнему принадлежит `Field` и коду приложения.
 
-<style>{RatingGroupDocs.ratingGroupExampleCss}</style>
+<ExampleFrame variant="component">
+  <RatingGroupField />
+</ExampleFrame>
 
-<PreviewFrame contentWidth="fit-content" maxWidth="sm">
-  ```tsx preview file="../../en/docs/_snippets/rating-group/field.tsx"
+<ExampleCode>
+<div className="docs-reference">
+  <Tabs
+    groupId="framework"
+    values={[{ label: 'React', value: 'react' }, { label: 'Solid', value: 'solid' }]}
+    className="docs-tabs"
+  >
+    <Tab value="react">
 
-  ```
-</PreviewFrame>
+```tsx pure file="../../../src/components/examples/rating-group/field.tsx"
+```
+
+    </Tab>
+    <Tab value="solid">
+
+<CodeBlockRuntime lang="tsx" code={ratingGroupSolidField} />
+
+    </Tab>
+  </Tabs>
+
+**Стили**
+
+```css file="../../../src/components/examples/rating-group/component-field.module.css"
+```
+</div>
+
+</ExampleCode>
 
 ### Формы
 
-Передайте `name`, чтобы выбранная оценка попала в `FormData`; корневой компонент автоматически добавит
-синхронизированное нативное поле формы.
+Передайте `name` и явно добавьте `RatingGroup.HiddenInput`, если выбранная оценка должна попасть в
+`FormData`.
 
-<style>{RatingGroupDocs.ratingGroupExampleCss}</style>
+<ExampleFrame variant="component">
+  <RatingGroupForms />
+</ExampleFrame>
 
-<PreviewFrame contentWidth="fit-content" maxWidth="sm">
-  ```tsx preview file="../../en/docs/_snippets/rating-group/forms.tsx"
+<ExampleCode>
+<div className="docs-reference">
+  <Tabs
+    groupId="framework"
+    values={[{ label: 'React', value: 'react' }, { label: 'Solid', value: 'solid' }]}
+    className="docs-tabs"
+  >
+    <Tab value="react">
 
-  ```
-</PreviewFrame>
+```tsx pure file="../../../src/components/examples/rating-group/forms.tsx"
+```
+
+    </Tab>
+    <Tab value="solid">
+
+<CodeBlockRuntime lang="tsx" code={ratingGroupSolidForms} />
+
+    </Tab>
+  </Tabs>
+
+**Стили**
+
+```css file="../../../src/components/examples/rating-group/component-forms.module.css"
+```
+</div>
+
+</ExampleCode>
 
 ### Оценка с половинами
 
-Установите `allowHalf`, чтобы включить выбор и отображение с шагом в половину.
+Установите `allowHalf`, чтобы включить выбор с шагом в половину и отображение половины звезды.
 
-<style>{RatingGroupDocs.ratingGroupExampleCss}</style>
+<ExampleFrame variant="component">
+  <RatingGroupHalfRating />
+</ExampleFrame>
 
-<PreviewFrame contentWidth="fit-content" maxWidth="sm">
-  ```tsx preview file="../../en/docs/_snippets/rating-group/half-rating.tsx"
+<ExampleCode>
+<div className="docs-reference">
+  <Tabs
+    groupId="framework"
+    values={[{ label: 'React', value: 'react' }, { label: 'Solid', value: 'solid' }]}
+    className="docs-tabs"
+  >
+    <Tab value="react">
 
-  ```
-</PreviewFrame>
+```tsx pure file="../../../src/components/examples/rating-group/half-rating.tsx"
+```
+
+    </Tab>
+    <Tab value="solid">
+
+<CodeBlockRuntime lang="tsx" code={ratingGroupSolidHalfRating} />
+
+    </Tab>
+  </Tabs>
+</div>
+
+</ExampleCode>
 
 ### Размеры
 
-Используйте свойство moduix `size`, если нужно сохранить поведение рейтинга Ark, но изменить его
-визуальный размер.
+Используйте свойство `size` moduix, если рейтинг должен сохранять поведение Ark при другой
+визуальной плотности.
 
-<style>{RatingGroupDocs.ratingGroupExampleCss}</style>
+<ExampleFrame variant="component">
+  <RatingGroupSizes />
+</ExampleFrame>
 
-<PreviewFrame contentWidth="fit-content" maxWidth="sm">
-  ```tsx preview file="../../en/docs/_snippets/rating-group/sizes.tsx"
+<ExampleCode>
+<div className="docs-reference">
+  <Tabs
+    groupId="framework"
+    values={[{ label: 'React', value: 'react' }, { label: 'Solid', value: 'solid' }]}
+    className="docs-tabs"
+  >
+    <Tab value="react">
 
-  ```
-</PreviewFrame>
+```tsx pure file="../../../src/components/examples/rating-group/sizes.tsx"
+```
+
+    </Tab>
+    <Tab value="solid">
+
+<CodeBlockRuntime lang="tsx" code={ratingGroupSolidSizes} />
+
+    </Tab>
+  </Tabs>
+
+**Стили**
+
+```css file="../../../src/components/examples/rating-group/component-sizes.module.css"
+```
+</div>
+
+</ExampleCode>
 
 ### Расширенная композиция
 
-Используйте `RatingGroup.RootProvider` с `useRatingGroup()`, когда состояние нужно создать вне дерева
-рейтинга. Используйте `RatingGroup.Context`, когда `RatingGroup.Items` недостаточно и нужно вывести
-каждый элемент вручную.
+Используйте `RatingGroup.RootProvider` вместе с `useRatingGroup()`, если состояние рейтинга нужно
+создать вне дерева. Используйте `RatingGroup.Context`, когда `RatingGroup.Items` недостаточно и
+нужно вывести каждый элемент самостоятельно.
 
-<style>{RatingGroupDocs.ratingGroupExampleCss}</style>
+<ExampleFrame variant="component">
+  <RatingGroupAdvancedCustomization />
+</ExampleFrame>
 
-<PreviewFrame contentWidth="fit-content" maxWidth="sm">
-  ```tsx preview file="../../en/docs/_snippets/rating-group/advanced-customization.tsx"
+<ExampleCode>
+<div className="docs-reference">
+  <Tabs
+    groupId="framework"
+    values={[{ label: 'React', value: 'react' }, { label: 'Solid', value: 'solid' }]}
+    className="docs-tabs"
+  >
+    <Tab value="react">
 
-  ```
-</PreviewFrame>
+```tsx pure file="../../../src/components/examples/rating-group/advanced-customization.tsx"
+```
+
+    </Tab>
+    <Tab value="solid">
+
+<CodeBlockRuntime lang="tsx" code={ratingGroupSolidAdvancedCustomization} />
+
+    </Tab>
+  </Tabs>
+
+**Стили**
+
+```css file="../../../src/components/examples/rating-group/component-advanced-customization.module.css"
+```
+</div>
+
+</ExampleCode>
 
 ## Стилизация
 
-Стилизуйте `RatingGroup` с помощью `className`, атрибутов Ark `data-scope="rating-group"` и `data-part`,
-атрибутов состояния Ark, хуков moduix `data-slot` и зарегистрированных CSS-переменных
-`--moduix-rating-group-*`.
+Используйте `className` в React или `class` в Solid на экспортируемых частях для структурных
+стилей. Ark также предоставляет атрибуты `data-scope="rating-group"` и `data-part`. Для стилей по состоянию используйте атрибуты данных, например `data-disabled`,
+`data-readonly`, `data-checked`, `data-highlighted` и `data-half`, вместе с хуками `data-slot` moduix.
+Варианты Tailwind используют нативные utility-классы и классы потребителя, а варианты CSS Modules
+также предоставляют зарегистрированные переменные `--moduix-rating-group-*`.
 
 ### CSS-свойства
 
@@ -248,8 +463,7 @@ Ark. `ItemIndicator` передаёт ref своей визуальной обё
 - `data-slot="rating-group-item"`
 - `data-slot="rating-group-item-indicator"`
 - `data-slot="rating-group-item-indicator-bg"` и `data-slot="rating-group-item-indicator-fg"`
-- `data-slot="rating-group-hidden-input"`
-- `data-size="xs" | "sm" | "md" | "lg" | "xl"` на `RatingGroup.Root` или `RatingGroup.RootProvider`
-- Атрибуты подписи Ark: `data-disabled` и `data-required`
-- Атрибуты контрола Ark: `data-disabled` и `data-readonly`
-- Атрибуты элемента Ark: `data-checked`, `data-highlighted`, `data-half`, `data-disabled` и `data-readonly`
+- `data-size="xs" | "sm" | "md" | "lg" | "xl"` на корневом компоненте или root provider
+- Атрибуты label Ark: `data-disabled` и `data-required`
+- Атрибуты control Ark: `data-disabled` и `data-readonly`
+- Атрибуты item Ark: `data-checked`, `data-highlighted`, `data-half`, `data-disabled` и `data-readonly`

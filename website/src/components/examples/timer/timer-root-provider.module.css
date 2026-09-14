@@ -1,0 +1,12 @@
+.itemGroup {
+  display: inline-grid;
+  justify-items: center;
+  gap: var(--moduix-spacing-1);
+}
+
+.itemLabel {
+  font-size: var(--moduix-text-xs);
+  font-weight: var(--moduix-weight-regular);
+  line-height: var(--moduix-line-height-text-xs);
+  color: var(--moduix-color-muted-foreground);
+}

@@ -1,4 +1,3 @@
-import { useFieldContext } from '@ark-ui/react/field';
 import {
   TagsInput as TagsInputPrimitive,
   useTagsInput,
@@ -6,44 +5,37 @@ import {
   useTagsInputItemContext,
 } from '@ark-ui/react/tags-input';
 import { clsx } from 'clsx';
-import type { ComponentProps, ComponentRef, ReactElement, ReactNode } from 'react';
-import { Children, cloneElement, forwardRef, useEffect, useRef } from 'react';
+import type { ComponentProps, ComponentRef } from 'react';
+import { forwardRef } from 'react';
 import { CloseIcon } from '@/lib/moduix/icons/ui';
-import { normalizeClassName } from '@/lib/moduix/normalizeClassName';
 import { CloseButton } from '../close-button';
 import styles from './TagsInput.module.css';
 
 const TagsInputRoot = forwardRef<
   ComponentRef<typeof TagsInputPrimitive.Root>,
   ComponentProps<typeof TagsInputPrimitive.Root>
->(function TagsInputRoot({ asChild, children, className, ...props }, ref) {
+>(function TagsInputRoot({ className, ...props }, ref) {
   return (
     <TagsInputPrimitive.Root
       ref={ref}
-      asChild={asChild}
       data-slot="tags-input-root"
-      className={clsx(styles.root, normalizeClassName(className))}
+      className={clsx(styles.root, className)}
       {...props}
-    >
-      {withHiddenInput(children, asChild)}
-    </TagsInputPrimitive.Root>
+    />
   );
 });
 
 const TagsInputRootProvider = forwardRef<
   ComponentRef<typeof TagsInputPrimitive.RootProvider>,
   ComponentProps<typeof TagsInputPrimitive.RootProvider>
->(function TagsInputRootProvider({ asChild, children, className, ...props }, ref) {
+>(function TagsInputRootProvider({ className, ...props }, ref) {
   return (
     <TagsInputPrimitive.RootProvider
       ref={ref}
-      asChild={asChild}
       data-slot="tags-input-root-provider"
-      className={clsx(styles.root, normalizeClassName(className))}
+      className={clsx(styles.root, className)}
       {...props}
-    >
-      {withHiddenInput(children, asChild)}
-    </TagsInputPrimitive.RootProvider>
+    />
   );
 });
 
@@ -55,7 +47,7 @@ const TagsInputLabel = forwardRef<
     <TagsInputPrimitive.Label
       ref={ref}
       data-slot="tags-input-label"
-      className={clsx(styles.label, normalizeClassName(className))}
+      className={clsx(styles.label, className)}
       {...props}
     />
   );
@@ -69,7 +61,7 @@ const TagsInputControl = forwardRef<
     <TagsInputPrimitive.Control
       ref={ref}
       data-slot="tags-input-control"
-      className={clsx(styles.control, normalizeClassName(className))}
+      className={clsx(styles.control, className)}
       {...props}
     />
   );
@@ -83,7 +75,7 @@ const TagsInputItem = forwardRef<
     <TagsInputPrimitive.Item
       ref={ref}
       data-slot="tags-input-item"
-      className={clsx(styles.item, normalizeClassName(className))}
+      className={clsx(styles.item, className)}
       {...props}
     />
   );
@@ -97,7 +89,7 @@ const TagsInputItemPreview = forwardRef<
     <TagsInputPrimitive.ItemPreview
       ref={ref}
       data-slot="tags-input-item-preview"
-      className={clsx(styles.itemPreview, normalizeClassName(className))}
+      className={clsx(styles.itemPreview, className)}
       {...props}
     />
   );
@@ -111,7 +103,7 @@ const TagsInputItemText = forwardRef<
     <TagsInputPrimitive.ItemText
       ref={ref}
       data-slot="tags-input-item-text"
-      className={clsx(styles.itemText, normalizeClassName(className))}
+      className={clsx(styles.itemText, className)}
       {...props}
     />
   );
@@ -125,7 +117,7 @@ const TagsInputItemDeleteTrigger = forwardRef<
     <TagsInputPrimitive.ItemDeleteTrigger
       ref={ref}
       data-slot="tags-input-item-delete-trigger"
-      className={clsx(styles.itemDeleteTrigger, normalizeClassName(className))}
+      className={clsx(styles.itemDeleteTrigger, className)}
       {...props}
     >
       {children ?? <CloseIcon />}
@@ -141,7 +133,7 @@ const TagsInputItemInput = forwardRef<
     <TagsInputPrimitive.ItemInput
       ref={ref}
       data-slot="tags-input-item-input"
-      className={clsx(styles.itemInput, normalizeClassName(className))}
+      className={clsx(styles.itemInput, className)}
       {...props}
     />
   );
@@ -155,7 +147,7 @@ const TagsInputInput = forwardRef<
     <TagsInputPrimitive.Input
       ref={ref}
       data-slot="tags-input-input"
-      className={clsx(styles.input, normalizeClassName(className))}
+      className={clsx(styles.input, className)}
       {...props}
     />
   );
@@ -175,24 +167,8 @@ const TagsInputClearTrigger = forwardRef<
   },
   ref,
 ) {
-  const triggerClassName = clsx(styles.clearTrigger, normalizeClassName(className));
+  const triggerClassName = clsx(styles.clearTrigger, className);
   const clearTriggerLabel = useTagsInputContext().getClearTriggerProps()['aria-label'];
-
-  if (asChild) {
-    return (
-      <TagsInputPrimitive.ClearTrigger
-        ref={ref}
-        asChild
-        data-slot="tags-input-clear-trigger"
-        className={triggerClassName}
-        aria-label={ariaLabel}
-        aria-labelledby={ariaLabelledBy}
-        {...props}
-      >
-        {children}
-      </TagsInputPrimitive.ClearTrigger>
-    );
-  }
 
   return (
     <TagsInputPrimitive.ClearTrigger
@@ -200,75 +176,28 @@ const TagsInputClearTrigger = forwardRef<
       asChild
       data-slot="tags-input-clear-trigger"
       className={triggerClassName}
+      aria-label={asChild ? ariaLabel : undefined}
+      aria-labelledby={asChild ? ariaLabelledBy : undefined}
       {...props}
     >
-      <CloseButton.Root
-        aria-label={ariaLabel ?? clearTriggerLabel}
-        aria-labelledby={ariaLabelledBy}
-        data-part="clear-trigger"
-        data-scope="tags-input"
-        data-slot="tags-input-clear-trigger"
-      >
-        {children}
-      </CloseButton.Root>
+      {asChild ? (
+        children
+      ) : (
+        <CloseButton.Root
+          aria-label={ariaLabel ?? clearTriggerLabel}
+          aria-labelledby={ariaLabelledBy}
+          data-part="clear-trigger"
+          data-scope="tags-input"
+          data-slot="tags-input-clear-trigger"
+        >
+          {children}
+        </CloseButton.Root>
+      )}
     </TagsInputPrimitive.ClearTrigger>
   );
 });
 
-function withHiddenInput(children: ReactNode, asChild?: boolean) {
-  const hiddenInput = <TagsInputHiddenInput />;
-
-  if (!asChild) {
-    return (
-      <>
-        {children}
-        {hiddenInput}
-      </>
-    );
-  }
-
-  const child = Children.only(children) as ReactElement<{ children?: ReactNode }>;
-
-  return cloneElement(child, {}, child.props.children, hiddenInput);
-}
-
 const TagsInputContext = TagsInputPrimitive.Context;
-
-function TagsInputHiddenInput() {
-  const field = useFieldContext();
-  const tagsInput = useTagsInputContext();
-  const inputRef = useRef<HTMLInputElement>(null);
-  const initialValue = useRef(tagsInput.value);
-  const initialInputValue = useRef(tagsInput.inputValue);
-  const { defaultValue: _, ...hiddenInputProps } = tagsInput.getHiddenInputProps();
-
-  useEffect(() => {
-    const form = inputRef.current?.form;
-
-    if (!form) return;
-
-    const handleReset = () => {
-      queueMicrotask(() => {
-        tagsInput.setValue(initialValue.current);
-        tagsInput.setInputValue(initialInputValue.current);
-      });
-    };
-
-    form.addEventListener('reset', handleReset);
-    return () => form.removeEventListener('reset', handleReset);
-  }, [tagsInput]);
-
-  return (
-    <input
-      {...hiddenInputProps}
-      ref={inputRef}
-      value={tagsInput.valueAsString}
-      readOnly
-      aria-describedby={field?.ariaDescribedby}
-      data-slot="tags-input-hidden-input"
-    />
-  );
-}
 
 function TagsInputItems() {
   return (
@@ -291,6 +220,7 @@ function TagsInputItems() {
 const TagsInput = Object.assign(TagsInputRoot, {
   Root: TagsInputRoot,
   RootProvider: TagsInputRootProvider,
+  HiddenInput: TagsInputPrimitive.HiddenInput,
   Label: TagsInputLabel,
   Control: TagsInputControl,
   Item: TagsInputItem,

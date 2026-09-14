@@ -6,7 +6,7 @@ Ark UI does not provide a typesetting primitive. `Typeset` is a moduix-owned sem
 implemented with the [Ark factory](https://ark-ui.com/docs/guides/composition#the-ark-factory).
 Its CSS-first rhythm is informed by [Chakra Prose](https://chakra-ui.com/docs/components/prose) and
 [shadcn/typeset](https://ui.shadcn.com/docs/typeset), without adding a Markdown renderer, parser,
-or shadcn-specific wrapper API. These sources were reviewed on 2026-08-14.
+or shadcn-specific wrapper API. These sources were reviewed on 2026-09-12.
 
 ## Purpose
 
@@ -33,8 +33,9 @@ the styles of content already on screen.
 - Colors, borders, and radius come from existing moduix theme tokens; Typeset has no second palette
   or width prop.
 - `.not-typeset` and `data-not-typeset` exclude a subtree, including any nested Typeset root.
-- Paragraphs, headings, lists, task lists, blockquotes, code, tables, media, disclosures,
-  definition lists, and GFM footnotes are styled from semantic HTML.
+- Paragraphs, headings, inline semantics, lists, task lists, blockquotes, code, keyboard keys,
+  tables, math, media, disclosures, definition lists, and GFM footnotes are styled from semantic
+  HTML.
 
 ## Anatomy and exported parts
 

@@ -1,0 +1,30 @@
+.preview {
+  display: grid;
+  gap: var(--moduix-spacing-2);
+  width: 14rem;
+}
+
+.image {
+  aspect-ratio: 16 / 9;
+  border-radius: var(--moduix-radius-md);
+  display: block;
+  object-fit: cover;
+  width: 100%;
+}
+
+.details {
+  display: grid;
+  gap: var(--moduix-spacing-1);
+}
+
+.description {
+  color: var(--moduix-color-muted-foreground);
+  margin: 0;
+}
+
+.trigger {
+  background-color: var(--moduix-color-muted);
+  border-radius: var(--moduix-radius-sm);
+  padding-inline: var(--moduix-spacing-1);
+  text-decoration: none;
+}

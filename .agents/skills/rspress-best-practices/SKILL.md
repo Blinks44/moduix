@@ -41,6 +41,7 @@ Apply these rules when writing or reviewing Rspress (v2) sites.
 
 - Use MDX for interactive docs and embedded components, but keep the main narrative understandable as plain markdown
 - Prefer documented Rspress theme/runtime APIs over importing from internal source paths
+- Use the built-in `PackageManagerTabs` for reader-facing package installs, dependency updates, executable packages, registry CLIs, and skill installation. Pass manager-neutral commands and set `dlx` for temporary executables instead of hardcoding one package manager
 - For app-wide UI or providers, use `globalUIComponents` or theme overrides instead of repeating imports in each page
 
 ## Theme And Styling

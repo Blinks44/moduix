@@ -5,15 +5,60 @@
   gap: 1rem;
   margin-block: 1.5rem;
   border: 1px solid var(--rp-c-divider-light);
-  border-radius: var(--rp-radius-small);
-  background: var(--rp-c-bg-soft);
-  padding: 1rem;
+  border-radius: 0.875rem;
+  background:
+    radial-gradient(
+      circle at 100% 0%,
+      color-mix(in oklab, var(--rp-c-brand) 7%, transparent),
+      transparent 42%
+    ),
+    color-mix(in oklab, var(--rp-c-bg-soft) 82%, var(--rp-c-bg));
+  box-shadow:
+    inset 3px 0 0 color-mix(in oklab, var(--rp-c-brand) 46%, transparent),
+    0 1px 2px color-mix(in srgb, var(--rp-c-text-1) 6%, transparent);
+  padding: 1rem 1.125rem;
+}
+
+.referenceBody {
+  display: flex;
+  align-items: center;
+  gap: 0.875rem;
+  min-width: 0;
+}
+
+.referenceIcon {
+  display: grid;
+  width: 2.25rem;
+  height: 2.25rem;
+  flex: none;
+  place-items: center;
+  border: 1px solid var(--rp-c-divider-light);
+  border-radius: 0.625rem;
+  background: color-mix(in oklab, var(--rp-c-bg) 86%, transparent);
+  box-shadow: 0 1px 2px color-mix(in srgb, var(--rp-c-text-1) 8%, transparent);
+  color: var(--rp-c-text-1);
+}
+
+.referenceIcon svg {
+  width: 1.125rem;
+  height: 1.125rem;
+}
+
+.referenceContent {
+  min-width: 0;
+}
+
+.referenceContent strong {
+  color: var(--rp-c-text-1);
+  font-size: 0.875rem;
+  letter-spacing: -0.01em;
 }
 
 .reference p {
-  margin: 0.25rem 0 0;
+  margin: 0.1875rem 0 0;
   color: var(--rp-c-text-2);
   font-size: 0.875rem;
+  line-height: 1.5;
 }
 
 .referenceLink {
@@ -21,11 +66,10 @@
   align-items: center;
   gap: 0.375rem;
   flex: none;
-  border: 1px solid var(--rp-c-brand);
+  border: 1px solid var(--rp-c-divider-light);
   border-radius: 0.5rem;
-  background: var(--rp-c-brand);
-  box-shadow: 0 1px 2px color-mix(in srgb, var(--rp-c-text-1) 16%, transparent);
-  color: var(--rp-c-bg);
+  background: color-mix(in oklab, var(--rp-c-bg) 76%, transparent);
+  color: var(--rp-c-text-1);
   padding: 0.5rem 0.75rem;
   font-size: 0.875rem;
   font-weight: 600;
@@ -33,15 +77,196 @@
   text-decoration: none;
   transition:
     background 160ms ease,
-    border-color 160ms ease,
-    box-shadow 160ms ease,
-    transform 160ms ease;
+    border-color 160ms ease;
 
   &:hover {
-    border-color: var(--rp-c-brand-dark);
-    background: var(--rp-c-brand-dark);
-    box-shadow: 0 2px 4px color-mix(in srgb, var(--rp-c-text-1) 20%, transparent);
-    transform: translateY(-1px);
+    border-color: var(--rp-c-divider);
+    background: var(--rp-c-bg);
+  }
+
+  &:focus-visible {
+    outline: 2px solid var(--rp-c-brand);
+    outline-offset: 2px;
+  }
+
+  & svg {
+    width: 1rem;
+    height: 1rem;
+    transition: transform 160ms ease;
+  }
+
+  &:hover svg {
+    transform: translate(1px, -1px);
+  }
+}
+
+.install {
+  margin-block: 1rem 1.5rem;
+}
+
+.installOptions {
+  margin-block: 1rem 1.5rem;
+  overflow: hidden;
+  border: 1px solid var(--rp-c-divider-light);
+  border-radius: 1rem;
+  background: color-mix(in srgb, var(--rp-c-bg-soft) 78%, transparent);
+}
+
+.installManager {
+  padding: 0.5rem;
+  border-bottom: 1px solid var(--rp-c-divider-light);
+}
+
+.installManager :global(.rp-tabs) {
+  margin: 0;
+  border: 0;
+  box-shadow: none;
+}
+
+.installManager :global(.rp-tabs__label) {
+  border: 0;
+  background: transparent;
+  padding: 0.25rem 0.5rem;
+}
+
+.installManager :global(.rp-tabs__content) {
+  display: none;
+}
+
+.installOptionGrid {
+  display: grid;
+  grid-template-columns: 1fr;
+  gap: 0.75rem;
+  padding: 0.75rem;
+}
+
+.installOption {
+  overflow: hidden;
+  border: 1px solid var(--rp-c-divider-light);
+  border-radius: 0.875rem;
+  background: var(--rp-c-bg);
+  box-shadow: 0 1px 2px color-mix(in srgb, var(--rp-c-text-1) 8%, transparent);
+}
+
+.installOptionHeader {
+  display: flex;
+  align-items: center;
+  gap: 0.625rem;
+  min-height: 3rem;
+  padding: 0.75rem 1rem;
+  color: var(--rp-c-text-1);
+  font-size: 0.875rem;
+}
+
+.installOptionLogo {
+  width: 1.25rem;
+  height: auto;
+  flex: none;
+}
+
+.installOptionCommand :global(.rp-tabs) {
+  margin: 0;
+  border: 0;
+  border-top: 1px solid var(--rp-c-divider-light);
+  border-radius: 0;
+  box-shadow: none;
+}
+
+.installOptionCommand :global(.rp-tabs__label) {
+  display: none;
+}
+
+.installOptionCommand :global(.rp-tabs__content__item) {
+  padding: 0;
+}
+
+.installOptionCommand :global(.rp-tabs__content__item > .rp-codeblock:only-child) {
+  margin: 0;
+  border: 0;
+  border-radius: 0;
+  box-shadow: none;
+}
+
+.styleTrackCards {
+  display: grid;
+  grid-template-columns: 1fr;
+  gap: 0.75rem;
+  margin-block: 1rem 1.5rem;
+}
+
+.styleTrackCard {
+  overflow: hidden;
+  border: 1px solid var(--rp-c-divider-light);
+  border-radius: 0.75rem;
+  background: var(--rp-c-bg);
+}
+
+.styleTrackCardHeader {
+  display: flex;
+  align-items: center;
+  gap: 0.5rem;
+  min-height: 2.75rem;
+  padding: 0.625rem 0.875rem;
+  color: var(--rp-c-text-1);
+  font-size: 0.875rem;
+}
+
+.styleTrackCardHeader::before {
+  width: 0.5rem;
+  height: 0.5rem;
+  flex: none;
+  border-radius: 50%;
+  background: var(--rp-c-brand);
+  box-shadow: 0 0 0 0.25rem color-mix(in srgb, var(--rp-c-brand) 12%, transparent);
+  content: '';
+}
+
+.styleTrackCard:nth-child(2) .styleTrackCardHeader::before {
+  background: var(--rp-c-text-2);
+  box-shadow: 0 0 0 0.25rem color-mix(in srgb, var(--rp-c-text-2) 12%, transparent);
+}
+
+.styleTrackCardBody :global(.rp-codeblock) {
+  margin: 0;
+  border: 0;
+  border-top: 1px solid var(--rp-c-divider-light);
+  border-radius: 0;
+  box-shadow: none;
+}
+
+.cssProperties {
+  margin-block: 1.5rem;
+}
+
+.cssProperties :global(.rp-tabs__content) {
+  max-block-size: 36rem;
+  overflow: auto;
+}
+
+.exampleCode {
+  margin-top: -2.5rem;
+}
+
+.exampleCodeTrigger {
+  display: grid;
+  width: 1.75rem;
+  height: 1.75rem;
+  align-self: center;
+  place-items: center;
+  margin-inline: auto;
+  border: 1px solid var(--rp-c-divider-light);
+  border-radius: 50%;
+  background: var(--rp-c-bg);
+  box-shadow: 0 1px 2px color-mix(in srgb, var(--rp-c-text-1) 12%, transparent);
+  color: var(--rp-c-text-1);
+  cursor: pointer;
+  transition:
+    border-color 0.3s,
+    background 0.3s;
+
+  &:hover {
+    border-color: var(--rp-c-divider);
+    background: var(--rp-c-bg-soft);
   }
 
   &:focus-visible {
@@ -55,17 +280,10 @@
   }
 }
 
-.install {
-  margin-block: 1rem 1.5rem;
-}
-
-.cssProperties {
-  margin-block: 1.5rem;
-}
-
-.cssProperties :global(.rp-tabs__content) {
-  max-block-size: 36rem;
-  overflow: auto;
+.exampleCodeBody {
+  & > * {
+    min-width: 0;
+  }
 }
 
 .cards {
@@ -102,6 +320,10 @@
     border-color: var(--rp-c-divider);
     background: var(--rp-c-bg-soft);
     transform: translateY(-1px);
+  }
+
+  &:global(.rp-link):hover {
+    text-decoration: none;
   }
 }
 
@@ -162,5 +384,9 @@
   .reference {
     align-items: flex-start;
     flex-direction: column;
+  }
+
+  .referenceLink {
+    margin-inline-start: 3.125rem;
   }
 }

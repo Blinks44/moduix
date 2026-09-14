@@ -1,10 +1,30 @@
 ---
 title: Lightbox
 component: lightbox
-description: Prévisualisation d’images dans une fenêtre modale basée sur le dialogue Ark UI.
+description: Affichez des aperçus de médias accessibles en React ou Solid avec une installation par package ou shadcn.
 ---
 
-import * as LightboxDocs from '@/components/examples/lightbox';
+import * as LightboxDocs from '@/components/examples/lightbox/css-properties';
+import LightboxAdvancedCustomization from '@/components/examples/lightbox/advanced-customization.tsx';
+import LightboxBasic from '@/components/examples/lightbox/basic.tsx';
+import LightboxBindCmsContent from '@/components/examples/lightbox/bind-cms-content.tsx';
+import LightboxClickToCloseImage from '@/components/examples/lightbox/click-to-close-image.tsx';
+import LightboxControlled from '@/components/examples/lightbox/controlled.tsx';
+import LightboxFocusAndIds from '@/components/examples/lightbox/focus-and-ids.tsx';
+import LightboxGallery from '@/components/examples/lightbox/gallery.tsx';
+import LightboxMultipleTriggers from '@/components/examples/lightbox/multiple-triggers.tsx';
+import LightboxNonModal from '@/components/examples/lightbox/non-modal.tsx';
+import LightboxRootProviderAndContext from '@/components/examples/lightbox/root-provider-and-context.tsx';
+import lightboxSolidAdvancedCustomization from '../../../snippets/lightbox/solid/advanced-customization.tsx?raw';
+import lightboxSolidBasic from '../../../snippets/lightbox/solid/basic.tsx?raw';
+import lightboxSolidBindCmsContent from '../../../snippets/lightbox/solid/bind-cms-content.tsx?raw';
+import lightboxSolidClickToCloseImage from '../../../snippets/lightbox/solid/click-to-close-image.tsx?raw';
+import lightboxSolidControlled from '../../../snippets/lightbox/solid/controlled.tsx?raw';
+import lightboxSolidFocusAndIds from '../../../snippets/lightbox/solid/focus-and-ids.tsx?raw';
+import lightboxSolidGallery from '../../../snippets/lightbox/solid/gallery.tsx?raw';
+import lightboxSolidMultipleTriggers from '../../../snippets/lightbox/solid/multiple-triggers.tsx?raw';
+import lightboxSolidNonModal from '../../../snippets/lightbox/solid/non-modal.tsx?raw';
+import lightboxSolidRootProviderAndContext from '../../../snippets/lightbox/solid/root-provider-and-context.tsx?raw';
 
 ## Référence de l’API
 
@@ -21,7 +41,7 @@ Utilisez `Lightbox` lorsque vous voulez principalement afficher des images ou d�
 
 - Choisissez **`Lightbox`** pour agrandir des images, afficher une galerie de produits ou consulter d’autres médias.
 - Choisissez **`Dialog`** pour une interface applicative générale, par exemple des formulaires, des actions ou du contenu mixte.
-- Placez **`Carousel` dans `Lightbox.Gallery`** si la galerie nécessite des diapositives et des flèches de navigation.
+- Placez **`Carousel` dans `Lightbox.Gallery`** si l’aperçu nécessite des diapositives ou des flèches de navigation.
 
 ## Exemple de base
 
@@ -29,15 +49,67 @@ Composez explicitement la structure de dialogue Ark UI avec `Lightbox`, `Lightbo
 `Lightbox.Backdrop`, `Lightbox.Positioner` et `Lightbox.Content`. Avec `asChild`, fournissez un
 seul élément sémantique comme déclencheur.
 
-<style>{LightboxDocs.lightboxBasicCss}</style>
+<ExampleFrame variant="component">
+  <LightboxBasic />
+</ExampleFrame>
 
-```tsx preview file="../../en/docs/_snippets/lightbox/basic.tsx"
+<ExampleCode>
+<div className="docs-reference">
+  <Tabs
+    groupId="framework"
+    values={[
+      { label: 'React', value: 'react' },
+      { label: 'Solid', value: 'solid' },
+    ]}
+    className="docs-tabs"
+  >
+    <Tab value="react">
 
+```tsx pure file="../../../src/components/examples/lightbox/basic.tsx"
 ```
+
+    </Tab>
+    <Tab value="solid">
+
+<CodeBlockRuntime lang="tsx" code={lightboxSolidBasic} />
+
+    </Tab>
+  </Tabs>
+
+**Styles**
+
+```css file="../../../src/components/examples/lightbox/lightbox-basic.module.css"
+```
+</div>
+
+</ExampleCode>
 
 ## Installation avec shadcn
 
-<ShadcnInstall packageName="lightbox" />
+Consultez le [Démarrage rapide](/docs/quick-start) pour la configuration complète du paquet, du registre et des styles.
+
+<Tabs groupId="framework">
+  <Tab label="React" value="react">
+
+<ShadcnInstallOptions
+  options={[
+    { label: 'CSS Modules', command: 'shadcn@latest add @moduix-react/lightbox' },
+    { label: 'Tailwind CSS', command: 'shadcn@latest add @moduix-react-tailwind/lightbox' },
+  ]}
+/>
+
+  </Tab>
+  <Tab label="Solid" value="solid">
+
+<ShadcnInstallOptions
+  options={[
+    { label: 'CSS Modules', command: 'shadcn@latest add @moduix-solid/lightbox' },
+    { label: 'Tailwind CSS', command: 'shadcn@latest add @moduix-solid-tailwind/lightbox' },
+  ]}
+/>
+
+  </Tab>
+</Tabs>
 
 ## Anatomie
 
@@ -74,172 +146,277 @@ Lightbox.RootProvider
 | `Lightbox.CloseTrigger` | Déclencheur de fermeture Ark de bas niveau. |
 | `Lightbox.CloseIcon` | Raccourci moduix qui combine `CloseButton.Root` avec le déclencheur de fermeture Ark. |
 | `Lightbox.Header` / `Body` | Conteneurs facultatifs pour organiser le texte et les médias. |
-| `Lightbox.Footer` | Conteneur de mise en page facultatif pour les actions ou l’état sous le média. |
+| `Lightbox.Footer` | Conteneur facultatif pour les actions ou l’état sous le média. |
 | `Lightbox.Image` | Image native stylisée qui transmet sa ref à l’`HTMLImageElement`. |
 | `Lightbox.Gallery` | Zone qui définit la mise en page et le style d’un `Carousel` composé. |
 | `Lightbox.Bind` | Partie sans rendu qui relie un balisage externe à la racine. |
 
 ## Composition
 
-Par défaut, la racine rend `Backdrop` et `Positioner` via un portail. Utilisez `portalled={false}`
-pour les rendre à leur emplacement, ou `portalRef` pour cibler un conteneur personnalisé. Les parties
-structurelles restent explicites et peuvent être stylisées séparément.
+`Lightbox` gère l’état du `Dialog`, tandis que `Backdrop`, `Positioner` et `Content` restent explicites.
+Les parties de la fenêtre sont rendues dans un portail par défaut. Utilisez `portalled={false}` pour
+les laisser en place ou `portalRef` pour cibler un conteneur. Placez `CloseIcon` à côté de `Content`,
+dans `Positioner`, lorsqu’il doit rester ancré à la fenêtre et ne pas suivre les transformations du contenu.
+Avec `asChild`, fournissez un seul élément sémantique. En Solid, `asChild` est une fonction de rendu qui
+reçoit les props de cet élément.
 
-### Composition recommandée
-
-Gardez la structure de la fenêtre modale explicite. `Lightbox.Content` est l’élément de contenu Ark.
-Il n’affiche pas automatiquement l’arrière-plan, le conteneur de positionnement, l’image, la galerie
-ou le bouton de fermeture.
-
-Utilisez `Lightbox.Image` pour une image unique. Il affiche un élément `<img>` natif, accepte ses
-propriétés et transmet sa ref à l’`HTMLImageElement`. `Lightbox.Header`, `Body` et `Footer` sont des
-conteneurs facultatifs qui séparent visuellement le texte, les médias et les actions.
-
-Entourez `Carousel` de `Lightbox.Gallery` pour afficher une collection d’images connue à l’avance.
-`Gallery` fournit la zone d’affichage de la lightbox, l’alignement des flèches, la taille des médias
-et la disposition des indicateurs, tandis que `Carousel` continue de gérer les diapositives.
-
-Placez `Lightbox.CloseIcon` à côté de `Lightbox.Content`, dans `Lightbox.Positioner`, pour l’ancrer
-dans un angle de la fenêtre. S’il se trouve dans `Lightbox.Content`, il suit les transformations du
-contenu pendant les animations d’entrée et de sortie.
-
-### Quand créer une composition personnalisée
-
-Affichez directement le contenu personnalisé dans `Lightbox.Content` lorsqu’il ne correspond ni à une
-image unique ni à une galerie `Carousel`. Réservez `Lightbox.Bind` au balisage externe qui ne peut pas
-inclure `Lightbox.Trigger`. Pour un tableau d’images structuré, utilisez des déclencheurs explicites
-et placez `Carousel` dans `Lightbox.Gallery`.
-
-### Propriétés par défaut
-
-Par défaut, le contenu rendu dans un portail est monté à la demande, puis démonté après l’animation de
-fermeture. Définissez `unmountOnExit={false}` pour le conserver après la première ouverture. Désactivez
-`lazyMount` et `unmountOnExit` uniquement si le contenu doit être rendu immédiatement au chargement de la page.
-
-| Propriété | Valeur par défaut | Remarques |
-| ------------------------ | ------------ | ------------------------------------------------------------------------ |
-| `closeOnEscape` | `true` | Hérité d’Ark Dialog. |
-| `closeOnInteractOutside` | `true` | Hérité d’Ark Dialog. |
-| `defaultOpen` | `false` | État initial en mode non contrôlé. |
-| `modal` | `true` | Bloque les interactions extérieures et masque le contenu situé sous la fenêtre modale. |
-| `preventScroll` | `true` | Empêche le défilement de la page lorsque la fenêtre modale est ouverte. |
-| `role` | `"dialog"` | Pour donner un nom accessible, utilisez `aria-label` ou `Lightbox.Title`. `ids` stabilise uniquement les relations entre éléments. |
-| `trapFocus` | `true` | Maintient le focus clavier dans la fenêtre modale lorsqu’elle est ouverte. |
-| `lazyMount` | `true` | Diffère le montage des médias lourds jusqu’à la première ouverture. |
-| `unmountOnExit` | `true` | Supprime les nœuds de la fenêtre modale après l’animation de fermeture. |
-
-### Comportement
-
-`onOpenChange` et `onTriggerValueChange` utilisent la forme d’objet `details` d’Ark. Pour contrôler
-l’ouverture, lisez `details.open`. Pour une galerie avec plusieurs déclencheurs, lisez `details.value`.
-
-Utilisez `useLightbox()` avec `Lightbox.RootProvider` lorsque les contrôles se trouvent en dehors de
-la racine rendue. Dans un composant enfant, l’état du dialogue est accessible avec
-`useLightboxContext()`. Les deux API sont exportées par `@moduix/react` et exposées sur l’espace de
-noms `Lightbox`.
-
-`Lightbox.Image closeOnClick` est le raccourci prévu pour fermer la fenêtre lorsque l’utilisateur
-clique sur l’image. `Lightbox.Bind` relie un balisage provenant d’un CMS ou d’un service tiers lorsque
-vous ne pouvez pas l’entourer avec `Lightbox.Trigger`. Il doit être rendu dans `Lightbox` et transmet
-l’image sélectionnée via `onImageSelect(details)`. L’objet contient `src`, `alt` s’il est fourni, et
-l’`HTMLImageElement` d’origine dans `element`. `selector` est obligatoire et doit cibler un bouton ou
-un lien sémantique pour que chaque aperçu reste accessible au clavier.
-
-Les autres propriétés héritées de `Dialog` sont transmises sans modification, notamment `id`, `ids`,
-`initialFocusEl`, `finalFocusEl`, `persistentElements`, `restoreFocus`, `present`, `immediate`,
-`skipAnimationOnMount` et les callbacks d’interaction extérieure.
+Pour les galeries, gardez l’image sélectionnée et la page de `Carousel` dans l’état de l’application.
+Passez la clé de l’image à `Lightbox.Trigger value` et mettez cet état à jour depuis
+`onTriggerValueChange(details)` ou le callback de page de `Carousel`. Utilisez `RootProvider` avec
+`useLightbox()` lorsque l’état ou le bouton d’ouverture se trouve en dehors de la racine, puis lisez
+l’état enfant avec `useLightboxContext()`. `Bind` ne rend rien et sélectionne seulement une image dans
+un balisage externe, la fenêtre doit donc toujours composer explicitement ses parties. `Image closeOnClick`
+est le raccourci qui ferme la fenêtre après un clic sur l’image.
 
 ## Exemples
 
 ### Contenu provenant d’un CMS
 
-Utilisez `Lightbox.Bind` lorsque les images à prévisualiser proviennent d’un CMS ou d’un balisage tiers
-que vous ne rendez pas directement avec `Lightbox.Trigger`. Indiquez le conteneur avec `rootRef` ou
-`rootSelector`, choisissez un `selector`, puis traitez l’objet `{ src, alt, element }` dans
-`onImageSelect`. `Bind` ouvre la Lightbox parente mais ne rend aucun élément de la fenêtre modale.
-L’arrière-plan, le contenu, les contrôles de fermeture et la mise en page de l’image restent donc
-entièrement sous votre contrôle. Le composant recherche la source dans `data-lightbox-src`, puis dans
-`currentSrc`, puis dans `src`, et la précharge au survol ou au focus clavier. Utilisez un bouton ou un
-lien sémantique comme élément ciblé par `selector` afin que son activation au clavier déclenche le clic
-qui ouvre la Lightbox. Si votre serveur renvoie déjà un tableau d’images structuré, préférez la
-composition `Lightbox.Gallery + Carousel` présentée plus haut.
+Utilisez `Lightbox.Bind` lorsque les images proviennent d’un CMS ou d’un balisage tiers que vous ne
+rendez pas directement avec `Lightbox.Trigger`. Indiquez le conteneur avec `rootRef` ou `rootSelector`,
+choisissez un `selector`, puis traitez `{ src, alt, element }` dans `onImageSelect`. `Bind` ouvre la
+Lightbox parente sans rendre l’arrière-plan, le contenu ni les contrôles de fermeture. La source est
+recherchée dans `data-lightbox-src`, puis `currentSrc` et `src`, et l’image est préchargée au survol ou
+au focus clavier. Utilisez un bouton ou un lien sémantique pour `selector` afin que l’ouverture fonctionne
+au clavier. Pour un tableau d’images structuré, utilisez la composition `Lightbox.Gallery + Carousel`.
 
-<style>{LightboxDocs.lightboxBindCmsContentCss}</style>
+<ExampleFrame variant="component">
+  <LightboxBindCmsContent />
+</ExampleFrame>
 
-```tsx preview file="../../en/docs/_snippets/lightbox/bind-cms-content.tsx"
+<ExampleCode>
+<div className="docs-reference">
+  <Tabs
+    groupId="framework"
+    values={[
+      { label: 'React', value: 'react' },
+      { label: 'Solid', value: 'solid' },
+    ]}
+    className="docs-tabs"
+  >
+    <Tab value="react">
 
+```tsx pure file="../../../src/components/examples/lightbox/bind-cms-content.tsx"
 ```
+
+    </Tab>
+    <Tab value="solid">
+
+<CodeBlockRuntime lang="tsx" code={lightboxSolidBindCmsContent} />
+
+    </Tab>
+  </Tabs>
+
+**Styles**
+
+```css file="../../../src/components/examples/lightbox/lightbox-bind-cms-content.module.css"
+```
+</div>
+
+</ExampleCode>
 
 ### Fermer en cliquant sur l’image
 
 Utilisez `Lightbox.Image closeOnClick` si un clic sur l’image doit fermer la fenêtre. L’icône de
-fermeture reste disponible et conserve le comportement de fermeture d’Ark UI.
+fermeture reste disponible et conserve la sémantique de fermeture d’Ark UI.
 
-<style>{LightboxDocs.lightboxClickToCloseImageCss}</style>
+<ExampleFrame variant="component">
+  <LightboxClickToCloseImage />
+</ExampleFrame>
 
-```tsx preview file="../../en/docs/_snippets/lightbox/click-to-close-image.tsx"
+<ExampleCode>
+<div className="docs-reference">
+  <Tabs
+    groupId="framework"
+    values={[
+      { label: 'React', value: 'react' },
+      { label: 'Solid', value: 'solid' },
+    ]}
+    className="docs-tabs"
+  >
+    <Tab value="react">
 
+```tsx pure file="../../../src/components/examples/lightbox/click-to-close-image.tsx"
 ```
+
+    </Tab>
+    <Tab value="solid">
+
+<CodeBlockRuntime lang="tsx" code={lightboxSolidClickToCloseImage} />
+
+    </Tab>
+  </Tabs>
+
+**Styles**
+
+```css file="../../../src/components/examples/lightbox/lightbox-click-to-close-image.module.css"
+```
+</div>
+
+</ExampleCode>
 
 ### État contrôlé
 
-Utilisez la fonction `onOpenChange(details)` d’Ark lorsque l’état de la Lightbox doit être synchronisé
-avec React.
+Utilisez le callback `onOpenChange(details)` d’Ark lorsque l’état de la Lightbox doit rester synchronisé
+avec l’état de l’application en React ou en Solid.
 
-<style>{LightboxDocs.lightboxControlledCss}</style>
+<ExampleFrame variant="component">
+  <LightboxControlled />
+</ExampleFrame>
 
-```tsx preview file="../../en/docs/_snippets/lightbox/controlled.tsx"
+<ExampleCode>
+<div className="docs-reference">
+  <Tabs
+    groupId="framework"
+    values={[
+      { label: 'React', value: 'react' },
+      { label: 'Solid', value: 'solid' },
+    ]}
+    className="docs-tabs"
+  >
+    <Tab value="react">
 
+```tsx pure file="../../../src/components/examples/lightbox/controlled.tsx"
 ```
+
+    </Tab>
+    <Tab value="solid">
+
+<CodeBlockRuntime lang="tsx" code={lightboxSolidControlled} />
+
+    </Tab>
+  </Tabs>
+
+**Styles**
+
+```css file="../../../src/components/examples/lightbox/lightbox-controlled.module.css"
+```
+</div>
+
+</ExampleCode>
 
 ### Focus et identifiants
 
-Utilisez `initialFocusEl`, `finalFocusEl` et `ids` lorsqu’une lightbox nécessite des cibles de focus
-explicites ou des identifiants stables pour des relations d’accessibilité gérées depuis l’extérieur.
-La cible vers laquelle le focus revient est mise en évidence après la fermeture pour rendre ce passage
-visible.
+Utilisez `initialFocusEl`, `finalFocusEl` et `ids` lorsque la lightbox nécessite des cibles de focus
+explicites ou des identifiants stables pour des relations d’accessibilité externes. La cible de retour
+est mise en évidence après la fermeture afin de rendre le passage du focus visible.
 
-<style>{LightboxDocs.lightboxFocusAndIdsCss}</style>
+<ExampleFrame variant="component">
+  <LightboxFocusAndIds />
+</ExampleFrame>
 
-```tsx preview file="../../en/docs/_snippets/lightbox/focus-and-ids.tsx"
+<ExampleCode>
+<div className="docs-reference">
+  <Tabs
+    groupId="framework"
+    values={[
+      { label: 'React', value: 'react' },
+      { label: 'Solid', value: 'solid' },
+    ]}
+    className="docs-tabs"
+  >
+    <Tab value="react">
 
+```tsx pure file="../../../src/components/examples/lightbox/focus-and-ids.tsx"
 ```
+
+    </Tab>
+    <Tab value="solid">
+
+<CodeBlockRuntime lang="tsx" code={lightboxSolidFocusAndIds} />
+
+    </Tab>
+  </Tabs>
+
+**Styles**
+
+```css file="../../../src/components/examples/lightbox/lightbox-focus-and-ids.module.css"
+```
+</div>
+
+</ExampleCode>
 
 ### Galerie
 
 Si un CMS ou une API fournit un tableau d’images structuré, conservez l’image sélectionnée et la page
-courante de `Carousel` dans l’état React, puis placez `Carousel` dans `Lightbox.Gallery`. Utilisez
-`Lightbox.Trigger.value` pour choisir la diapositive initiale et synchronisez la page de `Carousel`
-pendant la navigation.
+actuelle de `Carousel` dans l’état React ou Solid, puis placez `Carousel` dans `Lightbox.Gallery`.
+Utilisez `Lightbox.Trigger.value` pour choisir la diapositive initiale et synchronisez la page de
+`Carousel` pendant la navigation.
 
-<style>{LightboxDocs.lightboxGalleryExampleCss}</style>
+<ExampleFrame variant="component">
+  <LightboxGallery />
+</ExampleFrame>
 
-```tsx preview file="../../en/docs/_snippets/lightbox/gallery.tsx"
+<ExampleCode>
+<div className="docs-reference">
+  <Tabs
+    groupId="framework"
+    values={[
+      { label: 'React', value: 'react' },
+      { label: 'Solid', value: 'solid' },
+    ]}
+    className="docs-tabs"
+  >
+    <Tab value="react">
 
+```tsx pure file="../../../src/components/examples/lightbox/gallery.tsx"
 ```
 
-### Montage différé
+    </Tab>
+    <Tab value="solid">
 
-Par défaut, les médias lourds sont montés à la première ouverture et démontés après la fermeture.
-`lazyMount` diffère le premier rendu, tandis que `unmountOnExit` supprime la fenêtre après la fin de
-l’animation de fermeture.
+<CodeBlockRuntime lang="tsx" code={lightboxSolidGallery} />
 
-<style>{LightboxDocs.lightboxLazyMountCss}</style>
+    </Tab>
+  </Tabs>
 
-```tsx preview file="../../en/docs/_snippets/lightbox/lazy-mount.tsx"
+**Styles**
 
+```css file="../../../src/components/examples/lightbox/lightbox-gallery.module.css"
 ```
+</div>
+
+</ExampleCode>
 
 ### Plusieurs déclencheurs
 
 Utilisez `Lightbox.Trigger.value` et `onTriggerValueChange(details)` pour les miniatures d’une galerie.
 Le composant ne maintient pas de registre d’images caché.
 
-<style>{LightboxDocs.lightboxMultipleTriggersCss}</style>
+<ExampleFrame variant="component">
+  <LightboxMultipleTriggers />
+</ExampleFrame>
 
-```tsx preview file="../../en/docs/_snippets/lightbox/multiple-triggers.tsx"
+<ExampleCode>
+<div className="docs-reference">
+  <Tabs
+    groupId="framework"
+    values={[
+      { label: 'React', value: 'react' },
+      { label: 'Solid', value: 'solid' },
+    ]}
+    className="docs-tabs"
+  >
+    <Tab value="react">
 
+```tsx pure file="../../../src/components/examples/lightbox/multiple-triggers.tsx"
 ```
+
+    </Tab>
+    <Tab value="solid">
+
+<CodeBlockRuntime lang="tsx" code={lightboxSolidMultipleTriggers} />
+
+    </Tab>
+  </Tabs>
+
+**Styles**
+
+```css file="../../../src/components/examples/lightbox/lightbox-multiple-triggers.module.css"
+```
+</div>
+
+</ExampleCode>
 
 ### Mode non modal
 
@@ -247,35 +424,121 @@ Définissez `modal={false}` lorsque la page doit rester interactive pendant l’
 alors le piège de focus et le blocage du défilement. N’ajoutez pas `Backdrop` afin que les actions en
 arrière-plan restent accessibles pendant l’affichage de l’image.
 
-<style>{LightboxDocs.lightboxNonModalCss}</style>
+<ExampleFrame variant="component">
+  <LightboxNonModal />
+</ExampleFrame>
 
-```tsx preview file="../../en/docs/_snippets/lightbox/non-modal.tsx"
+<ExampleCode>
+<div className="docs-reference">
+  <Tabs
+    groupId="framework"
+    values={[
+      { label: 'React', value: 'react' },
+      { label: 'Solid', value: 'solid' },
+    ]}
+    className="docs-tabs"
+  >
+    <Tab value="react">
 
+```tsx pure file="../../../src/components/examples/lightbox/non-modal.tsx"
 ```
+
+    </Tab>
+    <Tab value="solid">
+
+<CodeBlockRuntime lang="tsx" code={lightboxSolidNonModal} />
+
+    </Tab>
+  </Tabs>
+
+**Styles**
+
+```css file="../../../src/components/examples/lightbox/lightbox-non-modal.module.css"
+```
+</div>
+
+</ExampleCode>
 
 ### Root Provider
 
 Créez l’état avec `useLightbox()` lorsque le bouton d’ouverture se trouve en dehors de la racine.
-Dans un composant enfant, lisez cet état avec `useLightboxContext()`. Le bouton externe reste un
+Dans un composant enfant, lisez l’état avec `useLightboxContext()`. Le bouton externe reste un
 `Button` moduix ordinaire.
 
-<style>{LightboxDocs.lightboxRootProviderCss}</style>
+<ExampleFrame variant="component">
+  <LightboxRootProviderAndContext />
+</ExampleFrame>
 
-```tsx preview file="../../en/docs/_snippets/lightbox/root-provider-and-context.tsx"
+<ExampleCode>
+<div className="docs-reference">
+  <Tabs
+    groupId="framework"
+    values={[
+      { label: 'React', value: 'react' },
+      { label: 'Solid', value: 'solid' },
+    ]}
+    className="docs-tabs"
+  >
+    <Tab value="react">
 
+```tsx pure file="../../../src/components/examples/lightbox/root-provider-and-context.tsx"
 ```
+
+    </Tab>
+    <Tab value="solid">
+
+<CodeBlockRuntime lang="tsx" code={lightboxSolidRootProviderAndContext} />
+
+    </Tab>
+  </Tabs>
+
+**Styles**
+
+```css file="../../../src/components/examples/lightbox/lightbox-root-provider-and-context.module.css"
+```
+</div>
+
+</ExampleCode>
 
 ### Personnalisation avancée
 
-N’utilisez pas les conteneurs de mise en page facultatifs lorsque la zone média nécessite ses propres
-classes de slots et des remplacements de tokens. `Backdrop`, `Positioner` et `Content` restent
-explicites.
+N’utilisez pas les conteneurs facultatifs lorsque la zone média nécessite ses propres classes de slots
+et des remplacements de tokens. `Backdrop`, `Positioner` et `Content` restent explicites.
 
-<style>{LightboxDocs.lightboxAdvancedCustomizationCss}</style>
+<ExampleFrame variant="component">
+  <LightboxAdvancedCustomization />
+</ExampleFrame>
 
-```tsx preview file="../../en/docs/_snippets/lightbox/advanced-customization.tsx"
+<ExampleCode>
+<div className="docs-reference">
+  <Tabs
+    groupId="framework"
+    values={[
+      { label: 'React', value: 'react' },
+      { label: 'Solid', value: 'solid' },
+    ]}
+    className="docs-tabs"
+  >
+    <Tab value="react">
 
+```tsx pure file="../../../src/components/examples/lightbox/advanced-customization.tsx"
 ```
+
+    </Tab>
+    <Tab value="solid">
+
+<CodeBlockRuntime lang="tsx" code={lightboxSolidAdvancedCustomization} />
+
+    </Tab>
+  </Tabs>
+
+**Styles**
+
+```css file="../../../src/components/examples/lightbox/lightbox-advanced-customization.module.css"
+```
+</div>
+
+</ExampleCode>
 
 ## Styles
 

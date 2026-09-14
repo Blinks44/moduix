@@ -1,0 +1,26 @@
+.root {
+  inline-size: min(32rem, 100%);
+}
+
+.stack {
+  display: grid;
+  inline-size: 100%;
+  gap: var(--moduix-spacing-3);
+  justify-items: center;
+}
+
+.itemGroup {
+  border-radius: var(--moduix-radius-xl);
+}
+
+.control {
+  justify-content: center;
+}
+
+.image {
+  display: block;
+  inline-size: 100%;
+  block-size: 21rem;
+  object-fit: cover;
+  border-radius: var(--moduix-radius-xl);
+}

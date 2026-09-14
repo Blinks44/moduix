@@ -1,0 +1,242 @@
+import { Slider as SliderPrimitive, useSlider, useSliderContext } from '@ark-ui/solid/slider';
+import type { ComponentProps } from 'solid-js';
+import { Index, splitProps } from 'solid-js';
+import { cn } from '@/lib/moduix/cn';
+
+function SliderRoot(props: ComponentProps<typeof SliderPrimitive.Root>) {
+  const [local, others] = splitProps(props, [
+    'asChild',
+    'children',
+    'class',
+    'defaultValue',
+    'readOnly',
+    'value',
+  ]);
+
+  return (
+    <SliderPrimitive.Root
+      asChild={local.asChild}
+      defaultValue={local.defaultValue}
+      value={local.value}
+      data-slot="slider-root"
+      data-readonly={local.readOnly ? '' : undefined}
+      class={cn(
+        "group flex w-48 max-w-full flex-col gap-2 text-foreground data-disabled:opacity-50 data-[orientation=vertical]:grid data-[orientation=vertical]:h-48 data-[orientation=vertical]:w-max data-[orientation=vertical]:grid-cols-[auto_max-content] data-[orientation=vertical]:grid-rows-[auto_minmax(0,1fr)] data-[orientation=vertical]:items-center data-[orientation=vertical]:gap-x-2 data-[orientation=vertical]:[grid-template-areas:'label_value'_'control_markers']",
+        local.class,
+      )}
+      readOnly={local.readOnly}
+      {...others}
+    >
+      {local.children}
+    </SliderPrimitive.Root>
+  );
+}
+
+function SliderRootProvider(props: ComponentProps<typeof SliderPrimitive.RootProvider>) {
+  const [local, others] = splitProps(props, ['asChild', 'class', 'value']);
+
+  return (
+    <SliderPrimitive.RootProvider
+      asChild={local.asChild}
+      value={local.value}
+      data-slot="slider-root-provider"
+      class={cn(
+        "group flex w-48 max-w-full flex-col gap-2 text-foreground data-disabled:opacity-50 data-[orientation=vertical]:grid data-[orientation=vertical]:h-48 data-[orientation=vertical]:w-max data-[orientation=vertical]:grid-cols-[auto_max-content] data-[orientation=vertical]:grid-rows-[auto_minmax(0,1fr)] data-[orientation=vertical]:items-center data-[orientation=vertical]:gap-x-2 data-[orientation=vertical]:[grid-template-areas:'label_value'_'control_markers']",
+        local.class,
+      )}
+      {...others}
+    />
+  );
+}
+
+function SliderLabel(props: ComponentProps<typeof SliderPrimitive.Label>) {
+  const [local, others] = splitProps(props, ['class']);
+
+  return (
+    <SliderPrimitive.Label
+      data-slot="slider-label"
+      class={cn(
+        'text-sm leading-5 font-normal text-foreground select-none group-data-[orientation=vertical]:[grid-area:label]',
+        local.class,
+      )}
+      {...others}
+    />
+  );
+}
+
+function SliderValueText(props: ComponentProps<typeof SliderPrimitive.ValueText>) {
+  const [local, others] = splitProps(props, ['class']);
+
+  return (
+    <SliderPrimitive.ValueText
+      data-slot="slider-value-text"
+      class={cn(
+        'text-right text-sm leading-5 font-normal text-foreground group-data-[orientation=vertical]:justify-self-end group-data-[orientation=vertical]:[grid-area:value]',
+        local.class,
+      )}
+      {...others}
+    />
+  );
+}
+
+function SliderControl(props: ComponentProps<typeof SliderPrimitive.Control>) {
+  const [local, others] = splitProps(props, ['class']);
+
+  return (
+    <SliderPrimitive.Control
+      data-slot="slider-control"
+      class={cn(
+        'relative flex min-h-5 w-full cursor-pointer touch-none items-center select-none group-data-readonly:cursor-default group-data-[orientation=vertical]:[grid-area:control] data-disabled:cursor-default data-[orientation=vertical]:h-full data-[orientation=vertical]:min-h-0 data-[orientation=vertical]:w-5 data-[orientation=vertical]:flex-col',
+        local.class,
+      )}
+      {...others}
+    />
+  );
+}
+
+function SliderTrack(props: ComponentProps<typeof SliderPrimitive.Track>) {
+  const [local, others] = splitProps(props, ['class']);
+
+  return (
+    <SliderPrimitive.Track
+      data-slot="slider-track"
+      class={cn(
+        'h-1.5 w-full flex-1 overflow-hidden rounded-full bg-muted ring-1 ring-border select-none ring-inset data-invalid:ring-destructive data-[orientation=vertical]:h-full data-[orientation=vertical]:w-1.5',
+        local.class,
+      )}
+      {...others}
+    />
+  );
+}
+
+function SliderRange(props: ComponentProps<typeof SliderPrimitive.Range>) {
+  const [local, others] = splitProps(props, ['class']);
+
+  return (
+    <SliderPrimitive.Range
+      data-slot="slider-range"
+      class={cn(
+        'h-full rounded-[inherit] bg-primary data-invalid:bg-destructive data-[orientation=vertical]:w-full',
+        local.class,
+      )}
+      {...others}
+    />
+  );
+}
+
+function SliderThumb(props: ComponentProps<typeof SliderPrimitive.Thumb>) {
+  const [local, others] = splitProps(props, ['asChild', 'children', 'class']);
+
+  return (
+    <SliderPrimitive.Thumb
+      asChild={local.asChild}
+      data-slot="slider-thumb"
+      class={cn(
+        'box-border flex size-4 shrink-0 items-center justify-center rounded-full border border-border bg-background shadow-sm outline-0 transition-[border-color,background-color,box-shadow] duration-200 ease-in-out select-none focus-visible:border-ring focus-visible:ring-1 focus-visible:ring-ring data-disabled:pointer-events-none data-dragging:border-ring data-dragging:shadow-md data-dragging:ring-1 data-dragging:ring-ring data-invalid:border-destructive data-invalid:focus-visible:ring-destructive motion-reduce:transition-none',
+        local.class,
+      )}
+      {...others}
+    >
+      {local.children}
+    </SliderPrimitive.Thumb>
+  );
+}
+
+function SliderThumbs(props: { class?: string }) {
+  const slider = useSliderContext();
+
+  return (
+    <Index each={slider().value}>
+      {(_, index) => (
+        <SliderThumb index={index} class={props.class}>
+          <SliderPrimitive.HiddenInput />
+        </SliderThumb>
+      )}
+    </Index>
+  );
+}
+
+function SliderMarkerGroup(props: ComponentProps<typeof SliderPrimitive.MarkerGroup>) {
+  const [local, others] = splitProps(props, ['class']);
+
+  return (
+    <SliderPrimitive.MarkerGroup
+      data-slot="slider-marker-group"
+      class={cn(
+        'mt-2 flex justify-between group-data-[orientation=vertical]:m-0 group-data-[orientation=vertical]:h-full group-data-[orientation=vertical]:flex-col group-data-[orientation=vertical]:[grid-area:markers]',
+        local.class,
+      )}
+      {...others}
+    />
+  );
+}
+
+function SliderMarker(props: ComponentProps<typeof SliderPrimitive.Marker>) {
+  const [local, others] = splitProps(props, ['class']);
+
+  return (
+    <SliderPrimitive.Marker
+      data-slot="slider-marker"
+      class={cn(
+        "relative text-xs leading-4 text-muted-foreground before:absolute before:start-1/2 before:-top-2 before:size-1 before:-translate-x-1/2 before:rounded-full before:bg-border before:content-[''] data-[orientation=vertical]:before:-start-2 data-[orientation=vertical]:before:top-1/2 data-[orientation=vertical]:before:-translate-y-1/2 data-[state=at-value]:before:bg-primary group-data-invalid:data-[state=at-value]:before:bg-destructive data-[state=under-value]:before:bg-primary group-data-invalid:data-[state=under-value]:before:bg-destructive",
+        local.class,
+      )}
+      {...others}
+    />
+  );
+}
+
+function SliderDraggingIndicator(props: ComponentProps<typeof SliderPrimitive.DraggingIndicator>) {
+  const [local, others] = splitProps(props, ['class']);
+
+  return (
+    <SliderPrimitive.DraggingIndicator
+      data-slot="slider-dragging-indicator"
+      class={cn(
+        'pointer-events-none -top-8 rounded-sm bg-foreground px-2 py-1 text-xs leading-none font-medium whitespace-nowrap text-background',
+        local.class,
+      )}
+      {...others}
+    />
+  );
+}
+
+type SliderComponent = typeof SliderRoot & {
+  Root: typeof SliderRoot;
+  RootProvider: typeof SliderRootProvider;
+  Context: typeof SliderPrimitive.Context;
+  useSlider: typeof useSlider;
+  useSliderContext: typeof useSliderContext;
+  Label: typeof SliderLabel;
+  ValueText: typeof SliderValueText;
+  Control: typeof SliderControl;
+  HiddenInput: typeof SliderPrimitive.HiddenInput;
+  Track: typeof SliderTrack;
+  Range: typeof SliderRange;
+  Thumb: typeof SliderThumb;
+  Thumbs: typeof SliderThumbs;
+  MarkerGroup: typeof SliderMarkerGroup;
+  Marker: typeof SliderMarker;
+  DraggingIndicator: typeof SliderDraggingIndicator;
+};
+
+const Slider: SliderComponent = Object.assign(SliderRoot, {
+  Root: SliderRoot,
+  RootProvider: SliderRootProvider,
+  Context: SliderPrimitive.Context,
+  useSlider,
+  useSliderContext,
+  Label: SliderLabel,
+  ValueText: SliderValueText,
+  Control: SliderControl,
+  HiddenInput: SliderPrimitive.HiddenInput,
+  Track: SliderTrack,
+  Range: SliderRange,
+  Thumb: SliderThumb,
+  Thumbs: SliderThumbs,
+  MarkerGroup: SliderMarkerGroup,
+  Marker: SliderMarker,
+  DraggingIndicator: SliderDraggingIndicator,
+});
+
+export { Slider, useSlider, useSliderContext };

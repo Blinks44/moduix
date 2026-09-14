@@ -12,23 +12,23 @@ function ProviderColorPicker() {
   return (
     <ColorPicker.RootProvider value={colorPicker}>
       <ColorPicker.ChannelInput channel="hex" />
+      <ColorPicker.HiddenInput />
     </ColorPicker.RootProvider>
   );
 }
 
-test('renders automatic hidden inputs for root and RootProvider form participation', () => {
+test('submits through explicit Ark hidden inputs', () => {
   const { container } = render(
     <form>
       <ColorPicker defaultValue={parseColor('#eb5e41')} name="accent">
         <ColorPicker.ChannelInput channel="hex" />
+        <ColorPicker.HiddenInput />
       </ColorPicker>
       <ProviderColorPicker />
     </form>,
   );
 
-  const inputs = container.querySelectorAll<HTMLInputElement>(
-    '[data-slot="color-picker-hidden-input"]',
-  );
+  const inputs = container.querySelectorAll<HTMLInputElement>('input[tabindex="-1"]');
 
   expect(inputs).toHaveLength(2);
   expect(Array.from(new FormData(container.querySelector('form')!).entries())).toEqual([
@@ -37,7 +37,7 @@ test('renders automatic hidden inputs for root and RootProvider form participati
   ]);
 });
 
-test('keeps an asChild host, ref, and automatic hidden input intact', () => {
+test('keeps an asChild host, ref, and explicit hidden input intact', () => {
   const ref = createRef<HTMLDivElement>();
 
   render(
@@ -45,6 +45,7 @@ test('keeps an asChild host, ref, and automatic hidden input intact', () => {
       <ColorPicker asChild ref={ref} defaultValue={parseColor('#eb5e41')} name="accent">
         <div data-testid="color-picker-root">
           <ColorPicker.ChannelInput channel="hex" />
+          <ColorPicker.HiddenInput />
         </div>
       </ColorPicker>
     </form>,
@@ -54,26 +55,8 @@ test('keeps an asChild host, ref, and automatic hidden input intact', () => {
 
   expect(ref.current).toBe(root);
   expect(root).toHaveAttribute('data-slot', 'color-picker-root');
-  expect(root.querySelector('[data-slot="color-picker-hidden-input"]')).not.toBeNull();
+  expect(root.querySelector('input[name="accent"]')).not.toBeNull();
   expect(new FormData(root.closest('form')!).get('accent')).toBe('rgba(235, 94, 65, 1)');
-});
-
-test('resets automatic form participation to the default color', async () => {
-  const { container } = render(
-    <form>
-      <ColorPicker defaultValue={parseColor('#eb5e41')} name="accent">
-        <ColorPicker.SwatchTrigger aria-label="Blue" value="#2563eb" />
-      </ColorPicker>
-    </form>,
-  );
-
-  const form = container.querySelector('form')!;
-
-  fireEvent.click(screen.getByRole('button', { name: 'Blue' }));
-  await waitFor(() => expect(new FormData(form).get('accent')).toBe('rgba(37, 99, 235, 1)'));
-
-  form.reset();
-  await waitFor(() => expect(new FormData(form).get('accent')).toBe('rgba(235, 94, 65, 1)'));
 });
 
 test('preserves Ark open-change details and default trigger composition', async () => {

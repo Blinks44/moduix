@@ -1,0 +1,31 @@
+.trigger {
+  min-width: auto;
+  min-height: auto;
+  padding: 0;
+  border: none;
+  background: transparent;
+  color: inherit;
+  cursor: pointer;
+  border-radius: var(--moduix-radius-sm);
+  transition: var(--moduix-transition-default);
+}
+
+@media (hover: hover) {
+  .trigger:hover {
+    color: var(--moduix-color-foreground);
+    background: color-mix(in srgb, var(--moduix-color-muted) 70%, transparent);
+  }
+}
+
+.trigger:focus-visible {
+  outline: none;
+  box-shadow: 0 0 0 var(--moduix-border-width-sm) var(--moduix-color-ring);
+}
+
+.content {
+  --moduix-menu-popup-min-width: 8rem;
+  --moduix-menu-item-font-size: var(--moduix-text-xs);
+  --moduix-menu-item-padding-x-start: 0.5rem;
+  --moduix-menu-item-padding-x-end: 0.5rem;
+  --moduix-menu-item-padding-y: 0.25rem;
+}

@@ -12,7 +12,6 @@ import { clsx } from 'clsx';
 import type { ComponentProps, ComponentRef } from 'react';
 import { forwardRef } from 'react';
 import { PlusIcon } from '@/lib/moduix/icons/ui';
-import { normalizeClassName } from '@/lib/moduix/normalizeClassName';
 import styles from './Accordion.module.css';
 
 const AccordionRoot = forwardRef<
@@ -23,7 +22,7 @@ const AccordionRoot = forwardRef<
     <AccordionPrimitive.Root
       ref={ref}
       data-slot="accordion-root"
-      className={clsx(styles.root, normalizeClassName(className))}
+      className={clsx(styles.root, className)}
       {...props}
     />
   );
@@ -37,7 +36,7 @@ const AccordionRootProvider = forwardRef<
     <AccordionPrimitive.RootProvider
       ref={ref}
       data-slot="accordion-root-provider"
-      className={clsx(styles.root, normalizeClassName(className))}
+      className={clsx(styles.root, className)}
       {...props}
     />
   );
@@ -51,7 +50,7 @@ const AccordionItem = forwardRef<
     <AccordionPrimitive.Item
       ref={ref}
       data-slot="accordion-item"
-      className={clsx(styles.item, normalizeClassName(className))}
+      className={clsx(styles.item, className)}
       {...props}
     />
   );
@@ -65,7 +64,7 @@ const AccordionItemTrigger = forwardRef<
     <AccordionPrimitive.ItemTrigger
       ref={ref}
       data-slot="accordion-item-trigger"
-      className={clsx(styles.itemTrigger, normalizeClassName(className))}
+      className={clsx(styles.itemTrigger, className)}
       {...props}
     />
   );
@@ -79,7 +78,7 @@ const AccordionItemIndicator = forwardRef<
     <AccordionPrimitive.ItemIndicator
       ref={ref}
       data-slot="accordion-item-indicator"
-      className={clsx(styles.itemIndicator, normalizeClassName(className))}
+      className={clsx(styles.itemIndicator, className)}
       {...props}
     >
       {children ?? <PlusIcon />}
@@ -95,7 +94,7 @@ const AccordionItemContent = forwardRef<
     <AccordionPrimitive.ItemContent
       ref={ref}
       data-slot="accordion-item-content"
-      className={clsx(styles.itemContent, normalizeClassName(className))}
+      className={clsx(styles.itemContent, className)}
       {...props}
     />
   );
@@ -109,7 +108,7 @@ const AccordionItemBody = forwardRef<ComponentRef<typeof ark.div>, HTMLArkProps<
         data-scope="accordion"
         data-part="item-body"
         data-slot="accordion-item-body"
-        className={clsx(styles.itemBody, normalizeClassName(className))}
+        className={clsx(styles.itemBody, className)}
         {...props}
       />
     );

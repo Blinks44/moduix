@@ -1,188 +1,185 @@
 ---
 title: List Selection
-description: Manage single, multiple, deselectable, range, and modifier-key selection in custom list interfaces.
+description: Manage single, multiple, deselectable, and range selection in custom list interfaces.
 ---
+
+import ListSelectionBasic from '@/components/examples/list-selection/basic.tsx';
+import ListSelectionMultiple from '@/components/examples/list-selection/multiple.tsx';
+import listSelectionSolidBasic from '../../../snippets/list-selection/solid/basic.tsx?raw';
+import listSelectionSolidMultiple from '../../../snippets/list-selection/solid/multiple.tsx?raw';
 
 # List Selection
 
-## API reference
+`useListSelection` manages selected values in a `ListCollection` while your application owns the
+markup and interaction model.
+
+## API Reference
 
 <PrimitiveReference href="https://ark-ui.com/docs/collections/list-selection" />
 
-The `useListSelection` hook tracks selected values in a `ListCollection`. Use it when you are
-building a custom list and need selection state without adopting a ready-made collection
-component. `Select`, `Combobox`, and `Listbox` already manage selection, so you normally do not
-need this hook with them.
+The hook is provided by Ark UI, not re-exported by Moduix. Import it from the collection entry point
+for the framework in your application:
 
-Import the collection helpers from Ark UI:
+<Tabs
+  groupId="framework"
+  values={[
+    { label: 'React', value: 'react' },
+    { label: 'Solid', value: 'solid' },
+  ]}
+  className="docs-tabs"
+>
+  <Tab value="react">
 
 ```tsx
 import { createListCollection, useListSelection } from '@ark-ui/react/collection';
 ```
 
-## Single selection
+  </Tab>
+  <Tab value="solid">
 
-```tsx preview file="./_snippets/list-selection/basic.tsx"
-
+```tsx
+import { createListCollection, useListSelection } from '@ark-ui/solid/collection';
 ```
 
-This example uses buttons for a short list of independent options. The hook tracks selected values,
-while your UI controls rendering, semantic roles, focus, keyboard interaction, and accessible
-labels.
+  </Tab>
+</Tabs>
 
-Buttons work well here because each option is an independent action, and `aria-pressed` exposes its
-selected state. Do not add `role="listbox"` to custom markup unless you also implement the complete
-listbox keyboard and focus model. For a conventional option picker, use [Listbox](/docs/listbox),
-which provides listbox semantics and keyboard behavior.
+There is no `list-selection` export or registry item in `@moduix/react`, `@moduix/solid`,
+`@moduix/react-tailwind`, or `@moduix/solid-tailwind`. This page documents the Ark UI hook that can
+be used alongside any of those packages.
 
-## Configuration
+## Basic selection
 
-| Prop                      | Description                                                               | Default    |
-| ------------------------- | ------------------------------------------------------------------------- | ---------- |
-| `collection`              | Collection that provides the values that can be selected.                 | required   |
-| `selectionMode`           | `'single'`, `'multiple'`, `'extended'`, or `'none'`.                      | `'single'` |
-| `deselectable`            | Whether selecting the current value again can clear the selection.        | `true`     |
-| `initialSelectedValues`   | Initial values for uncontrolled selection.                                | `[]`       |
-| `resetOnCollectionChange` | Whether to clear the selection when the collection changes.              | `false`    |
+The hook stores selection state. The example supplies a labelled section, native buttons with
+`aria-pressed`, and a live status message. The preview runs the React source; the Solid tab contains
+the equivalent native Solid implementation.
 
-`initialSelectedValues` is used only when the selection is created. Use `setSelectedValues` to
-change the selection after mount. Use `extended` when your interaction layer maps modifier keys to
-`select(value, true)`; the hook does not implement pointer or keyboard events for you.
+<ExampleFrame variant="component">
+  <PreviewFrame maxWidth="sm">
+    <ListSelectionBasic />
+  </PreviewFrame>
+</ExampleFrame>
 
-## State
+<ExampleCode>
+<div className="docs-reference">
+  <Tabs
+    groupId="framework"
+    values={[
+      { label: 'React', value: 'react' },
+      { label: 'Solid', value: 'solid' },
+    ]}
+    className="docs-tabs"
+  >
+    <Tab value="react">
 
-| Value                | Description                                            |
-| -------------------- | ------------------------------------------------------ |
-| `selectedValues`     | Array of currently selected values.                    |
-| `isEmpty`            | Whether no values are selected.                        |
-| `firstSelectedValue` | First selected value in collection order, or `null`.   |
-| `lastSelectedValue`  | Last selected value in collection order, or `null`.    |
+```tsx pure file="../../../src/components/examples/list-selection/basic.tsx"
+```
 
-## Query methods
+    </Tab>
+    <Tab value="solid">
 
-| Method              | Description                                                  |
-| ------------------- | ------------------------------------------------------------ |
-| `isSelected(value)` | Checks whether a value is selected.                          |
-| `canSelect(value)`  | Checks whether selection is allowed by the current mode.   |
-| `isAllSelected()`   | Checks whether every collection item is selected.            |
-| `isSomeSelected()`  | Checks whether at least one collection item is selected.     |
+<CodeBlockRuntime lang="tsx" code={listSelectionSolidBasic} />
 
-Use `canSelect` before exposing a custom selection action when `selectionMode` may be `'none'`.
+    </Tab>
+  </Tabs>
+</div>
+</ExampleCode>
 
-## Actions
-
-| Method                             | Description                                                      |
-| ---------------------------------- | ---------------------------------------------------------------- |
-| `select(value, forceToggle?)`      | Selects a value according to the current mode.                    |
-| `deselect(value)`                  | Removes one selected value.                                     |
-| `toggle(value)`                    | Toggles one value between selected and unselected.              |
-| `replace(value)`                   | Replaces the selection with one value. Passing `null` leaves it unchanged. |
-| `extend(anchorValue, targetValue)` | Extends the selection between two values in collection order.    |
-| `setSelectedValues(values)`        | Sets the selection to the values you provide, subject to the current mode. |
-| `clear()`                          | Clears selected values when `deselectable` is `true`.             |
-| `resetSelection()`                 | Clears the selection and recreates it with the current settings. |
-
-`clear()` respects `deselectable`. Use `resetSelection()` when you need an empty selection even when
-`deselectable` is `false`.
+`deselectable` is `true` by default, so selecting the current value again clears it. The hook does
+not render controls or disable them. Derive `disabled` from the collection item in your markup, as
+the example does.
 
 ## Multiple selection
 
-```tsx
-import { createListCollection, useListSelection } from '@ark-ui/react/collection';
-import { Button } from '@moduix/react/button';
+Use `selectionMode: 'multiple'` when users can select several values without modifier keys. The
+example also uses `isAllSelected`, `setSelectedValues`, and `clear` for a select-all action.
 
-const teams = createListCollection({
-  items: [
-    { label: 'Platform', value: 'platform' },
-    { label: 'Product', value: 'product' },
-    { label: 'Design', value: 'design' },
-  ],
-});
+<ExampleFrame variant="component">
+  <PreviewFrame maxWidth="sm">
+    <ListSelectionMultiple />
+  </PreviewFrame>
+</ExampleFrame>
 
-function TeamSelectionActions() {
-  const selection = useListSelection({
-    collection: teams,
-    selectionMode: 'multiple',
-    initialSelectedValues: ['platform'],
-  });
+<ExampleCode>
+<div className="docs-reference">
+  <Tabs
+    groupId="framework"
+    values={[
+      { label: 'React', value: 'react' },
+      { label: 'Solid', value: 'solid' },
+    ]}
+    className="docs-tabs"
+  >
+    <Tab value="react">
 
-  function toggleAll() {
-    if (selection.isAllSelected()) {
-      selection.clear();
-      return;
-    }
-
-    selection.setSelectedValues(teams.getValues());
-  }
-
-  return (
-    <Button type="button" onClick={toggleAll}>
-      {selection.isAllSelected() ? 'Clear all' : 'Select all'}
-    </Button>
-  );
-}
+```tsx pure file="../../../src/components/examples/list-selection/multiple.tsx"
 ```
 
-Set `selectionMode` to `'multiple'` when users should be able to select several values at once. The
-example uses `isAllSelected()` to choose between clearing the selection and selecting every value.
+    </Tab>
+    <Tab value="solid">
 
-The hook only tracks selection state, so it does not disable your controls. Disable them from the
-collection's item state, as the basic example does. When calling `setSelectedValues` with external
-values, validate them with `collection.has` and `collection.getItemDisabled` if disabled items should
-be excluded.
+<CodeBlockRuntime lang="tsx" code={listSelectionSolidMultiple} />
 
-## Range selection
+    </Tab>
+  </Tabs>
+</div>
+</ExampleCode>
 
-Keep the anchor value in your interaction layer, then call `extend` when the user selects a range:
+## API essentials
 
-```tsx
-import { useRef } from 'react';
-import { useListSelection, type ListCollection } from '@ark-ui/react/collection';
+### Configuration
 
-type Team = {
-  label: string;
-  value: string;
-};
+| Option                    | Description                                                        | Default     |
+| ------------------------- | ------------------------------------------------------------------ | ----------- |
+| `collection`              | `ListCollection` whose values can be selected.                    | required    |
+| `selectionMode`           | `'single'`, `'multiple'`, `'extended'`, or `'none'`.               | `'single'`  |
+| `deselectable`            | Whether selecting the current value again can clear the selection. | `true`      |
+| `initialSelectedValues`   | Initial values for uncontrolled selection.                         | `[]`        |
+| `resetOnCollectionChange` | Whether to clear selection when the collection changes.           | `false`     |
 
-function useRangeSelection(collection: ListCollection<Team>) {
-  const selection = useListSelection({
-    collection,
-    selectionMode: 'multiple',
-  });
-  const anchorRef = useRef<string | null>(null);
+`initialSelectedValues` is read when the selection is created. Use `setSelectedValues` or another
+action to change the selection later. In Solid, state properties are accessors, so read them as
+`selection.selectedValues()` and `selection.isEmpty()`; action methods keep the same call shape as
+in React.
 
-  function handleSelect(value: string, withRange: boolean) {
-    if (withRange && anchorRef.current) {
-      selection.extend(anchorRef.current, value);
-      return;
-    }
+### State and actions
 
-    selection.replace(value);
-    anchorRef.current = value;
-  }
+| API                                | Description                                               |
+| ---------------------------------- | --------------------------------------------------------- |
+| `selectedValues`                   | Currently selected values.                                |
+| `isEmpty`                          | Whether no value is selected.                             |
+| `firstSelectedValue`               | First selected value in collection order, or `null`.     |
+| `lastSelectedValue`                | Last selected value in collection order, or `null`.      |
+| `isSelected(value)`                | Checks whether a value is selected.                       |
+| `canSelect(value)`                 | Checks whether the value can be selected in this mode.   |
+| `isAllSelected()`                  | Checks whether every collection value is selected.        |
+| `isSomeSelected()`                 | Checks whether at least one collection value is selected. |
+| `select(value, forceToggle?)`      | Selects according to the current mode.                   |
+| `deselect(value)`                  | Removes one selected value.                               |
+| `toggle(value)`                    | Toggles one value.                                        |
+| `replace(value)`                   | Replaces the selection with one value.                    |
+| `extend(anchorValue, targetValue)` | Extends selection between two values in collection order. |
+| `setSelectedValues(values)`        | Sets the selected values, subject to the current mode.    |
+| `clear()`                          | Clears selection when `deselectable` is `true`.           |
+| `resetSelection()`                 | Creates a new empty selection with current settings.      |
 
-  return { selection, handleSelect };
-}
-```
+`replace(null)` leaves the current selection unchanged. Use `resetSelection()` when you need an
+empty selection even if `deselectable` is `false`.
 
-Map `withRange` to Shift-click or another range gesture. Keyboard range selection also requires
-focus management and Shift+Arrow handling. If you need a standard ARIA listbox, use [Listbox](/docs/listbox)
-and let it manage those interactions.
+## Interaction and accessibility
 
-## Collection changes
+`useListSelection` does not listen for pointer or keyboard events and does not add ARIA attributes.
+Choose the semantics that match your markup:
 
-Set `resetOnCollectionChange: true` when a new collection represents a different dataset and the old
-selection must not carry over.
+- Use native buttons with `aria-pressed` when each option is an independent toggle, as in the
+  examples.
+- Keep focus management, keyboard shortcuts, and live status messages in your interaction layer.
+- For Shift-click or another range gesture, keep the anchor value in application state and call
+  `extend(anchorValue, targetValue)`. For modifier-key toggling, call `select(value, true)`.
+- Use `Listbox` when users need a conventional option picker with listbox semantics and keyboard
+  behavior. `Select` and `Combobox` also manage their own selection state.
 
-Keep the default `false` when filtering temporarily hides items and the selection should survive the
-filter. If the collection removes values that must no longer be selected, filter the selected values
-and pass the result to `setSelectedValues`:
-
-```tsx
-const validValues = selection.selectedValues.filter((value) => collection.has(value));
-
-selection.setSelectedValues(validValues);
-```
-
-Run this synchronization in an event handler or effect when the collection changes, not during
-render.
+When a collection changes, keep `resetOnCollectionChange: false` if temporary filtering should keep
+the selection. Set it to `true` for a new dataset. If removed values must no longer remain selected,
+filter with `collection.has(value)` and call `setSelectedValues` from an event handler or effect, not
+during render.

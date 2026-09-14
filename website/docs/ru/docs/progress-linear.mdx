@@ -4,7 +4,25 @@ component: progress-linear
 description: Линейный индикатор прогресса для задач, ход выполнения которых известен или неизвестен.
 ---
 
-import * as ProgressLinearDocs from '@/components/examples/progress-linear';
+import * as ProgressLinearDocs from '@/components/examples/progress-linear/css-properties';
+import ProgressLinearBasic from '@/components/examples/progress-linear/basic.tsx';
+import ProgressLinearControlled from '@/components/examples/progress-linear/controlled.tsx';
+import ProgressLinearIndeterminate from '@/components/examples/progress-linear/indeterminate.tsx';
+import ProgressLinearInitialValue from '@/components/examples/progress-linear/initial-value.tsx';
+import ProgressLinearMinMax from '@/components/examples/progress-linear/min-max.tsx';
+import ProgressLinearStateViews from '@/components/examples/progress-linear/state-views.tsx';
+import ProgressLinearValueText from '@/components/examples/progress-linear/value-text.tsx';
+import ProgressLinearVertical from '@/components/examples/progress-linear/vertical.tsx';
+import ProgressLinearRootProvider from '@/components/examples/progress-linear/root-provider.tsx';
+import progressLinearSolidBasic from '../../../snippets/progress-linear/solid/basic.tsx?raw';
+import progressLinearSolidControlled from '../../../snippets/progress-linear/solid/controlled.tsx?raw';
+import progressLinearSolidIndeterminate from '../../../snippets/progress-linear/solid/indeterminate.tsx?raw';
+import progressLinearSolidInitialValue from '../../../snippets/progress-linear/solid/initial-value.tsx?raw';
+import progressLinearSolidMinMax from '../../../snippets/progress-linear/solid/min-max.tsx?raw';
+import progressLinearSolidStateViews from '../../../snippets/progress-linear/solid/state-views.tsx?raw';
+import progressLinearSolidValueText from '../../../snippets/progress-linear/solid/value-text.tsx?raw';
+import progressLinearSolidVertical from '../../../snippets/progress-linear/solid/vertical.tsx?raw';
+import progressLinearSolidRootProvider from '../../../snippets/progress-linear/solid/root-provider.tsx?raw';
 
 ## Справочник API
 
@@ -18,18 +36,69 @@ import * as ProgressLinearDocs from '@/components/examples/progress-linear';
 
 ## Базовый пример
 
+`ProgressLinear` доступен для React и Solid во всех четырёх вариантах: CSS Modules и Tailwind. Превью
+на этой странице работает на React с CSS Modules, а вкладки платформ показывают нативный исходный
+код для того же публичного контракта.
+
 Соберите индикатор из явных частей `Label`, `ValueText`, `Track` и `Range`. Задайте для `Track`
 доступное имя, которое описывает задачу.
 
-<PreviewFrame>
-  ```tsx preview file="../../en/docs/_snippets/progress-linear/basic.tsx"
+<ExampleFrame variant="component">
+  <ProgressLinearBasic />
+</ExampleFrame>
 
-  ```
-</PreviewFrame>
+<ExampleCode>
+<div className="docs-reference">
+  <Tabs
+    groupId="framework"
+    values={[
+      { label: 'React', value: 'react' },
+      { label: 'Solid', value: 'solid' },
+    ]}
+    className="docs-tabs"
+  >
+    <Tab value="react">
+
+```tsx pure file="../../../src/components/examples/progress-linear/basic.tsx"
+```
+
+    </Tab>
+    <Tab value="solid">
+
+<CodeBlockRuntime lang="tsx" code={progressLinearSolidBasic} />
+
+    </Tab>
+  </Tabs>
+</div>
+
+</ExampleCode>
 
 ## Установка через shadcn
 
-<ShadcnInstall packageName="progress-linear" />
+Полную настройку пакета, реестра и стилей см. в разделе [Быстрый старт](/docs/quick-start).
+
+<Tabs groupId="framework">
+  <Tab label="React" value="react">
+
+<ShadcnInstallOptions
+  options={[
+    { label: 'CSS Modules', command: 'shadcn@latest add @moduix-react/progress-linear' },
+    { label: 'Tailwind CSS', command: 'shadcn@latest add @moduix-react-tailwind/progress-linear' },
+  ]}
+/>
+
+  </Tab>
+  <Tab label="Solid" value="solid">
+
+<ShadcnInstallOptions
+  options={[
+    { label: 'CSS Modules', command: 'shadcn@latest add @moduix-solid/progress-linear' },
+    { label: 'Tailwind CSS', command: 'shadcn@latest add @moduix-solid-tailwind/progress-linear' },
+  ]}
+/>
+
+  </Tab>
+</Tabs>
 
 ## Анатомия
 
@@ -42,148 +111,240 @@ ProgressLinear / ProgressLinear.Root
 └─ ProgressLinear.View
 
 ProgressLinear.RootProvider
-└─ same part tree connected to ProgressLinear.useProgress()
+└─ та же структура частей, подключённая к ProgressLinear.useProgress()
 ```
 
-| Часть                                     | Назначение                                                                    |
-| ----------------------------------------- | ----------------------------------------------------------------------------- |
-| `ProgressLinear` / `ProgressLinear.Root`  | Хранит состояние прогресса и передаёт Ark форматирование, идентификаторы и другие свойства. |
-| `ProgressLinear.RootProvider`             | Подключает части к хранилищу, которое возвращает `ProgressLinear.useProgress()`. |
-| `ProgressLinear.Context`                  | Передаёт текущее состояние прогресса функции, переданной как дочерний элемент. |
-| `ProgressLinear.Label`                    | Видимая подпись задачи. Она автоматически не становится доступным именем `Track`. |
-| `ProgressLinear.ValueText`                | Показывает отформатированный процент и сообщает об изменениях. Через `Context` можно вывести свой текст. |
-| `ProgressLinear.Track`                   | Основа полосы прогресса. Ark добавляет ей роль и ARIA-атрибуты значения.       |
-| `ProgressLinear.Range`                   | Заполненная часть, отражающая текущий прогресс.                               |
-| `ProgressLinear.View`                    | Показывает содержимое, только когда его `state` совпадает с текущим состоянием прогресса. |
+| Часть                                      | Назначение                                                                    |
+| ------------------------------------------ | ----------------------------------------------------------------------------- |
+| `ProgressLinear` / `ProgressLinear.Root`   | Хранит состояние прогресса и передаёт Ark форматирование, идентификаторы и другие свойства. |
+| `ProgressLinear.RootProvider`              | Подключает части к хранилищу, которое возвращает `ProgressLinear.useProgress()`. |
+| `ProgressLinear.Context`                   | Передаёт текущее состояние прогресса функции, переданной как дочерний элемент. |
+| `ProgressLinear.Label`                     | Видимая подпись задачи. Она автоматически не становится доступным именем `Track`. |
+| `ProgressLinear.ValueText`                 | Показывает отформатированный процент и сообщает об изменениях. Через `Context` можно вывести свой текст. |
+| `ProgressLinear.Track`                     | Основа полосы прогресса. Ark добавляет ей роль и ARIA-атрибуты значения.       |
+| `ProgressLinear.Range`                     | Заполненная часть, отражающая текущий прогресс.                               |
+| `ProgressLinear.View`                      | Показывает содержимое, только когда его `state` совпадает с текущим состоянием прогресса. |
 
 ## Композиция
 
-### Рекомендуемая композиция
-
-Для обычного сценария используйте `ProgressLinear` или `ProgressLinear.Root` как корневой элемент.
-`ProgressLinear` - это сокращённая запись `ProgressLinear.Root`. Видимые части остаются явными,
-поэтому вы сами управляете структурой разметки.
-
 Используйте `defaultValue` для неуправляемого прогресса. В управляемом режиме передайте `value` и
-`onValueChange(details)`, если приложение хранит текущее значение. Установите
-`defaultValue={null}` или `value={null}`, когда задача выполняется, но её прогресс неизвестен.
-
-`ProgressLinear.RootProvider` заменяет корневой элемент, когда состояние создано через
-`ProgressLinear.useProgress()`. Не используйте `Root` вместе с `RootProvider`.
-
-### Когда нужна собственная композиция
-
-Используйте `ProgressLinear.RootProvider` вместе с `ProgressLinear.useProgress()`, если состояние
-должен создать или контролировать родительский компонент либо другая часть приложения.
-
-Используйте `translations.value(details)`, если сгенерированное доступное имя должно подробнее
-описывать задачу. Ark использует возвращённую строку как сгенерированный `aria-label` для `Track`.
-Стандартный `ValueText` при этом по-прежнему показывает отформатированный процент. Если свой текст
-должен быть виден в интерфейсе, выведите `state.valueAsString` через `ProgressLinear.Context`.
-Явно заданные `aria-label` или `aria-labelledby` на `Track` имеют приоритет.
-
-Используйте `ids`, если нестандартной композиции нужны стабильные явные идентификаторы для подписи,
-полосы или окружающей разметки. Используйте `ProgressLinear.View`, если вспомогательный текст или
-интерфейс должен переключаться вместе с состоянием прогресса Ark, а не через дублирование проверок.
-Используйте `ProgressLinear.Context` или `ProgressLinear.useProgressContext()`, если пользовательскому
-интерфейсу нужен доступ к состоянию внутри корня или провайдера. Прямые импорты Ark нужны только
-для интеграций, которые нельзя построить на API moduix.
-
-### Свойства по умолчанию
-
-| Свойство         | По умолчанию           | Примечания                                             |
-| ---------------- | ---------------------- | ------------------------------------------------------ |
-| `defaultValue`   | `50`                   | Начальное значение неуправляемого прогресса.           |
-| `min`            | `0`                    | Минимум для процента и ARIA-значений.                  |
-| `max`            | `100`                  | Максимум для процента и ARIA-значений.                 |
-| `formatOptions`  | `{ style: 'percent' }` | Параметры форматирования `ValueText`.                 |
-| `locale`         | `'en-US'`              | Локаль, передаваемая в `Intl.NumberFormat`.            |
-| `orientation`    | `'horizontal'`         | Для `vertical` задайте высоту.                         |
-
-### Особенности поведения
-
-`ProgressLinear.Track` получает от Ark `role="progressbar"`, `aria-valuemin`, `aria-valuemax` и
-`aria-valuenow`. Корневой элемент предоставляет `data-state="indeterminate|loading|complete"` и
-`data-orientation`. Для неопределённого прогресса атрибут `aria-valuenow` не добавляется.
-
-`ProgressLinear.Label` даёт видимый контекст, но автоматически не задаёт доступное имя для `Track`.
-По умолчанию полоса получает сгенерированное имя на основе значения из `translations.value(details)`.
-Чтобы задать имя задачи явно, передайте на `Track` `aria-label` или `aria-labelledby`.
-`ProgressLinear.ValueText` сообщает об изменениях через `aria-live="polite"`.
-
-Все отрисовываемые части поддерживают `asChild` благодаря полиморфной композиции Ark. Сохраняйте
-семантику заменяемых элементов и роль `progressbar` у `Track`. Прогресс носит информационный
-характер, поэтому компонент не поддерживает клавиатурное взаимодействие и управление фокусом.
-
-Ark добавляет `data-orientation` к корню, подписи, полосе и заполненной части. В RTL заполнение
-начинается с начала строки, а направление анимации неопределённого прогресса меняется на обратное.
+`onValueChange(details)`, если приложение хранит текущее значение. Используйте `defaultValue={null}`
+или `value={null}`, когда прогресс неизвестен. Если состояние создано через
+`ProgressLinear.useProgress()`, отрисовывайте части внутри `ProgressLinear.RootProvider`, а не внутри
+`ProgressLinear` или `ProgressLinear.Root`. Используйте `ProgressLinear.View` для содержимого,
+зависящего от состояния, а `ProgressLinear.Context` для собственного текста, которому нужно текущее
+состояние.
 
 ## Примеры
 
 ### Управляемое состояние
 
-Храните `value` в состоянии React, если прогресс должен синхронно меняться вместе с другим элементом
+Храните `value` в состоянии, если прогресс должен синхронно меняться вместе с другим элементом
 управления или внешней задачей.
 
-<PreviewFrame>
-  ```tsx preview file="../../en/docs/_snippets/progress-linear/controlled.tsx"
+<ExampleFrame variant="component">
+  <ProgressLinearControlled />
+</ExampleFrame>
 
-  ```
-</PreviewFrame>
+<ExampleCode>
+<div className="docs-reference">
+  <Tabs
+    groupId="framework"
+    values={[
+      { label: 'React', value: 'react' },
+      { label: 'Solid', value: 'solid' },
+    ]}
+    className="docs-tabs"
+  >
+    <Tab value="react">
+
+```tsx pure file="../../../src/components/examples/progress-linear/controlled.tsx"
+```
+
+    </Tab>
+    <Tab value="solid">
+
+<CodeBlockRuntime lang="tsx" code={progressLinearSolidControlled} />
+
+    </Tab>
+  </Tabs>
+</div>
+
+</ExampleCode>
 
 ### Неопределённый прогресс
 
 Установите `defaultValue={null}` или `value={null}`, когда задача выполняется, но пока нельзя
 определить, сколько уже сделано.
 
-<PreviewFrame>
-  ```tsx preview file="../../en/docs/_snippets/progress-linear/indeterminate.tsx"
+<ExampleFrame variant="component">
+  <ProgressLinearIndeterminate />
+</ExampleFrame>
 
-  ```
-</PreviewFrame>
+<ExampleCode>
+<div className="docs-reference">
+  <Tabs
+    groupId="framework"
+    values={[
+      { label: 'React', value: 'react' },
+      { label: 'Solid', value: 'solid' },
+    ]}
+    className="docs-tabs"
+  >
+    <Tab value="react">
+
+```tsx pure file="../../../src/components/examples/progress-linear/indeterminate.tsx"
+```
+
+    </Tab>
+    <Tab value="solid">
+
+<CodeBlockRuntime lang="tsx" code={progressLinearSolidIndeterminate} />
+
+    </Tab>
+  </Tabs>
+</div>
+
+</ExampleCode>
 
 ### Начальное значение
 
 Используйте `defaultValue`, чтобы задать начальное значение неуправляемого прогресса.
 
-<PreviewFrame>
-  ```tsx preview file="../../en/docs/_snippets/progress-linear/initial-value.tsx"
+<ExampleFrame variant="component">
+  <ProgressLinearInitialValue />
+</ExampleFrame>
 
-  ```
-</PreviewFrame>
+<ExampleCode>
+<div className="docs-reference">
+  <Tabs
+    groupId="framework"
+    values={[
+      { label: 'React', value: 'react' },
+      { label: 'Solid', value: 'solid' },
+    ]}
+    className="docs-tabs"
+  >
+    <Tab value="react">
+
+```tsx pure file="../../../src/components/examples/progress-linear/initial-value.tsx"
+```
+
+    </Tab>
+    <Tab value="solid">
+
+<CodeBlockRuntime lang="tsx" code={progressLinearSolidInitialValue} />
+
+    </Tab>
+  </Tabs>
+</div>
+
+</ExampleCode>
 
 ### Минимум и максимум
 
 Используйте `min` и `max`, если диапазон прогресса отличается от стандартного диапазона от `0` до
 `100`.
 
-<PreviewFrame>
-  ```tsx preview file="../../en/docs/_snippets/progress-linear/min-max.tsx"
+<ExampleFrame variant="component">
+  <ProgressLinearMinMax />
+</ExampleFrame>
 
-  ```
-</PreviewFrame>
+<ExampleCode>
+<div className="docs-reference">
+  <Tabs
+    groupId="framework"
+    values={[
+      { label: 'React', value: 'react' },
+      { label: 'Solid', value: 'solid' },
+    ]}
+    className="docs-tabs"
+  >
+    <Tab value="react">
+
+```tsx pure file="../../../src/components/examples/progress-linear/min-max.tsx"
+```
+
+    </Tab>
+    <Tab value="solid">
+
+<CodeBlockRuntime lang="tsx" code={progressLinearSolidMinMax} />
+
+    </Tab>
+  </Tabs>
+</div>
+
+</ExampleCode>
 
 ### Представления состояния
 
 Используйте `ProgressLinear.View`, если вспомогательный текст или интерфейс должен меняться вместе
 с состоянием прогресса Ark.
 
-<PreviewFrame>
-  ```tsx preview file="../../en/docs/_snippets/progress-linear/state-views.tsx"
+<ExampleFrame variant="component">
+  <ProgressLinearStateViews />
+</ExampleFrame>
 
-  ```
-</PreviewFrame>
+<ExampleCode>
+<div className="docs-reference">
+  <Tabs
+    groupId="framework"
+    values={[
+      { label: 'React', value: 'react' },
+      { label: 'Solid', value: 'solid' },
+    ]}
+    className="docs-tabs"
+  >
+    <Tab value="react">
+
+```tsx pure file="../../../src/components/examples/progress-linear/state-views.tsx"
+```
+
+    </Tab>
+    <Tab value="solid">
+
+<CodeBlockRuntime lang="tsx" code={progressLinearSolidStateViews} />
+
+    </Tab>
+  </Tabs>
+</div>
+
+</ExampleCode>
 
 ### Текст значения
 
 Используйте `ProgressLinear.Context` с `translations.value(details)`, если отображаемому значению
 нужна формулировка, связанная с конкретной задачей.
 
-<PreviewFrame>
-  ```tsx preview file="../../en/docs/_snippets/progress-linear/value-text.tsx"
+<ExampleFrame variant="component">
+  <ProgressLinearValueText />
+</ExampleFrame>
 
-  ```
-</PreviewFrame>
+<ExampleCode>
+<div className="docs-reference">
+  <Tabs
+    groupId="framework"
+    values={[
+      { label: 'React', value: 'react' },
+      { label: 'Solid', value: 'solid' },
+    ]}
+    className="docs-tabs"
+  >
+    <Tab value="react">
+
+```tsx pure file="../../../src/components/examples/progress-linear/value-text.tsx"
+```
+
+    </Tab>
+    <Tab value="solid">
+
+<CodeBlockRuntime lang="tsx" code={progressLinearSolidValueText} />
+
+    </Tab>
+  </Tabs>
+</div>
+
+</ExampleCode>
 
 ### Вертикальная ориентация
 
@@ -191,27 +352,77 @@ Ark добавляет `data-orientation` к корню, подписи, пол�
 вертикальном режиме высота по умолчанию составляет `12rem`. Если макету нужна другая высота,
 переопределите `--moduix-progress-linear-height`.
 
-<PreviewFrame>
-  ```tsx preview file="../../en/docs/_snippets/progress-linear/vertical.tsx"
+<ExampleFrame variant="component">
+  <ProgressLinearVertical />
+</ExampleFrame>
 
-  ```
-</PreviewFrame>
+<ExampleCode>
+<div className="docs-reference">
+  <Tabs
+    groupId="framework"
+    values={[
+      { label: 'React', value: 'react' },
+      { label: 'Solid', value: 'solid' },
+    ]}
+    className="docs-tabs"
+  >
+    <Tab value="react">
+
+```tsx pure file="../../../src/components/examples/progress-linear/vertical.tsx"
+```
+
+    </Tab>
+    <Tab value="solid">
+
+<CodeBlockRuntime lang="tsx" code={progressLinearSolidVertical} />
+
+    </Tab>
+  </Tabs>
+</div>
+
+</ExampleCode>
 
 ### Расширенная настройка
 
 Создайте состояние прогресса с помощью `ProgressLinear.useProgress()` в родительском компоненте,
-а затем подключите его к частям компонента через `ProgressLinear.RootProvider`.
+а затем подключите его к частям через `ProgressLinear.RootProvider`.
 
-<PreviewFrame>
-  ```tsx preview file="../../en/docs/_snippets/progress-linear/root-provider.tsx"
+<ExampleFrame variant="component">
+  <ProgressLinearRootProvider />
+</ExampleFrame>
 
-  ```
-</PreviewFrame>
+<ExampleCode>
+<div className="docs-reference">
+  <Tabs
+    groupId="framework"
+    values={[
+      { label: 'React', value: 'react' },
+      { label: 'Solid', value: 'solid' },
+    ]}
+    className="docs-tabs"
+  >
+    <Tab value="react">
+
+```tsx pure file="../../../src/components/examples/progress-linear/root-provider.tsx"
+```
+
+    </Tab>
+    <Tab value="solid">
+
+<CodeBlockRuntime lang="tsx" code={progressLinearSolidRootProvider} />
+
+    </Tab>
+  </Tabs>
+</div>
+
+</ExampleCode>
 
 ## Стилизация
 
-Используйте `className` на экспортируемых частях для структурной стилизации. Для стилей, зависящих
-от состояния, используйте атрибуты данных Ark и хуки `data-slot` moduix.
+Используйте `className` в React или `class` в Solid на экспортируемых частях для структурной
+стилизации. Для стилей, зависящих от состояния, используйте атрибуты данных Ark и хуки `data-slot`
+moduix. Варианты Tailwind используют нативные утилиты и классы потребителя, а переменные ниже
+настраивают варианты CSS Modules.
 
 Корневая часть имеет ширину `12rem` по умолчанию. В вертикальном режиме высота также составляет
 `12rem`. Используйте публичные переменные `--moduix-progress-linear-*`, чтобы подстроить компонент
@@ -221,7 +432,7 @@ Ark добавляет `data-orientation` к корню, подписи, пол�
 
 <div className="docs-reference">
   <Tabs
-    values={[{ label: 'CSS Variables', value: 'CSS Variables' }]}
+    values={[{ label: 'CSS-переменные', value: 'CSS Variables' }]}
     className="docs-reference-tabs"
     contentItemClassName="docs-reference-panel"
   >

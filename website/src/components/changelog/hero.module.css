@@ -1,125 +1,560 @@
 .hero {
+  --hero-accent: #2563eb;
+  --hero-accent-soft: color-mix(in oklab, var(--hero-accent) 12%, transparent);
   position: relative;
   display: grid;
-  gap: 1rem;
+  gap: clamp(2.5rem, 7vw, 4.5rem);
+  min-height: 24rem;
   margin: 0 0 1.5rem;
   padding: clamp(1.5rem, 5vw, 3rem);
   overflow: hidden;
-  border: 1px solid var(--rp-c-divider-light);
-  border-radius: 0.85rem;
+  border: 1px solid color-mix(in oklab, var(--rp-c-divider-light) 76%, var(--hero-accent));
+  border-radius: 1.25rem;
   background:
+    radial-gradient(circle at 82% 55%, var(--hero-accent-soft), transparent 36%),
     linear-gradient(
       to right,
-      color-mix(in oklab, var(--rp-c-text-1) 6%, transparent) 1px,
+      color-mix(in oklab, var(--rp-c-text-1) 5%, transparent) 1px,
       transparent 1px
     ),
     linear-gradient(
       to bottom,
-      color-mix(in oklab, var(--rp-c-text-1) 6%, transparent) 1px,
+      color-mix(in oklab, var(--rp-c-text-1) 5%, transparent) 1px,
       transparent 1px
     ),
     var(--rp-c-bg-soft);
-  background-size: 3.5rem 3.5rem;
+  background-size:
+    auto,
+    3.5rem 3.5rem,
+    3.5rem 3.5rem,
+    auto;
   color: var(--rp-c-text-1);
-  text-align: center;
+  isolation: isolate;
 }
 
-.eyebrow,
-.title,
-.summary {
+.hero::after {
+  position: absolute;
+  right: -5rem;
+  bottom: -7rem;
+  width: 17rem;
+  height: 17rem;
+  border: 1px solid color-mix(in oklab, var(--hero-accent) 18%, transparent);
+  border-radius: 50%;
+  content: '';
+}
+
+.blue {
+  --hero-accent: #2563eb;
+}
+
+.violet {
+  --hero-accent: #7c3aed;
+}
+
+.orange {
+  --hero-accent: #ea580c;
+}
+
+.meta,
+.layout {
   position: relative;
   z-index: 1;
-  margin: 0;
 }
 
-.eyebrow {
-  color: var(--rp-c-text-2);
-  font-size: 0.75rem;
-  font-weight: 700;
-  letter-spacing: 0.16em;
+.meta,
+.release {
+  display: flex;
+  align-items: center;
+}
+
+.meta {
+  justify-content: space-between;
+  gap: 1rem;
+}
+
+.release {
+  gap: 0.65rem;
+}
+
+.category {
+  padding: 0.35rem 0.6rem;
+  border: 1px solid color-mix(in oklab, var(--hero-accent) 24%, transparent);
+  border-radius: 999px;
+  background: var(--hero-accent-soft);
+  color: color-mix(in oklab, var(--hero-accent) 82%, var(--rp-c-text-1));
+  font-size: 0.67rem;
+  font-weight: 750;
+  letter-spacing: 0.1em;
+  line-height: 1;
   text-transform: uppercase;
 }
 
-.title {
-  font-size: clamp(1.4rem, 4vw, 2rem);
-  font-weight: 700;
-  letter-spacing: -0.03em;
-}
-
-.content {
-  position: relative;
-  z-index: 1;
-  display: flex;
-  flex-wrap: wrap;
-  align-items: stretch;
-  justify-content: center;
-  gap: clamp(0.35rem, 2vw, 1rem);
-  max-width: 38rem;
-  margin: 0.75rem auto;
-}
-
-.product {
-  display: grid;
-  flex: 0 0 180px;
-  width: 180px;
-  min-height: 140px;
-  box-sizing: border-box;
-  place-items: center;
-  gap: 0.5rem;
-  padding: clamp(0.5rem, 2vw, 0.75rem);
-  border: 1px solid color-mix(in oklab, var(--rp-c-divider-light) 84%, transparent);
-  border-radius: 0.75rem;
-  background: color-mix(in oklab, var(--rp-c-bg) 78%, var(--rp-c-bg-soft));
-  box-shadow: 0 1rem 2.5rem color-mix(in oklab, var(--rp-c-text-1) 8%, transparent);
-}
-
-.content > :only-child {
-  flex-basis: 180px;
-}
-
-.product > svg {
-  display: block;
-  max-width: 100%;
-  height: auto;
-}
-
-.productLabel {
-  font-size: clamp(0.75rem, 3vw, 0.95rem);
-  font-weight: 700;
-}
-
-.arrow {
-  align-self: center;
-  flex: none;
-  width: clamp(1.2rem, 5vw, 1.8rem);
-  height: clamp(1.2rem, 5vw, 1.8rem);
+.version,
+.date {
   color: var(--rp-c-text-2);
-  stroke-width: 1.5;
+  font-size: 0.72rem;
+  font-weight: 650;
+  letter-spacing: 0.04em;
+}
+
+.date {
+  text-align: right;
+}
+
+.layout {
+  display: grid;
+  grid-template-columns: minmax(0, 1fr) minmax(15rem, 1fr);
+  align-items: center;
+  gap: clamp(1.5rem, 4vw, 3rem);
+}
+
+.copy {
+  min-width: 0;
+}
+
+.title,
+.summary {
+  margin: 0;
+}
+
+.title {
+  max-width: 10ch;
+  font-size: clamp(2.3rem, 5vw, 3.35rem);
+  font-weight: 750;
+  letter-spacing: -0.065em;
+  line-height: 0.98;
+  overflow-wrap: normal;
+  word-break: normal;
 }
 
 .summary {
-  max-width: 34rem;
-  margin: 0.25rem auto 0;
+  max-width: 30rem;
+  margin-top: 1.25rem;
   color: var(--rp-c-text-2);
-  font-size: 0.9rem;
-  line-height: 1.5;
+  font-size: clamp(0.92rem, 2vw, 1.05rem);
+  line-height: 1.6;
+}
+
+.visual {
+  position: relative;
+  display: grid;
+  min-height: 13.5rem;
+  place-items: center;
+}
+
+.visual::before {
+  position: absolute;
+  inset: 9% 3%;
+  border-radius: 50%;
+  background: color-mix(in oklab, var(--hero-accent) 14%, transparent);
+  filter: blur(2.6rem);
+  content: '';
+}
+
+.previewSurface {
+  position: relative;
+  width: min(100%, 21rem);
+  box-sizing: border-box;
+  border: 1px solid color-mix(in oklab, var(--rp-c-divider-light) 82%, transparent);
+  border-radius: 1rem;
+  background: color-mix(in oklab, var(--rp-c-bg) 88%, transparent);
+  box-shadow:
+    0 1.5rem 4rem color-mix(in oklab, var(--hero-accent) 15%, transparent),
+    0 0.25rem 1rem color-mix(in oklab, var(--rp-c-text-1) 7%, transparent);
+  backdrop-filter: blur(0.75rem);
+}
+
+.tocPreview {
+  display: grid;
+  grid-template-columns: 1fr 0.72fr;
+  gap: 2rem;
+  padding: 2rem;
+  transform: rotate(-2deg);
+}
+
+.articleLines,
+.tocLines {
+  display: grid;
+  align-content: center;
+  gap: 0.75rem;
+}
+
+.articleLines span,
+.tocLines span,
+.navLink,
+.menuLine {
+  display: block;
+  height: 0.42rem;
+  border-radius: 999px;
+  background: color-mix(in oklab, var(--rp-c-text-2) 24%, transparent);
+}
+
+.articleLines span:first-child {
+  width: 72%;
+  height: 0.8rem;
+  background: color-mix(in oklab, var(--rp-c-text-1) 76%, transparent);
+}
+
+.articleLines span:nth-child(3) {
+  width: 84%;
+}
+
+.articleLines span:last-child {
+  width: 65%;
+}
+
+.tocLines {
+  position: relative;
+  gap: 0.9rem;
+  padding-left: 1rem;
+}
+
+.tocLines::before {
+  position: absolute;
+  inset: 0 auto 0 0;
+  width: 2px;
+  border-radius: 2px;
+  background: color-mix(in oklab, var(--rp-c-text-2) 18%, transparent);
+  content: '';
+}
+
+.tocLines span {
+  width: 78%;
+}
+
+.tocLines span:nth-child(2) {
+  width: 100%;
+  background: var(--hero-accent);
+}
+
+.tocLines span:last-child {
+  width: 62%;
+}
+
+.navigationPreview {
+  padding: 1rem;
+  transform: rotate(1.5deg);
+}
+
+.browserBar,
+.navRow {
+  display: flex;
+  align-items: center;
+}
+
+.browserBar {
+  gap: 0.3rem;
+  padding-bottom: 0.8rem;
+  border-bottom: 1px solid color-mix(in oklab, var(--rp-c-divider-light) 75%, transparent);
+}
+
+.browserBar span {
+  width: 0.42rem;
+  height: 0.42rem;
+  border-radius: 50%;
+  background: color-mix(in oklab, var(--rp-c-text-2) 30%, transparent);
+}
+
+.navRow {
+  gap: 1.25rem;
+  padding: 1rem 0.35rem 0.8rem;
+}
+
+.navMark {
+  width: 1.1rem;
+  height: 1.1rem;
+  border-radius: 0.3rem;
+  background: var(--hero-accent);
+}
+
+.navLink {
+  width: 2.7rem;
+}
+
+.navLink:nth-child(3) {
+  width: 2rem;
+}
+
+.menuPanel {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: 0.6rem;
+  padding: 0.8rem;
+  border: 1px solid color-mix(in oklab, var(--hero-accent) 20%, var(--rp-c-divider-light));
+  border-radius: 0.75rem;
+  background: var(--rp-c-bg);
+  box-shadow: 0 0.8rem 2rem color-mix(in oklab, var(--rp-c-text-1) 9%, transparent);
+}
+
+.menuItem {
+  display: grid;
+  grid-template-columns: auto 1fr;
+  align-items: center;
+  gap: 0.6rem;
+  padding: 0.7rem;
+  border-radius: 0.55rem;
+  background: color-mix(in oklab, var(--hero-accent) 7%, transparent);
+}
+
+.menuIcon {
+  width: 1.5rem;
+  height: 1.5rem;
+  border-radius: 0.42rem;
+  background: color-mix(in oklab, var(--hero-accent) 19%, transparent);
+}
+
+.menuLine {
+  width: 72%;
+}
+
+.chartPreview {
+  display: grid;
+  gap: 1.2rem;
+  padding: 1.4rem 1.5rem 1.2rem;
+  transform: rotate(-1deg);
+}
+
+.chartHeader,
+.chartLegend {
+  display: flex;
+  justify-content: space-between;
+}
+
+.chartHeading {
+  width: 5rem;
+  height: 0.65rem;
+  border-radius: 999px;
+  background: color-mix(in oklab, var(--rp-c-text-1) 75%, transparent);
+}
+
+.chartValue {
+  width: 2.8rem;
+  height: 1rem;
+  border-radius: 0.3rem;
+  background: var(--hero-accent-soft);
+}
+
+.chartPlot {
+  position: relative;
+  height: 7rem;
+  border-bottom: 1px solid color-mix(in oklab, var(--rp-c-text-2) 18%, transparent);
+  background: repeating-linear-gradient(
+    to bottom,
+    transparent 0,
+    transparent 2.25rem,
+    color-mix(in oklab, var(--rp-c-text-2) 10%, transparent) 2.25rem,
+    color-mix(in oklab, var(--rp-c-text-2) 10%, transparent) calc(2.25rem + 1px)
+  );
+}
+
+.chartPlot svg {
+  width: 100%;
+  height: 100%;
+  overflow: visible;
+}
+
+.chartArea {
+  fill: color-mix(in oklab, var(--hero-accent) 12%, transparent);
+}
+
+.chartLine {
+  fill: none;
+  stroke: var(--hero-accent);
+  stroke-linecap: round;
+  stroke-linejoin: round;
+  stroke-width: 3;
+}
+
+.chartPoint {
+  fill: var(--rp-c-bg);
+  stroke: var(--hero-accent);
+  stroke-width: 3;
+}
+
+.chartLegend {
+  justify-content: flex-start;
+  gap: 1rem;
+}
+
+.chartLegend span {
+  width: 3rem;
+  height: 0.38rem;
+  border-radius: 999px;
+  background: color-mix(in oklab, var(--rp-c-text-2) 18%, transparent);
+}
+
+.chartLegend span:first-child {
+  background: color-mix(in oklab, var(--hero-accent) 60%, transparent);
+}
+
+.localizationPreview {
+  position: relative;
+  width: min(100%, 19rem);
+  height: 13rem;
+}
+
+.languageCard {
+  position: absolute;
+  display: grid;
+  width: 8.5rem;
+  height: 10rem;
+  box-sizing: border-box;
+  place-items: center;
+  border: 1px solid color-mix(in oklab, var(--rp-c-divider-light) 80%, transparent);
+  border-radius: 1rem;
+  background: color-mix(in oklab, var(--rp-c-bg) 92%, transparent);
+  box-shadow: 0 1rem 2.5rem color-mix(in oklab, var(--hero-accent) 12%, transparent);
+  font-size: 1.35rem;
+  font-weight: 750;
+  letter-spacing: -0.04em;
+}
+
+.languageCard:first-child {
+  top: 1.3rem;
+  left: 0.4rem;
+  justify-items: start;
+  padding-left: 1.25rem;
+  transform: rotate(-8deg);
+}
+
+.languageCard:nth-child(2) {
+  z-index: 2;
+  top: 0;
+  left: calc(50% - 4.25rem);
+  border-color: color-mix(in oklab, var(--hero-accent) 34%, transparent);
+  background: color-mix(in oklab, var(--hero-accent) 9%, var(--rp-c-bg));
+}
+
+.languageCard:last-child {
+  top: 1.3rem;
+  right: 0.4rem;
+  justify-items: end;
+  padding-right: 1.25rem;
+  transform: rotate(8deg);
+}
+
+.migrationPreview {
+  display: grid;
+  grid-template-columns: 1fr auto 1fr;
+  align-items: center;
+  gap: 1rem;
+  width: min(100%, 22rem);
+}
+
+.migrationLogo {
+  display: grid;
+  min-width: 0;
+  height: 9rem;
+  place-items: center;
+  border: 1px solid color-mix(in oklab, var(--rp-c-divider-light) 80%, transparent);
+  border-radius: 1.5rem;
+  background: color-mix(in oklab, var(--rp-c-bg) 88%, transparent);
+  box-shadow: 0 1.25rem 3rem color-mix(in oklab, var(--hero-accent) 11%, transparent);
+}
+
+.migrationLogo:last-child {
+  border-color: color-mix(in oklab, var(--hero-accent) 35%, transparent);
+  background: color-mix(in oklab, var(--hero-accent) 9%, var(--rp-c-bg));
+}
+
+.migrationLogo svg {
+  max-width: 72%;
+  height: auto;
+}
+
+.migrationArrow {
+  width: 1.6rem;
+  height: 1.6rem;
+  color: var(--hero-accent);
+  stroke-width: 1.6;
 }
 
 .newsItem {
   margin-bottom: clamp(3rem, 8vw, 5rem);
 }
 
-@media (max-width: 32rem) {
-  .content {
-    display: grid;
+@media (max-width: 44rem) {
+  .hero {
+    min-height: 0;
+    gap: 2.75rem;
   }
 
-  .product {
-    justify-self: center;
+  .layout {
+    grid-template-columns: 1fr;
+    gap: 2.5rem;
   }
 
-  .arrow {
-    justify-self: center;
-    transform: rotate(90deg);
+  .title {
+    max-width: 13ch;
+  }
+
+  .visual {
+    min-height: 12rem;
+  }
+}
+
+@media (max-width: 26rem) {
+  .meta {
+    align-items: flex-start;
+  }
+
+  .release {
+    align-items: flex-start;
+    flex-direction: column;
+  }
+
+  .date {
+    max-width: 8rem;
+  }
+
+  .title {
+    font-size: 2.35rem;
+  }
+
+  .tocPreview {
+    gap: 1.1rem;
+    padding: 1.35rem;
+  }
+
+  .menuPanel {
+    grid-template-columns: 1fr;
+  }
+
+  .menuItem:nth-child(n + 3) {
+    display: none;
+  }
+
+  .migrationPreview {
+    gap: 0.5rem;
+  }
+
+  .migrationLogo {
+    height: 7.5rem;
+  }
+}
+
+@media (prefers-reduced-motion: no-preference) {
+  .previewSurface,
+  .languageCard,
+  .migrationLogo {
+    transition:
+      transform 180ms ease,
+      border-color 180ms ease;
+  }
+
+  .hero:hover .previewSurface {
+    transform: translateY(-0.2rem) rotate(0);
+  }
+
+  .hero:hover .languageCard:first-child {
+    transform: translate(-0.15rem, -0.1rem) rotate(-10deg);
+  }
+
+  .hero:hover .languageCard:last-child {
+    transform: translate(0.15rem, -0.1rem) rotate(10deg);
+  }
+
+  .hero:hover .migrationLogo:last-child {
+    transform: translateY(-0.2rem);
   }
 }

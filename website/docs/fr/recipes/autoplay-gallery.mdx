@@ -4,6 +4,7 @@ description: Une recette de galerie à lecture automatique avec Carousel, texte 
 ---
 
 import { AutoplayGalleryPreview } from '@/components/recipes/autoplay-gallery-preview';
+import autoplayGallerySolid from '../../../snippets/recipes/solid/autoplay-gallery.tsx?raw';
 
 # Galerie à lecture automatique
 
@@ -11,30 +12,48 @@ Utilisez cette recette pour du contenu mis en avant qui défile automatiquement 
 Elle associe `Carousel` à des diapositives voisines partiellement visibles, du texte superposé, des flèches de
 navigation et des indicateurs qui se remplissent pendant chaque intervalle de lecture automatique.
 
-<ExampleFrame clientOnly>
+L’aperçu interactif utilise le paquet React. Les onglets de code présentent des implémentations natives pour React et Solid avec les mêmes styles.
+
+<ExampleFrame variant="recipe" clientOnly>
   <AutoplayGalleryPreview />
 </ExampleFrame>
 
+<ExampleCode>
 <div className="docs-reference">
-  <Tabs values={[{ label: 'Composant', value: 'Composant' }, { label: 'Styles', value: 'Styles' }]} className="docs-tabs">
-    <Tab value="Composant">
+  <Tabs
+    groupId="framework"
+    values={[
+      { label: 'React', value: 'react' },
+      { label: 'Solid', value: 'solid' },
+    ]}
+    className="docs-tabs"
+  >
+    <Tab value="react">
 
-```tsx file="../../../src/components/recipes/autoplay-gallery.tsx"
+```tsx pure file="../../../src/components/recipes/autoplay-gallery.tsx"
+
 ```
 
     </Tab>
-    <Tab value="Styles">
+    <Tab value="solid">
 
-```css file="../../../src/components/recipes/autoplay-gallery.module.css"
-```
+<CodeBlockRuntime lang="tsx" code={autoplayGallerySolid} />
 
     </Tab>
   </Tabs>
+
+**Styles**
+
+```css file="../../../src/components/recipes/autoplay-gallery.module.css"
+
+```
 </div>
+
+</ExampleCode>
 
 ## Installation
 
-<ShadcnInstall packageName="carousel" itemKind="recipe" copiedSource />
+<ShadcnInstall packageName="carousel" itemKind="recipe" frameworks copiedSource />
 
 La commande ajoute `Carousel` à votre projet. Copiez le composant de la recette et sa feuille de styles depuis les
 onglets ci-dessus, puis remplacez le contenu de démonstration par le vôtre.
@@ -61,11 +80,15 @@ La recette utilise deux blocs `Carousel.Context` connectés à la même racine. 
 marquer la diapositive active et afficher les boutons précédent et suivant. Le second construit les indicateurs de
 progression à partir de `api.pageSnapPoints` et marque l’indicateur courant avec `data-current`.
 
+Chaque indicateur conserve `overflow: visible` afin que sa zone transparente `::after` agrandisse la zone de clic
+de la fine barre de progression. Le remplissage visible anime sa `width` au lieu d’utiliser `scaleX`, ce qui conserve
+le bord arrondi hérité pendant le remplissage.
+
 Les clics sur les flèches et les indicateurs appellent `requestAnimationFrame(api.play)`. La navigation manuelle met la
 lecture automatique en pause : le lancement au prochain cycle d’affichage laisse le changement de diapositive se terminer
-avant de lancer un nouvel intervalle. Les interactions tactiles et la molette mettent également la lecture automatique en
-pause. Si votre produit doit la reprendre après ces interactions, ajoutez ce comportement à votre logique ou affichez
-`Carousel.AutoplayTrigger`.
+avant de lancer un nouvel intervalle. Les interactions tactiles et le défilement horizontal à la molette mettent également
+la lecture automatique en pause. Si votre produit doit la reprendre après ces interactions, ajoutez ce comportement à votre
+logique ou affichez `Carousel.AutoplayTrigger`.
 
 Ark met la lecture automatique en pause lorsque le document est masqué. La recette écoute `visibilitychange` et appelle
 la méthode publique `api.play()` lorsque le document redevient visible.

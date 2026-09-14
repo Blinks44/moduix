@@ -8,10 +8,9 @@ import {
   useCheckboxGroupContext,
 } from '@ark-ui/react/checkbox';
 import { clsx } from 'clsx';
-import type { ComponentProps, ComponentRef, ReactElement, ReactNode } from 'react';
-import { Children, cloneElement, forwardRef } from 'react';
+import type { ComponentProps, ComponentRef } from 'react';
+import { forwardRef } from 'react';
 import { CheckIcon, IndeterminateIcon } from '@/lib/moduix/icons/ui';
-import { normalizeClassName } from '@/lib/moduix/normalizeClassName';
 import styles from './Checkbox.module.css';
 
 type CheckboxSize = 'xs' | 'sm' | 'md' | 'lg' | 'xl';
@@ -21,18 +20,15 @@ type RootProviderProps = ComponentProps<typeof CheckboxPrimitive.RootProvider> &
 };
 
 const CheckboxRoot = forwardRef<ComponentRef<typeof CheckboxPrimitive.Root>, RootProps>(
-  function CheckboxRoot({ asChild, children, className, size = 'md', ...props }, ref) {
+  function CheckboxRoot({ className, size = 'md', ...props }, ref) {
     return (
       <CheckboxPrimitive.Root
         ref={ref}
-        asChild={asChild}
         data-slot="checkbox-root"
         data-size={size}
-        className={clsx(styles.root, normalizeClassName(className))}
+        className={clsx(styles.root, className)}
         {...props}
-      >
-        {withHiddenInput(children, asChild)}
-      </CheckboxPrimitive.Root>
+      />
     );
   },
 );
@@ -40,18 +36,15 @@ const CheckboxRoot = forwardRef<ComponentRef<typeof CheckboxPrimitive.Root>, Roo
 const CheckboxRootProvider = forwardRef<
   ComponentRef<typeof CheckboxPrimitive.RootProvider>,
   RootProviderProps
->(function CheckboxRootProvider({ asChild, children, className, size = 'md', ...props }, ref) {
+>(function CheckboxRootProvider({ className, size = 'md', ...props }, ref) {
   return (
     <CheckboxPrimitive.RootProvider
       ref={ref}
-      asChild={asChild}
       data-slot="checkbox-root-provider"
       data-size={size}
-      className={clsx(styles.root, normalizeClassName(className))}
+      className={clsx(styles.root, className)}
       {...props}
-    >
-      {withHiddenInput(children, asChild)}
-    </CheckboxPrimitive.RootProvider>
+    />
   );
 });
 
@@ -67,7 +60,7 @@ const CheckboxIndicator = forwardRef<
     <CheckboxPrimitive.Indicator
       ref={ref}
       data-slot="checkbox-indicator"
-      className={clsx(styles.indicator, normalizeClassName(className))}
+      className={clsx(styles.indicator, className)}
       indeterminate={indeterminate}
       {...props}
     >
@@ -88,7 +81,7 @@ const CheckboxControl = forwardRef<
     <CheckboxPrimitive.Control
       ref={ref}
       data-slot="checkbox-control"
-      className={clsx(styles.control, normalizeClassName(className))}
+      className={clsx(styles.control, className)}
       {...props}
     >
       {children ?? (
@@ -101,36 +94,6 @@ const CheckboxControl = forwardRef<
   );
 });
 
-function withHiddenInput(children: ReactNode, asChild?: boolean) {
-  const hiddenInput = <CheckboxHiddenInput />;
-
-  if (!asChild) {
-    return (
-      <>
-        {children}
-        {hiddenInput}
-      </>
-    );
-  }
-
-  const child = Children.only(children) as ReactElement<{ children?: ReactNode }>;
-
-  return cloneElement(child, {}, child.props.children, hiddenInput);
-}
-
-function CheckboxHiddenInput() {
-  const checkbox = useCheckboxContext();
-  const readOnly =
-    (checkbox.getRootProps() as { 'data-readonly'?: string })['data-readonly'] !== undefined;
-
-  return (
-    <CheckboxPrimitive.HiddenInput
-      aria-readonly={readOnly || undefined}
-      data-slot="checkbox-hidden-input"
-    />
-  );
-}
-
 const CheckboxLabel = forwardRef<
   ComponentRef<typeof CheckboxPrimitive.Label>,
   ComponentProps<typeof CheckboxPrimitive.Label>
@@ -139,7 +102,7 @@ const CheckboxLabel = forwardRef<
     <CheckboxPrimitive.Label
       ref={ref}
       data-slot="checkbox-label"
-      className={clsx(styles.label, normalizeClassName(className))}
+      className={clsx(styles.label, className)}
       {...props}
     />
   );
@@ -153,7 +116,7 @@ const CheckboxGroup = forwardRef<
     <CheckboxPrimitive.Group
       ref={ref}
       data-slot="checkbox-group"
-      className={clsx(styles.group, normalizeClassName(className))}
+      className={clsx(styles.group, className)}
       {...props}
     />
   );
@@ -163,6 +126,7 @@ const Checkbox = Object.assign(CheckboxRoot, {
   Root: CheckboxRoot,
   RootProvider: CheckboxRootProvider,
   Context: CheckboxPrimitive.Context,
+  HiddenInput: CheckboxPrimitive.HiddenInput,
   Control: CheckboxControl,
   Indicator: CheckboxIndicator,
   Label: CheckboxLabel,

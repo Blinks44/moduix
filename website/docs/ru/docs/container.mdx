@@ -1,35 +1,100 @@
 ---
 title: Container
 component: container
-description: Адаптивный компонент для читабельной ширины содержимого и гибких горизонтальных отступов.
+description: Адаптивный примитив разметки для читабельной ширины содержимого и гибких горизонтальных отступов.
 ---
 
-import * as ContainerDocs from '@/components/examples/container';
+import * as ContainerDocs from '@/components/examples/container/css-properties';
+import ContainerBasic from '@/components/examples/container/basic.tsx';
+import ContainerFullWidth from '@/components/examples/container/full-width.tsx';
+import ContainerGutters from '@/components/examples/container/gutters.tsx';
+import ContainerSemanticElement from '@/components/examples/container/semantic-element.tsx';
+import ContainerWithBleed from '@/components/examples/container/with-bleed.tsx';
+import containerSolidBasic from '../../../snippets/container/solid/basic.tsx?raw';
+import containerSolidFullWidth from '../../../snippets/container/solid/full-width.tsx?raw';
+import containerSolidGutters from '../../../snippets/container/solid/gutters.tsx?raw';
+import containerSolidSemanticElement from '../../../snippets/container/solid/semantic-element.tsx?raw';
+import containerSolidWithBleed from '../../../snippets/container/solid/with-bleed.tsx?raw';
 
 ## Справочник API
 
-В Ark UI нет отдельного компонента-контейнера. В moduix `Container` создан с помощью официальной
+В Ark UI нет отдельного примитива `container`. В moduix `Container` создан с помощью официальной
 [фабрики Ark](https://ark-ui.com/docs/guides/composition#the-ark-factory), поэтому для него действуют рекомендации Ark по
 [композиции](https://ark-ui.com/docs/guides/composition), [стилизации](https://ark-ui.com/docs/guides/styling) и
 [передаче ref](https://ark-ui.com/docs/guides/ref).
 
 ## Базовый пример
 
-Импортируйте `Container` из `@moduix/react/container`, когда нужно разместить содержимое в центрированной колонке
-с удобной для чтения шириной. Компонент добавляет адаптивные горизонтальные отступы и оставляет настройку
-вертикальных интервалов внешней разметке.
+`Container` доступен для React и Solid в пакетах CSS Modules и Tailwind. Превью на этой странице использует пакет
+React CSS Modules, а вкладки с фреймворками показывают нативный исходный код с тем же публичным контрактом.
 
-<PreviewFrame maxWidth="lg">
-```tsx preview file="../../en/docs/_snippets/container/basic.tsx"
+Импортируйте `Container` из подходящего пакета: `@moduix/react/container` или `@moduix/solid/container` для CSS Modules,
+а для Tailwind CSS используйте `@moduix/react-tailwind/container` или `@moduix/solid-tailwind/container`.
 
+Используйте `Container` для центрированной колонки с читабельной шириной. Компонент добавляет адаптивные
+горизонтальные отступы, а вертикальные интервалы остаются задачей внешней разметки.
+
+<ExampleFrame variant="component">
+  <ContainerBasic />
+</ExampleFrame>
+
+<ExampleCode>
+<div className="docs-reference">
+  <Tabs
+    groupId="framework"
+    values={[
+      { label: 'React', value: 'react' },
+      { label: 'Solid', value: 'solid' },
+    ]}
+    className="docs-tabs"
+  >
+    <Tab value="react">
+
+```tsx pure file="../../../src/components/examples/container/basic.tsx"
 ```
-</PreviewFrame>
+
+    </Tab>
+    <Tab value="solid">
+
+<CodeBlockRuntime lang="tsx" code={containerSolidBasic} />
+
+    </Tab>
+  </Tabs>
+
+**Стили**
+
+```css file="../../../src/components/examples/container/container-basic.module.css"
+```
+</div>
+
+</ExampleCode>
 
 ## Установка через shadcn
 
-<ShadcnInstall packageName="container" />
+Полную настройку пакета, реестра и стилей см. в разделе [Быстрый старт](/docs/quick-start).
 
-Эта команда добавляет `Container` в исходный код проекта вместе с общей основой moduix, от которой он зависит.
+<Tabs groupId="framework">
+  <Tab label="React" value="react">
+
+<ShadcnInstallOptions
+  options={[
+    { label: 'CSS Modules', command: 'shadcn@latest add @moduix-react/container' },
+    { label: 'Tailwind CSS', command: 'shadcn@latest add @moduix-react-tailwind/container' },
+  ]}
+/>
+
+  </Tab>
+  <Tab label="Solid" value="solid">
+
+<ShadcnInstallOptions
+  options={[
+    { label: 'CSS Modules', command: 'shadcn@latest add @moduix-solid/container' },
+    { label: 'Tailwind CSS', command: 'shadcn@latest add @moduix-solid-tailwind/container' },
+  ]}
+/>
+
+  </Tab>
+</Tabs>
 
 ## Анатомия
 
@@ -42,110 +107,190 @@ Container / Container.Root
 
 | Часть                          | Назначение                                               |
 | ------------------------------ | -------------------------------------------------------- |
-| `Container` / `Container.Root` | Корневой элемент макета. Центрирует содержимое и задаёт его ширину и горизонтальные отступы. |
+| `Container` / `Container.Root` | Корневой элемент разметки. Центрирует содержимое и задаёт его ширину и горизонтальные отступы. |
 
 ## Композиция
 
-### Рекомендуемая композиция
+`Container` не управляет состоянием и не содержит дочерних частей, которые нужно согласовывать. Используйте его как
+корень и размещайте содержимое страницы или секции непосредственно внутри. `Container.Root` является псевдонимом
+того же корня и подходит, если такая форма согласуется с остальной композицией.
 
-Используйте `Container` для структуры страницы, текста статьи, разделов документации, экранов настроек и других
-макетов, где нужна центрированная колонка содержимого с предсказуемыми отступами по краям.
-
-`Container.Root` - это тот же компонент, доступный через пространство имён. Такая форма удобна, если нужно сохранить
-единый стиль именования с другими компонентами Ark.
-
-С помощью `size` выберите ширину содержимого, а с помощью `gutter` задайте горизонтальные отступы. Свойство
-`asChild` заменяет стандартный `div` одним дочерним элементом. Выберите семантический элемент, например `main`,
-`section` или `article`, если обёртка должна описывать структуру документа. Переданный `ref` указывает на
-отрисованный корневой элемент, а при использовании `asChild` - на этот дочерний элемент.
-
-`Container` также поддерживает стандартные свойства `<div>`, включая `className` и `style`.
-
-### Когда нужна собственная композиция
-
-`Container` состоит из одного корневого элемента: у него нет дополнительных частей, слотов или вложенных средств
-компоновки.
-
-В большинстве случаев достаточно одного из вариантов:
-
-- передать `className`, чтобы задать локальные стили макета или блока;
-- переопределить переменные `--moduix-container-*`, если нужны другие значения ширины или отступов;
-- использовать `asChild`, когда другой элемент должен стать корневым DOM-узлом;
-- объединить с `Bleed`, если дочерний элемент должен выйти за пределы ограниченной текстовой колонки.
-
-### Свойства по умолчанию
-
-| Свойство  | По умолчанию | Значения / примечания                |
-| --------- | ------- | ------------------------------------ |
-| `size`    | `lg`    | `xs` (40rem), `sm` (48rem), `md` (64rem), `lg` (72rem), `xl` (90rem), `full` (без ограничения максимальной ширины) |
-| `gutter`  | `md`    | `none`, `sm`, `md`, `lg`                                                               |
-| `asChild` | `false` | Заменяет корневой `div` одним дочерним элементом                                      |
-
-### Особенности поведения
-
-- `Container` не отвечает за вертикальные интервалы. Задавайте их снаружи компонента или на дочерних элементах.
-- `size="full"` снимает только ограничение максимальной ширины. Выбранные отступы по краям сохраняются, если не
-  указать `gutter="none"`.
-- В расчёт `max-width` входят оба горизонтальных отступа, поэтому ограниченная оболочка сохраняет выбранные отступы.
-- При использовании `asChild` передавайте ровно один дочерний элемент. В этом случае `ref` указывает на него.
-- `Container` не добавляет ARIA-роли, подписи, управление фокусом или поведение клавиатуры. Используйте `asChild` с
-  `main`, `section` или `article`, если обёртка должна иметь семантическое значение.
-- На корневом элементе доступны `data-scope="container"`, `data-part="root"`, `data-slot="container-root"`,
-  `data-size` и `data-gutter`. Их можно использовать для стилизации и тестов.
+Используйте `asChild`, когда семантический элемент должен стать отрисованным корнем. Передавайте ровно один дочерний
+элемент: в React он вкладывается внутрь `Container`, а в Solid используется форма с render-функцией
+`asChild={(props) => <main {...props()} />}`. Размещайте `Bleed` внутри `Container`, если только один дочерний блок
+должен выйти за пределы ограниченной текстовой колонки.
 
 ## Примеры
 
 ### На всю ширину
 
-Используйте `size="full"`, чтобы секция занимала всю ширину родителя и при этом сохраняла адаптивные отступы по краям.
+Используйте `size="full"`, чтобы широкая секция заняла ширину родителя и сохранила адаптивный отступ по краям.
 
-<PreviewFrame>
-```tsx preview file="../../en/docs/_snippets/container/full-width.tsx"
+<ExampleFrame variant="component">
+  <ContainerFullWidth />
+</ExampleFrame>
 
+<ExampleCode>
+<div className="docs-reference">
+  <Tabs
+    groupId="framework"
+    values={[
+      { label: 'React', value: 'react' },
+      { label: 'Solid', value: 'solid' },
+    ]}
+    className="docs-tabs"
+  >
+    <Tab value="react">
+
+```tsx pure file="../../../src/components/examples/container/full-width.tsx"
 ```
-</PreviewFrame>
+
+    </Tab>
+    <Tab value="solid">
+
+<CodeBlockRuntime lang="tsx" code={containerSolidFullWidth} />
+
+    </Tab>
+  </Tabs>
+
+**Стили**
+
+```css file="../../../src/components/examples/container/container-full-width.module.css"
+```
+</div>
+
+</ExampleCode>
 
 ### Отступы по краям
 
-С помощью `gutter` можно выбрать размер адаптивных горизонтальных отступов.
+Используйте `gutter`, чтобы выбрать размер адаптивных горизонтальных отступов.
 
-<PreviewFrame maxWidth="lg">
-```tsx preview file="../../en/docs/_snippets/container/gutters.tsx"
+<ExampleFrame variant="component">
+  <ContainerGutters />
+</ExampleFrame>
 
+<ExampleCode>
+<div className="docs-reference">
+  <Tabs
+    groupId="framework"
+    values={[
+      { label: 'React', value: 'react' },
+      { label: 'Solid', value: 'solid' },
+    ]}
+    className="docs-tabs"
+  >
+    <Tab value="react">
+
+```tsx pure file="../../../src/components/examples/container/gutters.tsx"
 ```
 
-</PreviewFrame>
+    </Tab>
+    <Tab value="solid">
+
+<CodeBlockRuntime lang="tsx" code={containerSolidGutters} />
+
+    </Tab>
+  </Tabs>
+
+**Стили**
+
+```css file="../../../src/components/examples/container/container-gutters.module.css"
+```
+</div>
+
+</ExampleCode>
 
 ### Семантический элемент
 
-Используйте `asChild`, когда обёртка компоновки также должна описывать структуру документа.
+Используйте `asChild`, когда оболочка разметки также должна описывать структуру документа.
 
-<PreviewFrame maxWidth="lg">
-```tsx preview file="../../en/docs/_snippets/container/semantic-element.tsx"
+<ExampleFrame variant="component">
+  <ContainerSemanticElement />
+</ExampleFrame>
 
+<ExampleCode>
+<div className="docs-reference">
+  <Tabs
+    groupId="framework"
+    values={[
+      { label: 'React', value: 'react' },
+      { label: 'Solid', value: 'solid' },
+    ]}
+    className="docs-tabs"
+  >
+    <Tab value="react">
+
+```tsx pure file="../../../src/components/examples/container/semantic-element.tsx"
 ```
 
-</PreviewFrame>
+    </Tab>
+    <Tab value="solid">
+
+<CodeBlockRuntime lang="tsx" code={containerSolidSemanticElement} />
+
+    </Tab>
+  </Tabs>
+
+**Стили**
+
+```css file="../../../src/components/examples/container/container-semantic-element.module.css"
+```
+</div>
+
+</ExampleCode>
 
 ### С Bleed
 
-Ограничьте ширину основного текста, а более широкому дочернему блоку разрешите выйти за пределы колонки.
+Сохраните ограниченную ширину текста и позвольте только более широкому дочернему блоку выйти за пределы колонки.
 
-<PreviewFrame maxWidth="lg">
-```tsx preview file="../../en/docs/_snippets/container/with-bleed.tsx"
+<ExampleFrame variant="component">
+  <ContainerWithBleed />
+</ExampleFrame>
 
+<ExampleCode>
+<div className="docs-reference">
+  <Tabs
+    groupId="framework"
+    values={[
+      { label: 'React', value: 'react' },
+      { label: 'Solid', value: 'solid' },
+    ]}
+    className="docs-tabs"
+  >
+    <Tab value="react">
+
+```tsx pure file="../../../src/components/examples/container/with-bleed.tsx"
 ```
 
-</PreviewFrame>
+    </Tab>
+    <Tab value="solid">
+
+<CodeBlockRuntime lang="tsx" code={containerSolidWithBleed} />
+
+    </Tab>
+  </Tabs>
+
+**Стили**
+
+```css file="../../../src/components/examples/container/container-with-bleed.module.css"
+```
+</div>
+
+</ExampleCode>
 
 ## Стилизация
 
-Переопределяйте CSS-переменные на корневом элементе, если оболочке страницы нужны другие значения ширины или отступов.
-Для локальных стилей блока, например фона, границ или внутренних отступов, используйте `className`.
+Для пакетов CSS Modules переопределяйте CSS-переменные на корневом элементе, если оболочке страницы нужны другие
+значения ширины или отступов. Пакеты Tailwind вместо этих переменных используют utility-классы и классы потребителя.
+Для локальных стилей блока, например фона, границ или внутренних отступов, используйте `className` в React и `class` в
+Solid.
 
 ### CSS-свойства
 
 <CssPropertiesSection properties={ContainerDocs.containerOverrideCssProperties} />
+
+Эти переменные относятся к пакетам CSS Modules. В пакетах Tailwind те же варианты `size` и `gutter` задаются через
+utility-классы.
 
 ### Хуки стилизации
 
@@ -153,5 +298,5 @@ Container / Container.Root
 - `data-scope="container"` и `data-part="root"` соответствуют соглашениям Ark по стилизации.
 - `data-size` выбирает предустановку ширины: `xs`, `sm`, `md`, `lg`, `xl`, `full`.
 - `data-gutter` выбирает предустановку отступов: `none`, `sm`, `md`, `lg`.
-- Переменные `--moduix-container-*` управляют только горизонтальными отступами и расчётом максимальной ширины.
+- Переменные `--moduix-container-*` управляют горизонтальными отступами и расчётом `max-width` в CSS Modules.
   Вертикальные интервалы и расположение дочерних элементов задаются внешними стилями.

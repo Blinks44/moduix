@@ -1,0 +1,7 @@
+.root {
+  width: fit-content;
+}
+
+.control {
+  gap: var(--moduix-spacing-2);
+}

@@ -1,10 +1,28 @@
 ---
 title: Accordion
 component: accordion
-description: Раскрывающийся список связанных разделов с навигацией с клавиатуры и поддержкой нескольких открытых разделов.
+description: Создание доступных аккордеонов в React и Solid с установкой из пакета или через shadcn CLI.
 ---
 
-import * as AccordionDocs from '@/components/examples/accordion';
+import * as AccordionDocs from '@/components/examples/accordion/css-properties';
+import AccordionBasic from '@/components/examples/accordion/basic.tsx';
+import AccordionCollapsible from '@/components/examples/accordion/collapsible.tsx';
+import AccordionControlled from '@/components/examples/accordion/controlled.tsx';
+import AccordionDisabledItem from '@/components/examples/accordion/disabled-item.tsx';
+import AccordionHorizontal from '@/components/examples/accordion/horizontal.tsx';
+import AccordionLazyMount from '@/components/examples/accordion/lazy-mount.tsx';
+import AccordionMultiple from '@/components/examples/accordion/multiple.tsx';
+import AccordionRootProvider from '@/components/examples/accordion/root-provider.tsx';
+import AccordionWithSlider from '@/components/examples/accordion/with-slider.tsx';
+import accordionSolidBasic from '../../../snippets/accordion/solid/basic.tsx?raw';
+import accordionSolidCollapsible from '../../../snippets/accordion/solid/collapsible.tsx?raw';
+import accordionSolidControlled from '../../../snippets/accordion/solid/controlled.tsx?raw';
+import accordionSolidDisabledItem from '../../../snippets/accordion/solid/disabled-item.tsx?raw';
+import accordionSolidHorizontal from '../../../snippets/accordion/solid/horizontal.tsx?raw';
+import accordionSolidLazyMount from '../../../snippets/accordion/solid/lazy-mount.tsx?raw';
+import accordionSolidMultiple from '../../../snippets/accordion/solid/multiple.tsx?raw';
+import accordionSolidRootProvider from '../../../snippets/accordion/solid/root-provider.tsx?raw';
+import accordionSolidWithSlider from '../../../snippets/accordion/solid/with-slider.tsx?raw';
 
 ## Справочник API
 
@@ -18,6 +36,10 @@ import * as AccordionDocs from '@/components/examples/accordion';
 
 ## Базовый пример
 
+Accordion доступен для React и Solid как в пакетах с CSS Modules, так и в вариантах на Tailwind.
+Интерактивные примеры на этой странице используют React и CSS Modules, а вкладки с кодом показывают
+нативную реализацию того же API для каждого фреймворка.
+
 Используйте `Accordion` как корневой компонент и задайте каждому `Accordion.Item` стабильное
 значение `value`. Поместите интерактивный заголовок в `Accordion.ItemTrigger`, панель в
 `Accordion.ItemContent`, а её внутреннее содержимое в `Accordion.ItemBody`. `Accordion.ItemIndicator`
@@ -26,15 +48,67 @@ import * as AccordionDocs from '@/components/examples/accordion';
 `Accordion` является рекомендуемым корневым компонентом. Используйте `Accordion.Root`, если хотите
 явно обозначить корневую часть в композиции.
 
-<PreviewFrame maxWidth="sm">
-  ```tsx preview file="../../en/docs/_snippets/accordion/basic.tsx"
+<ExampleFrame variant="component">
+  <AccordionBasic />
+</ExampleFrame>
 
+<ExampleCode>
+<div className="docs-reference">
+  <Tabs
+    groupId="framework"
+    values={[
+      { label: 'React', value: 'react' },
+      { label: 'Solid', value: 'solid' },
+    ]}
+    className="docs-tabs"
+  >
+    <Tab value="react">
+
+```tsx pure file="../../../src/components/examples/accordion/basic.tsx"
 ```
-</PreviewFrame>
+
+    </Tab>
+    <Tab value="solid">
+
+<CodeBlockRuntime lang="tsx" code={accordionSolidBasic} />
+
+    </Tab>
+  </Tabs>
+
+**Стили**
+
+```css file="../../../src/components/examples/accordion/accordion-basic.module.css"
+```
+</div>
+
+</ExampleCode>
 
 ## Установка через shadcn
 
-<ShadcnInstall packageName="accordion" />
+Полную настройку пакета, реестра и стилей см. в разделе [Быстрый старт](/docs/quick-start).
+
+<Tabs groupId="framework">
+  <Tab label="React" value="react">
+
+<ShadcnInstallOptions
+  options={[
+    { label: 'CSS Modules', command: 'shadcn@latest add @moduix-react/accordion' },
+    { label: 'Tailwind CSS', command: 'shadcn@latest add @moduix-react-tailwind/accordion' },
+  ]}
+/>
+
+  </Tab>
+  <Tab label="Solid" value="solid">
+
+<ShadcnInstallOptions
+  options={[
+    { label: 'CSS Modules', command: 'shadcn@latest add @moduix-solid/accordion' },
+    { label: 'Tailwind CSS', command: 'shadcn@latest add @moduix-solid-tailwind/accordion' },
+  ]}
+/>
+
+  </Tab>
+</Tabs>
 
 ## Анатомия
 
@@ -64,79 +138,14 @@ Accordion.RootProvider
 
 ## Композиция
 
-### Рекомендуемая композиция
-
-`Accordion` управляет состоянием элементов и навигацией с клавиатуры. Начните с `Accordion`,
-`Accordion.Item`, `Accordion.ItemTrigger`, `Accordion.ItemContent` и `Accordion.ItemBody`. Добавьте
-`Accordion.ItemIndicator`, если нужен визуальный признак состояния.
-
-К свойствам корневого компонента относятся `defaultValue`, `value`, `onValueChange(details)`,
-`onFocusChange(details)`, `multiple`, `collapsible`, `disabled`, `orientation`, `lazyMount`,
-`unmountOnExit`, `hideMode` и `ids`.
-
 Используйте `defaultValue` для неконтролируемого аккордеона. Если состояние хранится в другой части
 приложения, передайте `value` и обработчик `onValueChange(details)`. Оба свойства используют тип
 `string[]`, даже если открыть можно только один элемент.
 
-### Когда нужна своя композиция
-
-Перейдите к отдельной композиции, если состояние нужно создавать за пределами дерева, если другая
-часть интерфейса должна читать или изменять его или если для части нужен другой семантический
-элемент.
-
-Используйте `Accordion.RootProvider` вместе с `useAccordion()` из `@moduix/react`, если состояние
-аккордеона нужно создать вне дерева, которое он рендерит. Передайте в `RootProvider` значение,
-возвращённое `useAccordion()`, и не добавляйте к нему `Accordion` или `Accordion.Root`.
-
-Используйте `Accordion.Context`, `Accordion.ItemContext`, `useAccordionContext()` и
-`useAccordionItemContext()` из moduix, если другой части интерфейса нужен доступ к состоянию корня
-или элемента. Состояние элемента включает логические свойства Ark `expanded`, `focused` и `disabled`.
-
-Задайте `disabled` корневому компоненту, чтобы отключить все элементы. Задайте его отдельному
-`Accordion.Item`, чтобы отключить только этот элемент и оставить его видимым.
-
-`Accordion.Item` требует стабильного значения `value`. `Accordion.ItemIndicator` необязателен: если
-дочернее содержимое не передано, moduix отображает `PlusIcon`, а при необходимости его можно
-полностью заменить.
-
-Используйте `asChild`, только если итоговый DOM-узел должен принадлежать другому элементу. Оставляйте
-структуру частей Ark явной и не скрывайте её за вспомогательными обёртками.
-
-### Свойства по умолчанию
-
-| Свойство              | По умолчанию | Примечания                                                                                |
-| --------------------- | ------------ | ----------------------------------------------------------------------------------------- |
-| `collapsible`         | `false`      | Открытый элемент нельзя закрыть, не открыв другой.                                        |
-| `disabled`            | `false`      | Корневой компонент или элемент остаётся видимым, но недоступен для взаимодействия.         |
-| `hideMode`            | `display-none` | Определяет, как скрывать смонтированное закрытое содержимое. `activity` требует React 19. |
-| `lazyMount`           | `false`      | Монтирует содержимое всех элементов при первом рендере.                                  |
-| `multiple`            | `false`      | Одновременно можно открыть только один элемент.                                          |
-| `orientation`         | `vertical`   | Использует вертикальное расположение и соответствующую навигацию с клавиатуры.           |
-| `unmountOnExit`       | `false`      | Оставляет содержимое смонтированным после закрытия.                                      |
-| `value`/`defaultValue` | не задано   | Управляемые или начальные значения открытых элементов. Всегда используйте `string[]`.      |
-
-### Особенности поведения
-
-Размещайте отступы на `Accordion.ItemBody`, а не на `Accordion.ItemContent`, чтобы Ark мог правильно
-измерить панель. Ark предоставляет переменную `--height` для вертикальной анимации содержимого и
-`--width` для горизонтальной.
-
-Каждый триггер является нативной кнопкой. Ark связывает её с панелью через `aria-expanded` и
-`aria-controls` и добавляет панели соответствующий `aria-labelledby`. Клавиши `Enter` и `Space`
-открывают закрытый элемент, а при включённом `collapsible` также закрывают открытый. В вертикальной
-ориентации `ArrowDown` и `ArrowUp` перемещают фокус между триггерами. В горизонтальной ориентации
-используйте `ArrowRight` и `ArrowLeft`. `Home` и `End` переводят фокус на первый и последний триггер.
-
-Каждая стилизуемая часть пробрасывает ref и поддерживает `asChild`, если другой семантический элемент
-должен отвечать за итоговый DOM-узел. Пользовательский триггер должен оставаться доступным с клавиатуры и
-вести себя как кнопка.
-
-При включённом `lazyMount` закрытое содержимое монтируется только после первого открытия. Добавьте
-`unmountOnExit`, чтобы удалять его из DOM после закрытия. `hideMode="activity"` сохраняет смонтированное
-содержимое в скрытом режиме `Activity` React 19 и приостанавливает его эффекты.
-
-Если пользователь предпочитает уменьшить движение, Accordion отключает переходы триггера и индикатора,
-а анимация панели становится практически мгновенной, сохраняя жизненный цикл Ark.
+Используйте `Accordion.RootProvider` вместе с `useAccordion()` из пакета выбранного фреймворка, если
+состояние аккордеона нужно создать вне дерева. Передайте полученное хранилище в `RootProvider` и не
+добавляйте для того же состояния `Accordion` или `Accordion.Root`. В React состояние читается как
+обычный объект, а в Solid - через реактивную функцию доступа.
 
 ## Примеры
 
@@ -144,78 +153,280 @@ Accordion.RootProvider
 
 Включите `collapsible`, чтобы открытый элемент можно было закрыть, не открывая другой.
 
-<PreviewFrame maxWidth="sm">
-  ```tsx preview file="../../en/docs/_snippets/accordion/collapsible.tsx"
+<ExampleFrame variant="component">
+  <AccordionCollapsible />
+</ExampleFrame>
 
+<ExampleCode>
+<div className="docs-reference">
+  <Tabs
+    groupId="framework"
+    values={[
+      { label: 'React', value: 'react' },
+      { label: 'Solid', value: 'solid' },
+    ]}
+    className="docs-tabs"
+  >
+    <Tab value="react">
+
+```tsx pure file="../../../src/components/examples/accordion/collapsible.tsx"
 ```
-</PreviewFrame>
+
+    </Tab>
+    <Tab value="solid">
+
+<CodeBlockRuntime lang="tsx" code={accordionSolidCollapsible} />
+
+    </Tab>
+  </Tabs>
+
+**Стили**
+
+```css file="../../../src/components/examples/accordion/accordion-collapsible.module.css"
+```
+</div>
+
+</ExampleCode>
 
 ### Управляемое состояние
 
-Управляйте `value` через состояние React, если открытые элементы должны синхронизироваться с
-маршрутизацией, фильтрами или другими частями интерфейса.
+Управляйте `value` через `useState` в React или `createSignal` в Solid, если открытые элементы должны
+синхронизироваться с маршрутизацией, фильтрами или другими частями интерфейса.
 
-<PreviewFrame maxWidth="sm">
-```tsx preview file="../../en/docs/_snippets/accordion/controlled.tsx"
+<ExampleFrame variant="component">
+  <AccordionControlled />
+</ExampleFrame>
 
+<ExampleCode>
+<div className="docs-reference">
+  <Tabs
+    groupId="framework"
+    values={[
+      { label: 'React', value: 'react' },
+      { label: 'Solid', value: 'solid' },
+    ]}
+    className="docs-tabs"
+  >
+    <Tab value="react">
+
+```tsx pure file="../../../src/components/examples/accordion/controlled.tsx"
 ```
 
-</PreviewFrame>
+    </Tab>
+    <Tab value="solid">
+
+<CodeBlockRuntime lang="tsx" code={accordionSolidControlled} />
+
+    </Tab>
+  </Tabs>
+
+**Стили**
+
+```css file="../../../src/components/examples/accordion/accordion-controlled.module.css"
+```
+</div>
+
+</ExampleCode>
 
 ### Отключённый элемент
 
 Задайте элементу `disabled`, если он должен оставаться видимым в списке, но быть недоступным для взаимодействия.
 
-<PreviewFrame maxWidth="sm">
-  ```tsx preview file="../../en/docs/_snippets/accordion/disabled-item.tsx"
+<ExampleFrame variant="component">
+  <AccordionDisabledItem />
+</ExampleFrame>
 
+<ExampleCode>
+<div className="docs-reference">
+  <Tabs
+    groupId="framework"
+    values={[
+      { label: 'React', value: 'react' },
+      { label: 'Solid', value: 'solid' },
+    ]}
+    className="docs-tabs"
+  >
+    <Tab value="react">
+
+```tsx pure file="../../../src/components/examples/accordion/disabled-item.tsx"
 ```
-</PreviewFrame>
+
+    </Tab>
+    <Tab value="solid">
+
+<CodeBlockRuntime lang="tsx" code={accordionSolidDisabledItem} />
+
+    </Tab>
+  </Tabs>
+
+**Стили**
+
+```css file="../../../src/components/examples/accordion/accordion-disabled-item.module.css"
+```
+</div>
+
+</ExampleCode>
 
 ### Горизонтальный вариант
 
 Установите `orientation="horizontal"`, чтобы расположить аккордеон в ряд и включить горизонтальную
 навигацию с клавиатуры.
 
-<PreviewFrame maxWidth="sm">
-```tsx preview file="../../en/docs/_snippets/accordion/horizontal.tsx"
+<ExampleFrame variant="component">
+  <AccordionHorizontal />
+</ExampleFrame>
 
+<ExampleCode>
+<div className="docs-reference">
+  <Tabs
+    groupId="framework"
+    values={[
+      { label: 'React', value: 'react' },
+      { label: 'Solid', value: 'solid' },
+    ]}
+    className="docs-tabs"
+  >
+    <Tab value="react">
+
+```tsx pure file="../../../src/components/examples/accordion/horizontal.tsx"
 ```
 
-</PreviewFrame>
+    </Tab>
+    <Tab value="solid">
+
+<CodeBlockRuntime lang="tsx" code={accordionSolidHorizontal} />
+
+    </Tab>
+  </Tabs>
+
+**Стили**
+
+```css file="../../../src/components/examples/accordion/accordion-horizontal.module.css"
+```
+</div>
+
+</ExampleCode>
 
 ### Ленивое монтирование
 
 Сочетайте `lazyMount` и `unmountOnExit`, если скрытое содержимое панели дорого рендерить и его нужно
-удалять из DOM после закрытия.
+удалять из DOM после закрытия. В React 19 вместо этого можно использовать `hideMode="activity"`,
+если содержимое должно оставаться смонтированным, но его эффекты нужно приостанавливать в скрытом состоянии.
 
-<PreviewFrame maxWidth="sm">
-  ```tsx preview file="../../en/docs/_snippets/accordion/lazy-mount.tsx"
+<ExampleFrame variant="component">
+  <AccordionLazyMount />
+</ExampleFrame>
 
+<ExampleCode>
+<div className="docs-reference">
+  <Tabs
+    groupId="framework"
+    values={[
+      { label: 'React', value: 'react' },
+      { label: 'Solid', value: 'solid' },
+    ]}
+    className="docs-tabs"
+  >
+    <Tab value="react">
+
+```tsx pure file="../../../src/components/examples/accordion/lazy-mount.tsx"
 ```
-</PreviewFrame>
+
+    </Tab>
+    <Tab value="solid">
+
+<CodeBlockRuntime lang="tsx" code={accordionSolidLazyMount} />
+
+    </Tab>
+  </Tabs>
+
+**Стили**
+
+```css file="../../../src/components/examples/accordion/accordion-lazy-mount.module.css"
+```
+</div>
+
+</ExampleCode>
 
 ### Несколько открытых элементов
 
 Установите `multiple`, если одновременно должны оставаться открытыми несколько разделов.
 
-<PreviewFrame maxWidth="sm">
-```tsx preview file="../../en/docs/_snippets/accordion/multiple.tsx"
+<ExampleFrame variant="component">
+  <AccordionMultiple />
+</ExampleFrame>
 
+<ExampleCode>
+<div className="docs-reference">
+  <Tabs
+    groupId="framework"
+    values={[
+      { label: 'React', value: 'react' },
+      { label: 'Solid', value: 'solid' },
+    ]}
+    className="docs-tabs"
+  >
+    <Tab value="react">
+
+```tsx pure file="../../../src/components/examples/accordion/multiple.tsx"
 ```
 
-</PreviewFrame>
+    </Tab>
+    <Tab value="solid">
+
+<CodeBlockRuntime lang="tsx" code={accordionSolidMultiple} />
+
+    </Tab>
+  </Tabs>
+
+**Стили**
+
+```css file="../../../src/components/examples/accordion/accordion-multiple.module.css"
+```
+</div>
+
+</ExampleCode>
 
 ### Root Provider
 
-Используйте `useAccordion()` из `@moduix/react` вместе с `Accordion.RootProvider`, если состояние
-нужно создать вне дерева аккордеона. Не добавляйте к нему `Accordion` или `Accordion.Root`.
+Используйте `useAccordion()` из пакета выбранного фреймворка вместе с `Accordion.RootProvider`, если
+состояние нужно создать вне дерева аккордеона. Не добавляйте для него `Accordion` или
+`Accordion.Root`.
 
-<PreviewFrame maxWidth="sm">
-  ```tsx preview file="../../en/docs/_snippets/accordion/root-provider.tsx"
+<ExampleFrame variant="component">
+  <AccordionRootProvider />
+</ExampleFrame>
 
+<ExampleCode>
+<div className="docs-reference">
+  <Tabs
+    groupId="framework"
+    values={[
+      { label: 'React', value: 'react' },
+      { label: 'Solid', value: 'solid' },
+    ]}
+    className="docs-tabs"
+  >
+    <Tab value="react">
+
+```tsx pure file="../../../src/components/examples/accordion/root-provider.tsx"
 ```
-</PreviewFrame>
+
+    </Tab>
+    <Tab value="solid">
+
+<CodeBlockRuntime lang="tsx" code={accordionSolidRootProvider} />
+
+    </Tab>
+  </Tabs>
+
+**Стили**
+
+```css file="../../../src/components/examples/accordion/accordion-root-provider.module.css"
+```
+</div>
+
+</ExampleCode>
 
 ### Расширенная настройка
 
@@ -223,18 +434,51 @@ Accordion.RootProvider
 Оставляйте структуру частей каждого примитива явной, чтобы нужный компонент сам обрабатывал клавиатуру
 и управлял скрытыми полями формы.
 
-<PreviewFrame maxWidth="sm">
-```tsx preview file="../../en/docs/_snippets/accordion/with-slider.tsx"
+<ExampleFrame variant="component">
+  <AccordionWithSlider />
+</ExampleFrame>
 
+<ExampleCode>
+<div className="docs-reference">
+  <Tabs
+    groupId="framework"
+    values={[
+      { label: 'React', value: 'react' },
+      { label: 'Solid', value: 'solid' },
+    ]}
+    className="docs-tabs"
+  >
+    <Tab value="react">
+
+```tsx pure file="../../../src/components/examples/accordion/with-slider.tsx"
 ```
 
-</PreviewFrame>
+    </Tab>
+    <Tab value="solid">
+
+<CodeBlockRuntime lang="tsx" code={accordionSolidWithSlider} />
+
+    </Tab>
+  </Tabs>
+
+**Стили**
+
+```css file="../../../src/components/examples/accordion/accordion-with-slider.module.css"
+```
+</div>
+
+</ExampleCode>
 
 ## Стилизация
 
-Используйте `className` у экспортируемых частей для структурных стилей. Для стилей, зависящих от
-состояния, предпочитайте атрибуты данных Ark, например `data-state`, `data-disabled` и
-`data-orientation`, вместе с селекторами `data-slot` библиотеки moduix.
+Для структурных стилей передавайте экспортируемым частям `className` в React или `class` в Solid.
+Состояния лучше оформлять через атрибуты данных Ark, например `data-state`, `data-disabled` и
+`data-orientation`, вместе с селекторами `data-slot` moduix. Варианты на Tailwind настраиваются
+обычными утилитами и пользовательскими классами; перечисленные ниже переменные относятся к
+вариантам с CSS Modules. Атрибуты данных и селекторы `data-slot` общие для обоих подходов.
+
+Задавайте отступы панели на `Accordion.ItemBody`, а не на `Accordion.ItemContent`, чтобы Ark мог
+правильно измерять и анимировать панель.
 
 ### CSS-свойства
 

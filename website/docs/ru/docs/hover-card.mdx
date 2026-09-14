@@ -4,7 +4,27 @@ component: hover-card
 description: Компонент Hover Card на базе Ark UI для дополнительных предпросмотров, открывающихся при наведении или получении фокуса.
 ---
 
-import * as HoverCardDocs from '@/components/examples/hover-card';
+import * as HoverCardDocs from '@/components/examples/hover-card/css-properties';
+import BasicHoverCard from '@/components/examples/hover-card/basic.tsx';
+import ContextHoverCard from '@/components/examples/hover-card/context.tsx';
+import ControlledHoverCard from '@/components/examples/hover-card/controlled.tsx';
+import DelayHoverCard from '@/components/examples/hover-card/delay.tsx';
+import DialogHoverCard from '@/components/examples/hover-card/dialog.tsx';
+import DisabledHoverCard from '@/components/examples/hover-card/disabled.tsx';
+import MultipleTriggersHoverCard from '@/components/examples/hover-card/multiple-triggers.tsx';
+import PositioningHoverCard from '@/components/examples/hover-card/positioning.tsx';
+import RootProviderHoverCard from '@/components/examples/hover-card/root-provider.tsx';
+import HoverCardWithArrow from '@/components/examples/hover-card/with-arrow.tsx';
+import hoverCardSolidBasic from '../../../snippets/hover-card/solid/basic.tsx?raw';
+import hoverCardSolidContext from '../../../snippets/hover-card/solid/context.tsx?raw';
+import hoverCardSolidControlled from '../../../snippets/hover-card/solid/controlled.tsx?raw';
+import hoverCardSolidDelay from '../../../snippets/hover-card/solid/delay.tsx?raw';
+import hoverCardSolidDialog from '../../../snippets/hover-card/solid/dialog.tsx?raw';
+import hoverCardSolidDisabled from '../../../snippets/hover-card/solid/disabled.tsx?raw';
+import hoverCardSolidMultipleTriggers from '../../../snippets/hover-card/solid/multiple-triggers.tsx?raw';
+import hoverCardSolidPositioning from '../../../snippets/hover-card/solid/positioning.tsx?raw';
+import hoverCardSolidRootProvider from '../../../snippets/hover-card/solid/root-provider.tsx?raw';
+import hoverCardSolidWithArrow from '../../../snippets/hover-card/solid/with-arrow.tsx?raw';
 
 ## Справочник API
 
@@ -18,19 +38,77 @@ import * as HoverCardDocs from '@/components/examples/hover-card';
 
 ## Базовый пример
 
+HoverCard доступен для React и Solid в вариантах CSS Modules и Tailwind. Превью на этой странице
+работает на React CSS Modules, а во вкладках для фреймворков показан нативный код с тем же
+публичным контрактом.
+
 Соберите карточку из явных частей Ark. `HoverCard.Trigger` открывает карточку, а
 `HoverCard.Positioner` и `HoverCard.Content` задают её всплывающее содержимое. В базовой
-композиции стрелка не используется.
+композиции стрелка не используется. Поместите содержимое в `HoverCard.Body`, если оно может
+превысить доступную высоту: оно будет прокручиваться, а `HoverCard.Content` останется
+необрезанным для дополнительной стрелки.
 
-<PreviewFrame maxWidth="sm">
-  ```tsx preview file="../../en/docs/_snippets/hover-card/basic.tsx"
+<ExampleFrame variant="component">
+  <BasicHoverCard />
+</ExampleFrame>
 
-  ```
-</PreviewFrame>
+<ExampleCode>
+<div className="docs-reference">
+  <Tabs
+    groupId="framework"
+    values={[
+      { label: 'React', value: 'react' },
+      { label: 'Solid', value: 'solid' },
+    ]}
+    className="docs-tabs"
+  >
+    <Tab value="react">
+
+```tsx pure file="../../../src/components/examples/hover-card/basic.tsx"
+```
+
+    </Tab>
+    <Tab value="solid">
+
+<CodeBlockRuntime lang="tsx" code={hoverCardSolidBasic} />
+
+    </Tab>
+  </Tabs>
+
+**Стили**
+
+```css file="../../../src/components/examples/hover-card/hover-card-basic.module.css"
+```
+</div>
+
+</ExampleCode>
 
 ## Установка через shadcn
 
-<ShadcnInstall packageName="hover-card" />
+Полную настройку пакета, реестра и стилей см. в разделе [Быстрый старт](/docs/quick-start).
+
+<Tabs groupId="framework">
+  <Tab label="React" value="react">
+
+<ShadcnInstallOptions
+  options={[
+    { label: 'CSS Modules', command: 'shadcn@latest add @moduix-react/hover-card' },
+    { label: 'Tailwind CSS', command: 'shadcn@latest add @moduix-react-tailwind/hover-card' },
+  ]}
+/>
+
+  </Tab>
+  <Tab label="Solid" value="solid">
+
+<ShadcnInstallOptions
+  options={[
+    { label: 'CSS Modules', command: 'shadcn@latest add @moduix-solid/hover-card' },
+    { label: 'Tailwind CSS', command: 'shadcn@latest add @moduix-solid-tailwind/hover-card' },
+  ]}
+/>
+
+  </Tab>
+</Tabs>
 
 ## Анатомия
 
@@ -42,7 +120,8 @@ HoverCard / HoverCard.Root
       └─ HoverCard.Content
          ├─ HoverCard.Arrow
          │  └─ HoverCard.ArrowTip
-         └─ содержимое
+         └─ HoverCard.Body
+            └─ содержимое
 
 HoverCard.RootProvider
 └─ то же дерево частей, связанное с состоянием moduix useHoverCard()
@@ -58,72 +137,23 @@ HoverCard.RootProvider
 | `HoverCard.Content`            | Видимая область карточки, которая закрывается при взаимодействии за её пределами. |
 | `HoverCard.Arrow`              | Необязательная обёртка позиционируемой стрелки, по умолчанию выводящая `HoverCard.ArrowTip`. |
 | `HoverCard.ArrowTip`           | Наконечник стрелки, оформляемый с помощью переменных Ark.                     |
+| `HoverCard.Body`               | Необязательная прокручиваемая область содержимого для ограниченных предпросмотров. |
 
 `HoverCard` - короткая форма корневого компонента, а `HoverCard.Root` - её алиас в пространстве
 имён. В коде приложения используйте короткую форму.
 
 ## Композиция
 
-Корневой компонент автоматически выводит `HoverCard.Positioner` через портал. Передайте
-`portalled={false}`, чтобы оставить его в текущем DOM-дереве, или укажите `portalRef`, чтобы
-выбрать другой контейнер портала. Оставляйте структурные части явными, чтобы независимо
-настраивать и стилизовать позиционер, содержимое и стрелку.
+`HoverCard` управляет состоянием и по умолчанию выводит `HoverCard.Positioner` через портал.
+Передайте `portalled={false}` внутри другого слоя или укажите `portalRef` для собственного
+контейнера. Используйте `HoverCard.RootProvider` с `useHoverCard()`, если состояние должно жить
+за пределами дерева карточки: React читает его как объект, а Solid через accessor.
 
-### Рекомендуемая композиция
-
-В большинстве случаев используйте `HoverCard` вместе с `HoverCard.Trigger`,
-`HoverCard.Positioner` и `HoverCard.Content`. Добавляйте `HoverCard.Arrow`, только если нужно
-визуально связать окно с триггером.
-
-### Когда нужна собственная композиция
-
-Используйте `asChild` у `HoverCard.Trigger`, если триггером должна быть ссылка или другой
-семантический элемент. Укажите одного потомка, который может получать фокус и сохранять поведение
-триггера. Используйте `HoverCard.RootProvider` с `useHoverCard()`, когда
-состоянием нужно делиться с элементами управления за пределами дерева карточки. Для чтения
-состояния внутри дерева используйте `HoverCard.Context` или `useHoverCardContext()`. Отрисовывайте
-`HoverCard.ArrowTip` напрямую только тогда, когда нужно изменить его разметку.
-
-### Свойства по умолчанию
-
-Содержимое, выводимое через портал, по умолчанию монтируется при первом открытии и удаляется после
-анимации закрытия. Установите `unmountOnExit={false}`, чтобы оставить его смонтированным после
-первого открытия. Устанавливайте оба свойства жизненного цикла в `false`, только если содержимое
-нужно отрендерить сразу.
-
-| Свойство               | По умолчанию | Примечания                                                                     |
-| ---------------------- | ------------ | ------------------------------------------------------------------------------ |
-| `openDelay`            | `600`        | Задержка перед открытием после наведения или получения фокуса триггером.        |
-| `closeDelay`           | `300`        | Задержка перед закрытием после ухода с триггера или содержимого.               |
-| `lazyMount`            | `true`       | Монтирует содержимое только после первого открытия.                            |
-| `unmountOnExit`        | `true`       | Удаляет содержимое после анимации закрытия.                                    |
-| `skipAnimationOnMount` | `false`      | Сохраняет начальную анимацию появления.                                        |
-| `portalled`            | `true`       | Выводит позиционер через портал.                                               |
-| `portalRef`            | `-`          | Задаёт пользовательский контейнер портала.                                     |
-| `positioning`          | `-`          | Параметры позиционирования Ark.                                                |
-| `ids`                  | `-`          | Стабильные идентификаторы триггера, содержимого, позиционера и стрелки.         |
-| `defaultOpen`          | `-`          | Начальное открытое состояние в неконтролируемом режиме.                        |
-| `open`                 | `-`          | Управляемое открытое состояние.                                                |
-| `disabled`             | `false`      | Отключает взаимодействие с карточкой.                                          |
-
-### Особенности поведения
-
-- `onOpenChange(details)` получает объект, например `{ open }`. Читайте следующее состояние в
-  `details.open`.
-- Если несколько триггеров используют одно содержимое, задайте каждому `value` и используйте
-  `onTriggerValueChange(details)`. Активный триггер доступен в `details.value`.
-- `HoverCard.RootProvider`, `HoverCard.Context`, `useHoverCard` и `useHoverCardContext` доступны
-  для расширенной работы с состоянием. Создайте состояние через `useHoverCard()`, если оно должно
-  жить за пределами дерева карточки, а затем передайте его в `RootProvider` через свойство `value`.
-- Свойства Ark, управляющие присутствием, включая `present`, `immediate` и `onExitComplete`,
-  передаются без изменений.
-- `HoverCard.Trigger` получает стандартные стили moduix только без `asChild`. Если используется
-  `asChild`, стилизацией управляет дочерний элемент.
-- Если пользователь предпочитает уменьшенное движение, анимация триггера и содержимого
-  отключается. Длинные слова без пробелов переносятся внутри содержимого, а не выходят за границы
-  карточки.
-- Компонент Hover Card предназначен только для дополнительных предпросмотров. Всё необходимое для
-  понимания или выполнения задачи должно оставаться доступным без открытия карточки.
+Оставляйте `HoverCard.Arrow` внутри `HoverCard.Content`, а длинный предпросмотр помещайте в
+`HoverCard.Body`: `Content` сохраняет видимость стрелки, а `Body` становится областью прокрутки.
+Используйте `asChild` с одним фокусируемым потомком, если триггером должна быть ссылка или другой
+семантический элемент. Если несколько триггеров используют одно содержимое, задайте каждому
+`value` и обновляйте внешнее содержимое через `onTriggerValueChange(details)`.
 
 ## Примеры
 
@@ -132,31 +162,118 @@ HoverCard.RootProvider
 Используйте `HoverCard.Context`, чтобы читать состояние внутри дерева карточки, не меняя его
 видимую структуру.
 
-<PreviewFrame maxWidth="sm">
-  ```tsx preview file="../../en/docs/_snippets/hover-card/context.tsx"
+<ExampleFrame variant="component">
+  <ContextHoverCard />
+</ExampleFrame>
 
-  ```
-</PreviewFrame>
+<ExampleCode>
+<div className="docs-reference">
+  <Tabs
+    groupId="framework"
+    values={[
+      { label: 'React', value: 'react' },
+      { label: 'Solid', value: 'solid' },
+    ]}
+    className="docs-tabs"
+  >
+    <Tab value="react">
+
+```tsx pure file="../../../src/components/examples/hover-card/context.tsx"
+```
+
+    </Tab>
+    <Tab value="solid">
+
+<CodeBlockRuntime lang="tsx" code={hoverCardSolidContext} />
+
+    </Tab>
+  </Tabs>
+
+**Стили**
+
+```css file="../../../src/components/examples/hover-card/hover-card-context.module.css"
+```
+</div>
+
+</ExampleCode>
 
 ### Управляемое состояние
 
 Управляйте открытием карточки с помощью `open` и `onOpenChange(details)`.
 
-<PreviewFrame maxWidth="sm">
-  ```tsx preview file="../../en/docs/_snippets/hover-card/controlled.tsx"
+<ExampleFrame variant="component">
+  <ControlledHoverCard />
+</ExampleFrame>
 
-  ```
-</PreviewFrame>
+<ExampleCode>
+<div className="docs-reference">
+  <Tabs
+    groupId="framework"
+    values={[
+      { label: 'React', value: 'react' },
+      { label: 'Solid', value: 'solid' },
+    ]}
+    className="docs-tabs"
+  >
+    <Tab value="react">
+
+```tsx pure file="../../../src/components/examples/hover-card/controlled.tsx"
+```
+
+    </Tab>
+    <Tab value="solid">
+
+<CodeBlockRuntime lang="tsx" code={hoverCardSolidControlled} />
+
+    </Tab>
+  </Tabs>
+
+**Стили**
+
+```css file="../../../src/components/examples/hover-card/hover-card-controlled.module.css"
+```
+</div>
+
+</ExampleCode>
 
 ### Задержка
 
 Настройте время открытия и закрытия с помощью `openDelay` и `closeDelay` у корневого компонента.
 
-<PreviewFrame maxWidth="sm">
-  ```tsx preview file="../../en/docs/_snippets/hover-card/delay.tsx"
+<ExampleFrame variant="component">
+  <DelayHoverCard />
+</ExampleFrame>
 
-  ```
-</PreviewFrame>
+<ExampleCode>
+<div className="docs-reference">
+  <Tabs
+    groupId="framework"
+    values={[
+      { label: 'React', value: 'react' },
+      { label: 'Solid', value: 'solid' },
+    ]}
+    className="docs-tabs"
+  >
+    <Tab value="react">
+
+```tsx pure file="../../../src/components/examples/hover-card/delay.tsx"
+```
+
+    </Tab>
+    <Tab value="solid">
+
+<CodeBlockRuntime lang="tsx" code={hoverCardSolidDelay} />
+
+    </Tab>
+  </Tabs>
+
+**Стили**
+
+```css file="../../../src/components/examples/hover-card/hover-card-delay.module.css"
+```
+</div>
+
+</ExampleCode>
 
 ### Диалог
 
@@ -165,67 +282,248 @@ HoverCard.RootProvider
 карточка откроется после `openDelay`. Укажите в `initialFocusEl` другой элемент, если предпросмотр
 должен оставаться закрытым до наведения или получения фокуса.
 
-<PreviewFrame maxWidth="sm">
-  ```tsx preview file="../../en/docs/_snippets/hover-card/dialog.tsx"
+<ExampleFrame variant="component">
+  <DialogHoverCard />
+</ExampleFrame>
 
-  ```
-</PreviewFrame>
+<ExampleCode>
+<div className="docs-reference">
+  <Tabs
+    groupId="framework"
+    values={[
+      { label: 'React', value: 'react' },
+      { label: 'Solid', value: 'solid' },
+    ]}
+    className="docs-tabs"
+  >
+    <Tab value="react">
+
+```tsx pure file="../../../src/components/examples/hover-card/dialog.tsx"
+```
+
+    </Tab>
+    <Tab value="solid">
+
+<CodeBlockRuntime lang="tsx" code={hoverCardSolidDialog} />
+
+    </Tab>
+  </Tabs>
+
+**Стили**
+
+```css file="../../../src/components/examples/hover-card/hover-card-dialog.module.css"
+```
+</div>
+
+</ExampleCode>
 
 ### Отключённое состояние
 
 Установите `disabled`, чтобы запретить открытие карточки, но оставить видимое содержимое
 триггера.
 
-<PreviewFrame maxWidth="sm">
-  ```tsx preview file="../../en/docs/_snippets/hover-card/disabled.tsx"
+<ExampleFrame variant="component">
+  <DisabledHoverCard />
+</ExampleFrame>
 
-  ```
-</PreviewFrame>
+<ExampleCode>
+<div className="docs-reference">
+  <Tabs
+    groupId="framework"
+    values={[
+      { label: 'React', value: 'react' },
+      { label: 'Solid', value: 'solid' },
+    ]}
+    className="docs-tabs"
+  >
+    <Tab value="react">
+
+```tsx pure file="../../../src/components/examples/hover-card/disabled.tsx"
+```
+
+    </Tab>
+    <Tab value="solid">
+
+<CodeBlockRuntime lang="tsx" code={hoverCardSolidDisabled} />
+
+    </Tab>
+  </Tabs>
+
+**Стили**
+
+```css file="../../../src/components/examples/hover-card/hover-card-disabled.module.css"
+```
+</div>
+
+</ExampleCode>
 
 ### Несколько триггеров
 
 Назначьте каждому триггеру `value` и используйте `onTriggerValueChange(details)`, чтобы несколько
 триггеров работали с одним всплывающим содержимым.
 
-<PreviewFrame maxWidth="sm">
-  ```tsx preview file="../../en/docs/_snippets/hover-card/multiple-triggers.tsx"
+<ExampleFrame variant="component">
+  <MultipleTriggersHoverCard />
+</ExampleFrame>
 
-  ```
-</PreviewFrame>
+<ExampleCode>
+<div className="docs-reference">
+  <Tabs
+    groupId="framework"
+    values={[
+      { label: 'React', value: 'react' },
+      { label: 'Solid', value: 'solid' },
+    ]}
+    className="docs-tabs"
+  >
+    <Tab value="react">
+
+```tsx pure file="../../../src/components/examples/hover-card/multiple-triggers.tsx"
+```
+
+    </Tab>
+    <Tab value="solid">
+
+<CodeBlockRuntime lang="tsx" code={hoverCardSolidMultipleTriggers} />
+
+    </Tab>
+  </Tabs>
+
+**Стили**
+
+```css file="../../../src/components/examples/hover-card/hover-card-multiple-triggers.module.css"
+```
+</div>
+
+</ExampleCode>
 
 ### Позиционирование
 
 Передавайте параметры позиционирования Ark через свойство `positioning`.
 
-<PreviewFrame maxWidth="sm">
-  ```tsx preview file="../../en/docs/_snippets/hover-card/positioning.tsx"
+<ExampleFrame variant="component">
+  <PositioningHoverCard />
+</ExampleFrame>
 
-  ```
-</PreviewFrame>
+<ExampleCode>
+<div className="docs-reference">
+  <Tabs
+    groupId="framework"
+    values={[
+      { label: 'React', value: 'react' },
+      { label: 'Solid', value: 'solid' },
+    ]}
+    className="docs-tabs"
+  >
+    <Tab value="react">
+
+```tsx pure file="../../../src/components/examples/hover-card/positioning.tsx"
+```
+
+    </Tab>
+    <Tab value="solid">
+
+<CodeBlockRuntime lang="tsx" code={hoverCardSolidPositioning} />
+
+    </Tab>
+  </Tabs>
+
+**Стили**
+
+```css file="../../../src/components/examples/hover-card/hover-card-positioning.module.css"
+```
+</div>
+
+</ExampleCode>
 
 ### Root Provider
 
 Используйте `useHoverCard()` с `HoverCard.RootProvider`, когда элементам управления или другим
 частям интерфейса за пределами дерева карточки нужно читать её состояние или изменять его.
 
-<PreviewFrame maxWidth="sm">
-  ```tsx preview file="../../en/docs/_snippets/hover-card/root-provider.tsx"
+<ExampleFrame variant="component">
+  <RootProviderHoverCard />
+</ExampleFrame>
 
-  ```
-</PreviewFrame>
+<ExampleCode>
+<div className="docs-reference">
+  <Tabs
+    groupId="framework"
+    values={[
+      { label: 'React', value: 'react' },
+      { label: 'Solid', value: 'solid' },
+    ]}
+    className="docs-tabs"
+  >
+    <Tab value="react">
+
+```tsx pure file="../../../src/components/examples/hover-card/root-provider.tsx"
+```
+
+    </Tab>
+    <Tab value="solid">
+
+<CodeBlockRuntime lang="tsx" code={hoverCardSolidRootProvider} />
+
+    </Tab>
+  </Tabs>
+
+**Стили**
+
+```css file="../../../src/components/examples/hover-card/hover-card-root-provider.module.css"
+```
+</div>
+
+</ExampleCode>
 
 ### Со стрелкой
 
 Добавьте `HoverCard.Arrow` внутрь `HoverCard.Content`, если нужно визуально связать всплывающее
-окно с триггером. Обёртка по умолчанию выводит `HoverCard.ArrowTip`.
+окно с триггером. Обёртка по умолчанию выводит `HoverCard.ArrowTip`; помещайте предпросмотр в
+`HoverCard.Body`, чтобы стрелка оставалась частью поверхности с границей, а содержимое могло
+прокручиваться.
 
-<PreviewFrame maxWidth="sm">
-  ```tsx preview file="../../en/docs/_snippets/hover-card/with-arrow.tsx"
+<ExampleFrame variant="component">
+  <HoverCardWithArrow />
+</ExampleFrame>
 
-  ```
-</PreviewFrame>
+<ExampleCode>
+<div className="docs-reference">
+  <Tabs
+    groupId="framework"
+    values={[
+      { label: 'React', value: 'react' },
+      { label: 'Solid', value: 'solid' },
+    ]}
+    className="docs-tabs"
+  >
+    <Tab value="react">
+
+```tsx pure file="../../../src/components/examples/hover-card/with-arrow.tsx"
+```
+
+    </Tab>
+    <Tab value="solid">
+
+<CodeBlockRuntime lang="tsx" code={hoverCardSolidWithArrow} />
+
+    </Tab>
+  </Tabs>
+
+**Стили**
+
+```css file="../../../src/components/examples/hover-card/hover-card-with-arrow.module.css"
+```
+</div>
+
+</ExampleCode>
 
 ## Стилизация
+
+Для структурных стилей используйте `className` в React или `class` в Solid на экспортируемых
+частях. Варианты Tailwind используют нативные utility-классы и классы потребителя, а переменные
+ниже настраивают варианты CSS Modules. Атрибуты состояния и хуки `data-slot` общие для обоих
+вариантов стилизации.
 
 ### CSS-свойства
 
@@ -243,10 +541,10 @@ HoverCard.RootProvider
 
 ### Точки для стилизации
 
-У каждой отрисовываемой части можно задать `className`. Кроме того, moduix добавляет атрибуты
-`data-slot="hover-card-*"` к триггеру, позиционеру, содержимому, стрелке и наконечнику стрелки.
-`HoverCard` и `HoverCard.RootProvider` только предоставляют состояние и не создают DOM-элементы,
-поэтому у них нет собственных точек стилизации. Ark добавляет к своим частям `data-scope="hover-card"`
+Moduix добавляет атрибуты `data-slot="hover-card-*"` к триггеру, позиционеру, содержимому, стрелке,
+наконечнику стрелки и области содержимого. `HoverCard` и `HoverCard.RootProvider` только
+предоставляют состояние и не создают DOM-элементы, поэтому у них нет собственных точек стилизации.
+Ark добавляет к своим частям `data-scope="hover-card"`
 и `data-part`. Для стилизации с учётом состояния используйте `data-state="open|closed"`,
 `data-placement`, `data-side`, `data-value`, `data-current`, `data-nested` и `data-has-nested`.
 

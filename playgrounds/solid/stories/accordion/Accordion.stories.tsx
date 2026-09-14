@@ -1,4 +1,4 @@
-import { createSignal } from 'solid-js';
+import { createSignal, type JSX } from 'solid-js';
 import type { Meta, StoryObj } from 'storybook-solidjs-vite';
 import {
   Accordion,
@@ -6,6 +6,8 @@ import {
   useAccordionContext,
   useAccordionItemContext,
 } from '@/components/accordion/Accordion';
+import { Slider } from '@/components/slider/Slider';
+import { ChevronDownIcon } from '@/lib/moduix/icons/ui/Icons';
 import styles from './Accordion.stories.module.css';
 
 const meta = {
@@ -38,12 +40,16 @@ const faqItems = [
   },
 ];
 
-function FaqAccordionItems(props: { disabledValue?: string }) {
+function FaqAccordionItems(props: {
+  disabledValue?: string;
+  icon?: JSX.Element;
+  iconClassName?: string;
+}) {
   return faqItems.map((item) => (
     <Accordion.Item value={item.value} disabled={item.value === props.disabledValue}>
       <Accordion.ItemTrigger>
         {item.title}
-        <Accordion.ItemIndicator />
+        <Accordion.ItemIndicator class={props.iconClassName}>{props.icon}</Accordion.ItemIndicator>
       </Accordion.ItemTrigger>
       <Accordion.ItemContent>
         <Accordion.ItemBody>{item.description}</Accordion.ItemBody>
@@ -162,6 +168,37 @@ export const RootProvider: Story = {
   },
 };
 
+export const AdvancedCustomization: Story = {
+  render: () => (
+    <Accordion defaultValue={['what-is-ark-ui']} class={styles.demoRoot}>
+      {faqItems.map((item) => (
+        <Accordion.Item value={item.value}>
+          <Accordion.ItemTrigger>
+            {item.title}
+            <Accordion.ItemIndicator />
+          </Accordion.ItemTrigger>
+          <Accordion.ItemContent>
+            <Accordion.ItemBody>
+              <span>{item.description}</span>
+              <Slider defaultValue={[40]}>
+                <Slider.Label>{item.title} priority</Slider.Label>
+                <Slider.Control>
+                  <Slider.Track>
+                    <Slider.Range />
+                  </Slider.Track>
+                  <Slider.Thumb index={0}>
+                    <Slider.HiddenInput />
+                  </Slider.Thumb>
+                </Slider.Control>
+              </Slider>
+            </Accordion.ItemBody>
+          </Accordion.ItemContent>
+        </Accordion.Item>
+      ))}
+    </Accordion>
+  ),
+};
+
 export const ContentStress: Story = {
   render: () => (
     <Accordion defaultValue={['long-content']} class={styles.demoRoot}>
@@ -177,6 +214,14 @@ export const ContentStress: Story = {
           </Accordion.ItemBody>
         </Accordion.ItemContent>
       </Accordion.Item>
+    </Accordion>
+  ),
+};
+
+export const CustomStyling: Story = {
+  render: () => (
+    <Accordion defaultValue={['what-is-ark-ui']} class={styles.demoRoot}>
+      <FaqAccordionItems icon={<ChevronDownIcon />} iconClassName={styles.customIcon} />
     </Accordion>
   ),
 };

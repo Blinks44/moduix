@@ -4,7 +4,33 @@ component: listbox
 description: A visible listbox for selecting one or more items, with optional filtering and extended selection.
 ---
 
-import * as ListboxDocs from '@/components/examples/listbox';
+import * as ListboxDocs from '@/components/examples/listbox/css-properties';
+import ListboxBasic from '@/components/examples/listbox/basic.tsx';
+import ListboxControlled from '@/components/examples/listbox/controlled.tsx';
+import ListboxDisabledItem from '@/components/examples/listbox/disabled-item.tsx';
+import ListboxExtendedSelection from '@/components/examples/listbox/extended-selection.tsx';
+import ListboxFiltering from '@/components/examples/listbox/filtering.tsx';
+import ListboxGrid from '@/components/examples/listbox/grid.tsx';
+import ListboxGrouping from '@/components/examples/listbox/grouping.tsx';
+import ListboxHorizontal from '@/components/examples/listbox/horizontal.tsx';
+import ListboxMultiple from '@/components/examples/listbox/multiple.tsx';
+import ListboxRootProvider from '@/components/examples/listbox/root-provider.tsx';
+import ListboxSelectAll from '@/components/examples/listbox/select-all.tsx';
+import ListboxStandaloneFilterInput from '@/components/examples/listbox/standalone-filter-input.tsx';
+import ListboxValueText from '@/components/examples/listbox/value-text.tsx';
+import listboxSolidBasic from '../../../snippets/listbox/solid/basic.tsx?raw';
+import listboxSolidControlled from '../../../snippets/listbox/solid/controlled.tsx?raw';
+import listboxSolidDisabledItem from '../../../snippets/listbox/solid/disabled-item.tsx?raw';
+import listboxSolidExtendedSelection from '../../../snippets/listbox/solid/extended-selection.tsx?raw';
+import listboxSolidFiltering from '../../../snippets/listbox/solid/filtering.tsx?raw';
+import listboxSolidGrid from '../../../snippets/listbox/solid/grid.tsx?raw';
+import listboxSolidGrouping from '../../../snippets/listbox/solid/grouping.tsx?raw';
+import listboxSolidHorizontal from '../../../snippets/listbox/solid/horizontal.tsx?raw';
+import listboxSolidMultiple from '../../../snippets/listbox/solid/multiple.tsx?raw';
+import listboxSolidRootProvider from '../../../snippets/listbox/solid/root-provider.tsx?raw';
+import listboxSolidSelectAll from '../../../snippets/listbox/solid/select-all.tsx?raw';
+import listboxSolidStandaloneFilterInput from '../../../snippets/listbox/solid/standalone-filter-input.tsx?raw';
+import listboxSolidValueText from '../../../snippets/listbox/solid/value-text.tsx?raw';
 
 ## API Reference
 
@@ -18,18 +44,74 @@ searching or entering a value.
 
 ## Basic
 
-Use `Listbox` when users need to choose one or more items from a list that stays open. Pass a
-`collection`, render `Listbox.Content`, and pass each collection item to `Listbox.Item` through `item`.
+Listbox ships for React and Solid in both the CSS Modules and Tailwind packages. The rendered preview
+on this page uses the React CSS Modules package; the framework tabs show native source for the same
+public contract.
 
-<PreviewFrame maxWidth="sm">
-  ```tsx preview file="./_snippets/listbox/basic.tsx"
+Pass a `collection`, render `Listbox.Content`, and pass each collection item to `Listbox.Item`
+through `item`. Add `Listbox.ItemIndicator` when rows should show the selected state.
 
+<ExampleFrame variant="component">
+  <ListboxBasic />
+</ExampleFrame>
+
+<ExampleCode>
+<div className="docs-reference">
+  <Tabs
+    groupId="framework"
+    values={[
+      { label: 'React', value: 'react' },
+      { label: 'Solid', value: 'solid' },
+    ]}
+    className="docs-tabs"
+  >
+    <Tab value="react">
+
+```tsx pure file="../../../src/components/examples/listbox/basic.tsx"
 ```
-</PreviewFrame>
+
+    </Tab>
+    <Tab value="solid">
+
+<CodeBlockRuntime lang="tsx" code={listboxSolidBasic} />
+
+    </Tab>
+  </Tabs>
+
+**Styles**
+
+```css file="../../../src/components/examples/listbox/listbox-basic.module.css"
+```
+</div>
+
+</ExampleCode>
 
 ## Install with shadcn
 
-<ShadcnInstall packageName="listbox" />
+See [Quick Start](/docs/quick-start) for full package setup, registry configuration, and styling guidance.
+
+<Tabs groupId="framework">
+  <Tab label="React" value="react">
+
+<ShadcnInstallOptions
+  options={[
+    { label: 'CSS Modules', command: 'shadcn@latest add @moduix-react/listbox' },
+    { label: 'Tailwind CSS', command: 'shadcn@latest add @moduix-react-tailwind/listbox' },
+  ]}
+/>
+
+  </Tab>
+  <Tab label="Solid" value="solid">
+
+<ShadcnInstallOptions
+  options={[
+    { label: 'CSS Modules', command: 'shadcn@latest add @moduix-solid/listbox' },
+    { label: 'Tailwind CSS', command: 'shadcn@latest add @moduix-solid-tailwind/listbox' },
+  ]}
+/>
+
+  </Tab>
+</Tabs>
 
 ## Anatomy
 
@@ -80,201 +162,413 @@ Listbox.RootProvider
 
 ## Composition
 
-### Recommended composition
+Use `defaultValue` for uncontrolled selection. When another part of the application owns the
+selection, pass `value` and update it from `onValueChange(details.value)`. For filtering, set
+`typeahead={false}`, keep the query in application state, and call the `filter` function returned by
+`useListCollection` from the input handler. `Listbox.Filter` only provides the joined search-field appearance, so a
+clear action must reset both the query and the collection filter.
 
-Compose the listbox from its Ark parts. `Listbox` manages the collection, `Listbox.Content` manages
-focus and keyboard navigation, and each `Listbox.Item` receives its original collection item through
-`item`. Add `Listbox.ItemIndicator` when rows should reserve space for a selection indicator.
-
-`Listbox` is the concise root form and is equivalent to `Listbox.Root`. For filtering, place
-`Listbox.Input` inside `Listbox.Filter` immediately before `Listbox.Content`. `Filter` adds the
-default search icon and visually joins the input and results into one bordered surface. It is only a
-visual wrapper, so your code still owns the query and collection filtering state.
-
-### When to go custom
-
-Use `asChild` only when your custom element can preserve the required listbox semantics and accept
-Ark props. Use `ids` when listbox parts need stable IDs to integrate with surrounding UI. Use
-`useListbox` from `@moduix/react/listbox` with `Listbox.RootProvider` when state is controlled
-outside the rendered tree. Do not render `Listbox.Root` for that same state instance. Render
-`Listbox.Input` directly when the filter should remain visually separate from the list or live in a
-custom surrounding UI.
-
-### Default props
-
-| Prop                      | Default    | Notes                                                                                     |
-| ------------------------- | ---------- | ----------------------------------------------------------------------------------------- |
-| `collection`              | -          | Required Ark collection. Create one with `createListCollection` or use a grid collection. |
-| `defaultValue`            | `[]`       | Initial selected values for uncontrolled state.                                           |
-| `defaultHighlightedValue` | -          | Initial highlighted item for uncontrolled state.                                          |
-| `deselectable`            | -          | Allows `Escape` to clear a non-empty selection.                                           |
-| `disabled`                | `false`    | Disables the whole listbox.                                                               |
-| `disallowSelectAll`       | `false`    | Disables `Cmd/Ctrl + A` selection.                                                        |
-| `loopFocus`               | `false`    | Prevents arrow-key navigation from wrapping.                                              |
-| `orientation`             | `vertical` | Controls the layout and arrow-key direction.                                              |
-| `selectionMode`           | `single`   | Supports `single`, `multiple`, and `extended`.                                             |
-| `selectOnHighlight`       | `false`    | Selects items as keyboard highlight changes.                                               |
-| `typeahead`               | `true`     | Enables typeahead when no filter input handles text entry.                                |
-
-### Behavioral notes
-
-`value`, `defaultValue`, and `onValueChange(details)` use string arrays. Read `details.value` for
-selected keys and `details.items` for selected collection items.
-
-`highlightedValue`, `defaultHighlightedValue`, and `onHighlightChange(details)` control the active
-item during navigation. `onSelect(details)` fires when an item is selected and includes its value.
-
-`useListbox`, `useListboxContext`, `useListboxItemContext`, `Listbox.Context`, and
-`Listbox.ItemContext` are available from `@moduix/react/listbox` for advanced state and item
-composition. Refs are forwarded to the corresponding Ark part. Refs on the root and root provider
-target their rendered `div` elements. Use `ids` when listbox parts need stable IDs for composition
-with surrounding UI.
-
-Listbox does not render a native form control for selected values. If the selection must be submitted,
-keep submission and reset state in your form model.
-
-`Listbox.Input` is only needed for filtering. Put it in `Listbox.Filter` for the default search
-appearance, or render it directly for a separate input. Set `typeahead={false}` so typeahead and
-filtering do not compete. Keep filtering state explicit: render `Listbox.ClearTrigger` when the query
-is not empty, and clear both the query and the collection filter in its `onClick` handler.
-
-Ark handles the ARIA listbox pattern, active-descendant focus management, keyboard navigation,
-typeahead, Home/End behavior, disabled items, and orientation-specific arrow keys. Keep
-`Listbox.Label` in the tree when the listbox needs a visible label.
+Use `useListbox` from the matching framework package with `Listbox.RootProvider` when the store must
+be created outside the rendered tree. Pass the returned store to `RootProvider` and do not render
+`Listbox` or `Listbox.Root` for the same store. `Listbox.Input` can be rendered directly when the
+filter needs a separate wrapper, and `Listbox.ValueText` can be placed after `Content` for a selected
+value summary.
 
 ## Examples
 
 ### Controlled
 
-Keep the selected string array in React state and update it from `details.value`.
+Keep the selected string array in application state and update it from `details.value`.
 
-<PreviewFrame maxWidth="sm">
-  ```tsx preview file="./_snippets/listbox/controlled.tsx"
+<ExampleFrame variant="component">
+  <ListboxControlled />
+</ExampleFrame>
 
+<ExampleCode>
+<div className="docs-reference">
+  <Tabs groupId="framework" values={[{ label: 'React', value: 'react' }, { label: 'Solid', value: 'solid' }]} className="docs-tabs">
+    <Tab value="react">
+
+```tsx pure file="../../../src/components/examples/listbox/controlled.tsx"
 ```
-</PreviewFrame>
+
+    </Tab>
+    <Tab value="solid">
+
+<CodeBlockRuntime lang="tsx" code={listboxSolidControlled} />
+
+    </Tab>
+  </Tabs>
+
+**Styles**
+
+```css file="../../../src/components/examples/listbox/listbox-controlled.module.css"
+```
+</div>
+
+</ExampleCode>
 
 ### Disabled Item
 
-Disable individual items by setting the collection item's `disabled` field or by using
-`isItemDisabled` when you create the collection.
+Disable an individual item with its collection item's `disabled` field.
 
-<PreviewFrame maxWidth="sm">
-  ```tsx preview file="./_snippets/listbox/disabled-item.tsx"
+<ExampleFrame variant="component">
+  <ListboxDisabledItem />
+</ExampleFrame>
 
+<ExampleCode>
+<div className="docs-reference">
+  <Tabs groupId="framework" values={[{ label: 'React', value: 'react' }, { label: 'Solid', value: 'solid' }]} className="docs-tabs">
+    <Tab value="react">
+
+```tsx pure file="../../../src/components/examples/listbox/disabled-item.tsx"
 ```
-</PreviewFrame>
+
+    </Tab>
+    <Tab value="solid">
+
+<CodeBlockRuntime lang="tsx" code={listboxSolidDisabledItem} />
+
+    </Tab>
+  </Tabs>
+
+**Styles**
+
+```css file="../../../src/components/examples/listbox/listbox-disabled-item.module.css"
+```
+</div>
+
+</ExampleCode>
 
 ### Extended Selection
 
-Use `selectionMode="extended"` when users need to select multiple items with platform modifier keys.
+Use `selectionMode="extended"` when users need modifier keys to select multiple items.
 
-<PreviewFrame maxWidth="sm">
-  ```tsx preview file="./_snippets/listbox/extended-selection.tsx"
+<ExampleFrame variant="component">
+  <ListboxExtendedSelection />
+</ExampleFrame>
 
+<ExampleCode>
+<div className="docs-reference">
+  <Tabs groupId="framework" values={[{ label: 'React', value: 'react' }, { label: 'Solid', value: 'solid' }]} className="docs-tabs">
+    <Tab value="react">
+
+```tsx pure file="../../../src/components/examples/listbox/extended-selection.tsx"
 ```
-</PreviewFrame>
+
+    </Tab>
+    <Tab value="solid">
+
+<CodeBlockRuntime lang="tsx" code={listboxSolidExtendedSelection} />
+
+    </Tab>
+  </Tabs>
+
+**Styles**
+
+```css file="../../../src/components/examples/listbox/listbox-extended-selection.module.css"
+```
+</div>
+
+</ExampleCode>
 
 ### Filtering
 
-Use `Listbox.Filter` with `useListCollection`. It adds the default search icon and visually joins the
-filter with the following `Content`; turn off typeahead when the input handles search.
+Use `Listbox.Filter` with `useListCollection`. It adds the default search icon and joins the filter
+with `Content`; turn off typeahead when the input handles search.
 
-<PreviewFrame maxWidth="sm">
-  ```tsx preview file="./_snippets/listbox/filtering.tsx"
+<ExampleFrame variant="component">
+  <ListboxFiltering />
+</ExampleFrame>
 
+<ExampleCode>
+<div className="docs-reference">
+  <Tabs groupId="framework" values={[{ label: 'React', value: 'react' }, { label: 'Solid', value: 'solid' }]} className="docs-tabs">
+    <Tab value="react">
+
+```tsx pure file="../../../src/components/examples/listbox/filtering.tsx"
 ```
-</PreviewFrame>
+
+    </Tab>
+    <Tab value="solid">
+
+<CodeBlockRuntime lang="tsx" code={listboxSolidFiltering} />
+
+    </Tab>
+  </Tabs>
+
+**Styles**
+
+```css file="../../../src/components/examples/listbox/listbox-filtering.module.css"
+```
+</div>
+
+</ExampleCode>
 
 ### Grid
 
 Pass a collection created with `createGridCollection` to enable grid keyboard navigation. Ark adds
-`data-layout="grid"` and the `--column-count` CSS variable to `Content`. In grid layouts, use a
-selected background instead of an inline check indicator to keep cells compact.
+`data-layout="grid"` and the `--column-count` CSS variable to `Content`.
 
-<PreviewFrame maxWidth="sm">
-  ```tsx preview file="./_snippets/listbox/grid.tsx"
+<ExampleFrame variant="component">
+  <ListboxGrid />
+</ExampleFrame>
 
+<ExampleCode>
+<div className="docs-reference">
+  <Tabs groupId="framework" values={[{ label: 'React', value: 'react' }, { label: 'Solid', value: 'solid' }]} className="docs-tabs">
+    <Tab value="react">
+
+```tsx pure file="../../../src/components/examples/listbox/grid.tsx"
 ```
-</PreviewFrame>
+
+    </Tab>
+    <Tab value="solid">
+
+<CodeBlockRuntime lang="tsx" code={listboxSolidGrid} />
+
+    </Tab>
+  </Tabs>
+
+**Styles**
+
+```css file="../../../src/components/examples/listbox/listbox-grid.module.css"
+```
+</div>
+
+</ExampleCode>
 
 ### Grouping
 
-Set `groupBy` when you create the collection and render `ItemGroup` with `ItemGroupLabel`.
+Set `groupBy` when creating the collection and render `ItemGroup` with `ItemGroupLabel`.
 
-<PreviewFrame maxWidth="sm">
-  ```tsx preview file="./_snippets/listbox/grouping.tsx"
+<ExampleFrame variant="component">
+  <ListboxGrouping />
+</ExampleFrame>
 
+<ExampleCode>
+<div className="docs-reference">
+  <Tabs groupId="framework" values={[{ label: 'React', value: 'react' }, { label: 'Solid', value: 'solid' }]} className="docs-tabs">
+    <Tab value="react">
+
+```tsx pure file="../../../src/components/examples/listbox/grouping.tsx"
 ```
-</PreviewFrame>
+
+    </Tab>
+    <Tab value="solid">
+
+<CodeBlockRuntime lang="tsx" code={listboxSolidGrouping} />
+
+    </Tab>
+  </Tabs>
+
+**Styles**
+
+```css file="../../../src/components/examples/listbox/listbox-grouping.module.css"
+```
+</div>
+
+</ExampleCode>
 
 ### Horizontal
 
-Set `orientation="horizontal"` to lay out items horizontally and enable left/right arrow-key navigation.
+Set `orientation="horizontal"` to lay out items horizontally and enable left and right arrow-key
+navigation.
 
-<PreviewFrame maxWidth="lg">
-  ```tsx preview file="./_snippets/listbox/horizontal.tsx"
+<ExampleFrame variant="component">
+  <ListboxHorizontal />
+</ExampleFrame>
 
+<ExampleCode>
+<div className="docs-reference">
+  <Tabs groupId="framework" values={[{ label: 'React', value: 'react' }, { label: 'Solid', value: 'solid' }]} className="docs-tabs">
+    <Tab value="react">
+
+```tsx pure file="../../../src/components/examples/listbox/horizontal.tsx"
 ```
-</PreviewFrame>
+
+    </Tab>
+    <Tab value="solid">
+
+<CodeBlockRuntime lang="tsx" code={listboxSolidHorizontal} />
+
+    </Tab>
+  </Tabs>
+
+**Styles**
+
+```css file="../../../src/components/examples/listbox/listbox-horizontal.module.css"
+```
+</div>
+
+</ExampleCode>
 
 ### Multiple
 
 Set `selectionMode="multiple"` to toggle multiple values without modifier keys.
 
-<PreviewFrame maxWidth="sm">
-  ```tsx preview file="./_snippets/listbox/multiple.tsx"
+<ExampleFrame variant="component">
+  <ListboxMultiple />
+</ExampleFrame>
 
+<ExampleCode>
+<div className="docs-reference">
+  <Tabs groupId="framework" values={[{ label: 'React', value: 'react' }, { label: 'Solid', value: 'solid' }]} className="docs-tabs">
+    <Tab value="react">
+
+```tsx pure file="../../../src/components/examples/listbox/multiple.tsx"
 ```
-</PreviewFrame>
+
+    </Tab>
+    <Tab value="solid">
+
+<CodeBlockRuntime lang="tsx" code={listboxSolidMultiple} />
+
+    </Tab>
+  </Tabs>
+
+**Styles**
+
+```css file="../../../src/components/examples/listbox/listbox-multiple.module.css"
+```
+</div>
+
+</ExampleCode>
 
 ### Root Provider
 
-Use `useListbox` from `@moduix/react/listbox` with `Listbox.RootProvider` when controls outside the
-listbox need direct access to its API.
+Use `useListbox()` from the matching framework package with `Listbox.RootProvider` when controls
+outside the listbox need direct access to its store.
 
-<PreviewFrame maxWidth="sm">
-  ```tsx preview file="./_snippets/listbox/root-provider.tsx"
+<ExampleFrame variant="component">
+  <ListboxRootProvider />
+</ExampleFrame>
 
+<ExampleCode>
+<div className="docs-reference">
+  <Tabs groupId="framework" values={[{ label: 'React', value: 'react' }, { label: 'Solid', value: 'solid' }]} className="docs-tabs">
+    <Tab value="react">
+
+```tsx pure file="../../../src/components/examples/listbox/root-provider.tsx"
 ```
-</PreviewFrame>
+
+    </Tab>
+    <Tab value="solid">
+
+<CodeBlockRuntime lang="tsx" code={listboxSolidRootProvider} />
+
+    </Tab>
+  </Tabs>
+
+**Styles**
+
+```css file="../../../src/components/examples/listbox/listbox-root-provider.module.css"
+```
+</div>
+
+</ExampleCode>
 
 ### Select All
 
-Use `useListboxContext` inside a child component to add an external Select All button.
+Use `useListboxContext` inside a child component to add a button that updates the listbox selection.
 
-<PreviewFrame maxWidth="sm">
-  ```tsx preview file="./_snippets/listbox/select-all.tsx"
+<ExampleFrame variant="component">
+  <ListboxSelectAll />
+</ExampleFrame>
 
+<ExampleCode>
+<div className="docs-reference">
+  <Tabs groupId="framework" values={[{ label: 'React', value: 'react' }, { label: 'Solid', value: 'solid' }]} className="docs-tabs">
+    <Tab value="react">
+
+```tsx pure file="../../../src/components/examples/listbox/select-all.tsx"
 ```
-</PreviewFrame>
+
+    </Tab>
+    <Tab value="solid">
+
+<CodeBlockRuntime lang="tsx" code={listboxSolidSelectAll} />
+
+    </Tab>
+  </Tabs>
+
+**Styles**
+
+```css file="../../../src/components/examples/listbox/listbox-select-all.module.css"
+```
+</div>
+
+</ExampleCode>
 
 ### Standalone Filter Input
 
-Render `Listbox.Input` directly when the filter and results should remain separate surfaces. Its
-default border matches `Listbox.Content`; on keyboard focus, only the outline color is animated.
+Render `Listbox.Input` directly when the filter and results should remain separate surfaces.
 
-<PreviewFrame maxWidth="sm">
-  ```tsx preview file="./_snippets/listbox/standalone-filter-input.tsx"
+<ExampleFrame variant="component">
+  <ListboxStandaloneFilterInput />
+</ExampleFrame>
 
+<ExampleCode>
+<div className="docs-reference">
+  <Tabs groupId="framework" values={[{ label: 'React', value: 'react' }, { label: 'Solid', value: 'solid' }]} className="docs-tabs">
+    <Tab value="react">
+
+```tsx pure file="../../../src/components/examples/listbox/standalone-filter-input.tsx"
 ```
-</PreviewFrame>
+
+    </Tab>
+    <Tab value="solid">
+
+<CodeBlockRuntime lang="tsx" code={listboxSolidStandaloneFilterInput} />
+
+    </Tab>
+  </Tabs>
+
+**Styles**
+
+```css file="../../../src/components/examples/listbox/listbox-standalone-filter-input.module.css"
+```
+</div>
+
+</ExampleCode>
 
 ### Value Text
 
 Render `Listbox.ValueText` when the selected-value summary should stay visible beside the list.
 
-<PreviewFrame maxWidth="sm">
-  ```tsx preview file="./_snippets/listbox/value-text.tsx"
+<ExampleFrame variant="component">
+  <ListboxValueText />
+</ExampleFrame>
 
+<ExampleCode>
+<div className="docs-reference">
+  <Tabs groupId="framework" values={[{ label: 'React', value: 'react' }, { label: 'Solid', value: 'solid' }]} className="docs-tabs">
+    <Tab value="react">
+
+```tsx pure file="../../../src/components/examples/listbox/value-text.tsx"
 ```
-</PreviewFrame>
+
+    </Tab>
+    <Tab value="solid">
+
+<CodeBlockRuntime lang="tsx" code={listboxSolidValueText} />
+
+    </Tab>
+  </Tabs>
+
+**Styles**
+
+```css file="../../../src/components/examples/listbox/listbox-value-text.module.css"
+```
+</div>
+
+</ExampleCode>
 
 ## Styling
 
-Style `Listbox` through `className`, stable `data-slot="listbox-*"` hooks, Ark
-`data-scope="listbox"` / `data-part`, state attributes, and the public `--moduix-listbox-*`
-CSS variables.
+Style Listbox through `className` in React or `class` in Solid on exported parts. Tailwind variants
+use native utilities and consumer classes, while CSS Modules variants use the public
+`--moduix-listbox-*` CSS variables.
 
 ### CSS Properties
 
@@ -282,8 +576,8 @@ CSS variables.
 
 ### Styling hooks
 
-- Ark anatomy hooks: `data-scope="listbox"` and `data-part` on root, label, input, content,
-  item group, item group label, item, item text, item indicator, value text, and empty.
+- Ark anatomy hooks: `data-scope="listbox"` and `data-part` on root, label, input, content, item
+  group, item group label, item, item text, item indicator, value text, and empty.
 - State hooks: `data-orientation`, `data-disabled`, `data-empty`, `data-layout`,
   `data-activedescendant`, `data-value`, `data-selected`, `data-state`, and `data-highlighted`.
 - moduix hooks: `data-slot="listbox-root"`, `listbox-root-provider`, `listbox-label`,

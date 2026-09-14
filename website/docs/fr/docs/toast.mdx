@@ -4,31 +4,106 @@ component: toast
 description: Notifications temporaires pour les actions, les changements d’état et les retours contextuels.
 ---
 
-import * as ToastDocs from '@/components/examples/toast';
-
-<style>{ToastDocs.toastExampleCss}</style>
+import * as ToastDocs from '@/components/examples/toast/css-properties';
+import ToastAction from '@/components/examples/toast/action.tsx';
+import ToastBasic from '@/components/examples/toast/basic.tsx';
+import ToastCustomComposition from '@/components/examples/toast/custom-composition.tsx';
+import ToastDuration from '@/components/examples/toast/duration.tsx';
+import ToastMaximumVisible from '@/components/examples/toast/max-toasts.tsx';
+import ToastNonOverlapping from '@/components/examples/toast/always-expanded.tsx';
+import ToastPlacement from '@/components/examples/toast/placement.tsx';
+import ToastPromise from '@/components/examples/toast/promise-toast.tsx';
+import ToastTypes from '@/components/examples/toast/types.tsx';
+import ToastUpdate from '@/components/examples/toast/update.tsx';
+import toastSolidAction from '../../../snippets/toast/solid/action.tsx?raw';
+import toastSolidBasic from '../../../snippets/toast/solid/basic.tsx?raw';
+import toastSolidCustomComposition from '../../../snippets/toast/solid/custom-composition.tsx?raw';
+import toastSolidDuration from '../../../snippets/toast/solid/duration.tsx?raw';
+import toastSolidMaximumVisible from '../../../snippets/toast/solid/max-toasts.tsx?raw';
+import toastSolidNonOverlapping from '../../../snippets/toast/solid/always-expanded.tsx?raw';
+import toastSolidPlacement from '../../../snippets/toast/solid/placement.tsx?raw';
+import toastSolidPromise from '../../../snippets/toast/solid/promise-toast.tsx?raw';
+import toastSolidTypes from '../../../snippets/toast/solid/types.tsx?raw';
+import toastSolidUpdate from '../../../snippets/toast/solid/update.tsx?raw';
 
 ## Référence de l’API
 
 <PrimitiveReference href="https://ark-ui.com/docs/components/toast" />
 
-La bibliothèque moduix exporte `Toast`, `Toaster`, `createToaster` et `useToastContext` depuis
-`@moduix/react/toast`. Cette page présente les valeurs par défaut de moduix et les compositions
-courantes. La référence Ark décrit l’API complète du gestionnaire de notifications et de ses parties.
+Moduix exporte `Toast`, `Toaster`, `createToaster` et `useToastContext` depuis
+`@moduix/react/toast` et `@moduix/solid/toast`. La référence Ark décrit l’API complète du store et
+de ses parties.
 
 ## Exemple de base
 
-Créez une instance de toaster une seule fois avec `createToaster()`, utilisez ses méthodes pour
-ajouter des notifications, puis affichez-la avec `Toaster`.
+Toast est disponible pour React et Solid dans les packages CSS Modules et Tailwind. L’aperçu ci-dessous
+utilise le package React CSS Modules ; les onglets présentent le code natif correspondant au même
+contrat public.
 
-<PreviewFrame>
-  ```tsx preview file="../../en/docs/_snippets/toast/basic.tsx"
-  ```
-</PreviewFrame>
+Créez une instance de toaster avec `createToaster()`, utilisez ses méthodes pour ajouter des
+notifications, puis affichez-la avec `Toaster`.
+
+<ExampleFrame variant="component">
+  <ToastBasic />
+</ExampleFrame>
+
+<ExampleCode>
+<div className="docs-reference">
+  <Tabs
+    groupId="framework"
+    values={[
+      { label: 'React', value: 'react' },
+      { label: 'Solid', value: 'solid' },
+    ]}
+    className="docs-tabs"
+  >
+    <Tab value="react">
+
+```tsx pure file="../../../src/components/examples/toast/basic.tsx"
+```
+
+    </Tab>
+    <Tab value="solid">
+
+<CodeBlockRuntime lang="tsx" code={toastSolidBasic} />
+
+    </Tab>
+  </Tabs>
+
+**Styles**
+
+```css file="../../../src/components/examples/toast/toast-basic.module.css"
+```
+</div>
+
+</ExampleCode>
 
 ## Installation avec shadcn
 
-<ShadcnInstall packageName="toast" />
+Consultez le [Démarrage rapide](/docs/quick-start) pour la configuration complète du paquet, du registre et des styles.
+
+<Tabs groupId="framework">
+  <Tab label="React" value="react">
+
+<ShadcnInstallOptions
+  options={[
+    { label: 'CSS Modules', command: 'shadcn@latest add @moduix-react/toast' },
+    { label: 'Tailwind CSS', command: 'shadcn@latest add @moduix-react-tailwind/toast' },
+  ]}
+/>
+
+  </Tab>
+  <Tab label="Solid" value="solid">
+
+<ShadcnInstallOptions
+  options={[
+    { label: 'CSS Modules', command: 'shadcn@latest add @moduix-solid/toast' },
+    { label: 'Tailwind CSS', command: 'shadcn@latest add @moduix-solid-tailwind/toast' },
+  ]}
+/>
+
+  </Tab>
+</Tabs>
 
 ## Anatomie
 
@@ -42,92 +117,28 @@ createToaster()
       └─ Toast.CloseTrigger
 ```
 
-| Partie                      | Rôle                                                                                      |
-| --------------------------- | ----------------------------------------------------------------------------------------- |
-| `Toast` / `Toast.Root`      | Racine d’une notification visible. `Toast.Root` est un alias de compatibilité de `Toast`. |
-| `Toaster` / `Toast.Toaster` | Affiche le groupe de notifications associé au toaster.                                    |
-| `Toast.Title`               | Partie du titre. Utilise le `title` de la notification courante si aucun enfant n’est passé. |
-| `Toast.Description`         | Partie de la description. Utilise la `description` de la notification courante si aucun enfant n’est passé. |
-| `Toast.ActionTrigger`       | Bouton d’action lié à `toast.action.onClick`. Passez `toast.action.label` comme contenu.   |
-| `Toast.CloseTrigger`        | Bouton de fermeture. Utilise `CloseButton.Root` par défaut.                              |
-| `Toast.Context`             | Partie de contexte pour une composition personnalisée. Utilisez `useToastContext()` pour accéder directement à l’état. |
+| Partie                         | Rôle                                                                                 |
+| ------------------------------ | ------------------------------------------------------------------------------------ |
+| `Toast` / `Toast.Root`         | Racine d’une notification visible. `Toast.Root` est un alias de compatibilité de `Toast`. |
+| `Toaster` / `Toast.Toaster`    | Rend le store du toaster et gère le groupe de notifications.                       |
+| `Toast.Title`                  | Partie du titre. Utilise le `title` de la notification courante sans enfant.       |
+| `Toast.Description`            | Partie de la description. Utilise la `description` courante sans enfant.           |
+| `Toast.ActionTrigger`          | Bouton d’action lié à `toast.action.onClick`.                                      |
+| `Toast.CloseTrigger`           | Bouton de fermeture. Utilise `CloseButton.Root` par défaut.                       |
+| `Toast.Context`                | Partie de contexte pour une composition personnalisée et l’accès direct à l’état. |
 
 ## Composition
 
-Par défaut, `Toaster` rend le groupe de notifications via un portail vers `document.body`.
-Définissez `portalled={false}` pour conserver le groupe à l’emplacement de `Toaster`, ou passez
-`portalRef` pour utiliser un autre conteneur. Aucun conteneur `Portal` séparé n’est nécessaire.
+Créez le toaster en dehors du rendu du composant lorsque c’est possible, puis passez la même instance
+à `Toaster`. Le toaster gère le placement, la pile, la file d’attente, les minuteurs et le focus. Par
+défaut, `Toaster` rend le groupe via un portail vers `document.body` ; utilisez `portalled={false}` ou
+`portalRef` s’il doit rester dans un autre conteneur. Aucun wrapper `Portal` séparé n’est nécessaire.
 
-### Composition recommandée
-
-Créez le toaster une seule fois, si possible en dehors du rendu du composant, puis passez la même
-instance à `Toaster`. Le toaster gère le placement, le chevauchement, l’espacement, la taille de
-la file, la durée, le délai de suppression, la mise en pause en cas d’inactivité et le raccourci de
-focus `Alt+T`.
-
-Dans une composition personnalisée rendue par la render prop, utilisez `Toast` comme élément racine.
-`Toast.Root` reste disponible comme alias de compatibilité.
-
-Sans render prop, `Toaster` utilise la structure standard de moduix. Elle affiche le titre et la
-description lorsqu’ils sont présents, ajoute une action lorsqu’elle est définie et inclut un bouton
-de fermeture, sauf si `closable: false` est défini. C’est le choix recommandé pour les retours
-courants de l’application.
-
-### Quand créer une composition personnalisée
-
-Utilisez la render prop de `Toaster` lorsqu’une notification nécessite une autre structure, une icône
-ou des contrôles personnalisés. Elle permet par exemple de remplacer l’icône de fermeture par défaut.
-Conservez `Toast` comme élément extérieur afin qu’Ark puisse gérer la pile, la mesure de la hauteur,
-la fermeture, la mise en pause, le focus clavier et les attributs de type et d’état.
-
-Les parties Ark qui rendent un élément acceptent `asChild`. Lorsque vous remplacez `ActionTrigger` ou
-`CloseTrigger`, utilisez un seul enfant sémantique et préservez le comportement d’un bouton.
-
-Si un enfant personnalisé doit accéder directement à l’état de la notification, importez
-`useToastContext()` depuis `@moduix/react/toast`.
-
-### Propriétés par défaut
-
-| Propriété                       | Valeur par défaut     | Remarques                                                                                  |
-| ------------------------------- | --------------------- | ------------------------------------------------------------------------------------------ |
-| `createToaster.duration`        | Selon le type         | Durée par défaut des nouvelles notifications. Remplacez-la pour une notification avec `duration`. |
-| `createToaster.gap`             | `16`                  | Espacement entre les notifications.                                                       |
-| `createToaster.max`             | `24`                  | Les nouvelles notifications sont mises en file lorsque la pile visible atteint cette limite. |
-| `createToaster.hotkey`          | `["altKey", "KeyT"]` | Déplace le focus vers le groupe de notifications.                                         |
-| `createToaster.offsets`         | `"1rem"`              | Décalage par rapport au bord sûr de la fenêtre.                                            |
-| `createToaster.overlap`         | `false`               | Définissez `true` pour une pile avec chevauchement.                                        |
-| `createToaster.pauseOnPageIdle` | `false`               | Définissez `true` pour suspendre les minuteurs lorsque la page est inactive.                |
-| `createToaster.placement`       | `"bottom"`            | `top-start`, `top`, `top-end`, `bottom-start`, `bottom` ou `bottom-end`.                   |
-| `createToaster.removeDelay`     | `200`                 | Garde les notifications fermées montées assez longtemps pour l’animation de sortie.       |
-| `Toaster.portalled`             | `true`                | Définissez `false` pour rendre le groupe à l’emplacement de `Toaster`.                     |
-
-### Comportement
-
-- Appelez `toaster.create()` ou les helpers `success()`, `error()`, `warning()`, `info()`,
-  `loading()`, `promise()`, `update()`, `dismiss()`, `remove()` et `dismissByPlacement()` sur le
-  toaster.
-- Lorsque `type` n’est pas précisé, Ark utilise `type: "info"` par défaut. Moduix applique aux types
-  `info`, `success`, `warning` et `error` des variantes en forme de carte, alignées sur `Alert`.
-- `toast.action` suit la forme `{ label, onClick }` et est rendu par `Toast.ActionTrigger`.
-- `toast.duration` contrôle la durée d’une notification. `createToaster({ duration })` définit la
-  valeur par défaut du toaster.
-- `toast.onStatusChange(details)` reçoit les changements de statut Ark : `visible`, `dismissing` et
-  `unmounted`.
-- Lorsqu’une notification est créée dans un effet, différez l’appel à sa méthode avec
-  `queueMicrotask(() => toaster.create(...))` pour éviter les avertissements React `flushSync`.
-- `Toast` expose notamment les attributs d’état Ark `data-state`, `data-type`, `data-placement`,
-  `data-align`, `data-side`, `data-mounted`, `data-paused`, `data-first`, `data-sibling`,
-  `data-stack` et `data-overlap`.
-
-### Accessibilité
-
-Le comportement de région dynamique, le regroupement, la mise en pause, le raccourci de focus, le
-cycle de fermeture et les callbacks de statut d’Ark restent disponibles. Utilisez la propriété
-`label` de `Toaster` pour donner un nom accessible personnalisé au groupe de notifications.
-
-`Toast.CloseTrigger` est par défaut un bouton dont le nom accessible est `Close toast`. Avec
-`asChild`, l’enfant personnalisé doit conserver un nom accessible et la sémantique d’un bouton.
-`Toast.ActionTrigger` reste également un bouton relié à `toast.action.onClick`.
+Pour une notification standard, utilisez le rendu par défaut de `Toaster`, qui affiche le titre, la
+description, l’action et le bouton de fermeture. Pour une autre structure ou des contrôles personnalisés,
+passez une render prop, gardez `Toast` ou `Toast.Root` comme élément extérieur et composez ses parties
+à l’intérieur. Utilisez `asChild` uniquement avec un enfant bouton sémantique, et
+`useToastContext()` lorsqu’un enfant personnalisé doit accéder directement à la notification courante.
 
 ## Exemples
 
@@ -135,97 +146,303 @@ cycle de fermeture et les callbacks de statut d’Ark restent disponibles. Utili
 
 Ajoutez `action: { label, onClick }` lorsque la notification doit proposer une action directe.
 
-<PreviewFrame>
-  ```tsx preview file="../../en/docs/_snippets/toast/action.tsx"
-  ```
-</PreviewFrame>
+<ExampleFrame variant="component">
+  <ToastAction />
+</ExampleFrame>
+
+<ExampleCode>
+<div className="docs-reference">
+  <Tabs groupId="framework" values={[{ label: 'React', value: 'react' }, { label: 'Solid', value: 'solid' }]} className="docs-tabs">
+    <Tab value="react">
+
+```tsx pure file="../../../src/components/examples/toast/action.tsx"
+```
+
+    </Tab>
+    <Tab value="solid">
+
+<CodeBlockRuntime lang="tsx" code={toastSolidAction} />
+
+    </Tab>
+  </Tabs>
+
+**Styles**
+
+```css file="../../../src/components/examples/toast/toast-action.module.css"
+```
+</div>
+
+</ExampleCode>
 
 ### Durée
 
 Définissez `duration` en millisecondes lorsqu’une notification doit disparaître plus tôt, rester
-visible plus longtemps ou rester affichée jusqu’à sa fermeture manuelle. Utilisez `Infinity` dans ce
-dernier cas.
+visible plus longtemps ou rester affichée jusqu’à sa fermeture manuelle avec `Infinity`.
 
-<PreviewFrame>
-  ```tsx preview file="../../en/docs/_snippets/toast/duration.tsx"
-  ```
-</PreviewFrame>
+<ExampleFrame variant="component">
+  <ToastDuration />
+</ExampleFrame>
+
+<ExampleCode>
+<div className="docs-reference">
+  <Tabs groupId="framework" values={[{ label: 'React', value: 'react' }, { label: 'Solid', value: 'solid' }]} className="docs-tabs">
+    <Tab value="react">
+
+```tsx pure file="../../../src/components/examples/toast/duration.tsx"
+```
+
+    </Tab>
+    <Tab value="solid">
+
+<CodeBlockRuntime lang="tsx" code={toastSolidDuration} />
+
+    </Tab>
+  </Tabs>
+
+**Styles**
+
+```css file="../../../src/components/examples/toast/toast-duration.module.css"
+```
+</div>
+
+</ExampleCode>
 
 ### Nombre maximal visible
 
 Définissez `max` sur le toaster lorsque des rafales de notifications doivent être mises en file au
 lieu de remplir l’écran.
 
-<PreviewFrame>
-  ```tsx preview file="../../en/docs/_snippets/toast/max-toasts.tsx"
-  ```
-</PreviewFrame>
+<ExampleFrame variant="component">
+  <ToastMaximumVisible />
+</ExampleFrame>
+
+<ExampleCode>
+<div className="docs-reference">
+  <Tabs groupId="framework" values={[{ label: 'React', value: 'react' }, { label: 'Solid', value: 'solid' }]} className="docs-tabs">
+    <Tab value="react">
+
+```tsx pure file="../../../src/components/examples/toast/max-toasts.tsx"
+```
+
+    </Tab>
+    <Tab value="solid">
+
+<CodeBlockRuntime lang="tsx" code={toastSolidMaximumVisible} />
+
+    </Tab>
+  </Tabs>
+
+**Styles**
+
+```css file="../../../src/components/examples/toast/toast-max-toasts.module.css"
+```
+</div>
+
+</ExampleCode>
 
 ### Pile sans chevauchement
 
-Définissez `overlap: false` pour que chaque notification reste entièrement visible au lieu de se
-replier dans une pile qui se chevauche. Il s’agit d’un réglage du toaster, pas d’un mode distinct du
-composant.
+Définissez `overlap: false` pour que chaque notification reste entièrement visible. Il s’agit d’un
+réglage du toaster, pas d’un mode distinct du composant.
 
-<PreviewFrame>
-  ```tsx preview file="../../en/docs/_snippets/toast/always-expanded.tsx"
-  ```
-</PreviewFrame>
+<ExampleFrame variant="component">
+  <ToastNonOverlapping />
+</ExampleFrame>
+
+<ExampleCode>
+<div className="docs-reference">
+  <Tabs groupId="framework" values={[{ label: 'React', value: 'react' }, { label: 'Solid', value: 'solid' }]} className="docs-tabs">
+    <Tab value="react">
+
+```tsx pure file="../../../src/components/examples/toast/always-expanded.tsx"
+```
+
+    </Tab>
+    <Tab value="solid">
+
+<CodeBlockRuntime lang="tsx" code={toastSolidNonOverlapping} />
+
+    </Tab>
+  </Tabs>
+
+**Styles**
+
+```css file="../../../src/components/examples/toast/toast-always-expanded.module.css"
+```
+</div>
+
+</ExampleCode>
 
 ### Placement
 
 Choisissez l’un des six placements d’Ark lorsque le groupe de notifications doit apparaître près d’un
 bord précis de la fenêtre.
 
-<PreviewFrame>
-  ```tsx preview file="../../en/docs/_snippets/toast/placement.tsx"
-  ```
-</PreviewFrame>
+<ExampleFrame variant="component">
+  <ToastPlacement />
+</ExampleFrame>
+
+<ExampleCode>
+<div className="docs-reference">
+  <Tabs groupId="framework" values={[{ label: 'React', value: 'react' }, { label: 'Solid', value: 'solid' }]} className="docs-tabs">
+    <Tab value="react">
+
+```tsx pure file="../../../src/components/examples/toast/placement.tsx"
+```
+
+    </Tab>
+    <Tab value="solid">
+
+<CodeBlockRuntime lang="tsx" code={toastSolidPlacement} />
+
+    </Tab>
+  </Tabs>
+
+**Styles**
+
+```css file="../../../src/components/examples/toast/toast-placement.module.css"
+```
+</div>
+
+</ExampleCode>
 
 ### Promise
 
 Utilisez `toaster.promise()` pour faire passer une même notification du chargement au succès ou à
 l’erreur lorsque l’opération asynchrone se termine.
 
-<PreviewFrame>
-  ```tsx preview file="../../en/docs/_snippets/toast/promise-toast.tsx"
-  ```
-</PreviewFrame>
+<ExampleFrame variant="component">
+  <ToastPromise />
+</ExampleFrame>
+
+<ExampleCode>
+<div className="docs-reference">
+  <Tabs groupId="framework" values={[{ label: 'React', value: 'react' }, { label: 'Solid', value: 'solid' }]} className="docs-tabs">
+    <Tab value="react">
+
+```tsx pure file="../../../src/components/examples/toast/promise-toast.tsx"
+```
+
+    </Tab>
+    <Tab value="solid">
+
+<CodeBlockRuntime lang="tsx" code={toastSolidPromise} />
+
+    </Tab>
+  </Tabs>
+
+**Styles**
+
+```css file="../../../src/components/examples/toast/toast-promise-toast.module.css"
+```
+</div>
+
+</ExampleCode>
 
 ### Types
 
 Utilisez les helpers typés du toaster pour les variantes liées au statut. Moduix applique les styles
 `info`, `success`, `warning` et `error` via `data-type`.
 
-<PreviewFrame>
-  ```tsx preview file="../../en/docs/_snippets/toast/types.tsx"
-  ```
-</PreviewFrame>
+<ExampleFrame variant="component">
+  <ToastTypes />
+</ExampleFrame>
+
+<ExampleCode>
+<div className="docs-reference">
+  <Tabs groupId="framework" values={[{ label: 'React', value: 'react' }, { label: 'Solid', value: 'solid' }]} className="docs-tabs">
+    <Tab value="react">
+
+```tsx pure file="../../../src/components/examples/toast/types.tsx"
+```
+
+    </Tab>
+    <Tab value="solid">
+
+<CodeBlockRuntime lang="tsx" code={toastSolidTypes} />
+
+    </Tab>
+  </Tabs>
+
+**Styles**
+
+```css file="../../../src/components/examples/toast/toast-types.module.css"
+```
+</div>
+
+</ExampleCode>
 
 ### Mise à jour
 
 Conservez l’identifiant renvoyé lors de la création d’une notification et transmettez-le à
 `toaster.update()` lorsque la notification existante doit être modifiée sur place.
 
-<PreviewFrame>
-  ```tsx preview file="../../en/docs/_snippets/toast/update.tsx"
-  ```
-</PreviewFrame>
+<ExampleFrame variant="component">
+  <ToastUpdate />
+</ExampleFrame>
+
+<ExampleCode>
+<div className="docs-reference">
+  <Tabs groupId="framework" values={[{ label: 'React', value: 'react' }, { label: 'Solid', value: 'solid' }]} className="docs-tabs">
+    <Tab value="react">
+
+```tsx pure file="../../../src/components/examples/toast/update.tsx"
+```
+
+    </Tab>
+    <Tab value="solid">
+
+<CodeBlockRuntime lang="tsx" code={toastSolidUpdate} />
+
+    </Tab>
+  </Tabs>
+
+**Styles**
+
+```css file="../../../src/components/examples/toast/toast-update.module.css"
+```
+</div>
+
+</ExampleCode>
 
 ### Personnalisation avancée
 
-Utilisez la render prop pour remplacer la structure standard de `Toaster`, ajouter une icône,
-remplacer l’icône de fermeture et appliquer des variables CSS propres au composant.
+Utilisez la render prop pour remplacer le rendu standard de `Toaster`, ajouter une icône, remplacer
+l’icône de fermeture et appliquer des variables CSS propres au composant.
 
-<PreviewFrame>
-  ```tsx preview file="../../en/docs/_snippets/toast/custom-composition.tsx"
-  ```
-</PreviewFrame>
+<ExampleFrame variant="component">
+  <ToastCustomComposition />
+</ExampleFrame>
+
+<ExampleCode>
+<div className="docs-reference">
+  <Tabs groupId="framework" values={[{ label: 'React', value: 'react' }, { label: 'Solid', value: 'solid' }]} className="docs-tabs">
+    <Tab value="react">
+
+```tsx pure file="../../../src/components/examples/toast/custom-composition.tsx"
+```
+
+    </Tab>
+    <Tab value="solid">
+
+<CodeBlockRuntime lang="tsx" code={toastSolidCustomComposition} />
+
+    </Tab>
+  </Tabs>
+
+**Styles**
+
+```css file="../../../src/components/examples/toast/toast-custom-composition.module.css"
+```
+</div>
+
+</ExampleCode>
 
 ## Styles
 
-Personnalisez `Toast` avec les attributs de parties Ark, les points d’accroche `data-slot` et les variables
-publiques `--moduix-toast-*` de l’API CSS.
+Personnalisez `Toast` avec les attributs de parties Ark, les points d’accroche `data-slot` et les
+variables publiques `--moduix-toast-*`. Les variantes Tailwind utilisent les utilitaires natifs et les
+classes de l’application ; les variables CSS ci-dessous concernent les variantes CSS Modules.
 
 ### Variables CSS
 
@@ -243,9 +460,9 @@ publiques `--moduix-toast-*` de l’API CSS.
 
 ### Points d’accroche CSS
 
-Utilisez `Toast` pour la surface, la bordure, les animations et les variantes par type. Utilisez
-`Toast.Title`, `Toast.Description`, `Toast.ActionTrigger` et `Toast.CloseTrigger` pour la typographie
-et les contrôles internes.
+Utilisez la racine de `Toast` pour la surface, la bordure, les animations et les variantes par type.
+Utilisez `Toast.Title`, `Toast.Description`, `Toast.ActionTrigger` et `Toast.CloseTrigger` pour la
+typographie et les contrôles internes.
 
 Sélecteurs Ark utiles :
 
@@ -257,9 +474,9 @@ Sélecteurs Ark utiles :
 - `[data-scope='toast'][data-part='close-trigger']` sur `Toast.CloseTrigger`
 - `--x`, `--y`, `--scale`, `--z-index`, `--height`, `--opacity` et `--gap` sur `Toast`
 
-Moduix ajoute également des points d’accroche stables : `data-slot="toast-toaster"`, `data-slot="toast-root"`,
-`data-slot="toast-title"`, `data-slot="toast-description"`, `data-slot="toast-action-trigger"`
-et `data-slot="toast-close-trigger"`.
+Moduix ajoute également des points d’accroche stables : `data-slot="toast-toaster"`,
+`data-slot="toast-root"`, `data-slot="toast-title"`, `data-slot="toast-description"`,
+`data-slot="toast-action-trigger"` et `data-slot="toast-close-trigger"`.
 
 Jusqu’à une largeur de fenêtre de `40rem`, le groupe de notifications occupe toute la largeur de la
 fenêtre et chaque élément racine utilise la variable Ark `--gap` pour conserver un espacement interne

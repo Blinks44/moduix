@@ -1,4 +1,4 @@
-@layer moduix.reset, moduix.tokens, moduix.base, moduix.components;
+@layer theme, base, moduix.reset, moduix.tokens, moduix.base, components, moduix.components, utilities;
 
 @import './animations.css' layer(moduix.tokens);
 @import './borders.css' layer(moduix.tokens);
@@ -12,3 +12,169 @@
 @import './transitions.css' layer(moduix.tokens);
 @import './typography.css' layer(moduix.tokens);
 @import './z-index.css' layer(moduix.tokens);
+
+@theme inline {
+  --font-sans: var(--moduix-font-sans);
+  --font-mono: var(--moduix-font-mono);
+  --font-weight-normal: var(--moduix-weight-regular);
+  --font-weight-regular: var(--moduix-weight-regular);
+  --font-weight-medium: var(--moduix-weight-medium);
+  --font-weight-semibold: var(--moduix-weight-semibold);
+  --font-weight-bold: var(--moduix-weight-bold);
+  --text-xs: var(--moduix-text-xs);
+  --text-xs--line-height: var(--moduix-line-height-text-xs);
+  --text-sm: var(--moduix-text-sm);
+  --text-sm--line-height: var(--moduix-line-height-text-sm);
+  --text-base: var(--moduix-text-md);
+  --text-base--line-height: var(--moduix-line-height-text-md);
+  --text-md: var(--moduix-text-md);
+  --text-md--line-height: var(--moduix-line-height-text-md);
+  --text-lg: var(--moduix-text-lg);
+  --text-lg--line-height: var(--moduix-line-height-text-lg);
+  --text-xl: var(--moduix-text-xl);
+  --text-xl--line-height: var(--moduix-line-height-text-xl);
+  --text-2xl: var(--moduix-text-2xl);
+  --text-2xl--line-height: var(--moduix-line-height-text-2xl);
+  --text-3xl: var(--moduix-text-3xl);
+  --text-3xl--line-height: var(--moduix-line-height-text-3xl);
+  --tracking-text-xs: var(--moduix-tracking-text-xs);
+  --tracking-text-sm: var(--moduix-tracking-text-sm);
+  --spacing-0: var(--moduix-spacing-0);
+  --spacing-0_5: var(--moduix-spacing-0-5);
+  --spacing-1: var(--moduix-spacing-1);
+  --spacing-1_5: var(--moduix-spacing-1-5);
+  --spacing-2: var(--moduix-spacing-2);
+  --spacing-2_5: var(--moduix-spacing-2-5);
+  --spacing-3: var(--moduix-spacing-3);
+  --spacing-3_5: var(--moduix-spacing-3-5);
+  --spacing-4: var(--moduix-spacing-4);
+  --spacing-4_5: var(--moduix-spacing-4-5);
+  --spacing-5: var(--moduix-spacing-5);
+  --spacing-6: var(--moduix-spacing-6);
+  --spacing-7: var(--moduix-spacing-7);
+  --spacing-8: var(--moduix-spacing-8);
+  --spacing-10: var(--moduix-spacing-10);
+  --spacing-space-xs: var(--moduix-spacing-xs);
+  --spacing-space-sm: var(--moduix-spacing-sm);
+  --spacing-space-md: var(--moduix-spacing-md);
+  --spacing-space-lg: var(--moduix-spacing-lg);
+  --spacing-space-xl: var(--moduix-spacing-xl);
+  --spacing-space-2xl: var(--moduix-spacing-2xl);
+  --spacing-control-xs: var(--moduix-size-xs);
+  --spacing-control-sm: var(--moduix-size-sm);
+  --spacing-control-md: var(--moduix-size-md);
+  --spacing-control-lg: var(--moduix-size-lg);
+  --spacing-control-xl: var(--moduix-size-xl);
+  --radius-none: var(--moduix-radius-none);
+  --radius-xs: var(--moduix-radius-xs);
+  --radius-sm: var(--moduix-radius-sm);
+  --radius-md: var(--moduix-radius-md);
+  --radius-lg: var(--moduix-radius-lg);
+  --radius-xl: var(--moduix-radius-xl);
+  --radius-full: var(--moduix-radius-full);
+  --shadow-sm: var(--moduix-shadow-sm);
+  --shadow-md: var(--moduix-shadow-md);
+  --shadow-lg: var(--moduix-shadow-lg);
+  --ease-in: var(--moduix-ease-in);
+  --ease-out: var(--moduix-ease-out);
+  --ease-in-out: var(--moduix-ease-in-out);
+  --ease-standard: var(--moduix-ease-standard);
+  --ease-spring: var(--moduix-ease-spring);
+  --ease-emphasized: var(--moduix-ease-emphasized);
+  --color-background: var(--moduix-color-background);
+  --color-foreground: var(--moduix-color-foreground);
+  --color-card: var(--moduix-color-card);
+  --color-card-foreground: var(--moduix-color-card-foreground);
+  --color-popover: var(--moduix-color-popover);
+  --color-popover-foreground: var(--moduix-color-popover-foreground);
+  --color-primary: var(--moduix-color-primary);
+  --color-primary-foreground: var(--moduix-color-primary-foreground);
+  --color-secondary: var(--moduix-color-secondary);
+  --color-secondary-foreground: var(--moduix-color-secondary-foreground);
+  --color-muted: var(--moduix-color-muted);
+  --color-muted-foreground: var(--moduix-color-muted-foreground);
+  --color-accent: var(--moduix-color-accent);
+  --color-accent-foreground: var(--moduix-color-accent-foreground);
+  --color-destructive: var(--moduix-color-destructive);
+  --color-destructive-foreground: var(--moduix-color-destructive-foreground);
+  --color-success: var(--moduix-color-success);
+  --color-warning: var(--moduix-color-warning);
+  --color-border: var(--moduix-color-border);
+  --color-input: var(--moduix-color-input);
+  --color-ring: var(--moduix-color-ring);
+  --color-overlay: var(--moduix-color-overlay);
+  --color-overlay-foreground: var(--moduix-color-overlay-foreground);
+  --color-chart-1: var(--moduix-color-chart-1);
+  --color-chart-2: var(--moduix-color-chart-2);
+  --color-chart-3: var(--moduix-color-chart-3);
+  --color-chart-4: var(--moduix-color-chart-4);
+  --color-chart-5: var(--moduix-color-chart-5);
+  --color-sidebar: var(--moduix-color-sidebar);
+  --color-sidebar-foreground: var(--moduix-color-sidebar-foreground);
+  --color-sidebar-primary: var(--moduix-color-sidebar-primary);
+  --color-sidebar-primary-foreground: var(--moduix-color-sidebar-primary-foreground);
+  --color-sidebar-accent: var(--moduix-color-sidebar-accent);
+  --color-sidebar-accent-foreground: var(--moduix-color-sidebar-accent-foreground);
+  --color-sidebar-border: var(--moduix-color-sidebar-border);
+  --color-sidebar-ring: var(--moduix-color-sidebar-ring);
+  --animate-moduix-accordion-open: moduix-accordion-item-content-open
+    var(--moduix-transition-default);
+  --animate-moduix-accordion-closed: moduix-accordion-item-content-closed
+    var(--moduix-transition-default);
+  --animate-moduix-accordion-open-horizontal: moduix-accordion-item-content-open-horizontal
+    var(--moduix-transition-default);
+  --animate-moduix-accordion-closed-horizontal: moduix-accordion-item-content-closed-horizontal
+    var(--moduix-transition-default);
+  --animate-moduix-swap-fade-enter: moduix-fade-in var(--moduix-transition-slow);
+  --animate-moduix-swap-fade-exit: moduix-fade-out var(--moduix-transition-slow);
+  --animate-moduix-swap-scale-enter: moduix-swap-scale-enter var(--moduix-transition-slow);
+  --animate-moduix-swap-scale-exit: moduix-swap-scale-exit var(--moduix-transition-slow);
+  --animate-moduix-swap-rotate-enter: moduix-swap-rotate-enter var(--moduix-transition-slow);
+  --animate-moduix-swap-rotate-exit: moduix-swap-rotate-exit var(--moduix-transition-slow);
+  --animate-moduix-swap-flip-enter: moduix-swap-flip-enter var(--moduix-transition-slow);
+  --animate-moduix-swap-flip-exit: moduix-swap-flip-exit var(--moduix-transition-slow);
+  --animate-moduix-marquee-x: moduix-marquee-x var(--marquee-duration) linear var(--marquee-delay)
+    var(--marquee-loop-count);
+  --animate-moduix-marquee-y: moduix-marquee-y var(--marquee-duration) linear var(--marquee-delay)
+    var(--marquee-loop-count);
+  --animate-moduix-progress-linear-indeterminate: moduix-progress-linear-indeterminate 1.5s
+    ease-in-out infinite;
+  --animate-moduix-progress-linear-indeterminate-vertical: moduix-progress-linear-indeterminate-vertical
+    1.5s ease-in-out infinite;
+  --animate-moduix-collapsible-open: moduix-collapsible-content-open
+    var(--moduix-transition-default);
+  --animate-moduix-collapsible-closed: moduix-collapsible-content-closed
+    var(--moduix-transition-default);
+  --animate-moduix-collapsible-open-partial: moduix-collapsible-content-open-partial
+    var(--moduix-transition-default);
+  --animate-moduix-collapsible-closed-partial: moduix-collapsible-content-closed-partial
+    var(--moduix-transition-default);
+  --animate-moduix-menu-open: moduix-menu-content-open var(--moduix-transition-default);
+  --animate-moduix-menu-closed: moduix-menu-content-closed var(--moduix-transition-default);
+  --animate-moduix-navigation-menu-content-from-start: moduix-navigation-menu-content-from-start
+    var(--moduix-transition-default) both;
+  --animate-moduix-navigation-menu-content-from-end: moduix-navigation-menu-content-from-end
+    var(--moduix-transition-default) both;
+  --animate-moduix-navigation-menu-content-to-start: moduix-navigation-menu-content-to-start
+    var(--moduix-transition-default) both;
+  --animate-moduix-navigation-menu-content-to-end: moduix-navigation-menu-content-to-end
+    var(--moduix-transition-default) both;
+  --animate-moduix-drawer-backdrop-in: moduix-drawer-backdrop-in var(--moduix-transition-spring);
+  --animate-moduix-drawer-backdrop-out: moduix-drawer-backdrop-out var(--moduix-transition-spring)
+    forwards;
+  --animate-moduix-drawer-content-in-down: moduix-drawer-content-in-down
+    var(--moduix-transition-spring);
+  --animate-moduix-drawer-content-out-down: moduix-drawer-content-out-down
+    var(--moduix-transition-spring) forwards;
+  --animate-moduix-drawer-content-in-up: moduix-drawer-content-in-up var(--moduix-transition-spring);
+  --animate-moduix-drawer-content-out-up: moduix-drawer-content-out-up
+    var(--moduix-transition-spring) forwards;
+  --animate-moduix-drawer-content-in-left: moduix-drawer-content-in-left
+    var(--moduix-transition-spring);
+  --animate-moduix-drawer-content-out-left: moduix-drawer-content-out-left
+    var(--moduix-transition-spring) forwards;
+  --animate-moduix-drawer-content-in-right: moduix-drawer-content-in-right
+    var(--moduix-transition-spring);
+  --animate-moduix-drawer-content-out-right: moduix-drawer-content-out-right
+    var(--moduix-transition-spring) forwards;
+}

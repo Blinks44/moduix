@@ -1,15 +1,38 @@
 ---
 title: Toggle Group
 component: toggle-group
-description: Группа кнопок-переключателей с навигацией с клавиатуры для одиночного и множественного выбора.
+description: Группа кнопок-переключателей с навигацией с клавиатуры для одиночного и множественного выбора в React и Solid.
 ---
 
-import * as ToggleGroupDocs from '@/components/examples/toggle-group';
+import * as ToggleGroupDocs from '@/components/examples/toggle-group/css-properties';
+import { CssPropertiesSection } from '@/components/mdx/Components';
+import ToggleGroupAsChild from '@/components/examples/toggle-group/as-child.tsx';
+import ToggleGroupBasic from '@/components/examples/toggle-group/basic.tsx';
+import ToggleGroupContext from '@/components/examples/toggle-group/context.tsx';
+import ToggleGroupControlled from '@/components/examples/toggle-group/controlled.tsx';
+import ToggleGroupDisabled from '@/components/examples/toggle-group/disabled.tsx';
+import ToggleGroupIcons from '@/components/examples/toggle-group/icons.tsx';
+import ToggleGroupMultipleSelection from '@/components/examples/toggle-group/multiple-selection.tsx';
+import ToggleGroupRootProvider from '@/components/examples/toggle-group/root-provider.tsx';
+import ToggleGroupVariants from '@/components/examples/toggle-group/variants.tsx';
+import ToggleGroupVertical from '@/components/examples/toggle-group/vertical.tsx';
+import toggleGroupSolidAsChild from '../../../snippets/toggle-group/solid/as-child.tsx?raw';
+import toggleGroupSolidBasic from '../../../snippets/toggle-group/solid/basic.tsx?raw';
+import toggleGroupSolidContext from '../../../snippets/toggle-group/solid/context.tsx?raw';
+import toggleGroupSolidControlled from '../../../snippets/toggle-group/solid/controlled.tsx?raw';
+import toggleGroupSolidDisabled from '../../../snippets/toggle-group/solid/disabled.tsx?raw';
+import toggleGroupSolidIcons from '../../../snippets/toggle-group/solid/icons.tsx?raw';
+import toggleGroupSolidMultipleSelection from '../../../snippets/toggle-group/solid/multiple-selection.tsx?raw';
+import toggleGroupSolidRootProvider from '../../../snippets/toggle-group/solid/root-provider.tsx?raw';
+import toggleGroupSolidVariants from '../../../snippets/toggle-group/solid/variants.tsx?raw';
+import toggleGroupSolidVertical from '../../../snippets/toggle-group/solid/vertical.tsx?raw';
 
 ## Справочник API
 
 `ToggleGroup` оборачивает примитив Toggle Group из Ark UI и добавляет визуальные свойства moduix для
-вариантов оформления и размеров. Импортируйте компонент из `@moduix/react/toggle-group`.
+вариантов и размеров. Импортируйте его из пакета нужного фреймворка: `@moduix/react/toggle-group`,
+`@moduix/solid/toggle-group`, `@moduix/react-tailwind/toggle-group` или
+`@moduix/solid-tailwind/toggle-group`.
 
 <PrimitiveReference href="https://ark-ui.com/docs/components/toggle-group" />
 
@@ -25,19 +48,68 @@ import * as ToggleGroupDocs from '@/components/examples/toggle-group';
 
 ## Базовый пример
 
-В обычном случае используйте `<ToggleGroup>`. Это сокращённая запись `<ToggleGroup.Root>`; добавьте по
-одному `ToggleGroup.Item` на каждый вариант. Задайте группе доступное имя через `aria-label` или
-`aria-labelledby`.
+`ToggleGroup` доступен для React и Solid в пакетах с CSS Modules и в вариантах на Tailwind.
+Интерактивный предпросмотр ниже использует пакет React с CSS Modules, а вкладки с кодом показывают
+нативный исходный код для того же публичного API.
 
-<PreviewFrame maxWidth="sm">
-  ```tsx preview file="../../en/docs/_snippets/toggle-group/basic.tsx"
+Используйте `ToggleGroup` как корневой компонент и добавьте по одному `ToggleGroup.Item` на каждый
+вариант. Задайте группе доступное имя через `aria-label` или `aria-labelledby`.
 
-  ```
-</PreviewFrame>
+<ExampleFrame variant="component">
+  <ToggleGroupBasic />
+</ExampleFrame>
+
+<ExampleCode>
+<div className="docs-reference">
+  <Tabs
+    groupId="framework"
+    values={[
+      { label: 'React', value: 'react' },
+      { label: 'Solid', value: 'solid' },
+    ]}
+    className="docs-tabs"
+  >
+    <Tab value="react">
+
+```tsx pure file="../../../src/components/examples/toggle-group/basic.tsx"
+```
+
+    </Tab>
+    <Tab value="solid">
+
+<CodeBlockRuntime lang="tsx" code={toggleGroupSolidBasic} />
+
+    </Tab>
+  </Tabs>
+</div>
+</ExampleCode>
 
 ## Установка через shadcn
 
-<ShadcnInstall packageName="toggle-group" />
+Полную настройку пакета, реестра и стилей см. в разделе [Быстрый старт](/docs/quick-start).
+
+<Tabs groupId="framework">
+  <Tab label="React" value="react">
+
+<ShadcnInstallOptions
+  options={[
+    { label: 'CSS Modules', command: 'shadcn@latest add @moduix-react/toggle-group' },
+    { label: 'Tailwind CSS', command: 'shadcn@latest add @moduix-react-tailwind/toggle-group' },
+  ]}
+/>
+
+  </Tab>
+  <Tab label="Solid" value="solid">
+
+<ShadcnInstallOptions
+  options={[
+    { label: 'CSS Modules', command: 'shadcn@latest add @moduix-solid/toggle-group' },
+    { label: 'Tailwind CSS', command: 'shadcn@latest add @moduix-solid-tailwind/toggle-group' },
+  ]}
+/>
+
+  </Tab>
+</Tabs>
 
 ## Анатомия
 
@@ -50,185 +122,360 @@ ToggleGroup.RootProvider
 └─ ToggleGroup.Item[value]
 ```
 
-| Часть                               | Назначение                                                                        |
-| ----------------------------------- | --------------------------------------------------------------------------------- |
-| `ToggleGroup` / `ToggleGroup.Root`  | Хранит выбранные значения, управляет фокусом, ориентацией и отключённым состоянием. |
+| Часть                               | Назначение                                                                            |
+| ----------------------------------- | ------------------------------------------------------------------------------------- |
+| `ToggleGroup` / `ToggleGroup.Root`  | Корневая часть, управляющая выбранными значениями, фокусом, ориентацией и отключённым состоянием. |
 | `ToggleGroup.Item`                  | Интерактивный элемент с обязательным `value` и состоянием выбора, которым управляет Ark. |
-| `ToggleGroup.RootProvider`          | Подключает дерево элементов к экземпляру состояния `useToggleGroup()`, созданному вне этого дерева. |
-| `ToggleGroup.Context`               | Передаёт текущее состояние группы через render prop.                              |
+| `ToggleGroup.RootProvider`          | Подключает дерево элементов к состоянию, созданному с помощью `useToggleGroup()`.     |
+| `ToggleGroup.Context`               | Передаёт текущее состояние группы через render prop.                                  |
 
 ## Композиция
 
-### Рекомендуемая композиция
+Используйте `defaultValue` для неконтролируемой группы, а `value` вместе с `onValueChange(details)`,
+если состояние выбора хранится в другой части приложения. Оба свойства имеют тип `string[]` в режимах
+одиночного и множественного выбора. Используйте `ToggleGroup.RootProvider` с `useToggleGroup()` из
+пакета нужного фреймворка, если состояние нужно создать вне дерева. В React хранилище читается как
+объект, а в Solid его реактивное состояние доступно через возвращаемую функцию.
 
-`ToggleGroup` является сокращённой формой `ToggleGroup.Root`. Для неконтролируемой группы задайте
-`defaultValue`, а для группы, которой управляет состояние React, передайте `value` и `onValueChange`.
-И `value`, и `defaultValue` являются массивами строк в режимах одиночного и множественного выбора.
-
-moduix добавляет два визуальных свойства к `ToggleGroup`, `ToggleGroup.Root`, `ToggleGroup.RootProvider`
-и `ToggleGroup.Item`:
-
-| Свойство  | По умолчанию | Значения                                                |
-| --------- | ------------ | ------------------------------------------------------- |
-| `variant` | `default`    | `default`, `outline`, `ghost`                           |
-| `size`    | `md`         | `xs`, `sm`, `md`, `lg`, `icon-sm`, `icon-md`, `icon-lg` |
-
-Элементы наследуют `variant` и `size` от корневого компонента. Переопределяйте эти свойства на элементе
-только тогда, когда ему нужно другое оформление.
-
-### Когда нужна собственная композиция
-
-Используйте `asChild` на корневом компоненте, `ToggleGroup.RootProvider` или элементе, если отрисовываемым элементом
-должен управлять другой компонент. Для элемента передавайте ровно одного потомка, который ведёт себя как
-кнопка, чтобы Ark мог объединить с ним свойства взаимодействия и состояние ARIA.
-
-Используйте `ToggleGroup.RootProvider` с `useToggleGroup()` из moduix, когда состояние нужно создать вне
-дерева компонентов. Используйте `useToggleGroupContext()` во вложенном пользовательском компоненте, которому
-нужно текущее состояние группы. Не используйте `ToggleGroup.Root` и `ToggleGroup.RootProvider` одновременно
-для одного экземпляра состояния. Прямой импорт из Ark UI нужен только для композиций, которые выходят за
-пределы API moduix.
-
-### Свойства по умолчанию
-
-| Свойство      | По умолчанию | Примечания                                                         |
-| ------------- | ------------ | ------------------------------------------------------------------ |
-| `deselectable` | `true`       | Позволяет снять выбор в режиме одиночного выбора.                  |
-| `loopFocus`    | `true`       | Переводит фокус стрелкой с последнего элемента на первый и обратно. |
-| `orientation`  | `horizontal` | Задаёт направление группы и соответствующую навигацию с клавиатуры. |
-| `rovingFocus`  | `true`       | Оставляет в порядке перехода по Tab только один элемент.           |
-| `multiple`     | `false`      | Позволяет одновременно оставить выбранными несколько элементов.   |
-| `variant`      | `default`    | Визуальное оформление moduix.                                      |
-| `size`         | `md`         | Размер элементов moduix.                                          |
-
-### Особенности поведения
-
-- `onValueChange` получает объект с данными Ark. Читайте выбранный массив строк из `details.value`.
-- Используйте `value` вместе с `onValueChange`, когда группой управляет состояние React.
-- `deselectable` игнорируется, если включён `multiple`.
-- Задайте группе доступное имя через `aria-label` или `aria-labelledby`.
-- Элементам только с иконками нужно собственное доступное имя, например `aria-label="Align left"`.
-- Используйте `disabled` на группе для всего набора или на одном элементе для отдельного недоступного варианта.
-- Используйте `ids`, чтобы задать стабильные ID корневого элемента и элементов при интеграции группы с другим доступным интерфейсом.
-- В режиме одиночного выбора используются роли `radiogroup` и `radio`. В режиме множественного выбора группа использует роль `group` и атрибут `aria-pressed`.
-- В горизонтальной группе стрелки влево и вправо перемещают фокус, в вертикальной для этого служат стрелки вверх и вниз. Home и End переводят фокус к первому и последнему доступному элементу. Space и Enter активируют кнопку в фокусе, а `loopFocus` управляет зацикливанием навигации стрелками.
-- `ref` корневого компонента и элемента передаётся в соответствующий DOM-элемент. При использовании `asChild` он указывает на дочерний элемент, которому передаётся поведение Ark.
-- Ark записывает `data-scope="toggle-group"`, `data-part`, `data-orientation`, `data-disabled`, `data-focus` и `data-state="on" | "off"` на элементах для стилизации.
-- Горизонтальная группа прокручивается, если не помещается в контейнер, вместо переноса элементов на новую строку. Это сохраняет линейную навигацию с клавиатуры.
+Используйте `ToggleGroup.Context` или `useToggleGroupContext()`, если пользовательскому элементу нужно
+текущее состояние группы. При использовании `asChild` React получает одного потомка, который ведёт себя
+как кнопка, а Solid получает render function, возвращающую элемент с поведением Ark. Не используйте
+`ToggleGroup.Root` и `ToggleGroup.RootProvider` одновременно для одного экземпляра состояния.
 
 ## Примеры
 
 ### asChild
 
-Используйте `asChild` на элементе, если отрисовываемым элементом должна управлять пользовательская кнопка.
-Передавайте ровно одного потомка, который ведёт себя как кнопка, чтобы Ark мог объединить семантику группы и
-клавиатурное поведение.
+Используйте `asChild` на элементе, если отрисовываемым элементом должна управлять пользовательская
+кнопка. Передавайте ровно одного потомка, который ведёт себя как кнопка, чтобы Ark мог объединить с ним
+семантику группы и клавиатурное поведение.
 
-<PreviewFrame maxWidth="sm">
-  ```tsx preview file="../../en/docs/_snippets/toggle-group/as-child.tsx"
+<ExampleFrame variant="component">
+  <ToggleGroupAsChild />
+</ExampleFrame>
 
-  ```
-</PreviewFrame>
+<ExampleCode>
+<div className="docs-reference">
+  <Tabs
+    groupId="framework"
+    values={[
+      { label: 'React', value: 'react' },
+      { label: 'Solid', value: 'solid' },
+    ]}
+    className="docs-tabs"
+  >
+    <Tab value="react">
+
+```tsx pure file="../../../src/components/examples/toggle-group/as-child.tsx"
+```
+
+    </Tab>
+    <Tab value="solid">
+
+<CodeBlockRuntime lang="tsx" code={toggleGroupSolidAsChild} />
+
+    </Tab>
+  </Tabs>
+</div>
+</ExampleCode>
 
 ### Контекст
 
-Используйте `useToggleGroupContext()` в пользовательском элементе, если его содержимому нужно текущее состояние
-группы. `ToggleGroup.Context` предоставляет то же состояние через render prop.
+Используйте `useToggleGroupContext()` в пользовательском элементе, если его содержимому нужно текущее
+состояние группы. `ToggleGroup.Context` предоставляет то же состояние через render prop.
 
-<PreviewFrame maxWidth="sm">
-  ```tsx preview file="../../en/docs/_snippets/toggle-group/context.tsx"
+<ExampleFrame variant="component">
+  <ToggleGroupContext />
+</ExampleFrame>
 
-  ```
-</PreviewFrame>
+<ExampleCode>
+<div className="docs-reference">
+  <Tabs
+    groupId="framework"
+    values={[
+      { label: 'React', value: 'react' },
+      { label: 'Solid', value: 'solid' },
+    ]}
+    className="docs-tabs"
+  >
+    <Tab value="react">
+
+```tsx pure file="../../../src/components/examples/toggle-group/context.tsx"
+```
+
+    </Tab>
+    <Tab value="solid">
+
+<CodeBlockRuntime lang="tsx" code={toggleGroupSolidContext} />
+
+    </Tab>
+  </Tabs>
+</div>
+</ExampleCode>
 
 ### Управляемое состояние
 
-Управляйте `value` из состояния React, если группа должна оставаться синхронизированной с остальным интерфейсом.
+Управляйте `value`, если выбранные элементы должны оставаться синхронизированными с состоянием
+остального приложения.
 
-<PreviewFrame contentWidth="fit-content" maxWidth="sm">
-  ```tsx preview file="../../en/docs/_snippets/toggle-group/controlled.tsx"
+<ExampleFrame variant="component">
+  <ToggleGroupControlled />
+</ExampleFrame>
 
-  ```
-</PreviewFrame>
+<ExampleCode>
+<div className="docs-reference">
+  <Tabs
+    groupId="framework"
+    values={[
+      { label: 'React', value: 'react' },
+      { label: 'Solid', value: 'solid' },
+    ]}
+    className="docs-tabs"
+  >
+    <Tab value="react">
+
+```tsx pure file="../../../src/components/examples/toggle-group/controlled.tsx"
+```
+
+    </Tab>
+    <Tab value="solid">
+
+<CodeBlockRuntime lang="tsx" code={toggleGroupSolidControlled} />
+
+    </Tab>
+  </Tabs>
+
+**Стили**
+
+```css file="../../../src/components/examples/toggle-group/toggle-group-controlled.module.css"
+```
+</div>
+</ExampleCode>
 
 ### Отключённая группа и элемент
 
 Используйте `disabled` на группе или отдельном элементе, чтобы запретить взаимодействие.
 
-<PreviewFrame maxWidth="lg">
-  ```tsx preview file="../../en/docs/_snippets/toggle-group/disabled.tsx"
+<ExampleFrame variant="component">
+  <ToggleGroupDisabled />
+</ExampleFrame>
 
-  ```
-</PreviewFrame>
+<ExampleCode>
+<div className="docs-reference">
+  <Tabs
+    groupId="framework"
+    values={[
+      { label: 'React', value: 'react' },
+      { label: 'Solid', value: 'solid' },
+    ]}
+    className="docs-tabs"
+  >
+    <Tab value="react">
+
+```tsx pure file="../../../src/components/examples/toggle-group/disabled.tsx"
+```
+
+    </Tab>
+    <Tab value="solid">
+
+<CodeBlockRuntime lang="tsx" code={toggleGroupSolidDisabled} />
+
+    </Tab>
+  </Tabs>
+
+**Стили**
+
+```css file="../../../src/components/examples/toggle-group/toggle-group-disabled.module.css"
+```
+</div>
+</ExampleCode>
 
 ### Иконки
 
 Передавайте иконки как обычные дочерние элементы. Элементам только с иконками всегда нужно доступное имя.
 
-<PreviewFrame maxWidth="sm">
-  ```tsx preview file="../../en/docs/_snippets/toggle-group/icons.tsx"
+<ExampleFrame variant="component">
+  <ToggleGroupIcons />
+</ExampleFrame>
 
-  ```
-</PreviewFrame>
+<ExampleCode>
+<div className="docs-reference">
+  <Tabs
+    groupId="framework"
+    values={[
+      { label: 'React', value: 'react' },
+      { label: 'Solid', value: 'solid' },
+    ]}
+    className="docs-tabs"
+  >
+    <Tab value="react">
+
+```tsx pure file="../../../src/components/examples/toggle-group/icons.tsx"
+```
+
+    </Tab>
+    <Tab value="solid">
+
+<CodeBlockRuntime lang="tsx" code={toggleGroupSolidIcons} />
+
+    </Tab>
+  </Tabs>
+</div>
+</ExampleCode>
 
 ### Множественный выбор
 
 Используйте `multiple`, если несколько вариантов могут оставаться выбранными одновременно.
 
-<PreviewFrame maxWidth="sm">
-  ```tsx preview file="../../en/docs/_snippets/toggle-group/multiple-selection.tsx"
+<ExampleFrame variant="component">
+  <ToggleGroupMultipleSelection />
+</ExampleFrame>
 
-  ```
-</PreviewFrame>
+<ExampleCode>
+<div className="docs-reference">
+  <Tabs
+    groupId="framework"
+    values={[
+      { label: 'React', value: 'react' },
+      { label: 'Solid', value: 'solid' },
+    ]}
+    className="docs-tabs"
+  >
+    <Tab value="react">
+
+```tsx pure file="../../../src/components/examples/toggle-group/multiple-selection.tsx"
+```
+
+    </Tab>
+    <Tab value="solid">
+
+<CodeBlockRuntime lang="tsx" code={toggleGroupSolidMultipleSelection} />
+
+    </Tab>
+  </Tabs>
+</div>
+</ExampleCode>
 
 ### Варианты
 
 Установите `variant` на группе, если все элементы должны использовать одинаковое оформление.
 
-<PreviewFrame contentWidth="fit-content" maxWidth="sm">
-  ```tsx preview file="../../en/docs/_snippets/toggle-group/variants.tsx"
+<ExampleFrame variant="component">
+  <ToggleGroupVariants />
+</ExampleFrame>
 
-  ```
-</PreviewFrame>
+<ExampleCode>
+<div className="docs-reference">
+  <Tabs
+    groupId="framework"
+    values={[
+      { label: 'React', value: 'react' },
+      { label: 'Solid', value: 'solid' },
+    ]}
+    className="docs-tabs"
+  >
+    <Tab value="react">
+
+```tsx pure file="../../../src/components/examples/toggle-group/variants.tsx"
+```
+
+    </Tab>
+    <Tab value="solid">
+
+<CodeBlockRuntime lang="tsx" code={toggleGroupSolidVariants} />
+
+    </Tab>
+  </Tabs>
+
+**Стили**
+
+```css file="../../../src/components/examples/toggle-group/toggle-group-variants.module.css"
+```
+</div>
+</ExampleCode>
 
 ### Вертикальная ориентация
 
 Установите `orientation="vertical"`, если варианты должны располагаться столбцом.
 
-<PreviewFrame maxWidth="sm">
-  ```tsx preview file="../../en/docs/_snippets/toggle-group/vertical.tsx"
+<ExampleFrame variant="component">
+  <ToggleGroupVertical />
+</ExampleFrame>
 
-  ```
-</PreviewFrame>
-
-### Расширенная настройка
-
-Используйте `ToggleGroup.RootProvider` с `useToggleGroup` из moduix, если экземпляр состояния нужно разделить
-с другими частями интерфейса или настроить до отрисовки корневого компонента.
-
-<PreviewFrame contentWidth="fit-content" maxWidth="sm">
-  ```tsx preview file="../../en/docs/_snippets/toggle-group/root-provider.tsx"
-
-  ```
-</PreviewFrame>
-
-## Стилизация
-
-`ToggleGroup` предоставляет стабильные атрибуты `data-slot` для moduix, а также атрибуты анатомии и состояния
-Ark для стилизации по состоянию компонента.
-
-### CSS-свойства
-
+<ExampleCode>
 <div className="docs-reference">
   <Tabs
-    values={[{ label: 'CSS-переменные', value: 'CSS-переменные' }]}
-    className="docs-reference-tabs"
-    contentItemClassName="docs-reference-panel"
+    groupId="framework"
+    values={[
+      { label: 'React', value: 'react' },
+      { label: 'Solid', value: 'solid' },
+    ]}
+    className="docs-tabs"
   >
-    <Tab>
-      <ToggleGroupDocs.ToggleGroupCssPropertiesPanel />
+    <Tab value="react">
+
+```tsx pure file="../../../src/components/examples/toggle-group/vertical.tsx"
+```
+
+    </Tab>
+    <Tab value="solid">
+
+<CodeBlockRuntime lang="tsx" code={toggleGroupSolidVertical} />
+
     </Tab>
   </Tabs>
 </div>
+</ExampleCode>
+
+### Расширенная настройка
+
+Используйте `ToggleGroup.RootProvider` с `useToggleGroup()`, если экземпляр состояния нужно создать
+вне дерева отрисованной группы.
+
+<ExampleFrame variant="component">
+  <ToggleGroupRootProvider />
+</ExampleFrame>
+
+<ExampleCode>
+<div className="docs-reference">
+  <Tabs
+    groupId="framework"
+    values={[
+      { label: 'React', value: 'react' },
+      { label: 'Solid', value: 'solid' },
+    ]}
+    className="docs-tabs"
+  >
+    <Tab value="react">
+
+```tsx pure file="../../../src/components/examples/toggle-group/root-provider.tsx"
+```
+
+    </Tab>
+    <Tab value="solid">
+
+<CodeBlockRuntime lang="tsx" code={toggleGroupSolidRootProvider} />
+
+    </Tab>
+  </Tabs>
+
+**Стили**
+
+```css file="../../../src/components/examples/toggle-group/toggle-group-advanced-customization.module.css"
+```
+</div>
+</ExampleCode>
+
+## Стилизация
+
+Используйте `className` в React или `class` в Solid на экспортируемых частях для структурных стилей.
+Варианты Tailwind используют нативные утилиты и классы потребителя, а варианты CSS Modules
+предоставляют токены `--moduix-toggle-group-*`. Элементы наследуют `variant` и `size` от корневой
+части и могут переопределить любое из этих свойств для отдельного оформления.
+
+### Свойства CSS
+
+<CssPropertiesSection properties={ToggleGroupDocs.toggleGroupOverrideCssProperties} />
 
 В таблице перечислены свойства уровня группы. Каждый `ToggleGroup.Item` также поддерживает [CSS-свойства
 Toggle](/docs/toggle#css-properties) для цветов и состояний взаимодействия. Задайте свойство
@@ -237,10 +484,8 @@ Toggle](/docs/toggle#css-properties) для цветов и состояний �
 
 ### Хуки стилизации
 
-- `data-slot="toggle-group-root"` и `data-slot="toggle-group-root-provider"` являются стабильными селекторами корневого элемента.
-- `data-slot="toggle-group-item"` является стабильным селектором элемента.
-- `data-scope="toggle-group"` и `data-part="root" | "item"` предоставляются Ark.
-- На каждом элементе записывается `data-state="on" | "off"`.
-- На корневом и дочерних элементах записывается `data-orientation="horizontal" | "vertical"`.
-- `data-disabled` и `data-focus` являются атрибутами состояния Ark.
-- `data-variant` и `data-size` отражают визуальные свойства moduix.
+- Стабильные селекторы `data-slot`: `toggle-group-root`, `toggle-group-root-provider` и `toggle-group-item`.
+- Селекторы частей Ark: `data-scope="toggle-group"` и `data-part="root" | "item"`.
+- Селекторы состояния Ark: `data-state="on" | "off"`, `data-disabled`, `data-focus` и
+  `data-orientation="horizontal" | "vertical"`.
+- Селекторы moduix: `data-variant` и `data-size`.

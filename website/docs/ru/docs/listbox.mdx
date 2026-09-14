@@ -1,36 +1,119 @@
 ---
 title: Listbox
 component: listbox
-description: Listbox на базе Ark UI для выбора одного или нескольких элементов в списке, который остаётся открытым. Поддерживает фильтрацию и расширенный выбор с клавишами-модификаторами.
+description: Видимый список для выбора одного или нескольких элементов с необязательной фильтрацией и расширенным выделением.
 ---
 
-import * as ListboxDocs from '@/components/examples/listbox';
+import * as ListboxDocs from '@/components/examples/listbox/css-properties';
+import ListboxBasic from '@/components/examples/listbox/basic.tsx';
+import ListboxControlled from '@/components/examples/listbox/controlled.tsx';
+import ListboxDisabledItem from '@/components/examples/listbox/disabled-item.tsx';
+import ListboxExtendedSelection from '@/components/examples/listbox/extended-selection.tsx';
+import ListboxFiltering from '@/components/examples/listbox/filtering.tsx';
+import ListboxGrid from '@/components/examples/listbox/grid.tsx';
+import ListboxGrouping from '@/components/examples/listbox/grouping.tsx';
+import ListboxHorizontal from '@/components/examples/listbox/horizontal.tsx';
+import ListboxMultiple from '@/components/examples/listbox/multiple.tsx';
+import ListboxRootProvider from '@/components/examples/listbox/root-provider.tsx';
+import ListboxSelectAll from '@/components/examples/listbox/select-all.tsx';
+import ListboxStandaloneFilterInput from '@/components/examples/listbox/standalone-filter-input.tsx';
+import ListboxValueText from '@/components/examples/listbox/value-text.tsx';
+import listboxSolidBasic from '../../../snippets/listbox/solid/basic.tsx?raw';
+import listboxSolidControlled from '../../../snippets/listbox/solid/controlled.tsx?raw';
+import listboxSolidDisabledItem from '../../../snippets/listbox/solid/disabled-item.tsx?raw';
+import listboxSolidExtendedSelection from '../../../snippets/listbox/solid/extended-selection.tsx?raw';
+import listboxSolidFiltering from '../../../snippets/listbox/solid/filtering.tsx?raw';
+import listboxSolidGrid from '../../../snippets/listbox/solid/grid.tsx?raw';
+import listboxSolidGrouping from '../../../snippets/listbox/solid/grouping.tsx?raw';
+import listboxSolidHorizontal from '../../../snippets/listbox/solid/horizontal.tsx?raw';
+import listboxSolidMultiple from '../../../snippets/listbox/solid/multiple.tsx?raw';
+import listboxSolidRootProvider from '../../../snippets/listbox/solid/root-provider.tsx?raw';
+import listboxSolidSelectAll from '../../../snippets/listbox/solid/select-all.tsx?raw';
+import listboxSolidStandaloneFilterInput from '../../../snippets/listbox/solid/standalone-filter-input.tsx?raw';
+import listboxSolidValueText from '../../../snippets/listbox/solid/value-text.tsx?raw';
 
 ## Справочник API
 
 <PrimitiveReference href="https://ark-ui.com/docs/components/listbox" />
 
-## Выбор подходящего компонента
+## Какой компонент выбрать
 
-Используйте `Listbox`, когда варианты должны оставаться видимыми, а пользователь выбирает их из коллекции.
-Используйте `Select`, если варианты должны открываться во всплывающем окне. Выбирайте `Combobox`, если нужен
-всплывающий список, управляемый полем ввода, для поиска или ввода значения.
+Используйте `Listbox`, когда варианты должны оставаться видимыми и пользователь выбирает элементы
+из коллекции. Используйте `Select`, когда варианты должны открываться во всплывающем списке.
+Используйте `Combobox`, когда пользователю нужен всплывающий список с полем для поиска или ввода
+значения.
 
 ## Базовый пример
 
-Используйте `Listbox`, когда пользователю нужно выбрать один или несколько элементов из списка, который остаётся
-открытым. Передайте `collection`, добавьте `Listbox.Content`, а исходный элемент коллекции передайте в `Listbox.Item`
-через `item`.
+Listbox доступен для React и Solid в пакетах с CSS Modules и в вариантах на Tailwind. Интерактивный
+предпросмотр на этой странице использует пакет React с CSS Modules, а вкладки показывают нативный
+исходный код с тем же публичным контрактом.
 
-<PreviewFrame maxWidth="sm">
-  ```tsx preview file="../../en/docs/_snippets/listbox/basic.tsx"
+Передайте `collection`, отрисуйте `Listbox.Content` и передайте каждый элемент коллекции в
+`Listbox.Item` через `item`. Добавьте `Listbox.ItemIndicator`, если строки должны показывать
+выбранное состояние.
 
+<ExampleFrame variant="component">
+  <ListboxBasic />
+</ExampleFrame>
+
+<ExampleCode>
+<div className="docs-reference">
+  <Tabs
+    groupId="framework"
+    values={[
+      { label: 'React', value: 'react' },
+      { label: 'Solid', value: 'solid' },
+    ]}
+    className="docs-tabs"
+  >
+    <Tab value="react">
+
+```tsx pure file="../../../src/components/examples/listbox/basic.tsx"
 ```
-</PreviewFrame>
+
+    </Tab>
+    <Tab value="solid">
+
+<CodeBlockRuntime lang="tsx" code={listboxSolidBasic} />
+
+    </Tab>
+  </Tabs>
+
+**Стили**
+
+```css file="../../../src/components/examples/listbox/listbox-basic.module.css"
+```
+</div>
+
+</ExampleCode>
 
 ## Установка через shadcn
 
-<ShadcnInstall packageName="listbox" />
+Полную настройку пакета, реестра и стилей см. в разделе [Быстрый старт](/docs/quick-start).
+
+<Tabs groupId="framework">
+  <Tab label="React" value="react">
+
+<ShadcnInstallOptions
+  options={[
+    { label: 'CSS Modules', command: 'shadcn@latest add @moduix-react/listbox' },
+    { label: 'Tailwind CSS', command: 'shadcn@latest add @moduix-react-tailwind/listbox' },
+  ]}
+/>
+
+  </Tab>
+  <Tab label="Solid" value="solid">
+
+<ShadcnInstallOptions
+  options={[
+    { label: 'CSS Modules', command: 'shadcn@latest add @moduix-solid/listbox' },
+    { label: 'Tailwind CSS', command: 'shadcn@latest add @moduix-solid-tailwind/listbox' },
+  ]}
+/>
+
+  </Tab>
+</Tabs>
 
 ## Анатомия
 
@@ -49,235 +132,448 @@ Listbox / Listbox.Root
 │  │     └─ Listbox.ItemIndicator
 │  └─ Listbox.Item[item]
 │     ├─ Listbox.ItemText
-│     │  └─ Listbox.ItemTextContent (optional)
-│     │     ├─ Listbox.ItemTextIcon (optional)
-│     │     └─ Listbox.ItemTextLabel (optional)
+│     │  └─ Listbox.ItemTextContent (необязательно)
+│     │     ├─ Listbox.ItemTextIcon (необязательно)
+│     │     └─ Listbox.ItemTextLabel (необязательно)
 │     └─ Listbox.ItemIndicator
 └─ Listbox.ValueText
 
 Listbox.RootProvider
-└─ same item tree connected to a useListbox() store
+└─ то же дерево элементов, подключённое к состоянию из useListbox()
 ```
 
-| Часть                       | Назначение                                                                                  |
-| -------------------------- | ------------------------------------------------------------------------------------------- |
-| `Listbox` / `Listbox.Root` | Управляет коллекцией, выбранными значениями, активным элементом и режимом выбора.            |
-| `Listbox.RootProvider`     | Отображает дерево listbox на основе состояния, возвращённого `useListbox`.                   |
-| `Listbox.Label`            | Метка, задающая доступное имя listbox.                                                      |
-| `Listbox.Filter`           | Визуальная оболочка поля фильтра со стандартной иконкой поиска. Размещайте перед `Listbox.Content`. |
-| `Listbox.Input`            | Поле фильтрации, обычно размещаемое внутри `Filter`.                                        |
-| `Listbox.ClearTrigger`     | Кнопка сброса поискового запроса со стандартной иконкой закрытия.                            |
-| `Listbox.Content`          | Контейнер listbox, который принимает фокус и обеспечивает навигацию с клавиатуры.            |
-| `Listbox.Empty`            | Содержимое, показываемое, если после фильтрации не осталось элементов.                       |
-| `Listbox.ItemGroup`        | Обёртка для группы связанных элементов коллекции.                                           |
-| `Listbox.ItemGroupLabel`   | Метка группы элементов коллекции.                                                           |
-| `Listbox.Item`             | Выбираемый элемент. Передайте соответствующий элемент коллекции через `item`.                |
-| `Listbox.ItemText`         | Текст элемента, который виден пользователю и доступен вспомогательным технологиям.         |
+| Часть                      | Назначение                                                                                   |
+| -------------------------- | -------------------------------------------------------------------------------------------- |
+| `Listbox` / `Listbox.Root` | Управляет коллекцией, выбранными значениями, подсвеченным элементом и режимом выбора.        |
+| `Listbox.RootProvider`     | Отрисовывает дерево listbox из состояния, возвращённого `useListbox`.                        |
+| `Listbox.Label`            | Подпись, задающая listbox доступное имя.                                                      |
+| `Listbox.Filter`           | Визуальная обёртка для поля фильтра с иконкой поиска по умолчанию. Размещайте перед `Listbox.Content`. |
+| `Listbox.Input`            | Поле фильтра, обычно размещаемое внутри `Filter`.                                            |
+| `Listbox.ClearTrigger`     | Кнопка сброса запроса фильтра с иконкой закрытия по умолчанию.                               |
+| `Listbox.Content`          | Фокусируемый контейнер listbox, управляющий навигацией с клавиатуры.                          |
+| `Listbox.Empty`            | Содержимое, отображаемое, когда после фильтрации не осталось элементов.                       |
+| `Listbox.ItemGroup`        | Обёртка для связанных элементов коллекции.                                                   |
+| `Listbox.ItemGroupLabel`   | Подпись группы элементов коллекции.                                                          |
+| `Listbox.Item`             | Выбираемый элемент. Передайте его элемент коллекции через `item`.                            |
+| `Listbox.ItemText`         | Текст для отображения и доступности.                                                         |
 | `Listbox.ItemTextContent`  | Необязательная обёртка для размещения иконки и текста внутри `ItemText`.                     |
 | `Listbox.ItemTextIcon`     | Необязательная обёртка для иконки внутри `ItemTextContent`.                                 |
-| `Listbox.ItemTextLabel`    | Обёртка для текста внутри `ItemTextContent`, которая позволяет обрезать длинные подписи без нарушения разметки. |
-| `Listbox.ItemIndicator`    | Индикатор выбора со стандартной иконкой галочки moduix.                                     |
-| `Listbox.ValueText`        | Отображение подписей выбранных элементов.                                                   |
+| `Listbox.ItemTextLabel`    | Обёртка текста внутри `ItemTextContent`, которая позволяет обрезать длинные подписи без нарушения разметки. |
+| `Listbox.ItemIndicator`    | Индикатор выбора с иконкой галочки moduix по умолчанию.                                      |
+| `Listbox.ValueText`        | Сводка выбранных значений.                                                                   |
 
 ## Композиция
 
-### Рекомендуемая композиция
+Используйте `defaultValue` для неконтролируемого выбора. Если выбранными значениями управляет другая
+часть приложения, передайте `value` и обновляйте его из `onValueChange(details.value)`. Для
+фильтрации задайте `typeahead={false}`, храните запрос в состоянии приложения и вызывайте функцию
+`filter`, возвращённую `useListCollection`, из обработчика поля. `Listbox.Filter` отвечает только за объединённый внешний
+вид поля поиска, поэтому обработчик очистки должен сбрасывать и запрос, и фильтр коллекции.
 
-Соберите listbox напрямую из частей Ark. `Listbox` управляет коллекцией, `Listbox.Content` отвечает за фокус и
-навигацию с клавиатуры, а каждый `Listbox.Item` получает исходный элемент коллекции через `item`. Добавьте
-`Listbox.ItemIndicator`, если строкам нужно заранее зарезервировать место под индикатор выбора.
-
-`Listbox` - это короткая форма корневого компонента, эквивалентная `Listbox.Root`. Для фильтрации поместите
-`Listbox.Input` в `Listbox.Filter` сразу перед `Listbox.Content`. `Filter` добавляет стандартную иконку поиска и
-визуально объединяет поле с результатами в одну поверхность с рамкой. Это только визуальная оболочка: состояние
-запроса и фильтрацию коллекции нужно контролировать в своём коде.
-
-### Когда нужна собственная композиция
-
-Используйте `asChild`, только если ваш элемент сохраняет семантику listbox и принимает свойства Ark. Указывайте
-`ids`, когда частям listbox нужны стабильные идентификаторы для интеграции с окружающей разметкой. Используйте
-`useListbox` из `@moduix/react/listbox` вместе с `Listbox.RootProvider`, когда состояние нужно контролировать вне
-отрисованного дерева. Для одного и того же экземпляра не рендерите `Listbox.Root` одновременно с `RootProvider`.
-Отображайте `Listbox.Input` напрямую, если поле фильтра должно быть визуально отделено от списка или встроено в
-свою разметку.
-
-### Свойства по умолчанию
-
-| Проп                      | По умолчанию | Примечания                                                                                   |
-| ------------------------- | ------------ | -------------------------------------------------------------------------------------------- |
-| `collection`              | -            | Обязательная коллекция Ark. Создайте её с помощью `createListCollection` или используйте коллекцию для сетки. |
-| `defaultValue`            | `[]`         | Начальные выбранные значения, если состояние не контролируется.                              |
-| `defaultHighlightedValue` | -            | Начальный активный элемент, если состояние не контролируется.                               |
-| `deselectable`            | -            | Позволяет очистить непустой выбор клавишей `Escape`.                                         |
-| `disabled`                | `false`      | Отключает весь listbox.                                                                       |
-| `disallowSelectAll`       | `false`      | Запрещает выбирать все элементы с помощью `Cmd/Ctrl + A`.                                   |
-| `loopFocus`               | `false`      | Не позволяет навигации стрелками переходить с последнего элемента на первый.                |
-| `orientation`             | `vertical`   | Задаёт расположение элементов и направление навигации стрелками.                            |
-| `selectionMode`           | `single`     | Поддерживает `single`, `multiple` и `extended`.                                               |
-| `selectOnHighlight`       | `false`      | Выбирает элемент при перемещении на него с клавиатуры.                                       |
-| `typeahead`               | `true`       | Включает поиск по вводимым символам, если текстовый ввод не используется для фильтрации.      |
-
-### Особенности поведения
-
-`value`, `defaultValue` и `onValueChange(details)` используют массивы строк. Используйте `details.value` для
-чтения выбранных ключей, а `details.items` - для выбранных элементов коллекции.
-
-`highlightedValue`, `defaultHighlightedValue` и `onHighlightChange(details)` управляют активным элементом во время
-навигации. `onSelect(details)` вызывается при выборе элемента и передаёт его значение.
-
-`useListbox`, `useListboxContext`, `useListboxItemContext`, `Listbox.Context` и `Listbox.ItemContext` доступны из
-`@moduix/react/listbox` для сложных сценариев работы с состоянием и отдельными элементами. Свойство `ref`
-передаётся соответствующей части Ark. Корневой компонент и `RootProvider` рендерят элементы `div`, поэтому их
-`ref` указывает на эти элементы. Используйте `ids`, когда частям listbox нужны стабильные идентификаторы для связи
-с окружающей разметкой.
-
-Listbox не создаёт нативный элемент управления формой для выбранных значений. Если выбор нужно отправить вместе с
-формой, храните его и логику сброса формы в модели формы.
-
-`Listbox.Input` нужен только для фильтрации. Помещайте его в `Listbox.Filter` для стандартного поля поиска или
-отрисовывайте напрямую для отдельного поля. Установите `typeahead={false}`, чтобы поиск по вводимым символам не
-конфликтовал с фильтрацией. Состоянием фильтра нужно управлять явно: показывайте `Listbox.ClearTrigger`, если
-запрос непуст, а в обработчике `onClick` очищайте запрос и фильтр коллекции.
-
-Ark обеспечивает ARIA-паттерн listbox, управление фокусом активного элемента, клавиатурную навигацию, поиск по
-вводимым символам, поведение клавиш `Home` и `End`, обработку отключённых элементов и навигацию стрелками с учётом
-ориентации. Если listbox нужна видимая метка, оставляйте `Listbox.Label` в дереве.
+Используйте `useListbox` из пакета выбранного фреймворка вместе с `Listbox.RootProvider`, если
+хранилище нужно создать вне отрисовываемого дерева. Передайте полученное хранилище в `RootProvider`
+и не добавляйте для него `Listbox` или `Listbox.Root`. `Listbox.Input` можно отрисовать напрямую,
+если фильтру нужен отдельный контейнер, а `Listbox.ValueText` можно разместить после `Content`,
+чтобы показывать сводку выбранных значений.
 
 ## Примеры
 
 ### Управляемое состояние
 
-Храните массив выбранных значений в состоянии React и обновляйте его из `details.value`.
+Храните массив выбранных строк в состоянии приложения и обновляйте его из `details.value`.
 
-<PreviewFrame maxWidth="sm">
-  ```tsx preview file="../../en/docs/_snippets/listbox/controlled.tsx"
+<ExampleFrame variant="component">
+  <ListboxControlled />
+</ExampleFrame>
 
+<ExampleCode>
+<div className="docs-reference">
+  <Tabs groupId="framework" values={[{ label: 'React', value: 'react' }, { label: 'Solid', value: 'solid' }]} className="docs-tabs">
+    <Tab value="react">
+
+```tsx pure file="../../../src/components/examples/listbox/controlled.tsx"
 ```
-</PreviewFrame>
+
+    </Tab>
+    <Tab value="solid">
+
+<CodeBlockRuntime lang="tsx" code={listboxSolidControlled} />
+
+    </Tab>
+  </Tabs>
+
+**Стили**
+
+```css file="../../../src/components/examples/listbox/listbox-controlled.module.css"
+```
+</div>
+
+</ExampleCode>
 
 ### Отключённый элемент
 
-Отключайте отдельные элементы, задавая поле `disabled` у элемента коллекции или используя `isItemDisabled` при
-создании коллекции.
+Отключите отдельный элемент через поле `disabled` в элементе коллекции.
 
-<PreviewFrame maxWidth="sm">
-  ```tsx preview file="../../en/docs/_snippets/listbox/disabled-item.tsx"
+<ExampleFrame variant="component">
+  <ListboxDisabledItem />
+</ExampleFrame>
 
+<ExampleCode>
+<div className="docs-reference">
+  <Tabs groupId="framework" values={[{ label: 'React', value: 'react' }, { label: 'Solid', value: 'solid' }]} className="docs-tabs">
+    <Tab value="react">
+
+```tsx pure file="../../../src/components/examples/listbox/disabled-item.tsx"
 ```
-</PreviewFrame>
 
-### Расширенный выбор
+    </Tab>
+    <Tab value="solid">
 
-Используйте `selectionMode="extended"`, если пользователям нужно выбирать несколько элементов с помощью
-клавиш-модификаторов.
+<CodeBlockRuntime lang="tsx" code={listboxSolidDisabledItem} />
 
-<PreviewFrame maxWidth="sm">
-  ```tsx preview file="../../en/docs/_snippets/listbox/extended-selection.tsx"
+    </Tab>
+  </Tabs>
 
+**Стили**
+
+```css file="../../../src/components/examples/listbox/listbox-disabled-item.module.css"
 ```
-</PreviewFrame>
+</div>
+
+</ExampleCode>
+
+### Расширенное выделение
+
+Используйте `selectionMode="extended"`, когда для выбора нескольких элементов нужны клавиши-модификаторы.
+
+<ExampleFrame variant="component">
+  <ListboxExtendedSelection />
+</ExampleFrame>
+
+<ExampleCode>
+<div className="docs-reference">
+  <Tabs groupId="framework" values={[{ label: 'React', value: 'react' }, { label: 'Solid', value: 'solid' }]} className="docs-tabs">
+    <Tab value="react">
+
+```tsx pure file="../../../src/components/examples/listbox/extended-selection.tsx"
+```
+
+    </Tab>
+    <Tab value="solid">
+
+<CodeBlockRuntime lang="tsx" code={listboxSolidExtendedSelection} />
+
+    </Tab>
+  </Tabs>
+
+**Стили**
+
+```css file="../../../src/components/examples/listbox/listbox-extended-selection.module.css"
+```
+</div>
+
+</ExampleCode>
 
 ### Фильтрация
 
-Используйте `Listbox.Filter` с `useListCollection`. Компонент добавляет стандартную иконку поиска и объединяет поле
-с расположенным ниже `Content` в один блок с рамкой. Отключите поиск по вводимым символам, когда текстовый ввод
-отвечает за поиск.
+Используйте `Listbox.Filter` вместе с `useListCollection`. Он добавляет иконку поиска и объединяет
+поле с `Content`; отключите typeahead, когда текст вводится в поле поиска.
 
-<PreviewFrame maxWidth="sm">
-  ```tsx preview file="../../en/docs/_snippets/listbox/filtering.tsx"
+<ExampleFrame variant="component">
+  <ListboxFiltering />
+</ExampleFrame>
 
+<ExampleCode>
+<div className="docs-reference">
+  <Tabs groupId="framework" values={[{ label: 'React', value: 'react' }, { label: 'Solid', value: 'solid' }]} className="docs-tabs">
+    <Tab value="react">
+
+```tsx pure file="../../../src/components/examples/listbox/filtering.tsx"
 ```
-</PreviewFrame>
+
+    </Tab>
+    <Tab value="solid">
+
+<CodeBlockRuntime lang="tsx" code={listboxSolidFiltering} />
+
+    </Tab>
+  </Tabs>
+
+**Стили**
+
+```css file="../../../src/components/examples/listbox/listbox-filtering.module.css"
+```
+</div>
+
+</ExampleCode>
 
 ### Сетка
 
-Передайте коллекцию, созданную с помощью `createGridCollection`, чтобы включить клавиатурную навигацию по сетке.
-Ark добавляет `data-layout="grid"` и CSS-переменную `--column-count` в `Content`. В сетке используйте фон
-выбранного элемента вместо встроенного индикатора, чтобы ячейки оставались компактными.
+Передайте коллекцию, созданную через `createGridCollection`, чтобы включить навигацию по сетке с
+клавиатуры. Ark добавляет `data-layout="grid"` и CSS-переменную `--column-count` в `Content`.
 
-<PreviewFrame maxWidth="sm">
-  ```tsx preview file="../../en/docs/_snippets/listbox/grid.tsx"
+<ExampleFrame variant="component">
+  <ListboxGrid />
+</ExampleFrame>
 
+<ExampleCode>
+<div className="docs-reference">
+  <Tabs groupId="framework" values={[{ label: 'React', value: 'react' }, { label: 'Solid', value: 'solid' }]} className="docs-tabs">
+    <Tab value="react">
+
+```tsx pure file="../../../src/components/examples/listbox/grid.tsx"
 ```
-</PreviewFrame>
+
+    </Tab>
+    <Tab value="solid">
+
+<CodeBlockRuntime lang="tsx" code={listboxSolidGrid} />
+
+    </Tab>
+  </Tabs>
+
+**Стили**
+
+```css file="../../../src/components/examples/listbox/listbox-grid.module.css"
+```
+</div>
+
+</ExampleCode>
 
 ### Группировка
 
-Задайте `groupBy` при создании коллекции и отобразите `ItemGroup` вместе с `ItemGroupLabel`.
+Задайте `groupBy` при создании коллекции и отрисуйте `ItemGroup` с `ItemGroupLabel`.
 
-<PreviewFrame maxWidth="sm">
-  ```tsx preview file="../../en/docs/_snippets/listbox/grouping.tsx"
+<ExampleFrame variant="component">
+  <ListboxGrouping />
+</ExampleFrame>
 
+<ExampleCode>
+<div className="docs-reference">
+  <Tabs groupId="framework" values={[{ label: 'React', value: 'react' }, { label: 'Solid', value: 'solid' }]} className="docs-tabs">
+    <Tab value="react">
+
+```tsx pure file="../../../src/components/examples/listbox/grouping.tsx"
 ```
-</PreviewFrame>
 
-### Горизонтальная ориентация
+    </Tab>
+    <Tab value="solid">
 
-Установите `orientation="horizontal"`, чтобы расположить элементы по горизонтали и включить навигацию стрелками
-влево и вправо.
+<CodeBlockRuntime lang="tsx" code={listboxSolidGrouping} />
 
-<PreviewFrame maxWidth="lg">
-  ```tsx preview file="../../en/docs/_snippets/listbox/horizontal.tsx"
+    </Tab>
+  </Tabs>
 
+**Стили**
+
+```css file="../../../src/components/examples/listbox/listbox-grouping.module.css"
 ```
-</PreviewFrame>
+</div>
 
-### Множественный выбор
+</ExampleCode>
 
-Установите `selectionMode="multiple"`, чтобы выбирать несколько значений без клавиш-модификаторов.
+### Горизонтальный вариант
 
-<PreviewFrame maxWidth="sm">
-  ```tsx preview file="../../en/docs/_snippets/listbox/multiple.tsx"
+Задайте `orientation="horizontal"`, чтобы расположить элементы горизонтально и включить навигацию
+стрелками влево и вправо.
 
+<ExampleFrame variant="component">
+  <ListboxHorizontal />
+</ExampleFrame>
+
+<ExampleCode>
+<div className="docs-reference">
+  <Tabs groupId="framework" values={[{ label: 'React', value: 'react' }, { label: 'Solid', value: 'solid' }]} className="docs-tabs">
+    <Tab value="react">
+
+```tsx pure file="../../../src/components/examples/listbox/horizontal.tsx"
 ```
-</PreviewFrame>
+
+    </Tab>
+    <Tab value="solid">
+
+<CodeBlockRuntime lang="tsx" code={listboxSolidHorizontal} />
+
+    </Tab>
+  </Tabs>
+
+**Стили**
+
+```css file="../../../src/components/examples/listbox/listbox-horizontal.module.css"
+```
+</div>
+
+</ExampleCode>
+
+### Несколько значений
+
+Задайте `selectionMode="multiple"`, чтобы переключать несколько значений без клавиш-модификаторов.
+
+<ExampleFrame variant="component">
+  <ListboxMultiple />
+</ExampleFrame>
+
+<ExampleCode>
+<div className="docs-reference">
+  <Tabs groupId="framework" values={[{ label: 'React', value: 'react' }, { label: 'Solid', value: 'solid' }]} className="docs-tabs">
+    <Tab value="react">
+
+```tsx pure file="../../../src/components/examples/listbox/multiple.tsx"
+```
+
+    </Tab>
+    <Tab value="solid">
+
+<CodeBlockRuntime lang="tsx" code={listboxSolidMultiple} />
+
+    </Tab>
+  </Tabs>
+
+**Стили**
+
+```css file="../../../src/components/examples/listbox/listbox-multiple.module.css"
+```
+</div>
+
+</ExampleCode>
 
 ### Root Provider
 
-Используйте `useListbox` из `@moduix/react/listbox` вместе с `Listbox.RootProvider`, когда элементам управления за
-пределами listbox нужен прямой доступ к его API.
+Используйте `useListbox()` из пакета выбранного фреймворка вместе с `Listbox.RootProvider`, если
+внешним элементам управления нужен прямой доступ к хранилищу listbox.
 
-<PreviewFrame maxWidth="sm">
-  ```tsx preview file="../../en/docs/_snippets/listbox/root-provider.tsx"
+<ExampleFrame variant="component">
+  <ListboxRootProvider />
+</ExampleFrame>
 
+<ExampleCode>
+<div className="docs-reference">
+  <Tabs groupId="framework" values={[{ label: 'React', value: 'react' }, { label: 'Solid', value: 'solid' }]} className="docs-tabs">
+    <Tab value="react">
+
+```tsx pure file="../../../src/components/examples/listbox/root-provider.tsx"
 ```
-</PreviewFrame>
+
+    </Tab>
+    <Tab value="solid">
+
+<CodeBlockRuntime lang="tsx" code={listboxSolidRootProvider} />
+
+    </Tab>
+  </Tabs>
+
+**Стили**
+
+```css file="../../../src/components/examples/listbox/listbox-root-provider.module.css"
+```
+</div>
+
+</ExampleCode>
 
 ### Выбрать всё
 
-Используйте `useListboxContext` внутри дочернего компонента, чтобы добавить внешнюю кнопку «Выбрать всё».
+Используйте `useListboxContext` во внутреннем компоненте, чтобы добавить кнопку, изменяющую выбор
+listbox.
 
-<PreviewFrame maxWidth="sm">
-  ```tsx preview file="../../en/docs/_snippets/listbox/select-all.tsx"
+<ExampleFrame variant="component">
+  <ListboxSelectAll />
+</ExampleFrame>
 
+<ExampleCode>
+<div className="docs-reference">
+  <Tabs groupId="framework" values={[{ label: 'React', value: 'react' }, { label: 'Solid', value: 'solid' }]} className="docs-tabs">
+    <Tab value="react">
+
+```tsx pure file="../../../src/components/examples/listbox/select-all.tsx"
 ```
-</PreviewFrame>
+
+    </Tab>
+    <Tab value="solid">
+
+<CodeBlockRuntime lang="tsx" code={listboxSolidSelectAll} />
+
+    </Tab>
+  </Tabs>
+
+**Стили**
+
+```css file="../../../src/components/examples/listbox/listbox-select-all.module.css"
+```
+</div>
+
+</ExampleCode>
 
 ### Отдельное поле фильтра
 
-Отображайте `Listbox.Input` напрямую, когда поле фильтра и результаты должны находиться в разных блоках. По умолчанию
-его рамка совпадает с рамкой `Listbox.Content`; при фокусе с клавиатуры анимируется только цвет контура.
+Отрисуйте `Listbox.Input` напрямую, если поле фильтра и результаты должны оставаться отдельными
+поверхностями.
 
-<PreviewFrame maxWidth="sm">
-  ```tsx preview file="../../en/docs/_snippets/listbox/standalone-filter-input.tsx"
+<ExampleFrame variant="component">
+  <ListboxStandaloneFilterInput />
+</ExampleFrame>
 
+<ExampleCode>
+<div className="docs-reference">
+  <Tabs groupId="framework" values={[{ label: 'React', value: 'react' }, { label: 'Solid', value: 'solid' }]} className="docs-tabs">
+    <Tab value="react">
+
+```tsx pure file="../../../src/components/examples/listbox/standalone-filter-input.tsx"
 ```
-</PreviewFrame>
 
-### Текст значения
+    </Tab>
+    <Tab value="solid">
 
-Отображайте `Listbox.ValueText`, если подписи выбранных элементов должны оставаться видимыми рядом со списком.
+<CodeBlockRuntime lang="tsx" code={listboxSolidStandaloneFilterInput} />
 
-<PreviewFrame maxWidth="sm">
-  ```tsx preview file="../../en/docs/_snippets/listbox/value-text.tsx"
+    </Tab>
+  </Tabs>
 
+**Стили**
+
+```css file="../../../src/components/examples/listbox/listbox-standalone-filter-input.module.css"
 ```
-</PreviewFrame>
+</div>
+
+</ExampleCode>
+
+### Текст выбранного значения
+
+Отрисуйте `Listbox.ValueText`, если сводка выбранных значений должна оставаться видимой рядом со
+списком.
+
+<ExampleFrame variant="component">
+  <ListboxValueText />
+</ExampleFrame>
+
+<ExampleCode>
+<div className="docs-reference">
+  <Tabs groupId="framework" values={[{ label: 'React', value: 'react' }, { label: 'Solid', value: 'solid' }]} className="docs-tabs">
+    <Tab value="react">
+
+```tsx pure file="../../../src/components/examples/listbox/value-text.tsx"
+```
+
+    </Tab>
+    <Tab value="solid">
+
+<CodeBlockRuntime lang="tsx" code={listboxSolidValueText} />
+
+    </Tab>
+  </Tabs>
+
+**Стили**
+
+```css file="../../../src/components/examples/listbox/listbox-value-text.module.css"
+```
+</div>
+
+</ExampleCode>
 
 ## Стилизация
 
-Стилизуйте `Listbox` через `className`, стабильные селекторы `data-slot="listbox-*"`, атрибуты Ark
-`data-scope="listbox"` / `data-part`, атрибуты состояния и публичные CSS-переменные `--moduix-listbox-*`.
+Стилизуйте Listbox через `className` в React или `class` в Solid на экспортируемых частях. Варианты
+Tailwind используют нативные utility-классы и классы потребителя, а варианты с CSS Modules используют
+публичные CSS-переменные `--moduix-listbox-*`.
 
 ### CSS-свойства
 
@@ -285,12 +581,13 @@ Ark добавляет `data-layout="grid"` и CSS-переменную `--colum
 
 ### Хуки стилизации
 
-- Атрибуты анатомии Ark: `data-scope="listbox"` и `data-part` у корневого элемента, метки, поля ввода, содержимого,
-  группы и метки группы, элемента, его текста и индикатора, текста выбранных значений и пустого состояния.
-- Атрибуты состояния: `data-orientation`, `data-disabled`, `data-empty`, `data-layout`, `data-activedescendant`,
-  `data-value`, `data-selected`, `data-state` и `data-highlighted`.
-- Селекторы moduix: `data-slot="listbox-root"`, `listbox-root-provider`, `listbox-label`, `listbox-filter`,
-  `listbox-filter-icon`, `listbox-input`, `listbox-clear-trigger`, `listbox-content`, `listbox-empty`,
-  `listbox-item-group`, `listbox-item-group-label`, `listbox-item`, `listbox-item-text`,
-  `listbox-item-text-content`, `listbox-item-text-icon`, `listbox-item-text-label`, `listbox-item-indicator` и
-  `listbox-value-text`.
+- Хуки анатомии Ark: `data-scope="listbox"` и `data-part` на корне, подписи, поле, содержимом,
+  группе элементов, подписи группы, элементе, тексте элемента, индикаторе, тексте выбранного
+  значения и пустом состоянии.
+- Хуки состояния: `data-orientation`, `data-disabled`, `data-empty`, `data-layout`,
+  `data-activedescendant`, `data-value`, `data-selected`, `data-state` и `data-highlighted`.
+- Хуки moduix: `data-slot="listbox-root"`, `listbox-root-provider`, `listbox-label`,
+  `listbox-filter`, `listbox-filter-icon`, `listbox-input`, `listbox-clear-trigger`,
+  `listbox-content`, `listbox-empty`, `listbox-item-group`, `listbox-item-group-label`,
+  `listbox-item`, `listbox-item-text`, `listbox-item-text-content`, `listbox-item-text-icon`,
+  `listbox-item-text-label`, `listbox-item-indicator` и `listbox-value-text`.

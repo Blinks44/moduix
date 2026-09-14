@@ -1,0 +1,32 @@
+.root {
+  inline-size: min(32rem, 100%);
+}
+
+.itemGroup {
+  border-radius: var(--moduix-radius-xl);
+}
+
+.control {
+  justify-content: center;
+}
+
+.card {
+  inline-size: 80%;
+  block-size: 100%;
+  margin-inline: auto;
+}
+
+.cardImage {
+  display: block;
+  inline-size: 100%;
+  block-size: 12rem;
+  object-fit: cover;
+}
+
+.cardFooter {
+  margin-block-start: auto;
+}
+
+.cardButton {
+  margin-block-start: var(--moduix-spacing-3);
+}

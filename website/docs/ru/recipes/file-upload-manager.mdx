@@ -4,6 +4,7 @@ description: Интерфейс для добавления вложений с 
 ---
 
 import { FileUploadManagerPreview } from '@/components/recipes/file-upload-manager-preview';
+import fileUploadManagerSolid from '../../../snippets/recipes/solid/file-upload-manager.tsx?raw';
 
 # Загрузка файлов
 
@@ -16,32 +17,48 @@ import { FileUploadManagerPreview } from '@/components/recipes/file-upload-manag
 отслеживает прогресс загрузки. Подключите `onFileChange` к форме или запросу на загрузку в той части приложения,
 которой принадлежат эти данные.
 
-<ExampleFrame clientOnly>
+Живое превью использует React-пакет. Во вкладках исходников приведены нативные реализации для React и Solid с общими стилями.
+
+<ExampleFrame variant="recipe" clientOnly>
   <FileUploadManagerPreview />
 </ExampleFrame>
 
+<ExampleCode>
 <div className="docs-reference">
-  <Tabs values={[{ label: 'Компонент', value: 'Component' }, { label: 'Стили', value: 'Styles' }]} className="docs-tabs">
-    <Tab value="Component">
+  <Tabs
+    groupId="framework"
+    values={[
+      { label: 'React', value: 'react' },
+      { label: 'Solid', value: 'solid' },
+    ]}
+    className="docs-tabs"
+  >
+    <Tab value="react">
 
-```tsx file="../../../src/components/recipes/file-upload-manager.tsx"
+```tsx pure file="../../../src/components/recipes/file-upload-manager.tsx"
 
 ```
 
     </Tab>
-    <Tab value="Styles">
+    <Tab value="solid">
+
+<CodeBlockRuntime lang="tsx" code={fileUploadManagerSolid} />
+
+    </Tab>
+  </Tabs>
+
+**Styles**
 
 ```css file="../../../src/components/recipes/file-upload-manager.module.css"
 
 ```
-
-    </Tab>
-  </Tabs>
 </div>
+
+</ExampleCode>
 
 ## Установка
 
-<ShadcnInstall packageName={['card', 'file-upload']} itemKind="recipe" copiedSource />
+<ShadcnInstall packageName={['card', 'file-upload']} itemKind="recipe" frameworks copiedSource />
 
 После установки пакетов `card` и `file-upload` скопируйте исходный код рецепта и его стили в приложение.
 

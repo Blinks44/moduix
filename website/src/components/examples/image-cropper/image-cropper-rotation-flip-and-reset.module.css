@@ -1,0 +1,11 @@
+.stack {
+  display: grid;
+  justify-items: center;
+  gap: var(--moduix-spacing-3);
+}
+
+.toolbar {
+  display: flex;
+  flex-wrap: wrap;
+  gap: var(--moduix-spacing-1);
+}

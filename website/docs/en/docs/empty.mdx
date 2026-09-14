@@ -4,7 +4,15 @@ component: empty
 description: A composable empty-state component for no-results, no-data, and first-run screens.
 ---
 
-import * as EmptyDocs from '@/components/examples/empty';
+import * as EmptyDocs from '@/components/examples/empty/css-properties';
+import EmptyAdvancedCustomization from '@/components/examples/empty/advanced-customization.tsx';
+import EmptyBasic from '@/components/examples/empty/basic.tsx';
+import EmptyWithoutActions from '@/components/examples/empty/without-actions.tsx';
+import EmptyWithoutIcon from '@/components/examples/empty/without-icon.tsx';
+import emptySolidAdvancedCustomization from '../../../snippets/empty/solid/advanced-customization.tsx?raw';
+import emptySolidBasic from '../../../snippets/empty/solid/basic.tsx?raw';
+import emptySolidWithoutActions from '../../../snippets/empty/solid/without-actions.tsx?raw';
+import emptySolidWithoutIcon from '../../../snippets/empty/solid/without-icon.tsx?raw';
 
 ## API Reference
 
@@ -14,23 +22,79 @@ Ark's guidance for [composition](https://ark-ui.com/react/docs/guides/compositio
 [styling](https://ark-ui.com/react/docs/guides/styling), and
 [refs](https://ark-ui.com/react/docs/guides/ref). Its composition also draws on Chakra UI's
 [Empty State](https://chakra-ui.com/docs/components/empty-state). Unlike Chakra UI, `moduix`
-exposes optional `Empty.Icon` and `Empty.Actions` as root-level parts alongside
-`Empty.Content`, so you can arrange them in the order your screen needs.
+exposes optional `Empty.Icon` and `Empty.Actions` as root-level parts alongside `Empty.Content`,
+so you can arrange them in the order your screen needs.
 
 ## Basic
+
+Empty ships for React and Solid in both the CSS Modules and Tailwind packages. The rendered preview
+on this page uses the React CSS Modules package; the framework tabs show native source for the same
+public contract.
 
 Start with `<Empty />` and add its namespaced parts. Add `Empty.Icon` and `Empty.Actions` only when
 the state benefits from a visual cue or a clear next step.
 
-<PreviewFrame maxWidth="lg">
-  ```tsx preview file="./_snippets/empty/basic.tsx"
+<ExampleFrame variant="component">
+  <EmptyBasic />
+</ExampleFrame>
 
-  ```
-</PreviewFrame>
+<ExampleCode>
+<div className="docs-reference">
+  <Tabs
+    groupId="framework"
+    values={[
+      { label: 'React', value: 'react' },
+      { label: 'Solid', value: 'solid' },
+    ]}
+    className="docs-tabs"
+  >
+    <Tab value="react">
+
+```tsx pure file="../../../src/components/examples/empty/basic.tsx"
+```
+
+    </Tab>
+    <Tab value="solid">
+
+<CodeBlockRuntime lang="tsx" code={emptySolidBasic} />
+
+    </Tab>
+  </Tabs>
+
+**Styles**
+
+```css file="../../../src/components/examples/empty/empty-basic.module.css"
+```
+</div>
+
+</ExampleCode>
 
 ## Install with shadcn
 
-<ShadcnInstall packageName="empty" />
+See [Quick Start](/docs/quick-start) for full package setup, registry configuration, and styling guidance.
+
+<Tabs groupId="framework">
+  <Tab label="React" value="react">
+
+<ShadcnInstallOptions
+  options={[
+    { label: 'CSS Modules', command: 'shadcn@latest add @moduix-react/empty' },
+    { label: 'Tailwind CSS', command: 'shadcn@latest add @moduix-react-tailwind/empty' },
+  ]}
+/>
+
+  </Tab>
+  <Tab label="Solid" value="solid">
+
+<ShadcnInstallOptions
+  options={[
+    { label: 'CSS Modules', command: 'shadcn@latest add @moduix-solid/empty' },
+    { label: 'Tailwind CSS', command: 'shadcn@latest add @moduix-solid-tailwind/empty' },
+  ]}
+/>
+
+  </Tab>
+</Tabs>
 
 ## Anatomy
 
@@ -43,59 +107,25 @@ Empty / Empty.Root
 └─ Empty.Actions (optional)
 ```
 
-| Part                   | Role                                                                                         |
-| ---------------------- | -------------------------------------------------------------------------------------------- |
-| `Empty` / `Empty.Root` | Root container for padding, border, background, and alignment.                               |
-| `Empty.Icon`           | Optional container for an icon or another small visual cue.                                  |
-| `Empty.Content`        | Groups the title and description with tighter spacing.                                       |
-| `Empty.Title`          | Main heading for the empty state.                                                            |
+| Part                   | Role                                                                                          |
+| ---------------------- | --------------------------------------------------------------------------------------------- |
+| `Empty` / `Empty.Root` | Root container for padding, border, background, and alignment.                                |
+| `Empty.Icon`           | Optional container for an icon or another small visual cue.                                   |
+| `Empty.Content`        | Groups the title and description with tighter spacing.                                        |
+| `Empty.Title`          | Main heading for the empty state.                                                             |
 | `Empty.Description`    | Supporting content below the title. It can contain paragraphs, links, or other block content. |
-| `Empty.Actions`        | Optional action row that wraps its children when needed.                                     |
+| `Empty.Actions`        | Optional action row that wraps its children when needed.                                      |
 
 ## Composition
 
-### Recommended composition
+Compose `Empty` from its root-level parts. `Empty.Content` groups the title and description;
+`Empty.Icon` and `Empty.Actions` are optional siblings, so you can omit or reorder them to match
+the screen. `Empty` is presentational and does not own application state or live-region behavior.
 
-Most empty states only need the exported parts:
-
-- `Empty` for the container and centered layout
-- `Empty.Content` for the text block
-- `Empty.Title` for the heading
-- `Empty.Description` for supporting content
-- `Empty.Icon` and `Empty.Actions` when they add value
-
-This keeps the common structure readable while leaving room for richer descriptions, links, and
-custom buttons. Add or remove parts with normal JSX composition.
-
-### When to go custom
-
-Use normal JSX composition when the default structure needs to change:
-
-- omit `Empty.Icon` or `Empty.Actions`
-- add richer block content inside `Empty.Description`
-- use the `asChild` prop on `Empty` or `Empty.Title` when the surrounding section needs a different
-  semantic element or heading level
-- apply `className` and `--moduix-empty-*` variables to the parts that control the visual property
-
-### Default props
-
-| Surface                | Default element | Notes                                                                    |
-| ---------------------- | --------------- | ------------------------------------------------------------------------ |
-| `Empty` / `Empty.Root` | `div`           | Presentational root with no built-in role or state.                      |
-| `Empty.Title`          | `h3`            | Use `asChild` when the document outline needs a different heading level. |
-| `Empty.Description`    | `div`           | Supports paragraphs, links, and other block content.                    |
-
-### Behavioral notes
-
-- Every part forwards its `ref` to the rendered DOM element and accepts Ark factory `asChild`.
-  Pass exactly one semantic child that can receive the part's props and ref.
-- Every part emits `data-scope="empty"` and its matching `data-part` attribute for Ark-style
-  styling, along with a stable `data-slot="empty-*"` hook for moduix overrides.
-- `Empty.Actions` centers its children and lets them wrap when needed, keeping paired actions and
-  long button or link labels readable in narrow layouts.
-- `Empty` only handles presentation. It does not add a landmark, role, `aria-live` behavior, or
-  focus management. Add the semantics your surrounding screen needs. Mark decorative icons with
-  `aria-hidden` and give meaningful icons an accessible name.
+Use `asChild` on `Empty` or `Empty.Title` when the surrounding section needs a semantic container or
+a different heading level. Pass exactly one child to an `asChild` part so it can receive that part's
+props and ref, then add any required landmark, role, focus management, or `aria-live` behavior in
+the surrounding interface.
 
 ## Examples
 
@@ -103,23 +133,79 @@ Use normal JSX composition when the default structure needs to change:
 
 Leave out `Empty.Actions` when the state is informational and does not need an immediate action.
 
-<PreviewFrame maxWidth="lg">
-  ```tsx preview file="./_snippets/empty/without-actions.tsx"
+<ExampleFrame variant="component">
+  <EmptyWithoutActions />
+</ExampleFrame>
 
-  ```
+<ExampleCode>
+<div className="docs-reference">
+  <Tabs
+    groupId="framework"
+    values={[
+      { label: 'React', value: 'react' },
+      { label: 'Solid', value: 'solid' },
+    ]}
+    className="docs-tabs"
+  >
+    <Tab value="react">
 
-</PreviewFrame>
+```tsx pure file="../../../src/components/examples/empty/without-actions.tsx"
+```
+
+    </Tab>
+    <Tab value="solid">
+
+<CodeBlockRuntime lang="tsx" code={emptySolidWithoutActions} />
+
+    </Tab>
+  </Tabs>
+
+**Styles**
+
+```css file="../../../src/components/examples/empty/empty-without-actions.module.css"
+```
+</div>
+
+</ExampleCode>
 
 ### Without an icon
 
 The icon is optional, so a text-only empty state can stay compact.
 
-<PreviewFrame maxWidth="lg">
-  ```tsx preview file="./_snippets/empty/without-icon.tsx"
+<ExampleFrame variant="component">
+  <EmptyWithoutIcon />
+</ExampleFrame>
 
-  ```
+<ExampleCode>
+<div className="docs-reference">
+  <Tabs
+    groupId="framework"
+    values={[
+      { label: 'React', value: 'react' },
+      { label: 'Solid', value: 'solid' },
+    ]}
+    className="docs-tabs"
+  >
+    <Tab value="react">
 
-</PreviewFrame>
+```tsx pure file="../../../src/components/examples/empty/without-icon.tsx"
+```
+
+    </Tab>
+    <Tab value="solid">
+
+<CodeBlockRuntime lang="tsx" code={emptySolidWithoutIcon} />
+
+    </Tab>
+  </Tabs>
+
+**Styles**
+
+```css file="../../../src/components/examples/empty/empty-without-icon.module.css"
+```
+</div>
+
+</ExampleCode>
 
 ### Advanced customization
 
@@ -127,12 +213,40 @@ Use the `asChild` prop on `Empty` when the empty state needs to render as a sema
 as `section`. Use it on `Empty.Title` when the heading needs a different level. Because
 `Empty.Description` renders as a `div`, it can contain paragraphs, links, and other block content.
 
-<PreviewFrame maxWidth="lg">
-  ```tsx preview file="./_snippets/empty/advanced-customization.tsx"
+<ExampleFrame variant="component">
+  <EmptyAdvancedCustomization />
+</ExampleFrame>
 
-  ```
+<ExampleCode>
+<div className="docs-reference">
+  <Tabs
+    groupId="framework"
+    values={[
+      { label: 'React', value: 'react' },
+      { label: 'Solid', value: 'solid' },
+    ]}
+    className="docs-tabs"
+  >
+    <Tab value="react">
 
-</PreviewFrame>
+```tsx pure file="../../../src/components/examples/empty/advanced-customization.tsx"
+```
+
+    </Tab>
+    <Tab value="solid">
+
+<CodeBlockRuntime lang="tsx" code={emptySolidAdvancedCustomization} />
+
+    </Tab>
+  </Tabs>
+
+**Styles**
+
+```css file="../../../src/components/examples/empty/empty-advanced-customization.module.css"
+```
+</div>
+
+</ExampleCode>
 
 ## Styling
 

@@ -22,5 +22,5 @@
     "erasableSyntaxOnly": true,
     "noFallthroughCasesInSwitch": true
   },
-  "include": [".storybook", "stories"]
+  "include": [".storybook/**/*.ts", "stories"]
 }

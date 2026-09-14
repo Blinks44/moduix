@@ -9,7 +9,6 @@ import { clsx } from 'clsx';
 import type { ComponentProps, ComponentRef } from 'react';
 import { forwardRef } from 'react';
 import { CheckIcon, CloseIcon, PencilIcon } from '@/lib/moduix/icons/ui';
-import { normalizeClassName } from '@/lib/moduix/normalizeClassName';
 import styles from './Editable.module.css';
 
 const EditableRoot = forwardRef<
@@ -21,7 +20,7 @@ const EditableRoot = forwardRef<
       ref={ref}
       data-slot="editable-root"
       activationMode={activationMode}
-      className={clsx(styles.root, normalizeClassName(className))}
+      className={clsx(styles.root, className)}
       {...props}
     />
   );
@@ -35,7 +34,7 @@ const EditableRootProvider = forwardRef<
     <EditablePrimitive.RootProvider
       ref={ref}
       data-slot="editable-root-provider"
-      className={clsx(styles.root, normalizeClassName(className))}
+      className={clsx(styles.root, className)}
       {...props}
     />
   );
@@ -49,7 +48,7 @@ const EditableLabel = forwardRef<
     <EditablePrimitive.Label
       ref={ref}
       data-slot="editable-label"
-      className={clsx(styles.label, normalizeClassName(className))}
+      className={clsx(styles.label, className)}
       {...props}
     />
   );
@@ -63,7 +62,7 @@ const EditableArea = forwardRef<
     <EditablePrimitive.Area
       ref={ref}
       data-slot="editable-area"
-      className={clsx(styles.area, normalizeClassName(className))}
+      className={clsx(styles.area, className)}
       {...props}
     />
   );
@@ -77,7 +76,7 @@ const EditableInput = forwardRef<
     <EditablePrimitive.Input
       ref={ref}
       data-slot="editable-input"
-      className={clsx(styles.input, normalizeClassName(className))}
+      className={clsx(styles.input, className)}
       {...props}
     />
   );
@@ -91,7 +90,7 @@ const EditablePreview = forwardRef<
     <EditablePrimitive.Preview
       ref={ref}
       data-slot="editable-preview"
-      className={clsx(styles.preview, normalizeClassName(className))}
+      className={clsx(styles.preview, className)}
       {...props}
     />
   );
@@ -105,7 +104,7 @@ const EditableControl = forwardRef<
     <EditablePrimitive.Control
       ref={ref}
       data-slot="editable-control"
-      className={clsx(styles.control, normalizeClassName(className))}
+      className={clsx(styles.control, className)}
       {...props}
     />
   );
@@ -119,7 +118,7 @@ const EditableEditTrigger = forwardRef<
     <EditablePrimitive.EditTrigger
       ref={ref}
       data-slot="editable-edit-trigger"
-      className={clsx(styles.trigger, normalizeClassName(className))}
+      className={clsx(styles.trigger, className)}
       {...props}
     >
       {children ?? <PencilIcon />}
@@ -135,7 +134,7 @@ const EditableSubmitTrigger = forwardRef<
     <EditablePrimitive.SubmitTrigger
       ref={ref}
       data-slot="editable-submit-trigger"
-      className={clsx(styles.trigger, normalizeClassName(className))}
+      className={clsx(styles.trigger, className)}
       {...props}
     >
       {children ?? <CheckIcon />}
@@ -151,7 +150,7 @@ const EditableCancelTrigger = forwardRef<
     <EditablePrimitive.CancelTrigger
       ref={ref}
       data-slot="editable-cancel-trigger"
-      className={clsx(styles.trigger, normalizeClassName(className))}
+      className={clsx(styles.trigger, className)}
       {...props}
     >
       {children ?? <CloseIcon />}

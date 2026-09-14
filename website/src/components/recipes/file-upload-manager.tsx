@@ -14,6 +14,7 @@ function FileUploadManager() {
         maxFiles={maxFiles}
         maxFileSize={maxFileSize}
       >
+        <FileUpload.HiddenInput />
         <Card className={styles.card}>
           <Card.Header>
             <div>

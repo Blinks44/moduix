@@ -47,10 +47,13 @@ test('renders semantic path navigation with one current page', () => {
     'data-slot',
     'breadcrumbs-root',
   );
-  expect(screen.getByRole('list')).toHaveAttribute('data-part', 'list');
+  expect(screen.getByRole('list')).toHaveAttribute('data-slot', 'breadcrumbs-list');
   expect(screen.getByText('Breadcrumbs')).toHaveAttribute('aria-current', 'page');
   expect(container.querySelectorAll('[aria-current="page"]')).toHaveLength(1);
-  expect(container.querySelector('[data-part="separator"]')).toHaveAttribute('aria-hidden', 'true');
+  expect(container.querySelector('[data-slot="breadcrumbs-separator"]')).toHaveAttribute(
+    'aria-hidden',
+    'true',
+  );
 });
 
 test('keeps non-final path items out of the current-page state without an href', () => {
@@ -63,6 +66,32 @@ test('keeps non-final path items out of the current-page state without an href',
   expect(screen.getByText('Catalog')).not.toHaveAttribute('aria-current');
   expect(screen.getByText('Products')).toHaveAttribute('aria-current', 'page');
   expect(container.querySelectorAll('[aria-current="page"]')).toHaveLength(1);
+});
+
+test('keeps owned accessibility attributes and exposes only data-slot hooks by default', () => {
+  render(
+    <Breadcrumbs>
+      <Breadcrumbs.List>
+        <Breadcrumbs.Item>
+          <Breadcrumbs.Page aria-current={undefined}>Breadcrumbs</Breadcrumbs.Page>
+        </Breadcrumbs.Item>
+        <Breadcrumbs.Separator aria-hidden={false} />
+      </Breadcrumbs.List>
+      <Breadcrumbs.Ellipsis aria-hidden={false} />
+    </Breadcrumbs>,
+  );
+
+  expect(screen.getByRole('navigation')).not.toHaveAttribute('data-scope');
+  expect(screen.getByRole('navigation')).not.toHaveAttribute('data-part');
+  expect(screen.getByText('Breadcrumbs')).toHaveAttribute('aria-current', 'page');
+  expect(document.querySelector('[data-slot="breadcrumbs-separator"]')).toHaveAttribute(
+    'aria-hidden',
+    'true',
+  );
+  expect(document.querySelector('[data-slot="breadcrumbs-ellipsis"]')).toHaveAttribute(
+    'aria-hidden',
+    'true',
+  );
 });
 
 test('forwards a link ref and preserves the semantic child with asChild', () => {

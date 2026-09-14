@@ -10,7 +10,6 @@ import {
   type ComponentProps,
   type ComponentRef,
 } from 'react';
-import { normalizeClassName } from '@/lib/moduix/normalizeClassName';
 import { Button } from '../button';
 import { Input } from '../input';
 import styles from './InputGroup.module.css';
@@ -34,7 +33,7 @@ const InputGroupRoot = forwardRef<
         data-part="root"
         data-slot="input-group-root"
         data-size={size}
-        className={clsx(styles.root, normalizeClassName(className))}
+        className={clsx(styles.root, className)}
       >
         {children}
       </ark.div>
@@ -49,7 +48,7 @@ const InputGroupInput = forwardRef<ComponentRef<typeof Input>, ComponentProps<ty
     return (
       <Input
         ref={ref}
-        className={clsx(styles.input, normalizeClassName(className))}
+        className={clsx(styles.input, className)}
         size={size ?? groupSize}
         {...props}
       />
@@ -68,7 +67,7 @@ const InputGroupAddon = forwardRef<HTMLSpanElement, HTMLArkProps<'span'>>(functi
       data-scope="input-group"
       data-part="addon"
       data-slot="input-group-addon"
-      className={clsx(styles.addon, normalizeClassName(className))}
+      className={clsx(styles.addon, className)}
     />
   );
 });
@@ -84,7 +83,7 @@ const InputGroupText = forwardRef<HTMLSpanElement, HTMLArkProps<'span'>>(functio
       data-scope="input-group"
       data-part="text"
       data-slot="input-group-text"
-      className={clsx(styles.text, normalizeClassName(className))}
+      className={clsx(styles.text, className)}
     />
   );
 });
@@ -101,7 +100,7 @@ const InputGroupButton = forwardRef<HTMLButtonElement, ComponentProps<typeof But
         ref={ref}
         {...props}
         data-slot="input-group-button"
-        className={clsx(styles.button, normalizeClassName(className))}
+        className={clsx(styles.button, className)}
         variant={variant}
         size={size ?? groupSize}
         type={type}

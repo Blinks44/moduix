@@ -4,7 +4,20 @@ component: breadcrumbs
 description: Navigation sémantique en fil d’Ariane, avec une composition explicite et une API compacte pour les chemins courts.
 ---
 
-import * as BreadcrumbsDocs from '@/components/examples/breadcrumbs';
+import * as BreadcrumbsDocs from '@/components/examples/breadcrumbs/css-properties';
+import BreadcrumbsAdvancedCustomization from '@/components/examples/breadcrumbs/advanced-customization.tsx';
+import BreadcrumbsBasic from '@/components/examples/breadcrumbs/basic.tsx';
+import BreadcrumbsCollapsedPath from '@/components/examples/breadcrumbs/collapsed-path.tsx';
+import BreadcrumbsCustomSeparator from '@/components/examples/breadcrumbs/custom-separator.tsx';
+import BreadcrumbsFrameworkLink from '@/components/examples/breadcrumbs/framework-link.tsx';
+import BreadcrumbsLongCurrentLabel from '@/components/examples/breadcrumbs/long-current-label.tsx';
+
+import breadcrumbsSolidAdvancedCustomization from '../../../snippets/breadcrumbs/solid/advanced-customization.tsx?raw';
+import breadcrumbsSolidBasic from '../../../snippets/breadcrumbs/solid/basic.tsx?raw';
+import breadcrumbsSolidCollapsedPath from '../../../snippets/breadcrumbs/solid/collapsed-path.tsx?raw';
+import breadcrumbsSolidCustomSeparator from '../../../snippets/breadcrumbs/solid/custom-separator.tsx?raw';
+import breadcrumbsSolidFrameworkLink from '../../../snippets/breadcrumbs/solid/framework-link.tsx?raw';
+import breadcrumbsSolidLongCurrentLabel from '../../../snippets/breadcrumbs/solid/long-current-label.tsx?raw';
 
 ## Référence de l’API
 
@@ -13,21 +26,71 @@ Ark UI ne fournit pas de primitive dédiée au fil d’Ariane. moduix s’appuie
 en matière de [composition](https://ark-ui.com/docs/guides/composition), de [styles](https://ark-ui.com/docs/guides/styling)
 et de gestion des [ref](https://ark-ui.com/docs/guides/ref).
 
+
+Les mêmes exports sont disponibles depuis `@moduix/solid/breadcrumbs` pour Solid.
 ## Exemple de base
 
 Utilisez `Breadcrumbs.Path` lorsque vous disposez déjà des segments du chemin à afficher. Le composant génère la liste
 ordonnée, les éléments, les liens, la page actuelle et les séparateurs à partir d’un simple tableau `items`.
 
-<PreviewFrame maxWidth="lg">
-  ```tsx preview file="../../en/docs/_snippets/breadcrumbs/basic.tsx"
 
+Ce composant est disponible pour React et Solid, avec des variantes CSS Modules et Tailwind. L’aperçu utilise React avec CSS Modules ; les onglets affichent le code natif correspondant à chaque framework.
+<ExampleFrame variant="component">
+  <BreadcrumbsBasic />
+</ExampleFrame>
+
+<ExampleCode>
+<div className="docs-reference">
+  <Tabs
+    groupId="framework"
+    values={[
+      { label: 'React', value: 'react' },
+      { label: 'Solid', value: 'solid' },
+    ]}
+    className="docs-tabs"
+  >
+    <Tab value="react">
+
+```tsx pure file="../../../src/components/examples/breadcrumbs/basic.tsx"
 ```
 
-</PreviewFrame>
+    </Tab>
+    <Tab value="solid">
+
+<CodeBlockRuntime lang="tsx" code={breadcrumbsSolidBasic} />
+
+    </Tab>
+  </Tabs>
+</div>
+
+</ExampleCode>
 
 ## Installation avec shadcn
 
-<ShadcnInstall packageName="breadcrumbs" />
+Consultez le [Démarrage rapide](/docs/quick-start) pour la configuration complète du paquet, du registre et des styles.
+
+<Tabs groupId="framework">
+  <Tab label="React" value="react">
+
+<ShadcnInstallOptions
+  options={[
+    { label: 'CSS Modules', command: 'shadcn@latest add @moduix-react/breadcrumbs' },
+    { label: 'Tailwind CSS', command: 'shadcn@latest add @moduix-react-tailwind/breadcrumbs' },
+  ]}
+/>
+
+  </Tab>
+  <Tab label="Solid" value="solid">
+
+<ShadcnInstallOptions
+  options={[
+    { label: 'CSS Modules', command: 'shadcn@latest add @moduix-solid/breadcrumbs' },
+    { label: 'Tailwind CSS', command: 'shadcn@latest add @moduix-solid-tailwind/breadcrumbs' },
+  ]}
+/>
+
+  </Tab>
+</Tabs>
 
 ## Anatomie
 
@@ -58,47 +121,11 @@ Breadcrumbs / Breadcrumbs.Root
 
 ## Composition
 
-### Composition recommandée
+`Breadcrumbs` ne gère aucun état interactif ni état de formulaire : il n’a donc ni propriétés contrôlées, ni callbacks, ni hooks de contexte, ni `RootProvider`. L’état d’un chemin condensé appartient au `Menu` composé, tandis que la navigation du routeur reste gérée par le composant de lien de l’application.
 
-Utilisez `Breadcrumbs.Path` pour les fils d’Ariane simples dont les pages parentes sont des liens. Le dernier élément devient
-la page actuelle, un chevron sépare les éléments par défaut et `separator` le remplace dans chaque intervalle visible.
-Le raccourci génère lui-même ses enfants et n’accepte donc ni `children` ni `asChild`. Les propriétés natives de la liste
-ordonnée et la ref sont transmises au `Breadcrumbs.List` généré.
+Utilisez `Breadcrumbs.Path` pour un chemin fondé sur des ancres. Il génère les éléments de liste, marque le dernier élément comme page courante et n’accepte ni `children` ni `asChild`. Utilisez les parties explicites lorsqu’un chemin doit intégrer des liens du routeur, masquer des segments intermédiaires ou produire un balisage différent. Pour un lien de routeur, passez un seul enfant sémantique à `Breadcrumbs.Link asChild` afin de conserver le `href`, le focus et le comportement clavier attendus.
 
-### Quand créer une composition personnalisée
-
-Utilisez les parties explicites lorsque vous avez besoin de liens gérés par le routeur de votre framework, de segments
-intermédiaires masqués ou d’un balisage différent pour certains éléments. `asChild` d’Ark permet de remplacer
-`Breadcrumbs.Link` par ce lien. L’enfant doit être un seul lien sémantique qui conserve son `href`, sa gestion du focus
-et son comportement clavier.
-
-Associez les parties de Breadcrumbs à `Menu` lorsque les segments intermédiaires doivent être masqués derrière un déclencheur
-affichant des points de suspension. Conservez la structure de `Menu` explicite : `Menu.Positioner`, `Menu.Content` et
-`Menu.Item asChild`. Le composant `Menu` gère le rendu du contenu dans un portail.
-
-### Propriétés par défaut
-
-| Composant                          | Valeur par défaut | Remarques                                                    |
-| ----------------------------------- | ----------------- | ------------------------------------------------------------ |
-| `Breadcrumbs` / `Breadcrumbs.Root` | Aucun             | Aucun comportement supplémentaire par défaut ; les valeurs d’Ark s’appliquent. |
-| `Breadcrumbs.Path`                 | chevron           | Utilise des chevrons entre les éléments si `separator` n’est pas défini. |
-
-### Comportement
-
-- `Breadcrumbs` rend une zone de navigation `nav` dont l’`aria-label` vaut `"Breadcrumb"` par défaut.
-- `Breadcrumbs.Path` génère une liste ordonnée à partir de `items` ; le dernier élément est toujours la page actuelle.
-- Tous les éléments sauf le dernier sont rendus comme des `Breadcrumbs.Link` ; fournissez un `href` aux éléments qui
-  doivent être navigables et laissez le dernier sans `href`.
-- `Breadcrumbs.Path` transmet les propriétés natives de la liste ordonnée et la ref, mais ses enfants sont générés et fixes.
-  Il ne prend donc pas en charge `children` ni `asChild`.
-- `Breadcrumbs.Separator` est purement visuel et masqué pour les technologies d’assistance.
-- `Breadcrumbs.Ellipsis` est purement visuel et masqué pour les technologies d’assistance ; placez-le dans un déclencheur
-  `Menu` et ajoutez le libellé accessible du chemin condensé sur `Menu.Trigger`.
-- Les éléments visibles peuvent rétrécir lorsque l’espace manque. La page actuelle reste la première cible de la troncature
-  grâce à `--moduix-breadcrumbs-item-max-width`.
-- Breadcrumbs ne possède aucune propriété contrôlée, aucun callback, hook de contexte, `RootProvider`, id, `HiddenInput`
-  ou intégration avec l’état d’un formulaire, car il ne gère ni état interactif ni état de formulaire.
-
+Pour un chemin condensé, placez `Breadcrumbs.Ellipsis` dans `Menu.Trigger`, puis laissez explicites les parties `Positioner`, `Content` et `Item asChild` du menu. `Breadcrumbs.Ellipsis` est purement visuel ; le trigger porte le libellé accessible et l’interaction.
 ## Exemples
 
 ### Fil d’Ariane condensé
@@ -107,81 +134,119 @@ Utilisez les parties explicites de Breadcrumbs avec `Menu` lorsque des segments 
 révélés à la demande. Le déclencheur et le contenu du menu gèrent l’interaction ; cet exemple utilise donc les parties
 explicites plutôt que `Breadcrumbs.Path`.
 
-<style>{`
-      .collapsed-menu-trigger {
-        min-width: auto;
-        min-height: auto;
-        padding: 0;
-        border: none;
-        background: transparent;
-        color: inherit;
-        cursor: pointer;
-        border-radius: var(--moduix-radius-sm);
-        transition: var(--moduix-transition-default);
-      }
+<ExampleFrame variant="component">
+  <BreadcrumbsCollapsedPath />
+</ExampleFrame>
 
-      @media (hover: hover) {
-        .collapsed-menu-trigger:hover {
-          color: var(--moduix-color-foreground);
-          background: color-mix(in srgb, var(--moduix-color-muted) 70%, transparent);
-        }
-      }
+<ExampleCode>
+<div className="docs-reference">
+  <Tabs
+    groupId="framework"
+    values={[
+      { label: 'React', value: 'react' },
+      { label: 'Solid', value: 'solid' },
+    ]}
+    className="docs-tabs"
+  >
+    <Tab value="react">
 
-      .collapsed-menu-trigger:focus-visible {
-        outline: none;
-        box-shadow: 0 0 0 var(--moduix-border-width-sm) var(--moduix-color-ring);
-      }
-
-      .collapsed-menu-content {
-        --moduix-menu-popup-min-width: 8rem;
-        --moduix-menu-item-font-size: var(--moduix-text-xs);
-        --moduix-menu-item-padding-x-start: 0.5rem;
-        --moduix-menu-item-padding-x-end: 0.5rem;
-        --moduix-menu-item-padding-y: 0.25rem;
-      }
-    `}</style>
-
-<PreviewFrame maxWidth="lg">
-  ```tsx preview file="../../en/docs/_snippets/breadcrumbs/collapsed-path.tsx"
-
+```tsx pure file="../../../src/components/examples/breadcrumbs/collapsed-path.tsx"
 ```
 
-</PreviewFrame>
+    </Tab>
+    <Tab value="solid">
+
+<CodeBlockRuntime lang="tsx" code={breadcrumbsSolidCollapsedPath} />
+
+    </Tab>
+  </Tabs>
+
+**Styles**
+
+```css file="../../../src/components/examples/breadcrumbs/breadcrumbs-collapsed-path.module.css"
+```
+</div>
+
+</ExampleCode>
 
 ### Séparateur personnalisé
 
 Avec `Breadcrumbs.Path`, remplacez le chevron par défaut par une icône ou un symbole lorsque le même séparateur doit apparaître
 dans tous les intervalles visibles.
 
-<style>{`
-      .separator-icon {
-        color: currentColor;
-      }
-    `}</style>
+<ExampleFrame variant="component">
+  <BreadcrumbsCustomSeparator />
+</ExampleFrame>
 
-<PreviewFrame maxWidth="lg">
-  ```tsx preview file="../../en/docs/_snippets/breadcrumbs/custom-separator.tsx"
+<ExampleCode>
+<div className="docs-reference">
+  <Tabs
+    groupId="framework"
+    values={[
+      { label: 'React', value: 'react' },
+      { label: 'Solid', value: 'solid' },
+    ]}
+    className="docs-tabs"
+  >
+    <Tab value="react">
 
+```tsx pure file="../../../src/components/examples/breadcrumbs/custom-separator.tsx"
 ```
 
-</PreviewFrame>
+    </Tab>
+    <Tab value="solid">
+
+<CodeBlockRuntime lang="tsx" code={breadcrumbsSolidCustomSeparator} />
+
+    </Tab>
+  </Tabs>
+
+**Styles**
+
+```css file="../../../src/components/examples/breadcrumbs/breadcrumbs-custom-separator.module.css"
+```
+</div>
+
+</ExampleCode>
 
 ### Lien du routeur
 
 Utilisez `asChild` d’Ark pour intégrer un lien fourni par le routeur du framework utilisé par l’application.
 
-<style>{`
-      [data-framework-link] {
-        text-decoration: none;
-      }
-    `}</style>
+<ExampleFrame variant="component">
+  <BreadcrumbsFrameworkLink />
+</ExampleFrame>
 
-<PreviewFrame maxWidth="lg">
-  ```tsx preview file="../../en/docs/_snippets/breadcrumbs/framework-link.tsx"
+<ExampleCode>
+<div className="docs-reference">
+  <Tabs
+    groupId="framework"
+    values={[
+      { label: 'React', value: 'react' },
+      { label: 'Solid', value: 'solid' },
+    ]}
+    className="docs-tabs"
+  >
+    <Tab value="react">
 
+```tsx pure file="../../../src/components/examples/breadcrumbs/framework-link.tsx"
 ```
 
-</PreviewFrame>
+    </Tab>
+    <Tab value="solid">
+
+<CodeBlockRuntime lang="tsx" code={breadcrumbsSolidFrameworkLink} />
+
+    </Tab>
+  </Tabs>
+
+**Styles**
+
+```css file="../../../src/components/examples/breadcrumbs/breadcrumbs-framework-link.module.css"
+```
+</div>
+
+</ExampleCode>
 
 ### Libellé long de la page actuelle
 
@@ -189,49 +254,84 @@ Passez un nœud React comme dernier libellé de `Breadcrumbs.Path` lorsque la pa
 supplémentaires, par exemple `title`. Les éléments parents peuvent eux aussi rétrécir ; les longs libellés intermédiaires
 risquent donc moins de faire déborder le fil d’Ariane.
 
-<style>{`
-      .breadcrumbs-long-label {
-        --moduix-breadcrumbs-item-max-width: 12rem;
-      }
-    `}</style>
+<ExampleFrame variant="component">
+  <BreadcrumbsLongCurrentLabel />
+</ExampleFrame>
 
-<PreviewFrame maxWidth="lg">
-  ```tsx preview file="../../en/docs/_snippets/breadcrumbs/long-current-label.tsx"
+<ExampleCode>
+<div className="docs-reference">
+  <Tabs
+    groupId="framework"
+    values={[
+      { label: 'React', value: 'react' },
+      { label: 'Solid', value: 'solid' },
+    ]}
+    className="docs-tabs"
+  >
+    <Tab value="react">
 
+```tsx pure file="../../../src/components/examples/breadcrumbs/long-current-label.tsx"
 ```
 
-</PreviewFrame>
+    </Tab>
+    <Tab value="solid">
+
+<CodeBlockRuntime lang="tsx" code={breadcrumbsSolidLongCurrentLabel} />
+
+    </Tab>
+  </Tabs>
+
+**Styles**
+
+```css file="../../../src/components/examples/breadcrumbs/breadcrumbs-long-current-label.module.css"
+```
+</div>
+
+</ExampleCode>
 
 ### Personnalisation avancée
 
 Utilisez les parties explicites plutôt que `Breadcrumbs.Path` lorsqu’un même fil combine des liens fournis par le routeur du
 framework, un séparateur personnalisé et un libellé de page actuelle enrichi par du balisage.
 
-<style>{`
-      [data-framework-link] {
-        text-decoration: none;
-      }
+<ExampleFrame variant="component">
+  <BreadcrumbsAdvancedCustomization />
+</ExampleFrame>
 
-      .separator-icon {
-        color: currentColor;
-      }
+<ExampleCode>
+<div className="docs-reference">
+  <Tabs
+    groupId="framework"
+    values={[
+      { label: 'React', value: 'react' },
+      { label: 'Solid', value: 'solid' },
+    ]}
+    className="docs-tabs"
+  >
+    <Tab value="react">
 
-      .breadcrumbs-long-label {
-        --moduix-breadcrumbs-item-max-width: 12rem;
-      }
-    `}</style>
-
-<PreviewFrame maxWidth="lg">
-  ```tsx preview file="../../en/docs/_snippets/breadcrumbs/advanced-customization.tsx"
-
+```tsx pure file="../../../src/components/examples/breadcrumbs/advanced-customization.tsx"
 ```
 
-</PreviewFrame>
+    </Tab>
+    <Tab value="solid">
+
+<CodeBlockRuntime lang="tsx" code={breadcrumbsSolidAdvancedCustomization} />
+
+    </Tab>
+  </Tabs>
+
+**Styles**
+
+```css file="../../../src/components/examples/breadcrumbs/breadcrumbs-advanced-customization.module.css"
+```
+</div>
+
+</ExampleCode>
 
 ## Styles
 
-Chaque partie exportée expose les attributs `data-scope="breadcrumbs"` et `data-part` du modèle Ark, ainsi que les sélecteurs
-`data-slot` stables de moduix. Les variables publiques `--moduix-breadcrumbs-*` contrôlent la mise en page, la typographie,
+Chaque partie exportée expose un sélecteur `data-slot` stable de moduix. Les variables publiques `--moduix-breadcrumbs-*` contrôlent la mise en page, la typographie,
 l’anneau de focus, les séparateurs et la taille des points de suspension.
 
 ### Propriétés CSS
@@ -240,9 +340,6 @@ l’anneau de focus, les séparateurs et la taille des points de suspension.
 
 ### Sélecteurs de style
 
-- L’attribut `data-scope="breadcrumbs"` est présent sur chaque partie exportée.
-- Les valeurs `data-part="root"`, `list`, `item`, `link`, `page`, `separator` et `ellipsis` suivent le contrat Ark factory
-  utilisé par ce composant.
 - Les valeurs `data-slot="breadcrumbs-root"`, `breadcrumbs-list`, `breadcrumbs-item`, `breadcrumbs-link`, `breadcrumbs-page`,
   `breadcrumbs-separator` et `breadcrumbs-ellipsis` constituent des sélecteurs moduix stables.
 - `Breadcrumbs.Link`, `Breadcrumbs.Page` et `Breadcrumbs.Ellipsis` partagent l’espacement intérieur horizontal défini par

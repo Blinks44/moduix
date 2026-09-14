@@ -1,6 +1,6 @@
 ---
 title: React Router
-description: "Подключите moduix к React Router в режиме Framework, загрузите базовые стили и используйте компонент в модуле маршрута."
+description: "Подключение moduix к React Router в режиме Framework через пакеты или shadcn, включая стили, алиасы, маршруты, SSR и гидратацию."
 ---
 
 # React Router
@@ -9,7 +9,21 @@ description: "Подключите moduix к React Router в режиме Framew
 moduix по шагам ниже. Для режимов Data и Declarative используйте [настройку Vite](/docs/installation/vite): импорты
 moduix останутся теми же.
 
-## Установите пакет
+## Выберите вариант настройки
+
+- **Среда:** React в режиме Framework. Для режимов Data и Declarative используйте руководство по Vite.
+- **Стилизация:** CSS Modules или Tailwind CSS v4.
+- **Поставка:** пакет или исходный код, добавленный через shadcn CLI.
+
+Сначала выполните общую [настройку пакета](/docs/quick-start#установить-как-пакет) или
+[настройку shadcn](/docs/quick-start#установить-через-shadcn-cli) для выбранного варианта стилей. Ниже
+показаны импорты пакета на CSS Modules; файлы React Router, алиасы, SSR и проверка гидратации остаются
+такими же для Tailwind-пакета или реестра React.
+
+Все показанные ниже команды установки пакетов и импорты таблиц стилей относятся к CSS Modules. С Tailwind сохраняйте глобальную
+таблицу стилей, настроенную в Быстром старте.
+
+## Установка из пакета
 
 <PackageManagerTabs command="install @moduix/react @ark-ui/react" />
 
@@ -40,7 +54,7 @@ export default function Home() {
 
 Индексный маршрут открывается по адресу `/`, поэтому после запуска сервера разработки перейдите на этот адрес.
 
-## Установить через shadcn CLI
+## Установка через shadcn CLI
 
 Выберите этот способ, если хотите хранить исходный код компонентов и стили в своём репозитории. Сначала завершите
 [настройку shadcn CLI](/docs/quick-start#установить-через-shadcn-cli). В стандартном шаблоне React Router код
@@ -58,6 +72,10 @@ export default function Home() {
 ```
 
 Режим Framework использует Vite. Добавьте такой же алиас в конфигурацию сборщика по [инструкции для Vite](/docs/installation/vite#установка-через-shadcn-cli), заменив `./src` на `./app`. Сохраните плагин React Router и остальные настройки Vite, которые уже есть в проекте.
+
+Добавьте Button из пространства имён для выбранного варианта стилизации:
+
+<ShadcnInstallOptions options={[{ label: 'CSS Modules', command: 'shadcn@latest add @moduix-react/button' }, { label: 'Tailwind CSS', command: 'shadcn@latest add @moduix-react-tailwind/button' }]} />
 
 После генерации файлов замените импорт таблицы стилей пакета в `app/root.tsx` на импорт сгенерированного файла:
 

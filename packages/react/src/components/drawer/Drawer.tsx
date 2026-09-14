@@ -9,8 +9,7 @@ import {
 import { ark, type HTMLArkProps } from '@ark-ui/react/factory';
 import { clsx } from 'clsx';
 import type { ComponentProps, ComponentRef } from 'react';
-import { forwardRef } from 'react';
-import { normalizeClassName } from '@/lib/moduix/normalizeClassName';
+import { createContext, forwardRef, useContext } from 'react';
 import {
   OverlayPortal,
   OverlayPortalProvider,
@@ -20,8 +19,11 @@ import { CloseButton } from '../close-button';
 import styles from './Drawer.module.css';
 
 const DEFAULT_CLOSE_BUTTON_LABEL = 'Close drawer';
+type DrawerVariant = 'island';
+const DrawerVariantContext = createContext<DrawerVariant | undefined>(undefined);
 
-type DrawerRootProps = ComponentProps<typeof DrawerPrimitive.Root> & OverlayPortalProps;
+type DrawerRootProps = ComponentProps<typeof DrawerPrimitive.Root> &
+  OverlayPortalProps & { variant?: DrawerVariant };
 type DrawerRootProviderProps = ComponentProps<typeof DrawerPrimitive.RootProvider> &
   OverlayPortalProps;
 type DrawerContentProps = ComponentProps<typeof DrawerPrimitive.Content> & {
@@ -33,11 +35,26 @@ function DrawerRoot({
   portalled,
   portalRef,
   unmountOnExit = true,
+  variant,
+  swipeDirection,
+  snapPoints,
+  defaultSnapPoint,
   ...props
 }: DrawerRootProps) {
   return (
     <OverlayPortalProvider portalled={portalled} portalRef={portalRef}>
-      <DrawerPrimitive.Root lazyMount={lazyMount} unmountOnExit={unmountOnExit} {...props} />
+      <DrawerVariantContext.Provider value={variant}>
+        <DrawerPrimitive.Root
+          {...props}
+          lazyMount={lazyMount}
+          unmountOnExit={unmountOnExit}
+          swipeDirection={swipeDirection}
+          snapPoints={snapPoints ?? (variant === 'island' ? [1] : undefined)}
+          defaultSnapPoint={
+            defaultSnapPoint !== undefined ? defaultSnapPoint : variant === 'island' ? 1 : undefined
+          }
+        />
+      </DrawerVariantContext.Provider>
     </OverlayPortalProvider>
   );
 }
@@ -71,7 +88,7 @@ const DrawerTrigger = forwardRef<
       ref={ref}
       asChild={asChild}
       data-slot="drawer-trigger"
-      className={clsx(!asChild && styles.trigger, normalizeClassName(className))}
+      className={clsx(!asChild && styles.trigger, className)}
       {...props}
     />
   );
@@ -86,7 +103,7 @@ const DrawerBackdrop = forwardRef<
       <DrawerPrimitive.Backdrop
         ref={ref}
         data-slot="drawer-backdrop"
-        className={clsx(styles.backdrop, normalizeClassName(className))}
+        className={clsx(styles.backdrop, className)}
         {...props}
       />
     </OverlayPortal>
@@ -102,7 +119,7 @@ const DrawerPositioner = forwardRef<
       <DrawerPrimitive.Positioner
         ref={ref}
         data-slot="drawer-positioner"
-        className={clsx(styles.positioner, normalizeClassName(className))}
+        className={clsx(styles.positioner, className)}
         {...props}
       />
     </OverlayPortal>
@@ -111,12 +128,14 @@ const DrawerPositioner = forwardRef<
 
 const DrawerContent = forwardRef<ComponentRef<typeof DrawerPrimitive.Content>, DrawerContentProps>(
   function DrawerContent({ className, variant, ...props }, ref) {
+    const rootVariant = useContext(DrawerVariantContext);
+
     return (
       <DrawerPrimitive.Content
         ref={ref}
         data-slot="drawer-content"
-        data-variant={variant}
-        className={clsx(styles.content, normalizeClassName(className))}
+        data-variant={variant ?? rootVariant}
+        className={clsx(styles.content, className)}
         {...props}
       />
     );
@@ -131,7 +150,7 @@ const DrawerGrabber = forwardRef<
     <DrawerPrimitive.Grabber
       ref={ref}
       data-slot="drawer-grabber"
-      className={clsx(styles.grabber, normalizeClassName(className))}
+      className={clsx(styles.grabber, className)}
       {...props}
     />
   );
@@ -145,7 +164,7 @@ const DrawerGrabberIndicator = forwardRef<
     <DrawerPrimitive.GrabberIndicator
       ref={ref}
       data-slot="drawer-grabber-indicator"
-      className={clsx(styles.grabberIndicator, normalizeClassName(className))}
+      className={clsx(styles.grabberIndicator, className)}
       {...props}
     />
   );
@@ -159,7 +178,7 @@ const DrawerTitle = forwardRef<
     <DrawerPrimitive.Title
       ref={ref}
       data-slot="drawer-title"
-      className={clsx(styles.title, normalizeClassName(className))}
+      className={clsx(styles.title, className)}
       {...props}
     />
   );
@@ -173,7 +192,7 @@ const DrawerDescription = forwardRef<
     <DrawerPrimitive.Description
       ref={ref}
       data-slot="drawer-description"
-      className={clsx(styles.description, normalizeClassName(className))}
+      className={clsx(styles.description, className)}
       {...props}
     />
   );
@@ -188,7 +207,7 @@ const DrawerCloseTrigger = forwardRef<
       ref={ref}
       asChild={asChild}
       data-slot="drawer-close-trigger"
-      className={clsx(!asChild && styles.closeTrigger, normalizeClassName(className))}
+      className={clsx(!asChild && styles.closeTrigger, className)}
       {...props}
     />
   );
@@ -207,7 +226,7 @@ const DrawerCloseIcon = forwardRef<
         ref={ref}
         data-slot="drawer-close-icon"
         aria-label={ariaLabel}
-        className={clsx(styles.closeIcon, normalizeClassName(className))}
+        className={clsx(styles.closeIcon, className)}
       >
         {children}
       </CloseButton.Root>
@@ -223,7 +242,7 @@ const DrawerSwipeArea = forwardRef<
     <DrawerPrimitive.SwipeArea
       ref={ref}
       data-slot="drawer-swipe-area"
-      className={clsx(styles.swipeArea, normalizeClassName(className))}
+      className={clsx(styles.swipeArea, className)}
       {...props}
     />
   );
@@ -237,7 +256,7 @@ const DrawerIndent = forwardRef<
     <DrawerPrimitive.Indent
       ref={ref}
       data-slot="drawer-indent"
-      className={clsx(styles.indent, normalizeClassName(className))}
+      className={clsx(styles.indent, className)}
       {...props}
     />
   );
@@ -251,7 +270,7 @@ const DrawerIndentBackground = forwardRef<
     <DrawerPrimitive.IndentBackground
       ref={ref}
       data-slot="drawer-indent-background"
-      className={clsx(styles.indentBackground, normalizeClassName(className))}
+      className={clsx(styles.indentBackground, className)}
       {...props}
     />
   );
@@ -263,7 +282,7 @@ const DrawerHeader = forwardRef<ComponentRef<typeof ark.div>, HTMLArkProps<'div'
       <ark.div
         ref={ref}
         data-slot="drawer-header"
-        className={clsx(styles.header, normalizeClassName(className))}
+        className={clsx(styles.header, className)}
         {...props}
       />
     );
@@ -276,7 +295,7 @@ const DrawerBody = forwardRef<ComponentRef<typeof ark.div>, HTMLArkProps<'div'>>
       <ark.div
         ref={ref}
         data-slot="drawer-body"
-        className={clsx(styles.body, normalizeClassName(className))}
+        className={clsx(styles.body, className)}
         {...props}
       />
     );
@@ -289,7 +308,7 @@ const DrawerFooter = forwardRef<ComponentRef<typeof ark.div>, HTMLArkProps<'div'
       <ark.div
         ref={ref}
         data-slot="drawer-footer"
-        className={clsx(styles.footer, normalizeClassName(className))}
+        className={clsx(styles.footer, className)}
         {...props}
       />
     );

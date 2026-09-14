@@ -1,16 +1,31 @@
 ---
 title: Timer
 component: timer
-description: Un composant pour suivre le temps écoulé ou restant, avec des contrôles explicites.
+description: Un composant pour suivre le temps écoulé ou restant, avec des contrôles explicites en React ou Solid.
 ---
 
-import * as TimerDocs from '@/components/examples/timer';
+import * as TimerDocs from '@/components/examples/timer/css-properties';
+import TimerBasic from '@/components/examples/timer/basic.tsx';
+import TimerCountdown from '@/components/examples/timer/countdown.tsx';
+import TimerEvents from '@/components/examples/timer/events.tsx';
+import TimerInterval from '@/components/examples/timer/interval.tsx';
+import TimerPomodoro from '@/components/examples/timer/pomodoro.tsx';
+import TimerRootProvider from '@/components/examples/timer/root-provider.tsx';
+import timerSolidBasic from '../../../snippets/timer/solid/basic.tsx?raw';
+import timerSolidCountdown from '../../../snippets/timer/solid/countdown.tsx?raw';
+import timerSolidEvents from '../../../snippets/timer/solid/events.tsx?raw';
+import timerSolidInterval from '../../../snippets/timer/solid/interval.tsx?raw';
+import timerSolidPomodoro from '../../../snippets/timer/solid/pomodoro.tsx?raw';
+import timerSolidRootProvider from '../../../snippets/timer/solid/root-provider.tsx?raw';
 
 ## Référence de l’API
 
 <PrimitiveReference href="https://ark-ui.com/docs/components/timer" />
 
 ## Exemple de base
+
+Timer est disponible pour React et Solid dans les paquets CSS Modules et Tailwind. L’aperçu de cette page utilise le
+paquet React CSS Modules ; les onglets de framework présentent le code source natif avec le même contrat public.
 
 `Timer.Segments` est la façon la plus simple d’afficher le temps au format courant, avec des deux-points comme
 séparateurs. Par défaut, il affiche les heures, les minutes et les secondes. Passez `types` pour choisir un autre
@@ -21,17 +36,62 @@ séparateurs personnalisés ou d’une mise en forme différente pour chaque val
 la zone. Comme il crée lui-même les éléments et les séparateurs, utilisez `Timer.Area` si vous devez remplacer
 l’élément hôte ou fournir vos propres enfants.
 
-<style>{TimerDocs.timerExampleCss}</style>
+<ExampleFrame variant="component">
+  <TimerBasic />
+</ExampleFrame>
 
-<PreviewFrame contentWidth="fit-content" maxWidth="sm">
-```tsx preview file="../../en/docs/_snippets/timer/basic.tsx"
+<ExampleCode>
+<div className="docs-reference">
+  <Tabs
+    groupId="framework"
+    values={[
+      { label: 'React', value: 'react' },
+      { label: 'Solid', value: 'solid' },
+    ]}
+    className="docs-tabs"
+  >
+    <Tab value="react">
 
+```tsx pure file="../../../src/components/examples/timer/basic.tsx"
 ```
-</PreviewFrame>
+
+    </Tab>
+    <Tab value="solid">
+
+<CodeBlockRuntime lang="tsx" code={timerSolidBasic} />
+
+    </Tab>
+  </Tabs>
+</div>
+
+</ExampleCode>
 
 ## Installation avec shadcn
 
-<ShadcnInstall packageName="timer" />
+Consultez le [Démarrage rapide](/docs/quick-start) pour la configuration complète du paquet, du registre et des styles.
+
+<Tabs groupId="framework">
+  <Tab label="React" value="react">
+
+<ShadcnInstallOptions
+  options={[
+    { label: 'CSS Modules', command: 'shadcn@latest add @moduix-react/timer' },
+    { label: 'Tailwind CSS', command: 'shadcn@latest add @moduix-react-tailwind/timer' },
+  ]}
+/>
+
+  </Tab>
+  <Tab label="Solid" value="solid">
+
+<ShadcnInstallOptions
+  options={[
+    { label: 'CSS Modules', command: 'shadcn@latest add @moduix-solid/timer' },
+    { label: 'Tailwind CSS', command: 'shadcn@latest add @moduix-solid-tailwind/timer' },
+  ]}
+/>
+
+  </Tab>
+</Tabs>
 
 ## Anatomie
 
@@ -63,58 +123,14 @@ Timer.Segments
 
 ## Composition
 
-### Composition recommandée
+`Timer` équivaut à `Timer.Root` et gère l’état du minuteur. `Timer.Segments` crée lui-même les éléments `Timer.Area`,
+`Timer.Item` et `Timer.Separator`. Utilisez donc la composition complète avec `Timer.Area` pour ajouter des libellés
+d’unité, des séparateurs personnalisés ou une mise en page propre à chaque valeur.
 
-`Timer` est la forme abrégée du composant racine et équivaut à `Timer.Root`. Utilisez `Timer.Segments` pour afficher
-les heures, les minutes et les secondes sans répéter les éléments et les séparateurs. Passez `types` si vous avez
-besoin d’un autre ensemble d’unités.
-
-Utilisez `targetMs` pour définir la valeur à laquelle le minuteur se termine. Utilisez `startMs` pour définir la
-valeur initiale, par exemple lorsque le temps écoulé ou restant ne doit pas commencer à zéro. Pour un compte à
-rebours, associez `countdown` et `startMs`.
-
-### Quand créer une composition personnalisée
-
-Utilisez `Timer.RootProvider` avec `useTimer()` pour créer l’API du minuteur séparément du balisage qui l’utilise.
-Utilisez `Timer.Context` ou `useTimerContext()` si d’autres éléments de l’interface doivent accéder à `running`,
-`paused`, `time`, `formattedTime`, `progressPercent` ou aux méthodes `start()`, `pause()`, `resume()`, `reset()` et
-`restart()`.
-
-Pour afficher des fractions de seconde, utilisez une valeur plus petite pour `interval`. Gardez l’intervalle le plus
-long compatible avec l’interface ; Ark utilise `1000` millisecondes par défaut.
-
-### Propriétés par défaut
-
-| Propriété | Valeur par défaut | Remarques |
-| ----------------- | ------------ | ----------------------------------------------------------------- |
-| `autoStart` | `false` | Démarre le minuteur au montage. |
-| `countdown` | `false` | Décompte vers le bas au lieu de compter vers le haut. |
-| `startMs` | `0` | Temps écoulé ou restant initial, en millisecondes. |
-| `targetMs` | - | Valeur à laquelle le minuteur se termine, en millisecondes. |
-| `interval` | `1000` | Intervalle entre les ticks, en millisecondes. |
-| `ids` | générés | Remplace les identifiants générés de la racine et de la zone. |
-| `translations` | intégrées | Définit le libellé accessible de la zone, notamment avec `areaLabel`. |
-| `onTick(details)` | - | S’exécute après chaque mise à jour du minuteur. |
-| `onComplete()` | - | S’exécute à la fin du minuteur. |
-
-### Comportement
-
-Par défaut, `Timer.ActionTrigger` génère un bouton : l’activation au clavier suit donc le comportement natif d’un
-bouton. Ark masque les actions `start`, `pause`, `resume` et `reset` lorsqu’elles ne sont pas disponibles ;
-`restart` reste disponible lorsqu’il est rendu. Le minuteur ne met pas en place de navigation composite ni de
-déplacement automatique du focus entre les contrôles.
-
-Les éléments Ark repris par moduix, notamment `Timer.Root`, `Timer.RootProvider`, `Timer.Area`, `Timer.Item`,
-`Timer.Separator`, `Timer.Control` et `Timer.ActionTrigger`, prennent en charge `asChild` grâce à la composition
-polymorphe d’Ark. Lorsque vous remplacez l’élément rendu, conservez une sémantique HTML correcte, en particulier
-pour `Timer.ActionTrigger`. `Timer.Segments` ne prend volontairement pas en charge `asChild`, car il crée lui-même
-la zone et les enfants.
-
-`Timer.Item` conserve les attributs Ark `data-scope="timer"`, `data-part="item"`, `data-type` et `--value`.
-`Timer.Segments` se limite aux éléments et séparateurs standard ; les libellés d’unité restent donc une composition
-explicite autour de `Timer.Item`. moduix ajoute une disposition racine centrée, une zone temporelle qui revient à la
-ligne si nécessaire, des points d’accroche `data-slot` stables, une taille par défaut pour les icônes SVG des
-déclencheurs d’action et des valeurs CSS par défaut, sans modifier la machine à états du minuteur Ark.
+Utilisez `Timer.RootProvider` avec `useTimer()` lorsque l’état doit être créé en dehors de l’arbre de composition
+rendu. `Timer.Context` et `useTimerContext()` conviennent lorsque d’autres éléments de l’interface doivent accéder à
+l’état ou aux méthodes du minuteur. En Solid, l’état et le contexte se lisent via des fonctions réactives : utilisez
+`timer()` et `api()`.
 
 ## Exemples
 
@@ -122,50 +138,158 @@ déclencheurs d’action et des valeurs CSS par défaut, sans modifier la machin
 
 Définissez `countdown` et `startMs` si l’affichage doit décompter jusqu’à zéro.
 
-<style>{TimerDocs.timerExampleCss}</style>
+<ExampleFrame variant="component">
+  <TimerCountdown />
+</ExampleFrame>
 
-<PreviewFrame contentWidth="fit-content" maxWidth="sm">
-```tsx preview file="../../en/docs/_snippets/timer/countdown.tsx"
+<ExampleCode>
+<div className="docs-reference">
+  <Tabs
+    groupId="framework"
+    values={[
+      { label: 'React', value: 'react' },
+      { label: 'Solid', value: 'solid' },
+    ]}
+    className="docs-tabs"
+  >
+    <Tab value="react">
 
+```tsx pure file="../../../src/components/examples/timer/countdown.tsx"
 ```
-</PreviewFrame>
+
+    </Tab>
+    <Tab value="solid">
+
+<CodeBlockRuntime lang="tsx" code={timerSolidCountdown} />
+
+    </Tab>
+  </Tabs>
+
+**Styles**
+
+```css file="../../../src/components/examples/timer/timer-countdown.module.css"
+```
+</div>
+
+</ExampleCode>
 
 ### Événements
 
 Utilisez `onTick` et `onComplete` pour les effets de bord liés au cycle de vie du minuteur.
 
-<style>{TimerDocs.timerExampleCss}</style>
+<ExampleFrame variant="component">
+  <TimerEvents />
+</ExampleFrame>
 
-<PreviewFrame contentWidth="fit-content" maxWidth="sm">
-```tsx preview file="../../en/docs/_snippets/timer/events.tsx"
+<ExampleCode>
+<div className="docs-reference">
+  <Tabs
+    groupId="framework"
+    values={[
+      { label: 'React', value: 'react' },
+      { label: 'Solid', value: 'solid' },
+    ]}
+    className="docs-tabs"
+  >
+    <Tab value="react">
 
+```tsx pure file="../../../src/components/examples/timer/events.tsx"
 ```
-</PreviewFrame>
+
+    </Tab>
+    <Tab value="solid">
+
+<CodeBlockRuntime lang="tsx" code={timerSolidEvents} />
+
+    </Tab>
+  </Tabs>
+
+**Styles**
+
+```css file="../../../src/components/examples/timer/timer-events.module.css"
+```
+</div>
+
+</ExampleCode>
 
 ### Intervalle
 
 Utilisez une valeur plus petite pour `interval` avec un élément `milliseconds` si l’interface doit être actualisée
 plusieurs fois par seconde.
 
-<style>{TimerDocs.timerExampleCss}</style>
+<ExampleFrame variant="component">
+  <TimerInterval />
+</ExampleFrame>
 
-<PreviewFrame contentWidth="fit-content" maxWidth="sm">
-```tsx preview file="../../en/docs/_snippets/timer/interval.tsx"
+<ExampleCode>
+<div className="docs-reference">
+  <Tabs
+    groupId="framework"
+    values={[
+      { label: 'React', value: 'react' },
+      { label: 'Solid', value: 'solid' },
+    ]}
+    className="docs-tabs"
+  >
+    <Tab value="react">
 
+```tsx pure file="../../../src/components/examples/timer/interval.tsx"
 ```
-</PreviewFrame>
+
+    </Tab>
+    <Tab value="solid">
+
+<CodeBlockRuntime lang="tsx" code={timerSolidInterval} />
+
+    </Tab>
+  </Tabs>
+
+**Styles**
+
+```css file="../../../src/components/examples/timer/timer-interval.module.css"
+```
+</div>
+
+</ExampleCode>
 
 ### Pomodoro
 
 Utilisez `onComplete` pour passer du travail à la pause et inversement lorsque le minuteur doit enchaîner les cycles.
 
-<style>{TimerDocs.timerExampleCss}</style>
+<ExampleFrame variant="component">
+  <TimerPomodoro />
+</ExampleFrame>
 
-<PreviewFrame contentWidth="fit-content" maxWidth="sm">
-```tsx preview file="../../en/docs/_snippets/timer/pomodoro.tsx"
+<ExampleCode>
+<div className="docs-reference">
+  <Tabs
+    groupId="framework"
+    values={[
+      { label: 'React', value: 'react' },
+      { label: 'Solid', value: 'solid' },
+    ]}
+    className="docs-tabs"
+  >
+    <Tab value="react">
 
+```tsx pure file="../../../src/components/examples/timer/pomodoro.tsx"
 ```
-</PreviewFrame>
+
+    </Tab>
+    <Tab value="solid">
+
+<CodeBlockRuntime lang="tsx" code={timerSolidPomodoro} />
+
+    </Tab>
+  </Tabs>
+
+**Styles**
+
+```css file="../../../src/components/examples/timer/timer-pomodoro.module.css"
+```
+</div>
+
+</ExampleCode>
 
 ### Personnalisation avancée
 
@@ -173,13 +297,40 @@ Utilisez `useTimer()` lorsque l’état et les méthodes du minuteur doivent aus
 de composition rendu. C’est également la bonne approche pour ajouter des libellés d’unité ou composer des éléments
 personnalisés.
 
-<style>{TimerDocs.timerExampleCss}</style>
+<ExampleFrame variant="component">
+  <TimerRootProvider />
+</ExampleFrame>
 
-<PreviewFrame contentWidth="fit-content" maxWidth="sm">
-```tsx preview file="../../en/docs/_snippets/timer/root-provider.tsx"
+<ExampleCode>
+<div className="docs-reference">
+  <Tabs
+    groupId="framework"
+    values={[
+      { label: 'React', value: 'react' },
+      { label: 'Solid', value: 'solid' },
+    ]}
+    className="docs-tabs"
+  >
+    <Tab value="react">
 
+```tsx pure file="../../../src/components/examples/timer/root-provider.tsx"
 ```
-</PreviewFrame>
+
+    </Tab>
+    <Tab value="solid">
+
+<CodeBlockRuntime lang="tsx" code={timerSolidRootProvider} />
+
+    </Tab>
+  </Tabs>
+
+**Styles**
+
+```css file="../../../src/components/examples/timer/timer-root-provider.module.css"
+```
+</div>
+
+</ExampleCode>
 
 ## Styles
 

@@ -3,10 +3,14 @@
   "ignorePatterns": ["**/*.gen.ts", "wrangler.jsonc", "package-lock.json", "website/docs/**/*.mdx"],
   "singleQuote": true,
   "semi": true,
+  "sortTailwindcss": {
+    "functions": ["cn"],
+    "stylesheet": "./playgrounds/react-tailwind/.storybook/styles.css"
+  },
   "sortImports": {
     "internalPattern": ["@/", "components/", "data/", "icons/", "lib/"],
     "newlinesBetween": false,
-    "sortSideEffects": true,
+    "sortSideEffects": false,
     "groups": [
       ["type-builtin", "value-builtin", "type-external", "value-external"],
       ["type-internal", "value-internal"],

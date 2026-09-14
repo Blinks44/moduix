@@ -1,0 +1,13 @@
+.root {
+  --moduix-splitter-height: 28rem;
+}
+
+.panel {
+  display: grid;
+  place-items: center;
+  font-weight: var(--moduix-weight-medium);
+}
+
+.root > .panel {
+  min-height: 0;
+}

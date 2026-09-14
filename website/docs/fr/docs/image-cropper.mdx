@@ -4,9 +4,31 @@ component: image-cropper
 description: Composant permettant de recadrer et de transformer des images, avec prise en charge du zoom, de la rotation et du rapport d’aspect.
 ---
 
-import * as ImageCropperDocs from '@/components/examples/image-cropper';
-
-<style>{ImageCropperDocs.imageCropperExampleCss}</style>
+import * as ImageCropperDocs from '@/components/examples/image-cropper/css-properties';
+import imageCropperSolidAdvancedCustomization from '../../../snippets/image-cropper/solid/advanced-customization.tsx?raw';
+import imageCropperSolidAspectRatio from '../../../snippets/image-cropper/solid/aspect-ratio.tsx?raw';
+import imageCropperSolidBasic from '../../../snippets/image-cropper/solid/basic.tsx?raw';
+import imageCropperSolidCircleCrop from '../../../snippets/image-cropper/solid/circle-crop.tsx?raw';
+import imageCropperSolidControlledZoom from '../../../snippets/image-cropper/solid/controlled-zoom.tsx?raw';
+import imageCropperSolidCropPreview from '../../../snippets/image-cropper/solid/crop-preview.tsx?raw';
+import imageCropperSolidEvents from '../../../snippets/image-cropper/solid/events.tsx?raw';
+import imageCropperSolidFixedCropArea from '../../../snippets/image-cropper/solid/fixed-crop-area.tsx?raw';
+import imageCropperSolidInitialCrop from '../../../snippets/image-cropper/solid/initial-crop.tsx?raw';
+import imageCropperSolidMinAndMaxSize from '../../../snippets/image-cropper/solid/min-and-max-size.tsx?raw';
+import imageCropperSolidRootProvider from '../../../snippets/image-cropper/solid/root-provider.tsx?raw';
+import imageCropperSolidRotationFlipAndReset from '../../../snippets/image-cropper/solid/rotation-flip-and-reset.tsx?raw';
+import ImageCropperAdvancedCustomization from '@/components/examples/image-cropper/advanced-customization.tsx';
+import ImageCropperAspectRatio from '@/components/examples/image-cropper/aspect-ratio.tsx';
+import ImageCropperBasic from '@/components/examples/image-cropper/basic.tsx';
+import ImageCropperCircleCrop from '@/components/examples/image-cropper/circle-crop.tsx';
+import ImageCropperControlledZoom from '@/components/examples/image-cropper/controlled-zoom.tsx';
+import ImageCropperCropPreview from '@/components/examples/image-cropper/crop-preview.tsx';
+import ImageCropperEvents from '@/components/examples/image-cropper/events.tsx';
+import ImageCropperFixedCropArea from '@/components/examples/image-cropper/fixed-crop-area.tsx';
+import ImageCropperInitialCrop from '@/components/examples/image-cropper/initial-crop.tsx';
+import ImageCropperMinAndMaxSize from '@/components/examples/image-cropper/min-and-max-size.tsx';
+import ImageCropperRootProvider from '@/components/examples/image-cropper/root-provider.tsx';
+import ImageCropperRotationFlipAndReset from '@/components/examples/image-cropper/rotation-flip-and-reset.tsx';
 
 ## Référence de l’API
 
@@ -18,11 +40,28 @@ Utilisez `ImageCropper` avec `Viewport`, `Image` et `CropArea`. Passez l’URL d
 `ImageCropper.Image`. `CropArea` ajoute la zone de sélection, les lignes de la grille et les poignées
 de redimensionnement.
 
-<PreviewFrame maxWidth="lg">
-  ```tsx preview file="../../en/docs/_snippets/image-cropper/basic.tsx"
+<ExampleFrame variant="component">
+  <ImageCropperBasic />
+</ExampleFrame>
 
-  ```
-</PreviewFrame>
+<ExampleCode>
+<div className="docs-reference">
+  <Tabs groupId="framework" values={[{ label: 'React', value: 'react' }, { label: 'Solid', value: 'solid' }]} className="docs-tabs">
+    <Tab value="react">
+
+```tsx pure file="../../../src/components/examples/image-cropper/basic.tsx"
+```
+
+    </Tab>
+    <Tab value="solid">
+
+<CodeBlockRuntime lang="tsx" code={imageCropperSolidBasic} />
+
+    </Tab>
+  </Tabs>
+</div>
+
+</ExampleCode>
 
 Si vous appelez `getCroppedImage()` pour une image provenant d’une autre origine, le serveur de
 l’image doit autoriser CORS et `ImageCropper.Image` doit recevoir `crossOrigin="anonymous"`. Les
@@ -30,7 +69,30 @@ exemples utilisent cette configuration pour l’image Unsplash.
 
 ## Installation avec shadcn
 
-<ShadcnInstall packageName="image-cropper" />
+Consultez le [Démarrage rapide](/docs/quick-start) pour la configuration complète du paquet, du registre et des styles.
+
+<Tabs groupId="framework">
+  <Tab label="React" value="react">
+
+<ShadcnInstallOptions
+  options={[
+    { label: 'CSS Modules', command: 'shadcn@latest add @moduix-react/image-cropper' },
+    { label: 'Tailwind CSS', command: 'shadcn@latest add @moduix-react-tailwind/image-cropper' },
+  ]}
+/>
+
+  </Tab>
+  <Tab label="Solid" value="solid">
+
+<ShadcnInstallOptions
+  options={[
+    { label: 'CSS Modules', command: 'shadcn@latest add @moduix-solid/image-cropper' },
+    { label: 'Tailwind CSS', command: 'shadcn@latest add @moduix-solid-tailwind/image-cropper' },
+  ]}
+/>
+
+  </Tab>
+</Tabs>
 
 ## Anatomie
 
@@ -56,54 +118,18 @@ exemples utilisent cette configuration pour l’image Unsplash.
 
 ## Composition
 
-### Composition recommandée
+Utilisez `ImageCropper.CropArea` pour la zone de recadrage standard. Elle crée les deux grilles et
+toutes les poignées de redimensionnement, et n’accepte donc ni `children` ni `asChild`. Utilisez
+`className`, `gridClassName` et `handleClassName` pour styliser la sélection et ses parties générées.
 
-Pour le cas courant, utilisez `ImageCropper.CropArea`. Cette partie rend les deux directions de la
-grille et toutes les poignées de redimensionnement, sans avoir à répéter cette structure. Passez
-`className`, `gridClassName` ou `handleClassName` pour styliser les parties correspondantes.
-`CropArea` crée elle-même sa structure enfant. Ne lui passez donc ni `children` ni `asChild`.
+Utilisez `ImageCropper.Context` pour les contrôles placés dans la racine. Créez `useImageCropper()`
+et transmettez-le à `ImageCropper.RootProvider` lorsqu’une barre d’outils, un aperçu ou la logique
+d’un formulaire doit accéder à l’instance en dehors de l’arbre de composants. Pour une même instance
+d’état, rendez `Root` ou `RootProvider`, jamais les deux.
 
-### Quand créer une composition personnalisée
-
-Pour des contrôles rendus à l’intérieur de la racine, utilisez `ImageCropper.Context` ou
-`useImageCropperContext`. Si une barre d’outils, un aperçu ou la logique d’un formulaire doit accéder
-à l’instance en dehors de l’arbre de composants, créez-la avec `useImageCropper` et transmettez-la à
-`ImageCropper.RootProvider`. Pour chaque instance d’état, utilisez `Root` ou `RootProvider`, mais pas
-les deux.
-
-### Propriétés par défaut
-
-| Propriété                 | Valeur par défaut                        | Remarques                                                        |
-| ------------------------- | ---------------------------------------- | ---------------------------------------------------------------- |
-| `aspectRatio`             | non défini                               | La zone de recadrage peut être redimensionnée librement.         |
-| `cropShape`               | `"rectangle"`                            | Utilisez `"circle"` pour les avatars.                           |
-| `initialCrop`             | calculée                                 | Ark calcule la zone initiale à partir de la zone d’affichage et du rapport d’aspect. |
-| `defaultZoom`             | `1`                                      | Niveau de zoom initial de l’image.                              |
-| `defaultRotation`         | `0`                                      | Rotation initiale de l’image, en degrés.                        |
-| `defaultFlip`             | `{ horizontal: false, vertical: false }` | État initial du retournement horizontal et vertical.            |
-| `minZoom`                 | `1`                                      | Facteur de zoom minimal.                                         |
-| `maxZoom`                 | `5`                                      | Facteur de zoom maximal.                                         |
-| `minWidth` / `minHeight`  | `40`                                     | Taille minimale de la zone de recadrage, en pixels.              |
-| `maxWidth` / `maxHeight`  | `Infinity`                               | Taille maximale de la zone de recadrage, en pixels.              |
-| `nudgeStep`               | `1`                                      | Pas de déplacement avec les flèches du clavier, en pixels.      |
-| `nudgeStepShift`          | `10`                                     | Pas de déplacement lorsque `Shift` est enfoncée.                 |
-| `nudgeStepCtrl`           | `50`                                     | Pas de déplacement lorsque `Ctrl` ou `Cmd` est enfoncée.         |
-| `fixedCropArea`           | `false`                                  | Garde la taille et la position de la zone fixes.                 |
-
-### Comportement
-
-Le composant mesure la zone de recadrage une fois l’image chargée. Faites glisser les poignées pour
-redimensionner la zone et l’image dans la zone d’affichage pour la déplacer. Les touches fléchées
-déplacent la zone, `Alt` et une touche fléchée la redimensionnent, `Shift` et `Ctrl`/`Cmd` utilisent
-les propriétés de pas correspondantes, et `+` / `-` modifient le zoom. Lorsque `fixedCropArea` est
-activé, la zone reste en place et l’utilisateur déplace l’image dans la zone d’affichage. La zone est
-retirée de l’ordre de tabulation.
-
-L’élément racine utilise `role="group"` et la zone de recadrage interactive utilise `role="slider"`.
-Donnez un nom accessible à la racine avec `aria-label` ou configurez la propriété Ark `translations`.
-En mode contrôlé, `onCropChange`, `onZoomChange`, `onRotationChange` et `onFlipChange` reçoivent un
-objet `details` fourni par Ark, avec par exemple `details.crop`, `details.zoom`, `details.rotation`
-et `details.flip`.
+Utilisez `zoom`, `rotation` ou `flip` en mode contrôlé avec le rappel correspondant lorsque l’état est
+géré ailleurs dans l’application. Ark transmet la nouvelle valeur dans l’objet `details`.
+`fixedCropArea` fixe la sélection et fait de la zone d’affichage la surface de déplacement de l’image.
 
 ## Exemples
 
@@ -112,21 +138,60 @@ et `details.flip`.
 Définissez `aspectRatio` pour conserver un rapport largeur-hauteur précis. Modifiez-le depuis l’état
 React lorsque l’utilisateur choisit un format de sortie.
 
-<PreviewFrame maxWidth="lg">
-  ```tsx preview file="../../en/docs/_snippets/image-cropper/aspect-ratio.tsx"
+<ExampleFrame variant="component">
+  <ImageCropperAspectRatio />
+</ExampleFrame>
 
-  ```
-</PreviewFrame>
+<ExampleCode>
+<div className="docs-reference">
+  <Tabs groupId="framework" values={[{ label: 'React', value: 'react' }, { label: 'Solid', value: 'solid' }]} className="docs-tabs">
+    <Tab value="react">
+
+```tsx pure file="../../../src/components/examples/image-cropper/aspect-ratio.tsx"
+```
+
+    </Tab>
+    <Tab value="solid">
+
+<CodeBlockRuntime lang="tsx" code={imageCropperSolidAspectRatio} />
+
+    </Tab>
+  </Tabs>
+
+**Styles**
+
+```css file="../../../src/components/examples/image-cropper/image-cropper-aspect-ratio.module.css"
+```
+</div>
+
+</ExampleCode>
 
 ### Recadrage circulaire
 
 Utilisez `cropShape="circle"` avec `aspectRatio={1}` pour les avatars et les images de profil.
 
-<PreviewFrame maxWidth="lg">
-  ```tsx preview file="../../en/docs/_snippets/image-cropper/circle-crop.tsx"
+<ExampleFrame variant="component">
+  <ImageCropperCircleCrop />
+</ExampleFrame>
 
-  ```
-</PreviewFrame>
+<ExampleCode>
+<div className="docs-reference">
+  <Tabs groupId="framework" values={[{ label: 'React', value: 'react' }, { label: 'Solid', value: 'solid' }]} className="docs-tabs">
+    <Tab value="react">
+
+```tsx pure file="../../../src/components/examples/image-cropper/circle-crop.tsx"
+```
+
+    </Tab>
+    <Tab value="solid">
+
+<CodeBlockRuntime lang="tsx" code={imageCropperSolidCircleCrop} />
+
+    </Tab>
+  </Tabs>
+</div>
+
+</ExampleCode>
 
 ### Zoom contrôlé
 
@@ -134,11 +199,33 @@ Utilisez `zoom` en mode contrôlé avec `onZoomChange` lorsque des boutons ou un
 l’interface doivent modifier ou afficher le niveau de zoom. Limitez la plage avec `minZoom` et
 `maxZoom`.
 
-<PreviewFrame maxWidth="lg">
-  ```tsx preview file="../../en/docs/_snippets/image-cropper/controlled-zoom.tsx"
+<ExampleFrame variant="component">
+  <ImageCropperControlledZoom />
+</ExampleFrame>
 
-  ```
-</PreviewFrame>
+<ExampleCode>
+<div className="docs-reference">
+  <Tabs groupId="framework" values={[{ label: 'React', value: 'react' }, { label: 'Solid', value: 'solid' }]} className="docs-tabs">
+    <Tab value="react">
+
+```tsx pure file="../../../src/components/examples/image-cropper/controlled-zoom.tsx"
+```
+
+    </Tab>
+    <Tab value="solid">
+
+<CodeBlockRuntime lang="tsx" code={imageCropperSolidControlledZoom} />
+
+    </Tab>
+  </Tabs>
+
+**Styles**
+
+```css file="../../../src/components/examples/image-cropper/image-cropper-controlled-zoom.module.css"
+```
+</div>
+
+</ExampleCode>
 
 ### Aperçu du recadrage
 
@@ -147,65 +234,182 @@ Appelez `getCroppedImage()` sur une instance de `useImageCropper` pour créer le
 élément `img`. Utilisez `getCropData()` si vous avez seulement besoin des coordonnées du recadrage
 et des données de transformation.
 
-<PreviewFrame maxWidth="lg">
-  ```tsx preview file="../../en/docs/_snippets/image-cropper/crop-preview.tsx"
+<ExampleFrame variant="component">
+  <ImageCropperCropPreview />
+</ExampleFrame>
 
-  ```
-</PreviewFrame>
+<ExampleCode>
+<div className="docs-reference">
+  <Tabs groupId="framework" values={[{ label: 'React', value: 'react' }, { label: 'Solid', value: 'solid' }]} className="docs-tabs">
+    <Tab value="react">
+
+```tsx pure file="../../../src/components/examples/image-cropper/crop-preview.tsx"
+```
+
+    </Tab>
+    <Tab value="solid">
+
+<CodeBlockRuntime lang="tsx" code={imageCropperSolidCropPreview} />
+
+    </Tab>
+  </Tabs>
+
+**Styles**
+
+```css file="../../../src/components/examples/image-cropper/image-cropper-crop-preview.module.css"
+```
+</div>
+
+</ExampleCode>
 
 ### Événements
 
 Abonnez-vous à `onCropChange` et `onZoomChange` pour afficher les données actuelles du recadrage ou
 les synchroniser avec d’autres éléments de l’interface.
 
-<PreviewFrame maxWidth="lg">
-  ```tsx preview file="../../en/docs/_snippets/image-cropper/events.tsx"
+<ExampleFrame variant="component">
+  <ImageCropperEvents />
+</ExampleFrame>
 
-  ```
-</PreviewFrame>
+<ExampleCode>
+<div className="docs-reference">
+  <Tabs groupId="framework" values={[{ label: 'React', value: 'react' }, { label: 'Solid', value: 'solid' }]} className="docs-tabs">
+    <Tab value="react">
+
+```tsx pure file="../../../src/components/examples/image-cropper/events.tsx"
+```
+
+    </Tab>
+    <Tab value="solid">
+
+<CodeBlockRuntime lang="tsx" code={imageCropperSolidEvents} />
+
+    </Tab>
+  </Tabs>
+
+**Styles**
+
+```css file="../../../src/components/examples/image-cropper/image-cropper-events.module.css"
+```
+</div>
+
+</ExampleCode>
 
 ### Zone de recadrage fixe
 
 Activez `fixedCropArea` lorsque la zone doit conserver la même taille et la même position pendant que
 l’utilisateur déplace l’image derrière elle.
 
-<PreviewFrame maxWidth="lg">
-  ```tsx preview file="../../en/docs/_snippets/image-cropper/fixed-crop-area.tsx"
+<ExampleFrame variant="component">
+  <ImageCropperFixedCropArea />
+</ExampleFrame>
 
-  ```
-</PreviewFrame>
+<ExampleCode>
+<div className="docs-reference">
+  <Tabs groupId="framework" values={[{ label: 'React', value: 'react' }, { label: 'Solid', value: 'solid' }]} className="docs-tabs">
+    <Tab value="react">
+
+```tsx pure file="../../../src/components/examples/image-cropper/fixed-crop-area.tsx"
+```
+
+    </Tab>
+    <Tab value="solid">
+
+<CodeBlockRuntime lang="tsx" code={imageCropperSolidFixedCropArea} />
+
+    </Tab>
+  </Tabs>
+</div>
+
+</ExampleCode>
 
 ### Recadrage initial
 
 Définissez `initialCrop` pour ouvrir le composant avec un rectangle de recadrage prédéfini, exprimé
 en coordonnées de la zone d’affichage et en pixels.
 
-<PreviewFrame maxWidth="lg">
-  ```tsx preview file="../../en/docs/_snippets/image-cropper/initial-crop.tsx"
+<ExampleFrame variant="component">
+  <ImageCropperInitialCrop />
+</ExampleFrame>
 
-  ```
-</PreviewFrame>
+<ExampleCode>
+<div className="docs-reference">
+  <Tabs groupId="framework" values={[{ label: 'React', value: 'react' }, { label: 'Solid', value: 'solid' }]} className="docs-tabs">
+    <Tab value="react">
+
+```tsx pure file="../../../src/components/examples/image-cropper/initial-crop.tsx"
+```
+
+    </Tab>
+    <Tab value="solid">
+
+<CodeBlockRuntime lang="tsx" code={imageCropperSolidInitialCrop} />
+
+    </Tab>
+  </Tabs>
+</div>
+
+</ExampleCode>
 
 ### Taille minimale et maximale
 
 Limitez la taille de la zone avec `minWidth`, `minHeight`, `maxWidth` et `maxHeight`.
 
-<PreviewFrame maxWidth="lg">
-  ```tsx preview file="../../en/docs/_snippets/image-cropper/min-and-max-size.tsx"
+<ExampleFrame variant="component">
+  <ImageCropperMinAndMaxSize />
+</ExampleFrame>
 
-  ```
-</PreviewFrame>
+<ExampleCode>
+<div className="docs-reference">
+  <Tabs groupId="framework" values={[{ label: 'React', value: 'react' }, { label: 'Solid', value: 'solid' }]} className="docs-tabs">
+    <Tab value="react">
+
+```tsx pure file="../../../src/components/examples/image-cropper/min-and-max-size.tsx"
+```
+
+    </Tab>
+    <Tab value="solid">
+
+<CodeBlockRuntime lang="tsx" code={imageCropperSolidMinAndMaxSize} />
+
+    </Tab>
+  </Tabs>
+</div>
+
+</ExampleCode>
 
 ### Root Provider
 
 Utilisez `RootProvider` avec une instance de `useImageCropper` lorsqu’une barre d’outils ou un autre
 élément de l’interface doit piloter le recadrage en dehors de son arbre de composants.
 
-<PreviewFrame maxWidth="lg">
-  ```tsx preview file="../../en/docs/_snippets/image-cropper/root-provider.tsx"
+<ExampleFrame variant="component">
+  <ImageCropperRootProvider />
+</ExampleFrame>
 
-  ```
-</PreviewFrame>
+<ExampleCode>
+<div className="docs-reference">
+  <Tabs groupId="framework" values={[{ label: 'React', value: 'react' }, { label: 'Solid', value: 'solid' }]} className="docs-tabs">
+    <Tab value="react">
+
+```tsx pure file="../../../src/components/examples/image-cropper/root-provider.tsx"
+```
+
+    </Tab>
+    <Tab value="solid">
+
+<CodeBlockRuntime lang="tsx" code={imageCropperSolidRootProvider} />
+
+    </Tab>
+  </Tabs>
+
+**Styles**
+
+```css file="../../../src/components/examples/image-cropper/image-cropper-root-provider.module.css"
+```
+</div>
+
+</ExampleCode>
 
 ### Rotation, retournement et réinitialisation
 
@@ -213,11 +417,33 @@ Utilisez `ImageCropper.Context` pour relier une barre d’outils aux actions de 
 retournement et de réinitialisation. Dans cet exemple, la rotation et le retournement sont contrôlés
 depuis l’état React.
 
-<PreviewFrame maxWidth="lg">
-  ```tsx preview file="../../en/docs/_snippets/image-cropper/rotation-flip-and-reset.tsx"
+<ExampleFrame variant="component">
+  <ImageCropperRotationFlipAndReset />
+</ExampleFrame>
 
-  ```
-</PreviewFrame>
+<ExampleCode>
+<div className="docs-reference">
+  <Tabs groupId="framework" values={[{ label: 'React', value: 'react' }, { label: 'Solid', value: 'solid' }]} className="docs-tabs">
+    <Tab value="react">
+
+```tsx pure file="../../../src/components/examples/image-cropper/rotation-flip-and-reset.tsx"
+```
+
+    </Tab>
+    <Tab value="solid">
+
+<CodeBlockRuntime lang="tsx" code={imageCropperSolidRotationFlipAndReset} />
+
+    </Tab>
+  </Tabs>
+
+**Styles**
+
+```css file="../../../src/components/examples/image-cropper/image-cropper-rotation-flip-and-reset.module.css"
+```
+</div>
+
+</ExampleCode>
 
 ### Personnalisation avancée
 
@@ -225,13 +451,35 @@ Remplacez `CropArea` par les parties explicites `Selection`, `Grid` et `Handle` 
 nécessite une structure différente ou des enfants personnalisés. `Grid` requiert `axis` et `Handle`
 requiert `position`.
 
-<PreviewFrame maxWidth="lg">
-  ```tsx preview file="../../en/docs/_snippets/image-cropper/advanced-customization.tsx"
+<ExampleFrame variant="component">
+  <ImageCropperAdvancedCustomization />
+</ExampleFrame>
 
-  ```
-</PreviewFrame>
+<ExampleCode>
+<div className="docs-reference">
+  <Tabs groupId="framework" values={[{ label: 'React', value: 'react' }, { label: 'Solid', value: 'solid' }]} className="docs-tabs">
+    <Tab value="react">
+
+```tsx pure file="../../../src/components/examples/image-cropper/advanced-customization.tsx"
+```
+
+    </Tab>
+    <Tab value="solid">
+
+<CodeBlockRuntime lang="tsx" code={imageCropperSolidAdvancedCustomization} />
+
+    </Tab>
+  </Tabs>
+</div>
+
+</ExampleCode>
 
 ## Styles
+
+Pour les styles structurels, utilisez `className` en React ou `class` en Solid sur les parties
+exportées. Les variantes Tailwind utilisent les utilitaires natifs et les classes de l’application ;
+les variantes CSS Modules se configurent avec les propriétés du composant ci-dessous. Les hooks
+`data-slot` et les attributs d’état Ark sont communs aux deux approches.
 
 ### Propriétés CSS
 

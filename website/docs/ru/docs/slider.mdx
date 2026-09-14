@@ -4,7 +4,49 @@ component: slider
 description: Элемент управления для выбора одного значения или диапазона в заданных границах.
 ---
 
-import * as SliderDocs from '@/components/examples/slider';
+import * as SliderDocs from '@/components/examples/slider/css-properties';
+import SliderAdvancedCustomization from '@/components/examples/slider/advanced-customization.tsx';
+import SliderBasic from '@/components/examples/slider/basic.tsx';
+import SliderCenterOrigin from '@/components/examples/slider/center-origin.tsx';
+import SliderChangeEvents from '@/components/examples/slider/change-events.tsx';
+import SliderContext from '@/components/examples/slider/context.tsx';
+import SliderControlled from '@/components/examples/slider/controlled.tsx';
+import SliderDisabled from '@/components/examples/slider/disabled.tsx';
+import SliderDraggingIndicator from '@/components/examples/slider/dragging-indicator.tsx';
+import SliderForm from '@/components/examples/slider/form.tsx';
+import SliderInvalid from '@/components/examples/slider/invalid.tsx';
+import SliderMarks from '@/components/examples/slider/marks.tsx';
+import SliderMinAndMax from '@/components/examples/slider/min-and-max.tsx';
+import SliderRange from '@/components/examples/slider/range.tsx';
+import SliderReadOnly from '@/components/examples/slider/read-only.tsx';
+import SliderRootProvider from '@/components/examples/slider/root-provider.tsx';
+import SliderStep from '@/components/examples/slider/step.tsx';
+import SliderThumbAlignment from '@/components/examples/slider/thumb-alignment.tsx';
+import SliderThumbCollision from '@/components/examples/slider/thumb-collision.tsx';
+import SliderThumbOverlap from '@/components/examples/slider/thumb-overlap.tsx';
+import SliderVertical from '@/components/examples/slider/vertical.tsx';
+import SliderVerticalWithMarks from '@/components/examples/slider/vertical-with-marks.tsx';
+import sliderSolidBasic from '../../../snippets/slider/solid/basic.tsx?raw';
+import sliderSolidCenterOrigin from '../../../snippets/slider/solid/center-origin.tsx?raw';
+import sliderSolidChangeEvents from '../../../snippets/slider/solid/change-events.tsx?raw';
+import sliderSolidContext from '../../../snippets/slider/solid/context.tsx?raw';
+import sliderSolidControlled from '../../../snippets/slider/solid/controlled.tsx?raw';
+import sliderSolidDisabled from '../../../snippets/slider/solid/disabled.tsx?raw';
+import sliderSolidForm from '../../../snippets/slider/solid/form.tsx?raw';
+import sliderSolidDraggingIndicator from '../../../snippets/slider/solid/dragging-indicator.tsx?raw';
+import sliderSolidInvalid from '../../../snippets/slider/solid/invalid.tsx?raw';
+import sliderSolidMarks from '../../../snippets/slider/solid/marks.tsx?raw';
+import sliderSolidMinAndMax from '../../../snippets/slider/solid/min-and-max.tsx?raw';
+import sliderSolidRange from '../../../snippets/slider/solid/range.tsx?raw';
+import sliderSolidReadOnly from '../../../snippets/slider/solid/read-only.tsx?raw';
+import sliderSolidRootProvider from '../../../snippets/slider/solid/root-provider.tsx?raw';
+import sliderSolidStep from '../../../snippets/slider/solid/step.tsx?raw';
+import sliderSolidThumbAlignment from '../../../snippets/slider/solid/thumb-alignment.tsx?raw';
+import sliderSolidThumbCollision from '../../../snippets/slider/solid/thumb-collision.tsx?raw';
+import sliderSolidThumbOverlap from '../../../snippets/slider/solid/thumb-overlap.tsx?raw';
+import sliderSolidVertical from '../../../snippets/slider/solid/vertical.tsx?raw';
+import sliderSolidVerticalWithMarks from '../../../snippets/slider/solid/vertical-with-marks.tsx?raw';
+import sliderSolidAdvancedCustomization from '../../../snippets/slider/solid/advanced-customization.tsx?raw';
 
 ## Справочник API
 
@@ -21,19 +63,74 @@ import * as SliderDocs from '@/components/examples/slider';
 
 ## Базовый пример
 
-`Slider.Thumbs` - рекомендуемый способ автоматически создать стилизованный ползунок для каждого значения. Каждый
-ползунок, включая явно добавленный `Slider.Thumb`, автоматически добавляет нативное поле ввода для формы.
+Slider доступен для React и Solid как в пакетах с CSS Modules, так и в вариантах на Tailwind.
+Интерактивный пример на этой странице использует React и CSS Modules, а вкладки с кодом показывают
+нативную реализацию того же публичного API для обоих фреймворков.
 
-<PreviewFrame maxWidth="sm">
-  ```tsx preview file="../../en/docs/_snippets/slider/basic.tsx"
+`Slider.Thumbs` создаёт по одному ползунку с нативным полем на значение. Для своего содержимого ползунка
+используйте `Slider.Thumb` явно и вложите в него `Slider.HiddenInput`.
 
+<ExampleFrame variant="component">
+  <SliderBasic />
+</ExampleFrame>
+
+<ExampleCode>
+<div className="docs-reference">
+  <Tabs
+    groupId="framework"
+    values={[
+      { label: 'React', value: 'react' },
+      { label: 'Solid', value: 'solid' },
+    ]}
+    className="docs-tabs"
+  >
+    <Tab value="react">
+
+```tsx pure file="../../../src/components/examples/slider/basic.tsx"
 ```
 
-</PreviewFrame>
+    </Tab>
+    <Tab value="solid">
+
+<CodeBlockRuntime lang="tsx" code={sliderSolidBasic} />
+
+    </Tab>
+  </Tabs>
+
+**Styles**
+
+```css file="../../../src/components/examples/slider/slider-basic.module.css"
+```
+</div>
+
+</ExampleCode>
 
 ## Установка через shadcn
 
-<ShadcnInstall packageName="slider" />
+Полную настройку пакета, реестра и стилей см. в разделе [Быстрый старт](/docs/quick-start).
+
+<Tabs groupId="framework">
+  <Tab label="React" value="react">
+
+<ShadcnInstallOptions
+  options={[
+    { label: 'CSS Modules', command: 'shadcn@latest add @moduix-react/slider' },
+    { label: 'Tailwind CSS', command: 'shadcn@latest add @moduix-react-tailwind/slider' },
+  ]}
+/>
+
+  </Tab>
+  <Tab label="Solid" value="solid">
+
+<ShadcnInstallOptions
+  options={[
+    { label: 'CSS Modules', command: 'shadcn@latest add @moduix-solid/slider' },
+    { label: 'Tailwind CSS', command: 'shadcn@latest add @moduix-solid-tailwind/slider' },
+  ]}
+/>
+
+  </Tab>
+</Tabs>
 
 ## Анатомия
 
@@ -44,10 +141,9 @@ Slider / Slider.Root
 ├─ Slider.Control
 │  ├─ Slider.Track
 │  │  └─ Slider.Range
-│  └─ Slider.Thumbs
-│     └─ Slider.Thumb[index]
-│        ├─ Slider.DraggingIndicator
-│        └─ нативное поле ввода (автоматически)
+│  └─ Slider.Thumb[index]
+│     ├─ Slider.DraggingIndicator
+│     └─ Slider.HiddenInput
 └─ Slider.MarkerGroup
    └─ Slider.Marker[value]
 ```
@@ -55,6 +151,7 @@ Slider / Slider.Root
 | Часть                                  | Назначение                                                       |
 | -------------------------------------- | ---------------------------------------------------------------- |
 | `Slider` / `Slider.Root`               | Стилизованный корневой элемент Ark для управляемого и неуправляемого состояния. |
+| `Slider.HiddenInput` | Нативное поле Ark; правила явной композиции описаны ниже. |
 | `Slider.RootProvider`                  | Корневой элемент, подключённый к состоянию `useSlider`, созданному отдельно.    |
 | `Slider.Label`                         | Видимая подпись группы.                                                        |
 | `Slider.ValueText`                     | Текст текущего значения, который формирует Ark.                               |
@@ -68,54 +165,18 @@ Slider / Slider.Root
 
 ## Композиция
 
-### Рекомендуемая композиция
+Используйте `Slider.Thumbs` для стандартной композиции с одним ползунком на каждое значение:
+компонент также добавляет по одному `Slider.HiddenInput` на каждый ползунок. Если ползунку
+нужны своё содержимое, доступное имя или определённый порядок, используйте `Slider.Thumb`
+явно и вложите в него один `Slider.HiddenInput`. Для отправки формы задайте `name` на корневом
+компоненте.
 
-Используйте дерево частей Ark: корневой элемент, подпись, при необходимости текст значения, область управления, дорожку,
-заполненный диапазон и `Slider.Thumbs`. Компонент создаёт по одному ползунку на каждое значение, а каждый ползунок
-автоматически добавляет нативное поле ввода для формы.
-
-`Slider` - короткая запись для корня, эквивалентная `Slider.Root`.
-
-### Когда нужна собственная композиция
-
-Используйте `asChild`, если часть должна рендериться в вашем элементе. Внутри должен оставаться один семантический
-дочерний элемент, который принимает свойства Ark. Если отдельным ползункам нужны свои дочерние элементы, доступные имена
-или определённый порядок, используйте `Slider.Thumb` явно: нативное поле ввода при этом сохраняется. Для расширенного доступа
-к состоянию используйте `Slider.Context` или `useSliderContext`, чтобы читать состояние под корневым элементом. Если состояние
-нужно создать вне дерева слайдера, импортируйте `useSlider` из `@moduix/react/slider` и используйте его с
-`Slider.RootProvider`.
-
-### Свойства по умолчанию
-
-| Свойство                 | По умолчанию  | Примечания                                                                 |
-| ------------------------ | ------------- | -------------------------------------------------------------------------- |
-| `defaultValue`           | `[min]`       | Ark хранит значения в виде `number[]`.                                    |
-| `orientation`            | `horizontal`  | `vertical` переключает вертикальную ориентацию.                           |
-| `min`                    | `0`           | Нижняя граница.                                                            |
-| `max`                    | `100`         | Верхняя граница.                                                           |
-| `step`                   | `1`           | Шаг для указателя и клавиатуры.                                            |
-| `largeStep`              | `10 * step`   | Шаг для Page Up, Page Down и Shift + стрелки.                              |
-| `minStepsBetweenThumbs`  | `0`           | Минимальное число шагов между ползунками диапазона.                       |
-| `origin`                 | `start`       | Точка, от которой заполняется диапазон с одним значением.                  |
-| `thumbAlignment`         | `contain`     | Используйте `center`, чтобы ползунок выходил за края дорожки.              |
-| `thumbCollisionBehavior` | `none`        | Используйте `push` или `swap`, чтобы изменить поведение при встрече.       |
-| `thumbSize`              | измеряется    | Переопределяет размеры ползунка, измеренные Ark.                           |
-
-`value`, `defaultValue`, `onValueChange(details)` и `onValueChangeEnd(details)` используют объекты details Ark.
-Читайте массив из `details.value`. `onFocusChange(details)` сообщает, какой ползунок получил фокус. Если `defaultValue`
-не задан, начальное значение равно `[min]`, то есть по умолчанию `[0]`. Используйте `ids`, если другим элементам нужны
-стабильные идентификаторы частей слайдера.
-
-### Особенности поведения
-
-`Slider` реализует паттерн слайдера WAI-ARIA из Ark. У каждого ползунка должно быть доступное имя, заданное через
-`Slider.Label`, `aria-label` или `aria-labelledby`. В горизонтальном слайдере работают стрелки влево и вправо, в
-вертикальном - вверх и вниз. `Page Up`, `Page Down` и `Shift + ArrowUp` или `Shift + ArrowDown` используют `largeStep`
-(по умолчанию `10 * step`). `Home` и `End` устанавливают минимальное и максимальное значения активного ползунка.
-
-Каждый `Slider.Thumb` автоматически добавляет скрытое нативное поле ввода. Оно участвует в отправке формы и синхронизируется
-при её сбросе. `id`, `asChild`, `disabled`, `invalid`, `readOnly`, `name`, `form`, `ids`, `aria-label`, `aria-labelledby`
-и `getAriaValueText(details)` без изменений передаются в Ark.
+Для управляемого состояния сохраняйте `details.value` из `onValueChange` или
+`onValueChangeEnd`. Используйте `useSliderContext` во вложенных компонентах, чтобы читать
+состояние. Если состояние нужно создать вне дерева, создайте его через `useSlider` и передайте
+в `Slider.RootProvider`; не создавайте второй корневой компонент для того же store. В React
+store читается как объект, а в Solid через возвращённый реактивный accessor. `Slider` является
+сокращением для `Slider.Root`.
 
 ## Примеры
 
@@ -123,232 +184,772 @@ Slider / Slider.Root
 
 Задайте `origin="center"`, если значение представляет положительное или отрицательное смещение, например баланс относительно нуля.
 
-<PreviewFrame maxWidth="sm">
-  ```tsx preview file="../../en/docs/_snippets/slider/center-origin.tsx"
+<ExampleFrame variant="component">
+  <SliderCenterOrigin />
+</ExampleFrame>
 
+<ExampleCode>
+<div className="docs-reference">
+  <Tabs
+    groupId="framework"
+    values={[
+      { label: 'React', value: 'react' },
+      { label: 'Solid', value: 'solid' },
+    ]}
+    className="docs-tabs"
+  >
+    <Tab value="react">
+
+```tsx pure file="../../../src/components/examples/slider/center-origin.tsx"
 ```
 
-</PreviewFrame>
+    </Tab>
+    <Tab value="solid">
+
+<CodeBlockRuntime lang="tsx" code={sliderSolidCenterOrigin} />
+
+    </Tab>
+  </Tabs>
+
+**Styles**
+
+```css file="../../../src/components/examples/slider/slider-center-origin.module.css"
+```
+</div>
+
+</ExampleCode>
 
 ### События изменения
 
 Используйте `onValueChange`, чтобы обновлять интерфейс во время взаимодействия, а `onValueChangeEnd` - когда перетаскивание
 или взаимодействие с клавиатурой завершено.
 
-<PreviewFrame maxWidth="sm">
-  ```tsx preview file="../../en/docs/_snippets/slider/change-events.tsx"
+<ExampleFrame variant="component">
+  <SliderChangeEvents />
+</ExampleFrame>
 
+<ExampleCode>
+<div className="docs-reference">
+  <Tabs
+    groupId="framework"
+    values={[
+      { label: 'React', value: 'react' },
+      { label: 'Solid', value: 'solid' },
+    ]}
+    className="docs-tabs"
+  >
+    <Tab value="react">
+
+```tsx pure file="../../../src/components/examples/slider/change-events.tsx"
 ```
 
-</PreviewFrame>
+    </Tab>
+    <Tab value="solid">
+
+<CodeBlockRuntime lang="tsx" code={sliderSolidChangeEvents} />
+
+    </Tab>
+  </Tabs>
+
+**Styles**
+
+```css file="../../../src/components/examples/slider/slider-change-events.module.css"
+```
+</div>
+
+</ExampleCode>
 
 ### Контекст
 
 Используйте `useSliderContext` из moduix внутри дочернего компонента, если ему нужно читать состояние слайдера, например
 `value`, `dragging` или состояние фокуса.
 
-<PreviewFrame maxWidth="sm">
-  ```tsx preview file="../../en/docs/_snippets/slider/context.tsx"
+<ExampleFrame variant="component">
+  <SliderContext />
+</ExampleFrame>
 
+<ExampleCode>
+<div className="docs-reference">
+  <Tabs
+    groupId="framework"
+    values={[
+      { label: 'React', value: 'react' },
+      { label: 'Solid', value: 'solid' },
+    ]}
+    className="docs-tabs"
+  >
+    <Tab value="react">
+
+```tsx pure file="../../../src/components/examples/slider/context.tsx"
 ```
 
-</PreviewFrame>
+    </Tab>
+    <Tab value="solid">
+
+<CodeBlockRuntime lang="tsx" code={sliderSolidContext} />
+
+    </Tab>
+  </Tabs>
+</div>
+
+</ExampleCode>
 
 ### Управляемое состояние
 
 Управляйте слайдером из состояния React, сохраняя массив из `details.value`.
 
-<PreviewFrame maxWidth="sm">
-  ```tsx preview file="../../en/docs/_snippets/slider/controlled.tsx"
+<ExampleFrame variant="component">
+  <SliderControlled />
+</ExampleFrame>
 
+<ExampleCode>
+<div className="docs-reference">
+  <Tabs
+    groupId="framework"
+    values={[
+      { label: 'React', value: 'react' },
+      { label: 'Solid', value: 'solid' },
+    ]}
+    className="docs-tabs"
+  >
+    <Tab value="react">
+
+```tsx pure file="../../../src/components/examples/slider/controlled.tsx"
 ```
 
-</PreviewFrame>
+    </Tab>
+    <Tab value="solid">
+
+<CodeBlockRuntime lang="tsx" code={sliderSolidControlled} />
+
+    </Tab>
+  </Tabs>
+
+**Styles**
+
+```css file="../../../src/components/examples/slider/slider-controlled.module.css"
+```
+</div>
+
+</ExampleCode>
 
 ### Отключённый
 
 Используйте `disabled`, чтобы оставить значение видимым, но отключить взаимодействие.
 
-<PreviewFrame maxWidth="sm">
-  ```tsx preview file="../../en/docs/_snippets/slider/disabled.tsx"
+<ExampleFrame variant="component">
+  <SliderDisabled />
+</ExampleFrame>
 
+<ExampleCode>
+<div className="docs-reference">
+  <Tabs
+    groupId="framework"
+    values={[
+      { label: 'React', value: 'react' },
+      { label: 'Solid', value: 'solid' },
+    ]}
+    className="docs-tabs"
+  >
+    <Tab value="react">
+
+```tsx pure file="../../../src/components/examples/slider/disabled.tsx"
 ```
 
-</PreviewFrame>
+    </Tab>
+    <Tab value="solid">
 
-### Форма
+<CodeBlockRuntime lang="tsx" code={sliderSolidDisabled} />
 
-Задайте `name`, чтобы отправлять текущее значение через нативную форму. moduix автоматически добавляет и синхронизирует
-скрытое поле ввода.
+    </Tab>
+  </Tabs>
 
-<PreviewFrame contentWidth="fit-content" maxWidth="sm">
-  ```tsx preview file="../../en/docs/_snippets/slider/form.tsx"
+**Styles**
 
+```css file="../../../src/components/examples/slider/slider-disabled.module.css"
 ```
+</div>
 
-</PreviewFrame>
+</ExampleCode>
 
 ### Индикатор перетаскивания
 
 Поместите `Slider.DraggingIndicator` внутрь ползунка, чтобы показывать его текущее значение при перетаскивании.
 
-<PreviewFrame maxWidth="sm">
-  ```tsx preview file="../../en/docs/_snippets/slider/dragging-indicator.tsx"
+<ExampleFrame variant="component">
+  <SliderDraggingIndicator />
+</ExampleFrame>
 
+<ExampleCode>
+<div className="docs-reference">
+  <Tabs
+    groupId="framework"
+    values={[
+      { label: 'React', value: 'react' },
+      { label: 'Solid', value: 'solid' },
+    ]}
+    className="docs-tabs"
+  >
+    <Tab value="react">
+
+```tsx pure file="../../../src/components/examples/slider/dragging-indicator.tsx"
 ```
 
-</PreviewFrame>
+    </Tab>
+    <Tab value="solid">
+
+<CodeBlockRuntime lang="tsx" code={sliderSolidDraggingIndicator} />
+
+    </Tab>
+  </Tabs>
+</div>
+
+</ExampleCode>
+
+
+### Форма
+
+Задайте `name` и вложите `Slider.HiddenInput` в каждый явный ползунок, чтобы отправлять текущее значение.
+
+<ExampleFrame variant="component">
+  <SliderForm />
+</ExampleFrame>
+
+<ExampleCode>
+<div className="docs-reference">
+  <Tabs
+    groupId="framework"
+    values={[
+      { label: 'React', value: 'react' },
+      { label: 'Solid', value: 'solid' },
+    ]}
+    className="docs-tabs"
+  >
+    <Tab value="react">
+
+```tsx pure file="../../../src/components/examples/slider/form.tsx"
+```
+
+    </Tab>
+    <Tab value="solid">
+
+<CodeBlockRuntime lang="tsx" code={sliderSolidForm} />
+
+    </Tab>
+  </Tabs>
+
+**Styles**
+
+```css file="../../../src/components/examples/slider/slider-form.module.css"
+```
+</div>
+
+</ExampleCode>
 
 ### Некорректное значение
 
 Используйте `invalid`, если выбранное значение не проходит проверку. Дорожка, диапазон и ползунок получают состояние
 ошибки, но остаются интерактивными.
 
-<PreviewFrame maxWidth="sm">
-  ```tsx preview file="../../en/docs/_snippets/slider/invalid.tsx"
+<ExampleFrame variant="component">
+  <SliderInvalid />
+</ExampleFrame>
 
+<ExampleCode>
+<div className="docs-reference">
+  <Tabs
+    groupId="framework"
+    values={[
+      { label: 'React', value: 'react' },
+      { label: 'Solid', value: 'solid' },
+    ]}
+    className="docs-tabs"
+  >
+    <Tab value="react">
+
+```tsx pure file="../../../src/components/examples/slider/invalid.tsx"
 ```
 
-</PreviewFrame>
+    </Tab>
+    <Tab value="solid">
+
+<CodeBlockRuntime lang="tsx" code={sliderSolidInvalid} />
+
+    </Tab>
+  </Tabs>
+
+**Styles**
+
+```css file="../../../src/components/examples/slider/slider-invalid.module.css"
+```
+</div>
+
+</ExampleCode>
 
 ### Деления
 
 Используйте `Slider.MarkerGroup` и `Slider.Marker`, чтобы добавить отметки на дорожку. Ark добавляет к отметкам
 `data-state="under-value | at-value | over-value"`, который можно использовать в стилях.
 
-<PreviewFrame maxWidth="sm">
-  ```tsx preview file="../../en/docs/_snippets/slider/marks.tsx"
+<ExampleFrame variant="component">
+  <SliderMarks />
+</ExampleFrame>
 
+<ExampleCode>
+<div className="docs-reference">
+  <Tabs
+    groupId="framework"
+    values={[
+      { label: 'React', value: 'react' },
+      { label: 'Solid', value: 'solid' },
+    ]}
+    className="docs-tabs"
+  >
+    <Tab value="react">
+
+```tsx pure file="../../../src/components/examples/slider/marks.tsx"
 ```
 
-</PreviewFrame>
+    </Tab>
+    <Tab value="solid">
+
+<CodeBlockRuntime lang="tsx" code={sliderSolidMarks} />
+
+    </Tab>
+  </Tabs>
+
+**Styles**
+
+```css file="../../../src/components/examples/slider/slider-marks.module.css"
+```
+</div>
+
+</ExampleCode>
 
 ### Минимум и максимум
 
 Задайте `min` и `max`, если диапазон слайдера не начинается с `0` или не заканчивается на `100`.
 
-<PreviewFrame maxWidth="sm">
-  ```tsx preview file="../../en/docs/_snippets/slider/min-and-max.tsx"
+<ExampleFrame variant="component">
+  <SliderMinAndMax />
+</ExampleFrame>
 
+<ExampleCode>
+<div className="docs-reference">
+  <Tabs
+    groupId="framework"
+    values={[
+      { label: 'React', value: 'react' },
+      { label: 'Solid', value: 'solid' },
+    ]}
+    className="docs-tabs"
+  >
+    <Tab value="react">
+
+```tsx pure file="../../../src/components/examples/slider/min-and-max.tsx"
 ```
 
-</PreviewFrame>
+    </Tab>
+    <Tab value="solid">
+
+<CodeBlockRuntime lang="tsx" code={sliderSolidMinAndMax} />
+
+    </Tab>
+  </Tabs>
+</div>
+
+</ExampleCode>
 
 ### Диапазон
 
 Передайте массив, содержащий по одному значению на каждый ползунок. `Slider.Thumbs` создаст соответствующие ползунки
 и скрытые поля ввода для формы.
 
-<PreviewFrame maxWidth="sm">
-  ```tsx preview file="../../en/docs/_snippets/slider/range.tsx"
+<ExampleFrame variant="component">
+  <SliderRange />
+</ExampleFrame>
 
+<ExampleCode>
+<div className="docs-reference">
+  <Tabs
+    groupId="framework"
+    values={[
+      { label: 'React', value: 'react' },
+      { label: 'Solid', value: 'solid' },
+    ]}
+    className="docs-tabs"
+  >
+    <Tab value="react">
+
+```tsx pure file="../../../src/components/examples/slider/range.tsx"
 ```
 
-</PreviewFrame>
+    </Tab>
+    <Tab value="solid">
+
+<CodeBlockRuntime lang="tsx" code={sliderSolidRange} />
+
+    </Tab>
+  </Tabs>
+</div>
+
+</ExampleCode>
 
 ### Только для чтения
 
 Используйте `readOnly`, если значение должно оставаться видимым, а ползунок - доступным для фокуса, но изменять его нельзя.
 В этом состоянии moduix использует курсор по умолчанию, поэтому слайдер не выглядит интерактивным.
 
-<PreviewFrame maxWidth="sm">
-  ```tsx preview file="../../en/docs/_snippets/slider/read-only.tsx"
+<ExampleFrame variant="component">
+  <SliderReadOnly />
+</ExampleFrame>
 
+<ExampleCode>
+<div className="docs-reference">
+  <Tabs
+    groupId="framework"
+    values={[
+      { label: 'React', value: 'react' },
+      { label: 'Solid', value: 'solid' },
+    ]}
+    className="docs-tabs"
+  >
+    <Tab value="react">
+
+```tsx pure file="../../../src/components/examples/slider/read-only.tsx"
 ```
 
-</PreviewFrame>
+    </Tab>
+    <Tab value="solid">
+
+<CodeBlockRuntime lang="tsx" code={sliderSolidReadOnly} />
+
+    </Tab>
+  </Tabs>
+
+**Styles**
+
+```css file="../../../src/components/examples/slider/slider-read-only.module.css"
+```
+</div>
+
+</ExampleCode>
 
 ### Root Provider
 
 Используйте `useSlider` из moduix с `Slider.RootProvider`, если состояние нужно создать вне дерева, в котором отображаются
 части слайдера. Рендерьте эти части внутри `RootProvider` и не добавляйте второй корень для того же состояния.
 
-<PreviewFrame maxWidth="sm">
-  ```tsx preview file="../../en/docs/_snippets/slider/root-provider.tsx"
+<ExampleFrame variant="component">
+  <SliderRootProvider />
+</ExampleFrame>
 
+<ExampleCode>
+<div className="docs-reference">
+  <Tabs
+    groupId="framework"
+    values={[
+      { label: 'React', value: 'react' },
+      { label: 'Solid', value: 'solid' },
+    ]}
+    className="docs-tabs"
+  >
+    <Tab value="react">
+
+```tsx pure file="../../../src/components/examples/slider/root-provider.tsx"
 ```
 
-</PreviewFrame>
+    </Tab>
+    <Tab value="solid">
+
+<CodeBlockRuntime lang="tsx" code={sliderSolidRootProvider} />
+
+    </Tab>
+  </Tabs>
+
+**Styles**
+
+```css file="../../../src/components/examples/slider/slider-root-provider.module.css"
+```
+</div>
+
+</ExampleCode>
 
 ### Шаг
 
 Используйте `step` для дробного или более точного шага.
 
-<PreviewFrame maxWidth="sm">
-  ```tsx preview file="../../en/docs/_snippets/slider/step.tsx"
+<ExampleFrame variant="component">
+  <SliderStep />
+</ExampleFrame>
 
+<ExampleCode>
+<div className="docs-reference">
+  <Tabs
+    groupId="framework"
+    values={[
+      { label: 'React', value: 'react' },
+      { label: 'Solid', value: 'solid' },
+    ]}
+    className="docs-tabs"
+  >
+    <Tab value="react">
+
+```tsx pure file="../../../src/components/examples/slider/step.tsx"
 ```
 
-</PreviewFrame>
+    </Tab>
+    <Tab value="solid">
+
+<CodeBlockRuntime lang="tsx" code={sliderSolidStep} />
+
+    </Tab>
+  </Tabs>
+
+**Styles**
+
+```css file="../../../src/components/examples/slider/slider-step.module.css"
+```
+</div>
+
+</ExampleCode>
 
 ### Выравнивание ползунка
 
 Используйте `thumbAlignment="center"`, если ползунок должен выходить за края дорожки.
 
-<PreviewFrame maxWidth="sm">
-  ```tsx preview file="../../en/docs/_snippets/slider/thumb-alignment.tsx"
+<ExampleFrame variant="component">
+  <SliderThumbAlignment />
+</ExampleFrame>
 
+<ExampleCode>
+<div className="docs-reference">
+  <Tabs
+    groupId="framework"
+    values={[
+      { label: 'React', value: 'react' },
+      { label: 'Solid', value: 'solid' },
+    ]}
+    className="docs-tabs"
+  >
+    <Tab value="react">
+
+```tsx pure file="../../../src/components/examples/slider/thumb-alignment.tsx"
 ```
 
-</PreviewFrame>
+    </Tab>
+    <Tab value="solid">
+
+<CodeBlockRuntime lang="tsx" code={sliderSolidThumbAlignment} />
+
+    </Tab>
+  </Tabs>
+
+**Styles**
+
+```css file="../../../src/components/examples/slider/slider-thumb-alignment.module.css"
+```
+</div>
+
+</ExampleCode>
 
 ### Столкновение ползунков
 
 Используйте `thumbCollisionBehavior`, чтобы задать поведение ползунков диапазона при встрече. Значение `none` (по умолчанию)
 не позволяет одному ползунку пройти дальше другого, `push` двигает второй ползунок, а `swap` меняет их местами.
 
-<PreviewFrame maxWidth="sm">
-  ```tsx preview file="../../en/docs/_snippets/slider/thumb-collision.tsx"
+<ExampleFrame variant="component">
+  <SliderThumbCollision />
+</ExampleFrame>
 
+<ExampleCode>
+<div className="docs-reference">
+  <Tabs
+    groupId="framework"
+    values={[
+      { label: 'React', value: 'react' },
+      { label: 'Solid', value: 'solid' },
+    ]}
+    className="docs-tabs"
+  >
+    <Tab value="react">
+
+```tsx pure file="../../../src/components/examples/slider/thumb-collision.tsx"
 ```
 
-</PreviewFrame>
+    </Tab>
+    <Tab value="solid">
+
+<CodeBlockRuntime lang="tsx" code={sliderSolidThumbCollision} />
+
+    </Tab>
+  </Tabs>
+
+**Styles**
+
+```css file="../../../src/components/examples/slider/slider-thumb-collision.module.css"
+```
+</div>
+
+</ExampleCode>
 
 ### Перекрытие ползунков
 
 Используйте `minStepsBetweenThumbs`, чтобы задать минимальный зазор между ползунками диапазона. Фактический зазор равен
 `minStepsBetweenThumbs * step`.
 
-<PreviewFrame maxWidth="sm">
-  ```tsx preview file="../../en/docs/_snippets/slider/thumb-overlap.tsx"
+<ExampleFrame variant="component">
+  <SliderThumbOverlap />
+</ExampleFrame>
 
+<ExampleCode>
+<div className="docs-reference">
+  <Tabs
+    groupId="framework"
+    values={[
+      { label: 'React', value: 'react' },
+      { label: 'Solid', value: 'solid' },
+    ]}
+    className="docs-tabs"
+  >
+    <Tab value="react">
+
+```tsx pure file="../../../src/components/examples/slider/thumb-overlap.tsx"
 ```
 
-</PreviewFrame>
+    </Tab>
+    <Tab value="solid">
+
+<CodeBlockRuntime lang="tsx" code={sliderSolidThumbOverlap} />
+
+    </Tab>
+  </Tabs>
+
+**Styles**
+
+```css file="../../../src/components/examples/slider/slider-thumb-overlap.module.css"
+```
+</div>
+
+</ExampleCode>
 
 ### Вертикальный
 
 Задайте `orientation="vertical"` и явно задайте корневому элементу высоту.
 
-<PreviewFrame maxWidth="sm">
-  ```tsx preview file="../../en/docs/_snippets/slider/vertical.tsx"
+<ExampleFrame variant="component">
+  <SliderVertical />
+</ExampleFrame>
 
+<ExampleCode>
+<div className="docs-reference">
+  <Tabs
+    groupId="framework"
+    values={[
+      { label: 'React', value: 'react' },
+      { label: 'Solid', value: 'solid' },
+    ]}
+    className="docs-tabs"
+  >
+    <Tab value="react">
+
+```tsx pure file="../../../src/components/examples/slider/vertical.tsx"
 ```
 
-</PreviewFrame>
+    </Tab>
+    <Tab value="solid">
+
+<CodeBlockRuntime lang="tsx" code={sliderSolidVertical} />
+
+    </Tab>
+  </Tabs>
+
+**Styles**
+
+```css file="../../../src/components/examples/slider/slider-vertical.module.css"
+```
+</div>
+
+</ExampleCode>
 
 ### Вертикальный с делениями
 
 В вертикальной ориентации отметки выравниваются по дорожке и используют те же атрибуты состояния.
 
-<PreviewFrame maxWidth="sm">
-  ```tsx preview file="../../en/docs/_snippets/slider/vertical-with-marks.tsx"
+<ExampleFrame variant="component">
+  <SliderVerticalWithMarks />
+</ExampleFrame>
 
+<ExampleCode>
+<div className="docs-reference">
+  <Tabs
+    groupId="framework"
+    values={[
+      { label: 'React', value: 'react' },
+      { label: 'Solid', value: 'solid' },
+    ]}
+    className="docs-tabs"
+  >
+    <Tab value="react">
+
+```tsx pure file="../../../src/components/examples/slider/vertical-with-marks.tsx"
 ```
 
-</PreviewFrame>
+    </Tab>
+    <Tab value="solid">
+
+<CodeBlockRuntime lang="tsx" code={sliderSolidVerticalWithMarks} />
+
+    </Tab>
+  </Tabs>
+
+**Styles**
+
+```css file="../../../src/components/examples/slider/slider-vertical-with-marks.module.css"
+```
+</div>
+
+</ExampleCode>
 
 ### Расширенная настройка
 
 Используйте отдельные `Slider.Thumb` вместо `Slider.Thumbs`, если каждому ползунку нужны свои дочерние элементы, доступное
 имя или определённый порядок.
 
-<PreviewFrame maxWidth="sm">
-  ```tsx preview file="../../en/docs/_snippets/slider/advanced-customization.tsx"
+<ExampleFrame variant="component">
+  <SliderAdvancedCustomization />
+</ExampleFrame>
 
+<ExampleCode>
+<div className="docs-reference">
+  <Tabs
+    groupId="framework"
+    values={[
+      { label: 'React', value: 'react' },
+      { label: 'Solid', value: 'solid' },
+    ]}
+    className="docs-tabs"
+  >
+    <Tab value="react">
+
+```tsx pure file="../../../src/components/examples/slider/advanced-customization.tsx"
 ```
 
-</PreviewFrame>
+    </Tab>
+    <Tab value="solid">
+
+<CodeBlockRuntime lang="tsx" code={sliderSolidAdvancedCustomization} />
+
+    </Tab>
+  </Tabs>
+
+**Styles**
+
+```css file="../../../src/components/examples/slider/slider-advanced-customization.module.css"
+```
+</div>
+
+</ExampleCode>
 
 ## Стилизация
 
@@ -373,7 +974,7 @@ CSS-переменные Ark и публичные CSS-переменные modu
 
 Ark добавляет `data-scope="slider"` и `data-part` ко всем отрендеренным частям. moduix также добавляет
 значения `data-slot`: `slider-root`, `slider-root-provider`, `slider-label`, `slider-value-text`,
-`slider-control`, `slider-track`, `slider-range`, `slider-thumb`, `slider-hidden-input`,
+`slider-control`, `slider-track`, `slider-range`, `slider-thumb`,
 `slider-marker-group`, `slider-marker` и `slider-dragging-indicator`.
 
 К важным атрибутам состояния Ark относятся `data-orientation`, `data-disabled`, `data-invalid`,

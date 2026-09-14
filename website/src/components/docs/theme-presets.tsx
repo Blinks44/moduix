@@ -140,8 +140,8 @@ function ThemePresets() {
                 <Select.Control>
                   <Select.Trigger>
                     <Select.ValueText placeholder={t('themePreviewSelectStage')} />
-                    <Select.Indicator />
                   </Select.Trigger>
+                  <Select.Indicator />
                 </Select.Control>
                 <Select.Positioner>
                   <Select.Content>

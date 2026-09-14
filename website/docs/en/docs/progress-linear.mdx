@@ -4,7 +4,25 @@ component: progress-linear
 description: A linear progress indicator for tasks with known or unknown progress.
 ---
 
-import * as ProgressLinearDocs from '@/components/examples/progress-linear';
+import * as ProgressLinearDocs from '@/components/examples/progress-linear/css-properties';
+import ProgressLinearBasic from '@/components/examples/progress-linear/basic.tsx';
+import ProgressLinearControlled from '@/components/examples/progress-linear/controlled.tsx';
+import ProgressLinearIndeterminate from '@/components/examples/progress-linear/indeterminate.tsx';
+import ProgressLinearInitialValue from '@/components/examples/progress-linear/initial-value.tsx';
+import ProgressLinearMinMax from '@/components/examples/progress-linear/min-max.tsx';
+import ProgressLinearStateViews from '@/components/examples/progress-linear/state-views.tsx';
+import ProgressLinearValueText from '@/components/examples/progress-linear/value-text.tsx';
+import ProgressLinearVertical from '@/components/examples/progress-linear/vertical.tsx';
+import ProgressLinearRootProvider from '@/components/examples/progress-linear/root-provider.tsx';
+import progressLinearSolidBasic from '../../../snippets/progress-linear/solid/basic.tsx?raw';
+import progressLinearSolidControlled from '../../../snippets/progress-linear/solid/controlled.tsx?raw';
+import progressLinearSolidIndeterminate from '../../../snippets/progress-linear/solid/indeterminate.tsx?raw';
+import progressLinearSolidInitialValue from '../../../snippets/progress-linear/solid/initial-value.tsx?raw';
+import progressLinearSolidMinMax from '../../../snippets/progress-linear/solid/min-max.tsx?raw';
+import progressLinearSolidStateViews from '../../../snippets/progress-linear/solid/state-views.tsx?raw';
+import progressLinearSolidValueText from '../../../snippets/progress-linear/solid/value-text.tsx?raw';
+import progressLinearSolidVertical from '../../../snippets/progress-linear/solid/vertical.tsx?raw';
+import progressLinearSolidRootProvider from '../../../snippets/progress-linear/solid/root-provider.tsx?raw';
 
 ## API Reference
 
@@ -17,18 +35,69 @@ compact status indicator in a card, toolbar, or other space-constrained surface.
 
 ## Basic
 
+`ProgressLinear` is available for React and Solid in both the CSS Modules and Tailwind packages. The
+preview on this page uses the React CSS Modules package; the framework tabs show native source for the
+same public contract.
+
 Compose the progress bar from the explicit `Label`, `ValueText`, `Track`, and `Range` parts. Give
 `Track` an accessible name that describes the task.
 
-<PreviewFrame>
-  ```tsx preview file="./_snippets/progress-linear/basic.tsx"
+<ExampleFrame variant="component">
+  <ProgressLinearBasic />
+</ExampleFrame>
 
-  ```
-</PreviewFrame>
+<ExampleCode>
+<div className="docs-reference">
+  <Tabs
+    groupId="framework"
+    values={[
+      { label: 'React', value: 'react' },
+      { label: 'Solid', value: 'solid' },
+    ]}
+    className="docs-tabs"
+  >
+    <Tab value="react">
+
+```tsx pure file="../../../src/components/examples/progress-linear/basic.tsx"
+```
+
+    </Tab>
+    <Tab value="solid">
+
+<CodeBlockRuntime lang="tsx" code={progressLinearSolidBasic} />
+
+    </Tab>
+  </Tabs>
+</div>
+
+</ExampleCode>
 
 ## Install with shadcn
 
-<ShadcnInstall packageName="progress-linear" />
+See [Quick Start](/docs/quick-start) for full package setup, registry configuration, and styling guidance.
+
+<Tabs groupId="framework">
+  <Tab label="React" value="react">
+
+<ShadcnInstallOptions
+  options={[
+    { label: 'CSS Modules', command: 'shadcn@latest add @moduix-react/progress-linear' },
+    { label: 'Tailwind CSS', command: 'shadcn@latest add @moduix-react-tailwind/progress-linear' },
+  ]}
+/>
+
+  </Tab>
+  <Tab label="Solid" value="solid">
+
+<ShadcnInstallOptions
+  options={[
+    { label: 'CSS Modules', command: 'shadcn@latest add @moduix-solid/progress-linear' },
+    { label: 'Tailwind CSS', command: 'shadcn@latest add @moduix-solid-tailwind/progress-linear' },
+  ]}
+/>
+
+  </Tab>
+</Tabs>
 
 ## Anatomy
 
@@ -41,7 +110,7 @@ ProgressLinear / ProgressLinear.Root
 └─ ProgressLinear.View
 
 ProgressLinear.RootProvider
-└─ same part tree connected to ProgressLinear.useProgress()
+└─ the same part tree connected to ProgressLinear.useProgress()
 ```
 
 | Part                                     | Role                                                                       |
@@ -57,128 +126,220 @@ ProgressLinear.RootProvider
 
 ## Composition
 
-### Recommended composition
-
-Use `ProgressLinear` or `ProgressLinear.Root` as the root. `ProgressLinear` is a shorthand for
-`ProgressLinear.Root`; the visible parts remain explicit so you can control the rendered structure.
-
 Use `defaultValue` for uncontrolled progress. Use `value` with `onValueChange(details)` when your
-application owns the current value. Set `defaultValue={null}` or `value={null}` when the task is
-running but its progress is unknown.
-
-`ProgressLinear.RootProvider` replaces the root when state is created with
-`ProgressLinear.useProgress()`. Do not render `Root` together with `RootProvider`.
-
-### When to go custom
-
-Use `ProgressLinear.RootProvider` with `ProgressLinear.useProgress()` when a parent component or
-another part of the application needs to create or control the progress state.
-
-Use `translations.value(details)` when the generated accessible name should describe the task in
-more detail. Ark uses the returned string as the generated `aria-label` on `Track`. The default
-`ValueText` still displays the formatted percentage, so render `state.valueAsString` through
-`ProgressLinear.Context` when the custom wording should also be visible. An explicit `aria-label` or
-`aria-labelledby` on `Track` takes precedence when you need to provide the task name yourself.
-
-Use `ids` when a custom composition needs stable, explicit IDs for the label, track, or surrounding
-layout. Use `ProgressLinear.View` when supporting content should switch with the Ark progress state
-instead of duplicating state checks. Use `ProgressLinear.Context` or
-`ProgressLinear.useProgressContext()` when custom UI needs the current state below a root or
-provider. Use direct Ark imports only for integrations that cannot use the moduix API.
-
-### Default props
-
-| Prop            | Default                | Notes                                             |
-| --------------- | ---------------------- | ------------------------------------------------- |
-| `defaultValue`  | `50`                   | Starting value for uncontrolled progress.        |
-| `min`           | `0`                    | Minimum used for the percentage and ARIA values. |
-| `max`           | `100`                  | Maximum used for the percentage and ARIA values. |
-| `formatOptions` | `{ style: 'percent' }` | Options used to format `ValueText`.             |
-| `locale`        | `'en-US'`              | Locale passed to `Intl.NumberFormat`.            |
-| `orientation`   | `'horizontal'`         | Use `vertical` with a defined height.            |
-
-### Behavioral notes
-
-`ProgressLinear.Track` receives `role="progressbar"`, `aria-valuemin`, `aria-valuemax`, and
-`aria-valuenow` from Ark. The root exposes `data-state="indeterminate|loading|complete"` and
-`data-orientation`. For indeterminate progress, `aria-valuenow` is omitted.
-
-`ProgressLinear.Label` provides visible context but does not automatically name `Track`. The track
-gets a generated value-based accessible name from `translations.value(details)`, or you can provide
-`aria-label` or `aria-labelledby` explicitly for a task-specific name. `ProgressLinear.ValueText`
-announces changes with `aria-live="polite"`.
-
-All rendered parts support `asChild` through Ark's polymorphic composition. Keep replacement
-elements semantic and preserve the progressbar semantics on `Track`. Progress is informational, so
-the component has no keyboard interaction or focus management.
-
-Ark adds `data-orientation` to the root, label, track, and range. In RTL, determinate progress
-fills from the inline start and indeterminate motion reverses.
+application owns the current value, and use `defaultValue={null}` or `value={null}` when progress is
+unknown. If state is created with `ProgressLinear.useProgress()`, render the parts inside
+`ProgressLinear.RootProvider` instead of `ProgressLinear` or `ProgressLinear.Root`. Use
+`ProgressLinear.View` for state-specific content and `ProgressLinear.Context` when custom visible text
+needs the current state.
 
 ## Examples
 
 ### Controlled
 
-Keep `value` in React state when progress needs to stay in sync with another control or an external
-task.
+Keep `value` in state when progress needs to stay in sync with another control or an external task.
 
-<PreviewFrame>
-  ```tsx preview file="./_snippets/progress-linear/controlled.tsx"
+<ExampleFrame variant="component">
+  <ProgressLinearControlled />
+</ExampleFrame>
 
-  ```
-</PreviewFrame>
+<ExampleCode>
+<div className="docs-reference">
+  <Tabs
+    groupId="framework"
+    values={[
+      { label: 'React', value: 'react' },
+      { label: 'Solid', value: 'solid' },
+    ]}
+    className="docs-tabs"
+  >
+    <Tab value="react">
+
+```tsx pure file="../../../src/components/examples/progress-linear/controlled.tsx"
+```
+
+    </Tab>
+    <Tab value="solid">
+
+<CodeBlockRuntime lang="tsx" code={progressLinearSolidControlled} />
+
+    </Tab>
+  </Tabs>
+</div>
+
+</ExampleCode>
 
 ### Indeterminate
 
 Set `defaultValue={null}` or `value={null}` when the task is running but its completion cannot be
 measured yet.
 
-<PreviewFrame>
-  ```tsx preview file="./_snippets/progress-linear/indeterminate.tsx"
+<ExampleFrame variant="component">
+  <ProgressLinearIndeterminate />
+</ExampleFrame>
 
-  ```
-</PreviewFrame>
+<ExampleCode>
+<div className="docs-reference">
+  <Tabs
+    groupId="framework"
+    values={[
+      { label: 'React', value: 'react' },
+      { label: 'Solid', value: 'solid' },
+    ]}
+    className="docs-tabs"
+  >
+    <Tab value="react">
+
+```tsx pure file="../../../src/components/examples/progress-linear/indeterminate.tsx"
+```
+
+    </Tab>
+    <Tab value="solid">
+
+<CodeBlockRuntime lang="tsx" code={progressLinearSolidIndeterminate} />
+
+    </Tab>
+  </Tabs>
+</div>
+
+</ExampleCode>
 
 ### Initial Value
 
 Use `defaultValue` to set the initial value for uncontrolled progress.
 
-<PreviewFrame>
-  ```tsx preview file="./_snippets/progress-linear/initial-value.tsx"
+<ExampleFrame variant="component">
+  <ProgressLinearInitialValue />
+</ExampleFrame>
 
-  ```
-</PreviewFrame>
+<ExampleCode>
+<div className="docs-reference">
+  <Tabs
+    groupId="framework"
+    values={[
+      { label: 'React', value: 'react' },
+      { label: 'Solid', value: 'solid' },
+    ]}
+    className="docs-tabs"
+  >
+    <Tab value="react">
+
+```tsx pure file="../../../src/components/examples/progress-linear/initial-value.tsx"
+```
+
+    </Tab>
+    <Tab value="solid">
+
+<CodeBlockRuntime lang="tsx" code={progressLinearSolidInitialValue} />
+
+    </Tab>
+  </Tabs>
+</div>
+
+</ExampleCode>
 
 ### Min and Max
 
 Use `min` and `max` when the progress range is different from the default range of `0` to `100`.
 
-<PreviewFrame>
-  ```tsx preview file="./_snippets/progress-linear/min-max.tsx"
+<ExampleFrame variant="component">
+  <ProgressLinearMinMax />
+</ExampleFrame>
 
-  ```
-</PreviewFrame>
+<ExampleCode>
+<div className="docs-reference">
+  <Tabs
+    groupId="framework"
+    values={[
+      { label: 'React', value: 'react' },
+      { label: 'Solid', value: 'solid' },
+    ]}
+    className="docs-tabs"
+  >
+    <Tab value="react">
+
+```tsx pure file="../../../src/components/examples/progress-linear/min-max.tsx"
+```
+
+    </Tab>
+    <Tab value="solid">
+
+<CodeBlockRuntime lang="tsx" code={progressLinearSolidMinMax} />
+
+    </Tab>
+  </Tabs>
+</div>
+
+</ExampleCode>
 
 ### State Views
 
 Use `ProgressLinear.View` when supporting text or UI should change with the Ark progress state.
 
-<PreviewFrame>
-  ```tsx preview file="./_snippets/progress-linear/state-views.tsx"
+<ExampleFrame variant="component">
+  <ProgressLinearStateViews />
+</ExampleFrame>
 
-  ```
-</PreviewFrame>
+<ExampleCode>
+<div className="docs-reference">
+  <Tabs
+    groupId="framework"
+    values={[
+      { label: 'React', value: 'react' },
+      { label: 'Solid', value: 'solid' },
+    ]}
+    className="docs-tabs"
+  >
+    <Tab value="react">
+
+```tsx pure file="../../../src/components/examples/progress-linear/state-views.tsx"
+```
+
+    </Tab>
+    <Tab value="solid">
+
+<CodeBlockRuntime lang="tsx" code={progressLinearSolidStateViews} />
+
+    </Tab>
+  </Tabs>
+</div>
+
+</ExampleCode>
 
 ### Value Text
 
 Use `ProgressLinear.Context` with `translations.value(details)` when visible value text needs
 task-specific wording.
 
-<PreviewFrame>
-  ```tsx preview file="./_snippets/progress-linear/value-text.tsx"
+<ExampleFrame variant="component">
+  <ProgressLinearValueText />
+</ExampleFrame>
 
-  ```
-</PreviewFrame>
+<ExampleCode>
+<div className="docs-reference">
+  <Tabs
+    groupId="framework"
+    values={[
+      { label: 'React', value: 'react' },
+      { label: 'Solid', value: 'solid' },
+    ]}
+    className="docs-tabs"
+  >
+    <Tab value="react">
+
+```tsx pure file="../../../src/components/examples/progress-linear/value-text.tsx"
+```
+
+    </Tab>
+    <Tab value="solid">
+
+<CodeBlockRuntime lang="tsx" code={progressLinearSolidValueText} />
+
+    </Tab>
+  </Tabs>
+</div>
+
+</ExampleCode>
 
 ### Vertical
 
@@ -186,27 +347,76 @@ Set `orientation="vertical"` when the range should fill from bottom to top. Vert
 a default height of `12rem`; override `--moduix-progress-linear-height` when your layout needs a
 different height.
 
-<PreviewFrame>
-  ```tsx preview file="./_snippets/progress-linear/vertical.tsx"
+<ExampleFrame variant="component">
+  <ProgressLinearVertical />
+</ExampleFrame>
 
-  ```
-</PreviewFrame>
+<ExampleCode>
+<div className="docs-reference">
+  <Tabs
+    groupId="framework"
+    values={[
+      { label: 'React', value: 'react' },
+      { label: 'Solid', value: 'solid' },
+    ]}
+    className="docs-tabs"
+  >
+    <Tab value="react">
+
+```tsx pure file="../../../src/components/examples/progress-linear/vertical.tsx"
+```
+
+    </Tab>
+    <Tab value="solid">
+
+<CodeBlockRuntime lang="tsx" code={progressLinearSolidVertical} />
+
+    </Tab>
+  </Tabs>
+</div>
+
+</ExampleCode>
 
 ### Advanced Customization
 
-Create the progress state with `ProgressLinear.useProgress()` in a parent component, then connect
-it to the rendered parts with `ProgressLinear.RootProvider`.
+Create the progress state with `ProgressLinear.useProgress()` in a parent component, then connect it
+to the rendered parts with `ProgressLinear.RootProvider`.
 
-<PreviewFrame>
-  ```tsx preview file="./_snippets/progress-linear/root-provider.tsx"
+<ExampleFrame variant="component">
+  <ProgressLinearRootProvider />
+</ExampleFrame>
 
-  ```
-</PreviewFrame>
+<ExampleCode>
+<div className="docs-reference">
+  <Tabs
+    groupId="framework"
+    values={[
+      { label: 'React', value: 'react' },
+      { label: 'Solid', value: 'solid' },
+    ]}
+    className="docs-tabs"
+  >
+    <Tab value="react">
+
+```tsx pure file="../../../src/components/examples/progress-linear/root-provider.tsx"
+```
+
+    </Tab>
+    <Tab value="solid">
+
+<CodeBlockRuntime lang="tsx" code={progressLinearSolidRootProvider} />
+
+    </Tab>
+  </Tabs>
+</div>
+
+</ExampleCode>
 
 ## Styling
 
-Use `className` on exported parts for structural styling. For state-based styles, use Ark data
-attributes and moduix `data-slot` hooks.
+Use `className` in React or `class` in Solid on exported parts for structural styling. For state-based
+styles, use Ark data attributes and moduix `data-slot` hooks. Tailwind variants use native utilities
+and consumer classes; the variables below customize the CSS Modules variants.
 
 The root has a default width of `12rem`. In vertical mode, its default height is also `12rem`. Use
 the public `--moduix-progress-linear-*` variables to adapt the component to your layout.
@@ -227,8 +437,8 @@ the public `--moduix-progress-linear-*` variables to adapt the component to your
 
 ### Styling Hooks
 
-- `data-slot="progress-linear-root"`, `progress-linear-root-provider`,
-  `progress-linear-label`, `progress-linear-value-text`, `progress-linear-track`,
-  `progress-linear-range`, and `progress-linear-view`.
+- `data-slot="progress-linear-root"`, `progress-linear-root-provider`, `progress-linear-label`,
+  `progress-linear-value-text`, `progress-linear-track`, `progress-linear-range`, and
+  `progress-linear-view`.
 - Ark hooks: `data-scope="progress"`, `data-part`, `data-state="indeterminate|loading|complete"`,
   `data-orientation="horizontal|vertical"`, `data-value`, and `data-max`.

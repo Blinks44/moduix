@@ -1,0 +1,29 @@
+{
+  "$schema": "https://ui.shadcn.com/schema/registry-item.json",
+  "name": "stack",
+  "title": "Stack",
+  "description": "moduix Solid Stack component.",
+  "dependencies": ["@ark-ui/solid", "clsx"],
+  "registryDependencies": ["@moduix-solid/foundation"],
+  "files": [
+    {
+      "path": "src/components/stack/Stack.tsx",
+      "content": "import type { HTMLArkProps } from '@ark-ui/solid/factory';\nimport { ark } from '@ark-ui/solid/factory';\nimport { clsx } from 'clsx';\nimport type { JSX } from 'solid-js';\nimport { splitProps } from 'solid-js';\nimport styles from './Stack.module.css';\n\ntype StackDirection = 'row' | 'row-reverse' | 'column' | 'column-reverse';\n\ntype StackRootProps = HTMLArkProps<'div'> & {\n  direction?:\n    | StackDirection\n    | {\n        mobile?: StackDirection;\n        desktop?: StackDirection;\n      };\n  gap?: number | string;\n  align?: JSX.CSSProperties['align-items'];\n  justify?: JSX.CSSProperties['justify-content'];\n  wrap?: JSX.CSSProperties['flex-wrap'];\n  fill?: boolean;\n};\n\nconst toCssLength = (value: number | string | undefined) =>\n  typeof value === 'number' ? `${value}px` : value;\n\nfunction StackRoot(props: StackRootProps) {\n  const [local, others] = splitProps(props, [\n    'asChild',\n    'class',\n    'direction',\n    'gap',\n    'align',\n    'justify',\n    'wrap',\n    'fill',\n    'style',\n  ]);\n\n  const mobileDirection = () =>\n    typeof local.direction === 'string'\n      ? local.direction\n      : (local.direction?.mobile ?? local.direction?.desktop);\n  const desktopDirection = () =>\n    typeof local.direction === 'string'\n      ? local.direction\n      : (local.direction?.desktop ?? local.direction?.mobile);\n\n  const stackStyle = (): JSX.CSSProperties | string => {\n    const mobile = mobileDirection();\n    const desktop = desktopDirection();\n    const generatedStyle: JSX.CSSProperties = {\n      '--moduix-stack-direction-desktop': desktop ?? 'column',\n      '--moduix-stack-direction-mobile': mobile ?? 'column',\n      '--moduix-stack-flex': local.fill == null ? undefined : local.fill ? '1 1 0%' : 'initial',\n      gap: toCssLength(local.gap),\n      'align-items': local.align,\n      'justify-content': local.justify,\n      'flex-wrap': local.wrap,\n    };\n\n    if (typeof local.style === 'string') {\n      const generatedStyleText = Object.entries(generatedStyle)\n        .filter(([, value]) => value !== undefined)\n        .map(([property, value]) => `${property}:${value}`)\n        .join(';');\n\n      return `${generatedStyleText}${generatedStyleText && local.style ? ';' : ''}${local.style}`;\n    }\n\n    return { ...generatedStyle, ...local.style };\n  };\n\n  return (\n    <ark.div\n      asChild={local.asChild}\n      {...others}\n      data-scope=\"stack\"\n      data-part=\"root\"\n      data-slot=\"stack-root\"\n      class={clsx(styles.root, local.class)}\n      style={stackStyle()}\n    />\n  );\n}\n\nconst Stack = Object.assign(StackRoot, {\n  Root: StackRoot,\n});\n\nexport { Stack };",
+      "type": "registry:component",
+      "target": "@components/ui/stack/Stack.tsx"
+    },
+    {
+      "path": "src/components/stack/Stack.module.css",
+      "content": "@layer moduix.components {\n  .root {\n    display: flex;\n    flex: var(--moduix-stack-flex, initial);\n    flex-direction: var(--moduix-stack-direction-mobile, column);\n  }\n\n  @media (min-width: 640px) {\n    .root {\n      flex-direction: var(\n        --moduix-stack-direction-desktop,\n        var(--moduix-stack-direction-mobile, column)\n      );\n    }\n  }\n}",
+      "type": "registry:file",
+      "target": "@components/ui/stack/Stack.module.css"
+    },
+    {
+      "path": "src/components/stack/index.ts",
+      "content": "export { Stack } from './Stack.js';",
+      "type": "registry:component",
+      "target": "@components/ui/stack/index.ts"
+    }
+  ],
+  "type": "registry:item"
+}

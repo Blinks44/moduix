@@ -4,7 +4,29 @@ component: pagination
 description: Доступная навигация по страницам для списков, таблиц, результатов поиска и других данных с пагинацией.
 ---
 
-import * as PaginationDocs from '@/components/examples/pagination';
+import * as PaginationDocs from '@/components/examples/pagination/css-properties';
+import PaginationAdvancedCustomization from '@/components/examples/pagination/advanced-customization.tsx';
+import PaginationBasic from '@/components/examples/pagination/basic.tsx';
+import PaginationContext from '@/components/examples/pagination/context.tsx';
+import PaginationControlled from '@/components/examples/pagination/controlled.tsx';
+import PaginationCustomized from '@/components/examples/pagination/customized.tsx';
+import PaginationDataSlicing from '@/components/examples/pagination/data-slicing.tsx';
+import PaginationLink from '@/components/examples/pagination/link.tsx';
+import PaginationPageRange from '@/components/examples/pagination/page-range.tsx';
+import PaginationPageSizeControl from '@/components/examples/pagination/page-size-control.tsx';
+import PaginationRootProvider from '@/components/examples/pagination/root-provider.tsx';
+import PaginationWithEdges from '@/components/examples/pagination/with-edges.tsx';
+import paginationSolidAdvancedCustomization from '../../../snippets/pagination/solid/advanced-customization.tsx?raw';
+import paginationSolidBasic from '../../../snippets/pagination/solid/basic.tsx?raw';
+import paginationSolidContext from '../../../snippets/pagination/solid/context.tsx?raw';
+import paginationSolidControlled from '../../../snippets/pagination/solid/controlled.tsx?raw';
+import paginationSolidCustomized from '../../../snippets/pagination/solid/customized.tsx?raw';
+import paginationSolidDataSlicing from '../../../snippets/pagination/solid/data-slicing.tsx?raw';
+import paginationSolidLink from '../../../snippets/pagination/solid/link.tsx?raw';
+import paginationSolidPageRange from '../../../snippets/pagination/solid/page-range.tsx?raw';
+import paginationSolidPageSizeControl from '../../../snippets/pagination/solid/page-size-control.tsx?raw';
+import paginationSolidRootProvider from '../../../snippets/pagination/solid/root-provider.tsx?raw';
+import paginationSolidWithEdges from '../../../snippets/pagination/solid/with-edges.tsx?raw';
 
 ## Справочник API
 
@@ -12,23 +34,77 @@ import * as PaginationDocs from '@/components/examples/pagination';
 
 ## Базовый пример
 
+Pagination доступна для React и Solid в вариантах с CSS Modules и Tailwind. Превью на этой странице
+использует пакет React CSS Modules, а вкладки показывают нативный код для того же публичного API.
+
 Используйте `Pagination` как корневой компонент. `Pagination.Items` выводит кнопки страниц и многоточия
 для текущего диапазона.
 
-<style>{PaginationDocs.paginationBasicCss}</style>
+<ExampleFrame variant="component">
+  <PaginationBasic />
+</ExampleFrame>
 
-```tsx preview file="../../en/docs/_snippets/pagination/basic.tsx"
+<ExampleCode>
+<div className="docs-reference">
+  <Tabs
+    groupId="framework"
+    values={[
+      { label: 'React', value: 'react' },
+      { label: 'Solid', value: 'solid' },
+    ]}
+    className="docs-tabs"
+  >
+    <Tab value="react">
 
+```tsx pure file="../../../src/components/examples/pagination/basic.tsx"
 ```
+    </Tab>
+    <Tab value="solid">
+
+<CodeBlockRuntime lang="tsx" code={paginationSolidBasic} />
+
+    </Tab>
+  </Tabs>
+
+**Styles**
+
+```css file="../../../src/components/examples/pagination/pagination-basic.module.css"
+```
+</div>
+
+</ExampleCode>
 
 ## Установка через shadcn
 
-<ShadcnInstall packageName="pagination" />
+Полную настройку пакета, реестра и стилей см. в разделе [Быстрый старт](/docs/quick-start).
+
+<Tabs groupId="framework">
+  <Tab label="React" value="react">
+
+<ShadcnInstallOptions
+  options={[
+    { label: 'CSS Modules', command: 'shadcn@latest add @moduix-react/pagination' },
+    { label: 'Tailwind CSS', command: 'shadcn@latest add @moduix-react-tailwind/pagination' },
+  ]}
+/>
+
+  </Tab>
+  <Tab label="Solid" value="solid">
+
+<ShadcnInstallOptions
+  options={[
+    { label: 'CSS Modules', command: 'shadcn@latest add @moduix-solid/pagination' },
+    { label: 'Tailwind CSS', command: 'shadcn@latest add @moduix-solid-tailwind/pagination' },
+  ]}
+/>
+
+  </Tab>
+</Tabs>
 
 ## Анатомия
 
 ```text
-Pagination
+Pagination / Pagination.Root
 ├─ Pagination.FirstTrigger (необязательно)
 ├─ Pagination.PrevTrigger
 ├─ Pagination.Items (рекомендуется)
@@ -59,43 +135,16 @@ Pagination.RootProvider
 
 ## Композиция
 
-### Рекомендуемая композиция
+Используйте `defaultPage` и `defaultPageSize`, если состояние должен хранить сам компонент. Если
+состоянием управляет другая часть приложения, передайте `page`, `pageSize` и соответствующие
+обработчики изменений. В `count` указывайте общее число элементов данных, а не страниц, и задавайте
+размер страницы, чтобы Ark мог вычислить `totalPages`.
 
-`Pagination` и `Pagination.Root` управляют навигацией с клавиатуры, текущей страницей, числом
-элементов на странице, состоянием кнопок навигации, расчётом диапазона страниц и подписями для средств
-доступности. Укажите в `count` общее число элементов данных, а не число страниц. Вместе с `pageSize`
-или `defaultPageSize` это позволит Ark вычислить `totalPages`.
-
-Для стандартного списка страниц используйте `Pagination.Items`. Компонент выводит текущий массив
-`pages`, рассчитанный Ark, через `Pagination.Item` и `Pagination.Ellipsis`, сохраняя выбранное
-состояние, подписи и обработчики событий.
-
-### Когда нужна собственная композиция
-
-Используйте `Pagination.Context`, если нужно изменить отображение элементов страниц или элементов
-управления рядом с ними. Если состояние нужно создать за пределами дерева пагинации, создайте его
-с помощью `Pagination.usePagination()` и передайте в `Pagination.RootProvider`. Потомок может получить
-то же состояние через `Pagination.usePaginationContext()`. Если вместо кнопок нужны ссылки, задайте
-`type="link"` и передайте `getPageUrl(details)`.
-
-### Свойства по умолчанию
-
-| Свойство          | По умолчанию | Примечание                                                        |
-| ----------------- | ------------ | ----------------------------------------------------------------- |
-| `aria-label`      | `Pagination` | Подпись области навигации по умолчанию в moduix.                     |
-| `defaultPage`     | `1`          | Начальная активная страница в неуправляемом режиме.                 |
-| `defaultPageSize` | `10`         | Начальное число элементов на странице в неуправляемом режиме.       |
-| `siblingCount`    | `1`          | Число страниц рядом с активной страницей.                            |
-| `boundaryCount`   | `1`          | Число страниц в начале и конце диапазона.                            |
-| `type`            | `button`     | Тип элемента навигации. Для ссылок задайте `link` и передайте `getPageUrl(details)`. |
-
-### Особенности поведения
-
-Когда компонент должен сам управлять состоянием, используйте `defaultPage` и `defaultPageSize`.
-Чтобы управлять состоянием из приложения, передайте `page`, `pageSize`, `onPageChange(details)` и
-`onPageSizeChange(details)`. Колбэки получают объекты `details` от Ark, поэтому читайте `details.page`
-и `details.pageSize` напрямую. Компонент сохраняет навигацию с клавиатуры, семантику выбранного элемента,
-недоступность кнопок навигации, `ids`, `asChild`, локализацию и генерацию URL для ссылок.
+Для стандартного списка страниц используйте `Pagination.Items`. Если нужно изменить отображение
+страниц или добавить элементы управления рядом с ними, используйте `Pagination.Context`. Когда
+состояние создаётся за пределами дерева, создайте его через `Pagination.usePagination()` и передайте
+в `Pagination.RootProvider`. Для навигации по URL задайте `type="link"`, передайте `getPageUrl(details)`
+и отрисуйте семантические ссылки через `asChild`.
 
 ## Примеры
 
@@ -103,98 +152,345 @@ Pagination.RootProvider
 
 Передайте текущую страницу через `page` и обновляйте её в `onPageChange(details)`.
 
-<style>{PaginationDocs.paginationControlledCss}</style>
+<ExampleFrame variant="component">
+  <PaginationControlled />
+</ExampleFrame>
 
-```tsx preview file="../../en/docs/_snippets/pagination/controlled.tsx"
+<ExampleCode>
+<div className="docs-reference">
+  <Tabs
+    groupId="framework"
+    values={[
+      { label: 'React', value: 'react' },
+      { label: 'Solid', value: 'solid' },
+    ]}
+    className="docs-tabs"
+  >
+    <Tab value="react">
 
+```tsx pure file="../../../src/components/examples/pagination/controlled.tsx"
 ```
+    </Tab>
+    <Tab value="solid">
+
+<CodeBlockRuntime lang="tsx" code={paginationSolidControlled} />
+
+    </Tab>
+  </Tabs>
+
+**Styles**
+
+```css file="../../../src/components/examples/pagination/pagination-controlled.module.css"
+```
+</div>
+
+</ExampleCode>
 
 ### Контекст
 
 Используйте `Pagination.Context`, чтобы разместить собственные элементы управления рядом со списком
 страниц и вызывать методы навигации, например `goToFirstPage()` или `goToLastPage()`.
 
-<style>{PaginationDocs.paginationContextCss}</style>
+<ExampleFrame variant="component">
+  <PaginationContext />
+</ExampleFrame>
 
-```tsx preview file="../../en/docs/_snippets/pagination/context.tsx"
+<ExampleCode>
+<div className="docs-reference">
+  <Tabs
+    groupId="framework"
+    values={[
+      { label: 'React', value: 'react' },
+      { label: 'Solid', value: 'solid' },
+    ]}
+    className="docs-tabs"
+  >
+    <Tab value="react">
 
+```tsx pure file="../../../src/components/examples/pagination/context.tsx"
 ```
+    </Tab>
+    <Tab value="solid">
+
+<CodeBlockRuntime lang="tsx" code={paginationSolidContext} />
+
+    </Tab>
+  </Tabs>
+</div>
+
+</ExampleCode>
 
 ### Постраничный вывод данных на клиенте
 
 Используйте `pagination.slice(data)` из контекста, чтобы на текущей странице показывать только нужную
 часть уже загруженного массива.
 
-<style>{PaginationDocs.paginationDataSlicingCss}</style>
+<ExampleFrame variant="component">
+  <PaginationDataSlicing />
+</ExampleFrame>
 
-```tsx preview file="../../en/docs/_snippets/pagination/data-slicing.tsx"
+<ExampleCode>
+<div className="docs-reference">
+  <Tabs
+    groupId="framework"
+    values={[
+      { label: 'React', value: 'react' },
+      { label: 'Solid', value: 'solid' },
+    ]}
+    className="docs-tabs"
+  >
+    <Tab value="react">
 
+```tsx pure file="../../../src/components/examples/pagination/data-slicing.tsx"
 ```
+    </Tab>
+    <Tab value="solid">
+
+<CodeBlockRuntime lang="tsx" code={paginationSolidDataSlicing} />
+
+    </Tab>
+  </Tabs>
+
+**Styles**
+
+```css file="../../../src/components/examples/pagination/pagination-data-slicing.module.css"
+```
+</div>
+
+</ExampleCode>
 
 ### Навигация по ссылкам
 
 Используйте `type="link"`, `getPageUrl(details)` и якоря с `asChild`, если переход между страницами
 должен менять URL и выполнять настоящую навигацию.
 
-<style>{PaginationDocs.paginationLinkCss}</style>
+<ExampleFrame variant="component">
+  <PaginationLink />
+</ExampleFrame>
 
-```tsx preview file="../../en/docs/_snippets/pagination/link.tsx"
+<ExampleCode>
+<div className="docs-reference">
+  <Tabs
+    groupId="framework"
+    values={[
+      { label: 'React', value: 'react' },
+      { label: 'Solid', value: 'solid' },
+    ]}
+    className="docs-tabs"
+  >
+    <Tab value="react">
 
+```tsx pure file="../../../src/components/examples/pagination/link.tsx"
 ```
+    </Tab>
+    <Tab value="solid">
+
+<CodeBlockRuntime lang="tsx" code={paginationSolidLink} />
+
+    </Tab>
+  </Tabs>
+
+**Styles**
+
+```css file="../../../src/components/examples/pagination/pagination-link.module.css"
+```
+</div>
+
+</ExampleCode>
 
 ### Диапазон элементов
 
 Используйте `pagination.pageRange`, чтобы показать, какие элементы видны на текущей странице.
 
-<style>{PaginationDocs.paginationPageRangeCss}</style>
+<ExampleFrame variant="component">
+  <PaginationPageRange />
+</ExampleFrame>
 
-```tsx preview file="../../en/docs/_snippets/pagination/page-range.tsx"
+<ExampleCode>
+<div className="docs-reference">
+  <Tabs
+    groupId="framework"
+    values={[
+      { label: 'React', value: 'react' },
+      { label: 'Solid', value: 'solid' },
+    ]}
+    className="docs-tabs"
+  >
+    <Tab value="react">
 
+```tsx pure file="../../../src/components/examples/pagination/page-range.tsx"
 ```
+    </Tab>
+    <Tab value="solid">
+
+<CodeBlockRuntime lang="tsx" code={paginationSolidPageRange} />
+
+    </Tab>
+  </Tabs>
+
+**Styles**
+
+```css file="../../../src/components/examples/pagination/pagination-page-range.module.css"
+```
+</div>
+
+</ExampleCode>
 
 ### Число элементов на странице
 
 Вызывайте `pagination.setPageSize(nextSize)` из контекста, когда отдельный элемент управления меняет
 число элементов на странице.
 
-<style>{PaginationDocs.paginationPageSizeControlExampleCss}</style>
+<ExampleFrame variant="component">
+  <PaginationPageSizeControl />
+</ExampleFrame>
 
-```tsx preview file="../../en/docs/_snippets/pagination/page-size-control.tsx"
+<ExampleCode>
+<div className="docs-reference">
+  <Tabs
+    groupId="framework"
+    values={[
+      { label: 'React', value: 'react' },
+      { label: 'Solid', value: 'solid' },
+    ]}
+    className="docs-tabs"
+  >
+    <Tab value="react">
 
+```tsx pure file="../../../src/components/examples/pagination/page-size-control.tsx"
 ```
+    </Tab>
+    <Tab value="solid">
+
+<CodeBlockRuntime lang="tsx" code={paginationSolidPageSizeControl} />
+
+    </Tab>
+  </Tabs>
+
+**Styles**
+
+```css file="../../../src/components/examples/pagination/pagination-page-size-control.module.css"
+```
+</div>
+
+</ExampleCode>
 
 ### Root Provider
 
 Создайте состояние через `Pagination.usePagination()` и передайте его в `Pagination.RootProvider`,
 если это состояние нужно использовать за пределами дерева с пагинацией.
 
-<style>{PaginationDocs.paginationRootProviderCss}</style>
+<ExampleFrame variant="component">
+  <PaginationRootProvider />
+</ExampleFrame>
 
-```tsx preview file="../../en/docs/_snippets/pagination/root-provider.tsx"
+<ExampleCode>
+<div className="docs-reference">
+  <Tabs
+    groupId="framework"
+    values={[
+      { label: 'React', value: 'react' },
+      { label: 'Solid', value: 'solid' },
+    ]}
+    className="docs-tabs"
+  >
+    <Tab value="react">
 
+```tsx pure file="../../../src/components/examples/pagination/root-provider.tsx"
 ```
+    </Tab>
+    <Tab value="solid">
+
+<CodeBlockRuntime lang="tsx" code={paginationSolidRootProvider} />
+
+    </Tab>
+  </Tabs>
+
+**Styles**
+
+```css file="../../../src/components/examples/pagination/pagination-root-provider.module.css"
+```
+</div>
+
+</ExampleCode>
 
 ### Локализация
 
 Передайте `translations`, чтобы настроить подписи для средств доступности. Параметры `siblingCount`,
 `boundaryCount` и параметры, задающие число элементов на странице, позволяют изменить видимый диапазон страниц.
 
-<style>{PaginationDocs.paginationTranslationsCss}</style>
+<ExampleFrame variant="component">
+  <PaginationCustomized />
+</ExampleFrame>
 
-```tsx preview file="../../en/docs/_snippets/pagination/customized.tsx"
+<ExampleCode>
+<div className="docs-reference">
+  <Tabs
+    groupId="framework"
+    values={[
+      { label: 'React', value: 'react' },
+      { label: 'Solid', value: 'solid' },
+    ]}
+    className="docs-tabs"
+  >
+    <Tab value="react">
 
+```tsx pure file="../../../src/components/examples/pagination/customized.tsx"
 ```
+    </Tab>
+    <Tab value="solid">
+
+<CodeBlockRuntime lang="tsx" code={paginationSolidCustomized} />
+
+    </Tab>
+  </Tabs>
+
+**Styles**
+
+```css file="../../../src/components/examples/pagination/pagination-customized.module.css"
+```
+</div>
+
+</ExampleCode>
 
 ### Кнопки первой и последней страницы
 
 Добавьте `Pagination.FirstTrigger` и `Pagination.LastTrigger`, если пользователям нужны быстрые
 переходы к первой и последней странице.
 
-<style>{PaginationDocs.paginationWithEdgesCss}</style>
+<ExampleFrame variant="component">
+  <PaginationWithEdges />
+</ExampleFrame>
 
-```tsx preview file="../../en/docs/_snippets/pagination/with-edges.tsx"
+<ExampleCode>
+<div className="docs-reference">
+  <Tabs
+    groupId="framework"
+    values={[
+      { label: 'React', value: 'react' },
+      { label: 'Solid', value: 'solid' },
+    ]}
+    className="docs-tabs"
+  >
+    <Tab value="react">
 
+```tsx pure file="../../../src/components/examples/pagination/with-edges.tsx"
 ```
+    </Tab>
+    <Tab value="solid">
+
+<CodeBlockRuntime lang="tsx" code={paginationSolidWithEdges} />
+
+    </Tab>
+  </Tabs>
+
+**Styles**
+
+```css file="../../../src/components/examples/pagination/pagination-with-edges.module.css"
+```
+</div>
+
+</ExampleCode>
 
 ### Расширенная настройка
 
@@ -202,11 +498,39 @@ Pagination.RootProvider
 нестандартное содержимое. Передавайте каждый объект страницы в `Pagination.Item` без изменений, чтобы
 сохранить состояние и доступность Ark.
 
-<style>{PaginationDocs.paginationAdvancedCustomizationCss}</style>
+<ExampleFrame variant="component">
+  <PaginationAdvancedCustomization />
+</ExampleFrame>
 
-```tsx preview file="../../en/docs/_snippets/pagination/advanced-customization.tsx"
+<ExampleCode>
+<div className="docs-reference">
+  <Tabs
+    groupId="framework"
+    values={[
+      { label: 'React', value: 'react' },
+      { label: 'Solid', value: 'solid' },
+    ]}
+    className="docs-tabs"
+  >
+    <Tab value="react">
 
+```tsx pure file="../../../src/components/examples/pagination/advanced-customization.tsx"
 ```
+    </Tab>
+    <Tab value="solid">
+
+<CodeBlockRuntime lang="tsx" code={paginationSolidAdvancedCustomization} />
+
+    </Tab>
+  </Tabs>
+
+**Styles**
+
+```css file="../../../src/components/examples/pagination/pagination-advanced-customization.module.css"
+```
+</div>
+
+</ExampleCode>
 
 ## Стилизация
 

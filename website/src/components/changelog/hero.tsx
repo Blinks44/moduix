@@ -1,41 +1,52 @@
-import { ArrowRight } from 'lucide-react';
 import type { ReactNode } from 'react';
 import styles from './hero.module.css';
 
+type ChangelogHeroTone = 'blue' | 'orange' | 'violet';
+
 export function ChangelogHero({
   id,
-  eyebrow,
+  category,
+  version,
+  date,
+  dateTime,
   title,
   summary,
+  tone,
   children,
 }: {
   id?: string;
-  eyebrow: string;
+  category: string;
+  version: string;
+  date: string;
+  dateTime: string;
   title: string;
   summary: string;
+  tone: ChangelogHeroTone;
   children: ReactNode;
 }) {
   return (
-    <section className={styles.hero} id={id} aria-label={title}>
-      <p className={styles.eyebrow}>{eyebrow}</p>
-      <p className={styles.title}>{title}</p>
-      <div className={styles.content}>{children}</div>
-      <p className={styles.summary}>{summary}</p>
+    <section className={`${styles.hero} ${styles[tone]}`} id={id} aria-label={title}>
+      <div className={styles.meta}>
+        <div className={styles.release}>
+          <span className={styles.category}>{category}</span>
+          <span className={styles.version}>{version}</span>
+        </div>
+        <time className={styles.date} dateTime={dateTime}>
+          {date}
+        </time>
+      </div>
+
+      <div className={styles.layout}>
+        <div className={styles.copy}>
+          <p className={styles.title}>{title}</p>
+          <p className={styles.summary}>{summary}</p>
+        </div>
+        <div className={styles.visual} aria-hidden="true">
+          {children}
+        </div>
+      </div>
     </section>
   );
-}
-
-export function ChangelogHeroCard({ label, children }: { label: string; children: ReactNode }) {
-  return (
-    <div className={styles.product}>
-      {children}
-      <span className={styles.productLabel}>{label}</span>
-    </div>
-  );
-}
-
-export function ChangelogHeroArrow() {
-  return <ArrowRight className={styles.arrow} aria-hidden="true" />;
 }
 
 export function ChangelogNewsItem({ children }: { children: ReactNode }) {

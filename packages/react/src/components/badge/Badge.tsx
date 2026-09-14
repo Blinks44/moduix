@@ -1,8 +1,7 @@
 import type { HTMLArkProps } from '@ark-ui/react/factory';
 import { ark } from '@ark-ui/react/factory';
 import { clsx } from 'clsx';
-import { Children, forwardRef, type ComponentRef } from 'react';
-import { normalizeClassName } from '@/lib/moduix/normalizeClassName';
+import { forwardRef, type ComponentRef } from 'react';
 import styles from './Badge.module.css';
 
 type BadgeRootProps = HTMLArkProps<'span'> & {
@@ -18,14 +17,14 @@ const BadgeLabel = forwardRef<ComponentRef<typeof ark.span>, HTMLArkProps<'span'
         data-scope="badge"
         data-part="label"
         data-slot="badge-label"
-        className={clsx(styles.label, normalizeClassName(className))}
+        className={clsx(styles.label, className)}
       />
     );
   },
 );
 
 const BadgeRoot = forwardRef<ComponentRef<typeof ark.span>, BadgeRootProps>(function BadgeRoot(
-  { asChild, children, className, variant = 'default', ...props },
+  { className, variant = 'default', ...props },
   ref,
 ) {
   return (
@@ -36,19 +35,8 @@ const BadgeRoot = forwardRef<ComponentRef<typeof ark.span>, BadgeRootProps>(func
       data-part="root"
       data-slot="badge-root"
       data-variant={variant}
-      className={clsx(styles.root, normalizeClassName(className))}
-      asChild={asChild}
-    >
-      {asChild
-        ? children
-        : Children.map(children, (child) =>
-            typeof child === 'string' || typeof child === 'number' ? (
-              <BadgeLabel>{child}</BadgeLabel>
-            ) : (
-              child
-            ),
-          )}
-    </ark.span>
+      className={clsx(styles.root, className)}
+    />
   );
 });
 
@@ -64,7 +52,7 @@ const BadgeDot = forwardRef<ComponentRef<typeof ark.span>, HTMLArkProps<'span'>>
       data-part="dot"
       data-slot="badge-dot"
       aria-hidden="true"
-      className={clsx(styles.dot, normalizeClassName(className))}
+      className={clsx(styles.dot, className)}
     />
   );
 });

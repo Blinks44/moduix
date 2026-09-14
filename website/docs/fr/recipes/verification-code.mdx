@@ -1,9 +1,10 @@
 ---
 title: Code de vérification
-description: Un formulaire de vérification d’adresse e-mail avec un code à usage unique de six chiffres, construit avec les composants React moduix.
+description: Un formulaire de vérification d’adresse e-mail avec un code à usage unique de six chiffres, construit avec les composants moduix.
 ---
 
-import { VerificationCodePreview } from '@/components/recipes/verification-code-preview';
+import { VerificationCode } from '@/components/recipes/verification-code/verification-code';
+import verificationCodeSolid from '../../../snippets/recipes/solid/verification-code.tsx?raw';
 
 # Code de vérification
 
@@ -14,32 +15,50 @@ le collage, et active le remplissage automatique du code à usage unique sur mob
 avec moins de six chiffres pour afficher l’erreur intégrée au champ. Cette vérification confirme uniquement
 que les six chiffres ont été saisis. Votre application doit toujours vérifier le code sur le serveur.
 
-<ExampleFrame clientOnly>
-  <VerificationCodePreview />
+L’aperçu interactif utilise le paquet React. Les onglets de code présentent des implémentations natives pour React et Solid avec les mêmes styles.
+
+<ExampleFrame variant="recipe" clientOnly>
+  <PreviewFrame maxWidth="sm">
+  <VerificationCode onSubmit={(event) => event.preventDefault()} />
+  </PreviewFrame>
 </ExampleFrame>
 
+<ExampleCode>
 <div className="docs-reference">
-  <Tabs values={[{ label: 'Composant', value: 'Component' }, { label: 'Styles', value: 'Styles' }]} className="docs-tabs">
-    <Tab value="Component">
+  <Tabs
+    groupId="framework"
+    values={[
+      { label: 'React', value: 'react' },
+      { label: 'Solid', value: 'solid' },
+    ]}
+    className="docs-tabs"
+  >
+    <Tab value="react">
 
-```tsx file="../../../src/components/recipes/verification-code.tsx"
+```tsx pure file="../../../src/components/recipes/verification-code/verification-code.tsx"
 
 ```
 
     </Tab>
-    <Tab value="Styles">
+    <Tab value="solid">
 
-```css file="../../../src/components/recipes/verification-code.module.css"
-
-```
+<CodeBlockRuntime lang="tsx" code={verificationCodeSolid} />
 
     </Tab>
   </Tabs>
+
+**Styles**
+
+```css file="../../../src/components/recipes/verification-code/verification-code-form.module.css"
+
+```
 </div>
+
+</ExampleCode>
 
 ## Installation
 
-<ShadcnInstall packageName={['button', 'card', 'field', 'pin-input']} itemKind="recipe" copiedSource />
+<ShadcnInstall packageName={['button', 'card', 'field', 'pin-input']} itemKind="recipe" frameworks copiedSource />
 
 ## Utiliser la recette dans une route
 

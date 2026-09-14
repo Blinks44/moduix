@@ -1,102 +1,123 @@
 ---
 title: Update and migration
-description: Update the moduix npm package or merge changes into registry components and presets that your application owns.
+description: Update Moduix packages or merge registry changes across every shipped framework and styling adapter.
 ---
 
 # Update and migration
 
-moduix offers two ways to install components. The update process depends on where the component
-source lives:
+Update Moduix according to where the component source lives. Package consumers update dependencies;
+registry consumers review and merge source changes into their application.
 
-| Installation | Where the source lives | Update process |
+| Distribution | Source location | Update method |
 | --- | --- | --- |
-| `@moduix/react` package | In `node_modules` | Update the package and its peer dependencies with your package manager. |
-| shadcn registry | In your application repository | Review registry changes, then merge them with your local source. |
+| npm package | `node_modules` | Update the matching Moduix and Ark UI packages. |
+| shadcn registry | Application repository | Preview the registry diff, then merge it with local changes. |
 
-If you are moving an existing shadcn application to moduix, see [Migrate from shadcn](/docs/migrate-from-shadcn).
+If you are moving an existing shadcn application to Moduix, start with
+[Migrate from shadcn](/docs/migrate-from-shadcn).
 
-## Update the npm package
+## Identify the installed adapter
 
-Use the package workflow when you want moduix to remain a dependency and receive updates through
-your package manager.
+Keep framework and styling choices explicit:
 
-Before changing versions, read the [Changelog](/docs/changelog). Use `npm update` for compatible
-updates that stay within the version ranges already declared in `package.json`:
+| Runtime | CSS Modules | Tailwind CSS |
+| --- | --- | --- |
+| React | `@moduix/react` | `@moduix/react-tailwind` |
+| Solid | `@moduix/solid` | `@moduix/solid-tailwind` |
 
-The examples below use npm. If you use pnpm, Yarn, or another package manager, use its equivalent
-commands.
+Do not update a similarly named adapter that the application does not use. Tailwind packages may have
+a smaller component catalog while ports are still in progress.
 
-```bash
-npm update @moduix/react @ark-ui/react
-```
+## Update packages
 
-To choose versions explicitly and update the declared ranges, install the releases you want:
+Read the [Changelog](/docs/changelog) before changing versions, then use the package manager already
+used by the application.
 
-```bash
-npm install @moduix/react@latest @ark-ui/react@latest
-```
+<Tabs groupId="styling">
+  <Tab label="CSS Modules" value="css-modules">
 
-`@ark-ui/react` is a peer dependency of `@moduix/react`. Before a major update, check the
-compatible Ark UI range in the release notes instead of upgrading both packages blindly. Choose
-the moduix major version deliberately, then follow the migration steps in its changelog.
+<Tabs groupId="framework">
+  <Tab label="React" value="react">
 
-After the update, review the lockfile, run your application's typecheck and tests, and exercise
-the components named in the changelog. If the release changes composition or styling, compare the
-component documentation with your implementation before shipping the update.
+<PackageManagerTabs command="install @moduix/react@latest @ark-ui/react@latest" />
+
+  </Tab>
+  <Tab label="Solid" value="solid">
+
+<PackageManagerTabs command="install @moduix/solid@latest @ark-ui/solid@latest" />
+
+  </Tab>
+</Tabs>
+
+  </Tab>
+  <Tab label="Tailwind CSS" value="tailwind">
+
+<Tabs groupId="framework">
+  <Tab label="React" value="react">
+
+<PackageManagerTabs command="install @moduix/react-tailwind@latest @ark-ui/react@latest" />
+
+  </Tab>
+  <Tab label="Solid" value="solid">
+
+<PackageManagerTabs command="install @moduix/solid-tailwind@latest @ark-ui/solid@latest" />
+
+  </Tab>
+</Tabs>
+
+  </Tab>
+</Tabs>
+
+Ark UI is a peer dependency. Before a major update, check the compatible range in the release notes
+instead of upgrading both packages blindly. Review the lockfile after installation.
 
 ## Update registry components
 
-Registry components are copied into your application repository. They do not update when you
-upgrade `@moduix/react`, so review each registry item separately.
+Registry components are copied into the application and do not change with package updates. Select
+the registry namespace that matches both axes:
 
-Before changing local files, inspect the current item and compare it with your copy:
+| Runtime | CSS Modules registry | Tailwind registry |
+| --- | --- | --- |
+| React | `@moduix-react` | `@moduix-react-tailwind` |
+| Solid | `@moduix-solid` | `@moduix-solid-tailwind` |
 
-```bash
-npx shadcn@latest view @moduix-react/button
-npx shadcn@latest add @moduix-react/button --dry-run
-npx shadcn@latest add @moduix-react/button --diff
-```
+Preview a component before changing local files:
 
-Replace `button` with the item you want to update. `view` shows the current registry source,
-`--dry-run` previews the files that would change, and `--diff` compares the registry version with
-the files in your project. A diff can include shared foundation files and other registry
-dependencies, so review those changes too.
+<PackageManagerTabs command="shadcn@latest view @moduix-react/button" dlx />
 
-After reviewing the diff, run the update from a branch or a clean working tree:
+<PackageManagerTabs command="shadcn@latest add @moduix-react/button --dry-run" dlx />
 
-```bash
-npx shadcn@latest add @moduix-react/button
-```
+<PackageManagerTabs command="shadcn@latest add @moduix-react/button --diff" dlx />
 
-Do not use `--overwrite` until you have decided how to preserve your local edits. If you changed a
-component in your application, merge the upstream changes with those edits and then verify the
-component's behavior, accessibility, and styles.
+Replace the namespace with the installed adapter and `button` with the item being updated. The diff
+may include shared foundation files and registry dependencies, so review the complete result.
 
-Repeat the process for every registry item you use. The CLI resolves the shared moduix foundation
-and declared item dependencies automatically. Keep the generated foundation stylesheet imported
-once in your application entry point:
+After reviewing it, run the update from a branch or clean working tree:
 
-```tsx
-import '@/lib/moduix/styles/style.css';
-```
+<PackageManagerTabs command="shadcn@latest add @moduix-react/button" dlx />
 
-## Update presets
+Do not use `--overwrite` until you have decided how to preserve local edits. Merge upstream behavior,
+accessibility, and styling changes with the application's product-specific changes.
 
-Presets shipped with `@moduix/react` are updated together with the package. Review [Themes](/docs/themes)
-and [Tokens](/docs/tokens) when a release changes density, colors, or other shared visual defaults.
+## Update styles and presets
 
-For a preset copied from the registry, inspect and update it like any other registry item:
+Package styles and presets update with their package. Registry-owned foundation and preset files must
+be reviewed like any other registry item.
 
-```bash
-npx shadcn@latest view @moduix-react/theme-soft
-npx shadcn@latest add @moduix-react/theme-soft --dry-run
-npx shadcn@latest add @moduix-react/theme-soft --diff
-```
-
-After reviewing the diff, install the preset without `--dry-run` and keep your application
-overrides after its import. This preserves the cascade when the preset gains a new token:
+Keep the foundation stylesheet imported once from the path created by your registry configuration:
 
 ```tsx
 import '@/lib/moduix/styles/style.css';
-import '@/lib/moduix/presets/soft.css';
 ```
+
+Application overrides must load after the foundation and preset so the cascade remains intentional.
+When a release changes tokens, density, colors, or motion, review [Themes](/docs/themes),
+[Tokens](/docs/tokens), and [Animations](/docs/animations).
+
+## Verify the update
+
+- Review the package manifest and lockfile together.
+- Run the application's formatter, lint, typecheck, and tests.
+- Exercise the components and interactions named in the changelog.
+- Check keyboard behavior, focus return, portals, and reduced motion when relevant.
+- Compare local registry changes with the complete upstream diff before shipping.

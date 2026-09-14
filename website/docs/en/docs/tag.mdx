@@ -4,7 +4,21 @@ component: tag
 description: A compact token for selected values, filters, assignments, and other short interface values, with optional icons and a close action.
 ---
 
-import * as TagDocs from '@/components/examples/tag';
+import * as TagDocs from '@/components/examples/tag/css-properties';
+import TagBasic from '@/components/examples/tag/basic.tsx';
+import TagClosable from '@/components/examples/tag/closable.tsx';
+import TagIcon from '@/components/examples/tag/icon.tsx';
+import TagOverflow from '@/components/examples/tag/overflow.tsx';
+import TagRenderAsButton from '@/components/examples/tag/render-as-button.tsx';
+import TagSizes from '@/components/examples/tag/sizes.tsx';
+import TagVariants from '@/components/examples/tag/variants.tsx';
+import tagSolidBasic from '../../../snippets/tag/solid/basic.tsx?raw';
+import tagSolidClosable from '../../../snippets/tag/solid/closable.tsx?raw';
+import tagSolidIcon from '../../../snippets/tag/solid/icon.tsx?raw';
+import tagSolidOverflow from '../../../snippets/tag/solid/overflow.tsx?raw';
+import tagSolidRenderAsButton from '../../../snippets/tag/solid/render-as-button.tsx?raw';
+import tagSolidSizes from '../../../snippets/tag/solid/sizes.tsx?raw';
+import tagSolidVariants from '../../../snippets/tag/solid/variants.tsx?raw';
 
 ## API Reference
 
@@ -23,18 +37,66 @@ need a local action, such as removal.
 
 ## Basic
 
-Start with a `Tag` root and `Tag.Label`. Add the other parts only when the token needs an icon,
-supporting content, or an inline close action.
+`Tag` ships for React and Solid in both the CSS Modules and Tailwind packages. Start with a `Tag`
+root and `Tag.Label`. Add the other parts only when the token needs an icon, supporting content,
+or an inline close action. The rendered preview uses the React CSS Modules package; the framework
+tabs show native source for the same public contract.
 
-<PreviewFrame>
-  ```tsx preview file="./_snippets/tag/basic.tsx"
+<ExampleFrame variant="component">
+  <TagBasic />
+</ExampleFrame>
 
-  ```
-</PreviewFrame>
+<ExampleCode>
+<div className="docs-reference">
+  <Tabs
+    groupId="framework"
+    values={[
+      { label: 'React', value: 'react' },
+      { label: 'Solid', value: 'solid' },
+    ]}
+    className="docs-tabs"
+  >
+    <Tab value="react">
+
+```tsx pure file="../../../src/components/examples/tag/basic.tsx"
+```
+
+    </Tab>
+    <Tab value="solid">
+
+<CodeBlockRuntime lang="tsx" code={tagSolidBasic} />
+
+    </Tab>
+  </Tabs>
+</div>
+</ExampleCode>
 
 ## Install with shadcn
 
-<ShadcnInstall packageName="tag" />
+See [Quick Start](/docs/quick-start) for full package setup, registry configuration, and styling guidance.
+
+<Tabs groupId="framework">
+  <Tab label="React" value="react">
+
+<ShadcnInstallOptions
+  options={[
+    { label: 'CSS Modules', command: 'shadcn@latest add @moduix-react/tag' },
+    { label: 'Tailwind CSS', command: 'shadcn@latest add @moduix-react-tailwind/tag' },
+  ]}
+/>
+
+  </Tab>
+  <Tab label="Solid" value="solid">
+
+<ShadcnInstallOptions
+  options={[
+    { label: 'CSS Modules', command: 'shadcn@latest add @moduix-solid/tag' },
+    { label: 'Tailwind CSS', command: 'shadcn@latest add @moduix-solid-tailwind/tag' },
+  ]}
+/>
+
+  </Tab>
+</Tabs>
 
 ## Anatomy
 
@@ -58,118 +120,253 @@ Tag / Tag.Root
 
 ## Composition
 
-### Recommended composition
+`Tag` is presentational and does not own selected or removed values. Keep the collection in the
+parent, update it from `Tag.CloseTrigger`, and place that trigger inside `Tag.EndElement`.
 
-For a simple token, use `Tag` with `Tag.Label`. Keep the visible value in `Tag.Label`, and use
-`Tag.StartElement` and `Tag.EndElement` for inline content. If the token can be removed, place
-`Tag.CloseTrigger` inside `Tag.EndElement`.
-
-All exported parts forward `ref` and `className` and accept the standard props for their rendered
-element.
-
-### When to go custom
-
-Use `asChild` on the root when it should render as a semantic element such as a `button` or link
-instead of the default `span`. Pass exactly one child. That child becomes the DOM host and owns its
-semantics and interaction behavior.
-
-Use `Tag.CloseTrigger asChild` only when the close action needs its own semantic child. Provide the
-child's icon and accessible name yourself because the default close icon is not rendered in this mode.
-
-### Default props
-
-| Surface            | Prop         | Default      | Notes                                                                                  |
-| ------------------ | ------------ | ------------ | -------------------------------------------------------------------------------------- |
-| `Tag`              | `variant`    | `default`    | `default`, `secondary`, `outline`, `ghost`, `destructive`                              |
-| `Tag`              | `size`       | `md`         | `sm`, `md`                                                                             |
-| `Tag`              | `asChild`    | `false`      | Replaces the default `span` with one child element.                                    |
-| `Tag.CloseTrigger` | `type`       | `button`     | Applied to the default native button and prevents accidental form submission.         |
-| `Tag.CloseTrigger` | `asChild`    | `false`      | Replaces the default `button`; the child must provide the close content.               |
-| `Tag.CloseTrigger` | `children`   | close icon   | Used only without `asChild`; custom children replace the default icon.                 |
-| `Tag.CloseTrigger` | `aria-label` | `Remove tag` | Used when there are no custom children, no `aria-labelledby`, and no `asChild`.         |
-
-### Behavioral notes
-
-- `Tag` does not own selected, removed, or reordered state. The parent component owns the values and the handler that updates them.
-- `Tag.CloseTrigger` is explicit composition. There is no root-level `onClose` prop.
-- All built-in variants use the same color roles as `Badge`; `Tag` adds token anatomy and an optional inline close action.
-- Give each close trigger a specific accessible name when several removable tags appear together.
-- Without custom children, `Tag.CloseTrigger` uses the moduix close icon and the `Remove tag` fallback label. With custom children and no label, the shared `CloseButton` fallback is `Close`.
-- A disabled or `aria-disabled` close trigger exposes `data-disabled` and does not activate its click handler.
-- `asChild` follows Ark factory composition and requires exactly one child. `Tag.CloseTrigger asChild` also requires an explicit semantic child.
+Use `asChild` only when the root or close trigger must replace its default host element. The single
+child becomes the DOM host and must provide the required semantics. In particular,
+`Tag.CloseTrigger asChild` needs an explicit close control and accessible name.
 
 ## Examples
 
 ### Closable
 
-The parent component owns the list of values and removes an item after the close trigger is clicked.
+The parent component owns the list of values and removes an item after its close trigger is clicked.
 Give each trigger a label that includes the value being removed.
 
-<PreviewFrame>
-  ```tsx preview file="./_snippets/tag/closable.tsx"
+<ExampleFrame variant="component">
+  <TagClosable />
+</ExampleFrame>
 
-  ```
-</PreviewFrame>
+<ExampleCode>
+<div className="docs-reference">
+  <Tabs
+    groupId="framework"
+    values={[
+      { label: 'React', value: 'react' },
+      { label: 'Solid', value: 'solid' },
+    ]}
+    className="docs-tabs"
+  >
+    <Tab value="react">
+
+```tsx pure file="../../../src/components/examples/tag/closable.tsx"
+```
+
+    </Tab>
+    <Tab value="solid">
+
+<CodeBlockRuntime lang="tsx" code={tagSolidClosable} />
+
+    </Tab>
+  </Tabs>
+
+**Styles**
+
+```css file="../../../src/components/examples/tag/tag-closable.module.css"
+```
+</div>
+</ExampleCode>
 
 ### Icon
 
 Use `Tag.StartElement` and `Tag.EndElement` for icons and actions so `Tag.Label` remains the
 truncation boundary and action sizing stays independent.
 
-<PreviewFrame>
-  ```tsx preview file="./_snippets/tag/icon.tsx"
+<ExampleFrame variant="component">
+  <TagIcon />
+</ExampleFrame>
 
-  ```
-</PreviewFrame>
+<ExampleCode>
+<div className="docs-reference">
+  <Tabs
+    groupId="framework"
+    values={[
+      { label: 'React', value: 'react' },
+      { label: 'Solid', value: 'solid' },
+    ]}
+    className="docs-tabs"
+  >
+    <Tab value="react">
+
+```tsx pure file="../../../src/components/examples/tag/icon.tsx"
+```
+
+    </Tab>
+    <Tab value="solid">
+
+<CodeBlockRuntime lang="tsx" code={tagSolidIcon} />
+
+    </Tab>
+  </Tabs>
+
+**Styles**
+
+```css file="../../../src/components/examples/tag/tag-icon.module.css"
+```
+</div>
+</ExampleCode>
 
 ### Overflow
 
 Constrain the root when long values need to fit a narrow area. `Tag.Label` becomes the truncation
 boundary and shows an ellipsis; add `title` when the full value should remain discoverable.
 
-<PreviewFrame>
-  ```tsx preview file="./_snippets/tag/overflow.tsx"
+<ExampleFrame variant="component">
+  <TagOverflow />
+</ExampleFrame>
 
-  ```
-</PreviewFrame>
+<ExampleCode>
+<div className="docs-reference">
+  <Tabs
+    groupId="framework"
+    values={[
+      { label: 'React', value: 'react' },
+      { label: 'Solid', value: 'solid' },
+    ]}
+    className="docs-tabs"
+  >
+    <Tab value="react">
+
+```tsx pure file="../../../src/components/examples/tag/overflow.tsx"
+```
+
+    </Tab>
+    <Tab value="solid">
+
+<CodeBlockRuntime lang="tsx" code={tagSolidOverflow} />
+
+    </Tab>
+  </Tabs>
+
+**Styles**
+
+```css file="../../../src/components/examples/tag/tag-overflow.module.css"
+```
+</div>
+</ExampleCode>
 
 ### Sizes
 
 Use `size="sm"` for dense token rows. Keep the default `md` size for standalone tokens and more
 comfortable spacing.
 
-<PreviewFrame>
-  ```tsx preview file="./_snippets/tag/sizes.tsx"
+<ExampleFrame variant="component">
+  <TagSizes />
+</ExampleFrame>
 
-  ```
-</PreviewFrame>
+<ExampleCode>
+<div className="docs-reference">
+  <Tabs
+    groupId="framework"
+    values={[
+      { label: 'React', value: 'react' },
+      { label: 'Solid', value: 'solid' },
+    ]}
+    className="docs-tabs"
+  >
+    <Tab value="react">
+
+```tsx pure file="../../../src/components/examples/tag/sizes.tsx"
+```
+
+    </Tab>
+    <Tab value="solid">
+
+<CodeBlockRuntime lang="tsx" code={tagSolidSizes} />
+
+    </Tab>
+  </Tabs>
+
+**Styles**
+
+```css file="../../../src/components/examples/tag/tag-sizes.module.css"
+```
+</div>
+</ExampleCode>
 
 ### Variants
 
 Use the built-in variants for common moduix color roles while keeping the same part structure.
 
-<PreviewFrame>
-  ```tsx preview file="./_snippets/tag/variants.tsx"
+<ExampleFrame variant="component">
+  <TagVariants />
+</ExampleFrame>
 
-  ```
-</PreviewFrame>
+<ExampleCode>
+<div className="docs-reference">
+  <Tabs
+    groupId="framework"
+    values={[
+      { label: 'React', value: 'react' },
+      { label: 'Solid', value: 'solid' },
+    ]}
+    className="docs-tabs"
+  >
+    <Tab value="react">
+
+```tsx pure file="../../../src/components/examples/tag/variants.tsx"
+```
+
+    </Tab>
+    <Tab value="solid">
+
+<CodeBlockRuntime lang="tsx" code={tagSolidVariants} />
+
+    </Tab>
+  </Tabs>
+
+**Styles**
+
+```css file="../../../src/components/examples/tag/tag-variants.module.css"
+```
+</div>
+</ExampleCode>
 
 ### Advanced Customization
 
 Use `asChild` when the whole token is an action. This replaces the default `span`; the single child
 becomes the semantic and interactive host, so it must provide the behavior expected from a button or link.
 
-<PreviewFrame>
-  ```tsx preview file="./_snippets/tag/render-as-button.tsx"
+<ExampleFrame variant="component">
+  <TagRenderAsButton />
+</ExampleFrame>
 
-  ```
-</PreviewFrame>
+<ExampleCode>
+<div className="docs-reference">
+  <Tabs
+    groupId="framework"
+    values={[
+      { label: 'React', value: 'react' },
+      { label: 'Solid', value: 'solid' },
+    ]}
+    className="docs-tabs"
+  >
+    <Tab value="react">
+
+```tsx pure file="../../../src/components/examples/tag/render-as-button.tsx"
+```
+
+    </Tab>
+    <Tab value="solid">
+
+<CodeBlockRuntime lang="tsx" code={tagSolidRenderAsButton} />
+
+    </Tab>
+  </Tabs>
+
+**Styles**
+
+```css file="../../../src/components/examples/tag/tag-render-as-button.module.css"
+```
+</div>
+</ExampleCode>
 
 ## Styling
 
-Start with a built-in variant. For one-off size or color changes, use local CSS variables or a
-`className` override. The component-wide color variables take precedence over the variables for
-individual variants.
+Start with a built-in variant. CSS Modules users can adjust the public variables or override an
+exported part with `className` in React or `class` in Solid. Tailwind users can use native utility
+classes on the exported parts. Data attributes and `data-slot` hooks are shared by both styling tracks.
 
 ### CSS Variables
 

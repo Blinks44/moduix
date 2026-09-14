@@ -7,45 +7,38 @@ import {
   type UsePinInputProps,
 } from '@ark-ui/react/pin-input';
 import { clsx } from 'clsx';
-import type { ComponentProps, ComponentRef, ReactElement, ReactNode } from 'react';
-import { Children, cloneElement, forwardRef, useEffect, useRef } from 'react';
+import type { ComponentProps, ComponentRef } from 'react';
+import { forwardRef } from 'react';
 import { SeparatorMarkIcon } from '@/lib/moduix/icons/ui';
-import { normalizeClassName } from '@/lib/moduix/normalizeClassName';
 import styles from './PinInput.module.css';
 
 const PinInputRoot = forwardRef<
   ComponentRef<typeof PinInputPrimitive.Root>,
   ComponentProps<typeof PinInputPrimitive.Root>
->(function PinInputRoot({ asChild, children, className, count, placeholder = '', ...props }, ref) {
+>(function PinInputRoot({ className, count, placeholder = '', ...props }, ref) {
   return (
     <PinInputPrimitive.Root
       ref={ref}
-      asChild={asChild}
       data-slot="pin-input-root"
-      className={clsx(styles.root, normalizeClassName(className))}
+      className={clsx(styles.root, className)}
       count={count}
       placeholder={placeholder}
       {...props}
-    >
-      {withHiddenInput(children, asChild)}
-    </PinInputPrimitive.Root>
+    />
   );
 });
 
 const PinInputRootProvider = forwardRef<
   ComponentRef<typeof PinInputPrimitive.RootProvider>,
   ComponentProps<typeof PinInputPrimitive.RootProvider>
->(function PinInputRootProvider({ asChild, children, className, ...props }, ref) {
+>(function PinInputRootProvider({ className, ...props }, ref) {
   return (
     <PinInputPrimitive.RootProvider
       ref={ref}
-      asChild={asChild}
       data-slot="pin-input-root-provider"
-      className={clsx(styles.root, normalizeClassName(className))}
+      className={clsx(styles.root, className)}
       {...props}
-    >
-      {withHiddenInput(children, asChild)}
-    </PinInputPrimitive.RootProvider>
+    />
   );
 });
 
@@ -57,7 +50,7 @@ const PinInputLabel = forwardRef<
     <PinInputPrimitive.Label
       ref={ref}
       data-slot="pin-input-label"
-      className={clsx(styles.label, normalizeClassName(className))}
+      className={clsx(styles.label, className)}
       {...props}
     />
   );
@@ -71,7 +64,7 @@ const PinInputControl = forwardRef<
     <PinInputPrimitive.Control
       ref={ref}
       data-slot="pin-input-control"
-      className={clsx(styles.control, normalizeClassName(className))}
+      className={clsx(styles.control, className)}
       {...props}
     />
   );
@@ -85,7 +78,7 @@ const PinInputInput = forwardRef<
     <PinInputPrimitive.Input
       ref={ref}
       data-slot="pin-input-input"
-      className={clsx(styles.input, normalizeClassName(className))}
+      className={clsx(styles.input, className)}
       {...props}
     />
   );
@@ -95,52 +88,6 @@ function PinInputInputs({ className }: { className?: string }) {
   const { items } = usePinInputContext();
 
   return items.map((index) => <PinInputInput key={index} index={index} className={className} />);
-}
-
-function withHiddenInput(children: ReactNode, asChild?: boolean) {
-  const formControls = (
-    <>
-      <PinInputFormReset />
-      <PinInputPrimitive.HiddenInput data-slot="pin-input-hidden-input" />
-    </>
-  );
-
-  if (!asChild) {
-    return (
-      <>
-        {children}
-        {formControls}
-      </>
-    );
-  }
-
-  const child = Children.only(children) as ReactElement<{ children?: ReactNode }>;
-
-  return cloneElement(child, {}, child.props.children, formControls);
-}
-
-function PinInputFormReset() {
-  const pinInput = usePinInputContext();
-  const defaultValue = useRef(pinInput.value);
-
-  useEffect(() => {
-    const hiddenInputId = pinInput.getHiddenInputProps().id;
-    if (!hiddenInputId) return;
-
-    const hiddenInput = document.getElementById(hiddenInputId) as HTMLInputElement | null;
-    const form = hiddenInput?.form;
-
-    if (!form) return;
-
-    const handleReset = () => {
-      queueMicrotask(() => pinInput.setValue(defaultValue.current));
-    };
-
-    form.addEventListener('reset', handleReset);
-    return () => form.removeEventListener('reset', handleReset);
-  }, [pinInput]);
-
-  return null;
 }
 
 function PinInputSeparator({
@@ -155,7 +102,7 @@ function PinInputSeparator({
       data-slot="pin-input-separator"
       aria-hidden={ariaHidden}
       role={role}
-      className={clsx(styles.separator, normalizeClassName(className))}
+      className={clsx(styles.separator, className)}
       {...props}
     >
       {children ?? <SeparatorMarkIcon />}
@@ -171,6 +118,7 @@ const PinInput = Object.assign(PinInputRoot, {
   Root: PinInputRoot,
   RootProvider: PinInputRootProvider,
   Context: PinInputPrimitive.Context,
+  HiddenInput: PinInputPrimitive.HiddenInput,
   Label: PinInputLabel,
   Control: PinInputControl,
   Input: PinInputInput,

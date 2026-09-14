@@ -7,31 +7,73 @@ import { TokensOverview } from '@/components/docs/tokens-overview';
 
 # Tokens
 
-moduix styling is built on CSS custom properties. Start with semantic color tokens for surfaces,
-text, borders, focus rings, and overlays. Then adjust spacing, radius, size, typography, motion,
-shadows, and layers when your product needs a different visual rhythm.
+moduix styling is built on the same CSS custom properties in React and Solid. Start with semantic
+color tokens for surfaces, text, borders, focus rings, and overlays. Then adjust spacing, radius,
+size, typography, motion, shadows, and layers when your product needs a different visual rhythm.
 
-If you use moduix as an npm package, import `@moduix/react/style.css` once. If you install source
-files with `shadcn`, import `@/lib/moduix/styles/style.css` once. Both entrypoints load the same
-token foundation.
+## Load the token layer
 
-The reset is optional in both workflows. For the npm package, import `@moduix/react/reset.css`
-before `style.css`. For source installation, first run `npx shadcn@latest add @moduix-react/reset`,
-then import `@/lib/moduix/styles/reset.css` before `style.css`.
+For npm packages, import the `style.css` for your framework and styling track once:
 
-For a ready-made starting point, use [Themes](/docs/themes). Presets override a small semantic token
-layer after `style.css`. This page explains the system and shared tokens. Each component page lists
-the component aliases and state selectors that are safe to customize.
+<Tabs groupId="framework">
+  <Tab label="React" value="react">
 
-## Choose an override level
+<StyleTrackCards>
+  <StyleTrackCard label="CSS Modules">
 
-1. Change a theme primitive such as `--moduix-primary` for a product-wide visual decision.
-2. Change a shared family default when related components should change together.
-3. Change a component alias only when that component should intentionally differ.
-4. Scope the variable to a feature container for a one-off local exception.
+```tsx
+import '@moduix/react/style.css';
+```
 
-If you are unsure, start with the highest meaningful level. A small semantic override is easier to
-maintain than repeating the same value across many component aliases.
+  </StyleTrackCard>
+  <StyleTrackCard label="Tailwind CSS">
+
+```css
+@import '@moduix/react-tailwind/style.css';
+@import 'tailwindcss';
+
+@source '../node_modules/@moduix/react-tailwind/dist/components';
+```
+
+  </StyleTrackCard>
+</StyleTrackCards>
+
+  </Tab>
+  <Tab label="Solid" value="solid">
+
+<StyleTrackCards>
+  <StyleTrackCard label="CSS Modules">
+
+```tsx
+import '@moduix/solid/style.css';
+```
+
+  </StyleTrackCard>
+  <StyleTrackCard label="Tailwind CSS">
+
+```css
+@import '@moduix/solid-tailwind/style.css';
+@import 'tailwindcss';
+
+@source '../node_modules/@moduix/solid-tailwind/dist/components';
+```
+
+  </StyleTrackCard>
+</StyleTrackCards>
+
+  </Tab>
+</Tabs>
+
+For source installed with shadcn, import `@/lib/moduix/styles/style.css` once. The optional reset is
+also framework-specific on npm (`@moduix/react/reset.css` or `@moduix/solid/reset.css`) and uses the
+matching `@moduix-react/reset` or `@moduix-solid/reset` registry item for copied source.
+
+Tailwind uses Preflight, so do not combine a Tailwind package with the optional moduix reset. Resolve
+`@source` relative to your stylesheet; the complete setup is in [Quick start](/docs/quick-start#tailwind-package-setup).
+
+For a ready-made visual direction, use [Themes](/docs/themes). Presets override a small semantic
+token layer after `style.css`. This page explains the system and shared tokens. Each component page
+lists the component aliases and state selectors that are safe to customize.
 
 ## Token model
 
@@ -78,8 +120,7 @@ Ark UI runtime state is the exception. Variables such as `--height`, `--availabl
 `--transform-origin` stay unprefixed because Ark writes them to the relevant component parts.
 moduix does not declare those values on `:root`.
 
-Use this page for system-wide decisions and the relevant component page for local aliases. Neither
-installation path needs a separate variable-reference stylesheet at runtime.
+Use this page for system-wide decisions and the relevant component page for local aliases.
 
 ## Density and control scale
 
@@ -109,7 +150,7 @@ its popup visually related while giving the popup a slightly denser information 
 }
 ```
 
-## System-wide overrides
+## Cross-component tokens
 
 Some variables sit above individual components. Changing them updates multiple components at once
 until a component-specific `--moduix-<component>-*` variable overrides the fallback.
@@ -126,10 +167,6 @@ until a component-specific `--moduix-<component>-*` variable overrides the fallb
 
 Use these tokens for a broad visual shift across the system. Use component-specific tokens such as
 `--moduix-dialog-backdrop-bg` or `--moduix-popover-transition` when one component should differ.
-
-The quick table above is the cross-component index. The detailed overview below keeps the same
-tokens in their native sections: motion in `Motion`, scale in `Elevation & Layers`, and shared
-backdrop, popup, and popup-motion defaults in `Shared Component Defaults`.
 
 ```css
 :root {

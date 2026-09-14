@@ -1,0 +1,17 @@
+import { Alert } from '@moduix/solid/alert';
+
+const alert = {
+  title: 'Update available',
+  description: 'Install the latest version when your workflow allows it.',
+};
+
+export default function AlertDemo() {
+  return (
+    <Alert>
+      <Alert.Content>
+        <Alert.Title>{alert.title}</Alert.Title>
+        <Alert.Description>{alert.description}</Alert.Description>
+      </Alert.Content>
+    </Alert>
+  );
+}

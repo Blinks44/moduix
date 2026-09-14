@@ -4,6 +4,7 @@ description: Un groupe d’avatars compact qui s’écarte au survol ou au focus
 ---
 
 import { ExpandableAvatarGroup } from '@/components/recipes/expandable-avatar-group';
+import expandableAvatarGroupSolid from '../../../snippets/recipes/solid/expandable-avatar-group.tsx?raw';
 
 # Groupe d’avatars extensible
 
@@ -12,34 +13,53 @@ d’identifier facilement chaque personne. Survolez un avatar ou placez le focus
 groupe et afficher le nom et le rôle correspondants.
 
 Cette recette est une composition à copier, et non un composant `ExpandableAvatarGroup` exporté par
-`@moduix/react`. Elle combine `Avatar` et `Tooltip`. Installez ces deux composants, copiez le code
+moduix. Elle combine `Avatar` et `Tooltip`. Installez ces deux composants, copiez le code
 et les styles ci-dessous, puis remplacez les membres d’exemple par les données de votre application.
 
-<ExampleFrame clientOnly>
+L’aperçu interactif utilise le paquet React. Les onglets de code présentent des implémentations natives pour React et Solid avec les mêmes styles.
+
+<ExampleFrame variant="recipe" clientOnly>
+  <PreviewFrame maxWidth="sm">
   <ExpandableAvatarGroup />
+  </PreviewFrame>
 </ExampleFrame>
 
+<ExampleCode>
 <div className="docs-reference">
-  <Tabs values={[{ label: 'Composant', value: 'Component' }, { label: 'Styles', value: 'Styles' }]} className="docs-tabs">
-    <Tab value="Component">
+  <Tabs
+    groupId="framework"
+    values={[
+      { label: 'React', value: 'react' },
+      { label: 'Solid', value: 'solid' },
+    ]}
+    className="docs-tabs"
+  >
+    <Tab value="react">
 
-```tsx file="../../../src/components/recipes/expandable-avatar-group.tsx"
+```tsx pure file="../../../src/components/recipes/expandable-avatar-group.tsx"
+
 ```
 
     </Tab>
-    <Tab value="Styles">
+    <Tab value="solid">
+
+<CodeBlockRuntime lang="tsx" code={expandableAvatarGroupSolid} />
+
+    </Tab>
+  </Tabs>
+
+**Styles**
 
 ```css file="../../../src/components/recipes/expandable-avatar-group.module.css"
+
 ```
-
-    </Tab>
-
-  </Tabs>
 </div>
+
+</ExampleCode>
 
 ## Installation
 
-<ShadcnInstall packageName={['avatar', 'tooltip']} itemKind="recipe" copiedSource />
+<ShadcnInstall packageName={['avatar', 'tooltip']} itemKind="recipe" frameworks copiedSource />
 
 ## Personnaliser la recette
 

@@ -1,0 +1,9 @@
+.root {
+  --moduix-avatar-bg: var(--moduix-color-accent);
+  --moduix-avatar-fallback-color: var(--moduix-color-accent-foreground);
+}
+
+.glyph {
+  width: 55%;
+  height: 55%;
+}

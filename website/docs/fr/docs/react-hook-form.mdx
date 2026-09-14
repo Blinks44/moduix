@@ -1,263 +1,83 @@
 ---
 title: React Hook Form
-description: Connectez les contrôles natifs et composites de moduix à React Hook Form pour gérer la validation, les champs répétés et les erreurs serveur.
+description: Reliez les composants React de Moduix à React Hook Form pour la validation, la réinitialisation, les listes et les erreurs du serveur.
 ---
+
+import ProjectForm from '@/components/examples/react-hook-form/complete-form.tsx';
 
 # React Hook Form
 
-La [documentation de React Hook Form](https://react-hook-form.com/get-started) décrit l’ensemble de
-l’API, les modes de validation, les resolvers et la prise en charge de TypeScript. Ce guide explique
-comment relier cette bibliothèque aux contrôles moduix.
+[React Hook Form](https://react-hook-form.com/get-started) est une bibliothèque réservée à React.
+Cette page décrit son intégration avec l’adaptateur React de Moduix sans suggérer une prise en charge
+de Solid, Vue ou Svelte.
 
-React Hook Form gère les valeurs des champs, la validation et l’état de soumission. moduix gère la
-structure accessible du formulaire, la sémantique des champs et le contrôle de formulaire natif dont
-un composant composite peut avoir besoin.
+## Prise en charge des frameworks
 
-Utilisez `register` lorsqu’un composant expose un input, un textarea ou un select natif. Utilisez
-`Controller` lorsqu’un composant composite expose une valeur contrôlée dans ses props et des
-callbacks avec un objet de détails. Un composant composite qui participe au formulaire gère déjà sa
-propre intégration : n’ajoutez pas et n’enregistrez pas un deuxième champ masqué.
+<PackageManagerTabs command="install react-hook-form" />
 
-```bash
-npm install react-hook-form
-```
+Utilisez cette intégration uniquement avec `@moduix/react` ou `@moduix/react-tailwind`. Pour Solid,
+choisissez un formulaire natif, [Formisch](/docs/formisch) ou [TanStack Form](/docs/tanstack-form).
 
-## Choisir le mode d’intégration
+## Relier les composants
 
-| Contrôle moduix | Intégration à React Hook Form |
-| --------------- | ----------------------------- |
-| `Input`, `Textarea`, `NativeSelect`, `Field.Input`, `Field.Textarea`, `Field.Select` | Ajoutez les props renvoyées par `register(name, rules)` au contrôle natif. |
-| `Select` | Utilisez `Controller` et convertissez la valeur scalaire du champ en tableau de chaînes pour `value`. |
-| `Combobox` | Utilisez `Controller`, reliez la valeur sélectionnée et gardez le filtrage dans `onInputValueChange`. |
-| `Checkbox` | Utilisez `Controller` et convertissez `details.checked === true` en valeur booléenne. |
-| Autres composants composites compatibles avec les formulaires | Transmettez les props sémantiques, comme `name` ou `form`, à l’élément racine. Utilisez `Controller` si vous contrôlez leur valeur. |
+Utilisez `register` pour les éléments natifs et `Controller` pour les composants composés dont la
+valeur passe par des propriétés et des objets de détails dans les callbacks.
 
-Donnez une valeur dans `defaultValues` à chaque champ contrôlé. React Hook Form les utilise pour le
-premier rendu, le suivi des modifications et `reset()`.
+| Composant Moduix                       | Correspondance React Hook Form                         |
+| -------------------------------------- | ------------------------------------------------------ |
+| `Input`, `Textarea`, sélecteurs natifs | Transmettez `register(name, rules)` au contrôle.       |
+| `Select`, `Combobox`                   | Convertissez la valeur scalaire vers `string[]`.       |
+| `Checkbox`                             | Convertissez `details.checked === true` en booléen.    |
+| Autres composants contrôlés            | Reliez leur contrat de valeur avec `Controller`.       |
 
-Utilisez `formState.isSubmitting` pour afficher l’état d’attente. Empêchez les soumissions répétées,
-laissez les valeurs visibles et faites en sorte que le libellé du bouton décrive la requête en cours.
-`handleSubmit` conserve `isSubmitting` à `true` jusqu’à la fin du gestionnaire asynchrone.
+Définissez chaque champ contrôlé dans `defaultValues`. Conservez l’élément natif Moduix dans la
+composition et n’enregistrez pas un second élément input masqué pour la même valeur.
 
 ## Validation et réinitialisation
 
-Utilisez `rules` pour les vérifications propres à un champ. Pour une validation partagée entre
-plusieurs champs ou définie par un schéma, ajoutez un resolver. L’intégration avec moduix reste la
-même : transmettez `fieldState.invalid` à `Field` et affichez `fieldState.error?.message` avec
-`Field.ErrorText` pour les champs contrôlés. Pour les contrôles enregistrés, lisez le message dans
-`formState.errors`.
+Utilisez `rules` pour les règles locales et un resolver pour un schéma ou des règles entre champs.
+Transmettez `fieldState.invalid` à `Field` et affichez `fieldState.error?.message` avec
+`Field.ErrorText`.
 
-Ajoutez `noValidate` au formulaire natif uniquement lorsque React Hook Form doit gérer les messages
-d’erreur visibles. Laissez cet attribut de côté si la validation des contraintes du navigateur doit
-s’exécuter en premier.
-
-Appelez `reset()` de React Hook Form pour réinitialiser les champs contrôlés. Une simple
-`form.reset()` du DOM ne suffit pas pour les champs pilotés par `Controller`, car le rendu suivant
-pourrait réinjecter l’ancienne valeur dans le composant moduix.
+Ajoutez `noValidate` uniquement lorsque React Hook Form gère les erreurs visibles. Appelez `reset()`
+pour que son état et les valeurs contrôlées de Moduix soient réinitialisés ensemble.
 
 ## Formulaire complet
 
-Ce formulaire associe des contrôles `Input` et `Textarea` enregistrés à des composants `Select`,
-`Combobox` et `Checkbox` contrôlés. Dans cet exemple, `noValidate` laisse React Hook Form gérer les
-messages d’erreur. Retirez-le si vous souhaitez afficher volontairement l’interface de validation
-native du navigateur.
+L’exemple associe des contrôles `Input` et `Textarea` enregistrés à des composants `Select`,
+`Combobox` et `Checkbox` contrôlés.
 
-<style>{`
-      .form {
-        width: min(24rem, 100%);
-        margin-inline: auto;
-      }
+<ExampleFrame variant="component">
+  <PreviewFrame maxWidth="sm">
+    <ProjectForm />
+  </PreviewFrame>
+</ExampleFrame>
 
-      .fields {
-        display: grid;
-        gap: var(--moduix-spacing-4);
-      }
+<ExampleCode>
+<div className="docs-reference">
 
-      .fields [data-slot="field-root"],
-      .fields [data-slot="select-root"],
-      .fields [data-slot="combobox-root"] {
-        width: 100%;
-      }
-
-      .fields [data-slot="select-root"] {
-        --moduix-select-width: 100%;
-      }
-
-      .fields [data-slot="combobox-root"] {
-        --moduix-combobox-width: 100%;
-      }
-
-      .submit {
-        width: 100%;
-      }
-    `}</style>
-
-```tsx preview file="../../en/docs/_snippets/react-hook-form/complete-form.tsx"
-
+```tsx pure file="../../../src/components/examples/react-hook-form/complete-form.tsx"
 ```
 
-## Champs répétés
+**Styles**
 
-Utilisez `useFieldArray` pour une liste dont l’utilisateur peut ajouter, supprimer ou réorganiser les
-lignes. Chaque élément de `fields` possède un `id` stable : utilisez-le comme clé React et gardez
-l’index courant uniquement dans le chemin du champ enregistré. Placez le libellé commun dans
-`Fieldset`, puis donnez à chaque ligne son propre `Field`, son libellé et son message de validation.
-
-```tsx
-import { Button } from '@moduix/react/button';
-import { Field } from '@moduix/react/field';
-import { Fieldset } from '@moduix/react/fieldset';
-import { Input } from '@moduix/react/input';
-import { useFieldArray, useForm } from 'react-hook-form';
-
-type EmailFormValues = {
-  emails: { address: string }[];
-};
-
-export function EmailListForm() {
-  const {
-    control,
-    handleSubmit,
-    register,
-    formState: { errors },
-  } = useForm<EmailFormValues>({
-    defaultValues: { emails: [{ address: '' }] },
-  });
-  const { fields, append, remove } = useFieldArray({ control, name: 'emails' });
-
-  return (
-    <form onSubmit={handleSubmit((values) => console.log(values))}>
-      <Fieldset>
-        <Fieldset.Legend>Email addresses</Fieldset.Legend>
-        <Fieldset.HelperText>Add one address per row.</Fieldset.HelperText>
-
-        {fields.map((item, index) => (
-          <Field
-            key={item.id}
-            invalid={Boolean(errors.emails?.[index]?.address)}
-            required
-          >
-            <Field.Label>
-              Email {index + 1}
-              <Field.RequiredIndicator />
-            </Field.Label>
-            <Input
-              type="email"
-              {...register(`emails.${index}.address` as const, {
-                required: 'Enter an email address.',
-              })}
-            />
-            <Field.ErrorText>{errors.emails?.[index]?.address?.message}</Field.ErrorText>
-            <Button type="button" onClick={() => remove(index)}>
-              Remove email
-            </Button>
-          </Field>
-        ))}
-
-        <Button type="button" onClick={() => append({ address: '' })}>
-          Add email
-        </Button>
-      </Fieldset>
-    </form>
-  );
-}
+```css file="../../../src/components/examples/react-hook-form/react-hook-form-complete-form.module.css"
 ```
+</div>
+</ExampleCode>
 
-## Erreurs renvoyées par le serveur
+## Champs répétés et erreurs du serveur
 
-Mappez les erreurs renvoyées par le serveur une fois la requête terminée. Utilisez `setError` pour une
-erreur liée à un champ précis et l’espace de noms `root` pour une erreur au niveau du formulaire. La
-correspondance avec `Field` reste la même que pour la validation côté client. La fonction de requête
-est fournie au composant afin que l’exemple se concentre sur cette correspondance.
+Utilisez `useFieldArray` pour les listes modifiables. Rendez les lignes avec le `field.id` stable et
+gardez l’index courant uniquement dans le chemin enregistré. Placez la légende et le message du
+groupe dans `Fieldset`.
 
-```tsx
-import { Field } from '@moduix/react/field';
-import { Input } from '@moduix/react/input';
-import { useForm } from 'react-hook-form';
+Appelez `setError(name, ...)` pour une erreur liée à un champ et utilisez l’espace de noms `root` pour
+une erreur générale. Conservez les valeurs saisies après l’échec de la requête.
 
-type ProjectFormValues = {
-  name: string;
-};
+## Focus et comportement
 
-type CreateProjectResult = {
-  nameError?: string;
-  message?: string;
-};
-
-type ProjectFormProps = {
-  createProject: (values: ProjectFormValues) => Promise<CreateProjectResult>;
-};
-
-export function ProjectForm({ createProject }: ProjectFormProps) {
-  const {
-    handleSubmit,
-    register,
-    setError,
-    formState: { errors },
-  } = useForm<ProjectFormValues>({
-    defaultValues: { name: '' },
-  });
-
-  const onSubmit = handleSubmit(async (values) => {
-    const result = await createProject(values);
-
-    if (result.nameError) {
-      setError('name', {
-        type: 'server',
-        message: result.nameError,
-      });
-    }
-
-    if (result.message) {
-      setError('root.server', {
-        type: 'server',
-        message: result.message,
-      });
-    }
-  });
-
-  return (
-    <form noValidate onSubmit={onSubmit}>
-      <Field invalid={Boolean(errors.name)}>
-        <Field.Label>Project name</Field.Label>
-        <Input
-          {...register('name', {
-            required: 'Enter a project name.',
-          })}
-        />
-        <Field.ErrorText>{errors.name?.message}</Field.ErrorText>
-      </Field>
-
-      {errors.root?.server?.message ? (
-        <p role="alert">{errors.root.server.message}</p>
-      ) : null}
-
-      <button type="submit">Create project</button>
-    </form>
-  );
-}
-```
-
-## Points importants
-
-- Ne transmettez pas l’objet de champ de `Controller` par spread à `Select` ou `Combobox`. La forme de leurs
-  valeurs et de leurs callbacks ne correspond pas aux événements d’un champ natif.
-- Pour une valeur unique dans `Select` ou `Combobox`, transmettez `field.value ? [field.value] : []`
-  et lisez `details.value[0] ?? ""` dans le callback de valeur.
-- Appelez `field.onBlur` lorsque l’interaction avec le composant se termine : utilisez
-  `Select.onInteractOutside` pour `Select` et `Combobox.Input.onBlur` pour `Combobox`. L’état `touched`
-  et la validation au blur restent ainsi synchronisés.
-- Transmettez `field.ref` à `Select.Trigger` ou `Combobox.Input`. React Hook Form utilise cette ref
-  pour placer le focus sur le premier champ invalide.
-- `Select` crée automatiquement un `<select>` natif, et `Checkbox` son input natif. Passez `name` et
-  `form` à l’élément racine, sans rajouter de champ masqué.
-- Pour `Combobox`, définissez également `name` et `form` sur l’élément racine. Le composant n’expose
-  pas de part `HiddenInput`, et aucun input supplémentaire n’est nécessaire.
-- Pour une collection `Select` très grande et virtualisée, `nativeFormControl="input"` utilise des
-  champs masqués légers au lieu d’un select natif. La soumission et la réinitialisation restent
-  synchronisées, mais le remplissage automatique, la validation native et l’amélioration progressive du select
-  ne sont plus disponibles.
-- Pour les autres composants qui gèrent automatiquement leur participation au formulaire, gardez les
-  options spécifiques sur leur élément racine. `DateInput` utilise un tuple `names` de deux éléments
-  pour des clés de plage distinctes, et `SignaturePad` utilise `getFormValue` pour une sérialisation
-  personnalisée.
+- Transmettez `field.ref` à `Select.Trigger` ou `Combobox.Input` pour focaliser le contrôle visible.
+- Appelez `field.onBlur` à la fin d’une interaction composée.
+- Convertissez explicitement les objets de détails Ark au lieu d’étaler un champ de `Controller`.
+- Utilisez `formState.isSubmitting` pour l’état d’attente et pour bloquer les envois en double.

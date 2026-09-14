@@ -21,6 +21,7 @@ function Tags({
         <TagsInput.Input placeholder="Add framework" />
         <TagsInput.ClearTrigger />
       </TagsInput.Control>
+      <TagsInput.HiddenInput />
     </TagsInput>
   );
 }
@@ -49,7 +50,7 @@ test('keeps Ark translations and anatomy on default actions', () => {
   expect(clearTrigger).toHaveAttribute('data-slot', 'tags-input-clear-trigger');
 });
 
-test('keeps automatic form data and reset synchronization', async () => {
+test('submits through an explicit Ark hidden input', async () => {
   const { container } = render(
     <form>
       <Tags defaultValue={['React']} name="frameworks" />
@@ -65,13 +66,9 @@ test('keeps automatic form data and reset synchronization', async () => {
   fireEvent.keyDown(input, { key: 'Enter' });
 
   await waitFor(() => expect(new FormData(form).get('frameworks')).toBe('React, Vue'));
-
-  fireEvent.reset(form);
-
-  await waitFor(() => expect(new FormData(form).get('frameworks')).toBe('React'));
 });
 
-test('keeps automatic form data for asChild roots', () => {
+test('keeps explicit form data for asChild roots', () => {
   const { container } = render(
     <form>
       <TagsInput asChild defaultValue={['React']} name="frameworks">
@@ -81,6 +78,7 @@ test('keeps automatic form data for asChild roots', () => {
             <TagsInput.Items />
             <TagsInput.Input />
           </TagsInput.Control>
+          <TagsInput.HiddenInput />
         </section>
       </TagsInput>
     </form>,
@@ -89,13 +87,10 @@ test('keeps automatic form data for asChild roots', () => {
   const form = container.querySelector('form')!;
 
   expect(new FormData(form).get('frameworks')).toBe('React');
-  expect(container.querySelector('[data-slot="tags-input-hidden-input"]')).toHaveAttribute(
-    'name',
-    'frameworks',
-  );
+  expect(container.querySelector('section input[name="frameworks"]')).not.toBeNull();
 });
 
-test('keeps automatic form data and reset synchronization for root providers', async () => {
+test('keeps explicit form data for root providers', async () => {
   function ProviderTags() {
     const tagsInput = useTagsInput({ defaultValue: ['React'], name: 'frameworks' });
 
@@ -107,6 +102,7 @@ test('keeps automatic form data and reset synchronization for root providers', a
             <TagsInput.Items />
             <TagsInput.Input />
           </TagsInput.Control>
+          <TagsInput.HiddenInput />
         </TagsInput.RootProvider>
       </form>
     );
@@ -122,10 +118,6 @@ test('keeps automatic form data and reset synchronization for root providers', a
   fireEvent.keyDown(input, { key: 'Enter' });
 
   await waitFor(() => expect(new FormData(form).get('frameworks')).toBe('React, Vue'));
-
-  fireEvent.reset(form);
-
-  await waitFor(() => expect(new FormData(form).get('frameworks')).toBe('React'));
 });
 
 test('keeps the consumer in control of controlled values', async () => {

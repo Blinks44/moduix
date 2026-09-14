@@ -1,35 +1,100 @@
 ---
 title: Container
 component: container
-description: Un composant de mise en page adaptatif pour conserver une largeur de contenu lisible et des espacements horizontaux fluides.
+description: Un primitif de mise en page adaptatif pour conserver une largeur de contenu lisible et des espacements horizontaux fluides.
 ---
 
-import * as ContainerDocs from '@/components/examples/container';
+import * as ContainerDocs from '@/components/examples/container/css-properties';
+import ContainerBasic from '@/components/examples/container/basic.tsx';
+import ContainerFullWidth from '@/components/examples/container/full-width.tsx';
+import ContainerGutters from '@/components/examples/container/gutters.tsx';
+import ContainerSemanticElement from '@/components/examples/container/semantic-element.tsx';
+import ContainerWithBleed from '@/components/examples/container/with-bleed.tsx';
+import containerSolidBasic from '../../../snippets/container/solid/basic.tsx?raw';
+import containerSolidFullWidth from '../../../snippets/container/solid/full-width.tsx?raw';
+import containerSolidGutters from '../../../snippets/container/solid/gutters.tsx?raw';
+import containerSolidSemanticElement from '../../../snippets/container/solid/semantic-element.tsx?raw';
+import containerSolidWithBleed from '../../../snippets/container/solid/with-bleed.tsx?raw';
 
 ## Référence de l’API
 
 Ark UI ne fournit pas de primitive `container` dédiée. Dans moduix, `Container` est construit avec la
 [fabrique officielle d’Ark](https://ark-ui.com/docs/guides/composition#the-ark-factory) et suit les recommandations d’Ark pour
-la [composition](https://ark-ui.com/docs/guides/composition), le [style](https://ark-ui.com/docs/guides/styling) et la
-[gestion des refs](https://ark-ui.com/docs/guides/ref).
+la [composition](https://ark-ui.com/docs/guides/composition), le [style](https://ark-ui.com/docs/guides/styling) et
+la [transmission des refs](https://ark-ui.com/docs/guides/ref).
 
 ## Exemple de base
 
-Importez `Container` depuis `@moduix/react/container` lorsque vous avez besoin d’une colonne de contenu centrée et facile
-à lire. Le composant ajoute des espacements intérieurs horizontaux adaptatifs et laisse la gestion des espacements
-verticaux à la mise en page qui l’entoure.
+`Container` est disponible pour React et Solid dans les packages CSS Modules et Tailwind. L’aperçu de cette page utilise
+le package React CSS Modules ; les onglets de framework présentent le code natif correspondant au même contrat public.
 
-<PreviewFrame maxWidth="lg">
-```tsx preview file="../../en/docs/_snippets/container/basic.tsx"
+Importez `Container` depuis le package adapté : `@moduix/react/container` ou `@moduix/solid/container` pour CSS Modules,
+et `@moduix/react-tailwind/container` ou `@moduix/solid-tailwind/container` pour Tailwind CSS.
 
+Utilisez `Container` pour une colonne de contenu centrée et lisible. Le composant ajoute des espacements horizontaux
+adaptatifs et laisse les espacements verticaux à la mise en page qui l’entoure.
+
+<ExampleFrame variant="component">
+  <ContainerBasic />
+</ExampleFrame>
+
+<ExampleCode>
+<div className="docs-reference">
+  <Tabs
+    groupId="framework"
+    values={[
+      { label: 'React', value: 'react' },
+      { label: 'Solid', value: 'solid' },
+    ]}
+    className="docs-tabs"
+  >
+    <Tab value="react">
+
+```tsx pure file="../../../src/components/examples/container/basic.tsx"
 ```
-</PreviewFrame>
+
+    </Tab>
+    <Tab value="solid">
+
+<CodeBlockRuntime lang="tsx" code={containerSolidBasic} />
+
+    </Tab>
+  </Tabs>
+
+**Styles**
+
+```css file="../../../src/components/examples/container/container-basic.module.css"
+```
+</div>
+
+</ExampleCode>
 
 ## Installation avec shadcn
 
-<ShadcnInstall packageName="container" />
+Consultez le [Démarrage rapide](/docs/quick-start) pour la configuration complète du paquet, du registre et des styles.
 
-Cette commande ajoute `Container` au code source du projet ainsi que les éléments de base partagés par moduix dont il a besoin.
+<Tabs groupId="framework">
+  <Tab label="React" value="react">
+
+<ShadcnInstallOptions
+  options={[
+    { label: 'CSS Modules', command: 'shadcn@latest add @moduix-react/container' },
+    { label: 'Tailwind CSS', command: 'shadcn@latest add @moduix-react-tailwind/container' },
+  ]}
+/>
+
+  </Tab>
+  <Tab label="Solid" value="solid">
+
+<ShadcnInstallOptions
+  options={[
+    { label: 'CSS Modules', command: 'shadcn@latest add @moduix-solid/container' },
+    { label: 'Tailwind CSS', command: 'shadcn@latest add @moduix-solid-tailwind/container' },
+  ]}
+/>
+
+  </Tab>
+</Tabs>
 
 ## Anatomie
 
@@ -41,116 +106,198 @@ Container / Container.Root
 ```
 
 | Partie                         | Rôle                                                                                  |
-| ------------------------------ | ------------------------------------------------------------------------------------- |
+| ----------------------------- | ------------------------------------------------------------------------------------- |
 | `Container` / `Container.Root` | Élément racine de mise en page. Centre le contenu et gère sa largeur ainsi que ses espacements horizontaux. |
 
 ## Composition
 
-### Composition recommandée
+`Container` ne gère aucun état et ne comporte aucune sous-partie à coordonner. Utilisez-le comme racine et placez
+directement le contenu de la page ou de la section à l’intérieur. `Container.Root` est un alias de cette même racine,
+utile lorsque cette notation s’accorde mieux avec le reste de votre composition.
 
-Utilisez `Container` pour structurer une page, le corps d’un article, des sections de documentation, des écrans de
-réglages et toute autre mise en page qui doit présenter une colonne de contenu centrée avec des espacements latéraux prévisibles.
-
-`Container.Root` désigne le même composant via une notation d’espace de noms. Cette forme peut être utile pour rester
-cohérent avec les autres composants qui suivent le modèle d’Ark.
-
-Définissez `size` pour choisir la largeur du contenu et `gutter` pour choisir les espacements horizontaux. La prop
-`asChild` remplace le `div` par défaut par un unique élément enfant. Choisissez un élément sémantique comme `main`,
-`section` ou `article` lorsque l’enveloppe doit décrire la structure du document. La ref pointe vers l’élément racine
-rendu, ou vers cet enfant lorsque `asChild` est utilisé.
-
-Toutes les props standard d’un `<div>` sont transmises, notamment `className` et `style`.
-
-### Quand créer une composition personnalisée
-
-`Container` ne comporte qu’un élément racine, sans sous-parties, slots ni outils de mise en page imbriqués.
-
-Pour les besoins courants, il suffit de choisir l’une des options suivantes :
-
-- passez `className` pour appliquer des styles locaux à la mise en page ou au bloc ;
-- surchargez les variables `--moduix-container-*` si la page a besoin d’autres valeurs de largeur ou d’espacement ;
-- utilisez `asChild` lorsqu’un autre élément doit devenir le nœud DOM rendu ;
-- associez le composant à `Bleed` lorsqu’un enfant doit dépasser les limites de la colonne de texte.
-
-### Propriétés par défaut
-
-| Propriété  | Valeur par défaut | Valeurs / remarques                                      |
-| ---------- | ----------------- | -------------------------------------------------------- |
-| `size`     | `lg`              | `xs` (40rem), `sm` (48rem), `md` (64rem), `lg` (72rem), `xl` (90rem), `full` (sans limite de largeur maximale) |
-| `gutter`   | `md`              | `none`, `sm`, `md`, `lg`                                                             |
-| `asChild`  | `false`           | Remplace le `div` racine par un seul élément enfant                                  |
-
-### Comportement
-
-- `Container` ne gère pas les espacements verticaux. Ajoutez-les à l’extérieur du composant ou sur ses enfants.
-- `size="full"` supprime uniquement la limite de largeur maximale. Les espacements latéraux choisis restent appliqués,
-  sauf avec `gutter="none"`.
-- Le calcul de `max-width` inclut les deux espacements horizontaux : l’enveloppe contrainte conserve donc les espacements choisis.
-- Avec `asChild`, fournissez exactement un élément enfant. La ref pointe alors vers cet élément.
-- `Container` est purement structurel : il n’ajoute ni rôles ARIA, ni libellés, ni gestion du focus ou du clavier. Utilisez
-  `asChild` avec `main`, `section` ou `article` lorsque l’enveloppe doit porter une information sémantique.
-- L’élément racine expose `data-scope="container"`, `data-part="root"`, `data-slot="container-root"`, `data-size` et
-  `data-gutter`, que vous pouvez cibler pour le style et les tests.
+Utilisez `asChild` lorsqu’un élément sémantique doit devenir la racine rendue. Fournissez exactement un enfant : React
+imbrique cet élément dans `Container`, tandis que Solid utilise la forme avec fonction de rendu
+`asChild={(props) => <main {...props()} />}`. Placez `Bleed` dans `Container` lorsqu’un seul enfant doit dépasser la
+colonne de texte contrainte.
 
 ## Exemples
 
 ### Pleine largeur
 
-Utilisez `size="full"` pour qu’une section occupe toute la largeur de son parent tout en conservant un espacement latéral adaptatif.
+Utilisez `size="full"` pour qu’une section large utilise la largeur de son parent tout en conservant un espacement
+latéral adaptatif.
 
-<PreviewFrame>
-```tsx preview file="../../en/docs/_snippets/container/full-width.tsx"
+<ExampleFrame variant="component">
+  <ContainerFullWidth />
+</ExampleFrame>
 
+<ExampleCode>
+<div className="docs-reference">
+  <Tabs
+    groupId="framework"
+    values={[
+      { label: 'React', value: 'react' },
+      { label: 'Solid', value: 'solid' },
+    ]}
+    className="docs-tabs"
+  >
+    <Tab value="react">
+
+```tsx pure file="../../../src/components/examples/container/full-width.tsx"
 ```
-</PreviewFrame>
+
+    </Tab>
+    <Tab value="solid">
+
+<CodeBlockRuntime lang="tsx" code={containerSolidFullWidth} />
+
+    </Tab>
+  </Tabs>
+
+**Styles**
+
+```css file="../../../src/components/examples/container/container-full-width.module.css"
+```
+</div>
+
+</ExampleCode>
 
 ### Espacements latéraux
 
-Utilisez `gutter` pour choisir la taille des espacements intérieurs horizontaux adaptatifs.
+Utilisez `gutter` pour choisir la taille des espacements horizontaux adaptatifs.
 
-<PreviewFrame maxWidth="lg">
-```tsx preview file="../../en/docs/_snippets/container/gutters.tsx"
+<ExampleFrame variant="component">
+  <ContainerGutters />
+</ExampleFrame>
 
+<ExampleCode>
+<div className="docs-reference">
+  <Tabs
+    groupId="framework"
+    values={[
+      { label: 'React', value: 'react' },
+      { label: 'Solid', value: 'solid' },
+    ]}
+    className="docs-tabs"
+  >
+    <Tab value="react">
+
+```tsx pure file="../../../src/components/examples/container/gutters.tsx"
 ```
 
-</PreviewFrame>
+    </Tab>
+    <Tab value="solid">
+
+<CodeBlockRuntime lang="tsx" code={containerSolidGutters} />
+
+    </Tab>
+  </Tabs>
+
+**Styles**
+
+```css file="../../../src/components/examples/container/container-gutters.module.css"
+```
+</div>
+
+</ExampleCode>
 
 ### Élément sémantique
 
 Utilisez `asChild` lorsque l’enveloppe de mise en page doit également décrire la structure du document.
 
-<PreviewFrame maxWidth="lg">
-```tsx preview file="../../en/docs/_snippets/container/semantic-element.tsx"
+<ExampleFrame variant="component">
+  <ContainerSemanticElement />
+</ExampleFrame>
 
+<ExampleCode>
+<div className="docs-reference">
+  <Tabs
+    groupId="framework"
+    values={[
+      { label: 'React', value: 'react' },
+      { label: 'Solid', value: 'solid' },
+    ]}
+    className="docs-tabs"
+  >
+    <Tab value="react">
+
+```tsx pure file="../../../src/components/examples/container/semantic-element.tsx"
 ```
 
-</PreviewFrame>
+    </Tab>
+    <Tab value="solid">
+
+<CodeBlockRuntime lang="tsx" code={containerSolidSemanticElement} />
+
+    </Tab>
+  </Tabs>
+
+**Styles**
+
+```css file="../../../src/components/examples/container/container-semantic-element.module.css"
+```
+</div>
+
+</ExampleCode>
 
 ### Avec Bleed
 
-Conservez une largeur de texte limitée et laissez uniquement l’enfant plus large dépasser cette limite.
+Gardez la colonne de texte contrainte et laissez uniquement l’enfant plus large dépasser de ses limites.
 
-<PreviewFrame maxWidth="lg">
-```tsx preview file="../../en/docs/_snippets/container/with-bleed.tsx"
+<ExampleFrame variant="component">
+  <ContainerWithBleed />
+</ExampleFrame>
 
+<ExampleCode>
+<div className="docs-reference">
+  <Tabs
+    groupId="framework"
+    values={[
+      { label: 'React', value: 'react' },
+      { label: 'Solid', value: 'solid' },
+    ]}
+    className="docs-tabs"
+  >
+    <Tab value="react">
+
+```tsx pure file="../../../src/components/examples/container/with-bleed.tsx"
 ```
 
-</PreviewFrame>
+    </Tab>
+    <Tab value="solid">
+
+<CodeBlockRuntime lang="tsx" code={containerSolidWithBleed} />
+
+    </Tab>
+  </Tabs>
+
+**Styles**
+
+```css file="../../../src/components/examples/container/container-with-bleed.module.css"
+```
+</div>
+
+</ExampleCode>
 
 ## Styles
 
-Surchargez les variables CSS sur l’élément racine si l’enveloppe de page a besoin d’autres valeurs de largeur ou
-d’espacement. Utilisez `className` pour les styles locaux du bloc, par exemple les espacements intérieurs, les bordures ou l’arrière-plan.
+Pour les packages CSS Modules, surchargez les variables CSS sur la racine lorsqu’une enveloppe de page a besoin d’une
+autre largeur ou de valeurs d’espacement différentes. Les packages Tailwind utilisent des utilitaires et les classes du
+consommateur à la place de ces variables. Utilisez `className` en React ou `class` en Solid pour les styles locaux du
+bloc, comme le padding, les bordures ou les arrière-plans.
 
 ### Propriétés CSS
 
 <CssPropertiesSection properties={ContainerDocs.containerOverrideCssProperties} />
 
+Ces variables s’appliquent aux packages CSS Modules. Les packages Tailwind exposent les mêmes choix `size` et `gutter`
+avec des utilitaires.
+
 ### Points d’accroche CSS
 
-- `Container` et `Container.Root` exposent `data-slot="container-root"` sur le composant racine.
+- `Container` et `Container.Root` exposent `data-slot="container-root"` sur la racine.
 - `data-scope="container"` et `data-part="root"` suivent les conventions de style d’Ark.
-- `data-size` sélectionne le préréglage de largeur : `xs`, `sm`, `md`, `lg`, `xl`, `full`.
-- `data-gutter` sélectionne le préréglage d’espacement : `none`, `sm`, `md`, `lg`.
-- Les variables `--moduix-container-*` contrôlent uniquement les espacements horizontaux et le calcul de la largeur maximale.
-  L’espacement vertical et la disposition des enfants relèvent du CSS de mise en page environnant.
+- `data-size` sélectionne la largeur : `xs`, `sm`, `md`, `lg`, `xl`, `full`.
+- `data-gutter` sélectionne l’espacement latéral : `none`, `sm`, `md`, `lg`.
+- Les variables `--moduix-container-*` contrôlent les espacements horizontaux et le calcul de `max-width` pour CSS
+  Modules. Les espacements verticaux et la disposition des enfants restent gérés par la mise en page environnante.

@@ -1,0 +1,23 @@
+{
+  "$schema": "https://ui.shadcn.com/schema/registry-item.json",
+  "name": "kbd",
+  "title": "Kbd",
+  "description": "moduix Solid Tailwind Kbd component.",
+  "dependencies": ["@ark-ui/solid", "clsx", "tailwind-merge"],
+  "registryDependencies": ["@moduix-solid-tailwind/foundation", "@moduix-solid-tailwind/cn"],
+  "files": [
+    {
+      "path": "src/components/kbd/Kbd.tsx",
+      "content": "import type { HTMLArkProps } from '@ark-ui/solid/factory';\nimport { ark } from '@ark-ui/solid/factory';\nimport { splitProps } from 'solid-js';\nimport { cn } from '@/lib/moduix/cn';\n\nfunction KbdRoot(props: HTMLArkProps<'kbd'>) {\n  const [local, others] = splitProps(props, ['class']);\n\n  return (\n    <ark.kbd\n      {...others}\n      data-scope=\"kbd\"\n      data-part=\"root\"\n      data-slot=\"kbd-root\"\n      class={cn(\n        'box-border inline-flex min-h-control-xs max-w-full min-w-control-xs flex-none items-center justify-center rounded-sm border border-border bg-muted px-2 py-0 text-center align-middle font-mono text-xs font-medium wrap-anywhere text-foreground tabular-nums shadow-[inset_0_-1px_0_color-mix(in_oklab,currentColor_12%,transparent)] select-none',\n        local.class,\n      )}\n    />\n  );\n}\n\nfunction KbdGroupPart(props: HTMLArkProps<'span'>) {\n  const [local, others] = splitProps(props, ['class']);\n\n  return (\n    <ark.span\n      {...others}\n      role=\"group\"\n      data-scope=\"kbd\"\n      data-part=\"group\"\n      data-slot=\"kbd-group\"\n      class={cn(\n        'box-border inline-flex max-w-full flex-wrap items-center gap-1 border-0 bg-transparent p-0 align-middle text-muted-foreground shadow-none',\n        local.class,\n      )}\n    />\n  );\n}\n\nconst Kbd = Object.assign(KbdRoot, {\n  Root: KbdRoot,\n  Group: KbdGroupPart,\n});\n\nexport { Kbd };",
+      "type": "registry:component",
+      "target": "@components/ui/kbd/Kbd.tsx"
+    },
+    {
+      "path": "src/components/kbd/index.ts",
+      "content": "export * from './Kbd.js';",
+      "type": "registry:component",
+      "target": "@components/ui/kbd/index.ts"
+    }
+  ],
+  "type": "registry:item"
+}

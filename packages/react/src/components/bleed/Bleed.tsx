@@ -2,7 +2,6 @@ import type { HTMLArkProps } from '@ark-ui/react/factory';
 import { ark } from '@ark-ui/react/factory';
 import { clsx } from 'clsx';
 import { forwardRef, type ForwardedRef } from 'react';
-import { normalizeClassName } from '@/lib/moduix/normalizeClassName';
 import styles from './Bleed.module.css';
 
 type BleedAmount = 'none' | 'xs' | 'sm' | 'md' | 'lg' | 'xl';
@@ -24,7 +23,7 @@ const BleedRoot = forwardRef<
       data-slot="bleed-root"
       data-inline={inline}
       data-block={block}
-      className={clsx(styles.root, normalizeClassName(className))}
+      className={clsx(styles.root, className)}
     />
   );
 });

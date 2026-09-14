@@ -2,9 +2,8 @@
 
 import { Slider as SliderPrimitive, useSlider, useSliderContext } from '@ark-ui/react/slider';
 import { clsx } from 'clsx';
-import type { ComponentProps, ComponentRef, ReactElement, ReactNode } from 'react';
-import { Children, cloneElement, forwardRef } from 'react';
-import { normalizeClassName } from '@/lib/moduix/normalizeClassName';
+import type { ComponentProps, ComponentRef } from 'react';
+import { forwardRef } from 'react';
 import styles from './Slider.module.css';
 
 const SliderRoot = forwardRef<
@@ -16,7 +15,7 @@ const SliderRoot = forwardRef<
       ref={ref}
       data-slot="slider-root"
       data-readonly={readOnly ? '' : undefined}
-      className={clsx(styles.root, normalizeClassName(className))}
+      className={clsx(styles.root, className)}
       readOnly={readOnly}
       {...props}
     />
@@ -31,7 +30,7 @@ const SliderRootProvider = forwardRef<
     <SliderPrimitive.RootProvider
       ref={ref}
       data-slot="slider-root-provider"
-      className={clsx(styles.root, normalizeClassName(className))}
+      className={clsx(styles.root, className)}
       {...props}
     />
   );
@@ -45,7 +44,7 @@ const SliderLabel = forwardRef<
     <SliderPrimitive.Label
       ref={ref}
       data-slot="slider-label"
-      className={clsx(styles.label, normalizeClassName(className))}
+      className={clsx(styles.label, className)}
       {...props}
     />
   );
@@ -59,7 +58,7 @@ const SliderValueText = forwardRef<
     <SliderPrimitive.ValueText
       ref={ref}
       data-slot="slider-value-text"
-      className={clsx(styles.valueText, normalizeClassName(className))}
+      className={clsx(styles.valueText, className)}
       {...props}
     />
   );
@@ -73,7 +72,7 @@ const SliderControl = forwardRef<
     <SliderPrimitive.Control
       ref={ref}
       data-slot="slider-control"
-      className={clsx(styles.control, normalizeClassName(className))}
+      className={clsx(styles.control, className)}
       {...props}
     />
   );
@@ -87,7 +86,7 @@ const SliderTrack = forwardRef<
     <SliderPrimitive.Track
       ref={ref}
       data-slot="slider-track"
-      className={clsx(styles.track, normalizeClassName(className))}
+      className={clsx(styles.track, className)}
       {...props}
     />
   );
@@ -101,7 +100,7 @@ const SliderRange = forwardRef<
     <SliderPrimitive.Range
       ref={ref}
       data-slot="slider-range"
-      className={clsx(styles.range, normalizeClassName(className))}
+      className={clsx(styles.range, className)}
       {...props}
     />
   );
@@ -110,42 +109,24 @@ const SliderRange = forwardRef<
 const SliderThumb = forwardRef<
   ComponentRef<typeof SliderPrimitive.Thumb>,
   ComponentProps<typeof SliderPrimitive.Thumb>
->(function SliderThumb({ asChild, children, className, ...props }, ref) {
+>(function SliderThumb({ className, ...props }, ref) {
   return (
     <SliderPrimitive.Thumb
       ref={ref}
-      asChild={asChild}
       data-slot="slider-thumb"
-      className={clsx(styles.thumb, normalizeClassName(className))}
+      className={clsx(styles.thumb, className)}
       {...props}
-    >
-      {withHiddenInput(children, asChild)}
-    </SliderPrimitive.Thumb>
+    />
   );
 });
-
-function withHiddenInput(children: ReactNode, asChild?: boolean) {
-  const hiddenInput = <SliderPrimitive.HiddenInput data-slot="slider-hidden-input" />;
-
-  if (!asChild) {
-    return (
-      <>
-        {children}
-        {hiddenInput}
-      </>
-    );
-  }
-
-  const child = Children.only(children) as ReactElement<{ children?: ReactNode }>;
-
-  return cloneElement(child, {}, child.props.children, hiddenInput);
-}
 
 function SliderThumbs({ className }: { className?: string }) {
   const slider = useSliderContext();
 
   return slider.value.map((_, index) => (
-    <SliderThumb key={index} index={index} className={className} />
+    <SliderThumb key={index} index={index} className={className}>
+      <SliderPrimitive.HiddenInput />
+    </SliderThumb>
   ));
 }
 
@@ -157,7 +138,7 @@ const SliderMarkerGroup = forwardRef<
     <SliderPrimitive.MarkerGroup
       ref={ref}
       data-slot="slider-marker-group"
-      className={clsx(styles.markerGroup, normalizeClassName(className))}
+      className={clsx(styles.markerGroup, className)}
       {...props}
     />
   );
@@ -171,7 +152,7 @@ const SliderMarker = forwardRef<
     <SliderPrimitive.Marker
       ref={ref}
       data-slot="slider-marker"
-      className={clsx(styles.marker, normalizeClassName(className))}
+      className={clsx(styles.marker, className)}
       {...props}
     />
   );
@@ -185,7 +166,7 @@ const SliderDraggingIndicator = forwardRef<
     <SliderPrimitive.DraggingIndicator
       ref={ref}
       data-slot="slider-dragging-indicator"
-      className={clsx(styles.draggingIndicator, normalizeClassName(className))}
+      className={clsx(styles.draggingIndicator, className)}
       {...props}
     />
   );
@@ -200,6 +181,7 @@ const Slider = Object.assign(SliderRoot, {
   Label: SliderLabel,
   ValueText: SliderValueText,
   Control: SliderControl,
+  HiddenInput: SliderPrimitive.HiddenInput,
   Track: SliderTrack,
   Range: SliderRange,
   Thumb: SliderThumb,

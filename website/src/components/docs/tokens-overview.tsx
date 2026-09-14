@@ -683,7 +683,7 @@ export function TokensOverview() {
         </div>
       </Section>
 
-      <Section title={t('tokensOverviewTypography')} note={t('tokensOverviewTypography')}>
+      <Section title={t('tokensOverviewTypography')} note={t('tokensOverviewTypographyNote')}>
         <div className={styles.typeGrid}>
           {typographyTokens.map(([textName, textValue, lineName, lineValue]) => (
             <div className={styles.typeRow} key={textName}>
@@ -715,7 +715,7 @@ export function TokensOverview() {
         <TokenList title={t('tokensOverviewFontFamilies')} tokens={fontFamilyTokens} />
       </Section>
 
-      <Section title={t('tokensOverviewMotion')} note={t('tokensOverviewMotion')}>
+      <Section title={t('tokensOverviewMotion')} note={t('tokensOverviewMotionNote')}>
         <div className={styles.motionGrid}>
           <TokenList title={t('tokensOverviewTimingAndTransitionTokens')} tokens={motionTokens} />
           <TokenList title={t('tokensOverviewAnimationTokens')} tokens={animationTokens} />

@@ -4,7 +4,19 @@ component: spinner
 description: Компактный индикатор загрузки, который сообщает ассистивным технологиям о состоянии загрузки и поддерживает несколько размеров и собственное содержимое.
 ---
 
-import * as SpinnerDocs from '@/components/examples/spinner';
+import SpinnerAsChild from '@/components/examples/spinner/as-child.tsx';
+import SpinnerBasic from '@/components/examples/spinner/basic.tsx';
+import SpinnerButton from '@/components/examples/spinner/button.tsx';
+import SpinnerCustomIndicator from '@/components/examples/spinner/custom-indicator.tsx';
+import SpinnerInlineLoadingText from '@/components/examples/spinner/inline-loading-text.tsx';
+import SpinnerSizes from '@/components/examples/spinner/sizes.tsx';
+import * as SpinnerDocs from '@/components/examples/spinner/css-properties';
+import spinnerSolidAsChild from '../../../snippets/spinner/solid/as-child.tsx?raw';
+import spinnerSolidBasic from '../../../snippets/spinner/solid/basic.tsx?raw';
+import spinnerSolidButton from '../../../snippets/spinner/solid/button.tsx?raw';
+import spinnerSolidCustomIndicator from '../../../snippets/spinner/solid/custom-indicator.tsx?raw';
+import spinnerSolidInlineLoadingText from '../../../snippets/spinner/solid/inline-loading-text.tsx?raw';
+import spinnerSolidSizes from '../../../snippets/spinner/solid/sizes.tsx?raw';
 
 ## Справочник API
 
@@ -20,15 +32,69 @@ import * as SpinnerDocs from '@/components/examples/spinner';
 элемента есть `role="status"` и запасное имя `aria-label="Loading"`. Это буквальная английская строка `Loading`,
 поэтому в интерфейсе на другом языке задайте локализованный `aria-label` или используйте `aria-labelledby`.
 
-<PreviewFrame maxWidth="sm">
-  ```tsx preview file="../../en/docs/_snippets/spinner/basic.tsx"
+Spinner доступен для React и Solid в вариантах с CSS Modules и Tailwind. Предпросмотр на этой странице
+использует React и пакет CSS Modules, а вкладки фреймворков показывают нативный исходный код для
+того же публичного контракта.
 
-  ```
-</PreviewFrame>
+В большинстве случаев используйте `Spinner` как корневой элемент. `Spinner.Root` - псевдоним того же
+корня, если эту часть композиции нужно обозначить явно.
+
+<ExampleFrame variant="component">
+  <SpinnerBasic />
+</ExampleFrame>
+
+<ExampleCode>
+<div className="docs-reference">
+  <Tabs
+    groupId="framework"
+    values={[
+      { label: 'React', value: 'react' },
+      { label: 'Solid', value: 'solid' },
+    ]}
+    className="docs-tabs"
+  >
+    <Tab value="react">
+
+```tsx pure file="../../../src/components/examples/spinner/basic.tsx"
+```
+
+    </Tab>
+    <Tab value="solid">
+
+<CodeBlockRuntime lang="tsx" code={spinnerSolidBasic} />
+
+    </Tab>
+  </Tabs>
+</div>
+
+</ExampleCode>
 
 ## Установка через shadcn
 
-<ShadcnInstall packageName="spinner" />
+Полную настройку пакета, реестра и стилей см. в разделе [Быстрый старт](/docs/quick-start).
+
+<Tabs groupId="framework">
+  <Tab label="React" value="react">
+
+<ShadcnInstallOptions
+  options={[
+    { label: 'CSS Modules', command: 'shadcn@latest add @moduix-react/spinner' },
+    { label: 'Tailwind CSS', command: 'shadcn@latest add @moduix-react-tailwind/spinner' },
+  ]}
+/>
+
+  </Tab>
+  <Tab label="Solid" value="solid">
+
+<ShadcnInstallOptions
+  options={[
+    { label: 'CSS Modules', command: 'shadcn@latest add @moduix-solid/spinner' },
+    { label: 'Tailwind CSS', command: 'shadcn@latest add @moduix-solid-tailwind/spinner' },
+  ]}
+/>
+
+  </Tab>
+</Tabs>
 
 ## Анатомия
 
@@ -52,52 +118,14 @@ Spinner / Spinner.Root
 
 ## Композиция
 
-### Рекомендуемая композиция
+`Spinner` только отображает состояние загрузки, которым владеет приложение: компонент не запускает,
+не останавливает и не изменяет представленную операцию. Отрисовывайте его на основе состояния, где
+уже хранится информация об этой операции.
 
-В большинстве случаев достаточно короткой формы `<Spinner />`. Она отображает стандартное кольцо и сообщает
-ассистивным технологиям о состоянии загрузки без дополнительной разметки.
-
-- Используйте `size` для изменения плотности.
-- Используйте `decorative`, если видимый текст рядом со `Spinner` уже сообщает о загрузке.
-- Используйте `aria-label` или `aria-labelledby`, если статусу нужно более конкретное имя, чем `"Loading"`.
-- Показывайте `Spinner` на основе состояния загрузки в приложении. Компонент не запускает и не останавливает
-  саму операцию и не управляет её состоянием.
-
-### Когда нужна собственная композиция
-
-Передайте собственное содержимое через `children`, если стандартное кольцо не подходит, но нужно сохранить
-стандартный корень, размер и вращающуюся обёртку.
-
-Используйте `asChild`, только если другой компонент должен создавать сам корневой DOM-элемент. Передайте ровно
-один неинтерактивный дочерний элемент. В этом режиме встроенные обёртка индикатора и кольцо не создаются, поэтому
-дочерний элемент должен сам содержать разметку визуального индикатора.
-
-### Свойства по умолчанию
-
-| Свойство     | По умолчанию | Примечания                                                                 |
-| ------------ | ------------ | -------------------------------------------------------------------------- |
-| `size`            | `'md'`       | Принимает `'inherit' \| 'xs' \| 'sm' \| 'md' \| 'lg' \| 'xl'`. Значение `inherit` использует `1em`.          |
-| `decorative`      | `false`      | Для обычного корня задаёт `role="presentation"` и `aria-hidden="true"`; с `asChild` сохраняет семантику ребёнка. |
-| `asChild`         | `false`      | Передаёт свойства корня единственному дочернему элементу.                                                   |
-| `aria-label`      | `'Loading'`  | Используется, если `Spinner` не декоративный и `aria-labelledby` не задан.                                  |
-| `aria-labelledby` | не задано    | Используйте, чтобы связать статус с видимым текстом в другом месте страницы.                               |
-
-### Особенности поведения
-
-- По умолчанию корневой элемент имеет тег `span` и атрибуты `data-scope="spinner"`, `data-part="root"`,
-  `data-slot="spinner-root"` и `data-size`.
-- `Spinner.Root` - псевдоним совместимости для `Spinner`; в новом коде используйте `Spinner`.
-- Недекоративный `Spinner` получает `role="status"`.
-- `decorative={true}` скрывает обычный корень от ассистивных технологий. С `asChild` компонент не добавляет роль
-  и свойства подписи, поэтому пользовательский дочерний элемент сохраняет собственную семантику.
-- Spinner сам задаёт семантику статуса и атрибуты `data-scope`, `data-part`, `data-slot` и `data-size`. Переданные
-  конфликтующие нативные свойства их не заменяют.
-- Вращающаяся обёртка использует `data-scope="spinner"`, `data-part="indicator"` и `data-slot="spinner-indicator"`.
-- Собственное `children` заменяет только стандартное кольцо. Встроенная обёртка по-прежнему отвечает за размер и вращение.
-- При `asChild` дочерний элемент становится корнем и должен сам отрисовать необходимый визуальный индикатор.
-- `size="inherit"` задаёт размер `1em`, а остальные значения записываются в `data-size` корневого элемента.
-- Spinner продолжает вращаться даже при `prefers-reduced-motion: reduce`, поскольку анимация служит визуальным
-  признаком загрузки.
+Передайте собственное `children`, чтобы заменить стандартное кольцо и сохранить обычный корень,
+размер и вращающуюся обёртку индикатора. Используйте `asChild`, только если другой компонент должен
+владеть корневым элементом: в этом режиме встроенные индикатор и кольцо не создаются, поэтому ровно
+один неинтерактивный дочерний элемент должен содержать разметку визуального индикатора.
 
 ## Примеры
 
@@ -106,58 +134,204 @@ Spinner / Spinner.Root
 Передайте собственное содержимое через `children`, если стандартное кольцо нужно заменить, но размер и семантика
 статуса должны остаться прежними.
 
-<PreviewFrame maxWidth="sm">
-  ```tsx preview file="../../en/docs/_snippets/spinner/custom-indicator.tsx"
+<ExampleFrame variant="component">
+  <SpinnerCustomIndicator />
+</ExampleFrame>
 
-  ```
-</PreviewFrame>
+<ExampleCode>
+<div className="docs-reference">
+  <Tabs
+    groupId="framework"
+    values={[
+      { label: 'React', value: 'react' },
+      { label: 'Solid', value: 'solid' },
+    ]}
+    className="docs-tabs"
+  >
+    <Tab value="react">
+
+```tsx pure file="../../../src/components/examples/spinner/custom-indicator.tsx"
+```
+
+    </Tab>
+    <Tab value="solid">
+
+<CodeBlockRuntime lang="tsx" code={spinnerSolidCustomIndicator} />
+
+    </Tab>
+  </Tabs>
+</div>
+
+</ExampleCode>
 
 ### В кнопке
 
 Оставьте `Spinner` декоративным, если текст кнопки уже объясняет действие. В примере `aria-busy` передаётся кнопке,
 а подпись под ней нужна только для демонстрации текущего состояния.
 
-<PreviewFrame contentWidth="fit-content" maxWidth="sm">
-  ```tsx preview file="../../en/docs/_snippets/spinner/button.tsx"
+<ExampleFrame variant="component">
+  <SpinnerButton />
+</ExampleFrame>
 
-  ```
-</PreviewFrame>
+<ExampleCode>
+<div className="docs-reference">
+  <Tabs
+    groupId="framework"
+    values={[
+      { label: 'React', value: 'react' },
+      { label: 'Solid', value: 'solid' },
+    ]}
+    className="docs-tabs"
+  >
+    <Tab value="react">
+
+```tsx pure file="../../../src/components/examples/spinner/button.tsx"
+```
+
+    </Tab>
+    <Tab value="solid">
+
+<CodeBlockRuntime lang="tsx" code={spinnerSolidButton} />
+
+    </Tab>
+  </Tabs>
+
+**Стили**
+
+```css file="../../../src/components/examples/spinner/spinner-button.module.css"
+```
+
+</div>
+
+</ExampleCode>
 
 ### Загрузка с текстом
 
 Используйте `decorative`, когда видимый текст рядом со `Spinner` уже объясняет, что происходит.
 
-<PreviewFrame maxWidth="sm">
-  ```tsx preview file="../../en/docs/_snippets/spinner/inline-loading-text.tsx"
+<ExampleFrame variant="component">
+  <SpinnerInlineLoadingText />
+</ExampleFrame>
 
-  ```
-</PreviewFrame>
+<ExampleCode>
+<div className="docs-reference">
+  <Tabs
+    groupId="framework"
+    values={[
+      { label: 'React', value: 'react' },
+      { label: 'Solid', value: 'solid' },
+    ]}
+    className="docs-tabs"
+  >
+    <Tab value="react">
+
+```tsx pure file="../../../src/components/examples/spinner/inline-loading-text.tsx"
+```
+
+    </Tab>
+    <Tab value="solid">
+
+<CodeBlockRuntime lang="tsx" code={spinnerSolidInlineLoadingText} />
+
+    </Tab>
+  </Tabs>
+
+**Стили**
+
+```css file="../../../src/components/examples/spinner/spinner-inline-loading-text.module.css"
+```
+
+</div>
+
+</ExampleCode>
 
 ### Размеры
 
 Используйте небольшие размеры внутри компактных элементов управления, а большие - для самостоятельных состояний загрузки.
 
-<PreviewFrame maxWidth="sm">
-  ```tsx preview file="../../en/docs/_snippets/spinner/sizes.tsx"
+<ExampleFrame variant="component">
+  <SpinnerSizes />
+</ExampleFrame>
 
-  ```
-</PreviewFrame>
+<ExampleCode>
+<div className="docs-reference">
+  <Tabs
+    groupId="framework"
+    values={[
+      { label: 'React', value: 'react' },
+      { label: 'Solid', value: 'solid' },
+    ]}
+    className="docs-tabs"
+  >
+    <Tab value="react">
+
+```tsx pure file="../../../src/components/examples/spinner/sizes.tsx"
+```
+
+    </Tab>
+    <Tab value="solid">
+
+<CodeBlockRuntime lang="tsx" code={spinnerSolidSizes} />
+
+    </Tab>
+  </Tabs>
+
+**Стили**
+
+```css file="../../../src/components/examples/spinner/spinner-sizes.module.css"
+```
+
+</div>
+
+</ExampleCode>
 
 ### Собственный корневой элемент
 
 Используйте `asChild`, когда другой компонент должен владеть корневым элементом. Дочерний элемент получает атрибуты
 и имя класса корня Spinner и должен сам отрисовать визуальный индикатор.
 
-<PreviewFrame maxWidth="sm">
-  ```tsx preview file="../../en/docs/_snippets/spinner/as-child.tsx"
+<ExampleFrame variant="component">
+  <SpinnerAsChild />
+</ExampleFrame>
 
-  ```
-</PreviewFrame>
+<ExampleCode>
+<div className="docs-reference">
+  <Tabs
+    groupId="framework"
+    values={[
+      { label: 'React', value: 'react' },
+      { label: 'Solid', value: 'solid' },
+    ]}
+    className="docs-tabs"
+  >
+    <Tab value="react">
+
+```tsx pure file="../../../src/components/examples/spinner/as-child.tsx"
+```
+
+    </Tab>
+    <Tab value="solid">
+
+<CodeBlockRuntime lang="tsx" code={spinnerSolidAsChild} />
+
+    </Tab>
+  </Tabs>
+
+**Стили**
+
+```css file="../../../src/components/examples/spinner/spinner-as-child.module.css"
+```
+
+</div>
+
+</ExampleCode>
 
 ## Стилизация
 
-Стилизуйте `Spinner` с помощью `className`, селекторов Ark `data-scope` / `data-part`, стабильных хуков `data-slot`,
-`data-size` и публичных переменных `--moduix-spinner-*`, перечисленных в CSS API.
+Стилизуйте `Spinner` с помощью `className` в React, `class` в Solid, селекторов Ark `data-scope` / `data-part`,
+стабильных хуков `data-slot`, `data-size` и публичных переменных `--moduix-spinner-*`, перечисленных в CSS API.
+Эти переменные доступны в пакетах CSS Modules; пакеты Tailwind используют классы-утилиты и пользовательские классы,
+а не дублируют слой переменных CSS Modules.
 
 ### CSS-свойства
 
@@ -182,5 +356,5 @@ Spinner / Spinner.Root
 - `data-slot="spinner-indicator"` - стабильный селектор moduix для вращающейся внутренней обёртки.
 - `data-slot="spinner-ring"` выбирает только стандартное кольцо.
 - `Spinner` записывает в корень `data-size="inherit" | "xs" | "sm" | "md" | "lg" | "xl"`.
-- `className` применяется к отрисованному корню. При `asChild` это единственный дочерний элемент. При необходимости
-  выбирайте индикатор или кольцо дочерними селекторами.
+- `className` или `class` применяется к отрисованному корню. При `asChild` это единственный дочерний элемент.
+  При необходимости выбирайте индикатор или кольцо дочерними селекторами.

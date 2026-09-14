@@ -6,7 +6,6 @@ import {
 import { clsx } from 'clsx';
 import type { ComponentProps, ComponentRef } from 'react';
 import { forwardRef } from 'react';
-import { normalizeClassName } from '@/lib/moduix/normalizeClassName';
 import styles from './ProgressLinear.module.css';
 
 const ProgressLinearRoot = forwardRef<
@@ -17,7 +16,7 @@ const ProgressLinearRoot = forwardRef<
     <ProgressPrimitive.Root
       ref={ref}
       data-slot="progress-linear-root"
-      className={clsx(styles.root, normalizeClassName(className))}
+      className={clsx(styles.root, className)}
       {...props}
     />
   );
@@ -31,7 +30,7 @@ const ProgressLinearRootProvider = forwardRef<
     <ProgressPrimitive.RootProvider
       ref={ref}
       data-slot="progress-linear-root-provider"
-      className={clsx(styles.root, normalizeClassName(className))}
+      className={clsx(styles.root, className)}
       {...props}
     />
   );
@@ -45,7 +44,7 @@ const ProgressLinearLabel = forwardRef<
     <ProgressPrimitive.Label
       ref={ref}
       data-slot="progress-linear-label"
-      className={clsx(styles.label, normalizeClassName(className))}
+      className={clsx(styles.label, className)}
       {...props}
     />
   );
@@ -59,7 +58,7 @@ const ProgressLinearValueText = forwardRef<
     <ProgressPrimitive.ValueText
       ref={ref}
       data-slot="progress-linear-value-text"
-      className={clsx(styles.valueText, normalizeClassName(className))}
+      className={clsx(styles.valueText, className)}
       {...props}
     />
   );
@@ -73,7 +72,7 @@ const ProgressLinearTrack = forwardRef<
     <ProgressPrimitive.Track
       ref={ref}
       data-slot="progress-linear-track"
-      className={clsx(styles.track, normalizeClassName(className))}
+      className={clsx(styles.track, className)}
       {...props}
     />
   );
@@ -87,7 +86,7 @@ const ProgressLinearRange = forwardRef<
     <ProgressPrimitive.Range
       ref={ref}
       data-slot="progress-linear-range"
-      className={clsx(styles.range, normalizeClassName(className))}
+      className={clsx(styles.range, className)}
       {...props}
     />
   );
@@ -101,7 +100,7 @@ const ProgressLinearView = forwardRef<
     <ProgressPrimitive.View
       ref={ref}
       data-slot="progress-linear-view"
-      className={clsx(styles.view, normalizeClassName(className))}
+      className={clsx(styles.view, className)}
       {...props}
     />
   );

@@ -9,7 +9,6 @@ import { clsx } from 'clsx';
 import type { ComponentProps, ComponentRef } from 'react';
 import { forwardRef } from 'react';
 import { CheckIcon, CopyIcon } from '@/lib/moduix/icons/ui';
-import { normalizeClassName } from '@/lib/moduix/normalizeClassName';
 import styles from './Clipboard.module.css';
 
 const ClipboardRoot = forwardRef<
@@ -20,7 +19,7 @@ const ClipboardRoot = forwardRef<
     <ClipboardPrimitive.Root
       ref={ref}
       data-slot="clipboard-root"
-      className={clsx(styles.root, normalizeClassName(className))}
+      className={clsx(styles.root, className)}
       {...props}
     />
   );
@@ -34,7 +33,7 @@ const ClipboardRootProvider = forwardRef<
     <ClipboardPrimitive.RootProvider
       ref={ref}
       data-slot="clipboard-root-provider"
-      className={clsx(styles.root, normalizeClassName(className))}
+      className={clsx(styles.root, className)}
       {...props}
     />
   );
@@ -48,7 +47,7 @@ const ClipboardLabel = forwardRef<
     <ClipboardPrimitive.Label
       ref={ref}
       data-slot="clipboard-label"
-      className={clsx(styles.label, normalizeClassName(className))}
+      className={clsx(styles.label, className)}
       {...props}
     />
   );
@@ -62,7 +61,7 @@ const ClipboardControl = forwardRef<
     <ClipboardPrimitive.Control
       ref={ref}
       data-slot="clipboard-control"
-      className={clsx(styles.control, normalizeClassName(className))}
+      className={clsx(styles.control, className)}
       {...props}
     />
   );
@@ -76,7 +75,7 @@ const ClipboardInput = forwardRef<
     <ClipboardPrimitive.Input
       ref={ref}
       data-slot="clipboard-input"
-      className={clsx(styles.input, normalizeClassName(className))}
+      className={clsx(styles.input, className)}
       {...props}
     />
   );
@@ -90,7 +89,7 @@ const ClipboardTrigger = forwardRef<
     <ClipboardPrimitive.Trigger
       ref={ref}
       data-slot="clipboard-trigger"
-      className={clsx(styles.trigger, normalizeClassName(className))}
+      className={clsx(styles.trigger, className)}
       {...props}
     />
   );
@@ -104,7 +103,7 @@ const ClipboardIndicator = forwardRef<
     <ClipboardPrimitive.Indicator
       ref={ref}
       data-slot="clipboard-indicator"
-      className={clsx(styles.indicator, normalizeClassName(className))}
+      className={clsx(styles.indicator, className)}
       copied={
         copied ?? (
           <span
@@ -135,7 +134,7 @@ const ClipboardValueText = forwardRef<
     <ClipboardPrimitive.ValueText
       ref={ref}
       data-slot="clipboard-value-text"
-      className={clsx(styles.valueText, normalizeClassName(className))}
+      className={clsx(styles.valueText, className)}
       {...props}
     />
   );

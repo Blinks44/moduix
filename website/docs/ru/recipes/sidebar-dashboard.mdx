@@ -4,6 +4,7 @@ description: Готовый каркас панели управления с и
 ---
 
 import { SidebarDashboardPreview } from '@/components/recipes/sidebar-dashboard-preview';
+import sidebarDashboardSolid from '../../../snippets/recipes/solid/sidebar-dashboard.tsx?raw';
 
 # Панель управления с боковой навигацией
 
@@ -18,35 +19,51 @@ import { SidebarDashboardPreview } from '@/components/recipes/sidebar-dashboard-
 сведена к узкой полосе с иконками.
 
 Это готовая композиция для копирования, а не отдельный компонент `SidebarDashboard`, экспортируемый
-из `@moduix/react`. Скопируйте компонент и CSS ниже, затем замените демонстрационные ссылки,
+moduix. Скопируйте компонент и CSS ниже, затем замените демонстрационные ссылки,
 подписи и данные панели.
 
-<ExampleFrame clientOnly>
+Живое превью использует React-пакет. Во вкладках исходников приведены нативные реализации для React и Solid с общими стилями.
+
+<ExampleFrame variant="recipe" clientOnly>
   <SidebarDashboardPreview />
 </ExampleFrame>
 
+<ExampleCode>
 <div className="docs-reference">
-  <Tabs values={[{ label: 'Компонент', value: 'Component' }, { label: 'Стили', value: 'Styles' }]} className="docs-tabs">
-    <Tab value="Component">
+  <Tabs
+    groupId="framework"
+    values={[
+      { label: 'React', value: 'react' },
+      { label: 'Solid', value: 'solid' },
+    ]}
+    className="docs-tabs"
+  >
+    <Tab value="react">
 
-```tsx file="../../../src/components/recipes/sidebar-dashboard.tsx"
+```tsx pure file="../../../src/components/recipes/sidebar-dashboard.tsx"
 
 ```
 
     </Tab>
-    <Tab value="Styles">
+    <Tab value="solid">
+
+<CodeBlockRuntime lang="tsx" code={sidebarDashboardSolid} />
+
+    </Tab>
+  </Tabs>
+
+**Styles**
 
 ```css file="../../../src/components/recipes/sidebar-dashboard.module.css"
 
 ```
-
-    </Tab>
-  </Tabs>
 </div>
+
+</ExampleCode>
 
 ## Установка
 
-<ShadcnInstall packageName={['button', 'card', 'collapsible', 'menu', 'sidebar']} itemKind="recipe" copiedSource dependencies={['lucide-react']} />
+<ShadcnInstall packageName={['button', 'card', 'collapsible', 'menu', 'sidebar']} itemKind="recipe" frameworks copiedSource dependencies={['lucide-react']} solidDependencies={['lucide-solid']} />
 
 ## Настройте под приложение
 

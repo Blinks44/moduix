@@ -4,7 +4,19 @@ component: separator
 description: Sépare le contenu ou les groupes associés par une ligne horizontale ou verticale, avec une sémantique adaptée aux technologies d’assistance.
 ---
 
-import * as SeparatorDocs from '@/components/examples/separator';
+import * as SeparatorDocs from '@/components/examples/separator/css-properties';
+import SeparatorBasic from '@/components/examples/separator/basic.tsx';
+import SeparatorDecorative from '@/components/examples/separator/decorative.tsx';
+import SeparatorSizes from '@/components/examples/separator/sizes.tsx';
+import SeparatorVariants from '@/components/examples/separator/variants.tsx';
+import SeparatorVertical from '@/components/examples/separator/vertical.tsx';
+import SeparatorAsChild from '@/components/examples/separator/as-child.tsx';
+import separatorSolidBasic from '../../../snippets/separator/solid/basic.tsx?raw';
+import separatorSolidDecorative from '../../../snippets/separator/solid/decorative.tsx?raw';
+import separatorSolidSizes from '../../../snippets/separator/solid/sizes.tsx?raw';
+import separatorSolidVariants from '../../../snippets/separator/solid/variants.tsx?raw';
+import separatorSolidVertical from '../../../snippets/separator/solid/vertical.tsx?raw';
+import separatorSolidAsChild from '../../../snippets/separator/solid/as-child.tsx?raw';
 
 ## Référence de l’API
 
@@ -14,17 +26,74 @@ Ses propriétés `orientation`, `variant` et `size` reprennent le modèle famili
 
 ## Exemple de base
 
-Utilisez `Separator` pour marquer visuellement la limite entre des sections liées.
+Separator est disponible pour React et Solid dans les variantes CSS Modules et Tailwind. L’aperçu de
+cette page utilise React CSS Modules ; les onglets présentent le code natif de chaque framework pour
+le même contrat public.
 
-<PreviewFrame maxWidth="sm">
-  ```tsx preview file="../../en/docs/_snippets/separator/basic.tsx"
+Utilisez `Separator` pour marquer visuellement la limite entre des sections liées. Par défaut, le
+composant utilise `orientation="horizontal"`, `variant="solid"` et `size="sm"`.
 
-  ```
-</PreviewFrame>
+<ExampleFrame variant="component">
+  <SeparatorBasic />
+</ExampleFrame>
+
+<ExampleCode>
+<div className="docs-reference">
+  <Tabs
+    groupId="framework"
+    values={[
+      { label: 'React', value: 'react' },
+      { label: 'Solid', value: 'solid' },
+    ]}
+    className="docs-tabs"
+  >
+    <Tab value="react">
+
+```tsx pure file="../../../src/components/examples/separator/basic.tsx"
+```
+
+    </Tab>
+    <Tab value="solid">
+
+<CodeBlockRuntime lang="tsx" code={separatorSolidBasic} />
+
+    </Tab>
+  </Tabs>
+
+**Styles**
+
+```css file="../../../src/components/examples/separator/separator-basic.module.css"
+```
+</div>
+
+</ExampleCode>
 
 ## Installation avec shadcn
 
-<ShadcnInstall packageName="separator" />
+Consultez le [Démarrage rapide](/docs/quick-start) pour la configuration complète du paquet, du registre et des styles.
+
+<Tabs groupId="framework">
+  <Tab label="React" value="react">
+
+<ShadcnInstallOptions
+  options={[
+    { label: 'CSS Modules', command: 'shadcn@latest add @moduix-react/separator' },
+    { label: 'Tailwind CSS', command: 'shadcn@latest add @moduix-react-tailwind/separator' },
+  ]}
+/>
+
+  </Tab>
+  <Tab label="Solid" value="solid">
+
+<ShadcnInstallOptions
+  options={[
+    { label: 'CSS Modules', command: 'shadcn@latest add @moduix-solid/separator' },
+    { label: 'Tailwind CSS', command: 'shadcn@latest add @moduix-solid-tailwind/separator' },
+  ]}
+/>
+
+  </Tab>
+</Tabs>
 
 ## Anatomie
 
@@ -35,103 +104,226 @@ Separator / Separator.Root
 └─ root[data-scope="separator"][data-part="root"][data-slot="separator-root"]
 ```
 
-| Partie                         | Rôle                                                                   |
-| ------------------------------ | ---------------------------------------------------------------------- |
-| `Separator` / `Separator.Root` | Élément séparateur racine. Définit l’orientation, les informations d’accessibilité et le style visuel. |
-
-Utilisez `className` et les propriétés CSS `--moduix-separator-*` pour styliser la racine. Utilisez
-`asChild` si un autre élément doit héberger le séparateur.
+| Partie                             | Rôle                                                                    |
+| ---------------------------------- | ----------------------------------------------------------------------- |
+| `Separator` / `Separator.Root` | Élément séparateur racine. Définit l’orientation, l’accessibilité et le style. |
 
 ## Composition
 
-### Composition recommandée
-
-Pour la plupart des séparateurs, utilisez la forme courte `<Separator />`. Il s’agit du même composant racine
-que `<Separator.Root />` ; vous pouvez donc passer de l’un à l’autre sans modifier le comportement.
-
-### Quand créer une composition personnalisée
-
-Utilisez `asChild` uniquement si vous devez faire porter le séparateur par un autre élément. `Separator` rend
-déjà un séparateur sémantique. Son enfant doit être un élément unique capable de recevoir les attributs fusionnés
-`role`, ARIA et `data-*`, ainsi que `className` et `ref`.
-
-### Propriétés par défaut
-
-| Propriété      | Valeur par défaut | Remarques                                         |
-| -------------- | ----------------- | ------------------------------------------------ |
-| `orientation`  | `horizontal`      | `horizontal`, `vertical`                        |
-| `variant`      | `solid`           | `solid`, `dashed`, `dotted`                     |
-| `size`         | `sm`              | `xs`, `sm`, `md`, `lg`                          |
-| `asChild`      | `false`           | Composition avec la fabrique Ark et un enfant unique |
-| `role`         | `separator`       | Transmettez `presentation` pour une ligne décorative |
-
-### Comportement
-
-- Lorsque son rôle est `separator`, `Separator` définit `aria-orientation` à partir de `orientation`. Pour un autre rôle, comme `presentation`, il omet `aria-orientation`, même si vous le transmettez vous-même.
-- Utilisez `role="presentation"` lorsque la ligne est purement visuelle et n’apporte aucune information de structure aux technologies d’assistance.
-- Les séparateurs horizontaux occupent toute la largeur disponible par défaut.
-- Les séparateurs verticaux ont par défaut une hauteur de `1em`, ce qui les aligne naturellement sur le texte en ligne et les rangées d’actions compactes.
-- `Separator` n’est pas interactif : il n’expose ni état, ni fonction de rappel, ni prise en charge de la désactivation, ni gestion du focus.
-- Pour un simple espace, utilisez des primitives de mise en page ou des tokens d’espacement.
+`Separator` se limite à une partie racine : il ne gère donc aucun état et ne nécessite pas de
+provider. Pour un séparateur courant, utilisez `<Separator />`, qui est la même racine que
+`<Separator.Root />`. Lorsqu’un autre élément doit porter le séparateur, utilisez `asChild` avec
+un seul enfant capable d’accepter les propriétés fusionnées de rôle, ARIA, `data-*`, de classe et de
+ref. En React, l’élément enfant est transmis directement ; en Solid, utilisez
+`asChild={(props) => <hr {...props()} />}`.
 
 ## Exemples
 
 ### Décoratif
 
-Utilisez `role="presentation"` pour une ligne purement visuelle qui n’apporte aucune structure aux technologies
-d’assistance.
+Utilisez `role="presentation"` pour une ligne purement visuelle qui n’apporte aucune structure aux
+technologies d’assistance.
 
-<PreviewFrame maxWidth="sm">
-  ```tsx preview file="../../en/docs/_snippets/separator/decorative.tsx"
+<ExampleFrame variant="component">
+  <SeparatorDecorative />
+</ExampleFrame>
 
-  ```
-</PreviewFrame>
+<ExampleCode>
+<div className="docs-reference">
+  <Tabs
+    groupId="framework"
+    values={[
+      { label: 'React', value: 'react' },
+      { label: 'Solid', value: 'solid' },
+    ]}
+    className="docs-tabs"
+  >
+    <Tab value="react">
+
+```tsx pure file="../../../src/components/examples/separator/decorative.tsx"
+```
+
+    </Tab>
+    <Tab value="solid">
+
+<CodeBlockRuntime lang="tsx" code={separatorSolidDecorative} />
+
+    </Tab>
+  </Tabs>
+
+**Styles**
+
+```css file="../../../src/components/examples/separator/separator-decorative.module.css"
+```
+</div>
+
+</ExampleCode>
 
 ### Tailles
 
-Utilisez `size` pour choisir l’épaisseur du séparateur, puis les propriétés CSS pour l’ajuster si nécessaire.
+Utilisez `size` pour choisir l’épaisseur du séparateur, puis les propriétés CSS pour l’ajuster si
+nécessaire.
 
-<PreviewFrame maxWidth="sm">
-  ```tsx preview file="../../en/docs/_snippets/separator/sizes.tsx"
+<ExampleFrame variant="component">
+  <SeparatorSizes />
+</ExampleFrame>
 
-  ```
-</PreviewFrame>
+<ExampleCode>
+<div className="docs-reference">
+  <Tabs
+    groupId="framework"
+    values={[
+      { label: 'React', value: 'react' },
+      { label: 'Solid', value: 'solid' },
+    ]}
+    className="docs-tabs"
+  >
+    <Tab value="react">
+
+```tsx pure file="../../../src/components/examples/separator/sizes.tsx"
+```
+
+    </Tab>
+    <Tab value="solid">
+
+<CodeBlockRuntime lang="tsx" code={separatorSolidSizes} />
+
+    </Tab>
+  </Tabs>
+
+**Styles**
+
+```css file="../../../src/components/examples/separator/separator-sizes.module.css"
+```
+</div>
+
+</ExampleCode>
 
 ### Variantes
 
 Utilisez `variant` pour choisir une ligne continue, en tirets ou en pointillés.
 
-<PreviewFrame maxWidth="sm">
-  ```tsx preview file="../../en/docs/_snippets/separator/variants.tsx"
+<ExampleFrame variant="component">
+  <SeparatorVariants />
+</ExampleFrame>
 
-  ```
-</PreviewFrame>
+<ExampleCode>
+<div className="docs-reference">
+  <Tabs
+    groupId="framework"
+    values={[
+      { label: 'React', value: 'react' },
+      { label: 'Solid', value: 'solid' },
+    ]}
+    className="docs-tabs"
+  >
+    <Tab value="react">
+
+```tsx pure file="../../../src/components/examples/separator/variants.tsx"
+```
+
+    </Tab>
+    <Tab value="solid">
+
+<CodeBlockRuntime lang="tsx" code={separatorSolidVariants} />
+
+    </Tab>
+  </Tabs>
+
+**Styles**
+
+```css file="../../../src/components/examples/separator/separator-variants.module.css"
+```
+</div>
+
+</ExampleCode>
 
 ### Vertical
 
 Utilisez `orientation="vertical"` pour les groupes disposés sur une ligne, comme des liens de navigation.
 
-<PreviewFrame maxWidth="sm">
-  ```tsx preview file="../../en/docs/_snippets/separator/vertical.tsx"
+<ExampleFrame variant="component">
+  <SeparatorVertical />
+</ExampleFrame>
 
-  ```
-</PreviewFrame>
+<ExampleCode>
+<div className="docs-reference">
+  <Tabs
+    groupId="framework"
+    values={[
+      { label: 'React', value: 'react' },
+      { label: 'Solid', value: 'solid' },
+    ]}
+    className="docs-tabs"
+  >
+    <Tab value="react">
+
+```tsx pure file="../../../src/components/examples/separator/vertical.tsx"
+```
+
+    </Tab>
+    <Tab value="solid">
+
+<CodeBlockRuntime lang="tsx" code={separatorSolidVertical} />
+
+    </Tab>
+  </Tabs>
+
+**Styles**
+
+```css file="../../../src/components/examples/separator/separator-vertical.module.css"
+```
+</div>
+
+</ExampleCode>
 
 ### Personnalisation avancée
 
-Utilisez `asChild` lorsqu’un élément hôte précis doit recevoir le rôle de séparateur, les sélecteurs de style et la
-`ref` transmise. Dans les autres cas, utilisez directement `<Separator />`.
+Utilisez `asChild` lorsqu’un élément hôte précis doit recevoir le rôle de séparateur, les points
+d’accroche de style et la `ref` transmise. Dans les autres cas, utilisez directement
+`<Separator />`.
 
-<PreviewFrame maxWidth="sm">
-  ```tsx preview file="../../en/docs/_snippets/separator/as-child.tsx"
+<ExampleFrame variant="component">
+  <SeparatorAsChild />
+</ExampleFrame>
 
-  ```
-</PreviewFrame>
+<ExampleCode>
+<div className="docs-reference">
+  <Tabs
+    groupId="framework"
+    values={[
+      { label: 'React', value: 'react' },
+      { label: 'Solid', value: 'solid' },
+    ]}
+    className="docs-tabs"
+  >
+    <Tab value="react">
+
+```tsx pure file="../../../src/components/examples/separator/as-child.tsx"
+```
+
+    </Tab>
+    <Tab value="solid">
+
+<CodeBlockRuntime lang="tsx" code={separatorSolidAsChild} />
+
+    </Tab>
+  </Tabs>
+
+**Styles**
+
+```css file="../../../src/components/examples/separator/separator-as-child.module.css"
+```
+</div>
+
+</ExampleCode>
 
 ## Styles
 
-`Separator` expose les sélecteurs de partie compatibles avec Ark et un ensemble ciblé de propriétés CSS
-`--moduix-separator-*` pour la couleur, le style de bordure, l’épaisseur et la longueur selon l’orientation.
+Utilisez `className` en React ou `class` en Solid sur la racine. Les variantes Tailwind utilisent
+des classes utilitaires natives et les classes du consommateur ; les propriétés CSS ci-dessous
+personnalisent les variantes CSS Modules. Les attributs de données et les sélecteurs `data-slot`
+sont communs aux deux modes de style.
 
 ### Propriétés CSS
 
@@ -153,4 +345,4 @@ Utilisez `asChild` lorsqu’un élément hôte précis doit recevoir le rôle de
 - `data-slot="separator-root"` est le sélecteur moduix stable.
 - `data-orientation="horizontal"` et `data-orientation="vertical"` permettent de cibler les styles propres à chaque axe.
 - `data-size="xs|sm|md|lg"` et `data-variant="solid|dashed|dotted"` exposent les paramètres du style visuel.
-- `className` et `style` s’appliquent directement à l’élément séparateur racine.
+- `className` ou `class`, ainsi que `style`, s’appliquent directement à l’élément séparateur racine.

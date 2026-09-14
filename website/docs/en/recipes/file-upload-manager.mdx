@@ -4,6 +4,7 @@ description: Build an attachment manager with drag-and-drop, file validation, pr
 ---
 
 import { FileUploadManagerPreview } from '@/components/recipes/file-upload-manager-preview';
+import fileUploadManagerSolid from '../../../snippets/recipes/solid/file-upload-manager.tsx?raw';
 
 # File upload manager
 
@@ -14,30 +15,48 @@ one file or clear the whole list. Rejected files stay visible with their validat
 The recipe manages selection and the local file list only. It does not send files to a server or track
 upload progress. Connect `onFileChange` to the form or upload request in the feature that owns the data.
 
-<ExampleFrame clientOnly>
+The live preview uses the React package. The source tabs show native React and Solid implementations that share the same stylesheet.
+
+<ExampleFrame variant="recipe" clientOnly>
   <FileUploadManagerPreview />
 </ExampleFrame>
 
+<ExampleCode>
 <div className="docs-reference">
-  <Tabs values={[{ label: 'Component', value: 'Component' }, { label: 'Styles', value: 'Styles' }]} className="docs-tabs">
-    <Tab value="Component">
+  <Tabs
+    groupId="framework"
+    values={[
+      { label: 'React', value: 'react' },
+      { label: 'Solid', value: 'solid' },
+    ]}
+    className="docs-tabs"
+  >
+    <Tab value="react">
 
-```tsx file="../../../src/components/recipes/file-upload-manager.tsx"
+```tsx pure file="../../../src/components/recipes/file-upload-manager.tsx"
+
 ```
 
     </Tab>
-    <Tab value="Styles">
+    <Tab value="solid">
 
-```css file="../../../src/components/recipes/file-upload-manager.module.css"
-```
+<CodeBlockRuntime lang="tsx" code={fileUploadManagerSolid} />
 
     </Tab>
   </Tabs>
+
+**Styles**
+
+```css file="../../../src/components/recipes/file-upload-manager.module.css"
+
+```
 </div>
+
+</ExampleCode>
 
 ## Install
 
-<ShadcnInstall packageName={['card', 'file-upload']} itemKind="recipe" copiedSource />
+<ShadcnInstall packageName={['card', 'file-upload']} itemKind="recipe" frameworks copiedSource />
 
 Install the `card` and `file-upload` pieces, then copy the recipe source and styles into your application.
 

@@ -2,7 +2,6 @@ import type { HTMLArkProps } from '@ark-ui/react/factory';
 import { ark } from '@ark-ui/react/factory';
 import { clsx } from 'clsx';
 import { forwardRef } from 'react';
-import { normalizeClassName } from '@/lib/moduix/normalizeClassName';
 import styles from './Separator.module.css';
 
 type SeparatorProps = HTMLArkProps<'span'> & {
@@ -39,7 +38,7 @@ const SeparatorRoot = forwardRef<HTMLSpanElement, SeparatorProps>(function Separ
       data-orientation={orientation}
       data-size={size}
       data-variant={variant}
-      className={clsx(styles.root, normalizeClassName(className))}
+      className={clsx(styles.root, className)}
     />
   );
 });

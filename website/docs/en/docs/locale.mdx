@@ -1,80 +1,153 @@
 ---
 title: Locale
-description: Set the locale and text direction for Ark formatters and locale-aware moduix components.
+description: Provide locale and text direction to Ark formatters and locale-aware content in React or Solid.
 ---
+
+import LocaleBasic from '@/components/examples/locale/basic.tsx';
+import LocaleContext from '@/components/examples/locale/context.tsx';
+import localeSolidBasic from '../../../snippets/locale/solid/basic.tsx?raw';
+import localeSolidContext from '../../../snippets/locale/solid/context.tsx?raw';
+import localeSolidDocument from '../../../snippets/locale/solid/document.tsx?raw';
+
+`LocaleProvider` supplies a locale and its text direction to a subtree. Ark formatters and locale-aware content use
+that context.
 
 ## API Reference
 
 <PrimitiveReference href="https://ark-ui.com/docs/utilities/locale" />
 
-## What `LocaleProvider` does
+Import the utility from the matching Ark UI package:
 
-`LocaleProvider` gives a part of your application a locale and text direction. Ark formatters and locale-aware
-components read this context when they format values or choose a direction. Without a provider, Ark falls back to
-`en-US` and left-to-right (`ltr`).
-
-moduix re-exports the provider and its context hook from a dedicated public entry point:
+<Tabs
+  groupId="framework"
+  values={[
+    { label: 'React', value: 'react' },
+    { label: 'Solid', value: 'solid' },
+  ]}
+  className="docs-tabs"
+>
+  <Tab value="react">
 
 ```tsx
-import { LocaleProvider, useLocaleContext } from '@moduix/react/locale';
+import { LocaleProvider, useLocaleContext } from '@ark-ui/react/locale';
 ```
 
-## Basic usage
+  </Tab>
+  <Tab value="solid">
 
-Wrap the localized part of your interface with the provider. This example combines an Ark formatter with moduix
-layout components, so the amount and the surrounding interface use the same locale.
+```tsx
+import { LocaleProvider, useLocaleContext } from '@ark-ui/solid/locale';
+```
 
-<PreviewFrame maxWidth="sm">
-  ```tsx preview file="./_snippets/locale/basic.tsx"
+  </Tab>
+</Tabs>
 
-  ```
-</PreviewFrame>
+`Format.Number`, `Format.Time`, and other `Format` utilities remain imports from `@ark-ui/react` or `@ark-ui/solid`.
+
+## Set a locale
+
+Wrap the part of the interface that shares a locale. Formatters and locale-aware components below the provider read
+the same context.
+
+<ExampleFrame variant="component">
+  <PreviewFrame maxWidth="sm">
+    <LocaleBasic />
+  </PreviewFrame>
+</ExampleFrame>
+
+<ExampleCode>
+<div className="docs-reference">
+  <Tabs
+    groupId="framework"
+    values={[
+      { label: 'React', value: 'react' },
+      { label: 'Solid', value: 'solid' },
+    ]}
+    className="docs-tabs"
+  >
+    <Tab value="react">
+
+```tsx pure file="../../../src/components/examples/locale/basic.tsx"
+```
+
+    </Tab>
+    <Tab value="solid">
+
+<CodeBlockRuntime lang="tsx" code={localeSolidBasic} />
+
+    </Tab>
+  </Tabs>
+</div>
+</ExampleCode>
+
+`LocaleProvider` accepts a BCP 47 locale string such as `fr-FR`. Without a provider, Ark uses `en-US` and `ltr`.
 
 ## Read the locale context
 
-`useLocaleContext` returns the `locale` and `dir` from the nearest provider. Use these values in custom content when
-it needs the same locale or text direction as the rest of the localized region.
+`useLocaleContext` returns `locale` and `dir` from the nearest provider. Use them when custom content must follow the
+same language and direction as locale-aware components. React reads the values directly; Solid reads them from an
+accessor.
 
-<PreviewFrame maxWidth="sm">
-  ```tsx preview file="./_snippets/locale/context.tsx"
+<ExampleFrame variant="component">
+  <PreviewFrame maxWidth="sm">
+    <LocaleContext />
+  </PreviewFrame>
+</ExampleFrame>
 
-  ```
-</PreviewFrame>
+<ExampleCode>
+<div className="docs-reference">
+  <Tabs
+    groupId="framework"
+    values={[
+      { label: 'React', value: 'react' },
+      { label: 'Solid', value: 'solid' },
+    ]}
+    className="docs-tabs"
+  >
+    <Tab value="react">
 
-## Document language and direction
-
-`LocaleProvider` derives the direction used by Ark from the locale, but it does not change the document's HTML
-attributes. If the whole application uses one locale, set the matching `lang` and `dir` values on the document root,
-especially for a right-to-left language.
-
-```tsx
-import type { ReactNode } from 'react';
-import { LocaleProvider } from '@moduix/react/locale';
-
-export function Document({ children }: { children: ReactNode }) {
-  return (
-    <html dir="rtl" lang="ar">
-      <body>
-        <LocaleProvider locale="ar-EG">{children}</LocaleProvider>
-      </body>
-    </html>
-  );
-}
+```tsx pure file="../../../src/components/examples/locale/context.tsx"
 ```
 
-For a smaller region with a different writing direction, set its `lang` value and apply the `dir` value from
-`useLocaleContext` to the region's root element. See [Right-to-left (RTL)](/docs/rtl) for guidance on layout, portals,
-and directional icons.
+    </Tab>
+    <Tab value="solid">
 
-## Use it with moduix
+<CodeBlockRuntime lang="tsx" code={localeSolidContext} />
 
-Place one `LocaleProvider` around the part of the interface that shares a locale. Ark `Format` utilities and
-locale-aware primitives inside that subtree then read the same context.
+    </Tab>
+  </Tabs>
+</div>
+</ExampleCode>
 
-`Format.Number`, `Format.Time`, and the other `Format` utilities remain Ark imports. moduix provides interface
-components and re-exports the locale context; it does not add a second formatting API.
+## Set document language and direction
 
-## Responsibilities
+`LocaleProvider` derives `dir` for Ark from the locale, but it does not change the document's native `lang` and `dir`
+attributes. Set both on the document root when the whole application uses one direction:
 
-Ark UI handles locale resolution, text direction, and the provider API. moduix re-exports `LocaleProvider` and
-`useLocaleContext` from `@moduix/react/locale` through its public locale entry point.
+<div className="docs-reference">
+  <Tabs
+    groupId="framework"
+    values={[
+      { label: 'React', value: 'react' },
+      { label: 'Solid', value: 'solid' },
+    ]}
+    className="docs-tabs"
+  >
+    <Tab value="react">
+
+```tsx pure file="../../../src/components/examples/locale/document.tsx"
+```
+
+    </Tab>
+    <Tab value="solid">
+
+<CodeBlockRuntime lang="tsx" code={localeSolidDocument} />
+
+    </Tab>
+  </Tabs>
+</div>
+
+For an RTL section inside an LTR application, set `lang` and the matching `dir` on that section's root element, as in
+the context example. If users can switch between LTR and RTL locales without a page reload, update the document
+attributes together with `locale`. See [Right-to-left (RTL)](/docs/rtl) for portals, logical CSS properties, and
+directional icons.

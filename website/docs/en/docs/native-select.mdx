@@ -4,7 +4,15 @@ component: native-select
 description: A styled native `<select>` for simple option lists that keeps the browser in control of selection.
 ---
 
-import * as NativeSelectDocs from '@/components/examples/native-select';
+import * as NativeSelectDocs from '@/components/examples/native-select/css-properties';
+import NativeSelectBasic from '@/components/examples/native-select/basic.tsx';
+import NativeSelectControlled from '@/components/examples/native-select/controlled.tsx';
+import NativeSelectField from '@/components/examples/native-select/field-integration.tsx';
+import NativeSelectMultiple from '@/components/examples/native-select/multiple-selection.tsx';
+import nativeSelectSolidBasic from '../../../snippets/native-select/solid/basic.tsx?raw';
+import nativeSelectSolidControlled from '../../../snippets/native-select/solid/controlled.tsx?raw';
+import nativeSelectSolidField from '../../../snippets/native-select/solid/field-integration.tsx?raw';
+import nativeSelectSolidMultiple from '../../../snippets/native-select/solid/multiple-selection.tsx?raw';
 
 ## API Reference
 
@@ -22,18 +30,69 @@ of the popup.
 
 ## Basic
 
+NativeSelect ships for React and Solid in both the CSS Modules and Tailwind packages. The rendered
+preview on this page uses the React CSS Modules package; the framework tabs show native source for
+the same public contract.
+
 Add native `option` or `optgroup` elements as children and pass the same props you would pass to an
 HTML `<select>`.
 
-<PreviewFrame maxWidth="sm">
-  ```tsx preview file="./_snippets/native-select/basic.tsx"
+<ExampleFrame variant="component">
+  <NativeSelectBasic />
+</ExampleFrame>
 
+<ExampleCode>
+<div className="docs-reference">
+  <Tabs
+    groupId="framework"
+    values={[
+      { label: 'React', value: 'react' },
+      { label: 'Solid', value: 'solid' },
+    ]}
+    className="docs-tabs"
+  >
+    <Tab value="react">
+
+```tsx pure file="../../../src/components/examples/native-select/basic.tsx"
 ```
-</PreviewFrame>
+
+    </Tab>
+    <Tab value="solid">
+
+<CodeBlockRuntime lang="tsx" code={nativeSelectSolidBasic} />
+
+    </Tab>
+  </Tabs>
+</div>
+
+</ExampleCode>
 
 ## Install with shadcn
 
-<ShadcnInstall packageName="native-select" />
+See [Quick Start](/docs/quick-start) for full package setup, registry configuration, and styling guidance.
+
+<Tabs groupId="framework">
+  <Tab label="React" value="react">
+
+<ShadcnInstallOptions
+  options={[
+    { label: 'CSS Modules', command: 'shadcn@latest add @moduix-react/native-select' },
+    { label: 'Tailwind CSS', command: 'shadcn@latest add @moduix-react-tailwind/native-select' },
+  ]}
+/>
+
+  </Tab>
+  <Tab label="Solid" value="solid">
+
+<ShadcnInstallOptions
+  options={[
+    { label: 'CSS Modules', command: 'shadcn@latest add @moduix-solid/native-select' },
+    { label: 'Tailwind CSS', command: 'shadcn@latest add @moduix-solid-tailwind/native-select' },
+  ]}
+/>
+
+  </Tab>
+</Tabs>
 
 ## Anatomy
 
@@ -51,97 +110,141 @@ NativeSelect / NativeSelect.Root
       └─ ChevronDownIcon
 ```
 
-| Part                       | Role                                                                        |
-| -------------------------- | --------------------------------------------------------------------------- |
+| Part | Role |
+| ---- | ---- |
 | `NativeSelect` / `NativeSelect.Root` | Public root component. Renders the native `<select>` and decorative indicator. |
 
 ## Composition
 
-### Recommended composition
-
-Use `NativeSelect` directly for a simple control. Its children are native `option` and `optgroup`
-elements. Wrap it in `Field.Root` when the control needs a visible label, helper text, error text, or
-shared `required`, `invalid`, or `disabled` state.
-Give the control an accessible name with `Field.Label`, a native `<label>`, `aria-label`, or
-`aria-labelledby`.
-
-`NativeSelect.Root` is a compatibility alias. Use `NativeSelect` in application code.
-
-### When to go custom
-
-Switch to `Select` when the application needs a custom popup, collection state, rich option rendering,
-an explicit clear action, or programmatic popup control. Keep `NativeSelect` when you want the browser
-to manage selection.
-
-### Default props
-
-| Prop           | Default         | Notes                                                              |
-| -------------- | --------------- | ------------------------------------------------------------------ |
-| `value`        | -               | Controlled value.                                                  |
-| `defaultValue` | -               | Initial uncontrolled value.                                        |
-| `onChange`     | -               | Native `ChangeEvent<HTMLSelectElement>`.                          |
-| `multiple`     | `false`         | Enables native multiple selection.                                |
-| `size`         | browser default | Number of visible rows, not a visual size variant.                 |
-| `disabled`     | `false`         | Disables the control.                                              |
-| `controlProps` | -               | Props for the outer `<span>`, including wrapper styles.            |
-| `asChild`      | `false`         | Ark composition; the child must remain a semantic `<select>`.     |
-
-### Behavioral notes
-
-- `ref` points to the real `HTMLSelectElement`.
-- Native form submission, autofill, reset, `required` validation, option handling, and keyboard
-  behavior are preserved.
-- With `multiple` or a native `size` greater than one, the browser determines the list's height and
-  controls its appearance and interaction.
-- `Field.Root` connects labels and supporting text to the select and supplies ids, `aria-describedby`,
-  `aria-invalid`, `disabled`, and `required` state.
-- With `asChild`, pass one semantic HTML `<select>` as the child.
-- HTML `<select>` does not support a read-only mode.
-- `ChevronDownIcon` is decorative and hidden for list controls; the browser still controls the popup's
-  appearance.
+Use `defaultValue` for an uncontrolled select. Use `value` with `onChange` when application state owns
+the current value. Wrap `NativeSelect` in `Field.Root` when the label, supporting text, validation, or
+disabled state should be shared with the control. The `Field` parts connect that content to the native
+select while the browser still owns option selection. With `multiple` or `size > 1`, the browser owns
+the list interaction and the decorative indicator is hidden. `asChild` can replace the rendered select,
+but the child must remain one semantic HTML `<select>`.
 
 ## Examples
 
 ### Controlled
 
-Use `value` and `onChange` when React owns the current value. Read `event.target.value` from the native
-event and pass the new value back through `value`.
+Use `value` and `onChange` when the application owns the current value. Read the new value from the
+native event and pass it back through `value`.
 
-<PreviewFrame maxWidth="sm">
-  ```tsx preview file="./_snippets/native-select/controlled.tsx"
+<ExampleFrame variant="component">
+  <NativeSelectControlled />
+</ExampleFrame>
 
+<ExampleCode>
+<div className="docs-reference">
+  <Tabs
+    groupId="framework"
+    values={[
+      { label: 'React', value: 'react' },
+      { label: 'Solid', value: 'solid' },
+    ]}
+    className="docs-tabs"
+  >
+    <Tab value="react">
+
+```tsx pure file="../../../src/components/examples/native-select/controlled.tsx"
 ```
-</PreviewFrame>
+
+    </Tab>
+    <Tab value="solid">
+
+<CodeBlockRuntime lang="tsx" code={nativeSelectSolidControlled} />
+
+    </Tab>
+  </Tabs>
+</div>
+
+</ExampleCode>
 
 ### Field
 
 Use `Field.Root` when the select needs a visible label, helper text, error message, or shared field
 state. Field connects that content to the native control.
 
-<PreviewFrame maxWidth="sm" contentWidth="fit-content">
-  ```tsx preview file="./_snippets/native-select/field-integration.tsx"
+<ExampleFrame variant="component">
+  <NativeSelectField />
+</ExampleFrame>
 
+<ExampleCode>
+<div className="docs-reference">
+  <Tabs
+    groupId="framework"
+    values={[
+      { label: 'React', value: 'react' },
+      { label: 'Solid', value: 'solid' },
+    ]}
+    className="docs-tabs"
+  >
+    <Tab value="react">
+
+```tsx pure file="../../../src/components/examples/native-select/field-integration.tsx"
 ```
-</PreviewFrame>
+
+    </Tab>
+    <Tab value="solid">
+
+<CodeBlockRuntime lang="tsx" code={nativeSelectSolidField} />
+
+    </Tab>
+  </Tabs>
+
+**Styles**
+
+```css file="../../../src/components/examples/native-select/native-select-field-integration.module.css"
+```
+</div>
+
+</ExampleCode>
 
 ### Multiple
 
 Pass the native `multiple` and `size` props to render a multi-select list. The browser manages the
 selected options and their keyboard interaction.
 
-<PreviewFrame maxWidth="sm">
-  ```tsx preview file="./_snippets/native-select/multiple-selection.tsx"
+<ExampleFrame variant="component">
+  <NativeSelectMultiple />
+</ExampleFrame>
 
+<ExampleCode>
+<div className="docs-reference">
+  <Tabs
+    groupId="framework"
+    values={[
+      { label: 'React', value: 'react' },
+      { label: 'Solid', value: 'solid' },
+    ]}
+    className="docs-tabs"
+  >
+    <Tab value="react">
+
+```tsx pure file="../../../src/components/examples/native-select/multiple-selection.tsx"
 ```
-</PreviewFrame>
+
+    </Tab>
+    <Tab value="solid">
+
+<CodeBlockRuntime lang="tsx" code={nativeSelectSolidMultiple} />
+
+    </Tab>
+  </Tabs>
+</div>
+
+</ExampleCode>
 
 ## Styling
 
+`NativeSelect` reuses the `--moduix-select-*` variables from the CSS Modules variants of `Select`, so
+dimensions, indicator spacing, borders, colors, radius, focus ring, disabled opacity, and transitions
+can be tuned consistently. Tailwind variants use native utility classes and consumer class overrides.
+
 ### CSS Properties
 
-`NativeSelect` reuses the same `--moduix-select-*` variables as `Select`, so dimensions, indicator
-spacing, borders, colors, radius, focus ring, disabled opacity, and transitions can be tuned
-consistently. Default padding and indicator geometry use the shared 4px spacing scale.
+The following variables are available in the CSS Modules variants. Default padding and indicator
+geometry use the shared 4px spacing scale.
 
 <div className="docs-reference">
   <Tabs
@@ -157,7 +260,8 @@ consistently. Default padding and indicator geometry use the shared 4px spacing 
 
 ### Styling hooks
 
-- `className` styles the real `<select>`. Use `controlProps.className` for the outer wrapper `<span>`.
+- In React use `className` on the select, and in Solid use `class`. Use `controlProps.className` or
+  `controlProps.class` for the outer wrapper `<span>`.
 - Set indicator-related `--moduix-select-*` variables in `controlProps.style` when both the select and
   indicator should inherit them.
 - `data-scope="field"` and `data-part="select"` preserve the Ark Field styling contract.

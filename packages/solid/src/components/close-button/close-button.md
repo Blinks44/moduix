@@ -1,0 +1,11 @@
+# CloseButton (Solid)
+
+`CloseButton` preserves the React component's native button defaults, fallback close icon,
+accessible-name fallback, stable data hooks, disabled behavior, and `CloseButton.Root` namespace.
+
+## Ark Solid composition
+
+Ark Solid uses a render-function `asChild` prop:
+`asChild={(props) => <button {...props()} type="button" />}`. Its factory does not forward `ref`
+through `asChild`, so ordinary refs and custom-host composition are supported as separate native
+paths. The component tests cover both paths independently.

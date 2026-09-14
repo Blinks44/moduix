@@ -63,11 +63,11 @@ Official reference: <https://rspress.rs/ui/layout-components/layout>
 
 All examples below follow the same structure in `theme/index.tsx`. The key parts:
 
-- Import `Layout` from `@rspress/core/theme-original` (not `@rspress/core/theme` — that causes circular imports)
+- Import `Layout` from `@rspress/core/theme-original` (not `@rspress/core/theme` - that causes circular imports)
 - Re-export everything: `export * from '@rspress/core/theme-original'`
 - Export your custom `Layout` that wraps the original with slot props
 
-### Basic — Single Slot
+### Basic - Single Slot
 
 ```tsx
 // theme/index.tsx

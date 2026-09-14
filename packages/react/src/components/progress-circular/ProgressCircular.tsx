@@ -6,7 +6,6 @@ import {
 import { clsx } from 'clsx';
 import type { ComponentProps, ComponentRef } from 'react';
 import { forwardRef } from 'react';
-import { normalizeClassName } from '@/lib/moduix/normalizeClassName';
 import styles from './ProgressCircular.module.css';
 
 const ProgressCircularRoot = forwardRef<
@@ -17,7 +16,7 @@ const ProgressCircularRoot = forwardRef<
     <ProgressPrimitive.Root
       ref={ref}
       data-slot="progress-circular-root"
-      className={clsx(styles.root, normalizeClassName(className))}
+      className={clsx(styles.root, className)}
       {...props}
     />
   );
@@ -31,7 +30,7 @@ const ProgressCircularRootProvider = forwardRef<
     <ProgressPrimitive.RootProvider
       ref={ref}
       data-slot="progress-circular-root-provider"
-      className={clsx(styles.root, normalizeClassName(className))}
+      className={clsx(styles.root, className)}
       {...props}
     />
   );
@@ -45,7 +44,7 @@ const ProgressCircularLabel = forwardRef<
     <ProgressPrimitive.Label
       ref={ref}
       data-slot="progress-circular-label"
-      className={clsx(styles.label, normalizeClassName(className))}
+      className={clsx(styles.label, className)}
       {...props}
     />
   );
@@ -59,7 +58,7 @@ const ProgressCircularValueText = forwardRef<
     <ProgressPrimitive.ValueText
       ref={ref}
       data-slot="progress-circular-value-text"
-      className={clsx(styles.valueText, normalizeClassName(className))}
+      className={clsx(styles.valueText, className)}
       {...props}
     />
   );
@@ -73,7 +72,7 @@ const ProgressCircularCircle = forwardRef<
     <ProgressPrimitive.Circle
       ref={ref}
       data-slot="progress-circular-circle"
-      className={clsx(styles.circle, normalizeClassName(className))}
+      className={clsx(styles.circle, className)}
       {...props}
     />
   );
@@ -87,7 +86,7 @@ const ProgressCircularCircleTrack = forwardRef<
     <ProgressPrimitive.CircleTrack
       ref={ref}
       data-slot="progress-circular-circle-track"
-      className={clsx(styles.circleTrack, normalizeClassName(className))}
+      className={clsx(styles.circleTrack, className)}
       {...props}
     />
   );
@@ -101,7 +100,7 @@ const ProgressCircularCircleRange = forwardRef<
     <ProgressPrimitive.CircleRange
       ref={ref}
       data-slot="progress-circular-circle-range"
-      className={clsx(styles.circleRange, normalizeClassName(className))}
+      className={clsx(styles.circleRange, className)}
       {...props}
     />
   );
@@ -132,7 +131,7 @@ const ProgressCircularView = forwardRef<
     <ProgressPrimitive.View
       ref={ref}
       data-slot="progress-circular-view"
-      className={clsx(styles.view, normalizeClassName(className))}
+      className={clsx(styles.view, className)}
       {...props}
     />
   );

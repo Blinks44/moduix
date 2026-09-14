@@ -4,6 +4,7 @@ description: Une interface de pièces jointes avec glisser-déposer, validation,
 ---
 
 import { FileUploadManagerPreview } from '@/components/recipes/file-upload-manager-preview';
+import fileUploadManagerSolid from '../../../snippets/recipes/solid/file-upload-manager.tsx?raw';
 
 # Téléversement de fichiers
 
@@ -16,32 +17,48 @@ La recette gère uniquement la sélection et la liste locale. Elle n’envoie pa
 leur progression. Reliez `onFileChange` à votre formulaire ou à votre requête de téléversement dans la fonctionnalité
 qui gère ces données.
 
-<ExampleFrame clientOnly>
+L’aperçu interactif utilise le paquet React. Les onglets de code présentent des implémentations natives pour React et Solid avec les mêmes styles.
+
+<ExampleFrame variant="recipe" clientOnly>
   <FileUploadManagerPreview />
 </ExampleFrame>
 
+<ExampleCode>
 <div className="docs-reference">
-  <Tabs values={[{ label: 'Composant', value: 'Component' }, { label: 'Styles', value: 'Styles' }]} className="docs-tabs">
-    <Tab value="Component">
+  <Tabs
+    groupId="framework"
+    values={[
+      { label: 'React', value: 'react' },
+      { label: 'Solid', value: 'solid' },
+    ]}
+    className="docs-tabs"
+  >
+    <Tab value="react">
 
-```tsx file="../../../src/components/recipes/file-upload-manager.tsx"
+```tsx pure file="../../../src/components/recipes/file-upload-manager.tsx"
 
 ```
 
     </Tab>
-    <Tab value="Styles">
+    <Tab value="solid">
+
+<CodeBlockRuntime lang="tsx" code={fileUploadManagerSolid} />
+
+    </Tab>
+  </Tabs>
+
+**Styles**
 
 ```css file="../../../src/components/recipes/file-upload-manager.module.css"
 
 ```
-
-    </Tab>
-  </Tabs>
 </div>
+
+</ExampleCode>
 
 ## Installation
 
-<ShadcnInstall packageName={['card', 'file-upload']} itemKind="recipe" copiedSource />
+<ShadcnInstall packageName={['card', 'file-upload']} itemKind="recipe" frameworks copiedSource />
 
 Installez les composants `card` et `file-upload`, puis copiez le code source et les styles de la recette dans votre
 application.

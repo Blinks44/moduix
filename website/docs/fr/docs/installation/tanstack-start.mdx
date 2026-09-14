@@ -1,26 +1,69 @@
 ---
 title: TanStack Start
-description: "Utilisez moduix dans TanStack Start avec des composants installés depuis le paquet ou copiés via la CLI shadcn, des styles globaux et une hydratation compatible avec le SSR."
+description: Intégrez moduix à TanStack Start pour React ou Solid par paquet ou avec shadcn, avec les styles racine, les alias, le SSR et l’hydratation.
 ---
 
 # TanStack Start
 
-Cette page suppose que vous disposez déjà d’une application TanStack Start. TanStack Start rend l’arbre des routes
-côté serveur, puis l’hydrate dans le navigateur. moduix fonctionne avec Vite comme avec Rsbuild. Dans la configuration
-standard, la directive `use client` n’est pas nécessaire.
+Ce guide part d’une application TanStack Start existante, configurée pour React ou Solid. Start peut
+utiliser Vite ou Rsbuild, rend l’arbre des routes côté serveur, puis l’hydrate dans le navigateur ;
+dans une configuration standard, moduix ne nécessite pas de directive `use client`.
 
-## Installer comme paquet
+## Choisir votre configuration
+
+- **Framework :** React ou Solid avec l’adaptateur TanStack Start correspondant.
+- **Styles :** CSS Modules ou Tailwind CSS v4.
+- **Distribution :** paquet ou code source copié avec la CLI shadcn.
+
+Commencez par la [configuration du paquet](/docs/quick-start#installer-le-paquet) ou la
+[configuration shadcn](/docs/quick-start#installer-avec-la-cli-shadcn) commune à votre approche de
+style. Les exemples utilisent les imports des paquets CSS Modules ; l’emplacement de la route racine,
+les alias, le SSR et les vérifications d’hydratation restent identiques avec le paquet ou le registre
+Tailwind correspondant.
+
+Toutes les commandes de paquet et tous les imports de feuilles de style présentés ci-dessous concernent la configuration CSS Modules. Avec Tailwind,
+conservez la feuille globale configurée dans le Démarrage rapide.
+
+## Installation par paquet
+
+Installez le paquet qui correspond au framework de votre application :
+
+<Tabs groupId="framework">
+  <Tab label="React" value="react">
 
 <PackageManagerTabs command="install @moduix/react @ark-ui/react" />
 
-Importez une seule fois la feuille de style de base dans la route racine. Dans un projet TanStack Start standard, cette
-route se trouve dans `src/routes/__root.tsx` :
+  </Tab>
+  <Tab label="Solid" value="solid">
+
+<PackageManagerTabs command="install @moduix/solid @ark-ui/solid" />
+
+  </Tab>
+</Tabs>
+
+Importez une seule fois la feuille de styles de base depuis `src/routes/__root.tsx` :
+
+<Tabs groupId="framework">
+  <Tab label="React" value="react">
 
 ```tsx title="src/routes/__root.tsx"
 import '@moduix/react/style.css';
 ```
 
-Utilisez un composant moduix dans une route :
+  </Tab>
+  <Tab label="Solid" value="solid">
+
+```tsx title="src/routes/__root.tsx"
+import '@moduix/solid/style.css';
+```
+
+  </Tab>
+</Tabs>
+
+Utilisez ensuite un composant dans une route :
+
+<Tabs groupId="framework">
+  <Tab label="React" value="react">
 
 ```tsx title="src/routes/index.tsx"
 import { createFileRoute } from '@tanstack/react-router';
@@ -35,13 +78,30 @@ function Home() {
 }
 ```
 
-## Installer avec la CLI shadcn
+  </Tab>
+  <Tab label="Solid" value="solid">
 
-Choisissez cette méthode si vous voulez conserver le code source et les styles des composants dans votre dépôt.
-Commencez par suivre la [configuration de la CLI shadcn](/docs/quick-start#installer-avec-la-cli-shadcn).
+```tsx title="src/routes/index.tsx"
+import { createFileRoute } from '@tanstack/solid-router';
+import { Button } from '@moduix/solid/button';
 
-TanStack Start ne configure pas d’alias de chemins par défaut. Si votre starter associe déjà `@/*` à `src/*`,
-conservez cet alias. Sinon, ajoutez-le au fichier `tsconfig.json` à la racine du projet :
+export const Route = createFileRoute('/')({
+  component: Home,
+});
+
+function Home() {
+  return <Button>Continue</Button>;
+}
+```
+
+  </Tab>
+</Tabs>
+
+## Installation avec la CLI shadcn
+
+Effectuez la [configuration initiale de la CLI shadcn](/docs/quick-start#installer-avec-la-cli-shadcn).
+Si le projet ne fait pas déjà pointer `@/*` vers `src/*`, ajoutez cet alias au fichier
+`tsconfig.json` racine :
 
 ```json title="tsconfig.json"
 {
@@ -54,22 +114,34 @@ conservez cet alias. Sinon, ajoutez-le au fichier `tsconfig.json` à la racine d
 }
 ```
 
-Configurez ensuite le même alias pour votre bundler. Pour Vite, consultez le [guide TanStack Start sur les alias de chemins](https://tanstack.com/start/latest/docs/framework/react/guide/path-aliases).
-Rsbuild lit automatiquement le champ `paths` du `tsconfig.json` racine.
+Le même alias doit être accessible au bundler. Rsbuild reprend directement les chemins TypeScript ;
+avec Vite, suivez le guide de TanStack Start consacré aux alias. Ajoutez ensuite le composant :
 
-Remplacez l’import de la feuille de style du paquet dans la route racine par la feuille de style générée. N’importez pas
-les deux feuilles :
+<Tabs groupId="framework">
+  <Tab label="React" value="react">
+
+<ShadcnInstallOptions options={[{ label: 'CSS Modules', command: 'shadcn@latest add @moduix-react/button' }, { label: 'Tailwind CSS', command: 'shadcn@latest add @moduix-react-tailwind/button' }]} />
+
+  </Tab>
+  <Tab label="Solid" value="solid">
+
+<ShadcnInstallOptions options={[{ label: 'CSS Modules', command: 'shadcn@latest add @moduix-solid/button' }, { label: 'Tailwind CSS', command: 'shadcn@latest add @moduix-solid-tailwind/button' }]} />
+
+  </Tab>
+</Tabs>
+
+Dans la route racine, remplacez la feuille de styles du paquet par le fichier généré :
 
 ```tsx title="src/routes/__root.tsx"
 import '@/lib/moduix/styles/style.css';
 ```
 
-## Vérifier l’intégration
+## Vérification
 
-Lancez le serveur de développement et ouvrez `/`. L’intégration fonctionne lorsque les styles moduix sont appliqués dès
-le rendu côté serveur, que la page s’hydrate sans divergence et que le bouton réagit aux clics. Évitez d’utiliser des API
-du navigateur ou des valeurs susceptibles de différer entre le serveur et le navigateur dans le code exécuté lors du
-rendu serveur.
+Démarrez le serveur de développement et ouvrez `/`. La page rendue côté serveur doit déjà inclure les
+styles moduix, puis s’hydrater sans divergence. Évitez dans le rendu serveur les API réservées au
+navigateur et les valeurs susceptibles de différer entre le serveur et le client.
 
-Pour la configuration complète de TanStack Start, consultez les guides [Getting Started](https://tanstack.com/start/latest/docs/framework/react/getting-started)
-et [Build from Scratch](https://tanstack.com/start/latest/docs/framework/react/build-from-scratch).
+Poursuivez avec les guides officiels de TanStack Start pour
+[React](https://tanstack.com/start/latest/docs/framework/react/getting-started) ou
+[Solid](https://tanstack.com/start/latest/docs/framework/solid/getting-started).

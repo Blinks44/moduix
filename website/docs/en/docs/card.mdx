@@ -1,10 +1,34 @@
 ---
 title: Card
 component: card
-description: A flexible component for grouping content about a single subject.
+description: Build flexible cards in React or Solid with package and shadcn installation options.
 ---
 
-import * as CardDocs from '@/components/examples/card';
+import * as CardDocs from '@/components/examples/card/css-properties';
+import CardAdvancedCustomization from '@/components/examples/card/advanced-customization.tsx';
+import CardBasic from '@/components/examples/card/basic.tsx';
+import CardHeaderAction from '@/components/examples/card/header-action.tsx';
+import CardHorizontal from '@/components/examples/card/horizontal.tsx';
+import CardOverlayLink from '@/components/examples/card/overlay-link.tsx';
+import CardRootAsLink from '@/components/examples/card/root-as-link.tsx';
+import CardSizes from '@/components/examples/card/sizes.tsx';
+import CardVariants from '@/components/examples/card/variants.tsx';
+import CardWithAvatar from '@/components/examples/card/with-avatar.tsx';
+import CardWithBackground from '@/components/examples/card/with-background.tsx';
+import CardWithImage from '@/components/examples/card/with-image.tsx';
+import CardWithinForm from '@/components/examples/card/within-form.tsx';
+import cardSolidAdvancedCustomization from '../../../snippets/card/solid/advanced-customization.tsx?raw';
+import cardSolidBasic from '../../../snippets/card/solid/basic.tsx?raw';
+import cardSolidHeaderAction from '../../../snippets/card/solid/header-action.tsx?raw';
+import cardSolidHorizontal from '../../../snippets/card/solid/horizontal.tsx?raw';
+import cardSolidOverlayLink from '../../../snippets/card/solid/overlay-link.tsx?raw';
+import cardSolidRootAsLink from '../../../snippets/card/solid/root-as-link.tsx?raw';
+import cardSolidSizes from '../../../snippets/card/solid/sizes.tsx?raw';
+import cardSolidVariants from '../../../snippets/card/solid/variants.tsx?raw';
+import cardSolidWithAvatar from '../../../snippets/card/solid/with-avatar.tsx?raw';
+import cardSolidWithBackground from '../../../snippets/card/solid/with-background.tsx?raw';
+import cardSolidWithImage from '../../../snippets/card/solid/with-image.tsx?raw';
+import cardSolidWithinForm from '../../../snippets/card/solid/within-form.tsx?raw';
 
 ## API Reference
 
@@ -15,25 +39,82 @@ Ark UI does not provide a dedicated Card primitive. moduix builds Card with Ark'
 
 ## Basic
 
-Use `<Card />` as the root, then add the parts you need from the `Card` namespace.
+Card ships for React and Solid in both the CSS Modules and Tailwind packages. The rendered preview on
+this page uses the React CSS Modules package; the framework tabs show native source for the same
+public contract.
 
-If you know shadcn/ui, the structure should feel familiar. moduix uses `Card.Body` where shadcn uses
-`CardContent`; the other parts remain under the `Card` namespace.
+Use `Card` as the root and add only the parts you need. `Card.Root` is an alias for the same root when
+you want to make that part explicit in your composition.
 
-<PreviewFrame maxWidth="sm">
-  ```tsx preview file="./_snippets/card/basic.tsx"
+See [Quick Start](/docs/quick-start) for package setup, registry configuration, and choosing a styling
+track.
 
+<ExampleFrame variant="component">
+  <CardBasic />
+</ExampleFrame>
+
+<ExampleCode>
+<div className="docs-reference">
+  <Tabs
+    groupId="framework"
+    values={[
+      { label: 'React', value: 'react' },
+      { label: 'Solid', value: 'solid' },
+    ]}
+    className="docs-tabs"
+  >
+    <Tab value="react">
+
+```tsx pure file="../../../src/components/examples/card/basic.tsx"
 ```
-</PreviewFrame>
+
+    </Tab>
+    <Tab value="solid">
+
+<CodeBlockRuntime lang="tsx" code={cardSolidBasic} />
+
+    </Tab>
+  </Tabs>
+
+**Styles**
+
+```css file="../../../src/components/examples/card/card-basic.module.css"
+```
+</div>
+
+</ExampleCode>
 
 ## Install with shadcn
 
-<ShadcnInstall packageName="card" />
+See [Quick Start](/docs/quick-start) for full package setup, registry configuration, and styling guidance.
+
+<Tabs groupId="framework">
+  <Tab label="React" value="react">
+
+<ShadcnInstallOptions
+  options={[
+    { label: 'CSS Modules', command: 'shadcn@latest add @moduix-react/card' },
+    { label: 'Tailwind CSS', command: 'shadcn@latest add @moduix-react-tailwind/card' },
+  ]}
+/>
+
+  </Tab>
+  <Tab label="Solid" value="solid">
+
+<ShadcnInstallOptions
+  options={[
+    { label: 'CSS Modules', command: 'shadcn@latest add @moduix-solid/card' },
+    { label: 'Tailwind CSS', command: 'shadcn@latest add @moduix-solid-tailwind/card' },
+  ]}
+/>
+
+  </Tab>
+</Tabs>
 
 ## Anatomy
 
 ```text
-Card.Root
+Card / Card.Root
 ├─ Card.Background (optional moduix helper)
 ├─ Card.Media (optional moduix helper)
 ├─ Card.Header
@@ -46,68 +127,32 @@ Card.Root
 
 `Card` and `Card.Root` refer to the same root component.
 
-| Part                 | Role                                                                                    |
-| -------------------- | --------------------------------------------------------------------------------------- |
-| `Card` / `Card.Root` | Root container with `size`, `variant`, and `asChild`.                                  |
-| `Card.Background`    | Optional full-card background layer for decorative media.                                  |
-| `Card.Media`         | Optional edge-to-edge media wrapper that clips the top corners consistently.              |
-| `Card.Header`        | Header layout for the title, description, and an optional trailing action.              |
-| `Card.Body`          | Main content area.                                                                       |
-| `Card.Footer`        | Footer row for actions or metadata. It wraps when needed.                                |
-| `Card.Title`         | Heading. Renders `h3` by default; use `asChild` for another heading level.               |
-| `Card.Description`   | Supporting text below the title.                                                         |
-| `Card.Action`        | Layout slot for an action in the header.                                                 |
-| `Card.Link`          | Link whose clickable area expands across the card while leaving other controls usable.     |
+| Part                 | Role                                                                                  |
+| -------------------- | ------------------------------------------------------------------------------------- |
+| `Card` / `Card.Root` | Root container with `size`, `variant`, and `asChild`.                                |
+| `Card.Background`    | Optional full-card background layer for decorative media.                            |
+| `Card.Media`         | Optional edge-to-edge media wrapper that clips the top corners consistently.          |
+| `Card.Header`        | Header layout for the title, description, and an optional trailing action.            |
+| `Card.Body`          | Main content area.                                                                    |
+| `Card.Footer`        | Footer row for actions or metadata. It wraps when needed.                             |
+| `Card.Title`         | Heading. Renders `h3` by default; use `asChild` for another heading level.            |
+| `Card.Description`   | Supporting text below the title.                                                      |
+| `Card.Action`        | Layout slot for an action in the header.                                               |
+| `Card.Link`          | Link whose clickable area expands across the card while leaving other controls usable. |
 
 ## Composition
 
-### Recommended composition
+Card has no managed state, callbacks, provider, context, keyboard behavior, or hidden input. Use
+plain parts for presentational content. Use `asChild` when a semantic element should own the root or
+another part; it must render exactly one child that can receive the merged props. In Solid, `asChild`
+uses a render function such as `asChild={(props) => <a {...props()} />}`.
 
-Start with `<Card />` and add only the sections you need. A typical card uses `Card.Header`,
-`Card.Title`, `Card.Description`, `Card.Body`, and `Card.Footer`. Use `Card.Media` for leading media
-that should reach the card edges with consistent clipping. Use `Card.Background` for decorative media
-behind the whole card, then add any overlay and text-contrast styles in your application.
-
-The root defaults to `size="md"` and `variant="outline"`.
-
-### When to go custom
-
-Use `asChild` when a semantic child should provide the DOM element for a part. Ark composition expects
-exactly one child that can receive the merged props and ref. If the root is a link, do not put buttons,
-inputs, or other links inside it.
-
-Use `Card.Link` inside `Card.Title` when the card needs a navigation target and also contains separate
-controls. The visible link stays in the title, while its clickable area expands across the card without
-covering the other interactive elements. `Card.Action` only controls layout; it does not create ARIA
-relationships.
-
-| Situation                                                                                 | Recommended API                                                |
-| ----------------------------------------------------------------------------------------- | -------------------------------------------------------------- |
-| The whole card is one link and has no nested controls.                     | `Card asChild` with an `<a>` root                             |
-| The card navigates but also has separate buttons, menus, or other actions. | `Card.Link` inside `Card.Title`, optionally with `Card.Action` |
-| The card only groups content and does not navigate.                         | Plain `Card` composition without link sugar                   |
-
-### Default props
-
-| Part        | Prop      | Default     | Values                                |
-| ----------- | --------- | ----------- | ------------------------------------- |
-| `Card.Root` | `size`    | `'md'`      | `'sm' \| 'md' \| 'lg'`                |
-| `Card.Root` | `variant` | `'outline'` | `'elevated' \| 'outline' \| 'subtle'` |
-
-### Behavioral notes
-
-- The root renders a presentational `div` by default and forwards its ref to the rendered element.
-- Every part accepts native props, `className`, `style`, and Ark factory `asChild`.
-- `Card.Media` is optional. Leave it out when you need custom media framing or the media is not at the
-  top of the card.
-- `Card.Background` is an optional helper for decorative media behind the whole card. Keep a background
-  image's `alt` empty; use `Card.Media` when the image conveys information and needs alternative text.
-- `Card.Title` renders `h3` by default.
-- Interactive roots created with `asChild` and `Card.Link` receive the same themeable `:focus-visible` ring.
-- Card has no managed state, callbacks, keyboard behavior, provider, context, or hidden input.
-- `Card.Body` removes the top margin from its first direct child and the bottom margin from its last one.
-- `--moduix-card-spacing`, `--moduix-card-spacing-sm`, and `--moduix-card-spacing-lg` set shared inset
-  and section spacing and take precedence over the corresponding size-specific padding fallbacks.
+When a card is entirely one link and has no nested controls, compose the root with `asChild`. When a
+card also contains buttons or other actions, keep `Card.Link` inside `Card.Title` and put those
+controls in `Card.Action`; the link's expanded click area leaves the other interactive elements usable.
+Use `Card.Media` for informative leading media and `Card.Background` for decorative media behind the
+card content. Give background images an empty `alt` and add any overlay or text-contrast styles in
+your application.
 
 ## Examples
 
@@ -115,120 +160,439 @@ relationships.
 
 Use `Card.Action` for a compact status or control at the end of the header.
 
-<PreviewFrame maxWidth="sm">
-  ```tsx preview file="./_snippets/card/header-action.tsx"
+<ExampleFrame variant="component">
+  <CardHeaderAction />
+</ExampleFrame>
 
+<ExampleCode>
+<div className="docs-reference">
+  <Tabs
+    groupId="framework"
+    values={[
+      { label: 'React', value: 'react' },
+      { label: 'Solid', value: 'solid' },
+    ]}
+    className="docs-tabs"
+  >
+    <Tab value="react">
+
+```tsx pure file="../../../src/components/examples/card/header-action.tsx"
 ```
-</PreviewFrame>
+
+    </Tab>
+    <Tab value="solid">
+
+<CodeBlockRuntime lang="tsx" code={cardSolidHeaderAction} />
+
+    </Tab>
+  </Tabs>
+
+**Styles**
+
+```css file="../../../src/components/examples/card/card-header-action.module.css"
+```
+</div>
+
+</ExampleCode>
 
 ### Horizontal
 
 Use your application's layout CSS to create a horizontal card. Card has no presentation-specific prop
 for this layout.
 
-<PreviewFrame maxWidth="lg">
-  ```tsx preview file="./_snippets/card/horizontal.tsx"
+<ExampleFrame variant="component">
+  <CardHorizontal />
+</ExampleFrame>
 
+<ExampleCode>
+<div className="docs-reference">
+  <Tabs
+    groupId="framework"
+    values={[
+      { label: 'React', value: 'react' },
+      { label: 'Solid', value: 'solid' },
+    ]}
+    className="docs-tabs"
+  >
+    <Tab value="react">
+
+```tsx pure file="../../../src/components/examples/card/horizontal.tsx"
 ```
 
-</PreviewFrame>
+    </Tab>
+    <Tab value="solid">
+
+<CodeBlockRuntime lang="tsx" code={cardSolidHorizontal} />
+
+    </Tab>
+  </Tabs>
+
+**Styles**
+
+```css file="../../../src/components/examples/card/card-horizontal.module.css"
+```
+</div>
+
+</ExampleCode>
 
 ### Overlay Link
 
 Use `Card.Link` when the card needs navigation and separate actions.
 
-<PreviewFrame maxWidth="sm">
-  ```tsx preview file="./_snippets/card/overlay-link.tsx"
+<ExampleFrame variant="component">
+  <CardOverlayLink />
+</ExampleFrame>
 
+<ExampleCode>
+<div className="docs-reference">
+  <Tabs
+    groupId="framework"
+    values={[
+      { label: 'React', value: 'react' },
+      { label: 'Solid', value: 'solid' },
+    ]}
+    className="docs-tabs"
+  >
+    <Tab value="react">
+
+```tsx pure file="../../../src/components/examples/card/overlay-link.tsx"
 ```
-</PreviewFrame>
+
+    </Tab>
+    <Tab value="solid">
+
+<CodeBlockRuntime lang="tsx" code={cardSolidOverlayLink} />
+
+    </Tab>
+  </Tabs>
+
+**Styles**
+
+```css file="../../../src/components/examples/card/card-overlay-link.module.css"
+```
+</div>
+
+</ExampleCode>
 
 ### Root as Link
 
 Use `asChild` when the entire card is one link and contains no nested controls.
 
-<PreviewFrame maxWidth="sm">
-```tsx preview file="./_snippets/card/root-as-link.tsx"
+<ExampleFrame variant="component">
+  <CardRootAsLink />
+</ExampleFrame>
 
+<ExampleCode>
+<div className="docs-reference">
+  <Tabs
+    groupId="framework"
+    values={[
+      { label: 'React', value: 'react' },
+      { label: 'Solid', value: 'solid' },
+    ]}
+    className="docs-tabs"
+  >
+    <Tab value="react">
+
+```tsx pure file="../../../src/components/examples/card/root-as-link.tsx"
 ```
 
-</PreviewFrame>
+    </Tab>
+    <Tab value="solid">
+
+<CodeBlockRuntime lang="tsx" code={cardSolidRootAsLink} />
+
+    </Tab>
+  </Tabs>
+
+**Styles**
+
+```css file="../../../src/components/examples/card/card-root-as-link.module.css"
+```
+</div>
+
+</ExampleCode>
 
 ### Sizes
 
 Choose `sm`, `md`, or `lg` to change the card's padding and title scale.
 
-<PreviewFrame maxWidth="sm">
-  ```tsx preview file="./_snippets/card/sizes.tsx"
+<ExampleFrame variant="component">
+  <CardSizes />
+</ExampleFrame>
 
+<ExampleCode>
+<div className="docs-reference">
+  <Tabs
+    groupId="framework"
+    values={[
+      { label: 'React', value: 'react' },
+      { label: 'Solid', value: 'solid' },
+    ]}
+    className="docs-tabs"
+  >
+    <Tab value="react">
+
+```tsx pure file="../../../src/components/examples/card/sizes.tsx"
 ```
-</PreviewFrame>
+
+    </Tab>
+    <Tab value="solid">
+
+<CodeBlockRuntime lang="tsx" code={cardSolidSizes} />
+
+    </Tab>
+  </Tabs>
+
+**Styles**
+
+```css file="../../../src/components/examples/card/card-sizes.module.css"
+```
+</div>
+
+</ExampleCode>
 
 ### Variants
 
 Use the variants to communicate the hierarchy between surfaces.
 
-<PreviewFrame maxWidth="sm">
-```tsx preview file="./_snippets/card/variants.tsx"
+<ExampleFrame variant="component">
+  <CardVariants />
+</ExampleFrame>
 
+<ExampleCode>
+<div className="docs-reference">
+  <Tabs
+    groupId="framework"
+    values={[
+      { label: 'React', value: 'react' },
+      { label: 'Solid', value: 'solid' },
+    ]}
+    className="docs-tabs"
+  >
+    <Tab value="react">
+
+```tsx pure file="../../../src/components/examples/card/variants.tsx"
 ```
 
-</PreviewFrame>
+    </Tab>
+    <Tab value="solid">
+
+<CodeBlockRuntime lang="tsx" code={cardSolidVariants} />
+
+    </Tab>
+  </Tabs>
+
+**Styles**
+
+```css file="../../../src/components/examples/card/card-variants.module.css"
+```
+</div>
+
+</ExampleCode>
 
 ### With Avatar
 
 Place profile media in the header when the card represents a person or entity.
 
-<PreviewFrame maxWidth="sm">
-  ```tsx preview file="./_snippets/card/with-avatar.tsx"
+<ExampleFrame variant="component">
+  <CardWithAvatar />
+</ExampleFrame>
 
+<ExampleCode>
+<div className="docs-reference">
+  <Tabs
+    groupId="framework"
+    values={[
+      { label: 'React', value: 'react' },
+      { label: 'Solid', value: 'solid' },
+    ]}
+    className="docs-tabs"
+  >
+    <Tab value="react">
+
+```tsx pure file="../../../src/components/examples/card/with-avatar.tsx"
 ```
-</PreviewFrame>
+
+    </Tab>
+    <Tab value="solid">
+
+<CodeBlockRuntime lang="tsx" code={cardSolidWithAvatar} />
+
+    </Tab>
+  </Tabs>
+
+**Styles**
+
+```css file="../../../src/components/examples/card/card-with-avatar.module.css"
+```
+</div>
+
+</ExampleCode>
 
 ### With Background
 
 Use `Card.Background` for decorative media behind the whole card. Add the overlay and text-contrast
 styles in your application.
 
-<PreviewFrame maxWidth="sm">
-```tsx preview file="./_snippets/card/with-background.tsx"
+<ExampleFrame variant="component">
+  <CardWithBackground />
+</ExampleFrame>
 
+<ExampleCode>
+<div className="docs-reference">
+  <Tabs
+    groupId="framework"
+    values={[
+      { label: 'React', value: 'react' },
+      { label: 'Solid', value: 'solid' },
+    ]}
+    className="docs-tabs"
+  >
+    <Tab value="react">
+
+```tsx pure file="../../../src/components/examples/card/with-background.tsx"
 ```
-</PreviewFrame>
+
+    </Tab>
+    <Tab value="solid">
+
+<CodeBlockRuntime lang="tsx" code={cardSolidWithBackground} />
+
+    </Tab>
+  </Tabs>
+
+**Styles**
+
+```css file="../../../src/components/examples/card/card-with-background.module.css"
+```
+</div>
+
+</ExampleCode>
 
 ### With Image
 
 Use `Card.Media` for leading media that should span the card width with consistent clipping.
 
-<PreviewFrame maxWidth="sm">
-```tsx preview file="./_snippets/card/with-image.tsx"
+<ExampleFrame variant="component">
+  <CardWithImage />
+</ExampleFrame>
 
+<ExampleCode>
+<div className="docs-reference">
+  <Tabs
+    groupId="framework"
+    values={[
+      { label: 'React', value: 'react' },
+      { label: 'Solid', value: 'solid' },
+    ]}
+    className="docs-tabs"
+  >
+    <Tab value="react">
+
+```tsx pure file="../../../src/components/examples/card/with-image.tsx"
 ```
 
-</PreviewFrame>
+    </Tab>
+    <Tab value="solid">
+
+<CodeBlockRuntime lang="tsx" code={cardSolidWithImage} />
+
+    </Tab>
+  </Tabs>
+
+**Styles**
+
+```css file="../../../src/components/examples/card/card-with-image.module.css"
+```
+</div>
+
+</ExampleCode>
 
 ### Within Form
 
 Use the root as a form when the card groups related fields and actions.
 
-<PreviewFrame maxWidth="sm">
-  ```tsx preview file="./_snippets/card/within-form.tsx"
+<ExampleFrame variant="component">
+  <CardWithinForm />
+</ExampleFrame>
 
+<ExampleCode>
+<div className="docs-reference">
+  <Tabs
+    groupId="framework"
+    values={[
+      { label: 'React', value: 'react' },
+      { label: 'Solid', value: 'solid' },
+    ]}
+    className="docs-tabs"
+  >
+    <Tab value="react">
+
+```tsx pure file="../../../src/components/examples/card/within-form.tsx"
 ```
-</PreviewFrame>
+
+    </Tab>
+    <Tab value="solid">
+
+<CodeBlockRuntime lang="tsx" code={cardSolidWithinForm} />
+
+    </Tab>
+  </Tabs>
+
+**Styles**
+
+```css file="../../../src/components/examples/card/card-within-form.module.css"
+```
+</div>
+
+</ExampleCode>
 
 ### Advanced Customization
 
-Leave out `Card.Media` when you need custom media framing and want to style the card with lower-level hooks.
+Leave out `Card.Media` when you need custom media framing and want to style the card with lower-level
+hooks.
 
-<PreviewFrame maxWidth="sm">
-```tsx preview file="./_snippets/card/advanced-customization.tsx"
+<ExampleFrame variant="component">
+  <CardAdvancedCustomization />
+</ExampleFrame>
 
+<ExampleCode>
+<div className="docs-reference">
+  <Tabs
+    groupId="framework"
+    values={[
+      { label: 'React', value: 'react' },
+      { label: 'Solid', value: 'solid' },
+    ]}
+    className="docs-tabs"
+  >
+    <Tab value="react">
+
+```tsx pure file="../../../src/components/examples/card/advanced-customization.tsx"
 ```
 
-</PreviewFrame>
+    </Tab>
+    <Tab value="solid">
+
+<CodeBlockRuntime lang="tsx" code={cardSolidAdvancedCustomization} />
+
+    </Tab>
+  </Tabs>
+
+**Styles**
+
+```css file="../../../src/components/examples/card/card-advanced-customization.module.css"
+```
+</div>
+
+</ExampleCode>
 
 ## Styling
+
+Use `className` in React or `class` in Solid on exported parts for structural styles. Tailwind variants
+use native utilities and consumer classes; the CSS variables below customize the CSS Modules variants.
+Data attributes and `data-slot` hooks are shared by both styling tracks.
 
 ### CSS Properties
 
@@ -239,8 +603,7 @@ Leave out `Card.Media` when you need custom media framing and want to style the 
 - Every part exposes `data-scope="card"` and a matching `data-part`.
 - Stable moduix hooks are `data-slot="card-root"`, `card-background`, `card-media`, `card-header`, `card-body`,
   `card-footer`, `card-title`, `card-description`, `card-action`, and `card-link`.
-- The root exposes `data-size="sm | md | lg"` and
-  `data-variant="elevated | outline | subtle"`.
+- The root exposes `data-size="sm | md | lg"` and `data-variant="elevated | outline | subtle"`.
 - Component-wide `--moduix-card-bg`, `--moduix-card-color`, `--moduix-card-border-*`, and
   `--moduix-card-shadow` overrides take precedence over the matching variant-specific variables.
 - Card has no interactive state attributes because it owns no state or behavior.

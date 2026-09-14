@@ -57,12 +57,17 @@ place it at the trailing edge.
   `event.preventDefault()`.
 - `useSidebar()` exposes the sidebar-specific `side`, `collapsed`, `state`, and `toggleSidebar`.
 - `Sidebar.NavigationButton` supports `active`, `size`, and `asChild`.
+- `Sidebar.NavigationBadge` is an optional counter placed after a direct `NavigationButton` or
+  `NavigationSubButton` sibling. It reserves trailing space for truncation and is hidden in the
+  compact rail. It does not add special handling to Collapsible or Select triggers.
+- Text that must disappear in the collapsed rail belongs in `Sidebar.Label`; Sidebar does not infer
+  text children from arbitrary markup.
 - `Sidebar.Tooltip` wraps the shared Tooltip primitive with collapsed-only behavior and side-aware
   placement for menu labels.
 - `Sidebar.NavigationSubButton` renders an anchor and supports `active` and `asChild`.
-- `Sidebar.Input`, `Sidebar.Separator`, `Sidebar.GroupAction`, `Sidebar.GroupContent`,
-  `Sidebar.NavigationAction`, and `Sidebar.NavigationBadge` are thin visual wrappers that match the shipped
-  sidebar styling contract.
+- `Sidebar.GroupHeader` makes the group label and its optional action an explicit flex row.
+- `Sidebar.Input`, `Sidebar.Separator`, and `Sidebar.GroupAction` are thin visual wrappers that
+  match the shipped sidebar styling contract.
 - The supported recipes are collapsed hover labels with `Sidebar.Tooltip` and persisted width through
   controlled `size`, `onResize(details)`, and `onResizeEnd(details)`.
 
@@ -76,17 +81,18 @@ Sidebar / Sidebar.Root
 │  │  └─ Sidebar.Input
 │  ├─ Sidebar.Content
 │  │  └─ Sidebar.Group
-│  │     ├─ Sidebar.GroupLabel
-│  │     ├─ Sidebar.GroupAction
+│  │     ├─ Sidebar.GroupHeader
+│  │     │  ├─ Sidebar.GroupLabel
+│  │     │  └─ Sidebar.GroupAction
 │  │     └─ Sidebar.NavigationList
 │  │           └─ Sidebar.NavigationItem
 │  │              ├─ Sidebar.Tooltip
 │  │              │  └─ Sidebar.NavigationButton
-│  │              ├─ Sidebar.NavigationAction
 │  │              ├─ Sidebar.NavigationBadge
 │  │              └─ Sidebar.NavigationSubList
 │  │                 └─ Sidebar.NavigationSubItem
-│  │                    └─ Sidebar.NavigationSubButton
+│  │                    ├─ Sidebar.NavigationSubButton
+│  │                    └─ Sidebar.NavigationBadge
 │  ├─ Sidebar.Footer
 │  │  └─ Sidebar.Separator
 ├─ Sidebar.ResizeTrigger
@@ -108,17 +114,16 @@ Sidebar / Sidebar.Root
 | `Footer`              | `sidebar-footer`                | Non-scrolling bottom region.                               |
 | `Separator`           | `sidebar-separator`             | Styled section divider.                                    |
 | `Group`               | `sidebar-group`                 | Semantic navigation section.                               |
+| `GroupHeader`         | `sidebar-group-header`          | Flex row for a group label and trailing action.            |
 | `GroupLabel`          | `sidebar-group-label`           | Heading for a group.                                       |
 | `GroupAction`         | `sidebar-group-action`          | Compact action button aligned with the group heading.      |
-| `GroupContent`        | `sidebar-group-content`         | Optional wrapper for a custom group body.                  |
 | `ExpandedContent`     | `sidebar-expanded-content`      | Content visible only while the panel is expanded.          |
 | `CollapsedContent`    | `sidebar-collapsed-content`     | Content visible only while the panel is collapsed.         |
 | `NavigationList`      | `sidebar-navigation-list`       | Navigation list.                                           |
 | `NavigationItem`      | `sidebar-navigation-item`       | Positioned list item for a navigation control.             |
 | `Sidebar.Tooltip`     | n/a                             | Collapsed-only label helper with side-aware placement.     |
 | `NavigationButton`    | `sidebar-navigation-button`     | Button/link composition with active and size states.       |
-| `NavigationAction`    | `sidebar-navigation-action`     | Trailing icon action for a navigation item.                |
-| `NavigationBadge`     | `sidebar-navigation-badge`      | Trailing count or status pill for a navigation item.       |
+| `NavigationBadge`     | `sidebar-navigation-badge`      | Optional counter beside a simple navigation control.       |
 | `NavigationSubList`   | `sidebar-navigation-sub-list`   | Nested navigation list.                                    |
 | `NavigationSubItem`   | `sidebar-navigation-sub-item`   | Nested list item.                                          |
 | `NavigationSubButton` | `sidebar-navigation-sub-button` | Nested anchor/link composition.                            |
@@ -140,10 +145,12 @@ remain on `Splitter`; Sidebar keeps the application-navigation contract small.
     </Sidebar.Header>
     <Sidebar.Content>
       <Sidebar.Group>
-        <Sidebar.GroupLabel>Workspace</Sidebar.GroupLabel>
-        <Sidebar.GroupAction aria-label="Add workspace item">
-          <PlusIcon />
-        </Sidebar.GroupAction>
+        <Sidebar.GroupHeader>
+          <Sidebar.GroupLabel>Workspace</Sidebar.GroupLabel>
+          <Sidebar.GroupAction aria-label="Add workspace item">
+            <PlusIcon />
+          </Sidebar.GroupAction>
+        </Sidebar.GroupHeader>
         <Sidebar.NavigationList>
           <Sidebar.NavigationItem>
             <Collapsible defaultOpen>
@@ -154,9 +161,6 @@ remain on `Splitter`; Sidebar keeps the application-navigation contract small.
                   <Collapsible.Indicator />
                 </Sidebar.NavigationButton>
               </Collapsible.Trigger>
-              <Sidebar.NavigationAction aria-label="Rename project group">
-                <PencilIcon />
-              </Sidebar.NavigationAction>
               <Collapsible.Content>
                 <Sidebar.NavigationSubList>{/* project links */}</Sidebar.NavigationSubList>
               </Collapsible.Content>
@@ -190,8 +194,8 @@ Keep the Splitter-bound pieces inside `Sidebar`: `Panel`, `Inset`, `ResizeTrigge
 `useSidebar()`. Persisted desktop layout is a controlled-size recipe: mirror live drag updates from
 `onResize(details)` and save the settled width from `onResizeEnd(details)`.
 
-`Sidebar.NavigationList` is normally a direct child of `Sidebar.Group`; use `GroupContent` only when
-you need an additional custom body wrapper. Sidebar does not choose a collapsed-rail strategy for
+`Sidebar.NavigationList` is normally a direct child of `Sidebar.Group`. Use `Sidebar.GroupHeader`
+for a label with an action. Sidebar does not choose a collapsed-rail strategy for
 nested links. If they must remain reachable after collapse, compose the inline `Collapsible` in
 `Sidebar.ExpandedContent` and the application’s popup `Menu` or another navigation pattern in
 `Sidebar.CollapsedContent`. These parts only select their children from the panel’s Ark state; they
@@ -230,9 +234,7 @@ Ark owns `aria-expanded`, ids, keyboard activation, and animation.
 `Sidebar.Panel`, `Sidebar.Inset`, `Sidebar.ResizeTrigger`, `Sidebar.Trigger`, and `useSidebar()` all
 require Splitter context. The remaining exported visual parts are plain styled wrappers.
 
-`Sidebar.GroupAction` and `Sidebar.NavigationAction` are plain buttons with default `type="button"` and
-the shared sidebar focus ring. `Sidebar.NavigationBadge` is presentational and does not add its own
-interactive semantics.
+`Sidebar.GroupAction` is a plain button with default `type="button"` and the shared sidebar focus ring.
 
 Ark applies Splitter panel sizes immediately and does not expose a collapse transition lifecycle.
 Do not add a CSS width or flex transition to panels because it would lag behind pointer and keyboard
@@ -278,7 +280,7 @@ feedback.
 - `ExpandedContent` and `CollapsedContent` provide explicit, stylable state branches without
   making Sidebar own Menu or Collapsible behavior.
 - `Trigger` is a side-aware Splitter-context convenience.
-- `Input`, `Separator`, `GroupAction`, `GroupContent`, `NavigationAction`, and `NavigationBadge` bring the most
+- `Input`, `Separator`, `GroupHeader`, and `GroupAction` bring the most
   common sidebar building blocks into the local styling contract without adding sidebar-owned state.
 - `Tooltip` removes repeated collapsed-label boilerplate while still delegating popup behavior to the
   shared Tooltip primitive.
@@ -298,6 +300,8 @@ feedback.
 
 ## Local changelog
 
+- 2026-09-13: Added `NavigationBadge` for direct `NavigationButton` and `NavigationSubButton`
+  siblings with compact-rail hiding and preserved label truncation.
 - 2026-08-29: Added `ExpandedContent` and `CollapsedContent` as stylable, accessibility-safe state
   branches for explicit nested navigation compositions. Corrected Select guidance so its indicator is
   a direct trigger child.
@@ -322,8 +326,7 @@ feedback.
 - 2026-07-06: Documented the blessed migration recipes explicitly: collapsed-rail tooltip
   composition, Drawer-based mobile overlays, and persisted widths through controlled Splitter size
   callbacks.
-- 2026-07-06: Added `Input`, `Separator`, `GroupAction`, `GroupContent`, `NavigationAction`, and
-  `NavigationBadge` parts so the Splitter-backed sidebar has more familiar affordances without adding a
+- 2026-07-06: Added `Input`, `Separator`, and `GroupAction` parts so the Splitter-backed sidebar has more familiar affordances without adding a
   second layout state model.
 - 2026-07-03: Kept the visual/navigation parts and `useSidebar()` sugar, but stopped exporting the internal `SidebarSide` type alias from the public package surface.
 - 2026-07-01: Rounded the default expanded and maximum widths to `16rem` and `18rem`, and

@@ -4,7 +4,39 @@ component: file-upload
 description: Ark UI file upload component for file selection, drag-and-drop, validation, and previews.
 ---
 
-import * as FileUploadDocs from '@/components/examples/file-upload';
+import * as FileUploadDocs from '@/components/examples/file-upload/css-properties';
+import FileUploadAcceptedFileTypes from '@/components/examples/file-upload/accepted-file-types.tsx';
+import FileUploadAdvancedCustomization from '@/components/examples/file-upload/advanced-customization.tsx';
+import FileUploadBasic from '@/components/examples/file-upload/basic.tsx';
+import FileUploadClearTrigger from '@/components/examples/file-upload/clear-trigger.tsx';
+import FileUploadControlled from '@/components/examples/file-upload/controlled.tsx';
+import FileUploadDirectoryUpload from '@/components/examples/file-upload/directory-upload.tsx';
+import FileUploadDropzone from '@/components/examples/file-upload/dropzone.tsx';
+import FileUploadErrorHandling from '@/components/examples/file-upload/error-handling.tsx';
+import FileUploadFilePreviews from '@/components/examples/file-upload/file-previews.tsx';
+import FileUploadFormUsage from '@/components/examples/file-upload/form-usage.tsx';
+import FileUploadInitialFiles from '@/components/examples/file-upload/initial-files.tsx';
+import FileUploadMediaCapture from '@/components/examples/file-upload/media-capture.tsx';
+import FileUploadRejectedFiles from '@/components/examples/file-upload/rejected-files.tsx';
+import FileUploadRootProviderAndPaste from '@/components/examples/file-upload/root-provider-and-paste.tsx';
+import FileUploadTransformFiles from '@/components/examples/file-upload/transform-files.tsx';
+import FileUploadWithField from '@/components/examples/file-upload/with-field.tsx';
+import fileUploadSolidAcceptedFileTypes from '../../../snippets/file-upload/solid/accepted-file-types.tsx?raw';
+import fileUploadSolidAdvancedCustomization from '../../../snippets/file-upload/solid/advanced-customization.tsx?raw';
+import fileUploadSolidBasic from '../../../snippets/file-upload/solid/basic.tsx?raw';
+import fileUploadSolidClearTrigger from '../../../snippets/file-upload/solid/clear-trigger.tsx?raw';
+import fileUploadSolidControlled from '../../../snippets/file-upload/solid/controlled.tsx?raw';
+import fileUploadSolidDirectoryUpload from '../../../snippets/file-upload/solid/directory-upload.tsx?raw';
+import fileUploadSolidDropzone from '../../../snippets/file-upload/solid/dropzone.tsx?raw';
+import fileUploadSolidErrorHandling from '../../../snippets/file-upload/solid/error-handling.tsx?raw';
+import fileUploadSolidFilePreviews from '../../../snippets/file-upload/solid/file-previews.tsx?raw';
+import fileUploadSolidFormUsage from '../../../snippets/file-upload/solid/form-usage.tsx?raw';
+import fileUploadSolidInitialFiles from '../../../snippets/file-upload/solid/initial-files.tsx?raw';
+import fileUploadSolidMediaCapture from '../../../snippets/file-upload/solid/media-capture.tsx?raw';
+import fileUploadSolidRejectedFiles from '../../../snippets/file-upload/solid/rejected-files.tsx?raw';
+import fileUploadSolidRootProviderAndPaste from '../../../snippets/file-upload/solid/root-provider-and-paste.tsx?raw';
+import fileUploadSolidTransformFiles from '../../../snippets/file-upload/solid/transform-files.tsx?raw';
+import fileUploadSolidWithField from '../../../snippets/file-upload/solid/with-field.tsx?raw';
 
 ## API Reference
 
@@ -13,24 +45,81 @@ import * as FileUploadDocs from '@/components/examples/file-upload';
 `FileUpload` is available from `@moduix/react/file-upload`. `FileUpload`, `useFileUpload`, and
 `useFileUploadContext` are also exported from `@moduix/react`.
 
+The same component is available from `@moduix/solid/file-upload`, `@moduix/react-tailwind/file-upload`, and
+`@moduix/solid-tailwind/file-upload`. The four package variants expose the same component parts and state model.
+Choose the package that matches your framework and styling path.
+
 ## Basic
 
+FileUpload ships for React and Solid in both the CSS Modules and Tailwind packages. The rendered preview on this page
+uses the React CSS Modules package; the framework tabs show native source for the same public contract.
+
 Start with `FileUpload` as the root. Add a `Label`, then use `Trigger` for a compact control or `Dropzone` for
-drag-and-drop. Put `Items` inside `ItemGroup` to show accepted files. The root renders the hidden native file input
-automatically. `Items` uses an image thumbnail only when the file has an `image/*` MIME type; otherwise it uses the
+drag-and-drop. Add `FileUpload.HiddenInput` explicitly to open the native picker. Put `Items` inside
+`ItemGroup` to show accepted files. `Items` uses an image thumbnail only when the file has an `image/*` MIME type; otherwise it uses the
 generic file preview.
 
-<style>{FileUploadDocs.fileUploadExampleCss}</style>
+<ExampleFrame variant="component">
+  <FileUploadBasic />
+</ExampleFrame>
 
-<PreviewFrame maxWidth="sm">
-  ```tsx preview file="./_snippets/file-upload/basic.tsx"
-  ```
+<ExampleCode>
+<div className="docs-reference">
+  <Tabs
+    groupId="framework"
+    values={[
+      { label: 'React', value: 'react' },
+      { label: 'Solid', value: 'solid' },
+    ]}
+    className="docs-tabs"
+  >
+    <Tab value="react">
 
-</PreviewFrame>
+```tsx pure file="../../../src/components/examples/file-upload/basic.tsx"
+```
+
+    </Tab>
+    <Tab value="solid">
+
+<CodeBlockRuntime lang="tsx" code={fileUploadSolidBasic} />
+
+    </Tab>
+  </Tabs>
+
+**Styles**
+
+```css file="../../../src/components/examples/file-upload/file-upload-basic.module.css"
+```
+</div>
+
+</ExampleCode>
 
 ## Install with shadcn
 
-<ShadcnInstall packageName="file-upload" />
+See [Quick Start](/docs/quick-start) for full package setup, registry configuration, and styling guidance.
+
+<Tabs groupId="framework">
+  <Tab label="React" value="react">
+
+<ShadcnInstallOptions
+  options={[
+    { label: 'CSS Modules', command: 'shadcn@latest add @moduix-react/file-upload' },
+    { label: 'Tailwind CSS', command: 'shadcn@latest add @moduix-react-tailwind/file-upload' },
+  ]}
+/>
+
+  </Tab>
+  <Tab label="Solid" value="solid">
+
+<ShadcnInstallOptions
+  options={[
+    { label: 'CSS Modules', command: 'shadcn@latest add @moduix-solid/file-upload' },
+    { label: 'Tailwind CSS', command: 'shadcn@latest add @moduix-solid-tailwind/file-upload' },
+  ]}
+/>
+
+  </Tab>
+</Tabs>
 
 ## Anatomy
 
@@ -53,12 +142,13 @@ FileUpload / FileUpload.Root
 │        ├─ FileUpload.ItemSizeText
 │        └─ FileUpload.ItemDeleteTrigger
 ├─ FileUpload.ClearTrigger
-└─ hidden native file input (automatic)
+└─ FileUpload.HiddenInput (explicit)
 ```
 
 | Part                             | Role                                                                   |
 | -------------------------------- | ---------------------------------------------------------------------- |
 | `FileUpload` / `FileUpload.Root` | Owns file state and handles validation, drag-and-drop, paste, and form integration. |
+| `FileUpload.HiddenInput` | Native Ark form control; compose explicitly as described below. |
 | `FileUpload.RootProvider`        | Connects the upload tree to state returned by the `useFileUpload` hook.              |
 | `FileUpload.Label`               | Accessible label for the hidden file input and upload controls.                     |
 | `FileUpload.Dropzone`            | Drag-and-drop target. Pass `disableClick` when it contains a nested trigger.        |
@@ -79,46 +169,16 @@ FileUpload / FileUpload.Root
 
 ## Composition
 
-### Recommended composition
+`FileUpload` keeps file state internally by default. Use `defaultAcceptedFiles` for an uncontrolled initial value, or pair
+`acceptedFiles` with `onFileChange(details)` when the application owns the files. Use `useFileUpload()` with
+`FileUpload.RootProvider` when state or methods must be created outside the rendered tree.
 
-Keep the Ark part tree explicit in your markup. Use `Trigger` on its own for a compact upload control and
-`Dropzone` for a drag-and-drop area. When `Trigger` is nested inside `Dropzone`, pass `disableClick` to `Dropzone`
-so the native file picker opens only once.
+Render `FileUpload.HiddenInput` explicitly inside the root or provider, even outside a form, because `Trigger` uses it
+to open the native picker. Set `name` on the root for native form submission. For a dropzone with a nested `Trigger`, pass
+`disableClick` so the picker opens only once.
 
-The root always renders the hidden native file input. Use `Items` inside `ItemGroup` for a compact list of accepted
-files. When you need custom rows, read accepted files from `FileUpload.Context.acceptedFiles` and rejected files from
-`FileUpload.Context.rejectedFiles`.
-
-Use `FileUpload.Context`, `useFileUpload()`, and `useFileUploadContext()` when you need advanced access to state.
-The context and hooks are direct Ark re-exports, so callback details and the state contract are unchanged.
-
-### When to go custom
-
-`Items` renders image files as compact vertical cards and other files as horizontal rows with metadata. Use explicit
-`Context` composition for custom rows. `ItemPreview.type` is a regular-expression predicate, not a priority list,
-so render exactly one preview for each file. For example, use `file.type.startsWith("image/")` to choose
-`ItemPreviewImage`. For other files, render `ItemPreviewIcon`, then compose `ItemName`, `ItemMetadata file={file}`, and
-`ItemDeleteTrigger`. Use `asChild` only when the child is a single semantic element that preserves the required
-button, label, or input behavior.
-
-### Default props
-
-| Prop                  | Default | Notes                                                        |
-| --------------------- | ------- | ------------------------------------------------------------ |
-| `allowDrop`           | `true`  | Allows dropping files on `Dropzone`.                                      |
-| `maxFiles`            | `1`     | Increase the value or remove the limit to accept multiple files or directories. |
-| `minFileSize`         | `0`     | Smallest accepted file size in bytes.                                    |
-| `maxFileSize`         | `∞`     | Largest accepted file size in bytes.                                     |
-| `preventDocumentDrop` | `true`  | Prevents accidental navigation when a file is dropped outside the target. |
-| `locale`              | `en-US` | Locale used to format file sizes.                                        |
-
-### Behavioral notes
-
-`acceptedFiles`, `defaultAcceptedFiles`, and `onFileChange(details)` follow Ark's controlled and uncontrolled
-state model. `onFileChange` is called when the value changes, whether files are accepted or rejected. The
-`onFileAccept(details)` and `onFileReject(details)` callbacks receive Ark's original detail objects, including
-rejected-file errors. `Field.Root` and `Fieldset.Root` can provide `disabled`, `invalid`, `required`, and `readOnly`
-state. Use `ids` when separate labels or descriptions need stable accessibility associations.
+Use `FileUpload.Items` inside `ItemGroup` for the default file rows. For custom rows, render `FileUpload.Context` and
+choose one preview per file from `acceptedFiles` or `rejectedFiles`.
 
 ## Examples
 
@@ -126,64 +186,238 @@ state. Use `ids` when separate labels or descriptions need stable accessibility 
 
 Use `accept` to restrict both the native file picker and drop validation. Pass MIME types or file extensions.
 
-<PreviewFrame maxWidth="sm">
-  ```tsx preview file="./_snippets/file-upload/accepted-file-types.tsx"
-  ```
+<ExampleFrame variant="component">
+  <FileUploadAcceptedFileTypes />
+</ExampleFrame>
 
-</PreviewFrame>
+<ExampleCode>
+<div className="docs-reference">
+  <Tabs
+    groupId="framework"
+    values={[
+      { label: 'React', value: 'react' },
+      { label: 'Solid', value: 'solid' },
+    ]}
+    className="docs-tabs"
+  >
+    <Tab value="react">
+
+```tsx pure file="../../../src/components/examples/file-upload/accepted-file-types.tsx"
+```
+
+    </Tab>
+    <Tab value="solid">
+
+<CodeBlockRuntime lang="tsx" code={fileUploadSolidAcceptedFileTypes} />
+
+    </Tab>
+  </Tabs>
+
+**Styles**
+
+```css file="../../../src/components/examples/file-upload/file-upload-accepted-file-types.module.css"
+```
+</div>
+
+</ExampleCode>
 
 ### Clear Trigger
 
 Use `ClearTrigger` to remove all accepted files at once.
 
-<PreviewFrame maxWidth="sm">
-  ```tsx preview file="./_snippets/file-upload/clear-trigger.tsx"
-  ```
+<ExampleFrame variant="component">
+  <FileUploadClearTrigger />
+</ExampleFrame>
 
-</PreviewFrame>
+<ExampleCode>
+<div className="docs-reference">
+  <Tabs
+    groupId="framework"
+    values={[
+      { label: 'React', value: 'react' },
+      { label: 'Solid', value: 'solid' },
+    ]}
+    className="docs-tabs"
+  >
+    <Tab value="react">
+
+```tsx pure file="../../../src/components/examples/file-upload/clear-trigger.tsx"
+```
+
+    </Tab>
+    <Tab value="solid">
+
+<CodeBlockRuntime lang="tsx" code={fileUploadSolidClearTrigger} />
+
+    </Tab>
+  </Tabs>
+
+**Styles**
+
+```css file="../../../src/components/examples/file-upload/file-upload-clear-trigger.module.css"
+```
+</div>
+
+</ExampleCode>
 
 ### Controlled
 
 Control `acceptedFiles` when selected files need to stay in sync with external state or a multi-step flow. Update the
 value from `onFileChange(details)`.
 
-<PreviewFrame maxWidth="sm">
-  ```tsx preview file="./_snippets/file-upload/controlled.tsx"
-  ```
+<ExampleFrame variant="component">
+  <FileUploadControlled />
+</ExampleFrame>
 
-</PreviewFrame>
+<ExampleCode>
+<div className="docs-reference">
+  <Tabs
+    groupId="framework"
+    values={[
+      { label: 'React', value: 'react' },
+      { label: 'Solid', value: 'solid' },
+    ]}
+    className="docs-tabs"
+  >
+    <Tab value="react">
+
+```tsx pure file="../../../src/components/examples/file-upload/controlled.tsx"
+```
+
+    </Tab>
+    <Tab value="solid">
+
+<CodeBlockRuntime lang="tsx" code={fileUploadSolidControlled} />
+
+    </Tab>
+  </Tabs>
+
+**Styles**
+
+```css file="../../../src/components/examples/file-upload/file-upload-controlled.module.css"
+```
+</div>
+
+</ExampleCode>
 
 ### Directory Upload
 
 Use `directory` to let users select a folder. Supported browsers expose each file's relative path through
 `file.webkitRelativePath`. Set `maxFiles` high enough for the folder or omit it when the number of files is unknown.
 
-<PreviewFrame maxWidth="sm">
-  ```tsx preview file="./_snippets/file-upload/directory-upload.tsx"
-  ```
+<ExampleFrame variant="component">
+  <FileUploadDirectoryUpload />
+</ExampleFrame>
 
-</PreviewFrame>
+<ExampleCode>
+<div className="docs-reference">
+  <Tabs
+    groupId="framework"
+    values={[
+      { label: 'React', value: 'react' },
+      { label: 'Solid', value: 'solid' },
+    ]}
+    className="docs-tabs"
+  >
+    <Tab value="react">
+
+```tsx pure file="../../../src/components/examples/file-upload/directory-upload.tsx"
+```
+
+    </Tab>
+    <Tab value="solid">
+
+<CodeBlockRuntime lang="tsx" code={fileUploadSolidDirectoryUpload} />
+
+    </Tab>
+  </Tabs>
+
+**Styles**
+
+```css file="../../../src/components/examples/file-upload/file-upload-directory-upload.module.css"
+```
+</div>
+
+</ExampleCode>
 
 ### Dropzone
 
 Use `Dropzone` for drag-and-drop uploads. Keep a nested `Trigger` so users can also open the picker with the keyboard.
 
-<PreviewFrame maxWidth="sm">
-  ```tsx preview file="./_snippets/file-upload/dropzone.tsx"
-  ```
+<ExampleFrame variant="component">
+  <FileUploadDropzone />
+</ExampleFrame>
 
-</PreviewFrame>
+<ExampleCode>
+<div className="docs-reference">
+  <Tabs
+    groupId="framework"
+    values={[
+      { label: 'React', value: 'react' },
+      { label: 'Solid', value: 'solid' },
+    ]}
+    className="docs-tabs"
+  >
+    <Tab value="react">
+
+```tsx pure file="../../../src/components/examples/file-upload/dropzone.tsx"
+```
+
+    </Tab>
+    <Tab value="solid">
+
+<CodeBlockRuntime lang="tsx" code={fileUploadSolidDropzone} />
+
+    </Tab>
+  </Tabs>
+
+**Styles**
+
+```css file="../../../src/components/examples/file-upload/file-upload-dropzone.module.css"
+```
+</div>
+
+</ExampleCode>
 
 ### Error Handling
 
 Use `onFileReject(details)` to show application-specific feedback. Keep built-in constraints such as `accept`,
 `maxFiles`, and `maxFileSize` on the root. Add `validate(file, details)` for application-specific checks.
 
-<PreviewFrame maxWidth="sm">
-  ```tsx preview file="./_snippets/file-upload/error-handling.tsx"
-  ```
+<ExampleFrame variant="component">
+  <FileUploadErrorHandling />
+</ExampleFrame>
 
-</PreviewFrame>
+<ExampleCode>
+<div className="docs-reference">
+  <Tabs
+    groupId="framework"
+    values={[
+      { label: 'React', value: 'react' },
+      { label: 'Solid', value: 'solid' },
+    ]}
+    className="docs-tabs"
+  >
+    <Tab value="react">
+
+```tsx pure file="../../../src/components/examples/file-upload/error-handling.tsx"
+```
+
+    </Tab>
+    <Tab value="solid">
+
+<CodeBlockRuntime lang="tsx" code={fileUploadSolidErrorHandling} />
+
+    </Tab>
+  </Tabs>
+
+**Styles**
+
+```css file="../../../src/components/examples/file-upload/file-upload-error-handling.module.css"
+```
+</div>
+
+</ExampleCode>
 
 ### File Previews
 
@@ -191,32 +425,118 @@ This example starts with an SVG image and a PDF, so you can see both layouts imm
 2.5rem square by default, and long names stay on one line. Remove either item or add files from your device to try
 the same layouts with your own files.
 
-<PreviewFrame maxWidth="sm">
-  ```tsx preview file="./_snippets/file-upload/file-previews.tsx"
-  ```
+<ExampleFrame variant="component">
+  <FileUploadFilePreviews />
+</ExampleFrame>
 
-</PreviewFrame>
+<ExampleCode>
+<div className="docs-reference">
+  <Tabs
+    groupId="framework"
+    values={[
+      { label: 'React', value: 'react' },
+      { label: 'Solid', value: 'solid' },
+    ]}
+    className="docs-tabs"
+  >
+    <Tab value="react">
+
+```tsx pure file="../../../src/components/examples/file-upload/file-previews.tsx"
+```
+
+    </Tab>
+    <Tab value="solid">
+
+<CodeBlockRuntime lang="tsx" code={fileUploadSolidFilePreviews} />
+
+    </Tab>
+  </Tabs>
+
+**Styles**
+
+```css file="../../../src/components/examples/file-upload/file-upload-file-previews.module.css"
+```
+</div>
+
+</ExampleCode>
 
 ### Form Usage
 
-Pass `name` to the root. It renders the hidden native file input automatically, so native form submission and reset
-include the selected files.
+Pass `name` to the root and render `FileUpload.HiddenInput`; native form submission and reset then include the selected files.
 
-<PreviewFrame maxWidth="sm">
-  ```tsx preview file="./_snippets/file-upload/form-usage.tsx"
-  ```
+<ExampleFrame variant="component">
+  <FileUploadFormUsage />
+</ExampleFrame>
 
-</PreviewFrame>
+<ExampleCode>
+<div className="docs-reference">
+  <Tabs
+    groupId="framework"
+    values={[
+      { label: 'React', value: 'react' },
+      { label: 'Solid', value: 'solid' },
+    ]}
+    className="docs-tabs"
+  >
+    <Tab value="react">
+
+```tsx pure file="../../../src/components/examples/file-upload/form-usage.tsx"
+```
+
+    </Tab>
+    <Tab value="solid">
+
+<CodeBlockRuntime lang="tsx" code={fileUploadSolidFormUsage} />
+
+    </Tab>
+  </Tabs>
+
+**Styles**
+
+```css file="../../../src/components/examples/file-upload/file-upload-form-usage.module.css"
+```
+</div>
+
+</ExampleCode>
 
 ### Initial Files
 
 Use `defaultAcceptedFiles` to preload files and then let the component manage the selection.
 
-<PreviewFrame maxWidth="sm">
-  ```tsx preview file="./_snippets/file-upload/initial-files.tsx"
-  ```
+<ExampleFrame variant="component">
+  <FileUploadInitialFiles />
+</ExampleFrame>
 
-</PreviewFrame>
+<ExampleCode>
+<div className="docs-reference">
+  <Tabs
+    groupId="framework"
+    values={[
+      { label: 'React', value: 'react' },
+      { label: 'Solid', value: 'solid' },
+    ]}
+    className="docs-tabs"
+  >
+    <Tab value="react">
+
+```tsx pure file="../../../src/components/examples/file-upload/initial-files.tsx"
+```
+
+    </Tab>
+    <Tab value="solid">
+
+<CodeBlockRuntime lang="tsx" code={fileUploadSolidInitialFiles} />
+
+    </Tab>
+  </Tabs>
+
+**Styles**
+
+```css file="../../../src/components/examples/file-upload/file-upload-initial-files.module.css"
+```
+</div>
+
+</ExampleCode>
 
 ### Media Capture
 
@@ -224,52 +544,197 @@ Use `capture` with an image or video `accept` value to suggest opening the camer
 `"user"` or `"environment"` to suggest the front or rear camera. This is a hint to the browser, not a guarantee that
 the camera will open.
 
-<PreviewFrame maxWidth="sm">
-  ```tsx preview file="./_snippets/file-upload/media-capture.tsx"
-  ```
+<ExampleFrame variant="component">
+  <FileUploadMediaCapture />
+</ExampleFrame>
 
-</PreviewFrame>
+<ExampleCode>
+<div className="docs-reference">
+  <Tabs
+    groupId="framework"
+    values={[
+      { label: 'React', value: 'react' },
+      { label: 'Solid', value: 'solid' },
+    ]}
+    className="docs-tabs"
+  >
+    <Tab value="react">
+
+```tsx pure file="../../../src/components/examples/file-upload/media-capture.tsx"
+```
+
+    </Tab>
+    <Tab value="solid">
+
+<CodeBlockRuntime lang="tsx" code={fileUploadSolidMediaCapture} />
+
+    </Tab>
+  </Tabs>
+
+**Styles**
+
+```css file="../../../src/components/examples/file-upload/file-upload-media-capture.module.css"
+```
+</div>
+
+</ExampleCode>
 
 ### Rejected Files
 
 Render `rejectedFiles` in a separate `ItemGroup type="rejected"` when users need to see why files were rejected.
 
-<PreviewFrame maxWidth="sm">
-  ```tsx preview file="./_snippets/file-upload/rejected-files.tsx"
-  ```
+<ExampleFrame variant="component">
+  <FileUploadRejectedFiles />
+</ExampleFrame>
 
-</PreviewFrame>
+<ExampleCode>
+<div className="docs-reference">
+  <Tabs
+    groupId="framework"
+    values={[
+      { label: 'React', value: 'react' },
+      { label: 'Solid', value: 'solid' },
+    ]}
+    className="docs-tabs"
+  >
+    <Tab value="react">
+
+```tsx pure file="../../../src/components/examples/file-upload/rejected-files.tsx"
+```
+
+    </Tab>
+    <Tab value="solid">
+
+<CodeBlockRuntime lang="tsx" code={fileUploadSolidRejectedFiles} />
+
+    </Tab>
+  </Tabs>
+
+**Styles**
+
+```css file="../../../src/components/examples/file-upload/file-upload-rejected-files.module.css"
+```
+</div>
+
+</ExampleCode>
 
 ### Root Provider and Pasting Files
 
 Use `useFileUpload` with `RootProvider` when state or methods need to live outside the rendered upload tree. In this
 example, `setClipboardFiles` forwards files pasted into a text area to the upload state.
 
-<PreviewFrame maxWidth="sm">
-  ```tsx preview file="./_snippets/file-upload/root-provider-and-paste.tsx"
-  ```
+<ExampleFrame variant="component">
+  <FileUploadRootProviderAndPaste />
+</ExampleFrame>
 
-</PreviewFrame>
+<ExampleCode>
+<div className="docs-reference">
+  <Tabs
+    groupId="framework"
+    values={[
+      { label: 'React', value: 'react' },
+      { label: 'Solid', value: 'solid' },
+    ]}
+    className="docs-tabs"
+  >
+    <Tab value="react">
+
+```tsx pure file="../../../src/components/examples/file-upload/root-provider-and-paste.tsx"
+```
+
+    </Tab>
+    <Tab value="solid">
+
+<CodeBlockRuntime lang="tsx" code={fileUploadSolidRootProviderAndPaste} />
+
+    </Tab>
+  </Tabs>
+
+**Styles**
+
+```css file="../../../src/components/examples/file-upload/file-upload-root-provider-and-paste.module.css"
+```
+</div>
+
+</ExampleCode>
 
 ### Transform Files
 
 Use `transformFiles(files)` to process files asynchronously before adding them to accepted state.
 
-<PreviewFrame maxWidth="sm">
-  ```tsx preview file="./_snippets/file-upload/transform-files.tsx"
-  ```
+<ExampleFrame variant="component">
+  <FileUploadTransformFiles />
+</ExampleFrame>
 
-</PreviewFrame>
+<ExampleCode>
+<div className="docs-reference">
+  <Tabs
+    groupId="framework"
+    values={[
+      { label: 'React', value: 'react' },
+      { label: 'Solid', value: 'solid' },
+    ]}
+    className="docs-tabs"
+  >
+    <Tab value="react">
+
+```tsx pure file="../../../src/components/examples/file-upload/transform-files.tsx"
+```
+
+    </Tab>
+    <Tab value="solid">
+
+<CodeBlockRuntime lang="tsx" code={fileUploadSolidTransformFiles} />
+
+    </Tab>
+  </Tabs>
+
+**Styles**
+
+```css file="../../../src/components/examples/file-upload/file-upload-transform-files.module.css"
+```
+</div>
+
+</ExampleCode>
 
 ### With Field
 
 Wrap the upload in `Field.Root` when helper text, an error message, required state, or invalid state belongs to a form field.
 
-<PreviewFrame maxWidth="sm">
-  ```tsx preview file="./_snippets/file-upload/with-field.tsx"
-  ```
+<ExampleFrame variant="component">
+  <FileUploadWithField />
+</ExampleFrame>
 
-</PreviewFrame>
+<ExampleCode>
+<div className="docs-reference">
+  <Tabs
+    groupId="framework"
+    values={[
+      { label: 'React', value: 'react' },
+      { label: 'Solid', value: 'solid' },
+    ]}
+    className="docs-tabs"
+  >
+    <Tab value="react">
+
+```tsx pure file="../../../src/components/examples/file-upload/with-field.tsx"
+```
+
+    </Tab>
+    <Tab value="solid">
+
+<CodeBlockRuntime lang="tsx" code={fileUploadSolidWithField} />
+
+    </Tab>
+  </Tabs>
+
+**Styles**
+
+```css file="../../../src/components/examples/file-upload/file-upload-with-field.module.css"
+```
+</div>
+
+</ExampleCode>
 
 ### Advanced Customization
 
@@ -277,13 +742,46 @@ Use custom rows instead of `Items` when you need MIME-specific previews, extra m
 explicit `FileUpload.Context` composition keeps Ark state visible and lets you choose one image or fallback preview
 for each file.
 
-<PreviewFrame maxWidth="sm">
-  ```tsx preview file="./_snippets/file-upload/advanced-customization.tsx"
-  ```
+<ExampleFrame variant="component">
+  <FileUploadAdvancedCustomization />
+</ExampleFrame>
 
-</PreviewFrame>
+<ExampleCode>
+<div className="docs-reference">
+  <Tabs
+    groupId="framework"
+    values={[
+      { label: 'React', value: 'react' },
+      { label: 'Solid', value: 'solid' },
+    ]}
+    className="docs-tabs"
+  >
+    <Tab value="react">
+
+```tsx pure file="../../../src/components/examples/file-upload/advanced-customization.tsx"
+```
+
+    </Tab>
+    <Tab value="solid">
+
+<CodeBlockRuntime lang="tsx" code={fileUploadSolidAdvancedCustomization} />
+
+    </Tab>
+  </Tabs>
+
+**Styles**
+
+```css file="../../../src/components/examples/file-upload/file-upload-advanced-customization.module.css"
+```
+</div>
+
+</ExampleCode>
 
 ## Styling
+
+Use `className` in React or `class` in Solid on exported parts for structural styles. Tailwind variants use native
+utilities and consumer classes; CSS Modules variants expose the variables below. Both styling tracks share Ark state
+attributes and moduix `data-slot` hooks.
 
 ### CSS Properties
 

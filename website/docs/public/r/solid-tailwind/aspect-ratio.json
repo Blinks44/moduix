@@ -1,0 +1,23 @@
+{
+  "$schema": "https://ui.shadcn.com/schema/registry-item.json",
+  "name": "aspect-ratio",
+  "title": "AspectRatio",
+  "description": "moduix Solid Tailwind AspectRatio component.",
+  "dependencies": ["@ark-ui/solid", "clsx", "tailwind-merge"],
+  "registryDependencies": ["@moduix-solid-tailwind/foundation", "@moduix-solid-tailwind/cn"],
+  "files": [
+    {
+      "path": "src/components/aspect-ratio/AspectRatio.tsx",
+      "content": "import type { HTMLArkProps } from '@ark-ui/solid/factory';\nimport { ark } from '@ark-ui/solid/factory';\nimport type { JSX } from 'solid-js';\nimport { splitProps } from 'solid-js';\nimport { cn } from '@/lib/moduix/cn';\n\ntype AspectRatioRootProps = HTMLArkProps<'div'> & {\n  ratio: number;\n  'data-scope'?: string;\n  'data-part'?: string;\n  'data-slot'?: string;\n};\n\nfunction AspectRatioRoot(props: AspectRatioRootProps) {\n  const [local, others] = splitProps(props, [\n    'asChild',\n    'class',\n    'ratio',\n    'style',\n    'data-scope',\n    'data-part',\n    'data-slot',\n  ]);\n  const aspectRatioStyle = (): JSX.CSSProperties | string => {\n    const ratio = local.ratio;\n\n    if (!Number.isFinite(ratio) || ratio <= 0) {\n      throw new RangeError('AspectRatio `ratio` must be a finite number greater than zero.');\n    }\n\n    if (typeof local.style === 'string') {\n      return `${local.style};--_aspect-ratio-value:${ratio}`;\n    }\n\n    return { ...local.style, '--_aspect-ratio-value': ratio };\n  };\n\n  return (\n    <ark.div\n      asChild={local.asChild}\n      {...others}\n      data-scope=\"aspect-ratio\"\n      data-part=\"root\"\n      data-slot=\"aspect-ratio-root\"\n      class={cn('relative block aspect-[var(--_aspect-ratio-value)] w-full', local.class)}\n      style={aspectRatioStyle()}\n    />\n  );\n}\n\nconst AspectRatio = Object.assign(AspectRatioRoot, {\n  Root: AspectRatioRoot,\n});\n\nexport { AspectRatio };",
+      "type": "registry:component",
+      "target": "@components/ui/aspect-ratio/AspectRatio.tsx"
+    },
+    {
+      "path": "src/components/aspect-ratio/index.ts",
+      "content": "export { AspectRatio } from './AspectRatio.js';",
+      "type": "registry:component",
+      "target": "@components/ui/aspect-ratio/index.ts"
+    }
+  ],
+  "type": "registry:item"
+}

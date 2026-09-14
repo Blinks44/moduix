@@ -1,0 +1,11 @@
+.header {
+  display: flex;
+  align-items: flex-start;
+  justify-content: space-between;
+  gap: var(--moduix-spacing-4);
+}
+
+.tooltip {
+  display: grid;
+  gap: var(--moduix-spacing-3);
+}

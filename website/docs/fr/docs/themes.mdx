@@ -12,6 +12,7 @@ Les thèmes moduix sont des couches de tokens CSS. `Calm` correspond aux valeurs
 socle ; `Dense`, `Soft` et `Contrast` sont des préréglages facultatifs pour d’autres directions
 visuelles. Un préréglage peut modifier la palette, les rayons, l’espacement, la densité des
 contrôles et les ombres sans changer l’API des composants ni dépendre d’un moteur de thème distinct.
+Tous les adaptateurs publiés utilisent les mêmes fichiers de thème et le même contrat de tokens.
 
 <ClientOnly fallback={<ThemePresets />}>
   <ThemePresets />
@@ -19,21 +20,19 @@ contrôles et les ombres sans changer l’API des composants ni dépendre d’un
 
 ## Choisir un préréglage
 
-| Préréglage | Contrôle principal / ligne de popup | Bon point de départ pour                                                             |
-| ---------- | ----------------------------------- | ------------------------------------------------------------------------------------ |
+| Préréglage | Contrôle principal / ligne de liste contextuelle | Bon point de départ pour                                                             |
+| ---------- | ------------------------------------------------ | ------------------------------------------------------------------------------------ |
 | Calm       | 36px / 32px                         | La plupart des interfaces produit : rythme neutre et surfaces discrètes.            |
 | Dense      | 34px / 30px                         | Les outils d’administration riches en données, où chaque information compte.        |
 | Soft       | 40px / 34px                         | Les parcours spacieux ou tactiles, avec des surfaces arrondies et un accent plus chaleureux. |
 | Contrast   | 36px / 32px                         | Les interfaces qui ont besoin de bordures nettes et d’une séparation claire du focus. |
 
 Les valeurs du tableau correspondent à la hauteur par défaut du contrôle principal et des lignes de
-popup de chaque préréglage. L’aperçu utilise de vrais composants moduix. Utilisez les boutons du
-préréglage et du mode de couleur, puis ouvrez le Select et parcourez ses champs au clavier pour
-comparer la hauteur des contrôles et des lignes de popup, les libellés, les surfaces et les styles
-de focus.
+liste contextuelle de chaque préréglage. Utilisez l’aperçu pour comparer la densité, les surfaces et
+les styles de focus avec de vrais composants moduix.
 
 Les noms des préréglages indiquent une direction visuelle, mais ne constituent pas une garantie
-d’accessibilité. Avant la mise en production, testez avec votre contenu et les surcharges de votre
+d’accessibilité. Avant la mise en production, testez avec votre contenu et les redéfinitions de votre
 application le contraste du texte, la visibilité du focus, le zoom et la taille des cibles
 interactives.
 
@@ -59,34 +58,76 @@ Importez le socle une fois, puis un préréglage. Si les utilisateurs peuvent pa
 à l’autre, chargez à l’avance le CSS de chacun d’eux. `Calm` utilise les valeurs du socle et ne
 possède pas de fichier `calm.css`.
 
-Ajoutez `data-moduix-theme` sur `<html>` afin que les composants rendus dans un portail utilisent les
-mêmes tokens que le reste du document. Définissez `data-moduix-color-scheme="dark"` sur cet élément
-pour activer le mode sombre de moduix ; vous pouvez omettre l’attribut en mode clair.
+Définissez `data-moduix-theme` et le mode de couleur sur `<html>` afin qu’ils s’appliquent au contenu
+ordinaire comme aux composants rendus dans un portail. Vous pouvez omettre
+`data-moduix-color-scheme` en mode clair.
+
+<Tabs groupId="framework">
+  <Tab label="React" value="react">
+
+<StyleTrackCards>
+  <StyleTrackCard label="CSS Modules">
 
 ```tsx
 import '@moduix/react/style.css';
 import '@moduix/react/presets/soft.css';
 ```
 
+  </StyleTrackCard>
+  <StyleTrackCard label="Tailwind CSS">
+
+```css
+@import '@moduix/react-tailwind/style.css';
+@import '@moduix/react-tailwind/presets/soft.css';
+@import 'tailwindcss';
+
+@source '../node_modules/@moduix/react-tailwind/dist/components';
+```
+
+  </StyleTrackCard>
+</StyleTrackCards>
+
+  </Tab>
+  <Tab label="Solid" value="solid">
+
+<StyleTrackCards>
+  <StyleTrackCard label="CSS Modules">
+
+```tsx
+import '@moduix/solid/style.css';
+import '@moduix/solid/presets/soft.css';
+```
+
+  </StyleTrackCard>
+  <StyleTrackCard label="Tailwind CSS">
+
+```css
+@import '@moduix/solid-tailwind/style.css';
+@import '@moduix/solid-tailwind/presets/soft.css';
+@import 'tailwindcss';
+
+@source '../node_modules/@moduix/solid-tailwind/dist/components';
+```
+
+  </StyleTrackCard>
+</StyleTrackCards>
+
+  </Tab>
+</Tabs>
+
 ```html
 <html data-moduix-theme="soft" data-moduix-color-scheme="dark"></html>
 ```
 
-Pour utiliser un autre préréglage, remplacez `soft.css` par l’un de ces chemins :
-
-```text
-@moduix/react/presets/dense.css
-@moduix/react/presets/contrast.css
-```
+Pour utiliser un autre préréglage, remplacez `soft.css` par `dense.css` ou `contrast.css` sous le
+même préfixe de paquet.
 
 ## Utiliser le registre
 
-Installez un préréglage depuis le registre moduix hébergé. La CLI copie son CSS source dans votre
-projet ; importez ensuite ce fichier après la feuille de styles du socle.
+Les préréglages sont indépendants du framework. La même URL du registre commun fonctionne avec React
+ou Solid, quelle que soit l’approche de stylisation. La CLI copie le fichier CSS dans votre projet :
 
-```bash
-npx shadcn@latest add @moduix-react/theme-dense
-```
+<PackageManagerTabs command="shadcn@latest add https://moduix.dev/r/foundation/theme-dense.json" dlx />
 
 ```tsx
 import '@/lib/moduix/styles/style.css';
@@ -100,24 +141,28 @@ import '@/lib/moduix/presets/dense.css';
 Remplacez `dense` par `soft` ou `contrast` pour utiliser un autre préréglage. Si les utilisateurs
 peuvent changer de préréglage, installez et importez chacun de ceux qu’ils peuvent sélectionner.
 
+Avec Tailwind, conservez ces imports avant `@import 'tailwindcss'`, comme dans la
+[configuration du paquet Tailwind](/docs/quick-start#tailwind-css). N’ajoutez pas la réinitialisation
+de moduix.
+
 ## Changer de thème à l’exécution
 
-Le changement de thème modifie uniquement l’attribut `data-moduix-theme`. Conservez le nom choisi
-sur l’élément racine du document afin que le contenu ordinaire et les overlays rendus dans un portail reçoivent
-les mêmes tokens. Ne mémorisez ce nom que si votre produit doit retenir le choix de l’utilisateur.
+Le changement de thème modifie uniquement l’attribut `data-moduix-theme`. Conservez le nom choisi sur
+l’élément racine du document afin que le contenu ordinaire et les superpositions rendues dans un
+portail reçoivent les mêmes tokens. Ne mémorisez ce nom que si votre produit doit retenir le choix de
+l’utilisateur.
 
 ```tsx
 type Theme = 'calm' | 'dense' | 'soft' | 'contrast';
 
 function setTheme(theme: Theme) {
   document.documentElement.dataset.moduixTheme = theme;
-  localStorage.setItem('moduix-theme', theme);
 }
 ```
 
-La valeur `calm` conserve les valeurs du socle. Le CSS de chaque autre préréglage disponible doit
-déjà être chargé. Appliquez la valeur enregistrée avant le premier rendu pour éviter un changement
-de thème visible au démarrage.
+La valeur `calm` conserve les valeurs du socle. Le CSS de chaque autre préréglage disponible doit déjà
+être chargé. Si votre produit mémorise la sélection, enregistrez-la et appliquez-la avant le premier
+rendu pour éviter un changement de thème visible au démarrage.
 
 ## Personnaliser un préréglage
 
@@ -141,10 +186,58 @@ N’ajoutez des tokens de taille ou d’espacement que si votre thème modifie v
 Utilisez un préréglage comme référence si vous souhaitez remplacer toute la palette, l’espacement
 et les ombres.
 
+<Tabs groupId="framework">
+  <Tab label="React" value="react">
+
+<StyleTrackCards>
+  <StyleTrackCard label="CSS Modules">
+
 ```tsx
 import '@moduix/react/style.css';
 import './brand.css';
 ```
+
+  </StyleTrackCard>
+  <StyleTrackCard label="Tailwind CSS">
+
+```css
+@import '@moduix/react-tailwind/style.css';
+@import './brand.css';
+@import 'tailwindcss';
+
+@source '../node_modules/@moduix/react-tailwind/dist/components';
+```
+
+  </StyleTrackCard>
+</StyleTrackCards>
+
+  </Tab>
+  <Tab label="Solid" value="solid">
+
+<StyleTrackCards>
+  <StyleTrackCard label="CSS Modules">
+
+```tsx
+import '@moduix/solid/style.css';
+import './brand.css';
+```
+
+  </StyleTrackCard>
+  <StyleTrackCard label="Tailwind CSS">
+
+```css
+@import '@moduix/solid-tailwind/style.css';
+@import './brand.css';
+@import 'tailwindcss';
+
+@source '../node_modules/@moduix/solid-tailwind/dist/components';
+```
+
+  </StyleTrackCard>
+</StyleTrackCards>
+
+  </Tab>
+</Tabs>
 
 ```css
 /* brand.css */

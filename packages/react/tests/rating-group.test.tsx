@@ -33,36 +33,35 @@ function ControlledRatingGroup() {
   );
 }
 
-test('renders one automatic input that submits and resets with the form', async () => {
+test('submits through an explicit Ark hidden input', async () => {
   render(
     <form data-testid="form">
       <RatingGroup defaultValue={3} name="rating">
         <RatingGroup.Label>Rating</RatingGroup.Label>
         <RatingItems />
+        <RatingGroup.HiddenInput />
       </RatingGroup>
     </form>,
   );
 
   const form = screen.getByTestId('form') as HTMLFormElement;
   const items = screen.getAllByRole('radio');
-  const input = document.querySelector('[data-slot="rating-group-hidden-input"]');
+  const input = document.querySelector('input[hidden]');
 
   expect(input).toHaveAttribute('name', 'rating');
   expect(new FormData(form).get('rating')).toBe('3');
 
   fireEvent.click(items[4]);
   await waitFor(() => expect(new FormData(form).get('rating')).toBe('5'));
-
-  form.reset();
-  await waitFor(() => expect(new FormData(form).get('rating')).toBe('3'));
 });
 
-test('preserves asChild composition while appending the automatic input', () => {
+test('preserves asChild composition with an explicit hidden input', () => {
   render(
     <RatingGroup asChild defaultValue={2}>
       <section data-testid="rating-root">
         <RatingGroup.Label>Rating</RatingGroup.Label>
         <RatingItems />
+        <RatingGroup.HiddenInput />
       </section>
     </RatingGroup>,
   );
@@ -70,7 +69,7 @@ test('preserves asChild composition while appending the automatic input', () => 
   const root = screen.getByTestId('rating-root');
 
   expect(root.tagName).toBe('SECTION');
-  expect(root.querySelectorAll('[data-slot="rating-group-hidden-input"]')).toHaveLength(1);
+  expect(root.querySelectorAll('input[hidden]')).toHaveLength(1);
 });
 
 test('preserves Ark callback details and controlled and provider paths', async () => {
@@ -107,6 +106,21 @@ test('keeps half-state and keyboard focus Ark-shaped', async () => {
   items[2].focus();
   fireEvent.keyDown(items[2], { key: 'ArrowRight' });
   await waitFor(() => expect(document.activeElement).toBe(items[3]));
+});
+
+test('does not mark a mouse-selected item as focus-visible', () => {
+  render(
+    <RatingGroup defaultValue={3}>
+      <RatingGroup.Label>Rating</RatingGroup.Label>
+      <RatingItems />
+    </RatingGroup>,
+  );
+
+  const item = screen.getAllByRole('radio')[2];
+
+  fireEvent.click(item);
+
+  expect(item).not.toHaveAttribute('data-focus-visible');
 });
 
 test('repeats custom indicators with Ark item state', () => {

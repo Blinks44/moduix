@@ -1,0 +1,24 @@
+.stack {
+  display: grid;
+  gap: var(--moduix-spacing-3);
+  justify-items: start;
+}
+
+.row {
+  display: flex;
+  flex-wrap: wrap;
+  align-items: center;
+  gap: var(--moduix-spacing-3);
+}
+
+.stack > [data-preview-meta] {
+  justify-self: center;
+}
+
+.pageSizeSelect {
+  --moduix-select-width: 10rem;
+
+  [data-part='label'] {
+    white-space: nowrap;
+  }
+}

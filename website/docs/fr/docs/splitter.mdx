@@ -1,10 +1,27 @@
 ---
 title: Splitter
 component: splitter
-description: Un composant de mise en page redimensionnable qui divise une interface en panneaux.
+description: Créez des mises en page redimensionnables et accessibles en React ou Solid avec des options d'installation par package et shadcn.
 ---
 
-import * as SplitterDocs from '@/components/examples/splitter';
+import { CssPropertiesSection } from '@/components/mdx/Components';
+import { splitterOverrideCssProperties } from '@/components/examples/splitter/css-properties';
+import SplitterBasic from '@/components/examples/splitter/basic.tsx';
+import SplitterCollapsiblePanels from '@/components/examples/splitter/collapsible-panels.tsx';
+import SplitterControlled from '@/components/examples/splitter/controlled.tsx';
+import SplitterDynamicCollapsible from '@/components/examples/splitter/dynamic-collapsible.tsx';
+import SplitterMultiplePanels from '@/components/examples/splitter/multiple-panels.tsx';
+import SplitterNested from '@/components/examples/splitter/nested.tsx';
+import SplitterRootProvider from '@/components/examples/splitter/root-provider.tsx';
+import SplitterVertical from '@/components/examples/splitter/vertical.tsx';
+import splitterSolidBasic from '../../../snippets/splitter/solid/basic.tsx?raw';
+import splitterSolidCollapsiblePanels from '../../../snippets/splitter/solid/collapsible-panels.tsx?raw';
+import splitterSolidControlled from '../../../snippets/splitter/solid/controlled.tsx?raw';
+import splitterSolidDynamicCollapsible from '../../../snippets/splitter/solid/dynamic-collapsible.tsx?raw';
+import splitterSolidMultiplePanels from '../../../snippets/splitter/solid/multiple-panels.tsx?raw';
+import splitterSolidNested from '../../../snippets/splitter/solid/nested.tsx?raw';
+import splitterSolidRootProvider from '../../../snippets/splitter/solid/root-provider.tsx?raw';
+import splitterSolidVertical from '../../../snippets/splitter/solid/vertical.tsx?raw';
 
 ## Référence de l'API
 
@@ -12,89 +29,109 @@ import * as SplitterDocs from '@/components/examples/splitter';
 
 ## Exemple de base
 
-Construisez un splitter avec trois parties : `Splitter`, `Splitter.Panel` et `Splitter.ResizeTrigger`.
-La prop `panels` contient les identifiants des panneaux et leurs contraintes de taille. Chaque
+Splitter est disponible pour React et Solid dans les packages CSS Modules et Tailwind. L'aperçu de
+cette page utilise le package React CSS Modules ; les onglets présentent le code natif correspondant
+au même contrat public.
+
+Construisez un splitter avec `Splitter`, `Splitter.Panel` et `Splitter.ResizeTrigger`. La prop
+`panels` contient les identifiants des panneaux et leurs contraintes de taille. Chaque
 `Splitter.Panel` rendu doit utiliser l'un de ces identifiants. Si vous n'ajoutez pas de contenu à la
 poignée, moduix génère automatiquement l'indicateur de redimensionnement.
 
-<style>{SplitterDocs.splitterExampleCss}</style>
+<ExampleFrame variant="component">
+  <SplitterBasic />
+</ExampleFrame>
 
-<PreviewFrame>
-  ```tsx preview file="../../en/docs/_snippets/splitter/basic.tsx"
+<ExampleCode>
+<div className="docs-reference">
+  <Tabs
+    groupId="framework"
+    values={[
+      { label: 'React', value: 'react' },
+      { label: 'Solid', value: 'solid' },
+    ]}
+    className="docs-tabs"
+  >
+    <Tab value="react">
 
-  ```
-</PreviewFrame>
+```tsx pure file="../../../src/components/examples/splitter/basic.tsx"
+```
+
+    </Tab>
+    <Tab value="solid">
+
+<CodeBlockRuntime lang="tsx" code={splitterSolidBasic} />
+
+    </Tab>
+  </Tabs>
+
+**Styles**
+
+```css file="../../../src/components/examples/splitter/splitter-basic.module.css"
+```
+</div>
+
+</ExampleCode>
 
 ## Installation avec shadcn
 
-<ShadcnInstall packageName="splitter" />
+Consultez le [Démarrage rapide](/docs/quick-start) pour la configuration complète du paquet, du registre et des styles.
+
+<Tabs groupId="framework">
+  <Tab label="React" value="react">
+
+<ShadcnInstallOptions
+  options={[
+    { label: 'CSS Modules', command: 'shadcn@latest add @moduix-react/splitter' },
+    { label: 'Tailwind CSS', command: 'shadcn@latest add @moduix-react-tailwind/splitter' },
+  ]}
+/>
+
+  </Tab>
+  <Tab label="Solid" value="solid">
+
+<ShadcnInstallOptions
+  options={[
+    { label: 'CSS Modules', command: 'shadcn@latest add @moduix-solid/splitter' },
+    { label: 'Tailwind CSS', command: 'shadcn@latest add @moduix-solid-tailwind/splitter' },
+  ]}
+/>
+
+  </Tab>
+</Tabs>
 
 ## Anatomie
 
 ```text
-Splitter
+Splitter / Splitter.Root
 ├─ Splitter.Panel[id]
 ├─ Splitter.ResizeTrigger[id="panel-a:panel-b"]
 │  └─ Splitter.ResizeTriggerIndicator (par défaut, personnalisable)
 └─ Splitter.Panel[id]
+
+Splitter.RootProvider
+└─ même arborescence de panneaux reliée à un état useSplitter()
 ```
 
-| Partie                              | Rôle                                                                            |
-| ----------------------------------- | ------------------------------------------------------------------------------- |
-| `Splitter` / `Splitter.Root`        | Gère les panneaux, leurs tailles, l'orientation, les fonctions de rappel et l'état. |
-| `Splitter.Panel`                    | Région redimensionnable dont l'`id` doit correspondre à une entrée de `panels`. |
-| `Splitter.ResizeTrigger`            | Bouton accessible qui redimensionne les deux panneaux adjacents.               |
-| `Splitter.ResizeTriggerIndicator`   | Poignée visuelle par défaut. Un contenu personnalisé la remplace.              |
-| `Splitter.RootProvider`             | Affiche les mêmes parties avec l'état créé par `useSplitter()`.                |
+| Partie                              | Rôle                                                                          |
+| ----------------------------------- | ----------------------------------------------------------------------------- |
+| `Splitter` / `Splitter.Root`        | Gère les panneaux, leurs tailles, l'orientation, les rappels et l'état.      |
+| `Splitter.Panel`                    | Région redimensionnable dont l'`id` correspond à une entrée de `panels`.      |
+| `Splitter.ResizeTrigger`            | Bouton accessible qui redimensionne les deux panneaux adjacents.             |
+| `Splitter.ResizeTriggerIndicator`   | Poignée visuelle par défaut. Un contenu personnalisé la remplace.             |
+| `Splitter.RootProvider`             | Affiche les mêmes parties avec l'état créé par `useSplitter()`.              |
 
 ## Composition
 
-### Composition recommandée
+Utilisez `size` avec `onResize(details)` lorsque l'application doit gérer les tailles actuelles des
+panneaux. Utilisez `Splitter.RootProvider` avec `useSplitter()` lorsque l'état ou ses contrôles
+doivent vivre en dehors de l'arborescence rendue, et choisissez une seule racine par état. Pour des
+splitters imbriqués qui doivent se redimensionner ensemble aux intersections des poignées, créez un
+seul `createSplitterRegistry()` et transmettez-le à chaque racine.
 
-Placez les panneaux et les poignées de redimensionnement dans le même ordre que sur la page. Donnez à
-chaque poignée un identifiant au format `"left:right"` afin qu'Ark puisse relier les deux panneaux
-adjacents. Laissez le contenu de la poignée vide pour utiliser l'indicateur par défaut. Ajoutez des
-enfants uniquement lorsque vous devez personnaliser son contenu.
-
-### Quand personnaliser la composition
-
-Utilisez `size` en mode contrôlé avec `onResize(details)` lorsque les tailles courantes doivent être
-conservées dans l'état de l'application. Utilisez `useSplitterContext()` pour appeler des méthodes
-impératives depuis le sous-arbre du splitter. Créez l'état avec `useSplitter()` et transmettez-le à
-`Splitter.RootProvider` lorsque l'état ou les contrôles doivent vivre en dehors de l'arbre rendu. Pour
-des splitters imbriqués qui doivent se redimensionner ensemble aux intersections des poignées, créez
-un registre avec `createSplitterRegistry()` et transmettez-le à chaque racine.
-
-Choisissez `Splitter` ou `Splitter.RootProvider` pour chaque instance. N'utilisez pas les deux racines
-pour un même état.
-
-Utilisez `asChild` uniquement lorsqu'un autre élément doit servir d'élément hôte rendu. Une poignée de
-redimensionnement personnalisée doit conserver la sémantique d'un bouton, la gestion du focus et les
-interactions au clavier. Avec `asChild`, fournissez exactement un enfant interactif. L'indicateur par
-défaut n'est pas ajouté dans ce mode.
-
-### Propriétés par défaut
-
-| Propriété           | Valeur par défaut | Remarques                                                                  |
-| ------------------- | ----------------- | -------------------------------------------------------------------------- |
-| `orientation`       | `"horizontal"`    | Utilisez `"vertical"` pour empiler les panneaux.                          |
-| `defaultSize`       | non défini        | Ark calcule les tailles initiales. Les pourcentages sont adaptés au SSR.   |
-| `keyboardResizeBy`  | non défini        | Utilise le nombre de pixels par défaut d'Ark pour le redimensionnement.   |
-| `size`              | non défini        | Mode non contrôlé. Associez-le à `onResize(details)` pour contrôler les tailles. |
-| `disabled`          | `false`           | Définissez-le sur `ResizeTrigger` pour désactiver une poignée.             |
-| `registry`          | non défini        | Partagez un registre entre des splitters imbriqués pour déplacer plusieurs poignées ensemble. |
-
-### Comportement
-
-La prop `panels` est obligatoire. Chaque entrée peut définir des contraintes comme `minSize`,
-`maxSize`, `collapsible` et `collapsedSize`. Les valeurs numériques de `defaultSize` et de la prop
-contrôlée `size` sont des pourcentages et leur somme doit être égale à `100`. Ark accepte aussi des longueurs
-CSS pour les tailles initiales et les contraintes. Ces longueurs sont mesurées dans le navigateur ; la
-mise en page peut donc se stabiliser différemment après l'hydratation.
-
-Les fonctions de rappel conservent les objets details d'Ark : `onResize(details)`,
-`onResizeEnd(details)`, `onCollapse(details)` et `onExpand(details)`. `onResizeStart()` est appelé au
-début du redimensionnement.
+Utilisez `asChild` avec un seul enfant interactif qui conserve la sémantique d'un bouton, la gestion du
+focus et les interactions au clavier ; cela remplace l'indicateur de redimensionnement par défaut. En
+Solid, `useSplitter()` renvoie un accessor : transmettez-le à `value` et lisez l'API avec `splitter()`.
 
 ## Exemples
 
@@ -105,39 +142,80 @@ Définissez `collapsible: true` et choisissez `collapsedSize` pour transformer u
 jusqu'à la taille réduite. Si `minSize` est supérieur, le splitter alterne entre la taille minimale
 déployée et le bandeau réduit.
 
-<style>{SplitterDocs.splitterExampleCss}</style>
+<ExampleFrame variant="component">
+  <SplitterCollapsiblePanels />
+</ExampleFrame>
 
-<PreviewFrame>
-  ```tsx preview file="../../en/docs/_snippets/splitter/collapsible-panels.tsx"
+<ExampleCode>
+<div className="docs-reference">
+  <Tabs
+    groupId="framework"
+    values={[
+      { label: 'React', value: 'react' },
+      { label: 'Solid', value: 'solid' },
+    ]}
+    className="docs-tabs"
+  >
+    <Tab value="react">
 
-  ```
-</PreviewFrame>
+```tsx pure file="../../../src/components/examples/splitter/collapsible-panels.tsx"
+```
+
+    </Tab>
+    <Tab value="solid">
+
+<CodeBlockRuntime lang="tsx" code={splitterSolidCollapsiblePanels} />
+
+    </Tab>
+  </Tabs>
+
+**Styles**
+
+```css file="../../../src/components/examples/splitter/splitter-collapsible-panels.module.css"
+```
+</div>
+
+</ExampleCode>
 
 ### État contrôlé
 
-Conservez les tailles des panneaux dans l'état React et mettez cet état à jour avec `details.size`
+Conservez les tailles des panneaux dans l'état de l'application et mettez-le à jour avec `details.size`
 dans `onResize`.
 
-<style>{SplitterDocs.splitterStackCss}</style>
+<ExampleFrame variant="component">
+  <SplitterControlled />
+</ExampleFrame>
 
-<PreviewFrame>
-  ```tsx preview file="../../en/docs/_snippets/splitter/controlled.tsx"
+<ExampleCode>
+<div className="docs-reference">
+  <Tabs
+    groupId="framework"
+    values={[
+      { label: 'React', value: 'react' },
+      { label: 'Solid', value: 'solid' },
+    ]}
+    className="docs-tabs"
+  >
+    <Tab value="react">
 
-  ```
-</PreviewFrame>
+```tsx pure file="../../../src/components/examples/splitter/controlled.tsx"
+```
 
-### Réduction adaptative
+    </Tab>
+    <Tab value="solid">
 
-Utilisez `collapsePanel()` et `expandPanel()` lorsqu'une barre latérale doit réagir à la largeur
-disponible mesurée par l'application.
+<CodeBlockRuntime lang="tsx" code={splitterSolidControlled} />
 
-<style>{SplitterDocs.splitterExampleCss}</style>
+    </Tab>
+  </Tabs>
 
-<PreviewFrame>
-  ```tsx preview file="../../en/docs/_snippets/splitter/dynamic-collapsible.tsx"
+**Styles**
 
-  ```
-</PreviewFrame>
+```css file="../../../src/components/examples/splitter/splitter-controlled.module.css"
+```
+</div>
+
+</ExampleCode>
 
 ### Plusieurs panneaux
 
@@ -145,53 +223,201 @@ Ajoutez un autre `Panel` et une `ResizeTrigger` adjacente pour créer une mise e
 Chaque panneau doit avoir une entrée correspondante dans `panels`, et chaque identifiant de poignée doit
 relier ses deux voisins.
 
-<style>{SplitterDocs.splitterExampleCss}</style>
+<ExampleFrame variant="component">
+  <SplitterMultiplePanels />
+</ExampleFrame>
 
-<PreviewFrame>
-  ```tsx preview file="../../en/docs/_snippets/splitter/multiple-panels.tsx"
+<ExampleCode>
+<div className="docs-reference">
+  <Tabs
+    groupId="framework"
+    values={[
+      { label: 'React', value: 'react' },
+      { label: 'Solid', value: 'solid' },
+    ]}
+    className="docs-tabs"
+  >
+    <Tab value="react">
 
-  ```
-</PreviewFrame>
+```tsx pure file="../../../src/components/examples/splitter/multiple-panels.tsx"
+```
+
+    </Tab>
+    <Tab value="solid">
+
+<CodeBlockRuntime lang="tsx" code={splitterSolidMultiplePanels} />
+
+    </Tab>
+  </Tabs>
+
+**Styles**
+
+```css file="../../../src/components/examples/splitter/splitter-multiple-panels.module.css"
+```
+</div>
+
+</ExampleCode>
 
 ### Splitters imbriqués
 
 Transmettez le même registre aux splitters imbriqués pour déplacer plusieurs poignées ensemble aux
 intersections des poignées horizontales et verticales.
 
-<style>{SplitterDocs.splitterNestedCss}</style>
+<ExampleFrame variant="component">
+  <SplitterNested />
+</ExampleFrame>
 
-<PreviewFrame>
-  ```tsx preview file="../../en/docs/_snippets/splitter/nested.tsx"
+<ExampleCode>
+<div className="docs-reference">
+  <Tabs
+    groupId="framework"
+    values={[
+      { label: 'React', value: 'react' },
+      { label: 'Solid', value: 'solid' },
+    ]}
+    className="docs-tabs"
+  >
+    <Tab value="react">
 
-  ```
-</PreviewFrame>
+```tsx pure file="../../../src/components/examples/splitter/nested.tsx"
+```
+
+    </Tab>
+    <Tab value="solid">
+
+<CodeBlockRuntime lang="tsx" code={splitterSolidNested} />
+
+    </Tab>
+  </Tabs>
+
+**Styles**
+
+```css file="../../../src/components/examples/splitter/splitter-nested.module.css"
+```
+</div>
+
+</ExampleCode>
+
+### Réduction adaptative
+
+Utilisez `collapsePanel()` et `expandPanel()` lorsqu'une barre latérale doit réagir à la largeur
+disponible mesurée par l'application.
+
+<ExampleFrame variant="component">
+  <SplitterDynamicCollapsible />
+</ExampleFrame>
+
+<ExampleCode>
+<div className="docs-reference">
+  <Tabs
+    groupId="framework"
+    values={[
+      { label: 'React', value: 'react' },
+      { label: 'Solid', value: 'solid' },
+    ]}
+    className="docs-tabs"
+  >
+    <Tab value="react">
+
+```tsx pure file="../../../src/components/examples/splitter/dynamic-collapsible.tsx"
+```
+
+    </Tab>
+    <Tab value="solid">
+
+<CodeBlockRuntime lang="tsx" code={splitterSolidDynamicCollapsible} />
+
+    </Tab>
+  </Tabs>
+
+**Styles**
+
+```css file="../../../src/components/examples/splitter/splitter-dynamic-collapsible.module.css"
+```
+</div>
+
+</ExampleCode>
 
 ### RootProvider
 
-Utilisez `useSplitter()` avec `Splitter.RootProvider` lorsque l'état ou les contrôles doivent se trouver
-en dehors des parties rendues du splitter. L'API retournée fournit notamment `getSizes()`, `setSizes()`,
-`resizePanel()`, `collapsePanel()`, `expandPanel()` et `resetSizes()`.
+Utilisez `useSplitter()` avec `Splitter.RootProvider` lorsque l'état ou les contrôles doivent se
+trouver en dehors des parties rendues du splitter. L'API renvoyée fournit notamment `getSizes()`,
+`setSizes()`, `resizePanel()`, `collapsePanel()`, `expandPanel()` et `resetSizes()`.
 
-<style>{SplitterDocs.splitterStackCss}</style>
+<ExampleFrame variant="component">
+  <SplitterRootProvider />
+</ExampleFrame>
 
-<PreviewFrame>
-  ```tsx preview file="../../en/docs/_snippets/splitter/root-provider.tsx"
+<ExampleCode>
+<div className="docs-reference">
+  <Tabs
+    groupId="framework"
+    values={[
+      { label: 'React', value: 'react' },
+      { label: 'Solid', value: 'solid' },
+    ]}
+    className="docs-tabs"
+  >
+    <Tab value="react">
 
-  ```
-</PreviewFrame>
+```tsx pure file="../../../src/components/examples/splitter/root-provider.tsx"
+```
+
+    </Tab>
+    <Tab value="solid">
+
+<CodeBlockRuntime lang="tsx" code={splitterSolidRootProvider} />
+
+    </Tab>
+  </Tabs>
+
+**Styles**
+
+```css file="../../../src/components/examples/splitter/splitter-root-provider.module.css"
+```
+</div>
+
+</ExampleCode>
 
 ### Orientation verticale
 
 Définissez `orientation="vertical"` et donnez une hauteur stable à la racine afin que les panneaux
 empilés disposent de l'espace nécessaire pour être redimensionnés.
 
-<style>{SplitterDocs.splitterVerticalCss}</style>
+<ExampleFrame variant="component">
+  <SplitterVertical />
+</ExampleFrame>
 
-<PreviewFrame>
-  ```tsx preview file="../../en/docs/_snippets/splitter/vertical.tsx"
+<ExampleCode>
+<div className="docs-reference">
+  <Tabs
+    groupId="framework"
+    values={[
+      { label: 'React', value: 'react' },
+      { label: 'Solid', value: 'solid' },
+    ]}
+    className="docs-tabs"
+  >
+    <Tab value="react">
 
-  ```
-</PreviewFrame>
+```tsx pure file="../../../src/components/examples/splitter/vertical.tsx"
+```
+
+    </Tab>
+    <Tab value="solid">
+
+<CodeBlockRuntime lang="tsx" code={splitterSolidVertical} />
+
+    </Tab>
+  </Tabs>
+
+**Styles**
+
+```css file="../../../src/components/examples/splitter/splitter-vertical.module.css"
+```
+</div>
+
+</ExampleCode>
 
 ## Accessibilité
 
@@ -202,35 +428,24 @@ l'élément hôte personnalisé doit conserver la sémantique d'un bouton, le fo
 clavier.
 
 Ark expose l'état avec des attributs tels que `data-orientation`, `data-dragging`, `data-focus` et
-`data-disabled`. Utilisez-les pour styliser les différents états d'interaction.
+`data-disabled`. Utilisez-les pour styliser les états d'interaction.
 
 ## Styles
 
-Stylisez `Splitter` avec `className`, les attributs Ark, les points d'accroche stables
-`data-slot="splitter-*"` et les variables CSS publiques de moduix ci-dessous. `Splitter.Root` et
-`Splitter.RootProvider` définissent les valeurs par défaut de `--moduix-splitter-width` et
-`--moduix-splitter-height` dans un style inline. Ces variables peuvent donc remplacer la taille de la
-racine définie par Ark. La surface par défaut est appliquée à la racine, tandis que les panneaux restent
-plats et jointifs à l'intérieur.
+Utilisez `className` en React ou `class` en Solid sur les parties exportées pour les styles structurels.
+Les variantes Tailwind utilisent des utilitaires natifs et les classes du consommateur ; la variante
+CSS Modules expose les variables du composant ci-dessous. Les attributs d'état et les points d'accroche
+`data-slot` sont communs aux deux modes de style.
 
-La poignée réserve un séparateur de `1px` dans la mise en page et dessine par-dessus une ligne de `0.5px`.
-Sa zone de clic transparente facilite la manipulation, et l'indicateur arrondi se place sur la ligne.
-Les états de survol et de glissement renforcent la ligne, la bordure et l'ombre. Remplacez les variables
-`--moduix-splitter-resize-trigger-*` correspondantes si votre thème nécessite un autre rendu.
+La poignée réserve un séparateur de `1px` dans la mise en page et dessine par-dessus une ligne de
+`0.5px`. Sa zone de clic transparente facilite la manipulation, et l'indicateur arrondi se place sur
+la ligne. Les états de survol et de glissement renforcent la ligne, la bordure et l'ombre. Remplacez
+les variables `--moduix-splitter-resize-trigger-*` correspondantes si votre thème nécessite un autre
+rendu.
 
 ### Propriétés CSS
 
-<div className="docs-reference">
-  <Tabs
-    values={[{ label: 'Variables CSS', value: 'CSS Variables' }]}
-    className="docs-reference-tabs"
-    contentItemClassName="docs-reference-panel"
-  >
-    <Tab>
-      <SplitterDocs.SplitterCssPropertiesPanel />
-    </Tab>
-  </Tabs>
-</div>
+<CssPropertiesSection properties={splitterOverrideCssProperties} />
 
 ### Points d'accroche pour les styles
 

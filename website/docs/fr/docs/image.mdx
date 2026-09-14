@@ -4,31 +4,90 @@ component: image
 description: "Images responsives avec détection automatique des CDN. Unpic génère les attributs srcset et sizes."
 ---
 
-import * as ImageDocs from '@/components/examples/image';
+import * as ImageDocs from '@/components/examples/image/css-properties';
+import ImageArtDirection from '@/components/examples/image/art-direction.tsx';
+import ImageBasic from '@/components/examples/image/basic.tsx';
+import ImageFixed from '@/components/examples/image/fixed.tsx';
+import ImageFullWidth from '@/components/examples/image/full-width.tsx';
+import imageSolidArtDirection from '../../../snippets/image/solid/art-direction.tsx?raw';
+import imageSolidBasic from '../../../snippets/image/solid/basic.tsx?raw';
+import imageSolidFixed from '../../../snippets/image/solid/fixed.tsx?raw';
+import imageSolidFullWidth from '../../../snippets/image/solid/full-width.tsx?raw';
 
 ## Référence de l’API
 
 `Image` est un composant moduix léger qui s’appuie sur le composant `<img>` d’[Unpic React](https://unpic.pics/img/react/).
 Ark UI ne propose pas de primitive dédiée aux images. `Image` utilise donc la composition native de `<img>` et de
-`<picture>` plutôt que de les remplacer par une partie Ark. Consultez le [guide de composition d’Ark](https://ark-ui.com/docs/guides/composition)
+`<picture>` plutôt qu’une partie Ark. Consultez le [guide de composition d’Ark](https://ark-ui.com/docs/guides/composition)
 pour en savoir plus sur son modèle fondé sur les éléments natifs.
 
 ## Exemple de base
 
-Utilisez `Image` avec l’URL d’une image provenant d’un CDN pris en charge ou avec une URL d’image classique. Dans le
-mode `layout="constrained"`, indiquez `width` et `height`. Unpic génère un `srcset` et un attribut `sizes` adaptés aux
-différentes tailles d’écran lorsqu’il reconnaît le fournisseur. Dans le cas contraire, il conserve l’URL source telle quelle.
+`Image` est disponible dans chaque framework et variante de style actuels. L’aperçu rendu sur cette
+page utilise le package React CSS Modules, tandis que les onglets présentent le code source natif de
+chaque adaptateur publié pour le même contrat public.
+
+Utilisez `Image` avec l’URL d’une image provenant d’un CDN pris en charge ou avec une URL d’image classique.
+Dans le mode `layout="constrained"`, indiquez `width` et `height`. Unpic génère un `srcset` et un attribut
+`sizes` adaptés lorsqu’il reconnaît le fournisseur. Dans le cas contraire, il conserve l’URL source telle quelle.
 Le navigateur réserve l’espace nécessaire avant le chargement de l’image.
 
-<PreviewFrame maxWidth="lg">
-  ```tsx preview file="../../en/docs/_snippets/image/basic.tsx"
+<ExampleFrame variant="component">
+  <ImageBasic />
+</ExampleFrame>
 
+<ExampleCode>
+<div className="docs-reference">
+  <Tabs
+    groupId="framework"
+    values={[
+      { label: 'React', value: 'react' },
+      { label: 'Solid', value: 'solid' },
+    ]}
+    className="docs-tabs"
+  >
+    <Tab value="react">
+
+```tsx pure file="../../../src/components/examples/image/basic.tsx"
 ```
-</PreviewFrame>
+
+    </Tab>
+    <Tab value="solid">
+
+<CodeBlockRuntime lang="tsx" code={imageSolidBasic} />
+
+    </Tab>
+  </Tabs>
+</div>
+
+</ExampleCode>
 
 ## Installation avec shadcn
 
-<ShadcnInstall packageName="image" />
+Consultez le [Démarrage rapide](/docs/quick-start) pour la configuration complète du paquet, du registre et des styles.
+
+<Tabs groupId="framework">
+  <Tab label="React" value="react">
+
+<ShadcnInstallOptions
+  options={[
+    { label: 'CSS Modules', command: 'shadcn@latest add @moduix-react/image' },
+    { label: 'Tailwind CSS', command: 'shadcn@latest add @moduix-react-tailwind/image' },
+  ]}
+/>
+
+  </Tab>
+  <Tab label="Solid" value="solid">
+
+<ShadcnInstallOptions
+  options={[
+    { label: 'CSS Modules', command: 'shadcn@latest add @moduix-solid/image' },
+    { label: 'Tailwind CSS', command: 'shadcn@latest add @moduix-solid-tailwind/image' },
+  ]}
+/>
+
+  </Tab>
+</Tabs>
 
 ## Anatomie
 
@@ -41,103 +100,139 @@ picture (native)
 └─ Image / Image.Root
 ```
 
-| Partie                  | Rôle                                                                                              |
-| ----------------------- | ------------------------------------------------------------------------------------------------ |
-| `Image` / `Image.Root` | Élément `<img>` natif et adaptatif ; Unpic génère `srcset`, `sizes` et les styles.                 |
-| `Image.Source`         | Élément `<source>` adaptatif utilisé dans un élément natif `<picture>`.                          |
+| Partie                 | Rôle                                                                      |
+| ---------------------- | ------------------------------------------------------------------------- |
+| `Image` / `Image.Root` | Élément `<img>` natif et adaptatif ; Unpic génère `srcset`, `sizes` et les styles. |
+| `Image.Source`         | Élément `<source>` adaptatif utilisé dans un élément natif `<picture>`.   |
 
 ## Composition
 
-### Composition recommandée
-
-`Image` est la forme courte de `Image.Root`. Pour les modes `layout="constrained"` et `layout="fixed"`, indiquez `width`
-et `height` afin que le navigateur réserve l’espace nécessaire avant le chargement. Avec `layout="constrained"`, ces
-dimensions préservent le rapport d’aspect de l’image et lui permettent de se réduire si son conteneur est plus étroit.
-Si l’URL provient d’un fournisseur pris en charge, Unpic le détecte et génère automatiquement un `srcset` avec les variantes
-transformées.
-
-Utilisez `priority` uniquement pour les images qui doivent se charger immédiatement, par exemple l’image principale
-visible dès l’ouverture de la page. Cette propriété active le chargement immédiat et une priorité de chargement élevée,
-sauf si vous fournissez explicitement `loading` ou la propriété React `fetchPriority` en camelCase.
-
-### Quand créer une composition personnalisée
-
-Utilisez un élément natif `<picture>` avec `Image.Source` lorsque le cadrage doit varier selon la taille de l’écran ou
-que plusieurs sources doivent être choisies selon des requêtes média. Placez toujours `Image` en dernier enfant. Il sert
-d’image de secours si le navigateur ne sélectionne aucune balise `<source>`. Transmettez `fallback`, `options` ou
-`operations` si Unpic ne reconnaît pas l’URL et doit utiliser un fournisseur précis.
-
-Pour proposer plusieurs formats, placez une `Image.Source` avec `type` avant une source équivalente sans `type`. Le
-navigateur retient le premier format qu’il prend en charge.
-
-### Propriétés par défaut
-
-| Propriété                | Valeur par défaut                       | Remarques                                                                     |
-| ------------------------ | ------------------------------------ | -------------------------------------------------------------------------------- |
-| `layout`                 | `constrained`                           | Respecte les dimensions indiquées et se réduit si nécessaire.                 |
-| `loading`                | `lazy`                                  | Passe à `eager` lorsque `priority` est défini.                                |
-| `decoding`               | `async` pour les images sans `priority` | Une valeur native est conservée ; avec `priority`, elle n’est pas définie par défaut. |
-| `fetchPriority`          | `high` avec `priority`                  | Une valeur native explicite remplace la valeur par défaut de `priority`.     |
-| `objectFit`              | `cover`                                 | Appliqué par les styles en ligne générés par Unpic.                           |
-| `--moduix-image-radius`  | `var(--moduix-radius-md)`              | Rayon visible appliqué par défaut par moduix.                                |
-
-### Comportement
-
-- `fixed` conserve les dimensions indiquées en pixels CSS et peut déborder d’un conteneur parent plus étroit, tandis que
-  `fullWidth` occupe toute la largeur du conteneur.
-- Pour une image informative, indiquez un texte alternatif pertinent. Pour une image décorative, utilisez `alt=""`.
-  Dans ce cas, Unpic ajoute `role="presentation"`, sauf si vous fournissez explicitement un autre rôle.
-- Utilisez `aspectRatio` au lieu de `width` et `height` lorsque vous préférez indiquer uniquement le rapport largeur/hauteur.
-- Unpic génère `srcset` à partir de l’URL source. Utilisez `breakpoints` si les largeurs responsives standard d’Unpic ne
-  conviennent pas.
-- Unpic détecte automatiquement les fournisseurs d’images pris en charge. Pour les autres URL, il conserve l’URL source
-  telle quelle, sauf si vous fournissez un fournisseur `fallback`.
-- Les attributs natifs `loading`, `decoding` et la propriété React `fetchPriority` en camelCase restent disponibles si
-  vous avez besoin d’un autre comportement de chargement.
-- `background="auto"` crée une image d’arrière-plan basse résolution pour les fournisseurs pris en charge. Elle reste
-  visible après le chargement. Utilisez cette option uniquement pour les images opaques ou définissez vous-même un arrière-plan.
-- `unstyled` désactive les styles de mise en page en ligne générés par Unpic. Le style d’affichage, le rayon et les
-  points d’accroche `data-slot` de moduix restent disponibles. Utilisez cette option lorsque le cadrage varie selon la
-  taille de l’écran, puis définissez vos propres règles dans votre CSS.
+`Image` est la racine et peut être rendu directement. Utilisez `Image.Source` uniquement comme enfant
+d’un élément natif `<picture>` et placez `Image` en dernier afin qu’il reste l’image de secours si
+aucune source n’est sélectionnée. Pour choisir un format, placez une source avec `type` avant une
+source équivalente sans `type` ; le navigateur retient le premier format qu’il prend en charge.
 
 ## Exemples
 
 ### Cadrage selon l’écran
 
-Utilisez `Image.Source` pour afficher une vue plus large d’un bureau sur les grands écrans et une image au format portrait
-sur les petits écrans. La première source destinée aux grands écrans demande le format AVIF. La suivante, avec la même
-requête média, sert de solution de remplacement aux navigateurs qui ne prennent pas l’AVIF en charge. `Image.Source`
-doit rester dans un élément natif `<picture>`.
+Utilisez `Image.Source` pour afficher une vue plus large d’un bureau sur les grands écrans et une image
+au format portrait sur les petits écrans. La première source destinée aux grands écrans demande le format
+AVIF. La suivante sert de solution de remplacement aux navigateurs qui ne prennent pas l’AVIF en charge.
+`Image.Source` doit rester dans un élément natif `<picture>`.
 
-<PreviewFrame maxWidth="lg">
-  ```tsx preview file="../../en/docs/_snippets/image/art-direction.tsx"
+<ExampleFrame variant="component">
+  <ImageArtDirection />
+</ExampleFrame>
 
+<ExampleCode>
+<div className="docs-reference">
+  <Tabs
+    groupId="framework"
+    values={[
+      { label: 'React', value: 'react' },
+      { label: 'Solid', value: 'solid' },
+    ]}
+    className="docs-tabs"
+  >
+    <Tab value="react">
+
+```tsx pure file="../../../src/components/examples/image/art-direction.tsx"
 ```
-</PreviewFrame>
+
+    </Tab>
+    <Tab value="solid">
+
+<CodeBlockRuntime lang="tsx" code={imageSolidArtDirection} />
+
+    </Tab>
+  </Tabs>
+
+**Styles**
+
+```css file="../../../src/components/examples/image/image-art-direction.module.css"
+```
+</div>
+
+</ExampleCode>
 
 ### Taille fixe
 
-Utilisez `layout="fixed"` lorsque l’image doit conserver des dimensions exactes en pixels CSS. Vérifiez que son conteneur
-parent dispose de suffisamment d’espace : une image fixe ne se réduit pas pour tenir dans un conteneur plus étroit.
+Utilisez `layout="fixed"` lorsque l’image doit conserver des dimensions exactes en pixels CSS.
+Vérifiez que son conteneur parent dispose de suffisamment d’espace : une image fixe ne se réduit pas
+pour tenir dans un conteneur plus étroit.
 
-<PreviewFrame maxWidth="xs">
-  ```tsx preview file="../../en/docs/_snippets/image/fixed.tsx"
+<ExampleFrame variant="component">
+  <ImageFixed />
+</ExampleFrame>
 
+<ExampleCode>
+<div className="docs-reference">
+  <Tabs
+    groupId="framework"
+    values={[
+      { label: 'React', value: 'react' },
+      { label: 'Solid', value: 'solid' },
+    ]}
+    className="docs-tabs"
+  >
+    <Tab value="react">
+
+```tsx pure file="../../../src/components/examples/image/fixed.tsx"
 ```
-</PreviewFrame>
+
+    </Tab>
+    <Tab value="solid">
+
+<CodeBlockRuntime lang="tsx" code={imageSolidFixed} />
+
+    </Tab>
+  </Tabs>
+</div>
+
+</ExampleCode>
 
 ### Pleine largeur
 
-Utilisez `layout="fullWidth"` pour une image principale ou une section média qui doit occuper toute la largeur de son
-conteneur. Indiquez `height` si la hauteur du cadrage doit rester fixe.
+Utilisez `layout="fullWidth"` pour une image principale ou une section média qui doit occuper toute
+la largeur de son conteneur. Indiquez `height` si la hauteur du cadrage doit rester fixe.
 
-<PreviewFrame maxWidth="lg">
-  ```tsx preview file="../../en/docs/_snippets/image/full-width.tsx"
+<ExampleFrame variant="component">
+  <ImageFullWidth />
+</ExampleFrame>
 
+<ExampleCode>
+<div className="docs-reference">
+  <Tabs
+    groupId="framework"
+    values={[
+      { label: 'React', value: 'react' },
+      { label: 'Solid', value: 'solid' },
+    ]}
+    className="docs-tabs"
+  >
+    <Tab value="react">
+
+```tsx pure file="../../../src/components/examples/image/full-width.tsx"
 ```
-</PreviewFrame>
+
+    </Tab>
+    <Tab value="solid">
+
+<CodeBlockRuntime lang="tsx" code={imageSolidFullWidth} />
+
+    </Tab>
+  </Tabs>
+</div>
+
+</ExampleCode>
 
 ## Styles
+
+Utilisez `className` en React ou `class` en Solid sur `Image` et `Image.Source` pour les styles locaux.
+Les variantes Tailwind utilisent des utilitaires natifs et les classes du consommateur. La variable
+`--moduix-image-radius` personnalise les variantes CSS Modules, tandis que les hooks `data-slot` sont
+partagés par les deux modes de style.
 
 ### Propriétés CSS
 
@@ -147,5 +242,4 @@ conteneur. Indiquez `height` si la hauteur du cadrage doit rester fixe.
 
 - `data-slot="image-root"` permet de sélectionner l’élément `<img>` affiché en CSS.
 - `data-slot="image-source"` permet de sélectionner le nœud `<source>` dans un élément natif `<picture>`.
-- `className` sur `Image` est la méthode recommandée pour appliquer des styles locaux. La racine est un élément de type
-  bloc par défaut.
+- `className` en React et `class` en Solid sont les méthodes recommandées pour appliquer des styles locaux.

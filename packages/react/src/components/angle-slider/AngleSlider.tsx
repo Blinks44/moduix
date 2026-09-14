@@ -6,35 +6,21 @@ import {
   useAngleSliderContext,
 } from '@ark-ui/react/angle-slider';
 import { clsx } from 'clsx';
-import type { ComponentProps, ComponentRef, ReactElement, ReactNode } from 'react';
-import { Children, cloneElement, forwardRef, useEffect, useRef } from 'react';
-import { normalizeClassName } from '@/lib/moduix/normalizeClassName';
+import type { ComponentProps, ComponentRef, ReactNode } from 'react';
+import { forwardRef } from 'react';
 import styles from './AngleSlider.module.css';
 
 const AngleSliderRoot = forwardRef<
   ComponentRef<typeof AngleSliderPrimitive.Root>,
-  ComponentProps<typeof AngleSliderPrimitive.Root> & { form?: string }
->(function AngleSliderRoot(
-  { asChild, children, className, defaultValue, form, value, ...props },
-  ref,
-) {
+  ComponentProps<typeof AngleSliderPrimitive.Root>
+>(function AngleSliderRoot({ className, ...props }, ref) {
   return (
     <AngleSliderPrimitive.Root
       ref={ref}
       data-slot="angle-slider-root"
-      className={clsx(styles.root, normalizeClassName(className))}
-      asChild={asChild}
-      defaultValue={defaultValue}
-      value={value}
+      className={clsx(styles.root, className)}
       {...props}
-    >
-      {withHiddenInput(
-        children,
-        asChild,
-        form,
-        value === undefined ? (defaultValue ?? 0) : undefined,
-      )}
-    </AngleSliderPrimitive.Root>
+    />
   );
 });
 
@@ -46,7 +32,7 @@ const AngleSliderLabel = forwardRef<
     <AngleSliderPrimitive.Label
       ref={ref}
       data-slot="angle-slider-label"
-      className={clsx(styles.label, normalizeClassName(className))}
+      className={clsx(styles.label, className)}
       {...props}
     />
   );
@@ -54,69 +40,18 @@ const AngleSliderLabel = forwardRef<
 
 const AngleSliderRootProvider = forwardRef<
   ComponentRef<typeof AngleSliderPrimitive.RootProvider>,
-  ComponentProps<typeof AngleSliderPrimitive.RootProvider> & { form?: string }
->(function AngleSliderRootProvider({ asChild, children, className, form, value, ...props }, ref) {
-  const initialValue = useRef(value.value);
-
+  ComponentProps<typeof AngleSliderPrimitive.RootProvider>
+>(function AngleSliderRootProvider({ className, value, ...props }, ref) {
   return (
     <AngleSliderPrimitive.RootProvider
       ref={ref}
       data-slot="angle-slider-root-provider"
-      className={clsx(styles.root, normalizeClassName(className))}
-      asChild={asChild}
+      className={clsx(styles.root, className)}
       value={value}
       {...props}
-    >
-      {withHiddenInput(children, asChild, form, initialValue.current)}
-    </AngleSliderPrimitive.RootProvider>
-  );
-});
-
-function AngleSliderHiddenInput({ form, resetValue }: { form?: string; resetValue?: number }) {
-  const angleSlider = useAngleSliderContext();
-  const inputRef = useRef<HTMLInputElement>(null);
-
-  useEffect(() => {
-    const formElement = inputRef.current?.form;
-
-    if (!formElement || resetValue === undefined) return;
-
-    const handleReset = () => angleSlider.setValue(resetValue);
-
-    formElement.addEventListener('reset', handleReset);
-    return () => formElement.removeEventListener('reset', handleReset);
-  }, [angleSlider, resetValue]);
-
-  return (
-    <AngleSliderPrimitive.HiddenInput
-      ref={inputRef}
-      data-slot="angle-slider-hidden-input"
-      form={form}
     />
   );
-}
-
-function withHiddenInput(
-  children: ReactNode,
-  asChild?: boolean,
-  form?: string,
-  resetValue?: number,
-) {
-  const hiddenInput = <AngleSliderHiddenInput form={form} resetValue={resetValue} />;
-
-  if (!asChild) {
-    return (
-      <>
-        {children}
-        {hiddenInput}
-      </>
-    );
-  }
-
-  const child = Children.only(children) as ReactElement<{ children?: ReactNode }>;
-
-  return cloneElement(child, {}, child.props.children, hiddenInput);
-}
+});
 
 const AngleSliderControl = forwardRef<
   ComponentRef<typeof AngleSliderPrimitive.Control>,
@@ -126,7 +61,7 @@ const AngleSliderControl = forwardRef<
     <AngleSliderPrimitive.Control
       ref={ref}
       data-slot="angle-slider-control"
-      className={clsx(styles.control, normalizeClassName(className))}
+      className={clsx(styles.control, className)}
       {...props}
     />
   );
@@ -140,7 +75,7 @@ const AngleSliderThumb = forwardRef<
     <AngleSliderPrimitive.Thumb
       ref={ref}
       data-slot="angle-slider-thumb"
-      className={clsx(styles.thumb, normalizeClassName(className))}
+      className={clsx(styles.thumb, className)}
       {...props}
     />
   );
@@ -154,7 +89,7 @@ const AngleSliderMarkerGroup = forwardRef<
     <AngleSliderPrimitive.MarkerGroup
       ref={ref}
       data-slot="angle-slider-marker-group"
-      className={clsx(styles.markerGroup, normalizeClassName(className))}
+      className={clsx(styles.markerGroup, className)}
       {...props}
     />
   );
@@ -168,7 +103,7 @@ const AngleSliderMarker = forwardRef<
     <AngleSliderPrimitive.Marker
       ref={ref}
       data-slot="angle-slider-marker"
-      className={clsx(styles.marker, normalizeClassName(className))}
+      className={clsx(styles.marker, className)}
       {...props}
     />
   );
@@ -196,14 +131,13 @@ type AngleSliderDialProps = Omit<
   'asChild' | 'children'
 > & {
   children?: ReactNode;
-  thumbClassName?: string;
 };
 
-function AngleSliderDial({ children, thumbClassName, ...props }: AngleSliderDialProps) {
+function AngleSliderDial({ children, ...props }: AngleSliderDialProps) {
   return (
     <AngleSliderControl {...props}>
       {children}
-      <AngleSliderThumb className={thumbClassName} />
+      <AngleSliderThumb />
     </AngleSliderControl>
   );
 }
@@ -216,7 +150,7 @@ const AngleSliderValueText = forwardRef<
     <AngleSliderPrimitive.ValueText
       ref={ref}
       data-slot="angle-slider-value-text"
-      className={clsx(styles.valueText, normalizeClassName(className))}
+      className={clsx(styles.valueText, className)}
       {...props}
     />
   );
@@ -226,6 +160,7 @@ const AngleSlider = Object.assign(AngleSliderRoot, {
   Root: AngleSliderRoot,
   RootProvider: AngleSliderRootProvider,
   Context: AngleSliderPrimitive.Context,
+  HiddenInput: AngleSliderPrimitive.HiddenInput,
   Label: AngleSliderLabel,
   Control: AngleSliderControl,
   Dial: AngleSliderDial,

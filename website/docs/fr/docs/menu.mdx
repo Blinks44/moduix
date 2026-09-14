@@ -4,27 +4,116 @@ component: menu
 description: Un menu ouvert par un déclencheur pour les actions, les liens, les options sélectionnables, les commandes imbriquées et les menus contextuels.
 ---
 
-import * as MenuDocs from '@/components/examples/menu';
+import * as MenuDocs from '@/components/examples/menu/css-properties';
+import MenuAdvancedCustomization from '@/components/examples/menu/advanced-customization.tsx';
+import MenuBasic from '@/components/examples/menu/basic.tsx';
+import MenuCheckboxItems from '@/components/examples/menu/checkbox-items.tsx';
+import MenuContext from '@/components/examples/menu/context-menu.tsx';
+import MenuControlled from '@/components/examples/menu/controlled.tsx';
+import MenuGrouping from '@/components/examples/menu/grouping.tsx';
+import MenuIndicatorPlacement from '@/components/examples/menu/indicator-placement.tsx';
+import MenuItemContext from '@/components/examples/menu/item-context.tsx';
+import MenuLazyMountedContext from '@/components/examples/menu/lazy-mounted-context-menu.tsx';
+import MenuLinks from '@/components/examples/menu/links.tsx';
+import MenuInDialog from '@/components/examples/menu/menu-in-dialog.tsx';
+import MenuMultipleTriggers from '@/components/examples/menu/multiple-triggers.tsx';
+import MenuNested from '@/components/examples/menu/nested.tsx';
+import MenuRadioItems from '@/components/examples/menu/radio-items.tsx';
+import MenuRootProvider from '@/components/examples/menu/root-provider.tsx';
+import MenuSelectEvent from '@/components/examples/menu/select-event.tsx';
+import MenuWithArrow from '@/components/examples/menu/with-arrow.tsx';
+
+import menuSolidAdvancedCustomization from '../../../snippets/menu/solid/advanced-customization.tsx?raw';
+import menuSolidBasic from '../../../snippets/menu/solid/basic.tsx?raw';
+import menuSolidCheckboxItems from '../../../snippets/menu/solid/checkbox-items.tsx?raw';
+import menuSolidContext from '../../../snippets/menu/solid/context-menu.tsx?raw';
+import menuSolidControlled from '../../../snippets/menu/solid/controlled.tsx?raw';
+import menuSolidGrouping from '../../../snippets/menu/solid/grouping.tsx?raw';
+import menuSolidIndicatorPlacement from '../../../snippets/menu/solid/indicator-placement.tsx?raw';
+import menuSolidItemContext from '../../../snippets/menu/solid/item-context.tsx?raw';
+import menuSolidLazyMountedContext from '../../../snippets/menu/solid/lazy-mounted-context-menu.tsx?raw';
+import menuSolidLinks from '../../../snippets/menu/solid/links.tsx?raw';
+import menuSolidInDialog from '../../../snippets/menu/solid/menu-in-dialog.tsx?raw';
+import menuSolidMultipleTriggers from '../../../snippets/menu/solid/multiple-triggers.tsx?raw';
+import menuSolidNested from '../../../snippets/menu/solid/nested.tsx?raw';
+import menuSolidRadioItems from '../../../snippets/menu/solid/radio-items.tsx?raw';
+import menuSolidRootProvider from '../../../snippets/menu/solid/root-provider.tsx?raw';
+import menuSolidSelectEvent from '../../../snippets/menu/solid/select-event.tsx?raw';
+import menuSolidWithArrow from '../../../snippets/menu/solid/with-arrow.tsx?raw';
 
 ## Référence de l’API
 
 <PrimitiveReference href="https://ark-ui.com/docs/components/menu" />
 
+
+Les mêmes exports sont disponibles depuis `@moduix/solid/menu` pour Solid.
 ## Exemple de base
 
 Utilisez la composition standard pour un menu ouvert par un bouton, un déclencheur personnalisé ou un déclencheur contextuel. Le composant racine gère la navigation au clavier, la recherche par saisie, le focus et la fermeture. Attribuez une valeur `value` stable à chaque élément afin de préserver la sélection et la recherche par saisie lorsque la liste change.
 
-<style>{MenuDocs.menuExampleCss}</style>
 
-<PreviewFrame>
-  ```tsx preview file="../../en/docs/_snippets/menu/basic.tsx"
+Ce composant est disponible pour React et Solid, avec des variantes CSS Modules et Tailwind. L’aperçu utilise React avec CSS Modules ; les onglets affichent le code natif correspondant à chaque framework.
+<ExampleFrame variant="component">
+  <MenuBasic />
+</ExampleFrame>
 
+<ExampleCode>
+<div className="docs-reference">
+  <Tabs
+    groupId="framework"
+    values={[
+      { label: 'React', value: 'react' },
+      { label: 'Solid', value: 'solid' },
+    ]}
+    className="docs-tabs"
+  >
+    <Tab value="react">
+
+```tsx pure file="../../../src/components/examples/menu/basic.tsx"
 ```
-</PreviewFrame>
+
+    </Tab>
+    <Tab value="solid">
+
+<CodeBlockRuntime lang="tsx" code={menuSolidBasic} />
+
+    </Tab>
+  </Tabs>
+
+**Styles**
+
+```css file="../../../src/components/examples/menu/menu-basic.module.css"
+```
+</div>
+
+</ExampleCode>
 
 ## Installation avec shadcn
 
-<ShadcnInstall packageName="menu" />
+Consultez le [Démarrage rapide](/docs/quick-start) pour la configuration complète du paquet, du registre et des styles.
+
+<Tabs groupId="framework">
+  <Tab label="React" value="react">
+
+<ShadcnInstallOptions
+  options={[
+    { label: 'CSS Modules', command: 'shadcn@latest add @moduix-react/menu' },
+    { label: 'Tailwind CSS', command: 'shadcn@latest add @moduix-react-tailwind/menu' },
+  ]}
+/>
+
+  </Tab>
+  <Tab label="Solid" value="solid">
+
+<ShadcnInstallOptions
+  options={[
+    { label: 'CSS Modules', command: 'shadcn@latest add @moduix-solid/menu' },
+    { label: 'Tailwind CSS', command: 'shadcn@latest add @moduix-solid-tailwind/menu' },
+  ]}
+/>
+
+  </Tab>
+</Tabs>
 
 ## Anatomie
 
@@ -39,21 +128,22 @@ Menu / Menu.Root
       └─ Menu.Content
          ├─ Menu.Arrow
          │  └─ Menu.ArrowTip
-         ├─ Menu.Item
-         │  ├─ Menu.ItemText
-         │  │  ├─ Menu.ItemTextIcon
-         │  │  └─ Menu.ItemTextLabel
-         │  └─ Menu.ItemShortcut
-         ├─ Menu.CheckboxItem
-         │  └─ Menu.ItemIndicator
-         ├─ Menu.RadioItemGroup
-         │  └─ Menu.RadioItem
-         ├─ Menu.ItemGroup
-         │  └─ Menu.ItemGroupLabel
-         ├─ Menu.Separator
-         └─ Menu
-            └─ Menu.TriggerItem
-               └─ Menu.TriggerItemIcon
+         └─ Menu.Viewport
+            ├─ Menu.Item
+            │  ├─ Menu.ItemText
+            │  │  ├─ Menu.ItemTextIcon
+            │  │  └─ Menu.ItemTextLabel
+            │  └─ Menu.ItemShortcut
+            ├─ Menu.CheckboxItem
+            │  └─ Menu.ItemIndicator
+            ├─ Menu.RadioItemGroup
+            │  └─ Menu.RadioItem
+            ├─ Menu.ItemGroup
+            │  └─ Menu.ItemGroupLabel
+            ├─ Menu.Separator
+            └─ Menu
+               └─ Menu.TriggerItem
+                  └─ Menu.TriggerItemIcon
 ```
 
 | Partie | Rôle |
@@ -66,6 +156,7 @@ Menu / Menu.Root
 | `Menu.ContextTrigger` | Déclencheur pour les menus contextuels ouverts par clic droit ou appui prolongé. |
 | `Menu.Positioner` | Positionne le calque flottant du menu. |
 | `Menu.Content` | Surface de la fenêtre contextuelle avec le rôle `menu` et sa collection d’éléments. |
+| `Menu.Viewport` | Conteneur de défilement explicite autour de la collection d’éléments. |
 | `Menu.Arrow` / `Menu.ArrowTip` | Flèche facultative qui relie visuellement la fenêtre contextuelle à son déclencheur. |
 | `Menu.Item` | Élément de commande standard. |
 | `Menu.CheckboxItem` | Élément doté d’un état booléen indépendant. |
@@ -80,231 +171,624 @@ Menu / Menu.Root
 
 ## Composition
 
-`Menu` place automatiquement `Menu.Positioner` dans un portail. Définissez `portalled={false}` pour afficher le menu dans son conteneur courant, ou passez `portalRef` pour utiliser un conteneur de portail précis. `Menu.Positioner` et `Menu.Content` restent explicites, ce qui permet de les styliser et de les composer séparément.
+Utilisez `defaultOpen` pour un menu non contrôlé. Lorsque l’ouverture ou l’élément mis en surbrillance est géré par une autre partie de l’application, passez `open` ou `highlightedValue` avec la fonction de rappel correspondante. Utilisez `useMenu()` avec `Menu.RootProvider` lorsque le store doit être créé en dehors de l’arbre rendu ; ne rendez pas une seconde racine `Menu` pour le même store.
 
-### Composition recommandée
-
-Gardez la structure de la fenêtre contextuelle visible dans votre code. `Menu.Content` est la partie de contenu Ark, tandis que `Menu.Positioner` gère le positionnement séparément.
-
-```tsx
-import { Button } from '@moduix/react/button';
-import { Menu } from '@moduix/react/menu';
-
-export function ActionsMenu() {
-  return (
-    <Menu positioning={{ placement: 'bottom-start', gutter: 8 }}>
-      <Menu.Trigger asChild>
-        <Button>
-          Actions
-          <Menu.Indicator />
-        </Button>
-      </Menu.Trigger>
-      <Menu.Positioner>
-        <Menu.Content>
-          <Menu.Item value="edit">Edit</Menu.Item>
-        </Menu.Content>
-      </Menu.Positioner>
-    </Menu>
-  );
-}
-```
-
-### Quand créer une composition personnalisée
-
-Utilisez `asChild` lorsqu’une partie du déclencheur, de l’élément ou du contenu doit être rendue avec un autre élément sémantique. Passez exactement un enfant sémantique afin qu’Ark puisse fusionner ses attributs ARIA, ses gestionnaires d’événements et sa ref. Pour les liens, placez `asChild` sur `Menu.Item` afin que l’ancre elle-même reçoive le comportement du menu. Pour fournir un conteneur personnalisé à la fenêtre contextuelle, placez-le sur `Menu.Content`.
-
-Un menu imbriqué est une racine `Menu` standard placée dans le contenu du menu parent. Ajoutez-y `Menu.TriggerItem`, puis son propre `Menu.Positioner` et son propre `Menu.Content`.
-
-### Propriétés par défaut
-
-Par défaut, moduix monte le contenu de la fenêtre contextuelle à la première ouverture, puis le démonte après l’animation de sortie. Définissez `unmountOnExit={false}` pour conserver le contenu monté après sa première ouverture. Définissez `lazyMount={false}` et `unmountOnExit={false}` uniquement si le contenu doit être rendu immédiatement et rester monté.
-
-| Propriété ou partie | Par défaut | Remarques |
-| --- | --- | --- |
-| `lazyMount` | `true` | Diffère le montage de la fenêtre contextuelle jusqu’à sa première ouverture. |
-| `unmountOnExit` | `true` | Démonte la fenêtre contextuelle après son animation de sortie. |
-| `closeOnSelect` | `true` | Valeur par défaut d’Ark. Passez `false` si l’utilisateur doit effectuer plusieurs sélections avant de fermer le menu. |
-| `loopFocus` | `false` | Valeur par défaut d’Ark. Le focus clavier ne revient pas du dernier élément au premier. |
-| `typeahead` | `true` | Valeur par défaut d’Ark. Les caractères saisis déplacent la mise en évidence vers l’élément correspondant. |
-| `indicator` de `Menu.CheckboxItem` / `Menu.RadioItem` | `start` | Propriété propre à moduix qui contrôle la colonne de l’indicateur. Utilisez `end` ou `none` si nécessaire. |
-
-### Comportement
-
-- Contrôlez le menu avec `open`, `defaultOpen` et `onOpenChange(details)`. La fonction reçoit l’objet de détails d’Ark.
-- Utilisez `value` pour identifier un élément. Utilisez `valueText` lorsque le texte affiché doit différer du texte utilisé par la recherche par saisie. N’attribuez pas d’`id` arbitraire aux éléments : Ark génère et utilise ces identifiants en interne.
-- Utilisez `highlightedValue` et `onHighlightChange(details)` pour contrôler ou observer l’élément mis en évidence. Utilisez `present` uniquement lorsque le cycle de vie du contenu monté doit être contrôlé depuis l’extérieur.
-- `onSelect(details)` sur la racine s’exécute pour chaque élément sélectionné. Des gestionnaires `onSelect` sont également disponibles au niveau des éléments.
-- `Menu.CheckboxItem.onCheckedChange` reçoit le nouvel état booléen.
-- `Menu.RadioItemGroup.onValueChange` reçoit un objet de détails. Lisez la valeur sélectionnée dans `details.value`.
-- Pour plusieurs déclencheurs, utilisez `triggerValue`, `defaultTriggerValue` et `onTriggerValueChange(details)` lorsque le déclencheur actif doit être contrôlé ou observé.
-- Utilisez `Menu.RootProvider` avec une instance créée par `useMenu` lorsque du code situé en dehors de l’arbre rendu doit accéder à l’API du menu. Ne rendez pas une seconde racine pour la même instance d’état.
-- `Menu.Context`, `useMenuContext`, `Menu.ItemContext` et `useMenuItemContext` exposent l’état pour les compositions avancées.
-- La racine place automatiquement `Menu.Positioner` dans un portail. Utilisez `portalled={false}` dans une boîte de dialogue ou un conteneur défilant. Si ce conteneur défile, ajoutez `positioning={{ strategy: 'fixed', hideWhenDetached: true }}`.
-- `Menu.ContextTrigger` s’ouvre au clic droit et, sur les appareils tactiles ou avec un stylet, après un appui prolongé d’environ 700 ms.
-- Les animations d’ouverture et de fermeture respectent `prefers-reduced-motion`.
-- moduix ajoute `tone="destructive"` pour les actions destructives ainsi que des composants utilitaires comme `Menu.TriggerIcon`, `Menu.TriggerItemIcon`, `Menu.ItemTextContent`, `Menu.ItemTextIcon`, `Menu.ItemTextLabel` et `Menu.ItemShortcut`.
-
+`Menu.Positioner`, `Menu.Content` et `Menu.Viewport` sont des parties distinctes, mais le positionneur est automatiquement rendu dans un portail. Définissez `portalled={false}` dans une boîte de dialogue ou un conteneur défilant, et utilisez `positioning={{ strategy: 'fixed', hideWhenDetached: true }}` lorsque ce conteneur peut défiler. Utilisez `asChild` avec exactement un enfant sémantique lorsqu’un déclencheur, un élément ou l’hôte du contenu doit porter le nœud DOM. Dans `Menu.Content`, entourez les éléments défilants avec `Menu.Viewport`. Conservez l’éventuel `Menu.Arrow` comme enfant direct de `Menu.Content`, à côté du viewport, afin qu’il ne soit pas rogné pendant le défilement. Un menu imbriqué est une autre racine `Menu` dans le contenu parent, avec ses propres parties `TriggerItem`, `Positioner` et `Content`.
 ## Exemples
 
 ### Options avec case à cocher
 
 Utilisez ces éléments pour des options indépendantes qui peuvent être activées ou désactivées. Définissez `closeOnSelect={false}` si l’utilisateur doit modifier plusieurs options avant de fermer le menu.
 
-<PreviewFrame>
-  ```tsx preview file="../../en/docs/_snippets/menu/checkbox-items.tsx"
+<ExampleFrame variant="component">
+  <MenuCheckboxItems />
+</ExampleFrame>
 
+<ExampleCode>
+<div className="docs-reference">
+  <Tabs
+    groupId="framework"
+    values={[
+      { label: 'React', value: 'react' },
+      { label: 'Solid', value: 'solid' },
+    ]}
+    className="docs-tabs"
+  >
+    <Tab value="react">
+
+```tsx pure file="../../../src/components/examples/menu/checkbox-items.tsx"
 ```
-</PreviewFrame>
+
+    </Tab>
+    <Tab value="solid">
+
+<CodeBlockRuntime lang="tsx" code={menuSolidCheckboxItems} />
+
+    </Tab>
+  </Tabs>
+
+**Styles**
+
+```css file="../../../src/components/examples/menu/menu-checkbox-items.module.css"
+```
+</div>
+
+</ExampleCode>
 
 ### Menu contextuel
 
 Utilisez `Menu.ContextTrigger` lorsque les actions doivent apparaître après un clic droit. Sur les appareils tactiles et avec un stylet, un appui prolongé ouvre également le menu.
 
-<PreviewFrame>
-  ```tsx preview file="../../en/docs/_snippets/menu/context-menu.tsx"
+<ExampleFrame variant="component">
+  <MenuContext />
+</ExampleFrame>
 
+<ExampleCode>
+<div className="docs-reference">
+  <Tabs
+    groupId="framework"
+    values={[
+      { label: 'React', value: 'react' },
+      { label: 'Solid', value: 'solid' },
+    ]}
+    className="docs-tabs"
+  >
+    <Tab value="react">
+
+```tsx pure file="../../../src/components/examples/menu/context-menu.tsx"
 ```
-</PreviewFrame>
+
+    </Tab>
+    <Tab value="solid">
+
+<CodeBlockRuntime lang="tsx" code={menuSolidContext} />
+
+    </Tab>
+  </Tabs>
+
+**Styles**
+
+```css file="../../../src/components/examples/menu/menu-context-menu.module.css"
+```
+</div>
+
+</ExampleCode>
 
 ### État contrôlé
 
 Contrôlez `open` avec l’état React lorsqu’un autre contrôle doit ouvrir ou fermer le menu.
 
-<PreviewFrame>
-  ```tsx preview file="../../en/docs/_snippets/menu/controlled.tsx"
+<ExampleFrame variant="component">
+  <MenuControlled />
+</ExampleFrame>
 
+<ExampleCode>
+<div className="docs-reference">
+  <Tabs
+    groupId="framework"
+    values={[
+      { label: 'React', value: 'react' },
+      { label: 'Solid', value: 'solid' },
+    ]}
+    className="docs-tabs"
+  >
+    <Tab value="react">
+
+```tsx pure file="../../../src/components/examples/menu/controlled.tsx"
 ```
-</PreviewFrame>
+
+    </Tab>
+    <Tab value="solid">
+
+<CodeBlockRuntime lang="tsx" code={menuSolidControlled} />
+
+    </Tab>
+  </Tabs>
+
+**Styles**
+
+```css file="../../../src/components/examples/menu/menu-controlled.module.css"
+```
+</div>
+
+</ExampleCode>
 
 ### Regroupement
 
 Utilisez `Menu.ItemGroup` et `Menu.ItemGroupLabel` pour organiser les éléments associés, et `Menu.Separator` pour séparer les groupes.
 
-<PreviewFrame>
-  ```tsx preview file="../../en/docs/_snippets/menu/grouping.tsx"
+<ExampleFrame variant="component">
+  <MenuGrouping />
+</ExampleFrame>
 
+<ExampleCode>
+<div className="docs-reference">
+  <Tabs
+    groupId="framework"
+    values={[
+      { label: 'React', value: 'react' },
+      { label: 'Solid', value: 'solid' },
+    ]}
+    className="docs-tabs"
+  >
+    <Tab value="react">
+
+```tsx pure file="../../../src/components/examples/menu/grouping.tsx"
 ```
-</PreviewFrame>
+
+    </Tab>
+    <Tab value="solid">
+
+<CodeBlockRuntime lang="tsx" code={menuSolidGrouping} />
+
+    </Tab>
+  </Tabs>
+
+**Styles**
+
+```css file="../../../src/components/examples/menu/menu-grouping.module.css"
+```
+</div>
+
+</ExampleCode>
 
 ### Placement des indicateurs
 
 Définissez `indicator="start"`, `"end"` ou `"none"` sur les éléments avec case à cocher et les options radio pour choisir la position de l’indicateur.
 
-<PreviewFrame>
-  ```tsx preview file="../../en/docs/_snippets/menu/indicator-placement.tsx"
+<ExampleFrame variant="component">
+  <MenuIndicatorPlacement />
+</ExampleFrame>
 
+<ExampleCode>
+<div className="docs-reference">
+  <Tabs
+    groupId="framework"
+    values={[
+      { label: 'React', value: 'react' },
+      { label: 'Solid', value: 'solid' },
+    ]}
+    className="docs-tabs"
+  >
+    <Tab value="react">
+
+```tsx pure file="../../../src/components/examples/menu/indicator-placement.tsx"
 ```
-</PreviewFrame>
+
+    </Tab>
+    <Tab value="solid">
+
+<CodeBlockRuntime lang="tsx" code={menuSolidIndicatorPlacement} />
+
+    </Tab>
+  </Tabs>
+
+**Styles**
+
+```css file="../../../src/components/examples/menu/menu-indicator-placement.module.css"
+```
+</div>
+
+</ExampleCode>
 
 ### Contexte de l’élément
 
 Utilisez `Menu.ItemContext` lorsque le contenu d’un élément doit réagir à son état, par exemple lorsqu’il est mis en évidence.
 
-<PreviewFrame>
-  ```tsx preview file="../../en/docs/_snippets/menu/item-context.tsx"
+<ExampleFrame variant="component">
+  <MenuItemContext />
+</ExampleFrame>
 
+<ExampleCode>
+<div className="docs-reference">
+  <Tabs
+    groupId="framework"
+    values={[
+      { label: 'React', value: 'react' },
+      { label: 'Solid', value: 'solid' },
+    ]}
+    className="docs-tabs"
+  >
+    <Tab value="react">
+
+```tsx pure file="../../../src/components/examples/menu/item-context.tsx"
 ```
-</PreviewFrame>
+
+    </Tab>
+    <Tab value="solid">
+
+<CodeBlockRuntime lang="tsx" code={menuSolidItemContext} />
+
+    </Tab>
+  </Tabs>
+
+**Styles**
+
+```css file="../../../src/components/examples/menu/menu-item-context.module.css"
+```
+</div>
+
+</ExampleCode>
 
 ### Menu contextuel avec montage différé
 
 Par défaut, le contenu du menu contextuel est monté à la première ouverture puis démonté après l’animation de sortie. Définissez `unmountOnExit={false}` si le sous-arbre doit rester monté après la fermeture du menu.
 
-<PreviewFrame>
-  ```tsx preview file="../../en/docs/_snippets/menu/lazy-mounted-context-menu.tsx"
+<ExampleFrame variant="component">
+  <MenuLazyMountedContext />
+</ExampleFrame>
 
+<ExampleCode>
+<div className="docs-reference">
+  <Tabs
+    groupId="framework"
+    values={[
+      { label: 'React', value: 'react' },
+      { label: 'Solid', value: 'solid' },
+    ]}
+    className="docs-tabs"
+  >
+    <Tab value="react">
+
+```tsx pure file="../../../src/components/examples/menu/lazy-mounted-context-menu.tsx"
 ```
-</PreviewFrame>
+
+    </Tab>
+    <Tab value="solid">
+
+<CodeBlockRuntime lang="tsx" code={menuSolidLazyMountedContext} />
+
+    </Tab>
+  </Tabs>
+
+**Styles**
+
+```css file="../../../src/components/examples/menu/menu-lazy-mounted-context-menu.module.css"
+```
+</div>
+
+</ExampleCode>
 
 ### Liens
 
 Utilisez `Menu.Item asChild` et faites de l’ancre l’élément de menu lui-même. Elle recevra ainsi les attributs ARIA, le comportement clavier et la gestion du focus de l’élément de menu.
 
-<PreviewFrame>
-  ```tsx preview file="../../en/docs/_snippets/menu/links.tsx"
+<ExampleFrame variant="component">
+  <MenuLinks />
+</ExampleFrame>
 
+<ExampleCode>
+<div className="docs-reference">
+  <Tabs
+    groupId="framework"
+    values={[
+      { label: 'React', value: 'react' },
+      { label: 'Solid', value: 'solid' },
+    ]}
+    className="docs-tabs"
+  >
+    <Tab value="react">
+
+```tsx pure file="../../../src/components/examples/menu/links.tsx"
 ```
-</PreviewFrame>
+
+    </Tab>
+    <Tab value="solid">
+
+<CodeBlockRuntime lang="tsx" code={menuSolidLinks} />
+
+    </Tab>
+  </Tabs>
+
+**Styles**
+
+```css file="../../../src/components/examples/menu/menu-links.module.css"
+```
+</div>
+
+</ExampleCode>
 
 ### Menu dans une boîte de dialogue
 
 Définissez `portalled={false}` pour garder la fenêtre contextuelle dans une boîte de dialogue ou un conteneur défilant. Si le conteneur peut défiler, utilisez un positionnement fixe avec `hideWhenDetached` afin de masquer le menu lorsqu’il sort de la zone visible.
 
-<PreviewFrame>
-  ```tsx preview file="../../en/docs/_snippets/menu/menu-in-dialog.tsx"
+<ExampleFrame variant="component">
+  <MenuInDialog />
+</ExampleFrame>
 
+<ExampleCode>
+<div className="docs-reference">
+  <Tabs
+    groupId="framework"
+    values={[
+      { label: 'React', value: 'react' },
+      { label: 'Solid', value: 'solid' },
+    ]}
+    className="docs-tabs"
+  >
+    <Tab value="react">
+
+```tsx pure file="../../../src/components/examples/menu/menu-in-dialog.tsx"
 ```
-</PreviewFrame>
+
+    </Tab>
+    <Tab value="solid">
+
+<CodeBlockRuntime lang="tsx" code={menuSolidInDialog} />
+
+    </Tab>
+  </Tabs>
+
+**Styles**
+
+```css file="../../../src/components/examples/menu/menu-menu-in-dialog.module.css"
+```
+</div>
+
+</ExampleCode>
 
 ### Plusieurs déclencheurs
 
 Partagez un même menu entre plusieurs déclencheurs en attribuant une valeur `value` distincte à chaque `Menu.Trigger`. Le menu se repositionne par rapport au déclencheur qui l’a ouvert.
 
-<PreviewFrame>
-  ```tsx preview file="../../en/docs/_snippets/menu/multiple-triggers.tsx"
+<ExampleFrame variant="component">
+  <MenuMultipleTriggers />
+</ExampleFrame>
 
+<ExampleCode>
+<div className="docs-reference">
+  <Tabs
+    groupId="framework"
+    values={[
+      { label: 'React', value: 'react' },
+      { label: 'Solid', value: 'solid' },
+    ]}
+    className="docs-tabs"
+  >
+    <Tab value="react">
+
+```tsx pure file="../../../src/components/examples/menu/multiple-triggers.tsx"
 ```
-</PreviewFrame>
+
+    </Tab>
+    <Tab value="solid">
+
+<CodeBlockRuntime lang="tsx" code={menuSolidMultipleTriggers} />
+
+    </Tab>
+  </Tabs>
+
+**Styles**
+
+```css file="../../../src/components/examples/menu/menu-multiple-triggers.module.css"
+```
+</div>
+
+</ExampleCode>
 
 ### Menu imbriqué
 
 Rendez un `Menu` enfant dans le contenu du menu parent et ouvrez-le avec `Menu.TriggerItem`.
 
-<PreviewFrame>
-  ```tsx preview file="../../en/docs/_snippets/menu/nested.tsx"
+<ExampleFrame variant="component">
+  <MenuNested />
+</ExampleFrame>
 
+<ExampleCode>
+<div className="docs-reference">
+  <Tabs
+    groupId="framework"
+    values={[
+      { label: 'React', value: 'react' },
+      { label: 'Solid', value: 'solid' },
+    ]}
+    className="docs-tabs"
+  >
+    <Tab value="react">
+
+```tsx pure file="../../../src/components/examples/menu/nested.tsx"
 ```
-</PreviewFrame>
+
+    </Tab>
+    <Tab value="solid">
+
+<CodeBlockRuntime lang="tsx" code={menuSolidNested} />
+
+    </Tab>
+  </Tabs>
+
+**Styles**
+
+```css file="../../../src/components/examples/menu/menu-nested.module.css"
+```
+</div>
+
+</ExampleCode>
 
 ### Options à choix unique
 
 Utilisez `Menu.RadioItemGroup` lorsque l’utilisateur doit choisir une seule valeur parmi plusieurs options. Définissez `closeOnSelect={false}` si le menu doit rester ouvert pendant la sélection.
 
-<PreviewFrame>
-  ```tsx preview file="../../en/docs/_snippets/menu/radio-items.tsx"
+<ExampleFrame variant="component">
+  <MenuRadioItems />
+</ExampleFrame>
 
+<ExampleCode>
+<div className="docs-reference">
+  <Tabs
+    groupId="framework"
+    values={[
+      { label: 'React', value: 'react' },
+      { label: 'Solid', value: 'solid' },
+    ]}
+    className="docs-tabs"
+  >
+    <Tab value="react">
+
+```tsx pure file="../../../src/components/examples/menu/radio-items.tsx"
 ```
-</PreviewFrame>
 
-### Root Provider
+    </Tab>
+    <Tab value="solid">
+
+<CodeBlockRuntime lang="tsx" code={menuSolidRadioItems} />
+
+    </Tab>
+  </Tabs>
+
+**Styles**
+
+```css file="../../../src/components/examples/menu/menu-radio-items.module.css"
+```
+</div>
+
+</ExampleCode>
+
+### Utiliser `RootProvider`
 
 Utilisez `useMenu` et `Menu.RootProvider` lorsque du code situé en dehors de l’arbre rendu doit lire ou modifier l’état du menu.
 
-<PreviewFrame>
-  ```tsx preview file="../../en/docs/_snippets/menu/root-provider.tsx"
+<ExampleFrame variant="component">
+  <MenuRootProvider />
+</ExampleFrame>
 
+<ExampleCode>
+<div className="docs-reference">
+  <Tabs
+    groupId="framework"
+    values={[
+      { label: 'React', value: 'react' },
+      { label: 'Solid', value: 'solid' },
+    ]}
+    className="docs-tabs"
+  >
+    <Tab value="react">
+
+```tsx pure file="../../../src/components/examples/menu/root-provider.tsx"
 ```
-</PreviewFrame>
+
+    </Tab>
+    <Tab value="solid">
+
+<CodeBlockRuntime lang="tsx" code={menuSolidRootProvider} />
+
+    </Tab>
+  </Tabs>
+
+**Styles**
+
+```css file="../../../src/components/examples/menu/menu-root-provider.module.css"
+```
+</div>
+
+</ExampleCode>
 
 ### Événement de sélection
 
 Utilisez `onSelect(details)` sur la racine lorsqu’un seul gestionnaire doit réagir à chaque sélection. Lisez la valeur sélectionnée dans `details.value`.
 
-<PreviewFrame maxWidth="xs">
-  ```tsx preview file="../../en/docs/_snippets/menu/select-event.tsx"
+<ExampleFrame variant="component">
+  <MenuSelectEvent />
+</ExampleFrame>
 
+<ExampleCode>
+<div className="docs-reference">
+  <Tabs
+    groupId="framework"
+    values={[
+      { label: 'React', value: 'react' },
+      { label: 'Solid', value: 'solid' },
+    ]}
+    className="docs-tabs"
+  >
+    <Tab value="react">
+
+```tsx pure file="../../../src/components/examples/menu/select-event.tsx"
 ```
-</PreviewFrame>
+
+    </Tab>
+    <Tab value="solid">
+
+<CodeBlockRuntime lang="tsx" code={menuSolidSelectEvent} />
+
+    </Tab>
+  </Tabs>
+
+**Styles**
+
+```css file="../../../src/components/examples/menu/menu-select-event.module.css"
+```
+</div>
+
+</ExampleCode>
 
 ### Avec flèche
 
 Ajoutez `Menu.Arrow` et `Menu.ArrowTip` directement dans `Menu.Content` lorsque la fenêtre contextuelle doit être visuellement reliée à son déclencheur.
 
-<PreviewFrame>
-  ```tsx preview file="../../en/docs/_snippets/menu/with-arrow.tsx"
+<ExampleFrame variant="component">
+  <MenuWithArrow />
+</ExampleFrame>
 
+<ExampleCode>
+<div className="docs-reference">
+  <Tabs
+    groupId="framework"
+    values={[
+      { label: 'React', value: 'react' },
+      { label: 'Solid', value: 'solid' },
+    ]}
+    className="docs-tabs"
+  >
+    <Tab value="react">
+
+```tsx pure file="../../../src/components/examples/menu/with-arrow.tsx"
 ```
-</PreviewFrame>
+
+    </Tab>
+    <Tab value="solid">
+
+<CodeBlockRuntime lang="tsx" code={menuSolidWithArrow} />
+
+    </Tab>
+  </Tabs>
+</div>
+
+</ExampleCode>
 
 ### Personnalisation avancée
 
 Utilisez les composants utilitaires pour les mises en page courantes, puis composez directement les parties Ark lorsqu’un élément ou un lien nécessite une structure personnalisée.
 
-<PreviewFrame>
-  ```tsx preview file="../../en/docs/_snippets/menu/advanced-customization.tsx"
+<ExampleFrame variant="component">
+  <MenuAdvancedCustomization />
+</ExampleFrame>
 
+<ExampleCode>
+<div className="docs-reference">
+  <Tabs
+    groupId="framework"
+    values={[
+      { label: 'React', value: 'react' },
+      { label: 'Solid', value: 'solid' },
+    ]}
+    className="docs-tabs"
+  >
+    <Tab value="react">
+
+```tsx pure file="../../../src/components/examples/menu/advanced-customization.tsx"
 ```
-</PreviewFrame>
+
+    </Tab>
+    <Tab value="solid">
+
+<CodeBlockRuntime lang="tsx" code={menuSolidAdvancedCustomization} />
+
+    </Tab>
+  </Tabs>
+</div>
+
+</ExampleCode>
 
 ## Styles
 
@@ -328,6 +812,6 @@ Utilisez les composants utilitaires pour les mises en page courantes, puis compo
 
 Utilisez les attributs d’état d’Ark pour styliser le menu et ses éléments :
 
-- Attributs Ark : `[data-scope='menu']`, `[data-part='trigger']`, `[data-part='indicator']`, `[data-part='content']`, `[data-part='item']`, `[data-type='checkbox' | 'radio']`, `[data-state='open' | 'closed' | 'checked' | 'unchecked']`, `[data-current]`, `[data-highlighted]`, `[data-disabled]`, `[data-placement]` et `[data-side]`.
-- Attributs moduix : `[data-slot='menu-trigger']`, `[data-slot='menu-trigger-icon']`, `[data-slot='menu-indicator']`, `[data-slot='menu-context-trigger']`, `[data-slot='menu-positioner']`, `[data-slot='menu-content']`, `[data-slot='menu-arrow']`, `[data-slot='menu-arrow-tip']`, `[data-slot='menu-item']`, `[data-slot='menu-trigger-item']`, `[data-slot='menu-trigger-item-icon']`, `[data-slot='menu-separator']`, `[data-slot='menu-item-group']`, `[data-slot='menu-item-group-label']`, `[data-slot='menu-radio-item-group']`, `[data-slot='menu-radio-item']`, `[data-slot='menu-checkbox-item']`, `[data-slot='menu-item-indicator']`, `[data-slot='menu-item-text']`, `[data-slot='menu-item-text-content']`, `[data-slot='menu-item-text-icon']`, `[data-slot='menu-item-text-label']`, `[data-slot='menu-item-shortcut']` et `[data-indicator-position='start' | 'end' | 'none']`.
+- Attributs Ark : `[data-scope='menu']`, `[data-part='trigger']`, `[data-part='indicator']`, `[data-part='content']`, `[data-part='viewport']`, `[data-part='item']`, `[data-type='checkbox' | 'radio']`, `[data-state='open' | 'closed' | 'checked' | 'unchecked']`, `[data-current]`, `[data-highlighted]`, `[data-disabled]`, `[data-placement]` et `[data-side]`.
+- Attributs moduix : `[data-slot='menu-trigger']`, `[data-slot='menu-trigger-icon']`, `[data-slot='menu-indicator']`, `[data-slot='menu-context-trigger']`, `[data-slot='menu-positioner']`, `[data-slot='menu-content']`, `[data-slot='menu-viewport']`, `[data-slot='menu-arrow']`, `[data-slot='menu-arrow-tip']`, `[data-slot='menu-item']`, `[data-slot='menu-trigger-item']`, `[data-slot='menu-trigger-item-icon']`, `[data-slot='menu-separator']`, `[data-slot='menu-item-group']`, `[data-slot='menu-item-group-label']`, `[data-slot='menu-radio-item-group']`, `[data-slot='menu-radio-item']`, `[data-slot='menu-checkbox-item']`, `[data-slot='menu-item-indicator']`, `[data-slot='menu-item-text']`, `[data-slot='menu-item-text-content']`, `[data-slot='menu-item-text-icon']`, `[data-slot='menu-item-text-label']`, `[data-slot='menu-item-shortcut']` et `[data-indicator-position='start' | 'end' | 'none']`.
 - Variables de positionnement : `--reference-width`, `--available-width`, `--available-height`, `--transform-origin`, `--layer-index`, `--arrow-size` et `--arrow-background`.

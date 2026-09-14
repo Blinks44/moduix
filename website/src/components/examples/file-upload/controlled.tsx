@@ -1,0 +1,41 @@
+import { FileUpload } from '@moduix/react/file-upload';
+import { useState } from 'react';
+import { PreviewMeta } from '@/components/mdx/Components';
+import styles from '@/components/examples/file-upload/file-upload-controlled.module.css';
+
+const initialFiles = [
+  new File(['Welcome to moduix'], 'README.md', {
+    type: 'text/plain',
+  }),
+];
+export default function ControlledFileUploadDemo() {
+  const [files, setFiles] = useState(initialFiles);
+  return (
+    <>
+      <FileUpload
+        className={styles.root}
+        acceptedFiles={files}
+        onFileChange={(details) => setFiles(details.acceptedFiles)}
+      >
+        <FileUpload.Label>Attachments</FileUpload.Label>
+        <FileUpload.Trigger>Choose files</FileUpload.Trigger>
+        <FileUpload.ItemGroup>
+          <FileUpload.Context>
+            {({ acceptedFiles }) =>
+              acceptedFiles.map((file) => (
+                <FileUpload.Item key={file.name} file={file}>
+                  <FileUpload.ItemName />
+                  <FileUpload.ItemDeleteTrigger aria-label={`Remove ${file.name}`} />
+                </FileUpload.Item>
+              ))
+            }
+          </FileUpload.Context>
+        </FileUpload.ItemGroup>
+        <FileUpload.HiddenInput />
+      </FileUpload>
+      <PreviewMeta>
+        <output>Selected: {files.length}</output>
+      </PreviewMeta>
+    </>
+  );
+}

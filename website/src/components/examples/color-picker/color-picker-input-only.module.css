@@ -1,0 +1,10 @@
+.controlSwatch {
+  position: relative;
+  display: grid;
+  width: var(--moduix-size-md);
+  height: var(--moduix-size-md);
+  flex-shrink: 0;
+  overflow: hidden;
+  border-radius: var(--moduix-radius-md);
+  box-shadow: inset 0 0 0 var(--moduix-border-width-sm) var(--moduix-color-border);
+}

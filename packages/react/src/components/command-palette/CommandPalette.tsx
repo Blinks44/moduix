@@ -9,17 +9,17 @@ import {
 import { Dialog as DialogPrimitive, useDialog, useDialogContext } from '@ark-ui/react/dialog';
 import type { HTMLArkProps } from '@ark-ui/react/factory';
 import { ark } from '@ark-ui/react/factory';
+import { isHotKey } from '@zag-js/hotkeys';
 import { clsx } from 'clsx';
 import type { ComponentProps, ComponentRef, ForwardedRef } from 'react';
 import { forwardRef, useEffect } from 'react';
-import { CheckIcon } from '@/lib/moduix/icons/ui';
-import { normalizeClassName } from '@/lib/moduix/normalizeClassName';
+import { CheckIcon, CloseIcon } from '@/lib/moduix/icons/ui';
 import {
   OverlayPortal,
   OverlayPortalProvider,
   type OverlayPortalProps,
 } from '@/lib/moduix/overlayPortal';
-import { CloseButton } from '../close-button';
+import closeButtonStyles from '../close-button/CloseButton.module.css';
 import { Kbd } from '../kbd';
 import { ScrollArea } from '../scroll-area';
 import styles from './CommandPalette.module.css';
@@ -29,71 +29,13 @@ const DEFAULT_SEARCH_INPUT_LABEL = 'Search commands';
 
 type CommandPaletteRootProps = ComponentProps<typeof DialogPrimitive.Root> & {
   shortcut?: false | string;
-  shortcutTarget?: Document | HTMLElement | null;
 } & OverlayPortalProps;
 
 type CommandPaletteRootProviderProps = ComponentProps<typeof DialogPrimitive.RootProvider> &
   OverlayPortalProps;
 
-type CommandPaletteSearchProps = ComponentProps<typeof ComboboxPrimitive.Input> & {
-  controlProps?: ComponentProps<typeof ComboboxPrimitive.Control>;
-  clearTriggerProps?: ComponentProps<typeof CloseButton.Root>;
-};
-
-function isShortcutMatch(event: KeyboardEvent, shortcut: string) {
-  const parts = shortcut
-    .toLowerCase()
-    .split('+')
-    .map((part) => part.trim())
-    .filter(Boolean);
-  const [modifier, key] = parts;
-
-  if (!modifier || !key || parts.length !== 2 || event.shiftKey) {
-    return false;
-  }
-
-  const eventKey = event.key.toLowerCase();
-  const eventCode =
-    event.code.startsWith('Key') || event.code.startsWith('Digit')
-      ? event.code.slice(event.code.startsWith('Key') ? 3 : 5).toLowerCase()
-      : event.code.toLowerCase();
-
-  if (eventKey !== key && eventCode !== key) {
-    return false;
-  }
-
-  if (modifier === 'mod') {
-    return (event.metaKey || event.ctrlKey) && !event.altKey;
-  }
-
-  if (modifier === 'ctrl' || modifier === 'control') {
-    return event.ctrlKey && !event.metaKey && !event.altKey;
-  }
-
-  if (modifier === 'meta' || modifier === 'cmd' || modifier === 'command') {
-    return event.metaKey && !event.ctrlKey && !event.altKey;
-  }
-
-  if (modifier === 'alt' || modifier === 'option') {
-    return event.altKey && !event.metaKey && !event.ctrlKey;
-  }
-
-  return false;
-}
-
-function isEditableTarget(target: EventTarget | null) {
-  if (!(target instanceof Element)) {
-    return false;
-  }
-
-  return (
-    target.closest('input, textarea, select, [contenteditable], [contenteditable="true"]') !== null
-  );
-}
-
 function CommandPaletteRoot({
   shortcut = false,
-  shortcutTarget,
   lazyMount = true,
   unmountOnExit = true,
   immediate,
@@ -108,18 +50,19 @@ function CommandPaletteRoot({
   const dialog = useDialog(props);
 
   useEffect(() => {
-    if (!shortcut || shortcutTarget === null) {
+    if (!shortcut) {
       return;
     }
 
-    const target = shortcutTarget ?? document;
     const handleKeyDown = (event: KeyboardEvent) => {
       if (
         event.defaultPrevented ||
         event.repeat ||
         event.isComposing ||
-        !isShortcutMatch(event, shortcut) ||
-        (!dialog.open && isEditableTarget(event.target))
+        !isHotKey(shortcut, event, {
+          enableOnContentEditable: dialog.open,
+          enableOnFormTags: dialog.open,
+        })
       ) {
         return;
       }
@@ -128,10 +71,9 @@ function CommandPaletteRoot({
       dialog.setOpen(!dialog.open);
     };
 
-    const eventListener = handleKeyDown as EventListener;
-    target.addEventListener('keydown', eventListener);
-    return () => target.removeEventListener('keydown', eventListener);
-  }, [dialog, shortcut, shortcutTarget]);
+    document.addEventListener('keydown', handleKeyDown);
+    return () => document.removeEventListener('keydown', handleKeyDown);
+  }, [dialog, shortcut]);
 
   return (
     <OverlayPortalProvider portalled={portalled} portalRef={portalRef}>
@@ -177,7 +119,7 @@ const CommandPaletteTrigger = forwardRef<
       ref={ref}
       asChild={asChild}
       data-slot="command-palette-trigger"
-      className={clsx(!asChild && styles.trigger, normalizeClassName(className))}
+      className={clsx(!asChild && styles.trigger, className)}
       {...props}
     />
   );
@@ -192,7 +134,7 @@ const CommandPaletteBackdrop = forwardRef<
       <DialogPrimitive.Backdrop
         ref={ref}
         data-slot="command-palette-backdrop"
-        className={clsx(styles.backdrop, normalizeClassName(className))}
+        className={clsx(styles.backdrop, className)}
         {...props}
       />
     </OverlayPortal>
@@ -208,7 +150,7 @@ const CommandPalettePositioner = forwardRef<
       <DialogPrimitive.Positioner
         ref={ref}
         data-slot="command-palette-positioner"
-        className={clsx(styles.positioner, normalizeClassName(className))}
+        className={clsx(styles.positioner, className)}
         {...props}
       />
     </OverlayPortal>
@@ -223,7 +165,7 @@ const CommandPaletteContent = forwardRef<
     <DialogPrimitive.Content
       ref={ref}
       data-slot="command-palette-content"
-      className={clsx(styles.content, normalizeClassName(className))}
+      className={clsx(styles.content, className)}
       {...props}
     />
   );
@@ -253,7 +195,7 @@ const CommandPaletteTitle = forwardRef<
     <DialogPrimitive.Title
       ref={ref}
       data-slot="command-palette-title"
-      className={clsx(styles.title, normalizeClassName(className))}
+      className={clsx(styles.title, className)}
       {...props}
     />
   );
@@ -267,7 +209,7 @@ const CommandPaletteDescription = forwardRef<
     <DialogPrimitive.Description
       ref={ref}
       data-slot="command-palette-description"
-      className={clsx(styles.description, normalizeClassName(className))}
+      className={clsx(styles.description, className)}
       {...props}
     />
   );
@@ -279,7 +221,7 @@ const CommandPaletteHeader = forwardRef<HTMLDivElement, HTMLArkProps<'div'>>(
       <ark.div
         ref={ref}
         data-slot="command-palette-header"
-        className={clsx(styles.header, normalizeClassName(className))}
+        className={clsx(styles.header, className)}
         {...props}
       />
     );
@@ -292,7 +234,7 @@ const CommandPaletteBody = forwardRef<HTMLDivElement, HTMLArkProps<'div'>>(
       <ark.div
         ref={ref}
         data-slot="command-palette-body"
-        className={clsx(styles.body, normalizeClassName(className))}
+        className={clsx(styles.body, className)}
         {...props}
       />
     );
@@ -325,7 +267,7 @@ const CommandPaletteCombobox = forwardRef(function CommandPaletteCombobox<T exte
     <ComboboxPrimitive.Root
       ref={ref}
       data-slot="command-palette-combobox"
-      className={clsx(styles.combobox, normalizeClassName(className))}
+      className={clsx(styles.combobox, className)}
       open={open}
       inputBehavior={inputBehavior}
       selectionBehavior={selectionBehavior}
@@ -345,7 +287,7 @@ const CommandPaletteControl = forwardRef<
     <ComboboxPrimitive.Control
       ref={ref}
       data-slot="command-palette-control"
-      className={clsx(styles.control, normalizeClassName(className))}
+      className={clsx(styles.control, className)}
       {...props}
     />
   );
@@ -359,7 +301,7 @@ const CommandPaletteInput = forwardRef<
     <ComboboxPrimitive.Input
       ref={ref}
       data-slot="command-palette-input"
-      className={clsx(styles.input, normalizeClassName(className))}
+      className={clsx(styles.input, className)}
       {...props}
     />
   );
@@ -367,43 +309,34 @@ const CommandPaletteInput = forwardRef<
 
 const CommandPaletteSearch = forwardRef<
   ComponentRef<typeof ComboboxPrimitive.Input>,
-  CommandPaletteSearchProps
+  ComponentProps<typeof ComboboxPrimitive.Input>
 >(function CommandPaletteSearch(
-  {
-    'aria-label': ariaLabel,
-    'aria-labelledby': ariaLabelledBy,
-    clearTriggerProps,
-    controlProps,
-    ...props
-  },
+  { 'aria-label': ariaLabel, 'aria-labelledby': ariaLabelledBy, ...props },
   ref,
 ) {
   return (
-    <CommandPaletteControl {...controlProps}>
+    <CommandPaletteControl>
       <CommandPaletteInput
         ref={ref}
         aria-label={ariaLabel ?? (ariaLabelledBy == null ? DEFAULT_SEARCH_INPUT_LABEL : undefined)}
         aria-labelledby={ariaLabelledBy}
         {...props}
       />
-      <CommandPaletteClearTrigger {...clearTriggerProps} />
+      <CommandPaletteClearTrigger />
     </CommandPaletteControl>
   );
 });
 
 const CommandPaletteClearTrigger = forwardRef<
-  ComponentRef<typeof CloseButton.Root>,
-  ComponentProps<typeof CloseButton.Root>
+  ComponentRef<typeof ComboboxPrimitive.ClearTrigger>,
+  ComponentProps<typeof ComboboxPrimitive.ClearTrigger>
 >(function CommandPaletteClearTrigger(
   {
     asChild,
     className,
     children,
-    disabled,
     onClick,
     onPointerDown,
-    tabIndex,
-    'aria-controls': ariaControls,
     'aria-label': ariaLabel,
     'aria-labelledby': ariaLabelledBy,
     ...props
@@ -412,51 +345,40 @@ const CommandPaletteClearTrigger = forwardRef<
 ) {
   return (
     <ComboboxPrimitive.Context>
-      {(combobox) => {
-        const inputProps = combobox.getInputProps();
-        const isInvalid =
-          inputProps['aria-invalid'] === true || inputProps['aria-invalid'] === 'true';
+      {(combobox) => (
+        <ComboboxPrimitive.ClearTrigger
+          ref={ref}
+          asChild={asChild}
+          {...props}
+          data-slot="command-palette-clear-trigger"
+          hidden={combobox.inputValue.length === 0}
+          aria-label={
+            ariaLabel ??
+            (!asChild && children == null && ariaLabelledBy == null
+              ? DEFAULT_CLEAR_TRIGGER_LABEL
+              : undefined)
+          }
+          aria-labelledby={ariaLabelledBy}
+          className={clsx(closeButtonStyles.root, styles.clearTrigger, className)}
+          onClick={(event) => {
+            onClick?.(event);
 
-        return (
-          <CloseButton.Root
-            ref={ref}
-            asChild={asChild}
-            {...props}
-            disabled={disabled ?? combobox.disabled}
-            data-scope="combobox"
-            data-part="clear-trigger"
-            data-slot="command-palette-clear-trigger"
-            data-invalid={isInvalid ? '' : undefined}
-            hidden={combobox.inputValue.length === 0}
-            tabIndex={tabIndex ?? -1}
-            aria-controls={ariaControls ?? inputProps.id}
-            aria-label={
-              ariaLabel ??
-              (!asChild && children == null && ariaLabelledBy == null
-                ? DEFAULT_CLEAR_TRIGGER_LABEL
-                : undefined)
+            if (!event.defaultPrevented) {
+              event.preventDefault();
+              combobox.setInputValue('');
             }
-            aria-labelledby={ariaLabelledBy}
-            className={clsx(styles.clearTrigger, normalizeClassName(className))}
-            onPointerDown={(event) => {
-              onPointerDown?.(event);
+          }}
+          onPointerDown={(event) => {
+            onPointerDown?.(event);
 
-              if (event.button === 0) {
-                event.preventDefault();
-              }
-            }}
-            onClick={(event) => {
-              onClick?.(event);
-
-              if (!event.defaultPrevented) {
-                combobox.setInputValue('');
-              }
-            }}
-          >
-            {children}
-          </CloseButton.Root>
-        );
-      }}
+            if (event.button === 0) {
+              event.preventDefault();
+            }
+          }}
+        >
+          {children ?? <CloseIcon />}
+        </ComboboxPrimitive.ClearTrigger>
+      )}
     </ComboboxPrimitive.Context>
   );
 });
@@ -469,7 +391,7 @@ const CommandPaletteList = forwardRef<
     <ComboboxPrimitive.Content
       ref={ref}
       data-slot="command-palette-list"
-      className={clsx(styles.list, normalizeClassName(className))}
+      className={clsx(styles.list, className)}
       {...props}
     >
       <ScrollArea data-slot="command-palette-scroll-area" className={styles.scrollArea}>
@@ -497,7 +419,7 @@ const CommandPaletteEmpty = forwardRef<
     <ComboboxPrimitive.Empty
       ref={ref}
       data-slot="command-palette-empty"
-      className={clsx(styles.empty, normalizeClassName(className))}
+      className={clsx(styles.empty, className)}
       {...props}
     />
   );
@@ -511,7 +433,7 @@ const CommandPaletteItemGroup = forwardRef<
     <ComboboxPrimitive.ItemGroup
       ref={ref}
       data-slot="command-palette-item-group"
-      className={clsx(styles.itemGroup, normalizeClassName(className))}
+      className={clsx(styles.itemGroup, className)}
       {...props}
     />
   );
@@ -525,7 +447,7 @@ const CommandPaletteItemGroupLabel = forwardRef<
     <ComboboxPrimitive.ItemGroupLabel
       ref={ref}
       data-slot="command-palette-item-group-label"
-      className={clsx(styles.itemGroupLabel, normalizeClassName(className))}
+      className={clsx(styles.itemGroupLabel, className)}
       {...props}
     />
   );
@@ -539,7 +461,7 @@ const CommandPaletteItem = forwardRef<
     <ComboboxPrimitive.Item
       ref={ref}
       data-slot="command-palette-item"
-      className={clsx(styles.item, normalizeClassName(className))}
+      className={clsx(styles.item, className)}
       {...props}
     />
   );
@@ -553,7 +475,7 @@ const CommandPaletteItemText = forwardRef<
     <ComboboxPrimitive.ItemText
       ref={ref}
       data-slot="command-palette-item-text"
-      className={clsx(styles.itemText, normalizeClassName(className))}
+      className={clsx(styles.itemText, className)}
       {...props}
     />
   );
@@ -567,7 +489,7 @@ const CommandPaletteItemIndicator = forwardRef<
     <ComboboxPrimitive.ItemIndicator
       ref={ref}
       data-slot="command-palette-item-indicator"
-      className={clsx(styles.itemIndicator, normalizeClassName(className))}
+      className={clsx(styles.itemIndicator, className)}
       {...props}
     >
       {children ?? <CheckIcon />}
@@ -581,7 +503,7 @@ const CommandPaletteItemIcon = forwardRef<HTMLSpanElement, HTMLArkProps<'span'>>
       <ark.span
         ref={ref}
         data-slot="command-palette-item-icon"
-        className={clsx(styles.itemIcon, normalizeClassName(className))}
+        className={clsx(styles.itemIcon, className)}
         {...props}
       />
     );
@@ -594,7 +516,7 @@ const CommandPaletteItemLabel = forwardRef<HTMLSpanElement, HTMLArkProps<'span'>
       <ark.span
         ref={ref}
         data-slot="command-palette-item-label"
-        className={clsx(styles.itemLabel, normalizeClassName(className))}
+        className={clsx(styles.itemLabel, className)}
         {...props}
       />
     );
@@ -607,7 +529,7 @@ const CommandPaletteItemDescription = forwardRef<HTMLSpanElement, HTMLArkProps<'
       <ark.span
         ref={ref}
         data-slot="command-palette-item-description"
-        className={clsx(styles.itemDescription, normalizeClassName(className))}
+        className={clsx(styles.itemDescription, className)}
         {...props}
       />
     );
@@ -620,7 +542,7 @@ const CommandPaletteItemMeta = forwardRef<HTMLSpanElement, HTMLArkProps<'span'>>
       <ark.span
         ref={ref}
         data-slot="command-palette-item-meta"
-        className={clsx(styles.itemMeta, normalizeClassName(className))}
+        className={clsx(styles.itemMeta, className)}
         {...props}
       />
     );
@@ -634,7 +556,7 @@ const CommandPaletteSeparator = forwardRef<HTMLDivElement, HTMLArkProps<'div'>>(
         ref={ref}
         role="separator"
         data-slot="command-palette-separator"
-        className={clsx(styles.separator, normalizeClassName(className))}
+        className={clsx(styles.separator, className)}
         {...props}
       />
     );
@@ -647,7 +569,7 @@ const CommandPaletteFooter = forwardRef<HTMLDivElement, HTMLArkProps<'div'>>(
       <ark.div
         ref={ref}
         data-slot="command-palette-footer"
-        className={clsx(styles.footer, normalizeClassName(className))}
+        className={clsx(styles.footer, className)}
         {...props}
       />
     );
@@ -656,11 +578,7 @@ const CommandPaletteFooter = forwardRef<HTMLDivElement, HTMLArkProps<'div'>>(
 
 function CommandPaletteKbd({ className, ...props }: ComponentProps<typeof Kbd.Root>) {
   return (
-    <Kbd.Root
-      data-slot="command-palette-kbd"
-      className={clsx(styles.kbd, normalizeClassName(className))}
-      {...props}
-    />
+    <Kbd.Root data-slot="command-palette-kbd" className={clsx(styles.kbd, className)} {...props} />
   );
 }
 

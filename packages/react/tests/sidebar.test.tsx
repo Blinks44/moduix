@@ -85,11 +85,13 @@ test('preserves active link composition for primary and nested navigation', () =
             <Sidebar.NavigationButton asChild active size="sm">
               <a href="#overview">Overview</a>
             </Sidebar.NavigationButton>
+            <Sidebar.NavigationBadge data-testid="primary-badge">12</Sidebar.NavigationBadge>
             <Sidebar.NavigationSubList>
               <Sidebar.NavigationSubItem>
                 <Sidebar.NavigationSubButton asChild active>
                   <a href="#details">Details</a>
                 </Sidebar.NavigationSubButton>
+                <Sidebar.NavigationBadge data-testid="nested-badge">3</Sidebar.NavigationBadge>
               </Sidebar.NavigationSubItem>
               <Sidebar.NavigationSubItem>
                 <Sidebar.NavigationSubButton href="#very-long-item">
@@ -116,6 +118,11 @@ test('preserves active link composition for primary and nested navigation', () =
   expect(details).toHaveAttribute('aria-current', 'page');
   expect(details).toHaveAttribute('data-slot', 'sidebar-navigation-sub-button');
   expect(details).toHaveAttribute('data-active');
+  expect(screen.getByTestId('primary-badge')).toHaveAttribute(
+    'data-slot',
+    'sidebar-navigation-badge',
+  );
+  expect(screen.getByTestId('nested-badge')).toHaveTextContent('3');
   expect(screen.getByText('A very long nested navigation item')).toHaveAttribute(
     'data-slot',
     'sidebar-navigation-sub-label',
@@ -186,13 +193,15 @@ test('marks collapsed navigation content as hidden by default', () => {
   expect(screen.getByTestId('collapsed-projects')).toHaveAttribute('hidden');
 });
 
-test('allows a navigation list directly below a group action', () => {
+test('composes an explicit group header', () => {
   render(
     <Sidebar>
       <Sidebar.Panel>
         <Sidebar.Group>
-          <Sidebar.GroupLabel>Workspace</Sidebar.GroupLabel>
-          <Sidebar.GroupAction aria-label="Create workspace item">+</Sidebar.GroupAction>
+          <Sidebar.GroupHeader>
+            <Sidebar.GroupLabel>Workspace</Sidebar.GroupLabel>
+            <Sidebar.GroupAction aria-label="Create workspace item">+</Sidebar.GroupAction>
+          </Sidebar.GroupHeader>
           <Sidebar.NavigationList>
             <Sidebar.NavigationItem>
               <Sidebar.NavigationButton>Overview</Sidebar.NavigationButton>

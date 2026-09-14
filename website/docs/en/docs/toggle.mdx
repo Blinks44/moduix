@@ -4,9 +4,30 @@ component: toggle
 description: A two-state button for compact actions such as favorites, formatting controls, and toolbar actions.
 ---
 
-import * as ToggleDocs from '@/components/examples/toggle';
+import * as ToggleDocs from '@/components/examples/toggle/css-properties';
+import ToggleAdvancedCustomization from '@/components/examples/toggle/advanced-customization.tsx';
+import ToggleAsChild from '@/components/examples/toggle/aschild.tsx';
+import ToggleBasic from '@/components/examples/toggle/basic.tsx';
+import ToggleControlled from '@/components/examples/toggle/controlled.tsx';
+import ToggleDisabled from '@/components/examples/toggle/disabled.tsx';
+import ToggleIcons from '@/components/examples/toggle/icons.tsx';
+import ToggleIndicator from '@/components/examples/toggle/indicator.tsx';
+import ToggleSizes from '@/components/examples/toggle/sizes.tsx';
+import ToggleVariants from '@/components/examples/toggle/variants.tsx';
+import toggleSolidAdvancedCustomization from '../../../snippets/toggle/solid/advanced-customization.tsx?raw';
+import toggleSolidAsChild from '../../../snippets/toggle/solid/aschild.tsx?raw';
+import toggleSolidBasic from '../../../snippets/toggle/solid/basic.tsx?raw';
+import toggleSolidControlled from '../../../snippets/toggle/solid/controlled.tsx?raw';
+import toggleSolidDisabled from '../../../snippets/toggle/solid/disabled.tsx?raw';
+import toggleSolidIcons from '../../../snippets/toggle/solid/icons.tsx?raw';
+import toggleSolidIndicator from '../../../snippets/toggle/solid/indicator.tsx?raw';
+import toggleSolidSizes from '../../../snippets/toggle/solid/sizes.tsx?raw';
+import toggleSolidVariants from '../../../snippets/toggle/solid/variants.tsx?raw';
 
 ## API Reference
+
+`Toggle` wraps Ark UI's Toggle primitive and adds moduix visual props for variants and sizes.
+Import it from `@moduix/react/toggle` or `@moduix/solid/toggle`.
 
 <PrimitiveReference href="https://ark-ui.com/docs/components/toggle" />
 
@@ -21,17 +42,68 @@ Use `Toggle` when the control should behave like a button and expose whether it 
 
 ## Basic
 
-Start with a standalone `Toggle`. It is the short form of `Toggle.Root` and preserves Ark's pressed-state behavior.
+Toggle ships for React and Solid in both the CSS Modules and Tailwind packages. The rendered preview
+below uses the React CSS Modules package; the framework tabs show native source for the same public
+contract.
 
-<style>{ToggleDocs.toggleBasicCss}</style>
+Use `Toggle` for the common case. It is shorthand for `Toggle.Root` and preserves Ark's
+pressed-state behavior.
 
-```tsx preview file="./_snippets/toggle/basic.tsx"
+<ExampleFrame variant="component">
+  <ToggleBasic />
+</ExampleFrame>
 
+<ExampleCode>
+<div className="docs-reference">
+  <Tabs
+    groupId="framework"
+    values={[
+      { label: 'React', value: 'react' },
+      { label: 'Solid', value: 'solid' },
+    ]}
+    className="docs-tabs"
+  >
+    <Tab value="react">
+
+```tsx pure file="../../../src/components/examples/toggle/basic.tsx"
 ```
+
+    </Tab>
+    <Tab value="solid">
+
+<CodeBlockRuntime lang="tsx" code={toggleSolidBasic} />
+
+    </Tab>
+  </Tabs>
+</div>
+</ExampleCode>
 
 ## Install with shadcn
 
-<ShadcnInstall packageName="toggle" />
+See [Quick Start](/docs/quick-start) for full package setup, registry configuration, and styling guidance.
+
+<Tabs groupId="framework">
+  <Tab label="React" value="react">
+
+<ShadcnInstallOptions
+  options={[
+    { label: 'CSS Modules', command: 'shadcn@latest add @moduix-react/toggle' },
+    { label: 'Tailwind CSS', command: 'shadcn@latest add @moduix-react-tailwind/toggle' },
+  ]}
+/>
+
+  </Tab>
+  <Tab label="Solid" value="solid">
+
+<ShadcnInstallOptions
+  options={[
+    { label: 'CSS Modules', command: 'shadcn@latest add @moduix-solid/toggle' },
+    { label: 'Tailwind CSS', command: 'shadcn@latest add @moduix-solid-tailwind/toggle' },
+  ]}
+/>
+
+  </Tab>
+</Tabs>
 
 ## Anatomy
 
@@ -42,141 +114,318 @@ Toggle / Toggle.Root
 Toggle.Context (state reader, not a DOM part)
 ```
 
-| Part                     | Role                                                                              |
-| ------------------------ | --------------------------------------------------------------------------------- |
-| `Toggle` / `Toggle.Root` | Two-state button root that handles pressed, focus, disabled, and `asChild` behavior. |
-| `Toggle.Indicator`       | Renders content when pressed and optional `fallback` content when the toggle is off.   |
-| `Toggle.Context`         | Reads the nearest toggle state for custom descendants; it does not render a DOM part.    |
+| Part | Role |
+| ---- | ---- |
+| `Toggle` / `Toggle.Root` | Root part that owns pressed state, focus, disabled state, and `asChild` composition. |
+| `Toggle.Indicator` | Optional part that renders pressed content and its `fallback` when the toggle is off. |
+| `Toggle.Context` | Reads the nearest toggle state for custom descendants; it does not render a DOM part. |
 
 ## Composition
 
-### Recommended composition
-
-Use `Toggle` for the standard root. It forwards refs to Ark's button element and supports
-`pressed`, `defaultPressed`, `onPressedChange(pressed)`, `disabled`, `asChild`, and regular button
-attributes.
-
-`Toggle.Indicator` is optional. Use it when the content inside the button should change with its
-pressed state.
-
-### When to go custom
-
-Use `asChild` when you need the toggle behavior on a different button element. Pass a single
-button-like child so Ark can merge its required props and behavior into that element.
-
-For a custom descendant that reads state, use `Toggle.Context` or `useToggleContext()` from
-`@moduix/react/toggle`. Both read the nearest toggle state without a direct Ark import.
-
-Use `ToggleGroup` instead of coordinating standalone toggles yourself when several pressed buttons
-belong to the same choice set.
-
-### Default props
-
-| Prop      | Default   | Notes                                                                                     |
-| --------- | --------- | ----------------------------------------------------------------------------------------- |
-| `variant` | `default` | moduix visual treatment: filled secondary `default`, bordered `outline`, or transparent `ghost`. |
-| `size`    | `md`      | Spacing for text toggles or square geometry for icon-only toggles.                                |
-
-### Behavioral notes
-
-- Icon-only toggles need an accessible name such as `aria-label="Favorite"`.
-- `disabled` keeps the current visual state but prevents interaction.
-- Ark writes `data-state="on" | "off"`, `data-pressed`, and `data-disabled` for styling.
-- Ark Toggle does not expose `RootProvider` or a hidden form input.
-- `Toggle.Context` and `useToggleContext()` are available from `@moduix/react/toggle`.
-- Legacy `render` and `nativeButton` are not part of the Ark-backed API; use `asChild`.
-- Refs on `Toggle` and `Toggle.Root` target the rendered button. Refs on `Toggle.Indicator` target
-  the rendered indicator element.
+`Toggle` is shorthand for `Toggle.Root`. Use `defaultPressed` for an uncontrolled toggle, or pass
+`pressed` with `onPressedChange` when application state owns the value. Use `Toggle.Indicator` when
+the button content changes with its pressed state. For custom descendants that need the state, use
+`Toggle.Context` or `useToggleContext()` from the matching package. Use `asChild` when another button
+should host the toggle behavior. In Solid, `asChild` takes a render function; in React, it takes one
+button-like child.
 
 ## Examples
 
 ### asChild
 
-Use `asChild` when you need toggle behavior on a different button element. The child remains the
-only button, so Ark can add its pressed-state and keyboard behavior without conflicting styles.
+Use `asChild` when another button should host the toggle behavior. Keep one button-like child so Ark
+can merge its interaction props and accessibility state into that element.
 
-```tsx preview file="./_snippets/toggle/aschild.tsx"
+<ExampleFrame variant="component">
+  <ToggleAsChild />
+</ExampleFrame>
 
+<ExampleCode>
+<div className="docs-reference">
+  <Tabs
+    groupId="framework"
+    values={[
+      { label: 'React', value: 'react' },
+      { label: 'Solid', value: 'solid' },
+    ]}
+    className="docs-tabs"
+  >
+    <Tab value="react">
+
+```tsx pure file="../../../src/components/examples/toggle/aschild.tsx"
 ```
+
+    </Tab>
+    <Tab value="solid">
+
+<CodeBlockRuntime lang="tsx" code={toggleSolidAsChild} />
+
+    </Tab>
+  </Tabs>
+</div>
+</ExampleCode>
 
 ### Controlled
 
-Use controlled `pressed` state when the toggle is part of application state or analytics.
+Control `pressed` when the toggle is part of application state, analytics, or another interaction.
 
-<style>{ToggleDocs.toggleStackCss}</style>
+<ExampleFrame variant="component">
+  <ToggleControlled />
+</ExampleFrame>
 
-<PreviewFrame contentWidth="fit-content" maxWidth="sm">
-  ```tsx preview file="./_snippets/toggle/controlled.tsx"
+<ExampleCode>
+<div className="docs-reference">
+  <Tabs
+    groupId="framework"
+    values={[
+      { label: 'React', value: 'react' },
+      { label: 'Solid', value: 'solid' },
+    ]}
+    className="docs-tabs"
+  >
+    <Tab value="react">
 
-  ```
-</PreviewFrame>
+```tsx pure file="../../../src/components/examples/toggle/controlled.tsx"
+```
+
+    </Tab>
+    <Tab value="solid">
+
+<CodeBlockRuntime lang="tsx" code={toggleSolidControlled} />
+
+    </Tab>
+  </Tabs>
+
+**Styles**
+
+```css file="../../../src/components/examples/toggle/toggle-controlled.module.css"
+```
+</div>
+</ExampleCode>
 
 ### Disabled
 
-Use `disabled` to prevent interaction while preserving the current pressed state.
+Set `disabled` to prevent interaction while preserving the current pressed state.
 
-<style>{ToggleDocs.toggleRowCss}</style>
+<ExampleFrame variant="component">
+  <ToggleDisabled />
+</ExampleFrame>
 
-```tsx preview file="./_snippets/toggle/disabled.tsx"
+<ExampleCode>
+<div className="docs-reference">
+  <Tabs
+    groupId="framework"
+    values={[
+      { label: 'React', value: 'react' },
+      { label: 'Solid', value: 'solid' },
+    ]}
+    className="docs-tabs"
+  >
+    <Tab value="react">
 
+```tsx pure file="../../../src/components/examples/toggle/disabled.tsx"
 ```
+
+    </Tab>
+    <Tab value="solid">
+
+<CodeBlockRuntime lang="tsx" code={toggleSolidDisabled} />
+
+    </Tab>
+  </Tabs>
+
+**Styles**
+
+```css file="../../../src/components/examples/toggle/toggle-disabled.module.css"
+```
+</div>
+</ExampleCode>
 
 ### Icons
 
-Pass icons as regular children. Use an icon-only size for compact actions.
+Pass icons as regular children. Icon-only toggles need an accessible name such as `aria-label`.
 
-<style>{ToggleDocs.toggleRowCss}</style>
+<ExampleFrame variant="component">
+  <ToggleIcons />
+</ExampleFrame>
 
-```tsx preview file="./_snippets/toggle/icons.tsx"
+<ExampleCode>
+<div className="docs-reference">
+  <Tabs
+    groupId="framework"
+    values={[
+      { label: 'React', value: 'react' },
+      { label: 'Solid', value: 'solid' },
+    ]}
+    className="docs-tabs"
+  >
+    <Tab value="react">
 
+```tsx pure file="../../../src/components/examples/toggle/icons.tsx"
 ```
+
+    </Tab>
+    <Tab value="solid">
+
+<CodeBlockRuntime lang="tsx" code={toggleSolidIcons} />
+
+    </Tab>
+  </Tabs>
+
+**Styles**
+
+```css file="../../../src/components/examples/toggle/toggle-icons.module.css"
+```
+</div>
+</ExampleCode>
 
 ### Indicator
 
 Use `Toggle.Indicator` when pressed and unpressed states need different inline content.
 
-<style>{ToggleDocs.toggleBasicCss}</style>
+<ExampleFrame variant="component">
+  <ToggleIndicator />
+</ExampleFrame>
 
-```tsx preview file="./_snippets/toggle/indicator.tsx"
+<ExampleCode>
+<div className="docs-reference">
+  <Tabs
+    groupId="framework"
+    values={[
+      { label: 'React', value: 'react' },
+      { label: 'Solid', value: 'solid' },
+    ]}
+    className="docs-tabs"
+  >
+    <Tab value="react">
 
+```tsx pure file="../../../src/components/examples/toggle/indicator.tsx"
 ```
+
+    </Tab>
+    <Tab value="solid">
+
+<CodeBlockRuntime lang="tsx" code={toggleSolidIndicator} />
+
+    </Tab>
+  </Tabs>
+</div>
+</ExampleCode>
 
 ### Sizes
 
 Use text sizes for labeled toggles and icon-only sizes for denser action rows.
 
-<style>{ToggleDocs.toggleRowCss}</style>
+<ExampleFrame variant="component">
+  <ToggleSizes />
+</ExampleFrame>
 
-```tsx preview file="./_snippets/toggle/sizes.tsx"
+<ExampleCode>
+<div className="docs-reference">
+  <Tabs
+    groupId="framework"
+    values={[
+      { label: 'React', value: 'react' },
+      { label: 'Solid', value: 'solid' },
+    ]}
+    className="docs-tabs"
+  >
+    <Tab value="react">
 
+```tsx pure file="../../../src/components/examples/toggle/sizes.tsx"
 ```
+
+    </Tab>
+    <Tab value="solid">
+
+<CodeBlockRuntime lang="tsx" code={toggleSolidSizes} />
+
+    </Tab>
+  </Tabs>
+
+**Styles**
+
+```css file="../../../src/components/examples/toggle/toggle-sizes.module.css"
+```
+</div>
+</ExampleCode>
 
 ### Variants
 
-Use `default` for a secondary action, `outline` for a bordered surface, and `ghost` for compact
-toolbar actions. When pressed, `default` and `outline` use the primary color; `ghost` uses the
-accent surface to remain visually quiet in a dense toolbar.
+Set `variant` to `default`, `outline`, or `ghost` to match the surrounding surface.
 
-<style>{ToggleDocs.toggleRowCss}</style>
+<ExampleFrame variant="component">
+  <ToggleVariants />
+</ExampleFrame>
 
-```tsx preview file="./_snippets/toggle/variants.tsx"
+<ExampleCode>
+<div className="docs-reference">
+  <Tabs
+    groupId="framework"
+    values={[
+      { label: 'React', value: 'react' },
+      { label: 'Solid', value: 'solid' },
+    ]}
+    className="docs-tabs"
+  >
+    <Tab value="react">
 
+```tsx pure file="../../../src/components/examples/toggle/variants.tsx"
 ```
+
+    </Tab>
+    <Tab value="solid">
+
+<CodeBlockRuntime lang="tsx" code={toggleSolidVariants} />
+
+    </Tab>
+  </Tabs>
+
+**Styles**
+
+```css file="../../../src/components/examples/toggle/toggle-variants.module.css"
+```
+</div>
+</ExampleCode>
 
 ### Advanced Customization
 
-For a custom descendant that needs the pressed state, read the nearest toggle state through the
-moduix context hook instead of using `Toggle.Indicator`.
+Use the context hook when a custom descendant needs the pressed state instead of changing the
+button content with `Toggle.Indicator`.
 
-<style>{ToggleDocs.toggleBasicCss}</style>
+<ExampleFrame variant="component">
+  <ToggleAdvancedCustomization />
+</ExampleFrame>
 
-```tsx preview file="./_snippets/toggle/advanced-customization.tsx"
+<ExampleCode>
+<div className="docs-reference">
+  <Tabs
+    groupId="framework"
+    values={[
+      { label: 'React', value: 'react' },
+      { label: 'Solid', value: 'solid' },
+    ]}
+    className="docs-tabs"
+  >
+    <Tab value="react">
 
+```tsx pure file="../../../src/components/examples/toggle/advanced-customization.tsx"
 ```
+
+    </Tab>
+    <Tab value="solid">
+
+<CodeBlockRuntime lang="tsx" code={toggleSolidAdvancedCustomization} />
+
+    </Tab>
+  </Tabs>
+</div>
+</ExampleCode>
 
 ## Styling
 
-`Toggle` exposes a styled root, an optional indicator part, and the full set of
+Use `className` in React or `class` in Solid on exported parts for structural styles. Tailwind
+variants use native utilities and consumer classes; CSS Modules variants additionally expose the
 `--moduix-toggle-*` tokens for variants, sizes, focus ring, spacing, and icon sizing.
 
 ### CSS Properties
@@ -195,13 +444,9 @@ moduix context hook instead of using `Toggle.Indicator`.
 
 ### Styling hooks
 
-- `data-slot="toggle-root"` is the stable selector on the root.
-- `data-slot="toggle-indicator"` is the stable selector on `Toggle.Indicator`.
-- `data-scope="toggle"` and `data-part="root" | "indicator"` come from Ark UI.
-- `data-state="on" | "off"` reflects pressed state on root and indicator.
-- `data-pressed` is present when the toggle is pressed.
-- `data-variant` reflects the moduix visual variant.
-- `data-size` reflects the moduix size, including `icon-sm`, `icon-md`, and `icon-lg`.
-- `data-disabled` drives disabled styles; Ark also preserves the native `disabled` attribute.
+- Stable `data-slot` selectors: `toggle-root` and `toggle-indicator`.
+- Ark part selectors: `data-scope="toggle"` and `data-part="root" | "indicator"`.
+- Ark state selectors: `data-state="on" | "off"`, `data-pressed`, and `data-disabled`.
+- moduix selectors: `data-variant` and `data-size`, including `icon-sm`, `icon-md`, and `icon-lg`.
 - Direct icon children and icons inside `Toggle.Indicator` are sized through
-  `--moduix-toggle-icon-size`.
+  `--moduix-toggle-icon-size` on the CSS Modules path.

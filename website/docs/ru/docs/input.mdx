@@ -4,11 +4,29 @@ component: input
 description: Стилизованный однострочный `<input>` на основе Field.Input из Ark UI с нативными событиями и стилями moduix.
 ---
 
-import * as InputDocs from '@/components/examples/input';
+import * as InputDocs from '@/components/examples/input/css-properties';
+import InputAsChild from '@/components/examples/input/as-child.tsx';
+import InputBasic from '@/components/examples/input/basic.tsx';
+import InputControlled from '@/components/examples/input/controlled.tsx';
+import InputFieldState from '@/components/examples/input/field-state.tsx';
+import InputFile from '@/components/examples/input/file-input.tsx';
+import InputNativeAttributes from '@/components/examples/input/native-attributes.tsx';
+import InputSizes from '@/components/examples/input/sizes.tsx';
+import InputStandalone from '@/components/examples/input/standalone-input.tsx';
+import InputStates from '@/components/examples/input/disabled-and-readonly.tsx';
+import inputSolidAsChild from '../../../snippets/input/solid/as-child.tsx?raw';
+import inputSolidBasic from '../../../snippets/input/solid/basic.tsx?raw';
+import inputSolidControlled from '../../../snippets/input/solid/controlled.tsx?raw';
+import inputSolidFieldState from '../../../snippets/input/solid/field-state.tsx?raw';
+import inputSolidFile from '../../../snippets/input/solid/file-input.tsx?raw';
+import inputSolidNativeAttributes from '../../../snippets/input/solid/native-attributes.tsx?raw';
+import inputSolidSizes from '../../../snippets/input/solid/sizes.tsx?raw';
+import inputSolidStandalone from '../../../snippets/input/solid/standalone-input.tsx?raw';
+import inputSolidStates from '../../../snippets/input/solid/disabled-and-readonly.tsx?raw';
 
 ## Справочник API
 
-Компонент `Input` основан на стилизованном [`Field.Input` из Ark UI](https://ark-ui.com/docs/components/field). Он следует рекомендациям Ark по [композиции](https://ark-ui.com/docs/guides/composition), [стилизации](https://ark-ui.com/docs/guides/styling) и [передаче ref](https://ark-ui.com/docs/guides/ref). Компонент отрисовывает нативный однострочный `<input>` и сохраняет стандартное поведение браузера в формах и API событий React.
+Компонент `Input` основан на стилизованном [`Field.Input` из Ark UI](https://ark-ui.com/docs/components/field). Он следует рекомендациям Ark по [композиции](https://ark-ui.com/docs/guides/composition), [стилизации](https://ark-ui.com/docs/guides/styling) и [передаче ref](https://ark-ui.com/docs/guides/ref). Компонент отрисовывает нативный однострочный `<input>` и сохраняет стандартное поведение браузера в формах и нативный API событий каждого фреймворка.
 
 Используйте `Field`, если полю нужны метка, поясняющий текст или сообщение об ошибке, автоматически
 созданные идентификаторы или общее состояние.
@@ -24,17 +42,73 @@ import * as InputDocs from '@/components/examples/input';
 
 ## Базовый пример
 
+`Input` доступен для React и Solid в пакетах с CSS Modules и в вариантах на Tailwind. Предпросмотр
+на этой странице использует React и CSS Modules, а вкладки с кодом показывают нативный исходный
+код для одного и того же публичного API.
+
 Поместите `Input` в `Field`, если полю нужны метка, пояснение или сообщение об ошибке. `Field` свяжет эти элементы с полем, автоматически создаст нужные идентификаторы и передаст его состояние.
 
-<PreviewFrame maxWidth="sm">
-  ```tsx preview file="../../en/docs/_snippets/input/basic.tsx"
+<ExampleFrame variant="component">
+  <InputBasic />
+</ExampleFrame>
 
+<ExampleCode>
+<div className="docs-reference">
+  <Tabs
+    groupId="framework"
+    values={[
+      { label: 'React', value: 'react' },
+      { label: 'Solid', value: 'solid' },
+    ]}
+    className="docs-tabs"
+  >
+    <Tab value="react">
+
+```tsx pure file="../../../src/components/examples/input/basic.tsx"
 ```
-</PreviewFrame>
+
+    </Tab>
+    <Tab value="solid">
+
+<CodeBlockRuntime lang="tsx" code={inputSolidBasic} />
+
+    </Tab>
+  </Tabs>
+
+**Стили**
+
+```css file="../../../src/components/examples/input/input-basic.module.css"
+```
+</div>
+
+</ExampleCode>
 
 ## Установка через shadcn
 
-<ShadcnInstall packageName="input" />
+Полную настройку пакета, реестра и стилей см. в разделе [Быстрый старт](/docs/quick-start).
+
+<Tabs groupId="framework">
+  <Tab label="React" value="react">
+
+<ShadcnInstallOptions
+  options={[
+    { label: 'CSS Modules', command: 'shadcn@latest add @moduix-react/input' },
+    { label: 'Tailwind CSS', command: 'shadcn@latest add @moduix-react-tailwind/input' },
+  ]}
+/>
+
+  </Tab>
+  <Tab label="Solid" value="solid">
+
+<ShadcnInstallOptions
+  options={[
+    { label: 'CSS Modules', command: 'shadcn@latest add @moduix-solid/input' },
+    { label: 'Tailwind CSS', command: 'shadcn@latest add @moduix-solid-tailwind/input' },
+  ]}
+/>
+
+  </Tab>
+</Tabs>
 
 ## Анатомия
 
@@ -52,54 +126,58 @@ Field (необязательная оболочка)
 
 ## Композиция
 
-### Рекомендуемая композиция
+`Field` владеет меткой, поясняющим текстом или сообщением об ошибке, автоматически созданными
+идентификаторами и общим состоянием `disabled`, `invalid`, `required` или `readOnly`. `Input` остаётся
+нативным элементом: в React управляемом поле используйте `value` и `onChange(event)`, а в
+неуправляемом - `defaultValue`. Компонент не управляет валидацией, фокусом или навигацией с
+клавиатуры.
 
-Используйте `Input` внутри `Field`, если полю нужны доступная метка, пояснение, сообщение об
-ошибке, автоматически созданные идентификаторы или общее состояние `disabled`, `invalid`,
-`required` или `readOnly`. `Fieldset` может отключить сразу несколько вложенных полей.
-
-Передавайте в `Input` нативные свойства `<input>` и обработчики событий. В управляемом поле
-передавайте `value` и обновляйте его в `onChange(event)`, а в неуправляемом используйте
-`defaultValue`.
-
-### Когда нужна собственная композиция
-
-Используйте `asChild` только тогда, когда другой элемент, совместимый с полем ввода, должен стать
-фактическим DOM-узлом. Передавайте ровно один семантически корректный дочерний элемент, на который
-можно поставить фокус. Ark
-объединит в нём свойства компонента и `Field`, класс и `ref`.
-
-Если элемент нельзя использовать как `<input>`, выберите компонент с подходящим примитивом Ark, а
-не пытайтесь передать его через `Input`.
-
-### Свойства по умолчанию
-
-| Свойство   | По умолчанию | Примечания                                                                |
-| ---------- | ------------ | ------------------------------------------------------------------------- |
-| `size`     | `md`         | Визуальный размер: `xs`, `sm`, `md`, `lg` или `xl`.                      |
-| `htmlSize` | Не задано    | Задаёт значение нативного `input[size]` в символах. По умолчанию ширина поля рассчитывается по этому значению. |
-| `asChild`  | `false`      | При включении передаёт свойства одному семантическому дочернему элементу через Ark Slot.      |
-
-### Особенности поведения
-
-- `ref` указывает на настоящий `HTMLInputElement`, поэтому библиотека форм может перевести поле в
-  фокус после неудачной отправки формы.
-- `HiddenInput` не нужен: `Input` уже является нативным элементом управления формы.
-- Ark `Field` предоставляет `aria-describedby`, `aria-invalid`, идентификаторы и свойства состояния.
-- `Input` не хранит значение и не управляет его валидностью, фокусом или навигацией с клавиатуры.
+Для автономного поля задайте доступное имя самостоятельно. Используйте `asChild` только с одним
+фокусируемым элементом, совместимым с полем ввода: Ark объединит в этом DOM-узле свойства `Input` и
+`Field`, класс и `ref`.
 
 ## Примеры
 
 ### Управляемое значение
 
-Используйте этот вариант, когда React должен управлять текущим значением. Читайте новое значение из
-нативного события `onChange(event)` и передавайте его обратно через `value`.
+Используйте этот вариант, когда внешняя логика должна управлять текущим значением. В React читайте
+новое значение из нативного события `onChange(event)`, а в Solid используйте `onInput`. Передавайте
+текущее значение обратно через `value`.
 
-<PreviewFrame maxWidth="sm">
-  ```tsx preview file="../../en/docs/_snippets/input/controlled.tsx"
+<ExampleFrame variant="component">
+  <InputControlled />
+</ExampleFrame>
 
+<ExampleCode>
+<div className="docs-reference">
+  <Tabs
+    groupId="framework"
+    values={[
+      { label: 'React', value: 'react' },
+      { label: 'Solid', value: 'solid' },
+    ]}
+    className="docs-tabs"
+  >
+    <Tab value="react">
+
+```tsx pure file="../../../src/components/examples/input/controlled.tsx"
 ```
-</PreviewFrame>
+
+    </Tab>
+    <Tab value="solid">
+
+<CodeBlockRuntime lang="tsx" code={inputSolidControlled} />
+
+    </Tab>
+  </Tabs>
+
+**Стили**
+
+```css file="../../../src/components/examples/input/input-controlled.module.css"
+```
+</div>
+
+</ExampleCode>
 
 ### Отключённое поле и режим только для чтения
 
@@ -108,22 +186,80 @@ Field (необязательная оболочка)
 свойства непосредственно на `Input`. Если метка, поясняющий текст и поле должны иметь одно
 состояние, задавайте свойства на `Field`.
 
-<PreviewFrame maxWidth="sm">
-  ```tsx preview file="../../en/docs/_snippets/input/disabled-and-readonly.tsx"
+<ExampleFrame variant="component">
+  <InputStates />
+</ExampleFrame>
 
+<ExampleCode>
+<div className="docs-reference">
+  <Tabs
+    groupId="framework"
+    values={[
+      { label: 'React', value: 'react' },
+      { label: 'Solid', value: 'solid' },
+    ]}
+    className="docs-tabs"
+  >
+    <Tab value="react">
+
+```tsx pure file="../../../src/components/examples/input/disabled-and-readonly.tsx"
 ```
-</PreviewFrame>
+
+    </Tab>
+    <Tab value="solid">
+
+<CodeBlockRuntime lang="tsx" code={inputSolidStates} />
+
+    </Tab>
+  </Tabs>
+
+**Стили**
+
+```css file="../../../src/components/examples/input/input-disabled-and-readonly.module.css"
+```
+</div>
+
+</ExampleCode>
 
 ### Валидация поля
 
 Задавайте `invalid` на `Field`, когда значение не проходит проверку. Ark добавит к `Input`
 `aria-invalid` и `data-invalid` и свяжет его с текстом ошибки.
 
-<PreviewFrame maxWidth="sm">
-  ```tsx preview file="../../en/docs/_snippets/input/field-state.tsx"
+<ExampleFrame variant="component">
+  <InputFieldState />
+</ExampleFrame>
 
+<ExampleCode>
+<div className="docs-reference">
+  <Tabs
+    groupId="framework"
+    values={[
+      { label: 'React', value: 'react' },
+      { label: 'Solid', value: 'solid' },
+    ]}
+    className="docs-tabs"
+  >
+    <Tab value="react">
+
+```tsx pure file="../../../src/components/examples/input/field-state.tsx"
 ```
-</PreviewFrame>
+
+    </Tab>
+    <Tab value="solid">
+
+<CodeBlockRuntime lang="tsx" code={inputSolidFieldState} />
+
+    </Tab>
+  </Tabs>
+
+**Стили**
+
+```css file="../../../src/components/examples/input/input-field-state.module.css"
+```
+</div>
+
+</ExampleCode>
 
 ### Выбор файла
 
@@ -131,34 +267,121 @@ Field (необязательная оболочка)
 `FileUpload`, если приложение должно хранить выбранные файлы в состоянии, показывать область
 перетаскивания или управлять процессом загрузки.
 
-<PreviewFrame maxWidth="sm">
-  ```tsx preview file="../../en/docs/_snippets/input/file-input.tsx"
+<ExampleFrame variant="component">
+  <InputFile />
+</ExampleFrame>
 
+<ExampleCode>
+<div className="docs-reference">
+  <Tabs
+    groupId="framework"
+    values={[
+      { label: 'React', value: 'react' },
+      { label: 'Solid', value: 'solid' },
+    ]}
+    className="docs-tabs"
+  >
+    <Tab value="react">
+
+```tsx pure file="../../../src/components/examples/input/file-input.tsx"
 ```
-</PreviewFrame>
+
+    </Tab>
+    <Tab value="solid">
+
+<CodeBlockRuntime lang="tsx" code={inputSolidFile} />
+
+    </Tab>
+  </Tabs>
+
+**Стили**
+
+```css file="../../../src/components/examples/input/input-file-input.module.css"
+```
+</div>
+
+</ExampleCode>
 
 ### Нативные атрибуты
 
 Используйте нативные атрибуты для управления поведением браузера: валидацией, режимом ввода,
 автозаполнением и отправкой формы. Задавайте `htmlSize` для ширины в символах, а `size` для
-изменения визуального размера.
+изменения визуального размера в React и Solid.
 
-<PreviewFrame contentWidth="fit-content" maxWidth="sm">
-  ```tsx preview file="../../en/docs/_snippets/input/native-attributes.tsx"
+<ExampleFrame variant="component">
+  <InputNativeAttributes />
+</ExampleFrame>
 
+<ExampleCode>
+<div className="docs-reference">
+  <Tabs
+    groupId="framework"
+    values={[
+      { label: 'React', value: 'react' },
+      { label: 'Solid', value: 'solid' },
+    ]}
+    className="docs-tabs"
+  >
+    <Tab value="react">
+
+```tsx pure file="../../../src/components/examples/input/native-attributes.tsx"
 ```
-</PreviewFrame>
+
+    </Tab>
+    <Tab value="solid">
+
+<CodeBlockRuntime lang="tsx" code={inputSolidNativeAttributes} />
+
+    </Tab>
+  </Tabs>
+
+**Стили**
+
+```css file="../../../src/components/examples/input/input-native-attributes.module.css"
+```
+</div>
+
+</ExampleCode>
 
 ### Размеры
 
 Свойство moduix `size` управляет визуальным размером. Оно не связано с `htmlSize`, которое задаёт
 нативную ширину в символах.
 
-<PreviewFrame maxWidth="sm">
-  ```tsx preview file="../../en/docs/_snippets/input/sizes.tsx"
+<ExampleFrame variant="component">
+  <InputSizes />
+</ExampleFrame>
 
+<ExampleCode>
+<div className="docs-reference">
+  <Tabs
+    groupId="framework"
+    values={[
+      { label: 'React', value: 'react' },
+      { label: 'Solid', value: 'solid' },
+    ]}
+    className="docs-tabs"
+  >
+    <Tab value="react">
+
+```tsx pure file="../../../src/components/examples/input/sizes.tsx"
 ```
-</PreviewFrame>
+
+    </Tab>
+    <Tab value="solid">
+
+<CodeBlockRuntime lang="tsx" code={inputSolidSizes} />
+
+    </Tab>
+  </Tabs>
+
+**Стили**
+
+```css file="../../../src/components/examples/input/input-sizes.module.css"
+```
+</div>
+
+</ExampleCode>
 
 ### Автономное поле
 
@@ -167,11 +390,40 @@ Field (необязательная оболочка)
 контекста `Field` идентификаторы не создаются автоматически, а поясняющий текст и сообщение об
 ошибке не связываются с полем.
 
-<PreviewFrame maxWidth="sm">
-  ```tsx preview file="../../en/docs/_snippets/input/standalone-input.tsx"
+<ExampleFrame variant="component">
+  <InputStandalone />
+</ExampleFrame>
 
+<ExampleCode>
+<div className="docs-reference">
+  <Tabs
+    groupId="framework"
+    values={[
+      { label: 'React', value: 'react' },
+      { label: 'Solid', value: 'solid' },
+    ]}
+    className="docs-tabs"
+  >
+    <Tab value="react">
+
+```tsx pure file="../../../src/components/examples/input/standalone-input.tsx"
 ```
-</PreviewFrame>
+
+    </Tab>
+    <Tab value="solid">
+
+<CodeBlockRuntime lang="tsx" code={inputSolidStandalone} />
+
+    </Tab>
+  </Tabs>
+
+**Стили**
+
+```css file="../../../src/components/examples/input/input-standalone-input.module.css"
+```
+</div>
+
+</ExampleCode>
 
 ### Расширенная настройка
 
@@ -179,13 +431,46 @@ Field (необязательная оболочка)
 Передавайте один семантически корректный элемент, который может получить фокус, объединённые
 свойства и `ref`.
 
-<PreviewFrame maxWidth="sm">
-  ```tsx preview file="../../en/docs/_snippets/input/as-child.tsx"
+<ExampleFrame variant="component">
+  <InputAsChild />
+</ExampleFrame>
 
+<ExampleCode>
+<div className="docs-reference">
+  <Tabs
+    groupId="framework"
+    values={[
+      { label: 'React', value: 'react' },
+      { label: 'Solid', value: 'solid' },
+    ]}
+    className="docs-tabs"
+  >
+    <Tab value="react">
+
+```tsx pure file="../../../src/components/examples/input/as-child.tsx"
 ```
-</PreviewFrame>
+
+    </Tab>
+    <Tab value="solid">
+
+<CodeBlockRuntime lang="tsx" code={inputSolidAsChild} />
+
+    </Tab>
+  </Tabs>
+
+**Стили**
+
+```css file="../../../src/components/examples/input/input-as-child.module.css"
+```
+</div>
+
+</ExampleCode>
 
 ## Стилизация
+
+Используйте `className` в React и `class` в Solid, чтобы стилизовать `Input`. Варианты с CSS Modules
+поддерживают переменные ниже, а варианты на Tailwind используют нативные utility-классы и классы
+потребителя. Для стилей состояний используйте общие data-атрибуты и нативные селекторы состояния.
 
 ### CSS-свойства
 

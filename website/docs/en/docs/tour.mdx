@@ -4,7 +4,17 @@ component: tour
 description: Build guided product walkthroughs with Ark UI tour state, accessible overlay parts, and ready-made actions.
 ---
 
-import { TourCssPropertiesPanel } from '@/components/examples/tour';
+import { TourCssPropertiesPanel } from '@/components/examples/tour/css-properties';
+import TourAdvancedCustomization from '@/components/examples/tour/advanced-customization.tsx';
+import TourBasic from '@/components/examples/tour/basic.tsx';
+import TourEvents from '@/components/examples/tour/events.tsx';
+import TourWaitForInput from '@/components/examples/tour/wait-for-input.tsx';
+import TourWithArrow from '@/components/examples/tour/with-arrow.tsx';
+import tourSolidAdvancedCustomization from '../../../snippets/tour/solid/advanced-customization.tsx?raw';
+import tourSolidBasic from '../../../snippets/tour/solid/basic.tsx?raw';
+import tourSolidEvents from '../../../snippets/tour/solid/events.tsx?raw';
+import tourSolidWaitForInput from '../../../snippets/tour/solid/wait-for-input.tsx?raw';
+import tourSolidWithArrow from '../../../snippets/tour/solid/with-arrow.tsx?raw';
 
 ## API Reference
 
@@ -12,25 +22,79 @@ import { TourCssPropertiesPanel } from '@/components/examples/tour';
 
 ## Basic
 
-Create tour state with `useTour`, define its steps, and pass the returned object to `Tour`. This
-example starts with a dialog, moves to a tooltip anchored to a page control, and finishes with a
-floating step. Keep the parts in JSX so each one can be adjusted when needed. `Tour.Body` keeps
-long copy scrollable inside the panel.
+Tour ships for React and Solid in both the CSS Modules and Tailwind packages. The rendered preview on this page uses
+the React CSS Modules package; the framework tabs show native source for the same public contract.
 
-<PreviewFrame maxWidth="lg">
-  ```tsx preview file="./_snippets/tour/basic.tsx"
+Create tour state with `useTour`, define its steps, and pass the returned object to `Tour`. The example starts with a
+dialog, moves to a tooltip anchored to a page control, and finishes with a floating step. Keep the parts explicit so
+you can adjust the composition when needed. `Tour.Body` keeps long copy scrollable inside the panel.
 
+<ExampleFrame variant="component">
+  <TourBasic />
+</ExampleFrame>
+
+<ExampleCode>
+<div className="docs-reference">
+  <Tabs
+    groupId="framework"
+    values={[
+      { label: 'React', value: 'react' },
+      { label: 'Solid', value: 'solid' },
+    ]}
+    className="docs-tabs"
+  >
+    <Tab value="react">
+
+```tsx pure file="../../../src/components/examples/tour/basic.tsx"
 ```
-</PreviewFrame>
+
+    </Tab>
+    <Tab value="solid">
+
+<CodeBlockRuntime lang="tsx" code={tourSolidBasic} />
+
+    </Tab>
+  </Tabs>
+
+**Styles**
+
+```css file="../../../src/components/examples/tour/tour-basic.module.css"
+```
+</div>
+
+</ExampleCode>
 
 ## Install with shadcn
 
-<ShadcnInstall packageName="tour" />
+See [Quick Start](/docs/quick-start) for full package setup, registry configuration, and styling guidance.
+
+<Tabs groupId="framework">
+  <Tab label="React" value="react">
+
+<ShadcnInstallOptions
+  options={[
+    { label: 'CSS Modules', command: 'shadcn@latest add @moduix-react/tour' },
+    { label: 'Tailwind CSS', command: 'shadcn@latest add @moduix-react-tailwind/tour' },
+  ]}
+/>
+
+  </Tab>
+  <Tab label="Solid" value="solid">
+
+<ShadcnInstallOptions
+  options={[
+    { label: 'CSS Modules', command: 'shadcn@latest add @moduix-solid/tour' },
+    { label: 'Tailwind CSS', command: 'shadcn@latest add @moduix-solid-tailwind/tour' },
+  ]}
+/>
+
+  </Tab>
+</Tabs>
 
 ## Anatomy
 
 ```text
-Tour
+Tour / Tour.Root
 └─ Overlay subtree (portalled by default)
    ├─ Tour.Backdrop
    ├─ Tour.Spotlight
@@ -50,104 +114,188 @@ Tour
 
 | Part | Role |
 | --- | --- |
-| `Tour` | Root bound to a `UseTourReturn` object. `Tour.Root` is an alias. |
+| `Tour` / `Tour.Root` | Root bound to the object returned by `useTour`. |
 | `Tour.Backdrop` / `Tour.Spotlight` | Optional page overlay and highlight for the current target. |
 | `Tour.Positioner` / `Tour.Content` | Position and render Ark's `alertdialog` surface. |
 | `Tour.Arrow` | Renders moduix's `ArrowTip` by default for tooltip steps. |
-| `Tour.CloseIcon` | Accessible icon-only dismiss control. Use `CloseTrigger` for custom markup. |
+| `Tour.CloseIcon` / `Tour.CloseTrigger` | Default accessible dismiss control or a custom close control. |
 | `Tour.Body` | Scrollable moduix wrapper for the title, description, and progress text. |
 | `Tour.Control` / `Tour.ActionList` | Recommended action row and the actions from the current step. |
 | `Tour.Actions` / `Tour.ActionTrigger` | Custom action UI while preserving each Ark action object. |
 
 ## Composition
 
-### Recommended composition
-
-`Tour` automatically portals `Backdrop`, `Spotlight`, and `Positioner`. Set `portalled={false}`
-only when the overlay must remain inline, or pass `portalRef` to render it in a specific container.
-Keep the structural parts explicit. Add `Tour.ActionList` when the actions declared in `steps` suit
-your interface; it renders the current step's actions for you.
-
-### When to go custom
-
-Use `Tour.Actions` and `Tour.ActionTrigger` when an action needs custom markup. They keep Ark's
-navigation, dismissal, and disabled behavior while letting you render your own controls. Pass
-`onStepChange`, `onStepsChange`, or `onStatusChange` to `useTour` when surrounding UI or analytics
-need to react to the tour. Inside the tree, use the moduix exports `useTourContext` or
-`Tour.Context` to access the active step and navigation methods.
-
-### Default props
-
-The portalled overlay mounts when the tour first opens and unmounts after its exit animation by
-default. Set `unmountOnExit={false}` to keep it mounted after the first open. Set both lifecycle
-props to `false` only when the overlay must render eagerly.
-
-| Prop | Default | Notes |
-| --- | --- | --- |
-| `closeOnEscape` | `true` | Escape dismisses the tour. |
-| `closeOnInteractOutside` | `true` | Interaction outside the tour dismisses it unless disabled. |
-| `keyboardNavigation` | `true` | Left and Right navigate available steps. |
-| `preventInteraction` | `false` | Set to `true` to block page interaction while the tour is open. |
-| `spotlightOffset` | `{ x: 10, y: 10 }` | Expands the highlighted area around the target. |
-| `spotlightRadius` | `4` | Rounds the corners of the spotlight. |
-| `lazyMount` | `true` | Defers rendering the overlay until the first open. |
-| `unmountOnExit` | `true` | Unmounts the overlay after the closing animation. |
-
-### Behavioral notes
-
-`Tour.Title` gives the alert dialog its accessible name, and `Tour.Description` supplies its
-description. Ark manages focus on open and close, Escape, outside interaction, and Left/Right
-navigation. Leave `keyboardNavigation` enabled unless a step intentionally uses those keys. In
-right-to-left layouts, Ark reverses Left and Right navigation.
+Create state with `useTour` and pass its return value to `Tour`; in Solid, the return value is an accessor, so call
+`tour()` to use methods such as `start()` and `next()`. Keep the structural parts explicit and include `Title` and
+`Description` so the alert dialog has an accessible name and description. `Backdrop`, `Spotlight`, and `Positioner`
+are portalled by default; use `portalled={false}` or `portalRef` only when the overlay must stay in or target a specific
+container. Use `ActionList` for the actions declared in `steps`, or replace it with `Actions` and
+`ActionTrigger asChild` when each action needs custom markup. `lazyMount` and `unmountOnExit` default to `true`; pass
+callbacks to `useTour` when surrounding UI or analytics need to react to step or status changes.
 
 ## Examples
 
 ### Events
 
-Use the detail objects from Ark callbacks to update surrounding UI or record analytics. Start the
-tour, choose Next, then Done. The `PreviewMeta` in this example shows both the step and final-status
-callbacks.
+Use the detail objects from Ark callbacks to update surrounding UI or record analytics. Start the tour, choose Next,
+then Done. The status output shows the latest step or final status event.
 
-<PreviewFrame maxWidth="lg">
-  ```tsx preview file="./_snippets/tour/events.tsx"
+<ExampleFrame variant="component">
+  <TourEvents />
+</ExampleFrame>
 
+<ExampleCode>
+<div className="docs-reference">
+  <Tabs
+    groupId="framework"
+    values={[
+      { label: 'React', value: 'react' },
+      { label: 'Solid', value: 'solid' },
+    ]}
+    className="docs-tabs"
+  >
+    <Tab value="react">
+
+```tsx pure file="../../../src/components/examples/tour/events.tsx"
 ```
-</PreviewFrame>
+
+    </Tab>
+    <Tab value="solid">
+
+<CodeBlockRuntime lang="tsx" code={tourSolidEvents} />
+
+    </Tab>
+  </Tabs>
+
+**Styles**
+
+```css file="../../../src/components/examples/tour/tour-events.module.css"
+```
+</div>
+
+</ExampleCode>
 
 ### Wait for input
 
-This example calls `tour.next()` from the input handler after the value reaches two characters.
-For steps that depend on an asynchronous condition, `waitForElement`, `waitForElementValue`,
-`waitForEvent`, and `waitForPromise` are also exported from `@moduix/react/tour`.
+Call `tour.next()` from an input handler after the value reaches two characters. For steps that depend on an
+asynchronous condition, `waitForElement`, `waitForElementValue`, `waitForEvent`, and `waitForPromise` are also
+exported from `@moduix/react/tour` and `@moduix/solid/tour`.
 
-<PreviewFrame maxWidth="lg">
-  ```tsx preview file="./_snippets/tour/wait-for-input.tsx"
+<ExampleFrame variant="component">
+  <TourWaitForInput />
+</ExampleFrame>
 
+<ExampleCode>
+<div className="docs-reference">
+  <Tabs
+    groupId="framework"
+    values={[
+      { label: 'React', value: 'react' },
+      { label: 'Solid', value: 'solid' },
+    ]}
+    className="docs-tabs"
+  >
+    <Tab value="react">
+
+```tsx pure file="../../../src/components/examples/tour/wait-for-input.tsx"
 ```
-</PreviewFrame>
+
+    </Tab>
+    <Tab value="solid">
+
+<CodeBlockRuntime lang="tsx" code={tourSolidWaitForInput} />
+
+    </Tab>
+  </Tabs>
+
+**Styles**
+
+```css file="../../../src/components/examples/tour/tour-wait-for-input.module.css"
+```
+</div>
+
+</ExampleCode>
 
 ### With Arrow
 
-Add `Tour.Arrow` to a tooltip step when it needs a visual connection to its target, and enable the
-step's `arrow` option so Ark can position it.
+Add `Tour.Arrow` to a tooltip step when it needs a visual connection to its target, and enable the step's `arrow`
+option so Ark can position it.
 
-<PreviewFrame maxWidth="lg">
-  ```tsx preview file="./_snippets/tour/with-arrow.tsx"
+<ExampleFrame variant="component">
+  <TourWithArrow />
+</ExampleFrame>
 
+<ExampleCode>
+<div className="docs-reference">
+  <Tabs
+    groupId="framework"
+    values={[
+      { label: 'React', value: 'react' },
+      { label: 'Solid', value: 'solid' },
+    ]}
+    className="docs-tabs"
+  >
+    <Tab value="react">
+
+```tsx pure file="../../../src/components/examples/tour/with-arrow.tsx"
 ```
-</PreviewFrame>
+
+    </Tab>
+    <Tab value="solid">
+
+<CodeBlockRuntime lang="tsx" code={tourSolidWithArrow} />
+
+    </Tab>
+  </Tabs>
+
+**Styles**
+
+```css file="../../../src/components/examples/tour/tour-with-arrow.module.css"
+```
+</div>
+
+</ExampleCode>
 
 ### Advanced customization
 
-Replace `Tour.ActionList` when each action needs its own markup. The example uses custom `Button`
-children for Continue, Back, and Skip tour. Each `Tour.ActionTrigger` still receives the original
-Ark action object, so navigation, dismissal, and disabled state continue to work.
+Replace `Tour.ActionList` when each action needs its own markup. The example uses custom `Button` children for
+Continue, Back, and Skip tour. Each `Tour.ActionTrigger` still receives the original Ark action object, so navigation,
+dismissal, and disabled state continue to work.
 
-<PreviewFrame maxWidth="lg">
-  ```tsx preview file="./_snippets/tour/advanced-customization.tsx"
+<ExampleFrame variant="component">
+  <TourAdvancedCustomization />
+</ExampleFrame>
 
+<ExampleCode>
+<div className="docs-reference">
+  <Tabs
+    groupId="framework"
+    values={[
+      { label: 'React', value: 'react' },
+      { label: 'Solid', value: 'solid' },
+    ]}
+    className="docs-tabs"
+  >
+    <Tab value="react">
+
+```tsx pure file="../../../src/components/examples/tour/advanced-customization.tsx"
 ```
-</PreviewFrame>
+
+    </Tab>
+    <Tab value="solid">
+
+<CodeBlockRuntime lang="tsx" code={tourSolidAdvancedCustomization} />
+
+    </Tab>
+  </Tabs>
+
+**Styles**
+
+```css file="../../../src/components/examples/tour/tour-advanced-customization.module.css"
+```
+</div>
+
+</ExampleCode>
 
 ## Styling
 
@@ -169,10 +317,9 @@ Ark action object, so navigation, dismissal, and disabled state continue to work
 
 ### Styling hooks
 
-Use moduix `data-slot` hooks such as `tour-content`, `tour-body`, and `tour-action-trigger` for
-local styling. Ark also provides `data-scope="tour"`, `data-part`, `data-state`, `data-type`,
-`data-placement`, `data-side`, `data-step`, and `data-disabled`, plus runtime variables including
-`--tour-layer`, `--tour-z-index`, `--available-width`, `--available-height`, `--transform-origin`,
-and the arrow variables. Pass `className` to `Tour.ActionList` to style every generated trigger.
-The stylesheet shortens overlay animations and removes action-button transitions for people who
-prefer reduced motion.
+Use moduix `data-slot` hooks such as `tour-content`, `tour-body`, and `tour-action-trigger` for local styling. Ark also
+provides `data-scope="tour"`, `data-part`, `data-state`, `data-type`, `data-placement`, `data-side`, `data-step`, and
+`data-disabled`, plus runtime variables including `--tour-layer`, `--tour-z-index`, `--available-width`,
+`--available-height`, `--transform-origin`, and the arrow variables. Pass `className` to `Tour.ActionList` to style
+every generated trigger. The stylesheet shortens overlay animations and removes action-button transitions for people
+who prefer reduced motion.

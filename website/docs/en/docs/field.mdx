@@ -1,10 +1,34 @@
 ---
 title: Field
 component: field
-description: Field context that connects one form control to its label, helper text, error message, and shared state.
+description: Accessible form field context for React and Solid with CSS Modules and Tailwind package options.
 ---
 
-import * as FieldDocs from '@/components/examples/field';
+import * as FieldDocs from '@/components/examples/field/css-properties';
+import FieldBasic from '@/components/examples/field/basic.tsx';
+import FieldCheckbox from '@/components/examples/field/checkbox.tsx';
+import FieldControlledInvalid from '@/components/examples/field/controlled-invalid.tsx';
+import FieldDisabled from '@/components/examples/field/disabled.tsx';
+import FieldInvalid from '@/components/examples/field/invalid.tsx';
+import FieldItemTarget from '@/components/examples/field/item-target.tsx';
+import FieldNativeSelect from '@/components/examples/field/native-select.tsx';
+import FieldRadioGroup from '@/components/examples/field/radiogroup.tsx';
+import FieldReadOnly from '@/components/examples/field/read-only.tsx';
+import FieldRootProvider from '@/components/examples/field/root-provider.tsx';
+import FieldSelect from '@/components/examples/field/select.tsx';
+import FieldTextarea from '@/components/examples/field/textarea.tsx';
+import fieldSolidBasic from '../../../snippets/field/solid/basic.tsx?raw';
+import fieldSolidCheckbox from '../../../snippets/field/solid/checkbox.tsx?raw';
+import fieldSolidControlledInvalid from '../../../snippets/field/solid/controlled-invalid.tsx?raw';
+import fieldSolidDisabled from '../../../snippets/field/solid/disabled.tsx?raw';
+import fieldSolidInvalid from '../../../snippets/field/solid/invalid.tsx?raw';
+import fieldSolidItemTarget from '../../../snippets/field/solid/item-target.tsx?raw';
+import fieldSolidNativeSelect from '../../../snippets/field/solid/native-select.tsx?raw';
+import fieldSolidRadioGroup from '../../../snippets/field/solid/radiogroup.tsx?raw';
+import fieldSolidReadOnly from '../../../snippets/field/solid/read-only.tsx?raw';
+import fieldSolidRootProvider from '../../../snippets/field/solid/root-provider.tsx?raw';
+import fieldSolidSelect from '../../../snippets/field/solid/select.tsx?raw';
+import fieldSolidTextarea from '../../../snippets/field/solid/textarea.tsx?raw';
 
 ## API Reference
 
@@ -17,22 +41,78 @@ Use `Field` when one form control needs an accessible label, helper text, an err
 
 - Choose **`Field`** for one control and its label or descriptive text.
 - Choose **`Fieldset`** when several related controls need one shared legend.
-- Use a control on its own when you do not need field-level ARIA relationships or shared state.
+- Use a control on its own when field-level ARIA relationships or shared state are not needed.
 
 ## Basic
 
-Use `Field` as the wrapper for one form control. Put `Field.Label` before the control, then add
-helper or error text when the user needs more information.
+Field ships for React and Solid in both the CSS Modules and Tailwind packages. The rendered preview on
+this page uses the React CSS Modules package; the framework tabs show native source for the same public
+contract.
 
-<PreviewFrame contentWidth="fit-content" maxWidth="sm">
-  ```tsx preview file="./_snippets/field/basic.tsx"
-  ```
+Use `Field` as the wrapper for one form control. Put `Field.Label` before the control, then add helper
+or error text when the user needs more information.
 
-</PreviewFrame>
+<ExampleFrame variant="component">
+  <FieldBasic />
+</ExampleFrame>
+
+<ExampleCode>
+<div className="docs-reference">
+  <Tabs
+    groupId="framework"
+    values={[
+      { label: 'React', value: 'react' },
+      { label: 'Solid', value: 'solid' },
+    ]}
+    className="docs-tabs"
+  >
+    <Tab value="react">
+
+```tsx pure file="../../../src/components/examples/field/basic.tsx"
+```
+
+    </Tab>
+    <Tab value="solid">
+
+<CodeBlockRuntime lang="tsx" code={fieldSolidBasic} />
+
+    </Tab>
+  </Tabs>
+
+**Styles**
+
+```css file="../../../src/components/examples/field/field-basic.module.css"
+```
+</div>
+
+</ExampleCode>
 
 ## Install with shadcn
 
-<ShadcnInstall packageName="field" />
+See [Quick Start](/docs/quick-start) for full package setup, registry configuration, and styling guidance.
+
+<Tabs groupId="framework">
+  <Tab label="React" value="react">
+
+<ShadcnInstallOptions
+  options={[
+    { label: 'CSS Modules', command: 'shadcn@latest add @moduix-react/field' },
+    { label: 'Tailwind CSS', command: 'shadcn@latest add @moduix-react-tailwind/field' },
+  ]}
+/>
+
+  </Tab>
+  <Tab label="Solid" value="solid">
+
+<ShadcnInstallOptions
+  options={[
+    { label: 'CSS Modules', command: 'shadcn@latest add @moduix-solid/field' },
+    { label: 'Tailwind CSS', command: 'shadcn@latest add @moduix-solid-tailwind/field' },
+  ]}
+/>
+
+  </Tab>
+</Tabs>
 
 ## Anatomy
 
@@ -47,68 +127,33 @@ Field
 ├─ Field.HelperText
 ├─ Field.ErrorText
 └─ Field.RequiredIndicator
+
+Field.RootProvider
+└─ same part tree connected to a useField() store
 ```
 
-| Part                     | Role                                                                                             |
-| ------------------------ | ------------------------------------------------------------------------------------------------ |
-| `Field` / `Field.Root`   | Root context. It renders a `<div role="group">` by default.                                    |
-| `Field.RootProvider`     | Root that uses a `useField()` state object created outside the tree.                             |
-| `Field.Context`          | Reads the current field state without adding an element to the DOM.                             |
-| `Field.Label`            | Accessible label associated with the current control.                                            |
-| `Field.Input`            | Low-level native input. Use `Input` for the usual moduix-styled input.                           |
-| `Field.Textarea`         | Low-level native textarea. Use `Textarea` for the usual moduix-styled textarea.                 |
-| `Field.Select`           | Low-level native select. Use `NativeSelect` for the usual moduix-styled select.                 |
-| `Field.HelperText`       | Helper text associated with the control through `aria-describedby`.                              |
-| `Field.ErrorText`        | Error text rendered when the root is `invalid`.                                                  |
-| `Field.RequiredIndicator` | Visual marker for a required field. Use `fallback` to replace its default marker.               |
-| `Field.Item`             | Nested context for a grouped control identified by `value`; its ref points to the local row wrapper. |
+| Part                      | Role                                                                                          |
+| ------------------------- | --------------------------------------------------------------------------------------------- |
+| `Field` / `Field.Root`    | Root context. It renders a `<div role="group">` by default.                                |
+| `Field.RootProvider`      | Root that uses a `useField()` state object created outside the tree.                          |
+| `Field.Context`           | Reads the current field state without adding an element to the DOM.                          |
+| `Field.Label`             | Accessible label associated with the current control.                                         |
+| `Field.Input`             | Low-level native input. Use `Input` for the usual moduix-styled input.                       |
+| `Field.Textarea`          | Low-level native textarea. Use `Textarea` for the usual moduix-styled textarea.               |
+| `Field.Select`            | Low-level native select. Use `NativeSelect` for the usual moduix-styled select.               |
+| `Field.HelperText`        | Helper text associated with the control through `aria-describedby`.                           |
+| `Field.ErrorText`         | Error text rendered when the root is `invalid`.                                               |
+| `Field.RequiredIndicator` | Visual marker for a required field. Use `fallback` to replace its default marker.              |
+| `Field.Item`              | Nested context for a grouped control identified by `value`; its ref points to the local row wrapper. |
 
 ## Composition
 
-### Recommended composition
-
-Keep one visible label in the root and place one primary moduix control, such as `Input`, `Textarea`,
-or `NativeSelect`, after it. Add helper or error text when the user needs a description or validation
-feedback.
-
-Controls with their own compound root, such as `Checkbox`, `RadioGroup`, or `Select`, can also sit
-inside `Field`. Those components keep their own state props, so pass `required`, `invalid`, `disabled`,
-or `readOnly` to the child root when that control owns the state.
-
-### When to go custom
-
-Use `Field.Item value` with the root `target` prop when a field contains several native controls and
-the root label should point to one of them. `Field.Input`, `Field.Textarea`, and `Field.Select` are
-available for low-level Ark composition, but application code should usually use the dedicated moduix
-controls.
-
-For a custom control that does not consume Ark Field context, use `Field.Context` or
-`useFieldContext` from `@moduix/react` to read the field state and wire its ids and ARIA attributes.
-
-### Default props
-
-| Prop       | Default | Notes                                                                                  |
-| ---------- | ------- | -------------------------------------------------------------------------------------- |
-| `disabled` | `false` | Marks the field disabled and propagates to supported field parts.                      |
-| `invalid`  | `false` | Controls `Field.ErrorText`; pass it to a compound child when that child owns validation. |
-| `readOnly` | `false` | Marks the field read-only and propagates to supported field parts.                     |
-| `required` | `false` | Marks the field required. `Field.RequiredIndicator` is still an explicit child.       |
-| `target`   | -       | The `value` of the `Field.Item` that the root label should target.                     |
-
-### Behavioral notes
-
-- `Field.ErrorText` is not rendered until the root is `invalid`.
-- The field does not validate values. Application state or a form library decides when `invalid`
-  should be `true`.
-- Long labels, helper text, and error messages wrap inside the field instead of overflowing its container.
-- Pass the value returned by `useField()` from `@moduix/react` to `Field.RootProvider`. Do not render
-  `Field.Root` and `Field.RootProvider` for the same field instance.
-- Use `Field.Context` or `useFieldContext` from `@moduix/react` when a custom control needs the
-  current field state. Ark props such as `ids`, `target`, and `asChild` remain available on the
-  corresponding parts.
-- `Field.Item` forwards its ref to the row wrapper that moduix renders around its children.
-- Composed controls such as `Checkbox` and `RadioGroup` manage their own native form elements. Field
-  itself does not render a hidden input.
+Use the root to combine one control with `Field.Label`, `Field.HelperText`, `Field.ErrorText`, and
+`Field.RequiredIndicator`. Compound controls such as `Checkbox`, `RadioGroup`, and `Select` own their
+control state, so pass `required`, `invalid`, `disabled`, or `readOnly` to their root when they own it.
+For several native controls, wrap each one in `Field.Item value` and set the root `target`. Use
+`Field.RootProvider` with `useField()` when state is created outside the rendered tree; custom controls
+can read the current state through `Field.Context` or `useFieldContext`.
 
 ## Examples
 
@@ -117,54 +162,196 @@ For a custom control that does not consume Ark Field context, use `Field.Context
 Use `Field` around a checkbox when it needs field-level helper or error text. Pass the checkbox's own
 state and form props to `Checkbox`.
 
-<PreviewFrame contentWidth="fit-content" maxWidth="sm">
-  ```tsx preview file="./_snippets/field/checkbox.tsx"
-  ```
+<ExampleFrame variant="component">
+  <FieldCheckbox />
+</ExampleFrame>
 
-</PreviewFrame>
+<ExampleCode>
+<div className="docs-reference">
+  <Tabs groupId="framework" values={[{ label: 'React', value: 'react' }, { label: 'Solid', value: 'solid' }]} className="docs-tabs">
+    <Tab value="react">
+
+```tsx pure file="../../../src/components/examples/field/checkbox.tsx"
+```
+
+    </Tab>
+    <Tab value="solid">
+
+<CodeBlockRuntime lang="tsx" code={fieldSolidCheckbox} />
+
+    </Tab>
+  </Tabs>
+
+**Styles**
+
+```css file="../../../src/components/examples/field/field-checkbox.module.css"
+```
+</div>
+
+</ExampleCode>
 
 ### Controlled invalid state
 
 Derive `invalid` from local state when validation should update as the user types. The error text
 appears only while the field is invalid.
 
-<PreviewFrame contentWidth="fit-content" maxWidth="sm">
-  ```tsx preview file="./_snippets/field/controlled-invalid.tsx"
-  ```
+<ExampleFrame variant="component">
+  <FieldControlledInvalid />
+</ExampleFrame>
 
-</PreviewFrame>
+<ExampleCode>
+<div className="docs-reference">
+  <Tabs groupId="framework" values={[{ label: 'React', value: 'react' }, { label: 'Solid', value: 'solid' }]} className="docs-tabs">
+    <Tab value="react">
+
+```tsx pure file="../../../src/components/examples/field/controlled-invalid.tsx"
+```
+
+    </Tab>
+    <Tab value="solid">
+
+<CodeBlockRuntime lang="tsx" code={fieldSolidControlledInvalid} />
+
+    </Tab>
+  </Tabs>
+
+**Styles**
+
+```css file="../../../src/components/examples/field/field-controlled-invalid.module.css"
+```
+</div>
+
+</ExampleCode>
 
 ### Disabled
 
 Set `disabled` on the root to pass the disabled state to the supported Ark field parts.
 
-<PreviewFrame contentWidth="fit-content" maxWidth="sm">
-  ```tsx preview file="./_snippets/field/disabled.tsx"
-  ```
+<ExampleFrame variant="component">
+  <FieldDisabled />
+</ExampleFrame>
 
-</PreviewFrame>
+<ExampleCode>
+<div className="docs-reference">
+  <Tabs groupId="framework" values={[{ label: 'React', value: 'react' }, { label: 'Solid', value: 'solid' }]} className="docs-tabs">
+    <Tab value="react">
+
+```tsx pure file="../../../src/components/examples/field/disabled.tsx"
+```
+
+    </Tab>
+    <Tab value="solid">
+
+<CodeBlockRuntime lang="tsx" code={fieldSolidDisabled} />
+
+    </Tab>
+  </Tabs>
+
+**Styles**
+
+```css file="../../../src/components/examples/field/field-disabled.module.css"
+```
+</div>
+
+</ExampleCode>
 
 ### Invalid
 
 Set `invalid` on the root when application state or a form library controls validation. Pass it to a
 compound child root as well when that component owns its invalid state.
 
-<PreviewFrame contentWidth="fit-content" maxWidth="sm">
-  ```tsx preview file="./_snippets/field/invalid.tsx"
-  ```
+<ExampleFrame variant="component">
+  <FieldInvalid />
+</ExampleFrame>
 
-</PreviewFrame>
+<ExampleCode>
+<div className="docs-reference">
+  <Tabs groupId="framework" values={[{ label: 'React', value: 'react' }, { label: 'Solid', value: 'solid' }]} className="docs-tabs">
+    <Tab value="react">
+
+```tsx pure file="../../../src/components/examples/field/invalid.tsx"
+```
+
+    </Tab>
+    <Tab value="solid">
+
+<CodeBlockRuntime lang="tsx" code={fieldSolidInvalid} />
+
+    </Tab>
+  </Tabs>
+
+**Styles**
+
+```css file="../../../src/components/examples/field/field-invalid.module.css"
+```
+</div>
+
+</ExampleCode>
+
+### Item target
+
+Use `Field.Item` with the root `target` prop when one label should target a control inside a group.
+
+<ExampleFrame variant="component">
+  <FieldItemTarget />
+</ExampleFrame>
+
+<ExampleCode>
+<div className="docs-reference">
+  <Tabs groupId="framework" values={[{ label: 'React', value: 'react' }, { label: 'Solid', value: 'solid' }]} className="docs-tabs">
+    <Tab value="react">
+
+```tsx pure file="../../../src/components/examples/field/item-target.tsx"
+```
+
+    </Tab>
+    <Tab value="solid">
+
+<CodeBlockRuntime lang="tsx" code={fieldSolidItemTarget} />
+
+    </Tab>
+  </Tabs>
+
+**Styles**
+
+```css file="../../../src/components/examples/field/field-item-target.module.css"
+```
+</div>
+
+</ExampleCode>
 
 ### Native Select
 
 Use `NativeSelect` for a browser-native select. `Field` connects it to the field label, state, and
 description.
 
-<PreviewFrame contentWidth="fit-content" maxWidth="sm">
-  ```tsx preview file="./_snippets/field/native-select.tsx"
-  ```
+<ExampleFrame variant="component">
+  <FieldNativeSelect />
+</ExampleFrame>
 
-</PreviewFrame>
+<ExampleCode>
+<div className="docs-reference">
+  <Tabs groupId="framework" values={[{ label: 'React', value: 'react' }, { label: 'Solid', value: 'solid' }]} className="docs-tabs">
+    <Tab value="react">
+
+```tsx pure file="../../../src/components/examples/field/native-select.tsx"
+```
+
+    </Tab>
+    <Tab value="solid">
+
+<CodeBlockRuntime lang="tsx" code={fieldSolidNativeSelect} />
+
+    </Tab>
+  </Tabs>
+
+**Styles**
+
+```css file="../../../src/components/examples/field/field-native-select.module.css"
+```
+</div>
+
+</ExampleCode>
 
 ### RadioGroup
 
@@ -172,88 +359,180 @@ Use `Field` with `RadioGroup` when one field-level label, helper text, or error 
 the whole set of choices rather than individual radio items. Pass the group's own state props to
 `RadioGroup`.
 
-<PreviewFrame contentWidth="fit-content" maxWidth="sm">
-  ```tsx preview file="./_snippets/field/radiogroup.tsx"
-  ```
+<ExampleFrame variant="component">
+  <FieldRadioGroup />
+</ExampleFrame>
 
-</PreviewFrame>
+<ExampleCode>
+<div className="docs-reference">
+  <Tabs groupId="framework" values={[{ label: 'React', value: 'react' }, { label: 'Solid', value: 'solid' }]} className="docs-tabs">
+    <Tab value="react">
+
+```tsx pure file="../../../src/components/examples/field/radiogroup.tsx"
+```
+
+    </Tab>
+    <Tab value="solid">
+
+<CodeBlockRuntime lang="tsx" code={fieldSolidRadioGroup} />
+
+    </Tab>
+  </Tabs>
+
+**Styles**
+
+```css file="../../../src/components/examples/field/field-radiogroup.module.css"
+```
+</div>
+
+</ExampleCode>
 
 ### Read Only
 
 Set `readOnly` on the root when users can copy the control's value but cannot edit it.
 
-<PreviewFrame contentWidth="fit-content" maxWidth="sm">
-  ```tsx preview file="./_snippets/field/read-only.tsx"
-  ```
+<ExampleFrame variant="component">
+  <FieldReadOnly />
+</ExampleFrame>
 
-</PreviewFrame>
+<ExampleCode>
+<div className="docs-reference">
+  <Tabs groupId="framework" values={[{ label: 'React', value: 'react' }, { label: 'Solid', value: 'solid' }]} className="docs-tabs">
+    <Tab value="react">
+
+```tsx pure file="../../../src/components/examples/field/read-only.tsx"
+```
+
+    </Tab>
+    <Tab value="solid">
+
+<CodeBlockRuntime lang="tsx" code={fieldSolidReadOnly} />
+
+    </Tab>
+  </Tabs>
+
+**Styles**
+
+```css file="../../../src/components/examples/field/field-read-only.module.css"
+```
+</div>
+
+</ExampleCode>
+
+### Root Provider
+
+Use `useField` with `Field.RootProvider` when the field state must be created outside the rendered
+tree.
+
+<ExampleFrame variant="component">
+  <FieldRootProvider />
+</ExampleFrame>
+
+<ExampleCode>
+<div className="docs-reference">
+  <Tabs groupId="framework" values={[{ label: 'React', value: 'react' }, { label: 'Solid', value: 'solid' }]} className="docs-tabs">
+    <Tab value="react">
+
+```tsx pure file="../../../src/components/examples/field/root-provider.tsx"
+```
+
+    </Tab>
+    <Tab value="solid">
+
+<CodeBlockRuntime lang="tsx" code={fieldSolidRootProvider} />
+
+    </Tab>
+  </Tabs>
+
+**Styles**
+
+```css file="../../../src/components/examples/field/field-root-provider.module.css"
+```
+</div>
+
+</ExampleCode>
 
 ### Select
 
 Use the composed `Select` when a native select is not enough and you need a custom option list or
-selection UI. Use `Combobox` when users need to type to find or create a value. Because `Select` owns
-its state, pass `required`, `invalid`, `disabled`, or `readOnly` to `Select` when needed.
+selection UI. Because `Select` owns its state, pass `required`, `invalid`, `disabled`, or `readOnly`
+to `Select` when needed.
 
-<PreviewFrame contentWidth="fit-content" maxWidth="sm">
-  ```tsx preview file="./_snippets/field/select.tsx"
-  ```
+<ExampleFrame variant="component">
+  <FieldSelect />
+</ExampleFrame>
 
-</PreviewFrame>
+<ExampleCode>
+<div className="docs-reference">
+  <Tabs groupId="framework" values={[{ label: 'React', value: 'react' }, { label: 'Solid', value: 'solid' }]} className="docs-tabs">
+    <Tab value="react">
+
+```tsx pure file="../../../src/components/examples/field/select.tsx"
+```
+
+    </Tab>
+    <Tab value="solid">
+
+<CodeBlockRuntime lang="tsx" code={fieldSolidSelect} />
+
+    </Tab>
+  </Tabs>
+
+**Styles**
+
+```css file="../../../src/components/examples/field/field-select.module.css"
+```
+</div>
+
+</ExampleCode>
 
 ### Textarea
 
 Use `Textarea` for multi-line input while keeping the field's label, description, and state
 connections.
 
-<PreviewFrame contentWidth="fit-content" maxWidth="sm">
-  ```tsx preview file="./_snippets/field/textarea.tsx"
-  ```
+<ExampleFrame variant="component">
+  <FieldTextarea />
+</ExampleFrame>
 
-</PreviewFrame>
+<ExampleCode>
+<div className="docs-reference">
+  <Tabs groupId="framework" values={[{ label: 'React', value: 'react' }, { label: 'Solid', value: 'solid' }]} className="docs-tabs">
+    <Tab value="react">
 
-### Advanced Customization
+```tsx pure file="../../../src/components/examples/field/textarea.tsx"
+```
 
-Use `Field.Item` with the root `target` prop when one label should target a control inside a group.
+    </Tab>
+    <Tab value="solid">
 
-<style>{`.inlineControls { display: grid; grid-template-columns: minmax(6rem, max-content) minmax(0, 1fr); gap: var(--moduix-spacing-2); }`}</style>
+<CodeBlockRuntime lang="tsx" code={fieldSolidTextarea} />
 
-<PreviewFrame contentWidth="fit-content" maxWidth="sm">
-  ```tsx preview file="./_snippets/field/item-target.tsx"
-  ```
+    </Tab>
+  </Tabs>
 
-</PreviewFrame>
+**Styles**
 
-Use `useField` with `Field.RootProvider` when the field state must be created outside the rendered
-tree.
+```css file="../../../src/components/examples/field/field-textarea.module.css"
+```
+</div>
 
-<PreviewFrame contentWidth="fit-content" maxWidth="sm">
-  ```tsx preview file="./_snippets/field/root-provider.tsx"
-  ```
-
-</PreviewFrame>
+</ExampleCode>
 
 ## Styling
 
-Customize `Field` with `className`, Ark `data-scope="field"` and `data-part="..."` attributes,
-moduix `data-slot="field-*"` hooks, and the public `--moduix-field-*` CSS variables shown below.
+Use `className` in React or `class` in Solid on exported parts for structural styles. For state-based
+styles, prefer Ark data attributes such as `data-disabled`, `data-invalid`, `data-readonly`, and
+`data-required`, together with moduix `data-slot` selectors. Tailwind variants use native utilities and
+consumer classes; the CSS variables below customize the CSS Modules variants.
 
 ### CSS Properties
 
-<div className="docs-reference">
-  <Tabs
-    values={[{ label: 'CSS Variables', value: 'CSS Variables' }]}
-    className="docs-reference-tabs"
-    contentItemClassName="docs-reference-panel"
-  >
-    <Tab>
-      <FieldDocs.FieldCssPropertiesPanel />
-    </Tab>
-  </Tabs>
-</div>
+<CssPropertiesSection properties={FieldDocs.fieldOverrideCssProperties} />
 
 ### Styling hooks
 
-Ark adds `data-disabled`, `data-invalid`, `data-readonly`, and `data-required` to the relevant
-parts. `Field.ErrorText` exists only while the current field context is invalid. The helper text id
-is included in the control's `aria-describedby`, and the active error text id is included in
-`aria-errormessage`. Every DOM part also keeps a stable `data-slot="field-*"` hook.
+Ark adds `data-disabled`, `data-invalid`, `data-readonly`, and `data-required` to the relevant parts.
+`Field.ErrorText` exists only while the current field context is invalid. The helper text id is included
+in the control's `aria-describedby`, and the active error text id is included in `aria-errormessage`.
+Every DOM part also keeps a stable `data-slot="field-*"` hook.

@@ -1,0 +1,41 @@
+import { Tabs } from '@moduix/solid/tabs';
+import { createSignal } from 'solid-js';
+
+const items = [
+  {
+    value: 'overview',
+    title: 'Overview',
+    content:
+      'Review project status, team velocity, workloads and activity highlights in one place.',
+  },
+  {
+    value: 'projects',
+    title: 'Projects',
+    content:
+      'Track active workstreams, owners and milestones across all departments and align delivery timelines.',
+  },
+  {
+    value: 'account',
+    title: 'Account',
+    content: 'Manage personal settings, team settings, notifications and access preferences.',
+  },
+];
+
+export default function ControlledTabsDemo() {
+  const [value, setValue] = createSignal('projects');
+
+  return (
+    <Tabs value={value()} onValueChange={(details) => setValue(details.value)}>
+      <Tabs.List>
+        {items.map((item) => (
+          <Tabs.Trigger value={item.value}>{item.title}</Tabs.Trigger>
+        ))}
+        <Tabs.Indicator />
+      </Tabs.List>
+
+      {items.map((item) => (
+        <Tabs.Content value={item.value}>{item.content}</Tabs.Content>
+      ))}
+    </Tabs>
+  );
+}

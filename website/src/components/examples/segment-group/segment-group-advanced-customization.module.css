@@ -1,0 +1,26 @@
+.item {
+  display: grid;
+  width: 9rem;
+  min-height: 4.5rem;
+  align-content: center;
+  justify-items: start;
+  gap: 0.125rem;
+  padding: var(--moduix-spacing-3);
+  white-space: normal;
+}
+
+.title {
+  font-weight: var(--moduix-weight-semibold);
+}
+
+.description {
+  position: relative;
+  z-index: 1;
+  color: var(--moduix-color-muted-foreground);
+  font-size: var(--moduix-text-xs);
+  line-height: var(--moduix-line-height-text-xs);
+}
+
+.item[data-state='checked'] .description {
+  color: var(--moduix-segment-group-item-color-checked, var(--moduix-color-foreground));
+}

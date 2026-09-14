@@ -8,7 +8,6 @@ import {
 import { clsx } from 'clsx';
 import type { ComponentProps, ComponentRef, CSSProperties } from 'react';
 import { forwardRef } from 'react';
-import { normalizeClassName } from '@/lib/moduix/normalizeClassName';
 import styles from './Splitter.module.css';
 
 const rootStyle = {
@@ -24,7 +23,7 @@ const SplitterRoot = forwardRef<
     <SplitterPrimitive.Root
       ref={ref}
       data-slot="splitter-root"
-      className={clsx(styles.root, normalizeClassName(className))}
+      className={clsx(styles.root, className)}
       style={{ ...rootStyle, ...style }}
       {...props}
     />
@@ -39,7 +38,7 @@ const SplitterRootProvider = forwardRef<
     <SplitterPrimitive.RootProvider
       ref={ref}
       data-slot="splitter-root-provider"
-      className={clsx(styles.root, normalizeClassName(className))}
+      className={clsx(styles.root, className)}
       style={{ ...rootStyle, ...style }}
       {...props}
     />
@@ -54,7 +53,7 @@ const SplitterPanel = forwardRef<
     <SplitterPrimitive.Panel
       ref={ref}
       data-slot="splitter-panel"
-      className={clsx(styles.panel, normalizeClassName(className))}
+      className={clsx(styles.panel, className)}
       {...props}
     />
   );
@@ -68,7 +67,7 @@ const SplitterResizeTriggerIndicator = forwardRef<
     <SplitterPrimitive.ResizeTriggerIndicator
       ref={ref}
       data-slot="splitter-resize-trigger-indicator"
-      className={clsx(styles.resizeTriggerIndicator, normalizeClassName(className))}
+      className={clsx(styles.resizeTriggerIndicator, className)}
       {...props}
     />
   );
@@ -83,7 +82,7 @@ const SplitterResizeTrigger = forwardRef<
       ref={ref}
       asChild={asChild}
       data-slot="splitter-resize-trigger"
-      className={clsx(styles.resizeTrigger, normalizeClassName(className))}
+      className={clsx(styles.resizeTrigger, className)}
       {...props}
     >
       {children === undefined && !asChild ? <SplitterResizeTriggerIndicator /> : children}

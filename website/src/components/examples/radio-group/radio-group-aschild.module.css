@@ -1,0 +1,15 @@
+.cardItem {
+  display: grid;
+  grid-template-columns: auto 1fr;
+  align-items: center;
+  width: 14rem;
+  border: var(--moduix-border-width-sm) solid var(--moduix-color-border);
+  border-radius: var(--moduix-radius-md);
+  padding: var(--moduix-spacing-3);
+  gap: var(--moduix-spacing-2);
+}
+
+.cardItem[data-state='checked'] {
+  border-color: var(--moduix-color-primary);
+  background-color: var(--moduix-color-accent);
+}

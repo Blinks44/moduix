@@ -1,13 +1,13 @@
 ---
 name: rspress-description-generator
-description: Generate and maintain description frontmatter for Rspress documentation files (.md/.mdx). Use when a user wants to add SEO descriptions, improve search engine snippets, generate llms.txt metadata, prepare docs for AI summarization, or batch-update frontmatter across an Rspress doc site. Also use when adding new documentation pages to an Rspress project — every new doc file needs a description.
+description: Generate and maintain description frontmatter for Rspress documentation files (.md/.mdx). Use when a user wants to add SEO descriptions, improve search engine snippets, generate llms.txt metadata, prepare docs for AI summarization, or batch-update frontmatter across an Rspress doc site. Also use when adding new documentation pages to an Rspress project - every new doc file needs a description.
 ---
 
 # Rspress Description Generator
 
 The `description` field in Rspress frontmatter generates `<meta name="description" content="...">` tags, which are used for search engine snippets, social media previews, and AI-oriented formats like llms.txt.
 
-## Step 1 — Locate the docs root
+## Step 1 - Locate the docs root
 
 1. Find the Rspress config file. Search for `rspress.config.ts`, `.js`, `.mjs`, or `.cjs`. It may be at the project root or inside a subdirectory like `website/`.
 2. Read the config and extract the `root` option.
@@ -16,7 +16,7 @@ The `description` field in Rspress frontmatter generates `<meta name="descriptio
    - If `root` is not set, default to `docs` relative to the config file's directory.
 3. Confirm the directory exists. If neither `docs` nor the configured root exists, check for `doc` as a fallback.
 
-## Step 2 — Scan and process files
+## Step 2 - Scan and process files
 
 Glob for `**/*.md` and `**/*.mdx` under the docs root. Exclude:
 
@@ -55,11 +55,11 @@ If the description contains colons, quotes, or other special YAML characters, wr
 description: 'API reference for Rspress configuration: plugins, themes, and build options'
 ```
 
-## Step 3 — Batch processing
+## Step 3 - Batch processing
 
-For sites with many files, use parallel agent calls to process independent files simultaneously. Group by directory (e.g., all files in `guide/`, then all in `api/`) to maintain focus and consistency within each section.
+For sites with many files, process them in coherent directory groups so terminology remains consistent within each section.
 
-After processing all files, do a quick scan to ensure no files were missed — re-glob and check for any remaining files without `description`.
+After processing all files, do a quick scan to ensure no files were missed - re-glob and check for any remaining files without `description`.
 
 ## Description Writing Guidelines
 
@@ -68,7 +68,7 @@ The description serves three audiences: search engines (Google snippet), AI syst
 ### Rules
 
 - **Length**: 50–160 characters. Under 50 is too vague for search engines; over 160 gets truncated in snippets.
-- **Be direct**: State what the page covers. Avoid starting with "This document", "This page", "Learn about" — jump straight to the substance.
+- **Be direct**: State what the page covers. Avoid starting with "This document", "This page", "Learn about" - jump straight to the substance.
 - **Be specific**: Mention concrete technologies, APIs, or concepts the page covers. "Configure Rspress plugins for search and analytics" beats "How to use plugins."
 - **No markdown**: Plain text only, no formatting syntax.
 
@@ -82,13 +82,13 @@ The description serves three audiences: search engines (Google snippet), AI syst
 | MDX component usage        | Import and use React components in MDX documentation files                   |
 | Rspress 快速开始           | 从安装到本地预览，搭建 Rspress 文档站点的完整流程                            |
 | 主题配置                   | 自定义 Rspress 主题的导航栏、侧边栏、页脚和暗色模式                          |
-| Home page (pageType: home) | Rspress documentation framework — fast, MDX-powered static site generator    |
+| Home page (pageType: home) | Rspress documentation framework - fast, MDX-powered static site generator    |
 
 **Bad:**
 
 | Description                                             | Why                                              |
 | ------------------------------------------------------- | ------------------------------------------------ |
-| "About plugins"                                         | Too vague — which plugins? what about them?      |
+| "About plugins"                                         | Too vague - which plugins? what about them?      |
 | "This page explains how to configure the Rspress theme" | Wastes characters on "This page explains how to" |
 | "Learn everything about Rspress!"                       | Marketing fluff, says nothing specific           |
 

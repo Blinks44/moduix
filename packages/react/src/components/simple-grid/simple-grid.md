@@ -77,6 +77,8 @@ Use `columns` when the column count is fixed:
 - Chakra auto-responsive layout: supported through `minChildWidth`, `auto-fit`, and `minmax()`.
 - Chakra row and column gaps: supported.
 - Chakra responsive style props and Grid item span helpers: intentionally unsupported.
+- Solid port note: the native Ark Solid factory forwards refs through the ordinary root path but
+  not through `asChild`; attach a ref to the composed child when that path needs one.
 
 ## Accessibility and state
 

@@ -1,7 +1,6 @@
 import { Avatar as AvatarPrimitive, useAvatar, useAvatarContext } from '@ark-ui/react/avatar';
 import { clsx } from 'clsx';
-import { forwardRef, type ComponentProps, type ComponentRef, type ReactNode } from 'react';
-import { normalizeClassName } from '@/lib/moduix/normalizeClassName';
+import { forwardRef, type ComponentProps, type ComponentRef } from 'react';
 import styles from './Avatar.module.css';
 
 type AvatarSize = 'xs' | 'sm' | 'md' | 'lg' | 'xl';
@@ -11,55 +10,6 @@ type AvatarRootProps = ComponentProps<typeof AvatarPrimitive.Root> & {
 type AvatarRootProviderProps = ComponentProps<typeof AvatarPrimitive.RootProvider> & {
   size?: AvatarSize;
 };
-type AvatarFallbackProps = ComponentProps<typeof AvatarPrimitive.Fallback> & {
-  name?: string;
-};
-
-const graphemeSegmenter = new Intl.Segmenter(undefined, { granularity: 'grapheme' });
-
-const getFirstGrapheme = (value: string) => {
-  const [firstGrapheme] = graphemeSegmenter.segment(value);
-
-  return firstGrapheme?.segment ?? '';
-};
-
-const getInitials = (name: string) => {
-  const parts = name.trim().split(/\s+/).filter(Boolean);
-  const firstName = parts[0] ?? '';
-  const lastName = parts.length > 1 ? parts[parts.length - 1] : '';
-
-  return firstName && lastName
-    ? `${getFirstGrapheme(firstName)}${getFirstGrapheme(lastName)}`
-    : getFirstGrapheme(firstName);
-};
-
-function AvatarFallbackIcon() {
-  return (
-    <svg
-      aria-hidden="true"
-      focusable="false"
-      data-slot="avatar-fallback-icon"
-      className={styles.fallbackIcon}
-      viewBox="0 0 24 24"
-      fill="none"
-      stroke="currentColor"
-      strokeWidth="2"
-      strokeLinecap="round"
-      strokeLinejoin="round"
-    >
-      <circle cx="12" cy="8" r="5" />
-      <path d="M20 21a8 8 0 0 0-16 0" />
-    </svg>
-  );
-}
-
-const getFallbackContent = (children: ReactNode, name?: string) => {
-  if (children !== undefined && children !== null) return children;
-
-  const initials = name ? getInitials(name) : '';
-
-  return initials || <AvatarFallbackIcon />;
-};
 
 const AvatarRoot = forwardRef<ComponentRef<typeof AvatarPrimitive.Root>, AvatarRootProps>(
   function AvatarRoot({ className, size, ...props }, ref) {
@@ -68,7 +18,7 @@ const AvatarRoot = forwardRef<ComponentRef<typeof AvatarPrimitive.Root>, AvatarR
         ref={ref}
         data-slot="avatar-root"
         data-size={size}
-        className={clsx(styles.root, normalizeClassName(className))}
+        className={clsx(styles.root, className)}
         {...props}
       />
     );
@@ -84,7 +34,7 @@ const AvatarRootProvider = forwardRef<
       ref={ref}
       data-slot="avatar-root-provider"
       data-size={size}
-      className={clsx(styles.root, normalizeClassName(className))}
+      className={clsx(styles.root, className)}
       {...props}
     />
   );
@@ -98,7 +48,7 @@ const AvatarImage = forwardRef<
     <AvatarPrimitive.Image
       ref={ref}
       data-slot="avatar-image"
-      className={clsx(styles.image, normalizeClassName(className))}
+      className={clsx(styles.image, className)}
       {...props}
     />
   );
@@ -106,16 +56,16 @@ const AvatarImage = forwardRef<
 
 const AvatarFallback = forwardRef<
   ComponentRef<typeof AvatarPrimitive.Fallback>,
-  AvatarFallbackProps
->(function AvatarFallback({ children, className, name, ...props }, ref) {
+  ComponentProps<typeof AvatarPrimitive.Fallback>
+>(function AvatarFallback({ children, className, ...props }, ref) {
   return (
     <AvatarPrimitive.Fallback
       ref={ref}
       data-slot="avatar-fallback"
-      className={clsx(styles.fallback, normalizeClassName(className))}
+      className={clsx(styles.fallback, className)}
       {...props}
     >
-      {getFallbackContent(children, name)}
+      {children}
     </AvatarPrimitive.Fallback>
   );
 });

@@ -8,7 +8,6 @@ import {
 import { clsx } from 'clsx';
 import type { ComponentProps, ComponentRef } from 'react';
 import { forwardRef } from 'react';
-import { normalizeClassName } from '@/lib/moduix/normalizeClassName';
 import styles from './ImageCropper.module.css';
 
 const ImageCropperRoot = forwardRef<
@@ -19,7 +18,7 @@ const ImageCropperRoot = forwardRef<
     <ImageCropperPrimitive.Root
       ref={ref}
       data-slot="image-cropper-root"
-      className={clsx(styles.root, normalizeClassName(className))}
+      className={clsx(styles.root, className)}
       {...props}
     />
   );
@@ -33,7 +32,7 @@ const ImageCropperRootProvider = forwardRef<
     <ImageCropperPrimitive.RootProvider
       ref={ref}
       data-slot="image-cropper-root-provider"
-      className={clsx(styles.root, normalizeClassName(className))}
+      className={clsx(styles.root, className)}
       {...props}
     />
   );
@@ -47,7 +46,7 @@ const ImageCropperViewport = forwardRef<
     <ImageCropperPrimitive.Viewport
       ref={ref}
       data-slot="image-cropper-viewport"
-      className={clsx(styles.viewport, normalizeClassName(className))}
+      className={clsx(styles.viewport, className)}
       {...props}
     />
   );
@@ -61,7 +60,7 @@ const ImageCropperImage = forwardRef<
     <ImageCropperPrimitive.Image
       ref={ref}
       data-slot="image-cropper-image"
-      className={clsx(styles.image, normalizeClassName(className))}
+      className={clsx(styles.image, className)}
       {...props}
     />
   );
@@ -75,7 +74,7 @@ const ImageCropperSelection = forwardRef<
     <ImageCropperPrimitive.Selection
       ref={ref}
       data-slot="image-cropper-selection"
-      className={clsx(styles.selection, normalizeClassName(className))}
+      className={clsx(styles.selection, className)}
       {...props}
     />
   );
@@ -89,7 +88,7 @@ const ImageCropperGrid = forwardRef<
     <ImageCropperPrimitive.Grid
       ref={ref}
       data-slot="image-cropper-grid"
-      className={clsx(styles.grid, normalizeClassName(className))}
+      className={clsx(styles.grid, className)}
       {...props}
     />
   );
@@ -103,7 +102,7 @@ const ImageCropperHandle = forwardRef<
     <ImageCropperPrimitive.Handle
       ref={ref}
       data-slot="image-cropper-handle"
-      className={clsx(styles.handle, normalizeClassName(className))}
+      className={clsx(styles.handle, className)}
       {...props}
     />
   );

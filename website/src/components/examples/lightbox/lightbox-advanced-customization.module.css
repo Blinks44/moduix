@@ -1,0 +1,24 @@
+.button {
+  border: 0;
+  border-radius: var(--moduix-radius-md);
+  background: var(--moduix-color-muted);
+  padding: var(--moduix-spacing-3) var(--moduix-spacing-4);
+  color: var(--moduix-color-foreground);
+  font: inherit;
+}
+
+.customBackdrop {
+  --moduix-lightbox-backdrop-bg: rgb(15 23 42 / 0.72);
+}
+
+.customContent {
+  --moduix-lightbox-content-max-width: 72vw;
+  --moduix-lightbox-content-max-height: 72dvh;
+  --moduix-lightbox-media-radius: var(--moduix-radius-lg);
+}
+
+.customClose {
+  --moduix-lightbox-close-icon-bg: var(--moduix-color-muted);
+  --moduix-lightbox-close-icon-bg-hover: var(--moduix-color-accent);
+  --moduix-lightbox-close-icon-radius: var(--moduix-radius-md);
+}

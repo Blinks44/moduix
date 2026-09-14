@@ -4,6 +4,7 @@ description: A copy-ready dashboard layout with a collapsible, resizable sidebar
 ---
 
 import { SidebarDashboardPreview } from '@/components/recipes/sidebar-dashboard-preview';
+import sidebarDashboardSolid from '../../../snippets/recipes/solid/sidebar-dashboard.tsx?raw';
 
 # Sidebar dashboard
 
@@ -16,35 +17,51 @@ You can resize the sidebar by dragging the divider or using the keyboard. `Sideb
 collapses and expands the panel, while `Sidebar.Tooltip` keeps navigation labels available when the
 sidebar is reduced to its icon rail.
 
-This is a copy-ready composition, not a `SidebarDashboard` component exported by `@moduix/react`.
+This is a copy-ready composition, not a `SidebarDashboard` component exported by moduix.
 Copy the component and CSS below, then replace the example links, labels, and dashboard data.
 
-<ExampleFrame clientOnly>
+The live preview uses the React package. The source tabs show native React and Solid implementations that share the same stylesheet.
+
+<ExampleFrame variant="recipe" clientOnly>
   <SidebarDashboardPreview />
 </ExampleFrame>
 
+<ExampleCode>
 <div className="docs-reference">
-  <Tabs values={[{ label: 'Component', value: 'Component' }, { label: 'Styles', value: 'Styles' }]} className="docs-tabs">
-    <Tab value="Component">
+  <Tabs
+    groupId="framework"
+    values={[
+      { label: 'React', value: 'react' },
+      { label: 'Solid', value: 'solid' },
+    ]}
+    className="docs-tabs"
+  >
+    <Tab value="react">
 
-```tsx file="../../../src/components/recipes/sidebar-dashboard.tsx"
+```tsx pure file="../../../src/components/recipes/sidebar-dashboard.tsx"
 
 ```
 
     </Tab>
-    <Tab value="Styles">
+    <Tab value="solid">
+
+<CodeBlockRuntime lang="tsx" code={sidebarDashboardSolid} />
+
+    </Tab>
+  </Tabs>
+
+**Styles**
 
 ```css file="../../../src/components/recipes/sidebar-dashboard.module.css"
 
 ```
-
-    </Tab>
-  </Tabs>
 </div>
+
+</ExampleCode>
 
 ## Install
 
-<ShadcnInstall packageName={['button', 'card', 'collapsible', 'menu', 'sidebar']} itemKind="recipe" copiedSource dependencies={['lucide-react']} />
+<ShadcnInstall packageName={['button', 'card', 'collapsible', 'menu', 'sidebar']} itemKind="recipe" frameworks copiedSource dependencies={['lucide-react']} solidDependencies={['lucide-solid']} />
 
 ## Adapt it to your app
 

@@ -1,0 +1,167 @@
+@layer moduix.components {
+  .root {
+    position: relative;
+    display: flex;
+    flex-direction: column;
+    gap: var(--moduix-radio-group-gap, var(--moduix-spacing-2));
+    color: var(--moduix-radio-group-color, var(--moduix-color-foreground));
+
+    &[data-disabled] {
+      cursor: default;
+    }
+  }
+
+  .label {
+    color: var(
+      --moduix-radio-group-label-color,
+      var(--moduix-radio-group-color, var(--moduix-color-foreground))
+    );
+    font-size: var(--moduix-radio-group-label-font-size, var(--moduix-text-sm));
+    font-weight: var(--moduix-radio-group-label-font-weight, var(--moduix-weight-semibold));
+    line-height: var(--moduix-radio-group-label-line-height, var(--moduix-line-height-text-sm));
+  }
+
+  .item {
+    display: inline-flex;
+    align-items: center;
+    width: fit-content;
+    gap: var(--moduix-radio-gap, var(--moduix-spacing-2));
+    vertical-align: middle;
+    cursor: pointer;
+
+    &[data-disabled] {
+      cursor: default;
+      opacity: var(--moduix-radio-disabled-opacity, var(--moduix-opacity-disabled));
+    }
+  }
+
+  .itemControl {
+    box-sizing: border-box;
+    position: relative;
+    display: inline-flex;
+    flex: none;
+    align-items: center;
+    justify-content: center;
+    -webkit-appearance: none;
+    appearance: none;
+    width: var(--_radio-size, 1.25rem);
+    height: var(--_radio-size, 1.25rem);
+    border: var(--moduix-radio-border-width, var(--moduix-border-width-sm)) solid
+      var(--moduix-radio-border-color, var(--moduix-color-border));
+    border-radius: var(--moduix-radius-full);
+    background-color: var(--moduix-radio-bg, var(--moduix-color-background));
+    color: var(--moduix-radio-indicator-color, var(--moduix-color-primary-foreground));
+    outline: 0;
+    line-height: 0;
+    user-select: none;
+    transition:
+      background-color var(--moduix-radio-transition, var(--moduix-transition-default)),
+      border-color var(--moduix-radio-transition, var(--moduix-transition-default)),
+      border-width var(--moduix-radio-transition, var(--moduix-transition-default)),
+      color var(--moduix-radio-transition, var(--moduix-transition-default)),
+      opacity var(--moduix-radio-transition, var(--moduix-transition-default));
+
+    &::before {
+      display: block;
+      width: var(--_radio-indicator-size, 0.5rem);
+      height: var(--_radio-indicator-size, 0.5rem);
+      border: var(--moduix-radio-indicator-border-width, 0) solid
+        var(--moduix-radio-indicator-border-color, currentColor);
+      border-radius: var(--moduix-radio-indicator-radius, var(--moduix-radius-full));
+      background-color: currentColor;
+      content: '';
+      opacity: 0;
+      transform: scale(0.6);
+      transition:
+        opacity var(--moduix-radio-transition, var(--moduix-transition-default)),
+        transform var(--moduix-radio-transition, var(--moduix-transition-default));
+    }
+
+    &[data-state='checked'] {
+      border-color: var(--moduix-radio-border-color-checked, var(--moduix-color-primary));
+      background-color: var(--moduix-radio-bg-checked, var(--moduix-color-primary));
+
+      &::before {
+        opacity: 1;
+        transform: scale(1);
+      }
+    }
+
+    &[data-invalid] {
+      border-color: var(--moduix-radio-border-color-invalid, var(--moduix-color-destructive));
+    }
+
+    &[data-focus-visible] {
+      outline: var(
+          --moduix-radio-focus-ring-width,
+          var(--moduix-focus-ring-inset-width, var(--moduix-border-width-sm))
+        )
+        solid var(--moduix-radio-focus-ring-color, var(--moduix-color-ring));
+      outline-offset: var(--moduix-radio-focus-ring-offset, var(--moduix-border-width-sm));
+    }
+
+    &[data-invalid][data-focus-visible] {
+      outline-color: var(--moduix-radio-focus-ring-color-invalid, var(--moduix-color-destructive));
+    }
+
+    @media (hover: hover) {
+      &[data-state='unchecked']:not([data-readonly], [data-disabled]):hover {
+        background-color: var(--moduix-radio-bg-hover, var(--moduix-color-accent));
+      }
+    }
+
+    &[data-readonly],
+    &[data-disabled] {
+      cursor: default;
+    }
+
+    &[data-size='xs'] {
+      --_radio-size: var(--moduix-radio-size-xs, var(--moduix-spacing-3-5));
+      --_radio-indicator-size: var(--moduix-radio-indicator-size-xs, var(--moduix-spacing-1));
+    }
+
+    &[data-size='sm'] {
+      --_radio-size: var(--moduix-radio-size-sm, var(--moduix-spacing-4));
+      --_radio-indicator-size: var(--moduix-radio-indicator-size-sm, var(--moduix-spacing-1-5));
+    }
+
+    &[data-size='md'] {
+      --_radio-size: var(--moduix-radio-size-md, var(--moduix-spacing-5));
+      --_radio-indicator-size: var(--moduix-radio-indicator-size-md, var(--moduix-spacing-2));
+    }
+
+    &[data-size='lg'] {
+      --_radio-size: var(--moduix-radio-size-lg, var(--moduix-size-xs));
+      --_radio-indicator-size: var(--moduix-radio-indicator-size-lg, var(--moduix-spacing-2-5));
+    }
+
+    &[data-size='xl'] {
+      --_radio-size: var(--moduix-radio-size-xl, var(--moduix-spacing-7));
+      --_radio-indicator-size: var(--moduix-radio-indicator-size-xl, var(--moduix-spacing-3));
+    }
+  }
+
+  .itemText {
+    color: var(
+      --moduix-radio-label-color,
+      var(--moduix-radio-group-color, var(--moduix-color-foreground))
+    );
+    font-size: var(--moduix-radio-label-font-size, var(--moduix-text-sm));
+    font-weight: var(--moduix-radio-label-font-weight, var(--moduix-weight-medium));
+    line-height: var(--moduix-radio-label-line-height, var(--moduix-line-height-text-sm));
+  }
+
+  .indicator {
+    position: absolute;
+    top: var(--top);
+    left: var(--left);
+    width: var(--width);
+    height: var(--height);
+    border-radius: var(--moduix-radio-indicator-radius, var(--moduix-radius-full));
+    background-color: var(--moduix-radio-bg-checked, var(--moduix-color-primary));
+    opacity: var(--moduix-radio-group-indicator-opacity, 0.12);
+    pointer-events: none;
+    transition: var(--transition-property, translate)
+      var(--moduix-radio-transition, var(--moduix-transition-default));
+  }
+}

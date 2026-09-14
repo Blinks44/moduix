@@ -1,0 +1,8 @@
+.content {
+  --moduix-menu-popup-min-width: 13rem;
+}
+
+.triggerRow {
+  display: flex;
+  justify-content: center;
+}

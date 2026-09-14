@@ -10,9 +10,8 @@ import type {
 } from '@tanstack/charts/react/tooltip';
 import { svgChartRenderer } from '@tanstack/charts/svg/renderer';
 import { clsx } from 'clsx';
-import type { CSSProperties, ForwardedRef } from 'react';
+import type { CSSProperties } from 'react';
 import { forwardRef } from 'react';
-import { normalizeClassName } from '@/lib/moduix/normalizeClassName';
 import styles from './Chart.module.css';
 
 const defaultChartRenderer = createMotionRenderer({
@@ -30,11 +29,11 @@ const ChartRoot = forwardRef<HTMLElement, HTMLArkProps<'figure'>>(function Chart
 ) {
   return (
     <ark.figure
-      ref={ref as ForwardedRef<HTMLElement>}
+      ref={ref}
       data-scope="chart"
       data-part="root"
       data-slot="chart-root"
-      className={clsx(styles.root, normalizeClassName(className))}
+      className={clsx(styles.root, className)}
       {...props}
     />
   );
@@ -110,7 +109,7 @@ const ChartPlot = function ChartPlot<
       {...props}
       renderer={renderer ?? (motion ? defaultChartRenderer : svgChartRenderer)}
       renderTooltipBody={renderTooltipBody ?? renderDefaultTooltipBody}
-      className={clsx(styles.plot, normalizeClassName(className))}
+      className={clsx(styles.plot, className)}
     />
   );
 };
@@ -121,77 +120,76 @@ const ChartHeader = forwardRef<HTMLElement, HTMLArkProps<'figcaption'>>(function
 ) {
   return (
     <ark.figcaption
-      ref={ref as ForwardedRef<HTMLElement>}
+      ref={ref}
       data-scope="chart"
       data-part="header"
       data-slot="chart-header"
-      className={clsx(styles.header, normalizeClassName(className))}
+      className={clsx(styles.header, className)}
       {...props}
     />
   );
 });
 
-const ChartTitle = forwardRef<HTMLElement, HTMLArkProps<'h3'>>(function ChartTitle(
+const ChartTitle = forwardRef<HTMLHeadingElement, HTMLArkProps<'h3'>>(function ChartTitle(
   { className, ...props },
   ref,
 ) {
   return (
     <ark.h3
-      ref={ref as ForwardedRef<HTMLHeadingElement>}
+      ref={ref}
       data-scope="chart"
       data-part="title"
       data-slot="chart-title"
-      className={clsx(styles.title, normalizeClassName(className))}
+      className={clsx(styles.title, className)}
       {...props}
     />
   );
 });
 
-const ChartDescription = forwardRef<HTMLElement, HTMLArkProps<'p'>>(function ChartDescription(
-  { className, ...props },
-  ref,
-) {
-  return (
-    <ark.p
-      ref={ref as ForwardedRef<HTMLParagraphElement>}
-      data-scope="chart"
-      data-part="description"
-      data-slot="chart-description"
-      className={clsx(styles.description, normalizeClassName(className))}
-      {...props}
-    />
-  );
-});
+const ChartDescription = forwardRef<HTMLParagraphElement, HTMLArkProps<'p'>>(
+  function ChartDescription({ className, ...props }, ref) {
+    return (
+      <ark.p
+        ref={ref}
+        data-scope="chart"
+        data-part="description"
+        data-slot="chart-description"
+        className={clsx(styles.description, className)}
+        {...props}
+      />
+    );
+  },
+);
 
-const ChartLegend = forwardRef<HTMLElement, HTMLArkProps<'ul'>>(function ChartLegend(
+const ChartLegend = forwardRef<HTMLUListElement, HTMLArkProps<'ul'>>(function ChartLegend(
   { className, ...props },
   ref,
 ) {
   return (
     <ark.ul
-      ref={ref as ForwardedRef<HTMLUListElement>}
+      ref={ref}
       data-scope="chart"
       data-part="legend"
       data-slot="chart-legend"
-      className={clsx(styles.legend, normalizeClassName(className))}
+      className={clsx(styles.legend, className)}
       {...props}
     />
   );
 });
 
 const ChartLegendItem = forwardRef<
-  HTMLElement,
+  HTMLLIElement,
   HTMLArkProps<'li'> & {
     color?: string;
   }
 >(function ChartLegendItem({ className, color, style, ...props }, ref) {
   return (
     <ark.li
-      ref={ref as ForwardedRef<HTMLLIElement>}
+      ref={ref}
       data-scope="chart"
       data-part="legend-item"
       data-slot="chart-legend-item"
-      className={clsx(styles.legendItem, normalizeClassName(className))}
+      className={clsx(styles.legendItem, className)}
       style={
         color
           ? ({ '--moduix-chart-legend-indicator-color': color, ...style } as CSSProperties)

@@ -22,7 +22,8 @@ direct Ark imports remain escape hatches.
 `RadioGroup` is the root component and also exposes `RadioGroup.Root` for namespace consistency.
 The public parts are thin Ark wrappers that add moduix CSS Modules, stable `data-slot` values, and
 two small conveniences: `RadioGroup.ItemControl size="xs" | "sm" | "md" | "lg" | "xl"` and
-`RadioGroup.Option`, which combines one item, control, and text. The item renders the native form input automatically.
+`RadioGroup.Option`, which combines one item, control, text, and Ark's native input. When composing
+`RadioGroup.Item` directly, add `RadioGroup.ItemHiddenInput` explicitly.
 
 `RadioGroup.Root` forwards Ark props such as `value`, `defaultValue`, `onValueChange(details)`,
 `name`, `form`, `orientation`, `disabled`, `invalid`, `readOnly`, `required`, `ids`, and `asChild`.
@@ -84,10 +85,10 @@ placement or class names.
 - `Field.Root` provides visible field context only; pass `disabled`, `invalid`, `readOnly`, and
   `required` directly to the group. `Fieldset.Root` passes its Ark `disabled` and `invalid` state
   to the group. Keep visible field labels, helper text, and error text adjacent to the group; every
-  `Item` renders its native form input automatically.
+  `Option` includes its native input; direct `Item` composition requires `ItemHiddenInput`.
 - `asChild` is supported on Ark parts. `RadioGroup.Item` renders a `label` by default; when
   `asChild` is used, the direct child must still be a semantic `label`.
-- Each `RadioGroup.Item` renders its native form input automatically for submission, validation, and reset.
+- Compose `RadioGroup.ItemHiddenInput` inside each direct `RadioGroup.Item` for submission, validation, and reset.
 - `ids` is forwarded from `Root`/`RootProvider` for explicit accessibility composition.
 - Item, item-control, and item-text expose Ark item state attributes, including
   `data-state`, `data-disabled`, `data-readonly`, `data-invalid`, `data-focus`,
@@ -105,7 +106,7 @@ Preserve Ark data attributes such as `data-scope="radio-group"`, `data-part`, `d
 `data-focus`, `data-focus-visible`, `data-hover`, and `data-active`.
 
 `Root`, `RootProvider`, `Label`, `Item`, `ItemControl`, `ItemText`, and `Indicator` forward refs
-to their public Ark DOM parts. The internal native input is not a separate ref target.
+to their public Ark DOM parts. `ItemHiddenInput` forwards its own native-input ref.
 
 ## Defaults and styling
 
@@ -130,7 +131,7 @@ and provide an inline item wrapper when you need custom row wrapping. `ItemContr
 
 ## Agent notes
 
-- Every `RadioGroup.Item`, including the item used by `RadioGroup.Option`, renders its native form input automatically.
+- `RadioGroup.Option` includes `ItemHiddenInput` in its fixed composition; custom item trees add it explicitly.
 - Keep `RootProvider`, `useRadioGroup`, `useRadioGroupContext`, and `useRadioGroupItemContext`
   available from the moduix barrel. Other Ark APIs remain direct-import escape hatches.
 - When changing the public namespace, sync stories, docs examples, registry paths, and generated
@@ -143,12 +144,13 @@ and provide an inline item wrapper when you need custom row wrapping. `ItemContr
   overridden. Added regression coverage for public refs and slots plus disabled, read-only, invalid,
   and required semantics.
 
-- 2026-07-30: Added invalid control styling and focused regression coverage for automatic native
+- 2026-09-04: Exposed Ark `ItemHiddenInput` for explicit custom item composition.
+- 2026-07-30: Added invalid control styling and focused regression coverage for native
   inputs, keyboard navigation, `asChild`, invalid state, and `RootProvider`. Clarified `Field.Root`
   versus `Fieldset.Root` state integration.
 
 - 2026-07-21: Routed shared dimensions, spacing, icon geometry, and focus-ring fallbacks through foundation tokens so density and theme presets can retune the component consistently.
-- 2026-07-13: Native form controls are now rendered automatically; the former public form-control part was removed.
+- 2026-07-13: Native form controls were rendered automatically at this point in the wrapper history.
 
 - 2026-07-11: Added `Option` for the common labelled-item path, re-exported `useRadioGroup` for
   `RootProvider`, and documented `Field.Root` integration plus the explicit advanced composition.

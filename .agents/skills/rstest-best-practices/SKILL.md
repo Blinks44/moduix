@@ -13,6 +13,8 @@ Apply these rules when writing or reviewing Rstest test projects.
 - Prefer explicit imports `import { test, expect, describe } from '@rstest/core'` over `globals: true`
 - For Rsbuild projects, use `@rstest/adapter-rsbuild` with `extends: withRsbuildConfig()` to reuse build config
 - For Rslib projects, use `@rstest/adapter-rslib` with `extends: withRslibConfig()` to reuse build config
+- For a Solid package with dual Rslib outputs, give the compiled output an id and pass that `libId`
+  to `withRslibConfig`; otherwise test TSX may be transformed with the wrong JSX runtime.
 - Use `setupFiles` for shared test setup (e.g., custom matchers, cleanup hooks)
 - When using Rsbuild plugins (e.g., `@rsbuild/plugin-react`), add them via the `plugins` field
 - For deep-level or advanced build configuration needs, use `tools.rspack` or `tools.bundlerChain`
@@ -33,7 +35,7 @@ Apply these rules when writing or reviewing Rstest test projects.
 - Use `.only` to focus on specific tests during development, but never commit `.only` to the codebase
 - Use `.skip` or `.todo` to mark incomplete or temporarily skipped tests
 - Prefer small, focused test cases that test a single behavior
-- For async error paths, prefer `await expect(fn()).rejects.toThrow(ErrorClass)` (or `.rejects.toMatchObject({ ... })`) over `try/catch` with `expect.fail` or `.catch(e => e)` patterns — the matcher form fails clearly if the promise unexpectedly resolves, keeps the assertion in one chain, and avoids forgetting to assert the throw at all
+- For async error paths, prefer `await expect(fn()).rejects.toThrow(ErrorClass)` (or `.rejects.toMatchObject({ ... })`) over `try/catch` with `expect.fail` or `.catch(e => e)` patterns - the matcher form fails clearly if the promise unexpectedly resolves, keeps the assertion in one chain, and avoids forgetting to assert the throw at all
 - For async happy paths, use `await expect(fn()).resolves.toEqual(...)` for the same reason
 - Use `includeSource` for in-source testing of small utility functions (Rust-style `import.meta.rstest`)
 - For in-source tests, wrap test code in `if (import.meta.rstest) { ... }` and define `import.meta.rstest` as `false` in production build config
@@ -68,7 +70,7 @@ Apply these rules when writing or reviewing Rstest test projects.
 - Use `toMatchSnapshot()` for general snapshot testing
 - Use `toMatchInlineSnapshot()` for small, readable inline snapshots
 - Use `toMatchFileSnapshot()` for large or structured outputs (e.g., HTML, generated code)
-- Keep snapshots concise — only include relevant data, avoid timestamps and session IDs
+- Keep snapshots concise - only include relevant data, avoid timestamps and session IDs
 - Use `expect.addSnapshotSerializer()` to mask paths or sensitive data in snapshots
 - Use `path-serializer` to normalize file paths across platforms
 - Review snapshot changes carefully in code review

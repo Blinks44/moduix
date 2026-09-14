@@ -4,7 +4,17 @@ component: kbd
 description: Компактный компонент для обозначения сочетаний клавиш, команд и отдельных клавиш в интерфейсе.
 ---
 
-import * as KbdDocs from '@/components/examples/kbd';
+import * as KbdDocs from '@/components/examples/kbd/css-properties';
+import KbdBasic from '@/components/examples/kbd/basic.tsx';
+import KbdCompactDensity from '@/components/examples/kbd/compact-density.tsx';
+import KbdCustomElement from '@/components/examples/kbd/custom-element.tsx';
+import KbdShortcutList from '@/components/examples/kbd/shortcut-list.tsx';
+import KbdSingleKey from '@/components/examples/kbd/single-key.tsx';
+import kbdSolidBasic from '../../../snippets/kbd/solid/basic.tsx?raw';
+import kbdSolidCompactDensity from '../../../snippets/kbd/solid/compact-density.tsx?raw';
+import kbdSolidCustomElement from '../../../snippets/kbd/solid/custom-element.tsx?raw';
+import kbdSolidShortcutList from '../../../snippets/kbd/solid/shortcut-list.tsx?raw';
+import kbdSolidSingleKey from '../../../snippets/kbd/solid/single-key.tsx?raw';
 
 ## Справочник API
 
@@ -13,21 +23,71 @@ import * as KbdDocs from '@/components/examples/kbd';
 
 ## Базовый пример
 
+Kbd доступен для React и Solid в вариантах CSS Modules и Tailwind. Предпросмотр на этой странице использует пакет React CSS Modules, а вкладки фреймворков показывают нативный исходный код для того же публичного контракта.
+
 Используйте `Kbd`, чтобы показать одну клавишу. Для сочетания из нескольких клавиш поместите клавиши и текстовые разделители в `Kbd.Group`.
 
-<style>{`
-      .kbd-demo-shortcut {
-        display: inline-flex;
-      }
-    `}</style>
+<ExampleFrame variant="component">
+  <KbdBasic />
+</ExampleFrame>
 
-```tsx preview file="../../en/docs/_snippets/kbd/basic.tsx"
+<ExampleCode>
+<div className="docs-reference">
+  <Tabs
+    groupId="framework"
+    values={[
+      { label: 'React', value: 'react' },
+      { label: 'Solid', value: 'solid' },
+    ]}
+    className="docs-tabs"
+  >
+    <Tab value="react">
 
+```tsx pure file="../../../src/components/examples/kbd/basic.tsx"
 ```
+
+    </Tab>
+    <Tab value="solid">
+
+<CodeBlockRuntime lang="tsx" code={kbdSolidBasic} />
+
+    </Tab>
+  </Tabs>
+
+**Стили**
+
+```css file="../../../src/components/examples/kbd/kbd-basic.module.css"
+```
+</div>
+
+</ExampleCode>
 
 ## Установка через shadcn
 
-<ShadcnInstall packageName="kbd" />
+Полную настройку пакета, реестра и стилей см. в разделе [Быстрый старт](/docs/quick-start).
+
+<Tabs groupId="framework">
+  <Tab label="React" value="react">
+
+<ShadcnInstallOptions
+  options={[
+    { label: 'CSS Modules', command: 'shadcn@latest add @moduix-react/kbd' },
+    { label: 'Tailwind CSS', command: 'shadcn@latest add @moduix-react-tailwind/kbd' },
+  ]}
+/>
+
+  </Tab>
+  <Tab label="Solid" value="solid">
+
+<ShadcnInstallOptions
+  options={[
+    { label: 'CSS Modules', command: 'shadcn@latest add @moduix-solid/kbd' },
+    { label: 'Tailwind CSS', command: 'shadcn@latest add @moduix-solid-tailwind/kbd' },
+  ]}
+/>
+
+  </Tab>
+</Tabs>
 
 ## Анатомия
 
@@ -42,103 +102,166 @@ Kbd.Group
 
 | Часть               | Назначение                                                                  |
 | ------------------- | --------------------------------------------------------------------------- |
-| `Kbd` / `Kbd.Root` | Корневой элемент клавиши. По умолчанию выводит элемент `<kbd>`.             |
+| `Kbd` / `Kbd.Root`  | Корневой элемент клавиши. По умолчанию выводит элемент `<kbd>`.             |
 | `Kbd.Group`         | Строчный контейнер для связанных клавиш. По умолчанию получает роль `group`. |
 
 ## Композиция
 
-### Рекомендуемая композиция
+Используйте `Kbd` как короткую запись `Kbd.Root` для отдельной клавиши, а `Kbd.Group` для объединения связанных клавиш. Оставляйте разделители, например `+`, обычным текстом внутри группы и добавляйте `aria-label`, если визуальные символы или сокращения могут быть непонятны без контекста.
 
-В обычном случае используйте `Kbd` как короткую запись `Kbd.Root` для отдельных клавиш. `Kbd.Group` объединяет клавиши
-в одно сочетание, подсказку для меню команд или встроенную справку.
-
-`Kbd` и `Kbd.Root` принимают `HTMLArkProps<'kbd'>`, а `Kbd.Group` принимает `HTMLArkProps<'span'>` и по умолчанию
-получает `role="group"`. Все части передают `ref` конечному элементу и поддерживают `asChild`.
-В API нет свойств для вариантов оформления, размеров, разделителей, колбэков или состояния.
-
-### Когда нужна собственная композиция
-
-Используйте `asChild`, если семантический элемент `<kbd>` уже создаёт другой компонент и к нему нужно применить стили Kbd.
-Передайте ровно один дочерний элемент и сохраните семантику обозначения клавиши.
-
-### Особенности поведения
-
-- `Kbd`, `Kbd.Root` и `Kbd.Group` выводят статичные обозначения клавиш. Это не интерактивные элементы управления.
-- Оставляйте `+`, `/` и слова вроде `then` обычным текстом за пределами `Kbd`.
-- Добавьте `aria-label` к `Kbd.Group`, если сокращение или символ могут быть непонятны при чтении с экрана.
-- Части компонента предоставляют `data-scope="kbd"`, `data-part` и стабильные атрибуты `data-slot`.
+Kbd не хранит состояние и не обрабатывает нажатия клавиш. Используйте `asChild`, только когда другой компонент должен вывести семантический элемент `<kbd>`; передавайте ровно один дочерний элемент.
 
 ## Примеры
 
 ### Компактный размер
 
-Используйте локальные CSS-переменные, если в отдельной части интерфейса нужны более компактные клавиши. Для этого не
-нужно добавлять новые свойства компонента.
+Используйте локальные CSS-переменные, если в отдельной части интерфейса нужны более компактные клавиши. Для этого не нужно добавлять новые свойства компонента.
 
-<style>{`
-      .kbd-demo-row {
-        display: flex;
-        flex-wrap: wrap;
-        align-items: center;
-        gap: var(--moduix-spacing-2);
-      }
+<ExampleFrame variant="component">
+  <KbdCompactDensity />
+</ExampleFrame>
 
-      .kbd-demo-dense {
-        --moduix-kbd-height: 1.25rem;
-        --moduix-kbd-min-width: 1.25rem;
-        --moduix-kbd-padding-x: var(--moduix-spacing-1);
-      }
-    `}</style>
+<ExampleCode>
+<div className="docs-reference">
+  <Tabs
+    groupId="framework"
+    values={[
+      { label: 'React', value: 'react' },
+      { label: 'Solid', value: 'solid' },
+    ]}
+    className="docs-tabs"
+  >
+    <Tab value="react">
 
-```tsx preview file="../../en/docs/_snippets/kbd/compact-density.tsx"
-
+```tsx pure file="../../../src/components/examples/kbd/compact-density.tsx"
 ```
+
+    </Tab>
+    <Tab value="solid">
+
+<CodeBlockRuntime lang="tsx" code={kbdSolidCompactDensity} />
+
+    </Tab>
+  </Tabs>
+
+**Стили**
+
+```css file="../../../src/components/examples/kbd/kbd-compact-density.module.css"
+```
+</div>
+
+</ExampleCode>
 
 ### Пользовательский элемент
 
 Используйте `asChild`, если другой компонент уже выводит семантический элемент `<kbd>` и к нему нужно применить стили Kbd.
 
-```tsx preview file="../../en/docs/_snippets/kbd/custom-element.tsx"
+<ExampleFrame variant="component">
+  <KbdCustomElement />
+</ExampleFrame>
 
+<ExampleCode>
+<div className="docs-reference">
+  <Tabs
+    groupId="framework"
+    values={[
+      { label: 'React', value: 'react' },
+      { label: 'Solid', value: 'solid' },
+    ]}
+    className="docs-tabs"
+  >
+    <Tab value="react">
+
+```tsx pure file="../../../src/components/examples/kbd/custom-element.tsx"
 ```
+
+    </Tab>
+    <Tab value="solid">
+
+<CodeBlockRuntime lang="tsx" code={kbdSolidCustomElement} />
+
+    </Tab>
+  </Tabs>
+</div>
+
+</ExampleCode>
 
 ### Список сочетаний
 
 Объедините `Kbd.Group` с поясняющим текстом, чтобы показать список доступных сочетаний клавиш.
 
-<style>{`
-      .kbd-demo-shortcut-list {
-        display: grid;
-        gap: var(--moduix-spacing-3);
-      }
+<ExampleFrame variant="component">
+  <KbdShortcutList />
+</ExampleFrame>
 
-      .kbd-demo-shortcut-row {
-        display: grid;
-        grid-template-columns: max-content 1fr;
-        align-items: center;
-        gap: var(--moduix-spacing-3);
-        color: var(--moduix-color-muted-foreground);
-        font-size: var(--moduix-text-sm);
-        line-height: var(--moduix-line-height-text-sm);
-      }
-    `}</style>
+<ExampleCode>
+<div className="docs-reference">
+  <Tabs
+    groupId="framework"
+    values={[
+      { label: 'React', value: 'react' },
+      { label: 'Solid', value: 'solid' },
+    ]}
+    className="docs-tabs"
+  >
+    <Tab value="react">
 
-```tsx preview file="../../en/docs/_snippets/kbd/shortcut-list.tsx"
-
+```tsx pure file="../../../src/components/examples/kbd/shortcut-list.tsx"
 ```
+
+    </Tab>
+    <Tab value="solid">
+
+<CodeBlockRuntime lang="tsx" code={kbdSolidShortcutList} />
+
+    </Tab>
+  </Tabs>
+
+**Стили**
+
+```css file="../../../src/components/examples/kbd/kbd-shortcut-list.module.css"
+```
+</div>
+
+</ExampleCode>
 
 ### Одна клавиша
 
 Используйте `Kbd` напрямую, если нужно показать одну клавишу, например `Esc`.
 
-```tsx preview file="../../en/docs/_snippets/kbd/single-key.tsx"
+<ExampleFrame variant="component">
+  <KbdSingleKey />
+</ExampleFrame>
 
+<ExampleCode>
+<div className="docs-reference">
+  <Tabs
+    groupId="framework"
+    values={[
+      { label: 'React', value: 'react' },
+      { label: 'Solid', value: 'solid' },
+    ]}
+    className="docs-tabs"
+  >
+    <Tab value="react">
+
+```tsx pure file="../../../src/components/examples/kbd/single-key.tsx"
 ```
+
+    </Tab>
+    <Tab value="solid">
+
+<CodeBlockRuntime lang="tsx" code={kbdSolidSingleKey} />
+
+    </Tab>
+  </Tabs>
+</div>
+
+</ExampleCode>
 
 ## Стилизация
 
-Настраивайте `Kbd` и `Kbd.Group` с помощью `className`, атрибутов анатомии Ark, стабильных хуков `data-slot` и публичных
-CSS-переменных `--moduix-kbd-*`, перечисленных ниже.
+Настраивайте `Kbd` и `Kbd.Group` с помощью `className` в React или `class` в Solid, атрибутов анатомии Ark, стабильных хуков `data-slot` и публичных CSS-переменных `--moduix-kbd-*`, перечисленных ниже. Варианты Tailwind используют нативные utility-классы, а варианты CSS Modules используют переменные компонента и CSS приложения.
 
 ### CSS-свойства
 

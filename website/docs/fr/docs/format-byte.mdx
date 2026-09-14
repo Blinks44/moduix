@@ -1,78 +1,158 @@
 ---
 title: Format Byte
-description: Affichez des tailles de fichier lisibles avec Ark UI Format.Byte, en contrôlant la locale, la précision et le système d’unités.
+description: Formatez des tailles en React et Solid avec Ark UI, en choisissant un système décimal ou binaire et un affichage localisé.
 ---
+
+import FormatByteBasic from '@/components/examples/format-byte/basic.tsx';
+import FormatByteUnitSystem from '@/components/examples/format-byte/unit-system.tsx';
+import formatByteSolidBasic from '../../../snippets/format-byte/solid/basic.tsx?raw';
+import formatByteSolidUnitSystem from '../../../snippets/format-byte/solid/unit-system.tsx?raw';
+import formatByteSolidLocale from '../../../snippets/format-byte/solid/locale.tsx?raw';
+
+`Format.Byte` transforme un nombre d’octets en texte lisible. Importez-le depuis le package Ark correspondant à votre
+framework.
 
 ## Référence de l’API
 
 <PrimitiveReference href="https://ark-ui.com/docs/utilities/format-byte" />
 
-## Quand l’utiliser
+Importez `Format` depuis le package Ark UI correspondant :
 
-Utilisez `Format.Byte` lorsque vous disposez d’un nombre d’octets, mais devez afficher une taille compréhensible :
-taille d’un fichier à envoyer ou à télécharger, quota de stockage ou valeur de télémétrie. Passez ce nombre dans
-`value`. Le formateur choisit automatiquement une unité adaptée, comme `kB`, `MB` ou `GB`.
-
-Importez `Format` directement depuis Ark UI :
+<Tabs
+  groupId="framework"
+  values={[
+    { label: 'React', value: 'react' },
+    { label: 'Solid', value: 'solid' },
+  ]}
+  className="docs-tabs"
+>
+  <Tab value="react">
 
 ```tsx
 import { Format } from '@ark-ui/react';
 ```
+
+  </Tab>
+  <Tab value="solid">
+
+```tsx
+import { Format } from '@ark-ui/solid';
+```
+
+  </Tab>
+</Tabs>
 
 ## Exemple de base
 
-`Format.Byte` renvoie uniquement le texte formaté, sans libellé ni mise en page. Placez-le près d’un libellé ou d’un
-statut qui précise ce que représente la valeur. Dans cet exemple, la taille est associée à l’export qu’elle décrit.
+Passez le nombre d’octets dans `value`. `Format.Byte` ne rend que le texte formaté : placez-le donc près d’un libellé
+ou d’un autre élément qui explique la valeur. Les exemples utilisent un paragraphe pour une valeur et une liste de
+définitions lorsque plusieurs valeurs partagent le même contexte.
 
-<PreviewFrame maxWidth="sm">
-  ```tsx preview file="../../en/docs/_snippets/format-byte/basic.tsx"
+L’aperçu utilise la source React, car l’application de documentation est basée sur React. L’onglet Solid contient la
+source Solid native pour le même résultat et la même API.
 
-  ```
-</PreviewFrame>
+<ExampleFrame variant="component">
+  <PreviewFrame maxWidth="sm">
+    <FormatByteBasic />
+  </PreviewFrame>
+</ExampleFrame>
+
+<ExampleCode>
+<div className="docs-reference">
+  <Tabs
+    groupId="framework"
+    values={[
+      { label: 'React', value: 'react' },
+      { label: 'Solid', value: 'solid' },
+    ]}
+    className="docs-tabs"
+  >
+    <Tab value="react">
+
+```tsx pure file="../../../src/components/examples/format-byte/basic.tsx"
+```
+
+    </Tab>
+    <Tab value="solid">
+
+<CodeBlockRuntime lang="tsx" code={formatByteSolidBasic} />
+
+    </Tab>
+  </Tabs>
+</div>
+</ExampleCode>
 
 ## Systèmes décimal et binaire
 
-La propriété `unitSystem` définit la base de conversion : `decimal` utilise des multiples de 1000, tandis que `binary`
-utilise des multiples de 1024. Choisissez explicitement le système lorsque le produit distingue la capacité annoncée
-d’un disque de ses valeurs techniques de stockage.
+Utilisez `unitSystem="decimal"` pour des multiples de 1000 et `unitSystem="binary"` pour des multiples de 1024.
+Choisissez le système explicitement lorsque le produit distingue la capacité annoncée d’un disque de ses valeurs
+techniques de stockage.
 
-<PreviewFrame maxWidth="sm">
-  ```tsx preview file="../../en/docs/_snippets/format-byte/unit-system.tsx"
+<ExampleFrame variant="component">
+  <PreviewFrame maxWidth="sm">
+    <FormatByteUnitSystem />
+  </PreviewFrame>
+</ExampleFrame>
 
-  ```
-</PreviewFrame>
+<ExampleCode>
+<div className="docs-reference">
+  <Tabs
+    groupId="framework"
+    values={[
+      { label: 'React', value: 'react' },
+      { label: 'Solid', value: 'solid' },
+    ]}
+    className="docs-tabs"
+  >
+    <Tab value="react">
 
-## Locale et options d’affichage
-
-`Format.Byte` utilise la locale du `LocaleProvider` le plus proche. Sans provider, Ark utilise `en-US`. moduix réexporte
-ce provider depuis `@moduix/react/locale`, vous pouvez donc le placer autour de la partie localisée de l’interface :
-
-```tsx
-import { Format } from '@ark-ui/react';
-import { LocaleProvider } from '@moduix/react/locale';
-
-export function LocalizedFileSize() {
-  return (
-    <LocaleProvider locale="fr-FR">
-      <Format.Byte value={1_450.45} />
-    </LocaleProvider>
-  );
-}
+```tsx pure file="../../../src/components/examples/format-byte/unit-system.tsx"
 ```
 
-Utilisez `unit="byte"` pour un nombre d’octets, ou `unit="bit"` lorsque `value` représente un nombre de bits.
-`unitDisplay="narrow"`, `"short"` ou `"long"` contrôle la forme d’affichage de l’unité. `precision` définit le
-nombre de chiffres significatifs, avec 3 par défaut. `unitSystem` vaut `decimal` par défaut, `unit` vaut `byte` et
-`unitDisplay` vaut `short`. Les libellés d’unités dépendent de la locale. Pour comparer plusieurs tailles de fichier,
-utilisez le même système d’unités, le même style et la même précision.
+    </Tab>
+    <Tab value="solid">
 
-## Utilisation avec moduix
+<CodeBlockRuntime lang="tsx" code={formatByteSolidUnitSystem} />
 
-`Format.Byte` n’ajoute ni libellé, ni espacement, ni autre élément d’interface. Utilisez les composants moduix `Card`,
-`Stack`, `Text` et les composants de statut pour expliquer ce que représente la taille. Si vous avez seulement besoin
-du texte formaté, aucun composant moduix supplémentaire n’est nécessaire.
+    </Tab>
+  </Tabs>
+</div>
+</ExampleCode>
 
-## Responsabilités
+## Locale
 
-`Format.Byte` et son API appartiennent à Ark UI. moduix fournit les composants d’interface autour et réexporte
-`LocaleProvider` depuis `@moduix/react/locale`, mais ne réexporte pas `Format.Byte`.
+`Format.Byte` utilise la locale du `LocaleProvider` le plus proche. Il n’accepte pas de propriété `locale`. Entourez la
+partie localisée de l’interface avec le provider du package Ark UI correspondant :
+
+<Tabs
+  groupId="framework"
+  values={[
+    { label: 'React', value: 'react' },
+    { label: 'Solid', value: 'solid' },
+  ]}
+  className="docs-tabs"
+>
+  <Tab value="react">
+
+```tsx pure file="../../../src/components/examples/format-byte/locale.tsx"
+```
+
+  </Tab>
+  <Tab value="solid">
+
+<CodeBlockRuntime lang="tsx" code={formatByteSolidLocale} />
+
+  </Tab>
+</Tabs>
+
+## Options
+
+| Propriété | Valeurs | Valeur par défaut | Rôle |
+| --- | --- | --- | --- |
+| `value` | `number` | obligatoire | Nombre d’octets à formater. |
+| `unit` | `'byte'` ou `'bit'` | `'byte'` | Unité représentée par `value`. |
+| `unitDisplay` | `'short'`, `'narrow'` ou `'long'` | `'short'` | Forme d’affichage du libellé. |
+| `unitSystem` | `'decimal'` ou `'binary'` | `'decimal'` | Base utilisée pour mettre la valeur à l’échelle. |
+
+Le type public actuel `FormatByteProps` ne contient pas `precision`, `locale` ni `sizes`. Utilisez `LocaleProvider` pour
+changer la locale et limitez la configuration du composant aux props listées ci-dessus.

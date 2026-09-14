@@ -56,8 +56,7 @@
       );
     }
 
-    &[data-disabled],
-    &:disabled {
+    &[data-disabled] {
       pointer-events: none;
       opacity: var(--moduix-menu-disabled-opacity, var(--moduix-opacity-disabled));
     }
@@ -124,13 +123,6 @@
         );
     }
 
-    .contentViewport {
-      display: flex;
-      max-height: min(var(--moduix-menu-popup-max-height, 24rem), var(--available-height, 100dvh));
-      flex-direction: column;
-      overflow: auto;
-    }
-
     &[data-state='closed'] {
       animation: menuContentOut
         var(
@@ -139,6 +131,13 @@
             var(--moduix-popup-motion-easing, var(--moduix-ease-in-out))
         );
     }
+  }
+
+  .viewport {
+    display: flex;
+    max-height: min(var(--moduix-menu-popup-max-height, 24rem), var(--available-height, 100dvh));
+    flex-direction: column;
+    overflow: auto;
   }
 
   .arrow {

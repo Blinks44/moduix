@@ -16,19 +16,9 @@ export function FrameworkSupport() {
         <ReactIcon />
       </div>
 
-      <Tooltip openDelay={100} closeDelay={0} positioning={{ placement: 'top' }}>
-        <Tooltip.Trigger
-          type="button"
-          className={`${styles.upcoming} ${styles.inProgress}`}
-          aria-label={t('frameworkSupportInProgress')}
-        >
-          <SolidIcon />
-          <span className={styles.progressMarker} aria-hidden="true" />
-        </Tooltip.Trigger>
-        <Tooltip.Positioner>
-          <Tooltip.Content>{t('frameworkSupportInProgress')}</Tooltip.Content>
-        </Tooltip.Positioner>
-      </Tooltip>
+      <div className={styles.available} role="img" aria-label={t('frameworkSolidAvailable')}>
+        <SolidIcon />
+      </div>
 
       {plannedFrameworks.map(({ name, icon }) => (
         <Tooltip key={name} openDelay={100} closeDelay={0} positioning={{ placement: 'top' }}>

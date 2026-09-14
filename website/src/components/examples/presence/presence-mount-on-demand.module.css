@@ -1,0 +1,38 @@
+.root {
+  inline-size: 100%;
+  max-inline-size: 26rem;
+  margin-inline: auto;
+}
+
+.panel,
+.card {
+  inline-size: 100%;
+}
+
+@keyframes presence-mount-on-demand-enter {
+  from {
+    opacity: 0;
+    transform: translateY(0.75rem);
+  }
+}
+
+@keyframes presence-mount-on-demand-exit {
+  to {
+    opacity: 0;
+    transform: translateY(0.75rem);
+  }
+}
+
+.panel[data-state='open'] {
+  animation: presence-mount-on-demand-enter 180ms ease-out;
+}
+
+.panel[data-state='closed'] {
+  animation: presence-mount-on-demand-exit 140ms ease-in;
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .panel[data-state] {
+    animation-duration: 1ms;
+  }
+}

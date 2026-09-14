@@ -4,7 +4,27 @@ component: marquee
 description: Un composant basé sur Ark UI pour faire défiler en continu des logos, des annonces ou d’autres contenus répétés.
 ---
 
-import * as MarqueeDocs from '@/components/examples/marquee';
+import * as MarqueeDocs from '@/components/examples/marquee/css-properties';
+import MarqueeAutoFill from '@/components/examples/marquee/auto-fill.tsx';
+import MarqueeBasic from '@/components/examples/marquee/basic.tsx';
+import MarqueeEdges from '@/components/examples/marquee/edges.tsx';
+import MarqueeFiniteLoops from '@/components/examples/marquee/finite-loops.tsx';
+import MarqueePauseOnInteraction from '@/components/examples/marquee/pause-on-interaction.tsx';
+import MarqueeProgrammaticControl from '@/components/examples/marquee/programmatic-control.tsx';
+import MarqueeReverse from '@/components/examples/marquee/reverse.tsx';
+import MarqueeRtl from '@/components/examples/marquee/rtl.tsx';
+import MarqueeSpeed from '@/components/examples/marquee/speed.tsx';
+import MarqueeVertical from '@/components/examples/marquee/vertical.tsx';
+import marqueeSolidAutoFill from '../../../snippets/marquee/solid/auto-fill.tsx?raw';
+import marqueeSolidBasic from '../../../snippets/marquee/solid/basic.tsx?raw';
+import marqueeSolidEdges from '../../../snippets/marquee/solid/edges.tsx?raw';
+import marqueeSolidFiniteLoops from '../../../snippets/marquee/solid/finite-loops.tsx?raw';
+import marqueeSolidPauseOnInteraction from '../../../snippets/marquee/solid/pause-on-interaction.tsx?raw';
+import marqueeSolidProgrammaticControl from '../../../snippets/marquee/solid/programmatic-control.tsx?raw';
+import marqueeSolidReverse from '../../../snippets/marquee/solid/reverse.tsx?raw';
+import marqueeSolidRtl from '../../../snippets/marquee/solid/rtl.tsx?raw';
+import marqueeSolidSpeed from '../../../snippets/marquee/solid/speed.tsx?raw';
+import marqueeSolidVertical from '../../../snippets/marquee/solid/vertical.tsx?raw';
 
 ## Référence de l’API
 
@@ -12,23 +32,75 @@ import * as MarqueeDocs from '@/components/examples/marquee';
 
 ## Exemple de base
 
+Marquee est disponible pour React et Solid dans les packages CSS Modules et Tailwind. L’aperçu de cette page
+utilise le package React avec CSS Modules ; les onglets de framework présentent le code natif du même contrat public.
+
 Utilisez la forme courte `Marquee` comme racine, puis composez explicitement `Viewport`, `Content` et `Item` à
 l’intérieur. Si le contenu défilant transmet une information, ajoutez un libellé avec `aria-label` ou
 `translations.root`. `Marquee` fournit le comportement et les styles d’animation nécessaires, mais ne définit ni le style
-des éléments ni celui du cadre. Dans l’exemple, le style des éléments est défini séparément et `PreviewFrame` limite uniquement
-la largeur de l’aperçu.
+des éléments ni celui du cadre. Dans l’exemple, le style des éléments et la largeur de la racine sont définis séparément.
 
-<style>{MarqueeDocs.marqueeExampleCss}</style>
+<ExampleFrame variant="component">
+  <MarqueeBasic />
+</ExampleFrame>
 
-<PreviewFrame maxWidth="lg">
-  ```tsx preview file="../../en/docs/_snippets/marquee/basic.tsx"
+<ExampleCode>
+<div className="docs-reference">
+  <Tabs
+    groupId="framework"
+    values={[
+      { label: 'React', value: 'react' },
+      { label: 'Solid', value: 'solid' },
+    ]}
+    className="docs-tabs"
+  >
+    <Tab value="react">
 
+```tsx pure file="../../../src/components/examples/marquee/basic.tsx"
 ```
-</PreviewFrame>
+
+    </Tab>
+    <Tab value="solid">
+
+<CodeBlockRuntime lang="tsx" code={marqueeSolidBasic} />
+
+    </Tab>
+  </Tabs>
+
+**Styles**
+
+```css file="../../../src/components/examples/marquee/marquee-basic.module.css"
+```
+</div>
+
+</ExampleCode>
 
 ## Installation avec shadcn
 
-<ShadcnInstall packageName="marquee" />
+Consultez le [Démarrage rapide](/docs/quick-start) pour la configuration complète du paquet, du registre et des styles.
+
+<Tabs groupId="framework">
+  <Tab label="React" value="react">
+
+<ShadcnInstallOptions
+  options={[
+    { label: 'CSS Modules', command: 'shadcn@latest add @moduix-react/marquee' },
+    { label: 'Tailwind CSS', command: 'shadcn@latest add @moduix-react-tailwind/marquee' },
+  ]}
+/>
+
+  </Tab>
+  <Tab label="Solid" value="solid">
+
+<ShadcnInstallOptions
+  options={[
+    { label: 'CSS Modules', command: 'shadcn@latest add @moduix-solid/marquee' },
+    { label: 'Tailwind CSS', command: 'shadcn@latest add @moduix-solid-tailwind/marquee' },
+  ]}
+/>
+
+  </Tab>
+</Tabs>
 
 ## Anatomie
 
@@ -56,69 +128,14 @@ Marquee.RootProvider
 
 ## Composition
 
-### Composition recommandée
+Utilisez `Marquee` avec les parties explicites `Viewport`, `Content` et `Item`. Ajoutez `Marquee.Edge` dans la même
+racine lorsque le contenu doit se fondre dans l’arrière-plan de la page ; chaque bordure doit recevoir un `side`.
 
-Utilisez la forme courte `Marquee` et gardez l’arbre des parties Ark explicite. La bibliothèque fournit les images clés
-de l’animation et les attributs d’état ; le style des éléments et de la racine reste à la charge du CSS de votre application.
-
-### Quand créer une composition personnalisée
-
-Ajoutez `Marquee.Edge` lorsque le contenu doit se fondre dans l’arrière-plan de la page. Utilisez
-`useMarquee()` de moduix avec `Marquee.RootProvider` lorsque des commandes externes doivent appeler `pause()`,
-`resume()`, `togglePause()` ou `restart()`. Ne rendez pas `Marquee` et `Marquee.RootProvider` pour une même instance d’état.
-
-Utilisez `Marquee.Context` ou `useMarqueeContext()` lorsqu’un contrôle placé dans l’arbre du composant doit lire
-l’API courante. Utilisez `useMarquee()` avec `Marquee.RootProvider` lorsque l’état est créé séparément ou partagé
-avec des contrôles situés à l’extérieur de l’arbre.
-
-Utilisez `asChild` sur les parties Ark si vous devez remplacer l’élément rendu. L’élément de remplacement doit être
-sémantiquement adapté et rester l’unique enfant. Utilisez `ids` lorsqu’une composition personnalisée nécessite des
-identifiants stables pour la racine, la zone d’affichage ou le contenu.
-
-### Propriétés par défaut
-
-Le tableau présente les valeurs par défaut de la racine. `Marquee.Edge` exige une valeur pour `side`, et
-`Marquee.RootProvider` exige un `value` renvoyé par `useMarquee()`.
-
-| Propriété            | Valeur par défaut | Remarques                                                                                 |
-| -------------------- | ----------------- | ----------------------------------------------------------------------------------------- |
-| `side`               | `start`           | Valeurs possibles : `start`, `end`, `top` et `bottom`. Les deux dernières activent l’orientation verticale. |
-| `speed`              | `50`              | Vitesse en pixels par seconde. Ark calcule la durée à partir de la taille du contenu.                    |
-| `spacing`            | `1rem`            | Espace entre les copies du contenu et les éléments.                                                      |
-| `delay`              | `0`               | Délai avant le début de l’animation, en secondes.                                                        |
-| `loopCount`          | `0`               | Nombre de boucles. `0` signifie que le défilement est infini.                                             |
-| `autoFill`           | `false`           | Répète le contenu jusqu’à remplir la zone d’affichage.                                                    |
-| `pauseOnInteraction` | `false`           | Met en pause au survol ou lorsque le contenu reçoit le focus. Recommandé pour le contenu à lire.         |
-| `reverse`            | `false`           | Inverse le sens de l’animation sans modifier `side`.                                                      |
-| `defaultPaused`      | `false`           | État de pause initial du composant non contrôlé.                                                         |
-| `paused`             | -                 | État de pause contrôlé. À associer à `onPauseChange`.                                                     |
-| `onPauseChange`      | -                 | Reçoit les détails Ark sur l’état de pause.                                                              |
-| `onLoopComplete`     | -                 | Appelé après chaque boucle.                                                                              |
-| `onComplete`         | -                 | Appelé après la dernière boucle lorsque `loopCount` est supérieur à `0`.                                |
-| `translations`       | -                 | Libellé localisé de la racine via `translations.root`. Utilisez-le ou fournissez `aria-label`.            |
-| `ids`                | -                 | Identifiants stables de la racine, de la zone d’affichage et des instances de contenu.                   |
-| `asChild`            | -                 | Disponible sur chaque partie Ark pour remplacer l’élément rendu.                                         |
-| `Marquee.Edge side`  | -                 | Côté obligatoire : `start`, `end`, `top` ou `bottom`.                                                     |
-| `RootProvider.value` | -                 | Valeur `UseMarqueeReturn` obligatoire renvoyée par `useMarquee()`.                                       |
-
-### Comportement
-
-Pour contrôler le défilement depuis l’état React, utilisez `paused` avec `onPauseChange(details)`. `defaultPaused`
-ne définit que l’état initial d’un composant non contrôlé. Utilisez `loopCount`, `onLoopComplete` et `onComplete`
-lorsque le défilement doit s’arrêter après un nombre défini de boucles. Les callbacks conservent les signatures
-d’origine d’Ark.
-
-Ark expose la racine comme une région nommée et masque les copies du contenu aux technologies d’assistance. Fournissez
-un `aria-label` pertinent ou `translations.root`. Activez `pauseOnInteraction` si le contenu est interactif ou doit
-rester lisible, et n’utilisez pas le composant pour afficher une information critique.
-
-Le composant ne déplace pas automatiquement le focus et ne propose pas de navigation au clavier avec les flèches.
-Lorsque `pauseOnInteraction` est activé, le focus met le composant en pause et sa perte relance le défilement.
-
-Lorsque la préférence système de réduction des animations est active, moduix désactive l’animation du contenu sans
-le masquer.
-
-Le `ref` de chaque partie est transmis à l’élément DOM Ark correspondant.
+Utilisez `defaultPaused` pour définir l’état initial sans contrôle externe. Si une autre partie de l’application gère
+la lecture, utilisez `paused` avec `onPauseChange(details)`. Pour des commandes situées en dehors de l’arbre, créez
+l’état avec `useMarquee()` et transmettez-le à `Marquee.RootProvider` ; ne rendez pas `Marquee` et `RootProvider` pour
+le même état. Les commandes placées dans l’arbre peuvent lire l’API courante avec `Marquee.Context` ou
+`useMarqueeContext()`.
 
 ## Exemples
 
@@ -127,116 +144,359 @@ Le `ref` de chaque partie est transmis à l’élément DOM Ark correspondant.
 Utilisez `autoFill` lorsque le contenu ne suffit pas à remplir la zone d’affichage. `spacing` définit l’espace entre
 les copies du contenu.
 
-<style>{MarqueeDocs.marqueeExampleCss}</style>
+<ExampleFrame variant="component">
+  <MarqueeAutoFill />
+</ExampleFrame>
 
-<PreviewFrame maxWidth="lg">
-  ```tsx preview file="../../en/docs/_snippets/marquee/auto-fill.tsx"
+<ExampleCode>
+<div className="docs-reference">
+  <Tabs
+    groupId="framework"
+    values={[
+      { label: 'React', value: 'react' },
+      { label: 'Solid', value: 'solid' },
+    ]}
+    className="docs-tabs"
+  >
+    <Tab value="react">
 
+```tsx pure file="../../../src/components/examples/marquee/auto-fill.tsx"
 ```
-</PreviewFrame>
+
+    </Tab>
+    <Tab value="solid">
+
+<CodeBlockRuntime lang="tsx" code={marqueeSolidAutoFill} />
+
+    </Tab>
+  </Tabs>
+
+**Styles**
+
+```css file="../../../src/components/examples/marquee/marquee-auto-fill.module.css"
+```
+</div>
+
+</ExampleCode>
 
 ### Fondu sur les bords
 
 Ajoutez `Marquee.Edge` sur les côtés où le contenu doit se fondre dans l’arrière-plan de la page. Cette partie est
 décorative et n’intercepte pas les événements de pointeur.
 
-<style>{MarqueeDocs.marqueeExampleCss}</style>
+<ExampleFrame variant="component">
+  <MarqueeEdges />
+</ExampleFrame>
 
-<PreviewFrame maxWidth="lg">
-  ```tsx preview file="../../en/docs/_snippets/marquee/edges.tsx"
+<ExampleCode>
+<div className="docs-reference">
+  <Tabs
+    groupId="framework"
+    values={[
+      { label: 'React', value: 'react' },
+      { label: 'Solid', value: 'solid' },
+    ]}
+    className="docs-tabs"
+  >
+    <Tab value="react">
 
+```tsx pure file="../../../src/components/examples/marquee/edges.tsx"
 ```
-</PreviewFrame>
+
+    </Tab>
+    <Tab value="solid">
+
+<CodeBlockRuntime lang="tsx" code={marqueeSolidEdges} />
+
+    </Tab>
+  </Tabs>
+
+**Styles**
+
+```css file="../../../src/components/examples/marquee/marquee-edges.module.css"
+```
+</div>
+
+</ExampleCode>
 
 ### Boucles limitées
 
 Définissez `loopCount` pour limiter le nombre de boucles. `onLoopComplete` est appelé après chaque boucle et
 `onComplete` après la dernière.
 
-<style>{MarqueeDocs.marqueeExampleCss}</style>
+<ExampleFrame variant="component">
+  <MarqueeFiniteLoops />
+</ExampleFrame>
 
-<PreviewFrame maxWidth="lg">
-  ```tsx preview file="../../en/docs/_snippets/marquee/finite-loops.tsx"
+<ExampleCode>
+<div className="docs-reference">
+  <Tabs
+    groupId="framework"
+    values={[
+      { label: 'React', value: 'react' },
+      { label: 'Solid', value: 'solid' },
+    ]}
+    className="docs-tabs"
+  >
+    <Tab value="react">
 
+```tsx pure file="../../../src/components/examples/marquee/finite-loops.tsx"
 ```
-</PreviewFrame>
+
+    </Tab>
+    <Tab value="solid">
+
+<CodeBlockRuntime lang="tsx" code={marqueeSolidFiniteLoops} />
+
+    </Tab>
+  </Tabs>
+
+**Styles**
+
+```css file="../../../src/components/examples/marquee/marquee-finite-loops.module.css"
+```
+</div>
+
+</ExampleCode>
 
 ### Pause lors des interactions
 
 Utilisez `pauseOnInteraction` pour mettre le composant en pause lorsque l’utilisateur le survole ou place le focus
 dans son contenu.
 
-<style>{MarqueeDocs.marqueeExampleCss}</style>
+<ExampleFrame variant="component">
+  <MarqueePauseOnInteraction />
+</ExampleFrame>
 
-<PreviewFrame maxWidth="lg">
-  ```tsx preview file="../../en/docs/_snippets/marquee/pause-on-interaction.tsx"
+<ExampleCode>
+<div className="docs-reference">
+  <Tabs
+    groupId="framework"
+    values={[
+      { label: 'React', value: 'react' },
+      { label: 'Solid', value: 'solid' },
+    ]}
+    className="docs-tabs"
+  >
+    <Tab value="react">
 
+```tsx pure file="../../../src/components/examples/marquee/pause-on-interaction.tsx"
 ```
-</PreviewFrame>
+
+    </Tab>
+    <Tab value="solid">
+
+<CodeBlockRuntime lang="tsx" code={marqueeSolidPauseOnInteraction} />
+
+    </Tab>
+  </Tabs>
+
+**Styles**
+
+```css file="../../../src/components/examples/marquee/marquee-pause-on-interaction.module.css"
+```
+</div>
+
+</ExampleCode>
 
 ### Root Provider
 
 Utilisez `useMarquee()` de moduix avec `Marquee.RootProvider` lorsque des commandes externes doivent mettre le
 défilement en pause, le reprendre ou le relancer.
 
-<style>{MarqueeDocs.marqueeExampleCss}</style>
+<ExampleFrame variant="component">
+  <MarqueeProgrammaticControl />
+</ExampleFrame>
 
-<PreviewFrame maxWidth="lg">
-  ```tsx preview file="../../en/docs/_snippets/marquee/programmatic-control.tsx"
+<ExampleCode>
+<div className="docs-reference">
+  <Tabs
+    groupId="framework"
+    values={[
+      { label: 'React', value: 'react' },
+      { label: 'Solid', value: 'solid' },
+    ]}
+    className="docs-tabs"
+  >
+    <Tab value="react">
 
+```tsx pure file="../../../src/components/examples/marquee/programmatic-control.tsx"
 ```
-</PreviewFrame>
+
+    </Tab>
+    <Tab value="solid">
+
+<CodeBlockRuntime lang="tsx" code={marqueeSolidProgrammaticControl} />
+
+    </Tab>
+  </Tabs>
+
+**Styles**
+
+```css file="../../../src/components/examples/marquee/marquee-programmatic-control.module.css"
+```
+</div>
+
+</ExampleCode>
 
 ### Sens inverse
 
 Utilisez `reverse` lorsque le contenu doit se déplacer dans le sens opposé à celui indiqué par `side`, sans modifier
 l’orientation.
 
-<style>{MarqueeDocs.marqueeExampleCss}</style>
+<ExampleFrame variant="component">
+  <MarqueeReverse />
+</ExampleFrame>
 
-<PreviewFrame maxWidth="lg">
-  ```tsx preview file="../../en/docs/_snippets/marquee/reverse.tsx"
+<ExampleCode>
+<div className="docs-reference">
+  <Tabs
+    groupId="framework"
+    values={[
+      { label: 'React', value: 'react' },
+      { label: 'Solid', value: 'solid' },
+    ]}
+    className="docs-tabs"
+  >
+    <Tab value="react">
 
+```tsx pure file="../../../src/components/examples/marquee/reverse.tsx"
 ```
-</PreviewFrame>
+
+    </Tab>
+    <Tab value="solid">
+
+<CodeBlockRuntime lang="tsx" code={marqueeSolidReverse} />
+
+    </Tab>
+  </Tabs>
+
+**Styles**
+
+```css file="../../../src/components/examples/marquee/marquee-reverse.module.css"
+```
+</div>
+
+</ExampleCode>
 
 ### De droite à gauche
 
 Placez le composant dans un `LocaleProvider` configuré avec une locale RTL. Les côtés logiques `start` et `end`
 suivent alors la direction du texte.
 
-<style>{MarqueeDocs.marqueeExampleCss}</style>
+<ExampleFrame variant="component">
+  <MarqueeRtl />
+</ExampleFrame>
 
-<PreviewFrame maxWidth="lg">
-  ```tsx preview file="../../en/docs/_snippets/marquee/rtl.tsx"
+<ExampleCode>
+<div className="docs-reference">
+  <Tabs
+    groupId="framework"
+    values={[
+      { label: 'React', value: 'react' },
+      { label: 'Solid', value: 'solid' },
+    ]}
+    className="docs-tabs"
+  >
+    <Tab value="react">
 
+```tsx pure file="../../../src/components/examples/marquee/rtl.tsx"
 ```
-</PreviewFrame>
+
+    </Tab>
+    <Tab value="solid">
+
+<CodeBlockRuntime lang="tsx" code={marqueeSolidRtl} />
+
+    </Tab>
+  </Tabs>
+
+**Styles**
+
+```css file="../../../src/components/examples/marquee/marquee-rtl.module.css"
+```
+</div>
+
+</ExampleCode>
 
 ### Vitesse
 
 Réglez le mouvement avec `speed`, exprimé en pixels par seconde. Une vitesse plus faible facilite la lecture.
 
-<style>{MarqueeDocs.marqueeExampleCss}</style>
+<ExampleFrame variant="component">
+  <MarqueeSpeed />
+</ExampleFrame>
 
-<PreviewFrame maxWidth="lg">
-  ```tsx preview file="../../en/docs/_snippets/marquee/speed.tsx"
+<ExampleCode>
+<div className="docs-reference">
+  <Tabs
+    groupId="framework"
+    values={[
+      { label: 'React', value: 'react' },
+      { label: 'Solid', value: 'solid' },
+    ]}
+    className="docs-tabs"
+  >
+    <Tab value="react">
 
+```tsx pure file="../../../src/components/examples/marquee/speed.tsx"
 ```
-</PreviewFrame>
+
+    </Tab>
+    <Tab value="solid">
+
+<CodeBlockRuntime lang="tsx" code={marqueeSolidSpeed} />
+
+    </Tab>
+  </Tabs>
+
+**Styles**
+
+```css file="../../../src/components/examples/marquee/marquee-speed.module.css"
+```
+</div>
+
+</ExampleCode>
 
 ### Orientation verticale
 
 Définissez `side="top"` ou `side="bottom"` pour faire défiler le contenu verticalement. Par défaut, la racine utilise
 `--moduix-marquee-vertical-height`, ce qui donne à la zone d’affichage une hauteur stable.
 
-<style>{MarqueeDocs.marqueeVerticalCss}</style>
+<ExampleFrame variant="component">
+  <MarqueeVertical />
+</ExampleFrame>
 
-<PreviewFrame maxWidth="sm">
-  ```tsx preview file="../../en/docs/_snippets/marquee/vertical.tsx"
+<ExampleCode>
+<div className="docs-reference">
+  <Tabs
+    groupId="framework"
+    values={[
+      { label: 'React', value: 'react' },
+      { label: 'Solid', value: 'solid' },
+    ]}
+    className="docs-tabs"
+  >
+    <Tab value="react">
 
+```tsx pure file="../../../src/components/examples/marquee/vertical.tsx"
 ```
-</PreviewFrame>
+
+    </Tab>
+    <Tab value="solid">
+
+<CodeBlockRuntime lang="tsx" code={marqueeSolidVertical} />
+
+    </Tab>
+  </Tabs>
+
+**Styles**
+
+```css file="../../../src/components/examples/marquee/marquee-vertical.module.css"
+```
+</div>
+
+</ExampleCode>
 
 ## Styles
 

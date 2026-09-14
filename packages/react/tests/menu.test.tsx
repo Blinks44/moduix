@@ -10,11 +10,13 @@ function TestMenu() {
       </Menu.Trigger>
       <Menu.Positioner>
         <Menu.Content>
-          <Menu.Item value="edit">Edit</Menu.Item>
-          <Menu.CheckboxItem checked={false} value="toolbar">
-            <Menu.ItemIndicator />
-            <Menu.ItemText>Show toolbar</Menu.ItemText>
-          </Menu.CheckboxItem>
+          <Menu.Viewport>
+            <Menu.Item value="edit">Edit</Menu.Item>
+            <Menu.CheckboxItem checked={false} value="toolbar">
+              <Menu.ItemIndicator />
+              <Menu.ItemText>Show toolbar</Menu.ItemText>
+            </Menu.CheckboxItem>
+          </Menu.Viewport>
         </Menu.Content>
       </Menu.Positioner>
     </Menu>
@@ -29,10 +31,12 @@ function CheckboxMenu() {
       </Menu.Trigger>
       <Menu.Positioner>
         <Menu.Content>
-          <Menu.CheckboxItem checked value="toolbar">
-            <Menu.ItemIndicator />
-            <Menu.ItemText>Show toolbar</Menu.ItemText>
-          </Menu.CheckboxItem>
+          <Menu.Viewport>
+            <Menu.CheckboxItem checked value="toolbar">
+              <Menu.ItemIndicator />
+              <Menu.ItemText>Show toolbar</Menu.ItemText>
+            </Menu.CheckboxItem>
+          </Menu.Viewport>
         </Menu.Content>
       </Menu.Positioner>
     </Menu>
@@ -68,7 +72,9 @@ test('preserves a custom content host with asChild', () => {
       <Menu.Positioner>
         <Menu.Content asChild>
           <section aria-label="Actions">
-            <Menu.Item value="edit">Edit</Menu.Item>
+            <Menu.Viewport>
+              <Menu.Item value="edit">Edit</Menu.Item>
+            </Menu.Viewport>
           </section>
         </Menu.Content>
       </Menu.Positioner>
@@ -91,7 +97,9 @@ test('supports inline Positioner rendering', () => {
       <Menu.Trigger>Actions</Menu.Trigger>
       <Menu.Positioner>
         <Menu.Content>
-          <Menu.Item value="edit">Edit</Menu.Item>
+          <Menu.Viewport>
+            <Menu.Item value="edit">Edit</Menu.Item>
+          </Menu.Viewport>
         </Menu.Content>
       </Menu.Positioner>
     </Menu>,
@@ -109,7 +117,9 @@ test('preserves custom context trigger styling', () => {
       <Menu.Positioner>
         <Menu.Content>
           <Menu.Arrow />
-          <Menu.Item value="edit">Edit</Menu.Item>
+          <Menu.Viewport>
+            <Menu.Item value="edit">Edit</Menu.Item>
+          </Menu.Viewport>
         </Menu.Content>
       </Menu.Positioner>
     </Menu>,
@@ -121,4 +131,25 @@ test('preserves custom context trigger styling', () => {
   const content = screen.getByRole('menu');
   expect(content).toBeVisible();
   expect(content.firstElementChild).toHaveAttribute('data-slot', 'menu-arrow');
+});
+
+test('exposes the scroll viewport as an explicit part', () => {
+  render(
+    <Menu defaultOpen portalled={false}>
+      <Menu.Trigger>Actions</Menu.Trigger>
+      <Menu.Positioner>
+        <Menu.Content>
+          <Menu.Viewport>
+            <Menu.Item value="edit">Edit</Menu.Item>
+          </Menu.Viewport>
+        </Menu.Content>
+      </Menu.Positioner>
+    </Menu>,
+  );
+
+  const viewport = screen.getByRole('menu').firstElementChild;
+  expect(viewport).toHaveAttribute('data-scope', 'menu');
+  expect(viewport).toHaveAttribute('data-part', 'viewport');
+  expect(viewport).toHaveAttribute('data-slot', 'menu-viewport');
+  expect(viewport).toHaveClass(/viewport/);
 });

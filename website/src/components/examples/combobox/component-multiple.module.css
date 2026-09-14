@@ -1,0 +1,30 @@
+.content {
+  min-width: var(--reference-width);
+  transform-origin: var(--transform-origin);
+}
+
+.tags {
+  display: flex;
+  min-height: 1.5rem;
+  flex-wrap: wrap;
+  gap: var(--moduix-spacing-1);
+}
+
+.tag {
+  display: inline-flex;
+  align-items: center;
+  border-radius: var(--moduix-radius-sm);
+  padding: var(--moduix-spacing-1) var(--moduix-spacing-2);
+  background: var(--moduix-color-muted);
+  font-size: var(--moduix-text-xs);
+}
+
+.note {
+  color: var(--moduix-color-muted-foreground);
+  font-size: var(--moduix-text-xs);
+}
+
+.content :global([data-slot='combobox-item'][data-highlighted]) {
+  background: var(--moduix-combobox-highlight-bg, var(--moduix-color-accent));
+  color: var(--moduix-combobox-highlight-color, var(--moduix-color-accent-foreground));
+}

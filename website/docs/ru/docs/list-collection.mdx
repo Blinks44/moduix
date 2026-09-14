@@ -1,66 +1,104 @@
 ---
 title: List Collection
-description: Создавайте и обновляйте коллекции на основе массивов для Select, Combobox, Listbox и собственных интерфейсов.
+description: Создавайте, ищите, фильтруйте и обновляйте коллекции на основе массивов для Select, Combobox, Listbox и собственных интерфейсов.
 ---
+
+import ListCollectionBasic from '@/components/examples/list-collection/basic.tsx';
+import ListCollectionFiltering from '@/components/examples/listbox/standalone-filter-input.tsx';
+import listCollectionSolidBasic from '../../../snippets/select/solid/basic.tsx?raw';
+import listCollectionSolidFiltering from '../../../snippets/listbox/solid/standalone-filter-input.tsx?raw';
 
 # List Collection
 
-`ListCollection` - это структура данных, построенная на основе массива элементов. Она не отображает
-список и не отвечает за выбор элементов или управление с клавиатуры. Используйте её как источник
-данных для `Select`, `Combobox` и `Listbox` или для своей интерфейсной части.
-
-Хотя эта страница находится в документации moduix, `ListCollection` - это утилита Ark UI. Moduix не
-реэкспортирует её из `@moduix/react`.
+`ListCollection` - это утилита данных Ark UI для элементов на основе массива. Она сопоставляет
+каждому элементу строковое значение и текст для отображения, а также предоставляет поиск,
+навигацию, фильтрацию, группировку и неизменяемые обновления. Утилита ничего не отображает и не
+отвечает за выбор элементов или управление с клавиатуры. Её используют `Select`, `Combobox` и
+`Listbox`.
 
 ## Справочник API
 
 <PrimitiveReference href="https://ark-ui.com/docs/collections/list-collection" />
 
-Коллекция связывает каждый элемент со значением и текстом для отображения. Она также умеет учитывать
-отключённые элементы, объединять элементы в группы, искать по тексту, перемещаться между значениями и
-создавать обновлённые коллекции, не изменяя исходную.
+`ListCollection` не является компонентом Moduix и не реэкспортируется ни одним пакетом Moduix.
+Импортируйте вспомогательные функции из точки входа Ark UI для нужного фреймворка:
 
-Импортируйте вспомогательные функции напрямую из Ark UI:
+<Tabs
+  groupId="framework"
+  values={[
+    { label: 'React', value: 'react' },
+    { label: 'Solid', value: 'solid' },
+  ]}
+  className="docs-tabs"
+>
+  <Tab value="react">
 
 ```tsx
 import { createListCollection, useListCollection } from '@ark-ui/react/collection';
 ```
 
-## Создать коллекцию
-
-Если у элементов есть свойства `label` и `value`, Ark использует их автоматически. Необязательное
-свойство `disabled` также учитывается:
+  </Tab>
+  <Tab value="solid">
 
 ```tsx
-const fruits = [
-  { label: 'Apple', value: 'apple' },
-  { label: 'Banana', value: 'banana' },
-  { label: 'Blueberry', value: 'blueberry' },
-];
-
-const collection = createListCollection({
-  items: fruits,
-});
+import { createListCollection, useListCollection } from '@ark-ui/solid/collection';
 ```
 
-Передайте коллекцию компоненту на базе Ark UI и отрисуйте элементы из `collection.items`. В
-работающем примере ниже показан тот же подход с `Select`.
+  </Tab>
+</Tabs>
 
-<PreviewFrame maxWidth="sm">
-  ```tsx preview file="../../en/docs/_snippets/select/basic.tsx"
-  ```
+## Базовый пример
 
-</PreviewFrame>
+Используйте `createListCollection` для коллекции, элементы которой известны при загрузке модуля.
+По умолчанию Ark использует свойства `label`, `value` и `disabled`. Передайте коллекцию компоненту
+на базе Ark UI и отрисуйте элементы из `collection.items`.
 
-Храните статическую коллекцию за пределами компонента, если её элементы не меняются. Если данные
-приходят через свойства компонента, состояние или запрос, оберните `createListCollection` в
-`useMemo`, чтобы новая коллекция создавалась только при изменении элементов. Используйте
-`useListCollection`, если фильтрация или изменения должны быть частью состояния React.
+В превью используется React с CSS Modules. Во вкладках показан нативный исходный код React и
+Solid для одного и того же примера. Исходник Solid отображается как код, потому что превью
+документации работает на React.
 
-## Свои элементы
+<ExampleFrame variant="component">
+  <PreviewFrame maxWidth="sm">
+    <ListCollectionBasic />
+  </PreviewFrame>
+</ExampleFrame>
 
-Если в данных используются другие названия свойств, укажите, как получить из элемента значение,
-текст для отображения и признак отключения:
+<ExampleCode>
+<div className="docs-reference">
+  <Tabs
+    groupId="framework"
+    values={[
+      { label: 'React', value: 'react' },
+      { label: 'Solid', value: 'solid' },
+    ]}
+    className="docs-tabs"
+  >
+    <Tab value="react">
+
+```tsx pure file="../../../src/components/examples/list-collection/basic.tsx"
+```
+
+    </Tab>
+    <Tab value="solid">
+
+<CodeBlockRuntime lang="tsx" code={listCollectionSolidBasic} />
+
+    </Tab>
+  </Tabs>
+</div>
+</ExampleCode>
+
+Храните статическую коллекцию за пределами компонента. Если элементы приходят из свойств,
+состояния или запроса, создавайте коллекцию заново только при изменении исходных данных. Если
+фильтрация или обновления должны управляться состоянием фреймворка, используйте динамический хук
+ниже.
+В React для этого используйте `useMemo`, а в Solid, если исходные данные реактивны, `createMemo`.
+
+## Нестандартная структура элементов
+
+Используйте `itemToValue`, `itemToString` и `isItemDisabled`, если данные не соответствуют именам
+свойств по умолчанию. Значения коллекции всегда являются строками, поэтому числовые идентификаторы
+нужно преобразовывать явно:
 
 ```tsx
 type Team = {
@@ -69,87 +107,63 @@ type Team = {
   archived: boolean;
 };
 
-const customTeams: Team[] = [
-  { id: 1, name: 'Platform', archived: false },
-  { id: 2, name: 'Legacy', archived: true },
-];
-
 const collection = createListCollection<Team>({
-  items: customTeams,
+  items: [
+    { id: 1, name: 'Platform', archived: false },
+    { id: 2, name: 'Legacy', archived: true },
+  ],
   itemToValue: (item) => String(item.id),
   itemToString: (item) => item.name,
   isItemDisabled: (item) => item.archived,
 });
 ```
 
-Значения коллекции - строки. Преобразуйте числовые идентификаторы в строки, когда переносите
-данные приложения в коллекцию. По умолчанию `itemToValue`, `itemToString` и `isItemDisabled`
-читают свойства `value`, `label` и `disabled`.
+| Параметр         | Назначение                                                   |
+| ---------------- | ------------------------------------------------------------ |
+| `items`          | Элементы коллекции. Принимает итерируемый или readonly итерируемый объект. |
+| `itemToValue`    | Возвращает строковое значение элемента.                      |
+| `itemToString`   | Возвращает текст для отображения и поиска.                   |
+| `isItemDisabled` | Возвращает признак отключённого элемента.                    |
+| `groupBy`        | Возвращает ключ группы для элемента.                         |
+| `groupSort`      | Сортирует группы компаратором, заданным порядком, `'asc'` или `'desc'`. |
 
-| Параметр         | Назначение                                                               |
-| ---------------- | ------------------------------------------------------------------------ |
-| `items`          | Элементы коллекции. Принимает любой итерируемый объект.                 |
-| `itemToValue`    | Возвращает строковое значение, которое используют коллекция и компоненты. |
-| `itemToString`   | Возвращает текст для отображения и поиска.                               |
-| `isItemDisabled` | Возвращает признак отключённого элемента.                               |
-| `groupBy`        | Возвращает ключ группы для каждого элемента.                             |
-| `groupSort`      | Сортирует группы функцией сравнения, массивом с заданным порядком или `'asc'` и `'desc'`. |
+## Получение данных и навигация
 
-## Получение данных и поиск
+Используйте коллекцию, чтобы преобразовывать объекты элементов в значения и обратно, проверять
+порядок или перемещаться между доступными элементами:
 
-Эти методы помогают получать элементы и преобразовывать объекты элементов в строковые значения и
-обратно.
-
-| API                                 | Результат                                                         |
-| ----------------------------------- | ----------------------------------------------------------------- |
-| `collection.items`                  | Элементы в текущем порядке коллекции.                              |
-| `collection.size`                   | Количество элементов.                                             |
-| `getValues(items?)`                 | Значения всех элементов или переданных элементов.                 |
-| `find(value)` / `findMany(values)`  | Элемент для одного значения или элементы для нескольких значений. |
-| `at(index)`                         | Элемент по индексу или `null`.                                    |
-| `indexOf(value)`                    | Индекс в коллекции или `-1`, если значение не найдено.             |
-| `has(value)` / `hasItem(item)`      | Наличие значения или элемента.                                    |
-| `getItemValue(item)`                | Нормализованное строковое значение элемента.                      |
-| `stringifyItem(item)`               | Текст для отображения элемента.                                  |
-| `stringify(value)`                  | Текст для отображения значения.                                  |
-| `stringifyItems(items, separator?)` | Объединённый текст нескольких элементов.                          |
-| `stringifyMany(values, separator?)` | Объединённый текст нескольких значений.                            |
-| `getItemDisabled(item)`             | Нормализованный признак отключения элемента.                      |
-| `group()`                           | Пары `[groupKey, items]` с настроенными параметрами группировки.   |
+| API                                | Результат                                                     |
+| ---------------------------------- | ------------------------------------------------------------- |
+| `collection.items` / `collection.size` | Текущие элементы и их количество.                         |
+| `getValues(items?)`                | Значения всех или выбранных элементов.                       |
+| `find(value)` / `findMany(values)` | Один элемент или несколько элементов по значению.            |
+| `at(index)` / `indexOf(value)`     | Элемент по индексу или индекс по значению.                    |
+| `has(value)` / `hasItem(item)`     | Наличие значения или элемента.                               |
+| `getItemValue(item)`               | Нормализованное строковое значение элемента.                  |
+| `stringifyItem(item)` / `stringify(value)` | Текст элемента или значения для отображения.          |
+| `getItemDisabled(item)`            | Нормализованный признак отключения.                          |
+| `group()`                          | Пары `[groupKey, items]` с настройками группировки.           |
 
 ```tsx
-collection.find('product'); // { label: 'Product', value: 'product' }
-collection.stringify('product'); // 'Product'
-collection.has('unknown'); // false
+const teamCollection = createListCollection({
+  items: [
+    { label: 'Platform', value: 'platform' },
+    { label: 'Product', value: 'product' },
+  ],
+});
+
+teamCollection.find('product'); // { label: 'Product', value: 'product' }
+teamCollection.stringify('product'); // 'Product'
+teamCollection.getNextValue('platform'); // 'product'
+teamCollection.has('unknown'); // false
 ```
 
-## Перемещение по коллекции
+`firstValue`, `lastValue`, `getNextValue`, `getPreviousValue` и `getValueRange` используют порядок
+коллекции и пропускают отключённые элементы. Методы навигации принимают необязательные `step` и
+флаг `clamp`. `sort(values)` упорядочивает значения по коллекции, а `compareValue(a, b)` сравнивает
+два значения в этом порядке.
 
-Используйте эти свойства и методы, чтобы переходить между доступными элементами или сортировать
-значения в порядке коллекции:
-
-```tsx
-collection.firstValue; // 'platform'
-collection.lastValue; // 'product' - disabled items are skipped
-collection.getNextValue('platform'); // 'product'
-collection.getPreviousValue('design'); // 'product'
-collection.getValueRange('platform', 'product'); // ['platform', 'product']
-collection.sort(['design', 'platform']); // ['platform', 'design']
-```
-
-`firstValue`, `lastValue`, `getNextValue`, `getPreviousValue` и `getValueRange` пропускают
-отключённые элементы. Методы перехода к следующему и предыдущему элементу принимают необязательные
-`step` и флаг `clamp`. Без ограничения переход за край коллекции возвращает `null`.
-`getValueRange` возвращает значения в порядке коллекции независимо от того, в каком порядке переданы
-границы.
-
-`compareValue(a, b)` сравнивает два значения по порядку коллекции. `isEqual(other)` сравнивает
-массивы элементов двух коллекций. Коллекцию можно перебирать через `for...of`. Метод `toString()`
-возвращает компактное представление её элементов, а `toJSON()` - её размер, первое и последнее
-значения.
-
-Метод `search(query, options)` выполняет поиск по началу текста при наборе с клавиатуры и пропускает
-отключённые элементы. Сохраняйте состояние поиска между вызовами:
+Для поведения typeahead вызывайте `search(queryString, options)` со стабильным состоянием поиска:
 
 ```tsx
 const searchState = { keysSoFar: '', timer: -1 };
@@ -161,12 +175,66 @@ const nextValue = collection.search('p', {
 });
 ```
 
-В React-компоненте храните `searchState` в `useRef`, чтобы состояние сохранялось между рендерами.
+Храните `searchState` в течение всего взаимодействия. В React для этого удобно использовать
+`useRef`. В Solid оставьте тот же объект в области компонента или в другом стабильном хранилище.
+
+## Динамические коллекции
+
+Используйте `useListCollection`, если коллекция фильтруется или обновляется из состояния
+компонента. Callback `filter` получает текст элемента, текущий текст фильтра и сам элемент.
+Параметр `limit` ограничивает количество элементов в коллекции, что полезно для больших наборов
+данных.
+
+В примере `Listbox` использует отдельное подписанное поле фильтра. Установите `typeahead={false}`,
+если фильтрацией управляет это поле, и отображайте пустое состояние, когда совпадений нет.
+
+<ExampleFrame variant="component">
+  <PreviewFrame maxWidth="sm">
+    <ListCollectionFiltering />
+  </PreviewFrame>
+</ExampleFrame>
+
+<ExampleCode>
+<div className="docs-reference">
+  <Tabs
+    groupId="framework"
+    values={[
+      { label: 'React', value: 'react' },
+      { label: 'Solid', value: 'solid' },
+    ]}
+    className="docs-tabs"
+  >
+    <Tab value="react">
+
+```tsx pure file="../../../src/components/examples/listbox/standalone-filter-input.tsx"
+```
+
+    </Tab>
+    <Tab value="solid">
+
+<CodeBlockRuntime lang="tsx" code={listCollectionSolidFiltering} />
+
+    </Tab>
+  </Tabs>
+
+**Стили**
+
+```css file="../../../src/components/examples/listbox/listbox-standalone-filter-input.module.css"
+```
+</div>
+</ExampleCode>
+
+В React `collection` - это `ListCollection`. В Solid это accessor, поэтому при передаче коллекции
+компоненту или чтении `collection().items` в цикле `<For>` вызывайте `collection()`. Хук предоставляет
+`filter`, `set`, `reset`, `clear`, `insert`, `insertBefore`, `insertAfter`, `remove`, `move`,
+`moveBefore`, `moveAfter`, `reorder`, `append`, `prepend`, `update` и `upsert`.
+
+Вызовите `filter('')`, чтобы вернуть все элементы, и `reset()`, чтобы восстановить `initialItems`.
 
 ## Неизменяемые обновления
 
-Методы обновления возвращают новую коллекцию и не меняют исходную. Сохраните результат, если хотите
-использовать обновлённую коллекцию:
+Методы обновления `ListCollection` возвращают новую коллекцию. Сохраните результат, если изменение
+должно стать следующей коллекцией:
 
 ```tsx
 const nextCollection = collection
@@ -179,54 +247,20 @@ const nextCollection = collection
 | ---------------------------------------- | ------------------------------------------------- |
 | `copy(items?)` / `setItems(items)`       | Копирует коллекцию или заменяет все элементы.     |
 | `update(value, item)`                    | Заменяет существующий элемент.                   |
-| `upsert(value, item, mode?)`             | Обновляет элемент или добавляет его с выбранного края. |
-| `insert(index, ...items)`                | Вставляет элементы по индексу.                   |
-| `insertBefore(value, ...items)`          | Вставляет элементы перед значением.              |
-| `insertAfter(value, ...items)`           | Вставляет элементы после значения.               |
-| `prepend(...items)` / `append(...items)` | Добавляет элементы в начало или конец.           |
-| `filter(predicate)`                      | Возвращает коллекцию только с подходящими элементами. |
-| `remove(...itemsOrValues)`               | Удаляет элементы или значения.                   |
-| `move(value, index)`                     | Перемещает значение по индексу.                  |
-| `moveBefore(value, ...values)`           | Перемещает переданные значения перед целевым значением. |
-| `moveAfter(value, ...values)`            | Перемещает переданные значения после целевого значения. |
+| `upsert(value, item, mode?)`             | Обновляет элемент или добавляет его с края.       |
+| `insert(index, ...items)`                | Вставляет элементы по индексу.                    |
+| `insertBefore` / `insertAfter`           | Вставляет элементы относительно значения.        |
+| `prepend` / `append`                     | Добавляет элементы в начало или конец.           |
+| `filter(predicate)` / `remove(...)`      | Оставляет подходящие элементы или удаляет элементы и значения. |
+| `move` / `moveBefore` / `moveAfter`       | Перемещает одно или несколько значений.          |
 | `reorder(from, to)`                      | Перемещает элемент между числовыми индексами.    |
 
-`upsert` принимает `mode: 'append' | 'prepend'`, если такого значения ещё нет.
+`upsert` принимает `mode: 'append' | 'prepend'`, если такого значения ещё нет. Исходная коллекция
+не изменяется.
 
-## Состояние React
+## Интеграция и доступность
 
-Используйте `useListCollection`, если фильтрация или обновления коллекции должны управляться
-состоянием React:
-
-```tsx
-import { useFilter } from '@ark-ui/react/locale';
-import { useListCollection } from '@ark-ui/react/collection';
-
-const teams = [
-  { label: 'Platform', value: 'platform' },
-  { label: 'Product', value: 'product' },
-  { label: 'Design', value: 'design' },
-];
-
-function useTeams() {
-  const { contains } = useFilter({ sensitivity: 'base' });
-
-  return useListCollection({
-    initialItems: teams,
-    filter: contains,
-    limit: 20,
-  });
-}
-```
-
-Хук возвращает активную `collection` и методы для фильтрации и обновления:
-`filter`, `set`, `reset`, `clear`, `insert`, `insertBefore`, `insertAfter`, `remove`, `move`,
-`moveBefore`, `moveAfter`, `reorder`, `append`, `prepend`, `update` и `upsert`.
-
-Вызовите `filter('')`, чтобы снова показать все элементы. Вызовите `reset()`, чтобы восстановить
-`initialItems`. Функция `filter` получает текст элемента и текущий текст фильтра. Для поиска с
-учётом правил языка передайте функцию поиска, например `contains` из `useFilter` Ark UI, как в
-примере выше.
-
-Храните статическую `createListCollection` за пределами компонента, если элементы никогда не
-меняются. Используйте хук, когда фильтрацией или изменениями коллекции должен управлять React.
+Используйте `Select`, `Combobox` или `Listbox`, если нужны встроенные выбор, фокус, управление с
+клавиатуры и ARIA-поведение. Коллекция предоставляет только данные. При создании собственного
+интерфейса реализуйте на уровне UI доступное имя, клавиатурное управление, роли, состояния, а также
+сообщения о пустом или отключённом элементе.

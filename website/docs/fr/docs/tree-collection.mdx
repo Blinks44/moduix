@@ -3,266 +3,309 @@ title: Tree Collection
 description: "Créez, recherchez, parcourez, filtrez et mettez à jour des données hiérarchiques pour Tree View et vos interfaces arborescentes."
 ---
 
+import TreeCollectionBasic from '@/components/examples/tree-collection/basic.tsx';
+import treeCollectionSolidCustomNodes from '../../../snippets/tree-collection/solid/custom-nodes.tsx?raw';
+import treeCollectionSolidFilePaths from '../../../snippets/tree-collection/solid/file-paths.tsx?raw';
+import treeCollectionSolidBasic from '../../../snippets/tree-collection/solid/basic.tsx?raw';
+
 # Tree Collection
 
-## API
+Une collection arborescente stocke des données hiérarchiques pour `TreeView` et vos interfaces
+arborescentes. Elle ne rend aucune interface et ne gère ni la sélection, ni le focus, ni la navigation
+au clavier. Utilisez-la pour créer une hiérarchie typée, interroger les relations entre les nœuds,
+parcourir et filtrer l'arbre, puis produire des mises à jour immuables.
+
+## Référence de l’API
 
 <PrimitiveReference href="https://ark-ui.com/docs/collections/tree-collection" />
 
-Une collection arborescente transforme les données hiérarchiques en une structure cohérente pour
-`TreeView` et vos interfaces arborescentes. Elle permet de rechercher des nœuds par valeur, d'examiner
-leurs relations avec leurs parents et leurs descendants, d'utiliser des chemins d'index, de parcourir
-l'arbre et d'appliquer des mises à jour immuables.
+Importez les fonctions de collection depuis le point d’entrée Ark UI correspondant à votre
+framework :
+
+<Tabs
+  groupId="framework"
+  values={[
+    { label: 'React', value: 'react' },
+    { label: 'Solid', value: 'solid' },
+  ]}
+  className="docs-tabs"
+>
+  <Tab value="react">
 
 ```tsx
-import { createFileTreeCollection, createTreeCollection } from '@moduix/react/tree-view';
+import { createFileTreeCollection, createTreeCollection } from '@ark-ui/react/collection';
 ```
 
-## Créer une collection
-
-La structure par défaut utilise les propriétés `value`, `label`, `children` et, éventuellement, `disabled` :
+  </Tab>
+  <Tab value="solid">
 
 ```tsx
-const tree = createTreeCollection({
-  rootNode: {
-    value: 'root',
-    label: 'Project',
-    children: [
-      {
-        value: 'src',
-        label: 'src',
-        children: [
-          { value: 'button', label: 'Button.tsx' },
-          { value: 'input', label: 'Input.tsx' },
-        ],
-      },
-      { value: 'readme', label: 'README.md' },
-    ],
-  },
-});
+import { createFileTreeCollection, createTreeCollection } from '@ark-ui/solid/collection';
 ```
 
-Le nœud racine sert de conteneur. Il n'est donc pas inclus dans `getValues()`. Passez la collection
-directement à `TreeView`, puis affichez les nœuds à partir de `collection.rootNode.children`.
+  </Tab>
+</Tabs>
 
-## Tree View
+Moduix réexporte également les deux fonctions depuis chaque point d’entrée `tree-view`. Les exemples
+avec le composant utilisent ce chemin afin d’importer `TreeView` et les fonctions de collection depuis
+le même package.
 
-La collection stocke la hiérarchie. `TreeView` gère l'ouverture des branches, le focus, la navigation
-au clavier et la sélection. Affichez chaque branche récursivement à partir du nœud et du chemin d'index
-fournis par la collection.
+## Exemple de base
 
-```tsx preview file="../../en/docs/_snippets/tree-view/basic.tsx"
+`createTreeCollection` reçoit un `rootNode`. La forme de nœud par défaut utilise `value`, `label`,
+`children` et, facultativement, `disabled`. Le nœud racine sert de conteneur et n'est pas inclus dans
+`getValues()`.
 
+Utilisez la collection comme source de données pour `TreeView`. Rendez
+`collection.rootNode.children` et transmettez à chaque nœud sa position numérique comme `indexPath`.
+
+<ExampleFrame variant="component">
+  <PreviewFrame maxWidth="sm">
+    <TreeCollectionBasic />
+  </PreviewFrame>
+</ExampleFrame>
+
+<ExampleCode>
+<div className="docs-reference">
+  <Tabs
+    groupId="framework"
+    values={[
+      { label: 'React', value: 'react' },
+      { label: 'Solid', value: 'solid' },
+    ]}
+    className="docs-tabs"
+  >
+    <Tab value="react">
+
+```tsx pure file="../../../src/components/examples/tree-collection/basic.tsx"
 ```
+
+    </Tab>
+    <Tab value="solid">
+
+<CodeBlockRuntime lang="tsx" code={treeCollectionSolidBasic} />
+
+    </Tab>
+  </Tabs>
+</div>
+
+</ExampleCode>
+
+`TreeView.Label` donne un nom accessible à l'arbre, tandis que `TreeView` gère le focus, la navigation
+au clavier, l'ouverture et la sélection. Consultez [Tree View](/docs/tree-view) pour découvrir
+l'anatomie et le comportement complets du composant.
 
 ## Nœuds personnalisés
 
-Si vos nœuds utilisent d'autres noms de champs, indiquez à la collection comment les lire :
+Si vos données utilisent d'autres champs, indiquez comment les lire avec `nodeToValue`, `nodeToString`,
+`nodeToChildren`, `nodeToChildrenCount` et `isNodeDisabled`. `nodeToChildrenCount` est utile lorsque le
+nombre d'enfants est connu avant leur chargement.
 
-```tsx
-type NavigationNode = {
-  id: string;
-  name: string;
-  items?: NavigationNode[];
-  unavailable?: boolean;
-};
+<Tabs
+  groupId="framework"
+  values={[
+    { label: 'React', value: 'react' },
+    { label: 'Solid', value: 'solid' },
+  ]}
+  className="docs-tabs"
+>
+  <Tab value="react">
 
-const navigation: NavigationNode = {
-  id: 'root',
-  name: 'Documentation',
-  items: [
-    {
-      id: 'guides',
-      name: 'Guides',
-      items: [{ id: 'getting-started', name: 'Getting started' }],
-    },
-    { id: 'components', name: 'Components' },
-  ],
-};
-
-const tree = createTreeCollection<NavigationNode>({
-  rootNode: navigation,
-  nodeToValue: (node) => node.id,
-  nodeToString: (node) => node.name,
-  nodeToChildren: (node) => node.items ?? [],
-  nodeToChildrenCount: (node) => node.items?.length,
-  isNodeDisabled: (node) => node.unavailable ?? false,
-});
+```tsx pure file="../../../src/components/examples/tree-collection/custom-nodes.tsx"
 ```
+
+  </Tab>
+  <Tab value="solid">
+
+<CodeBlockRuntime lang="tsx" code={treeCollectionSolidCustomNodes} />
+
+  </Tab>
+</Tabs>
 
 | Option                | Rôle                                                             |
 | --------------------- | ---------------------------------------------------------------- |
 | `rootNode`            | Conteneur racine de toute la hiérarchie.                         |
-| `nodeToValue`         | Renvoie une valeur de chaîne stable pour un nœud.                |
+| `nodeToValue`         | Renvoie une valeur textuelle stable pour un nœud.                |
 | `nodeToString`        | Renvoie le texte affiché et utilisé pour la recherche.           |
 | `nodeToChildren`      | Renvoie les nœuds enfants.                                       |
-| `nodeToChildrenCount` | Renvoie le nombre connu d'enfants, y compris pour un chargement différé. |
+| `nodeToChildrenCount` | Renvoie le nombre connu d'enfants, y compris ceux chargés plus tard. |
 | `isNodeDisabled`      | Indique si le nœud est désactivé.                                |
 
-## Rechercher un nœud
+## Requêtes et navigation
 
-Utilisez les valeurs pour retrouver les nœuds et les chemins d'index pour repérer leur position. Un
-chemin d'index décrit la position numérique d'un nœud à chaque niveau de l'arborescence :
+Un `indexPath` contient la position numérique d'un nœud à chaque niveau sous la racine. Les valeurs
+sont des identifiants stables : stockez-les dans l'état de l'application et recalculez les chemins
+d'index lorsqu'une opération en a besoin.
 
 ```tsx
-const path = tree.getIndexPath('input')!; // [0, 1]
-tree.at(path); // Input.tsx node
-tree.getValue(path); // 'input'
-tree.getValuePath(path); // ['src', 'input']
-tree.getDepth('input'); // 2
+const treePath = collection.getIndexPath('src/components/Tree.tsx')!; // [0, 1, 1]
+
+collection.findNode('src');
+collection.findNodes(['src', 'public']);
+collection.at(treePath);
+collection.getValue(treePath); // 'src/components/Tree.tsx'
+collection.getValuePath(treePath); // ['src', 'src/components', 'src/components/Tree.tsx']
+collection.getDepth('src/components/Tree.tsx'); // 3
+collection.getValues(); // descendant values in traversal order
 ```
 
-| API | Résultat |
-| -------------------------------- | ------------------------------------------------ |
-| `findNode(value)` | Premier nœud avec la valeur. |
-| `findNodes(values)` | Nœuds correspondant à plusieurs valeurs. |
-| `getIndexPath(valueOrValuePath)` | Chemin numérique pour une valeur ou un chemin de valeur explicite. |
-| `at(indexPath)` | Nœud correspondant à un chemin d'index. |
-| `getValue(indexPath)` | Valeur correspondant à un chemin d'index. |
-| `getValuePath(indexPath)` | Valeurs des ancêtres suivies de la valeur cible. |
-| `getDepth(value)` | Profondeur du nœud en dessous de la racine. |
-| `getValues(rootNode?)` | Toutes les valeurs descendantes dans l'ordre de parcours. |
-| `getNodeChildren(node)` | Nœuds enfants normalisés. |
-| `getNodeChildrenCount(node)` | Nombre connu d'enfants, ou `undefined`. |
-| `getNodeValue(node)` | Valeur de nœud normalisée. |
-| `stringifyNode(node)` | Texte de nœud normalisé. |
-| `stringify(value)` | Texte du nœud pour une valeur, ou `null` si le nœud est introuvable. |
-| `getNodeDisabled(node)` | État désactivé normalisé. |
-| `isRootNode(node)` | Indique si le nœud est la racine de la collection. |
-| `isSameNode(node, other)` | Indique si deux nœuds ont la même valeur. |
+| API                              | Résultat                                           |
+| -------------------------------- | -------------------------------------------------- |
+| `findNode(value, rootNode?)`     | Premier nœud correspondant, ou `undefined`.       |
+| `findNodes(values, rootNode?)`   | Nœuds correspondant à plusieurs valeurs.          |
+| `getIndexPath(valueOrValuePath)` | Chemin numérique d'une valeur ou d'un chemin explicite. |
+| `at(indexPath)`                  | Nœud du chemin d'index, ou `undefined`.            |
+| `getValue(indexPath)`             | Valeur du chemin d'index, ou `undefined`.         |
+| `getValuePath(indexPath)`         | Valeurs des ancêtres suivies de la valeur cible.  |
+| `getDepth(value)`                 | Profondeur du nœud sous la racine.                |
+| `getValues(rootNode?)`            | Valeurs descendantes dans l'ordre du parcours.    |
 
-`sort(values)` classe les valeurs selon leur position dans l'arborescence. `isEqual(other)` compare les
-collections et `toJSON()` renvoie les valeurs de la collection.
+Pour une structure personnalisée, utilisez les accesseurs normalisés :
 
-## Navigation
+| API                          | Résultat                                          |
+| ---------------------------- | ------------------------------------------------- |
+| `getNodeChildren(node)`      | Nœuds enfants.                                    |
+| `getNodeChildrenCount(node)` | Nombre connu d'enfants, ou `undefined`.           |
+| `getNodeValue(node)`         | Valeur du nœud.                                   |
+| `stringifyNode(node)`        | Texte d'affichage du nœud.                        |
+| `stringify(value)`           | Texte d'une valeur, ou `null`.                    |
+| `getNodeDisabled(node)`      | État désactivé.                                   |
+| `isRootNode(node)`           | Indique si le nœud est la racine de la collection. |
+| `isSameNode(node, other)`    | Indique si deux nœuds ont la même valeur.         |
 
-Déplacez-vous entre les nœuds et examinez leurs relations avec leurs parents, ancêtres et descendants :
+Parcourez l'arbre dans l'ordre de parcours ou parmi les nœuds frères :
 
 ```tsx
-tree.getFirstNode();
-tree.getLastNode();
-tree.getNextNode('button');
-tree.getPreviousNode('input');
+collection.getFirstNode();
+collection.getLastNode();
+collection.getNextNode('src');
+collection.getPreviousNode('README.md');
 
-tree.getParentNode('input'); // src node
-tree.getParentNodes('input'); // ancestor nodes
-tree.getDescendantNodes('src'); // Button.tsx and Input.tsx nodes
-tree.getDescendantValues('src'); // ['button', 'input']
+collection.getParentNode('src/components/Tree.tsx');
+collection.getParentNodes('src/components/Tree.tsx');
+collection.getDescendantNodes('src');
+collection.getDescendantValues('src');
+
+collection.getNextSibling(treePath);
+collection.getPreviousSibling(treePath);
+collection.getSiblingNodes(treePath);
+collection.contains(collection.getIndexPath('src')!, treePath);
 ```
 
-`getFirstNode`, `getLastNode`, `getNextNode` et `getPreviousNode` acceptent un objet d'options avec une
-fonction `skip`. Cette fonction exclut certains nœuds du parcours.
+`getFirstNode`, `getLastNode`, `getNextNode` et `getPreviousNode` acceptent `{ skip }`. La fonction
+reçoit `{ value, node, indexPath }` et exclut le nœud lorsqu'elle renvoie `true`. Passez
+`{ withBranch: true }` à `getDescendantNodes` ou `getDescendantValues` pour inclure les nœuds de
+branche.
 
-Les méthodes relatives aux nœuds frères utilisent les chemins d'index :
+`sort(values)` ordonne les valeurs selon leur position dans l'arborescence. `isEqual(other)` compare
+les collections et `toJSON()` renvoie les valeurs descendantes.
 
-```tsx
-const path = tree.getIndexPath('button')!;
+## Parcours et filtrage
 
-tree.getNextSibling(path);
-tree.getPreviousSibling(path);
-tree.getSiblingNodes(path);
-```
-
-Utilisez `contains(parentPath, valuePath)` pour vérifier si un chemin d'index en contient un autre.
-`getDescendantNodes` et `getDescendantValues` acceptent `{ withBranch: true }` pour inclure les
-nœuds de branche avec les feuilles.
-
-## Parcours
-
-Examinez les branches, aplatissez l'arbre ou visitez chaque nœud :
+Utilisez `isBranchNode` et `getBranchValues` pour inspecter les branches. `getBranchValues` accepte
+également un filtre `depth` et la même fonction `skip` que les méthodes de navigation.
 
 ```tsx
-const src = tree.findNode('src');
+const src = collection.findNode('src');
 
-if (src) tree.isBranchNode(src);
-tree.getBranchValues();
-tree.flatten();
-```
+if (src) collection.isBranchNode(src);
+collection.getBranchValues();
 
-`flatten()` renvoie les nœuds avec les métadonnées `_index`, `_parent` et `_children`, utiles pour un
-affichage virtualisé ou à plat.
+const flatNodes = collection.flatten();
+// Each result keeps the original node fields and adds _index, _parent, and _children.
 
-Utilisez `visit` lorsque chaque nœud doit être traité :
-
-```tsx
-tree.visit({
+collection.visit({
   onEnter(node, indexPath) {
-    console.log(tree.getNodeValue(node), indexPath.length);
+    console.log(collection.getNodeValue(node), indexPath.length);
 
-    if (tree.getNodeValue(node) === 'src') {
-      return 'skip';
-    }
+    if (collection.getNodeValue(node) === 'src') return 'skip';
   },
 });
 ```
 
-## Filtrage
-
-`filter` renvoie une nouvelle arborescence contenant les nœuds correspondants tout en conservant la
-hiérarchie nécessaire pour les atteindre :
+`visit` appelle `onEnter` pour chaque nœud. Renvoyez `'skip'` pour ignorer les descendants d'une
+branche ou `'stop'` pour terminer le parcours. `filter(predicate)` renvoie une nouvelle collection,
+conserve la hiérarchie nécessaire pour atteindre les nœuds correspondants et transmet `(node,
+indexPath)` à la fonction de prédicat :
 
 ```tsx
-const filteredTree = tree.filter((node) =>
-  tree.stringifyNode(node).toLocaleLowerCase().includes('input'),
+const filteredTree = collection.filter((node) =>
+  collection.stringifyNode(node).toLocaleLowerCase().includes('tree'),
 );
 ```
 
-Utilisez la collection renvoyée pour le rendu. L'arbre d'origine est inchangé.
+## Mises à jour immuables
 
-## Mises à jour
-
-Chaque modification est immuable : les méthodes renvoient une nouvelle `TreeCollection` sans modifier la
-collection d'origine. Dans les exemples ci-dessous, chaque opération part de `tree`. Pour enchaîner les
-modifications, utilisez la collection renvoyée par l'opération précédente :
+Les méthodes de mise à jour renvoient une nouvelle collection sans modifier l'originale. Les chemins
+d'index appartiennent à une version précise de la collection. Après une insertion, suppression,
+modification ou déplacement, recalculez les chemins depuis la collection renvoyée au lieu de réutiliser
+les anciens chemins numériques.
 
 ```tsx
-const srcPath = tree.getIndexPath('src')!;
-const buttonPath = tree.getIndexPath('button')!;
-const readmePath = tree.getIndexPath('readme')!;
+const buttonPath = collection.getIndexPath('src/components/Button.tsx')!;
+const readmePath = collection.getIndexPath('README.md')!;
+const srcPath = collection.getIndexPath('src')!;
 
-const withFile = tree.insertAfter(buttonPath, [{ value: 'select', label: 'Select.tsx' }]);
-
-const withoutReadme = tree.remove([readmePath]);
-const renamed = tree.replace(buttonPath, {
-  value: 'button',
+const withFile = collection.insertAfter(buttonPath, [
+  { value: 'src/components/Select.tsx', label: 'Select.tsx' },
+]);
+const withoutReadme = collection.remove([readmePath]);
+const renamed = collection.replace(buttonPath, {
+  value: 'src/components/Button.new.tsx',
   label: 'Button.new.tsx',
 });
-const moved = tree.move([readmePath], srcPath);
+const moved = collection.move([readmePath], srcPath);
 ```
 
-Les chemins d'index décrivent des positions dans une version précise de la collection. Après une
-insertion, une suppression, une réorganisation ou un déplacement de nœuds, supprimez les chemins
-mémorisés et recalculez-les à partir de la collection renvoyée avant l'opération suivante. Stockez des
-valeurs de nœud stables dans l'état de l'application plutôt que des chemins numériques.
+`insertBefore` et `insertAfter` renvoient `undefined` lorsque le chemin cible est invalide. Validez
+les chemins issus de données dynamiques avant d'appeler ces méthodes.
 
-`insertBefore` et `insertAfter` peuvent renvoyer `undefined` lorsque le chemin cible n'est pas valide.
-Validez les chemins provenant de données dynamiques avant d'appeler ces méthodes.
+| API                         | Fonctionnement                              |
+| --------------------------- | ------------------------------------------- |
+| `copy(rootNode)`            | Crée une collection à partir d'une nouvelle racine. |
+| `replace(indexPath, node)`  | Remplace un nœud.                            |
+| `remove(indexPaths)`        | Supprime un ou plusieurs sous-arbres.        |
+| `insertBefore(path, nodes)` | Insère des nœuds frères avant un nœud.       |
+| `insertAfter(path, nodes)`  | Insère des nœuds frères après un nœud.       |
+| `move(fromPaths, toPath)`   | Déplace des sous-arbres.                     |
+| `filter(predicate)`         | Renvoie une arborescence filtrée.            |
 
-| API | Fonctionnement |
-| --------------------------- | -------------------------------------------- |
-| `copy(rootNode)` | Crée une collection à partir d'une racine de remplacement. |
-| `replace(indexPath, node)` | Remplace un nœud. |
-| `remove(indexPaths)` | Supprime un ou plusieurs sous-arbres. |
-| `insertBefore(path, nodes)` | Insère des nœuds frères avant un nœud. |
-| `insertAfter(path, nodes)` | Insère des nœuds frères après un nœud. |
-| `move(fromPaths, toPath)` | Déplace des sous-arbres vers un autre emplacement. |
-| `filter(predicate)` | Renvoie une arborescence filtrée. |
+Lorsque la collection est rendue par `TreeView`, stockez le résultat de la mise à jour dans l'état
+qui possède l'arbre et rendez son nouveau `rootNode`.
 
 ## Arborescence de fichiers
 
-Utilisez `createFileTreeCollection` lorsque vos données se présentent déjà sous la forme d'une liste de chemins :
+`createFileTreeCollection` construit une hiérarchie standard `value`/`label` à partir de chemins
+séparés par `/` :
 
-```tsx
-const files = createFileTreeCollection([
-  'src/components/Button.tsx',
-  'src/components/Input.tsx',
-  'src/utils/format.ts',
-  'README.md',
-]);
+<Tabs
+  groupId="framework"
+  values={[
+    { label: 'React', value: 'react' },
+    { label: 'Solid', value: 'solid' },
+  ]}
+  className="docs-tabs"
+>
+  <Tab value="react">
 
-files.getBranchValues(); // ['src', 'components', 'utils']
+```tsx pure file="../../../src/components/examples/tree-collection/file-paths.tsx"
 ```
 
-Pour découvrir la composition complète de `TreeView`, l'ouverture, la sélection, le chargement différé
-et les nœuds récursifs, consultez [Tree View](/docs/tree-view). Pour les nœuds distants, consultez son
-exemple de chargement asynchrone et mettez à jour la collection uniquement après une réponse réussie.
+  </Tab>
+  <Tab value="solid">
+
+<CodeBlockRuntime lang="tsx" code={treeCollectionSolidFilePaths} />
+
+  </Tab>
+</Tabs>
+
+Pour un chargement asynchrone, mettez à jour la collection uniquement après la réussite de la
+requête. L’exemple de chargement asynchrone de [Tree View](/docs/tree-view) montre comment connecter
+cette nouvelle collection à un arbre accessible.
+
+## Intégration et accessibilité
+
+La collection gère uniquement la hiérarchie. Utilisez `TreeView` pour la sémantique d’arbre, le
+focus, la navigation au clavier, l’ouverture et la sélection. Un rendu personnalisé doit fournir
+lui-même ces comportements. Conservez des valeurs de nœud stables dans l’état de l’application et
+recalculez les chemins d’index depuis la collection courante après une mise à jour immuable.

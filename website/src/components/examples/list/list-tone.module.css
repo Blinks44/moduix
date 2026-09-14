@@ -1,0 +1,7 @@
+.root {
+  display: grid;
+  gap: var(--moduix-spacing-4) var(--moduix-spacing-6);
+  grid-template-columns: repeat(auto-fit, minmax(12rem, 1fr));
+  inline-size: min(100%, 36rem);
+  margin-inline: auto;
+}

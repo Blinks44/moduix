@@ -1,0 +1,4 @@
+.root {
+  --moduix-angle-slider-indicator-bg: var(--moduix-color-chart-3);
+  --moduix-angle-slider-size: 9rem;
+}

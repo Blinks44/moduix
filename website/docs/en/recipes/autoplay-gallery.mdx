@@ -4,6 +4,7 @@ description: An autoplay gallery recipe built with Carousel, overlaid slide copy
 ---
 
 import { AutoplayGalleryPreview } from '@/components/recipes/autoplay-gallery-preview';
+import autoplayGallerySolid from '../../../snippets/recipes/solid/autoplay-gallery.tsx?raw';
 
 # Autoplay gallery
 
@@ -11,30 +12,48 @@ Use this recipe for featured content that advances automatically while keeping n
 `Carousel` with partially visible neighbouring slides, overlaid copy, arrow controls, and indicators that fill during
 each autoplay interval.
 
-<ExampleFrame clientOnly>
+The live preview uses the React package. The source tabs show native React and Solid implementations that share the same stylesheet.
+
+<ExampleFrame variant="recipe" clientOnly>
   <AutoplayGalleryPreview />
 </ExampleFrame>
 
+<ExampleCode>
 <div className="docs-reference">
-  <Tabs values={[{ label: 'Component', value: 'Component' }, { label: 'Styles', value: 'Styles' }]} className="docs-tabs">
-    <Tab value="Component">
+  <Tabs
+    groupId="framework"
+    values={[
+      { label: 'React', value: 'react' },
+      { label: 'Solid', value: 'solid' },
+    ]}
+    className="docs-tabs"
+  >
+    <Tab value="react">
 
-```tsx file="../../../src/components/recipes/autoplay-gallery.tsx"
+```tsx pure file="../../../src/components/recipes/autoplay-gallery.tsx"
+
 ```
 
     </Tab>
-    <Tab value="Styles">
+    <Tab value="solid">
 
-```css file="../../../src/components/recipes/autoplay-gallery.module.css"
-```
+<CodeBlockRuntime lang="tsx" code={autoplayGallerySolid} />
 
     </Tab>
   </Tabs>
+
+**Styles**
+
+```css file="../../../src/components/recipes/autoplay-gallery.module.css"
+
+```
 </div>
+
+</ExampleCode>
 
 ## Install
 
-<ShadcnInstall packageName="carousel" itemKind="recipe" copiedSource />
+<ShadcnInstall packageName="carousel" itemKind="recipe" frameworks copiedSource />
 
 The command adds `Carousel` to your project. Copy the recipe component and its stylesheet from the tabs above, then
 replace the demo content with your own.
@@ -60,10 +79,14 @@ The recipe uses two `Carousel.Context` blocks over the same root. The first read
 slide and render the previous and next controls. The second builds the progress indicators from
 `api.pageSnapPoints` and marks the current indicator with `data-current`.
 
+Each indicator keeps `overflow: visible` so its transparent `::after` area can make the thin progress bar easier to
+tap. The visible fill animates its `width` instead of using `scaleX`, which keeps the inherited rounded leading edge
+intact while the bar fills.
+
 Arrow and indicator clicks call `requestAnimationFrame(api.play)`. Manual navigation pauses autoplay, so starting it on
-the next frame lets the page change finish before a fresh interval begins. Touch and wheel interaction pause autoplay as
-well. If your product needs playback to resume after those interactions, add that behavior to your own interaction
-flow or expose `Carousel.AutoplayTrigger`.
+the next frame lets the page change finish before a fresh interval begins. Touch and horizontal wheel interaction pause
+autoplay as well. If your product needs playback to resume after those interactions, add that behavior to your own
+interaction flow or expose `Carousel.AutoplayTrigger`.
 
 Ark pauses autoplay while the document is hidden. The recipe listens for `visibilitychange` and calls the public
 `api.play()` method when the document becomes visible again.

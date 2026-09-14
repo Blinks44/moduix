@@ -1,8 +1,15 @@
 ---
 title: Simple Grid
 component: simple-grid
-description: An equal-column CSS Grid that adapts to the available width.
+description: Build responsive equal-column grids in React or Solid with package and shadcn installation options.
 ---
+
+import SimpleGridBasic from '@/components/examples/simple-grid/basic.tsx';
+import SimpleGridFixedColumns from '@/components/examples/simple-grid/fixed-columns.tsx';
+import SimpleGridMediaGallery from '@/components/examples/simple-grid/media-gallery.tsx';
+import simpleGridSolidBasic from '../../../snippets/simple-grid/solid/basic.tsx?raw';
+import simpleGridSolidFixedColumns from '../../../snippets/simple-grid/solid/fixed-columns.tsx?raw';
+import simpleGridSolidMediaGallery from '../../../snippets/simple-grid/solid/media-gallery.tsx?raw';
 
 ## API Reference
 
@@ -15,20 +22,78 @@ responsive style props.
 
 ## Basic
 
-Import `SimpleGrid` from `@moduix/react/simple-grid`. Use `minChildWidth` when the number of equal
-columns should follow the available width. The component uses CSS Grid `auto-fit` and `minmax()`;
-numeric values are treated as pixels, while strings can contain any valid CSS length.
+SimpleGrid ships for React and Solid in both the CSS Modules and Tailwind packages. The rendered
+preview on this page uses the React CSS Modules package; the framework tabs show native source for
+the same public contract.
+
+Use `minChildWidth` when the number of equal columns should follow the available width. The component
+uses CSS Grid `auto-fit` and `minmax()`; numeric values are treated as pixels, while strings can
+contain any valid CSS length.
 
 The number of columns changes with the root width, and the children remain direct grid items. If a
 child contains unbreakable content, add `min-width: 0` or an appropriate overflow rule to that child.
 
-```tsx preview file="./_snippets/simple-grid/basic.tsx"
+<ExampleFrame variant="component">
+  <SimpleGridBasic />
+</ExampleFrame>
 
+<ExampleCode>
+<div className="docs-reference">
+  <Tabs
+    groupId="framework"
+    values={[
+      { label: 'React', value: 'react' },
+      { label: 'Solid', value: 'solid' },
+    ]}
+    className="docs-tabs"
+  >
+    <Tab value="react">
+
+```tsx pure file="../../../src/components/examples/simple-grid/basic.tsx"
 ```
+
+    </Tab>
+    <Tab value="solid">
+
+<CodeBlockRuntime lang="tsx" code={simpleGridSolidBasic} />
+
+    </Tab>
+  </Tabs>
+
+**Styles**
+
+```css file="../../../src/components/examples/simple-grid/simple-grid-basic.module.css"
+```
+</div>
+
+</ExampleCode>
 
 ## Install with shadcn
 
-<ShadcnInstall packageName="simple-grid" />
+See [Quick Start](/docs/quick-start) for full package setup, registry configuration, and styling guidance.
+
+<Tabs groupId="framework">
+  <Tab label="React" value="react">
+
+<ShadcnInstallOptions
+  options={[
+    { label: 'CSS Modules', command: 'shadcn@latest add @moduix-react/simple-grid' },
+    { label: 'Tailwind CSS', command: 'shadcn@latest add @moduix-react-tailwind/simple-grid' },
+  ]}
+/>
+
+  </Tab>
+  <Tab label="Solid" value="solid">
+
+<ShadcnInstallOptions
+  options={[
+    { label: 'CSS Modules', command: 'shadcn@latest add @moduix-solid/simple-grid' },
+    { label: 'Tailwind CSS', command: 'shadcn@latest add @moduix-solid-tailwind/simple-grid' },
+  ]}
+/>
+
+  </Tab>
+</Tabs>
 
 ## Anatomy
 
@@ -46,54 +111,15 @@ SimpleGrid
 
 ## Composition
 
-### Recommended composition
+Use the short `<SimpleGrid>` form for the root; `SimpleGrid.Root` is an equivalent compatibility
+alias. Choose either `minChildWidth` for an intrinsic column count or `columns` for a fixed count.
+If both are provided, `minChildWidth` takes priority.
 
-Use the short `<SimpleGrid>` form for the root. `SimpleGrid.Root` renders the same component and is
-kept as a compatibility alias.
-
-Choose one layout mode:
-
-- `minChildWidth` lets the browser fit as many equal columns as the available width allows.
-- `columns` creates an exact number of equal columns.
-
-If the items need visual separation, set `gap`, `rowGap`, or `columnGap`. Use `asChild` when the
-root should be a semantic element such as `ul`, `section`, or `nav`. `asChild` requires exactly one
-element child, which becomes the rendered root.
-
-### When to go custom
-
-Use local CSS when the layout needs named grid areas, unequal tracks, items that span tracks, or
-different templates at media or container query breakpoints. Leave both `columns` and
-`minChildWidth` unset, then define `grid-template-columns` in the stylesheet.
-
-### Default props
-
-| Prop            | Default         | Notes                                                    |
-| --------------- | --------------- | -------------------------------------------------------- |
-| `columns`       | `1`             | Finite positive integer for equal-width columns          |
-| `minChildWidth` | not set         | CSS length; numbers are treated as pixels                |
-| `gap`           | browser default | CSS length; numbers are treated as pixels                |
-| `rowGap`        | browser default | CSS length; numbers are treated as pixels                |
-| `columnGap`     | browser default | CSS length; numbers are treated as pixels                |
-| `asChild`       | `false`         | Renders the root through Ark's single-child composition |
-| `className`     | not set         | Applied to the rendered root                             |
-| `style`         | not set         | Applied last as the per-instance override                |
-
-### Behavioral notes
-
-- If neither `columns` nor `minChildWidth` is set, the grid has one equal-width column.
-- If both layout props are set, `minChildWidth` takes priority over `columns`.
-- `columns={3}` creates three equal tracks without wrapping the children.
-- `minChildWidth={160}` creates as many tracks as fit and treats the number as `160px`.
-- A numeric `columns` value must be a finite positive integer. A numeric `minChildWidth` value must
-  be finite and non-negative.
-- The `auto-fit` mode guards against overflow when the grid is narrower than `minChildWidth`.
-- `gap`, `rowGap`, and `columnGap` are written to inline styles only when provided.
-- `style` is applied last and can override any generated style, including `display`,
-  `gridTemplateColumns`, and the gaps.
-- `ref` targets the rendered root. With `asChild`, it targets the single child element.
-- The component adds no roles, labels, keyboard behavior, focus management, state, or provider
-  context. Choose semantic children in your own markup.
+Use `asChild` when the grid root should be a semantic element such as `ul`, `section`, or `nav`.
+It requires exactly one element child, which becomes the rendered root. In React, pass `asChild` as
+a boolean; in Solid, use its render-function form to return that element. For named grid areas,
+unequal tracks, or items that span tracks, omit both layout props and define the grid template in
+your own CSS.
 
 ## Examples
 
@@ -101,18 +127,80 @@ different templates at media or container query breakpoints. Leave both `columns
 
 Use `columns` when the number of equal columns should stay fixed, such as in a compact metrics grid.
 
-```tsx preview file="./_snippets/simple-grid/fixed-columns.tsx"
+<ExampleFrame variant="component">
+  <SimpleGridFixedColumns />
+</ExampleFrame>
 
+<ExampleCode>
+<div className="docs-reference">
+  <Tabs
+    groupId="framework"
+    values={[
+      { label: 'React', value: 'react' },
+      { label: 'Solid', value: 'solid' },
+    ]}
+    className="docs-tabs"
+  >
+    <Tab value="react">
+
+```tsx pure file="../../../src/components/examples/simple-grid/fixed-columns.tsx"
 ```
+
+    </Tab>
+    <Tab value="solid">
+
+<CodeBlockRuntime lang="tsx" code={simpleGridSolidFixedColumns} />
+
+    </Tab>
+  </Tabs>
+
+**Styles**
+
+```css file="../../../src/components/examples/simple-grid/simple-grid-fixed-columns.module.css"
+```
+</div>
+
+</ExampleCode>
 
 ### Media Gallery
 
 Use `asChild` when the grid itself should carry list semantics. This example renders the root as a
 `ul` and keeps each image in a direct `li` child.
 
-```tsx preview file="./_snippets/simple-grid/media-gallery.tsx"
+<ExampleFrame variant="component">
+  <SimpleGridMediaGallery />
+</ExampleFrame>
 
+<ExampleCode>
+<div className="docs-reference">
+  <Tabs
+    groupId="framework"
+    values={[
+      { label: 'React', value: 'react' },
+      { label: 'Solid', value: 'solid' },
+    ]}
+    className="docs-tabs"
+  >
+    <Tab value="react">
+
+```tsx pure file="../../../src/components/examples/simple-grid/media-gallery.tsx"
 ```
+
+    </Tab>
+    <Tab value="solid">
+
+<CodeBlockRuntime lang="tsx" code={simpleGridSolidMediaGallery} />
+
+    </Tab>
+  </Tabs>
+
+**Styles**
+
+```css file="../../../src/components/examples/simple-grid/simple-grid-media-gallery.module.css"
+```
+</div>
+
+</ExampleCode>
 
 ## Styling
 
@@ -120,12 +208,17 @@ Use `asChild` when the grid itself should carry list semantics. This example ren
 inline styles on the rendered root, so omit `columns` and `minChildWidth` when the stylesheet should
 own `grid-template-columns`.
 
+Use `className` in React or `class` in Solid for structural styles. Tailwind variants use native
+utility classes and consumer class overrides; the data attributes and `data-slot` hook are shared by
+both styling tracks.
+
 ### Styling hooks
 
-- `className` styles the rendered root for width, placement, backgrounds, and responsive layout.
+- `className` or `class` styles the rendered root for width, placement, backgrounds, and responsive
+  layout.
 - `data-scope="simple-grid"` and `data-part="root"` follow Ark's styling conventions.
 - `data-slot="simple-grid-root"` is the stable moduix selector for local CSS.
 - `columns`, `minChildWidth`, `gap`, `rowGap`, and `columnGap` write inline styles and take priority
-  over declarations from `className`.
+  over declarations from consumer classes.
 - `style` is merged after those props and is the final per-instance override.
 - The component exposes no state or animation styling hooks.

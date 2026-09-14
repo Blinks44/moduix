@@ -1,5 +1,6 @@
 'use client';
 
+import { ark, type HTMLArkProps } from '@ark-ui/react/factory';
 import {
   HoverCard as HoverCardPrimitive,
   useHoverCard,
@@ -8,7 +9,6 @@ import {
 import { clsx } from 'clsx';
 import type { ComponentProps, ComponentRef } from 'react';
 import { forwardRef } from 'react';
-import { normalizeClassName } from '@/lib/moduix/normalizeClassName';
 import {
   OverlayPortal,
   OverlayPortalProvider,
@@ -61,7 +61,7 @@ const HoverCardTrigger = forwardRef<
       ref={ref}
       data-slot="hover-card-trigger"
       asChild={asChild}
-      className={clsx(!asChild && styles.trigger, normalizeClassName(className))}
+      className={clsx(!asChild && styles.trigger, className)}
       {...props}
     />
   );
@@ -76,7 +76,7 @@ const HoverCardPositioner = forwardRef<
       <HoverCardPrimitive.Positioner
         ref={ref}
         data-slot="hover-card-positioner"
-        className={clsx(styles.positioner, normalizeClassName(className))}
+        className={clsx(styles.positioner, className)}
         {...props}
       />
     </OverlayPortal>
@@ -91,7 +91,7 @@ const HoverCardContent = forwardRef<
     <HoverCardPrimitive.Content
       ref={ref}
       data-slot="hover-card-content"
-      className={clsx(styles.content, normalizeClassName(className))}
+      className={clsx(styles.content, className)}
       {...props}
     />
   );
@@ -105,7 +105,7 @@ const HoverCardArrow = forwardRef<
     <HoverCardPrimitive.Arrow
       ref={ref}
       data-slot="hover-card-arrow"
-      className={clsx(styles.arrow, normalizeClassName(className))}
+      className={clsx(styles.arrow, className)}
       {...props}
     >
       {children ?? <HoverCardArrowTip />}
@@ -121,11 +121,24 @@ const HoverCardArrowTip = forwardRef<
     <HoverCardPrimitive.ArrowTip
       ref={ref}
       data-slot="hover-card-arrow-tip"
-      className={clsx(styles.arrowTip, normalizeClassName(className))}
+      className={clsx(styles.arrowTip, className)}
       {...props}
     />
   );
 });
+
+const HoverCardBody = forwardRef<ComponentRef<typeof ark.div>, HTMLArkProps<'div'>>(
+  function HoverCardBody({ className, ...props }, ref) {
+    return (
+      <ark.div
+        ref={ref}
+        data-slot="hover-card-body"
+        className={clsx(styles.body, className)}
+        {...props}
+      />
+    );
+  },
+);
 
 const HoverCard = Object.assign(HoverCardRoot, {
   Root: HoverCardRoot,
@@ -135,6 +148,7 @@ const HoverCard = Object.assign(HoverCardRoot, {
   Content: HoverCardContent,
   Arrow: HoverCardArrow,
   ArrowTip: HoverCardArrowTip,
+  Body: HoverCardBody,
   Context: HoverCardPrimitive.Context,
 });
 

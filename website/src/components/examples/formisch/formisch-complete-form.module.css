@@ -1,0 +1,19 @@
+.form {
+  width: min(24rem, 100%);
+  margin-inline: auto;
+}
+
+.fields {
+  display: grid;
+  gap: var(--moduix-spacing-4);
+
+  [data-slot='select-root'],
+  [data-slot='combobox-root'] {
+    --moduix-select-width: 100%;
+    --moduix-combobox-width: 100%;
+  }
+}
+
+.submit {
+  width: 100%;
+}

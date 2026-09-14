@@ -4,7 +4,15 @@ component: empty
 description: Компонент для экранов без результатов или данных, а также для первого запуска.
 ---
 
-import * as EmptyDocs from '@/components/examples/empty';
+import * as EmptyDocs from '@/components/examples/empty/css-properties';
+import EmptyAdvancedCustomization from '@/components/examples/empty/advanced-customization.tsx';
+import EmptyBasic from '@/components/examples/empty/basic.tsx';
+import EmptyWithoutActions from '@/components/examples/empty/without-actions.tsx';
+import EmptyWithoutIcon from '@/components/examples/empty/without-icon.tsx';
+import emptySolidAdvancedCustomization from '../../../snippets/empty/solid/advanced-customization.tsx?raw';
+import emptySolidBasic from '../../../snippets/empty/solid/basic.tsx?raw';
+import emptySolidWithoutActions from '../../../snippets/empty/solid/without-actions.tsx?raw';
+import emptySolidWithoutIcon from '../../../snippets/empty/solid/without-icon.tsx?raw';
 
 ## Справочник API
 
@@ -19,18 +27,74 @@ Ark по [композиции](https://ark-ui.com/react/docs/guides/composition
 
 ## Базовый пример
 
+`Empty` доступен для React и Solid как в пакетах с CSS Modules, так и в вариантах на Tailwind.
+Интерактивный пример на этой странице использует React и CSS Modules, а вкладки с кодом показывают
+нативный исходный код с тем же публичным API.
+
 Начните с `<Empty />` и добавьте нужные части компонента. Добавляйте `Empty.Icon` и `Empty.Actions`
 только если к пустому состоянию нужна визуальная подсказка или понятное действие.
 
-<PreviewFrame maxWidth="lg">
-  ```tsx preview file="../../en/docs/_snippets/empty/basic.tsx"
+<ExampleFrame variant="component">
+  <EmptyBasic />
+</ExampleFrame>
 
-  ```
-</PreviewFrame>
+<ExampleCode>
+<div className="docs-reference">
+  <Tabs
+    groupId="framework"
+    values={[
+      { label: 'React', value: 'react' },
+      { label: 'Solid', value: 'solid' },
+    ]}
+    className="docs-tabs"
+  >
+    <Tab value="react">
+
+```tsx pure file="../../../src/components/examples/empty/basic.tsx"
+```
+
+    </Tab>
+    <Tab value="solid">
+
+<CodeBlockRuntime lang="tsx" code={emptySolidBasic} />
+
+    </Tab>
+  </Tabs>
+
+**Стили**
+
+```css file="../../../src/components/examples/empty/empty-basic.module.css"
+```
+</div>
+
+</ExampleCode>
 
 ## Установка через shadcn
 
-<ShadcnInstall packageName="empty" />
+Полную настройку пакета, реестра и стилей см. в разделе [Быстрый старт](/docs/quick-start).
+
+<Tabs groupId="framework">
+  <Tab label="React" value="react">
+
+<ShadcnInstallOptions
+  options={[
+    { label: 'CSS Modules', command: 'shadcn@latest add @moduix-react/empty' },
+    { label: 'Tailwind CSS', command: 'shadcn@latest add @moduix-react-tailwind/empty' },
+  ]}
+/>
+
+  </Tab>
+  <Tab label="Solid" value="solid">
+
+<ShadcnInstallOptions
+  options={[
+    { label: 'CSS Modules', command: 'shadcn@latest add @moduix-solid/empty' },
+    { label: 'Tailwind CSS', command: 'shadcn@latest add @moduix-solid-tailwind/empty' },
+  ]}
+/>
+
+  </Tab>
+</Tabs>
 
 ## Анатомия
 
@@ -47,55 +111,23 @@ Empty / Empty.Root
 | ---------------------- | ------------------------------------------------------------------------------------- |
 | `Empty` / `Empty.Root` | Корневой контейнер с отступами, границей, фоном и выравниванием.                       |
 | `Empty.Icon`           | Необязательный контейнер для иконки или другого небольшого визуального элемента.      |
-| `Empty.Content`        | Объединяет заголовок и описание с небольшими расстояниями между ними.                  |
+| `Empty.Content`        | Объединяет заголовок и описание с небольшими расстояниями между ними.                 |
 | `Empty.Title`          | Основной заголовок пустого состояния.                                                 |
 | `Empty.Description`    | Дополнительное содержимое под заголовком. Может включать абзацы, ссылки и другую блочную разметку. |
 | `Empty.Actions`        | Необязательный ряд действий. Элементы переносятся, если не помещаются в одну строку.    |
 
 ## Композиция
 
-### Рекомендуемая композиция
+Собирайте `Empty` из частей, расположенных непосредственно внутри корневого компонента.
+`Empty.Content` объединяет заголовок и описание, а `Empty.Icon` и `Empty.Actions` являются
+необязательными соседними частями. Их можно опустить или переставить в соответствии с экраном.
+`Empty` отвечает только за представление и не управляет состоянием приложения или поведением
+`aria-live`.
 
-В большинстве случаев достаточно таких экспортируемых частей:
-
-- `Empty` для контейнера и центрирования содержимого
-- `Empty.Content` для текстового блока
-- `Empty.Title` для заголовка
-- `Empty.Description` для поясняющего содержимого
-- `Empty.Icon` и `Empty.Actions`, когда они действительно нужны
-
-Так обычная структура остаётся понятной, а при необходимости в неё легко добавить ссылки,
-более подробный текст или свои кнопки. Собирайте эти части обычным JSX, без отдельной конфигурации.
-
-### Когда нужна собственная композиция
-
-Если стандартную структуру нужно изменить, напрямую собирайте части компонента с помощью JSX:
-
-- не добавляйте `Empty.Icon` или `Empty.Actions`
-- добавляйте более сложное блочное содержимое внутрь `Empty.Description`
-- используйте свойство `asChild` у `Empty` или `Empty.Title`, если окружающему разделу нужен другой
-  семантический элемент или уровень заголовка
-- применяйте `className` и переменные `--moduix-empty-*` к частям, которые отвечают за нужное визуальное свойство
-
-### Свойства по умолчанию
-
-| Часть                  | Элемент по умолчанию | Примечания                                                               |
-| ---------------------- | -------------------- | ------------------------------------------------------------------------ |
-| `Empty` / `Empty.Root` | `div`                | Корневой элемент отвечает только за представление и не добавляет роль или состояние. |
-| `Empty.Title`          | `h3`                 | Если нужен другой уровень заголовка, используйте `asChild`.              |
-| `Empty.Description`    | `div`                | Может содержать абзацы, ссылки и другую блочную разметку.                |
-
-### Особенности поведения
-
-- Каждая часть передаёт `ref` отрендеренному DOM-элементу и поддерживает `asChild` фабрики Ark.
-  Передавайте ровно один семантически подходящий дочерний элемент, который может получить свойства и `ref` части.
-- Каждая часть добавляет `data-scope="empty"` и соответствующий атрибут `data-part` для стилизации
-  по правилам Ark, а также стабильный атрибут `data-slot="empty-*"` для переопределений moduix.
-- `Empty.Actions` центрирует дочерние элементы и переносит их при необходимости. Поэтому парные
-  действия и длинные подписи кнопок или ссылок остаются читаемыми в узких макетах.
-- `Empty` отвечает только за внешний вид. Компонент не добавляет семантическую область, роль,
-  поведение `aria-live` или управление фокусом. Добавьте нужную семантику в окружающий интерфейс.
-  Для декоративных иконок используйте `aria-hidden`, а для содержательных задайте доступное имя.
+Используйте `asChild` у `Empty` или `Empty.Title`, если разделу нужен семантический контейнер или
+другой уровень заголовка. Передавайте ровно один дочерний элемент, чтобы часть могла передать ему
+свои свойства и `ref`. Нужную роль, область, управление фокусом или `aria-live` добавляйте в
+окружающем интерфейсе.
 
 ## Примеры
 
@@ -103,23 +135,79 @@ Empty / Empty.Root
 
 Не добавляйте `Empty.Actions`, если состояние носит информационный характер и не требует немедленного действия.
 
-<PreviewFrame maxWidth="lg">
-  ```tsx preview file="../../en/docs/_snippets/empty/without-actions.tsx"
+<ExampleFrame variant="component">
+  <EmptyWithoutActions />
+</ExampleFrame>
 
-  ```
+<ExampleCode>
+<div className="docs-reference">
+  <Tabs
+    groupId="framework"
+    values={[
+      { label: 'React', value: 'react' },
+      { label: 'Solid', value: 'solid' },
+    ]}
+    className="docs-tabs"
+  >
+    <Tab value="react">
 
-</PreviewFrame>
+```tsx pure file="../../../src/components/examples/empty/without-actions.tsx"
+```
+
+    </Tab>
+    <Tab value="solid">
+
+<CodeBlockRuntime lang="tsx" code={emptySolidWithoutActions} />
+
+    </Tab>
+  </Tabs>
+
+**Стили**
+
+```css file="../../../src/components/examples/empty/empty-without-actions.module.css"
+```
+</div>
+
+</ExampleCode>
 
 ### Без иконки
 
 Иконка необязательна, поэтому состояние только с текстом остаётся компактным.
 
-<PreviewFrame maxWidth="lg">
-  ```tsx preview file="../../en/docs/_snippets/empty/without-icon.tsx"
+<ExampleFrame variant="component">
+  <EmptyWithoutIcon />
+</ExampleFrame>
 
-  ```
+<ExampleCode>
+<div className="docs-reference">
+  <Tabs
+    groupId="framework"
+    values={[
+      { label: 'React', value: 'react' },
+      { label: 'Solid', value: 'solid' },
+    ]}
+    className="docs-tabs"
+  >
+    <Tab value="react">
 
-</PreviewFrame>
+```tsx pure file="../../../src/components/examples/empty/without-icon.tsx"
+```
+
+    </Tab>
+    <Tab value="solid">
+
+<CodeBlockRuntime lang="tsx" code={emptySolidWithoutIcon} />
+
+    </Tab>
+  </Tabs>
+
+**Стили**
+
+```css file="../../../src/components/examples/empty/empty-without-icon.module.css"
+```
+</div>
+
+</ExampleCode>
 
 ### Расширенная настройка
 
@@ -128,12 +216,40 @@ Empty / Empty.Root
 `Empty.Title`. Компонент рендерит `Empty.Description` как `div`, поэтому в нём можно размещать абзацы,
 ссылки и другую блочную разметку.
 
-<PreviewFrame maxWidth="lg">
-  ```tsx preview file="../../en/docs/_snippets/empty/advanced-customization.tsx"
+<ExampleFrame variant="component">
+  <EmptyAdvancedCustomization />
+</ExampleFrame>
 
-  ```
+<ExampleCode>
+<div className="docs-reference">
+  <Tabs
+    groupId="framework"
+    values={[
+      { label: 'React', value: 'react' },
+      { label: 'Solid', value: 'solid' },
+    ]}
+    className="docs-tabs"
+  >
+    <Tab value="react">
 
-</PreviewFrame>
+```tsx pure file="../../../src/components/examples/empty/advanced-customization.tsx"
+```
+
+    </Tab>
+    <Tab value="solid">
+
+<CodeBlockRuntime lang="tsx" code={emptySolidAdvancedCustomization} />
+
+    </Tab>
+  </Tabs>
+
+**Стили**
+
+```css file="../../../src/components/examples/empty/empty-advanced-customization.module.css"
+```
+</div>
+
+</ExampleCode>
 
 ## Стилизация
 

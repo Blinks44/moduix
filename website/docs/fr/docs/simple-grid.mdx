@@ -1,8 +1,15 @@
 ---
 title: Simple Grid
 component: simple-grid
-description: Une grille CSS à colonnes égales qui s’adapte à la largeur disponible.
+description: Créez des grilles réactives à colonnes égales en React ou Solid avec une installation par paquet ou shadcn.
 ---
+
+import SimpleGridBasic from '@/components/examples/simple-grid/basic.tsx';
+import SimpleGridFixedColumns from '@/components/examples/simple-grid/fixed-columns.tsx';
+import SimpleGridMediaGallery from '@/components/examples/simple-grid/media-gallery.tsx';
+import simpleGridSolidBasic from '../../../snippets/simple-grid/solid/basic.tsx?raw';
+import simpleGridSolidFixedColumns from '../../../snippets/simple-grid/solid/fixed-columns.tsx?raw';
+import simpleGridSolidMediaGallery from '../../../snippets/simple-grid/solid/media-gallery.tsx?raw';
 
 ## Référence de l’API
 
@@ -16,22 +23,79 @@ propriétés de style adaptatif de Chakra.
 
 ## Exemple de base
 
-Importez `SimpleGrid` depuis `@moduix/react/simple-grid`. Utilisez `minChildWidth` lorsque le nombre
-de colonnes égales doit suivre la largeur disponible. Le composant s’appuie sur `auto-fit` et
-`minmax()` de CSS Grid ; les valeurs numériques sont interprétées en pixels, tandis que les chaînes
-peuvent contenir n’importe quelle longueur CSS valide.
+`SimpleGrid` est disponible pour React et Solid dans les paquets CSS Modules et Tailwind. L’aperçu
+de cette page utilise React avec CSS Modules ; les onglets affichent le code natif correspondant au
+même contrat public.
+
+Utilisez `minChildWidth` lorsque le nombre de colonnes égales doit suivre la largeur disponible. Le
+composant s’appuie sur `auto-fit` et `minmax()` de CSS Grid ; les valeurs numériques sont interprétées
+en pixels, tandis que les chaînes peuvent contenir n’importe quelle longueur CSS valide.
 
 Le nombre de colonnes s’ajuste à la largeur de l’élément racine, et les enfants restent des éléments
 directs de la grille. Si un enfant contient du contenu qui ne peut pas être coupé, ajoutez
 `min-width: 0` ou une règle de débordement adaptée sur cet enfant.
 
-```tsx preview file="../../en/docs/_snippets/simple-grid/basic.tsx"
+<ExampleFrame variant="component">
+  <SimpleGridBasic />
+</ExampleFrame>
 
+<ExampleCode>
+<div className="docs-reference">
+  <Tabs
+    groupId="framework"
+    values={[
+      { label: 'React', value: 'react' },
+      { label: 'Solid', value: 'solid' },
+    ]}
+    className="docs-tabs"
+  >
+    <Tab value="react">
+
+```tsx pure file="../../../src/components/examples/simple-grid/basic.tsx"
 ```
+
+    </Tab>
+    <Tab value="solid">
+
+<CodeBlockRuntime lang="tsx" code={simpleGridSolidBasic} />
+
+    </Tab>
+  </Tabs>
+
+**Styles**
+
+```css file="../../../src/components/examples/simple-grid/simple-grid-basic.module.css"
+```
+</div>
+
+</ExampleCode>
 
 ## Installation avec shadcn
 
-<ShadcnInstall packageName="simple-grid" />
+Consultez le [Démarrage rapide](/docs/quick-start) pour la configuration complète du paquet, du registre et des styles.
+
+<Tabs groupId="framework">
+  <Tab label="React" value="react">
+
+<ShadcnInstallOptions
+  options={[
+    { label: 'CSS Modules', command: 'shadcn@latest add @moduix-react/simple-grid' },
+    { label: 'Tailwind CSS', command: 'shadcn@latest add @moduix-react-tailwind/simple-grid' },
+  ]}
+/>
+
+  </Tab>
+  <Tab label="Solid" value="solid">
+
+<ShadcnInstallOptions
+  options={[
+    { label: 'CSS Modules', command: 'shadcn@latest add @moduix-solid/simple-grid' },
+    { label: 'Tailwind CSS', command: 'shadcn@latest add @moduix-solid-tailwind/simple-grid' },
+  ]}
+/>
+
+  </Tab>
+</Tabs>
 
 ## Anatomie
 
@@ -49,56 +113,16 @@ SimpleGrid
 
 ## Composition
 
-### Composition recommandée
+Utilisez la forme courte `<SimpleGrid>` pour la racine ; `SimpleGrid.Root` est un alias équivalent
+conservé pour la compatibilité. Choisissez `minChildWidth` pour un nombre de colonnes intrinsèque ou
+`columns` pour un nombre fixe. Si les deux propriétés sont définies, `minChildWidth` est prioritaire.
 
-Utilisez la forme courte `<SimpleGrid>` pour la racine. `SimpleGrid.Root` rend le même composant et
-reste disponible comme alias de compatibilité.
-
-Choisissez un mode de mise en page :
-
-- `minChildWidth` laisse le navigateur placer autant de colonnes égales que la largeur disponible le permet.
-- `columns` crée un nombre précis de colonnes égales.
-
-Si les éléments doivent être séparés visuellement, définissez `gap`, `rowGap` ou `columnGap`.
-Utilisez `asChild` lorsque la racine doit être un élément sémantique comme `ul`, `section` ou `nav`.
-`asChild` attend exactement un élément enfant, qui devient la racine rendue.
-
-### Quand créer une composition personnalisée
-
-Préférez votre CSS local si la mise en page nécessite des zones nommées, des pistes de tailles
-différentes, des éléments qui s’étendent sur plusieurs pistes ou des modèles différents selon les
-points de rupture définis par des requêtes média ou de conteneur. Ne transmettez ni `columns` ni
-`minChildWidth`, puis définissez `grid-template-columns` dans la feuille de style.
-
-### Propriétés par défaut
-
-| Propriété        | Valeur par défaut                | Remarques                                                  |
-| ---------------- | -------------------------------- | ---------------------------------------------------------- |
-| `columns`        | `1`                              | Entier positif fini pour des colonnes de même largeur      |
-| `minChildWidth`  | non définie                      | Longueur CSS ; les nombres sont interprétés en pixels      |
-| `gap`            | valeur initiale du navigateur    | Longueur CSS ; les nombres sont interprétés en pixels      |
-| `rowGap`         | valeur initiale du navigateur    | Longueur CSS ; les nombres sont interprétés en pixels      |
-| `columnGap`      | valeur initiale du navigateur    | Longueur CSS ; les nombres sont interprétés en pixels      |
-| `asChild`        | `false`                          | Composition Ark avec un seul enfant                       |
-| `className`      | non définie                      | Appliquée à la racine rendue                              |
-| `style`          | non définie                      | Appliqué en dernier pour l’instance                       |
-
-### Comportement
-
-- Si ni `columns` ni `minChildWidth` ne sont définis, la grille comporte une colonne de même largeur.
-- Si les deux propriétés sont définies, `minChildWidth` est prioritaire sur `columns`.
-- `columns={3}` crée trois pistes égales sans ajouter d’enveloppe autour des enfants.
-- `minChildWidth={160}` crée autant de pistes que possible et interprète le nombre comme `160px`.
-- Une valeur numérique de `columns` doit être un entier positif fini. Une valeur numérique de
-  `minChildWidth` doit être finie et positive ou nulle.
-- Le mode `auto-fit` évite les débordements lorsque la grille devient plus étroite que `minChildWidth`.
-- `gap`, `rowGap` et `columnGap` ne sont ajoutés aux styles inline que lorsqu’ils sont définis.
-- `style` est appliqué en dernier et peut remplacer toute valeur générée, notamment `display`,
-  `gridTemplateColumns` et les espacements.
-- La `ref` pointe vers l’élément racine réellement rendu. Avec `asChild`, elle pointe vers l’unique
-  élément enfant.
-- Le composant n’ajoute ni rôle, ni libellé, ni comportement clavier, ni gestion du focus, ni état,
-  ni contexte de fournisseur. Choisissez les éléments sémantiques dans votre propre balisage.
+Utilisez `asChild` lorsque la racine de la grille doit être un élément sémantique comme `ul`, `section`
+ou `nav`. Cette option attend exactement un élément enfant, qui devient la racine rendue. En React,
+transmettez `asChild` comme booléen ; en Solid, utilisez sa forme fonctionnelle pour renvoyer cet
+élément. Pour des zones de grille nommées, des pistes de tailles différentes ou des éléments qui
+s’étendent sur plusieurs pistes, ne transmettez aucune propriété de mise en page et définissez le
+modèle dans votre CSS.
 
 ## Exemples
 
@@ -107,18 +131,80 @@ points de rupture définis par des requêtes média ou de conteneur. Ne transmet
 Utilisez `columns` lorsque le nombre de colonnes égales doit rester fixe, par exemple pour une grille
 compacte de métriques.
 
-```tsx preview file="../../en/docs/_snippets/simple-grid/fixed-columns.tsx"
+<ExampleFrame variant="component">
+  <SimpleGridFixedColumns />
+</ExampleFrame>
 
+<ExampleCode>
+<div className="docs-reference">
+  <Tabs
+    groupId="framework"
+    values={[
+      { label: 'React', value: 'react' },
+      { label: 'Solid', value: 'solid' },
+    ]}
+    className="docs-tabs"
+  >
+    <Tab value="react">
+
+```tsx pure file="../../../src/components/examples/simple-grid/fixed-columns.tsx"
 ```
+
+    </Tab>
+    <Tab value="solid">
+
+<CodeBlockRuntime lang="tsx" code={simpleGridSolidFixedColumns} />
+
+    </Tab>
+  </Tabs>
+
+**Styles**
+
+```css file="../../../src/components/examples/simple-grid/simple-grid-fixed-columns.module.css"
+```
+</div>
+
+</ExampleCode>
 
 ### Galerie de médias
 
 Utilisez `asChild` lorsque la grille elle-même doit porter la sémantique d’une liste. Dans cet exemple,
 la racine devient un `ul` et chaque image reste dans un élément `li` direct.
 
-```tsx preview file="../../en/docs/_snippets/simple-grid/media-gallery.tsx"
+<ExampleFrame variant="component">
+  <SimpleGridMediaGallery />
+</ExampleFrame>
 
+<ExampleCode>
+<div className="docs-reference">
+  <Tabs
+    groupId="framework"
+    values={[
+      { label: 'React', value: 'react' },
+      { label: 'Solid', value: 'solid' },
+    ]}
+    className="docs-tabs"
+  >
+    <Tab value="react">
+
+```tsx pure file="../../../src/components/examples/simple-grid/media-gallery.tsx"
 ```
+
+    </Tab>
+    <Tab value="solid">
+
+<CodeBlockRuntime lang="tsx" code={simpleGridSolidMediaGallery} />
+
+    </Tab>
+  </Tabs>
+
+**Styles**
+
+```css file="../../../src/components/examples/simple-grid/simple-grid-media-gallery.module.css"
+```
+</div>
+
+</ExampleCode>
 
 ## Styles
 
@@ -126,14 +212,18 @@ la racine devient un `ul` et chaque image reste dans un élément `li` direct.
 écrites dans les styles inline de la racine rendue ; ne transmettez donc ni `columns` ni
 `minChildWidth` si la feuille de style doit gérer `grid-template-columns`.
 
+Utilisez `className` en React ou `class` en Solid pour les styles structurels. Les variantes Tailwind
+utilisent les utilitaires natifs et les classes de l’application ; les attributs de données et le hook
+`data-slot` sont communs aux deux approches de style.
+
 ### Points d’accroche CSS
 
-- `className` permet de styliser la racine rendue pour sa largeur, son positionnement, son arrière-plan
-  et sa mise en page adaptative.
+- `className` ou `class` permet de styliser la racine rendue pour sa largeur, son positionnement, son
+  arrière-plan et sa mise en page adaptative.
 - `data-scope="simple-grid"` et `data-part="root"` suivent les conventions de style d’Ark.
 - `data-slot="simple-grid-root"` est le sélecteur moduix stable à utiliser dans votre CSS local.
 - `columns`, `minChildWidth`, `gap`, `rowGap` et `columnGap` écrivent des styles inline, prioritaires
-  sur les déclarations de `className`.
+  sur les déclarations des classes de l’application.
 - `style` est fusionné après ces propriétés et constitue le dernier remplacement disponible pour
   l’instance.
 - Le composant ne fournit aucun hook de style lié à un état ou à une animation.

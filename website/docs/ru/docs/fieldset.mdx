@@ -4,7 +4,21 @@ component: fieldset
 description: Объединяйте связанные элементы формы под одним заголовком, сохраняя нативную семантику fieldset и общее состояние группы. Поясняющий текст и сообщения об ошибках связаны с группой и доступны вспомогательным технологиям.
 ---
 
-import * as FieldsetDocs from '@/components/examples/fieldset';
+import * as FieldsetDocs from '@/components/examples/fieldset/css-properties';
+import FieldsetBasic from '@/components/examples/fieldset/basic.tsx';
+import FieldsetCheckbox from '@/components/examples/fieldset/checkbox.tsx';
+import FieldsetDisabled from '@/components/examples/fieldset/disabled.tsx';
+import FieldsetField from '@/components/examples/fieldset/field.tsx';
+import FieldsetInputWithSelect from '@/components/examples/fieldset/input-with-select.tsx';
+import FieldsetInvalid from '@/components/examples/fieldset/invalid.tsx';
+import FieldsetRootProvider from '@/components/examples/fieldset/root-provider.tsx';
+import fieldsetSolidBasic from '../../../snippets/fieldset/solid/basic.tsx?raw';
+import fieldsetSolidCheckbox from '../../../snippets/fieldset/solid/checkbox.tsx?raw';
+import fieldsetSolidDisabled from '../../../snippets/fieldset/solid/disabled.tsx?raw';
+import fieldsetSolidField from '../../../snippets/fieldset/solid/field.tsx?raw';
+import fieldsetSolidInputWithSelect from '../../../snippets/fieldset/solid/input-with-select.tsx?raw';
+import fieldsetSolidInvalid from '../../../snippets/fieldset/solid/invalid.tsx?raw';
+import fieldsetSolidRootProvider from '../../../snippets/fieldset/solid/root-provider.tsx?raw';
 
 ## Справочник API
 
@@ -18,19 +32,76 @@ import * as FieldsetDocs from '@/components/examples/fieldset';
 
 ## Базовый пример
 
+Fieldset доступен для React и Solid в пакетах CSS Modules и Tailwind. Пример на этой странице работает на React с CSS
+Modules, а вкладки с исходным кодом показывают нативную реализацию того же публичного контракта.
+
+Импортируйте `Fieldset` из `@moduix/react/fieldset` или `@moduix/solid/fieldset` для CSS Modules, а для Tailwind CSS
+используйте `@moduix/react-tailwind/fieldset` или `@moduix/solid-tailwind/fieldset`.
+
 Создайте группу из `Fieldset`, `Fieldset.Legend`, связанных элементов управления и, если нужно, поясняющего текста или
-сообщения об ошибке. Короткая запись `<Fieldset>` равнозначна `<Fieldset.Root>`. Форма с `.Root` остаётся доступной для
-совместимости с API Ark.
+сообщения об ошибке. Короткая запись `<Fieldset>` равнозначна `<Fieldset.Root>`.
 
-<PreviewFrame contentWidth="fit-content" maxWidth="sm">
-  ```tsx preview file="../../en/docs/_snippets/fieldset/basic.tsx"
-  ```
+<ExampleFrame variant="component">
+  <FieldsetBasic />
+</ExampleFrame>
 
-</PreviewFrame>
+<ExampleCode>
+<div className="docs-reference">
+  <Tabs
+    groupId="framework"
+    values={[
+      { label: 'React', value: 'react' },
+      { label: 'Solid', value: 'solid' },
+    ]}
+    className="docs-tabs"
+  >
+    <Tab value="react">
+
+```tsx pure file="../../../src/components/examples/fieldset/basic.tsx"
+```
+
+    </Tab>
+    <Tab value="solid">
+
+<CodeBlockRuntime lang="tsx" code={fieldsetSolidBasic} />
+
+    </Tab>
+  </Tabs>
+
+**Стили**
+
+```css file="../../../src/components/examples/fieldset/fieldset-basic.module.css"
+```
+</div>
+
+</ExampleCode>
 
 ## Установка через shadcn
 
-<ShadcnInstall packageName="fieldset" />
+Полную настройку пакета, реестра и стилей см. в разделе [Быстрый старт](/docs/quick-start).
+
+<Tabs groupId="framework">
+  <Tab label="React" value="react">
+
+<ShadcnInstallOptions
+  options={[
+    { label: 'CSS Modules', command: 'shadcn@latest add @moduix-react/fieldset' },
+    { label: 'Tailwind CSS', command: 'shadcn@latest add @moduix-react-tailwind/fieldset' },
+  ]}
+/>
+
+  </Tab>
+  <Tab label="Solid" value="solid">
+
+<ShadcnInstallOptions
+  options={[
+    { label: 'CSS Modules', command: 'shadcn@latest add @moduix-solid/fieldset' },
+    { label: 'Tailwind CSS', command: 'shadcn@latest add @moduix-solid-tailwind/fieldset' },
+  ]}
+/>
+
+  </Tab>
+</Tabs>
 
 ## Анатомия
 
@@ -53,89 +124,177 @@ Fieldset.Root | Fieldset.RootProvider
 
 ## Композиция
 
-### Рекомендуемая композиция
+Оставьте внутри корневого компонента один видимый `Fieldset.Legend`, а связанные элементы управления и их части `Field`
+разместите в той же композиции. Установите `invalid` у корня для общей ошибки и у вложенных `Field`, если отдельным
+элементам управления нужно собственное состояние валидации. Отключённый fieldset передаёт состояние нативным элементам
+управления и совместимым с Ark дочерним компонентам.
 
-Оставьте внутри корневого компонента ровно один видимый `Fieldset.Legend`, желательно перед элементами управления.
-Передавайте `disabled`, `invalid` и `id` непосредственно корневому компоненту. Ark использует `legend` как доступное
-имя группы, а поясняющий текст и активное сообщение об ошибке связывает с `fieldset` через `aria-describedby`.
-
-`Fieldset.Root`, `Fieldset.RootProvider`, `Fieldset.Legend`, `Fieldset.HelperText` и `Fieldset.ErrorText` передают `ref`
-своим DOM-элементам. Используйте `asChild` с одним семантическим дочерним элементом, если нужно заменить HTML-элемент,
-который выводит отдельная часть компонента.
-
-### Когда нужна собственная композиция
-
-Используйте `useFieldset` из `@moduix/react` вместе с `Fieldset.RootProvider`, когда состояние нужно создать вне JSX-дерева
-или передать соседним элементам управления и повторно используемым дочерним компонентам. Вызовите `useFieldsetContext()`
-или передайте render-функцию в `Fieldset.Context` в дочернем компоненте, которому нужен доступ к этому состоянию. Не размещайте `Fieldset.Root` вместе
-с `Fieldset.RootProvider` для одного экземпляра состояния.
-
-### Свойства по умолчанию
-
-| Часть             | Свойство  | По умолчанию |
-| ----------------- | --------- | ------------ |
-| `Fieldset.Root`   | `disabled` | `false`     |
-| `Fieldset.Root`   | `invalid`  | `false`     |
-
-### Особенности поведения
-
-- `Fieldset.Legend` выводит нативный `legend`, а не дополнительную обёртку.
-- Браузер отключает нативные элементы управления внутри `fieldset` с `disabled`.
-- Вложенные в `fieldset` компоненты Ark `Field` наследуют состояние `disabled`. Устанавливайте `invalid` на компонентах
-  `Field`, когда отдельным элементам управления также нужны невалидное состояние и соответствующие ARIA-атрибуты.
-- `Fieldset.ErrorText` не добавляется в DOM, пока `invalid` не станет равным `true`.
-- Длинные заголовки, поясняющий текст и сообщения об ошибках переносятся внутри `fieldset` и не выходят за его границы.
-- `useFieldsetContext()` и `Fieldset.Context` предоставляют дочерним компонентам то же состояние Ark, что и `useFieldset`.
-- Fieldset сам по себе не хранит значение, не управляет навигацией с клавиатуры или функциями обратного вызова и не добавляет собственный `HiddenInput`.
-- Устаревший проп `render` и плоские экспорты, такие как `FieldsetLegend`, не поддерживаются. Используйте `asChild`
-  и части из пространства имён.
+Используйте `useFieldset` из соответствующего пакета (`@moduix/react` или `@moduix/solid`) вместе с
+`Fieldset.RootProvider`, если состояние нужно создать вне дерева или разделить с соседними элементами управления.
+Для чтения состояния в дочернем компоненте используйте `Fieldset.Context` или `useFieldsetContext()`. Не размещайте
+`Fieldset.Root` вместе с `Fieldset.RootProvider` для одного хранилища. Чтобы заменить HTML-элемент части, используйте
+`asChild` с одним семантическим дочерним элементом.
 
 ## Примеры
 
 ### Checkbox
 
-Используйте заголовок fieldset, чтобы задать общее имя группе связанных флажков. Каждый `Checkbox` автоматически выводит
-нативный input, поэтому его значение участвует в отправке и сбросе формы.
+Используйте заголовок fieldset, чтобы задать общее имя группе связанных флажков. Добавляйте
+`Checkbox.HiddenInput` в каждый флажок, которому нужны нативный фокус, отправка и сброс формы.
 
-<PreviewFrame contentWidth="fit-content" maxWidth="sm">
-  ```tsx preview file="../../en/docs/_snippets/fieldset/checkbox.tsx"
-  ```
+<ExampleFrame variant="component">
+  <FieldsetCheckbox />
+</ExampleFrame>
 
-</PreviewFrame>
+<ExampleCode>
+<div className="docs-reference">
+  <Tabs
+    groupId="framework"
+    values={[
+      { label: 'React', value: 'react' },
+      { label: 'Solid', value: 'solid' },
+    ]}
+    className="docs-tabs"
+  >
+    <Tab value="react">
+
+```tsx pure file="../../../src/components/examples/fieldset/checkbox.tsx"
+```
+
+    </Tab>
+    <Tab value="solid">
+
+<CodeBlockRuntime lang="tsx" code={fieldsetSolidCheckbox} />
+
+    </Tab>
+  </Tabs>
+
+**Стили**
+
+```css file="../../../src/components/examples/fieldset/fieldset-checkbox.module.css"
+```
+</div>
+
+</ExampleCode>
 
 ### Отключённое состояние
 
 Установите `disabled` у корневого компонента. Браузер отключит нативные элементы управления, а совместимые с Ark компоненты
 получат это состояние из контекста `fieldset`.
 
-<PreviewFrame contentWidth="fit-content" maxWidth="sm">
-  ```tsx preview file="../../en/docs/_snippets/fieldset/disabled.tsx"
-  ```
+<ExampleFrame variant="component">
+  <FieldsetDisabled />
+</ExampleFrame>
 
-</PreviewFrame>
+<ExampleCode>
+<div className="docs-reference">
+  <Tabs
+    groupId="framework"
+    values={[
+      { label: 'React', value: 'react' },
+      { label: 'Solid', value: 'solid' },
+    ]}
+    className="docs-tabs"
+  >
+    <Tab value="react">
+
+```tsx pure file="../../../src/components/examples/fieldset/disabled.tsx"
+```
+
+    </Tab>
+    <Tab value="solid">
+
+<CodeBlockRuntime lang="tsx" code={fieldsetSolidDisabled} />
+
+    </Tab>
+  </Tabs>
+
+**Стили**
+
+```css file="../../../src/components/examples/fieldset/fieldset-disabled.module.css"
+```
+</div>
+
+</ExampleCode>
 
 ### Field
 
 Используйте вложенные компоненты `Field`, если для каждого элемента управления нужно отдельно задать метку, поясняющий текст
 или сообщение об ошибке в дополнение к общему заголовку группы.
 
-<PreviewFrame contentWidth="fit-content" maxWidth="sm">
-  ```tsx preview file="../../en/docs/_snippets/fieldset/field.tsx"
-  ```
+<ExampleFrame variant="component">
+  <FieldsetField />
+</ExampleFrame>
 
-</PreviewFrame>
+<ExampleCode>
+<div className="docs-reference">
+  <Tabs
+    groupId="framework"
+    values={[
+      { label: 'React', value: 'react' },
+      { label: 'Solid', value: 'solid' },
+    ]}
+    className="docs-tabs"
+  >
+    <Tab value="react">
+
+```tsx pure file="../../../src/components/examples/fieldset/field.tsx"
+```
+
+    </Tab>
+    <Tab value="solid">
+
+<CodeBlockRuntime lang="tsx" code={fieldsetSolidField} />
+
+    </Tab>
+  </Tabs>
+
+**Стили**
+
+```css file="../../../src/components/examples/fieldset/fieldset-field.module.css"
+```
+</div>
+
+</ExampleCode>
 
 ### Input с Select
 
 Объедините `Select` с кодом страны и `Input` для номера телефона под одним заголовком, если вместе они составляют один номер.
 
-<style>{FieldsetDocs.fieldsetPhoneInputCss}</style>
+<ExampleFrame variant="component">
+  <FieldsetInputWithSelect />
+</ExampleFrame>
 
-<PreviewFrame contentWidth="fit-content" maxWidth="sm">
-  ```tsx preview file="../../en/docs/_snippets/fieldset/input-with-select.tsx"
-  ```
+<ExampleCode>
+<div className="docs-reference">
+  <Tabs
+    groupId="framework"
+    values={[
+      { label: 'React', value: 'react' },
+      { label: 'Solid', value: 'solid' },
+    ]}
+    className="docs-tabs"
+  >
+    <Tab value="react">
 
-</PreviewFrame>
+```tsx pure file="../../../src/components/examples/fieldset/input-with-select.tsx"
+```
+
+    </Tab>
+    <Tab value="solid">
+
+<CodeBlockRuntime lang="tsx" code={fieldsetSolidInputWithSelect} />
+
+    </Tab>
+  </Tabs>
+
+**Стили**
+
+```css file="../../../src/components/examples/fieldset/fieldset-input-with-select.module.css"
+```
+</div>
+
+</ExampleCode>
 
 ### Недопустимое состояние
 
@@ -143,22 +302,80 @@ Fieldset.Root | Fieldset.RootProvider
 `invalid` также у вложенных компонентов `Field`, если отдельным элементам управления нужны собственные невалидные стили и
 ARIA-состояние.
 
-<PreviewFrame contentWidth="fit-content" maxWidth="sm">
-  ```tsx preview file="../../en/docs/_snippets/fieldset/invalid.tsx"
-  ```
+<ExampleFrame variant="component">
+  <FieldsetInvalid />
+</ExampleFrame>
 
-</PreviewFrame>
+<ExampleCode>
+<div className="docs-reference">
+  <Tabs
+    groupId="framework"
+    values={[
+      { label: 'React', value: 'react' },
+      { label: 'Solid', value: 'solid' },
+    ]}
+    className="docs-tabs"
+  >
+    <Tab value="react">
+
+```tsx pure file="../../../src/components/examples/fieldset/invalid.tsx"
+```
+
+    </Tab>
+    <Tab value="solid">
+
+<CodeBlockRuntime lang="tsx" code={fieldsetSolidInvalid} />
+
+    </Tab>
+  </Tabs>
+
+**Стили**
+
+```css file="../../../src/components/examples/fieldset/fieldset-invalid.module.css"
+```
+</div>
+
+</ExampleCode>
 
 ### Расширенная настройка
 
 Создайте состояние fieldset вне JSX-дерева с помощью `useFieldset` и передайте его в `Fieldset.RootProvider`, если им должны
 пользоваться соседние элементы управления или повторно используемые компоненты.
 
-<PreviewFrame contentWidth="fit-content" maxWidth="sm">
-  ```tsx preview file="../../en/docs/_snippets/fieldset/root-provider.tsx"
-  ```
+<ExampleFrame variant="component">
+  <FieldsetRootProvider />
+</ExampleFrame>
 
-</PreviewFrame>
+<ExampleCode>
+<div className="docs-reference">
+  <Tabs
+    groupId="framework"
+    values={[
+      { label: 'React', value: 'react' },
+      { label: 'Solid', value: 'solid' },
+    ]}
+    className="docs-tabs"
+  >
+    <Tab value="react">
+
+```tsx pure file="../../../src/components/examples/fieldset/root-provider.tsx"
+```
+
+    </Tab>
+    <Tab value="solid">
+
+<CodeBlockRuntime lang="tsx" code={fieldsetSolidRootProvider} />
+
+    </Tab>
+  </Tabs>
+
+**Стили**
+
+```css file="../../../src/components/examples/fieldset/fieldset-root-provider.module.css"
+```
+</div>
+
+</ExampleCode>
 
 ## Стилизация
 
@@ -180,5 +397,6 @@ ARIA-состояние.
 
 Для каждой части DOM Ark добавляет атрибуты `data-scope="fieldset"` и `data-part`, соответствующие анатомии. Корневой
 компонент и заголовок получают `data-disabled` и `data-invalid`; moduix также добавляет атрибуты `data-slot="fieldset-*"`.
-Используйте `className` для локальных переопределений, а переменные `--moduix-fieldset-*` для настройки темы, например
-отступов вокруг заголовка и границ корневого компонента.
+Используйте `className` в React или `class` в Solid для локальных переопределений. В пакетах CSS Modules переменные
+`--moduix-fieldset-*` позволяют настраивать тему, а в Tailwind-пакетах для этого используются классы-утилиты и классы
+потребителя.

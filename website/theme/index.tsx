@@ -11,6 +11,7 @@ import {
 import {
   IconFile,
   IconGithub,
+  CodeBlockRuntime as OriginalCodeBlockRuntime,
   FallbackHeading as OriginalFallbackHeading,
   Layout as OriginalLayout,
   Link,
@@ -25,17 +26,21 @@ import {
   useMdUrl,
 } from '@rspress/core/theme-original';
 import { useEffect, type ComponentProps, type FC } from 'react';
+import './index.css';
 import {
   Card,
   Cards,
   CssPropertiesSection,
+  ExampleCode,
   ExampleFrame,
   PreviewFrame,
   PrimitiveReference,
   ShadcnInstall,
+  ShadcnInstallOptions,
+  StyleTrackCard,
+  StyleTrackCards,
 } from '@/components/mdx/Components';
 import { Tag } from './components/Tag';
-import './index.css';
 
 export * from '@rspress/core/theme-original';
 
@@ -45,6 +50,10 @@ function DocDescription() {
     typeof frontmatter.description === 'string' ? frontmatter.description.trim() : '';
 
   return description ? <p className="moduix-doc-description">{description}</p> : null;
+}
+
+function CodeBlockRuntime(props: ComponentProps<typeof OriginalCodeBlockRuntime>) {
+  return <OriginalCodeBlockRuntime height={520} {...props} />;
 }
 
 function SocialMetadata() {
@@ -172,13 +181,18 @@ function ModuixNavTitle() {
 const mdxComponents = {
   Card,
   Cards,
+  CodeBlockRuntime,
   CssPropertiesSection,
+  ExampleCode,
   ExampleFrame,
   PreviewFrame,
   h1: DocTitle,
   PackageManagerTabs,
   PrimitiveReference,
   ShadcnInstall,
+  ShadcnInstallOptions,
+  StyleTrackCard,
+  StyleTrackCards,
   Tab,
   Tabs,
 };

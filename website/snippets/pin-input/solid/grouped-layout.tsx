@@ -1,0 +1,18 @@
+import { PinInput } from '@moduix/solid/pin-input';
+
+export default function GroupedPinInput() {
+  return (
+    <PinInput count={6}>
+      <PinInput.Label>Auth code</PinInput.Label>
+      <PinInput.Control>
+        {[0, 1, 2].map((index) => (
+          <PinInput.Input index={index} />
+        ))}
+        <PinInput.Separator />
+        {[3, 4, 5].map((index) => (
+          <PinInput.Input index={index} />
+        ))}
+      </PinInput.Control>
+    </PinInput>
+  );
+}

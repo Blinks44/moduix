@@ -4,7 +4,19 @@ component: spinner
 description: A compact loading indicator with status semantics, size control, and optional custom indicator content.
 ---
 
-import * as SpinnerDocs from '@/components/examples/spinner';
+import SpinnerAsChild from '@/components/examples/spinner/as-child.tsx';
+import SpinnerBasic from '@/components/examples/spinner/basic.tsx';
+import SpinnerButton from '@/components/examples/spinner/button.tsx';
+import SpinnerCustomIndicator from '@/components/examples/spinner/custom-indicator.tsx';
+import SpinnerInlineLoadingText from '@/components/examples/spinner/inline-loading-text.tsx';
+import SpinnerSizes from '@/components/examples/spinner/sizes.tsx';
+import * as SpinnerDocs from '@/components/examples/spinner/css-properties';
+import spinnerSolidAsChild from '../../../snippets/spinner/solid/as-child.tsx?raw';
+import spinnerSolidBasic from '../../../snippets/spinner/solid/basic.tsx?raw';
+import spinnerSolidButton from '../../../snippets/spinner/solid/button.tsx?raw';
+import spinnerSolidCustomIndicator from '../../../snippets/spinner/solid/custom-indicator.tsx?raw';
+import spinnerSolidInlineLoadingText from '../../../snippets/spinner/solid/inline-loading-text.tsx?raw';
+import spinnerSolidSizes from '../../../snippets/spinner/solid/sizes.tsx?raw';
 
 ## API Reference
 
@@ -20,15 +32,69 @@ states. By default, it exposes the loading status to assistive technology with `
 the fallback label `aria-label="Loading"`. The fallback is the literal English string `Loading`, so
 set a localized `aria-label` or use `aria-labelledby` in a non-English interface.
 
-<PreviewFrame maxWidth="sm">
-  ```tsx preview file="./_snippets/spinner/basic.tsx"
+Spinner ships for React and Solid in both the CSS Modules and Tailwind packages. The rendered
+preview on this page uses the React CSS Modules package; the framework tabs show native source for
+the same public contract.
 
-  ```
-</PreviewFrame>
+Use `Spinner` as the root in most cases. `Spinner.Root` is an alias for the same root when you want
+to make that part explicit in your composition.
+
+<ExampleFrame variant="component">
+  <SpinnerBasic />
+</ExampleFrame>
+
+<ExampleCode>
+<div className="docs-reference">
+  <Tabs
+    groupId="framework"
+    values={[
+      { label: 'React', value: 'react' },
+      { label: 'Solid', value: 'solid' },
+    ]}
+    className="docs-tabs"
+  >
+    <Tab value="react">
+
+```tsx pure file="../../../src/components/examples/spinner/basic.tsx"
+```
+
+    </Tab>
+    <Tab value="solid">
+
+<CodeBlockRuntime lang="tsx" code={spinnerSolidBasic} />
+
+    </Tab>
+  </Tabs>
+</div>
+
+</ExampleCode>
 
 ## Install with shadcn
 
-<ShadcnInstall packageName="spinner" />
+See [Quick Start](/docs/quick-start) for full package setup, registry configuration, and styling guidance.
+
+<Tabs groupId="framework">
+  <Tab label="React" value="react">
+
+<ShadcnInstallOptions
+  options={[
+    { label: 'CSS Modules', command: 'shadcn@latest add @moduix-react/spinner' },
+    { label: 'Tailwind CSS', command: 'shadcn@latest add @moduix-react-tailwind/spinner' },
+  ]}
+/>
+
+  </Tab>
+  <Tab label="Solid" value="solid">
+
+<ShadcnInstallOptions
+  options={[
+    { label: 'CSS Modules', command: 'shadcn@latest add @moduix-solid/spinner' },
+    { label: 'Tailwind CSS', command: 'shadcn@latest add @moduix-solid-tailwind/spinner' },
+  ]}
+/>
+
+  </Tab>
+</Tabs>
 
 ## Anatomy
 
@@ -52,55 +118,13 @@ Spinner / Spinner.Root
 
 ## Composition
 
-### Recommended composition
+`Spinner` represents an app-owned loading state; it does not start, stop, or otherwise manage the
+operation being represented. Render it from the state that already owns that operation.
 
-Use the default ring when a compact loading indicator is enough.
-
-- Use `size` for density changes.
-- Use `decorative` when adjacent visible text already communicates the loading state.
-- Use `aria-label` or `aria-labelledby` when the status name should be more specific than
-  `"Loading"`.
-- Render `Spinner` from your own loading state. It does not start, stop, or otherwise manage the
-  operation being represented.
-
-### When to go custom
-
-Pass custom `children` when the default ring is not the right visual, but the standard root, size,
-and rotating wrapper should stay in place.
-
-Use `asChild` only when another component must provide the actual root DOM element. Pass exactly one
-non-interactive child. In this mode, the built-in indicator wrapper and ring are not rendered, so the
-child must provide the visual indicator markup itself.
-
-### Default props
-
-| Prop              | Default     | Notes                                                                                              |
-| ----------------- | ----------- | -------------------------------------------------------------------------------------------------- |
-| `size`            | `'md'`      | Accepts `'inherit' \| 'xs' \| 'sm' \| 'md' \| 'lg' \| 'xl'`. `inherit` uses `1em`.               |
-| `decorative`      | `false`     | Gives the default root `role="presentation"` and `aria-hidden="true"`; with `asChild`, preserves the child's semantics. |
-| `asChild`         | `false`     | Passes the root props to the single child element.                                                  |
-| `aria-label`      | `'Loading'` | Used when the spinner is not decorative and `aria-labelledby` is not provided.                    |
-| `aria-labelledby` | not set     | Use it to name the status with visible text elsewhere in the page.                                 |
-
-### Behavioral notes
-
-- The default root renders as a `span` with `data-scope="spinner"`, `data-part="root"`,
-  `data-slot="spinner-root"`, and `data-size`.
-- `Spinner.Root` is a compatibility alias for `Spinner`; use `Spinner` in new code.
-- Non-decorative spinners render with `role="status"`.
-- `decorative={true}` hides the default root from assistive technology. With `asChild`, it does not
-  add Spinner's role or labelling attributes, so the custom child keeps its own semantics.
-- Spinner controls its status semantics and its `data-scope`, `data-part`, `data-slot`, and
-  `data-size` hooks. Conflicting native props do not replace these values.
-- The rotating wrapper is `data-scope="spinner"`, `data-part="indicator"`, and
-  `data-slot="spinner-indicator"`.
-- Custom `children` replace only the default ring. The wrapper still owns sizing and rotation.
-- With `asChild`, the consumer-provided child becomes the root and must provide any visual indicator
-  content it needs.
-- `size="inherit"` sets the spinner size to `1em`; all other size values write the selected value to
-  `data-size`.
-- Spinner keeps its loading motion when `prefers-reduced-motion: reduce` is active because the
-  animation is the visual loading cue.
+Pass custom `children` to replace the default ring while keeping the standard root, sizing, and
+rotating indicator wrapper. Use `asChild` only when another component must own the root element: the
+built-in indicator and ring are not rendered in that mode, so exactly one non-interactive child must
+provide the visual indicator markup.
 
 ## Examples
 
@@ -109,58 +133,202 @@ child must provide the visual indicator markup itself.
 Pass custom `children` when the default ring should be replaced but the size and status behavior
 should stay the same.
 
-<PreviewFrame maxWidth="sm">
-  ```tsx preview file="./_snippets/spinner/custom-indicator.tsx"
+<ExampleFrame variant="component">
+  <SpinnerCustomIndicator />
+</ExampleFrame>
 
-  ```
-</PreviewFrame>
+<ExampleCode>
+<div className="docs-reference">
+  <Tabs
+    groupId="framework"
+    values={[
+      { label: 'React', value: 'react' },
+      { label: 'Solid', value: 'solid' },
+    ]}
+    className="docs-tabs"
+  >
+    <Tab value="react">
+
+```tsx pure file="../../../src/components/examples/spinner/custom-indicator.tsx"
+```
+
+    </Tab>
+    <Tab value="solid">
+
+<CodeBlockRuntime lang="tsx" code={spinnerSolidCustomIndicator} />
+
+    </Tab>
+  </Tabs>
+</div>
+
+</ExampleCode>
 
 ### In a Button
 
 Keep the spinner decorative when the button text already describes the action. The example puts
 `aria-busy` on the button and shows the current state below it for demonstration purposes.
 
-<PreviewFrame contentWidth="fit-content" maxWidth="sm">
-  ```tsx preview file="./_snippets/spinner/button.tsx"
+<ExampleFrame variant="component">
+  <SpinnerButton />
+</ExampleFrame>
 
-  ```
-</PreviewFrame>
+<ExampleCode>
+<div className="docs-reference">
+  <Tabs
+    groupId="framework"
+    values={[
+      { label: 'React', value: 'react' },
+      { label: 'Solid', value: 'solid' },
+    ]}
+    className="docs-tabs"
+  >
+    <Tab value="react">
+
+```tsx pure file="../../../src/components/examples/spinner/button.tsx"
+```
+
+    </Tab>
+    <Tab value="solid">
+
+<CodeBlockRuntime lang="tsx" code={spinnerSolidButton} />
+
+    </Tab>
+  </Tabs>
+
+**Styles**
+
+```css file="../../../src/components/examples/spinner/spinner-button.module.css"
+```
+
+</div>
+
+</ExampleCode>
 
 ### Inline Loading Text
 
 Use `decorative` when visible text next to the spinner already explains what is happening.
 
-<PreviewFrame maxWidth="sm">
-  ```tsx preview file="./_snippets/spinner/inline-loading-text.tsx"
+<ExampleFrame variant="component">
+  <SpinnerInlineLoadingText />
+</ExampleFrame>
 
-  ```
-</PreviewFrame>
+<ExampleCode>
+<div className="docs-reference">
+  <Tabs
+    groupId="framework"
+    values={[
+      { label: 'React', value: 'react' },
+      { label: 'Solid', value: 'solid' },
+    ]}
+    className="docs-tabs"
+  >
+    <Tab value="react">
+
+```tsx pure file="../../../src/components/examples/spinner/inline-loading-text.tsx"
+```
+
+    </Tab>
+    <Tab value="solid">
+
+<CodeBlockRuntime lang="tsx" code={spinnerSolidInlineLoadingText} />
+
+    </Tab>
+  </Tabs>
+
+**Styles**
+
+```css file="../../../src/components/examples/spinner/spinner-inline-loading-text.module.css"
+```
+
+</div>
+
+</ExampleCode>
 
 ### Sizes
 
 Use smaller sizes inside compact controls and larger sizes for standalone loading states.
 
-<PreviewFrame maxWidth="sm">
-  ```tsx preview file="./_snippets/spinner/sizes.tsx"
+<ExampleFrame variant="component">
+  <SpinnerSizes />
+</ExampleFrame>
 
-  ```
-</PreviewFrame>
+<ExampleCode>
+<div className="docs-reference">
+  <Tabs
+    groupId="framework"
+    values={[
+      { label: 'React', value: 'react' },
+      { label: 'Solid', value: 'solid' },
+    ]}
+    className="docs-tabs"
+  >
+    <Tab value="react">
+
+```tsx pure file="../../../src/components/examples/spinner/sizes.tsx"
+```
+
+    </Tab>
+    <Tab value="solid">
+
+<CodeBlockRuntime lang="tsx" code={spinnerSolidSizes} />
+
+    </Tab>
+  </Tabs>
+
+**Styles**
+
+```css file="../../../src/components/examples/spinner/spinner-sizes.module.css"
+```
+</div>
+
+</ExampleCode>
 
 ### Custom Root
 
 Use `asChild` when another component must own the root element. The child receives Spinner's root
 attributes and class name, and must render the visual indicator itself.
 
-<PreviewFrame maxWidth="sm">
-  ```tsx preview file="./_snippets/spinner/as-child.tsx"
+<ExampleFrame variant="component">
+  <SpinnerAsChild />
+</ExampleFrame>
 
-  ```
-</PreviewFrame>
+<ExampleCode>
+<div className="docs-reference">
+  <Tabs
+    groupId="framework"
+    values={[
+      { label: 'React', value: 'react' },
+      { label: 'Solid', value: 'solid' },
+    ]}
+    className="docs-tabs"
+  >
+    <Tab value="react">
+
+```tsx pure file="../../../src/components/examples/spinner/as-child.tsx"
+```
+
+    </Tab>
+    <Tab value="solid">
+
+<CodeBlockRuntime lang="tsx" code={spinnerSolidAsChild} />
+
+    </Tab>
+  </Tabs>
+
+**Styles**
+
+```css file="../../../src/components/examples/spinner/spinner-as-child.module.css"
+```
+</div>
+
+</ExampleCode>
 
 ## Styling
 
-Style `Spinner` with `className`, Ark `data-scope` / `data-part` selectors, stable `data-slot` hooks,
-`data-size`, and the public `--moduix-spinner-*` variables documented by the CSS API.
+Style `Spinner` with `className` in React, `class` in Solid, Ark `data-scope` / `data-part`
+selectors, stable `data-slot` hooks, `data-size`, and the public `--moduix-spinner-*` variables
+documented by the CSS API. The CSS Modules packages expose those variables; Tailwind packages use
+utility classes and consumer class overrides instead of mirroring the CSS Modules variable layer.
 
 ### CSS Properties
 
@@ -185,5 +353,5 @@ Style `Spinner` with `className`, Ark `data-scope` / `data-part` selectors, stab
 - `data-slot="spinner-indicator"` is the stable moduix selector for the rotating inner wrapper.
 - `data-slot="spinner-ring"` targets the default ring only.
 - `Spinner` writes `data-size="inherit" | "xs" | "sm" | "md" | "lg" | "xl"` on the root.
-- `className` applies to the rendered root. With `asChild`, that is the single child element. Target
-  the indicator or ring with descendant selectors when needed.
+- `className` or `class` applies to the rendered root. With `asChild`, that is the single child
+  element. Target the indicator or ring with descendant selectors when needed.

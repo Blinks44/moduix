@@ -4,7 +4,29 @@ component: tooltip
 description: Une brève information complémentaire affichée lorsque l’élément déclencheur est survolé ou reçoit le focus.
 ---
 
-import * as TooltipDocs from '@/components/examples/tooltip';
+import * as TooltipDocs from '@/components/examples/tooltip/css-properties';
+import TooltipAdvancedCustomization from '@/components/examples/tooltip/advanced-customization.tsx';
+import TooltipBasic from '@/components/examples/tooltip/basic.tsx';
+import TooltipContext from '@/components/examples/tooltip/context.tsx';
+import TooltipControlled from '@/components/examples/tooltip/controlled.tsx';
+import TooltipDelay from '@/components/examples/tooltip/delay.tsx';
+import TooltipDisabledTrigger from '@/components/examples/tooltip/disabled-trigger.tsx';
+import TooltipMultipleTriggers from '@/components/examples/tooltip/multiple-triggers.tsx';
+import TooltipPositioning from '@/components/examples/tooltip/positioning.tsx';
+import TooltipRootProvider from '@/components/examples/tooltip/root-provider.tsx';
+import TooltipWithArrow from '@/components/examples/tooltip/with-arrow.tsx';
+import TooltipWithinFixedContainers from '@/components/examples/tooltip/within-fixed-containers.tsx';
+import tooltipSolidAdvancedCustomization from '../../../snippets/tooltip/solid/advanced-customization.tsx?raw';
+import tooltipSolidBasic from '../../../snippets/tooltip/solid/basic.tsx?raw';
+import tooltipSolidContext from '../../../snippets/tooltip/solid/context.tsx?raw';
+import tooltipSolidControlled from '../../../snippets/tooltip/solid/controlled.tsx?raw';
+import tooltipSolidDelay from '../../../snippets/tooltip/solid/delay.tsx?raw';
+import tooltipSolidDisabledTrigger from '../../../snippets/tooltip/solid/disabled-trigger.tsx?raw';
+import tooltipSolidMultipleTriggers from '../../../snippets/tooltip/solid/multiple-triggers.tsx?raw';
+import tooltipSolidPositioning from '../../../snippets/tooltip/solid/positioning.tsx?raw';
+import tooltipSolidRootProvider from '../../../snippets/tooltip/solid/root-provider.tsx?raw';
+import tooltipSolidWithArrow from '../../../snippets/tooltip/solid/with-arrow.tsx?raw';
+import tooltipSolidWithinFixedContainers from '../../../snippets/tooltip/solid/within-fixed-containers.tsx?raw';
 
 ## Référence de l’API
 
@@ -21,20 +43,71 @@ l’élément déclencheur reçoit le focus.
 
 ## Exemple de base
 
+Tooltip est disponible pour React et Solid dans les variantes CSS Modules et Tailwind. L’aperçu de
+cette page utilise React et CSS Modules ; les onglets affichent le code source natif React et Solid
+pour le même contrat public.
+
 Utilisez `Tooltip.Trigger` pour l’élément qui ouvre l’infobulle et `Tooltip.Body` pour son contenu.
-`Tooltip.Body` est un raccourci pratique autour de `Tooltip.Positioner` et `Tooltip.Content`.
-Donnez au déclencheur un nom accessible qui lui est propre. Le contenu de l’infobulle est
-complémentaire et ne remplace ni le texte visible ni `aria-label`.
+`Tooltip.Body` réunit `Tooltip.Positioner` et `Tooltip.Content`. Donnez au déclencheur son propre
+nom accessible. Le contenu de l’infobulle est complémentaire et ne remplace ni le texte visible ni
+`aria-label`.
 
-<PreviewFrame contentWidth="fit-content">
-  ```tsx preview file="../../en/docs/_snippets/tooltip/basic.tsx"
+<ExampleFrame variant="component">
+  <TooltipBasic />
+</ExampleFrame>
 
-  ```
-</PreviewFrame>
+<ExampleCode>
+<div className="docs-reference">
+  <Tabs
+    groupId="framework"
+    values={[
+      { label: 'React', value: 'react' },
+      { label: 'Solid', value: 'solid' },
+    ]}
+    className="docs-tabs"
+  >
+    <Tab value="react">
+
+```tsx pure file="../../../src/components/examples/tooltip/basic.tsx"
+```
+
+    </Tab>
+    <Tab value="solid">
+
+<CodeBlockRuntime lang="tsx" code={tooltipSolidBasic} />
+
+    </Tab>
+  </Tabs>
+</div>
+
+</ExampleCode>
 
 ## Installation avec shadcn
 
-<ShadcnInstall packageName="tooltip" />
+Consultez le [Démarrage rapide](/docs/quick-start) pour la configuration complète du paquet, du registre et des styles.
+
+<Tabs groupId="framework">
+  <Tab label="React" value="react">
+
+<ShadcnInstallOptions
+  options={[
+    { label: 'CSS Modules', command: 'shadcn@latest add @moduix-react/tooltip' },
+    { label: 'Tailwind CSS', command: 'shadcn@latest add @moduix-react-tailwind/tooltip' },
+  ]}
+/>
+
+  </Tab>
+  <Tab label="Solid" value="solid">
+
+<ShadcnInstallOptions
+  options={[
+    { label: 'CSS Modules', command: 'shadcn@latest add @moduix-solid/tooltip' },
+    { label: 'Tailwind CSS', command: 'shadcn@latest add @moduix-solid-tailwind/tooltip' },
+  ]}
+/>
+
+  </Tab>
+</Tabs>
 
 ## Anatomie
 
@@ -76,179 +149,305 @@ Tooltip / Tooltip.Root
 
 ## Composition
 
-Par défaut, la racine rend `Positioner` dans un portail. Définissez `portalled={false}` pour le
-conserver dans l’arbre DOM courant, ou passez `portalRef` pour choisir un conteneur de portail
-personnalisé. Les parties structurelles restent explicites et peuvent être stylées.
-
-### Composition recommandée
-
-Pour la plupart des infobulles, utilisez `Tooltip.Trigger` avec `Tooltip.Body`. L’API de
-positionnement reste ainsi sur la racine, tandis que le contenu se compose de
-`Tooltip.Positioner` et `Tooltip.Content`. Les parties Ark explicites restent disponibles lorsque
-vous devez contrôler cette structure vous-même.
-
-Lors d’une migration depuis shadcn, `Tooltip.Body` est l’équivalent moduix le plus proche de
-l’étape habituelle `TooltipContent`.
-
-### Quand personnaliser la composition
-
-Utilisez `asChild` sur `Tooltip.Trigger` lorsque le déclencheur doit être rendu comme un `Button`
-moduix, un lien ou un autre contrôle sémantique. L’enfant doit rester un unique élément pouvant
-recevoir le focus et prendre en charge l’interaction du déclencheur.
-
-Utilisez `Tooltip.DisabledTrigger` autour d’un seul contrôle natif désactivé qui nécessite une
-courte explication. Donnez à l’enveloppe son propre nom accessible. Elle peut recevoir le focus
-tandis que l’enfant désactivé reste non interactif, ce qui rend l’explication accessible au clavier
-comme au pointeur.
-
-Utilisez `positioning` sur `Tooltip` pour le placement, la stratégie, le décalage, la gestion des
-collisions et les autres options de positionnement d’Ark. Utilisez explicitement
-`Tooltip.Positioner` et `Tooltip.Content` si vous devez personnaliser le style de la couche de positionnement ou
-contrôler plus finement la structure Ark. Utilisez `ids` lorsque plusieurs parties de l’infobulle
-doivent partager des identifiants stables.
-
-### Propriétés par défaut
-
-Le contenu rendu dans un portail est monté à la demande et supprimé après son animation de sortie.
-Définissez `unmountOnExit={false}` pour le conserver après la première ouverture. Ne définissez les
-deux propriétés de cycle de vie sur `false` que si le contenu doit être rendu dès le départ.
-
-| Prop | Valeur par défaut | Remarques |
-| --- | --- | --- |
-| `openDelay` | `400` | Délai avant l’ouverture au survol ou au focus. |
-| `closeDelay` | `150` | Délai avant la fermeture lorsque le survol ou le focus se termine. |
-| `closeOnClick` | `true` | Ferme l’infobulle lorsque le déclencheur est activé. |
-| `closeOnEscape` | `true` | Ferme l’infobulle lorsque l’utilisateur appuie sur Échap. |
-| `closeOnPointerDown` | `true` | Ferme l’infobulle lors de l’appui du pointeur. |
-| `closeOnScroll` | `true` | Ferme l’infobulle lors du défilement. |
-| `interactive` | `false` | Maintient l’infobulle ouverte lorsque son contenu est survolé. |
-| `lazyMount` | `true` | Monte le contenu uniquement après la première ouverture. |
-| `unmountOnExit` | `true` | Supprime le contenu après son animation de sortie. |
-| `skipAnimationOnMount` | `false` | Conserve l’animation de présence initiale. |
-| `portalled` | `true` | Rend `Tooltip.Positioner` dans un portail. |
-| `portalRef` | `-` | Cible un conteneur de portail personnalisé. |
-| `positioning` | `-` | Options de positionnement d’Ark. |
-| `ids` | `-` | Identifiants stables des parties de l’infobulle. |
-| `defaultOpen` | `-` | État initial dans une utilisation non contrôlée. |
-| `open` | `-` | État d’ouverture contrôlé. |
-| `disabled` | `false` | Désactive les interactions de l’infobulle. |
-
-### Comportement
-
-- `onOpenChange(details)` reçoit un objet. Lisez le nouvel état d’ouverture dans `details.open`.
-- `defaultOpen` définit l’état initial dans une utilisation non contrôlée. `disabled` désactive
-  l’interaction de l’infobulle sans modifier la sémantique propre du déclencheur.
-- Les propriétés de présence Ark telles que `present`, `immediate`, `onExitComplete`, `lazyMount`
-  et `unmountOnExit` sont transmises sans modification.
-- `Tooltip.RootProvider`, `Tooltip.Context`, `useTooltip` et `useTooltipContext` sont disponibles
-  depuis `@moduix/react` pour accéder à l’état. Utilisez le provider et `useTooltip` lorsque l’état
-  est créé en dehors de l’arbre rendu.
-- `Tooltip.Trigger` reçoit les styles de déclencheur de moduix uniquement sans `asChild`. Avec
-  `asChild`, l’élément enfant gère ses propres styles.
-- `Tooltip.DisabledTrigger` est prévu pour un seul enfant direct désactivé. Utilisez-le au lieu de
-  répéter une enveloppe pouvant recevoir le focus, `tabIndex` et une règle de `pointer-events` pour
-  chaque contrôle désactivé.
-- `Tooltip.Body` transmet ses props, ses enfants et sa ref à `Tooltip.Content`. Il n’ajoute ni partie
-  DOM ni API de positionnement distincte.
-- `Tooltip.Content` gère la surface visible et le `z-index`. `Tooltip.Positioner` gère le
-  positionnement flottant et expose des variables Ark telles que `--available-width`,
-  `--available-height` et `--transform-origin`.
-- Ark ajoute `data-state="open" | "closed"` au déclencheur et au contenu. Avec des valeurs de
-  déclencheur, il ajoute également `data-value`, `data-current` et `data-expanded` au déclencheur.
-  Le contenu expose des attributs de placement comme `data-placement` et `data-side`.
-- Les transitions du déclencheur et les animations du contenu sont désactivées lorsque l’utilisateur
-  préfère réduire les animations.
-- Le contenu de l’infobulle renvoie les longues chaînes insécables à la ligne. Utilisez plutôt
-  `Popover` ou `HoverCard` pour un contenu long ou interactif, au lieu de transformer l’infobulle en
-  surface défilante.
+Utilisez `Tooltip.Body` pour la composition standard du `Trigger` et du contenu. Il réunit
+`Tooltip.Positioner` et `Tooltip.Content` ; utilisez ces parties explicitement lorsqu’elles doivent
+avoir un style ou une structure indépendants. La racine possède l’état : utilisez `defaultOpen`
+pour une infobulle non contrôlée, ou `open` avec `onOpenChange(details)` lorsqu’une autre partie de
+l’application en est responsable. Utilisez `Tooltip.RootProvider` avec `useTooltip()` lorsque le
+store est créé en dehors de l’arbre rendu, et `Tooltip.Context` ou `useTooltipContext()` lorsqu’un
+descendant doit lire cet état. `asChild` attend un unique enfant pouvant recevoir le focus ; Solid
+utilise une fonction de rendu. `Tooltip.DisabledTrigger` est prévu pour un seul contrôle natif
+désactivé. Le portail est activé par défaut : définissez `portalled={false}` ou passez `portalRef`
+uniquement lorsque l’infobulle doit rester dans une limite DOM précise.
 
 ## Exemples
 
 ### Contexte
 
-Utilisez `useTooltipContext()` dans un descendant qui doit lire l’état courant. Utilisez
-`Tooltip.Context` lorsqu’une fonction de rendu rend la composition personnalisée plus claire.
+Utilisez `useTooltipContext()` dans un descendant qui doit lire l’état courant.
 
-<PreviewFrame contentWidth="fit-content">
-  ```tsx preview file="../../en/docs/_snippets/tooltip/context.tsx"
+<ExampleFrame variant="component">
+  <TooltipContext />
+</ExampleFrame>
 
-  ```
-</PreviewFrame>
+<ExampleCode>
+<div className="docs-reference">
+  <Tabs
+    groupId="framework"
+    values={[
+      { label: 'React', value: 'react' },
+      { label: 'Solid', value: 'solid' },
+    ]}
+    className="docs-tabs"
+  >
+    <Tab value="react">
+
+```tsx pure file="../../../src/components/examples/tooltip/context.tsx"
+```
+
+    </Tab>
+    <Tab value="solid">
+
+<CodeBlockRuntime lang="tsx" code={tooltipSolidContext} />
+
+    </Tab>
+  </Tabs>
+</div>
+
+</ExampleCode>
 
 ### État contrôlé
 
 Contrôlez l’ouverture de l’infobulle avec `open` et `onOpenChange(details)`.
 
-<PreviewFrame contentWidth="fit-content">
-  ```tsx preview file="../../en/docs/_snippets/tooltip/controlled.tsx"
+<ExampleFrame variant="component">
+  <TooltipControlled />
+</ExampleFrame>
 
-  ```
-</PreviewFrame>
+<ExampleCode>
+<div className="docs-reference">
+  <Tabs
+    groupId="framework"
+    values={[
+      { label: 'React', value: 'react' },
+      { label: 'Solid', value: 'solid' },
+    ]}
+    className="docs-tabs"
+  >
+    <Tab value="react">
+
+```tsx pure file="../../../src/components/examples/tooltip/controlled.tsx"
+```
+
+    </Tab>
+    <Tab value="solid">
+
+<CodeBlockRuntime lang="tsx" code={tooltipSolidControlled} />
+
+    </Tab>
+  </Tabs>
+</div>
+
+</ExampleCode>
 
 ### Délai
 
 Définissez `openDelay` et `closeDelay` sur la racine pour régler le délai au survol et au focus.
 
-<PreviewFrame contentWidth="fit-content">
-  ```tsx preview file="../../en/docs/_snippets/tooltip/delay.tsx"
+<ExampleFrame variant="component">
+  <TooltipDelay />
+</ExampleFrame>
 
-  ```
-</PreviewFrame>
+<ExampleCode>
+<div className="docs-reference">
+  <Tabs
+    groupId="framework"
+    values={[
+      { label: 'React', value: 'react' },
+      { label: 'Solid', value: 'solid' },
+    ]}
+    className="docs-tabs"
+  >
+    <Tab value="react">
+
+```tsx pure file="../../../src/components/examples/tooltip/delay.tsx"
+```
+
+    </Tab>
+    <Tab value="solid">
+
+<CodeBlockRuntime lang="tsx" code={tooltipSolidDelay} />
+
+    </Tab>
+  </Tabs>
+</div>
+
+</ExampleCode>
 
 ### Déclencheur désactivé
 
 Utilisez `Tooltip.DisabledTrigger` lorsqu’un contrôle natif désactivé nécessite toujours une courte
 explication. L’enveloppe peut recevoir le focus sans modifier l’état désactivé de l’enfant.
 
-<PreviewFrame contentWidth="fit-content">
-  ```tsx preview file="../../en/docs/_snippets/tooltip/disabled-trigger.tsx"
+<ExampleFrame variant="component">
+  <TooltipDisabledTrigger />
+</ExampleFrame>
 
-  ```
-</PreviewFrame>
+<ExampleCode>
+<div className="docs-reference">
+  <Tabs
+    groupId="framework"
+    values={[
+      { label: 'React', value: 'react' },
+      { label: 'Solid', value: 'solid' },
+    ]}
+    className="docs-tabs"
+  >
+    <Tab value="react">
+
+```tsx pure file="../../../src/components/examples/tooltip/disabled-trigger.tsx"
+```
+
+    </Tab>
+    <Tab value="solid">
+
+<CodeBlockRuntime lang="tsx" code={tooltipSolidDisabledTrigger} />
+
+    </Tab>
+  </Tabs>
+</div>
+
+</ExampleCode>
 
 ### Plusieurs déclencheurs
 
 Donnez une `value` à chaque déclencheur et utilisez `onTriggerValueChange(details)` pour partager
 une seule infobulle entre plusieurs déclencheurs.
 
-<PreviewFrame contentWidth="fit-content">
-  ```tsx preview file="../../en/docs/_snippets/tooltip/multiple-triggers.tsx"
+<ExampleFrame variant="component">
+  <TooltipMultipleTriggers />
+</ExampleFrame>
 
-  ```
-</PreviewFrame>
+<ExampleCode>
+<div className="docs-reference">
+  <Tabs
+    groupId="framework"
+    values={[
+      { label: 'React', value: 'react' },
+      { label: 'Solid', value: 'solid' },
+    ]}
+    className="docs-tabs"
+  >
+    <Tab value="react">
+
+```tsx pure file="../../../src/components/examples/tooltip/multiple-triggers.tsx"
+```
+
+    </Tab>
+    <Tab value="solid">
+
+<CodeBlockRuntime lang="tsx" code={tooltipSolidMultipleTriggers} />
+
+    </Tab>
+  </Tabs>
+
+**Styles**
+
+```css file="../../../src/components/examples/tooltip/component-multiple-triggers.module.css"
+```
+</div>
+
+</ExampleCode>
 
 ### Positionnement
 
-Passez les options de positionnement d’Ark à `Tooltip`, notamment le placement et les décalages.
+Passez les options de positionnement d’Ark à `Tooltip`, notamment le placement et le décalage.
 
-<PreviewFrame contentWidth="fit-content">
-  ```tsx preview file="../../en/docs/_snippets/tooltip/positioning.tsx"
+<ExampleFrame variant="component">
+  <TooltipPositioning />
+</ExampleFrame>
 
-  ```
-</PreviewFrame>
+<ExampleCode>
+<div className="docs-reference">
+  <Tabs
+    groupId="framework"
+    values={[
+      { label: 'React', value: 'react' },
+      { label: 'Solid', value: 'solid' },
+    ]}
+    className="docs-tabs"
+  >
+    <Tab value="react">
+
+```tsx pure file="../../../src/components/examples/tooltip/positioning.tsx"
+```
+
+    </Tab>
+    <Tab value="solid">
+
+<CodeBlockRuntime lang="tsx" code={tooltipSolidPositioning} />
+
+    </Tab>
+  </Tabs>
+
+**Styles**
+
+```css file="../../../src/components/examples/tooltip/component-positioning.module.css"
+```
+</div>
+
+</ExampleCode>
 
 ### Root Provider
 
 Utilisez `useTooltip()` avec `Tooltip.RootProvider` lorsque l’état de l’infobulle est créé en dehors
 de l’arbre rendu.
 
-<PreviewFrame contentWidth="fit-content">
-  ```tsx preview file="../../en/docs/_snippets/tooltip/root-provider.tsx"
+<ExampleFrame variant="component">
+  <TooltipRootProvider />
+</ExampleFrame>
 
-  ```
-</PreviewFrame>
+<ExampleCode>
+<div className="docs-reference">
+  <Tabs
+    groupId="framework"
+    values={[
+      { label: 'React', value: 'react' },
+      { label: 'Solid', value: 'solid' },
+    ]}
+    className="docs-tabs"
+  >
+    <Tab value="react">
+
+```tsx pure file="../../../src/components/examples/tooltip/root-provider.tsx"
+```
+
+    </Tab>
+    <Tab value="solid">
+
+<CodeBlockRuntime lang="tsx" code={tooltipSolidRootProvider} />
+
+    </Tab>
+  </Tabs>
+</div>
+
+</ExampleCode>
 
 ### Avec une flèche
 
 Ajoutez `Tooltip.Arrow` comme premier enfant du contenu lorsque l’infobulle doit pointer vers son
-déclencheur. Avec `Tooltip.Body`, placez-le directement à l’intérieur de `Tooltip.Body` ;
+déclencheur. Avec `Tooltip.Body`, placez-la directement à l’intérieur de `Tooltip.Body` ;
 l’enveloppe fournit `Tooltip.ArrowTip` par défaut.
 
-<PreviewFrame contentWidth="fit-content">
-  ```tsx preview file="../../en/docs/_snippets/tooltip/with-arrow.tsx"
+<ExampleFrame variant="component">
+  <TooltipWithArrow />
+</ExampleFrame>
 
-  ```
-</PreviewFrame>
+<ExampleCode>
+<div className="docs-reference">
+  <Tabs
+    groupId="framework"
+    values={[
+      { label: 'React', value: 'react' },
+      { label: 'Solid', value: 'solid' },
+    ]}
+    className="docs-tabs"
+  >
+    <Tab value="react">
+
+```tsx pure file="../../../src/components/examples/tooltip/with-arrow.tsx"
+```
+
+    </Tab>
+    <Tab value="solid">
+
+<CodeBlockRuntime lang="tsx" code={tooltipSolidWithArrow} />
+
+    </Tab>
+  </Tabs>
+</div>
+
+</ExampleCode>
 
 ### Dans des conteneurs à position fixe
 
@@ -256,24 +455,83 @@ Utilisez `positioning.strategy: "fixed"` lorsque le déclencheur se trouve dans 
 collante de l’interface. Cet exemple définit `closeOnScroll={false}` pour vous permettre de
 focaliser le déclencheur, de faire défiler le panneau et de vérifier l’alignement de l’infobulle.
 
-<PreviewFrame maxWidth="lg">
-  ```tsx preview file="../../en/docs/_snippets/tooltip/within-fixed-containers.tsx"
+<ExampleFrame variant="component">
+  <TooltipWithinFixedContainers />
+</ExampleFrame>
 
-  ```
-</PreviewFrame>
+<ExampleCode>
+<div className="docs-reference">
+  <Tabs
+    groupId="framework"
+    values={[
+      { label: 'React', value: 'react' },
+      { label: 'Solid', value: 'solid' },
+    ]}
+    className="docs-tabs"
+  >
+    <Tab value="react">
+
+```tsx pure file="../../../src/components/examples/tooltip/within-fixed-containers.tsx"
+```
+
+    </Tab>
+    <Tab value="solid">
+
+<CodeBlockRuntime lang="tsx" code={tooltipSolidWithinFixedContainers} />
+
+    </Tab>
+  </Tabs>
+
+**Styles**
+
+```css file="../../../src/components/examples/tooltip/component-within-fixed-containers.module.css"
+```
+</div>
+
+</ExampleCode>
 
 ### Personnalisation avancée
 
 Utilisez directement les parties `Tooltip.Positioner` et `Tooltip.Content` lorsqu’elles doivent
 avoir une composition ou une mise en forme indépendantes.
 
-<PreviewFrame contentWidth="fit-content">
-  ```tsx preview file="../../en/docs/_snippets/tooltip/advanced-customization.tsx"
+<ExampleFrame variant="component">
+  <TooltipAdvancedCustomization />
+</ExampleFrame>
 
-  ```
-</PreviewFrame>
+<ExampleCode>
+<div className="docs-reference">
+  <Tabs
+    groupId="framework"
+    values={[
+      { label: 'React', value: 'react' },
+      { label: 'Solid', value: 'solid' },
+    ]}
+    className="docs-tabs"
+  >
+    <Tab value="react">
+
+```tsx pure file="../../../src/components/examples/tooltip/advanced-customization.tsx"
+```
+
+    </Tab>
+    <Tab value="solid">
+
+<CodeBlockRuntime lang="tsx" code={tooltipSolidAdvancedCustomization} />
+
+    </Tab>
+  </Tabs>
+</div>
+
+</ExampleCode>
 
 ## Styles
+
+Utilisez `className` en React ou `class` en Solid sur les parties exportées pour les styles
+structurels. Pour les styles liés à l’état, préférez les attributs Ark tels que `data-state`,
+`data-placement` et `data-side`, avec les sélecteurs `data-slot` de moduix. Les variantes Tailwind
+utilisent des utilitaires natifs et les classes du consommateur ; les variables CSS ci-dessous
+personnalisent les variantes CSS Modules.
 
 ### Propriétés CSS
 
@@ -290,8 +548,6 @@ avoir une composition ou une mise en forme indépendantes.
 </div>
 
 ### Ciblage des styles
-
-Stylez la partie qui contrôle l’aspect concerné :
 
 - `Tooltip.Body` ne crée aucun nœud DOM. Avec la composition explicite, stylez séparément
   `Tooltip.Positioner` et `Tooltip.Content`.

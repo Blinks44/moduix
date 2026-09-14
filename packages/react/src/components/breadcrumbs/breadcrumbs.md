@@ -29,7 +29,7 @@ separators hidden from assistive technology. Collapsed paths are composed explic
 - `Breadcrumbs.Item` renders a list item for a visible segment.
 - `Breadcrumbs.Link` renders an anchor by default and supports Ark `asChild` for router links.
 - `Breadcrumbs.Page` renders a `span` with `aria-current="page"`.
-- `Breadcrumbs.Separator` renders an `aria-hidden` presentation list item and defaults to a right chevron icon.
+- `Breadcrumbs.Separator` renders an `aria-hidden` list item and defaults to a right chevron icon.
 - `Breadcrumbs.Ellipsis` renders an `aria-hidden` span and defaults to `...`.
 - The root is also exposed as `Breadcrumbs.Root`, with namespace-only parts for Ark-aligned
   composition.
@@ -50,15 +50,15 @@ Breadcrumbs / Breadcrumbs.Root
 
 `Breadcrumbs.Path` is optional sugar that renders the tree above from an `items` array.
 
-| Part        | Public namespace                  | `data-slot`             | Notes                                                    |
-| ----------- | --------------------------------- | ----------------------- | -------------------------------------------------------- |
-| `Root`      | `Breadcrumbs`, `Breadcrumbs.Root` | `breadcrumbs-root`      | `nav`, default landmark label.                           |
-| `List`      | `Breadcrumbs.List`                | `breadcrumbs-list`      | `ol`, horizontal flex layout.                            |
-| `Item`      | `Breadcrumbs.Item`                | `breadcrumbs-item`      | `li`, segment wrapper.                                   |
-| `Link`      | `Breadcrumbs.Link`                | `breadcrumbs-link`      | `a`, supports `asChild`.                                 |
-| `Page`      | `Breadcrumbs.Page`                | `breadcrumbs-page`      | `span`, sets `aria-current="page"`.                      |
-| `Separator` | `Breadcrumbs.Separator`           | `breadcrumbs-separator` | `li`, `role="presentation"`, hidden, chevron by default. |
-| `Ellipsis`  | `Breadcrumbs.Ellipsis`            | `breadcrumbs-ellipsis`  | `span`, `aria-hidden`, defaults to `...`.                |
+| Part        | Public namespace                  | `data-slot`             | Notes                                                       |
+| ----------- | --------------------------------- | ----------------------- | ----------------------------------------------------------- |
+| `Root`      | `Breadcrumbs`, `Breadcrumbs.Root` | `breadcrumbs-root`      | `nav`, default landmark label.                              |
+| `List`      | `Breadcrumbs.List`                | `breadcrumbs-list`      | `ol`, horizontal flex layout.                               |
+| `Item`      | `Breadcrumbs.Item`                | `breadcrumbs-item`      | `li`, segment wrapper.                                      |
+| `Link`      | `Breadcrumbs.Link`                | `breadcrumbs-link`      | `a`, supports `asChild`.                                    |
+| `Page`      | `Breadcrumbs.Page`                | `breadcrumbs-page`      | `span`, sets `aria-current="page"`.                         |
+| `Separator` | `Breadcrumbs.Separator`           | `breadcrumbs-separator` | `li`, hidden from assistive technology, chevron by default. |
+| `Ellipsis`  | `Breadcrumbs.Ellipsis`            | `breadcrumbs-ellipsis`  | `span`, `aria-hidden`, defaults to `...`.                   |
 
 ## Composition
 
@@ -120,12 +120,11 @@ overflow immediately.
 `Breadcrumbs.Ellipsis` is hidden from assistive technology. When ellipsis opens a menu, the accessible label belongs on `Menu.Trigger`, for example
 `aria-label="Show hidden path items"`.
 
-Every part exposes `data-scope="breadcrumbs"` and an Ark-style `data-part`. There is no component-owned state, callback,
-keyboard navigation, or CSS runtime variable.
+There is no component-owned state, callback, keyboard navigation, or CSS runtime variable.
 
 ## Defaults and styling
 
-Every part accepts `className` and exposes both Ark-style data attributes and stable Moduix `data-slot` hooks.
+Every part accepts `className` and exposes stable Moduix `data-slot` hooks.
 
 Public CSS variables:
 
@@ -133,7 +132,6 @@ Public CSS variables:
 | ------------------------------------------------- | --------------------------------------------------------------------- |
 | `--moduix-breadcrumbs-color`                      | `var(--moduix-color-muted-foreground)`                                |
 | `--moduix-breadcrumbs-ellipsis-color`             | `var(--moduix-color-muted-foreground)`                                |
-| `--moduix-breadcrumbs-ellipsis-radius`            | `var(--moduix-radius-sm)`                                             |
 | `--moduix-breadcrumbs-ellipsis-size`              | `var(--moduix-spacing-4)`                                             |
 | `--moduix-breadcrumbs-focus-ring-color`           | `var(--moduix-color-ring)`                                            |
 | `--moduix-breadcrumbs-focus-ring-width`           | `var(--moduix-focus-ring-inset-width, var(--moduix-border-width-sm))` |
@@ -197,3 +195,5 @@ ellipsis text uses `text-overflow: ellipsis`.
   namespace parts, prop type exports, and replaced `render` with `asChild`.
 - 2026-06-24: Re-audited the local-only Ark factory contract, made separators presentational by default,
   aligned ellipsis padding with the documented item padding token, and removed non-interactive ellipsis hover styling.
+- 2026-08-31: Simplified internal styling selectors, removed unused ellipsis radius customization, and made the
+  accessibility semantics of page, separator, and ellipsis parts invariant.

@@ -7,9 +7,8 @@ import {
   useRadioGroupItemContext,
 } from '@ark-ui/react/radio-group';
 import { clsx } from 'clsx';
-import type { ComponentProps, ComponentRef, ReactElement, ReactNode } from 'react';
-import { Children, cloneElement, forwardRef } from 'react';
-import { normalizeClassName } from '@/lib/moduix/normalizeClassName';
+import type { ComponentProps, ComponentRef, ReactNode } from 'react';
+import { forwardRef } from 'react';
 import styles from './RadioGroup.module.css';
 
 type RadioGroupItemControlSize = 'xs' | 'sm' | 'md' | 'lg' | 'xl';
@@ -32,7 +31,7 @@ const RadioGroupRoot = forwardRef<
     <RadioGroupPrimitive.Root
       ref={ref}
       data-slot="radio-group-root"
-      className={clsx(styles.root, normalizeClassName(className))}
+      className={clsx(styles.root, className)}
       {...props}
     />
   );
@@ -46,7 +45,7 @@ const RadioGroupRootProvider = forwardRef<
     <RadioGroupPrimitive.RootProvider
       ref={ref}
       data-slot="radio-group-root-provider"
-      className={clsx(styles.root, normalizeClassName(className))}
+      className={clsx(styles.root, className)}
       {...props}
     />
   );
@@ -60,7 +59,7 @@ const RadioGroupLabel = forwardRef<
     <RadioGroupPrimitive.Label
       ref={ref}
       data-slot="radio-group-label"
-      className={clsx(styles.label, normalizeClassName(className))}
+      className={clsx(styles.label, className)}
       {...props}
     />
   );
@@ -69,17 +68,14 @@ const RadioGroupLabel = forwardRef<
 const RadioGroupItem = forwardRef<
   ComponentRef<typeof RadioGroupPrimitive.Item>,
   ComponentProps<typeof RadioGroupPrimitive.Item>
->(function RadioGroupItem({ asChild, children, className, ...props }, ref) {
+>(function RadioGroupItem({ className, ...props }, ref) {
   return (
     <RadioGroupPrimitive.Item
       ref={ref}
-      asChild={asChild}
       data-slot="radio-group-item"
-      className={clsx(styles.item, normalizeClassName(className))}
+      className={clsx(styles.item, className)}
       {...props}
-    >
-      {withItemHiddenInput(children, asChild)}
-    </RadioGroupPrimitive.Item>
+    />
   );
 });
 
@@ -89,6 +85,7 @@ const RadioGroupOption = forwardRef<
 >(function RadioGroupOption({ children, size, ...props }, ref) {
   return (
     <RadioGroupItem ref={ref} {...props}>
+      <RadioGroupPrimitive.ItemHiddenInput />
       <RadioGroupItemControl size={size} />
       <RadioGroupItemText>{children}</RadioGroupItemText>
     </RadioGroupItem>
@@ -104,7 +101,7 @@ const RadioGroupItemControl = forwardRef<
       ref={ref}
       data-slot="radio-group-item-control"
       data-size={size}
-      className={clsx(styles.itemControl, normalizeClassName(className))}
+      className={clsx(styles.itemControl, className)}
       {...props}
     />
   );
@@ -118,30 +115,11 @@ const RadioGroupItemText = forwardRef<
     <RadioGroupPrimitive.ItemText
       ref={ref}
       data-slot="radio-group-item-text"
-      className={clsx(styles.itemText, normalizeClassName(className))}
+      className={clsx(styles.itemText, className)}
       {...props}
     />
   );
 });
-
-function withItemHiddenInput(children: ReactNode, asChild?: boolean) {
-  const hiddenInput = (
-    <RadioGroupPrimitive.ItemHiddenInput data-slot="radio-group-item-hidden-input" />
-  );
-
-  if (!asChild) {
-    return (
-      <>
-        {children}
-        {hiddenInput}
-      </>
-    );
-  }
-
-  const child = Children.only(children) as ReactElement<{ children?: ReactNode }>;
-
-  return cloneElement(child, {}, child.props.children, hiddenInput);
-}
 
 const RadioGroupIndicator = forwardRef<
   ComponentRef<typeof RadioGroupPrimitive.Indicator>,
@@ -151,7 +129,7 @@ const RadioGroupIndicator = forwardRef<
     <RadioGroupPrimitive.Indicator
       ref={ref}
       data-slot="radio-group-indicator"
-      className={clsx(styles.indicator, normalizeClassName(className))}
+      className={clsx(styles.indicator, className)}
       {...props}
     />
   );
@@ -164,6 +142,7 @@ const RadioGroup = Object.assign(RadioGroupRoot, {
   ItemContext: RadioGroupPrimitive.ItemContext,
   Label: RadioGroupLabel,
   Item: RadioGroupItem,
+  ItemHiddenInput: RadioGroupPrimitive.ItemHiddenInput,
   Option: RadioGroupOption,
   ItemControl: RadioGroupItemControl,
   ItemText: RadioGroupItemText,

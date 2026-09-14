@@ -1,43 +1,48 @@
 ---
 title: Mode sombre
-description: Activez le jeu de tokens sombres intégré à moduix sans fournisseur de thème distinct.
+description: Appliquez les tokens sombres de Moduix à toute l’application ou à une seule surface dans chaque framework pris en charge.
 ---
+
+import reactScopedSurface from '../../../snippets/dark-mode/react/scoped-surface.tsx?raw';
+import solidScopedSurface from '../../../snippets/dark-mode/solid/scoped-surface.tsx?raw';
 
 # Mode sombre
 
-Par défaut, moduix utilise son jeu de tokens clairs. Ajoutez l’attribut
-`data-moduix-color-scheme="dark"` à un élément pour appliquer le jeu sombre à cet élément et à ses
-descendants. Importez une seule fois la feuille de styles de base :
+Moduix fournit des tokens sémantiques clairs et sombres. Chargez la feuille de styles correspondant au
+framework et à la méthode de style choisis, puis placez `data-moduix-color-scheme` sur l’élément qui
+porte le schéma. Aucun provider de thème ni état Moduix n’est nécessaire.
 
-```tsx
-import '@moduix/react/style.css';
-```
+## Choisir la portée
 
-## Définir le schéma sur la racine du document
+| Objectif | Emplacement de l’attribut |
+| --- | --- |
+| Thème de toute l’application | `<html>` |
+| Surface intégrée sans portail | Conteneur de la surface |
+| Surface intégrée avec portails | Conteneur de portail dans cette surface |
 
-Pour appliquer un thème à toute l’application, placez le schéma de couleurs obtenu sur `<html>`. Utilisez
-`data-moduix-color-scheme="dark"` pour le mode sombre et `data-moduix-color-scheme="light"` pour le mode
-clair. moduix ne détermine pas la préférence de l’utilisateur, ne la mémorise pas et n’impose aucun
-fournisseur de thème. L’application garde la main sur la sélection et la persistance de ce réglage.
+Préférez `<html>` pour une application classique afin que les composants ordinaires et portalled
+reçoivent les mêmes tokens.
+
+## Définir le schéma du document
+
+Utilisez l’attribut natif comme source de vérité :
 
 ```html
-<!-- Dark theme -->
 <html data-moduix-color-scheme="dark"></html>
 ```
 
-Les composants rendus dans un portail, comme Dialog, Popover et Select, héritent eux aussi des tokens
-définis sur `<html>`.
+Les valeurs possibles sont `dark` et `light`. Moduix ne lit pas la préférence du système, ne conserve
+pas le choix et ne synchronise pas l’état du navigateur. L’application garde cette responsabilité.
 
-Si votre application est rendue côté serveur, définissez l’attribut avant le premier affichage grâce au
-mécanisme d’initialisation anticipée du thème de votre framework. Vous éviterez ainsi un bref affichage
-du thème clair pendant que le JavaScript côté client applique la préférence enregistrée.
+Avec un rendu serveur, résolvez le schéma avant le premier affichage grâce au mécanisme précoce du
+framework. Vous évitez ainsi un bref passage par la palette claire avant l’hydratation.
 
-## Ajouter un sélecteur
+## Résoudre et conserver la préférence
 
-Conservez dans l’application le choix explicite de l’utilisateur et mettez à jour l’attribut du document.
-En l’absence de choix enregistré, utilisez `matchMedia` pour suivre la préférence du système.
+La logique peut rester indépendante du framework. Le contrôle visible appelle simplement
+`saveColorScheme()` avec le choix de l’utilisateur.
 
-```tsx
+```ts
 type ColorScheme = 'light' | 'dark';
 
 export function applyColorScheme(scheme: ColorScheme) {
@@ -57,65 +62,45 @@ export function saveColorScheme(scheme: ColorScheme) {
 }
 ```
 
-Exécutez l’équivalent de `applyColorScheme(resolveColorScheme())` dans le script d’initialisation
-anticipée du thème de votre framework, avant le premier affichage. Le sélecteur visible doit appeler
-`saveColorScheme` avec la valeur choisie par l’utilisateur. La préférence du système reste ainsi le
-choix par défaut tant qu’aucun choix explicite n’a été fait. Donnez au sélecteur un nom accessible qui
-décrit l’action, par exemple `Switch to dark mode`.
+Suivez la préférence du système jusqu’à ce que l’utilisateur fasse un choix explicite. Donnez au
+contrôle un nom accessible décrivant l’action, par exemple `Switch to dark mode`.
 
-## Utiliser un preset
+## Combiner schéma et preset
 
-Le schéma de couleurs et les presets visuels sont deux niveaux indépendants, que vous pouvez donc
-combiner. Définissez `data-moduix-color-scheme` et `data-moduix-theme` sur la même racine afin que les
-composants ordinaires et ceux rendus dans un portail partagent la même palette, la même densité, le même
-rayon et les mêmes tokens de focus.
-
-```tsx
-import '@moduix/react/style.css';
-import '@moduix/react/presets/dense.css';
-```
-
-<div style={{ height: '1rem' }} aria-hidden="true" />
+Le schéma de couleur et le preset visuel sont indépendants. Placez les deux attributs sur la même
+racine :
 
 ```html
 <html data-moduix-color-scheme="dark" data-moduix-theme="dense"></html>
 ```
 
-Changer de schéma de couleurs ne modifie pas la densité du preset. Le preset choisi reste actif dans les
-deux modes. La comparaison des presets et la création d’un thème personnalisé sont présentées dans
-[Thèmes](/docs/themes).
+Changer le schéma ne modifie ni la densité ni les rayons. Consultez [Thèmes](/docs/themes) pour les
+presets.
 
-## Limiter la portée
+## Limiter le thème à une surface
 
-Si les tokens sombres ne sont nécessaires que pour un aperçu ou une surface intégrée, définissez
-`data-moduix-color-scheme="dark"` sur un conteneur ordinaire :
+Seul l’import du package natif diffère :
 
-```tsx
-import { Card } from '@moduix/react/card';
-import '@moduix/react/style.css';
+<Tabs groupId="framework">
+  <Tab label="React" value="react">
 
-export function SettingsPreview() {
-  return (
-    <section data-moduix-color-scheme="dark">
-      <Card>Dark preview</Card>
-    </section>
-  );
-}
-```
+<CodeBlockRuntime lang="tsx" code={reactScopedSurface} />
 
-Cette approche convient aux aperçus de réglages et aux widgets intégrés. Le contenu rendu dans un portail
-se trouve hors de ce conteneur et n’en hérite donc pas les tokens. Si la surface ouvre des éléments
-superposés, placez plutôt l’attribut sur le conteneur du portail, `<body>` ou `<html>`.
+  </Tab>
+  <Tab label="Solid" value="solid">
+
+<CodeBlockRuntime lang="tsx" code={solidScopedSurface} />
+
+  </Tab>
+</Tabs>
+
+Le contenu portalled sort du conteneur et n’en hérite pas les tokens. Si cette surface ouvre des
+superpositions, déplacez l’attribut vers le conteneur de portail, `<body>` ou `<html>`.
 
 ## Personnaliser les tokens
 
-Pour modifier la palette dans les deux schémas, redéfinissez les mêmes tokens de couleur de base dans
-`:root` et `[data-moduix-color-scheme='dark']`. Les alias sémantiques comme
-`--moduix-color-background`, `--moduix-color-foreground` et `--moduix-color-border` renvoient à ces
-tokens de base ; les composants utilisent ainsi vos valeurs de manière cohérente dans toute la
-bibliothèque.
-
-Chargez la feuille de styles contenant vos redéfinitions après `style.css` :
+Chargez les redéfinitions de l’application après la feuille de styles Moduix et traitez les deux
+schémas explicitement :
 
 ```css
 :root {
@@ -129,6 +114,18 @@ Chargez la feuille de styles contenant vos redéfinitions après `style.css` :
 }
 ```
 
-Dans cet exemple, seuls la couleur d’arrière-plan et la couleur principale changent. Les autres tokens
-conservent leurs valeurs intégrées. Consultez [Tokens](/docs/tokens) pour la référence des tokens système
-et les pages des composants pour les redéfinitions visuelles locales.
+Les tokens non redéfinis conservent leur valeur intégrée.
+
+## Vérifier le thème
+
+- Testez le premier rendu serveur et l’hydratation.
+- Ouvrez les contenus portalled de Dialog, Popover, Menu et Select.
+- Vérifiez le contraste du texte, des bordures, du focus et des états désactivés.
+- Confirmez que le choix enregistré prime sur la préférence du système.
+- Testez les deux schémas avec chaque preset actif.
+
+## Ressources associées
+
+- [Démarrage rapide](/docs/quick-start)
+- [Thèmes](/docs/themes)
+- [Tokens](/docs/tokens)

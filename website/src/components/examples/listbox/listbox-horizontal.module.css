@@ -1,0 +1,17 @@
+.horizontalRoot {
+  --moduix-listbox-width: min(100%, 34rem);
+  --moduix-listbox-horizontal-content-max-height: none;
+  --moduix-listbox-horizontal-item-width: 10rem;
+}
+
+.albumText {
+  flex-direction: column;
+  align-items: flex-start;
+  gap: var(--moduix-spacing-1);
+}
+
+.artist {
+  color: var(--moduix-color-muted-foreground);
+  font-size: var(--moduix-text-xs);
+  line-height: var(--moduix-line-height-text-xs);
+}

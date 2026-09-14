@@ -1,243 +1,107 @@
 ---
 title: TanStack Form
-description: Подключите компоненты moduix к TanStack Form для валидации, сброса, массивов полей, ошибок сервера и управления фокусом.
+description: Подключайте компоненты Moduix к нативным адаптерам TanStack Form для поддерживаемых фреймворков.
 ---
+
+import ProjectForm from '@/components/examples/tanstack-form/complete-form.tsx';
+import tanStackFormSolidCompleteForm from '../../../snippets/tanstack-form/solid/complete-form.tsx?raw';
 
 # TanStack Form
 
-[Документация TanStack Form](https://tanstack.com/form/latest/docs/framework/react/overview) описывает
-полный React API и модель валидации. Здесь показано, как подключить компоненты moduix к форме
-TanStack Form.
+[TanStack Form](https://tanstack.com/form/latest) предоставляет типизированное состояние форм и
+нативные адаптеры для разных фреймворков. Здесь показано, как связать это состояние с компонентами Moduix.
 
-Поля TanStack Form работают с управляемыми значениями. Передавайте `field.state.value` в компонент,
-а значение, полученное в обработчике изменений, передавайте в `field.handleChange`. `Select`, `Checkbox`,
-`DateInput` и `SignaturePad` сами добавляют нативный элемент формы, который нужен для отправки данных.
-Не добавляйте к ним второе скрытое поле. `Combobox` устроен иначе: он не добавляет дополнительное
-скрытое поле. Его видимое поле может попасть в `FormData`, но если отправлять нужно значение
-выбранного элемента, сериализуйте `field.state.value` самостоятельно.
+## Поддержка фреймворков
 
-```bash
-npm install @tanstack/react-form
-```
+<Tabs groupId="framework" values={[{ label: 'React', value: 'react' }, { label: 'Solid', value: 'solid' }]} className="docs-tabs">
+  <Tab value="react">
 
-## Сопоставление
+<PackageManagerTabs command="install @tanstack/react-form" />
 
-| Компонент | Подключение к TanStack Form |
-| --------- | -------------------------- |
-| `Input`, `Textarea`, `Field.Select` | Передавайте скалярное `field.state.value` и вызывайте `field.handleChange` из `onChange`. |
-| `Select` | Преобразуйте скалярное значение поля в строковый массив `value` Ark и обратно. |
-| `Combobox` | Используйте такое же преобразование значения, а фильтрацию выполняйте в `onInputValueChange`. |
-| `Checkbox` | Передавайте в поле значение `details.checked === true`. |
-| `DateInput`, `SignaturePad` | Передавайте корневому компоненту параметры формы, например `name` или `form`; компонент сам добавит нужное поле. |
+В React форма создается через `useForm`, а callback-функция поля получает API поля напрямую.
 
-То же правило действует для `AngleSlider`, `ColorPicker`, `FileUpload`, `PinInput`, `RadioGroup`,
-`RatingGroup`, `SegmentGroup`, `Slider`, `Switch` и `TagsInput`. Передавайте параметры формы, например
-`name`, `form`, `required` и `disabled`, в их семантический корневой компонент.
+  </Tab>
+  <Tab value="solid">
 
-Определяйте каждое поле в `defaultValues`. Вызывайте `field.handleBlur` там, где пользователь
-действительно заканчивает взаимодействие с полем, чтобы корректно обновлялись состояние `touched` и
-валидация по blur.
+<PackageManagerTabs command="install @tanstack/solid-form" />
 
-Подписывайтесь на `state.canSubmit` и `state.isSubmitting`, чтобы управлять кнопкой отправки, как в
-полном примере. Используйте состояние формы как источник истины, не позволяйте отправить невалидную
-форму и отключайте повторные отправки, пока не завершится асинхронный обработчик `onSubmit`.
+В Solid форма создается через `createForm`, а callback-функции поля и подписки получают accessor.
+
+  </Tab>
+</Tabs>
+
+## Подключение компонентов
+
+Поля TanStack Form используют управляемые значения. Прочитайте текущее значение, передайте его
+компоненту Moduix и отправьте следующее значение в `field.handleChange`.
+
+| Компонент           | Подключение                                                           |
+| ------------------- | --------------------------------------------------------------------- |
+| `Input`, `Textarea` | Передайте скаляр и обновляйте его из нативного события input.         |
+| `Select`            | Преобразуйте скаляр в строковый массив Ark и обратно.                 |
+| `Combobox`          | Свяжите выбранное значение, а фильтрацию оставьте отдельной.          |
+| `Checkbox`          | Преобразуйте `details.checked === true` в boolean поля.               |
+
+Задайте все поля в `defaultValues`. Передавайте `handleBlur` от реальной границы взаимодействия и
+оставляйте необходимый `HiddenSelect` или `HiddenInput` в композиции Moduix.
 
 ## Валидация и сброс
 
-Используйте валидатор поля для локальных правил, а валидатор формы на основе Standard Schema - для
-общих правил и правил, зависящих от нескольких полей. Подключение компонентов при этом не меняется.
-В полном примере валидация выполняется при отправке. Если вы проверяете поле при потере фокуса или во
-время ввода, показывайте `Field.ErrorText` и задавайте проп `invalid` у `Field` только после
-взаимодействия пользователя с полем, чтобы пустые обязательные поля не подсвечивались сразу.
+Используйте валидаторы поля для локальных правил, а валидаторы формы для схем и межполевых правил.
+Передавайте `!field.state.meta.isValid` в `Field invalid` и выводите ошибки через `Field.ErrorText`
+после запуска выбранного цикла валидации.
 
-Используйте `noValidate` только тогда, когда TanStack Form сам показывает ошибки. В остальных случаях
-оставьте включённой нативную проверку ограничений. Для управляемых полей вызывайте `form.reset()`,
-чтобы состояние библиотеки и компоненты moduix сбрасывались вместе. Одного сброса DOM недостаточно,
-чтобы изменить значение, которое хранится в форме.
+Добавляйте `noValidate`, только если видимыми ошибками управляет TanStack Form. Для управляемых полей
+вызывайте `form.reset()`, чтобы состояние формы и компоненты Moduix сбрасывались вместе.
 
 ## Полная форма
 
-В этом примере вместе используются `Input`, `Select`, `Combobox`, `Textarea` и `Checkbox`. Он
-проверяет данные при отправке, переводит фокус на первый невалидный элемент и подписывается только на
-то, разрешена ли отправка и выполняется ли она. `noValidate` оставляет обработку ошибок внутри
-TanStack Form. Уберите этот атрибут, если сначала должна сработать нативная валидация браузера.
+В примере объединены `Input`, `Select`, `Combobox`, `Textarea` и `Checkbox`, проверяется отправка и
+фокусируется первый невалидный элемент. Поддерживаемые адаптеры используют одинаковое поведение и стили.
+Интерактивный пример работает на React.
 
-<style>{`
-      .form {
-        width: min(24rem, 100%);
-        margin-inline: auto;
-      }
+<ExampleFrame variant="component">
+  <PreviewFrame maxWidth="sm">
+    <ProjectForm />
+  </PreviewFrame>
+</ExampleFrame>
 
-      .fields {
-        display: grid;
-        gap: var(--moduix-spacing-4);
-      }
+<ExampleCode>
+<div className="docs-reference">
+  <Tabs groupId="framework" values={[{ label: 'React', value: 'react' }, { label: 'Solid', value: 'solid' }]} className="docs-tabs">
+    <Tab value="react">
 
-      .fields [data-slot="field-root"],
-      .fields [data-slot="select-root"],
-      .fields [data-slot="combobox-root"] {
-        width: 100%;
-      }
-
-      .fields [data-slot="select-root"] {
-        --moduix-select-width: 100%;
-      }
-
-      .fields [data-slot="combobox-root"] {
-        --moduix-combobox-width: 100%;
-      }
-
-      .submit {
-        width: 100%;
-      }
-    `}</style>
-
-```tsx preview file="../../en/docs/_snippets/tanstack-form/complete-form.tsx"
-
+```tsx pure file="../../../src/components/examples/tanstack-form/complete-form.tsx"
 ```
 
-## Повторяющиеся поля
+    </Tab>
+    <Tab value="solid">
 
-Используйте поле в режиме массива для операций добавления и удаления, а для каждого элемента создавайте
-вложенное поле. У каждого элемента, в том числе добавленного на клиенте, должен быть стабильный `id`.
-Используйте его как ключ React, а индекс включайте в имя вложенного поля. Если у списка есть общая
-подпись, оберните его в `Fieldset`. Вставьте этот фрагмент в компонент, где создана `form`.
+<CodeBlockRuntime lang="tsx" code={tanStackFormSolidCompleteForm} />
 
-```tsx
-const newEmail = () => ({ id: crypto.randomUUID(), address: '' });
+    </Tab>
+  </Tabs>
 
-<form.Field name="emails" mode="array">
-  {(arrayField) => (
-    <>
-      {arrayField.state.value.map((item, index) => (
-        <form.Field key={item.id} name={`emails[${index}].address`}>
-          {(field) => (
-            <Field invalid={!field.state.meta.isValid}>
-              <Field.Label>Email {index + 1}</Field.Label>
-              <Input
-                name={field.name}
-                type="email"
-                value={field.state.value}
-                onBlur={field.handleBlur}
-                onChange={(event) => field.handleChange(event.currentTarget.value)}
-              />
-              <Field.ErrorText>{field.state.meta.errors.join(', ')}</Field.ErrorText>
-              <Button type="button" onClick={() => arrayField.removeValue(index)}>
-                Remove email
-              </Button>
-            </Field>
-          )}
-        </form.Field>
-      ))}
+**Стили**
 
-      <Button type="button" onClick={() => arrayField.pushValue(newEmail())}>
-        Add email
-      </Button>
-    </>
-  )}
-</form.Field>;
+```css file="../../../src/components/examples/tanstack-form/tanstack-form-complete-form.module.css"
 ```
+</div>
+</ExampleCode>
 
-При редактировании сохранённых элементов используйте ID, уже возвращённый вашим API; `newEmail()`
-нужен только для создания новых строк на клиенте.
+## Повторяющиеся поля и серверные ошибки
 
-## Ошибки сервера
+Для добавления, удаления и перестановки элементов используйте поле в режиме массива. Дайте каждой
+строке стабильный ID для отслеживаемой отрисовки, а индекс оставьте только во вложенном имени поля.
 
-Чтобы показать ошибки, которые вернул сервер, добавьте в форму асинхронный валидатор отправки.
-Верните `fields` с точными именами полей с ошибками и необязательное сообщение `form` для ошибок,
-которые не относятся к одному полю. После этого обычный вывод `field.state.meta.errors` покажет
-ошибки полей без отдельного хранилища.
+Из асинхронного валидатора формы возвращайте `fields` для серверных ошибок конкретных значений и
+необязательное сообщение `form` для общей ошибки. Обычный вывод ошибок поля покажет результаты
+клиентской и серверной проверки в одном месте.
 
-```tsx
-type ProjectFormValues = {
-  name: string;
-  emails: { address: string; id: string }[];
-};
+## Фокус и поведение
 
-const form = useForm<ProjectFormValues>({
-  defaultValues: { name: '', emails: [] },
-  validators: {
-    onSubmitAsync: async ({ value }) => {
-      const result = await validateProjectOnServer(value);
-
-      if (!result.ok) {
-        return {
-          form: result.message,
-          // For example: { name: 'Already in use.', 'emails[0].address': 'Cannot be used.' }
-          fields: result.fieldErrors,
-        };
-      }
-
-      return null;
-    },
-  },
-  onSubmit: ({ value }) => saveProject(value),
-});
-
-<form.Subscribe selector={(state) => [state.errorMap.onSubmit] as const}>
-  {([error]) => (error ? <p role="alert">{error}</p> : null)}
-</form.Subscribe>;
-```
-
-## Управление фокусом
-
-TanStack Form не управляет фокусом в DOM и не выбирает его цель. Используйте `onSubmitInvalid`, чтобы
-перевести фокус на первый отрисованный элемент, которому конфигурация `Field` добавляет атрибут
-`aria-invalid="true"`:
-
-```tsx
-function focusFirstInvalid(formId: string) {
-  requestAnimationFrame(() => {
-    const formElement = document.getElementById(formId);
-    const control = formElement?.querySelector<HTMLElement>(
-      '[aria-invalid="true"]:not([hidden])',
-    );
-    control?.focus();
-  });
-}
-
-const form = useForm({
-  defaultValues: { email: '' },
-  onSubmit: ({ value }) => console.log(value),
-  onSubmitInvalid: () => focusFirstInvalid('project-form'),
-});
-
-<form
-  id="project-form"
-  onSubmit={(event) => {
-    event.preventDefault();
-    void form.handleSubmit();
-  }}
->
-  {/* fields */}
-</form>;
-```
-
-Переводите фокус на сам элемент управления: нативный `Input`, `Select.Trigger` или `Combobox.Input`.
-
-## Особенности поведения
-
-- В обработчике отправки нативной формы сначала вызовите `preventDefault()`, затем
-  `form.handleSubmit()`. Полная форма выше явно показывает эту границу.
-- Для одиночного выбора передавайте `field.state.value ? [field.state.value] : []`, а значение
-  получайте через `details.value[0] ?? ""`.
-- Вызывайте `field.handleBlur` из `Select.onInteractOutside` или `Combobox.Input.onBlur`, чтобы TanStack
-  Form мог обновлять состояние `touched`.
-- `Select` автоматически добавляет скрытый нативный `select` для нативной семантики и синхронизации
-  сброса.
-- `Checkbox` сопоставляет состояние флажка с булевым значением поля, а его корневой элемент сам
-  добавляет нативное поле ввода.
-- `name={field.name}` включает нативную семантику `FormData`, но не заменяет управляемые
-  сопоставления `state.value` и `handleChange` поля.
-- `Combobox` не добавляет скрытое поле. Его видимое поле может попасть в `FormData`; если отправлять
-  нужно значение выбранного элемента, добавьте отдельное поле или отправляйте управляемое состояние
-  формы.
-- Для компонентов с дополнительными параметрами формы задавайте конфигурацию на корневом элементе:
-  `DateInput` использует кортеж `names` из двух элементов для разных
-  индексированных ключей диапазона, `Select` использует `nativeFormControl="input"` для
-  виртуализированных коллекций, а `SignaturePad` использует `getFormValue` для пользовательской
-  сериализации.
-- Не передавайте объект `field` в `Select` или `Combobox` через spread-оператор. Их значения и
-  колбэки используют объекты `details` от Ark, поэтому сопоставляйте их явно, как показано выше.
-- Используйте `form.Subscribe` для производного состояния формы вместо чтения `form.state` во время
-  рендера.
+- Через `onSubmitInvalid` фокусируйте первый видимый элемент с `aria-invalid="true"`.
+- В React читайте `field.state`, а в Solid `field().state`.
+- В React значения подписки передаются напрямую, а в Solid читаются из accessor.
+- Для текстовых полей Solid используйте нативное событие input, а объекты деталей Ark преобразуйте явно.
+- Вызывайте `form.handleSubmit()` из обработчика нативной формы после `preventDefault()`.

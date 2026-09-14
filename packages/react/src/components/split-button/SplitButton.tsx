@@ -10,7 +10,6 @@ import {
   type ReactNode,
 } from 'react';
 import { ChevronDownIcon } from '@/lib/moduix/icons/ui';
-import { normalizeClassName } from '@/lib/moduix/normalizeClassName';
 import { Button } from '../button';
 import { Menu } from '../menu';
 import styles from './SplitButton.module.css';
@@ -82,7 +81,7 @@ const SplitButtonRoot = forwardRef<HTMLDivElement, SplitButtonRootProps>(functio
           data-scope="split-button"
           data-part="root"
           data-slot="split-button-root"
-          className={clsx(styles.root, normalizeClassName(className))}
+          className={clsx(styles.root, className)}
         >
           {children}
         </div>
@@ -101,7 +100,7 @@ const SplitButtonAction = forwardRef<ComponentRef<typeof Button>, SplitButtonAct
         data-slot="split-button-action"
         size={size ?? context.size}
         variant={variant ?? context.variant}
-        className={clsx(styles.action, normalizeClassName(className))}
+        className={clsx(styles.action, className)}
         {...props}
       />
     );
@@ -122,7 +121,7 @@ const SplitButtonTrigger = forwardRef<ComponentRef<typeof Menu.Trigger>, SplitBu
         asChild
         data-slot="split-button-trigger"
         aria-label={isIconOnly ? (ariaLabel ?? 'More actions') : ariaLabel}
-        className={clsx(styles.trigger, normalizeClassName(className))}
+        className={clsx(styles.trigger, className)}
         {...props}
       >
         <Button size={size ?? context.size} variant={variant ?? context.variant}>
@@ -141,21 +140,24 @@ const SplitButtonPositioner = forwardRef<
     <Menu.Positioner
       ref={ref}
       data-slot="split-button-positioner"
-      className={normalizeClassName(className)}
+      className={className}
       {...props}
     />
   );
 });
 
 const SplitButtonContent = forwardRef<ComponentRef<typeof Menu.Content>, SplitButtonContentProps>(
-  function SplitButtonContent({ className, ...props }, ref) {
+  function SplitButtonContent({ asChild, children, className, ...props }, ref) {
     return (
       <Menu.Content
         ref={ref}
+        asChild={asChild}
         data-slot="split-button-content"
-        className={normalizeClassName(className)}
+        className={className}
         {...props}
-      />
+      >
+        {asChild ? children : <Menu.Viewport>{children}</Menu.Viewport>}
+      </Menu.Content>
     );
   },
 );

@@ -4,7 +4,19 @@ component: typeset
 description: Appliquez un rythme de lecture au HTML sémantique, au Markdown rendu et au contenu diffusé en continu.
 ---
 
-import * as TypesetDocs from '@/components/examples/typeset';
+import * as TypesetDocs from '@/components/examples/typeset/css-properties';
+import TypesetBasic from '@/components/examples/typeset/basic.tsx';
+import TypesetExcludedSubtree from '@/components/examples/typeset/excluded-subtree.tsx';
+import TypesetMarkdownExtensions from '@/components/examples/typeset/markdown-extensions.tsx';
+import TypesetReadingRhythm from '@/components/examples/typeset/reading-rhythm.tsx';
+import TypesetScrollableTable from '@/components/examples/typeset/scrollable-table.tsx';
+import TypesetStreamingContent from '@/components/examples/typeset/streaming-content.tsx';
+import typesetSolidBasic from '../../../snippets/typeset/solid/basic.tsx?raw';
+import typesetSolidExcludedSubtree from '../../../snippets/typeset/solid/excluded-subtree.tsx?raw';
+import typesetSolidMarkdownExtensions from '../../../snippets/typeset/solid/markdown-extensions.tsx?raw';
+import typesetSolidReadingRhythm from '../../../snippets/typeset/solid/reading-rhythm.tsx?raw';
+import typesetSolidScrollableTable from '../../../snippets/typeset/solid/scrollable-table.tsx?raw';
+import typesetSolidStreamingContent from '../../../snippets/typeset/solid/streaming-content.tsx?raw';
 
 ## Référence de l’API
 
@@ -17,68 +29,99 @@ moduix construit `Typeset` avec la
 `Typeset.Scroll` acceptent donc les attributs natifs d’un `div`, les refs et la composition via
 `asChild`.
 
+Le contrat CSS-first de Typeset suit l’approche présentée dans
+[shadcn/typeset](https://ui.shadcn.com/docs/typeset). Comme dans cette référence, trois variables
+contrôlent le rythme, tandis que le rendu du contenu et sa largeur restent à la charge de
+l’application ; moduix ajoute des composants natifs pour React et Solid ainsi que `Typeset.Scroll`.
+
 ## Exemple de base
+
+Typeset est disponible pour React et Solid dans les packages CSS Modules et Tailwind. L’aperçu de
+cette page utilise React avec CSS Modules, tandis que les onglets de framework montrent le code
+natif correspondant au même contrat public.
 
 Placez le HTML déjà produit par votre moteur de rendu dans `<Typeset>`. Utilisez `asChild` seulement
 lorsque le conteneur extérieur doit être un élément sémantique, comme `article` ou `section`. Gardez
 les listes en `<ul>` et `<ol>` natifs : Typeset leur apporte les marqueurs et les espacements sans
 classes utilitaires.
 
-<PreviewFrame maxWidth="lg">
-  ```tsx preview file="../../en/docs/_snippets/typeset/basic.tsx"
+<ExampleFrame variant="component">
+  <TypesetBasic />
+</ExampleFrame>
 
-  ```
-</PreviewFrame>
+<ExampleCode>
+<div className="docs-reference">
+  <Tabs
+    groupId="framework"
+    values={[
+      { label: 'React', value: 'react' },
+      { label: 'Solid', value: 'solid' },
+    ]}
+    className="docs-tabs"
+  >
+    <Tab value="react">
+
+```tsx pure file="../../../src/components/examples/typeset/basic.tsx"
+```
+
+    </Tab>
+    <Tab value="solid">
+
+<CodeBlockRuntime lang="tsx" code={typesetSolidBasic} />
+
+    </Tab>
+  </Tabs>
+</div>
+</ExampleCode>
 
 ## Installation avec shadcn
 
-```bash
-npx shadcn@latest add @moduix-react/typeset
-```
+Consultez le [Démarrage rapide](/docs/quick-start) pour la configuration complète du paquet, du registre et des styles.
+
+<Tabs groupId="framework">
+  <Tab label="React" value="react">
+
+<ShadcnInstallOptions
+  options={[
+    { label: 'CSS Modules', command: 'shadcn@latest add @moduix-react/typeset' },
+    { label: 'Tailwind CSS', command: 'shadcn@latest add @moduix-react-tailwind/typeset' },
+  ]}
+/>
+
+  </Tab>
+  <Tab label="Solid" value="solid">
+
+<ShadcnInstallOptions
+  options={[
+    { label: 'CSS Modules', command: 'shadcn@latest add @moduix-solid/typeset' },
+    { label: 'Tailwind CSS', command: 'shadcn@latest add @moduix-solid-tailwind/typeset' },
+  ]}
+/>
+
+  </Tab>
+</Tabs>
 
 ## Anatomie
 
 ```text
-Typeset
+Typeset / Typeset.Root
 └─ Typeset.Scroll (facultatif)
 ```
 
 | Partie | Rôle |
 | --- | --- |
-| `Typeset` / `Typeset.Root` | Conteneur qui applique les styles aux descendants sémantiques. |
+| `Typeset` / `Typeset.Root` | Conteneur racine qui applique les styles aux descendants sémantiques. |
 | `Typeset.Scroll` | Zone de défilement horizontal focusable pour un bloc rendu large. |
 
 ## Composition
 
-### Composition recommandée
-
-L’application analyse le Markdown, filtre le contenu non fiable, le rend et choisit la largeur de
-lecture. `Typeset` met uniquement en forme les descendants de sa racine et n’a volontairement pas de
-propriété de largeur. Placez une table large ou un autre bloc dans `Typeset.Scroll` lorsque le
-défilement horizontal est préférable.
-
-### Quand créer une composition personnalisée
-
-Si une partie du contenu doit suivre une autre mise en forme, utilisez directement du HTML
-sémantique, puis ajoutez `.not-typeset` ou `data-not-typeset` pour exclure cet élément et tous ses
-descendants. Donnez un `aria-label` ou un `aria-labelledby` à chaque zone `Typeset.Scroll` destinée
-aux utilisateurs. moduix ajoute `role="region"` lorsqu’elle possède un nom accessible, sauf si vous
-fournissez un autre rôle. Vous pouvez aussi définir votre propre `tabIndex`.
-
-### Propriétés par défaut
-
-| Partie | Valeur par défaut | Remarques |
-| --- | --- | --- |
-| `Typeset` | `div` | Utilisez `asChild` avec un unique enfant sémantique pour rendre un autre conteneur. |
-| `Typeset.Scroll` | `div`, `tabIndex={0}` | Le focus par défaut permet de parcourir au clavier une table statique large. Donnez un nom accessible à une zone de défilement destinée aux utilisateurs pour lui ajouter `role="region"`. |
-
-### Comportement
-
-La racine `Typeset` ne gère ni état, ni interaction au clavier, ni contrôle de formulaire, et ne crée
-aucun champ masqué. `Typeset.Scroll` est focusable par défaut afin que le navigateur puisse faire
-défiler un bloc statique large. Les styles ajoutent l’espace avant les blocs rendus et n’utilisent pas
-`:last-child`, `:has()` ni `:empty` : l’ajout de contenu diffusé ne modifie donc pas la mise en page
-des blocs précédents.
+`Typeset` ne gère aucun état, n’analyse ni ne filtre le contenu et n’en définit pas la largeur.
+Gardez les éléments sémantiques rendus dans la racine, utilisez `asChild` lorsque celle-ci doit être
+un `article` ou une `section`, et composez `Typeset.Scroll` autour d’un bloc large qui doit défiler
+plutôt que se comprimer. Ajoutez `.not-typeset` ou `data-not-typeset` à un sous-arbre appartenant à
+l’application lorsqu’il doit conserver sa propre mise en forme. Une zone de défilement destinée aux
+utilisateurs doit avoir un nom accessible ; `Typeset.Scroll` peut recevoir le focus au clavier par
+défaut.
 
 ## Exemples
 
@@ -88,33 +131,112 @@ Excluez un sous-arbre lorsqu’il a sa propre mise en forme, par exemple un cont
 carte. `.not-typeset` comme `data-not-typeset` excluent l’élément marqué et tout son contenu, y
 compris une racine `Typeset` imbriquée.
 
-<PreviewFrame maxWidth="lg">
-  ```tsx preview file="../../en/docs/_snippets/typeset/excluded-subtree.tsx"
+<ExampleFrame variant="component">
+  <TypesetExcludedSubtree />
+</ExampleFrame>
 
-  ```
-</PreviewFrame>
+<ExampleCode>
+<div className="docs-reference">
+  <Tabs
+    groupId="framework"
+    values={[
+      { label: 'React', value: 'react' },
+      { label: 'Solid', value: 'solid' },
+    ]}
+    className="docs-tabs"
+  >
+    <Tab value="react">
+
+```tsx pure file="../../../src/components/examples/typeset/excluded-subtree.tsx"
+```
+
+    </Tab>
+    <Tab value="solid">
+
+<CodeBlockRuntime lang="tsx" code={typesetSolidExcludedSubtree} />
+
+    </Tab>
+  </Tabs>
+
+**Styles**
+
+```css file="../../../src/components/examples/typeset/typeset-excluded-subtree.module.css"
+```
+</div>
+</ExampleCode>
 
 ### Extensions Markdown
 
 Les listes de tâches, blocs dépliables `details`, listes de définitions et notes de bas de page GFM
-utilisent les mêmes tokens et espacements entre blocs que les éléments HTML principaux.
+utilisent les mêmes tokens et espacements entre blocs que les principaux éléments HTML.
 
-<PreviewFrame maxWidth="lg">
-  ```tsx preview file="../../en/docs/_snippets/typeset/markdown-extensions.tsx"
+<ExampleFrame variant="component">
+  <TypesetMarkdownExtensions />
+</ExampleFrame>
 
-  ```
-</PreviewFrame>
+<ExampleCode>
+<div className="docs-reference">
+  <Tabs
+    groupId="framework"
+    values={[
+      { label: 'React', value: 'react' },
+      { label: 'Solid', value: 'solid' },
+    ]}
+    className="docs-tabs"
+  >
+    <Tab value="react">
+
+```tsx pure file="../../../src/components/examples/typeset/markdown-extensions.tsx"
+```
+
+    </Tab>
+    <Tab value="solid">
+
+<CodeBlockRuntime lang="tsx" code={typesetSolidMarkdownExtensions} />
+
+    </Tab>
+  </Tabs>
+</div>
+</ExampleCode>
 
 ### Rythme de lecture
 
 Réglez les variables CSS lorsqu’une section demande un rythme de lecture plus aéré ou plus dense,
 sans ajouter de propriétés au composant.
 
-<PreviewFrame maxWidth="lg">
-  ```tsx preview file="../../en/docs/_snippets/typeset/reading-rhythm.tsx"
+<ExampleFrame variant="component">
+  <TypesetReadingRhythm />
+</ExampleFrame>
 
-  ```
-</PreviewFrame>
+<ExampleCode>
+<div className="docs-reference">
+  <Tabs
+    groupId="framework"
+    values={[
+      { label: 'React', value: 'react' },
+      { label: 'Solid', value: 'solid' },
+    ]}
+    className="docs-tabs"
+  >
+    <Tab value="react">
+
+```tsx pure file="../../../src/components/examples/typeset/reading-rhythm.tsx"
+```
+
+    </Tab>
+    <Tab value="solid">
+
+<CodeBlockRuntime lang="tsx" code={typesetSolidReadingRhythm} />
+
+    </Tab>
+  </Tabs>
+
+**Styles**
+
+```css file="../../../src/components/examples/typeset/typeset-reading-rhythm.module.css"
+```
+</div>
+</ExampleCode>
 
 ### Tableau défilant
 
@@ -122,22 +244,78 @@ Placez une table créée par votre moteur de rendu dans `Typeset.Scroll` lorsqu�
 largeur et défiler dans un conteneur étroit. Donnez à la zone de défilement un nom accessible qui
 identifie la table qu’elle contient.
 
-<PreviewFrame maxWidth="lg">
-  ```tsx preview file="../../en/docs/_snippets/typeset/scrollable-table.tsx"
+<ExampleFrame variant="component">
+  <TypesetScrollableTable />
+</ExampleFrame>
 
-  ```
-</PreviewFrame>
+<ExampleCode>
+<div className="docs-reference">
+  <Tabs
+    groupId="framework"
+    values={[
+      { label: 'React', value: 'react' },
+      { label: 'Solid', value: 'solid' },
+    ]}
+    className="docs-tabs"
+  >
+    <Tab value="react">
+
+```tsx pure file="../../../src/components/examples/typeset/scrollable-table.tsx"
+```
+
+    </Tab>
+    <Tab value="solid">
+
+<CodeBlockRuntime lang="tsx" code={typesetSolidScrollableTable} />
+
+    </Tab>
+  </Tabs>
+
+**Styles**
+
+```css file="../../../src/components/examples/typeset/typeset-scrollable-table.module.css"
+```
+</div>
+</ExampleCode>
 
 ### Contenu diffusé en continu
 
 Pour un flux de messages, utilisez un rythme plus dense. Chaque nouveau bloc apporte son propre
 espacement, ainsi le contenu déjà affiché reste en place à mesure que le flux grandit.
 
-<PreviewFrame maxWidth="lg">
-  ```tsx preview file="../../en/docs/_snippets/typeset/streaming-content.tsx"
+<ExampleFrame variant="component">
+  <TypesetStreamingContent />
+</ExampleFrame>
 
-  ```
-</PreviewFrame>
+<ExampleCode>
+<div className="docs-reference">
+  <Tabs
+    groupId="framework"
+    values={[
+      { label: 'React', value: 'react' },
+      { label: 'Solid', value: 'solid' },
+    ]}
+    className="docs-tabs"
+  >
+    <Tab value="react">
+
+```tsx pure file="../../../src/components/examples/typeset/streaming-content.tsx"
+```
+
+    </Tab>
+    <Tab value="solid">
+
+<CodeBlockRuntime lang="tsx" code={typesetSolidStreamingContent} />
+
+    </Tab>
+  </Tabs>
+
+**Styles**
+
+```css file="../../../src/components/examples/typeset/typeset-streaming-content.module.css"
+```
+</div>
+</ExampleCode>
 
 ## Styles
 
@@ -160,6 +338,10 @@ le rythme de lecture. Les variables de police sont facultatives ; les couleurs, 
 viennent du thème moduix actif. Les règles des éléments se trouvent dans la couche
 `moduix.components` et utilisent des sélecteurs `:where()` peu spécifiques, donc le CSS ordinaire de
 l’application peut remplacer certains éléments sans `!important`.
+
+Utilisez `className` dans React et `class` dans Solid pour les styles structurels des parties
+exportées. Les variantes Tailwind utilisent les utilitaires natifs et les classes de l’application ;
+les variables ci-dessous personnalisent les variantes CSS Modules.
 
 ### Points d’accroche CSS
 

@@ -1,0 +1,9 @@
+.root {
+  display: grid;
+  width: min(28rem, 100%);
+  gap: var(--moduix-spacing-4);
+}
+
+.card {
+  width: 100%;
+}

@@ -13,7 +13,7 @@ Upstream docs:
 ## Upstream model to preserve
 
 - Preserve Ark visual parts: `Root`, `RootProvider`, `Label`, `Control`, `MarkerGroup`, `Marker`,
-  `Thumb`, and `ValueText`. moduix renders Ark's native hidden input internally.
+  `Thumb`, `ValueText`, and the explicit `HiddenInput`.
 - Preserve controlled/uncontrolled state, callback detail objects, keyboard behavior, pointer
   dragging, native submission and reset, external form ownership, IDs, refs, and `asChild`.
 - `RootProvider` owns an externally created `useAngleSlider` instance and must not be nested with a
@@ -28,10 +28,10 @@ Upstream docs:
 - `AngleSlider.Marks` is narrow sugar for `MarkerGroup` plus repeated `Marker` children from a
   `values` array.
 - `useAngleSlider()` is re-exported from moduix for the normal `RootProvider` path.
-- `value`, `defaultValue`, `step`, `disabled`, `invalid`, `readOnly`, `name`, `form`, `ids`,
+- `value`, `defaultValue`, `step`, `disabled`, `invalid`, `readOnly`, `name`, `ids`,
   `onValueChange(details)`, and `onValueChangeEnd(details)` pass through unchanged.
 - The lightest recommended composition is `Dial`, with `Label`, `Marks`, and `ValueText` added only
-  when that behavior is needed. `Root` and `RootProvider` always render the native form input.
+  when that behavior is needed. Add `AngleSlider.HiddenInput` explicitly for native form behavior.
 - `AngleSlider.Context` and `useAngleSliderContext()` are exported from moduix; Ark type aliases
   remain direct imports from `@ark-ui/react/angle-slider`.
 
@@ -103,16 +103,14 @@ per-marker props, or custom ordering.
 
 - `Label` and `aria-label` / `aria-labelledby` preserve Ark slider naming.
 - `Thumb` remains the focusable slider element with Ark keyboard and ARIA behavior.
-- `Root` and `RootProvider` always render Ark's hidden native input. With `name`, it participates in
-  native form submission; `form` supports an external form owner. Reset restores an uncontrolled
-  `Root` to `defaultValue` and a `RootProvider` to its mount-time value. Controlled state remains
-  authoritative in its external owner.
+- `AngleSlider.HiddenInput` renders Ark's hidden native input. With `name`, it participates in native
+  form submission; set `form` on `HiddenInput` for an external form owner. Ark owns reset synchronization.
 - `disabled`, `invalid`, and `readOnly` are Ark root props. The wrapper does not add a separate
   moduix form-state adapter.
 - `RootProvider` is the moduix-owned advanced state path; `useAngleSlider()` is re-exported for the
   same flow, while uncommon context utilities remain direct Ark imports.
 - `asChild` is available on Ark DOM parts and requires one compatible child. For `Root` and
-  `RootProvider`, use a container that can contain the internally rendered hidden input and slider
+  `RootProvider`, use a container that can contain the explicitly composed hidden input and slider
   parts. `Dial` and `Marks` do not accept `asChild` because each renders a fixed multi-part tree.
 - `ids` can stabilize the root, thumb, hidden input, control, value text, and label IDs.
 - Ark state hooks remain intact:
@@ -138,8 +136,8 @@ per-marker props, or custom ordering.
 ## Intentional sugar and differences from upstream
 
 - Ark is headless; moduix provides default visuals and stable `data-slot` hooks.
-- moduix owns the Ark hidden native input. Consumers never render `HiddenInput`, including with
-  `RootProvider` or custom visible part composition.
+- Compose `AngleSlider.HiddenInput` explicitly inside `Root` or `RootProvider` when native form
+  participation is needed.
 - `AngleSlider.Dial` is narrow sugar for the most common `Control` + `Thumb` composition and keeps
   children inline for marker or overlay customization.
 - `AngleSlider.Marks` is the only marker sugar. It reduces repeated docs and app boilerplate without
@@ -158,8 +156,7 @@ per-marker props, or custom ordering.
   configuration surface for labels, value text, or form behavior.
 - Keep `AngleSlider.Marks` as narrow sugar over `MarkerGroup` and `Marker`; do not expand it into a
   configuration surface for thumb, label, or form behavior.
-- Keep the hidden native input internal to `Root` and `RootProvider`; do not restore it as a public
-  part or ask consumers to render it in advanced examples.
+- Keep `AngleSlider.HiddenInput` aligned with Ark's explicit composition.
 - Do not render both `Root` and `RootProvider` for one machine.
 - Preserve the Ark detail object passed to value callbacks.
 - Keep geometry driven by Ark `--angle` / marker variables and state attributes.
@@ -167,12 +164,14 @@ per-marker props, or custom ordering.
 
 ## Local changelog
 
+- 2026-08-31: Removed the unused `Dial.thumbClassName` configuration prop; use explicit
+  `Control` and `Thumb` composition to style the thumb.
 - 2026-08-08: Added external `form` ownership and native reset synchronization, completed
   asChild/ref/read-only regression coverage, made invalid indicator theming accurate, and added
   interactive ring plus reduced-motion styling.
 - 2026-07-21: Routed shared dimensions, spacing, icon geometry, and focus-ring fallbacks through foundation tokens so density and theme presets can retune the component consistently.
-- 2026-07-13: Internalized Ark `HiddenInput` in `Root` and `RootProvider`; native submission and
-  reset no longer require consumer composition.
+- 2026-09-04: Exposed Ark `HiddenInput` explicitly and removed root child mutation and custom reset handling.
+- 2026-07-13: Ark `HiddenInput` was internalized at this point in the wrapper history.
 - 2026-07-09: Added `AngleSlider.Dial`, re-exported `useAngleSlider()` for the normal
   `RootProvider` path, documented `invalid`, and moved the full explicit dial composition into
   advanced examples.

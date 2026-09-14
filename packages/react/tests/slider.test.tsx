@@ -13,13 +13,15 @@ function ProviderSlider() {
         <Slider.Track>
           <Slider.Range />
         </Slider.Track>
-        <Slider.Thumbs />
+        <Slider.Thumb index={0}>
+          <Slider.HiddenInput />
+        </Slider.Thumb>
       </Slider.Control>
     </Slider.RootProvider>
   );
 }
 
-test('renders automatic form inputs for explicit thumbs, Thumbs, and RootProvider', () => {
+test('submits through explicit Ark hidden inputs', () => {
   const { container } = render(
     <form>
       <Slider defaultValue={[40]} name="volume">
@@ -28,7 +30,9 @@ test('renders automatic form inputs for explicit thumbs, Thumbs, and RootProvide
           <Slider.Track>
             <Slider.Range />
           </Slider.Track>
-          <Slider.Thumb index={0} />
+          <Slider.Thumb index={0}>
+            <Slider.HiddenInput />
+          </Slider.Thumb>
         </Slider.Control>
       </Slider>
       <Slider defaultValue={[20, 80]} name="range">
@@ -37,7 +41,12 @@ test('renders automatic form inputs for explicit thumbs, Thumbs, and RootProvide
           <Slider.Track>
             <Slider.Range />
           </Slider.Track>
-          <Slider.Thumbs />
+          <Slider.Thumb index={0}>
+            <Slider.HiddenInput />
+          </Slider.Thumb>
+          <Slider.Thumb index={1}>
+            <Slider.HiddenInput />
+          </Slider.Thumb>
         </Slider.Control>
       </Slider>
       <ProviderSlider />
@@ -45,7 +54,7 @@ test('renders automatic form inputs for explicit thumbs, Thumbs, and RootProvide
   );
 
   const form = container.querySelector('form')!;
-  const inputs = container.querySelectorAll('[data-slot="slider-hidden-input"]');
+  const inputs = container.querySelectorAll('input[hidden]');
 
   expect(inputs).toHaveLength(4);
   expect(Array.from(new FormData(form).entries())).toEqual([
@@ -122,43 +131,7 @@ test('preserves keyboard behavior and makes read-only state visible without chan
   expect(disabledSlider).not.toHaveAttribute('tabindex');
 });
 
-test('synchronizes uncontrolled values with form reset', async () => {
-  const changes: number[][] = [];
-  const { container } = render(
-    <form>
-      <Slider
-        defaultValue={[40]}
-        name="volume"
-        thumbAlignment="center"
-        onValueChange={(details) => changes.push(details.value)}
-      >
-        <Slider.Label>Volume</Slider.Label>
-        <Slider.Control>
-          <Slider.Track>
-            <Slider.Range />
-          </Slider.Track>
-          <Slider.Thumbs />
-        </Slider.Control>
-      </Slider>
-    </form>,
-  );
-
-  const form = container.querySelector('form')!;
-  const slider = screen.getByRole('slider', { name: 'Volume' });
-
-  fireEvent.focus(slider);
-  fireEvent.keyDown(slider, { key: 'ArrowRight' });
-
-  await waitFor(() => expect(changes).toEqual([[41]]));
-  await waitFor(() => expect(Array.from(new FormData(form).entries())).toEqual([['volume', '41']]));
-
-  form.reset();
-
-  await waitFor(() => expect(changes).toEqual([[41], [40]]));
-  await waitFor(() => expect(Array.from(new FormData(form).entries())).toEqual([['volume', '40']]));
-});
-
-test('preserves refs and automatic form inputs with asChild composition', () => {
+test('preserves refs and explicit form inputs with asChild composition', () => {
   const ref = createRef<HTMLDivElement>();
 
   render(
@@ -170,7 +143,9 @@ test('preserves refs and automatic form inputs with asChild composition', () => 
             <Slider.Range />
           </Slider.Track>
           <Slider.Thumb asChild index={0} aria-label="Volume">
-            <span data-testid="slider-thumb" />
+            <span data-testid="slider-thumb">
+              <Slider.HiddenInput />
+            </span>
           </Slider.Thumb>
         </Slider.Control>
       </div>
@@ -180,9 +155,7 @@ test('preserves refs and automatic form inputs with asChild composition', () => 
   expect(ref.current).toBe(screen.getByTestId('slider-root'));
   expect(screen.getByTestId('slider-root')).toHaveAttribute('data-slot', 'slider-root');
   expect(screen.getByTestId('slider-thumb')).toHaveAttribute('data-slot', 'slider-thumb');
-  expect(
-    screen.getByTestId('slider-thumb').querySelector('[data-slot="slider-hidden-input"]'),
-  ).toBeTruthy();
+  expect(screen.getByTestId('slider-root').querySelector('input[hidden]')).toBeTruthy();
 });
 
 test('preserves active marker state for invalid sliders', () => {

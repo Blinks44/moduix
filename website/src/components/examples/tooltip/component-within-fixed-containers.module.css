@@ -1,0 +1,27 @@
+.root {
+  inline-size: 100%;
+  max-inline-size: 32rem;
+  block-size: 12rem;
+  overflow: auto;
+  border: var(--moduix-border-width-sm) solid var(--moduix-color-border);
+  border-radius: var(--moduix-radius-lg);
+  background: var(--moduix-color-muted);
+}
+
+.content {
+  min-block-size: 24rem;
+  padding: var(--moduix-spacing-4);
+}
+
+.sticky {
+  position: sticky;
+  top: var(--moduix-spacing-4);
+  display: flex;
+  justify-content: center;
+}
+
+.end {
+  margin-block-start: 14rem;
+  color: var(--moduix-color-muted-foreground);
+  text-align: center;
+}

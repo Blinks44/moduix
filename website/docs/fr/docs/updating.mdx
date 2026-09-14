@@ -1,107 +1,125 @@
 ---
 title: Mise à jour et migration
-description: Mettez à jour le package npm moduix ou fusionnez les changements des composants et presets du registre conservés dans votre application.
+description: Mettez à jour les packages Moduix ou fusionnez les changements du registre pour chaque framework et méthode de style publiés.
 ---
 
 # Mise à jour et migration
 
-moduix propose deux façons d’installer ses composants. La procédure de mise à jour dépend de
-l’emplacement du code source du composant :
+La méthode dépend de l’emplacement du code source. Les utilisateurs des packages mettent leurs
+dépendances à jour ; ceux du registre examinent les changements et les fusionnent avec le code de
+l’application.
 
-| Installation | Emplacement du code source | Procédure de mise à jour |
+| Distribution | Emplacement du code | Méthode de mise à jour |
 | --- | --- | --- |
-| Package `@moduix/react` | Dans `node_modules` | Mettez à jour le package et ses dépendances peer avec votre gestionnaire de paquets. |
-| Registre shadcn | Dans le dépôt de votre application | Examinez les changements du registre, puis fusionnez-les avec votre code source local. |
+| Package npm | `node_modules` | Mettre à jour les packages Moduix et Ark UI correspondants. |
+| Registre shadcn | Dépôt de l’application | Examiner le diff du registre, puis le fusionner avec les changements locaux. |
 
-Si vous migrez une application shadcn existante vers moduix, consultez [Migrer depuis shadcn](/docs/migrate-from-shadcn).
+Pour migrer une application shadcn existante, commencez par
+[Migrer depuis shadcn](/docs/migrate-from-shadcn).
 
-## Mettre à jour le package npm
+## Identifier l’adaptateur installé
 
-Choisissez cette méthode si vous voulez conserver moduix dans les dépendances de votre application
-et recevoir les mises à jour avec votre gestionnaire de paquets.
+Gardez le framework et la méthode de style explicites :
 
-Avant de modifier les versions, consultez le [Journal des modifications](/docs/changelog). Utilisez
-`npm update` pour les mises à jour compatibles qui restent dans les plages de versions déjà
-déclarées dans `package.json` :
+| Environnement | CSS Modules | Tailwind CSS |
+| --- | --- | --- |
+| React | `@moduix/react` | `@moduix/react-tailwind` |
+| Solid | `@moduix/solid` | `@moduix/solid-tailwind` |
 
-Les exemples ci-dessous utilisent npm. Si vous utilisez pnpm, Yarn ou un autre gestionnaire de
-paquets, remplacez-les par les commandes équivalentes de votre outil.
+Ne mettez pas à jour un adaptateur au nom proche que l’application n’utilise pas. Le catalogue
+Tailwind peut rester plus réduit pendant la migration des composants.
 
-```bash
-npm update @moduix/react @ark-ui/react
-```
+## Mettre les packages à jour
 
-Pour choisir explicitement les versions et modifier les plages déclarées, installez les versions
-souhaitées :
+Consultez le [Changelog](/docs/changelog) avant de changer de version, puis utilisez le gestionnaire de
+packages déjà choisi par l’application.
 
-```bash
-npm install @moduix/react@latest @ark-ui/react@latest
-```
+<Tabs groupId="styling">
+  <Tab label="CSS Modules" value="css-modules">
 
-`@ark-ui/react` est une dépendance peer de `@moduix/react`. Avant une mise à niveau majeure, vérifiez
-dans les notes de version la plage compatible avec Ark UI. Ne mettez pas les deux packages à niveau
-sans cette vérification. Choisissez soigneusement la version majeure de moduix, puis suivez les étapes
-de migration indiquées dans son journal des modifications.
+<Tabs groupId="framework">
+  <Tab label="React" value="react">
 
-Après la mise à jour, vérifiez le lockfile, lancez la vérification des types et les tests de votre
-application, puis testez les composants cités dans le journal des modifications. Si la version modifie
-la composition ou les styles, comparez la documentation du composant avec votre implémentation avant
-de publier la mise à jour.
+<PackageManagerTabs command="install @moduix/react@latest @ark-ui/react@latest" />
 
-## Mettre à jour les composants du registre
+  </Tab>
+  <Tab label="Solid" value="solid">
 
-Les composants du registre sont copiés dans le dépôt de votre application. Ils ne sont pas mis à jour
-avec `@moduix/react` : examinez donc chaque élément du registre séparément.
+<PackageManagerTabs command="install @moduix/solid@latest @ark-ui/solid@latest" />
 
-Avant de modifier les fichiers locaux, examinez l’élément actuel et comparez-le avec votre copie :
+  </Tab>
+</Tabs>
 
-```bash
-npx shadcn@latest view @moduix-react/button
-npx shadcn@latest add @moduix-react/button --dry-run
-npx shadcn@latest add @moduix-react/button --diff
-```
+  </Tab>
+  <Tab label="Tailwind CSS" value="tailwind">
 
-Remplacez `button` par l’élément à mettre à jour. `view` affiche le code source actuel du registre,
-`--dry-run` prévisualise les fichiers qui seraient modifiés et `--diff` compare la version du registre
-avec les fichiers de votre projet. Le diff peut inclure des fichiers communs de la base moduix et d’autres
-dépendances du registre : examinez-les également.
+<Tabs groupId="framework">
+  <Tab label="React" value="react">
 
-Après avoir examiné le diff, lancez la mise à jour depuis une branche ou avec un arbre de travail propre :
+<PackageManagerTabs command="install @moduix/react-tailwind@latest @ark-ui/react@latest" />
 
-```bash
-npx shadcn@latest add @moduix-react/button
-```
+  </Tab>
+  <Tab label="Solid" value="solid">
 
-N’utilisez pas `--overwrite` avant d’avoir décidé comment conserver vos modifications locales. Si vous
-avez modifié un composant dans votre application, fusionnez les changements du registre avec votre
-version, puis vérifiez son comportement, son accessibilité et ses styles.
+<PackageManagerTabs command="install @moduix/solid-tailwind@latest @ark-ui/solid@latest" />
 
-Répétez cette procédure pour chaque élément du registre que vous utilisez. Le CLI résout
-automatiquement la fondation partagée de moduix et les dépendances déclarées des éléments. Importez
-une seule fois la feuille de styles de fondation générée dans le point d’entrée de votre application :
+  </Tab>
+</Tabs>
+
+  </Tab>
+</Tabs>
+
+Ark UI est une peer dependency. Avant une version majeure, vérifiez la plage compatible dans les
+notes de version au lieu de mettre les deux packages à jour sans contrôle. Examinez ensuite le
+lockfile.
+
+## Mettre les composants du registre à jour
+
+Les composants du registre sont copiés dans l’application et ne suivent pas les packages. Choisissez
+le namespace qui correspond aux deux axes :
+
+| Environnement | Registre CSS Modules | Registre Tailwind |
+| --- | --- | --- |
+| React | `@moduix-react` | `@moduix-react-tailwind` |
+| Solid | `@moduix-solid` | `@moduix-solid-tailwind` |
+
+Prévisualisez un composant avant de modifier les fichiers locaux :
+
+<PackageManagerTabs command="shadcn@latest view @moduix-react/button" dlx />
+
+<PackageManagerTabs command="shadcn@latest add @moduix-react/button --dry-run" dlx />
+
+<PackageManagerTabs command="shadcn@latest add @moduix-react/button --diff" dlx />
+
+Remplacez le namespace par l’adaptateur installé et `button` par l’élément concerné. Le diff peut
+inclure des fichiers de fondation et des dépendances du registre, il faut donc l’examiner entièrement.
+
+Après cette revue, lancez la mise à jour dans une branche ou un arbre de travail propre :
+
+<PackageManagerTabs command="shadcn@latest add @moduix-react/button" dlx />
+
+N’utilisez pas `--overwrite` avant d’avoir décidé comment conserver les modifications locales.
+Fusionnez les changements de comportement, d’accessibilité et de style avec les décisions du produit.
+
+## Mettre les styles et presets à jour
+
+Les styles et presets d’un package suivent sa version. Les fichiers de fondation et de preset copiés
+depuis le registre doivent être examinés comme les autres éléments.
+
+Importez une seule fois la feuille de fondation créée par la configuration du registre :
 
 ```tsx
 import '@/lib/moduix/styles/style.css';
 ```
 
-## Mettre à jour les presets
+Les redéfinitions de l’application doivent venir après la fondation et le preset. Si une version
+modifie les tokens, la densité, les couleurs ou les animations, consultez [Thèmes](/docs/themes),
+[Tokens](/docs/tokens) et [Animations](/docs/animations).
 
-Les presets fournis avec `@moduix/react` sont mis à jour avec le package. Consultez [Thèmes](/docs/themes)
-et [Tokens](/docs/tokens) si une version modifie la densité, les couleurs ou d’autres valeurs visuelles
-partagées par défaut.
+## Vérifier la mise à jour
 
-Pour un preset copié depuis le registre, examinez-le et mettez-le à jour comme n’importe quel autre élément :
-
-```bash
-npx shadcn@latest view @moduix-react/theme-soft
-npx shadcn@latest add @moduix-react/theme-soft --dry-run
-npx shadcn@latest add @moduix-react/theme-soft --diff
-```
-
-Après avoir examiné le diff, installez le preset sans `--dry-run` et placez vos redéfinitions après
-son import. La cascade reste ainsi prévisible lorsqu’un nouveau token est ajouté au preset :
-
-```tsx
-import '@/lib/moduix/styles/style.css';
-import '@/lib/moduix/presets/soft.css';
-```
+- Examinez ensemble le manifeste du package et le lockfile.
+- Lancez le formatage, le lint, le typecheck et les tests de l’application.
+- Testez les composants et interactions cités dans le Changelog.
+- Vérifiez le clavier, le retour du focus, les portails et la réduction des animations si nécessaire.
+- Comparez les changements locaux du registre au diff amont complet avant la publication.

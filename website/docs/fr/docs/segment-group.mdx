@@ -4,8 +4,28 @@ component: segment-group
 description: Un contrôle segmenté compact basé sur Ark UI pour choisir une valeur parmi un petit ensemble visible.
 ---
 
-import * as SegmentGroupDocs from '@/components/examples/segment-group';
+import * as SegmentGroupDocs from '@/components/examples/segment-group/css-properties';
 import { CssPropertiesSection } from '@/components/mdx/Components';
+import SegmentGroupAsChild from '@/components/examples/segment-group/aschild.tsx';
+import SegmentGroupBasic from '@/components/examples/segment-group/basic.tsx';
+import SegmentGroupConditionalMount from '@/components/examples/segment-group/conditional-mount.tsx';
+import SegmentGroupControlled from '@/components/examples/segment-group/controlled.tsx';
+import SegmentGroupDisabled from '@/components/examples/segment-group/disabled.tsx';
+import SegmentGroupField from '@/components/examples/segment-group/field.tsx';
+import SegmentGroupFormSubmission from '@/components/examples/segment-group/form-submission.tsx';
+import SegmentGroupInvalid from '@/components/examples/segment-group/invalid.tsx';
+import SegmentGroupRootProvider from '@/components/examples/segment-group/root-provider.tsx';
+import SegmentGroupVerticalOrientation from '@/components/examples/segment-group/vertical-orientation.tsx';
+import segmentGroupSolidAsChild from '../../../snippets/segment-group/solid/aschild.tsx?raw';
+import segmentGroupSolidBasic from '../../../snippets/segment-group/solid/basic.tsx?raw';
+import segmentGroupSolidConditionalMount from '../../../snippets/segment-group/solid/conditional-mount.tsx?raw';
+import segmentGroupSolidControlled from '../../../snippets/segment-group/solid/controlled.tsx?raw';
+import segmentGroupSolidDisabled from '../../../snippets/segment-group/solid/disabled.tsx?raw';
+import segmentGroupSolidField from '../../../snippets/segment-group/solid/field.tsx?raw';
+import segmentGroupSolidFormSubmission from '../../../snippets/segment-group/solid/form-submission.tsx?raw';
+import segmentGroupSolidInvalid from '../../../snippets/segment-group/solid/invalid.tsx?raw';
+import segmentGroupSolidRootProvider from '../../../snippets/segment-group/solid/root-provider.tsx?raw';
+import segmentGroupSolidVerticalOrientation from '../../../snippets/segment-group/solid/vertical-orientation.tsx?raw';
 
 ## Référence de l’API
 
@@ -23,21 +43,70 @@ même temps.
 
 ## Exemple de base
 
-Utilisez `SegmentGroup.Items` lorsque chaque segment n’a besoin que d’un libellé textuel. Le composant
-crée pour chaque entrée les parties Ark `item`, `text` et `control`, ainsi qu’un champ de formulaire
-natif synchronisé.
+`SegmentGroup` est disponible pour React et Solid, dans les paquets CSS Modules comme dans les variantes Tailwind.
+Les aperçus interactifs de cette page utilisent React et CSS Modules ; les onglets de code présentent
+la source native correspondant au même contrat public.
 
-<style>{SegmentGroupDocs.segmentGroupExampleCss}</style>
+Utilisez `SegmentGroup` comme racine, placez `SegmentGroup.Indicator` avant les éléments et utilisez
+`SegmentGroup.Items` lorsque chaque segment n'a besoin que d'un libellé textuel. `Items` crée pour chaque
+entrée les parties item, text et control, ainsi qu'un champ de formulaire natif synchronisé.
 
-<PreviewFrame contentWidth="fit-content" maxWidth="sm">
-  ```tsx preview file="../../en/docs/_snippets/segment-group/basic.tsx"
+<ExampleFrame variant="component">
+  <SegmentGroupBasic />
+</ExampleFrame>
 
-  ```
-</PreviewFrame>
+<ExampleCode>
+<div className="docs-reference">
+  <Tabs
+    groupId="framework"
+    values={[
+      { label: 'React', value: 'react' },
+      { label: 'Solid', value: 'solid' },
+    ]}
+    className="docs-tabs"
+  >
+    <Tab value="react">
+
+```tsx pure file="../../../src/components/examples/segment-group/basic.tsx"
+```
+
+    </Tab>
+    <Tab value="solid">
+
+<CodeBlockRuntime lang="tsx" code={segmentGroupSolidBasic} />
+
+    </Tab>
+  </Tabs>
+</div>
+
+</ExampleCode>
 
 ## Installation avec shadcn
 
-<ShadcnInstall packageName="segment-group" />
+Consultez le [Démarrage rapide](/docs/quick-start) pour la configuration complète du paquet, du registre et des styles.
+
+<Tabs groupId="framework">
+  <Tab label="React" value="react">
+
+<ShadcnInstallOptions
+  options={[
+    { label: 'CSS Modules', command: 'shadcn@latest add @moduix-react/segment-group' },
+    { label: 'Tailwind CSS', command: 'shadcn@latest add @moduix-react-tailwind/segment-group' },
+  ]}
+/>
+
+  </Tab>
+  <Tab label="Solid" value="solid">
+
+<ShadcnInstallOptions
+  options={[
+    { label: 'CSS Modules', command: 'shadcn@latest add @moduix-solid/segment-group' },
+    { label: 'Tailwind CSS', command: 'shadcn@latest add @moduix-solid-tailwind/segment-group' },
+  ]}
+/>
+
+  </Tab>
+</Tabs>
 
 ## Anatomie
 
@@ -60,6 +129,7 @@ SegmentGroup.Context / SegmentGroup.ItemContext
 | Partie                                | Rôle                                                                  |
 | ------------------------------------- | --------------------------------------------------------------------- |
 | `SegmentGroup` / `SegmentGroup.Root`  | Gère la valeur sélectionnée, la navigation au clavier et les formulaires. |
+| `SegmentGroup.ItemHiddenInput` | Champ natif d’Ark ; composition explicite décrite ci-dessous. |
 | `SegmentGroup.RootProvider`            | Relie les parties à l’état créé avec `useSegmentGroup()` de moduix.   |
 | `SegmentGroup.Context`                 | Donne un accès avancé à l’état racine via render prop.                |
 | `SegmentGroup.ItemContext`             | Donne un accès avancé à l’état de l’élément courant via render prop.  |
@@ -72,56 +142,15 @@ SegmentGroup.Context / SegmentGroup.ItemContext
 
 ## Composition
 
-### Composition recommandée
+Pour la composition courante, utilisez `SegmentGroup` avec `SegmentGroup.Indicator` avant
+`SegmentGroup.Items`. `Items` inclut `ItemText`, `ItemControl` et exactement un
+`ItemHiddenInput` pour chaque élément. Si vous rendez `SegmentGroup.Item` directement, composez ces
+parties vous-même et conservez exactement un `ItemHiddenInput` dans chaque élément. L'enfant direct de
+`asChild` doit rester un seul `label` sémantique.
 
-Dans le cas courant, utilisez la forme racine courte `<SegmentGroup>` avec `SegmentGroup.Items`.
-Placez `SegmentGroup.Indicator` avant les éléments afin que la mise en évidence mesurée apparaisse
-derrière le segment sélectionné. `Items` conserve un champ de formulaire natif dans chaque élément
-créé, ce qui permet la soumission et la réinitialisation d’un formulaire natif.
-
-### Quand utiliser une composition personnalisée
-
-Utilisez `SegmentGroup.Item` lorsqu’un segment nécessite un contenu personnalisé, sa propre classe ou
-`asChild`. L’enfant direct de `asChild` doit rester un unique `label` sémantique. Utilisez
-`SegmentGroup.RootProvider` avec `useSegmentGroup()` depuis `@moduix/react` lorsque des contrôles
-situés en dehors de l’arborescence des segments doivent appeler des méthodes comme `setValue`,
-`clearValue` ou `focus`. Pour créer un rendu personnalisé piloté par l’état, utilisez
-`SegmentGroup.Context`, `SegmentGroup.ItemContext`, `useSegmentGroupContext` ou
-`useSegmentGroupItemContext` depuis `@moduix/react`.
-
-`ItemHiddenInput` est interne à moduix. Chaque `SegmentGroup.Item` rend déjà exactement un champ natif de type radio
-natif synchronisé, y compris avec `asChild`. N’ajoutez pas une seconde fois `ItemHiddenInput` d’Ark.
-
-### Propriétés par défaut
-
-| Propriété       | Valeur par défaut | Remarques                                                               |
-| --------------- | ----------------- | ----------------------------------------------------------------------- |
-| `defaultValue`  | non définie      | Valeur initiale d’un groupe non contrôlé.                              |
-| `value`         | non définie      | Valeur sélectionnée d’un groupe contrôlé.                               |
-| `orientation`   | `horizontal`     | Valeur par défaut de moduix ; définissez `vertical` pour un groupe vertical. |
-| `disabled`      | `false`           | Désactive tout le groupe lorsqu’elle est définie sur la racine.         |
-| `readOnly`      | `false`           | Empêche les modifications tout en laissant la valeur visible.          |
-| `required`      | `false`           | Rend les champs natifs obligatoires lors de la validation du formulaire. |
-| `invalid`       | `false`           | Ajoute les attributs d’état invalide d’Ark pour le style et ARIA.       |
-
-### Comportement
-
-`onValueChange(details)` conserve la forme du rappel d’Ark. La valeur sélectionnée se trouve dans
-`details.value`. Ark gère la valeur sélectionnée, le déplacement du focus, la navigation avec les
-flèches, les états `disabled`, `readOnly`, `invalid` et `required`, ainsi que la soumission et la
-réinitialisation du formulaire.
-
-La touche <kbd>Tab</kbd> place le focus sur l’élément sélectionné ou, si aucune valeur n’est
-sélectionnée, sur le premier élément. Les touches fléchées déplacent le focus et sélectionnent
-l’élément suivant ou précédent. La touche <kbd>Espace</kbd> sélectionne l’élément qui a le focus.
-Définissez `name` sur la racine pour inclure la valeur sélectionnée dans les données natives de
-`FormData`.
-
-`Root`, `RootProvider`, `Label`, `Item`, `ItemControl`, `ItemText` et `Indicator` transmettent leurs
-refs aux parties DOM correspondantes d’Ark. Utilisez `Field` ou `Fieldset` lorsque leur état partagé
-doit s’appliquer au groupe : `Field` transmet les états `disabled`, `invalid`, `required` et
-`readOnly`, tandis que `Fieldset` transmet `disabled` et `invalid`. Utilisez `ids` lorsque des
-libellés ou contrôles composés ont besoin d’identifiants d’accessibilité déterministes.
+Utilisez `SegmentGroup.RootProvider` avec `useSegmentGroup()` lorsque l'état doit être créé en dehors
+de l'arbre rendu ou contrôlé par une autre partie de l'application. React expose le store comme un
+objet, tandis que Solid lit son état réactif à travers la fonction d'accès renvoyée.
 
 ## Exemples
 
@@ -130,26 +159,80 @@ libellés ou contrôles composés ont besoin d’identifiants d’accessibilité
 Les groupes de segments peuvent être montés conditionnellement. Lorsqu’il apparaît, Ark recalcule la
 géométrie des éléments utilisée par l’indicateur.
 
-<style>{SegmentGroupDocs.segmentGroupExampleCss}</style>
+<ExampleFrame variant="component">
+  <SegmentGroupConditionalMount />
+</ExampleFrame>
 
-<PreviewFrame contentWidth="fit-content" maxWidth="sm">
-  ```tsx preview file="../../en/docs/_snippets/segment-group/conditional-mount.tsx"
+<ExampleCode>
+<div className="docs-reference">
+  <Tabs
+    groupId="framework"
+    values={[
+      { label: 'React', value: 'react' },
+      { label: 'Solid', value: 'solid' },
+    ]}
+    className="docs-tabs"
+  >
+    <Tab value="react">
 
-  ```
-</PreviewFrame>
+```tsx pure file="../../../src/components/examples/segment-group/conditional-mount.tsx"
+```
+
+    </Tab>
+    <Tab value="solid">
+
+<CodeBlockRuntime lang="tsx" code={segmentGroupSolidConditionalMount} />
+
+    </Tab>
+  </Tabs>
+
+**Styles**
+
+```css file="../../../src/components/examples/segment-group/segment-group-conditional-mount.module.css"
+```
+</div>
+
+</ExampleCode>
 
 ### État contrôlé
 
 Conservez la valeur sélectionnée dans l’état React et mettez-la à jour avec `details.value` dans
 `onValueChange`.
 
-<style>{SegmentGroupDocs.segmentGroupExampleCss}</style>
+<ExampleFrame variant="component">
+  <SegmentGroupControlled />
+</ExampleFrame>
 
-<PreviewFrame contentWidth="fit-content" maxWidth="sm">
-  ```tsx preview file="../../en/docs/_snippets/segment-group/controlled.tsx"
+<ExampleCode>
+<div className="docs-reference">
+  <Tabs
+    groupId="framework"
+    values={[
+      { label: 'React', value: 'react' },
+      { label: 'Solid', value: 'solid' },
+    ]}
+    className="docs-tabs"
+  >
+    <Tab value="react">
 
-  ```
-</PreviewFrame>
+```tsx pure file="../../../src/components/examples/segment-group/controlled.tsx"
+```
+
+    </Tab>
+    <Tab value="solid">
+
+<CodeBlockRuntime lang="tsx" code={segmentGroupSolidControlled} />
+
+    </Tab>
+  </Tabs>
+
+**Styles**
+
+```css file="../../../src/components/examples/segment-group/segment-group-controlled.module.css"
+```
+</div>
+
+</ExampleCode>
 
 ### Élément et groupe désactivés
 
@@ -157,98 +240,285 @@ Définissez `disabled` sur un élément lorsqu’un seul segment doit être indi
 la racine pour désactiver tout le groupe. Le style désactivé de la racine réduit une seule fois
 l’opacité du groupe, sans la cumuler avec celle de chaque élément.
 
-<style>{SegmentGroupDocs.segmentGroupExampleCss}</style>
+<ExampleFrame variant="component">
+  <SegmentGroupDisabled />
+</ExampleFrame>
 
-<PreviewFrame contentWidth="fit-content" maxWidth="sm">
-  ```tsx preview file="../../en/docs/_snippets/segment-group/disabled.tsx"
+<ExampleCode>
+<div className="docs-reference">
+  <Tabs
+    groupId="framework"
+    values={[
+      { label: 'React', value: 'react' },
+      { label: 'Solid', value: 'solid' },
+    ]}
+    className="docs-tabs"
+  >
+    <Tab value="react">
 
-  ```
-</PreviewFrame>
+```tsx pure file="../../../src/components/examples/segment-group/disabled.tsx"
+```
+
+    </Tab>
+    <Tab value="solid">
+
+<CodeBlockRuntime lang="tsx" code={segmentGroupSolidDisabled} />
+
+    </Tab>
+  </Tabs>
+
+**Styles**
+
+```css file="../../../src/components/examples/segment-group/segment-group-disabled.module.css"
+```
+</div>
+
+</ExampleCode>
 
 ### Field
 
-Enveloppez le groupe dans `Field` lorsque son champ natif automatique doit être accompagné d’un texte
+Enveloppez le groupe dans `Field` lorsque ses champs natifs doivent être accompagnés d’un texte
 d’aide ou d’un message d’erreur. Ark hérite des états `disabled`, `invalid`, `required` et `readOnly`
 du champ.
 
-<style>{SegmentGroupDocs.segmentGroupExampleCss}</style>
+<ExampleFrame variant="component">
+  <SegmentGroupField />
+</ExampleFrame>
 
-<PreviewFrame contentWidth="fit-content" maxWidth="sm">
-  ```tsx preview file="../../en/docs/_snippets/segment-group/field.tsx"
+<ExampleCode>
+<div className="docs-reference">
+  <Tabs
+    groupId="framework"
+    values={[
+      { label: 'React', value: 'react' },
+      { label: 'Solid', value: 'solid' },
+    ]}
+    className="docs-tabs"
+  >
+    <Tab value="react">
 
-  ```
-</PreviewFrame>
+```tsx pure file="../../../src/components/examples/segment-group/field.tsx"
+```
+
+    </Tab>
+    <Tab value="solid">
+
+<CodeBlockRuntime lang="tsx" code={segmentGroupSolidField} />
+
+    </Tab>
+  </Tabs>
+
+**Styles**
+
+```css file="../../../src/components/examples/segment-group/segment-group-field.module.css"
+```
+</div>
+
+</ExampleCode>
 
 ### Soumission du formulaire
 
 Transmettez `name` à la racine pour inclure la valeur sélectionnée dans les données du formulaire
 natif. `SegmentGroup.Items` ajoute un champ de formulaire natif à chaque élément créé.
 
-<style>{SegmentGroupDocs.segmentGroupExampleCss}</style>
+<ExampleFrame variant="component">
+  <SegmentGroupFormSubmission />
+</ExampleFrame>
 
-<PreviewFrame contentWidth="fit-content" maxWidth="sm">
-  ```tsx preview file="../../en/docs/_snippets/segment-group/form-submission.tsx"
+<ExampleCode>
+<div className="docs-reference">
+  <Tabs
+    groupId="framework"
+    values={[
+      { label: 'React', value: 'react' },
+      { label: 'Solid', value: 'solid' },
+    ]}
+    className="docs-tabs"
+  >
+    <Tab value="react">
 
-  ```
-</PreviewFrame>
+```tsx pure file="../../../src/components/examples/segment-group/form-submission.tsx"
+```
+
+    </Tab>
+    <Tab value="solid">
+
+<CodeBlockRuntime lang="tsx" code={segmentGroupSolidFormSubmission} />
+
+    </Tab>
+  </Tabs>
+
+**Styles**
+
+```css file="../../../src/components/examples/segment-group/segment-group-form-submission.module.css"
+```
+</div>
+
+</ExampleCode>
 
 ### État invalide
 
 Définissez `invalid` sur la racine lorsque la validation échoue. Associez-le à `required` et `name`
 lorsque le groupe participe à la validation native du formulaire.
 
-<style>{SegmentGroupDocs.segmentGroupExampleCss}</style>
+<ExampleFrame variant="component">
+  <SegmentGroupInvalid />
+</ExampleFrame>
 
-<PreviewFrame contentWidth="fit-content" maxWidth="sm">
-  ```tsx preview file="../../en/docs/_snippets/segment-group/invalid.tsx"
+<ExampleCode>
+<div className="docs-reference">
+  <Tabs
+    groupId="framework"
+    values={[
+      { label: 'React', value: 'react' },
+      { label: 'Solid', value: 'solid' },
+    ]}
+    className="docs-tabs"
+  >
+    <Tab value="react">
 
-  ```
-</PreviewFrame>
+```tsx pure file="../../../src/components/examples/segment-group/invalid.tsx"
+```
+
+    </Tab>
+    <Tab value="solid">
+
+<CodeBlockRuntime lang="tsx" code={segmentGroupSolidInvalid} />
+
+    </Tab>
+  </Tabs>
+</div>
+
+</ExampleCode>
 
 ### Root Provider
 
 Utilisez `useSegmentGroup()` avec `RootProvider` lorsque des contrôles situés en dehors de
 l’arborescence des segments doivent accéder au même état.
 
-<style>{SegmentGroupDocs.segmentGroupExampleCss}</style>
+<ExampleFrame variant="component">
+  <SegmentGroupRootProvider />
+</ExampleFrame>
 
-<PreviewFrame contentWidth="fit-content" maxWidth="sm">
-  ```tsx preview file="../../en/docs/_snippets/segment-group/root-provider.tsx"
+<ExampleCode>
+<div className="docs-reference">
+  <Tabs
+    groupId="framework"
+    values={[
+      { label: 'React', value: 'react' },
+      { label: 'Solid', value: 'solid' },
+    ]}
+    className="docs-tabs"
+  >
+    <Tab value="react">
 
-  ```
-</PreviewFrame>
+```tsx pure file="../../../src/components/examples/segment-group/root-provider.tsx"
+```
+
+    </Tab>
+    <Tab value="solid">
+
+<CodeBlockRuntime lang="tsx" code={segmentGroupSolidRootProvider} />
+
+    </Tab>
+  </Tabs>
+
+**Styles**
+
+```css file="../../../src/components/examples/segment-group/segment-group-root-provider.module.css"
+```
+</div>
+
+</ExampleCode>
 
 ### Orientation verticale
 
 Définissez `orientation="vertical"` lorsque le groupe doit utiliser une disposition verticale et
 une navigation verticale avec les touches fléchées.
 
-<style>{SegmentGroupDocs.segmentGroupVerticalCss}</style>
+<ExampleFrame variant="component">
+  <SegmentGroupVerticalOrientation />
+</ExampleFrame>
 
-<PreviewFrame contentWidth="fit-content" maxWidth="sm">
-  ```tsx preview file="../../en/docs/_snippets/segment-group/vertical-orientation.tsx"
+<ExampleCode>
+<div className="docs-reference">
+  <Tabs
+    groupId="framework"
+    values={[
+      { label: 'React', value: 'react' },
+      { label: 'Solid', value: 'solid' },
+    ]}
+    className="docs-tabs"
+  >
+    <Tab value="react">
 
-  ```
-</PreviewFrame>
+```tsx pure file="../../../src/components/examples/segment-group/vertical-orientation.tsx"
+```
+
+    </Tab>
+    <Tab value="solid">
+
+<CodeBlockRuntime lang="tsx" code={segmentGroupSolidVerticalOrientation} />
+
+    </Tab>
+  </Tabs>
+
+**Styles**
+
+```css file="../../../src/components/examples/segment-group/segment-group-vertical-orientation.module.css"
+```
+</div>
+
+</ExampleCode>
 
 ### Personnalisation avancée
 
 Utilisez `SegmentGroup.Item asChild` à la place de `SegmentGroup.Items` lorsque la disposition
 personnalisée du libellé doit posséder le nœud DOM de l’élément.
 
-<style>{SegmentGroupDocs.segmentGroupAsChildCss}</style>
+<ExampleFrame variant="component">
+  <SegmentGroupAsChild />
+</ExampleFrame>
 
-<PreviewFrame contentWidth="fit-content" maxWidth="sm">
-  ```tsx preview file="../../en/docs/_snippets/segment-group/aschild.tsx"
+<ExampleCode>
+<div className="docs-reference">
+  <Tabs
+    groupId="framework"
+    values={[
+      { label: 'React', value: 'react' },
+      { label: 'Solid', value: 'solid' },
+    ]}
+    className="docs-tabs"
+  >
+    <Tab value="react">
 
-  ```
-</PreviewFrame>
+```tsx pure file="../../../src/components/examples/segment-group/aschild.tsx"
+```
+
+    </Tab>
+    <Tab value="solid">
+
+<CodeBlockRuntime lang="tsx" code={segmentGroupSolidAsChild} />
+
+    </Tab>
+  </Tabs>
+
+**Styles**
+
+```css file="../../../src/components/examples/segment-group/segment-group-advanced-customization.module.css"
+```
+</div>
+
+</ExampleCode>
 
 ## Styles
 
-Stylisez `SegmentGroup` avec `className`, les hooks stables `data-slot="segment-group-*"`, les
-attributs Ark `data-scope`, `data-part` et d’état, ainsi que les variables CSS publiques
-`--moduix-segment-group-*` listées ci-dessous.
+Dans React, utilisez `className` et, dans Solid, `class` sur les parties exportées pour les styles
+structurels. Pour les styles fondés sur l'état, préférez les attributs Ark comme `data-state`,
+`data-disabled` et `data-orientation`, avec les sélecteurs moduix `data-slot`. Les variantes
+Tailwind utilisent des utilitaires natifs et les classes du consommateur ; les variables ci-dessous
+personnalisent les variantes CSS Modules. Les attributs d'état et les hooks data-slot sont partagés
+par les deux modes de style.
 
 ### Propriétés CSS
 
@@ -256,14 +526,14 @@ attributs Ark `data-scope`, `data-part` et d’état, ainsi que les variables CS
 
 ### Hooks de style
 
-- Hooks d’anatomie Ark : `data-scope="segment-group"` et `data-part` sur la racine, le libellé,
-  l’indicateur, l’élément, le texte de l’élément, son contrôle et le champ masqué.
-- Hooks d’état Ark : `data-state="checked" | "unchecked"`, `data-orientation`, `data-disabled`,
-  `data-readonly`, `data-invalid`, `data-required`, `data-active` et `data-focus-visible`.
-- Hooks moduix : `data-slot="segment-group-root"`, `segment-group-root-provider`,
+- Sélecteurs `data-slot` stables : `segment-group-root`, `segment-group-root-provider`,
   `segment-group-label`, `segment-group-indicator`, `segment-group-item`,
-  `segment-group-item-text`, `segment-group-item-control` et `segment-group-item-hidden-input`.
-- L’indicateur utilise les variables d’exécution Ark `--left`, `--top`, `--width` et `--height`
-  pour sa taille. Son animation utilise `--transition-duration` et `--transition-timing-function`,
-  avec les valeurs par défaut de moduix définies par `--moduix-segment-group-indicator-transition-duration`
-  et `--moduix-segment-group-indicator-transition-timing-function`.
+  `segment-group-item-text` et `segment-group-item-control`.
+- Sélecteurs des parties Ark : `data-scope="segment-group"` et `data-part` sur la racine, le libellé,
+  l'indicateur, l'élément, le texte de l'élément, son control et le champ masqué.
+- Sélecteurs d'état Ark : `data-state="checked|unchecked"`, `data-orientation`, `data-disabled`,
+  `data-readonly`, `data-invalid`, `data-required` et `data-focus-visible`.
+- L'indicateur utilise les variables d'exécution Ark `--left`, `--top`, `--width` et `--height` pour
+  sa taille. Son mouvement utilise `--transition-duration` et `--transition-timing-function`, avec les
+  valeurs par défaut moduix définies par `--moduix-segment-group-indicator-transition-duration` et
+  `--moduix-segment-group-indicator-transition-timing-function`.

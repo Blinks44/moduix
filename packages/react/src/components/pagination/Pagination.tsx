@@ -7,19 +7,17 @@ import { clsx } from 'clsx';
 import type { ComponentProps, ComponentRef } from 'react';
 import { forwardRef } from 'react';
 import { ChevronLeftIcon, ChevronRightIcon } from '@/lib/moduix/icons/ui';
-import { normalizeClassName } from '@/lib/moduix/normalizeClassName';
 import styles from './Pagination.module.css';
 
 const PaginationRoot = forwardRef<
   ComponentRef<typeof PaginationPrimitive.Root>,
   ComponentProps<typeof PaginationPrimitive.Root>
->(function PaginationRoot({ 'aria-label': ariaLabel = 'Pagination', className, ...props }, ref) {
+>(function PaginationRoot({ className, ...props }, ref) {
   return (
     <PaginationPrimitive.Root
       ref={ref}
       data-slot="pagination-root"
-      aria-label={ariaLabel}
-      className={clsx(styles.root, normalizeClassName(className))}
+      className={clsx(styles.root, className)}
       {...props}
     />
   );
@@ -28,16 +26,12 @@ const PaginationRoot = forwardRef<
 const PaginationRootProvider = forwardRef<
   ComponentRef<typeof PaginationPrimitive.RootProvider>,
   ComponentProps<typeof PaginationPrimitive.RootProvider>
->(function PaginationRootProvider(
-  { 'aria-label': ariaLabel = 'Pagination', className, ...props },
-  ref,
-) {
+>(function PaginationRootProvider({ className, ...props }, ref) {
   return (
     <PaginationPrimitive.RootProvider
       ref={ref}
       data-slot="pagination-root-provider"
-      aria-label={ariaLabel}
-      className={clsx(styles.root, normalizeClassName(className))}
+      className={clsx(styles.root, className)}
       {...props}
     />
   );
@@ -51,7 +45,7 @@ const PaginationItem = forwardRef<
     <PaginationPrimitive.Item
       ref={ref}
       data-slot="pagination-item"
-      className={clsx(styles.item, normalizeClassName(className))}
+      className={clsx(styles.item, className)}
       {...props}
     />
   );
@@ -65,10 +59,10 @@ const PaginationEllipsis = forwardRef<
     <PaginationPrimitive.Ellipsis
       ref={ref}
       data-slot="pagination-ellipsis"
-      className={clsx(styles.ellipsis, normalizeClassName(className))}
+      className={clsx(styles.ellipsis, className)}
       {...props}
     >
-      {children ?? '...'}
+      {children ?? (!props.asChild && '...')}
     </PaginationPrimitive.Ellipsis>
   );
 });
@@ -92,14 +86,10 @@ const PaginationPrevTrigger = forwardRef<
     <PaginationPrimitive.PrevTrigger
       ref={ref}
       data-slot="pagination-prev-trigger"
-      className={clsx(
-        styles.trigger,
-        children == null && styles.iconTrigger,
-        normalizeClassName(className),
-      )}
+      className={clsx(styles.trigger, children == null && styles.iconTrigger, className)}
       {...props}
     >
-      {children ?? <ChevronLeftIcon />}
+      {children ?? (!props.asChild && <ChevronLeftIcon />)}
     </PaginationPrimitive.PrevTrigger>
   );
 });
@@ -112,14 +102,10 @@ const PaginationNextTrigger = forwardRef<
     <PaginationPrimitive.NextTrigger
       ref={ref}
       data-slot="pagination-next-trigger"
-      className={clsx(
-        styles.trigger,
-        children == null && styles.iconTrigger,
-        normalizeClassName(className),
-      )}
+      className={clsx(styles.trigger, children == null && styles.iconTrigger, className)}
       {...props}
     >
-      {children ?? <ChevronRightIcon />}
+      {children ?? (!props.asChild && <ChevronRightIcon />)}
     </PaginationPrimitive.NextTrigger>
   );
 });
@@ -132,14 +118,10 @@ const PaginationFirstTrigger = forwardRef<
     <PaginationPrimitive.FirstTrigger
       ref={ref}
       data-slot="pagination-first-trigger"
-      className={clsx(
-        styles.trigger,
-        children == null && styles.iconTrigger,
-        normalizeClassName(className),
-      )}
+      className={clsx(styles.trigger, children == null && styles.iconTrigger, className)}
       {...props}
     >
-      {children ?? <EdgeIcon side="left" />}
+      {children ?? (!props.asChild && <EdgeIcon side="left" />)}
     </PaginationPrimitive.FirstTrigger>
   );
 });
@@ -152,14 +134,10 @@ const PaginationLastTrigger = forwardRef<
     <PaginationPrimitive.LastTrigger
       ref={ref}
       data-slot="pagination-last-trigger"
-      className={clsx(
-        styles.trigger,
-        children == null && styles.iconTrigger,
-        normalizeClassName(className),
-      )}
+      className={clsx(styles.trigger, children == null && styles.iconTrigger, className)}
       {...props}
     >
-      {children ?? <EdgeIcon side="right" />}
+      {children ?? (!props.asChild && <EdgeIcon side="right" />)}
     </PaginationPrimitive.LastTrigger>
   );
 });

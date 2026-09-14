@@ -1,182 +1,382 @@
 ---
 title: Tag
 component: tag
-description: Компактная метка для выбранных значений, фильтров, назначений и других коротких элементов интерфейса с необязательными значками и кнопкой удаления.
+description: Компактная метка для выбранных значений, фильтров, назначений и других коротких значений интерфейса с необязательными значками и действием удаления.
 ---
 
-import * as TagDocs from '@/components/examples/tag';
+import * as TagDocs from '@/components/examples/tag/css-properties';
+import TagBasic from '@/components/examples/tag/basic.tsx';
+import TagClosable from '@/components/examples/tag/closable.tsx';
+import TagIcon from '@/components/examples/tag/icon.tsx';
+import TagOverflow from '@/components/examples/tag/overflow.tsx';
+import TagRenderAsButton from '@/components/examples/tag/render-as-button.tsx';
+import TagSizes from '@/components/examples/tag/sizes.tsx';
+import TagVariants from '@/components/examples/tag/variants.tsx';
+import tagSolidBasic from '../../../snippets/tag/solid/basic.tsx?raw';
+import tagSolidClosable from '../../../snippets/tag/solid/closable.tsx?raw';
+import tagSolidIcon from '../../../snippets/tag/solid/icon.tsx?raw';
+import tagSolidOverflow from '../../../snippets/tag/solid/overflow.tsx?raw';
+import tagSolidRenderAsButton from '../../../snippets/tag/solid/render-as-button.tsx?raw';
+import tagSolidSizes from '../../../snippets/tag/solid/sizes.tsx?raw';
+import tagSolidVariants from '../../../snippets/tag/solid/variants.tsx?raw';
 
 ## Справочник API
 
-В Ark UI нет отдельного примитива `tag`. В moduix компонент построен на официальной [фабрике Ark](https://ark-ui.com/docs/guides/composition#the-ark-factory) и следует рекомендациям Ark по [композиции](https://ark-ui.com/docs/guides/composition), [стилизации](https://ark-ui.com/docs/guides/styling) и работе с [ref](https://ark-ui.com/docs/guides/ref).
+В Ark UI нет отдельного примитива `tag`. moduix собирает этот компонент с помощью официальной
+[фабрики Ark](https://ark-ui.com/docs/guides/composition#the-ark-factory) и следует рекомендациям Ark по
+[композиции](https://ark-ui.com/docs/guides/composition), [стилизации](https://ark-ui.com/docs/guides/styling) и
+[ссылкам на DOM-элементы](https://ark-ui.com/docs/guides/ref).
 
 ## Выбор подходящего компонента
 
-Используйте `Tag`, когда интерфейс показывает значение или объект, который входит в его текущее
-состояние и может потребовать отдельного действия, например удаления.
+Используйте `Tag`, когда интерфейс показывает значение или элемент, относящийся к текущему
+состоянию интерфейса и при необходимости поддерживающий локальное действие, например удаление.
 
-- Выбирайте **`Badge`**, если нужно показать краткие метаданные: статус, категорию, версию или количество.
-- Выбирайте **`Tag`**, если значение выбрано пользователем или относится к изменяемому состоянию интерфейса: фильтр, назначение или метка.
+- Выбирайте **`Badge`** для коротких метаданных: статуса, категории, версии или количества.
+- Выбирайте **`Tag`** для выбранных значений, фильтров, назначений или меток, которые являются частью текущего состояния интерфейса.
 
 ## Базовый пример
 
-Начните с `Tag` и `Tag.Label`. Добавляйте остальные части только для значка, дополнительного
-содержимого или встроенного действия удаления.
+`Tag` доступен в каждом текущем фреймворке и варианте стилей. Начните с корневого `Tag`
+и `Tag.Label`. Добавляйте остальные части, только если метке нужны значок, дополнительное
+содержимое или встроенное действие удаления. Предпросмотр на странице использует вариант с React
+и CSS Modules, а во вкладках показан нативный код для каждого выпущенного адаптера с тем же публичным контрактом.
 
-<PreviewFrame>
-  ```tsx preview file="../../en/docs/_snippets/tag/basic.tsx"
+<ExampleFrame variant="component">
+  <TagBasic />
+</ExampleFrame>
 
-  ```
-</PreviewFrame>
+<ExampleCode>
+<div className="docs-reference">
+  <Tabs
+    groupId="framework"
+    values={[
+      { label: 'React', value: 'react' },
+      { label: 'Solid', value: 'solid' },
+    ]}
+    className="docs-tabs"
+  >
+    <Tab value="react">
+
+```tsx pure file="../../../src/components/examples/tag/basic.tsx"
+```
+
+    </Tab>
+    <Tab value="solid">
+
+<CodeBlockRuntime lang="tsx" code={tagSolidBasic} />
+
+    </Tab>
+  </Tabs>
+</div>
+</ExampleCode>
 
 ## Установка через shadcn
 
-<ShadcnInstall packageName="tag" />
+Полную настройку пакета, реестра и стилей см. в разделе [Быстрый старт](/docs/quick-start).
+
+<Tabs groupId="framework">
+  <Tab label="React" value="react">
+
+<ShadcnInstallOptions
+  options={[
+    { label: 'CSS Modules', command: 'shadcn@latest add @moduix-react/tag' },
+    { label: 'Tailwind CSS', command: 'shadcn@latest add @moduix-react-tailwind/tag' },
+  ]}
+/>
+
+  </Tab>
+  <Tab label="Solid" value="solid">
+
+<ShadcnInstallOptions
+  options={[
+    { label: 'CSS Modules', command: 'shadcn@latest add @moduix-solid/tag' },
+    { label: 'Tailwind CSS', command: 'shadcn@latest add @moduix-solid-tailwind/tag' },
+  ]}
+/>
+
+  </Tab>
+</Tabs>
 
 ## Анатомия
 
-Корневой компонент также доступен как `Tag.Root`. Короткие формы `<Tag>` и `<Tag.Root>` эквивалентны.
+Корневой элемент также доступен как `Tag.Root`. Краткая форма `<Tag>` и `<Tag.Root>` эквивалентны.
 
 ```text
 Tag / Tag.Root
-├─ Tag.StartElement (optional)
+├─ Tag.StartElement (необязательно)
 ├─ Tag.Label
-└─ Tag.EndElement (optional)
-   └─ Tag.CloseTrigger (optional)
+└─ Tag.EndElement (необязательно)
+   └─ Tag.CloseTrigger (необязательно)
 ```
 
-| Часть              | Назначение                                                                              |
-| ------------------ | --------------------------------------------------------------------------------------- |
-| `Tag` / `Tag.Root` | Корневой элемент. Задаёт разметку, границу, размер, вариант и композицию `asChild`.      |
-| `Tag.Label`        | Обёртка видимого значения и граница обрезки длинного текста.                            |
-| `Tag.StartElement` | Необязательная область перед текстом для значка, аватара или индикатора состояния.       |
-| `Tag.EndElement`   | Необязательная область после текста для значка или действия.                            |
-| `Tag.CloseTrigger` | Необязательная кнопка для удаления метки.                                               |
+| Часть              | Роль                                                                                     |
+| ------------------ | ---------------------------------------------------------------------------------------- |
+| `Tag` / `Tag.Root` | Корневой элемент. Задаёт разметку метки, границу, размер, вариант и композицию через `asChild`. |
+| `Tag.Label`        | Обёртка видимого значения и граница обрезки.                                             |
+| `Tag.StartElement` | Необязательная область слева для значка, аватара или индикатора состояния.                |
+| `Tag.EndElement`   | Необязательная область справа для значка или действия.                                   |
+| `Tag.CloseTrigger` | Необязательная кнопка для удаления метки.                                                |
 
 ## Композиция
 
-### Рекомендуемая композиция
+`Tag` отвечает только за отображение и не хранит выбранные или удалённые значения. Храните список
+в родительском компоненте, изменяйте его из `Tag.CloseTrigger` и размещайте этот триггер внутри
+`Tag.EndElement`.
 
-Для простой метки достаточно `Tag` с `Tag.Label`. Храните видимое значение в `Tag.Label`, а
-`Tag.StartElement` и `Tag.EndElement` используйте для встроенного содержимого. Если метку можно
-удалить, поместите `Tag.CloseTrigger` внутрь `Tag.EndElement`.
-
-Все экспортируемые части пробрасывают `ref` и `className`, а также принимают стандартные свойства
-своего DOM-элемента.
-
-### Когда нужна собственная композиция
-
-Используйте `asChild` у корневого компонента, если вместо стандартного `span` нужен семантический
-элемент, например `button` или ссылка. Передайте ровно один дочерний элемент. Он станет корневым
-DOM-узлом и будет отвечать за собственную семантику и взаимодействие.
-
-Используйте `Tag.CloseTrigger asChild`, только если действию удаления нужен собственный
-семантический дочерний элемент. В этом режиме передайте значок и доступное имя самостоятельно:
-стандартный значок удаления не отображается.
-
-### Свойства по умолчанию
-
-| Компонент          | Свойство     | По умолчанию | Примечание                                                                            |
-| ------------------ | ------------ | ------------ | ------------------------------------------------------------------------------------- |
-| `Tag`              | `variant`    | `default`    | `default`, `secondary`, `outline`, `ghost`, `destructive`                    |
-| `Tag`              | `size`       | `md`         | `sm`, `md`                                                                         |
-| `Tag`              | `asChild`    | `false`      | Заменяет стандартный `span` одним дочерним элементом.                               |
-| `Tag.CloseTrigger` | `type`       | `button`     | Применяется к стандартной кнопке и предотвращает случайную отправку формы.            |
-| `Tag.CloseTrigger` | `asChild`    | `false`      | Заменяет стандартный `button`; дочерний элемент должен содержать действие удаления.  |
-| `Tag.CloseTrigger` | `children`   | значок удаления | Используется без `asChild`; собственное содержимое заменяет стандартный значок.    |
-| `Tag.CloseTrigger` | `aria-label` | `Remove tag` | Используется без собственного содержимого, `aria-labelledby` и `asChild`.          |
-
-### Особенности поведения
-
-- `Tag` не хранит и не изменяет состояние выбранных, удалённых или перемещённых значений. Список и обработчик его обновления принадлежат родительскому компоненту.
-- `Tag.CloseTrigger` добавляется явно. У корневого компонента нет свойства `onClose`.
-- Встроенные варианты используют те же цветовые роли, что и `Badge`; `Tag` дополнительно даёт анатомию метки и необязательное действие удаления.
-- Если рядом несколько удаляемых меток, задайте каждой кнопке удаления точное доступное имя.
-- Без собственного содержимого `Tag.CloseTrigger` использует значок удаления moduix и резервное имя `Remove tag`. Если передать собственное содержимое без имени, общий `CloseButton` использует резервное имя `Close`.
-- Отключённая кнопка удаления или кнопка с `aria-disabled` получает `data-disabled` и не вызывает обработчик клика.
-- `asChild` следует композиции Ark и требует ровно одного дочернего элемента. Для `Tag.CloseTrigger asChild` также нужен явный семантический дочерний элемент.
+Используйте `asChild`, только когда корневой элемент или триггер удаления должен заменить элемент
+по умолчанию. Единственный дочерний элемент становится DOM-узлом и должен задавать нужную
+семантику. В частности, `Tag.CloseTrigger asChild` требует явного элемента управления закрытием
+и доступного имени.
 
 ## Примеры
 
-### Удаление метки
+### С удалением
 
-Родительский компонент хранит список значений и удаляет элемент после нажатия кнопки удаления.
-Задайте каждой кнопке имя, в котором указано удаляемое значение.
+Родительский компонент хранит список значений и удаляет элемент после нажатия на его триггер
+удаления. Добавляйте в подпись каждого триггера значение удаляемой метки.
 
-<PreviewFrame>
-  ```tsx preview file="../../en/docs/_snippets/tag/closable.tsx"
+<ExampleFrame variant="component">
+  <TagClosable />
+</ExampleFrame>
 
-  ```
-</PreviewFrame>
+<ExampleCode>
+<div className="docs-reference">
+  <Tabs
+    groupId="framework"
+    values={[
+      { label: 'React', value: 'react' },
+      { label: 'Solid', value: 'solid' },
+    ]}
+    className="docs-tabs"
+  >
+    <Tab value="react">
+
+```tsx pure file="../../../src/components/examples/tag/closable.tsx"
+```
+
+    </Tab>
+    <Tab value="solid">
+
+<CodeBlockRuntime lang="tsx" code={tagSolidClosable} />
+
+    </Tab>
+  </Tabs>
+
+**Стили**
+
+```css file="../../../src/components/examples/tag/tag-closable.module.css"
+```
+</div>
+</ExampleCode>
 
 ### Со значком
 
-Используйте `Tag.StartElement` и `Tag.EndElement` для значков и действий. Тогда `Tag.Label`
-останется границей обрезки, а размер действия можно будет настраивать отдельно.
+Используйте `Tag.StartElement` и `Tag.EndElement` для значков и действий. Так `Tag.Label` остаётся
+границей обрезки, а размер действия не зависит от текста.
 
-<PreviewFrame>
-  ```tsx preview file="../../en/docs/_snippets/tag/icon.tsx"
+<ExampleFrame variant="component">
+  <TagIcon />
+</ExampleFrame>
 
-  ```
-</PreviewFrame>
+<ExampleCode>
+<div className="docs-reference">
+  <Tabs
+    groupId="framework"
+    values={[
+      { label: 'React', value: 'react' },
+      { label: 'Solid', value: 'solid' },
+    ]}
+    className="docs-tabs"
+  >
+    <Tab value="react">
 
-### Длинные значения
+```tsx pure file="../../../src/components/examples/tag/icon.tsx"
+```
+
+    </Tab>
+    <Tab value="solid">
+
+<CodeBlockRuntime lang="tsx" code={tagSolidIcon} />
+
+    </Tab>
+  </Tabs>
+
+**Стили**
+
+```css file="../../../src/components/examples/tag/tag-icon.module.css"
+```
+</div>
+</ExampleCode>
+
+### Переполнение
 
 Ограничьте ширину корневого элемента, если длинное значение должно помещаться в узкой области.
-`Tag.Label` станет границей обрезки и покажет многоточие. Добавьте `title`, если полное значение
-должно оставаться доступным для просмотра.
+`Tag.Label` становится границей обрезки и показывает многоточие. Добавьте `title`, если полное
+значение должно оставаться доступным для просмотра.
 
-<PreviewFrame>
-  ```tsx preview file="../../en/docs/_snippets/tag/overflow.tsx"
+<ExampleFrame variant="component">
+  <TagOverflow />
+</ExampleFrame>
 
-  ```
-</PreviewFrame>
+<ExampleCode>
+<div className="docs-reference">
+  <Tabs
+    groupId="framework"
+    values={[
+      { label: 'React', value: 'react' },
+      { label: 'Solid', value: 'solid' },
+    ]}
+    className="docs-tabs"
+  >
+    <Tab value="react">
+
+```tsx pure file="../../../src/components/examples/tag/overflow.tsx"
+```
+
+    </Tab>
+    <Tab value="solid">
+
+<CodeBlockRuntime lang="tsx" code={tagSolidOverflow} />
+
+    </Tab>
+  </Tabs>
+
+**Стили**
+
+```css file="../../../src/components/examples/tag/tag-overflow.module.css"
+```
+</div>
+</ExampleCode>
 
 ### Размеры
 
-Используйте `size="sm"` для плотных рядов меток. Для отдельных меток и более свободной компоновки
+Используйте `size="sm"` для плотных рядов меток. Для отдельных меток и более свободных отступов
 оставляйте размер `md` по умолчанию.
 
-<PreviewFrame>
-  ```tsx preview file="../../en/docs/_snippets/tag/sizes.tsx"
+<ExampleFrame variant="component">
+  <TagSizes />
+</ExampleFrame>
 
-  ```
-</PreviewFrame>
+<ExampleCode>
+<div className="docs-reference">
+  <Tabs
+    groupId="framework"
+    values={[
+      { label: 'React', value: 'react' },
+      { label: 'Solid', value: 'solid' },
+    ]}
+    className="docs-tabs"
+  >
+    <Tab value="react">
+
+```tsx pure file="../../../src/components/examples/tag/sizes.tsx"
+```
+
+    </Tab>
+    <Tab value="solid">
+
+<CodeBlockRuntime lang="tsx" code={tagSolidSizes} />
+
+    </Tab>
+  </Tabs>
+
+**Стили**
+
+```css file="../../../src/components/examples/tag/tag-sizes.module.css"
+```
+</div>
+</ExampleCode>
 
 ### Варианты
 
-Используйте встроенные варианты для стандартных цветовых ролей moduix, сохраняя одну и ту же
-структуру частей.
+Используйте встроенные варианты для основных цветовых ролей moduix, сохраняя ту же структуру частей.
 
-<PreviewFrame>
-  ```tsx preview file="../../en/docs/_snippets/tag/variants.tsx"
+<ExampleFrame variant="component">
+  <TagVariants />
+</ExampleFrame>
 
-  ```
-</PreviewFrame>
+<ExampleCode>
+<div className="docs-reference">
+  <Tabs
+    groupId="framework"
+    values={[
+      { label: 'React', value: 'react' },
+      { label: 'Solid', value: 'solid' },
+    ]}
+    className="docs-tabs"
+  >
+    <Tab value="react">
+
+```tsx pure file="../../../src/components/examples/tag/variants.tsx"
+```
+
+    </Tab>
+    <Tab value="solid">
+
+<CodeBlockRuntime lang="tsx" code={tagSolidVariants} />
+
+    </Tab>
+  </Tabs>
+
+**Стили**
+
+```css file="../../../src/components/examples/tag/tag-variants.module.css"
+```
+</div>
+</ExampleCode>
 
 ### Расширенная настройка
 
-Используйте `asChild`, если вся метка является действием. Он заменит стандартный `span`, а единственный
-дочерний элемент станет семантическим и интерактивным узлом. Поэтому он должен поддерживать поведение
-кнопки или ссылки.
+Используйте `asChild`, когда вся метка должна быть действием. Это заменяет стандартный `span`, а
+единственный дочерний элемент становится семантическим и интерактивным узлом. Он должен задавать
+поведение, ожидаемое от кнопки или ссылки.
 
-<PreviewFrame>
-  ```tsx preview file="../../en/docs/_snippets/tag/render-as-button.tsx"
+<ExampleFrame variant="component">
+  <TagRenderAsButton />
+</ExampleFrame>
 
-  ```
-</PreviewFrame>
+<ExampleCode>
+<div className="docs-reference">
+  <Tabs
+    groupId="framework"
+    values={[
+      { label: 'React', value: 'react' },
+      { label: 'Solid', value: 'solid' },
+    ]}
+    className="docs-tabs"
+  >
+    <Tab value="react">
+
+```tsx pure file="../../../src/components/examples/tag/render-as-button.tsx"
+```
+
+    </Tab>
+    <Tab value="solid">
+
+<CodeBlockRuntime lang="tsx" code={tagSolidRenderAsButton} />
+
+    </Tab>
+  </Tabs>
+
+**Стили**
+
+```css file="../../../src/components/examples/tag/tag-render-as-button.module.css"
+```
+</div>
+</ExampleCode>
 
 ## Стилизация
 
-Сначала выбирайте встроенный вариант. Для разовых изменений размера или цвета используйте локальные
-CSS-переменные или переопределение через `className`. Общие цветовые переменные компонента имеют
-приоритет над переменными отдельных вариантов.
+Начните со встроенного варианта. В CSS Modules можно изменять публичные переменные или переопределять
+экспортированные части через `className` в React и `class` в Solid. В Tailwind используйте нативные
+классы Tailwind на экспортированных частях. Атрибуты данных и хуки `data-slot` общие для обоих вариантов.
 
 ### CSS-переменные
 
 <div className="docs-reference">
   <Tabs
-    values={[{ label: 'CSS-переменные', value: 'CSS Variables' }]}
+    values={[{ label: 'CSS Variables', value: 'CSS Variables' }]}
     className="docs-reference-tabs"
     contentItemClassName="docs-reference-panel"
   >
@@ -186,9 +386,9 @@ CSS-переменные или переопределение через `class
   </Tabs>
 </div>
 
-### Атрибуты для стилизации
+### Хуки стилизации
 
-- Экспортируемые части получают `data-scope="tag"` и значения `data-part="root" | "label" | "start-element" | "end-element" | "close-trigger"`.
-- `data-slot="tag-root"`, `data-slot="tag-label"`, `data-slot="tag-start-element"`, `data-slot="tag-end-element"` и `data-slot="tag-close-trigger"` - стабильные селекторы moduix.
+- Экспортированные части создают `data-scope="tag"` и `data-part="root" | "label" | "start-element" | "end-element" | "close-trigger"`.
+- `data-slot="tag-root"`, `data-slot="tag-label"`, `data-slot="tag-start-element"`, `data-slot="tag-end-element"` и `data-slot="tag-close-trigger"` являются стабильными селекторами moduix.
 - `Tag` записывает выбранные размер и вариант в `data-size` и `data-variant`.
-- `Tag.CloseTrigger` получает `data-disabled` в отключённом состоянии или при `aria-disabled` и наследует цвет метки.
+- `Tag.CloseTrigger` создаёт `data-disabled` для отключённых состояний или `aria-disabled` и наследует цвет метки.

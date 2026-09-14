@@ -1,0 +1,234 @@
+import { expect, test } from '@rstest/core';
+import { fireEvent, render, screen, waitFor } from '@solidjs/testing-library';
+import { Tabs, useTabs, useTabsContext } from '../src';
+
+const items = [
+  { value: 'overview', label: 'Overview', content: 'Overview content' },
+  { value: 'projects', label: 'Projects', content: 'Projects content' },
+  { value: 'account', label: 'Account', content: 'Account content' },
+];
+
+function TabParts(props: { disabled?: boolean } = {}) {
+  return (
+    <>
+      <Tabs.List>
+        {items.map((item) => (
+          <Tabs.Trigger disabled={props.disabled && item.value === 'projects'} value={item.value}>
+            {item.label}
+          </Tabs.Trigger>
+        ))}
+        <Tabs.Indicator />
+      </Tabs.List>
+      {items.map((item) => (
+        <Tabs.Content value={item.value}>{item.content}</Tabs.Content>
+      ))}
+    </>
+  );
+}
+
+function ContextOutput() {
+  const context = useTabsContext();
+
+  return <output data-testid="tabs-context-value">{context().value ?? 'none'}</output>;
+}
+
+function ProviderTabs(props: {
+  orientation?: 'horizontal' | 'vertical';
+  variant?: 'default' | 'line';
+}) {
+  const tabs = useTabs({ defaultValue: 'overview', orientation: props.orientation });
+
+  return (
+    <Tabs.RootProvider value={tabs} variant={props.variant}>
+      <TabParts />
+      <ContextOutput />
+      <Tabs.Context>
+        {(context) => <output data-testid="tabs-context-render-prop">{context().value}</output>}
+      </Tabs.Context>
+    </Tabs.RootProvider>
+  );
+}
+
+test('preserves anatomy, styling hooks, and refs', () => {
+  let rootRef!: HTMLDivElement;
+  let listRef!: HTMLDivElement;
+  let triggerRef!: HTMLButtonElement;
+  let indicatorRef!: HTMLDivElement;
+  let contentRef!: HTMLDivElement;
+
+  render(() => (
+    <Tabs ref={(element) => (rootRef = element)} defaultValue="overview">
+      <Tabs.List ref={(element) => (listRef = element)}>
+        <Tabs.Trigger ref={(element) => (triggerRef = element)} value="overview">
+          Overview
+        </Tabs.Trigger>
+        <Tabs.Indicator ref={(element) => (indicatorRef = element)} />
+      </Tabs.List>
+      <Tabs.Content ref={(element) => (contentRef = element)} value="overview">
+        Overview content
+      </Tabs.Content>
+    </Tabs>
+  ));
+
+  const root = screen.getByRole('tablist').parentElement;
+  const trigger = screen.getByRole('tab', { name: 'Overview' });
+  const indicator = screen.getByRole('tablist').querySelector('[data-slot="tabs-indicator"]');
+  const content = screen.getByText('Overview content');
+
+  expect(rootRef).toBe(root);
+  expect(rootRef).toHaveAttribute('data-slot', 'tabs-root');
+  expect(rootRef).toHaveAttribute('data-scope', 'tabs');
+  expect(listRef).toBe(screen.getByRole('tablist'));
+  expect(listRef).toHaveAttribute('data-slot', 'tabs-list');
+  expect(triggerRef).toBe(trigger);
+  expect(trigger).toHaveAttribute('data-slot', 'tabs-trigger');
+  expect(trigger).toHaveAttribute('aria-selected', 'true');
+  expect(indicatorRef).toBe(indicator);
+  expect(indicatorRef).toHaveAttribute('data-slot', 'tabs-indicator');
+  expect(contentRef).toBe(content);
+  expect(contentRef).toHaveAttribute('data-slot', 'tabs-content');
+});
+
+test('preserves keyboard navigation, disabled triggers, and Ark callback details', async () => {
+  const changes: string[] = [];
+  render(() => (
+    <Tabs defaultValue="overview" onValueChange={(details) => changes.push(details.value ?? '')}>
+      <TabParts disabled />
+    </Tabs>
+  ));
+
+  const overview = screen.getByRole('tab', { name: 'Overview' });
+  const projects = screen.getByRole('tab', { name: 'Projects' });
+  const account = screen.getByRole('tab', { name: 'Account' });
+
+  expect(projects).toBeDisabled();
+  overview.focus();
+  fireEvent.keyDown(overview, { key: 'ArrowRight' });
+  await waitFor(() => expect(account).toHaveFocus());
+  await waitFor(() => expect(changes).toEqual(['account']));
+});
+
+test('uses vertical keyboard navigation and mounts inactive content lazily', async () => {
+  render(() => (
+    <Tabs defaultValue="overview" lazyMount orientation="vertical" unmountOnExit variant="line">
+      <TabParts />
+    </Tabs>
+  ));
+
+  const overview = screen.getByRole('tab', { name: 'Overview' });
+  const projects = screen.getByRole('tab', { name: 'Projects' });
+  expect(screen.queryByText('Projects content')).not.toBeInTheDocument();
+  expect(overview.closest('[data-slot="tabs-root"]')).toHaveAttribute('data-variant', 'default');
+
+  overview.focus();
+  fireEvent.keyDown(overview, { key: 'ArrowDown' });
+  await waitFor(() => expect(projects).toHaveFocus());
+  await waitFor(() => expect(screen.getByText('Projects content')).toBeVisible());
+});
+
+test('keeps manual activation focused until Enter selects the tab', async () => {
+  const changes: string[] = [];
+  render(() => (
+    <Tabs
+      defaultValue="overview"
+      activationMode="manual"
+      onValueChange={(details) => changes.push(details.value ?? '')}
+    >
+      <TabParts />
+    </Tabs>
+  ));
+
+  const overview = screen.getByRole('tab', { name: 'Overview' });
+  const projects = screen.getByRole('tab', { name: 'Projects' });
+
+  overview.focus();
+  fireEvent.keyDown(overview, { key: 'ArrowRight' });
+  await waitFor(() => expect(projects).toHaveFocus());
+  expect(overview).toHaveAttribute('aria-selected', 'true');
+  expect(changes).toEqual([]);
+
+  fireEvent.keyDown(projects, { key: 'Enter' });
+  fireEvent.click(projects);
+  await waitFor(() => expect(projects).toHaveAttribute('aria-selected', 'true'));
+  expect(changes).toEqual(['projects']);
+});
+
+test('preserves asChild composition', () => {
+  render(() => (
+    <Tabs defaultValue="overview">
+      <Tabs.List>
+        <Tabs.Trigger
+          asChild={(props) => (
+            <a {...props()} data-testid="overview-link" href="#overview">
+              Overview
+            </a>
+          )}
+          value="overview"
+        />
+      </Tabs.List>
+      <Tabs.Content value="overview">Overview content</Tabs.Content>
+    </Tabs>
+  ));
+
+  expect(screen.getByTestId('overview-link').tagName).toBe('A');
+  expect(screen.getByRole('tab', { name: 'Overview' })).toHaveAttribute('aria-selected', 'true');
+});
+
+test('preserves provider and context composition', async () => {
+  render(() => <ProviderTabs />);
+
+  const firstTab = screen.getByRole('tab', { name: 'Overview' });
+  const projects = screen.getByRole('tab', { name: 'Projects' });
+
+  expect(firstTab).toHaveAttribute('aria-selected', 'true');
+  expect(screen.getByTestId('tabs-context-value')).toHaveTextContent('overview');
+  expect(screen.getByTestId('tabs-context-render-prop')).toHaveTextContent('overview');
+
+  fireEvent.click(projects);
+  await waitFor(() =>
+    expect(screen.getByTestId('tabs-context-value')).toHaveTextContent('projects'),
+  );
+  expect(screen.getByTestId('tabs-context-render-prop')).toHaveTextContent('projects');
+});
+
+test('keeps line variant off vertical provider roots', () => {
+  render(() => <ProviderTabs orientation="vertical" variant="line" />);
+
+  const provider = screen
+    .getByRole('tab', { name: 'Overview' })
+    .closest('[data-slot="tabs-root-provider"]');
+
+  expect(provider).toHaveAttribute('data-slot', 'tabs-root-provider');
+  expect(provider).toHaveAttribute('data-orientation', 'vertical');
+  expect(provider).toHaveAttribute('data-variant', 'default');
+});
+
+test('merges consumer utilities after Tailwind defaults', () => {
+  render(() => (
+    <Tabs defaultValue="overview" class="flex-row">
+      <Tabs.List class="w-full bg-card">
+        <Tabs.Trigger value="overview" class="h-10">
+          Overview
+        </Tabs.Trigger>
+        <Tabs.Indicator />
+      </Tabs.List>
+      <Tabs.Content value="overview" class="p-6">
+        Overview content
+      </Tabs.Content>
+    </Tabs>
+  ));
+
+  const root = screen.getByRole('tablist').parentElement;
+  const list = screen.getByRole('tablist');
+  const trigger = screen.getByRole('tab', { name: 'Overview' });
+  const content = screen.getByText('Overview content');
+
+  expect(root).toHaveClass('flex-row');
+  expect(root).not.toHaveClass('flex-col');
+  expect(list).toHaveClass('w-full', 'bg-card');
+  expect(list).not.toHaveClass('w-fit');
+  expect(trigger).toHaveClass('h-10');
+  expect(trigger).not.toHaveClass('h-8');
+  expect(content).toHaveClass('p-6');
+  expect(content).not.toHaveClass('p-4');
+});

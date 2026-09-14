@@ -1,83 +1,153 @@
 ---
 title: Format Number
-description: Format numbers, currencies, percentages, units, and large values in compact notation with Ark UI Format.Number and moduix.
+description: Format numbers for a locale with currency, percentage, unit, and compact notation using Ark UI Format.Number.
 ---
+
+import FormatNumberBasic from '@/components/examples/format-number/basic.tsx';
+import FormatNumberOptions from '@/components/examples/format-number/options.tsx';
+import formatNumberSolidBasic from '../../../snippets/format-number/solid/basic.tsx?raw';
+import formatNumberSolidLocale from '../../../snippets/format-number/solid/locale.tsx?raw';
+import formatNumberSolidOptions from '../../../snippets/format-number/solid/options.tsx?raw';
+
+`Format.Number` formats a numeric value with the browser's `Intl.NumberFormat` rules. It is a read-only formatter, not
+an input control.
 
 ## API Reference
 
 <PrimitiveReference href="https://ark-ui.com/docs/utilities/format-number" />
 
-## When to use it
+Import the utility from the matching Ark UI package:
 
-`Format.Number` is for displaying read-only numeric values. It applies the active locale's rules for grouping,
-decimal separators, currencies, percentages, units, and compact notation. For editable values, use moduix
-`NumberInput`.
-
-Import `Format` directly from Ark UI:
+<Tabs
+  groupId="framework"
+  values={[
+    { label: 'React', value: 'react' },
+    { label: 'Solid', value: 'solid' },
+  ]}
+  className="docs-tabs"
+>
+  <Tab value="react">
 
 ```tsx
 import { Format } from '@ark-ui/react';
 ```
+
+  </Tab>
+  <Tab value="solid">
+
+```tsx
+import { Format } from '@ark-ui/solid';
+```
+
+  </Tab>
+</Tabs>
 
 ## Basic
 
-Pass a number to `value`. With no formatting options, the component follows the default behavior of
-`Intl.NumberFormat` for the active locale. Without a `LocaleProvider`, Ark uses `en-US`.
+Pass a number to `value`. Without formatting options, the result follows the active locale. `Format.Number` renders
+only text, so keep its label and surrounding layout in your own markup.
 
-`Format.Number` renders only text. Place it next to a label or another element that explains what the value means. In
-this example, `Card` and `Stack` provide the surrounding context and visual hierarchy.
+The preview uses the React implementation because the documentation site runs React. The Solid tab contains the native
+Solid version of the same example.
 
-<PreviewFrame maxWidth="sm">
-  ```tsx preview file="./_snippets/format-number/basic.tsx"
+<ExampleFrame variant="component">
+  <PreviewFrame maxWidth="sm">
+    <FormatNumberBasic />
+  </PreviewFrame>
+</ExampleFrame>
 
-  ```
-</PreviewFrame>
+<ExampleCode>
+<div className="docs-reference">
+  <Tabs
+    groupId="framework"
+    values={[
+      { label: 'React', value: 'react' },
+      { label: 'Solid', value: 'solid' },
+    ]}
+    className="docs-tabs"
+  >
+    <Tab value="react">
 
-## Currency, percentage, and compact notation
-
-`Format.Number` accepts the standard `Intl.NumberFormat` options. For a monetary value, combine
-`style="currency"` with the `currency` prop set to a currency code. Use `style="percent"` for percentages, and use
-`notation="compact"` when space is limited, such as in a dashboard.
-
-<PreviewFrame maxWidth="sm">
-  ```tsx preview file="./_snippets/format-number/common-styles.tsx"
-
-  ```
-</PreviewFrame>
-
-The input value for 6.42% is `0.0642`; `6.42` is formatted as 642%. Set `maximumFractionDigits={2}` when you need to
-keep both decimal places. Use `minimumFractionDigits` and `maximumFractionDigits` when the number of fraction digits
-needs to stay consistent.
-
-## Locale and units
-
-`Format.Number` gets its locale from `LocaleProvider`. moduix re-exports the provider from
-`@moduix/react/locale`, so you can use it around the part of the interface that shares one locale:
-
-```tsx
-import { Format } from '@ark-ui/react';
-import { LocaleProvider } from '@moduix/react/locale';
-
-export function LocalizedPrice() {
-  return (
-    <LocaleProvider locale="de-DE">
-      <Format.Number currency="EUR" style="currency" value={1234.5} />
-    </LocaleProvider>
-  );
-}
+```tsx pure file="../../../src/components/examples/format-number/basic.tsx"
 ```
 
-For measurements, use `style="unit"` with a supported `unit`, such as `kilometer`, `celsius`, or `megabyte`. Set
-`unitDisplay` to `"narrow"`, `"short"`, or `"long"` to choose how the unit is written.
+    </Tab>
+    <Tab value="solid">
 
-## Using moduix
+<CodeBlockRuntime lang="tsx" code={formatNumberSolidBasic} />
 
-Keep `Format.Number` close to the label, status, or metric it describes. Use moduix `Card`, `Stack`, `Text`, and
-data-display components to structure the interface. There is no need to create a wrapper just to call the formatter.
-For editable amounts, use `NumberInput`; its `formatOptions` prop controls the display format and parsing of the
-entered value.
+    </Tab>
+  </Tabs>
+</div>
+</ExampleCode>
 
-## Ownership
+## Formatting options
 
-Ark UI provides `Format.Number` and the number-formatting logic. moduix re-exports `LocaleProvider` and provides the
-components used to structure the interface. It does not re-export `Format.Number`, so import `Format` from Ark UI.
+`Format.Number` accepts the standard `Intl.NumberFormatOptions`, including `style`, `currency`, `unit`,
+`unitDisplay`, `notation`, and fraction digit options.
+
+<ExampleFrame variant="component">
+  <PreviewFrame maxWidth="sm">
+    <FormatNumberOptions />
+  </PreviewFrame>
+</ExampleFrame>
+
+<ExampleCode>
+<div className="docs-reference">
+  <Tabs
+    groupId="framework"
+    values={[
+      { label: 'React', value: 'react' },
+      { label: 'Solid', value: 'solid' },
+    ]}
+    className="docs-tabs"
+  >
+    <Tab value="react">
+
+```tsx pure file="../../../src/components/examples/format-number/options.tsx"
+```
+
+    </Tab>
+    <Tab value="solid">
+
+<CodeBlockRuntime lang="tsx" code={formatNumberSolidOptions} />
+
+    </Tab>
+  </Tabs>
+</div>
+</ExampleCode>
+
+`style="percent"` multiplies the value by 100: pass `0.0642` to display `6.4%` with
+`maximumFractionDigits={1}`. Combine `minimumFractionDigits` and `maximumFractionDigits` when the number of decimal
+places must stay fixed. Use `notation="compact"` for values such as `125_000`, and `style="unit"` with a supported
+`unit` when the number represents a measurement.
+
+## Locale
+
+`LocaleProvider` supplies the locale to `Format.Number` and other Ark formatters in its subtree. Without a provider,
+the default locale is `en-US`. Import the provider from the matching Ark framework package.
+
+<ExampleCode>
+<div className="docs-reference">
+  <Tabs
+    groupId="framework"
+    values={[
+      { label: 'React', value: 'react' },
+      { label: 'Solid', value: 'solid' },
+    ]}
+    className="docs-tabs"
+  >
+    <Tab value="react">
+
+```tsx pure file="../../../src/components/examples/format-number/locale.tsx"
+```
+
+    </Tab>
+    <Tab value="solid">
+
+<CodeBlockRuntime lang="tsx" code={formatNumberSolidLocale} />
+
+    </Tab>
+  </Tabs>
+</div>
+</ExampleCode>

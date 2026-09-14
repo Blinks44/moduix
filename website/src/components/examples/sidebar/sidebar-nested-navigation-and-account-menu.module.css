@@ -1,0 +1,87 @@
+.root {
+  --moduix-sidebar-width: min(100%, 64rem);
+  --moduix-sidebar-height: 34rem;
+  --moduix-sidebar-min-height: 28rem;
+  --moduix-sidebar-radius: var(--moduix-radius-lg);
+  --moduix-sidebar-shadow: var(--moduix-shadow-sm);
+  margin-inline: auto;
+}
+
+.headerContent {
+  display: grid;
+  gap: 0.75rem;
+}
+
+.brand {
+  display: flex;
+  align-items: center;
+  gap: 0.5rem;
+  font-weight: 600;
+}
+
+.brandMark {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  width: 2rem;
+  height: 2rem;
+  border-radius: var(--moduix-radius-sm);
+  background-color: var(--moduix-color-primary);
+  color: var(--moduix-color-primary-foreground);
+}
+
+.footer {
+  display: grid;
+  width: 100%;
+}
+
+.accountButton {
+  height: auto;
+}
+
+.accountLabel {
+  display: grid;
+  flex: 1;
+  text-align: start;
+}
+
+.accountName,
+.accountEmail {
+  overflow: hidden;
+  text-overflow: ellipsis;
+  white-space: nowrap;
+}
+
+.accountName {
+  font-weight: var(--moduix-weight-medium);
+}
+
+.accountEmail {
+  color: var(--moduix-color-muted-foreground);
+  font-size: var(--moduix-text-xs);
+}
+
+.menuContent {
+  min-width: 14rem;
+  max-width: 18rem;
+}
+
+.header {
+  display: flex;
+  align-items: center;
+  min-height: 3.5rem;
+  padding-inline: 1.5rem;
+  border-block-end: 1px solid var(--moduix-color-border);
+}
+
+.content {
+  display: grid;
+  gap: 1rem;
+  padding: 1.5rem;
+}
+
+.card {
+  padding: 1rem;
+  border: 1px solid var(--moduix-color-border);
+  border-radius: var(--moduix-radius-md);
+}

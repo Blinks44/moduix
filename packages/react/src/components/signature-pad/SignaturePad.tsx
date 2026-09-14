@@ -7,10 +7,9 @@ import {
   useSignaturePadContext,
 } from '@ark-ui/react/signature-pad';
 import { clsx } from 'clsx';
-import type { ComponentProps, ComponentRef, ReactElement, ReactNode } from 'react';
-import { Children, cloneElement, createContext, forwardRef, useContext } from 'react';
+import type { ComponentProps, ComponentRef } from 'react';
+import { createContext, forwardRef, useContext } from 'react';
 import { RotateCcwIcon } from '@/lib/moduix/icons/ui';
-import { normalizeClassName } from '@/lib/moduix/normalizeClassName';
 import { CloseButton } from '../close-button';
 import styles from './SignaturePad.module.css';
 
@@ -22,8 +21,8 @@ type SignaturePadApi = ReturnType<typeof useSignaturePadPrimitive> & {
 
 const SignaturePadRoot = forwardRef<
   ComponentRef<typeof SignaturePadPrimitive.Root>,
-  ComponentProps<typeof SignaturePadPrimitive.Root> & SignaturePadFormProps
->(function SignaturePadRoot({ asChild, children, className, getFormValue, ...props }, ref) {
+  ComponentProps<typeof SignaturePadPrimitive.Root>
+>(function SignaturePadRoot({ asChild, children, className, ...props }, ref) {
   const field = useFieldContext();
   const readOnly = props.readOnly ?? field?.readOnly ?? false;
 
@@ -32,11 +31,11 @@ const SignaturePadRoot = forwardRef<
       <SignaturePadPrimitive.Root
         ref={ref}
         data-slot="signature-pad-root"
-        className={clsx(styles.root, normalizeClassName(className))}
+        className={clsx(styles.root, className)}
         asChild={asChild}
         {...props}
       >
-        {withHiddenInput(children, asChild, getFormValue)}
+        {children}
       </SignaturePadPrimitive.Root>
     </SignaturePadReadOnlyContext.Provider>
   );
@@ -44,8 +43,8 @@ const SignaturePadRoot = forwardRef<
 
 const SignaturePadRootProvider = forwardRef<
   ComponentRef<typeof SignaturePadPrimitive.RootProvider>,
-  ComponentProps<typeof SignaturePadPrimitive.RootProvider> & SignaturePadFormProps
->(function SignaturePadRootProvider({ asChild, children, className, getFormValue, ...props }, ref) {
+  ComponentProps<typeof SignaturePadPrimitive.RootProvider>
+>(function SignaturePadRootProvider({ asChild, children, className, ...props }, ref) {
   const readOnly = (props.value as SignaturePadApi)[signaturePadReadOnly] ?? false;
 
   return (
@@ -53,11 +52,11 @@ const SignaturePadRootProvider = forwardRef<
       <SignaturePadPrimitive.RootProvider
         ref={ref}
         data-slot="signature-pad-root-provider"
-        className={clsx(styles.root, normalizeClassName(className))}
+        className={clsx(styles.root, className)}
         asChild={asChild}
         {...props}
       >
-        {withHiddenInput(children, asChild, getFormValue)}
+        {children}
       </SignaturePadPrimitive.RootProvider>
     </SignaturePadReadOnlyContext.Provider>
   );
@@ -71,7 +70,7 @@ const SignaturePadLabel = forwardRef<
     <SignaturePadPrimitive.Label
       ref={ref}
       data-slot="signature-pad-label"
-      className={clsx(styles.label, normalizeClassName(className))}
+      className={clsx(styles.label, className)}
       {...props}
     />
   );
@@ -85,7 +84,7 @@ const SignaturePadControl = forwardRef<
     <SignaturePadPrimitive.Control
       ref={ref}
       data-slot="signature-pad-control"
-      className={clsx(styles.control, normalizeClassName(className))}
+      className={clsx(styles.control, className)}
       {...props}
     />
   );
@@ -99,7 +98,7 @@ const SignaturePadSegment = forwardRef<
     <SignaturePadPrimitive.Segment
       ref={ref}
       data-slot="signature-pad-segment"
-      className={clsx(styles.segment, normalizeClassName(className))}
+      className={clsx(styles.segment, className)}
       {...props}
     />
   );
@@ -113,7 +112,7 @@ const SignaturePadGuide = forwardRef<
     <SignaturePadPrimitive.Guide
       ref={ref}
       data-slot="signature-pad-guide"
-      className={clsx(styles.guide, normalizeClassName(className))}
+      className={clsx(styles.guide, className)}
       {...props}
     />
   );
@@ -134,24 +133,7 @@ const SignaturePadClearTrigger = forwardRef<
   ref,
 ) {
   const readOnly = useContext(SignaturePadReadOnlyContext);
-  const triggerClassName = clsx(styles.clearTrigger, normalizeClassName(className));
-
-  if (asChild) {
-    return (
-      <SignaturePadPrimitive.ClearTrigger
-        ref={ref}
-        asChild
-        data-slot="signature-pad-clear-trigger"
-        className={triggerClassName}
-        aria-label={ariaLabel}
-        aria-labelledby={ariaLabelledBy}
-        {...props}
-        disabled={readOnly || props.disabled}
-      >
-        {children}
-      </SignaturePadPrimitive.ClearTrigger>
-    );
-  }
+  const triggerClassName = clsx(styles.clearTrigger, className);
 
   return (
     <SignaturePadPrimitive.ClearTrigger
@@ -159,51 +141,21 @@ const SignaturePadClearTrigger = forwardRef<
       asChild
       data-slot="signature-pad-clear-trigger"
       className={triggerClassName}
+      aria-label={asChild ? ariaLabel : undefined}
+      aria-labelledby={asChild ? ariaLabelledBy : undefined}
       {...props}
       disabled={readOnly || props.disabled}
     >
-      <CloseButton.Root aria-label={ariaLabel} aria-labelledby={ariaLabelledBy}>
-        {children ?? <RotateCcwIcon aria-hidden="true" />}
-      </CloseButton.Root>
+      {asChild ? (
+        children
+      ) : (
+        <CloseButton.Root aria-label={ariaLabel} aria-labelledby={ariaLabelledBy}>
+          {children ?? <RotateCcwIcon aria-hidden="true" />}
+        </CloseButton.Root>
+      )}
     </SignaturePadPrimitive.ClearTrigger>
   );
 });
-
-type SignaturePadFormProps = {
-  getFormValue?: (paths: string[]) => string;
-};
-
-function withHiddenInput(
-  children: ReactNode,
-  asChild: boolean | undefined,
-  getFormValue: SignaturePadFormProps['getFormValue'],
-) {
-  const hiddenInput = <SignaturePadFormInput getFormValue={getFormValue} />;
-
-  if (!asChild) {
-    return (
-      <>
-        {children}
-        {hiddenInput}
-      </>
-    );
-  }
-
-  const child = Children.only(children) as ReactElement<{ children?: ReactNode }>;
-
-  return cloneElement(child, {}, child.props.children, hiddenInput);
-}
-
-function SignaturePadFormInput({ getFormValue }: SignaturePadFormProps) {
-  const signaturePad = useSignaturePadContext();
-
-  return (
-    <SignaturePadPrimitive.HiddenInput
-      data-slot="signature-pad-hidden-input"
-      value={getFormValue?.(signaturePad.paths) ?? signaturePad.paths.join(' ')}
-    />
-  );
-}
 
 const SignaturePadCanvas = forwardRef<
   ComponentRef<typeof SignaturePadPrimitive.Control>,
@@ -237,6 +189,7 @@ const SignaturePad = Object.assign(SignaturePadRoot, {
   Root: SignaturePadRoot,
   RootProvider: SignaturePadRootProvider,
   Context: SignaturePadPrimitive.Context,
+  HiddenInput: SignaturePadPrimitive.HiddenInput,
   Label: SignaturePadLabel,
   Control: SignaturePadControl,
   Canvas: SignaturePadCanvas,

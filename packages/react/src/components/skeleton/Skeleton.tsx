@@ -2,7 +2,6 @@ import type { HTMLArkProps } from '@ark-ui/react/factory';
 import { ark } from '@ark-ui/react/factory';
 import { clsx } from 'clsx';
 import { forwardRef } from 'react';
-import { normalizeClassName } from '@/lib/moduix/normalizeClassName';
 import styles from './Skeleton.module.css';
 
 type SkeletonProps = HTMLArkProps<'div'> & {
@@ -45,7 +44,7 @@ const SkeletonRoot = forwardRef<HTMLDivElement, SkeletonProps>(function Skeleton
       data-loading={loading ? '' : undefined}
       data-variant={variant}
       aria-hidden={ariaHidden ?? (loading ? true : undefined)}
-      className={clsx(styles.root, normalizeClassName(className))}
+      className={clsx(styles.root, className)}
       style={{
         width: toCssValue(width ?? boxSize),
         height: toCssValue(height ?? boxSize),

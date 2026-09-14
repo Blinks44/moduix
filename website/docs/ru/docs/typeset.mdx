@@ -4,7 +4,19 @@ component: typeset
 description: Настраивайте ритм чтения для семантического HTML, отрендеренного Markdown и потокового контента.
 ---
 
-import * as TypesetDocs from '@/components/examples/typeset';
+import * as TypesetDocs from '@/components/examples/typeset/css-properties';
+import TypesetBasic from '@/components/examples/typeset/basic.tsx';
+import TypesetExcludedSubtree from '@/components/examples/typeset/excluded-subtree.tsx';
+import TypesetMarkdownExtensions from '@/components/examples/typeset/markdown-extensions.tsx';
+import TypesetReadingRhythm from '@/components/examples/typeset/reading-rhythm.tsx';
+import TypesetScrollableTable from '@/components/examples/typeset/scrollable-table.tsx';
+import TypesetStreamingContent from '@/components/examples/typeset/streaming-content.tsx';
+import typesetSolidBasic from '../../../snippets/typeset/solid/basic.tsx?raw';
+import typesetSolidExcludedSubtree from '../../../snippets/typeset/solid/excluded-subtree.tsx?raw';
+import typesetSolidMarkdownExtensions from '../../../snippets/typeset/solid/markdown-extensions.tsx?raw';
+import typesetSolidReadingRhythm from '../../../snippets/typeset/solid/reading-rhythm.tsx?raw';
+import typesetSolidScrollableTable from '../../../snippets/typeset/solid/scrollable-table.tsx?raw';
+import typesetSolidStreamingContent from '../../../snippets/typeset/solid/streaming-content.tsx?raw';
 
 ## Справочник API
 
@@ -16,28 +28,82 @@ import * as TypesetDocs from '@/components/examples/typeset';
 [фабрики Ark](https://ark-ui.com/docs/guides/composition#the-ark-factory), поэтому поддерживают
 нативные свойства `div`, ref и композицию через `asChild`.
 
+CSS-first контракт Typeset следует подходу из [документации shadcn/typeset](https://ui.shadcn.com/docs/typeset).
+Как и там, ритм чтения задают три переменные, а рендеринг контента и его ширина остаются
+ответственностью приложения. moduix добавляет нативные компоненты для React и Solid и
+`Typeset.Scroll`.
+
 ## Базовый пример
+
+Typeset доступен для React и Solid в вариантах с CSS Modules и Tailwind. Превью на этой странице
+использует React и CSS Modules, а вкладки фреймворков показывают нативный исходный код с тем же
+публичным контрактом.
 
 Оберните в `<Typeset>` HTML, который уже подготовил ваш рендерер. Используйте `asChild`, только
 когда внешний контейнер должен быть семантическим элементом, например `article` или `section`.
-Оставьте списки обычными `<ul>` и `<ol>`: Typeset сам задаст их маркеры и интервалы без utility-классов.
+Оставьте списки обычными `<ul>` и `<ol>`: Typeset сам задаст их маркеры и интервалы без utility-
+классов.
 
-<PreviewFrame maxWidth="lg">
-  ```tsx preview file="../../en/docs/_snippets/typeset/basic.tsx"
+<ExampleFrame variant="component">
+  <TypesetBasic />
+</ExampleFrame>
 
-  ```
-</PreviewFrame>
+<ExampleCode>
+<div className="docs-reference">
+  <Tabs
+    groupId="framework"
+    values={[
+      { label: 'React', value: 'react' },
+      { label: 'Solid', value: 'solid' },
+    ]}
+    className="docs-tabs"
+  >
+    <Tab value="react">
+
+```tsx pure file="../../../src/components/examples/typeset/basic.tsx"
+```
+
+    </Tab>
+    <Tab value="solid">
+
+<CodeBlockRuntime lang="tsx" code={typesetSolidBasic} />
+
+    </Tab>
+  </Tabs>
+</div>
+</ExampleCode>
 
 ## Установка через shadcn
 
-```bash
-npx shadcn@latest add @moduix-react/typeset
-```
+Полную настройку пакета, реестра и стилей см. в разделе [Быстрый старт](/docs/quick-start).
+
+<Tabs groupId="framework">
+  <Tab label="React" value="react">
+
+<ShadcnInstallOptions
+  options={[
+    { label: 'CSS Modules', command: 'shadcn@latest add @moduix-react/typeset' },
+    { label: 'Tailwind CSS', command: 'shadcn@latest add @moduix-react-tailwind/typeset' },
+  ]}
+/>
+
+  </Tab>
+  <Tab label="Solid" value="solid">
+
+<ShadcnInstallOptions
+  options={[
+    { label: 'CSS Modules', command: 'shadcn@latest add @moduix-solid/typeset' },
+    { label: 'Tailwind CSS', command: 'shadcn@latest add @moduix-solid-tailwind/typeset' },
+  ]}
+/>
+
+  </Tab>
+</Tabs>
 
 ## Анатомия
 
 ```text
-Typeset
+Typeset / Typeset.Root
 └─ Typeset.Scroll (необязательно)
 ```
 
@@ -48,35 +114,12 @@ Typeset
 
 ## Композиция
 
-### Рекомендуемая композиция
-
-Разбирайте Markdown, фильтруйте небезопасный контент, рендерьте его и задавайте ширину текста в
-приложении. `Typeset` только оформляет дочерние элементы внутри корня и намеренно не имеет свойства
-для ширины. Оберните широкую таблицу или другой блок в `Typeset.Scroll`, если его лучше прокручивать
-по горизонтали.
-
-### Когда нужна собственная композиция
-
-Если части содержимого нужен свой визуальный стиль, используйте семантическую разметку напрямую, а
-затем добавьте `.not-typeset` или `data-not-typeset`, чтобы исключить этот элемент и всё его
-содержимое. Для каждой пользовательской области `Typeset.Scroll` укажите `aria-label` или
-`aria-labelledby`. Если у области есть доступное имя, moduix добавит `role="region"`, если только вы
-не задали другую роль. При необходимости можно передать и свой `tabIndex`.
-
-### Свойства по умолчанию
-
-| Часть | По умолчанию | Примечания |
-| --- | --- | --- |
-| `Typeset` | `div` | Используйте `asChild` ровно с одним семантическим дочерним элементом, чтобы отрендерить другой контейнер. |
-| `Typeset.Scroll` | `div`, `tabIndex={0}` | Фокус по умолчанию позволяет прокручивать с клавиатуры широкую статическую таблицу. Укажите доступное имя для пользовательской области прокрутки, чтобы добавить ей `role="region"`. |
-
-### Особенности поведения
-
-Корневой `Typeset` не управляет состоянием, взаимодействием с клавиатуры, элементами формы и не
-создаёт скрытых полей. У `Typeset.Scroll` по умолчанию есть фокус, поэтому браузер может прокручивать
-широкий статический блок. Стили добавляют интервал перед отрендеренными блоками и не используют
-`:last-child`, `:has()` и `:empty`, поэтому новые элементы потока не меняют разметку уже показанного
-содержимого.
+`Typeset` не владеет состоянием, не разбирает и не фильтрует контент и не задаёт его размер.
+Помещайте отрендеренные семантические элементы внутрь корня, используйте `asChild`, когда корень
+должен быть `article` или `section`, и добавляйте `Typeset.Scroll` вокруг широкого блока, который
+лучше прокручивать, чем сжимать. Если вложенный фрагмент принадлежит приложению и должен иметь свой
+стиль, добавьте к нему `.not-typeset` или `data-not-typeset`. Пользовательская область прокрутки
+должна иметь доступное имя, а `Typeset.Scroll` по умолчанию доступен для фокуса с клавиатуры.
 
 ## Примеры
 
@@ -86,33 +129,112 @@ Typeset
 управления или карточка. И `.not-typeset`, и `data-not-typeset` исключают отмеченный элемент со всем
 содержимым, включая вложенный корень `Typeset`.
 
-<PreviewFrame maxWidth="lg">
-  ```tsx preview file="../../en/docs/_snippets/typeset/excluded-subtree.tsx"
+<ExampleFrame variant="component">
+  <TypesetExcludedSubtree />
+</ExampleFrame>
 
-  ```
-</PreviewFrame>
+<ExampleCode>
+<div className="docs-reference">
+  <Tabs
+    groupId="framework"
+    values={[
+      { label: 'React', value: 'react' },
+      { label: 'Solid', value: 'solid' },
+    ]}
+    className="docs-tabs"
+  >
+    <Tab value="react">
+
+```tsx pure file="../../../src/components/examples/typeset/excluded-subtree.tsx"
+```
+
+    </Tab>
+    <Tab value="solid">
+
+<CodeBlockRuntime lang="tsx" code={typesetSolidExcludedSubtree} />
+
+    </Tab>
+  </Tabs>
+
+**Стили**
+
+```css file="../../../src/components/examples/typeset/typeset-excluded-subtree.module.css"
+```
+</div>
+</ExampleCode>
 
 ### Расширения Markdown
 
-Списки задач, раскрывающиеся блоки `details`, списки определений и сноски GFM используют те же токены
-и интервалы между блоками, что и основные HTML-элементы.
+Списки задач, раскрывающиеся блоки `details`, списки определений и сноски GFM используют те же
+токены и интервалы между блоками, что и основные HTML-элементы.
 
-<PreviewFrame maxWidth="lg">
-  ```tsx preview file="../../en/docs/_snippets/typeset/markdown-extensions.tsx"
+<ExampleFrame variant="component">
+  <TypesetMarkdownExtensions />
+</ExampleFrame>
 
-  ```
-</PreviewFrame>
+<ExampleCode>
+<div className="docs-reference">
+  <Tabs
+    groupId="framework"
+    values={[
+      { label: 'React', value: 'react' },
+      { label: 'Solid', value: 'solid' },
+    ]}
+    className="docs-tabs"
+  >
+    <Tab value="react">
+
+```tsx pure file="../../../src/components/examples/typeset/markdown-extensions.tsx"
+```
+
+    </Tab>
+    <Tab value="solid">
+
+<CodeBlockRuntime lang="tsx" code={typesetSolidMarkdownExtensions} />
+
+    </Tab>
+  </Tabs>
+</div>
+</ExampleCode>
 
 ### Ритм чтения
 
 Настройте CSS-переменные, когда для раздела нужен более свободный или плотный ритм чтения без новых
 свойств компонента.
 
-<PreviewFrame maxWidth="lg">
-  ```tsx preview file="../../en/docs/_snippets/typeset/reading-rhythm.tsx"
+<ExampleFrame variant="component">
+  <TypesetReadingRhythm />
+</ExampleFrame>
 
-  ```
-</PreviewFrame>
+<ExampleCode>
+<div className="docs-reference">
+  <Tabs
+    groupId="framework"
+    values={[
+      { label: 'React', value: 'react' },
+      { label: 'Solid', value: 'solid' },
+    ]}
+    className="docs-tabs"
+  >
+    <Tab value="react">
+
+```tsx pure file="../../../src/components/examples/typeset/reading-rhythm.tsx"
+```
+
+    </Tab>
+    <Tab value="solid">
+
+<CodeBlockRuntime lang="tsx" code={typesetSolidReadingRhythm} />
+
+    </Tab>
+  </Tabs>
+
+**Стили**
+
+```css file="../../../src/components/examples/typeset/typeset-reading-rhythm.module.css"
+```
+</div>
+</ExampleCode>
 
 ### Прокручиваемая таблица
 
@@ -120,22 +242,78 @@ Typeset
 прокручиваться в узком контейнере. Дайте области прокрутки доступное имя, которое описывает таблицу
 внутри неё.
 
-<PreviewFrame maxWidth="lg">
-  ```tsx preview file="../../en/docs/_snippets/typeset/scrollable-table.tsx"
+<ExampleFrame variant="component">
+  <TypesetScrollableTable />
+</ExampleFrame>
 
-  ```
-</PreviewFrame>
+<ExampleCode>
+<div className="docs-reference">
+  <Tabs
+    groupId="framework"
+    values={[
+      { label: 'React', value: 'react' },
+      { label: 'Solid', value: 'solid' },
+    ]}
+    className="docs-tabs"
+  >
+    <Tab value="react">
+
+```tsx pure file="../../../src/components/examples/typeset/scrollable-table.tsx"
+```
+
+    </Tab>
+    <Tab value="solid">
+
+<CodeBlockRuntime lang="tsx" code={typesetSolidScrollableTable} />
+
+    </Tab>
+  </Tabs>
+
+**Стили**
+
+```css file="../../../src/components/examples/typeset/typeset-scrollable-table.module.css"
+```
+</div>
+</ExampleCode>
 
 ### Потоковое содержимое
 
 Для потока сообщений используйте более плотный ритм. Каждый новый блок добавляет только свой
 интервал, поэтому уже показанное содержимое остаётся на месте по мере роста потока.
 
-<PreviewFrame maxWidth="lg">
-  ```tsx preview file="../../en/docs/_snippets/typeset/streaming-content.tsx"
+<ExampleFrame variant="component">
+  <TypesetStreamingContent />
+</ExampleFrame>
 
-  ```
-</PreviewFrame>
+<ExampleCode>
+<div className="docs-reference">
+  <Tabs
+    groupId="framework"
+    values={[
+      { label: 'React', value: 'react' },
+      { label: 'Solid', value: 'solid' },
+    ]}
+    className="docs-tabs"
+  >
+    <Tab value="react">
+
+```tsx pure file="../../../src/components/examples/typeset/streaming-content.tsx"
+```
+
+    </Tab>
+    <Tab value="solid">
+
+<CodeBlockRuntime lang="tsx" code={typesetSolidStreamingContent} />
+
+    </Tab>
+  </Tabs>
+
+**Стили**
+
+```css file="../../../src/components/examples/typeset/typeset-streaming-content.module.css"
+```
+</div>
+</ExampleCode>
 
 ## Стилизация
 
@@ -158,6 +336,10 @@ Typeset
 активной темы moduix. Правила элементов находятся в слое `moduix.components` и используют
 низкоспецифичные селекторы `:where()`, поэтому обычный CSS приложения может переопределять отдельные
 элементы без `!important`.
+
+Для структурных стилей используйте `className` в React и `class` в Solid. Варианты Tailwind
+используют обычные utility-классы и классы приложения, а переменные ниже настраивают варианты с CSS
+Modules.
 
 ### Хуки стилизации
 

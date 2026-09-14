@@ -16,7 +16,7 @@ keys, secondary metadata, or a single disclosure row. Use `Accordion` for coordi
 - Keeps the Ark anatomy: `Root` or `RootProvider`, `Trigger`, optional `Indicator`, and `Content`.
 - Keeps Ark controlled state, render strategy, partial-collapse measurements, context, and
   `--height` / `--width` CSS variables unchanged.
-- Layers the moduix-only `Body` helper inside `Content` for padding and content layout without
+- Layers the moduix-only `Body` helper inside `Content` for gap and consumer-provided padding without
   changing the measured Ark content part.
 
 ## Current behavior contract
@@ -27,7 +27,7 @@ keys, secondary metadata, or a single disclosure row. Use `Accordion` for coordi
   and `onExitComplete`.
 - `Collapsible.RootProvider` accepts the return value from moduix `useCollapsible()`.
 - `Collapsible.Indicator` renders `ChevronDownIcon` when children are omitted.
-- `Collapsible.Body` is an optional inner layout wrapper for padding, gap, and surfaces inside
+- `Collapsible.Body` is an optional inner layout wrapper for gap, consumer-provided padding, and surfaces inside
   `Collapsible.Content`.
 - Every DOM part forwards its Ark props, ref, `className`, and `asChild`. `Trigger asChild` supplies
   behavior and state attributes without imposing the default trigger class.
@@ -136,7 +136,7 @@ Primary CSS variables:
 | Variable                                        | Default                                                         |
 | ----------------------------------------------- | --------------------------------------------------------------- |
 | `--moduix-collapsible-body-gap`                 | `var(--moduix-spacing-2)`                                       |
-| `--moduix-collapsible-body-padding`             | `var(--moduix-spacing-2)`                                       |
+| `--moduix-collapsible-body-padding`             | `0`                                                             |
 | `--moduix-collapsible-color`                    | `var(--moduix-color-foreground)`                                |
 | `--moduix-collapsible-width`                    | `100%`                                                          |
 | `--moduix-collapsible-max-width`                | `100%`                                                          |
@@ -160,7 +160,7 @@ Primary CSS variables:
 | `--moduix-collapsible-trigger-font-size`        | `var(--moduix-text-sm)`                                         |
 | `--moduix-collapsible-trigger-gap`              | `var(--moduix-spacing-2)`                                       |
 | `--moduix-collapsible-trigger-line-height`      | `var(--moduix-line-height-text-sm)`                             |
-| `--moduix-collapsible-trigger-padding-x`        | `var(--moduix-spacing-2)`                                       |
+| `--moduix-collapsible-trigger-padding-x`        | `0`                                                             |
 | `--moduix-collapsible-trigger-padding-y`        | `var(--moduix-spacing-1)`                                       |
 | `--moduix-collapsible-trigger-radius`           | `0`                                                             |
 | `--moduix-collapsible-trigger-transition`       | `var(--moduix-transition-default)`                              |
@@ -179,9 +179,9 @@ Primary CSS variables:
 
 | Source                                                               | Finding                                                                                                                             | Decision                                                                                                                                                                   |
 | -------------------------------------------------------------------- | ----------------------------------------------------------------------------------------------------------------------------------- | -------------------------------------------------------------------------------------------------------------------------------------------------------------------------- |
-| [Ark UI](https://ark-ui.com/docs/components/collapsible)             | Defines the anatomy, `asChild`, controlled state, partial-collapse measurements, inert collapsed content, and keyboard interaction. | **Required correctness** — preserve Ark props, callback details, state attributes, and runtime measurement variables without translation. Verified.                        |
-| [Chakra UI](https://www.chakra-ui.com/docs/components/collapsible)   | Recommends an inner content wrapper so padding does not interfere with size animation.                                              | **Consumer friction** — moduix `Collapsible.Body` supplies that wrapper while keeping the real Ark content part available.                                                 |
-| [shadcn/ui](https://ui.shadcn.com/docs/components/radix/collapsible) | Favors a compact, discoverable root/trigger/content recipe and controlled-state example.                                            | **Intentional difference** — retain the moduix namespace and optional default indicator; flat aliases would add duplicate API without removing recurring composition work. |
+| [Ark UI](https://ark-ui.com/docs/components/collapsible)             | Defines the anatomy, `asChild`, controlled state, partial-collapse measurements, inert collapsed content, and keyboard interaction. | **Required correctness** - preserve Ark props, callback details, state attributes, and runtime measurement variables without translation. Verified.                        |
+| [Chakra UI](https://www.chakra-ui.com/docs/components/collapsible)   | Recommends an inner content wrapper so padding does not interfere with size animation.                                              | **Consumer friction** - moduix `Collapsible.Body` supplies that wrapper while keeping the real Ark content part available.                                                 |
+| [shadcn/ui](https://ui.shadcn.com/docs/components/radix/collapsible) | Favors a compact, discoverable root/trigger/content recipe and controlled-state example.                                            | **Intentional difference** - retain the moduix namespace and optional default indicator; flat aliases would add duplicate API without removing recurring composition work. |
 
 ## Agent notes
 

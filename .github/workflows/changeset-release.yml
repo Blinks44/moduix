@@ -1,44 +1,38 @@
 name: Release
 
 on:
-  push:
-    tags:
-      - 'v*'
+  workflow_run:
+    workflows:
+      - Verify
+    types:
+      - completed
 
 permissions:
-  contents: read
+  contents: write
+  pull-requests: write
   id-token: write
 
 concurrency:
-  group: release-${{ github.workflow }}
-  cancel-in-progress: true
+  group: release
+  cancel-in-progress: false
 
 jobs:
   release:
-    name: Verify and publish packages to npm
+    name: Create release PR or publish packages
     runs-on: ubuntu-latest
     timeout-minutes: 20
+    if: >-
+      github.event.workflow_run.conclusion == 'success' &&
+      github.event.workflow_run.event == 'push' &&
+      github.event.workflow_run.head_repository.full_name == github.repository &&
+      github.event.workflow_run.head_branch == 'main'
 
     steps:
       - name: Checkout
         uses: actions/checkout@v4
         with:
           fetch-depth: 0
-
-      - name: Ensure tagged commit belongs to main
-        shell: bash
-        run: |
-          set -euo pipefail
-
-          git fetch origin main --depth=1
-
-          if git merge-base --is-ancestor "$GITHUB_SHA" "origin/main"; then
-            echo "Tag commit is on main."
-            exit 0
-          fi
-
-          echo "::error::Tag ${GITHUB_REF_NAME} does not point to a commit on main."
-          exit 1
+          ref: ${{ github.event.workflow_run.head_sha }}
 
       - name: Setup pnpm
         uses: pnpm/action-setup@v4
@@ -53,55 +47,13 @@ jobs:
       - name: Install dependencies
         run: pnpm install --frozen-lockfile
 
-      - name: Validate tag matches package version
-        shell: bash
-        run: |
-          set -euo pipefail
-
-          package_version="$(node -p "require('./packages/react/package.json').version")"
-          tag_version="${GITHUB_REF_NAME#v}"
-
-          if [[ "${tag_version}" != "${package_version}" ]]; then
-            echo "::error::Tag ${GITHUB_REF_NAME} does not match packages/react version ${package_version}."
-            exit 1
-          fi
-
-      - name: Check formatting
-        run: pnpm run fmt:check
-
-      - name: Check lint
-        run: pnpm run lint:check
-
-      - name: Build React
-        run: pnpm run build:react
-
-      - name: Check package contract
-        run: pnpm run check:package
-
-      - name: Check TypeScript
-        run: pnpm run tsc:check
-
-      - name: Check if package version is already published
-        id: release-check
-        shell: bash
-        run: |
-          set -euo pipefail
-
-          package_name="$(node -p "require('./packages/react/package.json').name")"
-          package_version="$(node -p "require('./packages/react/package.json').version")"
-
-          echo "package_name=${package_name}" >> "$GITHUB_OUTPUT"
-          echo "package_version=${package_version}" >> "$GITHUB_OUTPUT"
-
-          if pnpm view "${package_name}@${package_version}" version >/dev/null 2>&1; then
-            echo "publish_required=false" >> "$GITHUB_OUTPUT"
-            echo "Version ${package_name}@${package_version} already exists on npm. Skipping publish."
-            exit 0
-          fi
-
-          echo "publish_required=true" >> "$GITHUB_OUTPUT"
-          echo "Version ${package_name}@${package_version} is not published yet. Starting release."
-
-      - name: Publish packages
-        if: steps.release-check.outputs.publish_required == 'true'
-        run: pnpm run changeset:release
+      - name: Create release PR or publish packages
+        uses: changesets/action@v2
+        with:
+          github-token: ${{ secrets.GITHUB_TOKEN }}
+          version-script: pnpm run changeset:version
+          publish-script: pnpm run changeset:release
+          commit-message: 'chore(release): version packages'
+          pr-title: 'chore(release): version packages'
+          create-github-releases: true
+          push-git-tags: true

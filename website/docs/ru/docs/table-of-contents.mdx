@@ -4,9 +4,15 @@ component: table-of-contents
 description: Синхронизируйте доступное оглавление с разделом, который читает пользователь.
 ---
 
-import * as TocDocs from '@/components/examples/toc';
-
-<style>{TocDocs.tocExampleCss}</style>
+import TocBasic from '@/components/examples/table-of-contents/basic.tsx';
+import TocRail from '@/components/examples/table-of-contents/rail.tsx';
+import TocRootProvider from '@/components/examples/table-of-contents/root-provider.tsx';
+import TocWithCollapsible from '@/components/examples/table-of-contents/with-collapsible.tsx';
+import * as TocDocs from '@/components/examples/table-of-contents/css-properties';
+import tocSolidBasic from '../../../snippets/table-of-contents/solid/basic.tsx?raw';
+import tocSolidRail from '../../../snippets/table-of-contents/solid/rail.tsx?raw';
+import tocSolidRootProvider from '../../../snippets/table-of-contents/solid/root-provider.tsx?raw';
+import tocSolidWithCollapsible from '../../../snippets/table-of-contents/solid/with-collapsible.tsx?raw';
 
 ## Справочник API
 
@@ -17,26 +23,82 @@ import * as TocDocs from '@/components/examples/toc';
 `Toc` является сокращённой формой `Toc.Root`. Передайте в него массив `items` с заголовками,
 которые нужно отслеживать. Для каждого элемента укажите `value`, совпадающее с `id` заголовка, и
 `depth`, соответствующий его семантическому уровню, например `2` для `<h2>`. Используйте тот же
-объект в `Toc.Item`, а для `Toc.Link` укажите `href` вида `#${item.value}`.
+объект в `Toc.Item`, а для `Toc.Link` укажите фрагмент с тем же `value`.
+
+`Toc` доступен для React и Solid в пакетах CSS Modules и Tailwind. Предпросмотр ниже использует
+пакет React CSS Modules, а во вкладках фреймворков показан нативный код для того же публичного
+контракта.
 
 На обычной странице документа `scrollEl` можно не указывать: компонент будет наблюдать за областью
 просмотра страницы. В примере ниже используется вложенный контейнер с прокруткой. Он передаётся в
-`scrollEl`, поэтому отслеживание и переходы по ссылкам не выходят за пределы предпросмотра.
+`scrollEl`, поэтому отслеживание и переходы по ссылкам остаются внутри предпросмотра.
 
-<PreviewFrame maxWidth="lg">
-  ```tsx preview file="../../en/docs/_snippets/table-of-contents/basic.tsx"
+<ExampleFrame variant="component">
+  <TocBasic />
+</ExampleFrame>
 
+<ExampleCode>
+<div className="docs-reference">
+  <Tabs
+    groupId="framework"
+    values={[
+      { label: 'React', value: 'react' },
+      { label: 'Solid', value: 'solid' },
+    ]}
+    className="docs-tabs"
+  >
+    <Tab value="react">
+
+```tsx pure file="../../../src/components/examples/table-of-contents/basic.tsx"
 ```
-</PreviewFrame>
+
+    </Tab>
+    <Tab value="solid">
+
+<CodeBlockRuntime lang="tsx" code={tocSolidBasic} />
+
+    </Tab>
+  </Tabs>
+
+**Стили**
+
+```css file="../../../src/components/examples/table-of-contents/table-of-contents-basic.module.css"
+```
+</div>
+
+</ExampleCode>
 
 ## Установка через shadcn
 
-<ShadcnInstall packageName="table-of-contents" />
+Полную настройку пакета, реестра и стилей см. в разделе [Быстрый старт](/docs/quick-start).
+
+<Tabs groupId="framework">
+  <Tab label="React" value="react">
+
+<ShadcnInstallOptions
+  options={[
+    { label: 'CSS Modules', command: 'shadcn@latest add @moduix-react/toc' },
+    { label: 'Tailwind CSS', command: 'shadcn@latest add @moduix-react-tailwind/toc' },
+  ]}
+/>
+
+  </Tab>
+  <Tab label="Solid" value="solid">
+
+<ShadcnInstallOptions
+  options={[
+    { label: 'CSS Modules', command: 'shadcn@latest add @moduix-solid/toc' },
+    { label: 'Tailwind CSS', command: 'shadcn@latest add @moduix-solid-tailwind/toc' },
+  ]}
+/>
+
+  </Tab>
+</Tabs>
 
 ## Анатомия
 
 ```text
-Toc.Root (также доступен как Toc)
+Toc / Toc.Root
 ├─ Toc.Content
 └─ Toc.Nav
    ├─ Toc.Title
@@ -52,84 +114,31 @@ Toc.RootProvider
 
 | Часть              | Назначение                                                                 |
 | ------------------ | -------------------------------------------------------------------------- |
-| `Toc`              | Сокращённая форма `Toc.Root`, создающая состояние отслеживания по списку. |
-| `Toc.Content`      | Статья с заголовками, чьи ID совпадают со значениями элементов.            |
-| `Toc.Nav`          | Область навигации, связанная с заголовком оглавления.                      |
-| `Toc.Title`        | Доступное имя и видимый заголовок навигации.                               |
-| `Toc.List`         | Список ссылок на заголовки и необязательного индикатора.                  |
-| `Toc.Item`         | Пункт списка, связанный с одним заголовком, его уровнем и активным состоянием. |
+| `Toc` / `Toc.Root` | Корневая часть, создающая состояние отслеживания по списку элементов.      |
+| `Toc.Content`      | Статья с заголовками, чьи ID совпадают со значениями элементов.             |
+| `Toc.Nav`          | Область навигации, связанная с заголовком оглавления.                       |
+| `Toc.Title`        | Доступное имя и видимый заголовок навигации.                                |
+| `Toc.List`         | Список ссылок на заголовки и необязательного индикатора.                    |
+| `Toc.Item`         | Пункт списка, связанный с заголовком, его уровнем и активным состоянием.    |
 | `Toc.Link`         | Якорная ссылка на соответствующий заголовок на этой же странице.            |
-| `Toc.Indicator`    | Ненавязчивый маркер, который следует за активным диапазоном списка.        |
-| `Toc.RootProvider` | Подключает части к состоянию отслеживания, созданному вне дерева.          |
+| `Toc.Indicator`    | Ненавязчивый маркер, который следует за активным диапазоном списка.         |
+| `Toc.RootProvider` | Подключает части к состоянию отслеживания, созданному вне дерева.           |
 | `Toc.Rail`         | Необязательная SVG-ветка между соседними уровнями заголовков.              |
 
 ## Композиция
 
-### Рекомендуемая композиция
+Передайте отдельный элемент для каждого отслеживаемого заголовка. Значения `item.value`, `id`
+заголовка и фрагмент `Toc.Link` должны совпадать, а `depth` должен соответствовать семантическому
+уровню заголовка. Если прокруткой управляет страница, не указывайте `scrollEl`; для отдельной
+области чтения передайте в него контейнер с прокруткой.
 
-Создайте отдельный элемент в `items` для каждого заголовка, который нужно отслеживать. В `value`
-укажите ID заголовка без символа `#`, а в `depth` его семантический уровень, например `2` для
-`<h2>` или `3` для `<h3>`. По умолчанию корень наблюдает за областью просмотра страницы. Если
-контент прокручивается в отдельном контейнере, передайте его через `scrollEl`.
-
-Корень предоставляет параметры Ark `activeIds`, `defaultActiveIds`, `onActiveChange(details)`,
-`rootMargin`, `threshold`, `autoScroll`, `scrollBehavior` и `ids`. При изменении активных заголовков
-`onActiveChange` получает `details.activeIds` и `details.activeItems`.
-
-### Когда нужна собственная композиция
-
-Используйте `asChild` на `Toc.Link`, если ссылку должен отрисовать компонент роутера. Передайте единственный
-семантический элемент `<a>`, чтобы Ark смог добавить ему `aria-current`, обработчик клика и
-свойства фокуса.
-
-Создавайте состояние через `useToc()` и подключайте его с `Toc.RootProvider`, когда внешним
-элементам управления нужны `activeIds`, `setActiveIds`, `scrollTo` или `getItemState`. Внутри дерева
-то же состояние доступно через `Toc.Context` и хук `useTocContext()`.
-
-### Свойства по умолчанию
-
-| Свойство         | По умолчанию          | Примечание                                                           |
-| ---------------- | --------------------- | -------------------------------------------------------------------- |
-| `items`          | обязательно           | Передайте значения и семантические уровни отслеживаемых заголовков.  |
-| `rootMargin`     | `-20px 0px -40% 0px`  | Настраивает эффективную область наблюдения.                          |
-| `threshold`      | `0`                   | Активирует заголовок при пересечении области наблюдения.             |
-| `autoScroll`     | `false`               | Значение moduix. Включайте после проверки прокрутки родительских контейнеров. |
-| `scrollBehavior` | `smooth`              | Используется ссылками на заголовки, `scrollTo` и прокруткой списка.  |
-
-### Особенности поведения
-
-- Активные ссылки получают `aria-current="location"` и `data-active`.
-- `Toc.Item` получает атрибуты и переменные `data-value`, `data-depth`, `data-active`, `data-first`, `data-last` и
-  числовую переменную `--depth`. `Toc.Link` получает `data-value`, `data-active` и
-  `aria-current` в активном состоянии.
-- Индикатор использует измеряемые переменные Ark `--top` и `--height`. Пока активный диапазон
-  пуст, индикатор скрыт.
-- По умолчанию контент и закреплённая панель навигации располагаются рядом. При ширине меньше
-  48rem они выстраиваются в одну колонку.
-- Укажите у `Toc.Nav` `placement="left"` или `placement="right"`, чтобы выбрать сторону боковой
-  панели на широком экране.
-- В moduix автоматическая прокрутка списка оглавления выключена. Изменение активного заголовка
-  не прокручивает родительский контейнер. Включайте `autoScroll` только для изолированной панели и
-  после проверки её поведения при прокрутке.
-- При включённой системной настройке «Уменьшение движения» отключаются плавная прокрутка CSS и
-  переходы индикатора. Передайте `scrollBehavior="auto"`, если прокрутка, которую запускает Ark,
-  тоже не должна анимироваться.
-
-### Рекомендации для рабочего приложения
-
-- Используйте глобально уникальные и стабильные ID заголовков. Значения `item.value`, `id`
-  заголовка и фрагмент ссылки после `#` должны совпадать.
-- В области чтения со своей прокруткой пусть за неё отвечает один элемент: передайте его через
-  `scrollEl` и добавьте `overscroll-behavior: contain`, если прокрутка не должна переходить на
-  страницу.
-- На страницах документации и во встроенных областях чтения оставляйте `autoScroll` выключенным.
-  Включайте его только после проверки, что показ активной ссылки не прокручивает родительский
-  контейнер.
-- Сопоставляйте `depth` с семантическими уровнями заголовков. Обычный список добавляет отступы
-  вложенным элементам, а `Toc.Rail` используйте, когда визуальный соединитель помогает понять
-  иерархию.
-- Используйте `Toc.RootProvider`, только если элементам вне оглавления нужно то же состояние. В
-  остальных случаях достаточно `Toc`.
+Используйте `Toc.RootProvider` вместе с `useToc()` только тогда, когда элементам вне дерева нужно
+то же состояние отслеживания, например `activeIds` или `scrollTo`. В React состояние читается как
+объект, а в Solid доступно через возвращаемую функцию доступа. Используйте `Toc.Context`, если
+внешней композиции, такой как `Collapsible`, нужны активные элементы. Для ссылок роутера передайте
+в `Toc.Link asChild` один семантический дочерний элемент `<a>`; в Solid передайте его через
+функцию рендера, которую ожидает `asChild`. Выберите либо `Toc.Indicator` для маркера активного
+диапазона, либо `Toc.Rail` для иерархии отдельных ссылок: не добавляйте оба в один список.
 
 ## Примеры
 
@@ -138,11 +147,40 @@ Toc.RootProvider
 Используйте `useToc()`, если другому элементу интерфейса нужно читать активные заголовки или
 прокручивать область чтения.
 
-<PreviewFrame maxWidth="lg">
-  ```tsx preview file="../../en/docs/_snippets/table-of-contents/root-provider.tsx"
+<ExampleFrame variant="component">
+  <TocRootProvider />
+</ExampleFrame>
 
+<ExampleCode>
+<div className="docs-reference">
+  <Tabs
+    groupId="framework"
+    values={[
+      { label: 'React', value: 'react' },
+      { label: 'Solid', value: 'solid' },
+    ]}
+    className="docs-tabs"
+  >
+    <Tab value="react">
+
+```tsx pure file="../../../src/components/examples/table-of-contents/root-provider.tsx"
 ```
-</PreviewFrame>
+
+    </Tab>
+    <Tab value="solid">
+
+<CodeBlockRuntime lang="tsx" code={tocSolidRootProvider} />
+
+    </Tab>
+  </Tabs>
+
+**Стили**
+
+```css file="../../../src/components/examples/table-of-contents/table-of-contents-root-provider.module.css"
+```
+</div>
+
+</ExampleCode>
 
 ### Rail
 
@@ -151,11 +189,40 @@ Toc.RootProvider
 массива `items`. Для активной ссылки Rail использует цвет индикатора. Не добавляйте
 `Toc.Indicator` в тот же список.
 
-<PreviewFrame maxWidth="lg">
-  ```tsx preview file="../../en/docs/_snippets/table-of-contents/rail.tsx"
+<ExampleFrame variant="component">
+  <TocRail />
+</ExampleFrame>
 
+<ExampleCode>
+<div className="docs-reference">
+  <Tabs
+    groupId="framework"
+    values={[
+      { label: 'React', value: 'react' },
+      { label: 'Solid', value: 'solid' },
+    ]}
+    className="docs-tabs"
+  >
+    <Tab value="react">
+
+```tsx pure file="../../../src/components/examples/table-of-contents/rail.tsx"
 ```
-</PreviewFrame>
+
+    </Tab>
+    <Tab value="solid">
+
+<CodeBlockRuntime lang="tsx" code={tocSolidRail} />
+
+    </Tab>
+  </Tabs>
+
+**Стили**
+
+```css file="../../../src/components/examples/table-of-contents/table-of-contents-rail.module.css"
+```
+</div>
+
+</ExampleCode>
 
 ### С раскрываемой навигацией
 
@@ -163,36 +230,57 @@ Toc.RootProvider
 `Toc.Context` передаёт активный элемент в текст кнопки и кольцо прогресса, а ссылки по-прежнему
 ведут в ту же область чтения.
 
-<PreviewFrame maxWidth="lg">
-  ```tsx preview file="../../en/docs/_snippets/table-of-contents/with-collapsible.tsx"
+<ExampleFrame variant="component">
+  <TocWithCollapsible />
+</ExampleFrame>
 
+<ExampleCode>
+<div className="docs-reference">
+  <Tabs
+    groupId="framework"
+    values={[
+      { label: 'React', value: 'react' },
+      { label: 'Solid', value: 'solid' },
+    ]}
+    className="docs-tabs"
+  >
+    <Tab value="react">
+
+```tsx pure file="../../../src/components/examples/table-of-contents/with-collapsible.tsx"
 ```
-</PreviewFrame>
+
+    </Tab>
+    <Tab value="solid">
+
+<CodeBlockRuntime lang="tsx" code={tocSolidWithCollapsible} />
+
+    </Tab>
+  </Tabs>
+
+**Стили**
+
+```css file="../../../src/components/examples/table-of-contents/table-of-contents-with-collapsible.module.css"
+```
+</div>
+
+</ExampleCode>
 
 ## Стилизация
 
-Стилизуйте компонент через `className`, атрибуты Ark, хуки moduix `data-slot` и публичные
-переменные `--moduix-table-of-contents-*`.
+Стилизуйте компонент через `className` в React или `class` в Solid, атрибуты Ark, хуки moduix
+`data-slot` и публичные переменные `--moduix-table-of-contents-*`. Пакеты CSS Modules используют
+эти переменные, а Tailwind-пакеты используют нативные utility-классы и классы потребителя для
+переопределений.
 
 ### CSS-свойства
 
-<div className="docs-reference">
-  <Tabs
-    values={[{ label: 'CSS-переменные', value: 'CSS-переменные' }]}
-    className="docs-reference-tabs"
-    contentItemClassName="docs-reference-panel"
-  >
-    <Tab>
-      <TocDocs.TocCssPropertiesPanel />
-    </Tab>
-  </Tabs>
-</div>
+<CssPropertiesSection properties={TocDocs.tableOfContentsOverrideCssProperties} />
 
 ### Хуки стилизации
 
 - `data-slot="toc-root"`, `toc-root-provider`, `toc-content`, `toc-nav`, `toc-title`, `toc-list`,
   `toc-item`, `toc-link`, `toc-indicator` и `toc-rail`
 - Атрибуты Ark `data-scope="toc"` и `data-part` на частях примитива
-- Состояние `Toc.Item`: `data-value`, `data-depth`, `data-active`, `data-first`, `data-last` и
-  `--depth`; `Toc.Link` получает `data-value`, `data-active` и `aria-current`
+- Атрибуты и переменные `Toc.Item`: `data-value`, `data-depth`, `data-active`, `data-first`,
+  `data-last` и `--depth`; `Toc.Link` получает `data-value`, `data-active` и `aria-current`
 - Переменные времени выполнения Ark `--top`, `--left`, `--width` и `--height` на корневом элементе

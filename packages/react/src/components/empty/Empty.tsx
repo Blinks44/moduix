@@ -2,7 +2,6 @@ import type { HTMLArkProps } from '@ark-ui/react/factory';
 import { ark } from '@ark-ui/react/factory';
 import { clsx } from 'clsx';
 import { forwardRef } from 'react';
-import { normalizeClassName } from '@/lib/moduix/normalizeClassName';
 import styles from './Empty.module.css';
 
 const EmptyRoot = forwardRef<HTMLDivElement, HTMLArkProps<'div'>>(function EmptyRoot(
@@ -15,7 +14,7 @@ const EmptyRoot = forwardRef<HTMLDivElement, HTMLArkProps<'div'>>(function Empty
       data-scope="empty"
       data-part="root"
       data-slot="empty-root"
-      className={clsx(styles.root, normalizeClassName(className))}
+      className={clsx(styles.root, className)}
       {...props}
     />
   );
@@ -31,7 +30,7 @@ const EmptyIcon = forwardRef<HTMLDivElement, HTMLArkProps<'div'>>(function Empty
       data-scope="empty"
       data-part="icon"
       data-slot="empty-icon"
-      className={clsx(styles.icon, normalizeClassName(className))}
+      className={clsx(styles.icon, className)}
       {...props}
     />
   );
@@ -47,7 +46,7 @@ const EmptyContent = forwardRef<HTMLDivElement, HTMLArkProps<'div'>>(function Em
       data-scope="empty"
       data-part="content"
       data-slot="empty-content"
-      className={clsx(styles.content, normalizeClassName(className))}
+      className={clsx(styles.content, className)}
       {...props}
     />
   );
@@ -63,7 +62,7 @@ const EmptyTitle = forwardRef<HTMLHeadingElement, HTMLArkProps<'h3'>>(function E
       data-scope="empty"
       data-part="title"
       data-slot="empty-title"
-      className={clsx(styles.title, normalizeClassName(className))}
+      className={clsx(styles.title, className)}
       {...props}
     />
   );
@@ -79,7 +78,7 @@ const EmptyDescription = forwardRef<HTMLDivElement, HTMLArkProps<'div'>>(functio
       data-scope="empty"
       data-part="description"
       data-slot="empty-description"
-      className={clsx(styles.description, normalizeClassName(className))}
+      className={clsx(styles.description, className)}
       {...props}
     />
   );
@@ -95,7 +94,7 @@ const EmptyActions = forwardRef<HTMLDivElement, HTMLArkProps<'div'>>(function Em
       data-scope="empty"
       data-part="actions"
       data-slot="empty-actions"
-      className={clsx(styles.actions, normalizeClassName(className))}
+      className={clsx(styles.actions, className)}
       {...props}
     />
   );

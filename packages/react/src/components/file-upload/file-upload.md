@@ -12,7 +12,7 @@ Upstream docs:
 ## Upstream model to preserve
 
 The wrapper follows Ark UI React `@ark-ui/react/file-upload`. Keep the Ark part tree, accepted/rejected file state,
-callback detail objects, the internally rendered native form input, `RootProvider`, context, and state hooks intact.
+callback detail objects, the explicit native form input, `RootProvider`, context, and state hooks intact.
 
 ## Current behavior contract
 
@@ -21,8 +21,8 @@ callback detail objects, the internally rendered native form input, `RootProvide
 - `onFileChange(details)`, `onFileAccept(details)`, and `onFileReject(details)` keep Ark detail objects unchanged.
 - Validation uses Ark props such as `accept`, `maxFiles`, `minFileSize`, `maxFileSize`, `validate`, and
   `transformFiles`.
-- `Root` and `RootProvider` append the native form input automatically. Configure native form behavior
-  with their Ark props such as `name`, `form`, and `required`.
+- Compose `FileUpload.HiddenInput` explicitly inside `Root` or `RootProvider` when native file selection
+  or form participation is needed. Set `name` and `required` on the root, and `form` on `HiddenInput` for an external form.
 - `Dropzone.disableClick` should be used when a nested `Trigger` opens the file picker.
 
 ## Anatomy and exported parts
@@ -46,7 +46,7 @@ FileUpload.Root | FileUpload.RootProvider
 │        ├─ FileUpload.ItemSizeText
 │        └─ FileUpload.ItemDeleteTrigger
 ├─ FileUpload.ClearTrigger
-└─ native input (automatic)
+└─ FileUpload.HiddenInput (explicit)
 ```
 
 - `FileUpload.Root` -> `data-slot="file-upload-root"`
@@ -83,6 +83,7 @@ export function FileUploadDemo() {
       <FileUpload.ItemGroup>
         <FileUpload.Items />
       </FileUpload.ItemGroup>
+      <FileUpload.HiddenInput />
     </FileUpload>
   );
 }
@@ -118,8 +119,7 @@ export function FileUploadDemo() {
 
 - Ark owns keyboard, pointer, focus, drag/drop, file input, and form behavior.
 - `Label` labels the hidden file input and trigger through Ark-generated IDs.
-- Refs forward to the underlying public Ark DOM part. The internal native input is not exposed as a
-  separate ref target.
+- Refs forward to the underlying public Ark DOM part, including `FileUpload.HiddenInput`.
 - `Field.Root` and `Fieldset.Root` can provide disabled, invalid, required, and read-only context.
 - Ark applies `data-scope="file-upload"`, part-specific `data-part`, and state attributes including
   `data-disabled`, `data-readonly`, `data-invalid`, `data-required`, `data-dragging`, and `data-type`.
@@ -156,7 +156,7 @@ grow with their content.
   remains available for MIME-specific previews such as videos and PDFs.
 - moduix adds default icons for dropzone and delete triggers, and composes the shared `CloseButton`
   for the clear trigger.
-- The wrapper renders the native form input internally. `ItemGroup` and `Item` remain explicit so
+- The wrapper exposes the native form input explicitly. `ItemGroup` and `Item` remain explicit so
   consumers choose how to show accepted and rejected files.
 - Callback details and validation errors are not renamed.
 - moduix re-exports Ark context and state hooks through its package barrel, and exposes `Context` on the namespace.
@@ -167,7 +167,7 @@ grow with their content.
 
 ## Agent notes
 
-- Document form behavior through root props; the root renders the native form input automatically.
+- Document form behavior through root props and an explicit `FileUpload.HiddenInput`.
 - Keep `Dropzone.disableClick` in examples that nest `Trigger` inside `Dropzone`.
 - Do not add local file-state adapters; Ark already supports controlled and uncontrolled modes.
 - Keep docs, stories, registry, local markdown, and `--moduix-file-upload-*` variables synchronized when the part tree or
@@ -196,7 +196,8 @@ grow with their content.
 - 2026-07-17: Composed the default clear trigger with `CloseButton`, preserving Ark state,
   translations, and `asChild` composition while mapping clear-action tokens to the shared styles.
 
-- 2026-07-13: Native form controls are now rendered automatically; the former public form-control part was removed.
+- 2026-09-04: Exposed Ark `HiddenInput` explicitly and removed root child mutation.
+- 2026-07-13: Native form controls were rendered automatically at this point in the wrapper history.
 
 - 2026-07-10: Added moduix-owned context and state-hook exports plus `Items` for compact accepted-file lists. The
   recommended composition now uses `Items`; explicit context composition remains available for custom file rows.

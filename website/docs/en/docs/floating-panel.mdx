@@ -4,7 +4,29 @@ component: floating-panel
 description: A non-modal Ark UI window for content users can drag, resize, minimize, and maximize.
 ---
 
-import * as FloatingPanelDocs from '@/components/examples/floating-panel';
+import * as FloatingPanelDocs from '@/components/examples/floating-panel/css-properties';
+import FloatingPanelAdvancedCustomization from '@/components/examples/floating-panel/advanced-customization.tsx';
+import FloatingPanelAnchorPosition from '@/components/examples/floating-panel/anchor-position.tsx';
+import FloatingPanelBasic from '@/components/examples/floating-panel/basic.tsx';
+import FloatingPanelBoundary from '@/components/examples/floating-panel/boundary.tsx';
+import FloatingPanelContext from '@/components/examples/floating-panel/context.tsx';
+import FloatingPanelControlledOpen from '@/components/examples/floating-panel/controlled-open.tsx';
+import FloatingPanelControlledPosition from '@/components/examples/floating-panel/controlled-position.tsx';
+import FloatingPanelControlledSize from '@/components/examples/floating-panel/controlled-size.tsx';
+import FloatingPanelEscapeDismiss from '@/components/examples/floating-panel/escape-dismiss.tsx';
+import FloatingPanelLazyMount from '@/components/examples/floating-panel/lazy-mount.tsx';
+import FloatingPanelRootProvider from '@/components/examples/floating-panel/root-provider.tsx';
+import floatingPanelSolidAdvancedCustomization from '../../../snippets/floating-panel/solid/advanced-customization.tsx?raw';
+import floatingPanelSolidAnchorPosition from '../../../snippets/floating-panel/solid/anchor-position.tsx?raw';
+import floatingPanelSolidBasic from '../../../snippets/floating-panel/solid/basic.tsx?raw';
+import floatingPanelSolidBoundary from '../../../snippets/floating-panel/solid/boundary.tsx?raw';
+import floatingPanelSolidContext from '../../../snippets/floating-panel/solid/context.tsx?raw';
+import floatingPanelSolidControlledOpen from '../../../snippets/floating-panel/solid/controlled-open.tsx?raw';
+import floatingPanelSolidControlledPosition from '../../../snippets/floating-panel/solid/controlled-position.tsx?raw';
+import floatingPanelSolidControlledSize from '../../../snippets/floating-panel/solid/controlled-size.tsx?raw';
+import floatingPanelSolidEscapeDismiss from '../../../snippets/floating-panel/solid/escape-dismiss.tsx?raw';
+import floatingPanelSolidLazyMount from '../../../snippets/floating-panel/solid/lazy-mount.tsx?raw';
+import floatingPanelSolidRootProvider from '../../../snippets/floating-panel/solid/root-provider.tsx?raw';
 
 ## API Reference
 
@@ -18,17 +40,69 @@ and `Drawer` for a panel attached to an edge of the viewport with gesture or sna
 
 ## Basic
 
+FloatingPanel ships for React and Solid in both the CSS Modules and Tailwind packages. The preview
+uses the React CSS Modules package; the framework tabs show native source for the same public
+contract.
+
 Keep the Ark UI parts explicit. `FloatingPanel.Positioner` applies the position and size calculated
 by Ark, while `FloatingPanel.Content` is the visible window surface. The header acts as the drag
 handle, and `ResizeTriggerGroup` adds the resize handles around the panel.
 
-```tsx preview file="./_snippets/floating-panel/basic.tsx"
+<ExampleFrame variant="component">
+  <FloatingPanelBasic />
+</ExampleFrame>
 
+<ExampleCode>
+<div className="docs-reference">
+  <Tabs
+    groupId="framework"
+    values={[
+      { label: 'React', value: 'react' },
+      { label: 'Solid', value: 'solid' },
+    ]}
+    className="docs-tabs"
+  >
+    <Tab value="react">
+
+```tsx pure file="../../../src/components/examples/floating-panel/basic.tsx"
 ```
+
+    </Tab>
+    <Tab value="solid">
+
+<CodeBlockRuntime lang="tsx" code={floatingPanelSolidBasic} />
+
+    </Tab>
+  </Tabs>
+</div>
+</ExampleCode>
 
 ## Install with shadcn
 
-<ShadcnInstall packageName="floating-panel" />
+See [Quick Start](/docs/quick-start) for full package setup, registry configuration, and styling guidance.
+
+<Tabs groupId="framework">
+  <Tab label="React" value="react">
+
+<ShadcnInstallOptions
+  options={[
+    { label: 'CSS Modules', command: 'shadcn@latest add @moduix-react/floating-panel' },
+    { label: 'Tailwind CSS', command: 'shadcn@latest add @moduix-react-tailwind/floating-panel' },
+  ]}
+/>
+
+  </Tab>
+  <Tab label="Solid" value="solid">
+
+<ShadcnInstallOptions
+  options={[
+    { label: 'CSS Modules', command: 'shadcn@latest add @moduix-solid/floating-panel' },
+    { label: 'Tailwind CSS', command: 'shadcn@latest add @moduix-solid-tailwind/floating-panel' },
+  ]}
+/>
+
+  </Tab>
+</Tabs>
 
 ## Anatomy
 
@@ -50,95 +124,39 @@ FloatingPanel / FloatingPanel.Root
          └─ FloatingPanel.ResizeTrigger / ResizeTriggerGroup
 ```
 
-| Part                                       | Role                                                                     |
-| ------------------------------------------ | ------------------------------------------------------------------------ |
-| `FloatingPanel` / `FloatingPanel.Root`     | Owns open, position, size, drag, resize, and stage state.                |
-| `FloatingPanel.Trigger`                    | Opens the panel or toggles its open state.                                |
-| `FloatingPanel.Positioner`                 | Applies Ark's calculated position, size, transform, and z-index values.  |
-| `FloatingPanel.Content`                    | Visible surface of the floating window.                                  |
-| `FloatingPanel.DragTrigger`                | Defines the draggable area, usually the header.                           |
-| `FloatingPanel.Header`                     | Ark header part and recommended wrapper for the drag handle.              |
-| `FloatingPanel.Title`                      | Gives the panel an accessible name.                                      |
-| `FloatingPanel.Control`                    | Groups stage and close controls.                                          |
-| `FloatingPanel.StageTrigger`               | Switches between `default`, `minimized`, and `maximized`.                |
-| `FloatingPanel.CloseTrigger` / `CloseIcon` | Closes the panel.                                                         |
-| `FloatingPanel.Body`                       | Main scrollable content area.                                            |
-| `FloatingPanel.Footer`                     | Optional bottom area for secondary actions or status text.                |
-| `FloatingPanel.ResizeTrigger`              | Resize handle for one Ark axis.                                          |
-| `FloatingPanel.ResizeTriggerGroup`         | moduix helper that renders all or selected resize handles.               |
-| `FloatingPanel.RootProvider`               | Connects the parts to state created with `FloatingPanel.useFloatingPanel()`. |
+| Part                                       | Role                                                                    |
+| ------------------------------------------ | ----------------------------------------------------------------------- |
+| `FloatingPanel` / `FloatingPanel.Root`     | Owns open, position, size, drag, resize, and stage state.               |
+| `FloatingPanel.Trigger`                    | Opens the panel or toggles its open state.                               |
+| `FloatingPanel.Positioner`                 | Applies Ark's calculated position, size, transform, and z-index values. |
+| `FloatingPanel.Content`                    | Visible surface of the floating window.                                 |
+| `FloatingPanel.DragTrigger`                | Defines the draggable area, usually the header.                          |
+| `FloatingPanel.Header`                     | Ark header part and wrapper for the drag handle.                         |
+| `FloatingPanel.Title`                      | Gives the panel an accessible name.                                     |
+| `FloatingPanel.Control`                    | Groups stage and close controls.                                         |
+| `FloatingPanel.StageTrigger`               | Switches between `default`, `minimized`, and `maximized`.               |
+| `FloatingPanel.CloseTrigger` / `CloseIcon` | Closes the panel.                                                        |
+| `FloatingPanel.Body`                       | Main scrollable content area.                                           |
+| `FloatingPanel.Footer`                     | Optional bottom area for actions or status text.                         |
+| `FloatingPanel.ResizeTrigger`              | Resize handle for one Ark axis.                                         |
+| `FloatingPanel.ResizeTriggerGroup`         | Renders all or selected resize handles.                                 |
+| `FloatingPanel.RootProvider`               | Connects parts to state from `FloatingPanel.useFloatingPanel()`.        |
 
 `FloatingPanel.DragIndicator`, `FloatingPanel.CloseIcon`, `FloatingPanel.Footer`, and
-`FloatingPanel.ResizeTriggerGroup` are moduix helpers. They complement Ark's structural parts;
-they do not replace them.
+`FloatingPanel.ResizeTriggerGroup` are moduix helpers. They complement Ark's structural parts
+without replacing them.
 
 ## Composition
 
-`FloatingPanel` and `FloatingPanel.RootProvider` configure how `Positioner` is rendered. It is
-portalled by default. Set `portalled={false}` to render it in place, or pass `portalRef` to choose a
-custom container. The structural parts remain explicit and can be styled independently.
+Use `FloatingPanel` for local state. Keep `Positioner` and `Content` explicit, wrap the header in
+`DragTrigger`, and include `Title` for an accessible name. `Positioner` is portalled by default;
+set `portalled={false}` or pass `portalRef` when the panel belongs in another container.
 
-### Recommended composition
-
-Use `FloatingPanel` to manage state and behavior. Keep `Positioner` and `Content` explicit, then
-wrap the header in `DragTrigger` so dragging starts from a predictable area. Include
-`FloatingPanel.Title` to give the window an accessible name.
-
-Use `StageTrigger` with `stage="minimized"`, `stage="maximized"`, and `stage="default"` to render
-the built-in controls for minimizing, maximizing, and restoring the panel. Ark hides the restore
-control until the panel is minimized or maximized. When `asChild` is set on a trigger or control,
-pass one semantic child. moduix adds default icons only when the trigger renders Ark's default
-button host.
-
-### When to go custom
-
-Apply `className` directly to any exported part. Use `asChild` with exactly one semantic child when
-you need a custom trigger, close control, stage control, or other part host. Pass `axes` to
-`ResizeTriggerGroup` to render only the handles you need, or use individual `ResizeTrigger` parts
-when each axis needs its own placement or styling.
-
-Use `FloatingPanel.Context` or `FloatingPanel.useFloatingPanelContext()` inside the panel tree. If
-state is created outside that tree, create it with `FloatingPanel.useFloatingPanel()` and pass it to
-`RootProvider`. Do not render `Root` and `RootProvider` for the same state instance.
-
-### Default props
-
-The moduix root and `RootProvider` mount portalled content lazily and remove it after the exit animation. Set
-`unmountOnExit={false}` to keep the content mounted after its first open. Set both lifecycle props
-to `false` only when eager initial rendering is needed.
-
-| Prop             | Default | Notes                                                                       |
-| ---------------- | ------- | --------------------------------------------------------------------------- |
-| `allowOverflow`  | `true`  | Allows dragging beyond the boundary. Set `false` with `getBoundaryEl` to constrain the panel. |
-| `closeOnEscape`  | `true`  | Closes the focused topmost panel when Escape is pressed.                   |
-| `defaultOpen`    | `false` | The panel starts closed.                                                    |
-| `draggable`      | `true`  | The panel can be dragged.                                                   |
-| `gridSize`       | `1`     | Arrow-key movement and the snap grid use this step.                        |
-| `lazyMount`      | `true`  | moduix waits until the first open before mounting the content.              |
-| `persistRect`    | `true`  | Keeps the last position and size available during the exit animation.      |
-| `resizable`      | `true`  | The panel can be resized.                                                   |
-| `strategy`       | `fixed` | Ark positions the panel relative to the viewport.                           |
-| `unmountOnExit`  | `true`  | Removes the content after the exit animation.                               |
-
-### Behavioral notes
-
-- `onOpenChange(details)` provides `details.open`.
-- `onPositionChange(details)` and `onPositionChangeEnd(details)` provide `details.position`.
-- `onSizeChange(details)` and `onSizeChangeEnd(details)` provide `details.size`.
-- `onStageChange(details)` provides the Ark stage details object.
-- `position` and `size` are controlled independently. Use `defaultPosition` and `defaultSize` for
-  uncontrolled initialization.
-- `getAnchorPosition(details)` can derive the initial position from the trigger rectangle.
-- `Content` has `role="dialog"`. Include `Title` or provide another accessible name for the
-  window.
-- Use `autoFocus` on `Content` when the panel should receive focus as soon as it opens. Use
-  `initialFocusEl`, `finalFocusEl`, and `restoreFocus` for explicit focus handoff.
-- When `Content` has focus, Arrow keys move the panel in `gridSize` increments and honor `dir`.
-- `ids`, `translations`, `getBoundaryEl`, `lockAspectRatio`, and `gridSize` pass through to Ark
-  unchanged. Stage values are `default`, `minimized`, and `maximized`.
-- Ark handles Escape from the focused topmost `Content`. Set `closeOnEscape={false}` to opt out.
-- The panel is non-modal: it does not trap focus, lock scrolling, or block interaction outside the
-  panel.
+When state must live outside the panel tree, create it with `FloatingPanel.useFloatingPanel()` and
+pass it to `RootProvider`. Do not render `FloatingPanel` and `RootProvider` for the same state
+instance. `position` and `size` are controlled independently. Use `ResizeTriggerGroup axes` or
+individual `ResizeTrigger` parts only when the default set of handles is not appropriate. With
+`asChild`, pass one semantic child; Solid uses the render-function form of this prop.
 
 ## Examples
 
@@ -146,91 +164,271 @@ to `false` only when eager initial rendering is needed.
 
 Use `getAnchorPosition` to calculate the panel's initial position from the trigger rectangle.
 
-```tsx preview file="./_snippets/floating-panel/anchor-position.tsx"
+<ExampleFrame variant="component">
+  <FloatingPanelAnchorPosition />
+</ExampleFrame>
 
+<ExampleCode>
+<div className="docs-reference">
+  <Tabs groupId="framework" values={[{ label: 'React', value: 'react' }, { label: 'Solid', value: 'solid' }]} className="docs-tabs">
+    <Tab value="react">
+
+```tsx pure file="../../../src/components/examples/floating-panel/anchor-position.tsx"
 ```
+
+    </Tab>
+    <Tab value="solid">
+
+<CodeBlockRuntime lang="tsx" code={floatingPanelSolidAnchorPosition} />
+
+    </Tab>
+  </Tabs>
+</div>
+</ExampleCode>
 
 ### Boundary
 
 Set `allowOverflow={false}` with `getBoundaryEl` to keep the panel inside a specific container while
 it is being dragged.
 
-<PreviewFrame maxWidth="lg">
-  ```tsx preview file="./_snippets/floating-panel/boundary.tsx"
-  ```
+<ExampleFrame variant="component">
+  <FloatingPanelBoundary />
+</ExampleFrame>
 
-</PreviewFrame>
+<ExampleCode>
+<div className="docs-reference">
+  <Tabs groupId="framework" values={[{ label: 'React', value: 'react' }, { label: 'Solid', value: 'solid' }]} className="docs-tabs">
+    <Tab value="react">
+
+```tsx pure file="../../../src/components/examples/floating-panel/boundary.tsx"
+```
+
+    </Tab>
+    <Tab value="solid">
+
+<CodeBlockRuntime lang="tsx" code={floatingPanelSolidBoundary} />
+
+    </Tab>
+  </Tabs>
+
+**Styles**
+
+```css file="../../../src/components/examples/floating-panel/floating-panel-boundary.module.css"
+```
+</div>
+</ExampleCode>
 
 ### Context
 
-Use `FloatingPanel.Context` or `useFloatingPanelContext` to read the panel state and methods inside
-the component tree.
+Use `FloatingPanel.Context` or `useFloatingPanelContext` to read panel state and methods inside the
+component tree. In Solid, the context value is an accessor.
 
-<PreviewFrame maxWidth="xs">
-  ```tsx preview file="./_snippets/floating-panel/context.tsx"
-  ```
+<ExampleFrame variant="component">
+  <FloatingPanelContext />
+</ExampleFrame>
 
-</PreviewFrame>
+<ExampleCode>
+<div className="docs-reference">
+  <Tabs groupId="framework" values={[{ label: 'React', value: 'react' }, { label: 'Solid', value: 'solid' }]} className="docs-tabs">
+    <Tab value="react">
+
+```tsx pure file="../../../src/components/examples/floating-panel/context.tsx"
+```
+
+    </Tab>
+    <Tab value="solid">
+
+<CodeBlockRuntime lang="tsx" code={floatingPanelSolidContext} />
+
+    </Tab>
+  </Tabs>
+</div>
+</ExampleCode>
 
 ### Controlled Open
 
-Use `open` with `onOpenChange` when React state should control the panel's visibility.
+Use `open` with `onOpenChange` when application state should control the panel's visibility.
 
-```tsx preview file="./_snippets/floating-panel/controlled-open.tsx"
+<ExampleFrame variant="component">
+  <FloatingPanelControlledOpen />
+</ExampleFrame>
 
+<ExampleCode>
+<div className="docs-reference">
+  <Tabs groupId="framework" values={[{ label: 'React', value: 'react' }, { label: 'Solid', value: 'solid' }]} className="docs-tabs">
+    <Tab value="react">
+
+```tsx pure file="../../../src/components/examples/floating-panel/controlled-open.tsx"
 ```
+
+    </Tab>
+    <Tab value="solid">
+
+<CodeBlockRuntime lang="tsx" code={floatingPanelSolidControlledOpen} />
+
+    </Tab>
+  </Tabs>
+</div>
+</ExampleCode>
 
 ### Controlled Position
 
 Control `position` when another part of the application needs the panel's current coordinates.
 
-```tsx preview file="./_snippets/floating-panel/controlled-position.tsx"
+<ExampleFrame variant="component">
+  <FloatingPanelControlledPosition />
+</ExampleFrame>
 
+<ExampleCode>
+<div className="docs-reference">
+  <Tabs groupId="framework" values={[{ label: 'React', value: 'react' }, { label: 'Solid', value: 'solid' }]} className="docs-tabs">
+    <Tab value="react">
+
+```tsx pure file="../../../src/components/examples/floating-panel/controlled-position.tsx"
 ```
+
+    </Tab>
+    <Tab value="solid">
+
+<CodeBlockRuntime lang="tsx" code={floatingPanelSolidControlledPosition} />
+
+    </Tab>
+  </Tabs>
+</div>
+</ExampleCode>
 
 ### Controlled Size
 
 Control `size` when the surrounding UI needs to store or display the panel's current dimensions.
 
-```tsx preview file="./_snippets/floating-panel/controlled-size.tsx"
+<ExampleFrame variant="component">
+  <FloatingPanelControlledSize />
+</ExampleFrame>
 
+<ExampleCode>
+<div className="docs-reference">
+  <Tabs groupId="framework" values={[{ label: 'React', value: 'react' }, { label: 'Solid', value: 'solid' }]} className="docs-tabs">
+    <Tab value="react">
+
+```tsx pure file="../../../src/components/examples/floating-panel/controlled-size.tsx"
 ```
+
+    </Tab>
+    <Tab value="solid">
+
+<CodeBlockRuntime lang="tsx" code={floatingPanelSolidControlledSize} />
+
+    </Tab>
+  </Tabs>
+</div>
+</ExampleCode>
 
 ### Escape Dismiss
 
 `closeOnEscape` is enabled by default. Add `autoFocus` to `Content` when Escape should work
 immediately after the non-modal panel opens.
 
-```tsx preview file="./_snippets/floating-panel/escape-dismiss.tsx"
+<ExampleFrame variant="component">
+  <FloatingPanelEscapeDismiss />
+</ExampleFrame>
 
+<ExampleCode>
+<div className="docs-reference">
+  <Tabs groupId="framework" values={[{ label: 'React', value: 'react' }, { label: 'Solid', value: 'solid' }]} className="docs-tabs">
+    <Tab value="react">
+
+```tsx pure file="../../../src/components/examples/floating-panel/escape-dismiss.tsx"
 ```
+
+    </Tab>
+    <Tab value="solid">
+
+<CodeBlockRuntime lang="tsx" code={floatingPanelSolidEscapeDismiss} />
+
+    </Tab>
+  </Tabs>
+</div>
+</ExampleCode>
 
 ### Lazy Mount
 
-Use `lazyMount` and `unmountOnExit` when the panel should mount on first open and unmount after the
+Use `lazyMount` and `unmountOnExit` when content should mount on first open and be removed after the
 exit animation.
 
-```tsx preview file="./_snippets/floating-panel/lazy-mount.tsx"
+<ExampleFrame variant="component">
+  <FloatingPanelLazyMount />
+</ExampleFrame>
 
+<ExampleCode>
+<div className="docs-reference">
+  <Tabs groupId="framework" values={[{ label: 'React', value: 'react' }, { label: 'Solid', value: 'solid' }]} className="docs-tabs">
+    <Tab value="react">
+
+```tsx pure file="../../../src/components/examples/floating-panel/lazy-mount.tsx"
 ```
+
+    </Tab>
+    <Tab value="solid">
+
+<CodeBlockRuntime lang="tsx" code={floatingPanelSolidLazyMount} />
+
+    </Tab>
+  </Tabs>
+</div>
+</ExampleCode>
 
 ### RootProvider
 
 Use `FloatingPanel.useFloatingPanel` with `RootProvider` when controls outside the panel tree need
-methods such as `minimize`, `maximize`, and `setOpen`. Pass `persistRect: true` to keep the same
-close-animation behavior as the moduix root default.
+methods such as `minimize`, `maximize`, and `setOpen`. The Solid store is read through an accessor.
 
-```tsx preview file="./_snippets/floating-panel/root-provider.tsx"
+<ExampleFrame variant="component">
+  <FloatingPanelRootProvider />
+</ExampleFrame>
 
+<ExampleCode>
+<div className="docs-reference">
+  <Tabs groupId="framework" values={[{ label: 'React', value: 'react' }, { label: 'Solid', value: 'solid' }]} className="docs-tabs">
+    <Tab value="react">
+
+```tsx pure file="../../../src/components/examples/floating-panel/root-provider.tsx"
 ```
+
+    </Tab>
+    <Tab value="solid">
+
+<CodeBlockRuntime lang="tsx" code={floatingPanelSolidRootProvider} />
+
+    </Tab>
+  </Tabs>
+</div>
+</ExampleCode>
 
 ### Advanced Customization
 
 Use individual `ResizeTrigger` parts when each resize axis needs its own placement or styling.
 
-```tsx preview file="./_snippets/floating-panel/advanced-customization.tsx"
+<ExampleFrame variant="component">
+  <FloatingPanelAdvancedCustomization />
+</ExampleFrame>
 
+<ExampleCode>
+<div className="docs-reference">
+  <Tabs groupId="framework" values={[{ label: 'React', value: 'react' }, { label: 'Solid', value: 'solid' }]} className="docs-tabs">
+    <Tab value="react">
+
+```tsx pure file="../../../src/components/examples/floating-panel/advanced-customization.tsx"
 ```
+
+    </Tab>
+    <Tab value="solid">
+
+<CodeBlockRuntime lang="tsx" code={floatingPanelSolidAdvancedCustomization} />
+
+    </Tab>
+  </Tabs>
+</div>
+</ExampleCode>
 
 ## Styling
 
@@ -253,11 +451,10 @@ Use individual `ResizeTrigger` parts when each resize axis needs its own placeme
 ### Styling hooks
 
 Ark parts retain `data-scope="floating-panel"` and their `data-part` values. moduix adds
-`data-slot="floating-panel-*"` to rendered wrappers. Use `data-state="open|closed"`,
-`data-dragging`, `data-disabled`, `data-stage`, `data-topmost`, `data-behind`, `data-minimized`,
-`data-maximized`, `data-staged`, and `data-axis` for state-aware styling on the relevant parts.
+`data-slot="floating-panel-*"` to rendered wrappers. Use `data-state="open|closed"`, `data-dragging`,
+`data-disabled`, `data-stage`, `data-topmost`, `data-behind`, `data-minimized`, `data-maximized`,
+`data-staged`, and `data-axis` for state-aware styling on the relevant parts.
 
-`Positioner` exposes `--width`, `--height`, `--x`, `--y`, `--reference-width`,
-`--reference-height`, `--available-width`, `--available-height`, `--z-index`, and
-`--transform-origin`. Keep sizing and transform logic in Ark's runtime variables instead of
-duplicating measurements in application code.
+`Positioner` exposes `--width`, `--height`, `--x`, `--y`, `--reference-width`, `--reference-height`,
+`--available-width`, `--available-height`, `--z-index`, and `--transform-origin`. Keep sizing and
+transform logic in Ark's runtime variables instead of duplicating measurements in application code.

@@ -1,35 +1,34 @@
 ---
 title: Utilitaires
-description: Utilitaires Ark UI de bas niveau et composants moduix pour le rendu côté navigateur, la gestion du focus, le formatage et le cycle de vie du contenu.
+description: Briques de bas niveau d’Ark UI et de moduix pour le rendu côté navigateur, le focus, le formatage, les raccourcis clavier et le cycle de vie du contenu.
 ---
 
 import { Card, Cards } from '@/components/mdx/Components';
 
 # Utilitaires
 
-Cette section rassemble des briques de bas niveau d’Ark UI et des composants moduix qui les adaptent. Utilisez-les pour
-afficher du contenu uniquement dans le navigateur, travailler avec une iframe ou un autre document, gérer le focus,
-formater des valeurs, enregistrer des raccourcis clavier ou contrôler le moment où un contenu est monté dans le DOM.
+Utilisez un utilitaire lorsque votre application contrôle la structure environnante ou le comportement associé. Si un
+composant moduix gère déjà l’interaction voulue, commencez par lui.
 
-Dans la plupart des guides, l’import vient directement d’Ark UI. `Highlight`, `JsonTreeView` et `Swap` sont des
-composants moduix qui ajoutent des styles ou des réglages par défaut. `Locale` est exposé via le point d’entrée stable
-`@moduix/react/locale`. Chaque guide indique l’import à utiliser, propose un exemple exécutable et renvoie vers l’API
-complète d’Ark.
+Les guides ci-dessous couvrent les utilitaires Ark UI directs et les composants moduix construits sur les mêmes
+primitives. Les utilitaires Ark UI fournissent un comportement propre au framework sans imposer de système de styles.
+`Highlight`, `JsonTreeView` et `Swap` encapsulent les primitives Ark UI correspondantes et ajoutent la composition et
+les styles moduix. Ils sont disponibles dans les packages React et Solid, pour les deux modes de style.
 
-Commencez par un composant moduix lorsqu’il gère déjà l’interaction. Utilisez l’un de ces utilitaires lorsque votre
-application contrôle la structure environnante ou le comportement associé.
+## Utilitaires Ark UI
 
-## Guides
+Importez ces utilitaires depuis le package ou le sous-chemin Ark UI correspondant. Chaque guide explique l’API et le
+code d’intégration.
 
 <Cards>
   <Card
     title="Client Only"
-    description="Affichez après l’hydratation le contenu qui dépend du navigateur, tout en conservant un contenu de repli utile côté serveur."
+    description="Affichez après l’hydratation le contenu qui dépend du navigateur, tout en conservant un contenu de repli utile."
     href="/docs/client-only"
   />
   <Card
     title="Download Trigger"
-    description="Déclenchez le téléchargement d’une URL, d’un Blob, d’un File ou de données générées depuis un bouton."
+    description="Déclenchez depuis un bouton le téléchargement d’une chaîne, d’un Blob, d’un File ou de données générées."
     href="/docs/download-trigger"
   />
   <Card
@@ -64,18 +63,32 @@ application contrôle la structure environnante ou le comportement associé.
   />
   <Card
     title="Frame"
-    description="Affichez du contenu React isolé dans une iframe."
+    description="Affichez du contenu isolé dans une iframe."
     href="/docs/frame"
   />
   <Card
-    title="Highlight"
-    description="Mettez en évidence les mots et expressions correspondants avec la logique de correspondance d’Ark UI et les styles moduix."
-    href="/docs/highlight"
+    title="Hotkeys"
+    description="Enregistrez des raccourcis clavier, des séquences et des commandes selon la plateforme."
+    href="/docs/hotkeys"
   />
   <Card
-    title="Hotkeys"
-    description="Enregistrez des raccourcis clavier, des séquences et des commandes en tenant compte de la plateforme."
-    href="/docs/hotkeys"
+    title="Presence"
+    description="Contrôlez si le contenu de l’application est ajouté au DOM, masqué ou retiré."
+    href="/docs/presence"
+  />
+</Cards>
+
+## Composants moduix basés sur Ark UI
+
+Ces composants conservent la même API publique dans les packages React et Solid, pour les deux modes de style. Les packages CSS Modules
+fournissent les styles des composants. Les packages Tailwind utilisent des classes utilitaires natives et permettent de les surcharger avec les classes de
+votre application.
+
+<Cards>
+  <Card
+    title="Highlight"
+    description="Mettez en évidence les mots et expressions correspondants avec une structure accessible et les styles moduix."
+    href="/docs/highlight"
   />
   <Card
     title="JSON Tree View"
@@ -83,18 +96,23 @@ application contrôle la structure environnante ou le comportement associé.
     href="/docs/json-tree-view"
   />
   <Card
-    title="Locale"
-    description="Définissez la locale et la direction du texte utilisées par le formatage Ark et les composants qui gèrent la locale."
-    href="/docs/locale"
-  />
-  <Card
-    title="Presence"
-    description="Contrôlez si le contenu de l’application est ajouté au DOM, masqué ou retiré."
-    href="/docs/presence"
-  />
-  <Card
     title="Swap"
     description="Basculez entre deux états visuels avec les préréglages d’animation moduix."
     href="/docs/swap"
+  />
+</Cards>
+
+## Contexte de locale
+
+`Locale` fournit la locale et la direction du texte aux formateurs Ark UI et aux composants qui gèrent la locale. Il
+s’agit d’un contexte de framework, pas d’un composant stylé : utilisez `@moduix/react/locale` avec React ou
+`@moduix/solid/locale` avec Solid. La configuration des packages et des feuilles de style est décrite dans [Quick
+Start](/docs/quick-start).
+
+<Cards>
+  <Card
+    title="Locale"
+    description="Définissez la locale et la direction du texte utilisées par le formatage Ark et les composants qui gèrent la locale."
+    href="/docs/locale"
   />
 </Cards>

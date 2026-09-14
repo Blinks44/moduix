@@ -1,0 +1,6 @@
+.stack {
+  display: grid;
+  width: fit-content;
+  max-width: 100%;
+  gap: var(--moduix-spacing-3);
+}

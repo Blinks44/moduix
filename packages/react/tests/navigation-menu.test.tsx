@@ -88,6 +88,63 @@ test('renders safely on the server', () => {
   expect(html).toContain('data-slot="navigation-menu-content"');
 });
 
+test('preserves Content children without an internal wrapper', () => {
+  render(
+    <NavigationMenu defaultValue="products">
+      <NavigationMenu.List>
+        <NavigationMenu.Item value="products">
+          <NavigationMenu.Trigger>Products</NavigationMenu.Trigger>
+          <NavigationMenu.Content data-testid="products-content">
+            <div data-testid="content-heading">Products</div>
+            <NavigationMenu.Link href="#analytics">Analytics</NavigationMenu.Link>
+          </NavigationMenu.Content>
+        </NavigationMenu.Item>
+      </NavigationMenu.List>
+    </NavigationMenu>,
+  );
+
+  const content = screen.getByTestId('products-content');
+
+  expect(content.children).toHaveLength(2);
+  expect(content.firstElementChild).toBe(screen.getByTestId('content-heading'));
+});
+
+test('keeps a shared indicator outside content and updates its state', async () => {
+  const { container } = render(
+    <NavigationMenu defaultValue="products">
+      <NavigationMenu.List>
+        <NavigationMenu.Item value="products">
+          <NavigationMenu.Trigger>Products</NavigationMenu.Trigger>
+          <NavigationMenu.Content>
+            <NavigationMenu.Link href="#analytics">Analytics</NavigationMenu.Link>
+          </NavigationMenu.Content>
+        </NavigationMenu.Item>
+        <NavigationMenu.Item value="docs">
+          <NavigationMenu.Trigger>Docs</NavigationMenu.Trigger>
+          <NavigationMenu.Content>
+            <NavigationMenu.Link href="#guides">Guides</NavigationMenu.Link>
+          </NavigationMenu.Content>
+        </NavigationMenu.Item>
+        <NavigationMenu.Indicator />
+      </NavigationMenu.List>
+    </NavigationMenu>,
+  );
+
+  const list = container.querySelector('[data-slot="navigation-menu-list"]');
+  const indicator = container.querySelector('[data-slot="navigation-menu-indicator"]');
+
+  expect(list?.lastElementChild).toBe(indicator);
+  expect(
+    container.querySelector(
+      '[data-slot="navigation-menu-content"] [data-slot="navigation-menu-indicator"]',
+    ),
+  ).toBeNull();
+
+  fireEvent.click(screen.getByRole('button', { name: 'Docs' }));
+
+  await waitFor(() => expect(indicator).toHaveAttribute('data-state', 'open'));
+});
+
 test('preserves asChild and current link styling hooks', () => {
   render(
     <NavigationMenu>
@@ -111,31 +168,6 @@ test('preserves asChild and current link styling hooks', () => {
   expect(screen.getByTestId('home-link')).toHaveAttribute('data-current');
   expect(screen.getByTestId('home-link')).toHaveAttribute('data-slot', 'navigation-menu-link');
   expect(screen.getByRole('button', { name: 'Products' }).className).toBe('');
-});
-
-test('keeps content arrows outside the scrolling panel body', () => {
-  const { container } = render(
-    <NavigationMenu defaultValue="products">
-      <NavigationMenu.List>
-        <NavigationMenu.Item value="products">
-          <NavigationMenu.Trigger>Products</NavigationMenu.Trigger>
-          <NavigationMenu.Content>
-            <NavigationMenu.Indicator>
-              <NavigationMenu.Arrow />
-            </NavigationMenu.Indicator>
-            <NavigationMenu.Link href="#analytics">Analytics</NavigationMenu.Link>
-          </NavigationMenu.Content>
-        </NavigationMenu.Item>
-      </NavigationMenu.List>
-    </NavigationMenu>,
-  );
-
-  const content = container.querySelector('[data-slot="navigation-menu-content"]');
-  const indicator = container.querySelector('[data-slot="navigation-menu-indicator"]');
-  const link = screen.getByRole('link', { name: 'Analytics' });
-
-  expect(content?.firstElementChild).toBe(indicator);
-  expect(link.parentElement).toBe(content?.lastElementChild);
 });
 
 test('keeps viewport motion and provider composition Ark-shaped', async () => {

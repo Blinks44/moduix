@@ -1,34 +1,50 @@
 ---
 title: Astro
-description: Используйте React-компоненты moduix в Astro как интерактивные острова с общими стилями и клиентскими директивами.
+description: Подключение компонентов moduix для React и Solid к Astro через пакеты или shadcn, включая стили, алиасы и клиентские директивы.
 ---
 
 # Astro
 
-moduix представляет собой библиотеку компонентов для React. По умолчанию Astro рендерит React-компоненты в статический
-HTML. Добавьте клиентскую директиву Astro `client:*`, если компонент должен стать интерактивным в браузере.
+Руководство предполагает существующий Astro-проект с уже настроенной официальной интеграцией React
+или Solid. По умолчанию компонент превращается в статический HTML. Чтобы он работал в браузере,
+добавьте директиву `client:*`.
 
-## Подключите React к Astro
+## Выберите вариант настройки
 
-В корне проекта выполните:
+- **Среда:** React или Solid с соответствующей официальной интеграцией Astro.
+- **Стилизация:** CSS Modules или Tailwind CSS v4.
+- **Поставка:** пакет или исходный код, добавленный через shadcn CLI.
 
-```bash
-npx astro add react
-```
+Эта страница посвящена расположению файлов и гидратации островов в Astro. Сначала выполните общую
+[настройку пакета](/docs/quick-start#установить-как-пакет) или
+[настройку shadcn](/docs/quick-start#установить-через-shadcn-cli) для выбранного варианта стилей. Ниже
+показаны импорты пакета на CSS Modules; точки входа Astro и правила `client:*` не меняются при выборе
+соответствующего Tailwind-пакета или реестра.
 
-Эта команда устанавливает и настраивает официальную интеграцию `@astrojs/react` для Astro.
+Все показанные ниже команды установки пакетов и импорты таблиц стилей относятся к CSS Modules. С Tailwind сохраняйте глобальную
+таблицу стилей, настроенную в Быстром старте.
 
-## Установите moduix
+## Установка из пакета
 
-Установите `@moduix/react` и объявленную peer-зависимость `@ark-ui/react`:
+Установите пакет для выбранного фреймворка и соответствующую зависимость Ark UI:
+
+<Tabs groupId="framework">
+  <Tab label="React" value="react">
 
 <PackageManagerTabs command="install @moduix/react @ark-ui/react" />
 
-`@moduix/react` поддерживает React 18 и 19 и ожидает, что `react`, `react-dom` и `@ark-ui/react` установлены в проекте.
-Команда `astro add react` обычно добавляет React и `react-dom`. Если вы подключали `@astrojs/react` вручную, перед
-продолжением проверьте наличие этих пакетов.
+  </Tab>
+  <Tab label="Solid" value="solid">
 
-Один раз импортируйте базовый файл стилей в общем макете:
+<PackageManagerTabs command="install @moduix/solid @ark-ui/solid" />
+
+  </Tab>
+</Tabs>
+
+Один раз импортируйте основные стили в общем макете:
+
+<Tabs groupId="framework">
+  <Tab label="React" value="react">
 
 ```astro title="src/layouts/Layout.astro"
 ---
@@ -40,7 +56,26 @@ import '@moduix/react/style.css';
 </html>
 ```
 
-Создайте React-компонент и импортируйте его непосредственно в страницу Astro:
+  </Tab>
+  <Tab label="Solid" value="solid">
+
+```astro title="src/layouts/Layout.astro"
+---
+import '@moduix/solid/style.css';
+---
+
+<html lang="en">
+  <body><slot /></body>
+</html>
+```
+
+  </Tab>
+</Tabs>
+
+Создайте компонент для выбранного фреймворка:
+
+<Tabs groupId="framework">
+  <Tab label="React" value="react">
 
 ```tsx title="src/components/ContinueButton.tsx"
 import { Button } from '@moduix/react/button';
@@ -50,7 +85,21 @@ export function ContinueButton() {
 }
 ```
 
-Добавьте `client:load`, чтобы компонент стал интерактивным сразу после загрузки страницы:
+  </Tab>
+  <Tab label="Solid" value="solid">
+
+```tsx title="src/components/ContinueButton.tsx"
+import { Button } from '@moduix/solid/button';
+
+export function ContinueButton() {
+  return <Button>Continue</Button>;
+}
+```
+
+  </Tab>
+</Tabs>
+
+Импортируйте компонент непосредственно в страницу Astro и добавьте клиентскую директиву:
 
 ```astro title="src/pages/index.astro"
 ---
@@ -60,21 +109,39 @@ import { ContinueButton } from '../components/ContinueButton';
 <ContinueButton client:load />
 ```
 
-Без директивы `client:*` Astro выведет компонент как статический HTML и не отправит его JavaScript в браузер. Выбирайте
-директиву по моменту, когда компонент должен стать интерактивным: `client:load` загружает его сразу, `client:idle`
-ждёт свободного времени браузера, а `client:visible` загружает компонент после появления в области просмотра.
-Статического серверного рендера недостаточно для `Dialog`, `Menu`, `Select` и других интерактивных компонентов.
+Без директивы `client:*` Astro отправит статический HTML без клиентского JavaScript компонента.
+Используйте `client:load` для сразу доступных элементов управления, `client:idle`, если интерактивность
+может подождать, и `client:visible` для компонентов ниже первого экрана. Таким компонентам, как
+`Dialog`, `Menu` и `Select`, всегда нужна клиентская директива.
 
 ## Установка через shadcn CLI
 
-Завершите [настройку shadcn CLI](/docs/quick-start#установить-через-shadcn-cli). В `tsconfig.json` свяжите алиас `@/*`
-с `src/*` и импортируйте `@/lib/moduix/styles/style.css` из общего макета. На странице Astro импортируйте
-сгенерированный React-компонент непосредственно и добавьте ему директиву `client:*`. Astro принимает клиентскую
-директиву только у компонента UI-фреймворка, который импортирован непосредственно в `.astro`-файл.
+Выполните [первоначальную настройку shadcn CLI](/docs/quick-start#установить-через-shadcn-cli), задайте
+алиас `@/*` для `src/*` в `tsconfig.json` и импортируйте `@/lib/moduix/styles/style.css` в общем
+макете. Затем добавьте компонент для выбранного фреймворка:
+
+<Tabs groupId="framework">
+  <Tab label="React" value="react">
+
+<ShadcnInstallOptions options={[{ label: 'CSS Modules', command: 'shadcn@latest add @moduix-react/button' }, { label: 'Tailwind CSS', command: 'shadcn@latest add @moduix-react-tailwind/button' }]} />
+
+  </Tab>
+  <Tab label="Solid" value="solid">
+
+<ShadcnInstallOptions options={[{ label: 'CSS Modules', command: 'shadcn@latest add @moduix-solid/button' }, { label: 'Tailwind CSS', command: 'shadcn@latest add @moduix-solid-tailwind/button' }]} />
+
+  </Tab>
+</Tabs>
+
+Импортируйте сгенерированный компонент непосредственно в файл `.astro`, а уже затем добавьте
+директиву `client:*`. Astro разрешает клиентские директивы только для компонентов, импортированных
+прямо в страницу.
 
 ## Проверка
 
-До гидратации на странице должна быть стилизованная разметка, созданная сервером. После выполнения клиентской директивы
-компонент должен реагировать на действия пользователя.
+До гидратации страница должна содержать оформленный серверный HTML, а после выполнения клиентской
+директивы компонент должен реагировать на действия пользователя.
 
-Подробнее о доступных клиентских директивах читайте в [руководстве Astro по фронтенд-фреймворкам](https://docs.astro.build/en/guides/framework-components/). Ручная настройка интеграции React описана в [руководстве по `@astrojs/react`](https://docs.astro.build/en/guides/integrations-guide/react/).
+Подробности есть в руководстве Astro по [компонентам разных фреймворков](https://docs.astro.build/en/guides/framework-components/)
+и официальных инструкциях для [React](https://docs.astro.build/en/guides/integrations-guide/react/)
+и [Solid](https://docs.astro.build/en/guides/integrations-guide/solid-js/).

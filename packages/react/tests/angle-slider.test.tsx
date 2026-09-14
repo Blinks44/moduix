@@ -11,26 +11,26 @@ function ProviderAngleSlider() {
   });
 
   return (
-    <AngleSlider.RootProvider value={angleSlider} form="angle-form">
+    <AngleSlider.RootProvider value={angleSlider}>
       <AngleSlider.Dial />
+      <AngleSlider.HiddenInput form="angle-form" />
     </AngleSlider.RootProvider>
   );
 }
 
-test('renders its hidden input for root and RootProvider form participation', () => {
+test('submits through explicit hidden inputs for root and RootProvider composition', () => {
   const { container } = render(
     <>
       <form id="angle-form" />
-      <AngleSlider defaultValue={135} name="rotation" form="angle-form" aria-label="Rotation">
+      <AngleSlider defaultValue={135} name="rotation" aria-label="Rotation">
         <AngleSlider.Dial />
+        <AngleSlider.HiddenInput form="angle-form" />
       </AngleSlider>
       <ProviderAngleSlider />
     </>,
   );
 
-  const inputs = container.querySelectorAll<HTMLInputElement>(
-    '[data-slot="angle-slider-hidden-input"]',
-  );
+  const inputs = container.querySelectorAll<HTMLInputElement>('input[type="hidden"]');
 
   expect(inputs).toHaveLength(2);
   expect(inputs[0]).toHaveValue('135');
@@ -43,7 +43,7 @@ test('renders its hidden input for root and RootProvider form participation', ()
   ]);
 });
 
-test('preserves asChild composition, slots, refs, and automatic form input placement', () => {
+test('preserves asChild composition, slots, refs, and explicit input placement', () => {
   const rootRef = createRef<HTMLDivElement>();
   const controlRef = createRef<HTMLDivElement>();
   const thumbRef = createRef<HTMLDivElement>();
@@ -55,6 +55,7 @@ test('preserves asChild composition, slots, refs, and automatic form input place
           <AngleSlider.Marks values={[0, 90, 90, 180]} />
           <AngleSlider.Thumb ref={thumbRef} />
         </AngleSlider.Control>
+        <AngleSlider.HiddenInput />
       </section>
     </AngleSlider>,
   );
@@ -63,38 +64,8 @@ test('preserves asChild composition, slots, refs, and automatic form input place
   expect(rootRef.current).toHaveAttribute('data-slot', 'angle-slider-root');
   expect(controlRef.current).toHaveAttribute('data-slot', 'angle-slider-control');
   expect(thumbRef.current).toBe(screen.getByRole('slider', { name: 'Direction' }));
-  expect(rootRef.current?.querySelector('[data-slot="angle-slider-hidden-input"]')).toBeTruthy();
+  expect(rootRef.current?.querySelector('input[type="hidden"]')).toBeTruthy();
   expect(container.querySelectorAll('[data-slot="angle-slider-marker"]')).toHaveLength(4);
-});
-
-test('synchronizes uncontrolled state with native form reset', async () => {
-  const { container } = render(
-    <form id="angle-form">
-      <AngleSlider defaultValue={135} name="rotation" aria-label="Rotation">
-        <AngleSlider.Dial />
-      </AngleSlider>
-      <ProviderAngleSlider />
-    </form>,
-  );
-
-  const form = container.querySelector('form')!;
-  const slider = screen.getByRole('slider', { name: 'Rotation' });
-  const providerSlider = screen.getByRole('slider', { name: 'Provider rotation' });
-
-  fireEvent.focus(slider);
-  fireEvent.keyDown(slider, { key: 'ArrowRight' });
-  fireEvent.focus(providerSlider);
-  fireEvent.keyDown(providerSlider, { key: 'ArrowRight' });
-  await waitFor(() => expect(slider).toHaveAttribute('aria-valuenow', '136'));
-  expect(providerSlider).toHaveAttribute('aria-valuenow', '46');
-
-  fireEvent.reset(form);
-  await waitFor(() => expect(slider).toHaveAttribute('aria-valuenow', '135'));
-  expect(providerSlider).toHaveAttribute('aria-valuenow', '45');
-  expect(Array.from(new FormData(form).entries())).toEqual([
-    ['rotation', '135'],
-    ['provider-rotation', '45'],
-  ]);
 });
 
 test('preserves Ark callback details, keyboard behavior, and non-interactive states', async () => {

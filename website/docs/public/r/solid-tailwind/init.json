@@ -1,0 +1,22 @@
+{
+  "$schema": "https://ui.shadcn.com/schema/registry-item.json",
+  "extends": "none",
+  "name": "init",
+  "title": "moduix Solid Tailwind init",
+  "description": "Initialize shadcn for moduix Solid Tailwind and install shared dependencies.",
+  "dependencies": ["@ark-ui/solid", "class-variance-authority", "clsx", "tailwind-merge"],
+  "registryDependencies": ["@moduix-solid-tailwind/foundation"],
+  "type": "registry:base",
+  "config": {
+    "style": "new-york",
+    "rsc": false,
+    "tsx": true,
+    "aliases": {
+      "components": "@/components",
+      "utils": "@/lib/utils",
+      "ui": "@/components/ui",
+      "lib": "@/lib",
+      "hooks": "@/hooks"
+    }
+  }
+}

@@ -11,7 +11,7 @@ import { ClientOnly } from '@ark-ui/react/client-only';
 moduix themes are CSS token layers. `Calm` is the default foundation theme; `Dense`, `Soft`, and
 `Contrast` are optional presets for different visual directions. A preset can change the palette,
 radii, spacing, control density, and shadows without changing component APIs or adding a theme
-provider or runtime.
+provider or runtime. Every shipped adapter uses the same theme files and token contract.
 
 <ClientOnly fallback={<ThemePresets />}>
   <ThemePresets />
@@ -26,10 +26,8 @@ provider or runtime.
 | Soft     | 40px / 34px              | Spacious or touch-friendly workflows with rounded surfaces and a warmer accent.  |
 | Contrast | 36px / 32px              | Interfaces that benefit from sharper borders and clearer focus separation.         |
 
-The sizes in the table are the default heights for the preset's main controls and popup rows.
-The preview uses real moduix components. Use the preset and color mode buttons, then open the
-Select and move through its fields with the keyboard to compare control height, popup row height,
-labels, surfaces, and focus styles together.
+The sizes in the table are the default heights for the preset's main controls and popup rows. Use
+the preview to compare density, surfaces, and focus styles with real moduix components.
 
 Preset names describe a visual direction, not an accessibility guarantee. Test text contrast,
 focus visibility, zoom, and interactive target sizes with your content and application overrides
@@ -55,34 +53,74 @@ Import the foundation once, then import a preset. If users can switch between mu
 load every preset they can choose before switching. `Calm` uses the foundation values and does not
 have a `calm.css` file.
 
-Put `data-moduix-theme` on `<html>` so portalled components resolve the same tokens as the rest of
-the document. Set `data-moduix-color-scheme="dark"` on that element for the moduix dark mode; omit
-it for the light mode.
+Set `data-moduix-theme` and the color scheme on `<html>` so the same values reach regular and
+portalled content. Omit `data-moduix-color-scheme` for the light mode.
+
+<Tabs groupId="framework">
+  <Tab label="React" value="react">
+
+<StyleTrackCards>
+  <StyleTrackCard label="CSS Modules">
 
 ```tsx
 import '@moduix/react/style.css';
 import '@moduix/react/presets/soft.css';
 ```
 
+  </StyleTrackCard>
+  <StyleTrackCard label="Tailwind CSS">
+
+```css
+@import '@moduix/react-tailwind/style.css';
+@import '@moduix/react-tailwind/presets/soft.css';
+@import 'tailwindcss';
+
+@source '../node_modules/@moduix/react-tailwind/dist/components';
+```
+
+  </StyleTrackCard>
+</StyleTrackCards>
+
+  </Tab>
+  <Tab label="Solid" value="solid">
+
+<StyleTrackCards>
+  <StyleTrackCard label="CSS Modules">
+
+```tsx
+import '@moduix/solid/style.css';
+import '@moduix/solid/presets/soft.css';
+```
+
+  </StyleTrackCard>
+  <StyleTrackCard label="Tailwind CSS">
+
+```css
+@import '@moduix/solid-tailwind/style.css';
+@import '@moduix/solid-tailwind/presets/soft.css';
+@import 'tailwindcss';
+
+@source '../node_modules/@moduix/solid-tailwind/dist/components';
+```
+
+  </StyleTrackCard>
+</StyleTrackCards>
+
+  </Tab>
+</Tabs>
+
 ```html
 <html data-moduix-theme="soft" data-moduix-color-scheme="dark"></html>
 ```
 
-To use another preset, replace `soft.css` with one of these paths:
-
-```text
-@moduix/react/presets/dense.css
-@moduix/react/presets/contrast.css
-```
+Replace `soft.css` with `dense.css` or `contrast.css` under the same package prefix.
 
 ## Use with the registry
 
-Install a preset from the hosted moduix registry. The CLI copies its CSS source into your project;
-import that file after the foundation stylesheet.
+Presets are framework-neutral, so the same foundation registry URL works with React or Solid and
+with either styling track. The CLI copies the CSS source into your project:
 
-```bash
-npx shadcn@latest add @moduix-react/theme-dense
-```
+<PackageManagerTabs command="shadcn@latest add https://moduix.dev/r/foundation/theme-dense.json" dlx />
 
 ```tsx
 import '@/lib/moduix/styles/style.css';
@@ -96,6 +134,9 @@ import '@/lib/moduix/presets/dense.css';
 Replace `dense` with `soft` or `contrast` for another preset. If users can switch between presets,
 install and import each preset that can be selected.
 
+For Tailwind, keep these generated imports before `@import 'tailwindcss'`, as shown in the
+[Tailwind package setup](/docs/quick-start#tailwind-package-setup). Do not add the moduix reset.
+
 ## Switch themes at runtime
 
 Theme switching only changes the `data-moduix-theme` attribute. Keep the selected name on the
@@ -107,13 +148,12 @@ type Theme = 'calm' | 'dense' | 'soft' | 'contrast';
 
 function setTheme(theme: Theme) {
   document.documentElement.dataset.moduixTheme = theme;
-  localStorage.setItem('moduix-theme', theme);
 }
 ```
 
 The `calm` value leaves the foundation values in place. The CSS for every other selectable preset
-must already be loaded. Apply the saved value before the first paint to avoid a visible theme
-change during startup.
+must already be loaded. If your product remembers the selection, persist it and apply the saved
+value before the first paint to avoid a visible theme change during startup.
 
 ## Customize a preset
 
@@ -136,10 +176,58 @@ you leave out keep their foundation values. Add size or spacing tokens only when
 intentionally changes density. Use a preset as a reference when you want to replace the complete
 palette, spacing, and shadows.
 
+<Tabs groupId="framework">
+  <Tab label="React" value="react">
+
+<StyleTrackCards>
+  <StyleTrackCard label="CSS Modules">
+
 ```tsx
 import '@moduix/react/style.css';
 import './brand.css';
 ```
+
+  </StyleTrackCard>
+  <StyleTrackCard label="Tailwind CSS">
+
+```css
+@import '@moduix/react-tailwind/style.css';
+@import './brand.css';
+@import 'tailwindcss';
+
+@source '../node_modules/@moduix/react-tailwind/dist/components';
+```
+
+  </StyleTrackCard>
+</StyleTrackCards>
+
+  </Tab>
+  <Tab label="Solid" value="solid">
+
+<StyleTrackCards>
+  <StyleTrackCard label="CSS Modules">
+
+```tsx
+import '@moduix/solid/style.css';
+import './brand.css';
+```
+
+  </StyleTrackCard>
+  <StyleTrackCard label="Tailwind CSS">
+
+```css
+@import '@moduix/solid-tailwind/style.css';
+@import './brand.css';
+@import 'tailwindcss';
+
+@source '../node_modules/@moduix/solid-tailwind/dist/components';
+```
+
+  </StyleTrackCard>
+</StyleTrackCards>
+
+  </Tab>
+</Tabs>
 
 ```css
 /* brand.css */

@@ -1,10 +1,28 @@
 ---
 title: Clipboard
 component: clipboard
-description: Компоненты на базе Ark для отображения, редактирования и копирования текста.
+description: Доступный Clipboard для React и Solid с установкой через пакет или shadcn CLI.
 ---
 
-import * as ClipboardDocs from '@/components/examples/clipboard';
+import AsChildClipboardDemo from '@/components/examples/clipboard/as-child.tsx';
+import ClipboardBasic from '@/components/examples/clipboard/basic.tsx';
+import ContextClipboardDemo from '@/components/examples/clipboard/context.tsx';
+import ClipboardStatusDemo from '@/components/examples/clipboard/copy-status.tsx';
+import CustomCopyTextClipboardDemo from '@/components/examples/clipboard/custom-copy-text.tsx';
+import DisabledClipboardDemo from '@/components/examples/clipboard/disabled.tsx';
+import RootProviderClipboardDemo from '@/components/examples/clipboard/root-provider.tsx';
+import TimeoutClipboardDemo from '@/components/examples/clipboard/timeout.tsx';
+import ValueTextClipboardDemo from '@/components/examples/clipboard/value-text.tsx';
+import * as ClipboardDocs from '@/components/examples/clipboard/css-properties';
+import clipboardSolidAsChild from '../../../snippets/clipboard/solid/as-child.tsx?raw';
+import clipboardSolidBasic from '../../../snippets/clipboard/solid/basic.tsx?raw';
+import clipboardSolidContext from '../../../snippets/clipboard/solid/context.tsx?raw';
+import clipboardSolidCopyStatus from '../../../snippets/clipboard/solid/copy-status.tsx?raw';
+import clipboardSolidCustomCopyText from '../../../snippets/clipboard/solid/custom-copy-text.tsx?raw';
+import clipboardSolidDisabled from '../../../snippets/clipboard/solid/disabled.tsx?raw';
+import clipboardSolidRootProvider from '../../../snippets/clipboard/solid/root-provider.tsx?raw';
+import clipboardSolidTimeout from '../../../snippets/clipboard/solid/timeout.tsx?raw';
+import clipboardSolidValueText from '../../../snippets/clipboard/solid/value-text.tsx?raw';
 
 Используйте `Clipboard`, когда пользователю нужно скопировать текст. В зависимости от выбранных
 частей значение можно редактировать, оставить только для чтения или вывести как обычный текст.
@@ -15,25 +33,77 @@ import * as ClipboardDocs from '@/components/examples/clipboard';
 
 ## Базовый пример
 
-Используйте `Clipboard`, чтобы показать значение, которое пользователь может скопировать. Добавьте
-`Clipboard.Input`, если значение должно быть в поле, и укажите `readOnly`, если его нельзя изменять.
-`Clipboard.Trigger` служит кнопкой копирования. `Clipboard.Indicator` и `Clipboard.CopyText` выводят
-стандартные иконки и подписи moduix для обычного состояния и состояния после копирования.
+Clipboard доступен для React и Solid как в пакетах с CSS Modules, так и в вариантах на Tailwind.
+Интерактивное превью на этой странице использует React и CSS Modules, а вкладки показывают нативный
+исходный код с тем же публичным контрактом. Настройку пакета и выбор варианта стилизации см. в
+[Quick Start](/docs/quick-start).
 
-<style>{ClipboardDocs.clipboardExampleCss}</style>
+Используйте `Clipboard` как корневой компонент. Внутри `Clipboard.Control` разместите одну
+поверхность значения - `Clipboard.Input` или `Clipboard.ValueText` - и `Clipboard.Trigger`.
+`Clipboard.Label` необязателен. Внутри триггера можно разместить `Clipboard.Indicator`,
+`Clipboard.CopyText` или обе части.
 
-<PreviewFrame maxWidth="sm">
-  ```tsx preview file="../../en/docs/_snippets/clipboard/basic.tsx"
+<ExampleFrame variant="component">
+  <ClipboardBasic />
+</ExampleFrame>
 
+<ExampleCode>
+<div className="docs-reference">
+  <Tabs
+    groupId="framework"
+    values={[
+      { label: 'React', value: 'react' },
+      { label: 'Solid', value: 'solid' },
+    ]}
+    className="docs-tabs"
+  >
+    <Tab value="react">
+
+```tsx pure file="../../../src/components/examples/clipboard/basic.tsx"
 ```
-</PreviewFrame>
+
+    </Tab>
+    <Tab value="solid">
+
+<CodeBlockRuntime lang="tsx" code={clipboardSolidBasic} />
+
+    </Tab>
+  </Tabs>
+
+**Стили**
+
+```css file="../../../src/components/examples/clipboard/component-basic.module.css"
+```
+</div>
+
+</ExampleCode>
 
 ## Установка через shadcn
 
-<ShadcnInstall packageName="clipboard" />
+Полную настройку пакета, реестра и стилей см. в разделе [Быстрый старт](/docs/quick-start).
 
-Команда также добавляет общие файлы moduix, необходимые для `Clipboard`: стили, иконки и небольшие
-утилиты.
+<Tabs groupId="framework">
+  <Tab label="React" value="react">
+
+<ShadcnInstallOptions
+  options={[
+    { label: 'CSS Modules', command: 'shadcn@latest add @moduix-react/clipboard' },
+    { label: 'Tailwind CSS', command: 'shadcn@latest add @moduix-react-tailwind/clipboard' },
+  ]}
+/>
+
+  </Tab>
+  <Tab label="Solid" value="solid">
+
+<ShadcnInstallOptions
+  options={[
+    { label: 'CSS Modules', command: 'shadcn@latest add @moduix-solid/clipboard' },
+    { label: 'Tailwind CSS', command: 'shadcn@latest add @moduix-solid-tailwind/clipboard' },
+  ]}
+/>
+
+  </Tab>
+</Tabs>
 
 ## Анатомия
 
@@ -61,58 +131,24 @@ Clipboard | Clipboard.RootProvider
 
 ## Композиция
 
-### Рекомендуемая композиция
+`Clipboard` владеет значением и состоянием после копирования. Внутри `Control` размещайте одну
+поверхность значения (`Input` или `ValueText`) и `Trigger`; `Indicator` и `CopyText` необязательны и
+могут использоваться вместе внутри триггера. Они следуют одному состоянию копирования, а moduix
+подставляет стандартные иконки копирования и подтверждения, а также подписи `Copy` и `Copied`, если
+содержимое не задано.
 
-В большинстве случаев используйте короткую форму `<Clipboard>` в качестве корневого компонента.
-Соберите её из `Clipboard.Label`, `Clipboard.Control`, `Clipboard.Input` и `Clipboard.Trigger`.
-Добавьте `Clipboard.Indicator` для иконки, `Clipboard.CopyText` для подписи состояния или обе части
-сразу.
+Используйте `defaultValue` для неконтролируемого значения. Если значение принадлежит другой части
+приложения или интерфейсу нужно реагировать на копирование, используйте `value` вместе с
+`onValueChange(details)` и `onStatusChange(details)`; `timeout` задаёт длительность состояния после
+копирования.
 
-Все свойства корневого компонента Ark передаются без изменений. Используйте `defaultValue` для
-неконтролируемого значения, `value` вместе с `onValueChange(details)` для управляемого значения,
-а `onStatusChange(details)` - чтобы отслеживать состояние копирования. `timeout` задаёт длительность
-этого состояния, а `ids` позволяет задать стабильные идентификаторы частей.
-
-`Clipboard.Indicator` и `Clipboard.CopyText` можно не указывать. Если не передавать им содержимое,
-moduix добавит иконки копирования и подтверждения, а также подписи `Copy` и `Copied`.
-
-### Когда выбрать другую композицию
-
-Используйте `Clipboard.ValueText`, когда значение должно быть частью обычного текста или компактного
-блока без поля ввода.
-
-Используйте `Clipboard.useClipboard()` вместе с `Clipboard.RootProvider`, когда состояние нужно
-создать отдельно от дерева компонентов или использовать в нескольких местах. Вложенные компоненты
-могут получить его через `Clipboard.Context` или `useClipboardContext()`.
-
-Используйте `asChild` для `Clipboard.Input` или `Clipboard.Trigger`, только если другой семантический
-элемент должен взять на себя отрисовку узла DOM. Например, можно использовать `Input` или `Button` из
-moduix, сохранив явные части Clipboard в разметке.
-
-### Свойства по умолчанию
-
-| Свойство | Значение по умолчанию | Примечание |
-| --- | --- | --- |
-| `timeout` | `3000` | Длительность состояния копирования в миллисекундах. |
-| `Indicator.children` | не задано | В обычном состоянии используется `CopyIcon` moduix. |
-| `Indicator.copied` | не задано | После копирования используется `CheckIcon` moduix. |
-| `CopyText.children` | `Copy` | Текст до копирования. |
-| `CopyText.copied` | `Copied` | Текст в состоянии после копирования. |
-
-### Особенности поведения
-
-- `onValueChange(details)` передаёт новое значение в `details.value`.
-- `onStatusChange(details)` сообщает об изменении состояния копирования. Проверяйте
-  `details.copied`, если нужно обновить соседний элемент интерфейса, аналитику или счётчик.
-- Пока активно состояние копирования, Ark добавляет `data-copied` к `Root`, `Label`, `Control`,
-  `Input` и `Trigger`. По умолчанию moduix не меняет внешний вид поля и кнопки, поэтому этот атрибут
-  можно использовать в собственных стилях.
-- У корневого компонента нет свойства `disabled`. Передайте нативное свойство `disabled` и
-  `Clipboard.Input`, и `Clipboard.Trigger`, если значение нельзя изменять или копировать.
-- `Clipboard` по умолчанию не ограничивает ширину. Если макету нужна максимальная ширина, задайте
-  `--moduix-clipboard-max-width`.
-- При переходе со старого `CopyButton` используйте части Clipboard. Свойства `copiedDuration`,
-  `copyLabels`, `onCopy` и `onCopyError` не входят в этот API.
+Используйте `Clipboard.useClipboard()` вместе с `Clipboard.RootProvider`, только если состояние
+нужно создать или разделить вне отрисовываемого дерева. Вложенные компоненты могут читать его через
+`Clipboard.Context` или `useClipboardContext()`. В Solid `useClipboard()` возвращает функцию доступа:
+передайте её как `value={clipboard}` и читайте состояние как `clipboard().copied` или
+`clipboard().value`. У корневого компонента нет состояния `disabled`: передайте нативное свойство
+`disabled` и `Clipboard.Input`, и `Clipboard.Trigger`. Используйте `asChild` для этих частей только
+если другой семантический элемент должен отрисовать узел DOM.
 
 ## Примеры
 
@@ -122,91 +158,328 @@ moduix, сохранив явные части Clipboard в разметке.
 `useClipboardContext()` во вложенном компоненте. Контекст предоставляет `copied`, `value`, `setValue`
 и `copy`.
 
-<PreviewFrame maxWidth="sm">
-  ```tsx preview file="../../en/docs/_snippets/clipboard/context.tsx"
+<ExampleFrame variant="component">
+  <ContextClipboardDemo />
+</ExampleFrame>
 
+<ExampleCode>
+<div className="docs-reference">
+  <Tabs
+    groupId="framework"
+    values={[
+      { label: 'React', value: 'react' },
+      { label: 'Solid', value: 'solid' },
+    ]}
+    className="docs-tabs"
+  >
+    <Tab value="react">
+
+```tsx pure file="../../../src/components/examples/clipboard/context.tsx"
 ```
-</PreviewFrame>
+
+    </Tab>
+    <Tab value="solid">
+
+<CodeBlockRuntime lang="tsx" code={clipboardSolidContext} />
+
+    </Tab>
+  </Tabs>
+
+**Стили**
+
+```css file="../../../src/components/examples/clipboard/component-context.module.css"
+```
+</div>
+
+</ExampleCode>
 
 ### Статус копирования
 
 Используйте `onStatusChange(details)`, если другая часть интерфейса должна реагировать на успешное
-копирование. В примере счётчик увеличивается, когда `details.copied` равно `true`.
+копирование. В примере счётчик увеличивается на основе `details.copied`.
 
-<PreviewFrame contentWidth="fit-content" maxWidth="sm">
-  ```tsx preview file="../../en/docs/_snippets/clipboard/copy-status.tsx"
+<ExampleFrame variant="component">
+  <ClipboardStatusDemo />
+</ExampleFrame>
 
+<ExampleCode>
+<div className="docs-reference">
+  <Tabs
+    groupId="framework"
+    values={[
+      { label: 'React', value: 'react' },
+      { label: 'Solid', value: 'solid' },
+    ]}
+    className="docs-tabs"
+  >
+    <Tab value="react">
+
+```tsx pure file="../../../src/components/examples/clipboard/copy-status.tsx"
 ```
-</PreviewFrame>
+
+    </Tab>
+    <Tab value="solid">
+
+<CodeBlockRuntime lang="tsx" code={clipboardSolidCopyStatus} />
+
+    </Tab>
+  </Tabs>
+
+**Стили**
+
+```css file="../../../src/components/examples/clipboard/component-copy-status.module.css"
+```
+</div>
+
+</ExampleCode>
 
 ### Свой текст копирования
 
-Передайте собственный текст в `Clipboard.CopyText` или задайте проп `copied`, если кнопке нужны
+Передайте собственное содержимое или значение `copied` в `Clipboard.CopyText`, если кнопке нужны
 подписи, соответствующие вашему продукту.
 
-<PreviewFrame maxWidth="sm">
-  ```tsx preview file="../../en/docs/_snippets/clipboard/custom-copy-text.tsx"
+<ExampleFrame variant="component">
+  <CustomCopyTextClipboardDemo />
+</ExampleFrame>
 
+<ExampleCode>
+<div className="docs-reference">
+  <Tabs
+    groupId="framework"
+    values={[
+      { label: 'React', value: 'react' },
+      { label: 'Solid', value: 'solid' },
+    ]}
+    className="docs-tabs"
+  >
+    <Tab value="react">
+
+```tsx pure file="../../../src/components/examples/clipboard/custom-copy-text.tsx"
 ```
-</PreviewFrame>
+
+    </Tab>
+    <Tab value="solid">
+
+<CodeBlockRuntime lang="tsx" code={clipboardSolidCustomCopyText} />
+
+    </Tab>
+  </Tabs>
+
+**Стили**
+
+```css file="../../../src/components/examples/clipboard/component-custom-copy-text.module.css"
+```
+</div>
+
+</ExampleCode>
 
 ### Отключённое состояние
 
 Передайте `disabled` и полю, и кнопке, если пользователь может видеть значение, но не должен его
 изменять или копировать.
 
-<PreviewFrame maxWidth="sm">
-  ```tsx preview file="../../en/docs/_snippets/clipboard/disabled.tsx"
+<ExampleFrame variant="component">
+  <DisabledClipboardDemo />
+</ExampleFrame>
 
+<ExampleCode>
+<div className="docs-reference">
+  <Tabs
+    groupId="framework"
+    values={[
+      { label: 'React', value: 'react' },
+      { label: 'Solid', value: 'solid' },
+    ]}
+    className="docs-tabs"
+  >
+    <Tab value="react">
+
+```tsx pure file="../../../src/components/examples/clipboard/disabled.tsx"
 ```
-</PreviewFrame>
+
+    </Tab>
+    <Tab value="solid">
+
+<CodeBlockRuntime lang="tsx" code={clipboardSolidDisabled} />
+
+    </Tab>
+  </Tabs>
+
+**Стили**
+
+```css file="../../../src/components/examples/clipboard/component-disabled.module.css"
+```
+</div>
+
+</ExampleCode>
 
 ### Root Provider
 
 Создайте состояние с помощью `Clipboard.useClipboard()` и передайте его в
-`Clipboard.RootProvider`, если состояние нужно разделить между компонентами или создать отдельно
-от дерева компонентов.
+`Clipboard.RootProvider`, если состояние нужно разделить между компонентами или создать отдельно от
+дерева компонентов.
 
-<PreviewFrame maxWidth="sm">
-  ```tsx preview file="../../en/docs/_snippets/clipboard/root-provider.tsx"
+<ExampleFrame variant="component">
+  <RootProviderClipboardDemo />
+</ExampleFrame>
 
+<ExampleCode>
+<div className="docs-reference">
+  <Tabs
+    groupId="framework"
+    values={[
+      { label: 'React', value: 'react' },
+      { label: 'Solid', value: 'solid' },
+    ]}
+    className="docs-tabs"
+  >
+    <Tab value="react">
+
+```tsx pure file="../../../src/components/examples/clipboard/root-provider.tsx"
 ```
-</PreviewFrame>
+
+    </Tab>
+    <Tab value="solid">
+
+<CodeBlockRuntime lang="tsx" code={clipboardSolidRootProvider} />
+
+    </Tab>
+  </Tabs>
+
+**Стили**
+
+```css file="../../../src/components/examples/clipboard/component-root-provider.module.css"
+```
+</div>
+
+</ExampleCode>
 
 ### Задержка
 
 Укажите `timeout`, если состояние после копирования должно отображаться дольше или меньше стандартных
 трёх секунд.
 
-<PreviewFrame maxWidth="sm">
-  ```tsx preview file="../../en/docs/_snippets/clipboard/timeout.tsx"
+<ExampleFrame variant="component">
+  <TimeoutClipboardDemo />
+</ExampleFrame>
 
+<ExampleCode>
+<div className="docs-reference">
+  <Tabs
+    groupId="framework"
+    values={[
+      { label: 'React', value: 'react' },
+      { label: 'Solid', value: 'solid' },
+    ]}
+    className="docs-tabs"
+  >
+    <Tab value="react">
+
+```tsx pure file="../../../src/components/examples/clipboard/timeout.tsx"
 ```
-</PreviewFrame>
+
+    </Tab>
+    <Tab value="solid">
+
+<CodeBlockRuntime lang="tsx" code={clipboardSolidTimeout} />
+
+    </Tab>
+  </Tabs>
+
+**Стили**
+
+```css file="../../../src/components/examples/clipboard/component-timeout.module.css"
+```
+</div>
+
+</ExampleCode>
 
 ### Текст значения
 
 Используйте `Clipboard.ValueText`, если значение должно отображаться как текст, а не внутри поля
 ввода.
 
-<PreviewFrame contentWidth="fit-content" maxWidth="sm">
-  ```tsx preview file="../../en/docs/_snippets/clipboard/value-text.tsx"
+<ExampleFrame variant="component">
+  <ValueTextClipboardDemo />
+</ExampleFrame>
 
+<ExampleCode>
+<div className="docs-reference">
+  <Tabs
+    groupId="framework"
+    values={[
+      { label: 'React', value: 'react' },
+      { label: 'Solid', value: 'solid' },
+    ]}
+    className="docs-tabs"
+  >
+    <Tab value="react">
+
+```tsx pure file="../../../src/components/examples/clipboard/value-text.tsx"
 ```
-</PreviewFrame>
+
+    </Tab>
+    <Tab value="solid">
+
+<CodeBlockRuntime lang="tsx" code={clipboardSolidValueText} />
+
+    </Tab>
+  </Tabs>
+
+**Стили**
+
+```css file="../../../src/components/examples/clipboard/component-value-text.module.css"
+```
+</div>
+
+</ExampleCode>
 
 ### Расширенная настройка
 
 Используйте `asChild`, чтобы передать свои элементы поля и кнопки для отрисовки частей Clipboard,
 сохранив состояние и поведение компонента.
 
-<PreviewFrame maxWidth="sm">
-  ```tsx preview file="../../en/docs/_snippets/clipboard/as-child.tsx"
+<ExampleFrame variant="component">
+  <AsChildClipboardDemo />
+</ExampleFrame>
 
+<ExampleCode>
+<div className="docs-reference">
+  <Tabs
+    groupId="framework"
+    values={[
+      { label: 'React', value: 'react' },
+      { label: 'Solid', value: 'solid' },
+    ]}
+    className="docs-tabs"
+  >
+    <Tab value="react">
+
+```tsx pure file="../../../src/components/examples/clipboard/as-child.tsx"
 ```
-</PreviewFrame>
+
+    </Tab>
+    <Tab value="solid">
+
+<CodeBlockRuntime lang="tsx" code={clipboardSolidAsChild} />
+
+    </Tab>
+  </Tabs>
+
+**Стили**
+
+```css file="../../../src/components/examples/clipboard/component-advanced-customization.module.css"
+```
+</div>
+
+</ExampleCode>
 
 ## Стилизация
+
+Используйте `className` в React или `class` в Solid на экспортируемых частях для структурных стилей.
+Варианты Tailwind используют стандартные утилиты и классы потребителя, а варианты CSS Modules -
+приведённые ниже CSS-переменные. Для стилей состояния после копирования используйте атрибут Ark
+`data-copied` вместе с хуками moduix `data-slot`.
 
 ### CSS-свойства
 

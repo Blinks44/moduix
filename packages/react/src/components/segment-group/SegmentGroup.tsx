@@ -9,9 +9,8 @@ import {
   useSegmentGroupItemContext,
 } from '@ark-ui/react/segment-group';
 import { clsx } from 'clsx';
-import type { ComponentProps, ComponentRef, ReactElement, ReactNode } from 'react';
-import { Children, cloneElement, forwardRef } from 'react';
-import { normalizeClassName } from '@/lib/moduix/normalizeClassName';
+import type { ComponentProps, ComponentRef, ReactNode } from 'react';
+import { forwardRef } from 'react';
 import styles from './SegmentGroup.module.css';
 
 type SegmentGroupMachineProps = Parameters<typeof useSegmentGroupPrimitive>[0];
@@ -55,29 +54,27 @@ const SegmentGroupRoot = forwardRef<
   },
   ref,
 ) {
-  const segmentGroup = useSegmentGroup(
-    omitUndefined({
-      defaultValue,
-      disabled,
-      form,
-      id,
-      ids,
-      invalid,
-      name,
-      onValueChange,
-      orientation,
-      readOnly,
-      required,
-      value,
-    }),
-  );
+  const segmentGroup = useSegmentGroup({
+    defaultValue,
+    disabled,
+    form,
+    id,
+    ids,
+    invalid,
+    name,
+    onValueChange,
+    orientation,
+    readOnly,
+    required,
+    value,
+  });
 
   return (
     <SegmentGroupPrimitive.RootProvider
       ref={ref}
       value={segmentGroup}
       data-slot="segment-group-root"
-      className={clsx(styles.root, normalizeClassName(className))}
+      className={clsx(styles.root, className)}
       {...props}
     />
   );
@@ -91,7 +88,7 @@ const SegmentGroupRootProvider = forwardRef<
     <SegmentGroupPrimitive.RootProvider
       ref={ref}
       data-slot="segment-group-root-provider"
-      className={clsx(styles.root, normalizeClassName(className))}
+      className={clsx(styles.root, className)}
       {...props}
     />
   );
@@ -105,7 +102,7 @@ const SegmentGroupLabel = forwardRef<
     <SegmentGroupPrimitive.Label
       ref={ref}
       data-slot="segment-group-label"
-      className={clsx(styles.label, normalizeClassName(className))}
+      className={clsx(styles.label, className)}
       {...props}
     />
   );
@@ -114,17 +111,14 @@ const SegmentGroupLabel = forwardRef<
 const SegmentGroupItem = forwardRef<
   ComponentRef<typeof SegmentGroupPrimitive.Item>,
   ComponentProps<typeof SegmentGroupPrimitive.Item>
->(function SegmentGroupItem({ asChild, children, className, ...props }, ref) {
+>(function SegmentGroupItem({ className, ...props }, ref) {
   return (
     <SegmentGroupPrimitive.Item
       ref={ref}
-      asChild={asChild}
       data-slot="segment-group-item"
-      className={clsx(styles.item, normalizeClassName(className))}
+      className={clsx(styles.item, className)}
       {...props}
-    >
-      {withItemHiddenInput(children, asChild)}
-    </SegmentGroupPrimitive.Item>
+    />
   );
 });
 
@@ -136,7 +130,7 @@ const SegmentGroupItemControl = forwardRef<
     <SegmentGroupPrimitive.ItemControl
       ref={ref}
       data-slot="segment-group-item-control"
-      className={clsx(styles.itemControl, normalizeClassName(className))}
+      className={clsx(styles.itemControl, className)}
       {...props}
     />
   );
@@ -150,30 +144,11 @@ const SegmentGroupItemText = forwardRef<
     <SegmentGroupPrimitive.ItemText
       ref={ref}
       data-slot="segment-group-item-text"
-      className={clsx(styles.itemText, normalizeClassName(className))}
+      className={clsx(styles.itemText, className)}
       {...props}
     />
   );
 });
-
-function withItemHiddenInput(children: ReactNode, asChild?: boolean) {
-  const hiddenInput = (
-    <SegmentGroupPrimitive.ItemHiddenInput data-slot="segment-group-item-hidden-input" />
-  );
-
-  if (!asChild) {
-    return (
-      <>
-        {children}
-        {hiddenInput}
-      </>
-    );
-  }
-
-  const child = Children.only(children) as ReactElement<{ children?: ReactNode }>;
-
-  return cloneElement(child, {}, child.props.children, hiddenInput);
-}
 
 const SegmentGroupIndicator = forwardRef<
   ComponentRef<typeof SegmentGroupPrimitive.Indicator>,
@@ -183,7 +158,7 @@ const SegmentGroupIndicator = forwardRef<
     <SegmentGroupPrimitive.Indicator
       ref={ref}
       data-slot="segment-group-indicator"
-      className={clsx(styles.indicator, normalizeClassName(className))}
+      className={clsx(styles.indicator, className)}
       {...props}
     />
   );
@@ -198,6 +173,7 @@ function SegmentGroupItems({
     <SegmentGroupItem key={value} value={value} disabled={disabled}>
       <SegmentGroupItemText>{label}</SegmentGroupItemText>
       <SegmentGroupItemControl />
+      <SegmentGroupPrimitive.ItemHiddenInput />
     </SegmentGroupItem>
   ));
 }
@@ -209,6 +185,7 @@ const SegmentGroup = Object.assign(SegmentGroupRoot, {
   ItemContext: SegmentGroupPrimitive.ItemContext,
   Label: SegmentGroupLabel,
   Item: SegmentGroupItem,
+  ItemHiddenInput: SegmentGroupPrimitive.ItemHiddenInput,
   ItemControl: SegmentGroupItemControl,
   ItemText: SegmentGroupItemText,
   Indicator: SegmentGroupIndicator,

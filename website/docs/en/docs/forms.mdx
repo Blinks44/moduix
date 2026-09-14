@@ -1,15 +1,17 @@
 ---
 title: Forms
-description: Build accessible forms with moduix fields, controls, and native form integration.
+description: Build accessible forms with Moduix controls, native form behavior, and framework-appropriate state libraries.
 ---
 
 import { Card, Cards } from '@/components/mdx/Components';
+import NativeForm from '@/components/examples/forms/native-form.tsx';
+import nativeFormSolid from '../../../snippets/forms/solid/native-form.tsx?raw';
 
 # Forms
 
-moduix does not manage form state. Start with a native `<form>` when browser validation and
-`FormData` cover the use case. Add a form library when you need richer validation, field state, or a
-custom submission workflow.
+Moduix provides accessible fields, controls, and native form participation. Start with a native
+`<form>` and add a state library only when validation, repeated fields, or submission state requires
+one.
 
 ## Choose an approach
 
@@ -17,200 +19,128 @@ custom submission workflow.
   <Card
     title="Native form"
     description="Use browser validation, FormData submission, and native reset for a small form."
-    href="/docs/forms#native-forms"
+    href="/docs/forms#native-form"
   />
   <Card
     title="Formisch"
-    description="Connect schema-based Valibot validation and field state without taking over the UI."
+    description="Use schema-first Valibot validation with native framework adapters."
     href="/docs/formisch"
   />
   <Card
     title="React Hook Form"
-    description="Connect mostly uncontrolled inputs and controlled compound components."
+    description="Use mostly uncontrolled inputs and controlled compound components in React."
     href="/docs/react-hook-form"
   />
   <Card
     title="TanStack Form"
-    description="Connect explicit controlled fields, reactive state, and typed validation."
+    description="Use explicit controlled fields and typed reactive state in React or Solid."
     href="/docs/tanstack-form"
   />
 </Cards>
 
-## Native forms
+## Framework support
 
-Start with a native form when it has only a few fields and browser validation is enough. Give every
-control a visible label and `name`, put native constraints on the actual control, and read the
-submission with `new FormData(event.currentTarget)`. The [runnable native form example](#native-form)
-mixes a regular `Input` with Ark-backed `Select` and `Checkbox` controls without duplicate hidden
-inputs.
+Choose a library that ships a native adapter for your framework. The documentation currently covers
+the Moduix adapters that are available today:
 
-Add a library only when the product needs field arrays, schema or cross-field validation, controlled
-state shared elsewhere in the UI, or a validation lifecycle that a native form cannot express cleanly.
+| Approach        | React | Solid | Best fit                                      |
+| --------------- | ----- | ----- | --------------------------------------------- |
+| Native form     | Yes   | Yes   | Small forms and browser-managed validation.  |
+| Formisch        | Yes   | Yes   | Valibot schemas and compact reactive state.  |
+| React Hook Form | Yes   | No    | React forms with an uncontrolled-first API.  |
+| TanStack Form   | Yes   | Yes   | Explicit controlled state and typed workflows. |
 
-## Form libraries
-
-moduix handles the accessible form structure: labels, descriptions, error associations, semantic
-control parts, and the native form control used for submission and reset. A form library handles
-application state: field values, validation timing, dirty and touched state, and submission
-workflow. Keep those responsibilities separate.
-
-| Concern              | moduix and the browser                                                    | Form library                                                           |
-| -------------------- | ------------------------------------------------------------------------- | ---------------------------------------------------------------------- |
-| Form semantics       | Renders the visible control, `name`, label, description, and associated native form control. | Does not add another input for the same value.                         |
-| Value and validation | Applies native constraints and passes `Field` state into the control tree. | Stores values, chooses validators, and exposes validation results.     |
-| Reset and focus      | Native reset synchronizes Ark-backed controls through their form control. | Resets controlled state and, when supported, focuses invalid controls. |
-
-In other words, a library augments a real `<form>`; it does not replace one. Pass the library's
-current validation result to the `invalid` prop on `Field` and render the message with
-`Field.ErrorText`. Keep semantic props such as `name`, `required`, and `disabled` on the moduix
-component's root.
+React Hook Form is intentionally documented only for React. Solid applications should use a native
+form, Formisch, or TanStack Form instead of adapting a React hook through a compatibility layer.
 
 ## Core rules
 
-1. Wrap one control in `Field` when it needs a label, helper text, error text, or shared
-   `disabled`, `invalid`, `required`, and `readOnly` state.
-2. Use `Fieldset` when several related controls need one legend and shared state.
-3. Keep labels visible. A placeholder is an example, not a replacement for a label.
-4. Give every control that should be submitted a `name`.
-5. Set form-related props on the component's semantic root, such as `name`, `form`, and validation
-   state. moduix supplies the form control needed by the components below.
+1. Wrap one control in `Field` when it needs a label, helper text, error text, or shared state.
+2. Use `Fieldset` for a related group with one visible legend.
+3. Keep labels visible and give every submitted control a `name`.
+4. Pass `invalid`, `required`, `disabled`, and `readOnly` through the Moduix field or control root.
+5. Render each required native form part exactly once.
 
-Automatic form controls:
+| Component      | Native form part                                                   |
+| -------------- | ------------------------------------------------------------------ |
+| `Checkbox`     | `HiddenInput`                                                       |
+| `RadioGroup`   | `ItemHiddenInput` for every explicitly composed item               |
+| `SegmentGroup` | `ItemHiddenInput` for every explicitly composed item               |
+| `Select`       | `HiddenSelect`                                                      |
+| `Slider`       | `HiddenInput` for every submitted thumb                            |
+| `DateInput`    | Indexed `HiddenInput` parts when a range needs separate names      |
+| `SignaturePad` | `HiddenInput` with an application-defined serialized `value`       |
+| Other Ark controls with a hidden part | The matching `HiddenInput` inside the root       |
 
-| Component      | Form participation                                            |
-| -------------- | -------------------------------------------------------------- |
-| `AngleSlider`  | `Root` and `RootProvider` add a native form input automatically. |
-| `Checkbox`     | `Root` and `RootProvider` add a native form input automatically. |
-| `ColorPicker`  | `Root` and `RootProvider` add a native form input automatically. |
-| `DateInput`    | `Root` and `RootProvider` add native form inputs automatically.  |
-| `FileUpload`   | `Root` and `RootProvider` add a native form input automatically. |
-| `PinInput`     | `Root` and `RootProvider` add a native form input automatically. |
-| `RadioGroup`   | Each `Item` adds a native form input automatically.             |
-| `RatingGroup`  | `Root` and `RootProvider` add a native form input automatically. |
-| `SegmentGroup` | Each `Item` adds a native form input automatically.             |
-| `Select`       | `Root` and `RootProvider` add a native select automatically.    |
-| `SignaturePad` | `Root` and `RootProvider` serialize paths into a native input.  |
-| `Slider`       | Each `Thumb` adds a native form input automatically.            |
-| `Switch`       | `Root` and `RootProvider` add a native form input automatically. |
-| `TagsInput`    | `Root` and `RootProvider` add a native form input automatically. |
-| `Combobox`     | Pass `name` to the root; no additional part is required.       |
-
-Do not add another hidden input for these components. A duplicate can submit a competing value and
-interfere with reset behavior.
-
-For the controls with form-specific options, keep the configuration on the semantic root:
-
-- `DateInput`: a range with `name="date"` submits `date[0]` and `date[1]`; use
-  `names={['start-date', 'end-date']}` for `start-date[0]` and `end-date[1]`.
-- `Select`: the default native select preserves browser autofill, native validation, and progressive
-  enhancement. Use `nativeFormControl="input"` for a very large virtualized collection; it submits
-  lightweight hidden inputs and intentionally does not provide those native-select features.
-- `SignaturePad`: the default form value is the SVG paths joined with spaces. Use
-  `getFormValue={(paths) => JSON.stringify(paths)}` when the server expects a JSON array.
-
-For a group of checkboxes, radio options, or other related inputs, use `Fieldset` with a visible
-`Fieldset.Legend`. It provides the group-level label, helper text, error text, and shared state. See
-the dedicated [Fieldset guide](/docs/fieldset) for composition patterns.
+Do not register or render a second hidden input for the same value. `Combobox` keeps its form name
+on the root and does not need an additional hidden part.
 
 ## Native form
 
-Native inputs and Ark-backed controls can be submitted together with `FormData`. The `Card` in this
-example is presentation only; the native form still owns submission, validation, and reset behavior.
+The example combines native inputs with Ark-backed `Select`, `Combobox`, and `Checkbox` controls.
+The browser owns validation and `FormData`; Moduix owns the visible controls and their native form
+parts. The live preview uses React because the documentation application runs React.
 
-<style>{`
-      .form {
-        width: min(24rem, 100%);
-        margin-inline: auto;
-      }
+<ExampleFrame variant="component">
+  <PreviewFrame maxWidth="sm">
+    <NativeForm />
+  </PreviewFrame>
+</ExampleFrame>
 
-      .fields {
-        display: grid;
-        gap: var(--moduix-spacing-4);
-      }
+<ExampleCode>
+<div className="docs-reference">
+  <Tabs
+    groupId="framework"
+    values={[
+      { label: 'React', value: 'react' },
+      { label: 'Solid', value: 'solid' },
+    ]}
+    className="docs-tabs"
+  >
+    <Tab value="react">
 
-      .fields [data-slot="field-root"],
-      .fields [data-slot="select-root"],
-      .fields [data-slot="combobox-root"] {
-        width: 100%;
-      }
-
-      .fields [data-slot="select-root"] {
-        --moduix-select-width: 100%;
-      }
-
-      .fields [data-slot="combobox-root"] {
-        --moduix-combobox-width: 100%;
-      }
-
-      .submit {
-        width: 100%;
-      }
-    `}</style>
-
-```tsx preview file="./_snippets/forms/native-form.tsx"
-
+```tsx pure file="../../../src/components/examples/forms/native-form.tsx"
 ```
+
+    </Tab>
+    <Tab value="solid">
+
+<CodeBlockRuntime lang="tsx" code={nativeFormSolid} />
+
+    </Tab>
+  </Tabs>
+
+**Styles**
+
+```css file="../../../src/components/examples/forms/forms-native-form.module.css"
+```
+</div>
+</ExampleCode>
 
 ## Validation and reset
 
-There are two sound validation strategies. For a simple native form, keep constraints such as
-`required`, `minLength`, `pattern`, `min`, and `max`, and let the browser present its validation
-UI. When a library should control the visible error messages, add `noValidate` to the form and set
-`invalid` on `Field` from the library result, with a clear `Field.ErrorText`. Keep `required` on
-`Field` in both cases: Ark-backed controls inherit the semantic required state through field
-context. The same choice also determines how validation errors and focus are managed.
+Keep native constraints such as `required`, `minLength`, `pattern`, `min`, and `max` when browser
+validation owns the flow. When a library owns visible errors, add `noValidate`, pass its result to
+`Field invalid`, and render a clear `Field.ErrorText` only after the chosen validation lifecycle has
+found a problem.
 
-If you compose a custom control that is not built on Ark, apply its native constraint and
-`aria-invalid` state to the actual focusable element yourself. Do not show an error just because a
-field is required; show it after the chosen validation lifecycle has found a problem.
+Native `type="reset"` and `form.reset()` restore uncontrolled controls. For library-controlled
+fields, use the library's reset API so its state and the Moduix values stay synchronized.
 
-In a native-only form, `type="reset"` or `form.reset()` restores the controls' default values.
-Ark-backed components synchronize their internal state through the native form control that moduix
-renders. For fields controlled by a library, call the library's reset API instead of relying on a
-DOM reset alone; otherwise the next render can restore the old application value.
+Move invalid-submit focus to the real focusable element: `Input`, `Textarea`, `Select.Trigger`, or
+`Combobox.Input`. The integration guide for each library describes whether focus is automatic or
+application-owned.
 
-Form libraries need a ref to the element that should receive focus:
+## Submission and server errors
 
-- `Input`, `Textarea`, or `Field.Select` for native controls
-- `Select.Trigger` for `Select`
-- `Combobox.Input` for `Combobox`
+Keep ready, submitting, error, and success states explicit. Prevent duplicate requests while an
+asynchronous submission is pending, keep entered values visible after a failure, and leave a clear
+retry path.
 
-React Hook Form uses this ref to focus the first invalid field automatically. TanStack Form
-intentionally leaves focus management to the application, so focus the first rendered
-`aria-invalid` control in an invalid-submit handler when needed. The integration guides show the
-corresponding value, blur, reset, and focus mappings.
+Map a server error about one value to that field's `Field.ErrorText`. Render request or permission
+failures that do not belong to a field as a form-level `role="alert"`. Repeated fields should use
+stable item IDs so values, focus, and errors do not move when another row is removed.
 
-## Submission
-
-Regardless of the state library, make the request state explicit:
-
-| State       | User-facing behavior                                                               |
-| ----------- | ---------------------------------------------------------------------------------- |
-| Ready       | Submit is available and validation has not shown premature errors.                 |
-| Submitting  | Prevent duplicate requests, keep values visible, and label the pending action.      |
-| Field error | Attach the server message to that field and move focus when submission is invalid.  |
-| Form error  | Render one `role="alert"` near the heading or submit action and keep retry possible. |
-| Success     | Confirm completion, reset only when useful, or navigate to the clear next step.      |
-
-`FormData` values are strings or `File` objects. Repeated names produce repeated entries; unchecked
-native checkboxes may be absent. Read repeated fields with `getAll`, normalize values at the server
-boundary, and never assume the client-side type or validation makes submitted data trusted.
-
-## Lists and server errors
-
-For an editable list such as contact emails, team members, or order lines, let the chosen form
-library add, remove, and validate items. Use a `Fieldset` and its visible legend for the group;
-each item still needs its own `Field`, label, and error message. Keys must identify the item rather
-than its current position so that an item keeps its value, focus, and error when a neighbour is
-removed or reordered.
-
-Treat errors returned after a request separately from client validation. Map an error about a
-specific value, such as an already-used email, to that field's `Field.ErrorText`; render a request
-or permission failure that has no field as a form-level `role="alert"`. Keep the user's values in
-place so they can correct and resubmit. The integration guides include compact recipes for
-[React Hook Form](/docs/react-hook-form#repeated-fields),
-[TanStack Form](/docs/tanstack-form#repeated-fields), and
-[Formisch](/docs/formisch#repeated-fields).
-
-For the underlying primitive behavior, including `Field` context and native reset synchronization,
+`FormData` values are strings or `File` objects, and repeated names produce repeated entries. Always
+normalize and validate submitted data again at the server boundary. For the underlying Ark behavior,
 see the [Ark UI forms guide](https://ark-ui.com/docs/guides/forms).

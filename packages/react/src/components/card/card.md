@@ -286,10 +286,12 @@ Public CSS variables:
 - Preserve `Card.Background` as decorative media only; keep contrast treatments and overlays consumer-owned.
 - Preserve the distinction between `Card.Root asChild` for single-link cards and `Card.Link` for
   cards that still contain nested actions.
-- Keep `Card.Body` margin-reset and spacing behavior aligned with the CSS contract.
+- Keep `Card.Body` spacing aligned with the CSS contract; direct child margins remain consumer-owned.
 
 ## Local changelog
 
+- 2026-09-07: Stopped resetting margins on arbitrary `Card.Body` children; consumer content owns its
+  own spacing consistently across all package variants.
 - 2026-08-10: Added `Card.Background` for decorative full-card media with stable styling hooks and
   automatic foreground layering; gradients and contrast remain consumer-owned.
 - 2026-08-09: Added independent background, foreground, border, and shadow variables for every

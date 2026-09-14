@@ -1,0 +1,38 @@
+import { Checkbox } from '@moduix/react/checkbox';
+import { useState } from 'react';
+import styles from '@/components/examples/checkbox/checkbox-select-all.module.css';
+
+const options = [
+  { value: 'react', label: 'React' },
+  { value: 'solid', label: 'Solid' },
+  { value: 'vue', label: 'Vue' },
+];
+
+export default function CheckboxSelectAllDemo() {
+  const [value, setValue] = useState(['react'] as string[]);
+  const allValues = options.map((option) => option.value);
+  const allSelected = value.length === allValues.length;
+  const indeterminate = value.length > 0 && value.length < allValues.length;
+
+  return (
+    <div className={styles.root}>
+      <Checkbox
+        checked={indeterminate ? 'indeterminate' : allSelected}
+        onCheckedChange={(details) => setValue(details.checked === true ? allValues : [])}
+      >
+        <Checkbox.Control />
+        <Checkbox.Label>Select all</Checkbox.Label>
+        <Checkbox.HiddenInput />
+      </Checkbox>
+      <Checkbox.Group value={value} onValueChange={setValue} name="frameworks">
+        {options.map((option) => (
+          <Checkbox key={option.value} value={option.value}>
+            <Checkbox.Control />
+            <Checkbox.Label>{option.label}</Checkbox.Label>
+            <Checkbox.HiddenInput />
+          </Checkbox>
+        ))}
+      </Checkbox.Group>
+    </div>
+  );
+}

@@ -2,7 +2,6 @@ import { Field as FieldPrimitive } from '@ark-ui/react/field';
 import { clsx } from 'clsx';
 import type { ComponentProps, ComponentRef } from 'react';
 import { forwardRef } from 'react';
-import { normalizeClassName } from '@/lib/moduix/normalizeClassName';
 import styles from './Input.module.css';
 
 const InputRoot = forwardRef<
@@ -21,7 +20,7 @@ const InputRoot = forwardRef<
       data-slot="input-root"
       data-size={size}
       data-html-size={htmlSize === undefined ? undefined : ''}
-      className={clsx(styles.root, normalizeClassName(className))}
+      className={clsx(styles.root, className)}
       size={htmlSize}
     />
   );

@@ -1,0 +1,11 @@
+#storybook-root {
+  box-sizing: border-box;
+}
+
+.sb-main-centered #storybook-root {
+  display: grid;
+  inline-size: min(calc(32rem + 2rem), 100vw);
+  max-inline-size: 100%;
+  padding: 1rem;
+  place-items: center;
+}

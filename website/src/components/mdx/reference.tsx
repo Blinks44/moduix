@@ -39,16 +39,18 @@ type PreviewJustification = keyof typeof previewJustifications;
 function ExampleFrame({
   children,
   clientOnly = false,
+  variant = 'recipe',
 }: {
   children: React.ReactNode;
   clientOnly?: boolean;
+  variant?: 'component' | 'recipe';
 }) {
   if (import.meta.env.SSG_MD) return null;
 
   const content = <div className={styles.demoContent}>{children}</div>;
 
   return (
-    <div className={`rp-not-doc ${styles.demo}`}>
+    <div className={`rp-not-doc ${styles.demo} ${variant === 'component' ? styles.component : ''}`}>
       {clientOnly ? <BrowserOnly>{() => content}</BrowserOnly> : content}
     </div>
   );

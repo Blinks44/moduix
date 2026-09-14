@@ -1,0 +1,15 @@
+.root {
+  width: fit-content;
+  max-width: 100%;
+}
+
+.phoneInput {
+  display: grid;
+  grid-template-columns: minmax(0, 6rem) minmax(0, 1fr);
+  gap: var(--moduix-spacing-2);
+}
+
+.countryCode {
+  --moduix-select-width: 100%;
+  --moduix-select-root-gap: var(--moduix-field-gap, var(--moduix-spacing-1));
+}

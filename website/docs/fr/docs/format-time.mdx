@@ -1,91 +1,159 @@
 ---
 title: Format Time
-description: Affichez une heure selon la locale active avec Ark UI Format.Time et moduix.
+description: Formatez les heures selon une locale donnée en React ou Solid avec Format.Time d’Ark UI.
 ---
+
+import FormatTimeBasic from '@/components/examples/format-time/basic.tsx';
+import FormatTimeSecondsAndLabels from '@/components/examples/format-time/seconds-and-labels.tsx';
+import FormatTimeLocale from '@/components/examples/format-time/locale.tsx';
+import formatTimeSolidBasic from '../../../snippets/format-time/solid/basic.tsx?raw';
+import formatTimeSolidSecondsAndLabels from '../../../snippets/format-time/solid/seconds-and-labels.tsx?raw';
+import formatTimeSolidLocale from '../../../snippets/format-time/solid/locale.tsx?raw';
+
+`Format.Time` transforme une valeur horaire en texte selon la locale. Chaque adaptateur publié utilise les mêmes paramètres.
 
 ## Référence de l’API
 
 <PrimitiveReference href="https://ark-ui.com/docs/utilities/format-time" />
 
-## Quand l’utiliser
+Importez l’utilitaire depuis le paquet Ark UI correspondant à votre framework :
 
-Utilisez `Format.Time` pour afficher une heure selon la locale active, par exemple dans un planning, un flux d’activité,
-des horaires de support ou tout autre élément de l’interface. Le composant accepte un objet `Date` ou une chaîne au
-format `HH:mm` ou `HH:mm:ss`.
-
-Utilisez une chaîne pour une heure de planning qui ne doit pas changer selon le fuseau horaire. Utilisez un `Date` lorsque
-la valeur représente un instant précis.
-
-Importez `Format` directement depuis Ark UI :
+<Tabs
+  groupId="framework"
+  values={[
+    { label: 'React', value: 'react' },
+    { label: 'Solid', value: 'solid' },
+  ]}
+  className="docs-tabs"
+>
+  <Tab value="react">
 
 ```tsx
 import { Format } from '@ark-ui/react';
 ```
+
+  </Tab>
+  <Tab value="solid">
+
+```tsx
+import { Format } from '@ark-ui/solid';
+```
+
+  </Tab>
+</Tabs>
 
 ## Exemple de base
 
-Pour une heure de planning, passez une chaîne afin que le résultat reste indépendant du fuseau horaire. Placez-le dans des
-composants moduix qui donnent le contexte de l’événement.
+Passez une chaîne au format `HH:mm` ou `HH:mm:ss` pour une heure civile, par exemple l’heure de départ d’un planning.
+Une chaîne n’est pas convertie entre les fuseaux horaires.
 
-<PreviewFrame maxWidth="sm">
-  ```tsx preview file="../../en/docs/_snippets/format-time/basic.tsx"
+<ExampleFrame variant="component">
+  <PreviewFrame maxWidth="sm">
+    <FormatTimeBasic />
+  </PreviewFrame>
+</ExampleFrame>
 
-  ```
-</PreviewFrame>
+<ExampleCode>
+<div className="docs-reference">
+  <Tabs
+    groupId="framework"
+    values={[
+      { label: 'React', value: 'react' },
+      { label: 'Solid', value: 'solid' },
+    ]}
+    className="docs-tabs"
+  >
+    <Tab value="react">
 
-## Format sur 12 heures, secondes et libellés AM/PM
+```tsx pure file="../../../src/components/examples/format-time/basic.tsx"
+```
 
-`Format.Time` utilise le format sur 24 heures par défaut. Passez `format="12h"` pour utiliser le format sur 12 heures.
-Activez `withSeconds` lorsque les secondes comptent réellement, par exemple dans un indicateur de synchronisation. En
-format sur 12 heures, `amLabel` et `pmLabel` remplacent les libellés de période de la journée par défaut.
+    </Tab>
+    <Tab value="solid">
 
-<PreviewFrame maxWidth="sm">
-  ```tsx preview file="../../en/docs/_snippets/format-time/seconds-and-labels.tsx"
+<CodeBlockRuntime lang="tsx" code={formatTimeSolidBasic} />
 
-  ```
-</PreviewFrame>
+    </Tab>
+  </Tabs>
+</div>
+</ExampleCode>
 
-N’ajoutez pas les secondes à un planning uniquement parce qu’elles existent dans la donnée source. Choisissez la
-précision qui aide réellement la personne à agir.
+## Options de formatage
+
+Le format par défaut est sur 24 heures. Utilisez `format="12h"` pour un affichage sur 12 heures, `withSeconds` pour
+ajouter les secondes, et `amLabel` ou `pmLabel` pour remplacer les libellés de période en affichage sur 12 heures.
+
+<ExampleFrame variant="component">
+  <PreviewFrame maxWidth="sm">
+    <FormatTimeSecondsAndLabels />
+  </PreviewFrame>
+</ExampleFrame>
+
+<ExampleCode>
+<div className="docs-reference">
+  <Tabs
+    groupId="framework"
+    values={[
+      { label: 'React', value: 'react' },
+      { label: 'Solid', value: 'solid' },
+    ]}
+    className="docs-tabs"
+  >
+    <Tab value="react">
+
+```tsx pure file="../../../src/components/examples/format-time/seconds-and-labels.tsx"
+```
+
+    </Tab>
+    <Tab value="solid">
+
+<CodeBlockRuntime lang="tsx" code={formatTimeSolidSecondsAndLabels} />
+
+    </Tab>
+  </Tabs>
+</div>
+</ExampleCode>
+
+N’affichez les secondes que lorsqu’elles aident réellement à agir. N’en ajoutez pas à un planning simplement parce
+qu’elles existent dans les données source.
 
 ## Locale et valeurs Date
 
-`Format.Time` récupère la locale depuis `LocaleProvider`. moduix réexporte ce fournisseur : utilisez-le pour définir
-la locale une seule fois dans toute l’interface.
+`Format.Time` lit la locale du `LocaleProvider` le plus proche. Sans fournisseur, Ark UI utilise `en-US`. Utilisez un
+`Date` lorsque la valeur représente un instant précis, par exemple un horodatage reçu d’une API. Pour un `Date`, l’heure
+affichée dépend du fuseau horaire local de l’environnement d’exécution. `LocaleProvider` définit la locale, pas le fuseau
+horaire.
 
-```tsx
-import { Format } from '@ark-ui/react';
-import { LocaleProvider } from '@moduix/react/locale';
+Conservez les heures civiles d’un planning sous forme de chaînes. Ne passez un `Date` que si la conversion de fuseau est
+prévue.
 
-export function LocalizedTime() {
-  return (
-    <LocaleProvider locale="fr-FR">
-      <Format.Time value="17:15" />
-    </LocaleProvider>
-  );
-}
+<ExampleFrame variant="component">
+  <PreviewFrame maxWidth="sm">
+    <FormatTimeLocale />
+  </PreviewFrame>
+</ExampleFrame>
+
+<ExampleCode>
+<div className="docs-reference">
+  <Tabs
+    groupId="framework"
+    values={[
+      { label: 'React', value: 'react' },
+      { label: 'Solid', value: 'solid' },
+    ]}
+    className="docs-tabs"
+  >
+    <Tab value="react">
+
+```tsx pure file="../../../src/components/examples/format-time/locale.tsx"
 ```
 
-Utilisez un `Date` lorsque vous disposez déjà d’une valeur date-heure précise, par exemple un horodatage reçu d’une API :
+    </Tab>
+    <Tab value="solid">
 
-```tsx
-import { Format } from '@ark-ui/react';
+<CodeBlockRuntime lang="tsx" code={formatTimeSolidLocale} />
 
-export function UpdatedAt({ value }: { value: Date }) {
-  return <Format.Time value={value} />;
-}
-```
-
-Pour un `Date`, `Format.Time` affiche l’heure dans le fuseau horaire local de l’environnement d’exécution.
-`LocaleProvider` définit la locale, mais pas le fuseau horaire. N’utilisez donc pas `Date` pour une heure de planning si
-aucune conversion n’est prévue.
-
-## Utilisation avec moduix
-
-`Format.Time` ne rend que du texte. Utilisez `Card`, `Stack`, `Text` et les composants de statut de moduix pour expliquer
-ce que représente l’heure. Ne créez pas de composant uniquement pour appeler le formateur.
-
-## Responsabilités
-
-Ark UI gère le formatage de l’heure et l’API `Format.Time`. moduix fournit les composants d’interface qui l’accompagnent
-et réexporte `LocaleProvider`, mais ne réexporte pas `Format.Time`.
+    </Tab>
+  </Tabs>
+</div>
+</ExampleCode>

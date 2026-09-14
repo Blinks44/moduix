@@ -6,7 +6,6 @@ import {
 import { clsx } from 'clsx';
 import type { ComponentProps, ComponentRef } from 'react';
 import { forwardRef } from 'react';
-import { normalizeClassName } from '@/lib/moduix/normalizeClassName';
 import styles from './Marquee.module.css';
 
 const MarqueeRoot = forwardRef<
@@ -17,7 +16,7 @@ const MarqueeRoot = forwardRef<
     <MarqueePrimitive.Root
       ref={ref}
       data-slot="marquee-root"
-      className={clsx(styles.root, normalizeClassName(className))}
+      className={clsx(styles.root, className)}
       {...props}
     />
   );
@@ -31,7 +30,7 @@ const MarqueeRootProvider = forwardRef<
     <MarqueePrimitive.RootProvider
       ref={ref}
       data-slot="marquee-root-provider"
-      className={clsx(styles.root, normalizeClassName(className))}
+      className={clsx(styles.root, className)}
       {...props}
     />
   );
@@ -45,7 +44,7 @@ const MarqueeViewport = forwardRef<
     <MarqueePrimitive.Viewport
       ref={ref}
       data-slot="marquee-viewport"
-      className={clsx(styles.viewport, normalizeClassName(className))}
+      className={clsx(styles.viewport, className)}
       {...props}
     />
   );
@@ -59,7 +58,7 @@ const MarqueeContent = forwardRef<
     <MarqueePrimitive.Content
       ref={ref}
       data-slot="marquee-content"
-      className={clsx(styles.content, normalizeClassName(className))}
+      className={clsx(styles.content, className)}
       {...props}
     />
   );
@@ -73,7 +72,7 @@ const MarqueeItem = forwardRef<
     <MarqueePrimitive.Item
       ref={ref}
       data-slot="marquee-item"
-      className={clsx(styles.item, normalizeClassName(className))}
+      className={clsx(styles.item, className)}
       {...props}
     />
   );
@@ -87,7 +86,7 @@ const MarqueeEdge = forwardRef<
     <MarqueePrimitive.Edge
       ref={ref}
       data-slot="marquee-edge"
-      className={clsx(styles.edge, normalizeClassName(className))}
+      className={clsx(styles.edge, className)}
       {...props}
     />
   );

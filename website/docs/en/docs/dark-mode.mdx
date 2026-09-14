@@ -1,43 +1,47 @@
 ---
 title: Dark mode
-description: Enable moduix's built-in dark token set without a separate theme provider.
+description: Apply Moduix dark tokens globally or to one surface across framework adapters.
 ---
+
+import reactScopedSurface from '../../../snippets/dark-mode/react/scoped-surface.tsx?raw';
+import solidScopedSurface from '../../../snippets/dark-mode/solid/scoped-surface.tsx?raw';
 
 # Dark mode
 
-moduix uses its light token set by default. Add
-`data-moduix-color-scheme="dark"` to an element to apply the dark token set to that element and
-its descendants. Import the foundation stylesheet once:
+Moduix ships light and dark semantic tokens. Load the stylesheet for your chosen framework and styling
+track, then set `data-moduix-color-scheme` on the element that should own the color scheme. No Moduix
+theme provider or runtime state is required.
 
-```tsx
-import '@moduix/react/style.css';
-```
+## Choose the scope
 
-## Set the scheme on the document root
+| Goal | Put the attribute on |
+| --- | --- |
+| Application-wide theme | `<html>` |
+| Embedded surface without portals | The surface wrapper |
+| Embedded surface with portals | A portal container inside that surface |
 
-For an application-wide theme, put the resolved color scheme on `<html>`. Set
-`data-moduix-color-scheme="dark"` for dark mode and `data-moduix-color-scheme="light"` for light
-mode. moduix does not track the user's preference, store it, or require a theme provider. Your
-application remains in control of how the preference is selected and persisted.
+Prefer `<html>` for normal applications. It gives regular and portalled components the same tokens.
+
+## Set the document scheme
+
+Use the native document attributes as the source of truth:
 
 ```html
-<!-- Dark theme -->
 <html data-moduix-color-scheme="dark"></html>
 ```
 
-Components rendered into a portal, such as Dialog, Popover, and Select, inherit the tokens from
-`<html>` as well.
+Use `dark` or `light`. Moduix does not read system preferences, persist a choice, or synchronize
+browser state. Your application owns those decisions.
 
-If your app renders on the server, set the attribute before the first paint with your framework's
-early theme mechanism. This prevents a brief flash of the light theme while client-side JavaScript
-applies a saved preference.
+If the application renders on the server, resolve the scheme before the first paint with the early
+theme mechanism provided by your framework. This avoids showing the light palette before hydration.
 
-## Add a switch
+## Resolve and save a preference
 
-Keep the user's explicit choice in your application and update the document attribute. If no choice
-has been saved, use `matchMedia` to follow the operating-system preference.
+Keep the preference logic framework-neutral. The visible switch only needs to call
+`saveColorScheme()` with the user's choice.
 
-```tsx
+```ts
 type ColorScheme = 'light' | 'dark';
 
 export function applyColorScheme(scheme: ColorScheme) {
@@ -57,62 +61,43 @@ export function saveColorScheme(scheme: ColorScheme) {
 }
 ```
 
-Run the equivalent of `applyColorScheme(resolveColorScheme())` in your framework's early theme
-script, before the first paint. Have the visible switch call `saveColorScheme` with the value chosen
-by the user. This keeps the operating-system preference as the default until the user makes an
-explicit choice. Give the switch an accessible name that describes the action, such as
-`Switch to dark mode`.
+Use the operating-system preference only until the user makes an explicit choice. Give the control an
+accessible action label, such as `Switch to dark mode`.
 
-## Use a preset
+## Combine color mode and presets
 
-Color mode and visual presets are separate layers, so you can use both at once. Keep
-`data-moduix-color-scheme` and `data-moduix-theme` on the same root element so regular and portalled
-components use the same palette, density, radius, and focus tokens.
-
-```tsx
-import '@moduix/react/style.css';
-import '@moduix/react/presets/dense.css';
-```
-
-<div style={{ height: '1rem' }} aria-hidden="true" />
+Color mode and visual presets are independent. Keep both attributes on the same root:
 
 ```html
 <html data-moduix-color-scheme="dark" data-moduix-theme="dense"></html>
 ```
 
-Changing the color mode does not change the preset's density. The selected preset remains active in
-both modes. See [Themes](/docs/themes) for the preset comparison and custom theme pattern.
+Changing the color mode does not change density, radius, or other preset decisions. See
+[Themes](/docs/themes) for preset setup.
 
-## Scope a surface
+## Scope one surface
 
-To apply dark tokens only to a preview or embedded surface, place
-`data-moduix-color-scheme="dark"` on a regular wrapper:
+The component code differs only by the native package import:
 
-```tsx
-import { Card } from '@moduix/react/card';
-import '@moduix/react/style.css';
+<Tabs groupId="framework">
+  <Tab label="React" value="react">
 
-export function SettingsPreview() {
-  return (
-    <section data-moduix-color-scheme="dark">
-      <Card>Dark preview</Card>
-    </section>
-  );
-}
-```
+<CodeBlockRuntime lang="tsx" code={reactScopedSurface} />
 
-This is useful for a settings preview or an embedded widget. Portalled content renders outside the
-wrapper, so it cannot inherit the wrapper's tokens. If the surface opens overlays, put the attribute
-on the portal container, `<body>`, or `<html>` instead.
+  </Tab>
+  <Tab label="Solid" value="solid">
+
+<CodeBlockRuntime lang="tsx" code={solidScopedSurface} />
+
+  </Tab>
+</Tabs>
+
+Portalled content renders outside a regular wrapper and cannot inherit its tokens. Move the attribute
+to the portal container, `<body>`, or `<html>` when the scoped surface opens overlays.
 
 ## Customize tokens
 
-To customize the palette in both schemes, override the same base color tokens in `:root` and
-`[data-moduix-color-scheme='dark']`. Semantic aliases such as `--moduix-color-background`,
-`--moduix-color-foreground`, and `--moduix-color-border` point to these base tokens, so components
-pick up the values consistently across the library.
-
-Load your override stylesheet after `style.css`:
+Load application overrides after the Moduix stylesheet and override both schemes deliberately:
 
 ```css
 :root {
@@ -126,6 +111,18 @@ Load your override stylesheet after `style.css`:
 }
 ```
 
-This example changes only the background and primary color. Any token you do not override keeps its
-built-in value. Use [Tokens](/docs/tokens) for the system token reference and component pages for
-local visual overrides.
+Tokens you do not override keep their built-in values.
+
+## Verify the theme
+
+- Test the first server-rendered paint and client hydration.
+- Check portalled Dialog, Popover, Menu, and Select content.
+- Keep readable contrast for text, borders, focus rings, and disabled states.
+- Confirm that a stored choice overrides the system preference.
+- Verify both color schemes with every active preset.
+
+## Related
+
+- [Quick start](/docs/quick-start)
+- [Themes](/docs/themes)
+- [Tokens](/docs/tokens)

@@ -1,0 +1,5 @@
+.items {
+  display: flex;
+  flex-wrap: wrap;
+  gap: var(--moduix-radio-group-gap, var(--moduix-spacing-2));
+}

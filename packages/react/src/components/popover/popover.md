@@ -18,7 +18,7 @@ and provider/context APIs without remapping them.
 
 ## Current behavior contract
 
-`Root` and `RootProvider` portal `Positioner` automatically by default. Set `portalled={false}` to render it inline, or pass `portalRef` to target a custom container. The structural parts remain explicit and independently styleable.
+`Root` portals `Positioner` automatically by default. Set `portalled={false}` to render it inline, or pass `portalRef` to target a custom container. With `RootProvider`, configure `portalled` in `usePopover`; `RootProvider` accepts `portalRef` only. The structural parts remain explicit and independently styleable.
 
 - `Popover` and `Popover.Root` are the same root component.
 - `Popover.Context` and `usePopoverContext` expose the current Ark state to descendants; both are
@@ -116,7 +116,7 @@ the Ark part.
   layering, nested popovers, and multiple trigger values are supported. Nested popovers render inline
   with `portalled={false}` to stay within their parent overlay.
 - External state uses `usePopover` with `Popover.RootProvider`; do not render `Root` for that same
-  state instance.
+  state instance. Configure `portalled` in `usePopover`, not on `RootProvider`.
 - `lazyMount`, `unmountOnExit`, `present`, `skipAnimationOnMount`, `ids`, `portalled`,
   `onTriggerValueChange`, interaction callbacks, and focus callbacks pass through Ark unchanged.
 - Ark has no popover backdrop, viewport, hover trigger, detached handle, or legacy popup part.
@@ -197,6 +197,9 @@ DOM until first open and is removed after its exit animation. Set `unmountOnExit
 content after the first open; set both props to `false` only when eager initial rendering is needed.
 
 ## Local changelog
+
+- 2026-08-31: Kept `RootProvider` portalling aligned with its `usePopover` state; configure
+  `portalled` in the hook and pass only `portalRef` to the provider.
 
 - 2026-08-11: Kept modal popovers portalled when `portalled={false}`, added focused portal and
   close-icon regression coverage, and made default content resilient to reduced motion and long

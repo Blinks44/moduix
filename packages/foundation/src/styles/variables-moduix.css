@@ -61,9 +61,6 @@
   --moduix-popup-motion-ending-translate-x: initial; /* component default */
   --moduix-popup-motion-ending-translate-y: initial; /* component default */
 
-  /* AspectRatio */
-  --moduix-aspect-ratio-radius: initial; /* var(--moduix-radius-md) */
-
   /* Accordion */
   --moduix-accordion-color: initial; /* var(--moduix-color-foreground) */
   --moduix-accordion-disabled-opacity: initial; /* var(--moduix-opacity-disabled) */
@@ -230,7 +227,6 @@
   --moduix-badge-outline-border-color-hover: initial; /* var(--moduix-color-primary) */
   --moduix-badge-outline-color: initial; /* var(--moduix-color-foreground) */
   --moduix-badge-outline-color-hover: initial; /* var(--moduix-color-primary) */
-  --moduix-badge-opacity-disabled: initial; /* var(--moduix-opacity-disabled) */
   --moduix-badge-opacity-hover: initial; /* var(--moduix-opacity-hover) */
   --moduix-badge-padding-x: initial; /* var(--moduix-spacing-2-5) */
   --moduix-badge-padding-y: initial; /* 0 */
@@ -255,7 +251,6 @@
   /* Breadcrumbs */
   --moduix-breadcrumbs-color: initial; /* var(--moduix-color-muted-foreground) */
   --moduix-breadcrumbs-ellipsis-color: initial; /* var(--moduix-color-muted-foreground) */
-  --moduix-breadcrumbs-ellipsis-radius: initial; /* var(--moduix-radius-sm) */
   --moduix-breadcrumbs-ellipsis-size: initial; /* var(--moduix-spacing-4) */
   --moduix-breadcrumbs-focus-ring-color: initial; /* var(--moduix-color-ring) */
   --moduix-breadcrumbs-focus-ring-width: initial; /* var(--moduix-focus-ring-inset-width, var(--moduix-border-width-sm)) */
@@ -408,6 +403,7 @@
   --moduix-chart-focus-ring-offset: initial; /* var(--moduix-focus-ring-offset) */
   --moduix-chart-focus-ring-width: initial; /* var(--moduix-focus-ring-width, var(--moduix-border-width-md)) */
   --moduix-chart-gap: initial; /* var(--moduix-spacing-5) */
+  --moduix-chart-legend-indicator-color: initial; /* var(--moduix-color-muted-foreground) */
   --moduix-chart-padding: initial; /* var(--moduix-spacing-5) */
   --moduix-chart-plot-radius: initial; /* var(--moduix-radius-md) */
   --moduix-chart-radius: initial; /* var(--moduix-radius-lg) */
@@ -527,7 +523,7 @@
 
   /* Collapsible */
   --moduix-collapsible-body-gap: initial; /* var(--moduix-spacing-2) */
-  --moduix-collapsible-body-padding: initial; /* var(--moduix-spacing-2) */
+  --moduix-collapsible-body-padding: initial; /* 0 */
   --moduix-collapsible-color: initial; /* var(--moduix-color-foreground) */
   --moduix-collapsible-disabled-opacity: initial; /* var(--moduix-opacity-disabled) */
   --moduix-collapsible-focus-ring-color: initial; /* var(--moduix-color-ring) */
@@ -550,7 +546,7 @@
   --moduix-collapsible-trigger-font-size: initial; /* var(--moduix-text-sm) */
   --moduix-collapsible-trigger-gap: initial; /* var(--moduix-spacing-2) */
   --moduix-collapsible-trigger-line-height: initial; /* var(--moduix-line-height-text-sm) */
-  --moduix-collapsible-trigger-padding-x: initial; /* var(--moduix-spacing-2) */
+  --moduix-collapsible-trigger-padding-x: initial; /* 0 */
   --moduix-collapsible-trigger-padding-y: initial; /* var(--moduix-spacing-1) */
   --moduix-collapsible-trigger-radius: initial; /* 0 */
   --moduix-collapsible-trigger-transition: initial; /* var(--moduix-transition-default) */
@@ -2531,11 +2527,7 @@
   --moduix-sidebar-navigation-button-padding-y: initial; /* var(--moduix-spacing-1) */
   --moduix-sidebar-navigation-button-radius: initial; /* var(--moduix-radius-md) */
   --moduix-sidebar-navigation-gap: initial; /* var(--moduix-spacing-1) */
-  --moduix-sidebar-navigation-action-size: initial; /* var(--moduix-size-xs) */
-  --moduix-sidebar-navigation-badge-font-size: initial; /* 0.625rem */
-  --moduix-sidebar-navigation-badge-font-weight: initial; /* var(--moduix-weight-medium) */
-  --moduix-sidebar-navigation-badge-min-width: initial; /* 1.125rem */
-  --moduix-sidebar-navigation-badge-padding-x: initial; /* var(--moduix-spacing-0-5) */
+  --moduix-sidebar-navigation-indicator-size: initial; /* var(--moduix-size-xs) */
   --moduix-sidebar-navigation-sub-border-width: initial; /* var(--moduix-border-width-sm) */
   --moduix-sidebar-navigation-sub-button-font-size: initial; /* var(--moduix-text-sm) */
   --moduix-sidebar-navigation-sub-button-gap: initial; /* var(--moduix-spacing-2) */
@@ -3125,11 +3117,13 @@
   --moduix-tabs-indicator-radius: initial; /* var(--moduix-radius-md) */
   --moduix-tabs-indicator-shadow: initial; /* var(--moduix-shadow-sm) */
   --moduix-tabs-indicator-size: initial; /* var(--moduix-spacing-8) */
-  --moduix-tabs-indicator-transition: initial; /* var(--moduix-transition-default) */
+  --moduix-tabs-indicator-transition-duration: initial; /* var(--moduix-duration-normal) */
+  --moduix-tabs-indicator-transition-timing-function: initial; /* var(--moduix-ease-in-out) */
   --moduix-tabs-line-indicator-bg: initial; /* var(--moduix-tabs-tab-color-active, var(--moduix-color-foreground)) */
   --moduix-tabs-line-indicator-radius: initial; /* var(--moduix-radius-full) */
   --moduix-tabs-line-indicator-size: initial; /* var(--moduix-spacing-0-5) */
-  --moduix-tabs-line-indicator-transition: initial; /* var(--moduix-transition-default) */
+  --moduix-tabs-line-indicator-transition-duration: initial; /* var(--moduix-duration-normal) */
+  --moduix-tabs-line-indicator-transition-timing-function: initial; /* var(--moduix-ease-in-out) */
   --moduix-tabs-list-bg: initial; /* var(--moduix-color-muted) */
   --moduix-tabs-list-border-color: initial; /* var(--moduix-color-border) */
   --moduix-tabs-list-border-width: initial; /* var(--moduix-border-width-sm) */
@@ -3389,7 +3383,7 @@
   --moduix-tooltip-popup-starting-translate-x: initial; /* 0 */
   --moduix-tooltip-popup-starting-translate-y: initial; /* 0 */
   --moduix-tooltip-radius: initial; /* var(--moduix-radius-md) */
-  --moduix-tooltip-shadow: initial; /* var(--moduix-shadow-lg) */
+  --moduix-tooltip-shadow: initial; /* var(--moduix-shadow-md) */
   --moduix-tooltip-transition: initial; /* 150ms */
   --moduix-tooltip-trigger-bg: initial; /* var(--moduix-color-background) */
   --moduix-tooltip-trigger-bg-active: initial; /* var(--moduix-tooltip-trigger-bg-hover, var(--moduix-color-accent)) */

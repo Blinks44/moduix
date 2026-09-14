@@ -1,0 +1,24 @@
+.root {
+  text-decoration: none;
+  transition:
+    box-shadow var(--moduix-transition-default),
+    transform var(--moduix-transition-default);
+
+  &:hover,
+  &:focus-visible {
+    box-shadow:
+      0 0 0 2px var(--moduix-color-background),
+      0 0 0 4px var(--moduix-color-primary);
+    transform: translateY(-1px);
+    outline: none;
+  }
+}
+
+.image {
+  object-position: 50% 35%;
+}
+
+.fallback {
+  --moduix-avatar-fallback-bg: var(--moduix-color-primary);
+  --moduix-avatar-fallback-color: var(--moduix-color-primary-foreground);
+}

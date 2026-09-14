@@ -1,0 +1,19 @@
+.root {
+  width: min(28rem, 100%);
+}
+
+.profile {
+  display: flex;
+  align-items: center;
+  gap: var(--moduix-spacing-3);
+}
+
+.avatar {
+  display: inline-grid;
+  width: 3rem;
+  height: 3rem;
+  place-items: center;
+  border-radius: var(--moduix-radius-full);
+  background: var(--moduix-color-primary);
+  color: var(--moduix-color-primary-foreground);
+}

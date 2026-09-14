@@ -1,10 +1,38 @@
 ---
 title: Combobox
 component: combobox
-description: Поле для поиска и выбора одного или нескольких значений из коллекции Ark UI.
+description: Поле для поиска и выбора одного или нескольких значений из коллекции Ark UI в React и Solid.
 ---
 
-import * as ComboboxDocs from '@/components/examples/combobox';
+import * as ComboboxDocs from '@/components/examples/combobox/css-properties';
+import ComboboxAdvancedCustomization from '@/components/examples/combobox/advanced-customization.tsx';
+import ComboboxAsyncSearch from '@/components/examples/combobox/async-search.tsx';
+import ComboboxAutoHighlight from '@/components/examples/combobox/auto-highlight.tsx';
+import ComboboxBasic from '@/components/examples/combobox/basic.tsx';
+import ComboboxControlled from '@/components/examples/combobox/controlled.tsx';
+import ComboboxCreatable from '@/components/examples/combobox/creatable.tsx';
+import ComboboxCustomObjectsAndGrouping from '@/components/examples/combobox/custom-objects-and-grouping.tsx';
+import ComboboxDynamic from '@/components/examples/combobox/dynamic.tsx';
+import ComboboxInlineAutocomplete from '@/components/examples/combobox/inline-autocomplete.tsx';
+import ComboboxLimitResults from '@/components/examples/combobox/limit-results.tsx';
+import ComboboxMultiple from '@/components/examples/combobox/multiple.tsx';
+import ComboboxRootProvider from '@/components/examples/combobox/root-provider.tsx';
+import ComboboxVirtualized from '@/components/examples/combobox/virtualized.tsx';
+import ComboboxWithTagsInput from '@/components/examples/combobox/with-tags-input.tsx';
+import comboboxSolidAdvancedCustomization from '../../../snippets/combobox/solid/advanced-customization.tsx?raw';
+import comboboxSolidAsyncSearch from '../../../snippets/combobox/solid/async-search.tsx?raw';
+import comboboxSolidAutoHighlight from '../../../snippets/combobox/solid/auto-highlight.tsx?raw';
+import comboboxSolidBasic from '../../../snippets/combobox/solid/basic.tsx?raw';
+import comboboxSolidControlled from '../../../snippets/combobox/solid/controlled.tsx?raw';
+import comboboxSolidCreatable from '../../../snippets/combobox/solid/creatable.tsx?raw';
+import comboboxSolidCustomObjectsAndGrouping from '../../../snippets/combobox/solid/custom-objects-and-grouping.tsx?raw';
+import comboboxSolidDynamic from '../../../snippets/combobox/solid/dynamic.tsx?raw';
+import comboboxSolidInlineAutocomplete from '../../../snippets/combobox/solid/inline-autocomplete.tsx?raw';
+import comboboxSolidLimitResults from '../../../snippets/combobox/solid/limit-results.tsx?raw';
+import comboboxSolidMultiple from '../../../snippets/combobox/solid/multiple.tsx?raw';
+import comboboxSolidRootProvider from '../../../snippets/combobox/solid/root-provider.tsx?raw';
+import comboboxSolidVirtualized from '../../../snippets/combobox/solid/virtualized.tsx?raw';
+import comboboxSolidWithTagsInput from '../../../snippets/combobox/solid/with-tags-input.tsx?raw';
 
 ## Справочник API
 
@@ -17,21 +45,75 @@ import * as ComboboxDocs from '@/components/examples/combobox';
 
 ## Базовый пример
 
+Combobox доступен для React и Solid в пакетах с CSS Modules и Tailwind. Предпросмотр на этой странице
+использует React и пакет CSS Modules, а вкладки с исходным кодом показывают один и тот же публичный контракт
+для каждого фреймворка.
+
 Создайте коллекцию Ark с помощью `useListCollection` и передайте её в `Combobox`. Структуру списка задайте явно.
 Для обычных вариантов используйте `Combobox.Option`, а если нужна нестандартная разметка, используйте `Combobox.Item`.
 Колбэк `onInputValueChange` получает объект `details` от Ark.
 
-<style>{ComboboxDocs.comboboxExampleCss}</style>
+<ExampleFrame variant="component">
+  <ComboboxBasic />
+</ExampleFrame>
 
-<PreviewFrame maxWidth="sm">
-```tsx preview file="../../en/docs/_snippets/combobox/basic.tsx"
+<ExampleCode>
+<div className="docs-reference">
+  <Tabs
+    groupId="framework"
+    values={[
+      { label: 'React', value: 'react' },
+      { label: 'Solid', value: 'solid' },
+    ]}
+    className="docs-tabs"
+  >
+    <Tab value="react">
 
+```tsx pure file="../../../src/components/examples/combobox/basic.tsx"
 ```
-</PreviewFrame>
+
+    </Tab>
+    <Tab value="solid">
+
+<CodeBlockRuntime lang="tsx" code={comboboxSolidBasic} />
+
+    </Tab>
+  </Tabs>
+
+**Стили**
+
+```css file="../../../src/components/examples/combobox/component-basic.module.css"
+```
+</div>
+
+</ExampleCode>
 
 ## Установка через shadcn
 
-<ShadcnInstall packageName="combobox" />
+Полную настройку пакета, реестра и стилей см. в разделе [Быстрый старт](/docs/quick-start).
+
+<Tabs groupId="framework">
+  <Tab label="React" value="react">
+
+<ShadcnInstallOptions
+  options={[
+    { label: 'CSS Modules', command: 'shadcn@latest add @moduix-react/combobox' },
+    { label: 'Tailwind CSS', command: 'shadcn@latest add @moduix-react-tailwind/combobox' },
+  ]}
+/>
+
+  </Tab>
+  <Tab label="Solid" value="solid">
+
+<ShadcnInstallOptions
+  options={[
+    { label: 'CSS Modules', command: 'shadcn@latest add @moduix-solid/combobox' },
+    { label: 'Tailwind CSS', command: 'shadcn@latest add @moduix-solid-tailwind/combobox' },
+  ]}
+/>
+
+  </Tab>
+</Tabs>
 
 ## Анатомия
 
@@ -81,107 +163,19 @@ Combobox / Combobox.Root[collection]
 
 ## Композиция
 
-Корневой компонент автоматически помещает `Positioner` в портал. Укажите `portalled={false}`, чтобы список рендерился в текущем
-дереве, или передайте `portalRef`, чтобы выбрать контейнер. При этом `Positioner` и `Content` нужно добавлять явно, и каждую
-часть можно стилизовать отдельно.
-
-### Рекомендуемая композиция
-
-Для статических данных используйте `createListCollection`. Если фильтрация или другие обновления меняют коллекцию,
+Для статических элементов используйте `createListCollection`, а для фильтрации и обновления коллекции
 используйте `useListCollection`. Для объектов задайте `itemToString` и `itemToValue`.
 
-Оставляйте `Combobox.Positioner` и `Combobox.Content` в JSX. `Content` - это часть Ark, отвечающая за содержимое;
-корневой компонент управляет только контейнером, в котором оно будет отрисовано.
+Корневой компонент автоматически помещает `Positioner` в портал, но `Positioner` и `Content` остаются
+явными частями композиции. Укажите `portalled={false}`, чтобы оставить список в текущем дереве, или передайте
+`portalRef` для конкретного контейнера. Для простых строк используйте `Combobox.Option`, а для сложных строк
+с `asChild` используйте `Combobox.Item`.
 
-Если такая структура списка повторяется, вынесите её в небольшой локальный вспомогательный компонент.
-Для простых вариантов используйте `Combobox.Option`, а `Combobox.Item` - для ссылок, сложных вариантов или нестандартного размещения индикатора:
-
-```tsx
-function FruitComboboxPopup({ items }: { items: Array<{ label: string; value: string }> }) {
-  return (
-    <Combobox.Positioner>
-      <Combobox.Content>
-        <Combobox.Empty>No fruits found.</Combobox.Empty>
-        <Combobox.List>
-          {items.map((item) => (
-            <Combobox.Option key={item.value} item={item}>
-              {item.label}
-            </Combobox.Option>
-          ))}
-        </Combobox.List>
-      </Combobox.Content>
-    </Combobox.Positioner>
-  );
-}
-```
-
-### Когда нужна собственная композиция
-
-Используйте управляемое `value` и колбэки Ark с объектом `details`, когда другим частям интерфейса нужны выбранные значения.
-Если состояние нужно создать за пределами отображаемого дерева, создайте его через `useCombobox` из moduix и передайте
-результат в `Combobox.RootProvider`. Для состояния элемента используйте `Combobox.ItemContext` или `useComboboxItemContext`.
-Из Ark импортируйте только помощники коллекций и типы, которых нет в moduix.
-
-В режиме множественного выбора у `Combobox` нет собственного API для чипов. Отображайте теги или другое представление значений
-из управляемого состояния, а за выбор по-прежнему отвечает свойство `multiple`.
-
-В Ark нет отдельной части для статуса Combobox. `Combobox.Status` из moduix - стилизованный `div` для сообщений приложения
-о загрузке, ошибке или подсказке. Он не управляет состоянием загрузки или ошибки и не добавляет ARIA-роль.
-
-### Свойства по умолчанию
-
-По умолчанию содержимое в портале монтируется при первом открытии и удаляется после анимации закрытия.
-Задайте `unmountOnExit={false}`, чтобы сохранить его после первого открытия. Устанавливайте оба свойства жизненного цикла
-в `false`, только если содержимое нужно отобразить сразу.
-
-| Элемент                            | По умолчанию          | Примечания                                                             |
-| ---------------------------------- | --------------------- | ---------------------------------------------------------------------- |
-| `Combobox.Trigger`                 | шеврон moduix         | Используется, если дочерние элементы не переданы.                     |
-| `Combobox.ClearTrigger`            | иконка закрытия moduix | Используется, если дочерние элементы не переданы.                    |
-| `Combobox.ItemIndicator`           | иконка-галочка moduix | Используется, если дочерние элементы не переданы.                    |
-| `Combobox.Option.indicator`        | иконка-галочка        | Передайте `false`, чтобы скрыть её, или React-узел, чтобы заменить.   |
-| `Combobox` `portalled`              | `true`                | Автоматически помещает `Positioner` в портал.                         |
-| `Combobox` `portalRef`              | -                     | Необязательный контейнер для портала.                                 |
-| `Combobox` `lazyMount`              | `true`                | Монтирует содержимое списка при первом открытии.                       |
-| `Combobox` `unmountOnExit`          | `true`                | Удаляет содержимое списка после анимации закрытия.                     |
-| ширина `Combobox`                  | `16rem` (макс. `100%`) | Ширина стилизованного корневого компонента по умолчанию.              |
-| переменные `Combobox.Positioner`   | переменные Ark во время выполнения | Использует `--reference-width`, `--available-height`, `--transform-origin`. |
-
-### Особенности поведения
-
-- Свойство `collection` обязательно.
-- `value` и `defaultValue` - массивы строк, даже при одиночном выборе.
-- Текущие значения в `onValueChange(details)` находятся в `details.value`.
-- Текст поля в `onInputValueChange(details)` находится в `details.inputValue`, а причина изменения - в
-  `details.reason`.
-- `onOpenChange`, `onHighlightChange` и `onSelect` получают объекты `details` в формате Ark.
-- Все DOM-части Ark поддерживают `asChild`. Исключение - `Combobox.Option`: это вспомогательная обёртка
-  для простых строк, и `asChild` ей недоступен.
-- `Combobox.Input asChild` сохраняет поведение поля Ark, но не добавляет дочернему элементу стандартный
-  класс визуального оформления поля.
-- В текущей версии Ark для Combobox нет части `HiddenInput`. Для встроенной отправки формы Ark используйте
-  корневые свойства `name` и `form`.
-- `Combobox.RootProvider` сохраняет стили корневого компонента moduix и настройки портала для созданного снаружи состояния Ark.
-  Для работы с провайдером и контекстом используйте `useCombobox`, `Combobox.Context`, `useComboboxContext`,
-  `Combobox.ItemContext` и `useComboboxItemContext` из moduix.
-- Состояние `Field.Root` из Ark по-прежнему передаётся через контекст. Используйте основанный на Ark `Field.Root` из moduix,
-  если комбобокс должен наследовать состояние поля. Свойства `readOnly` и `required` сохраняют поведение Ark.
-- Используйте `ids`, когда части компонента собраны отдельно и им нужны общие идентификаторы доступности. `lazyMount` и
-  `unmountOnExit` по умолчанию равны `true`, а `present` позволяет управлять присутствием по модели Ark для анимации закрытия.
-- `selectionBehavior` и `closeOnSelect` передаются в Ark без изменений. В режиме множественного выбора Ark очищает поле после выбора.
-
-### Миграция с shadcn
-
-Сохраняйте API moduix в стиле Ark и явно сопоставляйте распространённые возможности shadcn:
-
-| Возможность shadcn      | Эквивалент в moduix                                                   |
-| ----------------------- | -------------------------------------------------------------------- |
-| `items` на корневом компоненте | `createListCollection()` или `useListCollection()`, затем `collection` |
-| `itemToStringValue`     | `itemToString` и обычно `itemToValue` на коллекции                   |
-| `showClear`             | При необходимости добавьте `Combobox.ClearTrigger`                   |
-| Обычный `ComboboxItem`  | Используйте `Combobox.Option`; для нестандартной структуры - `Combobox.Item` |
-| Встроенная область чипов | Управляемое `value` со своими тегами или композиция с `TagsInput`    |
-| Обёртка `ComboboxContent` | Явные `Combobox.Positioner` и `Combobox.Content`                   |
+Храните `value` в состоянии приложения, если оно нужно другим частям интерфейса. Когда состояние создаётся
+за пределами дерева, передайте `useCombobox` в `Combobox.RootProvider`. В режиме множественного выбора теги
+и другое представление значений принадлежат приложению; если они должны находиться в одном поле, используйте
+композицию с `TagsInput`. `Combobox.Status` также отвечает только за сообщения приложения и не управляет
+состоянием загрузки или ошибки.
 
 ## Примеры
 
@@ -191,223 +185,521 @@ function FruitComboboxPopup({ items }: { items: Array<{ label: string; value: st
 Используйте `details.reason`, чтобы отличать пользовательский ввод от программного изменения поля. Если поле пустое,
 показывайте статус `Start typing to search…`, чтобы список не оставался пустым.
 
-<style>{ComboboxDocs.comboboxExampleCss}</style>
+<ExampleFrame variant="component">
+  <ComboboxAsyncSearch />
+</ExampleFrame>
 
-<PreviewFrame maxWidth="sm">
-```tsx preview file="../../en/docs/_snippets/combobox/async-search.tsx"
+<ExampleCode>
+<div className="docs-reference">
+  <Tabs
+    groupId="framework"
+    values={[
+      { label: 'React', value: 'react' },
+      { label: 'Solid', value: 'solid' },
+    ]}
+    className="docs-tabs"
+  >
+    <Tab value="react">
 
+```tsx pure file="../../../src/components/examples/combobox/async-search.tsx"
 ```
 
-</PreviewFrame>
+    </Tab>
+    <Tab value="solid">
+
+<CodeBlockRuntime lang="tsx" code={comboboxSolidAsyncSearch} />
+
+    </Tab>
+  </Tabs>
+
+**Стили**
+
+```css file="../../../src/components/examples/combobox/component-async-search.module.css"
+```
+</div>
+
+</ExampleCode>
 
 ### Автоматическая подсветка
 
 Задайте `inputBehavior="autohighlight"`, чтобы при вводе выделять первый подходящий элемент и выбирать его клавишей Enter
 без дополнительного нажатия клавиши со стрелкой.
 
-<style>{ComboboxDocs.comboboxExampleCss}</style>
+<ExampleFrame variant="component">
+  <ComboboxAutoHighlight />
+</ExampleFrame>
 
-<PreviewFrame maxWidth="sm">
-```tsx preview file="../../en/docs/_snippets/combobox/auto-highlight.tsx"
+<ExampleCode>
+<div className="docs-reference">
+  <Tabs
+    groupId="framework"
+    values={[
+      { label: 'React', value: 'react' },
+      { label: 'Solid', value: 'solid' },
+    ]}
+    className="docs-tabs"
+  >
+    <Tab value="react">
 
+```tsx pure file="../../../src/components/examples/combobox/auto-highlight.tsx"
 ```
 
-</PreviewFrame>
+    </Tab>
+    <Tab value="solid">
+
+<CodeBlockRuntime lang="tsx" code={comboboxSolidAutoHighlight} />
+
+    </Tab>
+  </Tabs>
+
+**Стили**
+
+```css file="../../../src/components/examples/combobox/component-auto-highlight.module.css"
+```
+</div>
+
+</ExampleCode>
 
 ### Управляемое состояние
 
 Управляйте массивом выбранных строк и получайте новое значение из `details.value`.
 
-<style>{ComboboxDocs.comboboxExampleCss}</style>
+<ExampleFrame variant="component">
+  <ComboboxControlled />
+</ExampleFrame>
 
-<PreviewFrame maxWidth="sm">
-```tsx preview file="../../en/docs/_snippets/combobox/controlled.tsx"
+<ExampleCode>
+<div className="docs-reference">
+  <Tabs
+    groupId="framework"
+    values={[
+      { label: 'React', value: 'react' },
+      { label: 'Solid', value: 'solid' },
+    ]}
+    className="docs-tabs"
+  >
+    <Tab value="react">
 
+```tsx pure file="../../../src/components/examples/combobox/controlled.tsx"
 ```
 
-</PreviewFrame>
+    </Tab>
+    <Tab value="solid">
+
+<CodeBlockRuntime lang="tsx" code={comboboxSolidControlled} />
+
+    </Tab>
+  </Tabs>
+
+**Стили**
+
+```css file="../../../src/components/examples/combobox/component-controlled.module.css"
+```
+</div>
+
+</ExampleCode>
 
 ### Создание значения
 
 Сочетайте `allowCustomValue` с изменением коллекции, чтобы показывать временный элемент «Создать», а после выбора
 заменяйте его временное значение на введённый пользователем текст.
 
-<style>{ComboboxDocs.comboboxExampleCss}</style>
+<ExampleFrame variant="component">
+  <ComboboxCreatable />
+</ExampleFrame>
 
-<PreviewFrame maxWidth="sm">
-```tsx preview file="../../en/docs/_snippets/combobox/creatable.tsx"
+<ExampleCode>
+<div className="docs-reference">
+  <Tabs
+    groupId="framework"
+    values={[
+      { label: 'React', value: 'react' },
+      { label: 'Solid', value: 'solid' },
+    ]}
+    className="docs-tabs"
+  >
+    <Tab value="react">
 
+```tsx pure file="../../../src/components/examples/combobox/creatable.tsx"
 ```
 
-</PreviewFrame>
+    </Tab>
+    <Tab value="solid">
+
+<CodeBlockRuntime lang="tsx" code={comboboxSolidCreatable} />
+
+    </Tab>
+  </Tabs>
+
+**Стили**
+
+```css file="../../../src/components/examples/combobox/component-creatable.module.css"
+```
+</div>
+
+</ExampleCode>
 
 ### Пользовательские объекты и группировка
 
 Настройте в коллекции преобразование объектов в подписи и значения, затем отображайте группы Ark через `collection.group()`.
 Подписи групп остаются у верхнего края всплывающего списка при прокрутке результатов.
 
-<style>{ComboboxDocs.comboboxExampleCss}</style>
+<ExampleFrame variant="component">
+  <ComboboxCustomObjectsAndGrouping />
+</ExampleFrame>
 
-<PreviewFrame maxWidth="sm">
-```tsx preview file="../../en/docs/_snippets/combobox/custom-objects-and-grouping.tsx"
+<ExampleCode>
+<div className="docs-reference">
+  <Tabs
+    groupId="framework"
+    values={[
+      { label: 'React', value: 'react' },
+      { label: 'Solid', value: 'solid' },
+    ]}
+    className="docs-tabs"
+  >
+    <Tab value="react">
 
+```tsx pure file="../../../src/components/examples/combobox/custom-objects-and-grouping.tsx"
 ```
 
-</PreviewFrame>
+    </Tab>
+    <Tab value="solid">
+
+<CodeBlockRuntime lang="tsx" code={comboboxSolidCustomObjectsAndGrouping} />
+
+    </Tab>
+  </Tabs>
+
+**Стили**
+
+```css file="../../../src/components/examples/combobox/component-custom-objects-and-grouping.module.css"
+```
+</div>
+
+</ExampleCode>
 
 ### Динамическое изменение
 
 Формируйте коллекцию из текущего ввода, если предложения появляются только после начала ввода. Проверяйте
 `details.reason`, чтобы не перестраивать её после изменения поля, вызванного выбором.
 
-<style>{ComboboxDocs.comboboxExampleCss}</style>
+<ExampleFrame variant="component">
+  <ComboboxDynamic />
+</ExampleFrame>
 
-<PreviewFrame maxWidth="sm">
-```tsx preview file="../../en/docs/_snippets/combobox/dynamic.tsx"
+<ExampleCode>
+<div className="docs-reference">
+  <Tabs
+    groupId="framework"
+    values={[
+      { label: 'React', value: 'react' },
+      { label: 'Solid', value: 'solid' },
+    ]}
+    className="docs-tabs"
+  >
+    <Tab value="react">
 
+```tsx pure file="../../../src/components/examples/combobox/dynamic.tsx"
 ```
 
-</PreviewFrame>
+    </Tab>
+    <Tab value="solid">
+
+<CodeBlockRuntime lang="tsx" code={comboboxSolidDynamic} />
+
+    </Tab>
+  </Tabs>
+
+**Стили**
+
+```css file="../../../src/components/examples/combobox/component-dynamic.module.css"
+```
+</div>
+
+</ExampleCode>
 
 ### Встроенное автодополнение
 
 Задайте `inputBehavior="autocomplete"` и фильтруйте с помощью `startsWith`, чтобы подставлять в поле первый подходящий
 вариант и сохранять клавиатурную навигацию Ark.
 
-<style>{ComboboxDocs.comboboxExampleCss}</style>
+<ExampleFrame variant="component">
+  <ComboboxInlineAutocomplete />
+</ExampleFrame>
 
-<PreviewFrame maxWidth="sm">
-```tsx preview file="../../en/docs/_snippets/combobox/inline-autocomplete.tsx"
+<ExampleCode>
+<div className="docs-reference">
+  <Tabs
+    groupId="framework"
+    values={[
+      { label: 'React', value: 'react' },
+      { label: 'Solid', value: 'solid' },
+    ]}
+    className="docs-tabs"
+  >
+    <Tab value="react">
 
+```tsx pure file="../../../src/components/examples/combobox/inline-autocomplete.tsx"
 ```
 
-</PreviewFrame>
+    </Tab>
+    <Tab value="solid">
+
+<CodeBlockRuntime lang="tsx" code={comboboxSolidInlineAutocomplete} />
+
+    </Tab>
+  </Tabs>
+
+**Стили**
+
+```css file="../../../src/components/examples/combobox/component-inline-autocomplete.module.css"
+```
+</div>
+
+</ExampleCode>
 
 ### Ограничение результатов
 
 Задайте `limit` в `useListCollection`, если полный набор совпадений не нужен или его трудно просматривать во всплывающем списке.
 Фильтрация всё равно выполняется по всей исходной коллекции.
 
-<style>{ComboboxDocs.comboboxExampleCss}</style>
+<ExampleFrame variant="component">
+  <ComboboxLimitResults />
+</ExampleFrame>
 
-<PreviewFrame maxWidth="sm">
-```tsx preview file="../../en/docs/_snippets/combobox/limit-results.tsx"
+<ExampleCode>
+<div className="docs-reference">
+  <Tabs
+    groupId="framework"
+    values={[
+      { label: 'React', value: 'react' },
+      { label: 'Solid', value: 'solid' },
+    ]}
+    className="docs-tabs"
+  >
+    <Tab value="react">
 
+```tsx pure file="../../../src/components/examples/combobox/limit-results.tsx"
 ```
 
-</PreviewFrame>
+    </Tab>
+    <Tab value="solid">
+
+<CodeBlockRuntime lang="tsx" code={comboboxSolidLimitResults} />
+
+    </Tab>
+  </Tabs>
+
+**Стили**
+
+```css file="../../../src/components/examples/combobox/component-limit-results.module.css"
+```
+</div>
+
+</ExampleCode>
 
 ### Множественный выбор
 
 Включите `multiple` и отображайте выбранные объекты из управляемого `value`. Теги нужно отрисовать на стороне приложения.
 Если они должны находиться в одной оболочке поля, скомпонуйте `Combobox` с `TagsInput`.
 
-<style>{`
-    .tags {
-      display: flex;
-      min-height: 1.5rem;
-      flex-wrap: wrap;
-      gap: var(--moduix-spacing-1);
-    }
+<ExampleFrame variant="component">
+  <ComboboxMultiple />
+</ExampleFrame>
 
-    .tag {
-      display: inline-flex;
-      align-items: center;
-      border-radius: var(--moduix-radius-sm);
-      padding: var(--moduix-spacing-1) var(--moduix-spacing-2);
-      background: var(--moduix-color-muted);
-      font-size: var(--moduix-text-xs);
-    }
+<ExampleCode>
+<div className="docs-reference">
+  <Tabs
+    groupId="framework"
+    values={[
+      { label: 'React', value: 'react' },
+      { label: 'Solid', value: 'solid' },
+    ]}
+    className="docs-tabs"
+  >
+    <Tab value="react">
 
-    .note {
-      color: var(--moduix-color-muted-foreground);
-      font-size: var(--moduix-text-xs);
-    }
-  `}</style>
-
-<PreviewFrame maxWidth="sm">
-```tsx preview file="../../en/docs/_snippets/combobox/multiple.tsx"
-
+```tsx pure file="../../../src/components/examples/combobox/multiple.tsx"
 ```
 
-</PreviewFrame>
+    </Tab>
+    <Tab value="solid">
+
+<CodeBlockRuntime lang="tsx" code={comboboxSolidMultiple} />
+
+    </Tab>
+  </Tabs>
+
+**Стили**
+
+```css file="../../../src/components/examples/combobox/component-multiple.module.css"
+```
+</div>
+
+</ExampleCode>
 
 ### Root Provider
 
 Создавайте состояние через `useCombobox` из moduix, когда внешним элементам управления нужны императивные методы или общее
 состояние до отображения корневого компонента. `Combobox.RootProvider` сохраняет стили корня moduix и настройки портала.
 
-<style>{ComboboxDocs.comboboxExampleCss}</style>
+<ExampleFrame variant="component">
+  <ComboboxRootProvider />
+</ExampleFrame>
 
-<PreviewFrame maxWidth="sm">
-```tsx preview file="../../en/docs/_snippets/combobox/root-provider.tsx"
+<ExampleCode>
+<div className="docs-reference">
+  <Tabs
+    groupId="framework"
+    values={[
+      { label: 'React', value: 'react' },
+      { label: 'Solid', value: 'solid' },
+    ]}
+    className="docs-tabs"
+  >
+    <Tab value="react">
 
+```tsx pure file="../../../src/components/examples/combobox/root-provider.tsx"
 ```
 
-</PreviewFrame>
+    </Tab>
+    <Tab value="solid">
+
+<CodeBlockRuntime lang="tsx" code={comboboxSolidRootProvider} />
+
+    </Tab>
+  </Tabs>
+
+**Стили**
+
+```css file="../../../src/components/examples/combobox/component-root-provider.module.css"
+```
+</div>
+
+</ExampleCode>
 
 ### Виртуализация
 
-Для больших коллекций отображайте только видимые строки с помощью TanStack Virtual и связывайте клавиатурную навигацию Ark
+Для больших коллекций отображайте только видимые строки с помощью TanStack Virtual. В React используйте
+`@tanstack/react-virtual`, а в Solid - `@tanstack/solid-virtual`, затем свяжите клавиатурную навигацию Ark
 с `scrollToIndexFn`. Сохраняйте `aria-setsize` и `aria-posinset` у виртуализированных строк.
 
-<style>{`
-    .virtualContent {
-      overflow: hidden;
-    }
+<ExampleFrame variant="component">
+  <ComboboxVirtualized />
+</ExampleFrame>
 
-    .virtualScroller {
-      height: min(16rem, var(--available-height, 16rem));
-      overflow: auto;
-    }
+<ExampleCode>
+<div className="docs-reference">
+  <Tabs
+    groupId="framework"
+    values={[
+      { label: 'React', value: 'react' },
+      { label: 'Solid', value: 'solid' },
+    ]}
+    className="docs-tabs"
+  >
+    <Tab value="react">
 
-    .virtualList {
-      position: relative;
-      overflow: visible;
-    }
-
-    .virtualItem {
-      position: absolute;
-      top: 0;
-      left: 0;
-      width: 100%;
-    }
-  `}</style>
-
-<PreviewFrame maxWidth="sm">
-```tsx preview file="../../en/docs/_snippets/combobox/virtualized.tsx"
-
+```tsx pure file="../../../src/components/examples/combobox/virtualized.tsx"
 ```
 
-</PreviewFrame>
+    </Tab>
+    <Tab value="solid">
+
+<CodeBlockRuntime lang="tsx" code={comboboxSolidVirtualized} />
+
+    </Tab>
+  </Tabs>
+
+**Стили**
+
+```css file="../../../src/components/examples/combobox/component-virtualized.module.css"
+```
+</div>
+
+</ExampleCode>
 
 ### Вместе с TagsInput
 
 Используйте `Combobox` вместе с `TagsInput`, если пользователю нужны отфильтрованные предложения, а выбранные значения должны
 находиться в одном редактируемом поле с тегами.
 
-<PreviewFrame maxWidth="sm">
-```tsx preview file="../../en/docs/_snippets/combobox/with-tags-input.tsx"
+<ExampleFrame variant="component">
+  <ComboboxWithTagsInput />
+</ExampleFrame>
 
+<ExampleCode>
+<div className="docs-reference">
+  <Tabs
+    groupId="framework"
+    values={[
+      { label: 'React', value: 'react' },
+      { label: 'Solid', value: 'solid' },
+    ]}
+    className="docs-tabs"
+  >
+    <Tab value="react">
+
+```tsx pure file="../../../src/components/examples/combobox/with-tags-input.tsx"
 ```
 
-</PreviewFrame>
+    </Tab>
+    <Tab value="solid">
+
+<CodeBlockRuntime lang="tsx" code={comboboxSolidWithTagsInput} />
+
+    </Tab>
+  </Tabs>
+</div>
+
+</ExampleCode>
 
 ### Расширенная настройка
 
 Используйте полную композицию элемента, если ему нужен собственный семантический элемент или макет. В этом примере
 каждый результат отображается как ссылка через `Combobox.Item asChild`.
 
-<style>{ComboboxDocs.comboboxExampleCss}</style>
+<ExampleFrame variant="component">
+  <ComboboxAdvancedCustomization />
+</ExampleFrame>
 
-<PreviewFrame maxWidth="sm">
-```tsx preview file="../../en/docs/_snippets/combobox/advanced-customization.tsx"
+<ExampleCode>
+<div className="docs-reference">
+  <Tabs
+    groupId="framework"
+    values={[
+      { label: 'React', value: 'react' },
+      { label: 'Solid', value: 'solid' },
+    ]}
+    className="docs-tabs"
+  >
+    <Tab value="react">
 
+```tsx pure file="../../../src/components/examples/combobox/advanced-customization.tsx"
 ```
 
-</PreviewFrame>
+    </Tab>
+    <Tab value="solid">
+
+<CodeBlockRuntime lang="tsx" code={comboboxSolidAdvancedCustomization} />
+
+    </Tab>
+  </Tabs>
+
+**Стили**
+
+```css file="../../../src/components/examples/combobox/component-advanced-customization.module.css"
+```
+</div>
+
+</ExampleCode>
 
 ## Стилизация
+
+Используйте `className` в React и `class` в Solid для структурных стилей экспортируемых частей.
+Варианты Tailwind используют обычные utility-классы и классы приложения, а CSS-переменные ниже настраивают
+варианты CSS Modules. Атрибуты состояния и `data-slot` общие для обоих вариантов стилизации.
 
 ### CSS-свойства
 

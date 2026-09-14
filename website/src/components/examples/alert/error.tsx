@@ -1,0 +1,21 @@
+import { Alert } from '@moduix/react/alert';
+import { Info as InfoIcon } from 'lucide-react';
+
+const alert = {
+  title: 'Payment failed',
+  description: 'Your payment could not be processed. Check the payment method and try again.',
+};
+
+export default function AlertErrorDemo() {
+  return (
+    <Alert status="error">
+      <Alert.Indicator>
+        <InfoIcon />
+      </Alert.Indicator>
+      <Alert.Content>
+        <Alert.Title>{alert.title}</Alert.Title>
+        <Alert.Description>{alert.description}</Alert.Description>
+      </Alert.Content>
+    </Alert>
+  );
+}

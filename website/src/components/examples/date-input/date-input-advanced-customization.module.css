@@ -1,0 +1,29 @@
+.root {
+  width: fit-content;
+}
+
+.control {
+  --moduix-date-input-bg: var(--moduix-color-muted);
+  --moduix-date-input-border-color: var(--moduix-color-primary);
+  --moduix-date-input-focus-ring-color: var(--moduix-color-primary);
+}
+
+.segment {
+  --moduix-date-input-segment-bg-focus: color-mix(
+    in oklab,
+    var(--moduix-color-primary) 14%,
+    transparent
+  );
+  --moduix-date-input-segment-color-focus: var(--moduix-color-foreground);
+}
+
+.daySegment {
+  --moduix-date-input-segment-bg-focus: color-mix(
+    in oklab,
+    var(--moduix-color-primary) 18%,
+    transparent
+  );
+  --moduix-date-input-segment-color-focus: var(--moduix-color-primary);
+
+  font-weight: var(--moduix-weight-semibold);
+}

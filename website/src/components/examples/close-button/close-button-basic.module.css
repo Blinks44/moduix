@@ -1,0 +1,25 @@
+.root {
+  position: relative;
+  inline-size: min(24rem, 100%);
+  padding: var(--moduix-spacing-4);
+  border: var(--moduix-border-width-sm) solid var(--moduix-color-border);
+  border-radius: var(--moduix-radius-lg);
+  background-color: var(--moduix-color-popover);
+  color: var(--moduix-color-popover-foreground);
+  box-shadow: var(--moduix-shadow-sm);
+}
+
+.closeButton {
+  position: absolute;
+  inset-block-start: var(--moduix-spacing-2);
+  inset-inline-end: var(--moduix-spacing-2);
+}
+
+.title {
+  margin: 0;
+  font-weight: var(--moduix-weight-semibold);
+}
+
+.description {
+  margin: var(--moduix-spacing-1) 0 0;
+}

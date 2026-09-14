@@ -61,6 +61,7 @@
 
 html {
   scrollbar-gutter: stable;
+  scroll-behavior: smooth;
 }
 
 body {
@@ -322,9 +323,62 @@ body {
 }
 
 .rp-tabs {
+  background: var(--moduix-doc-card);
+
+  .rp-tabs__content,
   .rp-tabs__content__item,
   .rp-tabs__label__item--selected {
     background: var(--moduix-doc-card);
+  }
+}
+
+.packageMatrix {
+  width: 100%;
+  margin-block: 1.25rem 1.5rem;
+  border: 1px solid var(--rp-c-divider-light);
+  border-radius: var(--rp-radius);
+  border-spacing: 0;
+  overflow: hidden;
+  background: var(--moduix-doc-card);
+}
+
+.packageMatrix th,
+.packageMatrix td {
+  border-bottom: 1px solid var(--rp-c-divider-light);
+  padding: 0.75rem 1rem;
+  text-align: start;
+}
+
+.packageMatrix thead th {
+  background: var(--moduix-doc-secondary);
+  color: var(--rp-c-text-2);
+  font-size: 0.75rem;
+  font-weight: 600;
+  letter-spacing: 0.04em;
+  text-transform: uppercase;
+}
+
+.packageMatrix tbody tr:last-child th,
+.packageMatrix tbody tr:last-child td {
+  border-bottom: 0;
+}
+
+.packageMatrix tbody th {
+  font-weight: 600;
+}
+
+.packageMatrix code {
+  color: var(--rp-c-text-1);
+}
+
+@media (width <= 640px) {
+  .packageMatrix {
+    font-size: 0.875rem;
+  }
+
+  .packageMatrix th,
+  .packageMatrix td {
+    padding: 0.65rem 0.75rem;
   }
 }
 

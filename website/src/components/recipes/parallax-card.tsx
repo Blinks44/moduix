@@ -1,39 +1,24 @@
 import { Card } from '@moduix/react/card';
-import { useEffect, useState } from 'react';
-import Tilt from 'react-parallax-tilt';
+import type { PointerEvent } from 'react';
 import styles from './parallax-card.module.css';
 
-function useTiltEnabled() {
-  const [tiltEnabled, setTiltEnabled] = useState(false);
+function updateTilt(event: PointerEvent<HTMLDivElement>) {
+  const bounds = event.currentTarget.getBoundingClientRect();
+  const x = (event.clientX - bounds.left) / bounds.width - 0.5;
+  const y = (event.clientY - bounds.top) / bounds.height - 0.5;
 
-  useEffect(() => {
-    const mediaQuery = window.matchMedia(
-      '(hover: hover) and (pointer: fine) and (prefers-reduced-motion: no-preference)',
-    );
-    const updateTiltEnabled = () => setTiltEnabled(mediaQuery.matches);
+  event.currentTarget.style.setProperty('--parallax-rotate-x', `${-y * 10}deg`);
+  event.currentTarget.style.setProperty('--parallax-rotate-y', `${x * 10}deg`);
+}
 
-    updateTiltEnabled();
-    mediaQuery.addEventListener('change', updateTiltEnabled);
-
-    return () => mediaQuery.removeEventListener('change', updateTiltEnabled);
-  }, []);
-
-  return tiltEnabled;
+function resetTilt(event: PointerEvent<HTMLDivElement>) {
+  event.currentTarget.style.removeProperty('--parallax-rotate-x');
+  event.currentTarget.style.removeProperty('--parallax-rotate-y');
 }
 
 export function ParallaxCard() {
-  const tiltEnabled = useTiltEnabled();
-
   return (
-    <Tilt
-      className={styles.tilt}
-      perspective={1200}
-      scale={1.015}
-      tiltEnable={tiltEnabled}
-      tiltMaxAngleX={5}
-      tiltMaxAngleY={5}
-      transitionSpeed={1200}
-    >
+    <div className={styles.tilt} onPointerMove={updateTilt} onPointerLeave={resetTilt}>
       <Card className={styles.card} variant="elevated">
         <Card.Background>
           <img
@@ -51,6 +36,6 @@ export function ParallaxCard() {
           </Card.Description>
         </Card.Header>
       </Card>
-    </Tilt>
+    </div>
   );
 }

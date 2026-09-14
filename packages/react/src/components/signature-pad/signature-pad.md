@@ -24,7 +24,7 @@
 
 ## Upstream model to preserve
 
-The wrapper follows Ark UI `SignaturePad` exactly: `Root` or `RootProvider` owns the Zag state machine, `Control` is the focusable drawing area, `Segment` renders the SVG and Ark's internal `segmentPath` nodes, `Guide` renders the baseline, and `ClearTrigger` clears the current paths. The root renders Ark's hidden form input internally.
+The wrapper follows Ark UI `SignaturePad` exactly: `Root` or `RootProvider` owns the Zag state machine, `Control` is the focusable drawing area, `Segment` renders the SVG and Ark's internal `segmentPath` nodes, `Guide` renders the baseline, and `ClearTrigger` clears the current paths. `HiddenInput` is composed explicitly.
 
 Preserve Ark callback detail objects for `onDraw(details)` and `onDrawEnd(details)`. `onDrawEnd` exposes `details.getDataUrl(type, quality?)` for PNG, JPEG, or SVG previews.
 
@@ -34,7 +34,8 @@ Preserve Ark callback detail objects for `onDraw(details)` and `onDrawEnd(detail
 
 `useSignaturePad()` with `SignaturePad.RootProvider` is exported for state that must be created outside the rendered tree. `useSignaturePadContext()` is exported for advanced in-tree state reads.
 
-`Root` and `RootProvider` serialize paths with `paths.join(' ')` and render the native form input automatically. Pass `getFormValue(paths)` when form data needs another representation.
+Compose `SignaturePad.HiddenInput` explicitly and pass its required serialized `value`. Use
+`useSignaturePadContext()` inside the root when the value should follow the current paths.
 
 ## Anatomy and exported parts
 
@@ -46,7 +47,7 @@ SignaturePad / SignaturePad.Root
 │     ├─ SignaturePad.Segment
 │     ├─ SignaturePad.ClearTrigger
 │     └─ SignaturePad.Guide
-└─ native input (automatic)
+└─ SignaturePad.HiddenInput value={serializedPaths} (explicit)
 
 SignaturePad.RootProvider
 └─ same part tree connected to useSignaturePad()
@@ -85,7 +86,7 @@ export function SignaturePadDemo() {
 - Controlled state uses `paths` with `onDraw(details)`; uncontrolled state uses `defaultPaths`.
 - `drawing` forwards Zag stroke options: `fill`, `size`, and `simulatePressure`. `drawing.fill` must be a valid CSS color string. If it is not set, moduix CSS supplies the default stroke color through `--moduix-signature-pad-stroke-color`.
 - The installed Zag default is `{ size: 2, simulatePressure: false }`; pass `drawing` to opt into pressure simulation.
-- Form usage uses `name`, `required`, and the automatic native input. Pass `getFormValue(paths)` when the form needs a custom serialization.
+- Form usage combines Ark form props with an explicit `SignaturePad.HiddenInput value={...}`.
 - `Field.Root` context carries `disabled`, `required`, `readOnly`, and shared ids into `SignaturePad`. `Field` invalid state controls helper/error messaging and native-input descriptions, but Ark does not add `data-invalid` to signature pad parts.
 - `Fieldset.Root` disabled state reaches `SignaturePad` through nested `Field.Root`, matching Ark's field/fieldset model. Set required, read-only, and invalid messaging state on `Field.Root` when those states belong to one signature field.
 - `RootProvider`, `useSignaturePad()`, and `useSignaturePadContext()` are exported from moduix.
@@ -109,7 +110,7 @@ Data attributes from Ark:
 
 ## Defaults and styling
 
-Every styled part accepts `className`, merged with moduix defaults through `clsx` and `normalizeClassName`. Component CSS uses flat CSS Module selectors and Ark data attributes. Disabled opacity is applied once at the root so nested labels, guides, and the default clear action remain legible.
+Every styled part accepts `className`, merged with moduix defaults through `clsx`. Component CSS uses flat CSS Module selectors and Ark data attributes. Disabled opacity is applied once at the root so nested labels, guides, and the default clear action remain legible.
 
 The default drawing control is `17.5rem` by `10rem`, which is approximately `280px` by `160px` with the default token scale. Its default minimum height follows the configured control height, so reducing either public height variable also reduces the usable drawing area. The default shadow is `var(--moduix-shadow-sm)`.
 
@@ -132,7 +133,10 @@ The CSS default stroke color applies only when `drawing.fill` is not provided; e
 
 ## Agent notes
 
-Keep `getFormValue(paths)` as the semantic serialization escape hatch. Do not replace `paths`/`onDraw` with a local `value` abstraction. `drawing.fill` must be a valid CSS color string. To use a CSS custom property for the stroke color, leave `drawing.fill` unset and override `--moduix-signature-pad-stroke-color` instead.
+Keep signature serialization in consumer composition rather than adding a wrapper-specific root prop.
+Do not replace `paths`/`onDraw` with a local `value` abstraction. `drawing.fill` must be a valid CSS
+color string. To use a CSS custom property for the stroke color, leave `drawing.fill` unset and
+override `--moduix-signature-pad-stroke-color` instead.
 
 ## Local changelog
 
@@ -144,8 +148,9 @@ Keep `getFormValue(paths)` as the semantic serialization escape hatch. Do not re
 - 2026-07-17: Composed the default clear control with `CloseButton`, preserving Ark translations,
   states, and custom composition while mapping signature-pad tokens to the shared styles.
 
-- 2026-07-13: Rendered the native form input automatically and added `getFormValue(paths)` for
-  custom signature serialization.
+- 2026-09-04: Exposed Ark `HiddenInput` explicitly and removed automatic serialization and the
+  wrapper-specific serializer prop.
+- 2026-07-13: Native form input serialization lived in the root at this point in the wrapper history.
 
 - 2026-07-11: Added `Canvas` as the recommended fixed drawing surface and re-exported `useSignaturePadContext()` for form and in-tree state usage.
 - 2026-06-27: Tightened the Field form contract, documented `segmentPath` data attributes, and

@@ -1,255 +1,168 @@
 ---
 title: Паттерны композиции
-description: Сочетайте части moduix, сохраняя поведение Ark и возможности настройки приложения.
+description: Композиция частей Moduix в разных фреймворках без сокрытия поведения Ark и ответственности продукта.
 ---
+
+import reactAsChild from '../../../snippets/composition-patterns/react/as-child.tsx?raw';
+import solidAsChild from '../../../snippets/composition-patterns/solid/as-child.tsx?raw';
+import reactExternalState from '../../../snippets/composition-patterns/react/external-state.tsx?raw';
+import solidExternalState from '../../../snippets/composition-patterns/solid/external-state.tsx?raw';
+import solidProductDialog from '../../../snippets/composition-patterns/solid/product-dialog.tsx?raw';
 
 # Паттерны композиции
 
-`moduix` оставляет модель композиции Ark явной. Большинство компонентов состоит из корневого элемента,
-который управляет состоянием, и отдельных частей, отвечающих за структуру, семантику и стили. Поэтому
-понятно, какой слой за что отвечает, а способ настройки компонента остаётся предсказуемым:
+Moduix сохраняет явную модель частей Ark. Начните с готовых частей, реэкспортируйте их для стабильных
+локальных импортов и добавляйте обертку только для повторяющегося решения на уровне продукта.
 
-- используйте готовые части напрямую;
-- реэкспортируйте их из слоя продукта;
-- оборачивайте только те части, которым нужны повторяющиеся стили или компоновка продукта.
+Эта модель одинаково работает во всех выпущенных адаптерах, с npm-пакетом и кодом из реестра shadcn. Во вкладках
+ниже разделены только действительно отличающиеся детали фреймворков.
 
-Один и тот же подход работает с `@moduix/react` и с исходным кодом, скопированным из реестра.
+## Выберите уровень владения
 
-## Выберите способ установки
+| Задача | С чего начать |
+| --- | --- |
+| Стандартное поведение компонента | Готовые части Moduix |
+| Локальные пути импортов продукта | Прямые реэкспорты |
+| Повторяющееся визуальное правило или расположение | Узкая обертка над отвечающей за него частью |
+| Состояние вне дерева компонента | `use<Component>()` вместе с `RootProvider` |
 
-Выберите npm-пакет, если хотите получать обновления через менеджер пакетов. Компоненты импортируются из
-`@moduix/react/*`, а общие стили из `@moduix/react/style.css`.
+Выбирайте самый простой уровень, который решает повторяющуюся задачу. Единичный класс или callback не
+требует нового API компонента.
 
-Выберите реестр `shadcn`, если хотите хранить исходный код компонентов в приложении. При добавлении он
-копирует выбранный компонент и необходимые ему стили, иконки и утилиты moduix в проект. После этого код
-можно менять напрямую, а компоненты импортировать из `@/components/moduix/*`.
+## Начните с дерева частей
 
-Компоненты, исходный код которых хранится в приложении, не получают обновления пакета автоматически. Когда
-выходит новая версия moduix, снова добавьте компонент через `shadcn`, проверьте получившийся diff и внесите
-нужные изменения. Одноразовая настройка реестра и команды для компонентов описаны в [Быстром старте](/docs/quick-start#установить-через-shadcn-cli).
-
-## Используйте дерево частей
-
-Прежде чем создавать обёртки, изучите дерево частей на странице компонента. Применяйте `className`, CSS-переменные,
-`data-slot` и атрибуты состояния Ark к тем частям, которым они действительно принадлежат.
-
-Корневые экспорты, такие как `Popover`, `Tooltip` и `Select`, являются сокращённой формой `*.Root`. Для диалогов
-и всплывающих компонентов корневой компонент автоматически помещает поддерево оверлея в портал, поэтому структура
-остаётся явной и отдельная обёртка `Portal` не нужна.
-
-Например:
+Перед созданием обертки изучите Anatomy на странице компонента. Не скрывайте структурные части, чтобы
+ответственность за позиционирование, прокрутку, фокус и стили оставалась явной.
 
 ```text
 Dialog / Dialog.Root
 ├─ Dialog.Trigger
-├─ Поддерево оверлея (автоматически переносится в портал)
-│  ├─ Dialog.Backdrop
-│  └─ Dialog.Positioner
-│     └─ Dialog.Content
-│        ├─ Dialog.Title
-│        ├─ Dialog.Description
-│        └─ Dialog.CloseTrigger
+└─ Overlay subtree, automatically portalled
+   ├─ Dialog.Backdrop
+   └─ Dialog.Positioner
+      └─ Dialog.Content
+         ├─ Dialog.Title
+         ├─ Dialog.Description
+         └─ Dialog.CloseTrigger
 ```
 
-Используйте `portalled={false}` для отрисовки в месте расположения компонента, а `portalRef` для своего контейнера,
-если компонент поддерживает эти пропы. Используйте `Dialog.RootProvider`, когда объект состояния создаётся за
-пределами отрисованного дерева.
+Используйте `portalled={false}` для встроенной отрисовки и `portalRef` для собственного контейнера,
+если компонент поддерживает эти свойства. `RootProvider` нужен только для состояния, созданного вне
+отрисованного дерева.
 
-## Структурные части
+## Скомпонуйте семантический элемент
 
-Не каждый примитив предоставляет все перечисленные ниже части. Сначала изучите анатомию на странице компонента,
-а затем оставляйте видимыми те части, которые продукту может понадобиться переопределить.
+Используйте `asChild`, когда существующий элемент должен остаться DOM-узлом, а часть Moduix только
+добавляет к нему поведение. React принимает единственный дочерний элемент. Solid принимает render
+function, а свойства Ark нужно передать возвращаемому элементу.
 
-| Часть         | Ответственность                                                                  |
-| ------------- | ------------------------------------------------------------------------------- |
-| `Backdrop`    | Отделяет модальную поверхность от остальной страницы и принимает взаимодействия за её пределами. |
-| `Positioner`  | Отвечает за размещение в области просмотра или относительно якоря, а также за прокрутку.          |
-| `Content`     | Отрисовывает интерактивную поверхность и получает атрибуты состояния.                             |
-| `Arrow`       | Соединяет привязанное к якорю содержимое всплывающего окна с триггером, если примитив поддерживает эту часть. |
+<Tabs groupId="framework">
+  <Tab label="React" value="react">
 
-Не прячьте эти узлы внутри обёрток продукта, если только контракт продукта намеренно не убирает точки их
-переопределения.
+<CodeBlockRuntime lang="tsx" code={reactAsChild} />
 
-## `asChild`
+  </Tab>
+  <Tab label="Solid" value="solid">
 
-Используйте `asChild`, когда существующий семантический элемент должен стать DOM-узлом, а часть moduix должна
-только добавить ему своё поведение.
+<CodeBlockRuntime lang="tsx" code={solidAsChild} />
 
-```tsx
-import { Button } from '@moduix/react/button';
-import { Popover } from '@moduix/react/popover';
-// shadcn copy-owned: import { Button } from '@/components/moduix/button';
-// shadcn copy-owned: import { Popover } from '@/components/moduix/popover';
+  </Tab>
+</Tabs>
 
-export function FiltersPopover() {
-  return (
-    <Popover positioning={{ gutter: 8 }}>
-      <Popover.Trigger asChild>
-        <Button variant="outline">Filters</Button>
-      </Popover.Trigger>
-      <Popover.Positioner>
-        <Popover.Content>Choose one or more filters.</Popover.Content>
-      </Popover.Positioner>
-    </Popover>
-  );
-}
-```
-
-Оставляйте один семантический дочерний элемент, который может принять пропы Ark. Если дочерний компонент не
-передаёт `ref`, обработчики событий или атрибуты, `asChild` не будет работать корректно.
-
-## `ids`
-
-В большинстве случаев библиотека создаёт связи сама. Передавайте `ids`, если двум примитивам нужно согласовать
-стабильный идентификатор, например использовать один и тот же элемент в качестве триггера. Не задавайте связи
-ARIA вручную.
-
-```tsx
-import { Avatar } from '@moduix/react/avatar';
-import { Tooltip } from '@moduix/react/tooltip';
-import { useId } from 'react';
-
-export function AssigneeTooltip() {
-  const id = useId();
-
-  return (
-    <Tooltip ids={{ trigger: id }}>
-      <Tooltip.Trigger asChild>
-        <Avatar ids={{ root: id }}>
-          <Avatar.Fallback name="Sam Ortiz" />
-        </Avatar>
-      </Tooltip.Trigger>
-      <Tooltip.Body>Sam Ortiz is online</Tooltip.Body>
-    </Tooltip>
-  );
-}
-```
-
-Так связи для доступности остаются под управлением Ark, и вам не приходится вручную дублировать атрибуты `aria-*`.
+Дочерний элемент должен принимать переданные атрибуты, обработчики событий и ref. Если он их
+отбрасывает, клавиатурное управление и связи доступности могут нарушиться.
 
 ## Сначала реэкспортируйте
 
-Если продукту нужны короткие пути импорта или собственный API, начните с реэкспортов, а не с новых абстракций.
-Реэкспорты сохраняют исходное поведение и дают приложению стабильный локальный API.
+Реэкспорты создают стабильный импорт продукта, не меняя поведение:
+
+<Tabs groupId="framework">
+  <Tab label="React" value="react">
 
 ```tsx
 import { Dialog as ModuixDialog } from '@moduix/react/dialog';
-// shadcn copy-owned: import { Dialog as ModuixDialog } from '@/components/moduix/dialog';
 
 export const Dialog = ModuixDialog;
 export const DialogTrigger = ModuixDialog.Trigger;
-export const DialogBackdrop = ModuixDialog.Backdrop;
-export const DialogPositioner = ModuixDialog.Positioner;
 export const DialogContent = ModuixDialog.Content;
-export const DialogTitle = ModuixDialog.Title;
-export const DialogDescription = ModuixDialog.Description;
-export const DialogCloseTrigger = ModuixDialog.CloseTrigger;
 ```
 
-Это самый безопасный способ расширения:
+  </Tab>
+  <Tab label="Solid" value="solid">
 
-- потребители импортируют из слоя продукта, а не напрямую из `@moduix/react/*` или `@/components/moduix/*`;
-- поведение Ark не меняется;
-- переход от пакета к версии с исходным кодом в приложении остаётся простым;
-- обёртки можно добавить позже только там, где они действительно нужны.
+```tsx
+import { Dialog as ModuixDialog } from '@moduix/solid/dialog';
+
+export const Dialog = ModuixDialog;
+export const DialogTrigger = ModuixDialog.Trigger;
+export const DialogContent = ModuixDialog.Content;
+```
+
+  </Tab>
+</Tabs>
+
+Так переход между импортами из пакета и кодом из реестра останется простым.
 
 ## Добавьте контракт продукта
 
-Добавляйте продуктовый контракт только той части, которая отвечает за соответствующее решение. Локальный `Dialog`
-становится полноценной границей продукта: потребитель импортирует один компонент и использует его `Dialog.Trigger`,
-`Dialog.Content` и остальные части. Внутри обёртки небольшой контракт `tone` добавляется только к поверхности
-диалога, потому что именно она отвечает за визуальное решение.
+Оборачивайте только ту часть, которой принадлежит решение. Здесь `Dialog.Content` получает свойство
+`tone` и преобразует его в публичные переменные Dialog. Остальное дерево частей не меняется.
 
 <div className="docs-reference">
-  <Tabs values={[{ label: 'Код', value: 'Код' }, { label: 'Стили', value: 'Стили' }]} className="docs-tabs">
-    <Tab value="Код">
+  <Tabs groupId="framework" className="docs-tabs">
+    <Tab label="React" value="react">
 
-```tsx file="../../en/docs/_snippets/composition-patterns/product-dialog.tsx"
-
-```
-
-    </Tab>
-    <Tab value="Стили">
-
-```css file="../../en/docs/_snippets/composition-patterns/product-dialog.module.css"
+```tsx pure file="../../../src/components/examples/composition-patterns/product-dialog.tsx"
 
 ```
 
     </Tab>
+    <Tab label="Solid" value="solid">
 
+<CodeBlockRuntime lang="tsx" code={solidProductDialog} />
+
+    </Tab>
+    <Tab label="Styles" value="styles">
+
+```css file="../../../src/components/examples/composition-patterns/product-dialog.module.css"
+
+```
+
+    </Tab>
   </Tabs>
 </div>
 
-Теперь потребитель импортирует только компонент продукта:
+Сохраняйте исходные свойства, работу ref, класс потребителя и имена частей. Локальный data-атрибут
+продукта подходит для стилизации, а копирование CSS компонента нет.
 
-```tsx
-import { Dialog } from '@/components/ui/dialog';
+## Выносите состояние только вместе с ответственностью
 
-export function DeleteProjectDialog() {
-  return (
-    <Dialog>
-      <Dialog.Trigger>Delete project</Dialog.Trigger>
-      <Dialog.Backdrop />
-      <Dialog.Positioner>
-        <Dialog.Content tone="danger">
-          <Dialog.Header>
-            <Dialog.Title>Delete this project?</Dialog.Title>
-            <Dialog.CloseIcon />
-            <Dialog.Description>This cannot be undone.</Dialog.Description>
-          </Dialog.Header>
-          <Dialog.Footer>
-            <Dialog.CloseTrigger>Cancel</Dialog.CloseTrigger>
-          </Dialog.Footer>
-        </Dialog.Content>
-      </Dialog.Positioner>
-    </Dialog>
-  );
-}
-```
+Используйте `Context` для разового чтения внутри дерева, а `useDialogContext()` в переиспользуемых
+потомках. Создавайте состояние через `useDialog()` и подключайте его к `Dialog.RootProvider`, только
+если оно нужно элементам за пределами Dialog.
 
-Корневой компонент продукта сохраняет весь API moduix. Его `Dialog.Content` передаёт `ref`, `className` и все
-существующие пропы содержимого. Атрибут `data-dialog-tone` служит хуком стилей продукта, а CSS связывает его с
-публичными переменными диалога, не копируя стили компонента.
+<Tabs groupId="framework">
+  <Tab label="React" value="react">
 
-Сохраняйте дерево частей явным: `Dialog.Backdrop`, `Dialog.Positioner` и `Dialog.Content` по-прежнему показывают,
-где находятся поведение оверлея и стили. Добавляйте обёртку только для повторяющегося решения продукта, а не ради
-разового класса.
+<CodeBlockRuntime lang="tsx" code={reactExternalState} />
 
-## Состояние вне дерева
+  </Tab>
+  <Tab label="Solid" value="solid">
 
-Выносите состояние за пределы дерева только тогда, когда меняется место его владения, а объекты `details` Ark
-оставляйте без изменений. Например, состояние открытия диалога по-прежнему использует `onOpenChange(details)`,
-а текущее значение читается из `details.open`.
+<CodeBlockRuntime lang="tsx" code={solidExternalState} />
 
-Используйте API состояния компонента в зависимости от того, где к нему нужен доступ:
+  </Tab>
+</Tabs>
 
-- `Dialog.Context` для разового чтения в дереве рендера;
-- `useDialogContext()` внутри переиспользуемых потомков, уже находящихся под корневой частью;
-- `useDialog()` вместе с `Dialog.RootProvider`, когда состояние создаётся за пределами отрисованного дерева.
+## Проверьте композицию
 
-```tsx
-import { Dialog, useDialog } from '@moduix/react/dialog';
+- Сохраняйте стандартные части, пока продукт не вводит повторяющееся правило.
+- Реэкспортируйте API до создания обертки.
+- Передавайте исходные свойства, классы и ref.
+- Не создавайте верхнеуровневое свойство для единичного решения.
+- После обертки проверяйте клавиатуру, возврат фокуса, порталы и управляемое состояние.
 
-export function DialogFromExternalState() {
-  const dialog = useDialog();
+## Связанные материалы
 
-  return (
-    <Dialog.RootProvider value={dialog}>
-      <Dialog.Trigger>Open dialog</Dialog.Trigger>
-      <Dialog.Backdrop />
-      <Dialog.Positioner>
-        <Dialog.Content>State is owned by useDialog().</Dialog.Content>
-      </Dialog.Positioner>
-    </Dialog.RootProvider>
-  );
-}
-```
-
-Не отрисовывайте `Root` и `RootProvider` для одного экземпляра состояния.
-
-## Выберите уровень композиции
-
-- Нужен только стандартный способ использования? Оставайтесь на готовых частях.
-- Нужны собственные пути импорта? Сначала сделайте реэкспорт.
-- Нужны повторяющиеся визуальные решения продукта? Оборачивайте конкретные части, которые за них отвечают.
-- Нужно изменить поведение? Используйте явное дерево частей вместо новых пропов верхнего уровня.
+- [Стилизация](/docs/styling)
+- [Обновление](/docs/updating)

@@ -1,10 +1,32 @@
 ---
 title: Switch
 component: switch
-description: Переключатель Ark UI для настроек, которые можно включать и выключать сразу.
+description: Компонуемый переключатель Ark UI для настроек, которые применяются сразу после изменения.
 ---
 
-import * as SwitchDocs from '@/components/examples/switch';
+import * as SwitchDocs from '@/components/examples/switch/css-properties';
+import SwitchAdvancedCustomization from '@/components/examples/switch/advanced-customization.tsx';
+import SwitchAsChild from '@/components/examples/switch/as-child.tsx';
+import SwitchBasic from '@/components/examples/switch/basic.tsx';
+import SwitchContext from '@/components/examples/switch/context.tsx';
+import SwitchControlled from '@/components/examples/switch/controlled.tsx';
+import SwitchDisabled from '@/components/examples/switch/disabled.tsx';
+import SwitchFormIntegration from '@/components/examples/switch/form-integration.tsx';
+import SwitchInitialChecked from '@/components/examples/switch/initial-checked.tsx';
+import SwitchReadOnly from '@/components/examples/switch/read-only.tsx';
+import SwitchRootProvider from '@/components/examples/switch/root-provider.tsx';
+import SwitchSizes from '@/components/examples/switch/sizes.tsx';
+import switchSolidAdvancedCustomization from '../../../snippets/switch/solid/advanced-customization.tsx?raw';
+import switchSolidAsChild from '../../../snippets/switch/solid/as-child.tsx?raw';
+import switchSolidBasic from '../../../snippets/switch/solid/basic.tsx?raw';
+import switchSolidContext from '../../../snippets/switch/solid/context.tsx?raw';
+import switchSolidControlled from '../../../snippets/switch/solid/controlled.tsx?raw';
+import switchSolidDisabled from '../../../snippets/switch/solid/disabled.tsx?raw';
+import switchSolidFormIntegration from '../../../snippets/switch/solid/form-integration.tsx?raw';
+import switchSolidInitialChecked from '../../../snippets/switch/solid/initial-checked.tsx?raw';
+import switchSolidReadOnly from '../../../snippets/switch/solid/read-only.tsx?raw';
+import switchSolidRootProvider from '../../../snippets/switch/solid/root-provider.tsx?raw';
+import switchSolidSizes from '../../../snippets/switch/solid/sizes.tsx?raw';
 
 ## Справочник API
 
@@ -12,27 +34,79 @@ import * as SwitchDocs from '@/components/examples/switch';
 
 ## Выбор подходящего компонента
 
-Используйте `Switch` для настроек, которые применяются сразу после изменения. Переключатель управляет
-одним булевым значением.
+Используйте `Switch` для настройки, которая применяется сразу после изменения. Переключатель представляет одно
+булево значение.
 
-- Выбирайте **`Switch`** для таких настроек, как уведомления, напоминания или включение функций приложения.
-- Выбирайте **`Checkbox`**, когда пользователь выбирает значение для отправки вместе с формой, а не сразу меняет настройку.
+- Выбирайте **`Switch`** для таких настроек, как уведомления, напоминания или функции приложения.
+- Выбирайте **`Checkbox`**, когда значение нужно отправить вместе с формой,
+  а не применить сразу как настройку.
 - Выбирайте **`RadioGroup`**, когда пользователь должен выбрать один вариант из нескольких взаимоисключающих значений.
 
 ## Базовый пример
 
-Базовый переключатель состоит из корневого элемента, визуальной дорожки и подписи. Дорожка автоматически получает
-стандартный бегунок, а корневой элемент добавляет скрытое поле формы для нативного поведения формы.
+Switch доступен для React и Solid в пакетах CSS Modules и Tailwind. Интерактивный пример
+на этой странице использует пакет React CSS Modules, а вкладки фреймворка показывают нативный код для того же
+публичного контракта.
 
-<PreviewFrame>
-  ```tsx preview file="../../en/docs/_snippets/switch/basic.tsx"
+Базовый переключатель состоит из корня, визуальной дорожки, подписи и явного `Switch.HiddenInput` для нативного
+взаимодействия и работы с формой. Если у дорожки нет дочерних элементов, она получает стандартный бегунок.
 
-  ```
-</PreviewFrame>
+<ExampleFrame variant="component">
+  <SwitchBasic />
+</ExampleFrame>
+
+<ExampleCode>
+<div className="docs-reference">
+  <Tabs
+    groupId="framework"
+    values={[
+      { label: 'React', value: 'react' },
+      { label: 'Solid', value: 'solid' },
+    ]}
+    className="docs-tabs"
+  >
+    <Tab value="react">
+
+```tsx pure file="../../../src/components/examples/switch/basic.tsx"
+```
+
+    </Tab>
+    <Tab value="solid">
+
+<CodeBlockRuntime lang="tsx" code={switchSolidBasic} />
+
+    </Tab>
+  </Tabs>
+</div>
+
+</ExampleCode>
 
 ## Установка через shadcn
 
-<ShadcnInstall packageName="switch" />
+Полную настройку пакета, реестра и стилей см. в разделе [Быстрый старт](/docs/quick-start).
+
+<Tabs groupId="framework">
+  <Tab label="React" value="react">
+
+<ShadcnInstallOptions
+  options={[
+    { label: 'CSS Modules', command: 'shadcn@latest add @moduix-react/switch' },
+    { label: 'Tailwind CSS', command: 'shadcn@latest add @moduix-react-tailwind/switch' },
+  ]}
+/>
+
+  </Tab>
+  <Tab label="Solid" value="solid">
+
+<ShadcnInstallOptions
+  options={[
+    { label: 'CSS Modules', command: 'shadcn@latest add @moduix-solid/switch' },
+    { label: 'Tailwind CSS', command: 'shadcn@latest add @moduix-solid-tailwind/switch' },
+  ]}
+/>
+
+  </Tab>
+</Tabs>
 
 ## Анатомия
 
@@ -41,164 +115,423 @@ Switch / Switch.Root
 ├─ Switch.Control
 │  └─ Switch.Thumb
 ├─ Switch.Label
-└─ скрытое поле формы (добавляется автоматически)
+└─ Switch.HiddenInput (explicit)
 ```
 
-| Часть                         | Назначение                                                                 |
-| ----------------------------- | -------------------------------------------------------------------------- |
-| `Switch` / `Switch.Root`      | Корневой элемент `label`. Хранит состояние, ID, свойства формы и `size`.   |
-| `Switch.RootProvider`         | Корневой элемент с состоянием, созданным через `useSwitch()`.              |
+| Часть                         | Назначение                                                              |
+| ----------------------------- | ----------------------------------------------------------------------- |
+| `Switch` / `Switch.Root`      | Корневой элемент `label`. Хранит состояние, ID, свойства формы и `size`. |
+| `Switch.HiddenInput`          | Нативное поле Ark; правила явной композиции описаны ниже.               |
+| `Switch.RootProvider`         | Корневой элемент с состоянием, созданным через `useSwitch()`.            |
 | `Switch.Control`              | Визуальная дорожка и цель для кольца фокуса. По умолчанию добавляет бегунок. |
 | `Switch.Thumb`                | Подвижный бегунок для стандартного вида или пользовательского содержимого. |
-| `Switch.Label`                | Подпись, связанная с переключателем через Ark.                             |
+| `Switch.Label`                | Подпись, связанная с переключателем через Ark.                         |
 
 `Switch` и `Switch.Root` - два имени одного и того же корневого компонента. `Switch.Context`,
 `useSwitchContext` и `useSwitch` экспортируются из `@moduix/react` вместе с компонентом.
+Соответствующие экспорты Solid доступны из `@moduix/solid` и `@moduix/solid/switch`.
 
 ## Композиция
 
-### Рекомендуемая композиция
+Явно добавляйте `Switch.HiddenInput` внутрь `Switch` или `Switch.RootProvider`, даже если
+переключатель находится не в форме. Это нативное поле, которое Ark использует для фокуса, работы с клавиатурой,
+доступности и отправки формы.
 
-В обычном случае используйте короткую форму `<Switch>`, поместив внутрь `Switch.Control` и `Switch.Label`.
-Корневой элемент сам добавляет скрытое поле формы, но не добавляет видимые части переключателя.
+Если у `Switch.Control` нет дочерних элементов, он добавляет стандартный `Switch.Thumb`. Добавляйте `Switch.Thumb`
+явно только при необходимости настроить содержимое или стили бегунка.
 
-Если у `Switch.Control` нет дочерних элементов, он добавляет стандартный `Switch.Thumb`. Добавьте
-`Switch.Thumb` явно, когда бегунку нужны пользовательское содержимое или собственная стилизация.
+Используйте `Switch.Context` или `useSwitchContext`, когда соседнему интерфейсу нужно читать состояние переключателя. Используйте
+`useSwitch` вместе с `Switch.RootProvider`, когда состояние нужно создать вне дерева переключателя.
+Не рендерите `Switch` и `Switch.RootProvider` для одного экземпляра состояния.
 
-### Когда нужна собственная композиция
-
-Используйте `asChild`, когда нужно самостоятельно передать корневой DOM-элемент. Его непосредственный потомок
-должен быть единственным элементом, совместимым с `label`, чтобы у переключателя сохранилось доступное имя.
-
-Используйте `Switch.Context` или `useSwitchContext`, когда соседнему интерфейсу нужно читать состояние переключателя.
-Используйте `useSwitch` вместе с `Switch.RootProvider`, когда состояние создаётся и управляется вне дерева
-переключателя. Не рендерите `Switch` и `Switch.RootProvider` для одного экземпляра состояния.
-
-### Свойства по умолчанию
-
-| Свойство    | По умолчанию | Примечания                                           |
-| ----------- | ------------ | ---------------------------------------------------- |
-| `size`      | `md`         | Дополнение moduix: `xs`, `sm`, `md`, `lg`, `xl`.     |
-| `value`     | `on`         | Значение скрытого поля при отправке формы.           |
-| `children`  | `undefined`  | Явно соберите видимые части компонента.              |
-| `className` | `undefined`  | Передаётся корневому элементу `label`.               |
-
-### Особенности поведения
-
-- Для неуправляемого режима используйте `defaultChecked`. Для управляемого режима используйте `checked` вместе с `onCheckedChange(details)`.
-- `onCheckedChange` получает объект с деталями. Новое булево состояние находится в `details.checked`.
-- Корневой элемент всегда добавляет скрытое нативное поле формы. Свойства `name`, `value`, `form` и `required` настраивают его участие в форме. Для неуправляемого переключателя сброс формы возвращает исходное состояние.
-- `readOnly` сохраняет текущее состояние и устанавливает `aria-readonly="true"` на нативном элементе управления.
-- Дорожка и ползунок отключают переходы, если пользователь предпочитает уменьшенное движение (`prefers-reduced-motion`).
-- Для сложной логики чтения состояния используйте `Switch.Context` или `useSwitchContext`. Если владельцу состояния нужно находиться вне дерева переключателя, используйте `useSwitch` вместе с `Switch.RootProvider`.
-- При использовании `asChild` дочерний элемент должен оставаться единственным семантическим элементом, совместимым с `label`.
+При использовании `asChild` передавайте один семантический элемент, совместимый с `label`, чтобы Ark сохранял
+доступность переключателя.
 
 ## Примеры
 
 ### asChild
 
-Используйте `asChild`, когда нужен пользовательский корневой элемент, а поведение переключателя по-прежнему должен обеспечивать Ark.
+Используйте `asChild`, когда нужен пользовательский корневой элемент, а поведение переключателя по-прежнему обеспечивает Ark.
 
-<PreviewFrame>
-  ```tsx preview file="../../en/docs/_snippets/switch/as-child.tsx"
+<ExampleFrame variant="component">
+  <SwitchAsChild />
+</ExampleFrame>
 
-  ```
-</PreviewFrame>
+<ExampleCode>
+<div className="docs-reference">
+  <Tabs
+    groupId="framework"
+    values={[
+      { label: 'React', value: 'react' },
+      { label: 'Solid', value: 'solid' },
+    ]}
+    className="docs-tabs"
+  >
+    <Tab value="react">
+
+```tsx pure file="../../../src/components/examples/switch/as-child.tsx"
+```
+
+    </Tab>
+    <Tab value="solid">
+
+<CodeBlockRuntime lang="tsx" code={switchSolidAsChild} />
+
+    </Tab>
+  </Tabs>
+
+**Стили**
+
+```css file="../../../src/components/examples/switch/switch-as-child.module.css"
+```
+</div>
+
+</ExampleCode>
 
 ### Контекст
 
-Импортируйте `useSwitchContext` из `@moduix/react`, когда соседней подписи или вспомогательному элементу нужно читать текущее состояние переключателя.
+Импортируйте `useSwitchContext` из `@moduix/react`, когда соседнему интерфейсу нужно читать текущее состояние переключателя.
 
-<PreviewFrame>
-  ```tsx preview file="../../en/docs/_snippets/switch/context.tsx"
+<ExampleFrame variant="component">
+  <SwitchContext />
+</ExampleFrame>
 
-  ```
-</PreviewFrame>
+<ExampleCode>
+<div className="docs-reference">
+  <Tabs
+    groupId="framework"
+    values={[
+      { label: 'React', value: 'react' },
+      { label: 'Solid', value: 'solid' },
+    ]}
+    className="docs-tabs"
+  >
+    <Tab value="react">
+
+```tsx pure file="../../../src/components/examples/switch/context.tsx"
+```
+
+    </Tab>
+    <Tab value="solid">
+
+<CodeBlockRuntime lang="tsx" code={switchSolidContext} />
+
+    </Tab>
+  </Tabs>
+</div>
+
+</ExampleCode>
 
 ### Управляемое состояние
 
 Используйте управляемый режим, когда переключатель должен синхронизироваться с остальным интерфейсом или состоянием приложения.
 
-<PreviewFrame>
-  ```tsx preview file="../../en/docs/_snippets/switch/controlled.tsx"
+<ExampleFrame variant="component">
+  <SwitchControlled />
+</ExampleFrame>
 
-  ```
-</PreviewFrame>
+<ExampleCode>
+<div className="docs-reference">
+  <Tabs
+    groupId="framework"
+    values={[
+      { label: 'React', value: 'react' },
+      { label: 'Solid', value: 'solid' },
+    ]}
+    className="docs-tabs"
+  >
+    <Tab value="react">
+
+```tsx pure file="../../../src/components/examples/switch/controlled.tsx"
+```
+
+    </Tab>
+    <Tab value="solid">
+
+<CodeBlockRuntime lang="tsx" code={switchSolidControlled} />
+
+    </Tab>
+  </Tabs>
+
+**Стили**
+
+```css file="../../../src/components/examples/switch/switch-controlled.module.css"
+```
+</div>
+
+</ExampleCode>
 
 ### Отключённое состояние
 
 Используйте `disabled`, чтобы запретить взаимодействие и сохранить текущее визуальное состояние.
 
-<PreviewFrame>
-  ```tsx preview file="../../en/docs/_snippets/switch/disabled.tsx"
+<ExampleFrame variant="component">
+  <SwitchDisabled />
+</ExampleFrame>
 
-  ```
-</PreviewFrame>
+<ExampleCode>
+<div className="docs-reference">
+  <Tabs
+    groupId="framework"
+    values={[
+      { label: 'React', value: 'react' },
+      { label: 'Solid', value: 'solid' },
+    ]}
+    className="docs-tabs"
+  >
+    <Tab value="react">
+
+```tsx pure file="../../../src/components/examples/switch/disabled.tsx"
+```
+
+    </Tab>
+    <Tab value="solid">
+
+<CodeBlockRuntime lang="tsx" code={switchSolidDisabled} />
+
+    </Tab>
+  </Tabs>
+
+**Стили**
+
+```css file="../../../src/components/examples/switch/switch-disabled.module.css"
+```
+</div>
+
+</ExampleCode>
 
 ### Интеграция с формой
 
-Используйте `Field`, когда переключателю нужны подпись, валидация или отправка вместе с формой. В этом примере ошибка появляется после отправки формы, если переключатель остался выключенным.
+Используйте `Field`, когда переключателю нужны подпись, валидация или отправка вместе с формой. В этом примере ошибка
+появляется после отправки формы, если переключатель остался выключенным.
 
-<PreviewFrame contentWidth="fit-content" maxWidth="sm">
-  ```tsx preview file="../../en/docs/_snippets/switch/form-integration.tsx"
+<ExampleFrame variant="component">
+  <SwitchFormIntegration />
+</ExampleFrame>
 
-  ```
-</PreviewFrame>
+<ExampleCode>
+<div className="docs-reference">
+  <Tabs
+    groupId="framework"
+    values={[
+      { label: 'React', value: 'react' },
+      { label: 'Solid', value: 'solid' },
+    ]}
+    className="docs-tabs"
+  >
+    <Tab value="react">
+
+```tsx pure file="../../../src/components/examples/switch/form-integration.tsx"
+```
+
+    </Tab>
+    <Tab value="solid">
+
+<CodeBlockRuntime lang="tsx" code={switchSolidFormIntegration} />
+
+    </Tab>
+  </Tabs>
+
+**Стили**
+
+```css file="../../../src/components/examples/switch/switch-form-integration.module.css"
+```
+</div>
+
+</ExampleCode>
 
 ### Начальное состояние
 
 Используйте `defaultChecked`, когда переключатель должен быть включён при первом рендере, а затем самостоятельно управлять своим состоянием.
 
-<PreviewFrame>
-  ```tsx preview file="../../en/docs/_snippets/switch/initial-checked.tsx"
+<ExampleFrame variant="component">
+  <SwitchInitialChecked />
+</ExampleFrame>
 
-  ```
-</PreviewFrame>
+<ExampleCode>
+<div className="docs-reference">
+  <Tabs
+    groupId="framework"
+    values={[
+      { label: 'React', value: 'react' },
+      { label: 'Solid', value: 'solid' },
+    ]}
+    className="docs-tabs"
+  >
+    <Tab value="react">
+
+```tsx pure file="../../../src/components/examples/switch/initial-checked.tsx"
+```
+
+    </Tab>
+    <Tab value="solid">
+
+<CodeBlockRuntime lang="tsx" code={switchSolidInitialChecked} />
+
+    </Tab>
+  </Tabs>
+</div>
+
+</ExampleCode>
 
 ### Только для чтения
 
 Используйте `readOnly`, когда текущее состояние должно оставаться видимым, но пользователь не должен иметь возможности его изменить.
 
-<PreviewFrame>
-  ```tsx preview file="../../en/docs/_snippets/switch/read-only.tsx"
+<ExampleFrame variant="component">
+  <SwitchReadOnly />
+</ExampleFrame>
 
-  ```
-</PreviewFrame>
+<ExampleCode>
+<div className="docs-reference">
+  <Tabs
+    groupId="framework"
+    values={[
+      { label: 'React', value: 'react' },
+      { label: 'Solid', value: 'solid' },
+    ]}
+    className="docs-tabs"
+  >
+    <Tab value="react">
+
+```tsx pure file="../../../src/components/examples/switch/read-only.tsx"
+```
+
+    </Tab>
+    <Tab value="solid">
+
+<CodeBlockRuntime lang="tsx" code={switchSolidReadOnly} />
+
+    </Tab>
+  </Tabs>
+
+**Стили**
+
+```css file="../../../src/components/examples/switch/switch-read-only.module.css"
+```
+</div>
+
+</ExampleCode>
 
 ### Состояние через RootProvider
 
-Импортируйте `useSwitch` из `@moduix/react` и передайте созданное состояние в `Switch.RootProvider`, когда нужно управлять им вне дерева переключателя.
+Импортируйте `useSwitch` из `@moduix/react` и передайте созданное состояние в `Switch.RootProvider`, когда нужно создать
+и управлять состоянием вне дерева переключателя.
 
-<PreviewFrame>
-  ```tsx preview file="../../en/docs/_snippets/switch/root-provider.tsx"
+<ExampleFrame variant="component">
+  <SwitchRootProvider />
+</ExampleFrame>
 
-  ```
-</PreviewFrame>
+<ExampleCode>
+<div className="docs-reference">
+  <Tabs
+    groupId="framework"
+    values={[
+      { label: 'React', value: 'react' },
+      { label: 'Solid', value: 'solid' },
+    ]}
+    className="docs-tabs"
+  >
+    <Tab value="react">
+
+```tsx pure file="../../../src/components/examples/switch/root-provider.tsx"
+```
+
+    </Tab>
+    <Tab value="solid">
+
+<CodeBlockRuntime lang="tsx" code={switchSolidRootProvider} />
+
+    </Tab>
+  </Tabs>
+
+**Стили**
+
+```css file="../../../src/components/examples/switch/switch-root-provider.module.css"
+```
+</div>
+
+</ExampleCode>
 
 ### Размеры
 
 Используйте `size` от moduix, чтобы подобрать размер под плотность формы, не меняя дерево частей Ark.
 
-<PreviewFrame>
-  ```tsx preview file="../../en/docs/_snippets/switch/sizes.tsx"
+<ExampleFrame variant="component">
+  <SwitchSizes />
+</ExampleFrame>
 
-  ```
-</PreviewFrame>
+<ExampleCode>
+<div className="docs-reference">
+  <Tabs
+    groupId="framework"
+    values={[
+      { label: 'React', value: 'react' },
+      { label: 'Solid', value: 'solid' },
+    ]}
+    className="docs-tabs"
+  >
+    <Tab value="react">
+
+```tsx pure file="../../../src/components/examples/switch/sizes.tsx"
+```
+
+    </Tab>
+    <Tab value="solid">
+
+<CodeBlockRuntime lang="tsx" code={switchSolidSizes} />
+
+    </Tab>
+  </Tabs>
+
+**Стили**
+
+```css file="../../../src/components/examples/switch/switch-sizes.module.css"
+```
+</div>
+
+</ExampleCode>
 
 ### Расширенная настройка
 
 Добавьте `Switch.Thumb` явно, когда бегунку нужны пользовательское содержимое или собственная стилизация.
 
-<PreviewFrame>
-  ```tsx preview file="../../en/docs/_snippets/switch/advanced-customization.tsx"
+<ExampleFrame variant="component">
+  <SwitchAdvancedCustomization />
+</ExampleFrame>
 
-  ```
-</PreviewFrame>
+<ExampleCode>
+<div className="docs-reference">
+  <Tabs
+    groupId="framework"
+    values={[
+      { label: 'React', value: 'react' },
+      { label: 'Solid', value: 'solid' },
+    ]}
+    className="docs-tabs"
+  >
+    <Tab value="react">
+
+```tsx pure file="../../../src/components/examples/switch/advanced-customization.tsx"
+```
+
+    </Tab>
+    <Tab value="solid">
+
+<CodeBlockRuntime lang="tsx" code={switchSolidAdvancedCustomization} />
+
+    </Tab>
+  </Tabs>
+</div>
+
+</ExampleCode>
 
 ## Стилизация
 
-Стилизуйте `Switch` с помощью `className`, публичных хуков `data-slot`, атрибутов состояния Ark и публичных
-CSS-переменных `--moduix-switch-*`, показанных ниже.
+Стилизуйте `Switch` с помощью `className` в React или `class` в Solid, публичных хуков `data-slot` и атрибутов состояния Ark,
+а также публичных CSS-переменных `--moduix-switch-*`, показанных ниже. Варианты Tailwind настраиваются
+обычными утилитами и пользовательскими классами. Переменные ниже относятся к CSS Modules, а атрибуты данных
+общие для обоих подходов.
 
 ### CSS-свойства
 
@@ -216,8 +549,11 @@ CSS-переменных `--moduix-switch-*`, показанных ниже.
 
 ### Хуки стилизации
 
-- `Switch` и `Switch.RootProvider` предоставляют `data-slot="switch-root"` / `data-slot="switch-root-provider"` и добавляют атрибут `data-size` от moduix.
-- `Switch.Control` предоставляет `data-slot="switch-control"` и получает атрибуты состояния Ark, включая `data-state`, `data-focus-visible`, `data-hover`, `data-active`, `data-disabled`, `data-readonly`, `data-invalid` и `data-required`.
-- `Switch.Thumb` предоставляет `data-slot="switch-thumb"` и получает те же атрибуты состояния Ark для движения ползунка и стилизации пользовательского содержимого.
+- `Switch` и `Switch.RootProvider` предоставляют `data-slot="switch-root"` /
+  `data-slot="switch-root-provider"` и добавляют атрибут `data-size` от moduix.
+- `Switch.Control` предоставляет `data-slot="switch-control"` и получает атрибуты состояния Ark, включая
+  `data-state`, `data-focus-visible`, `data-hover`, `data-active`, `data-disabled`, `data-readonly`,
+  `data-invalid` и `data-required`.
+- `Switch.Thumb` предоставляет `data-slot="switch-thumb"` и получает те же атрибуты состояния Ark для
+  движения бегунка и стилизации пользовательского содержимого.
 - `Switch.Label` предоставляет `data-slot="switch-label"` для переопределения типографики.
-- Нативное поле формы предоставляет `data-slot="switch-hidden-input"` для проверки, но должно оставаться визуально скрытым средствами Ark.

@@ -1,0 +1,649 @@
+@layer moduix.components {
+  @keyframes color-picker-content-open {
+    from {
+      opacity: var(
+        --moduix-color-picker-content-closed-opacity,
+        var(--moduix-popup-motion-starting-opacity, 0)
+      );
+      translate: var(--moduix-popup-motion-starting-translate-x, 0)
+        var(--moduix-popup-motion-starting-translate-y, 0);
+      transform: scale(
+        var(
+          --moduix-color-picker-content-closed-scale,
+          var(--moduix-popup-motion-starting-scale, var(--moduix-scale-popup))
+        )
+      );
+    }
+
+    to {
+      opacity: 1;
+      translate: 0 0;
+      transform: scale(1);
+    }
+  }
+
+  @keyframes color-picker-content-closed {
+    from {
+      opacity: 1;
+      translate: 0 0;
+      transform: scale(1);
+    }
+
+    to {
+      opacity: var(
+        --moduix-color-picker-content-closed-opacity,
+        var(--moduix-popup-motion-ending-opacity, 0)
+      );
+      translate: var(--moduix-popup-motion-ending-translate-x, 0)
+        var(--moduix-popup-motion-ending-translate-y, 0);
+      transform: scale(
+        var(
+          --moduix-color-picker-content-closed-scale,
+          var(--moduix-popup-motion-ending-scale, var(--moduix-scale-popup))
+        )
+      );
+    }
+  }
+
+  .root {
+    box-sizing: border-box;
+    display: flex;
+    width: var(--moduix-color-picker-width, 16rem);
+    max-width: var(--moduix-color-picker-max-width, 100%);
+    min-width: 0;
+    flex-direction: column;
+    gap: var(--moduix-color-picker-root-gap, var(--moduix-spacing-2));
+    color: var(--moduix-color-picker-color, var(--moduix-color-foreground));
+
+    &[data-disabled] {
+      opacity: var(--moduix-color-picker-disabled-opacity, var(--moduix-opacity-disabled));
+    }
+  }
+
+  .label {
+    display: inline-flex;
+    align-items: center;
+    color: var(
+      --moduix-color-picker-label-color,
+      var(--moduix-color-picker-color, var(--moduix-color-foreground))
+    );
+    font-size: var(--moduix-color-picker-label-font-size, var(--moduix-text-sm));
+    font-weight: var(--moduix-color-picker-label-font-weight, var(--moduix-weight-medium));
+    line-height: var(--moduix-color-picker-label-line-height, var(--moduix-line-height-text-sm));
+    user-select: none;
+
+    &[data-disabled] {
+      opacity: var(--moduix-color-picker-disabled-opacity, var(--moduix-opacity-disabled));
+    }
+  }
+
+  .control {
+    display: flex;
+    min-width: 0;
+    align-items: center;
+    gap: var(--moduix-color-picker-control-gap, var(--moduix-spacing-2));
+
+    &[data-disabled] {
+      opacity: var(--moduix-color-picker-disabled-opacity, var(--moduix-opacity-disabled));
+    }
+  }
+
+  .trigger {
+    box-sizing: border-box;
+    display: grid;
+    width: var(--moduix-color-picker-trigger-size, var(--moduix-size-md));
+    height: var(--moduix-color-picker-trigger-size, var(--moduix-size-md));
+    flex-shrink: 0;
+    place-items: center;
+    overflow: hidden;
+    margin: 0;
+    border: var(--moduix-color-picker-border-width, var(--moduix-border-width-sm)) solid
+      var(--moduix-color-picker-border-color, var(--moduix-color-border));
+    border-radius: var(--moduix-color-picker-radius, var(--moduix-radius-md));
+    padding: var(--moduix-color-picker-trigger-padding, var(--moduix-spacing-1));
+    background: var(--moduix-color-picker-control-bg, var(--moduix-color-background));
+    color: var(--moduix-color-picker-color, var(--moduix-color-foreground));
+    outline: var(
+        --moduix-color-picker-focus-ring-width,
+        var(--moduix-focus-ring-inset-width, var(--moduix-border-width-sm))
+      )
+      solid transparent;
+    outline-offset: calc(
+      var(
+          --moduix-color-picker-focus-ring-width,
+          var(--moduix-focus-ring-inset-width, var(--moduix-border-width-sm))
+        ) *
+        -1
+    );
+    cursor: pointer;
+    transition:
+      border-color var(--moduix-color-picker-transition, var(--moduix-transition-default)),
+      outline-color var(--moduix-color-picker-transition, var(--moduix-transition-default)),
+      background-color var(--moduix-color-picker-transition, var(--moduix-transition-default));
+
+    &:is(:focus-visible, [data-state='open']) {
+      border-color: var(--moduix-color-picker-focus-ring-color, var(--moduix-color-ring));
+      outline-color: var(--moduix-color-picker-focus-ring-color, var(--moduix-color-ring));
+    }
+
+    &[data-invalid] {
+      border-color: var(--moduix-color-picker-invalid-color, var(--moduix-color-destructive));
+      outline-color: var(--moduix-color-picker-invalid-color, var(--moduix-color-destructive));
+    }
+
+    &:is([disabled], [data-disabled], [data-readonly]) {
+      cursor: default;
+    }
+
+    &[data-fit-content] {
+      display: inline-flex;
+      width: auto;
+      min-width: var(--moduix-color-picker-trigger-size, var(--moduix-size-md));
+      padding-inline: var(
+        --moduix-color-picker-trigger-fit-content-padding-x,
+        var(--moduix-spacing-3)
+      );
+      gap: var(--moduix-color-picker-trigger-fit-content-gap, var(--moduix-spacing-2));
+    }
+
+    &[data-fit-content] [data-slot='color-picker-transparency-grid'],
+    &[data-fit-content] [data-slot='color-picker-value-swatch'] {
+      grid-area: auto;
+      width: var(--moduix-color-picker-trigger-fit-content-swatch-size, var(--moduix-spacing-4));
+      height: var(--moduix-color-picker-trigger-fit-content-swatch-size, var(--moduix-spacing-4));
+      flex-shrink: 0;
+    }
+  }
+
+  .positioner {
+    z-index: var(--z-index);
+    outline: 0;
+  }
+
+  .content {
+    box-sizing: border-box;
+    z-index: calc(var(--moduix-z-popup) + var(--layer-index, 0));
+    display: flex;
+    width: var(--moduix-color-picker-content-width, 16rem);
+    max-width: var(--available-width);
+    max-height: min(var(--moduix-color-picker-content-max-height, 32rem), var(--available-height));
+    flex-direction: column;
+    gap: var(--moduix-color-picker-content-gap, var(--moduix-spacing-3));
+    overflow: auto;
+    border: var(--moduix-color-picker-content-border-width, var(--moduix-border-width-sm)) solid
+      var(--moduix-color-picker-content-border-color, var(--moduix-color-border));
+    border-radius: var(
+      --moduix-color-picker-content-radius,
+      var(--moduix-color-picker-radius, var(--moduix-radius-md))
+    );
+    padding: var(--moduix-color-picker-content-padding, var(--moduix-spacing-4));
+    background-color: var(--moduix-color-picker-content-bg, var(--moduix-color-popover));
+    box-shadow: var(--moduix-color-picker-content-shadow, var(--moduix-shadow-lg));
+    color: var(--moduix-color-picker-content-color, var(--moduix-color-popover-foreground));
+    transform-origin: var(--transform-origin);
+    outline: 0;
+    overscroll-behavior: contain;
+
+    &[data-state='open'] {
+      animation: color-picker-content-open
+        var(
+          --moduix-color-picker-transition,
+          var(--moduix-popup-motion-duration, var(--moduix-duration-normal))
+            var(--moduix-popup-motion-easing, var(--moduix-ease-in-out))
+        );
+    }
+
+    &[data-state='closed'] {
+      animation: color-picker-content-closed
+        var(
+          --moduix-color-picker-transition,
+          var(--moduix-popup-motion-duration, var(--moduix-duration-normal))
+            var(--moduix-popup-motion-easing, var(--moduix-ease-in-out))
+        );
+    }
+  }
+
+  @media (prefers-reduced-motion: reduce) {
+    .content[data-state] {
+      animation-duration: 1ms;
+      animation-delay: 0ms;
+    }
+  }
+
+  .area {
+    position: relative;
+    box-sizing: border-box;
+    width: 100%;
+    height: var(--moduix-color-picker-area-height, 10rem);
+    overflow: hidden;
+    border-radius: var(--moduix-color-picker-area-radius, var(--moduix-radius-md));
+    box-shadow: inset 0 0 0
+      var(--moduix-color-picker-area-border-width, var(--moduix-border-width-sm))
+      var(
+        --moduix-color-picker-area-border-color,
+        color-mix(in oklab, var(--moduix-color-border) 70%, transparent)
+      );
+    touch-action: none;
+    user-select: none;
+
+    &:is([data-disabled], [data-readonly]) {
+      cursor: default;
+    }
+  }
+
+  .areaBackground {
+    width: 100%;
+    height: 100%;
+    border-radius: inherit;
+  }
+
+  .thumb {
+    box-sizing: border-box;
+    width: var(--moduix-color-picker-thumb-size, var(--moduix-spacing-4));
+    height: var(--moduix-color-picker-thumb-size, var(--moduix-spacing-4));
+    border-radius: var(--moduix-color-picker-thumb-radius, var(--moduix-radius-full));
+    background: var(--moduix-color-picker-thumb-bg, var(--moduix-color-background));
+    box-shadow:
+      0 0 0 var(--moduix-color-picker-thumb-inner-ring-width, var(--moduix-border-width-md))
+        var(--moduix-color-picker-thumb-inner-ring-color, var(--moduix-color-background)),
+      0 0 0 var(--moduix-color-picker-thumb-outer-ring-width, var(--moduix-border-width-lg))
+        var(
+          --moduix-color-picker-thumb-outer-ring-color,
+          color-mix(in oklab, black 18%, transparent)
+        ),
+      var(--moduix-color-picker-thumb-shadow, var(--moduix-shadow-sm));
+    transform: translate(-50%, -50%);
+    outline: 0;
+
+    &:focus-visible {
+      box-shadow:
+        0 0 0 var(--moduix-color-picker-thumb-inner-ring-width, var(--moduix-border-width-md))
+          var(--moduix-color-picker-thumb-inner-ring-color, var(--moduix-color-background)),
+        0 0 0 var(--moduix-color-picker-thumb-focus-ring-width, var(--moduix-border-width-lg))
+          var(--moduix-color-picker-focus-ring-color, var(--moduix-color-ring)),
+        var(--moduix-color-picker-thumb-shadow, var(--moduix-shadow-sm));
+    }
+
+    &[data-disabled] {
+      pointer-events: none;
+    }
+  }
+
+  .channelSlider {
+    position: relative;
+    box-sizing: border-box;
+    display: flex;
+    height: var(--moduix-color-picker-channel-slider-height, var(--moduix-spacing-3));
+    align-items: center;
+    border-radius: var(--moduix-color-picker-channel-slider-radius, var(--moduix-radius-full));
+    touch-action: none;
+    user-select: none;
+
+    &[data-orientation='vertical'] {
+      width: var(--moduix-color-picker-channel-slider-height, var(--moduix-spacing-3));
+      height: var(--moduix-color-picker-channel-slider-vertical-height, 10rem);
+      align-items: stretch;
+      justify-content: center;
+    }
+  }
+
+  .sliders {
+    display: flex;
+    min-width: 0;
+    flex: 1;
+    flex-direction: column;
+    gap: var(--moduix-color-picker-sliders-gap, var(--moduix-spacing-2));
+  }
+
+  .channelSliderTrack {
+    width: 100%;
+    height: var(--moduix-color-picker-channel-slider-track-size, var(--moduix-spacing-3));
+    border-radius: inherit;
+    box-shadow: inset 0 0 0
+      var(--moduix-color-picker-channel-slider-border-width, var(--moduix-border-width-sm))
+      var(
+        --moduix-color-picker-channel-slider-border-color,
+        color-mix(in oklab, black 14%, transparent)
+      );
+
+    &[data-orientation='vertical'] {
+      width: var(--moduix-color-picker-channel-slider-track-size, var(--moduix-spacing-3));
+      height: 100%;
+    }
+  }
+
+  .channelSliderLabel {
+    color: var(
+      --moduix-color-picker-channel-slider-label-color,
+      var(--moduix-color-picker-color, var(--moduix-color-foreground))
+    );
+    font-size: var(--moduix-color-picker-channel-slider-label-font-size, var(--moduix-text-sm));
+    font-weight: var(
+      --moduix-color-picker-channel-slider-label-font-weight,
+      var(--moduix-weight-medium)
+    );
+    line-height: var(
+      --moduix-color-picker-channel-slider-label-line-height,
+      var(--moduix-line-height-text-sm)
+    );
+  }
+
+  .channelSliderValueText {
+    color: var(
+      --moduix-color-picker-channel-slider-value-color,
+      var(--moduix-color-muted-foreground)
+    );
+    font-size: var(--moduix-color-picker-channel-slider-value-font-size, var(--moduix-text-sm));
+    line-height: var(
+      --moduix-color-picker-channel-slider-value-line-height,
+      var(--moduix-line-height-text-sm)
+    );
+  }
+
+  .channelInput,
+  .formatSelect {
+    box-sizing: border-box;
+    width: 100%;
+    min-width: 0;
+    height: var(--moduix-color-picker-input-height, var(--moduix-size-md));
+    margin: 0;
+    border: var(--moduix-color-picker-border-width, var(--moduix-border-width-sm)) solid
+      var(--moduix-color-picker-border-color, var(--moduix-color-border));
+    border-radius: var(--moduix-color-picker-radius, var(--moduix-radius-md));
+    padding-inline: var(--moduix-color-picker-input-padding-x, var(--moduix-spacing-3));
+    background: var(--moduix-color-picker-control-bg, var(--moduix-color-background));
+    color: var(--moduix-color-picker-color, var(--moduix-color-foreground));
+    font: inherit;
+    font-size: var(--moduix-color-picker-input-font-size, var(--moduix-text-sm));
+    line-height: var(--moduix-color-picker-input-line-height, var(--moduix-line-height-text-sm));
+    outline: var(
+        --moduix-color-picker-focus-ring-width,
+        var(--moduix-focus-ring-inset-width, var(--moduix-border-width-sm))
+      )
+      solid transparent;
+    outline-offset: calc(
+      var(
+          --moduix-color-picker-focus-ring-width,
+          var(--moduix-focus-ring-inset-width, var(--moduix-border-width-sm))
+        ) *
+        -1
+    );
+    transition:
+      border-color var(--moduix-color-picker-transition, var(--moduix-transition-default)),
+      outline-color var(--moduix-color-picker-transition, var(--moduix-transition-default));
+    &:is(:focus, :focus-visible) {
+      border-color: var(--moduix-color-picker-focus-ring-color, var(--moduix-color-ring));
+      outline-color: var(--moduix-color-picker-focus-ring-color, var(--moduix-color-ring));
+    }
+
+    &[data-invalid] {
+      border-color: var(--moduix-color-picker-invalid-color, var(--moduix-color-destructive));
+      outline-color: var(--moduix-color-picker-invalid-color, var(--moduix-color-destructive));
+    }
+
+    &[data-disabled] {
+      opacity: var(--moduix-color-picker-disabled-opacity, var(--moduix-opacity-disabled));
+    }
+  }
+
+  .channelInput {
+    flex: 1;
+    appearance: textfield;
+
+    &::-webkit-outer-spin-button,
+    &::-webkit-inner-spin-button {
+      margin: 0;
+      appearance: none;
+    }
+
+    &[data-channel='alpha'] {
+      width: var(--moduix-color-picker-alpha-input-width, 4rem);
+      flex: 0 0 var(--moduix-color-picker-alpha-input-width, 4rem);
+    }
+  }
+
+  .formatSelectControl {
+    position: relative;
+    display: inline-grid;
+    width: fit-content;
+    max-width: 100%;
+    min-width: 0;
+    flex-shrink: 0;
+  }
+
+  .formatSelect {
+    width: auto;
+    padding-inline-end: calc(
+      var(--moduix-color-picker-input-padding-x, var(--moduix-spacing-3)) +
+        var(--moduix-color-picker-icon-size, var(--moduix-spacing-4)) + var(--moduix-spacing-1)
+    );
+    appearance: none;
+    cursor: pointer;
+    text-transform: uppercase;
+
+    &:is([disabled], [data-disabled]) {
+      cursor: default;
+    }
+
+    @media (forced-colors: active) {
+      padding-inline-end: var(--moduix-color-picker-input-padding-x, var(--moduix-spacing-3));
+      appearance: auto;
+    }
+  }
+
+  .formatSelectIndicator {
+    position: absolute;
+    top: 50%;
+    inset-inline-end: var(--moduix-color-picker-input-padding-x, var(--moduix-spacing-3));
+    display: inline-flex;
+    width: var(--moduix-color-picker-icon-size, var(--moduix-spacing-4));
+    height: var(--moduix-color-picker-icon-size, var(--moduix-spacing-4));
+    align-items: center;
+    justify-content: center;
+    border-radius: var(--moduix-radius-sm);
+    background: var(--moduix-color-picker-action-bg, transparent);
+    color: var(--moduix-color-picker-action-color, var(--moduix-color-muted-foreground));
+    line-height: 0;
+    pointer-events: none;
+    transform: translateY(-50%);
+    transition:
+      background-color var(--moduix-color-picker-transition, var(--moduix-transition-default)),
+      color var(--moduix-color-picker-transition, var(--moduix-transition-default)),
+      opacity var(--moduix-color-picker-transition, var(--moduix-transition-default));
+
+    & > svg {
+      display: block;
+      width: 100%;
+      height: 100%;
+    }
+
+    @media (forced-colors: active) {
+      display: none;
+    }
+  }
+
+  .formatSelect:not(:is([disabled], [data-disabled])):hover + .formatSelectIndicator {
+    @media (hover: hover) {
+      background-color: var(--moduix-color-picker-action-bg-hover, var(--moduix-color-muted));
+      color: var(--moduix-color-picker-action-color-hover, var(--moduix-color-foreground));
+    }
+  }
+
+  .formatSelect:is([disabled], [data-disabled]) + .formatSelectIndicator {
+    opacity: var(--moduix-color-picker-disabled-opacity, var(--moduix-opacity-disabled));
+  }
+
+  .eyeDropperTrigger,
+  .formatTrigger {
+    box-sizing: border-box;
+    display: inline-flex;
+    height: var(--moduix-color-picker-action-size, var(--moduix-size-md));
+    min-width: var(--moduix-color-picker-action-size, var(--moduix-size-md));
+    flex-shrink: 0;
+    align-items: center;
+    justify-content: center;
+    gap: var(--moduix-color-picker-action-gap, var(--moduix-spacing-2));
+    margin: 0;
+    border: var(--moduix-color-picker-border-width, var(--moduix-border-width-sm)) solid
+      var(--moduix-color-picker-border-color, var(--moduix-color-border));
+    border-radius: var(--moduix-color-picker-radius, var(--moduix-radius-md));
+    padding-inline: var(--moduix-color-picker-action-padding-x, var(--moduix-spacing-2));
+    background: var(--moduix-color-picker-action-bg, transparent);
+    color: var(--moduix-color-picker-action-color, var(--moduix-color-muted-foreground));
+    font: inherit;
+    font-size: var(--moduix-color-picker-action-font-size, var(--moduix-text-sm));
+    line-height: var(--moduix-color-picker-action-line-height, var(--moduix-line-height-text-sm));
+    outline: var(
+        --moduix-color-picker-focus-ring-width,
+        var(--moduix-focus-ring-inset-width, var(--moduix-border-width-sm))
+      )
+      solid transparent;
+    outline-offset: calc(
+      var(
+          --moduix-color-picker-focus-ring-width,
+          var(--moduix-focus-ring-inset-width, var(--moduix-border-width-sm))
+        ) *
+        -1
+    );
+    cursor: pointer;
+    transition:
+      border-color var(--moduix-color-picker-transition, var(--moduix-transition-default)),
+      outline-color var(--moduix-color-picker-transition, var(--moduix-transition-default)),
+      background-color var(--moduix-color-picker-transition, var(--moduix-transition-default)),
+      color var(--moduix-color-picker-transition, var(--moduix-transition-default));
+
+    & > svg {
+      width: var(--moduix-color-picker-icon-size, var(--moduix-spacing-4));
+      height: var(--moduix-color-picker-icon-size, var(--moduix-spacing-4));
+    }
+
+    &:is(:focus-visible, [data-focus]) {
+      border-color: var(--moduix-color-picker-focus-ring-color, var(--moduix-color-ring));
+      outline-color: var(--moduix-color-picker-focus-ring-color, var(--moduix-color-ring));
+    }
+
+    &:not(:is([disabled], [data-disabled], [data-readonly])) {
+      @media (hover: hover) {
+        &:hover {
+          background-color: var(--moduix-color-picker-action-bg-hover, var(--moduix-color-muted));
+          color: var(--moduix-color-picker-action-color-hover, var(--moduix-color-foreground));
+        }
+      }
+    }
+
+    &:is([disabled], [data-disabled], [data-readonly]) {
+      cursor: default;
+    }
+  }
+
+  .swatchGroup {
+    display: flex;
+    flex-wrap: wrap;
+    gap: var(--moduix-color-picker-swatch-gap, var(--moduix-spacing-2));
+  }
+
+  .swatchTrigger {
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+    margin: 0;
+    border: 0;
+    border-radius: var(--moduix-color-picker-swatch-radius, var(--moduix-radius-sm));
+    padding: 0;
+    background: transparent;
+    outline: 0;
+    cursor: pointer;
+
+    &:focus-visible {
+      box-shadow: 0 0 0
+        var(
+          --moduix-color-picker-focus-ring-width,
+          var(--moduix-focus-ring-inset-width, var(--moduix-border-width-sm))
+        )
+        var(--moduix-color-picker-focus-ring-color, var(--moduix-color-ring));
+    }
+
+    &[data-disabled] {
+      cursor: default;
+      opacity: var(--moduix-color-picker-disabled-opacity, var(--moduix-opacity-disabled));
+    }
+  }
+
+  .swatch {
+    position: relative;
+    box-sizing: border-box;
+    display: grid;
+    width: var(--moduix-color-picker-swatch-size, var(--moduix-size-sm));
+    height: var(--moduix-color-picker-swatch-size, var(--moduix-size-sm));
+    flex-shrink: 0;
+    place-items: center;
+    overflow: hidden;
+    border-radius: inherit;
+    box-shadow: inset 0 0 0
+      var(--moduix-color-picker-swatch-border-width, var(--moduix-border-width-sm))
+      var(--moduix-color-picker-swatch-border-color, color-mix(in oklab, black 14%, transparent));
+  }
+
+  .swatchIndicator {
+    position: absolute;
+    inset: 0;
+    display: none;
+    align-items: center;
+    justify-content: center;
+    color: var(--moduix-color-picker-swatch-indicator-color, white);
+    filter: var(
+      --moduix-color-picker-swatch-indicator-shadow,
+      drop-shadow(0 1px 1px rgb(0 0 0 / 0.45))
+    );
+    pointer-events: none;
+
+    & > svg {
+      width: var(--moduix-color-picker-swatch-indicator-size, var(--moduix-spacing-4));
+      height: var(--moduix-color-picker-swatch-indicator-size, var(--moduix-spacing-4));
+    }
+
+    [data-state='checked'] > &,
+    &[data-state='checked'] {
+      display: inline-flex;
+    }
+  }
+
+  .transparencyGrid {
+    grid-area: 1 / 1;
+    width: 100%;
+    height: 100%;
+    border-radius: inherit;
+  }
+
+  .valueSwatch {
+    grid-area: 1 / 1;
+    width: 100%;
+    height: 100%;
+    border-radius: inherit;
+    z-index: 1;
+  }
+
+  .valueText {
+    min-width: 0;
+    color: var(
+      --moduix-color-picker-value-text-color,
+      var(--moduix-color-picker-color, var(--moduix-color-foreground))
+    );
+    font-size: var(--moduix-color-picker-value-text-font-size, var(--moduix-text-sm));
+    line-height: var(
+      --moduix-color-picker-value-text-line-height,
+      var(--moduix-line-height-text-sm)
+    );
+  }
+
+  .view {
+    display: flex;
+    min-width: 0;
+    flex-direction: column;
+    gap: var(--moduix-color-picker-view-gap, var(--moduix-spacing-2));
+
+    &[hidden] {
+      display: none;
+    }
+  }
+}

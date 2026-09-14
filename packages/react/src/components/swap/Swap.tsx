@@ -4,7 +4,6 @@ import { Swap as SwapPrimitive, useSwap, useSwapContext } from '@ark-ui/react/sw
 import { clsx } from 'clsx';
 import type { ComponentProps, ComponentRef } from 'react';
 import { forwardRef } from 'react';
-import { normalizeClassName } from '@/lib/moduix/normalizeClassName';
 import styles from './Swap.module.css';
 
 type SwapAnimation = 'fade' | 'scale' | 'rotate' | 'flip' | (string & {});
@@ -24,7 +23,7 @@ const SwapRoot = forwardRef<ComponentRef<typeof SwapPrimitive.Root>, SwapRootPro
         ref={ref}
         data-slot="swap-root"
         data-animation={animation}
-        className={clsx(styles.root, normalizeClassName(className))}
+        className={clsx(styles.root, className)}
         {...props}
       />
     );
@@ -40,7 +39,7 @@ const SwapRootProvider = forwardRef<
       ref={ref}
       data-slot="swap-root-provider"
       data-animation={animation}
-      className={clsx(styles.root, normalizeClassName(className))}
+      className={clsx(styles.root, className)}
       {...props}
     />
   );
@@ -54,7 +53,7 @@ const SwapIndicator = forwardRef<
     <SwapPrimitive.Indicator
       ref={ref}
       data-slot="swap-indicator"
-      className={clsx(styles.indicator, normalizeClassName(className))}
+      className={clsx(styles.indicator, className)}
       {...props}
     />
   );

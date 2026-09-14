@@ -4,7 +4,21 @@ component: progress-circular
 description: Indicateur circulaire pour suivre une progression déterminée ou indéterminée.
 ---
 
-import * as ProgressCircularDocs from '@/components/examples/progress-circular';
+import * as ProgressCircularDocs from '@/components/examples/progress-circular/css-properties';
+import ProgressCircularBasic from '@/components/examples/progress-circular/basic.tsx';
+import ControlledProgressCircular from '@/components/examples/progress-circular/controlled.tsx';
+import IndeterminateProgressCircular from '@/components/examples/progress-circular/indeterminate.tsx';
+import MinMaxProgressCircular from '@/components/examples/progress-circular/min-max.tsx';
+import RootProviderProgressCircular from '@/components/examples/progress-circular/root-provider.tsx';
+import StateViewsProgressCircular from '@/components/examples/progress-circular/state-views.tsx';
+import ValueTextProgressCircular from '@/components/examples/progress-circular/value-text.tsx';
+import progressCircularSolidBasic from '../../../snippets/progress-circular/solid/basic.tsx?raw';
+import progressCircularSolidControlled from '../../../snippets/progress-circular/solid/controlled.tsx?raw';
+import progressCircularSolidIndeterminate from '../../../snippets/progress-circular/solid/indeterminate.tsx?raw';
+import progressCircularSolidMinMax from '../../../snippets/progress-circular/solid/min-max.tsx?raw';
+import progressCircularSolidRootProvider from '../../../snippets/progress-circular/solid/root-provider.tsx?raw';
+import progressCircularSolidStateViews from '../../../snippets/progress-circular/solid/state-views.tsx?raw';
+import progressCircularSolidValueText from '../../../snippets/progress-circular/solid/value-text.tsx?raw';
 
 ## Référence de l’API
 
@@ -18,22 +32,76 @@ lorsque la progression se compare plus facilement sur une barre horizontale.
 
 ## Exemple de base
 
+`ProgressCircular` est disponible pour React et Solid dans les variantes CSS Modules et Tailwind.
+L’aperçu de cette page utilise React et CSS Modules ; les onglets React et Solid affichent le code
+source natif du même contrat public.
+
 Utilisez `ProgressCircular.Ring` pour afficher le cercle SVG standard, sa piste et son arc de
 progression. Ajoutez `ProgressCircular.ValueText` pour afficher la valeur actuelle. L’exemple place
 ce texte au centre du cercle grâce à un conteneur externe. Donnez à `Ring` un `aria-label` qui
 identifie la tâche et correspond au libellé visible.
 
-<style>{ProgressCircularDocs.progressCircularBasicExampleCss}</style>
+<ExampleFrame variant="component">
+  <ProgressCircularBasic />
+</ExampleFrame>
 
-<PreviewFrame>
-  ```tsx preview file="../../en/docs/_snippets/progress-circular/basic.tsx"
+<ExampleCode>
+<div className="docs-reference">
+  <Tabs
+    groupId="framework"
+    values={[
+      { label: 'React', value: 'react' },
+      { label: 'Solid', value: 'solid' },
+    ]}
+    className="docs-tabs"
+  >
+    <Tab value="react">
 
-  ```
-</PreviewFrame>
+```tsx pure file="../../../src/components/examples/progress-circular/basic.tsx"
+```
+
+    </Tab>
+    <Tab value="solid">
+
+<CodeBlockRuntime lang="tsx" code={progressCircularSolidBasic} />
+
+    </Tab>
+  </Tabs>
+
+**Styles**
+
+```css file="../../../src/components/examples/progress-circular/component-basic.module.css"
+```
+</div>
+
+</ExampleCode>
 
 ## Installation avec shadcn
 
-<ShadcnInstall packageName="progress-circular" />
+Consultez le [Démarrage rapide](/docs/quick-start) pour la configuration complète du paquet, du registre et des styles.
+
+<Tabs groupId="framework">
+  <Tab label="React" value="react">
+
+<ShadcnInstallOptions
+  options={[
+    { label: 'CSS Modules', command: 'shadcn@latest add @moduix-react/progress-circular' },
+    { label: 'Tailwind CSS', command: 'shadcn@latest add @moduix-react-tailwind/progress-circular' },
+  ]}
+/>
+
+  </Tab>
+  <Tab label="Solid" value="solid">
+
+<ShadcnInstallOptions
+  options={[
+    { label: 'CSS Modules', command: 'shadcn@latest add @moduix-solid/progress-circular' },
+    { label: 'Tailwind CSS', command: 'shadcn@latest add @moduix-solid-tailwind/progress-circular' },
+  ]}
+/>
+
+  </Tab>
+</Tabs>
 
 ## Anatomie
 
@@ -54,114 +122,151 @@ ProgressCircular.RootProvider
 
 | Partie                                        | Rôle                                                                                |
 | --------------------------------------------- | ----------------------------------------------------------------------------------- |
-| `ProgressCircular` / `ProgressCircular.Root`  | Gère l’état de progression, le formatage et les identifiants générés.                |
-| `ProgressCircular.RootProvider`               | Relie les parties à l’état créé par `ProgressCircular.useProgress()`.                |
-| `ProgressCircular.Context`                    | Expose l’état de progression courant via une fonction de rendu.                      |
-| `ProgressCircular.Label`                      | Fournit le contexte visible de l’indicateur de progression.                          |
-| `ProgressCircular.Ring`                       | Partie pratique qui rend le cercle, la piste et l’arc par défaut.                    |
-| `ProgressCircular.Circle`                     | Élément SVG auquel Ark ajoute le rôle et les attributs ARIA de valeur.               |
-| `ProgressCircular.CircleTrack`                | Cercle d’arrière-plan.                                                               |
-| `ProgressCircular.CircleRange`                | Arc au premier plan qui reflète la progression actuelle ou l’état indéterminé.       |
+| `ProgressCircular` / `ProgressCircular.Root`  | Gère l’état de progression, le formatage et les identifiants générés.               |
+| `ProgressCircular.RootProvider`               | Relie les parties à l’état créé par `ProgressCircular.useProgress()`.               |
+| `ProgressCircular.Context`                    | Expose l’état courant via une fonction de rendu.                                     |
+| `ProgressCircular.Label`                      | Fournit le contexte visible de l’indicateur de progression.                         |
+| `ProgressCircular.Ring`                       | Partie pratique qui rend le cercle, la piste et l’arc par défaut.                   |
+| `ProgressCircular.Circle`                     | Élément SVG auquel Ark ajoute le rôle et les attributs ARIA de valeur.              |
+| `ProgressCircular.CircleTrack`                | Cercle d’arrière-plan.                                                              |
+| `ProgressCircular.CircleRange`                | Arc au premier plan qui reflète la progression actuelle ou l’état indéterminé.      |
 | `ProgressCircular.ValueText`                  | Affiche la valeur formatée et annonce les mises à jour.                             |
-| `ProgressCircular.View`                       | Rend du contenu pour les états `indeterminate`, `loading` ou `complete`.             |
+| `ProgressCircular.View`                       | Rend du contenu pour les états `indeterminate`, `loading` ou `complete`.            |
 
 ## Composition
 
-### Composition recommandée
+`ProgressCircular` est le raccourci de `ProgressCircular.Root`. Utilisez `ProgressCircular.Ring`
+lorsque le cercle standard suffit : il combine `Circle`, `CircleTrack` et `CircleRange`, mais ne
+rend pas et ne centre pas `ValueText`. Gardez la composition du libellé, du cercle et du texte de
+valeur explicite lorsque la valeur doit apparaître au centre.
 
-`ProgressCircular` est la forme abrégée de la racine et équivaut à `ProgressCircular.Root`. Pour le
-cercle standard, utilisez `ProgressCircular.Ring` : il rend `Circle`, `CircleTrack` et
-`CircleRange` pour vous. `Ring` accepte `className`, les propriétés ARIA et les mêmes variables CSS
-que `Circle`.
-
-Utilisez `defaultValue` pour une progression non contrôlée. Pour une progression contrôlée, utilisez
-`value` avec `onValueChange(details)`. Définissez `defaultValue={null}` ou `value={null}` lorsque la
-progression ne peut pas encore être mesurée.
-
-### Quand créer une composition personnalisée
-
-Utilisez `translations.value(details)` pour fournir à Ark un nom accessible propre à la tâche lorsque
-`Ring` ou `Circle` n’a pas d’`aria-label` explicite. Cette option ne modifie que le nom accessible.
-Pour afficher la même formulation dans l’interface, rendez `ValueText` dans
-`ProgressCircular.Context` et transmettez-lui `progress.valueAsString` comme enfant. Pour centrer la
-valeur, enveloppez le cercle et le texte dans l’élément de mise en page de votre choix.
-
-Utilisez `Circle`, `CircleTrack` et `CircleRange` lorsque vous devez modifier l’arborescence SVG ou
-recourir à la composition Ark `asChild`. Utilisez `ids` si une structure personnalisée a besoin
-d’identifiants stables et explicites pour la racine, le libellé ou le cercle. Utilisez
-`ProgressCircular.useProgress()` avec `RootProvider` lorsque l’état doit être créé en dehors de
-l’arbre rendu ou partagé avec un autre composant. Utilisez
-`ProgressCircular.useProgressContext()` sous une racine ou un fournisseur lorsqu’un composant
-personnalisé doit accéder à l’état courant. Réservez les imports directs d’Ark aux intégrations qui
-ne peuvent pas s’appuyer sur l’API moduix.
-
-### Propriétés par défaut
-
-| Propriété       | Par défaut             | Notes                                                            |
-| --------------- | ---------------------- | ---------------------------------------------------------------- |
-| `defaultValue`  | `50`                   | Valeur initiale en mode non contrôlé.                           |
-| `min`           | `0`                    | Valeur minimale pour le pourcentage et les attributs ARIA.      |
-| `max`           | `100`                  | Valeur maximale pour le pourcentage et les attributs ARIA.      |
-| `formatOptions` | `{ style: 'percent' }` | Définit le formatage de `ValueText`.                            |
-| `locale`        | `'en-US'`              | Paramètres régionaux utilisés par `Intl.NumberFormat`.          |
-| `orientation`   | `'horizontal'`         | Orientation Ark. Pour un cercle, laissez généralement `horizontal`. |
-
-### Comportement
-
-`ProgressCircular.Circle` reçoit d’Ark le rôle `progressbar` et les attributs ARIA de valeur.
-`ProgressCircular.Label` fournit un contexte visible, mais ne donne pas automatiquement de nom
-accessible au cercle. Donnez à `Ring` ou `Circle` un `aria-label` ou un `aria-labelledby` qui
-identifie la tâche. Ark définit également les variables SVG du rayon, de la circonférence, du
-pourcentage et du décalage du trait.
-
-Toutes les parties Ark exportées, à l’exception de `Ring`, prennent en charge `asChild` via la
-composition polymorphe. Si vous remplacez l’élément rendu, préservez sa sémantique et le rôle
-`progressbar` du cercle.
-
-`ProgressCircular.ValueText` annonce les changements avec `aria-live="polite"`. Conservez un libellé
-visible dans l’arbre ou fournissez `aria-label` ou `aria-labelledby` lorsque la composition
-n’inclut pas `ProgressCircular.Label`.
+Utilisez `defaultValue` lorsque le composant possède l’état de progression. Utilisez `value` avec
+`onValueChange(details)` lorsque l’application le possède. Définissez `defaultValue={null}` ou
+`value={null}` pour une progression indéterminée. Lorsque l’état doit être créé en dehors de l’arbre
+rendu, créez-le avec `ProgressCircular.useProgress()` et passez le store à
+`ProgressCircular.RootProvider` au lieu de rendre une autre racine pour le même store.
 
 ## Exemples
 
 ### État contrôlé
 
-Conservez `value` dans l’état React lorsque la progression doit rester synchronisée avec un autre
-contrôle ou une tâche externe.
+Conservez `value` dans l’état de l’application lorsque la progression doit rester synchronisée avec
+un autre contrôle ou une tâche externe.
 
-<style>{ProgressCircularDocs.progressCircularControlledExampleCss}</style>
+<ExampleFrame variant="component">
+  <ControlledProgressCircular />
+</ExampleFrame>
 
-<PreviewFrame>
-  ```tsx preview file="../../en/docs/_snippets/progress-circular/controlled.tsx"
+<ExampleCode>
+<div className="docs-reference">
+  <Tabs
+    groupId="framework"
+    values={[
+      { label: 'React', value: 'react' },
+      { label: 'Solid', value: 'solid' },
+    ]}
+    className="docs-tabs"
+  >
+    <Tab value="react">
 
-  ```
-</PreviewFrame>
+```tsx pure file="../../../src/components/examples/progress-circular/controlled.tsx"
+```
+
+    </Tab>
+    <Tab value="solid">
+
+<CodeBlockRuntime lang="tsx" code={progressCircularSolidControlled} />
+
+    </Tab>
+  </Tabs>
+
+**Styles**
+
+```css file="../../../src/components/examples/progress-circular/component-controlled.module.css"
+```
+</div>
+
+</ExampleCode>
 
 ### Progression indéterminée
 
 Définissez `defaultValue={null}` ou `value={null}` lorsque la tâche est en cours, mais que sa
 progression ne peut pas encore être mesurée.
 
-<style>{ProgressCircularDocs.progressCircularBasicExampleCss}</style>
+<ExampleFrame variant="component">
+  <IndeterminateProgressCircular />
+</ExampleFrame>
 
-<PreviewFrame>
-  ```tsx preview file="../../en/docs/_snippets/progress-circular/indeterminate.tsx"
+<ExampleCode>
+<div className="docs-reference">
+  <Tabs
+    groupId="framework"
+    values={[
+      { label: 'React', value: 'react' },
+      { label: 'Solid', value: 'solid' },
+    ]}
+    className="docs-tabs"
+  >
+    <Tab value="react">
 
-  ```
-</PreviewFrame>
+```tsx pure file="../../../src/components/examples/progress-circular/indeterminate.tsx"
+```
+
+    </Tab>
+    <Tab value="solid">
+
+<CodeBlockRuntime lang="tsx" code={progressCircularSolidIndeterminate} />
+
+    </Tab>
+  </Tabs>
+
+**Styles**
+
+```css file="../../../src/components/examples/progress-circular/component-indeterminate.module.css"
+```
+</div>
+
+</ExampleCode>
 
 ### Minimum et maximum
 
 Utilisez `min` et `max` pour représenter des valeurs dans une plage autre que la plage par défaut de
 `0` à `100`.
 
-<style>{ProgressCircularDocs.progressCircularBasicExampleCss}</style>
+<ExampleFrame variant="component">
+  <MinMaxProgressCircular />
+</ExampleFrame>
 
-<PreviewFrame>
-  ```tsx preview file="../../en/docs/_snippets/progress-circular/min-max.tsx"
+<ExampleCode>
+<div className="docs-reference">
+  <Tabs
+    groupId="framework"
+    values={[
+      { label: 'React', value: 'react' },
+      { label: 'Solid', value: 'solid' },
+    ]}
+    className="docs-tabs"
+  >
+    <Tab value="react">
 
-  ```
-</PreviewFrame>
+```tsx pure file="../../../src/components/examples/progress-circular/min-max.tsx"
+```
+
+    </Tab>
+    <Tab value="solid">
+
+<CodeBlockRuntime lang="tsx" code={progressCircularSolidMinMax} />
+
+    </Tab>
+  </Tabs>
+
+**Styles**
+
+```css file="../../../src/components/examples/progress-circular/component-min-max.module.css"
+```
+</div>
+
+</ExampleCode>
 
 ### Texte de la valeur
 
@@ -169,48 +274,128 @@ Utilisez `Context` avec `translations.value(details)` lorsque le texte visible d
 être formulé pour une tâche précise. Rendez `progress.valueAsString` comme enfant de `ValueText`
 afin que le texte visible corresponde à la chaîne de valeur accessible.
 
-<PreviewFrame>
-  ```tsx preview file="../../en/docs/_snippets/progress-circular/value-text.tsx"
+<ExampleFrame variant="component">
+  <ValueTextProgressCircular />
+</ExampleFrame>
 
-  ```
-</PreviewFrame>
+<ExampleCode>
+<div className="docs-reference">
+  <Tabs
+    groupId="framework"
+    values={[
+      { label: 'React', value: 'react' },
+      { label: 'Solid', value: 'solid' },
+    ]}
+    className="docs-tabs"
+  >
+    <Tab value="react">
+
+```tsx pure file="../../../src/components/examples/progress-circular/value-text.tsx"
+```
+
+    </Tab>
+    <Tab value="solid">
+
+<CodeBlockRuntime lang="tsx" code={progressCircularSolidValueText} />
+
+    </Tab>
+  </Tabs>
+</div>
+
+</ExampleCode>
 
 ### Personnalisation avancée
 
-Utilisez les parties individuelles du cercle à la place de `ProgressCircular.Ring` lorsque vous
-devez modifier l’arborescence SVG ou créer le store de progression en dehors de l’arbre rendu.
+Utilisez les parties individuelles du cercle à la place de `ProgressCircular.Ring` lorsque
+l’arborescence SVG ou la gestion de l’état doit être personnalisée.
 
 #### RootProvider
 
 Créez le store avec `ProgressCircular.useProgress()` et passez-le à `RootProvider` lorsqu’un autre
 composant doit lire ou mettre à jour la progression en dehors de l’arbre rendu.
 
-<style>{ProgressCircularDocs.progressCircularBasicExampleCss}</style>
+<ExampleFrame variant="component">
+  <RootProviderProgressCircular />
+</ExampleFrame>
 
-<PreviewFrame>
-  ```tsx preview file="../../en/docs/_snippets/progress-circular/root-provider.tsx"
+<ExampleCode>
+<div className="docs-reference">
+  <Tabs
+    groupId="framework"
+    values={[
+      { label: 'React', value: 'react' },
+      { label: 'Solid', value: 'solid' },
+    ]}
+    className="docs-tabs"
+  >
+    <Tab value="react">
 
-  ```
-</PreviewFrame>
+```tsx pure file="../../../src/components/examples/progress-circular/root-provider.tsx"
+```
+
+    </Tab>
+    <Tab value="solid">
+
+<CodeBlockRuntime lang="tsx" code={progressCircularSolidRootProvider} />
+
+    </Tab>
+  </Tabs>
+
+**Styles**
+
+```css file="../../../src/components/examples/progress-circular/component-root-provider.module.css"
+```
+</div>
+
+</ExampleCode>
 
 #### Vues d’état
 
 Utilisez `ProgressCircular.View` lorsque le texte ou l’interface d’accompagnement doit changer avec
-l’état de progression Ark. Les vérifications d’état restent ainsi dans votre composant.
+l’état de progression Ark.
 
-<style>{ProgressCircularDocs.progressCircularStateViewsExampleCss}</style>
+<ExampleFrame variant="component">
+  <StateViewsProgressCircular />
+</ExampleFrame>
 
-<PreviewFrame>
-  ```tsx preview file="../../en/docs/_snippets/progress-circular/state-views.tsx"
+<ExampleCode>
+<div className="docs-reference">
+  <Tabs
+    groupId="framework"
+    values={[
+      { label: 'React', value: 'react' },
+      { label: 'Solid', value: 'solid' },
+    ]}
+    className="docs-tabs"
+  >
+    <Tab value="react">
 
-  ```
-</PreviewFrame>
+```tsx pure file="../../../src/components/examples/progress-circular/state-views.tsx"
+```
+
+    </Tab>
+    <Tab value="solid">
+
+<CodeBlockRuntime lang="tsx" code={progressCircularSolidStateViews} />
+
+    </Tab>
+  </Tabs>
+
+**Styles**
+
+```css file="../../../src/components/examples/progress-circular/component-state-views.module.css"
+```
+</div>
+
+</ExampleCode>
 
 ## Styles
 
-Utilisez `className` sur les parties exportées pour modifier la structure et l’apparence. Pour les
-styles dépendants de l’état, préférez les attributs de données Ark, les variables SVG Ark et les
-points d’accroche `data-slot` de moduix.
+Utilisez `className` en React et `class` en Solid sur les parties exportées pour la structure et
+l’apparence. Les variantes Tailwind utilisent des classes utilitaires natives et les classes du
+consommateur. Les variantes CSS Modules exposent les variables CSS ci-dessous. Pour les styles liés
+à l’état, utilisez les attributs de données Ark, les variables SVG Ark et les points d’accroche
+`data-slot` de moduix.
 
 Utilisez `--moduix-progress-circular-range-indeterminate-bg` pour donner à la progression
 indéterminée une couleur sémantique distincte. Lorsque l’utilisateur préfère réduire les animations,

@@ -16,19 +16,18 @@ import { clsx } from 'clsx';
 import type { ComponentProps, ComponentRef, ForwardedRef } from 'react';
 import { forwardRef } from 'react';
 import { CheckIcon, SearchIcon } from '@/lib/moduix/icons/ui';
-import { normalizeClassName } from '@/lib/moduix/normalizeClassName';
 import { CloseButton } from '../close-button';
 import styles from './Listbox.module.css';
 
 const ListboxRoot = forwardRef(function ListboxRoot<T extends CollectionItem>(
   { className, ...props }: ListboxRootProps<T>,
-  ref: ForwardedRef<HTMLDivElement>,
+  ref: ForwardedRef<ComponentRef<typeof ListboxPrimitive.Root>>,
 ) {
   return (
     <ListboxPrimitive.Root
       ref={ref}
       data-slot="listbox-root"
-      className={clsx(styles.root, normalizeClassName(className))}
+      className={clsx(styles.root, className)}
       {...props}
     />
   );
@@ -36,13 +35,13 @@ const ListboxRoot = forwardRef(function ListboxRoot<T extends CollectionItem>(
 
 const ListboxRootProvider = forwardRef(function ListboxRootProvider<T extends CollectionItem>(
   { className, ...props }: ListboxRootProviderProps<T>,
-  ref: ForwardedRef<HTMLDivElement>,
+  ref: ForwardedRef<ComponentRef<typeof ListboxPrimitive.RootProvider>>,
 ) {
   return (
     <ListboxPrimitive.RootProvider
       ref={ref}
       data-slot="listbox-root-provider"
-      className={clsx(styles.root, normalizeClassName(className))}
+      className={clsx(styles.root, className)}
       {...props}
     />
   );
@@ -56,7 +55,7 @@ const ListboxLabel = forwardRef<
     <ListboxPrimitive.Label
       ref={ref}
       data-slot="listbox-label"
-      className={clsx(styles.label, normalizeClassName(className))}
+      className={clsx(styles.label, className)}
       {...props}
     />
   );
@@ -70,7 +69,7 @@ const ListboxInput = forwardRef<
     <ListboxPrimitive.Input
       ref={ref}
       data-slot="listbox-input"
-      className={clsx(styles.input, normalizeClassName(className))}
+      className={clsx(styles.input, className)}
       {...props}
     />
   );
@@ -78,36 +77,29 @@ const ListboxInput = forwardRef<
 
 function ListboxFilter({ className, children, ...props }: ComponentProps<'div'>) {
   return (
-    <div
-      data-slot="listbox-filter"
-      className={clsx(styles.filter, normalizeClassName(className))}
-      {...props}
-    >
+    <div data-slot="listbox-filter" className={clsx(styles.filter, className)} {...props}>
       <SearchIcon data-slot="listbox-filter-icon" className={styles.filterIcon} />
       {children}
     </div>
   );
 }
 
-const ListboxClearTrigger = forwardRef<HTMLButtonElement, ComponentProps<'button'>>(
+const ListboxClearTrigger = forwardRef<ComponentRef<typeof ark.button>, HTMLArkProps<'button'>>(
   function ListboxClearTrigger(
     { 'aria-label': ariaLabel = 'Clear search', className, children, type = 'button', ...props },
     ref,
   ) {
     return (
-      <ark.button
+      <CloseButton.Root
         ref={ref}
-        asChild
         data-slot="listbox-clear-trigger"
         type={type}
         aria-label={ariaLabel}
-        className={clsx(styles.clearTrigger, normalizeClassName(className))}
+        className={clsx(styles.clearTrigger, className)}
         {...props}
       >
-        <CloseButton.Root aria-label={ariaLabel} type={type}>
-          {children}
-        </CloseButton.Root>
-      </ark.button>
+        {children}
+      </CloseButton.Root>
     );
   },
 );
@@ -120,7 +112,7 @@ const ListboxContent = forwardRef<
     <ListboxPrimitive.Content
       ref={ref}
       data-slot="listbox-content"
-      className={clsx(styles.content, normalizeClassName(className))}
+      className={clsx(styles.content, className)}
       {...props}
     />
   );
@@ -134,7 +126,7 @@ const ListboxEmpty = forwardRef<
     <ListboxPrimitive.Empty
       ref={ref}
       data-slot="listbox-empty"
-      className={clsx(styles.empty, normalizeClassName(className))}
+      className={clsx(styles.empty, className)}
       {...props}
     />
   );
@@ -148,7 +140,7 @@ const ListboxItemGroup = forwardRef<
     <ListboxPrimitive.ItemGroup
       ref={ref}
       data-slot="listbox-item-group"
-      className={clsx(styles.itemGroup, normalizeClassName(className))}
+      className={clsx(styles.itemGroup, className)}
       {...props}
     />
   );
@@ -162,7 +154,7 @@ const ListboxItemGroupLabel = forwardRef<
     <ListboxPrimitive.ItemGroupLabel
       ref={ref}
       data-slot="listbox-item-group-label"
-      className={clsx(styles.itemGroupLabel, normalizeClassName(className))}
+      className={clsx(styles.itemGroupLabel, className)}
       {...props}
     />
   );
@@ -176,7 +168,7 @@ const ListboxItem = forwardRef<
     <ListboxPrimitive.Item
       ref={ref}
       data-slot="listbox-item"
-      className={clsx(styles.item, normalizeClassName(className))}
+      className={clsx(styles.item, className)}
       {...props}
     />
   );
@@ -190,7 +182,7 @@ const ListboxItemText = forwardRef<
     <ListboxPrimitive.ItemText
       ref={ref}
       data-slot="listbox-item-text"
-      className={clsx(styles.itemText, normalizeClassName(className))}
+      className={clsx(styles.itemText, className)}
       {...props}
     />
   );
@@ -204,7 +196,7 @@ const ListboxItemIndicator = forwardRef<
     <ListboxPrimitive.ItemIndicator
       ref={ref}
       data-slot="listbox-item-indicator"
-      className={clsx(styles.itemIndicator, normalizeClassName(className))}
+      className={clsx(styles.itemIndicator, className)}
       {...props}
     >
       {children ?? <CheckIcon />}
@@ -220,7 +212,7 @@ const ListboxValueText = forwardRef<
     <ListboxPrimitive.ValueText
       ref={ref}
       data-slot="listbox-value-text"
-      className={clsx(styles.valueText, normalizeClassName(className))}
+      className={clsx(styles.valueText, className)}
       {...props}
     />
   );
@@ -232,7 +224,7 @@ const ListboxItemTextContent = forwardRef<ComponentRef<typeof ark.span>, HTMLArk
       <ark.span
         ref={ref}
         data-slot="listbox-item-text-content"
-        className={clsx(styles.itemTextContent, normalizeClassName(className))}
+        className={clsx(styles.itemTextContent, className)}
         {...props}
       />
     );
@@ -245,7 +237,7 @@ const ListboxItemTextIcon = forwardRef<ComponentRef<typeof ark.span>, HTMLArkPro
       <ark.span
         ref={ref}
         data-slot="listbox-item-text-icon"
-        className={clsx(styles.itemTextIcon, normalizeClassName(className))}
+        className={clsx(styles.itemTextIcon, className)}
         {...props}
       />
     );
@@ -258,7 +250,7 @@ const ListboxItemTextLabel = forwardRef<ComponentRef<typeof ark.span>, HTMLArkPr
       <ark.span
         ref={ref}
         data-slot="listbox-item-text-label"
-        className={clsx(styles.itemTextLabel, normalizeClassName(className))}
+        className={clsx(styles.itemTextLabel, className)}
         {...props}
       />
     );

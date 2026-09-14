@@ -1,9 +1,12 @@
 ---
 title: Sign up
-description: A ready-to-copy account registration form built with moduix React components.
+description: A ready-to-copy account registration form built with moduix components.
 ---
 
-import { SignUpPreview } from '@/components/recipes/sign-up-preview';
+import { SignUp } from '@/components/recipes/sign-up/sign-up';
+import signUpSolid from '../../../snippets/recipes/solid/sign-up.tsx?raw';
+import signUpRouteReact from '../../../snippets/recipes/react/sign-up-route.tsx?raw';
+import signUpRouteSolid from '../../../snippets/recipes/solid/sign-up-route.tsx?raw';
 
 # Sign up
 
@@ -12,32 +15,50 @@ Use this recipe as a starting point for an account registration screen. It combi
 and terms acceptance. The recipe does not connect to an authentication service or compare the two
 password fields, so add that logic in your `onSubmit` handler.
 
-<ExampleFrame clientOnly>
-  <SignUpPreview />
+The live preview uses the React package. The source tabs show native React and Solid implementations that share the same stylesheet.
+
+<ExampleFrame variant="recipe" clientOnly>
+  <PreviewFrame maxWidth="sm">
+  <SignUp onSubmit={(event) => event.preventDefault()} />
+  </PreviewFrame>
 </ExampleFrame>
 
+<ExampleCode>
 <div className="docs-reference">
-  <Tabs values={[{ label: 'Component', value: 'Component' }, { label: 'Styles', value: 'Styles' }]} className="docs-tabs">
-    <Tab value="Component">
+  <Tabs
+    groupId="framework"
+    values={[
+      { label: 'React', value: 'react' },
+      { label: 'Solid', value: 'solid' },
+    ]}
+    className="docs-tabs"
+  >
+    <Tab value="react">
 
-```tsx file="../../../src/components/recipes/sign-up.tsx"
+```tsx pure file="../../../src/components/recipes/sign-up/sign-up.tsx"
 
 ```
 
     </Tab>
-    <Tab value="Styles">
+    <Tab value="solid">
 
-```css file="../../../src/components/recipes/sign-up.module.css"
-
-```
+<CodeBlockRuntime lang="tsx" code={signUpSolid} />
 
     </Tab>
   </Tabs>
+
+**Styles**
+
+```css file="../../../src/components/recipes/sign-up/sign-up-form.module.css"
+
+```
 </div>
+
+</ExampleCode>
 
 ## Install
 
-<ShadcnInstall packageName={['button', 'card', 'checkbox', 'field', 'input']} itemKind="recipe" copiedSource />
+<ShadcnInstall packageName={['button', 'card', 'checkbox', 'field', 'input']} itemKind="recipe" frameworks copiedSource />
 
 ## Use it in a route
 
@@ -45,40 +66,24 @@ Copy the recipe source and CSS from the tabs above, then import `SignUp` from th
 browser checks the native constraints before calling `onSubmit`. Use the handler to compare the two
 passwords and send the form data to your registration endpoint.
 
-```tsx
-import type { FormEvent } from 'react';
-import { SignUp } from '@/components/sign-up';
+<Tabs
+  groupId="framework"
+  values={[
+    { label: 'React', value: 'react' },
+    { label: 'Solid', value: 'solid' },
+  ]}
+>
+  <Tab value="react">
 
-export function SignUpRoute() {
-  async function handleSubmit(event: FormEvent<HTMLFormElement>) {
-    event.preventDefault();
+<CodeBlockRuntime lang="tsx" code={signUpRouteReact} />
 
-    const form = event.currentTarget;
-    const formData = new FormData(form);
-    const password = formData.get('password');
-    const confirmation = formData.get('confirm-password');
+  </Tab>
+  <Tab value="solid">
 
-    if (password !== confirmation) {
-      const confirmationInput = form.elements.namedItem('confirm-password');
+<CodeBlockRuntime lang="tsx" code={signUpRouteSolid} />
 
-      if (confirmationInput instanceof HTMLInputElement) {
-        confirmationInput.setCustomValidity('Passwords do not match.');
-        confirmationInput.reportValidity();
-        confirmationInput.setCustomValidity('');
-      }
-
-      return;
-    }
-
-    await fetch('/api/sign-up', {
-      method: 'POST',
-      body: formData,
-    });
-  }
-
-  return <SignUp onSubmit={handleSubmit} />;
-}
-```
+  </Tab>
+</Tabs>
 
 The fields are named `name`, `email`, `password`, `confirm-password`, and `terms`, so these are the
 keys available in `FormData`. Replace `/api/sign-up` and the import path with values from your

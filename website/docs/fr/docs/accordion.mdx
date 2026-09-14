@@ -1,10 +1,28 @@
 ---
 title: Accordion
 component: accordion
-description: Une liste dépliable de sections liées, avec navigation au clavier et prise en charge facultative de plusieurs sections ouvertes.
+description: Créez des accordéons accessibles avec React ou Solid, installés par paquet ou avec la CLI shadcn.
 ---
 
-import * as AccordionDocs from '@/components/examples/accordion';
+import * as AccordionDocs from '@/components/examples/accordion/css-properties';
+import AccordionBasic from '@/components/examples/accordion/basic.tsx';
+import AccordionCollapsible from '@/components/examples/accordion/collapsible.tsx';
+import AccordionControlled from '@/components/examples/accordion/controlled.tsx';
+import AccordionDisabledItem from '@/components/examples/accordion/disabled-item.tsx';
+import AccordionHorizontal from '@/components/examples/accordion/horizontal.tsx';
+import AccordionLazyMount from '@/components/examples/accordion/lazy-mount.tsx';
+import AccordionMultiple from '@/components/examples/accordion/multiple.tsx';
+import AccordionRootProvider from '@/components/examples/accordion/root-provider.tsx';
+import AccordionWithSlider from '@/components/examples/accordion/with-slider.tsx';
+import accordionSolidBasic from '../../../snippets/accordion/solid/basic.tsx?raw';
+import accordionSolidCollapsible from '../../../snippets/accordion/solid/collapsible.tsx?raw';
+import accordionSolidControlled from '../../../snippets/accordion/solid/controlled.tsx?raw';
+import accordionSolidDisabledItem from '../../../snippets/accordion/solid/disabled-item.tsx?raw';
+import accordionSolidHorizontal from '../../../snippets/accordion/solid/horizontal.tsx?raw';
+import accordionSolidLazyMount from '../../../snippets/accordion/solid/lazy-mount.tsx?raw';
+import accordionSolidMultiple from '../../../snippets/accordion/solid/multiple.tsx?raw';
+import accordionSolidRootProvider from '../../../snippets/accordion/solid/root-provider.tsx?raw';
+import accordionSolidWithSlider from '../../../snippets/accordion/solid/with-slider.tsx?raw';
 
 ## Référence de l’API
 
@@ -17,6 +35,10 @@ et le même état. Pour une seule section indépendante, préférez `Collapsible
 
 ## Exemple de base
 
+Accordion est disponible pour React et Solid, dans les paquets CSS Modules comme dans les variantes
+Tailwind. Les aperçus interactifs de cette page utilisent le paquet React avec CSS Modules ; les
+onglets de code présentent la source native correspondant au même contrat public.
+
 Utilisez `Accordion` comme racine et attribuez un identifiant `value` stable à chaque
 `Accordion.Item`.
 Placez le libellé interactif dans `Accordion.ItemTrigger`, le panneau dans
@@ -26,15 +48,67 @@ est facultatif et affiche par défaut l'icône plus de moduix.
 Utilisez `Accordion` comme racine dans la plupart des cas. `Accordion.Root` est un alias de cette
 même racine lorsque vous souhaitez rendre cette partie explicite dans votre composition.
 
-<PreviewFrame maxWidth="sm">
-  ```tsx preview file="../../en/docs/_snippets/accordion/basic.tsx"
+<ExampleFrame variant="component">
+  <AccordionBasic />
+</ExampleFrame>
 
+<ExampleCode>
+<div className="docs-reference">
+  <Tabs
+    groupId="framework"
+    values={[
+      { label: 'React', value: 'react' },
+      { label: 'Solid', value: 'solid' },
+    ]}
+    className="docs-tabs"
+  >
+    <Tab value="react">
+
+```tsx pure file="../../../src/components/examples/accordion/basic.tsx"
 ```
-</PreviewFrame>
+
+    </Tab>
+    <Tab value="solid">
+
+<CodeBlockRuntime lang="tsx" code={accordionSolidBasic} />
+
+    </Tab>
+  </Tabs>
+
+**Styles**
+
+```css file="../../../src/components/examples/accordion/accordion-basic.module.css"
+```
+</div>
+
+</ExampleCode>
 
 ## Installation avec shadcn
 
-<ShadcnInstall packageName="accordion" />
+Consultez le [Démarrage rapide](/docs/quick-start) pour la configuration complète du paquet, du registre et des styles.
+
+<Tabs groupId="framework">
+  <Tab label="React" value="react">
+
+<ShadcnInstallOptions
+  options={[
+    { label: 'CSS Modules', command: 'shadcn@latest add @moduix-react/accordion' },
+    { label: 'Tailwind CSS', command: 'shadcn@latest add @moduix-react-tailwind/accordion' },
+  ]}
+/>
+
+  </Tab>
+  <Tab label="Solid" value="solid">
+
+<ShadcnInstallOptions
+  options={[
+    { label: 'CSS Modules', command: 'shadcn@latest add @moduix-solid/accordion' },
+    { label: 'Tailwind CSS', command: 'shadcn@latest add @moduix-solid-tailwind/accordion' },
+  ]}
+/>
+
+  </Tab>
+  </Tabs>
 
 ## Anatomie
 
@@ -64,81 +138,14 @@ Accordion.RootProvider
 
 ## Composition
 
-### Composition recommandée
-
-`Accordion` gère l'état des éléments et la navigation au clavier. Commencez par `Accordion`,
-`Accordion.Item`, `Accordion.ItemTrigger`, `Accordion.ItemContent` et `Accordion.ItemBody`. Ajoutez
-`Accordion.ItemIndicator` lorsqu'un repère visuel de l'état est utile.
-
-Les propriétés de la racine incluent `defaultValue`, `value`, `onValueChange(details)`,
-`onFocusChange(details)`, `multiple`, `collapsible`, `disabled`, `orientation`, `lazyMount`,
-`unmountOnExit`, `hideMode` et `ids`.
-
 Utilisez `defaultValue` pour un accordéon non contrôlé. Utilisez `value` avec
 `onValueChange(details)` lorsqu'une autre partie de l'application gère l'état. Ces deux propriétés
 attendent un tableau `string[]`, même lorsqu'un seul élément peut être ouvert.
 
-### Quand personnaliser la composition
-
-Choisissez une composition personnalisée lorsque l'état doit être géré en dehors de l'arbre rendu, qu'une
-autre partie de l'interface doit le lire ou le modifier, ou qu'une partie doit utiliser un autre
-élément sémantique.
-
-Utilisez `Accordion.RootProvider` avec `useAccordion()` de `@moduix/react` lorsque l'état de
-l'accordéon doit être créé en dehors de l'arbre rendu. Transmettez à `RootProvider` la valeur
-retournée par `useAccordion()` et ne rendez pas `Accordion` ou `Accordion.Root` pour le même état.
-
-Utilisez `Accordion.Context`, `Accordion.ItemContext`, `useAccordionContext()` et
-`useAccordionItemContext()` de moduix lorsqu'une autre partie de l'interface doit accéder à l'état de
-la racine ou d'un élément. L'état d'un élément inclut les booléens Ark `expanded`, `focused` et
-`disabled`.
-
-Définissez `disabled` sur la racine pour désactiver tous les éléments. Définissez-le sur un
-`Accordion.Item` pour désactiver uniquement cet élément tout en le laissant visible.
-
-`Accordion.Item` exige une valeur `value` stable. `Accordion.ItemIndicator` est facultatif : sans
-enfant, moduix rend `PlusIcon`, et vous pouvez remplacer entièrement le contenu de l'indicateur.
-
-Utilisez `asChild` uniquement lorsqu'un autre élément doit porter le nœud DOM rendu. Gardez la
-structure des parties Ark explicite au lieu de la dissimuler derrière des composants d'encapsulation.
-
-### Propriétés par défaut
-
-| Propriété               | Valeur par défaut | Remarques                                                                                 |
-| ----------------------- | ----------------- | ----------------------------------------------------------------------------------------- |
-| `collapsible`           | `false`           | L'élément ouvert ne peut pas être refermé sans en ouvrir un autre.                        |
-| `disabled`              | `false`           | La racine ou l'élément reste visible, mais ne peut pas être utilisé.                      |
-| `hideMode`              | `display-none`    | Définit comment masquer un contenu monté et fermé. `activity` nécessite React 19.         |
-| `lazyMount`             | `false`           | Monte le contenu de tous les éléments dès le premier rendu.                               |
-| `multiple`              | `false`           | Un seul élément peut être ouvert à la fois.                                               |
-| `orientation`           | `vertical`        | Utilise une disposition verticale et la navigation au clavier correspondante.             |
-| `unmountOnExit`         | `false`           | Garde le contenu monté après sa fermeture.                                                |
-| `value`/`defaultValue`  | non défini       | Valeurs contrôlées ou initiales des éléments ouverts. Utilisez toujours `string[]`.        |
-
-### Comportement
-
-Placez l'espacement sur `Accordion.ItemBody`, et non sur `Accordion.ItemContent`, afin qu'Ark puisse
-mesurer correctement le panneau. Ark expose `--height` pour l'animation verticale du contenu et
-`--width` pour son animation horizontale.
-
-Chaque déclencheur est un bouton natif. Ark le relie à son panneau avec `aria-expanded` et
-`aria-controls`, puis ajoute au panneau un `aria-labelledby` correspondant. La touche `Enter` ou
-`Space` ouvre un élément fermé et, lorsque `collapsible` est activé, referme l'élément ouvert. En
-orientation verticale, `ArrowDown` et `ArrowUp` déplacent le focus entre les déclencheurs. En
-orientation horizontale, utilisez `ArrowRight` et `ArrowLeft`. `Home` et `End` déplacent le focus vers
-le premier ou le dernier déclencheur.
-
-Chaque partie stylisée transmet sa ref et prend en charge `asChild` lorsqu'un autre élément sémantique
-doit porter le nœud DOM rendu. Un déclencheur personnalisé doit rester accessible au clavier et se
-comporter comme un bouton.
-
-Lorsque `lazyMount` est activé, le contenu fermé n'est monté qu'à sa première ouverture. Ajoutez
-`unmountOnExit` pour le retirer du DOM après sa fermeture. `hideMode="activity"` conserve le contenu
-monté dans le mode Activity masqué de React 19 et met ses effets en pause.
-
-Lorsque l'utilisateur préfère réduire les animations, Accordion supprime les transitions du
-déclencheur et de l'indicateur. L'animation du panneau devient presque instantanée tout en
-préservant le cycle de vie d'Ark.
+Utilisez `Accordion.RootProvider` avec `useAccordion()` du paquet correspondant au framework lorsque
+l’état doit être créé en dehors de l’arbre rendu. Transmettez le store obtenu à `RootProvider` et ne
+rendez pas `Accordion` ou `Accordion.Root` pour le même état. React expose le store comme un objet ;
+Solid donne accès à son état réactif au moyen de la fonction retournée.
 
 ## Exemples
 
@@ -146,79 +153,280 @@ préservant le cycle de vie d'Ark.
 
 Activez `collapsible` pour permettre de refermer l'élément ouvert sans en ouvrir un autre.
 
-<PreviewFrame maxWidth="sm">
-  ```tsx preview file="../../en/docs/_snippets/accordion/collapsible.tsx"
+<ExampleFrame variant="component">
+  <AccordionCollapsible />
+</ExampleFrame>
 
+<ExampleCode>
+<div className="docs-reference">
+  <Tabs
+    groupId="framework"
+    values={[
+      { label: 'React', value: 'react' },
+      { label: 'Solid', value: 'solid' },
+    ]}
+    className="docs-tabs"
+  >
+    <Tab value="react">
+
+```tsx pure file="../../../src/components/examples/accordion/collapsible.tsx"
 ```
-</PreviewFrame>
+
+    </Tab>
+    <Tab value="solid">
+
+<CodeBlockRuntime lang="tsx" code={accordionSolidCollapsible} />
+
+    </Tab>
+  </Tabs>
+
+**Styles**
+
+```css file="../../../src/components/examples/accordion/accordion-collapsible.module.css"
+```
+</div>
+
+</ExampleCode>
 
 ### État contrôlé
 
-Gérez `value` avec l'état React lorsque les éléments ouverts doivent rester synchronisés avec le
-routage, les filtres ou d'autres parties de l'interface.
+Gérez `value` avec `useState` en React ou `createSignal` en Solid lorsque les éléments ouverts doivent
+rester synchronisés avec le routage, les filtres ou le reste de l’interface.
 
-<PreviewFrame maxWidth="sm">
-```tsx preview file="../../en/docs/_snippets/accordion/controlled.tsx"
+<ExampleFrame variant="component">
+  <AccordionControlled />
+</ExampleFrame>
 
+<ExampleCode>
+<div className="docs-reference">
+  <Tabs
+    groupId="framework"
+    values={[
+      { label: 'React', value: 'react' },
+      { label: 'Solid', value: 'solid' },
+    ]}
+    className="docs-tabs"
+  >
+    <Tab value="react">
+
+```tsx pure file="../../../src/components/examples/accordion/controlled.tsx"
 ```
 
-</PreviewFrame>
+    </Tab>
+    <Tab value="solid">
+
+<CodeBlockRuntime lang="tsx" code={accordionSolidControlled} />
+
+    </Tab>
+  </Tabs>
+
+**Styles**
+
+```css file="../../../src/components/examples/accordion/accordion-controlled.module.css"
+```
+</div>
+
+</ExampleCode>
 
 ### Élément désactivé
 
 Ajoutez `disabled` à un élément qui doit rester visible dans la liste, mais ne doit pas être interactif.
 
-<PreviewFrame maxWidth="sm">
-  ```tsx preview file="../../en/docs/_snippets/accordion/disabled-item.tsx"
+<ExampleFrame variant="component">
+  <AccordionDisabledItem />
+</ExampleFrame>
 
+<ExampleCode>
+<div className="docs-reference">
+  <Tabs
+    groupId="framework"
+    values={[
+      { label: 'React', value: 'react' },
+      { label: 'Solid', value: 'solid' },
+    ]}
+    className="docs-tabs"
+  >
+    <Tab value="react">
+
+```tsx pure file="../../../src/components/examples/accordion/disabled-item.tsx"
 ```
-</PreviewFrame>
+
+    </Tab>
+    <Tab value="solid">
+
+<CodeBlockRuntime lang="tsx" code={accordionSolidDisabledItem} />
+
+    </Tab>
+  </Tabs>
+
+**Styles**
+
+```css file="../../../src/components/examples/accordion/accordion-disabled-item.module.css"
+```
+</div>
+
+</ExampleCode>
 
 ### Horizontal
 
 Définissez `orientation="horizontal"` pour disposer l'accordéon en ligne et utiliser une navigation
 au clavier horizontale.
 
-<PreviewFrame maxWidth="sm">
-```tsx preview file="../../en/docs/_snippets/accordion/horizontal.tsx"
+<ExampleFrame variant="component">
+  <AccordionHorizontal />
+</ExampleFrame>
 
+<ExampleCode>
+<div className="docs-reference">
+  <Tabs
+    groupId="framework"
+    values={[
+      { label: 'React', value: 'react' },
+      { label: 'Solid', value: 'solid' },
+    ]}
+    className="docs-tabs"
+  >
+    <Tab value="react">
+
+```tsx pure file="../../../src/components/examples/accordion/horizontal.tsx"
 ```
 
-</PreviewFrame>
+    </Tab>
+    <Tab value="solid">
+
+<CodeBlockRuntime lang="tsx" code={accordionSolidHorizontal} />
+
+    </Tab>
+  </Tabs>
+
+**Styles**
+
+```css file="../../../src/components/examples/accordion/accordion-horizontal.module.css"
+```
+</div>
+
+</ExampleCode>
 
 ### Montage différé
 
 Combinez `lazyMount` et `unmountOnExit` lorsque le contenu masqué est coûteux à rendre et doit être
-retiré du DOM après sa fermeture.
+retiré du DOM après sa fermeture. Avec React 19, utilisez plutôt `hideMode="activity"` si le contenu
+doit rester monté tout en suspendant ses effets lorsqu’il est masqué.
 
-<PreviewFrame maxWidth="sm">
-  ```tsx preview file="../../en/docs/_snippets/accordion/lazy-mount.tsx"
+<ExampleFrame variant="component">
+  <AccordionLazyMount />
+</ExampleFrame>
 
+<ExampleCode>
+<div className="docs-reference">
+  <Tabs
+    groupId="framework"
+    values={[
+      { label: 'React', value: 'react' },
+      { label: 'Solid', value: 'solid' },
+    ]}
+    className="docs-tabs"
+  >
+    <Tab value="react">
+
+```tsx pure file="../../../src/components/examples/accordion/lazy-mount.tsx"
 ```
-</PreviewFrame>
+
+    </Tab>
+    <Tab value="solid">
+
+<CodeBlockRuntime lang="tsx" code={accordionSolidLazyMount} />
+
+    </Tab>
+  </Tabs>
+
+**Styles**
+
+```css file="../../../src/components/examples/accordion/accordion-lazy-mount.module.css"
+```
+</div>
+
+</ExampleCode>
 
 ### Plusieurs éléments ouverts
 
 Définissez `multiple` lorsque plusieurs sections doivent rester ouvertes simultanément.
 
-<PreviewFrame maxWidth="sm">
-```tsx preview file="../../en/docs/_snippets/accordion/multiple.tsx"
+<ExampleFrame variant="component">
+  <AccordionMultiple />
+</ExampleFrame>
 
+<ExampleCode>
+<div className="docs-reference">
+  <Tabs
+    groupId="framework"
+    values={[
+      { label: 'React', value: 'react' },
+      { label: 'Solid', value: 'solid' },
+    ]}
+    className="docs-tabs"
+  >
+    <Tab value="react">
+
+```tsx pure file="../../../src/components/examples/accordion/multiple.tsx"
 ```
 
-</PreviewFrame>
+    </Tab>
+    <Tab value="solid">
+
+<CodeBlockRuntime lang="tsx" code={accordionSolidMultiple} />
+
+    </Tab>
+  </Tabs>
+
+**Styles**
+
+```css file="../../../src/components/examples/accordion/accordion-multiple.module.css"
+```
+</div>
+
+</ExampleCode>
 
 ### Root Provider
 
-Utilisez `useAccordion()` de `@moduix/react` avec `Accordion.RootProvider` lorsque l'état doit être
-créé en dehors de l'arbre de composants de l'accordéon. Ne rendez pas `Accordion` ou `Accordion.Root`
-pour le même état.
+Utilisez `useAccordion()` du paquet correspondant au framework avec `Accordion.RootProvider` lorsque
+l’état doit être créé en dehors de l’arbre de l’accordéon. Ne rendez pas `Accordion` ou
+`Accordion.Root` pour le même état.
 
-<PreviewFrame maxWidth="sm">
-  ```tsx preview file="../../en/docs/_snippets/accordion/root-provider.tsx"
+<ExampleFrame variant="component">
+  <AccordionRootProvider />
+</ExampleFrame>
 
+<ExampleCode>
+<div className="docs-reference">
+  <Tabs
+    groupId="framework"
+    values={[
+      { label: 'React', value: 'react' },
+      { label: 'Solid', value: 'solid' },
+    ]}
+    className="docs-tabs"
+  >
+    <Tab value="react">
+
+```tsx pure file="../../../src/components/examples/accordion/root-provider.tsx"
 ```
-</PreviewFrame>
+
+    </Tab>
+    <Tab value="solid">
+
+<CodeBlockRuntime lang="tsx" code={accordionSolidRootProvider} />
+
+    </Tab>
+  </Tabs>
+
+**Styles**
+
+```css file="../../../src/components/examples/accordion/accordion-root-provider.module.css"
+```
+</div>
+
+</ExampleCode>
 
 ### Personnalisation avancée
 
@@ -226,18 +434,52 @@ Le contenu d'un accordéon peut accueillir un autre widget composite basé sur A
 Gardez la structure des parties de chaque primitive explicite afin que le bon composant gère le clavier
 et les champs de formulaire masqués.
 
-<PreviewFrame maxWidth="sm">
-```tsx preview file="../../en/docs/_snippets/accordion/with-slider.tsx"
+<ExampleFrame variant="component">
+  <AccordionWithSlider />
+</ExampleFrame>
 
+<ExampleCode>
+<div className="docs-reference">
+  <Tabs
+    groupId="framework"
+    values={[
+      { label: 'React', value: 'react' },
+      { label: 'Solid', value: 'solid' },
+    ]}
+    className="docs-tabs"
+  >
+    <Tab value="react">
+
+```tsx pure file="../../../src/components/examples/accordion/with-slider.tsx"
 ```
 
-</PreviewFrame>
+    </Tab>
+    <Tab value="solid">
+
+<CodeBlockRuntime lang="tsx" code={accordionSolidWithSlider} />
+
+    </Tab>
+  </Tabs>
+
+**Styles**
+
+```css file="../../../src/components/examples/accordion/accordion-with-slider.module.css"
+```
+</div>
+
+</ExampleCode>
 
 ## Styles
 
-Utilisez `className` sur les parties exportées pour appliquer les styles structurels. Pour les styles
-qui dépendent de l'état, privilégiez les attributs de données Ark tels que `data-state`, `data-disabled`
-et `data-orientation`, ainsi que les sélecteurs `data-slot` de moduix.
+Utilisez `className` en React ou `class` en Solid sur les parties exportées pour appliquer les styles
+structurels. Pour les styles liés à l’état, privilégiez les attributs de données Ark comme
+`data-state`, `data-disabled` et `data-orientation`, ainsi que les sélecteurs `data-slot` de moduix.
+Les variantes Tailwind se personnalisent avec des utilitaires et des classes supplémentaires. Les
+variables de composant ci-dessous concernent uniquement les variantes CSS Modules ; les attributs de
+données, les sélecteurs `data-slot` et les variables d’exécution Ark sont communs aux deux approches.
+
+Placez l’espacement du panneau sur `Accordion.ItemBody`, et non sur `Accordion.ItemContent`, afin
+qu’Ark puisse mesurer et animer correctement le panneau.
 
 ### Propriétés CSS
 

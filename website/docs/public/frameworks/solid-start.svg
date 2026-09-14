@@ -1,0 +1,29 @@
+<svg role="img" viewBox="0 0 189.3 162" xmlns="http://www.w3.org/2000/svg">
+  <title>SolidStart</title>
+  <defs>
+    <clipPath id="solid-start-clip-1"><path d="m87.8 149.1 26.9-2.1s9.2-1.5 14.6-10.4l-19-4.6-22.5 17.1Z" /></clipPath>
+    <clipPath id="solid-start-clip-2"><path d="M50.6 86c-8 .4-22.8 1.8-22.8 1.8l64.5 46.9 14.7 3.7 22.3-1.7-64.9-47S59.2 86 51.7 86h-1.1Z" /></clipPath>
+    <clipPath id="solid-start-clip-3"><path d="m133.8 76.7 27.7-1.7s9.5-1.4 14.9-10.2l-19.7-4.9-22.9 16.8Z" /></clipPath>
+    <clipPath id="solid-start-clip-4"><path d="M94.6 12.7c-8.3.3-23.5 1.5-23.5 1.5l67.2 48 15.2 3.9 23-1.4-67.6-48.1s-5.6-3.9-13.5-3.9h-.8Z" /></clipPath>
+    <clipPath id="solid-start-clip-5"><path d="M11.8 98.2c-.1.1-.1.2-.1.3l17.7 12.8L46.9 124l29.4 21.3c9.9 7.1 23.3 4.1 30.1-6.9l-17.9-12.9-17.9-12.9-29.1-21.2a19.6 19.6 0 0 0-11.6-3.8c-7 0-13.9 3.7-18.1 10.6Z" /></clipPath>
+    <clipPath id="solid-start-clip-6"><path d="m55.4 24.5-.2.3 18.4 13.1L92 50.9l30.6 21.8c10.3 7.3 24.1 4.4 30.9-6.5l-18.6-13.3-18.6-13.2L85.9 18a21.2 21.2 0 0 0-12.3-4c-7.1.1-14 3.7-18.2 10.5Z" /></clipPath>
+    <clipPath id="solid-start-clip-7"><path d="m42.4 39.3 23.7 26c1.1 1.5 2.3 2.9 3.7 4.1l46.2 50.8 23-1.4c6.8-10.9 4-25.7-6.3-33L102.1 64 83.8 51 65.4 37.9l-23 1.4Z" /></clipPath>
+    <clipPath id="solid-start-clip-8"><path d="M42.2 39.6c-6.7 10.8-3.9 25.4 6.2 32.6l30.3 21.6L97.4 107l18.6 13.2c6.8-10.9 4-25.7-6.3-33L79.2 65.5 60.8 52.4 42.4 39.3l-.2.3Z" /></clipPath>
+    <linearGradient id="solid-start-gradient-1" x1="-19.413" x2="-18.413" y1="-133.61" y2="-133.61" gradientTransform="matrix(-35.4765 174.8486 -174.8486 -35.4765 -23914.8516 -1337.4067)" gradientUnits="userSpaceOnUse"><stop stop-color="#1593f5"  offset=""/><stop offset="1" stop-color="#0084ce" /></linearGradient>
+    <linearGradient id="solid-start-gradient-2" x1="-20.1016" x2="-19.1016" y1="-134.4351" y2="-134.4351" gradientTransform="matrix(-148.6635 -238.1995 238.1995 -148.6635 29165.9043 -24576.1035)" gradientUnits="userSpaceOnUse"><stop stop-color="#1593f5"  offset=""/><stop offset="1" stop-color="#0084ce" /></linearGradient>
+    <linearGradient id="solid-start-gradient-3" x1="-20.1877" x2="-19.1877" y1="-134.65" y2="-134.65" gradientTransform="matrix(-89.536 -160.489 160.489 -89.536 20031.8984 -15094.2344)" gradientUnits="userSpaceOnUse"><stop stop-color="#fff"  offset=""/><stop offset="1" stop-color="#15abff" /></linearGradient>
+    <linearGradient id="solid-start-gradient-4" x1="-19.7576" x2="-18.7576" y1="-133.3852" y2="-133.3852" gradientTransform="matrix(76.0211 174.0039 -174.0039 76.0211 -21636.4453 13496.8467)" gradientUnits="userSpaceOnUse"><stop stop-color="#fff"  offset=""/><stop offset="1" stop-color="#79cfff" /></linearGradient>
+    <linearGradient id="solid-start-gradient-5" x1="-19.3994" x2="-18.3994" y1="-133.9089" y2="-133.9089" gradientTransform="matrix(-120.7891 167.2465 -167.2465 -120.7891 -24582.5547 -12945.1768)" gradientUnits="userSpaceOnUse"><stop stop-color="#0057e5"  offset=""/><stop offset="1" stop-color="#0084ce" /></linearGradient>
+    <linearGradient id="solid-start-gradient-6" x1="-18.9789" x2="-17.9789" y1="-133.53" y2="-133.53" gradientTransform="matrix(-38.0106 104.7402 -104.7402 -38.0106 -14578.2188 -3108.949)" gradientUnits="userSpaceOnUse"><stop stop-color="#fff"  offset=""/><stop offset="1" stop-color="#15abff" /></linearGradient>
+    <linearGradient id="solid-start-gradient-7" x1="-20.0549" x2="-19.0549" y1="-134.41" y2="-134.41" gradientTransform="matrix(-190.8975 -251.7144 251.7144 -190.8975 30181.0039 -30518.9199)" gradientUnits="userSpaceOnUse"><stop stop-color="#fff"  offset=""/><stop offset="1" stop-color="#79cfff" /></linearGradient>
+    <linearGradient id="solid-start-gradient-8" x1="-19.4497" x2="-18.4497" y1="-133.8208" y2="-133.8208" gradientTransform="matrix(-97.9828 193.4315 -193.4315 -97.9828 -27647.6406 -9396.6328)" gradientUnits="userSpaceOnUse"><stop stop-color="#fff"  offset=""/><stop offset="1" stop-color="#79cfff" /></linearGradient>
+  </defs>
+  <polygon points="132.6 132.7 127.7 157.2 84.4 148.4 89.4 123.9" clip-path="url(#solid-start-clip-1)" fill="url(#solid-start-gradient-1)" />
+  <polygon points="56.2 184 4.2 100.7 100.8 40.4 152.9 123.7" clip-path="url(#solid-start-clip-2)" fill="url(#solid-start-gradient-2)" />
+  <polygon points="143.9 94.8 126.6 63.8 166.3 41.7 183.6 72.7" clip-path="url(#solid-start-clip-3)" fill="url(#solid-start-gradient-3)" />
+  <polygon points="159.6 -25.9 196.1 57.6 88 104.8 51.5 21.3" clip-path="url(#solid-start-clip-4)" fill="url(#solid-start-gradient-4)" />
+  <polygon points="137.2 109.8 73.9 197.4 -19.1 130.2 44.1 42.6" clip-path="url(#solid-start-clip-5)" fill="url(#solid-start-gradient-5)" />
+  <polygon points="174.6 21.7 142.1 111.5 34.1 72.3 66.7 -17.5" clip-path="url(#solid-start-clip-6)" fill="url(#solid-start-gradient-6)" />
+  <polygon points="80.2 170.1 2.7 68 108.1 -11.9 185.5 90.2" clip-path="url(#solid-start-clip-7)" fill="url(#solid-start-gradient-7)" />
+  <polygon points="155.5 55.9 105 155.5 2.9 103.8 53.4 4.1" clip-path="url(#solid-start-clip-8)" fill="url(#solid-start-gradient-8)" />
+</svg>

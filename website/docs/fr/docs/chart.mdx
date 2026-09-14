@@ -4,34 +4,104 @@ component: chart
 description: Créez des graphiques accessibles et adaptatifs avec TanStack Charts, puis composez leur figure, leur info-bulle, leur légende et leurs animations avec moduix.
 ---
 
-import * as ChartDocs from '@/components/examples/chart';
+import * as ChartDocs from '@/components/examples/chart/css-properties';
+import ChartAdvancedCustomization from '@/components/examples/chart/advanced-customization.tsx';
+import ChartAnimatedArea from '@/components/examples/chart/animated-area.tsx';
+import ChartBasic from '@/components/examples/chart/basic.tsx';
+import ChartDonut from '@/components/examples/chart/donut.tsx';
+import ChartHeatmap from '@/components/examples/chart/heatmap.tsx';
+import ChartHorizontalBars from '@/components/examples/chart/horizontal-bars.tsx';
+import ChartColors from '@/components/examples/chart/line-colors.tsx';
+import ChartScatter from '@/components/examples/chart/scatter.tsx';
+import ChartStackedBars from '@/components/examples/chart/stacked-bars.tsx';
+import chartSolidAdvancedCustomization from '../../../snippets/chart/solid/advanced-customization.tsx?raw';
+import chartSolidAnimatedArea from '../../../snippets/chart/solid/animated-area.tsx?raw';
+import chartSolidBasic from '../../../snippets/chart/solid/basic.tsx?raw';
+import chartSolidDonut from '../../../snippets/chart/solid/donut.tsx?raw';
+import chartSolidHeatmap from '../../../snippets/chart/solid/heatmap.tsx?raw';
+import chartSolidHorizontalBars from '../../../snippets/chart/solid/horizontal-bars.tsx?raw';
+import chartSolidColors from '../../../snippets/chart/solid/line-colors.tsx?raw';
+import chartSolidScatter from '../../../snippets/chart/solid/scatter.tsx?raw';
+import chartSolidStackedBars from '../../../snippets/chart/solid/stacked-bars.tsx?raw';
 
 ## Référence de l’API
 
-Ark UI ne propose pas de primitive dédiée aux graphiques. moduix ajoute une structure `figure`, un
-titre, une description, une légende et un corps d’info-bulle compact autour du [composant hôte React de
-TanStack Charts](https://tanstack.com/charts/latest/docs/framework/react/reference/chart). Définissez
-les éléments graphiques, les échelles, les interactions et les callbacks avec TanStack Charts ; moduix
-fournit la composition qui les entoure.
+Ark UI ne propose pas de primitive dédiée aux graphiques. moduix ajoute une structure sémantique
+`figure`, un titre, une description, une légende et un corps d’info-bulle compact autour de l’[API
+des graphiques TanStack Charts](https://tanstack.com/charts/latest/docs/framework/react/reference/chart).
+Définissez les éléments graphiques, les échelles, les interactions et les callbacks avec TanStack
+Charts ; moduix fournit la composition accessible qui les entoure.
 
-`@tanstack/charts` est une dépendance peer facultative de moduix. La plage de versions actuelle est
-`^0.16.0`, et l’adaptateur React de TanStack nécessite React 19.
+`@tanstack/charts` est une dépendance peer facultative de moduix. Les paquets React et Solid
+exposent la même API de définition des graphiques ; le paquet Solid utilise l’adaptateur de rendu de
+TanStack.
 
 ## Exemple de base
 
-Créez une définition de graphique TanStack et transmettez-la à `Chart.Plot`. Ajoutez autour du
-graphique un titre, une description et une légende visibles, puis définissez un `ariaLabel` concis pour
-les personnes qui utilisent des technologies d’assistance.
+Chart est disponible pour React et Solid, dans les paquets CSS Modules comme dans les variantes
+Tailwind. L’aperçu rendu sur cette page utilise le paquet React CSS Modules ; les onglets de
+framework affichent le code natif correspondant au même contrat public.
 
-<PreviewFrame maxWidth="lg">
-  ```tsx preview file="../../en/docs/_snippets/chart/basic.tsx"
+Créez une définition TanStack et transmettez-la à `Chart.Plot`. Ajoutez autour du graphique un
+titre, une description et une légende visibles, puis définissez un `ariaLabel` concis pour les
+personnes qui utilisent des technologies d’assistance.
 
+<ExampleFrame variant="component">
+  <ChartBasic />
+</ExampleFrame>
+
+<ExampleCode>
+<div className="docs-reference">
+  <Tabs
+    groupId="framework"
+    values={[
+      { label: 'React', value: 'react' },
+      { label: 'Solid', value: 'solid' },
+    ]}
+    className="docs-tabs"
+  >
+    <Tab value="react">
+
+```tsx pure file="../../../src/components/examples/chart/basic.tsx"
 ```
-</PreviewFrame>
+
+    </Tab>
+    <Tab value="solid">
+
+<CodeBlockRuntime lang="tsx" code={chartSolidBasic} />
+
+    </Tab>
+  </Tabs>
+</div>
+
+</ExampleCode>
 
 ## Installation avec shadcn
 
-<ShadcnInstall packageName="chart" />
+Consultez le [Démarrage rapide](/docs/quick-start) pour la configuration complète du paquet, du registre et des styles.
+
+<Tabs groupId="framework">
+  <Tab label="React" value="react">
+
+<ShadcnInstallOptions
+  options={[
+    { label: 'CSS Modules', command: 'shadcn@latest add @moduix-react/chart' },
+    { label: 'Tailwind CSS', command: 'shadcn@latest add @moduix-react-tailwind/chart' },
+  ]}
+/>
+
+  </Tab>
+  <Tab label="Solid" value="solid">
+
+<ShadcnInstallOptions
+  options={[
+    { label: 'CSS Modules', command: 'shadcn@latest add @moduix-solid/chart' },
+    { label: 'Tailwind CSS', command: 'shadcn@latest add @moduix-solid-tailwind/chart' },
+  ]}
+/>
+
+  </Tab>
+</Tabs>
 
 ## Anatomie
 
@@ -49,7 +119,7 @@ Chart / Chart.Root
 | Partie | Rôle |
 | --- | --- |
 | `Chart` / `Chart.Root` | Racine `figure` composée. Accepte les propriétés natives, `asChild` et une ref `HTMLElement`. |
-| `Chart.Plot` | Hôte React de TanStack Charts. Nécessite `definition` et `ariaLabel`, utilise le préréglage d’animation Moduix par défaut et accepte `motion={false}`. |
+| `Chart.Plot` | Hôte TanStack Charts. Nécessite `definition` et `ariaLabel`, utilise le préréglage d’animation moduix par défaut et accepte `motion={false}`. |
 | `Chart.Header` | Structure `figcaption` du titre et de la description. |
 | `Chart.Title` | Titre du graphique, rendu dans un `h3` par défaut. |
 | `Chart.Description` | Explication visible qui accompagne le graphique. |
@@ -58,188 +128,261 @@ Chart / Chart.Root
 
 ## Composition
 
-### Composition recommandée
+`Chart` est une enveloppe de présentation. La `definition` de TanStack possède les éléments
+graphiques, les échelles, les interactions et les callbacks : gardez-la au niveau du module ou
+mémoïsez-la entièrement lorsqu’elle dépend de props ou d’un état. Composez `Chart.Header`,
+`Chart.Plot` et `Chart.Legend` sous la racine ; `Chart.Plot` continue de confier à TanStack le rendu,
+le focus et l’état de l’info-bulle.
 
-Si votre définition TanStack ne change pas, déclarez-la en dehors du composant. Assemblez ensuite
-`Chart.Header`, `Chart.Plot` et `Chart.Legend` dans le composant racine. Définissez directement
-`barY`, `areaY`, `lineY`, `stack()`, les échelles, les guides et les canaux de couleur dans TanStack
-Charts : moduix n’en fait pas des parties React.
-
-Utilisez la même échelle de couleur de la définition pour les éléments graphiques et les pastilles de
-l’info-bulle. Réutilisez les tokens moduix correspondants dans `Chart.LegendItem` pour que la légende
-reprenne les couleurs du graphique.
-
-### Choisir les éléments graphiques
-
-`Chart.Plot` fournit la zone de rendu, tandis que la propriété `marks` de la `definition` détermine ce
-qui est dessiné. Toutes les variantes utilisent la même composition :
-`<Chart.Plot definition={definition} />`.
-
-| Objectif | Éléments TanStack | Exemple |
-| --- | --- | --- |
-| Barres verticales | `barY` | Exemple de base, Barres empilées |
-| Barres horizontales | `barX` | Barres horizontales |
-| Courbe ou zone | `lineY`, `areaY` | Zone animée, Couleurs du graphique |
-| Secteurs ou anneau | `pie`, `polar`, `radialArc` | Graphique en anneau |
-| Nuage de points | `dot` | Nuage de points |
-| Carte thermique | `cell` | Carte thermique |
-
-### Personnaliser le rendu
-
-`Chart.Plot` utilise le préréglage TanStack adaptatif `motion()` par défaut. Définissez `motion={false}`
-pour obtenir un graphique SVG statique, ou transmettez un autre `renderer` si vous devez gérer le
-rendu vous-même. Un `renderer` défini explicitement est prioritaire sur `motion`. Si votre application
-doit gérer directement la surface de rendu, utilisez le renderer Canvas ou bas niveau de TanStack.
-
-```tsx
-<Chart.Plot definition={definition} ariaLabel="Monthly revenue" motion={false} />
-```
-
-Chart utilise par défaut un corps d’info-bulle compact de moduix : les lignes sans pastille ne réservent
-pas de colonne vide. Utilisez `renderTooltipBody` uniquement pour ajouter du contenu React. Son contexte
-contient le `defaultBody` natif de TanStack, avec le titre, les lignes, le formatage et les pastilles.
-TanStack continue à gérer l’ancrage, le placement, le portail, l’épinglage et la fermeture de
-l’info-bulle. N’ajoutez des contrôles interactifs que lorsque `pinned` vaut `true`.
-
-### Propriétés par défaut
-
-| Partie | Propriété | Par défaut | Notes |
-| --- | --- | --- | --- |
-| `Chart.Root` | élément | `figure` | `Chart.Header` est son `figcaption`. |
-| `Chart.Plot` | `definition` | - | Définition TanStack requise. |
-| `Chart.Plot` | `ariaLabel` | - | Nom accessible du graphique requis. |
-| `Chart.Plot` | `motion` | `true` | Définissez `false` pour utiliser le renderer SVG statique de TanStack. |
-| `Chart.Plot` | `renderer` | Préréglage d’animation Moduix | Anime la géométrie et l’info-bulle ; respecte la préférence système pour réduire les animations. |
-| `Chart.Plot` | `height` | `320` | Utilisé lorsque `aspectRatio` est absent. |
-| `Chart.Plot` | `width` | adaptative | S’adapte à la largeur du conteneur. |
-| `Chart.Plot` | `initialWidth` | `640` | Largeur utilisée sur le serveur et avant la première mesure. |
-| `Chart.Plot` | `tabIndex` | `0` | Conserve la navigation au clavier de TanStack dans l’ordre de tabulation. |
-
-### Comportement
-
-- Conservez une définition stable au niveau du module. Si elle dépend de propriétés ou d’un état,
-  mémorisez-la entièrement avec `useMemo`.
-- Le moteur de rendu par défaut anime la géométrie initiale, les mises à jour de données identifiées par
-  une clé, les guides de focus et l’info-bulle native. Avec `prefers-reduced-motion: reduce`, il passe à
-  des mises à jour instantanées ; `motion={false}` désactive l’animation quelle que soit la préférence
-  système.
-- TanStack gère le focus déclenché par le pointeur, la navigation par flèches, l’activation avec Entrée
-  ou Espace, `onFocusChange` et `onSelect`.
-- Le SVG focusable du graphique utilise l’anneau de focus moduix. Ne désactivez pas `focusRing` tant que
-  votre définition ne fournit pas sa propre géométrie de focus.
-- Ajoutez `ariaDescription` si le titre et la description visibles n’expliquent pas suffisamment les données.
-- `className` et `style` sur `Chart.Plot` ciblent l’élément externe de TanStack. Il n’expose pas de ref.
+Utilisez `renderTooltipBody` uniquement pour envelopper ou étendre l’info-bulle native : rendez le
+`defaultBody` fourni et n’ajoutez des contrôles interactifs que lorsque `pinned` vaut true. `Chart.Root`
+et `Chart.Header` acceptent `asChild` lorsque l’élément sémantique ou la mise en page doivent être
+contrôlés par l’application.
 
 ## Exemples
 
 ### Zone animée
 
-Dans cet exemple, TanStack gère directement la zone, la courbe, les points, le focus groupé et
-l’animation de l’info-bulle.
+La zone, la ligne, les points, le focus groupé et l’animation de l’info-bulle restent natifs de
+TanStack.
 
-<PreviewFrame maxWidth="lg">
-  ```tsx preview file="../../en/docs/_snippets/chart/animated-area.tsx"
+<ExampleFrame variant="component">
+  <ChartAnimatedArea />
+</ExampleFrame>
 
+<ExampleCode>
+<div className="docs-reference">
+  <Tabs groupId="framework" values={[{ label: 'React', value: 'react' }, { label: 'Solid', value: 'solid' }]} className="docs-tabs">
+    <Tab value="react">
+
+```tsx pure file="../../../src/components/examples/chart/animated-area.tsx"
 ```
-</PreviewFrame>
+
+    </Tab>
+    <Tab value="solid">
+
+<CodeBlockRuntime lang="tsx" code={chartSolidAnimatedArea} />
+
+    </Tab>
+  </Tabs>
+</div>
+</ExampleCode>
 
 ### Couleurs du graphique
 
-Utilisez les tokens de couleur moduix dans l’échelle de couleur TanStack. Les variables CSS peuvent
-servir de valeurs de couleur SVG et suivent automatiquement le thème actif.
+Utilisez les tokens de couleur de moduix dans l’échelle de couleurs TanStack. Les propriétés CSS
+fonctionnent comme des valeurs de peinture SVG et suivent automatiquement le thème actif.
 
-<PreviewFrame maxWidth="lg">
-  ```tsx preview file="../../en/docs/_snippets/chart/line-colors.tsx"
+<ExampleFrame variant="component">
+  <ChartColors />
+</ExampleFrame>
 
+<ExampleCode>
+<div className="docs-reference">
+  <Tabs groupId="framework" values={[{ label: 'React', value: 'react' }, { label: 'Solid', value: 'solid' }]} className="docs-tabs">
+    <Tab value="react">
+
+```tsx pure file="../../../src/components/examples/chart/line-colors.tsx"
 ```
-</PreviewFrame>
+
+    </Tab>
+    <Tab value="solid">
+
+<CodeBlockRuntime lang="tsx" code={chartSolidColors} />
+
+    </Tab>
+  </Tabs>
+</div>
+</ExampleCode>
 
 ### Graphique en anneau
 
-Utilisez les primitives TanStack `pie`, `polar` et `radialArc` pour représenter les parts d’un tout.
-La même composition, avec `Chart.Plot`, l’animation, le focus, l’info-bulle et la légende, fonctionne
-pour ces graphiques qui ne reposent pas sur des axes cartésiens.
+Combinez les primitives TanStack optionnelles `pie`, `polar` et `radialArc` pour représenter des
+parts d’un ensemble. La même composition de `Chart.Plot`, de l’animation, du focus, de l’info-bulle
+et de la légende fonctionne aussi hors des graphiques cartésiens.
 
-<PreviewFrame maxWidth="lg">
-  ```tsx preview file="../../en/docs/_snippets/chart/donut.tsx"
+<ExampleFrame variant="component">
+  <ChartDonut />
+</ExampleFrame>
 
+<ExampleCode>
+<div className="docs-reference">
+  <Tabs groupId="framework" values={[{ label: 'React', value: 'react' }, { label: 'Solid', value: 'solid' }]} className="docs-tabs">
+    <Tab value="react">
+
+```tsx pure file="../../../src/components/examples/chart/donut.tsx"
 ```
-</PreviewFrame>
+
+    </Tab>
+    <Tab value="solid">
+
+<CodeBlockRuntime lang="tsx" code={chartSolidDonut} />
+
+    </Tab>
+  </Tabs>
+</div>
+</ExampleCode>
 
 ### Carte thermique
 
-Associez `cell` à des échelles de bandes sur les deux axes pour créer une matrice de catégories
-compacte. Le canal de couleur associe le niveau de chaque cellule à une couleur du thème.
+Utilisez `cell` avec des échelles band sur les deux axes pour créer une matrice catégorielle
+compacte. Un canal de couleur transforme le niveau de chaque cellule en une valeur adaptée au thème.
 
-<PreviewFrame maxWidth="lg">
-  ```tsx preview file="../../en/docs/_snippets/chart/heatmap.tsx"
+<ExampleFrame variant="component">
+  <ChartHeatmap />
+</ExampleFrame>
 
+<ExampleCode>
+<div className="docs-reference">
+  <Tabs groupId="framework" values={[{ label: 'React', value: 'react' }, { label: 'Solid', value: 'solid' }]} className="docs-tabs">
+    <Tab value="react">
+
+```tsx pure file="../../../src/components/examples/chart/heatmap.tsx"
 ```
-</PreviewFrame>
+
+    </Tab>
+    <Tab value="solid">
+
+<CodeBlockRuntime lang="tsx" code={chartSolidHeatmap} />
+
+    </Tab>
+  </Tabs>
+</div>
+</ExampleCode>
 
 ### Barres horizontales
 
-Utilisez `barX` lorsque les libellés de catégories sont longs ou lorsqu’un classement se lit mieux du
-haut vers le bas. La valeur numérique se place sur l’axe x et la catégorie sur l’axe y.
+Utilisez `barX` lorsque les libellés de catégories sont longs ou que le classement doit se lire de
+haut en bas. La valeur numérique se place sur x et la catégorie sur y.
 
-<PreviewFrame maxWidth="lg">
-  ```tsx preview file="../../en/docs/_snippets/chart/horizontal-bars.tsx"
+<ExampleFrame variant="component">
+  <ChartHorizontalBars />
+</ExampleFrame>
 
+<ExampleCode>
+<div className="docs-reference">
+  <Tabs groupId="framework" values={[{ label: 'React', value: 'react' }, { label: 'Solid', value: 'solid' }]} className="docs-tabs">
+    <Tab value="react">
+
+```tsx pure file="../../../src/components/examples/chart/horizontal-bars.tsx"
 ```
-</PreviewFrame>
+
+    </Tab>
+    <Tab value="solid">
+
+<CodeBlockRuntime lang="tsx" code={chartSolidHorizontalBars} />
+
+    </Tab>
+  </Tabs>
+</div>
+</ExampleCode>
 
 ### Nuage de points
 
-Utilisez `dot` pour comparer deux valeurs quantitatives. La couleur peut représenter une dimension
-catégorielle supplémentaire sans modifier la relation entre les axes x et y.
+Utilisez `dot` pour comparer deux valeurs quantitatives. La couleur peut porter une dimension
+catégorielle supplémentaire sans modifier la relation entre x et y.
 
-<PreviewFrame maxWidth="lg">
-  ```tsx preview file="../../en/docs/_snippets/chart/scatter.tsx"
+<ExampleFrame variant="component">
+  <ChartScatter />
+</ExampleFrame>
 
+<ExampleCode>
+<div className="docs-reference">
+  <Tabs groupId="framework" values={[{ label: 'React', value: 'react' }, { label: 'Solid', value: 'solid' }]} className="docs-tabs">
+    <Tab value="react">
+
+```tsx pure file="../../../src/components/examples/chart/scatter.tsx"
 ```
-</PreviewFrame>
+
+    </Tab>
+    <Tab value="solid">
+
+<CodeBlockRuntime lang="tsx" code={chartSolidScatter} />
+
+    </Tab>
+  </Tabs>
+</div>
+</ExampleCode>
 
 ### Barres empilées
 
-Pour des barres à plusieurs séries, utilisez un canal de couleur TanStack et la disposition `stack()`.
+Utilisez un canal de couleur TanStack et la disposition `stack()` pour les barres multi-séries.
 `focus: 'group-x'` regroupe l’info-bulle et le focus clavier par trimestre.
 
-<PreviewFrame maxWidth="lg">
-  ```tsx preview file="../../en/docs/_snippets/chart/stacked-bars.tsx"
+<ExampleFrame variant="component">
+  <ChartStackedBars />
+</ExampleFrame>
 
+<ExampleCode>
+<div className="docs-reference">
+  <Tabs groupId="framework" values={[{ label: 'React', value: 'react' }, { label: 'Solid', value: 'solid' }]} className="docs-tabs">
+    <Tab value="react">
+
+```tsx pure file="../../../src/components/examples/chart/stacked-bars.tsx"
 ```
-</PreviewFrame>
+
+    </Tab>
+    <Tab value="solid">
+
+<CodeBlockRuntime lang="tsx" code={chartSolidStackedBars} />
+
+    </Tab>
+  </Tabs>
+</div>
+</ExampleCode>
 
 ### Personnalisation avancée
 
-Les parties issues de la factory Ark acceptent `asChild` et peuvent appliquer leurs styles aux éléments
-sémantiques de votre mise en page. Dans cet exemple de tableau de bord, Chart est utilisé avec Button :
-`figure` et `figcaption` sont remplacés par un `section` et un `header` reliés au titre via
-`aria-labelledby`, et la légende est placée dans le `header`.
+Les parties de la factory Ark acceptent `asChild` et peuvent donc appliquer leurs styles à des
+éléments sémantiques de votre mise en page. Cet exemple de tableau de bord combine Chart et Button,
+remplace `figure` et `figcaption` par un `section` et un `header` identifiés, puis place la légende
+dans l’en-tête.
 
-`Chart.Plot` reste l’hôte TanStack, et non un slot. Utilisez `className` et `style` sur son élément
-externe, et `renderTooltipBody` pour enrichir l’info-bulle. Rendez `defaultBody` dans votre propre
-conteneur : TanStack continue de le positionner et de le rendre dans un portail. N’ajoutez des
-contrôles interactifs que dans une info-bulle épinglée.
+`Chart.Plot` reste l’hôte TanStack, pas un slot. Utilisez `class` ou `className` et `style` sur
+l’élément externe, et `renderTooltipBody` pour étendre l’info-bulle. Rendez `defaultBody` dans votre
+propre enveloppe pendant que TanStack continue de gérer le positionnement et le portail. N’ajoutez
+des contrôles interactifs que dans une info-bulle épinglée.
 
-<PreviewFrame maxWidth="lg">
-  ```tsx preview file="../../en/docs/_snippets/chart/advanced-customization.tsx"
+<ExampleFrame variant="component">
+  <ChartAdvancedCustomization />
+</ExampleFrame>
 
+<ExampleCode>
+<div className="docs-reference">
+  <Tabs groupId="framework" values={[{ label: 'React', value: 'react' }, { label: 'Solid', value: 'solid' }]} className="docs-tabs">
+    <Tab value="react">
+
+```tsx pure file="../../../src/components/examples/chart/advanced-customization.tsx"
 ```
-</PreviewFrame>
+
+    </Tab>
+    <Tab value="solid">
+
+<CodeBlockRuntime lang="tsx" code={chartSolidAdvancedCustomization} />
+
+    </Tab>
+  </Tabs>
+
+**Styles**
+
+```css file="../../../src/components/examples/chart/chart-advanced-customization.module.css"
+```
+</div>
+</ExampleCode>
 
 ## Styles
 
-Utilisez `Chart.Root` pour styliser la figure et `Chart.Plot` pour l’hôte TanStack. Les propriétés CSS
-publiques contrôlent la surface, l’anneau de focus, l’enveloppe de l’info-bulle et sa mise en page par
-défaut. Conservez la géométrie du graphique dans la définition TanStack, avec les options des éléments
-graphiques, les échelles et les canaux de couleur.
+Stylisez la figure avec `Chart.Root` et l’hôte TanStack avec `Chart.Plot`. Les propriétés CSS
+publiques contrôlent la surface, l’anneau de focus, l’enveloppe de l’info-bulle et sa mise en page
+par défaut. Gardez la géométrie du graphique dans la définition TanStack, via les options des
+éléments, les échelles et les canaux de couleur.
 
-Attribuez une classe à la racine lorsqu’un graphique nécessite des ajustements locaux :
+Les variantes Tailwind utilisent les utilitaires natifs et les classes de l’application ; les
+propriétés CSS ci-dessous personnalisent les variantes CSS Modules. Les attributs de données et les
+sélecteurs `data-slot` sont communs aux deux modes de style.
 
-```tsx
-<Chart className="sales-chart">...</Chart>
-```
+Ajoutez une classe locale (`className` en React ou `class` en Solid) lorsque le graphique nécessite
+des remplacements locaux :
 
 ```css
 .sales-chart {
@@ -255,14 +398,13 @@ Attribuez une classe à la racine lorsqu’un graphique nécessite des ajustemen
 
 ### Points d’accroche CSS
 
-- `Chart.Root`, `Chart.Header`, `Chart.Title`, `Chart.Description`, `Chart.Legend`,
-  et `Chart.LegendItem` exposent `data-scope="chart"`, `data-part` et `data-slot`.
-- `className` sur `Chart.Plot` s’applique à l’élément externe `.ts-chart-host`.
-- L’info-bulle par défaut utilise les slots de données `chart-tooltip-body`,
-  `chart-tooltip-title`, `chart-tooltip-rows`, `chart-tooltip-row`, `chart-tooltip-swatch`,
-  `chart-tooltip-label`, `chart-tooltip-value` et `chart-tooltip-text`.
-- Utilisez `--moduix-color-chart-1` à `--moduix-color-chart-5` dans les échelles de couleur TanStack.
-- L’enveloppe de l’info-bulle est stylisée par les variables documentées
-  `--ts-chart-tooltip-*`, mappées depuis les propriétés Moduix. Utilisez `tooltip.className` de
-  TanStack pour vos sélecteurs CSS, ou `renderTooltipBody` lorsque vous devez ajouter du contenu
-  React au `defaultBody` natif.
+- `Chart.Root`, `Chart.Header`, `Chart.Title`, `Chart.Description`, `Chart.Legend` et
+  `Chart.LegendItem` exposent `data-scope="chart"`, `data-part` et `data-slot`.
+- `className` en React et `class` en Solid sur `Chart.Plot` atteignent l’élément externe `.ts-chart-host`.
+- L’info-bulle par défaut utilise les slots `chart-tooltip-body`, `chart-tooltip-title`,
+  `chart-tooltip-rows`, `chart-tooltip-row`, `chart-tooltip-swatch`, `chart-tooltip-label`,
+  `chart-tooltip-value` et `chart-tooltip-text`.
+- Utilisez `--moduix-color-chart-1` à `--moduix-color-chart-5` dans les échelles de couleurs TanStack.
+- L’enveloppe de l’info-bulle se style avec les variables documentées `--ts-chart-tooltip-*`,
+  associées aux propriétés moduix. Utilisez `tooltip.className` pour vos sélecteurs CSS, ou
+  `renderTooltipBody` lorsque vous avez besoin d’un contenu personnalisé et du `defaultBody` natif.

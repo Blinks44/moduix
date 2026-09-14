@@ -2,7 +2,6 @@ import { Field as FieldPrimitive } from '@ark-ui/react/field';
 import { clsx } from 'clsx';
 import type { ComponentProps, ComponentRef } from 'react';
 import { forwardRef } from 'react';
-import { normalizeClassName } from '@/lib/moduix/normalizeClassName';
 import styles from './Textarea.module.css';
 
 const Textarea = forwardRef<
@@ -17,7 +16,7 @@ const Textarea = forwardRef<
       data-part="textarea"
       data-slot="textarea-root"
       data-autoresize={autoresize ? '' : undefined}
-      className={clsx(styles.root, normalizeClassName(className))}
+      className={clsx(styles.root, className)}
       autoresize={autoresize}
     />
   );

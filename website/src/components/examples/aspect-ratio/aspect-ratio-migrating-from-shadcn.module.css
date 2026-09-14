@@ -1,0 +1,14 @@
+.root {
+  inline-size: 100%;
+  overflow: hidden;
+  border-radius: var(--moduix-radius-md);
+  background: var(--moduix-color-muted);
+}
+
+.image {
+  position: absolute;
+  inset: 0;
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+}

@@ -1,5 +1,144 @@
 # moduix
 
+## 2.6.0
+
+### Minor Changes
+
+### Sidebar
+
+- a333616: Add NavigationBadge for counts alongside navigation buttons.
+- 9a1018a: Add explicit Menu viewport composition and preserve Solid bound button handlers.
+
+### Avatar
+
+- 32f7db7: Make fallback content explicit and remove generated initials and the built-in fallback icon.
+
+### AngleSlider
+
+- a118470: Require explicit composition of the native form control.
+
+### Checkbox
+
+- a118470: Require explicit composition of the native form control.
+
+### ColorPicker
+
+- a118470: Require explicit composition of the native form control.
+
+### DateInput
+
+- a118470: Require explicit composition of the native form control.
+
+### FileUpload
+
+- a118470: Require explicit composition of the native form control.
+
+### PinInput
+
+- a118470: Require explicit composition of the native form control.
+
+### RadioGroup
+
+- a118470: Require explicit composition of item form controls.
+
+### RatingGroup
+
+- a118470: Require explicit composition of the native form control.
+
+### SegmentGroup
+
+- a118470: Require explicit composition of item form controls.
+
+### Select
+
+- a118470: Require explicit composition of the native form control.
+
+### SignaturePad
+
+- a118470: Require explicit composition of the native form control.
+
+### Slider
+
+- a118470: Require explicit composition of the native form control.
+
+### Switch
+
+- a118470: Require explicit composition of the native form control.
+
+### TagsInput
+
+- a118470: Require explicit composition of the native form control.
+
+### Alert
+
+- 20bb7e9: Require `Alert.Content` to contain title, description, actions, and other message content.
+
+### AspectRatio
+
+- f022e4e: Limit default styling to the ratio container.
+  Media sizing, fitting, clipping, and border radius are now consumer-owned, and `--moduix-aspect-ratio-radius` is removed.
+
+### Badge
+
+- f022e4e: Keep direct children unchanged and limit built-in interaction styling to links.
+  Use `Badge.Label` explicitly for truncation; button hover and disabled presentation are now consumer-owned, and `--moduix-badge-opacity-disabled` is removed.
+
+### Patch Changes
+
+### Collapsible
+
+- 6eeb199: Align trigger and content by removing default horizontal padding.
+
+### CommandPalette
+
+- 6eeb199: Simplify hotkey and clear-trigger behavior and reduce the default clear-button size.
+
+### Card
+
+- 333837a: Fix media image sizing inside `picture` and align forwarded ref types with Ark factory elements.
+
+### HoverCard
+
+- 6c2a9fc: Keep arrows integrated with the popup while allowing constrained content to scroll through `HoverCard.Body`.
+
+### NavigationMenu
+
+- 270eabe: Align content and indicator composition with Ark and remove the unsupported standalone arrow example.
+
+### Pagination
+
+- 1901dc5: Preserve localized navigation labels and safe `asChild` composition while removing item transitions.
+
+### Popover
+
+- 1429b3b: Keep RootProvider portalling aligned with its usePopover state.
+
+### Select
+
+- 520d42a: Align the indicator with Ark anatomy and simplify related popup styling.
+
+### Tabs
+
+- eeb2799: Align indicator motion customization with Ark UI.
+- 1429b3b: Remove an unnecessary DateInput literal-segment style override.
+- 59b868c: Remove the redundant `normalizeClassName` helper from React components.
+
+### Breadcrumbs
+
+- c3e3aae: Simplify styling hooks and preserve its accessibility semantics.
+
+### Listbox
+
+- 1429b3b: Simplify clear-trigger composition and remove unused default styles.
+
+### Splitter
+
+- eeb2799: Remove redundant layout styles already provided by Ark.
+
+### AngleSlider
+
+- 72695ea: Remove the unused `Dial.thumbClassName` prop.
+
 ## 2.5.1
 
 ### Patch Changes

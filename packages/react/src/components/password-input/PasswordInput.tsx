@@ -9,7 +9,6 @@ import { clsx } from 'clsx';
 import type { ComponentProps, ComponentRef } from 'react';
 import { forwardRef } from 'react';
 import { EyeClosedIcon, EyeIcon } from '@/lib/moduix/icons/ui';
-import { normalizeClassName } from '@/lib/moduix/normalizeClassName';
 import styles from './PasswordInput.module.css';
 
 const PasswordInputRoot = forwardRef<
@@ -20,7 +19,7 @@ const PasswordInputRoot = forwardRef<
     <PasswordInputPrimitive.Root
       ref={ref}
       data-slot="password-input-root"
-      className={clsx(styles.root, normalizeClassName(className))}
+      className={clsx(styles.root, className)}
       {...props}
     />
   );
@@ -34,7 +33,7 @@ const PasswordInputRootProvider = forwardRef<
     <PasswordInputPrimitive.RootProvider
       ref={ref}
       data-slot="password-input-root-provider"
-      className={clsx(styles.root, normalizeClassName(className))}
+      className={clsx(styles.root, className)}
       {...props}
     />
   );
@@ -48,7 +47,7 @@ const PasswordInputLabel = forwardRef<
     <PasswordInputPrimitive.Label
       ref={ref}
       data-slot="password-input-label"
-      className={clsx(styles.label, normalizeClassName(className))}
+      className={clsx(styles.label, className)}
       {...props}
     />
   );
@@ -62,7 +61,7 @@ const PasswordInputControl = forwardRef<
     <PasswordInputPrimitive.Control
       ref={ref}
       data-slot="password-input-control"
-      className={clsx(styles.control, normalizeClassName(className))}
+      className={clsx(styles.control, className)}
       {...props}
     />
   );
@@ -76,7 +75,7 @@ const PasswordInputInput = forwardRef<
     <PasswordInputPrimitive.Input
       ref={ref}
       data-slot="password-input-input"
-      className={clsx(styles.input, normalizeClassName(className))}
+      className={clsx(styles.input, className)}
       {...props}
     />
   );
@@ -90,7 +89,7 @@ const PasswordInputVisibilityTrigger = forwardRef<
     <PasswordInputPrimitive.VisibilityTrigger
       ref={ref}
       data-slot="password-input-visibility-trigger"
-      className={clsx(styles.visibilityTrigger, normalizeClassName(className))}
+      className={clsx(styles.visibilityTrigger, className)}
       {...props}
     />
   );
@@ -104,7 +103,7 @@ const PasswordInputIndicator = forwardRef<
     <PasswordInputPrimitive.Indicator
       ref={ref}
       data-slot="password-input-indicator"
-      className={clsx(styles.indicator, normalizeClassName(className))}
+      className={clsx(styles.indicator, className)}
       fallback={fallback ?? <EyeClosedIcon />}
       {...props}
     >

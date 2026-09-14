@@ -1,0 +1,89 @@
+.root {
+  inline-size: 100%;
+  grid-template-columns: minmax(0, 1fr);
+  --moduix-table-of-contents-gap: var(--moduix-spacing-4);
+  --moduix-table-of-contents-nav-padding: var(--moduix-spacing-3);
+}
+
+.root [data-slot='toc-content'] {
+  min-width: 0;
+}
+
+.scrollArea {
+  display: grid;
+  block-size: 26rem;
+  gap: var(--moduix-spacing-3);
+  overflow-y: auto;
+  overscroll-behavior: contain;
+  padding: var(--moduix-spacing-3);
+  border: var(--moduix-border-width-sm) solid var(--moduix-color-border);
+  border-radius: var(--moduix-radius-md);
+  scrollbar-gutter: stable;
+  scroll-behavior: smooth;
+}
+
+.scrollArea > section {
+  padding: var(--moduix-spacing-3);
+  border: var(--moduix-border-width-sm) solid var(--moduix-color-border);
+  border-radius: var(--moduix-radius-md);
+  background: var(--moduix-color-background);
+}
+
+.scrollArea :is(h2, h3) {
+  margin: 0;
+  scroll-margin-block: var(--moduix-spacing-3);
+  font-size: var(--moduix-text-sm);
+}
+
+.scrollArea p {
+  margin: var(--moduix-spacing-1) 0 0;
+  color: var(--moduix-color-muted-foreground);
+  font-size: var(--moduix-text-sm);
+  line-height: var(--moduix-line-height-text-sm);
+}
+
+.collapsibleRoot {
+  min-width: 0;
+}
+
+.collapsibleRoot [data-slot='collapsible-trigger'] {
+  border: var(--moduix-border-width-sm) solid var(--moduix-color-border);
+  border-radius: var(--moduix-radius-md);
+  background: var(--moduix-color-background);
+}
+
+.triggerContent {
+  display: inline-flex;
+  min-width: 0;
+  align-items: center;
+  gap: var(--moduix-spacing-2);
+}
+
+.triggerLabel {
+  overflow: hidden;
+  text-overflow: ellipsis;
+  white-space: nowrap;
+}
+
+.progressRing {
+  flex: 0 0 auto;
+  color: var(--moduix-color-muted-foreground);
+}
+
+.progressRing [data-progress] {
+  color: var(--moduix-color-primary);
+}
+
+.collapsibleRoot [data-slot='collapsible-content'] {
+  padding-block: var(--moduix-spacing-2);
+}
+
+.collapsibleRoot [data-slot='collapsible-content'] [data-slot='toc-list'] {
+  margin-inline: 0;
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .scrollArea {
+    scroll-behavior: auto;
+  }
+}

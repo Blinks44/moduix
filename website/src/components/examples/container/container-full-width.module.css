@@ -1,0 +1,6 @@
+.root {
+  width: min(48rem, 100%);
+  padding-block: var(--moduix-spacing-4);
+  border-block: var(--moduix-border-width-sm) dashed var(--moduix-color-border);
+  background-color: var(--moduix-color-muted);
+}

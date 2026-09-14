@@ -23,7 +23,7 @@ properties, `className`, stable `data-slot` hooks, and Ark state attributes.
 Install the package and its Ark UI peer dependency:
 
 ```bash
-npm install @moduix/react @ark-ui/react
+pnpm add @moduix/react @ark-ui/react
 ```
 
 `react`, `react-dom`, and `@ark-ui/react` are peer dependencies. moduix supports React 18 and 19.
@@ -31,7 +31,7 @@ npm install @moduix/react @ark-ui/react
 The optional `Chart` component also requires its TanStack peer dependency:
 
 ```bash
-npm install @tanstack/charts
+pnpm add @tanstack/charts
 ```
 
 ## Add styles
@@ -132,11 +132,16 @@ form. Set up `components.json` with the [Quick start](https://moduix.dev/docs/qu
 the components you need:
 
 ```bash
-npx shadcn@latest add @moduix-react/button @moduix-react/dialog
+pnpm dlx shadcn@latest add @moduix-react/button @moduix-react/dialog
 ```
 
 Generated files include the component source, CSS Modules, and required supporting files. Their
 destination paths are controlled by your `components.json` aliases.
+
+## Compatibility
+
+The package is ESM-only and ships modern JavaScript targeting ES2023. Consume it through a modern
+application bundler configured for the browsers your application supports.
 
 ## Links
 
@@ -144,6 +149,22 @@ destination paths are controlled by your `components.json` aliases.
 - [npm package](https://www.npmjs.com/package/@moduix/react)
 - [Source repository](https://github.com/Blinks44/moduix)
 - [Issues](https://github.com/Blinks44/moduix/issues)
+
+## Acknowledgements
+
+moduix is possible because of the work and ideas of these projects:
+
+- [Ark UI](https://ark-ui.com/) for the accessible, state-machine-backed primitives that define the
+  behavioral foundation.
+- [Chakra UI](https://chakra-ui.com/) for Ark-aligned composition ergonomics and design-system
+  craft.
+- [shadcn/ui](https://ui.shadcn.com/) for open-code distribution, beautiful defaults, and a
+  documentation style centered on practical ownership.
+- [UnoCSS](https://unocss.dev/) and [Tailwind CSS](https://tailwindcss.com/) for the foundations
+  adapted by the optional reset.
+- [Rstack](https://rstack.rs/) for its Rust-based ecosystem: Rspress for documentation, Rslib for
+  library builds, and Rstest for tests.
+- [VoidZero](https://voidzero.dev/) for the JavaScript tooling used throughout the workspace.
 
 ## License
 

@@ -4,6 +4,11 @@ component: json-tree-view
 description: Просматривайте значения JSON и JavaScript в доступном раскрываемом дереве с JsonTreeView из moduix.
 ---
 
+import JsonTreeViewBasicDemo from '../../en/docs/_snippets/json-tree-view/basic.tsx';
+import JsonTreeViewCompactPreviewsDemo from '../../en/docs/_snippets/json-tree-view/compact-previews.tsx';
+import jsonTreeViewSolidBasic from '../../../snippets/json-tree-view/solid/basic.tsx?raw';
+import jsonTreeViewSolidCompactPreviews from '../../../snippets/json-tree-view/solid/compact-previews.tsx?raw';
+
 ## Справочник API
 
 <PrimitiveReference href="https://ark-ui.com/docs/utilities/json-tree-view" />
@@ -16,6 +21,10 @@ description: Просматривайте значения JSON и JavaScript в
 
 ## Базовый пример
 
+JsonTreeView доступен в каждом текущем фреймворке и варианте стилей. Интерактивный пример на этой странице
+использует пакет React с CSS Modules, а во вкладках показан нативный код для каждого выпущенного адаптера с тем же публичным
+контрактом.
+
 Передайте через `data` любое JSON-подобное JavaScript-значение, а внутри компонента добавьте
 `<JsonTreeView.Tree />`. `JsonTreeView` сам создаёт узлы объектов, массивов и значений. moduix оформляет строки,
 отступы, состояния фокуса и стрелку раскрытия по умолчанию.
@@ -23,16 +32,62 @@ description: Просматривайте значения JSON и JavaScript в
 В примере сразу раскрыты два уровня. С помощью `defaultExpandedDepth` задайте, какая часть ответа или конфигурации
 должна быть видна при первом отображении.
 
-<PreviewFrame maxWidth="lg">
+<ExampleFrame variant="component">
+  <JsonTreeViewBasicDemo />
+</ExampleFrame>
 
-```tsx preview file="../../en/docs/_snippets/json-tree-view/basic.tsx"
+<ExampleCode>
+<div className="docs-reference">
+  <Tabs
+    groupId="framework"
+    values={[
+      { label: 'React', value: 'react' },
+      { label: 'Solid', value: 'solid' },
+    ]}
+    className="docs-tabs"
+  >
+    <Tab value="react">
+
+```tsx pure file="../../en/docs/_snippets/json-tree-view/basic.tsx"
 ```
 
-</PreviewFrame>
+    </Tab>
+    <Tab value="solid">
+
+<CodeBlockRuntime lang="tsx" code={jsonTreeViewSolidBasic} />
+
+    </Tab>
+  </Tabs>
+</div>
+
+</ExampleCode>
 
 ## Установка через shadcn
 
-<ShadcnInstall packageName="json-tree-view" />
+Полную настройку пакета, реестра и стилей см. в разделе [Быстрый старт](/docs/quick-start).
+
+<Tabs groupId="framework">
+  <Tab label="React" value="react">
+
+<ShadcnInstallOptions
+  options={[
+    { label: 'CSS Modules', command: 'shadcn@latest add @moduix-react/json-tree-view' },
+    { label: 'Tailwind CSS', command: 'shadcn@latest add @moduix-react-tailwind/json-tree-view' },
+  ]}
+/>
+
+  </Tab>
+  <Tab label="Solid" value="solid">
+
+<ShadcnInstallOptions
+  options={[
+    { label: 'CSS Modules', command: 'shadcn@latest add @moduix-solid/json-tree-view' },
+    { label: 'Tailwind CSS', command: 'shadcn@latest add @moduix-solid-tailwind/json-tree-view' },
+  ]}
+/>
+
+  </Tab>
+</Tabs>
 
 ## Анатомия
 
@@ -40,91 +95,76 @@ description: Просматривайте значения JSON и JavaScript в
 JsonTreeView / JsonTreeView.Root
 └─ JsonTreeView.Tree
    └─ сгенерированные ветви и элементы JSON
+
+JsonTreeView.RootProvider
+└─ то же дерево, подключённое к состоянию useJsonTreeView
 ```
 
 | Часть | Назначение |
 | --- | --- |
 | `JsonTreeView` / `JsonTreeView.Root` | Хранит данные, сгенерированную коллекцию и состояние дерева Ark. |
-| `JsonTreeView.RootProvider` | Подключает состояние `useJsonTreeView`, созданное вне отображаемого дерева. |
+| `JsonTreeView.RootProvider` | Подключает к частям состояние `useJsonTreeView`, созданное вне дерева. |
 | `JsonTreeView.Tree` | Отображает сгенерированные узлы объектов, массивов и значений. |
 
 ## Композиция
 
-### Рекомендуемый вариант
-
-Для обычного просмотрщика данных используйте сокращённую запись `<JsonTreeView>` вместе с
-`<JsonTreeView.Tree />`. Она равнозначна `<JsonTreeView.Root>`, а `Tree` сам создаёт JSON-узлы.
-
-### Когда нужна собственная разметка
-
-Используйте `TreeView`, если приложение должно само определять, как отображать ветви и элементы. Если структура
-узлов подходит, но отдельным значениям нужно другое представление, передайте `renderValue` в
-`JsonTreeView.Tree`.
-
-### RootProvider
-
-Используйте `useJsonTreeView`, если кнопкам и другим элементам за пределами дерева нужно читать или менять его
-состояние, например список раскрытых или выбранных узлов. Передайте полученное состояние в `RootProvider` и
-выведите внутри него `Tree`. Не используйте `Root` и `RootProvider` для одного экземпляра состояния.
-
-```tsx
-import { JsonTreeView, useJsonTreeView } from '@moduix/react/json-tree-view';
-
-function InspectResponse({ data }: { data: unknown }) {
-  const tree = useJsonTreeView({ data });
-
-  return (
-    <JsonTreeView.RootProvider value={tree}>
-      <JsonTreeView.Tree />
-    </JsonTreeView.RootProvider>
-  );
-}
-```
-
-### Основные параметры
-
-| Prop | Назначение |
-| --- | --- |
-| `defaultExpandedDepth` | Задаёт начальное число раскрытых уровней. |
-| `maxPreviewItems` | Ограничивает число элементов в превью объектов и массивов. |
-| `collapseStringsAfterLength` | Сокращает превью длинных строк, пока узел не раскрыт. |
-| `groupArraysAfterLength` | Группирует элементы в превью длинных массивов. |
-| `renderValue` | Заменяет стандартное отображение отдельных значений. |
-| `translations` | Позволяет передать локализованные подписи и текст состояний для доступности. |
-
-### Особенности поведения
-
-Ark поддерживает объекты, массивы, примитивы и такие JavaScript-значения, как `Date`, `Map`, `Set`, `Error`,
-функции и регулярные выражения. Компонент следует паттерну дерева WAI-ARIA: управляет перемещением фокуса,
-навигацией стрелками, раскрытием и выбором. Если состояние должно храниться в приложении, управляйте
-`expandedValue`, `selectedValue`, `checkedValue` или `focusedValue` и обновляйте его в обработчике соответствующего
-изменения.
+Оставляйте `JsonTreeView.Tree` дочерней частью `JsonTreeView` или `JsonTreeView.Root`: она отображает
+сгенерированные узлы JSON. Если состояние дерева принадлежит внешним элементам управления, создайте
+`useJsonTreeView` из соответствующего фреймворк-пакета, передайте состояние в `JsonTreeView.RootProvider` и
+выведите внутри него `Tree`. Используйте управляемые `expandedValue`, `selectedValue`, `checkedValue` или
+`focusedValue`, только когда состояние должно принадлежать приложению. Не используйте `Root` и `RootProvider` для
+одного состояния.
 
 ## Примеры
 
 ### Компактные превью
 
 Используйте `maxPreviewItems`, чтобы ограничить превью объектов и массивов. Параметр
-`collapseStringsAfterLength` сокращает длинные строки, пока узел не раскрыт. Пользователь сможет раскрыть узел и
-посмотреть его значение полностью.
+`collapseStringsAfterLength` сокращает длинные строки, пока пользователь не раскроет узел и не посмотрит его
+значение полностью.
 
-<PreviewFrame maxWidth="lg">
+<ExampleFrame variant="component">
+  <JsonTreeViewCompactPreviewsDemo />
+</ExampleFrame>
 
-```tsx preview file="../../en/docs/_snippets/json-tree-view/compact-previews.tsx"
+<ExampleCode>
+<div className="docs-reference">
+  <Tabs
+    groupId="framework"
+    values={[
+      { label: 'React', value: 'react' },
+      { label: 'Solid', value: 'solid' },
+    ]}
+    className="docs-tabs"
+  >
+    <Tab value="react">
+
+```tsx pure file="../../en/docs/_snippets/json-tree-view/compact-previews.tsx"
 ```
 
-</PreviewFrame>
+    </Tab>
+    <Tab value="solid">
+
+<CodeBlockRuntime lang="tsx" code={jsonTreeViewSolidCompactPreviews} />
+
+    </Tab>
+  </Tabs>
+</div>
+
+</ExampleCode>
 
 ## Стилизация
 
-Используйте `className` на `Root`, `RootProvider` или `Tree`, чтобы локально изменить компоновку. Если не передать
-`arrow`, `JsonTreeView.Tree` использует `ChevronRightIcon` из moduix. Передайте собственную иконку через `arrow`,
-если для области просмотра нужна другая стрелка раскрытия.
+Используйте `className` в React или `class` в Solid на `Root`, `RootProvider` или `Tree`, чтобы локально изменить
+компоновку. Варианты Tailwind используют классы Tailwind и классы приложения. Варианты с CSS Modules используют
+свои стили и базовые токены.
+
+Если не передать `arrow`, `JsonTreeView.Tree` использует `ChevronRightIcon` из moduix. Передайте собственную иконку
+через `arrow`, если для области просмотра нужна другая стрелка раскрытия.
 
 Сгенерированные узлы сохраняют атрибуты Ark `data-scope="json-tree-view"` и `data-part`. moduix добавляет
-стабильные селекторы `data-slot="json-tree-view-root"`, `json-tree-view-root-provider` и
-`json-tree-view-tree`.
+стабильные селекторы `data-slot="json-tree-view-root"`, `json-tree-view-root-provider` и `json-tree-view-tree`.
 
 Компонент напрямую использует базовые токены и не вводит отдельный слой переменных
-`--moduix-json-tree-view-*`. Если области просмотра нужно другое оформление, добавьте `className` или обратитесь
-к атрибутам частей Ark.
+`--moduix-json-tree-view-*`. Если области просмотра нужно другое оформление, добавьте класс или обратитесь к
+атрибутам частей Ark.

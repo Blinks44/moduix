@@ -1,0 +1,30 @@
+import { Button } from '@moduix/react/button';
+import { RadioGroup, useRadioGroup } from '@moduix/react/radio-group';
+import { PreviewMeta } from '@/components/mdx/Components';
+import styles from '@/components/examples/radio-group/radio-group-root-provider.module.css';
+
+const frameworks = ['React', 'Solid', 'Vue'];
+
+export default function RadioGroupRootProviderDemo() {
+  const radioGroup = useRadioGroup({
+    defaultValue: 'React',
+  });
+  return (
+    <div className={styles.stack}>
+      <RadioGroup.RootProvider value={radioGroup}>
+        <RadioGroup.Label>Framework</RadioGroup.Label>
+        {frameworks.map((framework) => (
+          <RadioGroup.Option key={framework} value={framework}>
+            {framework}
+          </RadioGroup.Option>
+        ))}
+      </RadioGroup.RootProvider>
+      <PreviewMeta>
+        <output>Selected: {radioGroup.value ?? 'none'}</output>
+        <Button type="button" size="sm" onClick={() => radioGroup.setValue('Solid')}>
+          Set to Solid
+        </Button>
+      </PreviewMeta>
+    </div>
+  );
+}
