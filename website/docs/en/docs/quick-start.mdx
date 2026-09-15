@@ -9,6 +9,7 @@ import componentsCssModules from '../../../snippets/quick-start/components-css-m
 import componentsTailwind from '../../../snippets/quick-start/components-tailwind.json?raw';
 import reactCssModules from '../../../snippets/quick-start/react-css-modules.tsx?raw';
 import reactTailwind from '../../../snippets/quick-start/react-tailwind.tsx?raw';
+import shadcnAccordion from '../../../snippets/quick-start/shadcn-accordion.tsx?raw';
 import solidCssModules from '../../../snippets/quick-start/solid-css-modules.tsx?raw';
 import solidTailwind from '../../../snippets/quick-start/solid-tailwind.tsx?raw';
 
@@ -389,12 +390,10 @@ update `components.json` and import the generated files from the matching paths.
 
 ### 4. Use the generated component
 
-Import components from the generated files in your own project:
+Accordion is available in every shipped framework and styling variant, so it is a useful first
+check:
 
-```tsx
-import { Button } from '@/components/ui/button';
-import { Accordion } from '@/components/ui/accordion';
-```
+<CodeBlockRuntime lang="tsx" code={shadcnAccordion} />
 
 Most components are built from named parts. This keeps behavior accessible while letting you control
 markup, layout, and styling in your application.

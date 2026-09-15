@@ -9,6 +9,7 @@ import componentsCssModules from '../../../snippets/quick-start/components-css-m
 import componentsTailwind from '../../../snippets/quick-start/components-tailwind.json?raw';
 import reactCssModules from '../../../snippets/quick-start/react-css-modules.tsx?raw';
 import reactTailwind from '../../../snippets/quick-start/react-tailwind.tsx?raw';
+import shadcnAccordion from '../../../snippets/quick-start/shadcn-accordion.tsx?raw';
 import solidCssModules from '../../../snippets/quick-start/solid-css-modules.tsx?raw';
 import solidTailwind from '../../../snippets/quick-start/solid-tailwind.tsx?raw';
 
@@ -390,12 +391,10 @@ alias, mettez à jour `components.json` et adaptez les imports.
 
 ### 4. Utiliser les composants générés
 
-Importez les composants depuis les fichiers créés dans votre projet :
+Accordion est disponible dans chaque framework et mode de style publié, ce qui en fait un bon
+premier contrôle :
 
-```tsx
-import { Button } from '@/components/ui/button';
-import { Accordion } from '@/components/ui/accordion';
-```
+<CodeBlockRuntime lang="tsx" code={shadcnAccordion} />
 
 La plupart des composants sont composés de parties nommées. Cette structure préserve leur comportement accessible tout
 en vous laissant maîtriser le balisage, la mise en page et les styles dans votre application.
