@@ -1,5 +1,16 @@
 # @moduix/solid
 
+## 1.1.0
+
+### Minor Changes
+
+- 7af13b7: Fix reviewed component contracts, including stable styling hooks, Alert live-region semantics, Container width with `gutter="none"`, and Solid CommandPalette clear cancellation. Remove unsupported AngleSlider and Carousel API surface, and simplify Button styling internals.
+
+### Patch Changes
+
+- 7af13b7: Align component contracts across framework and styling adapters.
+- 7af13b7: Preserve internal `data-slot` hooks and fix Tour overlay layering.
+
 ## 1.0.0
 
 ### Major Changes
