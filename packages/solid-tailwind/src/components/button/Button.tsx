@@ -1,4 +1,3 @@
-import { useFocusVisible } from '@ark-ui/solid';
 import type { HTMLArkProps } from '@ark-ui/solid/factory';
 import { ark } from '@ark-ui/solid/factory';
 import { cva } from 'class-variance-authority';
@@ -24,7 +23,7 @@ type ButtonRootProps = HTMLArkProps<'button'> & {
 };
 
 const buttonVariants = cva(
-  "inline-flex cursor-pointer items-center justify-center gap-2 rounded-md border text-sm font-medium no-underline outline-0 appearance-none transition-[background-color,border-color,color,opacity,transform] duration-200 ease-in-out select-none whitespace-nowrap data-disabled:pointer-events-none data-disabled:cursor-default data-disabled:opacity-50 data-loading:cursor-progress motion-reduce:transition-none motion-safe:[&:not([data-variant='link']):active]:translate-y-px [&:focus[data-focus-visible]]:-outline-offset-1 [&:focus[data-focus-visible]]:outline-2 [&:focus[data-focus-visible]]:outline-ring [&>svg:not([class*='size-'])]:size-4 [&>svg]:shrink-0",
+  "inline-flex cursor-pointer items-center justify-center gap-2 rounded-md border text-sm font-medium no-underline outline-0 appearance-none transition-[background-color,border-color,color,opacity,transform] duration-200 ease-in-out select-none whitespace-nowrap data-disabled:pointer-events-none data-disabled:cursor-default data-disabled:opacity-50 data-loading:cursor-progress motion-reduce:transition-none motion-safe:[&:not([data-variant='link']):active]:translate-y-px focus-visible:-outline-offset-1 focus-visible:outline-2 focus-visible:outline-ring [&>svg:not([class*='size-'])]:size-4 [&>svg]:shrink-0",
   {
     variants: {
       variant: {
@@ -65,7 +64,6 @@ const ArkButton = ark.button as (
 ) => JSX.Element;
 
 function ButtonRoot(props: ButtonRootProps) {
-  const focusVisible = useFocusVisible();
   const [local, others] = splitProps(props, [
     'asChild',
     'class',
@@ -112,7 +110,6 @@ function ButtonRoot(props: ButtonRootProps) {
       data-variant={local.variant ?? 'default'}
       data-size={local.size ?? 'md'}
       data-disabled={isDisabled() ? '' : undefined}
-      data-focus-visible={focusVisible() ? '' : undefined}
       data-loading={local.loading ? '' : undefined}
       class={cn(buttonVariants({ variant: local.variant, size: local.size }), local.class)}
     />

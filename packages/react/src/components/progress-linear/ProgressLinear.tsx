@@ -15,9 +15,9 @@ const ProgressLinearRoot = forwardRef<
   return (
     <ProgressPrimitive.Root
       ref={ref}
-      data-slot="progress-linear-root"
       className={clsx(styles.root, className)}
       {...props}
+      data-slot="progress-linear-root"
     />
   );
 });
@@ -29,9 +29,9 @@ const ProgressLinearRootProvider = forwardRef<
   return (
     <ProgressPrimitive.RootProvider
       ref={ref}
-      data-slot="progress-linear-root-provider"
       className={clsx(styles.root, className)}
       {...props}
+      data-slot="progress-linear-root-provider"
     />
   );
 });
@@ -43,9 +43,9 @@ const ProgressLinearLabel = forwardRef<
   return (
     <ProgressPrimitive.Label
       ref={ref}
-      data-slot="progress-linear-label"
       className={clsx(styles.label, className)}
       {...props}
+      data-slot="progress-linear-label"
     />
   );
 });
@@ -57,9 +57,9 @@ const ProgressLinearValueText = forwardRef<
   return (
     <ProgressPrimitive.ValueText
       ref={ref}
-      data-slot="progress-linear-value-text"
       className={clsx(styles.valueText, className)}
       {...props}
+      data-slot="progress-linear-value-text"
     />
   );
 });
@@ -71,9 +71,9 @@ const ProgressLinearTrack = forwardRef<
   return (
     <ProgressPrimitive.Track
       ref={ref}
-      data-slot="progress-linear-track"
       className={clsx(styles.track, className)}
       {...props}
+      data-slot="progress-linear-track"
     />
   );
 });
@@ -85,9 +85,9 @@ const ProgressLinearRange = forwardRef<
   return (
     <ProgressPrimitive.Range
       ref={ref}
-      data-slot="progress-linear-range"
       className={clsx(styles.range, className)}
       {...props}
+      data-slot="progress-linear-range"
     />
   );
 });
@@ -99,9 +99,9 @@ const ProgressLinearView = forwardRef<
   return (
     <ProgressPrimitive.View
       ref={ref}
-      data-slot="progress-linear-view"
       className={clsx(styles.view, className)}
       {...props}
+      data-slot="progress-linear-view"
     />
   );
 });

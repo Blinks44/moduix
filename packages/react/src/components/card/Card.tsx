@@ -16,13 +16,13 @@ const CardRoot = forwardRef<ComponentRef<typeof ark.div>, CardRootProps>(functio
   return (
     <ark.div
       ref={ref}
-      data-scope="card"
-      data-part="root"
-      data-slot="card-root"
-      data-size={size}
-      data-variant={variant}
       className={clsx(styles.root, className)}
       {...props}
+      data-scope="card"
+      data-part="root"
+      data-size={size}
+      data-variant={variant}
+      data-slot="card-root"
     />
   );
 });
@@ -32,11 +32,11 @@ const CardHeader = forwardRef<ComponentRef<typeof ark.div>, HTMLArkProps<'div'>>
     return (
       <ark.div
         ref={ref}
+        className={clsx(styles.header, className)}
+        {...props}
         data-scope="card"
         data-part="header"
         data-slot="card-header"
-        className={clsx(styles.header, className)}
-        {...props}
       />
     );
   },
@@ -49,11 +49,11 @@ const CardBody = forwardRef<ComponentRef<typeof ark.div>, HTMLArkProps<'div'>>(f
   return (
     <ark.div
       ref={ref}
+      className={clsx(styles.body, className)}
+      {...props}
       data-scope="card"
       data-part="body"
       data-slot="card-body"
-      className={clsx(styles.body, className)}
-      {...props}
     />
   );
 });
@@ -65,11 +65,11 @@ const CardMedia = forwardRef<ComponentRef<typeof ark.div>, HTMLArkProps<'div'>>(
   return (
     <ark.div
       ref={ref}
+      className={clsx(styles.media, className)}
+      {...props}
       data-scope="card"
       data-part="media"
       data-slot="card-media"
-      className={clsx(styles.media, className)}
-      {...props}
     />
   );
 });
@@ -79,11 +79,11 @@ const CardBackground = forwardRef<ComponentRef<typeof ark.div>, HTMLArkProps<'di
     return (
       <ark.div
         ref={ref}
+        className={clsx(styles.background, className)}
+        {...props}
         data-scope="card"
         data-part="background"
         data-slot="card-background"
-        className={clsx(styles.background, className)}
-        {...props}
       />
     );
   },
@@ -94,11 +94,11 @@ const CardFooter = forwardRef<ComponentRef<typeof ark.div>, HTMLArkProps<'div'>>
     return (
       <ark.div
         ref={ref}
+        className={clsx(styles.footer, className)}
+        {...props}
         data-scope="card"
         data-part="footer"
         data-slot="card-footer"
-        className={clsx(styles.footer, className)}
-        {...props}
       />
     );
   },
@@ -111,11 +111,11 @@ const CardTitle = forwardRef<ComponentRef<typeof ark.h3>, HTMLArkProps<'h3'>>(fu
   return (
     <ark.h3
       ref={ref}
+      className={clsx(styles.title, className)}
+      {...props}
       data-scope="card"
       data-part="title"
       data-slot="card-title"
-      className={clsx(styles.title, className)}
-      {...props}
     />
   );
 });
@@ -125,11 +125,11 @@ const CardDescription = forwardRef<ComponentRef<typeof ark.p>, HTMLArkProps<'p'>
     return (
       <ark.p
         ref={ref}
+        className={clsx(styles.description, className)}
+        {...props}
         data-scope="card"
         data-part="description"
         data-slot="card-description"
-        className={clsx(styles.description, className)}
-        {...props}
       />
     );
   },
@@ -140,11 +140,11 @@ const CardAction = forwardRef<ComponentRef<typeof ark.div>, HTMLArkProps<'div'>>
     return (
       <ark.div
         ref={ref}
+        className={clsx(styles.action, className)}
+        {...props}
         data-scope="card"
         data-part="action"
         data-slot="card-action"
-        className={clsx(styles.action, className)}
-        {...props}
       />
     );
   },
@@ -157,11 +157,11 @@ const CardLink = forwardRef<ComponentRef<typeof ark.a>, HTMLArkProps<'a'>>(funct
   return (
     <ark.a
       ref={ref}
+      className={clsx(styles.link, className)}
+      {...props}
       data-scope="card"
       data-part="link"
       data-slot="card-link"
-      className={clsx(styles.link, className)}
-      {...props}
     />
   );
 });

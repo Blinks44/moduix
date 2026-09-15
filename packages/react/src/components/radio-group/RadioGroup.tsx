@@ -30,9 +30,9 @@ const RadioGroupRoot = forwardRef<
   return (
     <RadioGroupPrimitive.Root
       ref={ref}
-      data-slot="radio-group-root"
       className={clsx(styles.root, className)}
       {...props}
+      data-slot="radio-group-root"
     />
   );
 });
@@ -44,9 +44,9 @@ const RadioGroupRootProvider = forwardRef<
   return (
     <RadioGroupPrimitive.RootProvider
       ref={ref}
-      data-slot="radio-group-root-provider"
       className={clsx(styles.root, className)}
       {...props}
+      data-slot="radio-group-root-provider"
     />
   );
 });
@@ -58,9 +58,9 @@ const RadioGroupLabel = forwardRef<
   return (
     <RadioGroupPrimitive.Label
       ref={ref}
-      data-slot="radio-group-label"
       className={clsx(styles.label, className)}
       {...props}
+      data-slot="radio-group-label"
     />
   );
 });
@@ -72,9 +72,9 @@ const RadioGroupItem = forwardRef<
   return (
     <RadioGroupPrimitive.Item
       ref={ref}
-      data-slot="radio-group-item"
       className={clsx(styles.item, className)}
       {...props}
+      data-slot="radio-group-item"
     />
   );
 });
@@ -99,10 +99,10 @@ const RadioGroupItemControl = forwardRef<
   return (
     <RadioGroupPrimitive.ItemControl
       ref={ref}
-      data-slot="radio-group-item-control"
       data-size={size}
       className={clsx(styles.itemControl, className)}
       {...props}
+      data-slot="radio-group-item-control"
     />
   );
 });
@@ -114,9 +114,9 @@ const RadioGroupItemText = forwardRef<
   return (
     <RadioGroupPrimitive.ItemText
       ref={ref}
-      data-slot="radio-group-item-text"
       className={clsx(styles.itemText, className)}
       {...props}
+      data-slot="radio-group-item-text"
     />
   );
 });
@@ -128,9 +128,9 @@ const RadioGroupIndicator = forwardRef<
   return (
     <RadioGroupPrimitive.Indicator
       ref={ref}
-      data-slot="radio-group-indicator"
       className={clsx(styles.indicator, className)}
       {...props}
+      data-slot="radio-group-indicator"
     />
   );
 });

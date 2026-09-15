@@ -36,10 +36,10 @@ const AvatarRoot = forwardRef<ComponentRef<typeof AvatarPrimitive.Root>, AvatarR
     return (
       <AvatarPrimitive.Root
         ref={ref}
-        data-slot="avatar-root"
         data-size={size}
         className={cn(avatarVariants({ size }), className)}
         {...props}
+        data-slot="avatar-root"
       />
     );
   },
@@ -52,10 +52,10 @@ const AvatarRootProvider = forwardRef<
   return (
     <AvatarPrimitive.RootProvider
       ref={ref}
-      data-slot="avatar-root-provider"
       data-size={size}
       className={cn(avatarVariants({ size }), className)}
       {...props}
+      data-slot="avatar-root-provider"
     />
   );
 });
@@ -67,12 +67,12 @@ const AvatarImage = forwardRef<
   return (
     <AvatarPrimitive.Image
       ref={ref}
-      data-slot="avatar-image"
       className={cn(
         'block size-full rounded-[inherit] object-cover object-center data-[state=hidden]:hidden',
         className,
       )}
       {...props}
+      data-slot="avatar-image"
     />
   );
 });
@@ -84,12 +84,12 @@ const AvatarFallback = forwardRef<
   return (
     <AvatarPrimitive.Fallback
       ref={ref}
-      data-slot="avatar-fallback"
       className={cn(
         'inline-flex size-full items-center justify-center rounded-[inherit] bg-[inherit] data-[state=hidden]:hidden',
         className,
       )}
       {...props}
+      data-slot="avatar-fallback"
     >
       {children}
     </AvatarPrimitive.Fallback>

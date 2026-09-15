@@ -266,7 +266,9 @@ application code. It also prevents click activation on elements used with `asChi
 
 ### Ref
 
-The forwarded ref points to the rendered root and can be used to focus or measure it programmatically.
+The forwarded ref points to the rendered root and can be used to focus or measure it programmatically. In Solid,
+assign a ref to the element created inside the `asChild` render function, because a ref on `Button` itself is not
+forwarded through that composition path.
 
 <ExampleFrame variant="component">
   <ButtonRef />

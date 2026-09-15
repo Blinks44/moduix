@@ -120,9 +120,9 @@ function CommandPaletteTrigger(props: ComponentProps<typeof DialogPrimitive.Trig
   return (
     <DialogPrimitive.Trigger
       asChild={local.asChild}
-      data-slot="command-palette-trigger"
       class={clsx(!local.asChild && styles.trigger, local.class)}
       {...others}
+      data-slot="command-palette-trigger"
     />
   );
 }
@@ -133,9 +133,9 @@ function CommandPaletteBackdrop(props: ComponentProps<typeof DialogPrimitive.Bac
   return (
     <OverlayPortal>
       <DialogPrimitive.Backdrop
-        data-slot="command-palette-backdrop"
         class={clsx(styles.backdrop, local.class)}
         {...others}
+        data-slot="command-palette-backdrop"
       />
     </OverlayPortal>
   );
@@ -147,9 +147,9 @@ function CommandPalettePositioner(props: ComponentProps<typeof DialogPrimitive.P
   return (
     <OverlayPortal>
       <DialogPrimitive.Positioner
-        data-slot="command-palette-positioner"
         class={clsx(styles.positioner, local.class)}
         {...others}
+        data-slot="command-palette-positioner"
       />
     </OverlayPortal>
   );
@@ -160,9 +160,9 @@ function CommandPaletteContent(props: ComponentProps<typeof DialogPrimitive.Cont
 
   return (
     <DialogPrimitive.Content
-      data-slot="command-palette-content"
       class={clsx(styles.content, local.class)}
       {...others}
+      data-slot="command-palette-content"
     />
   );
 }
@@ -187,9 +187,9 @@ function CommandPaletteTitle(props: ComponentProps<typeof DialogPrimitive.Title>
 
   return (
     <DialogPrimitive.Title
-      data-slot="command-palette-title"
       class={clsx(styles.title, local.class)}
       {...others}
+      data-slot="command-palette-title"
     />
   );
 }
@@ -199,9 +199,9 @@ function CommandPaletteDescription(props: ComponentProps<typeof DialogPrimitive.
 
   return (
     <DialogPrimitive.Description
-      data-slot="command-palette-description"
       class={clsx(styles.description, local.class)}
       {...others}
+      data-slot="command-palette-description"
     />
   );
 }
@@ -211,9 +211,9 @@ function CommandPaletteHeader(props: HTMLArkProps<'div'>) {
 
   return (
     <ark.div
-      data-slot="command-palette-header"
       class={clsx(styles.header, local.class)}
       {...others}
+      data-slot="command-palette-header"
     />
   );
 }
@@ -222,7 +222,7 @@ function CommandPaletteBody(props: HTMLArkProps<'div'>) {
   const [local, others] = splitProps(props, ['class']);
 
   return (
-    <ark.div data-slot="command-palette-body" class={clsx(styles.body, local.class)} {...others} />
+    <ark.div class={clsx(styles.body, local.class)} {...others} data-slot="command-palette-body" />
   );
 }
 
@@ -252,7 +252,6 @@ const CommandPaletteCombobox = function CommandPaletteCombobox<T extends Collect
 
   return (
     <ComboboxPrimitive.Root
-      data-slot="command-palette-combobox"
       class={clsx(styles.combobox, local.class)}
       open={local.open ?? true}
       inputBehavior={local.inputBehavior ?? 'autohighlight'}
@@ -261,6 +260,7 @@ const CommandPaletteCombobox = function CommandPaletteCombobox<T extends Collect
       disableLayer={local.disableLayer ?? true}
       onSelect={handleSelect}
       {...others}
+      data-slot="command-palette-combobox"
     >
       {local.children}
     </ComboboxPrimitive.Root>
@@ -272,9 +272,9 @@ function CommandPaletteControl(props: ComponentProps<typeof ComboboxPrimitive.Co
 
   return (
     <ComboboxPrimitive.Control
-      data-slot="command-palette-control"
       class={clsx(styles.control, local.class)}
       {...others}
+      data-slot="command-palette-control"
     />
   );
 }
@@ -284,9 +284,9 @@ function CommandPaletteInput(props: ComponentProps<typeof ComboboxPrimitive.Inpu
 
   return (
     <ComboboxPrimitive.Input
-      data-slot="command-palette-input"
       class={clsx(styles.input, local.class)}
       {...others}
+      data-slot="command-palette-input"
     />
   );
 }
@@ -326,7 +326,6 @@ function CommandPaletteClearTrigger(props: ComponentProps<typeof ComboboxPrimiti
       {(combobox) => (
         <ComboboxPrimitive.ClearTrigger
           asChild={local.asChild}
-          data-slot="command-palette-clear-trigger"
           hidden={combobox().inputValue.length === 0}
           aria-label={
             local['aria-label'] ??
@@ -348,10 +347,10 @@ function CommandPaletteClearTrigger(props: ComponentProps<typeof ComboboxPrimiti
 
             if (event.button === 0) {
               event.preventDefault();
-              combobox().setInputValue('');
             }
           }}
           {...others}
+          data-slot="command-palette-clear-trigger"
         >
           {resolvedChildren() ?? <CloseIcon />}
         </ComboboxPrimitive.ClearTrigger>
@@ -365,9 +364,9 @@ function CommandPaletteList(props: ComponentProps<typeof ComboboxPrimitive.Conte
 
   return (
     <ComboboxPrimitive.Content
-      data-slot="command-palette-list"
       class={clsx(styles.list, local.class)}
       {...others}
+      data-slot="command-palette-list"
     >
       <ScrollArea data-slot="command-palette-scroll-area" class={styles.scrollArea}>
         <ScrollArea.Viewport
@@ -391,9 +390,9 @@ function CommandPaletteEmpty(props: ComponentProps<typeof ComboboxPrimitive.Empt
 
   return (
     <ComboboxPrimitive.Empty
-      data-slot="command-palette-empty"
       class={clsx(styles.empty, local.class)}
       {...others}
+      data-slot="command-palette-empty"
     />
   );
 }
@@ -403,9 +402,9 @@ function CommandPaletteItemGroup(props: ComponentProps<typeof ComboboxPrimitive.
 
   return (
     <ComboboxPrimitive.ItemGroup
-      data-slot="command-palette-item-group"
       class={clsx(styles.itemGroup, local.class)}
       {...others}
+      data-slot="command-palette-item-group"
     />
   );
 }
@@ -417,9 +416,9 @@ function CommandPaletteItemGroupLabel(
 
   return (
     <ComboboxPrimitive.ItemGroupLabel
-      data-slot="command-palette-item-group-label"
       class={clsx(styles.itemGroupLabel, local.class)}
       {...others}
+      data-slot="command-palette-item-group-label"
     />
   );
 }
@@ -429,9 +428,9 @@ function CommandPaletteItem(props: ComponentProps<typeof ComboboxPrimitive.Item>
 
   return (
     <ComboboxPrimitive.Item
-      data-slot="command-palette-item"
       class={clsx(styles.item, local.class)}
       {...others}
+      data-slot="command-palette-item"
     />
   );
 }
@@ -441,9 +440,9 @@ function CommandPaletteItemText(props: ComponentProps<typeof ComboboxPrimitive.I
 
   return (
     <ComboboxPrimitive.ItemText
-      data-slot="command-palette-item-text"
       class={clsx(styles.itemText, local.class)}
       {...others}
+      data-slot="command-palette-item-text"
     />
   );
 }
@@ -456,9 +455,9 @@ function CommandPaletteItemIndicator(
 
   return (
     <ComboboxPrimitive.ItemIndicator
-      data-slot="command-palette-item-indicator"
       class={clsx(styles.itemIndicator, local.class)}
       {...others}
+      data-slot="command-palette-item-indicator"
     >
       {resolvedChildren() ?? <CheckIcon />}
     </ComboboxPrimitive.ItemIndicator>
@@ -470,9 +469,9 @@ function CommandPaletteItemIcon(props: HTMLArkProps<'span'>) {
 
   return (
     <ark.span
-      data-slot="command-palette-item-icon"
       class={clsx(styles.itemIcon, local.class)}
       {...others}
+      data-slot="command-palette-item-icon"
     />
   );
 }
@@ -482,9 +481,9 @@ function CommandPaletteItemLabel(props: HTMLArkProps<'span'>) {
 
   return (
     <ark.span
-      data-slot="command-palette-item-label"
       class={clsx(styles.itemLabel, local.class)}
       {...others}
+      data-slot="command-palette-item-label"
     />
   );
 }
@@ -494,9 +493,9 @@ function CommandPaletteItemDescription(props: HTMLArkProps<'span'>) {
 
   return (
     <ark.span
-      data-slot="command-palette-item-description"
       class={clsx(styles.itemDescription, local.class)}
       {...others}
+      data-slot="command-palette-item-description"
     />
   );
 }
@@ -506,9 +505,9 @@ function CommandPaletteItemMeta(props: HTMLArkProps<'span'>) {
 
   return (
     <ark.span
-      data-slot="command-palette-item-meta"
       class={clsx(styles.itemMeta, local.class)}
       {...others}
+      data-slot="command-palette-item-meta"
     />
   );
 }
@@ -519,9 +518,9 @@ function CommandPaletteSeparator(props: HTMLArkProps<'div'>) {
   return (
     <ark.div
       role="separator"
-      data-slot="command-palette-separator"
       class={clsx(styles.separator, local.class)}
       {...others}
+      data-slot="command-palette-separator"
     />
   );
 }
@@ -531,9 +530,9 @@ function CommandPaletteFooter(props: HTMLArkProps<'div'>) {
 
   return (
     <ark.div
-      data-slot="command-palette-footer"
       class={clsx(styles.footer, local.class)}
       {...others}
+      data-slot="command-palette-footer"
     />
   );
 }
@@ -542,7 +541,7 @@ function CommandPaletteKbd(props: ComponentProps<typeof Kbd.Root>) {
   const [local, others] = splitProps(props, ['class']);
 
   return (
-    <Kbd.Root data-slot="command-palette-kbd" class={clsx(styles.kbd, local.class)} {...others} />
+    <Kbd.Root class={clsx(styles.kbd, local.class)} {...others} data-slot="command-palette-kbd" />
   );
 }
 

@@ -1,4 +1,3 @@
-import { useFocusVisible } from '@ark-ui/solid';
 import type { HTMLArkProps } from '@ark-ui/solid/factory';
 import { ark } from '@ark-ui/solid/factory';
 import { clsx } from 'clsx';
@@ -30,7 +29,6 @@ const ArkButton = ark.button as (
 ) => JSX.Element;
 
 function ButtonRoot(props: ButtonRootProps) {
-  const focusVisible = useFocusVisible();
   const [local, others] = splitProps(props, [
     'asChild',
     'class',
@@ -77,7 +75,6 @@ function ButtonRoot(props: ButtonRootProps) {
       data-variant={local.variant ?? 'default'}
       data-size={local.size ?? 'md'}
       data-disabled={isDisabled() ? '' : undefined}
-      data-focus-visible={focusVisible() ? '' : undefined}
       data-loading={local.loading ? '' : undefined}
       class={clsx(styles.root, local.class)}
     />

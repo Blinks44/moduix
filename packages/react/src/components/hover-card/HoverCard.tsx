@@ -59,10 +59,10 @@ const HoverCardTrigger = forwardRef<
   return (
     <HoverCardPrimitive.Trigger
       ref={ref}
-      data-slot="hover-card-trigger"
       asChild={asChild}
       className={clsx(!asChild && styles.trigger, className)}
       {...props}
+      data-slot="hover-card-trigger"
     />
   );
 });
@@ -75,9 +75,9 @@ const HoverCardPositioner = forwardRef<
     <OverlayPortal>
       <HoverCardPrimitive.Positioner
         ref={ref}
-        data-slot="hover-card-positioner"
         className={clsx(styles.positioner, className)}
         {...props}
+        data-slot="hover-card-positioner"
       />
     </OverlayPortal>
   );
@@ -90,9 +90,9 @@ const HoverCardContent = forwardRef<
   return (
     <HoverCardPrimitive.Content
       ref={ref}
-      data-slot="hover-card-content"
       className={clsx(styles.content, className)}
       {...props}
+      data-slot="hover-card-content"
     />
   );
 });
@@ -104,9 +104,9 @@ const HoverCardArrow = forwardRef<
   return (
     <HoverCardPrimitive.Arrow
       ref={ref}
-      data-slot="hover-card-arrow"
       className={clsx(styles.arrow, className)}
       {...props}
+      data-slot="hover-card-arrow"
     >
       {children ?? <HoverCardArrowTip />}
     </HoverCardPrimitive.Arrow>
@@ -120,9 +120,9 @@ const HoverCardArrowTip = forwardRef<
   return (
     <HoverCardPrimitive.ArrowTip
       ref={ref}
-      data-slot="hover-card-arrow-tip"
       className={clsx(styles.arrowTip, className)}
       {...props}
+      data-slot="hover-card-arrow-tip"
     />
   );
 });
@@ -132,9 +132,9 @@ const HoverCardBody = forwardRef<ComponentRef<typeof ark.div>, HTMLArkProps<'div
     return (
       <ark.div
         ref={ref}
-        data-slot="hover-card-body"
         className={clsx(styles.body, className)}
         {...props}
+        data-slot="hover-card-body"
       />
     );
   },
@@ -152,4 +152,10 @@ const HoverCard = Object.assign(HoverCardRoot, {
   Context: HoverCardPrimitive.Context,
 });
 
-export { HoverCard, useHoverCard, useHoverCardContext };
+export {
+  HoverCard,
+  useHoverCard,
+  useHoverCardContext,
+  type HoverCardRootProps,
+  type HoverCardRootProviderProps,
+};

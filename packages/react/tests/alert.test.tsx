@@ -6,13 +6,13 @@ import { Alert } from '../src';
 test('applies status semantics and stable data hooks', () => {
   const { container } = render(
     <>
-      <Alert>
+      <Alert role="status">
         <Alert.Content>
           <Alert.Title>Update available</Alert.Title>
           <Alert.Description>Install the latest version.</Alert.Description>
         </Alert.Content>
       </Alert>
-      <Alert status="error">
+      <Alert status="error" role="alert">
         <Alert.Indicator>!</Alert.Indicator>
         <Alert.Content>
           <Alert.Title>Payment failed</Alert.Title>
@@ -37,7 +37,7 @@ test('preserves semantic children and refs with asChild', () => {
   const titleRef = createRef<HTMLHeadingElement>();
 
   render(
-    <Alert ref={rootRef} asChild>
+    <Alert ref={rootRef} asChild role="status">
       <section aria-label="Release notes">
         <Alert.Content>
           <Alert.Title ref={titleRef} asChild>

@@ -21,6 +21,7 @@ type LightboxImageSelectDetails = {
 
 type LightboxImageProps = ComponentProps<'img'> & {
   closeOnClick?: boolean;
+  'data-close-on-click'?: string;
 };
 
 type LightboxRootProps = ComponentProps<typeof DialogPrimitive.Root> & OverlayPortalProps;
@@ -133,12 +134,12 @@ function LightboxTrigger(props: ComponentProps<typeof DialogPrimitive.Trigger>) 
   return (
     <DialogPrimitive.Trigger
       asChild={local.asChild}
-      data-slot="lightbox-trigger"
       class={cn(
         'cursor-zoom-in focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-ring',
         local.class,
       )}
       {...others}
+      data-slot="lightbox-trigger"
     />
   );
 }
@@ -149,12 +150,12 @@ function LightboxBackdrop(props: ComponentProps<typeof DialogPrimitive.Backdrop>
   return (
     <OverlayPortal>
       <DialogPrimitive.Backdrop
-        data-slot="lightbox-backdrop"
         class={cn(
           'fixed inset-0 z-[calc(40+var(--layer-index,0))] min-h-dvh bg-overlay backdrop-blur-xs data-[state=closed]:animate-[moduix-fade-out_200ms_ease-in-out_forwards] data-[state=open]:animate-[moduix-fade-in_200ms_ease-in-out] motion-reduce:[animation-delay:0ms] motion-reduce:[animation-duration:1ms]',
           local.class,
         )}
         {...others}
+        data-slot="lightbox-backdrop"
       />
     </OverlayPortal>
   );
@@ -166,12 +167,12 @@ function LightboxPositioner(props: ComponentProps<typeof DialogPrimitive.Positio
   return (
     <OverlayPortal>
       <DialogPrimitive.Positioner
-        data-slot="lightbox-positioner"
         class={cn(
           'fixed inset-0 z-[calc(50+var(--layer-index,0))] box-border grid place-items-center overflow-auto overscroll-contain p-4',
           local.class,
         )}
         {...others}
+        data-slot="lightbox-positioner"
       />
     </OverlayPortal>
   );
@@ -182,12 +183,12 @@ function LightboxContent(props: ComponentProps<typeof DialogPrimitive.Content>) 
 
   return (
     <DialogPrimitive.Content
-      data-slot="lightbox-content"
       class={cn(
         'relative box-border grid max-h-[min(80dvh,calc(100dvh-2rem))] w-fit max-w-[min(80vw,calc(100vw-2rem))] gap-3 border-0 bg-transparent outline-0 data-[state=closed]:animate-moduix-menu-closed data-[state=open]:animate-moduix-menu-open motion-reduce:[animation-delay:0ms] motion-reduce:[animation-duration:1ms]',
         local.class,
       )}
       {...others}
+      data-slot="lightbox-content"
     />
   );
 }
@@ -197,9 +198,9 @@ function LightboxTitle(props: ComponentProps<typeof DialogPrimitive.Title>) {
 
   return (
     <DialogPrimitive.Title
-      data-slot="lightbox-title"
       class={cn('m-0 text-md leading-6 font-semibold text-foreground', local.class)}
       {...others}
+      data-slot="lightbox-title"
     />
   );
 }
@@ -209,9 +210,9 @@ function LightboxDescription(props: ComponentProps<typeof DialogPrimitive.Descri
 
   return (
     <DialogPrimitive.Description
-      data-slot="lightbox-description"
       class={cn('m-0 text-sm leading-5 text-muted-foreground', local.class)}
       {...others}
+      data-slot="lightbox-description"
     />
   );
 }
@@ -222,9 +223,9 @@ function LightboxCloseTrigger(props: ComponentProps<typeof DialogPrimitive.Close
   return (
     <DialogPrimitive.CloseTrigger
       asChild={local.asChild}
-      data-slot="lightbox-close-trigger"
       class={local.class}
       {...others}
+      data-slot="lightbox-close-trigger"
     />
   );
 }
@@ -259,7 +260,12 @@ function LightboxCloseIcon(props: LightboxCloseIconProps) {
 }
 
 function LightboxImage(props: LightboxImageProps) {
-  const [local, others] = splitProps(props, ['class', 'closeOnClick', 'onClick']);
+  const [local, others] = splitProps(props, [
+    'class',
+    'closeOnClick',
+    'data-close-on-click',
+    'onClick',
+  ]);
   const dialog = useDialogContext();
 
   const handleClick = (event: MouseEvent) => {
@@ -272,14 +278,14 @@ function LightboxImage(props: LightboxImageProps) {
 
   return (
     <img
-      data-slot="lightbox-image"
-      data-close-on-click={local.closeOnClick ? '' : undefined}
       class={cn(
         'block max-h-[min(80dvh,100%)] max-w-[min(80vw,100%)] rounded-md object-contain shadow-lg select-none data-[close-on-click]:cursor-zoom-out',
         local.class,
       )}
       onClick={handleClick}
       {...others}
+      data-close-on-click={local.closeOnClick ? '' : undefined}
+      data-slot="lightbox-image"
     />
   );
 }
@@ -289,13 +295,13 @@ function LightboxGallery(props: HTMLArkProps<'div'>) {
 
   return (
     <ark.div
-      data-slot="lightbox-gallery"
       class={cn(
         '[&_[data-slot=carousel-indicator-group]]:mx-auto',
         'max-w-[min(72rem,calc(100vw-2rem))] justify-self-center [&_[data-slot=carousel-control]]:items-center [&_[data-slot=carousel-indicator-group]]:w-fit [&_[data-slot=carousel-indicator-group]]:max-w-full [&_[data-slot=carousel-indicator-group]]:flex-wrap [&_[data-slot=carousel-indicator]:has(img)]:h-control-xl [&_[data-slot=carousel-indicator]:has(img)]:w-20 [&_[data-slot=carousel-indicator]:has(img)]:overflow-hidden [&_[data-slot=carousel-indicator]:has(img)]:rounded-md [&_[data-slot=carousel-indicator]:has(img)]:border [&_[data-slot=carousel-indicator]:has(img)]:border-transparent [&_[data-slot=carousel-indicator]:has(img)]:bg-transparent [&_[data-slot=carousel-indicator]:has(img)]:opacity-[0.65] [&_[data-slot=carousel-indicator]:has(img)]:transition [&_[data-slot=carousel-indicator]:has(img)]:duration-150 [&_[data-slot=carousel-indicator]:has(img)]:ease-in-out [&_[data-slot=carousel-indicator]:has(img)_img]:block [&_[data-slot=carousel-indicator]:has(img)_img]:size-full [&_[data-slot=carousel-indicator]:has(img)_img]:object-cover [&_[data-slot=carousel-indicator]:has(img):hover]:opacity-90 [&_[data-slot=carousel-indicator]:has(img)[data-current]]:-translate-y-px [&_[data-slot=carousel-indicator]:has(img)[data-current]]:border-primary [&_[data-slot=carousel-indicator]:has(img)[data-current]]:opacity-100 [&_[data-slot=carousel-item-group]]:aspect-[16/10] [&_[data-slot=carousel-item-group]]:max-h-[68dvh] [&_[data-slot=carousel-item-group]]:bg-black/90 [&_[data-slot=carousel-item]]:grid [&_[data-slot=carousel-item]]:h-full [&_[data-slot=carousel-item]]:place-items-center [&_[data-slot=carousel-item]_img]:block [&_[data-slot=carousel-item]_img]:size-full [&_[data-slot=carousel-item]_img]:rounded-md [&_[data-slot=carousel-item]_img]:object-contain [&_[data-slot=carousel-item]_img]:select-none [&_[data-slot=carousel-item]_video]:block [&_[data-slot=carousel-item]_video]:size-full [&_[data-slot=carousel-item]_video]:rounded-md [&_[data-slot=carousel-item]_video]:object-contain [&_[data-slot=carousel-item]_video]:select-none',
         local.class,
       )}
       {...others}
+      data-slot="lightbox-gallery"
     />
   );
 }
@@ -303,13 +309,13 @@ function LightboxGallery(props: HTMLArkProps<'div'>) {
 function LightboxHeader(props: HTMLArkProps<'div'>) {
   const [local, others] = splitProps(props, ['class']);
 
-  return <ark.div data-slot="lightbox-header" class={cn('grid gap-1', local.class)} {...others} />;
+  return <ark.div class={cn('grid gap-1', local.class)} {...others} data-slot="lightbox-header" />;
 }
 
 function LightboxBody(props: HTMLArkProps<'div'>) {
   const [local, others] = splitProps(props, ['class']);
 
-  return <ark.div data-slot="lightbox-body" class={cn('grid gap-3', local.class)} {...others} />;
+  return <ark.div class={cn('grid gap-3', local.class)} {...others} data-slot="lightbox-body" />;
 }
 
 function LightboxFooter(props: HTMLArkProps<'div'>) {
@@ -317,12 +323,12 @@ function LightboxFooter(props: HTMLArkProps<'div'>) {
 
   return (
     <ark.div
-      data-slot="lightbox-footer"
       class={cn(
         'flex items-center justify-end gap-2 text-sm leading-5 text-muted-foreground',
         local.class,
       )}
       {...others}
+      data-slot="lightbox-footer"
     />
   );
 }

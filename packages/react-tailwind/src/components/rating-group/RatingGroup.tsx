@@ -30,13 +30,13 @@ const RatingGroupRoot = forwardRef<
   return (
     <RatingGroupPrimitive.Root
       ref={ref}
-      data-slot="rating-group-root"
       data-size={size}
       className={cn(
         'group/rating-group inline-flex flex-col gap-1 text-muted-foreground',
         className,
       )}
       {...props}
+      data-slot="rating-group-root"
     />
   );
 });
@@ -48,13 +48,13 @@ const RatingGroupRootProvider = forwardRef<
   return (
     <RatingGroupPrimitive.RootProvider
       ref={ref}
-      data-slot="rating-group-root-provider"
       data-size={size}
       className={cn(
         'group/rating-group inline-flex flex-col gap-1 text-muted-foreground',
         className,
       )}
       {...props}
+      data-slot="rating-group-root-provider"
     />
   );
 });
@@ -66,12 +66,12 @@ const RatingGroupLabel = forwardRef<
   return (
     <RatingGroupPrimitive.Label
       ref={ref}
-      data-slot="rating-group-label"
       className={cn(
         'text-sm leading-5 font-semibold text-foreground select-none data-disabled:opacity-50',
         className,
       )}
       {...props}
+      data-slot="rating-group-label"
     />
   );
 });
@@ -83,9 +83,9 @@ const RatingGroupControl = forwardRef<
   return (
     <RatingGroupPrimitive.Control
       ref={ref}
-      data-slot="rating-group-control"
       className={cn('inline-flex items-center gap-1 data-disabled:opacity-50', className)}
       {...props}
+      data-slot="rating-group-control"
     />
   );
 });
@@ -97,12 +97,12 @@ const RatingGroupItem = forwardRef<
   return (
     <RatingGroupPrimitive.Item
       ref={ref}
-      data-slot="rating-group-item"
       className={cn(
         'inline-flex cursor-pointer items-center justify-center rounded-sm leading-none text-inherit outline-1 -outline-offset-1 outline-transparent transition-[color,opacity] duration-200 ease-in-out data-disabled:pointer-events-none data-disabled:cursor-default data-focus-visible:outline-1 data-focus-visible:outline-offset-1 data-focus-visible:outline-ring data-readonly:cursor-default',
         className,
       )}
       {...props}
+      data-slot="rating-group-item"
     />
   );
 });
@@ -114,7 +114,6 @@ const RatingGroupItemIndicator = forwardRef<HTMLSpanElement, RatingGroupItemIndi
     return (
       <span
         ref={ref}
-        data-slot="rating-group-item-indicator"
         data-half={half ? '' : undefined}
         data-highlighted={highlighted ? '' : undefined}
         className={cn(
@@ -122,6 +121,7 @@ const RatingGroupItemIndicator = forwardRef<HTMLSpanElement, RatingGroupItemIndi
           className,
         )}
         {...props}
+        data-slot="rating-group-item-indicator"
       >
         {children ?? (
           <>

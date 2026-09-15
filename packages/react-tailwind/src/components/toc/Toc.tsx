@@ -31,12 +31,12 @@ const TocRoot = forwardRef<
     <TocPrimitive.Root
       ref={ref}
       autoScroll={autoScroll}
-      data-slot="toc-root"
       className={cn(
         'group/toc box-border grid w-full min-w-0 grid-cols-[minmax(0,1fr)_minmax(12rem,16rem)] gap-6 text-foreground has-[[data-slot=toc-nav][data-placement=left]]:grid-cols-[minmax(12rem,16rem)_minmax(0,1fr)] max-md:grid-cols-[minmax(0,1fr)] max-md:has-[[data-slot=toc-nav][data-placement=left]]:grid-cols-[minmax(0,1fr)]',
         className,
       )}
       {...props}
+      data-slot="toc-root"
     />
   );
 });
@@ -49,13 +49,13 @@ const TocRootProvider = forwardRef<
     <TocPrimitive.RootProvider
       ref={ref}
       value={value}
-      data-slot="toc-root-provider"
       className={cn(
         'group/toc box-border grid w-full min-w-0 grid-cols-[minmax(0,1fr)_minmax(12rem,16rem)] gap-6 text-foreground has-[[data-slot=toc-nav][data-placement=left]]:grid-cols-[minmax(12rem,16rem)_minmax(0,1fr)] max-md:grid-cols-[minmax(0,1fr)] max-md:has-[[data-slot=toc-nav][data-placement=left]]:grid-cols-[minmax(0,1fr)]',
         className,
       )}
       style={{ ...value.getRootProps().style, ...style }}
       {...props}
+      data-slot="toc-root-provider"
     />
   );
 });
@@ -67,12 +67,12 @@ const TocContent = forwardRef<
   return (
     <TocPrimitive.Content
       ref={ref}
-      data-slot="toc-content"
       className={cn(
         'min-w-0 scroll-smooth group-has-[[data-slot=toc-nav][data-placement=left]]/toc:col-start-2 group-has-[[data-slot=toc-nav][data-placement=left]]/toc:row-start-1 motion-reduce:scroll-auto max-md:group-has-[[data-slot=toc-nav][data-placement=left]]/toc:col-auto max-md:group-has-[[data-slot=toc-nav][data-placement=left]]/toc:row-auto',
         className,
       )}
       {...props}
+      data-slot="toc-content"
     />
   );
 });
@@ -84,12 +84,12 @@ const TocNav = forwardRef<
   return (
     <TocPrimitive.Nav
       ref={ref}
-      data-slot="toc-nav"
       className={cn(
         'sticky top-4 max-h-[calc(100dvh-2rem)] min-w-0 self-start overflow-auto rounded-lg border border-border bg-card p-4 text-card-foreground data-[placement=left]:col-start-1 data-[placement=left]:row-start-1 max-md:data-[placement=left]:col-auto max-md:data-[placement=left]:row-auto',
         className,
       )}
       {...props}
+      data-slot="toc-nav"
     />
   );
 });
@@ -101,9 +101,9 @@ const TocTitle = forwardRef<
   return (
     <TocPrimitive.Title
       ref={ref}
-      data-slot="toc-title"
       className={cn('m-0 mb-2 text-sm leading-5 font-semibold text-foreground', className)}
       {...props}
+      data-slot="toc-title"
     />
   );
 });
@@ -115,12 +115,12 @@ const TocList = forwardRef<
   return (
     <TocPrimitive.List
       ref={ref}
-      data-slot="toc-list"
       className={cn(
         "relative m-0 grid list-none gap-0.5 py-0 ps-1 has-[[data-slot=toc-indicator]]:before:pointer-events-none has-[[data-slot=toc-indicator]]:before:absolute has-[[data-slot=toc-indicator]]:before:inset-y-0.5 has-[[data-slot=toc-indicator]]:before:start-0 has-[[data-slot=toc-indicator]]:before:w-0.5 has-[[data-slot=toc-indicator]]:before:rounded-full has-[[data-slot=toc-indicator]]:before:bg-border has-[[data-slot=toc-indicator]]:before:content-['']",
         className,
       )}
       {...props}
+      data-slot="toc-list"
     />
   );
 });
@@ -132,9 +132,9 @@ const TocItem = forwardRef<
   return (
     <TocPrimitive.Item
       ref={ref}
-      data-slot="toc-item"
       className={cn('min-w-0', className)}
       {...props}
+      data-slot="toc-item"
     />
   );
 });
@@ -146,12 +146,12 @@ const TocLink = forwardRef<
   return (
     <TocPrimitive.Link
       ref={ref}
-      data-slot="toc-link"
       className={cn(
         'group/toc-link relative block min-w-0 overflow-hidden rounded-sm py-1 ps-[calc(0.875rem+max(0px,((var(--depth)-2)*0.5rem)))] pe-1 text-sm leading-5 text-ellipsis whitespace-nowrap text-muted-foreground no-underline outline-0 transition-colors duration-200 ring-inset focus-visible:ring-1 focus-visible:ring-ring has-[[data-slot=toc-rail]]:overflow-visible data-active:font-medium data-active:text-foreground motion-reduce:transition-none [@media(hover:hover)]:hover:text-foreground',
         className,
       )}
       {...props}
+      data-slot="toc-link"
     />
   );
 });
@@ -163,12 +163,12 @@ const TocIndicator = forwardRef<
   return (
     <TocPrimitive.Indicator
       ref={ref}
-      data-slot="toc-indicator"
       className={cn(
         'pointer-events-none start-0 top-[calc(var(--top)+0.125rem)] z-1 h-[calc(var(--height)-0.25rem)] w-0.5 rounded-full bg-muted-foreground opacity-70 transition-[top,height] duration-200 motion-reduce:transition-none',
         className,
       )}
       {...props}
+      data-slot="toc-indicator"
     />
   );
 });
@@ -193,7 +193,6 @@ const TocRail = forwardRef<SVGSVGElement, TocRailProps>(function TocRail(
     <svg
       ref={ref}
       aria-hidden="true"
-      data-slot="toc-rail"
       className={cn(
         'pointer-events-none absolute start-0 -top-1.5 overflow-visible text-border group-data-active/toc-link:translate-y-0.5 group-data-active/toc-link:text-muted-foreground group-data-active/toc-link:opacity-70',
         className,
@@ -204,6 +203,7 @@ const TocRail = forwardRef<SVGSVGElement, TocRailProps>(function TocRail(
         ...style,
       }}
       {...props}
+      data-slot="toc-rail"
     >
       {hasTurn && (
         <path

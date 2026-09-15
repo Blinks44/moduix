@@ -28,10 +28,10 @@ function RatingGroupRoot(props: RatingGroupRootProps) {
   return (
     <RatingGroupPrimitive.Root
       asChild={local.asChild}
-      data-slot="rating-group-root"
       data-size={local.size ?? 'md'}
       class={clsx(styles.root, local.class)}
       {...others}
+      data-slot="rating-group-root"
     >
       {local.children}
     </RatingGroupPrimitive.Root>
@@ -44,10 +44,10 @@ function RatingGroupRootProvider(props: RatingGroupRootProviderProps) {
   return (
     <RatingGroupPrimitive.RootProvider
       asChild={local.asChild}
-      data-slot="rating-group-root-provider"
       data-size={local.size ?? 'md'}
       class={clsx(styles.root, local.class)}
       {...others}
+      data-slot="rating-group-root-provider"
     >
       {local.children}
     </RatingGroupPrimitive.RootProvider>
@@ -59,9 +59,9 @@ function RatingGroupLabel(props: ComponentProps<typeof RatingGroupPrimitive.Labe
 
   return (
     <RatingGroupPrimitive.Label
-      data-slot="rating-group-label"
       class={clsx(styles.label, local.class)}
       {...others}
+      data-slot="rating-group-label"
     />
   );
 }
@@ -71,9 +71,9 @@ function RatingGroupControl(props: ComponentProps<typeof RatingGroupPrimitive.Co
 
   return (
     <RatingGroupPrimitive.Control
-      data-slot="rating-group-control"
       class={clsx(styles.control, local.class)}
       {...others}
+      data-slot="rating-group-control"
     />
   );
 }
@@ -83,9 +83,9 @@ function RatingGroupItem(props: ComponentProps<typeof RatingGroupPrimitive.Item>
 
   return (
     <RatingGroupPrimitive.Item
-      data-slot="rating-group-item"
       class={clsx(styles.item, local.class)}
       {...others}
+      data-slot="rating-group-item"
     />
   );
 }
@@ -97,11 +97,11 @@ function RatingGroupItemIndicator(props: RatingGroupItemIndicatorProps) {
 
   return (
     <span
-      data-slot="rating-group-item-indicator"
       data-half={item().half ? '' : undefined}
       data-highlighted={item().highlighted ? '' : undefined}
       class={clsx(styles.itemIndicator, local.class)}
       {...others}
+      data-slot="rating-group-item-indicator"
     >
       {resolvedChildren() ?? (
         <>

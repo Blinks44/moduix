@@ -13,12 +13,12 @@ function CarouselRoot(props: ComponentProps<typeof CarouselPrimitive.Root>) {
 
   return (
     <CarouselPrimitive.Root
-      data-slot="carousel-root"
       class={cn(
         'group/carousel flex w-full min-w-0 flex-col gap-3 data-[orientation=vertical]:h-96 data-[orientation=vertical]:flex-row data-[orientation=vertical]:items-stretch',
         local.class,
       )}
       {...others}
+      data-slot="carousel-root"
     />
   );
 }
@@ -28,12 +28,12 @@ function CarouselRootProvider(props: ComponentProps<typeof CarouselPrimitive.Roo
 
   return (
     <CarouselPrimitive.RootProvider
-      data-slot="carousel-root-provider"
       class={cn(
         'group/carousel flex w-full min-w-0 flex-col gap-3 data-[orientation=vertical]:h-96 data-[orientation=vertical]:flex-row data-[orientation=vertical]:items-stretch',
         local.class,
       )}
       {...others}
+      data-slot="carousel-root-provider"
     />
   );
 }
@@ -43,12 +43,12 @@ function CarouselControl(props: ComponentProps<typeof CarouselPrimitive.Control>
 
   return (
     <CarouselPrimitive.Control
-      data-slot="carousel-control"
       class={cn(
         'flex min-w-0 items-center gap-3 data-[orientation=vertical]:flex-col data-[orientation=vertical]:justify-between',
         local.class,
       )}
       {...others}
+      data-slot="carousel-control"
     />
   );
 }
@@ -58,12 +58,12 @@ function CarouselItemGroup(props: ComponentProps<typeof CarouselPrimitive.ItemGr
 
   return (
     <CarouselPrimitive.ItemGroup
-      data-slot="carousel-item-group"
       class={cn(
         'flex min-h-0 min-w-0 flex-1 [scrollbar-width:none] overscroll-x-contain overscroll-y-auto scroll-smooth rounded-xl outline-0 focus-visible:outline-1 focus-visible:-outline-offset-1 focus-visible:outline-ring data-dragging:cursor-grabbing data-dragging:select-none data-[orientation=vertical]:h-full data-[orientation=vertical]:overscroll-x-auto data-[orientation=vertical]:overscroll-y-contain motion-reduce:scroll-auto [&::-webkit-scrollbar]:hidden',
         local.class,
       )}
       {...others}
+      data-slot="carousel-item-group"
     />
   );
 }
@@ -73,9 +73,9 @@ function CarouselItem(props: ComponentProps<typeof CarouselPrimitive.Item>) {
 
   return (
     <CarouselPrimitive.Item
-      data-slot="carousel-item"
       class={cn('box-border min-h-0 min-w-0', local.class)}
       {...others}
+      data-slot="carousel-item"
     />
   );
 }
@@ -87,12 +87,12 @@ function CarouselPrevTrigger(props: ComponentProps<typeof CarouselPrimitive.Prev
   return (
     <CarouselPrimitive.PrevTrigger
       asChild={local.asChild}
-      data-slot="carousel-prev-trigger"
       class={cn(
         'focus-visible:outline-offset-0.5 inline-flex size-control-md shrink-0 cursor-pointer items-center justify-center rounded-full border border-border bg-card text-foreground shadow-sm outline-0 transition-[background-color,border-color,color,box-shadow,transform] duration-150 ease-in-out focus-visible:outline-2 focus-visible:outline-ring disabled:cursor-not-allowed disabled:opacity-50 data-disabled:cursor-not-allowed data-disabled:opacity-50 data-pressed:border-foreground data-pressed:bg-accent data-pressed:text-accent-foreground motion-reduce:transition-none [&_svg]:size-4 [&:not(:disabled):not([data-disabled]):hover]:border-foreground [&:not(:disabled):not([data-disabled]):hover]:bg-accent [&:not(:disabled):not([data-disabled]):hover]:text-accent-foreground [&:not(:disabled):not([data-disabled]):hover]:shadow-md',
         local.class,
       )}
       {...others}
+      data-slot="carousel-prev-trigger"
     >
       {resolvedChildren() ?? (
         <span class="inline-flex items-center justify-center">
@@ -110,12 +110,12 @@ function CarouselNextTrigger(props: ComponentProps<typeof CarouselPrimitive.Next
   return (
     <CarouselPrimitive.NextTrigger
       asChild={local.asChild}
-      data-slot="carousel-next-trigger"
       class={cn(
         'focus-visible:outline-offset-0.5 inline-flex size-control-md shrink-0 cursor-pointer items-center justify-center rounded-full border border-border bg-card text-foreground shadow-sm outline-0 transition-[background-color,border-color,color,box-shadow,transform] duration-150 ease-in-out focus-visible:outline-2 focus-visible:outline-ring disabled:cursor-not-allowed disabled:opacity-50 data-disabled:cursor-not-allowed data-disabled:opacity-50 data-pressed:border-foreground data-pressed:bg-accent data-pressed:text-accent-foreground motion-reduce:transition-none [&_svg]:size-4 [&:not(:disabled):not([data-disabled]):hover]:border-foreground [&:not(:disabled):not([data-disabled]):hover]:bg-accent [&:not(:disabled):not([data-disabled]):hover]:text-accent-foreground [&:not(:disabled):not([data-disabled]):hover]:shadow-md',
         local.class,
       )}
       {...others}
+      data-slot="carousel-next-trigger"
     >
       {resolvedChildren() ?? (
         <span class="inline-flex items-center justify-center">
@@ -131,12 +131,12 @@ function CarouselIndicatorGroup(props: ComponentProps<typeof CarouselPrimitive.I
 
   return (
     <CarouselPrimitive.IndicatorGroup
-      data-slot="carousel-indicator-group"
       class={cn(
         'flex items-center justify-center gap-2 data-[orientation=vertical]:flex-col',
         local.class,
       )}
       {...others}
+      data-slot="carousel-indicator-group"
     />
   );
 }
@@ -146,22 +146,25 @@ function CarouselIndicator(props: ComponentProps<typeof CarouselPrimitive.Indica
 
   return (
     <CarouselPrimitive.Indicator
-      data-slot="carousel-indicator"
       class={cn(
         'focus-visible:outline-offset-0.5 size-2 cursor-pointer rounded-full border-0 bg-muted p-0 opacity-90 transition-[width,height,background-color,opacity] duration-150 focus-visible:outline-2 focus-visible:outline-ring disabled:cursor-not-allowed disabled:opacity-50 data-current:w-6 data-current:bg-primary data-current:opacity-100 data-disabled:cursor-not-allowed data-disabled:opacity-50 data-readonly:cursor-not-allowed data-readonly:opacity-50 data-[orientation=vertical]:data-current:h-6 data-[orientation=vertical]:data-current:w-2 motion-reduce:transition-none forced-colors:bg-[ButtonText] forced-colors:data-current:bg-[Highlight] [&:not(:disabled):not([data-disabled]):not([data-readonly]):not([data-current]):hover]:bg-muted-foreground',
         local.class,
       )}
       {...others}
+      data-slot="carousel-indicator"
     />
   );
 }
 
-type CarouselIndicatorsProps = ComponentProps<typeof CarouselPrimitive.IndicatorGroup> & {
+type CarouselIndicatorsProps = Omit<
+  ComponentProps<typeof CarouselPrimitive.IndicatorGroup>,
+  'asChild' | 'children'
+> & {
   indicatorClassName?: string;
 };
 
 function CarouselIndicators(props: CarouselIndicatorsProps) {
-  const [local, others] = splitProps(props, ['class', 'children', 'indicatorClassName']);
+  const [local, others] = splitProps(props, ['class', 'indicatorClassName']);
 
   return (
     <CarouselPrimitive.Context>
@@ -181,12 +184,12 @@ function CarouselAutoplayTrigger(props: ComponentProps<typeof CarouselPrimitive.
 
   return (
     <CarouselPrimitive.AutoplayTrigger
-      data-slot="carousel-autoplay-trigger"
       class={cn(
         'focus-visible:outline-offset-0.5 inline-flex size-control-md min-w-12 shrink-0 cursor-pointer items-center justify-center rounded-full border border-border bg-card text-foreground shadow-sm outline-0 transition-[background-color,border-color,color,box-shadow,transform] duration-150 ease-in-out focus-visible:outline-2 focus-visible:outline-ring disabled:cursor-not-allowed disabled:opacity-50 data-disabled:cursor-not-allowed data-disabled:opacity-50 data-pressed:border-foreground data-pressed:bg-accent data-pressed:text-accent-foreground motion-reduce:transition-none [&_svg]:size-4 [&:not(:disabled):not([data-disabled]):hover]:border-foreground [&:not(:disabled):not([data-disabled]):hover]:bg-accent [&:not(:disabled):not([data-disabled]):hover]:text-accent-foreground [&:not(:disabled):not([data-disabled]):hover]:shadow-md',
         local.class,
       )}
       {...others}
+      data-slot="carousel-autoplay-trigger"
     />
   );
 }
@@ -198,12 +201,12 @@ function CarouselAutoplayIndicator(
 
   return (
     <CarouselPrimitive.AutoplayIndicator
-      data-slot="carousel-autoplay-indicator"
       class={cn(
         'inline-flex min-w-4 items-center justify-center text-xs font-medium uppercase',
         local.class,
       )}
       {...others}
+      data-slot="carousel-autoplay-indicator"
     />
   );
 }
@@ -213,10 +216,10 @@ function CarouselProgressText(props: ComponentProps<typeof CarouselPrimitive.Pro
 
   return (
     <CarouselPrimitive.ProgressText
-      data-slot="carousel-progress-text"
       dir="ltr"
       class={cn('text-sm text-muted-foreground tabular-nums [unicode-bidi:isolate]', local.class)}
       {...others}
+      data-slot="carousel-progress-text"
     />
   );
 }

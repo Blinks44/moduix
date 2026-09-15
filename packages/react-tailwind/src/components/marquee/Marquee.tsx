@@ -40,7 +40,6 @@ const MarqueeRoot = forwardRef<
   return (
     <MarqueePrimitive.Root
       ref={ref}
-      data-slot="marquee-root"
       className={cn(
         marqueeRootVariants({
           orientation: props.side === 'top' || props.side === 'bottom' ? 'vertical' : 'horizontal',
@@ -48,6 +47,7 @@ const MarqueeRoot = forwardRef<
         className,
       )}
       {...props}
+      data-slot="marquee-root"
     />
   );
 });
@@ -59,9 +59,9 @@ const MarqueeRootProvider = forwardRef<
   return (
     <MarqueePrimitive.RootProvider
       ref={ref}
-      data-slot="marquee-root-provider"
       className={cn(marqueeRootVariants({ orientation: props.value.orientation }), className)}
       {...props}
+      data-slot="marquee-root-provider"
     />
   );
 });
@@ -73,9 +73,9 @@ const MarqueeViewport = forwardRef<
   return (
     <MarqueePrimitive.Viewport
       ref={ref}
-      data-slot="marquee-viewport"
       className={cn('size-full', className)}
       {...props}
+      data-slot="marquee-viewport"
     />
   );
 });
@@ -87,12 +87,12 @@ const MarqueeContent = forwardRef<
   return (
     <MarqueePrimitive.Content
       ref={ref}
-      data-slot="marquee-content"
       className={cn(
         'animate-moduix-marquee-x group-data-paused:[animation-play-state:paused] data-reverse:[animation-direction:reverse] data-[side=bottom]:animate-moduix-marquee-y data-[side=top]:animate-moduix-marquee-y motion-reduce:animate-none',
         className,
       )}
       {...props}
+      data-slot="marquee-content"
     />
   );
 });
@@ -104,9 +104,9 @@ const MarqueeItem = forwardRef<
   return (
     <MarqueePrimitive.Item
       ref={ref}
-      data-slot="marquee-item"
       className={cn('shrink-0', className)}
       {...props}
+      data-slot="marquee-item"
     />
   );
 });
@@ -118,10 +118,10 @@ const MarqueeEdge = forwardRef<
   return (
     <MarqueePrimitive.Edge
       ref={ref}
-      data-slot="marquee-edge"
       side={side}
       className={cn(marqueeEdgeVariants({ side }), className)}
       {...props}
+      data-slot="marquee-edge"
     />
   );
 });

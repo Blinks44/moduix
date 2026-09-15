@@ -2,8 +2,8 @@ import type { JSX } from 'solid-js';
 import { createSignal, Show } from 'solid-js';
 import type { Meta, StoryObj } from 'storybook-solidjs-vite';
 import { Alert } from '@/components/alert/Alert';
-import { Button } from '../../../../packages/solid/src/components/button/Button';
-import { CheckIcon } from '../../../../packages/solid/src/internal/icons/ui/Icons';
+import { Button } from '../../../../packages/solid-tailwind/src/components/button/Button';
+import { CheckIcon } from '../../../../packages/solid-tailwind/src/internal/icons/ui/Icons';
 
 function InfoIcon(props: JSX.SvgSVGAttributes<SVGSVGElement>) {
   const accessibilityProps = { 'aria-hidden': 'true', focusable: 'false' } as const;

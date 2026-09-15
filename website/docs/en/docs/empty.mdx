@@ -121,8 +121,8 @@ the screen. `Empty` is presentational and does not own application state or live
 
 Use `asChild` on `Empty` or `Empty.Title` when the surrounding section needs a semantic container or
 a different heading level. Pass exactly one child to an `asChild` part so it can receive that part's
-props and ref, then add any required landmark, role, focus management, or `aria-live` behavior in
-the surrounding interface.
+props and ref in React. In Solid, assign a ref inside the `asChild` render function. Then add any
+required landmark, role, focus management, or `aria-live` behavior in the surrounding interface.
 
 ## Examples
 

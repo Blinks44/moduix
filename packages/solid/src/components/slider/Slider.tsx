@@ -19,11 +19,11 @@ function SliderRoot(props: ComponentProps<typeof SliderPrimitive.Root>) {
       asChild={local.asChild}
       defaultValue={local.defaultValue}
       value={local.value}
-      data-slot="slider-root"
       data-readonly={local.readOnly ? '' : undefined}
       class={clsx(styles.root, local.class)}
       readOnly={local.readOnly}
       {...others}
+      data-slot="slider-root"
     >
       {local.children}
     </SliderPrimitive.Root>
@@ -37,9 +37,9 @@ function SliderRootProvider(props: ComponentProps<typeof SliderPrimitive.RootPro
     <SliderPrimitive.RootProvider
       asChild={local.asChild}
       value={local.value}
-      data-slot="slider-root-provider"
       class={clsx(styles.root, local.class)}
       {...others}
+      data-slot="slider-root-provider"
     />
   );
 }
@@ -49,9 +49,9 @@ function SliderLabel(props: ComponentProps<typeof SliderPrimitive.Label>) {
 
   return (
     <SliderPrimitive.Label
-      data-slot="slider-label"
       class={clsx(styles.label, local.class)}
       {...others}
+      data-slot="slider-label"
     />
   );
 }
@@ -61,9 +61,9 @@ function SliderValueText(props: ComponentProps<typeof SliderPrimitive.ValueText>
 
   return (
     <SliderPrimitive.ValueText
-      data-slot="slider-value-text"
       class={clsx(styles.valueText, local.class)}
       {...others}
+      data-slot="slider-value-text"
     />
   );
 }
@@ -73,9 +73,9 @@ function SliderControl(props: ComponentProps<typeof SliderPrimitive.Control>) {
 
   return (
     <SliderPrimitive.Control
-      data-slot="slider-control"
       class={clsx(styles.control, local.class)}
       {...others}
+      data-slot="slider-control"
     />
   );
 }
@@ -85,9 +85,9 @@ function SliderTrack(props: ComponentProps<typeof SliderPrimitive.Track>) {
 
   return (
     <SliderPrimitive.Track
-      data-slot="slider-track"
       class={clsx(styles.track, local.class)}
       {...others}
+      data-slot="slider-track"
     />
   );
 }
@@ -97,9 +97,9 @@ function SliderRange(props: ComponentProps<typeof SliderPrimitive.Range>) {
 
   return (
     <SliderPrimitive.Range
-      data-slot="slider-range"
       class={clsx(styles.range, local.class)}
       {...others}
+      data-slot="slider-range"
     />
   );
 }
@@ -110,9 +110,9 @@ function SliderThumb(props: ComponentProps<typeof SliderPrimitive.Thumb>) {
   return (
     <SliderPrimitive.Thumb
       asChild={local.asChild}
-      data-slot="slider-thumb"
       class={clsx(styles.thumb, local.class)}
       {...others}
+      data-slot="slider-thumb"
     >
       {local.children}
     </SliderPrimitive.Thumb>
@@ -138,9 +138,9 @@ function SliderMarkerGroup(props: ComponentProps<typeof SliderPrimitive.MarkerGr
 
   return (
     <SliderPrimitive.MarkerGroup
-      data-slot="slider-marker-group"
       class={clsx(styles.markerGroup, local.class)}
       {...others}
+      data-slot="slider-marker-group"
     />
   );
 }
@@ -150,9 +150,9 @@ function SliderMarker(props: ComponentProps<typeof SliderPrimitive.Marker>) {
 
   return (
     <SliderPrimitive.Marker
-      data-slot="slider-marker"
       class={clsx(styles.marker, local.class)}
       {...others}
+      data-slot="slider-marker"
     />
   );
 }
@@ -162,9 +162,9 @@ function SliderDraggingIndicator(props: ComponentProps<typeof SliderPrimitive.Dr
 
   return (
     <SliderPrimitive.DraggingIndicator
-      data-slot="slider-dragging-indicator"
       class={clsx(styles.draggingIndicator, local.class)}
       {...others}
+      data-slot="slider-dragging-indicator"
     />
   );
 }

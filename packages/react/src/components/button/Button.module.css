@@ -9,7 +9,6 @@
     border: var(--moduix-button-border-width, var(--moduix-border-width-sm)) solid transparent;
     border-radius: var(--moduix-button-radius, var(--moduix-radius-md));
     background-color: transparent;
-    color: var(--moduix-button-color, var(--moduix-color-foreground));
     appearance: none;
     font: inherit;
     font-size: var(--moduix-button-font-size, var(--moduix-text-sm));

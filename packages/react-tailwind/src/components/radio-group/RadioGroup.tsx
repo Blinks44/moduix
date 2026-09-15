@@ -48,12 +48,12 @@ const RadioGroupRoot = forwardRef<
   return (
     <RadioGroupPrimitive.Root
       ref={ref}
-      data-slot="radio-group-root"
       className={cn(
         'relative flex flex-col gap-2 text-foreground data-disabled:cursor-default',
         className,
       )}
       {...props}
+      data-slot="radio-group-root"
     />
   );
 });
@@ -65,12 +65,12 @@ const RadioGroupRootProvider = forwardRef<
   return (
     <RadioGroupPrimitive.RootProvider
       ref={ref}
-      data-slot="radio-group-root-provider"
       className={cn(
         'relative flex flex-col gap-2 text-foreground data-disabled:cursor-default',
         className,
       )}
       {...props}
+      data-slot="radio-group-root-provider"
     />
   );
 });
@@ -82,9 +82,9 @@ const RadioGroupLabel = forwardRef<
   return (
     <RadioGroupPrimitive.Label
       ref={ref}
-      data-slot="radio-group-label"
       className={cn('text-sm leading-5 font-semibold text-inherit', className)}
       {...props}
+      data-slot="radio-group-label"
     />
   );
 });
@@ -96,12 +96,12 @@ const RadioGroupItem = forwardRef<
   return (
     <RadioGroupPrimitive.Item
       ref={ref}
-      data-slot="radio-group-item"
       className={cn(
         'inline-flex w-fit cursor-pointer items-center gap-2 align-middle data-disabled:cursor-default data-disabled:opacity-50 data-readonly:cursor-default',
         className,
       )}
       {...props}
+      data-slot="radio-group-item"
     />
   );
 });
@@ -126,10 +126,10 @@ const RadioGroupItemControl = forwardRef<
   return (
     <RadioGroupPrimitive.ItemControl
       ref={ref}
-      data-slot="radio-group-item-control"
       data-size={size}
       className={cn(radioGroupItemControlVariants({ size }), className)}
       {...props}
+      data-slot="radio-group-item-control"
     />
   );
 });
@@ -141,9 +141,9 @@ const RadioGroupItemText = forwardRef<
   return (
     <RadioGroupPrimitive.ItemText
       ref={ref}
-      data-slot="radio-group-item-text"
       className={cn('text-sm leading-5 font-medium text-inherit', className)}
       {...props}
+      data-slot="radio-group-item-text"
     />
   );
 });
@@ -155,12 +155,12 @@ const RadioGroupIndicator = forwardRef<
   return (
     <RadioGroupPrimitive.Indicator
       ref={ref}
-      data-slot="radio-group-indicator"
       className={cn(
         'pointer-events-none absolute top-[var(--top)] left-[var(--left)] h-[var(--height)] w-[var(--width)] rounded-full bg-primary opacity-[0.12] transition-[var(--transition-property,translate)] duration-200 ease-in-out motion-reduce:transition-none',
         className,
       )}
       {...props}
+      data-slot="radio-group-indicator"
     />
   );
 });

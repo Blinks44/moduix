@@ -40,7 +40,6 @@ const ComboboxRoot = function ComboboxRoot<T extends CollectionItem>(props: Comb
     <OverlayPortalProvider portalled={local.portalled} portalRef={local.portalRef}>
       <ComboboxPrimitive.Root
         asChild={local.asChild}
-        data-slot="combobox-root"
         class={cn(
           'box-border flex w-64 max-w-full min-w-0 flex-col gap-1.5 text-foreground',
           local.class,
@@ -48,6 +47,7 @@ const ComboboxRoot = function ComboboxRoot<T extends CollectionItem>(props: Comb
         lazyMount={local.lazyMount ?? true}
         unmountOnExit={local.unmountOnExit ?? true}
         {...others}
+        data-slot="combobox-root"
       >
         {local.children}
       </ComboboxPrimitive.Root>
@@ -72,7 +72,6 @@ const ComboboxRootProvider = function ComboboxRootProvider<T extends CollectionI
     <OverlayPortalProvider portalled={local.portalled} portalRef={local.portalRef}>
       <ComboboxPrimitive.RootProvider
         asChild={local.asChild}
-        data-slot="combobox-root-provider"
         class={cn(
           'box-border flex w-64 max-w-full min-w-0 flex-col gap-1.5 text-foreground',
           local.class,
@@ -80,6 +79,7 @@ const ComboboxRootProvider = function ComboboxRootProvider<T extends CollectionI
         lazyMount={local.lazyMount ?? true}
         unmountOnExit={local.unmountOnExit ?? true}
         {...others}
+        data-slot="combobox-root-provider"
       >
         {local.children}
       </ComboboxPrimitive.RootProvider>
@@ -92,12 +92,12 @@ function ComboboxLabel(props: ComponentProps<typeof ComboboxPrimitive.Label>) {
 
   return (
     <ComboboxPrimitive.Label
-      data-slot="combobox-label"
       class={cn(
         'inline-flex items-center text-sm font-medium text-foreground select-none data-disabled:opacity-50',
         local.class,
       )}
       {...others}
+      data-slot="combobox-label"
     />
   );
 }
@@ -107,12 +107,12 @@ function ComboboxControl(props: ComponentProps<typeof ComboboxPrimitive.Control>
 
   return (
     <ComboboxPrimitive.Control
-      data-slot="combobox-control"
       class={cn(
         'group/combobox-control relative flex w-full min-w-0 items-center rounded-md border border-border bg-background text-foreground outline-1 -outline-offset-1 outline-transparent transition-[background-color,border-color,outline-color] duration-200 ease-in-out data-disabled:opacity-50 data-focus:border-ring data-focus:outline-ring data-invalid:border-destructive data-invalid:outline-destructive data-[state=open]:border-ring data-[state=open]:outline-ring motion-reduce:transition-none',
         local.class,
       )}
       {...others}
+      data-slot="combobox-control"
     />
   );
 }
@@ -123,13 +123,13 @@ function ComboboxInput(props: ComponentProps<typeof ComboboxPrimitive.Input>) {
   return (
     <ComboboxPrimitive.Input
       asChild={local.asChild}
-      data-slot="combobox-input"
       class={cn(
         !local.asChild &&
           'm-0 box-border h-control-md w-full min-w-0 rounded-[inherit] border-0 bg-transparent px-3.5 text-inherit outline-0 [font:inherit] group-has-[>[data-slot=combobox-clear-trigger]]/combobox-control:pe-[4.375rem] group-has-[>[data-slot=combobox-trigger]]/combobox-control:pe-11 group-has-[>[data-slot=combobox-clear-trigger]]/combobox-control:group-has-[>[data-slot=combobox-trigger]]/combobox-control:pe-[4.375rem] placeholder:text-muted-foreground',
         local.class,
       )}
       {...others}
+      data-slot="combobox-input"
     />
   );
 }
@@ -154,9 +154,9 @@ function ComboboxClearTrigger(props: ComponentProps<typeof ComboboxPrimitive.Cle
         asChild={local.asChild}
         aria-label={local['aria-label']}
         aria-labelledby={local['aria-labelledby']}
-        data-slot="combobox-clear-trigger"
         class={triggerClass}
         {...others}
+        data-slot="combobox-clear-trigger"
       >
         {local.children}
       </ComboboxPrimitive.ClearTrigger>
@@ -181,9 +181,9 @@ function ComboboxClearTrigger(props: ComponentProps<typeof ComboboxPrimitive.Cle
           </CloseButton.Root>
         );
       }}
-      data-slot="combobox-clear-trigger"
       class={triggerClass}
       {...others}
+      data-slot="combobox-clear-trigger"
     />
   );
 }
@@ -194,12 +194,12 @@ function ComboboxTrigger(props: ComponentProps<typeof ComboboxPrimitive.Trigger>
 
   return (
     <ComboboxPrimitive.Trigger
-      data-slot="combobox-trigger"
       class={cn(
         'absolute end-2 top-1/2 m-0 box-border inline-flex size-control-xs shrink-0 -translate-y-1/2 cursor-pointer items-center justify-center rounded-sm border-0 bg-transparent p-0 [line-height:0] text-muted-foreground transition-[background-color,color,opacity] duration-200 ease-in-out focus-visible:outline-1 focus-visible:outline-offset-1 focus-visible:outline-ring disabled:cursor-default data-disabled:cursor-default motion-reduce:transition-none [&>svg]:block [&>svg]:size-4 [@media(hover:hover)]:[&:not(:disabled):not([data-disabled]):hover]:bg-muted [@media(hover:hover)]:[&:not(:disabled):not([data-disabled]):hover]:text-foreground',
         local.class,
       )}
       {...others}
+      data-slot="combobox-trigger"
     >
       {resolvedChildren() ?? <ChevronUpDownIcon />}
     </ComboboxPrimitive.Trigger>
@@ -212,9 +212,9 @@ function ComboboxPositioner(props: ComponentProps<typeof ComboboxPrimitive.Posit
   return (
     <OverlayPortal>
       <ComboboxPrimitive.Positioner
-        data-slot="combobox-positioner"
         class={cn('z-[var(--z-index)] outline-0', local.class)}
         {...others}
+        data-slot="combobox-positioner"
       />
     </OverlayPortal>
   );
@@ -225,12 +225,12 @@ function ComboboxContent(props: ComponentProps<typeof ComboboxPrimitive.Content>
 
   return (
     <ComboboxPrimitive.Content
-      data-slot="combobox-content"
       class={cn(
         'z-[calc(60+var(--layer-index,0))] box-border flex max-h-[min(24rem,var(--available-height))] max-w-[var(--available-width)] min-w-[var(--reference-width)] origin-[var(--transform-origin)] scroll-py-1 flex-col overflow-auto overscroll-contain rounded-md border border-border bg-popover py-1 text-popover-foreground shadow-lg outline-0 data-[state=closed]:animate-moduix-menu-closed data-[state=open]:animate-moduix-menu-open motion-reduce:[animation-delay:0ms] motion-reduce:[animation-duration:1ms]',
         local.class,
       )}
       {...others}
+      data-slot="combobox-content"
     />
   );
 }
@@ -240,9 +240,9 @@ function ComboboxEmpty(props: ComponentProps<typeof ComboboxPrimitive.Empty>) {
 
   return (
     <ComboboxPrimitive.Empty
-      data-slot="combobox-empty"
       class={cn('px-4 py-1 text-sm text-muted-foreground', local.class)}
       {...others}
+      data-slot="combobox-empty"
     />
   );
 }
@@ -252,9 +252,9 @@ function ComboboxStatus(props: HTMLArkProps<'div'>) {
 
   return (
     <ark.div
-      data-slot="combobox-status"
       class={cn('px-4 py-1 text-sm text-muted-foreground', local.class)}
       {...others}
+      data-slot="combobox-status"
     />
   );
 }
@@ -264,9 +264,9 @@ function ComboboxList(props: ComponentProps<typeof ComboboxPrimitive.List>) {
 
   return (
     <ComboboxPrimitive.List
-      data-slot="combobox-list"
       class={cn('flex min-h-0 flex-col outline-0 data-empty:hidden', local.class)}
       {...others}
+      data-slot="combobox-list"
     />
   );
 }
@@ -276,9 +276,9 @@ function ComboboxItemGroup(props: ComponentProps<typeof ComboboxPrimitive.ItemGr
 
   return (
     <ComboboxPrimitive.ItemGroup
-      data-slot="combobox-item-group"
       class={cn('flex flex-col [&+&]:mt-2', local.class)}
       {...others}
+      data-slot="combobox-item-group"
     />
   );
 }
@@ -288,12 +288,12 @@ function ComboboxItemGroupLabel(props: ComponentProps<typeof ComboboxPrimitive.I
 
   return (
     <ComboboxPrimitive.ItemGroupLabel
-      data-slot="combobox-item-group-label"
       class={cn(
         'sticky -top-1 z-1 bg-popover px-2.5 py-1 text-xs font-normal text-muted-foreground',
         local.class,
       )}
       {...others}
+      data-slot="combobox-item-group-label"
     />
   );
 }
@@ -303,12 +303,12 @@ function ComboboxItem(props: ComponentProps<typeof ComboboxPrimitive.Item>) {
 
   return (
     <ComboboxPrimitive.Item
-      data-slot="combobox-item"
       class={cn(
         'relative mx-1 box-border flex min-h-control-sm w-[calc(100%-0.5rem)] cursor-default items-center justify-between gap-2 rounded-sm border-0 bg-transparent px-3 py-1 text-sm text-popover-foreground outline-0 select-none data-disabled:pointer-events-none data-disabled:text-muted-foreground data-disabled:opacity-50 data-highlighted:bg-accent data-highlighted:text-accent-foreground data-[state=checked]:text-popover-foreground',
         local.class,
       )}
       {...others}
+      data-slot="combobox-item"
     />
   );
 }
@@ -318,9 +318,9 @@ function ComboboxItemText(props: ComponentProps<typeof ComboboxPrimitive.ItemTex
 
   return (
     <ComboboxPrimitive.ItemText
-      data-slot="combobox-item-text"
       class={cn('min-w-0 flex-1 overflow-hidden text-ellipsis whitespace-nowrap', local.class)}
       {...others}
+      data-slot="combobox-item-text"
     />
   );
 }
@@ -331,12 +331,12 @@ function ComboboxItemIndicator(props: ComponentProps<typeof ComboboxPrimitive.It
 
   return (
     <ComboboxPrimitive.ItemIndicator
-      data-slot="combobox-item-indicator"
       class={cn(
         'inline-flex size-3 shrink-0 items-center justify-center [&>svg]:size-full',
         local.class,
       )}
       {...others}
+      data-slot="combobox-item-indicator"
     >
       {resolvedChildren() ?? <CheckIcon />}
     </ComboboxPrimitive.ItemIndicator>

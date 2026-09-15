@@ -15,9 +15,9 @@ const ProgressCircularRoot = forwardRef<
   return (
     <ProgressPrimitive.Root
       ref={ref}
-      data-slot="progress-circular-root"
       className={clsx(styles.root, className)}
       {...props}
+      data-slot="progress-circular-root"
     />
   );
 });
@@ -29,9 +29,9 @@ const ProgressCircularRootProvider = forwardRef<
   return (
     <ProgressPrimitive.RootProvider
       ref={ref}
-      data-slot="progress-circular-root-provider"
       className={clsx(styles.root, className)}
       {...props}
+      data-slot="progress-circular-root-provider"
     />
   );
 });
@@ -43,9 +43,9 @@ const ProgressCircularLabel = forwardRef<
   return (
     <ProgressPrimitive.Label
       ref={ref}
-      data-slot="progress-circular-label"
       className={clsx(styles.label, className)}
       {...props}
+      data-slot="progress-circular-label"
     />
   );
 });
@@ -57,9 +57,9 @@ const ProgressCircularValueText = forwardRef<
   return (
     <ProgressPrimitive.ValueText
       ref={ref}
-      data-slot="progress-circular-value-text"
       className={clsx(styles.valueText, className)}
       {...props}
+      data-slot="progress-circular-value-text"
     />
   );
 });
@@ -71,9 +71,9 @@ const ProgressCircularCircle = forwardRef<
   return (
     <ProgressPrimitive.Circle
       ref={ref}
-      data-slot="progress-circular-circle"
       className={clsx(styles.circle, className)}
       {...props}
+      data-slot="progress-circular-circle"
     />
   );
 });
@@ -85,9 +85,9 @@ const ProgressCircularCircleTrack = forwardRef<
   return (
     <ProgressPrimitive.CircleTrack
       ref={ref}
-      data-slot="progress-circular-circle-track"
       className={clsx(styles.circleTrack, className)}
       {...props}
+      data-slot="progress-circular-circle-track"
     />
   );
 });
@@ -99,9 +99,9 @@ const ProgressCircularCircleRange = forwardRef<
   return (
     <ProgressPrimitive.CircleRange
       ref={ref}
-      data-slot="progress-circular-circle-range"
       className={clsx(styles.circleRange, className)}
       {...props}
+      data-slot="progress-circular-circle-range"
     />
   );
 });
@@ -130,9 +130,9 @@ const ProgressCircularView = forwardRef<
   return (
     <ProgressPrimitive.View
       ref={ref}
-      data-slot="progress-circular-view"
       className={clsx(styles.view, className)}
       {...props}
+      data-slot="progress-circular-view"
     />
   );
 });

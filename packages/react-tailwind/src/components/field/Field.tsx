@@ -14,12 +14,12 @@ const FieldRoot = forwardRef<
   return (
     <FieldPrimitive.Root
       ref={ref}
-      data-slot="field-root"
       className={cn(
         'flex w-full max-w-none flex-col items-start gap-1 text-foreground data-disabled:opacity-50',
         className,
       )}
       {...props}
+      data-slot="field-root"
     />
   );
 });
@@ -31,12 +31,12 @@ const FieldRootProvider = forwardRef<
   return (
     <FieldPrimitive.RootProvider
       ref={ref}
-      data-slot="field-root-provider"
       className={cn(
         'flex w-full max-w-none flex-col items-start gap-1 text-foreground data-disabled:opacity-50',
         className,
       )}
       {...props}
+      data-slot="field-root-provider"
     />
   );
 });
@@ -47,7 +47,7 @@ const FieldItem = forwardRef<HTMLDivElement, FieldItemProps>(function FieldItem(
 ) {
   return (
     <FieldPrimitive.Item value={value}>
-      <div ref={ref} data-slot="field-item" className={cn('grid gap-1', className)} {...props}>
+      <div ref={ref} className={cn('grid gap-1', className)} {...props} data-slot="field-item">
         {children}
       </div>
     </FieldPrimitive.Item>
@@ -61,12 +61,12 @@ const FieldLabel = forwardRef<
   return (
     <FieldPrimitive.Label
       ref={ref}
-      data-slot="field-label"
       className={cn(
         'inline-flex items-center gap-2 text-sm leading-5 font-medium wrap-anywhere text-foreground',
         className,
       )}
       {...props}
+      data-slot="field-label"
     />
   );
 });
@@ -78,12 +78,12 @@ const FieldInput = forwardRef<
   return (
     <FieldPrimitive.Input
       ref={ref}
-      data-slot="field-input"
       className={cn(
         'min-h-control-md w-full rounded-md border border-border bg-background px-3.5 py-1 text-md leading-6 text-foreground outline-1 -outline-offset-1 outline-transparent transition-[border-color,outline-color] duration-200 ease-in-out placeholder:text-muted-foreground focus-visible:outline-ring disabled:pointer-events-none data-disabled:pointer-events-none data-invalid:border-destructive data-invalid:focus-visible:outline-destructive motion-reduce:transition-none',
         className,
       )}
       {...props}
+      data-slot="field-input"
     />
   );
 });
@@ -95,12 +95,12 @@ const FieldTextarea = forwardRef<
   return (
     <FieldPrimitive.Textarea
       ref={ref}
-      data-slot="field-textarea"
       className={cn(
         'min-h-20 w-full resize-y rounded-md border border-border bg-background px-3.5 py-1 text-md leading-6 text-foreground outline-1 -outline-offset-1 outline-transparent transition-[border-color,outline-color] duration-200 ease-in-out placeholder:text-muted-foreground focus-visible:outline-ring disabled:pointer-events-none data-disabled:pointer-events-none data-invalid:border-destructive data-invalid:focus-visible:outline-destructive motion-reduce:transition-none',
         className,
       )}
       {...props}
+      data-slot="field-textarea"
     />
   );
 });
@@ -112,12 +112,12 @@ const FieldSelect = forwardRef<
   return (
     <FieldPrimitive.Select
       ref={ref}
-      data-slot="field-select"
       className={cn(
         'min-h-control-md w-full rounded-md border border-border bg-background px-3.5 py-1 text-md leading-6 text-foreground outline-1 -outline-offset-1 outline-transparent transition-[border-color,outline-color] duration-200 ease-in-out focus-visible:outline-ring disabled:pointer-events-none data-disabled:pointer-events-none data-invalid:border-destructive data-invalid:focus-visible:outline-destructive motion-reduce:transition-none',
         className,
       )}
       {...props}
+      data-slot="field-select"
     />
   );
 });
@@ -129,9 +129,9 @@ const FieldHelperText = forwardRef<
   return (
     <FieldPrimitive.HelperText
       ref={ref}
-      data-slot="field-helper-text"
       className={cn('text-sm leading-5 wrap-anywhere text-muted-foreground', className)}
       {...props}
+      data-slot="field-helper-text"
     />
   );
 });
@@ -143,9 +143,9 @@ const FieldErrorText = forwardRef<
   return (
     <FieldPrimitive.ErrorText
       ref={ref}
-      data-slot="field-error-text"
       className={cn('text-sm leading-5 font-medium wrap-anywhere text-destructive', className)}
       {...props}
+      data-slot="field-error-text"
     />
   );
 });
@@ -157,9 +157,9 @@ const FieldRequiredIndicator = forwardRef<
   return (
     <FieldPrimitive.RequiredIndicator
       ref={ref}
-      data-slot="field-required-indicator"
       className={cn('text-destructive', className)}
       {...props}
+      data-slot="field-required-indicator"
     />
   );
 });

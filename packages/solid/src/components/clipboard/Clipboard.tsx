@@ -14,9 +14,9 @@ function ClipboardRoot(props: ComponentProps<typeof ClipboardPrimitive.Root>) {
 
   return (
     <ClipboardPrimitive.Root
-      data-slot="clipboard-root"
       class={clsx(styles.root, local.class)}
       {...others}
+      data-slot="clipboard-root"
     />
   );
 }
@@ -26,9 +26,9 @@ function ClipboardRootProvider(props: ComponentProps<typeof ClipboardPrimitive.R
 
   return (
     <ClipboardPrimitive.RootProvider
-      data-slot="clipboard-root-provider"
       class={clsx(styles.root, local.class)}
       {...others}
+      data-slot="clipboard-root-provider"
     />
   );
 }
@@ -38,9 +38,9 @@ function ClipboardLabel(props: ComponentProps<typeof ClipboardPrimitive.Label>) 
 
   return (
     <ClipboardPrimitive.Label
-      data-slot="clipboard-label"
       class={clsx(styles.label, local.class)}
       {...others}
+      data-slot="clipboard-label"
     />
   );
 }
@@ -50,9 +50,9 @@ function ClipboardControl(props: ComponentProps<typeof ClipboardPrimitive.Contro
 
   return (
     <ClipboardPrimitive.Control
-      data-slot="clipboard-control"
       class={clsx(styles.control, local.class)}
       {...others}
+      data-slot="clipboard-control"
     />
   );
 }
@@ -62,9 +62,9 @@ function ClipboardInput(props: ComponentProps<typeof ClipboardPrimitive.Input>) 
 
   return (
     <ClipboardPrimitive.Input
-      data-slot="clipboard-input"
       class={clsx(styles.input, local.class)}
       {...others}
+      data-slot="clipboard-input"
     />
   );
 }
@@ -74,9 +74,9 @@ function ClipboardTrigger(props: ComponentProps<typeof ClipboardPrimitive.Trigge
 
   return (
     <ClipboardPrimitive.Trigger
-      data-slot="clipboard-trigger"
       class={clsx(styles.trigger, local.class)}
       {...others}
+      data-slot="clipboard-trigger"
     />
   );
 }
@@ -87,7 +87,6 @@ function ClipboardIndicator(props: ComponentProps<typeof ClipboardPrimitive.Indi
 
   return (
     <ClipboardPrimitive.Indicator
-      data-slot="clipboard-indicator"
       class={clsx(styles.indicator, local.class)}
       copied={
         local.copied ?? (
@@ -97,6 +96,7 @@ function ClipboardIndicator(props: ComponentProps<typeof ClipboardPrimitive.Indi
         )
       }
       {...others}
+      data-slot="clipboard-indicator"
     >
       {resolvedChildren() ?? (
         <span aria-hidden="true" data-slot="clipboard-indicator-idle-icon" class={styles.icon}>
@@ -112,25 +112,26 @@ function ClipboardValueText(props: ComponentProps<typeof ClipboardPrimitive.Valu
 
   return (
     <ClipboardPrimitive.ValueText
-      data-slot="clipboard-value-text"
       class={clsx(styles.valueText, local.class)}
       {...others}
+      data-slot="clipboard-value-text"
     />
   );
 }
 
 function ClipboardCopyText(props: ComponentProps<typeof ClipboardPrimitive.Indicator>) {
-  const [local, others] = splitProps(props, ['children', 'copied']);
+  const [local, others] = splitProps(props, ['children', 'class', 'copied']);
   const resolvedChildren = children(() => local.children);
 
   return (
-    <ClipboardIndicator
-      data-slot="clipboard-copy-text"
+    <ClipboardPrimitive.Indicator
+      class={clsx(styles.indicator, local.class)}
       copied={local.copied === undefined ? 'Copied' : local.copied}
       {...others}
+      data-slot="clipboard-copy-text"
     >
       {resolvedChildren() === undefined ? 'Copy' : resolvedChildren()}
-    </ClipboardIndicator>
+    </ClipboardPrimitive.Indicator>
   );
 }
 

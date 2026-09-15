@@ -68,13 +68,13 @@ function HoverCardTrigger(props: ComponentProps<typeof HoverCardPrimitive.Trigge
   return (
     <HoverCardPrimitive.Trigger
       asChild={local.asChild}
-      data-slot="hover-card-trigger"
       class={cn(
         !local.asChild &&
           'inline-flex cursor-pointer items-center gap-1 text-primary underline decoration-primary/60 decoration-1 underline-offset-2 outline-0 transition-[color,text-decoration-color] duration-150 ease-in-out focus-visible:rounded-xs focus-visible:no-underline focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-ring disabled:pointer-events-none disabled:opacity-50 data-disabled:pointer-events-none data-disabled:opacity-50 data-[state=open]:decoration-primary motion-reduce:transition-none [@media(hover:hover)]:hover:decoration-primary',
         local.class,
       )}
       {...others}
+      data-slot="hover-card-trigger"
     />
   );
 }
@@ -85,12 +85,12 @@ function HoverCardPositioner(props: ComponentProps<typeof HoverCardPrimitive.Pos
   return (
     <OverlayPortal>
       <HoverCardPrimitive.Positioner
-        data-slot="hover-card-positioner"
         class={cn(
           'z-[var(--z-index,var(--moduix-z-popup))] max-w-[var(--available-width)] outline-0',
           local.class,
         )}
         {...others}
+        data-slot="hover-card-positioner"
       />
     </OverlayPortal>
   );
@@ -101,12 +101,12 @@ function HoverCardContent(props: ComponentProps<typeof HoverCardPrimitive.Conten
 
   return (
     <HoverCardPrimitive.Content
-      data-slot="hover-card-content"
       class={cn(
         'relative z-[calc(var(--moduix-z-popup)+var(--layer-index,0))] max-h-[min(24rem,var(--available-height,100dvh))] max-w-[min(24rem,var(--available-width))] min-w-[min(14rem,var(--available-width))] origin-[var(--transform-origin)] overflow-visible rounded-lg border border-border bg-popover p-2 wrap-anywhere text-popover-foreground shadow-lg outline-0 has-[>[data-slot=hover-card-body]]:flex has-[>[data-slot=hover-card-body]]:flex-col data-[state=closed]:animate-moduix-menu-closed data-[state=open]:animate-moduix-menu-open motion-reduce:animate-none has-[>[data-slot=hover-card-body]]:[&>[data-slot=hover-card-body]]:overflow-auto',
         local.class,
       )}
       {...others}
+      data-slot="hover-card-content"
     />
   );
 }
@@ -117,12 +117,12 @@ function HoverCardArrow(props: ComponentProps<typeof HoverCardPrimitive.Arrow>) 
 
   return (
     <HoverCardPrimitive.Arrow
-      data-slot="hover-card-arrow"
       class={cn(
         '[--arrow-background:var(--color-popover)] [--arrow-shadow-color:var(--color-border)] [--arrow-size:0.625rem]',
         local.class,
       )}
       {...others}
+      data-slot="hover-card-arrow"
     >
       {resolvedChildren() ?? <HoverCardArrowTip />}
     </HoverCardPrimitive.Arrow>
@@ -134,9 +134,9 @@ function HoverCardArrowTip(props: ComponentProps<typeof HoverCardPrimitive.Arrow
 
   return (
     <HoverCardPrimitive.ArrowTip
-      data-slot="hover-card-arrow-tip"
       class={cn('border-t border-l border-border', local.class)}
       {...others}
+      data-slot="hover-card-arrow-tip"
     />
   );
 }
@@ -147,9 +147,9 @@ function HoverCardBody(props: HTMLArkProps<'div'>) {
   return (
     <ark.div
       asChild={local.asChild}
-      data-slot="hover-card-body"
       class={cn('min-h-0', local.class)}
       {...others}
+      data-slot="hover-card-body"
     />
   );
 }

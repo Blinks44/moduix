@@ -33,9 +33,9 @@ const Toaster = forwardRef<ComponentRef<typeof ToasterPrimitive>, ToasterProps>(
       <OverlayPortal>
         <ToasterPrimitive
           ref={ref}
-          data-slot="toast-toaster"
           className={cn('z-70 max-[40rem]:w-full', className)}
           {...props}
+          data-slot="toast-toaster"
         >
           {props.children ?? ((toast) => <DefaultToast toast={toast} />)}
         </ToasterPrimitive>
@@ -62,12 +62,12 @@ const ToastRoot = forwardRef<
   return (
     <ToastPrimitive.Root
       ref={ref}
-      data-slot="toast-root"
       className={cn(
         'group/toast pointer-events-auto [z-index:var(--z-index)] box-border grid [height:var(--height)] min-h-0 w-80 max-w-[calc(100vw-2rem)] min-w-0 [translate:var(--x)_var(--y)] [scale:var(--scale)] items-start gap-1 rounded-lg border border-border bg-card bg-clip-padding p-4 pe-11 text-card-foreground [opacity:var(--opacity)] shadow-lg transition-[translate,scale,opacity,height,box-shadow] duration-350 ease-[cubic-bezier(0.21,1.02,0.73,1)] [will-change:translate,opacity,scale] data-[state=closed]:ease-[cubic-bezier(0.06,0.71,0.55,1)] data-[state=closed]:[transition:translate_350ms,scale_350ms,opacity_200ms] data-[type=error]:border-destructive/35 data-[type=error]:bg-destructive/9 data-[type=error]:text-foreground data-[type=success]:border-success/34 data-[type=success]:bg-success/10 data-[type=success]:text-foreground data-[type=warning]:border-warning/38 data-[type=warning]:bg-warning/13 data-[type=warning]:text-foreground motion-reduce:transition-none max-[40rem]:inset-x-0 max-[40rem]:w-[calc(100%_-_(var(--gap)*2))] max-[40rem]:max-w-none',
         className,
       )}
       {...props}
+      data-slot="toast-root"
     />
   );
 });
@@ -81,12 +81,12 @@ const ToastTitle = forwardRef<
   return (
     <ToastPrimitive.Title
       ref={ref}
-      data-slot="toast-title"
       className={cn(
         'm-0 flex min-w-0 items-center gap-2 text-sm leading-5 font-semibold wrap-anywhere text-inherit',
         className,
       )}
       {...props}
+      data-slot="toast-title"
     >
       {children === undefined ? toast.title : children}
     </ToastPrimitive.Title>
@@ -102,9 +102,9 @@ const ToastDescription = forwardRef<
   return (
     <ToastPrimitive.Description
       ref={ref}
-      data-slot="toast-description"
       className={cn('m-0 min-w-0 text-sm leading-5 wrap-anywhere text-muted-foreground', className)}
       {...props}
+      data-slot="toast-description"
     >
       {children === undefined ? toast.description : children}
     </ToastPrimitive.Description>
@@ -119,13 +119,13 @@ const ToastActionTrigger = forwardRef<
     <ToastPrimitive.ActionTrigger
       ref={ref}
       asChild={asChild}
-      data-slot="toast-action-trigger"
       className={cn(
         !asChild &&
           'mt-2 inline-flex min-h-control-xs w-max max-w-full min-w-0 cursor-pointer items-center justify-center gap-2 rounded-sm border border-border bg-transparent px-2 py-1 text-start text-xs leading-4 font-medium wrap-anywhere text-foreground transition-[background-color,border-color,color] duration-200 ease-in-out select-none focus-visible:outline-1 focus-visible:outline-ring motion-reduce:transition-none [@media(hover:hover)]:hover:bg-accent',
         className,
       )}
       {...props}
+      data-slot="toast-action-trigger"
     >
       {children}
     </ToastPrimitive.ActionTrigger>
@@ -144,10 +144,10 @@ const ToastCloseTrigger = forwardRef<
       <ToastPrimitive.CloseTrigger
         ref={ref}
         asChild
-        data-slot="toast-close-trigger"
         aria-label={ariaLabel}
         className={className}
         {...props}
+        data-slot="toast-close-trigger"
       >
         {children}
       </ToastPrimitive.CloseTrigger>
@@ -158,10 +158,10 @@ const ToastCloseTrigger = forwardRef<
     <ToastPrimitive.CloseTrigger asChild>
       <CloseButton.Root
         ref={ref}
-        data-slot="toast-close-trigger"
         aria-label={ariaLabel}
         className={cn('absolute end-2 top-2', className)}
         {...props}
+        data-slot="toast-close-trigger"
       >
         {children}
       </CloseButton.Root>

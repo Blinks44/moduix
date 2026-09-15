@@ -69,9 +69,9 @@ function DialogTrigger(props: ComponentProps<typeof DialogPrimitive.Trigger>) {
   return (
     <DialogPrimitive.Trigger
       asChild={local.asChild}
-      data-slot="dialog-trigger"
       class={clsx(!local.asChild && styles.trigger, local.class)}
       {...others}
+      data-slot="dialog-trigger"
     />
   );
 }
@@ -82,9 +82,9 @@ function DialogBackdrop(props: ComponentProps<typeof DialogPrimitive.Backdrop>) 
   return (
     <OverlayPortal>
       <DialogPrimitive.Backdrop
-        data-slot="dialog-backdrop"
         class={clsx(styles.backdrop, local.class)}
         {...others}
+        data-slot="dialog-backdrop"
       />
     </OverlayPortal>
   );
@@ -96,9 +96,9 @@ function DialogPositioner(props: ComponentProps<typeof DialogPrimitive.Positione
   return (
     <OverlayPortal>
       <DialogPrimitive.Positioner
-        data-slot="dialog-positioner"
         class={clsx(styles.positioner, local.class)}
         {...others}
+        data-slot="dialog-positioner"
       />
     </OverlayPortal>
   );
@@ -109,9 +109,9 @@ function DialogContent(props: ComponentProps<typeof DialogPrimitive.Content>) {
 
   return (
     <DialogPrimitive.Content
-      data-slot="dialog-content"
       class={clsx(styles.content, local.class)}
       {...others}
+      data-slot="dialog-content"
     />
   );
 }
@@ -121,9 +121,9 @@ function DialogTitle(props: ComponentProps<typeof DialogPrimitive.Title>) {
 
   return (
     <DialogPrimitive.Title
-      data-slot="dialog-title"
       class={clsx(styles.title, local.class)}
       {...others}
+      data-slot="dialog-title"
     />
   );
 }
@@ -133,9 +133,9 @@ function DialogDescription(props: ComponentProps<typeof DialogPrimitive.Descript
 
   return (
     <DialogPrimitive.Description
-      data-slot="dialog-description"
       class={clsx(styles.description, local.class)}
       {...others}
+      data-slot="dialog-description"
     />
   );
 }
@@ -146,9 +146,9 @@ function DialogCloseTrigger(props: ComponentProps<typeof DialogPrimitive.CloseTr
   return (
     <DialogPrimitive.CloseTrigger
       asChild={local.asChild}
-      data-slot="dialog-close-trigger"
       class={clsx(!local.asChild && styles.closeTrigger, local.class)}
       {...others}
+      data-slot="dialog-close-trigger"
     />
   );
 }
@@ -178,19 +178,19 @@ function DialogCloseIcon(props: DialogCloseIconProps) {
 function DialogHeader(props: HTMLArkProps<'div'>) {
   const [local, others] = splitProps(props, ['class']);
 
-  return <ark.div data-slot="dialog-header" class={clsx(styles.header, local.class)} {...others} />;
+  return <ark.div class={clsx(styles.header, local.class)} {...others} data-slot="dialog-header" />;
 }
 
 function DialogBody(props: HTMLArkProps<'div'>) {
   const [local, others] = splitProps(props, ['class']);
 
-  return <ark.div data-slot="dialog-body" class={clsx(styles.body, local.class)} {...others} />;
+  return <ark.div class={clsx(styles.body, local.class)} {...others} data-slot="dialog-body" />;
 }
 
 function DialogFooter(props: HTMLArkProps<'div'>) {
   const [local, others] = splitProps(props, ['class']);
 
-  return <ark.div data-slot="dialog-footer" class={clsx(styles.footer, local.class)} {...others} />;
+  return <ark.div class={clsx(styles.footer, local.class)} {...others} data-slot="dialog-footer" />;
 }
 
 const Dialog = Object.assign(DialogRoot, {

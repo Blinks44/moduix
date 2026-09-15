@@ -17,12 +17,12 @@ const TagsInputRoot = forwardRef<
   return (
     <TagsInputPrimitive.Root
       ref={ref}
-      data-slot="tags-input-root"
       className={cn(
         'flex w-full max-w-96 flex-col gap-1 text-foreground data-disabled:opacity-50',
         className,
       )}
       {...props}
+      data-slot="tags-input-root"
     />
   );
 });
@@ -34,12 +34,12 @@ const TagsInputRootProvider = forwardRef<
   return (
     <TagsInputPrimitive.RootProvider
       ref={ref}
-      data-slot="tags-input-root-provider"
       className={cn(
         'flex w-full max-w-96 flex-col gap-1 text-foreground data-disabled:opacity-50',
         className,
       )}
       {...props}
+      data-slot="tags-input-root-provider"
     />
   );
 });
@@ -51,12 +51,12 @@ const TagsInputLabel = forwardRef<
   return (
     <TagsInputPrimitive.Label
       ref={ref}
-      data-slot="tags-input-label"
       className={cn(
         'inline-flex items-center gap-1 text-sm leading-5 font-medium text-foreground data-disabled:opacity-50',
         className,
       )}
       {...props}
+      data-slot="tags-input-label"
     />
   );
 });
@@ -68,12 +68,12 @@ const TagsInputControl = forwardRef<
   return (
     <TagsInputPrimitive.Control
       ref={ref}
-      data-slot="tags-input-control"
       className={cn(
         'flex min-h-control-md w-full flex-wrap items-center gap-1 rounded-md border border-border bg-background px-2 py-[0.3125rem] text-foreground outline-1 -outline-offset-1 outline-transparent transition-[border-color,outline-color,background-color,opacity] duration-200 ease-in-out data-disabled:pointer-events-none data-focus:outline-ring data-invalid:border-destructive data-invalid:data-focus:outline-destructive data-readonly:bg-background data-readonly:text-foreground motion-reduce:transition-none',
         className,
       )}
       {...props}
+      data-slot="tags-input-control"
     />
   );
 });
@@ -85,9 +85,9 @@ const TagsInputItem = forwardRef<
   return (
     <TagsInputPrimitive.Item
       ref={ref}
-      data-slot="tags-input-item"
       className={cn('contents', className)}
       {...props}
+      data-slot="tags-input-item"
     />
   );
 });
@@ -99,12 +99,12 @@ const TagsInputItemPreview = forwardRef<
   return (
     <TagsInputPrimitive.ItemPreview
       ref={ref}
-      data-slot="tags-input-item-preview"
       className={cn(
         'inline-flex min-h-control-xs max-w-full min-w-0 items-center gap-1 rounded-full border border-transparent bg-secondary px-2 py-0.5 text-xs leading-4 font-medium text-secondary-foreground transition-[border-color,background-color,color,box-shadow] duration-200 ease-in-out data-disabled:opacity-50 data-highlighted:ring-1 data-highlighted:ring-ring motion-reduce:transition-none',
         className,
       )}
       {...props}
+      data-slot="tags-input-item-preview"
     />
   );
 });
@@ -116,9 +116,9 @@ const TagsInputItemText = forwardRef<
   return (
     <TagsInputPrimitive.ItemText
       ref={ref}
-      data-slot="tags-input-item-text"
       className={cn('min-w-0 truncate', className)}
       {...props}
+      data-slot="tags-input-item-text"
     />
   );
 });
@@ -130,12 +130,12 @@ const TagsInputItemDeleteTrigger = forwardRef<
   return (
     <TagsInputPrimitive.ItemDeleteTrigger
       ref={ref}
-      data-slot="tags-input-item-delete-trigger"
       className={cn(
         'inline-flex size-4 shrink-0 cursor-pointer items-center justify-center rounded-full border-0 bg-transparent p-0 text-inherit outline-0 transition-[background-color,color,opacity,box-shadow] duration-200 ease-in-out focus-visible:ring-1 focus-visible:ring-ring disabled:pointer-events-none disabled:cursor-default disabled:opacity-50 data-disabled:pointer-events-none data-disabled:cursor-default data-disabled:opacity-50 motion-reduce:transition-none [&>svg]:pointer-events-none [&>svg]:size-2.5 [&>svg]:shrink-0 [@media(hover:hover)]:hover:bg-current/10',
         className,
       )}
       {...props}
+      data-slot="tags-input-item-delete-trigger"
     >
       {children ?? <CloseIcon />}
     </TagsInputPrimitive.ItemDeleteTrigger>
@@ -149,12 +149,12 @@ const TagsInputItemInput = forwardRef<
   return (
     <TagsInputPrimitive.ItemInput
       ref={ref}
-      data-slot="tags-input-item-input"
       className={cn(
         'h-control-xs min-w-28 shrink grow-0 basis-28 border-0 bg-transparent px-1 text-sm leading-5 text-inherit outline-0 placeholder:text-muted-foreground read-only:cursor-default data-readonly:cursor-default',
         className,
       )}
       {...props}
+      data-slot="tags-input-item-input"
     />
   );
 });
@@ -166,12 +166,12 @@ const TagsInputInput = forwardRef<
   return (
     <TagsInputPrimitive.Input
       ref={ref}
-      data-slot="tags-input-input"
       className={cn(
         'h-control-xs min-w-28 shrink grow basis-28 border-0 bg-transparent px-1 text-sm leading-5 text-inherit outline-0 placeholder:text-muted-foreground read-only:cursor-default data-readonly:hidden data-readonly:cursor-default',
         className,
       )}
       {...props}
+      data-slot="tags-input-input"
     />
   );
 });
@@ -196,7 +196,6 @@ const TagsInputClearTrigger = forwardRef<
     <TagsInputPrimitive.ClearTrigger
       ref={ref}
       asChild
-      data-slot="tags-input-clear-trigger"
       className={cn(
         asChild
           ? 'ms-auto shrink-0 self-center data-readonly:hidden'
@@ -206,6 +205,7 @@ const TagsInputClearTrigger = forwardRef<
       aria-label={asChild ? ariaLabel : undefined}
       aria-labelledby={asChild ? ariaLabelledBy : undefined}
       {...props}
+      data-slot="tags-input-clear-trigger"
     >
       {asChild ? (
         children

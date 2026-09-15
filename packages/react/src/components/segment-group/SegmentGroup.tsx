@@ -73,9 +73,9 @@ const SegmentGroupRoot = forwardRef<
     <SegmentGroupPrimitive.RootProvider
       ref={ref}
       value={segmentGroup}
-      data-slot="segment-group-root"
       className={clsx(styles.root, className)}
       {...props}
+      data-slot="segment-group-root"
     />
   );
 });
@@ -87,9 +87,9 @@ const SegmentGroupRootProvider = forwardRef<
   return (
     <SegmentGroupPrimitive.RootProvider
       ref={ref}
-      data-slot="segment-group-root-provider"
       className={clsx(styles.root, className)}
       {...props}
+      data-slot="segment-group-root-provider"
     />
   );
 });
@@ -101,9 +101,9 @@ const SegmentGroupLabel = forwardRef<
   return (
     <SegmentGroupPrimitive.Label
       ref={ref}
-      data-slot="segment-group-label"
       className={clsx(styles.label, className)}
       {...props}
+      data-slot="segment-group-label"
     />
   );
 });
@@ -115,9 +115,9 @@ const SegmentGroupItem = forwardRef<
   return (
     <SegmentGroupPrimitive.Item
       ref={ref}
-      data-slot="segment-group-item"
       className={clsx(styles.item, className)}
       {...props}
+      data-slot="segment-group-item"
     />
   );
 });
@@ -129,9 +129,9 @@ const SegmentGroupItemControl = forwardRef<
   return (
     <SegmentGroupPrimitive.ItemControl
       ref={ref}
-      data-slot="segment-group-item-control"
       className={clsx(styles.itemControl, className)}
       {...props}
+      data-slot="segment-group-item-control"
     />
   );
 });
@@ -143,9 +143,9 @@ const SegmentGroupItemText = forwardRef<
   return (
     <SegmentGroupPrimitive.ItemText
       ref={ref}
-      data-slot="segment-group-item-text"
       className={clsx(styles.itemText, className)}
       {...props}
+      data-slot="segment-group-item-text"
     />
   );
 });
@@ -157,9 +157,9 @@ const SegmentGroupIndicator = forwardRef<
   return (
     <SegmentGroupPrimitive.Indicator
       ref={ref}
-      data-slot="segment-group-indicator"
       className={clsx(styles.indicator, className)}
       {...props}
+      data-slot="segment-group-indicator"
     />
   );
 });

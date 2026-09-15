@@ -18,9 +18,9 @@ function FileUploadRoot(props: ComponentProps<typeof FileUploadPrimitive.Root>) 
   return (
     <FileUploadPrimitive.Root
       asChild={local.asChild}
-      data-slot="file-upload-root"
       class={clsx(styles.root, local.class)}
       {...others}
+      data-slot="file-upload-root"
     >
       {local.children}
     </FileUploadPrimitive.Root>
@@ -33,9 +33,9 @@ function FileUploadRootProvider(props: ComponentProps<typeof FileUploadPrimitive
   return (
     <FileUploadPrimitive.RootProvider
       asChild={local.asChild}
-      data-slot="file-upload-root-provider"
       class={clsx(styles.root, local.class)}
       {...others}
+      data-slot="file-upload-root-provider"
     >
       {local.children}
     </FileUploadPrimitive.RootProvider>
@@ -47,9 +47,9 @@ function FileUploadLabel(props: ComponentProps<typeof FileUploadPrimitive.Label>
 
   return (
     <FileUploadPrimitive.Label
-      data-slot="file-upload-label"
       class={clsx(styles.label, local.class)}
       {...others}
+      data-slot="file-upload-label"
     />
   );
 }
@@ -59,9 +59,9 @@ function FileUploadDropzone(props: ComponentProps<typeof FileUploadPrimitive.Dro
 
   return (
     <FileUploadPrimitive.Dropzone
-      data-slot="file-upload-dropzone"
       class={clsx(styles.dropzone, local.class)}
       {...others}
+      data-slot="file-upload-dropzone"
     />
   );
 }
@@ -73,9 +73,9 @@ function FileUploadDropzoneIcon(props: HTMLArkProps<'span'>) {
   return (
     <ark.span
       aria-hidden="true"
-      data-slot="file-upload-dropzone-icon"
       class={clsx(styles.dropzoneIcon, local.class)}
       {...others}
+      data-slot="file-upload-dropzone-icon"
     >
       {resolvedChildren() ?? <UploadIcon />}
     </ark.span>
@@ -87,9 +87,9 @@ function FileUploadTrigger(props: ComponentProps<typeof FileUploadPrimitive.Trig
 
   return (
     <FileUploadPrimitive.Trigger
-      data-slot="file-upload-trigger"
       class={clsx(styles.trigger, local.class)}
       {...others}
+      data-slot="file-upload-trigger"
     />
   );
 }
@@ -99,9 +99,9 @@ function FileUploadItemGroup(props: ComponentProps<typeof FileUploadPrimitive.It
 
   return (
     <FileUploadPrimitive.ItemGroup
-      data-slot="file-upload-item-group"
       class={clsx(styles.itemGroup, local.class)}
       {...others}
+      data-slot="file-upload-item-group"
     />
   );
 }
@@ -111,9 +111,9 @@ function FileUploadItem(props: ComponentProps<typeof FileUploadPrimitive.Item>) 
 
   return (
     <FileUploadPrimitive.Item
-      data-slot="file-upload-item"
       class={clsx(styles.item, local.class)}
       {...others}
+      data-slot="file-upload-item"
     />
   );
 }
@@ -123,9 +123,9 @@ function FileUploadItemPreview(props: ComponentProps<typeof FileUploadPrimitive.
 
   return (
     <FileUploadPrimitive.ItemPreview
-      data-slot="file-upload-item-preview"
       class={clsx(styles.itemPreview, local.class)}
       {...others}
+      data-slot="file-upload-item-preview"
     />
   );
 }
@@ -137,9 +137,9 @@ function FileUploadItemPreviewImage(
 
   return (
     <FileUploadPrimitive.ItemPreviewImage
-      data-slot="file-upload-item-preview-image"
       class={clsx(styles.itemPreviewImage, local.class)}
       {...others}
+      data-slot="file-upload-item-preview-image"
     />
   );
 }
@@ -149,9 +149,9 @@ function FileUploadItemPreviewIcon(props: ComponentProps<'svg'>) {
 
   return (
     <FileIcon
-      data-slot="file-upload-item-preview-icon"
       class={clsx(styles.itemPreviewIcon, local.class)}
       {...others}
+      data-slot="file-upload-item-preview-icon"
     />
   );
 }
@@ -171,9 +171,9 @@ function FileUploadItemName(props: ComponentProps<typeof FileUploadPrimitive.Ite
 
   return (
     <FileUploadPrimitive.ItemName
-      data-slot="file-upload-item-name"
       class={clsx(styles.itemName, local.class)}
       {...others}
+      data-slot="file-upload-item-name"
     />
   );
 }
@@ -183,9 +183,9 @@ function FileUploadItemSizeText(props: ComponentProps<typeof FileUploadPrimitive
 
   return (
     <FileUploadPrimitive.ItemSizeText
-      data-slot="file-upload-item-size-text"
       class={clsx(styles.itemSizeText, local.class)}
       {...others}
+      data-slot="file-upload-item-size-text"
     />
   );
 }
@@ -195,9 +195,9 @@ function FileUploadItemMetadata(props: HTMLArkProps<'div'> & { file: File }) {
 
   return (
     <ark.div
-      data-slot="file-upload-item-metadata"
       class={clsx(styles.itemMetadata, local.class)}
       {...others}
+      data-slot="file-upload-item-metadata"
     >
       <ark.span>{getFileTypeLabel(local.file)}</ark.span>
       <FileUploadItemSizeText />
@@ -213,9 +213,9 @@ function FileUploadItemDeleteTrigger(
 
   return (
     <FileUploadPrimitive.ItemDeleteTrigger
-      data-slot="file-upload-item-delete-trigger"
       class={clsx(styles.itemDeleteTrigger, local.class)}
       {...others}
+      data-slot="file-upload-item-delete-trigger"
     >
       {resolvedChildren() ?? <TrashIcon />}
     </FileUploadPrimitive.ItemDeleteTrigger>
@@ -269,11 +269,11 @@ function FileUploadClearTrigger(props: ComponentProps<typeof FileUploadPrimitive
     return (
       <FileUploadPrimitive.ClearTrigger
         asChild={local.asChild}
-        data-slot="file-upload-clear-trigger"
         class={triggerClass()}
         aria-label={clearLabel()}
         aria-labelledby={local['aria-labelledby']}
         {...others}
+        data-slot="file-upload-clear-trigger"
       >
         {resolvedChildren()}
       </FileUploadPrimitive.ClearTrigger>
@@ -291,9 +291,9 @@ function FileUploadClearTrigger(props: ComponentProps<typeof FileUploadPrimitive
           {resolvedChildren() ?? <CloseIcon />}
         </CloseButton.Root>
       )}
-      data-slot="file-upload-clear-trigger"
       class={triggerClass()}
       {...others}
+      data-slot="file-upload-clear-trigger"
     />
   );
 }

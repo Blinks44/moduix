@@ -112,6 +112,9 @@ custom image renderer, use `useAvatarContext()` and preserve the hidden and visi
 by `getImageProps()`. Use `asChild` with one semantic child when another element must own the root
 DOM node.
 
+In Solid, assign a ref to the element created inside the `asChild` render function. A ref on `Avatar`
+itself is not forwarded through that composition path.
+
 ## Examples
 
 ### Custom Fallback

@@ -171,6 +171,9 @@ Use `defaultValue` for local state. When application state owns the selected col
 
 `ColorPicker.Positioner` is portalled by default. Set `portalled={false}` for an overlay inside another stacking context. To submit the color with a native form, set `name` on the root and render `ColorPicker.HiddenInput` explicitly. Parts such as `Area`, `ChannelSlider`, and `SwatchTrigger` provide default visual children; pass children only when changing their structure.
 
+In Solid, assign a ref to the element created inside the `asChild` render function. A ref on a
+ColorPicker part itself is not forwarded through that composition path.
+
 ## Examples
 
 ### Color Area and Sliders

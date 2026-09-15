@@ -20,12 +20,12 @@ const AccordionRoot = forwardRef<
   return (
     <AccordionPrimitive.Root
       ref={ref}
-      data-slot="accordion-root"
       className={cn(
         'box-border flex w-full max-w-full min-w-0 flex-col text-foreground data-[orientation=horizontal]:h-80 data-[orientation=horizontal]:max-h-full data-[orientation=horizontal]:w-auto data-[orientation=horizontal]:flex-row',
         className,
       )}
       {...props}
+      data-slot="accordion-root"
     />
   );
 });
@@ -37,12 +37,12 @@ const AccordionRootProvider = forwardRef<
   return (
     <AccordionPrimitive.RootProvider
       ref={ref}
-      data-slot="accordion-root-provider"
       className={cn(
         'box-border flex w-full max-w-full min-w-0 flex-col text-foreground data-[orientation=horizontal]:h-80 data-[orientation=horizontal]:max-h-full data-[orientation=horizontal]:w-auto data-[orientation=horizontal]:flex-row',
         className,
       )}
       {...props}
+      data-slot="accordion-root-provider"
     />
   );
 });
@@ -54,12 +54,12 @@ const AccordionItem = forwardRef<
   return (
     <AccordionPrimitive.Item
       ref={ref}
-      data-slot="accordion-item"
       className={cn(
         "[overflow-anchor:none] data-[orientation=horizontal]:flex [&[data-orientation='horizontal']:not(:last-child)]:border-e [&[data-orientation='horizontal']:not(:last-child)]:border-border [&[data-orientation='vertical']:not(:last-child)]:border-b [&[data-orientation='vertical']:not(:last-child)]:border-border",
         className,
       )}
       {...props}
+      data-slot="accordion-item"
     />
   );
 });
@@ -71,12 +71,12 @@ const AccordionItemTrigger = forwardRef<
   return (
     <AccordionPrimitive.ItemTrigger
       ref={ref}
-      data-slot="accordion-item-trigger"
       className={cn(
         'flex w-full cursor-pointer items-center justify-between gap-4 bg-muted px-3 py-2 text-start text-md outline-0 transition-colors duration-200 select-none focus-visible:relative focus-visible:z-1 focus-visible:outline-2 focus-visible:-outline-offset-1 focus-visible:outline-ring data-disabled:cursor-default data-disabled:opacity-50 data-[orientation=horizontal]:h-full data-[orientation=horizontal]:w-10 data-[orientation=horizontal]:justify-center data-[orientation=horizontal]:[writing-mode:sideways-lr] motion-reduce:transition-none [&:not([data-disabled]):active]:bg-accent [&:not([data-disabled]):hover]:bg-accent',
         className,
       )}
       {...props}
+      data-slot="accordion-item-trigger"
     />
   );
 });
@@ -88,12 +88,12 @@ const AccordionItemIndicator = forwardRef<
   return (
     <AccordionPrimitive.ItemIndicator
       ref={ref}
-      data-slot="accordion-item-indicator"
       className={cn(
         'inline-flex size-3 shrink-0 items-center justify-center transition-transform duration-200 data-[state=open]:scale-110 data-[state=open]:rotate-45 motion-reduce:transition-none [&_svg]:size-full',
         className,
       )}
       {...props}
+      data-slot="accordion-item-indicator"
     >
       {children ?? <PlusIcon />}
     </AccordionPrimitive.ItemIndicator>
@@ -107,12 +107,12 @@ const AccordionItemContent = forwardRef<
   return (
     <AccordionPrimitive.ItemContent
       ref={ref}
-      data-slot="accordion-item-content"
       className={cn(
         "overflow-hidden text-md text-muted-foreground data-[state=closed]:data-[orientation=horizontal]:animate-moduix-accordion-closed-horizontal data-[state=closed]:data-[orientation=vertical]:animate-moduix-accordion-closed data-[state=open]:data-[orientation=horizontal]:animate-moduix-accordion-open-horizontal data-[state=open]:data-[orientation=vertical]:animate-moduix-accordion-open motion-reduce:[animation-delay:0ms] motion-reduce:[animation-duration:1ms] data-[orientation=horizontal]:[&>*]:w-64 [&[hidden]:not([hidden='until-found'])]:hidden",
         className,
       )}
       {...props}
+      data-slot="accordion-item-content"
     />
   );
 });
@@ -124,9 +124,9 @@ const AccordionItemBody = forwardRef<ComponentRef<typeof ark.div>, HTMLArkProps<
         ref={ref}
         data-scope="accordion"
         data-part="item-body"
-        data-slot="accordion-item-body"
         className={cn('grid min-w-0 gap-3 p-3', className)}
         {...props}
+        data-slot="accordion-item-body"
       />
     );
   },

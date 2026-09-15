@@ -78,12 +78,12 @@ function SegmentGroupRoot(props: ComponentProps<typeof SegmentGroupPrimitive.Roo
     <SegmentGroupPrimitive.RootProvider
       asChild={local.asChild}
       value={segmentGroup}
-      data-slot="segment-group-root"
       class={cn(
         'group/segment-group relative isolate box-border inline-flex max-w-full items-stretch gap-1 rounded-lg border border-border bg-muted p-1 text-foreground data-disabled:opacity-50 data-invalid:border-destructive data-[orientation=vertical]:flex-col',
         local.class,
       )}
       {...others}
+      data-slot="segment-group-root"
     >
       {local.children}
     </SegmentGroupPrimitive.RootProvider>
@@ -98,12 +98,12 @@ function SegmentGroupRootProvider(
   return (
     <SegmentGroupPrimitive.RootProvider
       asChild={local.asChild}
-      data-slot="segment-group-root-provider"
       class={cn(
         'group/segment-group relative isolate box-border inline-flex max-w-full items-stretch gap-1 rounded-lg border border-border bg-muted p-1 text-foreground data-disabled:opacity-50 data-invalid:border-destructive data-[orientation=vertical]:flex-col',
         local.class,
       )}
       {...others}
+      data-slot="segment-group-root-provider"
     />
   );
 }
@@ -114,12 +114,12 @@ function SegmentGroupLabel(props: ComponentProps<typeof SegmentGroupPrimitive.La
   return (
     <SegmentGroupPrimitive.Label
       asChild={local.asChild}
-      data-slot="segment-group-label"
       class={cn(
         'relative z-1 text-sm leading-5 font-semibold text-inherit select-none',
         local.class,
       )}
       {...others}
+      data-slot="segment-group-label"
     />
   );
 }
@@ -130,12 +130,12 @@ function SegmentGroupItem(props: ComponentProps<typeof SegmentGroupPrimitive.Ite
   return (
     <SegmentGroupPrimitive.Item
       asChild={local.asChild}
-      data-slot="segment-group-item"
       class={cn(
         'relative z-1 box-border inline-flex min-h-control-sm cursor-pointer items-center justify-center gap-2 rounded-md px-3.5 text-sm leading-5 font-medium whitespace-nowrap text-muted-foreground outline-0 transition-[color,opacity] duration-200 ease-in-out select-none group-data-disabled/segment-group:!opacity-100 data-disabled:cursor-default data-disabled:opacity-50 data-focus-visible:outline-1 data-focus-visible:-outline-offset-1 data-focus-visible:outline-ring data-invalid:data-focus-visible:outline-destructive data-readonly:cursor-default data-[orientation=vertical]:w-full data-[orientation=vertical]:justify-start data-[state=checked]:text-foreground [@media(hover:hover)]:[&:not([data-readonly]):not([data-disabled]):hover]:text-foreground',
         local.class,
       )}
       {...others}
+      data-slot="segment-group-item"
     >
       {local.children}
     </SegmentGroupPrimitive.Item>
@@ -148,9 +148,9 @@ function SegmentGroupItemControl(props: ComponentProps<typeof SegmentGroupPrimit
   return (
     <SegmentGroupPrimitive.ItemControl
       asChild={local.asChild}
-      data-slot="segment-group-item-control"
       class={cn('hidden', local.class)}
       {...others}
+      data-slot="segment-group-item-control"
     />
   );
 }
@@ -161,9 +161,9 @@ function SegmentGroupItemText(props: ComponentProps<typeof SegmentGroupPrimitive
   return (
     <SegmentGroupPrimitive.ItemText
       asChild={local.asChild}
-      data-slot="segment-group-item-text"
       class={cn('relative z-1', local.class)}
       {...others}
+      data-slot="segment-group-item-text"
     />
   );
 }
@@ -174,12 +174,12 @@ function SegmentGroupIndicator(props: ComponentProps<typeof SegmentGroupPrimitiv
   return (
     <SegmentGroupPrimitive.Indicator
       asChild={local.asChild}
-      data-slot="segment-group-indicator"
       class={cn(
         'pointer-events-none absolute top-[var(--top)] left-[var(--left)] z-0 h-[var(--height)] w-[var(--width)] rounded-md bg-background shadow-sm !duration-200 !ease-in-out',
         local.class,
       )}
       {...others}
+      data-slot="segment-group-indicator"
     />
   );
 }

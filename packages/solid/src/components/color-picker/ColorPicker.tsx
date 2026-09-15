@@ -33,11 +33,11 @@ function ColorPickerRoot(props: ColorPickerRootProps) {
     <OverlayPortalProvider portalled={local.portalled} portalRef={local.portalRef}>
       <ColorPickerPrimitive.Root
         asChild={local.asChild}
-        data-slot="color-picker-root"
         class={clsx(styles.root, local.class)}
         lazyMount={local.lazyMount ?? true}
         unmountOnExit={local.unmountOnExit ?? true}
         {...others}
+        data-slot="color-picker-root"
       >
         {local.children}
       </ColorPickerPrimitive.Root>
@@ -60,11 +60,11 @@ function ColorPickerRootProvider(props: ColorPickerRootProviderProps) {
     <OverlayPortalProvider portalled={local.portalled} portalRef={local.portalRef}>
       <ColorPickerPrimitive.RootProvider
         asChild={local.asChild}
-        data-slot="color-picker-root-provider"
         class={clsx(styles.root, local.class)}
         lazyMount={local.lazyMount ?? true}
         unmountOnExit={local.unmountOnExit ?? true}
         {...others}
+        data-slot="color-picker-root-provider"
       >
         {local.children}
       </ColorPickerPrimitive.RootProvider>
@@ -77,9 +77,9 @@ function ColorPickerLabel(props: ComponentProps<typeof ColorPickerPrimitive.Labe
 
   return (
     <ColorPickerPrimitive.Label
-      data-slot="color-picker-label"
       class={clsx(styles.label, local.class)}
       {...others}
+      data-slot="color-picker-label"
     />
   );
 }
@@ -89,9 +89,9 @@ function ColorPickerControl(props: ComponentProps<typeof ColorPickerPrimitive.Co
 
   return (
     <ColorPickerPrimitive.Control
-      data-slot="color-picker-control"
       class={clsx(styles.control, local.class)}
       {...others}
+      data-slot="color-picker-control"
     />
   );
 }
@@ -102,9 +102,9 @@ function ColorPickerTrigger(props: ComponentProps<typeof ColorPickerPrimitive.Tr
 
   return (
     <ColorPickerPrimitive.Trigger
-      data-slot="color-picker-trigger"
       class={clsx(styles.trigger, local.class)}
       {...others}
+      data-slot="color-picker-trigger"
     >
       {resolvedChildren() ?? (
         <>
@@ -128,9 +128,9 @@ function ColorPickerPositioner(props: ComponentProps<typeof ColorPickerPrimitive
   return (
     <OverlayPortal>
       <ColorPickerPrimitive.Positioner
-        data-slot="color-picker-positioner"
         class={clsx(styles.positioner, local.class)}
         {...others}
+        data-slot="color-picker-positioner"
       />
     </OverlayPortal>
   );
@@ -141,9 +141,9 @@ function ColorPickerContent(props: ComponentProps<typeof ColorPickerPrimitive.Co
 
   return (
     <ColorPickerPrimitive.Content
-      data-slot="color-picker-content"
       class={clsx(styles.content, local.class)}
       {...others}
+      data-slot="color-picker-content"
     />
   );
 }
@@ -154,9 +154,9 @@ function ColorPickerArea(props: ComponentProps<typeof ColorPickerPrimitive.Area>
 
   return (
     <ColorPickerPrimitive.Area
-      data-slot="color-picker-area"
       class={clsx(styles.area, local.class)}
       {...others}
+      data-slot="color-picker-area"
     >
       {resolvedChildren() ?? (
         <>
@@ -181,9 +181,9 @@ function ColorPickerAreaBackground(
 
   return (
     <ColorPickerPrimitive.AreaBackground
-      data-slot="color-picker-area-background"
       class={clsx(styles.areaBackground, local.class)}
       {...others}
+      data-slot="color-picker-area-background"
     />
   );
 }
@@ -193,9 +193,9 @@ function ColorPickerAreaThumb(props: ComponentProps<typeof ColorPickerPrimitive.
 
   return (
     <ColorPickerPrimitive.AreaThumb
-      data-slot="color-picker-area-thumb"
       class={clsx(styles.thumb, local.class)}
       {...others}
+      data-slot="color-picker-area-thumb"
     />
   );
 }
@@ -209,9 +209,9 @@ function ColorPickerChannelSlider(
   return (
     <ColorPickerPrimitive.ChannelSlider
       channel={local.channel}
-      data-slot="color-picker-channel-slider"
       class={clsx(styles.channelSlider, local.class)}
       {...others}
+      data-slot="color-picker-channel-slider"
     >
       {resolvedChildren() ?? (
         <>
@@ -239,7 +239,7 @@ function ColorPickerSliders(props: ComponentProps<'div'>) {
   const [local, others] = splitProps(props, ['class']);
 
   return (
-    <div data-slot="color-picker-sliders" class={clsx(styles.sliders, local.class)} {...others}>
+    <div class={clsx(styles.sliders, local.class)} {...others} data-slot="color-picker-sliders">
       <ColorPickerChannelSlider channel="hue" />
       <ColorPickerChannelSlider channel="alpha" />
     </div>
@@ -253,9 +253,9 @@ function ColorPickerChannelSliderTrack(
 
   return (
     <ColorPickerPrimitive.ChannelSliderTrack
-      data-slot="color-picker-channel-slider-track"
       class={clsx(styles.channelSliderTrack, local.class)}
       {...others}
+      data-slot="color-picker-channel-slider-track"
     />
   );
 }
@@ -267,9 +267,9 @@ function ColorPickerChannelSliderThumb(
 
   return (
     <ColorPickerPrimitive.ChannelSliderThumb
-      data-slot="color-picker-channel-slider-thumb"
       class={clsx(styles.thumb, local.class)}
       {...others}
+      data-slot="color-picker-channel-slider-thumb"
     />
   );
 }
@@ -281,9 +281,9 @@ function ColorPickerChannelSliderLabel(
 
   return (
     <ColorPickerPrimitive.ChannelSliderLabel
-      data-slot="color-picker-channel-slider-label"
       class={clsx(styles.channelSliderLabel, local.class)}
       {...others}
+      data-slot="color-picker-channel-slider-label"
     />
   );
 }
@@ -295,9 +295,9 @@ function ColorPickerChannelSliderValueText(
 
   return (
     <ColorPickerPrimitive.ChannelSliderValueText
-      data-slot="color-picker-channel-slider-value-text"
       class={clsx(styles.channelSliderValueText, local.class)}
       {...others}
+      data-slot="color-picker-channel-slider-value-text"
     />
   );
 }
@@ -307,9 +307,9 @@ function ColorPickerChannelInput(props: ComponentProps<typeof ColorPickerPrimiti
 
   return (
     <ColorPickerPrimitive.ChannelInput
-      data-slot="color-picker-channel-input"
       class={clsx(styles.channelInput, local.class)}
       {...others}
+      data-slot="color-picker-channel-input"
     />
   );
 }
@@ -322,9 +322,9 @@ function ColorPickerEyeDropperTrigger(
 
   return (
     <ColorPickerPrimitive.EyeDropperTrigger
-      data-slot="color-picker-eye-dropper-trigger"
       class={clsx(styles.eyeDropperTrigger, local.class)}
       {...others}
+      data-slot="color-picker-eye-dropper-trigger"
     >
       {resolvedChildren() ?? <PipetteIcon />}
     </ColorPickerPrimitive.EyeDropperTrigger>
@@ -337,9 +337,9 @@ function ColorPickerFormatSelect(props: ComponentProps<typeof ColorPickerPrimiti
   return (
     <span class={styles.formatSelectControl}>
       <ColorPickerPrimitive.FormatSelect
-        data-slot="color-picker-format-select"
         class={clsx(styles.formatSelect, local.class)}
         {...others}
+        data-slot="color-picker-format-select"
       />
       <span aria-hidden="true" class={styles.formatSelectIndicator}>
         <ChevronDownIcon />
@@ -355,9 +355,9 @@ function ColorPickerFormatTrigger(
 
   return (
     <ColorPickerPrimitive.FormatTrigger
-      data-slot="color-picker-format-trigger"
       class={clsx(styles.formatTrigger, local.class)}
       {...others}
+      data-slot="color-picker-format-trigger"
     />
   );
 }
@@ -367,9 +367,9 @@ function ColorPickerSwatchGroup(props: ComponentProps<typeof ColorPickerPrimitiv
 
   return (
     <ColorPickerPrimitive.SwatchGroup
-      data-slot="color-picker-swatch-group"
       class={clsx(styles.swatchGroup, local.class)}
       {...others}
+      data-slot="color-picker-swatch-group"
     />
   );
 }
@@ -382,10 +382,10 @@ function ColorPickerSwatchTrigger(
 
   return (
     <ColorPickerPrimitive.SwatchTrigger
-      data-slot="color-picker-swatch-trigger"
       class={clsx(styles.swatchTrigger, local.class)}
       value={local.value}
       {...others}
+      data-slot="color-picker-swatch-trigger"
     >
       {resolvedChildren() ?? (
         <ColorPickerPrimitive.Swatch
@@ -410,9 +410,9 @@ function ColorPickerSwatch(props: ComponentProps<typeof ColorPickerPrimitive.Swa
 
   return (
     <ColorPickerPrimitive.Swatch
-      data-slot="color-picker-swatch"
       class={clsx(styles.swatch, local.class)}
       {...others}
+      data-slot="color-picker-swatch"
     />
   );
 }
@@ -425,9 +425,9 @@ function ColorPickerSwatchIndicator(
 
   return (
     <ColorPickerPrimitive.SwatchIndicator
-      data-slot="color-picker-swatch-indicator"
       class={clsx(styles.swatchIndicator, local.class)}
       {...others}
+      data-slot="color-picker-swatch-indicator"
     >
       {resolvedChildren() ?? <CheckIcon />}
     </ColorPickerPrimitive.SwatchIndicator>
@@ -441,9 +441,9 @@ function ColorPickerTransparencyGrid(
 
   return (
     <ColorPickerPrimitive.TransparencyGrid
-      data-slot="color-picker-transparency-grid"
       class={clsx(styles.transparencyGrid, local.class)}
       {...others}
+      data-slot="color-picker-transparency-grid"
     />
   );
 }
@@ -453,9 +453,9 @@ function ColorPickerValueSwatch(props: ComponentProps<typeof ColorPickerPrimitiv
 
   return (
     <ColorPickerPrimitive.ValueSwatch
-      data-slot="color-picker-value-swatch"
       class={clsx(styles.valueSwatch, local.class)}
       {...others}
+      data-slot="color-picker-value-swatch"
     />
   );
 }
@@ -465,9 +465,9 @@ function ColorPickerValueText(props: ComponentProps<typeof ColorPickerPrimitive.
 
   return (
     <ColorPickerPrimitive.ValueText
-      data-slot="color-picker-value-text"
       class={clsx(styles.valueText, local.class)}
       {...others}
+      data-slot="color-picker-value-text"
     />
   );
 }
@@ -477,9 +477,9 @@ function ColorPickerView(props: ComponentProps<typeof ColorPickerPrimitive.View>
 
   return (
     <ColorPickerPrimitive.View
-      data-slot="color-picker-view"
       class={clsx(styles.view, local.class)}
       {...others}
+      data-slot="color-picker-view"
     />
   );
 }

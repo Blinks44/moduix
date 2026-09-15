@@ -161,6 +161,11 @@ function StyleTrackCard({ label, children }: { label: string; children: ReactNod
   return (
     <section className={styles.styleTrackCard}>
       <div className={styles.styleTrackCardHeader}>
+        {label === 'Tailwind CSS' ? (
+          <TailwindLogo className={styles.installOptionLogo} />
+        ) : (
+          <CssLogo className={styles.installOptionLogo} />
+        )}
         <strong>{label}</strong>
       </div>
       <div className={styles.styleTrackCardBody}>{children}</div>

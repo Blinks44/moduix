@@ -6,7 +6,9 @@ test('renders the default root with stable hooks and replaceable Tailwind defaul
   render(() => (
     <Card
       class="border-4 border-destructive bg-muted shadow-none"
+      data-size="consumer"
       data-testid="card"
+      data-variant="consumer"
       style={{ 'max-width': '320px' }}
     />
   ));

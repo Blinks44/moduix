@@ -116,13 +116,13 @@ const CommandPaletteTrigger = forwardRef<
     <DialogPrimitive.Trigger
       ref={ref}
       asChild={asChild}
-      data-slot="command-palette-trigger"
       className={cn(
         !asChild &&
           'inline-flex min-h-control-md cursor-pointer items-center justify-center gap-2 rounded-md border border-border bg-background px-3.5 py-1 text-md leading-6 text-foreground transition-[background-color,border-color,color] duration-200 ease-in-out select-none focus-visible:outline-1 focus-visible:-outline-offset-1 focus-visible:outline-ring [@media(hover:hover)]:hover:bg-accent',
         className,
       )}
       {...props}
+      data-slot="command-palette-trigger"
     />
   );
 });
@@ -135,12 +135,12 @@ const CommandPaletteBackdrop = forwardRef<
     <OverlayPortal>
       <DialogPrimitive.Backdrop
         ref={ref}
-        data-slot="command-palette-backdrop"
         className={cn(
           'fixed inset-0 z-[calc(40+var(--layer-index,0))] bg-overlay backdrop-blur-[4px] data-[state=closed]:animate-[moduix-fade-out_200ms_ease-in-out_forwards] data-[state=open]:animate-[moduix-fade-in_200ms_ease-in-out] motion-reduce:animate-none',
           className,
         )}
         {...props}
+        data-slot="command-palette-backdrop"
       />
     </OverlayPortal>
   );
@@ -154,12 +154,12 @@ const CommandPalettePositioner = forwardRef<
     <OverlayPortal>
       <DialogPrimitive.Positioner
         ref={ref}
-        data-slot="command-palette-positioner"
         className={cn(
           'fixed inset-0 z-[calc(50+var(--layer-index,0))] grid items-start justify-items-center overflow-hidden overscroll-contain px-4 pt-[10dvh] pb-4',
           className,
         )}
         {...props}
+        data-slot="command-palette-positioner"
       />
     </OverlayPortal>
   );
@@ -172,12 +172,12 @@ const CommandPaletteContent = forwardRef<
   return (
     <DialogPrimitive.Content
       ref={ref}
-      data-slot="command-palette-content"
       className={cn(
         'flex max-h-[min(34rem,calc(100dvh-5rem))] w-[min(37.5rem,calc(100vw-2rem))] origin-top flex-col overflow-hidden rounded-lg border border-border/84 bg-popover bg-linear-to-b from-white/4 to-transparent text-popover-foreground shadow-lg outline-0 data-[state=closed]:animate-moduix-menu-closed data-[state=open]:animate-moduix-menu-open motion-reduce:animate-none',
         className,
       )}
       {...props}
+      data-slot="command-palette-content"
     />
   );
 });
@@ -205,9 +205,9 @@ const CommandPaletteTitle = forwardRef<
   return (
     <DialogPrimitive.Title
       ref={ref}
-      data-slot="command-palette-title"
       className={cn('text-md leading-6 font-semibold text-popover-foreground', className)}
       {...props}
+      data-slot="command-palette-title"
     />
   );
 });
@@ -219,9 +219,9 @@ const CommandPaletteDescription = forwardRef<
   return (
     <DialogPrimitive.Description
       ref={ref}
-      data-slot="command-palette-description"
       className={cn('text-sm leading-5 text-muted-foreground', className)}
       {...props}
+      data-slot="command-palette-description"
     />
   );
 });
@@ -231,9 +231,9 @@ const CommandPaletteHeader = forwardRef<HTMLDivElement, HTMLArkProps<'div'>>(
     return (
       <ark.div
         ref={ref}
-        data-slot="command-palette-header"
         className={cn('grid gap-1 px-4 pt-4', className)}
         {...props}
+        data-slot="command-palette-header"
       />
     );
   },
@@ -244,9 +244,9 @@ const CommandPaletteBody = forwardRef<HTMLDivElement, HTMLArkProps<'div'>>(
     return (
       <ark.div
         ref={ref}
-        data-slot="command-palette-body"
         className={cn('flex min-h-0 flex-1 flex-col', className)}
         {...props}
+        data-slot="command-palette-body"
       />
     );
   },
@@ -277,7 +277,6 @@ const CommandPaletteCombobox = forwardRef(function CommandPaletteCombobox<T exte
   return (
     <ComboboxPrimitive.Root
       ref={ref}
-      data-slot="command-palette-combobox"
       className={cn('flex min-h-0 flex-1 flex-col overflow-hidden', className)}
       open={open}
       inputBehavior={inputBehavior}
@@ -286,6 +285,7 @@ const CommandPaletteCombobox = forwardRef(function CommandPaletteCombobox<T exte
       disableLayer={disableLayer}
       onSelect={handleSelect}
       {...props}
+      data-slot="command-palette-combobox"
     />
   );
 }) as ComboboxRootComponent;
@@ -297,12 +297,12 @@ const CommandPaletteControl = forwardRef<
   return (
     <ComboboxPrimitive.Control
       ref={ref}
-      data-slot="command-palette-control"
       className={cn(
         'relative mx-3 mt-3 flex min-h-control-md flex-none items-center gap-2 rounded-md border border-border bg-background px-3 py-1 text-foreground transition-[background-color,border-color] duration-200 ease-in-out has-[[aria-invalid=true]]:border-destructive has-[[data-invalid]]:border-destructive',
         className,
       )}
       {...props}
+      data-slot="command-palette-control"
     />
   );
 });
@@ -314,12 +314,12 @@ const CommandPaletteInput = forwardRef<
   return (
     <ComboboxPrimitive.Input
       ref={ref}
-      data-slot="command-palette-input"
       className={cn(
         'h-auto w-full min-w-0 flex-1 bg-transparent text-sm leading-5 text-inherit outline-0 placeholder:text-muted-foreground data-invalid:text-destructive',
         className,
       )}
       {...props}
+      data-slot="command-palette-input"
     />
   );
 });
@@ -410,9 +410,9 @@ const CommandPaletteList = forwardRef<
   return (
     <ComboboxPrimitive.Content
       ref={ref}
-      data-slot="command-palette-list"
       className={cn('group/list flex min-h-0 flex-1 overflow-hidden outline-0', className)}
       {...props}
+      data-slot="command-palette-list"
     >
       <ScrollArea data-slot="command-palette-scroll-area" className="h-auto min-h-0 flex-1">
         <ScrollArea.Viewport data-slot="command-palette-scroll-viewport" className="scroll-py-2">
@@ -435,12 +435,12 @@ const CommandPaletteEmpty = forwardRef<
   return (
     <ComboboxPrimitive.Empty
       ref={ref}
-      data-slot="command-palette-empty"
       className={cn(
         '[&:not(:empty)]:px-4 [&:not(:empty)]:py-3 [&:not(:empty)]:text-sm [&:not(:empty)]:leading-5 [&:not(:empty)]:text-muted-foreground',
         className,
       )}
       {...props}
+      data-slot="command-palette-empty"
     />
   );
 });
@@ -452,9 +452,9 @@ const CommandPaletteItemGroup = forwardRef<
   return (
     <ComboboxPrimitive.ItemGroup
       ref={ref}
-      data-slot="command-palette-item-group"
       className={cn('grid gap-1 [&:not(:last-child)]:pb-2', className)}
       {...props}
+      data-slot="command-palette-item-group"
     />
   );
 });
@@ -466,12 +466,12 @@ const CommandPaletteItemGroupLabel = forwardRef<
   return (
     <ComboboxPrimitive.ItemGroupLabel
       ref={ref}
-      data-slot="command-palette-item-group-label"
       className={cn(
         'sticky top-0 z-1 block bg-popover px-3 py-1 text-xs leading-4 font-normal text-muted-foreground',
         className,
       )}
       {...props}
+      data-slot="command-palette-item-group-label"
     />
   );
 });
@@ -483,12 +483,12 @@ const CommandPaletteItem = forwardRef<
   return (
     <ComboboxPrimitive.Item
       ref={ref}
-      data-slot="command-palette-item"
       className={cn(
         'relative z-0 grid min-h-control-sm cursor-default grid-cols-[auto_minmax(0,1fr)_auto_auto] items-center gap-3 rounded-md px-3 py-1 text-sm leading-5 text-popover-foreground outline-0 select-none data-disabled:pointer-events-none data-disabled:opacity-50 data-highlighted:bg-accent data-highlighted:text-foreground data-[state=checked]:text-foreground',
         className,
       )}
       {...props}
+      data-slot="command-palette-item"
     />
   );
 });
@@ -500,9 +500,9 @@ const CommandPaletteItemText = forwardRef<
   return (
     <ComboboxPrimitive.ItemText
       ref={ref}
-      data-slot="command-palette-item-text"
       className={cn('grid min-w-0 gap-1', className)}
       {...props}
+      data-slot="command-palette-item-text"
     />
   );
 });
@@ -514,12 +514,12 @@ const CommandPaletteItemIndicator = forwardRef<
   return (
     <ComboboxPrimitive.ItemIndicator
       ref={ref}
-      data-slot="command-palette-item-indicator"
       className={cn(
         'inline-flex size-8 items-center justify-center justify-self-end rounded-md border border-transparent bg-transparent text-muted-foreground [&>svg]:size-4 [&>svg]:shrink-0',
         className,
       )}
       {...props}
+      data-slot="command-palette-item-indicator"
     >
       {children ?? <CheckIcon />}
     </ComboboxPrimitive.ItemIndicator>
@@ -531,12 +531,12 @@ const CommandPaletteItemIcon = forwardRef<HTMLSpanElement, HTMLArkProps<'span'>>
     return (
       <ark.span
         ref={ref}
-        data-slot="command-palette-item-icon"
         className={cn(
           'inline-flex size-8 items-center justify-center rounded-md border border-border bg-muted text-muted-foreground [&>svg]:size-4 [&>svg]:shrink-0',
           className,
         )}
         {...props}
+        data-slot="command-palette-item-icon"
       />
     );
   },
@@ -547,12 +547,12 @@ const CommandPaletteItemLabel = forwardRef<HTMLSpanElement, HTMLArkProps<'span'>
     return (
       <ark.span
         ref={ref}
-        data-slot="command-palette-item-label"
         className={cn(
           'min-w-0 overflow-hidden font-medium text-ellipsis whitespace-nowrap',
           className,
         )}
         {...props}
+        data-slot="command-palette-item-label"
       />
     );
   },
@@ -563,12 +563,12 @@ const CommandPaletteItemDescription = forwardRef<HTMLSpanElement, HTMLArkProps<'
     return (
       <ark.span
         ref={ref}
-        data-slot="command-palette-item-description"
         className={cn(
           'min-w-0 overflow-hidden text-xs leading-4 text-ellipsis whitespace-nowrap text-muted-foreground',
           className,
         )}
         {...props}
+        data-slot="command-palette-item-description"
       />
     );
   },
@@ -579,12 +579,12 @@ const CommandPaletteItemMeta = forwardRef<HTMLSpanElement, HTMLArkProps<'span'>>
     return (
       <ark.span
         ref={ref}
-        data-slot="command-palette-item-meta"
         className={cn(
           'justify-self-end text-xs leading-4 whitespace-nowrap text-muted-foreground',
           className,
         )}
         {...props}
+        data-slot="command-palette-item-meta"
       />
     );
   },
@@ -596,9 +596,9 @@ const CommandPaletteSeparator = forwardRef<HTMLDivElement, HTMLArkProps<'div'>>(
       <ark.div
         ref={ref}
         role="separator"
-        data-slot="command-palette-separator"
         className={cn('mx-2 my-2 h-px bg-border', className)}
         {...props}
+        data-slot="command-palette-separator"
       />
     );
   },
@@ -609,12 +609,12 @@ const CommandPaletteFooter = forwardRef<HTMLDivElement, HTMLArkProps<'div'>>(
     return (
       <ark.div
         ref={ref}
-        data-slot="command-palette-footer"
         className={cn(
           'flex flex-none items-center justify-between gap-3 border-t border-border px-4 py-2 text-xs leading-4 text-muted-foreground',
           className,
         )}
         {...props}
+        data-slot="command-palette-footer"
       />
     );
   },
@@ -623,12 +623,12 @@ const CommandPaletteFooter = forwardRef<HTMLDivElement, HTMLArkProps<'div'>>(
 function CommandPaletteKbd({ className, ...props }: ComponentProps<typeof Kbd.Root>) {
   return (
     <Kbd.Root
-      data-slot="command-palette-kbd"
       className={cn(
         'min-h-5 min-w-5 rounded-sm px-1 text-xs leading-4 text-muted-foreground',
         className,
       )}
       {...props}
+      data-slot="command-palette-kbd"
     />
   );
 }

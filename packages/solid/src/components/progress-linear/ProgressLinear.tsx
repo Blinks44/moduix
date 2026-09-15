@@ -13,9 +13,9 @@ function ProgressLinearRoot(props: ComponentProps<typeof ProgressPrimitive.Root>
 
   return (
     <ProgressPrimitive.Root
-      data-slot="progress-linear-root"
       class={clsx(styles.root, local.class)}
       {...others}
+      data-slot="progress-linear-root"
     />
   );
 }
@@ -25,9 +25,9 @@ function ProgressLinearRootProvider(props: ComponentProps<typeof ProgressPrimiti
 
   return (
     <ProgressPrimitive.RootProvider
-      data-slot="progress-linear-root-provider"
       class={clsx(styles.root, local.class)}
       {...others}
+      data-slot="progress-linear-root-provider"
     />
   );
 }
@@ -37,9 +37,9 @@ function ProgressLinearLabel(props: ComponentProps<typeof ProgressPrimitive.Labe
 
   return (
     <ProgressPrimitive.Label
-      data-slot="progress-linear-label"
       class={clsx(styles.label, local.class)}
       {...others}
+      data-slot="progress-linear-label"
     />
   );
 }
@@ -49,9 +49,9 @@ function ProgressLinearValueText(props: ComponentProps<typeof ProgressPrimitive.
 
   return (
     <ProgressPrimitive.ValueText
-      data-slot="progress-linear-value-text"
       class={clsx(styles.valueText, local.class)}
       {...others}
+      data-slot="progress-linear-value-text"
     />
   );
 }
@@ -61,9 +61,9 @@ function ProgressLinearTrack(props: ComponentProps<typeof ProgressPrimitive.Trac
 
   return (
     <ProgressPrimitive.Track
-      data-slot="progress-linear-track"
       class={clsx(styles.track, local.class)}
       {...others}
+      data-slot="progress-linear-track"
     />
   );
 }
@@ -73,9 +73,9 @@ function ProgressLinearRange(props: ComponentProps<typeof ProgressPrimitive.Rang
 
   return (
     <ProgressPrimitive.Range
-      data-slot="progress-linear-range"
       class={clsx(styles.range, local.class)}
       {...others}
+      data-slot="progress-linear-range"
     />
   );
 }
@@ -85,9 +85,9 @@ function ProgressLinearView(props: ComponentProps<typeof ProgressPrimitive.View>
 
   return (
     <ProgressPrimitive.View
-      data-slot="progress-linear-view"
       class={clsx(styles.view, local.class)}
       {...others}
+      data-slot="progress-linear-view"
     />
   );
 }

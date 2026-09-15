@@ -18,9 +18,9 @@ const TagsInputRoot = forwardRef<
   return (
     <TagsInputPrimitive.Root
       ref={ref}
-      data-slot="tags-input-root"
       className={clsx(styles.root, className)}
       {...props}
+      data-slot="tags-input-root"
     />
   );
 });
@@ -32,9 +32,9 @@ const TagsInputRootProvider = forwardRef<
   return (
     <TagsInputPrimitive.RootProvider
       ref={ref}
-      data-slot="tags-input-root-provider"
       className={clsx(styles.root, className)}
       {...props}
+      data-slot="tags-input-root-provider"
     />
   );
 });
@@ -46,9 +46,9 @@ const TagsInputLabel = forwardRef<
   return (
     <TagsInputPrimitive.Label
       ref={ref}
-      data-slot="tags-input-label"
       className={clsx(styles.label, className)}
       {...props}
+      data-slot="tags-input-label"
     />
   );
 });
@@ -60,9 +60,9 @@ const TagsInputControl = forwardRef<
   return (
     <TagsInputPrimitive.Control
       ref={ref}
-      data-slot="tags-input-control"
       className={clsx(styles.control, className)}
       {...props}
+      data-slot="tags-input-control"
     />
   );
 });
@@ -74,9 +74,9 @@ const TagsInputItem = forwardRef<
   return (
     <TagsInputPrimitive.Item
       ref={ref}
-      data-slot="tags-input-item"
       className={clsx(styles.item, className)}
       {...props}
+      data-slot="tags-input-item"
     />
   );
 });
@@ -88,9 +88,9 @@ const TagsInputItemPreview = forwardRef<
   return (
     <TagsInputPrimitive.ItemPreview
       ref={ref}
-      data-slot="tags-input-item-preview"
       className={clsx(styles.itemPreview, className)}
       {...props}
+      data-slot="tags-input-item-preview"
     />
   );
 });
@@ -102,9 +102,9 @@ const TagsInputItemText = forwardRef<
   return (
     <TagsInputPrimitive.ItemText
       ref={ref}
-      data-slot="tags-input-item-text"
       className={clsx(styles.itemText, className)}
       {...props}
+      data-slot="tags-input-item-text"
     />
   );
 });
@@ -116,9 +116,9 @@ const TagsInputItemDeleteTrigger = forwardRef<
   return (
     <TagsInputPrimitive.ItemDeleteTrigger
       ref={ref}
-      data-slot="tags-input-item-delete-trigger"
       className={clsx(styles.itemDeleteTrigger, className)}
       {...props}
+      data-slot="tags-input-item-delete-trigger"
     >
       {children ?? <CloseIcon />}
     </TagsInputPrimitive.ItemDeleteTrigger>
@@ -132,9 +132,9 @@ const TagsInputItemInput = forwardRef<
   return (
     <TagsInputPrimitive.ItemInput
       ref={ref}
-      data-slot="tags-input-item-input"
       className={clsx(styles.itemInput, className)}
       {...props}
+      data-slot="tags-input-item-input"
     />
   );
 });
@@ -146,9 +146,9 @@ const TagsInputInput = forwardRef<
   return (
     <TagsInputPrimitive.Input
       ref={ref}
-      data-slot="tags-input-input"
       className={clsx(styles.input, className)}
       {...props}
+      data-slot="tags-input-input"
     />
   );
 });
@@ -174,11 +174,11 @@ const TagsInputClearTrigger = forwardRef<
     <TagsInputPrimitive.ClearTrigger
       ref={ref}
       asChild
-      data-slot="tags-input-clear-trigger"
       className={triggerClassName}
       aria-label={asChild ? ariaLabel : undefined}
       aria-labelledby={asChild ? ariaLabelledBy : undefined}
       {...props}
+      data-slot="tags-input-clear-trigger"
     >
       {asChild ? (
         children

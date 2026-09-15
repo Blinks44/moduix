@@ -22,10 +22,10 @@ const SplitterRoot = forwardRef<
   return (
     <SplitterPrimitive.Root
       ref={ref}
-      data-slot="splitter-root"
       className={clsx(styles.root, className)}
       style={{ ...rootStyle, ...style }}
       {...props}
+      data-slot="splitter-root"
     />
   );
 });
@@ -37,10 +37,10 @@ const SplitterRootProvider = forwardRef<
   return (
     <SplitterPrimitive.RootProvider
       ref={ref}
-      data-slot="splitter-root-provider"
       className={clsx(styles.root, className)}
       style={{ ...rootStyle, ...style }}
       {...props}
+      data-slot="splitter-root-provider"
     />
   );
 });
@@ -52,9 +52,9 @@ const SplitterPanel = forwardRef<
   return (
     <SplitterPrimitive.Panel
       ref={ref}
-      data-slot="splitter-panel"
       className={clsx(styles.panel, className)}
       {...props}
+      data-slot="splitter-panel"
     />
   );
 });
@@ -66,9 +66,9 @@ const SplitterResizeTriggerIndicator = forwardRef<
   return (
     <SplitterPrimitive.ResizeTriggerIndicator
       ref={ref}
-      data-slot="splitter-resize-trigger-indicator"
       className={clsx(styles.resizeTriggerIndicator, className)}
       {...props}
+      data-slot="splitter-resize-trigger-indicator"
     />
   );
 });
@@ -81,9 +81,9 @@ const SplitterResizeTrigger = forwardRef<
     <SplitterPrimitive.ResizeTrigger
       ref={ref}
       asChild={asChild}
-      data-slot="splitter-resize-trigger"
       className={clsx(styles.resizeTrigger, className)}
       {...props}
+      data-slot="splitter-resize-trigger"
     >
       {children === undefined && !asChild ? <SplitterResizeTriggerIndicator /> : children}
     </SplitterPrimitive.ResizeTrigger>

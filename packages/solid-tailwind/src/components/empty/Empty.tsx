@@ -14,7 +14,7 @@ function EmptyRoot(props: HTMLArkProps<'div'>) {
       data-part="root"
       data-slot="empty-root"
       class={cn(
-        'grid w-full min-w-0 justify-items-center gap-4 rounded-xl border border-border bg-card p-8 text-center text-card-foreground',
+        'grid w-full min-w-0 justify-items-center gap-4 rounded-xl border border-border bg-[color-mix(in_oklab,var(--color-card)_92%,var(--color-muted))] p-8 text-center text-card-foreground',
         local.class,
       )}
     />

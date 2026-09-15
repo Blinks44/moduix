@@ -16,7 +16,7 @@ import imageSolidFullWidth from '../../../snippets/image/solid/full-width.tsx?ra
 
 ## API Reference
 
-`Image` is a thin moduix wrapper around the `<img>` component from [Unpic React](https://unpic.pics/img/react/).
+`Image` provides a thin moduix wrapper around the [Unpic image API](https://unpic.pics/img/react/).
 Ark UI does not provide a dedicated image primitive, so `Image` uses native `<img>` and `<picture>`
 composition instead of an Ark part. See Ark's [Composition guide](https://ark-ui.com/docs/guides/composition)
 for more on its native-element model.
@@ -223,7 +223,8 @@ Supply `height` when the crop height must remain fixed.
 
 ## Styling
 
-Use `className` in React or `class` in Solid on `Image` and `Image.Source` for local styles.
+Use `className` in React or `class` in Solid on `Image` for local visual styles. `Image.Source`
+configures `srcset`, `media`, and `type`; style the fallback `Image` rather than the native `<source>`.
 Tailwind variants use native utilities and consumer classes. The `--moduix-image-radius` variable
 customizes the CSS Modules variants, while `data-slot` hooks are shared by both styling tracks.
 

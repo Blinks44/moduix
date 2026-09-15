@@ -21,9 +21,9 @@ const AccordionRoot = forwardRef<
   return (
     <AccordionPrimitive.Root
       ref={ref}
-      data-slot="accordion-root"
       className={clsx(styles.root, className)}
       {...props}
+      data-slot="accordion-root"
     />
   );
 });
@@ -35,9 +35,9 @@ const AccordionRootProvider = forwardRef<
   return (
     <AccordionPrimitive.RootProvider
       ref={ref}
-      data-slot="accordion-root-provider"
       className={clsx(styles.root, className)}
       {...props}
+      data-slot="accordion-root-provider"
     />
   );
 });
@@ -49,9 +49,9 @@ const AccordionItem = forwardRef<
   return (
     <AccordionPrimitive.Item
       ref={ref}
-      data-slot="accordion-item"
       className={clsx(styles.item, className)}
       {...props}
+      data-slot="accordion-item"
     />
   );
 });
@@ -63,9 +63,9 @@ const AccordionItemTrigger = forwardRef<
   return (
     <AccordionPrimitive.ItemTrigger
       ref={ref}
-      data-slot="accordion-item-trigger"
       className={clsx(styles.itemTrigger, className)}
       {...props}
+      data-slot="accordion-item-trigger"
     />
   );
 });
@@ -77,9 +77,9 @@ const AccordionItemIndicator = forwardRef<
   return (
     <AccordionPrimitive.ItemIndicator
       ref={ref}
-      data-slot="accordion-item-indicator"
       className={clsx(styles.itemIndicator, className)}
       {...props}
+      data-slot="accordion-item-indicator"
     >
       {children ?? <PlusIcon />}
     </AccordionPrimitive.ItemIndicator>
@@ -93,9 +93,9 @@ const AccordionItemContent = forwardRef<
   return (
     <AccordionPrimitive.ItemContent
       ref={ref}
-      data-slot="accordion-item-content"
       className={clsx(styles.itemContent, className)}
       {...props}
+      data-slot="accordion-item-content"
     />
   );
 });
@@ -107,9 +107,9 @@ const AccordionItemBody = forwardRef<ComponentRef<typeof ark.div>, HTMLArkProps<
         ref={ref}
         data-scope="accordion"
         data-part="item-body"
-        data-slot="accordion-item-body"
         className={clsx(styles.itemBody, className)}
         {...props}
+        data-slot="accordion-item-body"
       />
     );
   },

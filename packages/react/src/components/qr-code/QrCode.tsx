@@ -13,9 +13,9 @@ const QrCodeRoot = forwardRef<
   return (
     <QrCodePrimitive.Root
       ref={ref}
-      data-slot="qr-code-root"
       className={clsx(styles.root, className)}
       {...props}
+      data-slot="qr-code-root"
     />
   );
 });
@@ -27,9 +27,9 @@ const QrCodeRootProvider = forwardRef<
   return (
     <QrCodePrimitive.RootProvider
       ref={ref}
-      data-slot="qr-code-root-provider"
       className={clsx(styles.root, className)}
       {...props}
+      data-slot="qr-code-root-provider"
     />
   );
 });
@@ -41,9 +41,9 @@ const QrCodeFrame = forwardRef<
   return (
     <QrCodePrimitive.Frame
       ref={ref}
-      data-slot="qr-code-frame"
       className={clsx(styles.frame, className)}
       {...props}
+      data-slot="qr-code-frame"
     />
   );
 });
@@ -55,9 +55,9 @@ const QrCodePattern = forwardRef<
   return (
     <QrCodePrimitive.Pattern
       ref={ref}
-      data-slot="qr-code-pattern"
       className={clsx(styles.pattern, className)}
       {...props}
+      data-slot="qr-code-pattern"
     />
   );
 });
@@ -69,9 +69,9 @@ const QrCodeOverlay = forwardRef<
   return (
     <QrCodePrimitive.Overlay
       ref={ref}
-      data-slot="qr-code-overlay"
       className={clsx(styles.overlay, className)}
       {...props}
+      data-slot="qr-code-overlay"
     />
   );
 });
@@ -83,9 +83,9 @@ const QrCodeDownloadTrigger = forwardRef<
   return (
     <QrCodePrimitive.DownloadTrigger
       ref={ref}
-      data-slot="qr-code-download-trigger"
       className={clsx(styles.downloadTrigger, className)}
       {...props}
+      data-slot="qr-code-download-trigger"
     />
   );
 });

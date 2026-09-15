@@ -16,12 +16,12 @@ const ImageCropperRoot = forwardRef<
   return (
     <ImageCropperPrimitive.Root
       ref={ref}
-      data-slot="image-cropper-root"
       className={cn(
         'box-border grid w-[32rem] max-w-full gap-3 text-foreground data-dragging:cursor-grabbing data-panning:cursor-grabbing',
         className,
       )}
       {...props}
+      data-slot="image-cropper-root"
     />
   );
 });
@@ -33,12 +33,12 @@ const ImageCropperRootProvider = forwardRef<
   return (
     <ImageCropperPrimitive.RootProvider
       ref={ref}
-      data-slot="image-cropper-root-provider"
       className={cn(
         'box-border grid w-[32rem] max-w-full gap-3 text-foreground data-dragging:cursor-grabbing data-panning:cursor-grabbing',
         className,
       )}
       {...props}
+      data-slot="image-cropper-root-provider"
     />
   );
 });
@@ -50,12 +50,12 @@ const ImageCropperViewport = forwardRef<
   return (
     <ImageCropperPrimitive.Viewport
       ref={ref}
-      data-slot="image-cropper-viewport"
       className={cn(
         'box-border h-[min(20rem,62.5vw)] w-full overflow-hidden rounded-lg border border-border bg-background bg-[conic-gradient(rgb(0_0_0_/_8%)_25%,transparent_0_50%,rgb(0_0_0_/_8%)_0_75%,transparent_0)] [background-size:1rem_1rem] shadow-none data-disabled:cursor-grab',
         className,
       )}
       {...props}
+      data-slot="image-cropper-viewport"
     />
   );
 });
@@ -67,12 +67,12 @@ const ImageCropperImage = forwardRef<
   return (
     <ImageCropperPrimitive.Image
       ref={ref}
-      data-slot="image-cropper-image"
       className={cn(
         'absolute inset-0 block size-full origin-center object-contain backface-hidden',
         className,
       )}
       {...props}
+      data-slot="image-cropper-image"
     />
   );
 });
@@ -84,12 +84,12 @@ const ImageCropperSelection = forwardRef<
   return (
     <ImageCropperPrimitive.Selection
       ref={ref}
-      data-slot="image-cropper-selection"
       className={cn(
         'box-border cursor-grab rounded-md border-2 border-primary shadow-[0_0_0_9999px_rgb(0_0_0_/_45%),inset_0_0_0_1px_rgb(255_255_255_/_64%)] outline-0 transition-[border-color,box-shadow] duration-200 ease-in-out focus-visible:ring-2 focus-visible:ring-ring data-disabled:cursor-default data-dragging:cursor-grabbing data-[shape=circle]:rounded-full data-[shape=circle]:border-transparent motion-reduce:transition-none',
         className,
       )}
       {...props}
+      data-slot="image-cropper-selection"
     />
   );
 });
@@ -101,12 +101,12 @@ const ImageCropperGrid = forwardRef<
   return (
     <ImageCropperPrimitive.Grid
       ref={ref}
-      data-slot="image-cropper-grid"
       className={cn(
         'pointer-events-none data-[axis=horizontal]:border-y data-[axis=horizontal]:border-white/62 data-[axis=vertical]:border-x data-[axis=vertical]:border-white/62',
         className,
       )}
       {...props}
+      data-slot="image-cropper-grid"
     />
   );
 });
@@ -118,12 +118,12 @@ const ImageCropperHandle = forwardRef<
   return (
     <ImageCropperPrimitive.Handle
       ref={ref}
-      data-slot="image-cropper-handle"
       className={cn(
         'absolute z-1 box-border size-3 rounded-xs border border-white/88 bg-white/96 shadow-[0_1px_3px_rgb(15_23_42_/_18%)] transition-[border-color,background-color,box-shadow,opacity] duration-200 ease-in-out data-disabled:hidden data-[position=e]:!h-full data-[position=e]:!w-[0.2rem] data-[position=e]:rounded-full data-[position=e]:border-0 data-[position=n]:!h-[0.2rem] data-[position=n]:!w-full data-[position=n]:rounded-full data-[position=n]:border-0 data-[position=ne]:z-2 data-[position=nw]:z-2 data-[position=s]:!h-[0.2rem] data-[position=s]:!w-full data-[position=s]:rounded-full data-[position=s]:border-0 data-[position=se]:z-2 data-[position=sw]:z-2 data-[position=w]:!h-full data-[position=w]:!w-[0.2rem] data-[position=w]:rounded-full data-[position=w]:border-0 motion-reduce:transition-none',
         className,
       )}
       {...props}
+      data-slot="image-cropper-handle"
     />
   );
 });

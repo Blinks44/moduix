@@ -23,13 +23,13 @@ const CheckboxRoot = forwardRef<ComponentRef<typeof CheckboxPrimitive.Root>, Roo
     return (
       <CheckboxPrimitive.Root
         ref={ref}
-        data-slot="checkbox-root"
-        data-size={size}
         className={cn(
           'group/checkbox inline-flex cursor-pointer items-center gap-2 align-middle text-foreground data-disabled:cursor-default data-disabled:opacity-50 data-readonly:cursor-default',
           className,
         )}
         {...props}
+        data-size={size}
+        data-slot="checkbox-root"
       />
     );
   },
@@ -42,13 +42,13 @@ const CheckboxRootProvider = forwardRef<
   return (
     <CheckboxPrimitive.RootProvider
       ref={ref}
-      data-slot="checkbox-root-provider"
-      data-size={size}
       className={cn(
         'group/checkbox inline-flex cursor-pointer items-center gap-2 align-middle text-foreground data-disabled:cursor-default data-disabled:opacity-50 data-readonly:cursor-default',
         className,
       )}
       {...props}
+      data-size={size}
+      data-slot="checkbox-root-provider"
     />
   );
 });
@@ -64,13 +64,13 @@ const CheckboxIndicator = forwardRef<
   return (
     <CheckboxPrimitive.Indicator
       ref={ref}
-      data-slot="checkbox-indicator"
       className={cn(
         'inline-flex h-full w-full items-center justify-center text-inherit',
         className,
       )}
       indeterminate={indeterminate}
       {...props}
+      data-slot="checkbox-indicator"
     >
       {children ?? (
         <span
@@ -94,12 +94,12 @@ const CheckboxControl = forwardRef<
   return (
     <CheckboxPrimitive.Control
       ref={ref}
-      data-slot="checkbox-control"
       className={cn(
         "[@media(hover:hover)]:[&:not([data-disabled]):not([data-readonly])[data-state='unchecked'][data-hover]:bg-accent box-border inline-flex size-5 shrink-0 items-center justify-center rounded-xs border border-border bg-background p-0 leading-none text-primary-foreground transition-[background-color,border-color,color,opacity] duration-200 select-none group-data-[size=lg]/checkbox:size-control-xs group-data-[size=sm]/checkbox:size-4 group-data-[size=xl]/checkbox:size-7 group-data-[size=xs]/checkbox:size-3.5 data-focus-visible:outline-1 data-focus-visible:outline-offset-1 data-focus-visible:outline-ring data-invalid:border-destructive data-invalid:text-destructive-foreground data-invalid:data-focus-visible:outline-destructive data-[state=checked]:border-primary data-[state=checked]:bg-primary data-invalid:data-[state=checked]:border-destructive data-invalid:data-[state=checked]:bg-destructive data-[state=indeterminate]:border-primary data-[state=indeterminate]:bg-primary data-invalid:data-[state=indeterminate]:border-destructive data-invalid:data-[state=indeterminate]:bg-destructive motion-reduce:transition-none",
         className,
       )}
       {...props}
+      data-slot="checkbox-control"
     >
       {children ?? (
         <>
@@ -118,9 +118,9 @@ const CheckboxLabel = forwardRef<
   return (
     <CheckboxPrimitive.Label
       ref={ref}
-      data-slot="checkbox-label"
       className={cn('text-sm leading-5 font-medium text-inherit', className)}
       {...props}
+      data-slot="checkbox-label"
     />
   );
 });
@@ -132,9 +132,9 @@ const CheckboxGroup = forwardRef<
   return (
     <CheckboxPrimitive.Group
       ref={ref}
-      data-slot="checkbox-group"
       className={cn('flex flex-col gap-2 text-foreground', className)}
       {...props}
+      data-slot="checkbox-group"
     />
   );
 });

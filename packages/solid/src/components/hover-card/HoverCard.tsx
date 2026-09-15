@@ -69,9 +69,9 @@ function HoverCardTrigger(props: ComponentProps<typeof HoverCardPrimitive.Trigge
   return (
     <HoverCardPrimitive.Trigger
       asChild={local.asChild}
-      data-slot="hover-card-trigger"
       class={clsx(!local.asChild && styles.trigger, local.class)}
       {...others}
+      data-slot="hover-card-trigger"
     />
   );
 }
@@ -82,9 +82,9 @@ function HoverCardPositioner(props: ComponentProps<typeof HoverCardPrimitive.Pos
   return (
     <OverlayPortal>
       <HoverCardPrimitive.Positioner
-        data-slot="hover-card-positioner"
         class={clsx(styles.positioner, local.class)}
         {...others}
+        data-slot="hover-card-positioner"
       />
     </OverlayPortal>
   );
@@ -95,9 +95,9 @@ function HoverCardContent(props: ComponentProps<typeof HoverCardPrimitive.Conten
 
   return (
     <HoverCardPrimitive.Content
-      data-slot="hover-card-content"
       class={clsx(styles.content, local.class)}
       {...others}
+      data-slot="hover-card-content"
     />
   );
 }
@@ -108,9 +108,9 @@ function HoverCardArrow(props: ComponentProps<typeof HoverCardPrimitive.Arrow>) 
 
   return (
     <HoverCardPrimitive.Arrow
-      data-slot="hover-card-arrow"
       class={clsx(styles.arrow, local.class)}
       {...others}
+      data-slot="hover-card-arrow"
     >
       {resolvedChildren() ?? <HoverCardArrowTip />}
     </HoverCardPrimitive.Arrow>
@@ -122,9 +122,9 @@ function HoverCardArrowTip(props: ComponentProps<typeof HoverCardPrimitive.Arrow
 
   return (
     <HoverCardPrimitive.ArrowTip
-      data-slot="hover-card-arrow-tip"
       class={clsx(styles.arrowTip, local.class)}
       {...others}
+      data-slot="hover-card-arrow-tip"
     />
   );
 }
@@ -135,9 +135,9 @@ function HoverCardBody(props: HTMLArkProps<'div'>) {
   return (
     <ark.div
       asChild={local.asChild}
-      data-slot="hover-card-body"
       class={clsx(styles.body, local.class)}
       {...others}
+      data-slot="hover-card-body"
     />
   );
 }

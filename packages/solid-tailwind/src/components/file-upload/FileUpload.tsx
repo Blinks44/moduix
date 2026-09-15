@@ -17,12 +17,12 @@ function FileUploadRoot(props: ComponentProps<typeof FileUploadPrimitive.Root>) 
   return (
     <FileUploadPrimitive.Root
       asChild={local.asChild}
-      data-slot="file-upload-root"
       class={cn(
         'box-border flex w-full max-w-md flex-col items-start gap-3 text-foreground',
         local.class,
       )}
       {...others}
+      data-slot="file-upload-root"
     >
       {local.children}
     </FileUploadPrimitive.Root>
@@ -35,12 +35,12 @@ function FileUploadRootProvider(props: ComponentProps<typeof FileUploadPrimitive
   return (
     <FileUploadPrimitive.RootProvider
       asChild={local.asChild}
-      data-slot="file-upload-root-provider"
       class={cn(
         'box-border flex w-full max-w-md flex-col items-start gap-3 text-foreground',
         local.class,
       )}
       {...others}
+      data-slot="file-upload-root-provider"
     >
       {local.children}
     </FileUploadPrimitive.RootProvider>
@@ -52,9 +52,9 @@ function FileUploadLabel(props: ComponentProps<typeof FileUploadPrimitive.Label>
 
   return (
     <FileUploadPrimitive.Label
-      data-slot="file-upload-label"
       class={cn('text-sm font-medium text-foreground data-disabled:opacity-50', local.class)}
       {...others}
+      data-slot="file-upload-label"
     />
   );
 }
@@ -64,12 +64,12 @@ function FileUploadDropzone(props: ComponentProps<typeof FileUploadPrimitive.Dro
 
   return (
     <FileUploadPrimitive.Dropzone
-      data-slot="file-upload-dropzone"
       class={cn(
         'box-border grid min-h-32 w-full place-items-center gap-3 rounded-md border border-dashed border-border bg-background p-5 text-center text-muted-foreground transition-[border-color,background-color,color,opacity] duration-200 ease-in-out focus-visible:outline-2 focus-visible:outline-offset-1 focus-visible:outline-ring data-disabled:cursor-default data-disabled:opacity-50 data-dragging:border-primary data-dragging:bg-accent data-dragging:text-foreground data-invalid:border-destructive data-readonly:cursor-default data-readonly:opacity-50 motion-reduce:transition-none [&[role=button]:not([data-disabled],[data-readonly])]:cursor-pointer',
         local.class,
       )}
       {...others}
+      data-slot="file-upload-dropzone"
     />
   );
 }
@@ -81,12 +81,12 @@ function FileUploadDropzoneIcon(props: HTMLArkProps<'span'>) {
   return (
     <ark.span
       aria-hidden="true"
-      data-slot="file-upload-dropzone-icon"
       class={cn(
         'box-border inline-flex size-10 items-center justify-center rounded-full border border-border bg-muted text-foreground [&>svg]:size-4',
         local.class,
       )}
       {...others}
+      data-slot="file-upload-dropzone-icon"
     >
       {resolvedChildren() ?? <UploadIcon />}
     </ark.span>
@@ -98,12 +98,12 @@ function FileUploadTrigger(props: ComponentProps<typeof FileUploadPrimitive.Trig
 
   return (
     <FileUploadPrimitive.Trigger
-      data-slot="file-upload-trigger"
       class={cn(
         'box-border inline-flex min-h-control-md cursor-pointer appearance-none items-center justify-center gap-2 rounded-md border border-primary bg-primary px-4 text-sm leading-5 font-medium whitespace-nowrap text-primary-foreground transition-[border-color,background-color,color,opacity] duration-200 ease-in-out select-none focus-visible:outline-2 focus-visible:-outline-offset-1 focus-visible:outline-ring disabled:pointer-events-none disabled:cursor-default data-disabled:pointer-events-none data-disabled:cursor-default data-invalid:border-destructive data-readonly:pointer-events-none data-readonly:cursor-default motion-reduce:transition-none [@media(hover:hover)]:[&:not(:disabled):not([data-disabled]):not([data-readonly]):hover]:bg-foreground',
         local.class,
       )}
       {...others}
+      data-slot="file-upload-trigger"
     />
   );
 }
@@ -113,9 +113,9 @@ function FileUploadItemGroup(props: ComponentProps<typeof FileUploadPrimitive.It
 
   return (
     <FileUploadPrimitive.ItemGroup
-      data-slot="file-upload-item-group"
       class={cn('flex w-full flex-wrap items-start gap-2 empty:hidden', local.class)}
       {...others}
+      data-slot="file-upload-item-group"
     />
   );
 }
@@ -125,12 +125,12 @@ function FileUploadItem(props: ComponentProps<typeof FileUploadPrimitive.Item>) 
 
   return (
     <FileUploadPrimitive.Item
-      data-slot="file-upload-item"
       class={cn(
         'group/item box-border grid min-h-control-md shrink-0 grow basis-full grid-cols-[minmax(0,1fr)_auto] items-center gap-x-3 gap-y-1 rounded-md border border-border bg-background px-3 py-2 text-foreground has-[[data-slot=file-upload-item-preview-image]]:min-h-0 has-[[data-slot=file-upload-item-preview-image]]:max-w-40 has-[[data-slot=file-upload-item-preview-image]]:grow-0 has-[[data-slot=file-upload-item-preview-image]]:grid-cols-[minmax(0,1fr)_auto] has-[[data-slot=file-upload-item-preview-image]]:grid-rows-[auto_auto_auto] has-[[data-slot=file-upload-item-preview-image]]:items-start has-[[data-slot=file-upload-item-preview]]:min-h-control-xl has-[[data-slot=file-upload-item-preview]]:grid-cols-[auto_minmax(0,1fr)_auto] has-[[data-slot=file-upload-item-preview]]:py-2 data-disabled:opacity-50 data-[type=rejected]:border-destructive',
         local.class,
       )}
       {...others}
+      data-slot="file-upload-item"
     />
   );
 }
@@ -140,12 +140,12 @@ function FileUploadItemPreview(props: ComponentProps<typeof FileUploadPrimitive.
 
   return (
     <FileUploadPrimitive.ItemPreview
-      data-slot="file-upload-item-preview"
       class={cn(
         'col-start-1 row-span-2 row-start-1 inline-flex size-10 items-center justify-center overflow-hidden rounded-sm bg-muted text-muted-foreground group-has-[[data-slot=file-upload-item-preview-image]]/item:col-span-2 group-has-[[data-slot=file-upload-item-preview-image]]/item:aspect-square group-has-[[data-slot=file-upload-item-preview-image]]/item:h-auto group-has-[[data-slot=file-upload-item-preview-image]]/item:w-full',
         local.class,
       )}
       {...others}
+      data-slot="file-upload-item-preview"
     />
   );
 }
@@ -157,9 +157,9 @@ function FileUploadItemPreviewImage(
 
   return (
     <FileUploadPrimitive.ItemPreviewImage
-      data-slot="file-upload-item-preview-image"
       class={cn('size-full object-cover', local.class)}
       {...others}
+      data-slot="file-upload-item-preview-image"
     />
   );
 }
@@ -169,9 +169,9 @@ function FileUploadItemPreviewIcon(props: ComponentProps<'svg'>) {
 
   return (
     <FileIcon
-      data-slot="file-upload-item-preview-icon"
       class={cn('size-4', local.class)}
       {...others}
+      data-slot="file-upload-item-preview-icon"
     />
   );
 }
@@ -191,12 +191,12 @@ function FileUploadItemName(props: ComponentProps<typeof FileUploadPrimitive.Ite
 
   return (
     <FileUploadPrimitive.ItemName
-      data-slot="file-upload-item-name"
       class={cn(
         'col-start-1 line-clamp-1 min-w-0 text-sm leading-5 font-medium group-has-[[data-slot=file-upload-item-preview-image]]/item:col-start-1 group-has-[[data-slot=file-upload-item-preview-image]]/item:row-start-2 group-has-[[data-slot=file-upload-item-preview-image]]/item:self-end group-has-[[data-slot=file-upload-item-preview]]/item:col-start-2',
         local.class,
       )}
       {...others}
+      data-slot="file-upload-item-name"
     />
   );
 }
@@ -206,9 +206,9 @@ function FileUploadItemSizeText(props: ComponentProps<typeof FileUploadPrimitive
 
   return (
     <FileUploadPrimitive.ItemSizeText
-      data-slot="file-upload-item-size-text"
       class={cn('text-xs leading-4 text-muted-foreground', local.class)}
       {...others}
+      data-slot="file-upload-item-size-text"
     />
   );
 }
@@ -218,12 +218,12 @@ function FileUploadItemMetadata(props: HTMLArkProps<'div'> & { file: File }) {
 
   return (
     <ark.div
-      data-slot="file-upload-item-metadata"
       class={cn(
         "col-start-1 flex items-center gap-1 text-xs leading-4 text-muted-foreground group-has-[[data-slot=file-upload-item-preview-image]]/item:col-start-1 group-has-[[data-slot=file-upload-item-preview-image]]/item:row-start-3 group-has-[[data-slot=file-upload-item-preview]]/item:col-start-2 [&>[data-slot='file-upload-item-size-text']::before]:me-1 [&>[data-slot='file-upload-item-size-text']::before]:content-['·']",
         local.class,
       )}
       {...others}
+      data-slot="file-upload-item-metadata"
     >
       <ark.span>{getFileTypeLabel(local.file)}</ark.span>
       <FileUploadItemSizeText />
@@ -239,12 +239,12 @@ function FileUploadItemDeleteTrigger(
 
   return (
     <FileUploadPrimitive.ItemDeleteTrigger
-      data-slot="file-upload-item-delete-trigger"
       class={cn(
         'col-start-2 row-start-1 box-border inline-flex size-control-sm shrink-0 cursor-pointer appearance-none items-center justify-center justify-self-end rounded-sm border-0 bg-transparent p-0 text-muted-foreground transition-[background-color,color,opacity] duration-200 ease-in-out group-has-[[data-slot=file-upload-item-preview-image]]/item:col-start-2 group-has-[[data-slot=file-upload-item-preview-image]]/item:row-start-2 group-has-[[data-slot=file-upload-item-preview-image]]/item:self-center group-has-[[data-slot=file-upload-item-preview]]/item:col-start-3 group-has-[[data-slot=file-upload-item-preview]]/item:row-span-2 group-has-[[data-slot=file-upload-item-preview]]/item:row-start-1 group-has-[[data-slot=file-upload-item-size-text]]/item:row-span-2 group-has-[[data-slot=file-upload-item-size-text]]/item:row-start-1 focus-visible:outline-2 focus-visible:outline-offset-1 focus-visible:outline-ring disabled:pointer-events-none disabled:cursor-default disabled:opacity-50 data-disabled:pointer-events-none data-disabled:cursor-default data-disabled:opacity-50 data-readonly:pointer-events-none data-readonly:cursor-default data-readonly:opacity-50 motion-reduce:transition-none [&>svg]:size-4 [@media(hover:hover)]:[&:not(:disabled):not([data-disabled]):not([data-readonly]):hover]:bg-muted [@media(hover:hover)]:[&:not(:disabled):not([data-disabled]):not([data-readonly]):hover]:text-foreground',
         local.class,
       )}
       {...others}
+      data-slot="file-upload-item-delete-trigger"
     >
       {resolvedChildren() ?? <TrashIcon />}
     </FileUploadPrimitive.ItemDeleteTrigger>
@@ -298,11 +298,11 @@ function FileUploadClearTrigger(props: ComponentProps<typeof FileUploadPrimitive
     return (
       <FileUploadPrimitive.ClearTrigger
         asChild={local.asChild}
-        data-slot="file-upload-clear-trigger"
         class={triggerClass()}
         aria-label={clearLabel()}
         aria-labelledby={local['aria-labelledby']}
         {...others}
+        data-slot="file-upload-clear-trigger"
       >
         {resolvedChildren()}
       </FileUploadPrimitive.ClearTrigger>
@@ -320,9 +320,9 @@ function FileUploadClearTrigger(props: ComponentProps<typeof FileUploadPrimitive
           {resolvedChildren() ?? <CloseIcon />}
         </CloseButton.Root>
       )}
-      data-slot="file-upload-clear-trigger"
       class={triggerClass()}
       {...others}
+      data-slot="file-upload-clear-trigger"
     />
   );
 }

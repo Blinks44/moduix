@@ -55,12 +55,12 @@ const SelectRoot = forwardRef(function SelectRoot<T extends CollectionItem>(
     <OverlayPortalProvider portalled={portalled} portalRef={portalRef}>
       <SelectPrimitive.Root
         ref={ref}
-        data-slot="select-root"
         className={clsx(styles.root, className)}
         asChild={asChild}
         lazyMount={lazyMount}
         unmountOnExit={unmountOnExit}
         {...props}
+        data-slot="select-root"
       >
         {children}
       </SelectPrimitive.Root>
@@ -85,12 +85,12 @@ const SelectRootProvider = forwardRef(function SelectRootProvider<T extends Coll
     <OverlayPortalProvider portalled={portalled} portalRef={portalRef}>
       <SelectPrimitive.RootProvider
         ref={ref}
-        data-slot="select-root-provider"
         className={clsx(styles.root, className)}
         asChild={asChild}
         lazyMount={lazyMount}
         unmountOnExit={unmountOnExit}
         {...props}
+        data-slot="select-root-provider"
       >
         {children}
       </SelectPrimitive.RootProvider>
@@ -105,9 +105,9 @@ const SelectLabel = forwardRef<
   return (
     <SelectPrimitive.Label
       ref={ref}
-      data-slot="select-label"
       className={clsx(styles.label, className)}
       {...props}
+      data-slot="select-label"
     />
   );
 });
@@ -119,9 +119,9 @@ const SelectControl = forwardRef<
   return (
     <SelectPrimitive.Control
       ref={ref}
-      data-slot="select-control"
       className={clsx(styles.control, className)}
       {...props}
+      data-slot="select-control"
     />
   );
 });
@@ -133,10 +133,10 @@ const SelectTrigger = forwardRef<
   return (
     <SelectPrimitive.Trigger
       ref={ref}
-      data-slot="select-trigger"
       asChild={asChild}
       className={clsx(!asChild && styles.trigger, className)}
       {...props}
+      data-slot="select-trigger"
     />
   );
 });
@@ -148,9 +148,9 @@ const SelectValueText = forwardRef<
   return (
     <SelectPrimitive.ValueText
       ref={ref}
-      data-slot="select-value-text"
       className={clsx(styles.valueText, className)}
       {...props}
+      data-slot="select-value-text"
     />
   );
 });
@@ -175,11 +175,11 @@ const SelectClearTrigger = forwardRef<
     <SelectPrimitive.ClearTrigger
       ref={ref}
       asChild
-      data-slot="select-clear-trigger"
       className={triggerClassName}
       aria-label={asChild ? ariaLabel : undefined}
       aria-labelledby={asChild ? ariaLabelledBy : undefined}
       {...props}
+      data-slot="select-clear-trigger"
     >
       {asChild ? (
         children
@@ -202,9 +202,9 @@ const SelectIndicator = forwardRef<
   return (
     <SelectPrimitive.Indicator
       ref={ref}
-      data-slot="select-indicator"
       className={clsx(styles.indicator, className)}
       {...props}
+      data-slot="select-indicator"
     >
       {children ?? <ChevronUpDownIcon />}
     </SelectPrimitive.Indicator>
@@ -233,9 +233,9 @@ const SelectPositioner = forwardRef<
     <OverlayPortal>
       <SelectPrimitive.Positioner
         ref={ref}
-        data-slot="select-positioner"
         className={clsx(styles.positioner, className)}
         {...props}
+        data-slot="select-positioner"
       />
     </OverlayPortal>
   );
@@ -248,9 +248,9 @@ const SelectContent = forwardRef<
   return (
     <SelectPrimitive.Content
       ref={ref}
-      data-slot="select-content"
       className={clsx(styles.content, className)}
       {...props}
+      data-slot="select-content"
     />
   );
 });
@@ -262,9 +262,9 @@ const SelectList = forwardRef<
   return (
     <SelectPrimitive.List
       ref={ref}
-      data-slot="select-list"
       className={clsx(styles.list, className)}
       {...props}
+      data-slot="select-list"
     />
   );
 });
@@ -276,9 +276,9 @@ const SelectItemGroup = forwardRef<
   return (
     <SelectPrimitive.ItemGroup
       ref={ref}
-      data-slot="select-item-group"
       className={clsx(styles.itemGroup, className)}
       {...props}
+      data-slot="select-item-group"
     />
   );
 });
@@ -290,9 +290,9 @@ const SelectItemGroupLabel = forwardRef<
   return (
     <SelectPrimitive.ItemGroupLabel
       ref={ref}
-      data-slot="select-item-group-label"
       className={clsx(styles.itemGroupLabel, className)}
       {...props}
+      data-slot="select-item-group-label"
     />
   );
 });
@@ -304,9 +304,9 @@ const SelectItem = forwardRef<
   return (
     <SelectPrimitive.Item
       ref={ref}
-      data-slot="select-item"
       className={clsx(styles.item, className)}
       {...props}
+      data-slot="select-item"
     />
   );
 });
@@ -318,9 +318,9 @@ const SelectItemText = forwardRef<
   return (
     <SelectPrimitive.ItemText
       ref={ref}
-      data-slot="select-item-text"
       className={clsx(styles.itemText, className)}
       {...props}
+      data-slot="select-item-text"
     />
   );
 });
@@ -332,9 +332,9 @@ const SelectItemIndicator = forwardRef<
   return (
     <SelectPrimitive.ItemIndicator
       ref={ref}
-      data-slot="select-item-indicator"
       className={clsx(styles.itemIndicator, className)}
       {...props}
+      data-slot="select-item-indicator"
     >
       {children ?? <CheckIcon />}
     </SelectPrimitive.ItemIndicator>
@@ -346,9 +346,9 @@ const SelectItemTextContent = forwardRef<ComponentRef<typeof ark.span>, HTMLArkP
     return (
       <ark.span
         ref={ref}
-        data-slot="select-item-text-content"
         className={clsx(styles.itemTextContent, className)}
         {...props}
+        data-slot="select-item-text-content"
       />
     );
   },
@@ -359,9 +359,9 @@ const SelectItemTextIcon = forwardRef<ComponentRef<typeof ark.span>, HTMLArkProp
     return (
       <ark.span
         ref={ref}
-        data-slot="select-item-text-icon"
         className={clsx(styles.itemTextIcon, className)}
         {...props}
+        data-slot="select-item-text-icon"
       />
     );
   },
@@ -372,9 +372,9 @@ const SelectItemTextLabel = forwardRef<ComponentRef<typeof ark.span>, HTMLArkPro
     return (
       <ark.span
         ref={ref}
-        data-slot="select-item-text-label"
         className={clsx(styles.itemTextLabel, className)}
         {...props}
+        data-slot="select-item-text-label"
       />
     );
   },

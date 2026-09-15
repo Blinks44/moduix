@@ -7,8 +7,8 @@
 # moduix
 
 Product-minded, multi-framework components built on [Ark UI](https://ark-ui.com/), with accessible
-behavior, explicit composition, and CSS Modules at the core. React and Solid adapters ship today;
-Vue and Svelte adapters are planned.
+behavior, explicit composition, and first-class CSS Modules and Tailwind styling tracks. React and
+Solid adapters ship today; Vue and Svelte adapters are planned.
 
 moduix combines Ark UI primitives with considered defaults and a shadcn-inspired ownership model.
 Use the published package when you want managed updates, or add the component source
@@ -32,8 +32,8 @@ The package matrix grows with shipped adapters. Shared workflows and documentati
 
 - **Ark-backed behavior.** Dialogs, menus, inputs, and other complex interactions keep Ark UI's
   keyboard support, state management, form behavior, and accessibility semantics.
-- **CSS Modules by default.** Component styles are ordinary CSS with locally scoped class names.
-  There is no styling runtime and no Tailwind requirement.
+- **Two styling paths.** Choose CSS Modules for ordinary, locally scoped component styles, or
+  Tailwind CSS v4 for utility-first composition and overrides. Neither path adds a styling runtime.
 - **Composable APIs.** Components expose the useful parts of their anatomy without hiding the
   primitive structure needed for product-specific UI.
 - **A predictable styling contract.** Shared tokens, `className`, stable `data-slot` hooks, and Ark
@@ -45,6 +45,9 @@ The package matrix grows with shipped adapters. Shared workflows and documentati
 
 The example below uses the React CSS Modules package. Choose the shipped framework, styling track,
 and ownership model that matches your application in the [Quick start](https://moduix.dev/docs/quick-start).
+For Tailwind CSS v4, use [`@moduix/react-tailwind`](packages/react-tailwind/README.md) or
+[`@moduix/solid-tailwind`](packages/solid-tailwind/README.md); their README files include the
+required stylesheet import order and `@source` configuration.
 
 ### Use the published package
 
@@ -117,9 +120,9 @@ The registry preserves the same component contracts and design tokens as the pub
 
 ## Styling and theming
 
-Component styles are bundled with their component imports. `style.css` supplies the shared tokens
-and base layer styles, while each component keeps its own CSS Module. Start with the built-in
-appearance, then customize deliberately:
+The CSS Modules packages bundle component styles with their component imports. `style.css` supplies
+the shared tokens and base layer styles, while each component keeps its own CSS Module. Start with
+the built-in appearance, then customize deliberately:
 
 - pass `className` to a root or named part for application-owned selectors;
 - target stable moduix `data-slot` hooks or Ark state attributes for state-specific rules;
@@ -138,6 +141,9 @@ import '@moduix/react/presets/soft.css';
 
 The available presets are `dense`, `soft`, and `contrast`. See [Themes](https://moduix.dev/docs/themes)
 and [Tokens](https://moduix.dev/docs/tokens) for the complete customization model.
+
+Tailwind packages keep the same component contracts but use native utility classes and
+consumer-class overrides. Their package README files describe the corresponding stylesheet setup.
 
 ## Repository
 

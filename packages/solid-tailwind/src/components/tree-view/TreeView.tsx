@@ -26,12 +26,12 @@ const TreeViewRoot = function TreeViewRoot<T extends TreeNode>(props: TreeViewRo
   return (
     <TreeViewPrimitive.Root
       asChild={local.asChild}
-      data-slot="tree-view-root"
       class={cn(
         'box-border flex w-80 max-w-full min-w-0 flex-col gap-2 text-foreground data-disabled:opacity-50',
         local.class,
       )}
       {...others}
+      data-slot="tree-view-root"
     >
       {local.children}
     </TreeViewPrimitive.Root>
@@ -46,12 +46,12 @@ const TreeViewRootProvider = function TreeViewRootProvider<T extends TreeNode>(
   return (
     <TreeViewPrimitive.RootProvider
       asChild={local.asChild}
-      data-slot="tree-view-root-provider"
       class={cn(
         'box-border flex w-80 max-w-full min-w-0 flex-col gap-2 text-foreground data-disabled:opacity-50',
         local.class,
       )}
       {...others}
+      data-slot="tree-view-root-provider"
     >
       {local.children}
     </TreeViewPrimitive.RootProvider>
@@ -63,9 +63,9 @@ function TreeViewLabel(props: ComponentProps<typeof TreeViewPrimitive.Label>) {
 
   return (
     <TreeViewPrimitive.Label
-      data-slot="tree-view-label"
       class={cn('text-sm leading-5 font-medium text-foreground select-none', local.class)}
       {...others}
+      data-slot="tree-view-label"
     />
   );
 }
@@ -75,9 +75,9 @@ function TreeViewTree(props: ComponentProps<typeof TreeViewPrimitive.Tree>) {
 
   return (
     <TreeViewPrimitive.Tree
-      data-slot="tree-view-tree"
       class={cn('flex min-w-0 flex-col gap-1 text-sm leading-5 text-foreground', local.class)}
       {...others}
+      data-slot="tree-view-tree"
     />
   );
 }
@@ -87,9 +87,9 @@ function TreeViewBranch(props: ComponentProps<typeof TreeViewPrimitive.Branch>) 
 
   return (
     <TreeViewPrimitive.Branch
-      data-slot="tree-view-branch"
       class={cn('relative flex min-w-0 flex-col gap-1', local.class)}
       {...others}
+      data-slot="tree-view-branch"
     />
   );
 }
@@ -99,12 +99,12 @@ function TreeViewBranchControl(props: ComponentProps<typeof TreeViewPrimitive.Br
 
   return (
     <TreeViewPrimitive.BranchControl
-      data-slot="tree-view-branch-control"
       class={cn(
         "relative z-0 box-border flex min-h-8 w-full min-w-0 cursor-pointer items-center gap-2 rounded-sm bg-transparent py-1 ps-[calc(0.5rem+((var(--depth,1)-1)*1rem))] pe-2 text-start text-foreground no-underline transition-[color,opacity] duration-200 ease-in-out outline-none select-none [font:inherit] before:pointer-events-none before:absolute before:inset-y-0 before:start-[calc(0.5rem+((var(--depth,1)-1)*1rem))] before:end-0 before:-z-1 before:rounded-sm before:bg-transparent before:ring-1 before:ring-transparent before:transition-[background-color,box-shadow] before:duration-200 before:ease-in-out before:content-[''] before:ring-inset focus-visible:before:ring-ring data-disabled:cursor-default data-disabled:text-muted-foreground data-disabled:opacity-50 data-focus:before:ring-ring data-selected:text-accent-foreground data-selected:before:bg-accent motion-reduce:before:transition-none [@media(hover:hover)]:[&:not([data-disabled]):hover]:text-accent-foreground [@media(hover:hover)]:[&:not([data-disabled]):hover]:before:bg-accent",
         local.class,
       )}
       {...others}
+      data-slot="tree-view-branch-control"
     />
   );
 }
@@ -115,12 +115,12 @@ function TreeViewBranchTrigger(props: ComponentProps<typeof TreeViewPrimitive.Br
 
   return (
     <TreeViewPrimitive.BranchTrigger
-      data-slot="tree-view-branch-trigger"
       class={cn(
         'inline-flex size-4 shrink-0 items-center justify-center transition-transform duration-200 ease-in-out data-[state=open]:rotate-90 motion-reduce:transition-none [&_svg]:size-3.5',
         local.class,
       )}
       {...others}
+      data-slot="tree-view-branch-trigger"
     >
       {resolvedChildren() ?? <ChevronRightIcon />}
     </TreeViewPrimitive.BranchTrigger>
@@ -133,12 +133,12 @@ function TreeViewBranchIndicator(props: ComponentProps<typeof TreeViewPrimitive.
 
   return (
     <TreeViewPrimitive.BranchIndicator
-      data-slot="tree-view-branch-indicator"
       class={cn(
         'inline-flex size-4 shrink-0 items-center justify-center transition-transform duration-200 ease-in-out data-[state=open]:rotate-90 motion-reduce:transition-none [&_svg]:size-3.5',
         local.class,
       )}
       {...others}
+      data-slot="tree-view-branch-indicator"
     >
       {resolvedChildren() ?? <ChevronRightIcon />}
     </TreeViewPrimitive.BranchIndicator>
@@ -150,12 +150,12 @@ function TreeViewBranchText(props: ComponentProps<typeof TreeViewPrimitive.Branc
 
   return (
     <TreeViewPrimitive.BranchText
-      data-slot="tree-view-branch-text"
       class={cn(
         'inline-flex min-w-0 flex-1 items-center gap-2 overflow-hidden text-ellipsis whitespace-nowrap [&_svg]:size-4 [&_svg]:shrink-0',
         local.class,
       )}
       {...others}
+      data-slot="tree-view-branch-text"
     />
   );
 }
@@ -165,12 +165,12 @@ function TreeViewBranchContent(props: ComponentProps<typeof TreeViewPrimitive.Br
 
   return (
     <TreeViewPrimitive.BranchContent
-      data-slot="tree-view-branch-content"
       class={cn(
         'relative flex min-w-0 flex-col gap-1 overflow-hidden data-[state=closed]:animate-[moduix-collapsible-content-closed_150ms_ease-out] data-[state=open]:animate-[moduix-collapsible-content-open_150ms_ease-out] motion-reduce:animate-none',
         local.class,
       )}
       {...others}
+      data-slot="tree-view-branch-content"
     />
   );
 }
@@ -182,12 +182,12 @@ function TreeViewBranchIndentGuide(
 
   return (
     <TreeViewPrimitive.BranchIndentGuide
-      data-slot="tree-view-branch-indent-guide"
       class={cn(
         'pointer-events-none absolute inset-y-0 start-[calc(1rem+((var(--depth,1)-1)*1rem))] z-1 w-px bg-border',
         local.class,
       )}
       {...others}
+      data-slot="tree-view-branch-indent-guide"
     />
   );
 }
@@ -197,12 +197,12 @@ function TreeViewItem(props: ComponentProps<typeof TreeViewPrimitive.Item>) {
 
   return (
     <TreeViewPrimitive.Item
-      data-slot="tree-view-item"
       class={cn(
         "relative z-0 box-border flex min-h-8 w-full min-w-0 cursor-pointer items-center gap-2 rounded-sm bg-transparent py-1 ps-[calc(1rem+((var(--depth,1)-1)*1rem))] pe-2 text-start text-foreground no-underline transition-[color,opacity] duration-200 ease-in-out outline-none select-none [font:inherit] before:pointer-events-none before:absolute before:inset-y-0 before:start-[calc(0.5rem+((var(--depth,1)-1)*1rem))] before:end-0 before:-z-1 before:rounded-sm before:bg-transparent before:ring-1 before:ring-transparent before:transition-[background-color,box-shadow] before:duration-200 before:ease-in-out before:content-[''] before:ring-inset focus-visible:before:ring-ring data-disabled:cursor-default data-disabled:text-muted-foreground data-disabled:opacity-50 data-focus:before:ring-ring data-selected:text-accent-foreground data-selected:before:bg-accent motion-reduce:before:transition-none [@media(hover:hover)]:[&:not([data-disabled]):hover]:text-accent-foreground [@media(hover:hover)]:[&:not([data-disabled]):hover]:before:bg-accent",
         local.class,
       )}
       {...others}
+      data-slot="tree-view-item"
     />
   );
 }
@@ -212,12 +212,12 @@ function TreeViewItemText(props: ComponentProps<typeof TreeViewPrimitive.ItemTex
 
   return (
     <TreeViewPrimitive.ItemText
-      data-slot="tree-view-item-text"
       class={cn(
         'inline-flex min-w-0 flex-1 items-center gap-2 overflow-hidden text-ellipsis whitespace-nowrap [&_svg]:size-4 [&_svg]:shrink-0',
         local.class,
       )}
       {...others}
+      data-slot="tree-view-item-text"
     />
   );
 }
@@ -228,12 +228,12 @@ function TreeViewItemIndicator(props: ComponentProps<typeof TreeViewPrimitive.It
 
   return (
     <TreeViewPrimitive.ItemIndicator
-      data-slot="tree-view-item-indicator"
       class={cn(
         'inline-flex size-4 shrink-0 items-center justify-center [&_svg]:size-3.5',
         local.class,
       )}
       {...others}
+      data-slot="tree-view-item-indicator"
     >
       {resolvedChildren() ?? <CheckIcon />}
     </TreeViewPrimitive.ItemIndicator>
@@ -245,12 +245,12 @@ function TreeViewNodeCheckbox(props: ComponentProps<typeof TreeViewPrimitive.Nod
 
   return (
     <TreeViewPrimitive.NodeCheckbox
-      data-slot="tree-view-node-checkbox"
       class={cn(
         'inline-flex size-4 shrink-0 items-center justify-center rounded-xs border border-border bg-background text-primary-foreground outline-1 outline-offset-1 outline-transparent transition-[background-color,border-color,outline-color] duration-200 ease-in-out focus-visible:outline-ring data-disabled:cursor-default data-disabled:opacity-50 data-[state=checked]:border-primary data-[state=checked]:bg-primary data-[state=indeterminate]:border-primary data-[state=indeterminate]:bg-primary motion-reduce:transition-none [&_svg]:size-3',
         local.class,
       )}
       {...others}
+      data-slot="tree-view-node-checkbox"
     />
   );
 }
@@ -273,9 +273,9 @@ function TreeViewNodeCheckboxIndicator(props: TreeViewNodeCheckboxIndicatorProps
   return (
     <ark.span
       asChild={local.asChild}
-      data-slot="tree-view-node-checkbox-indicator"
       class={cn('inline-flex items-center justify-center', local.class)}
       {...others}
+      data-slot="tree-view-node-checkbox-indicator"
     >
       <TreeViewPrimitive.NodeCheckboxIndicator
         fallback={local.fallback}
@@ -292,12 +292,12 @@ function TreeViewNodeRenameInput(props: ComponentProps<typeof TreeViewPrimitive.
 
   return (
     <TreeViewPrimitive.NodeRenameInput
-      data-slot="tree-view-node-rename-input"
       class={cn(
         'box-border min-w-0 flex-1 rounded-xs border border-ring bg-background px-1 py-0 text-foreground outline-1 -outline-offset-1 outline-transparent [font:inherit] focus-visible:outline-ring',
         local.class,
       )}
       {...others}
+      data-slot="tree-view-node-rename-input"
     />
   );
 }

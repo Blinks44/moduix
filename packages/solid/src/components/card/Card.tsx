@@ -32,11 +32,11 @@ function CardHeader(props: HTMLArkProps<'div'>) {
   return (
     <ark.div
       asChild={local.asChild}
+      class={clsx(styles.header, local.class)}
+      {...others}
       data-scope="card"
       data-part="header"
       data-slot="card-header"
-      class={clsx(styles.header, local.class)}
-      {...others}
     />
   );
 }
@@ -47,11 +47,11 @@ function CardBody(props: HTMLArkProps<'div'>) {
   return (
     <ark.div
       asChild={local.asChild}
+      class={clsx(styles.body, local.class)}
+      {...others}
       data-scope="card"
       data-part="body"
       data-slot="card-body"
-      class={clsx(styles.body, local.class)}
-      {...others}
     />
   );
 }
@@ -62,11 +62,11 @@ function CardMedia(props: HTMLArkProps<'div'>) {
   return (
     <ark.div
       asChild={local.asChild}
+      class={clsx(styles.media, local.class)}
+      {...others}
       data-scope="card"
       data-part="media"
       data-slot="card-media"
-      class={clsx(styles.media, local.class)}
-      {...others}
     />
   );
 }
@@ -77,11 +77,11 @@ function CardBackground(props: HTMLArkProps<'div'>) {
   return (
     <ark.div
       asChild={local.asChild}
+      class={clsx(styles.background, local.class)}
+      {...others}
       data-scope="card"
       data-part="background"
       data-slot="card-background"
-      class={clsx(styles.background, local.class)}
-      {...others}
     />
   );
 }
@@ -92,11 +92,11 @@ function CardFooter(props: HTMLArkProps<'div'>) {
   return (
     <ark.div
       asChild={local.asChild}
+      class={clsx(styles.footer, local.class)}
+      {...others}
       data-scope="card"
       data-part="footer"
       data-slot="card-footer"
-      class={clsx(styles.footer, local.class)}
-      {...others}
     />
   );
 }
@@ -107,11 +107,11 @@ function CardTitle(props: HTMLArkProps<'h3'>) {
   return (
     <ark.h3
       asChild={local.asChild}
+      class={clsx(styles.title, local.class)}
+      {...others}
       data-scope="card"
       data-part="title"
       data-slot="card-title"
-      class={clsx(styles.title, local.class)}
-      {...others}
     />
   );
 }
@@ -122,11 +122,11 @@ function CardDescription(props: HTMLArkProps<'p'>) {
   return (
     <ark.p
       asChild={local.asChild}
+      class={clsx(styles.description, local.class)}
+      {...others}
       data-scope="card"
       data-part="description"
       data-slot="card-description"
-      class={clsx(styles.description, local.class)}
-      {...others}
     />
   );
 }
@@ -137,11 +137,11 @@ function CardAction(props: HTMLArkProps<'div'>) {
   return (
     <ark.div
       asChild={local.asChild}
+      class={clsx(styles.action, local.class)}
+      {...others}
       data-scope="card"
       data-part="action"
       data-slot="card-action"
-      class={clsx(styles.action, local.class)}
-      {...others}
     />
   );
 }
@@ -152,11 +152,11 @@ function CardLink(props: HTMLArkProps<'a'>) {
   return (
     <ark.a
       asChild={local.asChild}
+      class={clsx(styles.link, local.class)}
+      {...others}
       data-scope="card"
       data-part="link"
       data-slot="card-link"
-      class={clsx(styles.link, local.class)}
-      {...others}
     />
   );
 }

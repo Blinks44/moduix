@@ -158,6 +158,9 @@ custom indicator content, render `Carousel.IndicatorGroup` and `Carousel.Indicat
 `Carousel.Context`; use the context API's `pageSnapPoints` when the number of indicators must match
 the calculated pages.
 
+In Solid, assign a ref to the element created inside the `asChild` render function. A ref on a
+Carousel part itself is not forwarded through that composition path.
+
 ## Examples
 
 ### Autoplay

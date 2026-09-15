@@ -19,9 +19,9 @@ const CollapsibleRoot = forwardRef<
   return (
     <CollapsiblePrimitive.Root
       ref={ref}
-      data-slot="collapsible-root"
       className={clsx(styles.root, className)}
       {...props}
+      data-slot="collapsible-root"
     />
   );
 });
@@ -33,9 +33,9 @@ const CollapsibleRootProvider = forwardRef<
   return (
     <CollapsiblePrimitive.RootProvider
       ref={ref}
-      data-slot="collapsible-root-provider"
       className={clsx(styles.root, className)}
       {...props}
+      data-slot="collapsible-root-provider"
     />
   );
 });
@@ -48,9 +48,9 @@ const CollapsibleTrigger = forwardRef<
     <CollapsiblePrimitive.Trigger
       ref={ref}
       asChild={asChild}
-      data-slot="collapsible-trigger"
       className={clsx(!asChild && styles.trigger, className)}
       {...props}
+      data-slot="collapsible-trigger"
     />
   );
 });
@@ -62,9 +62,9 @@ const CollapsibleIndicator = forwardRef<
   return (
     <CollapsiblePrimitive.Indicator
       ref={ref}
-      data-slot="collapsible-indicator"
       className={clsx(styles.indicator, className)}
       {...props}
+      data-slot="collapsible-indicator"
     >
       {children ?? <ChevronDownIcon />}
     </CollapsiblePrimitive.Indicator>
@@ -78,9 +78,9 @@ const CollapsibleContent = forwardRef<
   return (
     <CollapsiblePrimitive.Content
       ref={ref}
-      data-slot="collapsible-content"
       className={clsx(styles.content, className)}
       {...props}
+      data-slot="collapsible-content"
     />
   );
 });
@@ -90,9 +90,9 @@ const CollapsibleBody = forwardRef<ComponentRef<typeof ark.div>, HTMLArkProps<'d
     return (
       <ark.div
         ref={ref}
-        data-slot="collapsible-body"
         className={clsx(styles.body, className)}
         {...props}
+        data-slot="collapsible-body"
       />
     );
   },

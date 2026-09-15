@@ -3,7 +3,15 @@ import { fireEvent, render, screen } from '@testing-library/react';
 import { Button, Card } from '../src';
 
 test('renders the default root with stable hooks', () => {
-  render(<Card className="consumer-card" data-testid="card" style={{ maxWidth: 320 }} />);
+  render(
+    <Card
+      className="consumer-card"
+      data-size="consumer"
+      data-testid="card"
+      data-variant="consumer"
+      style={{ maxWidth: 320 }}
+    />,
+  );
 
   const card = screen.getByTestId('card');
 

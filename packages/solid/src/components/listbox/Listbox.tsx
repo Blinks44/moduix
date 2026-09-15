@@ -22,9 +22,9 @@ const ListboxRoot = function ListboxRoot<T extends CollectionItem>(props: Listbo
 
   return (
     <ListboxPrimitive.Root
-      data-slot="listbox-root"
       class={clsx(styles.root, local.class)}
       {...others}
+      data-slot="listbox-root"
     />
   );
 } as ListboxRootComponent;
@@ -36,9 +36,9 @@ const ListboxRootProvider = function ListboxRootProvider<T extends CollectionIte
 
   return (
     <ListboxPrimitive.RootProvider
-      data-slot="listbox-root-provider"
       class={clsx(styles.root, local.class)}
       {...others}
+      data-slot="listbox-root-provider"
     />
   );
 } as ListboxRootProviderComponent;
@@ -48,9 +48,9 @@ function ListboxLabel(props: ComponentProps<typeof ListboxPrimitive.Label>) {
 
   return (
     <ListboxPrimitive.Label
-      data-slot="listbox-label"
       class={clsx(styles.label, local.class)}
       {...others}
+      data-slot="listbox-label"
     />
   );
 }
@@ -60,9 +60,9 @@ function ListboxInput(props: ComponentProps<typeof ListboxPrimitive.Input>) {
 
   return (
     <ListboxPrimitive.Input
-      data-slot="listbox-input"
       class={clsx(styles.input, local.class)}
       {...others}
+      data-slot="listbox-input"
     />
   );
 }
@@ -71,7 +71,7 @@ function ListboxFilter(props: ComponentProps<'div'>) {
   const [local, others] = splitProps(props, ['children', 'class']);
 
   return (
-    <div data-slot="listbox-filter" class={clsx(styles.filter, local.class)} {...others}>
+    <div class={clsx(styles.filter, local.class)} {...others} data-slot="listbox-filter">
       <SearchIcon data-slot="listbox-filter-icon" class={styles.filterIcon} />
       {local.children}
     </div>
@@ -84,11 +84,11 @@ function ListboxClearTrigger(props: HTMLArkProps<'button'>) {
 
   return (
     <CloseButton.Root
-      data-slot="listbox-clear-trigger"
       class={clsx(styles.clearTrigger, local.class)}
       type={local.type ?? 'button'}
       aria-label={local['aria-label'] ?? 'Clear search'}
       {...others}
+      data-slot="listbox-clear-trigger"
     >
       {resolvedChildren()}
     </CloseButton.Root>
@@ -100,9 +100,9 @@ function ListboxContent(props: ComponentProps<typeof ListboxPrimitive.Content>) 
 
   return (
     <ListboxPrimitive.Content
-      data-slot="listbox-content"
       class={clsx(styles.content, local.class)}
       {...others}
+      data-slot="listbox-content"
     />
   );
 }
@@ -112,9 +112,9 @@ function ListboxEmpty(props: ComponentProps<typeof ListboxPrimitive.Empty>) {
 
   return (
     <ListboxPrimitive.Empty
-      data-slot="listbox-empty"
       class={clsx(styles.empty, local.class)}
       {...others}
+      data-slot="listbox-empty"
     />
   );
 }
@@ -124,9 +124,9 @@ function ListboxItemGroup(props: ComponentProps<typeof ListboxPrimitive.ItemGrou
 
   return (
     <ListboxPrimitive.ItemGroup
-      data-slot="listbox-item-group"
       class={clsx(styles.itemGroup, local.class)}
       {...others}
+      data-slot="listbox-item-group"
     />
   );
 }
@@ -136,9 +136,9 @@ function ListboxItemGroupLabel(props: ComponentProps<typeof ListboxPrimitive.Ite
 
   return (
     <ListboxPrimitive.ItemGroupLabel
-      data-slot="listbox-item-group-label"
       class={clsx(styles.itemGroupLabel, local.class)}
       {...others}
+      data-slot="listbox-item-group-label"
     />
   );
 }
@@ -148,9 +148,9 @@ function ListboxItem(props: ComponentProps<typeof ListboxPrimitive.Item>) {
 
   return (
     <ListboxPrimitive.Item
-      data-slot="listbox-item"
       class={clsx(styles.item, local.class)}
       {...others}
+      data-slot="listbox-item"
     />
   );
 }
@@ -160,9 +160,9 @@ function ListboxItemText(props: ComponentProps<typeof ListboxPrimitive.ItemText>
 
   return (
     <ListboxPrimitive.ItemText
-      data-slot="listbox-item-text"
       class={clsx(styles.itemText, local.class)}
       {...others}
+      data-slot="listbox-item-text"
     />
   );
 }
@@ -173,9 +173,9 @@ function ListboxItemIndicator(props: ComponentProps<typeof ListboxPrimitive.Item
 
   return (
     <ListboxPrimitive.ItemIndicator
-      data-slot="listbox-item-indicator"
       class={clsx(styles.itemIndicator, local.class)}
       {...others}
+      data-slot="listbox-item-indicator"
     >
       {resolvedChildren() ?? <CheckIcon />}
     </ListboxPrimitive.ItemIndicator>
@@ -187,9 +187,9 @@ function ListboxValueText(props: ComponentProps<typeof ListboxPrimitive.ValueTex
 
   return (
     <ListboxPrimitive.ValueText
-      data-slot="listbox-value-text"
       class={clsx(styles.valueText, local.class)}
       {...others}
+      data-slot="listbox-value-text"
     />
   );
 }
@@ -199,9 +199,9 @@ function ListboxItemTextContent(props: HTMLArkProps<'span'>) {
 
   return (
     <ark.span
-      data-slot="listbox-item-text-content"
       class={clsx(styles.itemTextContent, local.class)}
       {...others}
+      data-slot="listbox-item-text-content"
     />
   );
 }
@@ -211,9 +211,9 @@ function ListboxItemTextIcon(props: HTMLArkProps<'span'>) {
 
   return (
     <ark.span
-      data-slot="listbox-item-text-icon"
       class={clsx(styles.itemTextIcon, local.class)}
       {...others}
+      data-slot="listbox-item-text-icon"
     />
   );
 }
@@ -223,9 +223,9 @@ function ListboxItemTextLabel(props: HTMLArkProps<'span'>) {
 
   return (
     <ark.span
-      data-slot="listbox-item-text-label"
       class={clsx(styles.itemTextLabel, local.class)}
       {...others}
+      data-slot="listbox-item-text-label"
     />
   );
 }

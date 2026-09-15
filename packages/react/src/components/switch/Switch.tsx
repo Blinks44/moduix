@@ -22,10 +22,10 @@ const SwitchRoot = forwardRef<ComponentRef<typeof SwitchPrimitive.Root>, SwitchR
     return (
       <SwitchPrimitive.Root
         ref={ref}
-        data-slot="switch-root"
         data-size={size}
         className={clsx(styles.root, className)}
         {...props}
+        data-slot="switch-root"
       />
     );
   },
@@ -38,10 +38,10 @@ const SwitchRootProvider = forwardRef<
   return (
     <SwitchPrimitive.RootProvider
       ref={ref}
-      data-slot="switch-root-provider"
       data-size={size}
       className={clsx(styles.root, className)}
       {...props}
+      data-slot="switch-root-provider"
     />
   );
 });
@@ -53,9 +53,9 @@ const SwitchControl = forwardRef<
   return (
     <SwitchPrimitive.Control
       ref={ref}
-      data-slot="switch-control"
       className={clsx(styles.control, className)}
       {...props}
+      data-slot="switch-control"
     >
       {children ?? <SwitchThumb />}
     </SwitchPrimitive.Control>
@@ -69,9 +69,9 @@ const SwitchThumb = forwardRef<
   return (
     <SwitchPrimitive.Thumb
       ref={ref}
-      data-slot="switch-thumb"
       className={clsx(styles.thumb, className)}
       {...props}
+      data-slot="switch-thumb"
     />
   );
 });
@@ -83,9 +83,9 @@ const SwitchLabel = forwardRef<
   return (
     <SwitchPrimitive.Label
       ref={ref}
-      data-slot="switch-label"
       className={clsx(styles.label, className)}
       {...props}
+      data-slot="switch-label"
     />
   );
 });

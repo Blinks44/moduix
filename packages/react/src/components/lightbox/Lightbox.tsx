@@ -116,9 +116,9 @@ const LightboxTrigger = forwardRef<
   return (
     <DialogPrimitive.Trigger
       ref={ref}
-      data-slot="lightbox-trigger"
       className={clsx(styles.trigger, className)}
       {...props}
+      data-slot="lightbox-trigger"
     />
   );
 });
@@ -131,9 +131,9 @@ const LightboxBackdrop = forwardRef<
     <OverlayPortal>
       <DialogPrimitive.Backdrop
         ref={ref}
-        data-slot="lightbox-backdrop"
         className={clsx(styles.backdrop, className)}
         {...props}
+        data-slot="lightbox-backdrop"
       />
     </OverlayPortal>
   );
@@ -147,9 +147,9 @@ const LightboxPositioner = forwardRef<
     <OverlayPortal>
       <DialogPrimitive.Positioner
         ref={ref}
-        data-slot="lightbox-positioner"
         className={clsx(styles.positioner, className)}
         {...props}
+        data-slot="lightbox-positioner"
       />
     </OverlayPortal>
   );
@@ -162,9 +162,9 @@ const LightboxContent = forwardRef<
   return (
     <DialogPrimitive.Content
       ref={ref}
-      data-slot="lightbox-content"
       className={clsx(styles.content, className)}
       {...props}
+      data-slot="lightbox-content"
     />
   );
 });
@@ -176,9 +176,9 @@ const LightboxTitle = forwardRef<
   return (
     <DialogPrimitive.Title
       ref={ref}
-      data-slot="lightbox-title"
       className={clsx(styles.title, className)}
       {...props}
+      data-slot="lightbox-title"
     />
   );
 });
@@ -190,9 +190,9 @@ const LightboxDescription = forwardRef<
   return (
     <DialogPrimitive.Description
       ref={ref}
-      data-slot="lightbox-description"
       className={clsx(styles.description, className)}
       {...props}
+      data-slot="lightbox-description"
     />
   );
 });
@@ -204,9 +204,9 @@ const LightboxCloseTrigger = forwardRef<
   return (
     <DialogPrimitive.CloseTrigger
       ref={ref}
-      data-slot="lightbox-close-trigger"
       className={className}
       {...props}
+      data-slot="lightbox-close-trigger"
     />
   );
 });
@@ -252,11 +252,11 @@ const LightboxImage = forwardRef<HTMLImageElement, LightboxImageProps>(function 
   return (
     <img
       ref={ref}
-      data-slot="lightbox-image"
-      data-close-on-click={closeOnClick ? '' : undefined}
       className={clsx(styles.image, className)}
       onClick={handleClick}
       {...props}
+      data-close-on-click={closeOnClick ? '' : undefined}
+      data-slot="lightbox-image"
     />
   );
 });
@@ -266,9 +266,9 @@ const LightboxGallery = forwardRef<ComponentRef<typeof ark.div>, HTMLArkProps<'d
     return (
       <ark.div
         ref={ref}
-        data-slot="lightbox-gallery"
         className={clsx(styles.gallery, className)}
         {...props}
+        data-slot="lightbox-gallery"
       />
     );
   },
@@ -279,9 +279,9 @@ const LightboxHeader = forwardRef<ComponentRef<typeof ark.div>, HTMLArkProps<'di
     return (
       <ark.div
         ref={ref}
-        data-slot="lightbox-header"
         className={clsx(styles.header, className)}
         {...props}
+        data-slot="lightbox-header"
       />
     );
   },
@@ -292,9 +292,9 @@ const LightboxBody = forwardRef<ComponentRef<typeof ark.div>, HTMLArkProps<'div'
     return (
       <ark.div
         ref={ref}
-        data-slot="lightbox-body"
         className={clsx(styles.body, className)}
         {...props}
+        data-slot="lightbox-body"
       />
     );
   },
@@ -305,9 +305,9 @@ const LightboxFooter = forwardRef<ComponentRef<typeof ark.div>, HTMLArkProps<'di
     return (
       <ark.div
         ref={ref}
-        data-slot="lightbox-footer"
         className={clsx(styles.footer, className)}
         {...props}
+        data-slot="lightbox-footer"
       />
     );
   },

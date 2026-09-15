@@ -16,11 +16,7 @@ export default function AngleSliderFormDemo() {
   };
 
   return (
-    <form
-      className={styles.layout}
-      onReset={() => setSubmitted('Nothing submitted')}
-      onSubmit={handleSubmit}
-    >
+    <form className={styles.layout} onSubmit={handleSubmit}>
       <AngleSlider defaultValue={135} aria-label="Rotation" name="rotation" className={styles.root}>
         <AngleSlider.Label>Rotation</AngleSlider.Label>
         <AngleSlider.Dial>
@@ -33,9 +29,6 @@ export default function AngleSliderFormDemo() {
         <output>Submitted: {submitted}</output>
         <Button type="submit" size="sm">
           Submit
-        </Button>
-        <Button type="reset" size="sm" variant="outline">
-          Reset
         </Button>
       </PreviewMeta>
     </form>

@@ -22,6 +22,7 @@ type LightboxImageSelectDetails = {
 
 type LightboxImageProps = ComponentProps<'img'> & {
   closeOnClick?: boolean;
+  'data-close-on-click'?: string;
 };
 
 type LightboxRootProps = ComponentProps<typeof DialogPrimitive.Root> & OverlayPortalProps;
@@ -134,9 +135,9 @@ function LightboxTrigger(props: ComponentProps<typeof DialogPrimitive.Trigger>) 
   return (
     <DialogPrimitive.Trigger
       asChild={local.asChild}
-      data-slot="lightbox-trigger"
       class={clsx(styles.trigger, local.class)}
       {...others}
+      data-slot="lightbox-trigger"
     />
   );
 }
@@ -147,9 +148,9 @@ function LightboxBackdrop(props: ComponentProps<typeof DialogPrimitive.Backdrop>
   return (
     <OverlayPortal>
       <DialogPrimitive.Backdrop
-        data-slot="lightbox-backdrop"
         class={clsx(styles.backdrop, local.class)}
         {...others}
+        data-slot="lightbox-backdrop"
       />
     </OverlayPortal>
   );
@@ -161,9 +162,9 @@ function LightboxPositioner(props: ComponentProps<typeof DialogPrimitive.Positio
   return (
     <OverlayPortal>
       <DialogPrimitive.Positioner
-        data-slot="lightbox-positioner"
         class={clsx(styles.positioner, local.class)}
         {...others}
+        data-slot="lightbox-positioner"
       />
     </OverlayPortal>
   );
@@ -174,9 +175,9 @@ function LightboxContent(props: ComponentProps<typeof DialogPrimitive.Content>) 
 
   return (
     <DialogPrimitive.Content
-      data-slot="lightbox-content"
       class={clsx(styles.content, local.class)}
       {...others}
+      data-slot="lightbox-content"
     />
   );
 }
@@ -186,9 +187,9 @@ function LightboxTitle(props: ComponentProps<typeof DialogPrimitive.Title>) {
 
   return (
     <DialogPrimitive.Title
-      data-slot="lightbox-title"
       class={clsx(styles.title, local.class)}
       {...others}
+      data-slot="lightbox-title"
     />
   );
 }
@@ -198,9 +199,9 @@ function LightboxDescription(props: ComponentProps<typeof DialogPrimitive.Descri
 
   return (
     <DialogPrimitive.Description
-      data-slot="lightbox-description"
       class={clsx(styles.description, local.class)}
       {...others}
+      data-slot="lightbox-description"
     />
   );
 }
@@ -211,9 +212,9 @@ function LightboxCloseTrigger(props: ComponentProps<typeof DialogPrimitive.Close
   return (
     <DialogPrimitive.CloseTrigger
       asChild={local.asChild}
-      data-slot="lightbox-close-trigger"
       class={local.class}
       {...others}
+      data-slot="lightbox-close-trigger"
     />
   );
 }
@@ -245,7 +246,12 @@ function LightboxCloseIcon(props: LightboxCloseIconProps) {
 }
 
 function LightboxImage(props: LightboxImageProps) {
-  const [local, others] = splitProps(props, ['class', 'closeOnClick', 'onClick']);
+  const [local, others] = splitProps(props, [
+    'class',
+    'closeOnClick',
+    'data-close-on-click',
+    'onClick',
+  ]);
   const dialog = useDialogContext();
 
   const handleClick = (event: MouseEvent) => {
@@ -258,11 +264,11 @@ function LightboxImage(props: LightboxImageProps) {
 
   return (
     <img
-      data-slot="lightbox-image"
-      data-close-on-click={local.closeOnClick ? '' : undefined}
       class={clsx(styles.image, local.class)}
       onClick={handleClick}
       {...others}
+      data-close-on-click={local.closeOnClick ? '' : undefined}
+      data-slot="lightbox-image"
     />
   );
 }
@@ -271,7 +277,7 @@ function LightboxGallery(props: HTMLArkProps<'div'>) {
   const [local, others] = splitProps(props, ['class']);
 
   return (
-    <ark.div data-slot="lightbox-gallery" class={clsx(styles.gallery, local.class)} {...others} />
+    <ark.div class={clsx(styles.gallery, local.class)} {...others} data-slot="lightbox-gallery" />
   );
 }
 
@@ -279,21 +285,21 @@ function LightboxHeader(props: HTMLArkProps<'div'>) {
   const [local, others] = splitProps(props, ['class']);
 
   return (
-    <ark.div data-slot="lightbox-header" class={clsx(styles.header, local.class)} {...others} />
+    <ark.div class={clsx(styles.header, local.class)} {...others} data-slot="lightbox-header" />
   );
 }
 
 function LightboxBody(props: HTMLArkProps<'div'>) {
   const [local, others] = splitProps(props, ['class']);
 
-  return <ark.div data-slot="lightbox-body" class={clsx(styles.body, local.class)} {...others} />;
+  return <ark.div class={clsx(styles.body, local.class)} {...others} data-slot="lightbox-body" />;
 }
 
 function LightboxFooter(props: HTMLArkProps<'div'>) {
   const [local, others] = splitProps(props, ['class']);
 
   return (
-    <ark.div data-slot="lightbox-footer" class={clsx(styles.footer, local.class)} {...others} />
+    <ark.div class={clsx(styles.footer, local.class)} {...others} data-slot="lightbox-footer" />
   );
 }
 

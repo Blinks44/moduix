@@ -19,11 +19,11 @@ const PinInputRoot = forwardRef<
   return (
     <PinInputPrimitive.Root
       ref={ref}
-      data-slot="pin-input-root"
       className={clsx(styles.root, className)}
       count={count}
       placeholder={placeholder}
       {...props}
+      data-slot="pin-input-root"
     />
   );
 });
@@ -35,9 +35,9 @@ const PinInputRootProvider = forwardRef<
   return (
     <PinInputPrimitive.RootProvider
       ref={ref}
-      data-slot="pin-input-root-provider"
       className={clsx(styles.root, className)}
       {...props}
+      data-slot="pin-input-root-provider"
     />
   );
 });
@@ -49,9 +49,9 @@ const PinInputLabel = forwardRef<
   return (
     <PinInputPrimitive.Label
       ref={ref}
-      data-slot="pin-input-label"
       className={clsx(styles.label, className)}
       {...props}
+      data-slot="pin-input-label"
     />
   );
 });
@@ -63,9 +63,9 @@ const PinInputControl = forwardRef<
   return (
     <PinInputPrimitive.Control
       ref={ref}
-      data-slot="pin-input-control"
       className={clsx(styles.control, className)}
       {...props}
+      data-slot="pin-input-control"
     />
   );
 });
@@ -77,9 +77,9 @@ const PinInputInput = forwardRef<
   return (
     <PinInputPrimitive.Input
       ref={ref}
-      data-slot="pin-input-input"
       className={clsx(styles.input, className)}
       {...props}
+      data-slot="pin-input-input"
     />
   );
 });
@@ -99,11 +99,11 @@ function PinInputSeparator({
 }: ComponentProps<'span'>) {
   return (
     <span
-      data-slot="pin-input-separator"
       aria-hidden={ariaHidden}
       role={role}
       className={clsx(styles.separator, className)}
       {...props}
+      data-slot="pin-input-separator"
     >
       {children ?? <SeparatorMarkIcon />}
     </span>

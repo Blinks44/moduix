@@ -9,6 +9,7 @@ import componentsCssModules from '../../../snippets/quick-start/components-css-m
 import componentsTailwind from '../../../snippets/quick-start/components-tailwind.json?raw';
 import reactCssModules from '../../../snippets/quick-start/react-css-modules.tsx?raw';
 import reactTailwind from '../../../snippets/quick-start/react-tailwind.tsx?raw';
+import shadcnAccordion from '../../../snippets/quick-start/shadcn-accordion.tsx?raw';
 import solidCssModules from '../../../snippets/quick-start/solid-css-modules.tsx?raw';
 import solidTailwind from '../../../snippets/quick-start/solid-tailwind.tsx?raw';
 
@@ -380,12 +381,10 @@ import '@/lib/moduix/styles/style.css';
 
 ### 4. Используйте созданные компоненты
 
-Импортируйте компоненты из созданных файлов в своём проекте:
+Accordion доступен в каждом опубликованном фреймворке и варианте стилизации, поэтому с него удобно
+начать проверку:
 
-```tsx
-import { Button } from '@/components/ui/button';
-import { Accordion } from '@/components/ui/accordion';
-```
+<CodeBlockRuntime lang="tsx" code={shadcnAccordion} />
 
 Большинство компонентов собрано из именованных частей. Такая структура сохраняет доступное поведение и позволяет
 управлять разметкой, компоновкой и стилями в приложении.

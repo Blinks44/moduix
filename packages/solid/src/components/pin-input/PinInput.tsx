@@ -25,9 +25,9 @@ function PinInputRoot(props: ComponentProps<typeof PinInputPrimitive.Root>) {
       asChild={local.asChild}
       count={local.count}
       placeholder={local.placeholder ?? ''}
-      data-slot="pin-input-root"
       class={clsx(styles.root, local.class)}
       {...others}
+      data-slot="pin-input-root"
     >
       {local.children}
     </PinInputPrimitive.Root>
@@ -40,9 +40,9 @@ function PinInputRootProvider(props: ComponentProps<typeof PinInputPrimitive.Roo
   return (
     <PinInputPrimitive.RootProvider
       asChild={local.asChild}
-      data-slot="pin-input-root-provider"
       class={clsx(styles.root, local.class)}
       {...others}
+      data-slot="pin-input-root-provider"
     >
       {local.children}
     </PinInputPrimitive.RootProvider>
@@ -54,9 +54,9 @@ function PinInputLabel(props: ComponentProps<typeof PinInputPrimitive.Label>) {
 
   return (
     <PinInputPrimitive.Label
-      data-slot="pin-input-label"
       class={clsx(styles.label, local.class)}
       {...others}
+      data-slot="pin-input-label"
     />
   );
 }
@@ -66,9 +66,9 @@ function PinInputControl(props: ComponentProps<typeof PinInputPrimitive.Control>
 
   return (
     <PinInputPrimitive.Control
-      data-slot="pin-input-control"
       class={clsx(styles.control, local.class)}
       {...others}
+      data-slot="pin-input-control"
     />
   );
 }
@@ -78,9 +78,9 @@ function PinInputInput(props: ComponentProps<typeof PinInputPrimitive.Input>) {
 
   return (
     <PinInputPrimitive.Input
-      data-slot="pin-input-input"
       class={clsx(styles.input, local.class)}
       {...others}
+      data-slot="pin-input-input"
     />
   );
 }
@@ -101,11 +101,11 @@ function PinInputSeparator(props: ComponentProps<'span'>) {
 
   return (
     <span
-      data-slot="pin-input-separator"
       aria-hidden={local['aria-hidden'] ?? true}
       role={local.role ?? 'presentation'}
       class={clsx(styles.separator, local.class)}
       {...others}
+      data-slot="pin-input-separator"
     >
       {resolvedChildren() ?? <SeparatorMarkIcon />}
     </span>

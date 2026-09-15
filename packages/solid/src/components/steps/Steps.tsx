@@ -15,9 +15,9 @@ function StepsRoot(props: ComponentProps<typeof StepsPrimitive.Root>) {
 
   return (
     <StepsPrimitive.Root
-      data-slot="steps-root"
       class={clsx(styles.root, local.class)}
       {...others}
+      data-slot="steps-root"
     />
   );
 }
@@ -27,9 +27,9 @@ function StepsRootProvider(props: ComponentProps<typeof StepsPrimitive.RootProvi
 
   return (
     <StepsPrimitive.RootProvider
-      data-slot="steps-root-provider"
       class={clsx(styles.root, local.class)}
       {...others}
+      data-slot="steps-root-provider"
     />
   );
 }
@@ -39,9 +39,9 @@ function StepsList(props: ComponentProps<typeof StepsPrimitive.List>) {
 
   return (
     <StepsPrimitive.List
-      data-slot="steps-list"
       class={clsx(styles.list, local.class)}
       {...others}
+      data-slot="steps-list"
     />
   );
 }
@@ -51,9 +51,9 @@ function StepsItem(props: ComponentProps<typeof StepsPrimitive.Item>) {
 
   return (
     <StepsPrimitive.Item
-      data-slot="steps-item"
       class={clsx(styles.item, local.class)}
       {...others}
+      data-slot="steps-item"
     />
   );
 }
@@ -63,9 +63,9 @@ function StepsTrigger(props: ComponentProps<typeof StepsPrimitive.Trigger>) {
 
   return (
     <StepsPrimitive.Trigger
-      data-slot="steps-trigger"
       class={clsx(styles.trigger, local.class)}
       {...others}
+      data-slot="steps-trigger"
     />
   );
 }
@@ -77,9 +77,9 @@ function StepsIndicator(props: ComponentProps<typeof StepsPrimitive.Indicator>) 
 
   return (
     <StepsPrimitive.Indicator
-      data-slot="steps-indicator"
       class={clsx(styles.indicator, local.class)}
       {...others}
+      data-slot="steps-indicator"
     >
       {resolvedChildren() ?? (item().completed ? <CheckIcon /> : item().index + 1)}
     </StepsPrimitive.Indicator>
@@ -91,9 +91,9 @@ function StepsSeparator(props: ComponentProps<typeof StepsPrimitive.Separator>) 
 
   return (
     <StepsPrimitive.Separator
-      data-slot="steps-separator"
       class={clsx(styles.separator, local.class)}
       {...others}
+      data-slot="steps-separator"
     />
   );
 }
@@ -103,9 +103,9 @@ function StepsContent(props: ComponentProps<typeof StepsPrimitive.Content>) {
 
   return (
     <StepsPrimitive.Content
-      data-slot="steps-content"
       class={clsx(styles.content, local.class)}
       {...others}
+      data-slot="steps-content"
     />
   );
 }
@@ -115,9 +115,9 @@ function StepsCompletedContent(props: ComponentProps<typeof StepsPrimitive.Compl
 
   return (
     <StepsPrimitive.CompletedContent
-      data-slot="steps-completed-content"
       class={clsx(styles.completedContent, local.class)}
       {...others}
+      data-slot="steps-completed-content"
     />
   );
 }
@@ -127,9 +127,9 @@ function StepsPrevTrigger(props: ComponentProps<typeof StepsPrimitive.PrevTrigge
 
   return (
     <StepsPrimitive.PrevTrigger
-      data-slot="steps-prev-trigger"
       class={clsx(styles.prevTrigger, local.class)}
       {...others}
+      data-slot="steps-prev-trigger"
     />
   );
 }
@@ -139,9 +139,9 @@ function StepsNextTrigger(props: ComponentProps<typeof StepsPrimitive.NextTrigge
 
   return (
     <StepsPrimitive.NextTrigger
-      data-slot="steps-next-trigger"
       class={clsx(styles.nextTrigger, local.class)}
       {...others}
+      data-slot="steps-next-trigger"
     />
   );
 }
@@ -151,9 +151,9 @@ function StepsProgress(props: ComponentProps<typeof StepsPrimitive.Progress>) {
 
   return (
     <StepsPrimitive.Progress
-      data-slot="steps-progress"
       class={clsx(styles.progress, local.class)}
       {...others}
+      data-slot="steps-progress"
     />
   );
 }

@@ -16,12 +16,12 @@ const ProgressCircularRoot = forwardRef<
   return (
     <ProgressPrimitive.Root
       ref={ref}
-      data-slot="progress-circular-root"
       className={cn(
         'inline-grid w-max max-w-full min-w-0 justify-items-center gap-2 text-foreground',
         className,
       )}
       {...props}
+      data-slot="progress-circular-root"
     />
   );
 });
@@ -33,12 +33,12 @@ const ProgressCircularRootProvider = forwardRef<
   return (
     <ProgressPrimitive.RootProvider
       ref={ref}
-      data-slot="progress-circular-root-provider"
       className={cn(
         'inline-grid w-max max-w-full min-w-0 justify-items-center gap-2 text-foreground',
         className,
       )}
       {...props}
+      data-slot="progress-circular-root-provider"
     />
   );
 });
@@ -50,12 +50,12 @@ const ProgressCircularLabel = forwardRef<
   return (
     <ProgressPrimitive.Label
       ref={ref}
-      data-slot="progress-circular-label"
       className={cn(
         'max-w-full min-w-0 text-center text-sm font-regular [overflow-wrap:anywhere]',
         className,
       )}
       {...props}
+      data-slot="progress-circular-label"
     />
   );
 });
@@ -67,12 +67,12 @@ const ProgressCircularValueText = forwardRef<
   return (
     <ProgressPrimitive.ValueText
       ref={ref}
-      data-slot="progress-circular-value-text"
       className={cn(
         'max-w-full min-w-0 text-center text-sm font-medium [overflow-wrap:anywhere]',
         className,
       )}
       {...props}
+      data-slot="progress-circular-value-text"
     />
   );
 });
@@ -84,12 +84,12 @@ const ProgressCircularCircle = forwardRef<
   return (
     <ProgressPrimitive.Circle
       ref={ref}
-      data-slot="progress-circular-circle"
       className={cn(
         'block overflow-visible [--size:var(--spacing-control-xl)] [--thickness:0.4rem]',
         className,
       )}
       {...props}
+      data-slot="progress-circular-circle"
     />
   );
 });
@@ -101,9 +101,9 @@ const ProgressCircularCircleTrack = forwardRef<
   return (
     <ProgressPrimitive.CircleTrack
       ref={ref}
-      data-slot="progress-circular-circle-track"
       className={cn('stroke-muted', className)}
       {...props}
+      data-slot="progress-circular-circle-track"
     />
   );
 });
@@ -115,12 +115,12 @@ const ProgressCircularCircleRange = forwardRef<
   return (
     <ProgressPrimitive.CircleRange
       ref={ref}
-      data-slot="progress-circular-circle-range"
       className={cn(
         'origin-center stroke-primary transition-[stroke-dashoffset] duration-200 ease-in-out [stroke-linecap:round] [transform-box:fill-box] data-[state=indeterminate]:animate-[moduix-spin_1.4s_linear_infinite] data-[state=indeterminate]:[stroke-dasharray:1_200] motion-reduce:transition-none motion-reduce:data-[state=indeterminate]:animate-none motion-reduce:data-[state=indeterminate]:[stroke-dasharray:20_200]',
         className,
       )}
       {...props}
+      data-slot="progress-circular-circle-range"
     />
   );
 });
@@ -149,9 +149,9 @@ const ProgressCircularView = forwardRef<
   return (
     <ProgressPrimitive.View
       ref={ref}
-      data-slot="progress-circular-view"
       className={cn('contents', className)}
       {...props}
+      data-slot="progress-circular-view"
     />
   );
 });

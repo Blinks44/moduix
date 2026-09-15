@@ -23,10 +23,10 @@ function SwitchRoot(props: SwitchRootProps) {
   return (
     <SwitchPrimitive.Root
       asChild={local.asChild}
-      data-slot="switch-root"
       data-size={local.size ?? 'md'}
       class={clsx(styles.root, local.class)}
       {...others}
+      data-slot="switch-root"
     >
       {local.children}
     </SwitchPrimitive.Root>
@@ -39,10 +39,10 @@ function SwitchRootProvider(props: SwitchRootProviderProps) {
   return (
     <SwitchPrimitive.RootProvider
       asChild={local.asChild}
-      data-slot="switch-root-provider"
       data-size={local.size ?? 'md'}
       class={clsx(styles.root, local.class)}
       {...others}
+      data-slot="switch-root-provider"
     >
       {local.children}
     </SwitchPrimitive.RootProvider>
@@ -55,9 +55,9 @@ function SwitchControl(props: ComponentProps<typeof SwitchPrimitive.Control>) {
 
   return (
     <SwitchPrimitive.Control
-      data-slot="switch-control"
       class={clsx(styles.control, local.class)}
       {...others}
+      data-slot="switch-control"
     >
       {resolvedChildren() ?? <SwitchThumb />}
     </SwitchPrimitive.Control>
@@ -69,9 +69,9 @@ function SwitchThumb(props: ComponentProps<typeof SwitchPrimitive.Thumb>) {
 
   return (
     <SwitchPrimitive.Thumb
-      data-slot="switch-thumb"
       class={clsx(styles.thumb, local.class)}
       {...others}
+      data-slot="switch-thumb"
     />
   );
 }
@@ -81,9 +81,9 @@ function SwitchLabel(props: ComponentProps<typeof SwitchPrimitive.Label>) {
 
   return (
     <SwitchPrimitive.Label
-      data-slot="switch-label"
       class={clsx(styles.label, local.class)}
       {...others}
+      data-slot="switch-label"
     />
   );
 }

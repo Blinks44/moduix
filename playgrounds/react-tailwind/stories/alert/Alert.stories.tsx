@@ -2,8 +2,8 @@ import type { Meta, StoryObj } from '@storybook/react-vite';
 import type { ComponentProps } from 'react';
 import { useState } from 'react';
 import { Alert } from '@/components/alert/Alert';
-import { Button } from '../../../../packages/react/src/components/button';
-import { CheckIcon } from '../../../../packages/react/src/internal/icons/ui';
+import { Button } from '../../../../packages/react-tailwind/src/components/button';
+import { CheckIcon } from '../../../../packages/react-tailwind/src/internal/icons/ui';
 
 function InfoIcon(props: ComponentProps<'svg'>) {
   return (

@@ -1,5 +1,6 @@
 import type { HTMLArkProps } from '@ark-ui/solid/factory';
 import { ark } from '@ark-ui/solid/factory';
+import { Splitter as SplitterPrimitive } from '@ark-ui/solid/splitter';
 import type { Accessor, ComponentProps } from 'solid-js';
 import { createContext, splitProps, useContext } from 'solid-js';
 import { cn } from '@/lib/moduix/cn';
@@ -77,13 +78,13 @@ function useSidebarConfig() {
 }
 
 function SidebarRoot(props: SidebarRootProps) {
-  const [local, others] = splitProps(props, ['class', 'defaultSize', 'panelId', 'side']);
+  const [local, others] = splitProps(props, ['class', 'defaultSize', 'panelId', 'side', 'style']);
   const panelId = () => local.panelId ?? 'sidebar';
   const side = () => local.side ?? 'left';
 
   return (
     <SidebarConfigContext.Provider value={{ panelId, side }}>
-      <Splitter.Root
+      <SplitterPrimitive.Root
         {...others}
         panels={getDefaultPanels(side(), panelId())}
         defaultSize={local.defaultSize ?? getDefaultSidebarSize(side())}
@@ -91,9 +92,15 @@ function SidebarRoot(props: SidebarRootProps) {
         data-side={side()}
         data-slot="sidebar-root"
         class={cn(
+          'group/splitter relative box-border h-112 min-h-0 w-full min-w-0 rounded-md border border-border bg-card text-foreground shadow-sm data-dragging:cursor-col-resize data-dragging:data-[orientation=vertical]:cursor-row-resize',
           'isolate h-dvh min-h-96 w-full min-w-0 rounded-none border border-border bg-background text-foreground shadow-none',
           local.class,
         )}
+        style={
+          typeof local.style === 'string'
+            ? `width:;height:;${local.style}`
+            : { width: undefined, height: undefined, ...local.style }
+        }
       />
     </SidebarConfigContext.Provider>
   );
@@ -119,13 +126,14 @@ function SidebarPanel(props: SidebarPanelProps) {
   const collapsed = () => splitter().isPanelCollapsed(config.panelId());
 
   return (
-    <Splitter.Panel
+    <SplitterPrimitive.Panel
       {...others}
       id={config.panelId()}
       data-side={config.side()}
       data-slot="sidebar-panel"
       data-state={collapsed() ? 'collapsed' : 'expanded'}
       class={cn(
+        'box-border min-h-50 min-w-0 overflow-auto rounded-none border-0 border-border bg-card p-4 text-card-foreground shadow-none group-data-[orientation=vertical]/splitter:min-h-0 data-dragging:select-none',
         'group/sidebar-panel @container/sidebar-panel relative flex min-h-0 min-w-0 flex-col overflow-hidden bg-card p-0 text-card-foreground transition-colors duration-200 ease-in-out motion-reduce:transition-none',
         local.class,
       )}
@@ -138,18 +146,22 @@ function SidebarInset(props: SidebarPanelProps) {
   const config = useSidebarConfig();
 
   return (
-    <Splitter.Panel
+    <SplitterPrimitive.Panel
       {...others}
       id="content"
       data-side={config.side()}
       data-slot="sidebar-inset"
-      class={cn('relative min-w-0 overflow-auto bg-background p-0 text-foreground', local.class)}
+      class={cn(
+        'box-border min-h-50 min-w-0 overflow-auto rounded-none border-0 border-border bg-card p-4 text-card-foreground shadow-none group-data-[orientation=vertical]/splitter:min-h-0 data-dragging:select-none',
+        'relative min-w-0 overflow-auto bg-background p-0 text-foreground',
+        local.class,
+      )}
     />
   );
 }
 
 function SidebarResizeTrigger(props: SidebarResizeTriggerProps) {
-  const [local, others] = splitProps(props, ['aria-label', 'class', 'children']);
+  const [local, others] = splitProps(props, ['aria-label', 'asChild', 'class', 'children']);
   const config = useSidebarConfig();
   const id = (): NonNullable<ComponentProps<typeof Splitter.ResizeTrigger>['id']> =>
     (config.side() === 'left'
@@ -159,16 +171,25 @@ function SidebarResizeTrigger(props: SidebarResizeTriggerProps) {
     >;
 
   return (
-    <Splitter.ResizeTrigger
+    <SplitterPrimitive.ResizeTrigger
       {...others}
+      asChild={local.asChild}
       id={id()}
       aria-label={local['aria-label'] ?? 'Resize sidebar'}
       data-side={config.side()}
       data-slot="sidebar-resize-trigger"
-      class={cn('z-2', local.class)}
+      class={cn(
+        "group/trigger relative z-1 box-border flex w-px min-w-px cursor-col-resize appearance-none items-center justify-center border-0 bg-transparent p-0 outline-0 transition-opacity duration-200 ease-in-out before:absolute before:h-full before:w-[0.5px] before:rounded-full before:bg-border before:transition-[background-color] before:duration-200 before:ease-in-out before:content-[''] after:absolute after:z-1 after:h-full after:w-2.5 after:content-[''] data-disabled:cursor-default data-disabled:opacity-50 data-dragging:before:bg-muted-foreground/40 data-[orientation=vertical]:h-px data-[orientation=vertical]:min-h-px data-[orientation=vertical]:w-full data-[orientation=vertical]:min-w-0 data-[orientation=vertical]:cursor-row-resize data-[orientation=vertical]:before:h-[0.5px] data-[orientation=vertical]:before:w-full data-[orientation=vertical]:after:h-2.5 data-[orientation=vertical]:after:w-full [@media(hover:hover)]:[&:not(:disabled):not([data-disabled]):hover]:before:bg-muted-foreground/40",
+        'z-2',
+        local.class,
+      )}
     >
-      {local.children}
-    </Splitter.ResizeTrigger>
+      {local.children === undefined && !local.asChild ? (
+        <Splitter.ResizeTriggerIndicator />
+      ) : (
+        local.children
+      )}
+    </SplitterPrimitive.ResizeTrigger>
   );
 }
 
@@ -200,7 +221,6 @@ function SidebarTrigger(props: SidebarTriggerProps) {
       data-scope="sidebar"
       data-part="trigger"
       data-side={config.side()}
-      data-slot="sidebar-trigger"
       data-state={collapsed() ? 'collapsed' : 'expanded'}
       class={cn(
         'relative z-4 -mx-3.5 inline-flex size-7 flex-none translate-y-10 cursor-pointer items-center justify-center rounded-full border border-border bg-background p-0 text-muted-foreground shadow-sm outline-0 transition-[background-color,color,box-shadow] duration-200 ease-in-out',
@@ -211,6 +231,7 @@ function SidebarTrigger(props: SidebarTriggerProps) {
       )}
       onClick={handleClick}
       {...others}
+      data-slot="sidebar-trigger"
     >
       {local.children === undefined && !local.asChild ? <ChevronLeftIcon /> : local.children}
     </ark.button>
@@ -224,9 +245,9 @@ function SidebarLabel(props: HTMLArkProps<'span'>) {
     <ark.span
       data-scope="sidebar"
       data-part="label"
-      data-slot="sidebar-label"
       class={cn('min-w-0 truncate group-data-[state=collapsed]/sidebar-panel:sr-only', local.class)}
       {...others}
+      data-slot="sidebar-label"
     />
   );
 }
@@ -238,12 +259,12 @@ function SidebarHeader(props: HTMLArkProps<'header'>) {
     <ark.header
       data-scope="sidebar"
       data-part="header"
-      data-slot="sidebar-header"
       class={cn(
         'flex flex-none items-center gap-2 p-3 group-data-[state=collapsed]/sidebar-panel:justify-center group-data-[state=collapsed]/sidebar-panel:px-1 [&>*:only-child]:w-full group-data-[state=collapsed]/sidebar-panel:[&>*:only-child]:w-auto',
         local.class,
       )}
       {...others}
+      data-slot="sidebar-header"
     />
   );
 }
@@ -255,12 +276,12 @@ function SidebarContent(props: HTMLArkProps<'div'>) {
     <ark.div
       data-scope="sidebar"
       data-part="content"
-      data-slot="sidebar-content"
       class={cn(
         'flex min-h-0 flex-auto [scrollbar-gutter:stable] flex-col overflow-auto overscroll-contain group-data-[state=collapsed]/sidebar-panel:[scrollbar-width:none] group-data-[state=collapsed]/sidebar-panel:[scrollbar-gutter:auto] group-data-[state=collapsed]/sidebar-panel:overflow-x-hidden group-data-[state=collapsed]/sidebar-panel:overflow-y-auto',
         local.class,
       )}
       {...others}
+      data-slot="sidebar-content"
     />
   );
 }
@@ -273,9 +294,9 @@ function SidebarExpandedContent(props: HTMLArkProps<'div'>) {
     <ark.div
       data-scope="sidebar"
       data-part="expanded-content"
-      data-slot="sidebar-expanded-content"
       class={local.class}
       {...others}
+      data-slot="sidebar-expanded-content"
       hidden={collapsed()}
     />
   );
@@ -289,9 +310,9 @@ function SidebarCollapsedContent(props: HTMLArkProps<'div'>) {
     <ark.div
       data-scope="sidebar"
       data-part="collapsed-content"
-      data-slot="sidebar-collapsed-content"
       class={local.class}
       {...others}
+      data-slot="sidebar-collapsed-content"
       hidden={!collapsed()}
     />
   );
@@ -304,12 +325,12 @@ function SidebarFooter(props: HTMLArkProps<'footer'>) {
     <ark.footer
       data-scope="sidebar"
       data-part="footer"
-      data-slot="sidebar-footer"
       class={cn(
         'flex flex-none items-center gap-2 p-3 group-data-[state=collapsed]/sidebar-panel:justify-center group-data-[state=collapsed]/sidebar-panel:px-1',
         local.class,
       )}
       {...others}
+      data-slot="sidebar-footer"
     />
   );
 }
@@ -321,12 +342,12 @@ function SidebarGroup(props: HTMLArkProps<'section'>) {
     <ark.section
       data-scope="sidebar"
       data-part="group"
-      data-slot="sidebar-group"
       class={cn(
         'flex flex-col gap-1 p-3 group-data-[state=collapsed]/sidebar-panel:px-1',
         local.class,
       )}
       {...others}
+      data-slot="sidebar-group"
     />
   );
 }
@@ -338,9 +359,9 @@ function SidebarGroupHeader(props: HTMLArkProps<'div'>) {
     <ark.div
       data-scope="sidebar"
       data-part="group-header"
-      data-slot="sidebar-group-header"
       class={cn('flex min-w-0 items-center gap-2', local.class)}
       {...others}
+      data-slot="sidebar-group-header"
     />
   );
 }
@@ -352,12 +373,12 @@ function SidebarGroupLabel(props: HTMLArkProps<'h3'>) {
     <ark.h3
       data-scope="sidebar"
       data-part="group-label"
-      data-slot="sidebar-group-label"
       class={cn(
         'min-w-0 flex-1 truncate px-2 text-xs leading-4 font-medium text-muted-foreground group-data-[state=collapsed]/sidebar-panel:sr-only',
         local.class,
       )}
       {...others}
+      data-slot="sidebar-group-label"
     />
   );
 }
@@ -370,12 +391,12 @@ function SidebarGroupAction(props: HTMLArkProps<'button'>) {
       type={local.type ?? 'button'}
       data-scope="sidebar"
       data-part="group-action"
-      data-slot="sidebar-group-action"
       class={cn(
         'focus-visible:outline-offset-0.5 me-2 inline-flex size-control-xs flex-none cursor-pointer items-center justify-center rounded-md p-0 text-muted-foreground outline-0 transition-colors duration-200 ease-in-out hover:bg-accent hover:text-accent-foreground focus-visible:outline-2 focus-visible:outline-ring motion-reduce:transition-none @max-[7rem]:hidden [&>svg]:size-4',
         local.class,
       )}
       {...others}
+      data-slot="sidebar-group-action"
     />
   );
 }
@@ -387,9 +408,9 @@ function SidebarNavigationList(props: HTMLArkProps<'ul'>) {
     <ark.ul
       data-scope="sidebar"
       data-part="navigation-list"
-      data-slot="sidebar-navigation-list"
       class={cn('flex w-full min-w-0 flex-col gap-1', local.class)}
       {...others}
+      data-slot="sidebar-navigation-list"
     />
   );
 }
@@ -401,9 +422,9 @@ function SidebarNavigationItem(props: HTMLArkProps<'li'>) {
     <ark.li
       data-scope="sidebar"
       data-part="navigation-item"
-      data-slot="sidebar-navigation-item"
       class={cn('relative min-w-0', local.class)}
       {...others}
+      data-slot="sidebar-navigation-item"
     />
   );
 }
@@ -430,7 +451,6 @@ function SidebarNavigationButton(
       aria-current={local['aria-current'] ?? (local.active ? 'page' : undefined)}
       data-scope="sidebar"
       data-part="navigation-button"
-      data-slot="sidebar-navigation-button"
       data-active={local.active ? '' : undefined}
       data-size={local.size ?? 'md'}
       class={cn(
@@ -447,6 +467,7 @@ function SidebarNavigationButton(
         local.class,
       )}
       {...others}
+      data-slot="sidebar-navigation-button"
     />
   );
 }
@@ -458,12 +479,12 @@ function SidebarNavigationBadge(props: HTMLArkProps<'span'>) {
     <ark.span
       data-scope="sidebar"
       data-part="navigation-badge"
-      data-slot="sidebar-navigation-badge"
       class={cn(
         'pointer-events-none absolute end-2.5 top-1/2 z-1 box-border inline-grid size-5 -translate-y-1/2 place-items-center rounded-full bg-primary p-0 text-[0.5625rem] leading-none font-medium text-primary-foreground tabular-nums @max-[7rem]:hidden',
         local.class,
       )}
       {...others}
+      data-slot="sidebar-navigation-badge"
     />
   );
 }
@@ -475,12 +496,12 @@ function SidebarNavigationSubList(props: HTMLArkProps<'ul'>) {
     <ark.ul
       data-scope="sidebar"
       data-part="navigation-sub-list"
-      data-slot="sidebar-navigation-sub-list"
       class={cn(
         'ms-4 mt-1 flex w-auto min-w-0 flex-col gap-1 border-s border-border ps-2 group-data-[state=collapsed]/sidebar-panel:hidden',
         local.class,
       )}
       {...others}
+      data-slot="sidebar-navigation-sub-list"
     />
   );
 }
@@ -492,9 +513,9 @@ function SidebarNavigationSubItem(props: HTMLArkProps<'li'>) {
     <ark.li
       data-scope="sidebar"
       data-part="navigation-sub-item"
-      data-slot="sidebar-navigation-sub-item"
       class={cn('relative min-w-0', local.class)}
       {...others}
+      data-slot="sidebar-navigation-sub-item"
     />
   );
 }
@@ -518,7 +539,6 @@ function SidebarNavigationSubButton(
       aria-current={local['aria-current'] ?? (local.active ? 'page' : undefined)}
       data-scope="sidebar"
       data-part="navigation-sub-button"
-      data-slot="sidebar-navigation-sub-button"
       data-active={local.active ? '' : undefined}
       class={cn(
         'flex min-h-control-sm w-full min-w-0 cursor-pointer items-center gap-2 overflow-hidden rounded-md px-2 text-start text-sm leading-5 text-ellipsis whitespace-nowrap text-card-foreground outline-0 transition-[background-color,border-color,color,box-shadow] duration-200 ease-in-out has-[+_[data-slot=sidebar-navigation-badge]]:pe-10 @max-[7rem]:has-[+_[data-slot=sidebar-navigation-badge]]:pe-2',
@@ -527,6 +547,7 @@ function SidebarNavigationSubButton(
         local.class,
       )}
       {...others}
+      data-slot="sidebar-navigation-sub-button"
     >
       {typeof local.children === 'string' ? (
         <span data-slot="sidebar-navigation-sub-label">{local.children}</span>
@@ -578,9 +599,9 @@ function SidebarInput(props: ComponentProps<typeof Input.Root>) {
 
   return (
     <Input.Root
-      data-slot="sidebar-input"
       class={cn('w-full group-data-[state=collapsed]/sidebar-panel:hidden', local.class)}
       {...others}
+      data-slot="sidebar-input"
     />
   );
 }
@@ -590,9 +611,9 @@ function SidebarSeparator(props: ComponentProps<typeof Separator.Root>) {
 
   return (
     <Separator.Root
-      data-slot="sidebar-separator"
       class={cn('border-border', local.class)}
       {...others}
+      data-slot="sidebar-separator"
     />
   );
 }

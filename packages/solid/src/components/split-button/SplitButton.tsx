@@ -1,9 +1,13 @@
+import { useFocusVisible } from '@ark-ui/solid';
+import { Menu as MenuPrimitive } from '@ark-ui/solid/menu';
 import { clsx } from 'clsx';
 import type { Accessor, ComponentProps, JSX } from 'solid-js';
 import { children, createContext, splitProps, useContext } from 'solid-js';
 import { ChevronDownIcon } from '@/lib/moduix/icons/ui/Icons';
+import { OverlayPortal } from '@/lib/moduix/overlayPortal';
 import { Button } from '../button';
 import { Menu } from '../menu';
+import menuStyles from '../menu/Menu.module.css';
 import styles from './SplitButton.module.css';
 
 type ButtonProps = ComponentProps<typeof Button>;
@@ -31,7 +35,7 @@ type SplitButtonActionProps = Omit<ButtonProps, 'size' | 'variant'> & {
 };
 
 type SplitButtonTriggerProps = Omit<
-  ComponentProps<typeof Menu.Trigger>,
+  ComponentProps<typeof MenuPrimitive.Trigger>,
   'asChild' | 'children' | 'class'
 > & {
   children?: JSX.Element;
@@ -40,8 +44,8 @@ type SplitButtonTriggerProps = Omit<
   variant?: SplitButtonVariant;
 };
 
-type SplitButtonContentProps = ComponentProps<typeof Menu.Content>;
-type SplitButtonPositionerProps = ComponentProps<typeof Menu.Positioner>;
+type SplitButtonContentProps = ComponentProps<typeof MenuPrimitive.Content>;
+type SplitButtonPositionerProps = ComponentProps<typeof MenuPrimitive.Positioner>;
 
 const SplitButtonContext = createContext<SplitButtonContextValue | null>(null);
 
@@ -115,13 +119,14 @@ function SplitButtonAction(props: SplitButtonActionProps) {
 function SplitButtonTrigger(props: SplitButtonTriggerProps) {
   const [local, others] = splitProps(props, ['children', 'class', 'size', 'variant', 'aria-label']);
   const context = useSplitButtonContext('SplitButton.Trigger');
+  const focusVisible = useFocusVisible();
   const resolvedChildren = children(() => local.children);
   const isIconOnly = () => resolvedChildren() == null;
   const ariaLabel = () =>
     isIconOnly() ? (local['aria-label'] ?? 'More actions') : local['aria-label'];
 
   return (
-    <Menu.Trigger
+    <MenuPrimitive.Trigger
       {...others}
       asChild={(triggerProps) => (
         <Button
@@ -138,6 +143,7 @@ function SplitButtonTrigger(props: SplitButtonTriggerProps) {
       data-slot="split-button-trigger"
       aria-label={ariaLabel()}
       class={clsx(styles.trigger, local.class)}
+      data-focus-visible={focusVisible() ? '' : undefined}
     />
   );
 }
@@ -145,21 +151,29 @@ function SplitButtonTrigger(props: SplitButtonTriggerProps) {
 function SplitButtonPositioner(props: SplitButtonPositionerProps) {
   const [local, others] = splitProps(props, ['class']);
 
-  return <Menu.Positioner {...others} data-slot="split-button-positioner" class={local.class} />;
+  return (
+    <OverlayPortal>
+      <MenuPrimitive.Positioner
+        {...others}
+        data-slot="split-button-positioner"
+        class={clsx(menuStyles.positioner, local.class)}
+      />
+    </OverlayPortal>
+  );
 }
 
 function SplitButtonContent(props: SplitButtonContentProps) {
   const [local, others] = splitProps(props, ['asChild', 'children', 'class']);
 
   return (
-    <Menu.Content
+    <MenuPrimitive.Content
       {...others}
       asChild={local.asChild}
       data-slot="split-button-content"
-      class={local.class}
+      class={clsx(menuStyles.content, local.class)}
     >
       {local.asChild ? local.children : <Menu.Viewport>{local.children}</Menu.Viewport>}
-    </Menu.Content>
+    </MenuPrimitive.Content>
   );
 }
 

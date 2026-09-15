@@ -211,21 +211,6 @@
   font-size: 0.875rem;
 }
 
-.styleTrackCardHeader::before {
-  width: 0.5rem;
-  height: 0.5rem;
-  flex: none;
-  border-radius: 50%;
-  background: var(--rp-c-brand);
-  box-shadow: 0 0 0 0.25rem color-mix(in srgb, var(--rp-c-brand) 12%, transparent);
-  content: '';
-}
-
-.styleTrackCard:nth-child(2) .styleTrackCardHeader::before {
-  background: var(--rp-c-text-2);
-  box-shadow: 0 0 0 0.25rem color-mix(in srgb, var(--rp-c-text-2) 12%, transparent);
-}
-
 .styleTrackCardBody :global(.rp-codeblock) {
   margin: 0;
   border: 0;

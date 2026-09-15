@@ -17,12 +17,12 @@ const NumberInputRoot = forwardRef<
   return (
     <NumberInputPrimitive.Root
       ref={ref}
-      data-slot="number-input-root"
       className={cn(
         'group/number-input flex w-auto max-w-none flex-col items-start gap-1 data-disabled:opacity-50',
         className,
       )}
       {...props}
+      data-slot="number-input-root"
     />
   );
 });
@@ -34,12 +34,12 @@ const NumberInputRootProvider = forwardRef<
   return (
     <NumberInputPrimitive.RootProvider
       ref={ref}
-      data-slot="number-input-root-provider"
       className={cn(
         'group/number-input flex w-auto max-w-none flex-col items-start gap-1 data-disabled:opacity-50',
         className,
       )}
       {...props}
+      data-slot="number-input-root-provider"
     />
   );
 });
@@ -51,9 +51,9 @@ const NumberInputLabel = forwardRef<
   return (
     <NumberInputPrimitive.Label
       ref={ref}
-      data-slot="number-input-label"
       className={cn('text-sm leading-5 font-medium text-foreground', className)}
       {...props}
+      data-slot="number-input-label"
     />
   );
 });
@@ -65,12 +65,12 @@ const NumberInputScrubber = forwardRef<
   return (
     <NumberInputPrimitive.Scrubber
       ref={ref}
-      data-slot="number-input-scrubber"
       className={cn(
         'inline-flex cursor-ew-resize items-center gap-2 text-foreground select-none data-disabled:cursor-default',
         className,
       )}
       {...props}
+      data-slot="number-input-scrubber"
     />
   );
 });
@@ -82,9 +82,9 @@ const NumberInputControl = forwardRef<
   return (
     <NumberInputPrimitive.Control
       ref={ref}
-      data-slot="number-input-control"
       className={cn('inline-flex items-stretch', className)}
       {...props}
+      data-slot="number-input-control"
     />
   );
 });
@@ -96,12 +96,12 @@ const NumberInputDecrementTrigger = forwardRef<
   return (
     <NumberInputPrimitive.DecrementTrigger
       ref={ref}
-      data-slot="number-input-decrement-trigger"
       className={cn(
         'box-border inline-flex size-control-md min-w-control-md cursor-pointer items-center justify-center rounded-s-md border border-e-0 border-border bg-background p-0 text-foreground outline-0 transition-[background-color,border-color,color,opacity] duration-200 ease-in-out select-none group-data-invalid/number-input:border-destructive focus-visible:z-1 focus-visible:outline-1 focus-visible:-outline-offset-1 focus-visible:outline-ring group-data-invalid/number-input:focus-visible:outline-destructive active:bg-accent disabled:pointer-events-none data-disabled:pointer-events-none data-focus:z-1 data-focus:outline-1 data-focus:-outline-offset-1 data-focus:outline-ring group-data-invalid/number-input:data-focus:outline-destructive data-invalid:border-destructive data-invalid:focus-visible:outline-destructive data-invalid:data-focus:outline-destructive motion-reduce:transition-none [&>svg]:size-3.5 [&>svg]:shrink-0 [@media(hover:hover)]:hover:bg-accent',
         className,
       )}
       {...props}
+      data-slot="number-input-decrement-trigger"
     >
       {children ?? <MinusIcon />}
     </NumberInputPrimitive.DecrementTrigger>
@@ -115,12 +115,12 @@ const NumberInputInput = forwardRef<
   return (
     <NumberInputPrimitive.Input
       ref={ref}
-      data-slot="number-input-input"
       className={cn(
         'h-control-md w-24 rounded-none border-x-0 border-y border-border border-x-current bg-background px-3 py-1 text-center text-md leading-6 text-foreground tabular-nums outline-1 -outline-offset-1 outline-transparent transition-[border-color,outline-color,opacity] duration-200 ease-in-out group-data-invalid/number-input:border-t-destructive group-data-invalid/number-input:border-b-destructive focus-visible:z-1 focus-visible:outline-ring group-data-invalid/number-input:focus-visible:outline-destructive data-focus:z-1 data-focus:outline-ring group-data-invalid/number-input:data-focus:outline-destructive data-invalid:border-t-destructive data-invalid:border-b-destructive data-invalid:focus-visible:outline-destructive data-invalid:data-focus:outline-destructive motion-reduce:transition-none',
         className,
       )}
       {...props}
+      data-slot="number-input-input"
     />
   );
 });
@@ -132,12 +132,12 @@ const NumberInputIncrementTrigger = forwardRef<
   return (
     <NumberInputPrimitive.IncrementTrigger
       ref={ref}
-      data-slot="number-input-increment-trigger"
       className={cn(
         'box-border inline-flex size-control-md min-w-control-md cursor-pointer items-center justify-center rounded-e-md border border-s-0 border-border bg-background p-0 text-foreground outline-0 transition-[background-color,border-color,color,opacity] duration-200 ease-in-out select-none group-data-invalid/number-input:border-destructive focus-visible:z-1 focus-visible:outline-1 focus-visible:-outline-offset-1 focus-visible:outline-ring group-data-invalid/number-input:focus-visible:outline-destructive active:bg-accent disabled:pointer-events-none data-disabled:pointer-events-none data-focus:z-1 data-focus:outline-1 data-focus:-outline-offset-1 data-focus:outline-ring group-data-invalid/number-input:data-focus:outline-destructive data-invalid:border-destructive data-invalid:focus-visible:outline-destructive data-invalid:data-focus:outline-destructive motion-reduce:transition-none [&>svg]:size-3.5 [&>svg]:shrink-0 [@media(hover:hover)]:hover:bg-accent',
         className,
       )}
       {...props}
+      data-slot="number-input-increment-trigger"
     >
       {children ?? <PlusIcon />}
     </NumberInputPrimitive.IncrementTrigger>
@@ -151,9 +151,9 @@ const NumberInputValueText = forwardRef<
   return (
     <NumberInputPrimitive.ValueText
       ref={ref}
-      data-slot="number-input-value-text"
       className={cn('text-sm leading-5 text-muted-foreground tabular-nums', className)}
       {...props}
+      data-slot="number-input-value-text"
     />
   );
 });

@@ -42,7 +42,6 @@ const ComboboxRoot = forwardRef(function ComboboxRoot<T extends CollectionItem>(
     <OverlayPortalProvider portalled={portalled} portalRef={portalRef}>
       <ComboboxPrimitive.Root
         ref={ref}
-        data-slot="combobox-root"
         className={cn(
           'box-border flex w-64 max-w-full min-w-0 flex-col gap-1.5 text-foreground',
           className,
@@ -50,6 +49,7 @@ const ComboboxRoot = forwardRef(function ComboboxRoot<T extends CollectionItem>(
         lazyMount={lazyMount}
         unmountOnExit={unmountOnExit}
         {...props}
+        data-slot="combobox-root"
       />
     </OverlayPortalProvider>
   );
@@ -70,7 +70,6 @@ const ComboboxRootProvider = forwardRef(function ComboboxRootProvider<T extends 
     <OverlayPortalProvider portalled={portalled} portalRef={portalRef}>
       <ComboboxPrimitive.RootProvider
         ref={ref}
-        data-slot="combobox-root-provider"
         className={cn(
           'box-border flex w-64 max-w-full min-w-0 flex-col gap-1.5 text-foreground',
           className,
@@ -78,6 +77,7 @@ const ComboboxRootProvider = forwardRef(function ComboboxRootProvider<T extends 
         lazyMount={lazyMount}
         unmountOnExit={unmountOnExit}
         {...props}
+        data-slot="combobox-root-provider"
       />
     </OverlayPortalProvider>
   );
@@ -90,12 +90,12 @@ const ComboboxLabel = forwardRef<
   return (
     <ComboboxPrimitive.Label
       ref={ref}
-      data-slot="combobox-label"
       className={cn(
         'inline-flex items-center text-sm font-medium text-foreground select-none data-disabled:opacity-50',
         className,
       )}
       {...props}
+      data-slot="combobox-label"
     />
   );
 });
@@ -107,12 +107,12 @@ const ComboboxControl = forwardRef<
   return (
     <ComboboxPrimitive.Control
       ref={ref}
-      data-slot="combobox-control"
       className={cn(
         'group/combobox-control relative flex w-full min-w-0 items-center rounded-md border border-border bg-background text-foreground outline-1 -outline-offset-1 outline-transparent transition-[background-color,border-color,outline-color] duration-200 ease-in-out data-disabled:opacity-50 data-focus:border-ring data-focus:outline-ring data-invalid:border-destructive data-invalid:outline-destructive data-[state=open]:border-ring data-[state=open]:outline-ring motion-reduce:transition-none',
         className,
       )}
       {...props}
+      data-slot="combobox-control"
     />
   );
 });
@@ -124,7 +124,6 @@ const ComboboxInput = forwardRef<
   return (
     <ComboboxPrimitive.Input
       ref={ref}
-      data-slot="combobox-input"
       asChild={asChild}
       className={cn(
         !asChild &&
@@ -132,6 +131,7 @@ const ComboboxInput = forwardRef<
         className,
       )}
       {...props}
+      data-slot="combobox-input"
     />
   );
 });
@@ -159,11 +159,11 @@ const ComboboxClearTrigger = forwardRef<
     <ComboboxPrimitive.ClearTrigger
       ref={ref}
       asChild
-      data-slot="combobox-clear-trigger"
       className={triggerClassName}
       aria-label={asChild ? ariaLabel : undefined}
       aria-labelledby={asChild ? ariaLabelledBy : undefined}
       {...props}
+      data-slot="combobox-clear-trigger"
     >
       {asChild ? (
         children
@@ -186,12 +186,12 @@ const ComboboxTrigger = forwardRef<
   return (
     <ComboboxPrimitive.Trigger
       ref={ref}
-      data-slot="combobox-trigger"
       className={cn(
         'absolute end-2 top-1/2 m-0 box-border inline-flex size-control-xs shrink-0 -translate-y-1/2 cursor-pointer items-center justify-center rounded-sm border-0 bg-transparent p-0 [line-height:0] text-muted-foreground transition-[background-color,color,opacity] duration-200 ease-in-out focus-visible:outline-1 focus-visible:outline-offset-1 focus-visible:outline-ring disabled:cursor-default data-disabled:cursor-default motion-reduce:transition-none [&>svg]:block [&>svg]:size-4 [@media(hover:hover)]:[&:not(:disabled):not([data-disabled]):hover]:bg-muted [@media(hover:hover)]:[&:not(:disabled):not([data-disabled]):hover]:text-foreground',
         className,
       )}
       {...props}
+      data-slot="combobox-trigger"
     >
       {children ?? <ChevronUpDownIcon />}
     </ComboboxPrimitive.Trigger>
@@ -206,9 +206,9 @@ const ComboboxPositioner = forwardRef<
     <OverlayPortal>
       <ComboboxPrimitive.Positioner
         ref={ref}
-        data-slot="combobox-positioner"
         className={cn('z-[var(--z-index)] outline-0', className)}
         {...props}
+        data-slot="combobox-positioner"
       />
     </OverlayPortal>
   );
@@ -221,12 +221,12 @@ const ComboboxContent = forwardRef<
   return (
     <ComboboxPrimitive.Content
       ref={ref}
-      data-slot="combobox-content"
       className={cn(
         'z-[calc(60+var(--layer-index,0))] box-border flex max-h-[min(24rem,var(--available-height))] max-w-[var(--available-width)] min-w-[var(--reference-width)] origin-[var(--transform-origin)] scroll-py-1 flex-col overflow-auto overscroll-contain rounded-md border border-border bg-popover py-1 text-popover-foreground shadow-lg outline-0 data-[state=closed]:animate-moduix-menu-closed data-[state=open]:animate-moduix-menu-open motion-reduce:[animation-delay:0ms] motion-reduce:[animation-duration:1ms]',
         className,
       )}
       {...props}
+      data-slot="combobox-content"
     />
   );
 });
@@ -238,9 +238,9 @@ const ComboboxEmpty = forwardRef<
   return (
     <ComboboxPrimitive.Empty
       ref={ref}
-      data-slot="combobox-empty"
       className={cn('px-4 py-1 text-sm text-muted-foreground', className)}
       {...props}
+      data-slot="combobox-empty"
     />
   );
 });
@@ -250,9 +250,9 @@ const ComboboxStatus = forwardRef<ComponentRef<typeof ark.div>, HTMLArkProps<'di
     return (
       <ark.div
         ref={ref}
-        data-slot="combobox-status"
         className={cn('px-4 py-1 text-sm text-muted-foreground', className)}
         {...props}
+        data-slot="combobox-status"
       />
     );
   },
@@ -265,9 +265,9 @@ const ComboboxList = forwardRef<
   return (
     <ComboboxPrimitive.List
       ref={ref}
-      data-slot="combobox-list"
       className={cn('flex min-h-0 flex-col outline-0 data-empty:hidden', className)}
       {...props}
+      data-slot="combobox-list"
     />
   );
 });
@@ -279,9 +279,9 @@ const ComboboxItemGroup = forwardRef<
   return (
     <ComboboxPrimitive.ItemGroup
       ref={ref}
-      data-slot="combobox-item-group"
       className={cn('flex flex-col [&+&]:mt-2', className)}
       {...props}
+      data-slot="combobox-item-group"
     />
   );
 });
@@ -293,12 +293,12 @@ const ComboboxItemGroupLabel = forwardRef<
   return (
     <ComboboxPrimitive.ItemGroupLabel
       ref={ref}
-      data-slot="combobox-item-group-label"
       className={cn(
         'sticky -top-1 z-1 bg-popover px-2.5 py-1 text-xs font-normal text-muted-foreground',
         className,
       )}
       {...props}
+      data-slot="combobox-item-group-label"
     />
   );
 });
@@ -310,12 +310,12 @@ const ComboboxItem = forwardRef<
   return (
     <ComboboxPrimitive.Item
       ref={ref}
-      data-slot="combobox-item"
       className={cn(
         'relative mx-1 box-border flex min-h-control-sm w-[calc(100%-0.5rem)] cursor-default items-center justify-between gap-2 rounded-sm border-0 bg-transparent px-3 py-1 text-sm text-popover-foreground outline-0 select-none data-disabled:pointer-events-none data-disabled:text-muted-foreground data-disabled:opacity-50 data-highlighted:bg-accent data-highlighted:text-accent-foreground data-[state=checked]:text-popover-foreground',
         className,
       )}
       {...props}
+      data-slot="combobox-item"
     />
   );
 });
@@ -327,9 +327,9 @@ const ComboboxItemText = forwardRef<
   return (
     <ComboboxPrimitive.ItemText
       ref={ref}
-      data-slot="combobox-item-text"
       className={cn('min-w-0 flex-1 overflow-hidden text-ellipsis whitespace-nowrap', className)}
       {...props}
+      data-slot="combobox-item-text"
     />
   );
 });
@@ -341,12 +341,12 @@ const ComboboxItemIndicator = forwardRef<
   return (
     <ComboboxPrimitive.ItemIndicator
       ref={ref}
-      data-slot="combobox-item-indicator"
       className={cn(
         'inline-flex size-3 shrink-0 items-center justify-center [&>svg]:size-full',
         className,
       )}
       {...props}
+      data-slot="combobox-item-indicator"
     >
       {children ?? <CheckIcon />}
     </ComboboxPrimitive.ItemIndicator>

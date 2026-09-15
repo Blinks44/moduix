@@ -7,7 +7,7 @@ import { cn } from '@/lib/moduix/cn';
 type BleedAmount = 'none' | 'xs' | 'sm' | 'md' | 'lg' | 'xl';
 type BleedInline = BleedAmount | 'full';
 
-const bleedVariants = cva('m-0 box-border', {
+const bleedVariants = cva('', {
   variants: {
     inline: {
       none: null,

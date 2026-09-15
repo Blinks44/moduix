@@ -31,10 +31,10 @@ const RatingGroupRoot = forwardRef<
   return (
     <RatingGroupPrimitive.Root
       ref={ref}
-      data-slot="rating-group-root"
       data-size={size}
       className={clsx(styles.root, className)}
       {...props}
+      data-slot="rating-group-root"
     />
   );
 });
@@ -46,10 +46,10 @@ const RatingGroupRootProvider = forwardRef<
   return (
     <RatingGroupPrimitive.RootProvider
       ref={ref}
-      data-slot="rating-group-root-provider"
       data-size={size}
       className={clsx(styles.root, className)}
       {...props}
+      data-slot="rating-group-root-provider"
     />
   );
 });
@@ -61,9 +61,9 @@ const RatingGroupLabel = forwardRef<
   return (
     <RatingGroupPrimitive.Label
       ref={ref}
-      data-slot="rating-group-label"
       className={clsx(styles.label, className)}
       {...props}
+      data-slot="rating-group-label"
     />
   );
 });
@@ -75,9 +75,9 @@ const RatingGroupControl = forwardRef<
   return (
     <RatingGroupPrimitive.Control
       ref={ref}
-      data-slot="rating-group-control"
       className={clsx(styles.control, className)}
       {...props}
+      data-slot="rating-group-control"
     />
   );
 });
@@ -89,9 +89,9 @@ const RatingGroupItem = forwardRef<
   return (
     <RatingGroupPrimitive.Item
       ref={ref}
-      data-slot="rating-group-item"
       className={clsx(styles.item, className)}
       {...props}
+      data-slot="rating-group-item"
     />
   );
 });
@@ -103,11 +103,11 @@ const RatingGroupItemIndicator = forwardRef<HTMLSpanElement, RatingGroupItemIndi
     return (
       <span
         ref={ref}
-        data-slot="rating-group-item-indicator"
         data-half={half ? '' : undefined}
         data-highlighted={highlighted ? '' : undefined}
         className={clsx(styles.itemIndicator, className)}
         {...props}
+        data-slot="rating-group-item-indicator"
       >
         {children ?? (
           <>

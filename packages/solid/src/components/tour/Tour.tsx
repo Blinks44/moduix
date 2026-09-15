@@ -52,9 +52,9 @@ function TourBackdrop(props: ComponentProps<typeof TourPrimitive.Backdrop>) {
   return (
     <OverlayPortal>
       <TourPrimitive.Backdrop
-        data-slot="tour-backdrop"
         class={clsx(styles.backdrop, local.class)}
         {...others}
+        data-slot="tour-backdrop"
       />
     </OverlayPortal>
   );
@@ -66,9 +66,9 @@ function TourSpotlight(props: ComponentProps<typeof TourPrimitive.Spotlight>) {
   return (
     <OverlayPortal>
       <TourPrimitive.Spotlight
-        data-slot="tour-spotlight"
         class={clsx(styles.spotlight, local.class)}
         {...others}
+        data-slot="tour-spotlight"
       />
     </OverlayPortal>
   );
@@ -80,9 +80,9 @@ function TourPositioner(props: ComponentProps<typeof TourPrimitive.Positioner>) 
   return (
     <OverlayPortal>
       <TourPrimitive.Positioner
-        data-slot="tour-positioner"
         class={clsx(styles.positioner, local.class)}
         {...others}
+        data-slot="tour-positioner"
       />
     </OverlayPortal>
   );
@@ -93,9 +93,9 @@ function TourContent(props: ComponentProps<typeof TourPrimitive.Content>) {
 
   return (
     <TourPrimitive.Content
-      data-slot="tour-content"
       class={clsx(styles.content, local.class)}
       {...others}
+      data-slot="tour-content"
     />
   );
 }
@@ -105,7 +105,7 @@ function TourArrow(props: ComponentProps<typeof TourPrimitive.Arrow>) {
   const resolvedChildren = children(() => local.children);
 
   return (
-    <TourPrimitive.Arrow data-slot="tour-arrow" class={clsx(styles.arrow, local.class)} {...others}>
+    <TourPrimitive.Arrow class={clsx(styles.arrow, local.class)} {...others} data-slot="tour-arrow">
       {resolvedChildren() ?? <TourArrowTip />}
     </TourPrimitive.Arrow>
   );
@@ -116,9 +116,9 @@ function TourArrowTip(props: ComponentProps<typeof TourPrimitive.ArrowTip>) {
 
   return (
     <TourPrimitive.ArrowTip
-      data-slot="tour-arrow-tip"
       class={clsx(styles.arrowTip, local.class)}
       {...others}
+      data-slot="tour-arrow-tip"
     />
   );
 }
@@ -128,9 +128,9 @@ function TourTitle(props: ComponentProps<typeof TourPrimitive.Title>) {
 
   return (
     <TourPrimitive.Title
-      data-slot="tour-title"
       class={clsx(styles.title, local.class)}
       {...others}
+      data-slot="tour-title"
     />
   );
 }
@@ -140,9 +140,9 @@ function TourDescription(props: ComponentProps<typeof TourPrimitive.Description>
 
   return (
     <TourPrimitive.Description
-      data-slot="tour-description"
       class={clsx(styles.description, local.class)}
       {...others}
+      data-slot="tour-description"
     />
   );
 }
@@ -152,9 +152,9 @@ function TourProgressText(props: ComponentProps<typeof TourPrimitive.ProgressTex
 
   return (
     <TourPrimitive.ProgressText
-      data-slot="tour-progress-text"
       class={clsx(styles.progressText, local.class)}
       {...others}
+      data-slot="tour-progress-text"
     />
   );
 }
@@ -162,7 +162,7 @@ function TourProgressText(props: ComponentProps<typeof TourPrimitive.ProgressTex
 function TourBody(props: HTMLArkProps<'div'>) {
   const [local, others] = splitProps(props, ['class']);
 
-  return <ark.div data-slot="tour-body" class={clsx(styles.body, local.class)} {...others} />;
+  return <ark.div class={clsx(styles.body, local.class)} {...others} data-slot="tour-body" />;
 }
 
 function TourCloseTrigger(props: ComponentProps<typeof TourPrimitive.CloseTrigger>) {
@@ -171,9 +171,9 @@ function TourCloseTrigger(props: ComponentProps<typeof TourPrimitive.CloseTrigge
   return (
     <TourPrimitive.CloseTrigger
       asChild={local.asChild}
-      data-slot="tour-close-trigger"
       class={clsx(!local.asChild && styles.closeTrigger, local.class)}
       {...others}
+      data-slot="tour-close-trigger"
     />
   );
 }
@@ -205,9 +205,9 @@ function TourControl(props: ComponentProps<typeof TourPrimitive.Control>) {
 
   return (
     <TourPrimitive.Control
-      data-slot="tour-control"
       class={clsx(styles.control, local.class)}
       {...others}
+      data-slot="tour-control"
     />
   );
 }
@@ -218,9 +218,9 @@ function TourActionTrigger(props: ComponentProps<typeof TourPrimitive.ActionTrig
   return (
     <TourPrimitive.ActionTrigger
       asChild={local.asChild}
-      data-slot="tour-action-trigger"
       class={clsx(!local.asChild && styles.actionTrigger, local.class)}
       {...others}
+      data-slot="tour-action-trigger"
     />
   );
 }

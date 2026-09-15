@@ -69,9 +69,9 @@ const PopoverAnchor = forwardRef<
   return (
     <PopoverPrimitive.Anchor
       ref={ref}
-      data-slot="popover-anchor"
       className={className}
       {...props}
+      data-slot="popover-anchor"
     />
   );
 });
@@ -83,10 +83,10 @@ const PopoverTrigger = forwardRef<
   return (
     <PopoverPrimitive.Trigger
       ref={ref}
-      data-slot="popover-trigger"
       asChild={asChild}
       className={clsx(!asChild && styles.trigger, className)}
       {...props}
+      data-slot="popover-trigger"
     />
   );
 });
@@ -98,9 +98,9 @@ const PopoverIndicator = forwardRef<
   return (
     <PopoverPrimitive.Indicator
       ref={ref}
-      data-slot="popover-indicator"
       className={className}
       {...props}
+      data-slot="popover-indicator"
     />
   );
 });
@@ -113,9 +113,9 @@ const PopoverPositioner = forwardRef<
     <OverlayPortal>
       <PopoverPrimitive.Positioner
         ref={ref}
-        data-slot="popover-positioner"
         className={clsx(styles.positioner, className)}
         {...props}
+        data-slot="popover-positioner"
       />
     </OverlayPortal>
   );
@@ -128,9 +128,9 @@ const PopoverContent = forwardRef<
   return (
     <PopoverPrimitive.Content
       ref={ref}
-      data-slot="popover-content"
       className={clsx(styles.content, className)}
       {...props}
+      data-slot="popover-content"
     />
   );
 });
@@ -142,9 +142,9 @@ const PopoverArrow = forwardRef<
   return (
     <PopoverPrimitive.Arrow
       ref={ref}
-      data-slot="popover-arrow"
       className={clsx(styles.arrow, className)}
       {...props}
+      data-slot="popover-arrow"
     >
       {children ?? <PopoverArrowTip />}
     </PopoverPrimitive.Arrow>
@@ -158,9 +158,9 @@ const PopoverArrowTip = forwardRef<
   return (
     <PopoverPrimitive.ArrowTip
       ref={ref}
-      data-slot="popover-arrow-tip"
       className={clsx(styles.arrowTip, className)}
       {...props}
+      data-slot="popover-arrow-tip"
     />
   );
 });
@@ -172,9 +172,9 @@ const PopoverTitle = forwardRef<
   return (
     <PopoverPrimitive.Title
       ref={ref}
-      data-slot="popover-title"
       className={clsx(styles.title, className)}
       {...props}
+      data-slot="popover-title"
     />
   );
 });
@@ -186,9 +186,9 @@ const PopoverDescription = forwardRef<
   return (
     <PopoverPrimitive.Description
       ref={ref}
-      data-slot="popover-description"
       className={clsx(styles.description, className)}
       {...props}
+      data-slot="popover-description"
     />
   );
 });
@@ -200,10 +200,10 @@ const PopoverCloseTrigger = forwardRef<
   return (
     <PopoverPrimitive.CloseTrigger
       ref={ref}
-      data-slot="popover-close-trigger"
       asChild={asChild}
       className={clsx(!asChild && styles.closeTrigger, className)}
       {...props}
+      data-slot="popover-close-trigger"
     />
   );
 });
@@ -234,9 +234,9 @@ const PopoverHeader = forwardRef<ComponentRef<typeof ark.div>, HTMLArkProps<'div
     return (
       <ark.div
         ref={ref}
-        data-slot="popover-header"
         className={clsx(styles.header, className)}
         {...props}
+        data-slot="popover-header"
       />
     );
   },
@@ -247,9 +247,9 @@ const PopoverBody = forwardRef<ComponentRef<typeof ark.div>, HTMLArkProps<'div'>
     return (
       <ark.div
         ref={ref}
-        data-slot="popover-body"
         className={clsx(styles.body, className)}
         {...props}
+        data-slot="popover-body"
       />
     );
   },
@@ -260,9 +260,9 @@ const PopoverFooter = forwardRef<ComponentRef<typeof ark.div>, HTMLArkProps<'div
     return (
       <ark.div
         ref={ref}
-        data-slot="popover-footer"
         className={clsx(styles.footer, className)}
         {...props}
+        data-slot="popover-footer"
       />
     );
   },

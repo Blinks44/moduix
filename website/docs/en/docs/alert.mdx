@@ -30,9 +30,10 @@ Import `Alert` from `@moduix/react/alert` or `@moduix/solid/alert`. The callable
 `Alert.Title`, `Alert.Description`, and `Alert.Actions`.
 
 Every part accepts the usual props for its rendered element, including `className`/`class` and Ark's
-`asChild`, and forwards refs to the rendered element. `status` defaults to `info`; the root defaults to
-`role="status"` and uses `role="alert"` for `status="error"`. `Alert.Indicator` is hidden from assistive
-technology, so keep the essential meaning in the title or description.
+`asChild`, and forwards refs to the rendered element. `status` defaults to `info` and controls visual
+styling only. Add `role="status"` or `role="alert"` when a dynamically added or updated message needs a
+live region. `Alert.Indicator` is hidden from assistive technology, so keep the essential meaning in the
+title or description.
 
 ## Choosing the right component
 
@@ -177,7 +178,8 @@ Use `asChild` on `Alert.Title` when the alert title needs to participate in the 
 
 ### Error
 
-Set `status="error"` when the message needs an assertive announcement and stronger visual emphasis.
+Set `status="error"` for stronger visual emphasis. Add `role="alert"` only when the message needs an
+assertive announcement.
 
 <ExampleFrame variant="component">
   <AlertError />

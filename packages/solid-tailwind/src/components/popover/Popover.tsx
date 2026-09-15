@@ -71,7 +71,7 @@ function PopoverRootProvider(props: PopoverRootProviderProps) {
 function PopoverAnchor(props: ComponentProps<typeof PopoverPrimitive.Anchor>) {
   const [local, others] = splitProps(props, ['class']);
 
-  return <PopoverPrimitive.Anchor data-slot="popover-anchor" class={local.class} {...others} />;
+  return <PopoverPrimitive.Anchor class={local.class} {...others} data-slot="popover-anchor" />;
 }
 
 function PopoverTrigger(props: ComponentProps<typeof PopoverPrimitive.Trigger>) {
@@ -80,13 +80,13 @@ function PopoverTrigger(props: ComponentProps<typeof PopoverPrimitive.Trigger>) 
   return (
     <PopoverPrimitive.Trigger
       asChild={local.asChild}
-      data-slot="popover-trigger"
       class={cn(
         !local.asChild &&
           'box-border inline-flex min-h-control-md cursor-pointer items-center justify-center rounded-md border border-border bg-background px-3.5 py-1 text-md leading-6 text-foreground outline-0 transition-[background-color,border-color,color] duration-200 ease-in-out select-none focus-visible:outline-1 focus-visible:-outline-offset-1 focus-visible:outline-ring active:bg-accent disabled:pointer-events-none disabled:opacity-50 data-disabled:pointer-events-none data-disabled:opacity-50 data-[state=open]:not-data-[value]:bg-accent data-[current]:data-[state=open]:bg-accent motion-reduce:transition-none [@media(hover:hover)]:hover:bg-accent',
         local.class,
       )}
       {...others}
+      data-slot="popover-trigger"
     />
   );
 }
@@ -95,7 +95,7 @@ function PopoverIndicator(props: ComponentProps<typeof PopoverPrimitive.Indicato
   const [local, others] = splitProps(props, ['class']);
 
   return (
-    <PopoverPrimitive.Indicator data-slot="popover-indicator" class={local.class} {...others} />
+    <PopoverPrimitive.Indicator class={local.class} {...others} data-slot="popover-indicator" />
   );
 }
 
@@ -105,12 +105,12 @@ function PopoverPositioner(props: ComponentProps<typeof PopoverPrimitive.Positio
   return (
     <OverlayPortal>
       <PopoverPrimitive.Positioner
-        data-slot="popover-positioner"
         class={cn(
           'z-[var(--z-index,var(--moduix-z-popup))] max-w-[var(--available-width)] outline-0',
           local.class,
         )}
         {...others}
+        data-slot="popover-positioner"
       />
     </OverlayPortal>
   );
@@ -121,12 +121,12 @@ function PopoverContent(props: ComponentProps<typeof PopoverPrimitive.Content>) 
 
   return (
     <PopoverPrimitive.Content
-      data-slot="popover-content"
       class={cn(
         'group/popover-content relative z-[calc(var(--moduix-z-popup)+var(--layer-index,0))] max-h-[min(24rem,var(--available-height,100dvh))] max-w-[min(28rem,var(--available-width))] min-w-[min(16rem,var(--available-width))] origin-[var(--transform-origin)] overflow-visible rounded-md bg-popover p-4 wrap-anywhere text-popover-foreground shadow-lg outline-1 outline-border has-[>[data-slot=popover-body]]:flex has-[>[data-slot=popover-body]]:flex-col data-[state=closed]:animate-moduix-menu-closed data-[state=open]:animate-moduix-menu-open motion-reduce:animate-none has-[>[data-slot=popover-body]]:[&>[data-slot=popover-body]]:overflow-auto',
         local.class,
       )}
       {...others}
+      data-slot="popover-content"
     />
   );
 }
@@ -137,9 +137,9 @@ function PopoverArrow(props: ComponentProps<typeof PopoverPrimitive.Arrow>) {
 
   return (
     <PopoverPrimitive.Arrow
-      data-slot="popover-arrow"
       class={cn('[--arrow-background:var(--color-popover)] [--arrow-size:0.625rem]', local.class)}
       {...others}
+      data-slot="popover-arrow"
     >
       {resolvedChildren() ?? <PopoverArrowTip />}
     </PopoverPrimitive.Arrow>
@@ -151,9 +151,9 @@ function PopoverArrowTip(props: ComponentProps<typeof PopoverPrimitive.ArrowTip>
 
   return (
     <PopoverPrimitive.ArrowTip
-      data-slot="popover-arrow-tip"
       class={cn('border-t border-l border-border', local.class)}
       {...others}
+      data-slot="popover-arrow-tip"
     />
   );
 }
@@ -163,9 +163,9 @@ function PopoverTitle(props: ComponentProps<typeof PopoverPrimitive.Title>) {
 
   return (
     <PopoverPrimitive.Title
-      data-slot="popover-title"
       class={cn('text-md leading-6 font-semibold text-popover-foreground', local.class)}
       {...others}
+      data-slot="popover-title"
     />
   );
 }
@@ -175,9 +175,9 @@ function PopoverDescription(props: ComponentProps<typeof PopoverPrimitive.Descri
 
   return (
     <PopoverPrimitive.Description
-      data-slot="popover-description"
       class={cn('text-sm leading-5 text-muted-foreground', local.class)}
       {...others}
+      data-slot="popover-description"
     />
   );
 }
@@ -188,13 +188,13 @@ function PopoverCloseTrigger(props: ComponentProps<typeof PopoverPrimitive.Close
   return (
     <PopoverPrimitive.CloseTrigger
       asChild={local.asChild}
-      data-slot="popover-close-trigger"
       class={cn(
         !local.asChild &&
           'box-border inline-flex min-h-control-md cursor-pointer items-center justify-center rounded-md border border-border bg-background px-3.5 py-1 text-md leading-6 text-foreground outline-0 transition-[background-color,border-color,color] duration-200 ease-in-out select-none focus-visible:outline-1 focus-visible:-outline-offset-1 focus-visible:outline-ring active:bg-accent disabled:pointer-events-none disabled:opacity-50 data-disabled:pointer-events-none data-disabled:opacity-50 motion-reduce:transition-none [@media(hover:hover)]:hover:bg-accent',
         local.class,
       )}
       {...others}
+      data-slot="popover-close-trigger"
     />
   );
 }
@@ -229,12 +229,12 @@ function PopoverHeader(props: HTMLArkProps<'div'>) {
 
   return (
     <ark.div
-      data-slot="popover-header"
       class={cn(
         'grid gap-1 group-has-[>[data-slot=popover-close-icon]]/popover-content:pe-10',
         local.class,
       )}
       {...others}
+      data-slot="popover-header"
     />
   );
 }
@@ -242,7 +242,7 @@ function PopoverHeader(props: HTMLArkProps<'div'>) {
 function PopoverBody(props: HTMLArkProps<'div'>) {
   const [local, others] = splitProps(props, ['class']);
 
-  return <ark.div data-slot="popover-body" class={cn('min-h-0', local.class)} {...others} />;
+  return <ark.div class={cn('min-h-0', local.class)} {...others} data-slot="popover-body" />;
 }
 
 function PopoverFooter(props: HTMLArkProps<'div'>) {
@@ -250,9 +250,9 @@ function PopoverFooter(props: HTMLArkProps<'div'>) {
 
   return (
     <ark.div
-      data-slot="popover-footer"
       class={cn('mt-3 flex items-center justify-end gap-2', local.class)}
       {...others}
+      data-slot="popover-footer"
     />
   );
 }

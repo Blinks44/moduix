@@ -73,7 +73,6 @@ function DatePickerRoot(props: DatePickerRootProps) {
     <OverlayPortalProvider portalled={local.portalled} portalRef={local.portalRef}>
       <DatePickerPrimitive.Root
         asChild={local.asChild}
-        data-slot="date-picker-root"
         class={clsx(styles.root, local.class)}
         disabled={local.disabled ?? field?.()?.disabled ?? fieldset?.()?.disabled}
         invalid={local.invalid ?? field?.()?.invalid ?? fieldset?.()?.invalid}
@@ -82,6 +81,7 @@ function DatePickerRoot(props: DatePickerRootProps) {
         required={local.required ?? field?.()?.required}
         unmountOnExit={local.unmountOnExit ?? true}
         {...others}
+        data-slot="date-picker-root"
       >
         {local.children}
       </DatePickerPrimitive.Root>
@@ -104,11 +104,11 @@ function DatePickerRootProvider(props: DatePickerRootProviderProps) {
     <OverlayPortalProvider portalled={local.portalled} portalRef={local.portalRef}>
       <DatePickerPrimitive.RootProvider
         asChild={local.asChild}
-        data-slot="date-picker-root-provider"
         class={clsx(styles.root, local.class)}
         lazyMount={local.lazyMount ?? true}
         unmountOnExit={local.unmountOnExit ?? true}
         {...others}
+        data-slot="date-picker-root-provider"
       >
         {local.children}
       </DatePickerPrimitive.RootProvider>
@@ -121,9 +121,9 @@ function DatePickerLabel(props: ComponentProps<typeof DatePickerPrimitive.Label>
 
   return (
     <DatePickerPrimitive.Label
-      data-slot="date-picker-label"
       class={clsx(styles.label, local.class)}
       {...others}
+      data-slot="date-picker-label"
     />
   );
 }
@@ -133,9 +133,9 @@ function DatePickerControl(props: ComponentProps<typeof DatePickerPrimitive.Cont
 
   return (
     <DatePickerPrimitive.Control
-      data-slot="date-picker-control"
       class={clsx(styles.control, local.class)}
       {...others}
+      data-slot="date-picker-control"
     />
   );
 }
@@ -194,9 +194,9 @@ function DatePickerInput(props: ComponentProps<typeof DatePickerPrimitive.Input>
 
   return (
     <DatePickerPrimitive.Input
-      data-slot="date-picker-input"
       class={clsx(styles.input, local.class)}
       {...others}
+      data-slot="date-picker-input"
     />
   );
 }
@@ -208,9 +208,9 @@ function DatePickerTrigger(props: ComponentProps<typeof DatePickerPrimitive.Trig
   return (
     <DatePickerPrimitive.Trigger
       asChild={local.asChild}
-      data-slot="date-picker-trigger"
       class={clsx(!local.asChild && styles.trigger, local.class)}
       {...others}
+      data-slot="date-picker-trigger"
     >
       {resolvedChildren() ?? <CalendarIcon />}
     </DatePickerPrimitive.Trigger>
@@ -234,9 +234,9 @@ function DatePickerClearTrigger(props: ComponentProps<typeof DatePickerPrimitive
         asChild={local.asChild}
         aria-label={local['aria-label']}
         aria-labelledby={local['aria-labelledby']}
-        data-slot="date-picker-clear-trigger"
         class={triggerClass}
         {...others}
+        data-slot="date-picker-clear-trigger"
       >
         {local.children}
       </DatePickerPrimitive.ClearTrigger>
@@ -260,9 +260,9 @@ function DatePickerClearTrigger(props: ComponentProps<typeof DatePickerPrimitive
           </CloseButton.Root>
         );
       }}
-      data-slot="date-picker-clear-trigger"
       class={triggerClass}
       {...others}
+      data-slot="date-picker-clear-trigger"
     />
   );
 }
@@ -273,9 +273,9 @@ function DatePickerPositioner(props: ComponentProps<typeof DatePickerPrimitive.P
   return (
     <OverlayPortal>
       <DatePickerPrimitive.Positioner
-        data-slot="date-picker-positioner"
         class={clsx(styles.positioner, local.class)}
         {...others}
+        data-slot="date-picker-positioner"
       />
     </OverlayPortal>
   );
@@ -286,9 +286,9 @@ function DatePickerContent(props: ComponentProps<typeof DatePickerPrimitive.Cont
 
   return (
     <DatePickerPrimitive.Content
-      data-slot="date-picker-content"
       class={clsx(styles.content, local.class)}
       {...others}
+      data-slot="date-picker-content"
     />
   );
 }
@@ -298,9 +298,9 @@ function DatePickerView(props: ComponentProps<typeof DatePickerPrimitive.View>) 
 
   return (
     <DatePickerPrimitive.View
-      data-slot="date-picker-view"
       class={clsx(styles.view, local.class)}
       {...others}
+      data-slot="date-picker-view"
     />
   );
 }
@@ -310,9 +310,9 @@ function DatePickerViewControl(props: ComponentProps<typeof DatePickerPrimitive.
 
   return (
     <DatePickerPrimitive.ViewControl
-      data-slot="date-picker-view-control"
       class={clsx(styles.viewControl, local.class)}
       {...others}
+      data-slot="date-picker-view-control"
     />
   );
 }
@@ -324,9 +324,9 @@ function DatePickerPrevTrigger(props: ComponentProps<typeof DatePickerPrimitive.
   return (
     <DatePickerPrimitive.PrevTrigger
       asChild={local.asChild}
-      data-slot="date-picker-prev-trigger"
       class={clsx(!local.asChild && styles.navTrigger, local.class)}
       {...others}
+      data-slot="date-picker-prev-trigger"
     >
       {resolvedChildren() ?? <ChevronLeftIcon />}
     </DatePickerPrimitive.PrevTrigger>
@@ -340,9 +340,9 @@ function DatePickerNextTrigger(props: ComponentProps<typeof DatePickerPrimitive.
   return (
     <DatePickerPrimitive.NextTrigger
       asChild={local.asChild}
-      data-slot="date-picker-next-trigger"
       class={clsx(!local.asChild && styles.navTrigger, local.class)}
       {...others}
+      data-slot="date-picker-next-trigger"
     >
       {resolvedChildren() ?? <ChevronRightIcon />}
     </DatePickerPrimitive.NextTrigger>
@@ -354,9 +354,9 @@ function DatePickerRangeText(props: ComponentProps<typeof DatePickerPrimitive.Ra
 
   return (
     <DatePickerPrimitive.RangeText
-      data-slot="date-picker-range-text"
       class={clsx(styles.rangeText, local.class)}
       {...others}
+      data-slot="date-picker-range-text"
     />
   );
 }
@@ -368,9 +368,9 @@ function DatePickerViewTrigger(props: ComponentProps<typeof DatePickerPrimitive.
   return (
     <DatePickerPrimitive.ViewTrigger
       asChild={local.asChild}
-      data-slot="date-picker-view-trigger"
       class={clsx(!local.asChild && styles.viewTrigger, local.class)}
       {...others}
+      data-slot="date-picker-view-trigger"
     >
       {resolvedChildren() ?? (
         <>
@@ -387,9 +387,9 @@ function DatePickerTable(props: ComponentProps<typeof DatePickerPrimitive.Table>
 
   return (
     <DatePickerPrimitive.Table
-      data-slot="date-picker-table"
       class={clsx(styles.table, local.class)}
       {...others}
+      data-slot="date-picker-table"
     />
   );
 }
@@ -399,9 +399,9 @@ function DatePickerTableHead(props: ComponentProps<typeof DatePickerPrimitive.Ta
 
   return (
     <DatePickerPrimitive.TableHead
-      data-slot="date-picker-table-head"
       class={local.class}
       {...others}
+      data-slot="date-picker-table-head"
     />
   );
 }
@@ -411,9 +411,9 @@ function DatePickerTableBody(props: ComponentProps<typeof DatePickerPrimitive.Ta
 
   return (
     <DatePickerPrimitive.TableBody
-      data-slot="date-picker-table-body"
       class={local.class}
       {...others}
+      data-slot="date-picker-table-body"
     />
   );
 }
@@ -423,9 +423,9 @@ function DatePickerTableRow(props: ComponentProps<typeof DatePickerPrimitive.Tab
 
   return (
     <DatePickerPrimitive.TableRow
-      data-slot="date-picker-table-row"
       class={local.class}
       {...others}
+      data-slot="date-picker-table-row"
     />
   );
 }
@@ -435,9 +435,9 @@ function DatePickerTableHeader(props: ComponentProps<typeof DatePickerPrimitive.
 
   return (
     <DatePickerPrimitive.TableHeader
-      data-slot="date-picker-table-header"
       class={clsx(styles.tableHeader, local.class)}
       {...others}
+      data-slot="date-picker-table-header"
     />
   );
 }
@@ -449,9 +449,9 @@ function DatePickerWeekNumberHeaderCell(
 
   return (
     <DatePickerPrimitive.WeekNumberHeaderCell
-      data-slot="date-picker-week-number-header-cell"
       class={clsx(styles.tableHeader, styles.weekNumberCell, local.class)}
       {...others}
+      data-slot="date-picker-week-number-header-cell"
     />
   );
 }
@@ -463,9 +463,9 @@ function DatePickerWeekNumberCell(
 
   return (
     <DatePickerPrimitive.WeekNumberCell
-      data-slot="date-picker-week-number-cell"
       class={clsx(styles.weekNumberCell, local.class)}
       {...others}
+      data-slot="date-picker-week-number-cell"
     />
   );
 }
@@ -475,9 +475,9 @@ function DatePickerTableCell(props: ComponentProps<typeof DatePickerPrimitive.Ta
 
   return (
     <DatePickerPrimitive.TableCell
-      data-slot="date-picker-table-cell"
       class={clsx(styles.tableCell, local.class)}
       {...others}
+      data-slot="date-picker-table-cell"
     />
   );
 }
@@ -489,9 +489,9 @@ function DatePickerTableCellTrigger(
 
   return (
     <DatePickerPrimitive.TableCellTrigger
-      data-slot="date-picker-table-cell-trigger"
       class={clsx(styles.tableCellTrigger, local.class)}
       {...others}
+      data-slot="date-picker-table-cell-trigger"
     />
   );
 }
@@ -553,9 +553,9 @@ function DatePickerMonthSelect(props: ComponentProps<typeof DatePickerPrimitive.
 
   return (
     <DatePickerPrimitive.MonthSelect
-      data-slot="date-picker-month-select"
       class={clsx(styles.select, local.class)}
       {...others}
+      data-slot="date-picker-month-select"
     />
   );
 }
@@ -565,9 +565,9 @@ function DatePickerYearSelect(props: ComponentProps<typeof DatePickerPrimitive.Y
 
   return (
     <DatePickerPrimitive.YearSelect
-      data-slot="date-picker-year-select"
       class={clsx(styles.select, local.class)}
       {...others}
+      data-slot="date-picker-year-select"
     />
   );
 }
@@ -578,9 +578,9 @@ function DatePickerPresetTrigger(props: ComponentProps<typeof DatePickerPrimitiv
   return (
     <DatePickerPrimitive.PresetTrigger
       asChild={local.asChild}
-      data-slot="date-picker-preset-trigger"
       class={clsx(!local.asChild && styles.presetTrigger, local.class)}
       {...others}
+      data-slot="date-picker-preset-trigger"
     />
   );
 }
@@ -590,9 +590,9 @@ function DatePickerValueText(props: ComponentProps<typeof DatePickerPrimitive.Va
 
   return (
     <DatePickerPrimitive.ValueText
-      data-slot="date-picker-value-text"
       class={clsx(styles.valueText, local.class)}
       {...others}
+      data-slot="date-picker-value-text"
     />
   );
 }

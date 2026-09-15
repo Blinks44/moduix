@@ -90,6 +90,28 @@ test('preserves semantic elements and hooks with asChild', () => {
   expect(actions).toHaveAttribute('data-part', 'actions');
 });
 
+test('keeps owned anatomy attributes when consumer props conflict', () => {
+  render(
+    <Empty data-part="consumer" data-scope="consumer" data-testid="root">
+      <Empty.Icon data-part="consumer" data-scope="consumer" data-testid="icon" />
+      <Empty.Content data-part="consumer" data-scope="consumer" data-testid="content">
+        <Empty.Title data-part="consumer" data-scope="consumer" data-testid="title">
+          No projects
+        </Empty.Title>
+        <Empty.Description data-part="consumer" data-scope="consumer" data-testid="description" />
+      </Empty.Content>
+      <Empty.Actions data-part="consumer" data-scope="consumer" data-testid="actions" />
+    </Empty>,
+  );
+
+  expect(screen.getByTestId('root')).toHaveAttribute('data-part', 'root');
+  expect(screen.getByTestId('icon')).toHaveAttribute('data-part', 'icon');
+  expect(screen.getByTestId('content')).toHaveAttribute('data-part', 'content');
+  expect(screen.getByTestId('title')).toHaveAttribute('data-part', 'title');
+  expect(screen.getByTestId('description')).toHaveAttribute('data-part', 'description');
+  expect(screen.getByTestId('actions')).toHaveAttribute('data-part', 'actions');
+});
+
 test('applies native utilities to every component-owned visual part', () => {
   render(
     <Empty data-testid="empty">
@@ -111,7 +133,7 @@ test('applies native utilities to every component-owned visual part', () => {
     'gap-4',
     'rounded-xl',
     'border-border',
-    'bg-card',
+    'bg-[color-mix(in_oklab,var(--color-card)_92%,var(--color-muted))]',
     'p-8',
     'text-card-foreground',
   );

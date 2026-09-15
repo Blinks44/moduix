@@ -1,5 +1,9 @@
 import type { Meta, StoryObj } from '@storybook/react-vite';
+import { useState } from 'react';
+import { Checkbox } from '@/components/checkbox';
 import { Field, useField } from '@/components/field/Field';
+import { NativeSelect } from '@/components/native-select/NativeSelect';
+import { RadioGroup } from '@/components/radio-group';
 
 const meta = {
   title: 'Components/Field',
@@ -14,8 +18,6 @@ export default meta;
 
 type Story = StoryObj<typeof meta>;
 
-const stackClassName = 'grid w-full max-w-md gap-6';
-
 export const Basic: Story = {
   render: () => (
     <Field required>
@@ -29,26 +31,7 @@ export const Basic: Story = {
   ),
 };
 
-export const Controls: Story = {
-  render: () => (
-    <div className={stackClassName}>
-      <Field>
-        <Field.Label>Short description</Field.Label>
-        <Field.Textarea autoresize placeholder="Tell us about the project" />
-      </Field>
-      <Field>
-        <Field.Label>Priority</Field.Label>
-        <Field.Select defaultValue="normal">
-          <option value="low">Low</option>
-          <option value="normal">Normal</option>
-          <option value="high">High</option>
-        </Field.Select>
-      </Field>
-    </div>
-  ),
-};
-
-export const Validation: Story = {
+export const Invalid: Story = {
   render: () => (
     <Field invalid required>
       <Field.Label>Email</Field.Label>
@@ -59,16 +42,134 @@ export const Validation: Story = {
   ),
 };
 
-export const Item: Story = {
+export const ControlledInvalid: Story = {
+  render: () => {
+    const [value, setValue] = useState('');
+    const invalid = value.length > 0 && value.length < 3;
+
+    return (
+      <Field invalid={invalid}>
+        <Field.Label>Username</Field.Label>
+        <Field.Input
+          value={value}
+          onChange={(event) => setValue(event.currentTarget.value)}
+          placeholder="e.g. vinny"
+        />
+        <Field.HelperText>Use at least 3 characters.</Field.HelperText>
+        <Field.ErrorText>Username must be at least 3 characters.</Field.ErrorText>
+      </Field>
+    );
+  },
+};
+
+export const Textarea: Story = {
   render: () => (
-    <Field id="contact" target="email">
-      <Field.Item value="email">
-        <Field.Label>Email</Field.Label>
-        <Field.Input id="email" type="email" />
+    <Field>
+      <Field.Label>Summary</Field.Label>
+      <Field.Textarea autoresize placeholder="Describe the request" />
+      <Field.HelperText>The textarea can autoresize as the user types.</Field.HelperText>
+    </Field>
+  ),
+};
+
+export const Select: Story = {
+  render: () => (
+    <Field required>
+      <Field.Label>Priority</Field.Label>
+      <NativeSelect defaultValue="">
+        <option value="" disabled>
+          Select priority
+        </option>
+        <option value="low">Low</option>
+        <option value="normal">Normal</option>
+        <option value="high">High</option>
+      </NativeSelect>
+    </Field>
+  ),
+};
+
+export const Disabled: Story = {
+  render: () => (
+    <Field disabled>
+      <Field.Label>Organization</Field.Label>
+      <Field.Input placeholder="Acme Inc." />
+    </Field>
+  ),
+};
+
+export const ReadOnly: Story = {
+  render: () => (
+    <Field readOnly>
+      <Field.Label>Workspace key</Field.Label>
+      <Field.Input defaultValue="MAPS" />
+    </Field>
+  ),
+};
+
+export const WithCheckbox: Story = {
+  render: () => (
+    <Field required>
+      <Checkbox.Root>
+        <Checkbox.Control>
+          <Checkbox.Indicator />
+        </Checkbox.Control>
+        <Checkbox.Label>Accept support access</Checkbox.Label>
+        <Checkbox.HiddenInput />
+      </Checkbox.Root>
+      <Field.ErrorText>Support access must be enabled.</Field.ErrorText>
+    </Field>
+  ),
+};
+
+export const WithRadioGroup: Story = {
+  render: () => (
+    <Field>
+      <Field.Label>Account type</Field.Label>
+      <RadioGroup defaultValue="team" aria-label="Account type">
+        <RadioGroup.Item value="personal">
+          <RadioGroup.ItemControl />
+          <RadioGroup.ItemText>Personal account</RadioGroup.ItemText>
+          <RadioGroup.ItemHiddenInput />
+        </RadioGroup.Item>
+        <RadioGroup.Item value="team">
+          <RadioGroup.ItemControl />
+          <RadioGroup.ItemText>Team account</RadioGroup.ItemText>
+          <RadioGroup.ItemHiddenInput />
+        </RadioGroup.Item>
+      </RadioGroup>
+    </Field>
+  ),
+};
+
+export const LongContent: Story = {
+  render: () => (
+    <Field invalid>
+      <Field.Label>
+        International tax residency and withholding election for non-resident account holders
+      </Field.Label>
+      <Field.Input />
+      <Field.HelperText>
+        Enter the tax identification number issued by your country of tax residence.
+      </Field.HelperText>
+      <Field.ErrorText>
+        A tax identification number is required before you can continue.
+      </Field.ErrorText>
+    </Field>
+  ),
+};
+
+export const ItemTarget: Story = {
+  render: () => (
+    <Field target="amount">
+      <Field.Label>Amount</Field.Label>
+      <Field.Item value="currency">
+        <NativeSelect aria-label="Currency" defaultValue="USD">
+          <option value="USD">USD</option>
+          <option value="EUR">EUR</option>
+        </NativeSelect>
       </Field.Item>
-      <Field.Item value="phone">
-        <Field.Label>Phone</Field.Label>
-        <Field.Input id="phone" type="tel" />
+      <Field.Item value="amount">
+        <Field.Input inputMode="decimal" placeholder="0.00" />
       </Field.Item>
     </Field>
   ),
@@ -89,42 +190,4 @@ export const RootProvider: Story = {
       </Field.RootProvider>
     );
   },
-};
-
-export const AsChild: Story = {
-  render: () => (
-    <Field className="w-full max-w-md rounded-lg border border-border p-4" asChild>
-      <section>
-        <Field.Label>Project key</Field.Label>
-        <Field.Input placeholder="MODUIX" />
-      </section>
-    </Field>
-  ),
-};
-
-export const CustomStyling: Story = {
-  render: () => (
-    <Field className="w-80 gap-4">
-      <Field.Label className="gap-4 text-primary">Styled field</Field.Label>
-      <Field.Input className="rounded-lg border-primary bg-muted px-4" />
-      <Field.HelperText className="text-primary">
-        Consumer utilities replace defaults.
-      </Field.HelperText>
-    </Field>
-  ),
-};
-
-export const DisabledAndReadOnly: Story = {
-  render: () => (
-    <div className={stackClassName}>
-      <Field disabled>
-        <Field.Label>Disabled field</Field.Label>
-        <Field.Input defaultValue="Managed by your workspace" />
-      </Field>
-      <Field readOnly>
-        <Field.Label>Read-only field</Field.Label>
-        <Field.Input defaultValue="Assigned workspace" />
-      </Field>
-    </div>
-  ),
 };

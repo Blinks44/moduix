@@ -182,3 +182,30 @@ test('forwards refs on native parts and keeps asChild composition native', () =>
   expect(arrowTipRef).toHaveAttribute('data-slot', 'hover-card-arrow-tip');
   expect(composedTriggerRef).toBeUndefined();
 });
+
+test('forwards consumer classes to visual parts', () => {
+  render(() => (
+    <HoverCard open portalled={false}>
+      <HoverCard.Trigger class="trigger-class">Profile</HoverCard.Trigger>
+      <HoverCard.Positioner class="positioner-class">
+        <HoverCard.Content class="content-class">
+          <HoverCard.Arrow class="arrow-class">
+            <HoverCard.ArrowTip class="tip-class" />
+          </HoverCard.Arrow>
+          <HoverCard.Body class="body-class">Profile details</HoverCard.Body>
+        </HoverCard.Content>
+      </HoverCard.Positioner>
+    </HoverCard>
+  ));
+
+  expect(screen.getByRole('button', { name: 'Profile' })).toHaveClass('trigger-class');
+  expect(screen.getByText('Profile details')).toHaveClass('body-class');
+  expect(
+    screen.getByText('Profile details').closest('[data-slot="hover-card-content"]'),
+  ).toHaveClass('content-class');
+  expect(document.querySelector('[data-slot="hover-card-positioner"]')).toHaveClass(
+    'positioner-class',
+  );
+  expect(document.querySelector('[data-slot="hover-card-arrow"]')).toHaveClass('arrow-class');
+  expect(document.querySelector('[data-slot="hover-card-arrow-tip"]')).toHaveClass('tip-class');
+});

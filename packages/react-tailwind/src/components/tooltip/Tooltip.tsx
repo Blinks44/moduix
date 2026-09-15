@@ -53,7 +53,6 @@ const TooltipTrigger = forwardRef<
   return (
     <TooltipPrimitive.Trigger
       ref={ref}
-      data-slot="tooltip-trigger"
       asChild={asChild}
       className={cn(
         !asChild &&
@@ -61,6 +60,7 @@ const TooltipTrigger = forwardRef<
         className,
       )}
       {...props}
+      data-slot="tooltip-trigger"
     />
   );
 });
@@ -71,13 +71,13 @@ const TooltipDisabledTrigger = forwardRef<HTMLSpanElement, ComponentPropsWithout
       <TooltipPrimitive.Trigger asChild>
         <span
           ref={ref}
-          data-slot="tooltip-disabled-trigger"
           tabIndex={tabIndex}
           className={cn(
             'inline-flex cursor-not-allowed [&>:disabled]:pointer-events-none [&>[data-disabled]]:pointer-events-none',
             className,
           )}
           {...props}
+          data-slot="tooltip-disabled-trigger"
         />
       </TooltipPrimitive.Trigger>
     );
@@ -92,12 +92,12 @@ const TooltipPositioner = forwardRef<
     <OverlayPortal>
       <TooltipPrimitive.Positioner
         ref={ref}
-        data-slot="tooltip-positioner"
         className={cn(
           'z-[var(--z-index)] max-h-[var(--available-height)] max-w-[var(--available-width)] outline-0',
           className,
         )}
         {...props}
+        data-slot="tooltip-positioner"
       />
     </OverlayPortal>
   );
@@ -110,12 +110,12 @@ const TooltipContent = forwardRef<
   return (
     <TooltipPrimitive.Content
       ref={ref}
-      data-slot="tooltip-content"
       className={cn(
         'relative z-60 max-h-[min(24rem,var(--available-height,100dvh))] max-w-[min(20rem,var(--available-width))] origin-[var(--transform-origin)] overflow-visible rounded-md border border-border bg-popover px-2 py-1 text-center text-sm leading-5 wrap-anywhere text-popover-foreground shadow-md data-instant:animate-none data-[state=closed]:animate-moduix-menu-closed data-[state=open]:animate-moduix-menu-open motion-reduce:animate-none',
         className,
       )}
       {...props}
+      data-slot="tooltip-content"
     />
   );
 });
@@ -138,9 +138,9 @@ const TooltipArrow = forwardRef<
   return (
     <TooltipPrimitive.Arrow
       ref={ref}
-      data-slot="tooltip-arrow"
       className={cn('[--arrow-background:var(--color-popover)] [--arrow-size:0.625rem]', className)}
       {...props}
+      data-slot="tooltip-arrow"
     >
       {children ?? <TooltipArrowTip />}
     </TooltipPrimitive.Arrow>
@@ -154,9 +154,9 @@ const TooltipArrowTip = forwardRef<
   return (
     <TooltipPrimitive.ArrowTip
       ref={ref}
-      data-slot="tooltip-arrow-tip"
       className={cn('border-t border-l border-border', className)}
       {...props}
+      data-slot="tooltip-arrow-tip"
     />
   );
 });

@@ -13,12 +13,12 @@ function PasswordInputRoot(props: ComponentProps<typeof PasswordInputPrimitive.R
 
   return (
     <PasswordInputPrimitive.Root
-      data-slot="password-input-root"
       class={cn(
         'flex w-full max-w-none flex-col gap-1 text-foreground data-disabled:opacity-50',
         local.class,
       )}
       {...others}
+      data-slot="password-input-root"
     />
   );
 }
@@ -30,12 +30,12 @@ function PasswordInputRootProvider(
 
   return (
     <PasswordInputPrimitive.RootProvider
-      data-slot="password-input-root-provider"
       class={cn(
         'flex w-full max-w-none flex-col gap-1 text-foreground data-disabled:opacity-50',
         local.class,
       )}
       {...others}
+      data-slot="password-input-root-provider"
     />
   );
 }
@@ -45,12 +45,12 @@ function PasswordInputLabel(props: ComponentProps<typeof PasswordInputPrimitive.
 
   return (
     <PasswordInputPrimitive.Label
-      data-slot="password-input-label"
       class={cn(
         'inline-flex items-center gap-1 text-sm leading-5 font-medium text-foreground',
         local.class,
       )}
       {...others}
+      data-slot="password-input-label"
     />
   );
 }
@@ -60,12 +60,12 @@ function PasswordInputControl(props: ComponentProps<typeof PasswordInputPrimitiv
 
   return (
     <PasswordInputPrimitive.Control
-      data-slot="password-input-control"
       class={cn(
         'flex min-h-control-md w-full items-center rounded-md border border-border bg-background pr-2 text-foreground outline-1 -outline-offset-1 outline-transparent transition-[border-color,outline-color,opacity] duration-200 ease-in-out focus-within:outline-ring data-invalid:border-destructive data-invalid:focus-within:outline-destructive data-readonly:bg-background data-readonly:text-foreground motion-reduce:transition-none',
         local.class,
       )}
       {...others}
+      data-slot="password-input-control"
     />
   );
 }
@@ -107,12 +107,12 @@ function PasswordInputVisibilityTrigger(
 
   return (
     <PasswordInputPrimitive.VisibilityTrigger
-      data-slot="password-input-visibility-trigger"
       class={cn(
         'group/password-input-trigger inline-flex size-control-sm min-w-control-sm shrink-0 cursor-pointer items-center justify-center rounded-sm bg-transparent text-muted-foreground outline-1 -outline-offset-1 outline-transparent transition-[color,outline-color,opacity] duration-200 ease-in-out focus-visible:outline-ring disabled:cursor-default data-disabled:cursor-default data-readonly:cursor-default motion-reduce:transition-none [@media(hover:hover)]:[&:not(:disabled):not([data-disabled]):not([data-readonly]):hover]:text-foreground',
         local.class,
       )}
       {...others}
+      data-slot="password-input-visibility-trigger"
     />
   );
 }
@@ -123,13 +123,13 @@ function PasswordInputIndicator(props: ComponentProps<typeof PasswordInputPrimit
 
   return (
     <PasswordInputPrimitive.Indicator
-      data-slot="password-input-indicator"
       class={cn(
         "inline-flex items-center justify-center rounded-sm p-1 transition-[background-color,color] duration-200 ease-in-out group-hover/password-input-trigger:bg-muted group-focus-visible/password-input-trigger:bg-muted group-data-[disabled]/password-input-trigger:bg-transparent group-data-[readonly]/password-input-trigger:bg-transparent motion-reduce:transition-none [&>svg:not([class*='size-'])]:size-4",
         local.class,
       )}
       fallback={local.fallback ?? <EyeClosedIcon />}
       {...others}
+      data-slot="password-input-indicator"
     >
       {resolvedChildren() ?? <EyeIcon />}
     </PasswordInputPrimitive.Indicator>

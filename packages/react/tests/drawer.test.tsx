@@ -109,6 +109,57 @@ test('supports controlled open state', async () => {
   await waitFor(() => expect(details).toEqual([{ open: true }, { open: false }]));
 });
 
+test('starts content dragging outside the grabber by default', async () => {
+  render(
+    <Drawer defaultOpen>
+      <Drawer.Positioner>
+        <Drawer.Content>
+          <Drawer.Title>Preferences</Drawer.Title>
+          <div data-testid="drawer-body">Body</div>
+        </Drawer.Content>
+      </Drawer.Positioner>
+    </Drawer>,
+  );
+
+  const content = await screen.findByRole('dialog');
+  const body = screen.getByTestId('drawer-body');
+
+  fireEvent.pointerDown(body, {
+    button: 0,
+    clientX: 100,
+    clientY: 100,
+    pointerId: 1,
+    pointerType: 'touch',
+  });
+  fireEvent.pointerMove(body, { clientX: 100, clientY: 160, pointerId: 1, pointerType: 'touch' });
+
+  await waitFor(() => expect(content).toHaveAttribute('data-dragging'));
+});
+
+test('forwards a ref through native asChild composition', () => {
+  let contentRef: HTMLElement | null = null;
+
+  render(
+    <Drawer defaultOpen portalled={false}>
+      <Drawer.Positioner>
+        <Drawer.Content
+          ref={(element) => {
+            contentRef = element;
+          }}
+          asChild
+        >
+          <section>
+            <Drawer.Title>Preferences</Drawer.Title>
+          </section>
+        </Drawer.Content>
+      </Drawer.Positioner>
+    </Drawer>,
+  );
+
+  expect(contentRef).toBe(screen.getByRole('dialog'));
+  expect(contentRef).toHaveProperty('tagName', 'SECTION');
+});
+
 test('opens a RootProvider drawer from external state', async () => {
   function RootProviderDrawer() {
     const drawer = useDrawer();

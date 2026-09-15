@@ -274,7 +274,6 @@
   --moduix-breadcrumbs-separator-icon-size: initial; /* 1em */
   /* Button */
   --moduix-button-border-width: initial; /* var(--moduix-border-width-sm) */
-  --moduix-button-color: initial; /* var(--moduix-color-foreground) */
   --moduix-button-content-gap: initial; /* var(--moduix-spacing-2) */
   --moduix-button-default-bg: initial; /* var(--moduix-color-primary) */
   --moduix-button-default-bg-hover: initial; /* color-mix(in srgb, var(--moduix-button-default-bg, var(--moduix-color-primary)) 88%, black) */

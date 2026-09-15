@@ -17,9 +17,9 @@ const ImageCropperRoot = forwardRef<
   return (
     <ImageCropperPrimitive.Root
       ref={ref}
-      data-slot="image-cropper-root"
       className={clsx(styles.root, className)}
       {...props}
+      data-slot="image-cropper-root"
     />
   );
 });
@@ -31,9 +31,9 @@ const ImageCropperRootProvider = forwardRef<
   return (
     <ImageCropperPrimitive.RootProvider
       ref={ref}
-      data-slot="image-cropper-root-provider"
       className={clsx(styles.root, className)}
       {...props}
+      data-slot="image-cropper-root-provider"
     />
   );
 });
@@ -45,9 +45,9 @@ const ImageCropperViewport = forwardRef<
   return (
     <ImageCropperPrimitive.Viewport
       ref={ref}
-      data-slot="image-cropper-viewport"
       className={clsx(styles.viewport, className)}
       {...props}
+      data-slot="image-cropper-viewport"
     />
   );
 });
@@ -59,9 +59,9 @@ const ImageCropperImage = forwardRef<
   return (
     <ImageCropperPrimitive.Image
       ref={ref}
-      data-slot="image-cropper-image"
       className={clsx(styles.image, className)}
       {...props}
+      data-slot="image-cropper-image"
     />
   );
 });
@@ -73,9 +73,9 @@ const ImageCropperSelection = forwardRef<
   return (
     <ImageCropperPrimitive.Selection
       ref={ref}
-      data-slot="image-cropper-selection"
       className={clsx(styles.selection, className)}
       {...props}
+      data-slot="image-cropper-selection"
     />
   );
 });
@@ -87,9 +87,9 @@ const ImageCropperGrid = forwardRef<
   return (
     <ImageCropperPrimitive.Grid
       ref={ref}
-      data-slot="image-cropper-grid"
       className={clsx(styles.grid, className)}
       {...props}
+      data-slot="image-cropper-grid"
     />
   );
 });
@@ -101,9 +101,9 @@ const ImageCropperHandle = forwardRef<
   return (
     <ImageCropperPrimitive.Handle
       ref={ref}
-      data-slot="image-cropper-handle"
       className={clsx(styles.handle, className)}
       {...props}
+      data-slot="image-cropper-handle"
     />
   );
 });

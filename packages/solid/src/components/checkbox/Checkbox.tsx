@@ -25,10 +25,10 @@ function CheckboxRoot(props: CheckboxRootProps) {
   return (
     <CheckboxPrimitive.Root
       asChild={local.asChild}
-      data-slot="checkbox-root"
-      data-size={local.size ?? 'md'}
       class={clsx(styles.root, local.class)}
       {...others}
+      data-size={local.size ?? 'md'}
+      data-slot="checkbox-root"
     >
       {local.children}
     </CheckboxPrimitive.Root>
@@ -41,10 +41,10 @@ function CheckboxRootProvider(props: CheckboxRootProviderProps) {
   return (
     <CheckboxPrimitive.RootProvider
       asChild={local.asChild}
-      data-slot="checkbox-root-provider"
-      data-size={local.size ?? 'md'}
       class={clsx(styles.root, local.class)}
       {...others}
+      data-size={local.size ?? 'md'}
+      data-slot="checkbox-root-provider"
     >
       {local.children}
     </CheckboxPrimitive.RootProvider>
@@ -61,10 +61,10 @@ function CheckboxIndicator(props: ComponentProps<typeof CheckboxPrimitive.Indica
 
   return (
     <CheckboxPrimitive.Indicator
-      data-slot="checkbox-indicator"
       class={clsx(styles.indicator, local.class)}
       indeterminate={local.indeterminate}
       {...others}
+      data-slot="checkbox-indicator"
     >
       {resolvedChildren() ?? (
         <span aria-hidden="true" data-slot={slot()} class={styles.icon}>
@@ -81,9 +81,9 @@ function CheckboxControl(props: ComponentProps<typeof CheckboxPrimitive.Control>
 
   return (
     <CheckboxPrimitive.Control
-      data-slot="checkbox-control"
       class={clsx(styles.control, local.class)}
       {...others}
+      data-slot="checkbox-control"
     >
       {resolvedChildren() ?? (
         <>
@@ -100,9 +100,9 @@ function CheckboxLabel(props: ComponentProps<typeof CheckboxPrimitive.Label>) {
 
   return (
     <CheckboxPrimitive.Label
-      data-slot="checkbox-label"
       class={clsx(styles.label, local.class)}
       {...others}
+      data-slot="checkbox-label"
     />
   );
 }
@@ -112,9 +112,9 @@ function CheckboxGroup(props: ComponentProps<typeof CheckboxPrimitive.Group>) {
 
   return (
     <CheckboxPrimitive.Group
-      data-slot="checkbox-group"
       class={clsx(styles.group, local.class)}
       {...others}
+      data-slot="checkbox-group"
     />
   );
 }

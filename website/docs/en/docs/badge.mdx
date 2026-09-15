@@ -125,6 +125,9 @@ icon. For a semantic link or button, use `asChild` with exactly one child in Rea
 a render function to `asChild`; the rendered child keeps its native semantics. `Badge.Root` is the
 namespaced equivalent of `Badge`.
 
+In Solid, assign a ref to the element created inside the `asChild` render function. A ref on `Badge`
+itself is not forwarded through that composition path.
+
 ## Examples
 
 ### Custom Styling

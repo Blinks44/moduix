@@ -43,11 +43,11 @@ const ComboboxRoot = forwardRef(function ComboboxRoot<T extends CollectionItem>(
     <OverlayPortalProvider portalled={portalled} portalRef={portalRef}>
       <ComboboxPrimitive.Root
         ref={ref}
-        data-slot="combobox-root"
         className={clsx(styles.root, className)}
         lazyMount={lazyMount}
         unmountOnExit={unmountOnExit}
         {...props}
+        data-slot="combobox-root"
       />
     </OverlayPortalProvider>
   );
@@ -68,11 +68,11 @@ const ComboboxRootProvider = forwardRef(function ComboboxRootProvider<T extends 
     <OverlayPortalProvider portalled={portalled} portalRef={portalRef}>
       <ComboboxPrimitive.RootProvider
         ref={ref}
-        data-slot="combobox-root-provider"
         className={clsx(styles.root, className)}
         lazyMount={lazyMount}
         unmountOnExit={unmountOnExit}
         {...props}
+        data-slot="combobox-root-provider"
       />
     </OverlayPortalProvider>
   );
@@ -85,9 +85,9 @@ const ComboboxLabel = forwardRef<
   return (
     <ComboboxPrimitive.Label
       ref={ref}
-      data-slot="combobox-label"
       className={clsx(styles.label, className)}
       {...props}
+      data-slot="combobox-label"
     />
   );
 });
@@ -99,9 +99,9 @@ const ComboboxControl = forwardRef<
   return (
     <ComboboxPrimitive.Control
       ref={ref}
-      data-slot="combobox-control"
       className={clsx(styles.control, className)}
       {...props}
+      data-slot="combobox-control"
     />
   );
 });
@@ -113,10 +113,10 @@ const ComboboxInput = forwardRef<
   return (
     <ComboboxPrimitive.Input
       ref={ref}
-      data-slot="combobox-input"
       asChild={asChild}
       className={clsx(!asChild && styles.input, className)}
       {...props}
+      data-slot="combobox-input"
     />
   );
 });
@@ -141,11 +141,11 @@ const ComboboxClearTrigger = forwardRef<
     <ComboboxPrimitive.ClearTrigger
       ref={ref}
       asChild
-      data-slot="combobox-clear-trigger"
       className={triggerClassName}
       aria-label={asChild ? ariaLabel : undefined}
       aria-labelledby={asChild ? ariaLabelledBy : undefined}
       {...props}
+      data-slot="combobox-clear-trigger"
     >
       {asChild ? (
         children
@@ -168,9 +168,9 @@ const ComboboxTrigger = forwardRef<
   return (
     <ComboboxPrimitive.Trigger
       ref={ref}
-      data-slot="combobox-trigger"
       className={clsx(styles.trigger, className)}
       {...props}
+      data-slot="combobox-trigger"
     >
       {children ?? <ChevronUpDownIcon />}
     </ComboboxPrimitive.Trigger>
@@ -185,9 +185,9 @@ const ComboboxPositioner = forwardRef<
     <OverlayPortal>
       <ComboboxPrimitive.Positioner
         ref={ref}
-        data-slot="combobox-positioner"
         className={clsx(styles.positioner, className)}
         {...props}
+        data-slot="combobox-positioner"
       />
     </OverlayPortal>
   );
@@ -200,9 +200,9 @@ const ComboboxContent = forwardRef<
   return (
     <ComboboxPrimitive.Content
       ref={ref}
-      data-slot="combobox-content"
       className={clsx(styles.content, className)}
       {...props}
+      data-slot="combobox-content"
     />
   );
 });
@@ -214,9 +214,9 @@ const ComboboxEmpty = forwardRef<
   return (
     <ComboboxPrimitive.Empty
       ref={ref}
-      data-slot="combobox-empty"
       className={clsx(styles.empty, className)}
       {...props}
+      data-slot="combobox-empty"
     />
   );
 });
@@ -226,9 +226,9 @@ const ComboboxStatus = forwardRef<ComponentRef<typeof ark.div>, HTMLArkProps<'di
     return (
       <ark.div
         ref={ref}
-        data-slot="combobox-status"
         className={clsx(styles.status, className)}
         {...props}
+        data-slot="combobox-status"
       />
     );
   },
@@ -241,9 +241,9 @@ const ComboboxList = forwardRef<
   return (
     <ComboboxPrimitive.List
       ref={ref}
-      data-slot="combobox-list"
       className={clsx(styles.list, className)}
       {...props}
+      data-slot="combobox-list"
     />
   );
 });
@@ -255,9 +255,9 @@ const ComboboxItemGroup = forwardRef<
   return (
     <ComboboxPrimitive.ItemGroup
       ref={ref}
-      data-slot="combobox-item-group"
       className={clsx(styles.itemGroup, className)}
       {...props}
+      data-slot="combobox-item-group"
     />
   );
 });
@@ -269,9 +269,9 @@ const ComboboxItemGroupLabel = forwardRef<
   return (
     <ComboboxPrimitive.ItemGroupLabel
       ref={ref}
-      data-slot="combobox-item-group-label"
       className={clsx(styles.itemGroupLabel, className)}
       {...props}
+      data-slot="combobox-item-group-label"
     />
   );
 });
@@ -283,9 +283,9 @@ const ComboboxItem = forwardRef<
   return (
     <ComboboxPrimitive.Item
       ref={ref}
-      data-slot="combobox-item"
       className={clsx(styles.item, className)}
       {...props}
+      data-slot="combobox-item"
     />
   );
 });
@@ -297,9 +297,9 @@ const ComboboxItemText = forwardRef<
   return (
     <ComboboxPrimitive.ItemText
       ref={ref}
-      data-slot="combobox-item-text"
       className={clsx(styles.itemText, className)}
       {...props}
+      data-slot="combobox-item-text"
     />
   );
 });
@@ -311,9 +311,9 @@ const ComboboxItemIndicator = forwardRef<
   return (
     <ComboboxPrimitive.ItemIndicator
       ref={ref}
-      data-slot="combobox-item-indicator"
       className={clsx(styles.itemIndicator, className)}
       {...props}
+      data-slot="combobox-item-indicator"
     >
       {children ?? <CheckIcon />}
     </ComboboxPrimitive.ItemIndicator>

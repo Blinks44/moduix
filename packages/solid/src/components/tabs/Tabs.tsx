@@ -11,11 +11,11 @@ function TabsRoot(props: ComponentProps<typeof TabsPrimitive.Root> & { variant?:
 
   return (
     <TabsPrimitive.Root
-      data-slot="tabs-root"
       data-variant={local.orientation === 'vertical' ? 'default' : (local.variant ?? 'default')}
       class={clsx(styles.root, local.class)}
       orientation={local.orientation}
       {...others}
+      data-slot="tabs-root"
     />
   );
 }
@@ -33,11 +33,11 @@ function TabsRootProvider(
 
   return (
     <TabsPrimitive.RootProvider
-      data-slot="tabs-root-provider"
       data-variant={orientation() === 'vertical' ? 'default' : (local.variant ?? 'default')}
       class={clsx(styles.root, local.class)}
       value={local.value}
       {...others}
+      data-slot="tabs-root-provider"
     />
   );
 }
@@ -46,7 +46,7 @@ function TabsList(props: ComponentProps<typeof TabsPrimitive.List>) {
   const [local, others] = splitProps(props, ['class']);
 
   return (
-    <TabsPrimitive.List data-slot="tabs-list" class={clsx(styles.list, local.class)} {...others} />
+    <TabsPrimitive.List class={clsx(styles.list, local.class)} {...others} data-slot="tabs-list" />
   );
 }
 
@@ -55,9 +55,9 @@ function TabsTrigger(props: ComponentProps<typeof TabsPrimitive.Trigger>) {
 
   return (
     <TabsPrimitive.Trigger
-      data-slot="tabs-trigger"
       class={clsx(styles.trigger, local.class)}
       {...others}
+      data-slot="tabs-trigger"
     />
   );
 }
@@ -67,9 +67,9 @@ function TabsIndicator(props: ComponentProps<typeof TabsPrimitive.Indicator>) {
 
   return (
     <TabsPrimitive.Indicator
-      data-slot="tabs-indicator"
       class={clsx(styles.indicator, local.class)}
       {...others}
+      data-slot="tabs-indicator"
     />
   );
 }
@@ -79,9 +79,9 @@ function TabsContent(props: ComponentProps<typeof TabsPrimitive.Content>) {
 
   return (
     <TabsPrimitive.Content
-      data-slot="tabs-content"
       class={clsx(styles.content, local.class)}
       {...others}
+      data-slot="tabs-content"
     />
   );
 }

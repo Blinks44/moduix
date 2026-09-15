@@ -118,9 +118,9 @@ const CommandPaletteTrigger = forwardRef<
     <DialogPrimitive.Trigger
       ref={ref}
       asChild={asChild}
-      data-slot="command-palette-trigger"
       className={clsx(!asChild && styles.trigger, className)}
       {...props}
+      data-slot="command-palette-trigger"
     />
   );
 });
@@ -133,9 +133,9 @@ const CommandPaletteBackdrop = forwardRef<
     <OverlayPortal>
       <DialogPrimitive.Backdrop
         ref={ref}
-        data-slot="command-palette-backdrop"
         className={clsx(styles.backdrop, className)}
         {...props}
+        data-slot="command-palette-backdrop"
       />
     </OverlayPortal>
   );
@@ -149,9 +149,9 @@ const CommandPalettePositioner = forwardRef<
     <OverlayPortal>
       <DialogPrimitive.Positioner
         ref={ref}
-        data-slot="command-palette-positioner"
         className={clsx(styles.positioner, className)}
         {...props}
+        data-slot="command-palette-positioner"
       />
     </OverlayPortal>
   );
@@ -164,9 +164,9 @@ const CommandPaletteContent = forwardRef<
   return (
     <DialogPrimitive.Content
       ref={ref}
-      data-slot="command-palette-content"
       className={clsx(styles.content, className)}
       {...props}
+      data-slot="command-palette-content"
     />
   );
 });
@@ -194,9 +194,9 @@ const CommandPaletteTitle = forwardRef<
   return (
     <DialogPrimitive.Title
       ref={ref}
-      data-slot="command-palette-title"
       className={clsx(styles.title, className)}
       {...props}
+      data-slot="command-palette-title"
     />
   );
 });
@@ -208,9 +208,9 @@ const CommandPaletteDescription = forwardRef<
   return (
     <DialogPrimitive.Description
       ref={ref}
-      data-slot="command-palette-description"
       className={clsx(styles.description, className)}
       {...props}
+      data-slot="command-palette-description"
     />
   );
 });
@@ -220,9 +220,9 @@ const CommandPaletteHeader = forwardRef<HTMLDivElement, HTMLArkProps<'div'>>(
     return (
       <ark.div
         ref={ref}
-        data-slot="command-palette-header"
         className={clsx(styles.header, className)}
         {...props}
+        data-slot="command-palette-header"
       />
     );
   },
@@ -233,9 +233,9 @@ const CommandPaletteBody = forwardRef<HTMLDivElement, HTMLArkProps<'div'>>(
     return (
       <ark.div
         ref={ref}
-        data-slot="command-palette-body"
         className={clsx(styles.body, className)}
         {...props}
+        data-slot="command-palette-body"
       />
     );
   },
@@ -266,7 +266,6 @@ const CommandPaletteCombobox = forwardRef(function CommandPaletteCombobox<T exte
   return (
     <ComboboxPrimitive.Root
       ref={ref}
-      data-slot="command-palette-combobox"
       className={clsx(styles.combobox, className)}
       open={open}
       inputBehavior={inputBehavior}
@@ -275,6 +274,7 @@ const CommandPaletteCombobox = forwardRef(function CommandPaletteCombobox<T exte
       disableLayer={disableLayer}
       onSelect={handleSelect}
       {...props}
+      data-slot="command-palette-combobox"
     />
   );
 }) as ComboboxRootComponent;
@@ -286,9 +286,9 @@ const CommandPaletteControl = forwardRef<
   return (
     <ComboboxPrimitive.Control
       ref={ref}
-      data-slot="command-palette-control"
       className={clsx(styles.control, className)}
       {...props}
+      data-slot="command-palette-control"
     />
   );
 });
@@ -300,9 +300,9 @@ const CommandPaletteInput = forwardRef<
   return (
     <ComboboxPrimitive.Input
       ref={ref}
-      data-slot="command-palette-input"
       className={clsx(styles.input, className)}
       {...props}
+      data-slot="command-palette-input"
     />
   );
 });
@@ -390,9 +390,9 @@ const CommandPaletteList = forwardRef<
   return (
     <ComboboxPrimitive.Content
       ref={ref}
-      data-slot="command-palette-list"
       className={clsx(styles.list, className)}
       {...props}
+      data-slot="command-palette-list"
     >
       <ScrollArea data-slot="command-palette-scroll-area" className={styles.scrollArea}>
         <ScrollArea.Viewport
@@ -418,9 +418,9 @@ const CommandPaletteEmpty = forwardRef<
   return (
     <ComboboxPrimitive.Empty
       ref={ref}
-      data-slot="command-palette-empty"
       className={clsx(styles.empty, className)}
       {...props}
+      data-slot="command-palette-empty"
     />
   );
 });
@@ -432,9 +432,9 @@ const CommandPaletteItemGroup = forwardRef<
   return (
     <ComboboxPrimitive.ItemGroup
       ref={ref}
-      data-slot="command-palette-item-group"
       className={clsx(styles.itemGroup, className)}
       {...props}
+      data-slot="command-palette-item-group"
     />
   );
 });
@@ -446,9 +446,9 @@ const CommandPaletteItemGroupLabel = forwardRef<
   return (
     <ComboboxPrimitive.ItemGroupLabel
       ref={ref}
-      data-slot="command-palette-item-group-label"
       className={clsx(styles.itemGroupLabel, className)}
       {...props}
+      data-slot="command-palette-item-group-label"
     />
   );
 });
@@ -460,9 +460,9 @@ const CommandPaletteItem = forwardRef<
   return (
     <ComboboxPrimitive.Item
       ref={ref}
-      data-slot="command-palette-item"
       className={clsx(styles.item, className)}
       {...props}
+      data-slot="command-palette-item"
     />
   );
 });
@@ -474,9 +474,9 @@ const CommandPaletteItemText = forwardRef<
   return (
     <ComboboxPrimitive.ItemText
       ref={ref}
-      data-slot="command-palette-item-text"
       className={clsx(styles.itemText, className)}
       {...props}
+      data-slot="command-palette-item-text"
     />
   );
 });
@@ -488,9 +488,9 @@ const CommandPaletteItemIndicator = forwardRef<
   return (
     <ComboboxPrimitive.ItemIndicator
       ref={ref}
-      data-slot="command-palette-item-indicator"
       className={clsx(styles.itemIndicator, className)}
       {...props}
+      data-slot="command-palette-item-indicator"
     >
       {children ?? <CheckIcon />}
     </ComboboxPrimitive.ItemIndicator>
@@ -502,9 +502,9 @@ const CommandPaletteItemIcon = forwardRef<HTMLSpanElement, HTMLArkProps<'span'>>
     return (
       <ark.span
         ref={ref}
-        data-slot="command-palette-item-icon"
         className={clsx(styles.itemIcon, className)}
         {...props}
+        data-slot="command-palette-item-icon"
       />
     );
   },
@@ -515,9 +515,9 @@ const CommandPaletteItemLabel = forwardRef<HTMLSpanElement, HTMLArkProps<'span'>
     return (
       <ark.span
         ref={ref}
-        data-slot="command-palette-item-label"
         className={clsx(styles.itemLabel, className)}
         {...props}
+        data-slot="command-palette-item-label"
       />
     );
   },
@@ -528,9 +528,9 @@ const CommandPaletteItemDescription = forwardRef<HTMLSpanElement, HTMLArkProps<'
     return (
       <ark.span
         ref={ref}
-        data-slot="command-palette-item-description"
         className={clsx(styles.itemDescription, className)}
         {...props}
+        data-slot="command-palette-item-description"
       />
     );
   },
@@ -541,9 +541,9 @@ const CommandPaletteItemMeta = forwardRef<HTMLSpanElement, HTMLArkProps<'span'>>
     return (
       <ark.span
         ref={ref}
-        data-slot="command-palette-item-meta"
         className={clsx(styles.itemMeta, className)}
         {...props}
+        data-slot="command-palette-item-meta"
       />
     );
   },
@@ -555,9 +555,9 @@ const CommandPaletteSeparator = forwardRef<HTMLDivElement, HTMLArkProps<'div'>>(
       <ark.div
         ref={ref}
         role="separator"
-        data-slot="command-palette-separator"
         className={clsx(styles.separator, className)}
         {...props}
+        data-slot="command-palette-separator"
       />
     );
   },
@@ -568,9 +568,9 @@ const CommandPaletteFooter = forwardRef<HTMLDivElement, HTMLArkProps<'div'>>(
     return (
       <ark.div
         ref={ref}
-        data-slot="command-palette-footer"
         className={clsx(styles.footer, className)}
         {...props}
+        data-slot="command-palette-footer"
       />
     );
   },
@@ -578,7 +578,7 @@ const CommandPaletteFooter = forwardRef<HTMLDivElement, HTMLArkProps<'div'>>(
 
 function CommandPaletteKbd({ className, ...props }: ComponentProps<typeof Kbd.Root>) {
   return (
-    <Kbd.Root data-slot="command-palette-kbd" className={clsx(styles.kbd, className)} {...props} />
+    <Kbd.Root className={clsx(styles.kbd, className)} {...props} data-slot="command-palette-kbd" />
   );
 }
 

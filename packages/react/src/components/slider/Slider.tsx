@@ -13,11 +13,11 @@ const SliderRoot = forwardRef<
   return (
     <SliderPrimitive.Root
       ref={ref}
-      data-slot="slider-root"
       data-readonly={readOnly ? '' : undefined}
       className={clsx(styles.root, className)}
       readOnly={readOnly}
       {...props}
+      data-slot="slider-root"
     />
   );
 });
@@ -29,9 +29,9 @@ const SliderRootProvider = forwardRef<
   return (
     <SliderPrimitive.RootProvider
       ref={ref}
-      data-slot="slider-root-provider"
       className={clsx(styles.root, className)}
       {...props}
+      data-slot="slider-root-provider"
     />
   );
 });
@@ -43,9 +43,9 @@ const SliderLabel = forwardRef<
   return (
     <SliderPrimitive.Label
       ref={ref}
-      data-slot="slider-label"
       className={clsx(styles.label, className)}
       {...props}
+      data-slot="slider-label"
     />
   );
 });
@@ -57,9 +57,9 @@ const SliderValueText = forwardRef<
   return (
     <SliderPrimitive.ValueText
       ref={ref}
-      data-slot="slider-value-text"
       className={clsx(styles.valueText, className)}
       {...props}
+      data-slot="slider-value-text"
     />
   );
 });
@@ -71,9 +71,9 @@ const SliderControl = forwardRef<
   return (
     <SliderPrimitive.Control
       ref={ref}
-      data-slot="slider-control"
       className={clsx(styles.control, className)}
       {...props}
+      data-slot="slider-control"
     />
   );
 });
@@ -85,9 +85,9 @@ const SliderTrack = forwardRef<
   return (
     <SliderPrimitive.Track
       ref={ref}
-      data-slot="slider-track"
       className={clsx(styles.track, className)}
       {...props}
+      data-slot="slider-track"
     />
   );
 });
@@ -99,9 +99,9 @@ const SliderRange = forwardRef<
   return (
     <SliderPrimitive.Range
       ref={ref}
-      data-slot="slider-range"
       className={clsx(styles.range, className)}
       {...props}
+      data-slot="slider-range"
     />
   );
 });
@@ -113,9 +113,9 @@ const SliderThumb = forwardRef<
   return (
     <SliderPrimitive.Thumb
       ref={ref}
-      data-slot="slider-thumb"
       className={clsx(styles.thumb, className)}
       {...props}
+      data-slot="slider-thumb"
     />
   );
 });
@@ -137,9 +137,9 @@ const SliderMarkerGroup = forwardRef<
   return (
     <SliderPrimitive.MarkerGroup
       ref={ref}
-      data-slot="slider-marker-group"
       className={clsx(styles.markerGroup, className)}
       {...props}
+      data-slot="slider-marker-group"
     />
   );
 });
@@ -151,9 +151,9 @@ const SliderMarker = forwardRef<
   return (
     <SliderPrimitive.Marker
       ref={ref}
-      data-slot="slider-marker"
       className={clsx(styles.marker, className)}
       {...props}
+      data-slot="slider-marker"
     />
   );
 });
@@ -165,9 +165,9 @@ const SliderDraggingIndicator = forwardRef<
   return (
     <SliderPrimitive.DraggingIndicator
       ref={ref}
-      data-slot="slider-dragging-indicator"
       className={clsx(styles.draggingIndicator, className)}
       {...props}
+      data-slot="slider-dragging-indicator"
     />
   );
 });

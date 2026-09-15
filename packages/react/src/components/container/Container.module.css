@@ -35,7 +35,7 @@
     }
 
     &[data-gutter='none'] {
-      --_container-gutter: 0;
+      --_container-gutter: 0px;
     }
 
     &[data-gutter='sm'] {

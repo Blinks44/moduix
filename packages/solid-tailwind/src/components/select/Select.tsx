@@ -49,11 +49,11 @@ const SelectRoot = function SelectRoot<T extends CollectionItem>(props: SelectRo
     <OverlayPortalProvider portalled={local.portalled} portalRef={local.portalRef}>
       <SelectPrimitive.Root
         asChild={local.asChild}
-        data-slot="select-root"
         class={cn('flex w-56 max-w-full min-w-0 flex-col gap-1.5 text-foreground', local.class)}
         lazyMount={local.lazyMount ?? true}
         unmountOnExit={local.unmountOnExit ?? true}
         {...others}
+        data-slot="select-root"
       >
         {local.children}
       </SelectPrimitive.Root>
@@ -78,11 +78,11 @@ const SelectRootProvider = function SelectRootProvider<T extends CollectionItem>
     <OverlayPortalProvider portalled={local.portalled} portalRef={local.portalRef}>
       <SelectPrimitive.RootProvider
         asChild={local.asChild}
-        data-slot="select-root-provider"
         class={cn('flex w-56 max-w-full min-w-0 flex-col gap-1.5 text-foreground', local.class)}
         lazyMount={local.lazyMount ?? true}
         unmountOnExit={local.unmountOnExit ?? true}
         {...others}
+        data-slot="select-root-provider"
       >
         {local.children}
       </SelectPrimitive.RootProvider>
@@ -95,12 +95,12 @@ function SelectLabel(props: ComponentProps<typeof SelectPrimitive.Label>) {
 
   return (
     <SelectPrimitive.Label
-      data-slot="select-label"
       class={cn(
         'inline-flex items-center text-sm font-medium text-foreground select-none data-disabled:opacity-50',
         local.class,
       )}
       {...others}
+      data-slot="select-label"
     />
   );
 }
@@ -110,12 +110,12 @@ function SelectControl(props: ComponentProps<typeof SelectPrimitive.Control>) {
 
   return (
     <SelectPrimitive.Control
-      data-slot="select-control"
       class={cn(
         'group/select-control relative flex w-full min-w-0 items-center text-foreground data-disabled:opacity-50',
         local.class,
       )}
       {...others}
+      data-slot="select-control"
     />
   );
 }
@@ -126,13 +126,13 @@ function SelectTrigger(props: ComponentProps<typeof SelectPrimitive.Trigger>) {
   return (
     <SelectPrimitive.Trigger
       asChild={local.asChild}
-      data-slot="select-trigger"
       class={cn(
         !local.asChild &&
           'peer/select-trigger relative inline-flex h-control-md w-full min-w-0 cursor-pointer items-center justify-start rounded-md border border-border bg-background px-3.5 pe-[2.875rem] text-start text-inherit outline-1 -outline-offset-1 outline-transparent transition-[background-color,border-color,outline-color] duration-200 ease-in-out select-none [font:inherit] group-has-[>[data-slot=select-clear-trigger]:not([hidden])]/select-control:pe-[4.25rem] group-data-invalid/select-control:border-destructive group-data-invalid/select-control:outline-destructive focus-visible:border-ring focus-visible:outline-ring disabled:cursor-default data-disabled:cursor-default data-placeholder-shown:text-muted-foreground data-[state=open]:border-ring data-[state=open]:outline-ring motion-reduce:transition-none',
         local.class,
       )}
       {...others}
+      data-slot="select-trigger"
     />
   );
 }
@@ -142,9 +142,9 @@ function SelectValueText(props: ComponentProps<typeof SelectPrimitive.ValueText>
 
   return (
     <SelectPrimitive.ValueText
-      data-slot="select-value-text"
       class={cn('min-w-0 flex-1 overflow-hidden text-ellipsis whitespace-nowrap', local.class)}
       {...others}
+      data-slot="select-value-text"
     />
   );
 }
@@ -165,12 +165,12 @@ function SelectClearTrigger(props: ComponentProps<typeof SelectPrimitive.ClearTr
         asChild={local.asChild}
         aria-label={local['aria-label']}
         aria-labelledby={local['aria-labelledby']}
-        data-slot="select-clear-trigger"
         class={cn(
           'pointer-events-auto absolute inset-y-0 end-[2.125rem] my-auto size-control-xs transition-[background-color,color,opacity] duration-200 ease-in-out focus-visible:outline-1 focus-visible:outline-offset-1 motion-reduce:transition-none [&>svg]:size-4',
           local.class,
         )}
         {...others}
+        data-slot="select-clear-trigger"
       >
         {local.children}
       </SelectPrimitive.ClearTrigger>
@@ -195,12 +195,12 @@ function SelectClearTrigger(props: ComponentProps<typeof SelectPrimitive.ClearTr
           </CloseButton.Root>
         );
       }}
-      data-slot="select-clear-trigger"
       class={cn(
         'pointer-events-auto absolute inset-y-0 end-[2.125rem] my-auto size-control-xs transition-[background-color,color,opacity] duration-200 ease-in-out focus-visible:outline-1 focus-visible:outline-offset-1 motion-reduce:transition-none [&>svg]:size-4',
         local.class,
       )}
       {...others}
+      data-slot="select-clear-trigger"
     />
   );
 }
@@ -211,12 +211,12 @@ function SelectIndicator(props: ComponentProps<typeof SelectPrimitive.Indicator>
 
   return (
     <SelectPrimitive.Indicator
-      data-slot="select-indicator"
       class={cn(
         'pointer-events-none inline-flex size-control-xs shrink-0 items-center justify-center rounded-sm bg-transparent leading-none text-muted-foreground transition-[background-color,color,opacity] duration-200 ease-in-out peer-[:not([disabled]):not([data-disabled]):hover]/select-trigger:bg-muted peer-[:not([disabled]):not([data-disabled]):hover]/select-trigger:text-foreground motion-reduce:transition-none [&>svg]:block [&>svg]:size-4',
         local.class,
       )}
       {...others}
+      data-slot="select-indicator"
     >
       {resolvedChildren() ?? <ChevronUpDownIcon />}
     </SelectPrimitive.Indicator>
@@ -245,9 +245,9 @@ function SelectPositioner(props: ComponentProps<typeof SelectPrimitive.Positione
   return (
     <OverlayPortal>
       <SelectPrimitive.Positioner
-        data-slot="select-positioner"
         class={cn('z-[var(--z-index)] outline-0', local.class)}
         {...others}
+        data-slot="select-positioner"
       />
     </OverlayPortal>
   );
@@ -258,12 +258,12 @@ function SelectContent(props: ComponentProps<typeof SelectPrimitive.Content>) {
 
   return (
     <SelectPrimitive.Content
-      data-slot="select-content"
       class={cn(
         'z-[calc(60+var(--layer-index,0))] flex max-h-[min(24rem,var(--available-height))] max-w-[var(--available-width)] min-w-[var(--reference-width)] origin-[var(--transform-origin)] scroll-py-1 flex-col overflow-auto overscroll-contain rounded-md border border-border bg-popover py-1 text-popover-foreground shadow-lg outline-0 data-[state=closed]:pointer-events-none data-[state=closed]:animate-moduix-menu-closed data-[state=open]:animate-moduix-menu-open motion-reduce:animate-none',
         local.class,
       )}
       {...others}
+      data-slot="select-content"
     />
   );
 }
@@ -273,12 +273,12 @@ function SelectList(props: ComponentProps<typeof SelectPrimitive.List>) {
 
   return (
     <SelectPrimitive.List
-      data-slot="select-list"
       class={cn(
         'flex min-h-0 scroll-py-1 flex-col overflow-y-auto overscroll-contain outline-0',
         local.class,
       )}
       {...others}
+      data-slot="select-list"
     />
   );
 }
@@ -288,9 +288,9 @@ function SelectItemGroup(props: ComponentProps<typeof SelectPrimitive.ItemGroup>
 
   return (
     <SelectPrimitive.ItemGroup
-      data-slot="select-item-group"
       class={cn('flex flex-col [&+&]:mt-2', local.class)}
       {...others}
+      data-slot="select-item-group"
     />
   );
 }
@@ -300,9 +300,9 @@ function SelectItemGroupLabel(props: ComponentProps<typeof SelectPrimitive.ItemG
 
   return (
     <SelectPrimitive.ItemGroupLabel
-      data-slot="select-item-group-label"
       class={cn('px-2.5 py-1 text-xs font-normal text-muted-foreground', local.class)}
       {...others}
+      data-slot="select-item-group-label"
     />
   );
 }
@@ -312,12 +312,12 @@ function SelectItem(props: ComponentProps<typeof SelectPrimitive.Item>) {
 
   return (
     <SelectPrimitive.Item
-      data-slot="select-item"
       class={cn(
         'relative mx-1 flex min-h-control-sm w-[calc(100%-0.5rem)] cursor-default items-center justify-between gap-2 rounded-sm bg-transparent px-3 py-1 text-sm text-popover-foreground outline-0 select-none data-disabled:pointer-events-none data-disabled:text-muted-foreground data-disabled:opacity-50 data-highlighted:bg-accent data-highlighted:text-accent-foreground',
         local.class,
       )}
       {...others}
+      data-slot="select-item"
     />
   );
 }
@@ -327,9 +327,9 @@ function SelectItemText(props: ComponentProps<typeof SelectPrimitive.ItemText>) 
 
   return (
     <SelectPrimitive.ItemText
-      data-slot="select-item-text"
       class={cn('min-w-0 flex-1 overflow-hidden text-ellipsis whitespace-nowrap', local.class)}
       {...others}
+      data-slot="select-item-text"
     />
   );
 }
@@ -340,12 +340,12 @@ function SelectItemIndicator(props: ComponentProps<typeof SelectPrimitive.ItemIn
 
   return (
     <SelectPrimitive.ItemIndicator
-      data-slot="select-item-indicator"
       class={cn(
         'inline-flex size-3.5 shrink-0 items-center justify-center [&>svg]:size-3',
         local.class,
       )}
       {...others}
+      data-slot="select-item-indicator"
     >
       {resolvedChildren() ?? <CheckIcon />}
     </SelectPrimitive.ItemIndicator>
@@ -357,9 +357,9 @@ function SelectItemTextContent(props: HTMLArkProps<'span'>) {
 
   return (
     <ark.span
-      data-slot="select-item-text-content"
       class={cn('inline-flex max-w-full min-w-0 items-center gap-2 align-top', local.class)}
       {...others}
+      data-slot="select-item-text-content"
     />
   );
 }
@@ -369,9 +369,9 @@ function SelectItemTextIcon(props: HTMLArkProps<'span'>) {
 
   return (
     <ark.span
-      data-slot="select-item-text-icon"
       class={cn('inline-flex size-4 shrink-0 items-center justify-center', local.class)}
       {...others}
+      data-slot="select-item-text-icon"
     />
   );
 }
@@ -381,9 +381,9 @@ function SelectItemTextLabel(props: HTMLArkProps<'span'>) {
 
   return (
     <ark.span
-      data-slot="select-item-text-label"
       class={cn('min-w-0 overflow-hidden text-ellipsis whitespace-nowrap', local.class)}
       {...others}
+      data-slot="select-item-text-label"
     />
   );
 }

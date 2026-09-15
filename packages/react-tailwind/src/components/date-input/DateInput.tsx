@@ -17,12 +17,12 @@ const DateInputRoot = forwardRef<
   return (
     <DateInputPrimitive.Root
       ref={ref}
-      data-slot="date-input-root"
       className={cn(
         'inline-flex w-full max-w-none flex-col items-start gap-1 data-disabled:opacity-50',
         className,
       )}
       {...props}
+      data-slot="date-input-root"
     />
   );
 });
@@ -34,12 +34,12 @@ const DateInputRootProvider = forwardRef<
   return (
     <DateInputPrimitive.RootProvider
       ref={ref}
-      data-slot="date-input-root-provider"
       className={cn(
         'inline-flex w-full max-w-none flex-col items-start gap-1 data-disabled:opacity-50',
         className,
       )}
       {...props}
+      data-slot="date-input-root-provider"
     />
   );
 });
@@ -51,9 +51,9 @@ const DateInputLabel = forwardRef<
   return (
     <DateInputPrimitive.Label
       ref={ref}
-      data-slot="date-input-label"
       className={cn('text-sm leading-5 font-medium text-foreground', className)}
       {...props}
+      data-slot="date-input-label"
     />
   );
 });
@@ -65,12 +65,12 @@ const DateInputControl = forwardRef<
   return (
     <DateInputPrimitive.Control
       ref={ref}
-      data-slot="date-input-control"
       className={cn(
         'box-border inline-flex min-h-control-md w-full items-center rounded-md border border-border bg-background px-3 py-1 text-foreground outline-1 -outline-offset-1 outline-transparent transition-[border-color,outline-color,opacity] duration-200 ease-in-out focus-within:outline-ring data-disabled:pointer-events-none data-focus:outline-ring data-invalid:border-destructive data-invalid:focus-within:outline-destructive data-invalid:data-focus:outline-destructive motion-reduce:transition-none',
         className,
       )}
       {...props}
+      data-slot="date-input-control"
     />
   );
 });
@@ -82,9 +82,9 @@ const DateInputSegmentGroup = forwardRef<
   return (
     <DateInputPrimitive.SegmentGroup
       ref={ref}
-      data-slot="date-input-segment-group"
       className={cn('inline-flex items-center gap-0.5 tabular-nums', className)}
       {...props}
+      data-slot="date-input-segment-group"
     />
   );
 });
@@ -96,12 +96,12 @@ const DateInputSegment = forwardRef<
   return (
     <DateInputPrimitive.Segment
       ref={ref}
-      data-slot="date-input-segment"
       className={cn(
         'min-w-[2ch] cursor-text rounded-sm px-1 py-0 text-center leading-6 text-current outline-0 transition-colors duration-200 ease-in-out [font:inherit] focus-visible:bg-ring/18 focus-visible:text-foreground data-disabled:cursor-default data-placeholder-shown:text-muted-foreground data-readonly:cursor-default data-[type=literal]:pointer-events-none data-[type=literal]:min-w-auto data-[type=literal]:bg-transparent data-[type=literal]:px-0 data-[type=literal]:text-muted-foreground motion-reduce:transition-none',
         className,
       )}
       {...props}
+      data-slot="date-input-segment"
     />
   );
 });
@@ -127,11 +127,11 @@ function DateInputSeparator({
 }: ComponentProps<'span'>) {
   return (
     <span
-      data-slot="date-input-separator"
       aria-hidden={ariaHidden}
       role={role}
       className={cn('text-muted-foreground select-none', className)}
       {...props}
+      data-slot="date-input-separator"
     />
   );
 }

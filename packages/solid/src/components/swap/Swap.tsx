@@ -19,10 +19,10 @@ function SwapRoot(props: SwapRootProps) {
 
   return (
     <SwapPrimitive.Root
-      data-slot="swap-root"
       data-animation={local.animation ?? 'scale'}
       class={clsx(styles.root, local.class)}
       {...others}
+      data-slot="swap-root"
     />
   );
 }
@@ -32,10 +32,10 @@ function SwapRootProvider(props: SwapRootProviderProps) {
 
   return (
     <SwapPrimitive.RootProvider
-      data-slot="swap-root-provider"
       data-animation={local.animation ?? 'scale'}
       class={clsx(styles.root, local.class)}
       {...others}
+      data-slot="swap-root-provider"
     />
   );
 }
@@ -45,9 +45,9 @@ function SwapIndicator(props: ComponentProps<typeof SwapPrimitive.Indicator>) {
 
   return (
     <SwapPrimitive.Indicator
-      data-slot="swap-indicator"
       class={clsx(styles.indicator, local.class)}
       {...others}
+      data-slot="swap-indicator"
     />
   );
 }

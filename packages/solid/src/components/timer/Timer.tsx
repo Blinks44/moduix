@@ -9,9 +9,9 @@ function TimerRoot(props: ComponentProps<typeof TimerPrimitive.Root>) {
 
   return (
     <TimerPrimitive.Root
-      data-slot="timer-root"
       class={clsx(styles.root, local.class)}
       {...others}
+      data-slot="timer-root"
     />
   );
 }
@@ -21,9 +21,9 @@ function TimerRootProvider(props: ComponentProps<typeof TimerPrimitive.RootProvi
 
   return (
     <TimerPrimitive.RootProvider
-      data-slot="timer-root-provider"
       class={clsx(styles.root, local.class)}
       {...others}
+      data-slot="timer-root-provider"
     />
   );
 }
@@ -33,9 +33,9 @@ function TimerArea(props: ComponentProps<typeof TimerPrimitive.Area>) {
 
   return (
     <TimerPrimitive.Area
-      data-slot="timer-area"
       class={clsx(styles.area, local.class)}
       {...others}
+      data-slot="timer-area"
     />
   );
 }
@@ -45,9 +45,9 @@ function TimerItem(props: ComponentProps<typeof TimerPrimitive.Item>) {
 
   return (
     <TimerPrimitive.Item
-      data-slot="timer-item"
       class={clsx(styles.item, local.class)}
       {...others}
+      data-slot="timer-item"
     />
   );
 }
@@ -57,9 +57,9 @@ function TimerSeparator(props: ComponentProps<typeof TimerPrimitive.Separator>) 
 
   return (
     <TimerPrimitive.Separator
-      data-slot="timer-separator"
       class={clsx(styles.separator, local.class)}
       {...others}
+      data-slot="timer-separator"
     />
   );
 }
@@ -69,9 +69,9 @@ function TimerControl(props: ComponentProps<typeof TimerPrimitive.Control>) {
 
   return (
     <TimerPrimitive.Control
-      data-slot="timer-control"
       class={clsx(styles.control, local.class)}
       {...others}
+      data-slot="timer-control"
     />
   );
 }
@@ -81,9 +81,9 @@ function TimerActionTrigger(props: ComponentProps<typeof TimerPrimitive.ActionTr
 
   return (
     <TimerPrimitive.ActionTrigger
-      data-slot="timer-action-trigger"
       class={clsx(styles.actionTrigger, local.class)}
       {...others}
+      data-slot="timer-action-trigger"
     />
   );
 }

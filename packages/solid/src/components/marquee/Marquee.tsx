@@ -9,9 +9,9 @@ function MarqueeRoot(props: ComponentProps<typeof MarqueePrimitive.Root>) {
 
   return (
     <MarqueePrimitive.Root
-      data-slot="marquee-root"
       class={clsx(styles.root, local.class)}
       {...others}
+      data-slot="marquee-root"
     />
   );
 }
@@ -21,9 +21,9 @@ function MarqueeRootProvider(props: ComponentProps<typeof MarqueePrimitive.RootP
 
   return (
     <MarqueePrimitive.RootProvider
-      data-slot="marquee-root-provider"
       class={clsx(styles.root, local.class)}
       {...others}
+      data-slot="marquee-root-provider"
     />
   );
 }
@@ -33,9 +33,9 @@ function MarqueeViewport(props: ComponentProps<typeof MarqueePrimitive.Viewport>
 
   return (
     <MarqueePrimitive.Viewport
-      data-slot="marquee-viewport"
       class={clsx(styles.viewport, local.class)}
       {...others}
+      data-slot="marquee-viewport"
     />
   );
 }
@@ -45,9 +45,9 @@ function MarqueeContent(props: ComponentProps<typeof MarqueePrimitive.Content>) 
 
   return (
     <MarqueePrimitive.Content
-      data-slot="marquee-content"
       class={clsx(styles.content, local.class)}
       {...others}
+      data-slot="marquee-content"
     />
   );
 }
@@ -57,9 +57,9 @@ function MarqueeItem(props: ComponentProps<typeof MarqueePrimitive.Item>) {
 
   return (
     <MarqueePrimitive.Item
-      data-slot="marquee-item"
       class={clsx(styles.item, local.class)}
       {...others}
+      data-slot="marquee-item"
     />
   );
 }
@@ -69,9 +69,9 @@ function MarqueeEdge(props: ComponentProps<typeof MarqueePrimitive.Edge>) {
 
   return (
     <MarqueePrimitive.Edge
-      data-slot="marquee-edge"
       class={clsx(styles.edge, local.class)}
       {...others}
+      data-slot="marquee-edge"
     />
   );
 }
