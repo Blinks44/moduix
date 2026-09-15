@@ -1,6 +1,6 @@
 import {
   AngleSlider as AngleSliderPrimitive,
-  useAngleSlider as useAngleSliderPrimitive,
+  useAngleSlider,
   useAngleSliderContext,
 } from '@ark-ui/solid/angle-slider';
 import type { ComponentProps, JSX } from 'solid-js';
@@ -180,7 +180,5 @@ const AngleSlider = Object.assign(AngleSliderRoot, {
   Marks: AngleSliderMarks,
   ValueText: AngleSliderValueText,
 });
-
-const useAngleSlider = useAngleSliderPrimitive;
 
 export { AngleSlider, useAngleSlider, useAngleSliderContext };
