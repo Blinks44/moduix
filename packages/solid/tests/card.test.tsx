@@ -3,7 +3,15 @@ import { fireEvent, render, screen } from '@solidjs/testing-library';
 import { Button, Card } from '../src';
 
 test('renders the default root with stable hooks', () => {
-  render(() => <Card class="consumer-card" data-testid="card" style={{ 'max-width': '320px' }} />);
+  render(() => (
+    <Card
+      class="consumer-card"
+      data-size="consumer"
+      data-testid="card"
+      data-variant="consumer"
+      style={{ 'max-width': '320px' }}
+    />
+  ));
 
   const card = screen.getByTestId('card');
 

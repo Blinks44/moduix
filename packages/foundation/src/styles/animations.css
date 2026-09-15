@@ -124,44 +124,44 @@
 @keyframes moduix-accordion-item-content-open {
   from {
     height: 0;
-    opacity: var(--moduix-accordion-item-content-closed-opacity, 0.01);
+    opacity: 0.01;
   }
   to {
     height: var(--height);
-    opacity: var(--moduix-accordion-item-content-open-opacity, 1);
+    opacity: 1;
   }
 }
 
 @keyframes moduix-accordion-item-content-closed {
   from {
     height: var(--height);
-    opacity: var(--moduix-accordion-item-content-open-opacity, 1);
+    opacity: 1;
   }
   to {
     height: 0;
-    opacity: var(--moduix-accordion-item-content-closed-opacity, 0.01);
+    opacity: 0.01;
   }
 }
 
 @keyframes moduix-accordion-item-content-open-horizontal {
   from {
     width: 0;
-    opacity: var(--moduix-accordion-item-content-closed-opacity, 0.01);
+    opacity: 0.01;
   }
   to {
     width: var(--width);
-    opacity: var(--moduix-accordion-item-content-open-opacity, 1);
+    opacity: 1;
   }
 }
 
 @keyframes moduix-accordion-item-content-closed-horizontal {
   from {
     width: var(--width);
-    opacity: var(--moduix-accordion-item-content-open-opacity, 1);
+    opacity: 1;
   }
   to {
     width: 0;
-    opacity: var(--moduix-accordion-item-content-closed-opacity, 0.01);
+    opacity: 0.01;
   }
 }
 

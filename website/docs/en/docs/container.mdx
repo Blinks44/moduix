@@ -113,9 +113,10 @@ Container / Container.Root
 content directly inside it. `Container.Root` is an alias for the same root when that namespace form fits the rest of
 your composition.
 
-Use `asChild` when a semantic element should own the rendered root. Pass exactly one child: React nests that element
-inside `Container`, while Solid uses the render-function form `asChild={(props) => <main {...props()} />}`. Use `Bleed`
-inside `Container` when only one child needs to extend beyond the constrained text column.
+Use `asChild` when a semantic element should own the rendered root. Pass exactly one child: React renders that child
+as the Container root, while Solid uses the render-function form `asChild={(props) => <main {...props()} />}`. In Solid,
+assign a ref to the element created inside that render function, because a ref on `Container` itself is not forwarded
+through `asChild`. Use `Bleed` inside `Container` when only one child needs to extend beyond the constrained text column.
 
 ## Examples
 

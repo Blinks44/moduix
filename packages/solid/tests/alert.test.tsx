@@ -5,13 +5,13 @@ import { Alert } from '../src';
 test('applies status semantics and stable data hooks', () => {
   const { container } = render(() => (
     <>
-      <Alert>
+      <Alert role="status">
         <Alert.Content>
           <Alert.Title>Update available</Alert.Title>
           <Alert.Description>Install the latest version.</Alert.Description>
         </Alert.Content>
       </Alert>
-      <Alert status="error">
+      <Alert status="error" role="alert">
         <Alert.Indicator>!</Alert.Indicator>
         <Alert.Content>
           <Alert.Title>Payment failed</Alert.Title>
@@ -33,7 +33,7 @@ test('applies status semantics and stable data hooks', () => {
 
 test('preserves semantic children with Ark Solid asChild composition', () => {
   render(() => (
-    <Alert asChild={(props) => <section {...props()} aria-label="Release notes" />}>
+    <Alert asChild={(props) => <section {...props()} aria-label="Release notes" />} role="status">
       <Alert.Content>
         <Alert.Title asChild={(props) => <h2 {...props()}>Update available</h2>} />
       </Alert.Content>

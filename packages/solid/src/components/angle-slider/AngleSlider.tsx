@@ -2,8 +2,6 @@ import {
   AngleSlider as AngleSliderPrimitive,
   useAngleSlider as useAngleSliderPrimitive,
   useAngleSliderContext,
-  type UseAngleSliderProps,
-  type UseAngleSliderReturn,
 } from '@ark-ui/solid/angle-slider';
 import { clsx } from 'clsx';
 import type { ComponentProps, JSX } from 'solid-js';
@@ -37,11 +35,7 @@ function AngleSliderLabel(props: ComponentProps<typeof AngleSliderPrimitive.Labe
   );
 }
 
-type AngleSliderRootProviderProps = ComponentProps<typeof AngleSliderPrimitive.RootProvider> & {
-  form?: string;
-};
-
-function AngleSliderRootProvider(props: AngleSliderRootProviderProps) {
+function AngleSliderRootProvider(props: ComponentProps<typeof AngleSliderPrimitive.RootProvider>) {
   const [local, others] = splitProps(props, ['asChild', 'children', 'class', 'value']);
 
   return (
@@ -167,8 +161,6 @@ const AngleSlider = Object.assign(AngleSliderRoot, {
   ValueText: AngleSliderValueText,
 });
 
-const useAngleSlider: (
-  props?: UseAngleSliderProps | (() => UseAngleSliderProps),
-) => UseAngleSliderReturn = useAngleSliderPrimitive;
+const useAngleSlider = useAngleSliderPrimitive;
 
 export { AngleSlider, useAngleSlider, useAngleSliderContext };

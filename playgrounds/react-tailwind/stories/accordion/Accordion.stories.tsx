@@ -2,7 +2,7 @@ import type { Meta, StoryObj } from '@storybook/react-vite';
 import { useState, type ReactNode } from 'react';
 import { Accordion, useAccordion } from '@/components/accordion/Accordion';
 import { ChevronDownIcon } from '@/lib/moduix/icons/ui';
-import { Slider } from '../../../../packages/react/src/components/slider';
+import { Slider } from '../../../../packages/react-tailwind/src/components/slider';
 
 const meta = {
   title: 'Components/Accordion',

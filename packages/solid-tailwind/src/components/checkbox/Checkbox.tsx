@@ -24,12 +24,12 @@ function CheckboxRoot(props: CheckboxRootProps) {
   return (
     <CheckboxPrimitive.Root
       asChild={local.asChild}
-      data-size={local.size ?? 'md'}
       class={cn(
         'group/checkbox inline-flex cursor-pointer items-center gap-2 align-middle text-foreground data-disabled:cursor-default data-disabled:opacity-50 data-readonly:cursor-default',
         local.class,
       )}
       {...others}
+      data-size={local.size ?? 'md'}
       data-slot="checkbox-root"
     >
       {local.children}
@@ -43,12 +43,12 @@ function CheckboxRootProvider(props: CheckboxRootProviderProps) {
   return (
     <CheckboxPrimitive.RootProvider
       asChild={local.asChild}
-      data-size={local.size ?? 'md'}
       class={cn(
         'group/checkbox inline-flex cursor-pointer items-center gap-2 align-middle text-foreground data-disabled:cursor-default data-disabled:opacity-50 data-readonly:cursor-default',
         local.class,
       )}
       {...others}
+      data-size={local.size ?? 'md'}
       data-slot="checkbox-root-provider"
     >
       {local.children}

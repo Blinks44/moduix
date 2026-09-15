@@ -144,6 +144,9 @@ plain parts for presentational content. Use `asChild` when a semantic element sh
 another part; it must render exactly one child that can receive the merged props. In Solid, `asChild`
 uses a render function such as `asChild={(props) => <a {...props()} />}`.
 
+In Solid, assign a ref to the element created inside the `asChild` render function. A ref on a Card
+part itself is not forwarded through that composition path.
+
 When a card is entirely one link and has no nested controls, compose the root with `asChild`. When a
 card also contains buttons or other actions, keep `Card.Link` inside `Card.Title` and put those
 controls in `Card.Action`; the link's expanded click area leaves the other interactive elements usable.

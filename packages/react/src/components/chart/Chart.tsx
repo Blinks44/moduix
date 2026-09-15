@@ -30,10 +30,10 @@ const ChartRoot = forwardRef<HTMLElement, HTMLArkProps<'figure'>>(function Chart
   return (
     <ark.figure
       ref={ref}
-      data-scope="chart"
-      data-part="root"
       className={clsx(styles.root, className)}
       {...props}
+      data-scope="chart"
+      data-part="root"
       data-slot="chart-root"
     />
   );
@@ -121,10 +121,10 @@ const ChartHeader = forwardRef<HTMLElement, HTMLArkProps<'figcaption'>>(function
   return (
     <ark.figcaption
       ref={ref}
-      data-scope="chart"
-      data-part="header"
       className={clsx(styles.header, className)}
       {...props}
+      data-scope="chart"
+      data-part="header"
       data-slot="chart-header"
     />
   );
@@ -137,10 +137,10 @@ const ChartTitle = forwardRef<HTMLHeadingElement, HTMLArkProps<'h3'>>(function C
   return (
     <ark.h3
       ref={ref}
-      data-scope="chart"
-      data-part="title"
       className={clsx(styles.title, className)}
       {...props}
+      data-scope="chart"
+      data-part="title"
       data-slot="chart-title"
     />
   );
@@ -151,10 +151,10 @@ const ChartDescription = forwardRef<HTMLParagraphElement, HTMLArkProps<'p'>>(
     return (
       <ark.p
         ref={ref}
-        data-scope="chart"
-        data-part="description"
         className={clsx(styles.description, className)}
         {...props}
+        data-scope="chart"
+        data-part="description"
         data-slot="chart-description"
       />
     );
@@ -168,10 +168,10 @@ const ChartLegend = forwardRef<HTMLUListElement, HTMLArkProps<'ul'>>(function Ch
   return (
     <ark.ul
       ref={ref}
-      data-scope="chart"
-      data-part="legend"
       className={clsx(styles.legend, className)}
       {...props}
+      data-scope="chart"
+      data-part="legend"
       data-slot="chart-legend"
     />
   );
@@ -186,8 +186,6 @@ const ChartLegendItem = forwardRef<
   return (
     <ark.li
       ref={ref}
-      data-scope="chart"
-      data-part="legend-item"
       className={clsx(styles.legendItem, className)}
       style={
         color
@@ -195,6 +193,8 @@ const ChartLegendItem = forwardRef<
           : style
       }
       {...props}
+      data-scope="chart"
+      data-part="legend-item"
       data-slot="chart-legend-item"
     />
   );

@@ -24,9 +24,9 @@ const CheckboxRoot = forwardRef<ComponentRef<typeof CheckboxPrimitive.Root>, Roo
     return (
       <CheckboxPrimitive.Root
         ref={ref}
-        data-size={size}
         className={clsx(styles.root, className)}
         {...props}
+        data-size={size}
         data-slot="checkbox-root"
       />
     );
@@ -40,9 +40,9 @@ const CheckboxRootProvider = forwardRef<
   return (
     <CheckboxPrimitive.RootProvider
       ref={ref}
-      data-size={size}
       className={clsx(styles.root, className)}
       {...props}
+      data-size={size}
       data-slot="checkbox-root-provider"
     />
   );

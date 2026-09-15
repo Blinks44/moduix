@@ -23,12 +23,12 @@ const CheckboxRoot = forwardRef<ComponentRef<typeof CheckboxPrimitive.Root>, Roo
     return (
       <CheckboxPrimitive.Root
         ref={ref}
-        data-size={size}
         className={cn(
           'group/checkbox inline-flex cursor-pointer items-center gap-2 align-middle text-foreground data-disabled:cursor-default data-disabled:opacity-50 data-readonly:cursor-default',
           className,
         )}
         {...props}
+        data-size={size}
         data-slot="checkbox-root"
       />
     );
@@ -42,12 +42,12 @@ const CheckboxRootProvider = forwardRef<
   return (
     <CheckboxPrimitive.RootProvider
       ref={ref}
-      data-size={size}
       className={cn(
         'group/checkbox inline-flex cursor-pointer items-center gap-2 align-middle text-foreground data-disabled:cursor-default data-disabled:opacity-50 data-readonly:cursor-default',
         className,
       )}
       {...props}
+      data-size={size}
       data-slot="checkbox-root-provider"
     />
   );

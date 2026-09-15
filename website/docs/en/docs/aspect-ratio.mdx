@@ -118,6 +118,9 @@ no child parts to combine. Use `asChild` only when another semantic element must
 exactly one child in React or the Solid render-function form shown in Advanced customization. Child sizing,
 fitting, borders, radius, and clipping remain owned by the application.
 
+In Solid, assign a ref to the element created inside the `asChild` render function. A ref on
+`AspectRatio` itself is not forwarded through that composition path.
+
 ## Examples
 
 ### Card layouts

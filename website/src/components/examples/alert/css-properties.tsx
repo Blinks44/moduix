@@ -103,11 +103,6 @@ export const alertCssProperties: CssPropertyInput[] = [
     'Controls error indicator color.',
   ],
   [
-    '--moduix-color-primary',
-    'oklch(0.546 0.215 262.88)',
-    'Shared primary palette token used by the info status.',
-  ],
-  [
     '--moduix-color-success',
     'oklch(0.627 0.194 149.214)',
     'Shared success palette token used by the success status.',

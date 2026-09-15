@@ -15,7 +15,7 @@ function AlertRoot(props: AlertRootProps) {
 
   return (
     <ark.div
-      role={local.role ?? (local.status === 'error' ? 'alert' : 'status')}
+      role={local.role}
       data-scope="alert"
       data-part="root"
       data-status={local.status ?? 'info'}

@@ -216,3 +216,27 @@ test('closes with the close icon and restores focus to the trigger', async () =>
     expect(trigger).toHaveFocus();
   });
 });
+
+test('forwards a ref through native asChild composition', () => {
+  let contentRef: HTMLElement | null = null;
+
+  render(
+    <Dialog defaultOpen portalled={false}>
+      <Dialog.Positioner>
+        <Dialog.Content
+          ref={(element) => {
+            contentRef = element;
+          }}
+          asChild
+        >
+          <section>
+            <Dialog.Title>Preferences</Dialog.Title>
+          </section>
+        </Dialog.Content>
+      </Dialog.Positioner>
+    </Dialog>,
+  );
+
+  expect(contentRef).toBe(screen.getByRole('dialog'));
+  expect(contentRef).toHaveProperty('tagName', 'SECTION');
+});

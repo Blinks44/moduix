@@ -25,9 +25,9 @@ function CheckboxRoot(props: CheckboxRootProps) {
   return (
     <CheckboxPrimitive.Root
       asChild={local.asChild}
-      data-size={local.size ?? 'md'}
       class={clsx(styles.root, local.class)}
       {...others}
+      data-size={local.size ?? 'md'}
       data-slot="checkbox-root"
     >
       {local.children}
@@ -41,9 +41,9 @@ function CheckboxRootProvider(props: CheckboxRootProviderProps) {
   return (
     <CheckboxPrimitive.RootProvider
       asChild={local.asChild}
-      data-size={local.size ?? 'md'}
       class={clsx(styles.root, local.class)}
       {...others}
+      data-size={local.size ?? 'md'}
       data-slot="checkbox-root-provider"
     >
       {local.children}

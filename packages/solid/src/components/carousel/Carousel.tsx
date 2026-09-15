@@ -133,12 +133,15 @@ function CarouselIndicator(props: ComponentProps<typeof CarouselPrimitive.Indica
   );
 }
 
-type CarouselIndicatorsProps = ComponentProps<typeof CarouselPrimitive.IndicatorGroup> & {
+type CarouselIndicatorsProps = Omit<
+  ComponentProps<typeof CarouselPrimitive.IndicatorGroup>,
+  'asChild' | 'children'
+> & {
   indicatorClassName?: string;
 };
 
 function CarouselIndicators(props: CarouselIndicatorsProps) {
-  const [local, others] = splitProps(props, ['class', 'children', 'indicatorClassName']);
+  const [local, others] = splitProps(props, ['class', 'indicatorClassName']);
 
   return (
     <CarouselPrimitive.Context>

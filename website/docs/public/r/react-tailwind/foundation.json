@@ -3,7 +3,7 @@
   "name": "foundation",
   "title": "moduix React Tailwind core",
   "description": "Shared runtime dependencies and foundation styles for moduix Tailwind components.",
-  "dependencies": ["@ark-ui/react", "clsx", "tailwind-merge"],
+  "dependencies": ["@ark-ui/react", "class-variance-authority", "clsx", "tailwind-merge"],
   "registryDependencies": ["https://moduix.dev/r/foundation/core.json"],
   "docs": "Import '@/lib/moduix/styles/style.css' once before Tailwind in your application stylesheet. Tailwind Preflight provides the reset layer.",
   "type": "registry:item"

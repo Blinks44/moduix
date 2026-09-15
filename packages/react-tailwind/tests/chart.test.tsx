@@ -64,7 +64,15 @@ rs.mock('@tanstack/charts/react/tooltip', () => ({
 }));
 
 test('renders the callable root with stable hooks and replaceable Tailwind defaults', () => {
-  render(<Chart className="consumer-chart bg-muted p-0 shadow-none" data-testid="root" />);
+  render(
+    <Chart
+      className="consumer-chart bg-muted p-0 shadow-none"
+      data-part="consumer"
+      data-scope="consumer"
+      data-slot="consumer"
+      data-testid="root"
+    />,
+  );
 
   const root = screen.getByTestId('root');
 

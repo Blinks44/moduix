@@ -9,7 +9,6 @@
     border: var(--moduix-button-border-width, var(--moduix-border-width-sm)) solid transparent;
     border-radius: var(--moduix-button-radius, var(--moduix-radius-md));
     background-color: transparent;
-    color: var(--moduix-button-color, var(--moduix-color-foreground));
     appearance: none;
     font: inherit;
     font-size: var(--moduix-button-font-size, var(--moduix-text-sm));
@@ -18,7 +17,6 @@
     text-decoration: none;
     user-select: none;
     white-space: nowrap;
-    outline: 0;
     cursor: pointer;
     transition:
       background-color var(--moduix-button-transition, var(--moduix-transition-default)),
@@ -27,7 +25,7 @@
       opacity var(--moduix-button-transition, var(--moduix-transition-default)),
       transform var(--moduix-button-transition, var(--moduix-transition-default));
 
-    &:focus[data-focus-visible] {
+    &:focus-visible {
       outline: var(
           --moduix-button-focus-ring-width,
           var(--moduix-focus-ring-width, var(--moduix-border-width-md))

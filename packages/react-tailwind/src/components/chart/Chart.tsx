@@ -53,13 +53,13 @@ const ChartRoot = forwardRef<ComponentRef<typeof ark.figure>, HTMLArkProps<'figu
     return (
       <ark.figure
         ref={ref}
-        data-scope="chart"
-        data-part="root"
         className={cn(
           'grid w-full min-w-0 gap-5 rounded-lg border border-border bg-card p-5 text-card-foreground shadow-sm',
           className,
         )}
         {...props}
+        data-scope="chart"
+        data-part="root"
         data-slot="chart-root"
       />
     );
@@ -157,10 +157,10 @@ const ChartHeader = forwardRef<ComponentRef<typeof ark.figcaption>, HTMLArkProps
     return (
       <ark.figcaption
         ref={ref}
-        data-scope="chart"
-        data-part="header"
         className={cn('grid gap-1', className)}
         {...props}
+        data-scope="chart"
+        data-part="header"
         data-slot="chart-header"
       />
     );
@@ -174,10 +174,10 @@ const ChartTitle = forwardRef<ComponentRef<typeof ark.h3>, HTMLArkProps<'h3'>>(f
   return (
     <ark.h3
       ref={ref}
-      data-scope="chart"
-      data-part="title"
       className={cn('text-lg font-semibold', className)}
       {...props}
+      data-scope="chart"
+      data-part="title"
       data-slot="chart-title"
     />
   );
@@ -188,10 +188,10 @@ const ChartDescription = forwardRef<ComponentRef<typeof ark.p>, HTMLArkProps<'p'
     return (
       <ark.p
         ref={ref}
-        data-scope="chart"
-        data-part="description"
         className={cn('text-sm text-muted-foreground', className)}
         {...props}
+        data-scope="chart"
+        data-part="description"
         data-slot="chart-description"
       />
     );
@@ -203,10 +203,10 @@ const ChartLegend = forwardRef<ComponentRef<typeof ark.ul>, HTMLArkProps<'ul'>>(
     return (
       <ark.ul
         ref={ref}
-        data-scope="chart"
-        data-part="legend"
         className={cn('flex flex-wrap gap-3', className)}
         {...props}
+        data-scope="chart"
+        data-part="legend"
         data-slot="chart-legend"
       />
     );
@@ -221,11 +221,11 @@ const ChartLegendItem = forwardRef<
     <ark.li
       ref={ref}
       asChild={asChild}
-      data-scope="chart"
-      data-part="legend-item"
       className={cn('inline-flex items-center gap-2 text-sm text-muted-foreground', className)}
       style={style}
       {...props}
+      data-scope="chart"
+      data-part="legend-item"
       data-slot="chart-legend-item"
     >
       {asChild ? (

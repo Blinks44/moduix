@@ -7,7 +7,7 @@ import {
   useAccordionItemContext,
 } from '@/components/accordion/Accordion';
 import { ChevronDownIcon } from '@/lib/moduix/icons/ui';
-import { Slider } from '../../../../packages/solid/src/components/slider/Slider';
+import { Slider } from '../../../../packages/solid-tailwind/src/components/slider/Slider';
 
 const meta = {
   title: 'Components/Accordion',

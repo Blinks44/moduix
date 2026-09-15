@@ -174,7 +174,7 @@ const CarouselIndicator = forwardRef<
 
 const CarouselIndicators = forwardRef<
   ComponentRef<typeof CarouselPrimitive.IndicatorGroup>,
-  ComponentProps<typeof CarouselPrimitive.IndicatorGroup> & {
+  Omit<ComponentProps<typeof CarouselPrimitive.IndicatorGroup>, 'asChild' | 'children'> & {
     indicatorClassName?: string;
   }
 >(function CarouselIndicators({ className, indicatorClassName, ...props }, ref) {

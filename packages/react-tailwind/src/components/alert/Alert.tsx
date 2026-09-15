@@ -38,7 +38,7 @@ const AlertRoot = forwardRef<ComponentRef<typeof ark.div>, AlertRootProps>(funct
   return (
     <ark.div
       ref={ref}
-      role={role ?? (status === 'error' ? 'alert' : 'status')}
+      role={role}
       data-scope="alert"
       data-part="root"
       data-status={status}

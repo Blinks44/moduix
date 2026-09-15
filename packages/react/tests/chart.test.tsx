@@ -60,7 +60,15 @@ rs.mock('@tanstack/charts/react/tooltip', () => ({
 }));
 
 test('renders the callable root with stable hooks', () => {
-  render(<Chart className="consumer-chart" data-testid="root" />);
+  render(
+    <Chart
+      className="consumer-chart"
+      data-part="consumer"
+      data-scope="consumer"
+      data-slot="consumer"
+      data-testid="root"
+    />,
+  );
 
   const root = screen.getByTestId('root');
 

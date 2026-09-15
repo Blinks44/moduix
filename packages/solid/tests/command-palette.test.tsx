@@ -127,3 +127,22 @@ test('provides an accessible search control that clears without losing focus', a
   await waitFor(() => expect(clearedSearch).toHaveValue(''));
   expect(clearedSearch).toHaveFocus();
 });
+
+test('keeps the search value when clearing is cancelled', async () => {
+  render(() => (
+    <CommandPalette defaultOpen aria-label="Command palette" portalled={false}>
+      <CommandPalette.Panel>
+        <CommandPalette.Combobox collection={commands}>
+          <CommandPalette.Search />
+          <CommandPalette.ClearTrigger onClick={(event) => event.preventDefault()} />
+        </CommandPalette.Combobox>
+      </CommandPalette.Panel>
+    </CommandPalette>
+  ));
+
+  const search = await screen.findByRole('combobox', { name: 'Search commands' });
+  fireEvent.input(search, { target: { value: 'open' } });
+  fireEvent.click(document.querySelector('[data-slot="command-palette-clear-trigger"]')!);
+
+  expect(search).toHaveValue('open');
+});

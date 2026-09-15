@@ -7,11 +7,6 @@ export const buttonCssProperties: CssPropertyInput[] = [
     'Controls base button border width.',
   ],
   [
-    '--moduix-button-color',
-    'var(--moduix-color-foreground)',
-    'Controls base button text and icon color.',
-  ],
-  [
     '--moduix-button-content-gap',
     'var(--moduix-spacing-2)',
     'Controls spacing between text and icons.',
