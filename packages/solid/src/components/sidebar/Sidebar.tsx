@@ -1,5 +1,6 @@
 import type { HTMLArkProps } from '@ark-ui/solid/factory';
 import { ark } from '@ark-ui/solid/factory';
+import { Splitter as SplitterPrimitive } from '@ark-ui/solid/splitter';
 import { clsx } from 'clsx';
 import type { Accessor, ComponentProps } from 'solid-js';
 import { createContext, splitProps, useContext } from 'solid-js';
@@ -7,6 +8,7 @@ import { ChevronLeftIcon } from '@/lib/moduix/icons/ui/Icons';
 import { Input } from '../input';
 import { Separator } from '../separator';
 import { Splitter, type SplitterPanelData, useSplitterContext } from '../splitter';
+import splitterStyles from '../splitter/Splitter.module.css';
 import { Tooltip } from '../tooltip';
 import styles from './Sidebar.module.css';
 
@@ -78,20 +80,29 @@ function useSidebarConfig() {
 }
 
 function SidebarRoot(props: SidebarRootProps) {
-  const [local, others] = splitProps(props, ['class', 'defaultSize', 'panelId', 'side']);
+  const [local, others] = splitProps(props, ['class', 'defaultSize', 'panelId', 'side', 'style']);
   const panelId = () => local.panelId ?? 'sidebar';
   const side = () => local.side ?? 'left';
 
   return (
     <SidebarConfigContext.Provider value={{ panelId, side }}>
-      <Splitter.Root
+      <SplitterPrimitive.Root
         {...others}
         panels={getDefaultPanels(side(), panelId())}
         defaultSize={local.defaultSize ?? getDefaultSidebarSize(side())}
         orientation="horizontal"
         data-side={side()}
         data-slot="sidebar-root"
-        class={clsx(styles.root, local.class)}
+        class={clsx(splitterStyles.root, styles.root, local.class)}
+        style={
+          typeof local.style === 'string'
+            ? `width:var(--moduix-splitter-width, 100%);height:var(--moduix-splitter-height, 28rem);${local.style}`
+            : {
+                width: 'var(--moduix-splitter-width, 100%)',
+                height: 'var(--moduix-splitter-height, 28rem)',
+                ...local.style,
+              }
+        }
       />
     </SidebarConfigContext.Provider>
   );
@@ -117,13 +128,13 @@ function SidebarPanel(props: SidebarPanelProps) {
   const collapsed = () => splitter().isPanelCollapsed(config.panelId());
 
   return (
-    <Splitter.Panel
+    <SplitterPrimitive.Panel
       {...others}
       id={config.panelId()}
       data-side={config.side()}
       data-slot="sidebar-panel"
       data-state={collapsed() ? 'collapsed' : 'expanded'}
-      class={clsx(styles.panel, local.class)}
+      class={clsx(splitterStyles.panel, styles.panel, local.class)}
     />
   );
 }
@@ -133,18 +144,18 @@ function SidebarInset(props: SidebarPanelProps) {
   const config = useSidebarConfig();
 
   return (
-    <Splitter.Panel
+    <SplitterPrimitive.Panel
       {...others}
       id="content"
       data-side={config.side()}
       data-slot="sidebar-inset"
-      class={clsx(styles.inset, local.class)}
+      class={clsx(splitterStyles.panel, styles.inset, local.class)}
     />
   );
 }
 
 function SidebarResizeTrigger(props: SidebarResizeTriggerProps) {
-  const [local, others] = splitProps(props, ['aria-label', 'class', 'children']);
+  const [local, others] = splitProps(props, ['aria-label', 'asChild', 'class', 'children']);
   const config = useSidebarConfig();
   const id = (): NonNullable<ComponentProps<typeof Splitter.ResizeTrigger>['id']> =>
     (config.side() === 'left'
@@ -154,16 +165,21 @@ function SidebarResizeTrigger(props: SidebarResizeTriggerProps) {
     >;
 
   return (
-    <Splitter.ResizeTrigger
+    <SplitterPrimitive.ResizeTrigger
       {...others}
+      asChild={local.asChild}
       id={id()}
       aria-label={local['aria-label'] ?? 'Resize sidebar'}
       data-side={config.side()}
       data-slot="sidebar-resize-trigger"
-      class={clsx(styles.resizeTrigger, local.class)}
+      class={clsx(splitterStyles.resizeTrigger, styles.resizeTrigger, local.class)}
     >
-      {local.children}
-    </Splitter.ResizeTrigger>
+      {local.children === undefined && !local.asChild ? (
+        <Splitter.ResizeTriggerIndicator />
+      ) : (
+        local.children
+      )}
+    </SplitterPrimitive.ResizeTrigger>
   );
 }
 

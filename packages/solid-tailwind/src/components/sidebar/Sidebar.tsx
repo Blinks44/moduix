@@ -1,5 +1,6 @@
 import type { HTMLArkProps } from '@ark-ui/solid/factory';
 import { ark } from '@ark-ui/solid/factory';
+import { Splitter as SplitterPrimitive } from '@ark-ui/solid/splitter';
 import type { Accessor, ComponentProps } from 'solid-js';
 import { createContext, splitProps, useContext } from 'solid-js';
 import { cn } from '@/lib/moduix/cn';
@@ -77,13 +78,13 @@ function useSidebarConfig() {
 }
 
 function SidebarRoot(props: SidebarRootProps) {
-  const [local, others] = splitProps(props, ['class', 'defaultSize', 'panelId', 'side']);
+  const [local, others] = splitProps(props, ['class', 'defaultSize', 'panelId', 'side', 'style']);
   const panelId = () => local.panelId ?? 'sidebar';
   const side = () => local.side ?? 'left';
 
   return (
     <SidebarConfigContext.Provider value={{ panelId, side }}>
-      <Splitter.Root
+      <SplitterPrimitive.Root
         {...others}
         panels={getDefaultPanels(side(), panelId())}
         defaultSize={local.defaultSize ?? getDefaultSidebarSize(side())}
@@ -91,9 +92,15 @@ function SidebarRoot(props: SidebarRootProps) {
         data-side={side()}
         data-slot="sidebar-root"
         class={cn(
+          'group/splitter relative box-border h-112 min-h-0 w-full min-w-0 rounded-md border border-border bg-card text-foreground shadow-sm data-dragging:cursor-col-resize data-dragging:data-[orientation=vertical]:cursor-row-resize',
           'isolate h-dvh min-h-96 w-full min-w-0 rounded-none border border-border bg-background text-foreground shadow-none',
           local.class,
         )}
+        style={
+          typeof local.style === 'string'
+            ? `width:;height:;${local.style}`
+            : { width: undefined, height: undefined, ...local.style }
+        }
       />
     </SidebarConfigContext.Provider>
   );
@@ -119,13 +126,14 @@ function SidebarPanel(props: SidebarPanelProps) {
   const collapsed = () => splitter().isPanelCollapsed(config.panelId());
 
   return (
-    <Splitter.Panel
+    <SplitterPrimitive.Panel
       {...others}
       id={config.panelId()}
       data-side={config.side()}
       data-slot="sidebar-panel"
       data-state={collapsed() ? 'collapsed' : 'expanded'}
       class={cn(
+        'box-border min-h-50 min-w-0 overflow-auto rounded-none border-0 border-border bg-card p-4 text-card-foreground shadow-none group-data-[orientation=vertical]/splitter:min-h-0 data-dragging:select-none',
         'group/sidebar-panel @container/sidebar-panel relative flex min-h-0 min-w-0 flex-col overflow-hidden bg-card p-0 text-card-foreground transition-colors duration-200 ease-in-out motion-reduce:transition-none',
         local.class,
       )}
@@ -138,18 +146,22 @@ function SidebarInset(props: SidebarPanelProps) {
   const config = useSidebarConfig();
 
   return (
-    <Splitter.Panel
+    <SplitterPrimitive.Panel
       {...others}
       id="content"
       data-side={config.side()}
       data-slot="sidebar-inset"
-      class={cn('relative min-w-0 overflow-auto bg-background p-0 text-foreground', local.class)}
+      class={cn(
+        'box-border min-h-50 min-w-0 overflow-auto rounded-none border-0 border-border bg-card p-4 text-card-foreground shadow-none group-data-[orientation=vertical]/splitter:min-h-0 data-dragging:select-none',
+        'relative min-w-0 overflow-auto bg-background p-0 text-foreground',
+        local.class,
+      )}
     />
   );
 }
 
 function SidebarResizeTrigger(props: SidebarResizeTriggerProps) {
-  const [local, others] = splitProps(props, ['aria-label', 'class', 'children']);
+  const [local, others] = splitProps(props, ['aria-label', 'asChild', 'class', 'children']);
   const config = useSidebarConfig();
   const id = (): NonNullable<ComponentProps<typeof Splitter.ResizeTrigger>['id']> =>
     (config.side() === 'left'
@@ -159,16 +171,25 @@ function SidebarResizeTrigger(props: SidebarResizeTriggerProps) {
     >;
 
   return (
-    <Splitter.ResizeTrigger
+    <SplitterPrimitive.ResizeTrigger
       {...others}
+      asChild={local.asChild}
       id={id()}
       aria-label={local['aria-label'] ?? 'Resize sidebar'}
       data-side={config.side()}
       data-slot="sidebar-resize-trigger"
-      class={cn('z-2', local.class)}
+      class={cn(
+        "group/trigger relative z-1 box-border flex w-px min-w-px cursor-col-resize appearance-none items-center justify-center border-0 bg-transparent p-0 outline-0 transition-opacity duration-200 ease-in-out before:absolute before:h-full before:w-[0.5px] before:rounded-full before:bg-border before:transition-[background-color] before:duration-200 before:ease-in-out before:content-[''] after:absolute after:z-1 after:h-full after:w-2.5 after:content-[''] data-disabled:cursor-default data-disabled:opacity-50 data-dragging:before:bg-muted-foreground/40 data-[orientation=vertical]:h-px data-[orientation=vertical]:min-h-px data-[orientation=vertical]:w-full data-[orientation=vertical]:min-w-0 data-[orientation=vertical]:cursor-row-resize data-[orientation=vertical]:before:h-[0.5px] data-[orientation=vertical]:before:w-full data-[orientation=vertical]:after:h-2.5 data-[orientation=vertical]:after:w-full [@media(hover:hover)]:[&:not(:disabled):not([data-disabled]):hover]:before:bg-muted-foreground/40",
+        'z-2',
+        local.class,
+      )}
     >
-      {local.children}
-    </Splitter.ResizeTrigger>
+      {local.children === undefined && !local.asChild ? (
+        <Splitter.ResizeTriggerIndicator />
+      ) : (
+        local.children
+      )}
+    </SplitterPrimitive.ResizeTrigger>
   );
 }
 

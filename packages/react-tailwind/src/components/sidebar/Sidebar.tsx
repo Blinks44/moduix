@@ -2,6 +2,7 @@
 
 import type { HTMLArkProps } from '@ark-ui/react/factory';
 import { ark } from '@ark-ui/react/factory';
+import { Splitter as SplitterPrimitive } from '@ark-ui/react/splitter';
 import type { ComponentProps, ComponentRef, MouseEvent } from 'react';
 import { createContext, forwardRef, useContext } from 'react';
 import { cn } from '@/lib/moduix/cn';
@@ -68,14 +69,14 @@ function toggleSidebarPanel(splitter: ReturnType<typeof useSplitterContext>, pan
   splitter.collapsePanel(panelId);
 }
 
-const SidebarRoot = forwardRef<ComponentRef<typeof Splitter.Root>, SidebarRootProps>(
+const SidebarRoot = forwardRef<ComponentRef<typeof SplitterPrimitive.Root>, SidebarRootProps>(
   function SidebarRoot(
-    { className, defaultSize, panelId = 'sidebar', side = 'left', ...props },
+    { className, defaultSize, panelId = 'sidebar', side = 'left', style, ...props },
     ref,
   ) {
     return (
       <SidebarConfigContext.Provider value={{ panelId, side }}>
-        <Splitter.Root
+        <SplitterPrimitive.Root
           {...props}
           ref={ref}
           panels={getDefaultPanels(side, panelId)}
@@ -84,9 +85,11 @@ const SidebarRoot = forwardRef<ComponentRef<typeof Splitter.Root>, SidebarRootPr
           data-side={side}
           data-slot="sidebar-root"
           className={cn(
+            'group/splitter relative box-border h-112 min-h-0 w-full min-w-0 rounded-md border border-border bg-card text-foreground shadow-sm data-dragging:cursor-col-resize data-dragging:data-[orientation=vertical]:cursor-row-resize',
             'isolate h-dvh min-h-96 w-full min-w-0 rounded-none border border-border bg-background text-foreground shadow-none',
             className,
           )}
+          style={{ width: undefined, height: undefined, ...style }}
         />
       </SidebarConfigContext.Provider>
     );
@@ -106,14 +109,14 @@ function useSidebar() {
   };
 }
 
-const SidebarPanel = forwardRef<ComponentRef<typeof Splitter.Panel>, SidebarPanelProps>(
+const SidebarPanel = forwardRef<ComponentRef<typeof SplitterPrimitive.Panel>, SidebarPanelProps>(
   function SidebarPanel({ className, ...props }, ref) {
     const config = useContext(SidebarConfigContext);
     const splitter = useSplitterContext();
     const collapsed = splitter.isPanelCollapsed(config.panelId);
 
     return (
-      <Splitter.Panel
+      <SplitterPrimitive.Panel
         {...props}
         ref={ref}
         id={config.panelId}
@@ -121,6 +124,7 @@ const SidebarPanel = forwardRef<ComponentRef<typeof Splitter.Panel>, SidebarPane
         data-slot="sidebar-panel"
         data-state={collapsed ? 'collapsed' : 'expanded'}
         className={cn(
+          'box-border min-h-50 min-w-0 overflow-auto rounded-none border-0 border-border bg-card p-4 text-card-foreground shadow-none group-data-[orientation=vertical]/splitter:min-h-0 data-dragging:select-none',
           'group/sidebar-panel @container/sidebar-panel relative flex min-h-0 min-w-0 flex-col overflow-hidden bg-card p-0 text-card-foreground transition-colors duration-200 ease-in-out motion-reduce:transition-none',
           className,
         )}
@@ -129,18 +133,19 @@ const SidebarPanel = forwardRef<ComponentRef<typeof Splitter.Panel>, SidebarPane
   },
 );
 
-const SidebarInset = forwardRef<ComponentRef<typeof Splitter.Panel>, SidebarPanelProps>(
+const SidebarInset = forwardRef<ComponentRef<typeof SplitterPrimitive.Panel>, SidebarPanelProps>(
   function SidebarInset({ className, ...props }, ref) {
     const { side } = useContext(SidebarConfigContext);
 
     return (
-      <Splitter.Panel
+      <SplitterPrimitive.Panel
         {...props}
         ref={ref}
         id="content"
         data-side={side}
         data-slot="sidebar-inset"
         className={cn(
+          'box-border min-h-50 min-w-0 overflow-auto rounded-none border-0 border-border bg-card p-4 text-card-foreground shadow-none group-data-[orientation=vertical]/splitter:min-h-0 data-dragging:select-none',
           'relative min-w-0 overflow-auto bg-background p-0 text-foreground',
           className,
         )}
@@ -150,10 +155,10 @@ const SidebarInset = forwardRef<ComponentRef<typeof Splitter.Panel>, SidebarPane
 );
 
 const SidebarResizeTrigger = forwardRef<
-  ComponentRef<typeof Splitter.ResizeTrigger>,
+  ComponentRef<typeof SplitterPrimitive.ResizeTrigger>,
   SidebarResizeTriggerProps
 >(function SidebarResizeTrigger(
-  { children, className, 'aria-label': ariaLabel = 'Resize sidebar', ...props },
+  { asChild, children, className, 'aria-label': ariaLabel = 'Resize sidebar', ...props },
   ref,
 ) {
   const { panelId, side } = useContext(SidebarConfigContext);
@@ -161,17 +166,22 @@ const SidebarResizeTrigger = forwardRef<
     side === 'left' ? `${panelId}:content` : `content:${panelId}`;
 
   return (
-    <Splitter.ResizeTrigger
+    <SplitterPrimitive.ResizeTrigger
       {...props}
       ref={ref}
+      asChild={asChild}
       id={id}
       aria-label={ariaLabel}
       data-side={side}
       data-slot="sidebar-resize-trigger"
-      className={cn('z-2', className)}
+      className={cn(
+        "group/trigger relative z-1 box-border flex w-px min-w-px cursor-col-resize appearance-none items-center justify-center border-0 bg-transparent p-0 outline-0 transition-opacity duration-200 ease-in-out before:absolute before:h-full before:w-[0.5px] before:rounded-full before:bg-border before:transition-[background-color] before:duration-200 before:ease-in-out before:content-[''] after:absolute after:z-1 after:h-full after:w-2.5 after:content-[''] data-disabled:cursor-default data-disabled:opacity-50 data-dragging:before:bg-muted-foreground/40 data-[orientation=vertical]:h-px data-[orientation=vertical]:min-h-px data-[orientation=vertical]:w-full data-[orientation=vertical]:min-w-0 data-[orientation=vertical]:cursor-row-resize data-[orientation=vertical]:before:h-[0.5px] data-[orientation=vertical]:before:w-full data-[orientation=vertical]:after:h-2.5 data-[orientation=vertical]:after:w-full [@media(hover:hover)]:[&:not(:disabled):not([data-disabled]):hover]:before:bg-muted-foreground/40",
+        'z-2',
+        className,
+      )}
     >
-      {children}
-    </Splitter.ResizeTrigger>
+      {children === undefined && !asChild ? <Splitter.ResizeTriggerIndicator /> : children}
+    </SplitterPrimitive.ResizeTrigger>
   );
 });
 

@@ -119,7 +119,7 @@ test('applies native utilities to every component-owned visual part', () => {
     'gap-4',
     'rounded-xl',
     'border-border',
-    'bg-card',
+    'bg-[color-mix(in_oklab,var(--color-card)_92%,var(--color-muted))]',
     'p-8',
     'text-card-foreground',
   );

@@ -143,11 +143,17 @@ const ClipboardValueText = forwardRef<
 const ClipboardCopyText = forwardRef<
   ComponentRef<typeof ClipboardPrimitive.Indicator>,
   ComponentProps<typeof ClipboardPrimitive.Indicator>
->(function ClipboardCopyText({ copied = 'Copied', children = 'Copy', ...props }, ref) {
+>(function ClipboardCopyText({ className, copied = 'Copied', children = 'Copy', ...props }, ref) {
   return (
-    <ClipboardIndicator ref={ref} copied={copied} {...props} data-slot="clipboard-copy-text">
+    <ClipboardPrimitive.Indicator
+      ref={ref}
+      className={clsx(styles.indicator, className)}
+      copied={copied}
+      {...props}
+      data-slot="clipboard-copy-text"
+    >
       {children}
-    </ClipboardIndicator>
+    </ClipboardPrimitive.Indicator>
   );
 });
 

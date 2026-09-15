@@ -2,6 +2,7 @@
 
 import type { HTMLArkProps } from '@ark-ui/react/factory';
 import { ark } from '@ark-ui/react/factory';
+import { Splitter as SplitterPrimitive } from '@ark-ui/react/splitter';
 import { clsx } from 'clsx';
 import type { ComponentProps, ComponentRef, MouseEvent } from 'react';
 import { createContext, forwardRef, useContext } from 'react';
@@ -9,6 +10,7 @@ import { ChevronLeftIcon } from '@/lib/moduix/icons/ui';
 import { Input } from '../input';
 import { Separator } from '../separator';
 import { Splitter, type SplitterPanelData, useSplitterContext } from '../splitter';
+import splitterStyles from '../splitter/Splitter.module.css';
 import { Tooltip } from '../tooltip';
 import styles from './Sidebar.module.css';
 
@@ -69,14 +71,14 @@ function toggleSidebarPanel(splitter: ReturnType<typeof useSplitterContext>, pan
   splitter.collapsePanel(panelId);
 }
 
-const SidebarRoot = forwardRef<ComponentRef<typeof Splitter.Root>, SidebarRootProps>(
+const SidebarRoot = forwardRef<ComponentRef<typeof SplitterPrimitive.Root>, SidebarRootProps>(
   function SidebarRoot(
-    { className, defaultSize, panelId = 'sidebar', side = 'left', ...props },
+    { className, defaultSize, panelId = 'sidebar', side = 'left', style, ...props },
     ref,
   ) {
     return (
       <SidebarConfigContext.Provider value={{ panelId, side }}>
-        <Splitter.Root
+        <SplitterPrimitive.Root
           {...props}
           ref={ref}
           panels={getDefaultPanels(side, panelId)}
@@ -84,7 +86,12 @@ const SidebarRoot = forwardRef<ComponentRef<typeof Splitter.Root>, SidebarRootPr
           orientation="horizontal"
           data-side={side}
           data-slot="sidebar-root"
-          className={clsx(styles.root, className)}
+          className={clsx(splitterStyles.root, styles.root, className)}
+          style={{
+            width: 'var(--moduix-splitter-width, 100%)',
+            height: 'var(--moduix-splitter-height, 28rem)',
+            ...style,
+          }}
         />
       </SidebarConfigContext.Provider>
     );
@@ -104,48 +111,48 @@ function useSidebar() {
   };
 }
 
-const SidebarPanel = forwardRef<ComponentRef<typeof Splitter.Panel>, SidebarPanelProps>(
+const SidebarPanel = forwardRef<ComponentRef<typeof SplitterPrimitive.Panel>, SidebarPanelProps>(
   function SidebarPanel({ className, ...props }, ref) {
     const config = useContext(SidebarConfigContext);
     const splitter = useSplitterContext();
     const collapsed = splitter.isPanelCollapsed(config.panelId);
 
     return (
-      <Splitter.Panel
+      <SplitterPrimitive.Panel
         {...props}
         ref={ref}
         id={config.panelId}
         data-side={config.side}
         data-slot="sidebar-panel"
         data-state={collapsed ? 'collapsed' : 'expanded'}
-        className={clsx(styles.panel, className)}
+        className={clsx(splitterStyles.panel, styles.panel, className)}
       />
     );
   },
 );
 
-const SidebarInset = forwardRef<ComponentRef<typeof Splitter.Panel>, SidebarPanelProps>(
+const SidebarInset = forwardRef<ComponentRef<typeof SplitterPrimitive.Panel>, SidebarPanelProps>(
   function SidebarInset({ className, ...props }, ref) {
     const { side } = useContext(SidebarConfigContext);
 
     return (
-      <Splitter.Panel
+      <SplitterPrimitive.Panel
         {...props}
         ref={ref}
         id="content"
         data-side={side}
         data-slot="sidebar-inset"
-        className={clsx(styles.inset, className)}
+        className={clsx(splitterStyles.panel, styles.inset, className)}
       />
     );
   },
 );
 
 const SidebarResizeTrigger = forwardRef<
-  ComponentRef<typeof Splitter.ResizeTrigger>,
+  ComponentRef<typeof SplitterPrimitive.ResizeTrigger>,
   SidebarResizeTriggerProps
 >(function SidebarResizeTrigger(
-  { children, className, 'aria-label': ariaLabel = 'Resize sidebar', ...props },
+  { asChild, children, className, 'aria-label': ariaLabel = 'Resize sidebar', ...props },
   ref,
 ) {
   const { panelId, side } = useContext(SidebarConfigContext);
@@ -153,17 +160,18 @@ const SidebarResizeTrigger = forwardRef<
     side === 'left' ? `${panelId}:content` : `content:${panelId}`;
 
   return (
-    <Splitter.ResizeTrigger
+    <SplitterPrimitive.ResizeTrigger
       {...props}
       ref={ref}
+      asChild={asChild}
       id={id}
       aria-label={ariaLabel}
       data-side={side}
       data-slot="sidebar-resize-trigger"
-      className={clsx(styles.resizeTrigger, className)}
+      className={clsx(splitterStyles.resizeTrigger, styles.resizeTrigger, className)}
     >
-      {children}
-    </Splitter.ResizeTrigger>
+      {children === undefined && !asChild ? <Splitter.ResizeTriggerIndicator /> : children}
+    </SplitterPrimitive.ResizeTrigger>
   );
 });
 
