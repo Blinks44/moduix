@@ -1,6 +1,6 @@
 {
   "name": "@moduix/react-tailwind",
-  "version": "1.0.0",
+  "version": "1.1.0",
   "description": "Tailwind CSS implementation of the moduix React component system, built on Ark UI primitives.",
   "keywords": [
     "accessible",
