@@ -14,10 +14,10 @@ function EditableRoot(props: ComponentProps<typeof EditablePrimitive.Root>) {
 
   return (
     <EditablePrimitive.Root
-      data-slot="editable-root"
       activationMode={local.activationMode ?? 'dblclick'}
       class={clsx(styles.root, local.class)}
       {...others}
+      data-slot="editable-root"
     />
   );
 }
@@ -27,9 +27,9 @@ function EditableRootProvider(props: ComponentProps<typeof EditablePrimitive.Roo
 
   return (
     <EditablePrimitive.RootProvider
-      data-slot="editable-root-provider"
       class={clsx(styles.root, local.class)}
       {...others}
+      data-slot="editable-root-provider"
     />
   );
 }
@@ -39,9 +39,9 @@ function EditableLabel(props: ComponentProps<typeof EditablePrimitive.Label>) {
 
   return (
     <EditablePrimitive.Label
-      data-slot="editable-label"
       class={clsx(styles.label, local.class)}
       {...others}
+      data-slot="editable-label"
     />
   );
 }
@@ -51,9 +51,9 @@ function EditableArea(props: ComponentProps<typeof EditablePrimitive.Area>) {
 
   return (
     <EditablePrimitive.Area
-      data-slot="editable-area"
       class={clsx(styles.area, local.class)}
       {...others}
+      data-slot="editable-area"
     />
   );
 }
@@ -63,9 +63,9 @@ function EditableInput(props: ComponentProps<typeof EditablePrimitive.Input>) {
 
   return (
     <EditablePrimitive.Input
-      data-slot="editable-input"
       class={clsx(styles.input, local.class)}
       {...others}
+      data-slot="editable-input"
     />
   );
 }
@@ -75,9 +75,9 @@ function EditablePreview(props: ComponentProps<typeof EditablePrimitive.Preview>
 
   return (
     <EditablePrimitive.Preview
-      data-slot="editable-preview"
       class={clsx(styles.preview, local.class)}
       {...others}
+      data-slot="editable-preview"
     />
   );
 }
@@ -87,9 +87,9 @@ function EditableControl(props: ComponentProps<typeof EditablePrimitive.Control>
 
   return (
     <EditablePrimitive.Control
-      data-slot="editable-control"
       class={clsx(styles.control, local.class)}
       {...others}
+      data-slot="editable-control"
     />
   );
 }
@@ -100,9 +100,9 @@ function EditableEditTrigger(props: ComponentProps<typeof EditablePrimitive.Edit
 
   return (
     <EditablePrimitive.EditTrigger
-      data-slot="editable-edit-trigger"
       class={clsx(styles.trigger, local.class)}
       {...others}
+      data-slot="editable-edit-trigger"
     >
       {resolvedChildren() ?? <PencilIcon />}
     </EditablePrimitive.EditTrigger>
@@ -115,9 +115,9 @@ function EditableSubmitTrigger(props: ComponentProps<typeof EditablePrimitive.Su
 
   return (
     <EditablePrimitive.SubmitTrigger
-      data-slot="editable-submit-trigger"
       class={clsx(styles.trigger, local.class)}
       {...others}
+      data-slot="editable-submit-trigger"
     >
       {resolvedChildren() ?? <CheckIcon />}
     </EditablePrimitive.SubmitTrigger>
@@ -130,9 +130,9 @@ function EditableCancelTrigger(props: ComponentProps<typeof EditablePrimitive.Ca
 
   return (
     <EditablePrimitive.CancelTrigger
-      data-slot="editable-cancel-trigger"
       class={clsx(styles.trigger, local.class)}
       {...others}
+      data-slot="editable-cancel-trigger"
     >
       {resolvedChildren() ?? <CloseIcon />}
     </EditablePrimitive.CancelTrigger>

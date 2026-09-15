@@ -17,11 +17,11 @@ const TabsRoot = forwardRef<
   return (
     <TabsPrimitive.Root
       ref={ref}
-      data-slot="tabs-root"
       data-variant={resolvedVariant}
       className={clsx(styles.root, className)}
       orientation={orientation}
       {...props}
+      data-slot="tabs-root"
     />
   );
 });
@@ -40,11 +40,11 @@ const TabsRootProvider = forwardRef<
   return (
     <TabsPrimitive.RootProvider
       ref={ref}
-      data-slot="tabs-root-provider"
       data-variant={resolvedVariant}
       className={clsx(styles.root, className)}
       value={value}
       {...props}
+      data-slot="tabs-root-provider"
     />
   );
 });
@@ -56,9 +56,9 @@ const TabsList = forwardRef<
   return (
     <TabsPrimitive.List
       ref={ref}
-      data-slot="tabs-list"
       className={clsx(styles.list, className)}
       {...props}
+      data-slot="tabs-list"
     />
   );
 });
@@ -70,9 +70,9 @@ const TabsTrigger = forwardRef<
   return (
     <TabsPrimitive.Trigger
       ref={ref}
-      data-slot="tabs-trigger"
       className={clsx(styles.trigger, className)}
       {...props}
+      data-slot="tabs-trigger"
     />
   );
 });
@@ -84,9 +84,9 @@ const TabsIndicator = forwardRef<
   return (
     <TabsPrimitive.Indicator
       ref={ref}
-      data-slot="tabs-indicator"
       className={clsx(styles.indicator, className)}
       {...props}
+      data-slot="tabs-indicator"
     />
   );
 });
@@ -98,9 +98,9 @@ const TabsContent = forwardRef<
   return (
     <TabsPrimitive.Content
       ref={ref}
-      data-slot="tabs-content"
       className={clsx(styles.content, className)}
       {...props}
+      data-slot="tabs-content"
     />
   );
 });

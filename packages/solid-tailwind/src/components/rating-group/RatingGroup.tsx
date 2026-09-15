@@ -27,10 +27,10 @@ function RatingGroupRoot(props: RatingGroupRootProps) {
   return (
     <RatingGroupPrimitive.Root
       asChild={local.asChild}
-      data-slot="rating-group-root"
       data-size={local.size ?? 'md'}
       class={cn('group/rating-group inline-flex flex-col gap-1 text-muted-foreground', local.class)}
       {...others}
+      data-slot="rating-group-root"
     >
       {local.children}
     </RatingGroupPrimitive.Root>
@@ -43,10 +43,10 @@ function RatingGroupRootProvider(props: RatingGroupRootProviderProps) {
   return (
     <RatingGroupPrimitive.RootProvider
       asChild={local.asChild}
-      data-slot="rating-group-root-provider"
       data-size={local.size ?? 'md'}
       class={cn('group/rating-group inline-flex flex-col gap-1 text-muted-foreground', local.class)}
       {...others}
+      data-slot="rating-group-root-provider"
     >
       {local.children}
     </RatingGroupPrimitive.RootProvider>
@@ -58,12 +58,12 @@ function RatingGroupLabel(props: ComponentProps<typeof RatingGroupPrimitive.Labe
 
   return (
     <RatingGroupPrimitive.Label
-      data-slot="rating-group-label"
       class={cn(
         'text-sm leading-5 font-semibold text-foreground select-none data-disabled:opacity-50',
         local.class,
       )}
       {...others}
+      data-slot="rating-group-label"
     />
   );
 }
@@ -73,9 +73,9 @@ function RatingGroupControl(props: ComponentProps<typeof RatingGroupPrimitive.Co
 
   return (
     <RatingGroupPrimitive.Control
-      data-slot="rating-group-control"
       class={cn('inline-flex items-center gap-1 data-disabled:opacity-50', local.class)}
       {...others}
+      data-slot="rating-group-control"
     />
   );
 }
@@ -85,12 +85,12 @@ function RatingGroupItem(props: ComponentProps<typeof RatingGroupPrimitive.Item>
 
   return (
     <RatingGroupPrimitive.Item
-      data-slot="rating-group-item"
       class={cn(
         'inline-flex cursor-pointer items-center justify-center rounded-sm leading-none text-inherit outline-1 -outline-offset-1 outline-transparent transition-[color,opacity] duration-200 ease-in-out data-disabled:pointer-events-none data-disabled:cursor-default data-focus-visible:outline-1 data-focus-visible:outline-offset-1 data-focus-visible:outline-ring data-readonly:cursor-default',
         local.class,
       )}
       {...others}
+      data-slot="rating-group-item"
     />
   );
 }
@@ -102,7 +102,6 @@ function RatingGroupItemIndicator(props: RatingGroupItemIndicatorProps) {
 
   return (
     <span
-      data-slot="rating-group-item-indicator"
       data-half={item().half ? '' : undefined}
       data-highlighted={item().highlighted ? '' : undefined}
       class={cn(
@@ -110,6 +109,7 @@ function RatingGroupItemIndicator(props: RatingGroupItemIndicatorProps) {
         local.class,
       )}
       {...others}
+      data-slot="rating-group-item-indicator"
     >
       {resolvedChildren() ?? (
         <>

@@ -83,13 +83,13 @@ const FloatingPanelTrigger = forwardRef<
     <FloatingPanelPrimitive.Trigger
       ref={ref}
       asChild={asChild}
-      data-slot="floating-panel-trigger"
       className={cn(
         !asChild &&
           'box-border inline-flex min-h-control-md cursor-pointer items-center justify-center rounded-md border border-border bg-background px-3 py-1 text-md leading-6 text-foreground outline-0 transition-[background-color,border-color,color,opacity] duration-200 ease-in-out select-none focus-visible:outline-1 focus-visible:-outline-offset-1 focus-visible:outline-ring active:bg-accent disabled:pointer-events-none disabled:cursor-default disabled:opacity-50 data-disabled:pointer-events-none data-disabled:cursor-default data-disabled:opacity-50 data-[state=open]:bg-accent motion-reduce:transition-none [@media(hover:hover)]:hover:bg-accent',
         className,
       )}
       {...props}
+      data-slot="floating-panel-trigger"
     />
   );
 });
@@ -102,9 +102,9 @@ const FloatingPanelPositioner = forwardRef<
     <OverlayPortal>
       <FloatingPanelPrimitive.Positioner
         ref={ref}
-        data-slot="floating-panel-positioner"
         className={cn('z-[var(--z-index)] outline-0', className)}
         {...props}
+        data-slot="floating-panel-positioner"
       />
     </OverlayPortal>
   );
@@ -117,12 +117,12 @@ const FloatingPanelContent = forwardRef<
   return (
     <FloatingPanelPrimitive.Content
       ref={ref}
-      data-slot="floating-panel-content"
       className={cn(
         'relative box-border flex min-h-40 min-w-64 origin-[var(--transform-origin)] flex-col overflow-hidden rounded-md border border-border bg-popover text-popover-foreground shadow-lg outline-0 data-behind:opacity-[0.55] data-minimized:min-h-0 data-[state=closed]:pointer-events-none data-[state=closed]:animate-moduix-menu-closed data-[state=open]:animate-moduix-menu-open motion-reduce:animate-none',
         className,
       )}
       {...props}
+      data-slot="floating-panel-content"
     />
   );
 });
@@ -134,9 +134,9 @@ const FloatingPanelDragTrigger = forwardRef<
   return (
     <FloatingPanelPrimitive.DragTrigger
       ref={ref}
-      data-slot="floating-panel-drag-trigger"
       className={cn('block', className)}
       {...props}
+      data-slot="floating-panel-drag-trigger"
     />
   );
 });
@@ -148,12 +148,12 @@ const FloatingPanelHeader = forwardRef<
   return (
     <FloatingPanelPrimitive.Header
       ref={ref}
-      data-slot="floating-panel-header"
       className={cn(
         'box-border flex min-h-control-xl cursor-grab items-center justify-between gap-3 border-b border-border bg-muted px-3 py-2 select-none data-[dragging]:cursor-grabbing data-[minimized]:border-b-transparent',
         className,
       )}
       {...props}
+      data-slot="floating-panel-header"
     />
   );
 });
@@ -165,12 +165,12 @@ const FloatingPanelTitle = forwardRef<
   return (
     <FloatingPanelPrimitive.Title
       ref={ref}
-      data-slot="floating-panel-title"
       className={cn(
         'inline-flex min-w-0 items-center gap-2 text-sm font-semibold text-popover-foreground',
         className,
       )}
       {...props}
+      data-slot="floating-panel-title"
     />
   );
 });
@@ -182,9 +182,9 @@ const FloatingPanelControl = forwardRef<
   return (
     <FloatingPanelPrimitive.Control
       ref={ref}
-      data-slot="floating-panel-control"
       className={cn('inline-flex flex-none items-center gap-1', className)}
       {...props}
+      data-slot="floating-panel-control"
     />
   );
 });
@@ -203,7 +203,6 @@ const FloatingPanelStageTrigger = forwardRef<
       ref={ref}
       asChild={asChild}
       stage={stage}
-      data-slot="floating-panel-stage-trigger"
       className={cn(
         !asChild &&
           'box-border inline-flex size-control-sm cursor-pointer items-center justify-center rounded-sm border border-border bg-background text-foreground outline-0 transition-[background-color,border-color,color,opacity] duration-200 ease-in-out select-none focus-visible:outline-1 focus-visible:-outline-offset-1 focus-visible:outline-ring active:bg-accent disabled:pointer-events-none disabled:cursor-default disabled:opacity-50 data-disabled:pointer-events-none data-disabled:cursor-default data-disabled:opacity-50 motion-reduce:transition-none [&>svg]:size-4 [@media(hover:hover)]:hover:bg-accent',
@@ -211,6 +210,7 @@ const FloatingPanelStageTrigger = forwardRef<
       )}
       aria-label={ariaLabel}
       {...props}
+      data-slot="floating-panel-stage-trigger"
     >
       {children}
       {shouldRenderDefaultIcon && stage === 'minimized' ? <MinusIcon /> : null}
@@ -228,13 +228,13 @@ const FloatingPanelCloseTrigger = forwardRef<
     <FloatingPanelPrimitive.CloseTrigger
       ref={ref}
       asChild={asChild}
-      data-slot="floating-panel-close-trigger"
       className={cn(
         !asChild &&
           'box-border inline-flex size-control-sm cursor-pointer items-center justify-center rounded-sm border border-border bg-background text-foreground outline-0 transition-[background-color,border-color,color,opacity] duration-200 ease-in-out select-none focus-visible:outline-1 focus-visible:-outline-offset-1 focus-visible:outline-ring active:bg-accent disabled:pointer-events-none disabled:cursor-default disabled:opacity-50 data-disabled:pointer-events-none data-disabled:cursor-default data-disabled:opacity-50 motion-reduce:transition-none [&>svg]:size-4 [@media(hover:hover)]:hover:bg-accent',
         className,
       )}
       {...props}
+      data-slot="floating-panel-close-trigger"
     />
   );
 });
@@ -270,12 +270,12 @@ const FloatingPanelBody = forwardRef<
   return (
     <FloatingPanelPrimitive.Body
       ref={ref}
-      data-slot="floating-panel-body"
       className={cn(
         'min-h-0 flex-auto overflow-auto p-4 text-sm text-popover-foreground data-minimized:hidden',
         className,
       )}
       {...props}
+      data-slot="floating-panel-body"
     />
   );
 });
@@ -308,12 +308,12 @@ const FloatingPanelResizeTrigger = forwardRef<
   return (
     <FloatingPanelPrimitive.ResizeTrigger
       ref={ref}
-      data-slot="floating-panel-resize-trigger"
       className={cn(
         'absolute data-disabled:pointer-events-none data-[axis=e]:inset-y-3 data-[axis=e]:-right-1 data-[axis=e]:w-2 data-[axis=n]:inset-x-3 data-[axis=n]:-top-1 data-[axis=n]:h-2 data-[axis=ne]:-top-1.5 data-[axis=ne]:-right-1.5 data-[axis=ne]:size-3 data-[axis=nw]:-top-1.5 data-[axis=nw]:-left-1.5 data-[axis=nw]:size-3 data-[axis=s]:inset-x-3 data-[axis=s]:-bottom-1 data-[axis=s]:h-2 data-[axis=se]:-right-1.5 data-[axis=se]:-bottom-1.5 data-[axis=se]:size-3 data-[axis=sw]:-bottom-1.5 data-[axis=sw]:-left-1.5 data-[axis=sw]:size-3 data-[axis=w]:inset-y-3 data-[axis=w]:-left-1 data-[axis=w]:w-2',
         className,
       )}
       {...props}
+      data-slot="floating-panel-resize-trigger"
     />
   );
 });
@@ -338,12 +338,12 @@ const FloatingPanelDragIndicator = forwardRef<HTMLSpanElement, ComponentProps<'s
       <span
         ref={ref}
         aria-hidden="true"
-        data-slot="floating-panel-drag-indicator"
         className={cn(
           'inline-flex flex-none items-center justify-center text-muted-foreground [&>svg]:size-4',
           className,
         )}
         {...props}
+        data-slot="floating-panel-drag-indicator"
       >
         {children ?? <GripIcon />}
       </span>

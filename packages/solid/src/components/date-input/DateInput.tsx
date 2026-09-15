@@ -15,9 +15,9 @@ function DateInputRoot(props: ComponentProps<typeof DateInputPrimitive.Root>) {
   return (
     <DateInputPrimitive.Root
       asChild={local.asChild}
-      data-slot="date-input-root"
       class={clsx(styles.root, local.class)}
       {...others}
+      data-slot="date-input-root"
     >
       {local.children}
     </DateInputPrimitive.Root>
@@ -30,9 +30,9 @@ function DateInputRootProvider(props: ComponentProps<typeof DateInputPrimitive.R
   return (
     <DateInputPrimitive.RootProvider
       asChild={local.asChild}
-      data-slot="date-input-root-provider"
       class={clsx(styles.root, local.class)}
       {...others}
+      data-slot="date-input-root-provider"
     >
       {local.children}
     </DateInputPrimitive.RootProvider>
@@ -44,9 +44,9 @@ function DateInputLabel(props: ComponentProps<typeof DateInputPrimitive.Label>) 
 
   return (
     <DateInputPrimitive.Label
-      data-slot="date-input-label"
       class={clsx(styles.label, local.class)}
       {...others}
+      data-slot="date-input-label"
     />
   );
 }
@@ -56,9 +56,9 @@ function DateInputControl(props: ComponentProps<typeof DateInputPrimitive.Contro
 
   return (
     <DateInputPrimitive.Control
-      data-slot="date-input-control"
       class={clsx(styles.control, local.class)}
       {...others}
+      data-slot="date-input-control"
     />
   );
 }
@@ -68,9 +68,9 @@ function DateInputSegmentGroup(props: ComponentProps<typeof DateInputPrimitive.S
 
   return (
     <DateInputPrimitive.SegmentGroup
-      data-slot="date-input-segment-group"
       class={clsx(styles.segmentGroup, local.class)}
       {...others}
+      data-slot="date-input-segment-group"
     />
   );
 }
@@ -80,9 +80,9 @@ function DateInputSegment(props: ComponentProps<typeof DateInputPrimitive.Segmen
 
   return (
     <DateInputPrimitive.Segment
-      data-slot="date-input-segment"
       class={clsx(styles.segment, local.class)}
       {...others}
+      data-slot="date-input-segment"
     />
   );
 }
@@ -107,11 +107,11 @@ function DateInputSeparator(props: ComponentProps<'span'>) {
 
   return (
     <span
-      data-slot="date-input-separator"
       aria-hidden={local['aria-hidden'] ?? true}
       role={local.role ?? 'presentation'}
       class={clsx(styles.separator, local.class)}
       {...others}
+      data-slot="date-input-separator"
     />
   );
 }

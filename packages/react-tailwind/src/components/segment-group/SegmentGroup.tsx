@@ -72,12 +72,12 @@ const SegmentGroupRoot = forwardRef<
     <SegmentGroupPrimitive.RootProvider
       ref={ref}
       value={segmentGroup}
-      data-slot="segment-group-root"
       className={cn(
         'group/segment-group relative isolate box-border inline-flex max-w-full items-stretch gap-1 rounded-lg border border-border bg-muted p-1 text-foreground data-disabled:opacity-50 data-invalid:border-destructive data-[orientation=vertical]:flex-col',
         className,
       )}
       {...props}
+      data-slot="segment-group-root"
     />
   );
 });
@@ -89,12 +89,12 @@ const SegmentGroupRootProvider = forwardRef<
   return (
     <SegmentGroupPrimitive.RootProvider
       ref={ref}
-      data-slot="segment-group-root-provider"
       className={cn(
         'group/segment-group relative isolate box-border inline-flex max-w-full items-stretch gap-1 rounded-lg border border-border bg-muted p-1 text-foreground data-disabled:opacity-50 data-invalid:border-destructive data-[orientation=vertical]:flex-col',
         className,
       )}
       {...props}
+      data-slot="segment-group-root-provider"
     />
   );
 });
@@ -106,12 +106,12 @@ const SegmentGroupLabel = forwardRef<
   return (
     <SegmentGroupPrimitive.Label
       ref={ref}
-      data-slot="segment-group-label"
       className={cn(
         'relative z-1 text-sm leading-5 font-semibold text-inherit select-none',
         className,
       )}
       {...props}
+      data-slot="segment-group-label"
     />
   );
 });
@@ -123,12 +123,12 @@ const SegmentGroupItem = forwardRef<
   return (
     <SegmentGroupPrimitive.Item
       ref={ref}
-      data-slot="segment-group-item"
       className={cn(
         'relative z-1 box-border inline-flex min-h-control-sm cursor-pointer items-center justify-center gap-2 rounded-md px-3.5 text-sm leading-5 font-medium whitespace-nowrap text-muted-foreground outline-0 transition-[color,opacity] duration-200 ease-in-out select-none group-data-disabled/segment-group:!opacity-100 data-disabled:cursor-default data-disabled:opacity-50 data-focus-visible:outline-1 data-focus-visible:-outline-offset-1 data-focus-visible:outline-ring data-invalid:data-focus-visible:outline-destructive data-readonly:cursor-default data-[orientation=vertical]:w-full data-[orientation=vertical]:justify-start data-[state=checked]:text-foreground [@media(hover:hover)]:[&:not([data-readonly]):not([data-disabled]):hover]:text-foreground',
         className,
       )}
       {...props}
+      data-slot="segment-group-item"
     />
   );
 });
@@ -140,9 +140,9 @@ const SegmentGroupItemControl = forwardRef<
   return (
     <SegmentGroupPrimitive.ItemControl
       ref={ref}
-      data-slot="segment-group-item-control"
       className={cn('hidden', className)}
       {...props}
+      data-slot="segment-group-item-control"
     />
   );
 });
@@ -154,9 +154,9 @@ const SegmentGroupItemText = forwardRef<
   return (
     <SegmentGroupPrimitive.ItemText
       ref={ref}
-      data-slot="segment-group-item-text"
       className={cn('relative z-1', className)}
       {...props}
+      data-slot="segment-group-item-text"
     />
   );
 });
@@ -168,12 +168,12 @@ const SegmentGroupIndicator = forwardRef<
   return (
     <SegmentGroupPrimitive.Indicator
       ref={ref}
-      data-slot="segment-group-indicator"
       className={cn(
         'pointer-events-none absolute top-[var(--top)] left-[var(--left)] z-0 h-[var(--height)] w-[var(--width)] rounded-md bg-background shadow-sm !duration-200 !ease-in-out',
         className,
       )}
       {...props}
+      data-slot="segment-group-indicator"
     />
   );
 });

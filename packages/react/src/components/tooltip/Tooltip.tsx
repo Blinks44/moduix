@@ -54,10 +54,10 @@ const TooltipTrigger = forwardRef<
   return (
     <TooltipPrimitive.Trigger
       ref={ref}
-      data-slot="tooltip-trigger"
       asChild={asChild}
       className={clsx(!asChild && styles.trigger, className)}
       {...props}
+      data-slot="tooltip-trigger"
     />
   );
 });
@@ -68,10 +68,10 @@ const TooltipDisabledTrigger = forwardRef<HTMLSpanElement, ComponentPropsWithout
       <TooltipPrimitive.Trigger asChild>
         <span
           ref={ref}
-          data-slot="tooltip-disabled-trigger"
           tabIndex={tabIndex}
           className={clsx(styles.disabledTrigger, className)}
           {...props}
+          data-slot="tooltip-disabled-trigger"
         />
       </TooltipPrimitive.Trigger>
     );
@@ -86,9 +86,9 @@ const TooltipPositioner = forwardRef<
     <OverlayPortal>
       <TooltipPrimitive.Positioner
         ref={ref}
-        data-slot="tooltip-positioner"
         className={clsx(styles.positioner, className)}
         {...props}
+        data-slot="tooltip-positioner"
       />
     </OverlayPortal>
   );
@@ -101,9 +101,9 @@ const TooltipContent = forwardRef<
   return (
     <TooltipPrimitive.Content
       ref={ref}
-      data-slot="tooltip-content"
       className={clsx(styles.content, className)}
       {...props}
+      data-slot="tooltip-content"
     />
   );
 });
@@ -126,9 +126,9 @@ const TooltipArrow = forwardRef<
   return (
     <TooltipPrimitive.Arrow
       ref={ref}
-      data-slot="tooltip-arrow"
       className={clsx(styles.arrow, className)}
       {...props}
+      data-slot="tooltip-arrow"
     >
       {children ?? <TooltipArrowTip />}
     </TooltipPrimitive.Arrow>
@@ -142,9 +142,9 @@ const TooltipArrowTip = forwardRef<
   return (
     <TooltipPrimitive.ArrowTip
       ref={ref}
-      data-slot="tooltip-arrow-tip"
       className={clsx(styles.arrowTip, className)}
       {...props}
+      data-slot="tooltip-arrow-tip"
     />
   );
 });

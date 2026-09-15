@@ -79,9 +79,9 @@ function SegmentGroupRoot(props: ComponentProps<typeof SegmentGroupPrimitive.Roo
     <SegmentGroupPrimitive.RootProvider
       asChild={local.asChild}
       value={segmentGroup}
-      data-slot="segment-group-root"
       class={clsx(styles.root, local.class)}
       {...others}
+      data-slot="segment-group-root"
     >
       {local.children}
     </SegmentGroupPrimitive.RootProvider>
@@ -96,9 +96,9 @@ function SegmentGroupRootProvider(
   return (
     <SegmentGroupPrimitive.RootProvider
       asChild={local.asChild}
-      data-slot="segment-group-root-provider"
       class={clsx(styles.root, local.class)}
       {...others}
+      data-slot="segment-group-root-provider"
     />
   );
 }
@@ -109,9 +109,9 @@ function SegmentGroupLabel(props: ComponentProps<typeof SegmentGroupPrimitive.La
   return (
     <SegmentGroupPrimitive.Label
       asChild={local.asChild}
-      data-slot="segment-group-label"
       class={clsx(styles.label, local.class)}
       {...others}
+      data-slot="segment-group-label"
     />
   );
 }
@@ -122,9 +122,9 @@ function SegmentGroupItem(props: ComponentProps<typeof SegmentGroupPrimitive.Ite
   return (
     <SegmentGroupPrimitive.Item
       asChild={local.asChild}
-      data-slot="segment-group-item"
       class={clsx(styles.item, local.class)}
       {...others}
+      data-slot="segment-group-item"
     >
       {local.children}
     </SegmentGroupPrimitive.Item>
@@ -137,9 +137,9 @@ function SegmentGroupItemControl(props: ComponentProps<typeof SegmentGroupPrimit
   return (
     <SegmentGroupPrimitive.ItemControl
       asChild={local.asChild}
-      data-slot="segment-group-item-control"
       class={clsx(styles.itemControl, local.class)}
       {...others}
+      data-slot="segment-group-item-control"
     />
   );
 }
@@ -150,9 +150,9 @@ function SegmentGroupItemText(props: ComponentProps<typeof SegmentGroupPrimitive
   return (
     <SegmentGroupPrimitive.ItemText
       asChild={local.asChild}
-      data-slot="segment-group-item-text"
       class={clsx(styles.itemText, local.class)}
       {...others}
+      data-slot="segment-group-item-text"
     />
   );
 }
@@ -163,9 +163,9 @@ function SegmentGroupIndicator(props: ComponentProps<typeof SegmentGroupPrimitiv
   return (
     <SegmentGroupPrimitive.Indicator
       asChild={local.asChild}
-      data-slot="segment-group-indicator"
       class={clsx(styles.indicator, local.class)}
       {...others}
+      data-slot="segment-group-indicator"
     />
   );
 }

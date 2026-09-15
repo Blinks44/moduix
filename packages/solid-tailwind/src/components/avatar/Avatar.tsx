@@ -36,10 +36,10 @@ function AvatarRoot(props: AvatarRootProps) {
 
   return (
     <AvatarPrimitive.Root
-      data-slot="avatar-root"
       data-size={local.size}
       class={cn(avatarVariants({ size: local.size }), local.class)}
       {...others}
+      data-slot="avatar-root"
     />
   );
 }
@@ -49,10 +49,10 @@ function AvatarRootProvider(props: AvatarRootProviderProps) {
 
   return (
     <AvatarPrimitive.RootProvider
-      data-slot="avatar-root-provider"
       data-size={local.size}
       class={cn(avatarVariants({ size: local.size }), local.class)}
       {...others}
+      data-slot="avatar-root-provider"
     />
   );
 }
@@ -62,12 +62,12 @@ function AvatarImage(props: ComponentProps<typeof AvatarPrimitive.Image>) {
 
   return (
     <AvatarPrimitive.Image
-      data-slot="avatar-image"
       class={cn(
         'block size-full rounded-[inherit] object-cover object-center data-[state=hidden]:hidden',
         local.class,
       )}
       {...others}
+      data-slot="avatar-image"
     />
   );
 }
@@ -77,12 +77,12 @@ function AvatarFallback(props: ComponentProps<typeof AvatarPrimitive.Fallback>) 
 
   return (
     <AvatarPrimitive.Fallback
-      data-slot="avatar-fallback"
       class={cn(
         'inline-flex size-full items-center justify-center rounded-[inherit] bg-[inherit] data-[state=hidden]:hidden',
         local.class,
       )}
       {...others}
+      data-slot="avatar-fallback"
     >
       {local.children}
     </AvatarPrimitive.Fallback>

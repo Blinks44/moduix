@@ -74,13 +74,13 @@ function TooltipTrigger(props: ComponentProps<typeof TooltipPrimitive.Trigger>) 
   return (
     <TooltipPrimitive.Trigger
       asChild={local.asChild}
-      data-slot="tooltip-trigger"
       class={cn(
         !local.asChild &&
           'box-border inline-flex min-h-control-md cursor-pointer items-center justify-center rounded-md border border-border bg-background px-3.5 py-1 text-sm leading-5 text-foreground outline-0 transition-[background-color,border-color,color] duration-200 ease-in-out select-none focus-visible:outline-1 focus-visible:-outline-offset-1 focus-visible:outline-ring active:bg-accent disabled:pointer-events-none disabled:opacity-50 data-disabled:pointer-events-none data-disabled:opacity-50 data-[state=open]:bg-accent motion-reduce:transition-none [@media(hover:hover)]:hover:bg-accent',
         local.class,
       )}
       {...others}
+      data-slot="tooltip-trigger"
     />
   );
 }
@@ -123,12 +123,12 @@ function TooltipPositioner(props: ComponentProps<typeof TooltipPrimitive.Positio
   return (
     <OverlayPortal>
       <TooltipPrimitive.Positioner
-        data-slot="tooltip-positioner"
         class={cn(
           'z-[var(--z-index)] max-h-[var(--available-height)] max-w-[var(--available-width)] outline-0',
           local.class,
         )}
         {...others}
+        data-slot="tooltip-positioner"
       />
     </OverlayPortal>
   );
@@ -139,12 +139,12 @@ function TooltipContent(props: ComponentProps<typeof TooltipPrimitive.Content>) 
 
   return (
     <TooltipPrimitive.Content
-      data-slot="tooltip-content"
       class={cn(
         'relative z-60 max-h-[min(24rem,var(--available-height,100dvh))] max-w-[min(20rem,var(--available-width))] origin-[var(--transform-origin)] overflow-visible rounded-md border border-border bg-popover px-2 py-1 text-center text-sm leading-5 wrap-anywhere text-popover-foreground shadow-md data-instant:animate-none data-[state=closed]:animate-moduix-menu-closed data-[state=open]:animate-moduix-menu-open motion-reduce:animate-none',
         local.class,
       )}
       {...others}
+      data-slot="tooltip-content"
     />
   );
 }
@@ -163,9 +163,9 @@ function TooltipArrow(props: ComponentProps<typeof TooltipPrimitive.Arrow>) {
 
   return (
     <TooltipPrimitive.Arrow
-      data-slot="tooltip-arrow"
       class={cn('[--arrow-background:var(--color-popover)] [--arrow-size:0.625rem]', local.class)}
       {...others}
+      data-slot="tooltip-arrow"
     >
       {resolvedChildren() ?? <TooltipArrowTip />}
     </TooltipPrimitive.Arrow>
@@ -177,9 +177,9 @@ function TooltipArrowTip(props: ComponentProps<typeof TooltipPrimitive.ArrowTip>
 
   return (
     <TooltipPrimitive.ArrowTip
-      data-slot="tooltip-arrow-tip"
       class={cn('border-t border-l border-border', local.class)}
       {...others}
+      data-slot="tooltip-arrow-tip"
     />
   );
 }

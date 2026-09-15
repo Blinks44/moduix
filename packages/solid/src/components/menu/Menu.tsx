@@ -83,10 +83,10 @@ function MenuTrigger(props: ComponentProps<typeof MenuPrimitive.Trigger>) {
   return (
     <MenuPrimitive.Trigger
       asChild={local.asChild}
-      data-slot="menu-trigger"
       data-focus-visible={focusVisible() ? '' : undefined}
       class={clsx(!local.asChild && styles.trigger, local.class)}
       {...others}
+      data-slot="menu-trigger"
     />
   );
 }
@@ -96,7 +96,7 @@ function MenuTriggerIcon(props: ComponentProps<'span'>) {
   const resolvedChildren = children(() => local.children);
 
   return (
-    <span data-slot="menu-trigger-icon" class={clsx(styles.triggerIcon, local.class)} {...others}>
+    <span class={clsx(styles.triggerIcon, local.class)} {...others} data-slot="menu-trigger-icon">
       {resolvedChildren() ?? <ChevronDownIcon class={styles.iconSvg} />}
     </span>
   );
@@ -108,9 +108,9 @@ function MenuIndicator(props: ComponentProps<typeof MenuPrimitive.Indicator>) {
 
   return (
     <MenuPrimitive.Indicator
-      data-slot="menu-indicator"
       class={clsx(styles.indicator, local.class)}
       {...others}
+      data-slot="menu-indicator"
     >
       {resolvedChildren() ?? <ChevronDownIcon class={styles.iconSvg} />}
     </MenuPrimitive.Indicator>
@@ -124,10 +124,10 @@ function MenuContextTrigger(props: ComponentProps<typeof MenuPrimitive.ContextTr
   return (
     <MenuPrimitive.ContextTrigger
       asChild={local.asChild}
-      data-slot="menu-context-trigger"
       data-focus-visible={focusVisible() ? '' : undefined}
       class={clsx(!local.asChild && styles.contextTrigger, local.class)}
       {...others}
+      data-slot="menu-context-trigger"
     />
   );
 }
@@ -138,9 +138,9 @@ function MenuPositioner(props: ComponentProps<typeof MenuPrimitive.Positioner>) 
   return (
     <OverlayPortal>
       <MenuPrimitive.Positioner
-        data-slot="menu-positioner"
         class={clsx(styles.positioner, local.class)}
         {...others}
+        data-slot="menu-positioner"
       />
     </OverlayPortal>
   );
@@ -152,9 +152,9 @@ function MenuContent(props: ComponentProps<typeof MenuPrimitive.Content>) {
   return (
     <MenuPrimitive.Content
       asChild={local.asChild}
-      data-slot="menu-content"
       class={clsx(styles.content, local.class)}
       {...others}
+      data-slot="menu-content"
     >
       {local.children}
     </MenuPrimitive.Content>
@@ -169,9 +169,9 @@ function MenuViewport(props: HTMLArkProps<'div'>) {
       asChild={local.asChild}
       data-scope="menu"
       data-part="viewport"
-      data-slot="menu-viewport"
       class={clsx(styles.viewport, local.class)}
       {...others}
+      data-slot="menu-viewport"
     />
   );
 }
@@ -181,7 +181,7 @@ function MenuArrow(props: ComponentProps<typeof MenuPrimitive.Arrow>) {
   const resolvedChildren = children(() => local.children);
 
   return (
-    <MenuPrimitive.Arrow data-slot="menu-arrow" class={clsx(styles.arrow, local.class)} {...others}>
+    <MenuPrimitive.Arrow class={clsx(styles.arrow, local.class)} {...others} data-slot="menu-arrow">
       {resolvedChildren() ?? <MenuArrowTip />}
     </MenuPrimitive.Arrow>
   );
@@ -192,9 +192,9 @@ function MenuArrowTip(props: ComponentProps<typeof MenuPrimitive.ArrowTip>) {
 
   return (
     <MenuPrimitive.ArrowTip
-      data-slot="menu-arrow-tip"
       class={clsx(styles.arrowTip, local.class)}
       {...others}
+      data-slot="menu-arrow-tip"
     />
   );
 }
@@ -204,10 +204,10 @@ function MenuItem(props: MenuItemProps) {
 
   return (
     <MenuPrimitive.Item
-      data-slot="menu-item"
       data-tone={local.tone ?? 'default'}
       class={clsx(styles.item, local.class)}
       {...others}
+      data-slot="menu-item"
     />
   );
 }
@@ -217,9 +217,9 @@ function MenuTriggerItem(props: ComponentProps<typeof MenuPrimitive.TriggerItem>
 
   return (
     <MenuPrimitive.TriggerItem
-      data-slot="menu-trigger-item"
       class={clsx(styles.triggerItem, local.class)}
       {...others}
+      data-slot="menu-trigger-item"
     >
       {local.children}
     </MenuPrimitive.TriggerItem>
@@ -232,9 +232,9 @@ function MenuTriggerItemIcon(props: ComponentProps<'span'>) {
 
   return (
     <span
-      data-slot="menu-trigger-item-icon"
       class={clsx(styles.triggerItemIcon, local.class)}
       {...others}
+      data-slot="menu-trigger-item-icon"
     >
       {resolvedChildren() ?? <ChevronRightIcon class={styles.iconSvg} />}
     </span>
@@ -246,9 +246,9 @@ function MenuSeparator(props: ComponentProps<typeof MenuPrimitive.Separator>) {
 
   return (
     <MenuPrimitive.Separator
-      data-slot="menu-separator"
       class={clsx(styles.separator, local.class)}
       {...others}
+      data-slot="menu-separator"
     />
   );
 }
@@ -258,9 +258,9 @@ function MenuItemGroup(props: ComponentProps<typeof MenuPrimitive.ItemGroup>) {
 
   return (
     <MenuPrimitive.ItemGroup
-      data-slot="menu-item-group"
       class={clsx(styles.itemGroup, local.class)}
       {...others}
+      data-slot="menu-item-group"
     />
   );
 }
@@ -270,9 +270,9 @@ function MenuItemGroupLabel(props: ComponentProps<typeof MenuPrimitive.ItemGroup
 
   return (
     <MenuPrimitive.ItemGroupLabel
-      data-slot="menu-item-group-label"
       class={clsx(styles.itemGroupLabel, local.class)}
       {...others}
+      data-slot="menu-item-group-label"
     />
   );
 }
@@ -282,9 +282,9 @@ function MenuRadioItemGroup(props: ComponentProps<typeof MenuPrimitive.RadioItem
 
   return (
     <MenuPrimitive.RadioItemGroup
-      data-slot="menu-radio-item-group"
       class={clsx(styles.radioItemGroup, local.class)}
       {...others}
+      data-slot="menu-radio-item-group"
     />
   );
 }
@@ -294,10 +294,10 @@ function MenuRadioItem(props: MenuRadioItemProps) {
 
   return (
     <MenuPrimitive.RadioItem
-      data-slot="menu-radio-item"
       data-indicator-position={local.indicator ?? 'start'}
       class={clsx(styles.radioItem, local.class)}
       {...others}
+      data-slot="menu-radio-item"
     />
   );
 }
@@ -307,10 +307,10 @@ function MenuCheckboxItem(props: MenuCheckboxItemProps) {
 
   return (
     <MenuPrimitive.CheckboxItem
-      data-slot="menu-checkbox-item"
       data-indicator-position={local.indicator ?? 'start'}
       class={clsx(styles.checkboxItem, local.class)}
       {...others}
+      data-slot="menu-checkbox-item"
     />
   );
 }
@@ -321,9 +321,9 @@ function MenuItemIndicator(props: ComponentProps<typeof MenuPrimitive.ItemIndica
 
   return (
     <MenuPrimitive.ItemIndicator
-      data-slot="menu-item-indicator"
       class={clsx(styles.itemIndicator, local.class)}
       {...others}
+      data-slot="menu-item-indicator"
     >
       {resolvedChildren() ?? <CheckIcon class={styles.itemIndicatorIcon} />}
     </MenuPrimitive.ItemIndicator>
@@ -335,9 +335,9 @@ function MenuItemText(props: ComponentProps<typeof MenuPrimitive.ItemText>) {
 
   return (
     <MenuPrimitive.ItemText
-      data-slot="menu-item-text"
       class={clsx(styles.itemText, local.class)}
       {...others}
+      data-slot="menu-item-text"
     />
   );
 }
@@ -347,9 +347,9 @@ function MenuItemTextContent(props: HTMLArkProps<'span'>) {
 
   return (
     <ark.span
-      data-slot="menu-item-text-content"
       class={clsx(styles.itemTextContent, local.class)}
       {...others}
+      data-slot="menu-item-text-content"
     />
   );
 }
@@ -359,9 +359,9 @@ function MenuItemTextIcon(props: HTMLArkProps<'span'>) {
 
   return (
     <ark.span
-      data-slot="menu-item-text-icon"
       class={clsx(styles.itemTextIcon, local.class)}
       {...others}
+      data-slot="menu-item-text-icon"
     />
   );
 }
@@ -371,9 +371,9 @@ function MenuItemTextLabel(props: HTMLArkProps<'span'>) {
 
   return (
     <ark.span
-      data-slot="menu-item-text-label"
       class={clsx(styles.itemTextLabel, local.class)}
       {...others}
+      data-slot="menu-item-text-label"
     />
   );
 }
@@ -383,9 +383,9 @@ function MenuItemShortcut(props: HTMLArkProps<'span'>) {
 
   return (
     <ark.span
-      data-slot="menu-item-shortcut"
       class={clsx(styles.itemShortcut, local.class)}
       {...others}
+      data-slot="menu-item-shortcut"
     />
   );
 }

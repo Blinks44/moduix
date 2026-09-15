@@ -52,11 +52,11 @@ const SelectRoot = function SelectRoot<T extends CollectionItem>(props: SelectRo
     <OverlayPortalProvider portalled={local.portalled} portalRef={local.portalRef}>
       <SelectPrimitive.Root
         asChild={local.asChild}
-        data-slot="select-root"
         class={clsx(styles.root, local.class)}
         lazyMount={local.lazyMount ?? true}
         unmountOnExit={local.unmountOnExit ?? true}
         {...others}
+        data-slot="select-root"
       >
         {local.children}
       </SelectPrimitive.Root>
@@ -81,11 +81,11 @@ const SelectRootProvider = function SelectRootProvider<T extends CollectionItem>
     <OverlayPortalProvider portalled={local.portalled} portalRef={local.portalRef}>
       <SelectPrimitive.RootProvider
         asChild={local.asChild}
-        data-slot="select-root-provider"
         class={clsx(styles.root, local.class)}
         lazyMount={local.lazyMount ?? true}
         unmountOnExit={local.unmountOnExit ?? true}
         {...others}
+        data-slot="select-root-provider"
       >
         {local.children}
       </SelectPrimitive.RootProvider>
@@ -98,9 +98,9 @@ function SelectLabel(props: ComponentProps<typeof SelectPrimitive.Label>) {
 
   return (
     <SelectPrimitive.Label
-      data-slot="select-label"
       class={clsx(styles.label, local.class)}
       {...others}
+      data-slot="select-label"
     />
   );
 }
@@ -110,9 +110,9 @@ function SelectControl(props: ComponentProps<typeof SelectPrimitive.Control>) {
 
   return (
     <SelectPrimitive.Control
-      data-slot="select-control"
       class={clsx(styles.control, local.class)}
       {...others}
+      data-slot="select-control"
     />
   );
 }
@@ -123,9 +123,9 @@ function SelectTrigger(props: ComponentProps<typeof SelectPrimitive.Trigger>) {
   return (
     <SelectPrimitive.Trigger
       asChild={local.asChild}
-      data-slot="select-trigger"
       class={clsx(!local.asChild && styles.trigger, local.class)}
       {...others}
+      data-slot="select-trigger"
     />
   );
 }
@@ -135,9 +135,9 @@ function SelectValueText(props: ComponentProps<typeof SelectPrimitive.ValueText>
 
   return (
     <SelectPrimitive.ValueText
-      data-slot="select-value-text"
       class={clsx(styles.valueText, local.class)}
       {...others}
+      data-slot="select-value-text"
     />
   );
 }
@@ -159,9 +159,9 @@ function SelectClearTrigger(props: ComponentProps<typeof SelectPrimitive.ClearTr
         asChild={local.asChild}
         aria-label={local['aria-label']}
         aria-labelledby={local['aria-labelledby']}
-        data-slot="select-clear-trigger"
         class={triggerClass}
         {...others}
+        data-slot="select-clear-trigger"
       >
         {local.children}
       </SelectPrimitive.ClearTrigger>
@@ -186,9 +186,9 @@ function SelectClearTrigger(props: ComponentProps<typeof SelectPrimitive.ClearTr
           </CloseButton.Root>
         );
       }}
-      data-slot="select-clear-trigger"
       class={triggerClass}
       {...others}
+      data-slot="select-clear-trigger"
     />
   );
 }
@@ -199,9 +199,9 @@ function SelectIndicator(props: ComponentProps<typeof SelectPrimitive.Indicator>
 
   return (
     <SelectPrimitive.Indicator
-      data-slot="select-indicator"
       class={clsx(styles.indicator, local.class)}
       {...others}
+      data-slot="select-indicator"
     >
       {resolvedChildren() ?? <ChevronUpDownIcon />}
     </SelectPrimitive.Indicator>
@@ -228,9 +228,9 @@ function SelectPositioner(props: ComponentProps<typeof SelectPrimitive.Positione
   return (
     <OverlayPortal>
       <SelectPrimitive.Positioner
-        data-slot="select-positioner"
         class={clsx(styles.positioner, local.class)}
         {...others}
+        data-slot="select-positioner"
       />
     </OverlayPortal>
   );
@@ -241,9 +241,9 @@ function SelectContent(props: ComponentProps<typeof SelectPrimitive.Content>) {
 
   return (
     <SelectPrimitive.Content
-      data-slot="select-content"
       class={clsx(styles.content, local.class)}
       {...others}
+      data-slot="select-content"
     />
   );
 }
@@ -253,9 +253,9 @@ function SelectList(props: ComponentProps<typeof SelectPrimitive.List>) {
 
   return (
     <SelectPrimitive.List
-      data-slot="select-list"
       class={clsx(styles.list, local.class)}
       {...others}
+      data-slot="select-list"
     />
   );
 }
@@ -265,9 +265,9 @@ function SelectItemGroup(props: ComponentProps<typeof SelectPrimitive.ItemGroup>
 
   return (
     <SelectPrimitive.ItemGroup
-      data-slot="select-item-group"
       class={clsx(styles.itemGroup, local.class)}
       {...others}
+      data-slot="select-item-group"
     />
   );
 }
@@ -277,9 +277,9 @@ function SelectItemGroupLabel(props: ComponentProps<typeof SelectPrimitive.ItemG
 
   return (
     <SelectPrimitive.ItemGroupLabel
-      data-slot="select-item-group-label"
       class={clsx(styles.itemGroupLabel, local.class)}
       {...others}
+      data-slot="select-item-group-label"
     />
   );
 }
@@ -289,9 +289,9 @@ function SelectItem(props: ComponentProps<typeof SelectPrimitive.Item>) {
 
   return (
     <SelectPrimitive.Item
-      data-slot="select-item"
       class={clsx(styles.item, local.class)}
       {...others}
+      data-slot="select-item"
     />
   );
 }
@@ -301,9 +301,9 @@ function SelectItemText(props: ComponentProps<typeof SelectPrimitive.ItemText>) 
 
   return (
     <SelectPrimitive.ItemText
-      data-slot="select-item-text"
       class={clsx(styles.itemText, local.class)}
       {...others}
+      data-slot="select-item-text"
     />
   );
 }
@@ -314,9 +314,9 @@ function SelectItemIndicator(props: ComponentProps<typeof SelectPrimitive.ItemIn
 
   return (
     <SelectPrimitive.ItemIndicator
-      data-slot="select-item-indicator"
       class={clsx(styles.itemIndicator, local.class)}
       {...others}
+      data-slot="select-item-indicator"
     >
       {resolvedChildren() ?? <CheckIcon />}
     </SelectPrimitive.ItemIndicator>
@@ -328,9 +328,9 @@ function SelectItemTextContent(props: HTMLArkProps<'span'>) {
 
   return (
     <ark.span
-      data-slot="select-item-text-content"
       class={clsx(styles.itemTextContent, local.class)}
       {...others}
+      data-slot="select-item-text-content"
     />
   );
 }
@@ -340,9 +340,9 @@ function SelectItemTextIcon(props: HTMLArkProps<'span'>) {
 
   return (
     <ark.span
-      data-slot="select-item-text-icon"
       class={clsx(styles.itemTextIcon, local.class)}
       {...others}
+      data-slot="select-item-text-icon"
     />
   );
 }
@@ -352,9 +352,9 @@ function SelectItemTextLabel(props: HTMLArkProps<'span'>) {
 
   return (
     <ark.span
-      data-slot="select-item-text-label"
       class={clsx(styles.itemTextLabel, local.class)}
       {...others}
+      data-slot="select-item-text-label"
     />
   );
 }

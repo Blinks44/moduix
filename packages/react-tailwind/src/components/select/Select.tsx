@@ -54,12 +54,12 @@ const SelectRoot = forwardRef(function SelectRoot<T extends CollectionItem>(
     <OverlayPortalProvider portalled={portalled} portalRef={portalRef}>
       <SelectPrimitive.Root
         ref={ref}
-        data-slot="select-root"
         className={cn('flex w-56 max-w-full min-w-0 flex-col gap-1.5 text-foreground', className)}
         asChild={asChild}
         lazyMount={lazyMount}
         unmountOnExit={unmountOnExit}
         {...props}
+        data-slot="select-root"
       >
         {children}
       </SelectPrimitive.Root>
@@ -84,12 +84,12 @@ const SelectRootProvider = forwardRef(function SelectRootProvider<T extends Coll
     <OverlayPortalProvider portalled={portalled} portalRef={portalRef}>
       <SelectPrimitive.RootProvider
         ref={ref}
-        data-slot="select-root-provider"
         className={cn('flex w-56 max-w-full min-w-0 flex-col gap-1.5 text-foreground', className)}
         asChild={asChild}
         lazyMount={lazyMount}
         unmountOnExit={unmountOnExit}
         {...props}
+        data-slot="select-root-provider"
       >
         {children}
       </SelectPrimitive.RootProvider>
@@ -104,12 +104,12 @@ const SelectLabel = forwardRef<
   return (
     <SelectPrimitive.Label
       ref={ref}
-      data-slot="select-label"
       className={cn(
         'inline-flex items-center text-sm font-medium text-foreground select-none data-disabled:opacity-50',
         className,
       )}
       {...props}
+      data-slot="select-label"
     />
   );
 });
@@ -121,12 +121,12 @@ const SelectControl = forwardRef<
   return (
     <SelectPrimitive.Control
       ref={ref}
-      data-slot="select-control"
       className={cn(
         'group/select-control relative flex w-full min-w-0 items-center text-foreground data-disabled:opacity-50',
         className,
       )}
       {...props}
+      data-slot="select-control"
     />
   );
 });
@@ -138,7 +138,6 @@ const SelectTrigger = forwardRef<
   return (
     <SelectPrimitive.Trigger
       ref={ref}
-      data-slot="select-trigger"
       asChild={asChild}
       className={cn(
         !asChild &&
@@ -146,6 +145,7 @@ const SelectTrigger = forwardRef<
         className,
       )}
       {...props}
+      data-slot="select-trigger"
     />
   );
 });
@@ -157,9 +157,9 @@ const SelectValueText = forwardRef<
   return (
     <SelectPrimitive.ValueText
       ref={ref}
-      data-slot="select-value-text"
       className={cn('min-w-0 flex-1 overflow-hidden text-ellipsis whitespace-nowrap', className)}
       {...props}
+      data-slot="select-value-text"
     />
   );
 });
@@ -182,7 +182,6 @@ const SelectClearTrigger = forwardRef<
     <SelectPrimitive.ClearTrigger
       ref={ref}
       asChild
-      data-slot="select-clear-trigger"
       className={cn(
         'pointer-events-auto absolute inset-y-0 end-[2.125rem] my-auto size-control-xs transition-[background-color,color,opacity] duration-200 ease-in-out focus-visible:outline-1 focus-visible:outline-offset-1 motion-reduce:transition-none [&>svg]:size-4',
         className,
@@ -190,6 +189,7 @@ const SelectClearTrigger = forwardRef<
       aria-label={asChild ? ariaLabel : undefined}
       aria-labelledby={asChild ? ariaLabelledBy : undefined}
       {...props}
+      data-slot="select-clear-trigger"
     >
       {asChild ? (
         children
@@ -212,12 +212,12 @@ const SelectIndicator = forwardRef<
   return (
     <SelectPrimitive.Indicator
       ref={ref}
-      data-slot="select-indicator"
       className={cn(
         'pointer-events-none inline-flex size-control-xs shrink-0 items-center justify-center rounded-sm bg-transparent leading-none text-muted-foreground transition-[background-color,color,opacity] duration-200 ease-in-out peer-[:not([disabled]):not([data-disabled]):hover]/select-trigger:bg-muted peer-[:not([disabled]):not([data-disabled]):hover]/select-trigger:text-foreground motion-reduce:transition-none [&>svg]:block [&>svg]:size-4',
         className,
       )}
       {...props}
+      data-slot="select-indicator"
     >
       {children ?? <ChevronUpDownIcon />}
     </SelectPrimitive.Indicator>
@@ -248,9 +248,9 @@ const SelectPositioner = forwardRef<
     <OverlayPortal>
       <SelectPrimitive.Positioner
         ref={ref}
-        data-slot="select-positioner"
         className={cn('z-[var(--z-index)] outline-0', className)}
         {...props}
+        data-slot="select-positioner"
       />
     </OverlayPortal>
   );
@@ -263,12 +263,12 @@ const SelectContent = forwardRef<
   return (
     <SelectPrimitive.Content
       ref={ref}
-      data-slot="select-content"
       className={cn(
         'z-[calc(60+var(--layer-index,0))] flex max-h-[min(24rem,var(--available-height))] max-w-[var(--available-width)] min-w-[var(--reference-width)] origin-[var(--transform-origin)] scroll-py-1 flex-col overflow-auto overscroll-contain rounded-md border border-border bg-popover py-1 text-popover-foreground shadow-lg outline-0 data-[state=closed]:pointer-events-none data-[state=closed]:animate-moduix-menu-closed data-[state=open]:animate-moduix-menu-open motion-reduce:animate-none',
         className,
       )}
       {...props}
+      data-slot="select-content"
     />
   );
 });
@@ -280,12 +280,12 @@ const SelectList = forwardRef<
   return (
     <SelectPrimitive.List
       ref={ref}
-      data-slot="select-list"
       className={cn(
         'flex min-h-0 scroll-py-1 flex-col overflow-y-auto overscroll-contain outline-0',
         className,
       )}
       {...props}
+      data-slot="select-list"
     />
   );
 });
@@ -297,9 +297,9 @@ const SelectItemGroup = forwardRef<
   return (
     <SelectPrimitive.ItemGroup
       ref={ref}
-      data-slot="select-item-group"
       className={cn('flex flex-col [&+&]:mt-2', className)}
       {...props}
+      data-slot="select-item-group"
     />
   );
 });
@@ -311,9 +311,9 @@ const SelectItemGroupLabel = forwardRef<
   return (
     <SelectPrimitive.ItemGroupLabel
       ref={ref}
-      data-slot="select-item-group-label"
       className={cn('px-2.5 py-1 text-xs font-normal text-muted-foreground', className)}
       {...props}
+      data-slot="select-item-group-label"
     />
   );
 });
@@ -325,12 +325,12 @@ const SelectItem = forwardRef<
   return (
     <SelectPrimitive.Item
       ref={ref}
-      data-slot="select-item"
       className={cn(
         'relative mx-1 flex min-h-control-sm w-[calc(100%-0.5rem)] cursor-default items-center justify-between gap-2 rounded-sm bg-transparent px-3 py-1 text-sm text-popover-foreground outline-0 select-none data-disabled:pointer-events-none data-disabled:text-muted-foreground data-disabled:opacity-50 data-highlighted:bg-accent data-highlighted:text-accent-foreground',
         className,
       )}
       {...props}
+      data-slot="select-item"
     />
   );
 });
@@ -342,9 +342,9 @@ const SelectItemText = forwardRef<
   return (
     <SelectPrimitive.ItemText
       ref={ref}
-      data-slot="select-item-text"
       className={cn('min-w-0 flex-1 overflow-hidden text-ellipsis whitespace-nowrap', className)}
       {...props}
+      data-slot="select-item-text"
     />
   );
 });
@@ -356,12 +356,12 @@ const SelectItemIndicator = forwardRef<
   return (
     <SelectPrimitive.ItemIndicator
       ref={ref}
-      data-slot="select-item-indicator"
       className={cn(
         'inline-flex size-3.5 shrink-0 items-center justify-center [&>svg]:size-3',
         className,
       )}
       {...props}
+      data-slot="select-item-indicator"
     >
       {children ?? <CheckIcon />}
     </SelectPrimitive.ItemIndicator>
@@ -373,9 +373,9 @@ const SelectItemTextContent = forwardRef<ComponentRef<typeof ark.span>, HTMLArkP
     return (
       <ark.span
         ref={ref}
-        data-slot="select-item-text-content"
         className={cn('inline-flex max-w-full min-w-0 items-center gap-2 align-top', className)}
         {...props}
+        data-slot="select-item-text-content"
       />
     );
   },
@@ -386,9 +386,9 @@ const SelectItemTextIcon = forwardRef<ComponentRef<typeof ark.span>, HTMLArkProp
     return (
       <ark.span
         ref={ref}
-        data-slot="select-item-text-icon"
         className={cn('inline-flex size-4 shrink-0 items-center justify-center', className)}
         {...props}
+        data-slot="select-item-text-icon"
       />
     );
   },
@@ -399,9 +399,9 @@ const SelectItemTextLabel = forwardRef<ComponentRef<typeof ark.span>, HTMLArkPro
     return (
       <ark.span
         ref={ref}
-        data-slot="select-item-text-label"
         className={cn('min-w-0 overflow-hidden text-ellipsis whitespace-nowrap', className)}
         {...props}
+        data-slot="select-item-text-label"
       />
     );
   },

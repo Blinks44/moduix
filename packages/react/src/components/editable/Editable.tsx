@@ -18,10 +18,10 @@ const EditableRoot = forwardRef<
   return (
     <EditablePrimitive.Root
       ref={ref}
-      data-slot="editable-root"
       activationMode={activationMode}
       className={clsx(styles.root, className)}
       {...props}
+      data-slot="editable-root"
     />
   );
 });
@@ -33,9 +33,9 @@ const EditableRootProvider = forwardRef<
   return (
     <EditablePrimitive.RootProvider
       ref={ref}
-      data-slot="editable-root-provider"
       className={clsx(styles.root, className)}
       {...props}
+      data-slot="editable-root-provider"
     />
   );
 });
@@ -47,9 +47,9 @@ const EditableLabel = forwardRef<
   return (
     <EditablePrimitive.Label
       ref={ref}
-      data-slot="editable-label"
       className={clsx(styles.label, className)}
       {...props}
+      data-slot="editable-label"
     />
   );
 });
@@ -61,9 +61,9 @@ const EditableArea = forwardRef<
   return (
     <EditablePrimitive.Area
       ref={ref}
-      data-slot="editable-area"
       className={clsx(styles.area, className)}
       {...props}
+      data-slot="editable-area"
     />
   );
 });
@@ -75,9 +75,9 @@ const EditableInput = forwardRef<
   return (
     <EditablePrimitive.Input
       ref={ref}
-      data-slot="editable-input"
       className={clsx(styles.input, className)}
       {...props}
+      data-slot="editable-input"
     />
   );
 });
@@ -89,9 +89,9 @@ const EditablePreview = forwardRef<
   return (
     <EditablePrimitive.Preview
       ref={ref}
-      data-slot="editable-preview"
       className={clsx(styles.preview, className)}
       {...props}
+      data-slot="editable-preview"
     />
   );
 });
@@ -103,9 +103,9 @@ const EditableControl = forwardRef<
   return (
     <EditablePrimitive.Control
       ref={ref}
-      data-slot="editable-control"
       className={clsx(styles.control, className)}
       {...props}
+      data-slot="editable-control"
     />
   );
 });
@@ -117,9 +117,9 @@ const EditableEditTrigger = forwardRef<
   return (
     <EditablePrimitive.EditTrigger
       ref={ref}
-      data-slot="editable-edit-trigger"
       className={clsx(styles.trigger, className)}
       {...props}
+      data-slot="editable-edit-trigger"
     >
       {children ?? <PencilIcon />}
     </EditablePrimitive.EditTrigger>
@@ -133,9 +133,9 @@ const EditableSubmitTrigger = forwardRef<
   return (
     <EditablePrimitive.SubmitTrigger
       ref={ref}
-      data-slot="editable-submit-trigger"
       className={clsx(styles.trigger, className)}
       {...props}
+      data-slot="editable-submit-trigger"
     >
       {children ?? <CheckIcon />}
     </EditablePrimitive.SubmitTrigger>
@@ -149,9 +149,9 @@ const EditableCancelTrigger = forwardRef<
   return (
     <EditablePrimitive.CancelTrigger
       ref={ref}
-      data-slot="editable-cancel-trigger"
       className={clsx(styles.trigger, className)}
       {...props}
+      data-slot="editable-cancel-trigger"
     >
       {children ?? <CloseIcon />}
     </EditablePrimitive.CancelTrigger>

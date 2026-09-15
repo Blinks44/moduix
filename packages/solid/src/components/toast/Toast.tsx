@@ -30,9 +30,9 @@ function Toaster(props: ToasterProps) {
     <OverlayPortalProvider portalled={local.portalled ?? true} portalRef={local.portalRef}>
       <OverlayPortal>
         <ToasterPrimitive
-          data-slot="toast-toaster"
           class={clsx(styles.toaster, local.class)}
           {...others}
+          data-slot="toast-toaster"
           children={local.children ?? ((toast) => <DefaultToast toast={toast} />)}
         />
       </OverlayPortal>
@@ -59,9 +59,9 @@ function ToastRoot(props: ComponentProps<typeof ToastPrimitive.Root>) {
 
   return (
     <ToastPrimitive.Root
-      data-slot="toast-root"
       class={clsx(styles.root, local.class)}
       {...others}
+      data-slot="toast-root"
     />
   );
 }
@@ -73,9 +73,9 @@ function ToastTitle(props: ComponentProps<typeof ToastPrimitive.Title>) {
 
   return (
     <ToastPrimitive.Title
-      data-slot="toast-title"
       class={clsx(styles.title, local.class)}
       {...others}
+      data-slot="toast-title"
     >
       {resolvedChildren() === undefined ? toast().title : resolvedChildren()}
     </ToastPrimitive.Title>
@@ -89,9 +89,9 @@ function ToastDescription(props: ComponentProps<typeof ToastPrimitive.Descriptio
 
   return (
     <ToastPrimitive.Description
-      data-slot="toast-description"
       class={clsx(styles.description, local.class)}
       {...others}
+      data-slot="toast-description"
     >
       {resolvedChildren() === undefined ? toast().description : resolvedChildren()}
     </ToastPrimitive.Description>
@@ -104,9 +104,9 @@ function ToastActionTrigger(props: ComponentProps<typeof ToastPrimitive.ActionTr
   return (
     <ToastPrimitive.ActionTrigger
       asChild={local.asChild}
-      data-slot="toast-action-trigger"
       class={clsx(!local.asChild && styles.actionTrigger, local.class)}
       {...others}
+      data-slot="toast-action-trigger"
     >
       {local.children}
     </ToastPrimitive.ActionTrigger>
@@ -129,11 +129,11 @@ function ToastCloseTrigger(props: ComponentProps<typeof ToastPrimitive.CloseTrig
     return (
       <ToastPrimitive.CloseTrigger
         asChild={local.asChild}
-        data-slot="toast-close-trigger"
         aria-label={ariaLabel}
         aria-labelledby={local['aria-labelledby']}
         class={local.class}
         {...others}
+        data-slot="toast-close-trigger"
       >
         {local.children}
       </ToastPrimitive.CloseTrigger>
@@ -153,10 +153,10 @@ function ToastCloseTrigger(props: ComponentProps<typeof ToastPrimitive.CloseTrig
           {resolvedChildren()}
         </CloseButton.Root>
       )}
-      data-slot="toast-close-trigger"
       aria-label={ariaLabel}
       aria-labelledby={local['aria-labelledby']}
       {...others}
+      data-slot="toast-close-trigger"
     />
   );
 }

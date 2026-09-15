@@ -18,7 +18,6 @@ const PinInputRoot = forwardRef<
   return (
     <PinInputPrimitive.Root
       ref={ref}
-      data-slot="pin-input-root"
       className={cn(
         'inline-flex w-auto max-w-none flex-col items-start gap-2 data-disabled:opacity-50',
         className,
@@ -26,6 +25,7 @@ const PinInputRoot = forwardRef<
       count={count}
       placeholder={placeholder}
       {...props}
+      data-slot="pin-input-root"
     />
   );
 });
@@ -37,12 +37,12 @@ const PinInputRootProvider = forwardRef<
   return (
     <PinInputPrimitive.RootProvider
       ref={ref}
-      data-slot="pin-input-root-provider"
       className={cn(
         'inline-flex w-auto max-w-none flex-col items-start gap-2 data-disabled:opacity-50',
         className,
       )}
       {...props}
+      data-slot="pin-input-root-provider"
     />
   );
 });
@@ -54,9 +54,9 @@ const PinInputLabel = forwardRef<
   return (
     <PinInputPrimitive.Label
       ref={ref}
-      data-slot="pin-input-label"
       className={cn('text-sm leading-5 font-medium text-foreground', className)}
       {...props}
+      data-slot="pin-input-label"
     />
   );
 });
@@ -68,9 +68,9 @@ const PinInputControl = forwardRef<
   return (
     <PinInputPrimitive.Control
       ref={ref}
-      data-slot="pin-input-control"
       className={cn('inline-flex items-center gap-2', className)}
       {...props}
+      data-slot="pin-input-control"
     />
   );
 });
@@ -82,12 +82,12 @@ const PinInputInput = forwardRef<
   return (
     <PinInputPrimitive.Input
       ref={ref}
-      data-slot="pin-input-input"
       className={cn(
         'size-control-md flex-none rounded-md border border-border bg-background px-0 py-0 text-center text-lg leading-7 font-medium text-foreground tabular-nums outline-1 -outline-offset-1 outline-transparent transition-[border-color,outline-color,background-color] duration-200 ease-in-out placeholder:text-muted-foreground focus-visible:outline-ring disabled:pointer-events-none data-disabled:pointer-events-none data-invalid:border-destructive data-invalid:focus-visible:outline-destructive motion-reduce:transition-none',
         className,
       )}
       {...props}
+      data-slot="pin-input-input"
     />
   );
 });
@@ -107,7 +107,6 @@ function PinInputSeparator({
 }: ComponentProps<'span'>) {
   return (
     <span
-      data-slot="pin-input-separator"
       aria-hidden={ariaHidden}
       role={role}
       className={cn(
@@ -115,6 +114,7 @@ function PinInputSeparator({
         className,
       )}
       {...props}
+      data-slot="pin-input-separator"
     >
       {children ?? <SeparatorMarkIcon />}
     </span>

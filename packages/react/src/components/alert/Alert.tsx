@@ -20,10 +20,10 @@ const AlertRoot = forwardRef<ComponentRef<typeof ark.div>, AlertRootProps>(funct
       role={role ?? (status === 'error' ? 'alert' : 'status')}
       data-scope="alert"
       data-part="root"
-      data-slot="alert-root"
       data-status={status}
       className={clsx(styles.root, className)}
       {...props}
+      data-slot="alert-root"
     >
       {children}
     </ark.div>
@@ -37,10 +37,10 @@ const AlertIndicator = forwardRef<ComponentRef<typeof ark.span>, HTMLArkProps<'s
         ref={ref}
         data-scope="alert"
         data-part="indicator"
-        data-slot="alert-indicator"
         aria-hidden="true"
         className={clsx(styles.indicator, className)}
         {...props}
+        data-slot="alert-indicator"
       />
     );
   },
@@ -53,9 +53,9 @@ const AlertContent = forwardRef<ComponentRef<typeof ark.div>, HTMLArkProps<'div'
         ref={ref}
         data-scope="alert"
         data-part="content"
-        data-slot="alert-content"
         className={clsx(styles.content, className)}
         {...props}
+        data-slot="alert-content"
       />
     );
   },
@@ -70,9 +70,9 @@ const AlertTitle = forwardRef<ComponentRef<typeof ark.p>, HTMLArkProps<'p'>>(fun
       ref={ref}
       data-scope="alert"
       data-part="title"
-      data-slot="alert-title"
       className={clsx(styles.title, className)}
       {...props}
+      data-slot="alert-title"
     />
   );
 });
@@ -84,9 +84,9 @@ const AlertDescription = forwardRef<ComponentRef<typeof ark.div>, HTMLArkProps<'
         ref={ref}
         data-scope="alert"
         data-part="description"
-        data-slot="alert-description"
         className={clsx(styles.description, className)}
         {...props}
+        data-slot="alert-description"
       />
     );
   },
@@ -99,9 +99,9 @@ const AlertActions = forwardRef<ComponentRef<typeof ark.div>, HTMLArkProps<'div'
         ref={ref}
         data-scope="alert"
         data-part="actions"
-        data-slot="alert-actions"
         className={clsx(styles.actions, className)}
         {...props}
+        data-slot="alert-actions"
       />
     );
   },

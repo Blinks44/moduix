@@ -103,7 +103,6 @@ function MenuTrigger(props: ComponentProps<typeof MenuPrimitive.Trigger>) {
   return (
     <MenuPrimitive.Trigger
       asChild={local.asChild}
-      data-slot="menu-trigger"
       data-focus-visible={focusVisible() ? '' : undefined}
       class={cn(
         !local.asChild &&
@@ -111,6 +110,7 @@ function MenuTrigger(props: ComponentProps<typeof MenuPrimitive.Trigger>) {
         local.class,
       )}
       {...others}
+      data-slot="menu-trigger"
     />
   );
 }
@@ -120,12 +120,12 @@ function MenuTriggerIcon(props: ComponentProps<'span'>) {
   const resolvedChildren = children(() => local.children);
   return (
     <span
-      data-slot="menu-trigger-icon"
       class={cn(
         'inline-flex size-4 shrink-0 items-center justify-center [&_svg]:size-full',
         local.class,
       )}
       {...others}
+      data-slot="menu-trigger-icon"
     >
       {resolvedChildren() ?? <ChevronDownIcon />}
     </span>
@@ -137,12 +137,12 @@ function MenuIndicator(props: ComponentProps<typeof MenuPrimitive.Indicator>) {
   const resolvedChildren = children(() => local.children);
   return (
     <MenuPrimitive.Indicator
-      data-slot="menu-indicator"
       class={cn(
         'inline-flex size-4 shrink-0 items-center justify-center [&_svg]:size-full',
         local.class,
       )}
       {...others}
+      data-slot="menu-indicator"
     >
       {resolvedChildren() ?? <ChevronDownIcon />}
     </MenuPrimitive.Indicator>
@@ -155,7 +155,6 @@ function MenuContextTrigger(props: ComponentProps<typeof MenuPrimitive.ContextTr
   return (
     <MenuPrimitive.ContextTrigger
       asChild={local.asChild}
-      data-slot="menu-context-trigger"
       data-focus-visible={focusVisible() ? '' : undefined}
       class={cn(
         !local.asChild &&
@@ -163,6 +162,7 @@ function MenuContextTrigger(props: ComponentProps<typeof MenuPrimitive.ContextTr
         local.class,
       )}
       {...others}
+      data-slot="menu-context-trigger"
     />
   );
 }
@@ -172,12 +172,12 @@ function MenuPositioner(props: ComponentProps<typeof MenuPrimitive.Positioner>) 
   return (
     <OverlayPortal>
       <MenuPrimitive.Positioner
-        data-slot="menu-positioner"
         class={cn(
           'z-[var(--z-index)] w-[var(--positioner-width,auto)] max-w-[var(--available-width)] outline-0',
           local.class,
         )}
         {...others}
+        data-slot="menu-positioner"
       />
     </OverlayPortal>
   );
@@ -188,12 +188,12 @@ function MenuContent(props: ComponentProps<typeof MenuPrimitive.Content>) {
   return (
     <MenuPrimitive.Content
       asChild={local.asChild}
-      data-slot="menu-content"
       class={cn(
         'relative z-[calc(var(--moduix-z-popup)+var(--layer-index,0))] flex max-w-[min(20rem,var(--available-width,100vw))] min-w-[min(max(var(--reference-width,0px),12rem),var(--available-width,100vw))] origin-[var(--transform-origin)] flex-col overflow-visible rounded-md bg-popover py-1 text-popover-foreground shadow-lg outline-1 outline-border [--arrow-background:var(--color-popover)] [--arrow-size:0.625rem] data-[state=closed]:animate-moduix-menu-closed data-[state=open]:animate-moduix-menu-open motion-reduce:[animation-delay:0ms] motion-reduce:[animation-duration:1ms]',
         local.class,
       )}
       {...others}
+      data-slot="menu-content"
     >
       {local.children}
     </MenuPrimitive.Content>
@@ -208,12 +208,12 @@ function MenuViewport(props: HTMLArkProps<'div'>) {
       asChild={local.asChild}
       data-scope="menu"
       data-part="viewport"
-      data-slot="menu-viewport"
       class={cn(
         'flex max-h-[min(24rem,var(--available-height,100dvh))] flex-col overflow-auto',
         local.class,
       )}
       {...others}
+      data-slot="menu-viewport"
     />
   );
 }
@@ -223,9 +223,9 @@ function MenuArrow(props: ComponentProps<typeof MenuPrimitive.Arrow>) {
   const resolvedChildren = children(() => local.children);
   return (
     <MenuPrimitive.Arrow
-      data-slot="menu-arrow"
       class={cn('[--arrow-background:var(--color-popover)]', local.class)}
       {...others}
+      data-slot="menu-arrow"
     >
       {resolvedChildren() ?? <MenuArrowTip />}
     </MenuPrimitive.Arrow>
@@ -236,12 +236,12 @@ function MenuArrowTip(props: ComponentProps<typeof MenuPrimitive.ArrowTip>) {
   const [local, others] = splitProps(props, ['class']);
   return (
     <MenuPrimitive.ArrowTip
-      data-slot="menu-arrow-tip"
       class={cn(
         '[border-block-start:1px_solid_var(--color-border)] [border-inline-start:1px_solid_var(--color-border)]',
         local.class,
       )}
       {...others}
+      data-slot="menu-arrow-tip"
     />
   );
 }
@@ -250,10 +250,10 @@ function MenuItem(props: MenuItemProps) {
   const [local, others] = splitProps(props, ['class', 'tone']);
   return (
     <MenuPrimitive.Item
-      data-slot="menu-item"
       data-tone={local.tone ?? 'default'}
       class={cn(menuItemStyles({ layout: 'item', tone: local.tone }), local.class)}
       {...others}
+      data-slot="menu-item"
     />
   );
 }
@@ -262,9 +262,9 @@ function MenuTriggerItem(props: ComponentProps<typeof MenuPrimitive.TriggerItem>
   const [local, others] = splitProps(props, ['class']);
   return (
     <MenuPrimitive.TriggerItem
-      data-slot="menu-trigger-item"
       class={cn(menuItemStyles({ layout: 'triggerItem' }), local.class)}
       {...others}
+      data-slot="menu-trigger-item"
     />
   );
 }
@@ -274,9 +274,9 @@ function MenuTriggerItemIcon(props: ComponentProps<'span'>) {
   const resolvedChildren = children(() => local.children);
   return (
     <span
-      data-slot="menu-trigger-item-icon"
       class={cn('inline-flex size-3.5 shrink-0 rtl:-scale-x-100 [&_svg]:size-full', local.class)}
       {...others}
+      data-slot="menu-trigger-item-icon"
     >
       {resolvedChildren() ?? <ChevronRightIcon />}
     </span>
@@ -287,9 +287,9 @@ function MenuSeparator(props: ComponentProps<typeof MenuPrimitive.Separator>) {
   const [local, others] = splitProps(props, ['class']);
   return (
     <MenuPrimitive.Separator
-      data-slot="menu-separator"
       class={cn('mx-3 my-1.5 h-px border-0 bg-border', local.class)}
       {...others}
+      data-slot="menu-separator"
     />
   );
 }
@@ -298,9 +298,9 @@ function MenuItemGroup(props: ComponentProps<typeof MenuPrimitive.ItemGroup>) {
   const [local, others] = splitProps(props, ['class']);
   return (
     <MenuPrimitive.ItemGroup
-      data-slot="menu-item-group"
       class={cn('grid', local.class)}
       {...others}
+      data-slot="menu-item-group"
     />
   );
 }
@@ -309,12 +309,12 @@ function MenuItemGroupLabel(props: ComponentProps<typeof MenuPrimitive.ItemGroup
   const [local, others] = splitProps(props, ['class']);
   return (
     <MenuPrimitive.ItemGroupLabel
-      data-slot="menu-item-group-label"
       class={cn(
         'cursor-default px-2.5 py-1 text-xs font-normal text-muted-foreground select-none',
         local.class,
       )}
       {...others}
+      data-slot="menu-item-group-label"
     />
   );
 }
@@ -323,9 +323,9 @@ function MenuRadioItemGroup(props: ComponentProps<typeof MenuPrimitive.RadioItem
   const [local, others] = splitProps(props, ['class']);
   return (
     <MenuPrimitive.RadioItemGroup
-      data-slot="menu-radio-item-group"
       class={cn('grid', local.class)}
       {...others}
+      data-slot="menu-radio-item-group"
     />
   );
 }
@@ -334,13 +334,13 @@ function MenuRadioItem(props: MenuRadioItemProps) {
   const [local, others] = splitProps(props, ['class', 'indicator']);
   return (
     <MenuPrimitive.RadioItem
-      data-slot="menu-radio-item"
       data-indicator-position={local.indicator ?? 'start'}
       class={cn(
         menuItemStyles({ layout: 'indicatorItem', indicator: local.indicator ?? 'start' }),
         local.class,
       )}
       {...others}
+      data-slot="menu-radio-item"
     />
   );
 }
@@ -349,13 +349,13 @@ function MenuCheckboxItem(props: MenuCheckboxItemProps) {
   const [local, others] = splitProps(props, ['class', 'indicator']);
   return (
     <MenuPrimitive.CheckboxItem
-      data-slot="menu-checkbox-item"
       data-indicator-position={local.indicator ?? 'start'}
       class={cn(
         menuItemStyles({ layout: 'indicatorItem', indicator: local.indicator ?? 'start' }),
         local.class,
       )}
       {...others}
+      data-slot="menu-checkbox-item"
     />
   );
 }
@@ -365,12 +365,12 @@ function MenuItemIndicator(props: ComponentProps<typeof MenuPrimitive.ItemIndica
   const resolvedChildren = children(() => local.children);
   return (
     <MenuPrimitive.ItemIndicator
-      data-slot="menu-item-indicator"
       class={cn(
         'inline-flex size-3 items-center justify-center rounded-xs [&_svg]:size-full',
         local.class,
       )}
       {...others}
+      data-slot="menu-item-indicator"
     >
       {resolvedChildren() ?? <CheckIcon />}
     </MenuPrimitive.ItemIndicator>
@@ -381,9 +381,9 @@ function MenuItemText(props: ComponentProps<typeof MenuPrimitive.ItemText>) {
   const [local, others] = splitProps(props, ['class']);
   return (
     <MenuPrimitive.ItemText
-      data-slot="menu-item-text"
       class={cn('min-w-0 overflow-hidden', local.class)}
       {...others}
+      data-slot="menu-item-text"
     />
   );
 }
@@ -392,9 +392,9 @@ function MenuItemTextContent(props: HTMLArkProps<'span'>) {
   const [local, others] = splitProps(props, ['class']);
   return (
     <ark.span
-      data-slot="menu-item-text-content"
       class={cn('inline-flex max-w-full min-w-0 items-center gap-2 align-top', local.class)}
       {...others}
+      data-slot="menu-item-text-content"
     />
   );
 }
@@ -402,12 +402,12 @@ function MenuItemTextIcon(props: HTMLArkProps<'span'>) {
   const [local, others] = splitProps(props, ['class']);
   return (
     <ark.span
-      data-slot="menu-item-text-icon"
       class={cn(
         'inline-flex size-4 shrink-0 items-center justify-center [&_svg]:size-full',
         local.class,
       )}
       {...others}
+      data-slot="menu-item-text-icon"
     />
   );
 }
@@ -415,9 +415,9 @@ function MenuItemTextLabel(props: HTMLArkProps<'span'>) {
   const [local, others] = splitProps(props, ['class']);
   return (
     <ark.span
-      data-slot="menu-item-text-label"
       class={cn('min-w-0 overflow-hidden text-ellipsis whitespace-nowrap', local.class)}
       {...others}
+      data-slot="menu-item-text-label"
     />
   );
 }
@@ -425,9 +425,9 @@ function MenuItemShortcut(props: HTMLArkProps<'span'>) {
   const [local, others] = splitProps(props, ['class']);
   return (
     <ark.span
-      data-slot="menu-item-shortcut"
       class={cn('ms-auto ps-4 text-xs whitespace-nowrap text-muted-foreground', local.class)}
       {...others}
+      data-slot="menu-item-shortcut"
     />
   );
 }

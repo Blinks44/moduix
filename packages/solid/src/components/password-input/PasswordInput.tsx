@@ -14,9 +14,9 @@ function PasswordInputRoot(props: ComponentProps<typeof PasswordInputPrimitive.R
 
   return (
     <PasswordInputPrimitive.Root
-      data-slot="password-input-root"
       class={clsx(styles.root, local.class)}
       {...others}
+      data-slot="password-input-root"
     />
   );
 }
@@ -28,9 +28,9 @@ function PasswordInputRootProvider(
 
   return (
     <PasswordInputPrimitive.RootProvider
-      data-slot="password-input-root-provider"
       class={clsx(styles.root, local.class)}
       {...others}
+      data-slot="password-input-root-provider"
     />
   );
 }
@@ -40,9 +40,9 @@ function PasswordInputLabel(props: ComponentProps<typeof PasswordInputPrimitive.
 
   return (
     <PasswordInputPrimitive.Label
-      data-slot="password-input-label"
       class={clsx(styles.label, local.class)}
       {...others}
+      data-slot="password-input-label"
     />
   );
 }
@@ -52,9 +52,9 @@ function PasswordInputControl(props: ComponentProps<typeof PasswordInputPrimitiv
 
   return (
     <PasswordInputPrimitive.Control
-      data-slot="password-input-control"
       class={clsx(styles.control, local.class)}
       {...others}
+      data-slot="password-input-control"
     />
   );
 }
@@ -93,9 +93,9 @@ function PasswordInputVisibilityTrigger(
 
   return (
     <PasswordInputPrimitive.VisibilityTrigger
-      data-slot="password-input-visibility-trigger"
       class={clsx(styles.visibilityTrigger, local.class)}
       {...others}
+      data-slot="password-input-visibility-trigger"
     />
   );
 }
@@ -106,10 +106,10 @@ function PasswordInputIndicator(props: ComponentProps<typeof PasswordInputPrimit
 
   return (
     <PasswordInputPrimitive.Indicator
-      data-slot="password-input-indicator"
       class={clsx(styles.indicator, local.class)}
       fallback={local.fallback ?? <EyeClosedIcon />}
       {...others}
+      data-slot="password-input-indicator"
     >
       {resolvedChildren() ?? <EyeIcon />}
     </PasswordInputPrimitive.Indicator>

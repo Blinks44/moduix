@@ -41,7 +41,6 @@ const ColorPickerRoot = forwardRef<
       <ColorPickerPrimitive.Root
         ref={ref}
         asChild={asChild}
-        data-slot="color-picker-root"
         className={cn(
           'box-border flex w-64 max-w-full min-w-0 flex-col gap-2 text-foreground data-disabled:opacity-50',
           className,
@@ -49,6 +48,7 @@ const ColorPickerRoot = forwardRef<
         lazyMount={lazyMount}
         unmountOnExit={unmountOnExit}
         {...props}
+        data-slot="color-picker-root"
       >
         {children}
       </ColorPickerPrimitive.Root>
@@ -77,7 +77,6 @@ const ColorPickerRootProvider = forwardRef<
       <ColorPickerPrimitive.RootProvider
         ref={ref}
         asChild={asChild}
-        data-slot="color-picker-root-provider"
         className={cn(
           'box-border flex w-64 max-w-full min-w-0 flex-col gap-2 text-foreground data-disabled:opacity-50',
           className,
@@ -85,6 +84,7 @@ const ColorPickerRootProvider = forwardRef<
         lazyMount={lazyMount}
         unmountOnExit={unmountOnExit}
         {...props}
+        data-slot="color-picker-root-provider"
       >
         {children}
       </ColorPickerPrimitive.RootProvider>
@@ -99,12 +99,12 @@ const ColorPickerLabel = forwardRef<
   return (
     <ColorPickerPrimitive.Label
       ref={ref}
-      data-slot="color-picker-label"
       className={cn(
         'inline-flex items-center text-sm font-medium text-foreground select-none',
         className,
       )}
       {...props}
+      data-slot="color-picker-label"
     />
   );
 });
@@ -116,9 +116,9 @@ const ColorPickerControl = forwardRef<
   return (
     <ColorPickerPrimitive.Control
       ref={ref}
-      data-slot="color-picker-control"
       className={cn('flex min-w-0 items-center gap-2 data-disabled:opacity-50', className)}
       {...props}
+      data-slot="color-picker-control"
     />
   );
 });
@@ -130,12 +130,12 @@ const ColorPickerTrigger = forwardRef<
   return (
     <ColorPickerPrimitive.Trigger
       ref={ref}
-      data-slot="color-picker-trigger"
       className={cn(
         'group/trigger box-border grid size-control-md shrink-0 place-items-center overflow-hidden rounded-md border border-border bg-background p-1 text-foreground outline-1 -outline-offset-1 outline-transparent transition-[border-color,outline-color,background-color] duration-200 ease-in-out select-none focus-visible:border-ring focus-visible:outline-ring disabled:cursor-default data-disabled:cursor-default data-invalid:border-destructive data-invalid:outline-destructive data-readonly:cursor-default data-[fit-content]:inline-flex data-[fit-content]:w-auto data-[fit-content]:min-w-control-md data-[fit-content]:gap-2 data-[fit-content]:px-3 data-[state=open]:border-ring data-[state=open]:outline-ring motion-reduce:transition-none',
         className,
       )}
       {...props}
+      data-slot="color-picker-trigger"
     >
       {children ?? (
         <>
@@ -161,9 +161,9 @@ const ColorPickerPositioner = forwardRef<
     <OverlayPortal>
       <ColorPickerPrimitive.Positioner
         ref={ref}
-        data-slot="color-picker-positioner"
         className={cn('z-[var(--z-index)] outline-0', className)}
         {...props}
+        data-slot="color-picker-positioner"
       />
     </OverlayPortal>
   );
@@ -176,12 +176,12 @@ const ColorPickerContent = forwardRef<
   return (
     <ColorPickerPrimitive.Content
       ref={ref}
-      data-slot="color-picker-content"
       className={cn(
         'z-[calc(var(--moduix-z-popup)+var(--layer-index,0))] box-border flex max-h-[min(32rem,var(--available-height))] w-64 max-w-[var(--available-width)] origin-[var(--transform-origin)] flex-col gap-3 overflow-auto overscroll-contain rounded-md border border-border bg-popover p-4 text-popover-foreground shadow-lg outline-0 data-[state=closed]:animate-moduix-menu-closed data-[state=open]:animate-moduix-menu-open motion-reduce:[animation-delay:0ms] motion-reduce:[animation-duration:1ms]',
         className,
       )}
       {...props}
+      data-slot="color-picker-content"
     />
   );
 });
@@ -193,12 +193,12 @@ const ColorPickerArea = forwardRef<
   return (
     <ColorPickerPrimitive.Area
       ref={ref}
-      data-slot="color-picker-area"
       className={cn(
         'relative box-border h-40 w-full touch-none overflow-hidden rounded-md shadow-[inset_0_0_0_1px_color-mix(in_oklab,black_14%,transparent)] select-none data-disabled:cursor-default data-readonly:cursor-default',
         className,
       )}
       {...props}
+      data-slot="color-picker-area"
     >
       {children ?? (
         <>
@@ -223,9 +223,9 @@ const ColorPickerAreaBackground = forwardRef<
   return (
     <ColorPickerPrimitive.AreaBackground
       ref={ref}
-      data-slot="color-picker-area-background"
       className={cn('size-full rounded-[inherit]', className)}
       {...props}
+      data-slot="color-picker-area-background"
     />
   );
 });
@@ -237,12 +237,12 @@ const ColorPickerAreaThumb = forwardRef<
   return (
     <ColorPickerPrimitive.AreaThumb
       ref={ref}
-      data-slot="color-picker-area-thumb"
       className={cn(
         'box-border size-4 -translate-x-1/2 -translate-y-1/2 rounded-full bg-background shadow-[0_0_0_4px_rgb(0_0_0_/_18%),0_2px_4px_0_rgb(0_0_0_/_10%),0_1px_2px_-1px_rgb(0_0_0_/_10%)] ring-2 ring-background outline-0 focus-visible:ring-ring data-disabled:pointer-events-none',
         className,
       )}
       {...props}
+      data-slot="color-picker-area-thumb"
     />
   );
 });
@@ -254,13 +254,13 @@ const ColorPickerChannelSlider = forwardRef<
   return (
     <ColorPickerPrimitive.ChannelSlider
       ref={ref}
-      data-slot="color-picker-channel-slider"
       className={cn(
         'relative box-border flex h-3 touch-none items-center rounded-full select-none data-[orientation=vertical]:h-40 data-[orientation=vertical]:w-3 data-[orientation=vertical]:items-stretch data-[orientation=vertical]:justify-center',
         className,
       )}
       channel={channel}
       {...props}
+      data-slot="color-picker-channel-slider"
     >
       {children ?? (
         <>
@@ -289,9 +289,9 @@ const ColorPickerSliders = forwardRef<HTMLDivElement, ComponentProps<'div'>>(
     return (
       <div
         ref={ref}
-        data-slot="color-picker-sliders"
         className={cn('flex min-w-0 flex-1 flex-col gap-2', className)}
         {...props}
+        data-slot="color-picker-sliders"
       >
         <ColorPickerChannelSlider channel="hue" />
         <ColorPickerChannelSlider channel="alpha" />
@@ -307,12 +307,12 @@ const ColorPickerChannelSliderTrack = forwardRef<
   return (
     <ColorPickerPrimitive.ChannelSliderTrack
       ref={ref}
-      data-slot="color-picker-channel-slider-track"
       className={cn(
         'h-3 w-full rounded-[inherit] shadow-[inset_0_0_0_1px_color-mix(in_oklab,black_14%,transparent)] data-[orientation=vertical]:h-full data-[orientation=vertical]:w-3',
         className,
       )}
       {...props}
+      data-slot="color-picker-channel-slider-track"
     />
   );
 });
@@ -324,12 +324,12 @@ const ColorPickerChannelSliderThumb = forwardRef<
   return (
     <ColorPickerPrimitive.ChannelSliderThumb
       ref={ref}
-      data-slot="color-picker-channel-slider-thumb"
       className={cn(
         'box-border size-4 -translate-x-1/2 -translate-y-1/2 rounded-full bg-background shadow-[0_0_0_4px_rgb(0_0_0_/_18%),0_2px_4px_0_rgb(0_0_0_/_10%),0_1px_2px_-1px_rgb(0_0_0_/_10%)] ring-2 ring-background outline-0 focus-visible:ring-ring data-disabled:pointer-events-none',
         className,
       )}
       {...props}
+      data-slot="color-picker-channel-slider-thumb"
     />
   );
 });
@@ -341,9 +341,9 @@ const ColorPickerChannelSliderLabel = forwardRef<
   return (
     <ColorPickerPrimitive.ChannelSliderLabel
       ref={ref}
-      data-slot="color-picker-channel-slider-label"
       className={cn('text-sm font-medium text-foreground', className)}
       {...props}
+      data-slot="color-picker-channel-slider-label"
     />
   );
 });
@@ -355,9 +355,9 @@ const ColorPickerChannelSliderValueText = forwardRef<
   return (
     <ColorPickerPrimitive.ChannelSliderValueText
       ref={ref}
-      data-slot="color-picker-channel-slider-value-text"
       className={cn('text-sm text-muted-foreground', className)}
       {...props}
+      data-slot="color-picker-channel-slider-value-text"
     />
   );
 });
@@ -369,12 +369,12 @@ const ColorPickerChannelInput = forwardRef<
   return (
     <ColorPickerPrimitive.ChannelInput
       ref={ref}
-      data-slot="color-picker-channel-input"
       className={cn(
         'box-border h-control-md w-full min-w-0 [appearance:textfield] rounded-md border border-border bg-background px-3 text-sm text-foreground outline-1 -outline-offset-1 outline-transparent transition-[border-color,outline-color] duration-200 ease-in-out focus:border-ring focus:outline-ring data-disabled:opacity-50 data-invalid:border-destructive data-invalid:outline-destructive data-[channel=alpha]:w-16 data-[channel=alpha]:flex-none motion-reduce:transition-none [&::-webkit-inner-spin-button]:m-0 [&::-webkit-inner-spin-button]:appearance-none [&::-webkit-outer-spin-button]:m-0 [&::-webkit-outer-spin-button]:appearance-none',
         className,
       )}
       {...props}
+      data-slot="color-picker-channel-input"
     />
   );
 });
@@ -386,12 +386,12 @@ const ColorPickerEyeDropperTrigger = forwardRef<
   return (
     <ColorPickerPrimitive.EyeDropperTrigger
       ref={ref}
-      data-slot="color-picker-eye-dropper-trigger"
       className={cn(
         'box-border inline-flex h-control-md min-w-control-md shrink-0 items-center justify-center gap-2 rounded-md border border-border bg-transparent px-2 text-sm text-muted-foreground outline-1 -outline-offset-1 outline-transparent transition-[border-color,outline-color,background-color,color] duration-200 ease-in-out focus-visible:border-ring focus-visible:outline-ring disabled:cursor-default data-disabled:cursor-default data-focus:border-ring data-focus:outline-ring data-readonly:cursor-default motion-reduce:transition-none [&:not([disabled]):not([data-disabled]):not([data-readonly]):hover]:bg-muted [&:not([disabled]):not([data-disabled]):not([data-readonly]):hover]:text-foreground [&>svg]:size-4 [&>svg]:shrink-0',
         className,
       )}
       {...props}
+      data-slot="color-picker-eye-dropper-trigger"
     >
       {children ?? <PipetteIcon />}
     </ColorPickerPrimitive.EyeDropperTrigger>
@@ -406,12 +406,12 @@ const ColorPickerFormatSelect = forwardRef<
     <span className="group/format-select relative inline-grid w-fit max-w-full min-w-0 shrink-0">
       <ColorPickerPrimitive.FormatSelect
         ref={ref}
-        data-slot="color-picker-format-select"
         className={cn(
           'peer/format-select box-border h-control-md w-auto min-w-0 rounded-md border border-border bg-background px-3 pe-8 text-sm text-foreground uppercase outline-1 -outline-offset-1 outline-transparent transition-[border-color,outline-color] duration-200 ease-in-out focus:border-ring focus:outline-ring disabled:cursor-default data-disabled:cursor-default data-disabled:opacity-50 data-invalid:border-destructive data-invalid:outline-destructive forced-colors:appearance-auto forced-colors:pe-3',
           className,
         )}
         {...props}
+        data-slot="color-picker-format-select"
       />
       <span
         aria-hidden="true"
@@ -430,12 +430,12 @@ const ColorPickerFormatTrigger = forwardRef<
   return (
     <ColorPickerPrimitive.FormatTrigger
       ref={ref}
-      data-slot="color-picker-format-trigger"
       className={cn(
         'box-border inline-flex h-control-md min-w-control-md shrink-0 items-center justify-center gap-2 rounded-md border border-border bg-transparent px-2 text-sm text-muted-foreground outline-1 -outline-offset-1 outline-transparent transition-[border-color,outline-color,background-color,color] duration-200 ease-in-out focus-visible:border-ring focus-visible:outline-ring disabled:cursor-default data-disabled:cursor-default data-focus:border-ring data-focus:outline-ring data-readonly:cursor-default motion-reduce:transition-none [&:not([disabled]):not([data-disabled]):not([data-readonly]):hover]:bg-muted [&:not([disabled]):not([data-disabled]):not([data-readonly]):hover]:text-foreground [&>svg]:size-4 [&>svg]:shrink-0',
         className,
       )}
       {...props}
+      data-slot="color-picker-format-trigger"
     />
   );
 });
@@ -447,9 +447,9 @@ const ColorPickerSwatchGroup = forwardRef<
   return (
     <ColorPickerPrimitive.SwatchGroup
       ref={ref}
-      data-slot="color-picker-swatch-group"
       className={cn('flex flex-wrap gap-2', className)}
       {...props}
+      data-slot="color-picker-swatch-group"
     />
   );
 });
@@ -461,13 +461,13 @@ const ColorPickerSwatchTrigger = forwardRef<
   return (
     <ColorPickerPrimitive.SwatchTrigger
       ref={ref}
-      data-slot="color-picker-swatch-trigger"
       className={cn(
         'group/swatch inline-flex cursor-pointer items-center justify-center rounded-sm border-0 bg-transparent p-0 outline-0 focus-visible:ring-2 focus-visible:ring-ring data-disabled:cursor-default data-disabled:opacity-50',
         className,
       )}
       value={value}
       {...props}
+      data-slot="color-picker-swatch-trigger"
     >
       {children ?? (
         <ColorPickerPrimitive.Swatch
@@ -494,12 +494,12 @@ const ColorPickerSwatch = forwardRef<
   return (
     <ColorPickerPrimitive.Swatch
       ref={ref}
-      data-slot="color-picker-swatch"
       className={cn(
         'relative grid size-control-sm shrink-0 place-items-center overflow-hidden rounded-[inherit] shadow-[inset_0_0_0_1px_color-mix(in_oklab,black_14%,transparent)]',
         className,
       )}
       {...props}
+      data-slot="color-picker-swatch"
     />
   );
 });
@@ -511,12 +511,12 @@ const ColorPickerSwatchIndicator = forwardRef<
   return (
     <ColorPickerPrimitive.SwatchIndicator
       ref={ref}
-      data-slot="color-picker-swatch-indicator"
       className={cn(
         'pointer-events-none absolute inset-0 hidden items-center justify-center text-white [filter:drop-shadow(0_1px_1px_rgb(0_0_0_/_45%))] data-[state=checked]:inline-flex [&>svg]:size-4',
         className,
       )}
       {...props}
+      data-slot="color-picker-swatch-indicator"
     >
       {children ?? <CheckIcon />}
     </ColorPickerPrimitive.SwatchIndicator>
@@ -530,12 +530,12 @@ const ColorPickerTransparencyGrid = forwardRef<
   return (
     <ColorPickerPrimitive.TransparencyGrid
       ref={ref}
-      data-slot="color-picker-transparency-grid"
       className={cn(
         'col-start-1 row-start-1 size-full rounded-[inherit] group-data-[fit-content]/trigger:col-auto group-data-[fit-content]/trigger:row-auto group-data-[fit-content]/trigger:size-4 group-data-[fit-content]/trigger:shrink-0',
         className,
       )}
       {...props}
+      data-slot="color-picker-transparency-grid"
     />
   );
 });
@@ -547,12 +547,12 @@ const ColorPickerValueSwatch = forwardRef<
   return (
     <ColorPickerPrimitive.ValueSwatch
       ref={ref}
-      data-slot="color-picker-value-swatch"
       className={cn(
         'z-1 col-start-1 row-start-1 size-full rounded-[inherit] group-data-[fit-content]/trigger:col-auto group-data-[fit-content]/trigger:row-auto group-data-[fit-content]/trigger:size-4 group-data-[fit-content]/trigger:shrink-0',
         className,
       )}
       {...props}
+      data-slot="color-picker-value-swatch"
     />
   );
 });
@@ -564,9 +564,9 @@ const ColorPickerValueText = forwardRef<
   return (
     <ColorPickerPrimitive.ValueText
       ref={ref}
-      data-slot="color-picker-value-text"
       className={cn('min-w-0 text-sm text-foreground', className)}
       {...props}
+      data-slot="color-picker-value-text"
     />
   );
 });
@@ -578,12 +578,12 @@ const ColorPickerView = forwardRef<
   return (
     <ColorPickerPrimitive.View
       ref={ref}
-      data-slot="color-picker-view"
       className={cn(
         'flex min-w-0 flex-col gap-2 [&[hidden]:not([hidden="until-found"])]:hidden',
         className,
       )}
       {...props}
+      data-slot="color-picker-view"
     />
   );
 });

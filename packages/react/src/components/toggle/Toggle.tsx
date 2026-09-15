@@ -18,11 +18,11 @@ const ToggleRoot = forwardRef<ComponentRef<typeof TogglePrimitive.Root>, ToggleR
     return (
       <TogglePrimitive.Root
         ref={ref}
-        data-slot="toggle-root"
         data-variant={variant}
         data-size={size}
         className={clsx(styles.root, className)}
         {...props}
+        data-slot="toggle-root"
       />
     );
   },
@@ -35,9 +35,9 @@ const ToggleIndicator = forwardRef<
   return (
     <TogglePrimitive.Indicator
       ref={ref}
-      data-slot="toggle-indicator"
       className={clsx(styles.indicator, className)}
       {...props}
+      data-slot="toggle-indicator"
     />
   );
 });

@@ -115,12 +115,12 @@ const LightboxTrigger = forwardRef<
   return (
     <DialogPrimitive.Trigger
       ref={ref}
-      data-slot="lightbox-trigger"
       className={cn(
         'cursor-zoom-in focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-ring',
         className,
       )}
       {...props}
+      data-slot="lightbox-trigger"
     />
   );
 });
@@ -133,12 +133,12 @@ const LightboxBackdrop = forwardRef<
     <OverlayPortal>
       <DialogPrimitive.Backdrop
         ref={ref}
-        data-slot="lightbox-backdrop"
         className={cn(
           'fixed inset-0 z-[calc(40+var(--layer-index,0))] min-h-dvh bg-overlay backdrop-blur-xs data-[state=closed]:animate-[moduix-fade-out_200ms_ease-in-out_forwards] data-[state=open]:animate-[moduix-fade-in_200ms_ease-in-out] motion-reduce:[animation-delay:0ms] motion-reduce:[animation-duration:1ms]',
           className,
         )}
         {...props}
+        data-slot="lightbox-backdrop"
       />
     </OverlayPortal>
   );
@@ -152,12 +152,12 @@ const LightboxPositioner = forwardRef<
     <OverlayPortal>
       <DialogPrimitive.Positioner
         ref={ref}
-        data-slot="lightbox-positioner"
         className={cn(
           'fixed inset-0 z-[calc(50+var(--layer-index,0))] box-border grid place-items-center overflow-auto overscroll-contain p-4',
           className,
         )}
         {...props}
+        data-slot="lightbox-positioner"
       />
     </OverlayPortal>
   );
@@ -170,12 +170,12 @@ const LightboxContent = forwardRef<
   return (
     <DialogPrimitive.Content
       ref={ref}
-      data-slot="lightbox-content"
       className={cn(
         'relative box-border grid max-h-[min(80dvh,calc(100dvh-2rem))] w-fit max-w-[min(80vw,calc(100vw-2rem))] gap-3 border-0 bg-transparent outline-0 data-[state=closed]:animate-moduix-menu-closed data-[state=open]:animate-moduix-menu-open motion-reduce:[animation-delay:0ms] motion-reduce:[animation-duration:1ms]',
         className,
       )}
       {...props}
+      data-slot="lightbox-content"
     />
   );
 });
@@ -187,9 +187,9 @@ const LightboxTitle = forwardRef<
   return (
     <DialogPrimitive.Title
       ref={ref}
-      data-slot="lightbox-title"
       className={cn('m-0 text-md leading-6 font-semibold text-foreground', className)}
       {...props}
+      data-slot="lightbox-title"
     />
   );
 });
@@ -201,9 +201,9 @@ const LightboxDescription = forwardRef<
   return (
     <DialogPrimitive.Description
       ref={ref}
-      data-slot="lightbox-description"
       className={cn('m-0 text-sm leading-5 text-muted-foreground', className)}
       {...props}
+      data-slot="lightbox-description"
     />
   );
 });
@@ -215,9 +215,9 @@ const LightboxCloseTrigger = forwardRef<
   return (
     <DialogPrimitive.CloseTrigger
       ref={ref}
-      data-slot="lightbox-close-trigger"
       className={className}
       {...props}
+      data-slot="lightbox-close-trigger"
     />
   );
 });
@@ -266,7 +266,6 @@ const LightboxImage = forwardRef<HTMLImageElement, LightboxImageProps>(function 
   return (
     <img
       ref={ref}
-      data-slot="lightbox-image"
       data-close-on-click={closeOnClick ? '' : undefined}
       className={cn(
         'block max-h-[min(80dvh,100%)] max-w-[min(80vw,100%)] rounded-md object-contain shadow-lg select-none data-[close-on-click]:cursor-zoom-out',
@@ -274,6 +273,7 @@ const LightboxImage = forwardRef<HTMLImageElement, LightboxImageProps>(function 
       )}
       onClick={handleClick}
       {...props}
+      data-slot="lightbox-image"
     />
   );
 });
@@ -283,13 +283,13 @@ const LightboxGallery = forwardRef<ComponentRef<typeof ark.div>, HTMLArkProps<'d
     return (
       <ark.div
         ref={ref}
-        data-slot="lightbox-gallery"
         className={cn(
           '[&_[data-slot=carousel-indicator-group]]:mx-auto',
           'max-w-[min(72rem,calc(100vw-2rem))] justify-self-center [&_[data-slot=carousel-control]]:items-center [&_[data-slot=carousel-indicator-group]]:w-fit [&_[data-slot=carousel-indicator-group]]:max-w-full [&_[data-slot=carousel-indicator-group]]:flex-wrap [&_[data-slot=carousel-indicator]:has(img)]:h-control-xl [&_[data-slot=carousel-indicator]:has(img)]:w-20 [&_[data-slot=carousel-indicator]:has(img)]:overflow-hidden [&_[data-slot=carousel-indicator]:has(img)]:rounded-md [&_[data-slot=carousel-indicator]:has(img)]:border [&_[data-slot=carousel-indicator]:has(img)]:border-transparent [&_[data-slot=carousel-indicator]:has(img)]:bg-transparent [&_[data-slot=carousel-indicator]:has(img)]:opacity-[0.65] [&_[data-slot=carousel-indicator]:has(img)]:transition [&_[data-slot=carousel-indicator]:has(img)]:duration-150 [&_[data-slot=carousel-indicator]:has(img)]:ease-in-out [&_[data-slot=carousel-indicator]:has(img)_img]:block [&_[data-slot=carousel-indicator]:has(img)_img]:size-full [&_[data-slot=carousel-indicator]:has(img)_img]:object-cover [&_[data-slot=carousel-indicator]:has(img):hover]:opacity-90 [&_[data-slot=carousel-indicator]:has(img)[data-current]]:-translate-y-px [&_[data-slot=carousel-indicator]:has(img)[data-current]]:border-primary [&_[data-slot=carousel-indicator]:has(img)[data-current]]:opacity-100 [&_[data-slot=carousel-item-group]]:aspect-[16/10] [&_[data-slot=carousel-item-group]]:max-h-[68dvh] [&_[data-slot=carousel-item-group]]:bg-black/90 [&_[data-slot=carousel-item]]:grid [&_[data-slot=carousel-item]]:h-full [&_[data-slot=carousel-item]]:place-items-center [&_[data-slot=carousel-item]_img]:block [&_[data-slot=carousel-item]_img]:size-full [&_[data-slot=carousel-item]_img]:rounded-md [&_[data-slot=carousel-item]_img]:object-contain [&_[data-slot=carousel-item]_img]:select-none [&_[data-slot=carousel-item]_video]:block [&_[data-slot=carousel-item]_video]:size-full [&_[data-slot=carousel-item]_video]:rounded-md [&_[data-slot=carousel-item]_video]:object-contain [&_[data-slot=carousel-item]_video]:select-none',
           className,
         )}
         {...props}
+        data-slot="lightbox-gallery"
       />
     );
   },
@@ -300,9 +300,9 @@ const LightboxHeader = forwardRef<ComponentRef<typeof ark.div>, HTMLArkProps<'di
     return (
       <ark.div
         ref={ref}
-        data-slot="lightbox-header"
         className={cn('grid gap-1', className)}
         {...props}
+        data-slot="lightbox-header"
       />
     );
   },
@@ -313,9 +313,9 @@ const LightboxBody = forwardRef<ComponentRef<typeof ark.div>, HTMLArkProps<'div'
     return (
       <ark.div
         ref={ref}
-        data-slot="lightbox-body"
         className={cn('grid gap-3', className)}
         {...props}
+        data-slot="lightbox-body"
       />
     );
   },
@@ -326,12 +326,12 @@ const LightboxFooter = forwardRef<ComponentRef<typeof ark.div>, HTMLArkProps<'di
     return (
       <ark.div
         ref={ref}
-        data-slot="lightbox-footer"
         className={cn(
           'flex items-center justify-end gap-2 text-sm leading-5 text-muted-foreground',
           className,
         )}
         {...props}
+        data-slot="lightbox-footer"
       />
     );
   },

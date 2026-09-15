@@ -96,9 +96,9 @@ function FloatingPanelTrigger(props: ComponentProps<typeof FloatingPanelPrimitiv
   return (
     <FloatingPanelPrimitive.Trigger
       asChild={local.asChild}
-      data-slot="floating-panel-trigger"
       class={clsx(!local.asChild && styles.trigger, local.class)}
       {...others}
+      data-slot="floating-panel-trigger"
     />
   );
 }
@@ -109,9 +109,9 @@ function FloatingPanelPositioner(props: ComponentProps<typeof FloatingPanelPrimi
   return (
     <OverlayPortal>
       <FloatingPanelPrimitive.Positioner
-        data-slot="floating-panel-positioner"
         class={clsx(styles.positioner, local.class)}
         {...others}
+        data-slot="floating-panel-positioner"
       />
     </OverlayPortal>
   );
@@ -122,9 +122,9 @@ function FloatingPanelContent(props: ComponentProps<typeof FloatingPanelPrimitiv
 
   return (
     <FloatingPanelPrimitive.Content
-      data-slot="floating-panel-content"
       class={clsx(styles.content, local.class)}
       {...others}
+      data-slot="floating-panel-content"
     />
   );
 }
@@ -136,9 +136,9 @@ function FloatingPanelDragTrigger(
 
   return (
     <FloatingPanelPrimitive.DragTrigger
-      data-slot="floating-panel-drag-trigger"
       class={clsx(styles.dragTrigger, local.class)}
       {...others}
+      data-slot="floating-panel-drag-trigger"
     />
   );
 }
@@ -148,9 +148,9 @@ function FloatingPanelHeader(props: ComponentProps<typeof FloatingPanelPrimitive
 
   return (
     <FloatingPanelPrimitive.Header
-      data-slot="floating-panel-header"
       class={clsx(styles.header, local.class)}
       {...others}
+      data-slot="floating-panel-header"
     />
   );
 }
@@ -160,9 +160,9 @@ function FloatingPanelTitle(props: ComponentProps<typeof FloatingPanelPrimitive.
 
   return (
     <FloatingPanelPrimitive.Title
-      data-slot="floating-panel-title"
       class={clsx(styles.title, local.class)}
       {...others}
+      data-slot="floating-panel-title"
     />
   );
 }
@@ -172,9 +172,9 @@ function FloatingPanelControl(props: ComponentProps<typeof FloatingPanelPrimitiv
 
   return (
     <FloatingPanelPrimitive.Control
-      data-slot="floating-panel-control"
       class={clsx(styles.control, local.class)}
       {...others}
+      data-slot="floating-panel-control"
     />
   );
 }
@@ -196,10 +196,10 @@ function FloatingPanelStageTrigger(
     <FloatingPanelPrimitive.StageTrigger
       aria-label={local['aria-label']}
       asChild={local.asChild}
-      data-slot="floating-panel-stage-trigger"
       class={clsx(!local.asChild && styles.controlButton, local.class)}
       stage={local.stage}
       {...others}
+      data-slot="floating-panel-stage-trigger"
     >
       {resolvedChildren()}
       {shouldRenderDefaultIcon() && local.stage === 'minimized' ? <MinusIcon /> : null}
@@ -217,9 +217,9 @@ function FloatingPanelCloseTrigger(
   return (
     <FloatingPanelPrimitive.CloseTrigger
       asChild={local.asChild}
-      data-slot="floating-panel-close-trigger"
       class={clsx(!local.asChild && styles.controlButton, local.class)}
       {...others}
+      data-slot="floating-panel-close-trigger"
     />
   );
 }
@@ -251,9 +251,9 @@ function FloatingPanelBody(props: ComponentProps<typeof FloatingPanelPrimitive.B
 
   return (
     <FloatingPanelPrimitive.Body
-      data-slot="floating-panel-body"
       class={clsx(styles.body, local.class)}
       {...others}
+      data-slot="floating-panel-body"
     />
   );
 }
@@ -285,9 +285,9 @@ function FloatingPanelResizeTrigger(
 
   return (
     <FloatingPanelPrimitive.ResizeTrigger
-      data-slot="floating-panel-resize-trigger"
       class={clsx(styles.resizeTrigger, local.class)}
       {...others}
+      data-slot="floating-panel-resize-trigger"
     />
   );
 }
@@ -309,9 +309,9 @@ function FloatingPanelDragIndicator(props: ComponentProps<'span'>) {
   return (
     <span
       aria-hidden="true"
-      data-slot="floating-panel-drag-indicator"
       class={clsx(styles.dragIndicator, local.class)}
       {...others}
+      data-slot="floating-panel-drag-indicator"
     >
       {resolvedChildren() ?? <GripIcon />}
     </span>

@@ -188,7 +188,10 @@ describe('Tour', () => {
 
     expect(backdrop).toHaveClass('bg-overlay', 'backdrop-blur-xs');
     expect(spotlight).toHaveClass('ring-2', 'ring-ring');
-    expect(positioner).toHaveClass('max-w-[var(--available-width)]');
+    expect(positioner).toHaveClass(
+      '[--tour-z-index:var(--moduix-tour-z-index,var(--moduix-z-modal))]',
+      'max-w-[var(--available-width)]',
+    );
     expect(content).toHaveClass('w-96', 'bg-card', 'p-4');
     expect(content).not.toHaveClass('w-80', 'bg-popover', 'p-5');
     expect(screen.getByRole('heading', { name: 'Welcome' })).toHaveClass('text-xl');

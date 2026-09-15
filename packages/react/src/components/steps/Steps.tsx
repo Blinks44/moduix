@@ -19,9 +19,9 @@ const StepsRoot = forwardRef<
   return (
     <StepsPrimitive.Root
       ref={ref}
-      data-slot="steps-root"
       className={clsx(styles.root, className)}
       {...props}
+      data-slot="steps-root"
     />
   );
 });
@@ -33,9 +33,9 @@ const StepsRootProvider = forwardRef<
   return (
     <StepsPrimitive.RootProvider
       ref={ref}
-      data-slot="steps-root-provider"
       className={clsx(styles.root, className)}
       {...props}
+      data-slot="steps-root-provider"
     />
   );
 });
@@ -47,9 +47,9 @@ const StepsList = forwardRef<
   return (
     <StepsPrimitive.List
       ref={ref}
-      data-slot="steps-list"
       className={clsx(styles.list, className)}
       {...props}
+      data-slot="steps-list"
     />
   );
 });
@@ -61,9 +61,9 @@ const StepsItem = forwardRef<
   return (
     <StepsPrimitive.Item
       ref={ref}
-      data-slot="steps-item"
       className={clsx(styles.item, className)}
       {...props}
+      data-slot="steps-item"
     />
   );
 });
@@ -75,9 +75,9 @@ const StepsTrigger = forwardRef<
   return (
     <StepsPrimitive.Trigger
       ref={ref}
-      data-slot="steps-trigger"
       className={clsx(styles.trigger, className)}
       {...props}
+      data-slot="steps-trigger"
     />
   );
 });
@@ -91,9 +91,9 @@ const StepsIndicator = forwardRef<
   return (
     <StepsPrimitive.Indicator
       ref={ref}
-      data-slot="steps-indicator"
       className={clsx(styles.indicator, className)}
       {...props}
+      data-slot="steps-indicator"
     >
       {children ?? (item.completed ? <CheckIcon /> : item.index + 1)}
     </StepsPrimitive.Indicator>
@@ -107,9 +107,9 @@ const StepsSeparator = forwardRef<
   return (
     <StepsPrimitive.Separator
       ref={ref}
-      data-slot="steps-separator"
       className={clsx(styles.separator, className)}
       {...props}
+      data-slot="steps-separator"
     />
   );
 });
@@ -121,9 +121,9 @@ const StepsContent = forwardRef<
   return (
     <StepsPrimitive.Content
       ref={ref}
-      data-slot="steps-content"
       className={clsx(styles.content, className)}
       {...props}
+      data-slot="steps-content"
     />
   );
 });
@@ -135,9 +135,9 @@ const StepsCompletedContent = forwardRef<
   return (
     <StepsPrimitive.CompletedContent
       ref={ref}
-      data-slot="steps-completed-content"
       className={clsx(styles.completedContent, className)}
       {...props}
+      data-slot="steps-completed-content"
     />
   );
 });
@@ -149,9 +149,9 @@ const StepsPrevTrigger = forwardRef<
   return (
     <StepsPrimitive.PrevTrigger
       ref={ref}
-      data-slot="steps-prev-trigger"
       className={clsx(styles.prevTrigger, className)}
       {...props}
+      data-slot="steps-prev-trigger"
     />
   );
 });
@@ -163,9 +163,9 @@ const StepsNextTrigger = forwardRef<
   return (
     <StepsPrimitive.NextTrigger
       ref={ref}
-      data-slot="steps-next-trigger"
       className={clsx(styles.nextTrigger, className)}
       {...props}
+      data-slot="steps-next-trigger"
     />
   );
 });
@@ -177,9 +177,9 @@ const StepsProgress = forwardRef<
   return (
     <StepsPrimitive.Progress
       ref={ref}
-      data-slot="steps-progress"
       className={clsx(styles.progress, className)}
       {...props}
+      data-slot="steps-progress"
     />
   );
 });

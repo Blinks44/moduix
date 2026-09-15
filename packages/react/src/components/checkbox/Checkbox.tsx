@@ -24,10 +24,10 @@ const CheckboxRoot = forwardRef<ComponentRef<typeof CheckboxPrimitive.Root>, Roo
     return (
       <CheckboxPrimitive.Root
         ref={ref}
-        data-slot="checkbox-root"
         data-size={size}
         className={clsx(styles.root, className)}
         {...props}
+        data-slot="checkbox-root"
       />
     );
   },
@@ -40,10 +40,10 @@ const CheckboxRootProvider = forwardRef<
   return (
     <CheckboxPrimitive.RootProvider
       ref={ref}
-      data-slot="checkbox-root-provider"
       data-size={size}
       className={clsx(styles.root, className)}
       {...props}
+      data-slot="checkbox-root-provider"
     />
   );
 });
@@ -59,10 +59,10 @@ const CheckboxIndicator = forwardRef<
   return (
     <CheckboxPrimitive.Indicator
       ref={ref}
-      data-slot="checkbox-indicator"
       className={clsx(styles.indicator, className)}
       indeterminate={indeterminate}
       {...props}
+      data-slot="checkbox-indicator"
     >
       {children ?? (
         <span aria-hidden="true" data-slot={slot} className={styles.icon}>
@@ -80,9 +80,9 @@ const CheckboxControl = forwardRef<
   return (
     <CheckboxPrimitive.Control
       ref={ref}
-      data-slot="checkbox-control"
       className={clsx(styles.control, className)}
       {...props}
+      data-slot="checkbox-control"
     >
       {children ?? (
         <>
@@ -101,9 +101,9 @@ const CheckboxLabel = forwardRef<
   return (
     <CheckboxPrimitive.Label
       ref={ref}
-      data-slot="checkbox-label"
       className={clsx(styles.label, className)}
       {...props}
+      data-slot="checkbox-label"
     />
   );
 });
@@ -115,9 +115,9 @@ const CheckboxGroup = forwardRef<
   return (
     <CheckboxPrimitive.Group
       ref={ref}
-      data-slot="checkbox-group"
       className={clsx(styles.group, className)}
       {...props}
+      data-slot="checkbox-group"
     />
   );
 });

@@ -199,11 +199,11 @@ const SidebarTrigger = forwardRef<HTMLButtonElement, HTMLArkProps<'button'>>(
         data-scope="sidebar"
         data-part="trigger"
         data-side={config.side}
-        data-slot="sidebar-trigger"
         data-state={collapsed ? 'collapsed' : 'expanded'}
         className={clsx(styles.trigger, className)}
         onClick={handleClick}
         {...props}
+        data-slot="sidebar-trigger"
       >
         {children ?? <ChevronLeftIcon />}
       </ark.button>
@@ -220,9 +220,9 @@ const SidebarLabel = forwardRef<HTMLSpanElement, HTMLArkProps<'span'>>(function 
       ref={ref}
       data-scope="sidebar"
       data-part="label"
-      data-slot="sidebar-label"
       className={clsx(styles.label, className)}
       {...props}
+      data-slot="sidebar-label"
     />
   );
 });
@@ -236,9 +236,9 @@ const SidebarHeader = forwardRef<HTMLElement, HTMLArkProps<'header'>>(function S
       ref={ref}
       data-scope="sidebar"
       data-part="header"
-      data-slot="sidebar-header"
       className={clsx(styles.header, className)}
       {...props}
+      data-slot="sidebar-header"
     />
   );
 });
@@ -252,9 +252,9 @@ const SidebarContent = forwardRef<HTMLDivElement, HTMLArkProps<'div'>>(function 
       ref={ref}
       data-scope="sidebar"
       data-part="content"
-      data-slot="sidebar-content"
       className={clsx(styles.content, className)}
       {...props}
+      data-slot="sidebar-content"
     />
   );
 });
@@ -268,9 +268,9 @@ const SidebarExpandedContent = forwardRef<HTMLDivElement, HTMLArkProps<'div'>>(
         ref={ref}
         data-scope="sidebar"
         data-part="expanded-content"
-        data-slot="sidebar-expanded-content"
         className={className}
         {...props}
+        data-slot="sidebar-expanded-content"
         hidden={collapsed}
       />
     );
@@ -286,9 +286,9 @@ const SidebarCollapsedContent = forwardRef<HTMLDivElement, HTMLArkProps<'div'>>(
         ref={ref}
         data-scope="sidebar"
         data-part="collapsed-content"
-        data-slot="sidebar-collapsed-content"
         className={className}
         {...props}
+        data-slot="sidebar-collapsed-content"
         hidden={!collapsed}
       />
     );
@@ -304,9 +304,9 @@ const SidebarFooter = forwardRef<HTMLElement, HTMLArkProps<'footer'>>(function S
       ref={ref}
       data-scope="sidebar"
       data-part="footer"
-      data-slot="sidebar-footer"
       className={clsx(styles.footer, className)}
       {...props}
+      data-slot="sidebar-footer"
     />
   );
 });
@@ -320,9 +320,9 @@ const SidebarGroup = forwardRef<HTMLElement, HTMLArkProps<'section'>>(function S
       ref={ref}
       data-scope="sidebar"
       data-part="group"
-      data-slot="sidebar-group"
       className={clsx(styles.group, className)}
       {...props}
+      data-slot="sidebar-group"
     />
   );
 });
@@ -334,9 +334,9 @@ const SidebarGroupLabel = forwardRef<HTMLHeadingElement, HTMLArkProps<'h3'>>(
         ref={ref}
         data-scope="sidebar"
         data-part="group-label"
-        data-slot="sidebar-group-label"
         className={clsx(styles.groupLabel, className)}
         {...props}
+        data-slot="sidebar-group-label"
       />
     );
   },
@@ -349,9 +349,9 @@ const SidebarGroupHeader = forwardRef<HTMLDivElement, HTMLArkProps<'div'>>(
         ref={ref}
         data-scope="sidebar"
         data-part="group-header"
-        data-slot="sidebar-group-header"
         className={clsx(styles.groupHeader, className)}
         {...props}
+        data-slot="sidebar-group-header"
       />
     );
   },
@@ -365,9 +365,9 @@ const SidebarGroupAction = forwardRef<HTMLButtonElement, HTMLArkProps<'button'>>
         type={type}
         data-scope="sidebar"
         data-part="group-action"
-        data-slot="sidebar-group-action"
         className={clsx(styles.groupAction, className)}
         {...props}
+        data-slot="sidebar-group-action"
       />
     );
   },
@@ -380,9 +380,9 @@ const SidebarNavigationList = forwardRef<HTMLUListElement, HTMLArkProps<'ul'>>(
         ref={ref}
         data-scope="sidebar"
         data-part="navigation-list"
-        data-slot="sidebar-navigation-list"
         className={clsx(styles.menu, className)}
         {...props}
+        data-slot="sidebar-navigation-list"
       />
     );
   },
@@ -395,9 +395,9 @@ const SidebarNavigationItem = forwardRef<HTMLLIElement, HTMLArkProps<'li'>>(
         ref={ref}
         data-scope="sidebar"
         data-part="navigation-item"
-        data-slot="sidebar-navigation-item"
         className={clsx(styles.menuItem, className)}
         {...props}
+        data-slot="sidebar-navigation-item"
       />
     );
   },
@@ -427,11 +427,11 @@ const SidebarNavigationButton = forwardRef<
       aria-current={ariaCurrent ?? (active ? 'page' : undefined)}
       data-scope="sidebar"
       data-part="navigation-button"
-      data-slot="sidebar-navigation-button"
       data-active={active ? '' : undefined}
       data-size={size}
       className={clsx(styles.menuButton, className)}
       {...props}
+      data-slot="sidebar-navigation-button"
     />
   );
 });
@@ -443,9 +443,9 @@ const SidebarNavigationBadge = forwardRef<HTMLSpanElement, HTMLArkProps<'span'>>
         ref={ref}
         data-scope="sidebar"
         data-part="navigation-badge"
-        data-slot="sidebar-navigation-badge"
         className={clsx(styles.menuBadge, className)}
         {...props}
+        data-slot="sidebar-navigation-badge"
       />
     );
   },
@@ -458,9 +458,9 @@ const SidebarNavigationSubList = forwardRef<HTMLUListElement, HTMLArkProps<'ul'>
         ref={ref}
         data-scope="sidebar"
         data-part="navigation-sub-list"
-        data-slot="sidebar-navigation-sub-list"
         className={clsx(styles.menuSub, className)}
         {...props}
+        data-slot="sidebar-navigation-sub-list"
       />
     );
   },
@@ -473,9 +473,9 @@ const SidebarNavigationSubItem = forwardRef<HTMLLIElement, HTMLArkProps<'li'>>(
         ref={ref}
         data-scope="sidebar"
         data-part="navigation-sub-item"
-        data-slot="sidebar-navigation-sub-item"
         className={clsx(styles.menuSubItem, className)}
         {...props}
+        data-slot="sidebar-navigation-sub-item"
       />
     );
   },
@@ -496,10 +496,10 @@ const SidebarNavigationSubButton = forwardRef<
       aria-current={ariaCurrent ?? (active ? 'page' : undefined)}
       data-scope="sidebar"
       data-part="navigation-sub-button"
-      data-slot="sidebar-navigation-sub-button"
       data-active={active ? '' : undefined}
       className={clsx(styles.menuSubButton, className)}
       {...props}
+      data-slot="sidebar-navigation-sub-button"
     >
       {typeof children === 'string' ? (
         <span data-slot="sidebar-navigation-sub-label">{children}</span>
@@ -545,9 +545,9 @@ const SidebarInput = forwardRef<ComponentRef<typeof Input.Root>, ComponentProps<
     return (
       <Input.Root
         ref={ref}
-        data-slot="sidebar-input"
         className={clsx(styles.input, className)}
         {...props}
+        data-slot="sidebar-input"
       />
     );
   },
@@ -560,9 +560,9 @@ const SidebarSeparator = forwardRef<
   return (
     <Separator.Root
       ref={ref}
-      data-slot="sidebar-separator"
       className={clsx(styles.separator, className)}
       {...props}
+      data-slot="sidebar-separator"
     />
   );
 });

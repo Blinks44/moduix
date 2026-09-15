@@ -27,9 +27,9 @@ const TreeViewRoot = function TreeViewRoot<T extends TreeNode>(props: TreeViewRo
   return (
     <TreeViewPrimitive.Root
       asChild={local.asChild}
-      data-slot="tree-view-root"
       class={clsx(styles.root, local.class)}
       {...others}
+      data-slot="tree-view-root"
     >
       {local.children}
     </TreeViewPrimitive.Root>
@@ -44,9 +44,9 @@ const TreeViewRootProvider = function TreeViewRootProvider<T extends TreeNode>(
   return (
     <TreeViewPrimitive.RootProvider
       asChild={local.asChild}
-      data-slot="tree-view-root-provider"
       class={clsx(styles.root, local.class)}
       {...others}
+      data-slot="tree-view-root-provider"
     >
       {local.children}
     </TreeViewPrimitive.RootProvider>
@@ -58,9 +58,9 @@ function TreeViewLabel(props: ComponentProps<typeof TreeViewPrimitive.Label>) {
 
   return (
     <TreeViewPrimitive.Label
-      data-slot="tree-view-label"
       class={clsx(styles.label, local.class)}
       {...others}
+      data-slot="tree-view-label"
     />
   );
 }
@@ -70,9 +70,9 @@ function TreeViewTree(props: ComponentProps<typeof TreeViewPrimitive.Tree>) {
 
   return (
     <TreeViewPrimitive.Tree
-      data-slot="tree-view-tree"
       class={clsx(styles.tree, local.class)}
       {...others}
+      data-slot="tree-view-tree"
     />
   );
 }
@@ -82,9 +82,9 @@ function TreeViewBranch(props: ComponentProps<typeof TreeViewPrimitive.Branch>) 
 
   return (
     <TreeViewPrimitive.Branch
-      data-slot="tree-view-branch"
       class={clsx(styles.branch, local.class)}
       {...others}
+      data-slot="tree-view-branch"
     />
   );
 }
@@ -94,9 +94,9 @@ function TreeViewBranchControl(props: ComponentProps<typeof TreeViewPrimitive.Br
 
   return (
     <TreeViewPrimitive.BranchControl
-      data-slot="tree-view-branch-control"
       class={clsx(styles.branchControl, local.class)}
       {...others}
+      data-slot="tree-view-branch-control"
     />
   );
 }
@@ -107,9 +107,9 @@ function TreeViewBranchTrigger(props: ComponentProps<typeof TreeViewPrimitive.Br
 
   return (
     <TreeViewPrimitive.BranchTrigger
-      data-slot="tree-view-branch-trigger"
       class={clsx(styles.branchTrigger, local.class)}
       {...others}
+      data-slot="tree-view-branch-trigger"
     >
       {resolvedChildren() ?? <ChevronRightIcon />}
     </TreeViewPrimitive.BranchTrigger>
@@ -122,9 +122,9 @@ function TreeViewBranchIndicator(props: ComponentProps<typeof TreeViewPrimitive.
 
   return (
     <TreeViewPrimitive.BranchIndicator
-      data-slot="tree-view-branch-indicator"
       class={clsx(styles.branchIndicator, local.class)}
       {...others}
+      data-slot="tree-view-branch-indicator"
     >
       {resolvedChildren() ?? <ChevronRightIcon />}
     </TreeViewPrimitive.BranchIndicator>
@@ -136,9 +136,9 @@ function TreeViewBranchText(props: ComponentProps<typeof TreeViewPrimitive.Branc
 
   return (
     <TreeViewPrimitive.BranchText
-      data-slot="tree-view-branch-text"
       class={clsx(styles.branchText, local.class)}
       {...others}
+      data-slot="tree-view-branch-text"
     />
   );
 }
@@ -148,9 +148,9 @@ function TreeViewBranchContent(props: ComponentProps<typeof TreeViewPrimitive.Br
 
   return (
     <TreeViewPrimitive.BranchContent
-      data-slot="tree-view-branch-content"
       class={clsx(styles.branchContent, local.class)}
       {...others}
+      data-slot="tree-view-branch-content"
     />
   );
 }
@@ -162,9 +162,9 @@ function TreeViewBranchIndentGuide(
 
   return (
     <TreeViewPrimitive.BranchIndentGuide
-      data-slot="tree-view-branch-indent-guide"
       class={clsx(styles.branchIndentGuide, local.class)}
       {...others}
+      data-slot="tree-view-branch-indent-guide"
     />
   );
 }
@@ -174,9 +174,9 @@ function TreeViewItem(props: ComponentProps<typeof TreeViewPrimitive.Item>) {
 
   return (
     <TreeViewPrimitive.Item
-      data-slot="tree-view-item"
       class={clsx(styles.item, local.class)}
       {...others}
+      data-slot="tree-view-item"
     />
   );
 }
@@ -186,9 +186,9 @@ function TreeViewItemText(props: ComponentProps<typeof TreeViewPrimitive.ItemTex
 
   return (
     <TreeViewPrimitive.ItemText
-      data-slot="tree-view-item-text"
       class={clsx(styles.itemText, local.class)}
       {...others}
+      data-slot="tree-view-item-text"
     />
   );
 }
@@ -199,9 +199,9 @@ function TreeViewItemIndicator(props: ComponentProps<typeof TreeViewPrimitive.It
 
   return (
     <TreeViewPrimitive.ItemIndicator
-      data-slot="tree-view-item-indicator"
       class={clsx(styles.itemIndicator, local.class)}
       {...others}
+      data-slot="tree-view-item-indicator"
     >
       {resolvedChildren() ?? <CheckIcon />}
     </TreeViewPrimitive.ItemIndicator>
@@ -213,9 +213,9 @@ function TreeViewNodeCheckbox(props: ComponentProps<typeof TreeViewPrimitive.Nod
 
   return (
     <TreeViewPrimitive.NodeCheckbox
-      data-slot="tree-view-node-checkbox"
       class={clsx(styles.nodeCheckbox, local.class)}
       {...others}
+      data-slot="tree-view-node-checkbox"
     />
   );
 }
@@ -238,9 +238,9 @@ function TreeViewNodeCheckboxIndicator(props: TreeViewNodeCheckboxIndicatorProps
   return (
     <ark.span
       asChild={local.asChild}
-      data-slot="tree-view-node-checkbox-indicator"
       class={clsx(styles.nodeCheckboxIndicator, local.class)}
       {...others}
+      data-slot="tree-view-node-checkbox-indicator"
     >
       <TreeViewPrimitive.NodeCheckboxIndicator
         fallback={local.fallback}
@@ -257,9 +257,9 @@ function TreeViewNodeRenameInput(props: ComponentProps<typeof TreeViewPrimitive.
 
   return (
     <TreeViewPrimitive.NodeRenameInput
-      data-slot="tree-view-node-rename-input"
       class={clsx(styles.nodeRenameInput, local.class)}
       {...others}
+      data-slot="tree-view-node-rename-input"
     />
   );
 }

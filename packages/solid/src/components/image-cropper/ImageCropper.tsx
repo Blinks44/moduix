@@ -13,9 +13,9 @@ function ImageCropperRoot(props: ComponentProps<typeof ImageCropperPrimitive.Roo
 
   return (
     <ImageCropperPrimitive.Root
-      data-slot="image-cropper-root"
       class={clsx(styles.root, local.class)}
       {...others}
+      data-slot="image-cropper-root"
     />
   );
 }
@@ -27,9 +27,9 @@ function ImageCropperRootProvider(
 
   return (
     <ImageCropperPrimitive.RootProvider
-      data-slot="image-cropper-root-provider"
       class={clsx(styles.root, local.class)}
       {...others}
+      data-slot="image-cropper-root-provider"
     />
   );
 }
@@ -39,9 +39,9 @@ function ImageCropperViewport(props: ComponentProps<typeof ImageCropperPrimitive
 
   return (
     <ImageCropperPrimitive.Viewport
-      data-slot="image-cropper-viewport"
       class={clsx(styles.viewport, local.class)}
       {...others}
+      data-slot="image-cropper-viewport"
     />
   );
 }
@@ -51,9 +51,9 @@ function ImageCropperImage(props: ComponentProps<typeof ImageCropperPrimitive.Im
 
   return (
     <ImageCropperPrimitive.Image
-      data-slot="image-cropper-image"
       class={clsx(styles.image, local.class)}
       {...others}
+      data-slot="image-cropper-image"
     />
   );
 }
@@ -63,9 +63,9 @@ function ImageCropperSelection(props: ComponentProps<typeof ImageCropperPrimitiv
 
   return (
     <ImageCropperPrimitive.Selection
-      data-slot="image-cropper-selection"
       class={clsx(styles.selection, local.class)}
       {...others}
+      data-slot="image-cropper-selection"
     />
   );
 }
@@ -75,9 +75,9 @@ function ImageCropperGrid(props: ComponentProps<typeof ImageCropperPrimitive.Gri
 
   return (
     <ImageCropperPrimitive.Grid
-      data-slot="image-cropper-grid"
       class={clsx(styles.grid, local.class)}
       {...others}
+      data-slot="image-cropper-grid"
     />
   );
 }
@@ -87,9 +87,9 @@ function ImageCropperHandle(props: ComponentProps<typeof ImageCropperPrimitive.H
 
   return (
     <ImageCropperPrimitive.Handle
-      data-slot="image-cropper-handle"
       class={clsx(styles.handle, local.class)}
       {...others}
+      data-slot="image-cropper-handle"
     />
   );
 }

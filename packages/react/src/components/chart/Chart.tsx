@@ -32,9 +32,9 @@ const ChartRoot = forwardRef<HTMLElement, HTMLArkProps<'figure'>>(function Chart
       ref={ref}
       data-scope="chart"
       data-part="root"
-      data-slot="chart-root"
       className={clsx(styles.root, className)}
       {...props}
+      data-slot="chart-root"
     />
   );
 });
@@ -123,9 +123,9 @@ const ChartHeader = forwardRef<HTMLElement, HTMLArkProps<'figcaption'>>(function
       ref={ref}
       data-scope="chart"
       data-part="header"
-      data-slot="chart-header"
       className={clsx(styles.header, className)}
       {...props}
+      data-slot="chart-header"
     />
   );
 });
@@ -139,9 +139,9 @@ const ChartTitle = forwardRef<HTMLHeadingElement, HTMLArkProps<'h3'>>(function C
       ref={ref}
       data-scope="chart"
       data-part="title"
-      data-slot="chart-title"
       className={clsx(styles.title, className)}
       {...props}
+      data-slot="chart-title"
     />
   );
 });
@@ -153,9 +153,9 @@ const ChartDescription = forwardRef<HTMLParagraphElement, HTMLArkProps<'p'>>(
         ref={ref}
         data-scope="chart"
         data-part="description"
-        data-slot="chart-description"
         className={clsx(styles.description, className)}
         {...props}
+        data-slot="chart-description"
       />
     );
   },
@@ -170,9 +170,9 @@ const ChartLegend = forwardRef<HTMLUListElement, HTMLArkProps<'ul'>>(function Ch
       ref={ref}
       data-scope="chart"
       data-part="legend"
-      data-slot="chart-legend"
       className={clsx(styles.legend, className)}
       {...props}
+      data-slot="chart-legend"
     />
   );
 });
@@ -188,7 +188,6 @@ const ChartLegendItem = forwardRef<
       ref={ref}
       data-scope="chart"
       data-part="legend-item"
-      data-slot="chart-legend-item"
       className={clsx(styles.legendItem, className)}
       style={
         color
@@ -196,6 +195,7 @@ const ChartLegendItem = forwardRef<
           : style
       }
       {...props}
+      data-slot="chart-legend-item"
     />
   );
 });

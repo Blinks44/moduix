@@ -18,9 +18,9 @@ const ClipboardRoot = forwardRef<
   return (
     <ClipboardPrimitive.Root
       ref={ref}
-      data-slot="clipboard-root"
       className={clsx(styles.root, className)}
       {...props}
+      data-slot="clipboard-root"
     />
   );
 });
@@ -32,9 +32,9 @@ const ClipboardRootProvider = forwardRef<
   return (
     <ClipboardPrimitive.RootProvider
       ref={ref}
-      data-slot="clipboard-root-provider"
       className={clsx(styles.root, className)}
       {...props}
+      data-slot="clipboard-root-provider"
     />
   );
 });
@@ -46,9 +46,9 @@ const ClipboardLabel = forwardRef<
   return (
     <ClipboardPrimitive.Label
       ref={ref}
-      data-slot="clipboard-label"
       className={clsx(styles.label, className)}
       {...props}
+      data-slot="clipboard-label"
     />
   );
 });
@@ -60,9 +60,9 @@ const ClipboardControl = forwardRef<
   return (
     <ClipboardPrimitive.Control
       ref={ref}
-      data-slot="clipboard-control"
       className={clsx(styles.control, className)}
       {...props}
+      data-slot="clipboard-control"
     />
   );
 });
@@ -74,9 +74,9 @@ const ClipboardInput = forwardRef<
   return (
     <ClipboardPrimitive.Input
       ref={ref}
-      data-slot="clipboard-input"
       className={clsx(styles.input, className)}
       {...props}
+      data-slot="clipboard-input"
     />
   );
 });
@@ -88,9 +88,9 @@ const ClipboardTrigger = forwardRef<
   return (
     <ClipboardPrimitive.Trigger
       ref={ref}
-      data-slot="clipboard-trigger"
       className={clsx(styles.trigger, className)}
       {...props}
+      data-slot="clipboard-trigger"
     />
   );
 });
@@ -102,7 +102,6 @@ const ClipboardIndicator = forwardRef<
   return (
     <ClipboardPrimitive.Indicator
       ref={ref}
-      data-slot="clipboard-indicator"
       className={clsx(styles.indicator, className)}
       copied={
         copied ?? (
@@ -116,6 +115,7 @@ const ClipboardIndicator = forwardRef<
         )
       }
       {...props}
+      data-slot="clipboard-indicator"
     >
       {children ?? (
         <span aria-hidden="true" data-slot="clipboard-indicator-idle-icon" className={styles.icon}>
@@ -133,9 +133,9 @@ const ClipboardValueText = forwardRef<
   return (
     <ClipboardPrimitive.ValueText
       ref={ref}
-      data-slot="clipboard-value-text"
       className={clsx(styles.valueText, className)}
       {...props}
+      data-slot="clipboard-value-text"
     />
   );
 });
@@ -145,7 +145,7 @@ const ClipboardCopyText = forwardRef<
   ComponentProps<typeof ClipboardPrimitive.Indicator>
 >(function ClipboardCopyText({ copied = 'Copied', children = 'Copy', ...props }, ref) {
   return (
-    <ClipboardIndicator ref={ref} data-slot="clipboard-copy-text" copied={copied} {...props}>
+    <ClipboardIndicator ref={ref} copied={copied} {...props} data-slot="clipboard-copy-text">
       {children}
     </ClipboardIndicator>
   );

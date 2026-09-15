@@ -77,7 +77,6 @@ const TableRoot = forwardRef<ComponentRef<typeof ark.table>, TableRootProps>(fun
       asChild={asChild}
       data-scope="table"
       data-part="root"
-      data-slot="table-root"
       data-interactive={interactive || undefined}
       data-show-column-border={showColumnBorder || undefined}
       data-size={size}
@@ -86,6 +85,7 @@ const TableRoot = forwardRef<ComponentRef<typeof ark.table>, TableRootProps>(fun
       data-variant={variant}
       className={cn(tableVariants({ size, variant }), className)}
       {...props}
+      data-slot="table-root"
     />
   );
 });
@@ -98,12 +98,12 @@ const TableScrollArea = forwardRef<ComponentRef<typeof ark.div>, TableScrollArea
         asChild={asChild}
         data-scope="table"
         data-part="scroll-area"
-        data-slot="table-scroll-area"
         className={cn(
           'relative isolate w-full min-w-0 overflow-x-auto rounded-lg border border-border bg-card',
           className,
         )}
         {...props}
+        data-slot="table-scroll-area"
       />
     );
   },
@@ -118,12 +118,12 @@ const TableCaption = forwardRef<ComponentRef<typeof ark.caption>, TableCaptionPr
         data-scope="table"
         data-part="caption"
         data-side={side}
-        data-slot="table-caption"
         className={cn(
           'px-4 text-left text-sm leading-5 text-pretty text-muted-foreground group-data-[size=lg]/table:px-5 group-data-[size=sm]/table:px-3 data-[side=bottom]:caption-bottom data-[side=bottom]:pt-3 data-[side=bottom]:pb-2 data-[side=top]:caption-top data-[side=top]:pt-2 data-[side=top]:pb-3',
           className,
         )}
         {...props}
+        data-slot="table-caption"
       />
     );
   },
@@ -137,9 +137,9 @@ const TableColumnGroup = forwardRef<ComponentRef<typeof ark.colgroup>, TableColu
         asChild={asChild}
         data-scope="table"
         data-part="column-group"
-        data-slot="table-column-group"
         className={className}
         {...props}
+        data-slot="table-column-group"
       />
     );
   },
@@ -155,10 +155,10 @@ const TableColumn = forwardRef<ComponentRef<typeof ark.col>, TableColumnProps>(f
       asChild={asChild}
       data-scope="table"
       data-part="column"
-      data-slot="table-column"
       width={htmlWidth ?? width}
       className={className}
       {...props}
+      data-slot="table-column"
     />
   );
 });
@@ -171,12 +171,12 @@ const TableHeader = forwardRef<ComponentRef<typeof ark.thead>, TableHeaderProps>
         asChild={asChild}
         data-scope="table"
         data-part="header"
-        data-slot="table-header"
         className={cn(
           'group/table-header group-data-[sticky-header]/table:sticky group-data-[sticky-header]/table:top-0 group-data-[sticky-header]/table:z-3 group-data-[sticky-header]/table:bg-card',
           className,
         )}
         {...props}
+        data-slot="table-header"
       />
     );
   },
@@ -192,9 +192,9 @@ const TableBody = forwardRef<ComponentRef<typeof ark.tbody>, TableBodyProps>(fun
       asChild={asChild}
       data-scope="table"
       data-part="body"
-      data-slot="table-body"
       className={cn('group/table-body', className)}
       {...props}
+      data-slot="table-body"
     />
   );
 });
@@ -207,9 +207,9 @@ const TableFooter = forwardRef<ComponentRef<typeof ark.tfoot>, TableFooterProps>
         asChild={asChild}
         data-scope="table"
         data-part="footer"
-        data-slot="table-footer"
         className={cn('border-t border-border bg-muted font-medium', className)}
         {...props}
+        data-slot="table-footer"
       />
     );
   },
@@ -225,12 +225,12 @@ const TableRow = forwardRef<ComponentRef<typeof ark.tr>, TableRowProps>(function
       asChild={asChild}
       data-scope="table"
       data-part="row"
-      data-slot="table-row"
       className={cn(
         'transition-colors duration-200 ease-in-out group-data-[slot=table-body]/table-body:border-b group-data-[slot=table-body]/table-body:border-border group-data-[slot=table-header]/table-header:border-b group-data-[slot=table-header]/table-header:border-border group-data-[slot=table-body]/table-body:last:border-b-0 group-data-[interactive]/table:group-data-[slot=table-body]/table-body:[&:not([data-empty])]:focus-within:bg-muted group-data-[interactive]/table:group-data-[slot=table-body]/table-body:[&:not([data-empty])]:hover:bg-muted group-data-[striped]/table:[&:nth-child(even):not([data-empty])]:bg-muted/35',
         className,
       )}
       {...props}
+      data-slot="table-row"
     />
   );
 });
@@ -244,13 +244,13 @@ const TableColumnHeader = forwardRef<ComponentRef<typeof ark.th>, TableColumnHea
         data-scope="table"
         data-part="column-header"
         data-numeric={numeric || undefined}
-        data-slot="table-column-header"
         className={cn(
           'relative z-0 px-4 py-3 align-middle font-medium whitespace-nowrap text-muted-foreground group-data-[size=lg]/table:px-5 group-data-[size=lg]/table:py-4 group-data-[size=sm]/table:px-3 group-data-[size=sm]/table:py-2 group-data-[sticky-header]/table:data-[sticky]:z-4 data-[sticky=end]:sticky data-[sticky=end]:end-0 data-[sticky=end]:z-2 data-[sticky=end]:bg-card data-[sticky=start]:sticky data-[sticky=start]:start-0 data-[sticky=start]:z-2 data-[sticky=start]:bg-card group-data-[show-column-border]/table:[&:not(:last-child)]:border-e group-data-[show-column-border]/table:[&:not(:last-child)]:border-border',
           numeric && 'text-end tabular-nums',
           className,
         )}
         {...props}
+        data-slot="table-column-header"
       />
     );
   },
@@ -267,13 +267,13 @@ const TableCell = forwardRef<ComponentRef<typeof ark.td>, TableCellProps>(functi
       data-scope="table"
       data-part="cell"
       data-numeric={numeric || undefined}
-      data-slot="table-cell"
       className={cn(
         'relative z-0 px-4 py-3 align-middle group-data-[size=lg]/table:px-5 group-data-[size=lg]/table:py-4 group-data-[size=sm]/table:px-3 group-data-[size=sm]/table:py-2 data-[sticky=end]:sticky data-[sticky=end]:end-0 data-[sticky=end]:z-2 data-[sticky=end]:bg-card data-[sticky=start]:sticky data-[sticky=start]:start-0 data-[sticky=start]:z-2 data-[sticky=start]:bg-card group-data-[show-column-border]/table:[&:not(:last-child)]:border-e group-data-[show-column-border]/table:[&:not(:last-child)]:border-border',
         numeric && 'text-end tabular-nums',
         className,
       )}
       {...props}
+      data-slot="table-cell"
     />
   );
 });
@@ -295,7 +295,6 @@ const TableEmpty = forwardRef<ComponentRef<typeof ark.td>, TableEmptyProps>(func
         asChild={asChild}
         data-scope="table"
         data-part="empty"
-        data-slot="table-empty"
         colSpan={colSpan}
         className={cn(
           'relative z-0 px-4 py-3 align-middle group-data-[size=lg]/table:px-5 group-data-[size=lg]/table:py-4 group-data-[size=sm]/table:px-3 group-data-[size=sm]/table:py-2 data-[sticky=end]:sticky data-[sticky=end]:end-0 data-[sticky=end]:z-2 data-[sticky=end]:bg-card data-[sticky=start]:sticky data-[sticky=start]:start-0 data-[sticky=start]:z-2 data-[sticky=start]:bg-card group-data-[show-column-border]/table:[&:not(:last-child)]:border-e group-data-[show-column-border]/table:[&:not(:last-child)]:border-border',
@@ -303,6 +302,7 @@ const TableEmpty = forwardRef<ComponentRef<typeof ark.td>, TableEmptyProps>(func
           className,
         )}
         {...props}
+        data-slot="table-empty"
       >
         {children}
       </ark.td>

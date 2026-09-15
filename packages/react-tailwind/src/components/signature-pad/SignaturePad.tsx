@@ -29,13 +29,13 @@ const SignaturePadRoot = forwardRef<
     <SignaturePadReadOnlyContext.Provider value={readOnly}>
       <SignaturePadPrimitive.Root
         ref={ref}
-        data-slot="signature-pad-root"
         className={cn(
           'box-border inline-flex w-70 max-w-full flex-col gap-2 text-foreground data-disabled:opacity-50',
           className,
         )}
         asChild={asChild}
         {...props}
+        data-slot="signature-pad-root"
       >
         {children}
       </SignaturePadPrimitive.Root>
@@ -53,13 +53,13 @@ const SignaturePadRootProvider = forwardRef<
     <SignaturePadReadOnlyContext.Provider value={readOnly}>
       <SignaturePadPrimitive.RootProvider
         ref={ref}
-        data-slot="signature-pad-root-provider"
         className={cn(
           'box-border inline-flex w-70 max-w-full flex-col gap-2 text-foreground data-disabled:opacity-50',
           className,
         )}
         asChild={asChild}
         {...props}
+        data-slot="signature-pad-root-provider"
       >
         {children}
       </SignaturePadPrimitive.RootProvider>
@@ -74,9 +74,9 @@ const SignaturePadLabel = forwardRef<
   return (
     <SignaturePadPrimitive.Label
       ref={ref}
-      data-slot="signature-pad-label"
       className={cn('text-sm leading-5 font-medium text-foreground select-none', className)}
       {...props}
+      data-slot="signature-pad-label"
     />
   );
 });
@@ -88,12 +88,12 @@ const SignaturePadControl = forwardRef<
   return (
     <SignaturePadPrimitive.Control
       ref={ref}
-      data-slot="signature-pad-control"
       className={cn(
         'box-border h-40 min-h-40 w-full min-w-0 overflow-hidden rounded-md border border-border bg-background text-foreground shadow-sm transition-[border-color,box-shadow,opacity] duration-200 ease-in-out outline-none focus-visible:border-ring focus-visible:ring-2 focus-visible:ring-ring data-disabled:cursor-not-allowed motion-reduce:transition-none',
         className,
       )}
       {...props}
+      data-slot="signature-pad-control"
     />
   );
 });
@@ -105,9 +105,9 @@ const SignaturePadSegment = forwardRef<
   return (
     <SignaturePadPrimitive.Segment
       ref={ref}
-      data-slot="signature-pad-segment"
       className={cn('fill-current', className)}
       {...props}
+      data-slot="signature-pad-segment"
     />
   );
 });
@@ -119,12 +119,12 @@ const SignaturePadGuide = forwardRef<
   return (
     <SignaturePadPrimitive.Guide
       ref={ref}
-      data-slot="signature-pad-guide"
       className={cn(
         'pointer-events-none absolute start-6 end-6 bottom-8 border-b border-dashed border-border',
         className,
       )}
       {...props}
+      data-slot="signature-pad-guide"
     />
   );
 });
@@ -150,11 +150,11 @@ const SignaturePadClearTrigger = forwardRef<
     <SignaturePadPrimitive.ClearTrigger
       ref={ref}
       asChild
-      data-slot="signature-pad-clear-trigger"
       className={triggerClassName}
       aria-label={asChild ? ariaLabel : undefined}
       aria-labelledby={asChild ? ariaLabelledBy : undefined}
       {...props}
+      data-slot="signature-pad-clear-trigger"
       disabled={readOnly || props.disabled}
     >
       {asChild ? (

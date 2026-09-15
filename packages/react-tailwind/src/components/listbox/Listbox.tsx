@@ -25,12 +25,12 @@ const ListboxRoot = forwardRef(function ListboxRoot<T extends CollectionItem>(
   return (
     <ListboxPrimitive.Root
       ref={ref}
-      data-slot="listbox-root"
       className={cn(
         'box-border flex w-64 max-w-full min-w-0 flex-col gap-3 text-foreground data-disabled:opacity-50',
         className,
       )}
       {...props}
+      data-slot="listbox-root"
     />
   );
 }) as ListboxRootComponent;
@@ -42,12 +42,12 @@ const ListboxRootProvider = forwardRef(function ListboxRootProvider<T extends Co
   return (
     <ListboxPrimitive.RootProvider
       ref={ref}
-      data-slot="listbox-root-provider"
       className={cn(
         'box-border flex w-64 max-w-full min-w-0 flex-col gap-3 text-foreground data-disabled:opacity-50',
         className,
       )}
       {...props}
+      data-slot="listbox-root-provider"
     />
   );
 }) as ListboxRootProviderComponent;
@@ -59,9 +59,9 @@ const ListboxLabel = forwardRef<
   return (
     <ListboxPrimitive.Label
       ref={ref}
-      data-slot="listbox-label"
       className={cn('text-sm leading-5 font-medium text-foreground select-none', className)}
       {...props}
+      data-slot="listbox-label"
     />
   );
 });
@@ -73,12 +73,12 @@ const ListboxInput = forwardRef<
   return (
     <ListboxPrimitive.Input
       ref={ref}
-      data-slot="listbox-input"
       className={cn(
         'm-0 box-border min-h-control-md w-full rounded-md border border-border bg-background px-3 py-1 text-md leading-6 text-foreground outline-1 -outline-offset-1 outline-transparent transition-[border-color,outline-color,opacity] duration-200 ease-in-out group-has-[[data-slot=listbox-filter-icon]]/listbox-filter:ps-9 group-has-[[data-slot=listbox-filter-icon]]/listbox-filter:pe-10 group-has-[+_[data-slot=listbox-content]]/listbox-filter:rounded-b-none group-has-[+_[data-slot=listbox-content]]/listbox-filter:border-b-0 placeholder:text-muted-foreground focus-visible:outline-ring disabled:cursor-default disabled:opacity-50 data-disabled:cursor-default data-disabled:opacity-50 motion-reduce:transition-none',
         className,
       )}
       {...props}
+      data-slot="listbox-input"
     />
   );
 });
@@ -86,12 +86,12 @@ const ListboxInput = forwardRef<
 function ListboxFilter({ className, children, ...props }: ComponentProps<'div'>) {
   return (
     <div
-      data-slot="listbox-filter"
       className={cn(
         'group/listbox-filter peer/listbox-filter relative box-border w-full',
         className,
       )}
       {...props}
+      data-slot="listbox-filter"
     >
       <SearchIcon
         data-slot="listbox-filter-icon"
@@ -110,7 +110,6 @@ const ListboxClearTrigger = forwardRef<ComponentRef<typeof ark.button>, HTMLArkP
     return (
       <CloseButton.Root
         ref={ref}
-        data-slot="listbox-clear-trigger"
         type={type}
         aria-label={ariaLabel}
         className={cn(
@@ -118,6 +117,7 @@ const ListboxClearTrigger = forwardRef<ComponentRef<typeof ark.button>, HTMLArkP
           className,
         )}
         {...props}
+        data-slot="listbox-clear-trigger"
       >
         {children}
       </CloseButton.Root>
@@ -132,12 +132,12 @@ const ListboxContent = forwardRef<
   return (
     <ListboxPrimitive.Content
       ref={ref}
-      data-slot="listbox-content"
       className={cn(
         'box-border flex max-h-56 min-h-0 scroll-py-1 [scrollbar-gutter:stable] flex-col overflow-x-hidden overflow-y-auto overscroll-contain rounded-md border border-border bg-background py-1 text-foreground outline-1 -outline-offset-1 outline-transparent transition-[border-color,outline-color] duration-200 ease-in-out peer-data-[slot=listbox-filter]/listbox-filter:-mt-3 peer-data-[slot=listbox-filter]/listbox-filter:rounded-t-none focus-visible:outline-ring data-[layout=grid]:grid data-[layout=grid]:grid-cols-[repeat(var(--column-count),minmax(0,1fr))] data-[layout=grid]:gap-1 data-[layout=grid]:p-2 data-[orientation=horizontal]:not-data-[layout=grid]:max-h-none data-[orientation=horizontal]:not-data-[layout=grid]:flex-row data-[orientation=horizontal]:not-data-[layout=grid]:gap-2 data-[orientation=horizontal]:not-data-[layout=grid]:overflow-x-auto data-[orientation=horizontal]:not-data-[layout=grid]:overflow-y-hidden data-[orientation=horizontal]:not-data-[layout=grid]:px-1 motion-reduce:transition-none',
         className,
       )}
       {...props}
+      data-slot="listbox-content"
     />
   );
 });
@@ -149,9 +149,9 @@ const ListboxEmpty = forwardRef<
   return (
     <ListboxPrimitive.Empty
       ref={ref}
-      data-slot="listbox-empty"
       className={cn('px-3 py-1 text-center text-sm leading-5 text-muted-foreground', className)}
       {...props}
+      data-slot="listbox-empty"
     />
   );
 });
@@ -163,9 +163,9 @@ const ListboxItemGroup = forwardRef<
   return (
     <ListboxPrimitive.ItemGroup
       ref={ref}
-      data-slot="listbox-item-group"
       className={cn('flex flex-col [&+&]:mt-2', className)}
       {...props}
+      data-slot="listbox-item-group"
     />
   );
 });
@@ -177,12 +177,12 @@ const ListboxItemGroupLabel = forwardRef<
   return (
     <ListboxPrimitive.ItemGroupLabel
       ref={ref}
-      data-slot="listbox-item-group-label"
       className={cn(
         'px-2 py-1 text-xs leading-4 font-normal text-muted-foreground select-none',
         className,
       )}
       {...props}
+      data-slot="listbox-item-group-label"
     />
   );
 });
@@ -194,12 +194,12 @@ const ListboxItem = forwardRef<
   return (
     <ListboxPrimitive.Item
       ref={ref}
-      data-slot="listbox-item"
       className={cn(
         'relative mx-1 box-border grid min-h-control-sm w-[calc(100%-0.5rem)] cursor-pointer grid-cols-[minmax(0,1fr)_1rem] items-center gap-2 rounded-sm bg-transparent px-3 py-1 text-sm leading-5 text-foreground outline-0 transition-[background-color,color] duration-200 ease-in-out select-none data-disabled:pointer-events-none data-disabled:cursor-default data-disabled:text-muted-foreground data-disabled:opacity-50 data-highlighted:bg-accent data-highlighted:text-accent-foreground data-[layout=grid]:mx-0 data-[layout=grid]:w-full data-[layout=grid]:min-w-0 data-[layout=grid]:grid-cols-1 data-[layout=grid]:justify-items-center data-[layout=grid]:text-center data-[layout=grid]:data-selected:bg-muted data-[layout=grid]:data-selected:text-foreground data-[orientation=horizontal]:not-data-[layout=grid]:w-44 data-[orientation=horizontal]:not-data-[layout=grid]:min-w-44 data-[orientation=horizontal]:not-data-[layout=grid]:items-start motion-reduce:transition-none [@media(hover:hover)]:[&:not([data-disabled]):hover]:bg-accent [@media(hover:hover)]:[&:not([data-disabled]):hover]:text-accent-foreground',
         className,
       )}
       {...props}
+      data-slot="listbox-item"
     />
   );
 });
@@ -211,9 +211,9 @@ const ListboxItemText = forwardRef<
   return (
     <ListboxPrimitive.ItemText
       ref={ref}
-      data-slot="listbox-item-text"
       className={cn('min-w-0 overflow-hidden text-ellipsis whitespace-nowrap', className)}
       {...props}
+      data-slot="listbox-item-text"
     />
   );
 });
@@ -225,12 +225,12 @@ const ListboxItemIndicator = forwardRef<
   return (
     <ListboxPrimitive.ItemIndicator
       ref={ref}
-      data-slot="listbox-item-indicator"
       className={cn(
         'inline-flex size-4 shrink-0 items-center justify-center data-[state=unchecked]:invisible [&>svg]:size-3',
         className,
       )}
       {...props}
+      data-slot="listbox-item-indicator"
     >
       {children ?? <CheckIcon />}
     </ListboxPrimitive.ItemIndicator>
@@ -244,9 +244,9 @@ const ListboxValueText = forwardRef<
   return (
     <ListboxPrimitive.ValueText
       ref={ref}
-      data-slot="listbox-value-text"
       className={cn('text-sm leading-5 text-muted-foreground', className)}
       {...props}
+      data-slot="listbox-value-text"
     />
   );
 });
@@ -256,9 +256,9 @@ const ListboxItemTextContent = forwardRef<ComponentRef<typeof ark.span>, HTMLArk
     return (
       <ark.span
         ref={ref}
-        data-slot="listbox-item-text-content"
         className={cn('inline-flex max-w-full min-w-0 items-center gap-2 align-top', className)}
         {...props}
+        data-slot="listbox-item-text-content"
       />
     );
   },
@@ -269,9 +269,9 @@ const ListboxItemTextIcon = forwardRef<ComponentRef<typeof ark.span>, HTMLArkPro
     return (
       <ark.span
         ref={ref}
-        data-slot="listbox-item-text-icon"
         className={cn('inline-flex size-4 shrink-0 items-center justify-center', className)}
         {...props}
+        data-slot="listbox-item-text-icon"
       />
     );
   },
@@ -282,9 +282,9 @@ const ListboxItemTextLabel = forwardRef<ComponentRef<typeof ark.span>, HTMLArkPr
     return (
       <ark.span
         ref={ref}
-        data-slot="listbox-item-text-label"
         className={cn('min-w-0 overflow-hidden text-ellipsis whitespace-nowrap', className)}
         {...props}
+        data-slot="listbox-item-text-label"
       />
     );
   },

@@ -15,12 +15,12 @@ const PaginationRoot = forwardRef<
   return (
     <PaginationPrimitive.Root
       ref={ref}
-      data-slot="pagination-root"
       className={cn(
         'inline-flex max-w-full items-center gap-1 overflow-x-auto text-foreground',
         className,
       )}
       {...props}
+      data-slot="pagination-root"
     />
   );
 });
@@ -32,12 +32,12 @@ const PaginationRootProvider = forwardRef<
   return (
     <PaginationPrimitive.RootProvider
       ref={ref}
-      data-slot="pagination-root-provider"
       className={cn(
         'inline-flex max-w-full items-center gap-1 overflow-x-auto text-foreground',
         className,
       )}
       {...props}
+      data-slot="pagination-root-provider"
     />
   );
 });
@@ -49,7 +49,6 @@ const PaginationItem = forwardRef<
   return (
     <PaginationPrimitive.Item
       ref={ref}
-      data-slot="pagination-item"
       className={cn(
         'inline-flex h-control-md min-w-control-md items-center justify-center rounded-md text-sm leading-5 font-medium tabular-nums',
         'cursor-pointer gap-2 border border-border bg-background px-2 whitespace-nowrap text-foreground no-underline select-none',
@@ -59,6 +58,7 @@ const PaginationItem = forwardRef<
         className,
       )}
       {...props}
+      data-slot="pagination-item"
     />
   );
 });
@@ -70,12 +70,12 @@ const PaginationEllipsis = forwardRef<
   return (
     <PaginationPrimitive.Ellipsis
       ref={ref}
-      data-slot="pagination-ellipsis"
       className={cn(
         'inline-flex h-control-md min-w-control-md items-center justify-center rounded-md text-sm leading-5 font-medium text-muted-foreground tabular-nums select-none',
         className,
       )}
       {...props}
+      data-slot="pagination-ellipsis"
     >
       {children ?? (!props.asChild && '...')}
     </PaginationPrimitive.Ellipsis>
@@ -100,7 +100,6 @@ const PaginationPrevTrigger = forwardRef<
   return (
     <PaginationPrimitive.PrevTrigger
       ref={ref}
-      data-slot="pagination-prev-trigger"
       className={cn(
         'inline-flex h-control-md min-w-control-md items-center justify-center rounded-md text-sm leading-5 font-medium tabular-nums',
         'cursor-pointer gap-2 border border-border bg-background px-3 whitespace-nowrap text-foreground no-underline select-none',
@@ -110,6 +109,7 @@ const PaginationPrevTrigger = forwardRef<
         className,
       )}
       {...props}
+      data-slot="pagination-prev-trigger"
     >
       {children ?? (!props.asChild && <ChevronLeftIcon />)}
     </PaginationPrimitive.PrevTrigger>
@@ -123,7 +123,6 @@ const PaginationNextTrigger = forwardRef<
   return (
     <PaginationPrimitive.NextTrigger
       ref={ref}
-      data-slot="pagination-next-trigger"
       className={cn(
         'inline-flex h-control-md min-w-control-md items-center justify-center rounded-md text-sm leading-5 font-medium tabular-nums',
         'cursor-pointer gap-2 border border-border bg-background px-3 whitespace-nowrap text-foreground no-underline select-none',
@@ -133,6 +132,7 @@ const PaginationNextTrigger = forwardRef<
         className,
       )}
       {...props}
+      data-slot="pagination-next-trigger"
     >
       {children ?? (!props.asChild && <ChevronRightIcon />)}
     </PaginationPrimitive.NextTrigger>
@@ -146,7 +146,6 @@ const PaginationFirstTrigger = forwardRef<
   return (
     <PaginationPrimitive.FirstTrigger
       ref={ref}
-      data-slot="pagination-first-trigger"
       className={cn(
         'inline-flex h-control-md min-w-control-md items-center justify-center rounded-md text-sm leading-5 font-medium tabular-nums',
         'cursor-pointer gap-2 border border-border bg-background px-3 whitespace-nowrap text-foreground no-underline select-none',
@@ -156,6 +155,7 @@ const PaginationFirstTrigger = forwardRef<
         className,
       )}
       {...props}
+      data-slot="pagination-first-trigger"
     >
       {children ?? (!props.asChild && <EdgeIcon side="left" />)}
     </PaginationPrimitive.FirstTrigger>
@@ -169,7 +169,6 @@ const PaginationLastTrigger = forwardRef<
   return (
     <PaginationPrimitive.LastTrigger
       ref={ref}
-      data-slot="pagination-last-trigger"
       className={cn(
         'inline-flex h-control-md min-w-control-md items-center justify-center rounded-md text-sm leading-5 font-medium tabular-nums',
         'cursor-pointer gap-2 border border-border bg-background px-3 whitespace-nowrap text-foreground no-underline select-none',
@@ -179,6 +178,7 @@ const PaginationLastTrigger = forwardRef<
         className,
       )}
       {...props}
+      data-slot="pagination-last-trigger"
     >
       {children ?? (!props.asChild && <EdgeIcon side="right" />)}
     </PaginationPrimitive.LastTrigger>

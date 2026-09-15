@@ -25,9 +25,9 @@ function SignaturePadRoot(props: ComponentProps<typeof SignaturePadPrimitive.Roo
   return (
     <SignaturePadPrimitive.Root
       asChild={local.asChild}
-      data-slot="signature-pad-root"
       class={clsx(styles.root, local.class)}
       {...others}
+      data-slot="signature-pad-root"
     >
       <SignaturePadReadOnlyContext.Provider
         value={() => others.readOnly ?? field?.().readOnly ?? false}
@@ -53,9 +53,9 @@ function SignaturePadRootProvider(
     >
       <SignaturePadPrimitive.RootProvider
         asChild={local.asChild}
-        data-slot="signature-pad-root-provider"
         class={clsx(styles.root, local.class)}
         {...others}
+        data-slot="signature-pad-root-provider"
       >
         {local.children}
       </SignaturePadPrimitive.RootProvider>
@@ -68,9 +68,9 @@ function SignaturePadLabel(props: ComponentProps<typeof SignaturePadPrimitive.La
 
   return (
     <SignaturePadPrimitive.Label
-      data-slot="signature-pad-label"
       class={clsx(styles.label, local.class)}
       {...others}
+      data-slot="signature-pad-label"
     />
   );
 }
@@ -80,9 +80,9 @@ function SignaturePadControl(props: ComponentProps<typeof SignaturePadPrimitive.
 
   return (
     <SignaturePadPrimitive.Control
-      data-slot="signature-pad-control"
       class={clsx(styles.control, local.class)}
       {...others}
+      data-slot="signature-pad-control"
     />
   );
 }
@@ -92,9 +92,9 @@ function SignaturePadSegment(props: ComponentProps<typeof SignaturePadPrimitive.
 
   return (
     <SignaturePadPrimitive.Segment
-      data-slot="signature-pad-segment"
       class={clsx(styles.segment, local.class)}
       {...others}
+      data-slot="signature-pad-segment"
     />
   );
 }
@@ -104,9 +104,9 @@ function SignaturePadGuide(props: ComponentProps<typeof SignaturePadPrimitive.Gu
 
   return (
     <SignaturePadPrimitive.Guide
-      data-slot="signature-pad-guide"
       class={clsx(styles.guide, local.class)}
       {...others}
+      data-slot="signature-pad-guide"
     />
   );
 }
@@ -133,9 +133,9 @@ function SignaturePadClearTrigger(
         asChild={local.asChild}
         aria-label={local['aria-label']}
         aria-labelledby={local['aria-labelledby']}
-        data-slot="signature-pad-clear-trigger"
         class={triggerClass}
         {...others}
+        data-slot="signature-pad-clear-trigger"
         disabled={isDisabled()}
       >
         {local.children}
@@ -161,9 +161,9 @@ function SignaturePadClearTrigger(
           </CloseButton.Root>
         );
       }}
-      data-slot="signature-pad-clear-trigger"
       class={triggerClass}
       {...others}
+      data-slot="signature-pad-clear-trigger"
       disabled={isDisabled()}
     />
   );

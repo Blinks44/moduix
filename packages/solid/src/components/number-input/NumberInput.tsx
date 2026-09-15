@@ -16,9 +16,9 @@ function NumberInputRoot(props: ComponentProps<typeof NumberInputPrimitive.Root>
     <NumberInputPrimitive.Root
       asChild={local.asChild}
       value={local.value}
-      data-slot="number-input-root"
       class={clsx(styles.root, local.class)}
       {...others}
+      data-slot="number-input-root"
     >
       {local.children}
     </NumberInputPrimitive.Root>
@@ -32,9 +32,9 @@ function NumberInputRootProvider(props: ComponentProps<typeof NumberInputPrimiti
     <NumberInputPrimitive.RootProvider
       asChild={local.asChild}
       value={local.value}
-      data-slot="number-input-root-provider"
       class={clsx(styles.root, local.class)}
       {...others}
+      data-slot="number-input-root-provider"
     >
       {local.children}
     </NumberInputPrimitive.RootProvider>
@@ -46,9 +46,9 @@ function NumberInputLabel(props: ComponentProps<typeof NumberInputPrimitive.Labe
 
   return (
     <NumberInputPrimitive.Label
-      data-slot="number-input-label"
       class={clsx(styles.label, local.class)}
       {...others}
+      data-slot="number-input-label"
     />
   );
 }
@@ -58,9 +58,9 @@ function NumberInputScrubber(props: ComponentProps<typeof NumberInputPrimitive.S
 
   return (
     <NumberInputPrimitive.Scrubber
-      data-slot="number-input-scrubber"
       class={clsx(styles.scrubber, local.class)}
       {...others}
+      data-slot="number-input-scrubber"
     />
   );
 }
@@ -70,9 +70,9 @@ function NumberInputControl(props: ComponentProps<typeof NumberInputPrimitive.Co
 
   return (
     <NumberInputPrimitive.Control
-      data-slot="number-input-control"
       class={clsx(styles.control, local.class)}
       {...others}
+      data-slot="number-input-control"
     />
   );
 }
@@ -85,9 +85,9 @@ function NumberInputDecrementTrigger(
 
   return (
     <NumberInputPrimitive.DecrementTrigger
-      data-slot="number-input-decrement-trigger"
       class={clsx(styles.decrementTrigger, local.class)}
       {...others}
+      data-slot="number-input-decrement-trigger"
     >
       {resolvedChildren() ?? <MinusIcon />}
     </NumberInputPrimitive.DecrementTrigger>
@@ -99,9 +99,9 @@ function NumberInputInput(props: ComponentProps<typeof NumberInputPrimitive.Inpu
 
   return (
     <NumberInputPrimitive.Input
-      data-slot="number-input-input"
       class={clsx(styles.input, local.class)}
       {...others}
+      data-slot="number-input-input"
     />
   );
 }
@@ -114,9 +114,9 @@ function NumberInputIncrementTrigger(
 
   return (
     <NumberInputPrimitive.IncrementTrigger
-      data-slot="number-input-increment-trigger"
       class={clsx(styles.incrementTrigger, local.class)}
       {...others}
+      data-slot="number-input-increment-trigger"
     >
       {resolvedChildren() ?? <PlusIcon />}
     </NumberInputPrimitive.IncrementTrigger>
@@ -128,9 +128,9 @@ function NumberInputValueText(props: ComponentProps<typeof NumberInputPrimitive.
 
   return (
     <NumberInputPrimitive.ValueText
-      data-slot="number-input-value-text"
       class={clsx(styles.valueText, local.class)}
       {...others}
+      data-slot="number-input-value-text"
     />
   );
 }

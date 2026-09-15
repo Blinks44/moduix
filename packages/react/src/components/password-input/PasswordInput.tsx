@@ -18,9 +18,9 @@ const PasswordInputRoot = forwardRef<
   return (
     <PasswordInputPrimitive.Root
       ref={ref}
-      data-slot="password-input-root"
       className={clsx(styles.root, className)}
       {...props}
+      data-slot="password-input-root"
     />
   );
 });
@@ -32,9 +32,9 @@ const PasswordInputRootProvider = forwardRef<
   return (
     <PasswordInputPrimitive.RootProvider
       ref={ref}
-      data-slot="password-input-root-provider"
       className={clsx(styles.root, className)}
       {...props}
+      data-slot="password-input-root-provider"
     />
   );
 });
@@ -46,9 +46,9 @@ const PasswordInputLabel = forwardRef<
   return (
     <PasswordInputPrimitive.Label
       ref={ref}
-      data-slot="password-input-label"
       className={clsx(styles.label, className)}
       {...props}
+      data-slot="password-input-label"
     />
   );
 });
@@ -60,9 +60,9 @@ const PasswordInputControl = forwardRef<
   return (
     <PasswordInputPrimitive.Control
       ref={ref}
-      data-slot="password-input-control"
       className={clsx(styles.control, className)}
       {...props}
+      data-slot="password-input-control"
     />
   );
 });
@@ -74,9 +74,9 @@ const PasswordInputInput = forwardRef<
   return (
     <PasswordInputPrimitive.Input
       ref={ref}
-      data-slot="password-input-input"
       className={clsx(styles.input, className)}
       {...props}
+      data-slot="password-input-input"
     />
   );
 });
@@ -88,9 +88,9 @@ const PasswordInputVisibilityTrigger = forwardRef<
   return (
     <PasswordInputPrimitive.VisibilityTrigger
       ref={ref}
-      data-slot="password-input-visibility-trigger"
       className={clsx(styles.visibilityTrigger, className)}
       {...props}
+      data-slot="password-input-visibility-trigger"
     />
   );
 });
@@ -102,10 +102,10 @@ const PasswordInputIndicator = forwardRef<
   return (
     <PasswordInputPrimitive.Indicator
       ref={ref}
-      data-slot="password-input-indicator"
       className={clsx(styles.indicator, className)}
       fallback={fallback ?? <EyeClosedIcon />}
       {...props}
+      data-slot="password-input-indicator"
     >
       {children ?? <EyeIcon />}
     </PasswordInputPrimitive.Indicator>

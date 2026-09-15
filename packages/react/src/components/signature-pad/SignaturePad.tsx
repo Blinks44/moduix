@@ -30,10 +30,10 @@ const SignaturePadRoot = forwardRef<
     <SignaturePadReadOnlyContext.Provider value={readOnly}>
       <SignaturePadPrimitive.Root
         ref={ref}
-        data-slot="signature-pad-root"
         className={clsx(styles.root, className)}
         asChild={asChild}
         {...props}
+        data-slot="signature-pad-root"
       >
         {children}
       </SignaturePadPrimitive.Root>
@@ -51,10 +51,10 @@ const SignaturePadRootProvider = forwardRef<
     <SignaturePadReadOnlyContext.Provider value={readOnly}>
       <SignaturePadPrimitive.RootProvider
         ref={ref}
-        data-slot="signature-pad-root-provider"
         className={clsx(styles.root, className)}
         asChild={asChild}
         {...props}
+        data-slot="signature-pad-root-provider"
       >
         {children}
       </SignaturePadPrimitive.RootProvider>
@@ -69,9 +69,9 @@ const SignaturePadLabel = forwardRef<
   return (
     <SignaturePadPrimitive.Label
       ref={ref}
-      data-slot="signature-pad-label"
       className={clsx(styles.label, className)}
       {...props}
+      data-slot="signature-pad-label"
     />
   );
 });
@@ -83,9 +83,9 @@ const SignaturePadControl = forwardRef<
   return (
     <SignaturePadPrimitive.Control
       ref={ref}
-      data-slot="signature-pad-control"
       className={clsx(styles.control, className)}
       {...props}
+      data-slot="signature-pad-control"
     />
   );
 });
@@ -97,9 +97,9 @@ const SignaturePadSegment = forwardRef<
   return (
     <SignaturePadPrimitive.Segment
       ref={ref}
-      data-slot="signature-pad-segment"
       className={clsx(styles.segment, className)}
       {...props}
+      data-slot="signature-pad-segment"
     />
   );
 });
@@ -111,9 +111,9 @@ const SignaturePadGuide = forwardRef<
   return (
     <SignaturePadPrimitive.Guide
       ref={ref}
-      data-slot="signature-pad-guide"
       className={clsx(styles.guide, className)}
       {...props}
+      data-slot="signature-pad-guide"
     />
   );
 });
@@ -139,11 +139,11 @@ const SignaturePadClearTrigger = forwardRef<
     <SignaturePadPrimitive.ClearTrigger
       ref={ref}
       asChild
-      data-slot="signature-pad-clear-trigger"
       className={triggerClassName}
       aria-label={asChild ? ariaLabel : undefined}
       aria-labelledby={asChild ? ariaLabelledBy : undefined}
       {...props}
+      data-slot="signature-pad-clear-trigger"
       disabled={readOnly || props.disabled}
     >
       {asChild ? (

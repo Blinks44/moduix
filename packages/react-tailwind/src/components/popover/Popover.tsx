@@ -68,9 +68,9 @@ const PopoverAnchor = forwardRef<
   return (
     <PopoverPrimitive.Anchor
       ref={ref}
-      data-slot="popover-anchor"
       className={className}
       {...props}
+      data-slot="popover-anchor"
     />
   );
 });
@@ -82,7 +82,6 @@ const PopoverTrigger = forwardRef<
   return (
     <PopoverPrimitive.Trigger
       ref={ref}
-      data-slot="popover-trigger"
       asChild={asChild}
       className={cn(
         !asChild &&
@@ -90,6 +89,7 @@ const PopoverTrigger = forwardRef<
         className,
       )}
       {...props}
+      data-slot="popover-trigger"
     />
   );
 });
@@ -101,9 +101,9 @@ const PopoverIndicator = forwardRef<
   return (
     <PopoverPrimitive.Indicator
       ref={ref}
-      data-slot="popover-indicator"
       className={className}
       {...props}
+      data-slot="popover-indicator"
     />
   );
 });
@@ -116,12 +116,12 @@ const PopoverPositioner = forwardRef<
     <OverlayPortal>
       <PopoverPrimitive.Positioner
         ref={ref}
-        data-slot="popover-positioner"
         className={cn(
           'z-[var(--z-index,var(--moduix-z-popup))] max-w-[var(--available-width)] outline-0',
           className,
         )}
         {...props}
+        data-slot="popover-positioner"
       />
     </OverlayPortal>
   );
@@ -134,12 +134,12 @@ const PopoverContent = forwardRef<
   return (
     <PopoverPrimitive.Content
       ref={ref}
-      data-slot="popover-content"
       className={cn(
         'group/popover-content relative z-[calc(var(--moduix-z-popup)+var(--layer-index,0))] max-h-[min(24rem,var(--available-height,100dvh))] max-w-[min(28rem,var(--available-width))] min-w-[min(16rem,var(--available-width))] origin-[var(--transform-origin)] overflow-visible rounded-md bg-popover p-4 wrap-anywhere text-popover-foreground shadow-lg outline-1 outline-border has-[>[data-slot=popover-body]]:flex has-[>[data-slot=popover-body]]:flex-col data-[state=closed]:animate-moduix-menu-closed data-[state=open]:animate-moduix-menu-open motion-reduce:animate-none has-[>[data-slot=popover-body]]:[&>[data-slot=popover-body]]:overflow-auto',
         className,
       )}
       {...props}
+      data-slot="popover-content"
     />
   );
 });
@@ -151,9 +151,9 @@ const PopoverArrow = forwardRef<
   return (
     <PopoverPrimitive.Arrow
       ref={ref}
-      data-slot="popover-arrow"
       className={cn('[--arrow-background:var(--color-popover)] [--arrow-size:0.625rem]', className)}
       {...props}
+      data-slot="popover-arrow"
     >
       {children ?? <PopoverArrowTip />}
     </PopoverPrimitive.Arrow>
@@ -167,9 +167,9 @@ const PopoverArrowTip = forwardRef<
   return (
     <PopoverPrimitive.ArrowTip
       ref={ref}
-      data-slot="popover-arrow-tip"
       className={cn('border-t border-l border-border', className)}
       {...props}
+      data-slot="popover-arrow-tip"
     />
   );
 });
@@ -181,9 +181,9 @@ const PopoverTitle = forwardRef<
   return (
     <PopoverPrimitive.Title
       ref={ref}
-      data-slot="popover-title"
       className={cn('text-md leading-6 font-semibold text-popover-foreground', className)}
       {...props}
+      data-slot="popover-title"
     />
   );
 });
@@ -195,9 +195,9 @@ const PopoverDescription = forwardRef<
   return (
     <PopoverPrimitive.Description
       ref={ref}
-      data-slot="popover-description"
       className={cn('text-sm leading-5 text-muted-foreground', className)}
       {...props}
+      data-slot="popover-description"
     />
   );
 });
@@ -209,7 +209,6 @@ const PopoverCloseTrigger = forwardRef<
   return (
     <PopoverPrimitive.CloseTrigger
       ref={ref}
-      data-slot="popover-close-trigger"
       asChild={asChild}
       className={cn(
         !asChild &&
@@ -217,6 +216,7 @@ const PopoverCloseTrigger = forwardRef<
         className,
       )}
       {...props}
+      data-slot="popover-close-trigger"
     />
   );
 });
@@ -250,12 +250,12 @@ const PopoverHeader = forwardRef<ComponentRef<typeof ark.div>, HTMLArkProps<'div
     return (
       <ark.div
         ref={ref}
-        data-slot="popover-header"
         className={cn(
           'grid gap-1 group-has-[>[data-slot=popover-close-icon]]/popover-content:pe-10',
           className,
         )}
         {...props}
+        data-slot="popover-header"
       />
     );
   },
@@ -264,7 +264,7 @@ const PopoverHeader = forwardRef<ComponentRef<typeof ark.div>, HTMLArkProps<'div
 const PopoverBody = forwardRef<ComponentRef<typeof ark.div>, HTMLArkProps<'div'>>(
   function PopoverBody({ className, ...props }, ref) {
     return (
-      <ark.div ref={ref} data-slot="popover-body" className={cn('min-h-0', className)} {...props} />
+      <ark.div ref={ref} className={cn('min-h-0', className)} {...props} data-slot="popover-body" />
     );
   },
 );
@@ -274,9 +274,9 @@ const PopoverFooter = forwardRef<ComponentRef<typeof ark.div>, HTMLArkProps<'div
     return (
       <ark.div
         ref={ref}
-        data-slot="popover-footer"
         className={cn('mt-3 flex items-center justify-end gap-2', className)}
         {...props}
+        data-slot="popover-footer"
       />
     );
   },

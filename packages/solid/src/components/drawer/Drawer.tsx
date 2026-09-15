@@ -94,9 +94,9 @@ function DrawerTrigger(props: ComponentProps<typeof DrawerPrimitive.Trigger>) {
   return (
     <DrawerPrimitive.Trigger
       asChild={local.asChild}
-      data-slot="drawer-trigger"
       class={clsx(!local.asChild && styles.trigger, local.class)}
       {...others}
+      data-slot="drawer-trigger"
     />
   );
 }
@@ -107,9 +107,9 @@ function DrawerBackdrop(props: ComponentProps<typeof DrawerPrimitive.Backdrop>) 
   return (
     <OverlayPortal>
       <DrawerPrimitive.Backdrop
-        data-slot="drawer-backdrop"
         class={clsx(styles.backdrop, local.class)}
         {...others}
+        data-slot="drawer-backdrop"
       />
     </OverlayPortal>
   );
@@ -121,9 +121,9 @@ function DrawerPositioner(props: ComponentProps<typeof DrawerPrimitive.Positione
   return (
     <OverlayPortal>
       <DrawerPrimitive.Positioner
-        data-slot="drawer-positioner"
         class={clsx(styles.positioner, local.class)}
         {...others}
+        data-slot="drawer-positioner"
       />
     </OverlayPortal>
   );
@@ -135,11 +135,11 @@ function DrawerContent(props: DrawerContentProps) {
 
   return (
     <DrawerPrimitive.Content
-      data-slot="drawer-content"
       data-variant={local.variant ?? rootVariant}
       class={clsx(styles.content, local.class)}
       draggable={local.draggable ?? true}
       {...others}
+      data-slot="drawer-content"
     />
   );
 }
@@ -149,9 +149,9 @@ function DrawerGrabber(props: ComponentProps<typeof DrawerPrimitive.Grabber>) {
 
   return (
     <DrawerPrimitive.Grabber
-      data-slot="drawer-grabber"
       class={clsx(styles.grabber, local.class)}
       {...others}
+      data-slot="drawer-grabber"
     />
   );
 }
@@ -161,9 +161,9 @@ function DrawerGrabberIndicator(props: ComponentProps<typeof DrawerPrimitive.Gra
 
   return (
     <DrawerPrimitive.GrabberIndicator
-      data-slot="drawer-grabber-indicator"
       class={clsx(styles.grabberIndicator, local.class)}
       {...others}
+      data-slot="drawer-grabber-indicator"
     />
   );
 }
@@ -173,9 +173,9 @@ function DrawerTitle(props: ComponentProps<typeof DrawerPrimitive.Title>) {
 
   return (
     <DrawerPrimitive.Title
-      data-slot="drawer-title"
       class={clsx(styles.title, local.class)}
       {...others}
+      data-slot="drawer-title"
     />
   );
 }
@@ -185,9 +185,9 @@ function DrawerDescription(props: ComponentProps<typeof DrawerPrimitive.Descript
 
   return (
     <DrawerPrimitive.Description
-      data-slot="drawer-description"
       class={clsx(styles.description, local.class)}
       {...others}
+      data-slot="drawer-description"
     />
   );
 }
@@ -198,9 +198,9 @@ function DrawerCloseTrigger(props: ComponentProps<typeof DrawerPrimitive.CloseTr
   return (
     <DrawerPrimitive.CloseTrigger
       asChild={local.asChild}
-      data-slot="drawer-close-trigger"
       class={clsx(!local.asChild && styles.closeTrigger, local.class)}
       {...others}
+      data-slot="drawer-close-trigger"
     />
   );
 }
@@ -235,9 +235,9 @@ function DrawerSwipeArea(props: ComponentProps<typeof DrawerPrimitive.SwipeArea>
 
   return (
     <DrawerPrimitive.SwipeArea
-      data-slot="drawer-swipe-area"
       class={clsx(styles.swipeArea, local.class)}
       {...others}
+      data-slot="drawer-swipe-area"
     />
   );
 }
@@ -247,9 +247,9 @@ function DrawerIndent(props: ComponentProps<typeof DrawerPrimitive.Indent>) {
 
   return (
     <DrawerPrimitive.Indent
-      data-slot="drawer-indent"
       class={clsx(styles.indent, local.class)}
       {...others}
+      data-slot="drawer-indent"
     />
   );
 }
@@ -259,9 +259,9 @@ function DrawerIndentBackground(props: ComponentProps<typeof DrawerPrimitive.Ind
 
   return (
     <DrawerPrimitive.IndentBackground
-      data-slot="drawer-indent-background"
       class={clsx(styles.indentBackground, local.class)}
       {...others}
+      data-slot="drawer-indent-background"
     />
   );
 }
@@ -269,19 +269,19 @@ function DrawerIndentBackground(props: ComponentProps<typeof DrawerPrimitive.Ind
 function DrawerHeader(props: HTMLArkProps<'div'>) {
   const [local, others] = splitProps(props, ['class']);
 
-  return <ark.div data-slot="drawer-header" class={clsx(styles.header, local.class)} {...others} />;
+  return <ark.div class={clsx(styles.header, local.class)} {...others} data-slot="drawer-header" />;
 }
 
 function DrawerBody(props: HTMLArkProps<'div'>) {
   const [local, others] = splitProps(props, ['class']);
 
-  return <ark.div data-slot="drawer-body" class={clsx(styles.body, local.class)} {...others} />;
+  return <ark.div class={clsx(styles.body, local.class)} {...others} data-slot="drawer-body" />;
 }
 
 function DrawerFooter(props: HTMLArkProps<'div'>) {
   const [local, others] = splitProps(props, ['class']);
 
-  return <ark.div data-slot="drawer-footer" class={clsx(styles.footer, local.class)} {...others} />;
+  return <ark.div class={clsx(styles.footer, local.class)} {...others} data-slot="drawer-footer" />;
 }
 
 const Drawer = Object.assign(DrawerRoot, {

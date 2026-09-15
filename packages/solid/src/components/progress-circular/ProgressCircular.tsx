@@ -14,9 +14,9 @@ function ProgressCircularRoot(props: ComponentProps<typeof ProgressPrimitive.Roo
   return (
     <ProgressPrimitive.Root
       asChild={local.asChild}
-      data-slot="progress-circular-root"
       class={clsx(styles.root, local.class)}
       {...others}
+      data-slot="progress-circular-root"
     >
       {local.children}
     </ProgressPrimitive.Root>
@@ -31,9 +31,9 @@ function ProgressCircularRootProvider(
   return (
     <ProgressPrimitive.RootProvider
       asChild={local.asChild}
-      data-slot="progress-circular-root-provider"
       class={clsx(styles.root, local.class)}
       {...others}
+      data-slot="progress-circular-root-provider"
     >
       {local.children}
     </ProgressPrimitive.RootProvider>
@@ -46,9 +46,9 @@ function ProgressCircularLabel(props: ComponentProps<typeof ProgressPrimitive.La
   return (
     <ProgressPrimitive.Label
       asChild={local.asChild}
-      data-slot="progress-circular-label"
       class={clsx(styles.label, local.class)}
       {...others}
+      data-slot="progress-circular-label"
     />
   );
 }
@@ -59,9 +59,9 @@ function ProgressCircularValueText(props: ComponentProps<typeof ProgressPrimitiv
   return (
     <ProgressPrimitive.ValueText
       asChild={local.asChild}
-      data-slot="progress-circular-value-text"
       class={clsx(styles.valueText, local.class)}
       {...others}
+      data-slot="progress-circular-value-text"
     />
   );
 }
@@ -72,9 +72,9 @@ function ProgressCircularCircle(props: ComponentProps<typeof ProgressPrimitive.C
   return (
     <ProgressPrimitive.Circle
       asChild={local.asChild}
-      data-slot="progress-circular-circle"
       class={clsx(styles.circle, local.class)}
       {...others}
+      data-slot="progress-circular-circle"
     >
       {local.children}
     </ProgressPrimitive.Circle>
@@ -87,9 +87,9 @@ function ProgressCircularCircleTrack(props: ComponentProps<typeof ProgressPrimit
   return (
     <ProgressPrimitive.CircleTrack
       asChild={local.asChild}
-      data-slot="progress-circular-circle-track"
       class={clsx(styles.circleTrack, local.class)}
       {...others}
+      data-slot="progress-circular-circle-track"
     />
   );
 }
@@ -100,9 +100,9 @@ function ProgressCircularCircleRange(props: ComponentProps<typeof ProgressPrimit
   return (
     <ProgressPrimitive.CircleRange
       asChild={local.asChild}
-      data-slot="progress-circular-circle-range"
       class={clsx(styles.circleRange, local.class)}
       {...others}
+      data-slot="progress-circular-circle-range"
     />
   );
 }
@@ -127,9 +127,9 @@ function ProgressCircularView(props: ComponentProps<typeof ProgressPrimitive.Vie
   return (
     <ProgressPrimitive.View
       asChild={local.asChild}
-      data-slot="progress-circular-view"
       class={clsx(styles.view, local.class)}
       {...others}
+      data-slot="progress-circular-view"
     />
   );
 }

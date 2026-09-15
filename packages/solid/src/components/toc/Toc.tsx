@@ -27,9 +27,9 @@ function TocRoot(props: ComponentProps<typeof TocPrimitive.Root>) {
   return (
     <TocPrimitive.Root
       autoScroll={local.autoScroll ?? false}
-      data-slot="toc-root"
       class={clsx(styles.root, local.class)}
       {...others}
+      data-slot="toc-root"
     />
   );
 }
@@ -42,10 +42,10 @@ function TocRootProvider(props: ComponentProps<typeof TocPrimitive.RootProvider>
   return (
     <TocPrimitive.RootProvider
       value={local.value}
-      data-slot="toc-root-provider"
       class={clsx(styles.root, local.class)}
       style={getRootStyle()}
       {...others}
+      data-slot="toc-root-provider"
     />
   );
 }
@@ -55,9 +55,9 @@ function TocContent(props: ComponentProps<typeof TocPrimitive.Content>) {
 
   return (
     <TocPrimitive.Content
-      data-slot="toc-content"
       class={clsx(styles.content, local.class)}
       {...others}
+      data-slot="toc-content"
     />
   );
 }
@@ -65,14 +65,14 @@ function TocContent(props: ComponentProps<typeof TocPrimitive.Content>) {
 function TocNav(props: ComponentProps<typeof TocPrimitive.Nav>) {
   const [local, others] = splitProps(props, ['class']);
 
-  return <TocPrimitive.Nav data-slot="toc-nav" class={clsx(styles.nav, local.class)} {...others} />;
+  return <TocPrimitive.Nav class={clsx(styles.nav, local.class)} {...others} data-slot="toc-nav" />;
 }
 
 function TocTitle(props: ComponentProps<typeof TocPrimitive.Title>) {
   const [local, others] = splitProps(props, ['class']);
 
   return (
-    <TocPrimitive.Title data-slot="toc-title" class={clsx(styles.title, local.class)} {...others} />
+    <TocPrimitive.Title class={clsx(styles.title, local.class)} {...others} data-slot="toc-title" />
   );
 }
 
@@ -80,7 +80,7 @@ function TocList(props: ComponentProps<typeof TocPrimitive.List>) {
   const [local, others] = splitProps(props, ['class']);
 
   return (
-    <TocPrimitive.List data-slot="toc-list" class={clsx(styles.list, local.class)} {...others} />
+    <TocPrimitive.List class={clsx(styles.list, local.class)} {...others} data-slot="toc-list" />
   );
 }
 
@@ -88,7 +88,7 @@ function TocItem(props: ComponentProps<typeof TocPrimitive.Item>) {
   const [local, others] = splitProps(props, ['class']);
 
   return (
-    <TocPrimitive.Item data-slot="toc-item" class={clsx(styles.item, local.class)} {...others} />
+    <TocPrimitive.Item class={clsx(styles.item, local.class)} {...others} data-slot="toc-item" />
   );
 }
 
@@ -96,7 +96,7 @@ function TocLink(props: ComponentProps<typeof TocPrimitive.Link>) {
   const [local, others] = splitProps(props, ['class']);
 
   return (
-    <TocPrimitive.Link data-slot="toc-link" class={clsx(styles.link, local.class)} {...others} />
+    <TocPrimitive.Link class={clsx(styles.link, local.class)} {...others} data-slot="toc-link" />
   );
 }
 
@@ -105,9 +105,9 @@ function TocIndicator(props: ComponentProps<typeof TocPrimitive.Indicator>) {
 
   return (
     <TocPrimitive.Indicator
-      data-slot="toc-indicator"
       class={clsx(styles.indicator, local.class)}
       {...others}
+      data-slot="toc-indicator"
     />
   );
 }
@@ -174,10 +174,10 @@ function TocRail(props: TocRailProps) {
   return (
     <svg
       aria-hidden="true"
-      data-slot="toc-rail"
       class={clsx(styles.rail, local.class)}
       style={getRailStyle()}
       {...others}
+      data-slot="toc-rail"
     >
       {hasTurn() && (
         <path

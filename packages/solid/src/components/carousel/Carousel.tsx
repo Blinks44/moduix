@@ -14,9 +14,9 @@ function CarouselRoot(props: ComponentProps<typeof CarouselPrimitive.Root>) {
 
   return (
     <CarouselPrimitive.Root
-      data-slot="carousel-root"
       class={clsx(styles.root, local.class)}
       {...others}
+      data-slot="carousel-root"
     />
   );
 }
@@ -26,9 +26,9 @@ function CarouselRootProvider(props: ComponentProps<typeof CarouselPrimitive.Roo
 
   return (
     <CarouselPrimitive.RootProvider
-      data-slot="carousel-root-provider"
       class={clsx(styles.root, local.class)}
       {...others}
+      data-slot="carousel-root-provider"
     />
   );
 }
@@ -38,9 +38,9 @@ function CarouselControl(props: ComponentProps<typeof CarouselPrimitive.Control>
 
   return (
     <CarouselPrimitive.Control
-      data-slot="carousel-control"
       class={clsx(styles.control, local.class)}
       {...others}
+      data-slot="carousel-control"
     />
   );
 }
@@ -50,9 +50,9 @@ function CarouselItemGroup(props: ComponentProps<typeof CarouselPrimitive.ItemGr
 
   return (
     <CarouselPrimitive.ItemGroup
-      data-slot="carousel-item-group"
       class={clsx(styles.itemGroup, local.class)}
       {...others}
+      data-slot="carousel-item-group"
     />
   );
 }
@@ -62,9 +62,9 @@ function CarouselItem(props: ComponentProps<typeof CarouselPrimitive.Item>) {
 
   return (
     <CarouselPrimitive.Item
-      data-slot="carousel-item"
       class={clsx(styles.item, local.class)}
       {...others}
+      data-slot="carousel-item"
     />
   );
 }
@@ -76,9 +76,9 @@ function CarouselPrevTrigger(props: ComponentProps<typeof CarouselPrimitive.Prev
   return (
     <CarouselPrimitive.PrevTrigger
       asChild={local.asChild}
-      data-slot="carousel-prev-trigger"
       class={clsx(styles.prevTrigger, local.class)}
       {...others}
+      data-slot="carousel-prev-trigger"
     >
       {resolvedChildren() ?? (
         <span class={styles.defaultIcon}>
@@ -96,9 +96,9 @@ function CarouselNextTrigger(props: ComponentProps<typeof CarouselPrimitive.Next
   return (
     <CarouselPrimitive.NextTrigger
       asChild={local.asChild}
-      data-slot="carousel-next-trigger"
       class={clsx(styles.nextTrigger, local.class)}
       {...others}
+      data-slot="carousel-next-trigger"
     >
       {resolvedChildren() ?? (
         <span class={styles.defaultIcon}>
@@ -114,9 +114,9 @@ function CarouselIndicatorGroup(props: ComponentProps<typeof CarouselPrimitive.I
 
   return (
     <CarouselPrimitive.IndicatorGroup
-      data-slot="carousel-indicator-group"
       class={clsx(styles.indicatorGroup, local.class)}
       {...others}
+      data-slot="carousel-indicator-group"
     />
   );
 }
@@ -126,9 +126,9 @@ function CarouselIndicator(props: ComponentProps<typeof CarouselPrimitive.Indica
 
   return (
     <CarouselPrimitive.Indicator
-      data-slot="carousel-indicator"
       class={clsx(styles.indicator, local.class)}
       {...others}
+      data-slot="carousel-indicator"
     />
   );
 }
@@ -158,9 +158,9 @@ function CarouselAutoplayTrigger(props: ComponentProps<typeof CarouselPrimitive.
 
   return (
     <CarouselPrimitive.AutoplayTrigger
-      data-slot="carousel-autoplay-trigger"
       class={clsx(styles.autoplayTrigger, local.class)}
       {...others}
+      data-slot="carousel-autoplay-trigger"
     />
   );
 }
@@ -172,9 +172,9 @@ function CarouselAutoplayIndicator(
 
   return (
     <CarouselPrimitive.AutoplayIndicator
-      data-slot="carousel-autoplay-indicator"
       class={clsx(styles.autoplayIndicator, local.class)}
       {...others}
+      data-slot="carousel-autoplay-indicator"
     />
   );
 }
@@ -184,9 +184,9 @@ function CarouselProgressText(props: ComponentProps<typeof CarouselPrimitive.Pro
 
   return (
     <CarouselPrimitive.ProgressText
-      data-slot="carousel-progress-text"
       class={clsx(styles.progressText, local.class)}
       {...others}
+      data-slot="carousel-progress-text"
     />
   );
 }

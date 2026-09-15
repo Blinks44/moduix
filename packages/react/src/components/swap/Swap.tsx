@@ -21,10 +21,10 @@ const SwapRoot = forwardRef<ComponentRef<typeof SwapPrimitive.Root>, SwapRootPro
     return (
       <SwapPrimitive.Root
         ref={ref}
-        data-slot="swap-root"
         data-animation={animation}
         className={clsx(styles.root, className)}
         {...props}
+        data-slot="swap-root"
       />
     );
   },
@@ -37,10 +37,10 @@ const SwapRootProvider = forwardRef<
   return (
     <SwapPrimitive.RootProvider
       ref={ref}
-      data-slot="swap-root-provider"
       data-animation={animation}
       className={clsx(styles.root, className)}
       {...props}
+      data-slot="swap-root-provider"
     />
   );
 });
@@ -52,9 +52,9 @@ const SwapIndicator = forwardRef<
   return (
     <SwapPrimitive.Indicator
       ref={ref}
-      data-slot="swap-indicator"
       className={clsx(styles.indicator, className)}
       {...props}
+      data-slot="swap-indicator"
     />
   );
 });

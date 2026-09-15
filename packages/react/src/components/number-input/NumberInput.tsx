@@ -18,9 +18,9 @@ const NumberInputRoot = forwardRef<
   return (
     <NumberInputPrimitive.Root
       ref={ref}
-      data-slot="number-input-root"
       className={clsx(styles.root, className)}
       {...props}
+      data-slot="number-input-root"
     />
   );
 });
@@ -32,9 +32,9 @@ const NumberInputRootProvider = forwardRef<
   return (
     <NumberInputPrimitive.RootProvider
       ref={ref}
-      data-slot="number-input-root-provider"
       className={clsx(styles.root, className)}
       {...props}
+      data-slot="number-input-root-provider"
     />
   );
 });
@@ -46,9 +46,9 @@ const NumberInputLabel = forwardRef<
   return (
     <NumberInputPrimitive.Label
       ref={ref}
-      data-slot="number-input-label"
       className={clsx(styles.label, className)}
       {...props}
+      data-slot="number-input-label"
     />
   );
 });
@@ -60,9 +60,9 @@ const NumberInputScrubber = forwardRef<
   return (
     <NumberInputPrimitive.Scrubber
       ref={ref}
-      data-slot="number-input-scrubber"
       className={clsx(styles.scrubber, className)}
       {...props}
+      data-slot="number-input-scrubber"
     />
   );
 });
@@ -74,9 +74,9 @@ const NumberInputControl = forwardRef<
   return (
     <NumberInputPrimitive.Control
       ref={ref}
-      data-slot="number-input-control"
       className={clsx(styles.control, className)}
       {...props}
+      data-slot="number-input-control"
     />
   );
 });
@@ -88,9 +88,9 @@ const NumberInputDecrementTrigger = forwardRef<
   return (
     <NumberInputPrimitive.DecrementTrigger
       ref={ref}
-      data-slot="number-input-decrement-trigger"
       className={clsx(styles.decrementTrigger, className)}
       {...props}
+      data-slot="number-input-decrement-trigger"
     >
       {children ?? <MinusIcon />}
     </NumberInputPrimitive.DecrementTrigger>
@@ -104,9 +104,9 @@ const NumberInputInput = forwardRef<
   return (
     <NumberInputPrimitive.Input
       ref={ref}
-      data-slot="number-input-input"
       className={clsx(styles.input, className)}
       {...props}
+      data-slot="number-input-input"
     />
   );
 });
@@ -118,9 +118,9 @@ const NumberInputIncrementTrigger = forwardRef<
   return (
     <NumberInputPrimitive.IncrementTrigger
       ref={ref}
-      data-slot="number-input-increment-trigger"
       className={clsx(styles.incrementTrigger, className)}
       {...props}
+      data-slot="number-input-increment-trigger"
     >
       {children ?? <PlusIcon />}
     </NumberInputPrimitive.IncrementTrigger>
@@ -134,9 +134,9 @@ const NumberInputValueText = forwardRef<
   return (
     <NumberInputPrimitive.ValueText
       ref={ref}
-      data-slot="number-input-value-text"
       className={clsx(styles.valueText, className)}
       {...props}
+      data-slot="number-input-value-text"
     />
   );
 });

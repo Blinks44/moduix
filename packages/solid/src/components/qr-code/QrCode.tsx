@@ -10,9 +10,9 @@ function QrCodeRoot(props: ComponentProps<typeof QrCodePrimitive.Root>) {
   return (
     <QrCodePrimitive.Root
       asChild={local.asChild}
-      data-slot="qr-code-root"
       class={clsx(styles.root, local.class)}
       {...others}
+      data-slot="qr-code-root"
     >
       {local.children}
     </QrCodePrimitive.Root>
@@ -25,9 +25,9 @@ function QrCodeRootProvider(props: ComponentProps<typeof QrCodePrimitive.RootPro
   return (
     <QrCodePrimitive.RootProvider
       asChild={local.asChild}
-      data-slot="qr-code-root-provider"
       class={clsx(styles.root, local.class)}
       {...others}
+      data-slot="qr-code-root-provider"
     >
       {local.children}
     </QrCodePrimitive.RootProvider>
@@ -40,9 +40,9 @@ function QrCodeFrame(props: ComponentProps<typeof QrCodePrimitive.Frame>) {
   return (
     <QrCodePrimitive.Frame
       asChild={local.asChild}
-      data-slot="qr-code-frame"
       class={clsx(styles.frame, local.class)}
       {...others}
+      data-slot="qr-code-frame"
     >
       {local.children}
     </QrCodePrimitive.Frame>
@@ -55,9 +55,9 @@ function QrCodePattern(props: ComponentProps<typeof QrCodePrimitive.Pattern>) {
   return (
     <QrCodePrimitive.Pattern
       asChild={local.asChild}
-      data-slot="qr-code-pattern"
       class={clsx(styles.pattern, local.class)}
       {...others}
+      data-slot="qr-code-pattern"
     />
   );
 }
@@ -68,9 +68,9 @@ function QrCodeOverlay(props: ComponentProps<typeof QrCodePrimitive.Overlay>) {
   return (
     <QrCodePrimitive.Overlay
       asChild={local.asChild}
-      data-slot="qr-code-overlay"
       class={clsx(styles.overlay, local.class)}
       {...others}
+      data-slot="qr-code-overlay"
     >
       {local.children}
     </QrCodePrimitive.Overlay>
@@ -83,9 +83,9 @@ function QrCodeDownloadTrigger(props: ComponentProps<typeof QrCodePrimitive.Down
   return (
     <QrCodePrimitive.DownloadTrigger
       asChild={local.asChild}
-      data-slot="qr-code-download-trigger"
       class={clsx(styles.downloadTrigger, local.class)}
       {...others}
+      data-slot="qr-code-download-trigger"
     >
       {local.children}
     </QrCodePrimitive.DownloadTrigger>

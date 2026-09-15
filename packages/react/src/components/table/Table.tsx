@@ -55,7 +55,6 @@ const TableRoot = forwardRef<HTMLTableElement, TableRootProps>(function TableRoo
       asChild={asChild}
       data-scope="table"
       data-part="root"
-      data-slot="table-root"
       data-interactive={interactive || undefined}
       data-show-column-border={showColumnBorder || undefined}
       data-size={size}
@@ -64,6 +63,7 @@ const TableRoot = forwardRef<HTMLTableElement, TableRootProps>(function TableRoo
       data-variant={variant}
       className={clsx(styles.root, className)}
       {...props}
+      data-slot="table-root"
     />
   );
 });
@@ -78,9 +78,9 @@ const TableScrollArea = forwardRef<HTMLDivElement, TableScrollAreaProps>(functio
       asChild={asChild}
       data-scope="table"
       data-part="scroll-area"
-      data-slot="table-scroll-area"
       className={clsx(styles.scrollArea, className)}
       {...props}
+      data-slot="table-scroll-area"
     />
   );
 });
@@ -96,9 +96,9 @@ const TableCaption = forwardRef<HTMLTableCaptionElement, TableCaptionProps>(func
       data-scope="table"
       data-part="caption"
       data-side={side}
-      data-slot="table-caption"
       className={clsx(styles.caption, className)}
       {...props}
+      data-slot="table-caption"
     />
   );
 });
@@ -111,9 +111,9 @@ const TableColumnGroup = forwardRef<HTMLTableColElement, TableColumnGroupProps>(
         asChild={asChild}
         data-scope="table"
         data-part="column-group"
-        data-slot="table-column-group"
         className={className}
         {...props}
+        data-slot="table-column-group"
       />
     );
   },
@@ -129,10 +129,10 @@ const TableColumn = forwardRef<HTMLTableColElement, TableColumnProps>(function T
       asChild={asChild}
       data-scope="table"
       data-part="column"
-      data-slot="table-column"
       width={htmlWidth ?? width}
       className={className}
       {...props}
+      data-slot="table-column"
     />
   );
 });
@@ -147,9 +147,9 @@ const TableHeader = forwardRef<HTMLTableSectionElement, TableHeaderProps>(functi
       asChild={asChild}
       data-scope="table"
       data-part="header"
-      data-slot="table-header"
       className={clsx(styles.header, className)}
       {...props}
+      data-slot="table-header"
     />
   );
 });
@@ -164,9 +164,9 @@ const TableBody = forwardRef<HTMLTableSectionElement, TableBodyProps>(function T
       asChild={asChild}
       data-scope="table"
       data-part="body"
-      data-slot="table-body"
       className={clsx(styles.body, className)}
       {...props}
+      data-slot="table-body"
     />
   );
 });
@@ -181,9 +181,9 @@ const TableFooter = forwardRef<HTMLTableSectionElement, TableFooterProps>(functi
       asChild={asChild}
       data-scope="table"
       data-part="footer"
-      data-slot="table-footer"
       className={clsx(styles.footer, className)}
       {...props}
+      data-slot="table-footer"
     />
   );
 });
@@ -198,9 +198,9 @@ const TableRow = forwardRef<HTMLTableRowElement, TableRowProps>(function TableRo
       asChild={asChild}
       data-scope="table"
       data-part="row"
-      data-slot="table-row"
       className={clsx(styles.row, className)}
       {...props}
+      data-slot="table-row"
     />
   );
 });
@@ -214,9 +214,9 @@ const TableColumnHeader = forwardRef<HTMLTableCellElement, TableColumnHeaderProp
         data-scope="table"
         data-part="column-header"
         data-numeric={numeric || undefined}
-        data-slot="table-column-header"
         className={clsx(styles.columnHeader, numeric && styles.numeric, className)}
         {...props}
+        data-slot="table-column-header"
       />
     );
   },
@@ -233,9 +233,9 @@ const TableCell = forwardRef<HTMLTableCellElement, TableCellProps>(function Tabl
       data-scope="table"
       data-part="cell"
       data-numeric={numeric || undefined}
-      data-slot="table-cell"
       className={clsx(styles.cell, numeric && styles.numeric, className)}
       {...props}
+      data-slot="table-cell"
     />
   );
 });
@@ -257,10 +257,10 @@ const TableEmpty = forwardRef<HTMLTableCellElement, TableEmptyProps>(function Ta
         asChild={asChild}
         data-scope="table"
         data-part="empty"
-        data-slot="table-empty"
         colSpan={colSpan}
         className={clsx(styles.cell, styles.empty, className)}
         {...props}
+        data-slot="table-empty"
       >
         {children}
       </ark.td>

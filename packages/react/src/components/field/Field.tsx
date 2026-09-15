@@ -15,9 +15,9 @@ const FieldRoot = forwardRef<
   return (
     <FieldPrimitive.Root
       ref={ref}
-      data-slot="field-root"
       className={clsx(styles.root, className)}
       {...props}
+      data-slot="field-root"
     />
   );
 });
@@ -29,9 +29,9 @@ const FieldRootProvider = forwardRef<
   return (
     <FieldPrimitive.RootProvider
       ref={ref}
-      data-slot="field-root-provider"
       className={clsx(styles.root, className)}
       {...props}
+      data-slot="field-root-provider"
     />
   );
 });
@@ -42,7 +42,7 @@ const FieldItem = forwardRef<HTMLDivElement, FieldItemProps>(function FieldItem(
 ) {
   return (
     <FieldPrimitive.Item value={value}>
-      <div ref={ref} data-slot="field-item" className={clsx(styles.item, className)} {...props}>
+      <div ref={ref} className={clsx(styles.item, className)} {...props} data-slot="field-item">
         {children}
       </div>
     </FieldPrimitive.Item>
@@ -56,9 +56,9 @@ const FieldLabel = forwardRef<
   return (
     <FieldPrimitive.Label
       ref={ref}
-      data-slot="field-label"
       className={clsx(styles.label, className)}
       {...props}
+      data-slot="field-label"
     />
   );
 });
@@ -70,9 +70,9 @@ const FieldInput = forwardRef<
   return (
     <FieldPrimitive.Input
       ref={ref}
-      data-slot="field-input"
       className={clsx(styles.control, className)}
       {...props}
+      data-slot="field-input"
     />
   );
 });
@@ -84,9 +84,9 @@ const FieldTextarea = forwardRef<
   return (
     <FieldPrimitive.Textarea
       ref={ref}
-      data-slot="field-textarea"
       className={clsx(styles.control, styles.textarea, className)}
       {...props}
+      data-slot="field-textarea"
     />
   );
 });
@@ -98,9 +98,9 @@ const FieldSelect = forwardRef<
   return (
     <FieldPrimitive.Select
       ref={ref}
-      data-slot="field-select"
       className={clsx(styles.control, className)}
       {...props}
+      data-slot="field-select"
     />
   );
 });
@@ -112,9 +112,9 @@ const FieldHelperText = forwardRef<
   return (
     <FieldPrimitive.HelperText
       ref={ref}
-      data-slot="field-helper-text"
       className={clsx(styles.helperText, className)}
       {...props}
+      data-slot="field-helper-text"
     />
   );
 });
@@ -126,9 +126,9 @@ const FieldErrorText = forwardRef<
   return (
     <FieldPrimitive.ErrorText
       ref={ref}
-      data-slot="field-error-text"
       className={clsx(styles.errorText, className)}
       {...props}
+      data-slot="field-error-text"
     />
   );
 });
@@ -140,9 +140,9 @@ const FieldRequiredIndicator = forwardRef<
   return (
     <FieldPrimitive.RequiredIndicator
       ref={ref}
-      data-slot="field-required-indicator"
       className={clsx(styles.requiredIndicator, className)}
       {...props}
+      data-slot="field-required-indicator"
     />
   );
 });

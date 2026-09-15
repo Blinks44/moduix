@@ -78,7 +78,6 @@ const DatePickerRoot = forwardRef<
     <OverlayPortalProvider portalled={portalled} portalRef={portalRef}>
       <DatePickerPrimitive.Root
         ref={ref}
-        data-slot="date-picker-root"
         className={clsx(styles.root, className)}
         disabled={disabled ?? field?.disabled ?? fieldset?.disabled}
         invalid={invalid ?? field?.invalid ?? fieldset?.invalid}
@@ -87,6 +86,7 @@ const DatePickerRoot = forwardRef<
         required={required ?? field?.required}
         unmountOnExit={unmountOnExit}
         {...props}
+        data-slot="date-picker-root"
       />
     </OverlayPortalProvider>
   );
@@ -103,11 +103,11 @@ const DatePickerRootProvider = forwardRef<
     <OverlayPortalProvider portalled={portalled} portalRef={portalRef}>
       <DatePickerPrimitive.RootProvider
         ref={ref}
-        data-slot="date-picker-root-provider"
         className={clsx(styles.root, className)}
         lazyMount={lazyMount}
         unmountOnExit={unmountOnExit}
         {...props}
+        data-slot="date-picker-root-provider"
       />
     </OverlayPortalProvider>
   );
@@ -120,9 +120,9 @@ const DatePickerLabel = forwardRef<
   return (
     <DatePickerPrimitive.Label
       ref={ref}
-      data-slot="date-picker-label"
       className={clsx(styles.label, className)}
       {...props}
+      data-slot="date-picker-label"
     />
   );
 });
@@ -134,9 +134,9 @@ const DatePickerControl = forwardRef<
   return (
     <DatePickerPrimitive.Control
       ref={ref}
-      data-slot="date-picker-control"
       className={clsx(styles.control, className)}
       {...props}
+      data-slot="date-picker-control"
     />
   );
 });
@@ -215,9 +215,9 @@ const DatePickerInput = forwardRef<
   return (
     <DatePickerPrimitive.Input
       ref={ref}
-      data-slot="date-picker-input"
       className={clsx(styles.input, className)}
       {...props}
+      data-slot="date-picker-input"
     />
   );
 });
@@ -229,10 +229,10 @@ const DatePickerTrigger = forwardRef<
   return (
     <DatePickerPrimitive.Trigger
       ref={ref}
-      data-slot="date-picker-trigger"
       asChild={asChild}
       className={clsx(!asChild && styles.trigger, className)}
       {...props}
+      data-slot="date-picker-trigger"
     >
       {children ?? <CalendarIcon />}
     </DatePickerPrimitive.Trigger>
@@ -259,11 +259,11 @@ const DatePickerClearTrigger = forwardRef<
     <DatePickerPrimitive.ClearTrigger
       ref={ref}
       asChild
-      data-slot="date-picker-clear-trigger"
       className={triggerClassName}
       {...(asChild && ariaLabel !== undefined ? { 'aria-label': ariaLabel } : {})}
       {...(asChild && ariaLabelledBy !== undefined ? { 'aria-labelledby': ariaLabelledBy } : {})}
       {...props}
+      data-slot="date-picker-clear-trigger"
     >
       {asChild ? (
         children
@@ -287,9 +287,9 @@ const DatePickerPositioner = forwardRef<
     <OverlayPortal>
       <DatePickerPrimitive.Positioner
         ref={ref}
-        data-slot="date-picker-positioner"
         className={clsx(styles.positioner, className)}
         {...props}
+        data-slot="date-picker-positioner"
       />
     </OverlayPortal>
   );
@@ -302,9 +302,9 @@ const DatePickerContent = forwardRef<
   return (
     <DatePickerPrimitive.Content
       ref={ref}
-      data-slot="date-picker-content"
       className={clsx(styles.content, className)}
       {...props}
+      data-slot="date-picker-content"
     />
   );
 });
@@ -316,9 +316,9 @@ const DatePickerView = forwardRef<
   return (
     <DatePickerPrimitive.View
       ref={ref}
-      data-slot="date-picker-view"
       className={clsx(styles.view, className)}
       {...props}
+      data-slot="date-picker-view"
     />
   );
 });
@@ -330,9 +330,9 @@ const DatePickerViewControl = forwardRef<
   return (
     <DatePickerPrimitive.ViewControl
       ref={ref}
-      data-slot="date-picker-view-control"
       className={clsx(styles.viewControl, className)}
       {...props}
+      data-slot="date-picker-view-control"
     />
   );
 });
@@ -344,10 +344,10 @@ const DatePickerPrevTrigger = forwardRef<
   return (
     <DatePickerPrimitive.PrevTrigger
       ref={ref}
-      data-slot="date-picker-prev-trigger"
       asChild={asChild}
       className={clsx(!asChild && styles.navTrigger, className)}
       {...props}
+      data-slot="date-picker-prev-trigger"
     >
       {children ?? <ChevronLeftIcon />}
     </DatePickerPrimitive.PrevTrigger>
@@ -361,10 +361,10 @@ const DatePickerNextTrigger = forwardRef<
   return (
     <DatePickerPrimitive.NextTrigger
       ref={ref}
-      data-slot="date-picker-next-trigger"
       asChild={asChild}
       className={clsx(!asChild && styles.navTrigger, className)}
       {...props}
+      data-slot="date-picker-next-trigger"
     >
       {children ?? <ChevronRightIcon />}
     </DatePickerPrimitive.NextTrigger>
@@ -378,9 +378,9 @@ const DatePickerRangeText = forwardRef<
   return (
     <DatePickerPrimitive.RangeText
       ref={ref}
-      data-slot="date-picker-range-text"
       className={clsx(styles.rangeText, className)}
       {...props}
+      data-slot="date-picker-range-text"
     />
   );
 });
@@ -392,10 +392,10 @@ const DatePickerViewTrigger = forwardRef<
   return (
     <DatePickerPrimitive.ViewTrigger
       ref={ref}
-      data-slot="date-picker-view-trigger"
       asChild={asChild}
       className={clsx(!asChild && styles.viewTrigger, className)}
       {...props}
+      data-slot="date-picker-view-trigger"
     >
       {children ?? (
         <>
@@ -414,9 +414,9 @@ const DatePickerTable = forwardRef<
   return (
     <DatePickerPrimitive.Table
       ref={ref}
-      data-slot="date-picker-table"
       className={clsx(styles.table, className)}
       {...props}
+      data-slot="date-picker-table"
     />
   );
 });
@@ -428,9 +428,9 @@ const DatePickerTableHead = forwardRef<
   return (
     <DatePickerPrimitive.TableHead
       ref={ref}
-      data-slot="date-picker-table-head"
       className={className}
       {...props}
+      data-slot="date-picker-table-head"
     />
   );
 });
@@ -442,9 +442,9 @@ const DatePickerTableBody = forwardRef<
   return (
     <DatePickerPrimitive.TableBody
       ref={ref}
-      data-slot="date-picker-table-body"
       className={className}
       {...props}
+      data-slot="date-picker-table-body"
     />
   );
 });
@@ -456,9 +456,9 @@ const DatePickerTableRow = forwardRef<
   return (
     <DatePickerPrimitive.TableRow
       ref={ref}
-      data-slot="date-picker-table-row"
       className={className}
       {...props}
+      data-slot="date-picker-table-row"
     />
   );
 });
@@ -470,9 +470,9 @@ const DatePickerTableHeader = forwardRef<
   return (
     <DatePickerPrimitive.TableHeader
       ref={ref}
-      data-slot="date-picker-table-header"
       className={clsx(styles.tableHeader, className)}
       {...props}
+      data-slot="date-picker-table-header"
     />
   );
 });
@@ -484,9 +484,9 @@ const DatePickerWeekNumberHeaderCell = forwardRef<
   return (
     <DatePickerPrimitive.WeekNumberHeaderCell
       ref={ref}
-      data-slot="date-picker-week-number-header-cell"
       className={clsx(styles.tableHeader, styles.weekNumberCell, className)}
       {...props}
+      data-slot="date-picker-week-number-header-cell"
     />
   );
 });
@@ -498,9 +498,9 @@ const DatePickerWeekNumberCell = forwardRef<
   return (
     <DatePickerPrimitive.WeekNumberCell
       ref={ref}
-      data-slot="date-picker-week-number-cell"
       className={clsx(styles.weekNumberCell, className)}
       {...props}
+      data-slot="date-picker-week-number-cell"
     />
   );
 });
@@ -512,9 +512,9 @@ const DatePickerTableCell = forwardRef<
   return (
     <DatePickerPrimitive.TableCell
       ref={ref}
-      data-slot="date-picker-table-cell"
       className={clsx(styles.tableCell, className)}
       {...props}
+      data-slot="date-picker-table-cell"
     />
   );
 });
@@ -526,9 +526,9 @@ const DatePickerTableCellTrigger = forwardRef<
   return (
     <DatePickerPrimitive.TableCellTrigger
       ref={ref}
-      data-slot="date-picker-table-cell-trigger"
       className={clsx(styles.tableCellTrigger, className)}
       {...props}
+      data-slot="date-picker-table-cell-trigger"
     />
   );
 });
@@ -596,9 +596,9 @@ const DatePickerMonthSelect = forwardRef<
   return (
     <DatePickerPrimitive.MonthSelect
       ref={ref}
-      data-slot="date-picker-month-select"
       className={clsx(styles.select, className)}
       {...props}
+      data-slot="date-picker-month-select"
     />
   );
 });
@@ -610,9 +610,9 @@ const DatePickerYearSelect = forwardRef<
   return (
     <DatePickerPrimitive.YearSelect
       ref={ref}
-      data-slot="date-picker-year-select"
       className={clsx(styles.select, className)}
       {...props}
+      data-slot="date-picker-year-select"
     />
   );
 });
@@ -624,10 +624,10 @@ const DatePickerPresetTrigger = forwardRef<
   return (
     <DatePickerPrimitive.PresetTrigger
       ref={ref}
-      data-slot="date-picker-preset-trigger"
       asChild={asChild}
       className={clsx(!asChild && styles.presetTrigger, className)}
       {...props}
+      data-slot="date-picker-preset-trigger"
     />
   );
 });
@@ -639,9 +639,9 @@ const DatePickerValueText = forwardRef<
   return (
     <DatePickerPrimitive.ValueText
       ref={ref}
-      data-slot="date-picker-value-text"
       className={clsx(styles.valueText, className)}
       {...props}
+      data-slot="date-picker-value-text"
     />
   );
 });

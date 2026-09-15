@@ -13,9 +13,9 @@ function NavigationMenuRoot(props: ComponentProps<typeof NavigationMenuPrimitive
 
   return (
     <NavigationMenuPrimitive.Root
-      data-slot="navigation-menu-root"
       class={clsx(styles.root, local.class)}
       {...others}
+      data-slot="navigation-menu-root"
     />
   );
 }
@@ -27,9 +27,9 @@ function NavigationMenuRootProvider(
 
   return (
     <NavigationMenuPrimitive.RootProvider
-      data-slot="navigation-menu-root-provider"
       class={clsx(styles.root, local.class)}
       {...others}
+      data-slot="navigation-menu-root-provider"
     />
   );
 }
@@ -39,9 +39,9 @@ function NavigationMenuList(props: ComponentProps<typeof NavigationMenuPrimitive
 
   return (
     <NavigationMenuPrimitive.List
-      data-slot="navigation-menu-list"
       class={clsx(styles.list, local.class)}
       {...others}
+      data-slot="navigation-menu-list"
     />
   );
 }
@@ -51,9 +51,9 @@ function NavigationMenuItem(props: ComponentProps<typeof NavigationMenuPrimitive
 
   return (
     <NavigationMenuPrimitive.Item
-      data-slot="navigation-menu-item"
       class={clsx(styles.item, local.class)}
       {...others}
+      data-slot="navigation-menu-item"
     />
   );
 }
@@ -63,10 +63,10 @@ function NavigationMenuTrigger(props: ComponentProps<typeof NavigationMenuPrimit
 
   return (
     <NavigationMenuPrimitive.Trigger
-      data-slot="navigation-menu-trigger"
       asChild={local.asChild}
       class={clsx(!local.asChild && styles.trigger, local.class)}
       {...others}
+      data-slot="navigation-menu-trigger"
     />
   );
 }
@@ -76,9 +76,9 @@ function NavigationMenuContent(props: ComponentProps<typeof NavigationMenuPrimit
 
   return (
     <NavigationMenuPrimitive.Content
-      data-slot="navigation-menu-content"
       class={clsx(styles.content, local.class)}
       {...others}
+      data-slot="navigation-menu-content"
     />
   );
 }
@@ -88,10 +88,10 @@ function NavigationMenuLink(props: ComponentProps<typeof NavigationMenuPrimitive
 
   return (
     <NavigationMenuPrimitive.Link
-      data-slot="navigation-menu-link"
       asChild={local.asChild}
       class={clsx(styles.link, local.class)}
       {...others}
+      data-slot="navigation-menu-link"
     />
   );
 }
@@ -101,9 +101,9 @@ function NavigationMenuIndicator(props: ComponentProps<typeof NavigationMenuPrim
 
   return (
     <NavigationMenuPrimitive.Indicator
-      data-slot="navigation-menu-indicator"
       class={clsx(styles.indicator, local.class)}
       {...others}
+      data-slot="navigation-menu-indicator"
     />
   );
 }
@@ -115,9 +115,9 @@ function NavigationMenuItemIndicator(
 
   return (
     <NavigationMenuPrimitive.ItemIndicator
-      data-slot="navigation-menu-item-indicator"
       class={clsx(styles.itemIndicator, local.class)}
       {...others}
+      data-slot="navigation-menu-item-indicator"
     />
   );
 }
@@ -127,9 +127,9 @@ function NavigationMenuArrow(props: ComponentProps<typeof NavigationMenuPrimitiv
 
   return (
     <NavigationMenuPrimitive.Arrow
-      data-slot="navigation-menu-arrow"
       class={clsx(styles.arrow, local.class)}
       {...others}
+      data-slot="navigation-menu-arrow"
     />
   );
 }
@@ -141,9 +141,9 @@ function NavigationMenuViewportPositioner(
 
   return (
     <NavigationMenuPrimitive.ViewportPositioner
-      data-slot="navigation-menu-viewport-positioner"
       class={clsx(styles.viewportPositioner, local.class)}
       {...others}
+      data-slot="navigation-menu-viewport-positioner"
     />
   );
 }
@@ -153,9 +153,9 @@ function NavigationMenuViewport(props: ComponentProps<typeof NavigationMenuPrimi
 
   return (
     <NavigationMenuPrimitive.Viewport
-      data-slot="navigation-menu-viewport"
       class={clsx(styles.viewport, local.class)}
       {...others}
+      data-slot="navigation-menu-viewport"
     />
   );
 }

@@ -17,9 +17,9 @@ const FieldsetRoot = forwardRef<
   return (
     <FieldsetPrimitive.Root
       ref={ref}
-      data-slot="fieldset-root"
       className={clsx(styles.root, className)}
       {...props}
+      data-slot="fieldset-root"
     />
   );
 });
@@ -31,9 +31,9 @@ const FieldsetRootProvider = forwardRef<
   return (
     <FieldsetPrimitive.RootProvider
       ref={ref}
-      data-slot="fieldset-root-provider"
       className={clsx(styles.root, className)}
       {...props}
+      data-slot="fieldset-root-provider"
     />
   );
 });
@@ -45,9 +45,9 @@ const FieldsetLegend = forwardRef<
   return (
     <FieldsetPrimitive.Legend
       ref={ref}
-      data-slot="fieldset-legend"
       className={clsx(styles.legend, className)}
       {...props}
+      data-slot="fieldset-legend"
     />
   );
 });
@@ -59,9 +59,9 @@ const FieldsetHelperText = forwardRef<
   return (
     <FieldsetPrimitive.HelperText
       ref={ref}
-      data-slot="fieldset-helper-text"
       className={clsx(styles.helperText, className)}
       {...props}
+      data-slot="fieldset-helper-text"
     />
   );
 });
@@ -73,9 +73,9 @@ const FieldsetErrorText = forwardRef<
   return (
     <FieldsetPrimitive.ErrorText
       ref={ref}
-      data-slot="fieldset-error-text"
       className={clsx(styles.errorText, className)}
       {...props}
+      data-slot="fieldset-error-text"
     />
   );
 });

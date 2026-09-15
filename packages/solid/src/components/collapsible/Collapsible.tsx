@@ -16,9 +16,9 @@ function CollapsibleRoot(props: ComponentProps<typeof CollapsiblePrimitive.Root>
 
   return (
     <CollapsiblePrimitive.Root
-      data-slot="collapsible-root"
       class={clsx(styles.root, local.class)}
       {...others}
+      data-slot="collapsible-root"
     />
   );
 }
@@ -28,9 +28,9 @@ function CollapsibleRootProvider(props: ComponentProps<typeof CollapsiblePrimiti
 
   return (
     <CollapsiblePrimitive.RootProvider
-      data-slot="collapsible-root-provider"
       class={clsx(styles.root, local.class)}
       {...others}
+      data-slot="collapsible-root-provider"
     />
   );
 }
@@ -41,9 +41,9 @@ function CollapsibleTrigger(props: ComponentProps<typeof CollapsiblePrimitive.Tr
   return (
     <CollapsiblePrimitive.Trigger
       asChild={local.asChild}
-      data-slot="collapsible-trigger"
       class={clsx(!local.asChild && styles.trigger, local.class)}
       {...others}
+      data-slot="collapsible-trigger"
     />
   );
 }
@@ -54,9 +54,9 @@ function CollapsibleIndicator(props: ComponentProps<typeof CollapsiblePrimitive.
 
   return (
     <CollapsiblePrimitive.Indicator
-      data-slot="collapsible-indicator"
       class={clsx(styles.indicator, local.class)}
       {...others}
+      data-slot="collapsible-indicator"
     >
       {resolvedChildren() ?? <ChevronDownIcon />}
     </CollapsiblePrimitive.Indicator>
@@ -68,9 +68,9 @@ function CollapsibleContent(props: ComponentProps<typeof CollapsiblePrimitive.Co
 
   return (
     <CollapsiblePrimitive.Content
-      data-slot="collapsible-content"
       class={clsx(styles.content, local.class)}
       {...others}
+      data-slot="collapsible-content"
     />
   );
 }
@@ -79,7 +79,7 @@ function CollapsibleBody(props: HTMLArkProps<'div'>) {
   const [local, others] = splitProps(props, ['class']);
 
   return (
-    <ark.div data-slot="collapsible-body" class={clsx(styles.body, local.class)} {...others} />
+    <ark.div class={clsx(styles.body, local.class)} {...others} data-slot="collapsible-body" />
   );
 }
 

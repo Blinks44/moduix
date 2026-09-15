@@ -17,9 +17,9 @@ function TagsInputRoot(props: ComponentProps<typeof TagsInputPrimitive.Root>) {
   return (
     <TagsInputPrimitive.Root
       asChild={local.asChild}
-      data-slot="tags-input-root"
       class={clsx(styles.root, local.class)}
       {...others}
+      data-slot="tags-input-root"
     >
       {local.children}
     </TagsInputPrimitive.Root>
@@ -32,9 +32,9 @@ function TagsInputRootProvider(props: ComponentProps<typeof TagsInputPrimitive.R
   return (
     <TagsInputPrimitive.RootProvider
       asChild={local.asChild}
-      data-slot="tags-input-root-provider"
       class={clsx(styles.root, local.class)}
       {...others}
+      data-slot="tags-input-root-provider"
     >
       {local.children}
     </TagsInputPrimitive.RootProvider>
@@ -46,9 +46,9 @@ function TagsInputLabel(props: ComponentProps<typeof TagsInputPrimitive.Label>) 
 
   return (
     <TagsInputPrimitive.Label
-      data-slot="tags-input-label"
       class={clsx(styles.label, local.class)}
       {...others}
+      data-slot="tags-input-label"
     />
   );
 }
@@ -58,9 +58,9 @@ function TagsInputControl(props: ComponentProps<typeof TagsInputPrimitive.Contro
 
   return (
     <TagsInputPrimitive.Control
-      data-slot="tags-input-control"
       class={clsx(styles.control, local.class)}
       {...others}
+      data-slot="tags-input-control"
     />
   );
 }
@@ -70,9 +70,9 @@ function TagsInputItem(props: ComponentProps<typeof TagsInputPrimitive.Item>) {
 
   return (
     <TagsInputPrimitive.Item
-      data-slot="tags-input-item"
       class={clsx(styles.item, local.class)}
       {...others}
+      data-slot="tags-input-item"
     />
   );
 }
@@ -82,9 +82,9 @@ function TagsInputItemPreview(props: ComponentProps<typeof TagsInputPrimitive.It
 
   return (
     <TagsInputPrimitive.ItemPreview
-      data-slot="tags-input-item-preview"
       class={clsx(styles.itemPreview, local.class)}
       {...others}
+      data-slot="tags-input-item-preview"
     />
   );
 }
@@ -94,9 +94,9 @@ function TagsInputItemText(props: ComponentProps<typeof TagsInputPrimitive.ItemT
 
   return (
     <TagsInputPrimitive.ItemText
-      data-slot="tags-input-item-text"
       class={clsx(styles.itemText, local.class)}
       {...others}
+      data-slot="tags-input-item-text"
     />
   );
 }
@@ -109,9 +109,9 @@ function TagsInputItemDeleteTrigger(
 
   return (
     <TagsInputPrimitive.ItemDeleteTrigger
-      data-slot="tags-input-item-delete-trigger"
       class={clsx(styles.itemDeleteTrigger, local.class)}
       {...others}
+      data-slot="tags-input-item-delete-trigger"
     >
       {resolvedChildren() ?? <CloseIcon />}
     </TagsInputPrimitive.ItemDeleteTrigger>
@@ -123,9 +123,9 @@ function TagsInputItemInput(props: ComponentProps<typeof TagsInputPrimitive.Item
 
   return (
     <TagsInputPrimitive.ItemInput
-      data-slot="tags-input-item-input"
       class={clsx(styles.itemInput, local.class)}
       {...others}
+      data-slot="tags-input-item-input"
     />
   );
 }
@@ -135,9 +135,9 @@ function TagsInputInput(props: ComponentProps<typeof TagsInputPrimitive.Input>) 
 
   return (
     <TagsInputPrimitive.Input
-      data-slot="tags-input-input"
       class={clsx(styles.input, local.class)}
       {...others}
+      data-slot="tags-input-input"
     />
   );
 }
@@ -159,11 +159,11 @@ function TagsInputClearTrigger(props: ComponentProps<typeof TagsInputPrimitive.C
     return (
       <TagsInputPrimitive.ClearTrigger
         asChild={local.asChild}
-        data-slot="tags-input-clear-trigger"
         class={triggerClassName()}
         aria-label={local['aria-label']}
         aria-labelledby={local['aria-labelledby']}
         {...others}
+        data-slot="tags-input-clear-trigger"
       >
         {local.children}
       </TagsInputPrimitive.ClearTrigger>
@@ -184,9 +184,9 @@ function TagsInputClearTrigger(props: ComponentProps<typeof TagsInputPrimitive.C
           {resolvedChildren()}
         </CloseButton.Root>
       )}
-      data-slot="tags-input-clear-trigger"
       class={triggerClassName()}
       {...others}
+      data-slot="tags-input-clear-trigger"
     />
   );
 }

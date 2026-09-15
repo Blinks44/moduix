@@ -71,7 +71,7 @@ function PopoverRootProvider(props: PopoverRootProviderProps) {
 function PopoverAnchor(props: ComponentProps<typeof PopoverPrimitive.Anchor>) {
   const [local, others] = splitProps(props, ['class']);
 
-  return <PopoverPrimitive.Anchor data-slot="popover-anchor" class={local.class} {...others} />;
+  return <PopoverPrimitive.Anchor class={local.class} {...others} data-slot="popover-anchor" />;
 }
 
 function PopoverTrigger(props: ComponentProps<typeof PopoverPrimitive.Trigger>) {
@@ -80,9 +80,9 @@ function PopoverTrigger(props: ComponentProps<typeof PopoverPrimitive.Trigger>) 
   return (
     <PopoverPrimitive.Trigger
       asChild={local.asChild}
-      data-slot="popover-trigger"
       class={clsx(!local.asChild && styles.trigger, local.class)}
       {...others}
+      data-slot="popover-trigger"
     />
   );
 }
@@ -91,7 +91,7 @@ function PopoverIndicator(props: ComponentProps<typeof PopoverPrimitive.Indicato
   const [local, others] = splitProps(props, ['class']);
 
   return (
-    <PopoverPrimitive.Indicator data-slot="popover-indicator" class={local.class} {...others} />
+    <PopoverPrimitive.Indicator class={local.class} {...others} data-slot="popover-indicator" />
   );
 }
 
@@ -101,9 +101,9 @@ function PopoverPositioner(props: ComponentProps<typeof PopoverPrimitive.Positio
   return (
     <OverlayPortal>
       <PopoverPrimitive.Positioner
-        data-slot="popover-positioner"
         class={clsx(styles.positioner, local.class)}
         {...others}
+        data-slot="popover-positioner"
       />
     </OverlayPortal>
   );
@@ -114,9 +114,9 @@ function PopoverContent(props: ComponentProps<typeof PopoverPrimitive.Content>) 
 
   return (
     <PopoverPrimitive.Content
-      data-slot="popover-content"
       class={clsx(styles.content, local.class)}
       {...others}
+      data-slot="popover-content"
     />
   );
 }
@@ -127,9 +127,9 @@ function PopoverArrow(props: ComponentProps<typeof PopoverPrimitive.Arrow>) {
 
   return (
     <PopoverPrimitive.Arrow
-      data-slot="popover-arrow"
       class={clsx(styles.arrow, local.class)}
       {...others}
+      data-slot="popover-arrow"
     >
       {resolvedChildren() ?? <PopoverArrowTip />}
     </PopoverPrimitive.Arrow>
@@ -141,9 +141,9 @@ function PopoverArrowTip(props: ComponentProps<typeof PopoverPrimitive.ArrowTip>
 
   return (
     <PopoverPrimitive.ArrowTip
-      data-slot="popover-arrow-tip"
       class={clsx(styles.arrowTip, local.class)}
       {...others}
+      data-slot="popover-arrow-tip"
     />
   );
 }
@@ -153,9 +153,9 @@ function PopoverTitle(props: ComponentProps<typeof PopoverPrimitive.Title>) {
 
   return (
     <PopoverPrimitive.Title
-      data-slot="popover-title"
       class={clsx(styles.title, local.class)}
       {...others}
+      data-slot="popover-title"
     />
   );
 }
@@ -165,9 +165,9 @@ function PopoverDescription(props: ComponentProps<typeof PopoverPrimitive.Descri
 
   return (
     <PopoverPrimitive.Description
-      data-slot="popover-description"
       class={clsx(styles.description, local.class)}
       {...others}
+      data-slot="popover-description"
     />
   );
 }
@@ -178,9 +178,9 @@ function PopoverCloseTrigger(props: ComponentProps<typeof PopoverPrimitive.Close
   return (
     <PopoverPrimitive.CloseTrigger
       asChild={local.asChild}
-      data-slot="popover-close-trigger"
       class={clsx(!local.asChild && styles.closeTrigger, local.class)}
       {...others}
+      data-slot="popover-close-trigger"
     />
   );
 }
@@ -211,21 +211,21 @@ function PopoverHeader(props: HTMLArkProps<'div'>) {
   const [local, others] = splitProps(props, ['class']);
 
   return (
-    <ark.div data-slot="popover-header" class={clsx(styles.header, local.class)} {...others} />
+    <ark.div class={clsx(styles.header, local.class)} {...others} data-slot="popover-header" />
   );
 }
 
 function PopoverBody(props: HTMLArkProps<'div'>) {
   const [local, others] = splitProps(props, ['class']);
 
-  return <ark.div data-slot="popover-body" class={clsx(styles.body, local.class)} {...others} />;
+  return <ark.div class={clsx(styles.body, local.class)} {...others} data-slot="popover-body" />;
 }
 
 function PopoverFooter(props: HTMLArkProps<'div'>) {
   const [local, others] = splitProps(props, ['class']);
 
   return (
-    <ark.div data-slot="popover-footer" class={clsx(styles.footer, local.class)} {...others} />
+    <ark.div class={clsx(styles.footer, local.class)} {...others} data-slot="popover-footer" />
   );
 }
 

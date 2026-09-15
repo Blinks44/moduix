@@ -18,9 +18,9 @@ const CarouselRoot = forwardRef<
   return (
     <CarouselPrimitive.Root
       ref={ref}
-      data-slot="carousel-root"
       className={clsx(styles.root, className)}
       {...props}
+      data-slot="carousel-root"
     />
   );
 });
@@ -32,9 +32,9 @@ const CarouselRootProvider = forwardRef<
   return (
     <CarouselPrimitive.RootProvider
       ref={ref}
-      data-slot="carousel-root-provider"
       className={clsx(styles.root, className)}
       {...props}
+      data-slot="carousel-root-provider"
     />
   );
 });
@@ -46,9 +46,9 @@ const CarouselControl = forwardRef<
   return (
     <CarouselPrimitive.Control
       ref={ref}
-      data-slot="carousel-control"
       className={clsx(styles.control, className)}
       {...props}
+      data-slot="carousel-control"
     />
   );
 });
@@ -60,9 +60,9 @@ const CarouselItemGroup = forwardRef<
   return (
     <CarouselPrimitive.ItemGroup
       ref={ref}
-      data-slot="carousel-item-group"
       className={clsx(styles.itemGroup, className)}
       {...props}
+      data-slot="carousel-item-group"
     />
   );
 });
@@ -74,9 +74,9 @@ const CarouselItem = forwardRef<
   return (
     <CarouselPrimitive.Item
       ref={ref}
-      data-slot="carousel-item"
       className={clsx(styles.item, className)}
       {...props}
+      data-slot="carousel-item"
     />
   );
 });
@@ -88,9 +88,9 @@ const CarouselPrevTrigger = forwardRef<
   return (
     <CarouselPrimitive.PrevTrigger
       ref={ref}
-      data-slot="carousel-prev-trigger"
       className={clsx(styles.prevTrigger, className)}
       {...props}
+      data-slot="carousel-prev-trigger"
     >
       {children ?? (
         <span className={styles.defaultIcon}>
@@ -108,9 +108,9 @@ const CarouselNextTrigger = forwardRef<
   return (
     <CarouselPrimitive.NextTrigger
       ref={ref}
-      data-slot="carousel-next-trigger"
       className={clsx(styles.nextTrigger, className)}
       {...props}
+      data-slot="carousel-next-trigger"
     >
       {children ?? (
         <span className={styles.defaultIcon}>
@@ -128,9 +128,9 @@ const CarouselIndicatorGroup = forwardRef<
   return (
     <CarouselPrimitive.IndicatorGroup
       ref={ref}
-      data-slot="carousel-indicator-group"
       className={clsx(styles.indicatorGroup, className)}
       {...props}
+      data-slot="carousel-indicator-group"
     />
   );
 });
@@ -142,9 +142,9 @@ const CarouselIndicator = forwardRef<
   return (
     <CarouselPrimitive.Indicator
       ref={ref}
-      data-slot="carousel-indicator"
       className={clsx(styles.indicator, className)}
       {...props}
+      data-slot="carousel-indicator"
     />
   );
 });
@@ -175,9 +175,9 @@ const CarouselAutoplayTrigger = forwardRef<
   return (
     <CarouselPrimitive.AutoplayTrigger
       ref={ref}
-      data-slot="carousel-autoplay-trigger"
       className={clsx(styles.autoplayTrigger, className)}
       {...props}
+      data-slot="carousel-autoplay-trigger"
     />
   );
 });
@@ -189,9 +189,9 @@ const CarouselAutoplayIndicator = forwardRef<
   return (
     <CarouselPrimitive.AutoplayIndicator
       ref={ref}
-      data-slot="carousel-autoplay-indicator"
       className={clsx(styles.autoplayIndicator, className)}
       {...props}
+      data-slot="carousel-autoplay-indicator"
     />
   );
 });
@@ -203,9 +203,9 @@ const CarouselProgressText = forwardRef<
   return (
     <CarouselPrimitive.ProgressText
       ref={ref}
-      data-slot="carousel-progress-text"
       className={clsx(styles.progressText, className)}
       {...props}
+      data-slot="carousel-progress-text"
     />
   );
 });

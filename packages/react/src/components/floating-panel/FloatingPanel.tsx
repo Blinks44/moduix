@@ -84,9 +84,9 @@ const FloatingPanelTrigger = forwardRef<
     <FloatingPanelPrimitive.Trigger
       ref={ref}
       asChild={asChild}
-      data-slot="floating-panel-trigger"
       className={clsx(!asChild && styles.trigger, className)}
       {...props}
+      data-slot="floating-panel-trigger"
     />
   );
 });
@@ -99,9 +99,9 @@ const FloatingPanelPositioner = forwardRef<
     <OverlayPortal>
       <FloatingPanelPrimitive.Positioner
         ref={ref}
-        data-slot="floating-panel-positioner"
         className={clsx(styles.positioner, className)}
         {...props}
+        data-slot="floating-panel-positioner"
       />
     </OverlayPortal>
   );
@@ -114,9 +114,9 @@ const FloatingPanelContent = forwardRef<
   return (
     <FloatingPanelPrimitive.Content
       ref={ref}
-      data-slot="floating-panel-content"
       className={clsx(styles.content, className)}
       {...props}
+      data-slot="floating-panel-content"
     />
   );
 });
@@ -128,9 +128,9 @@ const FloatingPanelDragTrigger = forwardRef<
   return (
     <FloatingPanelPrimitive.DragTrigger
       ref={ref}
-      data-slot="floating-panel-drag-trigger"
       className={clsx(styles.dragTrigger, className)}
       {...props}
+      data-slot="floating-panel-drag-trigger"
     />
   );
 });
@@ -142,9 +142,9 @@ const FloatingPanelHeader = forwardRef<
   return (
     <FloatingPanelPrimitive.Header
       ref={ref}
-      data-slot="floating-panel-header"
       className={clsx(styles.header, className)}
       {...props}
+      data-slot="floating-panel-header"
     />
   );
 });
@@ -156,9 +156,9 @@ const FloatingPanelTitle = forwardRef<
   return (
     <FloatingPanelPrimitive.Title
       ref={ref}
-      data-slot="floating-panel-title"
       className={clsx(styles.title, className)}
       {...props}
+      data-slot="floating-panel-title"
     />
   );
 });
@@ -170,9 +170,9 @@ const FloatingPanelControl = forwardRef<
   return (
     <FloatingPanelPrimitive.Control
       ref={ref}
-      data-slot="floating-panel-control"
       className={clsx(styles.control, className)}
       {...props}
+      data-slot="floating-panel-control"
     />
   );
 });
@@ -191,10 +191,10 @@ const FloatingPanelStageTrigger = forwardRef<
       ref={ref}
       asChild={asChild}
       stage={stage}
-      data-slot="floating-panel-stage-trigger"
       className={clsx(!asChild && styles.controlButton, className)}
       aria-label={ariaLabel}
       {...props}
+      data-slot="floating-panel-stage-trigger"
     >
       {children}
       {shouldRenderDefaultIcon && stage === 'minimized' ? <MinusIcon /> : null}
@@ -212,9 +212,9 @@ const FloatingPanelCloseTrigger = forwardRef<
     <FloatingPanelPrimitive.CloseTrigger
       ref={ref}
       asChild={asChild}
-      data-slot="floating-panel-close-trigger"
       className={clsx(!asChild && styles.controlButton, className)}
       {...props}
+      data-slot="floating-panel-close-trigger"
     />
   );
 });
@@ -247,9 +247,9 @@ const FloatingPanelBody = forwardRef<
   return (
     <FloatingPanelPrimitive.Body
       ref={ref}
-      data-slot="floating-panel-body"
       className={clsx(styles.body, className)}
       {...props}
+      data-slot="floating-panel-body"
     />
   );
 });
@@ -279,9 +279,9 @@ const FloatingPanelResizeTrigger = forwardRef<
   return (
     <FloatingPanelPrimitive.ResizeTrigger
       ref={ref}
-      data-slot="floating-panel-resize-trigger"
       className={clsx(styles.resizeTrigger, className)}
       {...props}
+      data-slot="floating-panel-resize-trigger"
     />
   );
 });
@@ -306,9 +306,9 @@ const FloatingPanelDragIndicator = forwardRef<HTMLSpanElement, ComponentProps<'s
       <span
         ref={ref}
         aria-hidden="true"
-        data-slot="floating-panel-drag-indicator"
         className={clsx(styles.dragIndicator, className)}
         {...props}
+        data-slot="floating-panel-drag-indicator"
       >
         {children ?? <GripIcon />}
       </span>

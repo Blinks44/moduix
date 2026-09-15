@@ -24,13 +24,13 @@ function CheckboxRoot(props: CheckboxRootProps) {
   return (
     <CheckboxPrimitive.Root
       asChild={local.asChild}
-      data-slot="checkbox-root"
       data-size={local.size ?? 'md'}
       class={cn(
         'group/checkbox inline-flex cursor-pointer items-center gap-2 align-middle text-foreground data-disabled:cursor-default data-disabled:opacity-50 data-readonly:cursor-default',
         local.class,
       )}
       {...others}
+      data-slot="checkbox-root"
     >
       {local.children}
     </CheckboxPrimitive.Root>
@@ -43,13 +43,13 @@ function CheckboxRootProvider(props: CheckboxRootProviderProps) {
   return (
     <CheckboxPrimitive.RootProvider
       asChild={local.asChild}
-      data-slot="checkbox-root-provider"
       data-size={local.size ?? 'md'}
       class={cn(
         'group/checkbox inline-flex cursor-pointer items-center gap-2 align-middle text-foreground data-disabled:cursor-default data-disabled:opacity-50 data-readonly:cursor-default',
         local.class,
       )}
       {...others}
+      data-slot="checkbox-root-provider"
     >
       {local.children}
     </CheckboxPrimitive.RootProvider>
@@ -66,10 +66,10 @@ function CheckboxIndicator(props: ComponentProps<typeof CheckboxPrimitive.Indica
 
   return (
     <CheckboxPrimitive.Indicator
-      data-slot="checkbox-indicator"
       class={cn('inline-flex h-full w-full items-center justify-center text-inherit', local.class)}
       indeterminate={local.indeterminate}
       {...others}
+      data-slot="checkbox-indicator"
     >
       {resolvedChildren() ?? (
         <span
@@ -90,12 +90,12 @@ function CheckboxControl(props: ComponentProps<typeof CheckboxPrimitive.Control>
 
   return (
     <CheckboxPrimitive.Control
-      data-slot="checkbox-control"
       class={cn(
         "[@media(hover:hover)]:[&:not([data-disabled]):not([data-readonly])[data-state='unchecked'][data-hover]:bg-accent box-border inline-flex size-5 shrink-0 items-center justify-center rounded-xs border border-border bg-background p-0 leading-none text-primary-foreground transition-[background-color,border-color,color,opacity] duration-200 select-none group-data-[size=lg]/checkbox:size-control-xs group-data-[size=sm]/checkbox:size-4 group-data-[size=xl]/checkbox:size-7 group-data-[size=xs]/checkbox:size-3.5 data-focus-visible:outline-1 data-focus-visible:outline-offset-1 data-focus-visible:outline-ring data-invalid:border-destructive data-invalid:text-destructive-foreground data-invalid:data-focus-visible:outline-destructive data-[state=checked]:border-primary data-[state=checked]:bg-primary data-invalid:data-[state=checked]:border-destructive data-invalid:data-[state=checked]:bg-destructive data-[state=indeterminate]:border-primary data-[state=indeterminate]:bg-primary data-invalid:data-[state=indeterminate]:border-destructive data-invalid:data-[state=indeterminate]:bg-destructive motion-reduce:transition-none",
         local.class,
       )}
       {...others}
+      data-slot="checkbox-control"
     >
       {resolvedChildren() ?? (
         <>
@@ -112,9 +112,9 @@ function CheckboxLabel(props: ComponentProps<typeof CheckboxPrimitive.Label>) {
 
   return (
     <CheckboxPrimitive.Label
-      data-slot="checkbox-label"
       class={cn('text-sm leading-5 font-medium text-inherit', local.class)}
       {...others}
+      data-slot="checkbox-label"
     />
   );
 }
@@ -124,9 +124,9 @@ function CheckboxGroup(props: ComponentProps<typeof CheckboxPrimitive.Group>) {
 
   return (
     <CheckboxPrimitive.Group
-      data-slot="checkbox-group"
       class={cn('flex flex-col gap-2 text-foreground', local.class)}
       {...others}
+      data-slot="checkbox-group"
     />
   );
 }

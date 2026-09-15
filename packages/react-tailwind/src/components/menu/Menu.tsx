@@ -90,7 +90,6 @@ const MenuTrigger = forwardRef<
   return (
     <MenuPrimitive.Trigger
       ref={ref}
-      data-slot="menu-trigger"
       asChild={asChild}
       className={cn(
         !asChild &&
@@ -98,6 +97,7 @@ const MenuTrigger = forwardRef<
         className,
       )}
       {...props}
+      data-slot="menu-trigger"
     />
   );
 });
@@ -105,12 +105,12 @@ const MenuTrigger = forwardRef<
 function MenuTriggerIcon({ className, children, ...props }: ComponentProps<'span'>) {
   return (
     <span
-      data-slot="menu-trigger-icon"
       className={cn(
         'inline-flex size-4 shrink-0 items-center justify-center [&_svg]:size-full',
         className,
       )}
       {...props}
+      data-slot="menu-trigger-icon"
     >
       {children ?? <ChevronDownIcon />}
     </span>
@@ -124,12 +124,12 @@ const MenuIndicator = forwardRef<
   return (
     <MenuPrimitive.Indicator
       ref={ref}
-      data-slot="menu-indicator"
       className={cn(
         'inline-flex size-4 shrink-0 items-center justify-center [&_svg]:size-full',
         className,
       )}
       {...props}
+      data-slot="menu-indicator"
     >
       {children ?? <ChevronDownIcon />}
     </MenuPrimitive.Indicator>
@@ -143,7 +143,6 @@ const MenuContextTrigger = forwardRef<
   return (
     <MenuPrimitive.ContextTrigger
       ref={ref}
-      data-slot="menu-context-trigger"
       asChild={asChild}
       className={cn(
         !asChild &&
@@ -151,6 +150,7 @@ const MenuContextTrigger = forwardRef<
         className,
       )}
       {...props}
+      data-slot="menu-context-trigger"
     />
   );
 });
@@ -163,12 +163,12 @@ const MenuPositioner = forwardRef<
     <OverlayPortal>
       <MenuPrimitive.Positioner
         ref={ref}
-        data-slot="menu-positioner"
         className={cn(
           'z-[var(--z-index)] w-[var(--positioner-width,auto)] max-w-[var(--available-width)] outline-0',
           className,
         )}
         {...props}
+        data-slot="menu-positioner"
       />
     </OverlayPortal>
   );
@@ -181,13 +181,13 @@ const MenuContent = forwardRef<
   return (
     <MenuPrimitive.Content
       ref={ref}
-      data-slot="menu-content"
       asChild={asChild}
       className={cn(
         'relative z-[calc(var(--moduix-z-popup)+var(--layer-index,0))] flex max-w-[min(20rem,var(--available-width,100vw))] min-w-[min(max(var(--reference-width,0px),12rem),var(--available-width,100vw))] origin-[var(--transform-origin)] flex-col overflow-visible rounded-md bg-popover py-1 text-popover-foreground shadow-lg outline-1 outline-border [--arrow-background:var(--color-popover)] [--arrow-size:0.625rem] data-[state=closed]:animate-moduix-menu-closed data-[state=open]:animate-moduix-menu-open motion-reduce:[animation-delay:0ms] motion-reduce:[animation-duration:1ms]',
         className,
       )}
       {...props}
+      data-slot="menu-content"
     >
       {children}
     </MenuPrimitive.Content>
@@ -201,12 +201,12 @@ const MenuViewport = forwardRef<ComponentRef<typeof ark.div>, HTMLArkProps<'div'
         ref={ref}
         data-scope="menu"
         data-part="viewport"
-        data-slot="menu-viewport"
         className={cn(
           'flex max-h-[min(24rem,var(--available-height,100dvh))] flex-col overflow-auto',
           className,
         )}
         {...props}
+        data-slot="menu-viewport"
       />
     );
   },
@@ -219,9 +219,9 @@ const MenuArrow = forwardRef<
   return (
     <MenuPrimitive.Arrow
       ref={ref}
-      data-slot="menu-arrow"
       className={cn('[--arrow-background:var(--color-popover)]', className)}
       {...props}
+      data-slot="menu-arrow"
     >
       {children ?? <MenuArrowTip />}
     </MenuPrimitive.Arrow>
@@ -235,12 +235,12 @@ const MenuArrowTip = forwardRef<
   return (
     <MenuPrimitive.ArrowTip
       ref={ref}
-      data-slot="menu-arrow-tip"
       className={cn(
         '[border-block-start:1px_solid_var(--color-border)] [border-inline-start:1px_solid_var(--color-border)]',
         className,
       )}
       {...props}
+      data-slot="menu-arrow-tip"
     />
   );
 });
@@ -250,10 +250,10 @@ const MenuItem = forwardRef<ComponentRef<typeof MenuPrimitive.Item>, MenuItemPro
     return (
       <MenuPrimitive.Item
         ref={ref}
-        data-slot="menu-item"
         data-tone={tone}
         className={cn(menuItemStyles({ layout: 'item', tone }), className)}
         {...props}
+        data-slot="menu-item"
       />
     );
   },
@@ -266,9 +266,9 @@ const MenuTriggerItem = forwardRef<
   return (
     <MenuPrimitive.TriggerItem
       ref={ref}
-      data-slot="menu-trigger-item"
       className={cn(menuItemStyles({ layout: 'triggerItem' }), className)}
       {...props}
+      data-slot="menu-trigger-item"
     />
   );
 });
@@ -276,9 +276,9 @@ const MenuTriggerItem = forwardRef<
 function MenuTriggerItemIcon({ className, children, ...props }: ComponentProps<'span'>) {
   return (
     <span
-      data-slot="menu-trigger-item-icon"
       className={cn('inline-flex size-3.5 shrink-0 rtl:-scale-x-100 [&_svg]:size-full', className)}
       {...props}
+      data-slot="menu-trigger-item-icon"
     >
       {children ?? <ChevronRightIcon />}
     </span>
@@ -292,9 +292,9 @@ const MenuSeparator = forwardRef<
   return (
     <MenuPrimitive.Separator
       ref={ref}
-      data-slot="menu-separator"
       className={cn('mx-3 my-1.5 h-px border-0 bg-border', className)}
       {...props}
+      data-slot="menu-separator"
     />
   );
 });
@@ -306,9 +306,9 @@ const MenuItemGroup = forwardRef<
   return (
     <MenuPrimitive.ItemGroup
       ref={ref}
-      data-slot="menu-item-group"
       className={cn('grid', className)}
       {...props}
+      data-slot="menu-item-group"
     />
   );
 });
@@ -320,12 +320,12 @@ const MenuItemGroupLabel = forwardRef<
   return (
     <MenuPrimitive.ItemGroupLabel
       ref={ref}
-      data-slot="menu-item-group-label"
       className={cn(
         'cursor-default px-2.5 py-1 text-xs font-normal text-muted-foreground select-none',
         className,
       )}
       {...props}
+      data-slot="menu-item-group-label"
     />
   );
 });
@@ -337,9 +337,9 @@ const MenuRadioItemGroup = forwardRef<
   return (
     <MenuPrimitive.RadioItemGroup
       ref={ref}
-      data-slot="menu-radio-item-group"
       className={cn('grid', className)}
       {...props}
+      data-slot="menu-radio-item-group"
     />
   );
 });
@@ -349,10 +349,10 @@ const MenuRadioItem = forwardRef<ComponentRef<typeof MenuPrimitive.RadioItem>, M
     return (
       <MenuPrimitive.RadioItem
         ref={ref}
-        data-slot="menu-radio-item"
         data-indicator-position={indicator}
         className={cn(menuItemStyles({ layout: 'indicatorItem', indicator }), className)}
         {...props}
+        data-slot="menu-radio-item"
       />
     );
   },
@@ -365,10 +365,10 @@ const MenuCheckboxItem = forwardRef<
   return (
     <MenuPrimitive.CheckboxItem
       ref={ref}
-      data-slot="menu-checkbox-item"
       data-indicator-position={indicator}
       className={cn(menuItemStyles({ layout: 'indicatorItem', indicator }), className)}
       {...props}
+      data-slot="menu-checkbox-item"
     />
   );
 });
@@ -380,12 +380,12 @@ const MenuItemIndicator = forwardRef<
   return (
     <MenuPrimitive.ItemIndicator
       ref={ref}
-      data-slot="menu-item-indicator"
       className={cn(
         'inline-flex size-3 items-center justify-center rounded-xs [&_svg]:size-full',
         className,
       )}
       {...props}
+      data-slot="menu-item-indicator"
     >
       {children ?? <CheckIcon />}
     </MenuPrimitive.ItemIndicator>
@@ -399,9 +399,9 @@ const MenuItemText = forwardRef<
   return (
     <MenuPrimitive.ItemText
       ref={ref}
-      data-slot="menu-item-text"
       className={cn('min-w-0 overflow-hidden', className)}
       {...props}
+      data-slot="menu-item-text"
     />
   );
 });
@@ -411,9 +411,9 @@ const MenuItemTextContent = forwardRef<ComponentRef<typeof ark.span>, HTMLArkPro
     return (
       <ark.span
         ref={ref}
-        data-slot="menu-item-text-content"
         className={cn('inline-flex max-w-full min-w-0 items-center gap-2 align-top', className)}
         {...props}
+        data-slot="menu-item-text-content"
       />
     );
   },
@@ -424,12 +424,12 @@ const MenuItemTextIcon = forwardRef<ComponentRef<typeof ark.span>, HTMLArkProps<
     return (
       <ark.span
         ref={ref}
-        data-slot="menu-item-text-icon"
         className={cn(
           'inline-flex size-4 shrink-0 items-center justify-center [&_svg]:size-full',
           className,
         )}
         {...props}
+        data-slot="menu-item-text-icon"
       />
     );
   },
@@ -440,9 +440,9 @@ const MenuItemTextLabel = forwardRef<ComponentRef<typeof ark.span>, HTMLArkProps
     return (
       <ark.span
         ref={ref}
-        data-slot="menu-item-text-label"
         className={cn('min-w-0 overflow-hidden text-ellipsis whitespace-nowrap', className)}
         {...props}
+        data-slot="menu-item-text-label"
       />
     );
   },
@@ -453,9 +453,9 @@ const MenuItemShortcut = forwardRef<ComponentRef<typeof ark.span>, HTMLArkProps<
     return (
       <ark.span
         ref={ref}
-        data-slot="menu-item-shortcut"
         className={cn('ms-auto ps-4 text-xs whitespace-nowrap text-muted-foreground', className)}
         {...props}
+        data-slot="menu-item-shortcut"
       />
     );
   },

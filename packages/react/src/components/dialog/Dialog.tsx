@@ -59,9 +59,9 @@ const DialogTrigger = forwardRef<
     <DialogPrimitive.Trigger
       ref={ref}
       asChild={asChild}
-      data-slot="dialog-trigger"
       className={clsx(!asChild && styles.trigger, className)}
       {...props}
+      data-slot="dialog-trigger"
     />
   );
 });
@@ -74,9 +74,9 @@ const DialogBackdrop = forwardRef<
     <OverlayPortal>
       <DialogPrimitive.Backdrop
         ref={ref}
-        data-slot="dialog-backdrop"
         className={clsx(styles.backdrop, className)}
         {...props}
+        data-slot="dialog-backdrop"
       />
     </OverlayPortal>
   );
@@ -90,9 +90,9 @@ const DialogPositioner = forwardRef<
     <OverlayPortal>
       <DialogPrimitive.Positioner
         ref={ref}
-        data-slot="dialog-positioner"
         className={clsx(styles.positioner, className)}
         {...props}
+        data-slot="dialog-positioner"
       />
     </OverlayPortal>
   );
@@ -105,9 +105,9 @@ const DialogContent = forwardRef<
   return (
     <DialogPrimitive.Content
       ref={ref}
-      data-slot="dialog-content"
       className={clsx(styles.content, className)}
       {...props}
+      data-slot="dialog-content"
     />
   );
 });
@@ -119,9 +119,9 @@ const DialogTitle = forwardRef<
   return (
     <DialogPrimitive.Title
       ref={ref}
-      data-slot="dialog-title"
       className={clsx(styles.title, className)}
       {...props}
+      data-slot="dialog-title"
     />
   );
 });
@@ -133,9 +133,9 @@ const DialogDescription = forwardRef<
   return (
     <DialogPrimitive.Description
       ref={ref}
-      data-slot="dialog-description"
       className={clsx(styles.description, className)}
       {...props}
+      data-slot="dialog-description"
     />
   );
 });
@@ -148,9 +148,9 @@ const DialogCloseTrigger = forwardRef<
     <DialogPrimitive.CloseTrigger
       ref={ref}
       asChild={asChild}
-      data-slot="dialog-close-trigger"
       className={clsx(!asChild && styles.closeTrigger, className)}
       {...props}
+      data-slot="dialog-close-trigger"
     />
   );
 });
@@ -181,9 +181,9 @@ const DialogHeader = forwardRef<ComponentRef<typeof ark.div>, HTMLArkProps<'div'
     return (
       <ark.div
         ref={ref}
-        data-slot="dialog-header"
         className={clsx(styles.header, className)}
         {...props}
+        data-slot="dialog-header"
       />
     );
   },
@@ -194,9 +194,9 @@ const DialogBody = forwardRef<ComponentRef<typeof ark.div>, HTMLArkProps<'div'>>
     return (
       <ark.div
         ref={ref}
-        data-slot="dialog-body"
         className={clsx(styles.body, className)}
         {...props}
+        data-slot="dialog-body"
       />
     );
   },
@@ -207,9 +207,9 @@ const DialogFooter = forwardRef<ComponentRef<typeof ark.div>, HTMLArkProps<'div'
     return (
       <ark.div
         ref={ref}
-        data-slot="dialog-footer"
         className={clsx(styles.footer, className)}
         {...props}
+        data-slot="dialog-footer"
       />
     );
   },

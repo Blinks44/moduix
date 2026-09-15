@@ -17,9 +17,9 @@ const ClipboardRoot = forwardRef<
   return (
     <ClipboardPrimitive.Root
       ref={ref}
-      data-slot="clipboard-root"
       className={cn('flex w-full flex-col gap-1.5 text-foreground', className)}
       {...props}
+      data-slot="clipboard-root"
     />
   );
 });
@@ -31,9 +31,9 @@ const ClipboardRootProvider = forwardRef<
   return (
     <ClipboardPrimitive.RootProvider
       ref={ref}
-      data-slot="clipboard-root-provider"
       className={cn('flex w-full flex-col gap-1.5 text-foreground', className)}
       {...props}
+      data-slot="clipboard-root-provider"
     />
   );
 });
@@ -45,9 +45,9 @@ const ClipboardLabel = forwardRef<
   return (
     <ClipboardPrimitive.Label
       ref={ref}
-      data-slot="clipboard-label"
       className={cn('text-sm leading-5 font-medium', className)}
       {...props}
+      data-slot="clipboard-label"
     />
   );
 });
@@ -59,9 +59,9 @@ const ClipboardControl = forwardRef<
   return (
     <ClipboardPrimitive.Control
       ref={ref}
-      data-slot="clipboard-control"
       className={cn('flex w-full items-center gap-2', className)}
       {...props}
+      data-slot="clipboard-control"
     />
   );
 });
@@ -73,12 +73,12 @@ const ClipboardInput = forwardRef<
   return (
     <ClipboardPrimitive.Input
       ref={ref}
-      data-slot="clipboard-input"
       className={cn(
         'box-border min-h-control-md w-full min-w-0 rounded-md border border-border bg-background px-3.5 py-1 text-md leading-6 text-foreground outline-1 -outline-offset-1 outline-transparent transition duration-200 ease-in-out placeholder:text-muted-foreground focus-visible:outline-ring disabled:pointer-events-none disabled:opacity-50 data-disabled:pointer-events-none data-disabled:opacity-50',
         className,
       )}
       {...props}
+      data-slot="clipboard-input"
     />
   );
 });
@@ -90,12 +90,12 @@ const ClipboardTrigger = forwardRef<
   return (
     <ClipboardPrimitive.Trigger
       ref={ref}
-      data-slot="clipboard-trigger"
       className={cn(
         'box-border inline-flex min-h-control-md shrink-0 cursor-pointer appearance-none items-center justify-center gap-2 rounded-md border border-border bg-background px-4 text-sm leading-5 font-medium whitespace-nowrap text-foreground transition duration-200 ease-in-out select-none focus-visible:outline-2 focus-visible:-outline-offset-1 focus-visible:outline-ring disabled:pointer-events-none disabled:cursor-default disabled:opacity-50 data-disabled:pointer-events-none data-disabled:cursor-default data-disabled:opacity-50 motion-reduce:transition-none [&_svg]:size-4 [&_svg]:shrink-0 [&:active:not(:disabled):not([data-disabled])]:opacity-[0.94] motion-safe:[&:active:not(:disabled):not([data-disabled])]:translate-y-px motion-safe:[&:active:not(:disabled):not([data-disabled])]:scale-[0.985] [@media(hover:hover)]:[&:not(:disabled):not([data-disabled]):hover]:bg-accent',
         className,
       )}
       {...props}
+      data-slot="clipboard-trigger"
     />
   );
 });
@@ -107,7 +107,6 @@ const ClipboardIndicator = forwardRef<
   return (
     <ClipboardPrimitive.Indicator
       ref={ref}
-      data-slot="clipboard-indicator"
       className={cn('inline-flex shrink-0 items-center justify-center', className)}
       copied={
         copied ?? (
@@ -121,6 +120,7 @@ const ClipboardIndicator = forwardRef<
         )
       }
       {...props}
+      data-slot="clipboard-indicator"
     >
       {children ?? (
         <span
@@ -142,9 +142,9 @@ const ClipboardValueText = forwardRef<
   return (
     <ClipboardPrimitive.ValueText
       ref={ref}
-      data-slot="clipboard-value-text"
       className={cn('min-w-0 overflow-hidden text-ellipsis whitespace-nowrap', className)}
       {...props}
+      data-slot="clipboard-value-text"
     />
   );
 });
@@ -154,7 +154,7 @@ const ClipboardCopyText = forwardRef<
   ComponentProps<typeof ClipboardPrimitive.Indicator>
 >(function ClipboardCopyText({ copied = 'Copied', children = 'Copy', ...props }, ref) {
   return (
-    <ClipboardIndicator ref={ref} data-slot="clipboard-copy-text" copied={copied} {...props}>
+    <ClipboardIndicator ref={ref} copied={copied} {...props} data-slot="clipboard-copy-text">
       {children}
     </ClipboardIndicator>
   );

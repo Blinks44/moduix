@@ -97,11 +97,11 @@ const SplitButtonAction = forwardRef<ComponentRef<typeof Button>, SplitButtonAct
     return (
       <Button
         ref={ref}
-        data-slot="split-button-action"
         size={size ?? context.size}
         variant={variant ?? context.variant}
         className={clsx(styles.action, className)}
         {...props}
+        data-slot="split-button-action"
       />
     );
   },
@@ -119,10 +119,10 @@ const SplitButtonTrigger = forwardRef<ComponentRef<typeof Menu.Trigger>, SplitBu
       <Menu.Trigger
         ref={ref}
         asChild
-        data-slot="split-button-trigger"
         aria-label={isIconOnly ? (ariaLabel ?? 'More actions') : ariaLabel}
         className={clsx(styles.trigger, className)}
         {...props}
+        data-slot="split-button-trigger"
       >
         <Button size={size ?? context.size} variant={variant ?? context.variant}>
           {children ?? <ChevronDownIcon />}
@@ -139,9 +139,9 @@ const SplitButtonPositioner = forwardRef<
   return (
     <Menu.Positioner
       ref={ref}
-      data-slot="split-button-positioner"
       className={className}
       {...props}
+      data-slot="split-button-positioner"
     />
   );
 });
@@ -152,9 +152,9 @@ const SplitButtonContent = forwardRef<ComponentRef<typeof Menu.Content>, SplitBu
       <Menu.Content
         ref={ref}
         asChild={asChild}
-        data-slot="split-button-content"
         className={className}
         {...props}
+        data-slot="split-button-content"
       >
         {asChild ? children : <Menu.Viewport>{children}</Menu.Viewport>}
       </Menu.Content>

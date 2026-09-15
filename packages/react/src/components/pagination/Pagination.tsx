@@ -16,9 +16,9 @@ const PaginationRoot = forwardRef<
   return (
     <PaginationPrimitive.Root
       ref={ref}
-      data-slot="pagination-root"
       className={clsx(styles.root, className)}
       {...props}
+      data-slot="pagination-root"
     />
   );
 });
@@ -30,9 +30,9 @@ const PaginationRootProvider = forwardRef<
   return (
     <PaginationPrimitive.RootProvider
       ref={ref}
-      data-slot="pagination-root-provider"
       className={clsx(styles.root, className)}
       {...props}
+      data-slot="pagination-root-provider"
     />
   );
 });
@@ -44,9 +44,9 @@ const PaginationItem = forwardRef<
   return (
     <PaginationPrimitive.Item
       ref={ref}
-      data-slot="pagination-item"
       className={clsx(styles.item, className)}
       {...props}
+      data-slot="pagination-item"
     />
   );
 });
@@ -58,9 +58,9 @@ const PaginationEllipsis = forwardRef<
   return (
     <PaginationPrimitive.Ellipsis
       ref={ref}
-      data-slot="pagination-ellipsis"
       className={clsx(styles.ellipsis, className)}
       {...props}
+      data-slot="pagination-ellipsis"
     >
       {children ?? (!props.asChild && '...')}
     </PaginationPrimitive.Ellipsis>
@@ -85,9 +85,9 @@ const PaginationPrevTrigger = forwardRef<
   return (
     <PaginationPrimitive.PrevTrigger
       ref={ref}
-      data-slot="pagination-prev-trigger"
       className={clsx(styles.trigger, children == null && styles.iconTrigger, className)}
       {...props}
+      data-slot="pagination-prev-trigger"
     >
       {children ?? (!props.asChild && <ChevronLeftIcon />)}
     </PaginationPrimitive.PrevTrigger>
@@ -101,9 +101,9 @@ const PaginationNextTrigger = forwardRef<
   return (
     <PaginationPrimitive.NextTrigger
       ref={ref}
-      data-slot="pagination-next-trigger"
       className={clsx(styles.trigger, children == null && styles.iconTrigger, className)}
       {...props}
+      data-slot="pagination-next-trigger"
     >
       {children ?? (!props.asChild && <ChevronRightIcon />)}
     </PaginationPrimitive.NextTrigger>
@@ -117,9 +117,9 @@ const PaginationFirstTrigger = forwardRef<
   return (
     <PaginationPrimitive.FirstTrigger
       ref={ref}
-      data-slot="pagination-first-trigger"
       className={clsx(styles.trigger, children == null && styles.iconTrigger, className)}
       {...props}
+      data-slot="pagination-first-trigger"
     >
       {children ?? (!props.asChild && <EdgeIcon side="left" />)}
     </PaginationPrimitive.FirstTrigger>
@@ -133,9 +133,9 @@ const PaginationLastTrigger = forwardRef<
   return (
     <PaginationPrimitive.LastTrigger
       ref={ref}
-      data-slot="pagination-last-trigger"
       className={clsx(styles.trigger, children == null && styles.iconTrigger, className)}
       {...props}
+      data-slot="pagination-last-trigger"
     >
       {children ?? (!props.asChild && <EdgeIcon side="right" />)}
     </PaginationPrimitive.LastTrigger>

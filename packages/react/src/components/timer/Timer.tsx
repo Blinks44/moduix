@@ -13,9 +13,9 @@ const TimerRoot = forwardRef<
   return (
     <TimerPrimitive.Root
       ref={ref}
-      data-slot="timer-root"
       className={clsx(styles.root, className)}
       {...props}
+      data-slot="timer-root"
     />
   );
 });
@@ -27,9 +27,9 @@ const TimerRootProvider = forwardRef<
   return (
     <TimerPrimitive.RootProvider
       ref={ref}
-      data-slot="timer-root-provider"
       className={clsx(styles.root, className)}
       {...props}
+      data-slot="timer-root-provider"
     />
   );
 });
@@ -41,9 +41,9 @@ const TimerArea = forwardRef<
   return (
     <TimerPrimitive.Area
       ref={ref}
-      data-slot="timer-area"
       className={clsx(styles.area, className)}
       {...props}
+      data-slot="timer-area"
     />
   );
 });
@@ -55,9 +55,9 @@ const TimerItem = forwardRef<
   return (
     <TimerPrimitive.Item
       ref={ref}
-      data-slot="timer-item"
       className={clsx(styles.item, className)}
       {...props}
+      data-slot="timer-item"
     />
   );
 });
@@ -69,9 +69,9 @@ const TimerSeparator = forwardRef<
   return (
     <TimerPrimitive.Separator
       ref={ref}
-      data-slot="timer-separator"
       className={clsx(styles.separator, className)}
       {...props}
+      data-slot="timer-separator"
     />
   );
 });
@@ -83,9 +83,9 @@ const TimerControl = forwardRef<
   return (
     <TimerPrimitive.Control
       ref={ref}
-      data-slot="timer-control"
       className={clsx(styles.control, className)}
       {...props}
+      data-slot="timer-control"
     />
   );
 });
@@ -97,9 +97,9 @@ const TimerActionTrigger = forwardRef<
   return (
     <TimerPrimitive.ActionTrigger
       ref={ref}
-      data-slot="timer-action-trigger"
       className={clsx(styles.actionTrigger, className)}
       {...props}
+      data-slot="timer-action-trigger"
     />
   );
 });

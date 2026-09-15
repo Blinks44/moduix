@@ -17,9 +17,9 @@ const NavigationMenuRoot = forwardRef<
   return (
     <NavigationMenuPrimitive.Root
       ref={ref}
-      data-slot="navigation-menu-root"
       className={clsx(styles.root, className)}
       {...props}
+      data-slot="navigation-menu-root"
     />
   );
 });
@@ -31,9 +31,9 @@ const NavigationMenuRootProvider = forwardRef<
   return (
     <NavigationMenuPrimitive.RootProvider
       ref={ref}
-      data-slot="navigation-menu-root-provider"
       className={clsx(styles.root, className)}
       {...props}
+      data-slot="navigation-menu-root-provider"
     />
   );
 });
@@ -45,9 +45,9 @@ const NavigationMenuList = forwardRef<
   return (
     <NavigationMenuPrimitive.List
       ref={ref}
-      data-slot="navigation-menu-list"
       className={clsx(styles.list, className)}
       {...props}
+      data-slot="navigation-menu-list"
     />
   );
 });
@@ -59,9 +59,9 @@ const NavigationMenuItem = forwardRef<
   return (
     <NavigationMenuPrimitive.Item
       ref={ref}
-      data-slot="navigation-menu-item"
       className={clsx(styles.item, className)}
       {...props}
+      data-slot="navigation-menu-item"
     />
   );
 });
@@ -74,9 +74,9 @@ const NavigationMenuTrigger = forwardRef<
     <NavigationMenuPrimitive.Trigger
       ref={ref}
       asChild={asChild}
-      data-slot="navigation-menu-trigger"
       className={clsx(!asChild && styles.trigger, className)}
       {...props}
+      data-slot="navigation-menu-trigger"
     />
   );
 });
@@ -88,9 +88,9 @@ const NavigationMenuContent = forwardRef<
   return (
     <NavigationMenuPrimitive.Content
       ref={ref}
-      data-slot="navigation-menu-content"
       className={clsx(styles.content, className)}
       {...props}
+      data-slot="navigation-menu-content"
     />
   );
 });
@@ -102,9 +102,9 @@ const NavigationMenuLink = forwardRef<
   return (
     <NavigationMenuPrimitive.Link
       ref={ref}
-      data-slot="navigation-menu-link"
       className={clsx(styles.link, className)}
       {...props}
+      data-slot="navigation-menu-link"
     />
   );
 });
@@ -116,9 +116,9 @@ const NavigationMenuIndicator = forwardRef<
   return (
     <NavigationMenuPrimitive.Indicator
       ref={ref}
-      data-slot="navigation-menu-indicator"
       className={clsx(styles.indicator, className)}
       {...props}
+      data-slot="navigation-menu-indicator"
     />
   );
 });
@@ -130,9 +130,9 @@ const NavigationMenuItemIndicator = forwardRef<
   return (
     <NavigationMenuPrimitive.ItemIndicator
       ref={ref}
-      data-slot="navigation-menu-item-indicator"
       className={clsx(styles.itemIndicator, className)}
       {...props}
+      data-slot="navigation-menu-item-indicator"
     />
   );
 });
@@ -144,9 +144,9 @@ const NavigationMenuArrow = forwardRef<
   return (
     <NavigationMenuPrimitive.Arrow
       ref={ref}
-      data-slot="navigation-menu-arrow"
       className={clsx(styles.arrow, className)}
       {...props}
+      data-slot="navigation-menu-arrow"
     />
   );
 });
@@ -158,9 +158,9 @@ const NavigationMenuViewportPositioner = forwardRef<
   return (
     <NavigationMenuPrimitive.ViewportPositioner
       ref={ref}
-      data-slot="navigation-menu-viewport-positioner"
       className={clsx(styles.viewportPositioner, className)}
       {...props}
+      data-slot="navigation-menu-viewport-positioner"
     />
   );
 });
@@ -172,9 +172,9 @@ const NavigationMenuViewport = forwardRef<
   return (
     <NavigationMenuPrimitive.Viewport
       ref={ref}
-      data-slot="navigation-menu-viewport"
       className={clsx(styles.viewport, className)}
       {...props}
+      data-slot="navigation-menu-viewport"
     />
   );
 });

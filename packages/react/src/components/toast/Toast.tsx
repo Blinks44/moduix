@@ -30,9 +30,9 @@ const Toaster = forwardRef<ComponentRef<typeof ToasterPrimitive>, ToasterProps>(
     <Portal disabled={!portalled} container={portalRef}>
       <ToasterPrimitive
         ref={ref}
-        data-slot="toast-toaster"
         className={clsx(styles.toaster, className)}
         {...props}
+        data-slot="toast-toaster"
       >
         {props.children ?? ((toast) => <DefaultToast toast={toast} />)}
       </ToasterPrimitive>
@@ -58,9 +58,9 @@ const ToastRoot = forwardRef<
   return (
     <ToastPrimitive.Root
       ref={ref}
-      data-slot="toast-root"
       className={clsx(styles.root, className)}
       {...props}
+      data-slot="toast-root"
     />
   );
 });
@@ -74,9 +74,9 @@ const ToastTitle = forwardRef<
   return (
     <ToastPrimitive.Title
       ref={ref}
-      data-slot="toast-title"
       className={clsx(styles.title, className)}
       {...props}
+      data-slot="toast-title"
     >
       {children === undefined ? toast.title : children}
     </ToastPrimitive.Title>
@@ -92,9 +92,9 @@ const ToastDescription = forwardRef<
   return (
     <ToastPrimitive.Description
       ref={ref}
-      data-slot="toast-description"
       className={clsx(styles.description, className)}
       {...props}
+      data-slot="toast-description"
     >
       {children === undefined ? toast.description : children}
     </ToastPrimitive.Description>
@@ -109,9 +109,9 @@ const ToastActionTrigger = forwardRef<
     <ToastPrimitive.ActionTrigger
       ref={ref}
       asChild={asChild}
-      data-slot="toast-action-trigger"
       className={clsx(!asChild && styles.actionTrigger, className)}
       {...props}
+      data-slot="toast-action-trigger"
     >
       {children}
     </ToastPrimitive.ActionTrigger>
@@ -130,10 +130,10 @@ const ToastCloseTrigger = forwardRef<
       <ToastPrimitive.CloseTrigger
         ref={ref}
         asChild
-        data-slot="toast-close-trigger"
         aria-label={ariaLabel}
         className={className}
         {...props}
+        data-slot="toast-close-trigger"
       >
         {children}
       </ToastPrimitive.CloseTrigger>
@@ -144,10 +144,10 @@ const ToastCloseTrigger = forwardRef<
     <ToastPrimitive.CloseTrigger asChild>
       <CloseButton.Root
         ref={ref}
-        data-slot="toast-close-trigger"
         aria-label={ariaLabel}
         className={clsx(styles.closeTrigger, className)}
         {...props}
+        data-slot="toast-close-trigger"
       >
         {children}
       </CloseButton.Root>

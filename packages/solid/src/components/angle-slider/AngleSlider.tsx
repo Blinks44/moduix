@@ -16,9 +16,9 @@ function AngleSliderRoot(props: ComponentProps<typeof AngleSliderPrimitive.Root>
   return (
     <AngleSliderPrimitive.Root
       asChild={local.asChild}
-      data-slot="angle-slider-root"
       class={clsx(styles.root, local.class)}
       {...others}
+      data-slot="angle-slider-root"
     >
       {local.children}
     </AngleSliderPrimitive.Root>
@@ -30,9 +30,9 @@ function AngleSliderLabel(props: ComponentProps<typeof AngleSliderPrimitive.Labe
 
   return (
     <AngleSliderPrimitive.Label
-      data-slot="angle-slider-label"
       class={clsx(styles.label, local.class)}
       {...others}
+      data-slot="angle-slider-label"
     />
   );
 }
@@ -48,9 +48,9 @@ function AngleSliderRootProvider(props: AngleSliderRootProviderProps) {
     <AngleSliderPrimitive.RootProvider
       asChild={local.asChild}
       value={local.value}
-      data-slot="angle-slider-root-provider"
       class={clsx(styles.root, local.class)}
       {...others}
+      data-slot="angle-slider-root-provider"
     >
       {local.children}
     </AngleSliderPrimitive.RootProvider>
@@ -62,9 +62,9 @@ function AngleSliderControl(props: ComponentProps<typeof AngleSliderPrimitive.Co
 
   return (
     <AngleSliderPrimitive.Control
-      data-slot="angle-slider-control"
       class={clsx(styles.control, local.class)}
       {...others}
+      data-slot="angle-slider-control"
     />
   );
 }
@@ -74,9 +74,9 @@ function AngleSliderThumb(props: ComponentProps<typeof AngleSliderPrimitive.Thum
 
   return (
     <AngleSliderPrimitive.Thumb
-      data-slot="angle-slider-thumb"
       class={clsx(styles.thumb, local.class)}
       {...others}
+      data-slot="angle-slider-thumb"
     />
   );
 }
@@ -86,9 +86,9 @@ function AngleSliderMarkerGroup(props: ComponentProps<typeof AngleSliderPrimitiv
 
   return (
     <AngleSliderPrimitive.MarkerGroup
-      data-slot="angle-slider-marker-group"
       class={clsx(styles.markerGroup, local.class)}
       {...others}
+      data-slot="angle-slider-marker-group"
     />
   );
 }
@@ -98,9 +98,9 @@ function AngleSliderMarker(props: ComponentProps<typeof AngleSliderPrimitive.Mar
 
   return (
     <AngleSliderPrimitive.Marker
-      data-slot="angle-slider-marker"
       class={clsx(styles.marker, local.class)}
       {...others}
+      data-slot="angle-slider-marker"
     />
   );
 }
@@ -145,9 +145,9 @@ function AngleSliderValueText(props: ComponentProps<typeof AngleSliderPrimitive.
 
   return (
     <AngleSliderPrimitive.ValueText
-      data-slot="angle-slider-value-text"
       class={clsx(styles.valueText, local.class)}
       {...others}
+      data-slot="angle-slider-value-text"
     />
   );
 }

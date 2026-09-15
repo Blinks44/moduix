@@ -58,7 +58,6 @@ const HoverCardTrigger = forwardRef<
   return (
     <HoverCardPrimitive.Trigger
       ref={ref}
-      data-slot="hover-card-trigger"
       asChild={asChild}
       className={cn(
         !asChild &&
@@ -66,6 +65,7 @@ const HoverCardTrigger = forwardRef<
         className,
       )}
       {...props}
+      data-slot="hover-card-trigger"
     />
   );
 });
@@ -78,12 +78,12 @@ const HoverCardPositioner = forwardRef<
     <OverlayPortal>
       <HoverCardPrimitive.Positioner
         ref={ref}
-        data-slot="hover-card-positioner"
         className={cn(
           'z-[var(--z-index,var(--moduix-z-popup))] max-w-[var(--available-width)] outline-0',
           className,
         )}
         {...props}
+        data-slot="hover-card-positioner"
       />
     </OverlayPortal>
   );
@@ -96,12 +96,12 @@ const HoverCardContent = forwardRef<
   return (
     <HoverCardPrimitive.Content
       ref={ref}
-      data-slot="hover-card-content"
       className={cn(
         'relative z-[calc(var(--moduix-z-popup)+var(--layer-index,0))] max-h-[min(24rem,var(--available-height,100dvh))] max-w-[min(24rem,var(--available-width))] min-w-[min(14rem,var(--available-width))] origin-[var(--transform-origin)] overflow-visible rounded-lg border border-border bg-popover p-2 wrap-anywhere text-popover-foreground shadow-lg outline-0 has-[>[data-slot=hover-card-body]]:flex has-[>[data-slot=hover-card-body]]:flex-col data-[state=closed]:animate-moduix-menu-closed data-[state=open]:animate-moduix-menu-open motion-reduce:animate-none has-[>[data-slot=hover-card-body]]:[&>[data-slot=hover-card-body]]:overflow-auto',
         className,
       )}
       {...props}
+      data-slot="hover-card-content"
     />
   );
 });
@@ -113,12 +113,12 @@ const HoverCardArrow = forwardRef<
   return (
     <HoverCardPrimitive.Arrow
       ref={ref}
-      data-slot="hover-card-arrow"
       className={cn(
         '[--arrow-background:var(--color-popover)] [--arrow-shadow-color:var(--color-border)] [--arrow-size:0.625rem]',
         className,
       )}
       {...props}
+      data-slot="hover-card-arrow"
     >
       {children ?? <HoverCardArrowTip />}
     </HoverCardPrimitive.Arrow>
@@ -132,9 +132,9 @@ const HoverCardArrowTip = forwardRef<
   return (
     <HoverCardPrimitive.ArrowTip
       ref={ref}
-      data-slot="hover-card-arrow-tip"
       className={cn('border-t border-l border-border', className)}
       {...props}
+      data-slot="hover-card-arrow-tip"
     />
   );
 });
@@ -144,9 +144,9 @@ const HoverCardBody = forwardRef<ComponentRef<typeof ark.div>, HTMLArkProps<'div
     return (
       <ark.div
         ref={ref}
-        data-slot="hover-card-body"
         className={cn('min-h-0', className)}
         {...props}
+        data-slot="hover-card-body"
       />
     );
   },

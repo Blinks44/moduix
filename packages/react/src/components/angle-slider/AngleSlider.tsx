@@ -17,9 +17,9 @@ const AngleSliderRoot = forwardRef<
   return (
     <AngleSliderPrimitive.Root
       ref={ref}
-      data-slot="angle-slider-root"
       className={clsx(styles.root, className)}
       {...props}
+      data-slot="angle-slider-root"
     />
   );
 });
@@ -31,9 +31,9 @@ const AngleSliderLabel = forwardRef<
   return (
     <AngleSliderPrimitive.Label
       ref={ref}
-      data-slot="angle-slider-label"
       className={clsx(styles.label, className)}
       {...props}
+      data-slot="angle-slider-label"
     />
   );
 });
@@ -45,10 +45,10 @@ const AngleSliderRootProvider = forwardRef<
   return (
     <AngleSliderPrimitive.RootProvider
       ref={ref}
-      data-slot="angle-slider-root-provider"
       className={clsx(styles.root, className)}
       value={value}
       {...props}
+      data-slot="angle-slider-root-provider"
     />
   );
 });
@@ -60,9 +60,9 @@ const AngleSliderControl = forwardRef<
   return (
     <AngleSliderPrimitive.Control
       ref={ref}
-      data-slot="angle-slider-control"
       className={clsx(styles.control, className)}
       {...props}
+      data-slot="angle-slider-control"
     />
   );
 });
@@ -74,9 +74,9 @@ const AngleSliderThumb = forwardRef<
   return (
     <AngleSliderPrimitive.Thumb
       ref={ref}
-      data-slot="angle-slider-thumb"
       className={clsx(styles.thumb, className)}
       {...props}
+      data-slot="angle-slider-thumb"
     />
   );
 });
@@ -88,9 +88,9 @@ const AngleSliderMarkerGroup = forwardRef<
   return (
     <AngleSliderPrimitive.MarkerGroup
       ref={ref}
-      data-slot="angle-slider-marker-group"
       className={clsx(styles.markerGroup, className)}
       {...props}
+      data-slot="angle-slider-marker-group"
     />
   );
 });
@@ -102,9 +102,9 @@ const AngleSliderMarker = forwardRef<
   return (
     <AngleSliderPrimitive.Marker
       ref={ref}
-      data-slot="angle-slider-marker"
       className={clsx(styles.marker, className)}
       {...props}
+      data-slot="angle-slider-marker"
     />
   );
 });
@@ -149,9 +149,9 @@ const AngleSliderValueText = forwardRef<
   return (
     <AngleSliderPrimitive.ValueText
       ref={ref}
-      data-slot="angle-slider-value-text"
       className={clsx(styles.valueText, className)}
       {...props}
+      data-slot="angle-slider-value-text"
     />
   );
 });

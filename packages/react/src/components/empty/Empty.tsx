@@ -13,9 +13,9 @@ const EmptyRoot = forwardRef<HTMLDivElement, HTMLArkProps<'div'>>(function Empty
       ref={ref}
       data-scope="empty"
       data-part="root"
-      data-slot="empty-root"
       className={clsx(styles.root, className)}
       {...props}
+      data-slot="empty-root"
     />
   );
 });
@@ -29,9 +29,9 @@ const EmptyIcon = forwardRef<HTMLDivElement, HTMLArkProps<'div'>>(function Empty
       ref={ref}
       data-scope="empty"
       data-part="icon"
-      data-slot="empty-icon"
       className={clsx(styles.icon, className)}
       {...props}
+      data-slot="empty-icon"
     />
   );
 });
@@ -45,9 +45,9 @@ const EmptyContent = forwardRef<HTMLDivElement, HTMLArkProps<'div'>>(function Em
       ref={ref}
       data-scope="empty"
       data-part="content"
-      data-slot="empty-content"
       className={clsx(styles.content, className)}
       {...props}
+      data-slot="empty-content"
     />
   );
 });
@@ -61,9 +61,9 @@ const EmptyTitle = forwardRef<HTMLHeadingElement, HTMLArkProps<'h3'>>(function E
       ref={ref}
       data-scope="empty"
       data-part="title"
-      data-slot="empty-title"
       className={clsx(styles.title, className)}
       {...props}
+      data-slot="empty-title"
     />
   );
 });
@@ -77,9 +77,9 @@ const EmptyDescription = forwardRef<HTMLDivElement, HTMLArkProps<'div'>>(functio
       ref={ref}
       data-scope="empty"
       data-part="description"
-      data-slot="empty-description"
       className={clsx(styles.description, className)}
       {...props}
+      data-slot="empty-description"
     />
   );
 });
@@ -93,9 +93,9 @@ const EmptyActions = forwardRef<HTMLDivElement, HTMLArkProps<'div'>>(function Em
       ref={ref}
       data-scope="empty"
       data-part="actions"
-      data-slot="empty-actions"
       className={clsx(styles.actions, className)}
       {...props}
+      data-slot="empty-actions"
     />
   );
 });

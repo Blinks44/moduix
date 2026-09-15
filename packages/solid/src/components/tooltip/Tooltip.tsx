@@ -75,9 +75,9 @@ function TooltipTrigger(props: ComponentProps<typeof TooltipPrimitive.Trigger>) 
   return (
     <TooltipPrimitive.Trigger
       asChild={local.asChild}
-      data-slot="tooltip-trigger"
       class={clsx(!local.asChild && styles.trigger, local.class)}
       {...others}
+      data-slot="tooltip-trigger"
     />
   );
 }
@@ -117,9 +117,9 @@ function TooltipPositioner(props: ComponentProps<typeof TooltipPrimitive.Positio
   return (
     <OverlayPortal>
       <TooltipPrimitive.Positioner
-        data-slot="tooltip-positioner"
         class={clsx(styles.positioner, local.class)}
         {...others}
+        data-slot="tooltip-positioner"
       />
     </OverlayPortal>
   );
@@ -130,9 +130,9 @@ function TooltipContent(props: ComponentProps<typeof TooltipPrimitive.Content>) 
 
   return (
     <TooltipPrimitive.Content
-      data-slot="tooltip-content"
       class={clsx(styles.content, local.class)}
       {...others}
+      data-slot="tooltip-content"
     />
   );
 }
@@ -151,9 +151,9 @@ function TooltipArrow(props: ComponentProps<typeof TooltipPrimitive.Arrow>) {
 
   return (
     <TooltipPrimitive.Arrow
-      data-slot="tooltip-arrow"
       class={clsx(styles.arrow, local.class)}
       {...others}
+      data-slot="tooltip-arrow"
     >
       {resolvedChildren() ?? <TooltipArrowTip />}
     </TooltipPrimitive.Arrow>
@@ -165,9 +165,9 @@ function TooltipArrowTip(props: ComponentProps<typeof TooltipPrimitive.ArrowTip>
 
   return (
     <TooltipPrimitive.ArrowTip
-      data-slot="tooltip-arrow-tip"
       class={clsx(styles.arrowTip, local.class)}
       {...others}
+      data-slot="tooltip-arrow-tip"
     />
   );
 }

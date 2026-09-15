@@ -26,9 +26,9 @@ const ListboxRoot = forwardRef(function ListboxRoot<T extends CollectionItem>(
   return (
     <ListboxPrimitive.Root
       ref={ref}
-      data-slot="listbox-root"
       className={clsx(styles.root, className)}
       {...props}
+      data-slot="listbox-root"
     />
   );
 }) as ListboxRootComponent;
@@ -40,9 +40,9 @@ const ListboxRootProvider = forwardRef(function ListboxRootProvider<T extends Co
   return (
     <ListboxPrimitive.RootProvider
       ref={ref}
-      data-slot="listbox-root-provider"
       className={clsx(styles.root, className)}
       {...props}
+      data-slot="listbox-root-provider"
     />
   );
 }) as ListboxRootProviderComponent;
@@ -54,9 +54,9 @@ const ListboxLabel = forwardRef<
   return (
     <ListboxPrimitive.Label
       ref={ref}
-      data-slot="listbox-label"
       className={clsx(styles.label, className)}
       {...props}
+      data-slot="listbox-label"
     />
   );
 });
@@ -68,16 +68,16 @@ const ListboxInput = forwardRef<
   return (
     <ListboxPrimitive.Input
       ref={ref}
-      data-slot="listbox-input"
       className={clsx(styles.input, className)}
       {...props}
+      data-slot="listbox-input"
     />
   );
 });
 
 function ListboxFilter({ className, children, ...props }: ComponentProps<'div'>) {
   return (
-    <div data-slot="listbox-filter" className={clsx(styles.filter, className)} {...props}>
+    <div className={clsx(styles.filter, className)} {...props} data-slot="listbox-filter">
       <SearchIcon data-slot="listbox-filter-icon" className={styles.filterIcon} />
       {children}
     </div>
@@ -92,11 +92,11 @@ const ListboxClearTrigger = forwardRef<ComponentRef<typeof ark.button>, HTMLArkP
     return (
       <CloseButton.Root
         ref={ref}
-        data-slot="listbox-clear-trigger"
         type={type}
         aria-label={ariaLabel}
         className={clsx(styles.clearTrigger, className)}
         {...props}
+        data-slot="listbox-clear-trigger"
       >
         {children}
       </CloseButton.Root>
@@ -111,9 +111,9 @@ const ListboxContent = forwardRef<
   return (
     <ListboxPrimitive.Content
       ref={ref}
-      data-slot="listbox-content"
       className={clsx(styles.content, className)}
       {...props}
+      data-slot="listbox-content"
     />
   );
 });
@@ -125,9 +125,9 @@ const ListboxEmpty = forwardRef<
   return (
     <ListboxPrimitive.Empty
       ref={ref}
-      data-slot="listbox-empty"
       className={clsx(styles.empty, className)}
       {...props}
+      data-slot="listbox-empty"
     />
   );
 });
@@ -139,9 +139,9 @@ const ListboxItemGroup = forwardRef<
   return (
     <ListboxPrimitive.ItemGroup
       ref={ref}
-      data-slot="listbox-item-group"
       className={clsx(styles.itemGroup, className)}
       {...props}
+      data-slot="listbox-item-group"
     />
   );
 });
@@ -153,9 +153,9 @@ const ListboxItemGroupLabel = forwardRef<
   return (
     <ListboxPrimitive.ItemGroupLabel
       ref={ref}
-      data-slot="listbox-item-group-label"
       className={clsx(styles.itemGroupLabel, className)}
       {...props}
+      data-slot="listbox-item-group-label"
     />
   );
 });
@@ -167,9 +167,9 @@ const ListboxItem = forwardRef<
   return (
     <ListboxPrimitive.Item
       ref={ref}
-      data-slot="listbox-item"
       className={clsx(styles.item, className)}
       {...props}
+      data-slot="listbox-item"
     />
   );
 });
@@ -181,9 +181,9 @@ const ListboxItemText = forwardRef<
   return (
     <ListboxPrimitive.ItemText
       ref={ref}
-      data-slot="listbox-item-text"
       className={clsx(styles.itemText, className)}
       {...props}
+      data-slot="listbox-item-text"
     />
   );
 });
@@ -195,9 +195,9 @@ const ListboxItemIndicator = forwardRef<
   return (
     <ListboxPrimitive.ItemIndicator
       ref={ref}
-      data-slot="listbox-item-indicator"
       className={clsx(styles.itemIndicator, className)}
       {...props}
+      data-slot="listbox-item-indicator"
     >
       {children ?? <CheckIcon />}
     </ListboxPrimitive.ItemIndicator>
@@ -211,9 +211,9 @@ const ListboxValueText = forwardRef<
   return (
     <ListboxPrimitive.ValueText
       ref={ref}
-      data-slot="listbox-value-text"
       className={clsx(styles.valueText, className)}
       {...props}
+      data-slot="listbox-value-text"
     />
   );
 });
@@ -223,9 +223,9 @@ const ListboxItemTextContent = forwardRef<ComponentRef<typeof ark.span>, HTMLArk
     return (
       <ark.span
         ref={ref}
-        data-slot="listbox-item-text-content"
         className={clsx(styles.itemTextContent, className)}
         {...props}
+        data-slot="listbox-item-text-content"
       />
     );
   },
@@ -236,9 +236,9 @@ const ListboxItemTextIcon = forwardRef<ComponentRef<typeof ark.span>, HTMLArkPro
     return (
       <ark.span
         ref={ref}
-        data-slot="listbox-item-text-icon"
         className={clsx(styles.itemTextIcon, className)}
         {...props}
+        data-slot="listbox-item-text-icon"
       />
     );
   },
@@ -249,9 +249,9 @@ const ListboxItemTextLabel = forwardRef<ComponentRef<typeof ark.span>, HTMLArkPr
     return (
       <ark.span
         ref={ref}
-        data-slot="listbox-item-text-label"
         className={clsx(styles.itemTextLabel, className)}
         {...props}
+        data-slot="listbox-item-text-label"
       />
     );
   },

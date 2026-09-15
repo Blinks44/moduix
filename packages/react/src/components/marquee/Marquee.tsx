@@ -15,9 +15,9 @@ const MarqueeRoot = forwardRef<
   return (
     <MarqueePrimitive.Root
       ref={ref}
-      data-slot="marquee-root"
       className={clsx(styles.root, className)}
       {...props}
+      data-slot="marquee-root"
     />
   );
 });
@@ -29,9 +29,9 @@ const MarqueeRootProvider = forwardRef<
   return (
     <MarqueePrimitive.RootProvider
       ref={ref}
-      data-slot="marquee-root-provider"
       className={clsx(styles.root, className)}
       {...props}
+      data-slot="marquee-root-provider"
     />
   );
 });
@@ -43,9 +43,9 @@ const MarqueeViewport = forwardRef<
   return (
     <MarqueePrimitive.Viewport
       ref={ref}
-      data-slot="marquee-viewport"
       className={clsx(styles.viewport, className)}
       {...props}
+      data-slot="marquee-viewport"
     />
   );
 });
@@ -57,9 +57,9 @@ const MarqueeContent = forwardRef<
   return (
     <MarqueePrimitive.Content
       ref={ref}
-      data-slot="marquee-content"
       className={clsx(styles.content, className)}
       {...props}
+      data-slot="marquee-content"
     />
   );
 });
@@ -71,9 +71,9 @@ const MarqueeItem = forwardRef<
   return (
     <MarqueePrimitive.Item
       ref={ref}
-      data-slot="marquee-item"
       className={clsx(styles.item, className)}
       {...props}
+      data-slot="marquee-item"
     />
   );
 });
@@ -85,9 +85,9 @@ const MarqueeEdge = forwardRef<
   return (
     <MarqueePrimitive.Edge
       ref={ref}
-      data-slot="marquee-edge"
       className={clsx(styles.edge, className)}
       {...props}
+      data-slot="marquee-edge"
     />
   );
 });

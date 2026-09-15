@@ -18,9 +18,9 @@ const DateInputRoot = forwardRef<
   return (
     <DateInputPrimitive.Root
       ref={ref}
-      data-slot="date-input-root"
       className={clsx(styles.root, className)}
       {...props}
+      data-slot="date-input-root"
     />
   );
 });
@@ -32,9 +32,9 @@ const DateInputRootProvider = forwardRef<
   return (
     <DateInputPrimitive.RootProvider
       ref={ref}
-      data-slot="date-input-root-provider"
       className={clsx(styles.root, className)}
       {...props}
+      data-slot="date-input-root-provider"
     />
   );
 });
@@ -46,9 +46,9 @@ const DateInputLabel = forwardRef<
   return (
     <DateInputPrimitive.Label
       ref={ref}
-      data-slot="date-input-label"
       className={clsx(styles.label, className)}
       {...props}
+      data-slot="date-input-label"
     />
   );
 });
@@ -60,9 +60,9 @@ const DateInputControl = forwardRef<
   return (
     <DateInputPrimitive.Control
       ref={ref}
-      data-slot="date-input-control"
       className={clsx(styles.control, className)}
       {...props}
+      data-slot="date-input-control"
     />
   );
 });
@@ -74,9 +74,9 @@ const DateInputSegmentGroup = forwardRef<
   return (
     <DateInputPrimitive.SegmentGroup
       ref={ref}
-      data-slot="date-input-segment-group"
       className={clsx(styles.segmentGroup, className)}
       {...props}
+      data-slot="date-input-segment-group"
     />
   );
 });
@@ -88,9 +88,9 @@ const DateInputSegment = forwardRef<
   return (
     <DateInputPrimitive.Segment
       ref={ref}
-      data-slot="date-input-segment"
       className={clsx(styles.segment, className)}
       {...props}
+      data-slot="date-input-segment"
     />
   );
 });
@@ -116,11 +116,11 @@ function DateInputSeparator({
 }: ComponentProps<'span'>) {
   return (
     <span
-      data-slot="date-input-separator"
       aria-hidden={ariaHidden}
       role={role}
       className={clsx(styles.separator, className)}
       {...props}
+      data-slot="date-input-separator"
     />
   );
 }

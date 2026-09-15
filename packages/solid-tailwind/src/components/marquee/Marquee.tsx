@@ -32,7 +32,6 @@ function MarqueeRoot(props: ComponentProps<typeof MarqueePrimitive.Root>) {
 
   return (
     <MarqueePrimitive.Root
-      data-slot="marquee-root"
       side={local.side}
       class={cn(
         marqueeRootVariants({
@@ -41,6 +40,7 @@ function MarqueeRoot(props: ComponentProps<typeof MarqueePrimitive.Root>) {
         local.class,
       )}
       {...others}
+      data-slot="marquee-root"
     />
   );
 }
@@ -50,10 +50,10 @@ function MarqueeRootProvider(props: ComponentProps<typeof MarqueePrimitive.RootP
 
   return (
     <MarqueePrimitive.RootProvider
-      data-slot="marquee-root-provider"
       value={local.value}
       class={cn(marqueeRootVariants({ orientation: local.value().orientation }), local.class)}
       {...others}
+      data-slot="marquee-root-provider"
     />
   );
 }
@@ -63,9 +63,9 @@ function MarqueeViewport(props: ComponentProps<typeof MarqueePrimitive.Viewport>
 
   return (
     <MarqueePrimitive.Viewport
-      data-slot="marquee-viewport"
       class={cn('size-full', local.class)}
       {...others}
+      data-slot="marquee-viewport"
     />
   );
 }
@@ -75,12 +75,12 @@ function MarqueeContent(props: ComponentProps<typeof MarqueePrimitive.Content>) 
 
   return (
     <MarqueePrimitive.Content
-      data-slot="marquee-content"
       class={cn(
         'animate-moduix-marquee-x group-data-paused:[animation-play-state:paused] data-reverse:[animation-direction:reverse] data-[side=bottom]:animate-moduix-marquee-y data-[side=top]:animate-moduix-marquee-y motion-reduce:animate-none',
         local.class,
       )}
       {...others}
+      data-slot="marquee-content"
     />
   );
 }
@@ -90,9 +90,9 @@ function MarqueeItem(props: ComponentProps<typeof MarqueePrimitive.Item>) {
 
   return (
     <MarqueePrimitive.Item
-      data-slot="marquee-item"
       class={cn('shrink-0', local.class)}
       {...others}
+      data-slot="marquee-item"
     />
   );
 }
@@ -102,10 +102,10 @@ function MarqueeEdge(props: ComponentProps<typeof MarqueePrimitive.Edge>) {
 
   return (
     <MarqueePrimitive.Edge
-      data-slot="marquee-edge"
       side={local.side}
       class={cn(marqueeEdgeVariants({ side: local.side }), local.class)}
       {...others}
+      data-slot="marquee-edge"
     />
   );
 }

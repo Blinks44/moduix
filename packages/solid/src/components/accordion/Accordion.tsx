@@ -17,9 +17,9 @@ function AccordionRoot(props: ComponentProps<typeof AccordionPrimitive.Root>) {
 
   return (
     <AccordionPrimitive.Root
-      data-slot="accordion-root"
       class={clsx(styles.root, local.class)}
       {...others}
+      data-slot="accordion-root"
     />
   );
 }
@@ -29,9 +29,9 @@ function AccordionRootProvider(props: ComponentProps<typeof AccordionPrimitive.R
 
   return (
     <AccordionPrimitive.RootProvider
-      data-slot="accordion-root-provider"
       class={clsx(styles.root, local.class)}
       {...others}
+      data-slot="accordion-root-provider"
     />
   );
 }
@@ -41,9 +41,9 @@ function AccordionItem(props: ComponentProps<typeof AccordionPrimitive.Item>) {
 
   return (
     <AccordionPrimitive.Item
-      data-slot="accordion-item"
       class={clsx(styles.item, local.class)}
       {...others}
+      data-slot="accordion-item"
     />
   );
 }
@@ -53,9 +53,9 @@ function AccordionItemTrigger(props: ComponentProps<typeof AccordionPrimitive.It
 
   return (
     <AccordionPrimitive.ItemTrigger
-      data-slot="accordion-item-trigger"
       class={clsx(styles.itemTrigger, local.class)}
       {...others}
+      data-slot="accordion-item-trigger"
     />
   );
 }
@@ -66,9 +66,9 @@ function AccordionItemIndicator(props: ComponentProps<typeof AccordionPrimitive.
 
   return (
     <AccordionPrimitive.ItemIndicator
-      data-slot="accordion-item-indicator"
       class={clsx(styles.itemIndicator, local.class)}
       {...others}
+      data-slot="accordion-item-indicator"
     >
       {resolvedChildren() ?? <PlusIcon />}
     </AccordionPrimitive.ItemIndicator>
@@ -80,9 +80,9 @@ function AccordionItemContent(props: ComponentProps<typeof AccordionPrimitive.It
 
   return (
     <AccordionPrimitive.ItemContent
-      data-slot="accordion-item-content"
       class={clsx(styles.itemContent, local.class)}
       {...others}
+      data-slot="accordion-item-content"
     />
   );
 }
@@ -94,9 +94,9 @@ function AccordionItemBody(props: HTMLArkProps<'div'>) {
     <ark.div
       data-scope="accordion"
       data-part="item-body"
-      data-slot="accordion-item-body"
       class={clsx(styles.itemBody, local.class)}
       {...others}
+      data-slot="accordion-item-body"
     />
   );
 }

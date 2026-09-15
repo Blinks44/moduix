@@ -31,10 +31,10 @@ function SplitterRoot(props: ComponentProps<typeof SplitterPrimitive.Root>) {
   return (
     <SplitterPrimitive.Root
       asChild={local.asChild}
-      data-slot="splitter-root"
       class={clsx(styles.root, local.class)}
       style={getRootStyle(local.style)}
       {...others}
+      data-slot="splitter-root"
     />
   );
 }
@@ -45,10 +45,10 @@ function SplitterRootProvider(props: ComponentProps<typeof SplitterPrimitive.Roo
   return (
     <SplitterPrimitive.RootProvider
       asChild={local.asChild}
-      data-slot="splitter-root-provider"
       class={clsx(styles.root, local.class)}
       style={getRootStyle(local.style)}
       {...others}
+      data-slot="splitter-root-provider"
     />
   );
 }
@@ -58,9 +58,9 @@ function SplitterPanel(props: ComponentProps<typeof SplitterPrimitive.Panel>) {
 
   return (
     <SplitterPrimitive.Panel
-      data-slot="splitter-panel"
       class={clsx(styles.panel, local.class)}
       {...others}
+      data-slot="splitter-panel"
     />
   );
 }
@@ -72,9 +72,9 @@ function SplitterResizeTriggerIndicator(
 
   return (
     <SplitterPrimitive.ResizeTriggerIndicator
-      data-slot="splitter-resize-trigger-indicator"
       class={clsx(styles.resizeTriggerIndicator, local.class)}
       {...others}
+      data-slot="splitter-resize-trigger-indicator"
     />
   );
 }
@@ -85,9 +85,9 @@ function SplitterResizeTrigger(props: ComponentProps<typeof SplitterPrimitive.Re
   return (
     <SplitterPrimitive.ResizeTrigger
       asChild={local.asChild}
-      data-slot="splitter-resize-trigger"
       class={clsx(styles.resizeTrigger, local.class)}
       {...others}
+      data-slot="splitter-resize-trigger"
     >
       {local.children === undefined && !local.asChild ? (
         <SplitterResizeTriggerIndicator />

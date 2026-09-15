@@ -47,9 +47,9 @@ const TourBackdrop = forwardRef<
     <OverlayPortal>
       <TourPrimitive.Backdrop
         ref={ref}
-        data-slot="tour-backdrop"
         className={clsx(styles.backdrop, className)}
         {...props}
+        data-slot="tour-backdrop"
       />
     </OverlayPortal>
   );
@@ -63,9 +63,9 @@ const TourSpotlight = forwardRef<
     <OverlayPortal>
       <TourPrimitive.Spotlight
         ref={ref}
-        data-slot="tour-spotlight"
         className={clsx(styles.spotlight, className)}
         {...props}
+        data-slot="tour-spotlight"
       />
     </OverlayPortal>
   );
@@ -79,9 +79,9 @@ const TourPositioner = forwardRef<
     <OverlayPortal>
       <TourPrimitive.Positioner
         ref={ref}
-        data-slot="tour-positioner"
         className={clsx(styles.positioner, className)}
         {...props}
+        data-slot="tour-positioner"
       />
     </OverlayPortal>
   );
@@ -94,9 +94,9 @@ const TourContent = forwardRef<
   return (
     <TourPrimitive.Content
       ref={ref}
-      data-slot="tour-content"
       className={clsx(styles.content, className)}
       {...props}
+      data-slot="tour-content"
     />
   );
 });
@@ -108,9 +108,9 @@ const TourArrow = forwardRef<
   return (
     <TourPrimitive.Arrow
       ref={ref}
-      data-slot="tour-arrow"
       className={clsx(styles.arrow, className)}
       {...props}
+      data-slot="tour-arrow"
     >
       {children ?? <TourArrowTip />}
     </TourPrimitive.Arrow>
@@ -124,9 +124,9 @@ const TourArrowTip = forwardRef<
   return (
     <TourPrimitive.ArrowTip
       ref={ref}
-      data-slot="tour-arrow-tip"
       className={clsx(styles.arrowTip, className)}
       {...props}
+      data-slot="tour-arrow-tip"
     />
   );
 });
@@ -138,9 +138,9 @@ const TourTitle = forwardRef<
   return (
     <TourPrimitive.Title
       ref={ref}
-      data-slot="tour-title"
       className={clsx(styles.title, className)}
       {...props}
+      data-slot="tour-title"
     />
   );
 });
@@ -152,9 +152,9 @@ const TourDescription = forwardRef<
   return (
     <TourPrimitive.Description
       ref={ref}
-      data-slot="tour-description"
       className={clsx(styles.description, className)}
       {...props}
+      data-slot="tour-description"
     />
   );
 });
@@ -166,9 +166,9 @@ const TourProgressText = forwardRef<
   return (
     <TourPrimitive.ProgressText
       ref={ref}
-      data-slot="tour-progress-text"
       className={clsx(styles.progressText, className)}
       {...props}
+      data-slot="tour-progress-text"
     />
   );
 });
@@ -178,7 +178,7 @@ const TourBody = forwardRef<ComponentRef<typeof ark.div>, HTMLArkProps<'div'>>(f
   ref,
 ) {
   return (
-    <ark.div ref={ref} data-slot="tour-body" className={clsx(styles.body, className)} {...props} />
+    <ark.div ref={ref} className={clsx(styles.body, className)} {...props} data-slot="tour-body" />
   );
 });
 
@@ -190,9 +190,9 @@ const TourCloseTrigger = forwardRef<
     <TourPrimitive.CloseTrigger
       ref={ref}
       asChild={asChild}
-      data-slot="tour-close-trigger"
       className={clsx(!asChild && styles.closeTrigger, className)}
       {...props}
+      data-slot="tour-close-trigger"
     />
   );
 });
@@ -225,9 +225,9 @@ const TourControl = forwardRef<
   return (
     <TourPrimitive.Control
       ref={ref}
-      data-slot="tour-control"
       className={clsx(styles.control, className)}
       {...props}
+      data-slot="tour-control"
     />
   );
 });
@@ -240,9 +240,9 @@ const TourActionTrigger = forwardRef<
     <TourPrimitive.ActionTrigger
       ref={ref}
       asChild={asChild}
-      data-slot="tour-action-trigger"
       className={clsx(!asChild && styles.actionTrigger, className)}
       {...props}
+      data-slot="tour-action-trigger"
     />
   );
 });

@@ -25,12 +25,12 @@ function SignaturePadRoot(props: ComponentProps<typeof SignaturePadPrimitive.Roo
   return (
     <SignaturePadPrimitive.Root
       asChild={local.asChild}
-      data-slot="signature-pad-root"
       class={cn(
         'box-border inline-flex w-70 max-w-full flex-col gap-2 text-foreground data-disabled:opacity-50',
         local.class,
       )}
       {...others}
+      data-slot="signature-pad-root"
     >
       <SignaturePadReadOnlyContext.Provider
         value={() => others.readOnly ?? field?.().readOnly ?? false}
@@ -56,12 +56,12 @@ function SignaturePadRootProvider(
     >
       <SignaturePadPrimitive.RootProvider
         asChild={local.asChild}
-        data-slot="signature-pad-root-provider"
         class={cn(
           'box-border inline-flex w-70 max-w-full flex-col gap-2 text-foreground data-disabled:opacity-50',
           local.class,
         )}
         {...others}
+        data-slot="signature-pad-root-provider"
       >
         {local.children}
       </SignaturePadPrimitive.RootProvider>
@@ -74,9 +74,9 @@ function SignaturePadLabel(props: ComponentProps<typeof SignaturePadPrimitive.La
 
   return (
     <SignaturePadPrimitive.Label
-      data-slot="signature-pad-label"
       class={cn('text-sm leading-5 font-medium text-foreground select-none', local.class)}
       {...others}
+      data-slot="signature-pad-label"
     />
   );
 }
@@ -86,12 +86,12 @@ function SignaturePadControl(props: ComponentProps<typeof SignaturePadPrimitive.
 
   return (
     <SignaturePadPrimitive.Control
-      data-slot="signature-pad-control"
       class={cn(
         'box-border h-40 min-h-40 w-full min-w-0 overflow-hidden rounded-md border border-border bg-background text-foreground shadow-sm transition-[border-color,box-shadow,opacity] duration-200 ease-in-out outline-none focus-visible:border-ring focus-visible:ring-2 focus-visible:ring-ring data-disabled:cursor-not-allowed motion-reduce:transition-none',
         local.class,
       )}
       {...others}
+      data-slot="signature-pad-control"
     />
   );
 }
@@ -101,9 +101,9 @@ function SignaturePadSegment(props: ComponentProps<typeof SignaturePadPrimitive.
 
   return (
     <SignaturePadPrimitive.Segment
-      data-slot="signature-pad-segment"
       class={cn('fill-current', local.class)}
       {...others}
+      data-slot="signature-pad-segment"
     />
   );
 }
@@ -113,12 +113,12 @@ function SignaturePadGuide(props: ComponentProps<typeof SignaturePadPrimitive.Gu
 
   return (
     <SignaturePadPrimitive.Guide
-      data-slot="signature-pad-guide"
       class={cn(
         'pointer-events-none absolute start-6 end-6 bottom-8 border-b border-dashed border-border',
         local.class,
       )}
       {...others}
+      data-slot="signature-pad-guide"
     />
   );
 }
@@ -145,9 +145,9 @@ function SignaturePadClearTrigger(
         asChild={local.asChild}
         aria-label={local['aria-label']}
         aria-labelledby={local['aria-labelledby']}
-        data-slot="signature-pad-clear-trigger"
         class={triggerClass}
         {...others}
+        data-slot="signature-pad-clear-trigger"
         disabled={isDisabled()}
       >
         {local.children}
@@ -175,9 +175,9 @@ function SignaturePadClearTrigger(
           </CloseButton.Root>
         );
       }}
-      data-slot="signature-pad-clear-trigger"
       class={triggerClass}
       {...others}
+      data-slot="signature-pad-clear-trigger"
       disabled={isDisabled()}
     />
   );

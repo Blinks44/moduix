@@ -41,11 +41,11 @@ const ComboboxRoot = function ComboboxRoot<T extends CollectionItem>(props: Comb
     <OverlayPortalProvider portalled={local.portalled} portalRef={local.portalRef}>
       <ComboboxPrimitive.Root
         asChild={local.asChild}
-        data-slot="combobox-root"
         class={clsx(styles.root, local.class)}
         lazyMount={local.lazyMount ?? true}
         unmountOnExit={local.unmountOnExit ?? true}
         {...others}
+        data-slot="combobox-root"
       >
         {local.children}
       </ComboboxPrimitive.Root>
@@ -70,11 +70,11 @@ const ComboboxRootProvider = function ComboboxRootProvider<T extends CollectionI
     <OverlayPortalProvider portalled={local.portalled} portalRef={local.portalRef}>
       <ComboboxPrimitive.RootProvider
         asChild={local.asChild}
-        data-slot="combobox-root-provider"
         class={clsx(styles.root, local.class)}
         lazyMount={local.lazyMount ?? true}
         unmountOnExit={local.unmountOnExit ?? true}
         {...others}
+        data-slot="combobox-root-provider"
       >
         {local.children}
       </ComboboxPrimitive.RootProvider>
@@ -87,9 +87,9 @@ function ComboboxLabel(props: ComponentProps<typeof ComboboxPrimitive.Label>) {
 
   return (
     <ComboboxPrimitive.Label
-      data-slot="combobox-label"
       class={clsx(styles.label, local.class)}
       {...others}
+      data-slot="combobox-label"
     />
   );
 }
@@ -99,9 +99,9 @@ function ComboboxControl(props: ComponentProps<typeof ComboboxPrimitive.Control>
 
   return (
     <ComboboxPrimitive.Control
-      data-slot="combobox-control"
       class={clsx(styles.control, local.class)}
       {...others}
+      data-slot="combobox-control"
     />
   );
 }
@@ -112,9 +112,9 @@ function ComboboxInput(props: ComponentProps<typeof ComboboxPrimitive.Input>) {
   return (
     <ComboboxPrimitive.Input
       asChild={local.asChild}
-      data-slot="combobox-input"
       class={clsx(!local.asChild && styles.input, local.class)}
       {...others}
+      data-slot="combobox-input"
     />
   );
 }
@@ -136,9 +136,9 @@ function ComboboxClearTrigger(props: ComponentProps<typeof ComboboxPrimitive.Cle
         asChild={local.asChild}
         aria-label={local['aria-label']}
         aria-labelledby={local['aria-labelledby']}
-        data-slot="combobox-clear-trigger"
         class={triggerClass}
         {...others}
+        data-slot="combobox-clear-trigger"
       >
         {local.children}
       </ComboboxPrimitive.ClearTrigger>
@@ -163,9 +163,9 @@ function ComboboxClearTrigger(props: ComponentProps<typeof ComboboxPrimitive.Cle
           </CloseButton.Root>
         );
       }}
-      data-slot="combobox-clear-trigger"
       class={triggerClass}
       {...others}
+      data-slot="combobox-clear-trigger"
     />
   );
 }
@@ -176,9 +176,9 @@ function ComboboxTrigger(props: ComponentProps<typeof ComboboxPrimitive.Trigger>
 
   return (
     <ComboboxPrimitive.Trigger
-      data-slot="combobox-trigger"
       class={clsx(styles.trigger, local.class)}
       {...others}
+      data-slot="combobox-trigger"
     >
       {resolvedChildren() ?? <ChevronUpDownIcon />}
     </ComboboxPrimitive.Trigger>
@@ -191,9 +191,9 @@ function ComboboxPositioner(props: ComponentProps<typeof ComboboxPrimitive.Posit
   return (
     <OverlayPortal>
       <ComboboxPrimitive.Positioner
-        data-slot="combobox-positioner"
         class={clsx(styles.positioner, local.class)}
         {...others}
+        data-slot="combobox-positioner"
       />
     </OverlayPortal>
   );
@@ -204,9 +204,9 @@ function ComboboxContent(props: ComponentProps<typeof ComboboxPrimitive.Content>
 
   return (
     <ComboboxPrimitive.Content
-      data-slot="combobox-content"
       class={clsx(styles.content, local.class)}
       {...others}
+      data-slot="combobox-content"
     />
   );
 }
@@ -216,9 +216,9 @@ function ComboboxEmpty(props: ComponentProps<typeof ComboboxPrimitive.Empty>) {
 
   return (
     <ComboboxPrimitive.Empty
-      data-slot="combobox-empty"
       class={clsx(styles.empty, local.class)}
       {...others}
+      data-slot="combobox-empty"
     />
   );
 }
@@ -227,7 +227,7 @@ function ComboboxStatus(props: HTMLArkProps<'div'>) {
   const [local, others] = splitProps(props, ['class']);
 
   return (
-    <ark.div data-slot="combobox-status" class={clsx(styles.status, local.class)} {...others} />
+    <ark.div class={clsx(styles.status, local.class)} {...others} data-slot="combobox-status" />
   );
 }
 
@@ -236,9 +236,9 @@ function ComboboxList(props: ComponentProps<typeof ComboboxPrimitive.List>) {
 
   return (
     <ComboboxPrimitive.List
-      data-slot="combobox-list"
       class={clsx(styles.list, local.class)}
       {...others}
+      data-slot="combobox-list"
     />
   );
 }
@@ -248,9 +248,9 @@ function ComboboxItemGroup(props: ComponentProps<typeof ComboboxPrimitive.ItemGr
 
   return (
     <ComboboxPrimitive.ItemGroup
-      data-slot="combobox-item-group"
       class={clsx(styles.itemGroup, local.class)}
       {...others}
+      data-slot="combobox-item-group"
     />
   );
 }
@@ -260,9 +260,9 @@ function ComboboxItemGroupLabel(props: ComponentProps<typeof ComboboxPrimitive.I
 
   return (
     <ComboboxPrimitive.ItemGroupLabel
-      data-slot="combobox-item-group-label"
       class={clsx(styles.itemGroupLabel, local.class)}
       {...others}
+      data-slot="combobox-item-group-label"
     />
   );
 }
@@ -272,9 +272,9 @@ function ComboboxItem(props: ComponentProps<typeof ComboboxPrimitive.Item>) {
 
   return (
     <ComboboxPrimitive.Item
-      data-slot="combobox-item"
       class={clsx(styles.item, local.class)}
       {...others}
+      data-slot="combobox-item"
     />
   );
 }
@@ -284,9 +284,9 @@ function ComboboxItemText(props: ComponentProps<typeof ComboboxPrimitive.ItemTex
 
   return (
     <ComboboxPrimitive.ItemText
-      data-slot="combobox-item-text"
       class={clsx(styles.itemText, local.class)}
       {...others}
+      data-slot="combobox-item-text"
     />
   );
 }
@@ -297,9 +297,9 @@ function ComboboxItemIndicator(props: ComponentProps<typeof ComboboxPrimitive.It
 
   return (
     <ComboboxPrimitive.ItemIndicator
-      data-slot="combobox-item-indicator"
       class={clsx(styles.itemIndicator, local.class)}
       {...others}
+      data-slot="combobox-item-indicator"
     >
       {resolvedChildren() ?? <CheckIcon />}
     </ComboboxPrimitive.ItemIndicator>
