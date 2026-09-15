@@ -60,6 +60,56 @@ test('activates the preview with the moduix double-click default', async () => {
   expect(await screen.findByRole('textbox', { name: 'editable input' })).toBeVisible();
 });
 
+test('switches Controls to submit and cancel triggers while editing', async () => {
+  render(<TestEditable />);
+
+  const editable = screen
+    .getByText('Layer name')
+    .closest<HTMLElement>('[data-slot="editable-root"]');
+
+  expect(editable).not.toBeNull();
+  fireEvent.click(within(editable!).getByRole('button', { name: 'edit' }));
+
+  expect(await within(editable!).findByRole('button', { name: 'submit' })).toBeVisible();
+  expect(within(editable!).getByRole('button', { name: 'cancel' })).toBeVisible();
+});
+
+test('forwards the controls ref and exposes context state', () => {
+  const controlsRef = createRef<HTMLDivElement>();
+
+  render(
+    <Editable defaultValue="Context value">
+      <Editable.Area>
+        <Editable.Input />
+        <Editable.Preview />
+      </Editable.Area>
+      <Editable.Controls ref={controlsRef} />
+      <Editable.Context>{(editable) => <output>{editable.value}</output>}</Editable.Context>
+    </Editable>,
+  );
+
+  expect(controlsRef.current).toHaveAttribute('data-slot', 'editable-control');
+  expect(screen.getByRole('status')).toHaveTextContent('Context value');
+});
+
+test('preserves semantic hosts with asChild composition', () => {
+  render(
+    <Editable asChild defaultValue="Layer name">
+      <section aria-label="Editable section">
+        <Editable.Area>
+          <Editable.Input />
+          <Editable.Preview />
+        </Editable.Area>
+      </section>
+    </Editable>,
+  );
+
+  expect(screen.getByRole('region', { name: 'Editable section' })).toHaveAttribute(
+    'data-slot',
+    'editable-root',
+  );
+});
+
 test('keeps disabled triggers unavailable and read-only values unchanged', () => {
   render(
     <>

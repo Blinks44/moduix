@@ -25,6 +25,22 @@ test('renders semantic keycaps and a labelled shortcut group with stable hooks',
   expect(key).toHaveAttribute('data-slot', 'kbd-root');
 });
 
+test('keeps owned anatomy and group semantics when consumer props conflict', () => {
+  render(
+    <Kbd data-part="consumer" data-scope="consumer" data-testid="kbd">
+      A
+      <Kbd.Group data-part="consumer" data-scope="consumer" role="presentation">
+        B
+      </Kbd.Group>
+    </Kbd>,
+  );
+
+  expect(screen.getByTestId('kbd')).toHaveAttribute('data-scope', 'kbd');
+  expect(screen.getByTestId('kbd')).toHaveAttribute('data-part', 'root');
+  expect(screen.getByRole('group')).toHaveAttribute('data-scope', 'kbd');
+  expect(screen.getByRole('group')).toHaveAttribute('data-part', 'group');
+});
+
 test('preserves semantic children and refs with asChild', () => {
   const keyRef = createRef<HTMLElement>();
   const groupRef = createRef<HTMLElement>();

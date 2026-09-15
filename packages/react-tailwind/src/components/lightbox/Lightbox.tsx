@@ -266,13 +266,13 @@ const LightboxImage = forwardRef<HTMLImageElement, LightboxImageProps>(function 
   return (
     <img
       ref={ref}
-      data-close-on-click={closeOnClick ? '' : undefined}
       className={cn(
         'block max-h-[min(80dvh,100%)] max-w-[min(80vw,100%)] rounded-md object-contain shadow-lg select-none data-[close-on-click]:cursor-zoom-out',
         className,
       )}
       onClick={handleClick}
       {...props}
+      data-close-on-click={closeOnClick ? '' : undefined}
       data-slot="lightbox-image"
     />
   );

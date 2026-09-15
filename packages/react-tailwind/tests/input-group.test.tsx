@@ -297,3 +297,17 @@ test('lets consumer Tailwind classes override conflicting defaults', () => {
   expect(button).toHaveClass('rounded-lg', 'bg-muted', 'px-2', 'text-primary');
   expect(button).not.toHaveClass('rounded-none', 'px-4', 'text-lg');
 });
+
+test('uses a local Input size for its grouped utilities', () => {
+  render(
+    <InputGroup size="lg">
+      <InputGroup.Input aria-label="Workspace" size="xs" />
+    </InputGroup>,
+  );
+
+  const input = screen.getByRole('textbox', { name: 'Workspace' });
+
+  expect(input).toHaveAttribute('data-size', 'xs');
+  expect(input).toHaveClass('px-2.5', 'text-xs', 'leading-4');
+  expect(input).not.toHaveClass('px-4', 'text-lg', 'leading-7');
+});

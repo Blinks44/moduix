@@ -164,4 +164,10 @@ const HoverCard = Object.assign(HoverCardRoot, {
   Context: HoverCardPrimitive.Context,
 });
 
-export { HoverCard, useHoverCard, useHoverCardContext };
+export {
+  HoverCard,
+  useHoverCard,
+  useHoverCardContext,
+  type HoverCardRootProps,
+  type HoverCardRootProviderProps,
+};

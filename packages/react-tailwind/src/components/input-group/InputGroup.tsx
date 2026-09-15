@@ -113,7 +113,7 @@ const InputGroupInput = forwardRef<ComponentRef<typeof Input>, ComponentProps<ty
     return (
       <Input
         ref={ref}
-        className={cn(inputGroupInputVariants({ size: groupSize }), className)}
+        className={cn(inputGroupInputVariants({ size: inputSize }), className)}
         size={inputSize}
         {...props}
       />

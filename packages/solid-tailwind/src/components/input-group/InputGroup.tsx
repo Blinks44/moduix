@@ -121,12 +121,13 @@ function InputGroupRoot(props: InputGroupRootProps) {
 function InputGroupInput(props: ComponentProps<typeof Input>) {
   const [local, others] = splitProps(props, ['class', 'size']);
   const groupSize = useContext(InputGroupSizeContext) ?? defaultInputGroupSizeAccessor;
+  const inputSize = () => local.size ?? groupSize();
 
   return (
     <Input
       {...others}
-      class={cn(inputGroupInputVariants({ size: groupSize() }), local.class)}
-      size={local.size ?? groupSize()}
+      class={cn(inputGroupInputVariants({ size: inputSize() }), local.class)}
+      size={inputSize()}
     />
   );
 }

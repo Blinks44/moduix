@@ -11,10 +11,10 @@ const KbdRoot = forwardRef<HTMLElement, HTMLArkProps<'kbd'>>(function KbdRoot(
   return (
     <ark.kbd
       ref={ref}
+      {...props}
       data-scope="kbd"
       data-part="root"
       className={clsx(styles.root, className)}
-      {...props}
       data-slot="kbd-root"
     />
   );
@@ -27,11 +27,11 @@ const KbdGroupPart = forwardRef<HTMLElement, HTMLArkProps<'span'>>(function KbdG
   return (
     <ark.span
       ref={ref}
+      {...props}
       role="group"
       data-scope="kbd"
       data-part="group"
       className={clsx(styles.group, className)}
-      {...props}
       data-slot="kbd-group"
     />
   );

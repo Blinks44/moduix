@@ -228,3 +228,34 @@ test('forwards refs through native parts and keeps asChild composition native', 
   expect(composedTriggerRef).toBeUndefined();
   expect(closeIconRef).toBeUndefined();
 });
+
+test('keeps the close-on-click marker aligned with its behavior', () => {
+  render(() => (
+    <>
+      <Lightbox defaultOpen portalled={false}>
+        <Lightbox.Positioner>
+          <Lightbox.Content aria-label="First preview">
+            <Lightbox.Image
+              alt="Closes"
+              closeOnClick
+              data-close-on-click={undefined}
+              src="/first.jpg"
+            />
+          </Lightbox.Content>
+        </Lightbox.Positioner>
+      </Lightbox>
+      <Lightbox defaultOpen portalled={false}>
+        <Lightbox.Positioner>
+          <Lightbox.Content aria-label="Second preview">
+            <Lightbox.Image alt="Stays open" data-close-on-click="" src="/second.jpg" />
+          </Lightbox.Content>
+        </Lightbox.Positioner>
+      </Lightbox>
+    </>
+  ));
+
+  expect(screen.getByRole('img', { name: 'Closes' })).toHaveAttribute('data-close-on-click');
+  expect(screen.getByRole('img', { name: 'Stays open' })).not.toHaveAttribute(
+    'data-close-on-click',
+  );
+});

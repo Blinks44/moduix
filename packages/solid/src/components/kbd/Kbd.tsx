@@ -9,10 +9,10 @@ function KbdRoot(props: HTMLArkProps<'kbd'>) {
 
   return (
     <ark.kbd
+      {...others}
       data-scope="kbd"
       data-part="root"
       class={clsx(styles.root, local.class)}
-      {...others}
       data-slot="kbd-root"
     />
   );
@@ -23,11 +23,11 @@ function KbdGroupPart(props: HTMLArkProps<'span'>) {
 
   return (
     <ark.span
+      {...others}
       role="group"
       data-scope="kbd"
       data-part="group"
       class={clsx(styles.group, local.class)}
-      {...others}
       data-slot="kbd-group"
     />
   );

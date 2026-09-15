@@ -252,10 +252,10 @@ const LightboxImage = forwardRef<HTMLImageElement, LightboxImageProps>(function 
   return (
     <img
       ref={ref}
-      data-close-on-click={closeOnClick ? '' : undefined}
       className={clsx(styles.image, className)}
       onClick={handleClick}
       {...props}
+      data-close-on-click={closeOnClick ? '' : undefined}
       data-slot="lightbox-image"
     />
   );

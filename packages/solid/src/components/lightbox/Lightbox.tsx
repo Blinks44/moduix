@@ -22,6 +22,7 @@ type LightboxImageSelectDetails = {
 
 type LightboxImageProps = ComponentProps<'img'> & {
   closeOnClick?: boolean;
+  'data-close-on-click'?: string;
 };
 
 type LightboxRootProps = ComponentProps<typeof DialogPrimitive.Root> & OverlayPortalProps;
@@ -245,7 +246,12 @@ function LightboxCloseIcon(props: LightboxCloseIconProps) {
 }
 
 function LightboxImage(props: LightboxImageProps) {
-  const [local, others] = splitProps(props, ['class', 'closeOnClick', 'onClick']);
+  const [local, others] = splitProps(props, [
+    'class',
+    'closeOnClick',
+    'data-close-on-click',
+    'onClick',
+  ]);
   const dialog = useDialogContext();
 
   const handleClick = (event: MouseEvent) => {
@@ -258,10 +264,10 @@ function LightboxImage(props: LightboxImageProps) {
 
   return (
     <img
-      data-close-on-click={local.closeOnClick ? '' : undefined}
       class={clsx(styles.image, local.class)}
       onClick={handleClick}
       {...others}
+      data-close-on-click={local.closeOnClick ? '' : undefined}
       data-slot="lightbox-image"
     />
   );

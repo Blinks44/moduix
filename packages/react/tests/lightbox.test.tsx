@@ -155,3 +155,34 @@ test('mounts lazy content on first open and unmounts it after close', async () =
 
   await waitFor(() => expect(screen.queryByRole('dialog')).not.toBeInTheDocument());
 });
+
+test('keeps the close-on-click marker aligned with its behavior', () => {
+  render(
+    <>
+      <Lightbox defaultOpen portalled={false}>
+        <Lightbox.Positioner>
+          <Lightbox.Content aria-label="First preview">
+            <Lightbox.Image
+              alt="Closes"
+              closeOnClick
+              data-close-on-click={undefined}
+              src="/first.jpg"
+            />
+          </Lightbox.Content>
+        </Lightbox.Positioner>
+      </Lightbox>
+      <Lightbox defaultOpen portalled={false}>
+        <Lightbox.Positioner>
+          <Lightbox.Content aria-label="Second preview">
+            <Lightbox.Image alt="Stays open" data-close-on-click="" src="/second.jpg" />
+          </Lightbox.Content>
+        </Lightbox.Positioner>
+      </Lightbox>
+    </>,
+  );
+
+  expect(screen.getByRole('img', { name: 'Closes' })).toHaveAttribute('data-close-on-click');
+  expect(screen.getByRole('img', { name: 'Stays open' })).not.toHaveAttribute(
+    'data-close-on-click',
+  );
+});
