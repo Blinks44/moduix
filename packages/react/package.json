@@ -431,7 +431,7 @@
   },
   "devDependencies": {
     "@ark-ui/react": "^5.39.2",
-    "@internationalized/date": "3.12.3",
+    "@internationalized/date": "^3.12.4",
     "@microsoft/api-extractor": "^7.59.1",
     "@rsbuild/core": "^2.2.6",
     "@rsbuild/plugin-react": "^2.1.0",

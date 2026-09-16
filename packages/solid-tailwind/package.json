@@ -602,7 +602,7 @@
   },
   "devDependencies": {
     "@ark-ui/solid": "^5.39.2",
-    "@internationalized/date": "3.12.3",
+    "@internationalized/date": "^3.12.4",
     "@rsbuild/core": "^2.2.6",
     "@rsbuild/plugin-babel": "^2.1.0",
     "@rsbuild/plugin-solid": "^1.2.2",

@@ -98,7 +98,7 @@ test('exposes initial item state through the Ark ItemContext', () => {
             <Listbox.ItemContext>
               {(itemContext) => (
                 <Listbox.ItemText>
-                  {itemContext.selected ? `${item.label} (selected)` : item.label}
+                  {itemContext().selected ? `${item.label} (selected)` : item.label}
                 </Listbox.ItemText>
               )}
             </Listbox.ItemContext>

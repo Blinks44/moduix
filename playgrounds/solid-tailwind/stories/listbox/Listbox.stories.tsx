@@ -368,7 +368,7 @@ export const ItemContext: Story = {
               <Listbox.ItemContext>
                 {(itemContext) => (
                   <Listbox.ItemText>
-                    {itemContext.selected ? `${item.label} (selected)` : item.label}
+                    {itemContext().selected ? `${item.label} (selected)` : item.label}
                   </Listbox.ItemText>
                 )}
               </Listbox.ItemContext>
