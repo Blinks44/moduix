@@ -7,7 +7,7 @@ import {
 import { Dialog as DialogPrimitive, useDialog, useDialogContext } from '@ark-ui/solid/dialog';
 import type { HTMLArkProps } from '@ark-ui/solid/factory';
 import { ark } from '@ark-ui/solid/factory';
-import { isHotKey } from '@zag-js/hotkeys';
+import { isHotKey } from '@ark-ui/solid/hotkeys';
 import type { ComponentProps } from 'solid-js';
 import { children, createEffect, onCleanup, splitProps } from 'solid-js';
 import { cn } from '@/lib/moduix/cn';

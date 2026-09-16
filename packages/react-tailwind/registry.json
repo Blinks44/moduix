@@ -1041,7 +1041,7 @@
       "type": "registry:item",
       "title": "CommandPalette",
       "description": "moduix React Tailwind CommandPalette component.",
-      "dependencies": ["@ark-ui/react", "@zag-js/hotkeys", "clsx", "tailwind-merge"],
+      "dependencies": ["@ark-ui/react", "clsx", "tailwind-merge"],
       "registryDependencies": [
         "@moduix-react-tailwind/foundation",
         "@moduix-react-tailwind/cn",

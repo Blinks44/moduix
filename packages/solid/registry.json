@@ -2091,7 +2091,7 @@
       "type": "registry:item",
       "title": "CommandPalette",
       "description": "moduix Solid CommandPalette component.",
-      "dependencies": ["@ark-ui/solid", "@zag-js/hotkeys", "clsx"],
+      "dependencies": ["@ark-ui/solid", "clsx"],
       "registryDependencies": [
         "@moduix-solid/foundation",
         "@moduix-solid/close-button",

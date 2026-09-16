@@ -44,14 +44,14 @@
   },
   "devDependencies": {
     "@arethetypeswrong/cli": "^0.18.5",
-    "@changesets/cli": "^3.0.2",
+    "@changesets/cli": "^3.0.3",
     "husky": "^9.1.7",
-    "lint-staged": "^17.4.1",
-    "oxfmt": "^0.66.0",
-    "oxlint": "^1.81.0",
+    "lint-staged": "^17.5.1",
+    "oxfmt": "^0.68.0",
+    "oxlint": "^1.83.0",
     "publint": "^0.3.24",
     "shadcn": "^4.21.0",
-    "turbo": "^2.10.12"
+    "turbo": "^2.10.13"
   },
   "engines": {
     "node": ">=24",
