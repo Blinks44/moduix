@@ -1041,7 +1041,7 @@
       "type": "registry:item",
       "title": "CommandPalette",
       "description": "moduix Solid Tailwind CommandPalette component.",
-      "dependencies": ["@ark-ui/solid", "@zag-js/hotkeys", "clsx", "tailwind-merge"],
+      "dependencies": ["@ark-ui/solid", "clsx", "tailwind-merge"],
       "registryDependencies": [
         "@moduix-solid-tailwind/foundation",
         "@moduix-solid-tailwind/cn",

@@ -12,7 +12,6 @@
     "@internationalized/date": "^3.12.4",
     "@tanstack/charts": "^0.16.2",
     "@types/node": "^26.5.1",
-    "@zag-js/hotkeys": "1.43.3",
     "clsx": "^2.1.1",
     "solid-js": "^1.9.15",
     "storybook": "^10.6.0",

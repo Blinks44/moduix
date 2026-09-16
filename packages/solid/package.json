@@ -601,7 +601,6 @@
   },
   "dependencies": {
     "@unpic/core": "^1.0.3",
-    "@zag-js/hotkeys": "1.43.3",
     "@zag-js/solid": "1.43.3",
     "clsx": "^2.1.1",
     "lucide-solid": "^1.46.0"

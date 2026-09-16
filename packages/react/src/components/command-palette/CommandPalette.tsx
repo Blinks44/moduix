@@ -9,7 +9,7 @@ import {
 import { Dialog as DialogPrimitive, useDialog, useDialogContext } from '@ark-ui/react/dialog';
 import type { HTMLArkProps } from '@ark-ui/react/factory';
 import { ark } from '@ark-ui/react/factory';
-import { isHotKey } from '@zag-js/hotkeys';
+import { isHotKey } from '@ark-ui/react/hotkeys';
 import { clsx } from 'clsx';
 import type { ComponentProps, ComponentRef, ForwardedRef } from 'react';
 import { forwardRef, useEffect } from 'react';
