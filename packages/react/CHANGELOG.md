@@ -1,5 +1,13 @@
 # moduix
 
+## 2.7.1
+
+### Patch Changes
+
+### CommandPalette
+
+- cbcda2a: Use the Ark UI Hotkeys export consistently across all adapters.
+
 ## 2.7.0
 
 ### Minor Changes

@@ -1,5 +1,13 @@
 # @moduix/react-tailwind
 
+## 1.1.1
+
+### Patch Changes
+
+### CommandPalette
+
+- cbcda2a: Use the Ark UI Hotkeys export consistently across all adapters.
+
 ## 1.1.0
 
 ### Minor Changes
