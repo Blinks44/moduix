@@ -21,6 +21,7 @@ import {
 import { useState } from 'react';
 import { FrameworkSupport } from '@/components/home/framework-support';
 import { DataTable } from '@/components/recipes/data-table';
+import { SidebarDashboard } from '@/components/recipes/sidebar-dashboard';
 import { useLocalizedPath } from '@/utils/localized-path';
 import styles from './Home.module.css';
 
@@ -33,7 +34,6 @@ export function Home() {
   const formsPath = useLocalizedPath('/docs/forms');
   const guidesPath = useLocalizedPath('/docs/styling');
   const recipesPath = useLocalizedPath('/recipes');
-  const dataTablePath = useLocalizedPath('/recipes/data-table');
   const documentationAreas = [
     {
       title: t('homeAreaComponents'),
@@ -153,12 +153,28 @@ export function Home() {
             <h2 id="component-table-title">{t('homeComponentsTogether')}</h2>
             <p>{t('homeCompositionDescription')}</p>
           </div>
-          <Link href={dataTablePath} className={styles.tableLink}>
-            {t('homeExploreTable')}
+          <Link href={recipesPath} className={styles.tableLink}>
+            {t('homeExploreRecipes')}
             <ArrowRight size={16} aria-hidden="true" />
           </Link>
         </div>
-        <DataTable />
+        <Tabs defaultValue="data-table" className={styles.componentTabs}>
+          <Tabs.List className={styles.componentTabsList}>
+            <Tabs.Trigger value="data-table">DataTable</Tabs.Trigger>
+            <Tabs.Trigger value="sidebar">Sidebar</Tabs.Trigger>
+            <Tabs.Indicator />
+          </Tabs.List>
+
+          <Tabs.Content value="data-table" className={styles.componentTabPanel}>
+            <DataTable />
+          </Tabs.Content>
+          <Tabs.Content
+            value="sidebar"
+            className={`${styles.componentTabPanel} ${styles.componentTabPanelSidebar}`}
+          >
+            <SidebarDashboard />
+          </Tabs.Content>
+        </Tabs>
       </section>
     </main>
   );

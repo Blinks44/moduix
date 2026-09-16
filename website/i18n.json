@@ -207,14 +207,14 @@
     "fr": "Des composants qui s’assemblent naturellement"
   },
   "homeCompositionDescription": {
-    "en": "Search, selection, menus, and a wide data table come together in a compact product screen. Each piece stays easy to compose and replace.",
-    "ru": "Поиск, выбор, меню и широкая таблица собраны в компактный экран продукта. Каждый элемент легко комбинировать и при необходимости заменить.",
-    "fr": "Recherche, sélection, menus et grande table se réunissent dans un écran produit compact. Chaque élément reste facile à composer et à remplacer."
+    "en": "Explore complete product patterns built from moduix components. Each composition stays easy to copy, customize, and replace.",
+    "ru": "Посмотрите готовые продуктовые сценарии, собранные из компонентов moduix. Каждую композицию легко скопировать, настроить и заменить.",
+    "fr": "Découvrez des scénarios produit complets construits avec les composants moduix. Chaque composition reste facile à copier, personnaliser et remplacer."
   },
-  "homeExploreTable": {
-    "en": "Explore the table pattern",
-    "ru": "Открыть пример таблицы",
-    "fr": "Voir l’exemple de tableau"
+  "homeExploreRecipes": {
+    "en": "Explore all recipes",
+    "ru": "Открыть все рецепты",
+    "fr": "Voir toutes les recettes"
   },
   "homeWorkspaceDesignSystem": {
     "en": "Design system",
