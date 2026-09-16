@@ -3,7 +3,7 @@ import { Card } from '@moduix/react/card';
 import { Collapsible } from '@moduix/react/collapsible';
 import { Menu } from '@moduix/react/menu';
 import { Sidebar } from '@moduix/react/sidebar';
-import { ChevronsUpDown, FileText, FolderOpen, Gauge, Settings, Users } from 'lucide-react';
+import { ChevronsUpDown, FileText, FolderOpen, Gauge, LogOut, Settings, Users } from 'lucide-react';
 import styles from './sidebar-dashboard.module.css';
 
 export function SidebarDashboard() {
@@ -34,31 +34,55 @@ export function SidebarDashboard() {
                 </Sidebar.Tooltip>
               </Sidebar.NavigationItem>
               <Sidebar.NavigationItem>
-                <Collapsible defaultOpen>
-                  <Sidebar.Tooltip content="Projects">
-                    <Collapsible.Trigger asChild>
-                      <Sidebar.NavigationButton>
+                <Sidebar.ExpandedContent>
+                  <Collapsible defaultOpen>
+                    <Sidebar.Tooltip content="Projects">
+                      <Collapsible.Trigger asChild>
+                        <Sidebar.NavigationButton>
+                          <FolderOpen />
+                          <Sidebar.Label>Projects</Sidebar.Label>
+                          <Collapsible.Indicator />
+                        </Sidebar.NavigationButton>
+                      </Collapsible.Trigger>
+                    </Sidebar.Tooltip>
+                    <Collapsible.Content>
+                      <Sidebar.NavigationSubList>
+                        <Sidebar.NavigationSubItem>
+                          <Sidebar.NavigationSubButton href="#website">
+                            Website
+                          </Sidebar.NavigationSubButton>
+                        </Sidebar.NavigationSubItem>
+                        <Sidebar.NavigationSubItem>
+                          <Sidebar.NavigationSubButton href="#mobile-app">
+                            Mobile app
+                          </Sidebar.NavigationSubButton>
+                          <Sidebar.NavigationBadge>8</Sidebar.NavigationBadge>
+                        </Sidebar.NavigationSubItem>
+                      </Sidebar.NavigationSubList>
+                    </Collapsible.Content>
+                  </Collapsible>
+                </Sidebar.ExpandedContent>
+                <Sidebar.CollapsedContent>
+                  <Menu positioning={{ placement: 'right-start', gutter: 8 }}>
+                    <Menu.Trigger asChild>
+                      <Sidebar.NavigationButton aria-label="Open projects" title="Projects">
                         <FolderOpen />
-                        <Sidebar.Label>Projects</Sidebar.Label>
-                        <Collapsible.Indicator />
                       </Sidebar.NavigationButton>
-                    </Collapsible.Trigger>
-                  </Sidebar.Tooltip>
-                  <Collapsible.Content>
-                    <Sidebar.NavigationSubList>
-                      <Sidebar.NavigationSubItem>
-                        <Sidebar.NavigationSubButton href="#website">
-                          Website
-                        </Sidebar.NavigationSubButton>
-                      </Sidebar.NavigationSubItem>
-                      <Sidebar.NavigationSubItem>
-                        <Sidebar.NavigationSubButton href="#mobile-app">
-                          Mobile app
-                        </Sidebar.NavigationSubButton>
-                      </Sidebar.NavigationSubItem>
-                    </Sidebar.NavigationSubList>
-                  </Collapsible.Content>
-                </Collapsible>
+                    </Menu.Trigger>
+                    <Menu.Positioner>
+                      <Menu.Content>
+                        <Menu.Viewport>
+                          <Menu.Item value="website" asChild>
+                            <a href="#website">Website</a>
+                          </Menu.Item>
+                          <Menu.Item value="mobile-app" asChild>
+                            <a href="#mobile-app">Mobile app</a>
+                          </Menu.Item>
+                        </Menu.Viewport>
+                      </Menu.Content>
+                    </Menu.Positioner>
+                  </Menu>
+                </Sidebar.CollapsedContent>
               </Sidebar.NavigationItem>
               <Sidebar.NavigationItem>
                 <Sidebar.Tooltip content="Documents">
@@ -139,6 +163,17 @@ export function SidebarDashboard() {
                               <Users />
                             </Menu.ItemTextIcon>
                             <Menu.ItemTextLabel>Manage members</Menu.ItemTextLabel>
+                          </Menu.ItemTextContent>
+                        </Menu.ItemText>
+                      </Menu.Item>
+                      <Menu.Separator />
+                      <Menu.Item value="sign-out" tone="destructive">
+                        <Menu.ItemText>
+                          <Menu.ItemTextContent>
+                            <Menu.ItemTextIcon>
+                              <LogOut />
+                            </Menu.ItemTextIcon>
+                            <Menu.ItemTextLabel>Sign out</Menu.ItemTextLabel>
                           </Menu.ItemTextContent>
                         </Menu.ItemText>
                       </Menu.Item>

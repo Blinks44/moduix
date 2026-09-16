@@ -289,6 +289,33 @@
   }
 }
 
+.componentTabs {
+  display: grid;
+  gap: 1rem;
+}
+
+.componentTabsList {
+  display: inline-flex;
+  align-self: start;
+  justify-self: start;
+  padding: 0.25rem;
+  border: 1px solid color-mix(in oklab, var(--rp-c-divider-light) 78%, transparent);
+  border-radius: 0.7rem;
+  background: color-mix(in oklab, var(--moduix-home-brand) 8%, var(--rp-c-bg));
+}
+
+.componentTabPanel {
+  min-width: 0;
+  border: 0;
+  padding: 0;
+}
+
+.componentTabPanelSidebar {
+  :global([data-slot='sidebar-root']) {
+    --moduix-sidebar-width: 100%;
+  }
+}
+
 .content {
   max-width: 43rem;
 }
