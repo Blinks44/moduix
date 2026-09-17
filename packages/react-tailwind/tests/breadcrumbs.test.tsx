@@ -20,7 +20,8 @@ test('forwards Path list props and ref without exposing owned composition props'
       <Breadcrumbs.Path
         ref={ref}
         aria-label="Current path"
-        items={[{ href: '/', label: 'Home' }, { label: 'Breadcrumbs' }]}
+        links={[{ href: '/', label: 'Home' }]}
+        page="Breadcrumbs"
       />
     </Breadcrumbs>,
   );
@@ -34,11 +35,11 @@ test('renders semantic path navigation with one current page', () => {
   const { container } = render(
     <Breadcrumbs>
       <Breadcrumbs.Path
-        items={[
+        links={[
           { href: '/', label: 'Home' },
           { href: '/docs', label: 'Docs' },
-          { label: 'Breadcrumbs' },
         ]}
+        page="Breadcrumbs"
       />
     </Breadcrumbs>,
   );
@@ -61,15 +62,25 @@ test('renders semantic path navigation with one current page', () => {
   );
 });
 
-test('keeps non-final path items out of the current-page state without an href', () => {
+test('renders every path link as an anchor and the page as its own item', () => {
   const { container } = render(
     <Breadcrumbs>
-      <Breadcrumbs.Path items={[{ label: 'Catalog' }, { label: 'Products' }]} />
+      <Breadcrumbs.Path
+        links={[
+          { href: '/catalog', label: 'Catalog' },
+          { href: '/catalog/products', label: 'Products' },
+        ]}
+        page="Overview"
+      />
     </Breadcrumbs>,
   );
 
-  expect(screen.getByText('Catalog')).not.toHaveAttribute('aria-current');
-  expect(screen.getByText('Products')).toHaveAttribute('aria-current', 'page');
+  expect(screen.getByRole('link', { name: 'Catalog' })).toHaveAttribute('href', '/catalog');
+  expect(screen.getByRole('link', { name: 'Products' })).toHaveAttribute(
+    'href',
+    '/catalog/products',
+  );
+  expect(screen.getByText('Overview')).toHaveAttribute('aria-current', 'page');
   expect(container.querySelectorAll('[aria-current="page"]')).toHaveLength(1);
 });
 

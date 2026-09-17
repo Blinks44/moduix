@@ -1,4 +1,3 @@
-import { useFocusVisible } from '@ark-ui/solid';
 import type { HTMLArkProps } from '@ark-ui/solid/factory';
 import { ark } from '@ark-ui/solid/factory';
 import {
@@ -98,18 +97,16 @@ function MenuRootProvider(props: MenuRootProviderProps) {
 }
 
 function MenuTrigger(props: ComponentProps<typeof MenuPrimitive.Trigger>) {
-  const focusVisible = useFocusVisible();
   const [local, others] = splitProps(props, ['asChild', 'class']);
   return (
     <MenuPrimitive.Trigger
       asChild={local.asChild}
       class={cn(
         !local.asChild &&
-          'inline-flex min-h-control-md cursor-pointer items-center justify-center gap-2 rounded-md border border-border bg-background px-4 py-1 text-sm font-medium text-foreground outline-0 transition-colors duration-200 ease-in-out select-none active:bg-muted data-disabled:pointer-events-none data-disabled:opacity-50 data-[current]:data-[state=open]:bg-muted motion-reduce:transition-none [&:focus[data-focus-visible]]:outline-1 [&:focus[data-focus-visible]]:-outline-offset-1 [&:focus[data-focus-visible]]:outline-ring [@media(hover:hover)]:hover:bg-muted',
+          'inline-flex min-h-control-md cursor-pointer items-center justify-center gap-2 rounded-md border border-border bg-background px-4 py-1 text-sm font-medium text-foreground outline-0 transition-colors duration-200 ease-in-out select-none focus-visible:outline-1 focus-visible:-outline-offset-1 focus-visible:outline-ring active:bg-muted data-disabled:pointer-events-none data-disabled:opacity-50 data-[current]:data-[state=open]:bg-muted motion-reduce:transition-none [@media(hover:hover)]:hover:bg-muted',
         local.class,
       )}
       {...others}
-      data-focus-visible={focusVisible() ? '' : undefined}
       data-slot="menu-trigger"
     />
   );
@@ -150,18 +147,16 @@ function MenuIndicator(props: ComponentProps<typeof MenuPrimitive.Indicator>) {
 }
 
 function MenuContextTrigger(props: ComponentProps<typeof MenuPrimitive.ContextTrigger>) {
-  const focusVisible = useFocusVisible();
   const [local, others] = splitProps(props, ['asChild', 'class']);
   return (
     <MenuPrimitive.ContextTrigger
       asChild={local.asChild}
       class={cn(
         !local.asChild &&
-          'inline-flex min-h-control-md cursor-pointer items-center justify-center gap-2 rounded-md border border-border bg-background px-4 py-1 text-sm font-medium text-foreground outline-0 transition-colors duration-200 ease-in-out select-none active:bg-muted data-disabled:pointer-events-none data-disabled:opacity-50 data-[current]:data-[state=open]:bg-muted motion-reduce:transition-none [&:focus[data-focus-visible]]:outline-1 [&:focus[data-focus-visible]]:-outline-offset-1 [&:focus[data-focus-visible]]:outline-ring [@media(hover:hover)]:hover:bg-muted',
+          'inline-flex min-h-control-md cursor-pointer items-center justify-center gap-2 rounded-md border border-border bg-background px-4 py-1 text-sm font-medium text-foreground outline-0 transition-colors duration-200 ease-in-out select-none focus-visible:outline-1 focus-visible:-outline-offset-1 focus-visible:outline-ring active:bg-muted data-disabled:pointer-events-none data-disabled:opacity-50 data-[current]:data-[state=open]:bg-muted motion-reduce:transition-none [@media(hover:hover)]:hover:bg-muted',
         local.class,
       )}
       {...others}
-      data-focus-visible={focusVisible() ? '' : undefined}
       data-slot="menu-context-trigger"
     />
   );

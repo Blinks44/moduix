@@ -17,7 +17,7 @@ type Story = StoryObj<typeof meta>;
 
 export const Basic: Story = {
   render: () => (
-    <NativeSelect defaultValue="" aria-label="Framework">
+    <NativeSelect aria-label="Framework">
       <option value="" disabled>
         Choose framework
       </option>
@@ -30,7 +30,7 @@ export const Basic: Story = {
 
 export const Disabled: Story = {
   render: () => (
-    <NativeSelect defaultValue="react" aria-label="Framework" disabled>
+    <NativeSelect aria-label="Framework" disabled>
       <option value="react">React</option>
       <option value="vue">Vue</option>
     </NativeSelect>
@@ -73,7 +73,7 @@ export const AsChild: Story = {
 
 export const Grouping: Story = {
   render: () => (
-    <NativeSelect defaultValue="" aria-label="Framework">
+    <NativeSelect aria-label="Framework">
       <option value="" disabled>
         Choose framework
       </option>
@@ -93,7 +93,7 @@ export const Invalid: Story = {
   render: () => (
     <Field.Root invalid>
       <Field.Label>Framework</Field.Label>
-      <NativeSelect defaultValue="" name="framework">
+      <NativeSelect name="framework">
         <option value="" disabled>
           Choose framework
         </option>
@@ -107,7 +107,7 @@ export const Invalid: Story = {
 
 export const Multiple: Story = {
   render: () => (
-    <NativeSelect defaultValue={['react', 'vue']} multiple size={3} aria-label="Frameworks">
+    <NativeSelect multiple size={3} aria-label="Frameworks">
       <option value="react">React</option>
       <option value="vue">Vue</option>
       <option value="svelte">Svelte</option>
@@ -119,7 +119,7 @@ export const WithField: Story = {
   render: () => (
     <Field.Root required>
       <Field.Label>Framework</Field.Label>
-      <NativeSelect defaultValue="" name="framework">
+      <NativeSelect name="framework">
         <option value="" disabled>
           Choose framework
         </option>

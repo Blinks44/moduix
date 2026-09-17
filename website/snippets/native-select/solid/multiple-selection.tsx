@@ -19,9 +19,11 @@ const selectedFrameworks = ['react', 'vue'];
 
 export default function NativeSelectMultipleDemo() {
   return (
-    <NativeSelect defaultValue={selectedFrameworks} multiple size={3} aria-label="Frameworks">
+    <NativeSelect multiple size={3} aria-label="Frameworks">
       {frameworkOptions.map((option) => (
-        <option value={option.value}>{option.label}</option>
+        <option value={option.value} selected={selectedFrameworks.includes(option.value)}>
+          {option.label}
+        </option>
       ))}
     </NativeSelect>
   );

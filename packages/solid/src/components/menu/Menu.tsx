@@ -1,4 +1,3 @@
-import { useFocusVisible } from '@ark-ui/solid';
 import type { HTMLArkProps } from '@ark-ui/solid/factory';
 import { ark } from '@ark-ui/solid/factory';
 import {
@@ -77,7 +76,6 @@ function MenuRootProvider(props: MenuRootProviderProps) {
 }
 
 function MenuTrigger(props: ComponentProps<typeof MenuPrimitive.Trigger>) {
-  const focusVisible = useFocusVisible();
   const [local, others] = splitProps(props, ['asChild', 'class']);
 
   return (
@@ -85,7 +83,6 @@ function MenuTrigger(props: ComponentProps<typeof MenuPrimitive.Trigger>) {
       asChild={local.asChild}
       class={clsx(!local.asChild && styles.trigger, local.class)}
       {...others}
-      data-focus-visible={focusVisible() ? '' : undefined}
       data-slot="menu-trigger"
     />
   );
@@ -118,7 +115,6 @@ function MenuIndicator(props: ComponentProps<typeof MenuPrimitive.Indicator>) {
 }
 
 function MenuContextTrigger(props: ComponentProps<typeof MenuPrimitive.ContextTrigger>) {
-  const focusVisible = useFocusVisible();
   const [local, others] = splitProps(props, ['asChild', 'class']);
 
   return (
@@ -126,7 +122,6 @@ function MenuContextTrigger(props: ComponentProps<typeof MenuPrimitive.ContextTr
       asChild={local.asChild}
       class={clsx(!local.asChild && styles.contextTrigger, local.class)}
       {...others}
-      data-focus-visible={focusVisible() ? '' : undefined}
       data-slot="menu-context-trigger"
     />
   );

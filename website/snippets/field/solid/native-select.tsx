@@ -6,7 +6,7 @@ export default function NativeSelectFieldDemo() {
   return (
     <Field class={styles.root} required>
       <Field.Label>Priority</Field.Label>
-      <NativeSelect defaultValue="" name="priority">
+      <NativeSelect name="priority">
         <option value="" disabled>
           Select priority
         </option>

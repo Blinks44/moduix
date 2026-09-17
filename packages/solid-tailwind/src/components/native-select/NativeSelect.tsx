@@ -7,17 +7,10 @@ import { ChevronDownIcon } from '@/lib/moduix/icons/ui/Icons';
 
 type NativeSelectRootProps = FieldSelectProps & {
   controlProps?: JSX.HTMLAttributes<HTMLSpanElement>;
-  defaultValue?: FieldSelectProps['value'];
 };
-
-type NativeFieldSelectProps = FieldSelectProps & {
-  'prop:defaultValue'?: FieldSelectProps['value'];
-};
-
-const NativeFieldSelect = FieldPrimitive.Select as (props: NativeFieldSelectProps) => JSX.Element;
 
 function NativeSelectRoot(props: NativeSelectRootProps) {
-  const [local, others] = splitProps(props, ['asChild', 'class', 'controlProps', 'defaultValue']);
+  const [local, others] = splitProps(props, ['asChild', 'class', 'controlProps']);
   const isList = () => props.multiple || (props.size !== undefined && Number(props.size) > 1);
 
   return (
@@ -28,7 +21,7 @@ function NativeSelectRoot(props: NativeSelectRootProps) {
       data-slot="native-select-control"
       class={cn('relative inline-grid w-fit max-w-full min-w-0', local.controlProps?.class)}
     >
-      <NativeFieldSelect
+      <FieldPrimitive.Select
         asChild={local.asChild}
         {...others}
         data-scope="field"
@@ -39,7 +32,6 @@ function NativeSelectRoot(props: NativeSelectRootProps) {
           isList() && 'h-auto appearance-auto px-3 py-2',
           local.class,
         )}
-        prop:defaultValue={local.defaultValue}
       />
       <span
         aria-hidden="true"

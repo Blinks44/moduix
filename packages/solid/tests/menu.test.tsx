@@ -54,22 +54,6 @@ test('returns focus to the trigger after escape', async () => {
   await waitFor(() => expect(trigger).toHaveFocus());
 });
 
-test('tracks input modality for a button trigger focus ring', async () => {
-  render(() => (
-    <Menu>
-      <Menu.Trigger asChild={(props) => <Button {...props()} />}>Actions</Menu.Trigger>
-    </Menu>
-  ));
-  const trigger = screen.getByRole('button', { name: 'Actions' });
-
-  fireEvent.keyDown(document, { key: 'Tab' });
-  trigger.focus();
-  await waitFor(() => expect(trigger).toHaveAttribute('data-focus-visible'));
-
-  fireEvent.pointerDown(document.body);
-  await waitFor(() => expect(trigger).not.toHaveAttribute('data-focus-visible'));
-});
-
 test('renders the controlled checked state for checkbox items', async () => {
   render(() => <CheckboxMenu />);
 

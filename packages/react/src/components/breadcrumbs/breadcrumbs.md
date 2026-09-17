@@ -22,8 +22,9 @@ separators hidden from assistive technology. Collapsed paths are composed explic
 
 - `Breadcrumbs` renders an Ark factory `nav` with default `aria-label="Breadcrumb"`.
 - `Breadcrumbs.Path` renders `Breadcrumbs.List`, `Breadcrumbs.Item`, `Breadcrumbs.Link`, `Breadcrumbs.Page`, and
-  `Breadcrumbs.Separator` from an `items` array for the common anchor-based path case, with an optional shared
-  `separator` override. It forwards its ref and native ordered-list props to the generated list, while keeping
+  `Breadcrumbs.Separator` from required `links` and `page` props for the common anchor-based path case, with an
+  optional shared `separator` override. Every `links` entry requires an `href` and renders as an anchor; `page`
+  renders as the current page. It forwards its ref and native ordered-list props to the generated list, while keeping
   `children` and `asChild` private because it owns that list's children.
 - `Breadcrumbs.List` renders an ordered list and owns the horizontal layout.
 - `Breadcrumbs.Item` renders a list item for a visible segment.
@@ -48,7 +49,7 @@ Breadcrumbs / Breadcrumbs.Root
       `- Breadcrumbs.Page
 ```
 
-`Breadcrumbs.Path` is optional sugar that renders the tree above from an `items` array.
+`Breadcrumbs.Path` is optional sugar that renders the tree above from `links` and `page`.
 
 | Part        | Public namespace                  | `data-slot`             | Notes                                                       |
 | ----------- | --------------------------------- | ----------------------- | ----------------------------------------------------------- |
@@ -69,11 +70,11 @@ export function Example() {
   return (
     <Breadcrumbs>
       <Breadcrumbs.Path
-        items={[
+        links={[
           { href: '/', label: 'Home' },
           { href: '/vacancies', label: 'Vacancies' },
-          { label: 'Go Developer' },
         ]}
+        page="Go Developer"
       />
     </Breadcrumbs>
   );
@@ -96,7 +97,7 @@ Drop to explicit parts when different items need custom markup or framework link
 - Ark `asChild`: supported on every explicit part through `HTMLArkProps`; documented for `Breadcrumbs.Link`.
   `Breadcrumbs.Path` intentionally excludes it because the shorthand owns multiple list children.
 - Moduix shorthand path rendering: covered by `Breadcrumbs.Path`, which keeps the semantic `ol > li` structure while
-  auto-rendering links, the current page, and separators from `items`.
+  auto-rendering links, the current page, and separators from `links` and `page`.
 - Ark Menu composition for collapsed paths: supported through explicit `Menu`, `Menu.Positioner`,
   `Menu.Content`, and `Menu.Item asChild`.
 - Controlled/uncontrolled state, callbacks, context, `RootProvider`, ids, `HiddenInput`, and Field/Fieldset state do not

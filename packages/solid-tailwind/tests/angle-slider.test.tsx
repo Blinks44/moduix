@@ -190,3 +190,41 @@ test('keeps the thumb centered when the active state scales it', () => {
     '[&:active:not([data-disabled]):not([data-readonly])]:before:scale-[1.08]',
   );
 });
+
+test('focuses the thumb synchronously on left pointer down and respects prevented and non-interactive states', () => {
+  const preventPointerDown = (event: { preventDefault: () => void }) => {
+    event.preventDefault();
+  };
+
+  const { container } = render(() => (
+    <AngleSlider defaultValue={45} aria-label="Rotation">
+      <AngleSlider.Dial />
+    </AngleSlider>
+  ));
+  const thumb = screen.getByRole('slider', { name: 'Rotation' });
+
+  fireEvent.pointerDown(container.querySelector('[data-slot="angle-slider-control"]')!, {
+    button: 0,
+  });
+  expect(thumb).toHaveFocus();
+
+  const prevented = render(() => (
+    <AngleSlider defaultValue={45} aria-label="Prevented rotation">
+      <AngleSlider.Dial onPointerDown={preventPointerDown} />
+    </AngleSlider>
+  ));
+  fireEvent.pointerDown(prevented.container.querySelector('[data-slot="angle-slider-control"]')!, {
+    button: 0,
+  });
+  expect(screen.getByRole('slider', { name: 'Prevented rotation' })).not.toHaveFocus();
+
+  const disabled = render(() => (
+    <AngleSlider defaultValue={45} aria-label="Disabled rotation" disabled>
+      <AngleSlider.Dial />
+    </AngleSlider>
+  ));
+  fireEvent.pointerDown(disabled.container.querySelector('[data-slot="angle-slider-control"]')!, {
+    button: 0,
+  });
+  expect(screen.getByRole('slider', { name: 'Disabled rotation' })).not.toHaveFocus();
+});

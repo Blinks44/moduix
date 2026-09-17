@@ -5,12 +5,7 @@ import {
   useAngleSlider as useAngleSliderPrimitive,
   useAngleSliderContext,
 } from '@ark-ui/react/angle-slider';
-import type {
-  ComponentProps,
-  ComponentRef,
-  PointerEvent as ReactPointerEvent,
-  ReactNode,
-} from 'react';
+import type { ComponentProps, ComponentRef, ReactNode } from 'react';
 import { forwardRef } from 'react';
 import { cn } from '@/lib/moduix/cn';
 
@@ -74,13 +69,17 @@ const AngleSliderControl = forwardRef<
         "relative box-border flex aspect-square w-32 min-w-0 cursor-pointer items-center justify-center rounded-full bg-muted shadow-[inset_0_0_0_1px_var(--color-border)] outline-0 transition-colors duration-200 select-none before:absolute before:z-1 before:size-1.5 before:rounded-[inherit] before:bg-foreground before:content-[''] after:absolute after:inset-3.5 after:z-1 after:rounded-[inherit] after:bg-background after:shadow-[inset_0_0_0_1px_var(--color-border)] after:content-[''] data-disabled:cursor-default data-invalid:shadow-[inset_0_0_0_1px_var(--color-destructive)] data-invalid:after:shadow-[inset_0_0_0_1px_var(--color-destructive)] data-readonly:cursor-default motion-reduce:transition-none [&:has([data-scope='angle-slider'][data-part='thumb']:focus-visible)]:shadow-[inset_0_0_0_1px_var(--color-border),0_0_0_3px_var(--color-ring)] [&:not([data-disabled]):not([data-readonly]):active]:bg-muted [@media(hover:hover)]:[&:not([data-disabled]):not([data-readonly]):hover]:bg-muted",
         className,
       )}
-      onPointerDown={(event: ReactPointerEvent<HTMLDivElement>) => {
+      {...props}
+      onPointerDown={(event) => {
         onPointerDown?.(event);
+
+        if (event.defaultPrevented || event.button !== 0) return;
+        if (event.currentTarget.matches('[data-disabled], [data-readonly]')) return;
+
         event.currentTarget
           .querySelector<HTMLElement>('[data-scope="angle-slider"][data-part="thumb"]')
-          ?.blur();
+          ?.focus({ preventScroll: true });
       }}
-      {...props}
       data-slot="angle-slider-control"
     />
   );

@@ -1846,9 +1846,6 @@
   --moduix-menu-checkbox-indicator-border-color-checked: initial; /* var(--moduix-menu-checkbox-indicator-border-color) */
   --moduix-menu-checkbox-indicator-border-width: initial; /* 0 */
   --moduix-menu-checkbox-indicator-radius: initial; /* var(--moduix-radius-xs) */
-  --moduix-menu-context-trigger-border-style: initial; /* dashed */
-  --moduix-menu-context-trigger-height: initial; /* 10rem */
-  --moduix-menu-context-trigger-width: initial; /* 15rem */
   --moduix-menu-disabled-opacity: initial; /* var(--moduix-opacity-disabled) */
   --moduix-menu-focus-ring-color: initial; /* var(--moduix-color-ring) */
   --moduix-menu-focus-ring-width: initial; /* var(--moduix-menu-trigger-border-width, var(--moduix-border-width-sm)) */

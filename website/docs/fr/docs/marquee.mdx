@@ -262,6 +262,11 @@ Définissez `loopCount` pour limiter le nombre de boucles. `onLoopComplete` est 
 Utilisez `pauseOnInteraction` pour mettre le composant en pause lorsque l’utilisateur le survole ou place le focus
 dans son contenu.
 
+Un marquee défile en continu : les lecteurs d’écran ne peuvent pas lire de manière fiable un contenu en mouvement et
+l’animation elle-même peut être gênante. Considérez le contenu comme non essentiel : attribuez un libellé descriptif,
+offrez un moyen de le mettre en pause (`pauseOnInteraction` ou des contrôles pause/reprise explicites) et ne placez
+jamais d’informations critiques uniquement dans un marquee.
+
 <ExampleFrame variant="component">
   <MarqueePauseOnInteraction />
 </ExampleFrame>
@@ -498,9 +503,14 @@ Définissez `side="top"` ou `side="bottom"` pour faire défiler le contenu verti
 
 ## Styles
 
-Marquee inclut les images clés nécessaires à l’animation du contenu. Utilisez `className` pour les dimensions et le
-style des éléments, les variables CSS pour les dimensions, la couleur, l’espacement et le fondu des bords, et les
-attributs d’état Ark pour les styles liés au comportement.
+Marquee inclut les images clés nécessaires à l’animation du contenu. Utilisez les attributs d’état Ark pour les styles
+liés au comportement et choisissez le modèle de personnalisation de votre variante de registre :
+
+- Variantes CSS Modules : utilisez les variables `--moduix-marquee-*` pour les dimensions, la couleur, l’espacement et
+  le fondu des bords, et `className` pour la mise en page et le style des éléments. Les alias `--marquee-edge-color` et
+  `--marquee-edge-size` restent compatibles Chakra ; les variables `--moduix-marquee-edge-*` ont priorité sur eux.
+- Variantes Tailwind : utilisez `className` (React) ou `class` (Solid) avec des utilitaires Tailwind pour les mêmes
+  aspects. Marquee n’expose aucune API de variables CSS dans les paquets Tailwind.
 
 `Marquee` est transparent par défaut et n’ajoute ni bordure, ni arrière-plan, ni marge intérieure, ni arrondi. Si vous
 avez besoin d’un conteneur avec un fond ou une bordure, définissez-le dans le CSS de votre application.

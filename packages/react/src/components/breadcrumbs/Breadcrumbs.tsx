@@ -1,17 +1,17 @@
 import type { HTMLArkProps } from '@ark-ui/react/factory';
 import { ark } from '@ark-ui/react/factory';
 import { clsx } from 'clsx';
-import { Fragment, forwardRef, type ComponentRef, type Key, type ReactNode } from 'react';
+import { Fragment, forwardRef, type ComponentRef, type ReactNode } from 'react';
 import { ChevronRightIcon } from '@/lib/moduix/icons/ui';
 import styles from './Breadcrumbs.module.css';
 
-type BreadcrumbsPathItem = {
-  href?: string;
-  key?: Key;
+type BreadcrumbsPathLink = {
+  href: string;
   label: ReactNode;
 };
 type BreadcrumbsPathProps = Omit<HTMLArkProps<'ol'>, 'asChild' | 'children'> & {
-  items: readonly BreadcrumbsPathItem[];
+  links: readonly BreadcrumbsPathLink[];
+  page: ReactNode;
   separator?: ReactNode;
 };
 
@@ -83,25 +83,20 @@ const BreadcrumbsPage = forwardRef<ComponentRef<typeof ark.span>, HTMLArkProps<'
 );
 
 const BreadcrumbsPath = forwardRef<ComponentRef<typeof ark.ol>, BreadcrumbsPathProps>(
-  function BreadcrumbsPath({ items, separator, ...props }, ref) {
+  function BreadcrumbsPath({ links, page, separator, ...props }, ref) {
     return (
       <BreadcrumbsList ref={ref} {...props}>
-        {items.map((item, index) => {
-          const isLastItem = index === items.length - 1;
-
-          return (
-            <Fragment key={item.key ?? index}>
-              <BreadcrumbsItem>
-                {isLastItem ? (
-                  <BreadcrumbsPage>{item.label}</BreadcrumbsPage>
-                ) : (
-                  <BreadcrumbsLink href={item.href}>{item.label}</BreadcrumbsLink>
-                )}
-              </BreadcrumbsItem>
-              {!isLastItem ? <BreadcrumbsSeparator>{separator}</BreadcrumbsSeparator> : null}
-            </Fragment>
-          );
-        })}
+        {links.map((link, index) => (
+          <Fragment key={index}>
+            <BreadcrumbsItem>
+              <BreadcrumbsLink href={link.href}>{link.label}</BreadcrumbsLink>
+            </BreadcrumbsItem>
+            <BreadcrumbsSeparator>{separator}</BreadcrumbsSeparator>
+          </Fragment>
+        ))}
+        <BreadcrumbsItem>
+          <BreadcrumbsPage>{page}</BreadcrumbsPage>
+        </BreadcrumbsItem>
       </BreadcrumbsList>
     );
   },

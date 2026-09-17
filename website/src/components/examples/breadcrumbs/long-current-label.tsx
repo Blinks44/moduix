@@ -8,11 +8,11 @@ export default function BreadcrumbsLongLabelDemo() {
   return (
     <Breadcrumbs className={styles.root}>
       <Breadcrumbs.Path
-        items={[
+        links={[
           { href: '/', label: 'Home' },
           { href: '/docs/breadcrumbs', label: 'Breadcrumbs' },
-          { label: <span title={currentPage}>{currentPage}</span> },
         ]}
+        page={<span title={currentPage}>{currentPage}</span>}
       />
     </Breadcrumbs>
   );

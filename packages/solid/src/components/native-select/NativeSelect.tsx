@@ -8,17 +8,10 @@ import styles from './NativeSelect.module.css';
 
 type NativeSelectRootProps = FieldSelectProps & {
   controlProps?: JSX.HTMLAttributes<HTMLSpanElement>;
-  defaultValue?: FieldSelectProps['value'];
 };
-
-type NativeFieldSelectProps = FieldSelectProps & {
-  'prop:defaultValue'?: FieldSelectProps['value'];
-};
-
-const NativeFieldSelect = FieldPrimitive.Select as (props: NativeFieldSelectProps) => JSX.Element;
 
 function NativeSelectRoot(props: NativeSelectRootProps) {
-  const [local, others] = splitProps(props, ['asChild', 'class', 'controlProps', 'defaultValue']);
+  const [local, others] = splitProps(props, ['asChild', 'class', 'controlProps']);
 
   return (
     <span
@@ -28,14 +21,13 @@ function NativeSelectRoot(props: NativeSelectRootProps) {
       data-slot="native-select-control"
       class={clsx(styles.control, local.controlProps?.class)}
     >
-      <NativeFieldSelect
+      <FieldPrimitive.Select
         asChild={local.asChild}
         {...others}
         data-scope="field"
         data-part="select"
         data-slot="native-select-root"
         class={clsx(styles.root, local.class)}
-        prop:defaultValue={local.defaultValue}
       />
       <span
         aria-hidden="true"

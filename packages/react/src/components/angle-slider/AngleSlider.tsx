@@ -56,12 +56,22 @@ const AngleSliderRootProvider = forwardRef<
 const AngleSliderControl = forwardRef<
   ComponentRef<typeof AngleSliderPrimitive.Control>,
   ComponentProps<typeof AngleSliderPrimitive.Control>
->(function AngleSliderControl({ className, ...props }, ref) {
+>(function AngleSliderControl({ className, onPointerDown, ...props }, ref) {
   return (
     <AngleSliderPrimitive.Control
       ref={ref}
       className={clsx(styles.control, className)}
       {...props}
+      onPointerDown={(event) => {
+        onPointerDown?.(event);
+
+        if (event.defaultPrevented || event.button !== 0) return;
+        if (event.currentTarget.matches('[data-disabled], [data-readonly]')) return;
+
+        event.currentTarget
+          .querySelector<HTMLElement>('[data-scope="angle-slider"][data-part="thumb"]')
+          ?.focus({ preventScroll: true });
+      }}
       data-slot="angle-slider-control"
     />
   );

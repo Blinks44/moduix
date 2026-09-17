@@ -25,6 +25,12 @@ Upstream docs:
 - All DOM parts are thin wrappers over the corresponding Ark parts and forward refs.
 - `AngleSlider.Dial` is narrow sugar for `Control` plus `Thumb`, with optional children rendered
   inside the control before the thumb.
+- `AngleSlider.Control` focuses the thumb synchronously on a left pointer down. Zag defers its own
+  thumb focus to a later frame, which the browser treats as script focus and flags with
+  `:focus-visible`, so synchronizing the focus inside the pointer event keeps the pointer interaction
+  free of the keyboard focus ring; the deferred Ark focus then becomes a no-op. The handler calls the
+  consumer `onPointerDown` first and skips the focus when the event is prevented or the control is
+  disabled or read-only.
 - `AngleSlider.Marks` is narrow sugar for `MarkerGroup` plus repeated `Marker` children from a
   `values` array.
 - `useAngleSlider()` is re-exported from moduix for the normal `RootProvider` path.

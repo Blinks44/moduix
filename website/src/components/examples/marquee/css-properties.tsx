@@ -15,13 +15,13 @@ const marqueeCssProperties: CssPropertyInput[] = [
   ],
   [
     '--moduix-marquee-edge-color',
-    'var(--marquee-edge-color)',
-    'Controls edge fade start color and overrides the Chakra-compatible alias.',
+    'var(--marquee-edge-color, var(--moduix-color-background))',
+    'Controls edge fade start color; takes precedence over the Chakra-compatible alias.',
   ],
   [
     '--moduix-marquee-edge-size',
-    'var(--marquee-edge-size)',
-    'Controls edge fade width or height and overrides the Chakra-compatible alias.',
+    'var(--marquee-edge-size, 20%)',
+    'Controls edge fade width or height; takes precedence over the Chakra-compatible alias.',
   ],
   [
     '--marquee-edge-color',

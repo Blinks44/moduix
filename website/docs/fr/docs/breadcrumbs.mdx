@@ -31,7 +31,7 @@ Les mêmes exports sont disponibles depuis `@moduix/solid/breadcrumbs` pour Soli
 ## Exemple de base
 
 Utilisez `Breadcrumbs.Path` lorsque vous disposez déjà des segments du chemin à afficher. Le composant génère la liste
-ordonnée, les éléments, les liens, la page actuelle et les séparateurs à partir d’un simple tableau `items`.
+ordonnée, les éléments, les liens, la page actuelle et les séparateurs à partir des props requises `links` et `page`.
 
 
 <ExampleFrame variant="component">
@@ -116,13 +116,13 @@ Breadcrumbs / Breadcrumbs.Root
 | `Breadcrumbs.Ellipsis`             | Marqueur compact pour un déclencheur de menu qui révèle les segments masqués. |
 
 `Breadcrumbs.Path` est un raccourci fourni par moduix. Il génère `Breadcrumbs.List`, `Breadcrumbs.Item`, `Breadcrumbs.Link`,
-`Breadcrumbs.Page` et `Breadcrumbs.Separator` à partir d’un tableau `items`.
+`Breadcrumbs.Page` et `Breadcrumbs.Separator` à partir des props `links` et `page`.
 
 ## Composition
 
 `Breadcrumbs` ne gère aucun état interactif ni état de formulaire : il n’a donc ni propriétés contrôlées, ni callbacks, ni hooks de contexte, ni `RootProvider`. L’état d’un chemin condensé appartient au `Menu` composé, tandis que la navigation du routeur reste gérée par le composant de lien de l’application.
 
-Utilisez `Breadcrumbs.Path` pour un chemin fondé sur des ancres. Il génère les éléments de liste, marque le dernier élément comme page courante et n’accepte ni `children` ni `asChild`. Utilisez les parties explicites lorsqu’un chemin doit intégrer des liens du routeur, masquer des segments intermédiaires ou produire un balisage différent. Pour un lien de routeur, passez un seul enfant sémantique à `Breadcrumbs.Link asChild` afin de conserver le `href`, le focus et le comportement clavier attendus.
+Utilisez `Breadcrumbs.Path` pour un chemin fondé sur des ancres. Il génère les éléments de liste, rend chaque entrée de `links` sous forme d’ancre, rend `page` comme page courante et n’accepte ni `children` ni `asChild`. Utilisez les parties explicites lorsqu’un chemin doit intégrer des liens du routeur, masquer des segments intermédiaires ou produire un balisage différent. Pour un lien de routeur, passez un seul enfant sémantique à `Breadcrumbs.Link asChild` afin de conserver le `href`, le focus et le comportement clavier attendus.
 
 Pour un chemin condensé, placez `Breadcrumbs.Ellipsis` dans `Menu.Trigger`, puis laissez explicites les parties `Positioner`, `Content` et `Item asChild` du menu. `Breadcrumbs.Ellipsis` est purement visuel ; le trigger porte le libellé accessible et l’interaction.
 ## Exemples
@@ -249,8 +249,8 @@ Utilisez `asChild` d’Ark pour intégrer un lien fourni par le routeur du frame
 
 ### Libellé long de la page actuelle
 
-Passez un nœud React comme dernier libellé de `Breadcrumbs.Path` lorsque la page actuelle nécessite des attributs
-supplémentaires, par exemple `title`. Les éléments parents peuvent eux aussi rétrécir ; les longs libellés intermédiaires
+Passez un nœud React via la prop `page` lorsque la page actuelle nécessite des attributs supplémentaires, par exemple
+`title`. Les éléments parents peuvent eux aussi rétrécir ; les longs libellés intermédiaires
 risquent donc moins de faire déborder le fil d’Ariane.
 
 <ExampleFrame variant="component">

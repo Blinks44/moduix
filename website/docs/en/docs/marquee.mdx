@@ -261,6 +261,11 @@ after the final loop.
 
 Use `pauseOnInteraction` to pause while the user hovers the marquee or focuses content inside it.
 
+Marquees move continuously, so screen reader users cannot reliably read content in motion and
+motion itself can be distracting or harmful. Treat marquee content as non-essential: give the
+marquee a descriptive label, provide a way to pause it (`pauseOnInteraction` or explicit pause
+and resume controls), and never put critical information only inside a marquee.
+
 <ExampleFrame variant="component">
   <MarqueePauseOnInteraction />
 </ExampleFrame>
@@ -497,9 +502,15 @@ Set `side="top"` or `side="bottom"` for vertical marquees. The root uses
 
 ## Styling
 
-Marquee includes the keyframes required to animate its content. Use `className` for layout and item
-styles, CSS variables for dimensions, color, spacing, and edge fades, and Ark state attributes for
-behavioral styles.
+Marquee includes the keyframes required to animate its content. Use Ark state attributes for
+behavioral styles and pick the customization model of your registry variant:
+
+- CSS Modules variants: use `--moduix-marquee-*` variables for dimensions, color, spacing, and
+  edge fades, and `className` for layout and item styles. The `--marquee-edge-color` and
+  `--marquee-edge-size` aliases stay Chakra-compatible; `--moduix-marquee-edge-*` take precedence
+  over them.
+- Tailwind variants: use `className` (React) or `class` (Solid) with Tailwind utilities for the
+  same aspects. Marquee exposes no CSS-variable API in Tailwind packages.
 
 `Marquee` is transparent by default and adds no border, background, padding, or radius. Add a framed
 surface in your own CSS when you need one.
