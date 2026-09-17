@@ -2738,7 +2738,7 @@
   --moduix-carousel-control-bg: initial; /* color-mix(in oklab, var(--moduix-color-background) 92%, var(--moduix-color-card) 8%) */
   --moduix-carousel-control-bg-hover: initial; /* var(--moduix-color-accent) */
   --moduix-carousel-control-border-color: initial; /* color-mix(in oklab, var(--moduix-color-border) 88%, black 12%) */
-  --moduix-carousel-control-border-color-hover: initial; /* color-mix(in oklab, var(--moduix-color-border) 50%, var(--moduix-color-foreground) 50%) */
+  --moduix-carousel-control-border-color-hover: initial; /* var(--moduix-color-ring) */
   --moduix-carousel-control-color: initial; /* var(--moduix-color-foreground) */
   --moduix-carousel-control-color-hover: initial; /* var(--moduix-color-accent-foreground) */
   --moduix-carousel-control-icon-size: initial; /* var(--moduix-spacing-4) */
