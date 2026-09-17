@@ -39,12 +39,12 @@ const SwapRootProvider = forwardRef<
   return (
     <SwapPrimitive.RootProvider
       ref={ref}
-      data-animation={animation}
       className={cn(
         "group/swap inline-grid place-items-center align-middle [grid-template-areas:'swap'] data-[animation=flip]:[perspective:24rem]",
         className,
       )}
       {...props}
+      data-animation={animation}
       data-slot="swap-root-provider"
     />
   );

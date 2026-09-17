@@ -126,9 +126,9 @@ const RadioGroupItemControl = forwardRef<
   return (
     <RadioGroupPrimitive.ItemControl
       ref={ref}
-      data-size={size}
       className={cn(radioGroupItemControlVariants({ size }), className)}
       {...props}
+      data-size={size}
       data-slot="radio-group-item-control"
     />
   );

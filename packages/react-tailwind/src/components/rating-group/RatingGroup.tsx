@@ -48,12 +48,12 @@ const RatingGroupRootProvider = forwardRef<
   return (
     <RatingGroupPrimitive.RootProvider
       ref={ref}
-      data-size={size}
       className={cn(
         'group/rating-group inline-flex flex-col gap-1 text-muted-foreground',
         className,
       )}
       {...props}
+      data-size={size}
       data-slot="rating-group-root-provider"
     />
   );
@@ -114,13 +114,13 @@ const RatingGroupItemIndicator = forwardRef<HTMLSpanElement, RatingGroupItemIndi
     return (
       <span
         ref={ref}
-        data-half={half ? '' : undefined}
-        data-highlighted={highlighted ? '' : undefined}
         className={cn(
           'relative inline-flex size-5 items-center justify-center text-primary group-data-[size=lg]/rating-group:size-6 group-data-[size=sm]/rating-group:size-4 group-data-[size=xl]/rating-group:size-7 group-data-[size=xs]/rating-group:size-3.5 [&>svg]:size-full [&>svg]:flex-none [&>svg]:transition-[color,fill,stroke,clip-path] [&>svg]:duration-200 [&>svg]:ease-in-out',
           className,
         )}
         {...props}
+        data-half={half ? '' : undefined}
+        data-highlighted={highlighted ? '' : undefined}
         data-slot="rating-group-item-indicator"
       >
         {children ?? (

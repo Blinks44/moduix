@@ -47,10 +47,10 @@ const ToggleRoot = forwardRef<ComponentRef<typeof TogglePrimitive.Root>, ToggleR
     return (
       <TogglePrimitive.Root
         ref={ref}
-        data-variant={variant}
-        data-size={size}
         className={cn(toggleVariants({ variant, size }), className)}
         {...props}
+        data-variant={variant}
+        data-size={size}
         data-slot="toggle-root"
       />
     );

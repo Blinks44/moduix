@@ -34,12 +34,12 @@ function SwapRootProvider(props: SwapRootProviderProps) {
 
   return (
     <SwapPrimitive.RootProvider
-      data-animation={local.animation ?? 'scale'}
       class={cn(
         "group/swap inline-grid place-items-center align-middle [grid-template-areas:'swap'] data-[animation=flip]:[perspective:24rem]",
         local.class,
       )}
       {...others}
+      data-animation={local.animation ?? 'scale'}
       data-slot="swap-root-provider"
     />
   );

@@ -99,9 +99,9 @@ const RadioGroupItemControl = forwardRef<
   return (
     <RadioGroupPrimitive.ItemControl
       ref={ref}
-      data-size={size}
       className={clsx(styles.itemControl, className)}
       {...props}
+      data-size={size}
       data-slot="radio-group-item-control"
     />
   );

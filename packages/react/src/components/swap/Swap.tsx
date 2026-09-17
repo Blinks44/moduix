@@ -37,9 +37,9 @@ const SwapRootProvider = forwardRef<
   return (
     <SwapPrimitive.RootProvider
       ref={ref}
-      data-animation={animation}
       className={clsx(styles.root, className)}
       {...props}
+      data-animation={animation}
       data-slot="swap-root-provider"
     />
   );

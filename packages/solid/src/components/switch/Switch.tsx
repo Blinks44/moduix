@@ -39,9 +39,9 @@ function SwitchRootProvider(props: SwitchRootProviderProps) {
   return (
     <SwitchPrimitive.RootProvider
       asChild={local.asChild}
-      data-size={local.size ?? 'md'}
       class={clsx(styles.root, local.class)}
       {...others}
+      data-size={local.size ?? 'md'}
       data-slot="switch-root-provider"
     >
       {local.children}

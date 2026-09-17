@@ -43,9 +43,9 @@ function RatingGroupRootProvider(props: RatingGroupRootProviderProps) {
   return (
     <RatingGroupPrimitive.RootProvider
       asChild={local.asChild}
-      data-size={local.size ?? 'md'}
       class={cn('group/rating-group inline-flex flex-col gap-1 text-muted-foreground', local.class)}
       {...others}
+      data-size={local.size ?? 'md'}
       data-slot="rating-group-root-provider"
     >
       {local.children}
@@ -102,13 +102,13 @@ function RatingGroupItemIndicator(props: RatingGroupItemIndicatorProps) {
 
   return (
     <span
-      data-half={item().half ? '' : undefined}
-      data-highlighted={item().highlighted ? '' : undefined}
       class={cn(
         'relative inline-flex size-5 items-center justify-center text-primary group-data-[size=lg]/rating-group:size-6 group-data-[size=sm]/rating-group:size-4 group-data-[size=xl]/rating-group:size-7 group-data-[size=xs]/rating-group:size-3.5 [&>svg]:size-full [&>svg]:flex-none [&>svg]:transition-[color,fill,stroke,clip-path] [&>svg]:duration-200 [&>svg]:ease-in-out',
         local.class,
       )}
       {...others}
+      data-half={item().half ? '' : undefined}
+      data-highlighted={item().highlighted ? '' : undefined}
       data-slot="rating-group-item-indicator"
     >
       {resolvedChildren() ?? (

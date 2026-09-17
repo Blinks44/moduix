@@ -11,10 +11,10 @@ function TabsRoot(props: ComponentProps<typeof TabsPrimitive.Root> & { variant?:
 
   return (
     <TabsPrimitive.Root
-      data-variant={local.orientation === 'vertical' ? 'default' : (local.variant ?? 'default')}
       class={clsx(styles.root, local.class)}
       orientation={local.orientation}
       {...others}
+      data-variant={local.orientation === 'vertical' ? 'default' : (local.variant ?? 'default')}
       data-slot="tabs-root"
     />
   );
@@ -33,10 +33,10 @@ function TabsRootProvider(
 
   return (
     <TabsPrimitive.RootProvider
-      data-variant={orientation() === 'vertical' ? 'default' : (local.variant ?? 'default')}
       class={clsx(styles.root, local.class)}
       value={local.value}
       {...others}
+      data-variant={orientation() === 'vertical' ? 'default' : (local.variant ?? 'default')}
       data-slot="tabs-root-provider"
     />
   );

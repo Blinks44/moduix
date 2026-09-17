@@ -208,13 +208,13 @@ function SidebarTrigger(props: SidebarTriggerProps) {
       type={local.type ?? 'button'}
       aria-label={local['aria-label'] ?? 'Toggle sidebar'}
       aria-expanded={!collapsed()}
+      class={clsx(styles.trigger, local.class)}
+      onClick={handleClick}
+      {...others}
       data-scope="sidebar"
       data-part="trigger"
       data-side={config.side()}
       data-state={collapsed() ? 'collapsed' : 'expanded'}
-      class={clsx(styles.trigger, local.class)}
-      onClick={handleClick}
-      {...others}
       data-slot="sidebar-trigger"
     >
       {local.children === undefined && !local.asChild ? <ChevronLeftIcon /> : local.children}
@@ -227,10 +227,10 @@ function SidebarLabel(props: HTMLArkProps<'span'>) {
 
   return (
     <ark.span
-      data-scope="sidebar"
-      data-part="label"
       class={clsx(styles.label, local.class)}
       {...others}
+      data-scope="sidebar"
+      data-part="label"
       data-slot="sidebar-label"
     />
   );
@@ -241,10 +241,10 @@ function SidebarHeader(props: HTMLArkProps<'header'>) {
 
   return (
     <ark.header
-      data-scope="sidebar"
-      data-part="header"
       class={clsx(styles.header, local.class)}
       {...others}
+      data-scope="sidebar"
+      data-part="header"
       data-slot="sidebar-header"
     />
   );
@@ -255,10 +255,10 @@ function SidebarContent(props: HTMLArkProps<'div'>) {
 
   return (
     <ark.div
-      data-scope="sidebar"
-      data-part="content"
       class={clsx(styles.content, local.class)}
       {...others}
+      data-scope="sidebar"
+      data-part="content"
       data-slot="sidebar-content"
     />
   );
@@ -270,10 +270,10 @@ function SidebarExpandedContent(props: HTMLArkProps<'div'>) {
 
   return (
     <ark.div
-      data-scope="sidebar"
-      data-part="expanded-content"
       class={local.class}
       {...others}
+      data-scope="sidebar"
+      data-part="expanded-content"
       data-slot="sidebar-expanded-content"
       hidden={collapsed()}
     />
@@ -286,10 +286,10 @@ function SidebarCollapsedContent(props: HTMLArkProps<'div'>) {
 
   return (
     <ark.div
-      data-scope="sidebar"
-      data-part="collapsed-content"
       class={local.class}
       {...others}
+      data-scope="sidebar"
+      data-part="collapsed-content"
       data-slot="sidebar-collapsed-content"
       hidden={!collapsed()}
     />
@@ -301,10 +301,10 @@ function SidebarFooter(props: HTMLArkProps<'footer'>) {
 
   return (
     <ark.footer
-      data-scope="sidebar"
-      data-part="footer"
       class={clsx(styles.footer, local.class)}
       {...others}
+      data-scope="sidebar"
+      data-part="footer"
       data-slot="sidebar-footer"
     />
   );
@@ -315,10 +315,10 @@ function SidebarGroup(props: HTMLArkProps<'section'>) {
 
   return (
     <ark.section
-      data-scope="sidebar"
-      data-part="group"
       class={clsx(styles.group, local.class)}
       {...others}
+      data-scope="sidebar"
+      data-part="group"
       data-slot="sidebar-group"
     />
   );
@@ -329,10 +329,10 @@ function SidebarGroupLabel(props: HTMLArkProps<'h3'>) {
 
   return (
     <ark.h3
-      data-scope="sidebar"
-      data-part="group-label"
       class={clsx(styles.groupLabel, local.class)}
       {...others}
+      data-scope="sidebar"
+      data-part="group-label"
       data-slot="sidebar-group-label"
     />
   );
@@ -343,10 +343,10 @@ function SidebarGroupHeader(props: HTMLArkProps<'div'>) {
 
   return (
     <ark.div
-      data-scope="sidebar"
-      data-part="group-header"
       class={clsx(styles.groupHeader, local.class)}
       {...others}
+      data-scope="sidebar"
+      data-part="group-header"
       data-slot="sidebar-group-header"
     />
   );
@@ -358,10 +358,10 @@ function SidebarGroupAction(props: HTMLArkProps<'button'>) {
   return (
     <ark.button
       type={local.type ?? 'button'}
-      data-scope="sidebar"
-      data-part="group-action"
       class={clsx(styles.groupAction, local.class)}
       {...others}
+      data-scope="sidebar"
+      data-part="group-action"
       data-slot="sidebar-group-action"
     />
   );
@@ -372,10 +372,10 @@ function SidebarNavigationList(props: HTMLArkProps<'ul'>) {
 
   return (
     <ark.ul
-      data-scope="sidebar"
-      data-part="navigation-list"
       class={clsx(styles.menu, local.class)}
       {...others}
+      data-scope="sidebar"
+      data-part="navigation-list"
       data-slot="sidebar-navigation-list"
     />
   );
@@ -386,10 +386,10 @@ function SidebarNavigationItem(props: HTMLArkProps<'li'>) {
 
   return (
     <ark.li
-      data-scope="sidebar"
-      data-part="navigation-item"
       class={clsx(styles.menuItem, local.class)}
       {...others}
+      data-scope="sidebar"
+      data-part="navigation-item"
       data-slot="sidebar-navigation-item"
     />
   );
@@ -415,12 +415,12 @@ function SidebarNavigationButton(
       asChild={local.asChild}
       type={local.type ?? 'button'}
       aria-current={local['aria-current'] ?? (local.active ? 'page' : undefined)}
+      class={clsx(styles.menuButton, local.class)}
+      {...others}
       data-scope="sidebar"
       data-part="navigation-button"
       data-active={local.active ? '' : undefined}
       data-size={local.size ?? 'md'}
-      class={clsx(styles.menuButton, local.class)}
-      {...others}
       data-slot="sidebar-navigation-button"
     />
   );
@@ -431,10 +431,10 @@ function SidebarNavigationBadge(props: HTMLArkProps<'span'>) {
 
   return (
     <ark.span
-      data-scope="sidebar"
-      data-part="navigation-badge"
       class={clsx(styles.menuBadge, local.class)}
       {...others}
+      data-scope="sidebar"
+      data-part="navigation-badge"
       data-slot="sidebar-navigation-badge"
     />
   );
@@ -445,10 +445,10 @@ function SidebarNavigationSubList(props: HTMLArkProps<'ul'>) {
 
   return (
     <ark.ul
-      data-scope="sidebar"
-      data-part="navigation-sub-list"
       class={clsx(styles.menuSub, local.class)}
       {...others}
+      data-scope="sidebar"
+      data-part="navigation-sub-list"
       data-slot="sidebar-navigation-sub-list"
     />
   );
@@ -459,10 +459,10 @@ function SidebarNavigationSubItem(props: HTMLArkProps<'li'>) {
 
   return (
     <ark.li
-      data-scope="sidebar"
-      data-part="navigation-sub-item"
       class={clsx(styles.menuSubItem, local.class)}
       {...others}
+      data-scope="sidebar"
+      data-part="navigation-sub-item"
       data-slot="sidebar-navigation-sub-item"
     />
   );
@@ -485,11 +485,11 @@ function SidebarNavigationSubButton(
     <ark.a
       asChild={local.asChild}
       aria-current={local['aria-current'] ?? (local.active ? 'page' : undefined)}
+      class={clsx(styles.menuSubButton, local.class)}
+      {...others}
       data-scope="sidebar"
       data-part="navigation-sub-button"
       data-active={local.active ? '' : undefined}
-      class={clsx(styles.menuSubButton, local.class)}
-      {...others}
       data-slot="sidebar-navigation-sub-button"
     >
       {typeof local.children === 'string' ? (

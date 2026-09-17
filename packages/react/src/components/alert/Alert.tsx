@@ -18,11 +18,11 @@ const AlertRoot = forwardRef<ComponentRef<typeof ark.div>, AlertRootProps>(funct
     <ark.div
       ref={ref}
       role={role}
+      className={clsx(styles.root, className)}
+      {...props}
       data-scope="alert"
       data-part="root"
       data-status={status}
-      className={clsx(styles.root, className)}
-      {...props}
       data-slot="alert-root"
     >
       {children}
@@ -35,11 +35,11 @@ const AlertIndicator = forwardRef<ComponentRef<typeof ark.span>, HTMLArkProps<'s
     return (
       <ark.span
         ref={ref}
-        data-scope="alert"
-        data-part="indicator"
         aria-hidden="true"
         className={clsx(styles.indicator, className)}
         {...props}
+        data-scope="alert"
+        data-part="indicator"
         data-slot="alert-indicator"
       />
     );
@@ -51,10 +51,10 @@ const AlertContent = forwardRef<ComponentRef<typeof ark.div>, HTMLArkProps<'div'
     return (
       <ark.div
         ref={ref}
-        data-scope="alert"
-        data-part="content"
         className={clsx(styles.content, className)}
         {...props}
+        data-scope="alert"
+        data-part="content"
         data-slot="alert-content"
       />
     );
@@ -68,10 +68,10 @@ const AlertTitle = forwardRef<ComponentRef<typeof ark.p>, HTMLArkProps<'p'>>(fun
   return (
     <ark.p
       ref={ref}
-      data-scope="alert"
-      data-part="title"
       className={clsx(styles.title, className)}
       {...props}
+      data-scope="alert"
+      data-part="title"
       data-slot="alert-title"
     />
   );
@@ -82,10 +82,10 @@ const AlertDescription = forwardRef<ComponentRef<typeof ark.div>, HTMLArkProps<'
     return (
       <ark.div
         ref={ref}
-        data-scope="alert"
-        data-part="description"
         className={clsx(styles.description, className)}
         {...props}
+        data-scope="alert"
+        data-part="description"
         data-slot="alert-description"
       />
     );
@@ -97,10 +97,10 @@ const AlertActions = forwardRef<ComponentRef<typeof ark.div>, HTMLArkProps<'div'
     return (
       <ark.div
         ref={ref}
-        data-scope="alert"
-        data-part="actions"
         className={clsx(styles.actions, className)}
         {...props}
+        data-scope="alert"
+        data-part="actions"
         data-slot="alert-actions"
       />
     );

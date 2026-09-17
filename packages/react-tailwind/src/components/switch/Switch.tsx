@@ -40,12 +40,12 @@ const SwitchRootProvider = forwardRef<
   return (
     <SwitchPrimitive.RootProvider
       ref={ref}
-      data-size={size}
       className={cn(
         'group/switch inline-flex w-fit cursor-pointer items-center gap-2 align-middle data-disabled:cursor-default data-disabled:opacity-50 data-readonly:cursor-default',
         className,
       )}
       {...props}
+      data-size={size}
       data-slot="switch-root-provider"
     />
   );

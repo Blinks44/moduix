@@ -16,11 +16,11 @@ function AlertRoot(props: AlertRootProps) {
   return (
     <ark.div
       role={local.role}
+      class={clsx(styles.root, local.class)}
+      {...others}
       data-scope="alert"
       data-part="root"
       data-status={local.status ?? 'info'}
-      class={clsx(styles.root, local.class)}
-      {...others}
       data-slot="alert-root"
     />
   );
@@ -31,11 +31,11 @@ function AlertIndicator(props: HTMLArkProps<'span'>) {
 
   return (
     <ark.span
-      data-scope="alert"
-      data-part="indicator"
       aria-hidden="true"
       class={clsx(styles.indicator, local.class)}
       {...others}
+      data-scope="alert"
+      data-part="indicator"
       data-slot="alert-indicator"
     />
   );
@@ -46,10 +46,10 @@ function AlertContent(props: HTMLArkProps<'div'>) {
 
   return (
     <ark.div
-      data-scope="alert"
-      data-part="content"
       class={clsx(styles.content, local.class)}
       {...others}
+      data-scope="alert"
+      data-part="content"
       data-slot="alert-content"
     />
   );
@@ -60,10 +60,10 @@ function AlertTitle(props: HTMLArkProps<'p'>) {
 
   return (
     <ark.p
-      data-scope="alert"
-      data-part="title"
       class={clsx(styles.title, local.class)}
       {...others}
+      data-scope="alert"
+      data-part="title"
       data-slot="alert-title"
     />
   );
@@ -74,10 +74,10 @@ function AlertDescription(props: HTMLArkProps<'div'>) {
 
   return (
     <ark.div
-      data-scope="alert"
-      data-part="description"
       class={clsx(styles.description, local.class)}
       {...others}
+      data-scope="alert"
+      data-part="description"
       data-slot="alert-description"
     />
   );
@@ -88,10 +88,10 @@ function AlertActions(props: HTMLArkProps<'div'>) {
 
   return (
     <ark.div
-      data-scope="alert"
-      data-part="actions"
       class={clsx(styles.actions, local.class)}
       {...others}
+      data-scope="alert"
+      data-part="actions"
       data-slot="alert-actions"
     />
   );

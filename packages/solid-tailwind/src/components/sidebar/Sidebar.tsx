@@ -243,10 +243,10 @@ function SidebarLabel(props: HTMLArkProps<'span'>) {
 
   return (
     <ark.span
-      data-scope="sidebar"
-      data-part="label"
       class={cn('min-w-0 truncate group-data-[state=collapsed]/sidebar-panel:sr-only', local.class)}
       {...others}
+      data-scope="sidebar"
+      data-part="label"
       data-slot="sidebar-label"
     />
   );
@@ -257,13 +257,13 @@ function SidebarHeader(props: HTMLArkProps<'header'>) {
 
   return (
     <ark.header
-      data-scope="sidebar"
-      data-part="header"
       class={cn(
         'flex flex-none items-center gap-2 p-3 group-data-[state=collapsed]/sidebar-panel:justify-center group-data-[state=collapsed]/sidebar-panel:px-1 [&>*:only-child]:w-full group-data-[state=collapsed]/sidebar-panel:[&>*:only-child]:w-auto',
         local.class,
       )}
       {...others}
+      data-scope="sidebar"
+      data-part="header"
       data-slot="sidebar-header"
     />
   );
@@ -274,13 +274,13 @@ function SidebarContent(props: HTMLArkProps<'div'>) {
 
   return (
     <ark.div
-      data-scope="sidebar"
-      data-part="content"
       class={cn(
         'flex min-h-0 flex-auto [scrollbar-gutter:stable] flex-col overflow-auto overscroll-contain group-data-[state=collapsed]/sidebar-panel:[scrollbar-width:none] group-data-[state=collapsed]/sidebar-panel:[scrollbar-gutter:auto] group-data-[state=collapsed]/sidebar-panel:overflow-x-hidden group-data-[state=collapsed]/sidebar-panel:overflow-y-auto',
         local.class,
       )}
       {...others}
+      data-scope="sidebar"
+      data-part="content"
       data-slot="sidebar-content"
     />
   );
@@ -292,10 +292,10 @@ function SidebarExpandedContent(props: HTMLArkProps<'div'>) {
 
   return (
     <ark.div
-      data-scope="sidebar"
-      data-part="expanded-content"
       class={local.class}
       {...others}
+      data-scope="sidebar"
+      data-part="expanded-content"
       data-slot="sidebar-expanded-content"
       hidden={collapsed()}
     />
@@ -308,10 +308,10 @@ function SidebarCollapsedContent(props: HTMLArkProps<'div'>) {
 
   return (
     <ark.div
-      data-scope="sidebar"
-      data-part="collapsed-content"
       class={local.class}
       {...others}
+      data-scope="sidebar"
+      data-part="collapsed-content"
       data-slot="sidebar-collapsed-content"
       hidden={!collapsed()}
     />
@@ -323,13 +323,13 @@ function SidebarFooter(props: HTMLArkProps<'footer'>) {
 
   return (
     <ark.footer
-      data-scope="sidebar"
-      data-part="footer"
       class={cn(
         'flex flex-none items-center gap-2 p-3 group-data-[state=collapsed]/sidebar-panel:justify-center group-data-[state=collapsed]/sidebar-panel:px-1',
         local.class,
       )}
       {...others}
+      data-scope="sidebar"
+      data-part="footer"
       data-slot="sidebar-footer"
     />
   );
@@ -340,13 +340,13 @@ function SidebarGroup(props: HTMLArkProps<'section'>) {
 
   return (
     <ark.section
-      data-scope="sidebar"
-      data-part="group"
       class={cn(
         'flex flex-col gap-1 p-3 group-data-[state=collapsed]/sidebar-panel:px-1',
         local.class,
       )}
       {...others}
+      data-scope="sidebar"
+      data-part="group"
       data-slot="sidebar-group"
     />
   );
@@ -357,10 +357,10 @@ function SidebarGroupHeader(props: HTMLArkProps<'div'>) {
 
   return (
     <ark.div
-      data-scope="sidebar"
-      data-part="group-header"
       class={cn('flex min-w-0 items-center gap-2', local.class)}
       {...others}
+      data-scope="sidebar"
+      data-part="group-header"
       data-slot="sidebar-group-header"
     />
   );
@@ -371,13 +371,13 @@ function SidebarGroupLabel(props: HTMLArkProps<'h3'>) {
 
   return (
     <ark.h3
-      data-scope="sidebar"
-      data-part="group-label"
       class={cn(
         'min-w-0 flex-1 truncate px-2 text-xs leading-4 font-medium text-muted-foreground group-data-[state=collapsed]/sidebar-panel:sr-only',
         local.class,
       )}
       {...others}
+      data-scope="sidebar"
+      data-part="group-label"
       data-slot="sidebar-group-label"
     />
   );
@@ -389,13 +389,13 @@ function SidebarGroupAction(props: HTMLArkProps<'button'>) {
   return (
     <ark.button
       type={local.type ?? 'button'}
-      data-scope="sidebar"
-      data-part="group-action"
       class={cn(
         'focus-visible:outline-offset-0.5 me-2 inline-flex size-control-xs flex-none cursor-pointer items-center justify-center rounded-md p-0 text-muted-foreground outline-0 transition-colors duration-200 ease-in-out hover:bg-accent hover:text-accent-foreground focus-visible:outline-2 focus-visible:outline-ring motion-reduce:transition-none @max-[7rem]:hidden [&>svg]:size-4',
         local.class,
       )}
       {...others}
+      data-scope="sidebar"
+      data-part="group-action"
       data-slot="sidebar-group-action"
     />
   );
@@ -406,10 +406,10 @@ function SidebarNavigationList(props: HTMLArkProps<'ul'>) {
 
   return (
     <ark.ul
-      data-scope="sidebar"
-      data-part="navigation-list"
       class={cn('flex w-full min-w-0 flex-col gap-1', local.class)}
       {...others}
+      data-scope="sidebar"
+      data-part="navigation-list"
       data-slot="sidebar-navigation-list"
     />
   );
@@ -420,10 +420,10 @@ function SidebarNavigationItem(props: HTMLArkProps<'li'>) {
 
   return (
     <ark.li
-      data-scope="sidebar"
-      data-part="navigation-item"
       class={cn('relative min-w-0', local.class)}
       {...others}
+      data-scope="sidebar"
+      data-part="navigation-item"
       data-slot="sidebar-navigation-item"
     />
   );
@@ -477,13 +477,13 @@ function SidebarNavigationBadge(props: HTMLArkProps<'span'>) {
 
   return (
     <ark.span
-      data-scope="sidebar"
-      data-part="navigation-badge"
       class={cn(
         'pointer-events-none absolute end-2.5 top-1/2 z-1 box-border inline-grid size-5 -translate-y-1/2 place-items-center rounded-full bg-primary p-0 text-[0.5625rem] leading-none font-medium text-primary-foreground tabular-nums @max-[7rem]:hidden',
         local.class,
       )}
       {...others}
+      data-scope="sidebar"
+      data-part="navigation-badge"
       data-slot="sidebar-navigation-badge"
     />
   );
@@ -494,13 +494,13 @@ function SidebarNavigationSubList(props: HTMLArkProps<'ul'>) {
 
   return (
     <ark.ul
-      data-scope="sidebar"
-      data-part="navigation-sub-list"
       class={cn(
         'ms-4 mt-1 flex w-auto min-w-0 flex-col gap-1 border-s border-border ps-2 group-data-[state=collapsed]/sidebar-panel:hidden',
         local.class,
       )}
       {...others}
+      data-scope="sidebar"
+      data-part="navigation-sub-list"
       data-slot="sidebar-navigation-sub-list"
     />
   );
@@ -511,10 +511,10 @@ function SidebarNavigationSubItem(props: HTMLArkProps<'li'>) {
 
   return (
     <ark.li
-      data-scope="sidebar"
-      data-part="navigation-sub-item"
       class={cn('relative min-w-0', local.class)}
       {...others}
+      data-scope="sidebar"
+      data-part="navigation-sub-item"
       data-slot="sidebar-navigation-sub-item"
     />
   );
@@ -537,9 +537,6 @@ function SidebarNavigationSubButton(
     <ark.a
       asChild={local.asChild}
       aria-current={local['aria-current'] ?? (local.active ? 'page' : undefined)}
-      data-scope="sidebar"
-      data-part="navigation-sub-button"
-      data-active={local.active ? '' : undefined}
       class={cn(
         'flex min-h-control-sm w-full min-w-0 cursor-pointer items-center gap-2 overflow-hidden rounded-md px-2 text-start text-sm leading-5 text-ellipsis whitespace-nowrap text-card-foreground outline-0 transition-[background-color,border-color,color,box-shadow] duration-200 ease-in-out has-[+_[data-slot=sidebar-navigation-badge]]:pe-10 @max-[7rem]:has-[+_[data-slot=sidebar-navigation-badge]]:pe-2',
         'focus-visible:outline-offset-0.5 focus-visible:outline-2 focus-visible:outline-ring disabled:pointer-events-none disabled:opacity-50 aria-disabled:pointer-events-none aria-disabled:opacity-50 data-active:bg-accent data-active:font-medium data-active:text-accent-foreground motion-reduce:transition-none [&:not(:disabled):not([aria-disabled=true])]:hover:bg-accent [&:not(:disabled):not([aria-disabled=true])]:hover:text-accent-foreground',
@@ -547,6 +544,9 @@ function SidebarNavigationSubButton(
         local.class,
       )}
       {...others}
+      data-scope="sidebar"
+      data-part="navigation-sub-button"
+      data-active={local.active ? '' : undefined}
       data-slot="sidebar-navigation-sub-button"
     >
       {typeof local.children === 'string' ? (

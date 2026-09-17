@@ -41,12 +41,12 @@ function SwitchRootProvider(props: SwitchRootProviderProps) {
   return (
     <SwitchPrimitive.RootProvider
       asChild={local.asChild}
-      data-size={local.size ?? 'md'}
       class={cn(
         'group/switch inline-flex w-fit cursor-pointer items-center gap-2 align-middle data-disabled:cursor-default data-disabled:opacity-50 data-readonly:cursor-default',
         local.class,
       )}
       {...others}
+      data-size={local.size ?? 'md'}
       data-slot="switch-root-provider"
     >
       {local.children}

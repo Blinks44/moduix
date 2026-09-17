@@ -49,9 +49,9 @@ function AvatarRootProvider(props: AvatarRootProviderProps) {
 
   return (
     <AvatarPrimitive.RootProvider
-      data-size={local.size}
       class={cn(avatarVariants({ size: local.size }), local.class)}
       {...others}
+      data-size={local.size}
       data-slot="avatar-root-provider"
     />
   );

@@ -103,13 +103,13 @@ function MenuTrigger(props: ComponentProps<typeof MenuPrimitive.Trigger>) {
   return (
     <MenuPrimitive.Trigger
       asChild={local.asChild}
-      data-focus-visible={focusVisible() ? '' : undefined}
       class={cn(
         !local.asChild &&
           'inline-flex min-h-control-md cursor-pointer items-center justify-center gap-2 rounded-md border border-border bg-background px-4 py-1 text-sm font-medium text-foreground outline-0 transition-colors duration-200 ease-in-out select-none active:bg-muted data-disabled:pointer-events-none data-disabled:opacity-50 data-[current]:data-[state=open]:bg-muted motion-reduce:transition-none [&:focus[data-focus-visible]]:outline-1 [&:focus[data-focus-visible]]:-outline-offset-1 [&:focus[data-focus-visible]]:outline-ring [@media(hover:hover)]:hover:bg-muted',
         local.class,
       )}
       {...others}
+      data-focus-visible={focusVisible() ? '' : undefined}
       data-slot="menu-trigger"
     />
   );
@@ -155,13 +155,13 @@ function MenuContextTrigger(props: ComponentProps<typeof MenuPrimitive.ContextTr
   return (
     <MenuPrimitive.ContextTrigger
       asChild={local.asChild}
-      data-focus-visible={focusVisible() ? '' : undefined}
       class={cn(
         !local.asChild &&
           'inline-flex min-h-control-md cursor-pointer items-center justify-center gap-2 rounded-md border border-border bg-background px-4 py-1 text-sm font-medium text-foreground outline-0 transition-colors duration-200 ease-in-out select-none active:bg-muted data-disabled:pointer-events-none data-disabled:opacity-50 data-[current]:data-[state=open]:bg-muted motion-reduce:transition-none [&:focus[data-focus-visible]]:outline-1 [&:focus[data-focus-visible]]:-outline-offset-1 [&:focus[data-focus-visible]]:outline-ring [@media(hover:hover)]:hover:bg-muted',
         local.class,
       )}
       {...others}
+      data-focus-visible={focusVisible() ? '' : undefined}
       data-slot="menu-context-trigger"
     />
   );
@@ -206,13 +206,13 @@ function MenuViewport(props: HTMLArkProps<'div'>) {
   return (
     <ark.div
       asChild={local.asChild}
-      data-scope="menu"
-      data-part="viewport"
       class={cn(
         'flex max-h-[min(24rem,var(--available-height,100dvh))] flex-col overflow-auto',
         local.class,
       )}
       {...others}
+      data-scope="menu"
+      data-part="viewport"
       data-slot="menu-viewport"
     />
   );
@@ -250,9 +250,9 @@ function MenuItem(props: MenuItemProps) {
   const [local, others] = splitProps(props, ['class', 'tone']);
   return (
     <MenuPrimitive.Item
-      data-tone={local.tone ?? 'default'}
       class={cn(menuItemStyles({ layout: 'item', tone: local.tone }), local.class)}
       {...others}
+      data-tone={local.tone ?? 'default'}
       data-slot="menu-item"
     />
   );
@@ -334,12 +334,12 @@ function MenuRadioItem(props: MenuRadioItemProps) {
   const [local, others] = splitProps(props, ['class', 'indicator']);
   return (
     <MenuPrimitive.RadioItem
-      data-indicator-position={local.indicator ?? 'start'}
       class={cn(
         menuItemStyles({ layout: 'indicatorItem', indicator: local.indicator ?? 'start' }),
         local.class,
       )}
       {...others}
+      data-indicator-position={local.indicator ?? 'start'}
       data-slot="menu-radio-item"
     />
   );
@@ -349,12 +349,12 @@ function MenuCheckboxItem(props: MenuCheckboxItemProps) {
   const [local, others] = splitProps(props, ['class', 'indicator']);
   return (
     <MenuPrimitive.CheckboxItem
-      data-indicator-position={local.indicator ?? 'start'}
       class={cn(
         menuItemStyles({ layout: 'indicatorItem', indicator: local.indicator ?? 'start' }),
         local.class,
       )}
       {...others}
+      data-indicator-position={local.indicator ?? 'start'}
       data-slot="menu-checkbox-item"
     />
   );

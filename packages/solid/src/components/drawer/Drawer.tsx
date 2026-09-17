@@ -135,10 +135,10 @@ function DrawerContent(props: DrawerContentProps) {
 
   return (
     <DrawerPrimitive.Content
-      data-variant={local.variant ?? rootVariant}
       class={clsx(styles.content, local.class)}
       draggable={local.draggable ?? true}
       {...others}
+      data-variant={local.variant ?? rootVariant}
       data-slot="drawer-content"
     />
   );

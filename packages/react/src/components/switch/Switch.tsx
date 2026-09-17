@@ -22,9 +22,9 @@ const SwitchRoot = forwardRef<ComponentRef<typeof SwitchPrimitive.Root>, SwitchR
     return (
       <SwitchPrimitive.Root
         ref={ref}
-        data-size={size}
         className={clsx(styles.root, className)}
         {...props}
+        data-size={size}
         data-slot="switch-root"
       />
     );
@@ -38,9 +38,9 @@ const SwitchRootProvider = forwardRef<
   return (
     <SwitchPrimitive.RootProvider
       ref={ref}
-      data-size={size}
       className={clsx(styles.root, className)}
       {...props}
+      data-size={size}
       data-slot="switch-root-provider"
     />
   );

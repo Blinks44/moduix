@@ -32,9 +32,9 @@ function SwapRootProvider(props: SwapRootProviderProps) {
 
   return (
     <SwapPrimitive.RootProvider
-      data-animation={local.animation ?? 'scale'}
       class={clsx(styles.root, local.class)}
       {...others}
+      data-animation={local.animation ?? 'scale'}
       data-slot="swap-root-provider"
     />
   );
