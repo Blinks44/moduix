@@ -42,7 +42,8 @@ import angleSliderSolidWithMarks from '../../../snippets/angle-slider/solid/with
 ## Базовый пример
 
 
-Начните с `Dial`: он объединяет круговой элемент управления и бегунок. `AngleSlider` принимает
+Начните с `Dial`: он объединяет круговой трек, центрированное значение и бегунок. Трек заполняется
+сверхи по мере роста угла. `AngleSlider` принимает
 один угол от 0 до 360 градусов. По возможности добавляйте видимую `Label`. Если у диска нет
 видимой подписи, добавьте `aria-label` в корневой компонент.
 
@@ -114,10 +115,10 @@ import angleSliderSolidWithMarks from '../../../snippets/angle-slider/solid/with
 AngleSlider / AngleSlider.Root
 ├─ AngleSlider.Label
 ├─ AngleSlider.Dial
+│  ├─ AngleSlider.ValueText
 │  └─ AngleSlider.Thumb
 ├─ AngleSlider.Marks (необязательно)
 │  └─ AngleSlider.Marker[value]
-├─ AngleSlider.ValueText
 └─ AngleSlider.HiddenInput (явно)
 
 AngleSlider.RootProvider
@@ -130,12 +131,12 @@ AngleSlider.RootProvider
 | `AngleSlider.RootProvider`         | Подключает части к состоянию, созданному через `useAngleSlider()`.    |
 | `AngleSlider.Label`                | Связывает видимую подпись со слайдером.                               |
 | `AngleSlider.Control`              | Задаёт круглую область для взаимодействия указателем.                 |
-| `AngleSlider.Dial`                 | Удобная композиция из `Control` и `Thumb`.                            |
-| `AngleSlider.Thumb`                | Фокусируемый бегунок, показывающий текущий угол.                      |
+| `AngleSlider.Dial`                 | Удобная композиция из `Control`, центрированной `ValueText` и `Thumb`. |
+| `AngleSlider.Thumb`                | Фокусируемый круглый бегунок, движущийся по треку в соответствии с текущим углом. |
 | `AngleSlider.MarkerGroup`          | Содержит необязательные опорные маркеры.                              |
 | `AngleSlider.Marker`               | Размещает числовой маркер вокруг диска.                               |
 | `AngleSlider.Marks`                | Создаёт маркеры по массиву `values`.                                  |
-| `AngleSlider.ValueText`             | Показывает текущее значение в градусах.                               |
+| `AngleSlider.ValueText`             | Показывает текущее значение в градусах; `Dial` центрирует его в диске. |
 | `AngleSlider.HiddenInput`           | Нативное поле формы; добавляйте его явно для отправки значения.       |
 
 ## Композиция

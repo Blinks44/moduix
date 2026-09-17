@@ -25,92 +25,87 @@
   }
 
   .control {
-    --_angle-slider-control-border-color: var(
-      --moduix-angle-slider-control-border-color,
-      var(--moduix-color-border)
+    --_angle-slider-fill-color: var(
+      --moduix-angle-slider-indicator-bg,
+      var(--moduix-color-primary)
     );
-    --_angle-slider-track-border-color: var(
-      --moduix-angle-slider-track-border-color,
+    --_angle-slider-track-color: var(--moduix-angle-slider-track-bg, var(--moduix-color-muted));
+    --_angle-slider-thumb-border-color: var(
+      --moduix-angle-slider-thumb-border-color,
       var(--moduix-color-border)
     );
 
     position: relative;
     box-sizing: border-box;
-    display: flex;
-    align-items: center;
-    justify-content: center;
     width: var(--moduix-angle-slider-size, 8rem);
     min-width: 0;
     aspect-ratio: 1;
-    border-radius: var(--moduix-angle-slider-radius, var(--moduix-radius-full));
-    background-color: var(--moduix-angle-slider-track-bg, var(--moduix-color-muted));
-    box-shadow:
-      inset 0 0 0 var(--moduix-angle-slider-track-border-width, var(--moduix-border-width-sm))
-        var(--_angle-slider-track-border-color),
-      var(--moduix-angle-slider-shadow, none);
+    border-radius: var(--moduix-radius-full);
     cursor: pointer;
     outline: 0;
     user-select: none;
-    transition: background-color
-      var(--moduix-angle-slider-transition, var(--moduix-transition-default));
+
+    &::before {
+      position: absolute;
+      inset: 0;
+      border-radius: inherit;
+      background: conic-gradient(
+        from 0deg,
+        var(--_angle-slider-fill-color) var(--angle, 0deg),
+        var(--_angle-slider-track-color) var(--angle, 0deg)
+      );
+      mask: radial-gradient(
+        closest-side,
+        transparent calc(100% - var(--moduix-angle-slider-ring-thickness, 0.5rem) - 1px),
+        #000 calc(100% - var(--moduix-angle-slider-ring-thickness, 0.5rem))
+      );
+      content: '';
+    }
+
+    &::after {
+      position: absolute;
+      top: calc(var(--moduix-angle-slider-ring-thickness, 0.5rem) / 2);
+      left: 50%;
+      z-index: 1;
+      width: var(--moduix-angle-slider-ring-thickness, 0.5rem);
+      height: var(--moduix-angle-slider-ring-thickness, 0.5rem);
+      border-radius: var(--moduix-radius-full);
+      background: var(--_angle-slider-fill-color);
+      transform: translate(-50%, -50%);
+      content: '';
+    }
 
     @media (hover: hover) {
-      &:not([data-disabled], [data-readonly]):hover {
-        background-color: var(
+      &:not([data-disabled], [data-readonly]):hover::before {
+        --_angle-slider-track-color: var(
           --moduix-angle-slider-track-bg-hover,
           var(--moduix-angle-slider-track-bg, var(--moduix-color-muted))
         );
       }
     }
 
-    &:not([data-disabled], [data-readonly]):active {
-      background-color: var(
+    &:not([data-disabled], [data-readonly]):active::before {
+      --_angle-slider-track-color: var(
         --moduix-angle-slider-track-bg-active,
         var(--moduix-angle-slider-track-bg, var(--moduix-color-muted))
       );
     }
 
-    &::after {
-      position: absolute;
-      z-index: 1;
-      inset: var(--moduix-angle-slider-ring-thickness, 0.875rem);
-      border-radius: inherit;
-      background: var(--moduix-angle-slider-control-bg, var(--moduix-color-background));
-      box-shadow: inset 0 0 0
-        var(--moduix-angle-slider-control-border-width, var(--moduix-border-width-sm))
-        var(--_angle-slider-control-border-color);
-      content: '';
-    }
-
-    &::before {
-      position: absolute;
-      z-index: 1;
-      width: var(--moduix-angle-slider-center-dot-size, var(--moduix-spacing-1-5));
-      height: var(--moduix-angle-slider-center-dot-size, var(--moduix-spacing-1-5));
-      border-radius: inherit;
-      background: var(
-        --moduix-angle-slider-center-dot-color,
-        var(--moduix-angle-slider-color, var(--moduix-color-foreground))
-      );
-      content: '';
-    }
-
-    &:has(.thumb:focus-visible) {
+    &:active:not([data-disabled], [data-readonly]) .thumb::before {
+      border-color: var(--moduix-angle-slider-focus-ring-color, var(--moduix-color-ring));
       box-shadow:
-        inset 0 0 0 var(--moduix-angle-slider-track-border-width, var(--moduix-border-width-sm))
-          var(--_angle-slider-track-border-color),
-        0 0 0 var(--moduix-angle-slider-focus-ring-width, 0.1875rem)
+        0 0 0 var(--moduix-focus-ring-inset-width, var(--moduix-border-width-sm))
           var(--moduix-angle-slider-focus-ring-color, var(--moduix-color-ring)),
-        var(--moduix-angle-slider-shadow, none);
+        var(--moduix-angle-slider-thumb-shadow-dragging, var(--moduix-shadow-md));
     }
 
     &[data-invalid] {
-      --_angle-slider-control-border-color: var(
-        --moduix-angle-slider-invalid-border-color,
+      --_angle-slider-fill-color: var(
+        --moduix-angle-slider-invalid-indicator-bg,
         var(--moduix-angle-slider-invalid-color, var(--moduix-color-destructive))
       );
-      --_angle-slider-track-border-color: var(
-        --moduix-angle-slider-invalid-border-color,
+      --_angle-slider-thumb-border-color: var(
+        --moduix-angle-slider-invalid-indicator-bg,
         var(--moduix-angle-slider-invalid-color, var(--moduix-color-destructive))
       );
     }
@@ -124,87 +119,35 @@
     position: absolute;
     top: 0;
     bottom: 0;
-    left: calc(50% - var(--moduix-angle-slider-thumb-line-width, 0.1875rem) / 2);
+    left: 50%;
     z-index: 2;
-    width: var(--moduix-angle-slider-thumb-line-width, 0.1875rem);
+    width: 0;
     outline: 0;
 
     &::before {
       position: absolute;
-      top: var(--moduix-angle-slider-ring-thickness, 0.875rem);
-      left: 50%;
+      top: calc(var(--moduix-angle-slider-ring-thickness, 0.5rem) / 2);
+      left: 0;
       box-sizing: border-box;
       width: var(--moduix-angle-slider-thumb-size, var(--moduix-spacing-4));
       height: var(--moduix-angle-slider-thumb-size, var(--moduix-spacing-4));
       border: var(--moduix-angle-slider-thumb-border-width, var(--moduix-border-width-sm)) solid
-        var(--moduix-angle-slider-thumb-border-color, var(--moduix-color-border));
+        var(--_angle-slider-thumb-border-color);
       border-radius: var(--moduix-angle-slider-thumb-radius, var(--moduix-radius-full));
-      background: var(
-        --moduix-angle-slider-thumb-bg,
-        var(--moduix-angle-slider-indicator-bg, var(--moduix-color-primary))
-      );
+      background: var(--moduix-angle-slider-thumb-bg, var(--moduix-color-background));
       box-shadow: var(--moduix-angle-slider-thumb-shadow, var(--moduix-shadow-sm));
-      transform: translateX(-50%);
+      transform: translate(-50%, -50%);
       transition:
         border-color var(--moduix-angle-slider-transition, var(--moduix-transition-default)),
-        box-shadow var(--moduix-angle-slider-transition, var(--moduix-transition-default)),
         background-color var(--moduix-angle-slider-transition, var(--moduix-transition-default)),
-        transform var(--moduix-angle-slider-transition, var(--moduix-transition-default));
-      content: '';
-    }
-
-    &::after {
-      position: absolute;
-      top: calc(
-        var(--moduix-angle-slider-ring-thickness, 0.875rem) +
-          var(--moduix-angle-slider-thumb-size, var(--moduix-spacing-4)) + var(--moduix-spacing-1)
-      );
-      left: 50%;
-      width: var(--moduix-angle-slider-thumb-line-width, 0.1875rem);
-      height: calc(
-        50% - var(--moduix-angle-slider-ring-thickness, 0.875rem) -
-          var(--moduix-angle-slider-thumb-size, var(--moduix-spacing-4)) - var(--moduix-spacing-1-5)
-      );
-      border-radius: var(--moduix-radius-full);
-      background: linear-gradient(
-        to bottom,
-        var(--moduix-angle-slider-indicator-bg, var(--moduix-color-primary)),
-        transparent
-      );
-      transform: translateX(-50%);
+        box-shadow var(--moduix-angle-slider-transition, var(--moduix-transition-default));
       content: '';
     }
 
     &:focus-visible::before {
       border-color: var(--moduix-angle-slider-focus-ring-color, var(--moduix-color-ring));
-      box-shadow: 0 0 0 var(--moduix-border-width-sm)
+      box-shadow: 0 0 0 var(--moduix-focus-ring-inset-width, var(--moduix-border-width-sm))
         var(--moduix-angle-slider-focus-ring-color, var(--moduix-color-ring));
-    }
-
-    &:active:not([data-disabled], [data-readonly])::before {
-      transform: translateX(-50%) scale(1.08);
-    }
-
-    &[data-invalid]::before {
-      border-color: var(
-        --moduix-angle-slider-invalid-border-color,
-        var(--moduix-angle-slider-invalid-color, var(--moduix-color-destructive))
-      );
-      background: var(
-        --moduix-angle-slider-invalid-indicator-bg,
-        var(--moduix-angle-slider-invalid-color, var(--moduix-color-destructive))
-      );
-    }
-
-    &[data-invalid]::after {
-      background: linear-gradient(
-        to bottom,
-        var(
-          --moduix-angle-slider-invalid-indicator-bg,
-          var(--moduix-angle-slider-invalid-color, var(--moduix-color-destructive))
-        ),
-        transparent
-      );
     }
 
     &[data-disabled] {
@@ -225,10 +168,10 @@
 
     &::before {
       position: absolute;
-      top: calc(var(--moduix-angle-slider-ring-thickness, 0.875rem) + 0.125rem);
+      top: calc(var(--moduix-angle-slider-ring-thickness, 0.5rem) / 2);
       left: 50%;
       width: var(--moduix-angle-slider-marker-width, 0.125rem);
-      height: var(--moduix-angle-slider-marker-height, 0.625rem);
+      height: var(--moduix-angle-slider-marker-height, 0.5rem);
       border-radius: var(--moduix-radius-full);
       background: var(--moduix-angle-slider-marker-color, var(--moduix-color-muted-foreground));
       transform: translate(-50%, -50%);
@@ -249,17 +192,25 @@
       --moduix-angle-slider-value-text-color,
       var(--moduix-angle-slider-color, var(--moduix-color-foreground))
     );
-    font-size: var(--moduix-angle-slider-value-text-font-size, var(--moduix-text-sm));
+    font-size: var(--moduix-angle-slider-value-text-font-size, var(--moduix-text-lg));
     font-weight: var(--moduix-angle-slider-value-text-font-weight, var(--moduix-weight-medium));
+    font-variant-numeric: tabular-nums;
     line-height: var(
       --moduix-angle-slider-value-text-line-height,
-      var(--moduix-line-height-text-sm)
+      var(--moduix-line-height-text-lg)
     );
     text-align: center;
   }
 
+  .control .valueText {
+    position: absolute;
+    inset: 0;
+    z-index: 1;
+    display: grid;
+    place-items: center;
+  }
+
   @media (prefers-reduced-motion: reduce) {
-    .control,
     .thumb::before {
       transition: none;
     }

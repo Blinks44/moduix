@@ -97,17 +97,10 @@
   --moduix-accordion-width: initial; /* 100% */
   /* AngleSlider */
   --moduix-angle-slider-color: initial; /* var(--moduix-color-foreground) */
-  --moduix-angle-slider-center-dot-color: initial; /* var(--moduix-angle-slider-color) */
-  --moduix-angle-slider-center-dot-size: initial; /* var(--moduix-spacing-1-5) */
-  --moduix-angle-slider-control-bg: initial; /* var(--moduix-color-background) */
-  --moduix-angle-slider-control-border-color: initial; /* var(--moduix-color-border) */
-  --moduix-angle-slider-control-border-width: initial; /* var(--moduix-border-width-sm) */
   --moduix-angle-slider-disabled-opacity: initial; /* var(--moduix-opacity-disabled) */
   --moduix-angle-slider-focus-ring-color: initial; /* var(--moduix-color-ring) */
-  --moduix-angle-slider-focus-ring-width: initial; /* 0.1875rem */
   --moduix-angle-slider-gap: initial; /* var(--moduix-spacing-3) */
   --moduix-angle-slider-indicator-bg: initial; /* var(--moduix-color-primary) */
-  --moduix-angle-slider-invalid-border-color: initial; /* var(--moduix-angle-slider-invalid-color) */
   --moduix-angle-slider-invalid-color: initial; /* var(--moduix-color-destructive) */
   --moduix-angle-slider-invalid-indicator-bg: initial; /* var(--moduix-angle-slider-invalid-color) */
   --moduix-angle-slider-label-color: initial; /* var(--moduix-angle-slider-color) */
@@ -117,29 +110,25 @@
   --moduix-angle-slider-marker-active-color: initial; /* var(--moduix-color-primary) */
   --moduix-angle-slider-marker-color: initial; /* var(--moduix-color-muted-foreground) */
   --moduix-angle-slider-marker-current-color: initial; /* var(--moduix-color-foreground) */
-  --moduix-angle-slider-marker-height: initial; /* 0.625rem */
+  --moduix-angle-slider-marker-height: initial; /* 0.5rem */
   --moduix-angle-slider-marker-width: initial; /* 0.125rem */
-  --moduix-angle-slider-radius: initial; /* var(--moduix-radius-full) */
-  --moduix-angle-slider-ring-thickness: initial; /* 0.875rem */
-  --moduix-angle-slider-shadow: initial; /* none */
+  --moduix-angle-slider-ring-thickness: initial; /* 0.5rem */
   --moduix-angle-slider-size: initial; /* 8rem */
-  --moduix-angle-slider-thumb-bg: initial; /* var(--moduix-angle-slider-indicator-bg) */
+  --moduix-angle-slider-thumb-bg: initial; /* var(--moduix-color-background) */
   --moduix-angle-slider-thumb-border-color: initial; /* var(--moduix-color-border) */
   --moduix-angle-slider-thumb-border-width: initial; /* var(--moduix-border-width-sm) */
-  --moduix-angle-slider-thumb-line-width: initial; /* 0.1875rem */
   --moduix-angle-slider-thumb-radius: initial; /* var(--moduix-radius-full) */
   --moduix-angle-slider-thumb-shadow: initial; /* var(--moduix-shadow-sm) */
+  --moduix-angle-slider-thumb-shadow-dragging: initial; /* var(--moduix-shadow-md) */
   --moduix-angle-slider-thumb-size: initial; /* var(--moduix-spacing-4) */
   --moduix-angle-slider-track-bg: initial; /* var(--moduix-color-muted) */
   --moduix-angle-slider-track-bg-active: initial; /* color-mix(in oklab, var(--moduix-color-muted) 84%, var(--moduix-color-foreground)) */
   --moduix-angle-slider-track-bg-hover: initial; /* color-mix(in oklab, var(--moduix-color-muted) 92%, var(--moduix-color-foreground)) */
-  --moduix-angle-slider-track-border-color: initial; /* var(--moduix-color-border) */
-  --moduix-angle-slider-track-border-width: initial; /* var(--moduix-border-width-sm) */
   --moduix-angle-slider-transition: initial; /* var(--moduix-transition-default) */
   --moduix-angle-slider-value-text-color: initial; /* var(--moduix-angle-slider-color) */
-  --moduix-angle-slider-value-text-font-size: initial; /* var(--moduix-text-sm) */
+  --moduix-angle-slider-value-text-font-size: initial; /* var(--moduix-text-lg) */
   --moduix-angle-slider-value-text-font-weight: initial; /* var(--moduix-weight-medium) */
-  --moduix-angle-slider-value-text-line-height: initial; /* var(--moduix-line-height-text-sm) */
+  --moduix-angle-slider-value-text-line-height: initial; /* var(--moduix-line-height-text-lg) */
   /* Alert */
   --moduix-alert-bg: initial; /* status-dependent; info: var(--moduix-color-card) */
   --moduix-alert-border-color: initial; /* status-dependent; info: var(--moduix-color-border) */

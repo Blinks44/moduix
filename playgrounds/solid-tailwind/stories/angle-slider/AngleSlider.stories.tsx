@@ -37,7 +37,6 @@ function AngleSliderMarkedParts() {
       <AngleSlider.Dial>
         <AngleSlider.Marks values={markerValues} />
       </AngleSlider.Dial>
-      <AngleSlider.ValueText />
       <AngleSlider.HiddenInput />
     </>
   );
@@ -198,6 +197,7 @@ export const CustomStyling: Story = {
     <AngleSlider defaultValue={45} aria-label="Compass heading">
       <AngleSlider.Label>Compass</AngleSlider.Label>
       <AngleSlider.Control class={customControlClass}>
+        <AngleSlider.ValueText />
         <AngleSlider.MarkerGroup>
           {markerValues.map((value) => (
             <AngleSlider.Marker value={value} class={customMarkerClass} />
@@ -205,7 +205,6 @@ export const CustomStyling: Story = {
         </AngleSlider.MarkerGroup>
         <AngleSlider.Thumb class={customThumbClass} />
       </AngleSlider.Control>
-      <AngleSlider.ValueText />
       <AngleSlider.HiddenInput />
     </AngleSlider>
   ),

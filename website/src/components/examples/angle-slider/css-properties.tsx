@@ -7,31 +7,6 @@ const angleSliderOverrideCssProperties: CssPropertyInput[] = [
     'Controls the default dial text color.',
   ],
   [
-    '--moduix-angle-slider-center-dot-color',
-    'var(--moduix-angle-slider-color)',
-    'Controls the center dot color.',
-  ],
-  [
-    '--moduix-angle-slider-center-dot-size',
-    'var(--moduix-spacing-1-5)',
-    'Controls the center dot size.',
-  ],
-  [
-    '--moduix-angle-slider-control-bg',
-    'var(--moduix-color-background)',
-    'Controls the inner dial fill color.',
-  ],
-  [
-    '--moduix-angle-slider-control-border-color',
-    'var(--moduix-color-border)',
-    'Controls the inner dial border color.',
-  ],
-  [
-    '--moduix-angle-slider-control-border-width',
-    'var(--moduix-border-width-sm)',
-    'Controls the inner dial border width.',
-  ],
-  [
     '--moduix-angle-slider-disabled-opacity',
     'var(--moduix-opacity-disabled)',
     'Controls disabled dial opacity.',
@@ -39,23 +14,17 @@ const angleSliderOverrideCssProperties: CssPropertyInput[] = [
   [
     '--moduix-angle-slider-focus-ring-color',
     'var(--moduix-color-ring)',
-    'Controls the focus ring color.',
+    'Controls the thumb focus ring color.',
   ],
-  ['--moduix-angle-slider-focus-ring-width', '0.1875rem', 'Controls the control focus ring width.'],
   [
     '--moduix-angle-slider-gap',
     'var(--moduix-spacing-3)',
-    'Controls spacing between label, dial, and value text.',
+    'Controls spacing between the label and the dial.',
   ],
   [
     '--moduix-angle-slider-indicator-bg',
     'var(--moduix-color-primary)',
-    'Controls the thumb and active line color.',
-  ],
-  [
-    '--moduix-angle-slider-invalid-border-color',
-    'var(--moduix-angle-slider-invalid-color)',
-    'Controls invalid-state dial and thumb borders.',
+    'Controls the filled arc color.',
   ],
   [
     '--moduix-angle-slider-invalid-color',
@@ -65,7 +34,7 @@ const angleSliderOverrideCssProperties: CssPropertyInput[] = [
   [
     '--moduix-angle-slider-invalid-indicator-bg',
     'var(--moduix-angle-slider-invalid-color)',
-    'Controls the invalid-state thumb and active line color.',
+    'Controls the invalid-state arc fill and thumb border color.',
   ],
   [
     '--moduix-angle-slider-label-color',
@@ -98,15 +67,13 @@ const angleSliderOverrideCssProperties: CssPropertyInput[] = [
     'var(--moduix-color-foreground)',
     'Controls marker color at the current value.',
   ],
-  ['--moduix-angle-slider-marker-height', '0.625rem', 'Controls marker height.'],
+  ['--moduix-angle-slider-marker-height', '0.5rem', 'Controls marker height.'],
   ['--moduix-angle-slider-marker-width', '0.125rem', 'Controls marker width.'],
-  ['--moduix-angle-slider-radius', 'var(--moduix-radius-full)', 'Controls dial corner radius.'],
-  ['--moduix-angle-slider-ring-thickness', '0.875rem', 'Controls outer ring thickness.'],
-  ['--moduix-angle-slider-shadow', 'none', 'Controls dial outer shadow.'],
+  ['--moduix-angle-slider-ring-thickness', '0.5rem', 'Controls the circular track thickness.'],
   ['--moduix-angle-slider-size', '8rem', 'Controls the dial width and height.'],
   [
     '--moduix-angle-slider-thumb-bg',
-    'var(--moduix-angle-slider-indicator-bg)',
+    'var(--moduix-color-background)',
     'Controls the thumb circle fill color.',
   ],
   [
@@ -119,7 +86,6 @@ const angleSliderOverrideCssProperties: CssPropertyInput[] = [
     'var(--moduix-border-width-sm)',
     'Controls the thumb border width.',
   ],
-  ['--moduix-angle-slider-thumb-line-width', '0.1875rem', 'Controls the active line thickness.'],
   [
     '--moduix-angle-slider-thumb-radius',
     'var(--moduix-radius-full)',
@@ -127,30 +93,29 @@ const angleSliderOverrideCssProperties: CssPropertyInput[] = [
   ],
   ['--moduix-angle-slider-thumb-shadow', 'var(--moduix-shadow-sm)', 'Controls the thumb shadow.'],
   [
+    '--moduix-angle-slider-thumb-shadow-dragging',
+    'var(--moduix-shadow-md)',
+    'Controls the thumb shadow while the dial is pressed.',
+  ],
+  [
     '--moduix-angle-slider-thumb-size',
     'var(--moduix-spacing-4)',
     'Controls the thumb circle size.',
   ],
-  ['--moduix-angle-slider-track-bg', 'var(--moduix-color-muted)', 'Controls the outer ring color.'],
+  [
+    '--moduix-angle-slider-track-bg',
+    'var(--moduix-color-muted)',
+    'Controls the unfilled track color.',
+  ],
   [
     '--moduix-angle-slider-track-bg-active',
     'color-mix(in oklab, var(--moduix-color-muted) 84%, var(--moduix-color-foreground))',
-    'Controls the interactive outer ring color while pressed.',
+    'Controls the unfilled track color while pressed.',
   ],
   [
     '--moduix-angle-slider-track-bg-hover',
     'color-mix(in oklab, var(--moduix-color-muted) 92%, var(--moduix-color-foreground))',
-    'Controls the interactive outer ring color on hover.',
-  ],
-  [
-    '--moduix-angle-slider-track-border-color',
-    'var(--moduix-color-border)',
-    'Controls the outer ring border color.',
-  ],
-  [
-    '--moduix-angle-slider-track-border-width',
-    'var(--moduix-border-width-sm)',
-    'Controls the outer ring border width.',
+    'Controls the unfilled track color on hover.',
   ],
   [
     '--moduix-angle-slider-transition',
@@ -160,22 +125,22 @@ const angleSliderOverrideCssProperties: CssPropertyInput[] = [
   [
     '--moduix-angle-slider-value-text-color',
     'var(--moduix-angle-slider-color)',
-    'Controls value text color.',
+    'Controls the centered value text color.',
   ],
   [
     '--moduix-angle-slider-value-text-font-size',
-    'var(--moduix-text-sm)',
-    'Controls value text font size.',
+    'var(--moduix-text-lg)',
+    'Controls the centered value text font size.',
   ],
   [
     '--moduix-angle-slider-value-text-font-weight',
     'var(--moduix-weight-medium)',
-    'Controls value text font weight.',
+    'Controls the centered value text font weight.',
   ],
   [
     '--moduix-angle-slider-value-text-line-height',
-    'var(--moduix-line-height-text-sm)',
-    'Controls value text line height.',
+    'var(--moduix-line-height-text-lg)',
+    'Controls the centered value text line height.',
   ],
 ];
 

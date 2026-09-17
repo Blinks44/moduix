@@ -68,9 +68,10 @@ const AngleSliderControl = forwardRef<
         if (event.defaultPrevented || event.button !== 0) return;
         if (event.currentTarget.matches('[data-disabled], [data-readonly]')) return;
 
+        event.preventDefault();
         event.currentTarget
           .querySelector<HTMLElement>('[data-scope="angle-slider"][data-part="thumb"]')
-          ?.focus({ preventScroll: true });
+          ?.focus({ preventScroll: true, focusVisible: false });
       }}
       data-slot="angle-slider-control"
     />
@@ -147,6 +148,7 @@ function AngleSliderDial({ children, ...props }: AngleSliderDialProps) {
   return (
     <AngleSliderControl {...props}>
       {children}
+      <AngleSliderValueText />
       <AngleSliderThumb />
     </AngleSliderControl>
   );
