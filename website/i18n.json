@@ -1156,6 +1156,21 @@
     "ru": "Мажорный релиз",
     "fr": "Version majeure"
   },
+  "changelogNewFramework": {
+    "en": "New framework",
+    "ru": "Новый фреймворк",
+    "fr": "Nouveau framework"
+  },
+  "solidReleaseHeroDate": {
+    "en": "September 13, 2026",
+    "ru": "13 сентября 2026 г.",
+    "fr": "13 septembre 2026"
+  },
+  "solidReleaseHeroSummary": {
+    "en": "The complete moduix component system now ships for Solid, in CSS Modules and Tailwind tracks.",
+    "ru": "Полная система компонентов moduix теперь доступна для Solid - в вариантах на CSS Modules и Tailwind.",
+    "fr": "Le système de composants moduix complet est désormais disponible pour Solid, en CSS Modules comme en Tailwind."
+  },
   "chartHeroSummary": {
     "en": "Accessible, composable charts powered by TanStack Charts.",
     "ru": "Доступные графики на базе TanStack Charts, которые можно собрать под свой сценарий.",

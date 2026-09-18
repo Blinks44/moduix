@@ -1,7 +1,7 @@
 import type { ReactNode } from 'react';
 import styles from './hero.module.css';
 
-type ChangelogHeroTone = 'blue' | 'orange' | 'violet';
+type ChangelogHeroTone = 'blue' | 'green' | 'orange' | 'violet';
 
 export function ChangelogHero({
   id,

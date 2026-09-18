@@ -8,7 +8,23 @@ import { V2MigrationHero } from '@/components/changelog/v2-migration-hero';
 import { ChartHero } from '@/components/changelog/chart-hero';
 import { NavigationMenuHero } from '@/components/changelog/navigation-menu-hero';
 import { TableOfContentsHero } from '@/components/changelog/table-of-contents-hero';
+import { SolidReleaseHero } from '@/components/changelog/solid-release-hero';
 import { ChangelogNewsItem } from '@/components/changelog/hero';
+
+<ChangelogNewsItem>
+  <SolidReleaseHero />
+
+moduix arrive sur Solid. [`@moduix/solid`](/docs/quick-start) et `@moduix/solid-tailwind` apportent
+le catalogue complet de composants aux applications Solid, avec des API Solid natives construites
+sur les primitives Ark UI.
+
+### À retenir
+
+- Des composants natifs : composition Solid, prop `class`, primitives Ark UI pour Solid et les mêmes
+  contrats de composants que les paquets React, sans couche de compatibilité.
+- Les deux approches de style sortent ensemble : les variantes CSS Modules et Tailwind partagent les
+  tokens, les thèmes et les espaces de noms de registre `@moduix-solid` et `@moduix-solid-tailwind`.
+</ChangelogNewsItem>
 
 <ChangelogNewsItem>
   <TableOfContentsHero />
