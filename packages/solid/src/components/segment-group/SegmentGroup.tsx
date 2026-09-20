@@ -30,6 +30,7 @@ function useSegmentGroup(props?: SegmentGroupMachineProps) {
     const machineProps = typeof props === 'function' ? props() : props;
 
     return omitUndefined({
+      orientation: 'horizontal',
       disabled: field?.()?.disabled ?? fieldset?.()?.disabled,
       invalid: field?.()?.invalid ?? fieldset?.()?.invalid,
       readOnly: field?.()?.readOnly,

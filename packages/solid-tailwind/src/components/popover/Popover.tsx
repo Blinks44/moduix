@@ -82,7 +82,7 @@ function PopoverTrigger(props: ComponentProps<typeof PopoverPrimitive.Trigger>) 
       asChild={local.asChild}
       class={cn(
         !local.asChild &&
-          'box-border inline-flex min-h-control-md cursor-pointer items-center justify-center rounded-md border border-border bg-background px-3.5 py-1 text-md leading-6 text-foreground outline-0 transition-[background-color,border-color,color] duration-200 ease-in-out select-none focus-visible:outline-1 focus-visible:-outline-offset-1 focus-visible:outline-ring active:bg-accent disabled:pointer-events-none disabled:opacity-50 data-disabled:pointer-events-none data-disabled:opacity-50 data-[state=open]:not-data-[value]:bg-accent data-[current]:data-[state=open]:bg-accent motion-reduce:transition-none [@media(hover:hover)]:hover:bg-accent',
+          'box-border inline-flex min-h-control-md cursor-pointer items-center justify-center rounded-md border border-border bg-background px-3.5 py-1 text-md text-foreground outline-0 transition-[background-color,border-color,color] duration-200 ease-in-out select-none focus-visible:outline-1 focus-visible:-outline-offset-1 focus-visible:outline-ring active:bg-accent disabled:pointer-events-none disabled:opacity-50 data-disabled:pointer-events-none data-disabled:opacity-50 data-[state=open]:not-data-[value]:bg-accent data-[current]:data-[state=open]:bg-accent motion-reduce:transition-none [@media(hover:hover)]:hover:bg-accent',
         local.class,
       )}
       {...others}
@@ -137,7 +137,10 @@ function PopoverArrow(props: ComponentProps<typeof PopoverPrimitive.Arrow>) {
 
   return (
     <PopoverPrimitive.Arrow
-      class={cn('[--arrow-background:var(--color-popover)] [--arrow-size:0.625rem]', local.class)}
+      class={cn(
+        '[--arrow-background:var(--color-popover)] [--arrow-size:var(--spacing-2-5)]',
+        local.class,
+      )}
       {...others}
       data-slot="popover-arrow"
     >
@@ -163,7 +166,7 @@ function PopoverTitle(props: ComponentProps<typeof PopoverPrimitive.Title>) {
 
   return (
     <PopoverPrimitive.Title
-      class={cn('text-md leading-6 font-semibold text-popover-foreground', local.class)}
+      class={cn('text-md font-semibold text-popover-foreground', local.class)}
       {...others}
       data-slot="popover-title"
     />
@@ -175,7 +178,7 @@ function PopoverDescription(props: ComponentProps<typeof PopoverPrimitive.Descri
 
   return (
     <PopoverPrimitive.Description
-      class={cn('text-sm leading-5 text-muted-foreground', local.class)}
+      class={cn('text-sm text-muted-foreground', local.class)}
       {...others}
       data-slot="popover-description"
     />
@@ -190,7 +193,7 @@ function PopoverCloseTrigger(props: ComponentProps<typeof PopoverPrimitive.Close
       asChild={local.asChild}
       class={cn(
         !local.asChild &&
-          'box-border inline-flex min-h-control-md cursor-pointer items-center justify-center rounded-md border border-border bg-background px-3.5 py-1 text-md leading-6 text-foreground outline-0 transition-[background-color,border-color,color] duration-200 ease-in-out select-none focus-visible:outline-1 focus-visible:-outline-offset-1 focus-visible:outline-ring active:bg-accent disabled:pointer-events-none disabled:opacity-50 data-disabled:pointer-events-none data-disabled:opacity-50 motion-reduce:transition-none [@media(hover:hover)]:hover:bg-accent',
+          'box-border inline-flex min-h-control-md cursor-pointer items-center justify-center rounded-md border border-border bg-background px-3.5 py-1 text-md text-foreground outline-0 transition-[background-color,border-color,color] duration-200 ease-in-out select-none focus-visible:outline-1 focus-visible:-outline-offset-1 focus-visible:outline-ring active:bg-accent disabled:pointer-events-none disabled:opacity-50 data-disabled:pointer-events-none data-disabled:opacity-50 motion-reduce:transition-none [@media(hover:hover)]:hover:bg-accent',
         local.class,
       )}
       {...others}
@@ -230,7 +233,7 @@ function PopoverHeader(props: HTMLArkProps<'div'>) {
   return (
     <ark.div
       class={cn(
-        'grid gap-1 group-has-[>[data-slot=popover-close-icon]]/popover-content:pe-10',
+        'grid gap-1 group-has-[[data-slot=popover-close-icon]]/popover-content:pe-10',
         local.class,
       )}
       {...others}

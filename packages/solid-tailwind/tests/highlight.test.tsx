@@ -96,8 +96,7 @@ test('applies the component-owned Tailwind defaults', () => {
     'text-foreground',
     'no-underline',
     'shadow-none',
-    '[box-decoration-break:clone]',
-    '[-webkit-box-decoration-break:clone]',
+    'box-decoration-clone',
   );
 });
 

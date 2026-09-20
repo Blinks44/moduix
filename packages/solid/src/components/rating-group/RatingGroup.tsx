@@ -28,9 +28,9 @@ function RatingGroupRoot(props: RatingGroupRootProps) {
   return (
     <RatingGroupPrimitive.Root
       asChild={local.asChild}
-      data-size={local.size ?? 'md'}
       class={clsx(styles.root, local.class)}
       {...others}
+      data-size={local.size ?? 'md'}
       data-slot="rating-group-root"
     >
       {local.children}

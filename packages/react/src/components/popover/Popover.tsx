@@ -15,8 +15,8 @@ import styles from './Popover.module.css';
 
 const DEFAULT_CLOSE_BUTTON_LABEL = 'Close popover';
 
-type PopoverRootProps = ComponentProps<typeof PopoverPrimitive.Root> & OverlayPortalProps;
-type PopoverRootProviderProps = ComponentProps<typeof PopoverPrimitive.RootProvider> & {
+export type PopoverRootProps = ComponentProps<typeof PopoverPrimitive.Root> & OverlayPortalProps;
+export type PopoverRootProviderProps = ComponentProps<typeof PopoverPrimitive.RootProvider> & {
   portalRef?: OverlayPortalProps['portalRef'];
 };
 

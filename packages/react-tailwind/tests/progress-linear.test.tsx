@@ -104,6 +104,12 @@ test('preserves custom bounds and accessible value text', () => {
   expect(screen.getByText('420 of 800 requests completed')).toHaveAttribute('aria-live', 'polite');
 });
 
+function ProgressContextValue() {
+  const progress = ProgressLinear.useProgressContext();
+
+  return <output>{progress.value}</output>;
+}
+
 function RootProviderProgress() {
   const progress = ProgressLinear.useProgress({ defaultValue: 58 });
 
@@ -113,6 +119,7 @@ function RootProviderProgress() {
         <ProgressLinear.Range />
       </ProgressLinear.Track>
       <ProgressLinear.Context>{(state) => <output>{state.value}</output>}</ProgressLinear.Context>
+      <ProgressContextValue />
     </ProgressLinear.RootProvider>
   );
 }
@@ -127,7 +134,7 @@ test('keeps RootProvider, Context, and useProgress on the moduix namespace', () 
     'aria-valuenow',
     '58',
   );
-  expect(screen.getByText('58')).toBeTruthy();
+  expect(screen.getAllByText('58')).toHaveLength(2);
 });
 
 test('lets consumer utilities override defaults on each styled part', () => {

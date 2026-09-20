@@ -85,7 +85,11 @@ const PaginationPrevTrigger = forwardRef<
   return (
     <PaginationPrimitive.PrevTrigger
       ref={ref}
-      className={clsx(styles.trigger, children == null && styles.iconTrigger, className)}
+      className={clsx(
+        styles.trigger,
+        (children == null || children === false) && styles.iconTrigger,
+        className,
+      )}
       {...props}
       data-slot="pagination-prev-trigger"
     >
@@ -101,7 +105,11 @@ const PaginationNextTrigger = forwardRef<
   return (
     <PaginationPrimitive.NextTrigger
       ref={ref}
-      className={clsx(styles.trigger, children == null && styles.iconTrigger, className)}
+      className={clsx(
+        styles.trigger,
+        (children == null || children === false) && styles.iconTrigger,
+        className,
+      )}
       {...props}
       data-slot="pagination-next-trigger"
     >
@@ -117,7 +125,11 @@ const PaginationFirstTrigger = forwardRef<
   return (
     <PaginationPrimitive.FirstTrigger
       ref={ref}
-      className={clsx(styles.trigger, children == null && styles.iconTrigger, className)}
+      className={clsx(
+        styles.trigger,
+        (children == null || children === false) && styles.iconTrigger,
+        className,
+      )}
       {...props}
       data-slot="pagination-first-trigger"
     >
@@ -133,7 +145,11 @@ const PaginationLastTrigger = forwardRef<
   return (
     <PaginationPrimitive.LastTrigger
       ref={ref}
-      className={clsx(styles.trigger, children == null && styles.iconTrigger, className)}
+      className={clsx(
+        styles.trigger,
+        (children == null || children === false) && styles.iconTrigger,
+        className,
+      )}
       {...props}
       data-slot="pagination-last-trigger"
     >

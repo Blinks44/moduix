@@ -31,9 +31,9 @@ const RatingGroupRoot = forwardRef<
   return (
     <RatingGroupPrimitive.Root
       ref={ref}
-      data-size={size}
       className={clsx(styles.root, className)}
       {...props}
+      data-size={size}
       data-slot="rating-group-root"
     />
   );

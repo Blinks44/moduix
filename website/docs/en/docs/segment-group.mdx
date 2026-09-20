@@ -123,6 +123,8 @@ SegmentGroup.RootProvider
 | ---- | ---- |
 | `SegmentGroup` / `SegmentGroup.Root` | Root part that owns the selected value, keyboard navigation, and form integration. |
 | `SegmentGroup.RootProvider` | Connects the parts to state created with `useSegmentGroup()`. |
+| `SegmentGroup.Context` | Render-prop access to the root state for advanced composition. |
+| `SegmentGroup.ItemContext` | Render-prop access to the item state for advanced composition. |
 | `SegmentGroup.Item` | One selectable segment with a required `value`. |
 | `SegmentGroup.ItemHiddenInput` | Native Ark form control for an explicit item composition. |
 | `SegmentGroup.ItemText` | Visible text for a segment. |
@@ -524,4 +526,7 @@ classes; the component variables below customize the CSS Modules variants. Data 
 - The indicator uses Ark runtime variables `--left`, `--top`, `--width`, and `--height` for its
   size. Its motion uses `--transition-duration` and `--transition-timing-function`, with moduix
   defaults mapped from `--moduix-segment-group-indicator-transition-duration` and
-  `--moduix-segment-group-indicator-transition-timing-function`.
+  `--moduix-segment-group-indicator-transition-timing-function`. Zag writes these styles inline on
+  the indicator, so Tailwind variants must override indicator motion with important utilities
+  (`!duration-*` / `!ease-*`) or arbitrary `[--transition-duration:*]` properties; plain
+  `duration-*` utilities lose to the inline style.

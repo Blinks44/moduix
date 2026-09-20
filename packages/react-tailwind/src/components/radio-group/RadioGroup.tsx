@@ -156,7 +156,7 @@ const RadioGroupIndicator = forwardRef<
     <RadioGroupPrimitive.Indicator
       ref={ref}
       className={cn(
-        'pointer-events-none absolute top-[var(--top)] left-[var(--left)] h-[var(--height)] w-[var(--width)] rounded-full bg-primary opacity-[0.12] transition-[var(--transition-property,translate)] duration-200 ease-in-out motion-reduce:transition-none',
+        'pointer-events-none absolute top-[var(--top)] left-[var(--left)] h-[var(--height)] w-[var(--width)] rounded-full bg-primary opacity-[0.12] [--transition-duration:var(--moduix-duration-normal)]',
         className,
       )}
       {...props}

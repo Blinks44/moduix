@@ -1,1 +1,1 @@
-export * from './PasswordInput.js';
+export { PasswordInput, usePasswordInput, usePasswordInputContext } from './PasswordInput.js';

@@ -58,7 +58,7 @@ function ScrollAreaViewport(props: ComponentProps<typeof ScrollAreaPrimitive.Vie
       {...others}
       data-slot="scroll-area-viewport"
       class={cn(
-        'h-full min-h-0 w-full min-w-0 [scrollbar-width:none] rounded-md bg-transparent outline-0 group-data-[fade]/scroll-area:[mask-image:linear-gradient(to_bottom,transparent_0,black_min(40px,var(--scroll-area-overflow-y-start,0px)),black_calc(100%_-_min(40px,var(--scroll-area-overflow-y-end,0px))),transparent_100%)] group-data-[fade]/scroll-area:mask-no-repeat focus-visible:outline-1 focus-visible:-outline-offset-1 focus-visible:outline-ring forced-colors:mask-none forced-colors:focus-visible:outline-[Highlight] [&::-webkit-scrollbar]:hidden',
+        'h-full min-h-0 w-full min-w-0 [scrollbar-width:none] rounded-md bg-transparent outline-0 group-data-[fade]/scroll-area:not-forced-colors:[mask-image:linear-gradient(to_bottom,transparent_0,black_min(var(--spacing-10),var(--scroll-area-overflow-y-start,0px)),black_calc(100%_-_min(var(--spacing-10),var(--scroll-area-overflow-y-end,0px))),transparent_100%)] group-data-[fade]/scroll-area:not-forced-colors:mask-no-repeat focus-visible:outline-1 focus-visible:-outline-offset-1 focus-visible:outline-ring forced-colors:focus-visible:outline-[Highlight] [&::-webkit-scrollbar]:hidden',
         local.class,
       )}
     />

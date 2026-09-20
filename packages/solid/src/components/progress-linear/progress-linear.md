@@ -30,8 +30,7 @@ export function ExportProgress() {
 ```
 
 The namespace exposes `Root`, `RootProvider`, `Context`, `Label`, `ValueText`, `Track`, `Range`,
-and `View`, together with `useProgress` and `useProgressContext`. The named hook exports are also
-available from the package entry point.
+and `View`, together with `useProgress` and `useProgressContext` on the namespace.
 
 `defaultValue` and `value` support uncontrolled and controlled progress. Use `null` for
 indeterminate progress. `min`, `max`, `formatOptions`, `locale`, `translations`, `ids`,

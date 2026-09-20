@@ -52,11 +52,7 @@
     display: inline-flex;
     align-items: center;
     justify-content: center;
-    margin: 0;
-    border: 0;
     border-radius: var(--moduix-radius-sm);
-    padding: 0;
-    background-color: transparent;
     color: inherit;
     line-height: 0;
     cursor: pointer;
@@ -73,7 +69,7 @@
       pointer-events: none;
     }
 
-    &[data-focus-visible] {
+    &:focus-visible {
       outline: var(
           --moduix-rating-group-focus-ring-width,
           var(--moduix-focus-ring-inset-width, var(--moduix-border-width-sm))
@@ -118,17 +114,8 @@
     }
   }
 
-  .item[data-half] .iconFg {
-    clip-path: inset(0 50% 0 0);
-  }
-
-  .item:not([data-highlighted]) .iconFg {
-    clip-path: inset(0 100% 0 0);
-  }
-
   .root:dir(rtl) {
-    .itemIndicator[data-half] .iconFg,
-    .item[data-half] .iconFg {
+    .itemIndicator[data-half] .iconFg {
       clip-path: inset(0 0 0 50%);
     }
   }

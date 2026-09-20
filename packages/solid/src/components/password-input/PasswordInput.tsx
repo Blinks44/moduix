@@ -5,7 +5,7 @@ import {
 } from '@ark-ui/solid/password-input';
 import { clsx } from 'clsx';
 import type { ComponentProps } from 'solid-js';
-import { children, createEffect, splitProps } from 'solid-js';
+import { children, splitProps } from 'solid-js';
 import { EyeClosedIcon, EyeIcon } from '@/lib/moduix/icons/ui/Icons';
 import styles from './PasswordInput.module.css';
 
@@ -64,24 +64,15 @@ type PasswordInputInputProps = ComponentProps<typeof PasswordInputPrimitive.Inpu
 };
 
 function PasswordInputInput(props: PasswordInputInputProps) {
-  const [local, others] = splitProps(props, ['asChild', 'class', 'defaultValue', 'ref']);
-  let inputRef: HTMLInputElement | undefined;
-
-  createEffect(() => {
-    if (inputRef) inputRef.defaultValue = String(local.defaultValue ?? '');
-  });
+  const [local, others] = splitProps(props, ['asChild', 'class', 'defaultValue']);
 
   return (
     <PasswordInputPrimitive.Input
       asChild={local.asChild}
       {...others}
-      {...(local.asChild ? { 'prop:defaultValue': local.defaultValue } : {})}
+      {...{ 'prop:defaultValue': local.defaultValue }}
       data-slot="password-input-input"
       class={clsx(styles.input, local.class)}
-      ref={(element) => {
-        inputRef = element;
-        if (typeof local.ref === 'function') local.ref(element);
-      }}
     />
   );
 }

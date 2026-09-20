@@ -2065,9 +2065,9 @@
   --moduix-password-input-max-width: initial; /* none */
   --moduix-password-input-padding-x: initial; /* var(--moduix-input-padding-x, var(--moduix-input-padding-x-md, var(--moduix-spacing-3))) */
   --moduix-password-input-padding-y: initial; /* var(--moduix-input-padding-y, var(--moduix-input-padding-y-md, var(--moduix-spacing-1))) */
-  --moduix-password-input-placeholder-color: initial; /* var(--moduix-input-placeholder-color) */
+  --moduix-password-input-placeholder-color: initial; /* var(--moduix-input-placeholder-color, var(--moduix-color-muted-foreground)) */
   --moduix-password-input-radius: initial; /* var(--moduix-input-radius, var(--moduix-radius-md)) */
-  --moduix-password-input-readonly-bg: initial; /* var(--moduix-input-readonly-bg) */
+  --moduix-password-input-readonly-bg: initial; /* var(--moduix-input-readonly-bg, var(--moduix-color-background)) */
   --moduix-password-input-readonly-color: initial; /* var(--moduix-input-readonly-color, var(--moduix-color-foreground)) */
   --moduix-password-input-trigger-bg: initial; /* transparent */
   --moduix-password-input-trigger-color: initial; /* var(--moduix-color-muted-foreground) */
@@ -2102,7 +2102,6 @@
   --moduix-pagination-item-radius: initial; /* var(--moduix-radius-md) */
   --moduix-pagination-item-size: initial; /* var(--moduix-size-md) */
   --moduix-pagination-line-height: initial; /* var(--moduix-line-height-text-sm) */
-  --moduix-pagination-transition: initial; /* var(--moduix-transition-default) */
   --moduix-pagination-trigger-gap: initial; /* var(--moduix-spacing-2) */
 
   /* Popover */
@@ -2166,7 +2165,7 @@
   --moduix-popover-title-font-size: initial; /* var(--moduix-text-md) */
   --moduix-popover-title-font-weight: initial; /* var(--moduix-weight-semibold) */
   --moduix-popover-title-line-height: initial; /* var(--moduix-line-height-text-md) */
-  --moduix-popover-transition: initial; /* var(--moduix-duration-fast) */
+  --moduix-popover-transition: initial; /* var(--moduix-duration-fast); content animation only — trigger transitions default to var(--moduix-transition-default) */
   --moduix-popover-width: initial; /* auto */
 
   /* HoverCard */

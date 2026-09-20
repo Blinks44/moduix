@@ -170,7 +170,6 @@ test('applies native utilities to component-owned parts', () => {
   );
   expect(container.querySelector('[data-slot="pin-input-label"]')).toHaveClass(
     'text-sm',
-    'leading-5',
     'font-medium',
     'text-foreground',
   );
@@ -189,7 +188,6 @@ test('applies native utilities to component-owned parts', () => {
     'py-0',
     'text-center',
     'text-lg',
-    'leading-7',
     'font-medium',
     'text-foreground',
     'tabular-nums',

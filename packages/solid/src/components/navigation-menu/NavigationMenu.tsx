@@ -174,6 +174,7 @@ const NavigationMenu = Object.assign(NavigationMenuRoot, {
   Arrow: NavigationMenuArrow,
   ViewportPositioner: NavigationMenuViewportPositioner,
   Viewport: NavigationMenuViewport,
+  useNavigationMenu,
 });
 
 export { useNavigationMenu, useNavigationMenuContext };

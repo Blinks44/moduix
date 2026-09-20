@@ -51,10 +51,7 @@ function ProgressCircularLabel(props: ComponentProps<typeof ProgressPrimitive.La
   return (
     <ProgressPrimitive.Label
       asChild={local.asChild}
-      class={cn(
-        'max-w-full min-w-0 text-center text-sm font-regular [overflow-wrap:anywhere]',
-        local.class,
-      )}
+      class={cn('max-w-full min-w-0 text-center text-sm font-regular wrap-anywhere', local.class)}
       {...others}
       data-slot="progress-circular-label"
     />
@@ -67,10 +64,7 @@ function ProgressCircularValueText(props: ComponentProps<typeof ProgressPrimitiv
   return (
     <ProgressPrimitive.ValueText
       asChild={local.asChild}
-      class={cn(
-        'max-w-full min-w-0 text-center text-sm font-medium [overflow-wrap:anywhere]',
-        local.class,
-      )}
+      class={cn('max-w-full min-w-0 text-center text-sm font-medium wrap-anywhere', local.class)}
       {...others}
       data-slot="progress-circular-value-text"
     />
@@ -115,7 +109,7 @@ function ProgressCircularCircleRange(props: ComponentProps<typeof ProgressPrimit
     <ProgressPrimitive.CircleRange
       asChild={local.asChild}
       class={cn(
-        'origin-center stroke-primary transition-[stroke-dashoffset] duration-200 ease-in-out [stroke-linecap:round] [transform-box:fill-box] data-[state=indeterminate]:animate-[moduix-spin_1.4s_linear_infinite] data-[state=indeterminate]:[stroke-dasharray:1_200] motion-reduce:transition-none motion-reduce:data-[state=indeterminate]:animate-none motion-reduce:data-[state=indeterminate]:[stroke-dasharray:20_200]',
+        'origin-center stroke-primary transition-[stroke-dashoffset] duration-200 ease-in-out [stroke-linecap:round] [transform-box:fill-box] data-[state=indeterminate]:animate-moduix-progress-circular-indeterminate data-[state=indeterminate]:[stroke-dasharray:1_200] motion-reduce:transition-none motion-reduce:data-[state=indeterminate]:animate-none motion-reduce:data-[state=indeterminate]:[stroke-dasharray:20_200]',
         local.class,
       )}
       {...others}

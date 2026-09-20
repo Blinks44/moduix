@@ -149,6 +149,9 @@ function SelectValueText(props: ComponentProps<typeof SelectPrimitive.ValueText>
   );
 }
 
+const clearTriggerClassName =
+  'pointer-events-auto absolute inset-y-0 end-[2.125rem] my-auto size-control-xs transition-[background-color,color,opacity] duration-200 ease-in-out focus-visible:outline-1 focus-visible:outline-offset-1 motion-reduce:transition-none [&>svg]:size-4';
+
 function SelectClearTrigger(props: ComponentProps<typeof SelectPrimitive.ClearTrigger>) {
   const [local, others] = splitProps(props, [
     'aria-label',
@@ -165,10 +168,7 @@ function SelectClearTrigger(props: ComponentProps<typeof SelectPrimitive.ClearTr
         asChild={local.asChild}
         aria-label={local['aria-label']}
         aria-labelledby={local['aria-labelledby']}
-        class={cn(
-          'pointer-events-auto absolute inset-y-0 end-[2.125rem] my-auto size-control-xs transition-[background-color,color,opacity] duration-200 ease-in-out focus-visible:outline-1 focus-visible:outline-offset-1 motion-reduce:transition-none [&>svg]:size-4',
-          local.class,
-        )}
+        class={cn(clearTriggerClassName, local.class)}
         {...others}
         data-slot="select-clear-trigger"
       >
@@ -195,10 +195,7 @@ function SelectClearTrigger(props: ComponentProps<typeof SelectPrimitive.ClearTr
           </CloseButton.Root>
         );
       }}
-      class={cn(
-        'pointer-events-auto absolute inset-y-0 end-[2.125rem] my-auto size-control-xs transition-[background-color,color,opacity] duration-200 ease-in-out focus-visible:outline-1 focus-visible:outline-offset-1 motion-reduce:transition-none [&>svg]:size-4',
-        local.class,
-      )}
+      class={cn(clearTriggerClassName, local.class)}
       {...others}
       data-slot="select-clear-trigger"
     />
@@ -212,7 +209,7 @@ function SelectIndicator(props: ComponentProps<typeof SelectPrimitive.Indicator>
   return (
     <SelectPrimitive.Indicator
       class={cn(
-        'pointer-events-none inline-flex size-control-xs shrink-0 items-center justify-center rounded-sm bg-transparent leading-none text-muted-foreground transition-[background-color,color,opacity] duration-200 ease-in-out peer-[:not([disabled]):not([data-disabled]):hover]/select-trigger:bg-muted peer-[:not([disabled]):not([data-disabled]):hover]/select-trigger:text-foreground motion-reduce:transition-none [&>svg]:block [&>svg]:size-4',
+        'pointer-events-none inline-flex size-control-xs shrink-0 items-center justify-center rounded-sm bg-transparent leading-none text-muted-foreground transition-[background-color,color,opacity] duration-200 ease-in-out peer-[:not([disabled]):not([data-disabled]):hover]/select-trigger:bg-muted peer-[:not([disabled]):not([data-disabled]):hover]/select-trigger:text-foreground motion-reduce:transition-none [&:is([data-slot=select-control]>*)]:absolute [&:is([data-slot=select-control]>*)]:end-2 [&:is([data-slot=select-control]>*)]:top-1/2 [&:is([data-slot=select-control]>*)]:-translate-y-1/2 [&>svg]:block [&>svg]:size-4',
         local.class,
       )}
       {...others}
@@ -232,9 +229,7 @@ function SelectField(props: SelectFieldProps) {
         <SelectValueText placeholder={local.placeholder} />
       </SelectTrigger>
       {local.clearLabel && <SelectClearTrigger aria-label={local.clearLabel} />}
-      <SelectIndicator class="absolute end-2 top-1/2 -translate-y-1/2">
-        {local.indicator}
-      </SelectIndicator>
+      <SelectIndicator>{local.indicator}</SelectIndicator>
     </SelectControl>
   );
 }
@@ -259,7 +254,7 @@ function SelectContent(props: ComponentProps<typeof SelectPrimitive.Content>) {
   return (
     <SelectPrimitive.Content
       class={cn(
-        'z-[calc(60+var(--layer-index,0))] flex max-h-[min(24rem,var(--available-height))] max-w-[var(--available-width)] min-w-[var(--reference-width)] origin-[var(--transform-origin)] scroll-py-1 flex-col overflow-auto overscroll-contain rounded-md border border-border bg-popover py-1 text-popover-foreground shadow-lg outline-0 data-[state=closed]:pointer-events-none data-[state=closed]:animate-moduix-menu-closed data-[state=open]:animate-moduix-menu-open motion-reduce:animate-none',
+        'z-[calc(var(--moduix-z-popup)+var(--layer-index,0))] flex max-h-[min(24rem,var(--available-height))] max-w-[var(--available-width)] min-w-[var(--reference-width)] origin-[var(--transform-origin)] scroll-py-1 flex-col overflow-auto overscroll-contain rounded-md border border-border bg-popover py-1 text-popover-foreground shadow-lg outline-0 data-[state=closed]:pointer-events-none data-[state=closed]:animate-moduix-menu-closed data-[state=open]:animate-moduix-menu-open motion-reduce:animate-none',
         local.class,
       )}
       {...others}

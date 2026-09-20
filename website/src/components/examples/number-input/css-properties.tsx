@@ -99,7 +99,7 @@ const numberInputOverrideCssProperties: CssProperty[] = [
   },
   {
     name: '--moduix-number-input-input-padding-y',
-    defaultValue: '0.5rem',
+    defaultValue: '0.25rem',
     description: 'Controls input vertical padding.',
   },
   {

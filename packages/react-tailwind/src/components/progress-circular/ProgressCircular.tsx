@@ -50,10 +50,7 @@ const ProgressCircularLabel = forwardRef<
   return (
     <ProgressPrimitive.Label
       ref={ref}
-      className={cn(
-        'max-w-full min-w-0 text-center text-sm font-regular [overflow-wrap:anywhere]',
-        className,
-      )}
+      className={cn('max-w-full min-w-0 text-center text-sm font-regular wrap-anywhere', className)}
       {...props}
       data-slot="progress-circular-label"
     />
@@ -67,10 +64,7 @@ const ProgressCircularValueText = forwardRef<
   return (
     <ProgressPrimitive.ValueText
       ref={ref}
-      className={cn(
-        'max-w-full min-w-0 text-center text-sm font-medium [overflow-wrap:anywhere]',
-        className,
-      )}
+      className={cn('max-w-full min-w-0 text-center text-sm font-medium wrap-anywhere', className)}
       {...props}
       data-slot="progress-circular-value-text"
     />
@@ -116,7 +110,7 @@ const ProgressCircularCircleRange = forwardRef<
     <ProgressPrimitive.CircleRange
       ref={ref}
       className={cn(
-        'origin-center stroke-primary transition-[stroke-dashoffset] duration-200 ease-in-out [stroke-linecap:round] [transform-box:fill-box] data-[state=indeterminate]:animate-[moduix-spin_1.4s_linear_infinite] data-[state=indeterminate]:[stroke-dasharray:1_200] motion-reduce:transition-none motion-reduce:data-[state=indeterminate]:animate-none motion-reduce:data-[state=indeterminate]:[stroke-dasharray:20_200]',
+        'origin-center stroke-primary transition-[stroke-dashoffset] duration-200 ease-in-out [stroke-linecap:round] [transform-box:fill-box] data-[state=indeterminate]:animate-moduix-progress-circular-indeterminate data-[state=indeterminate]:[stroke-dasharray:1_200] motion-reduce:transition-none motion-reduce:data-[state=indeterminate]:animate-none motion-reduce:data-[state=indeterminate]:[stroke-dasharray:20_200]',
         className,
       )}
       {...props}

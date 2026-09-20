@@ -9,7 +9,23 @@ import { ChartHero } from '@/components/changelog/chart-hero';
 import { NavigationMenuHero } from '@/components/changelog/navigation-menu-hero';
 import { TableOfContentsHero } from '@/components/changelog/table-of-contents-hero';
 import { SolidReleaseHero } from '@/components/changelog/solid-release-hero';
+import { TailwindReleaseHero } from '@/components/changelog/tailwind-release-hero';
 import { ChangelogNewsItem } from '@/components/changelog/hero';
+
+<ChangelogNewsItem>
+  <TailwindReleaseHero />
+
+moduix теперь выходит с полноценным Tailwind-вариантом. [`@moduix/react-tailwind`](/docs/quick-start)
+и `@moduix/solid-tailwind` оформляют полный каталог компонентов на Tailwind CSS v4 и сохраняют те же
+контракты компонентов, что и в пакетах на CSS Modules.
+
+### Главное
+
+- Стилизация утилитами: компоненты используют утилиты Tailwind CSS v4 и общие токены, а ваши классы
+  `className`/`class` применяются поверх значений по умолчанию с помощью `tailwind-merge`.
+- Поддержка реестра shadcn: устанавливайте компоненты из пространств имён `@moduix-react-tailwind` и
+  `@moduix-solid-tailwind`, а базовый файл стилей копируется в ваш проект.
+</ChangelogNewsItem>
 
 <ChangelogNewsItem>
   <SolidReleaseHero />

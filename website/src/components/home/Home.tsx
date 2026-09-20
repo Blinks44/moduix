@@ -14,8 +14,6 @@ import {
   ClipboardList,
   Component,
   Database,
-  Layers3,
-  Sparkles,
   Wrench,
 } from 'lucide-react';
 import { useState } from 'react';
@@ -28,6 +26,7 @@ import styles from './Home.module.css';
 export function Home() {
   const t = useI18n<typeof import('i18n')>();
   const docsPath = useLocalizedPath('/docs/');
+  const changelogPath = useLocalizedPath('/docs/changelog');
   const componentsPath = useLocalizedPath('/docs/components');
   const collectionsPath = useLocalizedPath('/docs/collections');
   const utilitiesPath = useLocalizedPath('/docs/utilities');
@@ -77,25 +76,14 @@ export function Home() {
       <div className={styles.spotlight} />
       <section className={styles.hero} aria-labelledby="home-title">
         <div className={styles.content}>
-          <div className={styles.badges} aria-label={t('homeDesignFoundations')}>
-            <a className={styles.badge} href="https://ark-ui.com/" target="_blank" rel="noreferrer">
-              <Sparkles size={14} aria-hidden="true" />
-              {t('homeBuiltOnArk')}
-            </a>
-            <a
-              className={styles.badge}
-              href="https://ui.shadcn.com/"
-              target="_blank"
-              rel="noreferrer"
-            >
-              <Layers3 size={14} aria-hidden="true" />
-              {t('homeShadcnInspired')}
-            </a>
-          </div>
+          <Link href={changelogPath} className={`${styles.badge} ${styles.releaseBadge}`}>
+            <span className={styles.releaseDot} aria-hidden="true" />
+            {t('homeReleaseBadge')}
+          </Link>
           <h1 id="home-title" className={styles.title}>
             moduix
           </h1>
-          <p className={styles.lead}>{t('homeLead')}</p>
+          <p className={styles.lead} dangerouslySetInnerHTML={{ __html: t('homeLead') }} />
           <FrameworkSupport />
           <p className={styles.frameworkStatus}>{t('homeFrameworkStatus')}</p>
           <div className={styles.actions}>

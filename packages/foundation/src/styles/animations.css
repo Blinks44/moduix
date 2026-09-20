@@ -81,6 +81,16 @@
   }
 }
 
+@keyframes moduix-progress-circular-indeterminate {
+  from {
+    transform: rotate(-90deg);
+  }
+
+  to {
+    transform: rotate(270deg);
+  }
+}
+
 @keyframes moduix-progress-linear-indeterminate {
   from {
     transform: translateX(-100%);

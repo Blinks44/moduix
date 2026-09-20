@@ -10,7 +10,6 @@
     color: var(--moduix-progress-linear-color, var(--moduix-color-foreground));
 
     &[data-orientation='vertical'] {
-      grid-template-columns: minmax(0, 1fr) auto;
       grid-template-rows: auto minmax(0, 1fr);
       width: var(--moduix-progress-linear-vertical-width, max-content);
       height: var(--moduix-progress-linear-height, 12rem);

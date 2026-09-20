@@ -268,6 +268,6 @@ test('applies Tailwind defaults to visual parts and lets consumer utilities over
   expect(footer).not.toHaveClass('justify-end');
   expect(closeTrigger).toHaveClass('px-2');
   expect(closeTrigger).not.toHaveClass('px-3.5');
-  expect(arrow).toHaveClass('[--arrow-size:0.625rem]');
+  expect(arrow).toHaveClass('[--arrow-size:var(--spacing-2-5)]');
   expect(arrowTip).toHaveClass('border-primary');
 });

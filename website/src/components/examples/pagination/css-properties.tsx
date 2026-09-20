@@ -74,7 +74,7 @@ const paginationOverrideCssProperties: CssPropertyInput[] = [
   ],
   [
     '--moduix-pagination-item-padding-inline',
-    'var(--moduix-spacing-3)',
+    'var(--moduix-spacing-2)',
     'Controls item horizontal padding.',
   ],
   ['--moduix-pagination-item-radius', 'var(--moduix-radius-md)', 'Controls item corner radius.'],
@@ -83,11 +83,6 @@ const paginationOverrideCssProperties: CssPropertyInput[] = [
     '--moduix-pagination-line-height',
     'var(--moduix-line-height-text-sm)',
     'Controls pagination line height.',
-  ],
-  [
-    '--moduix-pagination-transition',
-    'var(--moduix-transition-default)',
-    'Controls state transitions.',
   ],
   ['--moduix-pagination-trigger-gap', 'var(--moduix-spacing-2)', 'Controls trigger content gap.'],
 ];

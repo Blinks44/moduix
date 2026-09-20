@@ -71,7 +71,18 @@
         box-shadow var(--moduix-transition-default);
     }
 
-    &:not([data-disabled]):hover,
+    @media (hover: hover) {
+      &:not([data-disabled]):hover {
+        &::before {
+          background-color: color-mix(
+            in oklab,
+            var(--moduix-color-accent) 72%,
+            var(--moduix-color-background)
+          );
+        }
+      }
+    }
+
     &[data-selected] {
       &::before {
         background-color: color-mix(

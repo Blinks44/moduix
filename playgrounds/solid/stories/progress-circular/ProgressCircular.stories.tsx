@@ -7,6 +7,9 @@ import styles from './ProgressCircular.stories.module.css';
 const meta = {
   title: 'Components/ProgressCircular',
   component: ProgressCircular,
+  args: {
+    defaultValue: 42,
+  },
   parameters: {
     layout: 'centered',
   },

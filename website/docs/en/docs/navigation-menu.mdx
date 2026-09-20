@@ -146,7 +146,9 @@ empty string when all panels are closed. Use `NavigationMenu.RootProvider` with
 store to `RootProvider` and do not render another root for that store. React reads the store as an
 object; Solid reads its reactive state through the returned accessor.
 
-Add `ViewportPositioner` and `Viewport` when several panels should share one animated surface. Keep
+Add `ViewportPositioner` and `Viewport` when several panels should share one animated surface. The
+positioner accepts Ark's `align` prop (`"start" | "center" | "end"`, default `"center"`) to align the
+viewport against the value positioner. Keep
 `Indicator` inside `List`, and add `Arrow` there only with a shared viewport. Without a shared
 viewport, `Content` renders beside its item. Use `asChild` for router links or custom triggers only
 when the child remains one interactive, focusable element.

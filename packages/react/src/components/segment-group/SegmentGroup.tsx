@@ -24,6 +24,7 @@ function useSegmentGroup(props?: SegmentGroupMachineProps) {
   const fieldset = useFieldsetContext();
 
   return useSegmentGroupPrimitive({
+    orientation: 'horizontal',
     disabled: field?.disabled ?? fieldset?.disabled,
     invalid: field?.invalid ?? fieldset?.invalid,
     readOnly: field?.readOnly,

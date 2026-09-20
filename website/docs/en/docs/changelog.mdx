@@ -9,7 +9,24 @@ import { ChartHero } from '@/components/changelog/chart-hero';
 import { NavigationMenuHero } from '@/components/changelog/navigation-menu-hero';
 import { TableOfContentsHero } from '@/components/changelog/table-of-contents-hero';
 import { SolidReleaseHero } from '@/components/changelog/solid-release-hero';
+import { TailwindReleaseHero } from '@/components/changelog/tailwind-release-hero';
 import { ChangelogNewsItem } from '@/components/changelog/hero';
+
+<ChangelogNewsItem>
+  <TailwindReleaseHero />
+
+moduix now ships a complete Tailwind track. [`@moduix/react-tailwind`](/docs/quick-start) and
+`@moduix/solid-tailwind` style the full component catalog with Tailwind CSS v4 and keep the same
+component contracts as the CSS Modules packages.
+
+### Highlights
+
+- Utility-class styling: components ship with Tailwind CSS v4 utilities and shared tokens, and
+  consumer `className`/`class` values merge after the component defaults with `tailwind-merge`.
+- shadcn registry support: install components from the `@moduix-react-tailwind` and
+  `@moduix-solid-tailwind` registry namespaces, with the foundation stylesheet copied into your
+  project.
+</ChangelogNewsItem>
 
 <ChangelogNewsItem>
   <SolidReleaseHero />

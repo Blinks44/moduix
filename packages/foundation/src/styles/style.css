@@ -139,6 +139,8 @@
     var(--marquee-loop-count);
   --animate-moduix-progress-linear-indeterminate: moduix-progress-linear-indeterminate 1.5s
     ease-in-out infinite;
+  --animate-moduix-progress-circular-indeterminate: moduix-progress-circular-indeterminate 1.4s
+    linear infinite;
   --animate-moduix-progress-linear-indeterminate-vertical: moduix-progress-linear-indeterminate-vertical
     1.5s ease-in-out infinite;
   --animate-moduix-collapsible-open: moduix-collapsible-content-open

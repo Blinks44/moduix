@@ -42,8 +42,6 @@
     flex: none;
     align-items: center;
     justify-content: center;
-    -webkit-appearance: none;
-    appearance: none;
     width: var(--_radio-size, 1.25rem);
     height: var(--_radio-size, 1.25rem);
     border: var(--moduix-radio-border-width, var(--moduix-border-width-sm)) solid
@@ -52,7 +50,6 @@
     background-color: var(--moduix-radio-bg, var(--moduix-color-background));
     color: var(--moduix-radio-indicator-color, var(--moduix-color-primary-foreground));
     outline: 0;
-    line-height: 0;
     user-select: none;
     transition:
       background-color var(--moduix-radio-transition, var(--moduix-transition-default)),
@@ -161,7 +158,7 @@
     background-color: var(--moduix-radio-bg-checked, var(--moduix-color-primary));
     opacity: var(--moduix-radio-group-indicator-opacity, 0.12);
     pointer-events: none;
-    transition: var(--transition-property, translate)
-      var(--moduix-radio-transition, var(--moduix-transition-default));
+
+    --transition-duration: var(--moduix-duration-normal);
   }
 }

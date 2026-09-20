@@ -5,6 +5,6 @@ module.exports = {
   '*.{ts,tsx}': [
     'oxlint --fix',
     'oxfmt --no-error-on-unmatched-pattern',
-    () => 'npm run tsc:check',
+    () => 'pnpm run tsc:check',
   ],
 };
