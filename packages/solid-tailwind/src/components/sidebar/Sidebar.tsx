@@ -69,12 +69,7 @@ function toggleSidebarPanel(splitter: ReturnType<typeof useSplitterContext>, pan
 }
 
 function useSidebarConfig() {
-  const config = useContext(SidebarConfigContext);
-  if (!config) {
-    throw new Error('Sidebar components must be used within Sidebar.Root');
-  }
-
-  return config;
+  return useContext(SidebarConfigContext);
 }
 
 function SidebarRoot(props: SidebarRootProps) {
@@ -92,7 +87,7 @@ function SidebarRoot(props: SidebarRootProps) {
         data-side={side()}
         data-slot="sidebar-root"
         class={cn(
-          'group/splitter relative box-border h-112 min-h-0 w-full min-w-0 rounded-md border border-border bg-card text-foreground shadow-sm data-dragging:cursor-col-resize data-dragging:data-[orientation=vertical]:cursor-row-resize',
+          'group/splitter relative box-border h-112 min-h-0 w-full min-w-0 rounded-md border border-border bg-card text-foreground shadow-sm data-dragging:cursor-col-resize',
           'isolate h-dvh min-h-96 w-full min-w-0 rounded-none border border-border bg-background text-foreground shadow-none',
           local.class,
         )}
@@ -133,7 +128,7 @@ function SidebarPanel(props: SidebarPanelProps) {
       data-slot="sidebar-panel"
       data-state={collapsed() ? 'collapsed' : 'expanded'}
       class={cn(
-        'box-border min-h-50 min-w-0 overflow-auto rounded-none border-0 border-border bg-card p-4 text-card-foreground shadow-none group-data-[orientation=vertical]/splitter:min-h-0 data-dragging:select-none',
+        'box-border min-h-50 min-w-0 overflow-auto rounded-none border-0 border-border bg-card p-4 text-card-foreground shadow-none data-dragging:select-none',
         'group/sidebar-panel @container/sidebar-panel relative flex min-h-0 min-w-0 flex-col overflow-hidden bg-card p-0 text-card-foreground transition-colors duration-200 ease-in-out motion-reduce:transition-none',
         local.class,
       )}
@@ -152,7 +147,7 @@ function SidebarInset(props: SidebarPanelProps) {
       data-side={config.side()}
       data-slot="sidebar-inset"
       class={cn(
-        'box-border min-h-50 min-w-0 overflow-auto rounded-none border-0 border-border bg-card p-4 text-card-foreground shadow-none group-data-[orientation=vertical]/splitter:min-h-0 data-dragging:select-none',
+        'box-border min-h-50 min-w-0 overflow-auto rounded-none border-0 border-border bg-card p-4 text-card-foreground shadow-none data-dragging:select-none',
         'relative min-w-0 overflow-auto bg-background p-0 text-foreground',
         local.class,
       )}
@@ -164,11 +159,7 @@ function SidebarResizeTrigger(props: SidebarResizeTriggerProps) {
   const [local, others] = splitProps(props, ['aria-label', 'asChild', 'class', 'children']);
   const config = useSidebarConfig();
   const id = (): NonNullable<ComponentProps<typeof Splitter.ResizeTrigger>['id']> =>
-    (config.side() === 'left'
-      ? `${config.panelId()}:content`
-      : `content:${config.panelId()}`) as NonNullable<
-      ComponentProps<typeof Splitter.ResizeTrigger>['id']
-    >;
+    config.side() === 'left' ? `${config.panelId()}:content` : `content:${config.panelId()}`;
 
   return (
     <SplitterPrimitive.ResizeTrigger
@@ -179,7 +170,7 @@ function SidebarResizeTrigger(props: SidebarResizeTriggerProps) {
       data-side={config.side()}
       data-slot="sidebar-resize-trigger"
       class={cn(
-        "group/trigger relative z-1 box-border flex w-px min-w-px cursor-col-resize appearance-none items-center justify-center border-0 bg-transparent p-0 outline-0 transition-opacity duration-200 ease-in-out before:absolute before:h-full before:w-[0.5px] before:rounded-full before:bg-border before:transition-[background-color] before:duration-200 before:ease-in-out before:content-[''] after:absolute after:z-1 after:h-full after:w-2.5 after:content-[''] data-disabled:cursor-default data-disabled:opacity-50 data-dragging:before:bg-muted-foreground/40 data-[orientation=vertical]:h-px data-[orientation=vertical]:min-h-px data-[orientation=vertical]:w-full data-[orientation=vertical]:min-w-0 data-[orientation=vertical]:cursor-row-resize data-[orientation=vertical]:before:h-[0.5px] data-[orientation=vertical]:before:w-full data-[orientation=vertical]:after:h-2.5 data-[orientation=vertical]:after:w-full [@media(hover:hover)]:[&:not(:disabled):not([data-disabled]):hover]:before:bg-muted-foreground/40",
+        "group/trigger relative z-1 box-border flex w-px min-w-px cursor-col-resize appearance-none items-center justify-center border-0 bg-transparent p-0 outline-0 transition-opacity duration-200 ease-in-out before:absolute before:h-full before:w-[0.5px] before:rounded-full before:bg-border before:transition-[background-color] before:duration-200 before:ease-in-out before:content-[''] after:absolute after:z-1 after:h-full after:w-2.5 after:content-[''] data-disabled:cursor-default data-disabled:opacity-50 data-dragging:before:bg-muted-foreground/40 [@media(hover:hover)]:[&:not(:disabled):not([data-disabled]):hover]:before:bg-muted-foreground/40",
         'z-2',
         local.class,
       )}
@@ -218,10 +209,6 @@ function SidebarTrigger(props: SidebarTriggerProps) {
       type={local.type ?? 'button'}
       aria-label={local['aria-label'] ?? 'Toggle sidebar'}
       aria-expanded={!collapsed()}
-      data-scope="sidebar"
-      data-part="trigger"
-      data-side={config.side()}
-      data-state={collapsed() ? 'collapsed' : 'expanded'}
       class={cn(
         'relative z-4 -mx-3.5 inline-flex size-7 flex-none translate-y-10 cursor-pointer items-center justify-center rounded-full border border-border bg-background p-0 text-muted-foreground shadow-sm outline-0 transition-[background-color,color,box-shadow] duration-200 ease-in-out',
         'focus-visible:outline-offset-0.5 focus-visible:outline-2 focus-visible:outline-ring disabled:pointer-events-none disabled:opacity-50 aria-disabled:pointer-events-none aria-disabled:opacity-50 motion-reduce:transition-none',
@@ -231,6 +218,10 @@ function SidebarTrigger(props: SidebarTriggerProps) {
       )}
       onClick={handleClick}
       {...others}
+      data-scope="sidebar"
+      data-part="trigger"
+      data-side={config.side()}
+      data-state={collapsed() ? 'collapsed' : 'expanded'}
       data-slot="sidebar-trigger"
     >
       {local.children === undefined && !local.asChild ? <ChevronLeftIcon /> : local.children}
@@ -449,10 +440,6 @@ function SidebarNavigationButton(
       asChild={local.asChild}
       type={local.type ?? 'button'}
       aria-current={local['aria-current'] ?? (local.active ? 'page' : undefined)}
-      data-scope="sidebar"
-      data-part="navigation-button"
-      data-active={local.active ? '' : undefined}
-      data-size={local.size ?? 'md'}
       class={cn(
         'flex w-full min-w-0 cursor-pointer items-center gap-2 overflow-hidden rounded-md px-2 py-1 text-start text-sm leading-5 text-ellipsis whitespace-nowrap text-card-foreground outline-0 transition-colors duration-200 ease-in-out has-[+_[data-slot=sidebar-navigation-badge]]:pe-10 @max-[7rem]:has-[+_[data-slot=sidebar-navigation-badge]]:pe-2',
         'focus-visible:outline-offset-0.5 focus-visible:outline-2 focus-visible:outline-ring disabled:pointer-events-none disabled:opacity-50 aria-disabled:pointer-events-none aria-disabled:opacity-50 data-active:bg-accent data-active:font-medium data-active:text-accent-foreground motion-reduce:transition-none [&:not(:disabled):not([aria-disabled=true])]:hover:bg-accent [&:not(:disabled):not([aria-disabled=true])]:hover:text-accent-foreground',
@@ -467,6 +454,10 @@ function SidebarNavigationButton(
         local.class,
       )}
       {...others}
+      data-scope="sidebar"
+      data-part="navigation-button"
+      data-active={local.active ? '' : undefined}
+      data-size={local.size ?? 'md'}
       data-slot="sidebar-navigation-button"
     />
   );
@@ -601,7 +592,6 @@ function SidebarInput(props: ComponentProps<typeof Input.Root>) {
     <Input.Root
       class={cn('w-full group-data-[state=collapsed]/sidebar-panel:hidden', local.class)}
       {...others}
-      data-slot="sidebar-input"
     />
   );
 }
@@ -609,13 +599,7 @@ function SidebarInput(props: ComponentProps<typeof Input.Root>) {
 function SidebarSeparator(props: ComponentProps<typeof Separator.Root>) {
   const [local, others] = splitProps(props, ['class']);
 
-  return (
-    <Separator.Root
-      class={cn('border-border', local.class)}
-      {...others}
-      data-slot="sidebar-separator"
-    />
-  );
+  return <Separator.Root class={cn('border-border', local.class)} {...others} />;
 }
 
 const Sidebar = Object.assign(SidebarRoot, {

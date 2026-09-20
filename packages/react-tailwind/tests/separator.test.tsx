@@ -38,6 +38,7 @@ test('applies native utilities for the empty visual part', () => {
   expect(screen.getByTestId('separator')).toHaveClass(
     'block',
     'shrink-0',
+    'm-0',
     'border-border',
     'border-solid',
     'h-0',

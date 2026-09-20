@@ -71,12 +71,7 @@ function toggleSidebarPanel(splitter: ReturnType<typeof useSplitterContext>, pan
 }
 
 function useSidebarConfig() {
-  const config = useContext(SidebarConfigContext);
-  if (!config) {
-    throw new Error('Sidebar components must be used within Sidebar.Root');
-  }
-
-  return config;
+  return useContext(SidebarConfigContext);
 }
 
 function SidebarRoot(props: SidebarRootProps) {
@@ -158,11 +153,7 @@ function SidebarResizeTrigger(props: SidebarResizeTriggerProps) {
   const [local, others] = splitProps(props, ['aria-label', 'asChild', 'class', 'children']);
   const config = useSidebarConfig();
   const id = (): NonNullable<ComponentProps<typeof Splitter.ResizeTrigger>['id']> =>
-    (config.side() === 'left'
-      ? `${config.panelId()}:content`
-      : `content:${config.panelId()}`) as NonNullable<
-      ComponentProps<typeof Splitter.ResizeTrigger>['id']
-    >;
+    config.side() === 'left' ? `${config.panelId()}:content` : `content:${config.panelId()}`;
 
   return (
     <SplitterPrimitive.ResizeTrigger
@@ -540,21 +531,13 @@ function SidebarTooltip(
 function SidebarInput(props: ComponentProps<typeof Input.Root>) {
   const [local, others] = splitProps(props, ['class']);
 
-  return (
-    <Input.Root class={clsx(styles.input, local.class)} {...others} data-slot="sidebar-input" />
-  );
+  return <Input.Root class={clsx(styles.input, local.class)} {...others} />;
 }
 
 function SidebarSeparator(props: ComponentProps<typeof Separator.Root>) {
   const [local, others] = splitProps(props, ['class']);
 
-  return (
-    <Separator.Root
-      class={clsx(styles.separator, local.class)}
-      {...others}
-      data-slot="sidebar-separator"
-    />
-  );
+  return <Separator.Root class={clsx(styles.separator, local.class)} {...others} />;
 }
 
 const Sidebar = Object.assign(SidebarRoot, {

@@ -11,13 +11,8 @@ const separatorOverrideCssProperties: CssPropertyInput[] = [
   ['--moduix-separator-length-horizontal', '100%', 'Controls horizontal separator width.'],
   ['--moduix-separator-length-vertical', '1em', 'Controls vertical separator height.'],
   [
-    '--moduix-separator-size-thickness',
-    'var(--moduix-border-width-sm)',
-    'Controls the recipe-provided thickness for the active size.',
-  ],
-  [
     '--moduix-separator-thickness',
-    'var(--moduix-separator-size-thickness, var(--moduix-border-width-sm))',
+    'var(--_separator-size-thickness, var(--moduix-border-width-sm))',
     'Overrides separator thickness for both orientations.',
   ],
   ['--moduix-separator-thickness-xs', '0.5px', 'Controls extra-small recipe thickness.'],

@@ -40,6 +40,7 @@
       var(--moduix-table-of-contents-nav-border-color, var(--moduix-color-border));
     border-radius: var(--moduix-table-of-contents-nav-radius, var(--moduix-radius-lg));
     background-color: var(--moduix-table-of-contents-nav-bg, var(--moduix-color-card));
+    color: var(--moduix-table-of-contents-nav-color, var(--moduix-color-card-foreground));
 
     &[data-placement='left'] {
       grid-column: 1;
@@ -205,6 +206,10 @@
   @media (prefers-reduced-motion: reduce) {
     .content {
       scroll-behavior: auto;
+    }
+
+    .link {
+      transition: none;
     }
 
     .indicator {

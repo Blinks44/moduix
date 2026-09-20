@@ -1563,7 +1563,8 @@
         "@moduix-solid-tailwind/cn",
         "@moduix-solid-tailwind/button",
         "@moduix-solid-tailwind/icons",
-        "@moduix-solid-tailwind/menu"
+        "@moduix-solid-tailwind/menu",
+        "@moduix-solid-tailwind/overlay-portal"
       ],
       "files": [
         {
@@ -1772,7 +1773,11 @@
       "title": "ToggleGroup",
       "description": "moduix Solid Tailwind ToggleGroup component.",
       "dependencies": ["@ark-ui/solid", "class-variance-authority", "clsx", "tailwind-merge"],
-      "registryDependencies": ["@moduix-solid-tailwind/foundation", "@moduix-solid-tailwind/cn"],
+      "registryDependencies": [
+        "@moduix-solid-tailwind/foundation",
+        "@moduix-solid-tailwind/cn",
+        "@moduix-solid-tailwind/toggle"
+      ],
       "files": [
         {
           "path": "src/components/toggle-group/ToggleGroup.tsx",

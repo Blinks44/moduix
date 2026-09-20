@@ -116,8 +116,8 @@ Important hooks:
 - item preview/text/delete trigger: `data-disabled`, `data-highlighted`
 - clear trigger: `data-readonly`; default rendering also carries the shared close-button visual
   class while preserving Ark `data-scope="tags-input"` and `data-part="clear-trigger"`
-- read-only entry input: `data-readonly`; moduix hides it so only the immutable tag values remain
-  visible
+- read-only presentation: `data-readonly` hides the entry input, item delete triggers, and clear
+  trigger so only the immutable tag values remain visible
 
 ## Intentional sugar and differences from upstream
 
@@ -137,6 +137,8 @@ for normal provider and state access.
 
 ## Local changelog
 
+- 2026-09-20: Hid item delete triggers in the read-only presentation alongside the entry input and
+  clear trigger.
 - 2026-07-21: Routed shared dimensions, spacing, icon geometry, and focus-ring fallbacks through foundation tokens so density and theme presets can retune the component consistently.
 - 2026-09-04: Exposed Ark `HiddenInput` explicitly and removed root child mutation and custom reset handling.
 - 2026-07-31: Preserved Ark translations and anatomy attributes on default delete and clear actions.

@@ -67,7 +67,7 @@ function TagsInputControl(props: ComponentProps<typeof TagsInputPrimitive.Contro
   return (
     <TagsInputPrimitive.Control
       class={cn(
-        'flex min-h-control-md w-full flex-wrap items-center gap-1 rounded-md border border-border bg-background px-2 py-[0.3125rem] text-foreground outline-1 -outline-offset-1 outline-transparent transition-[border-color,outline-color,background-color,opacity] duration-200 ease-in-out data-disabled:pointer-events-none data-focus:outline-ring data-invalid:border-destructive data-invalid:data-focus:outline-destructive data-readonly:bg-background data-readonly:text-foreground motion-reduce:transition-none',
+        'group flex min-h-control-md w-full flex-wrap items-center gap-1 rounded-md border border-border bg-background px-2 py-[0.3125rem] text-foreground outline-1 -outline-offset-1 outline-transparent transition-[border-color,outline-color,background-color,opacity] duration-200 ease-in-out data-disabled:pointer-events-none data-focus:outline-ring data-invalid:border-destructive data-invalid:data-focus:outline-destructive data-readonly:bg-background data-readonly:text-foreground motion-reduce:transition-none',
         local.class,
       )}
       {...others}
@@ -124,7 +124,7 @@ function TagsInputItemDeleteTrigger(
   return (
     <TagsInputPrimitive.ItemDeleteTrigger
       class={cn(
-        'inline-flex size-4 shrink-0 cursor-pointer items-center justify-center rounded-full border-0 bg-transparent p-0 text-inherit outline-0 transition-[background-color,color,opacity,box-shadow] duration-200 ease-in-out focus-visible:ring-1 focus-visible:ring-ring disabled:pointer-events-none disabled:cursor-default disabled:opacity-50 data-disabled:pointer-events-none data-disabled:cursor-default data-disabled:opacity-50 motion-reduce:transition-none [&>svg]:pointer-events-none [&>svg]:size-2.5 [&>svg]:shrink-0 [@media(hover:hover)]:hover:bg-current/10',
+        'inline-flex size-4 shrink-0 cursor-pointer items-center justify-center rounded-full border-0 bg-transparent p-0 text-inherit outline-0 transition-[background-color,color,opacity,box-shadow] duration-200 ease-in-out group-data-readonly:hidden focus-visible:ring-1 focus-visible:ring-ring disabled:pointer-events-none disabled:cursor-default disabled:opacity-50 data-disabled:pointer-events-none data-disabled:cursor-default data-disabled:opacity-50 motion-reduce:transition-none [&>svg]:pointer-events-none [&>svg]:size-2.5 [&>svg]:shrink-0 [@media(hover:hover)]:hover:bg-current/12',
         local.class,
       )}
       {...others}
@@ -207,7 +207,7 @@ function TagsInputClearTrigger(props: ComponentProps<typeof TagsInputPrimitive.C
         </CloseButton.Root>
       )}
       class={cn(
-        'ms-auto size-control-xs shrink-0 self-center rounded-sm bg-transparent text-muted-foreground transition-[background-color,color,opacity] duration-200 ease-in-out focus-visible:outline-1 focus-visible:outline-offset-1 focus-visible:outline-ring data-readonly:hidden motion-reduce:transition-none [&>svg]:size-3 [@media(hover:hover)]:hover:bg-muted [@media(hover:hover)]:hover:text-foreground',
+        'ms-auto size-control-xs shrink-0 self-center focus-visible:outline-1 data-readonly:hidden motion-reduce:transition-none [&>svg]:size-3',
         local.class,
       )}
       {...others}

@@ -146,6 +146,7 @@ TagsInput.RootProvider
 | `TagsInput.Control` | Conteneur visible des tags, du champ de saisie et du déclencheur d’effacement. |
 | `TagsInput.Items` | Rendu standard des tags modifiables de la racine. |
 | `TagsInput.Item` | Un tag. Transmettez `index` et `value` pour un rendu personnalisé. |
+| `TagsInput.ItemContext` | Accès par render prop à l’état de l’élément courant dans l’arbre du composant. |
 | `TagsInput.ItemPreview` | Contenu visible d’un tag hors du mode d’édition. |
 | `TagsInput.ItemText` | Texte visible du tag. |
 | `TagsInput.ItemDeleteTrigger` | Supprime un tag et fournit par défaut une petite icône de fermeture. |
@@ -590,7 +591,7 @@ l’édition sur place doit rester possible.
 - Les états peuvent utiliser `data-disabled`, `data-readonly`, `data-invalid`, `data-focus`, `data-empty`, `data-required`, `data-value` et `data-highlighted` lorsque Ark les émet.
 - Les déclencheurs de suppression et d’effacement exposent des hooks `data-slot` stables. La suppression d’un tag utilise une petite icône ; l’effacement global reprend le style partagé du bouton de fermeture.
 - CSS Modules utilisent les variables documentées `--moduix-tags-input-*`. Les variantes Tailwind utilisent les utilitaires natifs et les classes ajoutées par le consommateur.
-- En lecture seule, moduix masque le champ de saisie et le déclencheur d’effacement, en laissant visibles uniquement les valeurs immuables.
+- En lecture seule, moduix masque le champ de saisie, les déclencheurs de suppression des tags et le déclencheur d’effacement, en laissant visibles uniquement les valeurs immuables.
 
 ## Accessibilité
 

@@ -32,6 +32,11 @@ import spinnerSolidSizes from '../../../snippets/spinner/solid/sizes.tsx?raw';
 элемента есть `role="status"` и запасное имя `aria-label="Loading"`. Это буквальная английская строка `Loading`,
 поэтому в интерфейсе на другом языке задайте локализованный `aria-label` или используйте `aria-labelledby`.
 
+При `prefers-reduced-motion: reduce` спиннер перестаёт вращаться: токен анимации spin из foundation
+преобразуется в `none`, а индикатор Tailwind добавляет `motion-reduce:animate-none`. В пакетах с CSS
+Modules задайте `--moduix-spinner-animation`, чтобы вернуть анимацию пользователям со включенным
+режимом reduced-motion.
+
 
 В большинстве случаев используйте `Spinner` как корневой элемент. `Spinner.Root` - псевдоним того же
 корня, если эту часть композиции нужно обозначить явно.

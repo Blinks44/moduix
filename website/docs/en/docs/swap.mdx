@@ -242,6 +242,16 @@ Built-in recipes use the CSS variables below in the CSS Modules variants. Tailwi
 utility and consumer class overrides. A custom animation name disables the built-in recipes, but you
 can still reuse `--moduix-swap-transition` in your own CSS.
 
+Ark pins the layout with inline styles: the root gets `display: inline-grid`, and each indicator gets
+`grid-area: 1 / 1` and `display: inline-flex`. Class-based `display` and `grid-area` overrides are
+no-ops in both tracks, so change these properties through the `style` prop (for example
+`style={{ display: 'grid' }}`) instead.
+
+In the Tailwind variants the flip recipe applies `data-[animation=flip]:[perspective:24rem]` on the
+root, which out-specifies a plain consumer `perspective` utility, so repeat that documented variant
+(for example `data-[animation=flip]:[perspective:32rem]`) to override it — the CSS Modules track
+instead exposes `--moduix-swap-flip-perspective`.
+
 ### CSS Properties
 
 <CssPropertiesSection properties={SwapDocs.swapOverrideCssProperties} />

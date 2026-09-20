@@ -244,6 +244,16 @@ variantes Tailwind utilisent des classes utilitaires natives et les classes du c
 d’animation personnalisé désactive les préréglages intégrés, mais vous pouvez toujours réutiliser
 `--moduix-swap-transition` dans votre CSS.
 
+Ark fige la mise en page avec des styles inline : la racine reçoit `display: inline-grid`, et chaque
+indicateur reçoit `grid-area: 1 / 1` et `display: inline-flex`. Les remplacements de `display` et
+`grid-area` par des classes sont sans effet dans les deux variantes ; modifiez plutôt ces propriétés
+via la prop `style` (par exemple `style={{ display: 'grid' }}`).
+
+Dans les variantes Tailwind, le préréglage flip applique `data-[animation=flip]:[perspective:24rem]`
+sur la racine, qui l’emporte sur un simple utilitaire `perspective` du consommateur ; répétez donc ce
+variant documenté (par exemple `data-[animation=flip]:[perspective:32rem]`) pour le remplacer, tandis
+que la variante CSS Modules expose plutôt `--moduix-swap-flip-perspective`.
+
 ### Propriétés CSS
 
 <CssPropertiesSection properties={SwapDocs.swapOverrideCssProperties} />

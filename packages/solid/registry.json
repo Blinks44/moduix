@@ -2016,7 +2016,8 @@
         "@moduix-solid/foundation",
         "@moduix-solid/button",
         "@moduix-solid/icons",
-        "@moduix-solid/menu"
+        "@moduix-solid/menu",
+        "@moduix-solid/overlay-portal"
       ],
       "files": [
         {

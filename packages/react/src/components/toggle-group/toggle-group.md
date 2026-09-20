@@ -190,8 +190,9 @@ export function RootProviderToggleGroupDemo() {
 
 - The short root export `<ToggleGroup>` is equivalent to `<ToggleGroup.Root>`.
 - `variant` and `size` are moduix visual sugar layered over Ark behavior.
-- Item styling reuses standalone `Toggle` visuals so `Toggle` and `ToggleGroup.Item` stay visually
-  synchronized.
+- Item styling reuses standalone `Toggle` visuals. Unpressed item text follows the group root
+  color, so a default-variant item in a group intentionally differs from a standalone default
+  `Toggle`, whose unpressed text is `secondary-foreground`.
 - Items inherit root/root-provider `variant` and `size` unless the item overrides them.
 - moduix keeps `RootProvider`, `Context`, `useToggleGroup()`, and `useToggleGroupContext()` public
   for normal provider and state composition.

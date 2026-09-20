@@ -131,7 +131,8 @@ SplitButton / SplitButton.Root
 `SplitButton` combines one primary `Action` with a `Trigger`; keep the popup tree explicit as
 `Positioner` → `Content` and place shared `Menu.*` rows inside `Content`. The positioner is portalled automatically;
 use `portalled={false}` or `portalRef` only when the popup must use a different container. Root `size` and `variant`
-provide the defaults for both button parts.
+provide the defaults for both button parts. The root renders a semantic `role="group"`; provide `aria-label` or
+`aria-labelledby` when the surrounding context does not already identify the group.
 
 Menu state is internal by default. Pass `open` with `onOpenChange(details)` when another part of the application
 owns the open state. For advanced state access, use the shared `Menu` API instead of adding a split-button-specific

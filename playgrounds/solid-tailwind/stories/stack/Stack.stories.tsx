@@ -14,6 +14,7 @@ const mutedClass = 'text-muted-foreground';
 const meta = {
   title: 'Components/Stack',
   component: Stack,
+  tags: ['autodocs'],
   parameters: {
     layout: 'centered',
   },

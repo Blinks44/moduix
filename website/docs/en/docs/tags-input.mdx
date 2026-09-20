@@ -145,6 +145,7 @@ TagsInput.RootProvider
 | `TagsInput.Control` | Visible shell containing tags, the entry input, and the clear trigger. |
 | `TagsInput.Items` | Standard editable tag renderer for the current root values. |
 | `TagsInput.Item` | One tag. Pass `index` and `value` when rendering custom items. |
+| `TagsInput.ItemContext` | Render-prop access to the state of the current item inside the component tree. |
 | `TagsInput.ItemPreview` | Visible tag content outside edit mode. |
 | `TagsInput.ItemText` | Visible tag text. |
 | `TagsInput.ItemDeleteTrigger` | Removes one tag and provides a compact close icon by default. |
@@ -582,7 +583,7 @@ tree and keep `ItemInput` in each item if inline editing is still needed.
 - State styling can use `data-disabled`, `data-readonly`, `data-invalid`, `data-focus`, `data-empty`, `data-required`, `data-value`, and `data-highlighted` where Ark emits them.
 - Delete and clear triggers expose stable `data-slot` hooks. Item deletion uses a compact close icon; clear-all uses the shared close-button styling.
 - CSS Modules use the documented `--moduix-tags-input-*` variables. Tailwind variants use native utilities and consumer class overrides.
-- In read-only state, moduix hides the entry input and clear trigger, leaving only immutable tag values visible.
+- In read-only state, moduix hides the entry input, item delete triggers, and the clear trigger, leaving only immutable tag values visible.
 
 ## Accessibility
 

@@ -1,8 +1,4 @@
 @layer moduix.components {
-  .toaster {
-    z-index: var(--moduix-toast-z-index, var(--moduix-z-toast));
-  }
-
   .root {
     --_toast-trigger-bg-default: transparent;
     --_toast-trigger-bg-hover-default: var(--moduix-color-accent);
@@ -156,8 +152,10 @@
       border-color var(--moduix-transition-fast),
       color var(--moduix-transition-fast);
 
-    &:hover {
-      background: var(--moduix-toast-action-bg-hover, var(--_toast-trigger-bg-hover-default));
+    @media (hover: hover) {
+      &:hover {
+        background: var(--moduix-toast-action-bg-hover, var(--_toast-trigger-bg-hover-default));
+      }
     }
 
     &:focus-visible {

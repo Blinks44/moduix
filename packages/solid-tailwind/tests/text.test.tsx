@@ -112,6 +112,22 @@ test('uses Tailwind utilities on the root', () => {
   );
 });
 
+test('keeps line clamp effective when truncate is also set', () => {
+  render(() => (
+    <Text truncate lineClamp={2}>
+      Clamped and truncated copy
+    </Text>
+  ));
+
+  const text = screen.getByText('Clamped and truncated copy');
+
+  expect(text).toHaveAttribute('data-truncate');
+  expect(text).toHaveAttribute('data-line-clamp');
+  expect(text).toHaveStyle('-webkit-line-clamp: 2');
+  expect(text).toHaveClass('overflow-hidden', 'text-ellipsis', 'whitespace-normal');
+  expect(text).not.toHaveClass('whitespace-nowrap');
+});
+
 test('lets consumer utilities override typography defaults', () => {
   render(() => <Text class="text-center text-xl font-bold text-primary">Customized copy</Text>);
 

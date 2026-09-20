@@ -124,7 +124,9 @@ Utilisez `size` avec `onResize(details)` lorsque l'application doit gérer les t
 panneaux. Utilisez `Splitter.RootProvider` avec `useSplitter()` lorsque l'état ou ses contrôles
 doivent vivre en dehors de l'arborescence rendue, et choisissez une seule racine par état. Pour des
 splitters imbriqués qui doivent se redimensionner ensemble aux intersections des poignées, créez un
-seul `createSplitterRegistry()` et transmettez-le à chaque racine.
+seul `createSplitterRegistry()` et transmettez-le à chaque racine. Les valeurs numériques de
+`defaultSize`, `size` et `minSize` sont des pourcentages dont la somme doit faire 100, et Ark accepte
+aussi des longueurs CSS pour ces tailles.
 
 Utilisez `asChild` avec un seul enfant interactif qui conserve la sémantique d'un bouton, la gestion du
 focus et les interactions au clavier ; cela remplace l'indicateur de redimensionnement par défaut. En

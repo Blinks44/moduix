@@ -287,7 +287,8 @@ Utilisez `tone` pour indiquer le rôle du texte sans ajouter de classe de couleu
 ### Troncature
 
 Utilisez `truncate` pour une troncature sur une ligne avec points de suspension et `lineClamp` pour les aperçus
-compacts sur plusieurs lignes. Ajoutez le comportement de dépliage dans l’interface environnante.
+compacts sur plusieurs lignes. Quand les deux sont définis, `lineClamp` reste la contrainte effective et prend le
+pas sur la troncature sur une ligne. Ajoutez le comportement de dépliage dans l’interface environnante.
 
 <ExampleFrame variant="component">
   <TextTruncation />

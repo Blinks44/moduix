@@ -10,6 +10,8 @@ implemented with the Ark Solid factory.
 - `Typeset` renders a `div` by default; `Typeset.Root` is an equivalent namespace alias.
 - `asChild` accepts one semantic host through an Ark Solid render function.
 - `Typeset.Scroll` renders a keyboard-focusable horizontal scroller with `tabIndex={0}` by default.
+  It is designed to live inside a `Typeset` or `Typeset.Root` boundary: the horizontal scrolling,
+  flow spacing, and table widening for the wrapped block come from the Typeset element rules.
 - A scroll label through `aria-label` or `aria-labelledby` adds `role="region"` unless a role is
   explicitly provided.
 - `.not-typeset` and `data-not-typeset` exclude a subtree, including nested Typeset parts.

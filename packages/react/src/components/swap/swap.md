@@ -86,7 +86,7 @@ export function UploadButton() {
 
 ## Upstream feature coverage
 
-- `swap`, `lazyMount`, and `unmountOnExit` pass through unchanged.
+- `swap`, `lazyMount`, `unmountOnExit`, and `hideMode` pass through unchanged.
 - `asChild` remains available on every Ark-rendered part.
 - `Swap.RootProvider` and `Swap.useSwap()` preserve the upstream external-state path.
 - `useSwapContext()` is exported from the moduix barrel.
@@ -106,6 +106,9 @@ export function UploadButton() {
 
 - The root is an `inline-grid` with a single `swap` grid area.
 - Indicators are inline-flex elements in that area and inherit their color.
+- Ark pins that layout with inline styles (`display: inline-grid` on the root, `grid-area: 1 / 1` and
+  `display: inline-flex` on each indicator), so class-based `display` and `grid-area` overrides do not
+  apply; change these properties through the `style` prop instead.
 - `animation="fade"` uses opacity, `scale` combines it with a 50% scale, `rotate` spins in 2D,
   and `flip` applies a 3D Y-axis flip with a root perspective.
 - `--moduix-swap-transition` defaults to `--moduix-transition-slow` and controls both enter and exit timing.
@@ -136,6 +139,7 @@ expand/collapse behaviour to this primitive.
 
 ## Local changelog
 
+- 2026-09-20: Moved the `data-animation` hook after consumer props, added `hideMode` to the upstream feature list, and documented Ark's inline-style layout pinning.
 - 2026-08-13: Added upstream comparison notes and regression coverage for the root styling hook and custom animation escape hatch.
 - 2026-08-13: Scoped preset animations to direct indicators and added angle and perspective CSS variables for rotate and flip.
 - 2026-07-31: Added `animation` presets and a custom-name escape hatch without changing Ark state.

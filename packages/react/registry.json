@@ -1701,7 +1701,7 @@
       "type": "registry:item",
       "title": "Simple Grid",
       "description": "Responsive CSS Grid layout with fixed or intrinsic equal-width columns.",
-      "dependencies": ["@ark-ui/react", "clsx"],
+      "dependencies": ["@ark-ui/react"],
       "registryDependencies": ["@moduix-react/foundation"],
       "files": [
         {
@@ -1882,7 +1882,8 @@
         "@moduix-react/foundation",
         "@moduix-react/button",
         "@moduix-react/menu",
-        "@moduix-react/icons"
+        "@moduix-react/icons",
+        "@moduix-react/overlay-portal"
       ],
       "files": [
         {

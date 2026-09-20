@@ -139,7 +139,7 @@ Sidebar / Sidebar.Root
 | `Sidebar` / `Sidebar.Root` | Ark Splitter root with defaults for a two-panel sidebar. |
 | `Sidebar.Panel` | Collapsible navigation panel; its default id is `"sidebar"`. |
 | `Sidebar.Inset` | Main content panel; its default id is `"content"`. |
-| `Sidebar.ResizeTrigger` | Accessible line for pointer and keyboard resizing. |
+| `Sidebar.ResizeTrigger` | Accessible handle line for pointer and keyboard resizing; it renders the shared `Splitter.ResizeTriggerIndicator` by default, and custom children replace it. |
 | `Sidebar.Trigger` | Side-aware control for collapsing and expanding the panel. |
 | `Sidebar.Header` | Non-scrolling top region. |
 | `Sidebar.Content` | Scrolling middle region. |
@@ -163,6 +163,11 @@ Sidebar. For a persisted width, control `size`, update it from `onResize(details
 `onResizeEnd(details)`. In Solid, `asChild` uses a render function that receives the merged props.
 Place `NavigationBadge` after a simple `NavigationButton` or `NavigationSubButton`; it reserves
 trailing space for the counter and hides with the other trailing affordances in the compact rail.
+
+`useSidebar()` from the matching framework package exposes the sidebar state as `collapsed`, `side`,
+and `state`, plus a `toggleSidebar()` callback. In Solid these are accessors read as
+`collapsed()` and friends. It reads the Splitter context created by `Sidebar`/`Sidebar.Root`, so
+use it only inside the sidebar tree.
 
 ## Examples
 

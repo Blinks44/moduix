@@ -133,6 +133,10 @@ Utilisez `defaultPaths` pour un état local non contrôlé. Utilisez `paths` ave
 `RootProvider` avec `useSignaturePad()` lorsque l’état doit être créé en dehors de l’arborescence
 rendue ou que des contrôles externes doivent accéder à `paths`, `clear()` ou `getDataUrl()`.
 
+Contrairement à Ark, moduix désactive `ClearTrigger` lorsque `readOnly` provient de la racine, d’un
+`Field` englobant ou de `useSignaturePad()`, ce qui empêche un effacement irréversible tandis que
+le `clear()` programmatique reste disponible.
+
 ## Exemples
 
 ### État contrôlé
@@ -178,7 +182,9 @@ coordonner avec des contrôles de réinitialisation ou une logique d’enregistr
 ### Dessin
 
 Transmettez `drawing` lorsque l’épaisseur, la couleur du trait ou le comportement de la pression
-doivent différer des valeurs par défaut.
+doivent différer des valeurs par défaut. La valeur par défaut à l’exécution est
+`{ size: 2, simulatePressure: false }` (la page de documentation d’Ark montre
+`simulatePressure: true`), la simulation de pression est donc à activer explicitement.
 
 <ExampleFrame variant="component">
   <SignaturePadDrawing />

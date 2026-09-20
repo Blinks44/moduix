@@ -78,6 +78,20 @@ test('forwards refs and exposes stable slots on public parts', () => {
   expect(labelRef.current).toHaveAttribute('data-slot', 'switch-label');
 });
 
+test('keeps the moduix data-size attribute authoritative over consumer value', () => {
+  render(
+    <Switch size="lg" data-size="sm">
+      <Switch.Control />
+      <Switch.HiddenInput />
+      <Switch.Label>Authoritative size</Switch.Label>
+    </Switch>,
+  );
+
+  const root = screen.getByText('Authoritative size').closest('[data-slot="switch-root"]')!;
+
+  expect(root).toHaveAttribute('data-size', 'lg');
+});
+
 test('preserves disabled, read-only, invalid, and required semantics', () => {
   render(
     <>
@@ -154,7 +168,11 @@ test('applies native utilities to component-owned visual parts', () => {
 
   expect(root).toHaveClass('inline-flex', 'gap-2', 'w-fit');
   expect(control).toHaveClass('inline-flex', 'w-11', 'h-control-xs', 'rounded-full', 'bg-muted');
-  expect(control).toHaveClass('data-[state=checked]:bg-primary');
+  expect(control).toHaveClass(
+    'data-invalid:border-destructive',
+    'data-[state=checked]:data-invalid:border-destructive',
+    'data-[state=checked]:bg-primary',
+  );
   expect(thumb).toHaveClass(
     'inline-flex',
     'size-5',

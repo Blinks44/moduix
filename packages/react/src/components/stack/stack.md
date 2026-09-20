@@ -40,7 +40,7 @@ legacy `as` contract. Chakra's Stack recipe informs the public layout props.
 - Always applies the local root class from `Stack.module.css`, which sets `display: flex`.
 - `direction` falls back to the `--moduix-stack-direction-*` CSS variables and then `column`. When
   provided, it writes inline `--moduix-stack-direction-mobile` and `--moduix-stack-direction-desktop` values.
-- `fill={true}` writes inline `--moduix-stack-flex: 1 1 0` on the root. `fill={false}` writes
+- `fill={true}` writes inline `--moduix-stack-flex: 1 1 0%` on the root. `fill={false}` writes
   `--moduix-stack-flex: initial`. When omitted, the root falls back to `initial`.
 - `gap`, `align`, `justify`, and `wrap` are written as inline styles only when their corresponding
   prop is provided. When omitted, normal browser flex defaults apply.
@@ -127,7 +127,7 @@ a single element that accepts `className`, `style`, and DOM attributes.
 | `align`     | browser default | Any valid `align-items` value                            |
 | `justify`   | browser default | Any valid `justify-content` value                        |
 | `wrap`      | browser default | Any valid `flex-wrap` value                              |
-| `fill`      | `initial`       | `true` sets `flex: 1 1 0`; `false` sets `flex: initial`  |
+| `fill`      | `initial`       | `true` sets `flex: 1 1 0%`; `false` sets `flex: initial` |
 | `asChild`   | `false`         | Ark factory composition                                  |
 | `className` | -               | Applied to the root                                      |
 | `style`     | -               | Applied last and can override computed inline properties |

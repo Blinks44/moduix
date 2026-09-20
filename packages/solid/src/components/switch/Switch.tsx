@@ -23,9 +23,9 @@ function SwitchRoot(props: SwitchRootProps) {
   return (
     <SwitchPrimitive.Root
       asChild={local.asChild}
-      data-size={local.size ?? 'md'}
       class={clsx(styles.root, local.class)}
       {...others}
+      data-size={local.size ?? 'md'}
       data-slot="switch-root"
     >
       {local.children}

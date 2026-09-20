@@ -7,3 +7,4 @@ export {
   waitForEvent,
   waitForPromise,
 } from './Tour.js';
+export type { TourCloseIconProps, TourRootProps } from './Tour.js';

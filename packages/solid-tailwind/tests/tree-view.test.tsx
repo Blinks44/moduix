@@ -100,6 +100,31 @@ test('preserves TreeView anatomy, labels, refs, and the Node convenience helper'
   );
 });
 
+test('wraps the checkbox indicator with its data-slot and consumer class', () => {
+  render(() => (
+    <TreeView collection={collection}>
+      <TreeView.Label>Checked files</TreeView.Label>
+      <TreeView.Tree>
+        <TreeView.Node node={collection.rootNode.children![1]} indexPath={[1]}>
+          {({ node }) => (
+            <TreeView.Item>
+              <TreeView.NodeCheckbox>
+                <TreeView.NodeCheckboxIndicator class="indicator-class" />
+              </TreeView.NodeCheckbox>
+              <TreeView.ItemText>{node.name}</TreeView.ItemText>
+            </TreeView.Item>
+          )}
+        </TreeView.Node>
+      </TreeView.Tree>
+    </TreeView>
+  ));
+
+  const indicator = document.querySelector('[data-slot="tree-view-node-checkbox-indicator"]');
+
+  expect(indicator?.tagName).toBe('SPAN');
+  expect(indicator).toHaveClass('indicator-class');
+});
+
 test('keeps component-owned utilities on empty visual parts', () => {
   render(() => (
     <TreeView collection={collection} defaultExpandedValue={['src']}>

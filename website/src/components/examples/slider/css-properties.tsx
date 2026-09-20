@@ -81,6 +81,11 @@ const sliderOverrideCssProperties: CssPropertyInput[] = [
     'var(--moduix-slider-range-bg)',
     'Controls active marker dot color.',
   ],
+  [
+    '--moduix-slider-marker-dot-bg-active-invalid',
+    'var(--moduix-slider-range-bg-invalid)',
+    'Controls invalid active marker dot color.',
+  ],
   ['--moduix-slider-marker-dot-size', 'var(--moduix-spacing-1)', 'Controls marker dot size.'],
   ['--moduix-slider-marker-font-size', 'var(--moduix-text-xs)', 'Controls marker font size.'],
   [
@@ -99,6 +104,11 @@ const sliderOverrideCssProperties: CssPropertyInput[] = [
     'Controls marker line height.',
   ],
   ['--moduix-slider-range-bg', 'var(--moduix-color-primary)', 'Controls filled range color.'],
+  [
+    '--moduix-slider-range-bg-invalid',
+    'var(--moduix-color-destructive)',
+    'Controls invalid filled range color.',
+  ],
   ['--moduix-slider-range-radius', 'inherit', 'Controls filled range corner radius.'],
   [
     '--moduix-slider-thumb-bg',
@@ -111,9 +121,19 @@ const sliderOverrideCssProperties: CssPropertyInput[] = [
     'Controls thumb border color.',
   ],
   [
+    '--moduix-slider-thumb-border-color-invalid',
+    'var(--moduix-color-destructive)',
+    'Controls invalid thumb border color.',
+  ],
+  [
     '--moduix-slider-thumb-border-width',
     'var(--moduix-border-width-sm)',
     'Controls thumb border width.',
+  ],
+  [
+    '--moduix-slider-thumb-focus-ring-color-invalid',
+    'var(--moduix-slider-thumb-border-color-invalid)',
+    'Controls invalid thumb focus ring color.',
   ],
   ['--moduix-slider-thumb-radius', 'var(--moduix-radius-full)', 'Controls thumb corner radius.'],
   ['--moduix-slider-thumb-shadow', 'var(--moduix-shadow-sm)', 'Controls thumb shadow.'],
@@ -128,6 +148,11 @@ const sliderOverrideCssProperties: CssPropertyInput[] = [
     '--moduix-slider-track-border-color',
     'var(--moduix-color-border)',
     'Controls track border color.',
+  ],
+  [
+    '--moduix-slider-track-border-color-invalid',
+    'var(--moduix-color-destructive)',
+    'Controls invalid track border color.',
   ],
   [
     '--moduix-slider-track-border-width',

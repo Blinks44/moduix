@@ -6,7 +6,7 @@ import {
 } from '@ark-ui/solid/toc';
 import { clsx } from 'clsx';
 import type { ComponentProps, JSX } from 'solid-js';
-import { splitProps } from 'solid-js';
+import { mergeProps, splitProps } from 'solid-js';
 import styles from './Toc.module.css';
 
 const railBaseOffset = 0;
@@ -17,7 +17,7 @@ const maxRailLevel = 2;
 const getRailOffset = (depth: number) =>
   railBaseOffset + Math.min(Math.max(depth - 2, 0), maxRailLevel) * railStep;
 
-const useToc = (props: UseTocProps) => useTocPrimitive({ autoScroll: false, ...props });
+const useToc = (props: UseTocProps) => useTocPrimitive(mergeProps({ autoScroll: false }, props));
 
 const useTocContext = useTocContextPrimitive;
 

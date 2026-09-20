@@ -131,6 +131,24 @@ test('preserves keyboard behavior and makes read-only state visible without chan
   expect(disabledSlider).not.toHaveAttribute('tabindex');
 });
 
+test('keeps generated thumbs mounted while their values change', async () => {
+  const { container } = render(
+    <Slider defaultValue={[40]}>
+      <Slider.Control>
+        <Slider.Thumbs />
+      </Slider.Control>
+    </Slider>,
+  );
+
+  const thumb = container.querySelector<HTMLElement>('[data-slot="slider-thumb"]')!;
+
+  thumb.focus();
+  fireEvent.keyDown(thumb, { key: 'ArrowRight' });
+
+  await waitFor(() => expect(thumb).toHaveAttribute('aria-valuenow', '41'));
+  expect(container.querySelector('[data-slot="slider-thumb"]')).toBe(thumb);
+});
+
 test('preserves refs and explicit form inputs with asChild composition', () => {
   const ref = createRef<HTMLDivElement>();
 

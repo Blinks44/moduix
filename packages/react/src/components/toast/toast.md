@@ -123,7 +123,9 @@ export function ToastExample() {
 - Ark live-region behavior, grouping, pausing, focus hotkey, dismiss lifecycle, and status changes
   remain intact.
 - The default Ark hotkey is `["altKey", "KeyT"]`; configure it through `createToaster({ hotkey })`.
-- Use the `label` group prop on `Toaster` when the toast group needs a custom accessible label.
+- A custom accessible group label through the `label` group prop is typed on `Toaster` but is not
+  forwarded to the group machine in `@ark-ui/react@5.39.2`; the live-region label stays
+  `"Notifications, <placement> (<hotkey>)"` until upstream chakra-ui/ark#4045 ships in a release.
 - `Toast.CloseTrigger` remains a button and receives a default accessible label. If `asChild` is
   used, the custom child must keep an accessible name and button semantics.
 - `Toast.ActionTrigger` remains a button wired to `toast.action.onClick`. If `asChild` is used, the
@@ -162,10 +164,9 @@ Primary CSS variables:
 | `--moduix-toast-close-focus-ring-width` | `var(--moduix-focus-ring-width, var(--moduix-border-width-md))`       |
 | `--moduix-toast-close-size`             | `var(--moduix-spacing-7)`                                             |
 | `--moduix-toast-close-icon-size`        | `var(--moduix-spacing-3)`                                             |
-| `--moduix-toast-transition`             | `400ms`                                                               |
-| `--moduix-toast-transition-out`         | `400ms`                                                               |
+| `--moduix-toast-transition`             | `350ms`                                                               |
+| `--moduix-toast-transition-out`         | `350ms`                                                               |
 | `--moduix-toast-opacity-transition-out` | `200ms`                                                               |
-| `--moduix-toast-z-index`                | `var(--moduix-z-toast)`                                               |
 
 Each visual status has its own surface overrides, so consumers can theme an individual status
 without selectors or affecting other toast types:

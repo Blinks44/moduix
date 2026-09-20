@@ -41,6 +41,17 @@ test('uses the scale animation by default and supports named presets', () => {
   expect(screen.getByTestId('swap')).toHaveAttribute('data-animation', 'bounce');
 });
 
+test('maps the animation prop to data-animation after consumer props', () => {
+  render(
+    <Swap animation="flip" data-animation="rotate" data-testid="swap" swap>
+      <Swap.Indicator type="off">Off</Swap.Indicator>
+      <Swap.Indicator type="on">On</Swap.Indicator>
+    </Swap>,
+  );
+
+  expect(screen.getByTestId('swap')).toHaveAttribute('data-animation', 'flip');
+});
+
 test('preserves Ark lazy mounting and exit unmounting', async () => {
   function LazySwap() {
     const [swap, setSwap] = useState(false);

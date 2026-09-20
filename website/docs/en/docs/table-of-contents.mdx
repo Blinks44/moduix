@@ -128,6 +128,10 @@ Pass one item for every tracked heading. Keep `item.value`, the heading `id`, an
 fragment identical, and use the heading's semantic level for `depth`. Omit `scrollEl` when the page
 viewport owns scrolling; pass the reading pane when the content has its own scroll container.
 
+Unlike Ark UI, `autoScroll` defaults to `false` for both `Toc` and `useToc()`. Pass `autoScroll` to
+opt in only when automatically revealing the active navigation item cannot scroll an ancestor
+container.
+
 Use `Toc.RootProvider` with `useToc()` only when controls outside the part tree need the same
 tracking state, such as `activeIds` or `scrollTo`. React reads the store as an object; Solid reads
 its reactive state through the returned accessor. Use `Toc.Context` when a surrounding composition

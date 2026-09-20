@@ -5,7 +5,7 @@ import {
   useTocContext as useTocContextPrimitive,
 } from '@ark-ui/solid/toc';
 import type { ComponentProps, JSX } from 'solid-js';
-import { splitProps } from 'solid-js';
+import { mergeProps, splitProps } from 'solid-js';
 import { cn } from '@/lib/moduix/cn';
 
 const railBaseOffset = 0;
@@ -16,7 +16,7 @@ const maxRailLevel = 2;
 const getRailOffset = (depth: number) =>
   railBaseOffset + Math.min(Math.max(depth - 2, 0), maxRailLevel) * railStep;
 
-const useToc = (props: UseTocProps) => useTocPrimitive({ autoScroll: false, ...props });
+const useToc = (props: UseTocProps) => useTocPrimitive(mergeProps({ autoScroll: false }, props));
 
 const useTocContext = useTocContextPrimitive;
 
@@ -124,7 +124,7 @@ function TocLink(props: ComponentProps<typeof TocPrimitive.Link>) {
   return (
     <TocPrimitive.Link
       class={cn(
-        'group/toc-link relative block min-w-0 overflow-hidden rounded-sm py-1 ps-[calc(0.875rem+max(0px,((var(--depth)-2)*0.5rem)))] pe-1 text-sm leading-5 text-ellipsis whitespace-nowrap text-muted-foreground no-underline outline-0 transition-colors duration-200 ring-inset focus-visible:ring-1 focus-visible:ring-ring has-[[data-slot=toc-rail]]:overflow-visible data-active:font-medium data-active:text-foreground motion-reduce:transition-none [@media(hover:hover)]:hover:text-foreground',
+        'group/toc-link relative block min-w-0 overflow-hidden rounded-sm py-1 ps-[calc(0.875rem+max(0px,((var(--depth)-2)*0.5rem)))] pe-1 text-sm leading-5 text-ellipsis whitespace-nowrap text-muted-foreground no-underline outline-0 transition-colors duration-200 focus-visible:ring-1 focus-visible:ring-ring has-[[data-slot=toc-rail]]:overflow-visible data-active:font-medium data-active:text-foreground motion-reduce:transition-none [@media(hover:hover)]:hover:text-foreground',
         local.class,
       )}
       {...others}

@@ -550,14 +550,7 @@ const SidebarTooltip = function SidebarTooltip({
 
 const SidebarInput = forwardRef<ComponentRef<typeof Input.Root>, ComponentProps<typeof Input.Root>>(
   function SidebarInput({ className, ...props }, ref) {
-    return (
-      <Input.Root
-        ref={ref}
-        className={clsx(styles.input, className)}
-        {...props}
-        data-slot="sidebar-input"
-      />
-    );
+    return <Input.Root ref={ref} className={clsx(styles.input, className)} {...props} />;
   },
 );
 
@@ -565,14 +558,7 @@ const SidebarSeparator = forwardRef<
   ComponentRef<typeof Separator.Root>,
   ComponentProps<typeof Separator.Root>
 >(function SidebarSeparator({ className, ...props }, ref) {
-  return (
-    <Separator.Root
-      ref={ref}
-      className={clsx(styles.separator, className)}
-      {...props}
-      data-slot="sidebar-separator"
-    />
-  );
+  return <Separator.Root ref={ref} className={clsx(styles.separator, className)} {...props} />;
 });
 
 const Sidebar = Object.assign(SidebarRoot, {

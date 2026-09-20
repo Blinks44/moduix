@@ -39,6 +39,17 @@ test('uses the scale animation by default and supports named presets', async () 
   await waitFor(() => expect(root).toHaveAttribute('data-animation', 'bounce'));
 });
 
+test('maps the animation prop to data-animation after consumer props', () => {
+  render(() => (
+    <Swap animation="flip" data-animation="rotate" data-testid="swap" swap>
+      <Swap.Indicator type="off">Off</Swap.Indicator>
+      <Swap.Indicator type="on">On</Swap.Indicator>
+    </Swap>
+  ));
+
+  expect(screen.getByTestId('swap')).toHaveAttribute('data-animation', 'flip');
+});
+
 test('preserves Ark lazy mounting and exit unmounting', async () => {
   function LazySwap() {
     const [swapped, setSwapped] = createSignal(false);
@@ -159,24 +170,27 @@ test('applies owning Tailwind utilities to visual parts', () => {
     </Swap>
   ));
 
-  expect(screen.getByTestId('swap')).toHaveClass('inline-grid', 'place-items-center');
+  expect(screen.getByTestId('swap')).toHaveClass(
+    'group/swap',
+    'place-items-center',
+    'align-middle',
+  );
   expect(screen.getByTestId('indicator')).toHaveClass(
-    'inline-flex',
-    '[grid-area:swap]',
     'items-center',
     'justify-center',
+    'text-inherit',
   );
 });
 
 test('lets consumer Tailwind classes override conflicting defaults', () => {
   render(() => (
-    <Swap class="inline-flex" data-testid="swap">
-      <Swap.Indicator class="block" data-testid="indicator" type="off" />
+    <Swap class="place-items-start" data-testid="swap">
+      <Swap.Indicator class="items-start" data-testid="indicator" type="off" />
     </Swap>
   ));
 
-  expect(screen.getByTestId('swap')).toHaveClass('inline-flex');
-  expect(screen.getByTestId('swap')).not.toHaveClass('inline-grid');
-  expect(screen.getByTestId('indicator')).toHaveClass('block');
-  expect(screen.getByTestId('indicator')).not.toHaveClass('inline-flex');
+  expect(screen.getByTestId('swap')).toHaveClass('place-items-start');
+  expect(screen.getByTestId('swap')).not.toHaveClass('place-items-center');
+  expect(screen.getByTestId('indicator')).toHaveClass('items-start');
+  expect(screen.getByTestId('indicator')).not.toHaveClass('items-center');
 });

@@ -1969,7 +1969,7 @@
   --moduix-navigation-menu-viewport-max-height: initial; /* 32rem */
   --moduix-navigation-menu-viewport-max-width: initial; /* 40rem */
   --moduix-navigation-menu-viewport-motion-distance: initial; /* 12.5rem */
-  --moduix-navigation-menu-viewport-offset: initial; /* var(--moduix-spacing-2) */
+  --moduix-navigation-menu-viewport-offset: initial; /* var(--moduix-navigation-menu-indicator-size, var(--moduix-spacing-2-5)); var(--moduix-spacing-2) vertical */
   --moduix-navigation-menu-viewport-radius: initial; /* var(--moduix-radius-md) */
   --moduix-navigation-menu-viewport-transition: initial; /* var(--moduix-popup-motion-duration, var(--moduix-duration-normal)) var(--moduix-popup-motion-easing, var(--moduix-ease-in-out)) */
   --moduix-navigation-menu-viewport-z-index: initial; /* var(--moduix-z-popup) */
@@ -2384,8 +2384,7 @@
   --moduix-separator-color: initial; /* var(--moduix-color-border) */
   --moduix-separator-length-horizontal: initial; /* 100% */
   --moduix-separator-length-vertical: initial; /* 1em */
-  --moduix-separator-size-thickness: initial; /* var(--moduix-border-width-sm) */
-  --moduix-separator-thickness: initial; /* var(--moduix-separator-size-thickness, var(--moduix-border-width-sm)) */
+  --moduix-separator-thickness: initial; /* var(--_separator-size-thickness, var(--moduix-border-width-sm)) */
   --moduix-separator-thickness-lg: initial; /* 3px */
   --moduix-separator-thickness-md: initial; /* var(--moduix-border-width-md) */
   --moduix-separator-thickness-sm: initial; /* var(--moduix-border-width-sm) */
@@ -3026,7 +3025,7 @@
   --moduix-table-column-header-font-weight: initial; /* var(--moduix-weight-medium) */
   --moduix-table-empty-color: initial; /* var(--moduix-color-muted-foreground) */
   --moduix-table-empty-padding-y: initial; /* calc(var(--moduix-table-cell-padding-y, var(--moduix-spacing-3)) * 2) */
-  --moduix-table-font-family: initial; /* var(--moduix-font-sans) */
+  --moduix-table-font-family: initial; /* inherit */
   --moduix-table-font-size: initial; /* var(--moduix-text-sm) */
   --moduix-table-font-size-lg: initial; /* var(--moduix-text-md) */
   --moduix-table-font-size-sm: initial; /* var(--moduix-text-xs) */
@@ -3076,6 +3075,7 @@
   --moduix-table-of-contents-nav-bg: initial; /* var(--moduix-color-card) */
   --moduix-table-of-contents-nav-border-color: initial; /* var(--moduix-color-border) */
   --moduix-table-of-contents-nav-border-width: initial; /* var(--moduix-border-width-sm) */
+  --moduix-table-of-contents-nav-color: initial; /* var(--moduix-color-card-foreground) */
   --moduix-table-of-contents-nav-max-height: initial; /* calc(100dvh - 2rem) */
   --moduix-table-of-contents-nav-min-width: initial; /* 12rem */
   --moduix-table-of-contents-nav-padding: initial; /* var(--moduix-spacing-4) */
@@ -3304,7 +3304,6 @@
   --moduix-toast-close-offset-top: initial; /* var(--moduix-spacing-2) */
   --moduix-toast-close-radius: initial; /* var(--moduix-radius-sm) */
   --moduix-toast-close-size: initial; /* var(--moduix-spacing-7) */
-  --moduix-toast-close-transition: initial; /* var(--moduix-transition-default) */
   --moduix-toast-color: initial; /* var(--moduix-toast-info-color, var(--moduix-color-card-foreground)) */
   --moduix-toast-content-gap: initial; /* var(--moduix-spacing-1) */
   --moduix-toast-description-color: initial; /* var(--moduix-color-muted-foreground) */
@@ -3330,15 +3329,14 @@
   --moduix-toast-title-gap: initial; /* var(--moduix-spacing-2) */
   --moduix-toast-title-font-weight: initial; /* var(--moduix-weight-semibold) */
   --moduix-toast-title-line-height: initial; /* var(--moduix-line-height-text-sm) */
-  --moduix-toast-transition: initial; /* 400ms */
-  --moduix-toast-transition-out: initial; /* 400ms */
+  --moduix-toast-transition: initial; /* 350ms */
+  --moduix-toast-transition-out: initial; /* 350ms */
   --moduix-toast-opacity-transition-out: initial; /* 200ms */
   --moduix-toast-viewport-inset: initial; /* var(--moduix-spacing-4) */
   --moduix-toast-warning-bg: initial; /* color-mix(in oklab, var(--moduix-color-warning) 13%, var(--moduix-color-background)) */
   --moduix-toast-warning-border-color: initial; /* color-mix(in oklab, var(--moduix-color-warning) 38%, transparent) */
   --moduix-toast-warning-color: initial; /* var(--moduix-color-foreground) */
   --moduix-toast-width: initial; /* 20rem */
-  --moduix-toast-z-index: initial; /* var(--moduix-z-toast) */
 
   /* Tooltip */
   --moduix-tooltip-arrow-background: initial; /* var(--moduix-tooltip-bg, var(--moduix-color-popover)) */
@@ -3464,7 +3462,7 @@
   --moduix-tour-title-line-height: initial; /* var(--moduix-line-height-text-md) */
   --moduix-tour-title-margin: initial; /* 0 */
   --moduix-tour-title-padding-inline-end: initial; /* var(--moduix-spacing-6) */
-  --moduix-tour-transition: initial; /* var(--moduix-transition-default) */
+  --moduix-tour-transition: initial; /* var(--moduix-popup-motion-duration, var(--moduix-duration-normal)) var(--moduix-popup-motion-easing, var(--moduix-ease-in-out)) */
   --moduix-tour-width: initial; /* 20rem */
   --moduix-tour-z-index: initial; /* var(--moduix-z-modal) */
 

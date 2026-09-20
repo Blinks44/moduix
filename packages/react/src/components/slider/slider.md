@@ -155,7 +155,8 @@ export function VolumeSlider() {
 - Keep `RootProvider` styled with the same root class as `Root`.
 - Do not render both `Root` and `RootProvider` for one machine.
 - Preserve Ark detail objects passed to callbacks.
-- Keep `Slider.Thumbs` as the recommended visual path; use explicit thumbs when hidden inputs are required.
+- Keep `Slider.Thumbs` as the recommended path; it already nests `HiddenInput` in every generated
+  thumb. Use explicit thumbs for per-thumb props, custom children, or custom ordering.
 - Keep docs previews synchronized with `Code`, `CSS`, and `Data` tabs.
 
 ## Local changelog

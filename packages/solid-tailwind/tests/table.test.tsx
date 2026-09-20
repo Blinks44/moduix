@@ -137,19 +137,29 @@ test('scopes interactive row styles to body rows', () => {
 
   expect(body).toHaveClass('group/table-body');
   expect(bodyRow).toHaveClass(
+    'transition-colors duration-200 ease-in-out motion-reduce:transition-none',
     'group-data-[interactive]/table:group-data-[slot=table-body]/table-body:[&:not([data-empty])]:hover:bg-muted',
     'group-data-[interactive]/table:group-data-[slot=table-body]/table-body:[&:not([data-empty])]:focus-within:bg-muted',
+    'group-data-[striped]/table:group-data-[slot=table-body]/table-body:[&:nth-child(even):not([data-empty])]:bg-muted/35',
   );
 });
 
-test('keeps public hooks when consumer data attributes are present', () => {
+test('keeps public hooks when consumer data attributes conflict', () => {
   render(() => (
-    <Table data-testid="table" data-scope="custom" data-part="custom" data-slot="custom">
+    <Table
+      data-testid="table"
+      data-scope="custom"
+      data-part="custom"
+      data-slot="custom"
+      data-size="custom"
+      data-variant="custom"
+    >
       <Table.Caption
         data-testid="caption"
         data-scope="custom"
         data-part="custom"
         data-slot="custom"
+        data-side="custom"
       />
       <Table.Row data-testid="row" data-scope="custom" data-part="custom" data-slot="custom" />
     </Table>
@@ -162,9 +172,12 @@ test('keeps public hooks when consumer data attributes are present', () => {
   expect(table).toHaveAttribute('data-scope', 'table');
   expect(table).toHaveAttribute('data-part', 'root');
   expect(table).toHaveAttribute('data-slot', 'table-root');
+  expect(table).toHaveAttribute('data-size', 'md');
+  expect(table).toHaveAttribute('data-variant', 'line');
   expect(caption).toHaveAttribute('data-scope', 'table');
   expect(caption).toHaveAttribute('data-part', 'caption');
   expect(caption).toHaveAttribute('data-slot', 'table-caption');
+  expect(caption).toHaveAttribute('data-side', 'bottom');
   expect(row).toHaveAttribute('data-scope', 'table');
   expect(row).toHaveAttribute('data-part', 'row');
   expect(row).toHaveAttribute('data-slot', 'table-row');
@@ -238,6 +251,7 @@ test('renders the default and custom empty states', () => {
   expect(defaultEmpty).toHaveAttribute('colspan', '3');
   expect(defaultEmpty).toHaveClass('py-6', 'text-center', 'text-muted-foreground');
   expect(defaultEmpty.closest('tr')).toHaveAttribute('data-empty');
+  expect(defaultEmpty.closest('tr')).toHaveClass('motion-reduce:transition-none');
   expect(customEmpty).toHaveTextContent('No invoices found.');
   expect(emptyRef).toBe(customEmpty);
   expect(customEmpty).toHaveAttribute('data-part', 'empty');

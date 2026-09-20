@@ -110,18 +110,17 @@ The child must be a single semantic element that can carry the merged separator 
 
 Public CSS variables:
 
-| Variable                               | Default                                                                 | Effect                                   |
-| -------------------------------------- | ----------------------------------------------------------------------- | ---------------------------------------- |
-| `--moduix-separator-border-style`      | active `variant` style                                                  | Overrides the variant border style.      |
-| `--moduix-separator-color`             | `var(--moduix-color-border)`                                            | Divider color.                           |
-| `--moduix-separator-length-horizontal` | `100%`                                                                  | Width for horizontal mode.               |
-| `--moduix-separator-length-vertical`   | `1em`                                                                   | Height for vertical mode.                |
-| `--moduix-separator-size-thickness`    | active size token                                                       | Recipe thickness selected by `size`.     |
-| `--moduix-separator-thickness`         | `var(--moduix-separator-size-thickness, var(--moduix-border-width-sm))` | Consumer override for both orientations. |
-| `--moduix-separator-thickness-xs`      | `0.5px`                                                                 | `xs` recipe thickness.                   |
-| `--moduix-separator-thickness-sm`      | `var(--moduix-border-width-sm)`                                         | `sm` recipe thickness.                   |
-| `--moduix-separator-thickness-md`      | `var(--moduix-border-width-md)`                                         | `md` recipe thickness.                   |
-| `--moduix-separator-thickness-lg`      | `3px`                                                                   | `lg` recipe thickness.                   |
+| Variable                               | Default                                                           | Effect                                   |
+| -------------------------------------- | ----------------------------------------------------------------- | ---------------------------------------- |
+| `--moduix-separator-border-style`      | active `variant` style                                            | Overrides the variant border style.      |
+| `--moduix-separator-color`             | `var(--moduix-color-border)`                                      | Divider color.                           |
+| `--moduix-separator-length-horizontal` | `100%`                                                            | Width for horizontal mode.               |
+| `--moduix-separator-length-vertical`   | `1em`                                                             | Height for vertical mode.                |
+| `--moduix-separator-thickness`         | `var(--_separator-size-thickness, var(--moduix-border-width-sm))` | Consumer override for both orientations. |
+| `--moduix-separator-thickness-xs`      | `0.5px`                                                           | `xs` recipe thickness.                   |
+| `--moduix-separator-thickness-sm`      | `var(--moduix-border-width-sm)`                                   | `sm` recipe thickness.                   |
+| `--moduix-separator-thickness-md`      | `var(--moduix-border-width-md)`                                   | `md` recipe thickness.                   |
+| `--moduix-separator-thickness-lg`      | `3px`                                                             | `lg` recipe thickness.                   |
 
 ## Intentional sugar and differences from upstream
 
@@ -147,6 +146,9 @@ Public CSS variables:
 
 ## Local changelog
 
+- 2026-09-20: Privatized the per-size recipe thickness plumbing into
+  `--_separator-size-thickness` and kept `--moduix-separator-thickness` plus the
+  `--moduix-separator-thickness-*` tokens as the public theming surface.
 - 2026-08-12: Kept `aria-orientation` derived from semantic role and orientation, and expanded
   release coverage for defaults, styling props, namespace composition, and decorative usage.
 - 2026-07-30: Protected stable ARIA and data hooks from passthrough overrides and normalized margins

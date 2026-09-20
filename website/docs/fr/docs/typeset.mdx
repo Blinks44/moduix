@@ -115,10 +115,12 @@ Typeset / Typeset.Root
 `Typeset` ne gère aucun état, n’analyse ni ne filtre le contenu et n’en définit pas la largeur.
 Gardez les éléments sémantiques rendus dans la racine, utilisez `asChild` lorsque celle-ci doit être
 un `article` ou une `section`, et composez `Typeset.Scroll` autour d’un bloc large qui doit défiler
-plutôt que se comprimer. Ajoutez `.not-typeset` ou `data-not-typeset` à un sous-arbre appartenant à
-l’application lorsqu’il doit conserver sa propre mise en forme. Une zone de défilement destinée aux
-utilisateurs doit avoir un nom accessible ; `Typeset.Scroll` peut recevoir le focus au clavier par
-défaut.
+plutôt que se comprimer. Gardez `Typeset.Scroll` à l’intérieur d’une limite `Typeset` ou
+`Typeset.Root` : le défilement horizontal, les espacements de flux et l’élargissement des tableaux
+du bloc enveloppé proviennent des règles d’éléments Typeset. Ajoutez `.not-typeset` ou
+`data-not-typeset` à un sous-arbre appartenant à l’application lorsqu’il doit conserver sa propre
+mise en forme. Une zone de défilement destinée aux utilisateurs doit avoir un nom accessible ;
+`Typeset.Scroll` peut recevoir le focus au clavier par défaut.
 
 ## Exemples
 
@@ -332,13 +334,14 @@ espacement, ainsi le contenu déjà affiché reste en place à mesure que le flu
 
 Utilisez `--moduix-typeset-size`, `--moduix-typeset-leading` et `--moduix-typeset-flow` pour régler
 le rythme de lecture. Les variables de police sont facultatives ; les couleurs, bordures et rayons
-viennent du thème moduix actif. Les règles des éléments se trouvent dans la couche
-`moduix.components` et utilisent des sélecteurs `:where()` peu spécifiques, donc le CSS ordinaire de
-l’application peut remplacer certains éléments sans `!important`.
+viennent du thème moduix actif. Les règles des éléments se trouvent dans la couche en cascade
+`components`, les valeurs par défaut des variables dans `base`, et utilisent des sélecteurs
+`:where()` peu spécifiques, donc le CSS ordinaire de l’application peut remplacer certains éléments
+sans `!important`.
 
 Utilisez `className` dans React et `class` dans Solid pour les styles structurels des parties
-exportées. Les variantes Tailwind utilisent les utilitaires natifs et les classes de l’application ;
-les variables ci-dessous personnalisent les variantes CSS Modules.
+exportées. Les variantes Tailwind livrent le même CSS Module avec une fusion de classes via `cn`
+plutôt que des utilitaires ; les six variables CSS personnalisent donc les deux variantes.
 
 ### Points d’accroche CSS
 

@@ -55,6 +55,14 @@ const menuItemStyles = cva(
   },
 );
 
+const menuPositionerVariants = cva(
+  'z-[var(--z-index)] w-[var(--positioner-width,auto)] max-w-[var(--available-width)] outline-0',
+);
+
+const menuContentVariants = cva(
+  'relative z-[calc(var(--moduix-z-popup)+var(--layer-index,0))] flex max-w-[min(20rem,var(--available-width,100vw))] min-w-[min(max(var(--reference-width,0px),12rem),var(--available-width,100vw))] origin-[var(--transform-origin)] flex-col overflow-visible rounded-md bg-popover py-1 text-popover-foreground shadow-lg outline-1 outline-border [--arrow-background:var(--color-popover)] [--arrow-size:0.625rem] data-[state=closed]:animate-moduix-menu-closed data-[state=open]:animate-moduix-menu-open motion-reduce:[animation-delay:0ms] motion-reduce:[animation-duration:1ms]',
+);
+
 function MenuRoot({
   lazyMount = true,
   portalled,
@@ -163,10 +171,7 @@ const MenuPositioner = forwardRef<
     <OverlayPortal>
       <MenuPrimitive.Positioner
         ref={ref}
-        className={cn(
-          'z-[var(--z-index)] w-[var(--positioner-width,auto)] max-w-[var(--available-width)] outline-0',
-          className,
-        )}
+        className={cn(menuPositionerVariants(), className)}
         {...props}
         data-slot="menu-positioner"
       />
@@ -182,10 +187,7 @@ const MenuContent = forwardRef<
     <MenuPrimitive.Content
       ref={ref}
       asChild={asChild}
-      className={cn(
-        'relative z-[calc(var(--moduix-z-popup)+var(--layer-index,0))] flex max-w-[min(20rem,var(--available-width,100vw))] min-w-[min(max(var(--reference-width,0px),12rem),var(--available-width,100vw))] origin-[var(--transform-origin)] flex-col overflow-visible rounded-md bg-popover py-1 text-popover-foreground shadow-lg outline-1 outline-border [--arrow-background:var(--color-popover)] [--arrow-size:0.625rem] data-[state=closed]:animate-moduix-menu-closed data-[state=open]:animate-moduix-menu-open motion-reduce:[animation-delay:0ms] motion-reduce:[animation-duration:1ms]',
-        className,
-      )}
+      className={cn(menuContentVariants(), className)}
       {...props}
       data-slot="menu-content"
     >
@@ -492,4 +494,11 @@ const Menu = Object.assign(MenuRoot, {
   ItemContext: MenuPrimitive.ItemContext,
 });
 
-export { Menu, useMenu, useMenuContext, useMenuItemContext };
+export {
+  Menu,
+  menuContentVariants,
+  menuPositionerVariants,
+  useMenu,
+  useMenuContext,
+  useMenuItemContext,
+};

@@ -109,3 +109,11 @@ test('preserves semantic children and refs with asChild', () => {
   expect(article).toHaveAttribute('data-slot', 'typeset');
   expect(scroll).toHaveAttribute('data-slot', 'typeset-scroll');
 });
+
+test('exposes the same root through the namespace API', () => {
+  expect(Typeset.Root).toBe(Typeset);
+
+  render(<Typeset.Root data-testid="root">Readable content</Typeset.Root>);
+
+  expect(screen.getByTestId('root')).toHaveTextContent('Readable content');
+});

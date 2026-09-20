@@ -160,8 +160,8 @@ test('matches the CSS Modules default trigger padding', () => {
 
   const trigger = screen.getByRole('button', { name: 'More actions' });
 
-  expect(trigger).toHaveClass('px-4');
-  expect(trigger).not.toHaveClass('px-3');
+  expect(trigger).toHaveClass('px-3');
+  expect(trigger).not.toHaveClass('px-4');
 });
 
 test('keeps component-owned utilities visible and lets consumers replace conflicts', () => {

@@ -123,6 +123,8 @@ Use `size` with `onResize(details)` when the application owns the current panel 
 `Splitter.RootProvider` with `useSplitter()` when the store or its controls must live outside the
 rendered panel tree, and choose one root for each store. For nested splitters that should resize
 together at handle intersections, create one `createSplitterRegistry()` and pass it to every root.
+Numeric `defaultSize`, `size`, and `minSize` values are percentages expected to total 100, and Ark
+also accepts CSS lengths for these sizes.
 
 Use `asChild` only with one interactive child that keeps button semantics, focus behavior, and
 keyboard interaction; it replaces the default resize indicator. In Solid, `useSplitter()` returns an

@@ -242,17 +242,22 @@ function TreeViewNodeCheckboxIndicator({
   className,
   children,
   indeterminate,
+  fallback,
   ...props
 }: ComponentProps<typeof TreeViewPrimitive.NodeCheckboxIndicator>) {
   return (
-    <TreeViewPrimitive.NodeCheckboxIndicator
+    <span
       className={clsx(styles.nodeCheckboxIndicator, className)}
-      indeterminate={indeterminate ?? <IndeterminateIcon />}
       {...props}
       data-slot="tree-view-node-checkbox-indicator"
     >
-      {children ?? <CheckIcon />}
-    </TreeViewPrimitive.NodeCheckboxIndicator>
+      <TreeViewPrimitive.NodeCheckboxIndicator
+        fallback={fallback}
+        indeterminate={indeterminate ?? <IndeterminateIcon />}
+      >
+        {children ?? <CheckIcon />}
+      </TreeViewPrimitive.NodeCheckboxIndicator>
+    </span>
   );
 }
 

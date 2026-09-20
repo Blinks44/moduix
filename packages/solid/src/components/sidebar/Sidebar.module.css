@@ -426,7 +426,8 @@
 
   .trigger:focus-visible,
   .groupAction:focus-visible,
-  .menuButton:focus-visible {
+  .menuButton:focus-visible,
+  .menuSubButton:focus-visible {
     outline: var(
         --moduix-sidebar-focus-ring-width,
         var(--moduix-focus-ring-width, var(--moduix-border-width-md))

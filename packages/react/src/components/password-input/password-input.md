@@ -12,9 +12,9 @@ visibility trigger.
 
 ## Upstream model to preserve
 
-The wrapper follows Ark UI `PasswordInput` exactly: `Root`, `RootProvider`, `Label`, `Control`,
-`Input`, `VisibilityTrigger`, `Indicator`, and `usePasswordInput`. Visibility state belongs to the
-Ark root and uses `defaultVisible`, `visible`, and `onVisibilityChange(details)`.
+The wrapper follows Ark UI `PasswordInput` exactly: `Root`, `RootProvider`, `Context`, `Label`,
+`Control`, `Input`, `VisibilityTrigger`, `Indicator`, and `usePasswordInput`. Visibility state
+belongs to the Ark root and uses `defaultVisible`, `visible`, and `onVisibilityChange(details)`.
 
 ## Current behavior contract
 
@@ -47,16 +47,17 @@ For advanced customization, replace `PasswordInput.Field` with its explicit Ark 
 </PasswordInput>
 ```
 
-| Part                                   | Hook                                            | Notes                         |
-| -------------------------------------- | ----------------------------------------------- | ----------------------------- |
-| `PasswordInput` / `PasswordInput.Root` | `data-slot="password-input-root"`               | Ark root.                     |
-| `PasswordInput.RootProvider`           | `data-slot="password-input-root-provider"`      | Use with `usePasswordInput`.  |
-| `PasswordInput.Label`                  | `data-slot="password-input-label"`              | Ark label.                    |
-| `PasswordInput.Field`                  | `data-slot="password-input-control"`            | Default visible parts.        |
-| `PasswordInput.Control`                | `data-slot="password-input-control"`            | Positions input and trigger.  |
-| `PasswordInput.Input`                  | `data-slot="password-input-input"`              | Native input part.            |
-| `PasswordInput.VisibilityTrigger`      | `data-slot="password-input-visibility-trigger"` | Toggle button.                |
-| `PasswordInput.Indicator`              | `data-slot="password-input-indicator"`          | Defaults to moduix eye icons. |
+| Part                                   | Hook                                            | Notes                             |
+| -------------------------------------- | ----------------------------------------------- | --------------------------------- |
+| `PasswordInput` / `PasswordInput.Root` | `data-slot="password-input-root"`               | Ark root.                         |
+| `PasswordInput.RootProvider`           | `data-slot="password-input-root-provider"`      | Use with `usePasswordInput`.      |
+| `PasswordInput.Context`                | -                                               | Render-prop access to root state. |
+| `PasswordInput.Label`                  | `data-slot="password-input-label"`              | Ark label.                        |
+| `PasswordInput.Field`                  | `data-slot="password-input-control"`            | Default visible parts.            |
+| `PasswordInput.Control`                | `data-slot="password-input-control"`            | Positions input and trigger.      |
+| `PasswordInput.Input`                  | `data-slot="password-input-input"`              | Native input part.                |
+| `PasswordInput.VisibilityTrigger`      | `data-slot="password-input-visibility-trigger"` | Toggle button.                    |
+| `PasswordInput.Indicator`              | `data-slot="password-input-indicator"`          | Defaults to moduix eye icons.     |
 
 ## Composition
 

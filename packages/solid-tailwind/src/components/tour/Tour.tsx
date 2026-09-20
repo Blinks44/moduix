@@ -68,7 +68,10 @@ function TourSpotlight(props: ComponentProps<typeof TourPrimitive.Spotlight>) {
   return (
     <OverlayPortal>
       <TourPrimitive.Spotlight
-        class={cn('z-[calc(50+var(--tour-layer,0))] ring-2 ring-ring', local.class)}
+        class={cn(
+          'z-[calc(50+var(--tour-layer,0)+var(--layer-index,0))] ring-2 ring-ring',
+          local.class,
+        )}
         {...others}
         data-slot="tour-spotlight"
       />

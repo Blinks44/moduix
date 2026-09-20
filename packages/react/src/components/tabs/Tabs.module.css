@@ -48,7 +48,7 @@
       }
     }
 
-    .root[data-variant='line']:not([data-orientation='vertical']) & {
+    .root[data-variant='line'] & {
       width: 100%;
       border-width: 0 0 var(--moduix-tabs-list-border-width, var(--moduix-border-width-sm));
       border-radius: 0;
@@ -150,7 +150,7 @@
     box-shadow: var(--moduix-tabs-indicator-shadow, var(--moduix-shadow-sm));
     translate: 0 -50%;
 
-    .root[data-variant='line']:not([data-orientation='vertical']) & {
+    .root[data-variant='line'] & {
       --transition-duration: var(
         --moduix-tabs-line-indicator-transition-duration,
         var(--moduix-duration-normal)

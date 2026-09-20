@@ -19,10 +19,10 @@ Root `size` and `variant` values provide defaults for `Action` and `Trigger`. An
 `Positioner` remains explicitly composed and is portalled by the shared `Menu` wrapper unless
 `portalled={false}` is set.
 
-Ark Solid's render-function `asChild` does not forward refs through the composed child. Therefore
-`Action` forwards its ref normally, while `Trigger` preserves the native Ark limitation and its
-ref is not available through the `Menu.Trigger -> Button` composition. This is covered by the
-Solid tests rather than worked around with a custom wrapper.
+Ark Solid's render-function `asChild` drops refs from the props it transports to the composed
+child. Therefore both `Action` and `Trigger` forward their refs explicitly: `Trigger` applies its
+`ref` to the moduix `Button` host inside the `asChild` render function, so a trigger ref matches
+the React behavior and points at the rendered button. This parity is covered by the Solid tests.
 
 ## Styling hooks
 

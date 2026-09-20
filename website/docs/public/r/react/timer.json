@@ -20,7 +20,7 @@
     },
     {
       "path": "src/components/timer/index.ts",
-      "content": "export { Timer, useTimer, useTimerContext } from './Timer.js';",
+      "content": "export { Timer, useTimer, useTimerContext } from './Timer.js';\nexport type { TimerSegmentsProps } from './Timer.js';",
       "type": "registry:component",
       "target": "@components/ui/timer/index.ts"
     }

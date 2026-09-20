@@ -152,7 +152,7 @@ const PopoverArrow = forwardRef<
     <PopoverPrimitive.Arrow
       ref={ref}
       className={cn(
-        '[--arrow-background:var(--color-popover)] [--arrow-size:var(--spacing-2-5)]',
+        '[--arrow-background:var(--color-popover)] [--arrow-size:var(--spacing-2_5)]',
         className,
       )}
       {...props}

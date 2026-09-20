@@ -6,6 +6,7 @@ description: Indicateur circulaire pour suivre une progression déterminée ou i
 
 import * as ProgressCircularDocs from '@/components/examples/progress-circular/css-properties';
 import ProgressCircularBasic from '@/components/examples/progress-circular/basic.tsx';
+import CirclePartsProgressCircular from '@/components/examples/progress-circular/circle-parts.tsx';
 import ControlledProgressCircular from '@/components/examples/progress-circular/controlled.tsx';
 import IndeterminateProgressCircular from '@/components/examples/progress-circular/indeterminate.tsx';
 import MinMaxProgressCircular from '@/components/examples/progress-circular/min-max.tsx';
@@ -13,6 +14,7 @@ import RootProviderProgressCircular from '@/components/examples/progress-circula
 import StateViewsProgressCircular from '@/components/examples/progress-circular/state-views.tsx';
 import ValueTextProgressCircular from '@/components/examples/progress-circular/value-text.tsx';
 import progressCircularSolidBasic from '../../../snippets/progress-circular/solid/basic.tsx?raw';
+import progressCircularSolidCircleParts from '../../../snippets/progress-circular/solid/circle-parts.tsx?raw';
 import progressCircularSolidControlled from '../../../snippets/progress-circular/solid/controlled.tsx?raw';
 import progressCircularSolidIndeterminate from '../../../snippets/progress-circular/solid/indeterminate.tsx?raw';
 import progressCircularSolidMinMax from '../../../snippets/progress-circular/solid/min-max.tsx?raw';
@@ -304,7 +306,43 @@ afin que le texte visible corresponde à la chaîne de valeur accessible.
 ### Personnalisation avancée
 
 Utilisez les parties individuelles du cercle à la place de `ProgressCircular.Ring` lorsque
-l’arborescence SVG ou la gestion de l’état doit être personnalisée.
+l’arborescence SVG ou la gestion de l’état doit être personnalisée. Seule la composition directe
+permet de donner à `CircleTrack` et `CircleRange` leurs propres classes, comme dans cet exemple.
+
+<ExampleFrame variant="component">
+  <CirclePartsProgressCircular />
+</ExampleFrame>
+
+<ExampleCode>
+<div className="docs-reference">
+  <Tabs
+    groupId="framework"
+    values={[
+      { label: 'React', value: 'react' },
+      { label: 'Solid', value: 'solid' },
+    ]}
+    className="docs-tabs"
+  >
+    <Tab value="react">
+
+```tsx pure file="../../../src/components/examples/progress-circular/circle-parts.tsx"
+```
+
+    </Tab>
+    <Tab value="solid">
+
+<CodeBlockRuntime lang="tsx" code={progressCircularSolidCircleParts} />
+
+    </Tab>
+  </Tabs>
+
+**Styles**
+
+```css file="../../../src/components/examples/progress-circular/component-circle-parts.module.css"
+```
+</div>
+
+</ExampleCode>
 
 #### RootProvider
 

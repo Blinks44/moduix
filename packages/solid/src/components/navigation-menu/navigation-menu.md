@@ -44,6 +44,8 @@ support Solid's `asChild` render function:
 </NavigationMenu.Link>
 ```
 
+`ViewportPositioner` accepts Ark's `align` prop (`"start" | "center" | "end"`, default `"center"`) to align the shared viewport.
+
 Use `useNavigationMenu()` for a controlled state object and pass it to `RootProvider`. Use
 `useNavigationMenuContext()` inside `NavigationMenu.Context` to read the current state.
 

@@ -10,7 +10,7 @@ type SeparatorProps = HTMLArkProps<'span'> & {
   variant?: 'solid' | 'dashed' | 'dotted';
 };
 
-const separatorVariants = cva('block shrink-0 border-border', {
+const separatorVariants = cva('block shrink-0 m-0 border-border', {
   variants: {
     orientation: {
       horizontal: 'h-0 w-full',

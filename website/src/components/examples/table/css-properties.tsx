@@ -88,7 +88,7 @@ const tableOverrideCssProperties: CssPropertyInput[] = [
     'calc(var(--moduix-table-cell-padding-y, var(--moduix-spacing-3)) * 2)',
     'Controls `Table.Empty` vertical padding.',
   ],
-  ['--moduix-table-font-family', 'var(--moduix-font-sans)', 'Controls table font family.'],
+  ['--moduix-table-font-family', 'inherit', 'Controls table font family.'],
   ['--moduix-table-font-size', 'var(--moduix-text-sm)', 'Controls table font size.'],
   ['--moduix-table-font-size-lg', 'var(--moduix-text-md)', 'Controls large table font size.'],
   ['--moduix-table-font-size-sm', 'var(--moduix-text-xs)', 'Controls small table font size.'],

@@ -37,7 +37,9 @@ There is no Ark state machine, provider, context hook, controlled state, hidden 
 - Custom `children` replace the default ring while keeping the built-in indicator wrapper.
 - `asChild` makes the single child the root; that child must be non-interactive and render its own
   indicator contents.
-- Spinner motion remains enabled under `prefers-reduced-motion` because it is the loading cue.
+- Spinner motion stops under `prefers-reduced-motion: reduce` because the foundation guard
+  resolves `--moduix-animation-spin` to `none`. Consumers can restore motion by overriding
+  `--moduix-spinner-animation` on the indicator.
 
 ## Anatomy and exported parts
 
@@ -150,7 +152,10 @@ The default non-decorative path announces a loading status. Prefer `decorative` 
 
 ## Local changelog
 
-- 2026-07-30: Added `size="inherit"`, kept loading motion for reduced-motion users, and made decorative `asChild` composition preserve custom-host semantics.
+- 2026-09-20: Corrected the reduced-motion contract note: the foundation `prefers-reduced-motion`
+  guard sets `--moduix-animation-spin` to `none`, so Spinner motion stops by default under
+  reduced motion.
+- 2026-07-30: Added `size="inherit"` and made decorative `asChild` composition preserve custom-host semantics.
 - 2026-07-21: Routed shared dimensions, spacing, icon geometry, and focus-ring fallbacks through foundation tokens so density and theme presets can retune the component consistently.
 - 2026-07-11: Protected status semantics and stable styling hooks from conflicting native props.
 - 2026-07-03: Stopped exporting `SpinnerRootProps` and `SpinnerSize`; docs and examples now infer

@@ -85,7 +85,7 @@ const SidebarRoot = forwardRef<ComponentRef<typeof SplitterPrimitive.Root>, Side
           data-side={side}
           data-slot="sidebar-root"
           className={cn(
-            'group/splitter relative box-border h-112 min-h-0 w-full min-w-0 rounded-md border border-border bg-card text-foreground shadow-sm data-dragging:cursor-col-resize data-dragging:data-[orientation=vertical]:cursor-row-resize',
+            'group/splitter relative box-border h-112 min-h-0 w-full min-w-0 rounded-md border border-border bg-card text-foreground shadow-sm data-dragging:cursor-col-resize',
             'isolate h-dvh min-h-96 w-full min-w-0 rounded-none border border-border bg-background text-foreground shadow-none',
             className,
           )}
@@ -124,7 +124,7 @@ const SidebarPanel = forwardRef<ComponentRef<typeof SplitterPrimitive.Panel>, Si
         data-slot="sidebar-panel"
         data-state={collapsed ? 'collapsed' : 'expanded'}
         className={cn(
-          'box-border min-h-50 min-w-0 overflow-auto rounded-none border-0 border-border bg-card p-4 text-card-foreground shadow-none group-data-[orientation=vertical]/splitter:min-h-0 data-dragging:select-none',
+          'box-border min-h-50 min-w-0 overflow-auto rounded-none border-0 border-border bg-card p-4 text-card-foreground shadow-none data-dragging:select-none',
           'group/sidebar-panel @container/sidebar-panel relative flex min-h-0 min-w-0 flex-col overflow-hidden bg-card p-0 text-card-foreground transition-colors duration-200 ease-in-out motion-reduce:transition-none',
           className,
         )}
@@ -145,7 +145,7 @@ const SidebarInset = forwardRef<ComponentRef<typeof SplitterPrimitive.Panel>, Si
         data-side={side}
         data-slot="sidebar-inset"
         className={cn(
-          'box-border min-h-50 min-w-0 overflow-auto rounded-none border-0 border-border bg-card p-4 text-card-foreground shadow-none group-data-[orientation=vertical]/splitter:min-h-0 data-dragging:select-none',
+          'box-border min-h-50 min-w-0 overflow-auto rounded-none border-0 border-border bg-card p-4 text-card-foreground shadow-none data-dragging:select-none',
           'relative min-w-0 overflow-auto bg-background p-0 text-foreground',
           className,
         )}
@@ -175,7 +175,7 @@ const SidebarResizeTrigger = forwardRef<
       data-side={side}
       data-slot="sidebar-resize-trigger"
       className={cn(
-        "group/trigger relative z-1 box-border flex w-px min-w-px cursor-col-resize appearance-none items-center justify-center border-0 bg-transparent p-0 outline-0 transition-opacity duration-200 ease-in-out before:absolute before:h-full before:w-[0.5px] before:rounded-full before:bg-border before:transition-[background-color] before:duration-200 before:ease-in-out before:content-[''] after:absolute after:z-1 after:h-full after:w-2.5 after:content-[''] data-disabled:cursor-default data-disabled:opacity-50 data-dragging:before:bg-muted-foreground/40 data-[orientation=vertical]:h-px data-[orientation=vertical]:min-h-px data-[orientation=vertical]:w-full data-[orientation=vertical]:min-w-0 data-[orientation=vertical]:cursor-row-resize data-[orientation=vertical]:before:h-[0.5px] data-[orientation=vertical]:before:w-full data-[orientation=vertical]:after:h-2.5 data-[orientation=vertical]:after:w-full [@media(hover:hover)]:[&:not(:disabled):not([data-disabled]):hover]:before:bg-muted-foreground/40",
+        "group/trigger relative z-1 box-border flex w-px min-w-px cursor-col-resize appearance-none items-center justify-center border-0 bg-transparent p-0 outline-0 transition-opacity duration-200 ease-in-out before:absolute before:h-full before:w-[0.5px] before:rounded-full before:bg-border before:transition-[background-color] before:duration-200 before:ease-in-out before:content-[''] after:absolute after:z-1 after:h-full after:w-2.5 after:content-[''] data-disabled:cursor-default data-disabled:opacity-50 data-dragging:before:bg-muted-foreground/40 [@media(hover:hover)]:[&:not(:disabled):not([data-disabled]):hover]:before:bg-muted-foreground/40",
         'z-2',
         className,
       )}
@@ -214,10 +214,6 @@ const SidebarTrigger = forwardRef<HTMLButtonElement, HTMLArkProps<'button'>>(
         type={type}
         aria-label={ariaLabel}
         aria-expanded={!collapsed}
-        data-scope="sidebar"
-        data-part="trigger"
-        data-side={config.side}
-        data-state={collapsed ? 'collapsed' : 'expanded'}
         className={cn(
           'relative z-4 -mx-3.5 inline-flex size-7 flex-none translate-y-10 cursor-pointer items-center justify-center rounded-full border border-border bg-background p-0 text-muted-foreground shadow-sm outline-0 transition-[background-color,color,box-shadow] duration-200 ease-in-out',
           'focus-visible:outline-offset-0.5 focus-visible:outline-2 focus-visible:outline-ring disabled:pointer-events-none disabled:opacity-50 aria-disabled:pointer-events-none aria-disabled:opacity-50 motion-reduce:transition-none',
@@ -227,6 +223,10 @@ const SidebarTrigger = forwardRef<HTMLButtonElement, HTMLArkProps<'button'>>(
         )}
         onClick={handleClick}
         {...props}
+        data-scope="sidebar"
+        data-part="trigger"
+        data-side={config.side}
+        data-state={collapsed ? 'collapsed' : 'expanded'}
         data-slot="sidebar-trigger"
       >
         {children ?? <ChevronLeftIcon />}
@@ -470,10 +470,6 @@ const SidebarNavigationButton = forwardRef<
       ref={ref}
       type={type}
       aria-current={ariaCurrent ?? (active ? 'page' : undefined)}
-      data-scope="sidebar"
-      data-part="navigation-button"
-      data-active={active ? '' : undefined}
-      data-size={size}
       className={cn(
         'flex w-full min-w-0 cursor-pointer items-center gap-2 overflow-hidden rounded-md px-2 py-1 text-start text-sm leading-5 text-ellipsis whitespace-nowrap text-card-foreground outline-0 transition-colors duration-200 ease-in-out has-[+_[data-slot=sidebar-navigation-badge]]:pe-10 @max-[7rem]:has-[+_[data-slot=sidebar-navigation-badge]]:pe-2',
         'focus-visible:outline-offset-0.5 focus-visible:outline-2 focus-visible:outline-ring disabled:pointer-events-none disabled:opacity-50 aria-disabled:pointer-events-none aria-disabled:opacity-50 data-active:bg-accent data-active:font-medium data-active:text-accent-foreground motion-reduce:transition-none [&:not(:disabled):not([aria-disabled=true])]:hover:bg-accent [&:not(:disabled):not([aria-disabled=true])]:hover:text-accent-foreground',
@@ -488,6 +484,10 @@ const SidebarNavigationButton = forwardRef<
         className,
       )}
       {...props}
+      data-scope="sidebar"
+      data-part="navigation-button"
+      data-active={active ? '' : undefined}
+      data-size={size}
       data-slot="sidebar-navigation-button"
     />
   );
@@ -615,7 +615,6 @@ const SidebarInput = forwardRef<ComponentRef<typeof Input.Root>, ComponentProps<
         ref={ref}
         className={cn('w-full group-data-[state=collapsed]/sidebar-panel:hidden', className)}
         {...props}
-        data-slot="sidebar-input"
       />
     );
   },
@@ -625,14 +624,7 @@ const SidebarSeparator = forwardRef<
   ComponentRef<typeof Separator.Root>,
   ComponentProps<typeof Separator.Root>
 >(function SidebarSeparator({ className, ...props }, ref) {
-  return (
-    <Separator.Root
-      ref={ref}
-      className={cn('border-border', className)}
-      {...props}
-      data-slot="sidebar-separator"
-    />
-  );
+  return <Separator.Root ref={ref} className={cn('border-border', className)} {...props} />;
 });
 
 const Sidebar = Object.assign(SidebarRoot, {

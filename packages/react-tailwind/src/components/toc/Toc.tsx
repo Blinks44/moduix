@@ -45,15 +45,18 @@ const TocRootProvider = forwardRef<
   ComponentRef<typeof TocPrimitive.RootProvider>,
   ComponentProps<typeof TocPrimitive.RootProvider>
 >(function TocRootProvider({ className, style, value, ...props }, ref) {
+  const rootProps = value.getRootProps();
+
   return (
     <TocPrimitive.RootProvider
       ref={ref}
       value={value}
+      {...rootProps}
       className={cn(
         'group/toc box-border grid w-full min-w-0 grid-cols-[minmax(0,1fr)_minmax(12rem,16rem)] gap-6 text-foreground has-[[data-slot=toc-nav][data-placement=left]]:grid-cols-[minmax(12rem,16rem)_minmax(0,1fr)] max-md:grid-cols-[minmax(0,1fr)] max-md:has-[[data-slot=toc-nav][data-placement=left]]:grid-cols-[minmax(0,1fr)]',
         className,
       )}
-      style={{ ...value.getRootProps().style, ...style }}
+      style={{ ...rootProps.style, ...style }}
       {...props}
       data-slot="toc-root-provider"
     />
@@ -147,7 +150,7 @@ const TocLink = forwardRef<
     <TocPrimitive.Link
       ref={ref}
       className={cn(
-        'group/toc-link relative block min-w-0 overflow-hidden rounded-sm py-1 ps-[calc(0.875rem+max(0px,((var(--depth)-2)*0.5rem)))] pe-1 text-sm leading-5 text-ellipsis whitespace-nowrap text-muted-foreground no-underline outline-0 transition-colors duration-200 ring-inset focus-visible:ring-1 focus-visible:ring-ring has-[[data-slot=toc-rail]]:overflow-visible data-active:font-medium data-active:text-foreground motion-reduce:transition-none [@media(hover:hover)]:hover:text-foreground',
+        'group/toc-link relative block min-w-0 overflow-hidden rounded-sm py-1 ps-[calc(0.875rem+max(0px,((var(--depth)-2)*0.5rem)))] pe-1 text-sm leading-5 text-ellipsis whitespace-nowrap text-muted-foreground no-underline outline-0 transition-colors duration-200 focus-visible:ring-1 focus-visible:ring-ring has-[[data-slot=toc-rail]]:overflow-visible data-active:font-medium data-active:text-foreground motion-reduce:transition-none [@media(hover:hover)]:hover:text-foreground',
         className,
       )}
       {...props}

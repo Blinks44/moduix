@@ -1,6 +1,5 @@
 @layer moduix.components {
   .root {
-    display: inline-grid;
     grid-template-areas: 'swap';
     place-items: center;
     vertical-align: middle;
@@ -47,8 +46,6 @@
   }
 
   .indicator {
-    display: inline-flex;
-    grid-area: swap;
     align-items: center;
     justify-content: center;
     color: inherit;

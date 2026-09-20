@@ -114,6 +114,11 @@ export const tableOfContentsOverrideCssProperties: CssPropertyInput[] = [
     'Controls navigation border width.',
   ],
   [
+    '--moduix-table-of-contents-nav-color',
+    'var(--moduix-color-card-foreground)',
+    'Controls navigation text color.',
+  ],
+  [
     '--moduix-table-of-contents-nav-max-height',
     'calc(100dvh - 2rem)',
     'Controls navigation maximum height.',

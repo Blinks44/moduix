@@ -133,6 +133,10 @@ SignaturePad.RootProvider
 `useSignaturePad()`, когда состояние нужно создать вне выводимого дерева или внешним элементам
 нужен доступ к `paths`, `clear()` или `getDataUrl()`.
 
+В отличие от Ark, moduix отключает `ClearTrigger`, когда `readOnly` приходит из корня, окружающего
+`Field` или `useSignaturePad()`, предотвращая необратимую очистку, тогда как программный `clear()`
+остаётся доступным.
+
 ## Примеры
 
 ### Управляемое состояние
@@ -178,6 +182,8 @@ SignaturePad.RootProvider
 ### Рисование
 
 Передайте `drawing`, если нужно изменить толщину или цвет штриха либо поведение имитации давления.
+Значение по умолчанию в рантайме — `{ size: 2, simulatePressure: false }` (на странице документации
+Ark показано `simulatePressure: true`), поэтому имитация давления включается явно.
 
 <ExampleFrame variant="component">
   <SignaturePadDrawing />

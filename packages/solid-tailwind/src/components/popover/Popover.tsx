@@ -138,7 +138,7 @@ function PopoverArrow(props: ComponentProps<typeof PopoverPrimitive.Arrow>) {
   return (
     <PopoverPrimitive.Arrow
       class={cn(
-        '[--arrow-background:var(--color-popover)] [--arrow-size:var(--spacing-2-5)]',
+        '[--arrow-background:var(--color-popover)] [--arrow-size:var(--spacing-2_5)]',
         local.class,
       )}
       {...others}

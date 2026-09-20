@@ -6,6 +6,7 @@ description: A circular progress indicator for determinate or indeterminate task
 
 import * as ProgressCircularDocs from '@/components/examples/progress-circular/css-properties';
 import ProgressCircularBasic from '@/components/examples/progress-circular/basic.tsx';
+import CirclePartsProgressCircular from '@/components/examples/progress-circular/circle-parts.tsx';
 import ControlledProgressCircular from '@/components/examples/progress-circular/controlled.tsx';
 import IndeterminateProgressCircular from '@/components/examples/progress-circular/indeterminate.tsx';
 import MinMaxProgressCircular from '@/components/examples/progress-circular/min-max.tsx';
@@ -13,6 +14,7 @@ import RootProviderProgressCircular from '@/components/examples/progress-circula
 import StateViewsProgressCircular from '@/components/examples/progress-circular/state-views.tsx';
 import ValueTextProgressCircular from '@/components/examples/progress-circular/value-text.tsx';
 import progressCircularSolidBasic from '../../../snippets/progress-circular/solid/basic.tsx?raw';
+import progressCircularSolidCircleParts from '../../../snippets/progress-circular/solid/circle-parts.tsx?raw';
 import progressCircularSolidControlled from '../../../snippets/progress-circular/solid/controlled.tsx?raw';
 import progressCircularSolidIndeterminate from '../../../snippets/progress-circular/solid/indeterminate.tsx?raw';
 import progressCircularSolidMinMax from '../../../snippets/progress-circular/solid/min-max.tsx?raw';
@@ -302,7 +304,43 @@ value string.
 ### Advanced customization
 
 `ProgressCircular.Ring` is the quick path. Compose `Circle`, `CircleTrack`, and `CircleRange`
-directly when the SVG tree or state ownership needs to be customized.
+directly when the SVG tree or state ownership needs to be customized. Only direct composition can
+give `CircleTrack` and `CircleRange` their own classes, as in this example.
+
+<ExampleFrame variant="component">
+  <CirclePartsProgressCircular />
+</ExampleFrame>
+
+<ExampleCode>
+<div className="docs-reference">
+  <Tabs
+    groupId="framework"
+    values={[
+      { label: 'React', value: 'react' },
+      { label: 'Solid', value: 'solid' },
+    ]}
+    className="docs-tabs"
+  >
+    <Tab value="react">
+
+```tsx pure file="../../../src/components/examples/progress-circular/circle-parts.tsx"
+```
+
+    </Tab>
+    <Tab value="solid">
+
+<CodeBlockRuntime lang="tsx" code={progressCircularSolidCircleParts} />
+
+    </Tab>
+  </Tabs>
+
+**Styles**
+
+```css file="../../../src/components/examples/progress-circular/component-circle-parts.module.css"
+```
+</div>
+
+</ExampleCode>
 
 #### RootProvider
 

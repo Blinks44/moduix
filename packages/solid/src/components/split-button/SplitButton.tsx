@@ -1,4 +1,3 @@
-import { useFocusVisible } from '@ark-ui/solid';
 import { Menu as MenuPrimitive } from '@ark-ui/solid/menu';
 import { clsx } from 'clsx';
 import type { Accessor, ComponentProps, JSX } from 'solid-js';
@@ -117,9 +116,15 @@ function SplitButtonAction(props: SplitButtonActionProps) {
 }
 
 function SplitButtonTrigger(props: SplitButtonTriggerProps) {
-  const [local, others] = splitProps(props, ['children', 'class', 'size', 'variant', 'aria-label']);
+  const [local, others] = splitProps(props, [
+    'aria-label',
+    'children',
+    'class',
+    'ref',
+    'size',
+    'variant',
+  ]);
   const context = useSplitButtonContext('SplitButton.Trigger');
-  const focusVisible = useFocusVisible();
   const resolvedChildren = children(() => local.children);
   const isIconOnly = () => resolvedChildren() == null;
   const ariaLabel = () =>
@@ -131,6 +136,7 @@ function SplitButtonTrigger(props: SplitButtonTriggerProps) {
       asChild={(triggerProps) => (
         <Button
           {...triggerProps()}
+          ref={local.ref}
           data-slot="split-button-trigger"
           size={local.size ?? context.size()}
           variant={local.variant ?? context.variant()}
@@ -143,7 +149,6 @@ function SplitButtonTrigger(props: SplitButtonTriggerProps) {
       data-slot="split-button-trigger"
       aria-label={ariaLabel()}
       class={clsx(styles.trigger, local.class)}
-      data-focus-visible={focusVisible() ? '' : undefined}
     />
   );
 }

@@ -124,7 +124,7 @@ function TooltipPositioner(props: ComponentProps<typeof TooltipPrimitive.Positio
     <OverlayPortal>
       <TooltipPrimitive.Positioner
         class={cn(
-          'z-[var(--z-index)] max-h-[var(--available-height)] max-w-[var(--available-width)] outline-0',
+          'z-[var(--z-index,var(--moduix-z-popup))] max-h-[var(--available-height)] max-w-[var(--available-width)] outline-0',
           local.class,
         )}
         {...others}
@@ -163,7 +163,10 @@ function TooltipArrow(props: ComponentProps<typeof TooltipPrimitive.Arrow>) {
 
   return (
     <TooltipPrimitive.Arrow
-      class={cn('[--arrow-background:var(--color-popover)] [--arrow-size:0.625rem]', local.class)}
+      class={cn(
+        '[--arrow-background:var(--color-popover)] [--arrow-size:var(--spacing-2_5)]',
+        local.class,
+      )}
       {...others}
       data-slot="tooltip-arrow"
     >

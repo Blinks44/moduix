@@ -137,7 +137,7 @@ const TagCloseTrigger = forwardRef<ComponentRef<typeof CloseButton.Root>, TagClo
         }
         aria-labelledby={ariaLabelledBy}
         className={cn(
-          'size-4 rounded-full bg-transparent p-0 text-inherit focus-visible:outline-1 focus-visible:outline-offset-0 [&>svg]:size-2.5 [@media(hover:hover)]:[&:not([data-disabled]):hover]:bg-current/10 [@media(hover:hover)]:[&:not([data-disabled]):hover]:text-inherit',
+          'size-4 rounded-full bg-transparent p-0 text-inherit focus-visible:outline-1 focus-visible:outline-offset-0 [&>svg]:size-2.5 [@media(hover:hover)]:[&:not([data-disabled]):hover]:bg-current/12 [@media(hover:hover)]:[&:not([data-disabled]):hover]:text-inherit',
           className,
         )}
       >

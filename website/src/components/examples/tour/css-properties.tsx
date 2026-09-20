@@ -297,7 +297,7 @@ const tourCssProperties: CssPropertyInput[] = [
   ],
   [
     '--moduix-tour-transition',
-    'var(--moduix-transition-default)',
+    'var(--moduix-popup-motion-duration, var(--moduix-duration-normal)) var(--moduix-popup-motion-easing, var(--moduix-ease-in-out))',
     'Controls content animation duration.',
   ],
   ['--moduix-tour-width', '20rem', 'Controls default content width.'],
