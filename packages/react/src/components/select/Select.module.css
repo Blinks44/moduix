@@ -132,6 +132,10 @@
       color: var(--moduix-select-placeholder-color, var(--moduix-color-muted-foreground));
     }
 
+    &:not([data-placeholder-shown]) {
+      padding-inline-end: var(--moduix-select-trigger-padding-x-end, 4.25rem);
+    }
+
     &[data-disabled],
     &[disabled] {
       cursor: default;
@@ -147,10 +151,6 @@
       border-color: var(--moduix-select-invalid-color, var(--moduix-color-destructive));
       outline-color: var(--moduix-select-invalid-color, var(--moduix-color-destructive));
     }
-  }
-
-  .control:has(.clearTrigger:not([hidden])) .trigger {
-    padding-inline-end: var(--moduix-select-trigger-padding-x-end, 4.25rem);
   }
 
   .valueText,

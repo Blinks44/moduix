@@ -29,7 +29,7 @@ Ark UI does not provide a dedicated breadcrumbs primitive. moduix builds this co
 
 
 Use `Breadcrumbs.Path` when you already have the path segments to display. It builds the ordered list,
-items, links, current page, and separators from a small `items` array.
+items, links, current page, and separators from required `links` and `page` props.
 
 <ExampleFrame variant="component">
   <BreadcrumbsBasic />
@@ -113,7 +113,7 @@ Breadcrumbs / Breadcrumbs.Root
 | `Breadcrumbs.Ellipsis`             | Compact marker for a menu trigger that reveals hidden segments.   |
 
 `Breadcrumbs.Path` is a moduix shorthand that builds `Breadcrumbs.List`, `Breadcrumbs.Item`,
-`Breadcrumbs.Link`, `Breadcrumbs.Page`, and `Breadcrumbs.Separator` from an `items` array.
+`Breadcrumbs.Link`, `Breadcrumbs.Page`, and `Breadcrumbs.Separator` from `links` and `page` props.
 
 ## Composition
 
@@ -121,8 +121,9 @@ Breadcrumbs / Breadcrumbs.Root
 hooks, or `RootProvider`. State for a collapsed path belongs to the composed `Menu`, while router
 navigation remains owned by the app's link component.
 
-Use `Breadcrumbs.Path` for an anchor-based path. It owns the generated list children, makes the last
-item the current page, and does not accept `children` or `asChild`. Use the explicit parts when a path
+Use `Breadcrumbs.Path` for an anchor-based path. It owns the generated list children, renders every
+`links` entry as an anchor, renders `page` as the current page, and does not accept `children` or
+`asChild`. Use the explicit parts when a path
 needs router links, hidden middle segments, or different markup. For a router link, pass one semantic
 child to `Breadcrumbs.Link asChild` so the link keeps the expected `href`, focus, and keyboard behavior.
 In Solid, assign a ref to the element created inside the `asChild` render function, because a ref on
@@ -256,8 +257,7 @@ Use Ark `asChild` to render a link provided by the app's framework router.
 
 ### Long Current Label
 
-Pass a node as the last `Breadcrumbs.Path` label when the current page needs extra attributes, such as
-`title`. Ancestor items can shrink too, so long middle labels are less likely to make the trail overflow.
+Pass a node as the `page` prop when the current page needs extra attributes, such as `title`. Ancestor items can shrink too, so long middle labels are less likely to make the trail overflow.
 
 <ExampleFrame variant="component">
   <BreadcrumbsLongCurrentLabel />

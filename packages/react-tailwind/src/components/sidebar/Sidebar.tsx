@@ -85,7 +85,7 @@ const SidebarRoot = forwardRef<ComponentRef<typeof SplitterPrimitive.Root>, Side
           data-side={side}
           data-slot="sidebar-root"
           className={cn(
-            'group/splitter relative box-border h-112 min-h-0 w-full min-w-0 rounded-md border border-border bg-card text-foreground shadow-sm data-dragging:cursor-col-resize data-dragging:data-[orientation=vertical]:cursor-row-resize',
+            'group/splitter relative box-border h-112 min-h-0 w-full min-w-0 rounded-md border border-border bg-card text-foreground shadow-sm data-dragging:cursor-col-resize',
             'isolate h-dvh min-h-96 w-full min-w-0 rounded-none border border-border bg-background text-foreground shadow-none',
             className,
           )}
@@ -124,7 +124,7 @@ const SidebarPanel = forwardRef<ComponentRef<typeof SplitterPrimitive.Panel>, Si
         data-slot="sidebar-panel"
         data-state={collapsed ? 'collapsed' : 'expanded'}
         className={cn(
-          'box-border min-h-50 min-w-0 overflow-auto rounded-none border-0 border-border bg-card p-4 text-card-foreground shadow-none group-data-[orientation=vertical]/splitter:min-h-0 data-dragging:select-none',
+          'box-border min-h-50 min-w-0 overflow-auto rounded-none border-0 border-border bg-card p-4 text-card-foreground shadow-none data-dragging:select-none',
           'group/sidebar-panel @container/sidebar-panel relative flex min-h-0 min-w-0 flex-col overflow-hidden bg-card p-0 text-card-foreground transition-colors duration-200 ease-in-out motion-reduce:transition-none',
           className,
         )}
@@ -145,7 +145,7 @@ const SidebarInset = forwardRef<ComponentRef<typeof SplitterPrimitive.Panel>, Si
         data-side={side}
         data-slot="sidebar-inset"
         className={cn(
-          'box-border min-h-50 min-w-0 overflow-auto rounded-none border-0 border-border bg-card p-4 text-card-foreground shadow-none group-data-[orientation=vertical]/splitter:min-h-0 data-dragging:select-none',
+          'box-border min-h-50 min-w-0 overflow-auto rounded-none border-0 border-border bg-card p-4 text-card-foreground shadow-none data-dragging:select-none',
           'relative min-w-0 overflow-auto bg-background p-0 text-foreground',
           className,
         )}
@@ -175,7 +175,7 @@ const SidebarResizeTrigger = forwardRef<
       data-side={side}
       data-slot="sidebar-resize-trigger"
       className={cn(
-        "group/trigger relative z-1 box-border flex w-px min-w-px cursor-col-resize appearance-none items-center justify-center border-0 bg-transparent p-0 outline-0 transition-opacity duration-200 ease-in-out before:absolute before:h-full before:w-[0.5px] before:rounded-full before:bg-border before:transition-[background-color] before:duration-200 before:ease-in-out before:content-[''] after:absolute after:z-1 after:h-full after:w-2.5 after:content-[''] data-disabled:cursor-default data-disabled:opacity-50 data-dragging:before:bg-muted-foreground/40 data-[orientation=vertical]:h-px data-[orientation=vertical]:min-h-px data-[orientation=vertical]:w-full data-[orientation=vertical]:min-w-0 data-[orientation=vertical]:cursor-row-resize data-[orientation=vertical]:before:h-[0.5px] data-[orientation=vertical]:before:w-full data-[orientation=vertical]:after:h-2.5 data-[orientation=vertical]:after:w-full [@media(hover:hover)]:[&:not(:disabled):not([data-disabled]):hover]:before:bg-muted-foreground/40",
+        "group/trigger relative z-1 box-border flex w-px min-w-px cursor-col-resize appearance-none items-center justify-center border-0 bg-transparent p-0 outline-0 transition-opacity duration-200 ease-in-out before:absolute before:h-full before:w-[0.5px] before:rounded-full before:bg-border before:transition-[background-color] before:duration-200 before:ease-in-out before:content-[''] after:absolute after:z-1 after:h-full after:w-2.5 after:content-[''] data-disabled:cursor-default data-disabled:opacity-50 data-dragging:before:bg-muted-foreground/40 [@media(hover:hover)]:[&:not(:disabled):not([data-disabled]):hover]:before:bg-muted-foreground/40",
         'z-2',
         className,
       )}
@@ -214,10 +214,6 @@ const SidebarTrigger = forwardRef<HTMLButtonElement, HTMLArkProps<'button'>>(
         type={type}
         aria-label={ariaLabel}
         aria-expanded={!collapsed}
-        data-scope="sidebar"
-        data-part="trigger"
-        data-side={config.side}
-        data-state={collapsed ? 'collapsed' : 'expanded'}
         className={cn(
           'relative z-4 -mx-3.5 inline-flex size-7 flex-none translate-y-10 cursor-pointer items-center justify-center rounded-full border border-border bg-background p-0 text-muted-foreground shadow-sm outline-0 transition-[background-color,color,box-shadow] duration-200 ease-in-out',
           'focus-visible:outline-offset-0.5 focus-visible:outline-2 focus-visible:outline-ring disabled:pointer-events-none disabled:opacity-50 aria-disabled:pointer-events-none aria-disabled:opacity-50 motion-reduce:transition-none',
@@ -227,6 +223,10 @@ const SidebarTrigger = forwardRef<HTMLButtonElement, HTMLArkProps<'button'>>(
         )}
         onClick={handleClick}
         {...props}
+        data-scope="sidebar"
+        data-part="trigger"
+        data-side={config.side}
+        data-state={collapsed ? 'collapsed' : 'expanded'}
         data-slot="sidebar-trigger"
       >
         {children ?? <ChevronLeftIcon />}
@@ -242,13 +242,13 @@ const SidebarLabel = forwardRef<HTMLSpanElement, HTMLArkProps<'span'>>(function 
   return (
     <ark.span
       ref={ref}
-      data-scope="sidebar"
-      data-part="label"
       className={cn(
         'min-w-0 truncate group-data-[state=collapsed]/sidebar-panel:sr-only',
         className,
       )}
       {...props}
+      data-scope="sidebar"
+      data-part="label"
       data-slot="sidebar-label"
     />
   );
@@ -261,13 +261,13 @@ const SidebarHeader = forwardRef<HTMLElement, HTMLArkProps<'header'>>(function S
   return (
     <ark.header
       ref={ref}
-      data-scope="sidebar"
-      data-part="header"
       className={cn(
         'flex flex-none items-center gap-2 p-3 group-data-[state=collapsed]/sidebar-panel:justify-center group-data-[state=collapsed]/sidebar-panel:px-1 [&>*:only-child]:w-full group-data-[state=collapsed]/sidebar-panel:[&>*:only-child]:w-auto',
         className,
       )}
       {...props}
+      data-scope="sidebar"
+      data-part="header"
       data-slot="sidebar-header"
     />
   );
@@ -280,13 +280,13 @@ const SidebarContent = forwardRef<HTMLDivElement, HTMLArkProps<'div'>>(function 
   return (
     <ark.div
       ref={ref}
-      data-scope="sidebar"
-      data-part="content"
       className={cn(
         'flex min-h-0 flex-auto [scrollbar-gutter:stable] flex-col overflow-auto overscroll-contain group-data-[state=collapsed]/sidebar-panel:[scrollbar-width:none] group-data-[state=collapsed]/sidebar-panel:[scrollbar-gutter:auto] group-data-[state=collapsed]/sidebar-panel:overflow-x-hidden group-data-[state=collapsed]/sidebar-panel:overflow-y-auto',
         className,
       )}
       {...props}
+      data-scope="sidebar"
+      data-part="content"
       data-slot="sidebar-content"
     />
   );
@@ -299,10 +299,10 @@ const SidebarExpandedContent = forwardRef<HTMLDivElement, HTMLArkProps<'div'>>(
     return (
       <ark.div
         ref={ref}
-        data-scope="sidebar"
-        data-part="expanded-content"
         className={className}
         {...props}
+        data-scope="sidebar"
+        data-part="expanded-content"
         data-slot="sidebar-expanded-content"
         hidden={collapsed}
       />
@@ -317,10 +317,10 @@ const SidebarCollapsedContent = forwardRef<HTMLDivElement, HTMLArkProps<'div'>>(
     return (
       <ark.div
         ref={ref}
-        data-scope="sidebar"
-        data-part="collapsed-content"
         className={className}
         {...props}
+        data-scope="sidebar"
+        data-part="collapsed-content"
         data-slot="sidebar-collapsed-content"
         hidden={!collapsed}
       />
@@ -335,13 +335,13 @@ const SidebarFooter = forwardRef<HTMLElement, HTMLArkProps<'footer'>>(function S
   return (
     <ark.footer
       ref={ref}
-      data-scope="sidebar"
-      data-part="footer"
       className={cn(
         'flex flex-none items-center gap-2 p-3 group-data-[state=collapsed]/sidebar-panel:justify-center group-data-[state=collapsed]/sidebar-panel:px-1',
         className,
       )}
       {...props}
+      data-scope="sidebar"
+      data-part="footer"
       data-slot="sidebar-footer"
     />
   );
@@ -354,13 +354,13 @@ const SidebarGroup = forwardRef<HTMLElement, HTMLArkProps<'section'>>(function S
   return (
     <ark.section
       ref={ref}
-      data-scope="sidebar"
-      data-part="group"
       className={cn(
         'flex flex-col gap-1 p-3 group-data-[state=collapsed]/sidebar-panel:px-1',
         className,
       )}
       {...props}
+      data-scope="sidebar"
+      data-part="group"
       data-slot="sidebar-group"
     />
   );
@@ -371,10 +371,10 @@ const SidebarGroupHeader = forwardRef<HTMLDivElement, HTMLArkProps<'div'>>(
     return (
       <ark.div
         ref={ref}
-        data-scope="sidebar"
-        data-part="group-header"
         className={cn('flex min-w-0 items-center gap-2', className)}
         {...props}
+        data-scope="sidebar"
+        data-part="group-header"
         data-slot="sidebar-group-header"
       />
     );
@@ -386,13 +386,13 @@ const SidebarGroupLabel = forwardRef<HTMLHeadingElement, HTMLArkProps<'h3'>>(
     return (
       <ark.h3
         ref={ref}
-        data-scope="sidebar"
-        data-part="group-label"
         className={cn(
           'min-w-0 flex-1 truncate px-2 text-xs leading-4 font-medium text-muted-foreground group-data-[state=collapsed]/sidebar-panel:sr-only',
           className,
         )}
         {...props}
+        data-scope="sidebar"
+        data-part="group-label"
         data-slot="sidebar-group-label"
       />
     );
@@ -405,13 +405,13 @@ const SidebarGroupAction = forwardRef<HTMLButtonElement, HTMLArkProps<'button'>>
       <ark.button
         ref={ref}
         type={type}
-        data-scope="sidebar"
-        data-part="group-action"
         className={cn(
           'focus-visible:outline-offset-0.5 me-2 inline-flex size-control-xs flex-none cursor-pointer items-center justify-center rounded-md p-0 text-muted-foreground outline-0 transition-colors duration-200 ease-in-out hover:bg-accent hover:text-accent-foreground focus-visible:outline-2 focus-visible:outline-ring motion-reduce:transition-none @max-[7rem]:hidden [&>svg]:size-4',
           className,
         )}
         {...props}
+        data-scope="sidebar"
+        data-part="group-action"
         data-slot="sidebar-group-action"
       />
     );
@@ -423,10 +423,10 @@ const SidebarNavigationList = forwardRef<HTMLUListElement, HTMLArkProps<'ul'>>(
     return (
       <ark.ul
         ref={ref}
-        data-scope="sidebar"
-        data-part="navigation-list"
         className={cn('flex w-full min-w-0 flex-col gap-1', className)}
         {...props}
+        data-scope="sidebar"
+        data-part="navigation-list"
         data-slot="sidebar-navigation-list"
       />
     );
@@ -438,10 +438,10 @@ const SidebarNavigationItem = forwardRef<HTMLLIElement, HTMLArkProps<'li'>>(
     return (
       <ark.li
         ref={ref}
-        data-scope="sidebar"
-        data-part="navigation-item"
         className={cn('relative min-w-0', className)}
         {...props}
+        data-scope="sidebar"
+        data-part="navigation-item"
         data-slot="sidebar-navigation-item"
       />
     );
@@ -470,10 +470,6 @@ const SidebarNavigationButton = forwardRef<
       ref={ref}
       type={type}
       aria-current={ariaCurrent ?? (active ? 'page' : undefined)}
-      data-scope="sidebar"
-      data-part="navigation-button"
-      data-active={active ? '' : undefined}
-      data-size={size}
       className={cn(
         'flex w-full min-w-0 cursor-pointer items-center gap-2 overflow-hidden rounded-md px-2 py-1 text-start text-sm leading-5 text-ellipsis whitespace-nowrap text-card-foreground outline-0 transition-colors duration-200 ease-in-out has-[+_[data-slot=sidebar-navigation-badge]]:pe-10 @max-[7rem]:has-[+_[data-slot=sidebar-navigation-badge]]:pe-2',
         'focus-visible:outline-offset-0.5 focus-visible:outline-2 focus-visible:outline-ring disabled:pointer-events-none disabled:opacity-50 aria-disabled:pointer-events-none aria-disabled:opacity-50 data-active:bg-accent data-active:font-medium data-active:text-accent-foreground motion-reduce:transition-none [&:not(:disabled):not([aria-disabled=true])]:hover:bg-accent [&:not(:disabled):not([aria-disabled=true])]:hover:text-accent-foreground',
@@ -488,6 +484,10 @@ const SidebarNavigationButton = forwardRef<
         className,
       )}
       {...props}
+      data-scope="sidebar"
+      data-part="navigation-button"
+      data-active={active ? '' : undefined}
+      data-size={size}
       data-slot="sidebar-navigation-button"
     />
   );
@@ -498,13 +498,13 @@ const SidebarNavigationBadge = forwardRef<HTMLSpanElement, HTMLArkProps<'span'>>
     return (
       <ark.span
         ref={ref}
-        data-scope="sidebar"
-        data-part="navigation-badge"
         className={cn(
           'pointer-events-none absolute end-2.5 top-1/2 z-1 box-border inline-grid size-5 -translate-y-1/2 place-items-center rounded-full bg-primary p-0 text-[0.5625rem] leading-none font-medium text-primary-foreground tabular-nums @max-[7rem]:hidden',
           className,
         )}
         {...props}
+        data-scope="sidebar"
+        data-part="navigation-badge"
         data-slot="sidebar-navigation-badge"
       />
     );
@@ -516,13 +516,13 @@ const SidebarNavigationSubList = forwardRef<HTMLUListElement, HTMLArkProps<'ul'>
     return (
       <ark.ul
         ref={ref}
-        data-scope="sidebar"
-        data-part="navigation-sub-list"
         className={cn(
           'ms-4 mt-1 flex w-auto min-w-0 flex-col gap-1 border-s border-border ps-2 group-data-[state=collapsed]/sidebar-panel:hidden',
           className,
         )}
         {...props}
+        data-scope="sidebar"
+        data-part="navigation-sub-list"
         data-slot="sidebar-navigation-sub-list"
       />
     );
@@ -534,10 +534,10 @@ const SidebarNavigationSubItem = forwardRef<HTMLLIElement, HTMLArkProps<'li'>>(
     return (
       <ark.li
         ref={ref}
-        data-scope="sidebar"
-        data-part="navigation-sub-item"
         className={cn('relative min-w-0', className)}
         {...props}
+        data-scope="sidebar"
+        data-part="navigation-sub-item"
         data-slot="sidebar-navigation-sub-item"
       />
     );
@@ -557,9 +557,6 @@ const SidebarNavigationSubButton = forwardRef<
     <ark.a
       ref={ref}
       aria-current={ariaCurrent ?? (active ? 'page' : undefined)}
-      data-scope="sidebar"
-      data-part="navigation-sub-button"
-      data-active={active ? '' : undefined}
       className={cn(
         'flex min-h-control-sm w-full min-w-0 cursor-pointer items-center gap-2 overflow-hidden rounded-md px-2 text-start text-sm leading-5 text-ellipsis whitespace-nowrap text-card-foreground outline-0 transition-[background-color,border-color,color,box-shadow] duration-200 ease-in-out has-[+_[data-slot=sidebar-navigation-badge]]:pe-10 @max-[7rem]:has-[+_[data-slot=sidebar-navigation-badge]]:pe-2',
         'focus-visible:outline-offset-0.5 focus-visible:outline-2 focus-visible:outline-ring disabled:pointer-events-none disabled:opacity-50 aria-disabled:pointer-events-none aria-disabled:opacity-50 data-active:bg-accent data-active:font-medium data-active:text-accent-foreground motion-reduce:transition-none [&:not(:disabled):not([aria-disabled=true])]:hover:bg-accent [&:not(:disabled):not([aria-disabled=true])]:hover:text-accent-foreground',
@@ -567,6 +564,9 @@ const SidebarNavigationSubButton = forwardRef<
         className,
       )}
       {...props}
+      data-scope="sidebar"
+      data-part="navigation-sub-button"
+      data-active={active ? '' : undefined}
       data-slot="sidebar-navigation-sub-button"
     >
       {typeof children === 'string' ? (
@@ -615,7 +615,6 @@ const SidebarInput = forwardRef<ComponentRef<typeof Input.Root>, ComponentProps<
         ref={ref}
         className={cn('w-full group-data-[state=collapsed]/sidebar-panel:hidden', className)}
         {...props}
-        data-slot="sidebar-input"
       />
     );
   },
@@ -625,14 +624,7 @@ const SidebarSeparator = forwardRef<
   ComponentRef<typeof Separator.Root>,
   ComponentProps<typeof Separator.Root>
 >(function SidebarSeparator({ className, ...props }, ref) {
-  return (
-    <Separator.Root
-      ref={ref}
-      className={cn('border-border', className)}
-      {...props}
-      data-slot="sidebar-separator"
-    />
-  );
+  return <Separator.Root ref={ref} className={cn('border-border', className)} {...props} />;
 });
 
 const Sidebar = Object.assign(SidebarRoot, {

@@ -112,7 +112,7 @@ const tooltipCssProperties: CssPropertyInput[] = [
     'Controls content Y offset at the start of enter animation.',
   ],
   ['--moduix-tooltip-radius', 'var(--moduix-radius-md)', 'Controls the content border radius.'],
-  ['--moduix-tooltip-shadow', 'var(--moduix-shadow-lg)', 'Controls the content shadow.'],
+  ['--moduix-tooltip-shadow', 'var(--moduix-shadow-md)', 'Controls the content shadow.'],
   ['--moduix-tooltip-transition', '150ms', 'Controls content animation and trigger transitions.'],
   [
     '--moduix-tooltip-trigger-bg',

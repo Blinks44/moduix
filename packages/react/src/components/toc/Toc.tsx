@@ -43,12 +43,15 @@ const TocRootProvider = forwardRef<
   ComponentRef<typeof TocPrimitive.RootProvider>,
   ComponentProps<typeof TocPrimitive.RootProvider>
 >(function TocRootProvider({ className, style, value, ...props }, ref) {
+  const rootProps = value.getRootProps();
+
   return (
     <TocPrimitive.RootProvider
       ref={ref}
       value={value}
+      {...rootProps}
       className={clsx(styles.root, className)}
-      style={{ ...value.getRootProps().style, ...style }}
+      style={{ ...rootProps.style, ...style }}
       {...props}
       data-slot="toc-root-provider"
     />

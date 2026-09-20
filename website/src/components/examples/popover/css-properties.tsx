@@ -161,7 +161,7 @@ const popoverOverrideCssProperties: CssPropertyInput[] = [
   [
     '--moduix-popover-transition',
     'var(--moduix-duration-fast)',
-    'Controls content animation duration.',
+    'Controls content animation duration; trigger color transitions use their own 200ms default.',
   ],
   ['--moduix-popover-width', 'auto', 'Controls content width.'],
 ];

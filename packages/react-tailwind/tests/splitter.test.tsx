@@ -29,6 +29,8 @@ test('preserves Ark keyboard affordances and Tailwind trigger defaults', async (
     'before:h-full',
     'data-dragging:before:bg-muted-foreground/40',
     '[@media(hover:hover)]:[&:not(:disabled):not([data-disabled]):hover]:before:bg-muted-foreground/40',
+    'motion-reduce:transition-none',
+    'motion-reduce:before:transition-none',
   );
   expect(indicator).toHaveClass(
     'h-control-xs',
@@ -36,6 +38,7 @@ test('preserves Ark keyboard affordances and Tailwind trigger defaults', async (
     'rounded-full',
     'bg-background',
     'group-hover/trigger:border-muted-foreground/40',
+    'motion-reduce:transition-none',
   );
   expect(indicator).not.toHaveClass('data-dragging:border-border');
   expect(indicator).toBeVisible();

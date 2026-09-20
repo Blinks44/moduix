@@ -62,16 +62,21 @@ function AngleSliderControl(props: ComponentProps<typeof AngleSliderPrimitive.Co
   return (
     <AngleSliderPrimitive.Control
       class={cn(
-        "relative box-border flex aspect-square w-32 min-w-0 cursor-pointer items-center justify-center rounded-full bg-muted shadow-[inset_0_0_0_1px_var(--color-border)] outline-0 transition-colors duration-200 select-none before:absolute before:z-1 before:size-1.5 before:rounded-[inherit] before:bg-foreground before:content-[''] after:absolute after:inset-3.5 after:z-1 after:rounded-[inherit] after:bg-background after:shadow-[inset_0_0_0_1px_var(--color-border)] after:content-[''] data-disabled:cursor-default data-invalid:shadow-[inset_0_0_0_1px_var(--color-destructive)] data-invalid:after:shadow-[inset_0_0_0_1px_var(--color-destructive)] data-readonly:cursor-default motion-reduce:transition-none [&:has([data-scope='angle-slider'][data-part='thumb']:focus-visible)]:shadow-[inset_0_0_0_1px_var(--color-border),0_0_0_3px_var(--color-ring)] [&:not([data-disabled]):not([data-readonly]):active]:bg-muted [@media(hover:hover)]:[&:not([data-disabled]):not([data-readonly]):hover]:bg-muted",
+        "relative box-border aspect-square w-32 min-w-0 cursor-pointer rounded-full outline-0 select-none [--angle-slider-fill:var(--color-primary)] before:absolute before:inset-0 before:rounded-full before:bg-[conic-gradient(from_0deg,var(--angle-slider-fill)_var(--angle,0deg),var(--color-muted)_var(--angle,0deg))] before:[mask-image:radial-gradient(closest-side,transparent_calc(100%-0.5rem-1px),#000_calc(100%-0.5rem))] before:content-[''] after:absolute after:top-1 after:left-1/2 after:z-1 after:size-2 after:-translate-x-1/2 after:-translate-y-1/2 after:rounded-full after:bg-[var(--angle-slider-fill)] after:content-[''] data-disabled:cursor-default data-invalid:[--angle-slider-fill:var(--color-destructive)] data-readonly:cursor-default",
         local.class,
       )}
+      {...others}
       onPointerDown={(event) => {
         (local.onPointerDown as ((event: PointerEvent) => void) | undefined)?.(event);
-        (event.currentTarget as HTMLDivElement)
+
+        if (event.defaultPrevented || event.button !== 0) return;
+        if (event.currentTarget.matches('[data-disabled], [data-readonly]')) return;
+
+        event.preventDefault();
+        event.currentTarget
           .querySelector<HTMLElement>('[data-scope="angle-slider"][data-part="thumb"]')
-          ?.blur();
+          ?.focus({ preventScroll: true, focusVisible: false });
       }}
-      {...others}
       data-slot="angle-slider-control"
     />
   );
@@ -83,7 +88,7 @@ function AngleSliderThumb(props: ComponentProps<typeof AngleSliderPrimitive.Thum
   return (
     <AngleSliderPrimitive.Thumb
       class={cn(
-        "absolute inset-y-0 left-[calc(50%-0.09375rem)] z-2 w-[0.1875rem] outline-0 before:absolute before:top-3.5 before:left-1/2 before:box-border before:size-4 before:-translate-x-1/2 before:rounded-full before:border before:border-border before:bg-primary before:shadow-sm before:transition-[border-color,box-shadow,background-color,scale] before:duration-200 before:content-[''] after:absolute after:top-[2.125rem] after:left-1/2 after:h-[calc(50%-2.25rem)] after:w-[0.1875rem] after:-translate-x-1/2 after:rounded-full after:bg-linear-to-b after:from-primary after:to-transparent after:content-[''] focus-visible:before:border-ring focus-visible:before:ring-1 focus-visible:before:ring-ring data-disabled:pointer-events-none data-invalid:before:border-destructive data-invalid:before:bg-destructive data-invalid:after:from-destructive motion-reduce:before:transition-none [&:active:not([data-disabled]):not([data-readonly])]:before:scale-[1.08]",
+        "absolute inset-y-0 left-1/2 z-2 w-0 outline-0 before:absolute before:top-1 before:left-0 before:box-border before:size-4 before:-translate-x-1/2 before:-translate-y-1/2 before:rounded-full before:border before:border-border before:bg-background before:shadow-sm before:transition-[border-color,background-color,box-shadow] before:duration-200 before:ease-in-out before:content-[''] focus-visible:before:border-ring focus-visible:before:ring-1 focus-visible:before:ring-ring data-disabled:pointer-events-none data-invalid:before:border-destructive motion-reduce:before:transition-none [[data-slot=angle-slider-control]:active:not([data-disabled]):not([data-readonly])_&]:before:border-ring [[data-slot=angle-slider-control]:active:not([data-disabled]):not([data-readonly])_&]:before:shadow-md [[data-slot=angle-slider-control]:active:not([data-disabled]):not([data-readonly])_&]:before:ring-1 [[data-slot=angle-slider-control]:active:not([data-disabled]):not([data-readonly])_&]:before:ring-ring",
         local.class,
       )}
       {...others}
@@ -110,7 +115,7 @@ function AngleSliderMarker(props: ComponentProps<typeof AngleSliderPrimitive.Mar
   return (
     <AngleSliderPrimitive.Marker
       class={cn(
-        "absolute inset-0 before:absolute before:top-4 before:left-1/2 before:h-2.5 before:w-0.5 before:-translate-x-1/2 before:-translate-y-1/2 before:rounded-full before:bg-muted-foreground before:content-[''] data-[state=at-value]:before:bg-foreground data-[state=under-value]:before:bg-primary",
+        "absolute inset-0 before:absolute before:top-1 before:left-1/2 before:h-2 before:w-0.5 before:-translate-x-1/2 before:-translate-y-1/2 before:rounded-full before:bg-muted-foreground before:content-[''] data-[state=at-value]:before:bg-foreground data-[state=under-value]:before:bg-primary",
         local.class,
       )}
       {...others}
@@ -149,6 +154,7 @@ function AngleSliderDial(props: AngleSliderDialProps) {
   return (
     <AngleSliderControl {...others}>
       {local.children}
+      <AngleSliderValueText />
       <AngleSliderThumb />
     </AngleSliderControl>
   );
@@ -159,7 +165,10 @@ function AngleSliderValueText(props: ComponentProps<typeof AngleSliderPrimitive.
 
   return (
     <AngleSliderPrimitive.ValueText
-      class={cn('text-center text-sm font-medium text-foreground', local.class)}
+      class={cn(
+        'absolute inset-0 z-1 grid place-items-center text-center text-lg font-medium text-foreground tabular-nums',
+        local.class,
+      )}
       {...others}
       data-slot="angle-slider-value-text"
     />

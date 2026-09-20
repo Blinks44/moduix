@@ -154,3 +154,16 @@ test('lets consumer utilities replace defaults and hides the indicator for list 
   );
   expect(indicator).toHaveClass('hidden');
 });
+
+test('keeps the field hooks on a standalone select', () => {
+  render(
+    <NativeSelect aria-label="Framework">
+      <option value="react">React</option>
+    </NativeSelect>,
+  );
+
+  const select = screen.getByRole('combobox', { name: 'Framework' });
+  expect(select).toHaveAttribute('data-scope', 'field');
+  expect(select).toHaveAttribute('data-part', 'select');
+  expect(select).toHaveAttribute('data-slot', 'native-select-root');
+});

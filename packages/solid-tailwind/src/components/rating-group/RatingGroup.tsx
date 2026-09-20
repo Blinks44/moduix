@@ -27,9 +27,9 @@ function RatingGroupRoot(props: RatingGroupRootProps) {
   return (
     <RatingGroupPrimitive.Root
       asChild={local.asChild}
-      data-size={local.size ?? 'md'}
       class={cn('group/rating-group inline-flex flex-col gap-1 text-muted-foreground', local.class)}
       {...others}
+      data-size={local.size ?? 'md'}
       data-slot="rating-group-root"
     >
       {local.children}
@@ -43,9 +43,9 @@ function RatingGroupRootProvider(props: RatingGroupRootProviderProps) {
   return (
     <RatingGroupPrimitive.RootProvider
       asChild={local.asChild}
-      data-size={local.size ?? 'md'}
       class={cn('group/rating-group inline-flex flex-col gap-1 text-muted-foreground', local.class)}
       {...others}
+      data-size={local.size ?? 'md'}
       data-slot="rating-group-root-provider"
     >
       {local.children}
@@ -86,7 +86,7 @@ function RatingGroupItem(props: ComponentProps<typeof RatingGroupPrimitive.Item>
   return (
     <RatingGroupPrimitive.Item
       class={cn(
-        'inline-flex cursor-pointer items-center justify-center rounded-sm leading-none text-inherit outline-1 -outline-offset-1 outline-transparent transition-[color,opacity] duration-200 ease-in-out data-disabled:pointer-events-none data-disabled:cursor-default data-focus-visible:outline-1 data-focus-visible:outline-offset-1 data-focus-visible:outline-ring data-readonly:cursor-default',
+        'inline-flex cursor-pointer items-center justify-center rounded-sm leading-none text-inherit outline-1 -outline-offset-1 outline-transparent transition-[color,opacity] duration-200 ease-in-out focus-visible:outline-1 focus-visible:outline-offset-1 focus-visible:outline-ring data-disabled:pointer-events-none data-disabled:cursor-default data-readonly:cursor-default motion-reduce:transition-none',
         local.class,
       )}
       {...others}
@@ -102,13 +102,13 @@ function RatingGroupItemIndicator(props: RatingGroupItemIndicatorProps) {
 
   return (
     <span
-      data-half={item().half ? '' : undefined}
-      data-highlighted={item().highlighted ? '' : undefined}
       class={cn(
-        'relative inline-flex size-5 items-center justify-center text-primary group-data-[size=lg]/rating-group:size-6 group-data-[size=sm]/rating-group:size-4 group-data-[size=xl]/rating-group:size-7 group-data-[size=xs]/rating-group:size-3.5 [&>svg]:size-full [&>svg]:flex-none [&>svg]:transition-[color,fill,stroke,clip-path] [&>svg]:duration-200 [&>svg]:ease-in-out',
+        'relative inline-flex size-5 items-center justify-center text-primary group-data-[size=lg]/rating-group:size-6 group-data-[size=sm]/rating-group:size-4 group-data-[size=xl]/rating-group:size-7 group-data-[size=xs]/rating-group:size-3.5 [&>svg]:size-full [&>svg]:flex-none [&>svg]:transition-[color,fill,stroke,clip-path] [&>svg]:duration-200 [&>svg]:ease-in-out motion-reduce:[&>svg]:transition-none',
         local.class,
       )}
       {...others}
+      data-half={item().half ? '' : undefined}
+      data-highlighted={item().highlighted ? '' : undefined}
       data-slot="rating-group-item-indicator"
     >
       {resolvedChildren() ?? (

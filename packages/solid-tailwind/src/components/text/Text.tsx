@@ -133,7 +133,7 @@ function TextRoot(props: TextProps) {
         }),
         local.truncate && 'overflow-hidden text-ellipsis whitespace-nowrap',
         resolvedLineClamp() !== undefined &&
-          '[display:-webkit-box] overflow-hidden [white-space:normal] [-webkit-box-orient:vertical]',
+          '[display:-webkit-box] overflow-hidden whitespace-normal [-webkit-box-orient:vertical]',
         local.class,
       )}
       style={lineClampStyle()}

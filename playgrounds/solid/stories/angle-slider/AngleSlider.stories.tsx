@@ -24,7 +24,6 @@ function AngleSliderMarkedParts() {
       <AngleSlider.Dial>
         <AngleSlider.Marks values={markerValues} />
       </AngleSlider.Dial>
-      <AngleSlider.ValueText />
       <AngleSlider.HiddenInput />
     </>
   );

@@ -6,14 +6,14 @@ import { children, For, splitProps } from 'solid-js';
 import { ChevronRightIcon } from '@/lib/moduix/icons/ui/Icons';
 import styles from './Breadcrumbs.module.css';
 
-type BreadcrumbsPathItem = {
-  href?: string;
-  key?: string | number;
+type BreadcrumbsPathLink = {
+  href: string;
   label: JSX.Element;
 };
 
 type BreadcrumbsPathProps = Omit<HTMLArkProps<'ol'>, 'asChild' | 'children'> & {
-  items: readonly BreadcrumbsPathItem[];
+  links: readonly BreadcrumbsPathLink[];
+  page: JSX.Element;
   separator?: JSX.Element;
 };
 
@@ -64,30 +64,23 @@ function BreadcrumbsPage(props: HTMLArkProps<'span'>) {
 }
 
 function BreadcrumbsPath(props: BreadcrumbsPathProps) {
-  const [local, others] = splitProps(props, ['items', 'separator']);
+  const [local, others] = splitProps(props, ['links', 'page', 'separator']);
 
   return (
     <BreadcrumbsList {...others}>
-      <For each={local.items}>
-        {(item, index) => {
-          const isLastItem = () => index() === local.items.length - 1;
-
-          return (
-            <>
-              <BreadcrumbsItem>
-                {isLastItem() ? (
-                  <BreadcrumbsPage>{item.label}</BreadcrumbsPage>
-                ) : (
-                  <BreadcrumbsLink href={item.href}>{item.label}</BreadcrumbsLink>
-                )}
-              </BreadcrumbsItem>
-              {!isLastItem() ? (
-                <BreadcrumbsSeparator>{local.separator}</BreadcrumbsSeparator>
-              ) : null}
-            </>
-          );
-        }}
+      <For each={local.links}>
+        {(link) => (
+          <>
+            <BreadcrumbsItem>
+              <BreadcrumbsLink href={link.href}>{link.label}</BreadcrumbsLink>
+            </BreadcrumbsItem>
+            <BreadcrumbsSeparator>{local.separator}</BreadcrumbsSeparator>
+          </>
+        )}
       </For>
+      <BreadcrumbsItem>
+        <BreadcrumbsPage>{local.page}</BreadcrumbsPage>
+      </BreadcrumbsItem>
     </BreadcrumbsList>
   );
 }

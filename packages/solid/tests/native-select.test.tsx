@@ -60,8 +60,10 @@ test('forwards the native select ref and supports controlled values', () => {
 test('preserves native form submission and reset behavior', () => {
   render(() => (
     <form aria-label="Project settings">
-      <NativeSelect defaultValue="react" name="framework" aria-label="Framework">
-        <option value="react">React</option>
+      <NativeSelect name="framework" aria-label="Framework">
+        <option value="react" selected>
+          React
+        </option>
         <option value="vue">Vue</option>
       </NativeSelect>
     </form>
@@ -98,4 +100,17 @@ test('preserves asChild composition with a semantic select element', () => {
   expect(selectRef).toBeUndefined();
   expect(select).toHaveAttribute('data-slot', 'native-select-root');
   expect(select.parentElement).toHaveAttribute('data-slot', 'native-select-control');
+});
+
+test('keeps the field hooks on a standalone select', () => {
+  render(() => (
+    <NativeSelect aria-label="Framework">
+      <option value="react">React</option>
+    </NativeSelect>
+  ));
+
+  const select = screen.getByRole('combobox', { name: 'Framework' });
+  expect(select).toHaveAttribute('data-scope', 'field');
+  expect(select).toHaveAttribute('data-part', 'select');
+  expect(select).toHaveAttribute('data-slot', 'native-select-root');
 });

@@ -244,6 +244,17 @@ Swap.RootProvider
 анимации отключает встроенные рецепты, но в собственном CSS по-прежнему можно использовать
 `--moduix-swap-transition`.
 
+Ark закрепляет раскладку inline-стилями: корень получает `display: inline-grid`, а каждый индикатор —
+`grid-area: 1 / 1` и `display: inline-flex`. Переопределения `display` и `grid-area` через классы не
+работают ни в одном из вариантов, поэтому меняйте эти свойства через свойство `style` (например,
+`style={{ display: 'grid' }}`).
+
+В вариантах Tailwind рецепт flip применяет к корню `data-[animation=flip]:[perspective:24rem]`, который
+имеет более высокую специфичность, чем обычный utility-класс `perspective` приложения, поэтому, чтобы
+его переопределить, повторите тот же задокументированный вариант (например,
+`data-[animation=flip]:[perspective:32rem]`), а трек с CSS Modules вместо этого предоставляет
+`--moduix-swap-flip-perspective`.
+
 ### CSS-свойства
 
 <CssPropertiesSection properties={SwapDocs.swapOverrideCssProperties} />

@@ -4,11 +4,12 @@ import { Breadcrumbs } from '@/components/breadcrumbs/Breadcrumbs';
 import { Menu } from '@/components/menu/Menu';
 import { SeparatorMarkIcon } from '@/lib/moduix/icons/ui';
 
-const defaultItems = [
+const defaultLinks = [
   { href: '#', label: 'Home' },
   { href: '#', label: 'Vacancies' },
-  { label: 'Go Developer' },
 ] as const;
+
+const defaultPage = 'Go Developer';
 
 const collapsedMenuContentStyle = {
   '--moduix-menu-item-font-size': 'var(--moduix-text-xs)',
@@ -29,7 +30,7 @@ const collapsedMenuTriggerStyle = {
 function DefaultBreadcrumbs() {
   return (
     <Breadcrumbs>
-      <Breadcrumbs.Path items={defaultItems} />
+      <Breadcrumbs.Path links={defaultLinks} page={defaultPage} />
     </Breadcrumbs>
   );
 }
@@ -104,7 +105,8 @@ export const CustomSeparator: Story = {
   render: () => (
     <Breadcrumbs>
       <Breadcrumbs.Path
-        items={defaultItems}
+        links={defaultLinks}
+        page={defaultPage}
         separator={<SeparatorMarkIcon style={{ width: '0.75rem', height: '0.25rem' }} />}
       />
     </Breadcrumbs>
@@ -115,11 +117,11 @@ export const RightToLeft: Story = {
   render: () => (
     <Breadcrumbs dir="rtl" aria-label="مسار التنقل">
       <Breadcrumbs.Path
-        items={[
+        links={[
           { href: '#', label: 'الرئيسية' },
           { href: '#', label: 'الوظائف' },
-          { label: 'مطور Go' },
         ]}
+        page="مطور Go"
       />
     </Breadcrumbs>
   ),
@@ -157,14 +159,11 @@ export const LongCurrentLabel: Story = {
   render: () => (
     <Breadcrumbs>
       <Breadcrumbs.Path
-        items={[
+        links={[
           { href: '#', label: 'Home' },
           { href: '#', label: 'Vacancies' },
-          {
-            label:
-              'Go lang developer to production team with cross-functional ownership and platform support',
-          },
         ]}
+        page="Go lang developer to production team with cross-functional ownership and platform support"
       />
     </Breadcrumbs>
   ),

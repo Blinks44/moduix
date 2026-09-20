@@ -159,5 +159,9 @@ when the inspection surface needs a different disclosure icon.
 Generated nodes preserve Ark's `data-scope="json-tree-view"` and `data-part` attributes. moduix adds the stable
 `data-slot="json-tree-view-root"`, `json-tree-view-root-provider`, and `json-tree-view-tree` hooks.
 
+`JsonTreeView.Tree` forwards Ark's `indentGuide` prop when you opt into indentation guides. moduix does not style the
+generated `[data-part='branch-indent-guide']` elements; target that attribute with your own styles when guides are
+enabled.
+
 The component uses foundation tokens directly, without a separate `--moduix-json-tree-view-*` variable layer. Add a
 class or target Ark part attributes when an inspection surface needs different styling.

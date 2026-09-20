@@ -130,6 +130,6 @@ export const radioGroupOverrideCssProperties: CssPropertyInput[] = [
   [
     '--moduix-radio-transition',
     'var(--moduix-transition-default)',
-    'Controls radio state transitions.',
+    'Controls item control state transitions; the indicator slide follows its own Ark timing variable.',
   ],
 ];

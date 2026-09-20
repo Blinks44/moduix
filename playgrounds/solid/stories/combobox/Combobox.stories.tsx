@@ -26,7 +26,7 @@ const meta = {
 
 export default meta;
 
-type Story = StoryObj<typeof meta>;
+type Story = StoryObj<Meta<typeof Combobox>>;
 
 function createFilter(filterOptions: UseFilterReturn) {
   return (itemText: string, filterText: string) => filterOptions().contains(itemText, filterText);

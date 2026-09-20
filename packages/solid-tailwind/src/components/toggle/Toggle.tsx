@@ -12,7 +12,7 @@ type ToggleRootProps = ComponentProps<typeof TogglePrimitive.Root> & {
 };
 
 const toggleVariants = cva(
-  'box-border inline-flex min-h-control-md cursor-pointer items-center justify-center gap-2 rounded-md border text-sm font-medium appearance-none transition-[background-color,border-color,color,opacity] duration-200 ease-in-out select-none whitespace-nowrap data-focus-visible:outline-2 data-focus-visible:-outline-offset-1 data-focus-visible:outline-ring data-disabled:pointer-events-none data-disabled:cursor-default data-disabled:opacity-50 motion-reduce:transition-none data-[state=off]:active:bg-accent [@media(hover:hover)]:data-[state=off]:hover:bg-accent [&>svg]:block [&>svg]:size-4 [&>svg]:shrink-0',
+  'box-border inline-flex cursor-pointer items-center justify-center gap-2 rounded-md border text-sm font-medium appearance-none transition-[background-color,border-color,color,opacity] duration-200 ease-in-out select-none whitespace-nowrap focus-visible:outline-2 focus-visible:-outline-offset-1 focus-visible:outline-ring data-disabled:pointer-events-none data-disabled:cursor-default data-disabled:opacity-50 motion-reduce:transition-none data-[state=off]:active:bg-accent [@media(hover:hover)]:data-[state=off]:hover:bg-accent [&>svg]:block [&>svg]:size-4 [&>svg]:shrink-0',
   {
     variants: {
       variant: {
@@ -77,5 +77,5 @@ const Toggle = Object.assign(ToggleRoot, {
   Context: ToggleContext,
 });
 
-export { Toggle, useToggleContext };
+export { Toggle, toggleVariants, useToggleContext };
 export type { ToggleRootProps, ToggleSize, ToggleVariant };

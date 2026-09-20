@@ -34,17 +34,17 @@ const nativeSelectCssProperties: CssProperty[] = [
   },
   {
     name: '--moduix-select-trigger-padding-x-start',
-    defaultValue: 'var(--moduix-spacing-3)',
+    defaultValue: 'var(--moduix-spacing-3-5)',
     description: 'Controls text padding and spacing after the indicator.',
   },
   {
     name: '--moduix-select-action-offset-right',
-    defaultValue: 'var(--moduix-spacing-1)',
+    defaultValue: 'var(--moduix-spacing-2)',
     description: 'Controls the indicator offset from the inline end.',
   },
   {
     name: '--moduix-select-action-size',
-    defaultValue: 'var(--moduix-spacing-6)',
+    defaultValue: 'var(--moduix-size-xs)',
     description: 'Controls the indicator box size.',
   },
   {

@@ -164,7 +164,7 @@ const SignaturePadClearTrigger = forwardRef<
           aria-label={ariaLabel}
           aria-labelledby={ariaLabelledBy}
           className={cn(
-            'size-7 rounded-sm bg-transparent text-muted-foreground focus-visible:outline-2 focus-visible:outline-offset-1 focus-visible:outline-ring motion-reduce:transition-none [&>svg]:size-4 [&>svg]:shrink-0 [@media(hover:hover)]:[&:not([data-disabled]):hover]:bg-accent [@media(hover:hover)]:[&:not([data-disabled]):hover]:text-foreground',
+            'size-control-md rounded-sm bg-transparent text-muted-foreground focus-visible:outline-2 focus-visible:outline-offset-4 focus-visible:outline-ring motion-reduce:transition-none [&>svg]:size-4 [&>svg]:shrink-0 [@media(hover:hover)]:[&:not([data-disabled]):hover]:bg-accent [@media(hover:hover)]:[&:not([data-disabled]):hover]:text-foreground',
             className,
           )}
         >
@@ -177,7 +177,7 @@ const SignaturePadClearTrigger = forwardRef<
 
 const SignaturePadCanvas = forwardRef<
   ComponentRef<typeof SignaturePadPrimitive.Control>,
-  Omit<ComponentProps<typeof SignaturePadPrimitive.Control>, 'children'>
+  Omit<ComponentProps<typeof SignaturePadPrimitive.Control>, 'asChild' | 'children'>
 >(function SignaturePadCanvas({ className, ...props }, ref) {
   return (
     <SignaturePadControl ref={ref} className={className} {...props}>

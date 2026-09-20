@@ -50,7 +50,7 @@ const PasswordInputLabel = forwardRef<
     <PasswordInputPrimitive.Label
       ref={ref}
       className={cn(
-        'inline-flex items-center gap-1 text-sm leading-5 font-medium text-foreground',
+        'inline-flex items-center gap-1 text-sm font-medium text-foreground',
         className,
       )}
       {...props}
@@ -84,7 +84,7 @@ const PasswordInputInput = forwardRef<
     <PasswordInputPrimitive.Input
       ref={ref}
       className={cn(
-        'min-h-0 min-w-0 flex-auto bg-transparent px-3 py-1 text-md leading-6 text-foreground outline-0 transition-opacity duration-200 ease-in-out placeholder:text-muted-foreground disabled:pointer-events-none data-disabled:pointer-events-none motion-reduce:transition-none',
+        'min-h-0 min-w-0 flex-auto bg-transparent px-3 py-1 text-md text-foreground outline-0 transition-opacity duration-200 ease-in-out placeholder:text-muted-foreground disabled:pointer-events-none data-disabled:pointer-events-none motion-reduce:transition-none',
         className,
       )}
       {...props}

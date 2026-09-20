@@ -101,9 +101,12 @@ element. The forwarded ref targets the rendered root.
 | `style`         | -               | Applied last as the instance override          |
 
 The component writes `display: grid`, the one-column fallback, and any provided layout props as
-inline styles on the root. For media or container query layouts, omit `columns` and
-`minChildWidth`, then set `grid-template-columns` through `className`. The `style` prop is merged
-last and remains the final per-instance override.
+inline styles on the root, and inline styles win over declarations from consumer classes. This
+package therefore overrides `grid-template-columns` per instance only through the `style` prop,
+which is merged last and remains the final override. The Tailwind variants keep
+`grid-template-columns` out of inline styles when both layout props are omitted, so their recipe of
+omitting `columns` and `minChildWidth` and letting the stylesheet own the template does not apply
+here.
 
 ## Intentional sugar and differences from upstream
 
@@ -121,6 +124,9 @@ last and remains the final per-instance override.
 
 ## Local changelog
 
+- 2026-09-20: Corrected the styling guidance: this package overrides `grid-template-columns` per
+  instance through `style` only, because the inline one-column fallback beats consumer classes; the
+  omit-both-props className recipe is Tailwind-variant behavior.
 - 2026-08-13: Reject invalid numeric `minChildWidth` values instead of emitting an invalid CSS
   grid track definition.
 - 2026-07-30: Reject invalid `columns` values instead of emitting an invalid CSS `repeat()` track list.

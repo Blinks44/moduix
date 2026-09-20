@@ -159,7 +159,7 @@ const SignaturePadClearTrigger = forwardRef<
 
 const SignaturePadCanvas = forwardRef<
   ComponentRef<typeof SignaturePadPrimitive.Control>,
-  Omit<ComponentProps<typeof SignaturePadPrimitive.Control>, 'children'>
+  Omit<ComponentProps<typeof SignaturePadPrimitive.Control>, 'asChild' | 'children'>
 >(function SignaturePadCanvas({ className, ...props }, ref) {
   return (
     <SignaturePadControl ref={ref} className={className} {...props}>

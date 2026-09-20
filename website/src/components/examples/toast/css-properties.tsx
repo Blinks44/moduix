@@ -119,11 +119,6 @@ const toastOverrideCssProperties: CssPropertyInput[] = [
   ],
   ['--moduix-toast-close-size', 'var(--moduix-spacing-7)', 'Controls close button size.'],
   [
-    '--moduix-toast-close-transition',
-    'var(--moduix-transition-default)',
-    'Controls close button transition timing.',
-  ],
-  [
     '--moduix-toast-color',
     'var(--moduix-toast-info-color, var(--moduix-color-card-foreground))',
     'Controls toast text color.',
@@ -216,8 +211,8 @@ const toastOverrideCssProperties: CssPropertyInput[] = [
     'var(--moduix-line-height-text-sm)',
     'Controls title line height.',
   ],
-  ['--moduix-toast-transition', '400ms', 'Controls toast movement transition.'],
-  ['--moduix-toast-transition-out', '400ms', 'Controls exit movement transition.'],
+  ['--moduix-toast-transition', '350ms', 'Controls toast movement transition.'],
+  ['--moduix-toast-transition-out', '350ms', 'Controls exit movement transition.'],
   ['--moduix-toast-opacity-transition-out', '200ms', 'Controls exit opacity transition.'],
   [
     '--moduix-toast-viewport-inset',
@@ -240,7 +235,6 @@ const toastOverrideCssProperties: CssPropertyInput[] = [
     'Controls warning toast text color.',
   ],
   ['--moduix-toast-width', '20rem', 'Controls toast width.'],
-  ['--moduix-toast-z-index', 'var(--moduix-z-toast)', 'Controls toast stack z-index.'],
 ];
 
 export function ToastCssPropertiesPanel() {

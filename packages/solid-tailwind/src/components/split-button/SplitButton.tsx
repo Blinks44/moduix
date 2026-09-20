@@ -1,4 +1,3 @@
-import { useFocusVisible } from '@ark-ui/solid';
 import { Menu as MenuPrimitive } from '@ark-ui/solid/menu';
 import { cva } from 'class-variance-authority';
 import type { Accessor, ComponentProps, JSX } from 'solid-js';
@@ -8,6 +7,7 @@ import { ChevronDownIcon } from '@/lib/moduix/icons/ui';
 import { OverlayPortal } from '@/lib/moduix/overlayPortal';
 import { Button } from '../button';
 import { Menu } from '../menu';
+import { menuContentVariants, menuPositionerVariants } from '../menu/Menu';
 
 type ButtonProps = ComponentProps<typeof Button>;
 type SplitButtonVariant = Exclude<NonNullable<ButtonProps['variant']>, 'link'>;
@@ -47,13 +47,13 @@ type SplitButtonContentProps = ComponentProps<typeof MenuPrimitive.Content>;
 type SplitButtonPositionerProps = ComponentProps<typeof MenuPrimitive.Positioner>;
 
 const splitButtonTriggerVariants = cva(
-  "relative min-w-0 -ms-px rounded-s-none before:pointer-events-none before:absolute before:inset-y-1.5 before:start-0 before:w-px before:bg-current before:opacity-[0.16] before:content-['']",
+  "relative min-w-0 -ms-[calc(var(--moduix-button-border-width,var(--moduix-border-width-sm))*-1)] rounded-s-none before:pointer-events-none before:absolute before:inset-y-1.5 before:start-0 before:w-px before:bg-current before:opacity-[0.16] before:content-['']",
   {
     variants: {
       size: {
         xs: 'px-2',
         sm: 'px-2.5',
-        md: 'px-4',
+        md: 'px-3',
         lg: 'px-3.5',
         xl: 'px-4',
       },
@@ -143,9 +143,15 @@ function SplitButtonAction(props: SplitButtonActionProps) {
 }
 
 function SplitButtonTrigger(props: SplitButtonTriggerProps) {
-  const [local, others] = splitProps(props, ['children', 'class', 'size', 'variant', 'aria-label']);
+  const [local, others] = splitProps(props, [
+    'aria-label',
+    'children',
+    'class',
+    'ref',
+    'size',
+    'variant',
+  ]);
   const context = useSplitButtonContext('SplitButton.Trigger');
-  const focusVisible = useFocusVisible();
   const resolvedChildren = children(() => local.children);
   const resolvedSize = () => local.size ?? context.size();
   const resolvedVariant = () => local.variant ?? context.variant();
@@ -164,6 +170,7 @@ function SplitButtonTrigger(props: SplitButtonTriggerProps) {
       asChild={(triggerProps) => (
         <Button
           {...triggerProps()}
+          ref={local.ref}
           data-slot="split-button-trigger"
           size={resolvedSize()}
           variant={resolvedVariant()}
@@ -176,7 +183,6 @@ function SplitButtonTrigger(props: SplitButtonTriggerProps) {
       data-slot="split-button-trigger"
       aria-label={ariaLabel()}
       class={triggerClass()}
-      data-focus-visible={focusVisible() ? '' : undefined}
     />
   );
 }
@@ -189,10 +195,7 @@ function SplitButtonPositioner(props: SplitButtonPositionerProps) {
       <MenuPrimitive.Positioner
         {...others}
         data-slot="split-button-positioner"
-        class={cn(
-          'z-[var(--z-index)] w-[var(--positioner-width,auto)] max-w-[var(--available-width)] outline-0',
-          local.class,
-        )}
+        class={cn(menuPositionerVariants(), local.class)}
       />
     </OverlayPortal>
   );
@@ -206,10 +209,7 @@ function SplitButtonContent(props: SplitButtonContentProps) {
       {...others}
       asChild={local.asChild}
       data-slot="split-button-content"
-      class={cn(
-        'relative z-[calc(var(--moduix-z-popup)+var(--layer-index,0))] flex max-w-[min(20rem,var(--available-width,100vw))] min-w-[min(max(var(--reference-width,0px),12rem),var(--available-width,100vw))] origin-[var(--transform-origin)] flex-col overflow-visible rounded-md bg-popover py-1 text-popover-foreground shadow-lg outline-1 outline-border [--arrow-background:var(--color-popover)] [--arrow-size:0.625rem] data-[state=closed]:animate-moduix-menu-closed data-[state=open]:animate-moduix-menu-open motion-reduce:[animation-delay:0ms] motion-reduce:[animation-duration:1ms]',
-        local.class,
-      )}
+      class={cn(menuContentVariants(), local.class)}
     >
       {local.asChild ? local.children : <Menu.Viewport>{local.children}</Menu.Viewport>}
     </MenuPrimitive.Content>

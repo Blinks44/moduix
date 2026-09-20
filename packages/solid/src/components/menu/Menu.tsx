@@ -1,4 +1,3 @@
-import { useFocusVisible } from '@ark-ui/solid';
 import type { HTMLArkProps } from '@ark-ui/solid/factory';
 import { ark } from '@ark-ui/solid/factory';
 import {
@@ -77,13 +76,11 @@ function MenuRootProvider(props: MenuRootProviderProps) {
 }
 
 function MenuTrigger(props: ComponentProps<typeof MenuPrimitive.Trigger>) {
-  const focusVisible = useFocusVisible();
   const [local, others] = splitProps(props, ['asChild', 'class']);
 
   return (
     <MenuPrimitive.Trigger
       asChild={local.asChild}
-      data-focus-visible={focusVisible() ? '' : undefined}
       class={clsx(!local.asChild && styles.trigger, local.class)}
       {...others}
       data-slot="menu-trigger"
@@ -118,13 +115,11 @@ function MenuIndicator(props: ComponentProps<typeof MenuPrimitive.Indicator>) {
 }
 
 function MenuContextTrigger(props: ComponentProps<typeof MenuPrimitive.ContextTrigger>) {
-  const focusVisible = useFocusVisible();
   const [local, others] = splitProps(props, ['asChild', 'class']);
 
   return (
     <MenuPrimitive.ContextTrigger
       asChild={local.asChild}
-      data-focus-visible={focusVisible() ? '' : undefined}
       class={clsx(!local.asChild && styles.contextTrigger, local.class)}
       {...others}
       data-slot="menu-context-trigger"
@@ -167,10 +162,10 @@ function MenuViewport(props: HTMLArkProps<'div'>) {
   return (
     <ark.div
       asChild={local.asChild}
-      data-scope="menu"
-      data-part="viewport"
       class={clsx(styles.viewport, local.class)}
       {...others}
+      data-scope="menu"
+      data-part="viewport"
       data-slot="menu-viewport"
     />
   );
@@ -204,9 +199,9 @@ function MenuItem(props: MenuItemProps) {
 
   return (
     <MenuPrimitive.Item
-      data-tone={local.tone ?? 'default'}
       class={clsx(styles.item, local.class)}
       {...others}
+      data-tone={local.tone ?? 'default'}
       data-slot="menu-item"
     />
   );
@@ -294,9 +289,9 @@ function MenuRadioItem(props: MenuRadioItemProps) {
 
   return (
     <MenuPrimitive.RadioItem
-      data-indicator-position={local.indicator ?? 'start'}
       class={clsx(styles.radioItem, local.class)}
       {...others}
+      data-indicator-position={local.indicator ?? 'start'}
       data-slot="menu-radio-item"
     />
   );
@@ -307,9 +302,9 @@ function MenuCheckboxItem(props: MenuCheckboxItemProps) {
 
   return (
     <MenuPrimitive.CheckboxItem
-      data-indicator-position={local.indicator ?? 'start'}
       class={clsx(styles.checkboxItem, local.class)}
       {...others}
+      data-indicator-position={local.indicator ?? 'start'}
       data-slot="menu-checkbox-item"
     />
   );

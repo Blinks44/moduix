@@ -8,7 +8,41 @@ import { V2MigrationHero } from '@/components/changelog/v2-migration-hero';
 import { ChartHero } from '@/components/changelog/chart-hero';
 import { NavigationMenuHero } from '@/components/changelog/navigation-menu-hero';
 import { TableOfContentsHero } from '@/components/changelog/table-of-contents-hero';
+import { SolidReleaseHero } from '@/components/changelog/solid-release-hero';
+import { TailwindReleaseHero } from '@/components/changelog/tailwind-release-hero';
 import { ChangelogNewsItem } from '@/components/changelog/hero';
+
+<ChangelogNewsItem>
+  <TailwindReleaseHero />
+
+moduix propose désormais une variante Tailwind complète. [`@moduix/react-tailwind`](/docs/quick-start)
+et `@moduix/solid-tailwind` habillent le catalogue complet de composants avec Tailwind CSS v4 et
+conservent les mêmes contrats de composants que les paquets CSS Modules.
+
+### À retenir
+
+- Des styles par classes utilitaires : les composants utilisent les utilitaires Tailwind CSS v4 et
+  les tokens partagés, et vos classes `className`/`class` sont fusionnées après les valeurs par
+  défaut avec `tailwind-merge`.
+- La prise en charge du registre shadcn : installez les composants depuis les espaces de noms
+  `@moduix-react-tailwind` et `@moduix-solid-tailwind`, la feuille de style de base étant copiée
+  dans votre projet.
+</ChangelogNewsItem>
+
+<ChangelogNewsItem>
+  <SolidReleaseHero />
+
+moduix arrive sur Solid. [`@moduix/solid`](/docs/quick-start) et `@moduix/solid-tailwind` apportent
+le catalogue complet de composants aux applications Solid, avec des API Solid natives construites
+sur les primitives Ark UI.
+
+### À retenir
+
+- Des composants natifs : composition Solid, prop `class`, primitives Ark UI pour Solid et les mêmes
+  contrats de composants que les paquets React, sans couche de compatibilité.
+- Les deux approches de style sortent ensemble : les variantes CSS Modules et Tailwind partagent les
+  tokens, les thèmes et les espaces de noms de registre `@moduix-solid` et `@moduix-solid-tailwind`.
+</ChangelogNewsItem>
 
 <ChangelogNewsItem>
   <TableOfContentsHero />

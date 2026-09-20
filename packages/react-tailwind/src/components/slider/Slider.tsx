@@ -12,13 +12,13 @@ const SliderRoot = forwardRef<
   return (
     <SliderPrimitive.Root
       ref={ref}
-      data-readonly={readOnly ? '' : undefined}
       className={cn(
         "group flex w-48 max-w-full flex-col gap-2 text-foreground data-disabled:opacity-50 data-[orientation=vertical]:grid data-[orientation=vertical]:h-48 data-[orientation=vertical]:w-max data-[orientation=vertical]:grid-cols-[auto_max-content] data-[orientation=vertical]:grid-rows-[auto_minmax(0,1fr)] data-[orientation=vertical]:items-center data-[orientation=vertical]:gap-x-2 data-[orientation=vertical]:[grid-template-areas:'label_value'_'control_markers']",
         className,
       )}
       readOnly={readOnly}
       {...props}
+      data-readonly={readOnly ? '' : undefined}
       data-slot="slider-root"
     />
   );
@@ -161,7 +161,7 @@ const SliderMarkerGroup = forwardRef<
     <SliderPrimitive.MarkerGroup
       ref={ref}
       className={cn(
-        'mt-2 flex justify-between group-data-[orientation=vertical]:m-0 group-data-[orientation=vertical]:h-full group-data-[orientation=vertical]:flex-col group-data-[orientation=vertical]:[grid-area:markers]',
+        'mt-2 group-data-[orientation=vertical]:m-0 group-data-[orientation=vertical]:h-full group-data-[orientation=vertical]:[grid-area:markers]',
         className,
       )}
       {...props}
@@ -178,7 +178,7 @@ const SliderMarker = forwardRef<
     <SliderPrimitive.Marker
       ref={ref}
       className={cn(
-        "relative text-xs leading-4 text-muted-foreground before:absolute before:start-1/2 before:-top-2 before:size-1 before:-translate-x-1/2 before:rounded-full before:bg-border before:content-[''] data-[orientation=vertical]:before:-start-2 data-[orientation=vertical]:before:top-1/2 data-[orientation=vertical]:before:-translate-y-1/2 data-[state=at-value]:before:bg-primary group-data-invalid:data-[state=at-value]:before:bg-destructive data-[state=under-value]:before:bg-primary group-data-invalid:data-[state=under-value]:before:bg-destructive",
+        "text-xs leading-4 text-muted-foreground before:absolute before:start-1/2 before:-top-2 before:size-1 before:-translate-x-1/2 before:rounded-full before:bg-border before:content-[''] data-[orientation=vertical]:before:-start-2 data-[orientation=vertical]:before:top-1/2 data-[orientation=vertical]:before:-translate-y-1/2 data-[state=at-value]:before:bg-primary group-data-invalid:data-[state=at-value]:before:bg-destructive data-[state=under-value]:before:bg-primary group-data-invalid:data-[state=under-value]:before:bg-destructive",
         className,
       )}
       {...props}

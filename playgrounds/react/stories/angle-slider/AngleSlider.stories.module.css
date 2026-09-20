@@ -10,11 +10,6 @@
 
 .customRoot {
   --moduix-angle-slider-color: var(--moduix-color-chart-4);
-  --moduix-angle-slider-control-bg: color-mix(
-    in oklab,
-    var(--moduix-color-chart-4) 10%,
-    var(--moduix-color-card)
-  );
   --moduix-angle-slider-indicator-bg: var(--moduix-color-chart-4);
   --moduix-angle-slider-label-color: var(--moduix-color-foreground);
   --moduix-angle-slider-marker-active-color: color-mix(
@@ -29,8 +24,8 @@
   );
   --moduix-angle-slider-ring-thickness: 1rem;
   --moduix-angle-slider-size: 10rem;
-  --moduix-angle-slider-thumb-bg: var(--moduix-color-chart-4);
-  --moduix-angle-slider-thumb-border-color: var(--moduix-color-background);
+  --moduix-angle-slider-thumb-bg: var(--moduix-color-background);
+  --moduix-angle-slider-thumb-border-color: var(--moduix-color-chart-4);
   --moduix-angle-slider-thumb-size: 1.125rem;
   --moduix-angle-slider-track-bg: color-mix(
     in oklab,

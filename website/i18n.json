@@ -91,25 +91,15 @@
     "ru": "GitHub",
     "fr": "GitHub"
   },
-  "homeDesignFoundations": {
-    "en": "Design foundations",
-    "ru": "Основа библиотеки",
-    "fr": "Fondations du design"
-  },
-  "homeBuiltOnArk": {
-    "en": "Powered by Ark UI",
-    "ru": "На базе Ark UI",
-    "fr": "Propulsé par Ark UI"
-  },
-  "homeShadcnInspired": {
-    "en": "shadcn-inspired",
-    "ru": "В духе shadcn",
-    "fr": "Inspiré par shadcn"
+  "homeReleaseBadge": {
+    "en": "New: Tailwind CSS support",
+    "ru": "Новое: поддержка Tailwind CSS",
+    "fr": "Nouveau : prise en charge de Tailwind CSS"
   },
   "homeLead": {
-    "en": "A multi-framework component system built on Ark UI. React and Solid ship with native APIs, accessible behavior, considered defaults, and matching CSS Modules and Tailwind styling tracks.",
-    "ru": "Мультифреймворковая система компонентов на базе Ark UI. React и Solid уже доступны с нативными API, доступным поведением, продуманными настройками и равноправными вариантами на CSS Modules и Tailwind.",
-    "fr": "Un système de composants multi-framework fondé sur Ark UI. React et Solid proposent des API natives, un comportement accessible, des valeurs par défaut soignées et deux approches équivalentes avec CSS Modules et Tailwind."
+    "en": "A multi-framework component system built on <a href='https://ark-ui.com/'>Ark UI</a>, with <a href='https://ui.shadcn.com/'>shadcn</a>-compatible registries. React and Solid ship with native APIs, accessible behavior, considered defaults, and matching CSS Modules and <a href='https://tailwindcss.com/'>Tailwind</a> styling tracks.",
+    "ru": "Мультифреймворковая система компонентов на базе <a href='https://ark-ui.com/'>Ark UI</a> с реестрами, совместимыми с <a href='https://ui.shadcn.com/'>shadcn</a>. React и Solid уже доступны с нативными API, доступным поведением, продуманными настройками и равноправными вариантами на CSS Modules и <a href='https://tailwindcss.com/'>Tailwind</a>.",
+    "fr": "Un système de composants multi-framework fondé sur <a href='https://ark-ui.com/'>Ark UI</a>, dont les registres sont compatibles avec <a href='https://ui.shadcn.com/'>shadcn</a>. React et Solid proposent des API natives, un comportement accessible, des valeurs par défaut soignées et deux approches équivalentes avec CSS Modules et <a href='https://tailwindcss.com/'>Tailwind</a>."
   },
   "homeFrameworkStatus": {
     "en": "React and Solid are available today. Vue and Svelte are planned.",
@@ -1156,6 +1146,36 @@
     "ru": "Мажорный релиз",
     "fr": "Version majeure"
   },
+  "changelogNewFramework": {
+    "en": "New framework",
+    "ru": "Новый фреймворк",
+    "fr": "Nouveau framework"
+  },
+  "changelogNewStylingTrack": {
+    "en": "New styling track",
+    "ru": "Новый вариант стилизации",
+    "fr": "Nouvelle approche de style"
+  },
+  "solidReleaseHeroDate": {
+    "en": "September 13, 2026",
+    "ru": "13 сентября 2026 г.",
+    "fr": "13 septembre 2026"
+  },
+  "solidReleaseHeroSummary": {
+    "en": "The complete moduix component system now ships for Solid, in CSS Modules and Tailwind tracks.",
+    "ru": "Полная система компонентов moduix теперь доступна для Solid - в вариантах на CSS Modules и Tailwind.",
+    "fr": "Le système de composants moduix complet est désormais disponible pour Solid, en CSS Modules comme en Tailwind."
+  },
+  "tailwindReleaseHeroDate": {
+    "en": "September 20, 2026",
+    "ru": "20 сентября 2026 г.",
+    "fr": "20 septembre 2026"
+  },
+  "tailwindReleaseHeroSummary": {
+    "en": "The complete moduix catalog now ships styled with Tailwind CSS v4, for both React and Solid.",
+    "ru": "Полный каталог moduix теперь доступен со стилями Tailwind CSS v4 - для React и Solid.",
+    "fr": "Le catalogue moduix complet est désormais disponible avec des styles Tailwind CSS v4, pour React et Solid."
+  },
   "chartHeroSummary": {
     "en": "Accessible, composable charts powered by TanStack Charts.",
     "ru": "Доступные графики на базе TanStack Charts, которые можно собрать под свой сценарий.",
@@ -1305,6 +1325,11 @@
     "en": "Planned",
     "ru": "Запланировано",
     "fr": "Prévu"
+  },
+  "frameworkSupportInProgress": {
+    "en": "In progress",
+    "ru": "В разработке",
+    "fr": "En cours"
   },
   "copyMarkdownText": {
     "en": "Copy Markdown",

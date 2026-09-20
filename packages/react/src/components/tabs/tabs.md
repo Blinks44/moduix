@@ -22,6 +22,10 @@ State and callbacks must remain Ark-shaped. `onValueChange(details)` exposes the
 
 - `Tabs` is the short root form and equals `Tabs.Root`.
 - `Tabs.RootProvider` connects parts to state created with moduix `useTabs()` or `Tabs.useTabs()`.
+- `Tabs.RootProvider` reads orientation from the Ark `data-orientation` root DOM hook exposed by the
+  `useTabs()` state to resolve the vertical `line` → `default` fallback. This is an Ark DOM-contract
+  dependency; if upstream ever drops the attribute, the fallback degrades and the regression tests
+  catch it.
 - `Tabs.List`, `Tabs.Trigger`, `Tabs.Indicator`, and `Tabs.Content` are thin styled Ark wrappers.
 - `variant?: 'default' | 'line'` is the only moduix visual sugar on `Tabs` and
   `Tabs.RootProvider`; `line` applies to horizontal tabs only. Vertical tabs use the default filled
@@ -148,6 +152,9 @@ The root defaults to a column layout and switches to row layout for `orientation
 
 ## Local changelog
 
+- 2026-09-20: Moved the owned `data-variant` attribute after consumer props in `Tabs` and
+  `Tabs.RootProvider` so consumers cannot override the vertical `line` → `default` fallback, and
+  documented the `RootProvider` orientation lookup as an Ark DOM-contract dependency.
 - 2026-09-01: Replaced ineffective indicator transition shorthands with per-variant duration and
   timing-function variables that Ark applies at runtime.
 - 2026-08-13: Kept `Tabs.RootProvider`'s public `data-variant` aligned with `Tabs` for vertical

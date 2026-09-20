@@ -53,6 +53,8 @@ const TableRoot = forwardRef<HTMLTableElement, TableRootProps>(function TableRoo
     <ark.table
       ref={ref}
       asChild={asChild}
+      className={clsx(styles.root, className)}
+      {...props}
       data-scope="table"
       data-part="root"
       data-interactive={interactive || undefined}
@@ -61,8 +63,6 @@ const TableRoot = forwardRef<HTMLTableElement, TableRootProps>(function TableRoo
       data-sticky-header={stickyHeader || undefined}
       data-striped={striped || undefined}
       data-variant={variant}
-      className={clsx(styles.root, className)}
-      {...props}
       data-slot="table-root"
     />
   );
@@ -76,10 +76,10 @@ const TableScrollArea = forwardRef<HTMLDivElement, TableScrollAreaProps>(functio
     <ark.div
       ref={ref}
       asChild={asChild}
-      data-scope="table"
-      data-part="scroll-area"
       className={clsx(styles.scrollArea, className)}
       {...props}
+      data-scope="table"
+      data-part="scroll-area"
       data-slot="table-scroll-area"
     />
   );
@@ -93,11 +93,11 @@ const TableCaption = forwardRef<HTMLTableCaptionElement, TableCaptionProps>(func
     <ark.caption
       ref={ref}
       asChild={asChild}
+      className={clsx(styles.caption, className)}
+      {...props}
       data-scope="table"
       data-part="caption"
       data-side={side}
-      className={clsx(styles.caption, className)}
-      {...props}
       data-slot="table-caption"
     />
   );
@@ -109,10 +109,10 @@ const TableColumnGroup = forwardRef<HTMLTableColElement, TableColumnGroupProps>(
       <ark.colgroup
         ref={ref}
         asChild={asChild}
-        data-scope="table"
-        data-part="column-group"
         className={className}
         {...props}
+        data-scope="table"
+        data-part="column-group"
         data-slot="table-column-group"
       />
     );
@@ -127,11 +127,11 @@ const TableColumn = forwardRef<HTMLTableColElement, TableColumnProps>(function T
     <ark.col
       ref={ref}
       asChild={asChild}
-      data-scope="table"
-      data-part="column"
       width={htmlWidth ?? width}
       className={className}
       {...props}
+      data-scope="table"
+      data-part="column"
       data-slot="table-column"
     />
   );
@@ -145,10 +145,10 @@ const TableHeader = forwardRef<HTMLTableSectionElement, TableHeaderProps>(functi
     <ark.thead
       ref={ref}
       asChild={asChild}
-      data-scope="table"
-      data-part="header"
       className={clsx(styles.header, className)}
       {...props}
+      data-scope="table"
+      data-part="header"
       data-slot="table-header"
     />
   );
@@ -162,10 +162,10 @@ const TableBody = forwardRef<HTMLTableSectionElement, TableBodyProps>(function T
     <ark.tbody
       ref={ref}
       asChild={asChild}
-      data-scope="table"
-      data-part="body"
       className={clsx(styles.body, className)}
       {...props}
+      data-scope="table"
+      data-part="body"
       data-slot="table-body"
     />
   );
@@ -179,10 +179,10 @@ const TableFooter = forwardRef<HTMLTableSectionElement, TableFooterProps>(functi
     <ark.tfoot
       ref={ref}
       asChild={asChild}
-      data-scope="table"
-      data-part="footer"
       className={clsx(styles.footer, className)}
       {...props}
+      data-scope="table"
+      data-part="footer"
       data-slot="table-footer"
     />
   );
@@ -196,10 +196,10 @@ const TableRow = forwardRef<HTMLTableRowElement, TableRowProps>(function TableRo
     <ark.tr
       ref={ref}
       asChild={asChild}
-      data-scope="table"
-      data-part="row"
       className={clsx(styles.row, className)}
       {...props}
+      data-scope="table"
+      data-part="row"
       data-slot="table-row"
     />
   );
@@ -211,11 +211,11 @@ const TableColumnHeader = forwardRef<HTMLTableCellElement, TableColumnHeaderProp
       <ark.th
         ref={ref}
         asChild={asChild}
+        className={clsx(styles.columnHeader, numeric && styles.numeric, className)}
+        {...props}
         data-scope="table"
         data-part="column-header"
         data-numeric={numeric || undefined}
-        className={clsx(styles.columnHeader, numeric && styles.numeric, className)}
-        {...props}
         data-slot="table-column-header"
       />
     );
@@ -230,11 +230,11 @@ const TableCell = forwardRef<HTMLTableCellElement, TableCellProps>(function Tabl
     <ark.td
       ref={ref}
       asChild={asChild}
+      className={clsx(styles.cell, numeric && styles.numeric, className)}
+      {...props}
       data-scope="table"
       data-part="cell"
       data-numeric={numeric || undefined}
-      className={clsx(styles.cell, numeric && styles.numeric, className)}
-      {...props}
       data-slot="table-cell"
     />
   );
@@ -255,11 +255,11 @@ const TableEmpty = forwardRef<HTMLTableCellElement, TableEmptyProps>(function Ta
       <ark.td
         ref={ref}
         asChild={asChild}
-        data-scope="table"
-        data-part="empty"
         colSpan={colSpan}
         className={clsx(styles.cell, styles.empty, className)}
         {...props}
+        data-scope="table"
+        data-part="empty"
         data-slot="table-empty"
       >
         {children}

@@ -129,6 +129,10 @@ Passez un élément pour chaque titre suivi. `item.value`, l’attribut `id` du 
 titre. Omettez `scrollEl` lorsque la fenêtre gère le défilement ; passez la zone de lecture lorsqu’elle
 possède son propre conteneur défilant.
 
+Contrairement à Ark UI, `autoScroll` vaut `false` par défaut, à la fois pour `Toc` et pour
+`useToc()`. Passez `autoScroll` pour l’activer uniquement lorsque la révélation automatique de
+l’élément de navigation actif ne peut pas faire défiler un conteneur ancêtre.
+
 Utilisez `Toc.RootProvider` avec `useToc()` uniquement lorsque des contrôles extérieurs à l’arbre
 ont besoin du même état de suivi, par exemple `activeIds` ou `scrollTo`. React expose le store comme
 un objet ; Solid donne accès à son état réactif au moyen de la fonction retournée. Utilisez

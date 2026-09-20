@@ -287,7 +287,8 @@ Use `tone` to express the role of the copy without adding local color classes.
 
 ### Truncation
 
-Use `truncate` for a single-line ellipsis and `lineClamp` for dense multi-line previews. Add the
+Use `truncate` for a single-line ellipsis and `lineClamp` for dense multi-line previews. When both
+are set, `lineClamp` remains the effective constraint and overrides the single-line ellipsis. Add the
 expansion or disclosure behavior in the surrounding UI.
 
 <ExampleFrame variant="component">

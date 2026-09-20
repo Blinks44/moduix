@@ -61,12 +61,12 @@ const navigationMenuOverrideCssProperties: CssPropertyInput[] = [
   ],
   [
     '--moduix-navigation-menu-content-max-height',
-    '20rem',
+    '24rem',
     'Controls disclosure panel maximum height.',
   ],
   [
     '--moduix-navigation-menu-content-max-width',
-    '24rem',
+    '20rem',
     'Controls disclosure panel maximum width.',
   ],
   [
@@ -244,8 +244,8 @@ const navigationMenuOverrideCssProperties: CssPropertyInput[] = [
   ],
   [
     '--moduix-navigation-menu-viewport-offset',
-    'var(--moduix-spacing-2)',
-    'Controls space between the list and viewport.',
+    'var(--moduix-navigation-menu-indicator-size, var(--moduix-spacing-2-5))',
+    'Controls space between the list and viewport; the vertical orientation falls back to var(--moduix-spacing-2).',
   ],
   [
     '--moduix-navigation-menu-viewport-radius',
@@ -254,7 +254,7 @@ const navigationMenuOverrideCssProperties: CssPropertyInput[] = [
   ],
   [
     '--moduix-navigation-menu-viewport-transition',
-    '300ms ease',
+    'var(--moduix-popup-motion-duration, var(--moduix-duration-normal)) var(--moduix-popup-motion-easing, var(--moduix-ease-in-out))',
     'Controls viewport size and position transitions.',
   ],
   [

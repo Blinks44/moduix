@@ -54,7 +54,7 @@ const PinInputLabel = forwardRef<
   return (
     <PinInputPrimitive.Label
       ref={ref}
-      className={cn('text-sm leading-5 font-medium text-foreground', className)}
+      className={cn('text-sm font-medium text-foreground', className)}
       {...props}
       data-slot="pin-input-label"
     />
@@ -83,7 +83,7 @@ const PinInputInput = forwardRef<
     <PinInputPrimitive.Input
       ref={ref}
       className={cn(
-        'size-control-md flex-none rounded-md border border-border bg-background px-0 py-0 text-center text-lg leading-7 font-medium text-foreground tabular-nums outline-1 -outline-offset-1 outline-transparent transition-[border-color,outline-color,background-color] duration-200 ease-in-out placeholder:text-muted-foreground focus-visible:outline-ring disabled:pointer-events-none data-disabled:pointer-events-none data-invalid:border-destructive data-invalid:focus-visible:outline-destructive motion-reduce:transition-none',
+        'size-control-md flex-none rounded-md border border-border bg-background px-0 py-0 text-center text-lg font-medium text-foreground tabular-nums outline-1 -outline-offset-1 outline-transparent transition-[border-color,outline-color,background-color] duration-200 ease-in-out placeholder:text-muted-foreground focus-visible:outline-ring disabled:pointer-events-none data-disabled:pointer-events-none data-invalid:border-destructive data-invalid:focus-visible:outline-destructive motion-reduce:transition-none',
         className,
       )}
       {...props}

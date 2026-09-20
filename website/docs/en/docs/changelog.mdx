@@ -8,7 +8,40 @@ import { V2MigrationHero } from '@/components/changelog/v2-migration-hero';
 import { ChartHero } from '@/components/changelog/chart-hero';
 import { NavigationMenuHero } from '@/components/changelog/navigation-menu-hero';
 import { TableOfContentsHero } from '@/components/changelog/table-of-contents-hero';
+import { SolidReleaseHero } from '@/components/changelog/solid-release-hero';
+import { TailwindReleaseHero } from '@/components/changelog/tailwind-release-hero';
 import { ChangelogNewsItem } from '@/components/changelog/hero';
+
+<ChangelogNewsItem>
+  <TailwindReleaseHero />
+
+moduix now ships a complete Tailwind track. [`@moduix/react-tailwind`](/docs/quick-start) and
+`@moduix/solid-tailwind` style the full component catalog with Tailwind CSS v4 and keep the same
+component contracts as the CSS Modules packages.
+
+### Highlights
+
+- Utility-class styling: components ship with Tailwind CSS v4 utilities and shared tokens, and
+  consumer `className`/`class` values merge after the component defaults with `tailwind-merge`.
+- shadcn registry support: install components from the `@moduix-react-tailwind` and
+  `@moduix-solid-tailwind` registry namespaces, with the foundation stylesheet copied into your
+  project.
+</ChangelogNewsItem>
+
+<ChangelogNewsItem>
+  <SolidReleaseHero />
+
+moduix now ships for Solid. [`@moduix/solid`](/docs/quick-start) and `@moduix/solid-tailwind`
+bring the complete component catalog to Solid applications with native Solid APIs built on Ark UI
+primitives.
+
+### Highlights
+
+- Framework-native components: Solid composition with `class`, Ark UI Solid primitives, and the
+  same component contracts as the React packages - no compatibility layer.
+- Both styling tracks ship together: CSS Modules and Tailwind variants share tokens, theming, and
+  the `@moduix-solid` and `@moduix-solid-tailwind` registry namespaces.
+</ChangelogNewsItem>
 
 <ChangelogNewsItem>
   <TableOfContentsHero />

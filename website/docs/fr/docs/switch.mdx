@@ -530,6 +530,11 @@ ainsi que les variables CSS publiques `--moduix-switch-*` présentées ci-dessou
 des utilitaires et des classes supplémentaires ; les variables ci-dessous concernent CSS Modules, tandis que les attributs de données sont
 communs aux deux approches.
 
+Dans les variantes Tailwind, la distance de translation du thumb coché est codée en dur par taille. Si
+vous remplacez les utilitaires de largeur du contrôle ou de taille du thumb, remplacez aussi les
+utilitaires `translate-x` cochés correspondants. La variante CSS Modules recalcule le déplacement à
+partir de `--_switch-width`.
+
 ### Propriétés CSS
 
 <div className="docs-reference">

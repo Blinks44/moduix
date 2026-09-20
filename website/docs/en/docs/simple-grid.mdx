@@ -116,7 +116,9 @@ Use `asChild` when the grid root should be a semantic element such as `ul`, `sec
 It requires exactly one element child, which becomes the rendered root. In React, pass `asChild` as
 a boolean; in Solid, use its render-function form to return that element. For named grid areas,
 unequal tracks, or items that span tracks, omit both layout props and define the grid template in
-your own CSS.
+your own CSS; this works in the Tailwind variants, while the CSS Modules packages override
+`grid-template-columns` per instance through the `style` prop because the root always writes an
+inline one-column fallback.
 
 ## Examples
 
@@ -202,8 +204,11 @@ Use `asChild` when the grid itself should carry list semantics. This example ren
 ## Styling
 
 `SimpleGrid` does not define component-specific CSS variables. Its layout props are written as
-inline styles on the rendered root, so omit `columns` and `minChildWidth` when the stylesheet should
-own `grid-template-columns`.
+inline styles on the rendered root. In the Tailwind variants, the root has no inline
+`grid-template-columns`, so you can omit `columns` and `minChildWidth` and let your stylesheet or
+`grid-cols-*` utilities own the template. In the CSS Modules packages, the root always writes an
+inline `grid-template-columns` (the one-column fallback), and inline styles beat any consumer class,
+so pass custom templates per instance through the `style` prop.
 
 Use `className` in React or `class` in Solid for structural styles. Tailwind variants use native
 utility classes and consumer class overrides; the data attributes and `data-slot` hook are shared by
@@ -211,8 +216,9 @@ both styling tracks.
 
 ### Styling hooks
 
-- `className` or `class` styles the rendered root for width, placement, backgrounds, and responsive
-  layout.
+- `className` or `class` styles the rendered root for width, placement, and backgrounds; responsive
+  `grid-template-columns` overrides go through `grid-cols-*` utilities in the Tailwind variants and
+  through `style` in the CSS Modules packages.
 - `data-scope="simple-grid"` and `data-part="root"` follow Ark's styling conventions.
 - `data-slot="simple-grid-root"` is the stable moduix selector for local CSS.
 - `columns`, `minChildWidth`, `gap`, `rowGap`, and `columnGap` write inline styles and take priority

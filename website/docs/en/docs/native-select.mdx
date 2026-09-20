@@ -113,7 +113,9 @@ NativeSelect / NativeSelect.Root
 
 ## Composition
 
-Use `defaultValue` for an uncontrolled select. Use `value` with `onChange` when application state owns
+React builds an uncontrolled select with the native `defaultValue` prop. In Solid, pass the native
+`selected` attribute to the `<option>` that should be initially selected: a `defaultValue` prop on
+the Solid `NativeSelect` has no effect. Use `value` with `onChange` when application state owns
 the current value. Wrap `NativeSelect` in `Field.Root` when the label, supporting text, validation, or
 disabled state should be shared with the control. The `Field` parts connect that content to the native
 select while the browser still owns option selection. With `multiple` or `size > 1`, the browser owns

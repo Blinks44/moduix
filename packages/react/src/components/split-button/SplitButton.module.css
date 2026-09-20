@@ -17,7 +17,6 @@
     );
     border-start-start-radius: 0;
     border-end-start-radius: 0;
-    padding-inline: var(--moduix-split-button-trigger-padding-x-md, var(--moduix-spacing-3));
   }
 
   .trigger::before {
@@ -42,6 +41,10 @@
 
   .trigger[data-size='sm'] {
     padding-inline: var(--moduix-split-button-trigger-padding-x-sm, var(--moduix-spacing-2-5));
+  }
+
+  .trigger[data-size='md'] {
+    padding-inline: var(--moduix-split-button-trigger-padding-x-md, var(--moduix-spacing-3));
   }
 
   .trigger[data-size='lg'] {

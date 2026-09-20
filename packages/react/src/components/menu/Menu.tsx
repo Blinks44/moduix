@@ -152,10 +152,10 @@ const MenuViewport = forwardRef<ComponentRef<typeof ark.div>, HTMLArkProps<'div'
     return (
       <ark.div
         ref={ref}
-        data-scope="menu"
-        data-part="viewport"
         className={clsx(styles.viewport, className)}
         {...props}
+        data-scope="menu"
+        data-part="viewport"
         data-slot="menu-viewport"
       />
     );
@@ -197,9 +197,9 @@ const MenuItem = forwardRef<ComponentRef<typeof MenuPrimitive.Item>, MenuItemPro
     return (
       <MenuPrimitive.Item
         ref={ref}
-        data-tone={tone}
         className={clsx(styles.item, className)}
         {...props}
+        data-tone={tone}
         data-slot="menu-item"
       />
     );
@@ -295,9 +295,9 @@ const MenuRadioItem = forwardRef<ComponentRef<typeof MenuPrimitive.RadioItem>, M
     return (
       <MenuPrimitive.RadioItem
         ref={ref}
-        data-indicator-position={indicator}
         className={clsx(styles.radioItem, className)}
         {...props}
+        data-indicator-position={indicator}
         data-slot="menu-radio-item"
       />
     );
@@ -311,9 +311,9 @@ const MenuCheckboxItem = forwardRef<
   return (
     <MenuPrimitive.CheckboxItem
       ref={ref}
-      data-indicator-position={indicator}
       className={clsx(styles.checkboxItem, className)}
       {...props}
+      data-indicator-position={indicator}
       data-slot="menu-checkbox-item"
     />
   );

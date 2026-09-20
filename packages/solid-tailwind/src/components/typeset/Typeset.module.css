@@ -116,8 +116,9 @@
       text-decoration-color: currentColor;
     }
     &:where(a:focus-visible) {
-      outline: 2px solid var(--moduix-color-ring, currentColor);
-      outline-offset: 2px;
+      outline: var(--moduix-focus-ring-width, var(--moduix-border-width-md)) solid
+        var(--moduix-color-ring, currentColor);
+      outline-offset: var(--moduix-focus-ring-offset, var(--moduix-spacing-0-5));
       border-radius: 0.125em;
     }
     &:where(:is(h1, h2, h3, h4, h5, h6) :is(a)) {
@@ -132,7 +133,11 @@
       font-weight: 600;
     }
     &:where(mark) {
-      background-color: color-mix(in oklab, oklch(0.86 0.17 95) 40%, transparent);
+      background-color: color-mix(
+        in oklab,
+        var(--moduix-color-warning, currentColor) 40%,
+        transparent
+      );
       color: inherit;
       padding: 0.05em 0.15em;
       border-radius: 0.2em;

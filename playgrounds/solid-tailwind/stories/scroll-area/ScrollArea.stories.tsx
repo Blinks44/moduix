@@ -2,7 +2,7 @@ import { For } from 'solid-js';
 import type { Meta, StoryObj } from 'storybook-solidjs-vite';
 import { Button } from '@/components/button/Button';
 import { ScrollArea } from '@/components/scroll-area/ScrollArea';
-import { insideScrollSections } from '../../../solid/stories/data/insideScrollSections';
+import { insideScrollSections } from '../data/insideScrollSections';
 
 const meta = {
   title: 'Components/ScrollArea',

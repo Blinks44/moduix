@@ -24,6 +24,7 @@ import styles from './Tour.module.css';
 const DEFAULT_CLOSE_BUTTON_LABEL = 'Close tour';
 
 type TourRootProps = ComponentProps<typeof TourPrimitive.Root> & OverlayPortalProps;
+type TourCloseIconProps = Omit<ComponentProps<typeof TourPrimitive.CloseTrigger>, 'asChild'>;
 
 function TourRoot({
   lazyMount = true,
@@ -197,26 +198,25 @@ const TourCloseTrigger = forwardRef<
   );
 });
 
-const TourCloseIcon = forwardRef<
-  ComponentRef<typeof CloseButton.Root>,
-  Omit<ComponentProps<typeof TourPrimitive.CloseTrigger>, 'asChild'>
->(function TourCloseIcon(
-  { className, children, 'aria-label': ariaLabel = DEFAULT_CLOSE_BUTTON_LABEL, ...props },
-  ref,
-) {
-  return (
-    <TourPrimitive.CloseTrigger asChild {...props}>
-      <CloseButton.Root
-        ref={ref}
-        data-slot="tour-close-icon"
-        aria-label={ariaLabel}
-        className={clsx(styles.closeIcon, className)}
-      >
-        {children}
-      </CloseButton.Root>
-    </TourPrimitive.CloseTrigger>
-  );
-});
+const TourCloseIcon = forwardRef<ComponentRef<typeof CloseButton.Root>, TourCloseIconProps>(
+  function TourCloseIcon(
+    { className, children, 'aria-label': ariaLabel = DEFAULT_CLOSE_BUTTON_LABEL, ...props },
+    ref,
+  ) {
+    return (
+      <TourPrimitive.CloseTrigger asChild {...props}>
+        <CloseButton.Root
+          ref={ref}
+          data-slot="tour-close-icon"
+          aria-label={ariaLabel}
+          className={clsx(styles.closeIcon, className)}
+        >
+          {children}
+        </CloseButton.Root>
+      </TourPrimitive.CloseTrigger>
+    );
+  },
+);
 
 const TourControl = forwardRef<
   ComponentRef<typeof TourPrimitive.Control>,
@@ -295,3 +295,5 @@ export {
   waitForEvent,
   waitForPromise,
 };
+
+export type { TourCloseIconProps, TourRootProps };

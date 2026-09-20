@@ -2,6 +2,7 @@ import { createListCollection } from '@ark-ui/react/collection';
 import { expect, test } from '@rstest/core';
 import { fireEvent, render, screen, waitFor } from '@testing-library/react';
 import userEvent from '@testing-library/user-event';
+import { createRef } from 'react';
 import { Field, Select, useSelect, useSelectContext } from '../src';
 
 const fruits = createListCollection({
@@ -173,4 +174,26 @@ test('exposes RootProvider state through the moduix context hook', () => {
   render(<ProviderSelect />);
 
   expect(screen.getByRole('status')).toHaveTextContent('mango');
+});
+
+test('preserves native asChild composition and forwards its root ref', () => {
+  const rootRef = createRef<HTMLDivElement>();
+
+  const { container } = render(
+    <Select ref={rootRef} asChild collection={fruits}>
+      <section aria-label="Fruit selection">
+        <Select.Label>Fruit</Select.Label>
+        <Select.Field placeholder="Select fruit" />
+        <Select.HiddenSelect />
+      </section>
+    </Select>,
+  );
+
+  const root = screen.getByRole('region', { name: 'Fruit selection' });
+
+  expect(root.tagName).toBe('SECTION');
+  expect(root).toHaveAttribute('data-slot', 'select-root');
+  expect(root.querySelector('select')).toBeInTheDocument();
+  expect(container.contains(root)).toBe(true);
+  expect(rootRef.current).toBe(root);
 });

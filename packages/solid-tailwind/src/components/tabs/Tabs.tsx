@@ -10,13 +10,13 @@ function TabsRoot(props: ComponentProps<typeof TabsPrimitive.Root> & { variant?:
 
   return (
     <TabsPrimitive.Root
-      data-variant={local.orientation === 'vertical' ? 'default' : (local.variant ?? 'default')}
       class={cn(
         'group/tabs box-border flex w-full min-w-0 flex-col gap-3 text-foreground data-[orientation=vertical]:flex-row data-[orientation=vertical]:items-stretch',
         local.class,
       )}
       orientation={local.orientation}
       {...others}
+      data-variant={local.orientation === 'vertical' ? 'default' : (local.variant ?? 'default')}
       data-slot="tabs-root"
     />
   );
@@ -35,13 +35,13 @@ function TabsRootProvider(
 
   return (
     <TabsPrimitive.RootProvider
-      data-variant={orientation() === 'vertical' ? 'default' : (local.variant ?? 'default')}
       class={cn(
         'group/tabs box-border flex w-full min-w-0 flex-col gap-3 text-foreground data-[orientation=vertical]:flex-row data-[orientation=vertical]:items-stretch',
         local.class,
       )}
       value={local.value}
       {...others}
+      data-variant={orientation() === 'vertical' ? 'default' : (local.variant ?? 'default')}
       data-slot="tabs-root-provider"
     />
   );
@@ -83,7 +83,7 @@ function TabsIndicator(props: ComponentProps<typeof TabsPrimitive.Indicator>) {
   return (
     <TabsPrimitive.Indicator
       class={cn(
-        'pointer-events-none absolute top-1/2 left-[var(--left,0)] z-0 h-8 w-[var(--width,0)] -translate-y-1/2 rounded-md bg-background shadow-sm transition-[var(--transition-property,translate)] duration-200 ease-in-out group-data-[orientation=vertical]/tabs:top-[var(--top,0)] group-data-[orientation=vertical]/tabs:left-1/2 group-data-[orientation=vertical]/tabs:h-[var(--height,0)] group-data-[orientation=vertical]/tabs:w-[calc(100%-0.5rem)] group-data-[orientation=vertical]/tabs:-translate-x-1/2 group-data-[orientation=vertical]/tabs:translate-y-0 group-data-[variant=line]/tabs:top-auto group-data-[variant=line]/tabs:bottom-0 group-data-[variant=line]/tabs:h-0.5 group-data-[variant=line]/tabs:[translate:none] group-data-[variant=line]/tabs:rounded-full group-data-[variant=line]/tabs:bg-foreground group-data-[variant=line]/tabs:shadow-none motion-reduce:transition-none',
+        'pointer-events-none absolute top-1/2 left-[var(--left,0)] z-0 h-8 w-[var(--width,0)] -translate-y-1/2 rounded-md bg-background shadow-sm transition-[var(--transition-property,translate)] [--transition-duration:var(--moduix-duration-normal)] [--transition-timing-function:var(--moduix-ease-in-out)] group-data-[orientation=vertical]/tabs:top-[var(--top,0)] group-data-[orientation=vertical]/tabs:left-1/2 group-data-[orientation=vertical]/tabs:h-[var(--height,0)] group-data-[orientation=vertical]/tabs:w-[calc(100%-0.5rem)] group-data-[orientation=vertical]/tabs:-translate-x-1/2 group-data-[orientation=vertical]/tabs:translate-y-0 group-data-[variant=line]/tabs:top-auto group-data-[variant=line]/tabs:bottom-0 group-data-[variant=line]/tabs:h-0.5 group-data-[variant=line]/tabs:[translate:none] group-data-[variant=line]/tabs:rounded-full group-data-[variant=line]/tabs:bg-foreground group-data-[variant=line]/tabs:shadow-none motion-reduce:transition-none',
         local.class,
       )}
       {...others}

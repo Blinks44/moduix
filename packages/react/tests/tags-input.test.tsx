@@ -1,7 +1,7 @@
 import { expect, test } from '@rstest/core';
 import { fireEvent, render, screen, waitFor } from '@testing-library/react';
 import type { ComponentProps } from 'react';
-import { useState } from 'react';
+import { createRef, useState } from 'react';
 import { TagsInput, useTagsInput } from '../src';
 
 function Tags({
@@ -25,6 +25,30 @@ function Tags({
     </TagsInput>
   );
 }
+
+test('renders the standard item tree with stable parts and default actions', () => {
+  render(<Tags defaultValue={['React', 'Solid']} />);
+
+  const root = screen.getByText('Frameworks').parentElement!;
+  const input = screen.getByRole('textbox', { name: 'Frameworks' });
+  const hiddenInput = root.querySelector('input[hidden]');
+  const itemText = root.querySelector('[data-slot="tags-input-item-text"]');
+  const deleteTrigger = root.querySelector('[data-slot="tags-input-item-delete-trigger"]');
+  const clearTrigger = screen.getByRole('button', { name: 'Clear all tags' });
+
+  expect(root).toHaveAttribute('data-scope', 'tags-input');
+  expect(root).toHaveAttribute('data-part', 'root');
+  expect(root).toHaveAttribute('data-slot', 'tags-input-root');
+  expect(input).toHaveAttribute('data-part', 'input');
+  expect(input).toHaveAttribute('data-slot', 'tags-input-input');
+  expect(hiddenInput).toHaveAttribute('hidden');
+  expect(itemText).toHaveAttribute('data-part', 'item-text');
+  expect(deleteTrigger).toHaveAttribute('data-part', 'item-delete-trigger');
+  expect(deleteTrigger?.querySelector('svg')).not.toBeNull();
+  expect(clearTrigger).toHaveAttribute('data-scope', 'tags-input');
+  expect(clearTrigger).toHaveAttribute('data-part', 'clear-trigger');
+  expect(clearTrigger).toHaveAttribute('data-slot', 'tags-input-clear-trigger');
+});
 
 test('keeps Ark translations and anatomy on default actions', () => {
   render(
@@ -147,4 +171,23 @@ test('keeps the consumer in control of controlled values', async () => {
   fireEvent.keyDown(input, { key: 'Enter' });
 
   await waitFor(() => expect(screen.getByRole('status')).toHaveTextContent('React,Vue'));
+});
+
+test('forwards refs through ordinary Ark React part paths', () => {
+  const rootRef = createRef<HTMLDivElement>();
+  const labelRef = createRef<HTMLLabelElement>();
+  const inputRef = createRef<HTMLInputElement>();
+
+  render(
+    <TagsInput ref={rootRef}>
+      <TagsInput.Label ref={labelRef}>Frameworks</TagsInput.Label>
+      <TagsInput.Control>
+        <TagsInput.Input ref={inputRef} />
+      </TagsInput.Control>
+    </TagsInput>,
+  );
+
+  expect(rootRef.current).toHaveAttribute('data-slot', 'tags-input-root');
+  expect(labelRef.current).toHaveAttribute('data-slot', 'tags-input-label');
+  expect(inputRef.current).toHaveAttribute('data-slot', 'tags-input-input');
 });

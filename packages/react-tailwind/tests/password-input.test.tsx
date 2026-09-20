@@ -152,7 +152,6 @@ test('applies native utilities to component-owned parts', () => {
     'items-center',
     'gap-1',
     'text-sm',
-    'leading-5',
     'font-medium',
     'text-foreground',
   );
@@ -174,7 +173,6 @@ test('applies native utilities to component-owned parts', () => {
     'px-3',
     'py-1',
     'text-md',
-    'leading-6',
     'text-foreground',
   );
   expect(screen.getByRole('button')).toHaveClass(

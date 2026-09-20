@@ -31,9 +31,9 @@ const RatingGroupRoot = forwardRef<
   return (
     <RatingGroupPrimitive.Root
       ref={ref}
-      data-size={size}
       className={clsx(styles.root, className)}
       {...props}
+      data-size={size}
       data-slot="rating-group-root"
     />
   );
@@ -46,9 +46,9 @@ const RatingGroupRootProvider = forwardRef<
   return (
     <RatingGroupPrimitive.RootProvider
       ref={ref}
-      data-size={size}
       className={clsx(styles.root, className)}
       {...props}
+      data-size={size}
       data-slot="rating-group-root-provider"
     />
   );
@@ -103,10 +103,10 @@ const RatingGroupItemIndicator = forwardRef<HTMLSpanElement, RatingGroupItemIndi
     return (
       <span
         ref={ref}
-        data-half={half ? '' : undefined}
-        data-highlighted={highlighted ? '' : undefined}
         className={clsx(styles.itemIndicator, className)}
         {...props}
+        data-half={half ? '' : undefined}
+        data-highlighted={highlighted ? '' : undefined}
         data-slot="rating-group-item-indicator"
       >
         {children ?? (

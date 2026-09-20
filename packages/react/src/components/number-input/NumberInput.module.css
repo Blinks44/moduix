@@ -83,8 +83,7 @@
       );
     }
 
-    &:focus-visible,
-    &[data-focus] {
+    &:focus-visible {
       outline: var(--_number-input-focus-ring-width) solid
         var(--moduix-number-input-focus-ring-color, var(--moduix-color-ring));
       outline-offset: calc(var(--_number-input-focus-ring-width) * -1);
@@ -95,7 +94,6 @@
       pointer-events: none;
     }
 
-    &[data-invalid],
     .root[data-invalid] & {
       border-color: var(
         --moduix-number-input-border-color-invalid,
@@ -159,8 +157,7 @@
       outline-color var(--moduix-transition-default),
       opacity var(--moduix-transition-default);
 
-    &:focus-visible,
-    &[data-focus] {
+    &:focus-visible {
       outline-color: var(--moduix-number-input-focus-ring-color, var(--moduix-color-ring));
       z-index: 1;
     }
@@ -176,8 +173,7 @@
         var(--moduix-color-destructive)
       );
 
-      &:focus-visible,
-      &[data-focus] {
+      &:focus-visible {
         outline-color: var(
           --moduix-number-input-border-color-invalid,
           var(--moduix-color-destructive)

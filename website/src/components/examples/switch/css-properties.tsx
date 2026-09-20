@@ -141,7 +141,7 @@ const switchOverrideCssProperties: CssPropertyInput[] = [
   ],
   [
     '--moduix-switch-thumb-translate',
-    'var(--moduix-switch-thumb-translate-default)',
+    'Size-dependent control width minus thumb size and borders',
     'Controls checked thumb translation distance.',
   ],
   [

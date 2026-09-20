@@ -26,7 +26,7 @@ export default function NativeSelectFieldDemo() {
   return (
     <Field class={styles.root} invalid required>
       <Field.Label>Framework</Field.Label>
-      <NativeSelect defaultValue="" name="framework">
+      <NativeSelect name="framework">
         {frameworkOptions.map((option) => (
           <option value={option.value} disabled={option.disabled}>
             {option.label}

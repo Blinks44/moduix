@@ -23,10 +23,10 @@
     display: inline-flex;
     flex-shrink: 0;
     align-items: center;
-    width: var(--_switch-width, 3rem);
+    width: var(--_switch-width, 2.75rem);
     height: var(--_switch-height, var(--moduix-size-xs));
     --_switch-thumb-translate-default: calc(
-      var(--_switch-width, 3rem) - var(--_switch-thumb-size, var(--moduix-spacing-5)) -
+      var(--_switch-width, 2.75rem) - var(--_switch-thumb-size, var(--moduix-spacing-5)) -
         (var(--moduix-switch-padding, var(--moduix-spacing-0-5)) * 2) -
         (var(--moduix-switch-border-width, var(--moduix-border-width-sm)) * 2)
     );

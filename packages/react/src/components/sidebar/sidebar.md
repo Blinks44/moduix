@@ -100,33 +100,33 @@ Sidebar / Sidebar.Root
 └─ Sidebar.Inset[id="content"]
 ```
 
-| Part                  | Stable slot                     | Behavior                                                   |
-| --------------------- | ------------------------------- | ---------------------------------------------------------- |
-| `Sidebar` / `Root`    | `sidebar-root`                  | Styled Ark Splitter root with side-aware defaults.         |
-| `Panel`               | `sidebar-panel`                 | Sidebar panel; exposes `data-state="expanded\|collapsed"`. |
-| `Inset`               | `sidebar-inset`                 | Main resizable content panel.                              |
-| `ResizeTrigger`       | `sidebar-resize-trigger`        | Neutral Ark Window Splitter handle line.                   |
-| `Trigger`             | `sidebar-trigger`               | Side-aware floating collapse/expand control.               |
-| `Label`               | `sidebar-label`                 | Text removed from layout in the collapsed icon rail.       |
-| `Input`               | `sidebar-input`                 | Full-width styled search or filter field.                  |
-| `Header`              | `sidebar-header`                | Non-scrolling top region.                                  |
-| `Content`             | `sidebar-content`               | Scrollable region between header and footer.               |
-| `Footer`              | `sidebar-footer`                | Non-scrolling bottom region.                               |
-| `Separator`           | `sidebar-separator`             | Styled section divider.                                    |
-| `Group`               | `sidebar-group`                 | Semantic navigation section.                               |
-| `GroupHeader`         | `sidebar-group-header`          | Flex row for a group label and trailing action.            |
-| `GroupLabel`          | `sidebar-group-label`           | Heading for a group.                                       |
-| `GroupAction`         | `sidebar-group-action`          | Compact action button aligned with the group heading.      |
-| `ExpandedContent`     | `sidebar-expanded-content`      | Content visible only while the panel is expanded.          |
-| `CollapsedContent`    | `sidebar-collapsed-content`     | Content visible only while the panel is collapsed.         |
-| `NavigationList`      | `sidebar-navigation-list`       | Navigation list.                                           |
-| `NavigationItem`      | `sidebar-navigation-item`       | Positioned list item for a navigation control.             |
-| `Sidebar.Tooltip`     | n/a                             | Collapsed-only label helper with side-aware placement.     |
-| `NavigationButton`    | `sidebar-navigation-button`     | Button/link composition with active and size states.       |
-| `NavigationBadge`     | `sidebar-navigation-badge`      | Optional counter beside a simple navigation control.       |
-| `NavigationSubList`   | `sidebar-navigation-sub-list`   | Nested navigation list.                                    |
-| `NavigationSubItem`   | `sidebar-navigation-sub-item`   | Nested list item.                                          |
-| `NavigationSubButton` | `sidebar-navigation-sub-button` | Nested anchor/link composition.                            |
+| Part                  | Stable slot                     | Behavior                                                                                          |
+| --------------------- | ------------------------------- | ------------------------------------------------------------------------------------------------- |
+| `Sidebar` / `Root`    | `sidebar-root`                  | Styled Ark Splitter root with side-aware defaults.                                                |
+| `Panel`               | `sidebar-panel`                 | Sidebar panel; exposes `data-state="expanded\|collapsed"`.                                        |
+| `Inset`               | `sidebar-inset`                 | Main resizable content panel.                                                                     |
+| `ResizeTrigger`       | `sidebar-resize-trigger`        | Styled Ark Splitter handle line; renders the shared `Splitter.ResizeTriggerIndicator` by default. |
+| `Trigger`             | `sidebar-trigger`               | Side-aware floating collapse/expand control.                                                      |
+| `Label`               | `sidebar-label`                 | Text removed from layout in the collapsed icon rail.                                              |
+| `Input`               | `input-root`                    | Full-width styled search or filter field.                                                         |
+| `Header`              | `sidebar-header`                | Non-scrolling top region.                                                                         |
+| `Content`             | `sidebar-content`               | Scrollable region between header and footer.                                                      |
+| `Footer`              | `sidebar-footer`                | Non-scrolling bottom region.                                                                      |
+| `Separator`           | `separator-root`                | Styled section divider.                                                                           |
+| `Group`               | `sidebar-group`                 | Semantic navigation section.                                                                      |
+| `GroupHeader`         | `sidebar-group-header`          | Flex row for a group label and trailing action.                                                   |
+| `GroupLabel`          | `sidebar-group-label`           | Heading for a group.                                                                              |
+| `GroupAction`         | `sidebar-group-action`          | Compact action button aligned with the group heading.                                             |
+| `ExpandedContent`     | `sidebar-expanded-content`      | Content visible only while the panel is expanded.                                                 |
+| `CollapsedContent`    | `sidebar-collapsed-content`     | Content visible only while the panel is collapsed.                                                |
+| `NavigationList`      | `sidebar-navigation-list`       | Navigation list.                                                                                  |
+| `NavigationItem`      | `sidebar-navigation-item`       | Positioned list item for a navigation control.                                                    |
+| `Sidebar.Tooltip`     | n/a                             | Collapsed-only label helper with side-aware placement.                                            |
+| `NavigationButton`    | `sidebar-navigation-button`     | Button/link composition with active and size states.                                              |
+| `NavigationBadge`     | `sidebar-navigation-badge`      | Optional counter beside a simple navigation control.                                              |
+| `NavigationSubList`   | `sidebar-navigation-sub-list`   | Nested navigation list.                                                                           |
+| `NavigationSubItem`   | `sidebar-navigation-sub-item`   | Nested list item.                                                                                 |
+| `NavigationSubButton` | `sidebar-navigation-sub-button` | Nested anchor/link composition.                                                                   |
 
 Advanced provider, complete context, registry, layout, and resize-indicator APIs intentionally
 remain on `Splitter`; Sidebar keeps the application-navigation contract small.
@@ -284,7 +284,8 @@ feedback.
   common sidebar building blocks into the local styling contract without adding sidebar-owned state.
 - `Tooltip` removes repeated collapsed-label boilerplate while still delegating popup behavior to the
   shared Tooltip primitive.
-- Sidebar deliberately omits `ResizeTriggerIndicator`; the neutral line is the complete resize UI.
+- `Sidebar.ResizeTrigger` renders the shared `Splitter.ResizeTriggerIndicator` by default; custom
+  children or `asChild` replace it.
 - Unlike shadcn, Sidebar does not render a mobile Sheet, persist a cookie, register a global
   shortcut, or own Tooltip/Menu/Collapsible state.
 - Instead of owning those concerns, Sidebar documents collapsed hover labels and persisted desktop
@@ -296,10 +297,14 @@ feedback.
 - Keep `panelId` synchronized across root panel data, `Panel`, `Trigger`, and `ResizeTrigger`.
 - Preserve the explicit `Panel → ResizeTrigger → Trigger → Inset` order for left sidebars and
   `Inset → Trigger → ResizeTrigger → Panel` for right sidebars.
-- Do not restore a Sidebar resize indicator or hide structural parts inside `Root`.
+- Keep the shared `Splitter.ResizeTriggerIndicator` as the default `ResizeTrigger` content, and do
+  not hide structural parts inside `Root`.
 
 ## Local changelog
 
+- 2026-09-20: Corrected the contract docs: `Sidebar.ResizeTrigger` renders the shared
+  `Splitter.ResizeTriggerIndicator` by default, and `Sidebar.Input`/`Sidebar.Separator` keep the
+  `input-root`/`separator-root` slots of their underlying primitives.
 - 2026-09-13: Added `NavigationBadge` for direct `NavigationButton` and `NavigationSubButton`
   siblings with compact-rail hiding and preserved label truncation.
 - 2026-08-29: Added `ExpandedContent` and `CollapsedContent` as stylable, accessibility-safe state

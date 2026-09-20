@@ -51,6 +51,9 @@ Use `Menu` as the root and give every `Menu.Item` a stable `value`. Keep `Menu.P
 `Menu.Content` explicit, then place items, groups, separators, or nested menus inside the content.
 `Menu.Indicator` is optional and defaults to the moduix chevron.
 
+Do not set a custom `id` on `Menu.Item`: Ark identifies items by `value`, and an extra `id` breaks
+its item lookup, typeahead, and focus management.
+
 <ExampleFrame variant="component">
   <MenuBasic />
 </ExampleFrame>
@@ -178,6 +181,8 @@ do not render a second `Menu` root for the same store.
 Set `portalled={false}` inside a dialog or scroll container and use
 `positioning={{ strategy: 'fixed', hideWhenDetached: true }}` when that container can scroll. Use
 `asChild` with exactly one semantic child when a trigger, item, or content host must own the DOM node.
+In Solid, assign a ref to the element created inside the `asChild` render function, because a ref on
+a `Menu` part itself is not forwarded through that composition path.
 A `Menu.Content` must contain `Menu.Viewport` around its scrollable items. Keep an optional
 `Menu.Arrow` directly under `Menu.Content`, next to the viewport, so it is not clipped while items scroll.
 A nested menu is another `Menu` root inside the parent content, paired with its own `TriggerItem`,

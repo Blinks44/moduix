@@ -109,10 +109,10 @@ function AccordionItemBody(props: HTMLArkProps<'div'>) {
 
   return (
     <ark.div
-      data-scope="accordion"
-      data-part="item-body"
       class={cn('grid min-w-0 gap-3 p-3', local.class)}
       {...others}
+      data-scope="accordion"
+      data-part="item-body"
       data-slot="accordion-item-body"
     />
   );

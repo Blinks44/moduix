@@ -106,10 +106,7 @@
     }
 
     &:not(:disabled, [data-disabled]):hover {
-      border-color: var(
-        --moduix-carousel-control-border-color-hover,
-        color-mix(in oklab, var(--moduix-color-border) 50%, var(--moduix-color-foreground) 50%)
-      );
+      border-color: var(--moduix-carousel-control-border-color-hover, var(--moduix-color-ring));
       background-color: var(--moduix-carousel-control-bg-hover, var(--moduix-color-accent));
       box-shadow: var(--moduix-carousel-control-shadow-hover, var(--moduix-shadow-md));
       color: var(--moduix-carousel-control-color-hover, var(--moduix-color-accent-foreground));
@@ -130,10 +127,7 @@
     }
 
     &[data-pressed] {
-      border-color: var(
-        --moduix-carousel-control-border-color-hover,
-        color-mix(in oklab, var(--moduix-color-border) 50%, var(--moduix-color-foreground) 50%)
-      );
+      border-color: var(--moduix-carousel-control-border-color-hover, var(--moduix-color-ring));
       background-color: var(--moduix-carousel-control-bg-hover, var(--moduix-color-accent));
       color: var(--moduix-carousel-control-color-hover, var(--moduix-color-accent-foreground));
     }

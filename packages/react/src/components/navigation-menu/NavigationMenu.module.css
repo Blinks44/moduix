@@ -484,7 +484,7 @@
   @keyframes navigation-menu-viewport-in {
     from {
       opacity: 0;
-      transform: rotateX(-30deg) scale(0.9);
+      transform: scale(var(--moduix-scale-popup));
     }
 
     to {
@@ -501,7 +501,7 @@
 
     to {
       opacity: 0;
-      transform: rotateX(-10deg) scale(0.95);
+      transform: scale(var(--moduix-scale-popup));
     }
   }
 

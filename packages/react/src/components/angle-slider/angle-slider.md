@@ -23,15 +23,24 @@ Upstream docs:
 
 - `AngleSlider` is the styled root and is equivalent to `AngleSlider.Root`.
 - All DOM parts are thin wrappers over the corresponding Ark parts and forward refs.
-- `AngleSlider.Dial` is narrow sugar for `Control` plus `Thumb`, with optional children rendered
-  inside the control before the thumb.
+- `AngleSlider.Dial` is narrow sugar for `Control`, the centered `ValueText`, and `Thumb`, with
+  optional children rendered inside the control before the value text.
+- `AngleSlider.Control` focuses the thumb synchronously on a left pointer down with
+  `focus({ preventScroll: true, focusVisible: false })` and calls `event.preventDefault()` first.
+  Zag defers its own thumb focus to a later frame, which Chrome treats as script focus and flags
+  with `:focus-visible`; the synchronous suppressed focus makes that deferred focus redundant, so
+  the pointer interaction and the release state stay free of the keyboard focus ring while the
+  thumb remains focused for keyboard continuation. The handler calls the consumer `onPointerDown`
+  first and skips the focus when the event is prevented or the control is disabled or read-only.
+  Browsers without the `focusVisible` focus option ignore it and fall back to the browser default.
 - `AngleSlider.Marks` is narrow sugar for `MarkerGroup` plus repeated `Marker` children from a
   `values` array.
 - `useAngleSlider()` is re-exported from moduix for the normal `RootProvider` path.
 - `value`, `defaultValue`, `step`, `disabled`, `invalid`, `readOnly`, `name`, `ids`,
   `onValueChange(details)`, and `onValueChangeEnd(details)` pass through unchanged.
-- The lightest recommended composition is `Dial`, with `Label`, `Marks`, and `ValueText` added only
-  when that behavior is needed. Add `AngleSlider.HiddenInput` explicitly for native form behavior.
+- The lightest recommended composition is `Dial`, which already shows the value in the dial center;
+  add `Label` and `Marks` only when that behavior is needed. Add `AngleSlider.HiddenInput`
+  explicitly for native form behavior.
 - `AngleSlider.Context` and `useAngleSliderContext()` are exported from moduix; Ark type aliases
   remain direct imports from `@ark-ui/react/angle-slider`.
 
@@ -43,8 +52,9 @@ AngleSlider.Root
 ├─ AngleSlider.Control
 │  ├─ AngleSlider.MarkerGroup
 │  │  └─ AngleSlider.Marker[value]
+│  ├─ AngleSlider.ValueText
 │  └─ AngleSlider.Thumb
-└─ AngleSlider.ValueText
+└─ (ValueText outside Control renders as a plain block)
 ```
 
 Externally owned state replaces `Root` with `RootProvider`.
@@ -61,8 +71,8 @@ Externally owned state replaces `Root` with `RootProvider`.
 | `AngleSlider.Thumb`        | `angle-slider-thumb`         |
 | `AngleSlider.ValueText`    | `angle-slider-value-text`    |
 
-`AngleSlider.Dial` renders the same `Control` and `Thumb` slots; `AngleSlider.Marks` renders the
-same `MarkerGroup` and `Marker` slots. Neither adds a separate DOM part or styling hook.
+`AngleSlider.Dial` renders the same `Control`, `ValueText`, and `Thumb` slots; `AngleSlider.Marks`
+renders the same `MarkerGroup` and `Marker` slots. Neither adds a separate DOM part or styling hook.
 
 ## Composition
 
@@ -78,14 +88,13 @@ export function RotationAngleSlider() {
       <AngleSlider.Dial>
         <AngleSlider.Marks values={markerValues} />
       </AngleSlider.Dial>
-      <AngleSlider.ValueText />
     </AngleSlider>
   );
 }
 ```
 
 Use explicit `Control`, `Thumb`, `MarkerGroup`, and `Marker` when the dial needs custom children,
-per-marker props, or custom ordering.
+per-marker props, custom ordering, or no centered value text.
 
 ## Upstream feature coverage
 
@@ -122,14 +131,24 @@ per-marker props, or custom ordering.
 
 ## Defaults and styling
 
-- moduix supplies the circular dial, inner disc, center dot, rotating thumb, active line, marker,
-  focus, disabled, read-only, and invalid visuals.
+- moduix supplies the circular track: a ring drawn with a `conic-gradient` fill from the top
+  (`0deg`) to Ark's `--angle`, masked to the ring band; a rounded start cap where the fill begins;
+  a circle thumb riding the ring centerline, mirroring the linear `Slider` thumb contract; the
+  centered value text; and marker, focus, disabled, read-only, and invalid visuals.
+- The dial geometry is driven by the Ark root variables `--angle` and `--value`; no extra JS is
+  used for the fill or the thumb position.
 - Every rendered wrapper accepts `className` and preserves Ark `data-scope` / `data-part`.
 - Public `--moduix-angle-slider-*` variables are registered in `packages/foundation/src/styles/variables-moduix.css`.
-- Focus styling follows `Thumb:focus-visible`; invalid, disabled, read-only, and marker styling use
-  Ark state attributes rather than legacy classes or wrapper state.
-- Hover and active ring styling applies only to interactive controls. Thumb and ring transitions
-  are removed under `prefers-reduced-motion`.
+- Focus styling follows `Thumb:focus-visible` and mirrors the linear `Slider` thumb: ring-colored
+  border plus the shared inset focus ring on the thumb only; the control adds no second indicator.
+  Invalid, disabled, read-only, and marker styling use Ark state attributes rather than legacy
+  classes or wrapper state.
+- Hover and active track coloring applies only to interactive controls. While the dial is pressed,
+  the thumb mirrors the linear `Slider` dragging look through the native `:active` control state
+  (Zag exposes no `data-dragging` attribute on the angle slider thumb); the ring disappears on
+  release because the press focus was suppressed with `focusVisible: false`. Keyboard focus still
+  shows the ring through `:focus-visible`. Thumb transitions are removed under
+  `prefers-reduced-motion`.
 - `AngleSlider.Marks` preserves the same marker styling hooks as explicit `MarkerGroup` /
   `Marker` composition.
 
@@ -152,8 +171,8 @@ per-marker props, or custom ordering.
 ## Agent notes
 
 - Keep `RootProvider` styled with the same root class as `Root`.
-- Keep `AngleSlider.Dial` as narrow sugar over `Control` and `Thumb`; do not expand it into a
-  configuration surface for labels, value text, or form behavior.
+- Keep `AngleSlider.Dial` as narrow sugar over `Control`, centered `ValueText`, and `Thumb`; do not
+  expand it into a configuration surface for labels, value text, or form behavior.
 - Keep `AngleSlider.Marks` as narrow sugar over `MarkerGroup` and `Marker`; do not expand it into a
   configuration surface for thumb, label, or form behavior.
 - Keep `AngleSlider.HiddenInput` aligned with Ark's explicit composition.
@@ -164,6 +183,14 @@ per-marker props, or custom ordering.
 
 ## Local changelog
 
+- 2026-09-17: Redesigned the dial as a circular track with a conic-gradient fill from the top,
+  a circle thumb riding the ring, and the value text centered in the dial (`Dial` now renders the
+  centered `ValueText`); removed the needle thumb, inner disc, center dot, and track/control border
+  variables, and retuned the public variable set. Aligned the thumb with the linear `Slider` thumb
+  (border token, focus ring, no active scale), added a rounded start cap for the fill, and dropped
+  the control-level focus ring and dial shadow variables. Added a `:active` dragging ring and the
+  `preventDefault` + `focusVisible: false` press focus so the ring clears on mouse release like the
+  linear slider.
 - 2026-08-31: Removed the unused `Dial.thumbClassName` configuration prop; use explicit
   `Control` and `Thumb` composition to style the thumb.
 - 2026-08-08: Added external `form` ownership and native reset synchronization, completed

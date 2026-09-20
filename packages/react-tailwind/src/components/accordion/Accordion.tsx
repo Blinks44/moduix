@@ -122,10 +122,10 @@ const AccordionItemBody = forwardRef<ComponentRef<typeof ark.div>, HTMLArkProps<
     return (
       <ark.div
         ref={ref}
-        data-scope="accordion"
-        data-part="item-body"
         className={cn('grid min-w-0 gap-3 p-3', className)}
         {...props}
+        data-scope="accordion"
+        data-part="item-body"
         data-slot="accordion-item-body"
       />
     );

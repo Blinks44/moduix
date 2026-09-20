@@ -17,10 +17,10 @@ const TabsRoot = forwardRef<
   return (
     <TabsPrimitive.Root
       ref={ref}
-      data-variant={resolvedVariant}
       className={clsx(styles.root, className)}
       orientation={orientation}
       {...props}
+      data-variant={resolvedVariant}
       data-slot="tabs-root"
     />
   );
@@ -40,10 +40,10 @@ const TabsRootProvider = forwardRef<
   return (
     <TabsPrimitive.RootProvider
       ref={ref}
-      data-variant={resolvedVariant}
       className={clsx(styles.root, className)}
       value={value}
       {...props}
+      data-variant={resolvedVariant}
       data-slot="tabs-root-provider"
     />
   );

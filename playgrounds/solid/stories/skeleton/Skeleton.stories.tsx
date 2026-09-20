@@ -6,6 +6,7 @@ import styles from './Skeleton.stories.module.css';
 const meta = {
   title: 'Components/Skeleton',
   component: Skeleton,
+  tags: ['autodocs'],
   parameters: {
     layout: 'centered',
   },

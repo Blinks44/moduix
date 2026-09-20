@@ -137,7 +137,8 @@ the Ark part.
   event objects unchanged.
 - `Popover.Context` and `usePopoverContext` read the same state as `RootProvider`; both remain
   available through the moduix package barrel.
-- `Trigger` exposes `data-state`, `data-placement`, and `data-side`. `Content` exposes
+- `Trigger` exposes `data-state`, `data-placement`, `data-side`, and, when triggers have `value`,
+  `data-value` and `data-current` (plus the internal `data-ownedby` scope attribute). `Content` exposes
   `data-state`, `data-placement`, `data-side`, `data-nested`, `data-has-nested`, and
   `data-expanded`.
 - When multiple triggers have `value`, Ark adds `data-current` only to the trigger that opened the

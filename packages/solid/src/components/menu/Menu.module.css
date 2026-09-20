@@ -41,7 +41,7 @@
       background-color: var(--moduix-menu-trigger-bg-active, var(--moduix-menu-trigger-bg-hover));
     }
 
-    &:focus[data-focus-visible] {
+    &:focus-visible {
       outline: var(
           --moduix-menu-focus-ring-width,
           var(--moduix-menu-trigger-border-width, var(--moduix-border-width-sm))

@@ -171,7 +171,7 @@ function SignaturePadClearTrigger(
 
 type SignaturePadCanvasProps = Omit<
   ComponentProps<typeof SignaturePadPrimitive.Control>,
-  'children'
+  'asChild' | 'children'
 >;
 
 function SignaturePadCanvas(props: SignaturePadCanvasProps) {

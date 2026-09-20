@@ -112,8 +112,10 @@ Typeset / Typeset.Root
 
 `Typeset` owns no state and does not parse, sanitize, or size content. Keep rendered semantic
 elements inside the root, use `asChild` when the root must be an `article` or `section`, and compose
-`Typeset.Scroll` around a wide block that should scroll instead of compressing. Mark an application-
-owned subtree with `.not-typeset` or `data-not-typeset` when it needs its own visual treatment. A
+`Typeset.Scroll` around a wide block that should scroll instead of compressing. Keep `Typeset.Scroll`
+inside a `Typeset` or `Typeset.Root` boundary: the horizontal scrolling, flow spacing, and table
+widening for the wrapped block come from the Typeset element rules. Mark an application-owned
+subtree with `.not-typeset` or `data-not-typeset` when it needs its own visual treatment. A
 user-facing scroll region should have an accessible name; `Typeset.Scroll` is keyboard-focusable by
 default.
 
@@ -328,12 +330,13 @@ content stays in place as the stream grows.
 
 Use `--moduix-typeset-size`, `--moduix-typeset-leading`, and `--moduix-typeset-flow` to control the
 reading rhythm. Font variables are optional; colors, borders, and radius come from the active moduix
-theme. Element rules live in the `moduix.components` layer and use low-specificity `:where()`
-selectors, so normal application CSS can override individual elements without `!important`.
+theme. Element rules live in the `components` cascade layer, with the variable defaults in `base`,
+and use low-specificity `:where()` selectors, so normal application CSS can override individual
+elements without `!important`.
 
-Use `className` in React or `class` in Solid on exported parts for structural styles. Tailwind
-variants use native utility and consumer classes; the variables below customize the CSS Modules
-variants.
+Use `className` in React or `class` in Solid on exported parts for structural styles. The Tailwind
+variants ship the same CSS Module with `cn` class merging instead of utility classes, so the six CSS
+variables customize both styling tracks.
 
 ### Styling hooks
 

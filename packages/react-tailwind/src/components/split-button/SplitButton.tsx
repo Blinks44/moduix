@@ -9,6 +9,7 @@ import { ChevronDownIcon } from '@/lib/moduix/icons/ui';
 import { OverlayPortal } from '@/lib/moduix/overlayPortal';
 import { Button } from '../button';
 import { Menu } from '../menu';
+import { menuContentVariants, menuPositionerVariants } from '../menu/Menu';
 
 type ButtonProps = ComponentProps<typeof Button>;
 type SplitButtonVariant = Exclude<NonNullable<ButtonProps['variant']>, 'link'>;
@@ -42,13 +43,13 @@ type SplitButtonContentProps = ComponentProps<typeof MenuPrimitive.Content>;
 type SplitButtonPositionerProps = ComponentProps<typeof MenuPrimitive.Positioner>;
 
 const splitButtonTriggerVariants = cva(
-  "relative min-w-0 -ms-px rounded-s-none before:pointer-events-none before:absolute before:inset-y-1.5 before:start-0 before:w-px before:bg-current before:opacity-[0.16] before:content-['']",
+  "relative min-w-0 -ms-[calc(var(--moduix-button-border-width,var(--moduix-border-width-sm))*-1)] rounded-s-none before:pointer-events-none before:absolute before:inset-y-1.5 before:start-0 before:w-px before:bg-current before:opacity-[0.16] before:content-['']",
   {
     variants: {
       size: {
         xs: 'px-2',
         sm: 'px-2.5',
-        md: 'px-4',
+        md: 'px-3',
         lg: 'px-3.5',
         xl: 'px-4',
       },
@@ -169,10 +170,7 @@ const SplitButtonPositioner = forwardRef<
     <OverlayPortal>
       <MenuPrimitive.Positioner
         ref={ref}
-        className={cn(
-          'z-[var(--z-index)] w-[var(--positioner-width,auto)] max-w-[var(--available-width)] outline-0',
-          className,
-        )}
+        className={cn(menuPositionerVariants(), className)}
         {...props}
         data-slot="split-button-positioner"
       />
@@ -188,10 +186,7 @@ const SplitButtonContent = forwardRef<
     <MenuPrimitive.Content
       ref={ref}
       asChild={asChild}
-      className={cn(
-        'relative z-[calc(var(--moduix-z-popup)+var(--layer-index,0))] flex max-w-[min(20rem,var(--available-width,100vw))] min-w-[min(max(var(--reference-width,0px),12rem),var(--available-width,100vw))] origin-[var(--transform-origin)] flex-col overflow-visible rounded-md bg-popover py-1 text-popover-foreground shadow-lg outline-1 outline-border [--arrow-background:var(--color-popover)] [--arrow-size:0.625rem] data-[state=closed]:animate-moduix-menu-closed data-[state=open]:animate-moduix-menu-open motion-reduce:[animation-delay:0ms] motion-reduce:[animation-duration:1ms]',
-        className,
-      )}
+      className={cn(menuContentVariants(), className)}
       {...props}
       data-slot="split-button-content"
     >

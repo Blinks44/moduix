@@ -116,7 +116,8 @@ carry `aria-busy`; the placeholder itself is decorative. Set `loading={false}` t
 same root element.
 
 `Skeleton` is a single visual part, so compose cards, media rows, and responsive layouts with your own wrapper.
-CSS Modules packages can use `Stack`; Tailwind packages can use native flex and grid utilities. Use `asChild`
+`Stack` is exported from every package, so the examples below could use it in both tracks; the Tailwind
+examples simply use native flex and grid utilities. Use `asChild`
 only when a different semantic root is required; Solid passes a render function to `asChild`.
 
 ## Examples

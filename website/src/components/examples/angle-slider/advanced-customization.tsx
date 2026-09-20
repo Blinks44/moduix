@@ -8,6 +8,7 @@ export default function AdvancedCustomizationAngleSliderDemo() {
     <AngleSlider defaultValue={135} aria-label="Rotation" className={styles.root}>
       <AngleSlider.Label>Rotation</AngleSlider.Label>
       <AngleSlider.Control>
+        <AngleSlider.ValueText />
         <AngleSlider.MarkerGroup>
           {markerValues.map((value) => (
             <AngleSlider.Marker key={value} value={value} />
@@ -15,7 +16,6 @@ export default function AdvancedCustomizationAngleSliderDemo() {
         </AngleSlider.MarkerGroup>
         <AngleSlider.Thumb />
       </AngleSlider.Control>
-      <AngleSlider.ValueText />
       <AngleSlider.HiddenInput />
     </AngleSlider>
   );

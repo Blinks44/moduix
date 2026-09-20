@@ -23,6 +23,7 @@ import { CloseButton } from '../close-button';
 const DEFAULT_CLOSE_BUTTON_LABEL = 'Close tour';
 
 type TourRootProps = ComponentProps<typeof TourPrimitive.Root> & OverlayPortalProps;
+type TourCloseIconProps = Omit<ComponentProps<typeof TourPrimitive.CloseTrigger>, 'asChild'>;
 
 function TourRoot({
   lazyMount = true,
@@ -65,7 +66,10 @@ const TourSpotlight = forwardRef<
     <OverlayPortal>
       <TourPrimitive.Spotlight
         ref={ref}
-        className={cn('z-[calc(50+var(--tour-layer,0))] ring-2 ring-ring', className)}
+        className={cn(
+          'z-[calc(50+var(--tour-layer,0)+var(--layer-index,0))] ring-2 ring-ring',
+          className,
+        )}
         {...props}
         data-slot="tour-spotlight"
       />
@@ -214,29 +218,28 @@ const TourCloseTrigger = forwardRef<
   );
 });
 
-const TourCloseIcon = forwardRef<
-  ComponentRef<typeof CloseButton.Root>,
-  Omit<ComponentProps<typeof TourPrimitive.CloseTrigger>, 'asChild'>
->(function TourCloseIcon(
-  { className, children, 'aria-label': ariaLabel = DEFAULT_CLOSE_BUTTON_LABEL, ...props },
-  ref,
-) {
-  return (
-    <TourPrimitive.CloseTrigger asChild {...props}>
-      <CloseButton.Root
-        ref={ref}
-        data-slot="tour-close-icon"
-        aria-label={ariaLabel}
-        className={cn(
-          'absolute end-4 top-4 size-7 rounded-md bg-transparent text-muted-foreground transition-[background-color,color,opacity] duration-200 ease-in-out select-none focus-visible:outline-1 focus-visible:-outline-offset-1 focus-visible:outline-ring motion-reduce:transition-none [&>svg]:size-3 [@media(hover:hover)]:[&:not([data-disabled]):hover]:bg-accent [@media(hover:hover)]:[&:not([data-disabled]):hover]:text-popover-foreground',
-          className,
-        )}
-      >
-        {children}
-      </CloseButton.Root>
-    </TourPrimitive.CloseTrigger>
-  );
-});
+const TourCloseIcon = forwardRef<ComponentRef<typeof CloseButton.Root>, TourCloseIconProps>(
+  function TourCloseIcon(
+    { className, children, 'aria-label': ariaLabel = DEFAULT_CLOSE_BUTTON_LABEL, ...props },
+    ref,
+  ) {
+    return (
+      <TourPrimitive.CloseTrigger asChild {...props}>
+        <CloseButton.Root
+          ref={ref}
+          data-slot="tour-close-icon"
+          aria-label={ariaLabel}
+          className={cn(
+            'absolute end-4 top-4 size-7 rounded-md bg-transparent text-muted-foreground transition-[background-color,color,opacity] duration-200 ease-in-out select-none focus-visible:outline-1 focus-visible:-outline-offset-1 focus-visible:outline-ring motion-reduce:transition-none [&>svg]:size-3 [@media(hover:hover)]:[&:not([data-disabled]):hover]:bg-accent [@media(hover:hover)]:[&:not([data-disabled]):hover]:text-popover-foreground',
+            className,
+          )}
+        >
+          {children}
+        </CloseButton.Root>
+      </TourPrimitive.CloseTrigger>
+    );
+  },
+);
 
 const TourControl = forwardRef<
   ComponentRef<typeof TourPrimitive.Control>,
@@ -319,3 +322,5 @@ export {
   waitForEvent,
   waitForPromise,
 };
+
+export type { TourCloseIconProps, TourRootProps };

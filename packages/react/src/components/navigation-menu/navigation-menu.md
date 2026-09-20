@@ -41,7 +41,9 @@ the callback detail object unchanged. `Trigger` requires an enclosing `Item`; `I
 
 `Viewport` is opt-in. Render it inside `ViewportPositioner`; Ark then moves matching `Content` nodes into
 the viewport while keeping their item relationships intact. An optional `Indicator` belongs inside `List`.
-Use its `Arrow` only with a shared viewport, following Ark's viewport composition. `Content` preserves its
+Use its `Arrow` only with a shared viewport, following Ark's viewport composition. `ViewportPositioner`
+accepts Ark's `align` prop (`"start" | "center" | "end"`, default `"center"`) to align the shared viewport.
+`Content` preserves its
 children unchanged. The recommended basic composition does not render an arrow.
 Navigation menu panels intentionally stay in the root instead of using `OverlayPortal`: Ark measures trigger,
 indicator, and viewport coordinates in that shared local coordinate system.

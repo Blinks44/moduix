@@ -127,6 +127,10 @@ Page items, ellipses, and icon triggers default to `--moduix-size-md` through `-
 Page items use tabular figures and compact inline padding, so one- and two-digit labels keep the
 default square footprint. Longer labels can still expand instead of clipping.
 
+Text triggers clamp their inline padding to at least `--moduix-spacing-3`, so icon-style edge and
+chevron triggers keep a comfortable hit area even when the item padding variable is tuned below
+12px.
+
 Moduix adds visual defaults only:
 
 - default chevrons for previous/next triggers;
@@ -160,7 +164,6 @@ Public CSS variables:
 | `--moduix-pagination-item-radius`                | `var(--moduix-radius-md)`                                       |
 | `--moduix-pagination-item-size`                  | `var(--moduix-size-md)`                                         |
 | `--moduix-pagination-line-height`                | `var(--moduix-line-height-text-sm)`                             |
-| `--moduix-pagination-transition`                 | `var(--moduix-transition-default)`                              |
 | `--moduix-pagination-trigger-gap`                | `var(--moduix-spacing-2)`                                       |
 
 ## Intentional sugar and differences from upstream

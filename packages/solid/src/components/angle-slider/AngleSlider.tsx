@@ -52,12 +52,23 @@ function AngleSliderRootProvider(props: ComponentProps<typeof AngleSliderPrimiti
 }
 
 function AngleSliderControl(props: ComponentProps<typeof AngleSliderPrimitive.Control>) {
-  const [local, others] = splitProps(props, ['class']);
+  const [local, others] = splitProps(props, ['class', 'onPointerDown']);
 
   return (
     <AngleSliderPrimitive.Control
       class={clsx(styles.control, local.class)}
       {...others}
+      onPointerDown={(event) => {
+        (local.onPointerDown as ((event: PointerEvent) => void) | undefined)?.(event);
+
+        if (event.defaultPrevented || event.button !== 0) return;
+        if (event.currentTarget.matches('[data-disabled], [data-readonly]')) return;
+
+        event.preventDefault();
+        event.currentTarget
+          .querySelector<HTMLElement>('[data-scope="angle-slider"][data-part="thumb"]')
+          ?.focus({ preventScroll: true, focusVisible: false });
+      }}
       data-slot="angle-slider-control"
     />
   );
@@ -129,6 +140,7 @@ function AngleSliderDial(props: AngleSliderDialProps) {
   return (
     <AngleSliderControl {...others}>
       {local.children}
+      <AngleSliderValueText />
       <AngleSliderThumb />
     </AngleSliderControl>
   );

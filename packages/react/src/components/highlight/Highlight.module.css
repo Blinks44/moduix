@@ -9,7 +9,6 @@
     );
     color: var(--moduix-highlight-color, var(--moduix-color-foreground));
     box-shadow: var(--moduix-highlight-shadow, none);
-    font: inherit;
     font-weight: var(--moduix-highlight-font-weight, var(--moduix-weight-medium));
     text-decoration: none;
     -webkit-box-decoration-break: clone;

@@ -195,19 +195,15 @@
   }
 
   .markerGroup {
-    display: flex;
-    justify-content: space-between;
     margin-block-start: var(--moduix-slider-marker-group-margin-top, var(--moduix-spacing-2));
 
     &[data-orientation='vertical'] {
-      flex-direction: column;
       height: 100%;
       margin: 0;
     }
   }
 
   .marker {
-    position: relative;
     color: var(--moduix-slider-marker-color, var(--moduix-color-muted-foreground));
     font-size: var(--moduix-slider-marker-font-size, var(--moduix-text-xs));
     line-height: var(--moduix-slider-marker-line-height, var(--moduix-line-height-text-xs));
@@ -242,6 +238,12 @@
       inset-block-start: 50%;
       inset-inline-start: calc(-1 * var(--moduix-spacing-2));
       transform: translate(-50%, -50%);
+    }
+  }
+
+  @media (prefers-reduced-motion: reduce) {
+    .thumb {
+      transition: none;
     }
   }
 }

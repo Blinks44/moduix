@@ -71,16 +71,10 @@
   .positioner {
     z-index: var(--z-index, var(--moduix-z-popup));
     max-width: var(--available-width);
-    max-height: var(--available-height);
+    outline: 0;
   }
 
   .content {
-    --arrow-background: var(
-      --moduix-tooltip-arrow-background,
-      var(--moduix-tooltip-bg, var(--moduix-color-popover))
-    );
-    --arrow-size: var(--moduix-tooltip-arrow-size, var(--moduix-spacing-2-5));
-
     box-sizing: border-box;
     position: relative;
     z-index: var(--moduix-tooltip-z-index, var(--moduix-z-popup));

@@ -255,7 +255,7 @@ describe('Tooltip', () => {
     expect(content).toHaveClass('bg-card', 'px-6', 'text-left', 'shadow-md');
     expect(content).not.toHaveClass('shadow-lg');
     expect(content).not.toHaveClass('bg-popover', 'px-2', 'text-center');
-    expect(arrow).toHaveClass('[--arrow-size:0.625rem]');
+    expect(arrow).toHaveClass('[--arrow-size:var(--spacing-2_5)]');
     expect(arrowTip).toHaveClass('border-primary');
   });
 });

@@ -4,7 +4,7 @@ import {
   usePasswordInputContext,
 } from '@ark-ui/solid/password-input';
 import type { ComponentProps } from 'solid-js';
-import { children, createEffect, splitProps } from 'solid-js';
+import { children, splitProps } from 'solid-js';
 import { cn } from '@/lib/moduix/cn';
 import { EyeClosedIcon, EyeIcon } from '@/lib/moduix/icons/ui/Icons';
 
@@ -45,10 +45,7 @@ function PasswordInputLabel(props: ComponentProps<typeof PasswordInputPrimitive.
 
   return (
     <PasswordInputPrimitive.Label
-      class={cn(
-        'inline-flex items-center gap-1 text-sm leading-5 font-medium text-foreground',
-        local.class,
-      )}
+      class={cn('inline-flex items-center gap-1 text-sm font-medium text-foreground', local.class)}
       {...others}
       data-slot="password-input-label"
     />
@@ -75,27 +72,18 @@ type PasswordInputInputProps = ComponentProps<typeof PasswordInputPrimitive.Inpu
 };
 
 function PasswordInputInput(props: PasswordInputInputProps) {
-  const [local, others] = splitProps(props, ['asChild', 'class', 'defaultValue', 'ref']);
-  let inputRef: HTMLInputElement | undefined;
-
-  createEffect(() => {
-    if (inputRef) inputRef.defaultValue = String(local.defaultValue ?? '');
-  });
+  const [local, others] = splitProps(props, ['asChild', 'class', 'defaultValue']);
 
   return (
     <PasswordInputPrimitive.Input
       asChild={local.asChild}
       {...others}
-      {...(local.asChild ? { 'prop:defaultValue': local.defaultValue } : {})}
+      {...{ 'prop:defaultValue': local.defaultValue }}
       data-slot="password-input-input"
       class={cn(
-        'min-h-0 min-w-0 flex-auto bg-transparent px-3 py-1 text-md leading-6 text-foreground outline-0 transition-opacity duration-200 ease-in-out placeholder:text-muted-foreground disabled:pointer-events-none data-disabled:pointer-events-none motion-reduce:transition-none',
+        'min-h-0 min-w-0 flex-auto bg-transparent px-3 py-1 text-md text-foreground outline-0 transition-opacity duration-200 ease-in-out placeholder:text-muted-foreground disabled:pointer-events-none data-disabled:pointer-events-none motion-reduce:transition-none',
         local.class,
       )}
-      ref={(element) => {
-        inputRef = element;
-        if (typeof local.ref === 'function') local.ref(element);
-      }}
     />
   );
 }

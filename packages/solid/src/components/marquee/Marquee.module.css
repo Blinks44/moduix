@@ -1,10 +1,5 @@
 @layer moduix.components {
   .root {
-    --marquee-edge-color: var(--moduix-color-background);
-    --marquee-edge-size: 20%;
-    --moduix-marquee-edge-color: var(--marquee-edge-color);
-    --moduix-marquee-edge-size: var(--marquee-edge-size);
-
     position: relative;
     box-sizing: border-box;
     overflow: hidden;
@@ -54,35 +49,40 @@
   }
 
   .edge {
+    --_edge-color: var(
+      --moduix-marquee-edge-color,
+      var(--marquee-edge-color, var(--moduix-color-background))
+    );
+    --_edge-size: var(--moduix-marquee-edge-size, var(--marquee-edge-size, 20%));
     z-index: var(--moduix-marquee-edge-z-index, 1);
     pointer-events: none;
 
     &[data-side='start'] {
-      width: var(--moduix-marquee-edge-size);
-      background: linear-gradient(to right, var(--moduix-marquee-edge-color), transparent);
+      width: var(--_edge-size);
+      background: linear-gradient(to right, var(--_edge-color), transparent);
 
       &[dir='rtl'] {
-        background: linear-gradient(to left, var(--moduix-marquee-edge-color), transparent);
+        background: linear-gradient(to left, var(--_edge-color), transparent);
       }
     }
 
     &[data-side='end'] {
-      width: var(--moduix-marquee-edge-size);
-      background: linear-gradient(to left, var(--moduix-marquee-edge-color), transparent);
+      width: var(--_edge-size);
+      background: linear-gradient(to left, var(--_edge-color), transparent);
 
       &[dir='rtl'] {
-        background: linear-gradient(to right, var(--moduix-marquee-edge-color), transparent);
+        background: linear-gradient(to right, var(--_edge-color), transparent);
       }
     }
 
     &[data-side='top'] {
-      height: var(--moduix-marquee-edge-size);
-      background: linear-gradient(to bottom, var(--moduix-marquee-edge-color), transparent);
+      height: var(--_edge-size);
+      background: linear-gradient(to bottom, var(--_edge-color), transparent);
     }
 
     &[data-side='bottom'] {
-      height: var(--moduix-marquee-edge-size);
-      background: linear-gradient(to top, var(--moduix-marquee-edge-color), transparent);
+      height: var(--_edge-size);
+      background: linear-gradient(to top, var(--_edge-color), transparent);
     }
   }
 

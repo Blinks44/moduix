@@ -124,3 +124,25 @@ test('keeps custom indicator content inside the hidden rotating wrapper', () => 
     'spinner-indicator',
   );
 });
+
+test('forwards refs through the ordinary Ark Solid root path', () => {
+  let ref!: HTMLSpanElement;
+
+  render(() => <Spinner ref={(element) => (ref = element)} aria-label="Syncing" />);
+
+  expect(ref).toBe(screen.getByRole('status', { name: 'Syncing' }));
+});
+
+test('does not forward refs through native Ark Solid asChild composition', () => {
+  let ref: HTMLSpanElement | undefined;
+
+  render(() => (
+    <Spinner
+      decorative
+      ref={(element) => (ref = element)}
+      asChild={(props) => <span {...props()} />}
+    />
+  ));
+
+  expect(ref).toBeUndefined();
+});

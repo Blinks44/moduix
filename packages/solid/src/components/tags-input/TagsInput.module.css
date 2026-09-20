@@ -234,7 +234,6 @@
     padding: 0 var(--moduix-tags-input-input-padding-x, var(--moduix-spacing-1));
     background-color: transparent;
     color: inherit;
-    font: inherit;
     font-size: var(
       --moduix-tags-input-input-font-size,
       var(--moduix-input-font-size, var(--moduix-text-sm))
@@ -266,6 +265,10 @@
     display: none;
   }
 
+  .control[data-readonly] .itemDeleteTrigger {
+    display: none;
+  }
+
   .itemDeleteTrigger {
     display: inline-flex;
     flex: none;
@@ -293,11 +296,13 @@
       pointer-events: none;
     }
 
-    &:hover {
-      background-color: var(
-        --moduix-tags-input-trigger-bg-hover,
-        color-mix(in oklab, currentColor 12%, transparent)
-      );
+    @media (hover: hover) {
+      &:hover {
+        background-color: var(
+          --moduix-tags-input-trigger-bg-hover,
+          color-mix(in oklab, currentColor 12%, transparent)
+        );
+      }
     }
 
     &:focus-visible {

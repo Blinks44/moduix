@@ -131,6 +131,10 @@ Use `defaultPaths` for local uncontrolled state. Use `paths` with `onDraw(detail
 application owns the signature data. Use `RootProvider` with `useSignaturePad()` when state must be
 created outside the rendered tree or external controls need `paths`, `clear()`, or `getDataUrl()`.
 
+Unlike Ark, moduix disables `ClearTrigger` when `readOnly` comes from the root, a surrounding
+`Field`, or `useSignaturePad()`, preventing an irreversible clear while programmatic `clear()`
+stays available.
+
 ## Examples
 
 ### Controlled
@@ -176,7 +180,8 @@ controls or autosave logic.
 ### Drawing
 
 Pass `drawing` when stroke width, stroke color, or pressure behavior needs to differ from the
-defaults.
+defaults. The runtime default is `{ size: 2, simulatePressure: false }` (the Ark documentation
+page shows `simulatePressure: true`), so pressure simulation is opt-in.
 
 <ExampleFrame variant="component">
   <SignaturePadDrawing />

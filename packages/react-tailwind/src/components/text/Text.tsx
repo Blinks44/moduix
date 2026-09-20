@@ -107,7 +107,7 @@ const TextRoot = forwardRef<HTMLElement, TextProps>(function TextRoot(
         }),
         truncate && 'overflow-hidden text-ellipsis whitespace-nowrap',
         resolvedLineClamp !== undefined &&
-          '[display:-webkit-box] overflow-hidden [white-space:normal] [-webkit-box-orient:vertical]',
+          '[display:-webkit-box] overflow-hidden whitespace-normal [-webkit-box-orient:vertical]',
         className,
       )}
       style={

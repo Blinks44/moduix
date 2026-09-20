@@ -46,7 +46,8 @@ circulaire.
 Les mêmes exports sont disponibles depuis `@moduix/solid/angle-slider` pour Solid.
 ## Exemple de base
 
-Commencez par la composition minimale avec `Dial`. `AngleSlider` accepte une seule valeur d’angle comprise entre 0
+Commencez par `Dial`, qui réunit la piste circulaire, la valeur centrée et la poignée. La piste se remplit depuis le haut
+à mesure que l’angle augmente. `AngleSlider` accepte une seule valeur d’angle comprise entre 0
 et 360 degrés. Ajoutez si possible un `Label` visible. Si le cadran n’en a pas, ajoutez `aria-label` à la racine.
 
 
@@ -120,8 +121,8 @@ AngleSlider.Root
 ├─ AngleSlider.Control
 │  ├─ AngleSlider.MarkerGroup
 │  │  └─ AngleSlider.Marker[value]
+│  ├─ AngleSlider.ValueText
 │  └─ AngleSlider.Thumb
-├─ AngleSlider.ValueText
 └─ AngleSlider.HiddenInput (explicite)
 ```
 
@@ -132,12 +133,12 @@ AngleSlider.Root
 | `AngleSlider.RootProvider`         | Relie les parties à l’état Ark créé en dehors de l’arborescence rendue.  |
 | `AngleSlider.Label`                | Associe une étiquette visible au curseur.                               |
 | `AngleSlider.Control`              | Fournit la zone circulaire d’interaction avec le pointeur.              |
-| `AngleSlider.Dial`                 | Associe `Control` et `Thumb` ; accepte des enfants.                           |
+| `AngleSlider.Dial`                 | Associe `Control`, la `ValueText` centrée et `Thumb` ; accepte des enfants.   |
 | `AngleSlider.MarkerGroup`          | Contient les marqueurs de référence facultatifs.                        |
 | `AngleSlider.Marker`               | Place un marqueur numérique et indique sa relation avec la valeur courante. |
 | `AngleSlider.Marks`                | Composition pratique qui crée les marqueurs à partir d’un tableau `values`. |
-| `AngleSlider.Thumb`                | Poignée pouvant recevoir le focus et indiquant l’angle courant.          |
-| `AngleSlider.ValueText`            | Affiche la valeur actuelle en degrés.                                   |
+| `AngleSlider.Thumb`                | Poignée circulaire pouvant recevoir le focus et suivant la piste selon l’angle courant. |
+| `AngleSlider.ValueText`            | Affiche la valeur actuelle en degrés ; `Dial` la centre dans le cadran. |
 
 Composez explicitement `AngleSlider.HiddenInput` dans `Root` ou `RootProvider` lorsque la valeur
 doit participer à un formulaire natif.

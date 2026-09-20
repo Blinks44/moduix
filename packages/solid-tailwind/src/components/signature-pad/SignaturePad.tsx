@@ -167,7 +167,7 @@ function SignaturePadClearTrigger(
             aria-labelledby={local['aria-labelledby']}
             class={cn(
               resolvedProps.class,
-              'size-7 rounded-sm bg-transparent text-muted-foreground focus-visible:outline-2 focus-visible:outline-offset-1 focus-visible:outline-ring motion-reduce:transition-none [&>svg]:size-4 [&>svg]:shrink-0 [@media(hover:hover)]:[&:not([data-disabled]):hover]:bg-accent [@media(hover:hover)]:[&:not([data-disabled]):hover]:text-foreground',
+              'size-control-md rounded-sm bg-transparent text-muted-foreground focus-visible:outline-2 focus-visible:outline-offset-4 focus-visible:outline-ring motion-reduce:transition-none [&>svg]:size-4 [&>svg]:shrink-0 [@media(hover:hover)]:[&:not([data-disabled]):hover]:bg-accent [@media(hover:hover)]:[&:not([data-disabled]):hover]:text-foreground',
               local.class,
             )}
           >
@@ -185,7 +185,7 @@ function SignaturePadClearTrigger(
 
 type SignaturePadCanvasProps = Omit<
   ComponentProps<typeof SignaturePadPrimitive.Control>,
-  'children'
+  'asChild' | 'children'
 >;
 
 function SignaturePadCanvas(props: SignaturePadCanvasProps) {

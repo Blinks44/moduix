@@ -110,3 +110,42 @@ test('preserves Ark callback details, keyboard behavior, and non-interactive sta
   expect(readOnlySlider).toHaveAttribute('data-readonly');
   expect(disabledSlider).not.toHaveAttribute('tabindex');
 });
+
+test('focuses the thumb synchronously on left pointer down and respects prevented and non-interactive states', () => {
+  const preventPointerDown = (event: { preventDefault: () => void }) => {
+    event.preventDefault();
+  };
+
+  const { container, rerender } = render(
+    <AngleSlider defaultValue={45} aria-label="Rotation">
+      <AngleSlider.Dial />
+    </AngleSlider>,
+  );
+  const thumb = screen.getByRole('slider', { name: 'Rotation' });
+
+  fireEvent.pointerDown(container.querySelector('[data-slot="angle-slider-control"]')!, {
+    button: 0,
+  });
+  expect(thumb).toHaveFocus();
+
+  thumb.blur();
+  rerender(
+    <AngleSlider defaultValue={45} aria-label="Rotation">
+      <AngleSlider.Dial onPointerDown={preventPointerDown} />
+    </AngleSlider>,
+  );
+  fireEvent.pointerDown(container.querySelector('[data-slot="angle-slider-control"]')!, {
+    button: 0,
+  });
+  expect(thumb).not.toHaveFocus();
+
+  const { container: disabledContainer } = render(
+    <AngleSlider defaultValue={45} aria-label="Disabled rotation" disabled>
+      <AngleSlider.Dial />
+    </AngleSlider>,
+  );
+  fireEvent.pointerDown(disabledContainer.querySelector('[data-slot="angle-slider-control"]')!, {
+    button: 0,
+  });
+  expect(screen.getByRole('slider', { name: 'Disabled rotation' })).not.toHaveFocus();
+});

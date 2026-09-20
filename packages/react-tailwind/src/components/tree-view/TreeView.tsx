@@ -16,10 +16,15 @@ import {
   useTreeViewContext,
   useTreeViewNodeContext,
 } from '@ark-ui/react/tree-view';
+import { cva } from 'class-variance-authority';
 import type { ComponentProps, ComponentRef, ForwardedRef, ReactNode } from 'react';
 import { forwardRef } from 'react';
 import { cn } from '@/lib/moduix/cn';
 import { CheckIcon, ChevronRightIcon, IndeterminateIcon } from '@/lib/moduix/icons/ui';
+
+const treeViewRowVariants = cva(
+  "relative z-0 box-border flex min-h-8 w-full min-w-0 cursor-pointer items-center gap-2 rounded-sm bg-transparent py-1 pe-2 text-start text-foreground no-underline transition-[color,opacity] duration-200 ease-in-out outline-none select-none [font:inherit] before:pointer-events-none before:absolute before:inset-y-0 before:start-[calc(0.5rem+((var(--depth,1)-1)*1rem))] before:end-0 before:-z-1 before:rounded-sm before:bg-transparent before:ring-1 before:ring-transparent before:transition-[background-color,box-shadow] before:duration-200 before:ease-in-out before:content-[''] before:ring-inset focus-visible:before:ring-ring data-disabled:cursor-default data-disabled:text-muted-foreground data-disabled:opacity-50 data-focus:before:ring-ring data-selected:text-accent-foreground data-selected:before:bg-accent motion-reduce:before:transition-none [@media(hover:hover)]:[&:not([data-disabled]):hover]:text-accent-foreground [@media(hover:hover)]:[&:not([data-disabled]):hover]:before:bg-accent",
+);
 
 const TreeViewRoot = forwardRef(function TreeViewRoot<T extends TreeNode>(
   { className, ...props }: TreeViewRootProps<T>,
@@ -105,7 +110,8 @@ const TreeViewBranchControl = forwardRef<
     <TreeViewPrimitive.BranchControl
       ref={ref}
       className={cn(
-        "relative z-0 box-border flex min-h-8 w-full min-w-0 cursor-pointer items-center gap-2 rounded-sm bg-transparent py-1 ps-[calc(0.5rem+((var(--depth,1)-1)*1rem))] pe-2 text-start text-foreground no-underline transition-[color,opacity] duration-200 ease-in-out outline-none select-none [font:inherit] before:pointer-events-none before:absolute before:inset-y-0 before:start-[calc(0.5rem+((var(--depth,1)-1)*1rem))] before:end-0 before:-z-1 before:rounded-sm before:bg-transparent before:ring-1 before:ring-transparent before:transition-[background-color,box-shadow] before:duration-200 before:ease-in-out before:content-[''] before:ring-inset focus-visible:before:ring-ring data-disabled:cursor-default data-disabled:text-muted-foreground data-disabled:opacity-50 data-focus:before:ring-ring data-selected:text-accent-foreground data-selected:before:bg-accent motion-reduce:before:transition-none [@media(hover:hover)]:[&:not([data-disabled]):hover]:text-accent-foreground [@media(hover:hover)]:[&:not([data-disabled]):hover]:before:bg-accent",
+        treeViewRowVariants(),
+        'ps-[calc(0.5rem+((var(--depth,1)-1)*1rem))]',
         className,
       )}
       {...props}
@@ -210,10 +216,7 @@ const TreeViewItem = forwardRef<
   return (
     <TreeViewPrimitive.Item
       ref={ref}
-      className={cn(
-        "relative z-0 box-border flex min-h-8 w-full min-w-0 cursor-pointer items-center gap-2 rounded-sm bg-transparent py-1 ps-[calc(1rem+((var(--depth,1)-1)*1rem))] pe-2 text-start text-foreground no-underline transition-[color,opacity] duration-200 ease-in-out outline-none select-none [font:inherit] before:pointer-events-none before:absolute before:inset-y-0 before:start-[calc(0.5rem+((var(--depth,1)-1)*1rem))] before:end-0 before:-z-1 before:rounded-sm before:bg-transparent before:ring-1 before:ring-transparent before:transition-[background-color,box-shadow] before:duration-200 before:ease-in-out before:content-[''] before:ring-inset focus-visible:before:ring-ring data-disabled:cursor-default data-disabled:text-muted-foreground data-disabled:opacity-50 data-focus:before:ring-ring data-selected:text-accent-foreground data-selected:before:bg-accent motion-reduce:before:transition-none [@media(hover:hover)]:[&:not([data-disabled]):hover]:text-accent-foreground [@media(hover:hover)]:[&:not([data-disabled]):hover]:before:bg-accent",
-        className,
-      )}
+      className={cn(treeViewRowVariants(), 'ps-[calc(1rem+((var(--depth,1)-1)*1rem))]', className)}
       {...props}
       data-slot="tree-view-item"
     />
@@ -277,17 +280,22 @@ function TreeViewNodeCheckboxIndicator({
   className,
   children,
   indeterminate,
+  fallback,
   ...props
 }: ComponentProps<typeof TreeViewPrimitive.NodeCheckboxIndicator>) {
   return (
-    <TreeViewPrimitive.NodeCheckboxIndicator
+    <span
       className={cn('inline-flex items-center justify-center', className)}
-      indeterminate={indeterminate ?? <IndeterminateIcon />}
       {...props}
       data-slot="tree-view-node-checkbox-indicator"
     >
-      {children ?? <CheckIcon />}
-    </TreeViewPrimitive.NodeCheckboxIndicator>
+      <TreeViewPrimitive.NodeCheckboxIndicator
+        fallback={fallback}
+        indeterminate={indeterminate ?? <IndeterminateIcon />}
+      >
+        {children ?? <CheckIcon />}
+      </TreeViewPrimitive.NodeCheckboxIndicator>
+    </span>
   );
 }
 

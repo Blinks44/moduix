@@ -98,6 +98,7 @@ export const Basic: Story = {
       aria-label="Basic image carousel"
       slideCount={slides.length}
       className={styles.carousel}
+      spacing="1em"
     >
       <Carousel.ItemGroup aria-label="Basic image carousel">
         {slides.map((slide, index) => (
@@ -128,6 +129,7 @@ export const Controlled: Story = {
         page={page}
         onPageChange={(details) => setPage(details.page)}
         className={styles.carousel}
+        spacing="1em"
       >
         <Carousel.ItemGroup aria-label="Controlled image carousel">
           {slides.map((slide, index) => (
@@ -164,6 +166,7 @@ export const DynamicSlides: Story = {
           page={page}
           onPageChange={(details) => setPage(details.page)}
           className={styles.carousel}
+          spacing="1em"
         >
           <Carousel.ItemGroup aria-label="Dynamic image carousel">
             {visibleSlides.map((slide, index) => (
@@ -200,6 +203,7 @@ export const PauseOnHover: Story = {
       loop
       slideCount={slides.length}
       className={styles.carousel}
+      spacing="1em"
     >
       <Carousel.Context>
         {(api) => (
@@ -236,7 +240,7 @@ export const PauseOnHover: Story = {
 export const RootProvider: Story = {
   args: { slideCount: slides.length },
   render: () => {
-    const carousel = useCarousel({ slideCount: slides.length });
+    const carousel = useCarousel({ slideCount: slides.length, spacing: '1em' });
 
     return (
       <div className={styles.exampleStack}>
@@ -271,6 +275,7 @@ export const ScrollTo: Story = {
       aria-label="Scroll to image carousel"
       slideCount={slides.length}
       className={styles.carousel}
+      spacing="1em"
     >
       <Carousel.Context>
         {(api) => (
@@ -304,7 +309,7 @@ export const SlidesPerPage: Story = {
       aria-label="Two-up image carousel"
       slideCount={slides.length}
       slidesPerPage={2}
-      spacing="var(--moduix-spacing-3)"
+      spacing="1em"
       className={`${styles.carousel} ${styles.wideCarousel}`}
     >
       <Carousel.Control className={styles.compactControls}>
@@ -330,10 +335,10 @@ export const Spacing: Story = {
       aria-label="Spaced image carousel"
       slideCount={slides.length}
       slidesPerPage={1.5}
-      spacing="3rem"
+      spacing="1em"
       className={`${styles.carousel} ${styles.wideCarousel}`}
     >
-      <p className={styles.statusText}>spacing=&quot;3rem&quot;</p>
+      <p className={styles.statusText}>spacing=&quot;1em&quot;</p>
       <Carousel.ItemGroup aria-label="Spaced image carousel">
         {slides.map((slide, index) => (
           <Carousel.Item key={slide.id} index={index}>
@@ -357,6 +362,7 @@ export const ThumbnailIndicator: Story = {
       aria-label="Image carousel with thumbnail indicators"
       slideCount={slides.length}
       className={styles.carousel}
+      spacing="1em"
     >
       <Carousel.ItemGroup aria-label="Image carousel with thumbnail indicators">
         {slides.map((slide, index) => (
@@ -387,7 +393,7 @@ export const VariableSize: Story = {
       aria-label="Variable image carousel"
       autoSize
       padding="var(--moduix-spacing-4)"
-      spacing="var(--moduix-spacing-3)"
+      spacing="1em"
       slideCount={variableSlides.length}
       className={styles.carousel}
     >
@@ -421,6 +427,7 @@ export const Autoplay: Story = {
       loop
       slideCount={slides.length}
       className={styles.carousel}
+      spacing="1em"
     >
       <Carousel.Context>
         {(api) => (
@@ -463,6 +470,7 @@ export const Loop: Story = {
       loop
       slideCount={slides.length}
       className={styles.carousel}
+      spacing="1em"
     >
       <Carousel.ItemGroup aria-label="Looping image carousel">
         {slides.map((slide, index) => (
@@ -489,6 +497,7 @@ export const MouseDrag: Story = {
       aria-label="Mouse draggable image carousel"
       slideCount={slides.length}
       className={styles.carousel}
+      spacing="1em"
     >
       <Carousel.ItemGroup aria-label="Mouse draggable image carousel">
         {slides.map((slide, index) => (
@@ -515,6 +524,7 @@ export const Rtl: Story = {
       dir="rtl"
       slideCount={slides.length}
       className={styles.carousel}
+      spacing="1em"
     >
       <Carousel.ItemGroup aria-label="Right-to-left image carousel">
         {slides.map((slide, index) => (
@@ -541,6 +551,7 @@ export const Vertical: Story = {
       orientation="vertical"
       slideCount={slides.length}
       className={`${styles.carousel} ${styles.verticalCarousel}`}
+      spacing="1em"
     >
       <Carousel.ItemGroup aria-label="Vertical image carousel">
         {slides.map((slide, index) => (

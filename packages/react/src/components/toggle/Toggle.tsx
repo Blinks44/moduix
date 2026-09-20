@@ -18,10 +18,10 @@ const ToggleRoot = forwardRef<ComponentRef<typeof TogglePrimitive.Root>, ToggleR
     return (
       <TogglePrimitive.Root
         ref={ref}
-        data-variant={variant}
-        data-size={size}
         className={clsx(styles.root, className)}
         {...props}
+        data-variant={variant}
+        data-size={size}
         data-slot="toggle-root"
       />
     );

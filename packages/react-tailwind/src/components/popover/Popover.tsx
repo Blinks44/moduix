@@ -14,8 +14,8 @@ import { CloseButton } from '../close-button';
 
 const DEFAULT_CLOSE_BUTTON_LABEL = 'Close popover';
 
-type PopoverRootProps = ComponentProps<typeof PopoverPrimitive.Root> & OverlayPortalProps;
-type PopoverRootProviderProps = ComponentProps<typeof PopoverPrimitive.RootProvider> & {
+export type PopoverRootProps = ComponentProps<typeof PopoverPrimitive.Root> & OverlayPortalProps;
+export type PopoverRootProviderProps = ComponentProps<typeof PopoverPrimitive.RootProvider> & {
   portalRef?: OverlayPortalProps['portalRef'];
 };
 
@@ -85,7 +85,7 @@ const PopoverTrigger = forwardRef<
       asChild={asChild}
       className={cn(
         !asChild &&
-          'box-border inline-flex min-h-control-md cursor-pointer items-center justify-center rounded-md border border-border bg-background px-3.5 py-1 text-md leading-6 text-foreground outline-0 transition-[background-color,border-color,color] duration-200 ease-in-out select-none focus-visible:outline-1 focus-visible:-outline-offset-1 focus-visible:outline-ring active:bg-accent disabled:pointer-events-none disabled:opacity-50 data-disabled:pointer-events-none data-disabled:opacity-50 data-[state=open]:not-data-[value]:bg-accent data-[current]:data-[state=open]:bg-accent motion-reduce:transition-none [@media(hover:hover)]:hover:bg-accent',
+          'box-border inline-flex min-h-control-md cursor-pointer items-center justify-center rounded-md border border-border bg-background px-3.5 py-1 text-md text-foreground outline-0 transition-[background-color,border-color,color] duration-200 ease-in-out select-none focus-visible:outline-1 focus-visible:-outline-offset-1 focus-visible:outline-ring active:bg-accent disabled:pointer-events-none disabled:opacity-50 data-disabled:pointer-events-none data-disabled:opacity-50 data-[state=open]:not-data-[value]:bg-accent data-[current]:data-[state=open]:bg-accent motion-reduce:transition-none [@media(hover:hover)]:hover:bg-accent',
         className,
       )}
       {...props}
@@ -151,7 +151,10 @@ const PopoverArrow = forwardRef<
   return (
     <PopoverPrimitive.Arrow
       ref={ref}
-      className={cn('[--arrow-background:var(--color-popover)] [--arrow-size:0.625rem]', className)}
+      className={cn(
+        '[--arrow-background:var(--color-popover)] [--arrow-size:var(--spacing-2_5)]',
+        className,
+      )}
       {...props}
       data-slot="popover-arrow"
     >
@@ -181,7 +184,7 @@ const PopoverTitle = forwardRef<
   return (
     <PopoverPrimitive.Title
       ref={ref}
-      className={cn('text-md leading-6 font-semibold text-popover-foreground', className)}
+      className={cn('text-md font-semibold text-popover-foreground', className)}
       {...props}
       data-slot="popover-title"
     />
@@ -195,7 +198,7 @@ const PopoverDescription = forwardRef<
   return (
     <PopoverPrimitive.Description
       ref={ref}
-      className={cn('text-sm leading-5 text-muted-foreground', className)}
+      className={cn('text-sm text-muted-foreground', className)}
       {...props}
       data-slot="popover-description"
     />
@@ -212,7 +215,7 @@ const PopoverCloseTrigger = forwardRef<
       asChild={asChild}
       className={cn(
         !asChild &&
-          'box-border inline-flex min-h-control-md cursor-pointer items-center justify-center rounded-md border border-border bg-background px-3.5 py-1 text-md leading-6 text-foreground outline-0 transition-[background-color,border-color,color] duration-200 ease-in-out select-none focus-visible:outline-1 focus-visible:-outline-offset-1 focus-visible:outline-ring active:bg-accent disabled:pointer-events-none disabled:opacity-50 data-disabled:pointer-events-none data-disabled:opacity-50 motion-reduce:transition-none [@media(hover:hover)]:hover:bg-accent',
+          'box-border inline-flex min-h-control-md cursor-pointer items-center justify-center rounded-md border border-border bg-background px-3.5 py-1 text-md text-foreground outline-0 transition-[background-color,border-color,color] duration-200 ease-in-out select-none focus-visible:outline-1 focus-visible:-outline-offset-1 focus-visible:outline-ring active:bg-accent disabled:pointer-events-none disabled:opacity-50 data-disabled:pointer-events-none data-disabled:opacity-50 motion-reduce:transition-none [@media(hover:hover)]:hover:bg-accent',
         className,
       )}
       {...props}
@@ -251,7 +254,7 @@ const PopoverHeader = forwardRef<ComponentRef<typeof ark.div>, HTMLArkProps<'div
       <ark.div
         ref={ref}
         className={cn(
-          'grid gap-1 group-has-[>[data-slot=popover-close-icon]]/popover-content:pe-10',
+          'grid gap-1 group-has-[[data-slot=popover-close-icon]]/popover-content:pe-10',
           className,
         )}
         {...props}

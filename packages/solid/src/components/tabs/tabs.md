@@ -59,7 +59,9 @@ const tabs = useTabs({ defaultValue: 'account' });
 ```
 
 `variant="default"` uses the filled indicator treatment. `variant="line"` uses an underline for
-horizontal tabs; vertical tabs intentionally keep the filled treatment. `Tabs.List` does not
+horizontal tabs; vertical tabs intentionally keep the filled treatment. `Tabs.RootProvider` resolves
+this vertical fallback from the Ark `data-orientation` root DOM hook exposed by the `useTabs()` state;
+if upstream ever drops the attribute, the regression tests catch it. `Tabs.List` does not
 render an indicator automatically.
 
 ## Anatomy and styling hooks

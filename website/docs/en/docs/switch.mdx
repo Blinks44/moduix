@@ -530,6 +530,10 @@ attributes, and the public `--moduix-switch-*` CSS variables shown below. Tailwi
 utilities and consumer classes; the variables below apply to CSS Modules, while data attributes are
 shared by both approaches.
 
+In the Tailwind variants the checked thumb translate distance is hard-coded per size. If you
+override the control width or thumb size utilities, override the matching checked `translate-x`
+utilities as well. The CSS Modules track recomputes the movement from `--_switch-width`.
+
 ### CSS Properties
 
 <div className="docs-reference">

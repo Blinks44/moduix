@@ -28,9 +28,9 @@ function RatingGroupRoot(props: RatingGroupRootProps) {
   return (
     <RatingGroupPrimitive.Root
       asChild={local.asChild}
-      data-size={local.size ?? 'md'}
       class={clsx(styles.root, local.class)}
       {...others}
+      data-size={local.size ?? 'md'}
       data-slot="rating-group-root"
     >
       {local.children}
@@ -44,9 +44,9 @@ function RatingGroupRootProvider(props: RatingGroupRootProviderProps) {
   return (
     <RatingGroupPrimitive.RootProvider
       asChild={local.asChild}
-      data-size={local.size ?? 'md'}
       class={clsx(styles.root, local.class)}
       {...others}
+      data-size={local.size ?? 'md'}
       data-slot="rating-group-root-provider"
     >
       {local.children}
@@ -97,10 +97,10 @@ function RatingGroupItemIndicator(props: RatingGroupItemIndicatorProps) {
 
   return (
     <span
-      data-half={item().half ? '' : undefined}
-      data-highlighted={item().highlighted ? '' : undefined}
       class={clsx(styles.itemIndicator, local.class)}
       {...others}
+      data-half={item().half ? '' : undefined}
+      data-highlighted={item().highlighted ? '' : undefined}
       data-slot="rating-group-item-indicator"
     >
       {resolvedChildren() ?? (

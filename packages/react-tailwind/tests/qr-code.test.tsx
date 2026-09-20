@@ -178,7 +178,6 @@ test('applies native utilities to the component-owned visual parts', () => {
     'bg-background',
     'px-4',
     'text-sm',
-    'leading-5',
     'font-medium',
     'text-foreground',
   );

@@ -1,0 +1,8 @@
+.track {
+  stroke: var(--moduix-color-chart-1);
+}
+
+.range {
+  stroke: var(--moduix-color-chart-2);
+  stroke-linecap: butt;
+}

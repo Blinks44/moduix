@@ -85,7 +85,7 @@
 
   .trigger {
     padding-inline: max(
-      var(--moduix-pagination-item-padding-inline, var(--moduix-spacing-3)),
+      var(--moduix-pagination-item-padding-inline, var(--moduix-spacing-2)),
       var(--moduix-spacing-3)
     );
   }

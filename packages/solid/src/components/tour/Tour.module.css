@@ -22,7 +22,10 @@
   }
 
   .spotlight {
-    z-index: calc(var(--moduix-tour-z-index, var(--moduix-z-modal)) + var(--tour-layer, 0));
+    z-index: calc(
+      var(--moduix-tour-z-index, var(--moduix-z-modal)) + var(--tour-layer, 0) +
+        var(--layer-index, 0)
+    );
     box-shadow: var(
       --moduix-tour-spotlight-shadow,
       0 0 0 var(--moduix-tour-spotlight-ring-width, 2px) var(--moduix-color-ring)
@@ -127,12 +130,6 @@
   }
 
   .content {
-    --arrow-background: var(
-      --moduix-tour-arrow-background,
-      var(--moduix-tour-bg, var(--moduix-color-popover))
-    );
-    --arrow-size: var(--moduix-tour-arrow-size, var(--moduix-spacing-2-5));
-
     box-sizing: border-box;
     position: relative;
     z-index: calc(

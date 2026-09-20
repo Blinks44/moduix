@@ -101,11 +101,13 @@
         box-shadow var(--moduix-tree-view-transition, var(--moduix-transition-default));
     }
 
-    &:not([data-disabled]):hover {
-      color: var(--moduix-tree-view-item-hover-color, var(--moduix-color-accent-foreground));
+    @media (hover: hover) {
+      &:not([data-disabled]):hover {
+        color: var(--moduix-tree-view-item-hover-color, var(--moduix-color-accent-foreground));
 
-      &::before {
-        background-color: var(--moduix-tree-view-item-hover-bg, var(--moduix-color-accent));
+        &::before {
+          background-color: var(--moduix-tree-view-item-hover-bg, var(--moduix-color-accent));
+        }
       }
     }
 

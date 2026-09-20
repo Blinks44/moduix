@@ -15,9 +15,11 @@ export default function ItemFieldDemo() {
       <Field.Label>Amount</Field.Label>
       <div class={styles.inlineControls}>
         <Field.Item value="currency">
-          <NativeSelect aria-label="Currency" defaultValue="USD">
+          <NativeSelect aria-label="Currency">
             {currencyOptions.map((option) => (
-              <option value={option.value}>{option.label}</option>
+              <option value={option.value} selected={option.value === 'USD'}>
+                {option.label}
+              </option>
             ))}
           </NativeSelect>
         </Field.Item>

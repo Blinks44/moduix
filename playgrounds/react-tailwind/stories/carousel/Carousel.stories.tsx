@@ -54,7 +54,7 @@ const variableSlides = [
 ] as const;
 
 const frameClass = 'w-[min(52rem,calc(100vw-4rem))]';
-const carouselClass = 'w-full max-w-168';
+const carouselClass = 'w-full max-w-128';
 const wideCarouselClass = 'w-full max-w-192';
 const imageClass =
   'block h-84 w-full overflow-hidden rounded-xl border border-border bg-card shadow-sm';
@@ -112,6 +112,7 @@ export const Basic: Story = {
       aria-label="Basic image carousel"
       slideCount={slides.length}
       className={carouselClass}
+      spacing="1em"
     >
       <Carousel.ItemGroup aria-label="Basic image carousel">
         <Slides />
@@ -138,6 +139,7 @@ export const Controlled: Story = {
         page={page}
         onPageChange={(details) => setPage(details.page)}
         className={carouselClass}
+        spacing="1em"
       >
         <Carousel.ItemGroup aria-label="Controlled image carousel">
           <Slides />
@@ -170,6 +172,7 @@ export const DynamicSlides: Story = {
           page={page}
           onPageChange={(details) => setPage(details.page)}
           className={carouselClass}
+          spacing="1em"
         >
           <Carousel.ItemGroup aria-label="Dynamic image carousel">
             {visibleSlides.map((slide, index) => (
@@ -206,6 +209,7 @@ export const PauseOnHover: Story = {
       loop
       slideCount={slides.length}
       className={carouselClass}
+      spacing="1em"
     >
       <Carousel.Context>
         {(api) => (
@@ -238,7 +242,7 @@ export const PauseOnHover: Story = {
 export const RootProvider: Story = {
   args: { slideCount: slides.length },
   render: () => {
-    const carousel = useCarousel({ slideCount: slides.length });
+    const carousel = useCarousel({ slideCount: slides.length, spacing: '1em' });
 
     return (
       <div className="grid justify-items-start gap-3">
@@ -269,6 +273,7 @@ export const ScrollTo: Story = {
       aria-label="Scroll to image carousel"
       slideCount={slides.length}
       className={carouselClass}
+      spacing="1em"
     >
       <Carousel.Context>
         {(api) => (
@@ -298,7 +303,7 @@ export const SlidesPerPage: Story = {
       aria-label="Two-up image carousel"
       slideCount={slides.length}
       slidesPerPage={2}
-      spacing="0.75rem"
+      spacing="1em"
       className={wideCarouselClass}
     >
       <Carousel.Control className={controlsClass}>
@@ -320,10 +325,10 @@ export const Spacing: Story = {
       aria-label="Spaced image carousel"
       slideCount={slides.length}
       slidesPerPage={1.5}
-      spacing="3rem"
+      spacing="1em"
       className={wideCarouselClass}
     >
-      <p className={statusClass}>spacing=&quot;3rem&quot;</p>
+      <p className={statusClass}>spacing=&quot;1em&quot;</p>
       <Carousel.ItemGroup aria-label="Spaced image carousel">
         <Slides className={shortImageClass} />
       </Carousel.ItemGroup>
@@ -343,6 +348,7 @@ export const ThumbnailIndicator: Story = {
       aria-label="Image carousel with thumbnail indicators"
       slideCount={slides.length}
       className={carouselClass}
+      spacing="1em"
     >
       <Carousel.ItemGroup aria-label="Image carousel with thumbnail indicators">
         <Slides />
@@ -373,7 +379,7 @@ export const VariableSize: Story = {
       aria-label="Variable image carousel"
       autoSize
       padding="1rem"
-      spacing="0.75rem"
+      spacing="1em"
       slideCount={variableSlides.length}
       className={carouselClass}
     >
@@ -407,6 +413,7 @@ export const Autoplay: Story = {
       loop
       slideCount={slides.length}
       className={carouselClass}
+      spacing="1em"
     >
       <Carousel.Context>
         {(api) => (
@@ -445,6 +452,7 @@ export const Loop: Story = {
       loop
       slideCount={slides.length}
       className={carouselClass}
+      spacing="1em"
     >
       <Carousel.ItemGroup aria-label="Looping image carousel">
         <Slides />
@@ -467,6 +475,7 @@ export const MouseDrag: Story = {
       aria-label="Mouse draggable image carousel"
       slideCount={slides.length}
       className={carouselClass}
+      spacing="1em"
     >
       <Carousel.ItemGroup aria-label="Mouse draggable image carousel">
         <Slides />
@@ -489,6 +498,7 @@ export const Rtl: Story = {
       dir="rtl"
       slideCount={slides.length}
       className={carouselClass}
+      spacing="1em"
     >
       <Carousel.ItemGroup aria-label="Right-to-left image carousel">
         <Slides />
@@ -511,6 +521,7 @@ export const Vertical: Story = {
       orientation="vertical"
       slideCount={slides.length}
       className="w-full max-w-152 data-[orientation=vertical]:h-112"
+      spacing="1em"
     >
       <Carousel.ItemGroup aria-label="Vertical image carousel">
         <Slides className="h-full" />

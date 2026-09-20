@@ -179,4 +179,51 @@ describe('Tooltip', () => {
 
     await waitFor(() => expect(screen.getByText('share')).toBeVisible());
   });
+
+  test('forwards refs on native parts and keeps asChild composition native', () => {
+    const triggerRef = { current: null as HTMLButtonElement | null };
+    const disabledTriggerRef = { current: null as HTMLSpanElement | null };
+    const bodyRef = { current: null as HTMLDivElement | null };
+    const positionerRef = { current: null as HTMLDivElement | null };
+    const contentRef = { current: null as HTMLDivElement | null };
+    const arrowRef = { current: null as HTMLDivElement | null };
+    const arrowTipRef = { current: null as HTMLDivElement | null };
+    let composedTriggerRef: HTMLElement | null = null;
+
+    render(
+      <Tooltip open portalled={false}>
+        <Tooltip.Trigger ref={triggerRef}>Save</Tooltip.Trigger>
+        <Tooltip.Trigger
+          asChild
+          aria-label="Composed save"
+          ref={(element) => {
+            composedTriggerRef = element;
+          }}
+        >
+          <a href="#save">Composed save</a>
+        </Tooltip.Trigger>
+        <Tooltip.DisabledTrigger ref={disabledTriggerRef} aria-label="Disabled save">
+          <Button disabled>Disabled save</Button>
+        </Tooltip.DisabledTrigger>
+        <Tooltip.Body ref={bodyRef}>Body ref</Tooltip.Body>
+        <Tooltip.Positioner ref={positionerRef}>
+          <Tooltip.Content ref={contentRef}>
+            <Tooltip.Arrow ref={arrowRef}>
+              <Tooltip.ArrowTip ref={arrowTipRef} />
+            </Tooltip.Arrow>
+            Explicit content
+          </Tooltip.Content>
+        </Tooltip.Positioner>
+      </Tooltip>,
+    );
+
+    expect(triggerRef.current).toHaveAttribute('data-slot', 'tooltip-trigger');
+    expect(disabledTriggerRef.current).toHaveAttribute('data-slot', 'tooltip-disabled-trigger');
+    expect(bodyRef.current).toHaveAttribute('data-slot', 'tooltip-content');
+    expect(positionerRef.current).toHaveAttribute('data-slot', 'tooltip-positioner');
+    expect(contentRef.current).toHaveAttribute('data-slot', 'tooltip-content');
+    expect(arrowRef.current).toHaveAttribute('data-slot', 'tooltip-arrow');
+    expect(arrowTipRef.current).toHaveAttribute('data-slot', 'tooltip-arrow-tip');
+    expect(composedTriggerRef).toHaveAttribute('href', '#save');
+  });
 });

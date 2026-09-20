@@ -32,9 +32,9 @@ const AvatarRootProvider = forwardRef<
   return (
     <AvatarPrimitive.RootProvider
       ref={ref}
-      data-size={size}
       className={clsx(styles.root, className)}
       {...props}
+      data-size={size}
       data-slot="avatar-root-provider"
     />
   );

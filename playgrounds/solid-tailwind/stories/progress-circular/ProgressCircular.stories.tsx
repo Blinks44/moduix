@@ -7,6 +7,9 @@ import { cn } from '@/lib/moduix/cn';
 const meta = {
   title: 'Components/ProgressCircular',
   component: ProgressCircular,
+  args: {
+    defaultValue: 42,
+  },
   parameters: {
     layout: 'centered',
   },

@@ -32,6 +32,10 @@ states. By default, it exposes the loading status to assistive technology with `
 the fallback label `aria-label="Loading"`. The fallback is the literal English string `Loading`, so
 set a localized `aria-label` or use `aria-labelledby` in a non-English interface.
 
+Under `prefers-reduced-motion: reduce`, the spinner stops rotating: the foundation spin animation
+token resolves to `none`, and the Tailwind indicator adds `motion-reduce:animate-none`. In the CSS
+Modules packages, set `--moduix-spinner-animation` to restore motion for reduced-motion users.
+
 
 Use `Spinner` as the root in most cases. `Spinner.Root` is an alias for the same root when you want
 to make that part explicit in your composition.

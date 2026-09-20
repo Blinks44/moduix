@@ -151,3 +151,29 @@ test('preserves asChild and provider context composition', async () => {
   expect(provider).toHaveAttribute('data-orientation', 'vertical');
   expect(provider).toHaveAttribute('data-variant', 'default');
 });
+
+test('keeps owned data-variant above consumer overrides on vertical roots', () => {
+  function VerticalOverrideTabs() {
+    const tabs = useTabs({ defaultValue: 'overview', orientation: 'vertical' });
+
+    return (
+      <>
+        <Tabs data-variant="line" defaultValue="overview" orientation="vertical">
+          <TabParts />
+        </Tabs>
+        <Tabs.RootProvider data-variant="line" value={tabs}>
+          <TabParts />
+        </Tabs.RootProvider>
+      </>
+    );
+  }
+
+  render(<VerticalOverrideTabs />);
+
+  const [root, provider] = screen.getAllByRole('tablist').map((tablist) => tablist.parentElement);
+
+  expect(root).toHaveAttribute('data-orientation', 'vertical');
+  expect(root).toHaveAttribute('data-variant', 'default');
+  expect(provider).toHaveAttribute('data-orientation', 'vertical');
+  expect(provider).toHaveAttribute('data-variant', 'default');
+});

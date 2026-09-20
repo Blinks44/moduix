@@ -13,10 +13,10 @@ const SliderRoot = forwardRef<
   return (
     <SliderPrimitive.Root
       ref={ref}
-      data-readonly={readOnly ? '' : undefined}
       className={clsx(styles.root, className)}
       readOnly={readOnly}
       {...props}
+      data-readonly={readOnly ? '' : undefined}
       data-slot="slider-root"
     />
   );

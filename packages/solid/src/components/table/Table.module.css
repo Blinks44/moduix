@@ -98,8 +98,10 @@
     );
   }
 
-  .root[data-interactive] .body .row:not([data-empty]):hover {
-    background-color: var(--moduix-table-row-bg-hover, var(--moduix-color-muted));
+  @media (hover: hover) {
+    .root[data-interactive] .body .row:not([data-empty]):hover {
+      background-color: var(--moduix-table-row-bg-hover, var(--moduix-color-muted));
+    }
   }
 
   .root[data-interactive] .body .row:not([data-empty]):focus-within {

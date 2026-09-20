@@ -204,13 +204,13 @@ const SidebarTrigger = forwardRef<HTMLButtonElement, HTMLArkProps<'button'>>(
         type={type}
         aria-label={ariaLabel}
         aria-expanded={!collapsed}
+        className={clsx(styles.trigger, className)}
+        onClick={handleClick}
+        {...props}
         data-scope="sidebar"
         data-part="trigger"
         data-side={config.side}
         data-state={collapsed ? 'collapsed' : 'expanded'}
-        className={clsx(styles.trigger, className)}
-        onClick={handleClick}
-        {...props}
         data-slot="sidebar-trigger"
       >
         {children ?? <ChevronLeftIcon />}
@@ -226,10 +226,10 @@ const SidebarLabel = forwardRef<HTMLSpanElement, HTMLArkProps<'span'>>(function 
   return (
     <ark.span
       ref={ref}
-      data-scope="sidebar"
-      data-part="label"
       className={clsx(styles.label, className)}
       {...props}
+      data-scope="sidebar"
+      data-part="label"
       data-slot="sidebar-label"
     />
   );
@@ -242,10 +242,10 @@ const SidebarHeader = forwardRef<HTMLElement, HTMLArkProps<'header'>>(function S
   return (
     <ark.header
       ref={ref}
-      data-scope="sidebar"
-      data-part="header"
       className={clsx(styles.header, className)}
       {...props}
+      data-scope="sidebar"
+      data-part="header"
       data-slot="sidebar-header"
     />
   );
@@ -258,10 +258,10 @@ const SidebarContent = forwardRef<HTMLDivElement, HTMLArkProps<'div'>>(function 
   return (
     <ark.div
       ref={ref}
-      data-scope="sidebar"
-      data-part="content"
       className={clsx(styles.content, className)}
       {...props}
+      data-scope="sidebar"
+      data-part="content"
       data-slot="sidebar-content"
     />
   );
@@ -274,10 +274,10 @@ const SidebarExpandedContent = forwardRef<HTMLDivElement, HTMLArkProps<'div'>>(
     return (
       <ark.div
         ref={ref}
-        data-scope="sidebar"
-        data-part="expanded-content"
         className={className}
         {...props}
+        data-scope="sidebar"
+        data-part="expanded-content"
         data-slot="sidebar-expanded-content"
         hidden={collapsed}
       />
@@ -292,10 +292,10 @@ const SidebarCollapsedContent = forwardRef<HTMLDivElement, HTMLArkProps<'div'>>(
     return (
       <ark.div
         ref={ref}
-        data-scope="sidebar"
-        data-part="collapsed-content"
         className={className}
         {...props}
+        data-scope="sidebar"
+        data-part="collapsed-content"
         data-slot="sidebar-collapsed-content"
         hidden={!collapsed}
       />
@@ -310,10 +310,10 @@ const SidebarFooter = forwardRef<HTMLElement, HTMLArkProps<'footer'>>(function S
   return (
     <ark.footer
       ref={ref}
-      data-scope="sidebar"
-      data-part="footer"
       className={clsx(styles.footer, className)}
       {...props}
+      data-scope="sidebar"
+      data-part="footer"
       data-slot="sidebar-footer"
     />
   );
@@ -326,10 +326,10 @@ const SidebarGroup = forwardRef<HTMLElement, HTMLArkProps<'section'>>(function S
   return (
     <ark.section
       ref={ref}
-      data-scope="sidebar"
-      data-part="group"
       className={clsx(styles.group, className)}
       {...props}
+      data-scope="sidebar"
+      data-part="group"
       data-slot="sidebar-group"
     />
   );
@@ -340,10 +340,10 @@ const SidebarGroupLabel = forwardRef<HTMLHeadingElement, HTMLArkProps<'h3'>>(
     return (
       <ark.h3
         ref={ref}
-        data-scope="sidebar"
-        data-part="group-label"
         className={clsx(styles.groupLabel, className)}
         {...props}
+        data-scope="sidebar"
+        data-part="group-label"
         data-slot="sidebar-group-label"
       />
     );
@@ -355,10 +355,10 @@ const SidebarGroupHeader = forwardRef<HTMLDivElement, HTMLArkProps<'div'>>(
     return (
       <ark.div
         ref={ref}
-        data-scope="sidebar"
-        data-part="group-header"
         className={clsx(styles.groupHeader, className)}
         {...props}
+        data-scope="sidebar"
+        data-part="group-header"
         data-slot="sidebar-group-header"
       />
     );
@@ -371,10 +371,10 @@ const SidebarGroupAction = forwardRef<HTMLButtonElement, HTMLArkProps<'button'>>
       <ark.button
         ref={ref}
         type={type}
-        data-scope="sidebar"
-        data-part="group-action"
         className={clsx(styles.groupAction, className)}
         {...props}
+        data-scope="sidebar"
+        data-part="group-action"
         data-slot="sidebar-group-action"
       />
     );
@@ -386,10 +386,10 @@ const SidebarNavigationList = forwardRef<HTMLUListElement, HTMLArkProps<'ul'>>(
     return (
       <ark.ul
         ref={ref}
-        data-scope="sidebar"
-        data-part="navigation-list"
         className={clsx(styles.menu, className)}
         {...props}
+        data-scope="sidebar"
+        data-part="navigation-list"
         data-slot="sidebar-navigation-list"
       />
     );
@@ -401,10 +401,10 @@ const SidebarNavigationItem = forwardRef<HTMLLIElement, HTMLArkProps<'li'>>(
     return (
       <ark.li
         ref={ref}
-        data-scope="sidebar"
-        data-part="navigation-item"
         className={clsx(styles.menuItem, className)}
         {...props}
+        data-scope="sidebar"
+        data-part="navigation-item"
         data-slot="sidebar-navigation-item"
       />
     );
@@ -433,12 +433,12 @@ const SidebarNavigationButton = forwardRef<
       ref={ref}
       type={type}
       aria-current={ariaCurrent ?? (active ? 'page' : undefined)}
+      className={clsx(styles.menuButton, className)}
+      {...props}
       data-scope="sidebar"
       data-part="navigation-button"
       data-active={active ? '' : undefined}
       data-size={size}
-      className={clsx(styles.menuButton, className)}
-      {...props}
       data-slot="sidebar-navigation-button"
     />
   );
@@ -449,10 +449,10 @@ const SidebarNavigationBadge = forwardRef<HTMLSpanElement, HTMLArkProps<'span'>>
     return (
       <ark.span
         ref={ref}
-        data-scope="sidebar"
-        data-part="navigation-badge"
         className={clsx(styles.menuBadge, className)}
         {...props}
+        data-scope="sidebar"
+        data-part="navigation-badge"
         data-slot="sidebar-navigation-badge"
       />
     );
@@ -464,10 +464,10 @@ const SidebarNavigationSubList = forwardRef<HTMLUListElement, HTMLArkProps<'ul'>
     return (
       <ark.ul
         ref={ref}
-        data-scope="sidebar"
-        data-part="navigation-sub-list"
         className={clsx(styles.menuSub, className)}
         {...props}
+        data-scope="sidebar"
+        data-part="navigation-sub-list"
         data-slot="sidebar-navigation-sub-list"
       />
     );
@@ -479,10 +479,10 @@ const SidebarNavigationSubItem = forwardRef<HTMLLIElement, HTMLArkProps<'li'>>(
     return (
       <ark.li
         ref={ref}
-        data-scope="sidebar"
-        data-part="navigation-sub-item"
         className={clsx(styles.menuSubItem, className)}
         {...props}
+        data-scope="sidebar"
+        data-part="navigation-sub-item"
         data-slot="sidebar-navigation-sub-item"
       />
     );
@@ -502,11 +502,11 @@ const SidebarNavigationSubButton = forwardRef<
     <ark.a
       ref={ref}
       aria-current={ariaCurrent ?? (active ? 'page' : undefined)}
+      className={clsx(styles.menuSubButton, className)}
+      {...props}
       data-scope="sidebar"
       data-part="navigation-sub-button"
       data-active={active ? '' : undefined}
-      className={clsx(styles.menuSubButton, className)}
-      {...props}
       data-slot="sidebar-navigation-sub-button"
     >
       {typeof children === 'string' ? (
@@ -550,14 +550,7 @@ const SidebarTooltip = function SidebarTooltip({
 
 const SidebarInput = forwardRef<ComponentRef<typeof Input.Root>, ComponentProps<typeof Input.Root>>(
   function SidebarInput({ className, ...props }, ref) {
-    return (
-      <Input.Root
-        ref={ref}
-        className={clsx(styles.input, className)}
-        {...props}
-        data-slot="sidebar-input"
-      />
-    );
+    return <Input.Root ref={ref} className={clsx(styles.input, className)} {...props} />;
   },
 );
 
@@ -565,14 +558,7 @@ const SidebarSeparator = forwardRef<
   ComponentRef<typeof Separator.Root>,
   ComponentProps<typeof Separator.Root>
 >(function SidebarSeparator({ className, ...props }, ref) {
-  return (
-    <Separator.Root
-      ref={ref}
-      className={clsx(styles.separator, className)}
-      {...props}
-      data-slot="sidebar-separator"
-    />
-  );
+  return <Separator.Root ref={ref} className={clsx(styles.separator, className)} {...props} />;
 });
 
 const Sidebar = Object.assign(SidebarRoot, {

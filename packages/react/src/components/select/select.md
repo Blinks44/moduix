@@ -44,8 +44,9 @@ explicit popup composition, native form behavior, and `RootProvider` / context h
   `CloseButton.Root` by default.
 - Keep `Select.Indicator` directly under `Select.Control`, after `Select.ClearTrigger`. This follows
   Ark anatomy and leaves the trigger button with phrasing-content children only.
-- When `Select.ClearTrigger` is omitted or hidden, the trigger automatically reduces its end
-  padding so it only reserves space for the indicator.
+- While the select shows its placeholder, the trigger automatically reduces its end padding so it
+  only reserves space for the indicator; selecting a value grows the padding back to make room for
+  the clear action.
 - Use `Select.Context`, `Select.ItemContext`, `Select.useSelectContext`, and
   `Select.useSelectItemContext` for advanced state reads. Import collection helpers directly from
   `@ark-ui/react/collection`.
@@ -215,6 +216,9 @@ DOM until first open and is removed after its exit animation. Set `unmountOnExit
 content after the first open; set both props to `false` only when eager initial rendering is needed.
 
 ## Local changelog
+
+- 2026-09-20: Keyed the trigger auto-padding to the trigger's own `data-placeholder-shown` state
+  instead of the rendered clear trigger, dropping the `:has` selector in both styling systems.
 
 - 2026-08-31: Moved the standard indicator directly under `Select.Control` to match Ark anatomy and
   preserve valid trigger-button markup.

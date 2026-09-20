@@ -116,8 +116,9 @@ et doit porter `aria-busy` ; l’espace réservé est décoratif. Définissez `l
 dans le même élément racine.
 
 `Skeleton` ne comporte qu’une seule partie visuelle : composez les cartes, les objets média et les mises en page
-responsives dans votre propre conteneur. Les packages CSS Modules peuvent utiliser `Stack`, tandis que les packages
-Tailwind utilisent les utilitaires flex et grid natifs. Utilisez `asChild` uniquement lorsqu’un autre élément
+responsives dans votre propre conteneur. `Stack` est exporté depuis chaque package, de sorte que les exemples
+ci-dessous pourraient l’utiliser dans les deux variantes ; les exemples Tailwind utilisent simplement les
+utilitaires flex et grid natifs. Utilisez `asChild` uniquement lorsqu’un autre élément
 sémantique doit devenir la racine ; en Solid, `asChild` reçoit une fonction de rendu.
 
 ## Exemples

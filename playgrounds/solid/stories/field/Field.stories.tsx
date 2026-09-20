@@ -76,7 +76,7 @@ export const Select: Story = {
   render: () => (
     <Field required>
       <Field.Label>Priority</Field.Label>
-      <NativeSelect defaultValue="">
+      <NativeSelect>
         <option value="" disabled>
           Select priority
         </option>
@@ -168,8 +168,10 @@ export const ItemTarget: Story = {
     <Field target="amount">
       <Field.Label>Amount</Field.Label>
       <Field.Item value="currency">
-        <NativeSelect aria-label="Currency" defaultValue="USD">
-          <option value="USD">USD</option>
+        <NativeSelect aria-label="Currency">
+          <option value="USD" selected>
+            USD
+          </option>
           <option value="EUR">EUR</option>
           <option value="GBP">GBP</option>
         </NativeSelect>

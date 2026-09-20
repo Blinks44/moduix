@@ -17,11 +17,11 @@
     border: var(--moduix-select-border-width, var(--moduix-border-width-sm)) solid
       var(--moduix-select-border-color, var(--moduix-color-border));
     border-radius: var(--moduix-select-radius, var(--moduix-radius-md));
-    padding-inline-start: var(--moduix-select-trigger-padding-x-start, var(--moduix-spacing-3));
+    padding-inline-start: var(--moduix-select-trigger-padding-x-start, var(--moduix-spacing-3-5));
     padding-inline-end: calc(
       var(--moduix-select-action-offset-right, var(--moduix-spacing-2)) +
-        var(--moduix-select-action-size, var(--moduix-spacing-6)) +
-        var(--moduix-select-trigger-padding-x-start, var(--moduix-spacing-3))
+        var(--moduix-select-action-size, var(--moduix-size-xs)) +
+        var(--moduix-select-trigger-padding-x-start, var(--moduix-spacing-3-5))
     );
     appearance: none;
     background-color: var(--moduix-select-bg, var(--moduix-color-background));
@@ -64,12 +64,12 @@
     &:is([multiple], [size]:not([size='0'], [size='1'])) {
       height: auto;
       padding-block: var(--moduix-spacing-2);
-      padding-inline: var(--moduix-select-trigger-padding-x-start, var(--moduix-spacing-3));
+      padding-inline: var(--moduix-select-trigger-padding-x-start, var(--moduix-spacing-3-5));
       appearance: auto;
     }
 
     @media (forced-colors: active) {
-      padding-inline-end: var(--moduix-select-trigger-padding-x-start, var(--moduix-spacing-3));
+      padding-inline-end: var(--moduix-select-trigger-padding-x-start, var(--moduix-spacing-3-5));
       appearance: auto;
     }
   }
@@ -79,8 +79,8 @@
     top: 50%;
     inset-inline-end: var(--moduix-select-action-offset-right, var(--moduix-spacing-2));
     display: inline-flex;
-    width: var(--moduix-select-action-size, var(--moduix-spacing-6));
-    height: var(--moduix-select-action-size, var(--moduix-spacing-6));
+    width: var(--moduix-select-action-size, var(--moduix-size-xs));
+    height: var(--moduix-select-action-size, var(--moduix-size-xs));
     align-items: center;
     justify-content: center;
     border-radius: var(--moduix-select-action-radius, var(--moduix-radius-sm));

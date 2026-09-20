@@ -107,6 +107,8 @@ test('preserves Ark navigation semantics, active item state, and visible Tailwin
   expect(nav).toHaveClass('rounded-lg', 'border', 'bg-card', 'p-4');
   expect(activeLink).toHaveAttribute('aria-current', 'location');
   expect(activeLink).toHaveAttribute('data-active');
+  expect(activeLink).toHaveClass('focus-visible:ring-1');
+  expect(activeLink).not.toHaveClass('ring-inset');
   expect(nestedItem).toHaveAttribute('data-depth', '3');
   expect(indicator).toBeInTheDocument();
   expect(indicator).toHaveClass('w-0.5', 'rounded-full', 'bg-muted-foreground');
@@ -122,11 +124,12 @@ test('keeps the RootProvider store and context available to surrounding composit
 
   await waitFor(() => expect(screen.getByRole('status')).toHaveTextContent('configuration'));
 
-  await waitFor(() =>
-    expect(screen.getByText('On this page').closest('[data-slot="toc-root-provider"]')).toHaveStyle(
-      '--top: 0px',
-    ),
-  );
+  const rootProvider = screen.getByText('On this page').closest('[data-slot="toc-root-provider"]');
+
+  await waitFor(() => expect(rootProvider).toHaveStyle('--top: 0px'));
+
+  expect(rootProvider).toHaveAttribute('data-scope', 'toc');
+  expect(rootProvider).toHaveAttribute('data-part', 'root');
 });
 
 test('supports Ark navigation placement and scrolls the supplied reading pane', () => {

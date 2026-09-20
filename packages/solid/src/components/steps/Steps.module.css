@@ -299,7 +299,7 @@
       outline-offset: var(--moduix-steps-focus-ring-offset, var(--moduix-focus-ring-offset));
     }
 
-    &:is(:disabled, [data-disabled]) {
+    &:is(:disabled) {
       opacity: var(--moduix-steps-disabled-opacity, var(--moduix-opacity-disabled));
       cursor: default;
     }

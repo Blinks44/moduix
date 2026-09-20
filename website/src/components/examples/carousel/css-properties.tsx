@@ -18,7 +18,7 @@ export const carouselOverrideCssProperties: CssPropertyInput[] = [
   ],
   [
     '--moduix-carousel-control-border-color-hover',
-    'color-mix(in oklab, var(--moduix-color-border) 50%, var(--moduix-color-foreground) 50%)',
+    'var(--moduix-color-ring)',
     'Controls the trigger and autoplay button hover border color.',
   ],
   [

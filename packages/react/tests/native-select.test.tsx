@@ -95,3 +95,16 @@ test('preserves Ark asChild composition with a semantic select element', () => {
   expect(select).toHaveAttribute('data-slot', 'native-select-root');
   expect(select.parentElement).toHaveAttribute('data-slot', 'native-select-control');
 });
+
+test('keeps the field hooks on a standalone select', () => {
+  render(
+    <NativeSelect aria-label="Framework">
+      <option value="react">React</option>
+    </NativeSelect>,
+  );
+
+  const select = screen.getByRole('combobox', { name: 'Framework' });
+  expect(select).toHaveAttribute('data-scope', 'field');
+  expect(select).toHaveAttribute('data-part', 'select');
+  expect(select).toHaveAttribute('data-slot', 'native-select-root');
+});

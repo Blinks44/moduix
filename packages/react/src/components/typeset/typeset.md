@@ -58,7 +58,9 @@ Typeset / Typeset.Root  data-slot="typeset"
 ```
 
 Use `Typeset.Scroll` in a renderer's table component when a table should scroll instead of compress.
-Both parts forward refs to their rendered element; with `asChild`, that is the one semantic child.
+Keep it inside a `Typeset` or `Typeset.Root` boundary: the horizontal scrolling, flow spacing, and
+table widening for the wrapped block come from the Typeset element rules. Both parts forward refs to
+their rendered element; with `asChild`, that is the one semantic child.
 Do not put Markdown parsing, sanitization, or fixed reading width into this component.
 
 ## Upstream feature coverage
@@ -84,8 +86,9 @@ Do not put Markdown parsing, sanitization, or fixed reading width into this comp
 
 - The root follows the surrounding font by default, then applies a small-screen type-size bump below
   `48rem`. Above that breakpoint and when printing, it uses `--moduix-typeset-size` as-is.
-- Styles live in `@layer moduix.components` and use `:where()` element selectors, allowing ordinary
-  application CSS to override an individual rendered element.
+- Element rules live in `@layer components` with the `--moduix-typeset-*` defaults in `@layer base`,
+  and use `:where()` element selectors, allowing ordinary application CSS to override an individual
+  rendered element.
 - Plain `ul` and `ol` elements always restore their semantic markers: disc, circle, then square for
   unordered nesting; decimal, lower-alpha, then lower-roman for ordered nesting. Task lists keep
   their checkbox treatment instead.
@@ -109,6 +112,9 @@ prop-driven.
 
 ## Local changelog
 
+- 2026-09-14: Reworked the cascade layers: `--moduix-typeset-*` defaults moved to `base` and element
+  rules moved to the shared `components` layer, replacing the previous single `moduix.components`
+  layer.
 - 2026-08-14: Made named scroll regions the recommended path in stories and runnable docs, and
   added regression coverage for default and custom scroll semantics.
 - 2026-08-01: Made `Typeset.Scroll` keyboard-focusable by default, locked stable data hooks, widened

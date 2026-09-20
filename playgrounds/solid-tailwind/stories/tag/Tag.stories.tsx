@@ -1,3 +1,4 @@
+import { clsx } from 'clsx';
 import { createSignal, For } from 'solid-js';
 import type { Meta, StoryObj } from 'storybook-solidjs-vite';
 import { Tag } from '@/components/tag/Tag';
@@ -132,7 +133,7 @@ export const RenderAsButton: Story = {
     <Tag
       variant="outline"
       asChild={(props) => (
-        <button {...props()} class={buttonTagClass} type="button">
+        <button {...props()} class={clsx(props().class, buttonTagClass)} type="button">
           <Tag.Label>Open filter</Tag.Label>
         </button>
       )}

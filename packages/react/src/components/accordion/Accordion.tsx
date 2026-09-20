@@ -105,10 +105,10 @@ const AccordionItemBody = forwardRef<ComponentRef<typeof ark.div>, HTMLArkProps<
     return (
       <ark.div
         ref={ref}
-        data-scope="accordion"
-        data-part="item-body"
         className={clsx(styles.itemBody, className)}
         {...props}
+        data-scope="accordion"
+        data-part="item-body"
         data-slot="accordion-item-body"
       />
     );

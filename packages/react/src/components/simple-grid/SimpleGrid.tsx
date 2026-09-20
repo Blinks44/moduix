@@ -1,6 +1,5 @@
 import type { HTMLArkProps } from '@ark-ui/react/factory';
 import { ark } from '@ark-ui/react/factory';
-import { clsx } from 'clsx';
 import type { CSSProperties } from 'react';
 import { forwardRef } from 'react';
 
@@ -52,7 +51,7 @@ const SimpleGridRoot = forwardRef<HTMLDivElement, SimpleGridRootProps>(function 
       data-scope="simple-grid"
       data-part="root"
       data-slot="simple-grid-root"
-      className={clsx(className)}
+      className={className}
       style={rootStyle}
     />
   );

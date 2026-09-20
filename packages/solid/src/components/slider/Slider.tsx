@@ -19,10 +19,10 @@ function SliderRoot(props: ComponentProps<typeof SliderPrimitive.Root>) {
       asChild={local.asChild}
       defaultValue={local.defaultValue}
       value={local.value}
-      data-readonly={local.readOnly ? '' : undefined}
       class={clsx(styles.root, local.class)}
       readOnly={local.readOnly}
       {...others}
+      data-readonly={local.readOnly ? '' : undefined}
       data-slot="slider-root"
     >
       {local.children}

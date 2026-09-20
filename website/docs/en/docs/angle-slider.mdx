@@ -41,7 +41,8 @@ Use `AngleSlider` when users need to set a direction or rotation on a circular d
 ## Basic
 
 
-Start with `Dial`, which combines the circular control and thumb. `AngleSlider` accepts one angle
+Start with `Dial`, which combines the circular track, the centered value, and the thumb. The track
+fills from the top as the angle grows. `AngleSlider` accepts one angle
 from 0 to 360 degrees. Add a visible `Label` when possible. If the dial has no visible label, add
 `aria-label` to the root.
 
@@ -113,10 +114,10 @@ See [Quick Start](/docs/quick-start) for full package setup, registry configurat
 AngleSlider / AngleSlider.Root
 ├─ AngleSlider.Label
 ├─ AngleSlider.Dial
+│  ├─ AngleSlider.ValueText
 │  └─ AngleSlider.Thumb
 ├─ AngleSlider.Marks (optional)
 │  └─ AngleSlider.Marker[value]
-├─ AngleSlider.ValueText
 └─ AngleSlider.HiddenInput (explicit)
 
 AngleSlider.RootProvider
@@ -129,12 +130,12 @@ AngleSlider.RootProvider
 | `AngleSlider.RootProvider`         | Connects the parts to state created with `useAngleSlider()`.          |
 | `AngleSlider.Label`                | Associates a visible label with the slider.                           |
 | `AngleSlider.Control`              | Provides the circular pointer interaction area.                       |
-| `AngleSlider.Dial`                 | Convenience composition of `Control` and `Thumb`.                     |
-| `AngleSlider.Thumb`                | Focusable handle that indicates the current angle.                     |
+| `AngleSlider.Dial`                 | Convenience composition of `Control`, the centered `ValueText`, and `Thumb`. |
+| `AngleSlider.Thumb`                | Focusable circular handle that rides the track at the current angle.  |
 | `AngleSlider.MarkerGroup`          | Contains optional reference markers.                                  |
 | `AngleSlider.Marker`               | Places a numeric marker around the dial.                               |
 | `AngleSlider.Marks`                | Convenience composition that creates markers from a `values` array.    |
-| `AngleSlider.ValueText`             | Displays the current value in degrees.                                |
+| `AngleSlider.ValueText`             | Displays the current value in degrees; `Dial` centers it in the dial. |
 | `AngleSlider.HiddenInput`           | Native form control; compose it explicitly when submitting the value. |
 
 ## Composition

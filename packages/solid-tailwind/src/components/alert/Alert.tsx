@@ -36,11 +36,11 @@ function AlertRoot(props: AlertRootProps) {
   return (
     <ark.div
       role={local.role}
+      class={cn(alertVariants({ status: local.status }), local.class)}
+      {...others}
       data-scope="alert"
       data-part="root"
       data-status={local.status ?? 'info'}
-      class={cn(alertVariants({ status: local.status }), local.class)}
-      {...others}
       data-slot="alert-root"
     />
   );
@@ -51,14 +51,14 @@ function AlertIndicator(props: HTMLArkProps<'span'>) {
 
   return (
     <ark.span
-      data-scope="alert"
-      data-part="indicator"
       aria-hidden="true"
       class={cn(
         'mt-0.5 inline-flex size-4 shrink-0 items-center justify-center text-muted-foreground group-data-[status=error]/alert:text-destructive group-data-[status=success]/alert:text-success group-data-[status=warning]/alert:text-warning [&_svg]:pointer-events-none [&_svg]:size-4 [&_svg]:shrink-0',
         local.class,
       )}
       {...others}
+      data-scope="alert"
+      data-part="indicator"
       data-slot="alert-indicator"
     />
   );
@@ -69,10 +69,10 @@ function AlertContent(props: HTMLArkProps<'div'>) {
 
   return (
     <ark.div
-      data-scope="alert"
-      data-part="content"
       class={cn('grid min-w-0 flex-1 gap-1', local.class)}
       {...others}
+      data-scope="alert"
+      data-part="content"
       data-slot="alert-content"
     />
   );
@@ -83,10 +83,10 @@ function AlertTitle(props: HTMLArkProps<'p'>) {
 
   return (
     <ark.p
-      data-scope="alert"
-      data-part="title"
       class={cn('m-0 min-w-0 text-sm font-semibold [overflow-wrap:anywhere]', local.class)}
       {...others}
+      data-scope="alert"
+      data-part="title"
       data-slot="alert-title"
     />
   );
@@ -97,13 +97,13 @@ function AlertDescription(props: HTMLArkProps<'div'>) {
 
   return (
     <ark.div
-      data-scope="alert"
-      data-part="description"
       class={cn(
         'min-w-0 text-sm [overflow-wrap:anywhere] text-muted-foreground [&>:first-child]:mt-0 [&>:last-child]:mb-0',
         local.class,
       )}
       {...others}
+      data-scope="alert"
+      data-part="description"
       data-slot="alert-description"
     />
   );
@@ -114,10 +114,10 @@ function AlertActions(props: HTMLArkProps<'div'>) {
 
   return (
     <ark.div
-      data-scope="alert"
-      data-part="actions"
       class={cn('mt-2 flex flex-wrap gap-2', local.class)}
       {...others}
+      data-scope="alert"
+      data-part="actions"
       data-slot="alert-actions"
     />
   );

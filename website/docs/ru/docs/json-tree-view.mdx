@@ -164,6 +164,10 @@ JsonTreeView.RootProvider
 Сгенерированные узлы сохраняют атрибуты Ark `data-scope="json-tree-view"` и `data-part`. moduix добавляет
 стабильные селекторы `data-slot="json-tree-view-root"`, `json-tree-view-root-provider` и `json-tree-view-tree`.
 
+`JsonTreeView.Tree` пробрасывает проп Ark `indentGuide`, когда вы включаете направляющие отступов. moduix не
+стилизует сгенерированные элементы `[data-part='branch-indent-guide']`; при включённых направляющих задайте им
+стили самостоятельно через этот атрибут.
+
 Компонент напрямую использует базовые токены и не вводит отдельный слой переменных
 `--moduix-json-tree-view-*`. Если области просмотра нужно другое оформление, добавьте класс или обратитесь к
 атрибутам частей Ark.

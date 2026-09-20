@@ -140,7 +140,7 @@ Sidebar / Sidebar.Root
 | `Sidebar` / `Sidebar.Root` | Racine Ark Splitter avec les réglages d’une barre à deux panneaux. |
 | `Sidebar.Panel` | Panneau de navigation repliable, avec l’identifiant `"sidebar"` par défaut. |
 | `Sidebar.Inset` | Panneau de contenu principal, avec l’identifiant `"content"` par défaut. |
-| `Sidebar.ResizeTrigger` | Ligne accessible pour le redimensionnement à la souris ou au clavier. |
+| `Sidebar.ResizeTrigger` | Ligne de poignée accessible pour le redimensionnement à la souris ou au clavier ; elle rend par défaut le `Splitter.ResizeTriggerIndicator` partagé, et des enfants personnalisés le remplacent. |
 | `Sidebar.Trigger` | Contrôle latéral pour replier ou déplier le panneau. |
 | `Sidebar.Header` | Zone supérieure qui ne défile pas. |
 | `Sidebar.Content` | Zone centrale défilante. |
@@ -165,6 +165,11 @@ déplacer l’état dans Sidebar. Pour conserver la largeur, contrôlez `size`, 
 utilise une fonction de rendu qui reçoit les props fusionnées.
 Placez `NavigationBadge` après un `NavigationButton` ou un `NavigationSubButton` simple. Le composant
 réserve l’espace nécessaire au compteur et disparaît avec les autres icônes dans la barre compacte.
+
+`useSidebar()` du package du framework correspondant expose l’état de la barre via `collapsed`, `side`
+et `state`, plus un callback `toggleSidebar()`. Dans Solid, ce sont des accessors lus comme
+`collapsed()` et compagnie. Le hook lit le contexte Splitter créé par `Sidebar`/`Sidebar.Root`, donc
+utilisez-le uniquement à l’intérieur de l’arborescence de la barre.
 
 ## Exemples
 

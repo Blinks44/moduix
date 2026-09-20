@@ -1,4 +1,3 @@
-import { useFocusVisible } from '@ark-ui/solid';
 import type { HTMLArkProps } from '@ark-ui/solid/factory';
 import { ark } from '@ark-ui/solid/factory';
 import {
@@ -55,6 +54,14 @@ const menuItemStyles = cva(
   },
 );
 
+const menuPositionerVariants = cva(
+  'z-[var(--z-index)] w-[var(--positioner-width,auto)] max-w-[var(--available-width)] outline-0',
+);
+
+const menuContentVariants = cva(
+  'relative z-[calc(var(--moduix-z-popup)+var(--layer-index,0))] flex max-w-[min(20rem,var(--available-width,100vw))] min-w-[min(max(var(--reference-width,0px),12rem),var(--available-width,100vw))] origin-[var(--transform-origin)] flex-col overflow-visible rounded-md bg-popover py-1 text-popover-foreground shadow-lg outline-1 outline-border [--arrow-background:var(--color-popover)] [--arrow-size:0.625rem] data-[state=closed]:animate-moduix-menu-closed data-[state=open]:animate-moduix-menu-open motion-reduce:[animation-delay:0ms] motion-reduce:[animation-duration:1ms]',
+);
+
 function MenuRoot(props: MenuRootProps) {
   const [local, others] = splitProps(props, [
     'children',
@@ -98,15 +105,13 @@ function MenuRootProvider(props: MenuRootProviderProps) {
 }
 
 function MenuTrigger(props: ComponentProps<typeof MenuPrimitive.Trigger>) {
-  const focusVisible = useFocusVisible();
   const [local, others] = splitProps(props, ['asChild', 'class']);
   return (
     <MenuPrimitive.Trigger
       asChild={local.asChild}
-      data-focus-visible={focusVisible() ? '' : undefined}
       class={cn(
         !local.asChild &&
-          'inline-flex min-h-control-md cursor-pointer items-center justify-center gap-2 rounded-md border border-border bg-background px-4 py-1 text-sm font-medium text-foreground outline-0 transition-colors duration-200 ease-in-out select-none active:bg-muted data-disabled:pointer-events-none data-disabled:opacity-50 data-[current]:data-[state=open]:bg-muted motion-reduce:transition-none [&:focus[data-focus-visible]]:outline-1 [&:focus[data-focus-visible]]:-outline-offset-1 [&:focus[data-focus-visible]]:outline-ring [@media(hover:hover)]:hover:bg-muted',
+          'inline-flex min-h-control-md cursor-pointer items-center justify-center gap-2 rounded-md border border-border bg-background px-4 py-1 text-sm font-medium text-foreground outline-0 transition-colors duration-200 ease-in-out select-none focus-visible:outline-1 focus-visible:-outline-offset-1 focus-visible:outline-ring active:bg-muted data-disabled:pointer-events-none data-disabled:opacity-50 data-[current]:data-[state=open]:bg-muted motion-reduce:transition-none [@media(hover:hover)]:hover:bg-muted',
         local.class,
       )}
       {...others}
@@ -150,15 +155,13 @@ function MenuIndicator(props: ComponentProps<typeof MenuPrimitive.Indicator>) {
 }
 
 function MenuContextTrigger(props: ComponentProps<typeof MenuPrimitive.ContextTrigger>) {
-  const focusVisible = useFocusVisible();
   const [local, others] = splitProps(props, ['asChild', 'class']);
   return (
     <MenuPrimitive.ContextTrigger
       asChild={local.asChild}
-      data-focus-visible={focusVisible() ? '' : undefined}
       class={cn(
         !local.asChild &&
-          'inline-flex min-h-control-md cursor-pointer items-center justify-center gap-2 rounded-md border border-border bg-background px-4 py-1 text-sm font-medium text-foreground outline-0 transition-colors duration-200 ease-in-out select-none active:bg-muted data-disabled:pointer-events-none data-disabled:opacity-50 data-[current]:data-[state=open]:bg-muted motion-reduce:transition-none [&:focus[data-focus-visible]]:outline-1 [&:focus[data-focus-visible]]:-outline-offset-1 [&:focus[data-focus-visible]]:outline-ring [@media(hover:hover)]:hover:bg-muted',
+          'inline-flex min-h-control-md cursor-pointer items-center justify-center gap-2 rounded-md border border-border bg-background px-4 py-1 text-sm font-medium text-foreground outline-0 transition-colors duration-200 ease-in-out select-none focus-visible:outline-1 focus-visible:-outline-offset-1 focus-visible:outline-ring active:bg-muted data-disabled:pointer-events-none data-disabled:opacity-50 data-[current]:data-[state=open]:bg-muted motion-reduce:transition-none [@media(hover:hover)]:hover:bg-muted',
         local.class,
       )}
       {...others}
@@ -172,10 +175,7 @@ function MenuPositioner(props: ComponentProps<typeof MenuPrimitive.Positioner>) 
   return (
     <OverlayPortal>
       <MenuPrimitive.Positioner
-        class={cn(
-          'z-[var(--z-index)] w-[var(--positioner-width,auto)] max-w-[var(--available-width)] outline-0',
-          local.class,
-        )}
+        class={cn(menuPositionerVariants(), local.class)}
         {...others}
         data-slot="menu-positioner"
       />
@@ -188,10 +188,7 @@ function MenuContent(props: ComponentProps<typeof MenuPrimitive.Content>) {
   return (
     <MenuPrimitive.Content
       asChild={local.asChild}
-      class={cn(
-        'relative z-[calc(var(--moduix-z-popup)+var(--layer-index,0))] flex max-w-[min(20rem,var(--available-width,100vw))] min-w-[min(max(var(--reference-width,0px),12rem),var(--available-width,100vw))] origin-[var(--transform-origin)] flex-col overflow-visible rounded-md bg-popover py-1 text-popover-foreground shadow-lg outline-1 outline-border [--arrow-background:var(--color-popover)] [--arrow-size:0.625rem] data-[state=closed]:animate-moduix-menu-closed data-[state=open]:animate-moduix-menu-open motion-reduce:[animation-delay:0ms] motion-reduce:[animation-duration:1ms]',
-        local.class,
-      )}
+      class={cn(menuContentVariants(), local.class)}
       {...others}
       data-slot="menu-content"
     >
@@ -206,13 +203,13 @@ function MenuViewport(props: HTMLArkProps<'div'>) {
   return (
     <ark.div
       asChild={local.asChild}
-      data-scope="menu"
-      data-part="viewport"
       class={cn(
         'flex max-h-[min(24rem,var(--available-height,100dvh))] flex-col overflow-auto',
         local.class,
       )}
       {...others}
+      data-scope="menu"
+      data-part="viewport"
       data-slot="menu-viewport"
     />
   );
@@ -250,9 +247,9 @@ function MenuItem(props: MenuItemProps) {
   const [local, others] = splitProps(props, ['class', 'tone']);
   return (
     <MenuPrimitive.Item
-      data-tone={local.tone ?? 'default'}
       class={cn(menuItemStyles({ layout: 'item', tone: local.tone }), local.class)}
       {...others}
+      data-tone={local.tone ?? 'default'}
       data-slot="menu-item"
     />
   );
@@ -334,12 +331,12 @@ function MenuRadioItem(props: MenuRadioItemProps) {
   const [local, others] = splitProps(props, ['class', 'indicator']);
   return (
     <MenuPrimitive.RadioItem
-      data-indicator-position={local.indicator ?? 'start'}
       class={cn(
         menuItemStyles({ layout: 'indicatorItem', indicator: local.indicator ?? 'start' }),
         local.class,
       )}
       {...others}
+      data-indicator-position={local.indicator ?? 'start'}
       data-slot="menu-radio-item"
     />
   );
@@ -349,12 +346,12 @@ function MenuCheckboxItem(props: MenuCheckboxItemProps) {
   const [local, others] = splitProps(props, ['class', 'indicator']);
   return (
     <MenuPrimitive.CheckboxItem
-      data-indicator-position={local.indicator ?? 'start'}
       class={cn(
         menuItemStyles({ layout: 'indicatorItem', indicator: local.indicator ?? 'start' }),
         local.class,
       )}
       {...others}
+      data-indicator-position={local.indicator ?? 'start'}
       data-slot="menu-checkbox-item"
     />
   );
@@ -463,4 +460,11 @@ const Menu = Object.assign(MenuRoot, {
   ItemContext: MenuPrimitive.ItemContext,
 });
 
-export { Menu, useMenu, useMenuContext, useMenuItemContext };
+export {
+  Menu,
+  menuContentVariants,
+  menuPositionerVariants,
+  useMenu,
+  useMenuContext,
+  useMenuItemContext,
+};

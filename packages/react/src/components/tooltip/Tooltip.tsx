@@ -163,3 +163,4 @@ const Tooltip = Object.assign(TooltipRoot, {
 });
 
 export { Tooltip, useTooltip, useTooltipContext };
+export type { TooltipRootProps, TooltipRootProviderProps };

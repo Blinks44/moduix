@@ -133,7 +133,8 @@ SplitButton / SplitButton.Root
 explicite : `Positioner` → `Content`, avec les éléments `Menu.*` partagés à l’intérieur de `Content`. Le positionneur
 est placé automatiquement dans un portail ; utilisez `portalled={false}` ou `portalRef` uniquement lorsque la
 fenêtre doit utiliser un autre conteneur. Les propriétés racine `size` et `variant` fournissent les valeurs par
-défaut des deux boutons.
+défaut des deux boutons. La racine rend un `role="group"` sémantique ; fournissez `aria-label` ou `aria-labelledby`
+lorsque le contexte environnant n’identifie pas déjà le groupe.
 
 Le menu gère son état en interne par défaut. Passez `open` et `onOpenChange(details)` lorsqu’une autre partie de
 l’application doit en être propriétaire. Pour un accès avancé à l’état, utilisez l’API `Menu` partagée plutôt

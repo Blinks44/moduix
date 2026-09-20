@@ -133,9 +133,9 @@ const DrawerContent = forwardRef<ComponentRef<typeof DrawerPrimitive.Content>, D
     return (
       <DrawerPrimitive.Content
         ref={ref}
-        data-variant={variant ?? rootVariant}
         className={clsx(styles.content, className)}
         {...props}
+        data-variant={variant ?? rootVariant}
         data-slot="drawer-content"
       />
     );

@@ -106,12 +106,11 @@ test('forwards refs and shares root variant and size defaults', () => {
   expect(rootRef).toHaveAttribute('data-slot', 'split-button-root');
   expect(rootRef).toHaveAttribute('role', 'group');
   expect(actionRef).toBe(screen.getByRole('button', { name: 'Delete project' }));
-  expect(triggerRef).toBeUndefined();
-  const trigger = screen.getByRole('button', { name: 'More project actions' });
+  expect(triggerRef).toBe(screen.getByRole('button', { name: 'More project actions' }));
   expect(actionRef).toHaveAttribute('data-size', 'lg');
   expect(actionRef).toHaveAttribute('data-variant', 'destructive');
-  expect(trigger).toHaveAttribute('data-size', 'lg');
-  expect(trigger).toHaveAttribute('data-variant', 'destructive');
+  expect(triggerRef).toHaveAttribute('data-size', 'lg');
+  expect(triggerRef).toHaveAttribute('data-variant', 'destructive');
 });
 
 test('keeps the primary action independent and exposes stable popup slots', async () => {

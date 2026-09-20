@@ -51,7 +51,7 @@ function PaginationItem(props: ComponentProps<typeof PaginationPrimitive.Item>) 
     <PaginationPrimitive.Item
       asChild={local.asChild}
       class={cn(
-        'inline-flex h-control-md min-w-control-md items-center justify-center rounded-md text-sm leading-5 font-medium tabular-nums',
+        'inline-flex h-control-md min-w-control-md items-center justify-center rounded-md text-sm font-medium tabular-nums',
         'cursor-pointer gap-2 border border-border bg-background px-2 whitespace-nowrap text-foreground no-underline select-none',
         'focus-visible:outline-2 focus-visible:-outline-offset-1 focus-visible:outline-ring disabled:pointer-events-none disabled:opacity-50 data-disabled:pointer-events-none data-disabled:opacity-50',
         'data-selected:border-foreground data-selected:bg-foreground data-selected:text-background [@media(hover:hover)]:hover:bg-accent [@media(hover:hover)]:data-selected:hover:bg-foreground',
@@ -72,7 +72,7 @@ function PaginationEllipsis(props: ComponentProps<typeof PaginationPrimitive.Ell
     <PaginationPrimitive.Ellipsis
       asChild={local.asChild}
       class={cn(
-        'inline-flex h-control-md min-w-control-md items-center justify-center rounded-md text-sm leading-5 font-medium text-muted-foreground tabular-nums select-none',
+        'inline-flex h-control-md min-w-control-md items-center justify-center rounded-md text-sm font-medium text-muted-foreground tabular-nums select-none',
         local.class,
       )}
       {...others}
@@ -100,11 +100,12 @@ function PaginationPrevTrigger(props: ComponentProps<typeof PaginationPrimitive.
     <PaginationPrimitive.PrevTrigger
       asChild={local.asChild}
       class={cn(
-        'inline-flex h-control-md min-w-control-md items-center justify-center rounded-md text-sm leading-5 font-medium tabular-nums',
+        'inline-flex h-control-md min-w-control-md items-center justify-center rounded-md text-sm font-medium tabular-nums',
         'cursor-pointer gap-2 border border-border bg-background px-3 whitespace-nowrap text-foreground no-underline select-none',
         'focus-visible:outline-2 focus-visible:-outline-offset-1 focus-visible:outline-ring disabled:pointer-events-none disabled:opacity-50 data-disabled:pointer-events-none data-disabled:opacity-50',
         '[&_svg]:size-4 [&_svg]:shrink-0 [@media(hover:hover)]:hover:bg-accent',
-        local.children == null && 'w-control-md p-0 rtl:[&_svg]:-scale-x-100',
+        (local.children == null || local.children === false) &&
+          'w-control-md p-0 rtl:[&_svg]:-scale-x-100',
         local.class,
       )}
       {...others}
@@ -123,11 +124,12 @@ function PaginationNextTrigger(props: ComponentProps<typeof PaginationPrimitive.
     <PaginationPrimitive.NextTrigger
       asChild={local.asChild}
       class={cn(
-        'inline-flex h-control-md min-w-control-md items-center justify-center rounded-md text-sm leading-5 font-medium tabular-nums',
+        'inline-flex h-control-md min-w-control-md items-center justify-center rounded-md text-sm font-medium tabular-nums',
         'cursor-pointer gap-2 border border-border bg-background px-3 whitespace-nowrap text-foreground no-underline select-none',
         'focus-visible:outline-2 focus-visible:-outline-offset-1 focus-visible:outline-ring disabled:pointer-events-none disabled:opacity-50 data-disabled:pointer-events-none data-disabled:opacity-50',
         '[&_svg]:size-4 [&_svg]:shrink-0 [@media(hover:hover)]:hover:bg-accent',
-        local.children == null && 'w-control-md p-0 rtl:[&_svg]:-scale-x-100',
+        (local.children == null || local.children === false) &&
+          'w-control-md p-0 rtl:[&_svg]:-scale-x-100',
         local.class,
       )}
       {...others}
@@ -146,11 +148,12 @@ function PaginationFirstTrigger(props: ComponentProps<typeof PaginationPrimitive
     <PaginationPrimitive.FirstTrigger
       asChild={local.asChild}
       class={cn(
-        'inline-flex h-control-md min-w-control-md items-center justify-center rounded-md text-sm leading-5 font-medium tabular-nums',
+        'inline-flex h-control-md min-w-control-md items-center justify-center rounded-md text-sm font-medium tabular-nums',
         'cursor-pointer gap-2 border border-border bg-background px-3 whitespace-nowrap text-foreground no-underline select-none',
         'focus-visible:outline-2 focus-visible:-outline-offset-1 focus-visible:outline-ring disabled:pointer-events-none disabled:opacity-50 data-disabled:pointer-events-none data-disabled:opacity-50',
         '[&_svg]:size-4 [&_svg]:shrink-0 [@media(hover:hover)]:hover:bg-accent',
-        local.children == null && 'w-control-md p-0 rtl:[&_svg]:-scale-x-100',
+        (local.children == null || local.children === false) &&
+          'w-control-md p-0 rtl:[&_svg]:-scale-x-100',
         local.class,
       )}
       {...others}
@@ -169,11 +172,12 @@ function PaginationLastTrigger(props: ComponentProps<typeof PaginationPrimitive.
     <PaginationPrimitive.LastTrigger
       asChild={local.asChild}
       class={cn(
-        'inline-flex h-control-md min-w-control-md items-center justify-center rounded-md text-sm leading-5 font-medium tabular-nums',
+        'inline-flex h-control-md min-w-control-md items-center justify-center rounded-md text-sm font-medium tabular-nums',
         'cursor-pointer gap-2 border border-border bg-background px-3 whitespace-nowrap text-foreground no-underline select-none',
         'focus-visible:outline-2 focus-visible:-outline-offset-1 focus-visible:outline-ring disabled:pointer-events-none disabled:opacity-50 data-disabled:pointer-events-none data-disabled:opacity-50',
         '[&_svg]:size-4 [&_svg]:shrink-0 [@media(hover:hover)]:hover:bg-accent',
-        local.children == null && 'w-control-md p-0 rtl:[&_svg]:-scale-x-100',
+        (local.children == null || local.children === false) &&
+          'w-control-md p-0 rtl:[&_svg]:-scale-x-100',
         local.class,
       )}
       {...others}

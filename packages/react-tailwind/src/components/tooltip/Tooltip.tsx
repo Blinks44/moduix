@@ -93,7 +93,7 @@ const TooltipPositioner = forwardRef<
       <TooltipPrimitive.Positioner
         ref={ref}
         className={cn(
-          'z-[var(--z-index)] max-h-[var(--available-height)] max-w-[var(--available-width)] outline-0',
+          'z-[var(--z-index,var(--moduix-z-popup))] max-h-[var(--available-height)] max-w-[var(--available-width)] outline-0',
           className,
         )}
         {...props}
@@ -138,7 +138,10 @@ const TooltipArrow = forwardRef<
   return (
     <TooltipPrimitive.Arrow
       ref={ref}
-      className={cn('[--arrow-background:var(--color-popover)] [--arrow-size:0.625rem]', className)}
+      className={cn(
+        '[--arrow-background:var(--color-popover)] [--arrow-size:var(--spacing-2_5)]',
+        className,
+      )}
       {...props}
       data-slot="tooltip-arrow"
     >
@@ -175,3 +178,4 @@ const Tooltip = Object.assign(TooltipRoot, {
 });
 
 export { Tooltip, useTooltip, useTooltipContext };
+export type { TooltipRootProps, TooltipRootProviderProps };
