@@ -14,7 +14,7 @@ const meta = {
 
 export default meta;
 
-type Story = StoryObj<typeof meta>;
+type Story = StoryObj<Meta<typeof Combobox>>;
 
 const tagsClass = 'flex min-h-6 flex-wrap gap-1';
 const tagClass = 'inline-flex items-center rounded-sm bg-muted px-2 py-1 text-xs';

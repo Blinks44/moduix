@@ -137,7 +137,7 @@ const meta = {
 
 export default meta;
 
-type Story = StoryObj<typeof meta>;
+type Story = StoryObj<Meta<typeof Listbox>>;
 
 const stackClass = 'flex flex-col items-start gap-2';
 const stateClass = 'text-sm leading-5 text-muted-foreground';
