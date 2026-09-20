@@ -12,7 +12,10 @@ Own the public component contract across every shipped framework and styling ada
 | React   | `packages/react` | `packages/react-tailwind` |
 | Solid   | `packages/solid` | `packages/solid-tailwind` |
 
-Vue and Svelte adapters are planned but are not shipped contracts yet. When a new adapter becomes public, add its package and playground rows to this matrix; the rest of this workflow should continue to operate on the discovered shipped set.
+Vue is scaffolded and in development (`packages/vue`, `packages/vue-tailwind`, `playgrounds/vue`,
+`playgrounds/vue-tailwind`) but is not a shipped contract yet; Svelte adapters are planned. When a
+new adapter becomes public, mark its package and playground rows as shipped here; the rest of this
+workflow should continue to operate on the discovered shipped set.
 
 Use framework-native code in every package. Share tokens, animations, reset, and presets through
 `packages/foundation`; do not create a shared component runtime or generate framework source.
@@ -64,9 +67,9 @@ The configured playgrounds are a comparison matrix, not independent catalogs. Fo
 exists in multiple variants, keep story names, scenario data, states, and demo styling aligned;
 adapt only framework syntax and the styling mechanism.
 
-Port tests assertion-for-assertion by behavior. Do not weaken a React assertion to make Solid pass,
-or omit a Tailwind override test because the CSS Modules version does not need it. Add
-variant-specific coverage only for a real variant-specific contract.
+Port tests assertion-for-assertion by behavior. Do not weaken one established adapter's assertion
+to make another adapter pass, or omit a Tailwind override test because the CSS Modules version does
+not need it. Add variant-specific coverage only for a real variant-specific contract.
 
 ## Completion
 

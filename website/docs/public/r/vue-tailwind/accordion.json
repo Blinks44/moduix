@@ -1,0 +1,63 @@
+{
+  "$schema": "https://ui.shadcn.com/schema/registry-item.json",
+  "name": "accordion",
+  "title": "Accordion",
+  "description": "moduix Vue Tailwind Accordion component.",
+  "dependencies": ["@ark-ui/vue", "clsx", "tailwind-merge"],
+  "registryDependencies": [
+    "@moduix-vue-tailwind/foundation",
+    "@moduix-vue-tailwind/cn",
+    "@moduix-vue-tailwind/icons"
+  ],
+  "files": [
+    {
+      "path": "src/components/accordion/AccordionRoot.vue",
+      "content": "<script setup lang=\"ts\">\nimport { AccordionRoot as ArkAccordionRoot } from '@ark-ui/vue/accordion';\nimport type { AccordionRootEmits, AccordionRootProps } from '@ark-ui/vue/accordion';\nimport { useAttrs } from 'vue';\nimport type { HTMLAttributes } from 'vue';\nimport { cn } from '@/lib/moduix/cn';\n\ndefineOptions({ inheritAttrs: false });\n\nexport interface Props extends /* @vue-ignore */ AccordionRootProps {\n  class?: HTMLAttributes['class'];\n}\n\nexport interface Emits extends /* @vue-ignore */ AccordionRootEmits {}\n\nconst { class: className } = defineProps<Props>();\ndefineEmits<Emits>();\ndefineSlots<{ default?: () => unknown }>();\n\nconst attrs = useAttrs();\nconst rootClass =\n  'box-border flex w-full max-w-full min-w-0 flex-col text-foreground data-[orientation=horizontal]:h-80 data-[orientation=horizontal]:max-h-full data-[orientation=horizontal]:w-auto data-[orientation=horizontal]:flex-row';\n</script>\n\n<template>\n  <ArkAccordionRoot\n    v-bind=\"attrs\"\n    :class=\"cn(rootClass, className)\"\n    data-slot=\"accordion-root\"\n  >\n    <slot />\n  </ArkAccordionRoot>\n</template>\n",
+      "type": "registry:component",
+      "target": "@components/ui/accordion/AccordionRoot.vue"
+    },
+    {
+      "path": "src/components/accordion/AccordionRootProvider.vue",
+      "content": "<script setup lang=\"ts\">\nimport { AccordionRootProvider as ArkAccordionRootProvider } from '@ark-ui/vue/accordion';\nimport type { AccordionRootProviderProps } from '@ark-ui/vue/accordion';\nimport { useAttrs } from 'vue';\nimport type { HTMLAttributes } from 'vue';\nimport { cn } from '@/lib/moduix/cn';\n\ndefineOptions({ inheritAttrs: false });\n\nexport interface Props extends /* @vue-ignore */ AccordionRootProviderProps {\n  class?: HTMLAttributes['class'];\n}\n\nconst { class: className } = defineProps<Props>();\ndefineSlots<{ default?: () => unknown }>();\n\nconst attrs = useAttrs() as unknown as AccordionRootProviderProps;\nconst rootClass =\n  'box-border flex w-full max-w-full min-w-0 flex-col text-foreground data-[orientation=horizontal]:h-80 data-[orientation=horizontal]:max-h-full data-[orientation=horizontal]:w-auto data-[orientation=horizontal]:flex-row';\n</script>\n\n<template>\n  <ArkAccordionRootProvider\n    v-bind=\"attrs\"\n    :class=\"cn(rootClass, className)\"\n    data-slot=\"accordion-root-provider\"\n  >\n    <slot />\n  </ArkAccordionRootProvider>\n</template>\n",
+      "type": "registry:component",
+      "target": "@components/ui/accordion/AccordionRootProvider.vue"
+    },
+    {
+      "path": "src/components/accordion/AccordionItem.vue",
+      "content": "<script setup lang=\"ts\">\nimport { AccordionItem as ArkAccordionItem } from '@ark-ui/vue/accordion';\nimport type { AccordionItemProps } from '@ark-ui/vue/accordion';\nimport { useAttrs } from 'vue';\nimport type { HTMLAttributes } from 'vue';\nimport { cn } from '@/lib/moduix/cn';\n\ndefineOptions({ inheritAttrs: false });\n\nexport interface Props extends /* @vue-ignore */ AccordionItemProps {\n  class?: HTMLAttributes['class'];\n}\n\nconst { class: className } = defineProps<Props>();\ndefineSlots<{ default?: () => unknown }>();\n\nconst attrs = useAttrs() as unknown as AccordionItemProps;\nconst itemClass =\n  \"[overflow-anchor:none] data-[orientation=horizontal]:flex [&[data-orientation='horizontal']:not(:last-child)]:border-e [&[data-orientation='horizontal']:not(:last-child)]:border-border [&[data-orientation='vertical']:not(:last-child)]:border-b [&[data-orientation='vertical']:not(:last-child)]:border-border\";\n</script>\n\n<template>\n  <ArkAccordionItem\n    v-bind=\"attrs\"\n    :class=\"cn(itemClass, className)\"\n    data-slot=\"accordion-item\"\n  >\n    <slot />\n  </ArkAccordionItem>\n</template>\n",
+      "type": "registry:component",
+      "target": "@components/ui/accordion/AccordionItem.vue"
+    },
+    {
+      "path": "src/components/accordion/AccordionItemTrigger.vue",
+      "content": "<script setup lang=\"ts\">\nimport { AccordionItemTrigger as ArkAccordionItemTrigger } from '@ark-ui/vue/accordion';\nimport type { AccordionItemTriggerProps } from '@ark-ui/vue/accordion';\nimport { useAttrs } from 'vue';\nimport type { HTMLAttributes } from 'vue';\nimport { cn } from '@/lib/moduix/cn';\n\ndefineOptions({ inheritAttrs: false });\n\nexport interface Props extends /* @vue-ignore */ AccordionItemTriggerProps {\n  class?: HTMLAttributes['class'];\n}\n\nconst { class: className } = defineProps<Props>();\ndefineSlots<{ default?: () => unknown }>();\n\nconst attrs = useAttrs();\nconst itemTriggerClass =\n  'flex w-full cursor-pointer items-center justify-between gap-4 bg-muted px-3 py-2 text-start text-md outline-0 transition-colors duration-200 select-none focus-visible:relative focus-visible:z-1 focus-visible:outline-2 focus-visible:-outline-offset-1 focus-visible:outline-ring data-disabled:cursor-default data-disabled:opacity-50 data-[orientation=horizontal]:h-full data-[orientation=horizontal]:w-10 data-[orientation=horizontal]:justify-center data-[orientation=horizontal]:[writing-mode:sideways-lr] motion-reduce:transition-none [&:not([data-disabled]):active]:bg-accent [&:not([data-disabled]):hover]:bg-accent';\n</script>\n\n<template>\n  <ArkAccordionItemTrigger\n    v-bind=\"attrs\"\n    :class=\"cn(itemTriggerClass, className)\"\n    data-slot=\"accordion-item-trigger\"\n  >\n    <slot />\n  </ArkAccordionItemTrigger>\n</template>\n",
+      "type": "registry:component",
+      "target": "@components/ui/accordion/AccordionItemTrigger.vue"
+    },
+    {
+      "path": "src/components/accordion/AccordionItemIndicator.vue",
+      "content": "<script setup lang=\"ts\">\nimport { AccordionItemIndicator as ArkAccordionItemIndicator } from '@ark-ui/vue/accordion';\nimport type { AccordionItemIndicatorProps } from '@ark-ui/vue/accordion';\nimport { useAttrs } from 'vue';\nimport type { HTMLAttributes } from 'vue';\nimport { cn } from '@/lib/moduix/cn';\nimport { PlusIcon } from '@/lib/moduix/icons/ui';\n\ndefineOptions({ inheritAttrs: false });\n\nexport interface Props extends /* @vue-ignore */ AccordionItemIndicatorProps {\n  class?: HTMLAttributes['class'];\n}\n\nconst { class: className } = defineProps<Props>();\ndefineSlots<{ default?: () => unknown }>();\n\nconst attrs = useAttrs();\nconst itemIndicatorClass =\n  'inline-flex size-3 shrink-0 items-center justify-center transition-transform duration-200 data-[state=open]:scale-110 data-[state=open]:rotate-45 motion-reduce:transition-none [&_svg]:size-full';\n</script>\n\n<template>\n  <ArkAccordionItemIndicator\n    v-bind=\"attrs\"\n    :class=\"cn(itemIndicatorClass, className)\"\n    data-slot=\"accordion-item-indicator\"\n  >\n    <slot><PlusIcon /></slot>\n  </ArkAccordionItemIndicator>\n</template>\n",
+      "type": "registry:component",
+      "target": "@components/ui/accordion/AccordionItemIndicator.vue"
+    },
+    {
+      "path": "src/components/accordion/AccordionItemContent.vue",
+      "content": "<script setup lang=\"ts\">\nimport { AccordionItemContent as ArkAccordionItemContent } from '@ark-ui/vue/accordion';\nimport type { AccordionItemContentProps } from '@ark-ui/vue/accordion';\nimport { useAttrs } from 'vue';\nimport type { HTMLAttributes } from 'vue';\nimport { cn } from '@/lib/moduix/cn';\n\ndefineOptions({ inheritAttrs: false });\n\nexport interface Props extends /* @vue-ignore */ AccordionItemContentProps {\n  class?: HTMLAttributes['class'];\n}\n\nconst { class: className } = defineProps<Props>();\ndefineSlots<{ default?: () => unknown }>();\n\nconst attrs = useAttrs();\nconst itemContentClass =\n  \"overflow-hidden text-md text-muted-foreground data-[state=closed]:data-[orientation=horizontal]:animate-moduix-accordion-closed-horizontal data-[state=closed]:data-[orientation=vertical]:animate-moduix-accordion-closed data-[state=open]:data-[orientation=horizontal]:animate-moduix-accordion-open-horizontal data-[state=open]:data-[orientation=vertical]:animate-moduix-accordion-open motion-reduce:[animation-delay:0ms] motion-reduce:[animation-duration:1ms] data-[orientation=horizontal]:[&>*]:w-64 [&[hidden]:not([hidden='until-found'])]:hidden\";\n</script>\n\n<template>\n  <ArkAccordionItemContent\n    v-bind=\"attrs\"\n    :class=\"cn(itemContentClass, className)\"\n    data-slot=\"accordion-item-content\"\n  >\n    <slot />\n  </ArkAccordionItemContent>\n</template>\n",
+      "type": "registry:component",
+      "target": "@components/ui/accordion/AccordionItemContent.vue"
+    },
+    {
+      "path": "src/components/accordion/AccordionItemBody.vue",
+      "content": "<script setup lang=\"ts\">\nimport { ark } from '@ark-ui/vue/factory';\nimport type { HTMLArkProps } from '@ark-ui/vue/factory';\nimport { useAttrs } from 'vue';\nimport type { HTMLAttributes } from 'vue';\nimport { cn } from '@/lib/moduix/cn';\n\ndefineOptions({ inheritAttrs: false });\n\nexport interface Props extends /* @vue-ignore */ HTMLArkProps<'div'> {\n  class?: HTMLAttributes['class'];\n}\n\nconst { class: className } = defineProps<Props>();\ndefineSlots<{ default?: () => unknown }>();\n\nconst attrs = useAttrs();\n</script>\n\n<template>\n  <ark.div\n    v-bind=\"attrs\"\n    :class=\"cn('grid min-w-0 gap-3 p-3', className)\"\n    data-scope=\"accordion\"\n    data-part=\"item-body\"\n    data-slot=\"accordion-item-body\"\n  >\n    <slot />\n  </ark.div>\n</template>\n",
+      "type": "registry:component",
+      "target": "@components/ui/accordion/AccordionItemBody.vue"
+    },
+    {
+      "path": "src/components/accordion/index.ts",
+      "content": "import {\n  AccordionContext,\n  AccordionItemContext,\n  useAccordion,\n  useAccordionContext,\n  useAccordionItemContext,\n} from '@ark-ui/vue/accordion';\nimport AccordionItem from './AccordionItem.vue';\nimport AccordionItemBody from './AccordionItemBody.vue';\nimport AccordionItemContent from './AccordionItemContent.vue';\nimport AccordionItemIndicator from './AccordionItemIndicator.vue';\nimport AccordionItemTrigger from './AccordionItemTrigger.vue';\nimport AccordionRoot from './AccordionRoot.vue';\nimport AccordionRootProvider from './AccordionRootProvider.vue';\n\nconst Accordion = Object.assign(AccordionRoot, {\n  Root: AccordionRoot,\n  RootProvider: AccordionRootProvider,\n  Context: AccordionContext,\n  ItemContext: AccordionItemContext,\n  Item: AccordionItem,\n  ItemTrigger: AccordionItemTrigger,\n  ItemIndicator: AccordionItemIndicator,\n  ItemContent: AccordionItemContent,\n  ItemBody: AccordionItemBody,\n});\n\nexport {\n  Accordion,\n  AccordionContext,\n  AccordionItem,\n  AccordionItemBody,\n  AccordionItemContent,\n  AccordionItemContext,\n  AccordionItemIndicator,\n  AccordionItemTrigger,\n  AccordionRoot,\n  AccordionRootProvider,\n  useAccordion,\n  useAccordionContext,\n  useAccordionItemContext,\n};\n\nexport type {\n  AccordionContextProps,\n  AccordionFocusChangeDetails,\n  AccordionItemContentProps,\n  AccordionItemContextProps,\n  AccordionItemIndicatorProps,\n  AccordionItemProps,\n  AccordionItemTriggerProps,\n  AccordionRootEmits,\n  AccordionRootProps,\n  AccordionRootProviderProps,\n  AccordionValueChangeDetails,\n  UseAccordionContext,\n  UseAccordionItemContext,\n  UseAccordionProps,\n  UseAccordionReturn,\n} from '@ark-ui/vue/accordion';\n",
+      "type": "registry:component",
+      "target": "@components/ui/accordion/index.ts"
+    }
+  ],
+  "type": "registry:item"
+}

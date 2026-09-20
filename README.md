@@ -8,7 +8,7 @@
 
 Product-minded, multi-framework components built on [Ark UI](https://ark-ui.com/), with accessible
 behavior, explicit composition, and first-class CSS Modules and Tailwind styling tracks. React and
-Solid adapters ship today; Vue and Svelte adapters are planned.
+Solid adapters ship today; the Vue adapter is in development and Svelte adapters are planned.
 
 moduix combines Ark UI primitives with considered defaults and a shadcn-inspired ownership model.
 Use the published package when you want managed updates, or add the component source
@@ -25,8 +25,10 @@ to your application through the hosted shadcn registry when you want to own it.
 | ------- | -------------------------------------------------------------- | -------------------------------------------------------------------------------- |
 | React   | [`@moduix/react`](https://www.npmjs.com/package/@moduix/react) | [`@moduix/react-tailwind`](https://www.npmjs.com/package/@moduix/react-tailwind) |
 | Solid   | [`@moduix/solid`](https://www.npmjs.com/package/@moduix/solid) | [`@moduix/solid-tailwind`](https://www.npmjs.com/package/@moduix/solid-tailwind) |
+| Vue     | `@moduix/vue` (in development)                                 | `@moduix/vue-tailwind` (in development)                                          |
 
-The package matrix grows with shipped adapters. Shared workflows and documentation are structured so Vue and Svelte can join without redefining the library around today's runtimes.
+The package matrix grows with shipped adapters. Shared workflows and documentation are structured so
+Svelte can join without redefining the library around today's runtimes.
 
 ## Why moduix
 

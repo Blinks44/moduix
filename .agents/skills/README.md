@@ -1,6 +1,6 @@
 # moduix Project Skills
 
-Local agent skills for maintaining the multi-framework `moduix` package family, registries, playgrounds, and docs. React and Solid adapters ship today; Vue and Svelte adapters are planned. General skills discover the adapters that actually exist instead of treating the current package count as permanent.
+Local agent skills for maintaining the multi-framework `moduix` package family, registries, playgrounds, and docs. React and Solid adapters ship today; the Vue adapter is in development and Svelte adapters are planned. General skills discover the adapters that actually exist instead of treating the current package count as permanent.
 
 The library is Ark-backed and actively developed. Skills should preserve current public contracts,
 keep package/docs/registry output aligned, and remove stale instructions when behavior changes.
@@ -18,10 +18,12 @@ Skills are intentionally narrow and composable:
 - `engineering-principles`: baseline behavior for all coding work.
 - `changeset-workflow`: an explicitly requested `.changeset` entry.
 - `component-workflow`: coordinates component contracts across every shipped framework and styling adapter.
-- `migration-react-to-solid`: ports and synchronizes native Solid equivalents, tests, and paired React/Solid playground stories.
+- `migration-component-to-solid`: ports one component into both native Solid styling tracks with tests, stories, exports, and registries.
+- `migration-component-to-vue`: ports one component into both native Vue styling tracks with tests, stories, exports, and registries.
 - `migration-css-modules-to-tailwind`: ports a component into every shipped Tailwind counterpart with tests, stories, npm exports, and registry items.
 - `conventions-css`: CSS, CSS Modules, Tailwind, selectors, and public CSS-variable contracts.
 - `conventions-react`: React and TypeScript implementation conventions.
+- `conventions-vue`: Vue and TypeScript implementation conventions for the in-development Vue adapter.
 - `component-contract-docs`: maintainers' markdown beside a component source file.
 - `research-upstream-libraries`: current Ark UI, Chakra UI, and shadcn research.
 - `rstest-best-practices`: Rstest configuration and test design.

@@ -9,23 +9,29 @@
     "build:react-tailwind": "turbo run build -F @moduix/react-tailwind",
     "build:solid": "turbo run build -F @moduix/solid",
     "build:solid-tailwind": "turbo run build -F @moduix/solid-tailwind",
-    "build:packages": "turbo run build -F @moduix/react -F @moduix/react-tailwind -F @moduix/solid -F @moduix/solid-tailwind",
+    "build:vue": "turbo run build -F @moduix/vue",
+    "build:vue-tailwind": "turbo run build -F @moduix/vue-tailwind",
+    "build:packages": "turbo run build -F @moduix/react -F @moduix/react-tailwind -F @moduix/solid -F @moduix/solid-tailwind -F @moduix/vue -F @moduix/vue-tailwind",
     "build:registry": "pnpm run registry:validate && pnpm run registry:clean && pnpm run registry:build && pnpm run registry:format",
     "check:package": "publint packages/react && attw --pack packages/react --exclude-entrypoints ./style.css ./reset.css ./presets/contrast.css ./presets/dense.css ./presets/soft.css --profile esm-only",
     "check:package:react-tailwind": "publint packages/react-tailwind && attw --pack packages/react-tailwind --exclude-entrypoints ./style.css './presets/*' --profile esm-only",
     "check:package:solid": "publint packages/solid && attw --pack packages/solid --exclude-entrypoints ./style.css ./reset.css ./presets/contrast.css ./presets/dense.css ./presets/soft.css --profile esm-only",
     "check:package:solid-tailwind": "publint packages/solid-tailwind && attw --pack packages/solid-tailwind --exclude-entrypoints ./style.css './presets/*' --profile esm-only",
-    "check:packages": "pnpm run check:package && pnpm run check:package:react-tailwind && pnpm run check:package:solid && pnpm run check:package:solid-tailwind",
+    "check:package:vue": "publint packages/vue && attw --pack packages/vue --exclude-entrypoints ./style.css ./reset.css ./presets/contrast.css ./presets/dense.css ./presets/soft.css --profile esm-only",
+    "check:package:vue-tailwind": "publint packages/vue-tailwind && attw --pack packages/vue-tailwind --exclude-entrypoints ./style.css './presets/*' --profile esm-only",
+    "check:packages": "pnpm run check:package && pnpm run check:package:react-tailwind && pnpm run check:package:solid && pnpm run check:package:solid-tailwind && pnpm run check:package:vue && pnpm run check:package:vue-tailwind",
     "changeset": "changeset",
     "changeset:version": "changeset version",
     "changeset:release": "pnpm run build:packages && pnpm run check:packages && changeset publish",
     "deploy:docs": "turbo run deploy -F moduix-docs",
     "dev:docs": "turbo run dev -F moduix-docs...",
-    "dev:playgrounds": "pnpm --parallel --filter @moduix/playground-react --filter @moduix/playground-react-tailwind --filter @moduix/playground-solid --filter @moduix/playground-solid-tailwind storybook",
+    "dev:playgrounds": "pnpm --parallel --filter @moduix/playground-react --filter @moduix/playground-react-tailwind --filter @moduix/playground-solid --filter @moduix/playground-solid-tailwind --filter @moduix/playground-vue --filter @moduix/playground-vue-tailwind storybook",
     "dev:playground:react": "pnpm --filter @moduix/playground-react storybook",
     "dev:playground:react-tailwind": "pnpm --filter @moduix/playground-react-tailwind storybook",
     "dev:playground:solid": "pnpm --filter @moduix/playground-solid storybook",
     "dev:playground:solid-tailwind": "pnpm --filter @moduix/playground-solid-tailwind storybook",
+    "dev:playground:vue": "pnpm --filter @moduix/playground-vue storybook",
+    "dev:playground:vue-tailwind": "pnpm --filter @moduix/playground-vue-tailwind storybook",
     "fmt:check": "oxfmt --check",
     "fmt:fix": "oxfmt",
     "lint:check": "oxlint",
@@ -35,10 +41,10 @@
     "publish:react-tailwind": "pnpm --filter @moduix/react-tailwind publish",
     "publish:solid": "pnpm --filter @moduix/solid publish",
     "publish:solid-tailwind": "pnpm --filter @moduix/solid-tailwind publish",
-    "registry:build": "(cd packages/foundation && shadcn build registry.json --output ../../website/docs/public/r/foundation) && (cd packages/react && shadcn build registry.json --output ../../website/docs/public/r/react) && (cd packages/react-tailwind && shadcn build registry.json --output ../../website/docs/public/r/react-tailwind) && (cd packages/solid && shadcn build registry.json --output ../../website/docs/public/r/solid) && (cd packages/solid-tailwind && shadcn build registry.json --output ../../website/docs/public/r/solid-tailwind)",
-    "registry:clean": "rm -rf website/docs/public/r/foundation website/docs/public/r/react website/docs/public/r/react-tailwind website/docs/public/r/solid website/docs/public/r/solid-tailwind",
+    "registry:build": "(cd packages/foundation && shadcn build registry.json --output ../../website/docs/public/r/foundation) && (cd packages/react && shadcn build registry.json --output ../../website/docs/public/r/react) && (cd packages/react-tailwind && shadcn build registry.json --output ../../website/docs/public/r/react-tailwind) && (cd packages/solid && shadcn build registry.json --output ../../website/docs/public/r/solid) && (cd packages/solid-tailwind && shadcn build registry.json --output ../../website/docs/public/r/solid-tailwind) && (cd packages/vue && shadcn build registry.json --output ../../website/docs/public/r/vue) && (cd packages/vue-tailwind && shadcn build registry.json --output ../../website/docs/public/r/vue-tailwind)",
+    "registry:clean": "rm -rf website/docs/public/r/foundation website/docs/public/r/react website/docs/public/r/react-tailwind website/docs/public/r/solid website/docs/public/r/solid-tailwind website/docs/public/r/vue website/docs/public/r/vue-tailwind",
     "registry:format": "pnpm run fmt:fix",
-    "registry:validate": "(cd packages/foundation && shadcn registry validate registry.json) && (cd packages/react && shadcn registry validate registry.json) && (cd packages/react-tailwind && shadcn registry validate registry.json) && (cd packages/solid && shadcn registry validate registry.json) && (cd packages/solid-tailwind && shadcn registry validate registry.json)",
+    "registry:validate": "(cd packages/foundation && shadcn registry validate registry.json) && (cd packages/react && shadcn registry validate registry.json) && (cd packages/react-tailwind && shadcn registry validate registry.json) && (cd packages/solid && shadcn registry validate registry.json) && (cd packages/solid-tailwind && shadcn registry validate registry.json) && (cd packages/vue && shadcn registry validate registry.json) && (cd packages/vue-tailwind && shadcn registry validate registry.json)",
     "test": "turbo run test",
     "tsc:check": "turbo run tsc:check"
   },
@@ -57,5 +63,12 @@
     "node": ">=24",
     "pnpm": ">=12.4.1"
   },
-  "packageManager": "pnpm@12.4.1"
+  "packageManager": "pnpm@12.4.1",
+  "pnpm": {
+    "peerDependencyRules": {
+      "allowedVersions": {
+        "unplugin-dts>@rspack/core": "2"
+      }
+    }
+  }
 }

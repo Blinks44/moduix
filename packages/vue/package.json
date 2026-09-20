@@ -1,0 +1,108 @@
+{
+  "name": "@moduix/vue",
+  "version": "0.0.0",
+  "private": true,
+  "description": "Private development package for the Vue implementation of moduix.",
+  "keywords": [
+    "accessible",
+    "ark-ui",
+    "component-library",
+    "components",
+    "css-modules",
+    "design-system",
+    "headless",
+    "typescript",
+    "ui",
+    "vue"
+  ],
+  "homepage": "https://moduix.dev/",
+  "bugs": {
+    "url": "https://github.com/Blinks44/moduix/issues"
+  },
+  "license": "MIT",
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/Blinks44/moduix.git",
+    "directory": "packages/vue"
+  },
+  "files": [
+    "dist/components",
+    "dist/internal",
+    "dist/locale.d.ts",
+    "dist/locale.js",
+    "dist/presets",
+    "dist/styles/animations.css",
+    "dist/styles/borders.css",
+    "dist/styles/colors.css",
+    "dist/styles/opacity.css",
+    "dist/styles/radius.css",
+    "dist/styles/reset.css",
+    "dist/styles/shadows.css",
+    "dist/styles/sizing.css",
+    "dist/styles/spacing.css",
+    "dist/styles/style.css",
+    "dist/styles/transforms.css",
+    "dist/styles/transitions.css",
+    "dist/styles/typography.css",
+    "dist/styles/z-index.css",
+    "LICENSE.md",
+    "THIRD_PARTY_NOTICES.md"
+  ],
+  "type": "module",
+  "sideEffects": [
+    "**/*.css"
+  ],
+  "exports": {
+    "./accordion": {
+      "types": "./dist/components/accordion/index.d.ts",
+      "import": "./dist/components/accordion/index.js"
+    },
+    "./locale": {
+      "types": "./dist/locale.d.ts",
+      "import": "./dist/locale.js"
+    },
+    "./style.css": "./dist/styles/style.css",
+    "./reset.css": "./dist/styles/reset.css",
+    "./presets/contrast.css": "./dist/presets/contrast.css",
+    "./presets/dense.css": "./dist/presets/dense.css",
+    "./presets/soft.css": "./dist/presets/soft.css",
+    "./package.json": "./package.json"
+  },
+  "publishConfig": {
+    "access": "public"
+  },
+  "scripts": {
+    "build": "rslib",
+    "dev": "rslib --watch --no-clean",
+    "test": "rstest run --passWithNoTests",
+    "test:watch": "rstest --watch",
+    "tsc:check": "vue-tsc --noEmit"
+  },
+  "dependencies": {
+    "@lucide/vue": "^1.47.0",
+    "clsx": "^2.1.1"
+  },
+  "devDependencies": {
+    "@ark-ui/vue": "^5.39.2",
+    "@rsbuild/core": "^2.2.6",
+    "@rsbuild/plugin-vue": "^2.0.1",
+    "@rslib/core": "^1.0.0",
+    "@rstest/adapter-rslib": "^0.11.12",
+    "@rstest/core": "^0.11.12",
+    "@testing-library/dom": "^10.4.2",
+    "@testing-library/jest-dom": "^7.0.1",
+    "@testing-library/vue": "^8.1.0",
+    "@types/node": "^26.5.1",
+    "@vue/language-core": "^3.3.11",
+    "@vue/server-renderer": "^3.5.43",
+    "happy-dom": "^20.14.5",
+    "typescript": "~6.0.3",
+    "unplugin-dts": "^1.1.0",
+    "vue": "^3.5.43",
+    "vue-tsc": "^3.3.11"
+  },
+  "peerDependencies": {
+    "@ark-ui/vue": "^5.37.2",
+    "vue": "^3.5.0"
+  }
+}

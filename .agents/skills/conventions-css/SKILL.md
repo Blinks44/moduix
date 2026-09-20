@@ -9,8 +9,8 @@ Use this skill for CSS, CSS Modules, and styling work in this repo.
 
 ## Scope
 
-- component CSS Modules in shipped `packages/<framework>` adapters
-- component utility classes in shipped `packages/<framework>-tailwind` adapters
+- component CSS Modules in existing `packages/<framework>` adapters
+- component utility classes in existing `packages/<framework>-tailwind` adapters
 - shared tokens, layers, reset, animations, and presets in `packages/foundation`
 - docs example CSS Modules in `website`
 - selector structure
@@ -60,7 +60,7 @@ Use this skill for CSS, CSS Modules, and styling work in this repo.
 ## Tailwind Variants
 
 - Use each package's local `cn` helper and put the consumer class last so consumer utilities win conflicts.
-- Keep every part's fixed static utilities directly in its JSX `cn(...)` call. Do not extract
+- Keep every part's fixed static utilities directly in its rendered `cn(...)` call. Do not extract
   intermediate class-string constants. A component-local `cva` recipe is appropriate when it makes
   prop-driven visual variants or an identical Root/RootProvider recipe materially clearer. Keep its
   utilities statically discoverable, use it in every affected Tailwind runtime, and merge the consumer class

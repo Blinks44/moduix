@@ -1,0 +1,173 @@
+{
+  "$schema": "https://ui.shadcn.com/schema/registry.json",
+  "name": "moduix-vue",
+  "homepage": "https://moduix.dev",
+  "items": [
+    {
+      "name": "init",
+      "type": "registry:base",
+      "title": "moduix Vue init",
+      "description": "Initialize shadcn for moduix Vue and install the shared foundation files.",
+      "extends": "none",
+      "config": {
+        "style": "new-york",
+        "rsc": false,
+        "tsx": true,
+        "aliases": {
+          "components": "@/components",
+          "ui": "@/components/ui",
+          "lib": "@/lib",
+          "hooks": "@/hooks",
+          "utils": "@/lib/utils"
+        }
+      },
+      "dependencies": ["@ark-ui/vue", "clsx"],
+      "registryDependencies": ["@moduix-vue/foundation"]
+    },
+    {
+      "name": "accordion",
+      "type": "registry:item",
+      "title": "Accordion",
+      "description": "moduix Vue Accordion component.",
+      "dependencies": ["@ark-ui/vue", "clsx"],
+      "registryDependencies": ["@moduix-vue/foundation", "@moduix-vue/icons"],
+      "files": [
+        {
+          "path": "src/components/accordion/AccordionRoot.vue",
+          "target": "@components/ui/accordion/AccordionRoot.vue",
+          "type": "registry:component"
+        },
+        {
+          "path": "src/components/accordion/AccordionRootProvider.vue",
+          "target": "@components/ui/accordion/AccordionRootProvider.vue",
+          "type": "registry:component"
+        },
+        {
+          "path": "src/components/accordion/AccordionItem.vue",
+          "target": "@components/ui/accordion/AccordionItem.vue",
+          "type": "registry:component"
+        },
+        {
+          "path": "src/components/accordion/AccordionItemTrigger.vue",
+          "target": "@components/ui/accordion/AccordionItemTrigger.vue",
+          "type": "registry:component"
+        },
+        {
+          "path": "src/components/accordion/AccordionItemIndicator.vue",
+          "target": "@components/ui/accordion/AccordionItemIndicator.vue",
+          "type": "registry:component"
+        },
+        {
+          "path": "src/components/accordion/AccordionItemContent.vue",
+          "target": "@components/ui/accordion/AccordionItemContent.vue",
+          "type": "registry:component"
+        },
+        {
+          "path": "src/components/accordion/AccordionItemBody.vue",
+          "target": "@components/ui/accordion/AccordionItemBody.vue",
+          "type": "registry:component"
+        },
+        {
+          "path": "src/components/accordion/Accordion.module.css",
+          "target": "@components/ui/accordion/Accordion.module.css",
+          "type": "registry:file"
+        },
+        {
+          "path": "src/components/accordion/index.ts",
+          "target": "@components/ui/accordion/index.ts",
+          "type": "registry:component"
+        }
+      ]
+    },
+    {
+      "name": "core",
+      "type": "registry:item",
+      "title": "moduix core",
+      "description": "Runtime styles and utilities required by moduix registry components.",
+      "docs": "Required: import the installed style.css once in your app entry. The optional reset is a separate registry item and must be imported before style.css.",
+      "registryDependencies": ["https://moduix.dev/r/foundation/core.json"]
+    },
+    {
+      "name": "reset",
+      "type": "registry:item",
+      "title": "moduix reset",
+      "description": "Optional CSS reset for projects that want moduix global reset rules.",
+      "docs": "Optional: import the installed reset.css before style.css in your app entry.",
+      "registryDependencies": ["https://moduix.dev/r/foundation/reset.json"]
+    },
+    {
+      "name": "icons",
+      "type": "registry:item",
+      "title": "moduix icons",
+      "description": "Internal icon components required only by registry components that render them.",
+      "dependencies": ["@lucide/vue"],
+      "files": [
+        {
+          "path": "src/internal/icons/ui/Icons.ts",
+          "target": "@lib/moduix/icons/ui/Icons.ts",
+          "type": "registry:lib"
+        }
+      ]
+    },
+    {
+      "name": "overlay-portal",
+      "type": "registry:item",
+      "title": "moduix overlay portal",
+      "description": "Internal overlay portal helper required only by overlay registry components.",
+      "files": [
+        {
+          "path": "src/internal/overlayPortal/context.ts",
+          "target": "@lib/moduix/overlayPortal/context.ts",
+          "type": "registry:lib"
+        },
+        {
+          "path": "src/internal/overlayPortal/OverlayPortal.vue",
+          "target": "@lib/moduix/overlayPortal/OverlayPortal.vue",
+          "type": "registry:lib"
+        },
+        {
+          "path": "src/internal/overlayPortal/OverlayPortalProvider.vue",
+          "target": "@lib/moduix/overlayPortal/OverlayPortalProvider.vue",
+          "type": "registry:lib"
+        },
+        {
+          "path": "src/internal/overlayPortal/index.ts",
+          "target": "@lib/moduix/overlayPortal/index.ts",
+          "type": "registry:lib"
+        }
+      ]
+    },
+    {
+      "name": "foundation",
+      "type": "registry:item",
+      "title": "moduix Vue core",
+      "description": "Shared runtime dependencies installed by every moduix registry component.",
+      "dependencies": ["@ark-ui/vue", "clsx"],
+      "registryDependencies": ["https://moduix.dev/r/foundation/core.json"]
+    },
+    {
+      "name": "theme-contrast",
+      "type": "registry:theme",
+      "title": "Contrast theme",
+      "description": "High-clarity moduix tokens with stronger borders and focus states for technical interfaces.",
+      "docs": "Import '@/lib/moduix/styles/style.css' once, then import '@/lib/moduix/presets/contrast.css'. Put data-moduix-theme=\"contrast\" on the document root.",
+      "registryDependencies": ["https://moduix.dev/r/foundation/theme-contrast.json"]
+    },
+    {
+      "name": "theme-dense",
+      "type": "registry:theme",
+      "title": "Dense theme",
+      "description": "Compact moduix tokens with a structured blue palette for admin and data-heavy interfaces.",
+      "docs": "Import '@/lib/moduix/styles/style.css' once, then import '@/lib/moduix/presets/dense.css'. Put data-moduix-theme=\"dense\" on the document root.",
+      "registryDependencies": ["https://moduix.dev/r/foundation/theme-dense.json"]
+    },
+    {
+      "name": "theme-soft",
+      "type": "registry:theme",
+      "title": "Soft theme",
+      "description": "Rounded moduix tokens with a warmer violet palette for product workflows.",
+      "docs": "Import '@/lib/moduix/styles/style.css' once, then import '@/lib/moduix/presets/soft.css'. Put data-moduix-theme=\"soft\" on the document root.",
+      "registryDependencies": ["https://moduix.dev/r/foundation/theme-soft.json"]
+    }
+  ]
+}

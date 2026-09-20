@@ -13,9 +13,11 @@ only after their source and Tailwind packages exist. The outcome has two parts:
 2. a post-port review that identifies justified differences and avoidable styling or composition
    complexity across all affected packages, and implements shared simplifications only when authorized.
 
-Use this skill with `component-workflow`, `conventions-css`, `conventions-react`,
-`migration-react-to-solid`, and `rstest-best-practices` as routed by `AGENTS.md`. Use
-`research-upstream-libraries` for current Ark and shadcn sources.
+Use this skill with `component-workflow`, `conventions-css`, the applicable framework convention
+skill, and `rstest-best-practices` as routed by `AGENTS.md`. Use `research-upstream-libraries` for
+current Ark and shadcn sources. Do not load `migration-component-to-solid` or
+`migration-component-to-vue` merely because their target framework has a Tailwind package; use a
+framework migration skill only when that framework adapter itself is missing or being repaired.
 
 ## Sources and boundaries
 
@@ -81,7 +83,7 @@ CSS declaration as meaningful merely because it exists in the source stylesheet.
 
 Classify who owns every styled element:
 
-1. Wrapper-owned JSX receives utilities directly on that element.
+1. Wrapper-owned markup receives utilities directly on that element.
 2. Ark-owned elements receive utilities on the corresponding Ark part.
 3. A focused descendant selector is allowed only for a real child contract such as normalized SVG
    icons, or for runtime state observable only from an ancestor.
@@ -99,13 +101,17 @@ make styling convenient.
 
 ## 2. Implement native Tailwind variants
 
-Create matching component directories and re-export-only `index.ts` files in every affected Tailwind
-package.
+Create matching component directories and thin framework-appropriate `index.ts` files in every
+affected Tailwind package. React and Solid use re-export-only barrels; Vue may use a thin assembly
+barrel for namespaced SFC parts.
 
 - Implement React from the React contract with native React, `className`, and the real ref contract.
 - Implement Solid from the Solid contract with native reactivity, `splitProps`/`mergeProps` where
   appropriate, `class`, and verified Ark Solid APIs. Do not transliterate React hooks or ref
   mechanics.
+- Implement Vue from the Vue CSS Modules contract as native `.vue` SFCs with
+  `<script setup lang="ts">`, `class`, slots, fallthrough attrs, and verified Ark Vue APIs. Do not
+  introduce TSX or translate React and Solid runtime mechanics into Vue.
 - Preserve API, default anatomy, semantics, accessibility, behavior, Ark state attributes, public
   data hooks, runtime variables, and visual defaults.
 - Keep callable and namespaced component shapes aligned with their CSS Modules counterparts.
@@ -293,7 +299,7 @@ Explicitly audit the failure modes that a declaration count alone misses:
 - styling rules, tokens, parts, tests, or documentation left dead after simplification.
 
 Include compact evidence: part and wrapper counts plus approximate rule/utility counts when the
-difference is material. Do not count React-versus-Solid syntax or required Ark plumbing as styling
+difference is material. Do not count framework syntax or required Ark plumbing as styling
 complexity.
 
 If moduix is several times more complex, account for the difference requirement by requirement.
