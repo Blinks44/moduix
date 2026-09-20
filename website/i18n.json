@@ -1326,6 +1326,11 @@
     "ru": "Запланировано",
     "fr": "Prévu"
   },
+  "frameworkSupportInProgress": {
+    "en": "In progress",
+    "ru": "В разработке",
+    "fr": "En cours"
+  },
   "copyMarkdownText": {
     "en": "Copy Markdown",
     "ru": "Скопировать Markdown",
