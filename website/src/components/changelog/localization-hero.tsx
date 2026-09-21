@@ -8,7 +8,6 @@ export function LocalizationHero() {
   return (
     <ChangelogHero
       category={t('changelogDocumentationUpdate')}
-      version="v2.2.4"
       date={t('localizationHeroDate')}
       dateTime="2026-08-10"
       title={t('localizationHeroTitle')}

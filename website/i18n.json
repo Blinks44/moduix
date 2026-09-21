@@ -1152,9 +1152,9 @@
     "fr": "Nouveau framework"
   },
   "changelogNewStylingTrack": {
-    "en": "New styling track",
-    "ru": "Новый вариант стилизации",
-    "fr": "Nouvelle approche de style"
+    "en": "Tailwind support",
+    "ru": "Поддержка Tailwind",
+    "fr": "Prise en charge de Tailwind"
   },
   "solidReleaseHeroDate": {
     "en": "September 13, 2026",
@@ -1162,9 +1162,9 @@
     "fr": "13 septembre 2026"
   },
   "solidReleaseHeroSummary": {
-    "en": "The complete moduix component system now ships for Solid, in CSS Modules and Tailwind tracks.",
-    "ru": "Полная система компонентов moduix теперь доступна для Solid - в вариантах на CSS Modules и Tailwind.",
-    "fr": "Le système de composants moduix complet est désormais disponible pour Solid, en CSS Modules comme en Tailwind."
+    "en": "The full moduix catalog is now available for Solid, with CSS Modules and Tailwind packages.",
+    "ru": "Полный каталог moduix теперь доступен для Solid в пакетах CSS Modules и Tailwind.",
+    "fr": "Le catalogue complet de moduix est désormais disponible pour Solid, avec des paquets CSS Modules et Tailwind."
   },
   "tailwindReleaseHeroDate": {
     "en": "September 20, 2026",
@@ -1172,14 +1172,14 @@
     "fr": "20 septembre 2026"
   },
   "tailwindReleaseHeroSummary": {
-    "en": "The complete moduix catalog now ships styled with Tailwind CSS v4, for both React and Solid.",
-    "ru": "Полный каталог moduix теперь доступен со стилями Tailwind CSS v4 - для React и Solid.",
-    "fr": "Le catalogue moduix complet est désormais disponible avec des styles Tailwind CSS v4, pour React et Solid."
+    "en": "The full moduix catalog is now available with Tailwind CSS for React and Solid.",
+    "ru": "Полный каталог moduix теперь доступен с Tailwind CSS для React и Solid.",
+    "fr": "Le catalogue complet de moduix est désormais disponible avec Tailwind CSS pour React et Solid."
   },
   "chartHeroSummary": {
-    "en": "Accessible, composable charts powered by TanStack Charts.",
-    "ru": "Доступные графики на базе TanStack Charts, которые можно собрать под свой сценарий.",
-    "fr": "Des graphiques accessibles et composables, basés sur TanStack Charts."
+    "en": "A figure wrapper for TanStack Charts with accessible defaults from moduix.",
+    "ru": "Оболочка figure для TanStack Charts с настройками доступности от moduix.",
+    "fr": "Une balise figure pour TanStack Charts, avec les réglages d'accessibilité de moduix."
   },
   "navigationMenuHeroDate": {
     "en": "August 25, 2026",
@@ -1187,9 +1187,9 @@
     "fr": "25 août 2026"
   },
   "navigationMenuHeroSummary": {
-    "en": "Build accessible product navigation with direct links, disclosure panels, and an optional shared viewport.",
-    "ru": "Создавайте доступную навигацию по сайту или продукту с прямыми ссылками, раскрывающимися панелями и общей областью для их анимации.",
-    "fr": "Créez une navigation accessible pour un site ou un produit avec des liens directs, des panneaux déroulants et, si nécessaire, une zone d’animation commune."
+    "en": "A menu for direct links, grouped links, and animated panels.",
+    "ru": "Меню для прямых ссылок, групп ссылок и анимируемых панелей.",
+    "fr": "Un menu pour les liens directs, les groupes de liens et les panneaux animés."
   },
   "tableOfContentsHeroDate": {
     "en": "August 27, 2026",
@@ -1197,9 +1197,9 @@
     "fr": "27 août 2026"
   },
   "tableOfContentsHeroSummary": {
-    "en": "Keep an accessible table of contents in sync with the section your reader is viewing.",
-    "ru": "Создавайте доступное оглавление, синхронизированное с разделом, который сейчас читает пользователь.",
-    "fr": "Un sommaire accessible qui reste synchronisé avec la section consultée."
+    "en": "A table of contents that follows the section currently in view.",
+    "ru": "Оглавление, которое следует за разделом в области просмотра.",
+    "fr": "Un sommaire qui suit la section actuellement visible."
   },
   "localizationHeroDate": {
     "en": "August 10, 2026",
@@ -1217,19 +1217,24 @@
     "fr": "Trois langues"
   },
   "localizationHeroSummary": {
-    "en": "Russian and French are here. More translations are next.",
-    "ru": "Документация на русском и французском уже доступна. Позже появятся и другие языки.",
-    "fr": "Les traductions française et russe sont disponibles. D’autres langues suivront."
+    "en": "The documentation is now available in English, Russian, and French.",
+    "ru": "Документация теперь доступна на английском, русском и французском.",
+    "fr": "La documentation est maintenant disponible en anglais, en français et en russe."
   },
   "v2MigrationHeroDate": {
     "en": "July 19, 2026",
     "ru": "19 июля 2026 г.",
     "fr": "19 juillet 2026"
   },
+  "v2MigrationHeroTitle": {
+    "en": "Ark UI support",
+    "ru": "Поддержка Ark UI",
+    "fr": "Prise en charge d'Ark UI"
+  },
   "v2MigrationHeroSummary": {
-    "en": "An Ark UI foundation for accessible components.",
-    "ru": "Основа на Ark UI для доступных компонентов.",
-    "fr": "Une base Ark UI pour des composants accessibles."
+    "en": "Ark UI now handles state and accessibility for components that use its primitives.",
+    "ru": "Ark UI теперь отвечает за состояние и доступность компонентов с соответствующими примитивами.",
+    "fr": "Ark UI gère désormais l'état et l'accessibilité des composants qui utilisent ses primitives."
   },
   "tokensOverviewSemanticVariables": {
     "en": "Components read semantic variables while themes override the raw palette.",

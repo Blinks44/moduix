@@ -1,6 +1,6 @@
 ---
 title: Journal des modifications
-description: Versions de moduix, changements incompatibles et politique de prise en charge des versions.
+description: Nouveautés et changements importants de moduix.
 ---
 
 import { LocalizationHero } from '@/components/changelog/localization-hero';
@@ -15,155 +15,107 @@ import { ChangelogNewsItem } from '@/components/changelog/hero';
 <ChangelogNewsItem>
   <TailwindReleaseHero />
 
-moduix propose désormais une variante Tailwind complète. [`@moduix/react-tailwind`](/docs/quick-start)
-et `@moduix/solid-tailwind` habillent le catalogue complet de composants avec Tailwind CSS v4 et
-conservent les mêmes contrats de composants que les paquets CSS Modules.
+Tailwind est maintenant disponible pour tout le catalogue moduix. [`@moduix/react-tailwind`](/docs/quick-start)
+et `@moduix/solid-tailwind` couvrent les mêmes composants que les paquets CSS Modules.
 
-### À retenir
+### Tailwind pour tout le catalogue
 
-- Des styles par classes utilitaires : les composants utilisent les utilitaires Tailwind CSS v4 et
-  les tokens partagés, et vos classes `className`/`class` sont fusionnées après les valeurs par
-  défaut avec `tailwind-merge`.
-- La prise en charge du registre shadcn : installez les composants depuis les espaces de noms
-  `@moduix-react-tailwind` et `@moduix-solid-tailwind`, la feuille de style de base étant copiée
-  dans votre projet.
+L’API publique et le comportement des composants restent identiques. Le choix de Tailwind ne change
+donc pas la manière de les composer.
+
+Vos valeurs `className` ou `class` sont fusionnées après les valeurs par défaut avec `tailwind-merge`.
+Les espaces de noms du registre `@moduix-react-tailwind` et `@moduix-solid-tailwind` incluent la
+feuille de style de base, prête à être personnalisée.
 </ChangelogNewsItem>
 
 <ChangelogNewsItem>
   <SolidReleaseHero />
 
-moduix arrive sur Solid. [`@moduix/solid`](/docs/quick-start) et `@moduix/solid-tailwind` apportent
-le catalogue complet de composants aux applications Solid, avec des API Solid natives construites
-sur les primitives Ark UI.
+Le catalogue complet de moduix est maintenant disponible pour Solid. [`@moduix/solid`](/docs/quick-start)
+et `@moduix/solid-tailwind` utilisent les API natives de Solid et les primitives Ark UI.
 
-### À retenir
+### Le catalogue complet pour Solid
 
-- Des composants natifs : composition Solid, prop `class`, primitives Ark UI pour Solid et les mêmes
-  contrats de composants que les paquets React, sans couche de compatibilité.
-- Les deux approches de style sortent ensemble : les variantes CSS Modules et Tailwind partagent les
-  tokens, les thèmes et les espaces de noms de registre `@moduix-solid` et `@moduix-solid-tailwind`.
+Les composants Solid utilisent `class` et la composition native de Solid. Leurs contrats publics
+correspondent à ceux des paquets React, tout en respectant le modèle de rendu de Solid.
+
+CSS Modules et Tailwind sont tous deux disponibles pour Solid. Les deux variantes partagent les
+tokens, les thèmes et les espaces de noms du registre `@moduix-solid` et `@moduix-solid-tailwind`.
 </ChangelogNewsItem>
 
 <ChangelogNewsItem>
   <TableOfContentsHero />
 
-[Table of Contents](/docs/table-of-contents) synchronise la navigation avec la section consultée.
-Indiquez les titres à suivre : le composant met en évidence l’entrée active et relie chaque entrée
-au titre correspondant.
+[Table of Contents](/docs/table-of-contents) suit les titres visibles et indique la section active.
+Indiquez les titres à suivre pour relier chaque entrée au titre correspondant.
 
-### À retenir
+### Un sommaire pour les pages longues
 
-- Construisez la zone de lecture avec `Toc.Content` et la navigation avec `Toc.Nav`. Chaque entrée
-  suivie pointe vers un ID de titre stable.
-- Utilisez `Toc.Indicator` ou `Toc.Rail` pour rendre la hiérarchie visible. Ajoutez `Toc.RootProvider`
-  uniquement lorsque des contrôles externes doivent partager l’état du sommaire.
+Utilisez `Toc.Content` pour la zone de lecture et `Toc.Nav` pour la liste des titres. L’entrée active
+change au fil du défilement.
+
+Utilisez `Toc.Indicator` ou `Toc.Rail` pour montrer la hiérarchie. Ajoutez `Toc.RootProvider` lorsque
+des contrôles externes doivent partager l’état du sommaire.
 </ChangelogNewsItem>
 
 <ChangelogNewsItem>
   <NavigationMenuHero />
 
-[Navigation Menu](/docs/navigation-menu) structure la navigation principale d’un site ou d’un
-produit. Utilisez des liens directs pour les destinations et des panneaux déroulants lorsqu’une
-destination propose des liens associés.
+[Navigation Menu](/docs/navigation-menu) sépare les destinations directes des groupes de liens
+associés. C’est utile pour la navigation principale d’un site ou d’un produit.
 
-### À retenir
+### Des groupes de liens sans masquer les destinations
 
-- Utilisez `NavigationMenu.Link` pour les destinations directes et une paire
-  `NavigationMenu.Trigger` / `NavigationMenu.Content` pour un groupe de liens associés.
-- Ajoutez `NavigationMenu.Viewport` lorsque plusieurs panneaux doivent s’animer dans une même zone.
-  Ark UI gère le clavier, le focus et l’élément ouvert ; `Arrow` reste facultatif.
+Utilisez `NavigationMenu.Link` pour une destination directe. Pour un groupe de liens, associez
+`NavigationMenu.Trigger` à `NavigationMenu.Content`.
+
+Ajoutez `NavigationMenu.Viewport` lorsque plusieurs panneaux doivent s’animer dans une même zone.
+Ark UI gère le clavier, le focus et l’élément ouvert. `Arrow` est facultatif.
 </ChangelogNewsItem>
 
 <ChangelogNewsItem>
   <ChartHero />
 
-[Chart](/docs/chart) ajoute à moduix une balise `figure` accessible autour de TanStack Charts. Définissez
-le graphique avec TanStack, puis utilisez moduix pour l’en-tête de la figure, la légende, l’infobulle
-compacte et les réglages d’animation. L’API de configuration de TanStack reste inchangée.
+[Chart](/docs/chart) ajoute une balise `figure` accessible autour de TanStack Charts. Définissez le
+graphique avec TanStack, puis ajoutez l’en-tête, la légende, l’infobulle compacte et les réglages
+d’animation de moduix.
 
-### À retenir
+### Une figure cohérente pour les graphiques
 
-- Définissez les marques, échelles, interactions et fonctions de rappel dans une définition TanStack,
-  puis composez-la avec `Chart.Header`, `Chart.Plot` et `Chart.Legend`.
-- TanStack continue de gérer la navigation au clavier et le cycle de vie de l’infobulle. L’animation
-  moduix respecte la préférence pour la réduction des mouvements ; passez `motion={false}` pour un rendu statique.
+TanStack garde la responsabilité des marques, des échelles, des interactions et des fonctions de
+rappel. Composez le graphique avec `Chart.Header`, `Chart.Plot` et `Chart.Legend` pour obtenir une
+structure `figure` cohérente.
+
+TanStack gère aussi la navigation au clavier et le cycle de vie de l’infobulle. L’animation moduix
+respecte la préférence pour la réduction des mouvements, et `motion={false}` la désactive.
 </ChangelogNewsItem>
 
 <ChangelogNewsItem>
   <LocalizationHero />
 
-L’ensemble du site de documentation est maintenant disponible en français et en russe. Vous pouvez
-découvrir un composant, copier un exemple et suivre une recette sans changer de langue en cours de route.
+La documentation est maintenant disponible en anglais, en français et en russe. Les pages de
+composants, les exemples et les recettes sont traduits partout.
 
-### À retenir
+### La documentation en trois langues
 
-- Les guides de composants, l’installation, les références API et les recettes sont disponibles en
-  français et en russe.
-- La navigation, les métadonnées, les routes adaptées à chaque langue et les exemples copiables
-  restent alignés en anglais, en français et en russe.
+Vous pouvez lire un guide, copier un exemple et suivre une recette sans changer de langue.
+
+La navigation, les métadonnées, les routes adaptées à chaque langue et les exemples copiables restent
+alignés dans les trois langues.
 </ChangelogNewsItem>
 
 <ChangelogNewsItem>
   <V2MigrationHero />
 
-v2 est une version majeure. Lorsqu’un composant dispose d’une primitive Ark UI correspondante, Ark UI
-gère son état, ses interactions et son accessibilité. moduix conserve ses CSS Modules, ses tokens de
-design et ses deux modes d’installation.
+Le système de composants utilise maintenant Ark UI pour l’état, les interactions et l’accessibilité
+lorsqu’une primitive correspondante existe. moduix conserve ses CSS Modules, ses tokens de design et
+ses deux modes d’installation.
 
-### À retenir
+### Ark UI gère le comportement des composants
 
-- Les primitives Ark UI gèrent l’état, les interactions et l’accessibilité des composants concernés.
-- La composition publique et les propriétés de bas niveau suivent les contrats Ark. Vous pouvez
-  installer le paquet ou copier le code source dans votre application pour le gérer vous-même.
+Les composants qui disposent d’une primitive Ark UI l’utilisent pour l’état et les interactions. Ils
+profitent aussi du comportement d’accessibilité fourni par Ark UI.
+
+La composition publique et les propriétés de bas niveau suivent les contrats Ark. Installez le paquet
+ou copiez le code source dans votre application si vous devez garder la main sur l’implémentation.
 </ChangelogNewsItem>
-
-## Autres mises à jour
-
-### v2.5.0 - 27 août 2026
-
-- Ajout de `Sidebar`, redimensionnable et repliable, pour la navigation de l’application.
-- L’arrière-plan de la piste de `AngleSlider` reste inchangé au survol et à l’appui.
-
-### v2.4.0 - 25 août 2026
-
-- Ajout de `JSON Tree View` pour afficher des données JSON imbriquées.
-- Mise à jour des versions des dépendances du paquet.
-
-### v2.2.4 - 10 août 2026
-
-- `DatePicker` hérite désormais des états `disabled` et `invalid` de `Field` et `Fieldset`, ainsi que des états `readOnly` et `required` de `Field`.
-- `DatePicker.Field` et `DatePicker.RangeField` conservent des index de champs stables pour que les valeurs de formulaire natives restent prévisibles.
-- Les plages `DateInput` exposent des champs natifs indexés explicites tout en préservant le comportement au clavier et la sémantique d’accessibilité d’Ark.
-
-### v2.2.3 - 24 juillet 2026
-
-- Rétablissement de la compatibilité avec l’App Router de Next.js pour les composants copiés qui utilisent des API locales côté client.
-- La flèche de Menu est désormais correctement alignée avec la bordure de la fenêtre contextuelle.
-
-### v2.2.2 - 24 juillet 2026
-
-- Réorganisation des sources du paquet et des chemins de dépendances afin que le résultat produit par le CLI shadcn reste autonome.
-
-### v2.2.1 - 23 juillet 2026
-
-- Ajout de la variante `island` de Drawer, indépendante du flux principal ; sa toile de fond reste visible entre les points d’ancrage.
-- Ajout d’une feuille de référence des variables Ark UI pour les outils du dépôt ; elle n’est pas chargée à l’exécution.
-
-### v2.2.0 - 22 juillet 2026
-
-- Les tokens CSS publics et les calques de cascade sont placés dans l’espace de noms `moduix`.
-
-### v2.1.0 - 21 juillet 2026
-
-- Ajout de Typeset et des préréglages de thème Calm, Dense, Soft et Contrast.
-- Affinage des contrôles principaux, de la densité des fenêtres contextuelles, de la composition de Select et des tokens de thème.
-
-## Politique de versions et de support
-
-moduix suit le versionnement sémantique. Les versions majeures peuvent inclure des changements
-incompatibles, les versions mineures ajoutent des fonctionnalités rétrocompatibles et les versions de
-correctif apportent des corrections rétrocompatibles.
-
-La dernière version majeure est activement prise en charge. v2 prend en charge React 18 et 19, et
-l’intégration de moduix à Ark UI suit les versions compatibles. Pour chaque version majeure, cette page
-recense les API concernées, les étapes de migration et les implications pour le paquet ou le registre.

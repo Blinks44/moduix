@@ -6,7 +6,6 @@ type ChangelogHeroTone = 'blue' | 'cyan' | 'green' | 'orange' | 'violet';
 export function ChangelogHero({
   id,
   category,
-  version,
   date,
   dateTime,
   title,
@@ -16,7 +15,6 @@ export function ChangelogHero({
 }: {
   id?: string;
   category: string;
-  version: string;
   date: string;
   dateTime: string;
   title: string;
@@ -27,10 +25,7 @@ export function ChangelogHero({
   return (
     <section className={`${styles.hero} ${styles[tone]}`} id={id} aria-label={title}>
       <div className={styles.meta}>
-        <div className={styles.release}>
-          <span className={styles.category}>{category}</span>
-          <span className={styles.version}>{version}</span>
-        </div>
+        <span className={styles.category}>{category}</span>
         <time className={styles.date} dateTime={dateTime}>
           {date}
         </time>
