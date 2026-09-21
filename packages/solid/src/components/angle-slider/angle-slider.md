@@ -20,6 +20,19 @@ surface follows the shared flat API: `AngleSlider`, `AngleSliderLabel`, `AngleSl
 - While the dial is pressed, the thumb shows the dragging ring through the native `:active` control
   state (Zag exposes no `data-dragging` attribute on the angle slider thumb).
 
+## Design and pointer focus contract
+
+- The dial is a circular track: a `conic-gradient` fill from the top masked to the ring band, a
+  rounded start cap, a circle thumb riding the ring centerline, and the centered value text
+  (`Dial` renders `Control`, the centered `ValueText`, and `Thumb`).
+- `AngleSlider.Control` focuses the thumb synchronously on a left pointer down with
+  `focus({ preventScroll: true, focusVisible: false })` after `event.preventDefault()`, so the
+  pointer interaction and its release state stay free of the keyboard focus ring; the deferred Ark
+  focus becomes redundant. The handler calls the consumer `onPointerDown` first and skips the focus
+  when the event is prevented or the control is disabled or read-only.
+- While the dial is pressed, the thumb shows the dragging ring through the native `:active` control
+  state (Zag exposes no `data-dragging` attribute on the angle slider thumb).
+
 ## Ark Solid composition
 
 Ark Solid uses a render-function `asChild` prop, for example

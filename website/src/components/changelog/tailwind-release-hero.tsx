@@ -15,10 +15,9 @@ export function TailwindReleaseHero() {
     <ChangelogHero
       id="v120--september-20-2026"
       category={t('changelogNewStylingTrack')}
-      version="v1.2.0"
       date={t('tailwindReleaseHeroDate')}
       dateTime="2026-09-20"
-      title="Tailwind v4"
+      title="Tailwind CSS"
       summary={t('tailwindReleaseHeroSummary')}
       tone="cyan"
     >
@@ -26,7 +25,6 @@ export function TailwindReleaseHero() {
         <div className={styles.twBrand}>
           <TailwindLogo />
           <span className={styles.twName}>Tailwind CSS</span>
-          <span className={styles.twBadge}>v4</span>
         </div>
         <div className={styles.twUtilities}>
           <span className={styles.twUtility}>flex</span>
@@ -38,12 +36,10 @@ export function TailwindReleaseHero() {
           <span className={styles.twPackage}>
             <span className={styles.twPackageDot} />
             <span className={styles.twPackageName}>@moduix/react-tailwind</span>
-            <span className={styles.twPackageTag}>v1.2.0</span>
           </span>
           <span className={styles.twPackage}>
             <span className={styles.twPackageDot} />
             <span className={styles.twPackageName}>@moduix/solid-tailwind</span>
-            <span className={styles.twPackageTag}>v1.2.0</span>
           </span>
         </div>
       </div>

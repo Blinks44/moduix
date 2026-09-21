@@ -9,7 +9,6 @@ export function ChartHero() {
     <ChangelogHero
       id="v230--august-20-2026"
       category={t('changelogNewComponent')}
-      version="v2.3.0"
       date={t('chartHeroDate')}
       dateTime="2026-08-20"
       title="Chart"

@@ -69,8 +69,7 @@
   z-index: 1;
 }
 
-.meta,
-.release {
+.meta {
   display: flex;
   align-items: center;
 }
@@ -78,10 +77,6 @@
 .meta {
   justify-content: space-between;
   gap: 1rem;
-}
-
-.release {
-  gap: 0.65rem;
 }
 
 .category {
@@ -97,7 +92,6 @@
   text-transform: uppercase;
 }
 
-.version,
 .date {
   color: var(--rp-c-text-2);
   font-size: 0.72rem;
@@ -572,18 +566,6 @@
   white-space: nowrap;
 }
 
-.solidPackageTag {
-  flex-shrink: 0;
-  margin-left: auto;
-  padding: 0.18rem 0.5rem;
-  border-radius: 999px;
-  background: var(--hero-accent-soft);
-  color: color-mix(in oklab, var(--hero-accent) 82%, var(--rp-c-text-1));
-  font-size: 0.62rem;
-  font-weight: 750;
-  letter-spacing: 0.04em;
-}
-
 .tailwindPreview {
   display: grid;
   gap: 1.05rem;
@@ -612,18 +594,6 @@
   letter-spacing: -0.02em;
   text-overflow: ellipsis;
   white-space: nowrap;
-}
-
-.twBadge {
-  flex-shrink: 0;
-  margin-left: auto;
-  padding: 0.22rem 0.55rem;
-  border-radius: 999px;
-  background: var(--hero-accent);
-  color: #ffffff;
-  font-size: 0.66rem;
-  font-weight: 750;
-  letter-spacing: 0.05em;
 }
 
 .twUtilities {
@@ -676,18 +646,6 @@
   white-space: nowrap;
 }
 
-.twPackageTag {
-  flex-shrink: 0;
-  margin-left: auto;
-  padding: 0.18rem 0.5rem;
-  border-radius: 999px;
-  background: var(--hero-accent-soft);
-  color: color-mix(in oklab, var(--hero-accent) 82%, var(--rp-c-text-1));
-  font-size: 0.62rem;
-  font-weight: 750;
-  letter-spacing: 0.04em;
-}
-
 .newsItem {
   margin-bottom: clamp(3rem, 8vw, 5rem);
 }
@@ -715,11 +673,6 @@
 @media (max-width: 26rem) {
   .meta {
     align-items: flex-start;
-  }
-
-  .release {
-    align-items: flex-start;
-    flex-direction: column;
   }
 
   .date {
