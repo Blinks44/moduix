@@ -9,7 +9,6 @@ export function SolidReleaseHero() {
     <ChangelogHero
       id="v100-solid--september-13-2026"
       category={t('changelogNewFramework')}
-      version="v1.0.0"
       date={t('solidReleaseHeroDate')}
       dateTime="2026-09-13"
       title="Solid"
@@ -28,12 +27,10 @@ export function SolidReleaseHero() {
           <span className={styles.solidPackage}>
             <span className={styles.solidPackageDot} />
             <span className={styles.solidPackageName}>@moduix/solid</span>
-            <span className={styles.solidPackageTag}>v1.0.0</span>
           </span>
           <span className={styles.solidPackage}>
             <span className={styles.solidPackageDot} />
             <span className={styles.solidPackageName}>@moduix/solid-tailwind</span>
-            <span className={styles.solidPackageTag}>v1.0.0</span>
           </span>
         </div>
       </div>

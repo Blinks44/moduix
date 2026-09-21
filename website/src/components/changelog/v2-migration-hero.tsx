@@ -27,10 +27,9 @@ export function V2MigrationHero() {
     <ChangelogHero
       id="v200--july-19-2026"
       category={t('changelogMajorRelease')}
-      version="v2.0.0"
       date={t('v2MigrationHeroDate')}
       dateTime="2026-07-19"
-      title="moduix v2"
+      title={t('v2MigrationHeroTitle')}
       summary={t('v2MigrationHeroSummary')}
       tone="orange"
     >

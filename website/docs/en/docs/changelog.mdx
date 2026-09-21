@@ -1,6 +1,6 @@
 ---
 title: Changelog
-description: Product releases, breaking changes, and moduix's version-support policy.
+description: Product releases and major changes in moduix.
 ---
 
 import { LocalizationHero } from '@/components/changelog/localization-hero';
@@ -15,154 +15,104 @@ import { ChangelogNewsItem } from '@/components/changelog/hero';
 <ChangelogNewsItem>
   <TailwindReleaseHero />
 
-moduix now ships a complete Tailwind track. [`@moduix/react-tailwind`](/docs/quick-start) and
-`@moduix/solid-tailwind` style the full component catalog with Tailwind CSS v4 and keep the same
-component contracts as the CSS Modules packages.
+Tailwind is now available for the whole moduix catalog. [`@moduix/react-tailwind`](/docs/quick-start)
+and `@moduix/solid-tailwind` cover the same components as the CSS Modules packages.
 
-### Highlights
+### Tailwind for the whole catalog
 
-- Utility-class styling: components ship with Tailwind CSS v4 utilities and shared tokens, and
-  consumer `className`/`class` values merge after the component defaults with `tailwind-merge`.
-- shadcn registry support: install components from the `@moduix-react-tailwind` and
-  `@moduix-solid-tailwind` registry namespaces, with the foundation stylesheet copied into your
-  project.
+The public API and component behavior stay the same, so choosing Tailwind does not change how the
+components are composed.
+
+Your `className` or `class` values are merged after the defaults with `tailwind-merge`. The
+`@moduix-react-tailwind` and `@moduix-solid-tailwind` registry namespaces include the base
+stylesheet, so the installed files are ready to customize.
 </ChangelogNewsItem>
 
 <ChangelogNewsItem>
   <SolidReleaseHero />
 
-moduix now ships for Solid. [`@moduix/solid`](/docs/quick-start) and `@moduix/solid-tailwind`
-bring the complete component catalog to Solid applications with native Solid APIs built on Ark UI
-primitives.
+The full moduix catalog is now available for Solid. [`@moduix/solid`](/docs/quick-start) and
+`@moduix/solid-tailwind` use native Solid APIs and Ark UI primitives.
 
-### Highlights
+### The full catalog for Solid
 
-- Framework-native components: Solid composition with `class`, Ark UI Solid primitives, and the
-  same component contracts as the React packages - no compatibility layer.
-- Both styling tracks ship together: CSS Modules and Tailwind variants share tokens, theming, and
-  the `@moduix-solid` and `@moduix-solid-tailwind` registry namespaces.
+Solid components use `class` and native Solid composition. Their public contracts match the React
+packages, while the implementation follows Solid's own rendering model.
+
+CSS Modules and Tailwind are both available for Solid. They share tokens, themes, and the
+`@moduix-solid` and `@moduix-solid-tailwind` registry namespaces.
 </ChangelogNewsItem>
 
 <ChangelogNewsItem>
   <TableOfContentsHero />
 
-[Table of Contents](/docs/table-of-contents) keeps document navigation in sync with the section in
-view. Pass the headings you want to track: the component highlights the active entry and links
-each item to its matching heading.
+[Table of Contents](/docs/table-of-contents) follows the headings in view and marks the current
+section. Pass it the headings you want to track, and each entry links to its matching heading.
 
-### Highlights
+### Follow readers through long pages
 
-- Build the reading area with `Toc.Content` and the navigation with `Toc.Nav`. Each tracked item
-  points to one stable heading ID.
-- Use `Toc.Indicator` or `Toc.Rail` to show hierarchy. Add `Toc.RootProvider` only when controls
-  outside the table of contents need to share its tracking state.
+Use `Toc.Content` for the reading area and `Toc.Nav` for the list of headings. The active entry
+updates as the reader moves through the page.
+
+Use `Toc.Indicator` or `Toc.Rail` to show the hierarchy. Add `Toc.RootProvider` when controls outside
+the table of contents need to share its state.
 </ChangelogNewsItem>
 
 <ChangelogNewsItem>
   <NavigationMenuHero />
 
-[Navigation Menu](/docs/navigation-menu) gives top-level product or site navigation a clear
-structure. Use direct links for destinations and disclosure panels when a destination has related
-links.
+[Navigation Menu](/docs/navigation-menu) separates direct destinations from groups of related links.
+Use it when the top-level navigation needs both kinds of entries.
 
-### Highlights
+### Group links without hiding destinations
 
-- Use `NavigationMenu.Link` for direct destinations and a `NavigationMenu.Trigger` /
-  `NavigationMenu.Content` pair for a group of related links.
-- Add `NavigationMenu.Viewport` when several panels should animate inside one shared surface.
-  Ark UI manages keyboard interaction, focus, and the open value; `Arrow` is optional.
+Use `NavigationMenu.Link` for a direct destination. For a group of links, combine
+`NavigationMenu.Trigger` with `NavigationMenu.Content`.
+
+Add `NavigationMenu.Viewport` when several panels should animate inside one shared surface. Ark UI
+handles keyboard interaction, focus, and the open value. `Arrow` is optional.
 </ChangelogNewsItem>
 
 <ChangelogNewsItem>
   <ChartHero />
 
 [Chart](/docs/chart) adds an accessible `figure` around TanStack Charts. Define the chart with
-TanStack, then use moduix for the figure header, legend, compact tooltip, and motion defaults.
-The TanStack configuration API remains unchanged.
+TanStack, then add the moduix header, legend, compact tooltip, and motion settings.
 
-### Highlights
+### Charts with a consistent figure
 
-- Keep marks, scales, interactions, and callbacks in a TanStack definition, then compose it with
-  `Chart.Header`, `Chart.Plot`, and `Chart.Legend`.
-- TanStack continues to own keyboard navigation and the tooltip lifecycle. The moduix motion preset
-  respects reduced-motion preferences; pass `motion={false}` for a static chart.
+TanStack still controls the marks, scales, interactions, and callbacks. Compose the chart with
+`Chart.Header`, `Chart.Plot`, and `Chart.Legend` for a consistent figure structure.
+
+TanStack also controls keyboard navigation and the tooltip lifecycle. The moduix motion preset
+respects reduced-motion preferences, and `motion={false}` disables the animation.
 </ChangelogNewsItem>
 
 <ChangelogNewsItem>
   <LocalizationHero />
 
-The entire documentation site is now available in Russian and French. You can explore a component,
-copy an example, and follow a recipe without switching languages halfway through.
+The documentation is now available in English, Russian, and French. Component pages, examples, and
+recipes are translated throughout.
 
-### Highlights
+### The docs now speak three languages
 
-- Component guides, installation instructions, API references, and recipes are available in Russian
-  and French.
-- Navigation, page metadata, locale-aware routes, and copyable examples stay aligned across English,
-  Russian, and French.
+You can read a component guide, copy an example, and follow a recipe without switching languages.
+
+Navigation, page metadata, locale-aware routes, and copyable examples are kept in sync across all
+three languages.
 </ChangelogNewsItem>
 
 <ChangelogNewsItem>
   <V2MigrationHero />
 
-v2 is a major release. Components with a matching Ark UI primitive now use Ark UI for state,
-interaction, and accessibility, while moduix keeps its CSS Modules, design tokens, and both
-installation paths.
+The component system now uses Ark UI for state, interaction, and accessibility when a matching
+primitive is available. moduix keeps its CSS Modules, design tokens, and both installation paths.
 
-### Highlights
+### Ark UI now powers component behavior
 
-- Ark UI provides state, interaction behavior, and accessibility for components with a matching
-  primitive.
-- Public composition and low-level props follow Ark contracts. You can install the package or copy
-  component source into your application, where you control it.
+Components with an Ark UI primitive use it for state and interaction. This also gives them the
+accessibility behavior provided by Ark UI.
+
+Public composition and low-level props follow Ark contracts. Install the package, or copy the source
+into your application when you need to own the implementation.
 </ChangelogNewsItem>
-
-## More updates
-
-### v2.5.0 - August 27, 2026
-
-- Added a resizable, collapsible `Sidebar` for application navigation.
-- The `AngleSlider` track background no longer changes on hover or press.
-
-### v2.4.0 - August 25, 2026
-
-- Added `JSON Tree View` for displaying nested JSON data.
-- Updated the package dependency versions.
-
-### v2.2.4 - August 10, 2026
-
-- `DatePicker` now inherits `disabled` and `invalid` state from `Field` and `Fieldset`, plus `readOnly` and `required` state from `Field`.
-- `DatePicker.Field` and `DatePicker.RangeField` keep stable input indexes, so native form values remain predictable.
-- `DateInput` ranges expose explicit indexed native inputs while preserving Ark keyboard and accessibility semantics.
-
-### v2.2.3 - July 24, 2026
-
-- Restored Next.js App Router compatibility for copy-owned components that use local client APIs.
-- Refined the Menu arrow so it stays aligned with the popup border.
-
-### v2.2.2 - July 24, 2026
-
-- Reorganized package sources and dependency paths so shadcn CLI output stays self-contained.
-
-### v2.2.1 - July 23, 2026
-
-- Added the detached `island` Drawer variant and kept its backdrop visible between snap points.
-- Added a stylesheet with Ark UI variable references for repository tooling; it adds no runtime code.
-
-### v2.2.0 - July 22, 2026
-
-- Namespaced public CSS tokens and cascade layers under `moduix`.
-
-### v2.1.0 - July 21, 2026
-
-- Added Typeset and the Calm, Dense, Soft, and Contrast theme presets.
-- Refined primary controls, popup density, Select composition, and theming tokens.
-
-## Version and support policy
-
-moduix follows Semantic Versioning. Major releases may include breaking changes, minor releases add
-backward-compatible features, and patch releases contain backward-compatible fixes.
-
-The latest major release is actively supported. v2 supports React 18 and 19, and its Ark UI
-integration stays compatible with supported releases. For each major release, this page records
-affected APIs, migration steps, and package or registry implications.

@@ -9,7 +9,6 @@ export function TableOfContentsHero() {
     <ChangelogHero
       id="v250--august-27-2026"
       category={t('changelogNewComponent')}
-      version="v2.5.0"
       date={t('tableOfContentsHeroDate')}
       dateTime="2026-08-27"
       title="Table of Contents"

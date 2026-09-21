@@ -9,7 +9,6 @@ export function NavigationMenuHero() {
     <ChangelogHero
       id="v240--august-25-2026"
       category={t('changelogNewComponent')}
-      version="v2.4.0"
       date={t('navigationMenuHeroDate')}
       dateTime="2026-08-25"
       title="Navigation Menu"
