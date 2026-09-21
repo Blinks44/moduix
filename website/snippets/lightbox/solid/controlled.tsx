@@ -1,4 +1,12 @@
-import { Lightbox } from '@moduix/solid/lightbox';
+import {
+  LightboxTrigger,
+  LightboxBackdrop,
+  LightboxPositioner,
+  LightboxContent,
+  LightboxCloseIcon,
+  LightboxImage,
+  Lightbox,
+} from '@moduix/solid/lightbox';
 import { createSignal } from 'solid-js';
 import styles from '@/components/examples/lightbox/lightbox-controlled.module.css';
 
@@ -12,14 +20,14 @@ export default function ControlledLightboxDemo() {
 
   return (
     <Lightbox open={open()} onOpenChange={(details) => setOpen(details.open)}>
-      <Lightbox.Trigger class={styles.button}>Open controlled lightbox</Lightbox.Trigger>
-      <Lightbox.Backdrop />
-      <Lightbox.Positioner>
-        <Lightbox.CloseIcon />
-        <Lightbox.Content aria-label={image.alt}>
-          <Lightbox.Image src={image.src} alt={image.alt} />
-        </Lightbox.Content>
-      </Lightbox.Positioner>
+      <LightboxTrigger class={styles.button}>Open controlled lightbox</LightboxTrigger>
+      <LightboxBackdrop />
+      <LightboxPositioner>
+        <LightboxCloseIcon />
+        <LightboxContent aria-label={image.alt}>
+          <LightboxImage src={image.src} alt={image.alt} />
+        </LightboxContent>
+      </LightboxPositioner>
     </Lightbox>
   );
 }

@@ -69,7 +69,7 @@ Ark disabled state.
 Ark Solid uses render-function `asChild`:
 `asChild={(props) => <button {...props()} type="button" />}`. Its factory does not forward refs
 through `asChild`, so ordinary refs and custom-host composition are supported as separate native
-paths. `Tour.CloseIcon` composes `CloseButton.Root` through the same native render-function
+paths. `Tour.CloseIcon` composes `CloseButton` through the same native render-function
 contract and defaults its accessible label to `Close tour`.
 
 `Tour.Arrow` renders `Tour.ArrowTip` when no child is supplied. `Tour.Body` is a scroll-safe layout

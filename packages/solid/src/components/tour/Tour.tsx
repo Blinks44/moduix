@@ -185,7 +185,7 @@ function TourCloseIcon(props: TourCloseIconProps) {
   return (
     <TourPrimitive.CloseTrigger
       asChild={(triggerProps) => (
-        <CloseButton.Root
+        <CloseButton
           {...triggerProps()}
           data-slot="tour-close-icon"
           aria-label={local['aria-label'] ?? DEFAULT_CLOSE_BUTTON_LABEL}
@@ -193,7 +193,7 @@ function TourCloseIcon(props: TourCloseIconProps) {
           class={clsx(styles.closeIcon, local.class)}
         >
           {resolvedChildren()}
-        </CloseButton.Root>
+        </CloseButton>
       )}
       {...others}
     />

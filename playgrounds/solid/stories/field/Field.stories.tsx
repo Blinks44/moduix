@@ -1,6 +1,12 @@
 import { createSignal } from 'solid-js';
 import type { Meta, StoryObj } from 'storybook-solidjs-vite';
-import { Checkbox } from '@/components/checkbox';
+import {
+  Checkbox,
+  CheckboxControl,
+  CheckboxHiddenInput,
+  CheckboxIndicator,
+  CheckboxLabel,
+} from '@/components/checkbox';
 import { Field, useField } from '@/components/field';
 import { NativeSelect } from '@/components/native-select';
 import { RadioGroup } from '@/components/radio-group';
@@ -112,13 +118,13 @@ export const ReadOnly: Story = {
 export const WithCheckbox: Story = {
   render: () => (
     <Field required>
-      <Checkbox.Root>
-        <Checkbox.Control>
-          <Checkbox.Indicator />
-        </Checkbox.Control>
-        <Checkbox.Label>Accept support access</Checkbox.Label>
-        <Checkbox.HiddenInput />
-      </Checkbox.Root>
+      <Checkbox>
+        <CheckboxControl>
+          <CheckboxIndicator />
+        </CheckboxControl>
+        <CheckboxLabel>Accept support access</CheckboxLabel>
+        <CheckboxHiddenInput />
+      </Checkbox>
       <Field.HelperText>Required before the team can inspect workspace data.</Field.HelperText>
       <Field.ErrorText>Support access must be enabled.</Field.ErrorText>
     </Field>

@@ -1,5 +1,10 @@
 import { Avatar, AvatarFallback } from '@moduix/react/avatar';
-import { Collapsible } from '@moduix/react/collapsible';
+import {
+  Collapsible,
+  CollapsibleContent,
+  CollapsibleIndicator,
+  CollapsibleTrigger,
+} from '@moduix/react/collapsible';
 import { Menu } from '@moduix/react/menu';
 import { Sidebar } from '@moduix/react/sidebar';
 import {
@@ -53,15 +58,15 @@ export default function AppSidebar() {
                 <Sidebar.ExpandedContent>
                   <Collapsible defaultOpen>
                     <Sidebar.Tooltip content="Projects">
-                      <Collapsible.Trigger asChild>
+                      <CollapsibleTrigger asChild>
                         <Sidebar.NavigationButton>
                           <FolderOpen />
                           <Sidebar.Label>Projects</Sidebar.Label>
-                          <Collapsible.Indicator />
+                          <CollapsibleIndicator />
                         </Sidebar.NavigationButton>
-                      </Collapsible.Trigger>
+                      </CollapsibleTrigger>
                     </Sidebar.Tooltip>
-                    <Collapsible.Content>
+                    <CollapsibleContent>
                       <Sidebar.NavigationSubList>
                         <Sidebar.NavigationSubItem>
                           <Sidebar.NavigationSubButton href="/projects/website">
@@ -74,7 +79,7 @@ export default function AppSidebar() {
                           </Sidebar.NavigationSubButton>
                         </Sidebar.NavigationSubItem>
                       </Sidebar.NavigationSubList>
-                    </Collapsible.Content>
+                    </CollapsibleContent>
                   </Collapsible>
                 </Sidebar.ExpandedContent>
                 <Sidebar.CollapsedContent>

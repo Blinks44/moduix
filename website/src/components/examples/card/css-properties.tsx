@@ -4,7 +4,7 @@ export const cardOverrideCssProperties: CssProperty[] = [
   {
     name: '--moduix-card-action-gap',
     defaultValue: 'var(--moduix-spacing-2)',
-    description: 'Controls `Card.Action` spacing.',
+    description: 'Controls `CardAction` spacing.',
   },
   {
     name: '--moduix-card-bg',
@@ -69,17 +69,17 @@ export const cardOverrideCssProperties: CssProperty[] = [
   {
     name: '--moduix-card-body-color',
     defaultValue: 'var(--moduix-color-muted-foreground)',
-    description: 'Controls `Card.Body` text color.',
+    description: 'Controls `CardBody` text color.',
   },
   {
     name: '--moduix-card-body-font-size',
     defaultValue: 'var(--moduix-text-sm)',
-    description: 'Controls `Card.Body` font size.',
+    description: 'Controls `CardBody` font size.',
   },
   {
     name: '--moduix-card-body-line-height',
     defaultValue: 'var(--moduix-line-height-text-sm)',
-    description: 'Controls `Card.Body` line height.',
+    description: 'Controls `CardBody` line height.',
   },
   {
     name: '--moduix-card-body-padding-top',
@@ -89,17 +89,17 @@ export const cardOverrideCssProperties: CssProperty[] = [
   {
     name: '--moduix-card-description-color',
     defaultValue: 'var(--moduix-color-muted-foreground)',
-    description: 'Controls `Card.Description` text color.',
+    description: 'Controls `CardDescription` text color.',
   },
   {
     name: '--moduix-card-description-font-size',
     defaultValue: 'var(--moduix-text-sm)',
-    description: 'Controls `Card.Description` font size.',
+    description: 'Controls `CardDescription` font size.',
   },
   {
     name: '--moduix-card-description-line-height',
     defaultValue: 'var(--moduix-line-height-text-sm)',
-    description: 'Controls `Card.Description` line height.',
+    description: 'Controls `CardDescription` line height.',
   },
   {
     name: '--moduix-card-elevated-bg',
@@ -129,27 +129,27 @@ export const cardOverrideCssProperties: CssProperty[] = [
   {
     name: '--moduix-card-footer-gap',
     defaultValue: 'var(--moduix-spacing-2)',
-    description: 'Controls `Card.Footer` spacing.',
+    description: 'Controls `CardFooter` spacing.',
   },
   {
     name: '--moduix-card-focus-ring-color',
     defaultValue: 'var(--moduix-color-ring)',
-    description: 'Controls interactive root and `Card.Link` focus ring color.',
+    description: 'Controls interactive root and `CardLink` focus ring color.',
   },
   {
     name: '--moduix-card-focus-ring-offset',
     defaultValue: 'var(--moduix-border-width-sm)',
-    description: 'Controls interactive root and `Card.Link` focus ring offset.',
+    description: 'Controls interactive root and `CardLink` focus ring offset.',
   },
   {
     name: '--moduix-card-focus-ring-width',
     defaultValue: 'var(--moduix-border-width-md)',
-    description: 'Controls interactive root and `Card.Link` focus ring width.',
+    description: 'Controls interactive root and `CardLink` focus ring width.',
   },
   {
     name: '--moduix-card-header-gap',
     defaultValue: 'var(--moduix-spacing-1)',
-    description: 'Controls spacing inside `Card.Header`.',
+    description: 'Controls spacing inside `CardHeader`.',
   },
   {
     name: '--moduix-card-outline-bg',
@@ -200,41 +200,41 @@ export const cardOverrideCssProperties: CssProperty[] = [
   {
     name: '--moduix-card-title-color',
     defaultValue: 'currentColor',
-    description: 'Controls `Card.Title` color.',
+    description: 'Controls `CardTitle` color.',
   },
   {
     name: '--moduix-card-title-font-size',
     defaultValue: 'var(--moduix-text-lg)',
-    description: 'Controls default `Card.Title` font size.',
+    description: 'Controls default `CardTitle` font size.',
   },
   {
     name: '--moduix-card-title-font-size-lg',
     defaultValue: 'var(--moduix-text-xl)',
-    description: 'Controls large `Card.Title` font size.',
+    description: 'Controls large `CardTitle` font size.',
   },
   {
     name: '--moduix-card-title-font-size-sm',
     defaultValue: 'var(--moduix-text-md)',
-    description: 'Controls compact `Card.Title` font size.',
+    description: 'Controls compact `CardTitle` font size.',
   },
   {
     name: '--moduix-card-title-font-weight',
     defaultValue: 'var(--moduix-weight-semibold)',
-    description: 'Controls `Card.Title` weight.',
+    description: 'Controls `CardTitle` weight.',
   },
   {
     name: '--moduix-card-title-line-height',
     defaultValue: 'var(--moduix-line-height-text-lg)',
-    description: 'Controls default `Card.Title` line height.',
+    description: 'Controls default `CardTitle` line height.',
   },
   {
     name: '--moduix-card-title-line-height-lg',
     defaultValue: 'var(--moduix-line-height-text-xl)',
-    description: 'Controls large `Card.Title` line height.',
+    description: 'Controls large `CardTitle` line height.',
   },
   {
     name: '--moduix-card-title-line-height-sm',
     defaultValue: 'var(--moduix-line-height-text-md)',
-    description: 'Controls compact `Card.Title` line height.',
+    description: 'Controls compact `CardTitle` line height.',
   },
 ];

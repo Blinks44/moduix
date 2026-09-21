@@ -1,4 +1,11 @@
-import { Collapsible, useCollapsible } from '@moduix/solid/collapsible';
+import {
+  CollapsibleBody,
+  CollapsibleContent,
+  CollapsibleIndicator,
+  CollapsibleRootProvider,
+  CollapsibleTrigger,
+  useCollapsible,
+} from '@moduix/solid/collapsible';
 import styles from '@/components/examples/collapsible/collapsible-root-provider.module.css';
 
 const recoveryKeys = ['alien-bean-pasta', 'wild-irish-burrito', 'horse-battery-staple'];
@@ -8,21 +15,21 @@ export default function RootProviderCollapsibleDemo() {
 
   return (
     <div class={styles.layout}>
-      <Collapsible.RootProvider class={styles.root} value={collapsible}>
-        <Collapsible.Trigger>
+      <CollapsibleRootProvider class={styles.root} value={collapsible}>
+        <CollapsibleTrigger>
           Recovery keys
-          <Collapsible.Indicator />
-        </Collapsible.Trigger>
-        <Collapsible.Content>
-          <Collapsible.Body>
+          <CollapsibleIndicator />
+        </CollapsibleTrigger>
+        <CollapsibleContent>
+          <CollapsibleBody>
             <ul class={styles.keysList}>
               {recoveryKeys.map((key) => (
                 <li>{key}</li>
               ))}
             </ul>
-          </Collapsible.Body>
-        </Collapsible.Content>
-      </Collapsible.RootProvider>
+          </CollapsibleBody>
+        </CollapsibleContent>
+      </CollapsibleRootProvider>
       <output>
         State: open {String(collapsible().open)}, visible {String(collapsible().visible)}
       </output>

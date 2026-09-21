@@ -1,4 +1,9 @@
-import { Checkbox } from '@moduix/react/checkbox';
+import {
+  Checkbox,
+  CheckboxControl,
+  CheckboxHiddenInput,
+  CheckboxLabel,
+} from '@moduix/react/checkbox';
 import { Fieldset } from '@moduix/react/fieldset';
 import styles from '@/components/examples/fieldset/fieldset-checkbox.module.css';
 
@@ -18,9 +23,9 @@ export default function EmailPreferences() {
       <Fieldset.Legend>Email preferences</Fieldset.Legend>
       {preferences.map((preference) => (
         <Checkbox key={preference.value} value={preference.value}>
-          <Checkbox.Control />
-          <Checkbox.Label>{preference.label}</Checkbox.Label>
-          <Checkbox.HiddenInput />
+          <CheckboxControl />
+          <CheckboxLabel>{preference.label}</CheckboxLabel>
+          <CheckboxHiddenInput />
         </Checkbox>
       ))}
     </Fieldset>

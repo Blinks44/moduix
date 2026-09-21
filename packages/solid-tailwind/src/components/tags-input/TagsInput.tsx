@@ -195,7 +195,7 @@ function TagsInputClearTrigger(props: ComponentProps<typeof TagsInputPrimitive.C
   return (
     <TagsInputPrimitive.ClearTrigger
       asChild={(triggerProps) => (
-        <CloseButton.Root
+        <CloseButton
           {...triggerProps()}
           aria-label={local['aria-label'] ?? clearTriggerLabel()}
           aria-labelledby={local['aria-labelledby']}
@@ -204,7 +204,7 @@ function TagsInputClearTrigger(props: ComponentProps<typeof TagsInputPrimitive.C
           data-slot="tags-input-clear-trigger"
         >
           {resolvedChildren()}
-        </CloseButton.Root>
+        </CloseButton>
       )}
       class={cn(
         'ms-auto size-control-xs shrink-0 self-center focus-visible:outline-1 data-readonly:hidden motion-reduce:transition-none [&>svg]:size-3',

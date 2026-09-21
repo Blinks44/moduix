@@ -1,5 +1,10 @@
 import { Avatar, AvatarFallback } from '@moduix/solid/avatar';
-import { Collapsible } from '@moduix/solid/collapsible';
+import {
+  Collapsible,
+  CollapsibleContent,
+  CollapsibleIndicator,
+  CollapsibleTrigger,
+} from '@moduix/solid/collapsible';
 import { Menu } from '@moduix/solid/menu';
 import { Sidebar } from '@moduix/solid/sidebar';
 import { ChevronsUpDown, FileText, FolderOpen, Gauge, LogOut, Plus, Users } from 'lucide-solid';
@@ -50,7 +55,7 @@ export default function AppSidebar() {
                   <Collapsible defaultOpen>
                     <Sidebar.Tooltip content="Projects">
                       {(props) => (
-                        <Collapsible.Trigger
+                        <CollapsibleTrigger
                           {...props()}
                           asChild={(triggerProps) => (
                             <Sidebar.NavigationButton {...triggerProps()} />
@@ -58,11 +63,11 @@ export default function AppSidebar() {
                         >
                           <FolderOpen />
                           <Sidebar.Label>Projects</Sidebar.Label>
-                          <Collapsible.Indicator />
-                        </Collapsible.Trigger>
+                          <CollapsibleIndicator />
+                        </CollapsibleTrigger>
                       )}
                     </Sidebar.Tooltip>
-                    <Collapsible.Content>
+                    <CollapsibleContent>
                       <Sidebar.NavigationSubList>
                         <Sidebar.NavigationSubItem>
                           <Sidebar.NavigationSubButton
@@ -79,7 +84,7 @@ export default function AppSidebar() {
                           </Sidebar.NavigationSubButton>
                         </Sidebar.NavigationSubItem>
                       </Sidebar.NavigationSubList>
-                    </Collapsible.Content>
+                    </CollapsibleContent>
                   </Collapsible>
                 </Sidebar.ExpandedContent>
                 <Sidebar.CollapsedContent>

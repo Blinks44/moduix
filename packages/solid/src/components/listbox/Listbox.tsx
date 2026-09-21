@@ -83,7 +83,7 @@ function ListboxClearTrigger(props: HTMLArkProps<'button'>) {
   const resolvedChildren = children(() => local.children);
 
   return (
-    <CloseButton.Root
+    <CloseButton
       class={clsx(styles.clearTrigger, local.class)}
       type={local.type ?? 'button'}
       aria-label={local['aria-label'] ?? 'Clear search'}
@@ -91,7 +91,7 @@ function ListboxClearTrigger(props: HTMLArkProps<'button'>) {
       data-slot="listbox-clear-trigger"
     >
       {resolvedChildren()}
-    </CloseButton.Root>
+    </CloseButton>
   );
 }
 

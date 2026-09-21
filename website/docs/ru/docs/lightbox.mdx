@@ -41,12 +41,12 @@ import lightboxSolidRootProviderAndContext from '../../../snippets/lightbox/soli
 
 - Выбирайте **`Lightbox`** для увеличенного просмотра изображений, галерей товаров и другого медиаконтента.
 - Выбирайте **`Dialog`** для обычного интерфейса приложения, например форм, действий или смешанного содержимого.
-- Поместите **`Carousel` внутрь `Lightbox.Gallery`**, если для просмотра нужны слайды и стрелки навигации.
+- Поместите **`Carousel` внутрь `LightboxGallery`**, если для просмотра нужны слайды и стрелки навигации.
 
 ## Базовый пример
 
-Явно соберите структуру диалога Ark UI из `Lightbox`, `Lightbox.Trigger`,
-`Lightbox.Backdrop`, `Lightbox.Positioner` и `Lightbox.Content`. С помощью `asChild` передайте
+Явно соберите структуру диалога Ark UI из `Lightbox`, `LightboxTrigger`,
+`LightboxBackdrop`, `LightboxPositioner` и `LightboxContent`. С помощью `asChild` передайте
 один семантический элемент, который открывает окно просмотра.
 
 <ExampleFrame variant="component">
@@ -114,42 +114,42 @@ import lightboxSolidRootProviderAndContext from '../../../snippets/lightbox/soli
 ## Анатомия
 
 ```text
-Lightbox / Lightbox.Root
-├─ Lightbox.Trigger
-├─ Lightbox.Bind
+Lightbox
+├─ LightboxTrigger
+├─ LightboxBind
 └─ Поддерево модального окна (автоматически выводится через портал)
-   ├─ Lightbox.Backdrop
-   └─ Lightbox.Positioner
-      ├─ Lightbox.CloseTrigger или Lightbox.CloseIcon
-      └─ Lightbox.Content
-         ├─ Lightbox.Header (необязательно)
-         │  ├─ Lightbox.Title
-         │  └─ Lightbox.Description
-         ├─ Lightbox.Body
-         │  └─ Lightbox.Image
-         └─ Lightbox.Footer (необязательно)
+   ├─ LightboxBackdrop
+   └─ LightboxPositioner
+      ├─ LightboxCloseTrigger или LightboxCloseIcon
+      └─ LightboxContent
+         ├─ LightboxHeader (необязательно)
+         │  ├─ LightboxTitle
+         │  └─ LightboxDescription
+         ├─ LightboxBody
+         │  └─ LightboxImage
+         └─ LightboxFooter (необязательно)
 
-Lightbox.RootProvider
+LightboxRootProvider
 └─ то же дерево частей, связанное с useLightbox()
 ```
 
 | Часть | Назначение |
 | ---------------------------- | ------------------------------------------------------------------------------------ |
-| `Lightbox` / `Lightbox.Root` | Корневой компонент Dialog из Ark UI. Он управляет состоянием открытия, фокусом, закрытием и доступностью. |
-| `Lightbox.RootProvider` | Провайдер состояния, созданного с помощью `useLightbox()`. |
-| `Lightbox.Trigger` | Триггер Ark. С `asChild` можно передать семантическую кнопку или ссылку. |
-| `Lightbox.Backdrop` | Модальная подложка с атрибутом Ark `data-state` и переменными слоя. |
-| `Lightbox.Positioner` | Фиксированный контейнер, центрирующий содержимое модального окна. |
-| `Lightbox.Content` | Узел с содержимым диалога Ark UI. |
-| `Lightbox.Title` | Необязательный доступный заголовок. |
-| `Lightbox.Description` | Необязательное доступное описание. |
-| `Lightbox.CloseTrigger` | Низкоуровневый триггер закрытия Ark UI. |
-| `Lightbox.CloseIcon` | Упрощённый вариант, объединяющий `CloseButton.Root` с триггером закрытия Ark UI. |
-| `Lightbox.Header` / `Body` | Необязательные компоненты для размещения текста и медиа. |
-| `Lightbox.Footer` | Необязательный компонент для действий или статуса под медиа. |
-| `Lightbox.Image` | Стилизованный `<img>`, передающий ref нативного элемента `HTMLImageElement`. |
-| `Lightbox.Gallery` | Контейнер для компоновки и стилизации `Carousel`. |
-| `Lightbox.Bind` | Компонент без собственного DOM, связывающий внешнюю разметку с корнем. |
+| `Lightbox` | Корневой компонент Dialog из Ark UI. Он управляет состоянием открытия, фокусом, закрытием и доступностью. |
+| `LightboxRootProvider` | Провайдер состояния, созданного с помощью `useLightbox()`. |
+| `LightboxTrigger` | Триггер Ark. С `asChild` можно передать семантическую кнопку или ссылку. |
+| `LightboxBackdrop` | Модальная подложка с атрибутом Ark `data-state` и переменными слоя. |
+| `LightboxPositioner` | Фиксированный контейнер, центрирующий содержимое модального окна. |
+| `LightboxContent` | Узел с содержимым диалога Ark UI. |
+| `LightboxTitle` | Необязательный доступный заголовок. |
+| `LightboxDescription` | Необязательное доступное описание. |
+| `LightboxCloseTrigger` | Низкоуровневый триггер закрытия Ark UI. |
+| `LightboxCloseIcon` | Упрощённый вариант, объединяющий `CloseButton` с триггером закрытия Ark UI. |
+| `LightboxHeader` / `LightboxBody` | Необязательные компоненты для размещения текста и медиа. |
+| `LightboxFooter` | Необязательный компонент для действий или статуса под медиа. |
+| `LightboxImage` | Стилизованный `<img>`, передающий ref нативного элемента `HTMLImageElement`. |
+| `LightboxGallery` | Контейнер для компоновки и стилизации `Carousel`. |
+| `LightboxBind` | Компонент без собственного DOM, связывающий внешнюю разметку с корнем. |
 
 ## Композиция
 
@@ -160,8 +160,8 @@ Lightbox.RootProvider
 Для `asChild` передавайте один семантический элемент. В Solid это render-функция, получающая его props.
 
 В галереях храните выбранное изображение и страницу `Carousel` в состоянии приложения. Передавайте
-ключ изображения в `Lightbox.Trigger value` и обновляйте состояние из `onTriggerValueChange(details)`
-или callback страницы `Carousel`. Используйте `RootProvider` с `useLightbox()`, если состояние или
+ключ изображения в `LightboxTrigger value` и обновляйте состояние из `onTriggerValueChange(details)`
+или callback страницы `Carousel`. Используйте `LightboxRootProvider` с `useLightbox()`, если состояние или
 кнопка открытия находятся за пределами корня, а в дочерних компонентах читайте его через
 `useLightboxContext()`. `Bind` не выводит разметку и только выбирает изображение во внешнем DOM, поэтому
 остальные части Lightbox нужно собрать явно. `Image closeOnClick` закрывает окно после клика по изображению.
@@ -170,14 +170,14 @@ Lightbox.RootProvider
 
 ### Привязка содержимого из CMS
 
-Используйте `Lightbox.Bind`, если изображения приходят из CMS или сторонней разметки, которую нельзя
-вывести напрямую через `Lightbox.Trigger`. Укажите контейнер через `rootRef` или `rootSelector`,
+Используйте `LightboxBind`, если изображения приходят из CMS или сторонней разметки, которую нельзя
+вывести напрямую через `LightboxTrigger`. Укажите контейнер через `rootRef` или `rootSelector`,
 задайте `selector` и обработайте `{ src, alt, element }` в `onImageSelect`. `Bind` открывает родительский
 Lightbox, но не создаёт его подложку, содержимое и элементы закрытия. Источник читается из
 `data-lightbox-src`, затем `currentSrc` и `src`, а найденное изображение заранее загружается при
 наведении указателя или фокусе с клавиатуры. В `selector` указывайте семантическую кнопку или ссылку,
 чтобы открытие работало с клавиатуры. Для структурированного массива изображений используйте
-композицию `Lightbox.Gallery + Carousel`.
+композицию `LightboxGallery + Carousel`.
 
 <ExampleFrame variant="component">
   <LightboxBindCmsContent />
@@ -216,7 +216,7 @@ Lightbox, но не создаёт его подложку, содержимое
 
 ### Закрытие по клику на изображение
 
-Используйте `Lightbox.Image closeOnClick`, если клик по изображению должен закрывать окно просмотра.
+Используйте `LightboxImage closeOnClick`, если клик по изображению должен закрывать окно просмотра.
 Иконка закрытия остаётся доступной и сохраняет стандартную семантику Ark UI.
 
 <ExampleFrame variant="component">
@@ -339,7 +339,7 @@ Lightbox, но не создаёт его подложку, содержимое
 
 Если CMS или API возвращает структурированный массив изображений, храните выбранное изображение и
 текущую страницу `Carousel` в состоянии React или Solid, а сам `Carousel` поместите внутрь
-`Lightbox.Gallery`. Используйте `Lightbox.Trigger.value`, чтобы выбрать начальный слайд, и
+`LightboxGallery`. Используйте `LightboxTrigger.value`, чтобы выбрать начальный слайд, и
 синхронизируйте страницу `Carousel` во время навигации.
 
 <ExampleFrame variant="component">
@@ -379,7 +379,7 @@ Lightbox, но не создаёт его подложку, содержимое
 
 ### Несколько триггеров
 
-Используйте `Lightbox.Trigger.value` и `onTriggerValueChange(details)` для миниатюр галереи.
+Используйте `LightboxTrigger.value` и `onTriggerValueChange(details)` для миниатюр галереи.
 Компонент не создаёт скрытый реестр изображений.
 
 <ExampleFrame variant="component">
@@ -563,8 +563,8 @@ Lightbox, но не создаёт его подложку, содержимое
   и `lightbox-gallery`.
 - Атрибуты состояния и анатомии Ark: `data-scope="dialog"`, `data-part`, `data-state="open|closed"`,
   `data-nested`, `data-has-nested`, `--layer-index` и `--nested-layer-count`.
-- Локальные точки настройки: `Lightbox.Image` добавляет `data-slot="lightbox-image"` и, если
-  включено закрытие по клику, `data-close-on-click`. `Lightbox.Gallery` добавляет
+- Локальные точки настройки: `LightboxImage` добавляет `data-slot="lightbox-image"` и, если
+  включено закрытие по клику, `data-close-on-click`. `LightboxGallery` добавляет
   `data-slot="lightbox-gallery"` и стилизует вложенные слоты Carousel.
 - Анимация зависит от атрибута Ark `data-state`. Используйте `present`, только если управление
   анимацией в JavaScript должно оставлять содержимое в DOM.

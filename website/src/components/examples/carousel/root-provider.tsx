@@ -1,4 +1,13 @@
-import { Carousel, useCarousel } from '@moduix/react/carousel';
+import {
+  CarouselControl,
+  CarouselIndicators,
+  CarouselItem,
+  CarouselItemGroup,
+  CarouselNextTrigger,
+  CarouselPrevTrigger,
+  CarouselRootProvider,
+  useCarousel,
+} from '@moduix/react/carousel';
 import styles from '@/components/examples/carousel/carousel-root-provider.module.css';
 
 const slides = [
@@ -33,23 +42,23 @@ export default function RootProviderCarousel() {
   const carousel = useCarousel({ slideCount: slides.length });
 
   return (
-    <Carousel.RootProvider
+    <CarouselRootProvider
       className={styles.root}
       aria-label="Root provider gallery"
       value={carousel}
     >
-      <Carousel.ItemGroup className={styles.itemGroup} aria-label="Root provider gallery">
+      <CarouselItemGroup className={styles.itemGroup} aria-label="Root provider gallery">
         {slides.map((slide, index) => (
-          <Carousel.Item key={slide.id} index={index}>
+          <CarouselItem key={slide.id} index={index}>
             <img className={styles.image} src={slide.src} alt={slide.alt} />
-          </Carousel.Item>
+          </CarouselItem>
         ))}
-      </Carousel.ItemGroup>
-      <Carousel.Control className={styles.control}>
-        <Carousel.PrevTrigger />
-        <Carousel.NextTrigger />
-      </Carousel.Control>
-      <Carousel.Indicators />
-    </Carousel.RootProvider>
+      </CarouselItemGroup>
+      <CarouselControl className={styles.control}>
+        <CarouselPrevTrigger />
+        <CarouselNextTrigger />
+      </CarouselControl>
+      <CarouselIndicators />
+    </CarouselRootProvider>
   );
 }

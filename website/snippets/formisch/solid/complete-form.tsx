@@ -2,8 +2,20 @@ import { createListCollection, useListCollection } from '@ark-ui/solid/collectio
 import { useFilter } from '@ark-ui/solid/locale';
 import { Field as FormischField, Form, createForm } from '@formisch/solid';
 import { Button } from '@moduix/solid/button';
-import { Card } from '@moduix/solid/card';
-import { Checkbox } from '@moduix/solid/checkbox';
+import {
+  Card,
+  CardBody,
+  CardDescription,
+  CardFooter,
+  CardHeader,
+  CardTitle,
+} from '@moduix/solid/card';
+import {
+  Checkbox,
+  CheckboxControl,
+  CheckboxHiddenInput,
+  CheckboxLabel,
+} from '@moduix/solid/checkbox';
 import { Combobox } from '@moduix/solid/combobox';
 import { Field } from '@moduix/solid/field';
 import { Input } from '@moduix/solid/input';
@@ -65,12 +77,12 @@ export default function ProjectForm() {
       }}
     >
       <Card>
-        <Card.Header>
-          <Card.Title>Create project</Card.Title>
-          <Card.Description>Share the details your team needs to get started.</Card.Description>
-        </Card.Header>
+        <CardHeader>
+          <CardTitle>Create project</CardTitle>
+          <CardDescription>Share the details your team needs to get started.</CardDescription>
+        </CardHeader>
 
-        <Card.Body class={styles.fields}>
+        <CardBody class={styles.fields}>
           <FormischField of={form} path={['name']}>
             {(field) => (
               <Field invalid={field.errors !== null} required>
@@ -195,21 +207,21 @@ export default function ProjectForm() {
                   onFocus={field.props.onFocus}
                   onBlur={field.props.onBlur}
                 >
-                  <Checkbox.Control />
-                  <Checkbox.Label>Send status notifications</Checkbox.Label>
-                  <Checkbox.HiddenInput />
+                  <CheckboxControl />
+                  <CheckboxLabel>Send status notifications</CheckboxLabel>
+                  <CheckboxHiddenInput />
                 </Checkbox>
                 <Field.ErrorText>{field.errors?.[0]}</Field.ErrorText>
               </Field>
             )}
           </FormischField>
-        </Card.Body>
+        </CardBody>
 
-        <Card.Footer>
+        <CardFooter>
           <Button class={styles.submit} type="submit" loading={form.isSubmitting}>
             {form.isSubmitting ? 'Creating…' : 'Create project'}
           </Button>
-        </Card.Footer>
+        </CardFooter>
       </Card>
     </Form>
   );

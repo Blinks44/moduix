@@ -1,7 +1,16 @@
 import { expect, test } from '@rstest/core';
 import { fireEvent, render, screen, waitFor } from '@testing-library/react';
 import { createRef } from 'react';
-import { Carousel } from '../src';
+import {
+  Carousel,
+  CarouselControl,
+  CarouselIndicators,
+  CarouselItem,
+  CarouselItemGroup,
+  CarouselNextTrigger,
+  CarouselPrevTrigger,
+  CarouselProgressText,
+} from '../src';
 
 function TestCarousel({
   dir,
@@ -12,16 +21,16 @@ function TestCarousel({
 }) {
   return (
     <Carousel aria-label="Travel gallery" dir={dir} onPageChange={onPageChange} slideCount={2}>
-      <Carousel.ItemGroup>
-        <Carousel.Item index={0}>First</Carousel.Item>
-        <Carousel.Item index={1}>Second</Carousel.Item>
-      </Carousel.ItemGroup>
-      <Carousel.Control>
-        <Carousel.PrevTrigger />
-        <Carousel.NextTrigger />
-        <Carousel.Indicators />
-      </Carousel.Control>
-      <Carousel.ProgressText />
+      <CarouselItemGroup>
+        <CarouselItem index={0}>First</CarouselItem>
+        <CarouselItem index={1}>Second</CarouselItem>
+      </CarouselItemGroup>
+      <CarouselControl>
+        <CarouselPrevTrigger />
+        <CarouselNextTrigger />
+        <CarouselIndicators />
+      </CarouselControl>
+      <CarouselProgressText />
     </Carousel>
   );
 }
@@ -57,17 +66,17 @@ test('preserves refs, asChild composition, and generated indicator styling hooks
   render(
     <Carousel asChild aria-label="Composed gallery" ref={rootRef} slideCount={2}>
       <section data-testid="composed-carousel">
-        <Carousel.ItemGroup>
-          <Carousel.Item index={0}>First</Carousel.Item>
-          <Carousel.Item index={1}>Second</Carousel.Item>
-        </Carousel.ItemGroup>
-        <Carousel.Control>
-          <Carousel.PrevTrigger asChild>
+        <CarouselItemGroup>
+          <CarouselItem index={0}>First</CarouselItem>
+          <CarouselItem index={1}>Second</CarouselItem>
+        </CarouselItemGroup>
+        <CarouselControl>
+          <CarouselPrevTrigger asChild>
             <button type="button">Back</button>
-          </Carousel.PrevTrigger>
-          <Carousel.NextTrigger />
-          <Carousel.Indicators ref={indicatorsRef} indicatorClassName="generated-indicator" />
-        </Carousel.Control>
+          </CarouselPrevTrigger>
+          <CarouselNextTrigger />
+          <CarouselIndicators ref={indicatorsRef} indicatorClassName="generated-indicator" />
+        </CarouselControl>
       </section>
     </Carousel>,
   );

@@ -1,6 +1,14 @@
 import { useListCollection } from '@ark-ui/react/collection';
 import { useFilter } from '@ark-ui/react/locale';
-import { Combobox, useCombobox } from '@moduix/react/combobox';
+import {
+  useCombobox,
+  ComboboxContent,
+  ComboboxEmpty,
+  ComboboxInput,
+  ComboboxOption,
+  ComboboxPositioner,
+  ComboboxRootProvider,
+} from '@moduix/react/combobox';
 import { TagsInput, useTagsInput } from '@moduix/react/tags-input';
 import { useId } from 'react';
 
@@ -32,7 +40,7 @@ export default function ComboboxWithTagsInputDemo() {
   });
 
   return (
-    <Combobox.RootProvider value={combobox}>
+    <ComboboxRootProvider value={combobox}>
       <TagsInput.RootProvider value={tagsInput}>
         <TagsInput.Label>Frameworks</TagsInput.Label>
         <TagsInput.Control>
@@ -45,22 +53,22 @@ export default function ComboboxWithTagsInputDemo() {
               <TagsInput.ItemInput />
             </TagsInput.Item>
           ))}
-          <Combobox.Input asChild>
+          <ComboboxInput asChild>
             <TagsInput.Input placeholder="Add framework" />
-          </Combobox.Input>
+          </ComboboxInput>
           <TagsInput.ClearTrigger aria-label="Clear frameworks" />
         </TagsInput.Control>
       </TagsInput.RootProvider>
-      <Combobox.Positioner>
-        <Combobox.Content>
-          <Combobox.Empty>No frameworks found.</Combobox.Empty>
+      <ComboboxPositioner>
+        <ComboboxContent>
+          <ComboboxEmpty>No frameworks found.</ComboboxEmpty>
           {collection.items.map((item) => (
-            <Combobox.Option key={item} item={item}>
+            <ComboboxOption key={item} item={item}>
               {item}
-            </Combobox.Option>
+            </ComboboxOption>
           ))}
-        </Combobox.Content>
-      </Combobox.Positioner>
-    </Combobox.RootProvider>
+        </ComboboxContent>
+      </ComboboxPositioner>
+    </ComboboxRootProvider>
   );
 }

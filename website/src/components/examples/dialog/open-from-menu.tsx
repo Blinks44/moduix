@@ -1,5 +1,14 @@
 import { Button } from '@moduix/react/button';
-import { Dialog } from '@moduix/react/dialog';
+import {
+  Dialog,
+  DialogBackdrop,
+  DialogCloseTrigger,
+  DialogContent,
+  DialogDescription,
+  DialogFooter,
+  DialogPositioner,
+  DialogTitle,
+} from '@moduix/react/dialog';
 import { Menu } from '@moduix/react/menu';
 import { useState } from 'react';
 
@@ -28,19 +37,19 @@ export default function OpenFromMenuDialogDemo() {
       </Menu>
 
       <Dialog open={open} onOpenChange={(details) => setOpen(details.open)} role="alertdialog">
-        <Dialog.Backdrop />
-        <Dialog.Positioner>
-          <Dialog.Content>
-            <Dialog.Title>Confirm delete</Dialog.Title>
-            <Dialog.Description>This action cannot be undone.</Dialog.Description>
-            <Dialog.Footer>
-              <Dialog.CloseTrigger asChild>
+        <DialogBackdrop />
+        <DialogPositioner>
+          <DialogContent>
+            <DialogTitle>Confirm delete</DialogTitle>
+            <DialogDescription>This action cannot be undone.</DialogDescription>
+            <DialogFooter>
+              <DialogCloseTrigger asChild>
                 <Button variant="outline">Cancel</Button>
-              </Dialog.CloseTrigger>
+              </DialogCloseTrigger>
               <Button onClick={() => setOpen(false)}>Delete</Button>
-            </Dialog.Footer>
-          </Dialog.Content>
-        </Dialog.Positioner>
+            </DialogFooter>
+          </DialogContent>
+        </DialogPositioner>
       </Dialog>
     </>
   );

@@ -152,13 +152,13 @@ function SignaturePadClearTrigger(
           (local['aria-labelledby'] == null ? resolvedProps['aria-label'] : undefined);
 
         return (
-          <CloseButton.Root
+          <CloseButton
             {...resolvedProps}
             aria-label={ariaLabel}
             aria-labelledby={local['aria-labelledby'] ?? resolvedProps['aria-labelledby']}
           >
             {resolvedChildren() ?? <RotateCcwIcon aria-hidden="true" />}
-          </CloseButton.Root>
+          </CloseButton>
         );
       }}
       class={triggerClass}

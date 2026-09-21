@@ -21,10 +21,10 @@ type ColorPickerRootProps = ComponentProps<typeof ColorPickerPrimitive.Root> & O
 type ColorPickerRootProviderProps = ComponentProps<typeof ColorPickerPrimitive.RootProvider> &
   OverlayPortalProps;
 
-const ColorPickerRoot = forwardRef<
+const ColorPicker = forwardRef<
   ComponentRef<typeof ColorPickerPrimitive.Root>,
   ColorPickerRootProps
->(function ColorPickerRoot(
+>(function ColorPicker(
   {
     asChild,
     children,
@@ -526,37 +526,41 @@ const ColorPickerView = forwardRef<
   );
 });
 
-const ColorPicker = Object.assign(ColorPickerRoot, {
-  Root: ColorPickerRoot,
-  RootProvider: ColorPickerRootProvider,
-  Context: ColorPickerPrimitive.Context,
-  HiddenInput: ColorPickerPrimitive.HiddenInput,
-  Label: ColorPickerLabel,
-  Control: ColorPickerControl,
-  Trigger: ColorPickerTrigger,
-  Positioner: ColorPickerPositioner,
-  Content: ColorPickerContent,
-  Area: ColorPickerArea,
-  AreaBackground: ColorPickerAreaBackground,
-  AreaThumb: ColorPickerAreaThumb,
-  ChannelSlider: ColorPickerChannelSlider,
-  Sliders: ColorPickerSliders,
-  ChannelSliderTrack: ColorPickerChannelSliderTrack,
-  ChannelSliderThumb: ColorPickerChannelSliderThumb,
-  ChannelSliderLabel: ColorPickerChannelSliderLabel,
-  ChannelSliderValueText: ColorPickerChannelSliderValueText,
-  ChannelInput: ColorPickerChannelInput,
-  EyeDropperTrigger: ColorPickerEyeDropperTrigger,
-  FormatSelect: ColorPickerFormatSelect,
-  FormatTrigger: ColorPickerFormatTrigger,
-  SwatchGroup: ColorPickerSwatchGroup,
-  SwatchTrigger: ColorPickerSwatchTrigger,
-  Swatch: ColorPickerSwatch,
-  SwatchIndicator: ColorPickerSwatchIndicator,
-  TransparencyGrid: ColorPickerTransparencyGrid,
-  ValueSwatch: ColorPickerValueSwatch,
-  ValueText: ColorPickerValueText,
-  View: ColorPickerView,
-});
+const ColorPickerContext = ColorPickerPrimitive.Context;
+const ColorPickerHiddenInput = ColorPickerPrimitive.HiddenInput;
 
-export { ColorPicker, parseColor, useColorPicker, useColorPickerContext };
+export {
+  ColorPicker,
+  ColorPickerArea,
+  ColorPickerAreaBackground,
+  ColorPickerAreaThumb,
+  ColorPickerChannelInput,
+  ColorPickerChannelSlider,
+  ColorPickerChannelSliderLabel,
+  ColorPickerChannelSliderThumb,
+  ColorPickerChannelSliderTrack,
+  ColorPickerChannelSliderValueText,
+  ColorPickerContext,
+  ColorPickerContent,
+  ColorPickerControl,
+  ColorPickerEyeDropperTrigger,
+  ColorPickerFormatSelect,
+  ColorPickerFormatTrigger,
+  ColorPickerHiddenInput,
+  ColorPickerLabel,
+  ColorPickerPositioner,
+  ColorPickerRootProvider,
+  ColorPickerSliders,
+  ColorPickerSwatch,
+  ColorPickerSwatchGroup,
+  ColorPickerSwatchIndicator,
+  ColorPickerSwatchTrigger,
+  ColorPickerTransparencyGrid,
+  ColorPickerTrigger,
+  ColorPickerValueSwatch,
+  ColorPickerValueText,
+  ColorPickerView,
+  parseColor,
+  useColorPicker,
+  useColorPickerContext,
+};

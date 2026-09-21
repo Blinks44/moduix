@@ -1,7 +1,7 @@
 # CloseButton (Solid)
 
 `CloseButton` preserves the React component's native button defaults, fallback close icon,
-accessible-name fallback, stable data hooks, disabled behavior, and `CloseButton.Root` namespace.
+accessible-name fallback, stable data hooks, and disabled behavior as the only public root.
 
 ## Ark Solid composition
 

@@ -53,9 +53,9 @@ import checkboxSolidWithForm from '../../../snippets/checkbox/solid/with-form.ts
 ## Базовый пример
 
 
-Соберите флажок из частей Ark. Оставьте `Checkbox.Control` пустым, чтобы использовать встроенные
-иконки выбранного и неопределённого состояния от moduix. Добавьте `Checkbox.Label` для видимой
-подписи и `Checkbox.HiddenInput` для нативного взаимодействия и работы с формой.
+Соберите флажок из частей Ark. Оставьте `CheckboxControl` пустым, чтобы использовать встроенные
+иконки выбранного и неопределённого состояния от moduix. Добавьте `CheckboxLabel` для видимой
+подписи и `CheckboxHiddenInput` для нативного взаимодействия и работы с формой.
 
 <ExampleFrame variant="component">
   <CheckboxBasic />
@@ -116,48 +116,48 @@ import checkboxSolidWithForm from '../../../snippets/checkbox/solid/with-form.ts
 ## Анатомия
 
 ```text
-Checkbox / Checkbox.Root
-├─ Checkbox.Control
-│  ├─ Checkbox.Indicator
-│  └─ Checkbox.Indicator[indeterminate] (необязательно)
-├─ Checkbox.Label
-└─ Checkbox.HiddenInput (явно)
+Checkbox
+├─ CheckboxControl
+│  ├─ CheckboxIndicator
+│  └─ CheckboxIndicator[indeterminate] (необязательно)
+├─ CheckboxLabel
+└─ CheckboxHiddenInput (явно)
 
-Checkbox.RootProvider
+CheckboxRootProvider
 └─ то же дерево частей, подключённое к состоянию из useCheckbox()
 
-Checkbox.Group
-└─ Checkbox.Root[value]
-   ├─ Checkbox.Control
-   ├─ Checkbox.Label
-   └─ Checkbox.HiddenInput
+CheckboxGroup
+└─ Checkbox[value]
+   ├─ CheckboxControl
+   ├─ CheckboxLabel
+   └─ CheckboxHiddenInput
 ```
 
-| Часть                         | Назначение                                                                            |
-| ---------------------------- | ------------------------------------------------------------------------------------- |
-| `Checkbox` / `Checkbox.Root` | Хранит состояние одного флажка и отрисовывает содержащий его `label`.                |
-| `Checkbox.HiddenInput`       | Нативное поле Ark; добавляйте его явно внутрь корневого компонента.                   |
-| `Checkbox.RootProvider`      | Связывает части с состоянием Ark, созданным вне дерева компонентов.                   |
-| `Checkbox.Control`           | Видимая часть флажка; если оставить пустой, отображает встроенные иконки состояния.   |
-| `Checkbox.Indicator`         | Необязательный слот для собственной иконки. Для этого состояния передайте `indeterminate`. |
-| `Checkbox.Label`             | Видимая подпись флажка.                                                               |
-| `Checkbox.Group`             | Управляет выбранными значениями нескольких флажков.                                  |
+| Часть                        | Назначение                                                                                 |
+| ---------------------------- | ------------------------------------------------------------------------------------------ |
+| `Checkbox`                   | Хранит состояние одного флажка и отрисовывает содержащий его `label`.                      |
+| `CheckboxHiddenInput`        | Нативное поле Ark; добавляйте его явно внутрь корневого компонента.                        |
+| `CheckboxRootProvider`       | Связывает части с состоянием Ark, созданным вне дерева компонентов.                        |
+| `CheckboxControl`            | Видимая часть флажка; если оставить пустой, отображает встроенные иконки состояния.        |
+| `CheckboxIndicator`          | Необязательный слот для собственной иконки. Для этого состояния передайте `indeterminate`. |
+| `CheckboxLabel`              | Видимая подпись флажка.                                                                    |
+| `CheckboxGroup`              | Управляет выбранными значениями нескольких флажков.                                        |
 
 ## Композиция
 
-`Checkbox.HiddenInput` - нативное поле Ark. Добавляйте его явно внутрь `Checkbox.Root` или
-`Checkbox.RootProvider`, даже вне формы: оно отвечает за нативный фокус, работу с клавиатурой,
+`CheckboxHiddenInput` - нативное поле Ark. Добавляйте его явно внутрь `Checkbox` или
+`CheckboxRootProvider`, даже вне формы: оно отвечает за нативный фокус, работу с клавиатурой,
 доступность и участие в форме. Для отдельного поля задайте `name` и `value` на корневом компоненте;
-для группы задайте `name` на `Checkbox.Group`, а `value` - на каждом `Checkbox.Root`.
+для группы задайте `name` на `CheckboxGroup`, а `value` - на каждом `Checkbox`.
 
-`Checkbox.Group` хранит массив выбранных значений, а каждый дочерний элемент является
-`Checkbox.Root` со своим `value`. Оставьте `Checkbox.Control` пустым, чтобы использовать встроенные
-иконки moduix. Добавляйте `Checkbox.Indicator` внутрь `Checkbox.Control` только для собственной
+`CheckboxGroup` хранит массив выбранных значений, а каждый дочерний элемент является
+`Checkbox` со своим `value`. Оставьте `CheckboxControl` пустым, чтобы использовать встроенные
+иконки moduix. Добавляйте `CheckboxIndicator` внутрь `CheckboxControl` только для собственной
 иконки.
 
 Если состояние нужно создать вне дерева компонентов, создайте его с помощью `useCheckbox()` и
-передайте хранилище в `Checkbox.RootProvider`. Не используйте для того же состояния `Checkbox` или
-`Checkbox.Root`.
+передайте хранилище в `CheckboxRootProvider`. Не используйте для того же состояния `Checkbox` или
+`Checkbox`.
 
 ## Примеры
 
@@ -299,7 +299,7 @@ Checkbox.Group
 
 ### Группа
 
-Используйте `Checkbox.Group`, когда несколько флажков используют общий массив выбранных значений.
+Используйте `CheckboxGroup`, когда несколько флажков используют общий массив выбранных значений.
 
 <ExampleFrame variant="component">
   <CheckboxGroup />
@@ -356,7 +356,7 @@ Checkbox.Group
 
 ### Группа в форме
 
-Поместите `Checkbox.Group` внутрь формы, если нужно получить все выбранные значения в `FormData`.
+Поместите `CheckboxGroup` внутрь формы, если нужно получить все выбранные значения в `FormData`.
 Прочитайте их с помощью `FormData.getAll(name)`.
 
 <ExampleFrame variant="component">
@@ -493,7 +493,7 @@ Checkbox.Group
 
 ### Root Provider
 
-Используйте `Checkbox.RootProvider`, когда состояние флажка нужно хранить вне дерева компонентов.
+Используйте `CheckboxRootProvider`, когда состояние флажка нужно хранить вне дерева компонентов.
 Импортируйте `useCheckbox` из пакета выбранного фреймворка.
 
 <ExampleFrame variant="component">
@@ -615,7 +615,7 @@ Checkbox.Group
 
 ### С формой
 
-Передайте `name` и `value` в `Checkbox.Root` и отрисуйте `Checkbox.HiddenInput`, чтобы включить
+Передайте `name` и `value` в `Checkbox` и отрисуйте `CheckboxHiddenInput`, чтобы включить
 флажок в `FormData`.
 
 <ExampleFrame variant="component">
@@ -659,9 +659,9 @@ Checkbox.Group
 
 ### Хуки стилизации
 
-- `Checkbox.Root` предоставляет `data-slot="checkbox-root"`, `data-size` и атрибуты состояния Ark, включая `data-state`, `data-active`, `data-disabled`, `data-readonly`, `data-invalid`, `data-required`, `data-hover`, `data-focus` и `data-focus-visible`.
-- `Checkbox.RootProvider` предоставляет `data-slot="checkbox-root-provider"` и тот же контракт стилизации корневого компонента.
-- `Checkbox.Control` предоставляет `data-slot="checkbox-control"` и атрибуты состояния Ark, включая `data-state="checked" | "indeterminate" | "unchecked"` и `data-active`.
-- `Checkbox.Indicator` предоставляет `data-slot="checkbox-indicator"` и наследует атрибуты состояния Checkbox Ark.
-- `Checkbox.Label` предоставляет `data-slot="checkbox-label"` и атрибуты состояния Checkbox Ark.
-- `Checkbox.Group` предоставляет `data-slot="checkbox-group"`.
+- `Checkbox` предоставляет `data-slot="checkbox-root"`, `data-size` и атрибуты состояния Ark, включая `data-state`, `data-active`, `data-disabled`, `data-readonly`, `data-invalid`, `data-required`, `data-hover`, `data-focus` и `data-focus-visible`.
+- `CheckboxRootProvider` предоставляет `data-slot="checkbox-root-provider"` и тот же контракт стилизации корневого компонента.
+- `CheckboxControl` предоставляет `data-slot="checkbox-control"` и атрибуты состояния Ark, включая `data-state="checked" | "indeterminate" | "unchecked"` и `data-active`.
+- `CheckboxIndicator` предоставляет `data-slot="checkbox-indicator"` и наследует атрибуты состояния Checkbox Ark.
+- `CheckboxLabel` предоставляет `data-slot="checkbox-label"` и атрибуты состояния Checkbox Ark.
+- `CheckboxGroup` предоставляет `data-slot="checkbox-group"`.

@@ -3,6 +3,15 @@ import { createSignal } from 'solid-js';
 import type { Meta, StoryObj } from 'storybook-solidjs-vite';
 import {
   DateInput,
+  DateInputControl,
+  DateInputHiddenInput,
+  DateInputLabel,
+  DateInputRootProvider,
+  DateInputSegment,
+  DateInputSegmentContext,
+  DateInputSegmentGroup,
+  DateInputSegments,
+  DateInputSeparator,
   type DateInputDateValue,
   useDateInput,
 } from '@/components/date-input/DateInput';
@@ -23,11 +32,11 @@ type Story = StoryObj<typeof meta>;
 export const Basic: Story = {
   render: () => (
     <DateInput defaultValue={[new CalendarDate(2026, 6, 22)]} name="release-date">
-      <DateInput.Label>Release date</DateInput.Label>
-      <DateInput.Control>
-        <DateInput.Segments />
-      </DateInput.Control>
-      <DateInput.HiddenInput />
+      <DateInputLabel>Release date</DateInputLabel>
+      <DateInputControl>
+        <DateInputSegments />
+      </DateInputControl>
+      <DateInputHiddenInput />
     </DateInput>
   ),
 };
@@ -39,10 +48,10 @@ export const Controlled: Story = {
     return (
       <div class="grid gap-3">
         <DateInput value={value()} onValueChange={(details) => setValue(details.value)}>
-          <DateInput.Label>Controlled date</DateInput.Label>
-          <DateInput.Control>
-            <DateInput.Segments />
-          </DateInput.Control>
+          <DateInputLabel>Controlled date</DateInputLabel>
+          <DateInputControl>
+            <DateInputSegments />
+          </DateInputControl>
         </DateInput>
         <span class="text-sm leading-5 text-muted-foreground">
           Current value: {value()[0]?.toString() ?? 'empty'}
@@ -58,14 +67,14 @@ export const Range: Story = {
       selectionMode="range"
       defaultValue={[new CalendarDate(2026, 6, 22), new CalendarDate(2026, 6, 26)]}
     >
-      <DateInput.Label>Travel dates</DateInput.Label>
-      <DateInput.Control>
-        <DateInput.Segments index={0} />
-        <DateInput.Separator>to</DateInput.Separator>
-        <DateInput.Segments index={1} />
-      </DateInput.Control>
-      <DateInput.HiddenInput index={0} name="check-in" />
-      <DateInput.HiddenInput index={1} name="check-out" />
+      <DateInputLabel>Travel dates</DateInputLabel>
+      <DateInputControl>
+        <DateInputSegments index={0} />
+        <DateInputSeparator>to</DateInputSeparator>
+        <DateInputSegments index={1} />
+      </DateInputControl>
+      <DateInputHiddenInput index={0} name="check-in" />
+      <DateInputHiddenInput index={1} name="check-out" />
     </DateInput>
   ),
 };
@@ -78,10 +87,10 @@ export const MinMaxAndUnavailable: Story = {
       max={new CalendarDate(2026, 6, 30)}
       isDateUnavailable={(date) => date.day === 25}
     >
-      <DateInput.Label>Booking date</DateInput.Label>
-      <DateInput.Control>
-        <DateInput.Segments />
-      </DateInput.Control>
+      <DateInputLabel>Booking date</DateInputLabel>
+      <DateInputControl>
+        <DateInputSegments />
+      </DateInputControl>
     </DateInput>
   ),
 };
@@ -90,19 +99,19 @@ export const DisabledAndReadOnly: Story = {
   render: () => (
     <div class="grid gap-3">
       <DateInput disabled name="disabled-date" defaultValue={[new CalendarDate(2026, 6, 22)]}>
-        <DateInput.Label>Disabled date</DateInput.Label>
-        <DateInput.Control>
-          <DateInput.Segments />
-        </DateInput.Control>
-        <DateInput.HiddenInput />
+        <DateInputLabel>Disabled date</DateInputLabel>
+        <DateInputControl>
+          <DateInputSegments />
+        </DateInputControl>
+        <DateInputHiddenInput />
       </DateInput>
 
       <DateInput readOnly name="read-only-date" defaultValue={[new CalendarDate(2026, 6, 22)]}>
-        <DateInput.Label>Read-only date</DateInput.Label>
-        <DateInput.Control>
-          <DateInput.Segments />
-        </DateInput.Control>
-        <DateInput.HiddenInput />
+        <DateInputLabel>Read-only date</DateInputLabel>
+        <DateInputControl>
+          <DateInputSegments />
+        </DateInputControl>
+        <DateInputHiddenInput />
       </DateInput>
     </div>
   ),
@@ -116,11 +125,11 @@ export const Granularity: Story = {
       name="scheduled-at"
       defaultValue={[new CalendarDateTime(2026, 12, 5, 14, 30)]}
     >
-      <DateInput.Label>Date and time</DateInput.Label>
-      <DateInput.Control>
-        <DateInput.Segments />
-      </DateInput.Control>
-      <DateInput.HiddenInput />
+      <DateInputLabel>Date and time</DateInputLabel>
+      <DateInputControl>
+        <DateInputSegments />
+      </DateInputControl>
+      <DateInputHiddenInput />
     </DateInput>
   ),
 };
@@ -129,11 +138,11 @@ export const WithFieldValidation: Story = {
   render: () => (
     <div class="grid gap-2">
       <DateInput required invalid name="deadline">
-        <DateInput.Label>Deadline</DateInput.Label>
-        <DateInput.Control>
-          <DateInput.Segments />
-        </DateInput.Control>
-        <DateInput.HiddenInput />
+        <DateInputLabel>Deadline</DateInputLabel>
+        <DateInputControl>
+          <DateInputSegments />
+        </DateInputControl>
+        <DateInputHiddenInput />
       </DateInput>
       <span class="text-sm leading-5 text-destructive">Enter a valid deadline.</span>
     </div>
@@ -146,12 +155,12 @@ export const RootProvider: Story = {
 
     return (
       <div class="grid gap-3">
-        <DateInput.RootProvider value={dateInput}>
-          <DateInput.Label>Report date</DateInput.Label>
-          <DateInput.Control>
-            <DateInput.Segments />
-          </DateInput.Control>
-        </DateInput.RootProvider>
+        <DateInputRootProvider value={dateInput}>
+          <DateInputLabel>Report date</DateInputLabel>
+          <DateInputControl>
+            <DateInputSegments />
+          </DateInputControl>
+        </DateInputRootProvider>
         <button type="button" onClick={() => dateInput().clearValue()}>
           Clear
         </button>
@@ -163,19 +172,19 @@ export const RootProvider: Story = {
 export const CustomStyling: Story = {
   render: () => (
     <DateInput defaultValue={[new CalendarDate(2026, 6, 22)]}>
-      <DateInput.Label>Styled date</DateInput.Label>
-      <DateInput.Control class="border-primary bg-muted focus-within:outline-primary data-focus:outline-primary">
-        <DateInput.SegmentGroup>
-          <DateInput.SegmentContext>
+      <DateInputLabel>Styled date</DateInputLabel>
+      <DateInputControl class="border-primary bg-muted focus-within:outline-primary data-focus:outline-primary">
+        <DateInputSegmentGroup>
+          <DateInputSegmentContext>
             {(segment) => (
-              <DateInput.Segment
+              <DateInputSegment
                 segment={segment}
                 class="focus-visible:bg-primary focus-visible:text-primary-foreground"
               />
             )}
-          </DateInput.SegmentContext>
-        </DateInput.SegmentGroup>
-      </DateInput.Control>
+          </DateInputSegmentContext>
+        </DateInputSegmentGroup>
+      </DateInputControl>
     </DateInput>
   ),
 };

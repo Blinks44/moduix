@@ -58,7 +58,7 @@ CSS variables. Callback handlers receive Ark detail objects, including `details.
 Ark Solid uses render-function `asChild`:
 `asChild={(props) => <button {...props()} type="button" />}`. Its factory does not forward `ref`
 through `asChild`, so ordinary refs and custom-host composition are supported as separate native
-paths. `Popover.CloseIcon` composes `CloseButton.Root` through the same native render-function
+paths. `Popover.CloseIcon` composes `CloseButton` through the same native render-function
 contract and defaults its accessible label to `Close popover`.
 
 `Popover.Arrow` renders `Popover.ArrowTip` when no child is supplied. `Header`, `Body`, and `Footer`

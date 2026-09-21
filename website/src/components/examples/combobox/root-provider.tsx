@@ -1,5 +1,17 @@
 import { createListCollection } from '@ark-ui/react/collection';
-import { Combobox, useCombobox } from '@moduix/react/combobox';
+import {
+  useCombobox,
+  ComboboxClearTrigger,
+  ComboboxContent,
+  ComboboxControl,
+  ComboboxInput,
+  ComboboxLabel,
+  ComboboxList,
+  ComboboxOption,
+  ComboboxPositioner,
+  ComboboxRootProvider,
+  ComboboxTrigger,
+} from '@moduix/react/combobox';
 import styles from '@/components/examples/combobox/component-root-provider.module.css';
 
 const jobTitles = [
@@ -14,24 +26,24 @@ export default function RootProviderComboboxDemo() {
   const combobox = useCombobox({ collection });
 
   return (
-    <Combobox.RootProvider value={combobox}>
-      <Combobox.Label>Job title</Combobox.Label>
-      <Combobox.Control>
-        <Combobox.Input />
-        <Combobox.ClearTrigger aria-label="Clear selection" />
-        <Combobox.Trigger aria-label="Open options" />
-      </Combobox.Control>
-      <Combobox.Positioner>
-        <Combobox.Content className={styles.content}>
-          <Combobox.List>
+    <ComboboxRootProvider value={combobox}>
+      <ComboboxLabel>Job title</ComboboxLabel>
+      <ComboboxControl>
+        <ComboboxInput />
+        <ComboboxClearTrigger aria-label="Clear selection" />
+        <ComboboxTrigger aria-label="Open options" />
+      </ComboboxControl>
+      <ComboboxPositioner>
+        <ComboboxContent className={styles.content}>
+          <ComboboxList>
             {collection.items.map((item) => (
-              <Combobox.Option key={item.value} item={item}>
+              <ComboboxOption key={item.value} item={item}>
                 {item.label}
-              </Combobox.Option>
+              </ComboboxOption>
             ))}
-          </Combobox.List>
-        </Combobox.Content>
-      </Combobox.Positioner>
-    </Combobox.RootProvider>
+          </ComboboxList>
+        </ComboboxContent>
+      </ComboboxPositioner>
+    </ComboboxRootProvider>
   );
 }

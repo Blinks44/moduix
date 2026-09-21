@@ -53,7 +53,7 @@ to enter a known value and do not need to manipulate the color directly.
 ## Basic
 
 Start with a compact field that combines a root, one channel input, the trigger's default swatch,
-explicit popup content, and the picker's default internal parts. Add `ColorPicker.HiddenInput`
+explicit popup content, and the picker's default internal parts. Add `ColorPickerHiddenInput`
 explicitly when the color should be submitted with a form.
 
 <ExampleFrame variant="component">
@@ -121,55 +121,55 @@ See [Quick Start](/docs/quick-start) for full package setup, registry configurat
 ## Anatomy
 
 ```text
-ColorPicker / ColorPicker.Root
-├─ ColorPicker.Label
-├─ ColorPicker.Control
-│  ├─ ColorPicker.ChannelInput[channel]
-│  └─ ColorPicker.Trigger
-│     ├─ ColorPicker.TransparencyGrid
-│     └─ ColorPicker.ValueSwatch
+ColorPicker
+├─ ColorPickerLabel
+├─ ColorPickerControl
+│  ├─ ColorPickerChannelInput[channel]
+│  └─ ColorPickerTrigger
+│     ├─ ColorPickerTransparencyGrid
+│     └─ ColorPickerValueSwatch
 ├─ Overlay subtree (automatically portalled)
-│  └─ ColorPicker.Positioner
-│     └─ ColorPicker.Content
-│        ├─ ColorPicker.Area
-│        │  ├─ ColorPicker.AreaBackground
-│        │  └─ ColorPicker.AreaThumb
-│        ├─ ColorPicker.EyeDropperTrigger
-│        ├─ ColorPicker.ChannelSlider[channel]
-│        │  ├─ ColorPicker.TransparencyGrid
-│        │  ├─ ColorPicker.ChannelSliderTrack
-│        │  └─ ColorPicker.ChannelSliderThumb
-│        ├─ ColorPicker.SwatchGroup
-│        │  └─ ColorPicker.SwatchTrigger[value]
-│        │     └─ ColorPicker.Swatch[value]
-│        │        └─ ColorPicker.SwatchIndicator
-│        └─ ColorPicker.View[format]
-│           └─ ColorPicker.ChannelInput[channel]
-└─ ColorPicker.HiddenInput (explicit)
+│  └─ ColorPickerPositioner
+│     └─ ColorPickerContent
+│        ├─ ColorPickerArea
+│        │  ├─ ColorPickerAreaBackground
+│        │  └─ ColorPickerAreaThumb
+│        ├─ ColorPickerEyeDropperTrigger
+│        ├─ ColorPickerChannelSlider[channel]
+│        │  ├─ ColorPickerTransparencyGrid
+│        │  ├─ ColorPickerChannelSliderTrack
+│        │  └─ ColorPickerChannelSliderThumb
+│        ├─ ColorPickerSwatchGroup
+│        │  └─ ColorPickerSwatchTrigger[value]
+│        │     └─ ColorPickerSwatch[value]
+│        │        └─ ColorPickerSwatchIndicator
+│        └─ ColorPickerView[format]
+│           └─ ColorPickerChannelInput[channel]
+└─ ColorPickerHiddenInput (explicit)
 ```
 
 | Part                               | Role                                                                   |
 | ---------------------------------- | ---------------------------------------------------------------------- |
-| `ColorPicker` / `ColorPicker.Root` | Owns color value, format, popup state, and form integration.           |
-| `ColorPicker.HiddenInput` | Native Ark form control; compose explicitly as described below. |
-| `ColorPicker.Control`              | Groups visible inputs and trigger.                                     |
-| `ColorPicker.Trigger`              | Button that opens the popup and renders the current swatch by default. |
-| `ColorPicker.Content`              | Actual Ark popup content part.                                         |
-| `ColorPicker.Area`                 | Two-dimensional color interaction surface.                             |
-| `ColorPicker.ChannelSlider`        | One-dimensional channel control for hue, alpha, or other channels.     |
-| `ColorPicker.Sliders`              | Styled hue and alpha slider pair.                                      |
-| `ColorPicker.ChannelInput`         | Text or numeric input for a specific color channel.                    |
-| `ColorPicker.SwatchTrigger`        | Selectable preset color button.                                        |
-| `ColorPicker.ValueSwatch`          | Visual swatch for the current value.                                   |
+| `ColorPicker` | Owns color value, format, popup state, and form integration.           |
+| `ColorPickerHiddenInput` | Native Ark form control; compose explicitly as described below. |
+| `ColorPickerControl`              | Groups visible inputs and trigger.                                     |
+| `ColorPickerTrigger`              | Button that opens the popup and renders the current swatch by default. |
+| `ColorPickerContent`              | Actual Ark popup content part.                                         |
+| `ColorPickerArea`                 | Two-dimensional color interaction surface.                             |
+| `ColorPickerChannelSlider`        | One-dimensional channel control for hue, alpha, or other channels.     |
+| `ColorPickerSliders`              | Styled hue and alpha slider pair.                                      |
+| `ColorPickerChannelInput`         | Text or numeric input for a specific color channel.                    |
+| `ColorPickerSwatchTrigger`        | Selectable preset color button.                                        |
+| `ColorPickerValueSwatch`          | Visual swatch for the current value.                                   |
 
-`ColorPicker.RootProvider`, `parseColor`, `useColorPicker`, and `useColorPickerContext` cover the
+`ColorPickerRootProvider`, `parseColor`, `useColorPicker`, and `useColorPickerContext` cover the
 normal advanced state path. Import Ark-only type helpers directly when needed as an escape hatch.
 
 ## Composition
 
-Use `defaultValue` for local state. When application state owns the selected color or popup, pass `value` with `onValueChange(details)` or `open` with `onOpenChange(details)`. For state created outside the rendered tree, pass `useColorPicker()` to `ColorPicker.RootProvider`; do not render `ColorPicker` or `ColorPicker.Root` for the same store.
+Use `defaultValue` for local state. When application state owns the selected color or popup, pass `value` with `onValueChange(details)` or `open` with `onOpenChange(details)`. For state created outside the rendered tree, pass `useColorPicker()` to `ColorPickerRootProvider`; do not render `ColorPicker` and `ColorPickerRootProvider` for the same store.
 
-`ColorPicker.Positioner` is portalled by default. Set `portalled={false}` for an overlay inside another stacking context. To submit the color with a native form, set `name` on the root and render `ColorPicker.HiddenInput` explicitly. Parts such as `Area`, `ChannelSlider`, and `SwatchTrigger` provide default visual children; pass children only when changing their structure.
+`ColorPickerPositioner` is portalled by default. Set `portalled={false}` for an overlay inside another stacking context. To submit the color with a native form, set `name` on the root and render `ColorPickerHiddenInput` explicitly. Parts such as `ColorPickerArea`, `ColorPickerChannelSlider`, and `ColorPickerSwatchTrigger` provide default visual children; pass children only when changing their structure.
 
 In Solid, assign a ref to the element created inside the `asChild` render function. A ref on a
 ColorPicker part itself is not forwarded through that composition path.
@@ -213,7 +213,7 @@ typed channel input.
 
 ### Compact Trigger
 
-Use `data-fit-content` on `ColorPicker.Trigger` when a content-sized button is more useful than a
+Use `data-fit-content` on `ColorPickerTrigger` when a content-sized button is more useful than a
 square swatch, such as when replacing a button-based color field.
 
 <ExampleFrame variant="component">
@@ -362,7 +362,7 @@ field container and should expose the same state through Ark data attributes.
 
 ### Form Usage
 
-Use `name` on `ColorPicker` and add `ColorPicker.HiddenInput` explicitly.
+Use `name` on `ColorPicker` and add `ColorPickerHiddenInput` explicitly.
 
 <ExampleFrame variant="component">
   <ColorPickerFormUsage />
@@ -396,8 +396,8 @@ Use `name` on `ColorPicker` and add `ColorPicker.HiddenInput` explicitly.
 
 ### Format Views
 
-Use `format`, `onFormatChange`, `FormatSelect`, and `View` when users need to switch between channel
-input groups without changing the picker structure. `FormatSelect` keeps Ark's native format
+Use `format`, `onFormatChange`, `ColorPickerFormatSelect`, and `ColorPickerView` when users need to switch between channel
+input groups without changing the picker structure. `ColorPickerFormatSelect` keeps Ark's native format
 control, while its collapsed trigger is styled like the moduix Select field and consistently
 presents the RGBA, HSLA, and HSBA options. The browser controls the options popup.
 
@@ -594,9 +594,9 @@ Use controlled `open` state when another control or workflow owns the popup's vi
 
 </ExampleCode>
 
-### RootProvider
+### ColorPickerRootProvider
 
-Use moduix `useColorPicker` with `RootProvider` when the color picker state must be created outside
+Use moduix `useColorPicker` with `ColorPickerRootProvider` when the color picker state must be created outside
 the rendered tree and shared with nearby controls.
 
 <ExampleFrame variant="component">
@@ -711,7 +711,7 @@ Use popup swatches when the picker should offer a curated set of colors alongsid
 
 ### Value Swatch
 
-Use `ValueSwatch` and `ValueText` when nearby UI needs to show the selected color without opening
+Use `ColorPickerValueSwatch` and `ColorPickerValueText` when nearby UI needs to show the selected color without opening
 the full picker.
 
 <ExampleFrame variant="component">
@@ -795,16 +795,16 @@ Use `className` in React or `class` in Solid on exported parts. Tailwind variant
 Use the part that owns the visual concern:
 
 - `ColorPicker` for width, gap, shared color, and disabled opacity
-- `ColorPicker.Control`, `ChannelInput`, `Trigger`, `FormatSelect`, and `FormatTrigger` for the
+- `ColorPickerControl`, `ColorPickerChannelInput`, `ColorPickerTrigger`, `ColorPickerFormatSelect`, and `ColorPickerFormatTrigger` for the
   visible field controls
-- `ColorPicker.Positioner` and `ColorPicker.Content` for popup layering, width, padding, radius,
+- `ColorPickerPositioner` and `ColorPickerContent` for popup layering, width, padding, radius,
   shadow, and state animations
-- `ColorPicker.Area`, `AreaBackground`, and `AreaThumb` for the two-dimensional color surface
-- `ColorPicker.ChannelSlider`, `ChannelSliderTrack`, `ChannelSliderThumb`, and `Sliders` for hue,
+- `ColorPickerArea`, `ColorPickerAreaBackground`, and `ColorPickerAreaThumb` for the two-dimensional color surface
+- `ColorPickerChannelSlider`, `ColorPickerChannelSliderTrack`, `ColorPickerChannelSliderThumb`, and `ColorPickerSliders` for hue,
   alpha, and other channel sliders
-- `ColorPicker.SwatchGroup`, `SwatchTrigger`, `Swatch`, and `SwatchIndicator` for preset color
+- `ColorPickerSwatchGroup`, `ColorPickerSwatchTrigger`, `ColorPickerSwatch`, and `ColorPickerSwatchIndicator` for preset color
   grids
-- `ColorPicker.ValueSwatch`, `ValueText`, `View`, and `TransparencyGrid` for value display and
+- `ColorPickerValueSwatch`, `ColorPickerValueText`, `ColorPickerView`, and `ColorPickerTransparencyGrid` for value display and
   format-specific layouts
 
 The main state hooks are `data-state`, `data-focus`, `data-invalid`, `data-disabled`,

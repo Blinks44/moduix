@@ -16,51 +16,55 @@ The wrapper follows `@ark-ui/react/drawer` directly. Preserve Ark part names, lo
 `swipeDirection` values (`up`, `down`, `start`, `end`), detail-object callbacks, focus management,
 drag behavior, render strategy props, stack coordination, and runtime CSS variables.
 
-`Drawer.RootProvider` must receive a value from the moduix `useDrawer` export; do not render
+`DrawerRootProvider` must receive a value from the moduix `useDrawer` export; do not render
 `Drawer` for the same state instance. `useDrawerContext`, `useDrawerStackContext`, and
-`Drawer.Context` are exported from moduix. Other Ark APIs and detail types remain available from
+`DrawerContext` are exported from moduix. Other Ark APIs and detail types remain available from
 `@ark-ui/react/drawer` as escape hatches.
 
 ## Current behavior contract
 
-`Drawer` and `RootProvider` portal `Backdrop` and `Positioner` automatically by default. Set
+`Drawer` and `DrawerRootProvider` portal `DrawerBackdrop` and `DrawerPositioner` automatically
+by default. Set
 `portalled={false}` to render them inline, or pass `portalRef` to target a custom container. The
 structural parts remain explicit and independently styleable.
 
-`Drawer` and `Drawer.Root` are equivalent root components. All Ark root props pass through,
+`Drawer` is the root component. All Ark root props pass through,
 including controlled/uncontrolled open and snap-point state, multiple trigger values, focus
 lifecycle, dismissal controls, `ids`, `present`, `lazyMount`, and `unmountOnExit`.
 `lazyMount` and `unmountOnExit` default to `true` so Ark can keep closed content mounted only while
 exit animations finish.
 
-The wrapper adds visual defaults, four narrow layout helpers (`CloseIcon`, `Header`, `Body`, and
-`Footer`), and an opt-in `Root variant="island"` presentation. It does not hide structural parts.
+The wrapper adds visual defaults, four narrow layout helpers (`DrawerCloseIcon`, `DrawerHeader`,
+`DrawerBody`, and `DrawerFooter`), and an opt-in `Drawer variant="island"` presentation. It
+does not hide structural parts.
 
 ## Anatomy and exported parts
 
 ```text
-Drawer.Root
-├─ Drawer.Trigger
-├─ Drawer.SwipeArea (optional)
-├─ Drawer.Backdrop
-└─ Drawer.Positioner
-   └─ Drawer.Content
-      ├─ Drawer.Grabber
-      │  └─ Drawer.GrabberIndicator
-      ├─ Drawer.Header (moduix layout helper)
-      │  ├─ Drawer.Title
-      │  ├─ Drawer.Description
-      │  └─ Drawer.CloseIcon (optional moduix helper)
-      ├─ Drawer.Body (optional moduix layout helper)
-      ├─ Drawer.Footer (optional moduix layout helper)
-      │  └─ Drawer.CloseTrigger
+Drawer
+├─ DrawerTrigger
+├─ DrawerSwipeArea (optional)
+├─ DrawerBackdrop
+└─ DrawerPositioner
+   └─ DrawerContent
+      ├─ DrawerGrabber
+      │  └─ DrawerGrabberIndicator
+      ├─ DrawerHeader (moduix layout helper)
+      │  ├─ DrawerTitle
+      │  ├─ DrawerDescription
+      │  └─ DrawerCloseIcon (optional moduix helper)
+      ├─ DrawerBody (optional moduix layout helper)
+      ├─ DrawerFooter (optional moduix layout helper)
+      │  └─ DrawerCloseTrigger
       └─ consumer content
 ```
 
-Ark-aligned exports are `Root`, `RootProvider`, `Stack`, `Trigger`, `Backdrop`, `Positioner`,
-`Content`, `Grabber`, `GrabberIndicator`, `Title`, `Description`, `CloseTrigger`, `SwipeArea`,
-`Indent`, `IndentBackground`, `Header`, `Body`, `Footer`, and `CloseIcon`. `useDrawer` is exported
-from moduix alongside `Drawer` for the normal `RootProvider` path.
+Ark-aligned exports are `Drawer`, `DrawerRootProvider`, `DrawerStack`, `DrawerTrigger`,
+`DrawerBackdrop`, `DrawerPositioner`, `DrawerContent`, `DrawerGrabber`,
+`DrawerGrabberIndicator`, `DrawerTitle`, `DrawerDescription`, `DrawerCloseTrigger`,
+`DrawerSwipeArea`, `DrawerIndent`, `DrawerIndentBackground`, `DrawerHeader`, `DrawerBody`,
+`DrawerFooter`, and `DrawerCloseIcon`. `useDrawer` is exported from moduix alongside `Drawer`
+for the normal `DrawerRootProvider` path.
 
 Stable moduix hooks use matching kebab-case `data-slot` values, for example `drawer-content`,
 `drawer-grabber`, and `drawer-close-trigger`.
@@ -69,23 +73,23 @@ Stable moduix hooks use matching kebab-case `data-slot` values, for example `dra
 
 ```tsx
 <Drawer>
-  <Drawer.Trigger asChild>
+  <DrawerTrigger asChild>
     <Button>Open drawer</Button>
-  </Drawer.Trigger>
-  <Drawer.Backdrop />
-  <Drawer.Positioner>
-    <Drawer.Content>
-      <Drawer.Grabber>
-        <Drawer.GrabberIndicator />
-      </Drawer.Grabber>
-      <Drawer.Header>
-        <Drawer.Title>Notifications</Drawer.Title>
-        <Drawer.CloseIcon />
-        <Drawer.Description>You are all caught up.</Drawer.Description>
-      </Drawer.Header>
-      <Drawer.Body>Content</Drawer.Body>
-    </Drawer.Content>
-  </Drawer.Positioner>
+  </DrawerTrigger>
+  <DrawerBackdrop />
+  <DrawerPositioner>
+    <DrawerContent>
+      <DrawerGrabber>
+        <DrawerGrabberIndicator />
+      </DrawerGrabber>
+      <DrawerHeader>
+        <DrawerTitle>Notifications</DrawerTitle>
+        <DrawerCloseIcon />
+        <DrawerDescription>You are all caught up.</DrawerDescription>
+      </DrawerHeader>
+      <DrawerBody>Content</DrawerBody>
+    </DrawerContent>
+  </DrawerPositioner>
 </Drawer>
 ```
 
@@ -96,31 +100,32 @@ focusable element that preserves button behavior.
 
 - Swipe directions: all Ark logical directions are passed through and styled using the resolved
   physical `data-swipe-direction`.
-- Edge opening: `SwipeArea` receives a default edge size and follows Ark's resolved opening
+- Edge opening: `DrawerSwipeArea` receives a default edge size and follows Ark's resolved opening
   direction.
 - Snap points: `snapPoints`, `defaultSnapPoint`, `snapPoint`, `onSnapPointChange(details)`, and
   `snapToSequentialPoints` pass through.
 - Modal and controlled modes: Ark `modal`, `open`, and `onOpenChange(details)` behavior is unchanged.
-- Scroll and drag controls: `preventDragOnScroll`, `data-no-drag`, and `Content draggable={false}`
-  are supported. In non-modal, page-scrollable drawers, set `Content draggable={false}` and use
-  `Grabber` as the drag handle so a vertical touch gesture cannot move both the drawer and the page.
+- Scroll and drag controls: `preventDragOnScroll`, `data-no-drag`, and
+  `DrawerContent draggable={false}` are supported. In non-modal, page-scrollable drawers, set
+  `DrawerContent draggable={false}` and use `DrawerGrabber` as the drag handle so a vertical
+  touch gesture cannot move both the drawer and the page.
   Set `preventScroll` to `true` instead when drag must begin from the whole content; this preserves
   outside pointer interaction but locks background scrolling while the drawer is open.
-- Multiple triggers: `Trigger value`, `triggerValue`, and
+- Multiple triggers: `DrawerTrigger value`, `triggerValue`, and
   `onTriggerValueChange(details)` are supported.
-- Nested drawers: render separate `useDrawer` states with `RootProvider` siblings so each drawer
+- Nested drawers: render separate `useDrawer` states with `DrawerRootProvider` siblings so each drawer
   keeps independent open and focus state while Ark exposes nested drawer state attributes.
-- External state: import `useDrawer` from moduix, then pair its state with `Drawer.RootProvider`.
-  `useDrawerContext`, `useDrawerStackContext`, and `Drawer.Context` are also available from
+- External state: import `useDrawer` from moduix, then pair its state with `DrawerRootProvider`.
+  `useDrawerContext`, `useDrawerStackContext`, and `DrawerContext` are also available from
   moduix; other Ark APIs remain direct-import escape hatches.
-- Stack visuals: `Stack`, `Indent`, and `IndentBackground` use Ark stack context.
+- Stack visuals: `DrawerStack`, `DrawerIndent`, and `DrawerIndentBackground` use Ark stack context.
 - Render strategy and focus props: `present`, `lazyMount`, `unmountOnExit`, `initialFocusEl`,
   `finalFocusEl`, `restoreFocus`, and dismissal callbacks pass through.
 
 ## Accessibility and state
 
 Ark implements the WAI-ARIA dialog pattern, title/description wiring, focus trapping, focus
-restoration, Escape dismissal, and trigger focus return. `Content` receives the dialog role and is
+restoration, Escape dismissal, and trigger focus return. `DrawerContent` receives the dialog role and is
 the consumer ref target for measurement or imperative focus.
 
 Callbacks retain Ark detail objects:
@@ -142,9 +147,10 @@ Runtime variables include `--drawer-translate`, `--drawer-translate-x`, `--drawe
 ## Defaults and styling
 
 Default drawer and close controls use `--moduix-size-md` with `--moduix-spacing-1` block padding.
-`Root variant="island"` uses the full default snap point (`[1]`) and passes the island presentation
-to `Content`. The `swipeDirection` remains controlled by the caller. The island surface is inset
-from the viewport, has rounded corners, and removes the directional `Content::after` overdrag bleed.
+`Drawer variant="island"` uses the full default snap point (`[1]`) and passes the island presentation
+to `DrawerContent`. The `swipeDirection` remains controlled by the caller. The island surface is
+inset from the viewport, has rounded corners, and removes the directional `DrawerContent::after`
+overdrag bleed.
 Set `--moduix-drawer-island-inset` to adjust the viewport inset; safe-area insets remain respected.
 
 Every visual part accepts `className`; Ark polymorphic parts also retain `asChild`. The component
@@ -154,26 +160,26 @@ Backdrop and content enter/exit animations target Ark `data-state`. The backdrop
 visible while dragging between snap points and fades only after the drawer enters its closed state.
 When `prefers-reduced-motion: reduce` matches, overlay and stack animations take 1ms while keeping
 Ark's exit lifecycle completion intact.
-During open drag, CSS must not toggle `animation: none` on `Content`; otherwise the open keyframe
+During open drag, CSS must not toggle `animation: none` on `DrawerContent`; otherwise the open keyframe
 is recreated when Ark removes `data-swiping`, causing bottom drawers to jump. Drag release and
 snap-point settling follow Ark's inline `transform` variables with a CSS transition. The closed
 keyframe stays active while `data-swiping` is still present so drag-to-dismiss can animate from the
 release offset to the viewport edge before Ark reports `ANIMATION_END`.
 
-Closed `Backdrop` and `Content` override the native `hidden` display behavior only while the
-`Positioner` is still present for exit animation. This uses normal scoped author CSS, avoids
+Closed `DrawerBackdrop` and `DrawerContent` override the native `hidden` display behavior only while
+the `DrawerPositioner` is still present for exit animation. This uses normal scoped author CSS, avoids
 `!important`, and lets fully closed drawers remain hidden when `unmountOnExit={false}`. Active open
 dragging disables transition duration and follows Ark's inline transform variables; closed dragging
 must remain animatable for drag-to-dismiss. Direction-specific styles target `data-swipe-direction`.
-`Content::after` provides the overdrag bleed recommended by Ark. The top-drawer exit keyframe also
+`DrawerContent::after` provides the overdrag bleed recommended by Ark. The top-drawer exit keyframe also
 travels through that bleed so its downward shadow clears the viewport before Ark hides the content.
 
-`Drawer.Content` uses `height: var(--moduix-drawer-size, 100%)` with `max-height:
+`DrawerContent` uses `height: var(--moduix-drawer-size, 100%)` with `max-height:
 var(--moduix-drawer-max-height, 80dvh)` for top/bottom drawers so Ark measures a stable content size for
 drag release and snap points. Do not change this back to `height: auto`; snap points will collapse
 to the height of the visible content.
 
-Nested drawers animate the parent `Content` with CSS `scale` and `translate` individual transform
+Nested drawers animate the parent `DrawerContent` with CSS `scale` and `translate` individual transform
 properties so Ark's inline swipe `transform` remains intact. Bottom drawers move the parent slightly
 up while scaling it down, leaving a visible edge behind the front drawer. Tune the effect with
 `--moduix-drawer-nested-scale-step`, `--moduix-drawer-nested-translate-step`, and `--moduix-drawer-nested-transition`.
@@ -184,17 +190,17 @@ Public theme variables are declared in `packages/foundation/src/styles/variables
 
 ## Intentional sugar and differences from upstream
 
-- `Drawer.CloseIcon` composes `CloseButton.Root` through Ark `CloseTrigger asChild` and defaults its
+- `DrawerCloseIcon` composes `CloseButton` through Ark `CloseTrigger asChild` and defaults its
   accessible label to `Close drawer`.
-- `Drawer.Header`, `Drawer.Body`, and `Drawer.Footer` are native layout helpers only; they add no
+- `DrawerHeader`, `DrawerBody`, and `DrawerFooter` are native layout helpers only; they add no
   state or hidden structure.
-- `Drawer.Root variant="island"` is an opt-in detached surface with a full default snap point;
-  `swipeDirection` remains caller-controlled. `Drawer.Content variant="island"` remains supported
+- `Drawer variant="island"` is an opt-in detached surface with a full default snap point;
+  `swipeDirection` remains caller-controlled. `DrawerContent variant="island"` remains supported
   for explicitly selecting the presentation while preserving Ark swipe, snap-point, focus, and
   stack behavior.
-- `Drawer.Trigger` and `Drawer.CloseTrigger` receive moduix button visuals only when `asChild` is
+- `DrawerTrigger` and `DrawerCloseTrigger` receive moduix button visuals only when `asChild` is
   not used.
-- moduix re-exports `useDrawer`, `useDrawerContext`, `useDrawerStackContext`, and `Drawer.Context`
+- moduix re-exports `useDrawer`, `useDrawerContext`, `useDrawerStackContext`, and `DrawerContext`
   for common state and context workflows. Other Ark APIs and type aliases remain direct-import
   escape hatches.
 - The removed legacy API is intentionally unsupported: `DrawerProvider`, `createDrawerHandle`,
@@ -205,12 +211,12 @@ Public theme variables are declared in `packages/foundation/src/styles/variables
 
 - Keep the explicit Ark structural tree visible in stories and public docs.
 - Keep portal transport on the root and do not recreate the removed legacy popup/viewport split.
-- Keep `useDrawer`, `useDrawerContext`, `useDrawerStackContext`, and `Drawer.Context` available
+- Keep `useDrawer`, `useDrawerContext`, `useDrawerStackContext`, and `DrawerContext` available
   from moduix; do not add other Ark hooks or duplicate type aliases without a consumer-facing use
   case.
 - Do not convert Ark callback detail objects to scalar values.
 - Use `start` and `end` in public props; physical `left` and `right` are styling attributes only.
-- Keep `Grabber` and `GrabberIndicator` as separate parts.
+- Keep `DrawerGrabber` and `DrawerGrabberIndicator` as separate parts.
 
 ## Mount lifecycle
 
@@ -231,7 +237,7 @@ content after the first open; set both props to `false` only when eager initial 
   drawer surface through consumer styling.
 - 2026-07-27: Added `--moduix-drawer-grabber-padding-top` so consumers can tune the Grabber's
   upper spacing independently from its bottom padding.
-- 2026-07-27: Reduced the default `Grabber` spacing to `--moduix-spacing-1` on its bottom edge only.
+- 2026-07-27: Reduced the default `DrawerGrabber` spacing to `--moduix-spacing-1` on its bottom edge only.
 - 2026-07-27: Made the public basic example open at a compact snap point with realistic content,
   filled drawer demos with bordered muted cards that stretch through the available body space, and
   documented every exported layout and stack helper.
@@ -239,27 +245,27 @@ content after the first open; set both props to `false` only when eager initial 
 - 2026-07-24: Documented the moduix-owned context exports and short `<Drawer>` root form.
 - 2026-07-23: Made island enter and exit keyframes account for their directional viewport inset so
   no panel edge remains visible before unmounting.
-- 2026-07-23: Added the opt-in `Drawer.Content variant="island"` surface with a safe-area-aware
+- 2026-07-23: Added the opt-in `DrawerContent variant="island"` surface with a safe-area-aware
   viewport inset, fully rounded corners, and no overdrag bleed.
 - 2026-07-23: Kept the backdrop fully visible during snap-point dragging; it now fades only after
   the drawer begins closing.
 - 2026-07-21: Routed shared dimensions, spacing, icon geometry, and focus-ring fallbacks through foundation tokens so density and theme presets can retune the component consistently.
 - 2026-07-21: Reduced default drawer and close controls to `--moduix-size-md` and compacted their block padding.
 
-- 2026-07-10: Re-exported `useDrawer` from moduix so the standard `RootProvider` workflow no longer
+- 2026-07-10: Re-exported `useDrawer` from moduix so the standard `DrawerRootProvider` workflow no longer
   needs a direct Ark import.
 - 2026-07-02: Removed Ark hook, context, and duplicate type re-exports from the moduix `Drawer`
-  surface. Kept `RootProvider`, visual parts, layout helpers, and close-icon sugar.
+  surface. Kept `DrawerRootProvider`, visual parts, layout helpers, and close-icon sugar.
 - 2026-07-01: Made overlay portalling automatic by default, added `portalled` and `portalRef`, and removed explicit `Portal` wrappers from recommended composition.
 
 - 2026-06-29: Added animated nested drawer scale/offset motion so parent drawers recede smoothly
   and remain visibly layered behind the active nested drawer; stabilized direction-specific
   transform origins so parent drawers return without a jump when the front drawer closes.
-- 2026-06-25: Added public docs coverage for `Drawer.Context`, synced documented Ark data hooks
+- 2026-06-25: Added public docs coverage for `DrawerContext`, synced documented Ark data hooks
   and runtime variables with the current Ark styling guide, and filled in missing close-icon/body
   styling tokens in the docs CSS properties table.
 - 2026-06-25: Rechecked the wrapper against the current Ark UI drawer MDX, fixed public docs for
-  `RootProvider`, added nested drawer coverage, and kept `Stack` as a direct Ark passthrough.
+  `DrawerRootProvider`, added nested drawer coverage, and kept `DrawerStack` as a direct Ark passthrough.
 - 2026-06-18: Removed conflicting content open keyframes, kept closed drag-to-dismiss animations
   active while `data-swiping` is present, removed `!important` hidden overrides, and updated demo
   defaults to use compact bottom snap points where the example is not about full-height drawers.

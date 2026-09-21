@@ -1,4 +1,12 @@
-import { Chart } from '@moduix/react/chart';
+import {
+  Chart,
+  ChartDescription,
+  ChartHeader,
+  ChartLegend,
+  ChartLegendItem,
+  ChartPlot,
+  ChartTitle,
+} from '@moduix/react/chart';
 import { barY, defineChart } from '@tanstack/charts';
 import { scaleBand } from '@tanstack/charts/scales/band';
 import { scaleLinear } from '@tanstack/charts/scales/linear';
@@ -44,14 +52,14 @@ const definition = defineChart({
 export default function ChartDemo() {
   return (
     <Chart>
-      <Chart.Header>
-        <Chart.Title>Monthly revenue</Chart.Title>
-        <Chart.Description>Revenue in thousands of dollars.</Chart.Description>
-      </Chart.Header>
-      <Chart.Plot definition={definition} height={320} ariaLabel="Monthly revenue" />
-      <Chart.Legend aria-label="Revenue series">
-        <Chart.LegendItem color="var(--moduix-color-chart-1)">Revenue</Chart.LegendItem>
-      </Chart.Legend>
+      <ChartHeader>
+        <ChartTitle>Monthly revenue</ChartTitle>
+        <ChartDescription>Revenue in thousands of dollars.</ChartDescription>
+      </ChartHeader>
+      <ChartPlot definition={definition} height={320} ariaLabel="Monthly revenue" />
+      <ChartLegend aria-label="Revenue series">
+        <ChartLegendItem color="var(--moduix-color-chart-1)">Revenue</ChartLegendItem>
+      </ChartLegend>
     </Chart>
   );
 }

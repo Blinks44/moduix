@@ -161,7 +161,7 @@ function SignaturePadClearTrigger(
         const resolvedProps = triggerProps();
 
         return (
-          <CloseButton.Root
+          <CloseButton
             {...resolvedProps}
             aria-label={local['aria-label']}
             aria-labelledby={local['aria-labelledby']}
@@ -172,7 +172,7 @@ function SignaturePadClearTrigger(
             )}
           >
             {resolvedChildren() ?? <RotateCcwIcon class="size-4" aria-hidden="true" />}
-          </CloseButton.Root>
+          </CloseButton>
         );
       }}
       class={triggerClass}

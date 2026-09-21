@@ -1,4 +1,12 @@
-import { Lightbox } from '@moduix/solid/lightbox';
+import {
+  LightboxTrigger,
+  LightboxBackdrop,
+  LightboxPositioner,
+  LightboxContent,
+  LightboxCloseIcon,
+  LightboxImage,
+  Lightbox,
+} from '@moduix/solid/lightbox';
 import styles from '@/components/examples/lightbox/lightbox-advanced-customization.module.css';
 
 const image = {
@@ -9,14 +17,14 @@ const image = {
 export default function AdvancedCustomizationLightboxDemo() {
   return (
     <Lightbox>
-      <Lightbox.Trigger class={styles.button}>Open styled lightbox</Lightbox.Trigger>
-      <Lightbox.Backdrop class={styles.customBackdrop} />
-      <Lightbox.Positioner>
-        <Lightbox.CloseIcon class={styles.customClose} />
-        <Lightbox.Content class={styles.customContent} aria-label={image.alt}>
-          <Lightbox.Image src={image.src} alt={image.alt} />
-        </Lightbox.Content>
-      </Lightbox.Positioner>
+      <LightboxTrigger class={styles.button}>Open styled lightbox</LightboxTrigger>
+      <LightboxBackdrop class={styles.customBackdrop} />
+      <LightboxPositioner>
+        <LightboxCloseIcon class={styles.customClose} />
+        <LightboxContent class={styles.customContent} aria-label={image.alt}>
+          <LightboxImage src={image.src} alt={image.alt} />
+        </LightboxContent>
+      </LightboxPositioner>
     </Lightbox>
   );
 }

@@ -24,7 +24,7 @@ Moduix сохраняет явную модель частей Ark. Начнит
 | Стандартное поведение компонента | Готовые части Moduix |
 | Локальные пути импортов продукта | Прямые реэкспорты |
 | Повторяющееся визуальное правило или расположение | Узкая обертка над отвечающей за него частью |
-| Состояние вне дерева компонента | `use<Component>()` вместе с `RootProvider` |
+| Состояние вне дерева компонента | `use<Component>()` вместе с `<Family>RootProvider` |
 
 Выбирайте самый простой уровень, который решает повторяющуюся задачу. Единичный класс или callback не
 требует нового API компонента.
@@ -35,19 +35,19 @@ Moduix сохраняет явную модель частей Ark. Начнит
 ответственность за позиционирование, прокрутку, фокус и стили оставалась явной.
 
 ```text
-Dialog / Dialog.Root
-├─ Dialog.Trigger
+Dialog
+├─ DialogTrigger
 └─ Overlay subtree, automatically portalled
-   ├─ Dialog.Backdrop
-   └─ Dialog.Positioner
-      └─ Dialog.Content
-         ├─ Dialog.Title
-         ├─ Dialog.Description
-         └─ Dialog.CloseTrigger
+   ├─ DialogBackdrop
+   └─ DialogPositioner
+      └─ DialogContent
+         ├─ DialogTitle
+         ├─ DialogDescription
+         └─ DialogCloseTrigger
 ```
 
 Используйте `portalled={false}` для встроенной отрисовки и `portalRef` для собственного контейнера,
-если компонент поддерживает эти свойства. `RootProvider` нужен только для состояния, созданного вне
+если компонент поддерживает эти свойства. `DialogRootProvider` нужен только для состояния, созданного вне
 отрисованного дерева.
 
 ## Скомпонуйте семантический элемент
@@ -80,22 +80,18 @@ function, а свойства Ark нужно передать возвращае
   <Tab label="React" value="react">
 
 ```tsx
-import { Dialog as ModuixDialog } from '@moduix/react/dialog';
+import { Dialog, DialogContent, DialogTrigger } from '@moduix/react/dialog';
 
-export const Dialog = ModuixDialog;
-export const DialogTrigger = ModuixDialog.Trigger;
-export const DialogContent = ModuixDialog.Content;
+export { Dialog, DialogTrigger, DialogContent };
 ```
 
   </Tab>
   <Tab label="Solid" value="solid">
 
 ```tsx
-import { Dialog as ModuixDialog } from '@moduix/solid/dialog';
+import { Dialog, DialogContent, DialogTrigger } from '@moduix/solid/dialog';
 
-export const Dialog = ModuixDialog;
-export const DialogTrigger = ModuixDialog.Trigger;
-export const DialogContent = ModuixDialog.Content;
+export { Dialog, DialogTrigger, DialogContent };
 ```
 
   </Tab>
@@ -105,7 +101,7 @@ export const DialogContent = ModuixDialog.Content;
 
 ## Добавьте контракт продукта
 
-Оборачивайте только ту часть, которой принадлежит решение. Здесь `Dialog.Content` получает свойство
+Оборачивайте только ту часть, которой принадлежит решение. Здесь `DialogContent` получает свойство
 `tone` и преобразует его в публичные переменные Dialog. Остальное дерево частей не меняется.
 
 <div className="docs-reference">
@@ -137,8 +133,8 @@ export const DialogContent = ModuixDialog.Content;
 
 ## Выносите состояние только вместе с ответственностью
 
-Используйте `Context` для разового чтения внутри дерева, а `useDialogContext()` в переиспользуемых
-потомках. Создавайте состояние через `useDialog()` и подключайте его к `Dialog.RootProvider`, только
+Используйте `DialogContext` для разового чтения внутри дерева, а `useDialogContext()` в переиспользуемых
+потомках. Создавайте состояние через `useDialog()` и подключайте его к `DialogRootProvider`, только
 если оно нужно элементам за пределами Dialog.
 
 <Tabs groupId="framework">

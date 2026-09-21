@@ -183,7 +183,7 @@ const TagsInputClearTrigger = forwardRef<
       {asChild ? (
         children
       ) : (
-        <CloseButton.Root
+        <CloseButton
           aria-label={ariaLabel ?? clearTriggerLabel}
           aria-labelledby={ariaLabelledBy}
           data-part="clear-trigger"
@@ -191,7 +191,7 @@ const TagsInputClearTrigger = forwardRef<
           data-slot="tags-input-clear-trigger"
         >
           {children}
-        </CloseButton.Root>
+        </CloseButton>
       )}
     </TagsInputPrimitive.ClearTrigger>
   );

@@ -1,6 +1,14 @@
 import { useListCollection } from '@ark-ui/solid/collection';
 import { useFilter } from '@ark-ui/solid/locale';
-import { Combobox, useCombobox } from '@moduix/solid/combobox';
+import {
+  useCombobox,
+  ComboboxContent,
+  ComboboxEmpty,
+  ComboboxInput,
+  ComboboxOption,
+  ComboboxPositioner,
+  ComboboxRootProvider,
+} from '@moduix/solid/combobox';
 import { TagsInput, useTagsInput } from '@moduix/solid/tags-input';
 import { createUniqueId, For } from 'solid-js';
 
@@ -32,25 +40,25 @@ export default function ComboboxWithTagsInputDemo() {
   });
 
   return (
-    <Combobox.RootProvider value={combobox}>
+    <ComboboxRootProvider value={combobox}>
       <TagsInput.RootProvider value={tagsInput}>
         <TagsInput.Label>Frameworks</TagsInput.Label>
         <TagsInput.Control>
           <TagsInput.Items />
-          <Combobox.Input
+          <ComboboxInput
             asChild={(props) => <TagsInput.Input {...props()} placeholder="Add framework" />}
           />
           <TagsInput.ClearTrigger aria-label="Clear frameworks" />
         </TagsInput.Control>
       </TagsInput.RootProvider>
-      <Combobox.Positioner>
-        <Combobox.Content>
-          <Combobox.Empty>No frameworks found.</Combobox.Empty>
+      <ComboboxPositioner>
+        <ComboboxContent>
+          <ComboboxEmpty>No frameworks found.</ComboboxEmpty>
           <For each={collection().items}>
-            {(item) => <Combobox.Option item={item}>{item}</Combobox.Option>}
+            {(item) => <ComboboxOption item={item}>{item}</ComboboxOption>}
           </For>
-        </Combobox.Content>
-      </Combobox.Positioner>
-    </Combobox.RootProvider>
+        </ComboboxContent>
+      </ComboboxPositioner>
+    </ComboboxRootProvider>
   );
 }

@@ -1,6 +1,17 @@
 import { createListCollection } from '@ark-ui/react/collection';
 import { Button } from '@moduix/react/button';
-import { Dialog } from '@moduix/react/dialog';
+import {
+  Dialog,
+  DialogBackdrop,
+  DialogCloseTrigger,
+  DialogContent,
+  DialogDescription,
+  DialogFooter,
+  DialogHeader,
+  DialogPositioner,
+  DialogTitle,
+  DialogTrigger,
+} from '@moduix/react/dialog';
 import { ProgressLinear } from '@moduix/react/progress-linear';
 import { Select } from '@moduix/react/select';
 import { Switch } from '@moduix/react/switch';
@@ -275,28 +286,28 @@ function HomeShowcase() {
           </div>
           <p className={styles.previewText}>{t('homeDialogPreviewDescription')}</p>
           <div className={styles.buttonRow}>
-            <Dialog.Root>
-              <Dialog.Trigger asChild>
+            <Dialog>
+              <DialogTrigger asChild>
                 <Button>{t('homeReviewChanges')}</Button>
-              </Dialog.Trigger>
-              <Dialog.Backdrop />
-              <Dialog.Positioner>
-                <Dialog.Content>
-                  <Dialog.Header>
-                    <Dialog.Title>{t('homePublishRelease')}</Dialog.Title>
-                    <Dialog.Description>{t('homePublishReleaseDescription')}</Dialog.Description>
-                  </Dialog.Header>
-                  <Dialog.Footer>
-                    <Dialog.CloseTrigger asChild>
+              </DialogTrigger>
+              <DialogBackdrop />
+              <DialogPositioner>
+                <DialogContent>
+                  <DialogHeader>
+                    <DialogTitle>{t('homePublishRelease')}</DialogTitle>
+                    <DialogDescription>{t('homePublishReleaseDescription')}</DialogDescription>
+                  </DialogHeader>
+                  <DialogFooter>
+                    <DialogCloseTrigger asChild>
                       <Button variant="outline">{t('homeBack')}</Button>
-                    </Dialog.CloseTrigger>
-                    <Dialog.CloseTrigger asChild>
+                    </DialogCloseTrigger>
+                    <DialogCloseTrigger asChild>
                       <Button>{t('homeApprove')}</Button>
-                    </Dialog.CloseTrigger>
-                  </Dialog.Footer>
-                </Dialog.Content>
-              </Dialog.Positioner>
-            </Dialog.Root>
+                    </DialogCloseTrigger>
+                  </DialogFooter>
+                </DialogContent>
+              </DialogPositioner>
+            </Dialog>
             <Button variant="outline">{t('homeInspectApi')}</Button>
           </div>
           <div className={styles.miniStats}>

@@ -4,7 +4,12 @@ import { createSignal, onMount } from 'solid-js';
 import type { Meta, StoryObj } from 'storybook-solidjs-vite';
 import { Avatar, AvatarFallback } from '@/components/avatar/Avatar';
 import { Button } from '@/components/button/Button';
-import { Collapsible } from '@/components/collapsible/Collapsible';
+import {
+  Collapsible,
+  CollapsibleContent,
+  CollapsibleIndicator,
+  CollapsibleTrigger,
+} from '@/components/collapsible/Collapsible';
 import { Menu } from '@/components/menu/Menu';
 import { ScrollArea } from '@/components/scroll-area/ScrollArea';
 import { Select } from '@/components/select/Select';
@@ -245,7 +250,7 @@ function SidebarNavigation({ accentClassName }: { accentClassName?: string } = {
                 <Collapsible defaultOpen class={collapsibleClassName}>
                   <Sidebar.Tooltip content="Projects">
                     {(tooltipProps) => (
-                      <Collapsible.Trigger
+                      <CollapsibleTrigger
                         asChild={(triggerProps) => (
                           <Sidebar.NavigationButton
                             {...tooltipProps()}
@@ -254,13 +259,13 @@ function SidebarNavigation({ accentClassName }: { accentClassName?: string } = {
                           >
                             <FolderIcon />
                             <Sidebar.Label>Projects</Sidebar.Label>
-                            <Collapsible.Indicator />
+                            <CollapsibleIndicator />
                           </Sidebar.NavigationButton>
                         )}
                       />
                     )}
                   </Sidebar.Tooltip>
-                  <Collapsible.Content>
+                  <CollapsibleContent>
                     <Sidebar.NavigationSubList>
                       <Sidebar.NavigationSubItem>
                         <Sidebar.NavigationSubButton href="#website" class={accentClassName}>
@@ -274,7 +279,7 @@ function SidebarNavigation({ accentClassName }: { accentClassName?: string } = {
                         </Sidebar.NavigationSubButton>
                       </Sidebar.NavigationSubItem>
                     </Sidebar.NavigationSubList>
-                  </Collapsible.Content>
+                  </CollapsibleContent>
                 </Collapsible>
               </Sidebar.ExpandedContent>
               <Sidebar.CollapsedContent>

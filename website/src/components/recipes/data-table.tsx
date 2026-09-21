@@ -1,6 +1,6 @@
 import { Badge } from '@moduix/react/badge';
 import { Button } from '@moduix/react/button';
-import { Checkbox } from '@moduix/react/checkbox';
+import { Checkbox, CheckboxControl, CheckboxHiddenInput } from '@moduix/react/checkbox';
 import { InputGroup } from '@moduix/react/input-group';
 import { Menu } from '@moduix/react/menu';
 import { Table } from '@moduix/react/table';
@@ -271,8 +271,8 @@ const columns: ColumnDef<typeof features, ComponentRow>[] = [
         aria-label="Select all visible components"
         onCheckedChange={(details) => table.toggleAllPageRowsSelected(details.checked === true)}
       >
-        <Checkbox.Control />
-        <Checkbox.HiddenInput />
+        <CheckboxControl />
+        <CheckboxHiddenInput />
       </Checkbox>
     ),
     cell: ({ row }) => (
@@ -281,8 +281,8 @@ const columns: ColumnDef<typeof features, ComponentRow>[] = [
         aria-label={`Select ${row.original.name}`}
         onCheckedChange={(details) => row.toggleSelected(details.checked === true)}
       >
-        <Checkbox.Control />
-        <Checkbox.HiddenInput />
+        <CheckboxControl />
+        <CheckboxHiddenInput />
       </Checkbox>
     ),
     enableHiding: false,

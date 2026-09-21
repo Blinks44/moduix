@@ -36,9 +36,9 @@ utilisées, cette valeur peut être modifiable, en lecture seule ou affichée co
 Consultez le [Quick Start](/docs/quick-start) pour
 la configuration du paquet et le choix du mode de style.
 
-Utilisez `Clipboard` comme racine. Placez une seule surface pour la valeur - `Clipboard.Input` ou
-`Clipboard.ValueText` - ainsi que `Clipboard.Trigger` dans `Clipboard.Control`. `Clipboard.Label` est
-facultatif. Le bouton peut contenir `Clipboard.Indicator`, `Clipboard.CopyText` ou les deux.
+Utilisez `Clipboard` comme racine. Placez une seule surface pour la valeur - `ClipboardInput` ou
+`ClipboardValueText` - ainsi que `ClipboardTrigger` dans `ClipboardControl`. `ClipboardLabel` est
+facultatif. Le bouton peut contenir `ClipboardIndicator`, `ClipboardCopyText` ou les deux.
 
 <ExampleFrame variant="component">
   <ClipboardBasic />
@@ -105,51 +105,52 @@ Consultez le [Démarrage rapide](/docs/quick-start) pour la configuration compl�
 ## Anatomie
 
 ```text
-Clipboard | Clipboard.RootProvider
-├─ Clipboard.Label (facultatif)
-├─ Clipboard.Control
-│  ├─ Clipboard.Input ou Clipboard.ValueText
-│  └─ Clipboard.Trigger
-│     ├─ Clipboard.Indicator (facultatif)
-│     └─ Clipboard.CopyText (facultatif)
+Clipboard | ClipboardRootProvider
+├─ ClipboardLabel (facultatif)
+├─ ClipboardControl
+│  ├─ ClipboardInput ou ClipboardValueText
+│  └─ ClipboardTrigger
+│     ├─ ClipboardIndicator (facultatif)
+│     └─ ClipboardCopyText (facultatif)
 ```
 
 | Partie | Rôle |
 | --- | --- |
 | `Clipboard` | Gère la valeur et l’état temporaire qui suit la copie. |
-| `Clipboard.RootProvider` | Relie les parties à un store créé avec `Clipboard.useClipboard()`. |
-| `Clipboard.Label` | Fournit un libellé accessible pour la valeur. |
-| `Clipboard.Control` | Regroupe l’affichage de la valeur et le bouton de copie. |
-| `Clipboard.Input` | Affiche la valeur dans un champ. Il est modifiable sauf si `readOnly` est défini. |
-| `Clipboard.Trigger` | Copie la valeur actuelle lorsqu’il est activé. Il s’affiche comme un bouton par défaut. |
-| `Clipboard.Indicator` | Affiche un contenu différent selon que la valeur a été copiée ou non. |
-| `Clipboard.CopyText` | Version textuelle du même indicateur. Les valeurs par défaut sont `Copy` et `Copied`. |
-| `Clipboard.ValueText` | Affiche la valeur sous forme de texte lorsqu’un champ n’est pas adapté. |
+| `ClipboardRootProvider` | Relie les parties à un store créé avec `useClipboard()`. |
+| `ClipboardLabel` | Fournit un libellé accessible pour la valeur. |
+| `ClipboardControl` | Regroupe l’affichage de la valeur et le bouton de copie. |
+| `ClipboardInput` | Affiche la valeur dans un champ. Il est modifiable sauf si `readOnly` est défini. |
+| `ClipboardTrigger` | Copie la valeur actuelle lorsqu’il est activé. Il s’affiche comme un bouton par défaut. |
+| `ClipboardIndicator` | Affiche un contenu différent selon que la valeur a été copiée ou non. |
+| `ClipboardCopyText` | Version textuelle du même indicateur. Les valeurs par défaut sont `Copy` et `Copied`. |
+| `ClipboardValueText` | Affiche la valeur sous forme de texte lorsqu’un champ n’est pas adapté. |
 
 ## Composition
 
-`Clipboard` gère la valeur et l’état après copie. Placez une seule surface pour la valeur (`Input`
-ou `ValueText`) et `Trigger` dans `Control` ; `Indicator` et `CopyText` sont facultatifs et peuvent
-être combinés dans le bouton. Ils suivent le même état de copie, et moduix fournit les icônes de
-copie et de confirmation ainsi que les libellés `Copy` et `Copied` lorsque leur contenu est omis.
+`Clipboard` gère la valeur et l’état après copie. Placez une seule surface pour la valeur
+(`ClipboardInput` ou `ClipboardValueText`) et `ClipboardTrigger` dans `ClipboardControl` ;
+`ClipboardIndicator` et `ClipboardCopyText` sont facultatifs et peuvent être combinés dans le
+bouton. Ils suivent le même état de copie, et moduix fournit les icônes de copie et de confirmation
+ainsi que les libellés `Copy` et `Copied` lorsque leur contenu est omis.
 
 Utilisez `defaultValue` pour une valeur non contrôlée. Lorsqu’une autre partie de l’application gère
 la valeur ou doit réagir à la copie, utilisez `value` avec `onValueChange(details)` et
 `onStatusChange(details)` ; `timeout` définit la durée pendant laquelle l’état copié reste actif.
 
-Utilisez `Clipboard.useClipboard()` avec `Clipboard.RootProvider` uniquement lorsque le store doit
+Utilisez `useClipboard()` avec `ClipboardRootProvider` uniquement lorsque le store doit
 être créé ou partagé en dehors de l’arbre rendu. Les descendants peuvent lire cet état avec
-`Clipboard.Context` ou `useClipboardContext()`. En Solid, `useClipboard()` renvoie une fonction d’accès :
+`ClipboardContext` ou `useClipboardContext()`. En Solid, `useClipboard()` renvoie une fonction d’accès :
 transmettez-le avec `value={clipboard}` et lisez l’état avec `clipboard().copied` ou
 `clipboard().value`. La racine n’a pas d’état `disabled` : transmettez la prop native `disabled` à
-`Clipboard.Input` et à `Clipboard.Trigger`. Utilisez `asChild` sur ces parties uniquement lorsqu’un
+`ClipboardInput` et à `ClipboardTrigger`. Utilisez `asChild` sur ces parties uniquement lorsqu’un
 autre élément sémantique doit porter le nœud DOM rendu.
 
 ## Exemples
 
 ### Contexte
 
-Lisez l’état du presse-papiers depuis un contenu imbriqué avec `Clipboard.Context`, ou utilisez
+Lisez l’état du presse-papiers depuis un contenu imbriqué avec `ClipboardContext`, ou utilisez
 `useClipboardContext()` dans un composant enfant. Le contexte expose `copied`, `value`, `setValue` et
 `copy`.
 
@@ -230,7 +231,7 @@ réussie. L’exemple conserve un compteur fondé sur `details.copied`.
 
 ### Texte de copie personnalisé
 
-Fournissez votre propre contenu ou une valeur `copied` à `Clipboard.CopyText` lorsque le bouton doit
+Fournissez votre propre contenu ou une valeur `copied` à `ClipboardCopyText` lorsque le bouton doit
 utiliser des libellés adaptés à votre produit.
 
 <ExampleFrame variant="component">
@@ -310,7 +311,7 @@ doivent ni la modifier ni la copier.
 
 ### Root Provider
 
-Créez le store avec `Clipboard.useClipboard()` et transmettez-le à `Clipboard.RootProvider` lorsque
+Créez le store avec `useClipboard()` et transmettez-le à `ClipboardRootProvider` lorsque
 l’état doit être partagé ou créé indépendamment de l’arbre de composants rendu.
 
 <ExampleFrame variant="component">
@@ -390,7 +391,7 @@ secondes par défaut.
 
 ### Texte de la valeur
 
-Utilisez `Clipboard.ValueText` lorsque la valeur doit apparaître comme du texte plutôt que dans un
+Utilisez `ClipboardValueText` lorsque la valeur doit apparaître comme du texte plutôt que dans un
 champ de saisie.
 
 <ExampleFrame variant="component">
@@ -482,16 +483,16 @@ utilisez l’attribut Ark `data-copied` avec les hooks `data-slot` de moduix.
 ### Points d’accroche CSS
 
 - `Clipboard` -> `data-slot="clipboard-root"`
-- `Clipboard.RootProvider` -> `data-slot="clipboard-root-provider"`
-- `Clipboard.Label` -> `data-slot="clipboard-label"`
-- `Clipboard.Control` -> `data-slot="clipboard-control"`
-- `Clipboard.Input` -> `data-slot="clipboard-input"`
-- `Clipboard.Trigger` -> `data-slot="clipboard-trigger"`
-- `Clipboard.Indicator` -> `data-slot="clipboard-indicator"`
-- `Clipboard.CopyText` -> `data-slot="clipboard-copy-text"`
-- `Clipboard.ValueText` -> `data-slot="clipboard-value-text"`
-- Ark ajoute `data-copied` à `Root`, `Label`, `Control`, `Input` et `Trigger` tant que l’état copié
-  est actif.
-- Ark ajoute `data-readonly` à `Clipboard.Input` lorsque le champ est en lecture seule.
-- `Clipboard.Indicator` ajoute `data-slot="clipboard-indicator-idle-icon"` et
+- `ClipboardRootProvider` -> `data-slot="clipboard-root-provider"`
+- `ClipboardLabel` -> `data-slot="clipboard-label"`
+- `ClipboardControl` -> `data-slot="clipboard-control"`
+- `ClipboardInput` -> `data-slot="clipboard-input"`
+- `ClipboardTrigger` -> `data-slot="clipboard-trigger"`
+- `ClipboardIndicator` -> `data-slot="clipboard-indicator"`
+- `ClipboardCopyText` -> `data-slot="clipboard-copy-text"`
+- `ClipboardValueText` -> `data-slot="clipboard-value-text"`
+- Ark ajoute `data-copied` à `Clipboard`, `ClipboardLabel`, `ClipboardControl`, `ClipboardInput` et
+  `ClipboardTrigger` tant que l’état copié est actif.
+- Ark ajoute `data-readonly` à `ClipboardInput` lorsque le champ est en lecture seule.
+- `ClipboardIndicator` ajoute `data-slot="clipboard-indicator-idle-icon"` et
   `data-slot="clipboard-indicator-copied-icon"` aux nœuds de ses icônes par défaut.

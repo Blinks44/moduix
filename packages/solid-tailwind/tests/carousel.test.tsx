@@ -1,6 +1,17 @@
 import { afterAll, beforeAll, expect, test } from '@rstest/core';
 import { fireEvent, render, screen, waitFor } from '@solidjs/testing-library';
-import { Carousel } from '../src';
+import {
+  Carousel,
+  CarouselControl,
+  CarouselIndicator,
+  CarouselIndicatorGroup,
+  CarouselIndicators,
+  CarouselItem,
+  CarouselItemGroup,
+  CarouselNextTrigger,
+  CarouselPrevTrigger,
+  CarouselProgressText,
+} from '../src';
 
 const originalGetBoundingClientRect = HTMLElement.prototype.getBoundingClientRect;
 const dimensionDescriptors = {
@@ -82,16 +93,16 @@ function TestCarousel(props: {
       onPageChange={props.onPageChange}
       slideCount={2}
     >
-      <Carousel.ItemGroup>
-        <Carousel.Item index={0}>First</Carousel.Item>
-        <Carousel.Item index={1}>Second</Carousel.Item>
-      </Carousel.ItemGroup>
-      <Carousel.Control>
-        <Carousel.PrevTrigger />
-        <Carousel.NextTrigger />
-        <Carousel.Indicators />
-      </Carousel.Control>
-      <Carousel.ProgressText />
+      <CarouselItemGroup>
+        <CarouselItem index={0}>First</CarouselItem>
+        <CarouselItem index={1}>Second</CarouselItem>
+      </CarouselItemGroup>
+      <CarouselControl>
+        <CarouselPrevTrigger />
+        <CarouselNextTrigger />
+        <CarouselIndicators />
+      </CarouselControl>
+      <CarouselProgressText />
     </Carousel>
   );
 }
@@ -126,18 +137,18 @@ test('preserves ordinary refs and generated indicator styling hooks', () => {
 
   render(() => (
     <Carousel ref={(element) => (rootRef = element)} aria-label="Gallery" slideCount={2}>
-      <Carousel.ItemGroup>
-        <Carousel.Item index={0}>First</Carousel.Item>
-        <Carousel.Item index={1}>Second</Carousel.Item>
-      </Carousel.ItemGroup>
-      <Carousel.Control>
-        <Carousel.PrevTrigger />
-        <Carousel.NextTrigger />
-        <Carousel.Indicators
+      <CarouselItemGroup>
+        <CarouselItem index={0}>First</CarouselItem>
+        <CarouselItem index={1}>Second</CarouselItem>
+      </CarouselItemGroup>
+      <CarouselControl>
+        <CarouselPrevTrigger />
+        <CarouselNextTrigger />
+        <CarouselIndicators
           ref={(element) => (indicatorsRef = element)}
           indicatorClassName="generated-indicator"
         />
-      </Carousel.Control>
+      </CarouselControl>
     </Carousel>
   ));
 
@@ -157,21 +168,21 @@ test('preserves semantic hosts with native Ark Solid asChild composition', () =>
       aria-label="Composed gallery"
       slideCount={2}
     >
-      <Carousel.ItemGroup>
-        <Carousel.Item index={0}>First</Carousel.Item>
-        <Carousel.Item index={1}>Second</Carousel.Item>
-      </Carousel.ItemGroup>
-      <Carousel.Control>
-        <Carousel.PrevTrigger
+      <CarouselItemGroup>
+        <CarouselItem index={0}>First</CarouselItem>
+        <CarouselItem index={1}>Second</CarouselItem>
+      </CarouselItemGroup>
+      <CarouselControl>
+        <CarouselPrevTrigger
           asChild={(props) => (
             <button {...props()} type="button">
               Back
             </button>
           )}
         />
-        <Carousel.NextTrigger />
-        <Carousel.Indicators indicatorClassName="generated-indicator" />
-      </Carousel.Control>
+        <CarouselNextTrigger />
+        <CarouselIndicators indicatorClassName="generated-indicator" />
+      </CarouselControl>
     </Carousel>
   ));
 
@@ -205,16 +216,16 @@ test('does not forward refs through native Ark Solid asChild composition', () =>
 test('keeps component-owned visual utilities visible and lets consumers override them', () => {
   render(() => (
     <Carousel aria-label="Styled gallery" class="gap-0" slideCount={2}>
-      <Carousel.ItemGroup>
-        <Carousel.Item index={0}>First</Carousel.Item>
-        <Carousel.Item index={1}>Second</Carousel.Item>
-      </Carousel.ItemGroup>
-      <Carousel.Control>
-        <Carousel.PrevTrigger class="size-5 bg-primary" />
-        <Carousel.NextTrigger />
-        <Carousel.Indicators />
-      </Carousel.Control>
-      <Carousel.ProgressText class="text-lg" />
+      <CarouselItemGroup>
+        <CarouselItem index={0}>First</CarouselItem>
+        <CarouselItem index={1}>Second</CarouselItem>
+      </CarouselItemGroup>
+      <CarouselControl>
+        <CarouselPrevTrigger class="size-5 bg-primary" />
+        <CarouselNextTrigger />
+        <CarouselIndicators />
+      </CarouselControl>
+      <CarouselProgressText class="text-lg" />
     </Carousel>
   ));
 
@@ -243,17 +254,17 @@ test('keeps component-owned visual utilities visible and lets consumers override
 test('lets consumers override runtime indicator sizing with state utilities', () => {
   render(() => (
     <Carousel aria-label="Thumbnail gallery" slideCount={2}>
-      <Carousel.ItemGroup>
-        <Carousel.Item index={0}>First</Carousel.Item>
-        <Carousel.Item index={1}>Second</Carousel.Item>
-      </Carousel.ItemGroup>
-      <Carousel.IndicatorGroup>
-        <Carousel.Indicator
+      <CarouselItemGroup>
+        <CarouselItem index={0}>First</CarouselItem>
+        <CarouselItem index={1}>Second</CarouselItem>
+      </CarouselItemGroup>
+      <CarouselIndicatorGroup>
+        <CarouselIndicator
           index={0}
           class="h-12 w-20 bg-transparent data-current:h-12 data-current:w-20 data-current:bg-transparent"
         />
-        <Carousel.Indicator index={1} />
-      </Carousel.IndicatorGroup>
+        <CarouselIndicator index={1} />
+      </CarouselIndicatorGroup>
     </Carousel>
   ));
 
@@ -273,11 +284,11 @@ test('lets consumers override runtime indicator sizing with state utilities', ()
 test('keeps the active indicator narrow in vertical orientation', () => {
   render(() => (
     <Carousel aria-label="Vertical gallery" orientation="vertical" slideCount={2}>
-      <Carousel.ItemGroup>
-        <Carousel.Item index={0}>First</Carousel.Item>
-        <Carousel.Item index={1}>Second</Carousel.Item>
-      </Carousel.ItemGroup>
-      <Carousel.Indicators />
+      <CarouselItemGroup>
+        <CarouselItem index={0}>First</CarouselItem>
+        <CarouselItem index={1}>Second</CarouselItem>
+      </CarouselItemGroup>
+      <CarouselIndicators />
     </Carousel>
   ));
 

@@ -1,17 +1,35 @@
 import { Button } from '@moduix/react/button';
-import { DatePicker } from '@moduix/react/date-picker';
+import {
+  DatePicker,
+  DatePickerContext,
+  DatePickerLabel,
+  DatePickerField,
+  DatePickerPositioner,
+  DatePickerContent,
+  DatePickerView,
+  DatePickerViewControl,
+  DatePickerPrevTrigger,
+  DatePickerNextTrigger,
+  DatePickerViewTrigger,
+  DatePickerTable,
+  DatePickerTableBody,
+  DatePickerTableRow,
+  DatePickerTableCell,
+  DatePickerTableCellTrigger,
+  DatePickerDayTable,
+} from '@moduix/react/date-picker';
 import styles from '@/components/examples/date-picker/date-picker-select-today.module.css';
 
 export default function SelectTodayDatePickerDemo() {
   return (
     <DatePicker>
-      <DatePicker.Label>Today shortcut</DatePicker.Label>
-      <DatePicker.Field />
-      <DatePicker.Positioner>
-        <DatePicker.Content>
-          <DatePicker.View view="day">
-            <DatePicker.DayTable />
-            <DatePicker.Context>
+      <DatePickerLabel>Today shortcut</DatePickerLabel>
+      <DatePickerField />
+      <DatePickerPositioner>
+        <DatePickerContent>
+          <DatePickerView view="day">
+            <DatePickerDayTable />
+            <DatePickerContext>
               {(datePicker) => (
                 <div className={styles.todayRow}>
                   <Button size="sm" variant="secondary" onClick={() => datePicker.selectToday()}>
@@ -19,72 +37,70 @@ export default function SelectTodayDatePickerDemo() {
                   </Button>
                 </div>
               )}
-            </DatePicker.Context>
-          </DatePicker.View>
-          <DatePicker.View view="month">
-            <DatePicker.Context>
+            </DatePickerContext>
+          </DatePickerView>
+          <DatePickerView view="month">
+            <DatePickerContext>
               {(datePicker) => (
                 <>
-                  <DatePicker.ViewControl>
-                    <DatePicker.PrevTrigger />
-                    <DatePicker.ViewTrigger />
-                    <DatePicker.NextTrigger />
-                  </DatePicker.ViewControl>
-                  <DatePicker.Table columns={4}>
-                    <DatePicker.TableBody>
+                  <DatePickerViewControl>
+                    <DatePickerPrevTrigger />
+                    <DatePickerViewTrigger />
+                    <DatePickerNextTrigger />
+                  </DatePickerViewControl>
+                  <DatePickerTable columns={4}>
+                    <DatePickerTableBody>
                       {datePicker
                         .getMonthsGrid({ columns: 4, format: 'short' })
                         .map((months, rowIndex) => (
-                          <DatePicker.TableRow key={rowIndex}>
+                          <DatePickerTableRow key={rowIndex}>
                             {months.map((month) => (
-                              <DatePicker.TableCell key={month.value} value={month.value}>
-                                <DatePicker.TableCellTrigger>
+                              <DatePickerTableCell key={month.value} value={month.value}>
+                                <DatePickerTableCellTrigger>
                                   {month.label}
-                                </DatePicker.TableCellTrigger>
-                              </DatePicker.TableCell>
+                                </DatePickerTableCellTrigger>
+                              </DatePickerTableCell>
                             ))}
-                          </DatePicker.TableRow>
+                          </DatePickerTableRow>
                         ))}
-                    </DatePicker.TableBody>
-                  </DatePicker.Table>
+                    </DatePickerTableBody>
+                  </DatePickerTable>
                 </>
               )}
-            </DatePicker.Context>
-          </DatePicker.View>
-          <DatePicker.View view="year">
-            <DatePicker.Context>
+            </DatePickerContext>
+          </DatePickerView>
+          <DatePickerView view="year">
+            <DatePickerContext>
               {(datePicker) => (
                 <>
-                  <DatePicker.ViewControl>
-                    <DatePicker.PrevTrigger />
-                    <DatePicker.ViewTrigger />
-                    <DatePicker.NextTrigger />
-                  </DatePicker.ViewControl>
-                  <DatePicker.Table columns={4}>
-                    <DatePicker.TableBody>
+                  <DatePickerViewControl>
+                    <DatePickerPrevTrigger />
+                    <DatePickerViewTrigger />
+                    <DatePickerNextTrigger />
+                  </DatePickerViewControl>
+                  <DatePickerTable columns={4}>
+                    <DatePickerTableBody>
                       {datePicker.getYearsGrid({ columns: 4 }).map((years, rowIndex) => (
-                        <DatePicker.TableRow key={rowIndex}>
+                        <DatePickerTableRow key={rowIndex}>
                           {years.map((year) => (
-                            <DatePicker.TableCell
+                            <DatePickerTableCell
                               key={year.value}
                               value={year.value}
                               disabled={year.disabled}
                             >
-                              <DatePicker.TableCellTrigger>
-                                {year.label}
-                              </DatePicker.TableCellTrigger>
-                            </DatePicker.TableCell>
+                              <DatePickerTableCellTrigger>{year.label}</DatePickerTableCellTrigger>
+                            </DatePickerTableCell>
                           ))}
-                        </DatePicker.TableRow>
+                        </DatePickerTableRow>
                       ))}
-                    </DatePicker.TableBody>
-                  </DatePicker.Table>
+                    </DatePickerTableBody>
+                  </DatePickerTable>
                 </>
               )}
-            </DatePicker.Context>
-          </DatePicker.View>
-        </DatePicker.Content>
-      </DatePicker.Positioner>
+            </DatePickerContext>
+          </DatePickerView>
+        </DatePickerContent>
+      </DatePickerPositioner>
     </DatePicker>
   );
 }

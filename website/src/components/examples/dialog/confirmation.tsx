@@ -1,5 +1,17 @@
 import { Button } from '@moduix/react/button';
-import { Dialog, useDialog } from '@moduix/react/dialog';
+import {
+  DialogBackdrop,
+  DialogBody,
+  DialogCloseIcon,
+  DialogCloseTrigger,
+  DialogContent,
+  DialogDescription,
+  DialogFooter,
+  DialogPositioner,
+  DialogRootProvider,
+  DialogTitle,
+  useDialog,
+} from '@moduix/react/dialog';
 import { Field } from '@moduix/react/field';
 import { Textarea } from '@moduix/react/textarea';
 import { useState } from 'react';
@@ -27,16 +39,16 @@ export default function ConfirmationDialogDemo() {
     <>
       <Button onClick={() => setOpen(true)}>Open form</Button>
 
-      <Dialog.RootProvider value={parentDialog}>
-        <Dialog.Backdrop />
-        <Dialog.Positioner>
-          <Dialog.Content>
-            <Dialog.Title>Edit content</Dialog.Title>
-            <Dialog.CloseIcon />
-            <Dialog.Description>
+      <DialogRootProvider value={parentDialog}>
+        <DialogBackdrop />
+        <DialogPositioner>
+          <DialogContent>
+            <DialogTitle>Edit content</DialogTitle>
+            <DialogCloseIcon />
+            <DialogDescription>
               Unsaved changes ask for confirmation before closing.
-            </Dialog.Description>
-            <Dialog.Body>
+            </DialogDescription>
+            <DialogBody>
               <Field>
                 <Field.Label>Content</Field.Label>
                 <Textarea
@@ -46,26 +58,26 @@ export default function ConfirmationDialogDemo() {
                   rows={4}
                 />
               </Field>
-            </Dialog.Body>
-          </Dialog.Content>
-        </Dialog.Positioner>
-      </Dialog.RootProvider>
+            </DialogBody>
+          </DialogContent>
+        </DialogPositioner>
+      </DialogRootProvider>
 
-      <Dialog.RootProvider value={confirmDialog}>
-        <Dialog.Backdrop />
-        <Dialog.Positioner>
-          <Dialog.Content>
-            <Dialog.Title>Discard changes?</Dialog.Title>
-            <Dialog.Description>You have unsaved changes.</Dialog.Description>
-            <Dialog.Footer>
-              <Dialog.CloseTrigger asChild>
+      <DialogRootProvider value={confirmDialog}>
+        <DialogBackdrop />
+        <DialogPositioner>
+          <DialogContent>
+            <DialogTitle>Discard changes?</DialogTitle>
+            <DialogDescription>You have unsaved changes.</DialogDescription>
+            <DialogFooter>
+              <DialogCloseTrigger asChild>
                 <Button variant="outline">Keep editing</Button>
-              </Dialog.CloseTrigger>
+              </DialogCloseTrigger>
               <Button onClick={handleDiscard}>Discard</Button>
-            </Dialog.Footer>
-          </Dialog.Content>
-        </Dialog.Positioner>
-      </Dialog.RootProvider>
+            </DialogFooter>
+          </DialogContent>
+        </DialogPositioner>
+      </DialogRootProvider>
     </>
   );
 }

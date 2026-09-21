@@ -1,4 +1,13 @@
-import { Lightbox, type LightboxImageSelectDetails } from '@moduix/solid/lightbox';
+import {
+  LightboxBackdrop,
+  LightboxPositioner,
+  LightboxContent,
+  LightboxCloseIcon,
+  LightboxImage,
+  LightboxBind,
+  Lightbox,
+  type LightboxImageSelectDetails,
+} from '@moduix/solid/lightbox';
 import { For, Show, createSignal } from 'solid-js';
 import styles from '@/components/examples/lightbox/lightbox-bind-cms-content.module.css';
 
@@ -43,20 +52,20 @@ export default function CmsLightboxDemo() {
       </div>
 
       <Lightbox>
-        <Lightbox.Bind
+        <LightboxBind
           rootRef={() => rootRef}
           selector="button"
           onImageSelect={(details) => setActiveImage(details)}
         />
-        <Lightbox.Backdrop />
-        <Lightbox.Positioner>
-          <Lightbox.CloseIcon />
-          <Lightbox.Content aria-label={activeImage()?.alt ?? 'Image preview'}>
+        <LightboxBackdrop />
+        <LightboxPositioner>
+          <LightboxCloseIcon />
+          <LightboxContent aria-label={activeImage()?.alt ?? 'Image preview'}>
             <Show when={activeImage()}>
-              {(image) => <Lightbox.Image src={image().src} alt={image().alt ?? ''} />}
+              {(image) => <LightboxImage src={image().src} alt={image().alt ?? ''} />}
             </Show>
-          </Lightbox.Content>
-        </Lightbox.Positioner>
+          </LightboxContent>
+        </LightboxPositioner>
       </Lightbox>
     </>
   );

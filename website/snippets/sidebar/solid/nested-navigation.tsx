@@ -1,4 +1,9 @@
-import { Collapsible } from '@moduix/solid/collapsible';
+import {
+  Collapsible,
+  CollapsibleContent,
+  CollapsibleIndicator,
+  CollapsibleTrigger,
+} from '@moduix/solid/collapsible';
 import { Menu } from '@moduix/solid/menu';
 import { Sidebar } from '@moduix/solid/sidebar';
 import { FolderOpen } from 'lucide-solid';
@@ -15,14 +20,14 @@ export default function NestedNavigation() {
               <Sidebar.NavigationItem>
                 <Sidebar.ExpandedContent>
                   <Collapsible defaultOpen>
-                    <Collapsible.Trigger
+                    <CollapsibleTrigger
                       asChild={(props) => <Sidebar.NavigationButton {...props()} />}
                     >
                       <FolderOpen />
                       <Sidebar.Label>Projects</Sidebar.Label>
-                      <Collapsible.Indicator />
-                    </Collapsible.Trigger>
-                    <Collapsible.Content>
+                      <CollapsibleIndicator />
+                    </CollapsibleTrigger>
+                    <CollapsibleContent>
                       <Sidebar.NavigationSubList>
                         <Sidebar.NavigationSubItem>
                           <Sidebar.NavigationSubButton
@@ -39,7 +44,7 @@ export default function NestedNavigation() {
                           </Sidebar.NavigationSubButton>
                         </Sidebar.NavigationSubItem>
                       </Sidebar.NavigationSubList>
-                    </Collapsible.Content>
+                    </CollapsibleContent>
                   </Collapsible>
                 </Sidebar.ExpandedContent>
                 <Sidebar.CollapsedContent>

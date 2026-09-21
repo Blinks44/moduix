@@ -1,5 +1,14 @@
 import { Button } from '@moduix/solid/button';
-import { Lightbox, useLightbox, useLightboxContext } from '@moduix/solid/lightbox';
+import {
+  LightboxRootProvider,
+  LightboxBackdrop,
+  LightboxPositioner,
+  LightboxContent,
+  LightboxCloseIcon,
+  LightboxImage,
+  useLightbox,
+  useLightboxContext,
+} from '@moduix/solid/lightbox';
 
 const image = {
   src: 'https://images.unsplash.com/photo-1448375240586-882707db888b?auto=format&fit=crop&w=1800&q=90',
@@ -19,16 +28,16 @@ export default function LightboxStateDemo() {
       <Button onClick={() => lightbox().setOpen(true)}>
         Lightbox is {lightbox().open ? 'open' : 'closed'}
       </Button>
-      <Lightbox.RootProvider value={lightbox}>
-        <Lightbox.Backdrop />
-        <Lightbox.Positioner>
-          <Lightbox.CloseIcon />
-          <Lightbox.Content aria-label={image.alt}>
-            <Lightbox.Image src={image.src} alt={image.alt} />
+      <LightboxRootProvider value={lightbox}>
+        <LightboxBackdrop />
+        <LightboxPositioner>
+          <LightboxCloseIcon />
+          <LightboxContent aria-label={image.alt}>
+            <LightboxImage src={image.src} alt={image.alt} />
             <LightboxStatus />
-          </Lightbox.Content>
-        </Lightbox.Positioner>
-      </Lightbox.RootProvider>
+          </LightboxContent>
+        </LightboxPositioner>
+      </LightboxRootProvider>
     </>
   );
 }

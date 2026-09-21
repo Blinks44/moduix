@@ -1,5 +1,5 @@
 import { Button } from '@moduix/react/button';
-import { Card } from '@moduix/react/card';
+import { Card, CardBody } from '@moduix/react/card';
 import { Collapsible } from '@moduix/react/collapsible';
 import { Menu } from '@moduix/react/menu';
 import { Sidebar } from '@moduix/react/sidebar';
@@ -204,30 +204,30 @@ export function SidebarDashboard() {
 
           <section className={styles.metrics} id="projects" aria-label="Workspace summary">
             <Card size="sm">
-              <Card.Body className={styles.metric}>
+              <CardBody className={styles.metric}>
                 <span>Active projects</span>
                 <strong>12</strong>
-              </Card.Body>
+              </CardBody>
             </Card>
             <Card size="sm">
-              <Card.Body className={styles.metric}>
+              <CardBody className={styles.metric}>
                 <span>Team members</span>
                 <strong>8</strong>
-              </Card.Body>
+              </CardBody>
             </Card>
             <Card size="sm">
-              <Card.Body className={styles.metric}>
+              <CardBody className={styles.metric}>
                 <span>Open tasks</span>
                 <strong>24</strong>
-              </Card.Body>
+              </CardBody>
             </Card>
           </section>
 
           <Card className={styles.activity} size="sm">
-            <Card.Body className={styles.activityBody}>
+            <CardBody className={styles.activityBody}>
               <strong>Keep moving</strong>
               <span>Create a project to start sharing work with your team.</span>
-            </Card.Body>
+            </CardBody>
           </Card>
         </main>
       </Sidebar.Inset>

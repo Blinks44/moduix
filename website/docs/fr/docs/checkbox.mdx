@@ -53,9 +53,9 @@ seul choix est possible, et `Switch` lorsqu’un réglage doit s’appliquer imm
 ## Exemple de base
 
 
-Composez une case à cocher avec les parties Ark. Laissez `Checkbox.Control` vide pour utiliser les
-icônes intégrées de moduix pour les états coché et indéterminé. Ajoutez `Checkbox.Label` pour le
-libellé visible et `Checkbox.HiddenInput` pour l’interaction et le formulaire natifs.
+Composez une case à cocher avec les parties Ark. Laissez `CheckboxControl` vide pour utiliser les
+icônes intégrées de moduix pour les états coché et indéterminé. Ajoutez `CheckboxLabel` pour le
+libellé visible et `CheckboxHiddenInput` pour l’interaction et le formulaire natifs.
 
 <ExampleFrame variant="component">
   <CheckboxBasic />
@@ -116,47 +116,47 @@ Consultez le [Démarrage rapide](/docs/quick-start) pour la configuration compl�
 ## Anatomie
 
 ```text
-Checkbox / Checkbox.Root
-├─ Checkbox.Control
-│  ├─ Checkbox.Indicator
-│  └─ Checkbox.Indicator[indeterminate] (facultatif)
-├─ Checkbox.Label
-└─ Checkbox.HiddenInput (explicite)
+Checkbox
+├─ CheckboxControl
+│  ├─ CheckboxIndicator
+│  └─ CheckboxIndicator[indeterminate] (facultatif)
+├─ CheckboxLabel
+└─ CheckboxHiddenInput (explicite)
 
-Checkbox.RootProvider
+CheckboxRootProvider
 └─ même arbre de parties relié à l’état fourni par useCheckbox()
 
-Checkbox.Group
-└─ Checkbox.Root[value]
-   ├─ Checkbox.Control
-   ├─ Checkbox.Label
-   └─ Checkbox.HiddenInput
+CheckboxGroup
+└─ Checkbox[value]
+   ├─ CheckboxControl
+   ├─ CheckboxLabel
+   └─ CheckboxHiddenInput
 ```
 
-| Partie                        | Rôle                                                                                  |
-| ----------------------------- | ------------------------------------------------------------------------------------- |
-| `Checkbox` / `Checkbox.Root`  | Gère l’état d’une case à cocher et rend le `label` qui l’enveloppe.                   |
-| `Checkbox.HiddenInput`        | Champ natif d’Ark ; ajoutez-le explicitement dans la racine.                          |
-| `Checkbox.RootProvider`       | Relie les parties à un état Ark créé en dehors de l’arbre rendu.                      |
-| `Checkbox.Control`            | Partie visible ; vide, elle affiche les icônes d’état intégrées.                     |
-| `Checkbox.Indicator`          | Emplacement facultatif pour une icône personnalisée. Passez `indeterminate` pour cet état. |
-| `Checkbox.Label`              | Libellé visible de la case à cocher.                                                  |
-| `Checkbox.Group`              | Gère les valeurs sélectionnées de plusieurs cases à cocher.                          |
+| Partie                        | Rôle                                                                                       |
+| ----------------------------- | ------------------------------------------------------------------------------------------ |
+| `Checkbox`                    | Gère l’état d’une case à cocher et rend le `label` qui l’enveloppe.                        |
+| `CheckboxHiddenInput`         | Champ natif d’Ark ; ajoutez-le explicitement dans la racine.                               |
+| `CheckboxRootProvider`        | Relie les parties à un état Ark créé en dehors de l’arbre rendu.                           |
+| `CheckboxControl`             | Partie visible ; vide, elle affiche les icônes d’état intégrées.                           |
+| `CheckboxIndicator`           | Emplacement facultatif pour une icône personnalisée. Passez `indeterminate` pour cet état. |
+| `CheckboxLabel`               | Libellé visible de la case à cocher.                                                       |
+| `CheckboxGroup`               | Gère les valeurs sélectionnées de plusieurs cases à cocher.                                |
 
 ## Composition
 
-`Checkbox.HiddenInput` est le champ natif d’Ark. Ajoutez-le explicitement dans `Checkbox.Root` ou
-`Checkbox.RootProvider`, même en dehors d’un formulaire : il assure le focus natif, les interactions
+`CheckboxHiddenInput` est le champ natif d’Ark. Ajoutez-le explicitement dans `Checkbox` ou
+`CheckboxRootProvider`, même en dehors d’un formulaire : il assure le focus natif, les interactions
 au clavier, l’accessibilité et la participation au formulaire. Pour une case seule, définissez
-`name` et `value` sur la racine ; pour un groupe, définissez `name` sur `Checkbox.Group` et `value`
-sur chaque `Checkbox.Root`.
+`name` et `value` sur la racine ; pour un groupe, définissez `name` sur `CheckboxGroup` et `value`
+sur chaque `Checkbox`.
 
-`Checkbox.Group` gère un tableau de valeurs sélectionnées, et chaque enfant est un `Checkbox.Root`
-avec son propre `value`. Laissez `Checkbox.Control` vide pour utiliser les icônes intégrées de
-moduix. Ajoutez `Checkbox.Indicator` dans `Checkbox.Control` uniquement pour une icône personnalisée.
+`CheckboxGroup` gère un tableau de valeurs sélectionnées, et chaque enfant est un `Checkbox`
+avec son propre `value`. Laissez `CheckboxControl` vide pour utiliser les icônes intégrées de
+moduix. Ajoutez `CheckboxIndicator` dans `CheckboxControl` uniquement pour une icône personnalisée.
 
 Lorsque l’état doit être créé en dehors de l’arbre rendu, créez-le avec `useCheckbox()` et transmettez
-le store à `Checkbox.RootProvider`. Ne rendez pas `Checkbox` ou `Checkbox.Root` pour ce même store.
+le store à `CheckboxRootProvider`. Ne rendez pas `Checkbox` ou `Checkbox` pour ce même store.
 
 ## Exemples
 
@@ -300,7 +300,7 @@ Utilisez `disabled` lorsqu’une option est indisponible et ne doit pas être in
 
 ### Groupe
 
-Utilisez `Checkbox.Group` lorsque plusieurs cases partagent un tableau de valeurs sélectionnées.
+Utilisez `CheckboxGroup` lorsque plusieurs cases partagent un tableau de valeurs sélectionnées.
 
 <ExampleFrame variant="component">
   <CheckboxGroup />
@@ -358,7 +358,7 @@ légende commune.
 
 ### Groupe dans un formulaire
 
-Placez `Checkbox.Group` dans un formulaire pour récupérer toutes les valeurs sélectionnées dans
+Placez `CheckboxGroup` dans un formulaire pour récupérer toutes les valeurs sélectionnées dans
 `FormData`. Lisez-les avec `FormData.getAll(name)`.
 
 <ExampleFrame variant="component">
@@ -495,7 +495,7 @@ Utilisez `readOnly` pour afficher une valeur sans permettre sa modification.
 
 ### Root Provider
 
-Utilisez `Checkbox.RootProvider` lorsque l’état de la case doit vivre en dehors de l’arbre rendu.
+Utilisez `CheckboxRootProvider` lorsque l’état de la case doit vivre en dehors de l’arbre rendu.
 Importez `useCheckbox` depuis le paquet correspondant au framework.
 
 <ExampleFrame variant="component">
@@ -617,7 +617,7 @@ d’un état de champ partagé.
 
 ### Avec un formulaire
 
-Transmettez `name` et `value` à `Checkbox.Root` et rendez `Checkbox.HiddenInput` pour inclure la
+Transmettez `name` et `value` à `Checkbox` et rendez `CheckboxHiddenInput` pour inclure la
 case à cocher dans `FormData`.
 
 <ExampleFrame variant="component">
@@ -662,9 +662,9 @@ approches de style.
 
 ### Points d’accroche CSS
 
-- `Checkbox.Root` expose `data-slot="checkbox-root"`, `data-size` et les attributs d’état Ark comme `data-state`, `data-active`, `data-disabled`, `data-readonly`, `data-invalid`, `data-required`, `data-hover`, `data-focus` et `data-focus-visible`.
-- `Checkbox.RootProvider` expose `data-slot="checkbox-root-provider"` et le même contrat de style que la racine.
-- `Checkbox.Control` expose `data-slot="checkbox-control"` et les attributs d’état Ark, notamment `data-state="checked" | "indeterminate" | "unchecked"` et `data-active`.
-- `Checkbox.Indicator` expose `data-slot="checkbox-indicator"` et hérite des attributs d’état de Checkbox.
-- `Checkbox.Label` expose `data-slot="checkbox-label"` et les attributs d’état de Checkbox.
-- `Checkbox.Group` expose `data-slot="checkbox-group"`.
+- `Checkbox` expose `data-slot="checkbox-root"`, `data-size` et les attributs d’état Ark comme `data-state`, `data-active`, `data-disabled`, `data-readonly`, `data-invalid`, `data-required`, `data-hover`, `data-focus` et `data-focus-visible`.
+- `CheckboxRootProvider` expose `data-slot="checkbox-root-provider"` et le même contrat de style que la racine.
+- `CheckboxControl` expose `data-slot="checkbox-control"` et les attributs d’état Ark, notamment `data-state="checked" | "indeterminate" | "unchecked"` et `data-active`.
+- `CheckboxIndicator` expose `data-slot="checkbox-indicator"` et hérite des attributs d’état de Checkbox.
+- `CheckboxLabel` expose `data-slot="checkbox-label"` et les attributs d’état de Checkbox.
+- `CheckboxGroup` expose `data-slot="checkbox-group"`.

@@ -1,5 +1,12 @@
 import { useFormatHotkey, useHotkeys } from '@ark-ui/react';
-import { Card } from '@moduix/react/card';
+import {
+  Card,
+  CardBody,
+  CardDescription,
+  CardFooter,
+  CardHeader,
+  CardTitle,
+} from '@moduix/react/card';
 import { Kbd } from '@moduix/react/kbd';
 import { Stack } from '@moduix/react/stack';
 import { useState } from 'react';
@@ -29,11 +36,11 @@ export default function HotkeysSequencesDemo() {
 
   return (
     <Card className={styles.root}>
-      <Card.Header>
-        <Card.Title>Workspace navigation</Card.Title>
-        <Card.Description>Press G, then I or D before the sequence times out.</Card.Description>
-      </Card.Header>
-      <Card.Body>
+      <CardHeader>
+        <CardTitle>Workspace navigation</CardTitle>
+        <CardDescription>Press G, then I or D before the sequence times out.</CardDescription>
+      </CardHeader>
+      <CardBody>
         <Stack className={styles.stack} gap="3">
           <Stack align="center" direction="row" justify="space-between">
             <span>Open inbox</span>
@@ -44,12 +51,12 @@ export default function HotkeysSequencesDemo() {
             <Kbd>{formatHotkey('g > d')}</Kbd>
           </Stack>
         </Stack>
-      </Card.Body>
-      <Card.Footer>
+      </CardBody>
+      <CardFooter>
         <PreviewMeta style={{ marginInline: 'auto', placeItems: 'center' }}>
           <output aria-live="polite">Current view: {destination}</output>
         </PreviewMeta>
-      </Card.Footer>
+      </CardFooter>
     </Card>
   );
 }

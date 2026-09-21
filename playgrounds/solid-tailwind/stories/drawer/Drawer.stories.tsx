@@ -2,7 +2,28 @@ import { For, Show, createSignal } from 'solid-js';
 import type { JSX } from 'solid-js';
 import type { Meta, StoryObj } from 'storybook-solidjs-vite';
 import { Button } from '@/components/button/Button';
-import { Drawer, useDrawer, useDrawerContext } from '@/components/drawer/Drawer';
+import {
+  Drawer,
+  DrawerBackdrop,
+  DrawerBody,
+  DrawerCloseIcon,
+  DrawerCloseTrigger,
+  DrawerContent,
+  DrawerDescription,
+  DrawerFooter,
+  DrawerGrabber,
+  DrawerGrabberIndicator,
+  DrawerHeader,
+  DrawerIndent,
+  DrawerIndentBackground,
+  DrawerPositioner,
+  DrawerRootProvider,
+  DrawerStack,
+  DrawerTitle,
+  DrawerTrigger,
+  useDrawer,
+  useDrawerContext,
+} from '@/components/drawer/Drawer';
 import { ScrollArea } from '@/components/scroll-area/ScrollArea';
 import { insideScrollSections } from '../data/insideScrollSections';
 
@@ -11,12 +32,12 @@ const DEFAULT_DEMO_SNAP_POINTS = [DEFAULT_DEMO_SNAP_POINT, 1];
 
 const meta = {
   title: 'Components/Drawer',
-  component: Drawer.Root,
+  component: Drawer,
   tags: ['autodocs'],
   parameters: {
     layout: 'centered',
   },
-} satisfies Meta<typeof Drawer.Root>;
+} satisfies Meta<typeof Drawer>;
 
 export default meta;
 
@@ -31,66 +52,64 @@ function DrawerSurface(props: {
 }) {
   return (
     <>
-      {props.backdrop !== false ? <Drawer.Backdrop /> : null}
-      <Drawer.Positioner>
-        <Drawer.Content draggable={props.draggable}>
-          <Drawer.Grabber>
-            <Drawer.GrabberIndicator />
-          </Drawer.Grabber>
-          <Drawer.Header>
-            <Drawer.Title>{props.title}</Drawer.Title>
-            <Drawer.CloseIcon />
-            {props.description ? (
-              <Drawer.Description>{props.description}</Drawer.Description>
-            ) : null}
-          </Drawer.Header>
+      {props.backdrop !== false ? <DrawerBackdrop /> : null}
+      <DrawerPositioner>
+        <DrawerContent draggable={props.draggable}>
+          <DrawerGrabber>
+            <DrawerGrabberIndicator />
+          </DrawerGrabber>
+          <DrawerHeader>
+            <DrawerTitle>{props.title}</DrawerTitle>
+            <DrawerCloseIcon />
+            {props.description ? <DrawerDescription>{props.description}</DrawerDescription> : null}
+          </DrawerHeader>
           {props.children}
-        </Drawer.Content>
-      </Drawer.Positioner>
+        </DrawerContent>
+      </DrawerPositioner>
     </>
   );
 }
 
 export const Basic: Story = {
   render: () => (
-    <Drawer.Root defaultSnapPoint={DEFAULT_DEMO_SNAP_POINT} snapPoints={DEFAULT_DEMO_SNAP_POINTS}>
-      <Drawer.Trigger asChild={(props) => <Button {...props()}>Open drawer</Button>} />
+    <Drawer defaultSnapPoint={DEFAULT_DEMO_SNAP_POINT} snapPoints={DEFAULT_DEMO_SNAP_POINTS}>
+      <DrawerTrigger asChild={(props) => <Button {...props()}>Open drawer</Button>} />
       <DrawerSurface title="Notifications" description="You are all caught up. Good job!">
-        <Drawer.Body>Bottom drawers are draggable by default.</Drawer.Body>
-        <Drawer.Footer>
-          <Drawer.CloseTrigger
+        <DrawerBody>Bottom drawers are draggable by default.</DrawerBody>
+        <DrawerFooter>
+          <DrawerCloseTrigger
             asChild={(props) => (
               <Button {...props()} variant="outline">
                 Close
               </Button>
             )}
           />
-        </Drawer.Footer>
+        </DrawerFooter>
       </DrawerSurface>
-    </Drawer.Root>
+    </Drawer>
   ),
 };
 
 export const SwipeDirection: Story = {
   render: () => (
-    <Drawer.Root swipeDirection="end">
-      <Drawer.Trigger asChild={(props) => <Button {...props()}>Open right drawer</Button>} />
+    <Drawer swipeDirection="end">
+      <DrawerTrigger asChild={(props) => <Button {...props()}>Open right drawer</Button>} />
       <DrawerSurface title="Details" description='This drawer uses swipeDirection="end".'>
-        <Drawer.Body>Logical directions resolve for both LTR and RTL layouts.</Drawer.Body>
+        <DrawerBody>Logical directions resolve for both LTR and RTL layouts.</DrawerBody>
       </DrawerSurface>
-    </Drawer.Root>
+    </Drawer>
   ),
 };
 
 export const SnapPoints: Story = {
   render: () => (
-    <Drawer.Root snapPoints={[0.25, 0.5, 1]} defaultSnapPoint={0.5}>
-      <Drawer.Trigger asChild={(props) => <Button {...props()}>Open with snap points</Button>} />
+    <Drawer snapPoints={[0.25, 0.5, 1]} defaultSnapPoint={0.5}>
+      <DrawerTrigger asChild={(props) => <Button {...props()}>Open with snap points</Button>} />
       <DrawerSurface
         title="Snap points"
         description="Drag between 25%, 50%, and 100% of the viewport."
       >
-        <Drawer.Body class="grid max-h-[50dvh] gap-4">
+        <DrawerBody class="grid max-h-[50dvh] gap-4">
           <For each={insideScrollSections}>
             {(item) => (
               <section>
@@ -99,48 +118,48 @@ export const SnapPoints: Story = {
               </section>
             )}
           </For>
-        </Drawer.Body>
+        </DrawerBody>
       </DrawerSurface>
-    </Drawer.Root>
+    </Drawer>
   ),
 };
 
 export const Island: Story = {
   render: () => (
-    <Drawer.Root variant="island" swipeDirection="end">
-      <Drawer.Trigger asChild={(props) => <Button {...props()}>Open island drawer</Button>} />
+    <Drawer variant="island" swipeDirection="end">
+      <DrawerTrigger asChild={(props) => <Button {...props()}>Open island drawer</Button>} />
       <DrawerSurface
         title="Floating drawer"
         description="This compact drawer stays inset from the viewport edge."
       >
-        <Drawer.Body>Use the island variant for a detached drawer surface.</Drawer.Body>
+        <DrawerBody>Use the island variant for a detached drawer surface.</DrawerBody>
       </DrawerSurface>
-    </Drawer.Root>
+    </Drawer>
   ),
 };
 
 export const NonModal: Story = {
   render: () => (
-    <Drawer.Root
+    <Drawer
       defaultSnapPoint={DEFAULT_DEMO_SNAP_POINT}
       modal={false}
       preventScroll={false}
       snapPoints={DEFAULT_DEMO_SNAP_POINTS}
     >
-      <Drawer.Trigger asChild={(props) => <Button {...props()}>Open non-modal drawer</Button>} />
-      <Drawer.Positioner>
-        <Drawer.Content class="max-h-[min(28rem,80dvh)]" draggable={false}>
-          <Drawer.Grabber class="flex-col items-stretch gap-2 [&>[data-slot='drawer-grabber-indicator']]:self-center [&>[data-slot='drawer-header']]:w-full">
-            <Drawer.GrabberIndicator />
-            <Drawer.Header>
-              <Drawer.Title>Non-modal drawer</Drawer.Title>
-              <Drawer.CloseIcon data-no-drag />
-              <Drawer.Description>
+      <DrawerTrigger asChild={(props) => <Button {...props()}>Open non-modal drawer</Button>} />
+      <DrawerPositioner>
+        <DrawerContent class="max-h-[min(28rem,80dvh)]" draggable={false}>
+          <DrawerGrabber class="flex-col items-stretch gap-2 [&>[data-slot='drawer-grabber-indicator']]:self-center [&>[data-slot='drawer-header']]:w-full">
+            <DrawerGrabberIndicator />
+            <DrawerHeader>
+              <DrawerTitle>Non-modal drawer</DrawerTitle>
+              <DrawerCloseIcon data-no-drag />
+              <DrawerDescription>
                 Drag this header; the page and the scrollable content stay interactive.
-              </Drawer.Description>
-            </Drawer.Header>
-          </Drawer.Grabber>
-          <Drawer.Body class="min-h-0 flex-1 overflow-hidden">
+              </DrawerDescription>
+            </DrawerHeader>
+          </DrawerGrabber>
+          <DrawerBody class="min-h-0 flex-1 overflow-hidden">
             <ScrollArea class="h-full min-h-0">
               <ScrollArea.Viewport class="h-full min-h-0 pe-2">
                 <ScrollArea.Content class="grid gap-3">
@@ -159,10 +178,10 @@ export const NonModal: Story = {
               </ScrollArea.Scrollbar>
               <ScrollArea.Corner />
             </ScrollArea>
-          </Drawer.Body>
-        </Drawer.Content>
-      </Drawer.Positioner>
-    </Drawer.Root>
+          </DrawerBody>
+        </DrawerContent>
+      </DrawerPositioner>
+    </Drawer>
   ),
 };
 
@@ -174,14 +193,14 @@ function ControlledDrawer() {
       <Button type="button" onClick={() => setOpen((value) => !value)}>
         {open() ? 'Close' : 'Open'} drawer
       </Button>
-      <Drawer.Root
+      <Drawer
         defaultSnapPoint={DEFAULT_DEMO_SNAP_POINT}
         open={open()}
         snapPoints={DEFAULT_DEMO_SNAP_POINTS}
         onOpenChange={(details) => setOpen(details.open)}
       >
         <DrawerSurface title="Controlled drawer" description={`Open: ${String(open())}`} />
-      </Drawer.Root>
+      </Drawer>
     </>
   );
 }
@@ -192,31 +211,29 @@ export const Controlled: Story = {
 
 export const NoDragArea: Story = {
   render: () => (
-    <Drawer.Root defaultSnapPoint={DEFAULT_DEMO_SNAP_POINT} snapPoints={DEFAULT_DEMO_SNAP_POINTS}>
-      <Drawer.Trigger asChild={(props) => <Button {...props()}>Open drawer</Button>} />
+    <Drawer defaultSnapPoint={DEFAULT_DEMO_SNAP_POINT} snapPoints={DEFAULT_DEMO_SNAP_POINTS}>
+      <DrawerTrigger asChild={(props) => <Button {...props()}>Open drawer</Button>} />
       <DrawerSurface title="No-drag area">
-        <Drawer.Body>
+        <DrawerBody>
           <div data-no-drag class="rounded-md border border-dashed border-border bg-muted p-4">
             Pointer gestures that start here do not drag the drawer.
           </div>
-        </Drawer.Body>
+        </DrawerBody>
       </DrawerSurface>
-    </Drawer.Root>
+    </Drawer>
   ),
 };
 
 export const NonDraggable: Story = {
   render: () => (
-    <Drawer.Root defaultSnapPoint={DEFAULT_DEMO_SNAP_POINT} snapPoints={DEFAULT_DEMO_SNAP_POINTS}>
-      <Drawer.Trigger
-        asChild={(props) => <Button {...props()}>Open non-draggable drawer</Button>}
-      />
+    <Drawer defaultSnapPoint={DEFAULT_DEMO_SNAP_POINT} snapPoints={DEFAULT_DEMO_SNAP_POINTS}>
+      <DrawerTrigger asChild={(props) => <Button {...props()}>Open non-draggable drawer</Button>} />
       <DrawerSurface
         title="Grabber-only dragging"
         description="Content dragging is disabled; the grabber remains draggable."
         draggable={false}
       />
-    </Drawer.Root>
+    </Drawer>
   ),
 };
 
@@ -230,7 +247,7 @@ function MultipleTriggersDrawer() {
   const [activeUser, setActiveUser] = createSignal<(typeof users)[number] | null>(null);
 
   return (
-    <Drawer.Root
+    <Drawer
       swipeDirection="end"
       onTriggerValueChange={(details) => {
         setActiveUser(users.find((user) => user.id === details.value) ?? null);
@@ -239,7 +256,7 @@ function MultipleTriggersDrawer() {
       <div class="flex flex-wrap gap-2">
         <For each={users}>
           {(user) => (
-            <Drawer.Trigger
+            <DrawerTrigger
               value={user.id}
               asChild={(props) => (
                 <Button {...props()} variant="outline">
@@ -253,7 +270,7 @@ function MultipleTriggersDrawer() {
       <DrawerSurface title="Edit user" description={activeUser()?.email}>
         <Show when={activeUser()}>
           {(user) => (
-            <Drawer.Body>
+            <DrawerBody>
               <label class="grid gap-2">
                 Name
                 <input
@@ -261,11 +278,11 @@ function MultipleTriggersDrawer() {
                   value={user().name}
                 />
               </label>
-            </Drawer.Body>
+            </DrawerBody>
           )}
         </Show>
       </DrawerSurface>
-    </Drawer.Root>
+    </Drawer>
   );
 }
 
@@ -290,12 +307,12 @@ function RootProviderDrawer() {
           Set 100%
         </Button>
       </div>
-      <Drawer.RootProvider value={drawer}>
+      <DrawerRootProvider value={drawer}>
         <DrawerSurface
           title="Root provider"
           description={`Active snap point: ${String(drawer().snapPoint)}`}
         />
-      </Drawer.RootProvider>
+      </DrawerRootProvider>
     </div>
   );
 }
@@ -309,26 +326,26 @@ export const IndentBackground: Story = {
     layout: 'fullscreen',
   },
   render: () => (
-    <Drawer.Stack>
+    <DrawerStack>
       <div class="relative min-h-[360px] overflow-hidden bg-foreground">
-        <Drawer.IndentBackground />
-        <Drawer.Root
+        <DrawerIndentBackground />
+        <Drawer
           defaultSnapPoint={DEFAULT_DEMO_SNAP_POINT}
           modal={false}
           snapPoints={DEFAULT_DEMO_SNAP_POINTS}
         >
-          <Drawer.Indent class="grid min-h-[360px] place-items-center bg-background p-6">
-            <Drawer.Trigger
+          <DrawerIndent class="grid min-h-[360px] place-items-center bg-background p-6">
+            <DrawerTrigger
               asChild={(props) => <Button {...props()}>Open indented drawer</Button>}
             />
-          </Drawer.Indent>
+          </DrawerIndent>
           <DrawerSurface
             title="Indent effect"
-            description="Drawer.Stack coordinates the background and page surface."
+            description="DrawerStack coordinates the background and page surface."
           />
-        </Drawer.Root>
+        </Drawer>
       </div>
-    </Drawer.Stack>
+    </DrawerStack>
   ),
 };
 
@@ -336,19 +353,19 @@ function DrawerContextReadout() {
   const drawer = useDrawerContext();
 
   return (
-    <Drawer.Body>
+    <DrawerBody>
       Direction: {drawer().swipeDirection}; open: {String(drawer().open)}
-    </Drawer.Body>
+    </DrawerBody>
   );
 }
 
 export const Context: Story = {
   render: () => (
-    <Drawer.Root defaultSnapPoint={DEFAULT_DEMO_SNAP_POINT} snapPoints={DEFAULT_DEMO_SNAP_POINTS}>
-      <Drawer.Trigger asChild={(props) => <Button {...props()}>Open context example</Button>} />
+    <Drawer defaultSnapPoint={DEFAULT_DEMO_SNAP_POINT} snapPoints={DEFAULT_DEMO_SNAP_POINTS}>
+      <DrawerTrigger asChild={(props) => <Button {...props()}>Open context example</Button>} />
       <DrawerSurface title="Context state">
         <DrawerContextReadout />
       </DrawerSurface>
-    </Drawer.Root>
+    </Drawer>
   ),
 };

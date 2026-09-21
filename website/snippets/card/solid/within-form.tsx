@@ -1,5 +1,12 @@
 import { Button } from '@moduix/solid/button';
-import { Card } from '@moduix/solid/card';
+import {
+  Card,
+  CardBody,
+  CardDescription,
+  CardFooter,
+  CardHeader,
+  CardTitle,
+} from '@moduix/solid/card';
 import { Input } from '@moduix/solid/input';
 import { For } from 'solid-js';
 import styles from '@/components/examples/card/card-within-form.module.css';
@@ -19,11 +26,11 @@ export default function CardFormDemo() {
       class={styles.root}
       asChild={(props) => (
         <form {...props()}>
-          <Card.Header>
-            <Card.Title>{copy.title}</Card.Title>
-            <Card.Description>{copy.description}</Card.Description>
-          </Card.Header>
-          <Card.Body class={styles.body}>
+          <CardHeader>
+            <CardTitle>{copy.title}</CardTitle>
+            <CardDescription>{copy.description}</CardDescription>
+          </CardHeader>
+          <CardBody class={styles.body}>
             <For each={fields}>
               {(field) => (
                 <label class={styles.field}>
@@ -32,13 +39,13 @@ export default function CardFormDemo() {
                 </label>
               )}
             </For>
-          </Card.Body>
-          <Card.Footer>
+          </CardBody>
+          <CardFooter>
             <Button type="reset" variant="outline">
               Cancel
             </Button>
             <Button type="submit">Create account</Button>
-          </Card.Footer>
+          </CardFooter>
         </form>
       )}
     />

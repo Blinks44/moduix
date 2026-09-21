@@ -1,4 +1,12 @@
-import { Chart } from '@moduix/solid/chart';
+import {
+  Chart,
+  ChartDescription,
+  ChartHeader,
+  ChartLegend,
+  ChartLegendItem,
+  ChartPlot,
+  ChartTitle,
+} from '@moduix/solid/chart';
 import { defineChart, lineY } from '@tanstack/charts';
 import { scaleLinear } from '@tanstack/charts/scales/linear';
 import { scalePoint } from '@tanstack/charts/scales/point';
@@ -46,19 +54,19 @@ const definition = defineChart({
 export default function ChartColorsDemo() {
   return (
     <Chart>
-      <Chart.Header>
-        <Chart.Title>Planned and actual revenue</Chart.Title>
-        <Chart.Description>Chart tokens remain valid SVG paint values.</Chart.Description>
-      </Chart.Header>
-      <Chart.Plot
+      <ChartHeader>
+        <ChartTitle>Planned and actual revenue</ChartTitle>
+        <ChartDescription>Chart tokens remain valid SVG paint values.</ChartDescription>
+      </ChartHeader>
+      <ChartPlot
         definition={definition}
         height={320}
         ariaLabel="Planned and actual monthly revenue"
       />
-      <Chart.Legend aria-label="Revenue series">
-        <Chart.LegendItem color="var(--moduix-color-chart-1)">Actual</Chart.LegendItem>
-        <Chart.LegendItem color="var(--moduix-color-chart-2)">Planned</Chart.LegendItem>
-      </Chart.Legend>
+      <ChartLegend aria-label="Revenue series">
+        <ChartLegendItem color="var(--moduix-color-chart-1)">Actual</ChartLegendItem>
+        <ChartLegendItem color="var(--moduix-color-chart-2)">Planned</ChartLegendItem>
+      </ChartLegend>
     </Chart>
   );
 }

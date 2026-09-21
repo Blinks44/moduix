@@ -1,7 +1,15 @@
 import { expect, rs, test } from '@rstest/core';
 import { render, screen } from '@testing-library/react';
 import { createRef, type ReactNode } from 'react';
-import { Chart } from '../src';
+import {
+  Chart,
+  ChartDescription,
+  ChartHeader,
+  ChartLegend,
+  ChartLegendItem,
+  ChartPlot,
+  ChartTitle,
+} from '../src';
 
 rs.mock('@tanstack/charts/motion', () => ({
   motion: () => ({ type: 'default-motion-renderer' }),
@@ -80,7 +88,7 @@ test('renders the callable root with stable hooks', () => {
 });
 
 test('forwards plot props and supplies the default motion renderer', () => {
-  render(<Chart.Plot ariaLabel="Monthly revenue" definition={{} as never} />);
+  render(<ChartPlot ariaLabel="Monthly revenue" definition={{} as never} />);
 
   const plot = screen.getByTestId('tanstack-chart');
 
@@ -89,7 +97,7 @@ test('forwards plot props and supplies the default motion renderer', () => {
 });
 
 test('uses the static SVG renderer when motion is disabled', () => {
-  render(<Chart.Plot ariaLabel="Monthly revenue" definition={{} as never} motion={false} />);
+  render(<ChartPlot ariaLabel="Monthly revenue" definition={{} as never} motion={false} />);
 
   expect(screen.getByTestId('tanstack-chart')).toHaveAttribute(
     'data-renderer',
@@ -98,7 +106,7 @@ test('uses the static SVG renderer when motion is disabled', () => {
 });
 
 test('renders the compact Moduix tooltip body by default', () => {
-  render(<Chart.Plot ariaLabel="Monthly revenue" definition={{} as never} />);
+  render(<ChartPlot ariaLabel="Monthly revenue" definition={{} as never} />);
 
   expect(screen.queryByTestId('tanstack-default-body')).not.toBeInTheDocument();
   expect(document.querySelector('[data-slot="chart-tooltip-body"]')).toBeInTheDocument();
@@ -111,7 +119,7 @@ test('renders the compact Moduix tooltip body by default', () => {
 
 test('passes TanStack’s native default body to a custom tooltip renderer', () => {
   render(
-    <Chart.Plot
+    <ChartPlot
       ariaLabel="Monthly revenue"
       definition={{} as never}
       renderTooltipBody={({ defaultBody }) => <div data-testid="custom-tooltip">{defaultBody}</div>}
@@ -126,15 +134,15 @@ test('passes TanStack’s native default body to a custom tooltip renderer', () 
 test('renders composition parts with semantic defaults and stable hooks', () => {
   render(
     <Chart>
-      <Chart.Header data-testid="header">
-        <Chart.Title data-testid="title">Monthly revenue</Chart.Title>
-        <Chart.Description data-testid="description">Revenue by month</Chart.Description>
-      </Chart.Header>
-      <Chart.Legend aria-label="Series" data-testid="legend">
-        <Chart.LegendItem color="tomato" data-testid="legend-item">
+      <ChartHeader data-testid="header">
+        <ChartTitle data-testid="title">Monthly revenue</ChartTitle>
+        <ChartDescription data-testid="description">Revenue by month</ChartDescription>
+      </ChartHeader>
+      <ChartLegend aria-label="Series" data-testid="legend">
+        <ChartLegendItem color="tomato" data-testid="legend-item">
           Revenue
-        </Chart.LegendItem>
-      </Chart.Legend>
+        </ChartLegendItem>
+      </ChartLegend>
     </Chart>,
   );
 

@@ -108,7 +108,7 @@ const ListboxClearTrigger = forwardRef<ComponentRef<typeof ark.button>, HTMLArkP
     ref,
   ) {
     return (
-      <CloseButton.Root
+      <CloseButton
         ref={ref}
         type={type}
         aria-label={ariaLabel}
@@ -120,7 +120,7 @@ const ListboxClearTrigger = forwardRef<ComponentRef<typeof ark.button>, HTMLArkP
         data-slot="listbox-clear-trigger"
       >
         {children}
-      </CloseButton.Root>
+      </CloseButton>
     );
   },
 );

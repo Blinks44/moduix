@@ -44,8 +44,8 @@ import carouselSolidVertical from '../../../snippets/carousel/solid/vertical.tsx
 
 ## Basic
 
-Start with `Carousel` as the root. Add `Carousel.ItemGroup` for the slide track, place previous and
-next buttons in `Carousel.Control`, and use `Carousel.Indicators` with `Carousel.ProgressText`
+Start with `Carousel` as the root. Add `CarouselItemGroup` for the slide track, place previous and
+next buttons in `CarouselControl`, and use `CarouselIndicators` with `CarouselProgressText`
 for the default pager.
 
 
@@ -114,33 +114,33 @@ See [Quick Start](/docs/quick-start) for full package setup, registry configurat
 ## Anatomy
 
 ```text
-Carousel / Carousel.Root
-├─ Carousel.ItemGroup
-│  └─ Carousel.Item[index]
-├─ Carousel.Control
-│  ├─ Carousel.PrevTrigger
-│  └─ Carousel.NextTrigger
-├─ Carousel.IndicatorGroup
-│  └─ Carousel.Indicator[index]
-└─ Carousel.ProgressText
+Carousel
+├─ CarouselItemGroup
+│  └─ CarouselItem[index]
+├─ CarouselControl
+│  ├─ CarouselPrevTrigger
+│  └─ CarouselNextTrigger
+├─ CarouselIndicatorGroup
+│  └─ CarouselIndicator[index]
+└─ CarouselProgressText
 
-Carousel.RootProvider
+CarouselRootProvider
 └─ same part tree connected to a useCarousel() store
 ```
 
-| Part                         | Role                                                               |
-| ---------------------------- | ------------------------------------------------------------------ |
-| `Carousel` / `Carousel.Root` | Owns carousel state, navigation, and the slide collection.         |
-| `Carousel.RootProvider`      | Connects the parts to state created with `useCarousel()`.          |
-| `Carousel.Control`            | Container for navigation buttons and other controls.               |
-| `Carousel.ItemGroup`          | Slide track that contains `Carousel.Item` parts.                   |
-| `Carousel.Item`               | A single slide with a stable `index`.                              |
-| `Carousel.PrevTrigger`        | Button that moves to the previous page.                            |
-| `Carousel.NextTrigger`        | Button that moves to the next page.                                |
-| `Carousel.Indicators`         | moduix convenience component that renders the default page dots.   |
-| `Carousel.IndicatorGroup`     | Container for custom page indicators.                               |
-| `Carousel.Indicator`          | Button that moves to the page with the given index.                 |
-| `Carousel.ProgressText`       | Text showing the current page and the total number of pages.        |
+| Part                     | Role                                                             |
+| ------------------------ | ---------------------------------------------------------------- |
+| `Carousel`               | Owns carousel state, navigation, and the slide collection.       |
+| `CarouselRootProvider`   | Connects the parts to state created with `useCarousel()`.        |
+| `CarouselControl`        | Container for navigation buttons and other controls.             |
+| `CarouselItemGroup`      | Slide track that contains `CarouselItem` parts.                  |
+| `CarouselItem`           | A single slide with a stable `index`.                            |
+| `CarouselPrevTrigger`    | Button that moves to the previous page.                          |
+| `CarouselNextTrigger`    | Button that moves to the next page.                              |
+| `CarouselIndicators`     | moduix convenience component that renders the default page dots. |
+| `CarouselIndicatorGroup` | Container for custom page indicators.                            |
+| `CarouselIndicator`      | Button that moves to the page with the given index.              |
+| `CarouselProgressText`   | Text showing the current page and the total number of pages.     |
 
 ## Composition
 
@@ -149,13 +149,13 @@ with `onPageChange(details)` when routing, filters, or another part of the appli
 current page. `slideCount` is required and must stay in sync with rendered items when the collection
 changes.
 
-Use `Carousel.RootProvider` with `useCarousel()` when the store must be created outside the rendered
-tree or shared across composition boundaries. Pass that store to `RootProvider` and do not render a
-second `Carousel` root for the same store.
+Use `CarouselRootProvider` with `useCarousel()` when the store must be created outside the rendered
+tree or shared across composition boundaries. Pass that store to `CarouselRootProvider` and do not
+render a second `Carousel` root for the same store.
 
-`Carousel.Indicators` reads `pageSnapPoints` from context and creates the standard indicators. For
-custom indicator content, render `Carousel.IndicatorGroup` and `Carousel.Indicator` inside
-`Carousel.Context`; use the context API's `pageSnapPoints` when the number of indicators must match
+`CarouselIndicators` reads `pageSnapPoints` from context and creates the standard indicators. For
+custom indicator content, render `CarouselIndicatorGroup` and `CarouselIndicator` inside
+`CarouselContext`; use the context API's `pageSnapPoints` when the number of indicators must match
 the calculated pages.
 
 In Solid, assign a ref to the element created inside the `asChild` render function. A ref on a
@@ -167,7 +167,7 @@ Carousel part itself is not forwarded through that composition path.
 
 Use autoplay for galleries that advance on their own, and keep visible controls available. In this
 example, autoplay pauses when the pointer enters the carousel or focus moves inside it. Users can
-start it again with `Carousel.AutoplayTrigger`.
+start it again with `CarouselAutoplayTrigger`.
 
 <ExampleFrame variant="component">
   <AutoplayCarousel />
@@ -361,7 +361,7 @@ touch screens.
 ### Pause on Hover
 
 Use this pattern when autoplay should pause while the pointer is over the carousel. The example
-uses `Carousel.Context` with `api.pause()` and `api.play()`, and also pauses while the carousel has
+uses `CarouselContext` with `api.pause()` and `api.play()`, and also pauses while the carousel has
 focus.
 
 <ExampleFrame variant="component">
@@ -393,7 +393,7 @@ focus.
 
 ### Root Provider
 
-Use `Carousel.RootProvider` when carousel state must be created outside the rendered subtree and
+Use `CarouselRootProvider` when carousel state must be created outside the rendered subtree and
 shared across composition boundaries.
 
 <ExampleFrame variant="component">
@@ -614,7 +614,7 @@ axis.
 
 ### Advanced Customization
 
-Skip `Carousel.Indicators` when you need to render `pageSnapPoints` yourself or place pager controls
+Skip `CarouselIndicators` when you need to render `pageSnapPoints` yourself or place pager controls
 alongside other context-driven controls.
 
 <ExampleFrame variant="component">
@@ -663,8 +663,8 @@ class overrides; the CSS Properties reference below applies to the CSS Modules p
   `carousel-progress-text` are stable selectors for the exported parts.
 - Ark also adds `data-scope="carousel"` and `data-part` names to the rendered nodes.
 - `data-orientation="horizontal" | "vertical"` is available on the root and structural parts.
-- `Carousel.ItemGroup` exposes `data-dragging` while a drag interaction is active.
-- `Carousel.Indicator` exposes `data-current`, while `Carousel.Item` exposes `data-index` and
+- `CarouselItemGroup` exposes `data-dragging` while a drag interaction is active.
+- `CarouselIndicator` exposes `data-current`, while `CarouselItem` exposes `data-index` and
   `data-inview`.
-- `Carousel.Indicator` exposes `data-readonly`, while `Carousel.AutoplayTrigger` exposes
+- `CarouselIndicator` exposes `data-readonly`, while `CarouselAutoplayTrigger` exposes
   `data-pressed`.

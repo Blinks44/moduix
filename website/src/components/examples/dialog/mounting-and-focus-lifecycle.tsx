@@ -1,5 +1,14 @@
 import { Button } from '@moduix/react/button';
-import { Dialog } from '@moduix/react/dialog';
+import {
+  Dialog,
+  DialogBackdrop,
+  DialogBody,
+  DialogCloseIcon,
+  DialogContent,
+  DialogPositioner,
+  DialogTitle,
+  DialogTrigger,
+} from '@moduix/react/dialog';
 import { Field } from '@moduix/react/field';
 import { Input } from '@moduix/react/input';
 import { useRef } from 'react';
@@ -16,22 +25,22 @@ export default function DialogLifecycleDemo() {
         initialFocusEl={() => inputRef.current}
         finalFocusEl={() => finalFocusRef.current}
       >
-        <Dialog.Trigger asChild>
+        <DialogTrigger asChild>
           <Button>Edit profile</Button>
-        </Dialog.Trigger>
-        <Dialog.Backdrop />
-        <Dialog.Positioner>
-          <Dialog.Content>
-            <Dialog.Title>Edit profile</Dialog.Title>
-            <Dialog.Body>
+        </DialogTrigger>
+        <DialogBackdrop />
+        <DialogPositioner>
+          <DialogContent>
+            <DialogTitle>Edit profile</DialogTitle>
+            <DialogBody>
               <Field>
                 <Field.Label>Name</Field.Label>
                 <Input ref={inputRef} />
               </Field>
-            </Dialog.Body>
-            <Dialog.CloseIcon />
-          </Dialog.Content>
-        </Dialog.Positioner>
+            </DialogBody>
+            <DialogCloseIcon />
+          </DialogContent>
+        </DialogPositioner>
       </Dialog>
     </>
   );

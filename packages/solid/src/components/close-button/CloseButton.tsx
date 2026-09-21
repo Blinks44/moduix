@@ -6,7 +6,7 @@ import { children as resolveChildren, splitProps } from 'solid-js';
 import { CloseIcon } from '@/lib/moduix/icons/ui/Icons';
 import styles from './CloseButton.module.css';
 
-type CloseButtonRootProps = HTMLArkProps<'button'> & {
+type CloseButtonProps = HTMLArkProps<'button'> & {
   'data-disabled'?: string;
   'data-part'?: string;
   'data-scope'?: string;
@@ -15,12 +15,12 @@ type CloseButtonRootProps = HTMLArkProps<'button'> & {
 };
 
 const ArkButton = ark.button as (
-  props: CloseButtonRootProps & {
+  props: CloseButtonProps & {
     'oncapture:click'?: (event: MouseEvent) => void;
   },
 ) => JSX.Element;
 
-function CloseButtonRoot(props: CloseButtonRootProps) {
+function CloseButton(props: CloseButtonProps) {
   const [local, others] = splitProps(props, [
     'asChild',
     'aria-disabled',
@@ -83,9 +83,5 @@ function CloseButtonRoot(props: CloseButtonRootProps) {
     </ArkButton>
   );
 }
-
-const CloseButton = Object.assign(CloseButtonRoot, {
-  Root: CloseButtonRoot,
-});
 
 export { CloseButton };

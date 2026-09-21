@@ -46,7 +46,7 @@ import dateInputSolidTimeOnly from '../../../snippets/date-input/solid/time-only
 ## Базовый пример
 
 `DateInput` отображает сегменты даты с учётом локали, которые можно редактировать с клавиатуры. Поместите
-`DateInput.Segments` внутрь `DateInput.Control` для стандартной композиции. Preview на этой странице
+`DateInputSegments` внутрь `DateInputControl` для стандартной композиции. Preview на этой странице
 
 <ExampleFrame variant="component">
   <DateInputBasic />
@@ -113,48 +113,48 @@ import dateInputSolidTimeOnly from '../../../snippets/date-input/solid/time-only
 ## Анатомия
 
 ```text
-DateInput / DateInput.Root
-├─ DateInput.Label
-├─ DateInput.Control
-│  ├─ DateInput.Segments
-│  └─ DateInput.Separator (необязательно, для диапазонов)
-└─ DateInput.HiddenInput[index] (явно, по одному на отправляемую дату)
+DateInput
+├─ DateInputLabel
+├─ DateInputControl
+│  ├─ DateInputSegments
+│  └─ DateInputSeparator (необязательно, для диапазонов)
+└─ DateInputHiddenInput[index] (явно, по одному на отправляемую дату)
 
 Расширенная настройка:
 
-DateInput.SegmentGroup
-└─ DateInput.SegmentContext
-   └─ DateInput.Segment
+DateInputSegmentGroup
+└─ DateInputSegmentContext
+   └─ DateInputSegment
 
-DateInput.RootProvider
+DateInputRootProvider
 └─ то же дерево частей, подключённое к состоянию из useDateInput()
 ```
 
 | Часть | Назначение |
 | ---- | ---- |
-| `DateInput` / `DateInput.Root` | Отвечает за значения дат, форматирование с учётом локали, фокус сегментов и валидацию. |
-| `DateInput.HiddenInput` | Нативное поле Ark, которое для отправки формы нужно добавить явно. |
-| `DateInput.RootProvider` | Подключает части к состоянию из `useDateInput()`. |
-| `DateInput.Label` | Подпись поля даты, доступная вспомогательным технологиям. |
-| `DateInput.Control` | Визуальная рамка вокруг одной или нескольких групп сегментов. |
-| `DateInput.SegmentGroup` | Объединяет сегменты для одного индекса даты. |
-| `DateInput.Segment` | Редактируемый или фиксированный сегмент, предоставляемый Ark UI. |
-| `DateInput.Segments` | Отображает одну группу сегментов с учётом локали для обычного сценария. |
-| `DateInput.Separator` | Текстовый разделитель между группами диапазона. |
-| `DateInput.Context` | Даёт доступ к текущему состоянию поля без собственной разметки. |
-| `DateInput.SegmentContext` | Помогает отображать сегменты с учётом локали. |
+| `DateInput` | Отвечает за значения дат, форматирование с учётом локали, фокус сегментов и валидацию. |
+| `DateInputHiddenInput` | Нативное поле Ark, которое для отправки формы нужно добавить явно. |
+| `DateInputRootProvider` | Подключает части к состоянию из `useDateInput()`. |
+| `DateInputLabel` | Подпись поля даты, доступная вспомогательным технологиям. |
+| `DateInputControl` | Визуальная рамка вокруг одной или нескольких групп сегментов. |
+| `DateInputSegmentGroup` | Объединяет сегменты для одного индекса даты. |
+| `DateInputSegment` | Редактируемый или фиксированный сегмент, предоставляемый Ark UI. |
+| `DateInputSegments` | Отображает одну группу сегментов с учётом локали для обычного сценария. |
+| `DateInputSeparator` | Текстовый разделитель между группами диапазона. |
+| `DateInputContext` | Даёт доступ к текущему состоянию поля без собственной разметки. |
+| `DateInputSegmentContext` | Помогает отображать сегменты с учётом локали. |
 
 ## Композиция
 
-Для обычного поля используйте `DateInput` с `DateInput.Control` и `DateInput.Segments`. Оставьте состояние
+Для обычного поля используйте `DateInput` с `DateInputControl` и `DateInputSegments`. Оставьте состояние
 неконтролируемым через `defaultValue`, управляйте им через `value` и `onValueChange(details)` или создайте
-его с помощью `useDateInput()` и подключите части через `DateInput.RootProvider`. Значения имеют форму
+его с помощью `useDateInput()` и подключите части через `DateInputRootProvider`. Значения имеют форму
 `DateInputDateValue[]` из `@internationalized/date`, а не строк.
 
-`DateInput.HiddenInput` нужно добавлять явно: корневой компонент не создаёт нативные поля. Добавьте по одному
+`DateInputHiddenInput` нужно добавлять явно: корневой компонент не создаёт нативные поля. Добавьте по одному
 скрытому полю на каждую отправляемую дату, а для диапазона используйте соответствующие значения `index`.
-Используйте `DateInput.SegmentGroup`, `DateInput.SegmentContext` и `DateInput.Segment` только тогда, когда
-стандартного отображения `DateInput.Segments` недостаточно.
+Используйте `DateInputSegmentGroup`, `DateInputSegmentContext` и `DateInputSegment` только тогда, когда
+стандартного отображения `DateInputSegments` недостаточно.
 
 ## Примеры
 
@@ -375,7 +375,7 @@ DateInput.RootProvider
 ### Диапазон
 
 Используйте `selectionMode="range"`, передайте `index` каждой группе сегментов и добавьте соответствующие
-индексированные `DateInput.HiddenInput`, если значения отправляются вместе с формой.
+индексированные `DateInputHiddenInput`, если значения отправляются вместе с формой.
 
 <ExampleFrame variant="component">
   <DateInputRange />
@@ -435,7 +435,7 @@ DateInput.RootProvider
 
 ### Root Provider
 
-Используйте `useDateInput()` из `@moduix/react` или `@moduix/solid` вместе с `DateInput.RootProvider`, когда
+Используйте `useDateInput()` из `@moduix/react` или `@moduix/solid` вместе с `DateInputRootProvider`, когда
 методы управления состоянием нужны за пределами дерева корневого компонента.
 
 <ExampleFrame variant="component">
@@ -498,7 +498,7 @@ DateInput.RootProvider
 ### Расширенная настройка
 
 Используйте полную композицию сегментов, если отображение должно зависеть от данных сегмента Ark UI.
-Для стандартного отображения остаётся `DateInput.Segments`.
+Для стандартного отображения остаётся `DateInputSegments`.
 
 <ExampleFrame variant="component">
   <DateInputAdvancedCustomization />

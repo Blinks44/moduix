@@ -442,7 +442,7 @@
   --moduix-checkbox-size-xl: initial; /* var(--moduix-spacing-7) */
   --moduix-checkbox-transition: initial; /* var(--moduix-transition-default) */
 
-  /* Checkbox.Group */
+  /* CheckboxGroup */
   --moduix-checkbox-group-color: initial; /* var(--moduix-color-foreground) */
   --moduix-checkbox-group-gap: initial; /* var(--moduix-spacing-2) */
 

@@ -142,7 +142,7 @@ const ToastCloseTrigger = forwardRef<
 
   return (
     <ToastPrimitive.CloseTrigger asChild>
-      <CloseButton.Root
+      <CloseButton
         ref={ref}
         aria-label={ariaLabel}
         className={clsx(styles.closeTrigger, className)}
@@ -150,7 +150,7 @@ const ToastCloseTrigger = forwardRef<
         data-slot="toast-close-trigger"
       >
         {children}
-      </CloseButton.Root>
+      </CloseButton>
     </ToastPrimitive.CloseTrigger>
   );
 });

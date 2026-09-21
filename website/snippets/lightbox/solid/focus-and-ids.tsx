@@ -1,5 +1,14 @@
 import { Button } from '@moduix/solid/button';
-import { Lightbox } from '@moduix/solid/lightbox';
+import {
+  LightboxTrigger,
+  LightboxBackdrop,
+  LightboxPositioner,
+  LightboxContent,
+  LightboxTitle,
+  LightboxCloseIcon,
+  LightboxImage,
+  Lightbox,
+} from '@moduix/solid/lightbox';
 import { createSignal } from 'solid-js';
 import styles from '@/components/examples/lightbox/lightbox-focus-and-ids.module.css';
 
@@ -26,15 +35,15 @@ export default function FocusLightboxDemo() {
         }}
         ids={{ content: 'lightbox-focus-content', title: 'lightbox-focus-title' }}
       >
-        <Lightbox.Trigger class={styles.button}>Open focus-managed lightbox</Lightbox.Trigger>
-        <Lightbox.Backdrop />
-        <Lightbox.Positioner>
-          <Lightbox.CloseIcon id={closeId} />
-          <Lightbox.Content>
-            <Lightbox.Title class={styles.status}>Mountain ridge at sunset</Lightbox.Title>
-            <Lightbox.Image src={image.src} alt={image.alt} />
-          </Lightbox.Content>
-        </Lightbox.Positioner>
+        <LightboxTrigger class={styles.button}>Open focus-managed lightbox</LightboxTrigger>
+        <LightboxBackdrop />
+        <LightboxPositioner>
+          <LightboxCloseIcon id={closeId} />
+          <LightboxContent>
+            <LightboxTitle class={styles.status}>Mountain ridge at sunset</LightboxTitle>
+            <LightboxImage src={image.src} alt={image.alt} />
+          </LightboxContent>
+        </LightboxPositioner>
       </Lightbox>
       <div>
         <output>

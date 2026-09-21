@@ -1,5 +1,14 @@
 import { Button } from '@moduix/react/button';
-import { Dialog } from '@moduix/react/dialog';
+import {
+  Dialog,
+  DialogBackdrop,
+  DialogCloseTrigger,
+  DialogContent,
+  DialogFooter,
+  DialogPositioner,
+  DialogTitle,
+  DialogTrigger,
+} from '@moduix/react/dialog';
 import { ScrollArea } from '@moduix/react/scroll-area';
 import styles from '@/components/examples/dialog/dialog-inside-scroll.module.css';
 
@@ -28,13 +37,13 @@ const sections = [
 export default function DialogScrollDemo() {
   return (
     <Dialog>
-      <Dialog.Trigger asChild>
+      <DialogTrigger asChild>
         <Button>Open terms</Button>
-      </Dialog.Trigger>
-      <Dialog.Backdrop />
-      <Dialog.Positioner>
-        <Dialog.Content>
-          <Dialog.Title>Terms of service</Dialog.Title>
+      </DialogTrigger>
+      <DialogBackdrop />
+      <DialogPositioner>
+        <DialogContent>
+          <DialogTitle>Terms of service</DialogTitle>
           <ScrollArea className={styles.scrollArea}>
             <ScrollArea.Viewport>
               <ScrollArea.Content>
@@ -53,13 +62,13 @@ export default function DialogScrollDemo() {
             </ScrollArea.Scrollbar>
             <ScrollArea.Corner />
           </ScrollArea>
-          <Dialog.Footer>
-            <Dialog.CloseTrigger asChild>
+          <DialogFooter>
+            <DialogCloseTrigger asChild>
               <Button variant="outline">Close</Button>
-            </Dialog.CloseTrigger>
-          </Dialog.Footer>
-        </Dialog.Content>
-      </Dialog.Positioner>
+            </DialogCloseTrigger>
+          </DialogFooter>
+        </DialogContent>
+      </DialogPositioner>
     </Dialog>
   );
 }

@@ -1,4 +1,10 @@
-import { Card } from '@moduix/react/card';
+import {
+  Card,
+  CardBody,
+  CardDescription,
+  CardHeader,
+  CardTitle,
+} from '@moduix/react/card';
 import styles from '@/components/examples/card/card-advanced-customization.module.css';
 
 export default function CardAdvancedCustomizationDemo() {
@@ -11,20 +17,20 @@ export default function CardAdvancedCustomizationDemo() {
           alt="A warehouse with neatly stacked delivery boxes."
         />
       </div>
-      <Card.Header>
-        <Card.Title asChild>
+      <CardHeader>
+        <CardTitle asChild>
           <h2>System load</h2>
-        </Card.Title>
-        <Card.Description>Bypasses `Card.Media` to fully control media framing.</Card.Description>
-      </Card.Header>
-      <Card.Body>
+        </CardTitle>
+        <CardDescription>Bypasses `CardMedia` to fully control media framing.</CardDescription>
+      </CardHeader>
+      <CardBody>
         <div className={styles.metric}>
           <span>64%</span>
           <div className={styles.progress}>
             <div className={styles.progressValue} />
           </div>
         </div>
-      </Card.Body>
+      </CardBody>
     </Card>
   );
 }

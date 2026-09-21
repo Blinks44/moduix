@@ -1,7 +1,7 @@
 import type { Meta, StoryObj } from '@storybook/react-vite';
 import { Badge } from '@/components/badge';
 import { Button } from '@/components/button';
-import { Card } from '@/components/card/Card';
+import { Card, CardBody, CardHeader, CardTitle } from '@/components/card/Card';
 import { Table } from '@/components/table/Table';
 import styles from './Table.stories.module.css';
 
@@ -275,10 +275,10 @@ export const StickyHeaderAndColumn: Story = {
 export const InsideCard: Story = {
   render: () => (
     <Card className={styles.card}>
-      <Card.Header>
-        <Card.Title>Projects</Card.Title>
-      </Card.Header>
-      <Card.Body className={styles.cardContent}>
+      <CardHeader>
+        <CardTitle>Projects</CardTitle>
+      </CardHeader>
+      <CardBody className={styles.cardContent}>
         <Table.ScrollArea>
           <Table className={styles.table}>
             <Table.Header>
@@ -301,7 +301,7 @@ export const InsideCard: Story = {
             </Table.Body>
           </Table>
         </Table.ScrollArea>
-      </Card.Body>
+      </CardBody>
     </Card>
   ),
 };

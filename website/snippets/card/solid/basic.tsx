@@ -1,5 +1,12 @@
 import { Button } from '@moduix/solid/button';
-import { Card } from '@moduix/solid/card';
+import {
+  Card,
+  CardBody,
+  CardDescription,
+  CardFooter,
+  CardHeader,
+  CardTitle,
+} from '@moduix/solid/card';
 import styles from '@/components/examples/card/card-basic.module.css';
 
 const content = {
@@ -11,15 +18,15 @@ const content = {
 export default function CardDemo() {
   return (
     <Card class={styles.root}>
-      <Card.Header>
-        <Card.Title>{content.title}</Card.Title>
-        <Card.Description>{content.description}</Card.Description>
-      </Card.Header>
-      <Card.Body>{content.summary}</Card.Body>
-      <Card.Footer>
+      <CardHeader>
+        <CardTitle>{content.title}</CardTitle>
+        <CardDescription>{content.description}</CardDescription>
+      </CardHeader>
+      <CardBody>{content.summary}</CardBody>
+      <CardFooter>
         <Button variant="outline">View log</Button>
         <Button>Promote release</Button>
-      </Card.Footer>
+      </CardFooter>
     </Card>
   );
 }

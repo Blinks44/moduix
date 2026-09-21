@@ -1,6 +1,19 @@
 import { useListCollection } from '@ark-ui/solid/collection';
 import { useFilter } from '@ark-ui/solid/locale';
-import { Combobox } from '@moduix/solid/combobox';
+import {
+  Combobox,
+  ComboboxClearTrigger,
+  ComboboxContent,
+  ComboboxControl,
+  ComboboxInput,
+  ComboboxItem,
+  ComboboxItemIndicator,
+  ComboboxItemText,
+  ComboboxLabel,
+  ComboboxList,
+  ComboboxPositioner,
+  ComboboxTrigger,
+} from '@moduix/solid/combobox';
 import { For, createSignal } from 'solid-js';
 import styles from '@/components/examples/combobox/component-creatable.module.css';
 
@@ -70,30 +83,30 @@ export default function CreatableComboboxDemo() {
         }
       }}
     >
-      <Combobox.Label>Issue label</Combobox.Label>
-      <Combobox.Control>
-        <Combobox.Input placeholder="e.g. Accessibility" />
-        <Combobox.ClearTrigger aria-label="Clear selection" />
-        <Combobox.Trigger aria-label="Open options" />
-      </Combobox.Control>
-      <Combobox.Positioner>
-        <Combobox.Content class={styles.content}>
-          <Combobox.List>
+      <ComboboxLabel>Issue label</ComboboxLabel>
+      <ComboboxControl>
+        <ComboboxInput placeholder="e.g. Accessibility" />
+        <ComboboxClearTrigger aria-label="Clear selection" />
+        <ComboboxTrigger aria-label="Open options" />
+      </ComboboxControl>
+      <ComboboxPositioner>
+        <ComboboxContent class={styles.content}>
+          <ComboboxList>
             <For each={collection().items}>
               {(item) => (
-                <Combobox.Item item={item}>
-                  <Combobox.ItemText>
+                <ComboboxItem item={item}>
+                  <ComboboxItemText>
                     {item.value === createOptionValue
                       ? `Create "${item.label}"`
                       : `${item.label}${item.created ? ' (new)' : ''}`}
-                  </Combobox.ItemText>
-                  <Combobox.ItemIndicator />
-                </Combobox.Item>
+                  </ComboboxItemText>
+                  <ComboboxItemIndicator />
+                </ComboboxItem>
               )}
             </For>
-          </Combobox.List>
-        </Combobox.Content>
-      </Combobox.Positioner>
+          </ComboboxList>
+        </ComboboxContent>
+      </ComboboxPositioner>
     </Combobox>
   );
 }

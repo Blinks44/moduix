@@ -41,13 +41,13 @@ Use `Lightbox` when you primarily need to view images or other media in a modal 
 
 - Choose **`Lightbox`** for zoomed-in image previews, product galleries, and other media-focused views.
 - Choose **`Dialog`** for general application UI such as forms, actions, or mixed content.
-- Compose **`Carousel` inside `Lightbox.Gallery`** when the preview needs slides or navigation arrows.
+- Compose **`Carousel` inside `LightboxGallery`** when the preview needs slides or navigation arrows.
 
 ## Basic
 
 
-Build the explicit Ark UI dialog structure with `Lightbox`, `Lightbox.Trigger`,
-`Lightbox.Backdrop`, `Lightbox.Positioner`, and `Lightbox.Content`. Use `asChild` with a single
+Build the explicit Ark UI dialog structure with `Lightbox`, `LightboxTrigger`,
+`LightboxBackdrop`, `LightboxPositioner`, and `LightboxContent`. Use `asChild` with a single
 semantic trigger element.
 
 <ExampleFrame variant="component">
@@ -115,70 +115,70 @@ See [Quick Start](/docs/quick-start) for full package setup, registry configurat
 ## Anatomy
 
 ```text
-Lightbox / Lightbox.Root
-├─ Lightbox.Trigger
-├─ Lightbox.Bind
+Lightbox
+├─ LightboxTrigger
+├─ LightboxBind
 └─ Overlay subtree (automatically portalled)
-   ├─ Lightbox.Backdrop
-   └─ Lightbox.Positioner
-      ├─ Lightbox.CloseTrigger or Lightbox.CloseIcon
-      └─ Lightbox.Content
-         ├─ Lightbox.Header (optional)
-         │  ├─ Lightbox.Title
-         │  └─ Lightbox.Description
-         ├─ Lightbox.Body
-         │  └─ Lightbox.Image
-         └─ Lightbox.Footer (optional)
+   ├─ LightboxBackdrop
+   └─ LightboxPositioner
+      ├─ LightboxCloseTrigger or LightboxCloseIcon
+      └─ LightboxContent
+         ├─ LightboxHeader (optional)
+         │  ├─ LightboxTitle
+         │  └─ LightboxDescription
+         ├─ LightboxBody
+         │  └─ LightboxImage
+         └─ LightboxFooter (optional)
 
-Lightbox.RootProvider
+LightboxRootProvider
 └─ the same part tree connected to useLightbox()
 ```
 
 | Part                         | Role                                                                           |
 | ---------------------------- | ------------------------------------------------------------------------------ |
-| `Lightbox` / `Lightbox.Root` | Ark Dialog root that manages open state, focus lifecycle, dismissal, and accessibility. |
-| `Lightbox.RootProvider`      | Provides state created with `useLightbox()`.                                   |
-| `Lightbox.Trigger`           | Ark trigger. Use `asChild` for custom semantic buttons or links.               |
-| `Lightbox.Backdrop`          | Modal backdrop with Ark `data-state` and layer variables.                      |
-| `Lightbox.Positioner`        | Fixed, centered overlay container.                                             |
-| `Lightbox.Content`           | The actual Ark dialog content node.                                            |
-| `Lightbox.Title`             | Optional accessible title.                                                      |
-| `Lightbox.Description`       | Optional accessible description.                                               |
-| `Lightbox.CloseTrigger`      | Low-level Ark close trigger.                                                   |
-| `Lightbox.CloseIcon`         | Convenience wrapper that combines `CloseButton.Root` with the Ark close trigger. |
-| `Lightbox.Header` / `Body`   | Optional layout helpers for text and media regions inside the content.         |
-| `Lightbox.Footer`            | Optional layout helper for actions or status below the media.                  |
-| `Lightbox.Image`             | Styled native image that forwards an `HTMLImageElement` ref.                   |
-| `Lightbox.Gallery`           | Layout and styling boundary for a composed `Carousel`.                         |
-| `Lightbox.Bind`              | Renderless behavior part that connects external image markup to the root.       |
+| `Lightbox`                  | Ark Dialog root that manages open state, focus lifecycle, dismissal, and accessibility. |
+| `LightboxRootProvider`      | Provides state created with `useLightbox()`.                                   |
+| `LightboxTrigger`           | Ark trigger. Use `asChild` for custom semantic buttons or links.               |
+| `LightboxBackdrop`          | Modal backdrop with Ark `data-state` and layer variables.                      |
+| `LightboxPositioner`        | Fixed, centered overlay container.                                             |
+| `LightboxContent`           | The actual Ark dialog content node.                                            |
+| `LightboxTitle`             | Optional accessible title.                                                      |
+| `LightboxDescription`       | Optional accessible description.                                               |
+| `LightboxCloseTrigger`      | Low-level Ark close trigger.                                                   |
+| `LightboxCloseIcon`         | Convenience wrapper that combines `CloseButton` with the Ark close trigger. |
+| `LightboxHeader` / `LightboxBody` | Optional layout helpers for text and media regions inside the content.         |
+| `LightboxFooter`            | Optional layout helper for actions or status below the media.                  |
+| `LightboxImage`             | Styled native image that forwards an `HTMLImageElement` ref.                   |
+| `LightboxGallery`           | Layout and styling boundary for a composed `Carousel`.                         |
+| `LightboxBind`              | Renderless behavior part that connects external image markup to the root.       |
 
 ## Composition
 
-`Lightbox` owns Dialog state, while `Backdrop`, `Positioner`, and `Content` stay explicit. The
+`Lightbox` owns Dialog state, while `LightboxBackdrop`, `LightboxPositioner`, and `LightboxContent` stay explicit. The
 overlay parts are portalled by default. Use `portalled={false}` to keep them in place or `portalRef`
-to target a custom container. Keep `CloseIcon` beside `Content` inside `Positioner` when it should
+to target a custom container. Keep `LightboxCloseIcon` beside `LightboxContent` inside `LightboxPositioner` when it should
 stay pinned to the viewport rather than follow content transforms. Use `asChild` with one semantic
 element; in Solid, `asChild` is a render function that receives the props for that element.
 
 For galleries, keep the selected image and Carousel page in application state. Pass the image key to
-`Lightbox.Trigger value` and update that state from `onTriggerValueChange(details)` or
-`Carousel`'s page callback. Use `RootProvider` with `useLightbox()` when state or the opener lives
-outside the root, and read child state with `useLightboxContext()`. `Bind` is renderless and only
+`LightboxTrigger value` and update that state from `onTriggerValueChange(details)` or
+`Carousel`'s page callback. Use `LightboxRootProvider` with `useLightbox()` when state or the opener lives
+outside the root, and read child state with `useLightboxContext()`. `LightboxBind` is renderless and only
 selects an image from external markup, so the surrounding Lightbox still needs its explicit overlay
-parts. `Image closeOnClick` is the shortcut for closing after an image click.
+parts. `LightboxImage closeOnClick` is the shortcut for closing after an image click.
 
 ## Examples
 
 ### Bind CMS Content
 
-Use `Lightbox.Bind` when preview images come from a CMS or third-party markup that you cannot render
-directly with `Lightbox.Trigger`. Point it at a container with `rootRef` or `rootSelector`, choose a
+Use `LightboxBind` when preview images come from a CMS or third-party markup that you cannot render
+directly with `LightboxTrigger`. Point it at a container with `rootRef` or `rootSelector`, choose a
 `selector`, and handle the resolved `{ src, alt, element }` through `onImageSelect`. `Bind` opens its
 parent Lightbox but renders no overlay structure, so the backdrop, content, close controls, and image
 layout remain yours to compose. It reads the source from `data-lightbox-src`, then `currentSrc`, then
 `src`, and preloads it on pointer hover or keyboard focus. Use a semantic button or link for the
 matched `selector` so native keyboard activation produces the click that opens the Lightbox. If your
-server already returns a structured image array, prefer the `Lightbox.Gallery + Carousel` composition.
+server already returns a structured image array, prefer the `LightboxGallery + Carousel` composition.
 
 <ExampleFrame variant="component">
   <LightboxBindCmsContent />
@@ -217,7 +217,7 @@ server already returns a structured image array, prefer the `Lightbox.Gallery + 
 
 ### Click to Close Image
 
-Use `Lightbox.Image closeOnClick` when clicking the previewed image should dismiss the overlay. The
+Use `LightboxImage closeOnClick` when clicking the previewed image should dismiss the overlay. The
 close icon remains available and keeps the same Ark close semantics.
 
 <ExampleFrame variant="component">
@@ -338,7 +338,7 @@ after close so the focus handoff is visible.
 ### Gallery
 
 When a CMS or API returns a structured array of images, keep the selected image and Carousel page in
-React or Solid state, then compose `Carousel` inside `Lightbox.Gallery`. Use `Lightbox.Trigger.value`
+React or Solid state, then compose `Carousel` inside `LightboxGallery`. Use `LightboxTrigger.value`
 to choose the initial slide and keep the Carousel page in sync as the user navigates.
 
 <ExampleFrame variant="component">
@@ -378,7 +378,7 @@ to choose the initial slide and keep the Carousel page in sync as the user navig
 
 ### Multiple Triggers
 
-Use `Lightbox.Trigger.value` and `onTriggerValueChange(details)` for gallery thumbnails. The
+Use `LightboxTrigger.value` and `onTriggerValueChange(details)` for gallery thumbnails. The
 component does not maintain a hidden image registry.
 
 <ExampleFrame variant="component">
@@ -561,8 +561,8 @@ overrides. `Backdrop`, `Positioner`, and `Content` remain explicit.
   and `lightbox-gallery`.
 - Ark state and anatomy hooks: `data-scope="dialog"`, `data-part`, `data-state="open|closed"`,
   `data-nested`, `data-has-nested`, `--layer-index`, and `--nested-layer-count`.
-- Local hooks: `Lightbox.Image` exposes `data-slot="lightbox-image"` and optional
-  `data-close-on-click`; `Lightbox.Gallery` exposes `data-slot="lightbox-gallery"` and styles
+- Local hooks: `LightboxImage` exposes `data-slot="lightbox-image"` and optional
+  `data-close-on-click`; `LightboxGallery` exposes `data-slot="lightbox-gallery"` and styles
   nested Carousel slots.
 - Motion is driven by Ark `data-state`; use `present` only when JavaScript animation control needs
   to keep the content mounted.

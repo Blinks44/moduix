@@ -54,7 +54,7 @@ connue doit simplement être saisie, sans modifier directement la couleur, utili
 
 Commencez par un champ compact composé du composant racine, d’un champ pour un canal, de la pastille par défaut du bouton
 d’ouverture et du contenu explicite de la fenêtre contextuelle. Les parties internes peuvent rester sans enfants : le
-composant leur applique alors sa composition intégrée. Ajoutez explicitement `ColorPicker.HiddenInput` et un `name` si
+composant leur applique alors sa composition intégrée. Ajoutez explicitement `ColorPickerHiddenInput` et un `name` si
 la couleur doit être envoyée avec le formulaire.
 
 <ExampleFrame variant="component">
@@ -122,55 +122,55 @@ Consultez le [Démarrage rapide](/docs/quick-start) pour la configuration compl�
 ## Anatomie
 
 ```text
-ColorPicker / ColorPicker.Root
-├─ ColorPicker.Label
-├─ ColorPicker.Control
-│  ├─ ColorPicker.ChannelInput[channel]
-│  └─ ColorPicker.Trigger
-│     ├─ ColorPicker.TransparencyGrid
-│     └─ ColorPicker.ValueSwatch
+ColorPicker
+├─ ColorPickerLabel
+├─ ColorPickerControl
+│  ├─ ColorPickerChannelInput[channel]
+│  └─ ColorPickerTrigger
+│     ├─ ColorPickerTransparencyGrid
+│     └─ ColorPickerValueSwatch
 ├─ Sous-arbre de la fenêtre contextuelle (rendu par défaut via un portail)
-│  └─ ColorPicker.Positioner
-│     └─ ColorPicker.Content
-│        ├─ ColorPicker.Area
-│        │  ├─ ColorPicker.AreaBackground
-│        │  └─ ColorPicker.AreaThumb
-│        ├─ ColorPicker.EyeDropperTrigger
-│        ├─ ColorPicker.ChannelSlider[channel]
-│        │  ├─ ColorPicker.TransparencyGrid
-│        │  ├─ ColorPicker.ChannelSliderTrack
-│        │  └─ ColorPicker.ChannelSliderThumb
-│        ├─ ColorPicker.SwatchGroup
-│        │  └─ ColorPicker.SwatchTrigger[value]
-│        │     └─ ColorPicker.Swatch[value]
-│        │        └─ ColorPicker.SwatchIndicator
-│        └─ ColorPicker.View[format]
-│           └─ ColorPicker.ChannelInput[channel]
-└─ ColorPicker.HiddenInput (explicite)
+│  └─ ColorPickerPositioner
+│     └─ ColorPickerContent
+│        ├─ ColorPickerArea
+│        │  ├─ ColorPickerAreaBackground
+│        │  └─ ColorPickerAreaThumb
+│        ├─ ColorPickerEyeDropperTrigger
+│        ├─ ColorPickerChannelSlider[channel]
+│        │  ├─ ColorPickerTransparencyGrid
+│        │  ├─ ColorPickerChannelSliderTrack
+│        │  └─ ColorPickerChannelSliderThumb
+│        ├─ ColorPickerSwatchGroup
+│        │  └─ ColorPickerSwatchTrigger[value]
+│        │     └─ ColorPickerSwatch[value]
+│        │        └─ ColorPickerSwatchIndicator
+│        └─ ColorPickerView[format]
+│           └─ ColorPickerChannelInput[channel]
+└─ ColorPickerHiddenInput (explicite)
 ```
 
 | Partie | Rôle |
 | --- | --- |
-| `ColorPicker` / `ColorPicker.Root` | Gère la couleur et son format, l’ouverture de la fenêtre contextuelle et la participation au formulaire. |
-| `ColorPicker.HiddenInput` | Champ natif d’Ark ; composition explicite décrite ci-dessous. |
-| `ColorPicker.Control` | Regroupe les champs visibles et le bouton d’ouverture. |
-| `ColorPicker.Trigger` | Bouton qui ouvre la fenêtre contextuelle et affiche par défaut la pastille de la couleur actuelle. |
-| `ColorPicker.Content` | Contenu de la fenêtre contextuelle basée sur Ark. |
-| `ColorPicker.Area` | Zone bidimensionnelle de sélection de la couleur. |
-| `ColorPicker.ChannelSlider` | Contrôle unidimensionnel de la teinte, du canal alpha ou d’un autre canal. |
-| `ColorPicker.Sliders` | Paire intégrée de curseurs pour la teinte et le canal alpha. |
-| `ColorPicker.ChannelInput` | Champ texte ou numérique pour un canal de couleur donné. |
-| `ColorPicker.SwatchTrigger` | Bouton de sélection d’une couleur prédéfinie. |
-| `ColorPicker.ValueSwatch` | Affiche une pastille de la couleur actuelle. |
+| `ColorPicker` | Gère la couleur et son format, l’ouverture de la fenêtre contextuelle et la participation au formulaire. |
+| `ColorPickerHiddenInput` | Champ natif d’Ark ; composition explicite décrite ci-dessous. |
+| `ColorPickerControl` | Regroupe les champs visibles et le bouton d’ouverture. |
+| `ColorPickerTrigger` | Bouton qui ouvre la fenêtre contextuelle et affiche par défaut la pastille de la couleur actuelle. |
+| `ColorPickerContent` | Contenu de la fenêtre contextuelle basée sur Ark. |
+| `ColorPickerArea` | Zone bidimensionnelle de sélection de la couleur. |
+| `ColorPickerChannelSlider` | Contrôle unidimensionnel de la teinte, du canal alpha ou d’un autre canal. |
+| `ColorPickerSliders` | Paire intégrée de curseurs pour la teinte et le canal alpha. |
+| `ColorPickerChannelInput` | Champ texte ou numérique pour un canal de couleur donné. |
+| `ColorPickerSwatchTrigger` | Bouton de sélection d’une couleur prédéfinie. |
+| `ColorPickerValueSwatch` | Affiche une pastille de la couleur actuelle. |
 
-`ColorPicker.RootProvider`, `parseColor`, `useColorPicker` et `useColorPickerContext` couvrent les scénarios avancés
+`ColorPickerRootProvider`, `parseColor`, `useColorPicker` et `useColorPickerContext` couvrent les scénarios avancés
 habituels de gestion d’état. Importez directement les types auxiliaires d’Ark uniquement si nécessaire.
 
 ## Composition
 
-Utilisez `defaultValue` pour un état local. Lorsque l’application doit contrôler la couleur sélectionnée ou l’ouverture, passez `value` avec `onValueChange(details)` ou `open` avec `onOpenChange(details)`. Pour créer l’état en dehors de l’arbre rendu, passez le résultat de `useColorPicker()` à `ColorPicker.RootProvider`; ne rendez pas `ColorPicker` ou `ColorPicker.Root` pour le même état.
+Utilisez `defaultValue` pour un état local. Lorsque l’application doit contrôler la couleur sélectionnée ou l’ouverture, passez `value` avec `onValueChange(details)` ou `open` avec `onOpenChange(details)`. Pour créer l’état en dehors de l’arbre rendu, passez le résultat de `useColorPicker()` à `ColorPickerRootProvider`; ne rendez pas `ColorPicker` et `ColorPickerRootProvider` pour le même état.
 
-`ColorPicker.Positioner` est rendu dans un portail par défaut. Définissez `portalled={false}` lorsque la palette doit rester dans un autre contexte d’empilement. Pour inclure la couleur dans un formulaire natif, définissez `name` sur la racine et rendez explicitement `ColorPicker.HiddenInput`. `Area`, `ChannelSlider` et `SwatchTrigger` fournissent leurs parties visuelles par défaut; ne passez des enfants que pour modifier leur structure.
+`ColorPickerPositioner` est rendu dans un portail par défaut. Définissez `portalled={false}` lorsque la palette doit rester dans un autre contexte d’empilement. Pour inclure la couleur dans un formulaire natif, définissez `name` sur la racine et rendez explicitement `ColorPickerHiddenInput`. `ColorPickerArea`, `ColorPickerChannelSlider` et `ColorPickerSwatchTrigger` fournissent leurs parties visuelles par défaut; ne passez des enfants que pour modifier leur structure.
 
 ## Exemples
 
@@ -211,7 +211,7 @@ mais pas de champs pour saisir les canaux au clavier.
 
 ### Bouton d’ouverture compact
 
-Utilisez `data-fit-content` sur `ColorPicker.Trigger` lorsque la largeur du bouton doit suivre son contenu plutôt que
+Utilisez `data-fit-content` sur `ColorPickerTrigger` lorsque la largeur du bouton doit suivre son contenu plutôt que
 former une pastille carrée. Ce format convient par exemple pour remplacer un champ de couleur basé sur un bouton.
 
 <ExampleFrame variant="component">
@@ -360,7 +360,7 @@ trouve dans un conteneur de champ et doit exposer cet état avec les attributs d
 
 ### Utilisation dans un formulaire
 
-Définissez `name` sur `ColorPicker` et ajoutez explicitement `ColorPicker.HiddenInput`.
+Définissez `name` sur `ColorPicker` et ajoutez explicitement `ColorPickerHiddenInput`.
 
 <ExampleFrame variant="component">
   <ColorPickerFormUsage />
@@ -394,8 +394,8 @@ Définissez `name` sur `ColorPicker` et ajoutez explicitement `ColorPicker.Hidde
 
 ### Vues selon le format
 
-Utilisez `format`, `onFormatChange`, `FormatSelect` et `View` lorsque les utilisateurs doivent passer d’un groupe de
-champs de canaux à un autre sans modifier la structure du sélecteur. `FormatSelect` conserve le sélecteur de format natif
+Utilisez `format`, `onFormatChange`, `ColorPickerFormatSelect` et `ColorPickerView` lorsque les utilisateurs doivent passer d’un groupe de
+champs de canaux à un autre sans modifier la structure du sélecteur. `ColorPickerFormatSelect` conserve le sélecteur de format natif
 d’Ark, tandis que son affichage replié reprend le style du champ `Select` de moduix et présente uniformément les formats
 RGBA, HSLA et HSBA. Le navigateur gère la liste des options.
 
@@ -593,9 +593,9 @@ Utilisez l’état contrôlé `open` lorsqu’un autre contrôle ou un autre flu
 
 </ExampleCode>
 
-### RootProvider
+### ColorPickerRootProvider
 
-Utilisez `useColorPicker` de moduix avec `RootProvider` lorsque l’état du sélecteur doit être créé en dehors de l’arbre
+Utilisez `useColorPicker` de moduix avec `ColorPickerRootProvider` lorsque l’état du sélecteur doit être créé en dehors de l’arbre
 rendu et partagé avec des contrôles voisins.
 
 <ExampleFrame variant="component">
@@ -710,7 +710,7 @@ sélection libre. `closeOnSelect` conserve le comportement d’Ark et ferme la f
 
 ### Valeur actuelle
 
-Utilisez `ValueSwatch` et `ValueText` lorsque l’interface voisine doit afficher la couleur choisie sans ouvrir le
+Utilisez `ColorPickerValueSwatch` et `ColorPickerValueText` lorsque l’interface voisine doit afficher la couleur choisie sans ouvrir le
 sélecteur complet.
 
 <ExampleFrame variant="component">
@@ -795,14 +795,14 @@ Utilisez `className` en React ou `class` en Solid sur les parties exportées. Le
 Utilisez la partie qui contrôle l’aspect visuel concerné :
 
 - `ColorPicker` pour la largeur, les espacements, la couleur du texte et l’opacité de l’état désactivé ;
-- `ColorPicker.Control`, `ChannelInput`, `Trigger`, `FormatSelect` et `FormatTrigger` pour les éléments visibles du champ ;
-- `ColorPicker.Positioner` et `ColorPicker.Content` pour la couche, la largeur, les espacements, l’arrondi, l’ombre et
+- `ColorPickerControl`, `ColorPickerChannelInput`, `ColorPickerTrigger`, `ColorPickerFormatSelect` et `ColorPickerFormatTrigger` pour les éléments visibles du champ ;
+- `ColorPickerPositioner` et `ColorPickerContent` pour la couche, la largeur, les espacements, l’arrondi, l’ombre et
   les animations d’état de la fenêtre contextuelle ;
-- `ColorPicker.Area`, `AreaBackground` et `AreaThumb` pour la zone de couleur bidimensionnelle ;
-- `ColorPicker.ChannelSlider`, `ChannelSliderTrack`, `ChannelSliderThumb` et `Sliders` pour les curseurs de teinte,
+- `ColorPickerArea`, `ColorPickerAreaBackground` et `ColorPickerAreaThumb` pour la zone de couleur bidimensionnelle ;
+- `ColorPickerChannelSlider`, `ColorPickerChannelSliderTrack`, `ColorPickerChannelSliderThumb` et `ColorPickerSliders` pour les curseurs de teinte,
   de canal alpha et des autres canaux ;
-- `ColorPicker.SwatchGroup`, `SwatchTrigger`, `Swatch` et `SwatchIndicator` pour les grilles de couleurs prédéfinies ;
-- `ColorPicker.ValueSwatch`, `ValueText`, `View` et `TransparencyGrid` pour l’affichage de la valeur et la mise en page
+- `ColorPickerSwatchGroup`, `ColorPickerSwatchTrigger`, `ColorPickerSwatch` et `ColorPickerSwatchIndicator` pour les grilles de couleurs prédéfinies ;
+- `ColorPickerValueSwatch`, `ColorPickerValueText`, `ColorPickerView` et `ColorPickerTransparencyGrid` pour l’affichage de la valeur et la mise en page
   adaptée au format choisi.
 
 Les principaux attributs d’état sont `data-state`, `data-focus`, `data-invalid`, `data-disabled`, `data-readonly`,

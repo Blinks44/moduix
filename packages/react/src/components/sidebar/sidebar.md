@@ -154,16 +154,16 @@ remain on `Splitter`; Sidebar keeps the application-navigation contract small.
         <Sidebar.NavigationList>
           <Sidebar.NavigationItem>
             <Collapsible defaultOpen>
-              <Collapsible.Trigger asChild>
+              <CollapsibleTrigger asChild>
                 <Sidebar.NavigationButton>
                   <ProjectsIcon />
                   <Sidebar.Label>Projects</Sidebar.Label>
-                  <Collapsible.Indicator />
+                  <CollapsibleIndicator />
                 </Sidebar.NavigationButton>
-              </Collapsible.Trigger>
-              <Collapsible.Content>
+              </CollapsibleTrigger>
+              <CollapsibleContent>
                 <Sidebar.NavigationSubList>{/* project links */}</Sidebar.NavigationSubList>
-              </Collapsible.Content>
+              </CollapsibleContent>
             </Collapsible>
           </Sidebar.NavigationItem>
         </Sidebar.NavigationList>
@@ -228,7 +228,7 @@ semantic child capable of accepting merged props and refs.
 
 When visible hover labels are needed, prefer `Sidebar.Tooltip content="..."` around icon navigation
 buttons. Use the shared `Tooltip` primitive directly only when the sidebar needs custom popup
-content or non-standard positioning. Use `Collapsible.Trigger`/`Content` for nested navigation so
+content or non-standard positioning. Use `CollapsibleTrigger`/`Content` for nested navigation so
 Ark owns `aria-expanded`, ids, keyboard activation, and animation.
 
 `Sidebar.Panel`, `Sidebar.Inset`, `Sidebar.ResizeTrigger`, `Sidebar.Trigger`, and `useSidebar()` all

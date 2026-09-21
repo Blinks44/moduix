@@ -1,5 +1,12 @@
 import { Button } from '@moduix/react/button';
-import { Card } from '@moduix/react/card';
+import {
+  Card,
+  CardBody,
+  CardDescription,
+  CardFooter,
+  CardHeader,
+  CardTitle,
+} from '@moduix/react/card';
 import { Field } from '@moduix/react/field';
 import { Input } from '@moduix/react/input';
 import type { FormEventHandler } from 'react';
@@ -8,12 +15,12 @@ import styles from './reset-password-form.module.css';
 export function ResetPassword({ onSubmit }: { onSubmit?: FormEventHandler<HTMLFormElement> }) {
   return (
     <Card className={styles.root}>
-      <Card.Header className={styles.header}>
-        <Card.Title>Create a new password</Card.Title>
-        <Card.Description>Choose a strong password you don&apos;t use elsewhere.</Card.Description>
-      </Card.Header>
+      <CardHeader className={styles.header}>
+        <CardTitle>Create a new password</CardTitle>
+        <CardDescription>Choose a strong password you don&apos;t use elsewhere.</CardDescription>
+      </CardHeader>
 
-      <Card.Body>
+      <CardBody>
         <form className={styles.stack} onSubmit={onSubmit}>
           <Field required>
             <Field.Label>New password</Field.Label>
@@ -29,16 +36,16 @@ export function ResetPassword({ onSubmit }: { onSubmit?: FormEventHandler<HTMLFo
             Reset password
           </Button>
         </form>
-      </Card.Body>
+      </CardBody>
 
-      <Card.Footer className={styles.footer}>
+      <CardFooter className={styles.footer}>
         <p>
           Remembered your password?{' '}
           <a className={styles.link} href="/sign-in">
             Sign in
           </a>
         </p>
-      </Card.Footer>
+      </CardFooter>
     </Card>
   );
 }

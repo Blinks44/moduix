@@ -10,7 +10,7 @@ import CardBasic from '@/components/examples/card/basic.tsx';
 import CardHeaderAction from '@/components/examples/card/header-action.tsx';
 import CardHorizontal from '@/components/examples/card/horizontal.tsx';
 import CardOverlayLink from '@/components/examples/card/overlay-link.tsx';
-import CardRootAsLink from '@/components/examples/card/root-as-link.tsx';
+import CardAsLink from '@/components/examples/card/root-as-link.tsx';
 import CardSizes from '@/components/examples/card/sizes.tsx';
 import CardVariants from '@/components/examples/card/variants.tsx';
 import CardWithAvatar from '@/components/examples/card/with-avatar.tsx';
@@ -39,10 +39,12 @@ Ark UI ne fournit pas de primitive Card dédiée. moduix construit Card avec la 
 Les mêmes exports sont disponibles depuis `@moduix/solid/card` pour Solid.
 ## Exemple de base
 
-Utilisez `<Card />` comme racine, puis ajoutez les parties nécessaires de l’espace de noms `Card`.
+Utilisez `<Card />` comme racine, puis ajoutez les parties nécessaires. Importez chaque partie
+directement, comme `CardHeader` et `CardTitle`. Les mêmes noms fonctionnent avec les paquets npm et
+la source du registre shadcn.
 
-Si vous connaissez shadcn/ui, la structure vous sera familière. moduix utilise `Card.Body` là où shadcn utilise
-`CardContent` ; les autres parties restent sous l’espace de noms `Card`.
+Si vous connaissez shadcn/ui, la structure vous sera familière. moduix utilise `CardBody` là où shadcn utilise
+`CardContent` ; les autres parties suivent le préfixe `Card`.
 
 
 <ExampleFrame variant="component">
@@ -110,42 +112,40 @@ Consultez le [Démarrage rapide](/docs/quick-start) pour la configuration compl�
 ## Anatomie
 
 ```text
-Card.Root
-├─ Card.Background (aide moduix facultative)
-├─ Card.Media (aide moduix facultative)
-├─ Card.Header
-│  ├─ Card.Title
-│  ├─ Card.Description
-│  └─ Card.Action (aide moduix facultative)
-├─ Card.Body
-└─ Card.Footer (facultatif)
+Card
+├─ CardBackground (aide moduix facultative)
+├─ CardMedia (aide moduix facultative)
+├─ CardHeader
+│  ├─ CardTitle
+│  ├─ CardDescription
+│  └─ CardAction (aide moduix facultative)
+├─ CardBody
+└─ CardFooter (facultatif)
 ```
-
-`Card` et `Card.Root` désignent la même racine.
 
 | Partie               | Rôle                                                                                          |
 | -------------------- | --------------------------------------------------------------------------------------------- |
-| `Card` / `Card.Root` | Conteneur racine avec les props `size`, `variant` et `asChild`.                               |
-| `Card.Background`    | Couche de fond facultative couvrant toute la carte pour un média décoratif.                  |
-| `Card.Media`         | Conteneur facultatif pour un média bord à bord, avec un arrondi uniforme des angles supérieurs. |
-| `Card.Header`        | Mise en page de l’en-tête pour le titre, la description et une éventuelle action à droite.    |
-| `Card.Body`          | Zone principale du contenu.                                                                  |
-| `Card.Footer`        | Ligne inférieure pour les actions ou les métadonnées. Elle passe à la ligne si nécessaire.   |
-| `Card.Title`         | Titre rendu en `h3` par défaut. Utilisez `asChild` pour choisir un autre niveau.              |
-| `Card.Description`   | Texte complémentaire sous le titre.                                                          |
-| `Card.Action`        | Emplacement réservé à une action dans l’en-tête.                                             |
-| `Card.Link`          | Lien dont la zone cliquable s’étend à toute la carte sans bloquer les autres contrôles.      |
+| `Card` | Conteneur racine avec les props `size`, `variant` et `asChild`.                               |
+| `CardBackground`    | Couche de fond facultative couvrant toute la carte pour un média décoratif.                  |
+| `CardMedia`         | Conteneur facultatif pour un média bord à bord, avec un arrondi uniforme des angles supérieurs. |
+| `CardHeader`        | Mise en page de l’en-tête pour le titre, la description et une éventuelle action à droite.    |
+| `CardBody`          | Zone principale du contenu.                                                                  |
+| `CardFooter`        | Ligne inférieure pour les actions ou les métadonnées. Elle passe à la ligne si nécessaire.   |
+| `CardTitle`         | Titre rendu en `h3` par défaut. Utilisez `asChild` pour choisir un autre niveau.              |
+| `CardDescription`   | Texte complémentaire sous le titre.                                                          |
+| `CardAction`        | Emplacement réservé à une action dans l’en-tête.                                             |
+| `CardLink`          | Lien dont la zone cliquable s’étend à toute la carte sans bloquer les autres contrôles.      |
 
 ## Composition
 
 Card ne gère aucun état, fonction de rappel, contexte, comportement clavier ni champ masqué. Utilisez ses parties simples pour le contenu de présentation. Utilisez `asChild` lorsqu’un élément sémantique doit porter la racine ou une autre partie ; il doit rendre exactement un enfant capable de recevoir les propriétés fusionnées. En Solid, `asChild` utilise une fonction de rendu telle que `asChild={(props) => <a {...props()} />}`.
 
-Lorsqu’une carte est entièrement un lien et ne contient aucun contrôle imbriqué, composez la racine avec `asChild`. Si la carte contient aussi des boutons ou d’autres actions, gardez `Card.Link` dans `Card.Title` et placez ces contrôles dans `Card.Action` ; la zone cliquable étendue du lien ne gênera ainsi pas les autres éléments interactifs. Utilisez `Card.Media` pour un média informatif placé en tête et `Card.Background` pour un média décoratif derrière le contenu. Donnez un `alt` vide aux images d’arrière-plan et gérez dans l’application les éventuelles superpositions ou styles assurant le contraste du texte.
+Lorsqu’une carte est entièrement un lien et ne contient aucun contrôle imbriqué, composez la racine avec `asChild`. Si la carte contient aussi des boutons ou d’autres actions, gardez `CardLink` dans `CardTitle` et placez ces contrôles dans `CardAction` ; la zone cliquable étendue du lien ne gênera ainsi pas les autres éléments interactifs. Utilisez `CardMedia` pour un média informatif placé en tête et `CardBackground` pour un média décoratif derrière le contenu. Donnez un `alt` vide aux images d’arrière-plan et gérez dans l’application les éventuelles superpositions ou styles assurant le contraste du texte.
 ## Exemples
 
 ### Action dans l’en-tête
 
-Utilisez `Card.Action` pour placer un statut compact ou un contrôle à la fin de l’en-tête.
+Utilisez `CardAction` pour placer un statut compact ou un contrôle à la fin de l’en-tête.
 
 <ExampleFrame variant="component">
   <CardHeaderAction />
@@ -224,7 +224,7 @@ mise en page.
 
 ### Lien à zone cliquable étendue
 
-Utilisez `Card.Link` lorsque la carte doit proposer une navigation et des actions distinctes.
+Utilisez `CardLink` lorsque la carte doit proposer une navigation et des actions distinctes.
 
 <ExampleFrame variant="component">
   <CardOverlayLink />
@@ -266,7 +266,7 @@ Utilisez `Card.Link` lorsque la carte doit proposer une navigation et des action
 Utilisez `asChild` lorsque toute la carte doit être un seul lien et ne contient aucun contrôle imbriqué.
 
 <ExampleFrame variant="component">
-  <CardRootAsLink />
+  <CardAsLink />
 </ExampleFrame>
 
 <ExampleCode>
@@ -419,7 +419,7 @@ Placez un avatar ou un autre élément de profil dans l’en-tête lorsque la ca
 
 ### Avec une image de fond
 
-Utilisez `Card.Background` pour un média décoratif placé derrière le contenu de la carte. Ajoutez le calque et les
+Utilisez `CardBackground` pour un média décoratif placé derrière le contenu de la carte. Ajoutez le calque et les
 styles de contraste du texte dans votre application.
 
 <ExampleFrame variant="component">
@@ -459,7 +459,7 @@ styles de contraste du texte dans votre application.
 
 ### Avec une image
 
-Utilisez `Card.Media` pour un média placé en tête qui doit occuper toute la largeur de la carte avec un arrondi
+Utilisez `CardMedia` pour un média placé en tête qui doit occuper toute la largeur de la carte avec un arrondi
 uniforme des angles supérieurs.
 
 <ExampleFrame variant="component">
@@ -538,7 +538,7 @@ Faites de la racine un formulaire lorsque la carte regroupe des champs et des ac
 
 ### Personnalisation avancée
 
-Laissez `Card.Media` de côté si vous devez contrôler entièrement la présentation du média et styliser la carte
+Laissez `CardMedia` de côté si vous devez contrôler entièrement la présentation du média et styliser la carte
 avec des points d’extension bas niveau.
 
 <ExampleFrame variant="component">

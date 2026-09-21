@@ -8,11 +8,11 @@ import parallaxCardSolid from '../../../snippets/recipes/solid/parallax-card.tsx
 
 # Carte avec effet parallaxe
 
-Cette recette associe `Card.Background`, un petit gestionnaire de pointeur et des transformations CSS
+Cette recette associe `CardBackground`, un petit gestionnaire de pointeur et des transformations CSS
 pour créer une carte avec une image couvrant tout le fond et une légère inclinaison 3D. Il s’agit d’une
 composition applicative prête à copier, et non d’un composant `ParallaxCard` exporté par moduix.
 
-`Card.Background` place l’image derrière le contenu de la carte. Le dégradé et le contraste du texte sont
+`CardBackground` place l’image derrière le contenu de la carte. Le dégradé et le contraste du texte sont
 définis dans le fichier CSS de l’exemple, afin que vous puissiez les adapter à l’image choisie. L’inclinaison
 ne s’active que sur les appareils dotés d’un pointeur précis prenant en charge le survol. Si ce pointeur
 n’est pas disponible ou si la personne préfère réduire les animations, la carte reste immobile.
@@ -67,10 +67,10 @@ L’aperçu interactif utilise le paquet React. Les onglets de code présentent 
 Copiez le composant et le fichier CSS ci-dessus dans votre application, puis :
 
 - remplacez l’URL de l’image et le texte visible par votre contenu ;
-- laissez `alt=""` sur l’image placée dans `Card.Background`, puisqu’elle est décorative. Si l’image apporte
-  une information, utilisez `Card.Media` et fournissez un texte alternatif ;
+- laissez `alt=""` sur l’image placée dans `CardBackground`, puisqu’elle est décorative. Si l’image apporte
+  une information, utilisez `CardMedia` et fournissez un texte alternatif ;
 - considérez l’inclinaison comme un effet visuel. La carte doit rester lisible et utilisable sans survol ni
   animation ;
-- ajoutez un véritable lien ou bouton si la carte déclenche une action. Utilisez `Card.Root asChild` lorsque
-  toute la carte est un seul lien sans contrôle imbriqué, ou `Card.Link` dans `Card.Title` lorsque la carte
+- ajoutez un véritable lien ou bouton si la carte déclenche une action. Utilisez `Card asChild` lorsque
+  toute la carte est un seul lien sans contrôle imbriqué, ou `CardLink` dans `CardTitle` lorsque la carte
   contient aussi des actions distinctes.

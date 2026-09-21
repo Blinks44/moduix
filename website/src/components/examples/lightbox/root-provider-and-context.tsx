@@ -1,5 +1,14 @@
 import { Button } from '@moduix/react/button';
-import { Lightbox, useLightbox, useLightboxContext } from '@moduix/react/lightbox';
+import {
+  LightboxRootProvider,
+  LightboxBackdrop,
+  LightboxPositioner,
+  LightboxContent,
+  LightboxCloseIcon,
+  LightboxImage,
+  useLightbox,
+  useLightboxContext,
+} from '@moduix/react/lightbox';
 import { PreviewMeta } from '@/components/mdx/Components';
 import styles from '@/components/examples/lightbox/lightbox-root-provider-and-context.module.css';
 
@@ -43,16 +52,16 @@ export default function LightboxStateDemo() {
       <Button onClick={() => lightbox.setOpen(true)}>
         Lightbox is {lightbox.open ? 'open' : 'closed'}
       </Button>
-      <Lightbox.RootProvider value={lightbox}>
-        <Lightbox.Backdrop />
-        <Lightbox.Positioner>
-          <Lightbox.CloseIcon />
-          <Lightbox.Content aria-label={images[2].alt}>
-            <Lightbox.Image src={images[2].src} alt={images[2].alt} />
+      <LightboxRootProvider value={lightbox}>
+        <LightboxBackdrop />
+        <LightboxPositioner>
+          <LightboxCloseIcon />
+          <LightboxContent aria-label={images[2].alt}>
+            <LightboxImage src={images[2].src} alt={images[2].alt} />
             <LightboxStatus />
-          </Lightbox.Content>
-        </Lightbox.Positioner>
-      </Lightbox.RootProvider>
+          </LightboxContent>
+        </LightboxPositioner>
+      </LightboxRootProvider>
     </>
   );
 }

@@ -192,7 +192,7 @@ function PopoverCloseIcon(props: PopoverCloseIconProps) {
   return (
     <PopoverPrimitive.CloseTrigger
       asChild={(triggerProps) => (
-        <CloseButton.Root
+        <CloseButton
           {...triggerProps()}
           data-slot="popover-close-icon"
           aria-label={local['aria-label'] ?? DEFAULT_CLOSE_BUTTON_LABEL}
@@ -200,7 +200,7 @@ function PopoverCloseIcon(props: PopoverCloseIconProps) {
           class={clsx(styles.closeIcon, local.class)}
         >
           {resolvedChildren()}
-        </CloseButton.Root>
+        </CloseButton>
       )}
       {...others}
     />

@@ -39,7 +39,7 @@ TanStack.
 ## Exemple de base
 
 
-Créez une définition TanStack et transmettez-la à `Chart.Plot`. Ajoutez autour du graphique un
+Créez une définition TanStack et transmettez-la à `ChartPlot`. Ajoutez autour du graphique un
 titre, une description et une légende visibles, puis définissez un `ariaLabel` concis pour les
 personnes qui utilisent des technologies d’assistance.
 
@@ -103,37 +103,37 @@ Consultez le [Démarrage rapide](/docs/quick-start) pour la configuration compl�
 ## Anatomie
 
 ```text
-Chart / Chart.Root
-├─ Chart.Header (figcaption facultatif)
-│  ├─ Chart.Title
-│  └─ Chart.Description
-├─ Chart.Plot
+Chart
+├─ ChartHeader (figcaption facultatif)
+│  ├─ ChartTitle
+│  └─ ChartDescription
+├─ ChartPlot
 │  └─ zone de rendu TanStack (SVG par défaut)
-└─ Chart.Legend (facultatif)
-   └─ Chart.LegendItem
+└─ ChartLegend (facultatif)
+   └─ ChartLegendItem
 ```
 
 | Partie | Rôle |
 | --- | --- |
-| `Chart` / `Chart.Root` | Racine `figure` composée. Accepte les propriétés natives, `asChild` et une ref `HTMLElement`. |
-| `Chart.Plot` | Hôte TanStack Charts. Nécessite `definition` et `ariaLabel`, utilise le préréglage d’animation moduix par défaut et accepte `motion={false}`. |
-| `Chart.Header` | Structure `figcaption` du titre et de la description. |
-| `Chart.Title` | Titre du graphique, rendu dans un `h3` par défaut. |
-| `Chart.Description` | Explication visible qui accompagne le graphique. |
-| `Chart.Legend` | Liste sémantique des séries visibles. |
-| `Chart.LegendItem` | Élément de légende avec un `color` facultatif pour l’indicateur. |
+| `Chart` | Racine `figure` composée. Accepte les propriétés natives, `asChild` et une ref `HTMLElement`. |
+| `ChartPlot` | Hôte TanStack Charts. Nécessite `definition` et `ariaLabel`, utilise le préréglage d’animation moduix par défaut et accepte `motion={false}`. |
+| `ChartHeader` | Structure `figcaption` du titre et de la description. |
+| `ChartTitle` | Titre du graphique, rendu dans un `h3` par défaut. |
+| `ChartDescription` | Explication visible qui accompagne le graphique. |
+| `ChartLegend` | Liste sémantique des séries visibles. |
+| `ChartLegendItem` | Élément de légende avec un `color` facultatif pour l’indicateur. |
 
 ## Composition
 
 `Chart` est une enveloppe de présentation. La `definition` de TanStack possède les éléments
 graphiques, les échelles, les interactions et les callbacks : gardez-la au niveau du module ou
-mémoïsez-la entièrement lorsqu’elle dépend de props ou d’un état. Composez `Chart.Header`,
-`Chart.Plot` et `Chart.Legend` sous la racine ; `Chart.Plot` continue de confier à TanStack le rendu,
+mémoïsez-la entièrement lorsqu’elle dépend de props ou d’un état. Composez `ChartHeader`,
+`ChartPlot` et `ChartLegend` sous la racine ; `ChartPlot` continue de confier à TanStack le rendu,
 le focus et l’état de l’info-bulle.
 
 Utilisez `renderTooltipBody` uniquement pour envelopper ou étendre l’info-bulle native : rendez le
-`defaultBody` fourni et n’ajoutez des contrôles interactifs que lorsque `pinned` vaut true. `Chart.Root`
-et `Chart.Header` acceptent `asChild` lorsque l’élément sémantique ou la mise en page doivent être
+`defaultBody` fourni et n’ajoutez des contrôles interactifs que lorsque `pinned` vaut true. `Chart`
+et `ChartHeader` acceptent `asChild` lorsque l’élément sémantique ou la mise en page doivent être
 contrôlés par l’application.
 
 ## Exemples
@@ -195,7 +195,7 @@ fonctionnent comme des valeurs de peinture SVG et suivent automatiquement le th�
 ### Graphique en anneau
 
 Combinez les primitives TanStack optionnelles `pie`, `polar` et `radialArc` pour représenter des
-parts d’un ensemble. La même composition de `Chart.Plot`, de l’animation, du focus, de l’info-bulle
+parts d’un ensemble. La même composition de `ChartPlot`, de l’animation, du focus, de l’info-bulle
 et de la légende fonctionne aussi hors des graphiques cartésiens.
 
 <ExampleFrame variant="component">
@@ -335,7 +335,7 @@ Les parties de la factory Ark acceptent `asChild` et peuvent donc appliquer leur
 remplace `figure` et `figcaption` par un `section` et un `header` identifiés, puis place la légende
 dans l’en-tête.
 
-`Chart.Plot` reste l’hôte TanStack, pas un slot. Utilisez `class` ou `className` et `style` sur
+`ChartPlot` reste l’hôte TanStack, pas un slot. Utilisez `class` ou `className` et `style` sur
 l’élément externe, et `renderTooltipBody` pour étendre l’info-bulle. Rendez `defaultBody` dans votre
 propre enveloppe pendant que TanStack continue de gérer le positionnement et le portail. N’ajoutez
 des contrôles interactifs que dans une info-bulle épinglée.
@@ -369,7 +369,7 @@ des contrôles interactifs que dans une info-bulle épinglée.
 
 ## Styles
 
-Stylisez la figure avec `Chart.Root` et l’hôte TanStack avec `Chart.Plot`. Les propriétés CSS
+Stylisez la figure avec `Chart` et l’hôte TanStack avec `ChartPlot`. Les propriétés CSS
 publiques contrôlent la surface, l’anneau de focus, l’enveloppe de l’info-bulle et sa mise en page
 par défaut. Gardez la géométrie du graphique dans la définition TanStack, via les options des
 éléments, les échelles et les canaux de couleur.
@@ -395,9 +395,9 @@ des remplacements locaux :
 
 ### Points d’accroche CSS
 
-- `Chart.Root`, `Chart.Header`, `Chart.Title`, `Chart.Description`, `Chart.Legend` et
-  `Chart.LegendItem` exposent `data-scope="chart"`, `data-part` et `data-slot`.
-- `className` en React et `class` en Solid sur `Chart.Plot` atteignent l’élément externe `.ts-chart-host`.
+- `Chart`, `ChartHeader`, `ChartTitle`, `ChartDescription`, `ChartLegend` et
+  `ChartLegendItem` exposent `data-scope="chart"`, `data-part` et `data-slot`.
+- `className` en React et `class` en Solid sur `ChartPlot` atteignent l’élément externe `.ts-chart-host`.
 - L’info-bulle par défaut utilise les slots `chart-tooltip-body`, `chart-tooltip-title`,
   `chart-tooltip-rows`, `chart-tooltip-row`, `chart-tooltip-swatch`, `chart-tooltip-label`,
   `chart-tooltip-value` et `chart-tooltip-text`.

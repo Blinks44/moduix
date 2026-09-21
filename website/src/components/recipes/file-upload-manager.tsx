@@ -1,4 +1,4 @@
-import { Card } from '@moduix/react/card';
+import { Card, CardAction, CardBody, CardDescription, CardHeader } from '@moduix/react/card';
 import { FileUpload } from '@moduix/react/file-upload';
 import styles from './file-upload-manager.module.css';
 
@@ -16,27 +16,27 @@ function FileUploadManager() {
       >
         <FileUpload.HiddenInput />
         <Card className={styles.card}>
-          <Card.Header>
+          <CardHeader>
             <div>
               <FileUpload.Label className={styles.title}>Project attachments</FileUpload.Label>
-              <Card.Description>
+              <CardDescription>
                 Share briefs, documents, and reference images with your team.
-              </Card.Description>
+              </CardDescription>
             </div>
             <FileUpload.Context>
               {({ acceptedFiles }) =>
                 acceptedFiles.length ? (
-                  <Card.Action>
+                  <CardAction>
                     <FileUpload.ClearTrigger className={styles.clearTrigger}>
                       Clear all
                     </FileUpload.ClearTrigger>
-                  </Card.Action>
+                  </CardAction>
                 ) : null
               }
             </FileUpload.Context>
-          </Card.Header>
+          </CardHeader>
 
-          <Card.Body className={styles.body}>
+          <CardBody className={styles.body}>
             <FileUpload.Dropzone className={styles.dropzone} disableClick>
               <FileUpload.DropzoneIcon className={styles.dropzoneIcon} />
               <div className={styles.dropzoneContent}>
@@ -80,7 +80,7 @@ function FileUploadManager() {
                 </div>
               )}
             </FileUpload.Context>
-          </Card.Body>
+          </CardBody>
         </Card>
       </FileUpload>
     </div>

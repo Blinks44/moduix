@@ -1,4 +1,4 @@
-import { Card } from '@moduix/solid/card';
+import { Card, CardBody, CardDescription, CardHeader, CardTitle } from '@moduix/solid/card';
 import styles from '@/components/examples/card/card-root-as-link.module.css';
 
 const report = {
@@ -14,11 +14,11 @@ export default function LinkedCardDemo() {
       class={styles.root}
       asChild={(props) => (
         <a {...props()} href={report.href}>
-          <Card.Header>
-            <Card.Title>{report.title}</Card.Title>
-            <Card.Description>{report.description}</Card.Description>
-          </Card.Header>
-          <Card.Body>{report.summary}</Card.Body>
+          <CardHeader>
+            <CardTitle>{report.title}</CardTitle>
+            <CardDescription>{report.description}</CardDescription>
+          </CardHeader>
+          <CardBody>{report.summary}</CardBody>
         </a>
       )}
     />

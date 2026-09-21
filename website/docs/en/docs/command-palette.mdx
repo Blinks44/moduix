@@ -27,9 +27,9 @@ search row. The wrapper follows Ark's guidance for [composition](https://ark-ui.
 ## Basic
 
 
-Use `CommandPalette.Panel` for the standard dialog layout. It renders the backdrop, positioner, content,
-and body for you. Add `CommandPalette.Combobox` inside it, pass a collection, and render the filtered
-items in `CommandPalette.List`. `CommandPalette.Search` adds the input and a clear button that appears
+Use `CommandPalettePanel` for the standard dialog layout. It renders the backdrop, positioner, content,
+and body for you. Add `CommandPaletteCombobox` inside it, pass a collection, and render the filtered
+items in `CommandPaletteList`. `CommandPaletteSearch` adds the input and a clear button that appears
 once the user enters a query.
 
 <ExampleFrame variant="component">
@@ -97,77 +97,77 @@ See [Quick Start](/docs/quick-start) for full package setup, registry configurat
 ## Anatomy
 
 ```text
-CommandPalette / CommandPalette.Root
-├─ CommandPalette.Trigger
+CommandPalette
+├─ CommandPaletteTrigger
 └─ Overlay content (automatically portalled)
-   ├─ CommandPalette.Backdrop
-   └─ CommandPalette.Positioner
-      └─ CommandPalette.Content
-         ├─ CommandPalette.Header
-         │  ├─ CommandPalette.Title
-         │  └─ CommandPalette.Description
-         └─ CommandPalette.Body
-            └─ CommandPalette.Combobox
-               ├─ CommandPalette.Control
-               │  ├─ CommandPalette.Input
-               │  └─ CommandPalette.ClearTrigger
-               ├─ CommandPalette.List
-               │  ├─ CommandPalette.Empty
-               │  └─ CommandPalette.ItemGroup
-               │     ├─ CommandPalette.ItemGroupLabel
-               │     └─ CommandPalette.Item
-               │        ├─ CommandPalette.ItemIcon
-               │        ├─ CommandPalette.ItemText
-               │        │  ├─ CommandPalette.ItemLabel
-               │        │  └─ CommandPalette.ItemDescription
-               │        ├─ CommandPalette.ItemMeta
-               │        └─ CommandPalette.ItemIndicator
-               └─ CommandPalette.Footer
-                  └─ CommandPalette.Kbd
+   ├─ CommandPaletteBackdrop
+   └─ CommandPalettePositioner
+      └─ CommandPaletteContent
+         ├─ CommandPaletteHeader
+         │  ├─ CommandPaletteTitle
+         │  └─ CommandPaletteDescription
+         └─ CommandPaletteBody
+            └─ CommandPaletteCombobox
+               ├─ CommandPaletteControl
+               │  ├─ CommandPaletteInput
+               │  └─ CommandPaletteClearTrigger
+               ├─ CommandPaletteList
+               │  ├─ CommandPaletteEmpty
+               │  └─ CommandPaletteItemGroup
+               │     ├─ CommandPaletteItemGroupLabel
+               │     └─ CommandPaletteItem
+               │        ├─ CommandPaletteItemIcon
+               │        ├─ CommandPaletteItemText
+               │        │  ├─ CommandPaletteItemLabel
+               │        │  └─ CommandPaletteItemDescription
+               │        ├─ CommandPaletteItemMeta
+               │        └─ CommandPaletteItemIndicator
+               └─ CommandPaletteFooter
+                  └─ CommandPaletteKbd
 
-CommandPalette.Panel
-└─ shorthand for Backdrop, Positioner, Content, and Body
+CommandPalettePanel
+└─ shorthand for CommandPaletteBackdrop, CommandPalettePositioner, CommandPaletteContent, and CommandPaletteBody
 
-CommandPalette.RootProvider
+CommandPaletteRootProvider
 └─ the same content tree connected to state from useDialog()
 ```
 
 | Part | Role |
 | --- | --- |
-| `CommandPalette` / `CommandPalette.Root` | Owns Ark Dialog state and the optional global shortcut listener. |
-| `CommandPalette.RootProvider` | Connects the palette parts to dialog state created outside the rendered tree. |
-| `CommandPalette.Trigger` | Opens the palette. Use `asChild` to provide your own trigger element. |
-| `CommandPalette.Backdrop` | Ark Dialog backdrop with `data-state` animation state. |
-| `CommandPalette.Positioner` | Positions the dialog in the viewport and keeps its content within it. |
-| `CommandPalette.Content` | The dialog content and visual palette surface. |
-| `CommandPalette.Panel` | Convenience shell for the standard backdrop, positioner, content, and body. |
-| `CommandPalette.Header` / `Title` / `Description` | Optional layout helpers and accessible Dialog title and description parts. |
-| `CommandPalette.Body` | Layout boundary for the Combobox region inside the dialog. |
-| `CommandPalette.Combobox` | Ark Combobox root for search state and command selection. |
-| `CommandPalette.Control` | Wraps the search input and clear button. |
-| `CommandPalette.Input` | Ark Combobox input. |
-| `CommandPalette.Search` | Convenience search row that renders `Control`, `Input`, and `ClearTrigger`. It also adds a default accessible label to the input. Render the explicit parts when their individual configuration is needed. |
-| `CommandPalette.ClearTrigger` | Clears the search input and stays hidden while it is empty. |
-| `CommandPalette.List` | Ark Combobox listbox wrapped in a moduix `ScrollArea`. |
-| `CommandPalette.Empty` | Message shown when the filtered collection has no results. |
-| `CommandPalette.ItemGroup` / `ItemGroupLabel` | Grouped sections of command results. |
-| `CommandPalette.Item` | A command row with highlighted, selected, and disabled states. |
-| `CommandPalette.ItemText` | Text container for the command label and description. |
-| `CommandPalette.ItemIndicator` | Selected-state indicator with a check icon by default. |
-| `CommandPalette.ItemIcon`, `ItemLabel`, `ItemDescription`, `ItemMeta` | Visual parts for command icons, text, descriptions, and trailing metadata. |
-| `CommandPalette.Separator` | Visual separator between command sections. |
-| `CommandPalette.Footer` / `Kbd` | Footer area and command-palette wrapper around moduix `Kbd`. |
+| `CommandPalette` | Owns Ark Dialog state and the optional global shortcut listener. |
+| `CommandPaletteRootProvider` | Connects the palette parts to dialog state created outside the rendered tree. |
+| `CommandPaletteTrigger` | Opens the palette. Use `asChild` to provide your own trigger element. |
+| `CommandPaletteBackdrop` | Ark Dialog backdrop with `data-state` animation state. |
+| `CommandPalettePositioner` | Positions the dialog in the viewport and keeps its content within it. |
+| `CommandPaletteContent` | The dialog content and visual palette surface. |
+| `CommandPalettePanel` | Convenience shell for the standard backdrop, positioner, content, and body. |
+| `CommandPaletteHeader` / `CommandPaletteTitle` / `CommandPaletteDescription` | Optional layout helpers and accessible Dialog title and description parts. |
+| `CommandPaletteBody` | Layout boundary for the Combobox region inside the dialog. |
+| `CommandPaletteCombobox` | Ark Combobox root for search state and command selection. |
+| `CommandPaletteControl` | Wraps the search input and clear button. |
+| `CommandPaletteInput` | Ark Combobox input. |
+| `CommandPaletteSearch` | Convenience search row that renders `CommandPaletteControl`, `CommandPaletteInput`, and `CommandPaletteClearTrigger`. It also adds a default accessible label to the input. Render the explicit parts when their individual configuration is needed. |
+| `CommandPaletteClearTrigger` | Clears the search input and stays hidden while it is empty. |
+| `CommandPaletteList` | Ark Combobox listbox wrapped in a moduix `ScrollArea`. |
+| `CommandPaletteEmpty` | Message shown when the filtered collection has no results. |
+| `CommandPaletteItemGroup` / `CommandPaletteItemGroupLabel` | Grouped sections of command results. |
+| `CommandPaletteItem` | A command row with highlighted, selected, and disabled states. |
+| `CommandPaletteItemText` | Text container for the command label and description. |
+| `CommandPaletteItemIndicator` | Selected-state indicator with a check icon by default. |
+| `CommandPaletteItemIcon`, `CommandPaletteItemLabel`, `CommandPaletteItemDescription`, `CommandPaletteItemMeta` | Visual parts for command icons, text, descriptions, and trailing metadata. |
+| `CommandPaletteSeparator` | Visual separator between command sections. |
+| `CommandPaletteFooter` / `CommandPaletteKbd` | Footer area and command-palette wrapper around moduix `Kbd`. |
 
 ## Composition
 
-The root owns Dialog state and automatically portals `Backdrop` and `Positioner`. Set `portalled={false}`
-to render them inline, or pass `portalRef` for a custom container. Use `Panel` and `Search` for the usual
+The root owns Dialog state and automatically portals `CommandPaletteBackdrop` and `CommandPalettePositioner`. Set `portalled={false}`
+to render them inline, or pass `portalRef` for a custom container. Use `CommandPalettePanel` and `CommandPaletteSearch` for the usual
 layout, and render the structural parts directly when the dialog or search controls need a different shape.
 
-Keep collection filtering with the `Combobox` owner: configure `useListCollection` with `itemToString`,
+Keep collection filtering with the `CommandPaletteCombobox` owner: configure `useListCollection` with `itemToString`,
 `itemToValue`, and `groupBy`, then call `filter(details.inputValue)` from `onInputValueChange`. Reset the
 filter on close when the collection is managed outside the palette. Use `closeOnSelect={false}` to keep the
-palette open after an action, or `RootProvider` with `useDialog` from the matching framework package when
+palette open after an action, or `CommandPaletteRootProvider` with `useDialog` from the matching framework package when
 dialog state must be created outside the rendered tree.
 
 ## Examples
@@ -295,7 +295,7 @@ after the selected action runs.
 ### Advanced Customization
 
 Render the explicit dialog and search parts when the palette needs a custom header or search layout. The
-example keeps Ark Dialog and Combobox behavior while replacing the convenience `Panel` and `Search` helpers.
+example keeps Ark Dialog and Combobox behavior while replacing the convenience `CommandPalettePanel` and `CommandPaletteSearch` helpers.
 
 <ExampleFrame variant="component">
   <AdvancedCommandPalette />
@@ -336,7 +336,7 @@ example keeps Ark Dialog and Combobox behavior while replacing the convenience `
 
 Use CSS variables on the trigger, backdrop, content, list, and item parts when the palette needs to match
 a denser tool UI or a branded overlay. Use the structural parts when you need to change layout or layering.
-`CommandPalette.List` remains scrollable, but it does not render a visible scrollbar track.
+`CommandPaletteList` remains scrollable, but it does not render a visible scrollbar track.
 
 ### CSS Properties
 

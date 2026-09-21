@@ -75,7 +75,7 @@ gallery sits within its container.
 
 ## How it works
 
-The recipe uses two `Carousel.Context` blocks over the same root. The first reads the carousel API to mark the active
+The recipe uses two `CarouselContext` blocks over the same root. The first reads the carousel API to mark the active
 slide and render the previous and next controls. The second builds the progress indicators from
 `api.pageSnapPoints` and marks the current indicator with `data-current`.
 
@@ -86,7 +86,7 @@ intact while the bar fills.
 Arrow and indicator clicks call `requestAnimationFrame(api.play)`. Manual navigation pauses autoplay, so starting it on
 the next frame lets the page change finish before a fresh interval begins. Touch and horizontal wheel interaction pause
 autoplay as well. If your product needs playback to resume after those interactions, add that behavior to your own
-interaction flow or expose `Carousel.AutoplayTrigger`.
+interaction flow or expose `CarouselAutoplayTrigger`.
 
 Ark pauses autoplay while the document is hidden. The recipe listens for `visibilitychange` and calls the public
 `api.play()` method when the document becomes visible again.
@@ -99,5 +99,5 @@ previous and next buttons and the indicators available so users do not have to w
 
 The recipe removes slide transitions and the indicator animation when `prefers-reduced-motion: reduce` is active. The
 autoplay timer still advances the carousel. If users need to stop automatic changes, add
-`Carousel.AutoplayTrigger` or remove the `autoplay` prop for that use case. See the [Carousel documentation](/docs/carousel)
+`CarouselAutoplayTrigger` or remove the `autoplay` prop for that use case. See the [Carousel documentation](/docs/carousel)
 for the autoplay controls and the full component API.

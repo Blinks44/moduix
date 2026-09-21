@@ -1,19 +1,29 @@
 import { Button } from '@moduix/solid/button';
-import { Dialog } from '@moduix/solid/dialog';
+import {
+  Dialog,
+  DialogBackdrop,
+  DialogCloseIcon,
+  DialogContent,
+  DialogDescription,
+  DialogHeader,
+  DialogPositioner,
+  DialogTitle,
+  DialogTrigger,
+} from '@moduix/solid/dialog';
 import { Menu } from '@moduix/solid/menu';
 
 export default function MenuInDialogDemo() {
   return (
     <Dialog>
-      <Dialog.Trigger asChild={(props) => <Button {...props()}>Open dialog</Button>} />
-      <Dialog.Backdrop />
-      <Dialog.Positioner>
-        <Dialog.Content>
-          <Dialog.Header>
-            <Dialog.Title>Project settings</Dialog.Title>
-            <Dialog.CloseIcon />
-            <Dialog.Description>Choose an action without leaving the dialog.</Dialog.Description>
-          </Dialog.Header>
+      <DialogTrigger asChild={(props) => <Button {...props()}>Open dialog</Button>} />
+      <DialogBackdrop />
+      <DialogPositioner>
+        <DialogContent>
+          <DialogHeader>
+            <DialogTitle>Project settings</DialogTitle>
+            <DialogCloseIcon />
+            <DialogDescription>Choose an action without leaving the dialog.</DialogDescription>
+          </DialogHeader>
           <div>
             <Menu portalled={false} positioning={{ strategy: 'fixed', hideWhenDetached: true }}>
               <Menu.Trigger asChild={(props) => <Button {...props()} variant="outline" />}>
@@ -35,8 +45,8 @@ export default function MenuInDialogDemo() {
               </Menu.Positioner>
             </Menu>
           </div>
-        </Dialog.Content>
-      </Dialog.Positioner>
+        </DialogContent>
+      </DialogPositioner>
     </Dialog>
   );
 }

@@ -1,20 +1,30 @@
 import { Button } from '@moduix/solid/button';
-import { Dialog } from '@moduix/solid/dialog';
+import {
+  Dialog,
+  DialogBackdrop,
+  DialogCloseIcon,
+  DialogContent,
+  DialogDescription,
+  DialogHeader,
+  DialogPositioner,
+  DialogTitle,
+  DialogTrigger,
+} from '@moduix/solid/dialog';
 
 export default function DialogDemo() {
   return (
     <Dialog>
-      <Dialog.Trigger asChild={(props) => <Button {...props()}>View notifications</Button>} />
-      <Dialog.Backdrop />
-      <Dialog.Positioner>
-        <Dialog.Content>
-          <Dialog.Header>
-            <Dialog.Title>Notifications</Dialog.Title>
-            <Dialog.CloseIcon />
-            <Dialog.Description>You are all caught up. Good job!</Dialog.Description>
-          </Dialog.Header>
-        </Dialog.Content>
-      </Dialog.Positioner>
+      <DialogTrigger asChild={(props) => <Button {...props()}>View notifications</Button>} />
+      <DialogBackdrop />
+      <DialogPositioner>
+        <DialogContent>
+          <DialogHeader>
+            <DialogTitle>Notifications</DialogTitle>
+            <DialogCloseIcon />
+            <DialogDescription>You are all caught up. Good job!</DialogDescription>
+          </DialogHeader>
+        </DialogContent>
+      </DialogPositioner>
     </Dialog>
   );
 }

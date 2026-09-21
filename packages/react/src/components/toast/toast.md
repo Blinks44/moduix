@@ -43,7 +43,7 @@ the library `CloseButton` as the default close trigger surface.
   intentionally renders no title content.
 - `Toast.Description` renders `toast.description` from Ark context when `children` is omitted.
   Passing `null` intentionally renders no description content.
-- `Toast.CloseTrigger` renders `CloseButton.Root` by default and defaults its accessible label to
+- `Toast.CloseTrigger` renders `CloseButton` by default and defaults its accessible label to
   `"Close toast"` when `aria-label` is omitted.
 - All Ark callback details and store methods pass through unchanged.
 
@@ -62,14 +62,14 @@ createToaster()
 
 Every visual exported part accepts `className` and receives a stable `data-slot`:
 
-| Part                  | `data-slot`            | Notes                                                         |
-| --------------------- | ---------------------- | ------------------------------------------------------------- |
-| `Toast`               | `toast-root`           | Styled Ark root; `Toast.Root` is a compatibility alias.       |
-| `Toaster`             | `toast-toaster`        | Styled Ark group renderer for a `createToaster()` store.      |
-| `Toast.Title`         | `toast-title`          | Defaults to the current toast title.                          |
-| `Toast.Description`   | `toast-description`    | Defaults to the current toast description.                    |
-| `Toast.ActionTrigger` | `toast-action-trigger` | Styled Ark action button for the current toast action.        |
-| `Toast.CloseTrigger`  | `toast-close-trigger`  | Defaults to `CloseButton.Root` and the `"Close toast"` label. |
+| Part                  | `data-slot`            | Notes                                                    |
+| --------------------- | ---------------------- | -------------------------------------------------------- |
+| `Toast`               | `toast-root`           | Styled Ark root; `Toast.Root` is a compatibility alias.  |
+| `Toaster`             | `toast-toaster`        | Styled Ark group renderer for a `createToaster()` store. |
+| `Toast.Title`         | `toast-title`          | Defaults to the current toast title.                     |
+| `Toast.Description`   | `toast-description`    | Defaults to the current toast description.               |
+| `Toast.ActionTrigger` | `toast-action-trigger` | Styled Ark action button for the current toast action.   |
+| `Toast.CloseTrigger`  | `toast-close-trigger`  | Defaults to `CloseButton` and the `"Close toast"` label. |
 
 ## Composition
 
@@ -188,7 +188,7 @@ viewport and roots use Ark's `--gap` variable for safe inline spacing.
 - moduix ships pre-styled defaults; Ark is intentionally unstyled.
 - `Toast.Title` and `Toast.Description` can render the current toast context values without
   repeating children in every render prop.
-- `Toast.CloseTrigger` uses the moduix `CloseButton.Root` by default and keeps the default
+- `Toast.CloseTrigger` uses the moduix `CloseButton` by default and keeps the default
   accessible label. Its default sizing, hover, icon, focus ring, and transition values match
   `CloseButton`; toast-specific `--moduix-toast-close-*` variables only override that shared baseline.
 - `Toast.Toaster` is attached to the `Toast` namespace even though Ark exports `Toaster` as a
@@ -231,5 +231,5 @@ viewport and roots use Ark's `--gap` variable for safe inline spacing.
   runtime variables (`--x`, `--y`, `--scale`, `--z-index`, `--height`, `--opacity`).
 - 2026-06-21: Restored white default/info toast styling, aligned transitions with Ark's root
   guidance, and fixed placement examples by keeping all placement stores mounted.
-- 2026-06-21: Aligned default `Toast.CloseTrigger` styling with `CloseButton.Root` while preserving
+- 2026-06-21: Aligned default `Toast.CloseTrigger` styling with `CloseButton` while preserving
   toast-scoped close override variables.

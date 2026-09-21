@@ -1,6 +1,13 @@
 import { Badge } from '@moduix/react/badge';
 import { Button } from '@moduix/react/button';
-import { Card } from '@moduix/react/card';
+import {
+  Card,
+  CardBody,
+  CardDescription,
+  CardFooter,
+  CardHeader,
+  CardTitle,
+} from '@moduix/react/card';
 import styles from '@/components/examples/card/card-horizontal.module.css';
 
 const item = {
@@ -18,16 +25,16 @@ export default function HorizontalCardDemo() {
     <Card className={styles.root}>
       <img className={styles.image} src={item.image} alt={item.imageAlt} />
       <div className={styles.content}>
-        <Card.Header>
-          <Card.Title>{item.title}</Card.Title>
-          <Card.Description>{item.description}</Card.Description>
-        </Card.Header>
-        <Card.Body>
+        <CardHeader>
+          <CardTitle>{item.title}</CardTitle>
+          <CardDescription>{item.description}</CardDescription>
+        </CardHeader>
+        <CardBody>
           <Badge variant="secondary">{item.badge}</Badge>
-        </Card.Body>
-        <Card.Footer>
+        </CardBody>
+        <CardFooter>
           <Button>{item.action}</Button>
-        </Card.Footer>
+        </CardFooter>
       </div>
     </Card>
   );

@@ -1,8 +1,20 @@
 import { createListCollection, useListCollection } from '@ark-ui/solid/collection';
 import { useFilter } from '@ark-ui/solid/locale';
 import { Button } from '@moduix/solid/button';
-import { Card } from '@moduix/solid/card';
-import { Checkbox } from '@moduix/solid/checkbox';
+import {
+  Card,
+  CardBody,
+  CardDescription,
+  CardFooter,
+  CardHeader,
+  CardTitle,
+} from '@moduix/solid/card';
+import {
+  Checkbox,
+  CheckboxControl,
+  CheckboxHiddenInput,
+  CheckboxLabel,
+} from '@moduix/solid/checkbox';
 import { Combobox } from '@moduix/solid/combobox';
 import { Field } from '@moduix/solid/field';
 import { Input } from '@moduix/solid/input';
@@ -70,12 +82,12 @@ export default function ProjectForm() {
       }}
     >
       <Card>
-        <Card.Header>
-          <Card.Title>Create project</Card.Title>
-          <Card.Description>Share the details your team needs to get started.</Card.Description>
-        </Card.Header>
+        <CardHeader>
+          <CardTitle>Create project</CardTitle>
+          <CardDescription>Share the details your team needs to get started.</CardDescription>
+        </CardHeader>
 
-        <Card.Body class={styles.fields}>
+        <CardBody class={styles.fields}>
           <form.Field
             name="name"
             validators={{
@@ -207,15 +219,15 @@ export default function ProjectForm() {
                 onCheckedChange={(details) => field().handleChange(details.checked === true)}
                 onBlur={field().handleBlur}
               >
-                <Checkbox.Control />
-                <Checkbox.Label>Send status notifications</Checkbox.Label>
-                <Checkbox.HiddenInput />
+                <CheckboxControl />
+                <CheckboxLabel>Send status notifications</CheckboxLabel>
+                <CheckboxHiddenInput />
               </Checkbox>
             )}
           </form.Field>
-        </Card.Body>
+        </CardBody>
 
-        <Card.Footer>
+        <CardFooter>
           <form.Subscribe
             selector={(state) => ({
               canSubmit: state.canSubmit,
@@ -233,7 +245,7 @@ export default function ProjectForm() {
               </Button>
             )}
           </form.Subscribe>
-        </Card.Footer>
+        </CardFooter>
       </Card>
     </form>
   );

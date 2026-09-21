@@ -218,14 +218,14 @@ const TourCloseTrigger = forwardRef<
   );
 });
 
-const TourCloseIcon = forwardRef<ComponentRef<typeof CloseButton.Root>, TourCloseIconProps>(
+const TourCloseIcon = forwardRef<ComponentRef<typeof CloseButton>, TourCloseIconProps>(
   function TourCloseIcon(
     { className, children, 'aria-label': ariaLabel = DEFAULT_CLOSE_BUTTON_LABEL, ...props },
     ref,
   ) {
     return (
       <TourPrimitive.CloseTrigger asChild {...props}>
-        <CloseButton.Root
+        <CloseButton
           ref={ref}
           data-slot="tour-close-icon"
           aria-label={ariaLabel}
@@ -235,7 +235,7 @@ const TourCloseIcon = forwardRef<ComponentRef<typeof CloseButton.Root>, TourClos
           )}
         >
           {children}
-        </CloseButton.Root>
+        </CloseButton>
       </TourPrimitive.CloseTrigger>
     );
   },

@@ -1,5 +1,14 @@
 import { Button } from '@moduix/react/button';
-import { Dialog } from '@moduix/react/dialog';
+import {
+  Dialog,
+  DialogBackdrop,
+  DialogCloseIcon,
+  DialogContent,
+  DialogDescription,
+  DialogPositioner,
+  DialogTitle,
+  DialogTrigger,
+} from '@moduix/react/dialog';
 import { useState } from 'react';
 
 const users = [
@@ -28,18 +37,18 @@ export default function MultipleTriggersDialogDemo() {
       }}
     >
       {users.map((user) => (
-        <Dialog.Trigger key={user.id} value={user.id} asChild>
+        <DialogTrigger key={user.id} value={user.id} asChild>
           <Button variant="outline">Edit {user.name}</Button>
-        </Dialog.Trigger>
+        </DialogTrigger>
       ))}
-      <Dialog.Backdrop />
-      <Dialog.Positioner>
-        <Dialog.Content>
-          <Dialog.Title>Edit user</Dialog.Title>
-          <Dialog.Description>{activeUser?.email}</Dialog.Description>
-          <Dialog.CloseIcon />
-        </Dialog.Content>
-      </Dialog.Positioner>
+      <DialogBackdrop />
+      <DialogPositioner>
+        <DialogContent>
+          <DialogTitle>Edit user</DialogTitle>
+          <DialogDescription>{activeUser?.email}</DialogDescription>
+          <DialogCloseIcon />
+        </DialogContent>
+      </DialogPositioner>
     </Dialog>
   );
 }

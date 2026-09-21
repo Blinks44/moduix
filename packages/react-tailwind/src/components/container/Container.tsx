@@ -48,30 +48,27 @@ const containerVariants = cva('w-full min-w-0 mx-auto', {
   },
 });
 
-type ContainerRootProps = HTMLArkProps<'div'> & {
+type ContainerProps = HTMLArkProps<'div'> & {
   size?: ContainerSize;
   gutter?: ContainerGutter;
 };
 
-const ContainerRoot = forwardRef<ComponentRef<typeof ark.div>, ContainerRootProps>(
-  function ContainerRoot({ size = 'lg', gutter = 'md', className, ...props }, ref) {
-    return (
-      <ark.div
-        {...props}
-        ref={ref}
-        data-scope="container"
-        data-part="root"
-        data-slot="container-root"
-        data-size={size}
-        data-gutter={gutter}
-        className={cn(containerVariants({ size, gutter }), className)}
-      />
-    );
-  },
-);
-
-const Container = Object.assign(ContainerRoot, {
-  Root: ContainerRoot,
+const Container = forwardRef<ComponentRef<typeof ark.div>, ContainerProps>(function Container(
+  { size = 'lg', gutter = 'md', className, ...props },
+  ref,
+) {
+  return (
+    <ark.div
+      {...props}
+      ref={ref}
+      data-scope="container"
+      data-part="root"
+      data-slot="container-root"
+      data-size={size}
+      data-gutter={gutter}
+      className={cn(containerVariants({ size, gutter }), className)}
+    />
+  );
 });
 
 export { Container };

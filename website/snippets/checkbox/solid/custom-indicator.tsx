@@ -1,4 +1,10 @@
-import { Checkbox } from '@moduix/solid/checkbox';
+import {
+  Checkbox,
+  CheckboxControl,
+  CheckboxHiddenInput,
+  CheckboxIndicator,
+  CheckboxLabel,
+} from '@moduix/solid/checkbox';
 
 function CustomPlusIcon() {
   return (
@@ -16,13 +22,13 @@ function CustomPlusIcon() {
 export default function CheckboxCustomIndicatorDemo() {
   return (
     <Checkbox defaultChecked>
-      <Checkbox.Control>
-        <Checkbox.Indicator>
+      <CheckboxControl>
+        <CheckboxIndicator>
           <CustomPlusIcon />
-        </Checkbox.Indicator>
-      </Checkbox.Control>
-      <Checkbox.Label>Use a custom indicator icon</Checkbox.Label>
-      <Checkbox.HiddenInput />
+        </CheckboxIndicator>
+      </CheckboxControl>
+      <CheckboxLabel>Use a custom indicator icon</CheckboxLabel>
+      <CheckboxHiddenInput />
     </Checkbox>
   );
 }

@@ -231,7 +231,7 @@ function FloatingPanelCloseIcon(props: FloatingPanelCloseIconProps) {
   return (
     <FloatingPanelPrimitive.CloseTrigger
       asChild={(triggerProps) => (
-        <CloseButton.Root
+        <CloseButton
           {...triggerProps()}
           data-slot="floating-panel-close-icon"
           aria-label={local['aria-label'] ?? DEFAULT_CLOSE_BUTTON_LABEL}
@@ -239,7 +239,7 @@ function FloatingPanelCloseIcon(props: FloatingPanelCloseIconProps) {
           class={clsx(styles.controlButton, local.class)}
         >
           {resolvedChildren()}
-        </CloseButton.Root>
+        </CloseButton>
       )}
       {...others}
     />

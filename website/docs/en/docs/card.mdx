@@ -10,7 +10,7 @@ import CardBasic from '@/components/examples/card/basic.tsx';
 import CardHeaderAction from '@/components/examples/card/header-action.tsx';
 import CardHorizontal from '@/components/examples/card/horizontal.tsx';
 import CardOverlayLink from '@/components/examples/card/overlay-link.tsx';
-import CardRootAsLink from '@/components/examples/card/root-as-link.tsx';
+import CardAsLink from '@/components/examples/card/root-as-link.tsx';
 import CardSizes from '@/components/examples/card/sizes.tsx';
 import CardVariants from '@/components/examples/card/variants.tsx';
 import CardWithAvatar from '@/components/examples/card/with-avatar.tsx';
@@ -40,8 +40,8 @@ Ark UI does not provide a dedicated Card primitive. moduix builds Card with Ark'
 ## Basic
 
 
-Use `Card` as the root and add only the parts you need. `Card.Root` is an alias for the same root when
-you want to make that part explicit in your composition.
+Use `Card` as the root and add only the parts you need. Import each additional part directly, such
+as `CardHeader` and `CardTitle`. The same names work with npm packages and shadcn registry source.
 
 See [Quick Start](/docs/quick-start) for package setup, registry configuration, and choosing a styling
 track.
@@ -111,31 +111,29 @@ See [Quick Start](/docs/quick-start) for full package setup, registry configurat
 ## Anatomy
 
 ```text
-Card / Card.Root
-├─ Card.Background (optional moduix helper)
-├─ Card.Media (optional moduix helper)
-├─ Card.Header
-│  ├─ Card.Title
-│  ├─ Card.Description
-│  └─ Card.Action (optional moduix helper)
-├─ Card.Body
-└─ Card.Footer (optional)
+Card
+├─ CardBackground (optional moduix helper)
+├─ CardMedia (optional moduix helper)
+├─ CardHeader
+│  ├─ CardTitle
+│  ├─ CardDescription
+│  └─ CardAction (optional moduix helper)
+├─ CardBody
+└─ CardFooter (optional)
 ```
-
-`Card` and `Card.Root` refer to the same root component.
 
 | Part                 | Role                                                                                  |
 | -------------------- | ------------------------------------------------------------------------------------- |
-| `Card` / `Card.Root` | Root container with `size`, `variant`, and `asChild`.                                |
-| `Card.Background`    | Optional full-card background layer for decorative media.                            |
-| `Card.Media`         | Optional edge-to-edge media wrapper that clips the top corners consistently.          |
-| `Card.Header`        | Header layout for the title, description, and an optional trailing action.            |
-| `Card.Body`          | Main content area.                                                                    |
-| `Card.Footer`        | Footer row for actions or metadata. It wraps when needed.                             |
-| `Card.Title`         | Heading. Renders `h3` by default; use `asChild` for another heading level.            |
-| `Card.Description`   | Supporting text below the title.                                                      |
-| `Card.Action`        | Layout slot for an action in the header.                                               |
-| `Card.Link`          | Link whose clickable area expands across the card while leaving other controls usable. |
+| `Card`               | Root container with `size`, `variant`, and `asChild`.                                |
+| `CardBackground`    | Optional full-card background layer for decorative media.                            |
+| `CardMedia`         | Optional edge-to-edge media wrapper that clips the top corners consistently.          |
+| `CardHeader`        | Header layout for the title, description, and an optional trailing action.            |
+| `CardBody`          | Main content area.                                                                    |
+| `CardFooter`        | Footer row for actions or metadata. It wraps when needed.                             |
+| `CardTitle`         | Heading. Renders `h3` by default; use `asChild` for another heading level.            |
+| `CardDescription`   | Supporting text below the title.                                                      |
+| `CardAction`        | Layout slot for an action in the header.                                               |
+| `CardLink`          | Link whose clickable area expands across the card while leaving other controls usable. |
 
 ## Composition
 
@@ -148,9 +146,9 @@ In Solid, assign a ref to the element created inside the `asChild` render functi
 part itself is not forwarded through that composition path.
 
 When a card is entirely one link and has no nested controls, compose the root with `asChild`. When a
-card also contains buttons or other actions, keep `Card.Link` inside `Card.Title` and put those
-controls in `Card.Action`; the link's expanded click area leaves the other interactive elements usable.
-Use `Card.Media` for informative leading media and `Card.Background` for decorative media behind the
+card also contains buttons or other actions, keep `CardLink` inside `CardTitle` and put those
+controls in `CardAction`; the link's expanded click area leaves the other interactive elements usable.
+Use `CardMedia` for informative leading media and `CardBackground` for decorative media behind the
 card content. Give background images an empty `alt` and add any overlay or text-contrast styles in
 your application.
 
@@ -158,7 +156,7 @@ your application.
 
 ### Header Action
 
-Use `Card.Action` for a compact status or control at the end of the header.
+Use `CardAction` for a compact status or control at the end of the header.
 
 <ExampleFrame variant="component">
   <CardHeaderAction />
@@ -237,7 +235,7 @@ for this layout.
 
 ### Overlay Link
 
-Use `Card.Link` when the card needs navigation and separate actions.
+Use `CardLink` when the card needs navigation and separate actions.
 
 <ExampleFrame variant="component">
   <CardOverlayLink />
@@ -279,7 +277,7 @@ Use `Card.Link` when the card needs navigation and separate actions.
 Use `asChild` when the entire card is one link and contains no nested controls.
 
 <ExampleFrame variant="component">
-  <CardRootAsLink />
+  <CardAsLink />
 </ExampleFrame>
 
 <ExampleCode>
@@ -432,7 +430,7 @@ Place profile media in the header when the card represents a person or entity.
 
 ### With Background
 
-Use `Card.Background` for decorative media behind the whole card. Add the overlay and text-contrast
+Use `CardBackground` for decorative media behind the whole card. Add the overlay and text-contrast
 styles in your application.
 
 <ExampleFrame variant="component">
@@ -472,7 +470,7 @@ styles in your application.
 
 ### With Image
 
-Use `Card.Media` for leading media that should span the card width with consistent clipping.
+Use `CardMedia` for leading media that should span the card width with consistent clipping.
 
 <ExampleFrame variant="component">
   <CardWithImage />
@@ -550,7 +548,7 @@ Use the root as a form when the card groups related fields and actions.
 
 ### Advanced Customization
 
-Leave out `Card.Media` when you need custom media framing and want to style the card with lower-level
+Leave out `CardMedia` when you need custom media framing and want to style the card with lower-level
 hooks.
 
 <ExampleFrame variant="component">

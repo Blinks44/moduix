@@ -98,7 +98,7 @@ function ListboxClearTrigger(props: HTMLArkProps<'button'>) {
   const resolvedChildren = children(() => local.children);
 
   return (
-    <CloseButton.Root
+    <CloseButton
       class={cn(
         'absolute end-3 top-1/2 size-control-xs -translate-y-1/2 rounded-sm bg-transparent text-muted-foreground [&>svg]:size-4 [@media(hover:hover)]:hover:bg-muted [@media(hover:hover)]:hover:text-foreground',
         local.class,
@@ -109,7 +109,7 @@ function ListboxClearTrigger(props: HTMLArkProps<'button'>) {
       data-slot="listbox-clear-trigger"
     >
       {resolvedChildren()}
-    </CloseButton.Root>
+    </CloseButton>
   );
 }
 

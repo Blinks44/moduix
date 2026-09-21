@@ -1,6 +1,6 @@
 import { Presence } from '@ark-ui/solid/presence';
 import { Button } from '@moduix/solid/button';
-import { Card } from '@moduix/solid/card';
+import { Card, CardBody, CardDescription, CardHeader, CardTitle } from '@moduix/solid/card';
 import { Stack } from '@moduix/solid/stack';
 import { createSignal } from 'solid-js';
 import styles from '@/components/examples/presence/presence-mount-on-demand.module.css';
@@ -21,11 +21,11 @@ export default function PresenceMountOnDemandDemo() {
 
       <Presence class={styles.panel} lazyMount present={present()} unmountOnExit>
         <Card class={styles.card}>
-          <Card.Header>
-            <Card.Title>New workspace update</Card.Title>
-            <Card.Description>The panel mounts only while it is needed.</Card.Description>
-          </Card.Header>
-          <Card.Body>Publish the update when the release notes are ready for your team.</Card.Body>
+          <CardHeader>
+            <CardTitle>New workspace update</CardTitle>
+            <CardDescription>The panel mounts only while it is needed.</CardDescription>
+          </CardHeader>
+          <CardBody>Publish the update when the release notes are ready for your team.</CardBody>
         </Card>
       </Presence>
     </Stack>

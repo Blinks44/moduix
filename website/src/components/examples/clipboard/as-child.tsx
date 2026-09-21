@@ -1,23 +1,31 @@
 import { Button } from '@moduix/react/button';
-import { Clipboard } from '@moduix/react/clipboard';
+import {
+  Clipboard,
+  ClipboardControl,
+  ClipboardCopyText,
+  ClipboardIndicator,
+  ClipboardInput,
+  ClipboardLabel,
+  ClipboardTrigger,
+} from '@moduix/react/clipboard';
 import { Input } from '@moduix/react/input';
 import styles from '@/components/examples/clipboard/component-advanced-customization.module.css';
 
 export default function AsChildClipboardDemo() {
   return (
     <Clipboard className={styles.root} defaultValue="https://moduix.dev/docs/clipboard">
-      <Clipboard.Label>Reuse moduix Input and Button</Clipboard.Label>
-      <Clipboard.Control>
-        <Clipboard.Input asChild>
+      <ClipboardLabel>Reuse moduix Input and Button</ClipboardLabel>
+      <ClipboardControl>
+        <ClipboardInput asChild>
           <Input readOnly />
-        </Clipboard.Input>
-        <Clipboard.Trigger asChild>
+        </ClipboardInput>
+        <ClipboardTrigger asChild>
           <Button variant="outline">
-            <Clipboard.Indicator />
-            <Clipboard.CopyText />
+            <ClipboardIndicator />
+            <ClipboardCopyText />
           </Button>
-        </Clipboard.Trigger>
-      </Clipboard.Control>
+        </ClipboardTrigger>
+      </ClipboardControl>
     </Clipboard>
   );
 }

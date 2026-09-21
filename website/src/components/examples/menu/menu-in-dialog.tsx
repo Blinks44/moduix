@@ -1,22 +1,32 @@
 import { Button } from '@moduix/react/button';
-import { Dialog } from '@moduix/react/dialog';
+import {
+  Dialog,
+  DialogBackdrop,
+  DialogCloseIcon,
+  DialogContent,
+  DialogDescription,
+  DialogHeader,
+  DialogPositioner,
+  DialogTitle,
+  DialogTrigger,
+} from '@moduix/react/dialog';
 import { Menu } from '@moduix/react/menu';
 import styles from '@/components/examples/menu/menu-menu-in-dialog.module.css';
 
 export default function MenuInDialogDemo() {
   return (
     <Dialog>
-      <Dialog.Trigger asChild>
+      <DialogTrigger asChild>
         <Button>Open dialog</Button>
-      </Dialog.Trigger>
-      <Dialog.Backdrop />
-      <Dialog.Positioner>
-        <Dialog.Content>
-          <Dialog.Header>
-            <Dialog.Title>Project settings</Dialog.Title>
-            <Dialog.CloseIcon />
-            <Dialog.Description>Choose an action without leaving the dialog.</Dialog.Description>
-          </Dialog.Header>
+      </DialogTrigger>
+      <DialogBackdrop />
+      <DialogPositioner>
+        <DialogContent>
+          <DialogHeader>
+            <DialogTitle>Project settings</DialogTitle>
+            <DialogCloseIcon />
+            <DialogDescription>Choose an action without leaving the dialog.</DialogDescription>
+          </DialogHeader>
           <div className={styles.stack}>
             <Menu portalled={false} positioning={{ strategy: 'fixed', hideWhenDetached: true }}>
               <Menu.Trigger asChild>
@@ -40,8 +50,8 @@ export default function MenuInDialogDemo() {
               </Menu.Positioner>
             </Menu>
           </div>
-        </Dialog.Content>
-      </Dialog.Positioner>
+        </DialogContent>
+      </DialogPositioner>
     </Dialog>
   );
 }

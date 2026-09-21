@@ -1,4 +1,4 @@
-import { Card } from '@moduix/solid/card';
+import { Card, CardAction, CardBody, CardDescription, CardHeader } from '@moduix/solid/card';
 import { FileUpload } from '@moduix/solid/file-upload';
 import { For, Show } from 'solid-js';
 import styles from './file-upload-manager.module.css';
@@ -17,27 +17,27 @@ export function FileUploadManager() {
       >
         <FileUpload.HiddenInput />
         <Card class={styles.card}>
-          <Card.Header>
+          <CardHeader>
             <div>
               <FileUpload.Label class={styles.title}>Project attachments</FileUpload.Label>
-              <Card.Description>
+              <CardDescription>
                 Share briefs, documents, and reference images with your team.
-              </Card.Description>
+              </CardDescription>
             </div>
             <FileUpload.Context>
               {(api) => (
                 <Show when={api().acceptedFiles.length}>
-                  <Card.Action>
+                  <CardAction>
                     <FileUpload.ClearTrigger class={styles.clearTrigger}>
                       Clear all
                     </FileUpload.ClearTrigger>
-                  </Card.Action>
+                  </CardAction>
                 </Show>
               )}
             </FileUpload.Context>
-          </Card.Header>
+          </CardHeader>
 
-          <Card.Body class={styles.body}>
+          <CardBody class={styles.body}>
             <FileUpload.Dropzone class={styles.dropzone} disableClick>
               <FileUpload.DropzoneIcon class={styles.dropzoneIcon} />
               <div class={styles.dropzoneContent}>
@@ -84,7 +84,7 @@ export function FileUploadManager() {
                 </div>
               )}
             </FileUpload.Context>
-          </Card.Body>
+          </CardBody>
         </Card>
       </FileUpload>
     </div>

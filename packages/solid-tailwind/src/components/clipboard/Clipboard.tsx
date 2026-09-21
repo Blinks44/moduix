@@ -8,7 +8,7 @@ import { children, splitProps } from 'solid-js';
 import { cn } from '@/lib/moduix/cn';
 import { CheckIcon, CopyIcon } from '@/lib/moduix/icons/ui/Icons';
 
-function ClipboardRoot(props: ComponentProps<typeof ClipboardPrimitive.Root>) {
+function Clipboard(props: ComponentProps<typeof ClipboardPrimitive.Root>) {
   const [local, others] = splitProps(props, ['class']);
 
   return (
@@ -148,32 +148,19 @@ function ClipboardCopyText(props: ComponentProps<typeof ClipboardPrimitive.Indic
   );
 }
 
-type ClipboardComponent = typeof ClipboardRoot & {
-  Root: typeof ClipboardRoot;
-  RootProvider: typeof ClipboardRootProvider;
-  Context: typeof ClipboardPrimitive.Context;
-  Label: typeof ClipboardLabel;
-  Control: typeof ClipboardControl;
-  Input: typeof ClipboardInput;
-  Trigger: typeof ClipboardTrigger;
-  Indicator: typeof ClipboardIndicator;
-  CopyText: typeof ClipboardCopyText;
-  ValueText: typeof ClipboardValueText;
-  useClipboard: typeof useClipboard;
-};
+const ClipboardContext = ClipboardPrimitive.Context;
 
-const Clipboard: ClipboardComponent = Object.assign(ClipboardRoot, {
-  Root: ClipboardRoot,
-  RootProvider: ClipboardRootProvider,
-  Context: ClipboardPrimitive.Context,
-  Label: ClipboardLabel,
-  Control: ClipboardControl,
-  Input: ClipboardInput,
-  Trigger: ClipboardTrigger,
-  Indicator: ClipboardIndicator,
-  CopyText: ClipboardCopyText,
-  ValueText: ClipboardValueText,
+export {
+  Clipboard,
+  ClipboardContext,
+  ClipboardControl,
+  ClipboardCopyText,
+  ClipboardIndicator,
+  ClipboardInput,
+  ClipboardLabel,
+  ClipboardRootProvider,
+  ClipboardTrigger,
+  ClipboardValueText,
   useClipboard,
-});
-
-export { Clipboard, useClipboard, useClipboardContext };
+  useClipboardContext,
+};

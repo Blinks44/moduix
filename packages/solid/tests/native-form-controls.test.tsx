@@ -7,8 +7,12 @@ import {
   AngleSlider,
   AngleSliderHiddenInput,
   Checkbox,
+  CheckboxControl,
+  CheckboxHiddenInput,
+  CheckboxLabel,
   ColorPicker,
   DateInput,
+  DateInputHiddenInput,
   FileUpload,
   PinInput,
   RadioGroup,
@@ -19,6 +23,7 @@ import {
   Slider,
   Switch,
   TagsInput,
+  ColorPickerHiddenInput,
 } from '../src';
 
 const collection = createListCollection({ items: [{ label: 'React', value: 'react' }] });
@@ -37,8 +42,8 @@ const cases = [
     value: 'on',
     render: (input: boolean) => (
       <Checkbox name="value" form="native-form" defaultChecked>
-        <Checkbox.Control />
-        {input && <Checkbox.HiddenInput data-testid="native-input" />}
+        <CheckboxControl />
+        {input && <CheckboxHiddenInput data-testid="native-input" />}
       </Checkbox>
     ),
   },
@@ -47,7 +52,7 @@ const cases = [
     value: 'rgba(255, 0, 0, 1)',
     render: (input: boolean) => (
       <ColorPicker name="value" defaultValue={parseColor('#ff0000')}>
-        {input && <ColorPicker.HiddenInput form="native-form" data-testid="native-input" />}
+        {input && <ColorPickerHiddenInput form="native-form" data-testid="native-input" />}
       </ColorPicker>
     ),
   },
@@ -61,7 +66,7 @@ const cases = [
         locale="en-US"
         defaultValue={[new CalendarDate(2026, 6, 22)]}
       >
-        {input && <DateInput.HiddenInput name="value" data-testid="native-input" />}
+        {input && <DateInputHiddenInput name="value" data-testid="native-input" />}
       </DateInput>
     ),
   },
@@ -212,9 +217,9 @@ test('explicit controls synchronize interaction and native reset with FormData',
   const { container } = render(() => (
     <form>
       <Checkbox name="notifications" defaultChecked>
-        <Checkbox.Control />
-        <Checkbox.Label>Notifications</Checkbox.Label>
-        <Checkbox.HiddenInput />
+        <CheckboxControl />
+        <CheckboxLabel>Notifications</CheckboxLabel>
+        <CheckboxHiddenInput />
       </Checkbox>
       <Slider name="volume" defaultValue={[40]} thumbAlignment="center">
         <Slider.Label>Volume</Slider.Label>

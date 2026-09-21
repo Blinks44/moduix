@@ -17,7 +17,7 @@ also available as standalone exports.
   present, and a close trigger unless `closable: false` is set.
 - `Toast.Title` and `Toast.Description` read their current values from Ark context when children
   are omitted. Explicit `null` children remain empty.
-- `Toast.CloseTrigger` uses the moduix `CloseButton.Root` by default and defaults its accessible
+- `Toast.CloseTrigger` uses the moduix `CloseButton` by default and defaults its accessible
   label to `Close toast`.
 - Ark store methods and callback detail objects pass through unchanged, including `create`,
   `success`, `error`, `warning`, `info`, `loading`, `promise`, `update`, `dismiss`, `remove`,

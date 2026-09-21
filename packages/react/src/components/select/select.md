@@ -41,7 +41,7 @@ explicit popup composition, native form behavior, and `RootProvider` / context h
 - `onValueChange(details)` exposes Ark `details.value` and `details.items`.
 - `Select.Indicator` and `Select.ItemIndicator` render moduix default icons when children are
   omitted. `Select.ClearTrigger` composes Ark clearing behavior with the shared
-  `CloseButton.Root` by default.
+  `CloseButton` by default.
 - Keep `Select.Indicator` directly under `Select.Control`, after `Select.ClearTrigger`. This follows
   Ark anatomy and leaves the trigger button with phrasing-content children only.
 - While the select shows its placeholder, the trigger automatically reduces its end padding so it
@@ -178,7 +178,7 @@ The trigger defaults to `--moduix-size-md`. Single-line popup items default to `
   `:focus-visible`; pointer dismissal does not leave a ring on a closed select. `Select.Indicator`
   highlights its own area inside the trigger; `Select.ClearTrigger` does the same as a sibling
   action.
-- `Select.ClearTrigger` maps select action tokens to `CloseButton.Root`; use `asChild` with one
+- `Select.ClearTrigger` maps select action tokens to `CloseButton`; use `asChild` with one
   semantic child when the clear control needs a custom host or visual treatment.
 - Trigger indicators are positioned at the logical inline end, so they follow RTL text flow.
 - `Select.Content` uses Ark `--reference-width`, `--available-width`, `--available-height`, and
@@ -191,7 +191,7 @@ The trigger defaults to `--moduix-size-md`. Single-line popup items default to `
 ## Intentional sugar and differences from upstream
 
 - Default icons are added for indicator and item indicator. `ClearTrigger` uses the shared
-  `CloseButton.Root` without nesting buttons.
+  `CloseButton` without nesting buttons.
 - `Field` is a narrow standard-control helper; `indicator` replaces only the default chevron, while popup positioning, content, and items stay explicit.
 - `ItemTextContent`, `ItemTextIcon`, and `ItemTextLabel` are local leaf helpers only; they do not
   replace Ark item composition.
@@ -250,7 +250,7 @@ content after the first open; set both props to `false` only when eager initial 
 
 - 2026-07-20: Removed field hover and popup-open surfaces; `Select.Field` nests the indicator in the trigger for a precise icon hover target, while clear remains a sibling action.
 - 2026-07-19: Positioned trigger indicators with a logical inline-end property for RTL.
-- 2026-07-17: Composed the default clear action with `CloseButton.Root` and mapped select action
+- 2026-07-17: Composed the default clear action with `CloseButton` and mapped select action
   tokens to the shared close-button visual contract.
 - 2026-07-16: Added shared `--moduix-popup-motion-*` fallbacks for project-wide popup content motion.
 - 2026-07-13: Native select form controls were rendered automatically at this point in the wrapper history.

@@ -143,7 +143,7 @@ function ToastCloseTrigger(props: ComponentProps<typeof ToastPrimitive.CloseTrig
   return (
     <ToastPrimitive.CloseTrigger
       asChild={(triggerProps) => (
-        <CloseButton.Root
+        <CloseButton
           {...triggerProps()}
           data-slot="toast-close-trigger"
           aria-label={ariaLabel}
@@ -151,7 +151,7 @@ function ToastCloseTrigger(props: ComponentProps<typeof ToastPrimitive.CloseTrig
           class={clsx(styles.closeTrigger, local.class)}
         >
           {resolvedChildren()}
-        </CloseButton.Root>
+        </CloseButton>
       )}
       aria-label={ariaLabel}
       aria-labelledby={local['aria-labelledby']}

@@ -1,5 +1,13 @@
 import { Button } from '@moduix/react/button';
-import { Chart } from '@moduix/react/chart';
+import {
+  Chart,
+  ChartDescription,
+  ChartHeader,
+  ChartLegend,
+  ChartLegendItem,
+  ChartPlot,
+  ChartTitle,
+} from '@moduix/react/chart';
 import { barY, defineChart } from '@tanstack/charts';
 import { scaleBand } from '@tanstack/charts/scales/band';
 import { scaleLinear } from '@tanstack/charts/scales/linear';
@@ -37,22 +45,22 @@ const definition = defineChart({
 
 export default function AdvancedCustomizationChartDemo() {
   return (
-    <Chart.Root asChild>
+    <Chart asChild>
       <section aria-labelledby="dashboard-revenue-title">
-        <Chart.Header asChild>
+        <ChartHeader asChild>
           <header className={styles.header}>
             <div>
-              <Chart.Title asChild>
+              <ChartTitle asChild>
                 <h2 id="dashboard-revenue-title">Monthly revenue</h2>
-              </Chart.Title>
-              <Chart.Description>Click a bar to pin its tooltip.</Chart.Description>
+              </ChartTitle>
+              <ChartDescription>Click a bar to pin its tooltip.</ChartDescription>
             </div>
-            <Chart.Legend aria-label="Revenue series">
-              <Chart.LegendItem color="var(--moduix-color-chart-1)">Revenue</Chart.LegendItem>
-            </Chart.Legend>
+            <ChartLegend aria-label="Revenue series">
+              <ChartLegendItem color="var(--moduix-color-chart-1)">Revenue</ChartLegendItem>
+            </ChartLegend>
           </header>
-        </Chart.Header>
-        <Chart.Plot
+        </ChartHeader>
+        <ChartPlot
           definition={definition}
           height={320}
           ariaLabel="Monthly revenue"
@@ -68,6 +76,6 @@ export default function AdvancedCustomizationChartDemo() {
           )}
         />
       </section>
-    </Chart.Root>
+    </Chart>
   );
 }

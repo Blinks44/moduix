@@ -312,13 +312,13 @@ function FileUploadClearTrigger(props: ComponentProps<typeof FileUploadPrimitive
   return (
     <FileUploadPrimitive.ClearTrigger
       asChild={(triggerProps) => (
-        <CloseButton.Root
+        <CloseButton
           {...triggerProps()}
           aria-label={clearLabel()}
           aria-labelledby={local['aria-labelledby']}
         >
           {resolvedChildren() ?? <CloseIcon />}
-        </CloseButton.Root>
+        </CloseButton>
       )}
       class={triggerClass()}
       {...others}

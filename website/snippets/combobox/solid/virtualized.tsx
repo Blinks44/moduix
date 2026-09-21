@@ -1,6 +1,19 @@
 import { useListCollection } from '@ark-ui/solid/collection';
 import { useFilter } from '@ark-ui/solid/locale';
-import { Combobox } from '@moduix/solid/combobox';
+import {
+  Combobox,
+  ComboboxContent,
+  ComboboxControl,
+  ComboboxEmpty,
+  ComboboxInput,
+  ComboboxItem,
+  ComboboxItemIndicator,
+  ComboboxItemText,
+  ComboboxLabel,
+  ComboboxList,
+  ComboboxPositioner,
+  ComboboxTrigger,
+} from '@moduix/solid/combobox';
 import { createVirtualizer } from '@tanstack/solid-virtual';
 import { For, createEffect, createSignal } from 'solid-js';
 import styles from '@/components/examples/combobox/component-virtualized.module.css';
@@ -39,16 +52,16 @@ export default function VirtualizedComboboxDemo() {
         });
       }}
     >
-      <Combobox.Label>Large dataset</Combobox.Label>
-      <Combobox.Control>
-        <Combobox.Input placeholder="Search 1,000 results" />
-        <Combobox.Trigger aria-label="Open options" onClick={reset} />
-      </Combobox.Control>
-      <Combobox.Positioner>
-        <Combobox.Content class={`${styles.content} ${styles.virtualContent}`}>
-          <Combobox.Empty>No results found.</Combobox.Empty>
+      <ComboboxLabel>Large dataset</ComboboxLabel>
+      <ComboboxControl>
+        <ComboboxInput placeholder="Search 1,000 results" />
+        <ComboboxTrigger aria-label="Open options" onClick={reset} />
+      </ComboboxControl>
+      <ComboboxPositioner>
+        <ComboboxContent class={`${styles.content} ${styles.virtualContent}`}>
+          <ComboboxEmpty>No results found.</ComboboxEmpty>
           <div ref={setScrollElement} class={styles.virtualScroller}>
-            <Combobox.List
+            <ComboboxList
               class={styles.virtualList}
               style={{ height: `${virtualizer.getTotalSize()}px`, width: '100%' }}
             >
@@ -57,7 +70,7 @@ export default function VirtualizedComboboxDemo() {
                   const item = () => collection().items[virtualItem.index];
 
                   return (
-                    <Combobox.Item
+                    <ComboboxItem
                       item={item()}
                       aria-setsize={collection().size}
                       aria-posinset={virtualItem.index + 1}
@@ -71,16 +84,16 @@ export default function VirtualizedComboboxDemo() {
                         transform: `translateY(${virtualItem.start}px)`,
                       }}
                     >
-                      <Combobox.ItemText>{item()?.label}</Combobox.ItemText>
-                      <Combobox.ItemIndicator />
-                    </Combobox.Item>
+                      <ComboboxItemText>{item()?.label}</ComboboxItemText>
+                      <ComboboxItemIndicator />
+                    </ComboboxItem>
                   );
                 }}
               </For>
-            </Combobox.List>
+            </ComboboxList>
           </div>
-        </Combobox.Content>
-      </Combobox.Positioner>
+        </ComboboxContent>
+      </ComboboxPositioner>
     </Combobox>
   );
 }

@@ -4,7 +4,7 @@ component: dialog
 description: A modal window for focused tasks such as forms, confirmations, and details.
 ---
 
-import { DialogCssPropertiesPanel } from '@/components/examples/dialog/css-properties';
+import { DialogCssPropertiesPanel, Dialog, DialogBackdrop, DialogBody, DialogCloseIcon, DialogCloseTrigger, DialogContext, DialogContent, DialogDescription, DialogFooter, DialogHeader, DialogPositioner, DialogRootProvider, DialogTitle, DialogTrigger, useDialog, useDialogContext } from '@/components/examples/dialog/css-properties';
 import DialogAdvancedCustomization from '@/components/examples/dialog/advanced-customization.tsx';
 import DialogAlertDialog from '@/components/examples/dialog/alert-dialog.tsx';
 import DialogBasic from '@/components/examples/dialog/basic.tsx';
@@ -45,8 +45,8 @@ support dragging.
 ## Basic
 
 
-Use `Dialog` as the root and compose its structural parts explicitly. `Dialog.Backdrop` is the
-modal background, `Dialog.Positioner` places the dialog, and `Dialog.Content` contains its surface.
+Use `Dialog` as the root and compose its structural parts explicitly. `DialogBackdrop` is the
+modal background, `DialogPositioner` places the dialog, and `DialogContent` contains its surface.
 
 <ExampleFrame variant="component">
   <DialogBasic />
@@ -108,56 +108,56 @@ See [Quick Start](/docs/quick-start) for full package setup, registry configurat
 ## Anatomy
 
 ```text
-Dialog / Dialog.Root
-├─ Dialog.Trigger
+Dialog
+├─ DialogTrigger
 └─ Overlay content (automatically portalled)
-   ├─ Dialog.Backdrop (optional)
-   └─ Dialog.Positioner
-      └─ Dialog.Content
-         ├─ Dialog.CloseTrigger or Dialog.CloseIcon
-         ├─ Dialog.Title
-         ├─ Dialog.Description
-         ├─ Dialog.Header (moduix layout helper)
-         ├─ Dialog.Body (moduix layout helper)
-         └─ Dialog.Footer (moduix layout helper)
+   ├─ DialogBackdrop (optional)
+   └─ DialogPositioner
+      └─ DialogContent
+         ├─ DialogCloseTrigger or DialogCloseIcon
+         ├─ DialogTitle
+         ├─ DialogDescription
+         ├─ DialogHeader (moduix layout helper)
+         ├─ DialogBody (moduix layout helper)
+         └─ DialogFooter (moduix layout helper)
 
-Dialog.RootProvider
+DialogRootProvider
 └─ the same part tree connected to state from moduix useDialog()
 
-Dialog.Context
+DialogContext
 └─ a render function with the current dialog state and methods
 ```
 
 | Part                     | Role                                                                |
 | ------------------------ | ------------------------------------------------------------------- |
-| `Dialog` / `Dialog.Root` | Owns open state, focus management, and dismissal behavior.          |
-| `Dialog.RootProvider`    | Connects parts to state created with `useDialog()`.                 |
-| `Dialog.Trigger`         | Opens the dialog.                                                    |
-| `Dialog.Backdrop`        | Optional background layer for a modal dialog.                       |
-| `Dialog.Positioner`      | Positions the dialog content.                                        |
-| `Dialog.Content`         | Contains the visible dialog surface.                                 |
-| `Dialog.Title`           | Gives the dialog an accessible title.                                |
-| `Dialog.Description`     | Provides supporting accessible text.                                 |
-| `Dialog.CloseTrigger`    | Closes the dialog.                                                   |
-| `Dialog.CloseIcon`       | Moduix close-button helper that also closes the dialog.              |
-| `Dialog.Header`          | Moduix layout helper for the header.                                 |
-| `Dialog.Body`            | Moduix layout helper for the main content.                           |
-| `Dialog.Footer`          | Moduix layout helper for actions.                                    |
-| `Dialog.Context`         | Renders children with current state and dialog methods.              |
+| `Dialog` / `Dialog` | Owns open state, focus management, and dismissal behavior.          |
+| `DialogRootProvider`    | Connects parts to state created with `useDialog()`.                 |
+| `DialogTrigger`         | Opens the dialog.                                                    |
+| `DialogBackdrop`        | Optional background layer for a modal dialog.                       |
+| `DialogPositioner`      | Positions the dialog content.                                        |
+| `DialogContent`         | Contains the visible dialog surface.                                 |
+| `DialogTitle`           | Gives the dialog an accessible title.                                |
+| `DialogDescription`     | Provides supporting accessible text.                                 |
+| `DialogCloseTrigger`    | Closes the dialog.                                                   |
+| `DialogCloseIcon`       | Moduix close-button helper that also closes the dialog.              |
+| `DialogHeader`          | Moduix layout helper for the header.                                 |
+| `DialogBody`            | Moduix layout helper for the main content.                           |
+| `DialogFooter`          | Moduix layout helper for actions.                                    |
+| `DialogContext`         | Renders children with current state and dialog methods.              |
 
 Import `useDialog()` when the dialog state needs to live outside the rendered dialog tree. Read or
-update that state with `Dialog.Context` or `useDialogContext()` from the matching package.
+update that state with `DialogContext` or `useDialogContext()` from the matching package.
 
 ## Composition
 
 Dialog owns its open state by default. Use `open` with `onOpenChange(details)` when another part of
 the application owns that state. When state must live outside the dialog tree, create one
-`useDialog()` store and pass it to `Dialog.RootProvider`; do not render another root for the same
+`useDialog()` store and pass it to `DialogRootProvider`; do not render another root for the same
 store.
 
-The root automatically portals `Dialog.Backdrop` and `Dialog.Positioner`. Set `portalled={false}`
+The root automatically portals `DialogBackdrop` and `DialogPositioner`. Set `portalled={false}`
 to keep them in the current tree, or pass `portalRef` to use a custom container. Keep the part tree
-explicit, and use `Dialog.Header`, `Dialog.Body`, and `Dialog.Footer` only when their layout
+explicit, and use `DialogHeader`, `DialogBody`, and `DialogFooter` only when their layout
 helpers fit the composition.
 
 ## Examples
@@ -487,7 +487,7 @@ Control `open` from a menu item when a contextual action should open a confirmat
 
 ### Outside Scroll
 
-Let `Dialog.Positioner` scroll the whole dialog when long content should keep its natural height.
+Let `DialogPositioner` scroll the whole dialog when long content should keep its natural height.
 
 <ExampleFrame variant="component">
   <DialogOutsideScroll />
@@ -527,7 +527,7 @@ Let `Dialog.Positioner` scroll the whole dialog when long content should keep it
 ### Root Provider
 
 Create the state with `useDialog()` when controls live outside the dialog. Connect it with
-`Dialog.RootProvider`, then read it with `Dialog.Context` or `useDialogContext()` in reusable
+`DialogRootProvider`, then read it with `DialogContext` or `useDialogContext()` in reusable
 components.
 
 <ExampleFrame variant="component">
@@ -632,5 +632,5 @@ by both styling tracks.
 - State attributes: `data-state="open|closed"`, `data-has-nested`, `data-nested`, `data-current`,
   and `data-value`.
 - Runtime variables: `--layer-index` and `--nested-layer-count`.
-- `Dialog.CloseIcon` is positioned against the corner of `Dialog.Content`, so its placement does
-  not depend on `Dialog.Header`.
+- `DialogCloseIcon` is positioned against the corner of `DialogContent`, so its placement does
+  not depend on `DialogHeader`.

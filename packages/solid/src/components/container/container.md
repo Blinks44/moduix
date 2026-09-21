@@ -1,7 +1,7 @@
 # Container (Solid)
 
-`Container` centers a content column, applies responsive inline gutters, and preserves the React
-component's size presets, data hooks, CSS variables, and `Container.Root` namespace.
+`Container` is the only public root value. It centers a content column, applies responsive inline
+gutters, and preserves the React component's size presets, data hooks, and CSS variables.
 
 ## Ark Solid composition
 

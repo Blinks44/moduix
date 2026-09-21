@@ -1,4 +1,9 @@
-import { Collapsible } from '@moduix/solid/collapsible';
+import {
+  Collapsible,
+  CollapsibleContent,
+  CollapsibleIndicator,
+  CollapsibleTrigger,
+} from '@moduix/solid/collapsible';
 import { Toc } from '@moduix/solid/toc';
 import styles from '@/components/examples/table-of-contents/table-of-contents-with-collapsible.module.css';
 
@@ -21,7 +26,7 @@ export default function TocWithCollapsibleDemo() {
 
   return (
     <Toc class={styles.root} items={items} scrollEl={() => scrollRef ?? null}>
-      <Collapsible.Root class={styles.collapsibleRoot} defaultOpen>
+      <Collapsible class={styles.collapsibleRoot} defaultOpen>
         <Toc.Context>
           {(context) => {
             const activeIndex = () =>
@@ -29,18 +34,18 @@ export default function TocWithCollapsibleDemo() {
             const activeLabel = () => items[activeIndex()]?.label ?? 'On this page';
 
             return (
-              <Collapsible.Trigger>
+              <CollapsibleTrigger>
                 <span class={styles.triggerContent}>
                   <ProgressRing index={activeIndex()} total={items.length} />
                   <span class={styles.triggerLabel}>{activeLabel()}</span>
                 </span>
-                <Collapsible.Indicator />
-              </Collapsible.Trigger>
+                <CollapsibleIndicator />
+              </CollapsibleTrigger>
             );
           }}
         </Toc.Context>
 
-        <Collapsible.Content>
+        <CollapsibleContent>
           <Toc.List>
             <Toc.Indicator />
             {items.map((item) => (
@@ -49,8 +54,8 @@ export default function TocWithCollapsibleDemo() {
               </Toc.Item>
             ))}
           </Toc.List>
-        </Collapsible.Content>
-      </Collapsible.Root>
+        </CollapsibleContent>
+      </Collapsible>
 
       <Toc.Content>
         <div

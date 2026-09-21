@@ -7,49 +7,53 @@ behavior, form participation, accessibility attributes, and CSS-variable contrac
 ## Composition
 
 ```tsx
-import { DatePicker } from '@moduix/solid/date-picker';
+import {
+  DatePicker,
+  DatePickerContent,
+  DatePickerContext,
+  DatePickerDayTable,
+  DatePickerField,
+  DatePickerLabel,
+  DatePickerPositioner,
+} from '@moduix/solid/date-picker';
 import { parseDate } from '@ark-ui/solid/date-picker';
 
 <DatePicker defaultValue={[parseDate('2026-06-22')]} name="release-date">
-  <DatePicker.Label>Release date</DatePicker.Label>
-  <DatePicker.Field />
-  <DatePicker.Positioner>
-    <DatePicker.Content>
-      <DatePicker.View view="day">
-        <DatePicker.DayTable />
-      </DatePicker.View>
-    </DatePicker.Content>
-  </DatePicker.Positioner>
+  <DatePickerLabel>Release date</DatePickerLabel>
+  <DatePickerField />
+  <DatePickerPositioner>
+    <DatePickerContent>
+      <DatePickerView view="day">
+        <DatePickerDayTable />
+      </DatePickerView>
+    </DatePickerContent>
+  </DatePickerPositioner>
 </DatePicker>;
 ```
 
-`DatePicker` and `DatePicker.Root` are equivalent roots. `Positioner` is portalled by default;
+`DatePicker` is the only public root value. `DatePickerPositioner` is portalled by default;
 set `portalled={false}` or pass `portalRef` to control the overlay target. `lazyMount` and
 `unmountOnExit` default to `true`.
 
 ## API surface
 
-The barrel exports `DatePicker`, `useDatePicker`, and `useDatePickerContext`.
-`DatePicker` exposes `Root`, `RootProvider`, `Context`, `Label`, `Control`, `Field`,
-`RangeField`, `Input`, `Trigger`, `ClearTrigger`, `Positioner`, `Content`, `View`,
-`ViewControl`, `PrevTrigger`, `NextTrigger`, `ViewTrigger`, `RangeText`, `ValueText`, `Table`,
-`TableHead`, `TableBody`, `TableRow`, `TableHeader`, `TableCell`, `TableCellTrigger`, `DayTable`,
-`WeekNumberHeaderCell`, `WeekNumberCell`, `MonthSelect`, `YearSelect`, and `PresetTrigger`.
+The barrel exports `DatePicker`, all `DatePicker`-prefixed parts, `DatePickerContext`,
+`useDatePicker`, and `useDatePickerContext`.
 
-`Field` reserves input index `0`; `RangeField` renders inputs at indexes `0` and `1`.
-Use `Control` and `Input` directly for a custom input layout. Ark owns date parsing, calendar
+`DatePickerField` reserves input index `0`; `DatePickerRangeField` renders inputs at indexes `0` and `1`.
+Use `DatePickerControl` and `DatePickerInput` directly for a custom input layout. Ark owns date parsing, calendar
 state, keyboard navigation, min/max validation, unavailable dates, labels, form values, IDs,
 and details-object callbacks.
 
-`DatePicker.RootProvider` receives the accessor returned by `useDatePicker()`:
+`DatePickerRootProvider` receives the accessor returned by `useDatePicker()`:
 
 ```tsx
 const datePicker = useDatePicker();
 
-<DatePicker.RootProvider value={datePicker}>
-  <DatePicker.Label>Report date</DatePicker.Label>
-  <DatePicker.Field />
-</DatePicker.RootProvider>;
+<DatePickerRootProvider value={datePicker}>
+  <DatePickerLabel>Report date</DatePickerLabel>
+  <DatePickerField />
+</DatePickerRootProvider>;
 ```
 
 Solid render props expose the accessor directly, so read state as `datePicker().value`,
@@ -64,7 +68,7 @@ native paths.
 
 The root inherits `disabled` and `invalid` from the closest Ark `Field` or `Fieldset`, and
 `readOnly` and `required` from `Field`; direct DatePicker props take precedence. The default
-trigger renders `CalendarIcon`, and `ClearTrigger` composes `CloseButton.Root` while preserving
+trigger renders `CalendarIcon`, and `DatePickerClearTrigger` composes `CloseButton` while preserving
 Ark-provided accessible labels.
 
 All visual parts accept `class`. Consumer-targetable state attributes include `data-state`,

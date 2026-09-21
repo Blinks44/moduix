@@ -1,4 +1,15 @@
-import { ColorPicker, parseColor } from '@moduix/solid/color-picker';
+import {
+  ColorPicker,
+  parseColor,
+  ColorPickerHiddenInput,
+  ColorPickerLabel,
+  ColorPickerControl,
+  ColorPickerTrigger,
+  ColorPickerPositioner,
+  ColorPickerContent,
+  ColorPickerArea,
+  ColorPickerChannelInput,
+} from '@moduix/solid/color-picker';
 import { Field } from '@moduix/solid/field';
 import styles from '@/components/examples/color-picker/color-picker-field-state.module.css';
 
@@ -6,17 +17,17 @@ export default function FieldStateColorPickerDemo() {
   return (
     <Field class={styles.root}>
       <ColorPicker name="accent" required invalid defaultValue={parseColor('#eb5e41')}>
-        <ColorPicker.Label>Accent color</ColorPicker.Label>
-        <ColorPicker.Control>
-          <ColorPicker.ChannelInput channel="hex" />
-          <ColorPicker.Trigger aria-label="Open color picker" />
-        </ColorPicker.Control>
-        <ColorPicker.Positioner>
-          <ColorPicker.Content>
-            <ColorPicker.Area />
-          </ColorPicker.Content>
-        </ColorPicker.Positioner>
-        <ColorPicker.HiddenInput />
+        <ColorPickerLabel>Accent color</ColorPickerLabel>
+        <ColorPickerControl>
+          <ColorPickerChannelInput channel="hex" />
+          <ColorPickerTrigger aria-label="Open color picker" />
+        </ColorPickerControl>
+        <ColorPickerPositioner>
+          <ColorPickerContent>
+            <ColorPickerArea />
+          </ColorPickerContent>
+        </ColorPickerPositioner>
+        <ColorPickerHiddenInput />
       </ColorPicker>
       <Field.HelperText>Used for generated charts and callouts.</Field.HelperText>
       <Field.ErrorText>Choose an accent color.</Field.ErrorText>

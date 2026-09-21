@@ -40,8 +40,8 @@ sections liées doivent partager la navigation au clavier ou un état coordonné
 ## Exemple de base
 
 
-Utilisez `Collapsible` avec `Trigger`, `Content` et, si besoin, `Indicator` pour déplier ou replier une
-seule zone de contenu. Placez le contenu dans `Collapsible.Body` lorsque vous avez besoin du conteneur
+Utilisez `Collapsible` avec `CollapsibleTrigger`, `CollapsibleContent` et, si besoin, `CollapsibleIndicator` pour déplier ou replier une
+seule zone de contenu. Placez le contenu dans `CollapsibleBody` lorsque vous avez besoin du conteneur
 interne recommandé pour les espacements et la mise en page.
 
 <ExampleFrame variant="component">
@@ -110,26 +110,26 @@ Consultez le [Démarrage rapide](/docs/quick-start) pour la configuration compl�
 ## Anatomie
 
 ```text
-Collapsible / Collapsible.Root
-├─ Collapsible.Trigger
+Collapsible
+├─ CollapsibleTrigger
 │  ├─ libellé
-│  └─ Collapsible.Indicator (facultatif)
-└─ Collapsible.Content
-   └─ Collapsible.Body
+│  └─ CollapsibleIndicator (facultatif)
+└─ CollapsibleContent
+   └─ CollapsibleBody
        └─ contenu
 
-Collapsible.RootProvider
+CollapsibleRootProvider
 └─ même arbre de parties relié à un store useCollapsible()
 ```
 
-| Partie                             | Rôle                                                                    |
-| ---------------------------------- | ----------------------------------------------------------------------- |
-| `Collapsible` / `Collapsible.Root` | Gère l’état d’une seule section repliable.                              |
-| `Collapsible.RootProvider`         | Relie les parties à l’état créé avec `useCollapsible`.                  |
-| `Collapsible.Trigger`              | Bouton accessible qui déplie ou replie le contenu.                       |
-| `Collapsible.Indicator`            | Indicateur facultatif qui affiche par défaut un chevron moduix.         |
-| `Collapsible.Content`              | Zone animée dont Ark mesure les dimensions.                             |
-| `Collapsible.Body`                 | Conteneur interne pour les espacements et la mise en page du contenu.    |
+| Partie                    | Rôle                                                                    |
+| ------------------------- | ----------------------------------------------------------------------- |
+| `Collapsible`             | Gère l’état d’une seule section repliable.                              |
+| `CollapsibleRootProvider` | Relie les parties à l’état créé avec `useCollapsible`.                  |
+| `CollapsibleTrigger`      | Bouton accessible qui déplie ou replie le contenu.                       |
+| `CollapsibleIndicator`    | Indicateur facultatif qui affiche par défaut un chevron moduix.         |
+| `CollapsibleContent`      | Zone animée dont Ark mesure les dimensions.                             |
+| `CollapsibleBody`         | Conteneur interne pour les espacements et la mise en page du contenu.    |
 
 ## Composition
 
@@ -137,12 +137,12 @@ Collapsible.RootProvider
 `open` avec `onOpenChange(details)` lorsqu’une autre partie de l’application gère l’état. Le callback
 conserve l’objet `details` d’Ark : l’état contrôlé se lit donc avec `details.open`.
 
-Utilisez `Collapsible.RootProvider` avec `useCollapsible()` du paquet correspondant au framework lorsque
+Utilisez `CollapsibleRootProvider` avec `useCollapsible()` du paquet correspondant au framework lorsque
 le store doit être créé en dehors de l’arbre rendu ou partagé entre plusieurs limites de composition.
-Transmettez ce store à `RootProvider` et ne rendez pas une seconde racine `Collapsible` pour le même état.
+Transmettez ce store à `CollapsibleRootProvider` et ne rendez pas une seconde racine `Collapsible` pour le même état.
 
-Placez les espacements et les styles de surface sur `Collapsible.Body`, et non sur
-`Collapsible.Content`, afin qu’Ark puisse mesurer correctement la partie animée. `Collapsible.Indicator`
+Placez les espacements et les styles de surface sur `CollapsibleBody`, et non sur
+`CollapsibleContent`, afin qu’Ark puisse mesurer correctement la partie animée. `CollapsibleIndicator`
 est facultatif et affiche par défaut le chevron moduix.
 
 Utilisez `asChild` uniquement lorsqu’un élément sémantique appartenant à l’application doit recevoir le
@@ -398,7 +398,7 @@ Imbriquez des racines indépendantes lorsqu’une section ouverte contient un au
 
 Utilisez `collapsedHeight` ou `collapsedWidth` pour laisser une partie du contenu visible lorsque la zone
 est fermée. Les éléments interactifs de cette partie deviennent inertes (`inert`) tant que la zone est
-repliée. Placez donc les actions qui doivent rester disponibles en dehors de `Collapsible.Content`.
+repliée. Placez donc les actions qui doivent rester disponibles en dehors de `CollapsibleContent`.
 
 <ExampleFrame variant="component">
   <CollapsiblePartialCollapse />
@@ -478,7 +478,7 @@ Utilisez `collapsedWidth` lorsqu’un aperçu horizontal est plus utile qu’un 
 
 ### Root Provider
 
-Créez l’état avec `useCollapsible()` et transmettez-le à `Collapsible.RootProvider` lorsque du code
+Créez l’état avec `useCollapsible()` et transmettez-le à `CollapsibleRootProvider` lorsque du code
 extérieur à l’arborescence rendue doit y accéder.
 
 <ExampleFrame variant="component">
@@ -520,7 +520,7 @@ extérieur à l’arborescence rendue doit y accéder.
 ### Personnalisation avancée
 
 Utilisez `asChild` pour appliquer le comportement du déclencheur à un bouton défini par votre application.
-Les styles par défaut de `Collapsible.Trigger` ne sont alors pas appliqués, mais le comportement Ark et
+Les styles par défaut de `CollapsibleTrigger` ne sont alors pas appliqués, mais le comportement Ark et
 les attributs d’état sont conservés.
 
 <ExampleFrame variant="component">
@@ -568,7 +568,7 @@ Tailwind utilisent les utilitaires natifs et les classes de l’application ; le
 personnalisent les variantes CSS Modules. Les attributs de données et les hooks `data-slot` sont
 communs aux deux modes de style.
 
-Placez les espacements sur `Collapsible.Body`, et non sur `Collapsible.Content`, afin qu’Ark puisse
+Placez les espacements sur `CollapsibleBody`, et non sur `CollapsibleContent`, afin qu’Ark puisse
 mesurer et animer correctement le contenu.
 
 ### Propriétés CSS
@@ -582,7 +582,7 @@ mesurer et animer correctement le contenu.
 - Les parties Ark exposent `data-scope="collapsible"` et les valeurs `data-part` de la racine, du
   déclencheur, de l’indicateur et du contenu.
 - Ark ajoute `data-state="open" | "closed"` à la racine, au déclencheur, à l’indicateur et au contenu.
-- Ark ajoute `data-collapsible` à la partie `Content`.
+- Ark ajoute `data-collapsible` à la partie `CollapsibleContent`.
 - `data-disabled` marque les parties déclencheur, indicateur et contenu lorsqu’elles sont désactivées.
 - `data-has-collapsed-size` marque le contenu configuré avec `collapsedHeight` ou `collapsedWidth`.
 - L’animation du contenu utilise les variables Ark `--height`, `--width`, `--collapsed-height` et `--collapsed-width`.

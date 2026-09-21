@@ -1,6 +1,14 @@
 import { expect, rs, test } from '@rstest/core';
 import { render, screen } from '@solidjs/testing-library';
-import { Chart } from '../src';
+import {
+  Chart,
+  ChartDescription,
+  ChartHeader,
+  ChartLegend,
+  ChartLegendItem,
+  ChartPlot,
+  ChartTitle,
+} from '../src';
 
 type MockTarget = {
   content:
@@ -80,7 +88,7 @@ test('renders the callable root with stable hooks and replaceable Tailwind defau
 });
 
 test('forwards plot props and supplies the default motion renderer', () => {
-  render(() => <Chart.Plot ariaLabel="Monthly revenue" definition={{} as never} />);
+  render(() => <ChartPlot ariaLabel="Monthly revenue" definition={{} as never} />);
 
   const plot = screen.getByTestId('tanstack-chart');
 
@@ -90,7 +98,7 @@ test('forwards plot props and supplies the default motion renderer', () => {
 });
 
 test('uses the static SVG renderer when motion is disabled', () => {
-  render(() => <Chart.Plot ariaLabel="Monthly revenue" definition={{} as never} motion={false} />);
+  render(() => <ChartPlot ariaLabel="Monthly revenue" definition={{} as never} motion={false} />);
 
   expect(screen.getByTestId('tanstack-chart')).toHaveAttribute(
     'data-renderer',
@@ -100,7 +108,7 @@ test('uses the static SVG renderer when motion is disabled', () => {
 
 test('prefers an explicit renderer over the motion setting', () => {
   render(() => (
-    <Chart.Plot
+    <ChartPlot
       ariaLabel="Monthly revenue"
       definition={{} as never}
       motion={false}
@@ -113,7 +121,7 @@ test('prefers an explicit renderer over the motion setting', () => {
 
 test('styles TanStack tooltip chrome through its public class option', () => {
   render(() => (
-    <Chart.Plot
+    <ChartPlot
       ariaLabel="Monthly revenue"
       definition={{ tooltip: { use: {}, className: '!bg-muted' } } as never}
     />
@@ -127,7 +135,7 @@ test('styles TanStack tooltip chrome through its public class option', () => {
 });
 
 test('renders the compact Moduix tooltip body by default', () => {
-  render(() => <Chart.Plot ariaLabel="Monthly revenue" definition={{} as never} />);
+  render(() => <ChartPlot ariaLabel="Monthly revenue" definition={{} as never} />);
 
   expect(document.querySelector('[data-slot="chart-tooltip-body"]')).toBeInTheDocument();
   expect(document.querySelector('[data-slot="chart-tooltip-title"]')).toHaveTextContent('March');
@@ -139,7 +147,7 @@ test('renders the compact Moduix tooltip body by default', () => {
 
 test('passes TanStack’s native default body to a custom tooltip renderer', () => {
   render(() => (
-    <Chart.Plot
+    <ChartPlot
       ariaLabel="Monthly revenue"
       definition={{} as never}
       renderTooltipBody={(tooltip) => <div data-testid="custom-tooltip">{tooltip.defaultBody}</div>}
@@ -154,15 +162,15 @@ test('passes TanStack’s native default body to a custom tooltip renderer', () 
 test('renders composition parts with semantic defaults and stable hooks', () => {
   render(() => (
     <Chart>
-      <Chart.Header data-testid="header">
-        <Chart.Title data-testid="title">Monthly revenue</Chart.Title>
-        <Chart.Description data-testid="description">Revenue by month</Chart.Description>
-      </Chart.Header>
-      <Chart.Legend aria-label="Series" data-testid="legend">
-        <Chart.LegendItem color="tomato" data-testid="legend-item">
+      <ChartHeader data-testid="header">
+<ChartTitle data-testid="title">Monthly revenue</ChartTitle>
+        <ChartDescription data-testid="description">Revenue by month</ChartDescription>
+      </ChartHeader>
+      <ChartLegend aria-label="Series" data-testid="legend">
+        <ChartLegendItem color="tomato" data-testid="legend-item">
           Revenue
-        </Chart.LegendItem>
-      </Chart.Legend>
+        </ChartLegendItem>
+      </ChartLegend>
     </Chart>
   ));
 
@@ -204,13 +212,13 @@ test('renders composition parts with semantic defaults and stable hooks', () => 
 test('lets consumer Tailwind classes override conflicting defaults on every public part', () => {
   render(() => (
     <Chart>
-      <Chart.Header class="gap-4" data-testid="header" />
-      <Chart.Title class="text-xl" data-testid="title">
+      <ChartHeader class="gap-4" data-testid="header" />
+      <ChartTitle class="text-xl" data-testid="title">
         Monthly revenue
-      </Chart.Title>
-      <Chart.Description class="text-foreground" data-testid="description" />
-      <Chart.Legend class="gap-1" data-testid="legend" />
-      <Chart.LegendItem class="text-foreground" data-testid="legend-item" />
+      </ChartTitle>
+      <ChartDescription class="text-foreground" data-testid="description" />
+      <ChartLegend class="gap-1" data-testid="legend" />
+      <ChartLegendItem class="text-foreground" data-testid="legend-item" />
     </Chart>
   ));
 

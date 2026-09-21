@@ -1,1 +1,9 @@
-export { Chart } from './Chart.js';
+export {
+  Chart,
+  ChartDescription,
+  ChartHeader,
+  ChartLegend,
+  ChartLegendItem,
+  ChartPlot,
+  ChartTitle,
+} from './Chart.js';

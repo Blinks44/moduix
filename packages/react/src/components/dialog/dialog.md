@@ -15,14 +15,15 @@ dismissal behavior, layering, and accessibility.
 
 ## Upstream model to preserve
 
-The wrapper follows `@ark-ui/react/dialog` directly. Preserve `Root`, `RootProvider`, `Trigger`,
-`Backdrop`, `Positioner`, `Content`, `Title`, `Description`, and `CloseTrigger`.
+The wrapper follows `@ark-ui/react/dialog` directly. Preserve `Dialog`, `DialogRootProvider`,
+`DialogTrigger`, `DialogBackdrop`, `DialogPositioner`, `DialogContent`, `DialogTitle`,
+`DialogDescription`, and `DialogCloseTrigger`.
 
-Keep `Backdrop → Positioner → Content` explicit. `Root` owns the portal boundary.
+Keep `DialogBackdrop → DialogPositioner → DialogContent` explicit. `Dialog` owns the portal boundary.
 
 ## Current behavior contract
 
-`Root` and `RootProvider` portal `Backdrop` and `Positioner` automatically by default. Set `portalled={false}` to render them inline, or pass `portalRef` to target a custom container. The structural parts remain explicit and independently styleable.
+`Dialog` and `DialogRootProvider` portal `DialogBackdrop` and `DialogPositioner` automatically by default. Set `portalled={false}` to render them inline, or pass `portalRef` to target a custom container. The structural parts remain explicit and independently styleable.
 
 `Dialog` passes Ark root props through unchanged, including controlled and uncontrolled open
 state, focus targets, modal behavior, presence options, dismissal callbacks, `ids`, and
@@ -35,22 +36,22 @@ state, focus targets, modal behavior, presence options, dismissal callbacks, `id
 
 ```text
 Dialog
-├─ Dialog.Trigger
+├─ DialogTrigger
 └─ Overlay subtree (automatically portalled)
-   ├─ Dialog.Backdrop
-   └─ Dialog.Positioner
-      └─ Dialog.Content
-         ├─ Dialog.CloseTrigger or Dialog.CloseIcon
-         ├─ Dialog.Title
-         ├─ Dialog.Description
-         ├─ Dialog.Header
-         ├─ Dialog.Body
-         └─ Dialog.Footer
+   ├─ DialogBackdrop
+   └─ DialogPositioner
+      └─ DialogContent
+         ├─ DialogCloseTrigger or DialogCloseIcon
+         ├─ DialogTitle
+         ├─ DialogDescription
+         ├─ DialogHeader
+         ├─ DialogBody
+         └─ DialogFooter
 
-Dialog.RootProvider
+DialogRootProvider
 └─ the same part tree connected to moduix useDialog()
 
-Dialog.Context
+DialogContext
 └─ a render function with the current dialog state and methods
 ```
 
@@ -62,28 +63,45 @@ Stable slots are `dialog-trigger`, `dialog-backdrop`, `dialog-positioner`, `dial
 
 ```tsx
 import { Button } from '@moduix/react/button';
-import { Dialog } from '@moduix/react/dialog';
+import {
+  Dialog,
+  DialogBackdrop,
+  DialogBody,
+  DialogCloseIcon,
+  DialogCloseTrigger,
+  DialogContext,
+  DialogContent,
+  DialogDescription,
+  DialogFooter,
+  DialogHeader,
+  DialogPositioner,
+  DialogRootProvider,
+  DialogTitle,
+  DialogTrigger,
+  useDialog,
+  useDialogContext,
+} from '@moduix/react/dialog';
 
 export function DialogDemo() {
   return (
     <Dialog>
-      <Dialog.Trigger asChild>
+      <DialogTrigger asChild>
         <Button>Open dialog</Button>
-      </Dialog.Trigger>
-      <Dialog.Backdrop />
-      <Dialog.Positioner>
-        <Dialog.Content>
-          <Dialog.Title>Project settings</Dialog.Title>
-          <Dialog.Description>Update the project configuration.</Dialog.Description>
-          <Dialog.CloseIcon />
-        </Dialog.Content>
-      </Dialog.Positioner>
+      </DialogTrigger>
+      <DialogBackdrop />
+      <DialogPositioner>
+        <DialogContent>
+          <DialogTitle>Project settings</DialogTitle>
+          <DialogDescription>Update the project configuration.</DialogDescription>
+          <DialogCloseIcon />
+        </DialogContent>
+      </DialogPositioner>
     </Dialog>
   );
 }
 ```
 
-Use `asChild` with one semantic child. Use `Dialog.RootProvider` instead of `Dialog` when the
+Use `asChild` with one semantic child. Use `DialogRootProvider` instead of `Dialog` when the
 same state instance comes from moduix `useDialog()`.
 
 ## Upstream feature coverage
@@ -105,19 +123,19 @@ same state instance comes from moduix `useDialog()`.
 ## Accessibility and state
 
 Ark UI owns focus trapping, Escape handling, outside interaction, scroll prevention, focus
-restoration, nested layer dismissal, and ARIA wiring. Render `Dialog.Title` or provide root
-`aria-label`; use `Dialog.Description` for supporting accessible text.
+restoration, nested layer dismissal, and ARIA wiring. Render `DialogTitle` or provide root
+`aria-label`; use `DialogDescription` for supporting accessible text.
 
-Do not set static pointer-event behavior on `Dialog.Positioner`. Ark applies modal-aware inline
+Do not set static pointer-event behavior on `DialogPositioner`. Ark applies modal-aware inline
 pointer events: modal positioners cover the viewport, while non-modal positioners become
-pointer-transparent and keep `Dialog.Content` interactive.
+pointer-transparent and keep `DialogContent` interactive.
 
-`Dialog.Content` exposes `data-state`, `data-nested`, `data-has-nested`, `--layer-index`, and
-`--nested-layer-count`. `Dialog.Backdrop` exposes `data-state` and `--layer-index`.
-`Dialog.Trigger` exposes `data-state`, `data-value`, and `data-current`.
+`DialogContent` exposes `data-state`, `data-nested`, `data-has-nested`, `--layer-index`, and
+`--nested-layer-count`. `DialogBackdrop` exposes `data-state` and `--layer-index`.
+`DialogTrigger` exposes `data-state`, `data-value`, and `data-current`.
 
-Refs on DOM parts target the underlying Ark DOM element. `Dialog.CloseIcon` forwards its ref to the
-rendered `CloseButton.Root`.
+Refs on DOM parts target the underlying Ark DOM element. `DialogCloseIcon` forwards its ref to the
+rendered `CloseButton`.
 
 ## Defaults and styling
 
@@ -134,21 +152,21 @@ Open and close animations use Ark `data-state="open|closed"`. Nested scaling use
 dialogs animate the parent `Content` with CSS `scale` and `translate` individual transform
 properties so the parent recedes downward and remains visibly layered behind the active dialog. Tune
 the effect with `--moduix-dialog-nested-scale-step`, `--moduix-dialog-nested-translate-step`, and
-`--moduix-dialog-nested-transition`. Layer order uses `--layer-index`. `Dialog.CloseIcon` is positioned at
+`--moduix-dialog-nested-transition`. Layer order uses `--layer-index`. `DialogCloseIcon` is positioned at
 the content's block-start/inline-end corner by default, including when it is composed outside
-`Dialog.Header`. When the system requests reduced motion, backdrop and content animations shorten
+`DialogHeader`. When the system requests reduced motion, backdrop and content animations shorten
 while Ark keeps its presence lifecycle intact. Public `--moduix-dialog-*` tokens live in
 `variables-moduix.css`.
 
 ## Intentional sugar and differences from upstream
 
-- `Dialog.CloseIcon` composes Ark `CloseTrigger` with the moduix close button and defaults its
+- `DialogCloseIcon` composes Ark `CloseTrigger` with the moduix close button and defaults its
   accessible label to `"Close dialog"`.
-- `Dialog.Header`, `Dialog.Body`, and `Dialog.Footer` are native layout helpers.
+- `DialogHeader`, `DialogBody`, and `DialogFooter` are native layout helpers.
 - moduix exports Ark's `useDialog` and `useDialogContext` hooks alongside `Dialog`, and includes
-  `Dialog.Context`, so provider and context workflows stay on the moduix public surface. Direct Ark
+  `DialogContext`, so provider and context workflows stay on the moduix public surface. Direct Ark
   imports remain escape hatches.
-- `Dialog.Trigger` and `Dialog.CloseTrigger` receive moduix button styling only when they render
+- `DialogTrigger` and `DialogCloseTrigger` receive moduix button styling only when they render
   their native button. `asChild` leaves the child component's visual styling in control.
 - Legacy exports were removed: `createDialogHandle`, `DialogPortal`, `DialogViewport`,
   `DialogPopup`, flat part aliases, hidden `DialogContent` overlay composition, `render`, `handle`,
@@ -157,7 +175,7 @@ while Ark keeps its presence lifecycle intact. Public `--moduix-dialog-*` tokens
 ## Agent notes
 
 Do not introduce a convenience component that hides `Backdrop`, `Positioner`, or `Content`. Keep
-Ark callback detail objects, `RootProvider`, `useDialog`, and `useDialogContext` unchanged.
+Ark callback detail objects, `DialogRootProvider`, `useDialog`, and `useDialogContext` unchanged.
 
 ## Mount lifecycle
 
@@ -180,12 +198,12 @@ content after the first open; set both props to `false` only when eager initial 
   close-trigger id is not duplicated within the dialog.
 - 2026-07-10: Re-exported `useDialog` and `useDialogContext` so provider and context workflows use
   the moduix package surface.
-- 2026-07-24: Restored Ark-compatible `Dialog.Context` alongside the moduix context hooks.
+- 2026-07-24: Restored Ark-compatible `DialogContext` alongside the moduix context hooks.
 - 2026-07-01: Made overlay portalling automatic by default, added `portalled` and `portalRef`, and removed explicit `Portal` wrappers from recommended composition.
 
 - 2026-06-29: Synced nested dialog motion with Drawer by adding animated parent scale and downward
   offset so the parent remains visibly layered behind the active nested dialog.
-- 2026-06-25: Audited Ark migration, corrected public docs snippets to use `Dialog.RootProvider`,
+- 2026-06-25: Audited Ark migration, corrected public docs snippets to use `DialogRootProvider`,
   added open-from-menu and confirmation examples, and removed stale story CSS left from pre-Ark
   popup naming.
 - 2026-06-18: Adopted Ark UI, adopted Ark anatomy and callbacks, exposed

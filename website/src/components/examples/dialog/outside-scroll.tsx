@@ -1,5 +1,17 @@
 import { Button } from '@moduix/react/button';
-import { Dialog } from '@moduix/react/dialog';
+import {
+  Dialog,
+  DialogBackdrop,
+  DialogBody,
+  DialogCloseTrigger,
+  DialogContent,
+  DialogDescription,
+  DialogFooter,
+  DialogHeader,
+  DialogPositioner,
+  DialogTitle,
+  DialogTrigger,
+} from '@moduix/react/dialog';
 import styles from '@/components/examples/dialog/dialog-outside-scroll.module.css';
 
 const paragraphs = [
@@ -16,32 +28,32 @@ const paragraphs = [
 export default function DialogOutsideScrollDemo() {
   return (
     <Dialog>
-      <Dialog.Trigger asChild>
+      <DialogTrigger asChild>
         <Button>Open release notes</Button>
-      </Dialog.Trigger>
-      <Dialog.Backdrop />
-      <Dialog.Positioner className={styles.positioner}>
-        <Dialog.Content className={styles.content}>
-          <Dialog.Header>
-            <Dialog.Title>Release notes</Dialog.Title>
-            <Dialog.Description>
+      </DialogTrigger>
+      <DialogBackdrop />
+      <DialogPositioner className={styles.positioner}>
+        <DialogContent className={styles.content}>
+          <DialogHeader>
+            <DialogTitle>Release notes</DialogTitle>
+            <DialogDescription>
               The positioner scrolls the whole dialog when its content exceeds the viewport.
-            </Dialog.Description>
-          </Dialog.Header>
-          <Dialog.Body className={styles.body}>
+            </DialogDescription>
+          </DialogHeader>
+          <DialogBody className={styles.body}>
             {paragraphs.map((paragraph) => (
               <p key={paragraph} className={styles.paragraph}>
                 {paragraph}
               </p>
             ))}
-          </Dialog.Body>
-          <Dialog.Footer>
-            <Dialog.CloseTrigger asChild>
+          </DialogBody>
+          <DialogFooter>
+            <DialogCloseTrigger asChild>
               <Button variant="outline">Close</Button>
-            </Dialog.CloseTrigger>
-          </Dialog.Footer>
-        </Dialog.Content>
-      </Dialog.Positioner>
+            </DialogCloseTrigger>
+          </DialogFooter>
+        </DialogContent>
+      </DialogPositioner>
     </Dialog>
   );
 }

@@ -1,4 +1,12 @@
-import { Chart } from '@moduix/react/chart';
+import {
+  Chart,
+  ChartDescription,
+  ChartHeader,
+  ChartLegend,
+  ChartLegendItem,
+  ChartPlot,
+  ChartTitle,
+} from '@moduix/react/chart';
 import { barX, defineChart } from '@tanstack/charts';
 import { scaleBand } from '@tanstack/charts/scales/band';
 import { scaleLinear } from '@tanstack/charts/scales/linear';
@@ -43,18 +51,18 @@ const definition = defineChart({
 export default function HorizontalBarsChartDemo() {
   return (
     <Chart>
-      <Chart.Header>
-        <Chart.Title>Product adoption</Chart.Title>
-        <Chart.Description>Monthly active users by product.</Chart.Description>
-      </Chart.Header>
-      <Chart.Plot
+      <ChartHeader>
+        <ChartTitle>Product adoption</ChartTitle>
+        <ChartDescription>Monthly active users by product.</ChartDescription>
+      </ChartHeader>
+      <ChartPlot
         definition={definition}
         height={320}
         ariaLabel="Monthly active users by product"
       />
-      <Chart.Legend aria-label="Product metric">
-        <Chart.LegendItem color="var(--moduix-color-chart-1)">Active users</Chart.LegendItem>
-      </Chart.Legend>
+      <ChartLegend aria-label="Product metric">
+        <ChartLegendItem color="var(--moduix-color-chart-1)">Active users</ChartLegendItem>
+      </ChartLegend>
     </Chart>
   );
 }

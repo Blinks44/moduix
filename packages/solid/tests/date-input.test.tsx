@@ -1,7 +1,16 @@
 import { CalendarDate } from '@internationalized/date';
 import { expect, test } from '@rstest/core';
 import { render, screen } from '@solidjs/testing-library';
-import { DateInput, useDateInput } from '../src';
+import {
+  DateInput,
+  DateInputControl,
+  DateInputHiddenInput,
+  DateInputLabel,
+  DateInputRootProvider,
+  DateInputSegments,
+  DateInputSeparator,
+  useDateInput,
+} from '../src';
 
 function ProviderDateInput() {
   const dateInput = useDateInput({
@@ -10,13 +19,13 @@ function ProviderDateInput() {
   });
 
   return (
-    <DateInput.RootProvider value={dateInput}>
-      <DateInput.Label>Report date</DateInput.Label>
-      <DateInput.Control>
-        <DateInput.Segments />
-      </DateInput.Control>
-      <DateInput.HiddenInput name="report-date" />
-    </DateInput.RootProvider>
+    <DateInputRootProvider value={dateInput}>
+      <DateInputLabel>Report date</DateInputLabel>
+      <DateInputControl>
+        <DateInputSegments />
+      </DateInputControl>
+      <DateInputHiddenInput name="report-date" />
+    </DateInputRootProvider>
   );
 }
 
@@ -27,14 +36,14 @@ test('submits through explicit Ark hidden inputs', () => {
         selectionMode="range"
         defaultValue={[new CalendarDate(2026, 6, 22), new CalendarDate(2026, 6, 26)]}
       >
-        <DateInput.Label>Travel dates</DateInput.Label>
-        <DateInput.Control>
-          <DateInput.Segments index={0} />
-          <DateInput.Separator>to</DateInput.Separator>
-          <DateInput.Segments index={1} />
-        </DateInput.Control>
-        <DateInput.HiddenInput index={0} name="check-in" />
-        <DateInput.HiddenInput index={1} name="check-out" />
+        <DateInputLabel>Travel dates</DateInputLabel>
+        <DateInputControl>
+          <DateInputSegments index={0} />
+          <DateInputSeparator>to</DateInputSeparator>
+          <DateInputSegments index={1} />
+        </DateInputControl>
+        <DateInputHiddenInput index={0} name="check-in" />
+        <DateInputHiddenInput index={1} name="check-out" />
       </DateInput>
       <ProviderDateInput />
     </form>
@@ -58,11 +67,11 @@ test('keeps explicit inputs inside an asChild root', () => {
         defaultValue={[new CalendarDate(2026, 6, 22)]}
         name="release-date"
       >
-        <DateInput.Label>Release date</DateInput.Label>
-        <DateInput.Control>
-          <DateInput.Segments />
-        </DateInput.Control>
-        <DateInput.HiddenInput name="release-date" />
+        <DateInputLabel>Release date</DateInputLabel>
+        <DateInputControl>
+          <DateInputSegments />
+        </DateInputControl>
+        <DateInputHiddenInput name="release-date" />
       </DateInput>
     </form>
   ));
@@ -83,10 +92,10 @@ test('preserves Ark segment semantics, styling hooks, and root refs', () => {
       defaultValue={[new CalendarDate(2026, 6, 22)]}
       name="release-date"
     >
-      <DateInput.Label>Release date</DateInput.Label>
-      <DateInput.Control>
-        <DateInput.Segments />
-      </DateInput.Control>
+      <DateInputLabel>Release date</DateInputLabel>
+      <DateInputControl>
+        <DateInputSegments />
+      </DateInputControl>
     </DateInput>
   ));
 

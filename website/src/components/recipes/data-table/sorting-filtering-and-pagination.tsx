@@ -1,6 +1,6 @@
 import { Badge } from '@moduix/react/badge';
 import { Button } from '@moduix/react/button';
-import { Checkbox } from '@moduix/react/checkbox';
+import { Checkbox, CheckboxControl, CheckboxHiddenInput } from '@moduix/react/checkbox';
 import { Input } from '@moduix/react/input';
 import { Table } from '@moduix/react/table';
 import {
@@ -72,8 +72,8 @@ const columns: ColumnDef<typeof features, Payment>[] = [
         aria-label="Select all rows on this page"
         onCheckedChange={(details) => table.toggleAllPageRowsSelected(details.checked === true)}
       >
-        <Checkbox.Control />
-        <Checkbox.HiddenInput />
+        <CheckboxControl />
+        <CheckboxHiddenInput />
       </Checkbox>
     ),
     cell: ({ row }) => (
@@ -83,8 +83,8 @@ const columns: ColumnDef<typeof features, Payment>[] = [
         aria-label={`Select ${row.original.email}`}
         onCheckedChange={(details) => row.toggleSelected(details.checked === true)}
       >
-        <Checkbox.Control />
-        <Checkbox.HiddenInput />
+        <CheckboxControl />
+        <CheckboxHiddenInput />
       </Checkbox>
     ),
     enableHiding: false,

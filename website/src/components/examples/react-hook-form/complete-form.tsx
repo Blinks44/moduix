@@ -1,8 +1,20 @@
 import { createListCollection, useListCollection } from '@ark-ui/react/collection';
 import { useFilter } from '@ark-ui/react/locale';
 import { Button } from '@moduix/react/button';
-import { Card } from '@moduix/react/card';
-import { Checkbox } from '@moduix/react/checkbox';
+import {
+  Card,
+  CardBody,
+  CardDescription,
+  CardFooter,
+  CardHeader,
+  CardTitle,
+} from '@moduix/react/card';
+import {
+  Checkbox,
+  CheckboxControl,
+  CheckboxHiddenInput,
+  CheckboxLabel,
+} from '@moduix/react/checkbox';
 import { Combobox } from '@moduix/react/combobox';
 import { Field } from '@moduix/react/field';
 import { Input } from '@moduix/react/input';
@@ -65,12 +77,12 @@ export default function ProjectForm() {
       })}
     >
       <Card>
-        <Card.Header>
-          <Card.Title>Create project</Card.Title>
-          <Card.Description>Share the details your team needs to get started.</Card.Description>
-        </Card.Header>
+        <CardHeader>
+          <CardTitle>Create project</CardTitle>
+          <CardDescription>Share the details your team needs to get started.</CardDescription>
+        </CardHeader>
 
-        <Card.Body className={styles.stack}>
+        <CardBody className={styles.stack}>
           <Field invalid={Boolean(errors.name)} required>
             <Field.Label>
               Project name
@@ -187,19 +199,19 @@ export default function ProjectForm() {
                 onCheckedChange={(details) => field.onChange(details.checked === true)}
                 onBlur={field.onBlur}
               >
-                <Checkbox.Control />
-                <Checkbox.Label>Send status notifications</Checkbox.Label>
-                <Checkbox.HiddenInput />
+                <CheckboxControl />
+                <CheckboxLabel>Send status notifications</CheckboxLabel>
+                <CheckboxHiddenInput />
               </Checkbox>
             )}
           />
-        </Card.Body>
+        </CardBody>
 
-        <Card.Footer>
+        <CardFooter>
           <Button className={styles.submit} type="submit" loading={isSubmitting}>
             {isSubmitting ? 'Creating…' : 'Create project'}
           </Button>
-        </Card.Footer>
+        </CardFooter>
       </Card>
     </form>
   );

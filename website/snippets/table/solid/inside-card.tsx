@@ -1,4 +1,4 @@
-import { Card } from '@moduix/solid/card';
+import { Card, CardBody, CardHeader, CardTitle } from '@moduix/solid/card';
 import { Table } from '@moduix/solid/table';
 
 const projects = [
@@ -25,10 +25,10 @@ const projects = [
 export default function TableInsideCardDemo() {
   return (
     <Card>
-      <Card.Header>
-        <Card.Title>Projects</Card.Title>
-      </Card.Header>
-      <Card.Body>
+      <CardHeader>
+        <CardTitle>Projects</CardTitle>
+      </CardHeader>
+      <CardBody>
         <Table.ScrollArea>
           <Table>
             <Table.Header>
@@ -51,7 +51,7 @@ export default function TableInsideCardDemo() {
             </Table.Body>
           </Table>
         </Table.ScrollArea>
-      </Card.Body>
+      </CardBody>
     </Card>
   );
 }

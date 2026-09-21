@@ -1,6 +1,21 @@
 import { Button } from '@moduix/solid/button';
-import { Card } from '@moduix/solid/card';
-import { Carousel } from '@moduix/solid/carousel';
+import {
+  Card,
+  CardDescription,
+  CardFooter,
+  CardHeader,
+  CardMedia,
+  CardTitle,
+} from '@moduix/solid/card';
+import {
+  Carousel,
+  CarouselControl,
+  CarouselIndicators,
+  CarouselItem,
+  CarouselItemGroup,
+  CarouselNextTrigger,
+  CarouselPrevTrigger,
+} from '@moduix/solid/carousel';
 import { For } from 'solid-js';
 import styles from '@/components/examples/carousel/carousel-cards.module.css';
 
@@ -35,34 +50,34 @@ export default function CardCarousel() {
       aria-label="Featured destinations"
       slideCount={destinations.length}
     >
-      <Carousel.ItemGroup class={styles.itemGroup}>
+      <CarouselItemGroup class={styles.itemGroup}>
         <For each={destinations}>
           {(destination, index) => (
-            <Carousel.Item index={index()}>
+            <CarouselItem index={index()}>
               <Card class={styles.card}>
-                <Card.Media>
+                <CardMedia>
                   <img class={styles.cardImage} src={destination.image} alt="" />
-                </Card.Media>
-                <Card.Header>
-                  <Card.Title>{destination.title}</Card.Title>
-                  <Card.Description>{destination.description}</Card.Description>
-                </Card.Header>
-                <Card.Footer class={styles.cardFooter}>
+                </CardMedia>
+                <CardHeader>
+                  <CardTitle>{destination.title}</CardTitle>
+                  <CardDescription>{destination.description}</CardDescription>
+                </CardHeader>
+                <CardFooter class={styles.cardFooter}>
                   <Button class={styles.cardButton} variant="outline">
                     Explore
                   </Button>
-                </Card.Footer>
+                </CardFooter>
               </Card>
-            </Carousel.Item>
+            </CarouselItem>
           )}
         </For>
-      </Carousel.ItemGroup>
+      </CarouselItemGroup>
 
-      <Carousel.Control class={styles.control}>
-        <Carousel.PrevTrigger />
-        <Carousel.Indicators />
-        <Carousel.NextTrigger />
-      </Carousel.Control>
+      <CarouselControl class={styles.control}>
+        <CarouselPrevTrigger />
+        <CarouselIndicators />
+        <CarouselNextTrigger />
+      </CarouselControl>
     </Carousel>
   );
 }

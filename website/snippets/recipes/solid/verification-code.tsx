@@ -1,5 +1,12 @@
 import { Button } from '@moduix/solid/button';
-import { Card } from '@moduix/solid/card';
+import {
+  Card,
+  CardBody,
+  CardDescription,
+  CardFooter,
+  CardHeader,
+  CardTitle,
+} from '@moduix/solid/card';
 import { Field } from '@moduix/solid/field';
 import { PinInput } from '@moduix/solid/pin-input';
 import { createSignal } from 'solid-js';
@@ -24,12 +31,12 @@ export function VerificationCode({ onSubmit }: { onSubmit?: (event: SubmitEvent)
 
   return (
     <Card class={styles.root}>
-      <Card.Header class={styles.header}>
-        <Card.Title>Verify your email</Card.Title>
-        <Card.Description>Enter the 6-digit code from your email.</Card.Description>
-      </Card.Header>
+      <CardHeader class={styles.header}>
+        <CardTitle>Verify your email</CardTitle>
+        <CardDescription>Enter the 6-digit code from your email.</CardDescription>
+      </CardHeader>
 
-      <Card.Body>
+      <CardBody>
         <form class={styles.stack} noValidate onSubmit={handleSubmit}>
           <Field class={styles.field} invalid={invalid()} required>
             <PinInput
@@ -54,16 +61,16 @@ export function VerificationCode({ onSubmit }: { onSubmit?: (event: SubmitEvent)
             Verify email
           </Button>
         </form>
-      </Card.Body>
+      </CardBody>
 
-      <Card.Footer class={styles.footer}>
+      <CardFooter class={styles.footer}>
         <p>
           Wrong email?{' '}
           <a class={styles.link} href="/sign-in">
             Use a different one
           </a>
         </p>
-      </Card.Footer>
+      </CardFooter>
     </Card>
   );
 }

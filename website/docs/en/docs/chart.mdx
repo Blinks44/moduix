@@ -38,7 +38,7 @@ same chart definition API; the Solid package uses TanStack's renderer adapter.
 ## Basic
 
 
-Create a TanStack definition and pass it to `Chart.Plot`. Add a visible title, description, and
+Create a TanStack definition and pass it to `ChartPlot`. Add a visible title, description, and
 legend around the plot, then provide a concise `ariaLabel` for assistive technology.
 
 <ExampleFrame variant="component">
@@ -101,36 +101,36 @@ See [Quick Start](/docs/quick-start) for full package setup, registry configurat
 ## Anatomy
 
 ```text
-Chart / Chart.Root
-├─ Chart.Header (optional figcaption)
-│  ├─ Chart.Title
-│  └─ Chart.Description
-├─ Chart.Plot
+Chart
+├─ ChartHeader (optional figcaption)
+│  ├─ ChartTitle
+│  └─ ChartDescription
+├─ ChartPlot
 │  └─ TanStack chart surface (SVG by default)
-└─ Chart.Legend (optional)
-   └─ Chart.LegendItem
+└─ ChartLegend (optional)
+   └─ ChartLegendItem
 ```
 
 | Part | Role |
 | --- | --- |
-| `Chart` / `Chart.Root` | Composed `figure` root. Accepts native props, `asChild`, and an `HTMLElement` ref. |
-| `Chart.Plot` | TanStack Charts host. Requires `definition` and `ariaLabel`; uses the moduix motion preset by default and accepts `motion={false}`. |
-| `Chart.Header` | `figcaption` layout for the title and description. |
-| `Chart.Title` | Chart heading; renders `h3` by default. |
-| `Chart.Description` | Supporting visible context. |
-| `Chart.Legend` | Semantic list of visible series. |
-| `Chart.LegendItem` | Legend item with an optional indicator `color`. |
+| `Chart` | Composed `figure` root. Accepts native props, `asChild`, and an `HTMLElement` ref. |
+| `ChartPlot` | TanStack Charts host. Requires `definition` and `ariaLabel`; uses the moduix motion preset by default and accepts `motion={false}`. |
+| `ChartHeader` | `figcaption` layout for the title and description. |
+| `ChartTitle` | Chart heading; renders `h3` by default. |
+| `ChartDescription` | Supporting visible context. |
+| `ChartLegend` | Semantic list of visible series. |
+| `ChartLegendItem` | Legend item with an optional indicator `color`. |
 
 ## Composition
 
 `Chart` is a presentational shell. TanStack's `definition` owns marks, scales, interactions, and
 callbacks, so keep it at module scope or memoize the complete definition when it depends on props
-or state. Compose `Chart.Header`, `Chart.Plot`, and `Chart.Legend` under the root; `Chart.Plot`
+or state. Compose `ChartHeader`, `ChartPlot`, and `ChartLegend` under the root; `ChartPlot`
 continues to own rendering, focus, and tooltip state through TanStack.
 
 Use `renderTooltipBody` only when you need to wrap or extend the native tooltip: render the supplied
-`defaultBody` and add interactive controls only while `pinned` is true. `Chart.Root` and
-`Chart.Header` support `asChild` when the semantic wrapper or layout needs to be owned by your
+`defaultBody` and add interactive controls only while `pinned` is true. `Chart` and
+`ChartHeader` support `asChild` when the semantic wrapper or layout needs to be owned by your
 application.
 
 ## Examples
@@ -191,7 +191,7 @@ and automatically follow the active theme.
 ### Donut chart
 
 Compose TanStack's opt-in `pie`, `polar`, and `radialArc` primitives for part-to-whole data. The
-same composition of `Chart.Plot`, motion, focus, tooltip, and legend works outside Cartesian charts.
+same composition of `ChartPlot`, motion, focus, tooltip, and legend works outside Cartesian charts.
 
 <ExampleFrame variant="component">
   <ChartDonut />
@@ -329,7 +329,7 @@ The Ark factory parts accept `asChild`, so they can apply their styles to semant
 layout. This dashboard example combines Chart with Button, replaces the default `figure` and
 `figcaption` with a labelled `section` and `header`, and places the legend in the header.
 
-`Chart.Plot` is still the TanStack host, not a slot. Use its `class` or `className` and `style` on
+`ChartPlot` is still the TanStack host, not a slot. Use its `class` or `className` and `style` on
 the outer element, and use `renderTooltipBody` to extend the tooltip. Render `defaultBody` inside
 your own wrapper while TanStack continues to position and portal it. Add interactive controls only
 to a pinned tooltip.
@@ -363,7 +363,7 @@ to a pinned tooltip.
 
 ## Styling
 
-Style the figure with `Chart.Root` and the TanStack host with `Chart.Plot`. Public CSS properties
+Style the figure with `Chart` and the TanStack host with `ChartPlot`. Public CSS properties
 control the surface, focus ring, tooltip shell, and default tooltip layout. Keep chart geometry in
 the TanStack definition through mark options, scales, and color channels.
 
@@ -386,9 +386,9 @@ Give the root a local class (`className` in React or `class` in Solid) when a ch
 
 ### Styling hooks
 
-- `Chart.Root`, `Chart.Header`, `Chart.Title`, `Chart.Description`, `Chart.Legend`, and
-  `Chart.LegendItem` expose `data-scope="chart"`, `data-part`, and `data-slot`.
-- `className` in React and `class` in Solid on `Chart.Plot` reach the outer `.ts-chart-host` element.
+- `Chart`, `ChartHeader`, `ChartTitle`, `ChartDescription`, `ChartLegend`, and
+  `ChartLegendItem` expose `data-scope="chart"`, `data-part`, and `data-slot`.
+- `className` in React and `class` in Solid on `ChartPlot` reach the outer `.ts-chart-host` element.
 - The default tooltip uses `chart-tooltip-body`, `chart-tooltip-title`, `chart-tooltip-rows`,
   `chart-tooltip-row`, `chart-tooltip-swatch`, `chart-tooltip-label`, `chart-tooltip-value`, and
   `chart-tooltip-text` data slots.

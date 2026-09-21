@@ -1,7 +1,7 @@
 import type { Meta, StoryObj } from 'storybook-solidjs-vite';
 import { Badge } from '@/components/badge/Badge';
 import { Button } from '@/components/button/Button';
-import { Card } from '@/components/card/Card';
+import { Card, CardBody, CardHeader, CardTitle } from '@/components/card/Card';
 import { Table } from '@/components/table/Table';
 
 const invoices = [
@@ -284,10 +284,10 @@ export const StickyHeaderAndColumn: Story = {
 export const InsideCard: Story = {
   render: () => (
     <Card class={cardClass}>
-      <Card.Header>
-        <Card.Title>Projects</Card.Title>
-      </Card.Header>
-      <Card.Body class={cardContentClass}>
+      <CardHeader>
+        <CardTitle>Projects</CardTitle>
+      </CardHeader>
+      <CardBody class={cardContentClass}>
         <Table.ScrollArea>
           <Table class={tableClass}>
             <Table.Header>
@@ -310,7 +310,7 @@ export const InsideCard: Story = {
             </Table.Body>
           </Table>
         </Table.ScrollArea>
-      </Card.Body>
+      </CardBody>
     </Card>
   ),
 };

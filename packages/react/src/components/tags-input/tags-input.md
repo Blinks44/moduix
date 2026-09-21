@@ -32,7 +32,7 @@ label, control, input, clear trigger, and `HiddenInput` explicitly.
 `TagsInput.Items` renders the standard editable item tree from root context, while explicit item
 parts remain available for custom tags.
 `TagsInput.ItemDeleteTrigger` provides the compact tag-level `CloseIcon` when no children are
-passed. `TagsInput.ClearTrigger` composes the shared `CloseButton.Root` by default through Ark
+passed. `TagsInput.ClearTrigger` composes the shared `CloseButton` by default through Ark
 `asChild`, including when custom icon children are passed, so clearing all tags has the library
 close affordance without nesting buttons while retaining Ark's translations and anatomy attributes.
 Use root props such as `name` and `form` to configure native form participation.
@@ -122,7 +122,7 @@ Important hooks:
 ## Intentional sugar and differences from upstream
 
 The wrapper adds moduix classes, `data-slot` hooks, `TagsInput.Items` as a fixed standard item
-renderer, a default compact close icon for item deletion, the shared `CloseButton.Root` for clearing
+renderer, a default compact close icon for item deletion, the shared `CloseButton` for clearing
 all tags, and default input/tag styling. `ClearTrigger asChild` leaves the child in control of its
 own host and visual treatment. `Items` has no prop bags; use lower-level parts when item structure
 needs customization.
@@ -145,7 +145,7 @@ for normal provider and state access.
 - 2026-07-31: Hid the entry input in the read-only presentation so it does not appear editable.
 - 2026-07-21: Aligned the default one-line control with the compact Input `md` baseline.
 
-- 2026-07-17: Routed custom default clear-trigger children through `CloseButton.Root` so every
+- 2026-07-17: Routed custom default clear-trigger children through `CloseButton` so every
   non-`asChild` clear action uses the shared visual contract.
 - 2026-07-13: Native form controls were rendered automatically at this point in the wrapper history.
 
@@ -162,6 +162,6 @@ for normal provider and state access.
 - 2026-06-23: Added the initial Ark-backed `TagsInput` component with multipart namespace API,
   provider/context hooks, default trigger icons, CSS Modules styling, local docs, docs examples, and
   registry metadata.
-- 2026-06-23: Switched the default clear-all trigger to shared `CloseButton.Root` via Ark `asChild`
+- 2026-06-23: Switched the default clear-all trigger to shared `CloseButton` via Ark `asChild`
   and anchored it to the inline end of wrapped controls so it does not jump left when the input
   wraps.

@@ -118,7 +118,7 @@ function TagCloseTrigger(props: TagCloseTriggerProps) {
   const resolvedChildren = resolveChildren(() => local.children);
 
   return (
-    <CloseButton.Root
+    <CloseButton
       asChild={local.asChild}
       {...others}
       data-scope="tag"
@@ -137,7 +137,7 @@ function TagCloseTrigger(props: TagCloseTriggerProps) {
       )}
     >
       {local.children}
-    </CloseButton.Root>
+    </CloseButton>
   );
 }
 

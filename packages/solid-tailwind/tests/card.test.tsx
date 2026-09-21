@@ -1,6 +1,18 @@
 import { expect, test } from '@rstest/core';
 import { fireEvent, render, screen } from '@solidjs/testing-library';
-import { Button, Card } from '../src';
+import {
+  Button,
+  Card,
+  CardAction,
+  CardBackground,
+  CardBody,
+  CardDescription,
+  CardFooter,
+  CardHeader,
+  CardLink,
+  CardMedia,
+  CardTitle,
+} from '../src';
 
 test('renders the default root with stable hooks and replaceable Tailwind defaults', () => {
   render(() => (
@@ -28,13 +40,13 @@ test('renders the default root with stable hooks and replaceable Tailwind defaul
 test('uses native group state utilities for size while consumer classes replace default part utilities', () => {
   render(() => (
     <Card size="lg">
-      <Card.Header
+      <CardHeader
         class="group-data-[size=lg]/card:px-2 group-data-[size=lg]/card:pt-2"
         data-testid="header"
       />
-      <Card.Body data-testid="body" />
-      <Card.Footer data-testid="footer" />
-      <Card.Title data-testid="title">Release health</Card.Title>
+      <CardBody data-testid="body" />
+      <CardFooter data-testid="footer" />
+      <CardTitle data-testid="title">Release health</CardTitle>
     </Card>
   ));
 
@@ -60,19 +72,19 @@ test('uses native group state utilities for size while consumer classes replace 
 test('renders every part with its semantic default, stable hooks, and visible utility defaults', () => {
   render(() => (
     <Card>
-      <Card.Background data-testid="background" />
-      <Card.Media data-testid="media" />
-      <Card.Header data-testid="header">
-        <Card.Title data-testid="title">
-          <Card.Link data-testid="link" href="#release">
+      <CardBackground data-testid="background" />
+      <CardMedia data-testid="media" />
+      <CardHeader data-testid="header">
+        <CardTitle data-testid="title">
+          <CardLink data-testid="link" href="#release">
             Release health
-          </Card.Link>
-        </Card.Title>
-        <Card.Description data-testid="description">Production rollout</Card.Description>
-        <Card.Action data-testid="action" />
-      </Card.Header>
-      <Card.Body data-testid="body" />
-      <Card.Footer data-testid="footer" />
+          </CardLink>
+        </CardTitle>
+        <CardDescription data-testid="description">Production rollout</CardDescription>
+        <CardAction data-testid="action" />
+      </CardHeader>
+      <CardBody data-testid="body" />
+      <CardFooter data-testid="footer" />
     </Card>
   ));
 
@@ -115,8 +127,8 @@ test('forwards refs through ordinary rendered parts', () => {
 
   render(() => (
     <Card ref={(element) => (rootRef = element)}>
-      <Card.Title ref={(element) => (titleRef = element)}>Release health</Card.Title>
-      <Card.Background ref={(element) => (backgroundRef = element)} />
+      <CardTitle ref={(element) => (titleRef = element)}>Release health</CardTitle>
+      <CardBackground ref={(element) => (backgroundRef = element)} />
     </Card>
   ));
 
@@ -149,8 +161,8 @@ test('preserves semantic hosts and data hooks with native Ark Solid asChild comp
 test('preserves asChild composition on parts while forwarding their data hooks', () => {
   render(() => (
     <>
-      <Card.Title asChild={(props) => <h2 {...props()}>Release health</h2>} />
-      <Card.Background
+      <CardTitle asChild={(props) => <h2 {...props()}>Release health</h2>} />
+      <CardBackground
         asChild={(props) => (
           <picture {...props()} data-testid="background">
             <img alt="" src="/forest.jpg" />
@@ -187,19 +199,19 @@ test('does not forward refs through native Ark Solid asChild composition', () =>
   expect(rootRef).toBeUndefined();
 });
 
-test('keeps actions interactive when Card.Link covers the card', () => {
+test('keeps actions interactive when CardLink covers the card', () => {
   let acknowledgements = 0;
 
   render(() => (
     <Card>
-      <Card.Header>
-        <Card.Title>
-          <Card.Link href="#incident">Incident response</Card.Link>
-        </Card.Title>
-        <Card.Action>
+      <CardHeader>
+        <CardTitle>
+          <CardLink href="#incident">Incident response</CardLink>
+        </CardTitle>
+        <CardAction>
           <Button onClick={() => acknowledgements++}>Acknowledge</Button>
-        </Card.Action>
-      </Card.Header>
+        </CardAction>
+      </CardHeader>
     </Card>
   ));
 

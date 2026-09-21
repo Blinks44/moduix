@@ -85,7 +85,7 @@ function resolveRootNode(
   return rootNode ?? (rootSelector ? document.querySelector<HTMLElement>(rootSelector) : null);
 }
 
-function LightboxRoot(props: LightboxRootProps) {
+function Lightbox(props: LightboxRootProps) {
   const [local, others] = splitProps(props, [
     'children',
     'lazyMount',
@@ -229,7 +229,7 @@ function LightboxCloseIcon(props: LightboxCloseIconProps) {
   return (
     <DialogPrimitive.CloseTrigger
       asChild={(triggerProps) => (
-        <CloseButton.Root
+        <CloseButton
           {...triggerProps()}
           data-slot="lightbox-close-icon"
           data-state={dialog().open ? 'open' : 'closed'}
@@ -238,7 +238,7 @@ function LightboxCloseIcon(props: LightboxCloseIconProps) {
           class={clsx(styles.closeIcon, local.class)}
         >
           {resolvedChildren()}
-        </CloseButton.Root>
+        </CloseButton>
       )}
       {...others}
     />
@@ -357,53 +357,23 @@ function LightboxBind(props: LightboxBindProps) {
   return <></>;
 }
 
-type LightboxComponent = typeof LightboxRoot & {
-  Root: typeof LightboxRoot;
-  RootProvider: typeof LightboxRootProvider;
-  Trigger: typeof LightboxTrigger;
-  Backdrop: typeof LightboxBackdrop;
-  Positioner: typeof LightboxPositioner;
-  Content: typeof LightboxContent;
-  Title: typeof LightboxTitle;
-  Description: typeof LightboxDescription;
-  CloseTrigger: typeof LightboxCloseTrigger;
-  CloseIcon: typeof LightboxCloseIcon;
-  Header: typeof LightboxHeader;
-  Body: typeof LightboxBody;
-  Footer: typeof LightboxFooter;
-  Image: typeof LightboxImage;
-  Gallery: typeof LightboxGallery;
-  Bind: typeof LightboxBind;
-  useLightbox: typeof useDialog;
-  useLightboxContext: typeof useDialogContext;
-};
-
-const Lightbox: LightboxComponent = Object.assign(LightboxRoot, {
-  Root: LightboxRoot,
-  RootProvider: LightboxRootProvider,
-  Trigger: LightboxTrigger,
-  Backdrop: LightboxBackdrop,
-  Positioner: LightboxPositioner,
-  Content: LightboxContent,
-  Title: LightboxTitle,
-  Description: LightboxDescription,
-  CloseTrigger: LightboxCloseTrigger,
-  CloseIcon: LightboxCloseIcon,
-  Header: LightboxHeader,
-  Body: LightboxBody,
-  Footer: LightboxFooter,
-  Image: LightboxImage,
-  Gallery: LightboxGallery,
-  Bind: LightboxBind,
-  useLightbox: useDialog,
-  useLightboxContext: useDialogContext,
-});
-
 export {
   Lightbox,
-  LightboxBind,
-  LightboxGallery,
+  LightboxRootProvider,
+  LightboxTrigger,
+  LightboxBackdrop,
+  LightboxPositioner,
+  LightboxContent,
+  LightboxTitle,
+  LightboxDescription,
+  LightboxCloseTrigger,
+  LightboxCloseIcon,
+  LightboxHeader,
+  LightboxBody,
+  LightboxFooter,
   LightboxImage,
+  LightboxGallery,
+  LightboxBind,
   useDialog as useLightbox,
   useDialogContext as useLightboxContext,
 };

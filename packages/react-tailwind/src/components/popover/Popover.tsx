@@ -225,7 +225,7 @@ const PopoverCloseTrigger = forwardRef<
 });
 
 const PopoverCloseIcon = forwardRef<
-  ComponentRef<typeof CloseButton.Root>,
+  ComponentRef<typeof CloseButton>,
   Omit<ComponentProps<typeof PopoverPrimitive.CloseTrigger>, 'asChild'>
 >(function PopoverCloseIcon(
   { className, children, 'aria-label': ariaLabel = DEFAULT_CLOSE_BUTTON_LABEL, ...props },
@@ -233,7 +233,7 @@ const PopoverCloseIcon = forwardRef<
 ) {
   return (
     <PopoverPrimitive.CloseTrigger asChild {...props}>
-      <CloseButton.Root
+      <CloseButton
         ref={ref}
         data-slot="popover-close-icon"
         aria-label={ariaLabel}
@@ -243,7 +243,7 @@ const PopoverCloseIcon = forwardRef<
         )}
       >
         {children}
-      </CloseButton.Root>
+      </CloseButton>
     </PopoverPrimitive.CloseTrigger>
   );
 });

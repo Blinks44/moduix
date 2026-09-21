@@ -283,9 +283,9 @@ const FileUploadClearTrigger = forwardRef<
       {asChild ? (
         children
       ) : (
-        <CloseButton.Root aria-label={clearLabel} aria-labelledby={ariaLabelledBy}>
+        <CloseButton aria-label={clearLabel} aria-labelledby={ariaLabelledBy}>
           {children ?? <CloseIcon />}
-        </CloseButton.Root>
+        </CloseButton>
       )}
     </FileUploadPrimitive.ClearTrigger>
   );

@@ -1,5 +1,14 @@
 import { Button } from '@moduix/solid/button';
-import { Dialog } from '@moduix/solid/dialog';
+import {
+  Dialog,
+  DialogBackdrop,
+  DialogCloseTrigger,
+  DialogContent,
+  DialogFooter,
+  DialogPositioner,
+  DialogTitle,
+  DialogTrigger,
+} from '@moduix/solid/dialog';
 import { ScrollArea } from '@moduix/solid/scroll-area';
 import styles from '@/components/examples/dialog/dialog-inside-scroll.module.css';
 
@@ -29,11 +38,11 @@ const sections = [
 export default function DialogScrollDemo() {
   return (
     <Dialog>
-      <Dialog.Trigger asChild={(props) => <Button {...props()}>Open terms</Button>} />
-      <Dialog.Backdrop />
-      <Dialog.Positioner>
-        <Dialog.Content>
-          <Dialog.Title>Terms of service</Dialog.Title>
+      <DialogTrigger asChild={(props) => <Button {...props()}>Open terms</Button>} />
+      <DialogBackdrop />
+      <DialogPositioner>
+        <DialogContent>
+          <DialogTitle>Terms of service</DialogTitle>
           <ScrollArea class={styles.scrollArea}>
             <ScrollArea.Viewport>
               <ScrollArea.Content>
@@ -52,17 +61,17 @@ export default function DialogScrollDemo() {
             </ScrollArea.Scrollbar>
             <ScrollArea.Corner />
           </ScrollArea>
-          <Dialog.Footer>
-            <Dialog.CloseTrigger
+          <DialogFooter>
+            <DialogCloseTrigger
               asChild={(props) => (
                 <Button {...props()} variant="outline">
                   Close
                 </Button>
               )}
             />
-          </Dialog.Footer>
-        </Dialog.Content>
-      </Dialog.Positioner>
+          </DialogFooter>
+        </DialogContent>
+      </DialogPositioner>
     </Dialog>
   );
 }

@@ -1,6 +1,14 @@
 import { parseDate } from '@ark-ui/react/date-picker';
 import { Button } from '@moduix/react/button';
-import { DatePicker } from '@moduix/react/date-picker';
+import {
+  DatePicker,
+  DatePickerLabel,
+  DatePickerField,
+  DatePickerPositioner,
+  DatePickerContent,
+  DatePickerView,
+  DatePickerDayTable,
+} from '@moduix/react/date-picker';
 import type { FormEvent } from 'react';
 import { useState } from 'react';
 import { PreviewMeta } from '@/components/mdx/Components';
@@ -22,15 +30,15 @@ export default function DatePickerFormDemo() {
         minView="day"
         name="delivery-date"
       >
-        <DatePicker.Label>Delivery date</DatePicker.Label>
-        <DatePicker.Field />
-        <DatePicker.Positioner>
-          <DatePicker.Content>
-            <DatePicker.View view="day">
-              <DatePicker.DayTable />
-            </DatePicker.View>
-          </DatePicker.Content>
-        </DatePicker.Positioner>
+        <DatePickerLabel>Delivery date</DatePickerLabel>
+        <DatePickerField />
+        <DatePickerPositioner>
+          <DatePickerContent>
+            <DatePickerView view="day">
+              <DatePickerDayTable />
+            </DatePickerView>
+          </DatePickerContent>
+        </DatePickerPositioner>
       </DatePicker>
       <PreviewMeta>
         <output>Submitted: {submitted}</output>

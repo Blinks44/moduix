@@ -1,7 +1,19 @@
 import { expect, test } from '@rstest/core';
 import { fireEvent, render, screen, waitFor } from '@testing-library/react';
 import { createRef } from 'react';
-import { ColorPicker, parseColor, useColorPicker } from '../src';
+import {
+  ColorPicker,
+  parseColor,
+  useColorPicker,
+  ColorPickerRootProvider,
+  ColorPickerHiddenInput,
+  ColorPickerLabel,
+  ColorPickerControl,
+  ColorPickerTrigger,
+  ColorPickerPositioner,
+  ColorPickerContent,
+  ColorPickerChannelInput,
+} from '../src';
 
 function ProviderColorPicker() {
   const colorPicker = useColorPicker({
@@ -10,10 +22,10 @@ function ProviderColorPicker() {
   });
 
   return (
-    <ColorPicker.RootProvider value={colorPicker}>
-      <ColorPicker.ChannelInput channel="hex" />
-      <ColorPicker.HiddenInput />
-    </ColorPicker.RootProvider>
+    <ColorPickerRootProvider value={colorPicker}>
+      <ColorPickerChannelInput channel="hex" />
+      <ColorPickerHiddenInput />
+    </ColorPickerRootProvider>
   );
 }
 
@@ -21,8 +33,8 @@ test('submits through explicit Ark hidden inputs', () => {
   const { container } = render(
     <form>
       <ColorPicker defaultValue={parseColor('#eb5e41')} name="accent">
-        <ColorPicker.ChannelInput channel="hex" />
-        <ColorPicker.HiddenInput />
+        <ColorPickerChannelInput channel="hex" />
+        <ColorPickerHiddenInput />
       </ColorPicker>
       <ProviderColorPicker />
     </form>,
@@ -44,8 +56,8 @@ test('keeps an asChild host, ref, and explicit hidden input intact', () => {
     <form>
       <ColorPicker asChild ref={ref} defaultValue={parseColor('#eb5e41')} name="accent">
         <div data-testid="color-picker-root">
-          <ColorPicker.ChannelInput channel="hex" />
-          <ColorPicker.HiddenInput />
+          <ColorPickerChannelInput channel="hex" />
+          <ColorPickerHiddenInput />
         </div>
       </ColorPicker>
     </form>,
@@ -67,13 +79,13 @@ test('preserves Ark open-change details and default trigger composition', async 
       defaultValue={parseColor('#eb5e41')}
       onOpenChange={(details) => openStates.push(details.open)}
     >
-      <ColorPicker.Label>Color</ColorPicker.Label>
-      <ColorPicker.Control>
-        <ColorPicker.Trigger aria-label="Open color picker" />
-      </ColorPicker.Control>
-      <ColorPicker.Positioner>
-        <ColorPicker.Content>Content</ColorPicker.Content>
-      </ColorPicker.Positioner>
+      <ColorPickerLabel>Color</ColorPickerLabel>
+      <ColorPickerControl>
+        <ColorPickerTrigger aria-label="Open color picker" />
+      </ColorPickerControl>
+      <ColorPickerPositioner>
+        <ColorPickerContent>Content</ColorPickerContent>
+      </ColorPickerPositioner>
     </ColorPicker>,
   );
 

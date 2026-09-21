@@ -1,5 +1,5 @@
 import { EnvironmentProvider, useEnvironmentContext } from '@ark-ui/solid/environment';
-import { Card } from '@moduix/solid/card';
+import { Card, CardBody, CardDescription, CardHeader, CardTitle } from '@moduix/solid/card';
 import { Stack } from '@moduix/solid/stack';
 import { createEffect, createSignal } from 'solid-js';
 
@@ -36,17 +36,17 @@ function EnvironmentSummary() {
 
   return (
     <Card>
-      <Card.Header>
-        <Card.Title>Resolved environment</Card.Title>
-        <Card.Description>Ark queries DOM APIs from this environment.</Card.Description>
-      </Card.Header>
-      <Card.Body>
+      <CardHeader>
+        <CardTitle>Resolved environment</CardTitle>
+        <CardDescription>Ark queries DOM APIs from this environment.</CardDescription>
+      </CardHeader>
+      <CardBody>
         <Stack gap={2}>
           <span>Root node: {details().rootNode}</span>
           <span>Document: {details().documentName}</span>
           <span>Window: {details().windowHost}</span>
         </Stack>
-      </Card.Body>
+      </CardBody>
     </Card>
   );
 }

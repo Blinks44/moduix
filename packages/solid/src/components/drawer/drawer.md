@@ -8,54 +8,55 @@ callbacks, focus behavior, lifecycle, stack coordination, runtime variables, and
 
 ```tsx
 <Drawer>
-  <Drawer.Trigger asChild={(props) => <Button {...props()}>Open drawer</Button>} />
-  <Drawer.Backdrop />
-  <Drawer.Positioner>
-    <Drawer.Content>
-      <Drawer.Grabber>
-        <Drawer.GrabberIndicator />
-      </Drawer.Grabber>
-      <Drawer.Header>
-        <Drawer.Title>Notifications</Drawer.Title>
-        <Drawer.CloseIcon />
-        <Drawer.Description>You are all caught up.</Drawer.Description>
-      </Drawer.Header>
-      <Drawer.Body>Content</Drawer.Body>
-      <Drawer.Footer>
-        <Drawer.CloseTrigger asChild={(props) => <Button {...props()}>Close</Button>} />
-      </Drawer.Footer>
-    </Drawer.Content>
-  </Drawer.Positioner>
+  <DrawerTrigger asChild={(props) => <Button {...props()}>Open drawer</Button>} />
+  <DrawerBackdrop />
+  <DrawerPositioner>
+    <DrawerContent>
+      <DrawerGrabber>
+        <DrawerGrabberIndicator />
+      </DrawerGrabber>
+      <DrawerHeader>
+        <DrawerTitle>Notifications</DrawerTitle>
+        <DrawerCloseIcon />
+        <DrawerDescription>You are all caught up.</DrawerDescription>
+      </DrawerHeader>
+      <DrawerBody>Content</DrawerBody>
+      <DrawerFooter>
+        <DrawerCloseTrigger asChild={(props) => <Button {...props()}>Close</Button>} />
+      </DrawerFooter>
+    </DrawerContent>
+  </DrawerPositioner>
 </Drawer>
 ```
 
-`Drawer` and `Drawer.Root` are equivalent roots. `Backdrop` and `Positioner` are portalled by
+`Drawer` is the root component. `DrawerBackdrop` and `DrawerPositioner` are portalled by
 default; use `portalled={false}` or `portalRef` on the root to control overlay placement.
 `lazyMount` and `unmountOnExit` default to `true`.
 `variant="island"` uses the full default snap point (`[1]`), passes the island presentation to
-`Content`, and keeps `swipeDirection` controlled by the caller. The surface is inset from the
-viewport, rounded on all sides, and has no directional overdrag bleed. `Content variant="island"`
+`DrawerContent`, and keeps `swipeDirection` controlled by the caller. The surface is inset from the
+viewport, rounded on all sides, and has no directional overdrag bleed. `DrawerContent variant="island"`
 remains supported when the presentation needs to be selected on the content part.
 
 ## API surface
 
-The adapter exports `Drawer`, `useDrawer`, `useDrawerContext`, and `useDrawerStackContext`.
-`Drawer` exposes `Root`, `RootProvider`, `Context`, `Stack`, `Trigger`, `Backdrop`, `Positioner`,
-`Content`, `Grabber`, `GrabberIndicator`, `Title`, `Description`, `CloseTrigger`, `CloseIcon`,
-`SwipeArea`, `Indent`, `IndentBackground`, `Header`, `Body`, and `Footer`.
+The adapter exports `Drawer`, `DrawerRootProvider`, `DrawerContext`, `DrawerStack`, `DrawerTrigger`,
+`DrawerBackdrop`, `DrawerPositioner`, `DrawerContent`, `DrawerGrabber`, `DrawerGrabberIndicator`,
+`DrawerTitle`, `DrawerDescription`, `DrawerCloseTrigger`, `DrawerCloseIcon`, `DrawerSwipeArea`,
+`DrawerIndent`, `DrawerIndentBackground`, `DrawerHeader`, `DrawerBody`, `DrawerFooter`,
+`useDrawer`, `useDrawerContext`, and `useDrawerStackContext`.
 
-`Drawer.RootProvider` receives the accessor returned by `useDrawer()`:
+`DrawerRootProvider` receives the accessor returned by `useDrawer()`:
 
 ```tsx
 const drawer = useDrawer();
 
-<Drawer.RootProvider value={drawer}>
-  <Drawer.Positioner>
-    <Drawer.Content>
-      <Drawer.Title>Preferences</Drawer.Title>
-    </Drawer.Content>
-  </Drawer.Positioner>
-</Drawer.RootProvider>;
+<DrawerRootProvider value={drawer}>
+  <DrawerPositioner>
+    <DrawerContent>
+      <DrawerTitle>Preferences</DrawerTitle>
+    </DrawerContent>
+  </DrawerPositioner>
+</DrawerRootProvider>;
 ```
 
 Ark owns open state, snap points, swipe gestures, focus management, dismissal, IDs, state
@@ -67,10 +68,11 @@ attributes, and runtime CSS variables. Callback handlers receive Ark detail obje
 Ark Solid uses render-function `asChild`:
 `asChild={(props) => <button {...props()} type="button" />}`. Ordinary refs and custom-host
 composition are supported as separate native paths because Ark Solid does not forward refs through
-`asChild`. `Drawer.CloseIcon` composes `CloseButton.Root` through the same native render-function
+`asChild`. `DrawerCloseIcon` composes `CloseButton` through the same native render-function
 contract and defaults its accessible label to `Close drawer`.
 
-`Root variant="island"` adds the detached, safe-area-aware surface styling from the React
-component and defaults to the full snap point. `Content variant="island"` remains supported for
-explicit presentation selection. `Header`, `Body`, and `Footer` are layout helpers only; all Ark
+`Drawer variant="island"` adds the detached, safe-area-aware surface styling from the React
+component and defaults to the full snap point. `DrawerContent variant="island"` remains supported for
+explicit presentation selection. `DrawerHeader`, `DrawerBody`, and `DrawerFooter` are layout helpers
+only; all Ark
 structural parts remain explicit and independently styleable.

@@ -1,6 +1,6 @@
 import { FocusTrap } from '@ark-ui/solid/focus-trap';
 import { Button } from '@moduix/solid/button';
-import { Card } from '@moduix/solid/card';
+import { Card, CardBody, CardFooter, CardHeader, CardTitle } from '@moduix/solid/card';
 import { Stack } from '@moduix/solid/stack';
 import { createSignal } from 'solid-js';
 import styles from '../css-modules/focus-trap-basic.module.css';
@@ -18,11 +18,11 @@ export default function FocusTrapBasic() {
         onDeactivate={() => setIsReviewing(false)}
       >
         <Card>
-          <Card.Header>
-            <Card.Title>Review mode</Card.Title>
-          </Card.Header>
-          <Card.Body>When active, Tab and Shift + Tab stay inside these actions.</Card.Body>
-          <Card.Footer>
+          <CardHeader>
+            <CardTitle>Review mode</CardTitle>
+          </CardHeader>
+          <CardBody>When active, Tab and Shift + Tab stay inside these actions.</CardBody>
+          <CardFooter>
             <Button
               ref={(element) => (detailsButtonRef = element)}
               size="sm"
@@ -34,7 +34,7 @@ export default function FocusTrapBasic() {
             <Button size="sm" type="button" onClick={() => setIsReviewing(false)}>
               Finish review
             </Button>
-          </Card.Footer>
+          </CardFooter>
         </Card>
       </FocusTrap>
 

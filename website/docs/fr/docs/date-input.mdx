@@ -46,7 +46,7 @@ import dateInputSolidTimeOnly from '../../../snippets/date-input/solid/time-only
 ## Exemple de base
 
 `DateInput` affiche des segments de date adaptés à la locale, modifiables au clavier. Placez
-`DateInput.Segments` dans `DateInput.Control` pour la composition standard. L’aperçu utilise le package
+`DateInputSegments` dans `DateInputControl` pour la composition standard. L’aperçu utilise le package
 
 <ExampleFrame variant="component">
   <DateInputBasic />
@@ -113,48 +113,48 @@ Consultez le [Démarrage rapide](/docs/quick-start) pour la configuration compl�
 ## Anatomie
 
 ```text
-DateInput / DateInput.Root
-├─ DateInput.Label
-├─ DateInput.Control
-│  ├─ DateInput.Segments
-│  └─ DateInput.Separator (facultatif, pour les plages)
-└─ DateInput.HiddenInput[index] (explicite, un par date envoyée)
+DateInput
+├─ DateInputLabel
+├─ DateInputControl
+│  ├─ DateInputSegments
+│  └─ DateInputSeparator (facultatif, pour les plages)
+└─ DateInputHiddenInput[index] (explicite, un par date envoyée)
 
 Personnalisation avancée :
 
-DateInput.SegmentGroup
-└─ DateInput.SegmentContext
-   └─ DateInput.Segment
+DateInputSegmentGroup
+└─ DateInputSegmentContext
+   └─ DateInputSegment
 
-DateInput.RootProvider
+DateInputRootProvider
 └─ même arborescence reliée à un store useDateInput()
 ```
 
 | Partie | Rôle |
 | ---- | ---- |
-| `DateInput` / `DateInput.Root` | Gère les valeurs, le formatage selon la locale, le focus des segments et la validation. |
-| `DateInput.HiddenInput` | Contrôle de formulaire natif Ark à composer explicitement pour l’envoi. |
-| `DateInput.RootProvider` | Relie les parties à l’état créé avec `useDateInput()`. |
-| `DateInput.Label` | Libellé accessible du champ de date. |
-| `DateInput.Control` | Cadre visuel autour d’un ou plusieurs groupes de segments. |
-| `DateInput.SegmentGroup` | Regroupe les segments d’un index de date. |
-| `DateInput.Segment` | Segment modifiable ou littéral fourni par Ark UI. |
-| `DateInput.Segments` | Affiche un groupe de segments adapté à la locale pour le cas courant. |
-| `DateInput.Separator` | Texte de présentation entre les groupes d’une plage. |
-| `DateInput.Context` | Accès sans rendu à l’état courant du champ. |
-| `DateInput.SegmentContext` | Aide au rendu des segments selon la locale. |
+| `DateInput` | Gère les valeurs, le formatage selon la locale, le focus des segments et la validation. |
+| `DateInputHiddenInput` | Contrôle de formulaire natif Ark à composer explicitement pour l’envoi. |
+| `DateInputRootProvider` | Relie les parties à l’état créé avec `useDateInput()`. |
+| `DateInputLabel` | Libellé accessible du champ de date. |
+| `DateInputControl` | Cadre visuel autour d’un ou plusieurs groupes de segments. |
+| `DateInputSegmentGroup` | Regroupe les segments d’un index de date. |
+| `DateInputSegment` | Segment modifiable ou littéral fourni par Ark UI. |
+| `DateInputSegments` | Affiche un groupe de segments adapté à la locale pour le cas courant. |
+| `DateInputSeparator` | Texte de présentation entre les groupes d’une plage. |
+| `DateInputContext` | Accès sans rendu à l’état courant du champ. |
+| `DateInputSegmentContext` | Aide au rendu des segments selon la locale. |
 
 ## Composition
 
-Pour un champ standard, utilisez `DateInput` avec `DateInput.Control` et `DateInput.Segments`. Laissez l’état
+Pour un champ standard, utilisez `DateInput` avec `DateInputControl` et `DateInputSegments`. Laissez l’état
 non contrôlé avec `defaultValue`, contrôlez-le avec `value` et `onValueChange(details)`, ou créez-le avec
-`useDateInput()` puis reliez les parties via `DateInput.RootProvider`. Les valeurs utilisent la forme
+`useDateInput()` puis reliez les parties via `DateInputRootProvider`. Les valeurs utilisent la forme
 `DateInputDateValue[]` de `@internationalized/date`, et non des chaînes.
 
-`DateInput.HiddenInput` est explicite, car la racine n’ajoute pas de champs natifs. Ajoutez un champ masqué pour
+`DateInputHiddenInput` est explicite, car la racine n’ajoute pas de champs natifs. Ajoutez un champ masqué pour
 chaque date envoyée et utilisez les mêmes valeurs `index` pour une plage. Utilisez
-`DateInput.SegmentGroup`, `DateInput.SegmentContext` et `DateInput.Segment` uniquement lorsque le rendu par défaut
-de `DateInput.Segments` ne suffit pas.
+`DateInputSegmentGroup`, `DateInputSegmentContext` et `DateInputSegment` uniquement lorsque le rendu par défaut
+de `DateInputSegments` ne suffit pas.
 
 ## Exemples
 
@@ -376,7 +376,7 @@ comme non valides lorsqu’elles sont en dehors des limites.
 ### Plage
 
 Utilisez `selectionMode="range"`, passez `index` à chaque groupe de segments et ajoutez les
-`DateInput.HiddenInput` indexés correspondants lorsque les valeurs sont envoyées avec un formulaire.
+`DateInputHiddenInput` indexés correspondants lorsque les valeurs sont envoyées avec un formulaire.
 
 <ExampleFrame variant="component">
   <DateInputRange />
@@ -436,7 +436,7 @@ Définissez `dir="rtl"` avec une locale RTL pour conserver la direction et l’o
 
 ### Root Provider
 
-Utilisez `useDateInput()` depuis `@moduix/react` ou `@moduix/solid` avec `DateInput.RootProvider` lorsque les
+Utilisez `useDateInput()` depuis `@moduix/react` ou `@moduix/solid` avec `DateInputRootProvider` lorsque les
 actions sur l’état doivent être accessibles en dehors de l’arborescence racine rendue.
 
 <ExampleFrame variant="component">
@@ -499,7 +499,7 @@ ne fait pas partie de la valeur modifiée par l’utilisateur.
 ### Personnalisation avancée
 
 Utilisez la composition complète des segments lorsque le rendu doit varier selon les données du segment Ark.
-`DateInput.Segments` reste la voie recommandée pour le rendu standard.
+`DateInputSegments` reste la voie recommandée pour le rendu standard.
 
 <ExampleFrame variant="component">
   <DateInputAdvancedCustomization />

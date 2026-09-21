@@ -1,5 +1,15 @@
 import { useListCollection } from '@ark-ui/solid/collection';
-import { Combobox } from '@moduix/solid/combobox';
+import {
+  Combobox,
+  ComboboxContent,
+  ComboboxControl,
+  ComboboxInput,
+  ComboboxLabel,
+  ComboboxList,
+  ComboboxOption,
+  ComboboxPositioner,
+  ComboboxTrigger,
+} from '@moduix/solid/combobox';
 import { For } from 'solid-js';
 import styles from '@/components/examples/combobox/component-dynamic.module.css';
 
@@ -22,20 +32,20 @@ export default function DynamicComboboxDemo() {
         set(name ? domains.map((domain) => `${name}@${domain}`) : []);
       }}
     >
-      <Combobox.Label>Email</Combobox.Label>
-      <Combobox.Control>
-        <Combobox.Input placeholder="e.g. alex" />
-        <Combobox.Trigger aria-label="Open options" />
-      </Combobox.Control>
-      <Combobox.Positioner>
-        <Combobox.Content class={styles.content}>
-          <Combobox.List>
+      <ComboboxLabel>Email</ComboboxLabel>
+      <ComboboxControl>
+        <ComboboxInput placeholder="e.g. alex" />
+        <ComboboxTrigger aria-label="Open options" />
+      </ComboboxControl>
+      <ComboboxPositioner>
+        <ComboboxContent class={styles.content}>
+          <ComboboxList>
             <For each={collection().items}>
-              {(item) => <Combobox.Option item={item}>{item}</Combobox.Option>}
+              {(item) => <ComboboxOption item={item}>{item}</ComboboxOption>}
             </For>
-          </Combobox.List>
-        </Combobox.Content>
-      </Combobox.Positioner>
+          </ComboboxList>
+        </ComboboxContent>
+      </ComboboxPositioner>
     </Combobox>
   );
 }

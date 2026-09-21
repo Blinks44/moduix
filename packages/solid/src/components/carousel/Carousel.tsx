@@ -9,7 +9,7 @@ import { children, For, splitProps } from 'solid-js';
 import { ChevronLeftIcon, ChevronRightIcon } from '@/lib/moduix/icons/ui/Icons';
 import styles from './Carousel.module.css';
 
-function CarouselRoot(props: ComponentProps<typeof CarouselPrimitive.Root>) {
+function Carousel(props: ComponentProps<typeof CarouselPrimitive.Root>) {
   const [local, others] = splitProps(props, ['class']);
 
   return (
@@ -194,21 +194,23 @@ function CarouselProgressText(props: ComponentProps<typeof CarouselPrimitive.Pro
   );
 }
 
-const Carousel = Object.assign(CarouselRoot, {
-  Root: CarouselRoot,
-  RootProvider: CarouselRootProvider,
-  Context: CarouselPrimitive.Context,
-  Control: CarouselControl,
-  ItemGroup: CarouselItemGroup,
-  Item: CarouselItem,
-  PrevTrigger: CarouselPrevTrigger,
-  NextTrigger: CarouselNextTrigger,
-  IndicatorGroup: CarouselIndicatorGroup,
-  Indicator: CarouselIndicator,
-  Indicators: CarouselIndicators,
-  AutoplayTrigger: CarouselAutoplayTrigger,
-  AutoplayIndicator: CarouselAutoplayIndicator,
-  ProgressText: CarouselProgressText,
-});
+const CarouselContext = CarouselPrimitive.Context;
 
-export { Carousel, useCarousel, useCarouselContext };
+export {
+  Carousel,
+  CarouselAutoplayIndicator,
+  CarouselAutoplayTrigger,
+  CarouselContext,
+  CarouselControl,
+  CarouselIndicator,
+  CarouselIndicatorGroup,
+  CarouselIndicators,
+  CarouselItem,
+  CarouselItemGroup,
+  CarouselNextTrigger,
+  CarouselPrevTrigger,
+  CarouselProgressText,
+  CarouselRootProvider,
+  useCarousel,
+  useCarouselContext,
+};

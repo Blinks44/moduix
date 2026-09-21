@@ -1,6 +1,18 @@
 import { createListCollection } from '@ark-ui/solid/collection';
 import { parseDate } from '@ark-ui/solid/date-picker';
-import { DatePicker } from '@moduix/solid/date-picker';
+import {
+  DatePicker,
+  DatePickerContext,
+  DatePickerLabel,
+  DatePickerField,
+  DatePickerPositioner,
+  DatePickerContent,
+  DatePickerView,
+  DatePickerViewControl,
+  DatePickerPrevTrigger,
+  DatePickerNextTrigger,
+  DatePickerDayTable,
+} from '@moduix/solid/date-picker';
 import { Select } from '@moduix/solid/select';
 import { For, createMemo } from 'solid-js';
 
@@ -29,12 +41,12 @@ const monthCollection = createListCollection({ items: monthItems });
 export default function MonthYearSelectDatePickerDemo() {
   return (
     <DatePicker defaultValue={[parseDate('2026-06-22')]}>
-      <DatePicker.Label>Report date</DatePicker.Label>
-      <DatePicker.Field />
-      <DatePicker.Positioner>
-        <DatePicker.Content>
-          <DatePicker.ViewControl>
-            <DatePicker.Context>
+      <DatePickerLabel>Report date</DatePickerLabel>
+      <DatePickerField />
+      <DatePickerPositioner>
+        <DatePickerContent>
+          <DatePickerViewControl>
+            <DatePickerContext>
               {(datePicker) => {
                 const yearItems = createMemo(() => {
                   const focusedYear = datePicker().focusedValue.year;
@@ -112,15 +124,15 @@ export default function MonthYearSelectDatePickerDemo() {
                   </>
                 );
               }}
-            </DatePicker.Context>
-            <DatePicker.PrevTrigger />
-            <DatePicker.NextTrigger />
-          </DatePicker.ViewControl>
-          <DatePicker.View view="day">
-            <DatePicker.DayTable showHeader={false} />
-          </DatePicker.View>
-        </DatePicker.Content>
-      </DatePicker.Positioner>
+            </DatePickerContext>
+            <DatePickerPrevTrigger />
+            <DatePickerNextTrigger />
+          </DatePickerViewControl>
+          <DatePickerView view="day">
+            <DatePickerDayTable showHeader={false} />
+          </DatePickerView>
+        </DatePickerContent>
+      </DatePickerPositioner>
     </DatePicker>
   );
 }

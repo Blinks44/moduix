@@ -1,5 +1,10 @@
 import { Button } from '@moduix/solid/button';
-import { Checkbox } from '@moduix/solid/checkbox';
+import {
+  Checkbox,
+  CheckboxControl,
+  CheckboxHiddenInput,
+  CheckboxLabel,
+} from '@moduix/solid/checkbox';
 import { createSignal } from 'solid-js';
 import styles from '@/components/examples/checkbox/checkbox-with-form.module.css';
 
@@ -15,9 +20,9 @@ export default function CheckboxWithFormDemo() {
   return (
     <form class={styles.root} onSubmit={handleSubmit}>
       <Checkbox name="terms" value="accepted">
-        <Checkbox.Control />
-        <Checkbox.Label>I agree to the terms and conditions</Checkbox.Label>
-        <Checkbox.HiddenInput />
+        <CheckboxControl />
+        <CheckboxLabel>I agree to the terms and conditions</CheckboxLabel>
+        <CheckboxHiddenInput />
       </Checkbox>
       <div>
         <output>{submitted()}</output>

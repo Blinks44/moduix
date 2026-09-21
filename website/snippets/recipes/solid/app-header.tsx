@@ -2,7 +2,22 @@ import { useListCollection } from '@ark-ui/solid/collection';
 import { useFilter } from '@ark-ui/solid/locale';
 import { Avatar, AvatarFallback, AvatarImage } from '@moduix/solid/avatar';
 import { Button } from '@moduix/solid/button';
-import { CommandPalette } from '@moduix/solid/command-palette';
+import {
+  CommandPalette,
+  CommandPaletteCombobox,
+  CommandPaletteEmpty,
+  CommandPaletteItem,
+  CommandPaletteItemDescription,
+  CommandPaletteItemGroup,
+  CommandPaletteItemGroupLabel,
+  CommandPaletteItemIcon,
+  CommandPaletteItemLabel,
+  CommandPaletteItemText,
+  CommandPaletteList,
+  CommandPalettePanel,
+  CommandPaletteSearch,
+  CommandPaletteTrigger,
+} from '@moduix/solid/command-palette';
 import { Menu } from '@moduix/solid/menu';
 import {
   ChevronDown,
@@ -166,7 +181,7 @@ export function AppHeader() {
             </Menu>
           </span>
 
-          <CommandPalette.Trigger
+          <CommandPaletteTrigger
             asChild={(props) => (
               <Button
                 {...props()}
@@ -178,7 +193,7 @@ export function AppHeader() {
             )}
           >
             <Search aria-hidden />
-          </CommandPalette.Trigger>
+          </CommandPaletteTrigger>
 
           <Menu positioning={{ placement: 'bottom-end', gutter: 10 }}>
             <Menu.Trigger
@@ -243,40 +258,40 @@ export function AppHeader() {
         </div>
       </header>
 
-      <CommandPalette.Panel class={styles.commandPalette}>
-        <CommandPalette.Combobox
+      <CommandPalettePanel class={styles.commandPalette}>
+        <CommandPaletteCombobox
           collection={collectionState.collection()}
           onInputValueChange={(details) => collectionState.filter(details.inputValue)}
           onSelect={(details) => {
             window.location.hash = details.itemValue;
           }}
         >
-          <CommandPalette.Search placeholder="Search workspace..." />
-          <CommandPalette.List>
-            <CommandPalette.Empty>No commands found.</CommandPalette.Empty>
+          <CommandPaletteSearch placeholder="Search workspace..." />
+          <CommandPaletteList>
+            <CommandPaletteEmpty>No commands found.</CommandPaletteEmpty>
             <For each={collectionState.collection().group()}>
               {([section, items]) => (
-                <CommandPalette.ItemGroup>
-                  <CommandPalette.ItemGroupLabel>{section}</CommandPalette.ItemGroupLabel>
+                <CommandPaletteItemGroup>
+                  <CommandPaletteItemGroupLabel>{section}</CommandPaletteItemGroupLabel>
                   <For each={items}>
                     {(item) => (
-                      <CommandPalette.Item item={item}>
-                        <CommandPalette.ItemIcon>{item.icon}</CommandPalette.ItemIcon>
-                        <CommandPalette.ItemText>
-                          <CommandPalette.ItemLabel>{item.label}</CommandPalette.ItemLabel>
-                          <CommandPalette.ItemDescription>
+                      <CommandPaletteItem item={item}>
+                        <CommandPaletteItemIcon>{item.icon}</CommandPaletteItemIcon>
+                        <CommandPaletteItemText>
+                          <CommandPaletteItemLabel>{item.label}</CommandPaletteItemLabel>
+                          <CommandPaletteItemDescription>
                             {item.description}
-                          </CommandPalette.ItemDescription>
-                        </CommandPalette.ItemText>
-                      </CommandPalette.Item>
+                          </CommandPaletteItemDescription>
+                        </CommandPaletteItemText>
+                      </CommandPaletteItem>
                     )}
                   </For>
-                </CommandPalette.ItemGroup>
+                </CommandPaletteItemGroup>
               )}
             </For>
-          </CommandPalette.List>
-        </CommandPalette.Combobox>
-      </CommandPalette.Panel>
+          </CommandPaletteList>
+        </CommandPaletteCombobox>
+      </CommandPalettePanel>
     </CommandPalette>
   );
 }

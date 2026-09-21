@@ -1,16 +1,33 @@
 import { expect, test } from '@rstest/core';
 import { fireEvent, render, screen, waitFor, within } from '@testing-library/react';
 import { useRef, useState } from 'react';
-import { Button, Dialog, useDialog } from '../src';
+import {
+  Button,
+  Dialog,
+  DialogBackdrop,
+  DialogBody,
+  DialogCloseIcon,
+  DialogCloseTrigger,
+  DialogContext,
+  DialogContent,
+  DialogDescription,
+  DialogFooter,
+  DialogHeader,
+  DialogPositioner,
+  DialogRootProvider,
+  DialogTitle,
+  DialogTrigger,
+  useDialog,
+} from '../src';
 
 test('keeps page interaction available for a non-modal dialog', () => {
   render(
     <Dialog defaultOpen modal={false} portalled={false}>
-      <Dialog.Positioner>
-        <Dialog.Content>
-          <Dialog.Title>Preferences</Dialog.Title>
-        </Dialog.Content>
-      </Dialog.Positioner>
+      <DialogPositioner>
+        <DialogContent>
+          <DialogTitle>Preferences</DialogTitle>
+        </DialogContent>
+      </DialogPositioner>
     </Dialog>,
   );
 
@@ -23,14 +40,14 @@ test('preserves Ark open-change detail objects', async () => {
 
   render(
     <Dialog onOpenChange={(detail) => details.push(detail)}>
-      <Dialog.Trigger asChild>
+      <DialogTrigger asChild>
         <Button>Open dialog</Button>
-      </Dialog.Trigger>
-      <Dialog.Positioner>
-        <Dialog.Content>
-          <Dialog.Title>Preferences</Dialog.Title>
-        </Dialog.Content>
-      </Dialog.Positioner>
+      </DialogTrigger>
+      <DialogPositioner>
+        <DialogContent>
+          <DialogTitle>Preferences</DialogTitle>
+        </DialogContent>
+      </DialogPositioner>
     </Dialog>,
   );
 
@@ -42,14 +59,14 @@ test('preserves Ark open-change detail objects', async () => {
 test('closes on Escape and restores focus to its trigger', async () => {
   render(
     <Dialog>
-      <Dialog.Trigger asChild>
+      <DialogTrigger asChild>
         <Button>Open dialog</Button>
-      </Dialog.Trigger>
-      <Dialog.Positioner>
-        <Dialog.Content>
-          <Dialog.Title>Preferences</Dialog.Title>
-        </Dialog.Content>
-      </Dialog.Positioner>
+      </DialogTrigger>
+      <DialogPositioner>
+        <DialogContent>
+          <DialogTitle>Preferences</DialogTitle>
+        </DialogContent>
+      </DialogPositioner>
     </Dialog>,
   );
 
@@ -75,15 +92,15 @@ test('supports controlled open state', async () => {
           setOpen(detail.open);
         }}
       >
-        <Dialog.Trigger asChild>
+        <DialogTrigger asChild>
           <Button>Open dialog</Button>
-        </Dialog.Trigger>
-        <Dialog.Positioner>
-          <Dialog.Content>
-            <Dialog.Title>Preferences</Dialog.Title>
-            <Dialog.CloseTrigger>Close dialog</Dialog.CloseTrigger>
-          </Dialog.Content>
-        </Dialog.Positioner>
+        </DialogTrigger>
+        <DialogPositioner>
+          <DialogContent>
+            <DialogTitle>Preferences</DialogTitle>
+            <DialogCloseTrigger>Close dialog</DialogCloseTrigger>
+          </DialogContent>
+        </DialogPositioner>
       </Dialog>
     );
   }
@@ -101,11 +118,11 @@ test('renders overlays inline when portalled is false', () => {
   render(
     <div data-testid="dialog-host">
       <Dialog defaultOpen portalled={false}>
-        <Dialog.Positioner>
-          <Dialog.Content>
-            <Dialog.Title>Preferences</Dialog.Title>
-          </Dialog.Content>
-        </Dialog.Positioner>
+        <DialogPositioner>
+          <DialogContent>
+            <DialogTitle>Preferences</DialogTitle>
+          </DialogContent>
+        </DialogPositioner>
       </Dialog>
     </div>,
   );
@@ -116,11 +133,11 @@ test('renders overlays inline when portalled is false', () => {
 test('portals overlays outside the root tree by default', () => {
   const { container } = render(
     <Dialog defaultOpen>
-      <Dialog.Positioner>
-        <Dialog.Content>
-          <Dialog.Title>Preferences</Dialog.Title>
-        </Dialog.Content>
-      </Dialog.Positioner>
+      <DialogPositioner>
+        <DialogContent>
+          <DialogTitle>Preferences</DialogTitle>
+        </DialogContent>
+      </DialogPositioner>
     </Dialog>,
   );
 
@@ -136,11 +153,11 @@ test('portals overlays into portalRef when provided', () => {
       <>
         <div ref={portalRef} data-testid="dialog-portal" />
         <Dialog defaultOpen portalRef={portalRef}>
-          <Dialog.Positioner>
-            <Dialog.Content>
-              <Dialog.Title>Preferences</Dialog.Title>
-            </Dialog.Content>
-          </Dialog.Positioner>
+          <DialogPositioner>
+            <DialogContent>
+              <DialogTitle>Preferences</DialogTitle>
+            </DialogContent>
+          </DialogPositioner>
         </Dialog>
       </>
     );
@@ -151,17 +168,15 @@ test('portals overlays into portalRef when provided', () => {
   expect(within(screen.getByTestId('dialog-portal')).getByRole('dialog')).toBeInTheDocument();
 });
 
-test('exposes the current state through Dialog.Context', () => {
+test('exposes the current state through DialogContext', () => {
   render(
     <Dialog defaultOpen portalled={false}>
-      <Dialog.Positioner>
-        <Dialog.Content>
-          <Dialog.Title>Preferences</Dialog.Title>
-          <Dialog.Context>
-            {(dialog) => <output>Open: {String(dialog.open)}</output>}
-          </Dialog.Context>
-        </Dialog.Content>
-      </Dialog.Positioner>
+      <DialogPositioner>
+        <DialogContent>
+          <DialogTitle>Preferences</DialogTitle>
+          <DialogContext>{(dialog) => <output>Open: {String(dialog.open)}</output>}</DialogContext>
+        </DialogContent>
+      </DialogPositioner>
     </Dialog>,
   );
 
@@ -175,13 +190,13 @@ test('opens a RootProvider dialog from external state', async () => {
     return (
       <>
         <Button onClick={() => dialog.setOpen(true)}>Open via API</Button>
-        <Dialog.RootProvider value={dialog}>
-          <Dialog.Positioner>
-            <Dialog.Content>
-              <Dialog.Title>Preferences</Dialog.Title>
-            </Dialog.Content>
-          </Dialog.Positioner>
-        </Dialog.RootProvider>
+        <DialogRootProvider value={dialog}>
+          <DialogPositioner>
+            <DialogContent>
+              <DialogTitle>Preferences</DialogTitle>
+            </DialogContent>
+          </DialogPositioner>
+        </DialogRootProvider>
       </>
     );
   }
@@ -195,15 +210,15 @@ test('opens a RootProvider dialog from external state', async () => {
 test('closes with the close icon and restores focus to the trigger', async () => {
   render(
     <Dialog>
-      <Dialog.Trigger asChild>
+      <DialogTrigger asChild>
         <Button>Open dialog</Button>
-      </Dialog.Trigger>
-      <Dialog.Positioner>
-        <Dialog.Content>
-          <Dialog.Title>Preferences</Dialog.Title>
-          <Dialog.CloseIcon />
-        </Dialog.Content>
-      </Dialog.Positioner>
+      </DialogTrigger>
+      <DialogPositioner>
+        <DialogContent>
+          <DialogTitle>Preferences</DialogTitle>
+          <DialogCloseIcon />
+        </DialogContent>
+      </DialogPositioner>
     </Dialog>,
   );
 
@@ -230,64 +245,64 @@ test('forwards refs through native parts and keeps asChild composition native', 
 
   render(
     <Dialog defaultOpen portalled={false}>
-      <Dialog.Trigger
+      <DialogTrigger
         ref={(element) => {
           triggerRef = element!;
         }}
       >
         Open dialog
-      </Dialog.Trigger>
-      <Dialog.Trigger
+      </DialogTrigger>
+      <DialogTrigger
         ref={(element) => {
           composedTriggerRef = element ?? undefined;
         }}
         asChild
       >
         <button>Composed trigger</button>
-      </Dialog.Trigger>
-      <Dialog.Backdrop
+      </DialogTrigger>
+      <DialogBackdrop
         ref={(element) => {
           backdropRef = element!;
         }}
       />
-      <Dialog.Positioner
+      <DialogPositioner
         ref={(element) => {
           positionerRef = element!;
         }}
       >
-        <Dialog.Content
+        <DialogContent
           ref={(element) => {
             contentRef = element!;
           }}
         >
-          <Dialog.Title
+          <DialogTitle
             ref={(element) => {
               titleRef = element!;
             }}
           >
             Preferences
-          </Dialog.Title>
-          <Dialog.Description
+          </DialogTitle>
+          <DialogDescription
             ref={(element) => {
               descriptionRef = element!;
             }}
           >
             Description
-          </Dialog.Description>
-          <Dialog.CloseTrigger
+          </DialogDescription>
+          <DialogCloseTrigger
             ref={(element) => {
               closeTriggerRef = element!;
             }}
           >
             Close
-          </Dialog.CloseTrigger>
-          <Dialog.CloseIcon
+          </DialogCloseTrigger>
+          <DialogCloseIcon
             ref={(element) => {
               closeIconRef = element ?? undefined;
             }}
           />
-        </Dialog.Content>
-      </Dialog.Positioner>
+        </DialogContent>
+      </DialogPositioner>
     </Dialog>,
   );
 
@@ -305,19 +320,19 @@ test('forwards refs through native parts and keeps asChild composition native', 
 test('applies Tailwind defaults and lets consumer utilities win', () => {
   render(
     <Dialog defaultOpen portalled={false}>
-      <Dialog.Trigger className="bg-primary px-2">Open dialog</Dialog.Trigger>
-      <Dialog.Backdrop />
-      <Dialog.Positioner>
-        <Dialog.Content className="w-96 bg-card p-4">
-          <Dialog.Header>
-            <Dialog.Title>Preferences</Dialog.Title>
-            <Dialog.CloseIcon className="size-8 rounded-full bg-primary" />
-            <Dialog.Description>Description</Dialog.Description>
-          </Dialog.Header>
-          <Dialog.Body>Body</Dialog.Body>
-          <Dialog.Footer>Footer</Dialog.Footer>
-        </Dialog.Content>
-      </Dialog.Positioner>
+      <DialogTrigger className="bg-primary px-2">Open dialog</DialogTrigger>
+      <DialogBackdrop />
+      <DialogPositioner>
+        <DialogContent className="w-96 bg-card p-4">
+          <DialogHeader>
+            <DialogTitle>Preferences</DialogTitle>
+            <DialogCloseIcon className="size-8 rounded-full bg-primary" />
+            <DialogDescription>Description</DialogDescription>
+          </DialogHeader>
+          <DialogBody>Body</DialogBody>
+          <DialogFooter>Footer</DialogFooter>
+        </DialogContent>
+      </DialogPositioner>
     </Dialog>,
   );
 

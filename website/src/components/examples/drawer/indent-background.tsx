@@ -1,6 +1,21 @@
 import { Button } from '@moduix/react/button';
-import { Card } from '@moduix/react/card';
-import { Drawer } from '@moduix/react/drawer';
+import { Card, CardBody } from '@moduix/react/card';
+import {
+  Drawer,
+  DrawerBackdrop,
+  DrawerBody,
+  DrawerCloseIcon,
+  DrawerContent,
+  DrawerGrabber,
+  DrawerGrabberIndicator,
+  DrawerHeader,
+  DrawerIndent,
+  DrawerIndentBackground,
+  DrawerPositioner,
+  DrawerStack,
+  DrawerTitle,
+  DrawerTrigger,
+} from '@moduix/react/drawer';
 import styles from '@/components/examples/drawer/drawer-indent-background.module.css';
 
 const copy = {
@@ -11,39 +26,39 @@ const snapPoints = [0.18, 1];
 
 export default function IndentDrawerDemo() {
   return (
-    <Drawer.Stack>
+    <DrawerStack>
       <div className={styles.stage}>
-        <Drawer.IndentBackground />
+        <DrawerIndentBackground />
         <Drawer
           modal={false}
           portalled={false}
           snapPoints={snapPoints}
           defaultSnapPoint={snapPoints[0]}
         >
-          <Drawer.Indent className={styles.indent}>
-            <Drawer.Trigger asChild>
+          <DrawerIndent className={styles.indent}>
+            <DrawerTrigger asChild>
               <Button>{copy.trigger}</Button>
-            </Drawer.Trigger>
-          </Drawer.Indent>
-          <Drawer.Backdrop className={styles.backdrop} />
-          <Drawer.Positioner className={styles.positioner}>
-            <Drawer.Content>
-              <Drawer.Grabber>
-                <Drawer.GrabberIndicator />
-              </Drawer.Grabber>
-              <Drawer.Header>
-                <Drawer.Title>{copy.title}</Drawer.Title>
-                <Drawer.CloseIcon />
-              </Drawer.Header>
-              <Drawer.Body className={styles.body}>
+            </DrawerTrigger>
+          </DrawerIndent>
+          <DrawerBackdrop className={styles.backdrop} />
+          <DrawerPositioner className={styles.positioner}>
+            <DrawerContent>
+              <DrawerGrabber>
+                <DrawerGrabberIndicator />
+              </DrawerGrabber>
+              <DrawerHeader>
+                <DrawerTitle>{copy.title}</DrawerTitle>
+                <DrawerCloseIcon />
+              </DrawerHeader>
+              <DrawerBody className={styles.body}>
                 <Card size="sm" className={styles.card}>
-                  <Card.Body>The background and surface move together.</Card.Body>
+                  <CardBody>The background and surface move together.</CardBody>
                 </Card>
-              </Drawer.Body>
-            </Drawer.Content>
-          </Drawer.Positioner>
+              </DrawerBody>
+            </DrawerContent>
+          </DrawerPositioner>
         </Drawer>
       </div>
-    </Drawer.Stack>
+    </DrawerStack>
   );
 }

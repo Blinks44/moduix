@@ -1,5 +1,10 @@
 import { CalendarDate } from '@internationalized/date';
-import { DateInput } from '@moduix/react/date-input';
+import {
+  DateInput,
+  DateInputControl,
+  DateInputLabel,
+  DateInputSegments,
+} from '@moduix/react/date-input';
 import styles from '@/components/examples/date-input/date-input-leading-zeros.module.css';
 
 export default function LeadingZerosDateInputDemo() {
@@ -9,10 +14,10 @@ export default function LeadingZerosDateInputDemo() {
       defaultValue={[new CalendarDate(2026, 6, 2)]}
       shouldForceLeadingZeros={false}
     >
-      <DateInput.Label>Flexible numeric segments</DateInput.Label>
-      <DateInput.Control>
-        <DateInput.Segments />
-      </DateInput.Control>
+      <DateInputLabel>Flexible numeric segments</DateInputLabel>
+      <DateInputControl>
+        <DateInputSegments />
+      </DateInputControl>
     </DateInput>
   );
 }

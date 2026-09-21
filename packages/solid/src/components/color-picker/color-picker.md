@@ -10,5 +10,5 @@ Ark Solid uses a render-function `asChild` prop, for example
 `asChild`, so ordinary refs and custom-host composition are supported as separate native paths.
 The Solid tests cover both paths independently.
 
-`ColorPicker` and `RootProvider` accept `portalled`, `portalRef`, `lazyMount`, and
+`ColorPicker` and `ColorPickerRootProvider` accept `portalled`, `portalRef`, `lazyMount`, and
 `unmountOnExit`. `parseColor`, `useColorPicker`, and `useColorPickerContext` are re-exported.

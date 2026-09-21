@@ -1,6 +1,18 @@
 import { Button } from '@moduix/react/button';
-import { Card } from '@moduix/react/card';
-import { Drawer } from '@moduix/react/drawer';
+import { Card, CardBody } from '@moduix/react/card';
+import {
+  Drawer,
+  DrawerBackdrop,
+  DrawerBody,
+  DrawerCloseIcon,
+  DrawerContent,
+  DrawerGrabber,
+  DrawerGrabberIndicator,
+  DrawerHeader,
+  DrawerPositioner,
+  DrawerTitle,
+  DrawerTrigger,
+} from '@moduix/react/drawer';
 import { ScrollArea } from '@moduix/react/scroll-area';
 import styles from '@/components/examples/drawer/drawer-scrollable.module.css';
 
@@ -59,29 +71,29 @@ const snapPoints = [0.3, 1];
 export default function ScrollableDrawerDemo() {
   return (
     <Drawer snapPoints={snapPoints} defaultSnapPoint={snapPoints[0]}>
-      <Drawer.Trigger asChild>
+      <DrawerTrigger asChild>
         <Button>Open scrollable drawer</Button>
-      </Drawer.Trigger>
-      <Drawer.Backdrop />
-      <Drawer.Positioner>
-        <Drawer.Content>
-          <Drawer.Grabber>
-            <Drawer.GrabberIndicator />
-          </Drawer.Grabber>
-          <Drawer.Header>
-            <Drawer.Title>Scrollable drawer</Drawer.Title>
-            <Drawer.CloseIcon />
-          </Drawer.Header>
-          <Drawer.Body className={styles.body}>
+      </DrawerTrigger>
+      <DrawerBackdrop />
+      <DrawerPositioner>
+        <DrawerContent>
+          <DrawerGrabber>
+            <DrawerGrabberIndicator />
+          </DrawerGrabber>
+          <DrawerHeader>
+            <DrawerTitle>Scrollable drawer</DrawerTitle>
+            <DrawerCloseIcon />
+          </DrawerHeader>
+          <DrawerBody className={styles.body}>
             <ScrollArea className={styles.scrollArea}>
               <ScrollArea.Viewport className={styles.viewport}>
                 <ScrollArea.Content className={styles.content}>
                   {scrollSections.map((section) => (
                     <Card key={section.title} size="sm" className={styles.card}>
-                      <Card.Body>
+                      <CardBody>
                         <strong>{section.title}</strong>
                         <p>{section.body}</p>
-                      </Card.Body>
+                      </CardBody>
                     </Card>
                   ))}
                 </ScrollArea.Content>
@@ -91,9 +103,9 @@ export default function ScrollableDrawerDemo() {
               </ScrollArea.Scrollbar>
               <ScrollArea.Corner />
             </ScrollArea>
-          </Drawer.Body>
-        </Drawer.Content>
-      </Drawer.Positioner>
+          </DrawerBody>
+        </DrawerContent>
+      </DrawerPositioner>
     </Drawer>
   );
 }

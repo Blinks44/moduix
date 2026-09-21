@@ -1,4 +1,12 @@
-import { Lightbox } from '@moduix/react/lightbox';
+import {
+  LightboxTrigger,
+  LightboxBackdrop,
+  LightboxPositioner,
+  LightboxContent,
+  LightboxCloseIcon,
+  LightboxImage,
+  Lightbox,
+} from '@moduix/react/lightbox';
 import { useState } from 'react';
 import styles from '@/components/examples/lightbox/lightbox-controlled.module.css';
 
@@ -30,14 +38,14 @@ export default function ControlledLightboxDemo() {
   const [open, setOpen] = useState(false);
   return (
     <Lightbox open={open} onOpenChange={(details) => setOpen(details.open)}>
-      <Lightbox.Trigger className={styles.button}>Open controlled lightbox</Lightbox.Trigger>
-      <Lightbox.Backdrop />
-      <Lightbox.Positioner>
-        <Lightbox.CloseIcon />
-        <Lightbox.Content aria-label={images[1].alt}>
-          <Lightbox.Image src={images[1].src} alt={images[1].alt} />
-        </Lightbox.Content>
-      </Lightbox.Positioner>
+      <LightboxTrigger className={styles.button}>Open controlled lightbox</LightboxTrigger>
+      <LightboxBackdrop />
+      <LightboxPositioner>
+        <LightboxCloseIcon />
+        <LightboxContent aria-label={images[1].alt}>
+          <LightboxImage src={images[1].src} alt={images[1].alt} />
+        </LightboxContent>
+      </LightboxPositioner>
     </Lightbox>
   );
 }

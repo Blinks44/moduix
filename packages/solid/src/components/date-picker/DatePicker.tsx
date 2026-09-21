@@ -52,7 +52,7 @@ type DatePickerDayTableProps = ComponentProps<typeof DatePickerPrimitive.Table> 
   showWeekNumbers?: boolean;
 };
 
-function DatePickerRoot(props: DatePickerRootProps) {
+function DatePicker(props: DatePickerRootProps) {
   const [local, others] = splitProps(props, [
     'asChild',
     'children',
@@ -249,7 +249,7 @@ function DatePickerClearTrigger(props: ComponentProps<typeof DatePickerPrimitive
         const resolvedProps = triggerProps();
 
         return (
-          <CloseButton.Root
+          <CloseButton
             {...resolvedProps}
             {...(local['aria-label'] === undefined ? {} : { 'aria-label': local['aria-label'] })}
             {...(local['aria-labelledby'] === undefined
@@ -257,7 +257,7 @@ function DatePickerClearTrigger(props: ComponentProps<typeof DatePickerPrimitive
               : { 'aria-labelledby': local['aria-labelledby'] })}
           >
             {resolvedChildren()}
-          </CloseButton.Root>
+          </CloseButton>
         );
       }}
       class={triggerClass}
@@ -597,77 +597,44 @@ function DatePickerValueText(props: ComponentProps<typeof DatePickerPrimitive.Va
   );
 }
 
-type DatePickerComponent = typeof DatePickerRoot & {
-  Root: typeof DatePickerRoot;
-  RootProvider: typeof DatePickerRootProvider;
-  Context: typeof DatePickerPrimitive.Context;
-  Label: typeof DatePickerLabel;
-  Control: typeof DatePickerControl;
-  Field: typeof DatePickerField;
-  RangeField: typeof DatePickerRangeField;
-  Input: typeof DatePickerInput;
-  Trigger: typeof DatePickerTrigger;
-  ClearTrigger: typeof DatePickerClearTrigger;
-  Positioner: typeof DatePickerPositioner;
-  Content: typeof DatePickerContent;
-  View: typeof DatePickerView;
-  ViewControl: typeof DatePickerViewControl;
-  PrevTrigger: typeof DatePickerPrevTrigger;
-  NextTrigger: typeof DatePickerNextTrigger;
-  ViewTrigger: typeof DatePickerViewTrigger;
-  RangeText: typeof DatePickerRangeText;
-  ValueText: typeof DatePickerValueText;
-  Table: typeof DatePickerTable;
-  TableHead: typeof DatePickerTableHead;
-  TableBody: typeof DatePickerTableBody;
-  TableRow: typeof DatePickerTableRow;
-  TableHeader: typeof DatePickerTableHeader;
-  TableCell: typeof DatePickerTableCell;
-  TableCellTrigger: typeof DatePickerTableCellTrigger;
-  DayTable: typeof DatePickerDayTable;
-  WeekNumberHeaderCell: typeof DatePickerWeekNumberHeaderCell;
-  WeekNumberCell: typeof DatePickerWeekNumberCell;
-  MonthSelect: typeof DatePickerMonthSelect;
-  YearSelect: typeof DatePickerYearSelect;
-  PresetTrigger: typeof DatePickerPresetTrigger;
+const DatePickerContext = DatePickerPrimitive.Context;
+
+export {
+  DatePicker,
+  DatePickerClearTrigger,
+  DatePickerContext,
+  DatePickerContent,
+  DatePickerControl,
+  DatePickerDayTable,
+  DatePickerField,
+  DatePickerInput,
+  DatePickerLabel,
+  DatePickerMonthSelect,
+  DatePickerNextTrigger,
+  DatePickerPositioner,
+  DatePickerPresetTrigger,
+  DatePickerPrevTrigger,
+  DatePickerRangeField,
+  DatePickerRangeText,
+  DatePickerRootProvider,
+  DatePickerTable,
+  DatePickerTableBody,
+  DatePickerTableCell,
+  DatePickerTableCellTrigger,
+  DatePickerTableHead,
+  DatePickerTableHeader,
+  DatePickerTableRow,
+  DatePickerTrigger,
+  DatePickerValueText,
+  DatePickerView,
+  DatePickerViewControl,
+  DatePickerViewTrigger,
+  DatePickerWeekNumberCell,
+  DatePickerWeekNumberHeaderCell,
+  DatePickerYearSelect,
+  useDatePicker,
+  useDatePickerContext,
 };
-
-const DatePicker: DatePickerComponent = Object.assign(DatePickerRoot, {
-  Root: DatePickerRoot,
-  RootProvider: DatePickerRootProvider,
-  Context: DatePickerPrimitive.Context,
-  Label: DatePickerLabel,
-  Control: DatePickerControl,
-  Field: DatePickerField,
-  RangeField: DatePickerRangeField,
-  Input: DatePickerInput,
-  Trigger: DatePickerTrigger,
-  ClearTrigger: DatePickerClearTrigger,
-  Positioner: DatePickerPositioner,
-  Content: DatePickerContent,
-  View: DatePickerView,
-  ViewControl: DatePickerViewControl,
-  PrevTrigger: DatePickerPrevTrigger,
-  NextTrigger: DatePickerNextTrigger,
-  ViewTrigger: DatePickerViewTrigger,
-  RangeText: DatePickerRangeText,
-  ValueText: DatePickerValueText,
-  Table: DatePickerTable,
-  TableHead: DatePickerTableHead,
-  TableBody: DatePickerTableBody,
-  TableRow: DatePickerTableRow,
-  TableHeader: DatePickerTableHeader,
-  TableCell: DatePickerTableCell,
-  TableCellTrigger: DatePickerTableCellTrigger,
-  DayTable: DatePickerDayTable,
-  WeekNumberHeaderCell: DatePickerWeekNumberHeaderCell,
-  WeekNumberCell: DatePickerWeekNumberCell,
-  MonthSelect: DatePickerMonthSelect,
-  YearSelect: DatePickerYearSelect,
-  PresetTrigger: DatePickerPresetTrigger,
-});
-
-export { DatePicker, useDatePicker, useDatePickerContext };
 export type {
   DatePickerDayTableProps,
   DatePickerFieldProps,

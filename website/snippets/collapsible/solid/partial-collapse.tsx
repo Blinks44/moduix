@@ -1,4 +1,10 @@
-import { Collapsible } from '@moduix/solid/collapsible';
+import {
+  Collapsible,
+  CollapsibleBody,
+  CollapsibleContent,
+  CollapsibleIndicator,
+  CollapsibleTrigger,
+} from '@moduix/solid/collapsible';
 import styles from '@/components/examples/collapsible/collapsible-partial-collapse.module.css';
 
 const paragraphs = [
@@ -10,17 +16,17 @@ const paragraphs = [
 export default function PartialCollapseCollapsibleDemo() {
   return (
     <Collapsible class={styles.root} collapsedHeight="3rem">
-      <Collapsible.Trigger>
+      <CollapsibleTrigger>
         Read more
-        <Collapsible.Indicator />
-      </Collapsible.Trigger>
-      <Collapsible.Content>
-        <Collapsible.Body>
+        <CollapsibleIndicator />
+      </CollapsibleTrigger>
+      <CollapsibleContent>
+        <CollapsibleBody>
           {paragraphs.map((paragraph) => (
             <p>{paragraph}</p>
           ))}
-        </Collapsible.Body>
-      </Collapsible.Content>
+        </CollapsibleBody>
+      </CollapsibleContent>
     </Collapsible>
   );
 }

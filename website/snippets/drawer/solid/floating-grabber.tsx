@@ -1,32 +1,45 @@
 import { Button } from '@moduix/solid/button';
-import { Card } from '@moduix/solid/card';
-import { Drawer } from '@moduix/solid/drawer';
+import { Card, CardBody } from '@moduix/solid/card';
+import {
+  Drawer,
+  DrawerBackdrop,
+  DrawerBody,
+  DrawerCloseIcon,
+  DrawerContent,
+  DrawerDescription,
+  DrawerGrabber,
+  DrawerGrabberIndicator,
+  DrawerHeader,
+  DrawerPositioner,
+  DrawerTitle,
+  DrawerTrigger,
+} from '@moduix/solid/drawer';
 import styles from '@/components/examples/drawer/drawer-floating-grabber.module.css';
 
 export default function FloatingGrabberDrawerDemo() {
   return (
     <Drawer>
-      <Drawer.Trigger asChild={(props) => <Button {...props()}>Open drawer</Button>} />
-      <Drawer.Backdrop />
-      <Drawer.Positioner>
-        <Drawer.Content>
-          <Drawer.Grabber class={styles.grabber}>
-            <Drawer.GrabberIndicator />
-          </Drawer.Grabber>
-          <Drawer.Header>
-            <Drawer.Title>Floating grabber</Drawer.Title>
-            <Drawer.CloseIcon />
-            <Drawer.Description>The handle sits 10px above the drawer edge.</Drawer.Description>
-          </Drawer.Header>
-          <Drawer.Body class={styles.body}>
+      <DrawerTrigger asChild={(props) => <Button {...props()}>Open drawer</Button>} />
+      <DrawerBackdrop />
+      <DrawerPositioner>
+        <DrawerContent>
+          <DrawerGrabber class={styles.grabber}>
+            <DrawerGrabberIndicator />
+          </DrawerGrabber>
+          <DrawerHeader>
+            <DrawerTitle>Floating grabber</DrawerTitle>
+            <DrawerCloseIcon />
+            <DrawerDescription>The handle sits 10px above the drawer edge.</DrawerDescription>
+          </DrawerHeader>
+          <DrawerBody class={styles.body}>
             <Card size="sm" class={styles.card}>
-              <Card.Body>
+              <CardBody>
                 Use this treatment when the handle should read as a separate control.
-              </Card.Body>
+              </CardBody>
             </Card>
-          </Drawer.Body>
-        </Drawer.Content>
-      </Drawer.Positioner>
+          </DrawerBody>
+        </DrawerContent>
+      </DrawerPositioner>
     </Drawer>
   );
 }

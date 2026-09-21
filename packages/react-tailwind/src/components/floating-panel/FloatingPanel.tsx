@@ -240,7 +240,7 @@ const FloatingPanelCloseTrigger = forwardRef<
 });
 
 const FloatingPanelCloseIcon = forwardRef<
-  ComponentRef<typeof CloseButton.Root>,
+  ComponentRef<typeof CloseButton>,
   Omit<ComponentProps<typeof FloatingPanelPrimitive.CloseTrigger>, 'asChild'>
 >(function FloatingPanelCloseIcon(
   { className, children, 'aria-label': ariaLabel = DEFAULT_CLOSE_BUTTON_LABEL, ...props },
@@ -248,7 +248,7 @@ const FloatingPanelCloseIcon = forwardRef<
 ) {
   return (
     <FloatingPanelPrimitive.CloseTrigger asChild {...props}>
-      <CloseButton.Root
+      <CloseButton
         ref={ref}
         data-slot="floating-panel-close-icon"
         aria-label={ariaLabel}
@@ -258,7 +258,7 @@ const FloatingPanelCloseIcon = forwardRef<
         )}
       >
         {children}
-      </CloseButton.Root>
+      </CloseButton>
     </FloatingPanelPrimitive.CloseTrigger>
   );
 });

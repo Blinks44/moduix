@@ -1,6 +1,18 @@
 import { createListCollection } from '@ark-ui/react/collection';
 import { parseDate } from '@ark-ui/react/date-picker';
-import { DatePicker } from '@moduix/react/date-picker';
+import {
+  DatePicker,
+  DatePickerContext,
+  DatePickerLabel,
+  DatePickerField,
+  DatePickerPositioner,
+  DatePickerContent,
+  DatePickerView,
+  DatePickerViewControl,
+  DatePickerPrevTrigger,
+  DatePickerNextTrigger,
+  DatePickerDayTable,
+} from '@moduix/react/date-picker';
 import { Select } from '@moduix/react/select';
 import styles from '@/components/examples/date-picker/date-picker-month-year-select.module.css';
 
@@ -24,12 +36,12 @@ const months = createListCollection({ items: monthItems });
 export default function MonthYearSelectDatePickerDemo() {
   return (
     <DatePicker defaultValue={[parseDate('2026-06-22')]}>
-      <DatePicker.Label>Report date</DatePicker.Label>
-      <DatePicker.Field />
-      <DatePicker.Positioner>
-        <DatePicker.Content>
-          <DatePicker.ViewControl className={styles.control}>
-            <DatePicker.Context>
+      <DatePickerLabel>Report date</DatePickerLabel>
+      <DatePickerField />
+      <DatePickerPositioner>
+        <DatePickerContent>
+          <DatePickerViewControl className={styles.control}>
+            <DatePickerContext>
               {(datePicker) => {
                 const yearItems = Array.from({ length: 12 }, (_, index) => {
                   const year = datePicker.focusedValue.year - 5 + index;
@@ -99,17 +111,17 @@ export default function MonthYearSelectDatePickerDemo() {
                   </div>
                 );
               }}
-            </DatePicker.Context>
+            </DatePickerContext>
             <div className={styles.nav}>
-              <DatePicker.PrevTrigger />
-              <DatePicker.NextTrigger />
+              <DatePickerPrevTrigger />
+              <DatePickerNextTrigger />
             </div>
-          </DatePicker.ViewControl>
-          <DatePicker.View view="day">
-            <DatePicker.DayTable showHeader={false} />
-          </DatePicker.View>
-        </DatePicker.Content>
-      </DatePicker.Positioner>
+          </DatePickerViewControl>
+          <DatePickerView view="day">
+            <DatePickerDayTable showHeader={false} />
+          </DatePickerView>
+        </DatePickerContent>
+      </DatePickerPositioner>
     </DatePicker>
   );
 }

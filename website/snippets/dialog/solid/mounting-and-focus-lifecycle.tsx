@@ -1,5 +1,14 @@
 import { Button } from '@moduix/solid/button';
-import { Dialog } from '@moduix/solid/dialog';
+import {
+  Dialog,
+  DialogBackdrop,
+  DialogBody,
+  DialogCloseIcon,
+  DialogContent,
+  DialogPositioner,
+  DialogTitle,
+  DialogTrigger,
+} from '@moduix/solid/dialog';
 import { Field } from '@moduix/solid/field';
 import { Input } from '@moduix/solid/input';
 
@@ -16,20 +25,20 @@ export default function DialogLifecycleDemo() {
         initialFocusEl={() => inputRef}
         finalFocusEl={() => finalFocusRef}
       >
-        <Dialog.Trigger asChild={(props) => <Button {...props()}>Edit profile</Button>} />
-        <Dialog.Backdrop />
-        <Dialog.Positioner>
-          <Dialog.Content>
-            <Dialog.Title>Edit profile</Dialog.Title>
-            <Dialog.Body>
+        <DialogTrigger asChild={(props) => <Button {...props()}>Edit profile</Button>} />
+        <DialogBackdrop />
+        <DialogPositioner>
+          <DialogContent>
+            <DialogTitle>Edit profile</DialogTitle>
+            <DialogBody>
               <Field>
                 <Field.Label>Name</Field.Label>
                 <Input ref={(element) => (inputRef = element)} />
               </Field>
-            </Dialog.Body>
-            <Dialog.CloseIcon />
-          </Dialog.Content>
-        </Dialog.Positioner>
+            </DialogBody>
+            <DialogCloseIcon />
+          </DialogContent>
+        </DialogPositioner>
       </Dialog>
     </>
   );

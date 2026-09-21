@@ -2,7 +2,22 @@ import { useListCollection } from '@ark-ui/react/collection';
 import { useFilter } from '@ark-ui/react/locale';
 import { Avatar, AvatarFallback, AvatarImage } from '@moduix/react/avatar';
 import { Button } from '@moduix/react/button';
-import { CommandPalette } from '@moduix/react/command-palette';
+import {
+  CommandPalette,
+  CommandPaletteCombobox,
+  CommandPaletteEmpty,
+  CommandPaletteItem,
+  CommandPaletteItemDescription,
+  CommandPaletteItemGroup,
+  CommandPaletteItemGroupLabel,
+  CommandPaletteItemIcon,
+  CommandPaletteItemLabel,
+  CommandPaletteItemText,
+  CommandPaletteList,
+  CommandPalettePanel,
+  CommandPaletteSearch,
+  CommandPaletteTrigger,
+} from '@moduix/react/command-palette';
 import { Menu } from '@moduix/react/menu';
 import {
   ChevronDown,
@@ -148,7 +163,7 @@ export function AppHeader() {
             </Menu>
           </span>
 
-          <CommandPalette.Trigger asChild>
+          <CommandPaletteTrigger asChild>
             <Button
               className={styles.searchTrigger}
               variant="ghost"
@@ -157,7 +172,7 @@ export function AppHeader() {
             >
               <Search aria-hidden />
             </Button>
-          </CommandPalette.Trigger>
+          </CommandPaletteTrigger>
 
           <Menu positioning={{ placement: 'bottom-end', gutter: 10 }}>
             <Menu.Trigger asChild>
@@ -212,36 +227,36 @@ export function AppHeader() {
         </div>
       </header>
 
-      <CommandPalette.Panel className={styles.commandPalette}>
-        <CommandPalette.Combobox
+      <CommandPalettePanel className={styles.commandPalette}>
+        <CommandPaletteCombobox
           collection={collection}
           onInputValueChange={(details) => filter(details.inputValue)}
           onSelect={(details) => {
             window.location.hash = details.itemValue;
           }}
         >
-          <CommandPalette.Search placeholder="Search workspace..." />
-          <CommandPalette.List>
-            <CommandPalette.Empty>No commands found.</CommandPalette.Empty>
+          <CommandPaletteSearch placeholder="Search workspace..." />
+          <CommandPaletteList>
+            <CommandPaletteEmpty>No commands found.</CommandPaletteEmpty>
             {collection.group().map(([section, items]) => (
-              <CommandPalette.ItemGroup key={section}>
-                <CommandPalette.ItemGroupLabel>{section}</CommandPalette.ItemGroupLabel>
+              <CommandPaletteItemGroup key={section}>
+                <CommandPaletteItemGroupLabel>{section}</CommandPaletteItemGroupLabel>
                 {items.map((item) => (
-                  <CommandPalette.Item key={item.id} item={item}>
-                    <CommandPalette.ItemIcon>{item.icon}</CommandPalette.ItemIcon>
-                    <CommandPalette.ItemText>
-                      <CommandPalette.ItemLabel>{item.label}</CommandPalette.ItemLabel>
-                      <CommandPalette.ItemDescription>
+                  <CommandPaletteItem key={item.id} item={item}>
+                    <CommandPaletteItemIcon>{item.icon}</CommandPaletteItemIcon>
+                    <CommandPaletteItemText>
+                      <CommandPaletteItemLabel>{item.label}</CommandPaletteItemLabel>
+                      <CommandPaletteItemDescription>
                         {item.description}
-                      </CommandPalette.ItemDescription>
-                    </CommandPalette.ItemText>
-                  </CommandPalette.Item>
+                      </CommandPaletteItemDescription>
+                    </CommandPaletteItemText>
+                  </CommandPaletteItem>
                 ))}
-              </CommandPalette.ItemGroup>
+              </CommandPaletteItemGroup>
             ))}
-          </CommandPalette.List>
-        </CommandPalette.Combobox>
-      </CommandPalette.Panel>
+          </CommandPaletteList>
+        </CommandPaletteCombobox>
+      </CommandPalettePanel>
     </CommandPalette>
   );
 }

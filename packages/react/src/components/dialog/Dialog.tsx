@@ -19,7 +19,7 @@ type DialogRootProps = ComponentProps<typeof DialogPrimitive.Root> & OverlayPort
 type DialogRootProviderProps = ComponentProps<typeof DialogPrimitive.RootProvider> &
   OverlayPortalProps;
 
-function DialogRoot({
+function Dialog({
   lazyMount = true,
   portalled,
   portalRef,
@@ -156,7 +156,7 @@ const DialogCloseTrigger = forwardRef<
 });
 
 const DialogCloseIcon = forwardRef<
-  ComponentRef<typeof CloseButton.Root>,
+  ComponentRef<typeof CloseButton>,
   Omit<ComponentProps<typeof DialogPrimitive.CloseTrigger>, 'asChild'>
 >(function DialogCloseIcon(
   { className, children, 'aria-label': ariaLabel = DEFAULT_CLOSE_BUTTON_LABEL, ...props },
@@ -164,14 +164,14 @@ const DialogCloseIcon = forwardRef<
 ) {
   return (
     <DialogPrimitive.CloseTrigger asChild {...props}>
-      <CloseButton.Root
+      <CloseButton
         ref={ref}
         data-slot="dialog-close-icon"
         aria-label={ariaLabel}
         className={clsx(styles.closeIcon, className)}
       >
         {children}
-      </CloseButton.Root>
+      </CloseButton>
     </DialogPrimitive.CloseTrigger>
   );
 });
@@ -215,22 +215,24 @@ const DialogFooter = forwardRef<ComponentRef<typeof ark.div>, HTMLArkProps<'div'
   },
 );
 
-const Dialog = Object.assign(DialogRoot, {
-  Root: DialogRoot,
-  RootProvider: DialogRootProvider,
-  Context: DialogPrimitive.Context,
-  Trigger: DialogTrigger,
-  Backdrop: DialogBackdrop,
-  Positioner: DialogPositioner,
-  Content: DialogContent,
-  Title: DialogTitle,
-  Description: DialogDescription,
-  CloseTrigger: DialogCloseTrigger,
-  CloseIcon: DialogCloseIcon,
-  Header: DialogHeader,
-  Body: DialogBody,
-  Footer: DialogFooter,
-});
+const DialogContext = DialogPrimitive.Context;
 
-export { Dialog, useDialog, useDialogContext };
+export {
+  Dialog,
+  DialogBackdrop,
+  DialogBody,
+  DialogCloseIcon,
+  DialogCloseTrigger,
+  DialogContext,
+  DialogContent,
+  DialogDescription,
+  DialogFooter,
+  DialogHeader,
+  DialogPositioner,
+  DialogRootProvider,
+  DialogTitle,
+  DialogTrigger,
+  useDialog,
+  useDialogContext,
+};
 export type { DialogRootProps, DialogRootProviderProps };

@@ -1,9 +1,9 @@
 # Card (Solid)
 
-`Card` preserves the React component's compound anatomy, variants, sizes, data hooks, CSS
+`Card` preserves the React component's flat part anatomy, variants, sizes, data hooks, CSS
 variables, and native Ark factory composition.
 
-`Card.Body` owns its inset spacing; direct child margins remain consumer-owned.
+`CardBody` owns its inset spacing; direct child margins remain consumer-owned.
 
 ## Ark Solid composition
 

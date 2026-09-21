@@ -1,5 +1,11 @@
 import type { Meta, StoryObj } from 'storybook-solidjs-vite';
-import { Checkbox } from '@/components/checkbox';
+import {
+  Checkbox,
+  CheckboxControl,
+  CheckboxHiddenInput,
+  CheckboxIndicator,
+  CheckboxLabel,
+} from '@/components/checkbox';
 import { Field } from '@/components/field';
 import { Fieldset, useFieldset } from '@/components/fieldset/Fieldset';
 import { RadioGroup } from '@/components/radio-group';
@@ -68,20 +74,20 @@ export const WithCheckbox: Story = {
   render: () => (
     <Fieldset>
       <Fieldset.Legend>Email preferences</Fieldset.Legend>
-      <Checkbox.Root defaultChecked>
-        <Checkbox.Control>
-          <Checkbox.Indicator />
-        </Checkbox.Control>
-        <Checkbox.Label>Product updates</Checkbox.Label>
-        <Checkbox.HiddenInput />
-      </Checkbox.Root>
-      <Checkbox.Root>
-        <Checkbox.Control>
-          <Checkbox.Indicator />
-        </Checkbox.Control>
-        <Checkbox.Label>Marketing emails</Checkbox.Label>
-        <Checkbox.HiddenInput />
-      </Checkbox.Root>
+      <Checkbox defaultChecked>
+        <CheckboxControl>
+          <CheckboxIndicator />
+        </CheckboxControl>
+        <CheckboxLabel>Product updates</CheckboxLabel>
+        <CheckboxHiddenInput />
+      </Checkbox>
+      <Checkbox>
+        <CheckboxControl>
+          <CheckboxIndicator />
+        </CheckboxControl>
+        <CheckboxLabel>Marketing emails</CheckboxLabel>
+        <CheckboxHiddenInput />
+      </Checkbox>
     </Fieldset>
   ),
 };

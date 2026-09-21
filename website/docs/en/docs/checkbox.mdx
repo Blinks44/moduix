@@ -53,8 +53,8 @@ should take effect immediately.
 ## Basic
 
 
-Compose a checkbox from Ark's parts. Leave `Checkbox.Control` empty to use moduix's built-in checked
-and indeterminate icons. Add `Checkbox.Label` for the visible text and `Checkbox.HiddenInput` for
+Compose a checkbox from Ark's parts. Leave `CheckboxControl` empty to use moduix's built-in checked
+and indeterminate icons. Add `CheckboxLabel` for the visible text and `CheckboxHiddenInput` for
 native interaction and form behavior.
 
 <ExampleFrame variant="component">
@@ -116,46 +116,46 @@ See [Quick Start](/docs/quick-start) for full package setup, registry configurat
 ## Anatomy
 
 ```text
-Checkbox / Checkbox.Root
-├─ Checkbox.Control
-│  ├─ Checkbox.Indicator
-│  └─ Checkbox.Indicator[indeterminate] (optional)
-├─ Checkbox.Label
-└─ Checkbox.HiddenInput (explicit)
+Checkbox
+├─ CheckboxControl
+│  ├─ CheckboxIndicator
+│  └─ CheckboxIndicator[indeterminate] (optional)
+├─ CheckboxLabel
+└─ CheckboxHiddenInput (explicit)
 
-Checkbox.RootProvider
+CheckboxRootProvider
 └─ same part tree connected to useCheckbox()
 
-Checkbox.Group
-└─ Checkbox.Root[value]
-   ├─ Checkbox.Control
-   ├─ Checkbox.Label
-   └─ Checkbox.HiddenInput
+CheckboxGroup
+└─ Checkbox[value]
+   ├─ CheckboxControl
+   ├─ CheckboxLabel
+   └─ CheckboxHiddenInput
 ```
 
 | Part                         | Role                                                                                  |
 | ---------------------------- | ------------------------------------------------------------------------------------- |
-| `Checkbox` / `Checkbox.Root` | Holds the state for one checkbox and renders its wrapping label.                      |
-| `Checkbox.HiddenInput`       | Native Ark form control; compose it explicitly inside the root.                       |
-| `Checkbox.RootProvider`      | Connects the parts to Ark state created outside the rendered tree.                    |
-| `Checkbox.Control`           | The visible checkbox; empty, it renders the built-in state icons.                     |
-| `Checkbox.Indicator`         | Optional slot for a custom icon. Pass `indeterminate` for that state.                 |
-| `Checkbox.Label`             | The visible label for the checkbox.                                                   |
-| `Checkbox.Group`             | Manages the selected values for several checkboxes.                                   |
+| `Checkbox`                   | Holds the state for one checkbox and renders its wrapping label.                      |
+| `CheckboxHiddenInput`        | Native Ark form control; compose it explicitly inside the root.                       |
+| `CheckboxRootProvider`       | Connects the parts to Ark state created outside the rendered tree.                    |
+| `CheckboxControl`            | The visible checkbox; empty, it renders the built-in state icons.                     |
+| `CheckboxIndicator`          | Optional slot for a custom icon. Pass `indeterminate` for that state.                 |
+| `CheckboxLabel`              | The visible label for the checkbox.                                                   |
+| `CheckboxGroup`              | Manages the selected values for several checkboxes.                                   |
 
 ## Composition
 
-`Checkbox.HiddenInput` is Ark's native input. Render it explicitly inside `Checkbox.Root` or
-`Checkbox.RootProvider`, even outside a form: it owns native focus, keyboard interaction,
+`CheckboxHiddenInput` is Ark's native input. Render it explicitly inside `Checkbox` or
+`CheckboxRootProvider`, even outside a form: it owns native focus, keyboard interaction,
 accessibility, and form participation. Put `name` and `value` on the root for a standalone field;
-for a group, put `name` on `Checkbox.Group` and `value` on each `Checkbox.Root`.
+for a group, put `name` on `CheckboxGroup` and `value` on each `Checkbox`.
 
-`Checkbox.Group` owns an array of selected values, and each child is a `Checkbox.Root` with its own
-`value`. Leave `Checkbox.Control` empty for moduix's built-in icons. Add `Checkbox.Indicator` inside
-`Checkbox.Control` only for a custom indicator.
+`CheckboxGroup` owns an array of selected values, and each child is a `Checkbox` with its own
+`value`. Leave `CheckboxControl` empty for moduix's built-in icons. Add `CheckboxIndicator` inside
+`CheckboxControl` only for a custom indicator.
 
 When state must be created outside the rendered tree, create it with `useCheckbox()` and pass the
-store to `Checkbox.RootProvider`. Do not render `Checkbox` or `Checkbox.Root` for the same store.
+store to `CheckboxRootProvider`. Do not render `Checkbox` or `Checkbox` for the same store.
 
 ## Examples
 
@@ -298,7 +298,7 @@ Use `disabled` when an option is unavailable and must not be interactive.
 
 ### Group
 
-Use `Checkbox.Group` when several checkboxes share an array of selected values.
+Use `CheckboxGroup` when several checkboxes share an array of selected values.
 
 <ExampleFrame variant="component">
   <CheckboxGroup />
@@ -355,7 +355,7 @@ Use `Fieldset` when the group represents one form field and needs a shared legen
 
 ### Group With Form
 
-Put `Checkbox.Group` inside a form when you need all selected values in `FormData`. Read them with
+Put `CheckboxGroup` inside a form when you need all selected values in `FormData`. Read them with
 `FormData.getAll(name)`.
 
 <ExampleFrame variant="component">
@@ -492,7 +492,7 @@ Use `readOnly` to show a value without allowing users to change it.
 
 ### Root Provider
 
-Use `Checkbox.RootProvider` when checkbox state needs to live outside the rendered tree. Import
+Use `CheckboxRootProvider` when checkbox state needs to live outside the rendered tree. Import
 `useCheckbox` from the matching framework package.
 
 <ExampleFrame variant="component">
@@ -613,7 +613,7 @@ Use `Field` when a checkbox needs helper text, validation messages, or shared fi
 
 ### With Form
 
-Pass `name` and `value` to `Checkbox.Root` and render `Checkbox.HiddenInput` to include it in
+Pass `name` and `value` to `Checkbox` and render `CheckboxHiddenInput` to include it in
 `FormData`.
 
 <ExampleFrame variant="component">
@@ -657,9 +657,9 @@ hooks are shared by both styling tracks.
 
 ### Styling hooks
 
-- `Checkbox.Root` exposes `data-slot="checkbox-root"`, `data-size`, and Ark state attributes such as `data-state`, `data-active`, `data-disabled`, `data-readonly`, `data-invalid`, `data-required`, `data-hover`, `data-focus`, and `data-focus-visible`.
-- `Checkbox.RootProvider` exposes `data-slot="checkbox-root-provider"` and the same root styling contract.
-- `Checkbox.Control` exposes `data-slot="checkbox-control"` and Ark state attributes including `data-state="checked" | "indeterminate" | "unchecked"` and `data-active`.
-- `Checkbox.Indicator` exposes `data-slot="checkbox-indicator"` and inherits Ark checkbox state attributes.
-- `Checkbox.Label` exposes `data-slot="checkbox-label"` and Ark checkbox state attributes.
-- `Checkbox.Group` exposes `data-slot="checkbox-group"`.
+- `Checkbox` exposes `data-slot="checkbox-root"`, `data-size`, and Ark state attributes such as `data-state`, `data-active`, `data-disabled`, `data-readonly`, `data-invalid`, `data-required`, `data-hover`, `data-focus`, and `data-focus-visible`.
+- `CheckboxRootProvider` exposes `data-slot="checkbox-root-provider"` and the same root styling contract.
+- `CheckboxControl` exposes `data-slot="checkbox-control"` and Ark state attributes including `data-state="checked" | "indeterminate" | "unchecked"` and `data-active`.
+- `CheckboxIndicator` exposes `data-slot="checkbox-indicator"` and inherits Ark checkbox state attributes.
+- `CheckboxLabel` exposes `data-slot="checkbox-label"` and Ark checkbox state attributes.
+- `CheckboxGroup` exposes `data-slot="checkbox-group"`.

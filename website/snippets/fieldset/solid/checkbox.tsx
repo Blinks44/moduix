@@ -1,4 +1,9 @@
-import { Checkbox } from '@moduix/solid/checkbox';
+import {
+  Checkbox,
+  CheckboxControl,
+  CheckboxHiddenInput,
+  CheckboxLabel,
+} from '@moduix/solid/checkbox';
 import { Fieldset } from '@moduix/solid/fieldset';
 import { For } from 'solid-js';
 import styles from '@/components/examples/fieldset/fieldset-checkbox.module.css';
@@ -21,9 +26,9 @@ export default function EmailPreferences() {
       <For each={preferences}>
         {(preference) => (
           <Checkbox value={preference.value}>
-            <Checkbox.Control />
-            <Checkbox.Label>{preference.label}</Checkbox.Label>
-            <Checkbox.HiddenInput />
+            <CheckboxControl />
+            <CheckboxLabel>{preference.label}</CheckboxLabel>
+            <CheckboxHiddenInput />
           </Checkbox>
         )}
       </For>

@@ -160,7 +160,7 @@ const SignaturePadClearTrigger = forwardRef<
       {asChild ? (
         children
       ) : (
-        <CloseButton.Root
+        <CloseButton
           aria-label={ariaLabel}
           aria-labelledby={ariaLabelledBy}
           className={cn(
@@ -169,7 +169,7 @@ const SignaturePadClearTrigger = forwardRef<
           )}
         >
           {children ?? <RotateCcwIcon className="size-4" aria-hidden="true" />}
-        </CloseButton.Root>
+        </CloseButton>
       )}
     </SignaturePadPrimitive.ClearTrigger>
   );

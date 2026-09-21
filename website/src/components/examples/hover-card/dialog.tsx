@@ -1,5 +1,13 @@
 import { Button } from '@moduix/react/button';
-import { Dialog } from '@moduix/react/dialog';
+import {
+  Dialog,
+  DialogBackdrop,
+  DialogContent,
+  DialogHeader,
+  DialogPositioner,
+  DialogTitle,
+  DialogTrigger,
+} from '@moduix/react/dialog';
 import { HoverCard } from '@moduix/react/hover-card';
 import { useRef } from 'react';
 import styles from '@/components/examples/hover-card/hover-card-dialog.module.css';
@@ -9,17 +17,17 @@ export default function DialogHoverCard() {
 
   return (
     <Dialog initialFocusEl={() => titleRef.current}>
-      <Dialog.Trigger asChild>
+      <DialogTrigger asChild>
         <Button>View profile</Button>
-      </Dialog.Trigger>
-      <Dialog.Backdrop />
-      <Dialog.Positioner>
-        <Dialog.Content>
-          <Dialog.Header>
-            <Dialog.Title ref={titleRef} tabIndex={-1}>
+      </DialogTrigger>
+      <DialogBackdrop />
+      <DialogPositioner>
+        <DialogContent>
+          <DialogHeader>
+            <DialogTitle ref={titleRef} tabIndex={-1}>
               Team member
-            </Dialog.Title>
-          </Dialog.Header>
+            </DialogTitle>
+          </DialogHeader>
           <HoverCard portalled={false}>
             <HoverCard.Trigger className={styles.trigger}>@sarah_chen</HoverCard.Trigger>
             <HoverCard.Positioner>
@@ -42,8 +50,8 @@ export default function DialogHoverCard() {
               </HoverCard.Content>
             </HoverCard.Positioner>
           </HoverCard>
-        </Dialog.Content>
-      </Dialog.Positioner>
+        </DialogContent>
+      </DialogPositioner>
     </Dialog>
   );
 }

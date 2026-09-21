@@ -1,6 +1,18 @@
 import { Button } from '@moduix/react/button';
-import { Card } from '@moduix/react/card';
-import { Checkbox } from '@moduix/react/checkbox';
+import {
+  Card,
+  CardBody,
+  CardDescription,
+  CardFooter,
+  CardHeader,
+  CardTitle,
+} from '@moduix/react/card';
+import {
+  Checkbox,
+  CheckboxControl,
+  CheckboxHiddenInput,
+  CheckboxLabel,
+} from '@moduix/react/checkbox';
 import { Field } from '@moduix/react/field';
 import { Input } from '@moduix/react/input';
 import type { FormEventHandler } from 'react';
@@ -9,12 +21,12 @@ import styles from './sign-up-form.module.css';
 export function SignUp({ onSubmit }: { onSubmit?: FormEventHandler<HTMLFormElement> }) {
   return (
     <Card className={styles.root}>
-      <Card.Header className={styles.header}>
-        <Card.Title>Create your account</Card.Title>
-        <Card.Description>Start building with moduix in minutes.</Card.Description>
-      </Card.Header>
+      <CardHeader className={styles.header}>
+        <CardTitle>Create your account</CardTitle>
+        <CardDescription>Start building with moduix in minutes.</CardDescription>
+      </CardHeader>
 
-      <Card.Body>
+      <CardBody>
         <form className={styles.stack} onSubmit={onSubmit}>
           <Field required>
             <Field.Label>Full name</Field.Label>
@@ -37,9 +49,9 @@ export function SignUp({ onSubmit }: { onSubmit?: FormEventHandler<HTMLFormEleme
           </Field>
 
           <Checkbox name="terms" required>
-            <Checkbox.HiddenInput />
-            <Checkbox.Control />
-            <Checkbox.Label>
+            <CheckboxHiddenInput />
+            <CheckboxControl />
+            <CheckboxLabel>
               I agree to the{' '}
               <a className={styles.link} href="/terms">
                 Terms of service
@@ -49,23 +61,23 @@ export function SignUp({ onSubmit }: { onSubmit?: FormEventHandler<HTMLFormEleme
                 Privacy policy
               </a>
               .
-            </Checkbox.Label>
+            </CheckboxLabel>
           </Checkbox>
 
           <Button type="submit" className={styles.submit}>
             Create account
           </Button>
         </form>
-      </Card.Body>
+      </CardBody>
 
-      <Card.Footer className={styles.footer}>
+      <CardFooter className={styles.footer}>
         <p>
           Already have an account?{' '}
           <a className={styles.link} href="/sign-in">
             Sign in
           </a>
         </p>
-      </Card.Footer>
+      </CardFooter>
     </Card>
   );
 }

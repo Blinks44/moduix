@@ -3,7 +3,12 @@ import type { Meta, StoryObj } from '@storybook/react-vite';
 import { useEffect, useState, type ComponentProps } from 'react';
 import { Avatar, AvatarFallback } from '@/components/avatar';
 import { Button } from '@/components/button';
-import { Collapsible } from '@/components/collapsible';
+import {
+  Collapsible,
+  CollapsibleContent,
+  CollapsibleIndicator,
+  CollapsibleTrigger,
+} from '@/components/collapsible';
 import { Menu } from '@/components/menu';
 import { ScrollArea } from '@/components/scroll-area';
 import { Select } from '@/components/select';
@@ -202,15 +207,15 @@ function SidebarNavigation() {
               <Sidebar.ExpandedContent>
                 <Collapsible defaultOpen className={styles.collapsible}>
                   <Sidebar.Tooltip content="Projects">
-                    <Collapsible.Trigger asChild>
+                    <CollapsibleTrigger asChild>
                       <Sidebar.NavigationButton>
                         <FolderIcon />
                         <Sidebar.Label>Projects</Sidebar.Label>
-                        <Collapsible.Indicator />
+                        <CollapsibleIndicator />
                       </Sidebar.NavigationButton>
-                    </Collapsible.Trigger>
+                    </CollapsibleTrigger>
                   </Sidebar.Tooltip>
-                  <Collapsible.Content>
+                  <CollapsibleContent>
                     <Sidebar.NavigationSubList>
                       <Sidebar.NavigationSubItem>
                         <Sidebar.NavigationSubButton href="#website">
@@ -224,7 +229,7 @@ function SidebarNavigation() {
                         </Sidebar.NavigationSubButton>
                       </Sidebar.NavigationSubItem>
                     </Sidebar.NavigationSubList>
-                  </Collapsible.Content>
+                  </CollapsibleContent>
                 </Collapsible>
               </Sidebar.ExpandedContent>
               <Sidebar.CollapsedContent>

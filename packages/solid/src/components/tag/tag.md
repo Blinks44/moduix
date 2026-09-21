@@ -8,7 +8,7 @@ shared close action.
 - `Tag` is the root shorthand and is equivalent to `Tag.Root`.
 - `Tag` accepts Ark factory `span` props plus `variant` and `size`.
 - `Tag.Label`, `Tag.StartElement`, and `Tag.EndElement` are Ark factory `span` parts.
-- `Tag.CloseTrigger` composes `CloseButton.Root` while retaining Tag data hooks and the
+- `Tag.CloseTrigger` composes `CloseButton` while retaining Tag data hooks and the
   `aria-label="Remove tag"` fallback for a default native button.
 - The component owns no selected or removed state; parent widgets own list mutation and event
   handling.

@@ -48,8 +48,8 @@ function withTooltipStyles<
   return { ...definition, tooltip: styledTooltip };
 }
 
-const ChartRoot = forwardRef<ComponentRef<typeof ark.figure>, HTMLArkProps<'figure'>>(
-  function ChartRoot({ className, ...props }, ref) {
+const Chart = forwardRef<ComponentRef<typeof ark.figure>, HTMLArkProps<'figure'>>(
+  function Chart({ className, ...props }, ref) {
     return (
       <ark.figure
         ref={ref}
@@ -244,14 +244,12 @@ const ChartLegendItem = forwardRef<
   );
 });
 
-const Chart = Object.assign(ChartRoot, {
-  Root: ChartRoot,
-  Plot: ChartPlot,
-  Header: ChartHeader,
-  Title: ChartTitle,
-  Description: ChartDescription,
-  Legend: ChartLegend,
-  LegendItem: ChartLegendItem,
-});
-
-export { Chart };
+export {
+  Chart,
+  ChartDescription,
+  ChartHeader,
+  ChartLegend,
+  ChartLegendItem,
+  ChartPlot,
+  ChartTitle,
+};

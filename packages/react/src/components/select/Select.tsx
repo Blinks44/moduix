@@ -184,12 +184,12 @@ const SelectClearTrigger = forwardRef<
       {asChild ? (
         children
       ) : (
-        <CloseButton.Root
+        <CloseButton
           aria-label={ariaLabel ?? (ariaLabelledBy == null ? 'Clear selection' : undefined)}
           aria-labelledby={ariaLabelledBy}
         >
           {children}
-        </CloseButton.Root>
+        </CloseButton>
       )}
     </SelectPrimitive.ClearTrigger>
   );

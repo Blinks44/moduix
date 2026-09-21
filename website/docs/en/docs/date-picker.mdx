@@ -57,8 +57,8 @@ import datePickerSolidYearPicker from '../../../snippets/date-picker/solid/year-
 ## Basic
 
 
-Use `DatePicker` as the root, `DatePicker.Field` for a standard field, and
-`DatePicker.DayTable` for the day grid. Render `Positioner` and `Content` explicitly when the
+Use `DatePicker` as the root, `DatePickerField` for a standard field, and
+`DatePickerDayTable` for the day grid. Render `DatePickerPositioner` and `DatePickerContent` explicitly when the
 calendar should float.
 
 <ExampleFrame variant="component">
@@ -121,80 +121,81 @@ See [Quick Start](/docs/quick-start) for full package setup, registry configurat
 ## Anatomy
 
 ```text
-DatePicker / DatePicker.Root
-├─ DatePicker.Label
-├─ DatePicker.Control
-│  ├─ DatePicker.Input
-│  ├─ DatePicker.ClearTrigger
-│  └─ DatePicker.Trigger
-├─ DatePicker.Field / DatePicker.RangeField (convenience controls)
+DatePicker
+├─ DatePickerLabel
+├─ DatePickerControl
+│  ├─ DatePickerInput
+│  ├─ DatePickerClearTrigger
+│  └─ DatePickerTrigger
+├─ DatePickerField / DatePickerRangeField (convenience controls)
 ├─ Overlay subtree (portalled automatically)
-│  └─ DatePicker.Positioner
-│     └─ DatePicker.Content
-│        ├─ DatePicker.View[view="day" | "month" | "year"]
-│        │  ├─ DatePicker.ViewControl
-│        │  │  ├─ DatePicker.PrevTrigger
-│        │  │  ├─ DatePicker.ViewTrigger / DatePicker.RangeText
-│        │  │  └─ DatePicker.NextTrigger
-│        │  ├─ DatePicker.DayTable (convenience day table)
-│        │  └─ DatePicker.Table
-│        │     ├─ DatePicker.TableHead / TableBody / TableRow
-│        │     ├─ DatePicker.TableHeader
-│        │     ├─ DatePicker.TableCell
-│        │     ├─ DatePicker.TableCellTrigger
-│        │     ├─ DatePicker.WeekNumberHeaderCell
-│        │     └─ DatePicker.WeekNumberCell
-│        ├─ DatePicker.MonthSelect / DatePicker.YearSelect
-│        └─ DatePicker.PresetTrigger
-├─ DatePicker.ValueText (optional selected-value summary)
-└─ DatePicker.Context
+│  └─ DatePickerPositioner
+│     └─ DatePickerContent
+│        ├─ DatePickerView[view="day" | "month" | "year"]
+│        │  ├─ DatePickerViewControl
+│        │  │  ├─ DatePickerPrevTrigger
+│        │  │  ├─ DatePickerViewTrigger / DatePickerRangeText
+│        │  │  └─ DatePickerNextTrigger
+│        │  ├─ DatePickerDayTable (convenience day table)
+│        │  └─ DatePickerTable
+│        │     ├─ DatePickerTableHead / TableBody / TableRow
+│        │     ├─ DatePickerTableHeader
+│        │     ├─ DatePickerTableCell
+│        │     ├─ DatePickerTableCellTrigger
+│        │     ├─ DatePickerWeekNumberHeaderCell
+│        │     └─ DatePickerWeekNumberCell
+│        ├─ DatePickerMonthSelect / DatePickerYearSelect
+│        └─ DatePickerPresetTrigger
+├─ DatePickerValueText (optional selected-value summary)
+└─ DatePickerContext
 
-DatePicker.RootProvider
+DatePickerRootProvider
 └─ same part tree connected to a useDatePicker() store
 ```
 
 | Part                              | Role                                                               |
 | --------------------------------- | ------------------------------------------------------------------ |
-| `DatePicker` / `DatePicker.Root`  | Root that manages value, view, open state, locale, validation, and form context. |
-| `DatePicker.RootProvider`         | Renders parts using state returned by `useDatePicker()`.           |
-| `DatePicker.Label`                | Accessible label for the date field.                              |
-| `DatePicker.Control`              | Field wrapper for custom input layouts.                           |
-| `DatePicker.Field`                | Convenience control with an input, clear trigger, and open trigger. |
-| `DatePicker.RangeField`           | Convenience range control with indexed start and end inputs.      |
-| `DatePicker.Input`                | Editable date input that participates in native form submission.   |
-| `DatePicker.Trigger`              | Opens the calendar.                                                |
-| `DatePicker.ClearTrigger`         | Clears the current value.                                          |
-| `DatePicker.Positioner`           | Positions the popup.                                               |
-| `DatePicker.Content`              | Calendar container for popup or inline mode.                       |
-| `DatePicker.View`                 | Day, month, or year panel.                                          |
-| `DatePicker.ViewControl`          | Header containing calendar navigation controls.                    |
-| `DatePicker.PrevTrigger`          | Moves to the previous month, year, or decade.                      |
-| `DatePicker.NextTrigger`          | Moves to the next month, year, or decade.                          |
-| `DatePicker.ViewTrigger`          | Switches between calendar views.                                   |
-| `DatePicker.RangeText`            | Displays the visible date range in the calendar header.            |
-| `DatePicker.ValueText`            | Displays selected values.                                          |
-| `DatePicker.DayTable`             | Standard day-view table.                                           |
-| `DatePicker.Table*`               | Parts for a custom calendar grid.                                  |
-| `DatePicker.WeekNumberHeaderCell` | Header cell for the week-number column.                            |
-| `DatePicker.WeekNumberCell`       | Body cell for a week number.                                       |
-| `DatePicker.MonthSelect`          | Native month select linked to the focused date.                    |
-| `DatePicker.YearSelect`           | Native year select linked to the focused date.                     |
-| `DatePicker.PresetTrigger`        | Button for a predefined range.                                     |
-| `DatePicker.Context`              | Renderless access to calendar state.                               |
+| `DatePicker`                    | Root that manages value, view, open state, locale, validation, and form context. |
+| `DatePickerRootProvider`         | Renders parts using state returned by `useDatePicker()`.           |
+| `DatePickerLabel`                | Accessible label for the date field.                              |
+| `DatePickerControl`              | Field wrapper for custom input layouts.                           |
+| `DatePickerField`                | Convenience control with an input, clear trigger, and open trigger. |
+| `DatePickerRangeField`           | Convenience range control with indexed start and end inputs.      |
+| `DatePickerInput`                | Editable date input that participates in native form submission.   |
+| `DatePickerTrigger`              | Opens the calendar.                                                |
+| `DatePickerClearTrigger`         | Clears the current value.                                          |
+| `DatePickerPositioner`           | Positions the popup.                                               |
+| `DatePickerContent`              | Calendar container for popup or inline mode.                       |
+| `DatePickerView`                 | Day, month, or year panel.                                          |
+| `DatePickerViewControl`          | Header containing calendar navigation controls.                    |
+| `DatePickerPrevTrigger`          | Moves to the previous month, year, or decade.                      |
+| `DatePickerNextTrigger`          | Moves to the next month, year, or decade.                          |
+| `DatePickerViewTrigger`          | Switches between calendar views.                                   |
+| `DatePickerRangeText`            | Displays the visible date range in the calendar header.            |
+| `DatePickerValueText`            | Displays selected values.                                          |
+| `DatePickerDayTable`             | Standard day-view table.                                           |
+| `DatePickerTable*`               | Parts for a custom calendar grid.                                  |
+| `DatePickerWeekNumberHeaderCell` | Header cell for the week-number column.                            |
+| `DatePickerWeekNumberCell`       | Body cell for a week number.                                       |
+| `DatePickerMonthSelect`          | Native month select linked to the focused date.                    |
+| `DatePickerYearSelect`           | Native year select linked to the focused date.                     |
+| `DatePickerPresetTrigger`        | Button for a predefined range.                                     |
+| `DatePickerContext`              | Renderless access to calendar state.                               |
 
 ## Composition
 
-Use `DatePicker.Field` for a standard single-date field, `DatePicker.RangeField` for a range, and
-`DatePicker.DayTable` inside the day view. Use `DatePicker.RootProvider` with `useDatePicker()`
+Use `DatePickerField` for a standard single-date field, `DatePickerRangeField` for a range, and
+`DatePickerDayTable` inside the day view. Use `DatePickerRootProvider` with `useDatePicker()`
 when state must be shared with controls outside the root tree.
 
-For a custom field or calendar grid, compose `Control`, `Input`, `Trigger`, `ClearTrigger`, and
-the `Table*` parts directly. Read `weekDays`, `weeks`, or grid helpers through `DatePicker.Context`.
-In multiple-selection mode, render selected values through `Context` because one input cannot
+For a custom field or calendar grid, compose `DatePickerControl`, `DatePickerInput`,
+`DatePickerTrigger`, `DatePickerClearTrigger`, and the `DatePickerTable*` parts directly. Read
+`weekDays`, `weeks`, or grid helpers through `DatePickerContext`. In multiple-selection mode, render
+selected values through `DatePickerContext` because one input cannot
 represent the full list, and call `setValue()` when a value is removed.
 
 The root portals the popup automatically. Use `portalled={false}` for the current DOM subtree,
-`portalRef` for a custom container, or `inline` when `Content` should stay in normal document flow.
+`portalRef` for a custom container, or `inline` when `DatePickerContent` should stay in normal document flow.
 
 ## Examples
 
@@ -293,7 +294,7 @@ the root when you are not composing it through `Field`.
 
 ### Form
 
-Pass `name` to include the selected date in native form submission. `DatePicker.Field` provides
+Pass `name` to include the selected date in native form submission. `DatePickerField` provides
 the locale-aware placeholder and translated action labels unless you override them.
 
 <ExampleFrame variant="component">
@@ -327,7 +328,7 @@ the locale-aware placeholder and translated action labels unless you override th
 ### Inline calendar and week numbers
 
 Set `inline` when the calendar should stay in the document flow. An inline calendar renders
-`Content` directly, without `Positioner`.
+`DatePickerContent` directly, without `DatePickerPositioner`.
 
 <ExampleFrame variant="component">
   <DatePickerInline />
@@ -414,8 +415,8 @@ and calendar cells.
 
 ### Month and year selects
 
-Use `DatePicker.MonthSelect` and `DatePicker.YearSelect` for native selects linked to the focused
-date. Use `DatePicker.Context` when a custom select needs to update the focused date itself.
+Use `DatePickerMonthSelect` and `DatePickerYearSelect` for native selects linked to the focused
+date. Use `DatePickerContext` when a custom select needs to update the focused date itself.
 
 <ExampleFrame variant="component">
   <DatePickerMonthYearSelect />
@@ -476,7 +477,7 @@ and `parse` when the input should accept a month and year string.
 ### Multiple dates
 
 Use `selectionMode="multiple"` and optionally cap the number of selections with
-`maxSelectedDates`. Render selected-date chips through `DatePicker.Context` and call
+`maxSelectedDates`. Render selected-date chips through `DatePickerContext` and call
 `datePicker.setValue()` when a chip is removed.
 
 <ExampleFrame variant="component">
@@ -541,7 +542,7 @@ Set `numOfMonths` when users need to see more than one month while choosing date
 
 ### Presets
 
-`DatePicker.PresetTrigger` accepts built-in range preset names such as `last7Days`, or a custom
+`DatePickerPresetTrigger` accepts built-in range preset names such as `last7Days`, or a custom
 `DateValue[]`. Use range mode with two indexed inputs so the selected preset displays both dates.
 
 <ExampleFrame variant="component">
@@ -602,7 +603,7 @@ the range, and input formatting. A range uses two indexed inputs, one for each d
 
 ### Root Provider
 
-Use `useDatePicker()` from `@moduix/react/date-picker` with `DatePicker.RootProvider` when
+Use `useDatePicker()` from `@moduix/react/date-picker` with `DatePickerRootProvider` when
 calendar state must be shared with controls outside the root tree.
 
 <ExampleFrame variant="component">
@@ -635,7 +636,7 @@ calendar state must be shared with controls outside the root tree.
 
 ### Select today
 
-Use `DatePicker.Context` when a nearby control needs to call helpers such as `selectToday()`.
+Use `DatePickerContext` when a nearby control needs to call helpers such as `selectToday()`.
 
 <ExampleFrame variant="component">
   <DatePickerSelectToday />
@@ -701,7 +702,7 @@ a `DateInput` configured for minute input so both controls edit the same value.
 ### Year picker
 
 Set `defaultView="year"`, `minView="year"`, and `maxView="year"` to let users select a year only.
-Use `RangeText` in the header because the year view has no higher view to switch to.
+Use `DatePickerRangeText` in the header because the year view has no higher view to switch to.
 
 <ExampleFrame variant="component">
   <DatePickerYearPicker />
@@ -729,7 +730,7 @@ Use `RangeText` in the header because the year view has no higher view to switch
 ### Advanced customization
 
 Use the full Ark composition when the calendar grid needs custom rendering. This bypasses
-`DatePicker.Field` and `DatePicker.DayTable` while keeping the same Ark state and styled parts.
+`DatePickerField` and `DatePickerDayTable` while keeping the same Ark state and styled parts.
 
 <ExampleFrame variant="component">
   <DatePickerAdvancedCustomization />

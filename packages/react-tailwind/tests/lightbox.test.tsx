@@ -1,7 +1,26 @@
 import { expect, test } from '@rstest/core';
 import { fireEvent, render, screen, waitFor } from '@testing-library/react';
 import { useRef, useState } from 'react';
-import { Lightbox, type LightboxImageSelectDetails, useLightbox, useLightboxContext } from '../src';
+import {
+  LightboxRootProvider,
+  LightboxTrigger,
+  LightboxBackdrop,
+  LightboxPositioner,
+  LightboxContent,
+  LightboxTitle,
+  LightboxDescription,
+  LightboxCloseIcon,
+  LightboxHeader,
+  LightboxBody,
+  LightboxFooter,
+  LightboxImage,
+  LightboxGallery,
+  LightboxBind,
+  Lightbox,
+  useLightbox,
+  useLightboxContext,
+  type LightboxImageSelectDetails,
+} from '../src';
 
 test('opens from a semantic Bind selector', async () => {
   function BoundLightbox() {
@@ -16,12 +35,12 @@ test('opens from a semantic Bind selector', async () => {
           </button>
         </div>
         <Lightbox portalled={false}>
-          <Lightbox.Bind rootRef={rootRef} selector="button" onImageSelect={setImage} />
-          <Lightbox.Positioner>
-            <Lightbox.Content aria-label="Image preview">
-              {image ? <Lightbox.Image src={image.src} alt={image.alt ?? ''} /> : null}
-            </Lightbox.Content>
-          </Lightbox.Positioner>
+          <LightboxBind rootRef={rootRef} selector="button" onImageSelect={setImage} />
+          <LightboxPositioner>
+            <LightboxContent aria-label="Image preview">
+              {image ? <LightboxImage src={image.src} alt={image.alt ?? ''} /> : null}
+            </LightboxContent>
+          </LightboxPositioner>
         </Lightbox>
       </>
     );
@@ -40,16 +59,16 @@ test('opens from a semantic Bind selector', async () => {
 test('keeps the lightbox open when an image click is prevented', () => {
   render(
     <Lightbox defaultOpen portalled={false}>
-      <Lightbox.Positioner>
-        <Lightbox.Content aria-label="Image preview">
-          <Lightbox.Image
+      <LightboxPositioner>
+        <LightboxContent aria-label="Image preview">
+          <LightboxImage
             src="/full-size.jpg"
             alt="Mountain ridge"
             closeOnClick
             onClick={(event) => event.preventDefault()}
           />
-        </Lightbox.Content>
-      </Lightbox.Positioner>
+        </LightboxContent>
+      </LightboxPositioner>
     </Lightbox>,
   );
 
@@ -61,12 +80,12 @@ test('keeps the lightbox open when an image click is prevented', () => {
 test('closes a click-to-close image and restores focus to its trigger', async () => {
   render(
     <Lightbox portalled={false}>
-      <Lightbox.Trigger>Open preview</Lightbox.Trigger>
-      <Lightbox.Positioner>
-        <Lightbox.Content aria-label="Image preview">
-          <Lightbox.Image src="/full-size.jpg" alt="Mountain ridge" closeOnClick />
-        </Lightbox.Content>
-      </Lightbox.Positioner>
+      <LightboxTrigger>Open preview</LightboxTrigger>
+      <LightboxPositioner>
+        <LightboxContent aria-label="Image preview">
+          <LightboxImage src="/full-size.jpg" alt="Mountain ridge" closeOnClick />
+        </LightboxContent>
+      </LightboxPositioner>
     </Lightbox>,
   );
 
@@ -83,13 +102,13 @@ test('closes a click-to-close image and restores focus to its trigger', async ()
 test('closes from its accessible close icon and restores focus to its trigger', async () => {
   render(
     <Lightbox portalled={false}>
-      <Lightbox.Trigger>Open preview</Lightbox.Trigger>
-      <Lightbox.Positioner>
-        <Lightbox.CloseIcon />
-        <Lightbox.Content aria-label="Image preview">
-          <Lightbox.Image src="/full-size.jpg" alt="Mountain ridge" />
-        </Lightbox.Content>
-      </Lightbox.Positioner>
+      <LightboxTrigger>Open preview</LightboxTrigger>
+      <LightboxPositioner>
+        <LightboxCloseIcon />
+        <LightboxContent aria-label="Image preview">
+          <LightboxImage src="/full-size.jpg" alt="Mountain ridge" />
+        </LightboxContent>
+      </LightboxPositioner>
     </Lightbox>,
   );
 
@@ -118,13 +137,13 @@ test('exposes RootProvider state through useLightboxContext', async () => {
         <button type="button" onClick={() => lightbox.setOpen(true)}>
           Open preview
         </button>
-        <Lightbox.RootProvider value={lightbox} portalled={false}>
-          <Lightbox.Positioner>
-            <Lightbox.Content aria-label="Image preview">
+        <LightboxRootProvider value={lightbox} portalled={false}>
+          <LightboxPositioner>
+            <LightboxContent aria-label="Image preview">
               <LightboxStatus />
-            </Lightbox.Content>
-          </Lightbox.Positioner>
-        </Lightbox.RootProvider>
+            </LightboxContent>
+          </LightboxPositioner>
+        </LightboxRootProvider>
       </>
     );
   }
@@ -139,12 +158,12 @@ test('exposes RootProvider state through useLightboxContext', async () => {
 test('mounts lazy content on first open and unmounts it after close', async () => {
   render(
     <Lightbox lazyMount unmountOnExit portalled={false}>
-      <Lightbox.Trigger>Open preview</Lightbox.Trigger>
-      <Lightbox.Positioner>
-        <Lightbox.Content aria-label="Image preview">
-          <Lightbox.Image src="/full-size.jpg" alt="Mountain ridge" closeOnClick />
-        </Lightbox.Content>
-      </Lightbox.Positioner>
+      <LightboxTrigger>Open preview</LightboxTrigger>
+      <LightboxPositioner>
+        <LightboxContent aria-label="Image preview">
+          <LightboxImage src="/full-size.jpg" alt="Mountain ridge" closeOnClick />
+        </LightboxContent>
+      </LightboxPositioner>
     </Lightbox>,
   );
 
@@ -159,13 +178,13 @@ test('mounts lazy content on first open and unmounts it after close', async () =
 test('merges consumer utilities over Tailwind defaults', () => {
   render(
     <Lightbox defaultOpen portalled={false}>
-      <Lightbox.Backdrop className="bg-red-500" />
-      <Lightbox.Positioner className="p-8">
-        <Lightbox.CloseIcon className="size-10" />
-        <Lightbox.Content className="max-w-full" aria-label="Image preview">
-          <Lightbox.Image className="rounded-none" src="/full-size.jpg" alt="Mountain ridge" />
-        </Lightbox.Content>
-      </Lightbox.Positioner>
+      <LightboxBackdrop className="bg-red-500" />
+      <LightboxPositioner className="p-8">
+        <LightboxCloseIcon className="size-10" />
+        <LightboxContent className="max-w-full" aria-label="Image preview">
+          <LightboxImage className="rounded-none" src="/full-size.jpg" alt="Mountain ridge" />
+        </LightboxContent>
+      </LightboxPositioner>
     </Lightbox>,
   );
 
@@ -190,21 +209,21 @@ test('merges consumer utilities over Tailwind defaults', () => {
 test('applies component-owned visual utilities to every visual part', () => {
   render(
     <Lightbox defaultOpen portalled={false}>
-      <Lightbox.Backdrop />
-      <Lightbox.Positioner>
-        <Lightbox.CloseIcon />
-        <Lightbox.Content aria-label="Image preview">
-          <Lightbox.Header>
-            <Lightbox.Title>Preview</Lightbox.Title>
-            <Lightbox.Description>Description</Lightbox.Description>
-          </Lightbox.Header>
-          <Lightbox.Body>
-            <Lightbox.Image src="/full-size.jpg" alt="Mountain ridge" />
-            <Lightbox.Gallery />
-          </Lightbox.Body>
-          <Lightbox.Footer>Footer</Lightbox.Footer>
-        </Lightbox.Content>
-      </Lightbox.Positioner>
+      <LightboxBackdrop />
+      <LightboxPositioner>
+        <LightboxCloseIcon />
+        <LightboxContent aria-label="Image preview">
+          <LightboxHeader>
+            <LightboxTitle>Preview</LightboxTitle>
+            <LightboxDescription>Description</LightboxDescription>
+          </LightboxHeader>
+          <LightboxBody>
+            <LightboxImage src="/full-size.jpg" alt="Mountain ridge" />
+            <LightboxGallery />
+          </LightboxBody>
+          <LightboxFooter>Footer</LightboxFooter>
+        </LightboxContent>
+      </LightboxPositioner>
     </Lightbox>,
   );
 
@@ -253,23 +272,23 @@ test('keeps the close-on-click marker aligned with its behavior', () => {
   render(
     <>
       <Lightbox defaultOpen portalled={false}>
-        <Lightbox.Positioner>
-          <Lightbox.Content aria-label="First preview">
-            <Lightbox.Image
+        <LightboxPositioner>
+          <LightboxContent aria-label="First preview">
+            <LightboxImage
               alt="Closes"
               closeOnClick
               data-close-on-click={undefined}
               src="/first.jpg"
             />
-          </Lightbox.Content>
-        </Lightbox.Positioner>
+          </LightboxContent>
+        </LightboxPositioner>
       </Lightbox>
       <Lightbox defaultOpen portalled={false}>
-        <Lightbox.Positioner>
-          <Lightbox.Content aria-label="Second preview">
-            <Lightbox.Image alt="Stays open" data-close-on-click="" src="/second.jpg" />
-          </Lightbox.Content>
-        </Lightbox.Positioner>
+        <LightboxPositioner>
+          <LightboxContent aria-label="Second preview">
+            <LightboxImage alt="Stays open" data-close-on-click="" src="/second.jpg" />
+          </LightboxContent>
+        </LightboxPositioner>
       </Lightbox>
     </>,
   );

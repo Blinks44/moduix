@@ -1,4 +1,13 @@
-import { Lightbox, type LightboxImageSelectDetails } from '@moduix/react/lightbox';
+import {
+  LightboxBackdrop,
+  LightboxPositioner,
+  LightboxContent,
+  LightboxCloseIcon,
+  LightboxImage,
+  LightboxBind,
+  Lightbox,
+  type LightboxImageSelectDetails,
+} from '@moduix/react/lightbox';
 import { useRef, useState } from 'react';
 import styles from '@/components/examples/lightbox/lightbox-bind-cms-content.module.css';
 
@@ -40,16 +49,16 @@ export default function CmsLightboxDemo() {
       </div>
 
       <Lightbox>
-        <Lightbox.Bind rootRef={rootRef} selector="button" onImageSelect={setActiveImage} />
-        <Lightbox.Backdrop />
-        <Lightbox.Positioner>
-          <Lightbox.CloseIcon />
-          <Lightbox.Content aria-label={activeImage?.alt ?? 'Image preview'}>
+        <LightboxBind rootRef={rootRef} selector="button" onImageSelect={setActiveImage} />
+        <LightboxBackdrop />
+        <LightboxPositioner>
+          <LightboxCloseIcon />
+          <LightboxContent aria-label={activeImage?.alt ?? 'Image preview'}>
             {activeImage ? (
-              <Lightbox.Image src={activeImage.src} alt={activeImage.alt ?? ''} />
+              <LightboxImage src={activeImage.src} alt={activeImage.alt ?? ''} />
             ) : null}
-          </Lightbox.Content>
-        </Lightbox.Positioner>
+          </LightboxContent>
+        </LightboxPositioner>
       </Lightbox>
     </>
   );

@@ -3,6 +3,10 @@ import { render } from '@testing-library/react';
 import { createRef } from 'react';
 import { Container } from '../src';
 
+test('exposes only the flat root value', () => {
+  expect('Root' in Container).toBe(false);
+});
+
 test('renders the default root with stable hooks and visible layout utilities', () => {
   const { getByTestId } = render(<Container data-testid="container" />);
   const container = getByTestId('container');

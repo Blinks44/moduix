@@ -1,6 +1,23 @@
 import { type DateValue } from '@ark-ui/react/date-picker';
 import { CalendarDate } from '@internationalized/date';
-import { DatePicker } from '@moduix/react/date-picker';
+import {
+  DatePicker,
+  DatePickerContext,
+  DatePickerLabel,
+  DatePickerField,
+  DatePickerPositioner,
+  DatePickerContent,
+  DatePickerView,
+  DatePickerViewControl,
+  DatePickerPrevTrigger,
+  DatePickerNextTrigger,
+  DatePickerRangeText,
+  DatePickerTable,
+  DatePickerTableBody,
+  DatePickerTableRow,
+  DatePickerTableCell,
+  DatePickerTableCellTrigger,
+} from '@moduix/react/date-picker';
 
 const format = (date: DateValue) => String(date.year);
 export default function YearPickerDemo() {
@@ -12,46 +29,44 @@ export default function YearPickerDemo() {
       maxView="year"
       format={format}
     >
-      <DatePicker.Label>Year</DatePicker.Label>
-      <DatePicker.Field placeholder="yyyy" clearLabel="Clear year" />
-      <DatePicker.Positioner>
-        <DatePicker.Content>
-          <DatePicker.View view="year">
-            <DatePicker.ViewControl>
-              <DatePicker.PrevTrigger />
-              <DatePicker.RangeText />
-              <DatePicker.NextTrigger />
-            </DatePicker.ViewControl>
-            <DatePicker.Context>
+      <DatePickerLabel>Year</DatePickerLabel>
+      <DatePickerField placeholder="yyyy" clearLabel="Clear year" />
+      <DatePickerPositioner>
+        <DatePickerContent>
+          <DatePickerView view="year">
+            <DatePickerViewControl>
+              <DatePickerPrevTrigger />
+              <DatePickerRangeText />
+              <DatePickerNextTrigger />
+            </DatePickerViewControl>
+            <DatePickerContext>
               {(datePicker) => (
-                <DatePicker.Table columns={4}>
-                  <DatePicker.TableBody>
+                <DatePickerTable columns={4}>
+                  <DatePickerTableBody>
                     {datePicker
                       .getYearsGrid({
                         columns: 4,
                       })
                       .map((years, rowIndex) => (
-                        <DatePicker.TableRow key={rowIndex}>
+                        <DatePickerTableRow key={rowIndex}>
                           {years.map((year) => (
-                            <DatePicker.TableCell
+                            <DatePickerTableCell
                               key={`${year.label}-${year.value}`}
                               value={year.value}
                               disabled={year.disabled}
                             >
-                              <DatePicker.TableCellTrigger>
-                                {year.label}
-                              </DatePicker.TableCellTrigger>
-                            </DatePicker.TableCell>
+                              <DatePickerTableCellTrigger>{year.label}</DatePickerTableCellTrigger>
+                            </DatePickerTableCell>
                           ))}
-                        </DatePicker.TableRow>
+                        </DatePickerTableRow>
                       ))}
-                  </DatePicker.TableBody>
-                </DatePicker.Table>
+                  </DatePickerTableBody>
+                </DatePickerTable>
               )}
-            </DatePicker.Context>
-          </DatePicker.View>
-        </DatePicker.Content>
-      </DatePicker.Positioner>
+            </DatePickerContext>
+          </DatePickerView>
+        </DatePickerContent>
+      </DatePickerPositioner>
     </DatePicker>
   );
 }

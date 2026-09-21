@@ -94,7 +94,7 @@ type ChartPlotProps<
     renderer?: ChartRenderer<NoInfer<TDatum>, NoInfer<TXValue>, NoInfer<TYValue>>;
   };
 
-function ChartRoot(props: HTMLArkProps<'figure'>) {
+function Chart(props: HTMLArkProps<'figure'>) {
   const [local, others] = splitProps(props, ['asChild', 'class']);
 
   return (
@@ -501,14 +501,12 @@ function ChartLegendItem(props: HTMLArkProps<'li'> & { color?: string }) {
   );
 }
 
-const Chart = Object.assign(ChartRoot, {
-  Root: ChartRoot,
-  Plot: ChartPlot,
-  Header: ChartHeader,
-  Title: ChartTitle,
-  Description: ChartDescription,
-  Legend: ChartLegend,
-  LegendItem: ChartLegendItem,
-});
-
-export { Chart };
+export {
+  Chart,
+  ChartDescription,
+  ChartHeader,
+  ChartLegend,
+  ChartLegendItem,
+  ChartPlot,
+  ChartTitle,
+};

@@ -1,7 +1,15 @@
 import { createListCollection } from '@ark-ui/react/collection';
 import { Badge } from '@moduix/react/badge';
 import { Button } from '@moduix/react/button';
-import { Card } from '@moduix/react/card';
+import {
+  Card,
+  CardAction,
+  CardBody,
+  CardDescription,
+  CardFooter,
+  CardHeader,
+  CardTitle,
+} from '@moduix/react/card';
 import { Input } from '@moduix/react/input';
 import { Select } from '@moduix/react/select';
 import { useI18n } from '@rspress/core/runtime';
@@ -121,16 +129,16 @@ function ThemePresets() {
 
         <div className={styles.previewCanvas}>
           <Card className={styles.previewCard}>
-            <Card.Header>
+            <CardHeader>
               <div>
-                <Card.Title>{t('themePreviewReleaseWorkspace')}</Card.Title>
-                <Card.Description>{t('themePreviewOneVisualDecision')}</Card.Description>
+                <CardTitle>{t('themePreviewReleaseWorkspace')}</CardTitle>
+                <CardDescription>{t('themePreviewOneVisualDecision')}</CardDescription>
               </div>
-              <Card.Action>
+              <CardAction>
                 <Badge>{t('themePreviewReady')}</Badge>
-              </Card.Action>
-            </Card.Header>
-            <Card.Body className={styles.previewBody}>
+              </CardAction>
+            </CardHeader>
+            <CardBody className={styles.previewBody}>
               <label className={styles.field}>
                 {t('themePreviewProjectName')}
                 <Input defaultValue={t('themePreviewSpringRelease')} />
@@ -161,11 +169,11 @@ function ThemePresets() {
                 <span>{t('themePreviewTaskCount')}</span>
                 <span>{t('themePreviewReviewerCount')}</span>
               </div>
-            </Card.Body>
-            <Card.Footer>
+            </CardBody>
+            <CardFooter>
               <Button>{t('themePreviewCreateWorkspace')}</Button>
               <Button variant="outline">{t('themePreviewPreview')}</Button>
-            </Card.Footer>
+            </CardFooter>
           </Card>
         </div>
       </div>

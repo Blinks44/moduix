@@ -84,7 +84,7 @@ const TagEndElement = forwardRef<HTMLSpanElement, TagEndElementProps>(function T
   );
 });
 
-const TagCloseTrigger = forwardRef<ComponentRef<typeof CloseButton.Root>, TagCloseTriggerProps>(
+const TagCloseTrigger = forwardRef<ComponentRef<typeof CloseButton>, TagCloseTriggerProps>(
   function TagCloseTrigger(
     {
       asChild,
@@ -97,7 +97,7 @@ const TagCloseTrigger = forwardRef<ComponentRef<typeof CloseButton.Root>, TagClo
     ref,
   ) {
     return (
-      <CloseButton.Root
+      <CloseButton
         ref={ref}
         asChild={asChild}
         {...props}
@@ -112,7 +112,7 @@ const TagCloseTrigger = forwardRef<ComponentRef<typeof CloseButton.Root>, TagClo
         className={clsx(styles.closeTrigger, className)}
       >
         {children}
-      </CloseButton.Root>
+      </CloseButton>
     );
   },
 );

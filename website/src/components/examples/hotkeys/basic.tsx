@@ -1,6 +1,13 @@
 import { useFormatHotkey, useHotkey } from '@ark-ui/react';
 import { Button } from '@moduix/react/button';
-import { Card } from '@moduix/react/card';
+import {
+  Card,
+  CardBody,
+  CardDescription,
+  CardFooter,
+  CardHeader,
+  CardTitle,
+} from '@moduix/react/card';
 import { Kbd } from '@moduix/react/kbd';
 import { Stack } from '@moduix/react/stack';
 import { useState } from 'react';
@@ -24,24 +31,24 @@ export default function HotkeysBasicDemo() {
 
   return (
     <Card className={styles.root}>
-      <Card.Header>
-        <Card.Title>Draft</Card.Title>
-        <Card.Description>Save your changes without leaving the keyboard.</Card.Description>
-      </Card.Header>
-      <Card.Body>
+      <CardHeader>
+        <CardTitle>Draft</CardTitle>
+        <CardDescription>Save your changes without leaving the keyboard.</CardDescription>
+      </CardHeader>
+      <CardBody>
         <Stack align="center" direction="row" justify="space-between" className={styles.stack}>
           <span>Save draft</span>
           <Kbd>{formatHotkey('mod+S')}</Kbd>
         </Stack>
-      </Card.Body>
-      <Card.Footer>
+      </CardBody>
+      <CardFooter>
         <PreviewMeta style={{ marginInline: 'auto', placeItems: 'center' }}>
           <output aria-live="polite">{status}</output>
           <Button onClick={saveDraft} type="button">
             Save draft
           </Button>
         </PreviewMeta>
-      </Card.Footer>
+      </CardFooter>
     </Card>
   );
 }

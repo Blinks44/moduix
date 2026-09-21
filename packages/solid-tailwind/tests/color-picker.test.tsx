@@ -1,6 +1,21 @@
 import { expect, test } from '@rstest/core';
 import { fireEvent, render, screen, waitFor } from '@solidjs/testing-library';
-import { ColorPicker, parseColor, useColorPicker } from '../src';
+import {
+  ColorPicker,
+  parseColor,
+  useColorPicker,
+  ColorPickerRootProvider,
+  ColorPickerHiddenInput,
+  ColorPickerLabel,
+  ColorPickerControl,
+  ColorPickerTrigger,
+  ColorPickerPositioner,
+  ColorPickerContent,
+  ColorPickerArea,
+  ColorPickerChannelSlider,
+  ColorPickerChannelInput,
+  ColorPickerSwatchTrigger,
+} from '../src';
 
 function ProviderColorPicker() {
   const colorPicker = useColorPicker({
@@ -9,10 +24,10 @@ function ProviderColorPicker() {
   });
 
   return (
-    <ColorPicker.RootProvider value={colorPicker}>
-      <ColorPicker.ChannelInput channel="hex" />
-      <ColorPicker.HiddenInput />
-    </ColorPicker.RootProvider>
+    <ColorPickerRootProvider value={colorPicker}>
+      <ColorPickerChannelInput channel="hex" />
+      <ColorPickerHiddenInput />
+    </ColorPickerRootProvider>
   );
 }
 
@@ -20,8 +35,8 @@ test('submits through explicit Ark hidden inputs', () => {
   const { container } = render(() => (
     <form>
       <ColorPicker defaultValue={parseColor('#eb5e41')} name="accent">
-        <ColorPicker.ChannelInput channel="hex" />
-        <ColorPicker.HiddenInput />
+        <ColorPickerChannelInput channel="hex" />
+        <ColorPickerHiddenInput />
       </ColorPicker>
       <ProviderColorPicker />
     </form>
@@ -44,8 +59,8 @@ test('keeps an asChild host and explicit hidden input intact', () => {
         defaultValue={parseColor('#eb5e41')}
         name="accent"
       >
-        <ColorPicker.ChannelInput channel="hex" />
-        <ColorPicker.HiddenInput />
+        <ColorPickerChannelInput channel="hex" />
+        <ColorPickerHiddenInput />
       </ColorPicker>
     </form>
   ));
@@ -64,9 +79,9 @@ test('forwards refs through ordinary Ark Solid part paths', () => {
 
   render(() => (
     <ColorPicker ref={(element) => (rootRef = element)} defaultValue={parseColor('#eb5e41')}>
-      <ColorPicker.Control ref={(element) => (controlRef = element)}>
-        <ColorPicker.Trigger ref={(element) => (triggerRef = element)} aria-label="Open" />
-      </ColorPicker.Control>
+      <ColorPickerControl ref={(element) => (controlRef = element)}>
+        <ColorPickerTrigger ref={(element) => (triggerRef = element)} aria-label="Open" />
+      </ColorPickerControl>
     </ColorPicker>
   ));
 
@@ -83,13 +98,13 @@ test('preserves Ark open-change details and default trigger composition', async 
       defaultValue={parseColor('#eb5e41')}
       onOpenChange={(details) => openStates.push(details.open)}
     >
-      <ColorPicker.Label>Color</ColorPicker.Label>
-      <ColorPicker.Control>
-        <ColorPicker.Trigger aria-label="Open color picker" />
-      </ColorPicker.Control>
-      <ColorPicker.Positioner>
-        <ColorPicker.Content>Content</ColorPicker.Content>
-      </ColorPicker.Positioner>
+      <ColorPickerLabel>Color</ColorPickerLabel>
+      <ColorPickerControl>
+        <ColorPickerTrigger aria-label="Open color picker" />
+      </ColorPickerControl>
+      <ColorPickerPositioner>
+        <ColorPickerContent>Content</ColorPickerContent>
+      </ColorPickerPositioner>
     </ColorPicker>
   ));
 
@@ -112,9 +127,9 @@ test('preserves Ark open-change details and default trigger composition', async 
 test('lets consumer utilities replace component defaults', () => {
   const { container } = render(() => (
     <ColorPicker class="w-80" defaultValue={parseColor('#eb5e41')}>
-      <ColorPicker.Control>
-        <ColorPicker.Trigger aria-label="Open color picker" />
-      </ColorPicker.Control>
+      <ColorPickerControl>
+        <ColorPickerTrigger aria-label="Open color picker" />
+      </ColorPickerControl>
     </ColorPicker>
   ));
 
@@ -127,9 +142,9 @@ test('lets consumer utilities replace component defaults', () => {
 test('keeps empty visual parts sized and visible with utilities', () => {
   const { container } = render(() => (
     <ColorPicker inline defaultValue={parseColor('#eb5e41')}>
-      <ColorPicker.Area />
-      <ColorPicker.ChannelSlider channel="hue" />
-      <ColorPicker.SwatchTrigger value="#eb5e41" />
+      <ColorPickerArea />
+      <ColorPickerChannelSlider channel="hue" />
+      <ColorPickerSwatchTrigger value="#eb5e41" />
     </ColorPicker>
   ));
 

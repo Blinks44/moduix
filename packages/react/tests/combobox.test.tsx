@@ -3,7 +3,21 @@ import { expect, test } from '@rstest/core';
 import { fireEvent, render, screen } from '@testing-library/react';
 import userEvent from '@testing-library/user-event';
 import { useState } from 'react';
-import { Combobox, useCombobox, useComboboxContext } from '../src';
+import {
+  Combobox,
+  useCombobox,
+  useComboboxContext,
+  ComboboxClearTrigger,
+  ComboboxContent,
+  ComboboxControl,
+  ComboboxInput,
+  ComboboxLabel,
+  ComboboxList,
+  ComboboxOption,
+  ComboboxPositioner,
+  ComboboxRootProvider,
+  ComboboxTrigger,
+} from '../src';
 
 const fruits = createListCollection({
   items: [
@@ -15,23 +29,23 @@ const fruits = createListCollection({
 function FruitCombobox({ defaultValue }: { defaultValue?: string[] }) {
   return (
     <Combobox collection={fruits} defaultOpen defaultValue={defaultValue} name="fruit">
-      <Combobox.Label>Fruit</Combobox.Label>
-      <Combobox.Control>
-        <Combobox.Input />
-        <Combobox.ClearTrigger />
-        <Combobox.Trigger aria-label="Open fruits" />
-      </Combobox.Control>
-      <Combobox.Positioner>
-        <Combobox.Content>
-          <Combobox.List>
+      <ComboboxLabel>Fruit</ComboboxLabel>
+      <ComboboxControl>
+        <ComboboxInput />
+        <ComboboxClearTrigger />
+        <ComboboxTrigger aria-label="Open fruits" />
+      </ComboboxControl>
+      <ComboboxPositioner>
+        <ComboboxContent>
+          <ComboboxList>
             {fruits.items.map((item) => (
-              <Combobox.Option key={item.value} item={item}>
+              <ComboboxOption key={item.value} item={item}>
                 {item.label}
-              </Combobox.Option>
+              </ComboboxOption>
             ))}
-          </Combobox.List>
-        </Combobox.Content>
-      </Combobox.Positioner>
+          </ComboboxList>
+        </ComboboxContent>
+      </ComboboxPositioner>
     </Combobox>
   );
 }
@@ -59,10 +73,10 @@ test('keeps controlled input changes consumer-owned', () => {
           portalled={false}
           onInputValueChange={(details) => setInputValue(details.inputValue)}
         >
-          <Combobox.Label>Controlled fruit</Combobox.Label>
-          <Combobox.Control>
-            <Combobox.Input />
-          </Combobox.Control>
+          <ComboboxLabel>Controlled fruit</ComboboxLabel>
+          <ComboboxControl>
+            <ComboboxInput />
+          </ComboboxControl>
         </Combobox>
         <button type="button" onClick={() => setInputValue('apple')}>
           Set apple
@@ -103,21 +117,21 @@ test('portals popup content by default and forwards the root ref', () => {
   const rootRef = { current: null as HTMLDivElement | null };
   const { container } = render(
     <Combobox ref={rootRef} collection={fruits} defaultOpen>
-      <Combobox.Label>Portalled fruit</Combobox.Label>
-      <Combobox.Control>
-        <Combobox.Input />
-      </Combobox.Control>
-      <Combobox.Positioner>
-        <Combobox.Content>
-          <Combobox.List>
+      <ComboboxLabel>Portalled fruit</ComboboxLabel>
+      <ComboboxControl>
+        <ComboboxInput />
+      </ComboboxControl>
+      <ComboboxPositioner>
+        <ComboboxContent>
+          <ComboboxList>
             {fruits.items.map((item) => (
-              <Combobox.Option key={item.value} item={item}>
+              <ComboboxOption key={item.value} item={item}>
                 {item.label}
-              </Combobox.Option>
+              </ComboboxOption>
             ))}
-          </Combobox.List>
-        </Combobox.Content>
-      </Combobox.Positioner>
+          </ComboboxList>
+        </ComboboxContent>
+      </ComboboxPositioner>
     </Combobox>,
   );
 
@@ -138,14 +152,14 @@ test('exposes RootProvider state through the moduix context hook', () => {
     const combobox = useCombobox({ collection: fruits, defaultOpen: true });
 
     return (
-      <Combobox.RootProvider value={combobox} portalled={false}>
-        <Combobox.Label>Provider fruit</Combobox.Label>
-        <Combobox.Control>
-          <Combobox.Input />
-          <Combobox.Trigger aria-label="Open provider fruits" />
-        </Combobox.Control>
+      <ComboboxRootProvider value={combobox} portalled={false}>
+        <ComboboxLabel>Provider fruit</ComboboxLabel>
+        <ComboboxControl>
+          <ComboboxInput />
+          <ComboboxTrigger aria-label="Open provider fruits" />
+        </ComboboxControl>
         <ContextValue />
-      </Combobox.RootProvider>
+      </ComboboxRootProvider>
     );
   }
 

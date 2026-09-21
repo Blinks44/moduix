@@ -19,7 +19,7 @@ type CheckboxRootProviderProps = ComponentProps<typeof CheckboxPrimitive.RootPro
   size?: CheckboxSize;
 };
 
-function CheckboxRoot(props: CheckboxRootProps) {
+function Checkbox(props: CheckboxRootProps) {
   const [local, others] = splitProps(props, ['asChild', 'children', 'class', 'size']);
 
   return (
@@ -119,15 +119,20 @@ function CheckboxGroup(props: ComponentProps<typeof CheckboxPrimitive.Group>) {
   );
 }
 
-const Checkbox = Object.assign(CheckboxRoot, {
-  Root: CheckboxRoot,
-  RootProvider: CheckboxRootProvider,
-  Context: CheckboxPrimitive.Context,
-  HiddenInput: CheckboxPrimitive.HiddenInput,
-  Control: CheckboxControl,
-  Indicator: CheckboxIndicator,
-  Label: CheckboxLabel,
-  Group: CheckboxGroup,
-});
+const CheckboxContext = CheckboxPrimitive.Context;
+const CheckboxHiddenInput = CheckboxPrimitive.HiddenInput;
 
-export { Checkbox, useCheckbox, useCheckboxContext, useCheckboxGroup, useCheckboxGroupContext };
+export {
+  Checkbox,
+  CheckboxContext,
+  CheckboxControl,
+  CheckboxGroup,
+  CheckboxHiddenInput,
+  CheckboxIndicator,
+  CheckboxLabel,
+  CheckboxRootProvider,
+  useCheckbox,
+  useCheckboxContext,
+  useCheckboxGroup,
+  useCheckboxGroupContext,
+};

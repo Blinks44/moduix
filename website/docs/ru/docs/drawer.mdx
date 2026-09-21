@@ -49,8 +49,8 @@ import drawerSolidSwipeDirection from '../../../snippets/drawer/solid/swipe-dire
 
 
 Соберите панель из структурных частей Ark. В этом примере она открывается на компактной точке
-привязки, а затем её можно перетащить на полную высоту. `Drawer.Content` отвечает за интерактивную
-поверхность, `Drawer.Positioner` размещает её, а `Drawer.Backdrop` добавляет модальный фон.
+привязки, а затем её можно перетащить на полную высоту. `DrawerContent` отвечает за интерактивную
+поверхность, `DrawerPositioner` размещает её, а `DrawerBackdrop` добавляет модальный фон.
 
 <ExampleFrame variant="component">
   <DrawerBasic />
@@ -117,58 +117,58 @@ import drawerSolidSwipeDirection from '../../../snippets/drawer/solid/swipe-dire
 ## Анатомия
 
 ```text
-Drawer / Drawer.Root
-├─ Drawer.Trigger
-├─ Drawer.SwipeArea (необязательно)
-├─ Drawer.Backdrop
-└─ Drawer.Positioner
-   └─ Drawer.Content
-      ├─ Drawer.Grabber
-      │  └─ Drawer.GrabberIndicator
-      ├─ Drawer.Header (необязательный помощник для компоновки)
-      │  ├─ Drawer.Title
-      │  ├─ Drawer.Description
-      │  └─ Drawer.CloseIcon (необязательный помощник)
-      ├─ Drawer.Body (необязательный помощник для компоновки)
-      └─ Drawer.Footer (необязательный помощник для компоновки)
+Drawer
+├─ DrawerTrigger
+├─ DrawerSwipeArea (необязательно)
+├─ DrawerBackdrop
+└─ DrawerPositioner
+   └─ DrawerContent
+      ├─ DrawerGrabber
+      │  └─ DrawerGrabberIndicator
+      ├─ DrawerHeader (необязательный помощник для компоновки)
+      │  ├─ DrawerTitle
+      │  ├─ DrawerDescription
+      │  └─ DrawerCloseIcon (необязательный помощник)
+      ├─ DrawerBody (необязательный помощник для компоновки)
+      └─ DrawerFooter (необязательный помощник для компоновки)
 
-Drawer.RootProvider
+DrawerRootProvider
 └─ то же дерево частей, подключённое к хранилищу useDrawer()
 ```
 
 | Часть | Назначение |
 | --- | --- |
-| `Drawer` / `Drawer.Root` | Корневая часть, которая хранит состояние открытия, точки привязки и поведение свайпа. |
-| `Drawer.RootProvider` | Подключает части к состоянию, созданному через `useDrawer()`. |
-| `Drawer.Trigger` | Открывает панель. |
-| `Drawer.SwipeArea` | Необязательная область у края экрана, открывающая панель свайпом. |
-| `Drawer.Backdrop` | Модальный фон. |
-| `Drawer.Positioner` | Размещает содержимое панели. |
-| `Drawer.Content` | Интерактивная поверхность панели. |
-| `Drawer.Grabber` | Контейнер ручки для перетаскивания. |
-| `Drawer.GrabberIndicator` | Визуальный индикатор внутри ручки. |
-| `Drawer.Title` | Доступное имя панели. |
-| `Drawer.Description` | Доступное описание панели. |
-| `Drawer.CloseTrigger` | Закрывает панель. |
-| `Drawer.CloseIcon` | Кнопка закрытия moduix, собранная из `CloseTrigger`. |
-| `Drawer.Stack` | Координирует вложенные панели и поверхности с отступом. |
-| `Drawer.Indent` | Поверхность, которая отодвигается при открытии панели из стека. |
-| `Drawer.IndentBackground` | Фон за поверхностью с отступом. |
-| `Drawer.Header`, `Drawer.Body`, `Drawer.Footer` | Необязательные помощники для компоновки без собственного состояния. |
+| `Drawer` | Корневая часть, которая хранит состояние открытия, точки привязки и поведение свайпа. |
+| `DrawerRootProvider` | Подключает части к состоянию, созданному через `useDrawer()`. |
+| `DrawerTrigger` | Открывает панель. |
+| `DrawerSwipeArea` | Необязательная область у края экрана, открывающая панель свайпом. |
+| `DrawerBackdrop` | Модальный фон. |
+| `DrawerPositioner` | Размещает содержимое панели. |
+| `DrawerContent` | Интерактивная поверхность панели. |
+| `DrawerGrabber` | Контейнер ручки для перетаскивания. |
+| `DrawerGrabberIndicator` | Визуальный индикатор внутри ручки. |
+| `DrawerTitle` | Доступное имя панели. |
+| `DrawerDescription` | Доступное описание панели. |
+| `DrawerCloseTrigger` | Закрывает панель. |
+| `DrawerCloseIcon` | Кнопка закрытия moduix, собранная из `DrawerCloseTrigger`. |
+| `DrawerStack` | Координирует вложенные панели и поверхности с отступом. |
+| `DrawerIndent` | Поверхность, которая отодвигается при открытии панели из стека. |
+| `DrawerIndentBackground` | Фон за поверхностью с отступом. |
+| `DrawerHeader`, `DrawerBody`, `DrawerFooter` | Необязательные помощники для компоновки без собственного состояния. |
 
 ## Композиция
 
-По умолчанию `Drawer` хранит состояние сам и рендерит `Backdrop` и `Positioner` через портал.
+По умолчанию `Drawer` хранит состояние сам и рендерит `DrawerBackdrop` и `DrawerPositioner` через портал.
 Оставляйте эти структурные части явными. Укажите `portalled={false}`, чтобы отрисовать их внутри
 текущего дерева, или передайте `portalRef` для собственного контейнера.
 
 Если состояние нужно создать за пределами дерева панели, создайте одно хранилище через `useDrawer()`
-и передайте его в один `Drawer.RootProvider`. Не используйте для этого же хранилища `Drawer` или
-`Drawer.Root`. Для вложенных панелей создавайте отдельные хранилища и деревья `RootProvider`, чтобы
+и передайте его в один `DrawerRootProvider`. Не используйте для этого же хранилища `Drawer`.
+Для вложенных панелей создавайте отдельные хранилища и деревья `DrawerRootProvider`, чтобы
 каждая панель сохраняла собственное состояние открытия и фокуса.
 
-Поместите поверхности, которые должны двигаться вместе, в `Drawer.Stack`, а затем объедините
-`Drawer.IndentBackground` и `Drawer.Indent`. Для собственного элемента триггера или закрытия
+Поместите поверхности, которые должны двигаться вместе, в `DrawerStack`, а затем объедините
+`DrawerIndentBackground` и `DrawerIndent`. Для собственного элемента триггера или закрытия
 используйте `asChild`: в React передаётся один доступный для фокуса дочерний элемент, а в Solid
 рендер-функция должна передать ему `props()`. Обработчики Ark получают объект деталей, например
 `details.open`, `details.snapPoint` и `details.value`.
@@ -209,7 +209,7 @@ Drawer.RootProvider
 ### Управление перетаскиванием
 
 Добавьте `data-no-drag` на интерактивные области, которые не должны запускать перетаскивание.
-Укажите `draggable={false}` на `Drawer.Content`, если панель должна двигаться только за ручку.
+Укажите `draggable={false}` на `DrawerContent`, если панель должна двигаться только за ручку.
 
 <ExampleFrame variant="component">
   <DrawerDragControls />
@@ -240,7 +240,7 @@ Drawer.RootProvider
 
 ### Плавающая ручка
 
-Разместите `Drawer.Grabber` над поверхностью, если ручка должна выглядеть отдельным элементом.
+Разместите `DrawerGrabber` над поверхностью, если ручка должна выглядеть отдельным элементом.
 В этом примере между ручкой и краем панели оставлено 10px.
 
 <ExampleFrame variant="component">
@@ -272,8 +272,8 @@ Drawer.RootProvider
 
 ### Фон с отступом
 
-`Drawer.Stack` использует состояние стека и прогресс свайпа Ark, чтобы перемещать
-`IndentBackground` и `Indent` вместе.
+`DrawerStack` использует состояние стека и прогресс свайпа Ark, чтобы перемещать
+`DrawerIndentBackground` и `DrawerIndent` вместе.
 
 <ExampleFrame variant="component">
   <DrawerIndentBackground />
@@ -304,7 +304,7 @@ Drawer.RootProvider
 
 ### Островная панель
 
-Укажите `variant="island"` на `Drawer.Content`, если компактная панель должна располагаться с
+Укажите `variant="island"` на `DrawerContent`, если компактная панель должна располагаться с
 отступом внутри окна, а не визуально выходить за край, откуда она открывается.
 
 <ExampleFrame variant="component">
@@ -369,7 +369,7 @@ Drawer.RootProvider
 ### Вложенные панели
 
 Используйте отдельные экземпляры Ark `useDrawer` и отдельные деревья moduix
-`Drawer.RootProvider` для вложенных панелей. Тогда каждая панель сохраняет собственное состояние
+`DrawerRootProvider` для вложенных панелей. Тогда каждая панель сохраняет собственное состояние
 открытия и жизненный цикл фокуса.
 
 <ExampleFrame variant="component">
@@ -465,7 +465,7 @@ Drawer.RootProvider
 
 ### Прокручиваемое содержимое
 
-Поместите длинный контент в `Drawer.Body`. Используйте `ScrollArea`, если панели нужен отдельный
+Поместите длинный контент в `DrawerBody`. Используйте `ScrollArea`, если панели нужен отдельный
 контейнер прокрутки, а ручка и заголовок должны оставаться на месте.
 
 <ExampleFrame variant="component">
@@ -561,7 +561,7 @@ Drawer.RootProvider
 
 ### Расширенная настройка
 
-Не используйте необязательные помощники `Header`, `Body`, `Footer` и `CloseIcon`, если собственной
+Не используйте необязательные помощники `DrawerHeader`, `DrawerBody`, `DrawerFooter` и `DrawerCloseIcon`, если собственной
 разметке нужен полный низкоуровневый набор частей Drawer.
 
 <ExampleFrame variant="component">
@@ -619,7 +619,7 @@ Drawer.RootProvider
   `drawer-grabber`, `drawer-grabber-indicator`, `drawer-title`, `drawer-description`,
   `drawer-close-trigger`, `drawer-close-icon`, `drawer-swipe-area`, `drawer-indent`,
   `drawer-indent-background`, `drawer-header`, `drawer-body` и `drawer-footer`.
-- `Drawer.Content` записывает `data-variant="island"`, когда включено островное представление.
+- `DrawerContent` записывает `data-variant="island"`, когда включено островное представление.
 - хуки частей Ark: `data-scope="drawer"` вместе с `data-part`.
 - хуки состояния: `data-state="open|closed"`, `data-swipe-direction`, `data-swiping`,
   `data-dragging`, `data-expanded`, `data-current`, `data-value`, `data-disabled`,

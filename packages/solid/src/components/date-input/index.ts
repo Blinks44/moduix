@@ -1,1 +1,16 @@
-export * from './DateInput.js';
+export {
+  DateInput,
+  DateInputContext,
+  DateInputControl,
+  DateInputHiddenInput,
+  DateInputLabel,
+  DateInputRootProvider,
+  DateInputSegment,
+  DateInputSegmentContext,
+  DateInputSegmentGroup,
+  DateInputSegments,
+  DateInputSeparator,
+  type DateInputDateValue,
+  useDateInput,
+  useDateInputContext,
+} from './DateInput.js';

@@ -1,5 +1,14 @@
 import { Button } from '@moduix/solid/button';
-import { Dialog } from '@moduix/solid/dialog';
+import {
+  Dialog,
+  DialogBackdrop,
+  DialogCloseTrigger,
+  DialogContent,
+  DialogDescription,
+  DialogFooter,
+  DialogPositioner,
+  DialogTitle,
+} from '@moduix/solid/dialog';
 import { Menu } from '@moduix/solid/menu';
 import { createSignal } from 'solid-js';
 
@@ -31,13 +40,13 @@ export default function OpenFromMenuDialogDemo() {
       </Menu>
 
       <Dialog open={open()} onOpenChange={(details) => setOpen(details.open)} role="alertdialog">
-        <Dialog.Backdrop />
-        <Dialog.Positioner>
-          <Dialog.Content>
-            <Dialog.Title>Confirm delete</Dialog.Title>
-            <Dialog.Description>This action cannot be undone.</Dialog.Description>
-            <Dialog.Footer>
-              <Dialog.CloseTrigger
+        <DialogBackdrop />
+        <DialogPositioner>
+          <DialogContent>
+            <DialogTitle>Confirm delete</DialogTitle>
+            <DialogDescription>This action cannot be undone.</DialogDescription>
+            <DialogFooter>
+              <DialogCloseTrigger
                 asChild={(props) => (
                   <Button {...props()} variant="outline">
                     Cancel
@@ -45,9 +54,9 @@ export default function OpenFromMenuDialogDemo() {
                 )}
               />
               <Button onClick={() => setOpen(false)}>Delete</Button>
-            </Dialog.Footer>
-          </Dialog.Content>
-        </Dialog.Positioner>
+            </DialogFooter>
+          </DialogContent>
+        </DialogPositioner>
       </Dialog>
     </>
   );
