@@ -42,7 +42,7 @@ type ListRootProps =
         'data-tone'?: string;
       });
 
-function ListRoot(props: ListRootProps) {
+function List(props: ListRootProps) {
   return (
     <Show
       when={props.as === 'ol'}
@@ -146,9 +146,4 @@ function ListItem(props: HTMLArkProps<'li'> & ListDataProps) {
   );
 }
 
-const List = Object.assign(ListRoot, {
-  Root: ListRoot,
-  Item: ListItem,
-});
-
-export { List };
+export { List, ListItem };

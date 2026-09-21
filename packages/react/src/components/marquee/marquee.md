@@ -21,53 +21,59 @@ Ark CSS variables.
 
 ## Current behavior contract
 
-`Marquee` is the styled root and is equivalent to `Marquee.Root`. It does not render viewport,
-content, items, or edge fades automatically. Consumers compose the Ark tree explicitly:
+`Marquee` is the styled root. It does not render viewport, content, items, or edge fades
+automatically. Consumers compose the Ark tree explicitly:
 
 ```tsx
-import { Marquee } from '@moduix/react/marquee';
+import {
+  Marquee,
+  MarqueeContent,
+  MarqueeItem,
+  MarqueeViewport,
+} from '@moduix/react/marquee';
 
 export function Example() {
   return (
     <Marquee aria-label="Partner logos" pauseOnInteraction>
-      <Marquee.Viewport>
-        <Marquee.Content>
-          <Marquee.Item>Atlas</Marquee.Item>
-          <Marquee.Item>Beacon</Marquee.Item>
-        </Marquee.Content>
-      </Marquee.Viewport>
+      <MarqueeViewport>
+        <MarqueeContent>
+          <MarqueeItem>Atlas</MarqueeItem>
+          <MarqueeItem>Beacon</MarqueeItem>
+        </MarqueeContent>
+      </MarqueeViewport>
     </Marquee>
   );
 }
 ```
 
-The package exports `Marquee`, `useMarquee`, and `useMarqueeContext`. `Marquee.Context` is available
-for advanced composition alongside the visible parts.
+The package exports `Marquee`, `MarqueeRootProvider`, `MarqueeViewport`, `MarqueeContent`,
+`MarqueeItem`, `MarqueeEdge`, `MarqueeContext`, `useMarquee`, and `useMarqueeContext` as flat
+values.
 
 ## Anatomy and exported parts
 
 ```text
-Marquee / Marquee.Root
-├─ Marquee.Edge[side?]
-├─ Marquee.Viewport
-│  └─ Marquee.Content
-│     └─ Marquee.Item
-└─ Marquee.Edge[side?]
+Marquee
+├─ MarqueeEdge[side?]
+├─ MarqueeViewport
+│  └─ MarqueeContent
+│     └─ MarqueeItem
+└─ MarqueeEdge[side?]
 ```
 
 | Export                     | `data-slot`             | Notes                                                   |
 | -------------------------- | ----------------------- | ------------------------------------------------------- |
-| `Marquee` / `Marquee.Root` | `marquee-root`          | Ark root, pause state, ids, orientation, and variables. |
-| `Marquee.RootProvider`     | `marquee-root-provider` | Root for an external `useMarquee()` instance.           |
-| `Marquee.Viewport`         | `marquee-viewport`      | Clipping viewport.                                      |
-| `Marquee.Content`          | `marquee-content`       | Animated content wrapper and cloned content host.       |
-| `Marquee.Item`             | `marquee-item`          | Individual marquee item.                                |
-| `Marquee.Edge`             | `marquee-edge`          | Optional fade overlay. Requires `side`.                 |
-| `Marquee.Context`          | -                       | Advanced context consumer for the enclosing marquee.    |
-| `useMarquee`               | -                       | Creates state for `Marquee.RootProvider`.               |
+| `Marquee`                 | `marquee-root`          | Ark root, pause state, ids, orientation, and variables. |
+| `MarqueeRootProvider`     | `marquee-root-provider` | Root for an external `useMarquee()` instance.           |
+| `MarqueeViewport`         | `marquee-viewport`      | Clipping viewport.                                      |
+| `MarqueeContent`          | `marquee-content`       | Animated content wrapper and cloned content host.       |
+| `MarqueeItem`             | `marquee-item`          | Individual marquee item.                                |
+| `MarqueeEdge`             | `marquee-edge`          | Optional fade overlay. Requires `side`.                 |
+| `MarqueeContext`          | -                       | Advanced context consumer for the enclosing marquee.    |
+| `useMarquee`               | -                       | Creates state for `MarqueeRootProvider`.               |
 | `useMarqueeContext`        | -                       | Reads state from the enclosing marquee.                 |
 
-No flat part aliases such as `MarqueeRoot` or `MarqueeViewport` are exported.
+The old compound shape is not exported. Use the family-prefixed values shown in the table.
 
 ## Composition
 
@@ -77,36 +83,37 @@ content in moduix `LocaleProvider` with an RTL locale so Ark applies the directi
 
 ```tsx
 <Marquee aria-label="Partner logos" autoFill pauseOnInteraction spacing="2rem">
-  <Marquee.Edge side="start" />
-  <Marquee.Viewport>
-    <Marquee.Content>
+  <MarqueeEdge side="start" />
+  <MarqueeViewport>
+    <MarqueeContent>
       {items.map((item) => (
-        <Marquee.Item key={item.name}>{item.name}</Marquee.Item>
+        <MarqueeItem key={item.name}>{item.name}</MarqueeItem>
       ))}
-    </Marquee.Content>
-  </Marquee.Viewport>
-  <Marquee.Edge side="end" />
+    </MarqueeContent>
+  </MarqueeViewport>
+  <MarqueeEdge side="end" />
 </Marquee>
 ```
 
-Use `Marquee.RootProvider` with moduix `useMarquee()` when controls outside the root need to call
+Use `MarqueeRootProvider` with moduix `useMarquee()` when controls outside the root need to call
 `pause()`, `resume()`, `togglePause()`, or `restart()`. Do not render `Marquee` and
-`Marquee.RootProvider` for the same state instance.
+`MarqueeRootProvider` for the same state instance.
 
 ## Upstream feature coverage
 
-- Basic: supported through explicit `Marquee` / `Viewport` / `Content` / `Item` composition.
+- Basic: supported through explicit `Marquee` / `MarqueeViewport` / `MarqueeContent` /
+  `MarqueeItem` composition.
 - Auto fill: supported through `autoFill` and `spacing`.
 - Reverse: supported through `reverse`.
 - Vertical: supported through `side="top"` or `side="bottom"`.
 - Speed and delay: supported through `speed` and `delay`.
 - Pause on interaction: supported through `pauseOnInteraction`, hover, and focus.
-- Programmatic control: supported through moduix `useMarquee` and `Marquee.RootProvider`.
+- Programmatic control: supported through moduix `useMarquee` and `MarqueeRootProvider`.
 - Finite loops: supported through `loopCount`, `onLoopComplete`, and `onComplete`.
-- Edge fades: supported through `Marquee.Edge side="start|end|top|bottom"`.
+- Edge fades: supported through `MarqueeEdge side="start|end|top|bottom"`.
 - `asChild`: preserved on all Ark parts.
 - `ids`: preserved on the root for stable root, viewport, and content IDs.
-- `Marquee.Context`, `useMarquee`, and `useMarqueeContext()` are available from moduix.
+- `MarqueeContext`, `useMarquee`, and `useMarqueeContext()` are available from moduix.
 
 ## Props and callbacks
 
@@ -128,8 +135,8 @@ Use `Marquee.RootProvider` with moduix `useMarquee()` when controls outside the 
 | `translations`       | Localized root label. Use this or `aria-label`.               |
 | `ids`                | Stable ids for root, viewport, and content instances.         |
 | `asChild`            | Preserved on every Ark part for host element replacement.     |
-| `Marquee.Edge side`  | Required edge side: `start`, `end`, `top`, or `bottom`.       |
-| `RootProvider.value` | Required `UseMarqueeReturn` from `useMarquee()`.              |
+| `MarqueeEdge side`          | Required edge side: `start`, `end`, `top`, or `bottom`.       |
+| `MarqueeRootProvider.value` | Required `UseMarqueeReturn` from `useMarquee()`.              |
 
 ## Accessibility and state
 
@@ -197,18 +204,20 @@ Chakra-compatible `--marquee-edge-*` aliases.
 - Moduix does not copy Ark demo item styles into the component; item visuals belong to consumers,
   stories, or docs examples.
 - Moduix does not add convenience wrappers, prop aliases, or local state around Ark playback.
-- `Marquee` remains the short root import for docs ergonomics and has attached Ark parts.
+- `Marquee` is the root import and all other parts are explicit flat exports.
 
 ## Agent notes
 
 - Keep the wrapper thin. Do not add automatic structural rendering for viewport/content/items.
 - Keep keyframe names local to the CSS module and tied to Ark `--marquee-translate`.
 - Keep pause callbacks and controlled state detail objects in Ark's original shape.
-- Keep `useMarquee`, `useMarqueeContext`, and `Marquee.Context` available for Ark-shaped advanced
+- Keep `useMarquee`, `useMarqueeContext`, and `MarqueeContext` available for Ark-shaped advanced
   composition.
 
 ## Local changelog
 
+- 2026-09-21: Replaced the compound Marquee API with flat component and context exports without
+  compatibility aliases.
 - 2026-07-10: Re-exported `useMarquee` from moduix so `RootProvider` examples stay within the public
   package surface.
 - 2026-07-29: Clarified the public context API, documented reduced-motion behavior, and added Chakra

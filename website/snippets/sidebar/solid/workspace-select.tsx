@@ -1,6 +1,6 @@
 import { createListCollection } from '@ark-ui/solid/collection';
 import { Avatar, AvatarFallback } from '@moduix/solid/avatar';
-import { Menu } from '@moduix/solid/menu';
+import { Menu, MenuTrigger, MenuPositioner, MenuContent, MenuViewport, MenuItem, MenuSeparator, MenuItemText } from '@moduix/solid/menu';
 import { Select } from '@moduix/solid/select';
 import { Sidebar } from '@moduix/solid/sidebar';
 import {
@@ -141,7 +141,7 @@ export default function WorkspaceSidebar() {
         <Sidebar.Footer class={styles.footer}>
           <Sidebar.Separator />
           <Menu positioning={{ placement: 'right-end', gutter: 8, flip: false }}>
-            <Menu.Trigger
+            <MenuTrigger
               asChild={(props) => (
                 <Sidebar.NavigationButton {...props()} size="lg" aria-label="Open account menu" />
               )}
@@ -153,22 +153,22 @@ export default function WorkspaceSidebar() {
                 <strong class={styles.accountName}>Alex Morgan</strong>
                 <span class={styles.accountEmail}>alex@acme.dev</span>
               </Sidebar.Label>
-            </Menu.Trigger>
-            <Menu.Positioner>
-              <Menu.Content>
-                <Menu.Viewport>
-                  <Menu.Item value="profile">Profile</Menu.Item>
-                  <Menu.Item value="settings">Account settings</Menu.Item>
-                  <Menu.Separator />
-                  <Menu.Item value="sign-out" tone="destructive">
-                    <Menu.ItemText>
+            </MenuTrigger>
+            <MenuPositioner>
+              <MenuContent>
+                <MenuViewport>
+                  <MenuItem value="profile">Profile</MenuItem>
+                  <MenuItem value="settings">Account settings</MenuItem>
+                  <MenuSeparator />
+                  <MenuItem value="sign-out" tone="destructive">
+                    <MenuItemText>
                       <LogOut />
                       Sign out
-                    </Menu.ItemText>
-                  </Menu.Item>
-                </Menu.Viewport>
-              </Menu.Content>
-            </Menu.Positioner>
+                    </MenuItemText>
+                  </MenuItem>
+                </MenuViewport>
+              </MenuContent>
+            </MenuPositioner>
           </Menu>
         </Sidebar.Footer>
       </Sidebar.Panel>

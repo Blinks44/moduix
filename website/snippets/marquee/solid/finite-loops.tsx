@@ -1,4 +1,9 @@
-import { Marquee } from '@moduix/solid/marquee';
+import {
+  Marquee,
+  MarqueeContent,
+  MarqueeItem,
+  MarqueeViewport,
+} from '@moduix/solid/marquee';
 import { createSignal } from 'solid-js';
 import styles from '@/components/examples/marquee/marquee-finite-loops.module.css';
 
@@ -24,16 +29,16 @@ export default function FiniteLoopsMarqueeDemo() {
         onComplete={() => setCompleted((value) => value + 1)}
         class={styles.root}
       >
-        <Marquee.Viewport>
-          <Marquee.Content>
+        <MarqueeViewport>
+          <MarqueeContent>
             {partners.map((item) => (
-              <Marquee.Item class={styles.item}>
+              <MarqueeItem class={styles.item}>
                 <span>{item.mark}</span>
                 <span>{item.name}</span>
-              </Marquee.Item>
+              </MarqueeItem>
             ))}
-          </Marquee.Content>
-        </Marquee.Viewport>
+          </MarqueeContent>
+        </MarqueeViewport>
       </Marquee>
       <div class={styles.status}>
         <span>Loops: {loops()}</span>

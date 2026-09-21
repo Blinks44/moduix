@@ -2,19 +2,28 @@ import { LocaleProvider } from '@ark-ui/solid/locale';
 import { expect, test } from '@rstest/core';
 import { fireEvent, render, screen, waitFor } from '@solidjs/testing-library';
 import { createSignal } from 'solid-js';
-import { Marquee, useMarquee, useMarqueeContext } from '../src';
+import {
+  Marquee,
+  MarqueeContent,
+  MarqueeEdge,
+  MarqueeItem,
+  MarqueeRootProvider,
+  MarqueeViewport,
+  useMarquee,
+  useMarqueeContext,
+} from '../src';
 
 function TestMarquee(props: { defaultPaused?: boolean; paused?: boolean }) {
   return (
     <Marquee aria-label="Partner logos" defaultPaused={props.defaultPaused} paused={props.paused}>
-      <Marquee.Edge side="start" />
-      <Marquee.Viewport>
-        <Marquee.Content>
-          <Marquee.Item>Atlas</Marquee.Item>
-          <Marquee.Item>Beacon</Marquee.Item>
-        </Marquee.Content>
-      </Marquee.Viewport>
-      <Marquee.Edge side="end" />
+      <MarqueeEdge side="start" />
+      <MarqueeViewport>
+        <MarqueeContent>
+          <MarqueeItem>Atlas</MarqueeItem>
+          <MarqueeItem>Beacon</MarqueeItem>
+        </MarqueeContent>
+      </MarqueeViewport>
+      <MarqueeEdge side="end" />
     </Marquee>
   );
 }
@@ -53,12 +62,12 @@ test('preserves Ark marquee anatomy, semantics, and Tailwind styling hooks', () 
 test('lets consumer Tailwind utilities override conflicting defaults', () => {
   render(() => (
     <Marquee aria-label="Partner logos" class="w-1/2 text-primary">
-      <Marquee.Viewport>
-        <Marquee.Content>
-          <Marquee.Item>Atlas</Marquee.Item>
-        </Marquee.Content>
-      </Marquee.Viewport>
-      <Marquee.Edge side="start" class="w-1/4" data-testid="edge" />
+      <MarqueeViewport>
+        <MarqueeContent>
+          <MarqueeItem>Atlas</MarqueeItem>
+        </MarqueeContent>
+      </MarqueeViewport>
+      <MarqueeEdge side="start" class="w-1/4" data-testid="edge" />
     </Marquee>
   ));
 
@@ -74,11 +83,11 @@ test('lets consumer Tailwind utilities override conflicting defaults', () => {
 test('lets consumers override the vertical height', () => {
   render(() => (
     <Marquee side="bottom" class="h-96">
-      <Marquee.Viewport>
-        <Marquee.Content>
-          <Marquee.Item>Atlas</Marquee.Item>
-        </Marquee.Content>
-      </Marquee.Viewport>
+      <MarqueeViewport>
+        <MarqueeContent>
+          <MarqueeItem>Atlas</MarqueeItem>
+        </MarqueeContent>
+      </MarqueeViewport>
     </Marquee>
   ));
 
@@ -94,11 +103,11 @@ test('forwards part refs and keeps cloned content out of the accessibility tree'
 
   render(() => (
     <Marquee ref={(element) => (rootRef = element)} aria-label="Partner logos">
-      <Marquee.Viewport>
-        <Marquee.Content>
-          <Marquee.Item ref={(element) => (itemRef = element)}>Atlas</Marquee.Item>
-        </Marquee.Content>
-      </Marquee.Viewport>
+      <MarqueeViewport>
+        <MarqueeContent>
+          <MarqueeItem ref={(element) => (itemRef = element)}>Atlas</MarqueeItem>
+        </MarqueeContent>
+      </MarqueeViewport>
     </Marquee>
   ));
 
@@ -122,11 +131,11 @@ test('preserves Ark controlled and uncontrolled pause state', async () => {
 
     return (
       <Marquee aria-label="Partner logos" defaultPaused paused={paused()}>
-        <Marquee.Viewport>
-          <Marquee.Content>
-            <Marquee.Item>Atlas</Marquee.Item>
-          </Marquee.Content>
-        </Marquee.Viewport>
+        <MarqueeViewport>
+          <MarqueeContent>
+            <MarqueeItem>Atlas</MarqueeItem>
+          </MarqueeContent>
+        </MarqueeViewport>
       </Marquee>
     );
   });
@@ -162,11 +171,11 @@ test('preserves interaction pause behavior, callback details, and context contro
       pauseOnInteraction
       onPauseChange={(details) => pauseChanges.push(details)}
     >
-      <Marquee.Viewport>
-        <Marquee.Content>
-          <Marquee.Item>Atlas</Marquee.Item>
-        </Marquee.Content>
-      </Marquee.Viewport>
+      <MarqueeViewport>
+        <MarqueeContent>
+          <MarqueeItem>Atlas</MarqueeItem>
+        </MarqueeContent>
+      </MarqueeViewport>
       <ContextPauseControl />
     </Marquee>
   ));
@@ -226,13 +235,13 @@ function ProviderMarquee() {
   const marquee = useMarquee({ translations: { root: 'Partner logos' } });
 
   return (
-    <Marquee.RootProvider value={marquee}>
-      <Marquee.Viewport>
-        <Marquee.Content>
-          <Marquee.Item>Atlas</Marquee.Item>
-        </Marquee.Content>
-      </Marquee.Viewport>
-    </Marquee.RootProvider>
+    <MarqueeRootProvider value={marquee}>
+      <MarqueeViewport>
+        <MarqueeContent>
+          <MarqueeItem>Atlas</MarqueeItem>
+        </MarqueeContent>
+      </MarqueeViewport>
+    </MarqueeRootProvider>
   );
 }
 

@@ -1,5 +1,5 @@
 import { Button } from '@moduix/react/button';
-import { Menu } from '@moduix/react/menu';
+import { Menu, MenuTrigger, MenuIndicator, MenuPositioner, MenuContent, MenuViewport, MenuCheckboxItem, MenuItemIndicator, MenuItemText, MenuItemTextContent, MenuItemTextIcon, MenuItemTextLabel } from '@moduix/react/menu';
 import {
   Grid3X3 as Grid3X3Icon,
   Map as MapIcon,
@@ -16,82 +16,82 @@ export default function IndicatorRightMenuDemo() {
   const [showTraffic, setShowTraffic] = useState(false);
   return (
     <Menu closeOnSelect={false}>
-      <Menu.Trigger asChild>
+      <MenuTrigger asChild>
         <Button>
           View
-          <Menu.Indicator />
+          <MenuIndicator />
         </Button>
-      </Menu.Trigger>
-      <Menu.Positioner>
-        <Menu.Content className={styles.content}>
-          <Menu.Viewport>
-            <Menu.CheckboxItem
+      </MenuTrigger>
+      <MenuPositioner>
+        <MenuContent className={styles.content}>
+          <MenuViewport>
+            <MenuCheckboxItem
               checked={showSearch}
               value="search"
               onCheckedChange={setShowSearch}
               indicator="end"
             >
-              <Menu.ItemText>
-                <Menu.ItemTextContent>
-                  <Menu.ItemTextIcon>
+              <MenuItemText>
+                <MenuItemTextContent>
+                  <MenuItemTextIcon>
                     <MapIcon />
-                  </Menu.ItemTextIcon>
-                  <Menu.ItemTextLabel>Search</Menu.ItemTextLabel>
-                </Menu.ItemTextContent>
-              </Menu.ItemText>
-              <Menu.ItemIndicator />
-            </Menu.CheckboxItem>
-            <Menu.CheckboxItem
+                  </MenuItemTextIcon>
+                  <MenuItemTextLabel>Search</MenuItemTextLabel>
+                </MenuItemTextContent>
+              </MenuItemText>
+              <MenuItemIndicator />
+            </MenuCheckboxItem>
+            <MenuCheckboxItem
               checked={showGrid}
               value="grid"
               onCheckedChange={setShowGrid}
               indicator="end"
             >
-              <Menu.ItemText>
-                <Menu.ItemTextContent>
-                  <Menu.ItemTextIcon>
+              <MenuItemText>
+                <MenuItemTextContent>
+                  <MenuItemTextIcon>
                     <Grid3X3Icon />
-                  </Menu.ItemTextIcon>
-                  <Menu.ItemTextLabel>Grid</Menu.ItemTextLabel>
-                </Menu.ItemTextContent>
-              </Menu.ItemText>
-              <Menu.ItemIndicator />
-            </Menu.CheckboxItem>
-            <Menu.CheckboxItem
+                  </MenuItemTextIcon>
+                  <MenuItemTextLabel>Grid</MenuItemTextLabel>
+                </MenuItemTextContent>
+              </MenuItemText>
+              <MenuItemIndicator />
+            </MenuCheckboxItem>
+            <MenuCheckboxItem
               checked={showLabels}
               value="labels"
               onCheckedChange={setShowLabels}
               indicator="end"
             >
-              <Menu.ItemText>
-                <Menu.ItemTextContent>
-                  <Menu.ItemTextIcon>
+              <MenuItemText>
+                <MenuItemTextContent>
+                  <MenuItemTextIcon>
                     <MapPinIcon />
-                  </Menu.ItemTextIcon>
-                  <Menu.ItemTextLabel>Place Labels</Menu.ItemTextLabel>
-                </Menu.ItemTextContent>
-              </Menu.ItemText>
-              <Menu.ItemIndicator />
-            </Menu.CheckboxItem>
-            <Menu.CheckboxItem
+                  </MenuItemTextIcon>
+                  <MenuItemTextLabel>Place Labels</MenuItemTextLabel>
+                </MenuItemTextContent>
+              </MenuItemText>
+              <MenuItemIndicator />
+            </MenuCheckboxItem>
+            <MenuCheckboxItem
               checked={showTraffic}
               value="traffic"
               onCheckedChange={setShowTraffic}
               indicator="end"
             >
-              <Menu.ItemText>
-                <Menu.ItemTextContent>
-                  <Menu.ItemTextIcon>
+              <MenuItemText>
+                <MenuItemTextContent>
+                  <MenuItemTextIcon>
                     <TrafficConeIcon />
-                  </Menu.ItemTextIcon>
-                  <Menu.ItemTextLabel>Traffic</Menu.ItemTextLabel>
-                </Menu.ItemTextContent>
-              </Menu.ItemText>
-              <Menu.ItemIndicator />
-            </Menu.CheckboxItem>
-          </Menu.Viewport>
-        </Menu.Content>
-      </Menu.Positioner>
+                  </MenuItemTextIcon>
+                  <MenuItemTextLabel>Traffic</MenuItemTextLabel>
+                </MenuItemTextContent>
+              </MenuItemText>
+              <MenuItemIndicator />
+            </MenuCheckboxItem>
+          </MenuViewport>
+        </MenuContent>
+      </MenuPositioner>
     </Menu>
   );
 }

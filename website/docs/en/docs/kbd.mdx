@@ -28,7 +28,7 @@ customize the rendered elements.
 
 
 Use `Kbd` to show one key. For a shortcut made of several keys, place the keycaps and their text separators inside
-`Kbd.Group`.
+`KbdGroup`.
 
 <ExampleFrame variant="component">
   <KbdBasic />
@@ -97,21 +97,21 @@ See [Quick Start](/docs/quick-start) for full package setup, registry configurat
 The structure of a shortcut is simple. The `+` in this example is ordinary text, not a component part.
 
 ```text
-Kbd.Group
-├─ Kbd / Kbd.Root
+KbdGroup
+├─ Kbd
 ├─ +
-└─ Kbd / Kbd.Root
+└─ Kbd
 ```
 
 | Part               | Role                                                                          |
 | ------------------ | ----------------------------------------------------------------------------- |
-| `Kbd` / `Kbd.Root` | Root keycap; renders a `<kbd>` element by default.                            |
-| `Kbd.Group`        | Inline wrapper for related keycaps; uses the `group` role by default.         |
+| `Kbd`              | Root keycap; renders a `<kbd>` element by default.                            |
+| `KbdGroup`         | Inline wrapper for related keycaps; uses the `group` role by default.         |
 
 ## Composition
 
-Use `Kbd` as the shorthand for `Kbd.Root` when you need an individual key, and use `Kbd.Group` to combine related
-keycaps. Keep separators such as `+` as plain text inside the group, and give the group an `aria-label` when visual
+Use `Kbd` when you need an individual key, and use `KbdGroup` to combine related keycaps. Keep separators such as
+`+` as plain text inside the group, and give the group an `aria-label` when visual
 symbols or abbreviations need a clearer accessible name.
 
 Kbd is static and owns no state or keyboard interaction. Use `asChild` only when another component must render the
@@ -194,7 +194,7 @@ Use `asChild` when another component renders the semantic `<kbd>` element and yo
 
 ### Shortcut List
 
-Combine `Kbd.Group` with explanatory text to present a list of available shortcuts.
+Combine `KbdGroup` with explanatory text to present a list of available shortcuts.
 
 <ExampleFrame variant="component">
   <KbdShortcutList />
@@ -267,7 +267,7 @@ Use `Kbd` directly when you need to show one key, such as `Esc`.
 
 ## Styling
 
-Customize `Kbd` and `Kbd.Group` with `className` in React or `class` in Solid, Ark anatomy attributes, stable
+Customize `Kbd` and `KbdGroup` with `className` in React or `class` in Solid, Ark anatomy attributes, stable
 `data-slot` hooks, and the public `--moduix-kbd-*` CSS variables listed below. Tailwind variants use native utility
 classes, while CSS Modules variants use the component variables and consumer CSS.
 
@@ -280,4 +280,4 @@ classes, while CSS Modules variants use the component variables and consumer CSS
 - `data-slot="kbd-root"` targets each keycap element
 - `data-slot="kbd-group"` targets the inline wrapper for grouped shortcuts
 - `[data-scope="kbd"][data-part="root"]` and `[data-part="group"]` expose Ark-style anatomy selectors
-- Separators in `Kbd.Group` inherit the group's text color. Use `--moduix-kbd-group-separator-color` to set it
+- Separators in `KbdGroup` inherit the group's text color. Use `--moduix-kbd-group-separator-color` to set it

@@ -1,1 +1,1 @@
-export * from './List.js';
+export { List, ListItem } from './List.js';

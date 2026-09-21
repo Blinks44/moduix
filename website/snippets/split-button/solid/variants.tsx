@@ -1,4 +1,4 @@
-import { Menu } from '@moduix/solid/menu';
+import { MenuItem } from '@moduix/solid/menu';
 import { SplitButton } from '@moduix/solid/split-button';
 import styles from '@/components/examples/split-button/split-button-variants.module.css';
 
@@ -20,8 +20,8 @@ export default function SplitButtonVariantsDemo() {
           <SplitButton.Trigger />
           <SplitButton.Positioner>
             <SplitButton.Content>
-              <Menu.Item value={`${variant}-edit`}>Edit</Menu.Item>
-              <Menu.Item value={`${variant}-duplicate`}>Duplicate</Menu.Item>
+              <MenuItem value={`${variant}-edit`}>Edit</MenuItem>
+              <MenuItem value={`${variant}-duplicate`}>Duplicate</MenuItem>
             </SplitButton.Content>
           </SplitButton.Positioner>
         </SplitButton>

@@ -1,5 +1,5 @@
 import { Button } from '@moduix/solid/button';
-import { Menu, useMenu } from '@moduix/solid/menu';
+import { useMenu, MenuRootProvider, MenuTrigger, MenuIndicator, MenuPositioner, MenuContent, MenuViewport, MenuItem } from '@moduix/solid/menu';
 import styles from '@/components/examples/menu/menu-root-provider.module.css';
 
 export default function RootProviderMenuDemo() {
@@ -8,24 +8,24 @@ export default function RootProviderMenuDemo() {
   return (
     <div>
       <div class={styles.triggerRow}>
-        <Menu.RootProvider value={menu}>
-          <Menu.Trigger asChild={(props) => <Button {...props()} />}>
+        <MenuRootProvider value={menu}>
+          <MenuTrigger asChild={(props) => <Button {...props()} />}>
             Edit
-            <Menu.Indicator />
-          </Menu.Trigger>
-          <Menu.Positioner>
-            <Menu.Content class={styles.content}>
-              <Menu.Viewport>
-                <Menu.Item value="cut">Cut</Menu.Item>
-                <Menu.Item value="copy">Copy</Menu.Item>
-                <Menu.Item value="paste">Paste</Menu.Item>
-                <Menu.Item value="delete" tone="destructive">
+            <MenuIndicator />
+          </MenuTrigger>
+          <MenuPositioner>
+            <MenuContent class={styles.content}>
+              <MenuViewport>
+                <MenuItem value="cut">Cut</MenuItem>
+                <MenuItem value="copy">Copy</MenuItem>
+                <MenuItem value="paste">Paste</MenuItem>
+                <MenuItem value="delete" tone="destructive">
                   Delete
-                </Menu.Item>
-              </Menu.Viewport>
-            </Menu.Content>
-          </Menu.Positioner>
-        </Menu.RootProvider>
+                </MenuItem>
+              </MenuViewport>
+            </MenuContent>
+          </MenuPositioner>
+        </MenuRootProvider>
       </div>
       <Button size="sm" onClick={() => menu.api().setHighlightedValue('copy')}>
         Highlight Copy

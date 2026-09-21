@@ -1,4 +1,4 @@
-import { Menu } from '@moduix/solid/menu';
+import { Menu, MenuTrigger, MenuPositioner, MenuContent, MenuViewport, MenuItem } from '@moduix/solid/menu';
 import { Sidebar } from '@moduix/solid/sidebar';
 import { BarChart3, FileText, FolderOpen, Gauge, MessageSquare, Settings } from 'lucide-solid';
 import styles from '@/components/examples/sidebar/sidebar-custom-sizes.module.css';
@@ -55,19 +55,19 @@ export default function SizedSidebar() {
         </Sidebar.Content>
         <Sidebar.Footer>
           <Menu positioning={{ placement: 'right-end', gutter: 8, flip: false }}>
-            <Menu.Trigger asChild={(props) => <Sidebar.NavigationButton {...props()} />}>
+            <MenuTrigger asChild={(props) => <Sidebar.NavigationButton {...props()} />}>
               <Settings />
               <Sidebar.Label>Settings</Sidebar.Label>
-            </Menu.Trigger>
-            <Menu.Positioner>
-              <Menu.Content>
-                <Menu.Viewport>
-                  <Menu.Item value="workspace">Workspace settings</Menu.Item>
-                  <Menu.Item value="members">Manage members</Menu.Item>
-                  <Menu.Item value="billing">Billing</Menu.Item>
-                </Menu.Viewport>
-              </Menu.Content>
-            </Menu.Positioner>
+            </MenuTrigger>
+            <MenuPositioner>
+              <MenuContent>
+                <MenuViewport>
+                  <MenuItem value="workspace">Workspace settings</MenuItem>
+                  <MenuItem value="members">Manage members</MenuItem>
+                  <MenuItem value="billing">Billing</MenuItem>
+                </MenuViewport>
+              </MenuContent>
+            </MenuPositioner>
           </Menu>
         </Sidebar.Footer>
       </Sidebar.Panel>

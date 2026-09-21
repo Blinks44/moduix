@@ -96,8 +96,8 @@ Drop to explicit parts when different items need custom markup or framework link
   `BreadcrumbsPath` intentionally excludes it because the shorthand owns multiple list children.
 - Moduix shorthand path rendering: covered by `BreadcrumbsPath`, which keeps the semantic `ol > li` structure while
   auto-rendering links, the current page, and separators from `links` and `page`.
-- Ark Menu composition for collapsed paths: supported through explicit `Menu`, `Menu.Positioner`,
-  `Menu.Content`, and `Menu.Item asChild`.
+- Ark Menu composition for collapsed paths: supported through explicit `Menu`, `MenuPositioner`,
+  `MenuContent`, and `MenuItem asChild`.
 - Controlled/uncontrolled state, callbacks, context, `RootProvider`, ids, `HiddenInput`, and Field/Fieldset state do not
   apply because breadcrumbs do not own interactive state or form state.
 
@@ -116,7 +116,7 @@ target through `--moduix-breadcrumbs-item-max-width`, while ancestor links can c
 overflow immediately.
 
 `BreadcrumbsPage` sets `aria-current="page"`. `BreadcrumbsSeparator` is a presentational list item and
-`BreadcrumbsEllipsis` is hidden from assistive technology. When ellipsis opens a menu, the accessible label belongs on `Menu.Trigger`, for example
+`BreadcrumbsEllipsis` is hidden from assistive technology. When ellipsis opens a menu, the accessible label belongs on `MenuTrigger`, for example
 `aria-label="Show hidden path items"`.
 
 There is no component-owned state, callback, keyboard navigation, or CSS runtime variable.
@@ -173,8 +173,8 @@ ellipsis text uses `text-overflow: ellipsis`.
 - Do not reintroduce a `render` prop compatibility layer.
 - Keep `BreadcrumbsPath` narrow: anchor-based items, shared separator override, no hidden router abstraction.
 - Keep router-link composition on `asChild`.
-- Keep collapsed examples on the migrated Ark Menu contract: `Menu.Trigger asChild` + `Menu.Positioner` +
-  `Menu.Content` + `Menu.Item asChild`.
+- Keep collapsed examples on the migrated Ark Menu contract: `MenuTrigger asChild` + `MenuPositioner` +
+  `MenuContent` + `MenuItem asChild`.
 - Keep docs, stories, registry output, and CSS variable tables synchronized when changing parts or tokens.
 
 ## Local changelog

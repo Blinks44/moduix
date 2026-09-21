@@ -1,4 +1,4 @@
-import { Menu } from '@moduix/react/menu';
+import { Menu, MenuTrigger, MenuPositioner, MenuContent, MenuViewport, MenuItem } from '@moduix/react/menu';
 import { Sidebar } from '@moduix/react/sidebar';
 import { BarChart3, FileText, FolderOpen, Gauge, MessageSquare, Settings } from 'lucide-react';
 import styles from '@/components/examples/sidebar/sidebar-custom-sizes.module.css';
@@ -61,21 +61,21 @@ export default function SizedSidebar() {
               flip: false,
             }}
           >
-            <Menu.Trigger asChild>
+            <MenuTrigger asChild>
               <Sidebar.NavigationButton>
                 <Settings />
                 <Sidebar.Label>Settings</Sidebar.Label>
               </Sidebar.NavigationButton>
-            </Menu.Trigger>
-            <Menu.Positioner>
-              <Menu.Content>
-                <Menu.Viewport>
-                  <Menu.Item value="workspace">Workspace settings</Menu.Item>
-                  <Menu.Item value="members">Manage members</Menu.Item>
-                  <Menu.Item value="billing">Billing</Menu.Item>
-                </Menu.Viewport>
-              </Menu.Content>
-            </Menu.Positioner>
+            </MenuTrigger>
+            <MenuPositioner>
+              <MenuContent>
+                <MenuViewport>
+                  <MenuItem value="workspace">Workspace settings</MenuItem>
+                  <MenuItem value="members">Manage members</MenuItem>
+                  <MenuItem value="billing">Billing</MenuItem>
+                </MenuViewport>
+              </MenuContent>
+            </MenuPositioner>
           </Menu>
         </Sidebar.Footer>
       </Sidebar.Panel>

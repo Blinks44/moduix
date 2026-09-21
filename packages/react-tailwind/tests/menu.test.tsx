@@ -1,25 +1,25 @@
 import { expect, test } from '@rstest/core';
 import { fireEvent, render, screen, waitFor } from '@testing-library/react';
 import { useState } from 'react';
-import { Button, Menu, useMenu, useMenuContext, useMenuItemContext } from '../src';
+import { Button, Menu, useMenu, useMenuContext, useMenuItemContext, MenuRootProvider, MenuTrigger, MenuContextTrigger, MenuPositioner, MenuContent, MenuViewport, MenuArrow, MenuItem, MenuSeparator, MenuRadioItemGroup, MenuRadioItem, MenuCheckboxItem, MenuItemIndicator, MenuItemText } from '../src';
 
 function TestMenu() {
   return (
     <Menu defaultOpen>
-      <Menu.Trigger asChild>
+      <MenuTrigger asChild>
         <Button>Actions</Button>
-      </Menu.Trigger>
-      <Menu.Positioner>
-        <Menu.Content>
-          <Menu.Viewport>
-            <Menu.Item value="edit">Edit</Menu.Item>
-            <Menu.CheckboxItem checked={false} value="toolbar">
-              <Menu.ItemIndicator />
-              <Menu.ItemText>Show toolbar</Menu.ItemText>
-            </Menu.CheckboxItem>
-          </Menu.Viewport>
-        </Menu.Content>
-      </Menu.Positioner>
+      </MenuTrigger>
+      <MenuPositioner>
+        <MenuContent>
+          <MenuViewport>
+            <MenuItem value="edit">Edit</MenuItem>
+            <MenuCheckboxItem checked={false} value="toolbar">
+              <MenuItemIndicator />
+              <MenuItemText>Show toolbar</MenuItemText>
+            </MenuCheckboxItem>
+          </MenuViewport>
+        </MenuContent>
+      </MenuPositioner>
     </Menu>
   );
 }
@@ -35,17 +35,17 @@ test('returns focus to the trigger after escape', () => {
 test('renders the controlled checked state for checkbox items', () => {
   render(
     <Menu defaultOpen>
-      <Menu.Trigger>Actions</Menu.Trigger>
-      <Menu.Positioner>
-        <Menu.Content>
-          <Menu.Viewport>
-            <Menu.CheckboxItem checked value="toolbar">
-              <Menu.ItemIndicator />
-              <Menu.ItemText>Show toolbar</Menu.ItemText>
-            </Menu.CheckboxItem>
-          </Menu.Viewport>
-        </Menu.Content>
-      </Menu.Positioner>
+      <MenuTrigger>Actions</MenuTrigger>
+      <MenuPositioner>
+        <MenuContent>
+          <MenuViewport>
+            <MenuCheckboxItem checked value="toolbar">
+              <MenuItemIndicator />
+              <MenuItemText>Show toolbar</MenuItemText>
+            </MenuCheckboxItem>
+          </MenuViewport>
+        </MenuContent>
+      </MenuPositioner>
     </Menu>,
   );
   const item = screen.getByRole('menuitemcheckbox', { name: 'Show toolbar' });
@@ -56,16 +56,16 @@ test('renders the controlled checked state for checkbox items', () => {
 test('preserves a custom content host with asChild', () => {
   render(
     <Menu defaultOpen>
-      <Menu.Trigger>Actions</Menu.Trigger>
-      <Menu.Positioner>
-        <Menu.Content asChild>
+      <MenuTrigger>Actions</MenuTrigger>
+      <MenuPositioner>
+        <MenuContent asChild>
           <section aria-label="Actions">
-            <Menu.Viewport>
-              <Menu.Item value="edit">Edit</Menu.Item>
-            </Menu.Viewport>
+            <MenuViewport>
+              <MenuItem value="edit">Edit</MenuItem>
+            </MenuViewport>
           </section>
-        </Menu.Content>
-      </Menu.Positioner>
+        </MenuContent>
+      </MenuPositioner>
     </Menu>,
   );
   expect(screen.getByRole('menu')).toHaveProperty('tagName', 'SECTION');
@@ -80,14 +80,14 @@ test('portals Positioner by default', () => {
 test('supports inline Positioner rendering', () => {
   const { container } = render(
     <Menu defaultOpen portalled={false}>
-      <Menu.Trigger>Actions</Menu.Trigger>
-      <Menu.Positioner>
-        <Menu.Content>
-          <Menu.Viewport>
-            <Menu.Item value="edit">Edit</Menu.Item>
-          </Menu.Viewport>
-        </Menu.Content>
-      </Menu.Positioner>
+      <MenuTrigger>Actions</MenuTrigger>
+      <MenuPositioner>
+        <MenuContent>
+          <MenuViewport>
+            <MenuItem value="edit">Edit</MenuItem>
+          </MenuViewport>
+        </MenuContent>
+      </MenuPositioner>
     </Menu>,
   );
   expect(container.querySelector('[data-slot="menu-positioner"]')).toBeInTheDocument();
@@ -100,14 +100,14 @@ test('reactively moves the Positioner into a portal', async () => {
       <>
         <button onClick={() => setPortalled(true)}>Portal</button>
         <Menu defaultOpen portalled={portalled}>
-          <Menu.Trigger>Actions</Menu.Trigger>
-          <Menu.Positioner>
-            <Menu.Content>
-              <Menu.Viewport>
-                <Menu.Item value="edit">Edit</Menu.Item>
-              </Menu.Viewport>
-            </Menu.Content>
-          </Menu.Positioner>
+          <MenuTrigger>Actions</MenuTrigger>
+          <MenuPositioner>
+            <MenuContent>
+              <MenuViewport>
+                <MenuItem value="edit">Edit</MenuItem>
+              </MenuViewport>
+            </MenuContent>
+          </MenuPositioner>
         </Menu>
       </>
     );
@@ -121,14 +121,14 @@ test('reactively moves the Positioner into a portal', async () => {
 test('exposes the scroll viewport as an explicit part', () => {
   render(
     <Menu defaultOpen portalled={false}>
-      <Menu.Trigger>Actions</Menu.Trigger>
-      <Menu.Positioner>
-        <Menu.Content>
-          <Menu.Viewport>
-            <Menu.Item value="edit">Edit</Menu.Item>
-          </Menu.Viewport>
-        </Menu.Content>
-      </Menu.Positioner>
+      <MenuTrigger>Actions</MenuTrigger>
+      <MenuPositioner>
+        <MenuContent>
+          <MenuViewport>
+            <MenuItem value="edit">Edit</MenuItem>
+          </MenuViewport>
+        </MenuContent>
+      </MenuPositioner>
     </Menu>,
   );
   const viewport = screen.getByRole('menu').firstElementChild;
@@ -141,17 +141,17 @@ test('exposes the scroll viewport as an explicit part', () => {
 test('preserves custom context trigger styling', () => {
   render(
     <Menu defaultOpen>
-      <Menu.ContextTrigger asChild>
+      <MenuContextTrigger asChild>
         <button type="button">Open context menu</button>
-      </Menu.ContextTrigger>
-      <Menu.Positioner>
-        <Menu.Content>
-          <Menu.Arrow />
-          <Menu.Viewport>
-            <Menu.Item value="edit">Edit</Menu.Item>
-          </Menu.Viewport>
-        </Menu.Content>
-      </Menu.Positioner>
+      </MenuContextTrigger>
+      <MenuPositioner>
+        <MenuContent>
+          <MenuArrow />
+          <MenuViewport>
+            <MenuItem value="edit">Edit</MenuItem>
+          </MenuViewport>
+        </MenuContent>
+      </MenuPositioner>
     </Menu>,
   );
   expect(screen.getByRole('button', { name: 'Open context menu' }).className).toBe('');
@@ -164,31 +164,31 @@ test('forwards refs through ordinary menu parts', () => {
   let itemRef: HTMLDivElement | null = null;
   render(
     <Menu defaultOpen portalled={false}>
-      <Menu.Trigger
+      <MenuTrigger
         ref={(element) => {
           triggerRef = element;
         }}
       >
         Actions
-      </Menu.Trigger>
-      <Menu.Positioner>
-        <Menu.Content
+      </MenuTrigger>
+      <MenuPositioner>
+        <MenuContent
           ref={(element) => {
             contentRef = element;
           }}
         >
-          <Menu.Viewport>
-            <Menu.Item
+          <MenuViewport>
+            <MenuItem
               ref={(element) => {
                 itemRef = element;
               }}
               value="edit"
             >
               Edit
-            </Menu.Item>
-          </Menu.Viewport>
-        </Menu.Content>
-      </Menu.Positioner>
+            </MenuItem>
+          </MenuViewport>
+        </MenuContent>
+      </MenuPositioner>
     </Menu>,
   );
   expect(triggerRef).toBe(screen.getByRole('button', { name: 'Actions' }));
@@ -208,23 +208,23 @@ test('preserves provider and item context composition', async () => {
   function ProviderMenu() {
     const menu = useMenu({ defaultOpen: true });
     return (
-      <Menu.RootProvider value={menu} portalled={false}>
+      <MenuRootProvider value={menu} portalled={false}>
         <MenuState />
-        <Menu.Trigger>Actions</Menu.Trigger>
-        <Menu.Positioner>
-          <Menu.Content>
-            <Menu.Viewport>
-              <Menu.CheckboxItem checked value="toolbar">
-                <Menu.ItemIndicator />
-                <Menu.ItemText>
+        <MenuTrigger>Actions</MenuTrigger>
+        <MenuPositioner>
+          <MenuContent>
+            <MenuViewport>
+              <MenuCheckboxItem checked value="toolbar">
+                <MenuItemIndicator />
+                <MenuItemText>
                   Show toolbar
                   <ItemState />
-                </Menu.ItemText>
-              </Menu.CheckboxItem>
-            </Menu.Viewport>
-          </Menu.Content>
-        </Menu.Positioner>
-      </Menu.RootProvider>
+                </MenuItemText>
+              </MenuCheckboxItem>
+            </MenuViewport>
+          </MenuContent>
+        </MenuPositioner>
+      </MenuRootProvider>
     );
   }
   render(<ProviderMenu />);
@@ -237,14 +237,14 @@ test('supports a custom portal mount', () => {
   document.body.append(portalRef.current);
   render(
     <Menu defaultOpen portalRef={portalRef}>
-      <Menu.Trigger>Actions</Menu.Trigger>
-      <Menu.Positioner>
-        <Menu.Content>
-          <Menu.Viewport>
-            <Menu.Item value="edit">Edit</Menu.Item>
-          </Menu.Viewport>
-        </Menu.Content>
-      </Menu.Positioner>
+      <MenuTrigger>Actions</MenuTrigger>
+      <MenuPositioner>
+        <MenuContent>
+          <MenuViewport>
+            <MenuItem value="edit">Edit</MenuItem>
+          </MenuViewport>
+        </MenuContent>
+      </MenuPositioner>
     </Menu>,
   );
   expect(portalRef.current).toContainElement(screen.getByRole('menu'));
@@ -254,24 +254,24 @@ test('supports a custom portal mount', () => {
 test('lets consumer classes override defaults and keeps empty visual parts visible', () => {
   render(
     <Menu defaultOpen portalled={false}>
-      <Menu.Trigger className="bg-primary">Actions</Menu.Trigger>
-      <Menu.Positioner>
-        <Menu.Content className="py-0">
-          <Menu.Arrow className="[--arrow-size:1rem]" />
-          <Menu.Viewport>
-            <Menu.Item value="edit" tone="destructive" className="px-0 text-primary">
+      <MenuTrigger className="bg-primary">Actions</MenuTrigger>
+      <MenuPositioner>
+        <MenuContent className="py-0">
+          <MenuArrow className="[--arrow-size:1rem]" />
+          <MenuViewport>
+            <MenuItem value="edit" tone="destructive" className="px-0 text-primary">
               Edit
-            </Menu.Item>
-            <Menu.RadioItemGroup value="radio">
-              <Menu.RadioItem value="radio" indicator="end" className="grid-cols-1">
-                <Menu.ItemIndicator />
-                <Menu.ItemText>Radio</Menu.ItemText>
-              </Menu.RadioItem>
-            </Menu.RadioItemGroup>
-            <Menu.Separator className="h-0.5" />
-          </Menu.Viewport>
-        </Menu.Content>
-      </Menu.Positioner>
+            </MenuItem>
+            <MenuRadioItemGroup value="radio">
+              <MenuRadioItem value="radio" indicator="end" className="grid-cols-1">
+                <MenuItemIndicator />
+                <MenuItemText>Radio</MenuItemText>
+              </MenuRadioItem>
+            </MenuRadioItemGroup>
+            <MenuSeparator className="h-0.5" />
+          </MenuViewport>
+        </MenuContent>
+      </MenuPositioner>
     </Menu>,
   );
   const trigger = screen.getByRole('button', { name: 'Actions' });

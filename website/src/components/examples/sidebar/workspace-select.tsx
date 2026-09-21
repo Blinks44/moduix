@@ -1,6 +1,6 @@
 import { createListCollection } from '@ark-ui/react/collection';
 import { Avatar, AvatarFallback } from '@moduix/react/avatar';
-import { Menu } from '@moduix/react/menu';
+import { Menu, MenuTrigger, MenuPositioner, MenuContent, MenuViewport, MenuItem, MenuSeparator, MenuItemText, MenuItemTextContent, MenuItemTextIcon, MenuItemTextLabel } from '@moduix/react/menu';
 import { Select } from '@moduix/react/select';
 import { Sidebar } from '@moduix/react/sidebar';
 import {
@@ -160,7 +160,7 @@ export default function WorkspaceSidebar() {
               flip: false,
             }}
           >
-            <Menu.Trigger asChild>
+            <MenuTrigger asChild>
               <Sidebar.NavigationButton size="lg" aria-label="Open account menu">
                 <Avatar size="sm" data-sidebar-icon>
                   <AvatarFallback>AM</AvatarFallback>
@@ -170,26 +170,26 @@ export default function WorkspaceSidebar() {
                   <span className={styles.accountEmail}>alex@acme.dev</span>
                 </Sidebar.Label>
               </Sidebar.NavigationButton>
-            </Menu.Trigger>
-            <Menu.Positioner>
-              <Menu.Content>
-                <Menu.Viewport>
-                  <Menu.Item value="profile">Profile</Menu.Item>
-                  <Menu.Item value="settings">Account settings</Menu.Item>
-                  <Menu.Separator />
-                  <Menu.Item value="sign-out" tone="destructive">
-                    <Menu.ItemText>
-                      <Menu.ItemTextContent>
-                        <Menu.ItemTextIcon>
+            </MenuTrigger>
+            <MenuPositioner>
+              <MenuContent>
+                <MenuViewport>
+                  <MenuItem value="profile">Profile</MenuItem>
+                  <MenuItem value="settings">Account settings</MenuItem>
+                  <MenuSeparator />
+                  <MenuItem value="sign-out" tone="destructive">
+                    <MenuItemText>
+                      <MenuItemTextContent>
+                        <MenuItemTextIcon>
                           <LogOut />
-                        </Menu.ItemTextIcon>
-                        <Menu.ItemTextLabel>Sign out</Menu.ItemTextLabel>
-                      </Menu.ItemTextContent>
-                    </Menu.ItemText>
-                  </Menu.Item>
-                </Menu.Viewport>
-              </Menu.Content>
-            </Menu.Positioner>
+                        </MenuItemTextIcon>
+                        <MenuItemTextLabel>Sign out</MenuItemTextLabel>
+                      </MenuItemTextContent>
+                    </MenuItemText>
+                  </MenuItem>
+                </MenuViewport>
+              </MenuContent>
+            </MenuPositioner>
           </Menu>
         </Sidebar.Footer>
       </Sidebar.Panel>

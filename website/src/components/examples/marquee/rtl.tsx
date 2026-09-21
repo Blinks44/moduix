@@ -1,5 +1,11 @@
 import { LocaleProvider } from '@moduix/react/locale';
-import { Marquee } from '@moduix/react/marquee';
+import {
+  Marquee,
+  MarqueeContent,
+  MarqueeEdge,
+  MarqueeItem,
+  MarqueeViewport,
+} from '@moduix/react/marquee';
 import styles from '@/components/examples/marquee/marquee-rtl.module.css';
 
 const partners = [
@@ -15,18 +21,18 @@ export default function RtlMarqueeDemo() {
   return (
     <LocaleProvider locale="ar">
       <Marquee aria-label="شعارات الشركاء" className={styles.root}>
-        <Marquee.Edge side="start" />
-        <Marquee.Viewport>
-          <Marquee.Content>
+        <MarqueeEdge side="start" />
+        <MarqueeViewport>
+          <MarqueeContent>
             {partners.map((item) => (
-              <Marquee.Item key={item.mark} className={styles.item}>
+              <MarqueeItem key={item.mark} className={styles.item}>
                 <span>{item.mark}</span>
                 <span>{item.name}</span>
-              </Marquee.Item>
+              </MarqueeItem>
             ))}
-          </Marquee.Content>
-        </Marquee.Viewport>
-        <Marquee.Edge side="end" />
+          </MarqueeContent>
+        </MarqueeViewport>
+        <MarqueeEdge side="end" />
       </Marquee>
     </LocaleProvider>
   );

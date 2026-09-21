@@ -1,5 +1,5 @@
 import { Button } from '@moduix/solid/button';
-import { Menu } from '@moduix/solid/menu';
+import { Menu, MenuTrigger, MenuPositioner, MenuContent, MenuViewport, MenuItem, MenuSeparator } from '@moduix/solid/menu';
 import { Table } from '@moduix/solid/table';
 
 const rows = [
@@ -26,7 +26,7 @@ const rows = [
 function RowActionsMenu(props: { itemName: string }) {
   return (
     <Menu positioning={{ placement: 'bottom-end' }}>
-      <Menu.Trigger
+      <MenuTrigger
         asChild={(triggerProps) => (
           <Button
             {...triggerProps()}
@@ -38,19 +38,19 @@ function RowActionsMenu(props: { itemName: string }) {
           </Button>
         )}
       />
-      <Menu.Positioner>
-        <Menu.Content>
-          <Menu.Viewport>
-            <Menu.Item value="open">Open project</Menu.Item>
-            <Menu.Item value="copy-link">Copy link</Menu.Item>
-            <Menu.Item value="duplicate">Duplicate</Menu.Item>
-            <Menu.Separator />
-            <Menu.Item value="archive" tone="destructive">
+      <MenuPositioner>
+        <MenuContent>
+          <MenuViewport>
+            <MenuItem value="open">Open project</MenuItem>
+            <MenuItem value="copy-link">Copy link</MenuItem>
+            <MenuItem value="duplicate">Duplicate</MenuItem>
+            <MenuSeparator />
+            <MenuItem value="archive" tone="destructive">
               Archive
-            </Menu.Item>
-          </Menu.Viewport>
-        </Menu.Content>
-      </Menu.Positioner>
+            </MenuItem>
+          </MenuViewport>
+        </MenuContent>
+      </MenuPositioner>
     </Menu>
   );
 }

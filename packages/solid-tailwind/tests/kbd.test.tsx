@@ -1,14 +1,14 @@
 import { expect, test } from '@rstest/core';
 import { render, screen } from '@solidjs/testing-library';
-import { Kbd } from '../src';
+import { Kbd, KbdGroup } from '../src';
 
 test('renders semantic keycaps and a labelled shortcut group with stable hooks', () => {
   let groupRef!: HTMLSpanElement;
 
   render(() => (
-    <Kbd.Group ref={(element) => (groupRef = element)} aria-label="Command K" data-testid="group">
+    <KbdGroup ref={(element) => (groupRef = element)} aria-label="Command K" data-testid="group">
       <Kbd data-testid="key">Cmd</Kbd>+<Kbd>K</Kbd>
-    </Kbd.Group>
+    </KbdGroup>
   ));
 
   const group = screen.getByRole('group', { name: 'Command K' });
@@ -29,7 +29,7 @@ test('preserves semantic children and stable hooks with native Ark Solid asChild
   let groupRef: HTMLElement | undefined;
 
   render(() => (
-    <Kbd.Group
+    <KbdGroup
       ref={(element) => (groupRef = element)}
       asChild={(props) => <span {...props()} />}
       aria-label="Command K"
@@ -40,7 +40,7 @@ test('preserves semantic children and stable hooks with native Ark Solid asChild
       >
         Esc
       </Kbd>
-    </Kbd.Group>
+    </KbdGroup>
   ));
 
   const group = screen.getByRole('group', { name: 'Command K' });
@@ -56,9 +56,9 @@ test('preserves semantic children and stable hooks with native Ark Solid asChild
 
 test('applies Tailwind utilities to the root and group parts', () => {
   render(() => (
-    <Kbd.Group data-testid="group">
+    <KbdGroup data-testid="group">
       <Kbd data-testid="key">Cmd</Kbd>
-    </Kbd.Group>
+    </KbdGroup>
   ));
 
   expect(screen.getByTestId('key')).toHaveClass(
@@ -98,14 +98,14 @@ test('applies Tailwind utilities to the root and group parts', () => {
 
 test('lets consumer Tailwind classes override conflicting defaults', () => {
   render(() => (
-    <Kbd.Group class="gap-3 bg-card p-2 text-foreground" data-testid="group" aria-label="Command K">
+    <KbdGroup class="gap-3 bg-card p-2 text-foreground" data-testid="group" aria-label="Command K">
       <Kbd
         class="min-h-8 min-w-8 rounded-md bg-card px-3 text-card-foreground shadow-none"
         data-testid="key"
       >
         Cmd
       </Kbd>
-    </Kbd.Group>
+    </KbdGroup>
   ));
 
   const group = screen.getByTestId('group');

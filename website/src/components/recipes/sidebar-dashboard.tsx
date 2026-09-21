@@ -1,7 +1,7 @@
 import { Button } from '@moduix/react/button';
 import { Card, CardBody } from '@moduix/react/card';
 import { Collapsible } from '@moduix/react/collapsible';
-import { Menu } from '@moduix/react/menu';
+import { Menu, MenuTrigger, MenuIndicator, MenuPositioner, MenuContent, MenuViewport, MenuItem, MenuSeparator, MenuItemText, MenuItemTextContent, MenuItemTextIcon, MenuItemTextLabel } from '@moduix/react/menu';
 import { Sidebar } from '@moduix/react/sidebar';
 import { ChevronsUpDown, FileText, FolderOpen, Gauge, LogOut, Settings, Users } from 'lucide-react';
 import styles from './sidebar-dashboard.module.css';
@@ -64,23 +64,23 @@ export function SidebarDashboard() {
                 </Sidebar.ExpandedContent>
                 <Sidebar.CollapsedContent>
                   <Menu positioning={{ placement: 'right-start', gutter: 8 }}>
-                    <Menu.Trigger asChild>
+                    <MenuTrigger asChild>
                       <Sidebar.NavigationButton aria-label="Open projects" title="Projects">
                         <FolderOpen />
                       </Sidebar.NavigationButton>
-                    </Menu.Trigger>
-                    <Menu.Positioner>
-                      <Menu.Content>
-                        <Menu.Viewport>
-                          <Menu.Item value="website" asChild>
+                    </MenuTrigger>
+                    <MenuPositioner>
+                      <MenuContent>
+                        <MenuViewport>
+                          <MenuItem value="website" asChild>
                             <a href="#website">Website</a>
-                          </Menu.Item>
-                          <Menu.Item value="mobile-app" asChild>
+                          </MenuItem>
+                          <MenuItem value="mobile-app" asChild>
                             <a href="#mobile-app">Mobile app</a>
-                          </Menu.Item>
-                        </Menu.Viewport>
-                      </Menu.Content>
-                    </Menu.Positioner>
+                          </MenuItem>
+                        </MenuViewport>
+                      </MenuContent>
+                    </MenuPositioner>
                   </Menu>
                 </Sidebar.CollapsedContent>
               </Sidebar.NavigationItem>
@@ -128,7 +128,7 @@ export function SidebarDashboard() {
           <Sidebar.NavigationList>
             <Sidebar.NavigationItem>
               <Menu positioning={{ placement: 'right-end', gutter: 8, flip: false }}>
-                <Menu.Trigger asChild>
+                <MenuTrigger asChild>
                   <Sidebar.NavigationButton
                     size="lg"
                     aria-label="Open workspace menu"
@@ -138,48 +138,48 @@ export function SidebarDashboard() {
                       AC
                     </span>
                     <Sidebar.Label>Acme Inc.</Sidebar.Label>
-                    <Menu.Indicator>
+                    <MenuIndicator>
                       <ChevronsUpDown />
-                    </Menu.Indicator>
+                    </MenuIndicator>
                   </Sidebar.NavigationButton>
-                </Menu.Trigger>
-                <Menu.Positioner>
-                  <Menu.Content className={styles.workspaceMenu}>
-                    <Menu.Viewport>
-                      <Menu.Item value="workspace-settings">
-                        <Menu.ItemText>
-                          <Menu.ItemTextContent>
-                            <Menu.ItemTextIcon>
+                </MenuTrigger>
+                <MenuPositioner>
+                  <MenuContent className={styles.workspaceMenu}>
+                    <MenuViewport>
+                      <MenuItem value="workspace-settings">
+                        <MenuItemText>
+                          <MenuItemTextContent>
+                            <MenuItemTextIcon>
                               <Settings />
-                            </Menu.ItemTextIcon>
-                            <Menu.ItemTextLabel>Workspace settings</Menu.ItemTextLabel>
-                          </Menu.ItemTextContent>
-                        </Menu.ItemText>
-                      </Menu.Item>
-                      <Menu.Item value="manage-members">
-                        <Menu.ItemText>
-                          <Menu.ItemTextContent>
-                            <Menu.ItemTextIcon>
+                            </MenuItemTextIcon>
+                            <MenuItemTextLabel>Workspace settings</MenuItemTextLabel>
+                          </MenuItemTextContent>
+                        </MenuItemText>
+                      </MenuItem>
+                      <MenuItem value="manage-members">
+                        <MenuItemText>
+                          <MenuItemTextContent>
+                            <MenuItemTextIcon>
                               <Users />
-                            </Menu.ItemTextIcon>
-                            <Menu.ItemTextLabel>Manage members</Menu.ItemTextLabel>
-                          </Menu.ItemTextContent>
-                        </Menu.ItemText>
-                      </Menu.Item>
-                      <Menu.Separator />
-                      <Menu.Item value="sign-out" tone="destructive">
-                        <Menu.ItemText>
-                          <Menu.ItemTextContent>
-                            <Menu.ItemTextIcon>
+                            </MenuItemTextIcon>
+                            <MenuItemTextLabel>Manage members</MenuItemTextLabel>
+                          </MenuItemTextContent>
+                        </MenuItemText>
+                      </MenuItem>
+                      <MenuSeparator />
+                      <MenuItem value="sign-out" tone="destructive">
+                        <MenuItemText>
+                          <MenuItemTextContent>
+                            <MenuItemTextIcon>
                               <LogOut />
-                            </Menu.ItemTextIcon>
-                            <Menu.ItemTextLabel>Sign out</Menu.ItemTextLabel>
-                          </Menu.ItemTextContent>
-                        </Menu.ItemText>
-                      </Menu.Item>
-                    </Menu.Viewport>
-                  </Menu.Content>
-                </Menu.Positioner>
+                            </MenuItemTextIcon>
+                            <MenuItemTextLabel>Sign out</MenuItemTextLabel>
+                          </MenuItemTextContent>
+                        </MenuItemText>
+                      </MenuItem>
+                    </MenuViewport>
+                  </MenuContent>
+                </MenuPositioner>
               </Menu>
             </Sidebar.NavigationItem>
           </Sidebar.NavigationList>

@@ -1,4 +1,4 @@
-import { Menu } from '@moduix/solid/menu';
+import { MenuItem, MenuSeparator } from '@moduix/solid/menu';
 import { SplitButton } from '@moduix/solid/split-button';
 import { createSignal } from 'solid-js';
 
@@ -16,12 +16,12 @@ export default function ControlledSplitButton() {
       <SplitButton.Trigger aria-label="More share actions" />
       <SplitButton.Positioner>
         <SplitButton.Content>
-          <Menu.Item value="copy-link">Copy Link</Menu.Item>
-          <Menu.Item value="invite-email">Invite by Email</Menu.Item>
-          <Menu.Separator />
-          <Menu.Item value="close-menu" onSelect={() => setOpen(false)}>
+          <MenuItem value="copy-link">Copy Link</MenuItem>
+          <MenuItem value="invite-email">Invite by Email</MenuItem>
+          <MenuSeparator />
+          <MenuItem value="close-menu" onSelect={() => setOpen(false)}>
             Close Menu
-          </Menu.Item>
+          </MenuItem>
         </SplitButton.Content>
       </SplitButton.Positioner>
     </SplitButton>

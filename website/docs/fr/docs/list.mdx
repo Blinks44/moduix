@@ -39,7 +39,7 @@ Si l’utilisateur doit parcourir la liste au clavier et sélectionner une ou pl
 ## Exemple de base
 
 
-`List` rend un élément `<ul>` sémantique par défaut. Utilisez `List.Item` si vous avez besoin de sa partie stable et
+`List` rend un élément `<ul>` sémantique par défaut. Utilisez `ListItem` si vous avez besoin de sa partie stable et
 de ses points d’accroche CSS, ou passez directement des éléments `<li>` natifs si ce wrapper ne vous est pas utile.
 La racine `List` gère l’espacement, la typographie, la tonalité et les marqueurs. Laissez `marker` absent pour le
 mode sémantique par défaut, ou définissez explicitement `disc`, `decimal` ou `none`.
@@ -103,19 +103,19 @@ Consultez le [Démarrage rapide](/docs/quick-start) pour la configuration compl�
 ## Anatomie
 
 ```text
-List / List.Root
-└─ List.Item | li
+List
+└─ ListItem | li
 ```
 
 | Partie               | Rôle                                                                                                  |
 | -------------------- | ----------------------------------------------------------------------------------------------------- |
-| `List` / `List.Root` | Racine sémantique de la liste, qui rend `ul` ou `ol` et contrôle les marqueurs, l’espacement, la taille et la tonalité. |
-| `List.Item`          | Partie facultative qui rend `li`, transmet les attributs natifs et la ref, et prend en charge `asChild`.             |
+| `List`     | Racine sémantique de la liste, qui rend `ul` ou `ol` et contrôle les marqueurs, l’espacement, la taille et la tonalité. |
+| `ListItem` | Partie facultative qui rend `li`, transmet les attributs natifs et la ref, et prend en charge `asChild`.             |
 
 ## Composition
 
-Utilisez `List` ou `List.Root` comme racine. Ses enfants directs doivent être `List.Item` ou des éléments `li` natifs,
-car l’espacement de la racine et le style des marqueurs ciblent les éléments directs de la liste. Utilisez `List.Item`
+Utilisez `List` comme racine. Ses enfants directs doivent être `ListItem` ou des éléments `li` natifs,
+car l’espacement de la racine et le style des marqueurs ciblent les éléments directs de la liste. Utilisez `ListItem`
 si vous avez besoin de sa partie stable, de `className`/`class` ou de `asChild` ; sinon, de simples éléments `li`
 suffisent. Utilisez `asChild` uniquement lorsqu’un composant de l’application rend un seul élément sémantique `ul`,
 `ol` ou `li` et transmet les props et la ref reçues. En Solid, utilisez la forme d’`asChild` avec une fonction de rendu.
@@ -194,7 +194,7 @@ Utilisez `marker="none"` si vous avez besoin de la sémantique d’une liste san
 
 ### Éléments natifs
 
-Utilisez des éléments `li` natifs si vous n’avez pas besoin de la partie exportée `List.Item`.
+Utilisez des éléments `li` natifs si vous n’avez pas besoin de la partie exportée `ListItem`.
 
 <ExampleFrame variant="component">
   <ListNativeItems />
@@ -299,9 +299,9 @@ Utilisez `tone` pour appliquer une couleur sémantique au texte et aux marqueurs
 
 ### Personnalisation avancée
 
-Utilisez `List.Item asChild` lorsqu’un composant personnalisé doit rendre lui-même l’élément `<li>`. Il doit
+Utilisez `ListItem asChild` lorsqu’un composant personnalisé doit rendre lui-même l’élément `<li>`. Il doit
 transmettre les props et la ref reçues et conserver l’élément sémantique `<li>`. Dans les autres cas, utilisez
-directement `List.Item className` ou `class`.
+directement `ListItem className` ou `class`.
 
 <ExampleFrame variant="component">
   <ListCustomComposition />

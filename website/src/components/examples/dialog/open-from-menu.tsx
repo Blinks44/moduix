@@ -9,7 +9,7 @@ import {
   DialogPositioner,
   DialogTitle,
 } from '@moduix/react/dialog';
-import { Menu } from '@moduix/react/menu';
+import { Menu, MenuTrigger, MenuIndicator, MenuPositioner, MenuContent, MenuViewport, MenuItem } from '@moduix/react/menu';
 import { useState } from 'react';
 
 export default function OpenFromMenuDialogDemo() {
@@ -17,23 +17,23 @@ export default function OpenFromMenuDialogDemo() {
   return (
     <>
       <Menu>
-        <Menu.Trigger asChild>
+        <MenuTrigger asChild>
           <Button variant="outline">
             Actions
-            <Menu.Indicator />
+            <MenuIndicator />
           </Button>
-        </Menu.Trigger>
-        <Menu.Positioner>
-          <Menu.Content>
-            <Menu.Viewport>
-              <Menu.Item value="edit">Edit</Menu.Item>
-              <Menu.Item value="duplicate">Duplicate</Menu.Item>
-              <Menu.Item value="delete" tone="destructive" onClick={() => setOpen(true)}>
+        </MenuTrigger>
+        <MenuPositioner>
+          <MenuContent>
+            <MenuViewport>
+              <MenuItem value="edit">Edit</MenuItem>
+              <MenuItem value="duplicate">Duplicate</MenuItem>
+              <MenuItem value="delete" tone="destructive" onClick={() => setOpen(true)}>
                 Delete...
-              </Menu.Item>
-            </Menu.Viewport>
-          </Menu.Content>
-        </Menu.Positioner>
+              </MenuItem>
+            </MenuViewport>
+          </MenuContent>
+        </MenuPositioner>
       </Menu>
 
       <Dialog open={open} onOpenChange={(details) => setOpen(details.open)} role="alertdialog">

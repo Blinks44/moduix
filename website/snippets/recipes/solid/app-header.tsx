@@ -18,7 +18,7 @@ import {
   CommandPaletteSearch,
   CommandPaletteTrigger,
 } from '@moduix/solid/command-palette';
-import { Menu } from '@moduix/solid/menu';
+import { Menu, MenuTrigger, MenuPositioner, MenuContent, MenuViewport, MenuItem, MenuItemGroup, MenuItemGroupLabel } from '@moduix/solid/menu';
 import {
   ChevronDown,
   CircleHelp,
@@ -141,7 +141,7 @@ export function AppHeader() {
         <div class={styles.actions}>
           <span class={styles.mobileNavigation}>
             <Menu positioning={{ placement: 'bottom-end', gutter: 10 }}>
-              <Menu.Trigger
+              <MenuTrigger
                 asChild={(props) => (
                   <Button
                     {...props()}
@@ -152,15 +152,15 @@ export function AppHeader() {
                 )}
               >
                 <MenuIcon />
-              </Menu.Trigger>
-              <Menu.Positioner>
-                <Menu.Content class={styles.mobileNavigationMenu}>
-                  <Menu.Viewport>
-                    <Menu.ItemGroup>
-                      <Menu.ItemGroupLabel>Navigation</Menu.ItemGroupLabel>
+              </MenuTrigger>
+              <MenuPositioner>
+                <MenuContent class={styles.mobileNavigationMenu}>
+                  <MenuViewport>
+                    <MenuItemGroup>
+                      <MenuItemGroupLabel>Navigation</MenuItemGroupLabel>
                       <For each={navigation}>
                         {(item, index) => (
-                          <Menu.Item
+                          <MenuItem
                             value={item.href}
                             asChild={(props) => (
                               <a
@@ -171,13 +171,13 @@ export function AppHeader() {
                             )}
                           >
                             {item.label}
-                          </Menu.Item>
+                          </MenuItem>
                         )}
                       </For>
-                    </Menu.ItemGroup>
-                  </Menu.Viewport>
-                </Menu.Content>
-              </Menu.Positioner>
+                    </MenuItemGroup>
+                  </MenuViewport>
+                </MenuContent>
+              </MenuPositioner>
             </Menu>
           </span>
 
@@ -196,7 +196,7 @@ export function AppHeader() {
           </CommandPaletteTrigger>
 
           <Menu positioning={{ placement: 'bottom-end', gutter: 10 }}>
-            <Menu.Trigger
+            <MenuTrigger
               asChild={(props) => (
                 <Button
                   {...props()}
@@ -216,16 +216,16 @@ export function AppHeader() {
                 <span>{account.role}</span>
               </span>
               <ChevronDown class={styles.accountChevron} aria-hidden />
-            </Menu.Trigger>
-            <Menu.Positioner>
-              <Menu.Content class={styles.accountMenu}>
-                <Menu.Viewport>
-                  <Menu.ItemGroup>
-                    <Menu.ItemGroupLabel class={styles.accountSummary}>
+            </MenuTrigger>
+            <MenuPositioner>
+              <MenuContent class={styles.accountMenu}>
+                <MenuViewport>
+                  <MenuItemGroup>
+                    <MenuItemGroupLabel class={styles.accountSummary}>
                       <strong>{account.name}</strong>
                       <span>{account.email}</span>
-                    </Menu.ItemGroupLabel>
-                    <Menu.Item
+                    </MenuItemGroupLabel>
+                    <MenuItem
                       value="profile"
                       asChild={(props) => (
                         <a {...props()} class={styles.menuLink} href="#profile" />
@@ -233,8 +233,8 @@ export function AppHeader() {
                     >
                       <UserRound aria-hidden />
                       Profile
-                    </Menu.Item>
-                    <Menu.Item
+                    </MenuItem>
+                    <MenuItem
                       value="workspace-settings"
                       asChild={(props) => (
                         <a {...props()} class={styles.menuLink} href="#workspace-settings" />
@@ -242,18 +242,18 @@ export function AppHeader() {
                     >
                       <Settings aria-hidden />
                       Workspace settings
-                    </Menu.Item>
-                    <Menu.Item
+                    </MenuItem>
+                    <MenuItem
                       value="help"
                       asChild={(props) => <a {...props()} class={styles.menuLink} href="#help" />}
                     >
                       <CircleHelp aria-hidden />
                       Help and support
-                    </Menu.Item>
-                  </Menu.ItemGroup>
-                </Menu.Viewport>
-              </Menu.Content>
-            </Menu.Positioner>
+                    </MenuItem>
+                  </MenuItemGroup>
+                </MenuViewport>
+              </MenuContent>
+            </MenuPositioner>
           </Menu>
         </div>
       </header>

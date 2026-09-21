@@ -7,7 +7,7 @@ import {
   BreadcrumbsPage,
   BreadcrumbsSeparator,
 } from '@moduix/react/breadcrumbs';
-import { Menu } from '@moduix/react/menu';
+import { Menu, MenuTrigger, MenuPositioner, MenuContent, MenuViewport, MenuItem } from '@moduix/react/menu';
 import styles from '@/components/examples/breadcrumbs/breadcrumbs-collapsed-path.module.css';
 
 const collapsedItems = [
@@ -26,22 +26,22 @@ export default function BreadcrumbsCollapsedDemo() {
         <BreadcrumbsSeparator />
         <BreadcrumbsItem>
           <Menu positioning={{ placement: 'bottom-start' }}>
-            <Menu.Trigger asChild>
+            <MenuTrigger asChild>
               <button type="button" aria-label="Show hidden path items" className={styles.trigger}>
                 <BreadcrumbsEllipsis />
               </button>
-            </Menu.Trigger>
-            <Menu.Positioner>
-              <Menu.Content className={styles.content}>
-                <Menu.Viewport>
+            </MenuTrigger>
+            <MenuPositioner>
+              <MenuContent className={styles.content}>
+                <MenuViewport>
                   {collapsedItems.map((item) => (
-                    <Menu.Item key={item.href} value={item.href} asChild>
+                    <MenuItem key={item.href} value={item.href} asChild>
                       <a href={item.href}>{item.label}</a>
-                    </Menu.Item>
+                    </MenuItem>
                   ))}
-                </Menu.Viewport>
-              </Menu.Content>
-            </Menu.Positioner>
+                </MenuViewport>
+              </MenuContent>
+            </MenuPositioner>
           </Menu>
         </BreadcrumbsItem>
         <BreadcrumbsSeparator />

@@ -33,7 +33,7 @@ import marqueeSolidVertical from '../../../snippets/marquee/solid/vertical.tsx?r
 ## Basic
 
 
-Use the short `Marquee` root and compose `Viewport`, `Content`, and `Item` inside it. Add
+Use the short `Marquee` root and compose `MarqueeViewport`, `MarqueeContent`, and `MarqueeItem` inside it. Add
 `aria-label` or `translations.root` when the moving content conveys information. `Marquee`
 provides the behavior and required animation styles, but it does not style individual items or add a
 frame. The example styles its items and limits the root width separately.
@@ -103,36 +103,36 @@ See [Quick Start](/docs/quick-start) for full package setup, registry configurat
 ## Anatomy
 
 ```text
-Marquee / Marquee.Root
-├─ Marquee.Edge (optional)
-├─ Marquee.Viewport
-│  └─ Marquee.Content
-│     └─ Marquee.Item
-└─ Marquee.Edge (optional)
+Marquee
+├─ MarqueeEdge (optional)
+├─ MarqueeViewport
+│  └─ MarqueeContent
+│     └─ MarqueeItem
+└─ MarqueeEdge (optional)
 
-Marquee.RootProvider
+MarqueeRootProvider
 └─ same part tree connected to moduix useMarquee()
 ```
 
 | Part                       | Role                                                                  |
 | -------------------------- | --------------------------------------------------------------------- |
-| `Marquee` / `Marquee.Root` | Root state, labels, ids, orientation, pause state, and CSS variables. |
-| `Marquee.RootProvider`     | Renders a marquee tree from state returned by `useMarquee`.           |
-| `Marquee.Viewport`         | Clipping viewport for the scrolling content.                          |
-| `Marquee.Content`          | Animated content wrapper. Ark clones it when needed.                  |
-| `Marquee.Item`             | Individual repeated item inside the content.                          |
-| `Marquee.Edge`             | Optional fade overlay. Pass `side` to choose the edge.                |
-| `Marquee.Context`          | Advanced access to the context of the enclosing marquee.              |
+| `Marquee` / `Marquee` | Root state, labels, ids, orientation, pause state, and CSS variables. |
+| `MarqueeRootProvider`     | Renders a marquee tree from state returned by `useMarquee`.           |
+| `MarqueeViewport`         | Clipping viewport for the scrolling content.                          |
+| `MarqueeContent`          | Animated content wrapper. Ark clones it when needed.                  |
+| `MarqueeItem`             | Individual repeated item inside the content.                          |
+| `MarqueeEdge`             | Optional fade overlay. Pass `side` to choose the edge.                |
+| `MarqueeContext`          | Advanced access to the context of the enclosing marquee.              |
 
 ## Composition
 
-Use `Marquee` with its explicit `Viewport`, `Content`, and `Item` parts. Add `Marquee.Edge` inside the
+Use `Marquee` with its explicit `MarqueeViewport`, `MarqueeContent`, and `MarqueeItem` parts. Add `MarqueeEdge` inside the
 same root when the content should fade into the page background; each edge needs a `side`.
 
 Use `defaultPaused` for an uncontrolled initial state. If another part of the application owns playback,
 use `paused` with `onPauseChange(details)`. For controls outside the marquee tree, create state with
-`useMarquee()` and pass it to `Marquee.RootProvider`; do not render `Marquee` and `RootProvider` for the
-same state. Controls inside the tree can read the current API from `Marquee.Context` or
+`useMarquee()` and pass it to `MarqueeRootProvider`; do not render `Marquee` and `MarqueeRootProvider` for the
+same state. Controls inside the tree can read the current API from `MarqueeContext` or
 `useMarqueeContext()`.
 
 ## Examples
@@ -179,7 +179,7 @@ between duplicated content instances.
 
 ### Edge fades
 
-Add `Marquee.Edge` on the sides that should fade into the page background. The edge part is
+Add `MarqueeEdge` on the sides that should fade into the page background. The edge part is
 decorative and does not receive pointer events.
 
 <ExampleFrame variant="component">
@@ -303,7 +303,7 @@ and resume controls), and never put critical information only inside a marquee.
 
 ### Root Provider
 
-Use moduix `useMarquee()` with `Marquee.RootProvider` when external controls need to pause, resume,
+Use moduix `useMarquee()` with `MarqueeRootProvider` when external controls need to pause, resume,
 or restart playback.
 
 <ExampleFrame variant="component">

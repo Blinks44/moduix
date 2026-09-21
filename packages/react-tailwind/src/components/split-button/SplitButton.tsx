@@ -8,7 +8,7 @@ import { cn } from '@/lib/moduix/cn';
 import { ChevronDownIcon } from '@/lib/moduix/icons/ui';
 import { OverlayPortal } from '@/lib/moduix/overlayPortal';
 import { Button } from '../button';
-import { Menu } from '../menu';
+import { Menu, MenuViewport } from '../menu';
 import { menuContentVariants, menuPositionerVariants } from '../menu/Menu';
 
 type ButtonProps = ComponentProps<typeof Button>;
@@ -20,7 +20,7 @@ type SplitButtonContextValue = {
   variant: SplitButtonVariant;
 };
 
-type SplitButtonRootProps = Omit<ComponentProps<typeof Menu.Root>, 'children'> & {
+type SplitButtonRootProps = Omit<ComponentProps<typeof Menu>, 'children'> & {
   'aria-label'?: string;
   'aria-labelledby'?: string;
   children?: ReactNode;
@@ -96,7 +96,7 @@ const SplitButtonRoot = forwardRef<HTMLDivElement, SplitButtonRootProps>(functio
 ) {
   return (
     <SplitButtonContext.Provider value={{ size, variant }}>
-      <Menu.Root positioning={{ placement: 'bottom-end', gutter: 4, ...positioning }} {...props}>
+      <Menu positioning={{ placement: 'bottom-end', gutter: 4, ...positioning }} {...props}>
         <div
           ref={ref}
           role="group"
@@ -109,7 +109,7 @@ const SplitButtonRoot = forwardRef<HTMLDivElement, SplitButtonRootProps>(functio
         >
           {children}
         </div>
-      </Menu.Root>
+      </Menu>
     </SplitButtonContext.Provider>
   );
 });
@@ -190,7 +190,7 @@ const SplitButtonContent = forwardRef<
       {...props}
       data-slot="split-button-content"
     >
-      {asChild ? children : <Menu.Viewport>{children}</Menu.Viewport>}
+      {asChild ? children : <MenuViewport>{children}</MenuViewport>}
     </MenuPrimitive.Content>
   );
 });

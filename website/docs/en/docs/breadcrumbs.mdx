@@ -131,7 +131,7 @@ child to `BreadcrumbsLink asChild` so the link keeps the expected `href`, focus,
 In Solid, assign a ref to the element created inside the `asChild` render function, because a ref on
 `BreadcrumbsLink` itself is not forwarded through that composition path.
 
-For collapsed paths, put `BreadcrumbsEllipsis` inside the `Menu.Trigger`, then keep the menu's
+For collapsed paths, put `BreadcrumbsEllipsis` inside the `MenuTrigger`, then keep the menu's
 `Positioner`, `Content`, and `Item asChild` parts explicit. `BreadcrumbsEllipsis` is presentational;
 the trigger owns the accessible label and interaction.
 

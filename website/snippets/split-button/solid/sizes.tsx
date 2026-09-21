@@ -1,4 +1,4 @@
-import { Menu } from '@moduix/solid/menu';
+import { MenuItem } from '@moduix/solid/menu';
 import { SplitButton } from '@moduix/solid/split-button';
 import styles from '@/components/examples/split-button/split-button-sizes.module.css';
 
@@ -13,8 +13,8 @@ export default function SplitButtonSizesDemo() {
           <SplitButton.Trigger />
           <SplitButton.Positioner>
             <SplitButton.Content>
-              <Menu.Item value={`${size}-create`}>Create</Menu.Item>
-              <Menu.Item value={`${size}-create-open`}>Create and Open</Menu.Item>
+              <MenuItem value={`${size}-create`}>Create</MenuItem>
+              <MenuItem value={`${size}-create-open`}>Create and Open</MenuItem>
             </SplitButton.Content>
           </SplitButton.Positioner>
         </SplitButton>

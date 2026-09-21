@@ -69,7 +69,7 @@ const listVariants = cva('flex flex-col font-regular tracking-normal list-outsid
   },
 });
 
-const ListRoot = forwardRef<HTMLUListElement | HTMLOListElement, ListRootProps>(function ListRoot(
+const List = forwardRef<HTMLUListElement | HTMLOListElement, ListRootProps>(function List(
   { as, asChild, className, gap = 'sm', marker, role, size = 'md', tone = 'default', ...props },
   ref,
 ) {
@@ -121,9 +121,4 @@ const ListItem = forwardRef<HTMLLIElement, HTMLArkProps<'li'>>(function ListItem
   );
 });
 
-const List = Object.assign(ListRoot, {
-  Root: ListRoot,
-  Item: ListItem,
-});
-
-export { List };
+export { List, ListItem };

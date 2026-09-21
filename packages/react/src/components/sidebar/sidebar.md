@@ -171,7 +171,7 @@ remain on `Splitter`; Sidebar keeps the application-navigation contract small.
     </Sidebar.Content>
     <Sidebar.Footer>
       <Sidebar.Separator />
-      {/* Menu + Avatar + Menu.Indicator account control */}
+      {/* Menu + Avatar + MenuIndicator account control */}
     </Sidebar.Footer>
   </Sidebar.Panel>
   <Sidebar.ResizeTrigger />
@@ -202,7 +202,7 @@ nested links. If they must remain reachable after collapse, compose the inline `
 do not create popup state or transform one primitive into another. Use `useSidebar().collapsed` when
 the application itself must change its React tree.
 
-When `Menu.Trigger asChild` wraps `Sidebar.NavigationButton`, render `Menu.Indicator` as the direct
+When `MenuTrigger asChild` wraps `Sidebar.NavigationButton`, render `MenuIndicator` as the direct
 trailing child. Sidebar aligns it to the inline end and hides it with the rest of the trigger
 affordances in the collapsed rail.
 

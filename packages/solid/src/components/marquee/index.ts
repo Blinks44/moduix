@@ -1,1 +1,11 @@
-export { Marquee, useMarquee, useMarqueeContext } from './Marquee.js';
+export {
+  Marquee,
+  MarqueeContext,
+  MarqueeContent,
+  MarqueeEdge,
+  MarqueeItem,
+  MarqueeRootProvider,
+  MarqueeViewport,
+  useMarquee,
+  useMarqueeContext,
+} from './Marquee.js';

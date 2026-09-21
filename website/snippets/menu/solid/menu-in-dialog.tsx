@@ -10,7 +10,7 @@ import {
   DialogTitle,
   DialogTrigger,
 } from '@moduix/solid/dialog';
-import { Menu } from '@moduix/solid/menu';
+import { Menu, MenuTrigger, MenuIndicator, MenuPositioner, MenuContent, MenuViewport, MenuItem, MenuSeparator } from '@moduix/solid/menu';
 
 export default function MenuInDialogDemo() {
   return (
@@ -26,23 +26,23 @@ export default function MenuInDialogDemo() {
           </DialogHeader>
           <div>
             <Menu portalled={false} positioning={{ strategy: 'fixed', hideWhenDetached: true }}>
-              <Menu.Trigger asChild={(props) => <Button {...props()} variant="outline" />}>
+              <MenuTrigger asChild={(props) => <Button {...props()} variant="outline" />}>
                 Actions
-                <Menu.Indicator />
-              </Menu.Trigger>
-              <Menu.Positioner>
-                <Menu.Content>
-                  <Menu.Viewport>
-                    <Menu.Item value="rename">Rename project</Menu.Item>
-                    <Menu.Item value="duplicate">Duplicate project</Menu.Item>
-                    <Menu.Item value="move">Move to folder</Menu.Item>
-                    <Menu.Separator />
-                    <Menu.Item value="archive" tone="destructive">
+                <MenuIndicator />
+              </MenuTrigger>
+              <MenuPositioner>
+                <MenuContent>
+                  <MenuViewport>
+                    <MenuItem value="rename">Rename project</MenuItem>
+                    <MenuItem value="duplicate">Duplicate project</MenuItem>
+                    <MenuItem value="move">Move to folder</MenuItem>
+                    <MenuSeparator />
+                    <MenuItem value="archive" tone="destructive">
                       Archive project
-                    </Menu.Item>
-                  </Menu.Viewport>
-                </Menu.Content>
-              </Menu.Positioner>
+                    </MenuItem>
+                  </MenuViewport>
+                </MenuContent>
+              </MenuPositioner>
             </Menu>
           </div>
         </DialogContent>

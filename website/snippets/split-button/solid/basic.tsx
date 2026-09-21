@@ -1,4 +1,4 @@
-import { Menu } from '@moduix/solid/menu';
+import { MenuItem, MenuSeparator } from '@moduix/solid/menu';
 import { SplitButton } from '@moduix/solid/split-button';
 import { createSignal } from 'solid-js';
 import styles from '@/components/examples/split-button/split-button-basic.module.css';
@@ -31,10 +31,10 @@ export default function SplitButtonDemo() {
         <SplitButton.Positioner>
           <SplitButton.Content>
             {items.slice(0, 2).map((item) => (
-              <Menu.Item value={item.value}>{item.label}</Menu.Item>
+              <MenuItem value={item.value}>{item.label}</MenuItem>
             ))}
-            <Menu.Separator />
-            <Menu.Item value={items[2].value}>{items[2].label}</Menu.Item>
+            <MenuSeparator />
+            <MenuItem value={items[2].value}>{items[2].label}</MenuItem>
           </SplitButton.Content>
         </SplitButton.Positioner>
       </SplitButton>

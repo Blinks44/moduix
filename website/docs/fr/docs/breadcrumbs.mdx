@@ -126,7 +126,7 @@ Breadcrumbs
 
 Utilisez `BreadcrumbsPath` pour un chemin fondé sur des ancres. Il génère les éléments de liste, rend chaque entrée de `links` sous forme d’ancre, rend `page` comme page courante et n’accepte ni `children` ni `asChild`. Utilisez les parties explicites lorsqu’un chemin doit intégrer des liens du routeur, masquer des segments intermédiaires ou produire un balisage différent. Pour un lien de routeur, passez un seul enfant sémantique à `BreadcrumbsLink asChild` afin de conserver le `href`, le focus et le comportement clavier attendus.
 
-Pour un chemin condensé, placez `BreadcrumbsEllipsis` dans `Menu.Trigger`, puis laissez explicites les parties `Positioner`, `Content` et `Item asChild` du menu. `BreadcrumbsEllipsis` est purement visuel ; le trigger porte le libellé accessible et l’interaction.
+Pour un chemin condensé, placez `BreadcrumbsEllipsis` dans `MenuTrigger`, puis laissez explicites les parties `Positioner`, `Content` et `Item asChild` du menu. `BreadcrumbsEllipsis` est purement visuel ; le trigger porte le libellé accessible et l’interaction.
 ## Exemples
 
 ### Fil d’Ariane condensé

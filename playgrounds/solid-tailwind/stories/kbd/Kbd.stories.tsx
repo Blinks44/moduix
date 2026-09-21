@@ -1,9 +1,9 @@
 import type { Meta, StoryObj } from 'storybook-solidjs-vite';
-import { Kbd } from '@/components/kbd/Kbd';
+import { Kbd, KbdGroup } from '@/components/kbd/Kbd';
 
 const meta = {
   title: 'Components/Kbd',
-  component: Kbd.Root,
+  component: Kbd,
   tags: ['autodocs'],
   parameters: {
     layout: 'centered',
@@ -11,7 +11,7 @@ const meta = {
   args: {
     children: 'Esc',
   },
-} satisfies Meta<typeof Kbd.Root>;
+} satisfies Meta<typeof Kbd>;
 
 export default meta;
 
@@ -28,16 +28,16 @@ const denseClass = 'min-h-5 min-w-5 px-1';
 
 export const Basic: Story = {
   render: () => (
-    <Kbd.Group aria-label="Command K">
+    <KbdGroup aria-label="Command K">
       <Kbd>Cmd</Kbd>+<Kbd>K</Kbd>
-    </Kbd.Group>
+    </KbdGroup>
   ),
 };
 
 export const SingleKey: Story = {};
 
 export const RootPart: Story = {
-  render: () => <Kbd.Root>Enter</Kbd.Root>,
+  render: () => <Kbd>Enter</Kbd>,
 };
 
 export const AsChild: Story = {
@@ -46,9 +46,9 @@ export const AsChild: Story = {
 
 export const GroupAsChild: Story = {
   render: () => (
-    <Kbd.Group asChild={(props) => <span {...props()} />} aria-label="Command K">
+    <KbdGroup asChild={(props) => <span {...props()} />} aria-label="Command K">
       <Kbd>Cmd</Kbd>+<Kbd>K</Kbd>
-    </Kbd.Group>
+    </KbdGroup>
   ),
 };
 
@@ -56,15 +56,15 @@ export const ShortcutList: Story = {
   render: () => (
     <div class={columnClass}>
       <div class={shortcutRowClass}>
-        <Kbd.Group aria-label="Command K">
+        <KbdGroup aria-label="Command K">
           <Kbd>Cmd</Kbd>+<Kbd>K</Kbd>
-        </Kbd.Group>
+        </KbdGroup>
         Open command menu
       </div>
       <div class={shortcutRowClass}>
-        <Kbd.Group aria-label="Shift question mark">
+        <KbdGroup aria-label="Shift question mark">
           <Kbd>Shift</Kbd>+<Kbd>?</Kbd>
-        </Kbd.Group>
+        </KbdGroup>
         Show shortcuts
       </div>
       <div class={shortcutRowClass}>
@@ -87,8 +87,8 @@ export const Dense: Story = {
 
 export const CustomStyling: Story = {
   render: () => (
-    <Kbd.Group aria-label="Command K" class={customGroupClass}>
+    <KbdGroup aria-label="Command K" class={customGroupClass}>
       <Kbd class={customKbdClass}>Cmd</Kbd>+<Kbd class={customKbdClass}>K</Kbd>
-    </Kbd.Group>
+    </KbdGroup>
   ),
 };

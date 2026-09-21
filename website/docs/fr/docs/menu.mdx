@@ -51,7 +51,7 @@ Les mêmes exports sont disponibles depuis `@moduix/solid/menu` pour Solid.
 
 Utilisez la composition standard pour un menu ouvert par un bouton, un déclencheur personnalisé ou un déclencheur contextuel. Le composant racine gère la navigation au clavier, la recherche par saisie, le focus et la fermeture. Attribuez une valeur `value` stable à chaque élément afin de préserver la sélection et la recherche par saisie lorsque la liste change.
 
-Ne définissez pas d’`id` personnalisé sur `Menu.Item` : Ark identifie les éléments par `value`, et un `id`
+Ne définissez pas d’`id` personnalisé sur `MenuItem` : Ark identifie les éléments par `value`, et un `id`
 supplémentaire casse la recherche d’éléments, la navigation par saisie et la gestion du focus.
 
 
@@ -120,62 +120,62 @@ Consultez le [Démarrage rapide](/docs/quick-start) pour la configuration compl�
 ## Anatomie
 
 ```text
-Menu / Menu.Root
-├─ Menu.Trigger
-│  ├─ Menu.TriggerIcon
-│  └─ Menu.Indicator
-├─ Menu.ContextTrigger
+Menu
+├─ MenuTrigger
+│  ├─ MenuTriggerIcon
+│  └─ MenuIndicator
+├─ MenuContextTrigger
 └─ Sous-arbre du calque (placé automatiquement dans un portail)
-   └─ Menu.Positioner
-      └─ Menu.Content
-         ├─ Menu.Arrow
-         │  └─ Menu.ArrowTip
-         └─ Menu.Viewport
-            ├─ Menu.Item
-            │  ├─ Menu.ItemText
-            │  │  ├─ Menu.ItemTextIcon
-            │  │  └─ Menu.ItemTextLabel
-            │  └─ Menu.ItemShortcut
-            ├─ Menu.CheckboxItem
-            │  └─ Menu.ItemIndicator
-            ├─ Menu.RadioItemGroup
-            │  └─ Menu.RadioItem
-            ├─ Menu.ItemGroup
-            │  └─ Menu.ItemGroupLabel
-            ├─ Menu.Separator
+   └─ MenuPositioner
+      └─ MenuContent
+         ├─ MenuArrow
+         │  └─ MenuArrowTip
+         └─ MenuViewport
+            ├─ MenuItem
+            │  ├─ MenuItemText
+            │  │  ├─ MenuItemTextIcon
+            │  │  └─ MenuItemTextLabel
+            │  └─ MenuItemShortcut
+            ├─ MenuCheckboxItem
+            │  └─ MenuItemIndicator
+            ├─ MenuRadioItemGroup
+            │  └─ MenuRadioItem
+            ├─ MenuItemGroup
+            │  └─ MenuItemGroupLabel
+            ├─ MenuSeparator
             └─ Menu
-               └─ Menu.TriggerItem
-                  └─ Menu.TriggerItemIcon
+               └─ MenuTriggerItem
+                  └─ MenuTriggerItemIcon
 ```
 
 | Partie | Rôle |
 | --- | --- |
-| `Menu` / `Menu.Root` | Composant racine qui gère l’ouverture, le positionnement, la recherche par saisie, le focus et la fermeture. |
-| `Menu.RootProvider` | Relie le menu à une instance d’état créée avec `useMenu`. |
-| `Menu.Trigger` | Bouton qui ouvre le menu. Utilisez `asChild` pour fournir un autre élément sémantique. |
-| `Menu.TriggerIcon` | Conteneur pour l’icône du déclencheur. Un chevron par défaut est rendu sans enfant. |
-| `Menu.Indicator` | Indicateur du déclencheur qui reflète son état, généralement affiché comme un chevron. |
-| `Menu.ContextTrigger` | Déclencheur pour les menus contextuels ouverts par clic droit ou appui prolongé. |
-| `Menu.Positioner` | Positionne le calque flottant du menu. |
-| `Menu.Content` | Surface de la fenêtre contextuelle avec le rôle `menu` et sa collection d’éléments. |
-| `Menu.Viewport` | Conteneur de défilement explicite autour de la collection d’éléments. |
-| `Menu.Arrow` / `Menu.ArrowTip` | Flèche facultative qui relie visuellement la fenêtre contextuelle à son déclencheur. |
-| `Menu.Item` | Élément de commande standard. |
-| `Menu.CheckboxItem` | Élément doté d’un état booléen indépendant. |
-| `Menu.RadioItemGroup` / `Menu.RadioItem` | Groupe et éléments permettant de choisir une seule valeur. |
-| `Menu.ItemIndicator` | Indicateur de sélection des éléments avec case à cocher et des options radio. |
-| `Menu.ItemText` et composants utilitaires de texte | Composants utilitaires pour composer le texte d’un élément avec une icône et un libellé. |
-| `Menu.ItemShortcut` | Conteneur pour un raccourci clavier ou une autre indication placée à droite. |
-| `Menu.ItemGroup` / `Menu.ItemGroupLabel` | Groupe et libellé pour des éléments associés. |
-| `Menu.Separator` | Séparateur entre des groupes d’éléments. |
-| `Menu.TriggerItem` / `Menu.TriggerItemIcon` | Élément et icône pour ouvrir un menu imbriqué. |
-| `Menu.ItemContext` | Fournit l’état de l’élément à son contenu. |
+| `Menu` | Composant racine qui gère l’ouverture, le positionnement, la recherche par saisie, le focus et la fermeture. |
+| `MenuRootProvider` | Relie le menu à une instance d’état créée avec `useMenu`. |
+| `MenuTrigger` | Bouton qui ouvre le menu. Utilisez `asChild` pour fournir un autre élément sémantique. |
+| `MenuTriggerIcon` | Conteneur pour l’icône du déclencheur. Un chevron par défaut est rendu sans enfant. |
+| `MenuIndicator` | Indicateur du déclencheur qui reflète son état, généralement affiché comme un chevron. |
+| `MenuContextTrigger` | Déclencheur pour les menus contextuels ouverts par clic droit ou appui prolongé. |
+| `MenuPositioner` | Positionne le calque flottant du menu. |
+| `MenuContent` | Surface de la fenêtre contextuelle avec le rôle `menu` et sa collection d’éléments. |
+| `MenuViewport` | Conteneur de défilement explicite autour de la collection d’éléments. |
+| `MenuArrow` / `MenuArrowTip` | Flèche facultative qui relie visuellement la fenêtre contextuelle à son déclencheur. |
+| `MenuItem` | Élément de commande standard. |
+| `MenuCheckboxItem` | Élément doté d’un état booléen indépendant. |
+| `MenuRadioItemGroup` / `MenuRadioItem` | Groupe et éléments permettant de choisir une seule valeur. |
+| `MenuItemIndicator` | Indicateur de sélection des éléments avec case à cocher et des options radio. |
+| `MenuItemText` et composants utilitaires de texte | Composants utilitaires pour composer le texte d’un élément avec une icône et un libellé. |
+| `MenuItemShortcut` | Conteneur pour un raccourci clavier ou une autre indication placée à droite. |
+| `MenuItemGroup` / `MenuItemGroupLabel` | Groupe et libellé pour des éléments associés. |
+| `MenuSeparator` | Séparateur entre des groupes d’éléments. |
+| `MenuTriggerItem` / `MenuTriggerItemIcon` | Élément et icône pour ouvrir un menu imbriqué. |
+| `MenuItemContext` | Fournit l’état de l’élément à son contenu. |
 
 ## Composition
 
-Utilisez `defaultOpen` pour un menu non contrôlé. Lorsque l’ouverture ou l’élément mis en surbrillance est géré par une autre partie de l’application, passez `open` ou `highlightedValue` avec la fonction de rappel correspondante. Utilisez `useMenu()` avec `Menu.RootProvider` lorsque le store doit être créé en dehors de l’arbre rendu ; ne rendez pas une seconde racine `Menu` pour le même store.
+Utilisez `defaultOpen` pour un menu non contrôlé. Lorsque l’ouverture ou l’élément mis en surbrillance est géré par une autre partie de l’application, passez `open` ou `highlightedValue` avec la fonction de rappel correspondante. Utilisez `useMenu()` avec `MenuRootProvider` lorsque le store doit être créé en dehors de l’arbre rendu ; ne rendez pas une seconde racine `Menu` pour le même store.
 
-`Menu.Positioner`, `Menu.Content` et `Menu.Viewport` sont des parties distinctes, mais le positionneur est automatiquement rendu dans un portail. Définissez `portalled={false}` dans une boîte de dialogue ou un conteneur défilant, et utilisez `positioning={{ strategy: 'fixed', hideWhenDetached: true }}` lorsque ce conteneur peut défiler. Utilisez `asChild` avec exactement un enfant sémantique lorsqu’un déclencheur, un élément ou l’hôte du contenu doit porter le nœud DOM. En Solid, assignez la ref à l’élément créé dans la fonction de rendu `asChild`, car une ref posée sur une partie `Menu` elle-même n’est pas transmise par ce chemin de composition. Dans `Menu.Content`, entourez les éléments défilants avec `Menu.Viewport`. Conservez l’éventuel `Menu.Arrow` comme enfant direct de `Menu.Content`, à côté du viewport, afin qu’il ne soit pas rogné pendant le défilement. Un menu imbriqué est une autre racine `Menu` dans le contenu parent, avec ses propres parties `TriggerItem`, `Positioner` et `Content`.
+`MenuPositioner`, `MenuContent` et `MenuViewport` sont des parties distinctes, mais le positionneur est automatiquement rendu dans un portail. Définissez `portalled={false}` dans une boîte de dialogue ou un conteneur défilant, et utilisez `positioning={{ strategy: 'fixed', hideWhenDetached: true }}` lorsque ce conteneur peut défiler. Utilisez `asChild` avec exactement un enfant sémantique lorsqu’un déclencheur, un élément ou l’hôte du contenu doit porter le nœud DOM. En Solid, assignez la ref à l’élément créé dans la fonction de rendu `asChild`, car une ref posée sur une partie `Menu` elle-même n’est pas transmise par ce chemin de composition. Dans `MenuContent`, entourez les éléments défilants avec `MenuViewport`. Conservez l’éventuel `MenuArrow` comme enfant direct de `MenuContent`, à côté du viewport, afin qu’il ne soit pas rogné pendant le défilement. Un menu imbriqué est une autre racine `Menu` dans le contenu parent, avec ses propres parties `TriggerItem`, `Positioner` et `Content`.
 ## Exemples
 
 ### Options avec case à cocher
@@ -219,7 +219,7 @@ Utilisez ces éléments pour des options indépendantes qui peuvent être activ�
 
 ### Menu contextuel
 
-Utilisez `Menu.ContextTrigger` lorsque les actions doivent apparaître après un clic droit. Sur les appareils tactiles et avec un stylet, un appui prolongé ouvre également le menu.
+Utilisez `MenuContextTrigger` lorsque les actions doivent apparaître après un clic droit. Sur les appareils tactiles et avec un stylet, un appui prolongé ouvre également le menu.
 
 <ExampleFrame variant="component">
   <MenuContext />
@@ -297,7 +297,7 @@ Contrôlez `open` avec l’état React lorsqu’un autre contrôle doit ouvrir o
 
 ### Regroupement
 
-Utilisez `Menu.ItemGroup` et `Menu.ItemGroupLabel` pour organiser les éléments associés, et `Menu.Separator` pour séparer les groupes.
+Utilisez `MenuItemGroup` et `MenuItemGroupLabel` pour organiser les éléments associés, et `MenuSeparator` pour séparer les groupes.
 
 <ExampleFrame variant="component">
   <MenuGrouping />
@@ -375,7 +375,7 @@ Définissez `indicator="start"`, `"end"` ou `"none"` sur les éléments avec cas
 
 ### Contexte de l’élément
 
-Utilisez `Menu.ItemContext` lorsque le contenu d’un élément doit réagir à son état, par exemple lorsqu’il est mis en évidence.
+Utilisez `MenuItemContext` lorsque le contenu d’un élément doit réagir à son état, par exemple lorsqu’il est mis en évidence.
 
 <ExampleFrame variant="component">
   <MenuItemContext />
@@ -453,7 +453,7 @@ Par défaut, le contenu du menu contextuel est monté à la première ouverture 
 
 ### Liens
 
-Utilisez `Menu.Item asChild` et faites de l’ancre l’élément de menu lui-même. Elle recevra ainsi les attributs ARIA, le comportement clavier et la gestion du focus de l’élément de menu.
+Utilisez `MenuItem asChild` et faites de l’ancre l’élément de menu lui-même. Elle recevra ainsi les attributs ARIA, le comportement clavier et la gestion du focus de l’élément de menu.
 
 <ExampleFrame variant="component">
   <MenuLinks />
@@ -531,7 +531,7 @@ Définissez `portalled={false}` pour garder la fenêtre contextuelle dans une bo
 
 ### Plusieurs déclencheurs
 
-Partagez un même menu entre plusieurs déclencheurs en attribuant une valeur `value` distincte à chaque `Menu.Trigger`. Le menu se repositionne par rapport au déclencheur qui l’a ouvert.
+Partagez un même menu entre plusieurs déclencheurs en attribuant une valeur `value` distincte à chaque `MenuTrigger`. Le menu se repositionne par rapport au déclencheur qui l’a ouvert.
 
 <ExampleFrame variant="component">
   <MenuMultipleTriggers />
@@ -570,7 +570,7 @@ Partagez un même menu entre plusieurs déclencheurs en attribuant une valeur `v
 
 ### Menu imbriqué
 
-Rendez un `Menu` enfant dans le contenu du menu parent et ouvrez-le avec `Menu.TriggerItem`.
+Rendez un `Menu` enfant dans le contenu du menu parent et ouvrez-le avec `MenuTriggerItem`.
 
 <ExampleFrame variant="component">
   <MenuNested />
@@ -609,7 +609,7 @@ Rendez un `Menu` enfant dans le contenu du menu parent et ouvrez-le avec `Menu.T
 
 ### Options à choix unique
 
-Utilisez `Menu.RadioItemGroup` lorsque l’utilisateur doit choisir une seule valeur parmi plusieurs options. Définissez `closeOnSelect={false}` si le menu doit rester ouvert pendant la sélection.
+Utilisez `MenuRadioItemGroup` lorsque l’utilisateur doit choisir une seule valeur parmi plusieurs options. Définissez `closeOnSelect={false}` si le menu doit rester ouvert pendant la sélection.
 
 <ExampleFrame variant="component">
   <MenuRadioItems />
@@ -648,7 +648,7 @@ Utilisez `Menu.RadioItemGroup` lorsque l’utilisateur doit choisir une seule va
 
 ### Utiliser `RootProvider`
 
-Utilisez `useMenu` et `Menu.RootProvider` lorsque du code situé en dehors de l’arbre rendu doit lire ou modifier l’état du menu.
+Utilisez `useMenu` et `MenuRootProvider` lorsque du code situé en dehors de l’arbre rendu doit lire ou modifier l’état du menu.
 
 <ExampleFrame variant="component">
   <MenuRootProvider />
@@ -726,7 +726,7 @@ Utilisez `onSelect(details)` sur la racine lorsqu’un seul gestionnaire doit r�
 
 ### Avec flèche
 
-Ajoutez `Menu.Arrow` et `Menu.ArrowTip` directement dans `Menu.Content` lorsque la fenêtre contextuelle doit être visuellement reliée à son déclencheur.
+Ajoutez `MenuArrow` et `MenuArrowTip` directement dans `MenuContent` lorsque la fenêtre contextuelle doit être visuellement reliée à son déclencheur.
 
 <ExampleFrame variant="component">
   <MenuWithArrow />

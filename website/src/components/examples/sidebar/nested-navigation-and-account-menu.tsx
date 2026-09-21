@@ -5,7 +5,7 @@ import {
   CollapsibleIndicator,
   CollapsibleTrigger,
 } from '@moduix/react/collapsible';
-import { Menu } from '@moduix/react/menu';
+import { Menu, MenuTrigger, MenuIndicator, MenuPositioner, MenuContent, MenuViewport, MenuItem, MenuSeparator, MenuItemText, MenuItemTextContent, MenuItemTextIcon, MenuItemTextLabel } from '@moduix/react/menu';
 import { Sidebar } from '@moduix/react/sidebar';
 import {
   ChevronsUpDown,
@@ -84,23 +84,23 @@ export default function AppSidebar() {
                 </Sidebar.ExpandedContent>
                 <Sidebar.CollapsedContent>
                   <Menu positioning={{ placement: 'right-start', gutter: 8 }}>
-                    <Menu.Trigger asChild>
+                    <MenuTrigger asChild>
                       <Sidebar.NavigationButton aria-label="Open projects" title="Projects">
                         <FolderOpen />
                       </Sidebar.NavigationButton>
-                    </Menu.Trigger>
-                    <Menu.Positioner>
-                      <Menu.Content>
-                        <Menu.Viewport>
-                          <Menu.Item value="website" asChild>
+                    </MenuTrigger>
+                    <MenuPositioner>
+                      <MenuContent>
+                        <MenuViewport>
+                          <MenuItem value="website" asChild>
                             <a href="/projects/website">Website</a>
-                          </Menu.Item>
-                          <Menu.Item value="mobile-app" asChild>
+                          </MenuItem>
+                          <MenuItem value="mobile-app" asChild>
                             <a href="/projects/mobile">Mobile app</a>
-                          </Menu.Item>
-                        </Menu.Viewport>
-                      </Menu.Content>
-                    </Menu.Positioner>
+                          </MenuItem>
+                        </MenuViewport>
+                      </MenuContent>
+                    </MenuPositioner>
                   </Menu>
                 </Sidebar.CollapsedContent>
               </Sidebar.NavigationItem>
@@ -132,7 +132,7 @@ export default function AppSidebar() {
           <Sidebar.NavigationList>
             <Sidebar.NavigationItem>
               <Menu positioning={{ placement: 'right-end', gutter: 8, flip: false }}>
-                <Menu.Trigger asChild>
+                <MenuTrigger asChild>
                   <Sidebar.NavigationButton
                     size="lg"
                     aria-label="Open account menu"
@@ -146,48 +146,48 @@ export default function AppSidebar() {
                       <strong className={styles.accountName}>Alex Morgan</strong>
                       <span className={styles.accountEmail}>alex@acme.dev</span>
                     </Sidebar.Label>
-                    <Menu.Indicator>
+                    <MenuIndicator>
                       <ChevronsUpDown />
-                    </Menu.Indicator>
+                    </MenuIndicator>
                   </Sidebar.NavigationButton>
-                </Menu.Trigger>
-                <Menu.Positioner>
-                  <Menu.Content className={styles.menuContent}>
-                    <Menu.Viewport>
-                      <Menu.Item value="profile">
-                        <Menu.ItemText>
-                          <Menu.ItemTextContent>
-                            <Menu.ItemTextIcon>
+                </MenuTrigger>
+                <MenuPositioner>
+                  <MenuContent className={styles.menuContent}>
+                    <MenuViewport>
+                      <MenuItem value="profile">
+                        <MenuItemText>
+                          <MenuItemTextContent>
+                            <MenuItemTextIcon>
                               <Pencil />
-                            </Menu.ItemTextIcon>
-                            <Menu.ItemTextLabel>Profile</Menu.ItemTextLabel>
-                          </Menu.ItemTextContent>
-                        </Menu.ItemText>
-                      </Menu.Item>
-                      <Menu.Item value="settings">
-                        <Menu.ItemText>
-                          <Menu.ItemTextContent>
-                            <Menu.ItemTextIcon>
+                            </MenuItemTextIcon>
+                            <MenuItemTextLabel>Profile</MenuItemTextLabel>
+                          </MenuItemTextContent>
+                        </MenuItemText>
+                      </MenuItem>
+                      <MenuItem value="settings">
+                        <MenuItemText>
+                          <MenuItemTextContent>
+                            <MenuItemTextIcon>
                               <RotateCcw />
-                            </Menu.ItemTextIcon>
-                            <Menu.ItemTextLabel>Settings</Menu.ItemTextLabel>
-                          </Menu.ItemTextContent>
-                        </Menu.ItemText>
-                      </Menu.Item>
-                      <Menu.Separator />
-                      <Menu.Item value="sign-out" tone="destructive">
-                        <Menu.ItemText>
-                          <Menu.ItemTextContent>
-                            <Menu.ItemTextIcon>
+                            </MenuItemTextIcon>
+                            <MenuItemTextLabel>Settings</MenuItemTextLabel>
+                          </MenuItemTextContent>
+                        </MenuItemText>
+                      </MenuItem>
+                      <MenuSeparator />
+                      <MenuItem value="sign-out" tone="destructive">
+                        <MenuItemText>
+                          <MenuItemTextContent>
+                            <MenuItemTextIcon>
                               <LogOut />
-                            </Menu.ItemTextIcon>
-                            <Menu.ItemTextLabel>Sign out</Menu.ItemTextLabel>
-                          </Menu.ItemTextContent>
-                        </Menu.ItemText>
-                      </Menu.Item>
-                    </Menu.Viewport>
-                  </Menu.Content>
-                </Menu.Positioner>
+                            </MenuItemTextIcon>
+                            <MenuItemTextLabel>Sign out</MenuItemTextLabel>
+                          </MenuItemTextContent>
+                        </MenuItemText>
+                      </MenuItem>
+                    </MenuViewport>
+                  </MenuContent>
+                </MenuPositioner>
               </Menu>
             </Sidebar.NavigationItem>
           </Sidebar.NavigationList>

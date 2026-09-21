@@ -1,4 +1,4 @@
-import { Menu } from '@moduix/react/menu';
+import { MenuItem, MenuSeparator } from '@moduix/react/menu';
 import { SplitButton } from '@moduix/react/split-button';
 import { useState } from 'react';
 import { PreviewMeta } from '@/components/mdx/Components';
@@ -32,12 +32,12 @@ export default function SplitButtonDemo() {
         <SplitButton.Positioner>
           <SplitButton.Content>
             {items.slice(0, 2).map((item) => (
-              <Menu.Item key={item.value} value={item.value}>
+              <MenuItem key={item.value} value={item.value}>
                 {item.label}
-              </Menu.Item>
+              </MenuItem>
             ))}
-            <Menu.Separator />
-            <Menu.Item value={items[2].value}>{items[2].label}</Menu.Item>
+            <MenuSeparator />
+            <MenuItem value={items[2].value}>{items[2].label}</MenuItem>
           </SplitButton.Content>
         </SplitButton.Positioner>
       </SplitButton>

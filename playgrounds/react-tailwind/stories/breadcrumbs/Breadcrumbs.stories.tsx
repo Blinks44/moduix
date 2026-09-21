@@ -10,7 +10,7 @@ import {
   BreadcrumbsPath,
   BreadcrumbsSeparator,
 } from '@/components/breadcrumbs/Breadcrumbs';
-import { Menu } from '@/components/menu/Menu';
+import { Menu, MenuTrigger, MenuPositioner, MenuContent, MenuViewport, MenuItem } from '@/components/menu/Menu';
 import { SeparatorMarkIcon } from '@/lib/moduix/icons/ui';
 
 const defaultLinks = [
@@ -71,7 +71,7 @@ export const Collapsed: Story = {
         <BreadcrumbsSeparator />
         <BreadcrumbsItem>
           <Menu positioning={{ placement: 'bottom-start' }}>
-            <Menu.Trigger asChild>
+            <MenuTrigger asChild>
               <button
                 type="button"
                 aria-label="Show hidden path items"
@@ -79,22 +79,22 @@ export const Collapsed: Story = {
               >
                 <BreadcrumbsEllipsis />
               </button>
-            </Menu.Trigger>
-            <Menu.Positioner>
-              <Menu.Content style={collapsedMenuContentStyle}>
-                <Menu.Viewport>
-                  <Menu.Item value="engineering" asChild>
+            </MenuTrigger>
+            <MenuPositioner>
+              <MenuContent style={collapsedMenuContentStyle}>
+                <MenuViewport>
+                  <MenuItem value="engineering" asChild>
                     <a href="#">Engineering</a>
-                  </Menu.Item>
-                  <Menu.Item value="backend" asChild>
+                  </MenuItem>
+                  <MenuItem value="backend" asChild>
                     <a href="#">Backend</a>
-                  </Menu.Item>
-                  <Menu.Item value="golang" asChild>
+                  </MenuItem>
+                  <MenuItem value="golang" asChild>
                     <a href="#">Golang</a>
-                  </Menu.Item>
-                </Menu.Viewport>
-              </Menu.Content>
-            </Menu.Positioner>
+                  </MenuItem>
+                </MenuViewport>
+              </MenuContent>
+            </MenuPositioner>
           </Menu>
         </BreadcrumbsItem>
         <BreadcrumbsSeparator />

@@ -6,7 +6,7 @@ import {
   InputGroupAddon,
   InputGroupInput,
 } from '@moduix/react/input-group';
-import { Menu } from '@moduix/react/menu';
+import { Menu, MenuTrigger, MenuPositioner, MenuContent, MenuViewport, MenuItem, MenuItemGroup, MenuItemGroupLabel, MenuCheckboxItem, MenuItemIndicator, MenuItemText } from '@moduix/react/menu';
 import { Table } from '@moduix/react/table';
 import {
   columnFilteringFeature,
@@ -515,37 +515,37 @@ function ColumnVisibilityMenu({
 }) {
   return (
     <Menu closeOnSelect={false} positioning={{ placement: 'bottom-end', gutter: 8 }}>
-      <Menu.Trigger asChild>
+      <MenuTrigger asChild>
         <Button type="button" variant="outline" size="sm">
           <Columns3 size={16} aria-hidden="true" />
           Columns
         </Button>
-      </Menu.Trigger>
-      <Menu.Positioner>
-        <Menu.Content>
-          <Menu.Viewport>
-            <Menu.ItemGroup>
-              <Menu.ItemGroupLabel>Visible columns</Menu.ItemGroupLabel>
+      </MenuTrigger>
+      <MenuPositioner>
+        <MenuContent>
+          <MenuViewport>
+            <MenuItemGroup>
+              <MenuItemGroupLabel>Visible columns</MenuItemGroupLabel>
               {table
                 .getAllLeafColumns()
                 .filter((column) => column.getCanHide())
                 .map((column) => (
-                  <Menu.CheckboxItem
+                  <MenuCheckboxItem
                     key={column.id}
                     checked={column.getIsVisible()}
                     value={column.id}
                     onCheckedChange={() => column.toggleVisibility()}
                   >
-                    <Menu.ItemIndicator />
-                    <Menu.ItemText>
+                    <MenuItemIndicator />
+                    <MenuItemText>
                       {column.id === 'installations' ? 'Installs' : column.id}
-                    </Menu.ItemText>
-                  </Menu.CheckboxItem>
+                    </MenuItemText>
+                  </MenuCheckboxItem>
                 ))}
-            </Menu.ItemGroup>
-          </Menu.Viewport>
-        </Menu.Content>
-      </Menu.Positioner>
+            </MenuItemGroup>
+          </MenuViewport>
+        </MenuContent>
+      </MenuPositioner>
     </Menu>
   );
 }
@@ -553,7 +553,7 @@ function ColumnVisibilityMenu({
 function RowActions({ id, name }: { id: string; name: string }) {
   return (
     <Menu positioning={{ placement: 'bottom-end', gutter: 8 }}>
-      <Menu.Trigger asChild>
+      <MenuTrigger asChild>
         <Button
           type="button"
           variant="ghost"
@@ -563,22 +563,22 @@ function RowActions({ id, name }: { id: string; name: string }) {
         >
           <Ellipsis size={16} aria-hidden="true" />
         </Button>
-      </Menu.Trigger>
-      <Menu.Positioner>
-        <Menu.Content>
-          <Menu.Viewport>
-            <Menu.Item value="open-docs" asChild>
+      </MenuTrigger>
+      <MenuPositioner>
+        <MenuContent>
+          <MenuViewport>
+            <MenuItem value="open-docs" asChild>
               <a href={`#${id}`}>Open details</a>
-            </Menu.Item>
-            <Menu.Item
+            </MenuItem>
+            <MenuItem
               value="copy-identifier"
               onSelect={() => void navigator.clipboard.writeText(id)}
             >
               Copy identifier
-            </Menu.Item>
-          </Menu.Viewport>
-        </Menu.Content>
-      </Menu.Positioner>
+            </MenuItem>
+          </MenuViewport>
+        </MenuContent>
+      </MenuPositioner>
     </Menu>
   );
 }

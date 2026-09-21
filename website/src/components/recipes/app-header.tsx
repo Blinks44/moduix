@@ -18,7 +18,7 @@ import {
   CommandPaletteSearch,
   CommandPaletteTrigger,
 } from '@moduix/react/command-palette';
-import { Menu } from '@moduix/react/menu';
+import { Menu, MenuTrigger, MenuPositioner, MenuContent, MenuViewport, MenuItem, MenuItemGroup, MenuItemGroupLabel } from '@moduix/react/menu';
 import {
   ChevronDown,
   CircleHelp,
@@ -139,27 +139,27 @@ export function AppHeader() {
         <div className={styles.actions}>
           <span className={styles.mobileNavigation}>
             <Menu positioning={{ placement: 'bottom-end', gutter: 10 }}>
-              <Menu.Trigger asChild>
+              <MenuTrigger asChild>
                 <Button variant="ghost" size="icon-sm" aria-label="Open navigation">
                   <MenuIcon />
                 </Button>
-              </Menu.Trigger>
-              <Menu.Positioner>
-                <Menu.Content className={styles.mobileNavigationMenu}>
-                  <Menu.Viewport>
-                    <Menu.ItemGroup>
-                      <Menu.ItemGroupLabel>Navigation</Menu.ItemGroupLabel>
+              </MenuTrigger>
+              <MenuPositioner>
+                <MenuContent className={styles.mobileNavigationMenu}>
+                  <MenuViewport>
+                    <MenuItemGroup>
+                      <MenuItemGroupLabel>Navigation</MenuItemGroupLabel>
                       {navigation.map((item, index) => (
-                        <Menu.Item value={item.href} asChild key={item.href}>
+                        <MenuItem value={item.href} asChild key={item.href}>
                           <a href={item.href} aria-current={index === 0 ? 'page' : undefined}>
                             {item.label}
                           </a>
-                        </Menu.Item>
+                        </MenuItem>
                       ))}
-                    </Menu.ItemGroup>
-                  </Menu.Viewport>
-                </Menu.Content>
-              </Menu.Positioner>
+                    </MenuItemGroup>
+                  </MenuViewport>
+                </MenuContent>
+              </MenuPositioner>
             </Menu>
           </span>
 
@@ -175,7 +175,7 @@ export function AppHeader() {
           </CommandPaletteTrigger>
 
           <Menu positioning={{ placement: 'bottom-end', gutter: 10 }}>
-            <Menu.Trigger asChild>
+            <MenuTrigger asChild>
               <Button
                 className={styles.accountTrigger}
                 variant="ghost"
@@ -192,37 +192,37 @@ export function AppHeader() {
                 </span>
                 <ChevronDown className={styles.accountChevron} aria-hidden />
               </Button>
-            </Menu.Trigger>
-            <Menu.Positioner>
-              <Menu.Content className={styles.accountMenu}>
-                <Menu.Viewport>
-                  <Menu.ItemGroup>
-                    <Menu.ItemGroupLabel className={styles.accountSummary}>
+            </MenuTrigger>
+            <MenuPositioner>
+              <MenuContent className={styles.accountMenu}>
+                <MenuViewport>
+                  <MenuItemGroup>
+                    <MenuItemGroupLabel className={styles.accountSummary}>
                       <strong>{account.name}</strong>
                       <span>{account.email}</span>
-                    </Menu.ItemGroupLabel>
-                    <Menu.Item value="profile" asChild>
+                    </MenuItemGroupLabel>
+                    <MenuItem value="profile" asChild>
                       <a className={styles.menuLink} href="#profile">
                         <UserRound aria-hidden />
                         Profile
                       </a>
-                    </Menu.Item>
-                    <Menu.Item value="workspace-settings" asChild>
+                    </MenuItem>
+                    <MenuItem value="workspace-settings" asChild>
                       <a className={styles.menuLink} href="#workspace-settings">
                         <Settings aria-hidden />
                         Workspace settings
                       </a>
-                    </Menu.Item>
-                    <Menu.Item value="help" asChild>
+                    </MenuItem>
+                    <MenuItem value="help" asChild>
                       <a className={styles.menuLink} href="#help">
                         <CircleHelp aria-hidden />
                         Help and support
                       </a>
-                    </Menu.Item>
-                  </Menu.ItemGroup>
-                </Menu.Viewport>
-              </Menu.Content>
-            </Menu.Positioner>
+                    </MenuItem>
+                  </MenuItemGroup>
+                </MenuViewport>
+              </MenuContent>
+            </MenuPositioner>
           </Menu>
         </div>
       </header>

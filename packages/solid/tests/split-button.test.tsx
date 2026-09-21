@@ -1,6 +1,6 @@
 import { expect, test } from '@rstest/core';
 import { fireEvent, render, screen, waitFor } from '@solidjs/testing-library';
-import { Menu, SplitButton } from '../src';
+import { SplitButton, MenuItem } from '../src';
 
 function TestSplitButton(props: {
   onOpenChange?: (details: { open: boolean }) => void;
@@ -15,7 +15,7 @@ function TestSplitButton(props: {
       <SplitButton.Trigger disabled={props.triggerDisabled ?? false} />
       <SplitButton.Positioner>
         <SplitButton.Content>
-          <Menu.Item value="save-draft">Save as Draft</Menu.Item>
+          <MenuItem value="save-draft">Save as Draft</MenuItem>
         </SplitButton.Content>
       </SplitButton.Positioner>
     </SplitButton>
@@ -97,7 +97,7 @@ test('forwards refs and shares root variant and size defaults', () => {
       />
       <SplitButton.Positioner>
         <SplitButton.Content>
-          <Menu.Item value="archive">Archive project</Menu.Item>
+          <MenuItem value="archive">Archive project</MenuItem>
         </SplitButton.Content>
       </SplitButton.Positioner>
     </SplitButton.Root>
@@ -127,7 +127,7 @@ test('keeps the primary action independent and exposes stable popup slots', asyn
       <SplitButton.Trigger>Options</SplitButton.Trigger>
       <SplitButton.Positioner>
         <SplitButton.Content>
-          <Menu.Item value="duplicate">Duplicate</Menu.Item>
+          <MenuItem value="duplicate">Duplicate</MenuItem>
         </SplitButton.Content>
       </SplitButton.Positioner>
     </SplitButton>

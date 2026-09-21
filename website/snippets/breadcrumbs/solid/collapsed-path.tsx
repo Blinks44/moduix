@@ -7,7 +7,7 @@ import {
   BreadcrumbsPage,
   BreadcrumbsSeparator,
 } from '@moduix/solid/breadcrumbs';
-import { Menu } from '@moduix/solid/menu';
+import { Menu, MenuTrigger, MenuPositioner, MenuContent, MenuViewport, MenuItem } from '@moduix/solid/menu';
 import styles from '@/components/examples/breadcrumbs/breadcrumbs-collapsed-path.module.css';
 
 const collapsedItems = [
@@ -26,7 +26,7 @@ export default function BreadcrumbsCollapsedDemo() {
         <BreadcrumbsSeparator />
         <BreadcrumbsItem>
           <Menu positioning={{ placement: 'bottom-start' }}>
-            <Menu.Trigger
+            <MenuTrigger
               asChild={(props) => (
                 <button
                   {...props()}
@@ -38,20 +38,20 @@ export default function BreadcrumbsCollapsedDemo() {
                 </button>
               )}
             />
-            <Menu.Positioner>
-              <Menu.Content class={styles.content}>
-                <Menu.Viewport>
+            <MenuPositioner>
+              <MenuContent class={styles.content}>
+                <MenuViewport>
                   {collapsedItems.map((item) => (
-                    <Menu.Item
+                    <MenuItem
                       asChild={(props) => <a {...props()} href={item.href} />}
                       value={item.href}
                     >
                       {item.label}
-                    </Menu.Item>
+                    </MenuItem>
                   ))}
-                </Menu.Viewport>
-              </Menu.Content>
-            </Menu.Positioner>
+                </MenuViewport>
+              </MenuContent>
+            </MenuPositioner>
           </Menu>
         </BreadcrumbsItem>
         <BreadcrumbsSeparator />

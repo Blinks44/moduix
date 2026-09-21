@@ -10,7 +10,7 @@ import {
   BreadcrumbsPath,
   BreadcrumbsSeparator,
 } from '@/components/breadcrumbs/Breadcrumbs';
-import { Menu } from '@/components/menu/Menu';
+import { Menu, MenuTrigger, MenuPositioner, MenuContent, MenuViewport, MenuItem } from '@/components/menu/Menu';
 import { SeparatorMarkIcon } from '@/lib/moduix/icons/ui';
 
 const defaultLinks = [
@@ -71,7 +71,7 @@ export const Collapsed: Story = {
         <BreadcrumbsSeparator />
         <BreadcrumbsItem>
           <Menu positioning={{ placement: 'bottom-start' }}>
-            <Menu.Trigger
+            <MenuTrigger
               asChild={(props) => (
                 <button
                   {...props()}
@@ -83,10 +83,10 @@ export const Collapsed: Story = {
                 </button>
               )}
             />
-            <Menu.Positioner>
-              <Menu.Content style={collapsedMenuContentStyle}>
-                <Menu.Viewport>
-                  <Menu.Item
+            <MenuPositioner>
+              <MenuContent style={collapsedMenuContentStyle}>
+                <MenuViewport>
+                  <MenuItem
                     value="engineering"
                     asChild={(props) => (
                       <a {...props()} href="#">
@@ -94,7 +94,7 @@ export const Collapsed: Story = {
                       </a>
                     )}
                   />
-                  <Menu.Item
+                  <MenuItem
                     value="backend"
                     asChild={(props) => (
                       <a {...props()} href="#">
@@ -102,7 +102,7 @@ export const Collapsed: Story = {
                       </a>
                     )}
                   />
-                  <Menu.Item
+                  <MenuItem
                     value="golang"
                     asChild={(props) => (
                       <a {...props()} href="#">
@@ -110,9 +110,9 @@ export const Collapsed: Story = {
                       </a>
                     )}
                   />
-                </Menu.Viewport>
-              </Menu.Content>
-            </Menu.Positioner>
+                </MenuViewport>
+              </MenuContent>
+            </MenuPositioner>
           </Menu>
         </BreadcrumbsItem>
         <BreadcrumbsSeparator />

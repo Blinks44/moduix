@@ -1,4 +1,4 @@
-import { Menu } from '@moduix/react/menu';
+import { Menu, MenuTrigger, MenuPositioner, MenuContent, MenuViewport, MenuItem } from '@moduix/react/menu';
 import { Sidebar } from '@moduix/react/sidebar';
 import {
   FileSearch,
@@ -77,21 +77,21 @@ export default function RightSidebar() {
               flip: false,
             }}
           >
-            <Menu.Trigger asChild>
+            <MenuTrigger asChild>
               <Sidebar.NavigationButton>
                 <Settings />
                 <Sidebar.Label>Inspector settings</Sidebar.Label>
               </Sidebar.NavigationButton>
-            </Menu.Trigger>
-            <Menu.Positioner>
-              <Menu.Content>
-                <Menu.Viewport>
-                  <Menu.Item value="preferences">Preferences</Menu.Item>
-                  <Menu.Item value="shortcuts">Keyboard shortcuts</Menu.Item>
-                  <Menu.Item value="reset">Reset panels</Menu.Item>
-                </Menu.Viewport>
-              </Menu.Content>
-            </Menu.Positioner>
+            </MenuTrigger>
+            <MenuPositioner>
+              <MenuContent>
+                <MenuViewport>
+                  <MenuItem value="preferences">Preferences</MenuItem>
+                  <MenuItem value="shortcuts">Keyboard shortcuts</MenuItem>
+                  <MenuItem value="reset">Reset panels</MenuItem>
+                </MenuViewport>
+              </MenuContent>
+            </MenuPositioner>
           </Menu>
         </Sidebar.Footer>
       </Sidebar.Panel>

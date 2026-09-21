@@ -24,7 +24,7 @@ There is no dedicated Ark `List` primitive or component page. The wrapper should
 
 - `List` is a thin Ark factory wrapper over `ark.ul` / `ark.ol`, with `asChild` support for a
   single replacement `<ul>` or `<ol>` host.
-- `List.Item` is a thin `ark.li` wrapper with the same `asChild` composition path for a single
+- `ListItem` is a thin `ark.li` wrapper with the same `asChild` composition path for a single
   replacement `<li>` host.
 - Styling is driven through Ark-style `data-scope`, `data-part`, state-like data attributes, and public CSS variables.
 - Ref behavior targets the rendered semantic root/item element, with the standard Ark `asChild` constraint of a single semantic child.
@@ -34,7 +34,7 @@ There is no dedicated Ark `List` primitive or component page. The wrapper should
 | Source    | Useful difference                                                                         | Decision                                                                                                                                                                                                                       |
 | --------- | ----------------------------------------------------------------------------------------- | ------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------ |
 | Ark UI    | `createListCollection` models collection data; it does not render a semantic visual list. | **Intentional difference:** keep `List` as a native `ul`/`ol` wrapper. Selection and collection state belong to `Listbox` and other Ark primitives.                                                                            |
-| Chakra UI | Exposes `List.Root`/`List.Item` and a marker-style convenience API.                       | **Consumer friction resolved / complexity rejected:** moduix provides the same discoverable root/item composition, while native `li::marker` and tokens remain the styling path instead of adding a translated style-prop API. |
+| Chakra UI | Exposes a compound root/item API and a marker-style convenience API.                         | **Consumer friction resolved / complexity rejected:** moduix provides a flat root/item composition, while native `li::marker` and tokens remain the styling path instead of adding a translated style-prop API. |
 | shadcn/ui | Does not publish a dedicated List component.                                              | **Intentional difference:** keep the small semantic wrapper; there is no shadcn API to mirror.                                                                                                                                 |
 
 ## Current behavior contract
@@ -43,9 +43,9 @@ There is no dedicated Ark `List` primitive or component page. The wrapper should
 - Ordered lists use narrow host sugar: render `<List as="ol" start={...}>` for native ordered
   semantics and ordered-list props.
 - `asChild` remains available for custom host ownership, not for the normal `ul` / `ol` path. Its
-  child must preserve the corresponding semantic host (`ul`/`ol` for `List`, `li` for `List.Item`)
+  child must preserve the corresponding semantic host (`ul`/`ol` for `List`, `li` for `ListItem`)
   and forward the ref and props.
-- `List.Item` is the public item part. The flat `ListItem` export was removed during the Ark migration.
+- `ListItem` is the public item part.
 - `marker="none"` still applies `role="list"` by default for markerless semantics unless the caller passes a custom `role`.
 - Native list props remain available on the rendered host element:
   - plain `<List>` accepts `ul` props;
@@ -57,28 +57,28 @@ There is no dedicated Ark `List` primitive or component page. The wrapper should
 ## Anatomy and exported parts
 
 ```text
-List / List.Root
-└─ List.Item | li
+List
+└─ ListItem | li
 ```
 
 | Part                 | Stable hooks                                                     | Notes                                                                  |
 | -------------------- | ---------------------------------------------------------------- | ---------------------------------------------------------------------- |
-| `List` / `List.Root` | `data-scope="list"`, `data-part="root"`, `data-slot="list-root"` | Semantic list root with marker, spacing, size, and tone styling hooks. |
-| `List.Item`          | `data-scope="list"`, `data-part="item"`, `data-slot="list-item"` | Thin semantic item wrapper with optional `asChild` composition.        |
+| `List`     | `data-scope="list"`, `data-part="root"`, `data-slot="list-root"` | Semantic list root with marker, spacing, size, and tone styling hooks. |
+| `ListItem` | `data-scope="list"`, `data-part="item"`, `data-slot="list-item"` | Thin semantic item wrapper with optional `asChild` composition.        |
 
 ## Composition
 
 Canonical unordered usage:
 
 ```tsx
-import { List } from '@moduix/react/list';
+import { List, ListItem } from '@moduix/react/list';
 
 export function ListDemo() {
   return (
     <List>
-      <List.Item>Use semantic list markup for grouped content.</List.Item>
-      <List.Item>Keep spacing and typography on the library scale.</List.Item>
-      <List.Item>Style markers with CSS variables or native ::marker selectors.</List.Item>
+      <ListItem>Use semantic list markup for grouped content.</ListItem>
+      <ListItem>Keep spacing and typography on the library scale.</ListItem>
+      <ListItem>Style markers with CSS variables or native ::marker selectors.</ListItem>
     </List>
   );
 }
@@ -87,14 +87,14 @@ export function ListDemo() {
 Canonical ordered usage:
 
 ```tsx
-import { List } from '@moduix/react/list';
+import { List, ListItem } from '@moduix/react/list';
 
 export function OrderedListDemo() {
   return (
     <List as="ol" start={3}>
-      <List.Item>Prepare the release notes.</List.Item>
-      <List.Item>Publish the package.</List.Item>
-      <List.Item>Announce the release.</List.Item>
+      <ListItem>Prepare the release notes.</ListItem>
+      <ListItem>Publish the package.</ListItem>
+      <ListItem>Announce the release.</ListItem>
     </List>
   );
 }
@@ -125,7 +125,7 @@ export function OrderedListDemo() {
 
 ## Defaults and styling
 
-- `List` accepts `className` on the root and `List.Item` accepts `className` on the item.
+- `List` accepts `className` on the root and `ListItem` accepts `className` on the item.
 - Defaults:
   - root host: `ul`
   - `gap`: `sm`
@@ -143,8 +143,8 @@ export function OrderedListDemo() {
 ## Intentional sugar and differences from upstream
 
 - `List` is still a moduix-owned component because Ark UI does not ship a dedicated list primitive.
-- The moduix wrapper adds design-system props (`gap`, `size`, `tone`, `marker`), narrow `as="ul" | "ol"` host sugar, and a stable `List.Item` slot.
-- The Ark migration intentionally removed the flat `ListItem` export in favor of `List.Item`.
+- The moduix wrapper adds design-system props (`gap`, `size`, `tone`, `marker`), narrow `as="ul" | "ol"` host sugar, and a stable `ListItem` part.
+- The flat API keeps the root and item as separate `List` and `ListItem` exports.
 - The wrapper does not re-export list prop or token union aliases; consumers can infer them from
   `List` usage or declare local unions when needed.
 - Do not expand `as` beyond `ul` / `ol`; use `asChild` for custom semantic hosts.
@@ -174,5 +174,5 @@ export function OrderedListDemo() {
 - 2026-06-26: Finalized the Ark factory audit by simplifying marker resolution, locking the root
   and item data hooks after passthrough props, aligning public docs with the local-only API
   reference text, and adding the missing `@ark-ui/react` registry dependency.
-- 2026-06-19: Migrated `List` to an Ark-style factory wrapper, replaced `as="ol"` with `asChild`, removed the flat `ListItem` export in favor of `List.Item`, and rewrote the local contract around Ark composition/styling guides.
+- 2026-06-19: Migrated `List` to an Ark-style factory wrapper, replaced `as="ol"` with `asChild`, and rewrote the local contract around Ark composition/styling guides.
 - 2026-06-15: Restored ordered-list markers on the default `as="ol"` path after the global reset, documented `ListItem`, formalized public styling hooks and CSS variables, and recorded the markerless accessibility + ordered-list marker preservation notes.

@@ -1,4 +1,4 @@
-import { Menu } from '@moduix/react/menu';
+import { MenuItem } from '@moduix/react/menu';
 import { SplitButton } from '@moduix/react/split-button';
 
 export default function SplitButtonDisabledActionDemo() {
@@ -8,8 +8,8 @@ export default function SplitButtonDisabledActionDemo() {
       <SplitButton.Trigger aria-label="More save actions" />
       <SplitButton.Positioner>
         <SplitButton.Content>
-          <Menu.Item value="save-draft">Save as Draft</Menu.Item>
-          <Menu.Item value="duplicate">Duplicate</Menu.Item>
+          <MenuItem value="save-draft">Save as Draft</MenuItem>
+          <MenuItem value="duplicate">Duplicate</MenuItem>
         </SplitButton.Content>
       </SplitButton.Positioner>
     </SplitButton>

@@ -1,23 +1,23 @@
-import { List } from '@moduix/solid/list';
+import { List, ListItem } from '@moduix/solid/list';
 import styles from '@/components/examples/list/list-tone.module.css';
 
 export default function ListToneDemo() {
   return (
     <div class={styles.root}>
       <List tone="default">
-        <List.Item>Default list tone</List.Item>
+        <ListItem>Default list tone</ListItem>
       </List>
       <List tone="muted">
-        <List.Item>Muted list tone</List.Item>
+        <ListItem>Muted list tone</ListItem>
       </List>
       <List tone="subtle">
-        <List.Item>Subtle list tone</List.Item>
+        <ListItem>Subtle list tone</ListItem>
       </List>
       <List tone="primary">
-        <List.Item>Primary list tone</List.Item>
+        <ListItem>Primary list tone</ListItem>
       </List>
       <List tone="destructive">
-        <List.Item>Destructive list tone</List.Item>
+        <ListItem>Destructive list tone</ListItem>
       </List>
     </div>
   );

@@ -16,7 +16,7 @@ Ark UI has no dedicated Kbd primitive. This component follows the official
 
 The component uses `@ark-ui/react/factory` rather than a state machine:
 
-- `Kbd` and `Kbd.Root` are `ark.kbd` elements; `Kbd.Group` is an `ark.span` element;
+- `Kbd` is an `ark.kbd` element; `KbdGroup` is an `ark.span` element;
 - `HTMLArkProps` provides native props and `asChild` for the rendered element;
 - refs target the rendered host element;
 - `data-scope` and `data-part` describe the local anatomy.
@@ -27,8 +27,7 @@ because the component is static.
 ## Current behavior contract
 
 - `Kbd` is the root shorthand and renders a native `<kbd>` by default.
-- `Kbd.Root` exposes the same root part explicitly.
-- `Kbd.Group` renders an inline `<span>` wrapper for grouped shortcuts.
+- `KbdGroup` renders an inline `<span>` wrapper for grouped shortcuts.
 - Separators remain plain composition; the component does not inject text or extra elements.
 - Every part supports `className`, native attributes, `asChild`, and a forwarded ref.
 - Styling uses Ark anatomy attributes, stable `data-slot` hooks, and public `--moduix-kbd-*` variables.
@@ -36,27 +35,27 @@ because the component is static.
 ## Anatomy and exported parts
 
 ```text
-Kbd.Group
-├─ Kbd / Kbd.Root
+KbdGroup
+├─ Kbd
 ├─ separator text
-└─ Kbd / Kbd.Root
+└─ Kbd
 ```
 
 | Part               | Default element | Data attributes                                                                  |
 | ------------------ | --------------- | -------------------------------------------------------------------------------- |
-| `Kbd` / `Kbd.Root` | `kbd`           | `data-scope="kbd"`, `data-part="root"`, `data-slot="kbd-root"`                   |
-| `Kbd.Group`        | `span`          | `role="group"`, `data-scope="kbd"`, `data-part="group"`, `data-slot="kbd-group"` |
+| `Kbd`              | `kbd`           | `data-scope="kbd"`, `data-part="root"`, `data-slot="kbd-root"`                   |
+| `KbdGroup`         | `span`          | `role="group"`, `data-scope="kbd"`, `data-part="group"`, `data-slot="kbd-group"` |
 
 ## Composition
 
 ```tsx
-import { Kbd } from '@moduix/react/kbd';
+import { Kbd, KbdGroup } from '@moduix/react/kbd';
 
 export function ShortcutHint() {
   return (
-    <Kbd.Group aria-label="Command K">
+    <KbdGroup aria-label="Command K">
       <Kbd>Cmd</Kbd>+<Kbd>K</Kbd>
-    </Kbd.Group>
+    </KbdGroup>
   );
 }
 ```
@@ -85,7 +84,7 @@ State machines, callbacks, provider/context APIs, `ids`, `present`, `HiddenInput
 ## Accessibility and state
 
 - `<kbd>` preserves native semantics for user-input labels.
-- `Kbd.Group` renders a `<span role="group">` by default so a shortcut can have an accessible group name.
+- `KbdGroup` renders a `<span role="group">` by default so a shortcut can have an accessible group name.
 - Add `aria-label` to a group when abbreviations or symbols need a clearer spoken form.
 - `asChild` consumers must preserve `<kbd>` semantics and provide exactly one child.
 - The component has no focus, disabled, invalid, open/closed, or controlled/uncontrolled state.
@@ -122,12 +121,11 @@ Public CSS variables:
 
 ## Intentional sugar and differences from upstream
 
-- moduix defines the `Root` and `Group` anatomy because Ark UI has no Kbd primitive.
-- `Kbd` remains a root shorthand in addition to `Kbd.Root`.
+- moduix defines the `Kbd` and `KbdGroup` anatomy because Ark UI has no Kbd primitive.
 - moduix adds visual defaults, public CSS variables, and stable `data-slot` hooks.
 - The wrapper does not re-export aliases for native `kbd` props; use Ark `HTMLArkProps<'kbd'>`
   directly when a named local type is needed.
-- The removed `KbdGroup` export is not retained as an alias; use `Kbd.Group`.
+- `KbdGroup` is the named group export; no compound or compatibility alias is retained.
 
 ## Agent notes
 
@@ -137,13 +135,14 @@ Public CSS variables:
 
 ## Local changelog
 
-- 2026-08-11: Added the default `group` role to `Kbd.Group` so its documented `aria-label` is exposed to assistive technology, corrected the default-element contract, and covered `asChild` composition for both parts.
+- 2026-09-21: Replaced the compound `Kbd.*` value surface with the flat `Kbd` and `KbdGroup` exports across React, Solid, Tailwind, registries, stories, and docs.
+- 2026-08-11: Added the default `group` role to `KbdGroup` so its documented `aria-label` is exposed to assistive technology, corrected the default-element contract, and covered `asChild` composition for both parts.
 - 2026-07-21: Routed shared dimensions, spacing, icon geometry, and focus-ring fallbacks through foundation tokens so density and theme presets can retune the component consistently.
 - 2026-06-25: Reconfirmed the component as a moduix-owned Ark factory primitive, aligned the
   no-dedicated-Ark-primitive docs text, and simplified Kbd spacing defaults to existing spacing
   tokens.
 - 2026-07-03: Dropped redundant exported prop aliases and kept the public surface focused on the
-  explicit `Kbd` / `Kbd.Group` parts.
+  explicit `Kbd` / `KbdGroup` parts.
 - 2026-06-19: Migrated the component to Ark factory primitives, added `Root`/`Group` anatomy,
-  `asChild`, forwarded refs, Ark data attributes, and removed the standalone `KbdGroup` export.
+  `asChild`, forwarded refs, Ark data attributes, and removed the old standalone group export.
 - 2026-06-02: Documented the native Kbd behavior and public styling contract.

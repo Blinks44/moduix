@@ -4,7 +4,7 @@ import {
   CollapsibleIndicator,
   CollapsibleTrigger,
 } from '@moduix/react/collapsible';
-import { Menu } from '@moduix/react/menu';
+import { Menu, MenuTrigger, MenuPositioner, MenuContent, MenuViewport, MenuItem } from '@moduix/react/menu';
 import { Sidebar } from '@moduix/react/sidebar';
 import { FolderOpen } from 'lucide-react';
 import styles from '@/components/examples/sidebar/sidebar-nested-navigation.module.css';
@@ -45,23 +45,23 @@ export default function NestedNavigation() {
                 </Sidebar.ExpandedContent>
                 <Sidebar.CollapsedContent>
                   <Menu positioning={{ placement: 'right-start', gutter: 8 }}>
-                    <Menu.Trigger asChild>
+                    <MenuTrigger asChild>
                       <Sidebar.NavigationButton aria-label="Open projects" title="Projects">
                         <FolderOpen />
                       </Sidebar.NavigationButton>
-                    </Menu.Trigger>
-                    <Menu.Positioner>
-                      <Menu.Content>
-                        <Menu.Viewport>
-                          <Menu.Item asChild value="website">
+                    </MenuTrigger>
+                    <MenuPositioner>
+                      <MenuContent>
+                        <MenuViewport>
+                          <MenuItem asChild value="website">
                             <a href="/projects/website">Website</a>
-                          </Menu.Item>
-                          <Menu.Item asChild value="mobile-app">
+                          </MenuItem>
+                          <MenuItem asChild value="mobile-app">
                             <a href="/projects/mobile">Mobile app</a>
-                          </Menu.Item>
-                        </Menu.Viewport>
-                      </Menu.Content>
-                    </Menu.Positioner>
+                          </MenuItem>
+                        </MenuViewport>
+                      </MenuContent>
+                    </MenuPositioner>
                   </Menu>
                 </Sidebar.CollapsedContent>
               </Sidebar.NavigationItem>

@@ -31,7 +31,7 @@ type MenuRadioItemProps = ComponentProps<typeof MenuPrimitive.RadioItem> & {
 type MenuRootProps = ComponentProps<typeof MenuPrimitive.Root> & OverlayPortalProps;
 type MenuRootProviderProps = ComponentProps<typeof MenuPrimitive.RootProvider> & OverlayPortalProps;
 
-function MenuRoot(props: MenuRootProps) {
+function Menu(props: MenuRootProps) {
   const [local, others] = splitProps(props, [
     'children',
     'lazyMount',
@@ -385,35 +385,39 @@ function MenuItemShortcut(props: HTMLArkProps<'span'>) {
   );
 }
 
-const Menu = Object.assign(MenuRoot, {
-  Root: MenuRoot,
-  RootProvider: MenuRootProvider,
-  Context: MenuPrimitive.Context,
-  Trigger: MenuTrigger,
-  TriggerIcon: MenuTriggerIcon,
-  Indicator: MenuIndicator,
-  ContextTrigger: MenuContextTrigger,
-  Positioner: MenuPositioner,
-  Content: MenuContent,
-  Viewport: MenuViewport,
-  Arrow: MenuArrow,
-  ArrowTip: MenuArrowTip,
-  Item: MenuItem,
-  TriggerItem: MenuTriggerItem,
-  TriggerItemIcon: MenuTriggerItemIcon,
-  Separator: MenuSeparator,
-  ItemGroup: MenuItemGroup,
-  ItemGroupLabel: MenuItemGroupLabel,
-  RadioItemGroup: MenuRadioItemGroup,
-  RadioItem: MenuRadioItem,
-  CheckboxItem: MenuCheckboxItem,
-  ItemIndicator: MenuItemIndicator,
-  ItemText: MenuItemText,
-  ItemTextContent: MenuItemTextContent,
-  ItemTextIcon: MenuItemTextIcon,
-  ItemTextLabel: MenuItemTextLabel,
-  ItemShortcut: MenuItemShortcut,
-  ItemContext: MenuPrimitive.ItemContext,
-});
+const MenuContext = MenuPrimitive.Context;
+const MenuItemContext = MenuPrimitive.ItemContext;
 
-export { Menu, useMenu, useMenuContext, useMenuItemContext };
+export {
+  Menu,
+  MenuArrow,
+  MenuArrowTip,
+  MenuCheckboxItem,
+  MenuContext,
+  MenuContextTrigger,
+  MenuContent,
+  MenuIndicator,
+  MenuItem,
+  MenuItemContext,
+  MenuItemGroup,
+  MenuItemGroupLabel,
+  MenuItemIndicator,
+  MenuItemShortcut,
+  MenuItemText,
+  MenuItemTextContent,
+  MenuItemTextIcon,
+  MenuItemTextLabel,
+  MenuPositioner,
+  MenuRadioItem,
+  MenuRadioItemGroup,
+  MenuRootProvider,
+  MenuSeparator,
+  MenuTrigger,
+  MenuTriggerIcon,
+  MenuTriggerItem,
+  MenuTriggerItemIcon,
+  MenuViewport,
+  useMenu,
+  useMenuContext,
+  useMenuItemContext,
+};

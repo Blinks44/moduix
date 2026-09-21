@@ -1,33 +1,33 @@
 import { Button } from '@moduix/react/button';
-import { Menu } from '@moduix/react/menu';
+import { Menu, MenuTrigger, MenuPositioner, MenuContent, MenuViewport, MenuItem, MenuSeparator, MenuItemGroup, MenuItemGroupLabel, MenuItemShortcut } from '@moduix/react/menu';
 
 export default function AdvancedCustomizationMenuDemo() {
   return (
     <Menu positioning={{ placement: 'bottom-end', gutter: 12 }}>
-      <Menu.Trigger asChild>
+      <MenuTrigger asChild>
         <Button variant="outline">Project</Button>
-      </Menu.Trigger>
-      <Menu.Positioner>
-        <Menu.Content>
-          <Menu.Viewport>
-            <Menu.ItemGroup>
-              <Menu.ItemGroupLabel>Project</Menu.ItemGroupLabel>
-              <Menu.Item asChild value="overview">
+      </MenuTrigger>
+      <MenuPositioner>
+        <MenuContent>
+          <MenuViewport>
+            <MenuItemGroup>
+              <MenuItemGroupLabel>Project</MenuItemGroupLabel>
+              <MenuItem asChild value="overview">
                 <a href="#overview">Open overview</a>
-              </Menu.Item>
-              <Menu.Item value="duplicate">
+              </MenuItem>
+              <MenuItem value="duplicate">
                 <span>Duplicate project</span>
-                <Menu.ItemShortcut>⌘D</Menu.ItemShortcut>
-              </Menu.Item>
-              <Menu.Item value="settings">Project settings</Menu.Item>
-            </Menu.ItemGroup>
-            <Menu.Separator />
-            <Menu.Item value="archive" tone="destructive">
+                <MenuItemShortcut>⌘D</MenuItemShortcut>
+              </MenuItem>
+              <MenuItem value="settings">Project settings</MenuItem>
+            </MenuItemGroup>
+            <MenuSeparator />
+            <MenuItem value="archive" tone="destructive">
               Archive project
-            </Menu.Item>
-          </Menu.Viewport>
-        </Menu.Content>
-      </Menu.Positioner>
+            </MenuItem>
+          </MenuViewport>
+        </MenuContent>
+      </MenuPositioner>
     </Menu>
   );
 }

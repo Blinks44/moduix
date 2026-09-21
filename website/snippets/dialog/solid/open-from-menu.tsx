@@ -9,7 +9,7 @@ import {
   DialogPositioner,
   DialogTitle,
 } from '@moduix/solid/dialog';
-import { Menu } from '@moduix/solid/menu';
+import { Menu, MenuTrigger, MenuIndicator, MenuPositioner, MenuContent, MenuViewport, MenuItem } from '@moduix/solid/menu';
 import { createSignal } from 'solid-js';
 
 export default function OpenFromMenuDialogDemo() {
@@ -18,25 +18,25 @@ export default function OpenFromMenuDialogDemo() {
   return (
     <>
       <Menu onSelect={(details) => details.value === 'delete' && setOpen(true)}>
-        <Menu.Trigger
+        <MenuTrigger
           asChild={(props) => (
             <Button {...props()} variant="outline">
               Actions
-              <Menu.Indicator />
+              <MenuIndicator />
             </Button>
           )}
         />
-        <Menu.Positioner>
-          <Menu.Content>
-            <Menu.Viewport>
-              <Menu.Item value="edit">Edit</Menu.Item>
-              <Menu.Item value="duplicate">Duplicate</Menu.Item>
-              <Menu.Item value="delete" tone="destructive">
+        <MenuPositioner>
+          <MenuContent>
+            <MenuViewport>
+              <MenuItem value="edit">Edit</MenuItem>
+              <MenuItem value="duplicate">Duplicate</MenuItem>
+              <MenuItem value="delete" tone="destructive">
                 Delete...
-              </Menu.Item>
-            </Menu.Viewport>
-          </Menu.Content>
-        </Menu.Positioner>
+              </MenuItem>
+            </MenuViewport>
+          </MenuContent>
+        </MenuPositioner>
       </Menu>
 
       <Dialog open={open()} onOpenChange={(details) => setOpen(details.open)} role="alertdialog">

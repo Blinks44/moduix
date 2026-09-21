@@ -77,7 +77,7 @@ Use `asChild` when another element should own the DOM node:
 </Button>
 ```
 
-When an Ark part such as `DialogTrigger` or `Menu.Trigger` composes Button as its child, Button
+When an Ark part such as `DialogTrigger` or `MenuTrigger` composes Button as its child, Button
 preserves the parent part's `data-scope`, `data-part`, handlers, and merged ref on the shared DOM
 node while retaining its recipe classes and `data-slot`.
 

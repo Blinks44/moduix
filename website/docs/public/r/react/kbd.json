@@ -8,7 +8,7 @@
   "files": [
     {
       "path": "src/components/kbd/Kbd.tsx",
-      "content": "import type { HTMLArkProps } from '@ark-ui/react/factory';\nimport { ark } from '@ark-ui/react/factory';\nimport { clsx } from 'clsx';\nimport { forwardRef } from 'react';\nimport styles from './Kbd.module.css';\n\nconst KbdRoot = forwardRef<HTMLElement, HTMLArkProps<'kbd'>>(function KbdRoot(\n  { className, ...props },\n  ref,\n) {\n  return (\n    <ark.kbd\n      ref={ref}\n      {...props}\n      data-scope=\"kbd\"\n      data-part=\"root\"\n      className={clsx(styles.root, className)}\n      data-slot=\"kbd-root\"\n    />\n  );\n});\n\nconst KbdGroupPart = forwardRef<HTMLElement, HTMLArkProps<'span'>>(function KbdGroupPart(\n  { className, ...props },\n  ref,\n) {\n  return (\n    <ark.span\n      ref={ref}\n      {...props}\n      role=\"group\"\n      data-scope=\"kbd\"\n      data-part=\"group\"\n      className={clsx(styles.group, className)}\n      data-slot=\"kbd-group\"\n    />\n  );\n});\n\nconst Kbd = Object.assign(KbdRoot, {\n  Root: KbdRoot,\n  Group: KbdGroupPart,\n});\n\nexport { Kbd };",
+      "content": "import type { HTMLArkProps } from '@ark-ui/react/factory';\nimport { ark } from '@ark-ui/react/factory';\nimport { clsx } from 'clsx';\nimport { forwardRef } from 'react';\nimport styles from './Kbd.module.css';\n\nconst Kbd = forwardRef<HTMLElement, HTMLArkProps<'kbd'>>(function Kbd(\n  { className, ...props },\n  ref,\n) {\n  return (\n    <ark.kbd\n      ref={ref}\n      {...props}\n      data-scope=\"kbd\"\n      data-part=\"root\"\n      className={clsx(styles.root, className)}\n      data-slot=\"kbd-root\"\n    />\n  );\n});\n\nconst KbdGroup = forwardRef<HTMLElement, HTMLArkProps<'span'>>(function KbdGroup(\n  { className, ...props },\n  ref,\n) {\n  return (\n    <ark.span\n      ref={ref}\n      {...props}\n      role=\"group\"\n      data-scope=\"kbd\"\n      data-part=\"group\"\n      className={clsx(styles.group, className)}\n      data-slot=\"kbd-group\"\n    />\n  );\n});\n\nexport { Kbd, KbdGroup };\n",
       "type": "registry:component",
       "target": "@components/ui/kbd/Kbd.tsx"
     },
@@ -20,7 +20,7 @@
     },
     {
       "path": "src/components/kbd/index.ts",
-      "content": "export * from './Kbd.js';",
+      "content": "export { Kbd, KbdGroup } from './Kbd.js';\n",
       "type": "registry:component",
       "target": "@components/ui/kbd/index.ts"
     }

@@ -1,4 +1,4 @@
-import { Menu } from '@moduix/solid/menu';
+import { Menu, MenuTrigger, MenuPositioner, MenuContent, MenuViewport, MenuItem } from '@moduix/solid/menu';
 import { Sidebar } from '@moduix/solid/sidebar';
 import {
   FileSearch,
@@ -71,19 +71,19 @@ export default function RightSidebar() {
         </Sidebar.Content>
         <Sidebar.Footer>
           <Menu positioning={{ placement: 'right-end', gutter: 8, flip: false }}>
-            <Menu.Trigger asChild={(props) => <Sidebar.NavigationButton {...props()} />}>
+            <MenuTrigger asChild={(props) => <Sidebar.NavigationButton {...props()} />}>
               <Settings />
               <Sidebar.Label>Inspector settings</Sidebar.Label>
-            </Menu.Trigger>
-            <Menu.Positioner>
-              <Menu.Content>
-                <Menu.Viewport>
-                  <Menu.Item value="preferences">Preferences</Menu.Item>
-                  <Menu.Item value="shortcuts">Keyboard shortcuts</Menu.Item>
-                  <Menu.Item value="reset">Reset panels</Menu.Item>
-                </Menu.Viewport>
-              </Menu.Content>
-            </Menu.Positioner>
+            </MenuTrigger>
+            <MenuPositioner>
+              <MenuContent>
+                <MenuViewport>
+                  <MenuItem value="preferences">Preferences</MenuItem>
+                  <MenuItem value="shortcuts">Keyboard shortcuts</MenuItem>
+                  <MenuItem value="reset">Reset panels</MenuItem>
+                </MenuViewport>
+              </MenuContent>
+            </MenuPositioner>
           </Menu>
         </Sidebar.Footer>
       </Sidebar.Panel>

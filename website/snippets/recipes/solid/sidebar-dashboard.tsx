@@ -1,7 +1,7 @@
 import { Button } from '@moduix/solid/button';
 import { Card, CardBody } from '@moduix/solid/card';
 import { Collapsible } from '@moduix/solid/collapsible';
-import { Menu } from '@moduix/solid/menu';
+import { Menu, MenuTrigger, MenuIndicator, MenuPositioner, MenuContent, MenuViewport, MenuItem, MenuItemText, MenuItemTextContent, MenuItemTextIcon, MenuItemTextLabel } from '@moduix/solid/menu';
 import { Sidebar } from '@moduix/solid/sidebar';
 import { ChevronsUpDown, FileText, FolderOpen, Gauge, Settings, Users } from 'lucide-solid';
 import styles from './sidebar-dashboard.module.css';
@@ -132,7 +132,7 @@ export function SidebarDashboard() {
           <Sidebar.NavigationList>
             <Sidebar.NavigationItem>
               <Menu positioning={{ placement: 'right-end', gutter: 8, flip: false }}>
-                <Menu.Trigger
+                <MenuTrigger
                   asChild={(props) => (
                     <Sidebar.NavigationButton
                       {...props()}
@@ -146,36 +146,36 @@ export function SidebarDashboard() {
                     AC
                   </span>
                   <Sidebar.Label>Acme Inc.</Sidebar.Label>
-                  <Menu.Indicator>
+                  <MenuIndicator>
                     <ChevronsUpDown />
-                  </Menu.Indicator>
-                </Menu.Trigger>
-                <Menu.Positioner>
-                  <Menu.Content class={styles.workspaceMenu}>
-                    <Menu.Viewport>
-                      <Menu.Item value="workspace-settings">
-                        <Menu.ItemText>
-                          <Menu.ItemTextContent>
-                            <Menu.ItemTextIcon>
+                  </MenuIndicator>
+                </MenuTrigger>
+                <MenuPositioner>
+                  <MenuContent class={styles.workspaceMenu}>
+                    <MenuViewport>
+                      <MenuItem value="workspace-settings">
+                        <MenuItemText>
+                          <MenuItemTextContent>
+                            <MenuItemTextIcon>
                               <Settings />
-                            </Menu.ItemTextIcon>
-                            <Menu.ItemTextLabel>Workspace settings</Menu.ItemTextLabel>
-                          </Menu.ItemTextContent>
-                        </Menu.ItemText>
-                      </Menu.Item>
-                      <Menu.Item value="manage-members">
-                        <Menu.ItemText>
-                          <Menu.ItemTextContent>
-                            <Menu.ItemTextIcon>
+                            </MenuItemTextIcon>
+                            <MenuItemTextLabel>Workspace settings</MenuItemTextLabel>
+                          </MenuItemTextContent>
+                        </MenuItemText>
+                      </MenuItem>
+                      <MenuItem value="manage-members">
+                        <MenuItemText>
+                          <MenuItemTextContent>
+                            <MenuItemTextIcon>
                               <Users />
-                            </Menu.ItemTextIcon>
-                            <Menu.ItemTextLabel>Manage members</Menu.ItemTextLabel>
-                          </Menu.ItemTextContent>
-                        </Menu.ItemText>
-                      </Menu.Item>
-                    </Menu.Viewport>
-                  </Menu.Content>
-                </Menu.Positioner>
+                            </MenuItemTextIcon>
+                            <MenuItemTextLabel>Manage members</MenuItemTextLabel>
+                          </MenuItemTextContent>
+                        </MenuItemText>
+                      </MenuItem>
+                    </MenuViewport>
+                  </MenuContent>
+                </MenuPositioner>
               </Menu>
             </Sidebar.NavigationItem>
           </Sidebar.NavigationList>

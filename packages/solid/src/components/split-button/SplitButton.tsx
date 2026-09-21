@@ -5,7 +5,7 @@ import { children, createContext, splitProps, useContext } from 'solid-js';
 import { ChevronDownIcon } from '@/lib/moduix/icons/ui/Icons';
 import { OverlayPortal } from '@/lib/moduix/overlayPortal';
 import { Button } from '../button';
-import { Menu } from '../menu';
+import { Menu, MenuViewport } from '../menu';
 import menuStyles from '../menu/Menu.module.css';
 import styles from './SplitButton.module.css';
 
@@ -18,7 +18,7 @@ type SplitButtonContextValue = {
   variant: Accessor<SplitButtonVariant>;
 };
 
-type SplitButtonRootProps = Omit<ComponentProps<typeof Menu.Root>, 'children'> & {
+type SplitButtonRootProps = Omit<ComponentProps<typeof Menu>, 'children'> & {
   'aria-label'?: string;
   'aria-labelledby'?: string;
   children?: JSX.Element;
@@ -78,7 +78,7 @@ function SplitButtonRoot(props: SplitButtonRootProps) {
         variant: () => local.variant ?? 'default',
       }}
     >
-      <Menu.Root
+      <Menu
         onSelect={local.onSelect}
         positioning={{ placement: 'bottom-end', gutter: 4, ...local.positioning }}
         {...others}
@@ -95,7 +95,7 @@ function SplitButtonRoot(props: SplitButtonRootProps) {
         >
           {local.children}
         </div>
-      </Menu.Root>
+      </Menu>
     </SplitButtonContext.Provider>
   );
 }
@@ -177,7 +177,7 @@ function SplitButtonContent(props: SplitButtonContentProps) {
       data-slot="split-button-content"
       class={clsx(menuStyles.content, local.class)}
     >
-      {local.asChild ? local.children : <Menu.Viewport>{local.children}</Menu.Viewport>}
+      {local.asChild ? local.children : <MenuViewport>{local.children}</MenuViewport>}
     </MenuPrimitive.Content>
   );
 }

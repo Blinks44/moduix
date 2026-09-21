@@ -1,4 +1,10 @@
-import { Marquee } from '@moduix/react/marquee';
+import {
+  Marquee,
+  MarqueeContent,
+  MarqueeEdge,
+  MarqueeItem,
+  MarqueeViewport,
+} from '@moduix/react/marquee';
 import styles from '@/components/examples/marquee/marquee-edges.module.css';
 
 const partners = [
@@ -31,18 +37,18 @@ const partners = [
 export default function EdgesMarqueeDemo() {
   return (
     <Marquee aria-label="Partner logos" className={styles.root}>
-      <Marquee.Edge side="start" />
-      <Marquee.Viewport>
-        <Marquee.Content>
+      <MarqueeEdge side="start" />
+      <MarqueeViewport>
+        <MarqueeContent>
           {partners.map((item) => (
-            <Marquee.Item key={item.name} className={styles.item}>
+            <MarqueeItem key={item.name} className={styles.item}>
               <span>{item.mark}</span>
               <span>{item.name}</span>
-            </Marquee.Item>
+            </MarqueeItem>
           ))}
-        </Marquee.Content>
-      </Marquee.Viewport>
-      <Marquee.Edge side="end" />
+        </MarqueeContent>
+      </MarqueeViewport>
+      <MarqueeEdge side="end" />
     </Marquee>
   );
 }

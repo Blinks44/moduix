@@ -1,24 +1,24 @@
-import { Menu } from '@moduix/react/menu';
+import { Menu, MenuContextTrigger, MenuPositioner, MenuContent, MenuViewport, MenuItem } from '@moduix/react/menu';
 import styles from '@/components/examples/menu/menu-lazy-mounted-context-menu.module.css';
 
 export default function ContextLazyMountMenuDemo() {
   return (
     <Menu lazyMount unmountOnExit>
-      <Menu.ContextTrigger className={styles.contextTrigger}>
+      <MenuContextTrigger className={styles.contextTrigger}>
         Right click lazy mounted content
-      </Menu.ContextTrigger>
-      <Menu.Positioner>
-        <Menu.Content className={styles.content}>
-          <Menu.Viewport>
-            <Menu.Item value="cut">Cut</Menu.Item>
-            <Menu.Item value="copy">Copy</Menu.Item>
-            <Menu.Item value="paste">Paste</Menu.Item>
-            <Menu.Item value="delete" tone="destructive">
+      </MenuContextTrigger>
+      <MenuPositioner>
+        <MenuContent className={styles.content}>
+          <MenuViewport>
+            <MenuItem value="cut">Cut</MenuItem>
+            <MenuItem value="copy">Copy</MenuItem>
+            <MenuItem value="paste">Paste</MenuItem>
+            <MenuItem value="delete" tone="destructive">
               Delete
-            </Menu.Item>
-          </Menu.Viewport>
-        </Menu.Content>
-      </Menu.Positioner>
+            </MenuItem>
+          </MenuViewport>
+        </MenuContent>
+      </MenuPositioner>
     </Menu>
   );
 }

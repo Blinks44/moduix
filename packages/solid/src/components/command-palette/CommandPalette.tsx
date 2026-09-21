@@ -537,11 +537,11 @@ function CommandPaletteFooter(props: HTMLArkProps<'div'>) {
   );
 }
 
-function CommandPaletteKbd(props: ComponentProps<typeof Kbd.Root>) {
+function CommandPaletteKbd(props: ComponentProps<typeof Kbd>) {
   const [local, others] = splitProps(props, ['class']);
 
   return (
-    <Kbd.Root class={clsx(styles.kbd, local.class)} {...others} data-slot="command-palette-kbd" />
+    <Kbd class={clsx(styles.kbd, local.class)} {...others} data-slot="command-palette-kbd" />
   );
 }
 

@@ -5,7 +5,7 @@ import {
   CollapsibleIndicator,
   CollapsibleTrigger,
 } from '@moduix/solid/collapsible';
-import { Menu } from '@moduix/solid/menu';
+import { Menu, MenuTrigger, MenuIndicator, MenuPositioner, MenuContent, MenuViewport, MenuItem, MenuSeparator, MenuItemText } from '@moduix/solid/menu';
 import { Sidebar } from '@moduix/solid/sidebar';
 import { ChevronsUpDown, FileText, FolderOpen, Gauge, LogOut, Plus, Users } from 'lucide-solid';
 import styles from '@/components/examples/sidebar/sidebar-nested-navigation-and-account-menu.module.css';
@@ -89,7 +89,7 @@ export default function AppSidebar() {
                 </Sidebar.ExpandedContent>
                 <Sidebar.CollapsedContent>
                   <Menu positioning={{ placement: 'right-start', gutter: 8 }}>
-                    <Menu.Trigger
+                    <MenuTrigger
                       asChild={(props) => (
                         <Sidebar.NavigationButton
                           {...props()}
@@ -99,25 +99,25 @@ export default function AppSidebar() {
                       )}
                     >
                       <FolderOpen />
-                    </Menu.Trigger>
-                    <Menu.Positioner>
-                      <Menu.Content>
-                        <Menu.Viewport>
-                          <Menu.Item
+                    </MenuTrigger>
+                    <MenuPositioner>
+                      <MenuContent>
+                        <MenuViewport>
+                          <MenuItem
                             value="website"
                             asChild={(props) => <a {...props()} href="/projects/website" />}
                           >
                             Website
-                          </Menu.Item>
-                          <Menu.Item
+                          </MenuItem>
+                          <MenuItem
                             value="mobile-app"
                             asChild={(props) => <a {...props()} href="/projects/mobile" />}
                           >
                             Mobile app
-                          </Menu.Item>
-                        </Menu.Viewport>
-                      </Menu.Content>
-                    </Menu.Positioner>
+                          </MenuItem>
+                        </MenuViewport>
+                      </MenuContent>
+                    </MenuPositioner>
                   </Menu>
                 </Sidebar.CollapsedContent>
               </Sidebar.NavigationItem>
@@ -159,7 +159,7 @@ export default function AppSidebar() {
           <Sidebar.NavigationList>
             <Sidebar.NavigationItem>
               <Menu positioning={{ placement: 'right-end', gutter: 8, flip: false }}>
-                <Menu.Trigger
+                <MenuTrigger
                   asChild={(props) => (
                     <Sidebar.NavigationButton
                       {...props()}
@@ -177,29 +177,29 @@ export default function AppSidebar() {
                     <strong class={styles.accountName}>Alex Morgan</strong>
                     <span class={styles.accountEmail}>alex@acme.dev</span>
                   </Sidebar.Label>
-                  <Menu.Indicator>
+                  <MenuIndicator>
                     <ChevronsUpDown />
-                  </Menu.Indicator>
-                </Menu.Trigger>
-                <Menu.Positioner>
-                  <Menu.Content class={styles.menuContent}>
-                    <Menu.Viewport>
-                      <Menu.Item value="profile">
-                        <Menu.ItemText>Profile</Menu.ItemText>
-                      </Menu.Item>
-                      <Menu.Item value="settings">
-                        <Menu.ItemText>Settings</Menu.ItemText>
-                      </Menu.Item>
-                      <Menu.Separator />
-                      <Menu.Item value="sign-out" tone="destructive">
-                        <Menu.ItemText>
+                  </MenuIndicator>
+                </MenuTrigger>
+                <MenuPositioner>
+                  <MenuContent class={styles.menuContent}>
+                    <MenuViewport>
+                      <MenuItem value="profile">
+                        <MenuItemText>Profile</MenuItemText>
+                      </MenuItem>
+                      <MenuItem value="settings">
+                        <MenuItemText>Settings</MenuItemText>
+                      </MenuItem>
+                      <MenuSeparator />
+                      <MenuItem value="sign-out" tone="destructive">
+                        <MenuItemText>
                           <LogOut />
                           Sign out
-                        </Menu.ItemText>
-                      </Menu.Item>
-                    </Menu.Viewport>
-                  </Menu.Content>
-                </Menu.Positioner>
+                        </MenuItemText>
+                      </MenuItem>
+                    </MenuViewport>
+                  </MenuContent>
+                </MenuPositioner>
               </Menu>
             </Sidebar.NavigationItem>
           </Sidebar.NavigationList>

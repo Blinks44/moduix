@@ -33,7 +33,7 @@ import marqueeSolidVertical from '../../../snippets/marquee/solid/vertical.tsx?r
 ## Exemple de base
 
 
-Utilisez la forme courte `Marquee` comme racine, puis composez explicitement `Viewport`, `Content` et `Item` à
+Utilisez la forme courte `Marquee` comme racine, puis composez explicitement `MarqueeViewport`, `MarqueeContent` et `MarqueeItem` à
 l’intérieur. Si le contenu défilant transmet une information, ajoutez un libellé avec `aria-label` ou
 `translations.root`. `Marquee` fournit le comportement et les styles d’animation nécessaires, mais ne définit ni le style
 des éléments ni celui du cadre. Dans l’exemple, le style des éléments et la largeur de la racine sont définis séparément.
@@ -103,36 +103,36 @@ Consultez le [Démarrage rapide](/docs/quick-start) pour la configuration compl�
 ## Anatomie
 
 ```text
-Marquee / Marquee.Root
-├─ Marquee.Edge (facultatif)
-├─ Marquee.Viewport
-│  └─ Marquee.Content
-│     └─ Marquee.Item
-└─ Marquee.Edge (facultatif)
+Marquee
+├─ MarqueeEdge (facultatif)
+├─ MarqueeViewport
+│  └─ MarqueeContent
+│     └─ MarqueeItem
+└─ MarqueeEdge (facultatif)
 
-Marquee.RootProvider
+MarqueeRootProvider
 └─ même arbre de parties, relié à l’état créé par useMarquee() de moduix
 ```
 
 | Partie                       | Rôle                                                                                              |
 | ---------------------------- | ------------------------------------------------------------------------------------------------- |
-| `Marquee` / `Marquee.Root`   | État du composant, libellés, identifiants, orientation, état de pause et variables CSS.            |
-| `Marquee.RootProvider`       | Rend l’arbre du composant à partir de l’état renvoyé par `useMarquee()`.                           |
-| `Marquee.Viewport`           | Zone d’affichage qui masque ce qui dépasse du contenu défilant.                                   |
-| `Marquee.Content`            | Conteneur du contenu animé. Ark le duplique si nécessaire.                                         |
-| `Marquee.Item`               | Élément individuel du contenu.                                                                    |
-| `Marquee.Edge`               | Dégradé facultatif qui fait disparaître le contenu au bord. `side` en choisit le côté.           |
-| `Marquee.Context`            | Accès avancé au contexte du composant `Marquee` qui l’englobe.                                   |
+| `Marquee` / `Marquee`   | État du composant, libellés, identifiants, orientation, état de pause et variables CSS.            |
+| `MarqueeRootProvider`       | Rend l’arbre du composant à partir de l’état renvoyé par `useMarquee()`.                           |
+| `MarqueeViewport`           | Zone d’affichage qui masque ce qui dépasse du contenu défilant.                                   |
+| `MarqueeContent`            | Conteneur du contenu animé. Ark le duplique si nécessaire.                                         |
+| `MarqueeItem`               | Élément individuel du contenu.                                                                    |
+| `MarqueeEdge`               | Dégradé facultatif qui fait disparaître le contenu au bord. `side` en choisit le côté.           |
+| `MarqueeContext`            | Accès avancé au contexte du composant `Marquee` qui l’englobe.                                   |
 
 ## Composition
 
-Utilisez `Marquee` avec les parties explicites `Viewport`, `Content` et `Item`. Ajoutez `Marquee.Edge` dans la même
+Utilisez `Marquee` avec les parties explicites `MarqueeViewport`, `MarqueeContent` et `MarqueeItem`. Ajoutez `MarqueeEdge` dans la même
 racine lorsque le contenu doit se fondre dans l’arrière-plan de la page ; chaque bordure doit recevoir un `side`.
 
 Utilisez `defaultPaused` pour définir l’état initial sans contrôle externe. Si une autre partie de l’application gère
 la lecture, utilisez `paused` avec `onPauseChange(details)`. Pour des commandes situées en dehors de l’arbre, créez
-l’état avec `useMarquee()` et transmettez-le à `Marquee.RootProvider` ; ne rendez pas `Marquee` et `RootProvider` pour
-le même état. Les commandes placées dans l’arbre peuvent lire l’API courante avec `Marquee.Context` ou
+l’état avec `useMarquee()` et transmettez-le à `MarqueeRootProvider` ; ne rendez pas `Marquee` et `MarqueeRootProvider` pour
+le même état. Les commandes placées dans l’arbre peuvent lire l’API courante avec `MarqueeContext` ou
 `useMarqueeContext()`.
 
 ## Exemples
@@ -179,7 +179,7 @@ les copies du contenu.
 
 ### Fondu sur les bords
 
-Ajoutez `Marquee.Edge` sur les côtés où le contenu doit se fondre dans l’arrière-plan de la page. Cette partie est
+Ajoutez `MarqueeEdge` sur les côtés où le contenu doit se fondre dans l’arrière-plan de la page. Cette partie est
 décorative et n’intercepte pas les événements de pointeur.
 
 <ExampleFrame variant="component">
@@ -304,7 +304,7 @@ jamais d’informations critiques uniquement dans un marquee.
 
 ### Root Provider
 
-Utilisez `useMarquee()` de moduix avec `Marquee.RootProvider` lorsque des commandes externes doivent mettre le
+Utilisez `useMarquee()` de moduix avec `MarqueeRootProvider` lorsque des commandes externes doivent mettre le
 défilement en pause, le reprendre ou le relancer.
 
 <ExampleFrame variant="component">

@@ -10,7 +10,7 @@ import {
   CollapsibleIndicator,
   CollapsibleTrigger,
 } from '@/components/collapsible/Collapsible';
-import { Menu } from '@/components/menu/Menu';
+import { Menu, MenuTrigger, MenuIndicator, MenuPositioner, MenuContent, MenuViewport, MenuItem, MenuSeparator, MenuItemGroup, MenuItemGroupLabel, MenuItemText, MenuItemTextContent, MenuItemTextIcon, MenuItemTextLabel } from '@/components/menu/Menu';
 import { ScrollArea } from '@/components/scroll-area/ScrollArea';
 import { Select } from '@/components/select/Select';
 import { Sidebar, useSidebar } from '@/components/sidebar/Sidebar';
@@ -112,7 +112,7 @@ function WorkspaceSelect() {
 function AccountMenu() {
   return (
     <Menu positioning={{ placement: 'right-end', gutter: 8, flip: false }}>
-      <Menu.Trigger
+      <MenuTrigger
         asChild={(props) => (
           <Sidebar.NavigationButton
             {...props()}
@@ -128,52 +128,52 @@ function AccountMenu() {
               <strong>Alex Morgan</strong>
               <span>alex@acme.dev</span>
             </Sidebar.Label>
-            <Menu.Indicator>
+            <MenuIndicator>
               <ChevronUpDownIcon />
-            </Menu.Indicator>
+            </MenuIndicator>
           </Sidebar.NavigationButton>
         )}
       />
-      <Menu.Positioner>
-        <Menu.Content class={styles.accountMenu}>
-          <Menu.Viewport>
-            <Menu.ItemGroup>
-              <Menu.ItemGroupLabel>Acme Inc.</Menu.ItemGroupLabel>
-              <Menu.Item value="profile">
-                <Menu.ItemText>
-                  <Menu.ItemTextContent>
-                    <Menu.ItemTextIcon>
+      <MenuPositioner>
+        <MenuContent class={styles.accountMenu}>
+          <MenuViewport>
+            <MenuItemGroup>
+              <MenuItemGroupLabel>Acme Inc.</MenuItemGroupLabel>
+              <MenuItem value="profile">
+                <MenuItemText>
+                  <MenuItemTextContent>
+                    <MenuItemTextIcon>
                       <PencilIcon />
-                    </Menu.ItemTextIcon>
-                    <Menu.ItemTextLabel>Profile</Menu.ItemTextLabel>
-                  </Menu.ItemTextContent>
-                </Menu.ItemText>
-              </Menu.Item>
-              <Menu.Item value="settings">
-                <Menu.ItemText>
-                  <Menu.ItemTextContent>
-                    <Menu.ItemTextIcon>
+                    </MenuItemTextIcon>
+                    <MenuItemTextLabel>Profile</MenuItemTextLabel>
+                  </MenuItemTextContent>
+                </MenuItemText>
+              </MenuItem>
+              <MenuItem value="settings">
+                <MenuItemText>
+                  <MenuItemTextContent>
+                    <MenuItemTextIcon>
                       <RestartIcon />
-                    </Menu.ItemTextIcon>
-                    <Menu.ItemTextLabel>Settings</Menu.ItemTextLabel>
-                  </Menu.ItemTextContent>
-                </Menu.ItemText>
-              </Menu.Item>
-            </Menu.ItemGroup>
-            <Menu.Separator />
-            <Menu.Item value="sign-out" tone="destructive">
-              <Menu.ItemText>
-                <Menu.ItemTextContent>
-                  <Menu.ItemTextIcon>
+                    </MenuItemTextIcon>
+                    <MenuItemTextLabel>Settings</MenuItemTextLabel>
+                  </MenuItemTextContent>
+                </MenuItemText>
+              </MenuItem>
+            </MenuItemGroup>
+            <MenuSeparator />
+            <MenuItem value="sign-out" tone="destructive">
+              <MenuItemText>
+                <MenuItemTextContent>
+                  <MenuItemTextIcon>
                     <TrashIcon />
-                  </Menu.ItemTextIcon>
-                  <Menu.ItemTextLabel>Sign out</Menu.ItemTextLabel>
-                </Menu.ItemTextContent>
-              </Menu.ItemText>
-            </Menu.Item>
-          </Menu.Viewport>
-        </Menu.Content>
-      </Menu.Positioner>
+                  </MenuItemTextIcon>
+                  <MenuItemTextLabel>Sign out</MenuItemTextLabel>
+                </MenuItemTextContent>
+              </MenuItemText>
+            </MenuItem>
+          </MenuViewport>
+        </MenuContent>
+      </MenuPositioner>
     </Menu>
   );
 }
@@ -255,7 +255,7 @@ function SidebarNavigation() {
               </Sidebar.ExpandedContent>
               <Sidebar.CollapsedContent>
                 <Menu positioning={{ placement: 'right-start', gutter: 8, flip: false }}>
-                  <Menu.Trigger
+                  <MenuTrigger
                     asChild={(props) => (
                       <Sidebar.NavigationButton
                         {...props()}
@@ -266,10 +266,10 @@ function SidebarNavigation() {
                       </Sidebar.NavigationButton>
                     )}
                   />
-                  <Menu.Positioner>
-                    <Menu.Content>
-                      <Menu.Viewport>
-                        <Menu.Item
+                  <MenuPositioner>
+                    <MenuContent>
+                      <MenuViewport>
+                        <MenuItem
                           value="website"
                           asChild={(props) => (
                             <a {...props()} href="#website">
@@ -277,7 +277,7 @@ function SidebarNavigation() {
                             </a>
                           )}
                         />
-                        <Menu.Item
+                        <MenuItem
                           value="mobile"
                           asChild={(props) => (
                             <a {...props()} href="#mobile">
@@ -285,9 +285,9 @@ function SidebarNavigation() {
                             </a>
                           )}
                         />
-                      </Menu.Viewport>
-                    </Menu.Content>
-                  </Menu.Positioner>
+                      </MenuViewport>
+                    </MenuContent>
+                  </MenuPositioner>
                 </Menu>
               </Sidebar.CollapsedContent>
             </Sidebar.NavigationItem>

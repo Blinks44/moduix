@@ -582,11 +582,11 @@ function CommandPaletteFooter(props: HTMLArkProps<'div'>) {
   );
 }
 
-function CommandPaletteKbd(props: ComponentProps<typeof Kbd.Root>) {
+function CommandPaletteKbd(props: ComponentProps<typeof Kbd>) {
   const [local, others] = splitProps(props, ['class']);
 
   return (
-    <Kbd.Root
+    <Kbd
       class={cn(
         'min-h-5 min-w-5 rounded-sm px-1 text-xs leading-4 text-muted-foreground',
         local.class,

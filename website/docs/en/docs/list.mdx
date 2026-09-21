@@ -39,7 +39,7 @@ If users need to navigate with the keyboard and select one or more options, use 
 ## Basic
 
 
-`List` renders a semantic `<ul>` by default. Use `List.Item` when you need the stable item part and its
+`List` renders a semantic `<ul>` by default. Use `ListItem` when you need the stable item part and its
 styling hooks, or use native `<li>` children when you do not need the wrapper. The root controls spacing,
 typography, tone, and markers. Leave `marker` unset for semantic defaults, or set it to `disc`, `decimal`, or
 `none` explicitly.
@@ -103,19 +103,19 @@ See [Quick Start](/docs/quick-start) for full package setup, registry configurat
 ## Anatomy
 
 ```text
-List / List.Root
-└─ List.Item | li
+List
+└─ ListItem | li
 ```
 
 | Part                 | Role                                                                                              |
 | -------------------- | ------------------------------------------------------------------------------------------------- |
-| `List` / `List.Root` | Semantic list root that renders `ul` or `ol` and controls markers, spacing, size, and tone.      |
-| `List.Item`          | Optional item part that renders `li`, forwards native attributes and refs, and supports `asChild`. |
+| `List`     | Semantic list root that renders `ul` or `ol` and controls markers, spacing, size, and tone.      |
+| `ListItem` | Optional item part that renders `li`, forwards native attributes and refs, and supports `asChild`. |
 
 ## Composition
 
-Use `List` or `List.Root` for the root. Its direct children should be `List.Item` or native `li` elements,
-because root spacing and marker styling target direct list items. Use `List.Item` when you need its stable
+Use `List` for the root. Its direct children should be `ListItem` or native `li` elements,
+because root spacing and marker styling target direct list items. Use `ListItem` when you need its stable
 slot, `className`/`class`, or `asChild`; native `li` is enough otherwise. Use `asChild` only when an application
 component owns one semantic `ul`, `ol`, or `li` and forwards the received props and ref. In Solid, pass the
 render function form of `asChild`. `List` has no state machine or callbacks, so keyboard selection belongs to
@@ -193,7 +193,7 @@ in this mode unless you provide another `role`.
 
 ### Native Items
 
-Use native `li` elements when you do not need the exported `List.Item` part.
+Use native `li` elements when you do not need the exported `ListItem` part.
 
 <ExampleFrame variant="component">
   <ListNativeItems />
@@ -298,8 +298,8 @@ Use `tone` to apply a semantic text and marker color to the list.
 
 ### Advanced Customization
 
-Use `List.Item asChild` when a custom component must render the `<li>` itself. It must forward the received
-props and ref and preserve the semantic `<li>` element. In other cases, use `List.Item className` or `class` directly.
+Use `ListItem asChild` when a custom component must render the `<li>` itself. It must forward the received
+props and ref and preserve the semantic `<li>` element. In other cases, use `ListItem className` or `class` directly.
 
 <ExampleFrame variant="component">
   <ListCustomComposition />
