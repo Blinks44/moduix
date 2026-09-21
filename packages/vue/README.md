@@ -3,8 +3,10 @@
 Private development package for the Vue implementation of the moduix component system, built on
 [Ark UI](https://ark-ui.com/) primitives and styled with CSS Modules.
 
-The package mirrors the public contract of `@moduix/solid`: the same component subpaths, named
-parts, and Ark-shaped composition, translated to native Vue components. It is under active
+The package mirrors the public contract of `@moduix/solid`: the same component subpaths, flat named
+parts, and Ark-shaped composition, translated to native Vue components. The family name is the root
+and every other value uses the family prefix, such as `Accordion`, `AccordionItem`, and
+`AccordionRootProvider`. It is under active
 development; packages are promoted to a public release once the component set reaches parity with
 the shipped React and Solid adapters.
 

@@ -51,20 +51,27 @@ In a monorepo, point `@source` at the installed package or at `packages/react-ta
 ## Use Accordion
 
 ```tsx
-import { Accordion } from '@moduix/react-tailwind/accordion';
+import {
+  Accordion,
+  AccordionItem,
+  AccordionItemBody,
+  AccordionItemContent,
+  AccordionItemIndicator,
+  AccordionItemTrigger,
+} from '@moduix/react-tailwind/accordion';
 
 export function Example() {
   return (
     <Accordion defaultValue={['first']}>
-      <Accordion.Item value="first">
-        <Accordion.ItemTrigger>
+      <AccordionItem value="first">
+        <AccordionItemTrigger>
           First item
-          <Accordion.ItemIndicator />
-        </Accordion.ItemTrigger>
-        <Accordion.ItemContent>
-          <Accordion.ItemBody>First content</Accordion.ItemBody>
-        </Accordion.ItemContent>
-      </Accordion.Item>
+          <AccordionItemIndicator />
+        </AccordionItemTrigger>
+        <AccordionItemContent>
+          <AccordionItemBody>First content</AccordionItemBody>
+        </AccordionItemContent>
+      </AccordionItem>
     </Accordion>
   );
 }

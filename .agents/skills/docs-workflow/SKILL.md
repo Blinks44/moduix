@@ -27,6 +27,9 @@ or component-index pages, read [the framework-support contract](references/frame
   implemented and exported by the staged adapter. Remove stale props, examples, styling hooks, and
   guidance in the same task.
 - Keep package implementation, public docs, snippets, registry guidance, and supported imports aligned. Teach the recommended path before lower-level composition.
+- Use the shared flat public value API in every component page and snippet. Import the family-named
+  root, family-prefixed parts, and top-level hooks directly from the component subpath. Do not show
+  `Component.Part`, `Component.Root`, namespace imports, or duplicate `<Family>Root` aliases.
 - Use public imports from the shipped or explicitly staged package the example documents. Current
   shipped package roots are `@moduix/react`, `@moduix/solid`, `@moduix/react-tailwind`, and
   `@moduix/solid-tailwind`. The staged Vue roots are `@moduix/vue` and `@moduix/vue-tailwind` and may
@@ -69,7 +72,8 @@ For a new, migrated, or substantially restructured component page, read [the com
 When adding a framework adapter to an existing component page, treat the work as a component-page
 migration: keep the existing example coverage, add native source for the new framework to every
 applicable example, simplify the explanatory structure, and update every locale. Use Accordion as
-the current page reference; use Quick Start only for shared installation and framework-selection guidance.
+the current structural reference, not as authority for legacy dotted API spelling; use Quick Start
+only for shared installation and framework-selection guidance.
 
 ## Runnable previews
 

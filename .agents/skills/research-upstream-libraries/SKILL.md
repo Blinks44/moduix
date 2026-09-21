@@ -29,6 +29,8 @@ and keep local contracts aligned with the versions in use.
 - Resolve disagreements in that order: preserve Ark behavior, prefer Chakra-like ergonomics where they remain Ark-shaped,
   then use shadcn only to identify migration friction or a small convenience opportunity.
 - Do not copy shadcn aliases, event translations, wrapper anatomy, or state management only to make the API familiar.
+- Treat upstream namespace syntax as evidence for anatomy only. Translate public moduix values into
+  the repository's flat family-prefixed naming contract instead of copying `Component.Part`.
 - If no matching shadcn component exists, continue from Ark, Chakra, and established moduix patterns.
 - Do not rely on local snapshots.
 - If an upstream source is unavailable, stop and report it instead of guessing.

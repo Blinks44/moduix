@@ -2,8 +2,10 @@
 
 Private development package for the Tailwind CSS implementation of the moduix Vue component system,
 built on [Ark UI](https://ark-ui.com/) primitives. The package mirrors the public contract of
-`@moduix/solid-tailwind`: the same component subpaths and Ark-shaped contracts, translated to
-native Vue components with Tailwind CSS v4 utility styling.
+`@moduix/solid-tailwind`: the same component subpaths, flat family-prefixed values, and Ark-shaped
+contracts, translated to native Vue components with Tailwind CSS v4 utility styling. The family
+name is the root, as in `Accordion`, while other parts use names such as `AccordionItem` and
+`AccordionRootProvider`.
 
 It is under active development; the package is promoted to a public release once the component set
 reaches parity with the shipped React and Solid adapters.

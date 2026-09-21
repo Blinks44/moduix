@@ -78,19 +78,19 @@ migration.
 
 | Familiar shadcn name | Use in moduix | What to change |
 | --- | --- | --- |
-| Accordion | `Accordion` | Use the namespaced parts such as `Accordion.Item` and `Accordion.ItemContent`. |
-| Alert Dialog | `Dialog` | Set `role="alertdialog"` on `Dialog.Content` for a critical confirmation flow. |
-| Avatar | `Avatar` | Put fallback content and the image in `Avatar.Fallback` and `Avatar.Image`. |
+| Accordion | `Accordion` | Import flat parts such as `AccordionItem` and `AccordionItemContent`. |
+| Alert Dialog | `Dialog` | Set `role="alertdialog"` on `DialogContent` for a critical confirmation flow. |
+| Avatar | `Avatar` | Put fallback content and the image in `AvatarFallback` and `AvatarImage`. |
 | Breadcrumb | `Breadcrumbs` | The family name is plural; keep semantic links and the current-page state. |
 | Calendar | `DatePicker` or `DateInput` | Use `DatePicker` for a calendar and `DateInput` when users only need editable date segments. |
 | Carousel | `Carousel` | Compose the controls, indicators, and item group from its named parts. |
 | Collapsible | `Collapsible` | Read `details.open` from `onOpenChange(details)` instead of accepting a boolean. |
 | Combobox | `Combobox` | Create an Ark collection and define item values for object-based items. |
 | Command | `CommandPalette` | Use the command-oriented component instead of a generic list alias. |
-| Context Menu | `Menu.ContextTrigger` | Keep the same `Menu` family and use its context trigger. |
+| Context Menu | `MenuContextTrigger` | Keep the same `Menu` family and use its context trigger. |
 | Data Table | `Table` plus the Data Table recipe | Keep sorting, filtering, and server state in application code. |
 | Date Picker | `DatePicker` | Use the composed date input and calendar family. |
-| Dropdown Menu | `Menu` | Use the regular `Menu.Trigger` composition. |
+| Dropdown Menu | `Menu` | Use the regular `MenuTrigger` composition. |
 | Form | `Field` and `Fieldset` | Use them for field structure; keep validation and submission in your form library or application. |
 | Hover Card | `HoverCard` | Check the target page for the explicit positioning and lifecycle parts. |
 | Input OTP | `PinInput` | Preserve its native form and SSR setup. |
@@ -100,7 +100,7 @@ migration.
 | Sheet | `Drawer` | Use the edge-panel component with a Dialog-aligned lifecycle. |
 | Sidebar | `Sidebar` | Keep your product navigation and responsive composition in the application. |
 | Sonner / Toast | `Toast` and `Toaster` | Keep notification text and when to show it under application control. |
-| Tabs | `Tabs` | Use the named compound parts for the same tab interaction. |
+| Tabs | `Tabs` | Use flat parts such as `TabsList` and `TabsTrigger` for the same interaction. |
 | Toggle Group | `ToggleGroup` | Use item values and group state from the Ark contract. |
 | Tooltip | `Tooltip` | Keep the trigger and portalled content explicit. |
 
@@ -115,26 +115,22 @@ shadcn commonly exports each part as a separate local symbol:
 import { Dialog, DialogContent, DialogTitle, DialogTrigger } from '@/components/ui/dialog';
 ```
 
-moduix keeps the component family under one namespace:
+moduix uses the same flat family-prefixed shape across frameworks:
 
 <Tabs groupId="framework">
   <Tab label="React" value="react">
 
 ```tsx
-import { Dialog } from '@moduix/react/dialog';
+import { Accordion, AccordionItem, AccordionItemContent, AccordionItemTrigger } from '@moduix/react/accordion';
 
-export function ProjectSettingsDialog() {
+export function FrequentlyAskedQuestions() {
   return (
-    <Dialog>
-      <Dialog.Trigger>Open settings</Dialog.Trigger>
-      <Dialog.Backdrop />
-      <Dialog.Positioner>
-        <Dialog.Content>
-          <Dialog.Title>Project settings</Dialog.Title>
-          <Dialog.CloseTrigger>Close</Dialog.CloseTrigger>
-        </Dialog.Content>
-      </Dialog.Positioner>
-    </Dialog>
+    <Accordion defaultValue={['first']}>
+      <AccordionItem value="first">
+        <AccordionItemTrigger>What is moduix?</AccordionItemTrigger>
+        <AccordionItemContent>A multi-framework component system.</AccordionItemContent>
+      </AccordionItem>
+    </Accordion>
   );
 }
 ```
@@ -143,20 +139,16 @@ export function ProjectSettingsDialog() {
   <Tab label="Solid" value="solid">
 
 ```tsx
-import { Dialog } from '@moduix/solid/dialog';
+import { Accordion, AccordionItem, AccordionItemContent, AccordionItemTrigger } from '@moduix/solid/accordion';
 
-export function ProjectSettingsDialog() {
+export function FrequentlyAskedQuestions() {
   return (
-    <Dialog>
-      <Dialog.Trigger>Open settings</Dialog.Trigger>
-      <Dialog.Backdrop />
-      <Dialog.Positioner>
-        <Dialog.Content>
-          <Dialog.Title>Project settings</Dialog.Title>
-          <Dialog.CloseTrigger>Close</Dialog.CloseTrigger>
-        </Dialog.Content>
-      </Dialog.Positioner>
-    </Dialog>
+    <Accordion defaultValue={['first']}>
+      <AccordionItem value="first">
+        <AccordionItemTrigger>What is moduix?</AccordionItemTrigger>
+        <AccordionItemContent>A multi-framework component system.</AccordionItemContent>
+      </AccordionItem>
+    </Accordion>
   );
 }
 ```
@@ -167,11 +159,11 @@ export function ProjectSettingsDialog() {
 For a copy-owned install, keep the composition and change only the import source:
 
 ```tsx
-import { Dialog } from '@/components/ui/dialog';
+import { Accordion, AccordionItem, AccordionItemContent, AccordionItemTrigger } from '@/components/ui/accordion';
 ```
 
-The explicit `Backdrop`, `Positioner`, and `Content` parts show which elements own the portal,
-positioning, and dialog surface. They can be styled or replaced independently.
+The family name is the root. Every additional value is a direct family-prefixed export, with no
+namespace object or dotted part access.
 
 ## Keep your existing styling workflow
 
@@ -227,22 +219,18 @@ copying a shadcn callback that expects a positional value:
 
 ```tsx
 import { useState } from 'react';
-import { Dialog } from '@moduix/react/dialog';
+import { Accordion, AccordionItem, AccordionItemContent, AccordionItemTrigger } from '@moduix/react/accordion';
 
-export function ControlledDialog() {
-  const [open, setOpen] = useState(false);
+export function ControlledAccordion() {
+  const [value, setValue] = useState<string[]>([]);
 
   return (
-    <Dialog open={open} onOpenChange={(details) => setOpen(details.open)}>
-      <Dialog.Trigger>Open dialog</Dialog.Trigger>
-      <Dialog.Backdrop />
-      <Dialog.Positioner>
-        <Dialog.Content>
-          <Dialog.Title>Project settings</Dialog.Title>
-          <Dialog.CloseTrigger>Close</Dialog.CloseTrigger>
-        </Dialog.Content>
-      </Dialog.Positioner>
-    </Dialog>
+    <Accordion value={value} onValueChange={(details) => setValue(details.value)}>
+      <AccordionItem value="first">
+        <AccordionItemTrigger>What is moduix?</AccordionItemTrigger>
+        <AccordionItemContent>A multi-framework component system.</AccordionItemContent>
+      </AccordionItem>
+    </Accordion>
   );
 }
 ```
@@ -252,22 +240,18 @@ export function ControlledDialog() {
 
 ```tsx
 import { createSignal } from 'solid-js';
-import { Dialog } from '@moduix/solid/dialog';
+import { Accordion, AccordionItem, AccordionItemContent, AccordionItemTrigger } from '@moduix/solid/accordion';
 
-export function ControlledDialog() {
-  const [open, setOpen] = createSignal(false);
+export function ControlledAccordion() {
+  const [value, setValue] = createSignal<string[]>([]);
 
   return (
-    <Dialog open={open()} onOpenChange={(details) => setOpen(details.open)}>
-      <Dialog.Trigger>Open dialog</Dialog.Trigger>
-      <Dialog.Backdrop />
-      <Dialog.Positioner>
-        <Dialog.Content>
-          <Dialog.Title>Project settings</Dialog.Title>
-          <Dialog.CloseTrigger>Close</Dialog.CloseTrigger>
-        </Dialog.Content>
-      </Dialog.Positioner>
-    </Dialog>
+    <Accordion value={value()} onValueChange={(details) => setValue(details.value)}>
+      <AccordionItem value="first">
+        <AccordionItemTrigger>What is moduix?</AccordionItemTrigger>
+        <AccordionItemContent>A multi-framework component system.</AccordionItemContent>
+      </AccordionItem>
+    </Accordion>
   );
 }
 ```

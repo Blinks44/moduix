@@ -26,6 +26,12 @@ Vue is an in-development adapter, not a shipped contract. Component pages are up
 development branch as each Vue component lands, but completing one component does not authorize
 publishing the Vue packages or changing site-wide release and availability claims.
 
+Follow `plans/flat-component-api-migration.md` for the shared public naming contract. Use Accordion
+as the completed end-to-end Vue reference in
+`packages/vue/src/components/accordion/Accordion.vue` and
+`packages/vue-tailwind/src/components/accordion/Accordion.vue`. Reuse its public file and export
+shape, not component-specific implementation details.
+
 ## Establish the contract before writing Vue
 
 Read the component across the complete established matrix:
@@ -50,7 +56,7 @@ only when the user's scope authorizes that work.
 
 Record before implementation:
 
-- public root alias, flat Vue part names, hooks, contexts, providers, and subpath export;
+- flat public names, hooks, contexts, providers, and subpath export;
 - props, defaults, controlled and uncontrolled state, callbacks or events, and lifecycle;
 - DOM anatomy, semantic hosts, forms, ARIA, keyboard behavior, focus, ids, and presence;
 - `data-scope`, `data-part`, public `data-slot`, state attributes, and runtime CSS variables;
@@ -87,6 +93,12 @@ Follow `conventions-vue`. In particular, author package components as single-fil
 `<script setup lang="ts">` and a template, one public part per `.vue` file, mirroring the Ark Vue
 file layout. Do not add JSX/TSX, React compatibility layers, generated sources, or a shared
 cross-framework component runtime.
+
+Name the public root SFC `<Family>.vue` and export it as `<Family>`. Name every other public part
+`<Family><Part>.vue`. Do not create `<Family>Root.vue`, export a `<Family>Root` value, assemble a
+namespace object, or attach parts as static properties. Upstream Ark types such as
+`AccordionRootProps` may keep their upstream names; they do not define the moduix value-export
+shape.
 
 ### Props, attrs, and reactivity
 
@@ -155,8 +167,8 @@ to appear in Vue.
   props or setup-time snapshots.
 - For moduix-owned context, use `provide` and `inject` with a typed `InjectionKey`. Store refs,
   computed values, or getters in context so consumers observe updates.
-- Preserve `Root` and `RootProvider` as separate composition paths. Do not mount both around the same
-  state instance unless Ark Vue explicitly requires it.
+- Preserve the family root and `<Family>RootProvider` as separate composition paths. Do not mount
+  both around the same state instance unless Ark Vue explicitly requires it.
 
 ### Generic component families
 
@@ -294,8 +306,8 @@ reduced-motion behavior, and visible empty decorative parts where relevant.
 
 For both Vue packages:
 
-- add a thin component `index.ts` that exports the root alias, explicit root, flat SFC parts, hooks,
-  and public types;
+- add a thin component `index.ts` that exports the root SFC as the family name, every other SFC with
+  the family prefix, hooks, and public types; do not also export a `<Family>Root` value;
 - add the package subpath export in alphabetical order;
 - add only direct runtime dependencies actually used by the Vue implementation;
 - add a package-owned registry item with Vue source paths and Vue dependencies;
@@ -331,10 +343,9 @@ Documentation is part of the Vue component migration, not deferred release work.
   Keep the live preview React-based and display Vue only as source; do not add Vue to the Rspress
   runtime bundle.
 - Keep every Vue snippet inside `website/snippets/tsconfig.vue.json` and preserve the website's
-  development dependencies on Vue, Ark Vue, and `@moduix/vue`. Import the root alias and flat Vue
-  parts from the public component subpath, for example `Accordion`, `AccordionItem`, and
-  `AccordionItemTrigger`. Do not use an `Object.assign` compound object to imitate React namespace
-  syntax: Vue tooling reserves reliable dot-notation support for actual module namespace imports.
+  development dependencies on Vue, Ark Vue, and `@moduix/vue`. Import flat values from the public
+  component subpath, for example `Accordion`, `AccordionItem`, and `AccordionItemTrigger`. Do not
+  use `Object.assign`, namespace imports, or dotted component tags.
 - Reuse the example's existing CSS Module through `<style module src="..." />` when the Vue snippet
   needs the same presentation. Do not copy the same declarations into inline style blocks or import
   demo styles across the website, playgrounds, and package boundaries.
@@ -374,8 +385,10 @@ Documentation is part of the Vue component migration, not deferred release work.
 A Vue component migration is complete only when:
 
 - both Vue styling tracks exist and neither imports React or Solid runtime code or types;
-- the public root alias, flat Vue parts, semantic behavior, accessibility, states, and visual
-  defaults match the established contract;
+- each styling track uses `<Family>.vue` as its only public root SFC and exposes no
+  `<Family>Root` value or compound namespace;
+- the flat Vue values, semantic behavior, accessibility, states, and visual defaults match the
+  established contract;
 - Vue props, attrs, emits, `v-model`, slots, contexts, refs, `asChild`, and portals behave natively;
 - both Vue test suites contain equivalent behavioral coverage and pass;
 - both Vue playgrounds contain the complete matching scenario set and pass browser comparison;

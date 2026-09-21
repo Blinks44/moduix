@@ -33,8 +33,8 @@
       "registryDependencies": ["@moduix-vue/foundation", "@moduix-vue/icons"],
       "files": [
         {
-          "path": "src/components/accordion/AccordionRoot.vue",
-          "target": "@components/ui/accordion/AccordionRoot.vue",
+          "path": "src/components/accordion/Accordion.vue",
+          "target": "@components/ui/accordion/Accordion.vue",
           "type": "registry:component"
         },
         {

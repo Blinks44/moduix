@@ -2,8 +2,15 @@
 
 Local agent skills for maintaining the multi-framework `moduix` package family, registries, playgrounds, and docs. React and Solid adapters ship today; the Vue adapter is in development and Svelte adapters are planned. General skills discover the adapters that actually exist instead of treating the current package count as permanent.
 
-The library is Ark-backed and actively developed. Skills should preserve current public contracts,
-keep package/docs/registry output aligned, and remove stale instructions when behavior changes.
+The library is Ark-backed and actively developed. Skills should preserve current behavior and the
+documented target public contract, keep package/docs/registry output aligned, and remove stale
+instructions when behavior changes.
+
+The target public value API is flat in every framework and styling track. Export the root as the
+family name, other parts with the family prefix, and hooks as top-level functions. For example:
+`Accordion`, `AccordionItem`, `AccordionItemTrigger`, `AccordionRootProvider`, `AccordionContext`,
+and `useAccordion`. Skills must not introduce compound `Component.Part` APIs, namespace objects,
+`Object.assign` assembly, or duplicate `ComponentRoot` aliases.
 
 Skills are intentionally narrow and composable:
 

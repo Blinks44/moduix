@@ -11,7 +11,7 @@ import { children, splitProps } from 'solid-js';
 import { cn } from '@/lib/moduix/cn';
 import { PlusIcon } from '@/lib/moduix/icons/ui';
 
-function AccordionRoot(props: ComponentProps<typeof AccordionPrimitive.Root>) {
+function Accordion(props: ComponentProps<typeof AccordionPrimitive.Root>) {
   const [local, others] = splitProps(props, ['class']);
 
   return (
@@ -118,16 +118,20 @@ function AccordionItemBody(props: HTMLArkProps<'div'>) {
   );
 }
 
-const Accordion = Object.assign(AccordionRoot, {
-  Root: AccordionRoot,
-  RootProvider: AccordionRootProvider,
-  Context: AccordionPrimitive.Context,
-  ItemContext: AccordionPrimitive.ItemContext,
-  Item: AccordionItem,
-  ItemTrigger: AccordionItemTrigger,
-  ItemIndicator: AccordionItemIndicator,
-  ItemContent: AccordionItemContent,
-  ItemBody: AccordionItemBody,
-});
+const AccordionContext = AccordionPrimitive.Context;
+const AccordionItemContext = AccordionPrimitive.ItemContext;
 
-export { Accordion, useAccordion, useAccordionContext, useAccordionItemContext };
+export {
+  Accordion,
+  AccordionContext,
+  AccordionItem,
+  AccordionItemBody,
+  AccordionItemContent,
+  AccordionItemContext,
+  AccordionItemIndicator,
+  AccordionItemTrigger,
+  AccordionRootProvider,
+  useAccordion,
+  useAccordionContext,
+  useAccordionItemContext,
+};

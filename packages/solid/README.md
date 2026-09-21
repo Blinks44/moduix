@@ -56,17 +56,22 @@ import '@moduix/solid/style.css';
 Import component subpaths and compose their named parts:
 
 ```tsx
-import { Accordion } from '@moduix/solid/accordion';
+import {
+  Accordion,
+  AccordionItem,
+  AccordionItemContent,
+  AccordionItemTrigger,
+} from '@moduix/solid/accordion';
 
 export function Example() {
   return (
     <Accordion defaultValue={['first']}>
-      <Accordion.Item value="first">
-        <Accordion.ItemTrigger>What is moduix?</Accordion.ItemTrigger>
-        <Accordion.ItemContent>
+      <AccordionItem value="first">
+        <AccordionItemTrigger>What is moduix?</AccordionItemTrigger>
+        <AccordionItemContent>
           A component library built on accessible Ark UI primitives.
-        </Accordion.ItemContent>
-      </Accordion.Item>
+        </AccordionItemContent>
+      </AccordionItem>
     </Accordion>
   );
 }

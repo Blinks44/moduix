@@ -20,6 +20,22 @@ workflow should continue to operate on the discovered shipped set.
 Use framework-native code in every package. Share tokens, animations, reset, and presets through
 `packages/foundation`; do not create a shared component runtime or generate framework source.
 
+## Public value naming
+
+Use one flat public component API across every framework and styling track:
+
+- the family name is the root component: `Accordion`, not `Accordion.Root` or `AccordionRoot`;
+- every additional part uses the family prefix: `AccordionItem`, `AccordionItemTrigger`,
+  `AccordionRootProvider`, and `AccordionContext`;
+- hooks remain top-level functions such as `useAccordion` and `useAccordionContext`;
+- preserve existing clear public type names unless a separate type migration is explicitly required.
+
+Do not build compound components with `Object.assign`, export namespace objects, or retain duplicate
+compatibility aliases. Framework-native implementation details may differ, but package imports,
+registry source, tests, stories, snippets, anatomy tables, and prose must use the same flat names.
+During the repository-wide migration, this target naming rule supersedes the legacy compound export
+shape. Preserve behavior and anatomy, not the old dotted names.
+
 ## Start with an impact check
 
 Before editing, locate the component in every shipped adapter and styling variant, together with its
@@ -34,7 +50,7 @@ tests, playground stories, exports, local markdown, and registry items.
 
 ## Contract to preserve
 
-Keep public names, parts, props, defaults, controlled state, callbacks, refs, DOM anatomy, ARIA,
+Keep flat public names, parts, props, defaults, controlled state, callbacks, refs, DOM anatomy, ARIA,
 keyboard behavior, focus management, native form behavior, Ark state/data attributes, visual defaults,
 and lifecycle equivalent wherever the frameworks support the same contract. Keep framework peers
 within the same styling track equivalent. CSS Modules and Tailwind may intentionally expose different

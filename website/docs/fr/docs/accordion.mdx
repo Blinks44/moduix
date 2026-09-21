@@ -50,14 +50,9 @@ Placez le libellé interactif dans le déclencheur, le panneau dans la partie de
 contenu interne dans le corps de l'élément. L'indicateur est facultatif et affiche par défaut
 l'icône plus de moduix.
 
-Utilisez `Accordion` comme racine dans la plupart des cas. Dans React et Solid, `Accordion.Root` est
-un alias de cette même racine lorsque vous souhaitez rendre cette partie explicite dans votre
-composition.
-
-React et Solid exposent des parties composées comme `Accordion.Item`. Vue conserve le nom
-`Accordion` pour la racine et exporte les parties avec des noms plats natifs comme `AccordionItem`
-et `AccordionItemTrigger`. Ces imports Vue fonctionnent de la même manière avec le paquet npm et
-les sources du registre shadcn.
+React, Solid et Vue utilisent les mêmes noms plats. Importez `Accordion` comme racine et chaque
+partie supplémentaire directement, par exemple `AccordionItem` et `AccordionItemTrigger`. Les mêmes
+noms fonctionnent avec les paquets npm et les sources du registre shadcn.
 
 <ExampleFrame variant="component">
   <AccordionBasic />
@@ -70,14 +65,6 @@ les sources du registre shadcn.
     values={[
       { label: 'React', value: 'react' },
       { label: 'Solid', value: 'solid' },
-      { label: 'Vue', value: 'vue' },
-      { label: 'Vue', value: 'vue' },
-      { label: 'Vue', value: 'vue' },
-      { label: 'Vue', value: 'vue' },
-      { label: 'Vue', value: 'vue' },
-      { label: 'Vue', value: 'vue' },
-      { label: 'Vue', value: 'vue' },
-      { label: 'Vue', value: 'vue' },
       { label: 'Vue', value: 'vue' },
     ]}
     className="docs-tabs"
@@ -148,42 +135,28 @@ Consultez le [Démarrage rapide](/docs/quick-start) pour la configuration compl�
 ## Anatomie
 
 ```text
-React et Solid
-Accordion / Accordion.Root
-└─ Accordion.Item[value]
- ├─ Accordion.ItemTrigger
- │  ├─ label
- │  └─ Accordion.ItemIndicator (facultatif)
- └─ Accordion.ItemContent
-    └─ Accordion.ItemBody
-       └─ content
-
-Accordion.RootProvider
-└─ même arbre d'éléments relié à l'état fourni par useAccordion()
-
-Vue
-Accordion / AccordionRoot
+Accordion
 └─ AccordionItem[value]
  ├─ AccordionItemTrigger
- │  ├─ libellé
+ │  ├─ label
  │  └─ AccordionItemIndicator (facultatif)
  └─ AccordionItemContent
     └─ AccordionItemBody
-       └─ contenu
+       └─ content
 
 AccordionRootProvider
 └─ même arbre d'éléments relié à l'état fourni par useAccordion()
 ```
 
-| Partie                                                      | Rôle                                                                                           |
-| ----------------------------------------------------------- | ---------------------------------------------------------------------------------------------- |
-| `Accordion` / `Accordion.Root` / `AccordionRoot` dans Vue   | Racine qui gère l'état de l'accordéon et la navigation au clavier.                              |
-| `Accordion.RootProvider` / `AccordionRootProvider` dans Vue | Fournit aux parties l'état créé avec `useAccordion()`.                                          |
-| `Accordion.Item` / `AccordionItem` dans Vue                 | Élément repliable avec une valeur `value` obligatoire et stable.                               |
-| `Accordion.ItemTrigger` / `AccordionItemTrigger` dans Vue   | Bouton qui ouvre ou ferme l'élément.                                                            |
-| `Accordion.ItemIndicator` / `AccordionItemIndicator` dans Vue | Indicateur facultatif. Affiche l'icône plus de moduix sans contenu enfant.                    |
-| `Accordion.ItemContent` / `AccordionItemContent` dans Vue   | Panneau repliable qui utilise l'animation fondée sur les mesures de taille d'Ark.               |
-| `Accordion.ItemBody` / `AccordionItemBody` dans Vue         | Conteneur interne moduix qui fournit l'espacement par défaut du panneau.                        |
+| Partie                   | Rôle                                                                                         |
+| ------------------------ | -------------------------------------------------------------------------------------------- |
+| `Accordion`              | Racine qui gère l'état de l'accordéon et la navigation au clavier.                            |
+| `AccordionRootProvider`  | Fournit aux parties l'état créé avec `useAccordion()`.                                        |
+| `AccordionItem`          | Élément repliable avec une valeur `value` obligatoire et stable.                             |
+| `AccordionItemTrigger`   | Bouton qui ouvre ou ferme l'élément.                                                          |
+| `AccordionItemIndicator` | Indicateur facultatif. Affiche l'icône plus de moduix sans contenu enfant.                    |
+| `AccordionItemContent`   | Panneau repliable qui utilise l'animation fondée sur les mesures de taille d'Ark.             |
+| `AccordionItemBody`      | Conteneur interne moduix qui fournit l'espacement par défaut du panneau.                      |
 
 ## Composition
 
@@ -191,11 +164,10 @@ Utilisez `defaultValue` pour un accordéon non contrôlé. Utilisez `value` avec
 `onValueChange(details)` lorsqu'une autre partie de l'application gère l'état. Ces deux propriétés
 attendent un tableau `string[]`, même lorsqu'un seul élément peut être ouvert.
 
-Utilisez `Accordion.RootProvider` dans React et Solid, ou `AccordionRootProvider` dans Vue, avec
-`useAccordion()` du paquet correspondant au framework lorsque l’état doit être créé en dehors de
-l’arbre rendu. Ne rendez pas une seconde racine pour le même état. React expose le store comme un
-objet, Solid donne accès à son état réactif au moyen de la fonction retournée, et Vue expose
-directement le store réactif au template.
+Utilisez `AccordionRootProvider` avec `useAccordion()` du paquet correspondant au framework lorsque
+l’état doit être créé en dehors de l’arbre rendu. Ne rendez pas `Accordion` pour le même état. React
+expose le store comme un objet, Solid donne accès à son état réactif au moyen de la fonction
+retournée, et Vue expose directement le store réactif au template.
 
 ## Exemples
 
@@ -214,6 +186,7 @@ Activez `collapsible` pour permettre de refermer l'élément ouvert sans en ouvr
     values={[
       { label: 'React', value: 'react' },
       { label: 'Solid', value: 'solid' },
+      { label: 'Vue', value: 'vue' },
     ]}
     className="docs-tabs"
   >
@@ -260,6 +233,7 @@ l’interface.
     values={[
       { label: 'React', value: 'react' },
       { label: 'Solid', value: 'solid' },
+      { label: 'Vue', value: 'vue' },
     ]}
     className="docs-tabs"
   >
@@ -304,6 +278,7 @@ Ajoutez `disabled` à un élément qui doit rester visible dans la liste, mais n
     values={[
       { label: 'React', value: 'react' },
       { label: 'Solid', value: 'solid' },
+      { label: 'Vue', value: 'vue' },
     ]}
     className="docs-tabs"
   >
@@ -349,6 +324,7 @@ au clavier horizontale.
     values={[
       { label: 'React', value: 'react' },
       { label: 'Solid', value: 'solid' },
+      { label: 'Vue', value: 'vue' },
     ]}
     className="docs-tabs"
   >
@@ -395,6 +371,7 @@ doit rester monté tout en suspendant ses effets lorsqu’il est masqué.
     values={[
       { label: 'React', value: 'react' },
       { label: 'Solid', value: 'solid' },
+      { label: 'Vue', value: 'vue' },
     ]}
     className="docs-tabs"
   >
@@ -439,6 +416,7 @@ Définissez `multiple` lorsque plusieurs sections doivent rester ouvertes simult
     values={[
       { label: 'React', value: 'react' },
       { label: 'Solid', value: 'solid' },
+      { label: 'Vue', value: 'vue' },
     ]}
     className="docs-tabs"
   >
@@ -470,9 +448,9 @@ Définissez `multiple` lorsque plusieurs sections doivent rester ouvertes simult
 
 ### Root Provider
 
-Utilisez `useAccordion()` du paquet correspondant au framework avec `Accordion.RootProvider` dans
-React et Solid, ou `AccordionRootProvider` dans Vue, lorsque l’état doit être créé en dehors de
-l’arbre de l’accordéon. Ne rendez pas une seconde racine pour le même état.
+Utilisez `useAccordion()` du paquet correspondant au framework avec `AccordionRootProvider` lorsque
+l’état doit être créé en dehors de l’arbre de l’accordéon. Ne rendez pas `Accordion` pour le même
+état.
 
 <ExampleFrame variant="component">
   <AccordionRootProvider />
@@ -485,6 +463,7 @@ l’arbre de l’accordéon. Ne rendez pas une seconde racine pour le même éta
     values={[
       { label: 'React', value: 'react' },
       { label: 'Solid', value: 'solid' },
+      { label: 'Vue', value: 'vue' },
     ]}
     className="docs-tabs"
   >
@@ -531,6 +510,7 @@ et les champs de formulaire masqués.
     values={[
       { label: 'React', value: 'react' },
       { label: 'Solid', value: 'solid' },
+      { label: 'Vue', value: 'vue' },
     ]}
     className="docs-tabs"
   >
@@ -569,9 +549,8 @@ Les variantes Tailwind se personnalisent avec des utilitaires et des classes sup
 variables de composant ci-dessous concernent uniquement les variantes CSS Modules ; les attributs de
 données, les sélecteurs `data-slot` et les variables d’exécution Ark sont communs aux deux approches.
 
-Placez l’espacement du panneau sur `Accordion.ItemBody` dans React et Solid, ou sur
-`AccordionItemBody` dans Vue, plutôt que sur la partie de contenu afin qu’Ark puisse mesurer et
-animer correctement le panneau.
+Placez l’espacement du panneau sur `AccordionItemBody` plutôt que sur `AccordionItemContent` afin
+qu’Ark puisse mesurer et animer correctement le panneau.
 
 ### Propriétés CSS
 

@@ -77,19 +77,19 @@ import { Dialog } from '@/components/ui/dialog';
 
 | Знакомое имя shadcn | Используйте в moduix | Что изменить |
 | --- | --- | --- |
-| Accordion | `Accordion` | Используйте именованные части, например `Accordion.Item` и `Accordion.ItemContent`. |
-| Alert Dialog | `Dialog` | Для критического подтверждения укажите `role="alertdialog"` на `Dialog.Content`. |
-| Avatar | `Avatar` | Поместите резервное содержимое и изображение в `Avatar.Fallback` и `Avatar.Image`. |
+| Accordion | `Accordion` | Используйте именованные части, например `AccordionItem` и `AccordionItemContent`. |
+| Alert Dialog | `Dialog` | Для критического подтверждения укажите `role="alertdialog"` на `DialogContent`. |
+| Avatar | `Avatar` | Поместите резервное содержимое и изображение в `AvatarFallback` и `AvatarImage`. |
 | Breadcrumb | `Breadcrumbs` | Название семейства стоит во множественном числе; сохраните семантические ссылки и отметку текущей страницы. |
 | Calendar | `DatePicker` или `DateInput` | Выберите `DatePicker` для календаря, а `DateInput`, если нужны только редактируемые сегменты даты. |
 | Carousel | `Carousel` | Соберите управление, индикаторы и группу элементов из именованных частей. |
 | Collapsible | `Collapsible` | В `onOpenChange(details)` читайте `details.open`, а не принимайте boolean. |
 | Combobox | `Combobox` | Создайте коллекцию Ark и задайте значения элементов, если элементы представлены объектами. |
 | Command | `CommandPalette` | Используйте компонент для команд, а не общий псевдоним списка. |
-| Context Menu | `Menu.ContextTrigger` | Оставьте семейство `Menu` и используйте его контекстный триггер. |
+| Context Menu | `MenuContextTrigger` | Оставьте семейство `Menu` и используйте его контекстный триггер. |
 | Data Table | `Table` и рецепт Data Table | Сортировку, фильтрацию и серверное состояние оставьте в коде приложения. |
 | Date Picker | `DatePicker` | Используйте составное семейство для ввода даты и календаря. |
-| Dropdown Menu | `Menu` | Соберите обычный вариант через `Menu.Trigger`. |
+| Dropdown Menu | `Menu` | Соберите обычный вариант через `MenuTrigger`. |
 | Form | `Field` и `Fieldset` | Используйте их для структуры полей, а валидацию и отправку оставьте библиотеке форм или приложению. |
 | Hover Card | `HoverCard` | Проверьте на странице компонента явные части для позиционирования и закрытия. |
 | Input OTP | `PinInput` | Сохраните его настройку для нативных форм и SSR. |
@@ -99,7 +99,7 @@ import { Dialog } from '@/components/ui/dialog';
 | Sheet | `Drawer` | Используйте компонент боковой панели с жизненным циклом, согласованным с Dialog. |
 | Sidebar | `Sidebar` | Оставьте структуру продуктовой и адаптивной навигации в приложении. |
 | Sonner / Toast | `Toast` и `Toaster` | Текст уведомлений и момент их показа должны контролироваться приложением. |
-| Tabs | `Tabs` | Соберите то же взаимодействие из именованных составных частей. |
+| Tabs | `Tabs` | Используйте плоские части `TabsList` и `TabsTrigger` для того же взаимодействия. |
 | Toggle Group | `ToggleGroup` | Используйте значения элементов и состояние группы из контракта Ark. |
 | Tooltip | `Tooltip` | Явно задайте триггер и содержимое, которое рендерится через портал. |
 
@@ -114,26 +114,22 @@ import { Dialog } from '@/components/ui/dialog';
 import { Dialog, DialogContent, DialogTitle, DialogTrigger } from '@/components/ui/dialog';
 ```
 
-В moduix всё семейство собрано под одним пространством имён:
+В moduix все фреймворки используют одинаковые плоские экспорты с префиксом семейства:
 
 <Tabs groupId="framework">
   <Tab label="React" value="react">
 
 ```tsx
-import { Dialog } from '@moduix/react/dialog';
+import { Accordion, AccordionItem, AccordionItemContent, AccordionItemTrigger } from '@moduix/react/accordion';
 
-export function ProjectSettingsDialog() {
+export function FrequentlyAskedQuestions() {
   return (
-    <Dialog>
-      <Dialog.Trigger>Open settings</Dialog.Trigger>
-      <Dialog.Backdrop />
-      <Dialog.Positioner>
-        <Dialog.Content>
-          <Dialog.Title>Project settings</Dialog.Title>
-          <Dialog.CloseTrigger>Close</Dialog.CloseTrigger>
-        </Dialog.Content>
-      </Dialog.Positioner>
-    </Dialog>
+    <Accordion defaultValue={['first']}>
+      <AccordionItem value="first">
+        <AccordionItemTrigger>What is moduix?</AccordionItemTrigger>
+        <AccordionItemContent>A multi-framework component system.</AccordionItemContent>
+      </AccordionItem>
+    </Accordion>
   );
 }
 ```
@@ -142,20 +138,16 @@ export function ProjectSettingsDialog() {
   <Tab label="Solid" value="solid">
 
 ```tsx
-import { Dialog } from '@moduix/solid/dialog';
+import { Accordion, AccordionItem, AccordionItemContent, AccordionItemTrigger } from '@moduix/solid/accordion';
 
-export function ProjectSettingsDialog() {
+export function FrequentlyAskedQuestions() {
   return (
-    <Dialog>
-      <Dialog.Trigger>Open settings</Dialog.Trigger>
-      <Dialog.Backdrop />
-      <Dialog.Positioner>
-        <Dialog.Content>
-          <Dialog.Title>Project settings</Dialog.Title>
-          <Dialog.CloseTrigger>Close</Dialog.CloseTrigger>
-        </Dialog.Content>
-      </Dialog.Positioner>
-    </Dialog>
+    <Accordion defaultValue={['first']}>
+      <AccordionItem value="first">
+        <AccordionItemTrigger>What is moduix?</AccordionItemTrigger>
+        <AccordionItemContent>A multi-framework component system.</AccordionItemContent>
+      </AccordionItem>
+    </Accordion>
   );
 }
 ```
@@ -166,11 +158,11 @@ export function ProjectSettingsDialog() {
 При установке с исходниками сохраните композицию и замените только путь импорта:
 
 ```tsx
-import { Dialog } from '@/components/ui/dialog';
+import { Accordion, AccordionItem, AccordionItemContent, AccordionItemTrigger } from '@/components/ui/accordion';
 ```
 
-Явные части `Backdrop`, `Positioner` и `Content` показывают, кто отвечает за портал,
-позиционирование и поверхность диалога. Их можно настраивать независимо.
+Имя семейства обозначает корневой компонент. Каждое дополнительное значение экспортируется отдельно
+с префиксом семейства, без объекта-пространства имён и обращения через точку.
 
 ## Сохраните привычный подход к стилям
 
@@ -226,22 +218,18 @@ React- или Solid-пакет там, где нужный компонент у
 
 ```tsx
 import { useState } from 'react';
-import { Dialog } from '@moduix/react/dialog';
+import { Accordion, AccordionItem, AccordionItemContent, AccordionItemTrigger } from '@moduix/react/accordion';
 
-export function ControlledDialog() {
-  const [open, setOpen] = useState(false);
+export function ControlledAccordion() {
+  const [value, setValue] = useState<string[]>([]);
 
   return (
-    <Dialog open={open} onOpenChange={(details) => setOpen(details.open)}>
-      <Dialog.Trigger>Open dialog</Dialog.Trigger>
-      <Dialog.Backdrop />
-      <Dialog.Positioner>
-        <Dialog.Content>
-          <Dialog.Title>Project settings</Dialog.Title>
-          <Dialog.CloseTrigger>Close</Dialog.CloseTrigger>
-        </Dialog.Content>
-      </Dialog.Positioner>
-    </Dialog>
+    <Accordion value={value} onValueChange={(details) => setValue(details.value)}>
+      <AccordionItem value="first">
+        <AccordionItemTrigger>What is moduix?</AccordionItemTrigger>
+        <AccordionItemContent>A multi-framework component system.</AccordionItemContent>
+      </AccordionItem>
+    </Accordion>
   );
 }
 ```
@@ -251,22 +239,18 @@ export function ControlledDialog() {
 
 ```tsx
 import { createSignal } from 'solid-js';
-import { Dialog } from '@moduix/solid/dialog';
+import { Accordion, AccordionItem, AccordionItemContent, AccordionItemTrigger } from '@moduix/solid/accordion';
 
-export function ControlledDialog() {
-  const [open, setOpen] = createSignal(false);
+export function ControlledAccordion() {
+  const [value, setValue] = createSignal<string[]>([]);
 
   return (
-    <Dialog open={open()} onOpenChange={(details) => setOpen(details.open)}>
-      <Dialog.Trigger>Open dialog</Dialog.Trigger>
-      <Dialog.Backdrop />
-      <Dialog.Positioner>
-        <Dialog.Content>
-          <Dialog.Title>Project settings</Dialog.Title>
-          <Dialog.CloseTrigger>Close</Dialog.CloseTrigger>
-        </Dialog.Content>
-      </Dialog.Positioner>
-    </Dialog>
+    <Accordion value={value()} onValueChange={(details) => setValue(details.value)}>
+      <AccordionItem value="first">
+        <AccordionItemTrigger>What is moduix?</AccordionItemTrigger>
+        <AccordionItemContent>A multi-framework component system.</AccordionItemContent>
+      </AccordionItem>
+    </Accordion>
   );
 }
 ```

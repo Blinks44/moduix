@@ -49,13 +49,9 @@ Use `Accordion` as the root and give every item a stable `value`. Put the intera
 item trigger, the panel in the item content, and the panel's inner content in the item body. The
 item indicator is optional and defaults to the moduix plus icon.
 
-Use `Accordion` as the root in most cases. In React and Solid, `Accordion.Root` is an alias for the
-same root when you want to make that part explicit in your composition.
-
-React and Solid expose compound parts such as `Accordion.Item`. Vue keeps the same `Accordion` root
-name and exports its parts with native flat names such as `AccordionItem` and
-`AccordionItemTrigger`. The flat Vue imports work the same way with the npm package and shadcn
-registry source.
+React, Solid, and Vue use the same flat value names. Import `Accordion` as the root and import each
+additional part directly, such as `AccordionItem` and `AccordionItemTrigger`. The same names work
+with npm packages and shadcn registry source.
 
 <ExampleFrame variant="component">
   <AccordionBasic />
@@ -138,21 +134,7 @@ See [Quick Start](/docs/quick-start) for full package setup, registry configurat
 ## Anatomy
 
 ```text
-React and Solid
-Accordion / Accordion.Root
-└─ Accordion.Item[value]
- ├─ Accordion.ItemTrigger
- │  ├─ label
- │  └─ Accordion.ItemIndicator (optional)
- └─ Accordion.ItemContent
-    └─ Accordion.ItemBody
-       └─ content
-
-Accordion.RootProvider
-└─ same item tree connected to a useAccordion() store
-
-Vue
-Accordion / AccordionRoot
+Accordion
 └─ AccordionItem[value]
  ├─ AccordionItemTrigger
  │  ├─ label
@@ -165,15 +147,15 @@ AccordionRootProvider
 └─ same item tree connected to a useAccordion() store
 ```
 
-| Part                                                        | Role                                                                                      |
-| ----------------------------------------------------------- | ----------------------------------------------------------------------------------------- |
-| `Accordion` / `Accordion.Root` / `AccordionRoot` in Vue     | Root part that owns accordion state and keyboard navigation.                              |
-| `Accordion.RootProvider` / `AccordionRootProvider` in Vue   | Connects the parts to state created with `useAccordion()`.                                |
-| `Accordion.Item` / `AccordionItem` in Vue                   | A collapsible item with a required, stable `value`.                                       |
-| `Accordion.ItemTrigger` / `AccordionItemTrigger` in Vue     | The button that opens or closes the item.                                                 |
-| `Accordion.ItemIndicator` / `AccordionItemIndicator` in Vue | Optional state indicator. Defaults to the moduix plus icon when no children are provided. |
-| `Accordion.ItemContent` / `AccordionItemContent` in Vue     | The collapsible panel, with Ark's size-animation behavior.                                |
-| `Accordion.ItemBody` / `AccordionItemBody` in Vue           | The moduix inner wrapper that provides default panel spacing.                             |
+| Part                     | Role                                                                                      |
+| ------------------------ | ----------------------------------------------------------------------------------------- |
+| `Accordion`              | Root part that owns accordion state and keyboard navigation.                              |
+| `AccordionRootProvider`  | Connects the parts to state created with `useAccordion()`.                                |
+| `AccordionItem`          | A collapsible item with a required, stable `value`.                                       |
+| `AccordionItemTrigger`   | The button that opens or closes the item.                                                 |
+| `AccordionItemIndicator` | Optional state indicator. Defaults to the moduix plus icon when no children are provided. |
+| `AccordionItemContent`   | The collapsible panel, with Ark's size-animation behavior.                                |
+| `AccordionItemBody`      | The moduix inner wrapper that provides default panel spacing.                             |
 
 ## Composition
 
@@ -181,11 +163,10 @@ Use `defaultValue` for an uncontrolled accordion. Use `value` with `onValueChang
 another part of the application owns the state. Both props use `string[]`, even when only one item
 can be open.
 
-Use `Accordion.RootProvider` in React and Solid, or `AccordionRootProvider` in Vue, with
-`useAccordion()` from the matching framework package when the accordion state must be created
-outside the rendered tree. Do not render a root component for the same store. React reads the
-store as an object; Solid reads its reactive state through the returned accessor; Vue exposes the
-reactive store directly to the template.
+Use `AccordionRootProvider` with `useAccordion()` from the matching framework package when the
+accordion state must be created outside the rendered tree. Do not render `Accordion` for the same
+store. React reads the store as an object; Solid reads its reactive state through the returned
+accessor; Vue exposes the reactive store directly to the template.
 
 ## Examples
 
@@ -465,9 +446,9 @@ Set `multiple` when several sections should stay open at the same time.
 
 ### Root Provider
 
-Use `useAccordion()` from the matching framework package with `Accordion.RootProvider` in React
-and Solid, or `AccordionRootProvider` in Vue, when the state store must be created outside the
-rendered accordion tree. Do not render another root for the same store.
+Use `useAccordion()` from the matching framework package with `AccordionRootProvider` when the
+state store must be created outside the rendered accordion tree. Do not render `Accordion` for the
+same store.
 
 <ExampleFrame variant="component">
   <AccordionRootProvider />
@@ -564,8 +545,8 @@ state-based styles, prefer Ark data attributes such as `data-state`, `data-disab
 utilities and consumer classes; the component variables below customize the CSS Modules variants.
 Data attributes and `data-slot` hooks are shared by both styling tracks.
 
-Put panel spacing on `Accordion.ItemBody` in React and Solid, or `AccordionItemBody` in Vue, rather
-than on the content part so Ark can measure and animate the panel correctly.
+Put panel spacing on `AccordionItemBody` rather than on `AccordionItemContent` so Ark can measure
+and animate the panel correctly.
 
 ### CSS Properties
 

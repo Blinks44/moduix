@@ -17,6 +17,15 @@ GitHub Markdown does not provide the interactive package-manager tabs used by Rs
 for installation, CLI, and repository commands in the root and package README files. npm badges and
 links may still identify the registry where a package is published.
 
+## Public component API
+
+All framework adapters use one flat public value-export shape. The family name is the root component,
+and every other public part is prefixed with that family name: `Accordion`, `AccordionItem`,
+`AccordionItemTrigger`, `AccordionRootProvider`, and `AccordionContext`. Hooks stay top-level, such as
+`useAccordion`. Do not expose `Component.Part`, `Component.Root`, `Object.assign` compound components,
+namespace objects, or duplicate `ComponentRoot` aliases. Keep framework syntax native while preserving
+these names across React, Solid, Vue, CSS Modules, Tailwind, npm packages, and registry source.
+
 ## Skill routing
 
 Use project skills from [`.agents/skills/`](.agents/skills/README.md). Apply only the skills that match the changed surface.

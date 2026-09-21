@@ -1,4 +1,11 @@
-import { Accordion } from '@moduix/solid/accordion';
+import {
+  Accordion,
+  AccordionItem,
+  AccordionItemBody,
+  AccordionItemContent,
+  AccordionItemIndicator,
+  AccordionItemTrigger,
+} from '@moduix/solid/accordion';
 import styles from '@/components/examples/accordion/accordion-disabled-item.module.css';
 
 const items = [
@@ -24,15 +31,15 @@ export default function DisabledItemAccordionDemo() {
   return (
     <Accordion class={styles.root} defaultValue={['what-is-ark-ui']}>
       {items.map((item) => (
-        <Accordion.Item value={item.value} disabled={item.value === 'getting-started'}>
-          <Accordion.ItemTrigger>
+        <AccordionItem value={item.value} disabled={item.value === 'getting-started'}>
+          <AccordionItemTrigger>
             {item.title}
-            <Accordion.ItemIndicator />
-          </Accordion.ItemTrigger>
-          <Accordion.ItemContent>
-            <Accordion.ItemBody>{item.description}</Accordion.ItemBody>
-          </Accordion.ItemContent>
-        </Accordion.Item>
+            <AccordionItemIndicator />
+          </AccordionItemTrigger>
+          <AccordionItemContent>
+            <AccordionItemBody>{item.description}</AccordionItemBody>
+          </AccordionItemContent>
+        </AccordionItem>
       ))}
     </Accordion>
   );

@@ -5,15 +5,13 @@ import {
   useAccordionContext,
   useAccordionItemContext,
 } from '@ark-ui/vue/accordion';
+import Accordion from './Accordion.vue';
 import AccordionItem from './AccordionItem.vue';
 import AccordionItemBody from './AccordionItemBody.vue';
 import AccordionItemContent from './AccordionItemContent.vue';
 import AccordionItemIndicator from './AccordionItemIndicator.vue';
 import AccordionItemTrigger from './AccordionItemTrigger.vue';
-import AccordionRoot from './AccordionRoot.vue';
 import AccordionRootProvider from './AccordionRootProvider.vue';
-
-const Accordion = AccordionRoot;
 
 export {
   Accordion,
@@ -24,7 +22,6 @@ export {
   AccordionItemContext,
   AccordionItemIndicator,
   AccordionItemTrigger,
-  AccordionRoot,
   AccordionRootProvider,
   useAccordion,
   useAccordionContext,

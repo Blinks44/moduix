@@ -72,39 +72,38 @@ import '@moduix/react/reset.css';
 import '@moduix/react/style.css';
 ```
 
-Then import component subpaths and compose the parts you need:
+Then import component subpaths and compose the flat named parts you need:
 
 ```tsx
-import { Button } from '@moduix/react/button';
-import { Dialog } from '@moduix/react/dialog';
+import {
+  Accordion,
+  AccordionItem,
+  AccordionItemBody,
+  AccordionItemContent,
+  AccordionItemIndicator,
+  AccordionItemTrigger,
+} from '@moduix/react/accordion';
 
 export function Example() {
   return (
-    <Dialog>
-      <Dialog.Trigger asChild>
-        <Button>Open settings</Button>
-      </Dialog.Trigger>
-      <Dialog.Backdrop />
-      <Dialog.Positioner>
-        <Dialog.Content>
-          <Dialog.Header>
-            <Dialog.Title>Project settings</Dialog.Title>
-            <Dialog.Description>Update how this workspace behaves.</Dialog.Description>
-          </Dialog.Header>
-          <Dialog.Footer>
-            <Dialog.CloseTrigger asChild>
-              <Button variant="outline">Done</Button>
-            </Dialog.CloseTrigger>
-          </Dialog.Footer>
-        </Dialog.Content>
-      </Dialog.Positioner>
-    </Dialog>
+    <Accordion defaultValue={['first']}>
+      <AccordionItem value="first">
+        <AccordionItemTrigger>
+          What is moduix?
+          <AccordionItemIndicator />
+        </AccordionItemTrigger>
+        <AccordionItemContent>
+          <AccordionItemBody>
+            A component library built on accessible Ark UI primitives.
+          </AccordionItemBody>
+        </AccordionItemContent>
+      </AccordionItem>
+    </Accordion>
   );
 }
 ```
 
-`Dialog` is the recommended root component. `Dialog.Root` remains available when an explicit
-namespace is useful, such as in anatomy documentation or a local abstraction.
+The family name is the root component. Every additional part is a separate family-prefixed export.
 
 ### Own the source with the registry
 

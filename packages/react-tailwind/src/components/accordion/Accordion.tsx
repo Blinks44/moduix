@@ -13,10 +13,10 @@ import { forwardRef } from 'react';
 import { cn } from '@/lib/moduix/cn';
 import { PlusIcon } from '@/lib/moduix/icons/ui';
 
-const AccordionRoot = forwardRef<
+const Accordion = forwardRef<
   ComponentRef<typeof AccordionPrimitive.Root>,
   ComponentProps<typeof AccordionPrimitive.Root>
->(function AccordionRoot({ className, ...props }, ref) {
+>(function Accordion({ className, ...props }, ref) {
   return (
     <AccordionPrimitive.Root
       ref={ref}
@@ -132,16 +132,20 @@ const AccordionItemBody = forwardRef<ComponentRef<typeof ark.div>, HTMLArkProps<
   },
 );
 
-const Accordion = Object.assign(AccordionRoot, {
-  Root: AccordionRoot,
-  RootProvider: AccordionRootProvider,
-  Context: AccordionPrimitive.Context,
-  ItemContext: AccordionPrimitive.ItemContext,
-  Item: AccordionItem,
-  ItemTrigger: AccordionItemTrigger,
-  ItemIndicator: AccordionItemIndicator,
-  ItemContent: AccordionItemContent,
-  ItemBody: AccordionItemBody,
-});
+const AccordionContext = AccordionPrimitive.Context;
+const AccordionItemContext = AccordionPrimitive.ItemContext;
 
-export { Accordion, useAccordion, useAccordionContext, useAccordionItemContext };
+export {
+  Accordion,
+  AccordionContext,
+  AccordionItem,
+  AccordionItemBody,
+  AccordionItemContent,
+  AccordionItemContext,
+  AccordionItemIndicator,
+  AccordionItemTrigger,
+  AccordionRootProvider,
+  useAccordion,
+  useAccordionContext,
+  useAccordionItemContext,
+};

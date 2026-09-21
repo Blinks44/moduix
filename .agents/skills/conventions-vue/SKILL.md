@@ -21,12 +21,11 @@ Use this skill for JS/TS Vue work in this repo.
   provide the inferred component name; use `defineOptions({ name: '...' })` only when the public
   name cannot be inferred correctly.
 - Keep component-local `index.ts` files as thin export barrels with no component implementation
-  logic. Export every Vue part by its full PascalCase name, such as `AccordionItem` and
-  `AccordionItemTrigger`. When React and Solid use the family name for the root, also export a direct
-  root alias such as `const Accordion = AccordionRoot`. Do not assemble Vue parts with
-  `Object.assign`: arbitrary compound objects work at runtime but are not the module namespaces
-  supported by Vue tooling, so `<Accordion.Item>` produces false IDE errors. Use the same flat part
-  exports in SFC templates, Storybook runtime templates, tests, npm examples, and registry examples.
+  logic. Export the root SFC under the family name and every other part with the family prefix, such
+  as `Accordion`, `AccordionItem`, `AccordionItemTrigger`, and `AccordionRootProvider`. Do not also
+  export `AccordionRoot`. Do not assemble parts with `Object.assign` or a namespace object. Use the
+  same flat imports and tags in SFC templates, Storybook runtime templates, tests, npm examples, and
+  registry examples.
 - Type a transparent Ark wrapper with a local interface that extends the exported Ark Vue prop
   interface through `/* @vue-ignore */`, then pass that interface to `defineProps`. The ignored base
   remains part of the public TypeScript surface but its properties stay in fallthrough attrs at
@@ -67,7 +66,7 @@ Use this skill for JS/TS Vue work in this repo.
   has a distinct role.
 - Preserve generic collection item types with the SFC `generic` attribute when the Ark component is
   generic. Carry the item type through props, emits, scoped slots, hooks, and exported declarations;
-  do not erase it to `any` or a broad record just to make the namespace assembly compile.
+  do not erase it to `any` or a broad record to simplify the export barrel.
 - Prefer native Vue primitives where React/Solid use framework portals or context (`Teleport`,
   Vue context). Do not import from `@ark-ui/react` or `@ark-ui/solid`.
 - Omit React-only directives and helpers such as `'use client'`, `cloneElement`, and React context.

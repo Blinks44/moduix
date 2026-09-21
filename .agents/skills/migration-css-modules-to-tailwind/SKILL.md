@@ -59,8 +59,7 @@ Do not hide the missing dependency behind a CSS Modules import or local adapter.
 
 Record the existing contract:
 
-- public names, callable roots, namespaced parts, props, defaults, callbacks, refs, contexts, and
-  providers;
+- flat public component names, props, defaults, callbacks, refs, contexts, hooks, and providers;
 - DOM anatomy, semantic hosts, ARIA, keyboard, focus, forms, lifecycle, and `asChild` behavior;
 - Ark `data-scope`/`data-part`, public `data-slot` hooks, states, orientation, presence, responsive
   behavior, and runtime measurement variables;
@@ -102,8 +101,8 @@ make styling convenient.
 ## 2. Implement native Tailwind variants
 
 Create matching component directories and thin framework-appropriate `index.ts` files in every
-affected Tailwind package. React and Solid use re-export-only barrels; Vue may use a thin assembly
-barrel for namespaced SFC parts.
+affected Tailwind package. React and Solid use re-export-only barrels; Vue uses a flat SFC export
+barrel with no assembly object.
 
 - Implement React from the React contract with native React, `className`, and the real ref contract.
 - Implement Solid from the Solid contract with native reactivity, `splitProps`/`mergeProps` where
@@ -114,7 +113,8 @@ barrel for namespaced SFC parts.
   introduce TSX or translate React and Solid runtime mechanics into Vue.
 - Preserve API, default anatomy, semantics, accessibility, behavior, Ark state attributes, public
   data hooks, runtime variables, and visual defaults.
-- Keep callable and namespaced component shapes aligned with their CSS Modules counterparts.
+- Keep the flat component value names aligned with their CSS Modules counterparts. Do not introduce
+  compound objects, static part properties, namespaces, or duplicate root aliases.
 - Remove all CSS Module imports. Keep every utility statically discoverable; never assemble utility
   names from fragments.
 
@@ -283,8 +283,8 @@ Use shadcn as a complexity and ergonomics reference, not as the behavior source 
   that shadcn may not support.
 
 Treat API simplicity as consumer ceremony, not only as an export or line count. Explicitly check the
-callable root and `Root` alias, required wrappers in the smallest useful example, parts that always
-travel together, presentation-only parts, overlapping aliases, styling props, and whether a common
+family-named root, required wrappers in the smallest useful example, parts that always travel
+together, presentation-only parts, overlapping aliases, styling props, and whether a common
 composition requires more nesting than its behavior or accessibility needs.
 
 Explicitly audit the failure modes that a declaration count alone misses:

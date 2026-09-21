@@ -1,16 +1,20 @@
-import { Accordion } from '@moduix/solid-tailwind/accordion';
+import {
+  Accordion,
+  AccordionItem,
+  AccordionItemBody,
+  AccordionItemContent,
+  AccordionItemTrigger,
+} from '@moduix/solid-tailwind/accordion';
 
 export function Example() {
   return (
     <Accordion defaultValue={['first']}>
-      <Accordion.Item value="first">
-        <Accordion.ItemTrigger>What is moduix?</Accordion.ItemTrigger>
-        <Accordion.ItemContent>
-          <Accordion.ItemBody>
-            A multi-framework component system built on Ark UI.
-          </Accordion.ItemBody>
-        </Accordion.ItemContent>
-      </Accordion.Item>
+      <AccordionItem value="first">
+        <AccordionItemTrigger>What is moduix?</AccordionItemTrigger>
+        <AccordionItemContent>
+          <AccordionItemBody>A multi-framework component system built on Ark UI.</AccordionItemBody>
+        </AccordionItemContent>
+      </AccordionItem>
     </Accordion>
   );
 }

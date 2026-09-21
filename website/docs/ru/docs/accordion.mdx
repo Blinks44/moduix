@@ -51,13 +51,9 @@ import accordionVueWithSlider from '../../../snippets/accordion/vue/with-slider.
 внутреннее содержимое в тело элемента. Индикатор состояния необязателен и по умолчанию отображает
 иконку плюса moduix.
 
-`Accordion` является рекомендуемым корневым компонентом. В React и Solid используйте
-`Accordion.Root`, если хотите явно обозначить корневую часть в композиции.
-
-В React и Solid части доступны через compound-синтаксис, например `Accordion.Item`. Во Vue корень
-сохраняет имя `Accordion`, а части экспортируются с нативными плоскими именами, например
-`AccordionItem` и `AccordionItemTrigger`. Такие Vue-импорты одинаково работают с npm-пакетом и
-исходниками из shadcn registry.
+React, Solid и Vue используют одинаковые плоские имена. Импортируйте `Accordion` как корневой
+компонент, а каждую дополнительную часть отдельно, например `AccordionItem` и
+`AccordionItemTrigger`. Одинаковые имена работают с npm-пакетами и исходниками из shadcn registry.
 
 <ExampleFrame variant="component">
   <AccordionBasic />
@@ -70,14 +66,6 @@ import accordionVueWithSlider from '../../../snippets/accordion/vue/with-slider.
     values={[
       { label: 'React', value: 'react' },
       { label: 'Solid', value: 'solid' },
-      { label: 'Vue', value: 'vue' },
-      { label: 'Vue', value: 'vue' },
-      { label: 'Vue', value: 'vue' },
-      { label: 'Vue', value: 'vue' },
-      { label: 'Vue', value: 'vue' },
-      { label: 'Vue', value: 'vue' },
-      { label: 'Vue', value: 'vue' },
-      { label: 'Vue', value: 'vue' },
       { label: 'Vue', value: 'vue' },
     ]}
     className="docs-tabs"
@@ -148,42 +136,28 @@ import accordionVueWithSlider from '../../../snippets/accordion/vue/with-slider.
 ## Анатомия
 
 ```text
-React и Solid
-Accordion / Accordion.Root
-└─ Accordion.Item[value]
- ├─ Accordion.ItemTrigger
- │  ├─ label
- │  └─ Accordion.ItemIndicator (необязательно)
- └─ Accordion.ItemContent
-    └─ Accordion.ItemBody
-       └─ content
-
-Accordion.RootProvider
-└─ то же дерево элементов, подключённое к состоянию из useAccordion()
-
-Vue
-Accordion / AccordionRoot
+Accordion
 └─ AccordionItem[value]
  ├─ AccordionItemTrigger
- │  ├─ заголовок
+ │  ├─ label
  │  └─ AccordionItemIndicator (необязательно)
  └─ AccordionItemContent
     └─ AccordionItemBody
-       └─ содержимое
+       └─ content
 
 AccordionRootProvider
 └─ то же дерево элементов, подключённое к состоянию из useAccordion()
 ```
 
-| Часть                                                       | Назначение                                                                                     |
-| ----------------------------------------------------------- | ---------------------------------------------------------------------------------------------- |
-| `Accordion` / `Accordion.Root` / `AccordionRoot` во Vue     | Корневая часть, управляющая состоянием аккордеона и навигацией с клавиатуры.                    |
-| `Accordion.RootProvider` / `AccordionRootProvider` во Vue   | Подключает части к состоянию, созданному с помощью `useAccordion()`.                            |
-| `Accordion.Item` / `AccordionItem` во Vue                   | Сворачиваемый элемент с обязательным стабильным значением `value`.                             |
-| `Accordion.ItemTrigger` / `AccordionItemTrigger` во Vue     | Кнопка, открывающая и закрывающая элемент.                                                      |
-| `Accordion.ItemIndicator` / `AccordionItemIndicator` во Vue | Необязательный индикатор состояния. Без содержимого moduix показывает иконку плюса.             |
-| `Accordion.ItemContent` / `AccordionItemContent` во Vue     | Раскрывающаяся панель с анимацией на основе измерений размера Ark.                              |
-| `Accordion.ItemBody` / `AccordionItemBody` во Vue           | Внутренняя обёртка moduix с отступами панели по умолчанию.                                      |
+| Часть                    | Назначение                                                                         |
+| ------------------------ | ---------------------------------------------------------------------------------- |
+| `Accordion`              | Корневая часть, управляющая состоянием и навигацией с клавиатуры.                  |
+| `AccordionRootProvider`  | Подключает части к состоянию, созданному с помощью `useAccordion()`.                |
+| `AccordionItem`          | Сворачиваемый элемент с обязательным стабильным значением `value`.                 |
+| `AccordionItemTrigger`   | Кнопка, открывающая и закрывающая элемент.                                          |
+| `AccordionItemIndicator` | Необязательный индикатор. Без содержимого moduix показывает иконку плюса.           |
+| `AccordionItemContent`   | Раскрывающаяся панель с анимацией на основе измерений размера Ark.                  |
+| `AccordionItemBody`      | Внутренняя обёртка moduix с отступами панели по умолчанию.                          |
 
 ## Композиция
 
@@ -191,11 +165,10 @@ AccordionRootProvider
 приложения, передайте `value` и обработчик `onValueChange(details)`. Оба свойства используют тип
 `string[]`, даже если открыть можно только один элемент.
 
-Используйте `Accordion.RootProvider` в React и Solid или `AccordionRootProvider` во Vue вместе с
-`useAccordion()` из пакета выбранного фреймворка, если состояние аккордеона нужно создать вне
-дерева. Не добавляйте второй корневой компонент для того же состояния. В React состояние читается
-как обычный объект, в Solid - через реактивную функцию доступа, а Vue передаёт реактивное хранилище
-прямо в шаблон.
+Используйте `AccordionRootProvider` вместе с `useAccordion()` из пакета выбранного фреймворка, если
+состояние аккордеона нужно создать вне дерева. Не добавляйте `Accordion` для того же состояния. В
+React состояние читается как обычный объект, в Solid - через реактивную функцию доступа, а Vue
+передаёт реактивное хранилище прямо в шаблон.
 
 ## Примеры
 
@@ -214,6 +187,7 @@ AccordionRootProvider
     values={[
       { label: 'React', value: 'react' },
       { label: 'Solid', value: 'solid' },
+      { label: 'Vue', value: 'vue' },
     ]}
     className="docs-tabs"
   >
@@ -260,6 +234,7 @@ AccordionRootProvider
     values={[
       { label: 'React', value: 'react' },
       { label: 'Solid', value: 'solid' },
+      { label: 'Vue', value: 'vue' },
     ]}
     className="docs-tabs"
   >
@@ -304,6 +279,7 @@ AccordionRootProvider
     values={[
       { label: 'React', value: 'react' },
       { label: 'Solid', value: 'solid' },
+      { label: 'Vue', value: 'vue' },
     ]}
     className="docs-tabs"
   >
@@ -349,6 +325,7 @@ AccordionRootProvider
     values={[
       { label: 'React', value: 'react' },
       { label: 'Solid', value: 'solid' },
+      { label: 'Vue', value: 'vue' },
     ]}
     className="docs-tabs"
   >
@@ -395,6 +372,7 @@ AccordionRootProvider
     values={[
       { label: 'React', value: 'react' },
       { label: 'Solid', value: 'solid' },
+      { label: 'Vue', value: 'vue' },
     ]}
     className="docs-tabs"
   >
@@ -439,6 +417,7 @@ AccordionRootProvider
     values={[
       { label: 'React', value: 'react' },
       { label: 'Solid', value: 'solid' },
+      { label: 'Vue', value: 'vue' },
     ]}
     className="docs-tabs"
   >
@@ -470,9 +449,8 @@ AccordionRootProvider
 
 ### Root Provider
 
-Используйте `useAccordion()` из пакета выбранного фреймворка вместе с `Accordion.RootProvider` в
-React и Solid или `AccordionRootProvider` во Vue, если состояние нужно создать вне дерева
-аккордеона. Не добавляйте второй корневой компонент для того же состояния.
+Используйте `useAccordion()` из пакета выбранного фреймворка вместе с `AccordionRootProvider`, если
+состояние нужно создать вне дерева аккордеона. Не добавляйте `Accordion` для того же состояния.
 
 <ExampleFrame variant="component">
   <AccordionRootProvider />
@@ -485,6 +463,7 @@ React и Solid или `AccordionRootProvider` во Vue, если состоян�
     values={[
       { label: 'React', value: 'react' },
       { label: 'Solid', value: 'solid' },
+      { label: 'Vue', value: 'vue' },
     ]}
     className="docs-tabs"
   >
@@ -531,6 +510,7 @@ React и Solid или `AccordionRootProvider` во Vue, если состоян�
     values={[
       { label: 'React', value: 'react' },
       { label: 'Solid', value: 'solid' },
+      { label: 'Vue', value: 'vue' },
     ]}
     className="docs-tabs"
   >
@@ -568,8 +548,8 @@ React и Solid или `AccordionRootProvider` во Vue, если состоян�
 обычными утилитами и пользовательскими классами; перечисленные ниже переменные относятся к
 вариантам с CSS Modules. Атрибуты данных и селекторы `data-slot` общие для обоих подходов.
 
-Задавайте отступы панели на `Accordion.ItemBody` в React и Solid или `AccordionItemBody` во Vue, а
-не на части содержимого, чтобы Ark мог правильно измерять и анимировать панель.
+Задавайте отступы панели на `AccordionItemBody`, а не на `AccordionItemContent`, чтобы Ark мог
+правильно измерять и анимировать панель.
 
 ### CSS-свойства
 

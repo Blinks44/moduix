@@ -40,7 +40,7 @@ Port direct component dependencies first. Keep framework source local to the Sol
 
 Keep semantically equivalent:
 
-- component names, namespace parts, hooks, contexts, providers, and package subpath exports;
+- flat component names, hooks, contexts, providers, and package subpath exports;
 - props, defaults, controlled and uncontrolled state, callback details, and lifecycle;
 - DOM anatomy, semantic hosts, ARIA, keyboard behavior, focus, forms, and hidden controls;
 - Ark data attributes, public `data-slot` hooks, ids, presence, and runtime variables;
@@ -64,7 +64,9 @@ make implementations textually identical.
   children more than once. Do not eagerly evaluate reactive children.
 - Use Solid JSX and types for refs, events, and `style`. Omit React-only directives, helpers, and
   contexts.
-- Preserve the established namespaced component object with the smallest native construct.
+- Export the root under the family name and every other part with the family prefix. Export hooks
+  directly. Do not create a compound object, static part properties, namespace export, `.Root`
+  alias, or duplicate `<Family>Root` public value.
 - Keep helpers and icons Solid-local and port only direct requirements.
 
 ## Ark primitives, factory parts, and context
