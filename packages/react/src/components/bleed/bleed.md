@@ -28,8 +28,8 @@ Ark-aligned factory wrapper with `@ark-ui/react/factory`.
 
 ## Current behavior contract
 
-- Uses Ark-style root composition: `Bleed.Root`.
-- `Bleed` itself is the same root component with `Bleed.Root` attached for namespace consistency.
+- Uses Ark-style root composition: `Bleed` is the exported root value.
+- The family name is the only public value; there are no other parts.
 - Root accepts Ark factory div props, including `asChild`.
 - Applies `data-scope="bleed"`, `data-part="root"`, `data-slot="bleed-root"`, `data-inline`, and
   `data-block` on the root.
@@ -41,19 +41,19 @@ Ark-aligned factory wrapper with `@ark-ui/react/factory`.
 ## Anatomy and exported parts
 
 ```text
-Bleed.Root
+Bleed
 └─ children
 ```
 
 Every exported part accepts `className` and uses the standard hooks below:
 
-| Part         | Hook                     | Notes                                           |
-| ------------ | ------------------------ | ----------------------------------------------- |
-| `Bleed.Root` | `data-slot="bleed-root"` | Root layout wrapper for inline and block bleed. |
-| `Bleed.Root` | `data-scope="bleed"`     | Ark-aligned component scope.                    |
-| `Bleed.Root` | `data-part="root"`       | Ark-aligned part name.                          |
-| `Bleed.Root` | `data-inline`            | Selects inline bleed behavior.                  |
-| `Bleed.Root` | `data-block`             | Selects block bleed behavior.                   |
+| Part    | Hook                     | Notes                                           |
+| ------- | ------------------------ | ----------------------------------------------- |
+| `Bleed` | `data-slot="bleed-root"` | Root layout wrapper for inline and block bleed. |
+| `Bleed` | `data-scope="bleed"`     | Ark-aligned component scope.                    |
+| `Bleed` | `data-part="root"`       | Ark-aligned part name.                          |
+| `Bleed` | `data-inline`            | Selects inline bleed behavior.                  |
+| `Bleed` | `data-block`             | Selects block bleed behavior.                   |
 
 ## Composition
 
@@ -128,7 +128,6 @@ Public CSS variables:
 - There is still no upstream Ark primitive for this component; moduix keeps it as a thin factory
   wrapper rather than inventing a richer primitive surface.
 - The old `as` prop was removed in favor of Ark `asChild`.
-- moduix adds Ark-style namespace access through `Bleed.Root`.
 - moduix adds Ark-style `data-scope` and `data-part` hooks on the root.
 - moduix defaults to token-based axis values and adds `inline="full"`; this differs from Chakra's
   arbitrary style-value and one-sided direction props.
@@ -146,6 +145,8 @@ Public CSS variables:
 
 ## Local changelog
 
+- 2026-09-21: Removed the `Bleed.Root` namespace alias and migrated the public surface to the flat
+  value API; `Bleed` is now the only exported root value, and tests and stories use the flat form.
 - 2026-08-09: Synchronized the public full-bleed variable reference with logical viewport units and
   expanded regression coverage for the namespace form, stable hooks, and consumer classes.
 - 2026-07-26: Made full-bleed viewport math logical for vertical writing modes, widened the

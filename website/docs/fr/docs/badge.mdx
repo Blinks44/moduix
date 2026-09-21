@@ -40,7 +40,7 @@ Les mêmes exports sont disponibles depuis `@moduix/solid/badge` pour Solid.
 ## Exemple de base
 
 Commencez par un `<Badge>` simple. Par défaut, le composant rend un `span` de présentation. Définissez `variant` pour
-choisir un style intégré et ajoutez `Badge.Dot` uniquement lorsqu’un statut a besoin d’un indicateur visuel.
+choisir un style intégré et ajoutez `BadgeDot` uniquement lorsqu’un statut a besoin d’un indicateur visuel.
 
 
 <ExampleFrame variant="component">
@@ -102,24 +102,24 @@ Consultez le [Démarrage rapide](/docs/quick-start) pour la configuration compl�
 
 ## Anatomie
 
-`Badge` est le raccourci de `Badge.Root`. Son API publique reste volontairement réduite aux parties visibles.
+`Badge` est le composant racine. Son API publique reste volontairement réduite aux parties visibles.
 
 ```text
-Badge / Badge.Root
-├─ Badge.Label (facultatif ; à utiliser explicitement pour la troncature)
-├─ Badge.Dot (facultatif)
+Badge
+├─ BadgeLabel (facultatif ; à utiliser explicitement pour la troncature)
+├─ BadgeDot (facultatif)
 └─ icône svg (facultative)
 ```
 
-| Partie                 | Rôle                                                                                  |
-| ---------------------- | ------------------------------------------------------------------------------------- |
-| `Badge` / `Badge.Root` | Partie racine. Applique la variante, la bordure et les espacements.                    |
-| `Badge.Label`          | Partie de texte explicite. Permet de tronquer correctement un badge composé.          |
-| `Badge.Dot`            | Partie décorative. Affiche un marqueur circulaire qui reprend la couleur du texte.    |
+| Partie      | Rôle                                                                                  |
+| ----------- | ------------------------------------------------------------------------------------- |
+| `Badge`     | Partie racine. Applique la variante, la bordure et les espacements.                    |
+| `BadgeLabel` | Partie de texte explicite. Permet de tronquer correctement un badge composé.          |
+| `BadgeDot`  | Partie décorative. Affiche un marqueur circulaire qui reprend la couleur du texte.    |
 
 ## Composition
 
-`Badge` est un composant de présentation et ne gère aucun état. Le texte direct reste inchangé ; utilisez `Badge.Label` lorsqu’un libellé contraint doit être tronqué ou lorsqu’il est combiné avec `Badge.Dot` ou une icône. Pour un lien ou un bouton sémantique, utilisez `asChild` avec exactement un enfant en React. En Solid, passez une fonction de rendu à `asChild` ; l’enfant rendu conserve ses sémantiques natives. `Badge.Root` est l’équivalent avec espace de noms de `Badge`.
+`Badge` est un composant de présentation et ne gère aucun état. Le texte direct reste inchangé ; utilisez `BadgeLabel` lorsqu’un libellé contraint doit être tronqué ou lorsqu’il est combiné avec `BadgeDot` ou une icône. Pour un lien ou un bouton sémantique, utilisez `asChild` avec exactement un enfant en React. En Solid, passez une fonction de rendu à `asChild` ; l’enfant rendu conserve ses sémantiques natives.
 ## Exemples
 
 ### Styles personnalisés
@@ -199,7 +199,7 @@ enfant reste un véritable lien et conserve sa sémantique native.
 
 ### Libellés longs
 
-Placez un libellé long dans `Badge.Label` pour le tronquer dans un badge de largeur contrainte. Ajoutez `title` pour
+Placez un libellé long dans `BadgeLabel` pour le tronquer dans un badge de largeur contrainte. Ajoutez `title` pour
 rendre le libellé complet visible au survol. Dans les interfaces tactiles, choisissez un libellé adapté à l’espace disponible.
 
 <ExampleFrame variant="component">
@@ -278,7 +278,7 @@ Utilisez les variantes intégrées pour les styles courants.
 
 ### Avec un point
 
-Ajoutez `Badge.Dot` lorsque le libellé a besoin d’un indicateur d’état qui reste visuellement associé. Le texte visible doit
+Ajoutez `BadgeDot` lorsque le libellé a besoin d’un indicateur d’état qui reste visuellement associé. Le texte visible doit
 porter le sens du statut, car le point est décoratif.
 
 <ExampleFrame variant="component">
@@ -370,8 +370,8 @@ pour un badge donné.
 ### Points d’accroche CSS
 
 - `data-slot="badge-root"`, `data-slot="badge-label"` et `data-slot="badge-dot"` sont des sélecteurs stables pour cibler les parties exportées en CSS.
-- `Badge.Root` expose également `data-scope="badge"` et `data-part="root"`. `Badge.Label` et `Badge.Dot` exposent `data-part="label"` et `data-part="dot"`.
-- `Badge.Root` indique la variante sélectionnée dans l’attribut `data-variant`.
-- Les hôtes focalisables rendus avec `Badge asChild` ou `Badge.Root asChild` reçoivent le style de focus visible. Les racines de type lien reçoivent aussi le survol de la variante et le curseur pointeur ; les styles propres aux boutons restent gérés par l’application.
+- `Badge` expose également `data-scope="badge"` et `data-part="root"`. `BadgeLabel` et `BadgeDot` exposent `data-part="label"` et `data-part="dot"`.
+- `Badge` indique la variante sélectionnée dans l’attribut `data-variant`.
+- Les hôtes focalisables rendus avec `Badge asChild` reçoivent le style de focus visible. Les racines de type lien reçoivent aussi le survol de la variante et le curseur pointeur ; les styles propres aux boutons restent gérés par l’application.
 - Les icônes `svg` placées directement comme enfants héritent de `currentColor`, ne capturent pas les événements du pointeur et utilisent `--moduix-badge-icon-size`.
 - `Badge` ne dispose ni d’une primitive Ark dédiée ni d’une machine de comportement ; il n’expose donc aucun état géré par Ark ni aucune variable CSS d’exécution.

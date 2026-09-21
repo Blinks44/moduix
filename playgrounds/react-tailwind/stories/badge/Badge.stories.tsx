@@ -1,15 +1,15 @@
 import type { Meta, StoryObj } from '@storybook/react-vite';
 import type { ComponentProps } from 'react';
-import { Badge } from '@/components/badge/Badge';
+import { Badge, BadgeDot, BadgeLabel } from '@/components/badge/Badge';
 import { ChevronRightIcon } from '@/lib/moduix/icons/ui';
 
 const meta = {
   title: 'Components/Badge',
-  component: Badge.Root,
+  component: Badge,
   parameters: {
     layout: 'centered',
   },
-} satisfies Meta<typeof Badge.Root>;
+} satisfies Meta<typeof Badge>;
 
 export default meta;
 
@@ -41,9 +41,9 @@ export const Variants: Story = {
   render: () => (
     <div className={rowClass}>
       {variants.map((variant) => (
-        <Badge.Root key={variant} variant={variant}>
+        <Badge key={variant} variant={variant}>
           {variant}
-        </Badge.Root>
+        </Badge>
       ))}
     </div>
   ),
@@ -52,18 +52,18 @@ export const Variants: Story = {
 export const WithDot: Story = {
   render: () => (
     <div className={rowClass}>
-      <Badge.Root variant="default">
-        <Badge.Dot />
-        <Badge.Label>Online</Badge.Label>
-      </Badge.Root>
-      <Badge.Root variant="secondary">
-        <Badge.Dot />
-        <Badge.Label>Draft</Badge.Label>
-      </Badge.Root>
-      <Badge.Root variant="destructive">
-        <Badge.Dot />
-        <Badge.Label>Failed</Badge.Label>
-      </Badge.Root>
+      <Badge variant="default">
+        <BadgeDot />
+        <BadgeLabel>Online</BadgeLabel>
+      </Badge>
+      <Badge variant="secondary">
+        <BadgeDot />
+        <BadgeLabel>Draft</BadgeLabel>
+      </Badge>
+      <Badge variant="destructive">
+        <BadgeDot />
+        <BadgeLabel>Failed</BadgeLabel>
+      </Badge>
     </div>
   ),
 };
@@ -71,67 +71,64 @@ export const WithDot: Story = {
 export const WithIcon: Story = {
   render: () => (
     <div className={rowClass}>
-      <Badge.Root variant="default">
-        <Badge.Label>Release</Badge.Label>
+      <Badge variant="default">
+        <BadgeLabel>Release</BadgeLabel>
         <ChevronRightIcon />
-      </Badge.Root>
-      <Badge.Root variant="secondary">
-        <Badge.Label>Details</Badge.Label>
+      </Badge>
+      <Badge variant="secondary">
+        <BadgeLabel>Details</BadgeLabel>
         <ChevronRightIcon />
-      </Badge.Root>
-      <Badge.Root variant="outline">
-        <Badge.Label>Read more</Badge.Label>
+      </Badge>
+      <Badge variant="outline">
+        <BadgeLabel>Read more</BadgeLabel>
         <ChevronRightIcon />
-      </Badge.Root>
-      <Badge.Root asChild variant="link">
+      </Badge>
+      <Badge asChild variant="link">
         <a href="#badge-link-story">
-          <Badge.Label>Styling guide</Badge.Label>
+          <BadgeLabel>Styling guide</BadgeLabel>
           <ChevronRightIcon />
         </a>
-      </Badge.Root>
+      </Badge>
     </div>
   ),
 };
 
 export const Link: Story = {
   render: () => (
-    <Badge.Root asChild variant="link">
+    <Badge asChild variant="link">
       <a href="#badge-link-story">Open badge composition guidance</a>
-    </Badge.Root>
+    </Badge>
   ),
 };
 
 export const DisabledButton: Story = {
   render: () => (
-    <Badge.Root asChild variant="secondary">
+    <Badge asChild variant="secondary">
       <button className="cursor-not-allowed opacity-50" disabled>
         Archived
       </button>
-    </Badge.Root>
+    </Badge>
   ),
 };
 
 export const TruncatedLabel: Story = {
   render: () => (
-    <Badge.Root
-      className={constrainedClass}
-      title="Ready for stakeholder review after legal approval"
-    >
-      <Badge.Label>Ready for stakeholder review after legal approval</Badge.Label>
-    </Badge.Root>
+    <Badge className={constrainedClass} title="Ready for stakeholder review after legal approval">
+      <BadgeLabel>Ready for stakeholder review after legal approval</BadgeLabel>
+    </Badge>
   ),
 };
 
 export const CustomStyling: Story = {
   render: () => (
     <div className={rowClass}>
-      <Badge.Root className={smallBadgeClass}>Small</Badge.Root>
-      <Badge.Root>Default</Badge.Root>
-      <Badge.Root className={largeBadgeClass}>Large</Badge.Root>
-      <Badge.Root className={customBadgeClass}>
-        <Badge.Dot className="size-2" />
-        <Badge.Label>Priority</Badge.Label>
-      </Badge.Root>
+      <Badge className={smallBadgeClass}>Small</Badge>
+      <Badge>Default</Badge>
+      <Badge className={largeBadgeClass}>Large</Badge>
+      <Badge className={customBadgeClass}>
+        <BadgeDot className="size-2" />
+        <BadgeLabel>Priority</BadgeLabel>
+      </Badge>
     </div>
   ),
 };

@@ -33,8 +33,7 @@ import buttonSolidVariants from '../../../snippets/button/solid/variants.tsx?raw
 
 Интерактивный пример на этой странице
 
-Для большинства действий используйте короткую запись `<Button>...</Button>`. Для записи через пространство
-имён используйте `Button.Root`.
+Для большинства действий используйте `<Button>...</Button>`.
 
 <ExampleFrame variant="component">
   <ButtonBasic />
@@ -98,15 +97,14 @@ import buttonSolidVariants from '../../../snippets/button/solid/variants.tsx?raw
 `Button` состоит из одной части.
 
 ```text
-Button / Button.Root
+Button
 └─ root[data-scope="button"][data-part="root"][data-slot="button-root"]
    └─ children
 ```
 
-| Часть                    | Назначение                                          |
-| ------------------------ | --------------------------------------------------- |
-| `Button` / `Button.Root` | Единый интерактивный корневой элемент со стилями moduix. |
-| `Button`                 | Вызываемая форма `Button.Root`.                     |
+| Часть    | Назначение                                              |
+| -------- | ------------------------------------------------------- |
+| `Button` | Единый интерактивный корневой элемент со стилями moduix. |
 
 ## Композиция
 

@@ -1,7 +1,7 @@
 # Badge (Solid)
 
-`Badge` preserves the React component's presentational root, explicit `Badge.Label` and
-`Badge.Dot` parts, variants, stable data hooks, and consumer-owned interactive presentation.
+`Badge` preserves the React component's presentational root, explicit `BadgeLabel` and
+`BadgeDot` parts, variants, stable data hooks, and consumer-owned interactive presentation.
 
 ## Ark Solid composition
 

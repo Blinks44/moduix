@@ -1,4 +1,12 @@
-import { Breadcrumbs } from '@moduix/solid/breadcrumbs';
+import {
+  Breadcrumbs,
+  BreadcrumbsEllipsis,
+  BreadcrumbsItem,
+  BreadcrumbsLink,
+  BreadcrumbsList,
+  BreadcrumbsPage,
+  BreadcrumbsSeparator,
+} from '@moduix/solid/breadcrumbs';
 import { Menu } from '@moduix/solid/menu';
 import styles from '@/components/examples/breadcrumbs/breadcrumbs-collapsed-path.module.css';
 
@@ -11,12 +19,12 @@ const collapsedItems = [
 export default function BreadcrumbsCollapsedDemo() {
   return (
     <Breadcrumbs>
-      <Breadcrumbs.List>
-        <Breadcrumbs.Item>
-          <Breadcrumbs.Link href="/">Home</Breadcrumbs.Link>
-        </Breadcrumbs.Item>
-        <Breadcrumbs.Separator />
-        <Breadcrumbs.Item>
+      <BreadcrumbsList>
+        <BreadcrumbsItem>
+          <BreadcrumbsLink href="/">Home</BreadcrumbsLink>
+        </BreadcrumbsItem>
+        <BreadcrumbsSeparator />
+        <BreadcrumbsItem>
           <Menu positioning={{ placement: 'bottom-start' }}>
             <Menu.Trigger
               asChild={(props) => (
@@ -26,7 +34,7 @@ export default function BreadcrumbsCollapsedDemo() {
                   aria-label="Show hidden path items"
                   class={styles.trigger}
                 >
-                  <Breadcrumbs.Ellipsis />
+                  <BreadcrumbsEllipsis />
                 </button>
               )}
             />
@@ -45,16 +53,16 @@ export default function BreadcrumbsCollapsedDemo() {
               </Menu.Content>
             </Menu.Positioner>
           </Menu>
-        </Breadcrumbs.Item>
-        <Breadcrumbs.Separator />
-        <Breadcrumbs.Item>
-          <Breadcrumbs.Link href="/docs/breadcrumbs">Breadcrumbs</Breadcrumbs.Link>
-        </Breadcrumbs.Item>
-        <Breadcrumbs.Separator />
-        <Breadcrumbs.Item>
-          <Breadcrumbs.Page>Go Developer</Breadcrumbs.Page>
-        </Breadcrumbs.Item>
-      </Breadcrumbs.List>
+        </BreadcrumbsItem>
+        <BreadcrumbsSeparator />
+        <BreadcrumbsItem>
+          <BreadcrumbsLink href="/docs/breadcrumbs">Breadcrumbs</BreadcrumbsLink>
+        </BreadcrumbsItem>
+        <BreadcrumbsSeparator />
+        <BreadcrumbsItem>
+          <BreadcrumbsPage>Go Developer</BreadcrumbsPage>
+        </BreadcrumbsItem>
+      </BreadcrumbsList>
     </Breadcrumbs>
   );
 }

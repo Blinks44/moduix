@@ -16,7 +16,7 @@ type BleedRootProps = HTMLArkProps<'div'> & {
   'data-block'?: string;
 };
 
-function BleedRoot(props: BleedRootProps) {
+function Bleed(props: BleedRootProps) {
   const [local, others] = splitProps(props, [
     'asChild',
     'block',
@@ -42,9 +42,5 @@ function BleedRoot(props: BleedRootProps) {
     />
   );
 }
-
-const Bleed = Object.assign(BleedRoot, {
-  Root: BleedRoot,
-});
 
 export { Bleed };

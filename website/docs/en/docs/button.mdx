@@ -31,7 +31,7 @@ Ark UI does not provide a dedicated `button` primitive. moduix builds this compo
 
 ## Basic
 
-For most actions, use the short `<Button>...</Button>` form. `Button.Root` is the equivalent namespaced form.
+For most actions, use `<Button>...</Button>`.
 
 <ExampleFrame variant="component">
   <ButtonBasic />
@@ -95,15 +95,14 @@ See [Quick Start](/docs/quick-start) for full package setup, registry configurat
 `Button` has a single part.
 
 ```text
-Button / Button.Root
+Button
 └─ root[data-scope="button"][data-part="root"][data-slot="button-root"]
    └─ children
 ```
 
-| Part                     | Role                                             |
-| ------------------------ | ------------------------------------------------ |
-| `Button` / `Button.Root` | Single interactive root element with moduix styles. |
-| `Button`                 | Callable alias for `Button.Root`.                |
+| Part     | Role                                                |
+| -------- | --------------------------------------------------- |
+| `Button` | Single interactive root element with moduix styles. |
 
 ## Composition
 

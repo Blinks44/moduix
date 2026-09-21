@@ -13,19 +13,19 @@ Ark UI has no dedicated Badge primitive. Moduix uses the
 
 ## Public contract
 
-- `Badge` and `Badge.Root` expose the same root part with `default`, `secondary`, `destructive`,
-  `outline`, `ghost`, and `link` variants.
-- `Badge.Label` is an explicit text part for composed or truncatable labels.
-- `Badge.Dot` is an optional decorative part and always renders `aria-hidden="true"`.
+- `Badge` is the root part with `default`, `secondary`, `destructive`, `outline`, `ghost`, and
+  `link` variants.
+- `BadgeLabel` is an explicit text part for composed or truncatable labels.
+- `BadgeDot` is an optional decorative part and always renders `aria-hidden="true"`.
 - Every part exposes stable `data-scope`, `data-part`, and `data-slot` hooks and forwards its ref.
 - Direct text remains direct text; the component does not rewrite children or insert an implicit
-  `Badge.Label`.
+  `BadgeLabel`.
 
 ## Preservation notes
 
 - Keep Badge presentational: it owns no state, disabled model, or button behavior.
 - Preserve semantic root composition through Ark factory `asChild`.
-- Use `Badge.Label` explicitly when a constrained composed label must ellipsize.
+- Use `BadgeLabel` explicitly when a constrained composed label must ellipsize.
 - Direct child SVG icons are the one normalized child contract: they inherit `currentColor`, use
   the public icon-size variable, and do not receive pointer events.
 
@@ -41,7 +41,7 @@ class overrides instead.
 
 ## Differences from upstream
 
-Moduix adds `Badge.Label`, `Badge.Dot`, stable Ark-style hooks, and a `link` visual variant while
+Moduix adds `BadgeLabel`, `BadgeDot`, stable Ark-style hooks, and a `link` visual variant while
 keeping the root composition explicit.
 
 ## Local changelog

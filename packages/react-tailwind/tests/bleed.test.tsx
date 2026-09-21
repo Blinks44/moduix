@@ -37,9 +37,9 @@ test('composes an asChild element and forwards its props to the child', () => {
   expect(figure).toHaveClass('figure');
 });
 
-test('keeps root hooks and merges className through the namespace form', () => {
+test('keeps wrapper-owned hooks and merges className through consumer props', () => {
   const { getByTestId } = render(
-    <Bleed.Root
+    <Bleed
       data-testid="bleed"
       data-scope="custom"
       data-part="custom"

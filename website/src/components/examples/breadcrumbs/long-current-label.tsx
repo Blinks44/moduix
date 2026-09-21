@@ -1,4 +1,4 @@
-import { Breadcrumbs } from '@moduix/react/breadcrumbs';
+import { Breadcrumbs, BreadcrumbsPath } from '@moduix/react/breadcrumbs';
 import styles from '@/components/examples/breadcrumbs/breadcrumbs-long-current-label.module.css';
 
 const currentPage =
@@ -7,7 +7,7 @@ const currentPage =
 export default function BreadcrumbsLongLabelDemo() {
   return (
     <Breadcrumbs className={styles.root}>
-      <Breadcrumbs.Path
+      <BreadcrumbsPath
         links={[
           { href: '/', label: 'Home' },
           { href: '/docs/breadcrumbs', label: 'Breadcrumbs' },

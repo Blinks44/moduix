@@ -34,8 +34,7 @@ Ark UI ne fournit pas de primitive `button` dédiée. moduix construit ce compos
 Les mêmes exports sont disponibles depuis `@moduix/solid/button` pour Solid.
 ## Exemple de base
 
-Pour la plupart des actions, utilisez la forme courte `<Button>...</Button>`. Vous pouvez aussi utiliser
-`Button.Root`, qui expose la même API dans un espace de noms.
+Pour la plupart des actions, utilisez `<Button>...</Button>`.
 
 
 <ExampleFrame variant="component">
@@ -100,15 +99,14 @@ Consultez le [Démarrage rapide](/docs/quick-start) pour la configuration compl�
 `Button` ne comporte qu’une seule partie.
 
 ```text
-Button.Root
+Button
 └─ root[data-scope="button"][data-part="root"][data-slot="button-root"]
    └─ children
 ```
 
-| Partie                   | Rôle                                                        |
-| ------------------------ | ----------------------------------------------------------- |
-| `Button` / `Button.Root` | Élément interactif racine avec les styles moduix.            |
-| `Button`                 | Alias de `Button.Root`, utilisable directement.              |
+| Partie   | Rôle                                             |
+| -------- | ------------------------------------------------ |
+| `Button` | Élément interactif racine avec les styles moduix. |
 
 ## Composition
 

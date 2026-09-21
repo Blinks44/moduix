@@ -15,8 +15,8 @@ type BreadcrumbsPathProps = Omit<HTMLArkProps<'ol'>, 'asChild' | 'children'> & {
   separator?: ReactNode;
 };
 
-const BreadcrumbsRoot = forwardRef<ComponentRef<typeof ark.nav>, HTMLArkProps<'nav'>>(
-  function BreadcrumbsRoot({ className, 'aria-label': ariaLabel = 'Breadcrumb', ...props }, ref) {
+const Breadcrumbs = forwardRef<ComponentRef<typeof ark.nav>, HTMLArkProps<'nav'>>(
+  function Breadcrumbs({ className, 'aria-label': ariaLabel = 'Breadcrumb', ...props }, ref) {
     return (
       <ark.nav
         ref={ref}
@@ -134,15 +134,13 @@ const BreadcrumbsEllipsis = forwardRef<ComponentRef<typeof ark.span>, HTMLArkPro
   },
 );
 
-const Breadcrumbs = Object.assign(BreadcrumbsRoot, {
-  Root: BreadcrumbsRoot,
-  List: BreadcrumbsList,
-  Item: BreadcrumbsItem,
-  Link: BreadcrumbsLink,
-  Path: BreadcrumbsPath,
-  Page: BreadcrumbsPage,
-  Separator: BreadcrumbsSeparator,
-  Ellipsis: BreadcrumbsEllipsis,
-});
-
-export { Breadcrumbs };
+export {
+  Breadcrumbs,
+  BreadcrumbsEllipsis,
+  BreadcrumbsItem,
+  BreadcrumbsLink,
+  BreadcrumbsList,
+  BreadcrumbsPage,
+  BreadcrumbsPath,
+  BreadcrumbsSeparator,
+};

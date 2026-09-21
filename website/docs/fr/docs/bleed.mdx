@@ -104,19 +104,18 @@ Consultez le [Démarrage rapide](/docs/quick-start) pour la configuration compl�
 ligne et/ou l’axe de bloc, sans ajouter d’enveloppe interne.
 
 ```text
-Bleed.Root
+Bleed
 └─ root[data-scope="bleed"][data-part="root"][data-slot="bleed-root"]
    └─ children
 ```
 
-| Partie                 | Rôle                                                                    |
-| ---------------------- | ----------------------------------------------------------------------- |
-| `Bleed` / `Bleed.Root` | Composant racine qui permet au contenu de dépasser sur les axes en ligne et de bloc. |
-| `Bleed`                | Forme courte de `Bleed.Root`, utilisable directement comme composant.   |
+| Partie | Rôle                                                                                 |
+| ------ | ------------------------------------------------------------------------------------ |
+| `Bleed` | Composant racine qui permet au contenu de dépasser sur les axes en ligne et de bloc. |
 
 ## Composition
 
-`Bleed` est un composant de présentation sans état. Il ne possède qu’une partie racine ; `Bleed.Root` est un alias de `Bleed`. Les valeurs par défaut sont `inline="full"`, `block="none"` et `asChild={false}`. Lorsque `asChild` doit confier la racine rendue à un élément sémantique, fournissez exactement un enfant capable de recevoir les propriétés DOM et une ref en React, ou utilisez la fonction de rendu Solid. Les refs React ciblent la racine ou l’enfant rendu ; la forme Solid ne transmet pas la ref du composant à l’hôte personnalisé.
+`Bleed` est un composant de présentation sans état. Il ne possède qu’une partie racine ; il n’y a donc aucune partie enfant à coordonner. Les valeurs par défaut sont `inline="full"`, `block="none"` et `asChild={false}`. Lorsque `asChild` doit confier la racine rendue à un élément sémantique, fournissez exactement un enfant capable de recevoir les propriétés DOM et une ref en React, ou utilisez la fonction de rendu Solid. Les refs React ciblent la racine ou l’enfant rendu ; la forme Solid ne transmet pas la ref du composant à l’hôte personnalisé.
 
 Combinez `inline` et `block` lorsqu’une surface doit dépasser les marges internes sur les deux axes logiques. `inline="full"` est relatif à la fenêtre d’affichage ; dans une enveloppe imbriquée, il peut donc être nécessaire de redéfinir localement `--moduix-bleed-inline-full` et `--moduix-bleed-inline-full-size`.
 ## Exemples

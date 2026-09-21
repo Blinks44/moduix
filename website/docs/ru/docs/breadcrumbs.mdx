@@ -28,8 +28,12 @@ Ark UI не предоставляет отдельного примитива �
 ## Базовый пример
 
 
-Используйте `Breadcrumbs.Path`, если у вас уже есть список сегментов пути. На основе обязательных пропсов `links` и `page`
+Используйте `BreadcrumbsPath`, если у вас уже есть список сегментов пути. На основе обязательных пропсов `links` и `page`
 компонент создаёт упорядоченный список, элементы, ссылки, текущую страницу и разделители.
+
+В React и Solid используются одинаковые плоские имена значений. Импортируйте `Breadcrumbs` как корень и импортируйте
+каждую дополнительную часть напрямую, например `BreadcrumbsPath` и `BreadcrumbsLink`. Эти же имена работают и в пакетах
+npm, и в исходниках реестра shadcn.
 
 <ExampleFrame variant="component">
   <BreadcrumbsBasic />
@@ -90,30 +94,28 @@ Ark UI не предоставляет отдельного примитива �
 
 ## Анатомия
 
-`Breadcrumbs` экспортирует части через пространство имён в стиле Ark.
-
 ```text
-Breadcrumbs / Breadcrumbs.Root
-└─ Breadcrumbs.List
-   ├─ Breadcrumbs.Item
-   │  └─ Breadcrumbs.Link
-   ├─ Breadcrumbs.Separator
-   └─ Breadcrumbs.Item
-      └─ Breadcrumbs.Page
+Breadcrumbs
+└─ BreadcrumbsList
+   ├─ BreadcrumbsItem
+   │  └─ BreadcrumbsLink
+   ├─ BreadcrumbsSeparator
+   └─ BreadcrumbsItem
+      └─ BreadcrumbsPage
 ```
 
-| Часть                              | Назначение                                                       |
-| ---------------------------------- | ---------------------------------------------------------------- |
-| `Breadcrumbs` / `Breadcrumbs.Root` | Область навигации с `aria-label` по умолчанию.                    |
-| `Breadcrumbs.List`                 | Упорядоченный список сегментов пути.                              |
-| `Breadcrumbs.Item`                 | Элемент списка, содержащий один сегмент.                          |
-| `Breadcrumbs.Link`                 | Стилизованная ссылка для сегментов, по которым можно перейти; поддерживает `asChild`. |
-| `Breadcrumbs.Page`                 | Текст текущей страницы с `aria-current="page"`.                  |
-| `Breadcrumbs.Separator`            | Визуальный разделитель, скрытый от вспомогательных технологий.   |
-| `Breadcrumbs.Ellipsis`             | Компактный маркер для кнопки меню, открывающей скрытые сегменты.  |
+| Часть                  | Назначение                                                       |
+| ---------------------- | ---------------------------------------------------------------- |
+| `Breadcrumbs`          | Область навигации с `aria-label` по умолчанию.                    |
+| `BreadcrumbsList`      | Упорядоченный список сегментов пути.                              |
+| `BreadcrumbsItem`      | Элемент списка, содержащий один сегмент.                          |
+| `BreadcrumbsLink`      | Стилизованная ссылка для сегментов, по которым можно перейти; поддерживает `asChild`. |
+| `BreadcrumbsPage`      | Текст текущей страницы с `aria-current="page"`.                  |
+| `BreadcrumbsSeparator` | Визуальный разделитель, скрытый от вспомогательных технологий.   |
+| `BreadcrumbsEllipsis`  | Компактный маркер для кнопки меню, открывающей скрытые сегменты.  |
 
-`Breadcrumbs.Path` - сокращённый API moduix. Он создаёт `Breadcrumbs.List`, `Breadcrumbs.Item`,
-`Breadcrumbs.Link`, `Breadcrumbs.Page` и `Breadcrumbs.Separator` на основе пропсов `links` и `page`.
+`BreadcrumbsPath` - сокращённый API moduix. Он создаёт `BreadcrumbsList`, `BreadcrumbsItem`,
+`BreadcrumbsLink`, `BreadcrumbsPage` и `BreadcrumbsSeparator` на основе пропсов `links` и `page`.
 
 ## Композиция
 
@@ -121,14 +123,14 @@ Breadcrumbs / Breadcrumbs.Root
 колбэков, хуков контекста или `RootProvider`. Состоянием свёрнутой цепочки управляет составной `Menu`, а навигация
 роутера остаётся ответственностью компонента-ссылки приложения.
 
-Используйте `Breadcrumbs.Path` для цепочки с обычными ссылками. Он сам управляет дочерними элементами списка,
+Используйте `BreadcrumbsPath` для цепочки с обычными ссылками. Он сам управляет дочерними элементами списка,
 рендерит каждый элемент `links` как ссылку, рендерит `page` как текущую страницу и не принимает `children` или `asChild`. Если нужны ссылки роутера,
 скрытые средние сегменты или другая разметка, используйте отдельные части. Для ссылки роутера передайте в
-`Breadcrumbs.Link asChild` один семантически корректный дочерний элемент, чтобы сохранить ожидаемые `href`, фокус и
+`BreadcrumbsLink asChild` один семантически корректный дочерний элемент, чтобы сохранить ожидаемые `href`, фокус и
 клавиатурное поведение.
 
-Для свёрнутой цепочки поместите `Breadcrumbs.Ellipsis` внутрь `Menu.Trigger`, а части `Positioner`, `Content` и
-`Item asChild` меню оставьте явными. `Breadcrumbs.Ellipsis` отвечает только за отображение; доступная метка и
+Для свёрнутой цепочки поместите `BreadcrumbsEllipsis` внутрь `Menu.Trigger`, а части `Positioner`, `Content` и
+`Item asChild` меню оставьте явными. `BreadcrumbsEllipsis` отвечает только за отображение; доступная метка и
 взаимодействие принадлежат триггеру.
 
 ## Примеры
@@ -137,7 +139,7 @@ Breadcrumbs / Breadcrumbs.Root
 
 Используйте отдельные части `Breadcrumbs` вместе с `Menu`, если средние сегменты нужно скрывать и показывать по запросу.
 Взаимодействием управляют триггер и содержимое меню, поэтому в примере используются отдельные части, а не
-`Breadcrumbs.Path`.
+`BreadcrumbsPath`.
 
 <ExampleFrame variant="component">
   <BreadcrumbsCollapsedPath />
@@ -176,7 +178,7 @@ Breadcrumbs / Breadcrumbs.Root
 
 ### Пользовательский разделитель
 
-Используйте `Breadcrumbs.Path`, если во всех видимых промежутках нужен один и тот же значок или символ вместо шеврона
+Используйте `BreadcrumbsPath`, если во всех видимых промежутках нужен один и тот же значок или символ вместо шеврона
 по умолчанию.
 
 <ExampleFrame variant="component">
@@ -295,7 +297,7 @@ Breadcrumbs / Breadcrumbs.Root
 
 ### Расширенная настройка
 
-Используйте отдельные части вместо `Breadcrumbs.Path`, если в одной цепочке нужно сочетать ссылки из роутера приложения,
+Используйте отдельные части вместо `BreadcrumbsPath`, если в одной цепочке нужно сочетать ссылки из роутера приложения,
 свой разделитель и текущую страницу с дополнительной разметкой.
 
 <ExampleFrame variant="component">
@@ -348,7 +350,7 @@ moduix.
 
 - `data-slot="breadcrumbs-root"`, `breadcrumbs-list`, `breadcrumbs-item`, `breadcrumbs-link`, `breadcrumbs-page`,
   `breadcrumbs-separator` и `breadcrumbs-ellipsis` - стабильные селекторы moduix.
-- В вариантах с CSS Modules `Breadcrumbs.Link`, `Breadcrumbs.Page` и `Breadcrumbs.Ellipsis` используют общий
+- В вариантах с CSS Modules `BreadcrumbsLink`, `BreadcrumbsPage` и `BreadcrumbsEllipsis` используют общий
   горизонтальный внутренний отступ `--moduix-breadcrumbs-item-padding-x`.
-- Видимые элементы `Breadcrumbs.Item` могут сжиматься, чтобы цепочка помещалась в одну строку. В вариантах с CSS
+- Видимые элементы `BreadcrumbsItem` могут сжиматься, чтобы цепочка помещалась в одну строку. В вариантах с CSS
   Modules последний видимый элемент остаётся главной целью усечения и использует `--moduix-breadcrumbs-item-max-width`.

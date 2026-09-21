@@ -1,4 +1,11 @@
-import { Breadcrumbs } from '@moduix/solid/breadcrumbs';
+import {
+  Breadcrumbs,
+  BreadcrumbsItem,
+  BreadcrumbsLink,
+  BreadcrumbsList,
+  BreadcrumbsPage,
+  BreadcrumbsSeparator,
+} from '@moduix/solid/breadcrumbs';
 import type { JSX } from 'solid-js';
 import { For } from 'solid-js';
 import styles from '@/components/examples/breadcrumbs/breadcrumbs-framework-link.module.css';
@@ -16,27 +23,27 @@ function AppLink(props: JSX.AnchorHTMLAttributes<HTMLAnchorElement>) {
 export default function BreadcrumbsWithAppLinkDemo() {
   return (
     <Breadcrumbs>
-      <Breadcrumbs.List>
+      <BreadcrumbsList>
         <For each={pathItems}>
           {(item) => (
             <>
-              <Breadcrumbs.Item>
-                <Breadcrumbs.Link
+              <BreadcrumbsItem>
+                <BreadcrumbsLink
                   asChild={(props) => (
                     <AppLink {...props()} href={item.href}>
                       {item.label}
                     </AppLink>
                   )}
                 />
-              </Breadcrumbs.Item>
-              <Breadcrumbs.Separator />
+              </BreadcrumbsItem>
+              <BreadcrumbsSeparator />
             </>
           )}
         </For>
-        <Breadcrumbs.Item>
-          <Breadcrumbs.Page>Go Developer</Breadcrumbs.Page>
-        </Breadcrumbs.Item>
-      </Breadcrumbs.List>
+        <BreadcrumbsItem>
+          <BreadcrumbsPage>Go Developer</BreadcrumbsPage>
+        </BreadcrumbsItem>
+      </BreadcrumbsList>
     </Breadcrumbs>
   );
 }

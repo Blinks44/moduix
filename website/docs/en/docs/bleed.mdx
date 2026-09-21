@@ -104,19 +104,19 @@ See [Quick Start](/docs/quick-start) for full package setup, registry configurat
 and/or block axis, without adding an inner wrapper.
 
 ```text
-Bleed / Bleed.Root
+Bleed
 └─ root[data-scope="bleed"][data-part="root"][data-slot="bleed-root"]
    └─ children
 ```
 
 | Part                   | Role                                                                   |
 | ---------------------- | ---------------------------------------------------------------------- |
-| `Bleed` / `Bleed.Root` | Root component for extending content along the inline and block axes. |
+| `Bleed`                | Root component for extending content along the inline and block axes. |
 
 ## Composition
 
-`Bleed` is presentational and owns no state. It has one root part, so there are no child parts to coordinate;
-`Bleed.Root` is an alias for `Bleed`. The defaults are `inline="full"`, `block="none"`, and `asChild={false}`.
+`Bleed` is presentational and owns no state. It has one root part, so there are no child parts to coordinate.
+The defaults are `inline="full"`, `block="none"`, and `asChild={false}`.
 When `asChild` should give the rendered root to one semantic element, provide exactly one child that accepts DOM
 props and a ref in React, or use the Solid render-function form. React refs target the rendered root or child;
 the Solid form does not forward the component ref through the custom host.

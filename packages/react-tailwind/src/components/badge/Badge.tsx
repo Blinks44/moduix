@@ -48,7 +48,7 @@ const BadgeLabel = forwardRef<ComponentRef<typeof ark.span>, HTMLArkProps<'span'
   },
 );
 
-const BadgeRoot = forwardRef<ComponentRef<typeof ark.span>, BadgeRootProps>(function BadgeRoot(
+const Badge = forwardRef<ComponentRef<typeof ark.span>, BadgeRootProps>(function Badge(
   { className, variant = 'default', ...props },
   ref,
 ) {
@@ -82,10 +82,4 @@ const BadgeDot = forwardRef<ComponentRef<typeof ark.span>, HTMLArkProps<'span'>>
   );
 });
 
-const Badge = Object.assign(BadgeRoot, {
-  Root: BadgeRoot,
-  Label: BadgeLabel,
-  Dot: BadgeDot,
-});
-
-export { Badge };
+export { Badge, BadgeDot, BadgeLabel };

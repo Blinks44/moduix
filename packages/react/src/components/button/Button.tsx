@@ -4,7 +4,7 @@ import { clsx } from 'clsx';
 import { forwardRef } from 'react';
 import styles from './Button.module.css';
 
-const ButtonRoot = forwardRef<
+const Button = forwardRef<
   HTMLButtonElement,
   HTMLArkProps<'button'> & {
     loading?: boolean;
@@ -21,7 +21,7 @@ const ButtonRoot = forwardRef<
     'data-part'?: string;
     'data-slot'?: string;
   }
->(function ButtonRoot(
+>(function Button(
   {
     asChild,
     className,
@@ -83,10 +83,6 @@ const ButtonRoot = forwardRef<
       className={clsx(styles.root, className)}
     />
   );
-});
-
-const Button = Object.assign(ButtonRoot, {
-  Root: ButtonRoot,
 });
 
 export { Button };

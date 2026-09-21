@@ -125,11 +125,11 @@ test('wires the loading state without taking over its content', () => {
   expect(button).toHaveAttribute('data-loading');
 });
 
-test('supports the namespaced root with explicit recipe values', () => {
+test('applies explicit recipe values to the root', () => {
   render(() => (
-    <Button.Root aria-label="Delete item" size="icon-lg" variant="destructive-outline">
+    <Button aria-label="Delete item" size="icon-lg" variant="destructive-outline">
       ×
-    </Button.Root>
+    </Button>
   ));
 
   const button = screen.getByRole('button', { name: 'Delete item' });
