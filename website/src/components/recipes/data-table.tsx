@@ -1,7 +1,11 @@
 import { Badge } from '@moduix/react/badge';
 import { Button } from '@moduix/react/button';
 import { Checkbox, CheckboxControl, CheckboxHiddenInput } from '@moduix/react/checkbox';
-import { InputGroup } from '@moduix/react/input-group';
+import {
+  InputGroup,
+  InputGroupAddon,
+  InputGroupInput,
+} from '@moduix/react/input-group';
 import { Menu } from '@moduix/react/menu';
 import { Table } from '@moduix/react/table';
 import {
@@ -382,10 +386,10 @@ function DataTable() {
     <div className={styles.root}>
       <div className={styles.toolbar}>
         <InputGroup className={styles.search}>
-          <InputGroup.Addon>
+          <InputGroupAddon>
             <Search size={16} aria-hidden="true" />
-          </InputGroup.Addon>
-          <InputGroup.Input
+          </InputGroupAddon>
+          <InputGroupInput
             placeholder="Search components..."
             aria-label="Search components"
             value={(table.getColumn('name')?.getFilterValue() as string) ?? ''}

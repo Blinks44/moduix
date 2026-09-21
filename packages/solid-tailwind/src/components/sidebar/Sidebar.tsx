@@ -585,11 +585,11 @@ function SidebarTooltip(
   );
 }
 
-function SidebarInput(props: ComponentProps<typeof Input.Root>) {
+function SidebarInput(props: ComponentProps<typeof Input>) {
   const [local, others] = splitProps(props, ['class']);
 
   return (
-    <Input.Root
+    <Input
       class={cn('w-full group-data-[state=collapsed]/sidebar-panel:hidden', local.class)}
       {...others}
     />

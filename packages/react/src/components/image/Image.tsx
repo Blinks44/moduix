@@ -6,7 +6,7 @@ import styles from './Image.module.css';
 
 type ImageProps = UnpicImageProps & { style?: CSSProperties };
 
-const ImageRoot = forwardRef<HTMLImageElement, ImageProps>(function ImageRoot(
+const Image = forwardRef<HTMLImageElement, ImageProps>(function Image(
   { className, fetchPriority, fetchpriority, ...props },
   ref,
 ) {
@@ -27,9 +27,4 @@ const ImageSource = forwardRef<HTMLSourceElement, UnpicSourceProps>(
   },
 );
 
-const Image = Object.assign(ImageRoot, {
-  Root: ImageRoot,
-  Source: ImageSource,
-});
-
-export { Image };
+export { Image, ImageSource };

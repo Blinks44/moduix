@@ -10,7 +10,7 @@ import { cn } from '@/lib/moduix/cn';
 
 type ImageProps = UnpicImageProps & { style?: CSSProperties };
 
-const ImageRoot = forwardRef<HTMLImageElement, ImageProps>(function ImageRoot(
+const Image = forwardRef<HTMLImageElement, ImageProps>(function Image(
   { className, fetchPriority, fetchpriority, ...props },
   ref,
 ) {
@@ -30,14 +30,4 @@ const ImageSource: ForwardRefExoticComponent<UnpicSourceProps & RefAttributes<HT
     return <ImageSourcePrimitive ref={ref} {...props} data-slot="image-source" />;
   });
 
-type ImageComponent = typeof ImageRoot & {
-  Root: typeof ImageRoot;
-  Source: typeof ImageSource;
-};
-
-const Image: ImageComponent = Object.assign(ImageRoot, {
-  Root: ImageRoot,
-  Source: ImageSource,
-});
-
-export { Image };
+export { Image, ImageSource };

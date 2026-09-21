@@ -1,1 +1,7 @@
-export { InputGroup } from './InputGroup.js';
+export {
+  InputGroup,
+  InputGroupAddon,
+  InputGroupButton,
+  InputGroupInput,
+  InputGroupText,
+} from './InputGroup.js';

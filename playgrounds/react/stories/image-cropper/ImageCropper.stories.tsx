@@ -2,7 +2,15 @@ import type { Meta, StoryObj } from '@storybook/react-vite';
 import type { ComponentProps } from 'react';
 import { useState } from 'react';
 import { Button } from '@/components/button/Button';
-import { ImageCropper, useImageCropper } from '@/components/image-cropper/ImageCropper';
+import {
+  ImageCropper,
+  ImageCropperContext,
+  ImageCropperCropArea,
+  ImageCropperImage,
+  ImageCropperRootProvider,
+  ImageCropperViewport,
+  useImageCropper,
+} from '@/components/image-cropper/ImageCropper';
 import {
   FlipHorizontalIcon,
   RestartIcon,
@@ -29,18 +37,18 @@ export default meta;
 
 type Story = StoryObj<typeof meta>;
 
-function CropperCanvas(props: Omit<ImageCropperRootProps, 'children'>) {
+function CropperCanvas(props: Omit<ImageCropperProps, 'children'>) {
   return (
     <ImageCropper {...props}>
-      <ImageCropper.Viewport>
-        <ImageCropper.Image src={sampleImage} crossOrigin="anonymous" />
-        <ImageCropper.CropArea />
-      </ImageCropper.Viewport>
+      <ImageCropperViewport>
+        <ImageCropperImage src={sampleImage} crossOrigin="anonymous" />
+        <ImageCropperCropArea />
+      </ImageCropperViewport>
     </ImageCropper>
   );
 }
 
-type ImageCropperRootProps = ComponentProps<typeof ImageCropper.Root>;
+type ImageCropperProps = ComponentProps<typeof ImageCropper>;
 
 export const Basic: Story = {
   render: () => <CropperCanvas />,
@@ -101,7 +109,7 @@ export const TransformControls: Story = {
   render: () => (
     <div className={styles.stack}>
       <ImageCropper>
-        <ImageCropper.Context>
+        <ImageCropperContext>
           {(context) => (
             <div className={styles.toolbar}>
               <button
@@ -154,11 +162,11 @@ export const TransformControls: Story = {
               </button>
             </div>
           )}
-        </ImageCropper.Context>
-        <ImageCropper.Viewport>
-          <ImageCropper.Image src={sampleImage} crossOrigin="anonymous" />
-          <ImageCropper.CropArea />
-        </ImageCropper.Viewport>
+        </ImageCropperContext>
+        <ImageCropperViewport>
+          <ImageCropperImage src={sampleImage} crossOrigin="anonymous" />
+          <ImageCropperCropArea />
+        </ImageCropperViewport>
       </ImageCropper>
     </div>
   ),
@@ -170,12 +178,12 @@ export const RootProvider: Story = {
 
     return (
       <div className={styles.stack}>
-        <ImageCropper.RootProvider value={imageCropper}>
-          <ImageCropper.Viewport>
-            <ImageCropper.Image src={sampleImage} crossOrigin="anonymous" />
-            <ImageCropper.CropArea />
-          </ImageCropper.Viewport>
-        </ImageCropper.RootProvider>
+        <ImageCropperRootProvider value={imageCropper}>
+          <ImageCropperViewport>
+            <ImageCropperImage src={sampleImage} crossOrigin="anonymous" />
+            <ImageCropperCropArea />
+          </ImageCropperViewport>
+        </ImageCropperRootProvider>
         <button
           className={`${styles.button} ${styles.iconButton}`}
           type="button"
@@ -201,12 +209,12 @@ export const CropPreview: Story = {
 
     return (
       <div className={styles.stack}>
-        <ImageCropper.RootProvider value={imageCropper}>
-          <ImageCropper.Viewport>
-            <ImageCropper.Image src={sampleImage} crossOrigin="anonymous" />
-            <ImageCropper.CropArea />
-          </ImageCropper.Viewport>
-        </ImageCropper.RootProvider>
+        <ImageCropperRootProvider value={imageCropper}>
+          <ImageCropperViewport>
+            <ImageCropperImage src={sampleImage} crossOrigin="anonymous" />
+            <ImageCropperCropArea />
+          </ImageCropperViewport>
+        </ImageCropperRootProvider>
         <Button type="button" onClick={handleCrop}>
           Crop image
         </Button>

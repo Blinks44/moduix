@@ -88,22 +88,22 @@ Consultez le [Démarrage rapide](/docs/quick-start) pour la configuration compl�
 ## Anatomie
 
 ```text
-Image / Image.Root
+Image
 └─ img
 
 picture (native)
-├─ Image.Source
-└─ Image / Image.Root
+├─ ImageSource
+└─ Image
 ```
 
 | Partie                 | Rôle                                                                      |
 | ---------------------- | ------------------------------------------------------------------------- |
-| `Image` / `Image.Root` | Élément `<img>` natif et adaptatif ; Unpic génère `srcset`, `sizes` et les styles. |
-| `Image.Source`         | Élément `<source>` adaptatif utilisé dans un élément natif `<picture>`.   |
+| `Image`                | Élément `<img>` natif et adaptatif ; Unpic génère `srcset`, `sizes` et les styles. |
+| `ImageSource`          | Élément `<source>` adaptatif utilisé dans un élément natif `<picture>`.          |
 
 ## Composition
 
-`Image` est la racine et peut être rendu directement. Utilisez `Image.Source` uniquement comme enfant
+`Image` est la racine et peut être rendu directement. Utilisez `ImageSource` uniquement comme enfant
 d’un élément natif `<picture>` et placez `Image` en dernier afin qu’il reste l’image de secours si
 aucune source n’est sélectionnée. Pour choisir un format, placez une source avec `type` avant une
 source équivalente sans `type` ; le navigateur retient le premier format qu’il prend en charge.
@@ -112,10 +112,10 @@ source équivalente sans `type` ; le navigateur retient le premier format qu’i
 
 ### Cadrage selon l’écran
 
-Utilisez `Image.Source` pour afficher une vue plus large d’un bureau sur les grands écrans et une image
+Utilisez `ImageSource` pour afficher une vue plus large d’un bureau sur les grands écrans et une image
 au format portrait sur les petits écrans. La première source destinée aux grands écrans demande le format
 AVIF. La suivante sert de solution de remplacement aux navigateurs qui ne prennent pas l’AVIF en charge.
-`Image.Source` doit rester dans un élément natif `<picture>`.
+`ImageSource` doit rester dans un élément natif `<picture>`.
 
 <ExampleFrame variant="component">
   <ImageArtDirection />
@@ -225,7 +225,7 @@ la largeur de son conteneur. Indiquez `height` si la hauteur du cadrage doit res
 
 ## Styles
 
-Utilisez `className` en React ou `class` en Solid sur `Image` et `Image.Source` pour les styles locaux.
+Utilisez `className` en React ou `class` en Solid sur `Image` et `ImageSource` pour les styles locaux.
 Les variantes Tailwind utilisent des utilitaires natifs et les classes du consommateur. La variable
 `--moduix-image-radius` personnalise les variantes CSS Modules, tandis que les hooks `data-slot` sont
 partagés par les deux modes de style.

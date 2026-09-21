@@ -39,8 +39,8 @@ and [refs](https://ark-ui.com/docs/guides/ref).
 ## Basic
 
 
-Use `InputGroup` as the root and compose exactly one `InputGroup.Input` with any needed `Addon`,
-`Text`, or `Button` parts.
+Use `InputGroup` as the root and compose exactly one `InputGroupInput` with any needed `InputGroupAddon`,
+`InputGroupText`, or `InputGroupButton` parts.
 
 <ExampleFrame variant="component">
   <InputGroupBasic />
@@ -107,31 +107,31 @@ See [Quick Start](/docs/quick-start) for full package setup, registry configurat
 ## Anatomy
 
 ```text
-InputGroup / InputGroup.Root
-├─ InputGroup.Addon (optional)
-├─ InputGroup.Input
-├─ InputGroup.Text (optional)
-└─ InputGroup.Button (optional)
+InputGroup
+├─ InputGroupAddon (optional)
+├─ InputGroupInput
+├─ InputGroupText (optional)
+└─ InputGroupButton (optional)
 ```
 
 | Part                             | Role                                                        |
 | -------------------------------- | ----------------------------------------------------------- |
-| `InputGroup` / `InputGroup.Root` | Passive layout wrapper with shared styling and size context. |
-| `InputGroup.Input`               | Native `<input>` that owns the form value and field state.  |
-| `InputGroup.Addon`               | Filled prefix or suffix.                                   |
-| `InputGroup.Text`                | Inline text without a fill.                                |
-| `InputGroup.Button`              | Action button associated with the input.                   |
+| `InputGroup`                    | Passive layout wrapper with shared styling and size context. |
+| `InputGroupInput`               | Native `<input>` that owns the form value and field state.  |
+| `InputGroupAddon`               | Filled prefix or suffix.                                   |
+| `InputGroupText`                | Inline text without a fill.                                |
+| `InputGroupButton`              | Action button associated with the input.                   |
 
 ## Composition
 
-Keep exactly one `InputGroup.Input` in each group. The nested input owns the value, form behavior,
+Keep exactly one `InputGroupInput` in each group. The nested input owns the value, form behavior,
 validation state, and input ref, so controlled or uncontrolled props belong there, while labels and
-validation messages belong on `Field`. The root `size` is inherited by `InputGroup.Input` and
-`InputGroup.Button`; grouped buttons default to `type="button"` and do not inherit `disabled` from
+validation messages belong on `Field`. The root `size` is inherited by `InputGroupInput` and
+`InputGroupButton`; grouped buttons default to `type="button"` and do not inherit `disabled` from
 `Field`.
 
-Use `Addon` and `Text` for non-interactive inline content and `Button` for actions. The root,
-`Addon`, and `Text` support `asChild` with one semantic child that accepts the merged props and ref.
+Use `InputGroupAddon` and `InputGroupText` for non-interactive inline content and `InputGroupButton` for actions. The root,
+`InputGroupAddon`, and `InputGroupText` support `asChild` with one semantic child that accepts the merged props and ref.
 Use `Editable` when the value should switch between read and edit modes.
 
 ## Examples
@@ -179,7 +179,7 @@ unavailable too.
 ### Field State
 
 Set `invalid` on `Field` when validation fails. Ark passes the state and required ARIA attributes to
-`InputGroup.Input`, and the group reflects the input state.
+`InputGroupInput`, and the group reflects the input state.
 
 <ExampleFrame variant="component">
   <InputGroupFieldState />
@@ -218,7 +218,7 @@ Set `invalid` on `Field` when validation fails. Ark passes the state and require
 
 ### Prefix and Suffix
 
-Use `Addon` for a filled prefix or suffix and `Text` for inline text without a fill.
+Use `InputGroupAddon` for a filled prefix or suffix and `InputGroupText` for inline text without a fill.
 
 <ExampleFrame variant="component">
   <InputGroupPrefixAndSuffix />
@@ -296,7 +296,7 @@ Set `size` once on the root to keep the input, addon, text, and button aligned.
 
 ### With Action
 
-Use `InputGroup.Button` for an action tied to the input value. This example keeps the input
+Use `InputGroupButton` for an action tied to the input value. This example keeps the input
 controlled and enables `Send` only after a value is entered.
 
 <ExampleFrame variant="component">

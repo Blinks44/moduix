@@ -88,22 +88,22 @@ See [Quick Start](/docs/quick-start) for full package setup, registry configurat
 ## Anatomy
 
 ```text
-Image / Image.Root
+Image
 └─ img
 
 picture (native)
-├─ Image.Source
-└─ Image / Image.Root
+├─ ImageSource
+└─ Image
 ```
 
 | Part                   | Role                                                                       |
 | ---------------------- | -------------------------------------------------------------------------- |
-| `Image` / `Image.Root` | Responsive native `<img>` element; Unpic creates `srcset`, `sizes`, and styles. |
-| `Image.Source`         | Responsive `<source>` for a native `<picture>` element.                    |
+| `Image`                | Responsive native `<img>` element; Unpic creates `srcset`, `sizes`, and styles. |
+| `ImageSource`          | Responsive `<source>` for a native `<picture>` element.                       |
 
 ## Composition
 
-`Image` is the root and can be rendered directly. Use `Image.Source` only as a child of a native
+`Image` is the root and can be rendered directly. Use `ImageSource` only as a child of a native
 `<picture>`, and keep `Image` last so it remains the fallback when no source is selected. For
 format selection, place a typed source before an equivalent source without `type`; the browser
 chooses the first format it supports.
@@ -112,9 +112,9 @@ chooses the first format it supports.
 
 ### Art Direction
 
-Use `Image.Source` to show a wider office view on larger screens and a portrait fallback on smaller
+Use `ImageSource` to show a wider office view on larger screens and a portrait fallback on smaller
 screens. The first large-screen source requests AVIF; the next source provides a fallback for
-browsers that do not support AVIF. `Image.Source` must stay inside a native `<picture>` element.
+browsers that do not support AVIF. `ImageSource` must stay inside a native `<picture>` element.
 
 <ExampleFrame variant="component">
   <ImageArtDirection />
@@ -223,7 +223,7 @@ Supply `height` when the crop height must remain fixed.
 
 ## Styling
 
-Use `className` in React or `class` in Solid on `Image` for local visual styles. `Image.Source`
+Use `className` in React or `class` in Solid on `Image` for local visual styles. `ImageSource`
 configures `srcset`, `media`, and `type`; style the fallback `Image` rather than the native `<source>`.
 Tailwind variants use native utilities and consumer classes. The `--moduix-image-radius` variable
 customizes the CSS Modules variants, while `data-slot` hooks are shared by both styling tracks.

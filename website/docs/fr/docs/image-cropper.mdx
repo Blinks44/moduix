@@ -36,9 +36,10 @@ import ImageCropperRotationFlipAndReset from '@/components/examples/image-croppe
 
 ## Exemple de base
 
-Utilisez `ImageCropper` avec `Viewport`, `Image` et `CropArea`. Passez l’URL de l’image à
-`ImageCropper.Image`. `CropArea` ajoute la zone de sélection, les lignes de la grille et les poignées
-de redimensionnement.
+Utilisez `ImageCropper` avec `ImageCropperViewport`, `ImageCropperImage` et
+`ImageCropperCropArea`. Passez l’URL de l’image à `ImageCropperImage`.
+`ImageCropperCropArea` ajoute la zone de sélection, les lignes de la grille et les poignées de
+redimensionnement.
 
 <ExampleFrame variant="component">
   <ImageCropperBasic />
@@ -64,7 +65,7 @@ de redimensionnement.
 </ExampleCode>
 
 Si vous appelez `getCroppedImage()` pour une image provenant d’une autre origine, le serveur de
-l’image doit autoriser CORS et `ImageCropper.Image` doit recevoir `crossOrigin="anonymous"`. Les
+l’image doit autoriser CORS et `ImageCropperImage` doit recevoir `crossOrigin="anonymous"`. Les
 exemples utilisent cette configuration pour l’image Unsplash.
 
 ## Installation avec shadcn
@@ -98,34 +99,34 @@ Consultez le [Démarrage rapide](/docs/quick-start) pour la configuration compl�
 
 ```tsx
 <ImageCropper>
-  <ImageCropper.Viewport>
-    <ImageCropper.Image />
-    <ImageCropper.CropArea />
-  </ImageCropper.Viewport>
+  <ImageCropperViewport>
+    <ImageCropperImage />
+    <ImageCropperCropArea />
+  </ImageCropperViewport>
 </ImageCropper>
 ```
 
 | Partie                                | Rôle                                                                                           |
 | ------------------------------------- | ---------------------------------------------------------------------------------------------- |
-| `ImageCropper` / `ImageCropper.Root` | Composant racine qui gère l’état du recadrage et des transformations, les attributs ARIA et les variables CSS mises à jour pendant l’utilisation. |
-| `ImageCropper.RootProvider`          | Racine liée à une instance `useImageCropper` créée en dehors de l’arbre de composants.          |
-| `ImageCropper.Viewport`              | Zone d’affichage qui masque ce qui dépasse et permet de déplacer l’image.                      |
-| `ImageCropper.Image`                 | Élément d’image auquel Ark applique les transformations.                                       |
-| `ImageCropper.Selection`             | Zone de recadrage focalisable et cible des interactions au clavier. Avec `fixedCropArea`, elle est retirée de l’ordre de tabulation. |
-| `ImageCropper.Grid`                  | Ligne de guidage horizontale ou verticale, non interactive. `axis` est obligatoire.            |
-| `ImageCropper.Handle`                | Poignée de redimensionnement pour une position de `ImageCropper.handles`. `position` est obligatoire. |
-| `ImageCropper.CropArea`              | Zone prête à l’emploi avec les deux grilles et toutes les poignées. Elle n’accepte ni `children` ni `asChild`. |
+| `ImageCropper`                     | Composant racine qui gère l’état du recadrage et des transformations, les attributs ARIA et les variables CSS mises à jour pendant l’utilisation. |
+| `ImageCropperRootProvider`          | Racine liée à une instance `useImageCropper` créée en dehors de l’arbre de composants.          |
+| `ImageCropperViewport`              | Zone d’affichage qui masque ce qui dépasse et permet de déplacer l’image.                      |
+| `ImageCropperImage`                 | Élément d’image auquel Ark applique les transformations.                                       |
+| `ImageCropperSelection`             | Zone de recadrage focalisable et cible des interactions au clavier. Avec `fixedCropArea`, elle est retirée de l’ordre de tabulation. |
+| `ImageCropperGrid`                  | Ligne de guidage horizontale ou verticale, non interactive. `axis` est obligatoire.            |
+| `ImageCropperHandle`                | Poignée de redimensionnement pour une position de `ImageCropperHandles`. `position` est obligatoire. |
+| `ImageCropperCropArea`              | Zone prête à l’emploi avec les deux grilles et toutes les poignées. Elle n’accepte ni `children` ni `asChild`. |
 
 ## Composition
 
-Utilisez `ImageCropper.CropArea` pour la zone de recadrage standard. Elle crée les deux grilles et
+Utilisez `ImageCropperCropArea` pour la zone de recadrage standard. Elle crée les deux grilles et
 toutes les poignées de redimensionnement, et n’accepte donc ni `children` ni `asChild`. Utilisez
 `className`, `gridClassName` et `handleClassName` pour styliser la sélection et ses parties générées.
 
-Utilisez `ImageCropper.Context` pour les contrôles placés dans la racine. Créez `useImageCropper()`
-et transmettez-le à `ImageCropper.RootProvider` lorsqu’une barre d’outils, un aperçu ou la logique
+Utilisez `ImageCropperContext` pour les contrôles placés dans la racine. Créez `useImageCropper()`
+et transmettez-le à `ImageCropperRootProvider` lorsqu’une barre d’outils, un aperçu ou la logique
 d’un formulaire doit accéder à l’instance en dehors de l’arbre de composants. Pour une même instance
-d’état, rendez `Root` ou `RootProvider`, jamais les deux.
+d’état, rendez `ImageCropper` ou `ImageCropperRootProvider`, jamais les deux.
 
 Utilisez `zoom`, `rotation` ou `flip` en mode contrôlé avec le rappel correspondant lorsque l’état est
 géré ailleurs dans l’application. Ark transmet la nouvelle valeur dans l’objet `details`.
@@ -380,8 +381,8 @@ Limitez la taille de la zone avec `minWidth`, `minHeight`, `maxWidth` et `maxHei
 
 ### Root Provider
 
-Utilisez `RootProvider` avec une instance de `useImageCropper` lorsqu’une barre d’outils ou un autre
-élément de l’interface doit piloter le recadrage en dehors de son arbre de composants.
+Utilisez `ImageCropperRootProvider` avec une instance de `useImageCropper` lorsqu’une barre d’outils
+ou un autre élément de l’interface doit piloter le recadrage en dehors de son arbre de composants.
 
 <ExampleFrame variant="component">
   <ImageCropperRootProvider />
@@ -413,7 +414,7 @@ Utilisez `RootProvider` avec une instance de `useImageCropper` lorsqu’une barr
 
 ### Rotation, retournement et réinitialisation
 
-Utilisez `ImageCropper.Context` pour relier une barre d’outils aux actions de zoom, de rotation, de
+Utilisez `ImageCropperContext` pour relier une barre d’outils aux actions de zoom, de rotation, de
 retournement et de réinitialisation. Dans cet exemple, la rotation et le retournement sont contrôlés
 depuis l’état React.
 
@@ -447,9 +448,9 @@ depuis l’état React.
 
 ### Personnalisation avancée
 
-Remplacez `CropArea` par les parties explicites `Selection`, `Grid` et `Handle` lorsque la zone
-nécessite une structure différente ou des enfants personnalisés. `Grid` requiert `axis` et `Handle`
-requiert `position`.
+Remplacez `ImageCropperCropArea` par les parties explicites `ImageCropperSelection`,
+`ImageCropperGrid` et `ImageCropperHandle` lorsque la zone nécessite une structure différente ou des
+enfants personnalisés. `ImageCropperGrid` requiert `axis` et `ImageCropperHandle` requiert `position`.
 
 <ExampleFrame variant="component">
   <ImageCropperAdvancedCustomization />

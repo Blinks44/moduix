@@ -1,5 +1,9 @@
 import { Field, FieldLabel } from '@moduix/react/field';
-import { InputGroup } from '@moduix/react/input-group';
+import {
+  InputGroup,
+  InputGroupButton,
+  InputGroupInput,
+} from '@moduix/react/input-group';
 import { useState } from 'react';
 import styles from '@/components/examples/input-group/input-group-with-action.module.css';
 
@@ -11,13 +15,13 @@ export default function InputGroupWithActionDemo() {
     <Field className={styles.root}>
       <FieldLabel>Invite by email</FieldLabel>
       <InputGroup>
-        <InputGroup.Input
+        <InputGroupInput
           value={value}
           onChange={(event) => setValue(event.currentTarget.value)}
           type="email"
           placeholder="name@example.com"
         />
-        <InputGroup.Button disabled={!value}>Send</InputGroup.Button>
+        <InputGroupButton disabled={!value}>Send</InputGroupButton>
       </InputGroup>
     </Field>
   );

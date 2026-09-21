@@ -38,7 +38,6 @@ and error text when rendered inside `Field`.
 - Accepts Ark `FieldInput` props except native `size`, which is renamed to `htmlSize`; when it is
   provided, the default width follows the native character-based input width.
 - Adds visual `size="xs" | "sm" | "md" | "lg" | "xl"` with `md` as the default.
-- Exposes `Input.Root` as the same root component for namespace consistency.
 - Supports `asChild` with one semantic input-like child.
 - Adds no value state, validation state, label, clear trigger, mask, or prefix/suffix API.
 - Adds no preview/edit mode; use `Editable` for inline read/edit workflows.
@@ -47,10 +46,10 @@ and error text when rendered inside `Field`.
 
 ```text
 Field (optional)
-└─ Input / Input.Root
+└─ Input
 ```
 
-- `Input` / `Input.Root` -> `data-slot="input-root"`, `data-scope="field"`, `data-part="input"`
+- `Input` -> `data-slot="input-root"`, `data-scope="field"`, `data-part="input"`
 
 ## Composition
 
@@ -122,7 +121,6 @@ The default `md` input uses `--moduix-size-md` with `--moduix-spacing-1` block p
 - moduix adds visual sizes, `htmlSize`, design tokens, and `data-slot`.
 - `Input` is exported as a standalone wrapper even though its upstream implementation is
   `FieldInput`.
-- `Input.Root` is an alias of `Input` for the root-only namespace pattern used across moduix.
 - Legacy value adapters, render shims, callback styling props, and duplicated field-state
   attributes are intentionally not part of the current contract.
 
@@ -142,8 +140,7 @@ The default `md` input uses `--moduix-size-md` with `--moduix-spacing-1` block p
 - 2026-07-21: Normalized the complete input scale to `24/32/36/40/48px` tokens and compacted block
   padding so typography no longer expands a selected size.
 
-- 2026-06-25: Added `Input.Root`, normalized `className`, simplified size token defaults, and
-  refreshed docs examples for accessible standalone inputs.
+- 2026-09-21: Migrated the public value API to flat `Input` and removed the root namespace alias.
 - 2026-06-22: Documented `Input` as plain native entry only; preview/edit behavior belongs to
   `Editable`.
 - 2026-06-19: Migrated from legacy Input to Ark UI `FieldInput`; added `asChild` and Ark field

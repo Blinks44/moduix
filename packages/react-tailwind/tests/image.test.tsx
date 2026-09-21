@@ -1,7 +1,7 @@
 import { expect, test } from '@rstest/core';
 import { render, screen } from '@testing-library/react';
 import { createRef } from 'react';
-import { Image } from '../src';
+import { Image, ImageSource } from '../src';
 
 const imageUrl = 'https://images.unsplash.com/photo-1506905925346-21bda4d32df4';
 
@@ -11,7 +11,7 @@ test('preserves ref forwarding and invariant moduix hooks', () => {
 
   const { container } = render(
     <picture>
-      <Image.Source
+      <ImageSource
         ref={sourceRef}
         data-slot="custom-source"
         media="(min-width: 48rem)"
@@ -34,7 +34,6 @@ test('preserves ref forwarding and invariant moduix hooks', () => {
   const image = screen.getByAltText('Mountain landscape');
   const source = container.querySelector('source')!;
 
-  expect(Image.Root).toBe(Image);
   expect(imageRef.current).toBe(image);
   expect(image).toHaveClass('rounded-md');
   expect(image).toHaveAttribute('data-slot', 'image-root');

@@ -1,7 +1,15 @@
 import { expect, test } from '@rstest/core';
 import { render, screen } from '@solidjs/testing-library';
 import { createSignal } from 'solid-js';
-import { Field, InputGroup, FieldLabel } from '../src';
+import {
+  Field,
+  FieldLabel,
+  InputGroup,
+  InputGroupAddon,
+  InputGroupButton,
+  InputGroupInput,
+  InputGroupText,
+} from '../src';
 
 test('keeps the Input slot that drives grouped field state styling', () => {
   render(() => (
@@ -16,26 +24,26 @@ test('keeps the Input slot that drives grouped field state styling', () => {
         data-testid="input-group"
         size="lg"
       >
-        <InputGroup.Addon
+        <InputGroupAddon
           class="consumer-addon"
           data-part="consumer-part"
           data-scope="consumer-scope"
           data-slot="consumer-slot"
         >
           @
-        </InputGroup.Addon>
-        <InputGroup.Input />
-        <InputGroup.Text
+        </InputGroupAddon>
+        <InputGroupInput />
+        <InputGroupText
           class="consumer-text"
           data-part="consumer-part"
           data-scope="consumer-scope"
           data-slot="consumer-slot"
         >
           .com
-        </InputGroup.Text>
-        <InputGroup.Button class="consumer-button" data-slot="consumer-slot">
+        </InputGroupText>
+        <InputGroupButton class="consumer-button" data-slot="consumer-slot">
           Copy
-        </InputGroup.Button>
+        </InputGroupButton>
       </InputGroup>
     </Field>
   ));
@@ -76,8 +84,8 @@ test('keeps the group size context reactive', () => {
 
   render(() => (
     <InputGroup size={size()} data-testid="responsive-group">
-      <InputGroup.Input aria-label="Workspace" />
-      <InputGroup.Button>Copy</InputGroup.Button>
+      <InputGroupInput aria-label="Workspace" />
+      <InputGroupButton>Copy</InputGroupButton>
     </InputGroup>
   ));
 
@@ -104,12 +112,12 @@ test('forwards refs to ordinary parts', () => {
   let buttonRef!: HTMLButtonElement;
 
   render(() => (
-    <InputGroup.Root ref={(element) => (rootRef = element)} data-testid="ordinary-root">
-      <InputGroup.Addon ref={(element) => (addonRef = element)}>@</InputGroup.Addon>
-      <InputGroup.Input ref={(element) => (inputRef = element)} aria-label="Workspace" />
-      <InputGroup.Text ref={(element) => (textRef = element)}>.com</InputGroup.Text>
-      <InputGroup.Button ref={(element) => (buttonRef = element)}>Copy</InputGroup.Button>
-    </InputGroup.Root>
+    <InputGroup ref={(element) => (rootRef = element)} data-testid="ordinary-root">
+      <InputGroupAddon ref={(element) => (addonRef = element)}>@</InputGroupAddon>
+      <InputGroupInput ref={(element) => (inputRef = element)} aria-label="Workspace" />
+      <InputGroupText ref={(element) => (textRef = element)}>.com</InputGroupText>
+      <InputGroupButton ref={(element) => (buttonRef = element)}>Copy</InputGroupButton>
+    </InputGroup>
   ));
 
   expect(rootRef).toBe(screen.getByTestId('ordinary-root'));
@@ -125,17 +133,17 @@ test('preserves factory asChild composition without forwarding refs', () => {
   let textRef: HTMLElement | undefined;
 
   render(() => (
-    <InputGroup.Root
+    <InputGroup
       ref={(element) => (rootRef = element)}
       data-testid="as-child-root"
       asChild={(props) => (
         <section {...props()} aria-label="Workspace group">
-          <InputGroup.Addon
+          <InputGroupAddon
             ref={(element) => (addonRef = element)}
             asChild={(props) => <strong {...props()}>@</strong>}
           />
-          <InputGroup.Input aria-label="Workspace" />
-          <InputGroup.Text
+          <InputGroupInput aria-label="Workspace" />
+          <InputGroupText
             ref={(element) => (textRef = element)}
             asChild={(props) => <em {...props()}>.com</em>}
           />
@@ -158,10 +166,10 @@ test('preserves factory asChild composition without forwarding refs', () => {
 test('applies native utilities to the component-owned parts', () => {
   const { container } = render(() => (
     <InputGroup>
-      <InputGroup.Addon>@</InputGroup.Addon>
-      <InputGroup.Input aria-label="Workspace" />
-      <InputGroup.Text>.com</InputGroup.Text>
-      <InputGroup.Button>Copy</InputGroup.Button>
+      <InputGroupAddon>@</InputGroupAddon>
+      <InputGroupInput aria-label="Workspace" />
+      <InputGroupText>.com</InputGroupText>
+      <InputGroupButton>Copy</InputGroupButton>
     </InputGroup>
   ));
 
@@ -238,9 +246,9 @@ test('applies each group size with native utilities', () => {
     <>
       {sizes.map(([size]) => (
         <InputGroup size={size} data-testid={`group-${size}`}>
-          <InputGroup.Addon>@</InputGroup.Addon>
-          <InputGroup.Input aria-label={`${size} input`} />
-          <InputGroup.Button>Copy</InputGroup.Button>
+          <InputGroupAddon>@</InputGroupAddon>
+          <InputGroupInput aria-label={`${size} input`} />
+          <InputGroupButton>Copy</InputGroupButton>
         </InputGroup>
       ))}
     </>
@@ -262,9 +270,9 @@ test('applies each group size with native utilities', () => {
 test('lets consumer Tailwind classes override conflicting defaults', () => {
   const { container } = render(() => (
     <InputGroup size="lg" class="min-h-20 w-80 max-w-sm rounded-lg bg-muted px-0 text-primary">
-      <InputGroup.Addon class="bg-background px-0 text-primary">@</InputGroup.Addon>
-      <InputGroup.Input class="min-h-20 w-80 max-w-sm rounded-lg bg-muted px-0 py-0 leading-5" />
-      <InputGroup.Button class="rounded-lg bg-muted px-2 text-primary">Copy</InputGroup.Button>
+      <InputGroupAddon class="bg-background px-0 text-primary">@</InputGroupAddon>
+      <InputGroupInput class="min-h-20 w-80 max-w-sm rounded-lg bg-muted px-0 py-0 leading-5" />
+      <InputGroupButton class="rounded-lg bg-muted px-2 text-primary">Copy</InputGroupButton>
     </InputGroup>
   ));
 
@@ -311,7 +319,7 @@ test('lets consumer Tailwind classes override conflicting defaults', () => {
 test('uses a local Input size for its grouped utilities', () => {
   render(() => (
     <InputGroup size="lg">
-      <InputGroup.Input aria-label="Workspace" size="xs" />
+      <InputGroupInput aria-label="Workspace" size="xs" />
     </InputGroup>
   ));
 

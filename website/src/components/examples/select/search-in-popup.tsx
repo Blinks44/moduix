@@ -1,5 +1,9 @@
 import { createListCollection } from '@ark-ui/react/collection';
-import { InputGroup } from '@moduix/react/input-group';
+import {
+  InputGroup,
+  InputGroupAddon,
+  InputGroupInput,
+} from '@moduix/react/input-group';
 import { Select } from '@moduix/react/select';
 import { Search as SearchIcon } from 'lucide-react';
 import { useEffect, useRef, useState } from 'react';
@@ -71,10 +75,10 @@ export default function SelectSearchInPopupDemo() {
         <div ref={popupRef} className={styles.popup}>
           <div className={styles.popupHeader}>
             <InputGroup>
-              <InputGroup.Addon>
+              <InputGroupAddon>
                 <SearchIcon aria-hidden />
-              </InputGroup.Addon>
-              <InputGroup.Input
+              </InputGroupAddon>
+              <InputGroupInput
                 aria-label="Filter fruits"
                 ref={inputRef}
                 value={query}

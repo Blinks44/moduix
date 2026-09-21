@@ -8,7 +8,7 @@ import type { ComponentProps } from 'solid-js';
 import { splitProps } from 'solid-js';
 import styles from './ImageCropper.module.css';
 
-function ImageCropperRoot(props: ComponentProps<typeof ImageCropperPrimitive.Root>) {
+function ImageCropper(props: ComponentProps<typeof ImageCropperPrimitive.Root>) {
   const [local, others] = splitProps(props, ['class']);
 
   return (
@@ -120,24 +120,27 @@ function ImageCropperCropArea(props: ImageCropperCropAreaProps) {
     <ImageCropperSelection class={local.class} {...others}>
       <ImageCropperGrid axis="horizontal" class={local.gridClassName} />
       <ImageCropperGrid axis="vertical" class={local.gridClassName} />
-      {ImageCropperPrimitive.handles.map((position) => (
+      {ImageCropperHandles.map((position) => (
         <ImageCropperHandle position={position} class={local.handleClassName} />
       ))}
     </ImageCropperSelection>
   );
 }
 
-const ImageCropper = Object.assign(ImageCropperRoot, {
-  Root: ImageCropperRoot,
-  RootProvider: ImageCropperRootProvider,
-  Context: ImageCropperPrimitive.Context,
-  Viewport: ImageCropperViewport,
-  Image: ImageCropperImage,
-  Selection: ImageCropperSelection,
-  Grid: ImageCropperGrid,
-  Handle: ImageCropperHandle,
-  CropArea: ImageCropperCropArea,
-  handles: ImageCropperPrimitive.handles,
-});
+const ImageCropperContext = ImageCropperPrimitive.Context;
+const ImageCropperHandles = ImageCropperPrimitive.handles;
 
-export { ImageCropper, useImageCropper, useImageCropperContext };
+export {
+  ImageCropper,
+  ImageCropperContext,
+  ImageCropperCropArea,
+  ImageCropperGrid,
+  ImageCropperHandle,
+  ImageCropperHandles,
+  ImageCropperImage,
+  ImageCropperRootProvider,
+  ImageCropperSelection,
+  ImageCropperViewport,
+  useImageCropper,
+  useImageCropperContext,
+};

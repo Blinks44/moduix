@@ -4,7 +4,7 @@ import { clsx } from 'clsx';
 import { splitProps } from 'solid-js';
 import styles from './Input.module.css';
 
-type InputRootProps = Omit<FieldInputProps, 'size'> & {
+type InputProps = Omit<FieldInputProps, 'size'> & {
   size?: 'xs' | 'sm' | 'md' | 'lg' | 'xl';
   htmlSize?: FieldInputProps['size'];
   'data-scope'?: string;
@@ -12,7 +12,7 @@ type InputRootProps = Omit<FieldInputProps, 'size'> & {
   'data-slot'?: string;
 };
 
-function InputRoot(props: InputRootProps) {
+function Input(props: InputProps) {
   const [local, others] = splitProps(props, [
     'asChild',
     'class',
@@ -37,9 +37,5 @@ function InputRoot(props: InputRootProps) {
     />
   );
 }
-
-const Input = Object.assign(InputRoot, {
-  Root: InputRoot,
-});
 
 export { Input };

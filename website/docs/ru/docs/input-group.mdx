@@ -41,7 +41,7 @@ import inputGroupSolidWithAction from '../../../snippets/input-group/solid/with-
 Интерактивное
 
 Используйте `InputGroup` как корневой компонент и добавляйте к единственному
-`InputGroup.Input` только необходимые части `Addon`, `Text` или `Button`.
+`InputGroupInput` только необходимые части `InputGroupAddon`, `InputGroupText` или `InputGroupButton`.
 
 <ExampleFrame variant="component">
   <InputGroupBasic />
@@ -108,32 +108,32 @@ import inputGroupSolidWithAction from '../../../snippets/input-group/solid/with-
 ## Анатомия
 
 ```text
-InputGroup / InputGroup.Root
-├─ InputGroup.Addon (необязательно)
-├─ InputGroup.Input
-├─ InputGroup.Text (необязательно)
-└─ InputGroup.Button (необязательно)
+InputGroup
+├─ InputGroupAddon (необязательно)
+├─ InputGroupInput
+├─ InputGroupText (необязательно)
+└─ InputGroupButton (необязательно)
 ```
 
 | Часть                            | Назначение                                                  |
 | -------------------------------- | ----------------------------------------------------------- |
-| `InputGroup` / `InputGroup.Root` | Пассивный контейнер с общей стилизацией и контекстом размера. |
-| `InputGroup.Input`               | Нативный `<input>`, который содержит значение формы и состояние поля. |
-| `InputGroup.Addon`               | Префикс или суффикс с заливкой.                             |
-| `InputGroup.Text`                | Встроенный текст без заливки.                               |
-| `InputGroup.Button`              | Кнопка действия, связанного с полем.                       |
+| `InputGroup`                    | Пассивный контейнер с общей стилизацией и контекстом размера. |
+| `InputGroupInput`               | Нативный `<input>`, который содержит значение формы и состояние поля. |
+| `InputGroupAddon`               | Префикс или суффикс с заливкой.                             |
+| `InputGroupText`                | Встроенный текст без заливки.                               |
+| `InputGroupButton`              | Кнопка действия, связанного с полем.                       |
 
 ## Композиция
 
-В каждой группе оставляйте ровно один `InputGroup.Input`. Вложенное поле отвечает за значение,
+В каждой группе оставляйте ровно один `InputGroupInput`. Вложенное поле отвечает за значение,
 поведение формы, состояние валидации и `ref`, поэтому управляемые и неуправляемые свойства
 задавайте на нём, а метку и сообщения валидации размещайте в `Field`. Размер корневого элемента
-наследуют `InputGroup.Input` и `InputGroup.Button`; для кнопок по умолчанию используется
+наследуют `InputGroupInput` и `InputGroupButton`; для кнопок по умолчанию используется
 `type="button"`, но состояние `disabled` от `Field` они не наследуют. В React для управляемого
 поля используйте `onChange`, а в Solid - `onInput`.
 
-Используйте `Addon` и `Text` для неинтерактивного содержимого, а `Button` - для действий. Корень,
-`Addon` и `Text` поддерживают `asChild` с одним семантическим дочерним элементом, принимающим
+Используйте `InputGroupAddon` и `InputGroupText` для неинтерактивного содержимого, а `InputGroupButton` - для действий. Корень,
+`InputGroupAddon` и `InputGroupText` поддерживают `asChild` с одним семантическим дочерним элементом, принимающим
 объединённые свойства и `ref`. Используйте `Editable`, если значение должно переключаться между
 режимами просмотра и редактирования.
 
@@ -182,7 +182,7 @@ InputGroup / InputGroup.Root
 ### Состояние поля
 
 Задайте `invalid` у `Field`, если проверка не пройдена. Ark передаст это состояние и нужные
-ARIA-атрибуты в `InputGroup.Input`, а группа отразит состояние поля.
+ARIA-атрибуты в `InputGroupInput`, а группа отразит состояние поля.
 
 <ExampleFrame variant="component">
   <InputGroupFieldState />
@@ -221,7 +221,7 @@ ARIA-атрибуты в `InputGroup.Input`, а группа отразит со
 
 ### Префикс и суффикс
 
-Используйте `Addon` для префикса или суффикса с заливкой, а `Text` - для встроенного текста без заливки.
+Используйте `InputGroupAddon` для префикса или суффикса с заливкой, а `InputGroupText` - для встроенного текста без заливки.
 
 <ExampleFrame variant="component">
   <InputGroupPrefixAndSuffix />
@@ -299,7 +299,7 @@ ARIA-атрибуты в `InputGroup.Input`, а группа отразит со
 
 ### С действием
 
-Используйте `InputGroup.Button` для действия, связанного со значением поля. В этом примере поле
+Используйте `InputGroupButton` для действия, связанного со значением поля. В этом примере поле
 управляемое, а кнопка `Send` становится доступной только после ввода значения.
 
 <ExampleFrame variant="component">

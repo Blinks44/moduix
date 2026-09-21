@@ -1,5 +1,10 @@
 import { Button } from '@moduix/solid/button';
-import { ImageCropper } from '@moduix/solid/image-cropper';
+import {
+  ImageCropper,
+  ImageCropperCropArea,
+  ImageCropperImage,
+  ImageCropperViewport,
+} from '@moduix/solid/image-cropper';
 import { For, createSignal } from 'solid-js';
 
 const sampleImage =
@@ -17,10 +22,10 @@ export default function AspectRatioImageCropperDemo() {
   return (
     <div>
       <ImageCropper aspectRatio={aspectRatio()} aria-label="Image cropper">
-        <ImageCropper.Viewport>
-          <ImageCropper.Image src={sampleImage} alt="Landscape" crossOrigin="anonymous" />
-          <ImageCropper.CropArea />
-        </ImageCropper.Viewport>
+        <ImageCropperViewport>
+          <ImageCropperImage src={sampleImage} alt="Landscape" crossOrigin="anonymous" />
+          <ImageCropperCropArea />
+        </ImageCropperViewport>
       </ImageCropper>
       <output>
         Aspect ratio: {aspectRatios.find((aspect) => aspect.value === aspectRatio())?.label}

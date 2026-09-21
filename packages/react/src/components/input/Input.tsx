@@ -4,13 +4,13 @@ import type { ComponentProps, ComponentRef } from 'react';
 import { forwardRef } from 'react';
 import styles from './Input.module.css';
 
-const InputRoot = forwardRef<
+const Input = forwardRef<
   ComponentRef<typeof FieldPrimitive.Input>,
   Omit<ComponentProps<typeof FieldPrimitive.Input>, 'size'> & {
     size?: 'xs' | 'sm' | 'md' | 'lg' | 'xl';
     htmlSize?: ComponentProps<'input'>['size'];
   }
->(function InputRoot({ className, size = 'md', htmlSize, ...props }, ref) {
+>(function Input({ className, size = 'md', htmlSize, ...props }, ref) {
   return (
     <FieldPrimitive.Input
       {...props}
@@ -24,10 +24,6 @@ const InputRoot = forwardRef<
       size={htmlSize}
     />
   );
-});
-
-const Input = Object.assign(InputRoot, {
-  Root: InputRoot,
 });
 
 export { Input };

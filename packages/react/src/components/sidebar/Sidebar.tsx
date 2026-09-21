@@ -548,9 +548,9 @@ const SidebarTooltip = function SidebarTooltip({
   );
 };
 
-const SidebarInput = forwardRef<ComponentRef<typeof Input.Root>, ComponentProps<typeof Input.Root>>(
+const SidebarInput = forwardRef<ComponentRef<typeof Input>, ComponentProps<typeof Input>>(
   function SidebarInput({ className, ...props }, ref) {
-    return <Input.Root ref={ref} className={clsx(styles.input, className)} {...props} />;
+    return <Input ref={ref} className={clsx(styles.input, className)} {...props} />;
   },
 );
 

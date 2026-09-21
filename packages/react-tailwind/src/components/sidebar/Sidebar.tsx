@@ -608,10 +608,10 @@ const SidebarTooltip = function SidebarTooltip({
   );
 };
 
-const SidebarInput = forwardRef<ComponentRef<typeof Input.Root>, ComponentProps<typeof Input.Root>>(
+const SidebarInput = forwardRef<ComponentRef<typeof Input>, ComponentProps<typeof Input>>(
   function SidebarInput({ className, ...props }, ref) {
     return (
-      <Input.Root
+      <Input
         ref={ref}
         className={cn('w-full group-data-[state=collapsed]/sidebar-panel:hidden', className)}
         {...props}

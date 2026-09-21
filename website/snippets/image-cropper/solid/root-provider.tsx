@@ -1,5 +1,11 @@
 import { Button } from '@moduix/solid/button';
-import { ImageCropper, useImageCropper } from '@moduix/solid/image-cropper';
+import {
+  ImageCropperCropArea,
+  ImageCropperImage,
+  ImageCropperRootProvider,
+  ImageCropperViewport,
+  useImageCropper,
+} from '@moduix/solid/image-cropper';
 import { RotateCcw as RestartIcon } from 'lucide-solid';
 import { createSignal } from 'solid-js';
 
@@ -17,12 +23,12 @@ export default function RootProviderImageCropperDemo() {
 
   return (
     <div>
-      <ImageCropper.RootProvider value={imageCropper} aria-label="Image cropper">
-        <ImageCropper.Viewport>
-          <ImageCropper.Image src={sampleImage} alt="Landscape" crossOrigin="anonymous" />
-          <ImageCropper.CropArea />
-        </ImageCropper.Viewport>
-      </ImageCropper.RootProvider>
+      <ImageCropperRootProvider value={imageCropper} aria-label="Image cropper">
+        <ImageCropperViewport>
+          <ImageCropperImage src={sampleImage} alt="Landscape" crossOrigin="anonymous" />
+          <ImageCropperCropArea />
+        </ImageCropperViewport>
+      </ImageCropperRootProvider>
       <output>Resets: {resets()}</output>
       <Button size="sm" type="button" aria-label="Reset crop" onClick={handleReset}>
         <RestartIcon />

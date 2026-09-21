@@ -23,7 +23,7 @@ type ImageSourceProps = UnpicSourceProps &
     'height' | 'media' | 'sizes' | 'src' | 'srcset' | 'type' | 'width'
   >;
 
-function ImageRoot(props: ImageProps) {
+function Image(props: ImageProps) {
   const [local, others] = splitProps(props, ['class', 'fetchpriority']);
   const imageProps = createMemo(() => {
     const transformed = transformProps<JSX.ImgHTMLAttributes<HTMLImageElement>>({
@@ -47,9 +47,4 @@ function ImageSource(props: ImageSourceProps) {
   return <source {...sourceProps()} data-slot="image-source" class={local.class} />;
 }
 
-const Image = Object.assign(ImageRoot, {
-  Root: ImageRoot,
-  Source: ImageSource,
-});
-
-export { Image };
+export { Image, ImageSource };

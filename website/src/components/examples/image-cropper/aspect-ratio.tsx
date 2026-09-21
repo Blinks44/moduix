@@ -1,5 +1,10 @@
 import { Button } from '@moduix/react/button';
-import { ImageCropper } from '@moduix/react/image-cropper';
+import {
+  ImageCropper,
+  ImageCropperCropArea,
+  ImageCropperImage,
+  ImageCropperViewport,
+} from '@moduix/react/image-cropper';
 import { useState } from 'react';
 import { PreviewMeta } from '@/components/mdx/Components';
 import styles from '@/components/examples/image-cropper/image-cropper-aspect-ratio.module.css';
@@ -27,10 +32,10 @@ export default function AspectRatioImageCropperDemo() {
   return (
     <div className={styles.stack}>
       <ImageCropper aspectRatio={aspectRatio} aria-label="Image cropper">
-        <ImageCropper.Viewport>
-          <ImageCropper.Image src={sampleImage} alt="Landscape" crossOrigin="anonymous" />
-          <ImageCropper.CropArea />
-        </ImageCropper.Viewport>
+        <ImageCropperViewport>
+          <ImageCropperImage src={sampleImage} alt="Landscape" crossOrigin="anonymous" />
+          <ImageCropperCropArea />
+        </ImageCropperViewport>
       </ImageCropper>
       <PreviewMeta>
         <output>

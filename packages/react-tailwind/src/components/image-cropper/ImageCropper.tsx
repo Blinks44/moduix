@@ -9,10 +9,10 @@ import type { ComponentProps, ComponentRef } from 'react';
 import { forwardRef } from 'react';
 import { cn } from '@/lib/moduix/cn';
 
-const ImageCropperRoot = forwardRef<
+const ImageCropper = forwardRef<
   ComponentRef<typeof ImageCropperPrimitive.Root>,
   ComponentProps<typeof ImageCropperPrimitive.Root>
->(function ImageCropperRoot({ className, ...props }, ref) {
+>(function ImageCropper({ className, ...props }, ref) {
   return (
     <ImageCropperPrimitive.Root
       ref={ref}
@@ -145,24 +145,27 @@ const ImageCropperCropArea = forwardRef<
     <ImageCropperSelection ref={ref} {...selectionProps}>
       <ImageCropperGrid axis="horizontal" className={gridClassName} />
       <ImageCropperGrid axis="vertical" className={gridClassName} />
-      {ImageCropperPrimitive.handles.map((position) => (
+      {ImageCropperHandles.map((position) => (
         <ImageCropperHandle key={position} position={position} className={handleClassName} />
       ))}
     </ImageCropperSelection>
   );
 });
 
-const ImageCropper = Object.assign(ImageCropperRoot, {
-  Root: ImageCropperRoot,
-  RootProvider: ImageCropperRootProvider,
-  Context: ImageCropperPrimitive.Context,
-  Viewport: ImageCropperViewport,
-  Image: ImageCropperImage,
-  Selection: ImageCropperSelection,
-  Grid: ImageCropperGrid,
-  Handle: ImageCropperHandle,
-  CropArea: ImageCropperCropArea,
-  handles: ImageCropperPrimitive.handles,
-});
+const ImageCropperContext = ImageCropperPrimitive.Context;
+const ImageCropperHandles = ImageCropperPrimitive.handles;
 
-export { ImageCropper, useImageCropper, useImageCropperContext };
+export {
+  ImageCropper,
+  ImageCropperContext,
+  ImageCropperCropArea,
+  ImageCropperGrid,
+  ImageCropperHandle,
+  ImageCropperHandles,
+  ImageCropperImage,
+  ImageCropperRootProvider,
+  ImageCropperSelection,
+  ImageCropperViewport,
+  useImageCropper,
+  useImageCropperContext,
+};

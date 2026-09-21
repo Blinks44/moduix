@@ -1,6 +1,14 @@
 import { expect, test } from '@rstest/core';
 import { render, screen } from '@testing-library/react';
-import { Field, InputGroup, FieldLabel } from '../src';
+import {
+  Field,
+  FieldLabel,
+  InputGroup,
+  InputGroupAddon,
+  InputGroupButton,
+  InputGroupInput,
+  InputGroupText,
+} from '../src';
 
 test('keeps the Input slot that drives grouped field state styling', () => {
   render(
@@ -15,26 +23,26 @@ test('keeps the Input slot that drives grouped field state styling', () => {
         data-testid="input-group"
         size="lg"
       >
-        <InputGroup.Addon
+        <InputGroupAddon
           className="consumer-addon"
           data-part="consumer-part"
           data-scope="consumer-scope"
           data-slot="consumer-slot"
         >
           @
-        </InputGroup.Addon>
-        <InputGroup.Input />
-        <InputGroup.Text
+        </InputGroupAddon>
+        <InputGroupInput />
+        <InputGroupText
           className="consumer-text"
           data-part="consumer-part"
           data-scope="consumer-scope"
           data-slot="consumer-slot"
         >
           .com
-        </InputGroup.Text>
-        <InputGroup.Button className="consumer-button" data-slot="consumer-slot">
+        </InputGroupText>
+        <InputGroupButton className="consumer-button" data-slot="consumer-slot">
           Copy
-        </InputGroup.Button>
+        </InputGroupButton>
       </InputGroup>
     </Field>,
   );

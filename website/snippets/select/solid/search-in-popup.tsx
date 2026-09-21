@@ -1,5 +1,9 @@
 import { createListCollection } from '@ark-ui/solid/collection';
-import { InputGroup } from '@moduix/solid/input-group';
+import {
+  InputGroup,
+  InputGroupAddon,
+  InputGroupInput,
+} from '@moduix/solid/input-group';
 import { Select } from '@moduix/solid/select';
 import { Search as SearchIcon } from 'lucide-solid';
 import { createEffect, createMemo, createSignal, For, Show } from 'solid-js';
@@ -58,10 +62,10 @@ export default function SelectSearchInPopupDemo() {
         <div ref={(element) => (popupRef = element)} class={styles.popup}>
           <div class={styles.popupHeader}>
             <InputGroup>
-              <InputGroup.Addon>
+              <InputGroupAddon>
                 <SearchIcon aria-hidden />
-              </InputGroup.Addon>
-              <InputGroup.Input
+              </InputGroupAddon>
+              <InputGroupInput
                 aria-label="Filter fruits"
                 ref={(element) => (inputRef = element)}
                 value={query()}

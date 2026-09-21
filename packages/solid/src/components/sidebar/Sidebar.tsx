@@ -528,10 +528,10 @@ function SidebarTooltip(
   );
 }
 
-function SidebarInput(props: ComponentProps<typeof Input.Root>) {
+function SidebarInput(props: ComponentProps<typeof Input>) {
   const [local, others] = splitProps(props, ['class']);
 
-  return <Input.Root class={clsx(styles.input, local.class)} {...others} />;
+  return <Input class={clsx(styles.input, local.class)} {...others} />;
 }
 
 function SidebarSeparator(props: ComponentProps<typeof Separator.Root>) {

@@ -18,12 +18,12 @@ type InputGroupSize = NonNullable<ComponentProps<typeof Input>['size']>;
 
 const InputGroupSizeContext = createContext<InputGroupSize>('md');
 
-const InputGroupRoot = forwardRef<
+const InputGroup = forwardRef<
   HTMLDivElement,
   HTMLArkProps<'div'> & {
     size?: InputGroupSize;
   }
->(function InputGroupRoot({ children, className, size = 'md', ...props }, ref) {
+>(function InputGroup({ children, className, size = 'md', ...props }, ref) {
   return (
     <InputGroupSizeContext.Provider value={size}>
       <ark.div
@@ -109,12 +109,4 @@ const InputGroupButton = forwardRef<HTMLButtonElement, ComponentProps<typeof But
   },
 );
 
-const InputGroup = Object.assign(InputGroupRoot, {
-  Root: InputGroupRoot,
-  Input: InputGroupInput,
-  Addon: InputGroupAddon,
-  Text: InputGroupText,
-  Button: InputGroupButton,
-});
-
-export { InputGroup };
+export { InputGroup, InputGroupAddon, InputGroupButton, InputGroupInput, InputGroupText };
