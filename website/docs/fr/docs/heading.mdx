@@ -91,22 +91,22 @@ Consultez le [Démarrage rapide](/docs/quick-start) pour la configuration compl�
 
 ## Anatomie
 
-`Heading` rend un seul élément de titre natif. Les formes `<Heading>` et `<Heading.Root>` sont équivalentes.
+`Heading` rend un seul élément de titre natif.
 
 ```text
-Heading / Heading.Root
+Heading
 └─ texte ou contenu en ligne
 ```
 
 | Partie                     | Rôle                                                               |
 | -------------------------- | ------------------------------------------------------------------ |
-| `Heading` / `Heading.Root` | Titre sémantique natif avec la mise en forme typographique de moduix. |
+| `Heading` | Titre sémantique natif avec la mise en forme typographique de moduix. |
 
 ## Composition
 
 `Heading` est un composant sans état limité à sa racine : il n’a donc besoin ni de provider ni de parties
-coordonnées. Utilisez `<Heading>` ou la forme équivalente `<Heading.Root>`, transmettez `as` pour choisir
-le niveau sémantique de `h1` à `h6`, et définissez `size` séparément si l’importance visuelle doit différer.
+coordonnées. Utilisez `<Heading>`, transmettez `as` pour choisir le niveau sémantique de `h1` à `h6`,
+et définissez `size` séparément si l’importance visuelle doit différer.
 Sans `size` explicite, l’élément rendu choisit l’échelle de `2xl` pour `h1` à `xs` pour `h6`, et `weight`
 vaut `semibold` par défaut. Utilisez `asChild` uniquement lorsqu’un autre élément sémantique de titre doit
 porter le nœud DOM rendu.

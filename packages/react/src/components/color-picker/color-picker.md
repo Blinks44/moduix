@@ -127,7 +127,7 @@ export function ColorPickerExample() {
 - Inline mode through `inline` on `ColorPicker`, where `ColorPickerArea`, `ColorPickerSliders`, inputs, and swatches can render
   directly inside the root.
 - Form usage combines Ark form props with an explicit `ColorPickerHiddenInput`.
-- Field integration through Ark `Field.Root` context for disabled, invalid, required, and read-only
+- Field integration through Ark `Field` context for disabled, invalid, required, and read-only
   state.
 - Provider state through moduix `useColorPicker` plus `ColorPickerRootProvider`.
 - Swatch-only, popup swatches, slider-only, input-only, value-swatch, eyedropper, inside-dialog,

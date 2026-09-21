@@ -1,4 +1,4 @@
-import { Field } from '@moduix/solid/field';
+import { Field, FieldErrorText, FieldLabel } from '@moduix/solid/field';
 import { NativeSelect } from '@moduix/solid/native-select';
 import styles from '@/components/examples/native-select/native-select-field-integration.module.css';
 
@@ -25,7 +25,7 @@ const frameworkOptions = [
 export default function NativeSelectFieldDemo() {
   return (
     <Field class={styles.root} invalid required>
-      <Field.Label>Framework</Field.Label>
+      <FieldLabel>Framework</FieldLabel>
       <NativeSelect name="framework">
         {frameworkOptions.map((option) => (
           <option value={option.value} disabled={option.disabled}>
@@ -33,7 +33,7 @@ export default function NativeSelectFieldDemo() {
           </option>
         ))}
       </NativeSelect>
-      <Field.ErrorText>Select a framework.</Field.ErrorText>
+      <FieldErrorText>Select a framework.</FieldErrorText>
     </Field>
   );
 }

@@ -7,7 +7,7 @@ import styles from './Heading.module.css';
 type HeadingSize = 'xs' | 'sm' | 'md' | 'lg' | 'xl' | '2xl';
 type HeadingWeight = 'regular' | 'medium' | 'semibold' | 'bold';
 type HeadingElement = 'h1' | 'h2' | 'h3' | 'h4' | 'h5' | 'h6';
-type HeadingRootProps = HTMLArkProps<'h1'> & {
+type HeadingProps = HTMLArkProps<'h1'> & {
   as?: HeadingElement;
   size?: HeadingSize;
   weight?: HeadingWeight;
@@ -22,7 +22,7 @@ const elements = {
   h6: ark.h6,
 } as const;
 
-const HeadingRoot = forwardRef<HTMLHeadingElement, HeadingRootProps>(function HeadingRoot(
+const Heading = forwardRef<HTMLHeadingElement, HeadingProps>(function Heading(
   { as, asChild, size, weight = 'semibold', className, ...props },
   ref,
 ) {
@@ -41,10 +41,6 @@ const HeadingRoot = forwardRef<HTMLHeadingElement, HeadingRootProps>(function He
       className={clsx(styles.root, className)}
     />
   );
-});
-
-const Heading = Object.assign(HeadingRoot, {
-  Root: HeadingRoot,
 });
 
 export { Heading };

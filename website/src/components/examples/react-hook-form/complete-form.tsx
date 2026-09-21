@@ -16,7 +16,7 @@ import {
   CheckboxLabel,
 } from '@moduix/react/checkbox';
 import { Combobox } from '@moduix/react/combobox';
-import { Field } from '@moduix/react/field';
+import { Field, FieldErrorText, FieldLabel, FieldRequiredIndicator } from '@moduix/react/field';
 import { Input } from '@moduix/react/input';
 import { Select } from '@moduix/react/select';
 import { Textarea } from '@moduix/react/textarea';
@@ -84,16 +84,16 @@ export default function ProjectForm() {
 
         <CardBody className={styles.stack}>
           <Field invalid={Boolean(errors.name)} required>
-            <Field.Label>
+            <FieldLabel>
               Project name
-              <Field.RequiredIndicator />
-            </Field.Label>
+              <FieldRequiredIndicator />
+            </FieldLabel>
             <Input
               {...register('name', {
                 required: 'Enter a project name.',
               })}
             />
-            <Field.ErrorText>{errors.name?.message}</Field.ErrorText>
+            <FieldErrorText>{errors.name?.message}</FieldErrorText>
           </Field>
 
           <Controller
@@ -102,10 +102,10 @@ export default function ProjectForm() {
             rules={{ required: 'Choose a team.' }}
             render={({ field, fieldState }) => (
               <Field invalid={fieldState.invalid} required>
-                <Field.Label>
+                <FieldLabel>
                   Team
-                  <Field.RequiredIndicator />
-                </Field.Label>
+                  <FieldRequiredIndicator />
+                </FieldLabel>
                 <Select
                   collection={teams}
                   name={field.name}
@@ -131,7 +131,7 @@ export default function ProjectForm() {
                   </Select.Positioner>
                   <Select.HiddenSelect />
                 </Select>
-                <Field.ErrorText>{fieldState.error?.message}</Field.ErrorText>
+                <FieldErrorText>{fieldState.error?.message}</FieldErrorText>
               </Field>
             )}
           />
@@ -142,10 +142,10 @@ export default function ProjectForm() {
             rules={{ required: 'Choose a reviewer.' }}
             render={({ field, fieldState }) => (
               <Field invalid={fieldState.invalid} required>
-                <Field.Label>
+                <FieldLabel>
                   Reviewer
-                  <Field.RequiredIndicator />
-                </Field.Label>
+                  <FieldRequiredIndicator />
+                </FieldLabel>
                 <Combobox
                   collection={collection}
                   name={field.name}
@@ -175,13 +175,13 @@ export default function ProjectForm() {
                     </Combobox.Content>
                   </Combobox.Positioner>
                 </Combobox>
-                <Field.ErrorText>{fieldState.error?.message}</Field.ErrorText>
+                <FieldErrorText>{fieldState.error?.message}</FieldErrorText>
               </Field>
             )}
           />
 
           <Field>
-            <Field.Label>Summary</Field.Label>
+            <FieldLabel>Summary</FieldLabel>
             <Textarea
               {...register('summary')}
               placeholder="What are you planning to build?"

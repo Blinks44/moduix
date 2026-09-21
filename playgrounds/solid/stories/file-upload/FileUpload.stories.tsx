@@ -1,8 +1,27 @@
 import { For, createSignal } from 'solid-js';
 import type { ComponentProps } from 'solid-js';
 import type { Meta, StoryObj } from 'storybook-solidjs-vite';
-import { Field } from '@/components/field';
-import { FileUpload, useFileUpload } from '@/components/file-upload/FileUpload';
+import { Field, FieldErrorText, FieldHelperText } from '@/components/field';
+import {
+  FileUpload,
+  useFileUpload,
+  FileUploadContext,
+  FileUploadDropzone,
+  FileUploadDropzoneIcon,
+  FileUploadHiddenInput,
+  FileUploadItem,
+  FileUploadItemDeleteTrigger,
+  FileUploadItemGroup,
+  FileUploadItemMetadata,
+  FileUploadItemName,
+  FileUploadItems,
+  FileUploadItemPreview,
+  FileUploadItemPreviewIcon,
+  FileUploadItemPreviewImage,
+  FileUploadLabel,
+  FileUploadRootProvider,
+  FileUploadTrigger,
+} from '@/components/file-upload/FileUpload';
 import styles from './FileUpload.stories.module.css';
 
 const meta = {
@@ -25,42 +44,42 @@ const initialFiles = [
 
 const isImageFile = (file: File) => file.type.startsWith('image/');
 
-function FileUploadItems() {
+function FileUploadItemList() {
   return (
-    <FileUpload.Context>
+    <FileUploadContext>
       {(context) => (
         <For each={context().acceptedFiles}>
           {(file) => (
-            <FileUpload.Item file={file}>
+            <FileUploadItem file={file}>
               {isImageFile(file) ? (
-                <FileUpload.ItemPreview>
-                  <FileUpload.ItemPreviewImage />
-                </FileUpload.ItemPreview>
+                <FileUploadItemPreview>
+                  <FileUploadItemPreviewImage />
+                </FileUploadItemPreview>
               ) : (
-                <FileUpload.ItemPreview>
-                  <FileUpload.ItemPreviewIcon />
-                </FileUpload.ItemPreview>
+                <FileUploadItemPreview>
+                  <FileUploadItemPreviewIcon />
+                </FileUploadItemPreview>
               )}
-              <FileUpload.ItemName />
-              <FileUpload.ItemMetadata file={file} />
-              <FileUpload.ItemDeleteTrigger aria-label={`Remove ${file.name}`} />
-            </FileUpload.Item>
+              <FileUploadItemName />
+              <FileUploadItemMetadata file={file} />
+              <FileUploadItemDeleteTrigger aria-label={`Remove ${file.name}`} />
+            </FileUploadItem>
           )}
         </For>
       )}
-    </FileUpload.Context>
+    </FileUploadContext>
   );
 }
 
-function FileUploadDemo(props: ComponentProps<typeof FileUpload.Root>) {
+function FileUploadDemo(props: ComponentProps<typeof FileUpload>) {
   return (
     <FileUpload class={styles.simpleDemo} maxFiles={3} {...props}>
-      <FileUpload.Label>Attachments</FileUpload.Label>
-      <FileUpload.Trigger>Choose files</FileUpload.Trigger>
-      <FileUpload.ItemGroup>
-        <FileUpload.Items />
-      </FileUpload.ItemGroup>
-      <FileUpload.HiddenInput />
+      <FileUploadLabel>Attachments</FileUploadLabel>
+      <FileUploadTrigger>Choose files</FileUploadTrigger>
+      <FileUploadItemGroup>
+        <FileUploadItems />
+      </FileUploadItemGroup>
+      <FileUploadHiddenInput />
     </FileUpload>
   );
 }
@@ -72,19 +91,19 @@ export const Basic: Story = {
 export const Dropzone: Story = {
   render: () => (
     <FileUpload maxFiles={5}>
-      <FileUpload.Label>Project files</FileUpload.Label>
-      <FileUpload.HiddenInput />
-      <FileUpload.Dropzone disableClick>
-        <FileUpload.DropzoneIcon />
+      <FileUploadLabel>Project files</FileUploadLabel>
+      <FileUploadHiddenInput />
+      <FileUploadDropzone disableClick>
+        <FileUploadDropzoneIcon />
         <div class={styles.dropzoneContent}>
           <span class={styles.dropzoneTitle}>Drag and drop files here</span>
           <span class={styles.dropzoneDescription}>or browse from your device</span>
-          <FileUpload.Trigger>Browse files</FileUpload.Trigger>
+          <FileUploadTrigger>Browse files</FileUploadTrigger>
         </div>
-      </FileUpload.Dropzone>
-      <FileUpload.ItemGroup>
-        <FileUploadItems />
-      </FileUpload.ItemGroup>
+      </FileUploadDropzone>
+      <FileUploadItemGroup>
+        <FileUploadItemList />
+      </FileUploadItemGroup>
     </FileUpload>
   ),
 };
@@ -120,57 +139,57 @@ export const Controlled: Story = {
 export const RejectedFiles: Story = {
   render: () => (
     <FileUpload accept="image/*" maxFiles={2} maxFileSize={120_000}>
-      <FileUpload.Label>Images</FileUpload.Label>
-      <FileUpload.HiddenInput />
-      <FileUpload.Dropzone disableClick>
-        <FileUpload.DropzoneIcon />
+      <FileUploadLabel>Images</FileUploadLabel>
+      <FileUploadHiddenInput />
+      <FileUploadDropzone disableClick>
+        <FileUploadDropzoneIcon />
         <div class={styles.dropzoneContent}>
           <span class={styles.dropzoneTitle}>Drop image files here</span>
           <span class={styles.dropzoneDescription}>PNG or JPEG, up to 120 KB</span>
-          <FileUpload.Trigger>Select images</FileUpload.Trigger>
+          <FileUploadTrigger>Select images</FileUploadTrigger>
         </div>
-      </FileUpload.Dropzone>
-      <FileUpload.ItemGroup>
-        <FileUploadItems />
-      </FileUpload.ItemGroup>
-      <FileUpload.ItemGroup type="rejected">
-        <FileUpload.Context>
+      </FileUploadDropzone>
+      <FileUploadItemGroup>
+        <FileUploadItemList />
+      </FileUploadItemGroup>
+      <FileUploadItemGroup type="rejected">
+        <FileUploadContext>
           {(context) => (
             <For each={context().rejectedFiles}>
               {(rejection) => (
-                <FileUpload.Item file={rejection.file}>
-                  <FileUpload.ItemPreview type=".*">
-                    <FileUpload.ItemPreviewIcon />
-                  </FileUpload.ItemPreview>
+                <FileUploadItem file={rejection.file}>
+                  <FileUploadItemPreview type=".*">
+                    <FileUploadItemPreviewIcon />
+                  </FileUploadItemPreview>
                   <div>
-                    <FileUpload.ItemName />
+                    <FileUploadItemName />
                     <p class={styles.errorText}>{rejection.errors.join(', ')}</p>
                   </div>
-                  <FileUpload.ItemDeleteTrigger aria-label={`Remove ${rejection.file.name}`} />
-                </FileUpload.Item>
+                  <FileUploadItemDeleteTrigger aria-label={`Remove ${rejection.file.name}`} />
+                </FileUploadItem>
               )}
             </For>
           )}
-        </FileUpload.Context>
-      </FileUpload.ItemGroup>
+        </FileUploadContext>
+      </FileUploadItemGroup>
     </FileUpload>
   ),
 };
 
 export const WithField: Story = {
   render: () => (
-    <Field.Root required>
+    <Field required>
       <FileUpload name="attachments" maxFiles={3}>
-        <FileUpload.Label>Required attachments</FileUpload.Label>
-        <FileUpload.HiddenInput />
-        <FileUpload.Trigger>Choose files</FileUpload.Trigger>
-        <FileUpload.ItemGroup>
-          <FileUploadItems />
-        </FileUpload.ItemGroup>
+        <FileUploadLabel>Required attachments</FileUploadLabel>
+        <FileUploadHiddenInput />
+        <FileUploadTrigger>Choose files</FileUploadTrigger>
+        <FileUploadItemGroup>
+          <FileUploadItemList />
+        </FileUploadItemGroup>
       </FileUpload>
-      <Field.HelperText>Upload up to three files.</Field.HelperText>
-      <Field.ErrorText>Upload at least one file.</Field.ErrorText>
-    </Field.Root>
+      <FieldHelperText>Upload up to three files.</FieldHelperText>
+      <FieldErrorText>Upload at least one file.</FieldErrorText>
+    </Field>
   ),
 };
 
@@ -179,21 +198,21 @@ export const RootProvider: Story = {
     const fileUpload = useFileUpload({ maxFiles: 3, accept: 'image/*' });
 
     return (
-      <FileUpload.RootProvider value={fileUpload}>
-        <FileUpload.Label>Images</FileUpload.Label>
-        <FileUpload.HiddenInput />
-        <FileUpload.Dropzone disableClick>
-          <FileUpload.DropzoneIcon />
+      <FileUploadRootProvider value={fileUpload}>
+        <FileUploadLabel>Images</FileUploadLabel>
+        <FileUploadHiddenInput />
+        <FileUploadDropzone disableClick>
+          <FileUploadDropzoneIcon />
           <div class={styles.dropzoneContent}>
             <span class={styles.dropzoneTitle}>Drop images here</span>
             <span class={styles.dropzoneDescription}>or browse from your device</span>
-            <FileUpload.Trigger>Choose images</FileUpload.Trigger>
+            <FileUploadTrigger>Choose images</FileUploadTrigger>
           </div>
-        </FileUpload.Dropzone>
-        <FileUpload.ItemGroup>
-          <FileUploadItems />
-        </FileUpload.ItemGroup>
-      </FileUpload.RootProvider>
+        </FileUploadDropzone>
+        <FileUploadItemGroup>
+          <FileUploadItemList />
+        </FileUploadItemGroup>
+      </FileUploadRootProvider>
     );
   },
 };
@@ -201,19 +220,19 @@ export const RootProvider: Story = {
 export const CustomStyling: Story = {
   render: () => (
     <FileUpload maxFiles={2}>
-      <FileUpload.Label>Brand assets</FileUpload.Label>
-      <FileUpload.HiddenInput />
-      <FileUpload.Dropzone class={styles.customDropzone} disableClick>
-        <FileUpload.DropzoneIcon />
+      <FileUploadLabel>Brand assets</FileUploadLabel>
+      <FileUploadHiddenInput />
+      <FileUploadDropzone class={styles.customDropzone} disableClick>
+        <FileUploadDropzoneIcon />
         <div class={styles.dropzoneContent}>
           <span class={styles.dropzoneTitle}>Drop files here</span>
           <span class={styles.dropzoneDescription}>SVG, PNG, or PDF</span>
-          <FileUpload.Trigger class={styles.customTrigger}>Browse files</FileUpload.Trigger>
+          <FileUploadTrigger class={styles.customTrigger}>Browse files</FileUploadTrigger>
         </div>
-      </FileUpload.Dropzone>
-      <FileUpload.ItemGroup>
-        <FileUploadItems />
-      </FileUpload.ItemGroup>
+      </FileUploadDropzone>
+      <FileUploadItemGroup>
+        <FileUploadItemList />
+      </FileUploadItemGroup>
     </FileUpload>
   ),
 };

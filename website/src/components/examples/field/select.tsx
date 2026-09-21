@@ -1,5 +1,5 @@
 import { createListCollection } from '@ark-ui/react/collection';
-import { Field } from '@moduix/react/field';
+import { Field, FieldHelperText } from '@moduix/react/field';
 import { Select } from '@moduix/react/select';
 import styles from '@/components/examples/field/field-select.module.css';
 
@@ -34,7 +34,7 @@ export default function SelectFieldDemo() {
         </Select.Positioner>
         <Select.HiddenSelect />
       </Select>
-      <Field.HelperText>Used for triage queues.</Field.HelperText>
+      <FieldHelperText>Used for triage queues.</FieldHelperText>
     </Field>
   );
 }

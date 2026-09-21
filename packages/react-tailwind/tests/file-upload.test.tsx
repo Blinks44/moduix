@@ -1,7 +1,24 @@
 import { expect, test } from '@rstest/core';
 import { fireEvent, render, screen } from '@testing-library/react';
 import { createRef } from 'react';
-import { FileUpload, useFileUpload } from '../src';
+import {
+  FileUpload,
+  useFileUpload,
+  FileUploadClearTrigger,
+  FileUploadDropzone,
+  FileUploadDropzoneIcon,
+  FileUploadHiddenInput,
+  FileUploadItem,
+  FileUploadItemDeleteTrigger,
+  FileUploadItemGroup,
+  FileUploadItemName,
+  FileUploadItems,
+  FileUploadItemPreview,
+  FileUploadItemPreviewIcon,
+  FileUploadLabel,
+  FileUploadRootProvider,
+  FileUploadTrigger,
+} from '../src';
 
 const file = new File(['moduix'], 'moduix.txt', { type: 'text/plain' });
 const imageWithoutMimeType = new File(['moduix'], 'moduix.png');
@@ -9,9 +26,9 @@ const imageWithoutMimeType = new File(['moduix'], 'moduix.png');
 test('renders a keyboard-focusable dropzone and a clearly named default clear action', () => {
   render(
     <FileUpload defaultAcceptedFiles={[file]}>
-      <FileUpload.Label>Attachments</FileUpload.Label>
-      <FileUpload.Dropzone data-testid="dropzone" />
-      <FileUpload.ClearTrigger />
+      <FileUploadLabel>Attachments</FileUploadLabel>
+      <FileUploadDropzone data-testid="dropzone" />
+      <FileUploadClearTrigger />
     </FileUpload>,
   );
 
@@ -39,10 +56,10 @@ test('keeps native form, disabled, and controlled file-change contracts intact',
         maxFiles={2}
         onFileChange={(details) => changes.push(details.acceptedFiles)}
       >
-        <FileUpload.Label>Attachments</FileUpload.Label>
-        <FileUpload.Dropzone data-testid="disabled-dropzone" />
-        <FileUpload.Trigger>Choose files</FileUpload.Trigger>
-        <FileUpload.HiddenInput />
+        <FileUploadLabel>Attachments</FileUploadLabel>
+        <FileUploadDropzone data-testid="disabled-dropzone" />
+        <FileUploadTrigger>Choose files</FileUploadTrigger>
+        <FileUploadHiddenInput />
       </FileUpload>
     </form>,
   );
@@ -68,13 +85,13 @@ test('preserves RootProvider state with an explicit hidden input', () => {
     const upload = useFileUpload({ defaultAcceptedFiles: [file] });
 
     return (
-      <FileUpload.RootProvider value={upload} data-testid="provider">
-        <FileUpload.Label>Attachments</FileUpload.Label>
-        <FileUpload.ItemGroup>
-          <FileUpload.Items />
-        </FileUpload.ItemGroup>
-        <FileUpload.HiddenInput />
-      </FileUpload.RootProvider>
+      <FileUploadRootProvider value={upload} data-testid="provider">
+        <FileUploadLabel>Attachments</FileUploadLabel>
+        <FileUploadItemGroup>
+          <FileUploadItems />
+        </FileUploadItemGroup>
+        <FileUploadHiddenInput />
+      </FileUploadRootProvider>
     );
   }
 
@@ -88,10 +105,10 @@ test('preserves RootProvider state with an explicit hidden input', () => {
 test('uses a generic preview when an image filename has no image MIME type', () => {
   render(
     <FileUpload defaultAcceptedFiles={[imageWithoutMimeType]}>
-      <FileUpload.Label>Attachments</FileUpload.Label>
-      <FileUpload.ItemGroup>
-        <FileUpload.Items />
-      </FileUpload.ItemGroup>
+      <FileUploadLabel>Attachments</FileUploadLabel>
+      <FileUploadItemGroup>
+        <FileUploadItems />
+      </FileUploadItemGroup>
     </FileUpload>,
   );
 
@@ -107,9 +124,9 @@ test('preserves Root asChild composition, refs, and an explicit hidden input', (
   render(
     <FileUpload asChild ref={rootRef}>
       <div data-testid="custom-root">
-        <FileUpload.Label>Attachments</FileUpload.Label>
-        <FileUpload.Trigger ref={triggerRef}>Choose files</FileUpload.Trigger>
-        <FileUpload.HiddenInput />
+        <FileUploadLabel>Attachments</FileUploadLabel>
+        <FileUploadTrigger ref={triggerRef}>Choose files</FileUploadTrigger>
+        <FileUploadHiddenInput />
       </div>
     </FileUpload>,
   );
@@ -124,8 +141,8 @@ test('preserves Root asChild composition, refs, and an explicit hidden input', (
 test('lets consumer utilities replace conflicting defaults', () => {
   render(
     <FileUpload className="max-w-none text-muted-foreground">
-      <FileUpload.Label>Attachments</FileUpload.Label>
-      <FileUpload.Trigger className="bg-foreground">Choose files</FileUpload.Trigger>
+      <FileUploadLabel>Attachments</FileUploadLabel>
+      <FileUploadTrigger className="bg-foreground">Choose files</FileUploadTrigger>
     </FileUpload>,
   );
 
@@ -141,18 +158,18 @@ test('lets consumer utilities replace conflicting defaults', () => {
 test('keeps empty visual parts visible with native utility defaults', () => {
   render(
     <FileUpload>
-      <FileUpload.Dropzone data-testid="dropzone">
-        <FileUpload.DropzoneIcon data-testid="dropzone-icon" />
-      </FileUpload.Dropzone>
-      <FileUpload.ItemGroup>
-        <FileUpload.Item file={file}>
-          <FileUpload.ItemPreview data-testid="item-preview">
-            <FileUpload.ItemPreviewIcon />
-          </FileUpload.ItemPreview>
-          <FileUpload.ItemName />
-          <FileUpload.ItemDeleteTrigger aria-label="Remove file" />
-        </FileUpload.Item>
-      </FileUpload.ItemGroup>
+      <FileUploadDropzone data-testid="dropzone">
+        <FileUploadDropzoneIcon data-testid="dropzone-icon" />
+      </FileUploadDropzone>
+      <FileUploadItemGroup>
+        <FileUploadItem file={file}>
+          <FileUploadItemPreview data-testid="item-preview">
+            <FileUploadItemPreviewIcon />
+          </FileUploadItemPreview>
+          <FileUploadItemName />
+          <FileUploadItemDeleteTrigger aria-label="Remove file" />
+        </FileUploadItem>
+      </FileUploadItemGroup>
     </FileUpload>,
   );
 

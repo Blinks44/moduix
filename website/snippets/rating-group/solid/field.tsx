@@ -1,4 +1,4 @@
-import { Field } from '@moduix/solid/field';
+import { Field, FieldErrorText, FieldHelperText } from '@moduix/solid/field';
 import { RatingGroup } from '@moduix/solid/rating-group';
 import styles from '@/components/examples/rating-group/component-field.module.css';
 
@@ -11,8 +11,8 @@ export default function FieldRatingGroupDemo() {
           <RatingGroup.Items />
         </RatingGroup.Control>
       </RatingGroup>
-      <Field.HelperText>Required score from 1 to 5.</Field.HelperText>
-      <Field.ErrorText>Choose a score before continuing.</Field.ErrorText>
+      <FieldHelperText>Required score from 1 to 5.</FieldHelperText>
+      <FieldErrorText>Choose a score before continuing.</FieldErrorText>
     </Field>
   );
 }

@@ -121,7 +121,7 @@ export const fieldOverrideCssProperties: CssPropertyInput[] = [
     'Controls field control focus ring width.',
   ],
   ['--moduix-field-gap', 'var(--moduix-spacing-1)', 'Controls spacing between field parts.'],
-  ['--moduix-field-item-gap', 'var(--moduix-spacing-1)', 'Controls spacing inside `Field.Item`.'],
+  ['--moduix-field-item-gap', 'var(--moduix-spacing-1)', 'Controls spacing inside `FieldItem`.'],
   ['--moduix-field-label-color', 'var(--moduix-color-foreground)', 'Controls label text color.'],
   ['--moduix-field-label-font-size', 'var(--moduix-text-sm)', 'Controls label font size.'],
   [
@@ -129,7 +129,7 @@ export const fieldOverrideCssProperties: CssPropertyInput[] = [
     'var(--moduix-weight-medium)',
     'Controls label font weight.',
   ],
-  ['--moduix-field-label-gap', 'var(--moduix-spacing-2)', 'Controls spacing inside `Field.Label`.'],
+  ['--moduix-field-label-gap', 'var(--moduix-spacing-2)', 'Controls spacing inside `FieldLabel`.'],
   [
     '--moduix-field-label-line-height',
     'var(--moduix-line-height-text-sm)',
@@ -141,6 +141,6 @@ export const fieldOverrideCssProperties: CssPropertyInput[] = [
     'var(--moduix-color-destructive)',
     'Controls required indicator color.',
   ],
-  ['--moduix-field-textarea-min-height', '5rem', 'Controls `Field.Textarea` minimum height.'],
+  ['--moduix-field-textarea-min-height', '5rem', 'Controls `FieldTextarea` minimum height.'],
   ['--moduix-field-width', '100%', 'Controls the root field width.'],
 ];

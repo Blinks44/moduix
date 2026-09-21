@@ -10,7 +10,7 @@ import {
   ColorPickerArea,
   ColorPickerChannelInput,
 } from '@moduix/solid/color-picker';
-import { Field } from '@moduix/solid/field';
+import { Field, FieldErrorText, FieldHelperText } from '@moduix/solid/field';
 import styles from '@/components/examples/color-picker/color-picker-field-state.module.css';
 
 export default function FieldStateColorPickerDemo() {
@@ -29,8 +29,8 @@ export default function FieldStateColorPickerDemo() {
         </ColorPickerPositioner>
         <ColorPickerHiddenInput />
       </ColorPicker>
-      <Field.HelperText>Used for generated charts and callouts.</Field.HelperText>
-      <Field.ErrorText>Choose an accent color.</Field.ErrorText>
+      <FieldHelperText>Used for generated charts and callouts.</FieldHelperText>
+      <FieldErrorText>Choose an accent color.</FieldErrorText>
     </Field>
   );
 }

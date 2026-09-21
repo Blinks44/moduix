@@ -8,7 +8,7 @@ import { cn } from '@/lib/moduix/cn';
 type HeadingSize = 'xs' | 'sm' | 'md' | 'lg' | 'xl' | '2xl';
 type HeadingWeight = 'regular' | 'medium' | 'semibold' | 'bold';
 type HeadingElement = 'h1' | 'h2' | 'h3' | 'h4' | 'h5' | 'h6';
-type HeadingRootProps = HTMLArkProps<'h1'> & {
+type HeadingProps = HTMLArkProps<'h1'> & {
   as?: HeadingElement;
   size?: HeadingSize;
   weight?: HeadingWeight;
@@ -51,7 +51,7 @@ const headingVariants = cva('m-0 text-foreground tracking-normal text-balance wr
   },
 });
 
-const HeadingRoot = forwardRef<ComponentRef<typeof ark.h1>, HeadingRootProps>(function HeadingRoot(
+const Heading = forwardRef<ComponentRef<typeof ark.h1>, HeadingProps>(function Heading(
   { as, asChild, size, weight = 'semibold', className, ...props },
   ref,
 ) {
@@ -70,10 +70,6 @@ const HeadingRoot = forwardRef<ComponentRef<typeof ark.h1>, HeadingRootProps>(fu
       className={cn(headingVariants({ size: size ?? defaultSizes[as ?? 'h1'], weight }), className)}
     />
   );
-});
-
-const Heading = Object.assign(HeadingRoot, {
-  Root: HeadingRoot,
 });
 
 export { Heading };

@@ -1,4 +1,4 @@
-import { Field } from '@moduix/solid/field';
+import { Field, FieldErrorText, FieldHelperText } from '@moduix/solid/field';
 import { SignaturePad, useSignaturePadContext } from '@moduix/solid/signature-pad';
 import styles from '@/components/examples/signature-pad/signature-pad-field.module.css';
 
@@ -18,8 +18,8 @@ export default function FieldSignaturePadDemo() {
         <SignaturePad.Canvas />
         <SignaturePadFormInput />
       </SignaturePad>
-      <Field.HelperText>Use pointer or touch input to add a signature.</Field.HelperText>
-      <Field.ErrorText>Signature is required.</Field.ErrorText>
+      <FieldHelperText>Use pointer or touch input to add a signature.</FieldHelperText>
+      <FieldErrorText>Signature is required.</FieldErrorText>
     </Field>
   );
 }

@@ -1,6 +1,6 @@
 import { createListCollection } from '@ark-ui/solid/collection';
-import { Field } from '@moduix/solid/field';
-import { Fieldset } from '@moduix/solid/fieldset';
+import { Field, FieldLabel } from '@moduix/solid/field';
+import { Fieldset, FieldsetHelperText, FieldsetLegend } from '@moduix/solid/fieldset';
 import { Input } from '@moduix/solid/input';
 import { Select } from '@moduix/solid/select';
 import { For } from 'solid-js';
@@ -30,7 +30,7 @@ const countryCodes = createListCollection({
 export default function PhoneInput() {
   return (
     <Fieldset class={styles.root}>
-      <Fieldset.Legend>Mobile number</Fieldset.Legend>
+      <FieldsetLegend>Mobile number</FieldsetLegend>
       <div class={styles.phoneInput}>
         <Select
           class={styles.countryCode}
@@ -60,11 +60,11 @@ export default function PhoneInput() {
           <Select.HiddenSelect />
         </Select>
         <Field>
-          <Field.Label>Phone</Field.Label>
+          <FieldLabel>Phone</FieldLabel>
           <Input type="tel" aria-label="Phone number" />
         </Field>
       </div>
-      <Fieldset.HelperText>Include the area code.</Fieldset.HelperText>
+      <FieldsetHelperText>Include the area code.</FieldsetHelperText>
     </Fieldset>
   );
 }

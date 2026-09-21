@@ -52,9 +52,9 @@ Choisissez le paquet correspondant à votre framework et à votre solution de st
 ## Exemple de base
 
 
-Commencez par utiliser `FileUpload` comme composant racine. Ajoutez un `Label`, puis utilisez `Trigger` pour un contrôle
-compact ou `Dropzone` pour le glisser-déposer. Ajoutez explicitement `FileUpload.HiddenInput` pour
-ouvrir le sélecteur natif. Placez `Items` dans `ItemGroup` pour afficher les fichiers acceptés. `Items` affiche une vignette uniquement lorsque le fichier
+Commencez par utiliser `FileUpload` comme composant racine. Ajoutez un `FileUploadLabel`, puis utilisez `FileUploadTrigger` pour un contrôle
+compact ou `FileUploadDropzone` pour le glisser-déposer. Ajoutez explicitement `FileUploadHiddenInput` pour
+ouvrir le sélecteur natif. Placez `FileUploadItems` dans `FileUploadItemGroup` pour afficher les fichiers acceptés. `FileUploadItems` affiche une vignette uniquement lorsque le fichier
 possède un type MIME `image/*` ; les autres fichiers utilisent un aperçu générique.
 
 <ExampleFrame variant="component">
@@ -122,61 +122,61 @@ Consultez le [Démarrage rapide](/docs/quick-start) pour la configuration compl�
 ## Anatomie
 
 ```text
-FileUpload / FileUpload.Root
-├─ FileUpload.Label
-├─ FileUpload.Dropzone (facultatif)
-│  ├─ FileUpload.DropzoneIcon
-│  └─ FileUpload.Trigger
-├─ FileUpload.Trigger (sans `Dropzone`)
-├─ FileUpload.ItemGroup[type]
-│  ├─ FileUpload.Items
-│  └─ FileUpload.Context
-│     └─ FileUpload.Item[file]
-│        ├─ FileUpload.ItemPreview[type]
-│        │  ├─ FileUpload.ItemPreviewImage
-│        │  └─ FileUpload.ItemPreviewIcon
-│        ├─ FileUpload.ItemName
-│        ├─ FileUpload.ItemMetadata[file]
-│        ├─ FileUpload.ItemSizeText
-│        └─ FileUpload.ItemDeleteTrigger
-├─ FileUpload.ClearTrigger
-└─ FileUpload.HiddenInput (explicite)
+FileUpload / FileUploadRootProvider
+├─ FileUploadLabel
+├─ FileUploadDropzone (facultatif)
+│  ├─ FileUploadDropzoneIcon
+│  └─ FileUploadTrigger
+├─ FileUploadTrigger (sans `FileUploadDropzone`)
+├─ FileUploadItemGroup[type]
+│  ├─ FileUploadItems
+│  └─ FileUploadContext
+│     └─ FileUploadItem[file]
+│        ├─ FileUploadItemPreview[type]
+│        │  ├─ FileUploadItemPreviewImage
+│        │  └─ FileUploadItemPreviewIcon
+│        ├─ FileUploadItemName
+│        ├─ FileUploadItemMetadata[file]
+│        ├─ FileUploadItemSizeText
+│        └─ FileUploadItemDeleteTrigger
+├─ FileUploadClearTrigger
+└─ FileUploadHiddenInput (explicite)
 ```
 
 | Partie | Rôle |
 | -------------------------------- | ------------------------------------------------------------------------ |
-| `FileUpload` / `FileUpload.Root` | Gère l’état des fichiers, la validation, le glisser-déposer, le collage et l’intégration aux formulaires. |
-| `FileUpload.HiddenInput` | Champ natif d’Ark ; composition explicite décrite ci-dessous. |
-| `FileUpload.RootProvider` | Relie l’arbre du composant à l’état renvoyé par le hook `useFileUpload`. |
-| `FileUpload.Label` | Libellé accessible pour le champ de fichier masqué et les contrôles de téléversement. |
-| `FileUpload.Dropzone` | Zone de dépôt. Passez `disableClick` si elle contient un `Trigger` imbriqué, afin de ne pas ouvrir deux fois le sélecteur. |
-| `FileUpload.DropzoneIcon` | Icône de téléversement décorative pour une `Dropzone`. |
-| `FileUpload.Trigger` | Bouton qui ouvre le sélecteur de fichiers natif. |
-| `FileUpload.ItemGroup` | Liste des fichiers acceptés ou rejetés. |
-| `FileUpload.Items` | Composant prêt à l’emploi qui affiche des cartes pour les images et des lignes pour les autres fichiers, avec aperçu, métadonnées et suppression. |
-| `FileUpload.Context` | Contexte compatible avec Ark et basé sur une fonction de rendu pour créer des lignes personnalisées. |
-| `FileUpload.Item` | Ligne de fichier. Transmettez-lui l’objet `file` courant. |
-| `FileUpload.ItemPreview` | Emplacement d’aperçu affiché selon le type MIME du fichier. |
-| `FileUpload.ItemPreviewImage` | Aperçu d’image à l’intérieur de `ItemPreview`. |
-| `FileUpload.ItemPreviewIcon` | Icône de fichier générique pour un aperçu de secours dans `ItemPreview`. |
-| `FileUpload.ItemName` | Nom du fichier. |
-| `FileUpload.ItemMetadata` | Type du fichier et taille formatée selon la locale. Passez-lui l’objet `file` courant. |
-| `FileUpload.ItemSizeText` | Taille du fichier formatée selon la locale. |
-| `FileUpload.ItemDeleteTrigger` | Supprime un fichier. Utilise par défaut l’icône de corbeille moduix. |
-| `FileUpload.ClearTrigger` | Efface les fichiers sélectionnés. Utilise par défaut l’icône de fermeture moduix. |
+| `FileUpload` / `FileUploadRootProvider` | Gère l’état des fichiers, la validation, le glisser-déposer, le collage et l’intégration aux formulaires. |
+| `FileUploadHiddenInput` | Champ natif d’Ark ; composition explicite décrite ci-dessous. |
+| `FileUploadRootProvider` | Relie l’arbre du composant à l’état renvoyé par le hook `useFileUpload`. |
+| `FileUploadLabel` | Libellé accessible pour le champ de fichier masqué et les contrôles de téléversement. |
+| `FileUploadDropzone` | Zone de dépôt. Passez `disableClick` si elle contient un `FileUploadTrigger` imbriqué, afin de ne pas ouvrir deux fois le sélecteur. |
+| `FileUploadDropzoneIcon` | Icône de téléversement décorative pour une `FileUploadDropzone`. |
+| `FileUploadTrigger` | Bouton qui ouvre le sélecteur de fichiers natif. |
+| `FileUploadItemGroup` | Liste des fichiers acceptés ou rejetés. |
+| `FileUploadItems` | Composant prêt à l’emploi qui affiche des cartes pour les images et des lignes pour les autres fichiers, avec aperçu, métadonnées et suppression. |
+| `FileUploadContext` | Contexte compatible avec Ark et basé sur une fonction de rendu pour créer des lignes personnalisées. |
+| `FileUploadItem` | Ligne de fichier. Transmettez-lui l’objet `file` courant. |
+| `FileUploadItemPreview` | Emplacement d’aperçu affiché selon le type MIME du fichier. |
+| `FileUploadItemPreviewImage` | Aperçu d’image à l’intérieur de `FileUploadItemPreview`. |
+| `FileUploadItemPreviewIcon` | Icône de fichier générique pour un aperçu de secours dans `FileUploadItemPreview`. |
+| `FileUploadItemName` | Nom du fichier. |
+| `FileUploadItemMetadata` | Type du fichier et taille formatée selon la locale. Passez-lui l’objet `file` courant. |
+| `FileUploadItemSizeText` | Taille du fichier formatée selon la locale. |
+| `FileUploadItemDeleteTrigger` | Supprime un fichier. Utilise par défaut l’icône de corbeille moduix. |
+| `FileUploadClearTrigger` | Efface les fichiers sélectionnés. Utilise par défaut l’icône de fermeture moduix. |
 
 ## Composition
 
 `FileUpload` conserve l’état des fichiers en interne par défaut. Utilisez `defaultAcceptedFiles` pour une valeur initiale
 non contrôlée, ou associez `acceptedFiles` à `onFileChange(details)` lorsque l’application possède cet état. Utilisez
-`useFileUpload()` avec `FileUpload.RootProvider` lorsque l’état ou les méthodes doivent être créés en dehors de l’arbre rendu.
+`useFileUpload()` avec `FileUploadRootProvider` lorsque l’état ou les méthodes doivent être créés en dehors de l’arbre rendu.
 
-Ajoutez explicitement `FileUpload.HiddenInput` dans la racine ou le provider, même hors d’un formulaire, car `Trigger` l’utilise
-pour ouvrir le sélecteur natif. Définissez `name` sur la racine pour la soumission native du formulaire. Si `Trigger` est imbriqué
-dans `Dropzone`, passez `disableClick` afin que le sélecteur ne s’ouvre qu’une seule fois.
+Ajoutez explicitement `FileUploadHiddenInput` dans `FileUpload` ou `FileUploadRootProvider`, même hors d’un formulaire, car `FileUploadTrigger` l’utilise
+pour ouvrir le sélecteur natif. Définissez `name` sur la racine pour la soumission native du formulaire. Si `FileUploadTrigger` est imbriqué
+dans `FileUploadDropzone`, passez `disableClick` afin que le sélecteur ne s’ouvre qu’une seule fois.
 
-Utilisez `FileUpload.Items` dans `ItemGroup` pour les lignes de fichiers par défaut. Pour créer vos propres lignes, rendez
-`FileUpload.Context` et choisissez un seul aperçu par fichier depuis `acceptedFiles` ou `rejectedFiles`.
+Utilisez `FileUploadItems` dans `FileUploadItemGroup` pour les lignes de fichiers par défaut. Pour créer vos propres lignes, rendez
+`FileUploadContext` et choisissez un seul aperçu par fichier depuis `acceptedFiles` ou `rejectedFiles`.
 
 ## Exemples
 
@@ -222,7 +222,7 @@ indiquer des types MIME ou des extensions de fichiers.
 
 ### Effacer la liste de fichiers
 
-Utilisez `ClearTrigger` pour supprimer tous les fichiers acceptés en une seule action.
+Utilisez `FileUploadClearTrigger` pour supprimer tous les fichiers acceptés en une seule action.
 
 <ExampleFrame variant="component">
   <FileUploadClearTrigger />
@@ -342,7 +342,7 @@ omettez-la si le nombre de fichiers est inconnu.
 
 ### Dropzone
 
-Utilisez `Dropzone` pour le téléversement par glisser-déposer. Gardez un `Trigger` imbriqué afin que les utilisateurs puissent
+Utilisez `FileUploadDropzone` pour le téléversement par glisser-déposer. Gardez un `FileUploadTrigger` imbriqué afin que les utilisateurs puissent
 aussi ouvrir le sélecteur au clavier.
 
 <ExampleFrame variant="component">
@@ -463,7 +463,7 @@ l’un des éléments ou ajoutez vos propres fichiers pour tester ces deux prés
 
 ### Utilisation dans un formulaire
 
-Passez `name` au composant racine et ajoutez `FileUpload.HiddenInput` ; les fichiers sélectionnés
+Passez `name` au composant racine et ajoutez `FileUploadHiddenInput` ; les fichiers sélectionnés
 participent alors à la soumission et à la réinitialisation du formulaire.
 
 <ExampleFrame variant="component">
@@ -583,7 +583,7 @@ s’agit d’une indication pour le navigateur, pas d’une garantie que l’app
 
 ### Fichiers rejetés
 
-Affichez `rejectedFiles` dans un groupe distinct `ItemGroup type="rejected"` lorsque les utilisateurs doivent voir pourquoi
+Affichez `rejectedFiles` dans un groupe distinct `FileUploadItemGroup type="rejected"` lorsque les utilisateurs doivent voir pourquoi
 la validation a échoué.
 
 <ExampleFrame variant="component">
@@ -623,7 +623,7 @@ la validation a échoué.
 
 ### Root Provider et collage de fichiers
 
-Utilisez `useFileUpload` avec `RootProvider` lorsque l’état ou les méthodes doivent être gérés en dehors de l’arbre de
+Utilisez `useFileUpload` avec `FileUploadRootProvider` lorsque l’état ou les méthodes doivent être gérés en dehors de l’arbre de
 téléversement affiché. Dans cet exemple, `setClipboardFiles` transmet à l’état du composant les fichiers collés dans une
 zone de texte.
 
@@ -703,7 +703,7 @@ Utilisez `transformFiles(files)` pour traiter les fichiers de manière asynchron
 
 ### Intégration avec Field
 
-Placez le téléversement dans `Field.Root` lorsque le champ de formulaire doit inclure un texte d’aide ou un message d’erreur,
+Placez le téléversement dans `Field` lorsque le champ de formulaire doit inclure un texte d’aide ou un message d’erreur,
 ou indiquer qu’il est obligatoire ou invalide.
 
 <ExampleFrame variant="component">
@@ -743,8 +743,8 @@ ou indiquer qu’il est obligatoire ou invalide.
 
 ### Personnalisation avancée
 
-Remplacez `Items` par vos propres lignes lorsque vous avez besoin d’aperçus selon le type MIME, de métadonnées supplémentaires
-ou d’une autre disposition. La composition explicite avec `FileUpload.Context` vous permet de conserver l’accès à l’état Ark
+Remplacez `FileUploadItems` par vos propres lignes lorsque vous avez besoin d’aperçus selon le type MIME, de métadonnées supplémentaires
+ou d’une autre disposition. La composition explicite avec `FileUploadContext` vous permet de conserver l’accès à l’état Ark
 et de choisir un aperçu d’image ou un aperçu de secours pour chaque fichier.
 
 <ExampleFrame variant="component">

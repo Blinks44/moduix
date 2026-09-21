@@ -38,8 +38,8 @@ import editableSolidTextarea from '../../../snippets/editable/solid/textarea.tsx
 ## Exemple de base
 
 
-Utilisez `Editable` comme racine, puis composez-le avec `Editable.Label`, `Editable.Area`,
-`Editable.Input` et `Editable.Preview`. Ajoutez `Editable.Controls` pour le parcours standard de
+Utilisez `Editable` comme racine, puis composez-le avec `EditableLabel`, `EditableArea`,
+`EditableInput` et `EditablePreview`. Ajoutez `EditableControls` pour le parcours standard de
 modification, de validation et d’annulation. moduix ajoute les styles, les attributs `data-slot` et
 les icônes par défaut des boutons de commande. Par défaut, un double-clic active le mode de
 modification, ce qui limite les changements accidentels.
@@ -104,41 +104,41 @@ Consultez le [Démarrage rapide](/docs/quick-start) pour la configuration compl�
 ## Anatomie
 
 ```text
-Editable.Root
-├─ Editable.Label
-├─ Editable.Area
-│  ├─ Editable.Input
-│  └─ Editable.Preview
-├─ Editable.Control ou Editable.Controls
-│  ├─ Editable.EditTrigger
-│  ├─ Editable.SubmitTrigger
-│  └─ Editable.CancelTrigger
+Editable
+├─ EditableLabel
+├─ EditableArea
+│  ├─ EditableInput
+│  └─ EditablePreview
+├─ EditableControl ou EditableControls
+│  ├─ EditableEditTrigger
+│  ├─ EditableSubmitTrigger
+│  └─ EditableCancelTrigger
 
-Editable.RootProvider
+EditableRootProvider
 └─ même arbre de parties relié à l’état Ark fourni par `useEditable()`
 ```
 
 | Partie                       | Rôle                                                   |
 | --------------------------- | ------------------------------------------------------ |
-| `Editable` / `Editable.Root` | Racine qui gère l’état, les callbacks, les propriétés du formulaire et l’accessibilité. |
-| `Editable.RootProvider`      | Racine reliée à une instance de `useEditable()`.       |
-| `Editable.Label`             | Libellé visible du champ et de la valeur affichée.     |
-| `Editable.Area`              | Conteneur commun du champ de saisie et de l’aperçu.    |
-| `Editable.Input`             | Champ de saisie affiché pendant la modification.      |
-| `Editable.Preview`           | Valeur ou espace réservé affiché hors modification.    |
-| `Editable.Control`           | Conteneur facultatif des boutons de modification, validation et annulation. |
-| `Editable.Controls`          | Groupe pratique pour le parcours standard.            |
-| `Editable.EditTrigger`       | Bouton qui active le mode de modification.            |
-| `Editable.SubmitTrigger`     | Bouton qui valide la valeur actuelle.                  |
-| `Editable.CancelTrigger`     | Bouton qui annule les modifications en cours.          |
+| `Editable`                 | Racine qui gère l’état, les callbacks, les propriétés du formulaire et l’accessibilité. |
+| `EditableRootProvider`      | Racine reliée à une instance de `useEditable()`.       |
+| `EditableLabel`             | Libellé visible du champ et de la valeur affichée.     |
+| `EditableArea`              | Conteneur commun du champ de saisie et de l’aperçu.    |
+| `EditableInput`             | Champ de saisie affiché pendant la modification.      |
+| `EditablePreview`           | Valeur ou espace réservé affiché hors modification.    |
+| `EditableControl`           | Conteneur facultatif des boutons de modification, validation et annulation. |
+| `EditableControls`          | Groupe pratique pour le parcours standard.            |
+| `EditableEditTrigger`       | Bouton qui active le mode de modification.            |
+| `EditableSubmitTrigger`     | Bouton qui valide la valeur actuelle.                  |
+| `EditableCancelTrigger`     | Bouton qui annule les modifications en cours.          |
 
 ## Composition
 
-Gardez `Editable.Input` et `Editable.Preview` comme éléments frères dans `Editable.Area`, puis placez
-`Editable.Controls` après cette zone pour utiliser le parcours standard de modification, validation et
-annulation. Utilisez `Editable.RootProvider` à la place de `Editable.Root` lorsque l’état créé par
+Gardez `EditableInput` et `EditablePreview` comme éléments frères dans `EditableArea`, puis placez
+`EditableControls` après cette zone pour utiliser le parcours standard de modification, validation et
+annulation. Utilisez `EditableRootProvider` à la place de `Editable` lorsque l’état créé par
 `useEditable()` doit être partagé avec des commandes situées en dehors de l’arbre rendu. Utilisez
-`Editable.Context` ou `useEditableContext()` pour un contenu personnalisé qui dépend du mode actuel.
+`EditableContext` ou `useEditableContext()` pour un contenu personnalisé qui dépend du mode actuel.
 Dans Solid, l’état exposé par `useEditable()` et le contexte est accessible via un accesseur : il se
 lit avec `editable().editing`.
 
@@ -336,10 +336,10 @@ utilisé par défaut dans moduix.
 
 ### Root Provider
 
-Utilisez `useEditable()` de moduix et `Editable.RootProvider` lorsque des commandes placées en dehors
+Utilisez `useEditable()` de moduix et `EditableRootProvider` lorsque des commandes placées en dehors
 de l’arbre du composant doivent accéder à l’état et aux méthodes d’`Editable`. Passez
 `activationMode: 'dblclick'` au hook pour conserver le comportement par défaut de la racine moduix.
-Pour cette instance d’état, le provider remplace `Editable.Root`.
+Pour cette instance d’état, le provider remplace `Editable`.
 
 <ExampleFrame variant="component">
   <EditableRootProvider />
@@ -378,7 +378,7 @@ Pour cette instance d’état, le provider remplace `Editable.Root`.
 
 ### Textarea
 
-Utilisez `Editable.Input asChild` avec un élément natif `<textarea>` pour le contenu multiligne.
+Utilisez `EditableInput asChild` avec un élément natif `<textarea>` pour le contenu multiligne.
 L’exemple fixe la taille de la textarea et aligne les commandes pour que le code copié soit utilisable tel quel.
 
 <ExampleFrame variant="component">
@@ -418,8 +418,8 @@ L’exemple fixe la taille de la textarea et aligne les commandes pour que le co
 
 ### Personnalisation avancée
 
-Utilisez `Editable.Context` lorsqu’une disposition personnalisée dépend du mode actuel. Cet exemple
-n’utilise pas `Editable.Controls` et affiche une indication clavier pendant la modification.
+Utilisez `EditableContext` lorsqu’une disposition personnalisée dépend du mode actuel. Cet exemple
+n’utilise pas `EditableControls` et affiche une indication clavier pendant la modification.
 
 <ExampleFrame variant="component">
   <EditableAdvancedCustomization />

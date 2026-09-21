@@ -1,4 +1,4 @@
-import { Field } from '@moduix/react/field';
+import { Field, FieldErrorText, FieldHelperText } from '@moduix/react/field';
 import { PinInput } from '@moduix/react/pin-input';
 import styles from '@/components/examples/pin-input/pin-input-field.module.css';
 
@@ -11,8 +11,8 @@ export default function FieldPinInput() {
           <PinInput.Inputs />
         </PinInput.Control>
       </PinInput>
-      <Field.HelperText>Additional info</Field.HelperText>
-      <Field.ErrorText>Please enter the verification code.</Field.ErrorText>
+      <FieldHelperText>Additional info</FieldHelperText>
+      <FieldErrorText>Please enter the verification code.</FieldErrorText>
     </Field>
   );
 }

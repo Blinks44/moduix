@@ -4,7 +4,7 @@ import {
   CheckboxHiddenInput,
   CheckboxLabel,
 } from '@moduix/solid/checkbox';
-import { Field } from '@moduix/solid/field';
+import { Field, FieldErrorText, FieldHelperText } from '@moduix/solid/field';
 import styles from '@/components/examples/field/field-checkbox.module.css';
 
 export default function CheckboxFieldDemo() {
@@ -15,8 +15,8 @@ export default function CheckboxFieldDemo() {
         <CheckboxLabel>Accept support access</CheckboxLabel>
         <CheckboxHiddenInput />
       </Checkbox>
-      <Field.HelperText>Required before the team can inspect workspace data.</Field.HelperText>
-      <Field.ErrorText>Support access must be enabled.</Field.ErrorText>
+      <FieldHelperText>Required before the team can inspect workspace data.</FieldHelperText>
+      <FieldErrorText>Support access must be enabled.</FieldErrorText>
     </Field>
   );
 }

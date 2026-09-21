@@ -1,6 +1,6 @@
 import { createSignal } from 'solid-js';
 import type { Meta, StoryObj } from 'storybook-solidjs-vite';
-import { Field } from '@/components/field';
+import { Field, FieldErrorText, FieldLabel } from '@/components/field';
 import { InputGroup } from '@/components/input-group/InputGroup';
 import storyStyles from './InputGroup.stories.module.css';
 
@@ -20,7 +20,7 @@ type Story = StoryObj<typeof meta>;
 export const Default: Story = {
   render: () => (
     <Field class={storyStyles.field}>
-      <Field.Label>Workspace</Field.Label>
+      <FieldLabel>Workspace</FieldLabel>
       <InputGroup>
         <InputGroup.Addon>@</InputGroup.Addon>
         <InputGroup.Input placeholder="maps" />
@@ -35,7 +35,7 @@ export const WithAction: Story = {
 
     return (
       <Field class={storyStyles.field}>
-        <Field.Label>Invite by email</Field.Label>
+        <FieldLabel>Invite by email</FieldLabel>
         <InputGroup>
           <InputGroup.Input
             value={value()}
@@ -53,7 +53,7 @@ export const WithAction: Story = {
 export const PrefixSuffix: Story = {
   render: () => (
     <Field class={storyStyles.field}>
-      <Field.Label>Monthly budget</Field.Label>
+      <FieldLabel>Monthly budget</FieldLabel>
       <InputGroup>
         <InputGroup.Addon class={storyStyles.currency}>$</InputGroup.Addon>
         <InputGroup.Input inputMode="decimal" placeholder="2500" />
@@ -66,7 +66,7 @@ export const PrefixSuffix: Story = {
 export const AsChild: Story = {
   render: () => (
     <Field class={storyStyles.field}>
-      <Field.Label>Workspace</Field.Label>
+      <FieldLabel>Workspace</FieldLabel>
       <InputGroup
         asChild={(props) => (
           <div {...props()}>
@@ -109,7 +109,7 @@ export const Sizes: Story = {
 export const Disabled: Story = {
   render: () => (
     <Field class={storyStyles.field} disabled>
-      <Field.Label>Workspace handle</Field.Label>
+      <FieldLabel>Workspace handle</FieldLabel>
       <InputGroup>
         <InputGroup.Addon>@</InputGroup.Addon>
         <InputGroup.Input value="maps" />
@@ -122,7 +122,7 @@ export const Disabled: Story = {
 export const ReadOnly: Story = {
   render: () => (
     <Field class={storyStyles.field} readOnly>
-      <Field.Label>Workspace handle</Field.Label>
+      <FieldLabel>Workspace handle</FieldLabel>
       <InputGroup>
         <InputGroup.Addon>@</InputGroup.Addon>
         <InputGroup.Input value="maps" />
@@ -135,12 +135,12 @@ export const ReadOnly: Story = {
 export const WithFieldValidation: Story = {
   render: () => (
     <Field class={storyStyles.field} invalid>
-      <Field.Label>Domain</Field.Label>
+      <FieldLabel>Domain</FieldLabel>
       <InputGroup>
         <InputGroup.Input placeholder="company" />
         <InputGroup.Text>.test.com</InputGroup.Text>
       </InputGroup>
-      <Field.ErrorText>Please enter a domain.</Field.ErrorText>
+      <FieldErrorText>Please enter a domain.</FieldErrorText>
     </Field>
   ),
 };

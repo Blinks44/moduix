@@ -38,8 +38,8 @@ import editableSolidTextarea from '../../../snippets/editable/solid/textarea.tsx
 ## Базовый пример
 
 
-Используйте `Editable` как корневой компонент и составьте его из `Editable.Label`, `Editable.Area`,
-`Editable.Input` и `Editable.Preview`. Добавьте `Editable.Controls` для стандартного сценария
+Используйте `Editable` как корневой компонент и составьте его из `EditableLabel`, `EditableArea`,
+`EditableInput` и `EditablePreview`. Добавьте `EditableControls` для стандартного сценария
 редактирования, сохранения и отмены. moduix добавляет стили, хуки `data-slot` и иконки по умолчанию
 для кнопок управления. По умолчанию режим редактирования включается двойным щелчком, что помогает
 избежать случайных изменений.
@@ -104,41 +104,41 @@ import editableSolidTextarea from '../../../snippets/editable/solid/textarea.tsx
 ## Анатомия
 
 ```text
-Editable.Root
-├─ Editable.Label
-├─ Editable.Area
-│  ├─ Editable.Input
-│  └─ Editable.Preview
-├─ Editable.Control или Editable.Controls
-│  ├─ Editable.EditTrigger
-│  ├─ Editable.SubmitTrigger
-│  └─ Editable.CancelTrigger
+Editable
+├─ EditableLabel
+├─ EditableArea
+│  ├─ EditableInput
+│  └─ EditablePreview
+├─ EditableControl или EditableControls
+│  ├─ EditableEditTrigger
+│  ├─ EditableSubmitTrigger
+│  └─ EditableCancelTrigger
 
-Editable.RootProvider
+EditableRootProvider
 └─ то же дерево частей, подключённое к состоянию Ark из `useEditable()`
 ```
 
 | Часть                        | Назначение                                             |
 | ---------------------------- | ------------------------------------------------------ |
-| `Editable` / `Editable.Root` | Состояние компонента, callbacks, свойства формы и доступность. |
-| `Editable.RootProvider`      | Корневая часть, подключённая к экземпляру `useEditable()`. |
-| `Editable.Label`             | Видимая подпись поля и отображаемого значения.         |
-| `Editable.Area`              | Общий контейнер для поля ввода и отображаемого значения. |
-| `Editable.Input`             | Текстовое поле в режиме редактирования.               |
-| `Editable.Preview`           | Значение или плейсхолдер вне режима редактирования.    |
-| `Editable.Control`           | Необязательный контейнер кнопок редактирования, сохранения и отмены. |
-| `Editable.Controls`           | Удобная обёртка стандартного сценария управления.     |
-| `Editable.EditTrigger`       | Кнопка перехода в режим редактирования.               |
-| `Editable.SubmitTrigger`     | Кнопка сохранения текущего значения.                   |
-| `Editable.CancelTrigger`     | Кнопка отмены текущих изменений.                       |
+| `Editable`                 | Состояние компонента, callbacks, свойства формы и доступность. |
+| `EditableRootProvider`      | Корневая часть, подключённая к экземпляру `useEditable()`. |
+| `EditableLabel`             | Видимая подпись поля и отображаемого значения.         |
+| `EditableArea`              | Общий контейнер для поля ввода и отображаемого значения. |
+| `EditableInput`             | Текстовое поле в режиме редактирования.               |
+| `EditablePreview`           | Значение или плейсхолдер вне режима редактирования.    |
+| `EditableControl`           | Необязательный контейнер кнопок редактирования, сохранения и отмены. |
+| `EditableControls`           | Удобная обёртка стандартного сценария управления.     |
+| `EditableEditTrigger`       | Кнопка перехода в режим редактирования.               |
+| `EditableSubmitTrigger`     | Кнопка сохранения текущего значения.                   |
+| `EditableCancelTrigger`     | Кнопка отмены текущих изменений.                       |
 
 ## Композиция
 
-Размещайте `Editable.Input` и `Editable.Preview` рядом внутри `Editable.Area`, а `Editable.Controls`
+Размещайте `EditableInput` и `EditablePreview` рядом внутри `EditableArea`, а `EditableControls`
 добавляйте после области для стандартного сценария редактирования, сохранения и отмены. Используйте
-`Editable.RootProvider` вместо `Editable.Root`, если состояние из `useEditable()` должны разделять
+`EditableRootProvider` вместо `Editable`, если состояние из `useEditable()` должны разделять
 элементы управления за пределами дерева. Для своего содержимого, зависящего от режима редактирования,
-используйте `Editable.Context` или `useEditableContext()`. В Solid состояние из `useEditable()` и
+используйте `EditableContext` или `useEditableContext()`. В Solid состояние из `useEditable()` и
 контекста представлено реактивной функцией, поэтому его можно читать как `editable().editing`.
 
 ## Примеры
@@ -335,10 +335,10 @@ Editable.RootProvider
 
 ### Root Provider
 
-Используйте `useEditable()` и `Editable.RootProvider` из moduix, когда элементам управления за пределами
+Используйте `useEditable()` и `EditableRootProvider` из moduix, когда элементам управления за пределами
 дерева компонента нужен доступ к состоянию и методам `Editable`. Передайте в хук
 `activationMode: 'dblclick'`, чтобы сохранить режим активации, установленный по умолчанию у корневого
-компонента. Для этого экземпляра состояния provider заменяет `Editable.Root`.
+компонента. Для этого экземпляра состояния provider заменяет `Editable`.
 
 <ExampleFrame variant="component">
   <EditableRootProvider />
@@ -377,7 +377,7 @@ Editable.RootProvider
 
 ### Textarea
 
-Используйте `Editable.Input asChild` с нативным `<textarea>` для многострочного текста. В примере задан
+Используйте `EditableInput asChild` с нативным `<textarea>` для многострочного текста. В примере задан
 размер textarea и выравнивание элементов управления, поэтому скопированный код можно использовать сразу.
 
 <ExampleFrame variant="component">
@@ -417,8 +417,8 @@ Editable.RootProvider
 
 ### Расширенная настройка
 
-Используйте `Editable.Context`, если индивидуальная компоновка зависит от текущего режима
-редактирования. В этом примере `Editable.Controls` не используется: вместо него во время редактирования
+Используйте `EditableContext`, если индивидуальная компоновка зависит от текущего режима
+редактирования. В этом примере `EditableControls` не используется: вместо него во время редактирования
 показывается подсказка с сочетаниями клавиш.
 
 <ExampleFrame variant="component">

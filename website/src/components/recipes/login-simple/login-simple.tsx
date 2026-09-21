@@ -13,7 +13,7 @@ import {
   CheckboxHiddenInput,
   CheckboxLabel,
 } from '@moduix/react/checkbox';
-import { Field } from '@moduix/react/field';
+import { Field, FieldLabel } from '@moduix/react/field';
 import { Input } from '@moduix/react/input';
 import type { FormEventHandler } from 'react';
 import styles from './login-simple-form.module.css';
@@ -29,13 +29,13 @@ export function LoginSimple({ onSubmit }: { onSubmit?: FormEventHandler<HTMLForm
       <CardBody>
         <form className={styles.stack} onSubmit={onSubmit}>
           <Field required>
-            <Field.Label>Email address</Field.Label>
+            <FieldLabel>Email address</FieldLabel>
             <Input name="email" type="email" autoComplete="email" placeholder="you@example.com" />
           </Field>
 
           <Field required>
             <div className={styles.passwordLabel}>
-              <Field.Label>Password</Field.Label>
+              <FieldLabel>Password</FieldLabel>
               <a className={styles.link} href="/forgot-password">
                 Forgot password?
               </a>

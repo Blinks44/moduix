@@ -1,4 +1,20 @@
-import { FileUpload } from '@moduix/react/file-upload';
+import {
+  FileUpload,
+  FileUploadContext,
+  FileUploadDropzone,
+  FileUploadDropzoneIcon,
+  FileUploadHiddenInput,
+  FileUploadItem,
+  FileUploadItemDeleteTrigger,
+  FileUploadItemGroup,
+  FileUploadItemMetadata,
+  FileUploadItemName,
+  FileUploadItemPreview,
+  FileUploadItemPreviewIcon,
+  FileUploadItemPreviewImage,
+  FileUploadLabel,
+  FileUploadTrigger,
+} from '@moduix/react/file-upload';
 import styles from '@/components/examples/file-upload/file-upload-advanced-customization.module.css';
 
 const maxFiles = 5;
@@ -6,38 +22,38 @@ const isImageFile = (file: File) => file.type.startsWith('image/');
 export default function AdvancedFileUploadDemo() {
   return (
     <FileUpload className={styles.root} maxFiles={maxFiles}>
-      <FileUpload.Label>Project files</FileUpload.Label>
-      <FileUpload.Dropzone disableClick>
-        <FileUpload.DropzoneIcon />
+      <FileUploadLabel>Project files</FileUploadLabel>
+      <FileUploadDropzone disableClick>
+        <FileUploadDropzoneIcon />
         <div className={styles.dropzoneContent}>
           <span className={styles.dropzoneTitle}>Drag and drop files here</span>
           <span className={styles.dropzoneDescription}>or browse from your device</span>
-          <FileUpload.Trigger>Browse files</FileUpload.Trigger>
+          <FileUploadTrigger>Browse files</FileUploadTrigger>
         </div>
-      </FileUpload.Dropzone>
-      <FileUpload.ItemGroup>
-        <FileUpload.Context>
+      </FileUploadDropzone>
+      <FileUploadItemGroup>
+        <FileUploadContext>
           {({ acceptedFiles }) =>
             acceptedFiles.map((file) => (
-              <FileUpload.Item key={file.name} file={file}>
+              <FileUploadItem key={file.name} file={file}>
                 {isImageFile(file) ? (
-                  <FileUpload.ItemPreview>
-                    <FileUpload.ItemPreviewImage />
-                  </FileUpload.ItemPreview>
+                  <FileUploadItemPreview>
+                    <FileUploadItemPreviewImage />
+                  </FileUploadItemPreview>
                 ) : (
-                  <FileUpload.ItemPreview>
-                    <FileUpload.ItemPreviewIcon />
-                  </FileUpload.ItemPreview>
+                  <FileUploadItemPreview>
+                    <FileUploadItemPreviewIcon />
+                  </FileUploadItemPreview>
                 )}
-                <FileUpload.ItemName />
-                <FileUpload.ItemMetadata file={file} />
-                <FileUpload.ItemDeleteTrigger aria-label={`Remove ${file.name}`} />
-              </FileUpload.Item>
+                <FileUploadItemName />
+                <FileUploadItemMetadata file={file} />
+                <FileUploadItemDeleteTrigger aria-label={`Remove ${file.name}`} />
+              </FileUploadItem>
             ))
           }
-        </FileUpload.Context>
-      </FileUpload.ItemGroup>
-      <FileUpload.HiddenInput />
+        </FileUploadContext>
+      </FileUploadItemGroup>
+      <FileUploadHiddenInput />
     </FileUpload>
   );
 }

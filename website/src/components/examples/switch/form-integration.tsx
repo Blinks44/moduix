@@ -1,5 +1,5 @@
 import { Button } from '@moduix/react/button';
-import { Field } from '@moduix/react/field';
+import { Field, FieldErrorText, FieldHelperText } from '@moduix/react/field';
 import { Switch } from '@moduix/react/switch';
 import { useState } from 'react';
 import { PreviewMeta } from '@/components/mdx/Components';
@@ -30,8 +30,8 @@ export default function SwitchFormDemo() {
           <Switch.Label>Product updates</Switch.Label>
           <Switch.HiddenInput />
         </Switch>
-        <Field.HelperText>Choose whether to receive product updates.</Field.HelperText>
-        <Field.ErrorText>Choose a notification preference.</Field.ErrorText>
+        <FieldHelperText>Choose whether to receive product updates.</FieldHelperText>
+        <FieldErrorText>Choose a notification preference.</FieldErrorText>
       </Field>
       <PreviewMeta>
         <output>

@@ -1,7 +1,7 @@
 import type { Meta, StoryObj } from '@storybook/react-vite';
 import type { ComponentProps } from 'react';
 import { useState } from 'react';
-import { Field } from '@/components/field';
+import { Field, FieldErrorText, FieldHelperText } from '@/components/field';
 import {
   SignaturePad,
   useSignaturePad,
@@ -86,8 +86,8 @@ export const WithField: Story = {
         <SignaturePad.Canvas />
         <SignaturePadFormInput />
       </SignaturePad>
-      <Field.HelperText>Use a pointer or touch input to sign.</Field.HelperText>
-      <Field.ErrorText>Signature is required.</Field.ErrorText>
+      <FieldHelperText>Use a pointer or touch input to sign.</FieldHelperText>
+      <FieldErrorText>Signature is required.</FieldErrorText>
     </Field>
   ),
 };

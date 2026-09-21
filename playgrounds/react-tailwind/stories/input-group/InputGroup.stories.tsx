@@ -1,6 +1,6 @@
 import type { Meta, StoryObj } from '@storybook/react-vite';
 import { useState } from 'react';
-import { Field } from '@/components/field';
+import { Field, FieldErrorText, FieldLabel } from '@/components/field';
 import { InputGroup } from '@/components/input-group/InputGroup';
 
 const meta = {
@@ -19,7 +19,7 @@ type Story = StoryObj<typeof meta>;
 export const Default: Story = {
   render: () => (
     <Field className="w-full max-w-96">
-      <Field.Label>Workspace</Field.Label>
+      <FieldLabel>Workspace</FieldLabel>
       <InputGroup>
         <InputGroup.Addon>@</InputGroup.Addon>
         <InputGroup.Input placeholder="maps" />
@@ -34,7 +34,7 @@ export const WithAction: Story = {
 
     return (
       <Field className="w-full max-w-96">
-        <Field.Label>Invite by email</Field.Label>
+        <FieldLabel>Invite by email</FieldLabel>
         <InputGroup>
           <InputGroup.Input
             value={value}
@@ -52,7 +52,7 @@ export const WithAction: Story = {
 export const PrefixSuffix: Story = {
   render: () => (
     <Field className="w-full max-w-96">
-      <Field.Label>Monthly budget</Field.Label>
+      <FieldLabel>Monthly budget</FieldLabel>
       <InputGroup>
         <InputGroup.Addon className="font-medium text-foreground">$</InputGroup.Addon>
         <InputGroup.Input inputMode="decimal" placeholder="2500" />
@@ -65,7 +65,7 @@ export const PrefixSuffix: Story = {
 export const AsChild: Story = {
   render: () => (
     <Field className="w-full max-w-96">
-      <Field.Label>Workspace</Field.Label>
+      <FieldLabel>Workspace</FieldLabel>
       <InputGroup asChild>
         <div>
           <InputGroup.Addon>@</InputGroup.Addon>
@@ -106,7 +106,7 @@ export const Sizes: Story = {
 export const Disabled: Story = {
   render: () => (
     <Field className="w-full max-w-96" disabled>
-      <Field.Label>Workspace handle</Field.Label>
+      <FieldLabel>Workspace handle</FieldLabel>
       <InputGroup>
         <InputGroup.Addon>@</InputGroup.Addon>
         <InputGroup.Input value="maps" />
@@ -119,7 +119,7 @@ export const Disabled: Story = {
 export const ReadOnly: Story = {
   render: () => (
     <Field className="w-full max-w-96" readOnly>
-      <Field.Label>Workspace handle</Field.Label>
+      <FieldLabel>Workspace handle</FieldLabel>
       <InputGroup>
         <InputGroup.Addon>@</InputGroup.Addon>
         <InputGroup.Input value="maps" />
@@ -132,12 +132,12 @@ export const ReadOnly: Story = {
 export const WithFieldValidation: Story = {
   render: () => (
     <Field className="w-full max-w-96" invalid>
-      <Field.Label>Domain</Field.Label>
+      <FieldLabel>Domain</FieldLabel>
       <InputGroup>
         <InputGroup.Input placeholder="company" />
         <InputGroup.Text>.test.com</InputGroup.Text>
       </InputGroup>
-      <Field.ErrorText>Please enter a domain.</Field.ErrorText>
+      <FieldErrorText>Please enter a domain.</FieldErrorText>
     </Field>
   ),
 };

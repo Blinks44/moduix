@@ -1,6 +1,6 @@
 import { createSignal } from 'solid-js';
 import type { Meta, StoryObj } from 'storybook-solidjs-vite';
-import { Field } from '@/components/field/Field';
+import { Field, FieldErrorText, FieldHelperText, FieldLabel } from '@/components/field/Field';
 import { Textarea } from '@/components/textarea/Textarea';
 
 const meta = {
@@ -22,8 +22,8 @@ const stackClass = 'grid w-80 gap-3';
 export const DefaultPath: Story = {
   render: () => (
     <Field class={fieldClass}>
-      <Field.Label>Comment</Field.Label>
-      <Field.HelperText>Included in the issue summary visible to the whole team.</Field.HelperText>
+      <FieldLabel>Comment</FieldLabel>
+      <FieldHelperText>Included in the issue summary visible to the whole team.</FieldHelperText>
       <Textarea placeholder="Write a short comment" />
     </Field>
   ),
@@ -35,7 +35,7 @@ export const Controlled: Story = {
 
     return (
       <Field class={fieldClass}>
-        <Field.Label>Feedback</Field.Label>
+        <FieldLabel>Feedback</FieldLabel>
         <Textarea
           placeholder="Type to control value"
           value={value()}
@@ -49,7 +49,7 @@ export const Controlled: Story = {
 export const NativeAttributes: Story = {
   render: () => (
     <Field class={fieldClass}>
-      <Field.Label>Notes</Field.Label>
+      <FieldLabel>Notes</FieldLabel>
       <Textarea
         name="notes"
         rows={6}
@@ -64,7 +64,7 @@ export const NativeAttributes: Story = {
 export const AutoResize: Story = {
   render: () => (
     <Field class={fieldClass}>
-      <Field.Label>Issue description</Field.Label>
+      <FieldLabel>Issue description</FieldLabel>
       <Textarea
         autoresize
         placeholder="Start typing a longer description. Height grows with content."
@@ -85,13 +85,13 @@ export const DisabledAndReadOnly: Story = {
 export const FieldValidation: Story = {
   render: () => (
     <Field class={fieldClass} invalid required>
-      <Field.Label>Details</Field.Label>
+      <FieldLabel>Details</FieldLabel>
       <Textarea minLength={10} placeholder="Add at least 10 characters" />
-      <Field.HelperText>
+      <FieldHelperText>
         Include enough detail for the team to reproduce the issue.
-      </Field.HelperText>
-      <Field.ErrorText>Please provide details.</Field.ErrorText>
-      <Field.ErrorText>Enter at least 10 characters.</Field.ErrorText>
+      </FieldHelperText>
+      <FieldErrorText>Please provide details.</FieldErrorText>
+      <FieldErrorText>Enter at least 10 characters.</FieldErrorText>
     </Field>
   ),
 };
@@ -99,7 +99,7 @@ export const FieldValidation: Story = {
 export const CustomStyles: Story = {
   render: () => (
     <Field class={fieldClass}>
-      <Field.Label>Notes</Field.Label>
+      <FieldLabel>Notes</FieldLabel>
       <Textarea
         class="resize-none border-primary/45 bg-primary/5 text-primary"
         placeholder="Styled textarea"

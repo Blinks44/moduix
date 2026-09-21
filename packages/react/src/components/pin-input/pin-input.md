@@ -97,7 +97,7 @@ with root props such as `name` and `form`.
 Backspace clears and moves to the previous cell, Delete clears the current cell, and paste fills the
 remaining cells.
 
-`Field.Root` and `Fieldset.Root` context can provide disabled, invalid, required, and read-only
+`Field` and `Fieldset` context can provide disabled, invalid, required, and read-only
 state. The explicit native form input reads Ark field context for described-by wiring.
 
 State callbacks keep Ark detail shapes:

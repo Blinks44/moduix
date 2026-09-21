@@ -1,4 +1,4 @@
-import { Field } from '@moduix/react/field';
+import { Field, FieldErrorText } from '@moduix/react/field';
 import { PasswordInput } from '@moduix/react/password-input';
 import { useState } from 'react';
 import styles from '@/components/examples/password-input/password-input-with-validation.module.css';
@@ -22,7 +22,7 @@ export default function PasswordInputValidationDemo() {
           </PasswordInput.VisibilityTrigger>
         </PasswordInput.Control>
       </PasswordInput>
-      <Field.ErrorText>Password must be at least 8 characters.</Field.ErrorText>
+      <FieldErrorText>Password must be at least 8 characters.</FieldErrorText>
     </Field>
   );
 }

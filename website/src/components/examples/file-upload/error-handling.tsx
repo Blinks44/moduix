@@ -1,4 +1,14 @@
-import { FileUpload } from '@moduix/react/file-upload';
+import {
+  FileUpload,
+  FileUploadContext,
+  FileUploadHiddenInput,
+  FileUploadItem,
+  FileUploadItemDeleteTrigger,
+  FileUploadItemGroup,
+  FileUploadItemName,
+  FileUploadLabel,
+  FileUploadTrigger,
+} from '@moduix/react/file-upload';
 import { useState } from 'react';
 import { PreviewMeta } from '@/components/mdx/Components';
 import styles from '@/components/examples/file-upload/file-upload-error-handling.module.css';
@@ -18,34 +28,34 @@ export default function ErrorHandlingFileUploadDemo() {
         onFileReject={(details) => setMessage(`${details.files.length} file(s) rejected`)}
         onFileAccept={() => setMessage('Files accepted')}
       >
-        <FileUpload.Label>Images</FileUpload.Label>
-        <FileUpload.Trigger>Select images</FileUpload.Trigger>
-        <FileUpload.ItemGroup>
-          <FileUpload.Context>
+        <FileUploadLabel>Images</FileUploadLabel>
+        <FileUploadTrigger>Select images</FileUploadTrigger>
+        <FileUploadItemGroup>
+          <FileUploadContext>
             {({ acceptedFiles }) =>
               acceptedFiles.map((file) => (
-                <FileUpload.Item key={file.name} file={file}>
-                  <FileUpload.ItemName />
-                  <FileUpload.ItemDeleteTrigger aria-label={`Remove ${file.name}`} />
-                </FileUpload.Item>
+                <FileUploadItem key={file.name} file={file}>
+                  <FileUploadItemName />
+                  <FileUploadItemDeleteTrigger aria-label={`Remove ${file.name}`} />
+                </FileUploadItem>
               ))
             }
-          </FileUpload.Context>
-        </FileUpload.ItemGroup>
-        <FileUpload.ItemGroup type="rejected">
-          <FileUpload.Context>
+          </FileUploadContext>
+        </FileUploadItemGroup>
+        <FileUploadItemGroup type="rejected">
+          <FileUploadContext>
             {({ rejectedFiles }) =>
               rejectedFiles.map(({ file, errors }) => (
-                <FileUpload.Item key={file.name} file={file}>
-                  <FileUpload.ItemName />
+                <FileUploadItem key={file.name} file={file}>
+                  <FileUploadItemName />
                   <p className={styles.error}>{errors.join(', ')}</p>
-                  <FileUpload.ItemDeleteTrigger aria-label={`Remove ${file.name}`} />
-                </FileUpload.Item>
+                  <FileUploadItemDeleteTrigger aria-label={`Remove ${file.name}`} />
+                </FileUploadItem>
               ))
             }
-          </FileUpload.Context>
-        </FileUpload.ItemGroup>
-        <FileUpload.HiddenInput />
+          </FileUploadContext>
+        </FileUploadItemGroup>
+        <FileUploadHiddenInput />
       </FileUpload>
       <PreviewMeta>
         <output>Status: {message || 'No files selected'}</output>

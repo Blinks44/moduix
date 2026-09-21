@@ -16,7 +16,7 @@ import {
   CheckboxLabel,
 } from '@moduix/solid/checkbox';
 import { Combobox } from '@moduix/solid/combobox';
-import { Field } from '@moduix/solid/field';
+import { Field, FieldErrorText, FieldLabel, FieldRequiredIndicator } from '@moduix/solid/field';
 import { Input } from '@moduix/solid/input';
 import { Select } from '@moduix/solid/select';
 import { Textarea } from '@moduix/solid/textarea';
@@ -96,17 +96,17 @@ export default function ProjectForm() {
           >
             {(field) => (
               <Field invalid={!field().state.meta.isValid} required>
-                <Field.Label>
+                <FieldLabel>
                   Project name
-                  <Field.RequiredIndicator />
-                </Field.Label>
+                  <FieldRequiredIndicator />
+                </FieldLabel>
                 <Input
                   name={field().name}
                   value={field().state.value}
                   onInput={(event) => field().handleChange(event.currentTarget.value)}
                   onBlur={field().handleBlur}
                 />
-                <Field.ErrorText>{field().state.meta.errors.join(', ')}</Field.ErrorText>
+                <FieldErrorText>{field().state.meta.errors.join(', ')}</FieldErrorText>
               </Field>
             )}
           </form.Field>
@@ -119,10 +119,10 @@ export default function ProjectForm() {
           >
             {(field) => (
               <Field invalid={!field().state.meta.isValid} required>
-                <Field.Label>
+                <FieldLabel>
                   Team
-                  <Field.RequiredIndicator />
-                </Field.Label>
+                  <FieldRequiredIndicator />
+                </FieldLabel>
                 <Select
                   collection={teams}
                   name={field().name}
@@ -150,7 +150,7 @@ export default function ProjectForm() {
                   </Select.Positioner>
                   <Select.HiddenSelect />
                 </Select>
-                <Field.ErrorText>{field().state.meta.errors.join(', ')}</Field.ErrorText>
+                <FieldErrorText>{field().state.meta.errors.join(', ')}</FieldErrorText>
               </Field>
             )}
           </form.Field>
@@ -163,10 +163,10 @@ export default function ProjectForm() {
           >
             {(field) => (
               <Field invalid={!field().state.meta.isValid} required>
-                <Field.Label>
+                <FieldLabel>
                   Reviewer
-                  <Field.RequiredIndicator />
-                </Field.Label>
+                  <FieldRequiredIndicator />
+                </FieldLabel>
                 <Combobox
                   collection={collection()}
                   name={field().name}
@@ -190,7 +190,7 @@ export default function ProjectForm() {
                     </Combobox.Content>
                   </Combobox.Positioner>
                 </Combobox>
-                <Field.ErrorText>{field().state.meta.errors.join(', ')}</Field.ErrorText>
+                <FieldErrorText>{field().state.meta.errors.join(', ')}</FieldErrorText>
               </Field>
             )}
           </form.Field>
@@ -198,7 +198,7 @@ export default function ProjectForm() {
           <form.Field name="summary">
             {(field) => (
               <Field>
-                <Field.Label>Summary</Field.Label>
+                <FieldLabel>Summary</FieldLabel>
                 <Textarea
                   name={field().name}
                   value={field().state.value}

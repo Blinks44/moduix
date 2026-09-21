@@ -1,6 +1,6 @@
 import { createListCollection } from '@ark-ui/react/collection';
-import { Field } from '@moduix/react/field';
-import { Fieldset } from '@moduix/react/fieldset';
+import { Field, FieldLabel } from '@moduix/react/field';
+import { Fieldset, FieldsetHelperText, FieldsetLegend } from '@moduix/react/fieldset';
 import { Input } from '@moduix/react/input';
 import { Select } from '@moduix/react/select';
 import styles from '@/components/examples/fieldset/fieldset-input-with-select.module.css';
@@ -28,7 +28,7 @@ const countryCodes = createListCollection({
 export default function PhoneInput() {
   return (
     <Fieldset className={styles.root}>
-      <Fieldset.Legend>Mobile number</Fieldset.Legend>
+      <FieldsetLegend>Mobile number</FieldsetLegend>
       <div className={styles.phoneInput}>
         <Select
           className={styles.countryCode}
@@ -56,11 +56,11 @@ export default function PhoneInput() {
           <Select.HiddenSelect />
         </Select>
         <Field>
-          <Field.Label>Phone</Field.Label>
+          <FieldLabel>Phone</FieldLabel>
           <Input type="tel" aria-label="Phone number" />
         </Field>
       </div>
-      <Fieldset.HelperText>Include the area code.</Fieldset.HelperText>
+      <FieldsetHelperText>Include the area code.</FieldsetHelperText>
     </Fieldset>
   );
 }

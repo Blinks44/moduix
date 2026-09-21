@@ -4,26 +4,8 @@ import { CalendarDate } from '@internationalized/date';
 import { expect, test } from '@rstest/core';
 import { act, fireEvent, render, screen, waitFor } from '@testing-library/react';
 import {
-  AngleSlider,
-  AngleSliderHiddenInput,
-  Checkbox,
-  CheckboxControl,
-  CheckboxHiddenInput,
-  CheckboxLabel,
-  ColorPicker,
-  DateInput,
-  DateInputHiddenInput,
   FileUpload,
-  PinInput,
-  RadioGroup,
-  RatingGroup,
-  SegmentGroup,
-  Select,
-  SignaturePad,
-  Slider,
-  Switch,
-  TagsInput,
-  ColorPickerHiddenInput,
+  FileUploadHiddenInput,
 } from '../src';
 
 const collection = createListCollection({ items: [{ label: 'React', value: 'react' }] });
@@ -75,7 +57,7 @@ const cases = [
     value: null,
     render: (input: boolean) => (
       <FileUpload name="value">
-        {input && <FileUpload.HiddenInput form="native-form" data-testid="native-input" />}
+        {input && <FileUploadHiddenInput form="native-form" data-testid="native-input" />}
       </FileUpload>
     ),
   },

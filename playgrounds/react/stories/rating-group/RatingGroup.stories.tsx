@@ -1,7 +1,7 @@
 import type { Meta, StoryObj } from '@storybook/react-vite';
 import { type ComponentProps, useState } from 'react';
 import { Button } from '@/components/button/Button';
-import { Field } from '@/components/field';
+import { Field, FieldHelperText } from '@/components/field';
 import { RatingGroup, useRatingGroup } from '@/components/rating-group/RatingGroup';
 import storyStyles from './RatingGroup.stories.module.css';
 
@@ -121,7 +121,7 @@ export const WithField: Story = {
           </RatingGroup.Control>
           <RatingGroup.HiddenInput />
         </RatingGroup>
-        <Field.HelperText>Required score from 1 to 5.</Field.HelperText>
+        <FieldHelperText>Required score from 1 to 5.</FieldHelperText>
       </Field>
     );
   },

@@ -1,7 +1,7 @@
 import { clsx } from 'clsx';
 import { createSignal, createUniqueId } from 'solid-js';
 import type { Meta, StoryObj } from 'storybook-solidjs-vite';
-import { Field } from '@/components/field/Field';
+import { Field, FieldErrorText, FieldHelperText } from '@/components/field/Field';
 import { TagsInput, useTagsInput } from '@/components/tags-input/TagsInput';
 
 const initialTags = ['React', 'TypeScript'];
@@ -138,8 +138,8 @@ export const WithFieldValidation: Story = {
         </TagsInput.Control>
         <TagsInput.HiddenInput />
       </TagsInput>
-      <Field.HelperText>Add at least one topic.</Field.HelperText>
-      <Field.ErrorText>Topics are required.</Field.ErrorText>
+      <FieldHelperText>Add at least one topic.</FieldHelperText>
+      <FieldErrorText>Topics are required.</FieldErrorText>
     </Field>
   ),
 };

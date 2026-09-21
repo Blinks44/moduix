@@ -8,7 +8,13 @@ import {
   DialogTitle,
   DialogTrigger,
 } from '@moduix/react/dialog';
-import { HoverCard } from '@moduix/react/hover-card';
+import {
+  HoverCard,
+  HoverCardBody,
+  HoverCardContent,
+  HoverCardPositioner,
+  HoverCardTrigger,
+} from '@moduix/react/hover-card';
 import { useRef } from 'react';
 import styles from '@/components/examples/hover-card/hover-card-dialog.module.css';
 
@@ -29,10 +35,10 @@ export default function DialogHoverCard() {
             </DialogTitle>
           </DialogHeader>
           <HoverCard portalled={false}>
-            <HoverCard.Trigger className={styles.trigger}>@sarah_chen</HoverCard.Trigger>
-            <HoverCard.Positioner>
-              <HoverCard.Content>
-                <HoverCard.Body>
+            <HoverCardTrigger className={styles.trigger}>@sarah_chen</HoverCardTrigger>
+            <HoverCardPositioner>
+              <HoverCardContent>
+                <HoverCardBody>
                   <div className={styles.preview}>
                     <img
                       alt="Sunlit workspace with a laptop and plants"
@@ -46,9 +52,9 @@ export default function DialogHoverCard() {
                       </p>
                     </div>
                   </div>
-                </HoverCard.Body>
-              </HoverCard.Content>
-            </HoverCard.Positioner>
+                </HoverCardBody>
+              </HoverCardContent>
+            </HoverCardPositioner>
           </HoverCard>
         </DialogContent>
       </DialogPositioner>

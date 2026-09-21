@@ -1,6 +1,6 @@
 import { createSignal } from 'solid-js';
 import type { Meta, StoryObj } from 'storybook-solidjs-vite';
-import { Field } from '@/components/field/Field';
+import { Field, FieldErrorText, FieldHelperText } from '@/components/field/Field';
 import { PasswordInput, usePasswordInput } from '@/components/password-input/PasswordInput';
 
 const meta = {
@@ -79,8 +79,8 @@ export const WithField: Story = {
           </PasswordInput.VisibilityTrigger>
         </PasswordInput.Control>
       </PasswordInput>
-      <Field.HelperText>Use at least 8 characters.</Field.HelperText>
-      <Field.ErrorText>Password is required.</Field.ErrorText>
+      <FieldHelperText>Use at least 8 characters.</FieldHelperText>
+      <FieldErrorText>Password is required.</FieldErrorText>
     </Field>
   ),
 };

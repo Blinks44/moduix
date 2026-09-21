@@ -1,1 +1,16 @@
-export { Editable, useEditable, useEditableContext } from './Editable.js';
+export {
+  Editable,
+  EditableArea,
+  EditableCancelTrigger,
+  EditableContext,
+  EditableControl,
+  EditableControls,
+  EditableEditTrigger,
+  EditableInput,
+  EditableLabel,
+  EditablePreview,
+  EditableRootProvider,
+  EditableSubmitTrigger,
+  useEditable,
+  useEditableContext,
+} from './Editable.js';

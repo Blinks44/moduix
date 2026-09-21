@@ -22,7 +22,7 @@ const FieldSelectPrimitive = FieldPrimitive.Select as (
   props: FieldSelectPrimitiveProps,
 ) => JSX.Element;
 
-function FieldRoot(props: ComponentProps<typeof FieldPrimitive.Root>) {
+function Field(props: ComponentProps<typeof FieldPrimitive.Root>) {
   const [local, others] = splitProps(props, ['asChild', 'class']);
 
   return (
@@ -211,18 +211,20 @@ function FieldRequiredIndicator(props: ComponentProps<typeof FieldPrimitive.Requ
   );
 }
 
-const Field = Object.assign(FieldRoot, {
-  Root: FieldRoot,
-  RootProvider: FieldRootProvider,
-  Item: FieldItem,
-  Label: FieldLabel,
-  Input: FieldInput,
-  Textarea: FieldTextarea,
-  Select: FieldSelect,
-  HelperText: FieldHelperText,
-  ErrorText: FieldErrorText,
-  RequiredIndicator: FieldRequiredIndicator,
-  Context: FieldPrimitive.Context,
-});
+const FieldContext = FieldPrimitive.Context;
 
-export { Field, useField, useFieldContext };
+export {
+  Field,
+  FieldContext,
+  FieldErrorText,
+  FieldHelperText,
+  FieldInput,
+  FieldItem,
+  FieldLabel,
+  FieldRequiredIndicator,
+  FieldRootProvider,
+  FieldSelect,
+  FieldTextarea,
+  useField,
+  useFieldContext,
+};

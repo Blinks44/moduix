@@ -154,9 +154,9 @@ les parties imbriquées doivent être placées ou configurées séparément, ou 
 laisser un autre élément posséder le nœud DOM de l’option. Dans Solid, `asChild` utilise une fonction
 de rendu et son enfant direct doit rester un `label` sémantique.
 
-`Field.Root` fournit un libellé visible, un texte d’aide et un message d’erreur, mais ne transmet pas
+`Field` fournit un libellé visible, un texte d’aide et un message d’erreur, mais ne transmet pas
 son état à `RadioGroup`. Passez `disabled`, `invalid`, `readOnly` et `required` directement au groupe.
-`Fieldset.Root` transmet ses états Ark `disabled` et `invalid` aux groupes radio imbriqués.
+`Fieldset` transmet ses états Ark `disabled` et `invalid` aux groupes radio imbriqués.
 
 ## Exemples
 
@@ -534,8 +534,8 @@ diamètre différent. Les valeurs prises en charge sont `xs`, `sm`, `md`, `lg` e
 
 ### Avec Field
 
-Utilisez `Field.Root` lorsqu’un groupe radio a besoin d’un libellé, d’un texte d’aide ou d’un message
-d’erreur au niveau du champ. Passez aussi `invalid` à `RadioGroup`, car `Field.Root` ne définit pas
+Utilisez `Field` lorsqu’un groupe radio a besoin d’un libellé, d’un texte d’aide ou d’un message
+d’erreur au niveau du champ. Passez aussi `invalid` à `RadioGroup`, car `Field` ne définit pas
 l’état de validation du groupe.
 
 <ExampleFrame variant="component">

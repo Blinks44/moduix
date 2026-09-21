@@ -21,7 +21,7 @@ import textareaSolidNativeAttributes from '../../../snippets/textarea/solid/nati
 ## API Reference
 
 Ark UI does not ship a dedicated `Textarea` primitive. moduix builds this component on
-[Ark's `Field.Textarea`](https://ark-ui.com/docs/components/field), preserving the native
+[Ark's `FieldTextarea`](https://ark-ui.com/docs/components/field), preserving the native
 `textarea` API, `autoresize`, ref forwarding, `asChild`, and Field state inheritance.
 
 ## Choosing the right component
@@ -124,7 +124,7 @@ hidden inputs, or a label or character-counter API.
 Use `defaultValue` for an uncontrolled textarea. Use `value` with native `onChange` when the
 application owns the content, using the matching framework's state primitive.
 
-Wrap `Textarea` with `Field`, `Field.Label`, `Field.HelperText`, and `Field.ErrorText` when the
+Wrap `Textarea` with `Field`, `FieldLabel`, `FieldHelperText`, and `FieldErrorText` when the
 control needs a label, supporting text, or validation. Outside `Field`, provide an accessible name
 with a native `<label>` or `aria-label`.
 

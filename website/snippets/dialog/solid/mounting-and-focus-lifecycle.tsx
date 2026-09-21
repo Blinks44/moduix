@@ -9,7 +9,7 @@ import {
   DialogTitle,
   DialogTrigger,
 } from '@moduix/solid/dialog';
-import { Field } from '@moduix/solid/field';
+import { Field, FieldLabel } from '@moduix/solid/field';
 import { Input } from '@moduix/solid/input';
 
 export default function DialogLifecycleDemo() {
@@ -32,7 +32,7 @@ export default function DialogLifecycleDemo() {
             <DialogTitle>Edit profile</DialogTitle>
             <DialogBody>
               <Field>
-                <Field.Label>Name</Field.Label>
+                <FieldLabel>Name</FieldLabel>
                 <Input ref={(element) => (inputRef = element)} />
               </Field>
             </DialogBody>

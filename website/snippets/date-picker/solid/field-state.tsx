@@ -17,7 +17,7 @@ import {
   DatePickerTableCellTrigger,
   DatePickerDayTable,
 } from '@moduix/solid/date-picker';
-import { Field } from '@moduix/solid/field';
+import { Field, FieldErrorText } from '@moduix/solid/field';
 
 export default function FieldDatePickerDemo() {
   return (
@@ -93,7 +93,7 @@ export default function FieldDatePickerDemo() {
           </DatePickerContent>
         </DatePickerPositioner>
       </DatePicker>
-      <Field.ErrorText>Choose a valid deadline.</Field.ErrorText>
+      <FieldErrorText>Choose a valid deadline.</FieldErrorText>
     </Field>
   );
 }

@@ -17,7 +17,7 @@ import {
   CheckboxLabel,
 } from '@moduix/react/checkbox';
 import { Combobox } from '@moduix/react/combobox';
-import { Field } from '@moduix/react/field';
+import { Field, FieldErrorText, FieldLabel, FieldRequiredIndicator } from '@moduix/react/field';
 import { Input } from '@moduix/react/input';
 import { Select } from '@moduix/react/select';
 import { Textarea } from '@moduix/react/textarea';
@@ -82,12 +82,12 @@ export default function ProjectForm() {
           <FormischField of={form} path={['name']}>
             {(field) => (
               <Field invalid={field.errors !== null} required>
-                <Field.Label>
+                <FieldLabel>
                   Project name
-                  <Field.RequiredIndicator />
-                </Field.Label>
+                  <FieldRequiredIndicator />
+                </FieldLabel>
                 <Input {...field.props} value={field.input ?? ''} />
-                <Field.ErrorText>{field.errors?.[0]}</Field.ErrorText>
+                <FieldErrorText>{field.errors?.[0]}</FieldErrorText>
               </Field>
             )}
           </FormischField>
@@ -95,10 +95,10 @@ export default function ProjectForm() {
           <FormischField of={form} path={['team']}>
             {(field) => (
               <Field invalid={field.errors !== null} required>
-                <Field.Label>
+                <FieldLabel>
                   Team
-                  <Field.RequiredIndicator />
-                </Field.Label>
+                  <FieldRequiredIndicator />
+                </FieldLabel>
                 <Select
                   collection={teams}
                   name={field.props.name}
@@ -124,7 +124,7 @@ export default function ProjectForm() {
                   </Select.Positioner>
                   <Select.HiddenSelect />
                 </Select>
-                <Field.ErrorText>{field.errors?.[0]}</Field.ErrorText>
+                <FieldErrorText>{field.errors?.[0]}</FieldErrorText>
               </Field>
             )}
           </FormischField>
@@ -132,10 +132,10 @@ export default function ProjectForm() {
           <FormischField of={form} path={['reviewer']}>
             {(field) => (
               <Field invalid={field.errors !== null} required>
-                <Field.Label>
+                <FieldLabel>
                   Reviewer
-                  <Field.RequiredIndicator />
-                </Field.Label>
+                  <FieldRequiredIndicator />
+                </FieldLabel>
                 <Combobox
                   collection={collection}
                   name={field.props.name}
@@ -168,7 +168,7 @@ export default function ProjectForm() {
                     </Combobox.Content>
                   </Combobox.Positioner>
                 </Combobox>
-                <Field.ErrorText>{field.errors?.[0]}</Field.ErrorText>
+                <FieldErrorText>{field.errors?.[0]}</FieldErrorText>
               </Field>
             )}
           </FormischField>
@@ -176,7 +176,7 @@ export default function ProjectForm() {
           <FormischField of={form} path={['summary']}>
             {(field) => (
               <Field>
-                <Field.Label>Summary</Field.Label>
+                <FieldLabel>Summary</FieldLabel>
                 <Textarea
                   {...field.props}
                   value={field.input ?? ''}
@@ -202,7 +202,7 @@ export default function ProjectForm() {
                   <CheckboxLabel>Send status notifications</CheckboxLabel>
                   <CheckboxHiddenInput />
                 </Checkbox>
-                <Field.ErrorText>{field.errors?.[0]}</Field.ErrorText>
+                <FieldErrorText>{field.errors?.[0]}</FieldErrorText>
               </Field>
             )}
           </FormischField>

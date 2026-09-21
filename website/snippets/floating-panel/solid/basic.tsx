@@ -1,5 +1,20 @@
 import { Button } from '@moduix/solid/button';
-import { FloatingPanel } from '@moduix/solid/floating-panel';
+import {
+  FloatingPanel,
+  FloatingPanelTrigger,
+  FloatingPanelPositioner,
+  FloatingPanelContent,
+  FloatingPanelDragTrigger,
+  FloatingPanelHeader,
+  FloatingPanelTitle,
+  FloatingPanelControl,
+  FloatingPanelStageTrigger,
+  FloatingPanelCloseIcon,
+  FloatingPanelBody,
+  FloatingPanelFooter,
+  FloatingPanelResizeTriggerGroup,
+  FloatingPanelDragIndicator,
+} from '@moduix/solid/floating-panel';
 
 export default function FloatingPanelDemo() {
   return (
@@ -9,32 +24,32 @@ export default function FloatingPanelDemo() {
         height: 260,
       }}
     >
-      <FloatingPanel.Trigger asChild={(props) => <Button {...props()}>Open panel</Button>} />
-      <FloatingPanel.Positioner>
-        <FloatingPanel.Content>
-          <FloatingPanel.DragTrigger>
-            <FloatingPanel.Header>
-              <FloatingPanel.Title>
-                <FloatingPanel.DragIndicator />
+      <FloatingPanelTrigger asChild={(props) => <Button {...props()}>Open panel</Button>} />
+      <FloatingPanelPositioner>
+        <FloatingPanelContent>
+          <FloatingPanelDragTrigger>
+            <FloatingPanelHeader>
+              <FloatingPanelTitle>
+                <FloatingPanelDragIndicator />
                 Inspector
-              </FloatingPanel.Title>
-              <FloatingPanel.Control>
-                <FloatingPanel.StageTrigger stage="minimized" />
-                <FloatingPanel.StageTrigger stage="maximized" />
-                <FloatingPanel.StageTrigger stage="default" />
-                <FloatingPanel.CloseIcon />
-              </FloatingPanel.Control>
-            </FloatingPanel.Header>
-          </FloatingPanel.DragTrigger>
-          <FloatingPanel.Body>
+              </FloatingPanelTitle>
+              <FloatingPanelControl>
+                <FloatingPanelStageTrigger stage="minimized" />
+                <FloatingPanelStageTrigger stage="maximized" />
+                <FloatingPanelStageTrigger stage="default" />
+                <FloatingPanelCloseIcon />
+              </FloatingPanelControl>
+            </FloatingPanelHeader>
+          </FloatingPanelDragTrigger>
+          <FloatingPanelBody>
             Drag the header to move this panel and resize it from any edge.
-          </FloatingPanel.Body>
-          <FloatingPanel.Footer>
+          </FloatingPanelBody>
+          <FloatingPanelFooter>
             Esc closes the panel without hiding the resize handles.
-          </FloatingPanel.Footer>
-          <FloatingPanel.ResizeTriggerGroup />
-        </FloatingPanel.Content>
-      </FloatingPanel.Positioner>
+          </FloatingPanelFooter>
+          <FloatingPanelResizeTriggerGroup />
+        </FloatingPanelContent>
+      </FloatingPanelPositioner>
     </FloatingPanel>
   );
 }

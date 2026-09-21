@@ -21,7 +21,7 @@ import textareaSolidNativeAttributes from '../../../snippets/textarea/solid/nati
 ## Справочник API
 
 В Ark UI нет отдельного примитива `Textarea`. В moduix этот компонент построен на
-[`Field.Textarea` из Ark UI](https://ark-ui.com/docs/components/field): он сохраняет нативный API
+[`FieldTextarea` из Ark UI](https://ark-ui.com/docs/components/field): он сохраняет нативный API
 `textarea`, поддерживает `autoresize` и `asChild`, передаёт ref на нативный элемент и наследует
 состояние `Field`.
 
@@ -126,7 +126,7 @@ Field (optional wrapper)
 используйте `value` и нативный `onChange`, передавая значение через примитив состояния выбранного
 фреймворка.
 
-Оборачивайте `Textarea` в `Field`, `Field.Label`, `Field.HelperText` и `Field.ErrorText`, когда
+Оборачивайте `Textarea` в `Field`, `FieldLabel`, `FieldHelperText` и `FieldErrorText`, когда
 нужны метка, пояснение или валидация. Если `Textarea` находится вне `Field`, задайте ему доступное
 имя через нативный `<label>` или `aria-label`.
 

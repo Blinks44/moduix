@@ -40,10 +40,10 @@ hover card.
 ## Basic
 
 
-Compose the card from explicit Ark parts. `HoverCard.Trigger` opens the card, while
-`HoverCard.Positioner` and `HoverCard.Content` define its floating content. The basic composition
-does not include an arrow. Put long content in `HoverCard.Body` so it can scroll within the
-available height while `HoverCard.Content` stays overflow-visible for an optional arrow.
+Compose the card from explicit Ark parts. `HoverCardTrigger` opens the card, while
+`HoverCardPositioner` and `HoverCardContent` define its floating content. The basic composition
+does not include an arrow. Put long content in `HoverCardBody` so it can scroll within the
+available height while `HoverCardContent` stays overflow-visible for an optional arrow.
 
 <ExampleFrame variant="component">
   <BasicHoverCard />
@@ -110,43 +110,42 @@ See [Quick Start](/docs/quick-start) for full package setup, registry configurat
 ## Anatomy
 
 ```text
-HoverCard / HoverCard.Root
-├─ HoverCard.Trigger
+HoverCard
+├─ HoverCardTrigger
 └─ Overlay subtree (automatically rendered in a portal)
-   └─ HoverCard.Positioner
-      └─ HoverCard.Content
-         ├─ HoverCard.Arrow
-         │  └─ HoverCard.ArrowTip
-         └─ HoverCard.Body
+   └─ HoverCardPositioner
+      └─ HoverCardContent
+         ├─ HoverCardArrow
+         │  └─ HoverCardArrowTip
+         └─ HoverCardBody
             └─ content
 
-HoverCard.RootProvider
+HoverCardRootProvider
 └─ same part tree connected to a moduix useHoverCard() store
 ```
 
 | Part                           | Role                                                                  |
 | ------------------------------ | --------------------------------------------------------------------- |
-| `HoverCard` / `HoverCard.Root`  | Owns state, lifecycle, delays, positioning, ids, and outside interaction. |
-| `HoverCard.RootProvider`        | Connects the parts to state created with `useHoverCard()`.            |
-| `HoverCard.Context`             | Exposes current state through a render prop for descendants.         |
-| `HoverCard.Trigger`             | Interactive element that opens the card on hover or focus. Use `asChild` for a link or another semantic element. |
-| `HoverCard.Positioner`          | Positions the floating layer and exposes Ark positioning variables.  |
-| `HoverCard.Content`             | Visible card surface that closes on outside interaction.              |
-| `HoverCard.Arrow`               | Optional positioned arrow wrapper that renders `HoverCard.ArrowTip` by default. |
-| `HoverCard.ArrowTip`             | Arrow tip element styled through Ark arrow variables.                 |
-| `HoverCard.Body`                | Optional scrollable content region for constrained previews.          |
+| `HoverCard`                    | Owns state, lifecycle, delays, positioning, ids, and outside interaction. |
+| `HoverCardRootProvider`        | Connects the parts to state created with `useHoverCard()`.            |
+| `HoverCardContext`             | Exposes current state through a render prop for descendants.         |
+| `HoverCardTrigger`             | Interactive element that opens the card on hover or focus. Use `asChild` for a link or another semantic element. |
+| `HoverCardPositioner`          | Positions the floating layer and exposes Ark positioning variables.  |
+| `HoverCardContent`             | Visible card surface that closes on outside interaction.              |
+| `HoverCardArrow`               | Optional positioned arrow wrapper that renders `HoverCardArrowTip` by default. |
+| `HoverCardArrowTip`             | Arrow tip element styled through Ark arrow variables.                 |
+| `HoverCardBody`                | Optional scrollable content region for constrained previews.          |
 
-`HoverCard` is the short root form, and `HoverCard.Root` is its namespace alias. Use the short form
-in application code.
+`HoverCard` is the only public root value. Use it with the family-prefixed parts in application code.
 
 ## Composition
 
-`HoverCard` owns the state and portals `HoverCard.Positioner` by default. Set `portalled={false}`
-inside another overlay, or pass `portalRef` for a custom container. Use `HoverCard.RootProvider`
+`HoverCard` owns the state and portals `HoverCardPositioner` by default. Set `portalled={false}`
+inside another overlay, or pass `portalRef` for a custom container. Use `HoverCardRootProvider`
 with `useHoverCard()` when state belongs outside the card tree; React reads the store as an object,
 while Solid reads it through its accessor.
 
-Keep `HoverCard.Arrow` inside `HoverCard.Content` and wrap long previews in `HoverCard.Body`:
+Keep `HoverCardArrow` inside `HoverCardContent` and wrap long previews in `HoverCardBody`:
 `Content` stays overflow-visible for the arrow, while `Body` provides the scroll region. Use
 `asChild` with one focusable child when the trigger should be a link or another semantic element.
 For several triggers sharing one content area, give each trigger a `value` and update external
@@ -156,7 +155,7 @@ content from `onTriggerValueChange(details)`.
 
 ### Context
 
-Use `HoverCard.Context` to read state inside the card tree without changing its visible part
+Use `HoverCardContext` to read state inside the card tree without changing its visible part
 structure.
 
 <ExampleFrame variant="component">
@@ -433,7 +432,7 @@ Pass Ark positioning options through the `positioning` prop.
 
 ### Root Provider
 
-Use `useHoverCard()` with `HoverCard.RootProvider` when controls or other UI outside the card tree
+Use `useHoverCard()` with `HoverCardRootProvider` when controls or other UI outside the card tree
 need to read or update its state.
 
 <ExampleFrame variant="component">
@@ -473,9 +472,9 @@ need to read or update its state.
 
 ### With Arrow
 
-Add `HoverCard.Arrow` inside `HoverCard.Content` when the popup needs a visual pointer to its
-trigger. The wrapper renders `HoverCard.ArrowTip` by default; keep the preview in
-`HoverCard.Body` so the arrow remains part of the bordered surface while the preview can scroll.
+Add `HoverCardArrow` inside `HoverCardContent` when the popup needs a visual pointer to its
+trigger. The wrapper renders `HoverCardArrowTip` by default; keep the preview in
+`HoverCardBody` so the arrow remains part of the bordered surface while the preview can scroll.
 
 <ExampleFrame variant="component">
   <HoverCardWithArrow />
@@ -536,12 +535,12 @@ variants. Data attributes and `data-slot` hooks are shared by both styling track
 
 Moduix adds `data-slot="hover-card-*"` hooks to the trigger, positioner, content, arrow, arrow tip,
 and body.
-`HoverCard` and `HoverCard.RootProvider` only provide state and do not render DOM elements, so they have no styling hooks. Ark adds
+`HoverCard` and `HoverCardRootProvider` only provide state and do not render DOM elements, so they have no styling hooks. Ark adds
 `data-scope="hover-card"` and `data-part` to its parts. For state-aware styling, target
 `data-state="open|closed"`, `data-placement`, `data-side`, `data-value`, `data-current`,
 `data-nested`, and `data-has-nested`.
 
-`HoverCard.Positioner` exposes `--reference-width`, `--reference-height`, `--available-width`,
-`--available-height`, `--x`, `--y`, `--z-index`, and `--transform-origin`. `HoverCard.Content`
-exposes `--layer-index` and `--nested-layer-count`. `HoverCard.Arrow` exposes `--arrow-size`,
+`HoverCardPositioner` exposes `--reference-width`, `--reference-height`, `--available-width`,
+`--available-height`, `--x`, `--y`, `--z-index`, and `--transform-origin`. `HoverCardContent`
+exposes `--layer-index` and `--nested-layer-count`. `HoverCardArrow` exposes `--arrow-size`,
 `--arrow-size-half`, `--arrow-background`, and `--arrow-offset`.

@@ -12,7 +12,7 @@ import {
   DialogTitle,
   useDialog,
 } from '@moduix/react/dialog';
-import { Field } from '@moduix/react/field';
+import { Field, FieldLabel } from '@moduix/react/field';
 import { Textarea } from '@moduix/react/textarea';
 import { useState } from 'react';
 
@@ -50,7 +50,7 @@ export default function ConfirmationDialogDemo() {
             </DialogDescription>
             <DialogBody>
               <Field>
-                <Field.Label>Content</Field.Label>
+                <FieldLabel>Content</FieldLabel>
                 <Textarea
                   value={formContent}
                   onChange={(event) => setFormContent(event.currentTarget.value)}

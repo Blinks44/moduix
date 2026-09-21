@@ -34,7 +34,7 @@ import {
   DatePickerDayTable,
   DatePickerPresetTrigger,
 } from '@/components/date-picker/DatePicker';
-import { Field } from '@/components/field';
+import { Field, FieldErrorText } from '@/components/field';
 import { Select } from '@/components/select/Select';
 import storyStyles from './DatePicker.stories.module.css';
 
@@ -535,7 +535,7 @@ export const WithFieldValidation: Story = {
         <DatePickerField />
         <DatePickerPopup />
       </DatePicker>
-      <Field.ErrorText>Choose a valid deadline.</Field.ErrorText>
+      <FieldErrorText>Choose a valid deadline.</FieldErrorText>
     </Field>
   ),
 };

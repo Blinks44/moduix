@@ -7,7 +7,7 @@ import {
   CardHeader,
   CardTitle,
 } from '@moduix/react/card';
-import { Field } from '@moduix/react/field';
+import { Field, FieldLabel } from '@moduix/react/field';
 import { Input } from '@moduix/react/input';
 import type { FormEventHandler } from 'react';
 import styles from './reset-password-form.module.css';
@@ -23,12 +23,12 @@ export function ResetPassword({ onSubmit }: { onSubmit?: FormEventHandler<HTMLFo
       <CardBody>
         <form className={styles.stack} onSubmit={onSubmit}>
           <Field required>
-            <Field.Label>New password</Field.Label>
+            <FieldLabel>New password</FieldLabel>
             <Input name="password" type="password" autoComplete="new-password" />
           </Field>
 
           <Field required>
-            <Field.Label>Confirm new password</Field.Label>
+            <FieldLabel>Confirm new password</FieldLabel>
             <Input name="confirm-password" type="password" autoComplete="new-password" />
           </Field>
 

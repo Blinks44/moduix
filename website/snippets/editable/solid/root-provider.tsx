@@ -1,5 +1,13 @@
 import { Button } from '@moduix/solid/button';
-import { Editable, useEditable } from '@moduix/solid/editable';
+import {
+  EditableArea,
+  EditableControls,
+  EditableInput,
+  EditableLabel,
+  EditablePreview,
+  EditableRootProvider,
+  useEditable,
+} from '@moduix/solid/editable';
 import styles from '@/components/examples/editable/editable-root-provider.module.css';
 
 export default function RootProviderEditableDemo() {
@@ -10,14 +18,14 @@ export default function RootProviderEditableDemo() {
 
   return (
     <div class={styles.root}>
-      <Editable.RootProvider value={editable}>
-        <Editable.Label>External state</Editable.Label>
-        <Editable.Area>
-          <Editable.Input />
-          <Editable.Preview />
-        </Editable.Area>
-        <Editable.Controls />
-      </Editable.RootProvider>
+      <EditableRootProvider value={editable}>
+        <EditableLabel>External state</EditableLabel>
+        <EditableArea>
+          <EditableInput />
+          <EditablePreview />
+        </EditableArea>
+        <EditableControls />
+      </EditableRootProvider>
       <Button type="button" size="sm" onClick={() => editable().edit()}>
         Edit
       </Button>

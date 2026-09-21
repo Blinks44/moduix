@@ -7,7 +7,7 @@ import {
   CardHeader,
   CardTitle,
 } from '@moduix/solid/card';
-import { Field } from '@moduix/solid/field';
+import { Field, FieldLabel } from '@moduix/solid/field';
 import { Input } from '@moduix/solid/input';
 import styles from './forgot-password-form.module.css';
 
@@ -22,7 +22,7 @@ export function ForgotPassword({ onSubmit }: { onSubmit?: (event: SubmitEvent) =
       <CardBody>
         <form class={styles.stack} onSubmit={onSubmit}>
           <Field required>
-            <Field.Label>Email address</Field.Label>
+            <FieldLabel>Email address</FieldLabel>
             <Input name="email" type="email" autocomplete="email" placeholder="you@example.com" />
           </Field>
 

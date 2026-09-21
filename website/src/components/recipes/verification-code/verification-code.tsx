@@ -7,7 +7,7 @@ import {
   CardHeader,
   CardTitle,
 } from '@moduix/react/card';
-import { Field } from '@moduix/react/field';
+import { Field, FieldErrorText } from '@moduix/react/field';
 import { PinInput } from '@moduix/react/pin-input';
 import type { FormEventHandler } from 'react';
 import { useState } from 'react';
@@ -54,7 +54,7 @@ export function VerificationCode({ onSubmit }: { onSubmit?: FormEventHandler<HTM
               </PinInput.Control>
             </PinInput>
             {invalid ? (
-              <Field.ErrorText>Enter all six digits before verifying.</Field.ErrorText>
+              <FieldErrorText>Enter all six digits before verifying.</FieldErrorText>
             ) : null}
           </Field>
 

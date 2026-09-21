@@ -42,9 +42,9 @@ fenêtre avec des gestes ou des points d'ancrage.
 ## Exemple de base
 
 
-Conservez les parties Ark UI explicites. `FloatingPanel.Positioner` applique la position et la taille
-calculées par Ark, tandis que `FloatingPanel.Content` représente la surface visible de la fenêtre.
-L'en-tête sert de poignée de déplacement et `ResizeTriggerGroup` ajoute les poignées de redimensionnement.
+Conservez les parties Ark UI explicites. `FloatingPanelPositioner` applique la position et la taille
+calculées par Ark, tandis que `FloatingPanelContent` représente la surface visible de la fenêtre.
+L'en-tête sert de poignée de déplacement et `FloatingPanelResizeTriggerGroup` ajoute les poignées de redimensionnement.
 
 <ExampleFrame variant="component">
   <FloatingPanelBasic />
@@ -105,56 +105,56 @@ Consultez le [Démarrage rapide](/docs/quick-start) pour la configuration compl�
 ## Anatomie
 
 ```text
-FloatingPanel / FloatingPanel.Root
-├─ FloatingPanel.Trigger
+FloatingPanel
+├─ FloatingPanelTrigger
 └─ Sous-arbre de l'overlay (placé automatiquement dans un portail)
-   └─ FloatingPanel.Positioner
-      └─ FloatingPanel.Content
-         ├─ FloatingPanel.DragTrigger
-         │  └─ FloatingPanel.Header
-         │     ├─ FloatingPanel.Title
-         │     │  └─ FloatingPanel.DragIndicator (facultatif)
-         │     └─ FloatingPanel.Control
-         │        ├─ FloatingPanel.StageTrigger
-         │        └─ FloatingPanel.CloseTrigger / CloseIcon
-         ├─ FloatingPanel.Body
-         ├─ FloatingPanel.Footer
-         └─ FloatingPanel.ResizeTrigger / ResizeTriggerGroup
+   └─ FloatingPanelPositioner
+      └─ FloatingPanelContent
+         ├─ FloatingPanelDragTrigger
+         │  └─ FloatingPanelHeader
+         │     ├─ FloatingPanelTitle
+         │     │  └─ FloatingPanelDragIndicator (facultatif)
+         │     └─ FloatingPanelControl
+         │        ├─ FloatingPanelStageTrigger
+         │        └─ FloatingPanelCloseTrigger / FloatingPanelCloseIcon
+         ├─ FloatingPanelBody
+         ├─ FloatingPanelFooter
+         └─ FloatingPanelResizeTrigger / FloatingPanelResizeTriggerGroup
 ```
 
 | Partie                                      | Rôle                                                                    |
 | ------------------------------------------- | ----------------------------------------------------------------------- |
-| `FloatingPanel` / `FloatingPanel.Root`      | Gère l'ouverture, la position, la taille, le déplacement, le redimensionnement et le mode de la fenêtre. |
-| `FloatingPanel.Trigger`                     | Ouvre la fenêtre ou inverse son état.                                   |
-| `FloatingPanel.Positioner`                  | Applique les valeurs de position, de taille, de transformation et de z-index calculées par Ark. |
-| `FloatingPanel.Content`                     | Surface visible de la fenêtre flottante.                               |
-| `FloatingPanel.DragTrigger`                 | Définit la zone déplaçable, généralement l'en-tête.                     |
-| `FloatingPanel.Header`                      | Partie d'en-tête Ark et conteneur de la poignée de déplacement.          |
-| `FloatingPanel.Title`                       | Définit le nom accessible de la fenêtre.                                |
-| `FloatingPanel.Control`                     | Regroupe les commandes de mode et de fermeture.                         |
-| `FloatingPanel.StageTrigger`                | Passe entre les modes `default`, `minimized` et `maximized`.             |
-| `FloatingPanel.CloseTrigger` / `CloseIcon`  | Ferme la fenêtre.                                                        |
-| `FloatingPanel.Body`                        | Zone principale du contenu, avec défilement.                            |
-| `FloatingPanel.Footer`                      | Zone facultative pour les actions ou le statut.                         |
-| `FloatingPanel.ResizeTrigger`               | Poignée de redimensionnement pour un axe Ark.                           |
-| `FloatingPanel.ResizeTriggerGroup`          | Affiche toutes les poignées ou seulement celles qui sont sélectionnées.  |
-| `FloatingPanel.RootProvider`                | Relie les parties à l'état créé avec `FloatingPanel.useFloatingPanel()`. |
+| `FloatingPanel`                            | Gère l'ouverture, la position, la taille, le déplacement, le redimensionnement et le mode de la fenêtre. |
+| `FloatingPanelTrigger`                     | Ouvre la fenêtre ou inverse son état.                                   |
+| `FloatingPanelPositioner`                  | Applique les valeurs de position, de taille, de transformation et de z-index calculées par Ark. |
+| `FloatingPanelContent`                     | Surface visible de la fenêtre flottante.                               |
+| `FloatingPanelDragTrigger`                 | Définit la zone déplaçable, généralement l'en-tête.                     |
+| `FloatingPanelHeader`                      | Partie d'en-tête Ark et conteneur de la poignée de déplacement.          |
+| `FloatingPanelTitle`                       | Définit le nom accessible de la fenêtre.                                |
+| `FloatingPanelControl`                     | Regroupe les commandes de mode et de fermeture.                         |
+| `FloatingPanelStageTrigger`                | Passe entre les modes `default`, `minimized` et `maximized`.             |
+| `FloatingPanelCloseTrigger` / `FloatingPanelCloseIcon` | Ferme la fenêtre.                                             |
+| `FloatingPanelBody`                        | Zone principale du contenu, avec défilement.                            |
+| `FloatingPanelFooter`                      | Zone facultative pour les actions ou le statut.                         |
+| `FloatingPanelResizeTrigger`               | Poignée de redimensionnement pour un axe Ark.                           |
+| `FloatingPanelResizeTriggerGroup`          | Affiche toutes les poignées ou seulement celles qui sont sélectionnées.  |
+| `FloatingPanelRootProvider`                | Relie les parties à l'état créé avec `useFloatingPanel()`. |
 
-`FloatingPanel.DragIndicator`, `FloatingPanel.CloseIcon`, `FloatingPanel.Footer` et
-`FloatingPanel.ResizeTriggerGroup` sont des utilitaires moduix. Ils complètent les parties
+`FloatingPanelDragIndicator`, `FloatingPanelCloseIcon`, `FloatingPanelFooter` et
+`FloatingPanelResizeTriggerGroup` sont des utilitaires moduix. Ils complètent les parties
 structurelles d'Ark UI sans les remplacer.
 
 ## Composition
 
-Utilisez `FloatingPanel` pour l'état local. Gardez `Positioner` et `Content` explicites, entourez
-l'en-tête avec `DragTrigger` et ajoutez `Title` pour un nom accessible. `Positioner` est placé dans
+Utilisez `FloatingPanel` pour l'état local. Gardez `FloatingPanelPositioner` et `FloatingPanelContent` explicites, entourez
+l'en-tête avec `FloatingPanelDragTrigger` et ajoutez `FloatingPanelTitle` pour un nom accessible. `FloatingPanelPositioner` est placé dans
 un portail par défaut. Définissez `portalled={false}` ou transmettez `portalRef` lorsque le panneau
 doit se trouver dans un autre conteneur.
 
 Si l'état doit être créé en dehors de l'arbre du panneau, créez-le avec
-`FloatingPanel.useFloatingPanel()` et transmettez-le à `RootProvider`. N'utilisez pas `FloatingPanel`
-et `RootProvider` pour la même instance d'état. `position` et `size` se contrôlent séparément. Utilisez
-`ResizeTriggerGroup axes` ou des parties `ResizeTrigger` individuelles uniquement lorsque l'ensemble
+`useFloatingPanel()` et transmettez-le à `FloatingPanelRootProvider`. N'utilisez pas `FloatingPanel`
+et `FloatingPanelRootProvider` pour la même instance d'état. `position` et `size` se contrôlent séparément. Utilisez
+`FloatingPanelResizeTriggerGroup axes` ou des parties `FloatingPanelResizeTrigger` individuelles uniquement lorsque l'ensemble
 de poignées par défaut ne convient pas. Avec `asChild`, transmettez un seul enfant sémantique ; Solid
 utilise la forme avec fonction de rendu de cette propriété.
 
@@ -220,7 +220,7 @@ conteneur précis pendant son déplacement.
 
 ### Contexte
 
-Utilisez `FloatingPanel.Context` ou `useFloatingPanelContext` pour lire l'état et les méthodes de la
+Utilisez `FloatingPanelContext` ou `useFloatingPanelContext` pour lire l'état et les méthodes de la
 fenêtre dans l'arbre des composants. Dans Solid, la valeur du contexte est un accessor.
 
 <ExampleFrame variant="component">
@@ -325,7 +325,7 @@ Contrôlez `size` lorsque l'interface doit conserver ou afficher les dimensions 
 
 ### Fermeture par Escape
 
-`closeOnEscape` est activé par défaut. Ajoutez `autoFocus` à `Content` pour que la touche Escape
+`closeOnEscape` est activé par défaut. Ajoutez `autoFocus` à `FloatingPanelContent` pour que la touche Escape
 fonctionne dès l'ouverture de la fenêtre non modale.
 
 <ExampleFrame variant="component">
@@ -377,9 +377,9 @@ puis retiré après l'animation de sortie.
 </div>
 </ExampleCode>
 
-### RootProvider
+### FloatingPanelRootProvider
 
-Utilisez `FloatingPanel.useFloatingPanel` avec `RootProvider` lorsque des commandes situées en dehors
+Utilisez `useFloatingPanel` avec `FloatingPanelRootProvider` lorsque des commandes situées en dehors
 de l'arbre du panneau doivent appeler `minimize`, `maximize` et `setOpen`. Dans Solid, le store se lit
 via un accessor.
 
@@ -407,7 +407,7 @@ via un accessor.
 
 ### Personnalisation avancée
 
-Utilisez des parties `ResizeTrigger` distinctes lorsque chaque axe de redimensionnement doit avoir
+Utilisez des parties `FloatingPanelResizeTrigger` distinctes lorsque chaque axe de redimensionnement doit avoir
 son propre emplacement ou style.
 
 <ExampleFrame variant="component">
@@ -457,7 +457,7 @@ Les parties Ark UI conservent `data-scope="floating-panel"` et leurs valeurs `da
 `data-disabled`, `data-stage`, `data-topmost`, `data-behind`, `data-minimized`, `data-maximized`,
 `data-staged` et `data-axis` sur les parties concernées pour appliquer des styles selon l'état.
 
-`Positioner` expose `--width`, `--height`, `--x`, `--y`, `--reference-width`, `--reference-height`,
+`FloatingPanelPositioner` expose `--width`, `--height`, `--x`, `--y`, `--reference-width`, `--reference-height`,
 `--available-width`, `--available-height`, `--z-index` et `--transform-origin`. Utilisez les variables
 qu'Ark met à jour à l'exécution pour le dimensionnement et les transformations au lieu de dupliquer
 les mesures dans le code de l'application.

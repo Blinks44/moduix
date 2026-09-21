@@ -1,7 +1,7 @@
 import type { Meta, StoryObj } from '@storybook/react-vite';
 import { useState, type ComponentProps } from 'react';
 import { Button } from '@/components/button';
-import { Field } from '@/components/field';
+import { Field, FieldErrorText, FieldHelperText } from '@/components/field';
 import { Switch, useSwitch, useSwitchContext } from '@/components/switch/Switch';
 import styles from './Switch.stories.module.css';
 
@@ -235,8 +235,8 @@ export const FormIntegration: Story = {
           <Switch.Label>Notifications</Switch.Label>
           <Switch.HiddenInput />
         </Switch>
-        <Field.HelperText>Used for product and account updates.</Field.HelperText>
-        <Field.ErrorText>Notification preference is required.</Field.ErrorText>
+        <FieldHelperText>Used for product and account updates.</FieldHelperText>
+        <FieldErrorText>Notification preference is required.</FieldErrorText>
       </Field>
     );
   },

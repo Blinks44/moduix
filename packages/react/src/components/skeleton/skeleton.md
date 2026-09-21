@@ -102,7 +102,7 @@ export function LoadedProfile() {
 - While loading, the root is decorative and gets `aria-hidden` unless the consumer explicitly passes a
   different `aria-hidden` value.
 - The component has no keyboard behavior, focus management, controlled state, callbacks,
-  `Field.Root`, `Fieldset.Root`, `HiddenInput`, `ids`, context hooks, or `RootProvider`.
+  `Field`, `Fieldset`, `HiddenInput`, `ids`, context hooks, or `RootProvider`.
 - Keep real loading announcements in adjacent content when a status needs to be exposed to assistive
   technologies. Put `aria-busy` on the region that owns the loading state, not on the decorative
   placeholder.

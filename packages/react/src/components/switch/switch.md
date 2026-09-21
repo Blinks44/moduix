@@ -140,7 +140,7 @@ export function RootProviderSwitchDemo() {
   its native form participation.
 - Read-only switches retain their state; Ark owns native-input semantics.
 - Ark `onCheckedChange` receives `{ checked }`. Do not reintroduce a raw boolean adapter.
-- `Field.Root` / `Fieldset.Root` context can provide disabled, invalid, required, and read-only
+- `Field` / `Fieldset` context can provide disabled, invalid, required, and read-only
   state through Ark.
 - State styling uses Ark attributes: `data-state='checked' | 'unchecked'`, `data-focus-visible`,
   `data-hover`, `data-active`, `data-disabled`, `data-readonly`, `data-invalid`, and

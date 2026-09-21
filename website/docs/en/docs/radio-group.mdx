@@ -154,9 +154,9 @@ when nested parts need custom placement or when `asChild` should let another ele
 DOM node. In Solid, `asChild` uses a render function and the direct child must remain a semantic
 `label`.
 
-`Field.Root` provides a visible label, helper text, and error text, but it does not pass its state to
+`Field` provides a visible label, helper text, and error text, but it does not pass its state to
 the group. Pass `disabled`, `invalid`, `readOnly`, and `required` to `RadioGroup` itself.
-`Fieldset.Root` passes its Ark `disabled` and `invalid` state to nested radio groups.
+`Fieldset` passes its Ark `disabled` and `invalid` state to nested radio groups.
 
 ## Examples
 
@@ -531,8 +531,8 @@ diameter. Supported values are `xs`, `sm`, `md`, `lg`, and `xl`.
 
 ### With Field
 
-Use `Field.Root` when a radio group needs a field-level label, helper text, or error message. Pass
-`invalid` to `RadioGroup` as well, because `Field.Root` does not set the group's validation state.
+Use `Field` when a radio group needs a field-level label, helper text, or error message. Pass
+`invalid` to `RadioGroup` as well, because `Field` does not set the group's validation state.
 
 <ExampleFrame variant="component">
   <RadioGroupField />

@@ -166,8 +166,8 @@ function FruitComboboxPopup({ items }: { items: Array<{ label: string; value: st
 - Virtualization: preserved through `scrollToIndexFn` and collection-driven item rendering.
 - Form integration: preserved through Ark root props such as `name` and `form`. The current
   `@ark-ui/react` Combobox package does not expose a `HiddenInput` part.
-- Ark `Field.Root` context is preserved by the primitive. Compose with the Ark-backed moduix
-  `Field.Root` when the combobox should inherit field state.
+- Ark `Field` context is preserved by the primitive. Compose with the Ark-backed moduix
+  `Field` when the combobox should inherit field state.
 - Matching-text highlighting remains ordinary composition because moduix does not currently ship
   an Ark Highlight wrapper.
 

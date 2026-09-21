@@ -12,7 +12,7 @@ import {
   DialogTitle,
   useDialog,
 } from '@moduix/solid/dialog';
-import { Field } from '@moduix/solid/field';
+import { Field, FieldLabel } from '@moduix/solid/field';
 import { Textarea } from '@moduix/solid/textarea';
 import { createSignal } from 'solid-js';
 
@@ -51,7 +51,7 @@ export default function ConfirmationDialogDemo() {
             </DialogDescription>
             <DialogBody>
               <Field>
-                <Field.Label>Content</Field.Label>
+                <FieldLabel>Content</FieldLabel>
                 <Textarea
                   value={formContent()}
                   onInput={(event) => setFormContent(event.currentTarget.value)}

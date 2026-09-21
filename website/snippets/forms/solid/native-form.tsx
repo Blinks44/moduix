@@ -16,7 +16,7 @@ import {
   CheckboxLabel,
 } from '@moduix/solid/checkbox';
 import { Combobox } from '@moduix/solid/combobox';
-import { Field } from '@moduix/solid/field';
+import { Field, FieldLabel, FieldRequiredIndicator } from '@moduix/solid/field';
 import { Input } from '@moduix/solid/input';
 import { Select } from '@moduix/solid/select';
 import { Textarea } from '@moduix/solid/textarea';
@@ -61,18 +61,18 @@ export default function NativeForm() {
 
         <CardBody class={styles.stack}>
           <Field required>
-            <Field.Label>
+            <FieldLabel>
               Project name
-              <Field.RequiredIndicator />
-            </Field.Label>
+              <FieldRequiredIndicator />
+            </FieldLabel>
             <Input name="name" />
           </Field>
 
           <Field required>
-            <Field.Label>
+            <FieldLabel>
               Team
-              <Field.RequiredIndicator />
-            </Field.Label>
+              <FieldRequiredIndicator />
+            </FieldLabel>
             <Select collection={teams} name="team">
               <Select.Control>
                 <Select.Trigger>
@@ -97,10 +97,10 @@ export default function NativeForm() {
           </Field>
 
           <Field required>
-            <Field.Label>
+            <FieldLabel>
               Reviewer
-              <Field.RequiredIndicator />
-            </Field.Label>
+              <FieldRequiredIndicator />
+            </FieldLabel>
             <Combobox
               collection={collection()}
               name="reviewer"
@@ -125,7 +125,7 @@ export default function NativeForm() {
           </Field>
 
           <Field>
-            <Field.Label>Summary</Field.Label>
+            <FieldLabel>Summary</FieldLabel>
             <Textarea name="summary" placeholder="What are you planning to build?" rows={3} />
           </Field>
 

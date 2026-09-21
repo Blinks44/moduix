@@ -1,4 +1,4 @@
-import { Field } from '@moduix/solid/field';
+import { Field, FieldErrorText, FieldHelperText } from '@moduix/solid/field';
 import { TagsInput } from '@moduix/solid/tags-input';
 import styles from '@/components/examples/tags-input/tags-input-field.module.css';
 
@@ -14,8 +14,8 @@ export default function FieldTagsInput() {
         </TagsInput.Control>
         <TagsInput.HiddenInput />
       </TagsInput>
-      <Field.HelperText>Add at least one topic.</Field.HelperText>
-      <Field.ErrorText>Topics are required.</Field.ErrorText>
+      <FieldHelperText>Add at least one topic.</FieldHelperText>
+      <FieldErrorText>Topics are required.</FieldErrorText>
     </Field>
   );
 }

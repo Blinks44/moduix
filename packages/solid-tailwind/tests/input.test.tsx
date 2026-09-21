@@ -1,12 +1,11 @@
-import { Field } from '@ark-ui/solid/field';
 import { expect, test } from '@rstest/core';
 import { render, screen } from '@solidjs/testing-library';
-import { Input } from '../src';
+import { Field, Input, FieldLabel } from '../src';
 
 test('preserves native field state and component-owned styling hooks', () => {
   render(() => (
-    <Field.Root disabled id="email" invalid readOnly required>
-      <Field.Label>Email</Field.Label>
+    <Field disabled id="email" invalid readOnly required>
+      <FieldLabel>Email</FieldLabel>
       <Input
         data-part="consumer-part"
         data-scope="consumer-scope"
@@ -14,7 +13,7 @@ test('preserves native field state and component-owned styling hooks', () => {
         data-slot="consumer-slot"
         htmlSize={8}
       />
-    </Field.Root>
+    </Field>
   ));
 
   const input = screen.getByRole('textbox', { name: 'Email' });

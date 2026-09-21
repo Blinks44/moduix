@@ -1,21 +1,21 @@
-import { Field } from '@moduix/react/field';
-import { Fieldset } from '@moduix/react/fieldset';
+import { Field, FieldLabel } from '@moduix/react/field';
+import { Fieldset, FieldsetHelperText, FieldsetLegend } from '@moduix/react/fieldset';
 import { Input } from '@moduix/react/input';
 import styles from '@/components/examples/fieldset/fieldset-basic.module.css';
 
 export default function ContactDetails() {
   return (
     <Fieldset className={styles.root}>
-      <Fieldset.Legend>Contact details</Fieldset.Legend>
+      <FieldsetLegend>Contact details</FieldsetLegend>
       <Field>
-        <Field.Label>Name</Field.Label>
+        <FieldLabel>Name</FieldLabel>
         <Input name="name" />
       </Field>
       <Field>
-        <Field.Label>Email</Field.Label>
+        <FieldLabel>Email</FieldLabel>
         <Input name="email" type="email" />
       </Field>
-      <Fieldset.HelperText>We only use these details to contact you.</Fieldset.HelperText>
+      <FieldsetHelperText>We only use these details to contact you.</FieldsetHelperText>
     </Fieldset>
   );
 }

@@ -55,7 +55,7 @@ keep the required `HiddenSelect` or `HiddenInput` in the Moduix composition.
 ## Validation and reset
 
 Use field validators for local rules and form validators for schema or cross-field rules. Pass
-`!field.state.meta.isValid` to `Field invalid` and render the errors with `Field.ErrorText` after the
+`!field.state.meta.isValid` to `Field invalid` and render the errors with `FieldErrorText` after the
 chosen validation lifecycle runs.
 
 Add `noValidate` only when TanStack Form owns the visible errors. Call `form.reset()` for controlled

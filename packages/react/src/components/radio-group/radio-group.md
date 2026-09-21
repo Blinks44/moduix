@@ -82,8 +82,8 @@ placement or class names.
 
 - Basic, initial value, controlled, disabled, orientation, root provider, field, and fieldset
   examples are supported through the same Ark parts and props.
-- `Field.Root` provides visible field context only; pass `disabled`, `invalid`, `readOnly`, and
-  `required` directly to the group. `Fieldset.Root` passes its Ark `disabled` and `invalid` state
+- `Field` provides visible field context only; pass `disabled`, `invalid`, `readOnly`, and
+  `required` directly to the group. `Fieldset` passes its Ark `disabled` and `invalid` state
   to the group. Keep visible field labels, helper text, and error text adjacent to the group; every
   `Option` includes its native input; direct `Item` composition requires `ItemHiddenInput`.
 - `asChild` is supported on Ark parts. `RadioGroup.Item` renders a `label` by default; when
@@ -100,7 +100,7 @@ placement or class names.
 
 Ark owns the WAI-ARIA radio group behavior, roving focus, keyboard navigation, controlled and
 uncontrolled state, and hidden input behavior. Root props control disabled, read-only, invalid, and
-required state; `Fieldset.Root` also supplies disabled and invalid state.
+required state; `Fieldset` also supplies disabled and invalid state.
 Preserve Ark data attributes such as `data-scope="radio-group"`, `data-part`, `data-state`,
 `data-orientation`, `data-disabled`, `data-readonly`, `data-invalid`, `data-required`,
 `data-focus`, `data-focus-visible`, `data-hover`, and `data-active`.
@@ -146,14 +146,14 @@ and provide an inline item wrapper when you need custom row wrapping. `ItemContr
 
 - 2026-09-04: Exposed Ark `ItemHiddenInput` for explicit custom item composition.
 - 2026-07-30: Added invalid control styling and focused regression coverage for native
-  inputs, keyboard navigation, `asChild`, invalid state, and `RootProvider`. Clarified `Field.Root`
-  versus `Fieldset.Root` state integration.
+  inputs, keyboard navigation, `asChild`, invalid state, and `RootProvider`. Clarified `Field`
+  versus `Fieldset` state integration.
 
 - 2026-07-21: Routed shared dimensions, spacing, icon geometry, and focus-ring fallbacks through foundation tokens so density and theme presets can retune the component consistently.
 - 2026-07-13: Native form controls were rendered automatically at this point in the wrapper history.
 
 - 2026-07-11: Added `Option` for the common labelled-item path, re-exported `useRadioGroup` for
-  `RootProvider`, and documented `Field.Root` integration plus the explicit advanced composition.
+  `RootProvider`, and documented `Field` integration plus the explicit advanced composition.
 - 2026-07-03: Simplified the public surface to the callable root, `RootProvider`, visual parts, and
   the `ItemControl` size sugar. Advanced Ark hooks and context access now come directly from
   `@ark-ui/react/radio-group`.

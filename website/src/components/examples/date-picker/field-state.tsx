@@ -17,7 +17,7 @@ import {
   DatePickerTableCellTrigger,
   DatePickerDayTable,
 } from '@moduix/react/date-picker';
-import { Field } from '@moduix/react/field';
+import { Field, FieldErrorText } from '@moduix/react/field';
 import styles from '@/components/examples/date-picker/date-picker-field-state.module.css';
 
 export default function FieldDatePickerDemo() {
@@ -97,7 +97,7 @@ export default function FieldDatePickerDemo() {
             </DatePickerContent>
           </DatePickerPositioner>
         </DatePicker>
-        <Field.ErrorText>Choose a valid deadline.</Field.ErrorText>
+        <FieldErrorText>Choose a valid deadline.</FieldErrorText>
       </Field>
     </div>
   );

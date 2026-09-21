@@ -1,7 +1,18 @@
 import { Field as FieldPrimitive } from '@ark-ui/solid/field';
 import { expect, test } from '@rstest/core';
 import { fireEvent, render, screen, waitFor, within } from '@solidjs/testing-library';
-import { Editable, useEditable, useEditableContext } from '../src';
+import {
+  Editable,
+  EditableArea,
+  EditableContext,
+  EditableControls,
+  EditableInput,
+  EditableLabel,
+  EditablePreview,
+  EditableRootProvider,
+  useEditable,
+  useEditableContext,
+} from '../src';
 
 function TestEditable(props: {
   defaultValue?: string;
@@ -16,12 +27,12 @@ function TestEditable(props: {
       name={props.name}
       onValueCommit={props.onValueCommit}
     >
-      <Editable.Label>Name</Editable.Label>
-      <Editable.Area>
-        <Editable.Input />
-        <Editable.Preview />
-      </Editable.Area>
-      <Editable.Controls />
+      <EditableLabel>Name</EditableLabel>
+      <EditableArea>
+        <EditableInput />
+        <EditablePreview />
+      </EditableArea>
+      <EditableControls />
     </Editable>
   );
 }
@@ -74,21 +85,21 @@ test('keeps disabled triggers unavailable and read-only values unchanged', () =>
   render(() => (
     <>
       <Editable disabled defaultValue="Disabled value">
-        <Editable.Label>Disabled name</Editable.Label>
-        <Editable.Area>
-          <Editable.Input />
-          <Editable.Preview />
-        </Editable.Area>
-        <Editable.Controls />
+        <EditableLabel>Disabled name</EditableLabel>
+        <EditableArea>
+          <EditableInput />
+          <EditablePreview />
+        </EditableArea>
+        <EditableControls />
       </Editable>
 
       <Editable readOnly defaultValue="Read-only value">
-        <Editable.Label>Read-only name</Editable.Label>
-        <Editable.Area>
-          <Editable.Input />
-          <Editable.Preview />
-        </Editable.Area>
-        <Editable.Controls />
+        <EditableLabel>Read-only name</EditableLabel>
+        <EditableArea>
+          <EditableInput />
+          <EditablePreview />
+        </EditableArea>
+        <EditableControls />
       </Editable>
     </>
   ));
@@ -113,12 +124,12 @@ test('inherits Field state and preserves public styling hooks', () => {
   const { container } = render(() => (
     <FieldPrimitive.Root disabled id="layer-name" invalid readOnly required>
       <Editable defaultValue="Layer name">
-        <Editable.Label>Layer name</Editable.Label>
-        <Editable.Area>
-          <Editable.Input />
-          <Editable.Preview />
-        </Editable.Area>
-        <Editable.Controls />
+        <EditableLabel>Layer name</EditableLabel>
+        <EditableArea>
+          <EditableInput />
+          <EditablePreview />
+        </EditableArea>
+        <EditableControls />
       </Editable>
     </FieldPrimitive.Root>
   ));
@@ -183,12 +194,12 @@ test('commits textarea values with Ctrl or Cmd + Enter', async () => {
       defaultValue="Draft description"
       onValueCommit={(details) => commits.push(details.value)}
     >
-      <Editable.Label>Description</Editable.Label>
-      <Editable.Area>
-        <Editable.Input asChild={(props) => <textarea {...props()} />} />
-        <Editable.Preview />
-      </Editable.Area>
-      <Editable.Controls />
+      <EditableLabel>Description</EditableLabel>
+      <EditableArea>
+        <EditableInput asChild={(props) => <textarea {...props()} />} />
+        <EditablePreview />
+      </EditableArea>
+      <EditableControls />
     </Editable>
   ));
 
@@ -211,14 +222,14 @@ test('forwards the controls ref and supports RootProvider state', async () => {
         <button type="button" onClick={() => editable().edit()}>
           Edit externally
         </button>
-        <Editable.RootProvider value={editable}>
-          <Editable.Label>Provider name</Editable.Label>
-          <Editable.Area>
-            <Editable.Input />
-            <Editable.Preview />
-          </Editable.Area>
-          <Editable.Controls ref={(element) => (controlsRef = element)} />
-        </Editable.RootProvider>
+        <EditableRootProvider value={editable}>
+          <EditableLabel>Provider name</EditableLabel>
+          <EditableArea>
+            <EditableInput />
+            <EditablePreview />
+          </EditableArea>
+          <EditableControls ref={(element) => (controlsRef = element)} />
+        </EditableRootProvider>
       </>
     );
   }
@@ -242,14 +253,14 @@ test('forwards refs on ordinary parts and exposes context state', () => {
 
   render(() => (
     <Editable ref={(element) => (rootRef = element)} defaultValue="Context value">
-      <Editable.Label>Name</Editable.Label>
-      <Editable.Area>
-        <Editable.Input ref={(element) => (inputRef = element)} />
-        <Editable.Preview />
-      </Editable.Area>
-      <Editable.Context>
+      <EditableLabel>Name</EditableLabel>
+      <EditableArea>
+        <EditableInput ref={(element) => (inputRef = element)} />
+        <EditablePreview />
+      </EditableArea>
+      <EditableContext>
         {(editable) => <span>{`render:${editable().value}`}</span>}
-      </Editable.Context>
+      </EditableContext>
       <EditableStatus />
     </Editable>
   ));
@@ -266,11 +277,11 @@ test('preserves semantic hosts with asChild composition', () => {
       asChild={(props) => <section {...props()} aria-label="Editable section" />}
       defaultValue="Layer name"
     >
-      <Editable.Label>Name</Editable.Label>
-      <Editable.Area>
-        <Editable.Input />
-        <Editable.Preview />
-      </Editable.Area>
+      <EditableLabel>Name</EditableLabel>
+      <EditableArea>
+        <EditableInput />
+        <EditablePreview />
+      </EditableArea>
     </Editable>
   ));
 
@@ -289,10 +300,10 @@ test('does not forward refs through native Ark Solid asChild composition', () =>
       asChild={(props) => <section {...props()} aria-label="Editable section" />}
       defaultValue="Layer name"
     >
-      <Editable.Area>
-        <Editable.Input />
-        <Editable.Preview />
-      </Editable.Area>
+      <EditableArea>
+        <EditableInput />
+        <EditablePreview />
+      </EditableArea>
     </Editable>
   ));
 
@@ -302,12 +313,12 @@ test('does not forward refs through native Ark Solid asChild composition', () =>
 test('lets consumer Tailwind classes override conflicting defaults', () => {
   render(() => (
     <Editable class="max-w-md gap-0">
-      <Editable.Label>Name</Editable.Label>
-      <Editable.Area class="border-primary px-6">
-        <Editable.Input />
-        <Editable.Preview />
-      </Editable.Area>
-      <Editable.Controls />
+      <EditableLabel>Name</EditableLabel>
+      <EditableArea class="border-primary px-6">
+        <EditableInput />
+        <EditablePreview />
+      </EditableArea>
+      <EditableControls />
     </Editable>
   ));
 

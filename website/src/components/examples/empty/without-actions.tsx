@@ -1,4 +1,10 @@
-import { Empty } from '@moduix/react/empty';
+import {
+  Empty,
+  EmptyContent,
+  EmptyDescription,
+  EmptyIcon,
+  EmptyTitle,
+} from '@moduix/react/empty';
 import { Map as MapIcon } from 'lucide-react';
 import styles from '@/components/examples/empty/empty-without-actions.module.css';
 
@@ -9,13 +15,13 @@ const emptyState = {
 export default function SavedPlacesEmptyState() {
   return (
     <Empty className={styles.root}>
-      <Empty.Icon>
+      <EmptyIcon>
         <MapIcon aria-hidden />
-      </Empty.Icon>
-      <Empty.Content>
-        <Empty.Title>{emptyState.title}</Empty.Title>
-        <Empty.Description>{emptyState.description}</Empty.Description>
-      </Empty.Content>
+      </EmptyIcon>
+      <EmptyContent>
+        <EmptyTitle>{emptyState.title}</EmptyTitle>
+        <EmptyDescription>{emptyState.description}</EmptyDescription>
+      </EmptyContent>
     </Empty>
   );
 }

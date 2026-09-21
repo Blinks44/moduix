@@ -1,12 +1,12 @@
 import { expect, test } from '@rstest/core';
 import { render, screen } from '@solidjs/testing-library';
 import { createSignal } from 'solid-js';
-import { Field, InputGroup } from '../src';
+import { Field, InputGroup, FieldLabel } from '../src';
 
 test('keeps the Input slot that drives grouped field state styling', () => {
   render(() => (
     <Field disabled id="workspace" invalid readOnly>
-      <Field.Label>Workspace</Field.Label>
+      <FieldLabel>Workspace</FieldLabel>
       <InputGroup
         class="consumer-root"
         data-part="consumer-part"

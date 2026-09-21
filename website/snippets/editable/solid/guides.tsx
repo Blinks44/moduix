@@ -1,4 +1,11 @@
-import { Editable } from '@moduix/solid/editable';
+import {
+  Editable,
+  EditableArea,
+  EditableControls,
+  EditableInput,
+  EditableLabel,
+  EditablePreview,
+} from '@moduix/solid/editable';
 
 export default function EditableGuidesDemo() {
   return (
@@ -18,12 +25,12 @@ export default function EditableGuidesDemo() {
         cancel: 'Cancel route name',
       }}
     >
-      <Editable.Label>Auto-resizing name</Editable.Label>
-      <Editable.Area>
-        <Editable.Input />
-        <Editable.Preview />
-      </Editable.Area>
-      <Editable.Controls />
+      <EditableLabel>Auto-resizing name</EditableLabel>
+      <EditableArea>
+        <EditableInput />
+        <EditablePreview />
+      </EditableArea>
+      <EditableControls />
     </Editable>
   );
 }

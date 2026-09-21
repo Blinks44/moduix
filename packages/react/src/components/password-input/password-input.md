@@ -78,7 +78,7 @@ integration, and validation through `invalid`. No legacy prop aliases are preser
 
 Ark owns the input `type`, visibility trigger labels, ARIA wiring, and visibility state. Use
 `translations.visibilityTrigger` for localized trigger labels. `PasswordInput.Input` is the part form
-libraries should target for value refs. `Field.Root` and `Fieldset.Root` state is inherited through
+libraries should target for value refs. `Field` and `Fieldset` state is inherited through
 Ark context for `disabled`, `invalid`, `required`, and `readOnly`. There is no `HiddenInput` part for
 this primitive.
 
@@ -95,7 +95,7 @@ The control follows Input's compact `--moduix-size-md` baseline; its visibility 
 The wrapper adds moduix classes, `data-slot` hooks, default visibility icons, and
 `--moduix-password-input-*` CSS variables for visual customization. Ark does not expose component-specific
 runtime CSS variables for this primitive. Styling should target Ark attributes or stable moduix
-`data-slot` hooks. The `Input` part must stay visually in sync with `Input` and `Field.Input`: the
+`data-slot` hooks. The `Input` part must stay visually in sync with `Input` and `FieldInput`: the
 same padding, typography, invalid state, disabled opacity, and readonly surface all flow from the
 shared `--moduix-input-*` tokens unless a password-specific override is intentional. The bordered field
 shell lives on `PasswordInput.Control`, so the input text area stays borderless and stops before the

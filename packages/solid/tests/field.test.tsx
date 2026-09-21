@@ -1,15 +1,29 @@
 import { expect, test } from '@rstest/core';
 import { fireEvent, render, screen, waitFor } from '@solidjs/testing-library';
 import { createSignal } from 'solid-js';
-import { Field, useField, useFieldContext } from '../src';
+import {
+  Field,
+  useField,
+  useFieldContext,
+  FieldContext,
+  FieldErrorText,
+  FieldHelperText,
+  FieldInput,
+  FieldItem,
+  FieldLabel,
+  FieldRequiredIndicator,
+  FieldRootProvider,
+  FieldSelect,
+  FieldTextarea,
+} from '../src';
 
 test('wires labels, descriptions, errors, and field state to a native control', () => {
   render(() => (
     <Field disabled id="email" invalid readOnly required>
-      <Field.Label>Email</Field.Label>
-      <Field.Input />
-      <Field.HelperText>Use your work email.</Field.HelperText>
-      <Field.ErrorText>Enter a valid email address.</Field.ErrorText>
+      <FieldLabel>Email</FieldLabel>
+      <FieldInput />
+      <FieldHelperText>Use your work email.</FieldHelperText>
+      <FieldErrorText>Enter a valid email address.</FieldErrorText>
     </Field>
   ));
 
@@ -31,8 +45,8 @@ test('renders error text only while invalid', async () => {
 
   render(() => (
     <Field invalid={invalid()}>
-      <Field.Input aria-label="Email" />
-      <Field.ErrorText>Enter a valid email address.</Field.ErrorText>
+      <FieldInput aria-label="Email" />
+      <FieldErrorText>Enter a valid email address.</FieldErrorText>
     </Field>
   ));
 
@@ -45,15 +59,15 @@ test('renders error text only while invalid', async () => {
   );
 });
 
-test('forwards Field.Item refs and uses target for its label wiring', () => {
+test('forwards FieldItem refs and uses target for its label wiring', () => {
   let itemRef!: HTMLDivElement;
 
   render(() => (
     <Field id="contact" target="email">
-      <Field.Item ref={(element) => (itemRef = element)} value="email">
-        <Field.Label>Email</Field.Label>
-        <Field.Input />
-      </Field.Item>
+      <FieldItem ref={(element) => (itemRef = element)} value="email">
+        <FieldLabel>Email</FieldLabel>
+        <FieldInput />
+      </FieldItem>
     </Field>
   ));
 
@@ -72,18 +86,18 @@ test('forwards refs and styling hooks for the Ark native parts', () => {
   render(() => (
     <>
       <Field ref={(element) => (rootRef = element)}>
-        <Field.Label>Name</Field.Label>
-        <Field.Input ref={(element) => (inputRef = element)} />
+        <FieldLabel>Name</FieldLabel>
+        <FieldInput ref={(element) => (inputRef = element)} />
       </Field>
       <Field>
-        <Field.Label>Summary</Field.Label>
-        <Field.Textarea ref={(element) => (textareaRef = element)} />
+        <FieldLabel>Summary</FieldLabel>
+        <FieldTextarea ref={(element) => (textareaRef = element)} />
       </Field>
       <Field>
-        <Field.Label>Priority</Field.Label>
-        <Field.Select ref={(element) => (selectRef = element)}>
+        <FieldLabel>Priority</FieldLabel>
+        <FieldSelect ref={(element) => (selectRef = element)}>
           <option>Normal</option>
-        </Field.Select>
+        </FieldSelect>
       </Field>
     </>
   ));
@@ -99,11 +113,11 @@ test('keeps the RootProvider composition path Ark-shaped', () => {
     const field = useField({ id: 'provider-email', invalid: true });
 
     return (
-      <Field.RootProvider value={field}>
-        <Field.Label>Email</Field.Label>
-        <Field.Input />
-        <Field.ErrorText>Enter a valid email address.</Field.ErrorText>
-      </Field.RootProvider>
+      <FieldRootProvider value={field}>
+        <FieldLabel>Email</FieldLabel>
+        <FieldInput />
+        <FieldErrorText>Enter a valid email address.</FieldErrorText>
+      </FieldRootProvider>
     );
   }
 
@@ -122,9 +136,9 @@ test('exposes the field context through the hook and render prop', () => {
 
   render(() => (
     <Field required>
-      <Field.Context>
+      <FieldContext>
         {(field) => <output>{field().required ? 'required' : 'optional'}</output>}
-      </Field.Context>
+      </FieldContext>
       <ContextValue />
     </Field>
   ));
@@ -140,8 +154,8 @@ test('preserves asChild composition without forwarding the ref through Ark Solid
       ref={(element) => (rootRef = element)}
       asChild={(props) => <section {...props()} aria-label="Email field" />}
     >
-      <Field.Label>Email</Field.Label>
-      <Field.Input />
+      <FieldLabel>Email</FieldLabel>
+      <FieldInput />
     </Field>
   ));
 
@@ -158,8 +172,8 @@ test('keeps controlled field props reactive', () => {
 
   render(() => (
     <Field required={required()}>
-      <Field.Input aria-label="Project key" />
-      <Field.RequiredIndicator />
+      <FieldInput aria-label="Project key" />
+      <FieldRequiredIndicator />
     </Field>
   ));
 
@@ -176,13 +190,13 @@ test('preserves native default values and reset behavior', () => {
   render(() => (
     <form aria-label="Project form">
       <Field>
-        <Field.Input aria-label="Project key" defaultValue="MAPS" name="project" />
+        <FieldInput aria-label="Project key" defaultValue="MAPS" name="project" />
       </Field>
       <Field>
-        <Field.Select aria-label="Priority" defaultValue="normal" name="priority">
+        <FieldSelect aria-label="Priority" defaultValue="normal" name="priority">
           <option value="low">Low</option>
           <option value="normal">Normal</option>
-        </Field.Select>
+        </FieldSelect>
       </Field>
     </form>
   ));

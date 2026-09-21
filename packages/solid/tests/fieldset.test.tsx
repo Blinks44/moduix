@@ -1,14 +1,23 @@
 import { expect, test } from '@rstest/core';
 import { render, screen, waitFor } from '@solidjs/testing-library';
 import { createSignal } from 'solid-js';
-import { Fieldset, useFieldset, useFieldsetContext } from '../src';
+import {
+  Fieldset,
+  FieldsetContext,
+  FieldsetErrorText,
+  FieldsetHelperText,
+  FieldsetLegend,
+  FieldsetRootProvider,
+  useFieldset,
+  useFieldsetContext,
+} from '../src';
 
 test('connects the legend, description, and error text to the native fieldset', () => {
   render(() => (
     <Fieldset invalid>
-      <Fieldset.Legend>Contact details</Fieldset.Legend>
-      <Fieldset.HelperText>We only use these details to contact you.</Fieldset.HelperText>
-      <Fieldset.ErrorText>Enter a valid email address.</Fieldset.ErrorText>
+      <FieldsetLegend>Contact details</FieldsetLegend>
+      <FieldsetHelperText>We only use these details to contact you.</FieldsetHelperText>
+      <FieldsetErrorText>Enter a valid email address.</FieldsetErrorText>
     </Fieldset>
   ));
 
@@ -27,7 +36,7 @@ test('renders error text only while invalid', async () => {
 
   render(() => (
     <Fieldset invalid={invalid()}>
-      <Fieldset.ErrorText>Enter a valid email address.</Fieldset.ErrorText>
+      <FieldsetErrorText>Enter a valid email address.</FieldsetErrorText>
     </Fieldset>
   ));
 
@@ -41,7 +50,7 @@ test('renders error text only while invalid', async () => {
 test('disables native descendants', () => {
   render(() => (
     <Fieldset disabled>
-      <Fieldset.Legend>Shipping address</Fieldset.Legend>
+      <FieldsetLegend>Shipping address</FieldsetLegend>
       <input aria-label="Street" />
     </Fieldset>
   ));
@@ -55,7 +64,7 @@ test('forwards refs through native parts', () => {
 
   render(() => (
     <Fieldset ref={(element) => (rootRef = element)}>
-      <Fieldset.Legend ref={(element) => (legendRef = element)}>Account details</Fieldset.Legend>
+      <FieldsetLegend ref={(element) => (legendRef = element)}>Account details</FieldsetLegend>
     </Fieldset>
   ));
 
@@ -69,12 +78,12 @@ test('preserves native asChild composition without forwarding refs through Ark S
 
   render(() => (
     <Fieldset asChild={(props) => <fieldset {...props()} />} ref={(element) => (rootRef = element)}>
-      <Fieldset.Legend
+      <FieldsetLegend
         asChild={(props) => <legend {...props()} />}
         ref={(element) => (legendRef = element)}
       >
         Account details
-      </Fieldset.Legend>
+      </FieldsetLegend>
     </Fieldset>
   ));
 
@@ -98,13 +107,13 @@ function ExternalFieldsetState() {
   const fieldset = useFieldset({ invalid: true });
 
   return (
-    <Fieldset.RootProvider value={fieldset}>
-      <Fieldset.Legend>Account details</Fieldset.Legend>
-      <Fieldset.Context>
+    <FieldsetRootProvider value={fieldset}>
+      <FieldsetLegend>Account details</FieldsetLegend>
+      <FieldsetContext>
         {(context) => <output data-testid="render-prop-state">{String(context().invalid)}</output>}
-      </Fieldset.Context>
+      </FieldsetContext>
       <ContextState />
-    </Fieldset.RootProvider>
+    </FieldsetRootProvider>
   );
 }
 

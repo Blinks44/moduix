@@ -1,6 +1,6 @@
 # Input (Solid)
 
-`Input` is the native Solid wrapper around Ark UI's `Field.Input`. It preserves the React
+`Input` is the native Solid wrapper around Ark UI's `FieldInput`. It preserves the React
 component's visual sizes, `htmlSize`, data hooks, native input props, field state, and
 `Input.Root` namespace alias.
 

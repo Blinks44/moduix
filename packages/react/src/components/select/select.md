@@ -157,7 +157,7 @@ export function SelectDemo() {
   `data-readonly`, `data-required`, `data-placeholder-shown`, `data-highlighted`, and item
   `data-state="checked" | "unchecked"`.
 - Disable trigger transitions and popup enter/exit animation when the user requests reduced motion.
-- Use Ark `Field.Root` / `Fieldset.Root` context for disabled, invalid, required, and read-only
+- Use Ark `Field` / `Fieldset` context for disabled, invalid, required, and read-only
   state.
 - Use `Select.Context`, `Select.ItemContext`, `Select.useSelectContext`, and
   `Select.useSelectItemContext` for advanced state reads.

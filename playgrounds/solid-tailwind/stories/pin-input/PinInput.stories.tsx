@@ -1,6 +1,6 @@
 import { createSignal, createUniqueId } from 'solid-js';
 import type { Meta, StoryObj } from 'storybook-solidjs-vite';
-import { Field } from '@/components/field';
+import { Field, FieldErrorText } from '@/components/field';
 import { PinInput, usePinInput } from '@/components/pin-input/PinInput';
 
 const PIN_COUNT = 6;
@@ -132,7 +132,7 @@ export const WithFieldValidation: Story = {
           <PinInput.Inputs />
         </PinInput.Control>
       </PinInput>
-      <Field.ErrorText>Please enter the verification code.</Field.ErrorText>
+      <FieldErrorText>Please enter the verification code.</FieldErrorText>
     </Field>
   ),
 };

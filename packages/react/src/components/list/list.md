@@ -118,7 +118,7 @@ export function OrderedListDemo() {
 - Accessibility comes from native list semantics (`ul`, `ol`, `li`) rather than an Ark state machine.
 - `marker="none"` hides markers visually and keeps list semantics via the default `role="list"` fallback.
 - Keep direct `li` descendants under the rendered root. Root spacing and marker styling assume direct list items.
-- There are no Ark callbacks, controlled/uncontrolled modes, `HiddenInput`, `Field.Root`/`Fieldset.Root` context, or provider/context exports for this component.
+- There are no Ark callbacks, controlled/uncontrolled modes, `HiddenInput`, `Field`/`Fieldset` context, or provider/context exports for this component.
 - Public styling hooks:
   - root: `data-gap`, `data-marker`, `data-size`, `data-tone`
   - item: `data-slot="list-item"` plus `data-scope` / `data-part`

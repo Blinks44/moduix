@@ -1,7 +1,14 @@
 import { expect, test } from '@rstest/core';
 import { render, screen } from '@testing-library/react';
 import { createRef } from 'react';
-import { Empty } from '../src';
+import {
+  Empty,
+  EmptyActions,
+  EmptyContent,
+  EmptyDescription,
+  EmptyIcon,
+  EmptyTitle,
+} from '../src';
 
 test('renders presentational anatomy with stable hooks and forwarded refs', () => {
   const rootRef = createRef<HTMLDivElement>();
@@ -9,14 +16,14 @@ test('renders presentational anatomy with stable hooks and forwarded refs', () =
 
   render(
     <Empty ref={rootRef} data-testid="empty">
-      <Empty.Icon data-testid="empty-icon">⌘</Empty.Icon>
-      <Empty.Content>
-        <Empty.Title ref={titleRef}>No projects</Empty.Title>
-        <Empty.Description>Start by creating a project.</Empty.Description>
-      </Empty.Content>
-      <Empty.Actions>
+      <EmptyIcon data-testid="empty-icon">⌘</EmptyIcon>
+      <EmptyContent>
+        <EmptyTitle ref={titleRef}>No projects</EmptyTitle>
+        <EmptyDescription>Start by creating a project.</EmptyDescription>
+      </EmptyContent>
+      <EmptyActions>
         <button type="button">Create project</button>
-      </Empty.Actions>
+      </EmptyActions>
     </Empty>,
   );
 
@@ -47,24 +54,24 @@ test('preserves semantic elements and hooks with asChild', () => {
   render(
     <Empty ref={rootRef} asChild>
       <section aria-label="Projects">
-        <Empty.Icon ref={iconRef} asChild>
+        <EmptyIcon ref={iconRef} asChild>
           <span data-testid="empty-icon">⌘</span>
-        </Empty.Icon>
-        <Empty.Content ref={contentRef} asChild>
+        </EmptyIcon>
+        <EmptyContent ref={contentRef} asChild>
           <div data-testid="empty-content">
-            <Empty.Title ref={titleRef} asChild>
+            <EmptyTitle ref={titleRef} asChild>
               <h2>No projects</h2>
-            </Empty.Title>
-            <Empty.Description ref={descriptionRef} asChild>
+            </EmptyTitle>
+            <EmptyDescription ref={descriptionRef} asChild>
               <p>Start by creating a project.</p>
-            </Empty.Description>
+            </EmptyDescription>
           </div>
-        </Empty.Content>
-        <Empty.Actions ref={actionsRef} asChild>
+        </EmptyContent>
+        <EmptyActions ref={actionsRef} asChild>
           <nav aria-label="Project actions">
             <button type="button">Create project</button>
           </nav>
-        </Empty.Actions>
+        </EmptyActions>
       </section>
     </Empty>,
   );
@@ -93,14 +100,14 @@ test('preserves semantic elements and hooks with asChild', () => {
 test('keeps owned anatomy attributes when consumer props conflict', () => {
   render(
     <Empty data-part="consumer" data-scope="consumer" data-testid="root">
-      <Empty.Icon data-part="consumer" data-scope="consumer" data-testid="icon" />
-      <Empty.Content data-part="consumer" data-scope="consumer" data-testid="content">
-        <Empty.Title data-part="consumer" data-scope="consumer" data-testid="title">
+      <EmptyIcon data-part="consumer" data-scope="consumer" data-testid="icon" />
+      <EmptyContent data-part="consumer" data-scope="consumer" data-testid="content">
+        <EmptyTitle data-part="consumer" data-scope="consumer" data-testid="title">
           No projects
-        </Empty.Title>
-        <Empty.Description data-part="consumer" data-scope="consumer" data-testid="description" />
-      </Empty.Content>
-      <Empty.Actions data-part="consumer" data-scope="consumer" data-testid="actions" />
+        </EmptyTitle>
+        <EmptyDescription data-part="consumer" data-scope="consumer" data-testid="description" />
+      </EmptyContent>
+      <EmptyActions data-part="consumer" data-scope="consumer" data-testid="actions" />
     </Empty>,
   );
 
@@ -115,14 +122,14 @@ test('keeps owned anatomy attributes when consumer props conflict', () => {
 test('applies native utilities to every component-owned visual part', () => {
   render(
     <Empty data-testid="empty">
-      <Empty.Icon data-testid="empty-icon" />
-      <Empty.Content data-testid="empty-content">
-        <Empty.Title data-testid="empty-title">No projects</Empty.Title>
-        <Empty.Description data-testid="empty-description">
+      <EmptyIcon data-testid="empty-icon" />
+      <EmptyContent data-testid="empty-content">
+        <EmptyTitle data-testid="empty-title">No projects</EmptyTitle>
+        <EmptyDescription data-testid="empty-description">
           Start by creating a project.
-        </Empty.Description>
-      </Empty.Content>
-      <Empty.Actions data-testid="empty-actions" />
+        </EmptyDescription>
+      </EmptyContent>
+      <EmptyActions data-testid="empty-actions" />
     </Empty>,
   );
 

@@ -1,5 +1,5 @@
 import { createListCollection } from '@ark-ui/solid/collection';
-import { Field } from '@moduix/solid/field';
+import { Field, FieldHelperText } from '@moduix/solid/field';
 import { Select } from '@moduix/solid/select';
 import { For } from 'solid-js';
 import styles from '@/components/examples/select/select-field.module.css';
@@ -39,7 +39,7 @@ export default function SelectFieldDemo() {
         </Select.Positioner>
         <Select.HiddenSelect />
       </Select>
-      <Field.HelperText>Pick the framework used by this project.</Field.HelperText>
+      <FieldHelperText>Pick the framework used by this project.</FieldHelperText>
     </Field>
   );
 }

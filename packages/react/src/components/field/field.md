@@ -21,93 +21,93 @@ libraries or app state decide when the field is invalid.
 
 ## Current behavior contract
 
-`Field` is the default root and also exposes the Ark namespace as static properties. Every DOM part
-is a thin Ark wrapper with moduix styling, `className`, and stable `data-slot` hooks. `Field.Item`
-wraps Ark's provider-only `Item` with a small `<div data-slot="field-item">` so grouped rows keep a
-style hook. `Field.Context`, `useField`, and `useFieldContext` are exported for normal state access.
+`Field` is the root export. Every DOM part is a thin Ark wrapper with moduix styling, `className`,
+and stable `data-slot` hooks. `FieldItem` wraps Ark's provider-only `Item` with a small
+`<div data-slot="field-item">` so grouped rows keep a style hook. `FieldContext`, `useField`, and
+`useFieldContext` are exported for normal state access.
 
 ## Anatomy and exported parts
 
 ```tsx
 <Field required invalid>
-  <Field.Label>
+  <FieldLabel>
     Label
-    <Field.RequiredIndicator />
-  </Field.Label>
-  <Field.Input />
-  <Field.HelperText />
-  <Field.ErrorText />
+    <FieldRequiredIndicator />
+  </FieldLabel>
+  <FieldInput />
+  <FieldHelperText />
+  <FieldErrorText />
 </Field>
 ```
 
-| Export                    | Ark part                  | `data-slot`                |
-| ------------------------- | ------------------------- | -------------------------- |
-| `Field` / `Field.Root`    | `Field.Root`              | `field-root`               |
-| `Field.RootProvider`      | `Field.RootProvider`      | `field-root-provider`      |
-| `Field.Context`           | `Field.Context`           | renderless                 |
-| `Field.Item`              | `Field.Item` + local div  | `field-item`               |
-| `Field.Label`             | `Field.Label`             | `field-label`              |
-| `Field.Input`             | `Field.Input`             | `field-input`              |
-| `Field.Textarea`          | `Field.Textarea`          | `field-textarea`           |
-| `Field.Select`            | `Field.Select`            | `field-select`             |
-| `Field.HelperText`        | `Field.HelperText`        | `field-helper-text`        |
-| `Field.ErrorText`         | `Field.ErrorText`         | `field-error-text`         |
-| `Field.RequiredIndicator` | `Field.RequiredIndicator` | `field-required-indicator` |
+| Export                   | Ark part                  | `data-slot`                |
+| ------------------------ | ------------------------- | -------------------------- |
+| `Field`                  | `Root`                    | `field-root`               |
+| `FieldRootProvider`      | `RootProvider`            | `field-root-provider`      |
+| `FieldContext`           | `Context`                 | renderless                 |
+| `FieldItem`              | `Item` + local div        | `field-item`               |
+| `FieldLabel`             | `Label`                   | `field-label`              |
+| `FieldInput`             | `Input`                   | `field-input`              |
+| `FieldTextarea`          | `Textarea`                | `field-textarea`           |
+| `FieldSelect`            | `Select`                  | `field-select`             |
+| `FieldHelperText`        | `HelperText`              | `field-helper-text`        |
+| `FieldErrorText`         | `ErrorText`               | `field-error-text`         |
+| `FieldRequiredIndicator` | `RequiredIndicator`       | `field-required-indicator` |
 
 ## Composition
 
 ```tsx
-import { Field } from '@moduix/react/field';
+import { Field, FieldHelperText, FieldInput, FieldLabel, FieldRequiredIndicator } from '@moduix/react/field';
 
 export function NameField() {
   return (
     <Field required>
-      <Field.Label>
+      <FieldLabel>
         Name
-        <Field.RequiredIndicator />
-      </Field.Label>
-      <Field.Input placeholder="Enter your name" />
-      <Field.HelperText>Visible on your public profile.</Field.HelperText>
+        <FieldRequiredIndicator />
+      </FieldLabel>
+      <FieldInput placeholder="Enter your name" />
+      <FieldHelperText>Visible on your public profile.</FieldHelperText>
     </Field>
   );
 }
 ```
 
-Use `Field.RootProvider` with `useField()` from `@moduix/react` when state must be created outside
-the rendered tree. Do not render `Field.Root` and `Field.RootProvider` for the same field instance.
+Use `FieldRootProvider` with `useField()` from `@moduix/react` when state must be created outside
+the rendered tree. Do not render `Field` and `FieldRootProvider` for the same field instance.
 
 ## Upstream feature coverage
 
 Covered Ark examples:
 
-- native input via `Field.Input`
-- native textarea via `Field.Textarea`
-- textarea autoresize via `Field.Textarea autoresize`
-- native select via `Field.Select`
+- native input via `FieldInput`
+- native textarea via `FieldTextarea`
+- textarea autoresize via `FieldTextarea autoresize`
+- native select via `FieldSelect`
 - checkbox composition via `Field` + `Checkbox`
 - radio group composition via `Field` + `RadioGroup`
 - read-only root state via `readOnly`
-- root provider via moduix `useField` and `Field.RootProvider`
-- context access via `Field.Context` or moduix `useFieldContext`
-- item-target label wiring via `Field.Item value` and root `target`
+- root provider via moduix `useField` and `FieldRootProvider`
+- context access via `FieldContext` or moduix `useFieldContext`
+- item-target label wiring via `FieldItem value` and root `target`
 
 Moduix does not implement legacy `validate`, `validationMode`, `match`, `dirty`, `touched`, or
 `FieldValidity`; those were removed during the Ark migration.
 
 ## Accessibility and state
 
-Ark owns ids and ARIA links. `Field.Label` points to the current control id, helper text is included
-in `aria-describedby`, and active error text is included in `aria-errormessage`. `Field.ErrorText`
+Ark owns ids and ARIA links. `FieldLabel` points to the current control id, helper text is included
+in `aria-describedby`, and active error text is included in `aria-errormessage`. `FieldErrorText`
 renders only when the field is invalid, and state is exposed through `data-disabled`, `data-invalid`,
 `data-readonly`, and `data-required`.
 
-Forwarded refs target the rendered DOM part. `Field.Root` and `Field.RootProvider` forward to the
-root `div`; control parts forward to their native control elements; `Field.Item` forwards to its
+Forwarded refs target the rendered DOM part. `Field` and `FieldRootProvider` forward to the
+root `div`; control parts forward to their native control elements; `FieldItem` forwards to its
 moduix row wrapper.
 
 ## Defaults and styling
 
-`Field.Input`, `Field.Textarea`, and `Field.Select` default to `--moduix-size-md` with
+`FieldInput`, `FieldTextarea`, and `FieldSelect` default to `--moduix-size-md` with
 `--moduix-spacing-1` block padding. Their `--moduix-field-control-*` variables continue to override
 that baseline.
 
@@ -123,15 +123,14 @@ moduix `data-slot` hooks for consumer overrides. Public CSS variables remain und
 
 ## Intentional sugar and differences from upstream
 
-`Field` is callable as the root for brevity and exposes `.Root` for Ark namespace parity.
-`Field.Item` adds a local wrapper div because Ark's `Item` only provides nested field context and
-does not render a styleable row. Its ref targets that wrapper. `Field.Context`, `useField`, and
-`useFieldContext` are re-exported without changing their Ark state contracts.
+`Field` is the root export. `FieldItem` adds a local wrapper div because Ark's `Item` only provides
+nested field context and does not render a styleable row. Its ref targets that wrapper. `FieldContext`,
+`useField`, and `useFieldContext` are re-exported without changing their Ark state contracts.
 
 No legacy compatibility aliases are exported. `useField` is available from `@moduix/react` for
-`Field.RootProvider`, while `Field.Context` and `useFieldContext` cover state inside the tree.
-Consumers keep Ark part names such as `Field.Input`, `Field.HelperText`, `Field.ErrorText`,
-`Field.Textarea`, and `Field.Select`.
+`FieldRootProvider`, while `FieldContext` and `useFieldContext` cover state inside the tree.
+The public component values use the flat names `FieldInput`, `FieldHelperText`, `FieldErrorText`,
+`FieldTextarea`, and `FieldSelect`.
 
 ## Agent notes
 
@@ -141,14 +140,16 @@ their own `HiddenInput`; Field itself has no hidden input.
 
 ## Local changelog
 
+- 2026-09-21: Replaced the compound public API with flat `Field`-prefixed values across packages,
+  tests, stories, registries, and documentation without compatibility aliases.
 - 2026-08-10: Added a dedicated error-text weight token and resilient wrapping for long field text.
 
-- 2026-07-27: Removed compounded disabled opacity from nested field parts and made `Field.Item`'s
+- 2026-07-27: Removed compounded disabled opacity from nested field parts and made `FieldItem`'s
   row wrapper ref-forwarding.
 - 2026-07-21: Routed shared dimensions, spacing, icon geometry, and focus-ring fallbacks through foundation tokens so density and theme presets can retune the component consistently.
 - 2026-07-21: Reduced the default control to `--moduix-size-md` and compacted its block padding.
 
-- 2026-07-12: Added moduix `Field.Context` and `useFieldContext` exports alongside `useField`, and
+- 2026-07-12: Added moduix `FieldContext` and `useFieldContext` exports alongside `useField`, and
   made the component-local index a re-export-only barrel.
 - 2026-07-10: Re-exported `useField` for the supported `RootProvider` composition path and restored
   the native select affordance by leaving browser appearance intact.
@@ -157,7 +158,7 @@ their own `HiddenInput`; Field itself has no hidden input.
   aliases from `moduix`.
 - 2026-06-25: Exported Ark part prop types through the field barrel, aligned
   `--moduix-field-label-gap` fallback with the documented theme default, and refreshed docs coverage for
-  `Field.Item`, `readOnly`, and `RootProvider`.
+  `FieldItem`, `readOnly`, and `RootProvider`.
 - 2026-06-19: Migrated `Field` to Ark UI, replaced legacy validation API with Ark
   field context, renamed public parts to Ark names, exposed provider/context hooks, and updated
   styling hooks.

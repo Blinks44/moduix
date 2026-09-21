@@ -1,6 +1,6 @@
 import { expect, test } from '@rstest/core';
 import { fireEvent, render, screen, waitFor } from '@solidjs/testing-library';
-import { Field, NumberInput, useNumberInput } from '../src';
+import { Field, NumberInput, useNumberInput, FieldErrorText } from '../src';
 
 test('renders the Field shortcut and preserves keyboard value changes', async () => {
   const changes: string[] = [];
@@ -41,7 +41,7 @@ test('inherits Field state for disabled, read-only, and invalid number inputs', 
         <NumberInput.Label>Items</NumberInput.Label>
         <NumberInput.Field />
       </NumberInput>
-      <Field.ErrorText>Choose a valid amount.</Field.ErrorText>
+      <FieldErrorText>Choose a valid amount.</FieldErrorText>
     </Field>
   ));
 

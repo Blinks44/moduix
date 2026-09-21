@@ -87,8 +87,8 @@ export function SignaturePadDemo() {
 - `drawing` forwards Zag stroke options: `fill`, `size`, and `simulatePressure`. `drawing.fill` must be a valid CSS color string. If it is not set, moduix CSS supplies the default stroke color through `--moduix-signature-pad-stroke-color`.
 - The installed Zag default is `{ size: 2, simulatePressure: false }`; pass `drawing` to opt into pressure simulation.
 - Form usage combines Ark form props with an explicit `SignaturePad.HiddenInput value={...}`.
-- `Field.Root` context carries `disabled`, `required`, `readOnly`, and shared ids into `SignaturePad`. `Field` invalid state controls helper/error messaging and native-input descriptions, but Ark does not add `data-invalid` to signature pad parts.
-- `Fieldset.Root` disabled state reaches `SignaturePad` through nested `Field.Root`, matching Ark's field/fieldset model. Set required, read-only, and invalid messaging state on `Field.Root` when those states belong to one signature field.
+- `Field` context carries `disabled`, `required`, `readOnly`, and shared ids into `SignaturePad`. `Field` invalid state controls helper/error messaging and native-input descriptions, but Ark does not add `data-invalid` to signature pad parts.
+- `Fieldset` disabled state reaches `SignaturePad` through nested `Field`, matching Ark's field/fieldset model. Set required, read-only, and invalid messaging state on `Field` when those states belong to one signature field.
 - `RootProvider`, `useSignaturePad()`, and `useSignaturePadContext()` are exported from moduix.
 
 ## Accessibility and state

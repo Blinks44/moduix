@@ -1,4 +1,17 @@
-import { FileUpload } from '@moduix/react/file-upload';
+import {
+  FileUpload,
+  FileUploadContext,
+  FileUploadDropzone,
+  FileUploadDropzoneIcon,
+  FileUploadHiddenInput,
+  FileUploadItem,
+  FileUploadItemDeleteTrigger,
+  FileUploadItemGroup,
+  FileUploadItemName,
+  FileUploadItemSizeText,
+  FileUploadLabel,
+  FileUploadTrigger,
+} from '@moduix/react/file-upload';
 import styles from '@/components/examples/file-upload/file-upload-rejected-files.module.css';
 
 const accept = 'image/*';
@@ -12,42 +25,42 @@ export default function RejectedFilesUploadDemo() {
       maxFiles={maxFiles}
       maxFileSize={maxFileSize}
     >
-      <FileUpload.Label>Images</FileUpload.Label>
-      <FileUpload.Dropzone disableClick>
-        <FileUpload.DropzoneIcon />
+      <FileUploadLabel>Images</FileUploadLabel>
+      <FileUploadDropzone disableClick>
+        <FileUploadDropzoneIcon />
         <div className={styles.dropzoneContent}>
           <span className={styles.dropzoneTitle}>Drop image files here</span>
           <span className={styles.dropzoneDescription}>PNG or JPEG, up to 120 KB</span>
-          <FileUpload.Trigger>Select images</FileUpload.Trigger>
+          <FileUploadTrigger>Select images</FileUploadTrigger>
         </div>
-      </FileUpload.Dropzone>
-      <FileUpload.ItemGroup>
-        <FileUpload.Context>
+      </FileUploadDropzone>
+      <FileUploadItemGroup>
+        <FileUploadContext>
           {({ acceptedFiles }) =>
             acceptedFiles.map((file) => (
-              <FileUpload.Item key={file.name} file={file}>
-                <FileUpload.ItemName />
-                <FileUpload.ItemSizeText />
-                <FileUpload.ItemDeleteTrigger aria-label={`Remove ${file.name}`} />
-              </FileUpload.Item>
+              <FileUploadItem key={file.name} file={file}>
+                <FileUploadItemName />
+                <FileUploadItemSizeText />
+                <FileUploadItemDeleteTrigger aria-label={`Remove ${file.name}`} />
+              </FileUploadItem>
             ))
           }
-        </FileUpload.Context>
-      </FileUpload.ItemGroup>
-      <FileUpload.ItemGroup type="rejected">
-        <FileUpload.Context>
+        </FileUploadContext>
+      </FileUploadItemGroup>
+      <FileUploadItemGroup type="rejected">
+        <FileUploadContext>
           {({ rejectedFiles }) =>
             rejectedFiles.map(({ file, errors }) => (
-              <FileUpload.Item key={file.name} file={file}>
-                <FileUpload.ItemName />
+              <FileUploadItem key={file.name} file={file}>
+                <FileUploadItemName />
                 <p className={styles.error}>{errors.join(', ')}</p>
-                <FileUpload.ItemDeleteTrigger aria-label={`Remove ${file.name}`} />
-              </FileUpload.Item>
+                <FileUploadItemDeleteTrigger aria-label={`Remove ${file.name}`} />
+              </FileUploadItem>
             ))
           }
-        </FileUpload.Context>
-      </FileUpload.ItemGroup>
-      <FileUpload.HiddenInput />
+        </FileUploadContext>
+      </FileUploadItemGroup>
+      <FileUploadHiddenInput />
     </FileUpload>
   );
 }

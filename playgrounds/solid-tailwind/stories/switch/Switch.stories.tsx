@@ -2,7 +2,7 @@ import type { JSX } from 'solid-js';
 import { createSignal } from 'solid-js';
 import type { Meta, StoryObj } from 'storybook-solidjs-vite';
 import { Button } from '@/components/button';
-import { Field } from '@/components/field';
+import { Field, FieldErrorText, FieldHelperText } from '@/components/field';
 import { Switch, useSwitch, useSwitchContext } from '@/components/switch/Switch';
 
 const meta = {
@@ -234,8 +234,8 @@ export const FormIntegration: Story = {
         <Switch.Label>Notifications</Switch.Label>
         <Switch.HiddenInput />
       </Switch>
-      <Field.HelperText>Used for product and account updates.</Field.HelperText>
-      <Field.ErrorText>Notification preference is required.</Field.ErrorText>
+      <FieldHelperText>Used for product and account updates.</FieldHelperText>
+      <FieldErrorText>Notification preference is required.</FieldErrorText>
     </Field>
   ),
 };

@@ -1,12 +1,12 @@
 import { type DateValue } from '@ark-ui/react/date-picker';
-import { Field } from '@ark-ui/react/field';
-import { Fieldset } from '@ark-ui/react/fieldset';
 import { CalendarDate } from '@internationalized/date';
 import { expect, test } from '@rstest/core';
 import { fireEvent, render, screen, waitFor } from '@testing-library/react';
 import { createRef, useState } from 'react';
 import {
   DatePicker,
+  Field,
+  Fieldset,
   useDatePicker,
   DatePickerRootProvider,
   DatePickerContext,
@@ -121,18 +121,18 @@ test('keeps convenience-field input indexes and range form values Ark-shaped', (
 test('keeps Field state on its editable input', () => {
   render(
     <>
-      <Field.Root disabled invalid readOnly>
+      <Field disabled invalid readOnly>
         <DatePicker>
           <DatePickerLabel>Scheduled date</DatePickerLabel>
           <DatePickerField />
         </DatePicker>
-      </Field.Root>
-      <Fieldset.Root invalid>
+      </Field>
+      <Fieldset invalid>
         <DatePicker>
           <DatePickerLabel>Fieldset date</DatePickerLabel>
           <DatePickerField />
         </DatePicker>
-      </Fieldset.Root>
+      </Fieldset>
     </>,
   );
 

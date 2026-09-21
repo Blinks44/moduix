@@ -1,6 +1,6 @@
 import type { Meta, StoryObj } from '@storybook/react-vite';
 import { useState } from 'react';
-import { Field } from '@/components/field';
+import { Field, FieldErrorText, FieldHelperText } from '@/components/field';
 import { NumberInput, useNumberInput } from '@/components/number-input/NumberInput';
 import { ChevronDownIcon, ChevronUpIcon } from '@/lib/moduix/icons/ui';
 import storyStyles from './NumberInput.stories.module.css';
@@ -105,8 +105,8 @@ export const WithFieldValidation: Story = {
         <NumberInput.Label>Items</NumberInput.Label>
         <NumberInput.Field />
       </NumberInput>
-      <Field.HelperText>Choose between 1 and 10 items.</Field.HelperText>
-      <Field.ErrorText>Value should be between 1 and 10.</Field.ErrorText>
+      <FieldHelperText>Choose between 1 and 10 items.</FieldHelperText>
+      <FieldErrorText>Value should be between 1 and 10.</FieldErrorText>
     </Field>
   ),
 };

@@ -2,7 +2,7 @@ import { createSignal } from 'solid-js';
 import type { ComponentProps } from 'solid-js';
 import { splitProps } from 'solid-js';
 import type { Meta, StoryObj } from 'storybook-solidjs-vite';
-import { Field } from '@/components/field';
+import { Field, FieldErrorText, FieldHelperText } from '@/components/field';
 import {
   SignaturePad,
   useSignaturePad,
@@ -90,8 +90,8 @@ export const WithField: Story = {
         <SignaturePad.Canvas />
         <SignaturePadFormInput />
       </SignaturePad>
-      <Field.HelperText>Use a pointer or touch input to sign.</Field.HelperText>
-      <Field.ErrorText>Signature is required.</Field.ErrorText>
+      <FieldHelperText>Use a pointer or touch input to sign.</FieldHelperText>
+      <FieldErrorText>Signature is required.</FieldErrorText>
     </Field>
   ),
 };

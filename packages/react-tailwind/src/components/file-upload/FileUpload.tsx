@@ -13,10 +13,10 @@ import { cn } from '@/lib/moduix/cn';
 import { CloseIcon, FileIcon, TrashIcon, UploadIcon } from '@/lib/moduix/icons/ui';
 import { CloseButton } from '../close-button';
 
-const FileUploadRoot = forwardRef<
+const FileUpload = forwardRef<
   ComponentRef<typeof FileUploadPrimitive.Root>,
   ComponentProps<typeof FileUploadPrimitive.Root>
->(function FileUploadRoot({ className, ...props }, ref) {
+>(function FileUpload({ className, ...props }, ref) {
   return (
     <FileUploadPrimitive.Root
       ref={ref}
@@ -320,26 +320,29 @@ const FileUploadClearTrigger = forwardRef<
   );
 });
 
-const FileUpload = Object.assign(FileUploadRoot, {
-  Root: FileUploadRoot,
-  RootProvider: FileUploadRootProvider,
-  Context: FileUploadPrimitive.Context,
-  HiddenInput: FileUploadPrimitive.HiddenInput,
-  Label: FileUploadLabel,
-  Dropzone: FileUploadDropzone,
-  DropzoneIcon: FileUploadDropzoneIcon,
-  Trigger: FileUploadTrigger,
-  ItemGroup: FileUploadItemGroup,
-  Item: FileUploadItem,
-  Items: FileUploadItems,
-  ItemPreview: FileUploadItemPreview,
-  ItemPreviewImage: FileUploadItemPreviewImage,
-  ItemPreviewIcon: FileUploadItemPreviewIcon,
-  ItemName: FileUploadItemName,
-  ItemMetadata: FileUploadItemMetadata,
-  ItemSizeText: FileUploadItemSizeText,
-  ItemDeleteTrigger: FileUploadItemDeleteTrigger,
-  ClearTrigger: FileUploadClearTrigger,
-});
+const FileUploadContext = FileUploadPrimitive.Context;
+const FileUploadHiddenInput = FileUploadPrimitive.HiddenInput;
 
-export { FileUpload, useFileUpload, useFileUploadContext };
+export {
+  FileUpload,
+  FileUploadClearTrigger,
+  FileUploadContext,
+  FileUploadDropzone,
+  FileUploadDropzoneIcon,
+  FileUploadHiddenInput,
+  FileUploadItem,
+  FileUploadItemDeleteTrigger,
+  FileUploadItemGroup,
+  FileUploadItemMetadata,
+  FileUploadItemName,
+  FileUploadItems,
+  FileUploadItemPreview,
+  FileUploadItemPreviewIcon,
+  FileUploadItemPreviewImage,
+  FileUploadItemSizeText,
+  FileUploadLabel,
+  FileUploadRootProvider,
+  FileUploadTrigger,
+  useFileUpload,
+  useFileUploadContext,
+};

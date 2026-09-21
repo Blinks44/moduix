@@ -1,4 +1,11 @@
-import { Editable } from '@moduix/react/editable';
+import {
+  Editable,
+  EditableArea,
+  EditableControls,
+  EditableInput,
+  EditableLabel,
+  EditablePreview,
+} from '@moduix/react/editable';
 
 export default function EditableDemo() {
   return (
@@ -11,12 +18,12 @@ export default function EditableDemo() {
         cancel: 'Cancel layer name',
       }}
     >
-      <Editable.Label>Name</Editable.Label>
-      <Editable.Area>
-        <Editable.Input />
-        <Editable.Preview />
-      </Editable.Area>
-      <Editable.Controls />
+      <EditableLabel>Name</EditableLabel>
+      <EditableArea>
+        <EditableInput />
+        <EditablePreview />
+      </EditableArea>
+      <EditableControls />
     </Editable>
   );
 }

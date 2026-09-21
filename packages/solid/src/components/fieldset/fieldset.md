@@ -1,37 +1,41 @@
 # Fieldset (Solid)
 
 `Fieldset` is the native Solid wrapper around Ark UI's `Fieldset`. It preserves the React
-component's callable root, compound parts, fieldset state, ARIA wiring, CSS variables, and
-`RootProvider` composition.
+component's root, fieldset state, ARIA wiring, CSS variables, and `FieldsetRootProvider` composition.
 
 ## Composition
 
 ```tsx
 import { Field } from '@moduix/solid/field';
-import { Fieldset } from '@moduix/solid/fieldset';
+import {
+  Fieldset,
+  FieldsetHelperText,
+  FieldsetLegend,
+} from '@moduix/solid/fieldset';
 
 export function ContactDetails() {
   return (
     <Fieldset>
-      <Fieldset.Legend>Contact details</Fieldset.Legend>
+      <FieldsetLegend>Contact details</FieldsetLegend>
       <Field>
-        <Field.Label>Email</Field.Label>
-        <Field.Input type="email" />
+        <FieldLabel>Email</FieldLabel>
+        <FieldInput type="email" />
       </Field>
-      <Fieldset.HelperText>Use an address you check regularly.</Fieldset.HelperText>
+      <FieldsetHelperText>Use an address you check regularly.</FieldsetHelperText>
     </Fieldset>
   );
 }
 ```
 
-The public parts are `Root`, `RootProvider`, `Context`, `Legend`, `HelperText`, and `ErrorText`.
-The barrel also re-exports `useFieldset` and `useFieldsetContext`.
+The public parts are `Fieldset`, `FieldsetRootProvider`, `FieldsetContext`, `FieldsetLegend`,
+`FieldsetHelperText`, and `FieldsetErrorText`. The barrel also re-exports `useFieldset` and
+`useFieldsetContext`.
 
 Ark Solid uses a render-function `asChild` prop:
 
 ```tsx
 <Fieldset asChild={(props) => <section {...props()} aria-label="Project details" />}>
-  <Fieldset.Legend>Project details</Fieldset.Legend>
+  <FieldsetLegend>Project details</FieldsetLegend>
 </Fieldset>
 ```
 

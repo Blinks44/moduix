@@ -13,7 +13,7 @@ import {
   CheckboxHiddenInput,
   CheckboxLabel,
 } from '@moduix/solid/checkbox';
-import { Field } from '@moduix/solid/field';
+import { Field, FieldLabel } from '@moduix/solid/field';
 import { Input } from '@moduix/solid/input';
 import styles from './sign-up-form.module.css';
 
@@ -28,22 +28,22 @@ export function SignUp({ onSubmit }: { onSubmit?: (event: SubmitEvent) => void }
       <CardBody>
         <form class={styles.stack} onSubmit={onSubmit}>
           <Field required>
-            <Field.Label>Full name</Field.Label>
+            <FieldLabel>Full name</FieldLabel>
             <Input name="name" autocomplete="name" placeholder="Alex Morgan" />
           </Field>
 
           <Field required>
-            <Field.Label>Email address</Field.Label>
+            <FieldLabel>Email address</FieldLabel>
             <Input name="email" type="email" autocomplete="email" placeholder="you@example.com" />
           </Field>
 
           <Field required>
-            <Field.Label>Password</Field.Label>
+            <FieldLabel>Password</FieldLabel>
             <Input name="password" type="password" autocomplete="new-password" />
           </Field>
 
           <Field required>
-            <Field.Label>Confirm password</Field.Label>
+            <FieldLabel>Confirm password</FieldLabel>
             <Input name="confirm-password" type="password" autocomplete="new-password" />
           </Field>
 

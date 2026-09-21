@@ -2,7 +2,7 @@
 
 Upstream docs:
 
-- Ark UI: no dedicated Textarea primitive; follows https://ark-ui.com/docs/components/field and `Field.Textarea`
+- Ark UI: no dedicated Textarea primitive; follows https://ark-ui.com/docs/components/field and `FieldTextarea`
 - Ark UI composition: https://ark-ui.com/docs/guides/composition
 - Ark UI styling: https://ark-ui.com/docs/guides/styling
 - Ark UI ref: https://ark-ui.com/docs/guides/ref
@@ -10,22 +10,22 @@ Upstream docs:
 
 ## Purpose
 
-`Textarea` is the moduix multi-line plain text control: a styled Ark `Field.Textarea` root that keeps the native `<textarea>` API.
+`Textarea` is the moduix multi-line plain text control: a styled Ark `FieldTextarea` root that keeps the native `<textarea>` API.
 
 ## Upstream model to preserve
 
-Ark UI does not ship a dedicated `textarea` primitive. Moduix directly wraps Ark `Field.Textarea`
+Ark UI does not ship a dedicated `textarea` primitive. Moduix directly wraps Ark `FieldTextarea`
 with styling, while preserving Ark's [composition](https://ark-ui.com/docs/guides/composition),
 [styling](https://ark-ui.com/docs/guides/styling), and [ref](https://ark-ui.com/docs/guides/ref)
 contracts.
 
-Preserve the `Field.Textarea` contract: native textarea props, `autoresize`, ref forwarding to `HTMLTextAreaElement`, `asChild` from Ark polymorphic props, and inherited `Field.Root` / `Fieldset.Root` state.
+Preserve the `FieldTextarea` contract: native textarea props, `autoresize`, ref forwarding to `HTMLTextAreaElement`, `asChild` from Ark polymorphic props, and inherited `Field` / `Fieldset` state.
 
 Chakra's Textarea recipe informs the public examples for helper text, error text, `resize`, `autoresize`, Hook Form-style refs, and direct native textarea usage.
 
 ## Current behavior contract
 
-- Renders one Ark `Field.Textarea`, which renders one native `<textarea>`.
+- Renders one Ark `FieldTextarea`, which renders one native `<textarea>`.
 - Accepts `ComponentProps<typeof FieldPrimitive.Textarea>` from Ark, including native textarea props and `autoresize`.
 - Uses native `onChange` for controlled usage; no `onValueChange` compatibility layer is provided.
 - Works standalone when consumers provide an accessible name, or inside moduix `Field` for labels, helper text, error text, and state inheritance.
@@ -41,7 +41,7 @@ Field (optional)
 
 | Part       | Element / Ark model  | `data-slot`     | Notes                                      |
 | ---------- | -------------------- | --------------- | ------------------------------------------ |
-| `Textarea` | Ark `Field.Textarea` | `textarea-root` | Styled textarea root and only public part. |
+| `Textarea` | Ark `FieldTextarea` | `textarea-root` | Styled textarea root and only public part. |
 
 No `Textarea.Root`, provider, context hook, hidden input, wrapper shell, label prop, counter, or slot bag is exported for this component.
 
@@ -54,15 +54,15 @@ import { Textarea } from '@moduix/react/textarea';
 export function CommentField() {
   return (
     <Field>
-      <Field.Label>Comment</Field.Label>
-      <Field.HelperText>Visible to the whole team.</Field.HelperText>
+      <FieldLabel>Comment</FieldLabel>
+      <FieldHelperText>Visible to the whole team.</FieldHelperText>
       <Textarea name="comment" placeholder="Write a short comment" />
     </Field>
   );
 }
 ```
 
-Use `Field.Root` / `Field` for accessible labels, descriptions, required state, invalid state, and read-only/disabled inheritance. Prefer `Textarea` rather than `Field.Textarea` so ordinary multiline controls share the standalone styling contract. `Field.Textarea` remains available as a lower-level Ark-shaped escape hatch.
+Use `Field` / `Field` for accessible labels, descriptions, required state, invalid state, and read-only/disabled inheritance. Prefer `Textarea` rather than `FieldTextarea` so ordinary multiline controls share the standalone styling contract. `FieldTextarea` remains available as a lower-level Ark-shaped escape hatch.
 
 Use native textarea props such as `rows`, `maxLength`, `resize` styling, `value`, `defaultValue`, and `onChange` for browser behavior.
 
@@ -81,8 +81,8 @@ surface with edit, submit, and cancel controls.
 ## Accessibility and state
 
 - The forwarded ref targets the native `HTMLTextAreaElement`, which is the correct target for invalid focus and form-library registration.
-- The textarea needs an accessible name from `Field.Label`, a native `<label>`, or `aria-label`.
-- Ark links `Field.Label`, `Field.HelperText`, and `Field.ErrorText` to the textarea through IDs and `aria-describedby`.
+- The textarea needs an accessible name from `FieldLabel`, a native `<label>`, or `aria-label`.
+- Ark links `FieldLabel`, `FieldHelperText`, and `FieldErrorText` to the textarea through IDs and `aria-describedby`.
 - Ark applies `required`, `disabled`, `readOnly`, `aria-invalid`, `data-required`, `data-disabled`, `data-readonly`, and `data-invalid` from `Field` context.
 - No `HiddenInput` is needed: native `<textarea>` participates in form submission and reset, including
   association with an external form through `form`; native reset restores an uncontrolled `defaultValue`.
@@ -125,7 +125,7 @@ Public CSS variables from `variables-moduix.css`:
 ## Agent notes
 
 - Do not reintroduce the legacy `Field.Control`, `render`, `mergeProps`, `autoResize`, or `onValueChange` adapter contract.
-- Keep `Textarea` aligned with Ark `Field.Textarea`; use `Field.Textarea` as the local implementation reference.
+- Keep `Textarea` aligned with Ark `FieldTextarea`; use `FieldTextarea` as the local implementation reference.
 - Keep inline edit/read-only examples on `Editable`, not `Textarea`.
 - Keep stories, docs examples, `variables-moduix.css`, registry output, and this file synchronized when the public contract changes.
 
@@ -134,7 +134,7 @@ Public CSS variables from `variables-moduix.css`:
 - 2026-08-13: Documented external form ownership and uncontrolled reset behavior; added regressions
   for controlled external updates.
 - 2026-07-21: Routed shared dimensions, spacing, icon geometry, and focus-ring fallbacks through foundation tokens so density and theme presets can retune the component consistently.
-- 2026-07-31: Clarified `Textarea` as the recommended multiline control, documented the lower-level `Field.Textarea` escape hatch, and recorded Ark's autoresize resize constraint.
+- 2026-07-31: Clarified `Textarea` as the recommended multiline control, documented the lower-level `FieldTextarea` escape hatch, and recorded Ark's autoresize resize constraint.
 - 2026-07-11: Corrected the Ark implementation description and synchronized the controlled docs
   snippet and example ordering with the public component page.
 - 2026-06-27: Protected Ark/moduix data hooks from rest-prop overrides, aligned the validation example with Ark `Field invalid`, and refreshed docs wording for the no-dedicated-primitive contract.
@@ -142,5 +142,5 @@ Public CSS variables from `variables-moduix.css`:
   simplified root-only component pattern.
 - 2026-06-22: Removed the manual read-only/editing story and docs path; inline editing now belongs
   to `Editable`.
-- 2026-06-21: Migrated implementation to Ark `Field.Textarea`; replaced `autoResize` with `autoresize` and removed `onValueChange`.
+- 2026-06-21: Migrated implementation to Ark `FieldTextarea`; replaced `autoResize` with `autoresize` and removed `onValueChange`.
 - 2026-06-21: Rewrote the local contract around Ark Field, Chakra Textarea examples, native textarea behavior, and moduix styling hooks.

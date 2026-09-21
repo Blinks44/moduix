@@ -2,7 +2,7 @@ import { createSignal, For } from 'solid-js';
 import type { JSX } from 'solid-js';
 import type { Meta, StoryObj } from 'storybook-solidjs-vite';
 import { Button } from '@/components/button';
-import { Field } from '@/components/field';
+import { Field, FieldHelperText } from '@/components/field';
 import { RatingGroup, useRatingGroup } from '@/components/rating-group';
 import styles from './RatingGroup.stories.module.css';
 
@@ -121,7 +121,7 @@ export const WithField: Story = {
         <RatingGroup.Label>Experience score</RatingGroup.Label>
         <RatingItems />
       </RatingGroup>
-      <Field.HelperText>Required score from 1 to 5.</Field.HelperText>
+      <FieldHelperText>Required score from 1 to 5.</FieldHelperText>
     </Field>
   ),
 };

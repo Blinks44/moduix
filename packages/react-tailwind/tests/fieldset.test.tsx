@@ -1,14 +1,23 @@
 import { expect, test } from '@rstest/core';
 import { render, screen } from '@testing-library/react';
 import { createRef } from 'react';
-import { Fieldset, useFieldset, useFieldsetContext } from '../src';
+import {
+  Fieldset,
+  FieldsetContext,
+  FieldsetErrorText,
+  FieldsetHelperText,
+  FieldsetLegend,
+  FieldsetRootProvider,
+  useFieldset,
+  useFieldsetContext,
+} from '../src';
 
 test('connects the legend, description, and error text to the native fieldset', () => {
   render(
     <Fieldset invalid>
-      <Fieldset.Legend>Contact details</Fieldset.Legend>
-      <Fieldset.HelperText>We only use these details to contact you.</Fieldset.HelperText>
-      <Fieldset.ErrorText>Enter a valid email address.</Fieldset.ErrorText>
+      <FieldsetLegend>Contact details</FieldsetLegend>
+      <FieldsetHelperText>We only use these details to contact you.</FieldsetHelperText>
+      <FieldsetErrorText>Enter a valid email address.</FieldsetErrorText>
     </Fieldset>,
   );
 
@@ -25,7 +34,7 @@ test('connects the legend, description, and error text to the native fieldset', 
 test('renders error text only while invalid', () => {
   const { rerender } = render(
     <Fieldset>
-      <Fieldset.ErrorText>Enter a valid email address.</Fieldset.ErrorText>
+      <FieldsetErrorText>Enter a valid email address.</FieldsetErrorText>
     </Fieldset>,
   );
 
@@ -33,7 +42,7 @@ test('renders error text only while invalid', () => {
 
   rerender(
     <Fieldset invalid>
-      <Fieldset.ErrorText>Enter a valid email address.</Fieldset.ErrorText>
+      <FieldsetErrorText>Enter a valid email address.</FieldsetErrorText>
     </Fieldset>,
   );
 
@@ -43,7 +52,7 @@ test('renders error text only while invalid', () => {
 test('disables native descendants', () => {
   render(
     <Fieldset disabled>
-      <Fieldset.Legend>Shipping address</Fieldset.Legend>
+      <FieldsetLegend>Shipping address</FieldsetLegend>
       <input aria-label="Street" />
     </Fieldset>,
   );
@@ -58,9 +67,9 @@ test('preserves native composition and forwards refs through asChild', () => {
   render(
     <Fieldset asChild ref={rootRef}>
       <fieldset>
-        <Fieldset.Legend asChild ref={legendRef}>
+        <FieldsetLegend asChild ref={legendRef}>
           <legend>Account details</legend>
-        </Fieldset.Legend>
+        </FieldsetLegend>
       </fieldset>
     </Fieldset>,
   );
@@ -80,13 +89,13 @@ function ExternalFieldsetState() {
   const fieldset = useFieldset({ invalid: true });
 
   return (
-    <Fieldset.RootProvider value={fieldset}>
-      <Fieldset.Legend>Account details</Fieldset.Legend>
-      <Fieldset.Context>
+    <FieldsetRootProvider value={fieldset}>
+      <FieldsetLegend>Account details</FieldsetLegend>
+      <FieldsetContext>
         {({ invalid }) => <output data-testid="render-prop-state">{String(invalid)}</output>}
-      </Fieldset.Context>
+      </FieldsetContext>
       <ContextState />
-    </Fieldset.RootProvider>
+    </FieldsetRootProvider>
   );
 }
 
@@ -104,8 +113,8 @@ test('keeps RootProvider and state context exports Ark-shaped', () => {
 test('renders the component-owned Tailwind defaults', () => {
   render(
     <Fieldset>
-      <Fieldset.Legend data-testid="legend">Account details</Fieldset.Legend>
-      <Fieldset.HelperText data-testid="helper">Helpful details</Fieldset.HelperText>
+      <FieldsetLegend data-testid="legend">Account details</FieldsetLegend>
+      <FieldsetHelperText data-testid="helper">Helpful details</FieldsetHelperText>
     </Fieldset>,
   );
 
@@ -129,12 +138,12 @@ test('renders the component-owned Tailwind defaults', () => {
 test('lets consumer Tailwind classes override conflicting defaults', () => {
   render(
     <Fieldset className="w-1/2 max-w-sm gap-2" data-testid="fieldset">
-      <Fieldset.Legend className="pb-0 text-sm" data-testid="legend">
+      <FieldsetLegend className="pb-0 text-sm" data-testid="legend">
         Account details
-      </Fieldset.Legend>
-      <Fieldset.HelperText className="text-primary" data-testid="helper">
+      </FieldsetLegend>
+      <FieldsetHelperText className="text-primary" data-testid="helper">
         Helpful details
-      </Fieldset.HelperText>
+      </FieldsetHelperText>
     </Fieldset>,
   );
 

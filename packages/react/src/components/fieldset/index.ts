@@ -1,1 +1,10 @@
-export { Fieldset, useFieldset, useFieldsetContext } from './Fieldset.js';
+export {
+  Fieldset,
+  FieldsetContext,
+  FieldsetErrorText,
+  FieldsetHelperText,
+  FieldsetLegend,
+  FieldsetRootProvider,
+  useFieldset,
+  useFieldsetContext,
+} from './Fieldset.js';

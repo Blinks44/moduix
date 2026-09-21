@@ -1,4 +1,10 @@
-import { Field, useField } from '@moduix/solid/field';
+import {
+  Field,
+  useField,
+  FieldHelperText,
+  FieldLabel,
+  FieldRootProvider,
+} from '@moduix/solid/field';
 import { Input } from '@moduix/solid/input';
 import styles from '@/components/examples/field/field-root-provider.module.css';
 
@@ -9,10 +15,10 @@ export default function RootProviderFieldDemo() {
   });
 
   return (
-    <Field.RootProvider class={styles.root} value={field}>
-      <Field.Label>Project key</Field.Label>
+    <FieldRootProvider class={styles.root} value={field}>
+      <FieldLabel>Project key</FieldLabel>
       <Input placeholder="MAPS" />
-      <Field.HelperText>The field state is created outside the rendered tree.</Field.HelperText>
-    </Field.RootProvider>
+      <FieldHelperText>The field state is created outside the rendered tree.</FieldHelperText>
+    </FieldRootProvider>
   );
 }

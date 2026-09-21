@@ -7,7 +7,18 @@ import {
   CheckboxIndicator,
   CheckboxLabel,
 } from '@/components/checkbox';
-import { Field, useField } from '@/components/field/Field';
+import {
+  Field,
+  useField,
+  FieldErrorText,
+  FieldHelperText,
+  FieldInput,
+  FieldItem,
+  FieldLabel,
+  FieldRequiredIndicator,
+  FieldRootProvider,
+  FieldTextarea,
+} from '@/components/field/Field';
 import { NativeSelect } from '@/components/native-select/NativeSelect';
 import { RadioGroup } from '@/components/radio-group';
 
@@ -27,12 +38,12 @@ type Story = StoryObj<typeof meta>;
 export const Basic: Story = {
   render: () => (
     <Field required>
-      <Field.Label>
+      <FieldLabel>
         Name
-        <Field.RequiredIndicator />
-      </Field.Label>
-      <Field.Input placeholder="Enter your name" />
-      <Field.HelperText>Visible on your public profile.</Field.HelperText>
+        <FieldRequiredIndicator />
+      </FieldLabel>
+      <FieldInput placeholder="Enter your name" />
+      <FieldHelperText>Visible on your public profile.</FieldHelperText>
     </Field>
   ),
 };
@@ -40,10 +51,10 @@ export const Basic: Story = {
 export const Invalid: Story = {
   render: () => (
     <Field invalid required>
-      <Field.Label>Email</Field.Label>
-      <Field.Input defaultValue="not-an-email" type="email" />
-      <Field.HelperText>Use your work email.</Field.HelperText>
-      <Field.ErrorText>Enter a valid email address.</Field.ErrorText>
+      <FieldLabel>Email</FieldLabel>
+      <FieldInput defaultValue="not-an-email" type="email" />
+      <FieldHelperText>Use your work email.</FieldHelperText>
+      <FieldErrorText>Enter a valid email address.</FieldErrorText>
     </Field>
   ),
 };
@@ -55,14 +66,14 @@ export const ControlledInvalid: Story = {
 
     return (
       <Field invalid={invalid}>
-        <Field.Label>Username</Field.Label>
-        <Field.Input
+        <FieldLabel>Username</FieldLabel>
+        <FieldInput
           value={value}
           onChange={(event) => setValue(event.currentTarget.value)}
           placeholder="e.g. vinny"
         />
-        <Field.HelperText>Use at least 3 characters.</Field.HelperText>
-        <Field.ErrorText>Username must be at least 3 characters.</Field.ErrorText>
+        <FieldHelperText>Use at least 3 characters.</FieldHelperText>
+        <FieldErrorText>Username must be at least 3 characters.</FieldErrorText>
       </Field>
     );
   },
@@ -71,9 +82,9 @@ export const ControlledInvalid: Story = {
 export const Textarea: Story = {
   render: () => (
     <Field>
-      <Field.Label>Summary</Field.Label>
-      <Field.Textarea autoresize placeholder="Describe the request" />
-      <Field.HelperText>The textarea can autoresize as the user types.</Field.HelperText>
+      <FieldLabel>Summary</FieldLabel>
+      <FieldTextarea autoresize placeholder="Describe the request" />
+      <FieldHelperText>The textarea can autoresize as the user types.</FieldHelperText>
     </Field>
   ),
 };
@@ -81,7 +92,7 @@ export const Textarea: Story = {
 export const Select: Story = {
   render: () => (
     <Field required>
-      <Field.Label>Priority</Field.Label>
+      <FieldLabel>Priority</FieldLabel>
       <NativeSelect defaultValue="">
         <option value="" disabled>
           Select priority
@@ -97,8 +108,8 @@ export const Select: Story = {
 export const Disabled: Story = {
   render: () => (
     <Field disabled>
-      <Field.Label>Organization</Field.Label>
-      <Field.Input placeholder="Acme Inc." />
+      <FieldLabel>Organization</FieldLabel>
+      <FieldInput placeholder="Acme Inc." />
     </Field>
   ),
 };
@@ -106,8 +117,8 @@ export const Disabled: Story = {
 export const ReadOnly: Story = {
   render: () => (
     <Field readOnly>
-      <Field.Label>Workspace key</Field.Label>
-      <Field.Input defaultValue="MAPS" />
+      <FieldLabel>Workspace key</FieldLabel>
+      <FieldInput defaultValue="MAPS" />
     </Field>
   ),
 };
@@ -122,7 +133,7 @@ export const WithCheckbox: Story = {
         <CheckboxLabel>Accept support access</CheckboxLabel>
         <CheckboxHiddenInput />
       </Checkbox>
-      <Field.ErrorText>Support access must be enabled.</Field.ErrorText>
+      <FieldErrorText>Support access must be enabled.</FieldErrorText>
     </Field>
   ),
 };
@@ -130,7 +141,7 @@ export const WithCheckbox: Story = {
 export const WithRadioGroup: Story = {
   render: () => (
     <Field>
-      <Field.Label>Account type</Field.Label>
+      <FieldLabel>Account type</FieldLabel>
       <RadioGroup defaultValue="team" aria-label="Account type">
         <RadioGroup.Item value="personal">
           <RadioGroup.ItemControl />
@@ -150,16 +161,16 @@ export const WithRadioGroup: Story = {
 export const LongContent: Story = {
   render: () => (
     <Field invalid>
-      <Field.Label>
+      <FieldLabel>
         International tax residency and withholding election for non-resident account holders
-      </Field.Label>
-      <Field.Input />
-      <Field.HelperText>
+      </FieldLabel>
+      <FieldInput />
+      <FieldHelperText>
         Enter the tax identification number issued by your country of tax residence.
-      </Field.HelperText>
-      <Field.ErrorText>
+      </FieldHelperText>
+      <FieldErrorText>
         A tax identification number is required before you can continue.
-      </Field.ErrorText>
+      </FieldErrorText>
     </Field>
   ),
 };
@@ -167,16 +178,16 @@ export const LongContent: Story = {
 export const ItemTarget: Story = {
   render: () => (
     <Field target="amount">
-      <Field.Label>Amount</Field.Label>
-      <Field.Item value="currency">
+      <FieldLabel>Amount</FieldLabel>
+      <FieldItem value="currency">
         <NativeSelect aria-label="Currency" defaultValue="USD">
           <option value="USD">USD</option>
           <option value="EUR">EUR</option>
         </NativeSelect>
-      </Field.Item>
-      <Field.Item value="amount">
-        <Field.Input inputMode="decimal" placeholder="0.00" />
-      </Field.Item>
+      </FieldItem>
+      <FieldItem value="amount">
+        <FieldInput inputMode="decimal" placeholder="0.00" />
+      </FieldItem>
     </Field>
   ),
 };
@@ -186,14 +197,14 @@ export const RootProvider: Story = {
     const field = useField({ id: 'provider-email', invalid: true, required: true });
 
     return (
-      <Field.RootProvider value={field}>
-        <Field.Label>
+      <FieldRootProvider value={field}>
+        <FieldLabel>
           External state
-          <Field.RequiredIndicator />
-        </Field.Label>
-        <Field.Input placeholder="Controlled by useField" />
-        <Field.ErrorText>Enter a valid email address.</Field.ErrorText>
-      </Field.RootProvider>
+          <FieldRequiredIndicator />
+        </FieldLabel>
+        <FieldInput placeholder="Controlled by useField" />
+        <FieldErrorText>Enter a valid email address.</FieldErrorText>
+      </FieldRootProvider>
     );
   },
 };

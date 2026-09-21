@@ -53,9 +53,9 @@ import fileUploadSolidWithField from '../../../snippets/file-upload/solid/with-f
 
 Интерактивный
 
-Начните с `FileUpload` как корневого компонента. Добавьте `Label`, а затем используйте `Trigger` для компактного
-элемента управления или `Dropzone` для загрузки перетаскиванием. Явно добавьте `FileUpload.HiddenInput`, чтобы
-открывать нативное окно выбора. Поместите `Items` в `ItemGroup`, чтобы показывать выбранные файлы. `Items` показывает
+Начните с `FileUpload` как корневого компонента. Добавьте `FileUploadLabel`, а затем используйте `FileUploadTrigger` для компактного
+элемента управления или `FileUploadDropzone` для загрузки перетаскиванием. Явно добавьте `FileUploadHiddenInput`, чтобы
+открывать нативное окно выбора. Поместите `FileUploadItems` в `FileUploadItemGroup`, чтобы показывать выбранные файлы. `FileUploadItems` показывает
 миниатюру только для файлов с MIME-типом `image/*`; для остальных используется универсальное превью.
 
 <ExampleFrame variant="component">
@@ -123,61 +123,61 @@ import fileUploadSolidWithField from '../../../snippets/file-upload/solid/with-f
 ## Анатомия
 
 ```text
-FileUpload / FileUpload.Root
-├─ FileUpload.Label
-├─ FileUpload.Dropzone (необязательно)
-│  ├─ FileUpload.DropzoneIcon
-│  └─ FileUpload.Trigger
-├─ FileUpload.Trigger (если Dropzone не используется)
-├─ FileUpload.ItemGroup[type]
-│  ├─ FileUpload.Items
-│  └─ FileUpload.Context
-│     └─ FileUpload.Item[file]
-│        ├─ FileUpload.ItemPreview[type]
-│        │  ├─ FileUpload.ItemPreviewImage
-│        │  └─ FileUpload.ItemPreviewIcon
-│        ├─ FileUpload.ItemName
-│        ├─ FileUpload.ItemMetadata[file]
-│        ├─ FileUpload.ItemSizeText
-│        └─ FileUpload.ItemDeleteTrigger
-├─ FileUpload.ClearTrigger
-└─ FileUpload.HiddenInput (явно)
+FileUpload / FileUploadRootProvider
+├─ FileUploadLabel
+├─ FileUploadDropzone (необязательно)
+│  ├─ FileUploadDropzoneIcon
+│  └─ FileUploadTrigger
+├─ FileUploadTrigger (если Dropzone не используется)
+├─ FileUploadItemGroup[type]
+│  ├─ FileUploadItems
+│  └─ FileUploadContext
+│     └─ FileUploadItem[file]
+│        ├─ FileUploadItemPreview[type]
+│        │  ├─ FileUploadItemPreviewImage
+│        │  └─ FileUploadItemPreviewIcon
+│        ├─ FileUploadItemName
+│        ├─ FileUploadItemMetadata[file]
+│        ├─ FileUploadItemSizeText
+│        └─ FileUploadItemDeleteTrigger
+├─ FileUploadClearTrigger
+└─ FileUploadHiddenInput (явно)
 ```
 
 | Часть                            | Назначение                                                               |
 | -------------------------------- | ------------------------------------------------------------------------ |
-| `FileUpload` / `FileUpload.Root` | Хранит состояние файлов и отвечает за проверку, перетаскивание, вставку из буфера обмена и интеграцию с формами. |
-| `FileUpload.HiddenInput` | Нативное поле Ark; правила явной композиции описаны ниже. |
-| `FileUpload.RootProvider`        | Подключает дерево компонента к состоянию, возвращённому хуком `useFileUpload`.                              |
-| `FileUpload.Label`               | Доступная метка для скрытого поля выбора файлов и элементов управления загрузкой.                            |
-| `FileUpload.Dropzone`            | Область для перетаскивания файлов. Если внутри есть `Trigger`, передайте `disableClick`, чтобы не открывать окно выбора дважды. |
-| `FileUpload.DropzoneIcon`        | Декоративная иконка загрузки для `Dropzone`.                                                                |
-| `FileUpload.Trigger`             | Кнопка, открывающая системное окно выбора файлов.                                                          |
-| `FileUpload.ItemGroup`           | Список принятых или отклонённых файлов.                                                                    |
-| `FileUpload.Items`               | Готовый вывод списка: карточки изображений и строки для остальных файлов с превью, метаданными и кнопками удаления. |
-| `FileUpload.Context`             | Контекст с функцией-рендерером, совместимый с Ark, для собственных строк файлов.                            |
-| `FileUpload.Item`                | Строка файла. Передайте текущий объект `file`.                                                              |
-| `FileUpload.ItemPreview`         | Слот для превью, которое показывается в зависимости от MIME-типа файла.                                    |
-| `FileUpload.ItemPreviewImage`    | Превью изображения внутри `ItemPreview`.                                                                   |
-| `FileUpload.ItemPreviewIcon`     | Универсальная иконка файла для запасного варианта превью в `ItemPreview`.                                   |
-| `FileUpload.ItemName`            | Имя файла.                                                                                                  |
-| `FileUpload.ItemMetadata`        | Тип и локализованный размер файла. Передайте текущий объект `file`.                                         |
-| `FileUpload.ItemSizeText`        | Локализованный размер файла.                                                                                |
-| `FileUpload.ItemDeleteTrigger`   | Удаляет один файл. По умолчанию показывает иконку корзины moduix.                                          |
-| `FileUpload.ClearTrigger`        | Очищает выбранные файлы. По умолчанию показывает иконку закрытия moduix.                                   |
+| `FileUpload` / `FileUploadRootProvider` | Хранит состояние файлов и отвечает за проверку, перетаскивание, вставку из буфера обмена и интеграцию с формами. |
+| `FileUploadHiddenInput` | Нативное поле Ark; правила явной композиции описаны ниже. |
+| `FileUploadRootProvider`        | Подключает дерево компонента к состоянию, возвращённому хуком `useFileUpload`.                              |
+| `FileUploadLabel`               | Доступная метка для скрытого поля выбора файлов и элементов управления загрузкой.                            |
+| `FileUploadDropzone`            | Область для перетаскивания файлов. Если внутри есть `FileUploadTrigger`, передайте `disableClick`, чтобы не открывать окно выбора дважды. |
+| `FileUploadDropzoneIcon`        | Декоративная иконка загрузки для `FileUploadDropzone`.                                                                |
+| `FileUploadTrigger`             | Кнопка, открывающая системное окно выбора файлов.                                                          |
+| `FileUploadItemGroup`           | Список принятых или отклонённых файлов.                                                                    |
+| `FileUploadItems`               | Готовый вывод списка: карточки изображений и строки для остальных файлов с превью, метаданными и кнопками удаления. |
+| `FileUploadContext`             | Контекст с функцией-рендерером, совместимый с Ark, для собственных строк файлов.                            |
+| `FileUploadItem`                | Строка файла. Передайте текущий объект `file`.                                                              |
+| `FileUploadItemPreview`         | Слот для превью, которое показывается в зависимости от MIME-типа файла.                                    |
+| `FileUploadItemPreviewImage`    | Превью изображения внутри `FileUploadItemPreview`.                                                                   |
+| `FileUploadItemPreviewIcon`     | Универсальная иконка файла для запасного варианта превью в `FileUploadItemPreview`.                                   |
+| `FileUploadItemName`            | Имя файла.                                                                                                  |
+| `FileUploadItemMetadata`        | Тип и локализованный размер файла. Передайте текущий объект `file`.                                         |
+| `FileUploadItemSizeText`        | Локализованный размер файла.                                                                                |
+| `FileUploadItemDeleteTrigger`   | Удаляет один файл. По умолчанию показывает иконку корзины moduix.                                          |
+| `FileUploadClearTrigger`        | Очищает выбранные файлы. По умолчанию показывает иконку закрытия moduix.                                   |
 
 ## Композиция
 
 `FileUpload` по умолчанию хранит состояние выбранных файлов внутри себя. Используйте `defaultAcceptedFiles` для начального
 значения в неуправляемом режиме, а `acceptedFiles` вместе с `onFileChange(details)`, если состояние принадлежит приложению.
-Если состояние или методы нужно создать за пределами дерева загрузки, используйте `useFileUpload()` и `FileUpload.RootProvider`.
+Если состояние или методы нужно создать за пределами дерева загрузки, используйте `useFileUpload()` и `FileUploadRootProvider`.
 
-Явно добавляйте `FileUpload.HiddenInput` в корневой компонент или провайдер даже вне формы: через него `Trigger` открывает
+Явно добавляйте `FileUploadHiddenInput` в `FileUpload` или `FileUploadRootProvider` даже вне формы: через него `FileUploadTrigger` открывает
 нативное окно выбора файлов. Чтобы включить файлы в нативную отправку формы, задайте `name` корневому компоненту. Если
-`Trigger` находится внутри `Dropzone`, передайте `disableClick`, чтобы окно выбора открывалось только один раз.
+`FileUploadTrigger` находится внутри `FileUploadDropzone`, передайте `disableClick`, чтобы окно выбора открывалось только один раз.
 
-Для стандартных строк используйте `FileUpload.Items` внутри `ItemGroup`. Для собственной разметки выводите
-`FileUpload.Context` и выбирайте одно превью для каждого файла из `acceptedFiles` или `rejectedFiles`.
+Для стандартных строк используйте `FileUploadItems` внутри `FileUploadItemGroup`. Для собственной разметки выводите
+`FileUploadContext` и выбирайте одно превью для каждого файла из `acceptedFiles` или `rejectedFiles`.
 
 ## Примеры
 
@@ -223,7 +223,7 @@ FileUpload / FileUpload.Root
 
 ### Очистка списка файлов
 
-Используйте `ClearTrigger`, чтобы одним действием удалить все принятые файлы.
+Используйте `FileUploadClearTrigger`, чтобы одним действием удалить все принятые файлы.
 
 <ExampleFrame variant="component">
   <FileUploadClearTrigger />
@@ -343,7 +343,7 @@ FileUpload / FileUpload.Root
 
 ### Dropzone
 
-Используйте `Dropzone` для загрузки перетаскиванием. Оставьте вложенный `Trigger`, чтобы пользователь мог открыть окно
+Используйте `FileUploadDropzone` для загрузки перетаскиванием. Оставьте вложенный `FileUploadTrigger`, чтобы пользователь мог открыть окно
 выбора файлов с клавиатуры.
 
 <ExampleFrame variant="component">
@@ -465,7 +465,7 @@ FileUpload / FileUpload.Root
 
 ### Использование в форме
 
-Передайте `name` корневому компоненту и добавьте `FileUpload.HiddenInput`; выбранные файлы будут
+Передайте `name` корневому компоненту и добавьте `FileUploadHiddenInput`; выбранные файлы будут
 участвовать в обычной отправке и сбросе формы.
 
 <ExampleFrame variant="component">
@@ -585,7 +585,7 @@ FileUpload / FileUpload.Root
 
 ### Отклонённые файлы
 
-Выводите `rejectedFiles` в отдельной группе `ItemGroup type="rejected"`, если пользователю нужно видеть причины
+Выводите `rejectedFiles` в отдельной группе `FileUploadItemGroup type="rejected"`, если пользователю нужно видеть причины
 отклонения файлов.
 
 <ExampleFrame variant="component">
@@ -625,7 +625,7 @@ FileUpload / FileUpload.Root
 
 ### Root Provider и вставка файлов
 
-Используйте `useFileUpload` вместе с `RootProvider`, если состояние или методы должны находиться за пределами
+Используйте `useFileUpload` вместе с `FileUploadRootProvider`, если состояние или методы должны находиться за пределами
 дерева загрузки. В этом примере `setClipboardFiles` передаёт файлы, вставленные в текстовое поле, в состояние загрузки.
 
 <ExampleFrame variant="component">
@@ -704,7 +704,7 @@ FileUpload / FileUpload.Root
 
 ### Интеграция с Field
 
-Оберните загрузку в `Field.Root`, если к полю формы нужно добавить поясняющий текст или сообщение об ошибке либо
+Оберните загрузку в `Field`, если к полю формы нужно добавить поясняющий текст или сообщение об ошибке либо
 показать, что поле обязательное или содержит ошибку.
 
 <ExampleFrame variant="component">
@@ -744,8 +744,8 @@ FileUpload / FileUpload.Root
 
 ### Расширенная настройка
 
-Вместо `Items` используйте собственные строки, если нужны превью для разных MIME-типов, дополнительные метаданные или
-другая разметка. Явная композиция `FileUpload.Context` оставляет состояние Ark доступным и позволяет выбрать для каждого
+Вместо `FileUploadItems` используйте собственные строки, если нужны превью для разных MIME-типов, дополнительные метаданные или
+другая разметка. Явная композиция `FileUploadContext` оставляет состояние Ark доступным и позволяет выбрать для каждого
 файла либо превью изображения, либо запасной вариант.
 
 <ExampleFrame variant="component">

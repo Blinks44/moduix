@@ -71,7 +71,7 @@ import { InputGroup } from '@moduix/react/input-group';
 export function WorkspaceField() {
   return (
     <Field>
-      <Field.Label>Workspace</Field.Label>
+      <FieldLabel>Workspace</FieldLabel>
       <InputGroup>
         <InputGroup.Addon>@</InputGroup.Addon>
         <InputGroup.Input name="workspace" />
@@ -105,7 +105,7 @@ should stay focused on ordinary input composition with addons, text, and actions
 ## Accessibility and state
 
 - The nested input owns the accessible name and native form value.
-- Prefer `Field.Label`; use `role="group"` plus an accessible name only when the full standalone
+- Prefer `FieldLabel`; use `role="group"` plus an accessible name only when the full standalone
   composition needs grouped semantics.
 - The input ref targets the real `HTMLInputElement`.
 - Root, addon, and text expose `data-scope="input-group"` plus matching `data-part` attributes.
@@ -163,4 +163,4 @@ The default `md` group uses `--moduix-size-md`; the `sm` variant uses `--moduix-
 - 2026-06-22: Removed the manual inline editing story and docs path; preview-first editing now
   belongs to `Editable`.
 - 2026-06-19: Migrated structural elements to Ark factory composition and the nested input to Ark
-  `Field.Input`; added `asChild`; replaced legacy value callbacks with native input events.
+  `FieldInput`; added `asChild`; replaced legacy value callbacks with native input events.

@@ -1,7 +1,7 @@
 import { expect, test } from '@rstest/core';
 import { fireEvent, render, screen, waitFor } from '@solidjs/testing-library';
 import { createSignal } from 'solid-js';
-import { Field, PinInput, usePinInput } from '../src';
+import { Field, PinInput, usePinInput, FieldErrorText } from '../src';
 
 function ControlledPinInput() {
   const [value, setValue] = createSignal<string[]>([]);
@@ -77,7 +77,7 @@ test('keeps invalid, disabled, and read-only Field state on visible inputs', () 
           <PinInput.Inputs />
         </PinInput.Control>
       </PinInput>
-      <Field.ErrorText>Enter a valid code.</Field.ErrorText>
+      <FieldErrorText>Enter a valid code.</FieldErrorText>
     </Field>
   ));
 

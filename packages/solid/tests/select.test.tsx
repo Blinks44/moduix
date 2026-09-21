@@ -1,8 +1,7 @@
 import { createListCollection } from '@ark-ui/solid/collection';
-import { Field } from '@ark-ui/solid/field';
 import { expect, test } from '@rstest/core';
 import { fireEvent, render, screen, waitFor } from '@solidjs/testing-library';
-import { Select, useSelect, useSelectContext } from '../src';
+import { Field, Select, useSelect, useSelectContext } from '../src';
 
 const fruits = createListCollection({
   items: [
@@ -115,9 +114,9 @@ test('portals popup content by default and forwards root and field refs', () => 
 
 test('inherits Field state in the trigger and explicit native form control', () => {
   const { container } = render(() => (
-    <Field.Root disabled invalid required>
+    <Field disabled invalid required>
       <FruitSelect defaultValue={['apple']} />
-    </Field.Root>
+    </Field>
   ));
 
   const trigger = screen.getByRole('combobox', { name: 'Fruit' });

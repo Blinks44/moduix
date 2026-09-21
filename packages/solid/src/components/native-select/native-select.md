@@ -1,6 +1,6 @@
 # Native Select (Solid)
 
-`NativeSelect` is the native Solid wrapper around Ark UI's `Field.Select`. It preserves native
+`NativeSelect` is the native Solid wrapper around Ark UI's `FieldSelect`. It preserves native
 select values, options, form behavior, field state, styling hooks, and the `NativeSelect.Root`
 namespace alias.
 

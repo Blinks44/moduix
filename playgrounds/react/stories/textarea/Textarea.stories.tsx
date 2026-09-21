@@ -1,6 +1,6 @@
 import type { Meta, StoryObj } from '@storybook/react-vite';
 import { useState } from 'react';
-import { Field } from '@/components/field';
+import { Field, FieldErrorText, FieldHelperText, FieldLabel } from '@/components/field';
 import { Textarea } from '@/components/textarea/Textarea';
 import storyStyles from './Textarea.stories.module.css';
 
@@ -21,10 +21,10 @@ export const DefaultPath: Story = {
   render: () => {
     return (
       <Field className={storyStyles.field}>
-        <Field.Label>Comment</Field.Label>
-        <Field.HelperText>
+        <FieldLabel>Comment</FieldLabel>
+        <FieldHelperText>
           Included in the issue summary visible to the whole team.
-        </Field.HelperText>
+        </FieldHelperText>
         <Textarea placeholder="Write a short comment" />
       </Field>
     );
@@ -37,7 +37,7 @@ export const Controlled: Story = {
 
     return (
       <Field className={storyStyles.field}>
-        <Field.Label>Feedback</Field.Label>
+        <FieldLabel>Feedback</FieldLabel>
         <Textarea
           placeholder="Type to control value"
           value={value}
@@ -52,7 +52,7 @@ export const NativeAttributes: Story = {
   render: () => {
     return (
       <Field className={storyStyles.field}>
-        <Field.Label>Notes</Field.Label>
+        <FieldLabel>Notes</FieldLabel>
         <Textarea
           name="notes"
           rows={6}
@@ -69,7 +69,7 @@ export const AutoResize: Story = {
   render: () => {
     return (
       <Field className={storyStyles.field}>
-        <Field.Label>Issue description</Field.Label>
+        <FieldLabel>Issue description</FieldLabel>
         <Textarea
           autoresize
           placeholder="Start typing a longer description. Height grows with content."
@@ -94,13 +94,13 @@ export const FieldValidation: Story = {
   render: () => {
     return (
       <Field className={storyStyles.field} invalid required>
-        <Field.Label>Details</Field.Label>
+        <FieldLabel>Details</FieldLabel>
         <Textarea minLength={10} placeholder="Add at least 10 characters" />
-        <Field.HelperText>
+        <FieldHelperText>
           Include enough detail for the team to reproduce the issue.
-        </Field.HelperText>
-        <Field.ErrorText>Please provide details.</Field.ErrorText>
-        <Field.ErrorText>Enter at least 10 characters.</Field.ErrorText>
+        </FieldHelperText>
+        <FieldErrorText>Please provide details.</FieldErrorText>
+        <FieldErrorText>Enter at least 10 characters.</FieldErrorText>
       </Field>
     );
   },
@@ -110,7 +110,7 @@ export const CustomStyles: Story = {
   render: () => {
     return (
       <Field className={storyStyles.field}>
-        <Field.Label>Notes</Field.Label>
+        <FieldLabel>Notes</FieldLabel>
         <Textarea className={storyStyles.customTextarea} placeholder="Styled textarea" />
       </Field>
     );

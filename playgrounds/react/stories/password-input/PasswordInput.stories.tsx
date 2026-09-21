@@ -1,6 +1,6 @@
 import type { Meta, StoryObj } from '@storybook/react-vite';
 import { useState } from 'react';
-import { Field } from '@/components/field';
+import { Field, FieldErrorText, FieldHelperText } from '@/components/field';
 import { PasswordInput, usePasswordInput } from '@/components/password-input/PasswordInput';
 import styles from './PasswordInput.stories.module.css';
 
@@ -73,8 +73,8 @@ export const WithField: Story = {
           </PasswordInput.VisibilityTrigger>
         </PasswordInput.Control>
       </PasswordInput>
-      <Field.HelperText>Use at least 8 characters.</Field.HelperText>
-      <Field.ErrorText>Password is required.</Field.ErrorText>
+      <FieldHelperText>Use at least 8 characters.</FieldHelperText>
+      <FieldErrorText>Password is required.</FieldErrorText>
     </Field>
   ),
 };

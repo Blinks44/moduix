@@ -15,7 +15,7 @@ import {
   type DateInputDateValue,
   useDateInput,
 } from '@/components/date-input/DateInput';
-import { Field } from '@/components/field';
+import { Field, FieldErrorText } from '@/components/field';
 import storyStyles from './DateInput.stories.module.css';
 
 const meta = {
@@ -144,7 +144,7 @@ export const WithFieldValidation: Story = {
         </DateInputControl>
         <DateInputHiddenInput />
       </DateInput>
-      <Field.ErrorText>Enter a valid deadline.</Field.ErrorText>
+      <FieldErrorText>Enter a valid deadline.</FieldErrorText>
     </Field>
   ),
 };

@@ -1,5 +1,5 @@
 import { Button } from '@moduix/solid/button';
-import { Field } from '@moduix/solid/field';
+import { Field, FieldLabel } from '@moduix/solid/field';
 import { Textarea } from '@moduix/solid/textarea';
 import { createSignal } from 'solid-js';
 import styles from '@/components/examples/textarea/textarea-native-attributes.module.css';
@@ -16,7 +16,7 @@ export default function TextareaNativeAttributesDemo() {
       }}
     >
       <Field>
-        <Field.Label>Notes</Field.Label>
+        <FieldLabel>Notes</FieldLabel>
         <Textarea
           name="notes"
           rows={6}

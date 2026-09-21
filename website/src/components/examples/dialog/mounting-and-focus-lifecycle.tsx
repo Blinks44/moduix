@@ -9,7 +9,7 @@ import {
   DialogTitle,
   DialogTrigger,
 } from '@moduix/react/dialog';
-import { Field } from '@moduix/react/field';
+import { Field, FieldLabel } from '@moduix/react/field';
 import { Input } from '@moduix/react/input';
 import { useRef } from 'react';
 
@@ -34,7 +34,7 @@ export default function DialogLifecycleDemo() {
             <DialogTitle>Edit profile</DialogTitle>
             <DialogBody>
               <Field>
-                <Field.Label>Name</Field.Label>
+                <FieldLabel>Name</FieldLabel>
                 <Input ref={inputRef} />
               </Field>
             </DialogBody>

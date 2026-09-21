@@ -91,22 +91,22 @@ See [Quick Start](/docs/quick-start) for full package setup, registry configurat
 
 ## Anatomy
 
-`Heading` renders one native heading element. `<Heading>` and `<Heading.Root>` are equivalent forms.
+`Heading` renders one native heading element.
 
 ```text
-Heading / Heading.Root
+Heading
 └─ text or inline content
 ```
 
 | Part                       | Role                                                    |
 | -------------------------- | ------------------------------------------------------- |
-| `Heading` / `Heading.Root` | Native semantic heading with moduix typography styling. |
+| `Heading` | Native semantic heading with moduix typography styling. |
 
 ## Composition
 
 `Heading` is a root-only, stateless component, so it does not need a provider or coordinated parts.
-Use `<Heading>` or the equivalent `<Heading.Root>` form, pass `as` for the semantic `h1` through `h6`
-level, and set `size` independently when visual emphasis should differ. Without an explicit `size`,
+Use `<Heading>`, pass `as` for the semantic `h1` through `h6` level, and set `size` independently
+when visual emphasis should differ. Without an explicit `size`,
 the rendered element selects the scale from `2xl` for `h1` through `xs` for `h6`; `weight` defaults to
 `semibold`. Use `asChild` only when a custom semantic heading host must own the rendered DOM node.
 

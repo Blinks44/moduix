@@ -117,9 +117,9 @@ test('portals popup content by default and forwards root and field refs', () => 
 
 test('inherits Field state in the trigger and explicit native form control', () => {
   const { container } = render(
-    <Field.Root disabled invalid required>
+    <Field disabled invalid required>
       <FruitSelect defaultValue={['apple']} />
-    </Field.Root>,
+    </Field>,
   );
 
   const trigger = screen.getByRole('combobox', { name: 'Fruit' });

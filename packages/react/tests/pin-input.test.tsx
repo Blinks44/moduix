@@ -2,7 +2,7 @@ import { expect, test } from '@rstest/core';
 import { render, screen, waitFor } from '@testing-library/react';
 import userEvent from '@testing-library/user-event';
 import { createRef, useState } from 'react';
-import { Field, PinInput, usePinInput } from '../src';
+import { Field, PinInput, usePinInput, FieldErrorText } from '../src';
 
 function ControlledPinInput() {
   const [value, setValue] = useState<string[]>([]);
@@ -66,7 +66,7 @@ test('keeps invalid, disabled, and read-only Field state on visible inputs', () 
           <PinInput.Inputs />
         </PinInput.Control>
       </PinInput>
-      <Field.ErrorText>Enter a valid code.</Field.ErrorText>
+      <FieldErrorText>Enter a valid code.</FieldErrorText>
     </Field>,
   );
 

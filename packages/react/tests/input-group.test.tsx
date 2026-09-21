@@ -1,11 +1,11 @@
 import { expect, test } from '@rstest/core';
 import { render, screen } from '@testing-library/react';
-import { Field, InputGroup } from '../src';
+import { Field, InputGroup, FieldLabel } from '../src';
 
 test('keeps the Input slot that drives grouped field state styling', () => {
   render(
     <Field disabled id="workspace" invalid readOnly>
-      <Field.Label>Workspace</Field.Label>
+      <FieldLabel>Workspace</FieldLabel>
       <InputGroup
         className="consumer-root"
         data-part="consumer-part"

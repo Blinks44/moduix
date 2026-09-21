@@ -13,8 +13,8 @@ keyboard behavior, autofill, form reset, and platform pickers.
 
 ## Upstream model to preserve
 
-`NativeSelect` wraps Ark `Field.Select` directly. The rendered select remains the form control and
-inherits disabled, invalid, required, ids, and description relationships from `Field.Root`.
+`NativeSelect` wraps Ark `FieldSelect` directly. The rendered select remains the form control and
+inherits disabled, invalid, required, ids, and description relationships from `Field`.
 Chakra's Native Select informs the visual relationship with the custom `Select`, but moduix keeps a
 single-component public API.
 
@@ -68,12 +68,12 @@ export function Example() {
 }
 ```
 
-Compose it inside `Field.Root` when the control needs a visible label, helper text, error text, or
+Compose it inside `Field` when the control needs a visible label, helper text, error text, or
 shared invalid/disabled/required state.
 
 ## Upstream feature coverage
 
-- Ark `Field.Select`: preserved as the rendered control.
+- Ark `FieldSelect`: preserved as the rendered control.
 - Native form submission, autofill, reset, keyboard behavior, and platform picker: preserved.
 - Field context state and accessible description ids: preserved.
 - Chakra multipart API: intentionally reduced to one public component.
@@ -82,8 +82,8 @@ shared invalid/disabled/required state.
 ## Accessibility and state
 
 - The forwarded ref targets the real `HTMLSelectElement`.
-- Use `Field.Label`, a native `<label>`, `aria-label`, or `aria-labelledby` for an accessible name.
-- `Field.Root` supplies ids, `aria-describedby`, `aria-invalid`, and native state props.
+- Use `FieldLabel`, a native `<label>`, `aria-label`, or `aria-labelledby` for an accessible name.
+- `Field` supplies ids, `aria-describedby`, `aria-invalid`, and native state props.
 - Native options, selection events, required validation, and disabled behavior remain unchanged.
 - The component does not implement read-only behavior because HTML select has no `readonly`
   attribute.
@@ -116,7 +116,7 @@ The single-select control defaults to `--moduix-size-md`; multi-select controls 
 
 ## Agent notes
 
-- Keep one real `Field.Select` without local state.
+- Keep one real `FieldSelect` without local state.
 - Do not replace native `onChange(event)` with Ark detail objects.
 - Keep visual control variables aligned with `Select`.
 - Keep the indicator inside the shared `--moduix-select-action-*` spacing contract.

@@ -41,9 +41,9 @@ and `Drawer` for a panel attached to an edge of the viewport with gesture or sna
 ## Basic
 
 
-Keep the Ark UI parts explicit. `FloatingPanel.Positioner` applies the position and size calculated
-by Ark, while `FloatingPanel.Content` is the visible window surface. The header acts as the drag
-handle, and `ResizeTriggerGroup` adds the resize handles around the panel.
+Keep the Ark UI parts explicit. `FloatingPanelPositioner` applies the position and size calculated
+by Ark, while `FloatingPanelContent` is the visible window surface. The header acts as the drag
+handle, and `FloatingPanelResizeTriggerGroup` adds the resize handles around the panel.
 
 <ExampleFrame variant="component">
   <FloatingPanelBasic />
@@ -104,55 +104,55 @@ See [Quick Start](/docs/quick-start) for full package setup, registry configurat
 ## Anatomy
 
 ```text
-FloatingPanel / FloatingPanel.Root
-├─ FloatingPanel.Trigger
+FloatingPanel
+├─ FloatingPanelTrigger
 └─ Overlay subtree (automatically portalled)
-   └─ FloatingPanel.Positioner
-      └─ FloatingPanel.Content
-         ├─ FloatingPanel.DragTrigger
-         │  └─ FloatingPanel.Header
-         │     ├─ FloatingPanel.Title
-         │     │  └─ FloatingPanel.DragIndicator (optional)
-         │     └─ FloatingPanel.Control
-         │        ├─ FloatingPanel.StageTrigger
-         │        └─ FloatingPanel.CloseTrigger / CloseIcon
-         ├─ FloatingPanel.Body
-         ├─ FloatingPanel.Footer
-         └─ FloatingPanel.ResizeTrigger / ResizeTriggerGroup
+   └─ FloatingPanelPositioner
+      └─ FloatingPanelContent
+         ├─ FloatingPanelDragTrigger
+         │  └─ FloatingPanelHeader
+         │     ├─ FloatingPanelTitle
+         │     │  └─ FloatingPanelDragIndicator (optional)
+         │     └─ FloatingPanelControl
+         │        ├─ FloatingPanelStageTrigger
+         │        └─ FloatingPanelCloseTrigger / FloatingPanelCloseIcon
+         ├─ FloatingPanelBody
+         ├─ FloatingPanelFooter
+         └─ FloatingPanelResizeTrigger / FloatingPanelResizeTriggerGroup
 ```
 
 | Part                                       | Role                                                                    |
 | ------------------------------------------ | ----------------------------------------------------------------------- |
-| `FloatingPanel` / `FloatingPanel.Root`     | Owns open, position, size, drag, resize, and stage state.               |
-| `FloatingPanel.Trigger`                    | Opens the panel or toggles its open state.                               |
-| `FloatingPanel.Positioner`                 | Applies Ark's calculated position, size, transform, and z-index values. |
-| `FloatingPanel.Content`                    | Visible surface of the floating window.                                 |
-| `FloatingPanel.DragTrigger`                | Defines the draggable area, usually the header.                          |
-| `FloatingPanel.Header`                     | Ark header part and wrapper for the drag handle.                         |
-| `FloatingPanel.Title`                      | Gives the panel an accessible name.                                     |
-| `FloatingPanel.Control`                    | Groups stage and close controls.                                         |
-| `FloatingPanel.StageTrigger`               | Switches between `default`, `minimized`, and `maximized`.               |
-| `FloatingPanel.CloseTrigger` / `CloseIcon` | Closes the panel.                                                        |
-| `FloatingPanel.Body`                       | Main scrollable content area.                                           |
-| `FloatingPanel.Footer`                     | Optional bottom area for actions or status text.                         |
-| `FloatingPanel.ResizeTrigger`              | Resize handle for one Ark axis.                                         |
-| `FloatingPanel.ResizeTriggerGroup`         | Renders all or selected resize handles.                                 |
-| `FloatingPanel.RootProvider`               | Connects parts to state from `FloatingPanel.useFloatingPanel()`.        |
+| `FloatingPanel`                           | Owns open, position, size, drag, resize, and stage state.               |
+| `FloatingPanelTrigger`                    | Opens the panel or toggles its open state.                               |
+| `FloatingPanelPositioner`                 | Applies Ark's calculated position, size, transform, and z-index values. |
+| `FloatingPanelContent`                    | Visible surface of the floating window.                                 |
+| `FloatingPanelDragTrigger`                | Defines the draggable area, usually the header.                          |
+| `FloatingPanelHeader`                     | Ark header part and wrapper for the drag handle.                         |
+| `FloatingPanelTitle`                      | Gives the panel an accessible name.                                     |
+| `FloatingPanelControl`                    | Groups stage and close controls.                                         |
+| `FloatingPanelStageTrigger`               | Switches between `default`, `minimized`, and `maximized`.               |
+| `FloatingPanelCloseTrigger` / `FloatingPanelCloseIcon` | Closes the panel.                                             |
+| `FloatingPanelBody`                       | Main scrollable content area.                                           |
+| `FloatingPanelFooter`                     | Optional bottom area for actions or status text.                         |
+| `FloatingPanelResizeTrigger`              | Resize handle for one Ark axis.                                         |
+| `FloatingPanelResizeTriggerGroup`         | Renders all or selected resize handles.                                 |
+| `FloatingPanelRootProvider`               | Connects parts to state from `useFloatingPanel()`.        |
 
-`FloatingPanel.DragIndicator`, `FloatingPanel.CloseIcon`, `FloatingPanel.Footer`, and
-`FloatingPanel.ResizeTriggerGroup` are moduix helpers. They complement Ark's structural parts
+`FloatingPanelDragIndicator`, `FloatingPanelCloseIcon`, `FloatingPanelFooter`, and
+`FloatingPanelResizeTriggerGroup` are moduix helpers. They complement Ark's structural parts
 without replacing them.
 
 ## Composition
 
-Use `FloatingPanel` for local state. Keep `Positioner` and `Content` explicit, wrap the header in
-`DragTrigger`, and include `Title` for an accessible name. `Positioner` is portalled by default;
+Use `FloatingPanel` for local state. Keep `FloatingPanelPositioner` and `FloatingPanelContent` explicit, wrap the header in
+`FloatingPanelDragTrigger`, and include `FloatingPanelTitle` for an accessible name. `FloatingPanelPositioner` is portalled by default;
 set `portalled={false}` or pass `portalRef` when the panel belongs in another container.
 
-When state must live outside the panel tree, create it with `FloatingPanel.useFloatingPanel()` and
-pass it to `RootProvider`. Do not render `FloatingPanel` and `RootProvider` for the same state
-instance. `position` and `size` are controlled independently. Use `ResizeTriggerGroup axes` or
-individual `ResizeTrigger` parts only when the default set of handles is not appropriate. With
+When state must live outside the panel tree, create it with `useFloatingPanel()` and
+pass it to `FloatingPanelRootProvider`. Do not render `FloatingPanel` and `FloatingPanelRootProvider` for the same state
+instance. `position` and `size` are controlled independently. Use `FloatingPanelResizeTriggerGroup axes` or
+individual `FloatingPanelResizeTrigger` parts only when the default set of handles is not appropriate. With
 `asChild`, pass one semantic child; Solid uses the render-function form of this prop.
 
 ## Examples
@@ -217,7 +217,7 @@ it is being dragged.
 
 ### Context
 
-Use `FloatingPanel.Context` or `useFloatingPanelContext` to read panel state and methods inside the
+Use `FloatingPanelContext` or `useFloatingPanelContext` to read panel state and methods inside the
 component tree. In Solid, the context value is an accessor.
 
 <ExampleFrame variant="component">
@@ -322,7 +322,7 @@ Control `size` when the surrounding UI needs to store or display the panel's cur
 
 ### Escape Dismiss
 
-`closeOnEscape` is enabled by default. Add `autoFocus` to `Content` when Escape should work
+`closeOnEscape` is enabled by default. Add `autoFocus` to `FloatingPanelContent` when Escape should work
 immediately after the non-modal panel opens.
 
 <ExampleFrame variant="component">
@@ -374,9 +374,9 @@ exit animation.
 </div>
 </ExampleCode>
 
-### RootProvider
+### FloatingPanelRootProvider
 
-Use `FloatingPanel.useFloatingPanel` with `RootProvider` when controls outside the panel tree need
+Use `useFloatingPanel` with `FloatingPanelRootProvider` when controls outside the panel tree need
 methods such as `minimize`, `maximize`, and `setOpen`. The Solid store is read through an accessor.
 
 <ExampleFrame variant="component">
@@ -403,7 +403,7 @@ methods such as `minimize`, `maximize`, and `setOpen`. The Solid store is read t
 
 ### Advanced Customization
 
-Use individual `ResizeTrigger` parts when each resize axis needs its own placement or styling.
+Use individual `FloatingPanelResizeTrigger` parts when each resize axis needs its own placement or styling.
 
 <ExampleFrame variant="component">
   <FloatingPanelAdvancedCustomization />
@@ -452,6 +452,6 @@ Ark parts retain `data-scope="floating-panel"` and their `data-part` values. mod
 `data-disabled`, `data-stage`, `data-topmost`, `data-behind`, `data-minimized`, `data-maximized`,
 `data-staged`, and `data-axis` for state-aware styling on the relevant parts.
 
-`Positioner` exposes `--width`, `--height`, `--x`, `--y`, `--reference-width`, `--reference-height`,
+`FloatingPanelPositioner` exposes `--width`, `--height`, `--x`, `--y`, `--reference-width`, `--reference-height`,
 `--available-width`, `--available-height`, `--z-index`, and `--transform-origin`. Keep sizing and
 transform logic in Ark's runtime variables instead of duplicating measurements in application code.

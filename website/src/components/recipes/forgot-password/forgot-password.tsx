@@ -7,7 +7,7 @@ import {
   CardHeader,
   CardTitle,
 } from '@moduix/react/card';
-import { Field } from '@moduix/react/field';
+import { Field, FieldLabel } from '@moduix/react/field';
 import { Input } from '@moduix/react/input';
 import type { FormEventHandler } from 'react';
 import styles from './forgot-password-form.module.css';
@@ -23,7 +23,7 @@ export function ForgotPassword({ onSubmit }: { onSubmit?: FormEventHandler<HTMLF
       <CardBody>
         <form className={styles.stack} onSubmit={onSubmit}>
           <Field required>
-            <Field.Label>Email address</Field.Label>
+            <FieldLabel>Email address</FieldLabel>
             <Input name="email" type="email" autoComplete="email" placeholder="you@example.com" />
           </Field>
 

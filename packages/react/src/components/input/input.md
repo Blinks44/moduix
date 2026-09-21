@@ -2,14 +2,14 @@
 
 Upstream review (accessed 2026-08-11):
 
-- Ark UI: no dedicated Input primitive; follows https://ark-ui.com/docs/components/field and `Field.Input`
+- Ark UI: no dedicated Input primitive; follows https://ark-ui.com/docs/components/field and `FieldInput`
 - Ark UI composition: https://ark-ui.com/docs/guides/composition
 - Ark UI styling: https://ark-ui.com/docs/guides/styling
 - Ark UI ref: https://ark-ui.com/docs/guides/ref
 - Chakra UI Input: https://chakra-ui.com/docs/components/input
 - shadcn/ui Input: https://ui.shadcn.com/docs/components/input
 
-Ark UI has no standalone `Input` component page. The wrapper uses Ark `Field.Input` as its
+Ark UI has no standalone `Input` component page. The wrapper uses Ark `FieldInput` as its
 behavioral and accessibility model.
 
 | Source          | Useful difference                                        | moduix decision                                                                                |
@@ -26,16 +26,16 @@ and error text when rendered inside `Field`.
 
 ## Upstream model to preserve
 
-- Render `Field.Input` from `@ark-ui/react/field`.
+- Render `FieldInput` from `@ark-ui/react/field`.
 - Preserve Ark `asChild` composition and native input props.
-- Preserve `Field.Root` and `Fieldset.Root` state propagation.
+- Preserve `Field` and `Fieldset` state propagation.
 - Keep `data-scope="field"` and `data-part="input"` on the rendered control.
 - Use native `onChange(event)`, not a remapped value callback.
 
 ## Current behavior contract
 
-- Renders one `Field.Input` and forwards the ref to its `HTMLInputElement`.
-- Accepts Ark `Field.Input` props except native `size`, which is renamed to `htmlSize`; when it is
+- Renders one `FieldInput` and forwards the ref to its `HTMLInputElement`.
+- Accepts Ark `FieldInput` props except native `size`, which is renamed to `htmlSize`; when it is
   provided, the default width follows the native character-based input width.
 - Adds visual `size="xs" | "sm" | "md" | "lg" | "xl"` with `md` as the default.
 - Exposes `Input.Root` as the same root component for namespace consistency.
@@ -46,7 +46,7 @@ and error text when rendered inside `Field`.
 ## Anatomy and exported parts
 
 ```text
-Field.Root (optional)
+Field (optional)
 └─ Input / Input.Root
 ```
 
@@ -61,9 +61,9 @@ import { Input } from '@moduix/react/input';
 export function EmailField() {
   return (
     <Field required>
-      <Field.Label>Email</Field.Label>
+      <FieldLabel>Email</FieldLabel>
       <Input name="email" type="email" />
-      <Field.HelperText>Used for account notifications.</Field.HelperText>
+      <FieldHelperText>Used for account notifications.</FieldHelperText>
     </Field>
   );
 }
@@ -77,9 +77,9 @@ edit, submit, and cancel controls.
 
 ## Upstream feature coverage
 
-- Field input: supported through `Field.Input`.
-- Disabled, invalid, read-only, and required state: inherited from `Field.Root`; disabled also
-  inherits from `Fieldset.Root`.
+- Field input: supported through `FieldInput`.
+- Disabled, invalid, read-only, and required state: inherited from `Field`; disabled also
+  inherits from `Fieldset`.
 - Native controlled/uncontrolled input: supported with `value`, `defaultValue`, and
   `onChange(event)`.
 - Custom control: supported through `asChild` when one semantic input element must own the DOM
@@ -121,14 +121,14 @@ The default `md` input uses `--moduix-size-md` with `--moduix-spacing-1` block p
 
 - moduix adds visual sizes, `htmlSize`, design tokens, and `data-slot`.
 - `Input` is exported as a standalone wrapper even though its upstream implementation is
-  `Field.Input`.
+  `FieldInput`.
 - `Input.Root` is an alias of `Input` for the root-only namespace pattern used across moduix.
 - Legacy value adapters, render shims, callback styling props, and duplicated field-state
   attributes are intentionally not part of the current contract.
 
 ## Agent notes
 
-- Keep the wrapper as one Ark `Field.Input`; do not add local value or validation state.
+- Keep the wrapper as one Ark `FieldInput`; do not add local value or validation state.
 - Keep controlled examples on native `onChange(event)`.
 - Use `InputGroup` for inline decoration and actions.
 - Keep inline edit/read-only examples on `Editable`, not `Input`.
@@ -146,5 +146,5 @@ The default `md` input uses `--moduix-size-md` with `--moduix-spacing-1` block p
   refreshed docs examples for accessible standalone inputs.
 - 2026-06-22: Documented `Input` as plain native entry only; preview/edit behavior belongs to
   `Editable`.
-- 2026-06-19: Migrated from legacy Input to Ark UI `Field.Input`; added `asChild` and Ark field
+- 2026-06-19: Migrated from legacy Input to Ark UI `FieldInput`; added `asChild` and Ark field
   anatomy/state hooks; removed compatibility adapters and duplicated state contracts.

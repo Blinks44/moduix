@@ -1,4 +1,4 @@
-import { Field } from '@moduix/solid/field';
+import { Field, FieldErrorText } from '@moduix/solid/field';
 import { PasswordInput } from '@moduix/solid/password-input';
 import { createSignal } from 'solid-js';
 import styles from '@/components/examples/password-input/password-input-with-validation.module.css';
@@ -23,7 +23,7 @@ export default function PasswordInputValidationDemo() {
           </PasswordInput.VisibilityTrigger>
         </PasswordInput.Control>
       </PasswordInput>
-      <Field.ErrorText>Password must be at least 8 characters.</Field.ErrorText>
+      <FieldErrorText>Password must be at least 8 characters.</FieldErrorText>
     </Field>
   );
 }

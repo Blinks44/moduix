@@ -16,7 +16,7 @@ import nativeSelectSolidMultiple from '../../../snippets/native-select/solid/mul
 
 ## Référence de l’API
 
-`NativeSelect` est un composant stylisé basé sur [`Field.Select` d’Ark UI](https://ark-ui.com/docs/components/field).
+`NativeSelect` est un composant stylisé basé sur [`FieldSelect` d’Ark UI](https://ark-ui.com/docs/components/field).
 Il rend un véritable élément HTML `<select>` : le navigateur reste donc responsable de l’affichage des options,
 de la navigation au clavier, de la soumission et de la réinitialisation du formulaire, du remplissage automatique
 et de la validation.
@@ -114,7 +114,7 @@ NativeSelect / NativeSelect.Root
 En React, construisez un select non contrôlé avec la prop native `defaultValue`. En Solid, transmettez
 l’attribut natif `selected` à l’`<option>` qui doit être présélectionnée : une prop `defaultValue` sur le
 `NativeSelect` Solid n’a aucun effet. Utilisez `value` avec `onChange` lorsque l’état de l’application
-possède la valeur courante. Placez `NativeSelect` dans `Field.Root` lorsque le libellé, le texte associé, la validation ou
+possède la valeur courante. Placez `NativeSelect` dans `Field` lorsque le libellé, le texte associé, la validation ou
 l’état `disabled` doivent être partagés avec le contrôle. Les éléments de `Field` relient ce contenu au select natif, tandis
 que le navigateur continue de gérer la sélection des options. Avec `multiple` ou `size > 1`, le navigateur gère l’interaction
 avec la liste et l’indicateur décoratif est masqué. `asChild` peut remplacer le select rendu, mais l’enfant doit rester un seul
@@ -159,7 +159,7 @@ natif et transmettez-la via `value`.
 
 ### Champ de formulaire
 
-Utilisez `Field.Root` lorsque le select a besoin d’un libellé visible, d’un texte d’aide, d’un message d’erreur ou d’un état
+Utilisez `Field` lorsque le select a besoin d’un libellé visible, d’un texte d’aide, d’un message d’erreur ou d’un état
 de champ partagé. `Field` relie ces éléments au contrôle natif.
 
 <ExampleFrame variant="component">

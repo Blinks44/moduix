@@ -1,5 +1,15 @@
-import { Field } from '@moduix/solid/field';
-import { FileUpload } from '@moduix/solid/file-upload';
+import { Field, FieldErrorText, FieldHelperText } from '@moduix/solid/field';
+import {
+  FileUpload,
+  FileUploadContext,
+  FileUploadHiddenInput,
+  FileUploadItem,
+  FileUploadItemDeleteTrigger,
+  FileUploadItemGroup,
+  FileUploadItemName,
+  FileUploadLabel,
+  FileUploadTrigger,
+} from '@moduix/solid/file-upload';
 import { For } from 'solid-js';
 import styles from '@/components/examples/file-upload/file-upload-with-field.module.css';
 
@@ -8,28 +18,28 @@ const maxFiles = 3;
 
 export default function FileUploadWithFieldDemo() {
   return (
-    <Field.Root class={styles.root} required>
+    <Field class={styles.root} required>
       <FileUpload name={name} maxFiles={maxFiles}>
-        <FileUpload.Label>Required attachments</FileUpload.Label>
-        <FileUpload.Trigger>Choose files</FileUpload.Trigger>
-        <FileUpload.ItemGroup>
-          <FileUpload.Context>
+        <FileUploadLabel>Required attachments</FileUploadLabel>
+        <FileUploadTrigger>Choose files</FileUploadTrigger>
+        <FileUploadItemGroup>
+          <FileUploadContext>
             {(fileUpload) => (
               <For each={fileUpload().acceptedFiles}>
                 {(file) => (
-                  <FileUpload.Item file={file}>
-                    <FileUpload.ItemName />
-                    <FileUpload.ItemDeleteTrigger aria-label={`Remove ${file.name}`} />
-                  </FileUpload.Item>
+                  <FileUploadItem file={file}>
+                    <FileUploadItemName />
+                    <FileUploadItemDeleteTrigger aria-label={`Remove ${file.name}`} />
+                  </FileUploadItem>
                 )}
               </For>
             )}
-          </FileUpload.Context>
-        </FileUpload.ItemGroup>
-        <FileUpload.HiddenInput />
+          </FileUploadContext>
+        </FileUploadItemGroup>
+        <FileUploadHiddenInput />
       </FileUpload>
-      <Field.HelperText>Upload up to three files.</Field.HelperText>
-      <Field.ErrorText>Upload at least one file.</Field.ErrorText>
-    </Field.Root>
+      <FieldHelperText>Upload up to three files.</FieldHelperText>
+      <FieldErrorText>Upload at least one file.</FieldErrorText>
+    </Field>
   );
 }

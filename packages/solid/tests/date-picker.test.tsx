@@ -1,5 +1,4 @@
 import { type DateValue } from '@ark-ui/solid/date-picker';
-import { Fieldset } from '@ark-ui/solid/fieldset';
 import { CalendarDate } from '@internationalized/date';
 import { expect, test } from '@rstest/core';
 import { fireEvent, render, screen, waitFor } from '@solidjs/testing-library';
@@ -7,6 +6,7 @@ import { createSignal, For } from 'solid-js';
 import {
   DatePicker,
   Field,
+  Fieldset,
   useDatePicker,
   DatePickerRootProvider,
   DatePickerContext,
@@ -126,12 +126,12 @@ test('keeps Field state on its editable input', () => {
           <DatePickerField />
         </DatePicker>
       </Field>
-      <Fieldset.Root invalid>
+      <Fieldset invalid>
         <DatePicker>
           <DatePickerLabel>Fieldset date</DatePickerLabel>
           <DatePickerField />
         </DatePicker>
-      </Fieldset.Root>
+      </Fieldset>
     </>
   ));
 

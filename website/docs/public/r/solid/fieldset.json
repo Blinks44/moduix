@@ -3,12 +3,17 @@
   "name": "fieldset",
   "title": "Fieldset",
   "description": "moduix Solid Fieldset component.",
-  "dependencies": ["@ark-ui/solid", "clsx"],
-  "registryDependencies": ["@moduix-solid/foundation"],
+  "dependencies": [
+    "@ark-ui/solid",
+    "clsx"
+  ],
+  "registryDependencies": [
+    "@moduix-solid/foundation"
+  ],
   "files": [
     {
       "path": "src/components/fieldset/Fieldset.tsx",
-      "content": "import {\n  Fieldset as FieldsetPrimitive,\n  useFieldset,\n  useFieldsetContext,\n} from '@ark-ui/solid/fieldset';\nimport { clsx } from 'clsx';\nimport type { ComponentProps } from 'solid-js';\nimport { splitProps } from 'solid-js';\nimport styles from './Fieldset.module.css';\n\nfunction FieldsetRoot(props: ComponentProps<typeof FieldsetPrimitive.Root>) {\n  const [local, others] = splitProps(props, ['asChild', 'class']);\n\n  return (\n    <FieldsetPrimitive.Root\n      asChild={local.asChild}\n      {...others}\n      data-slot=\"fieldset-root\"\n      class={clsx(styles.root, local.class)}\n    />\n  );\n}\n\nfunction FieldsetRootProvider(props: ComponentProps<typeof FieldsetPrimitive.RootProvider>) {\n  const [local, others] = splitProps(props, ['asChild', 'class']);\n\n  return (\n    <FieldsetPrimitive.RootProvider\n      asChild={local.asChild}\n      {...others}\n      data-slot=\"fieldset-root-provider\"\n      class={clsx(styles.root, local.class)}\n    />\n  );\n}\n\nfunction FieldsetLegend(props: ComponentProps<typeof FieldsetPrimitive.Legend>) {\n  const [local, others] = splitProps(props, ['asChild', 'class']);\n\n  return (\n    <FieldsetPrimitive.Legend\n      asChild={local.asChild}\n      {...others}\n      data-slot=\"fieldset-legend\"\n      class={clsx(styles.legend, local.class)}\n    />\n  );\n}\n\nfunction FieldsetHelperText(props: ComponentProps<typeof FieldsetPrimitive.HelperText>) {\n  const [local, others] = splitProps(props, ['asChild', 'class']);\n\n  return (\n    <FieldsetPrimitive.HelperText\n      asChild={local.asChild}\n      {...others}\n      data-slot=\"fieldset-helper-text\"\n      class={clsx(styles.helperText, local.class)}\n    />\n  );\n}\n\nfunction FieldsetErrorText(props: ComponentProps<typeof FieldsetPrimitive.ErrorText>) {\n  const [local, others] = splitProps(props, ['asChild', 'class']);\n\n  return (\n    <FieldsetPrimitive.ErrorText\n      asChild={local.asChild}\n      {...others}\n      data-slot=\"fieldset-error-text\"\n      class={clsx(styles.errorText, local.class)}\n    />\n  );\n}\n\nconst Fieldset = Object.assign(FieldsetRoot, {\n  Root: FieldsetRoot,\n  RootProvider: FieldsetRootProvider,\n  Context: FieldsetPrimitive.Context,\n  Legend: FieldsetLegend,\n  HelperText: FieldsetHelperText,\n  ErrorText: FieldsetErrorText,\n});\n\nexport { Fieldset, useFieldset, useFieldsetContext };",
+      "content": "import {\n  Fieldset as FieldsetPrimitive,\n  useFieldset,\n  useFieldsetContext,\n} from '@ark-ui/solid/fieldset';\nimport { clsx } from 'clsx';\nimport type { ComponentProps } from 'solid-js';\nimport { splitProps } from 'solid-js';\nimport styles from './Fieldset.module.css';\n\nfunction Fieldset(props: ComponentProps<typeof FieldsetPrimitive.Root>) {\n  const [local, others] = splitProps(props, ['asChild', 'class']);\n\n  return (\n    <FieldsetPrimitive.Root\n      asChild={local.asChild}\n      {...others}\n      data-slot=\"fieldset-root\"\n      class={clsx(styles.root, local.class)}\n    />\n  );\n}\n\nfunction FieldsetRootProvider(props: ComponentProps<typeof FieldsetPrimitive.RootProvider>) {\n  const [local, others] = splitProps(props, ['asChild', 'class']);\n\n  return (\n    <FieldsetPrimitive.RootProvider\n      asChild={local.asChild}\n      {...others}\n      data-slot=\"fieldset-root-provider\"\n      class={clsx(styles.root, local.class)}\n    />\n  );\n}\n\nfunction FieldsetLegend(props: ComponentProps<typeof FieldsetPrimitive.Legend>) {\n  const [local, others] = splitProps(props, ['asChild', 'class']);\n\n  return (\n    <FieldsetPrimitive.Legend\n      asChild={local.asChild}\n      {...others}\n      data-slot=\"fieldset-legend\"\n      class={clsx(styles.legend, local.class)}\n    />\n  );\n}\n\nfunction FieldsetHelperText(props: ComponentProps<typeof FieldsetPrimitive.HelperText>) {\n  const [local, others] = splitProps(props, ['asChild', 'class']);\n\n  return (\n    <FieldsetPrimitive.HelperText\n      asChild={local.asChild}\n      {...others}\n      data-slot=\"fieldset-helper-text\"\n      class={clsx(styles.helperText, local.class)}\n    />\n  );\n}\n\nfunction FieldsetErrorText(props: ComponentProps<typeof FieldsetPrimitive.ErrorText>) {\n  const [local, others] = splitProps(props, ['asChild', 'class']);\n\n  return (\n    <FieldsetPrimitive.ErrorText\n      asChild={local.asChild}\n      {...others}\n      data-slot=\"fieldset-error-text\"\n      class={clsx(styles.errorText, local.class)}\n    />\n  );\n}\n\nconst FieldsetContext = FieldsetPrimitive.Context;\n\nexport {\n  Fieldset,\n  FieldsetContext,\n  FieldsetErrorText,\n  FieldsetHelperText,\n  FieldsetLegend,\n  FieldsetRootProvider,\n  useFieldset,\n  useFieldsetContext,\n};\n",
       "type": "registry:component",
       "target": "@components/ui/fieldset/Fieldset.tsx"
     },
@@ -20,7 +25,7 @@
     },
     {
       "path": "src/components/fieldset/index.ts",
-      "content": "export { Fieldset, useFieldset, useFieldsetContext } from './Fieldset.js';",
+      "content": "export {\n  Fieldset,\n  FieldsetContext,\n  FieldsetErrorText,\n  FieldsetHelperText,\n  FieldsetLegend,\n  FieldsetRootProvider,\n  useFieldset,\n  useFieldsetContext,\n} from './Fieldset.js';\n",
       "type": "registry:component",
       "target": "@components/ui/fieldset/index.ts"
     }

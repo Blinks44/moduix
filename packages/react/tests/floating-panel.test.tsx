@@ -2,24 +2,40 @@ import { expect, test } from '@rstest/core';
 import { fireEvent, render, screen, waitFor } from '@testing-library/react';
 import type { ReactNode } from 'react';
 import { useState } from 'react';
-import { FloatingPanel } from '../src';
+import {
+  FloatingPanel,
+  FloatingPanelRootProvider,
+  FloatingPanelTrigger,
+  FloatingPanelPositioner,
+  FloatingPanelContent,
+  FloatingPanelDragTrigger,
+  FloatingPanelHeader,
+  FloatingPanelTitle,
+  FloatingPanelControl,
+  FloatingPanelStageTrigger,
+  FloatingPanelCloseTrigger,
+  FloatingPanelBody,
+  FloatingPanelFooter,
+  FloatingPanelResizeTriggerGroup,
+  useFloatingPanel,
+} from '../src';
 
 function PanelContent({ footer }: { footer?: ReactNode }) {
   return (
-    <FloatingPanel.Positioner>
-      <FloatingPanel.Content>
-        <FloatingPanel.DragTrigger>
-          <FloatingPanel.Header>
-            <FloatingPanel.Title>Inspector</FloatingPanel.Title>
-            <FloatingPanel.Control>
-              <FloatingPanel.StageTrigger stage="minimized" />
-            </FloatingPanel.Control>
-          </FloatingPanel.Header>
-        </FloatingPanel.DragTrigger>
-        <FloatingPanel.Body>Panel content</FloatingPanel.Body>
+    <FloatingPanelPositioner>
+      <FloatingPanelContent>
+        <FloatingPanelDragTrigger>
+          <FloatingPanelHeader>
+            <FloatingPanelTitle>Inspector</FloatingPanelTitle>
+            <FloatingPanelControl>
+              <FloatingPanelStageTrigger stage="minimized" />
+            </FloatingPanelControl>
+          </FloatingPanelHeader>
+        </FloatingPanelDragTrigger>
+        <FloatingPanelBody>Panel content</FloatingPanelBody>
         {footer}
-      </FloatingPanel.Content>
-    </FloatingPanel.Positioner>
+      </FloatingPanelContent>
+    </FloatingPanelPositioner>
   );
 }
 
@@ -27,7 +43,7 @@ test('marks the footer as minimized with the panel', async () => {
   render(
     <FloatingPanel defaultOpen defaultSize={{ width: 360, height: 260 }} portalled={false}>
       <PanelContent
-        footer={<FloatingPanel.Footer data-testid="footer">Status</FloatingPanel.Footer>}
+        footer={<FloatingPanelFooter data-testid="footer">Status</FloatingPanelFooter>}
       />
     </FloatingPanel>,
   );
@@ -49,14 +65,14 @@ test('keeps Ark translations for default stage controls', () => {
         restore: 'Wiederherstellen',
       }}
     >
-      <FloatingPanel.Positioner>
-        <FloatingPanel.Content>
-          <FloatingPanel.Control>
-            <FloatingPanel.StageTrigger stage="minimized" />
-            <FloatingPanel.StageTrigger stage="maximized" />
-          </FloatingPanel.Control>
-        </FloatingPanel.Content>
-      </FloatingPanel.Positioner>
+      <FloatingPanelPositioner>
+        <FloatingPanelContent>
+          <FloatingPanelControl>
+            <FloatingPanelStageTrigger stage="minimized" />
+            <FloatingPanelStageTrigger stage="maximized" />
+          </FloatingPanelControl>
+        </FloatingPanelContent>
+      </FloatingPanelPositioner>
     </FloatingPanel>,
   );
 
@@ -67,9 +83,9 @@ test('keeps Ark translations for default stage controls', () => {
 test('lazily mounts, closes on Escape, and restores focus to its trigger', async () => {
   render(
     <FloatingPanel portalled={false}>
-      <FloatingPanel.Trigger asChild>
+      <FloatingPanelTrigger asChild>
         <button type="button">Open inspector</button>
-      </FloatingPanel.Trigger>
+      </FloatingPanelTrigger>
       <PanelContent />
     </FloatingPanel>,
   );
@@ -102,22 +118,22 @@ test('preserves Ark open-change detail objects in controlled mode', async () => 
           setOpen(detail.open);
         }}
       >
-        <FloatingPanel.Trigger asChild>
+        <FloatingPanelTrigger asChild>
           <button type="button">Open controlled inspector</button>
-        </FloatingPanel.Trigger>
-        <FloatingPanel.Positioner>
-          <FloatingPanel.Content>
-            <FloatingPanel.DragTrigger>
-              <FloatingPanel.Header>
-                <FloatingPanel.Title>Controlled inspector</FloatingPanel.Title>
-                <FloatingPanel.Control>
-                  <FloatingPanel.CloseTrigger>Close inspector</FloatingPanel.CloseTrigger>
-                </FloatingPanel.Control>
-              </FloatingPanel.Header>
-            </FloatingPanel.DragTrigger>
-            <FloatingPanel.Body>Panel content</FloatingPanel.Body>
-          </FloatingPanel.Content>
-        </FloatingPanel.Positioner>
+        </FloatingPanelTrigger>
+        <FloatingPanelPositioner>
+          <FloatingPanelContent>
+            <FloatingPanelDragTrigger>
+              <FloatingPanelHeader>
+                <FloatingPanelTitle>Controlled inspector</FloatingPanelTitle>
+                <FloatingPanelControl>
+                  <FloatingPanelCloseTrigger>Close inspector</FloatingPanelCloseTrigger>
+                </FloatingPanelControl>
+              </FloatingPanelHeader>
+            </FloatingPanelDragTrigger>
+            <FloatingPanelBody>Panel content</FloatingPanelBody>
+          </FloatingPanelContent>
+        </FloatingPanelPositioner>
       </FloatingPanel>
     );
   }
@@ -135,7 +151,7 @@ test('preserves Ark open-change detail objects in controlled mode', async () => 
 
 test('opens a RootProvider panel through the public state hook', async () => {
   function RootProviderFloatingPanel() {
-    const panel = FloatingPanel.useFloatingPanel({
+    const panel = useFloatingPanel({
       defaultSize: { width: 360, height: 260 },
       persistRect: true,
     });
@@ -145,9 +161,9 @@ test('opens a RootProvider panel through the public state hook', async () => {
         <button type="button" onClick={() => panel.setOpen(true)}>
           Open via API
         </button>
-        <FloatingPanel.RootProvider value={panel} portalled={false}>
+        <FloatingPanelRootProvider value={panel} portalled={false}>
           <PanelContent />
-        </FloatingPanel.RootProvider>
+        </FloatingPanelRootProvider>
       </>
     );
   }
@@ -162,11 +178,11 @@ test('opens a RootProvider panel through the public state hook', async () => {
 test('renders only the requested resize handles through ResizeTriggerGroup', () => {
   render(
     <FloatingPanel defaultOpen defaultSize={{ width: 360, height: 260 }} portalled={false}>
-      <FloatingPanel.Positioner>
-        <FloatingPanel.Content>
-          <FloatingPanel.ResizeTriggerGroup axes={['e', 's', 'se']} />
-        </FloatingPanel.Content>
-      </FloatingPanel.Positioner>
+      <FloatingPanelPositioner>
+        <FloatingPanelContent>
+          <FloatingPanelResizeTriggerGroup axes={['e', 's', 'se']} />
+        </FloatingPanelContent>
+      </FloatingPanelPositioner>
     </FloatingPanel>,
   );
 

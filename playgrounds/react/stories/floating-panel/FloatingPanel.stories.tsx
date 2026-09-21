@@ -1,7 +1,25 @@
 import type { Meta, StoryObj } from '@storybook/react-vite';
 import { useState, type ReactNode } from 'react';
 import { Button } from '@/components/button';
-import { FloatingPanel } from '@/components/floating-panel/FloatingPanel';
+import {
+  FloatingPanel,
+  FloatingPanelContext,
+  FloatingPanelRootProvider,
+  FloatingPanelTrigger,
+  FloatingPanelPositioner,
+  FloatingPanelContent,
+  FloatingPanelDragTrigger,
+  FloatingPanelHeader,
+  FloatingPanelTitle,
+  FloatingPanelControl,
+  FloatingPanelStageTrigger,
+  FloatingPanelCloseIcon,
+  FloatingPanelBody,
+  FloatingPanelFooter,
+  FloatingPanelResizeTriggerGroup,
+  FloatingPanelDragIndicator,
+  useFloatingPanel,
+} from '@/components/floating-panel/FloatingPanel';
 import storyStyles from './FloatingPanel.stories.module.css';
 
 const DEFAULT_SIZE = { width: 360, height: 260 };
@@ -34,36 +52,36 @@ function FloatingPanelSurface({
   className?: string;
 }) {
   return (
-    <FloatingPanel.Positioner>
-      <FloatingPanel.Content autoFocus={autoFocus} className={className}>
-        <FloatingPanel.DragTrigger>
-          <FloatingPanel.Header>
-            <FloatingPanel.Title>
-              <FloatingPanel.DragIndicator />
+    <FloatingPanelPositioner>
+      <FloatingPanelContent autoFocus={autoFocus} className={className}>
+        <FloatingPanelDragTrigger>
+          <FloatingPanelHeader>
+            <FloatingPanelTitle>
+              <FloatingPanelDragIndicator />
               <span className={storyStyles.titleText}>{title}</span>
-            </FloatingPanel.Title>
-            <FloatingPanel.Control>
-              <FloatingPanel.StageTrigger stage="minimized" />
-              <FloatingPanel.StageTrigger stage="maximized" />
-              <FloatingPanel.StageTrigger stage="default" />
-              <FloatingPanel.CloseIcon />
-            </FloatingPanel.Control>
-          </FloatingPanel.Header>
-        </FloatingPanel.DragTrigger>
-        <FloatingPanel.Body>{children}</FloatingPanel.Body>
-        {footer ? <FloatingPanel.Footer>{footer}</FloatingPanel.Footer> : null}
-        <FloatingPanel.ResizeTriggerGroup />
-      </FloatingPanel.Content>
-    </FloatingPanel.Positioner>
+            </FloatingPanelTitle>
+            <FloatingPanelControl>
+              <FloatingPanelStageTrigger stage="minimized" />
+              <FloatingPanelStageTrigger stage="maximized" />
+              <FloatingPanelStageTrigger stage="default" />
+              <FloatingPanelCloseIcon />
+            </FloatingPanelControl>
+          </FloatingPanelHeader>
+        </FloatingPanelDragTrigger>
+        <FloatingPanelBody>{children}</FloatingPanelBody>
+        {footer ? <FloatingPanelFooter>{footer}</FloatingPanelFooter> : null}
+        <FloatingPanelResizeTriggerGroup />
+      </FloatingPanelContent>
+    </FloatingPanelPositioner>
   );
 }
 
 export const Basic: Story = {
   render: () => (
     <FloatingPanel defaultSize={DEFAULT_SIZE}>
-      <FloatingPanel.Trigger asChild>
+      <FloatingPanelTrigger asChild>
         <Button>Open panel</Button>
-      </FloatingPanel.Trigger>
+      </FloatingPanelTrigger>
       <FloatingPanelSurface
         title="Inspector"
         footer={<span className={storyStyles.status}>Last synced just now</span>}
@@ -99,9 +117,9 @@ export const ControlledOpen: Story = {
           defaultSize={DEFAULT_SIZE}
           onOpenChange={(details) => setOpen(details.open)}
         >
-          <FloatingPanel.Trigger asChild>
+          <FloatingPanelTrigger asChild>
             <Button>{open ? 'Focus panel' : 'Open controlled panel'}</Button>
-          </FloatingPanel.Trigger>
+          </FloatingPanelTrigger>
           <FloatingPanelSurface title="Controlled open">
             <p>Open state is synchronized with React state.</p>
           </FloatingPanelSurface>
@@ -126,9 +144,9 @@ export const ControlledPosition: Story = {
           position={position}
           onPositionChange={(details) => setPosition(details.position)}
         >
-          <FloatingPanel.Trigger asChild>
+          <FloatingPanelTrigger asChild>
             <Button>Open positioned panel</Button>
-          </FloatingPanel.Trigger>
+          </FloatingPanelTrigger>
           <FloatingPanelSurface title="Controlled position">
             <p>Dragging updates the controlled position object.</p>
           </FloatingPanelSurface>
@@ -149,9 +167,9 @@ export const ControlledSize: Story = {
           {Math.round(size.width)} x {Math.round(size.height)}
         </span>
         <FloatingPanel size={size} onSizeChange={(details) => setSize(details.size)}>
-          <FloatingPanel.Trigger asChild>
+          <FloatingPanelTrigger asChild>
             <Button>Open resizable panel</Button>
-          </FloatingPanel.Trigger>
+          </FloatingPanelTrigger>
           <FloatingPanelSurface title="Controlled size">
             <p>Resize handles update controlled width and height.</p>
           </FloatingPanelSurface>
@@ -165,9 +183,9 @@ export const EscapeDismiss: Story = {
   name: 'Escape Dismiss',
   render: () => (
     <FloatingPanel defaultSize={DEFAULT_SIZE}>
-      <FloatingPanel.Trigger asChild>
+      <FloatingPanelTrigger asChild>
         <Button>Open panel</Button>
-      </FloatingPanel.Trigger>
+      </FloatingPanelTrigger>
       <FloatingPanelSurface
         autoFocus
         title="Escape dismiss"
@@ -192,9 +210,9 @@ export const AnchorPosition: Story = {
         };
       }}
     >
-      <FloatingPanel.Trigger asChild>
+      <FloatingPanelTrigger asChild>
         <Button>Open from trigger</Button>
-      </FloatingPanel.Trigger>
+      </FloatingPanelTrigger>
       <FloatingPanelSurface title="Anchored start">
         <p>The initial panel position is derived from the trigger rect.</p>
       </FloatingPanelSurface>
@@ -206,19 +224,19 @@ export const Context: Story = {
   render: () => (
     <FloatingPanel defaultSize={DEFAULT_SIZE}>
       <div className={storyStyles.stack}>
-        <FloatingPanel.Trigger asChild>
+        <FloatingPanelTrigger asChild>
           <Button>Open context panel</Button>
-        </FloatingPanel.Trigger>
-        <FloatingPanel.Context>
+        </FloatingPanelTrigger>
+        <FloatingPanelContext>
           {(panel) => (
             <span className={storyStyles.status}>
               open: {String(panel.open)}, dragging: {String(panel.dragging)}
             </span>
           )}
-        </FloatingPanel.Context>
+        </FloatingPanelContext>
       </div>
       <FloatingPanelSurface title="Context state">
-        <p>FloatingPanel.Context exposes the panel API to descendants.</p>
+        <p>FloatingPanelContext exposes the panel API to descendants.</p>
       </FloatingPanelSurface>
     </FloatingPanel>
   ),
@@ -227,7 +245,7 @@ export const Context: Story = {
 export const RootProvider: Story = {
   name: 'Root Provider',
   render: () => {
-    const panel = FloatingPanel.useFloatingPanel({ defaultSize: DEFAULT_SIZE, persistRect: true });
+    const panel = useFloatingPanel({ defaultSize: DEFAULT_SIZE, persistRect: true });
 
     return (
       <div className={storyStyles.stack}>
@@ -240,11 +258,11 @@ export const RootProvider: Story = {
             Minimize
           </Button>
         </div>
-        <FloatingPanel.RootProvider value={panel}>
+        <FloatingPanelRootProvider value={panel}>
           <FloatingPanelSurface title="Root provider">
-            <p>FloatingPanel.useFloatingPanel owns state outside the rendered panel tree.</p>
+            <p>useFloatingPanel owns state outside the rendered panel tree.</p>
           </FloatingPanelSurface>
-        </FloatingPanel.RootProvider>
+        </FloatingPanelRootProvider>
       </div>
     );
   },
@@ -264,9 +282,9 @@ export const LazyMount: Story = {
           defaultSize={DEFAULT_SIZE}
           onExitComplete={() => setExits((count) => count + 1)}
         >
-          <FloatingPanel.Trigger asChild>
+          <FloatingPanelTrigger asChild>
             <Button>Open lazy panel</Button>
-          </FloatingPanel.Trigger>
+          </FloatingPanelTrigger>
           <FloatingPanelSurface title="Lazy mounted">
             <p>The panel content mounts on first open and unmounts after exit.</p>
           </FloatingPanelSurface>
@@ -280,9 +298,9 @@ export const CustomStyling: Story = {
   name: 'Custom Styling',
   render: () => (
     <FloatingPanel defaultSize={{ width: 380, height: 240 }}>
-      <FloatingPanel.Trigger asChild>
+      <FloatingPanelTrigger asChild>
         <Button>Open styled panel</Button>
-      </FloatingPanel.Trigger>
+      </FloatingPanelTrigger>
       <FloatingPanelSurface title="Custom styling" className={storyStyles.customPanel}>
         <p>Theme variables change the visual treatment without changing Ark composition.</p>
       </FloatingPanelSurface>

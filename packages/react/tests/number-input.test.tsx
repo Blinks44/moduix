@@ -2,7 +2,7 @@ import { expect, test } from '@rstest/core';
 import { render, screen, waitFor } from '@testing-library/react';
 import userEvent from '@testing-library/user-event';
 import { createRef } from 'react';
-import { Field, NumberInput, useNumberInput } from '../src';
+import { Field, NumberInput, useNumberInput, FieldErrorText } from '../src';
 
 test('renders the Field shortcut and preserves keyboard value changes', async () => {
   const changes: string[] = [];
@@ -43,7 +43,7 @@ test('inherits Field state for disabled, read-only, and invalid number inputs', 
         <NumberInput.Label>Items</NumberInput.Label>
         <NumberInput.Field />
       </NumberInput>
-      <Field.ErrorText>Choose a valid amount.</Field.ErrorText>
+      <FieldErrorText>Choose a valid amount.</FieldErrorText>
     </Field>,
   );
 

@@ -1,5 +1,12 @@
 import { Button } from '@moduix/solid/button';
-import { Editable } from '@moduix/solid/editable';
+import {
+  Editable,
+  EditableArea,
+  EditableControls,
+  EditableInput,
+  EditableLabel,
+  EditablePreview,
+} from '@moduix/solid/editable';
 import { createSignal } from 'solid-js';
 import styles from '@/components/examples/editable/editable-form.module.css';
 
@@ -15,12 +22,12 @@ export default function EditableFormDemo() {
   return (
     <form class={styles.root} onSubmit={handleSubmit}>
       <Editable defaultValue="Layer name" name="title">
-        <Editable.Label>Layer name</Editable.Label>
-        <Editable.Area>
-          <Editable.Input />
-          <Editable.Preview />
-        </Editable.Area>
-        <Editable.Controls />
+        <EditableLabel>Layer name</EditableLabel>
+        <EditableArea>
+          <EditableInput />
+          <EditablePreview />
+        </EditableArea>
+        <EditableControls />
       </Editable>
       <div>
         <output>Submitted: {submitted()}</output>

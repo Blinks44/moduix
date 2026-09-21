@@ -5,7 +5,7 @@ import {
   CheckboxHiddenInput,
   CheckboxLabel,
 } from '@moduix/solid/checkbox';
-import { Fieldset } from '@moduix/solid/fieldset';
+import { Fieldset, FieldsetLegend } from '@moduix/solid/fieldset';
 import { For } from 'solid-js';
 import styles from '@/components/examples/checkbox/checkbox-group-with-fieldset.module.css';
 
@@ -18,7 +18,7 @@ const options = [
 export default function CheckboxGroupFieldsetDemo() {
   return (
     <Fieldset class={styles.root}>
-      <Fieldset.Legend>Frameworks</Fieldset.Legend>
+      <FieldsetLegend>Frameworks</FieldsetLegend>
       <CheckboxGroup defaultValue={['react']} name="frameworks">
         <For each={options}>
           {(option) => (

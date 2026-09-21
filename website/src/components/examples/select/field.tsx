@@ -1,5 +1,5 @@
 import { createListCollection } from '@ark-ui/react/collection';
-import { Field } from '@moduix/react/field';
+import { Field, FieldHelperText } from '@moduix/react/field';
 import { Select } from '@moduix/react/select';
 import styles from '@/components/examples/select/select-field.module.css';
 
@@ -27,7 +27,7 @@ const frameworks = createListCollection({
 
 export default function SelectFieldDemo() {
   return (
-    <Field.Root className={styles.root} required>
+    <Field className={styles.root} required>
       <Select collection={frameworks} name="framework">
         <Select.Label>Framework</Select.Label>
         <Select.Control>
@@ -49,7 +49,7 @@ export default function SelectFieldDemo() {
         </Select.Positioner>
         <Select.HiddenSelect />
       </Select>
-      <Field.HelperText>Pick the framework used by this project.</Field.HelperText>
-    </Field.Root>
+      <FieldHelperText>Pick the framework used by this project.</FieldHelperText>
+    </Field>
   );
 }

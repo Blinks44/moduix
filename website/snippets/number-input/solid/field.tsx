@@ -1,4 +1,4 @@
-import { Field } from '@moduix/solid/field';
+import { Field, FieldErrorText, FieldHelperText } from '@moduix/solid/field';
 import { NumberInput } from '@moduix/solid/number-input';
 import styles from '@/components/examples/number-input/number-input-field.module.css';
 
@@ -9,8 +9,8 @@ export default function NumberInputFieldDemo() {
         <NumberInput.Label>Items</NumberInput.Label>
         <NumberInput.Field />
       </NumberInput>
-      <Field.HelperText>Choose between 1 and 10 items.</Field.HelperText>
-      <Field.ErrorText>Value should be between 1 and 10.</Field.ErrorText>
+      <FieldHelperText>Choose between 1 and 10 items.</FieldHelperText>
+      <FieldErrorText>Value should be between 1 and 10.</FieldErrorText>
     </Field>
   );
 }

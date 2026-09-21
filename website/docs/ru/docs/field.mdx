@@ -46,8 +46,8 @@ import fieldSolidTextarea from '../../../snippets/field/solid/textarea.tsx?raw';
 ## Базовый пример
 
 
-Используйте `Field` как оболочку для одного элемента управления формы. Разместите `Field.Label` перед
-ним, а затем при необходимости добавьте поясняющий текст или сообщение об ошибке.
+Используйте `Field` как оболочку для одного элемента управления формы. Разместите `FieldLabel` перед
+ним, а затем при необходимости добавьте `FieldHelperText` или `FieldErrorText`.
 
 <ExampleFrame variant="component">
   <FieldBasic />
@@ -113,45 +113,45 @@ import fieldSolidTextarea from '../../../snippets/field/solid/textarea.tsx?raw';
 
 ## Анатомия
 
-Публичное пространство имён `Field` сохраняет названия частей из Ark UI. Используйте части `Field.*`
-для явной композиции Ark. В обычных формах лучше выбирать соответствующие компоненты moduix, например
-`Input`, `Textarea` или `NativeSelect`.
+Публичный API `Field` использует плоские имена с префиксом семейства. Для явной композиции Ark
+используйте низкоуровневые части `Field*`. В обычных формах лучше выбирать соответствующие компоненты
+moduix, например `Input`, `Textarea` или `NativeSelect`.
 
 ```text
 Field
-├─ Field.Label
-├─ Field.Input | Field.Textarea | Field.Select | custom control
-├─ Field.HelperText
-├─ Field.ErrorText
-└─ Field.RequiredIndicator
+├─ FieldLabel
+├─ FieldInput | FieldTextarea | FieldSelect | custom control
+├─ FieldHelperText
+├─ FieldErrorText
+└─ FieldRequiredIndicator
 
-Field.RootProvider
+FieldRootProvider
 └─ то же дерево частей, подключённое к состоянию из useField()
 ```
 
 | Часть                     | Назначение                                                                                       |
 | ------------------------ | ------------------------------------------------------------------------------------------------- |
-| `Field` / `Field.Root`   | Корневой контекст. По умолчанию рендерит `<div role="group">`.                                   |
-| `Field.RootProvider`     | Корень, использующий состояние `useField()`, созданное вне дерева компонентов.                  |
-| `Field.Context`          | Даёт доступ к текущему состоянию поля, не добавляя элемент в DOM.                                |
-| `Field.Label`            | Доступная метка, связанная с текущим элементом управления.                                       |
-| `Field.Input`            | Низкоуровневый нативный input. Для обычного стилизованного поля используйте `Input`.             |
-| `Field.Textarea`         | Низкоуровневая нативная текстовая область. Для обычной используйте `Textarea`.                   |
-| `Field.Select`           | Низкоуровневый нативный select. Для обычного используйте `NativeSelect`.                         |
-| `Field.HelperText`       | Поясняющий текст, связанный с элементом через `aria-describedby`.                                |
-| `Field.ErrorText`        | Текст ошибки, который рендерится при состоянии корня `invalid`.                                  |
-| `Field.RequiredIndicator` | Визуальный маркер обязательного поля. С помощью `fallback` можно заменить маркер по умолчанию.  |
-| `Field.Item`             | Вложенный контекст для группового элемента с `value`; ref указывает на локальную обёртку строки. |
+| `Field`                  | Корневой контекст. По умолчанию рендерит `<div role="group">`.                                   |
+| `FieldRootProvider`     | Корень, использующий состояние `useField()`, созданное вне дерева компонентов.                  |
+| `FieldContext`          | Даёт доступ к текущему состоянию поля, не добавляя элемент в DOM.                                |
+| `FieldLabel`            | Доступная метка, связанная с текущим элементом управления.                                       |
+| `FieldInput`            | Низкоуровневый нативный input. Для обычного стилизованного поля используйте `Input`.             |
+| `FieldTextarea`         | Низкоуровневая нативная текстовая область. Для обычной используйте `Textarea`.                   |
+| `FieldSelect`           | Низкоуровневый нативный select. Для обычного используйте `NativeSelect`.                         |
+| `FieldHelperText`       | Поясняющий текст, связанный с элементом через `aria-describedby`.                                |
+| `FieldErrorText`        | Текст ошибки, который рендерится при состоянии корня `invalid`.                                  |
+| `FieldRequiredIndicator` | Визуальный маркер обязательного поля. С помощью `fallback` можно заменить маркер по умолчанию.  |
+| `FieldItem`             | Вложенный контекст для группового элемента с `value`; ref указывает на локальную обёртку строки. |
 
 ## Композиция
 
-Используйте корень, чтобы объединить один элемент управления с `Field.Label`, `Field.HelperText`,
-`Field.ErrorText` и `Field.RequiredIndicator`. Составные компоненты `Checkbox`, `RadioGroup` и `Select`
+Используйте корень, чтобы объединить один элемент управления с `FieldLabel`, `FieldHelperText`,
+`FieldErrorText` и `FieldRequiredIndicator`. Составные компоненты `Checkbox`, `RadioGroup` и `Select`
 управляют собственным состоянием, поэтому передавайте `required`, `invalid`, `disabled` или `readOnly`
 в их корень, когда состояние принадлежит им. Для нескольких нативных элементов оберните каждый в
-`Field.Item value` и задайте корню `target`. Используйте `Field.RootProvider` с `useField()`, если
+`FieldItem value` и задайте корню `target`. Используйте `FieldRootProvider` с `useField()`, если
 состояние создаётся вне дерева компонентов; пользовательские элементы могут читать его через
-`Field.Context` или `useFieldContext`.
+`FieldContext` или `useFieldContext`.
 
 ## Примеры
 
@@ -288,7 +288,7 @@ Field.RootProvider
 
 ### Целевой элемент
 
-Используйте `Field.Item` вместе с пропом `target` у корня, когда одна метка должна указывать на элемент
+Используйте `FieldItem` вместе с пропом `target` у корня, когда одна метка должна указывать на элемент
 управления внутри группы.
 
 <ExampleFrame variant="component">
@@ -420,7 +420,7 @@ Field.RootProvider
 
 ### Root Provider
 
-Используйте `useField` вместе с `Field.RootProvider`, когда состояние поля нужно создать вне дерева
+Используйте `useField` вместе с `FieldRootProvider`, когда состояние поля нужно создать вне дерева
 рендера.
 
 <ExampleFrame variant="component">
@@ -531,7 +531,7 @@ Field.RootProvider
 ### Хуки стилизации
 
 Ark добавляет `data-disabled`, `data-invalid`, `data-readonly` и `data-required` к соответствующим
-частям. `Field.ErrorText` существует только пока текущий контекст поля находится в состоянии `invalid`.
+частям. `FieldErrorText` существует только пока текущий контекст поля находится в состоянии `invalid`.
 Идентификатор поясняющего текста входит в `aria-describedby` элемента управления, а активный идентификатор
 текста ошибки входит в `aria-errormessage`. У каждой DOM-части также есть стабильный хук
 `data-slot="field-*"`.

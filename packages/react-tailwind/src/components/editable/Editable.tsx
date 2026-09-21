@@ -10,10 +10,10 @@ import { forwardRef } from 'react';
 import { cn } from '@/lib/moduix/cn';
 import { CheckIcon, CloseIcon, PencilIcon } from '@/lib/moduix/icons/ui';
 
-const EditableRoot = forwardRef<
+const Editable = forwardRef<
   ComponentRef<typeof EditablePrimitive.Root>,
   ComponentProps<typeof EditablePrimitive.Root>
->(function EditableRoot({ activationMode = 'dblclick', className, ...props }, ref) {
+>(function Editable({ activationMode = 'dblclick', className, ...props }, ref) {
   return (
     <EditablePrimitive.Root
       ref={ref}
@@ -206,19 +206,21 @@ const EditableControls = forwardRef<
   );
 });
 
-const Editable = Object.assign(EditableRoot, {
-  Root: EditableRoot,
-  RootProvider: EditableRootProvider,
-  Label: EditableLabel,
-  Area: EditableArea,
-  Input: EditableInput,
-  Preview: EditablePreview,
-  Control: EditableControl,
-  EditTrigger: EditableEditTrigger,
-  SubmitTrigger: EditableSubmitTrigger,
-  CancelTrigger: EditableCancelTrigger,
-  Controls: EditableControls,
-  Context: EditablePrimitive.Context,
-});
+const EditableContext = EditablePrimitive.Context;
 
-export { Editable, useEditable, useEditableContext };
+export {
+  Editable,
+  EditableArea,
+  EditableCancelTrigger,
+  EditableContext,
+  EditableControl,
+  EditableControls,
+  EditableEditTrigger,
+  EditableInput,
+  EditableLabel,
+  EditablePreview,
+  EditableRootProvider,
+  EditableSubmitTrigger,
+  useEditable,
+  useEditableContext,
+};

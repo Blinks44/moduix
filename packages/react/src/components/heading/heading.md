@@ -21,8 +21,7 @@ legacy `render` contract.
 
 ## Current behavior contract
 
-- `Heading` is the primary root component.
-- `Heading.Root` is the same component exposed for Ark-style namespace consistency.
+- `Heading` is the only public component value.
 - The root renders `h1` by default and accepts `as="h1"` through `as="h6"` for semantic level
   changes.
 - Ark factory `asChild` remains available for custom host composition.
@@ -35,13 +34,13 @@ legacy `render` contract.
 ## Anatomy and exported parts
 
 ```text
-Heading / Heading.Root
+Heading
 └─ text or inline content
 ```
 
 | Part                       | Stable hooks                                                           |
 | -------------------------- | ---------------------------------------------------------------------- |
-| `Heading` / `Heading.Root` | `data-scope="heading"`, `data-part="root"`, `data-slot="heading-root"` |
+| `Heading` | `data-scope="heading"`, `data-part="root"`, `data-slot="heading-root"` |
 
 The root also exposes `data-size` when `size` is explicit and `data-weight` for the resolved weight
 preset.
@@ -60,8 +59,7 @@ export function Example() {
 }
 ```
 
-Use the short `<Heading>` form for an `h1`. Use the equivalent `<Heading.Root>` form when namespace
-consistency is useful. Use `asChild` only when a custom semantic host must own the DOM node.
+Use `<Heading>` for an `h1`. Use `asChild` only when a custom semantic host must own the DOM node.
 
 ```tsx
 <Heading asChild size="xl">
@@ -133,7 +131,6 @@ The root uses `overflow-wrap: anywhere` so long unbroken content can shrink insi
 
 - moduix adds visual `size` and `weight` props and the `--moduix-heading-*` token contract.
 - moduix adds the `as` prop for common heading-level selection.
-- moduix adds `Heading.Root` as an Ark-style namespace alias.
 - moduix adds `data-scope`, `data-part`, and stable `data-slot` hooks.
 - moduix no longer re-exports `Heading` helper types; infer props from the component or keep local
   unions in consumer code when needed.
@@ -159,7 +156,9 @@ The root uses `overflow-wrap: anywhere` so long unbroken content can shrink insi
   synchronized heading CSS variable default documentation.
 - 2026-06-22: Restored a limited `as` prop for `h1` through `h6` so semantic heading levels no
   longer require `asChild`; kept `asChild` for Ark factory composition.
+- 2026-09-21: Replaced the legacy compound root surface with the flat `Heading` export across all
+  shipped framework and styling packages.
 - 2026-06-19: Migrated `Heading` from the legacy `as` contract to an Ark factory root with
-  `asChild`, `Heading.Root`, ref forwarding, Ark-style part hooks, semantic element-based default
-  sizing, and synchronized stories and documentation.
+  `asChild`, ref forwarding, Ark-style part hooks, semantic element-based default sizing, and
+  synchronized stories and documentation.
 - 2026-06-02: Documented the previous native wrapper contract and exported typography types.

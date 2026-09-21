@@ -1,7 +1,7 @@
 import { createSignal } from 'solid-js';
 import type { Meta, StoryObj } from 'storybook-solidjs-vite';
-import { Field } from '@/components/field';
-import { Fieldset } from '@/components/fieldset';
+import { Field, FieldErrorText, FieldHelperText, FieldLabel } from '@/components/field';
+import { Fieldset, FieldsetLegend } from '@/components/fieldset';
 import { RadioGroup, useRadioGroup } from '@/components/radio-group';
 import styles from './RadioGroup.stories.module.css';
 
@@ -211,7 +211,7 @@ export const WithIndicator: Story = {
 export const WithFieldset: Story = {
   render: () => (
     <Fieldset class={styles.fieldset}>
-      <Fieldset.Legend>Select a framework</Fieldset.Legend>
+      <FieldsetLegend>Select a framework</FieldsetLegend>
       <RadioGroup defaultValue="React">
         <RadioItems />
       </RadioGroup>
@@ -222,12 +222,12 @@ export const WithFieldset: Story = {
 export const WithField: Story = {
   render: () => (
     <Field invalid>
-      <Field.Label>Account type</Field.Label>
+      <FieldLabel>Account type</FieldLabel>
       <RadioGroup invalid required name="account-type">
         <RadioOptions items={['Personal', 'Team']} />
       </RadioGroup>
-      <Field.HelperText>Choose the default account context for new projects.</Field.HelperText>
-      <Field.ErrorText>Choose an account type.</Field.ErrorText>
+      <FieldHelperText>Choose the default account context for new projects.</FieldHelperText>
+      <FieldErrorText>Choose an account type.</FieldErrorText>
     </Field>
   ),
 };

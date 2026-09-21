@@ -5,7 +5,7 @@ import {
   DateInputLabel,
   DateInputSegments,
 } from '@moduix/react/date-input';
-import { Field } from '@moduix/react/field';
+import { Field, FieldErrorText } from '@moduix/react/field';
 import styles from '@/components/examples/date-input/date-input-field-state.module.css';
 
 export default function DateInputFieldDemo() {
@@ -18,7 +18,7 @@ export default function DateInputFieldDemo() {
         </DateInputControl>
         <DateInputHiddenInput />
       </DateInput>
-      <Field.ErrorText>Enter a valid deadline.</Field.ErrorText>
+      <FieldErrorText>Enter a valid deadline.</FieldErrorText>
     </Field>
   );
 }

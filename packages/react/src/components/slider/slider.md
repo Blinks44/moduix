@@ -105,7 +105,7 @@ export function VolumeSlider() {
 - Every thumb needs an accessible name through `Slider.Label`, `aria-label`, or `aria-labelledby`.
 - `Slider.HiddenInput` must be nested inside its matching `Slider.Thumb` for form submission and
   reset synchronization.
-- `Field.Root` / `Fieldset.Root` context can provide shared form state through Ark where
+- `Field` / `Fieldset` context can provide shared form state through Ark where
   supported by the primitive.
 - `asChild` is available on Ark DOM parts and requires one semantic child that preserves the part's
   interaction contract.
