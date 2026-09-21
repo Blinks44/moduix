@@ -27,7 +27,7 @@ locales instead of adding another runtime to the documentation bundle.
 ## Section intent
 
 - **API Reference:** a compact upstream reference. Link the dedicated Ark page when it exists. Otherwise state that no dedicated Ark primitive exists and link the precise guide or factory model; link Chakra only when it materially informs the contract.
-- **Basic:** render one shared preview, then show native source for every shipped framework in
+- **Basic:** render one shared preview, then show native source for every shipped or explicitly staged framework in
   `groupId="framework"` tabs. Keep shared example CSS outside the framework tabs. The framework tabs
   make runtime support visible without prose about the implementation of the documentation preview.
 - **Install with shadcn:** put runtime choices in `groupId="framework"` tabs and list only the CSS
@@ -62,7 +62,7 @@ prioritize the happy path, meaningful choices, examples, and moduix-specific sty
 ## Framework synchronization
 
 When adding or synchronizing a framework on an existing page, preserve its useful example inventory
-and add a native snippet for each applicable example. Keep every shipped framework in
+and add a native snippet for each applicable example. Keep every shipped or explicitly staged framework in
 `groupId="framework"` tabs and verify each snippet against its public package API. Do not transliterate
 one framework's syntax into another framework's shape, and do not duplicate shared prose, anatomy,
 or styling guidance per framework. Follow Accordion for page structure and runtime tabs; follow

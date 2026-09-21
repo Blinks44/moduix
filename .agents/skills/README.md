@@ -19,7 +19,7 @@ Skills are intentionally narrow and composable:
 - `changeset-workflow`: an explicitly requested `.changeset` entry.
 - `component-workflow`: coordinates component contracts across every shipped framework and styling adapter.
 - `migration-component-to-solid`: ports one component into both native Solid styling tracks with tests, stories, exports, and registries.
-- `migration-component-to-vue`: ports one component into both native Vue styling tracks with tests, stories, exports, and registries.
+- `migration-component-to-vue`: ports one component into both native Vue styling tracks with tests, stories, exports, registries, and localized component docs.
 - `migration-css-modules-to-tailwind`: ports a component into every shipped Tailwind counterpart with tests, stories, npm exports, and registry items.
 - `conventions-css`: CSS, CSS Modules, Tailwind, selectors, and public CSS-variable contracts.
 - `conventions-react`: React and TypeScript implementation conventions.

@@ -324,4 +324,14 @@ test('renders the public anatomy on the server', async () => {
   expect(html).toContain('data-slot="accordion-root"');
   expect(html).toContain('data-slot="accordion-item-trigger"');
   expect(html).toContain('aria-expanded="true"');
+
+  const host = document.createElement('div');
+  host.innerHTML = html;
+  document.body.append(host);
+  const serverIds = [...host.querySelectorAll('[id]')].map((element) => element.id);
+  const app = createSSRApp(App);
+  app.mount(host);
+  expect([...host.querySelectorAll('[id]')].map((element) => element.id)).toEqual(serverIds);
+  app.unmount();
+  host.remove();
 });

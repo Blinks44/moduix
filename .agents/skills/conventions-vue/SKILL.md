@@ -20,12 +20,13 @@ Use this skill for JS/TS Vue work in this repo.
 - One public part per file when a component family exposes multiple parts. Let the `.vue` filename
   provide the inferred component name; use `defineOptions({ name: '...' })` only when the public
   name cannot be inferred correctly.
-- Keep component-local `index.ts` files as thin assembly and export barrels with no component
-  implementation logic. They may import the part SFCs and assemble the root plus namespaced parts
-  with `Object.assign`. Dot-notation parts such as `<Accordion.Item>` are supported when an SFC
-  compiler has binding metadata from `<script setup>`. Runtime `template` strings used by Storybook
-  render functions and test harnesses do not resolve object-property tags. Register and use the
-  individually exported parts there, such as `AccordionItem` and `AccordionItemTrigger`.
+- Keep component-local `index.ts` files as thin export barrels with no component implementation
+  logic. Export every Vue part by its full PascalCase name, such as `AccordionItem` and
+  `AccordionItemTrigger`. When React and Solid use the family name for the root, also export a direct
+  root alias such as `const Accordion = AccordionRoot`. Do not assemble Vue parts with
+  `Object.assign`: arbitrary compound objects work at runtime but are not the module namespaces
+  supported by Vue tooling, so `<Accordion.Item>` produces false IDE errors. Use the same flat part
+  exports in SFC templates, Storybook runtime templates, tests, npm examples, and registry examples.
 - Type a transparent Ark wrapper with a local interface that extends the exported Ark Vue prop
   interface through `/* @vue-ignore */`, then pass that interface to `defineProps`. The ignored base
   remains part of the public TypeScript surface but its properties stay in fallthrough attrs at
@@ -49,11 +50,17 @@ Use this skill for JS/TS Vue work in this repo.
   `clsx`; in `packages/vue-tailwind` merge it last with the local `cn` helper. Do not also leave
   `class` inside an object passed through `v-bind`, which would apply the consumer class twice.
   Preserve `style`, ids, ARIA, data attributes, and native listeners through the remaining attrs.
-- If an Ark part has a required prop that deliberately remains in fallthrough attrs, `vue-tsc`
-  cannot prove that `v-bind="attrs"` satisfies the child. Keep the live `useAttrs()` proxy and
-  narrow it only for the template boundary with
-  `useAttrs() as unknown as ArkPartProps`. Do not copy attrs into a new object, compile the required
-  prop locally, or add an unsafe cast when the child has no required fallthrough prop.
+- In a CSS Modules SFC, attach the local stylesheet through
+  `<style module src="./Component.module.css" />` and reference classes through `$style` in the
+  template. Use `useCssModule()` only when setup logic genuinely needs the classes object. Do not
+  default-import a CSS Module from `<script setup>` merely to bind template classes. Plain `.ts`
+  files such as Storybook runtime stories may use Vite's normal `import styles from
+'./Story.module.css'` form because they have no SFC style block. Do not add generated CSS typings
+  only to improve IDE completion.
+- Redeclare required Ark props as local fields and forward them explicitly. This gives `vue-tsc` a
+  complete child binding without assertions and keeps requiredness visible in generated
+  declarations. Leave optional Ark props, especially optional Booleans with upstream defaults, in
+  fallthrough attrs.
 - Pass content through `<slot>` outlets without snapshotting slot output in setup. Type every public
   slot with `defineSlots`, including the exact scoped payload exposed by an Ark context part. Use
   the default slot for ordinary component content and add named slots only when the public contract

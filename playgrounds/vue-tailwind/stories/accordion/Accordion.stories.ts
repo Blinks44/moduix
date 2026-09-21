@@ -13,6 +13,7 @@ import {
   useAccordion,
 } from '@/components/accordion';
 import { ChevronDownIcon } from '@/lib/moduix/icons/ui';
+import NestedSlider from './NestedSlider.vue';
 
 const meta = {
   title: 'Components/Accordion',
@@ -27,7 +28,6 @@ type Story = StoryObj<typeof meta>;
 const demoRootClass = 'w-full max-w-88';
 const stateClass = 'mt-3 text-sm text-muted-foreground';
 const customIconClass = 'data-[state=open]:rotate-180';
-const nestedControlClass = 'w-full accent-primary';
 
 const faqItems = [
   {
@@ -58,6 +58,7 @@ const accordionComponents = {
   AccordionItemTrigger,
   AccordionRootProvider,
   ChevronDownIcon,
+  NestedSlider,
 };
 
 const FaqAccordionItems = defineComponent({
@@ -98,7 +99,6 @@ function renderStory(template: string, setup?: () => Record<string, unknown>) {
           customIconClass,
           demoRootClass,
           faqItems,
-          nestedControlClass,
           stateClass,
           ...setup?.(),
         };
@@ -199,7 +199,7 @@ export const AdvancedCustomization: Story = {
         <AccordionItemContent>
           <AccordionItemBody>
             <span>{{ item.description }}</span>
-            <label>{{ item.title }} priority <input type="range" value="40" :class="nestedControlClass" /></label>
+            <NestedSlider :label="item.title + ' priority'" />
           </AccordionItemBody>
         </AccordionItemContent>
       </AccordionItem>

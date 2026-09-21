@@ -14,6 +14,7 @@ import {
 } from '@/components/accordion';
 import { ChevronDownIcon } from '@/lib/moduix/icons/ui/Icons';
 import styles from './Accordion.stories.module.css';
+import NestedSlider from './NestedSlider.vue';
 
 const meta = {
   title: 'Components/Accordion',
@@ -54,6 +55,7 @@ const accordionComponents = {
   AccordionItemTrigger,
   AccordionRootProvider,
   ChevronDownIcon,
+  NestedSlider,
 };
 
 const FaqAccordionItems = defineComponent({
@@ -188,7 +190,7 @@ export const AdvancedCustomization: Story = {
         <AccordionItemContent>
           <AccordionItemBody>
             <span>{{ item.description }}</span>
-            <label>{{ item.title }} priority <input type="range" value="40" :class="styles.nestedControl" /></label>
+            <NestedSlider :label="item.title + ' priority'" />
           </AccordionItemBody>
         </AccordionItemContent>
       </AccordionItem>

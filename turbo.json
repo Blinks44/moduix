@@ -16,6 +16,11 @@
       "cache": false,
       "persistent": true
     },
+    "moduix-docs#dev": {
+      "dependsOn": ["@moduix/react#build"],
+      "cache": false,
+      "persistent": true
+    },
     "deploy": {
       "dependsOn": ["build"],
       "cache": false,
@@ -34,7 +39,12 @@
       "outputs": []
     },
     "moduix-docs#tsc:check": {
-      "dependsOn": ["^tsc:check", "@moduix/react#build", "@moduix/solid#build"],
+      "dependsOn": [
+        "^tsc:check",
+        "@moduix/react#build",
+        "@moduix/solid#build",
+        "@moduix/vue#build"
+      ],
       "outputs": []
     }
   }

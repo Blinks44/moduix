@@ -41,6 +41,11 @@ Apply these rules when writing or reviewing Rslib library projects.
   files in registry artifacts rather than making npm consumers compile package internals. Verify a
   clean build, the package `files` and `exports` maps, emitted import specifiers, and a consumer type
   fixture before treating the package as publishable.
+- Vue package types target TypeScript's `bundler` resolution, which understands `.vue.d.ts` barrel
+  references. ATTW's Node16 resolver does not model those references and reports
+  `internal-resolution-error` even when its bundler result is green. The Vue-only package checks may
+  ignore that one Node16 rule, but must still show a green bundler result and pass a real Vue
+  consumer fixture. Do not apply this exception to React, Solid, or unrelated ATTW failures.
 
 ## Declaration files
 

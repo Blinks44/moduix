@@ -9,18 +9,24 @@ defineOptions({ inheritAttrs: false });
 
 export interface Props extends /* @vue-ignore */ AccordionItemProps {
   class?: HTMLAttributes['class'];
+  value: AccordionItemProps['value'];
 }
 
-const { class: className } = defineProps<Props>();
+const { class: className, value } = defineProps<Props>();
 defineSlots<{ default?: () => unknown }>();
 
-const attrs = useAttrs() as unknown as AccordionItemProps;
+const attrs = useAttrs();
 const itemClass =
   "[overflow-anchor:none] data-[orientation=horizontal]:flex [&[data-orientation='horizontal']:not(:last-child)]:border-e [&[data-orientation='horizontal']:not(:last-child)]:border-border [&[data-orientation='vertical']:not(:last-child)]:border-b [&[data-orientation='vertical']:not(:last-child)]:border-border";
 </script>
 
 <template>
-  <ArkAccordionItem v-bind="attrs" :class="cn(itemClass, className)" data-slot="accordion-item">
+  <ArkAccordionItem
+    v-bind="attrs"
+    :class="cn(itemClass, className)"
+    :value="value"
+    data-slot="accordion-item"
+  >
     <slot />
   </ArkAccordionItem>
 </template>

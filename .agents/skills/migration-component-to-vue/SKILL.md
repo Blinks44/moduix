@@ -1,6 +1,6 @@
 ---
 name: migration-component-to-vue
-description: Port an established moduix component into the native Vue CSS Modules and Tailwind adapters, including tests, playground stories, exports, and registries, while preserving the shared contract and Vue-specific behavior.
+description: Port an established moduix component into the native Vue CSS Modules and Tailwind adapters, including tests, playground stories, exports, registries, and localized documentation, while preserving the shared contract and Vue-specific behavior.
 ---
 
 # Component Migration to Vue
@@ -9,20 +9,22 @@ Port one established component into both Vue styling tracks as one task:
 
 - `packages/vue` for CSS Modules;
 - `packages/vue-tailwind` for Tailwind;
-- `playgrounds/vue` and `playgrounds/vue-tailwind` for matching stories.
+- `playgrounds/vue` and `playgrounds/vue-tailwind` for matching stories;
+- `website/snippets/<component>/vue` and the localized component pages for native Vue source tabs.
 
 Use this skill with `component-workflow`, `conventions-vue`, `conventions-css`,
 `research-upstream-libraries`, and `rstest-best-practices`. Use `rslib-best-practices` only when
-the package build or declaration pipeline itself changes.
+the package build or declaration pipeline itself changes. Use `docs-workflow` and
+`rspress-localization` for the required component-page update.
 
 This is a framework-adapter migration, not a new CSS Modules-to-Tailwind translation. The mature
 React and Solid Tailwind implementations already define the Tailwind styling contract. Use
 `migration-css-modules-to-tailwind` only when no established Tailwind counterpart exists and the
 task actually requires translating styles.
 
-Vue is an in-development adapter, not a shipped contract. Completing one component does not
-authorize publishing the Vue packages, changing public website availability claims, or treating
-all incomplete Vue counterparts as required impact work.
+Vue is an in-development adapter, not a shipped contract. Component pages are updated on the
+development branch as each Vue component lands, but completing one component does not authorize
+publishing the Vue packages or changing site-wide release and availability claims.
 
 ## Establish the contract before writing Vue
 
@@ -31,6 +33,8 @@ Read the component across the complete established matrix:
 - React CSS Modules implementation, module, tests, story, local markdown, export, and registry item;
 - Solid CSS Modules implementation, module, tests, story, export, and registry item;
 - React and Solid Tailwind implementations, tests, stories, exports, and registry items;
+- the default-language component page, every locale counterpart, and the existing framework
+  snippets for each documented example;
 - direct moduix dependencies, local helpers, icons, foundation tokens, and generated artifacts that
   reveal the distribution contract.
 
@@ -46,7 +50,7 @@ only when the user's scope authorizes that work.
 
 Record before implementation:
 
-- public component and part names, namespace shape, hooks, contexts, providers, and subpath export;
+- public root alias, flat Vue part names, hooks, contexts, providers, and subpath export;
 - props, defaults, controlled and uncontrolled state, callbacks or events, and lifecycle;
 - DOM anatomy, semantic hosts, forms, ARIA, keyboard behavior, focus, ids, and presence;
 - `data-scope`, `data-part`, public `data-slot`, state attributes, and runtime CSS variables;
@@ -110,10 +114,9 @@ cross-framework component runtime.
   containing `class` and bind a merged `:class`, because that applies the consumer class twice.
   Forward consumer `style`, ids, ARIA, data attributes, and native listeners unchanged. Place owned
   `data-slot` hooks so a consumer cannot accidentally replace them.
-- When a required Ark prop intentionally stays in fallthrough attrs, `vue-tsc` cannot infer it from
-  the generic `Attrs` type at the child template boundary. Preserve the live proxy and narrow only
-  that binding with `useAttrs() as unknown as ArkPartProps`. Never use the cast to hide a genuinely
-  missing required prop, and do not compile the prop locally merely to satisfy the template checker.
+- Redeclare required Ark props as local fields and forward them explicitly. This keeps requiredness
+  visible in the emitted declaration and satisfies the child template without assertions. Keep
+  optional Ark props, especially optional Booleans with upstream defaults, in fallthrough attrs.
 - Do not use a watcher to mirror a prop into local state. Use `computed`, a getter, or the Ark Vue
   controlled-state API. Use local refs only for state genuinely owned by the wrapper.
 
@@ -212,8 +215,12 @@ Start from the established CSS Module and keep its selectors, tokens, variables,
 fallbacks aligned. The Vue module must live beside the Vue component and must not be imported from
 React or Solid.
 
-Merge the local class with the consumer `class` through `clsx`, consumer last. A CSS difference is
-allowed only when Vue emits genuinely different DOM or state hooks, and that difference must be
+Connect the local module to each Vue SFC with
+`<style module src="./Component.module.css" />`, reference its classes through `$style` in the
+template, and merge the consumer `class` through `clsx` last. Use `useCssModule()` only when setup
+logic needs the classes object. Do not default-import the module from `<script setup>` solely for
+template binding, and do not generate CSS declaration files for IDE completion. A CSS difference
+is allowed only when Vue emits genuinely different DOM or state hooks, and that difference must be
 documented with the component.
 
 ### Tailwind
@@ -264,19 +271,20 @@ story names, controls, scenario data, states, and demo layout. Use SFC or templa
 Storybook components with native refs, computed values, slots, and event listeners; do not restore
 TSX through the playgrounds.
 
-Runtime `template` strings do not receive `<script setup>` binding metadata and therefore cannot
-resolve namespace-property tags such as `<Accordion.Item>`. Import the individually exported parts,
-register them on the story or test component, and use local tags such as `<AccordionItem>`. Keep the
-package namespace export for compiled consumer SFCs and JavaScript composition.
+Import the individually exported parts, register them on a story or test component when required,
+and use flat tags such as `<AccordionItem>`. Keep this public form consistent across SFCs, runtime
+templates, npm consumers, and registry consumers.
 
 Keep CSS Modules demo styles local to the Vue story. Translate the matching demo presentation to
-small static Tailwind strings in the Tailwind story. Do not share story components across framework
-playgrounds or omit a scenario because its dependency is missing. Normally port the dependency
-first. During adapter bootstrap, when the user explicitly selects the first component and a story
-depends only for demonstration on an unported moduix component, preserve the story name and purpose
-with a small native Vue or platform control. Keep that substitute out of package source and
-registries, report it, and replace it once the dependency is ported. Never use this exception for a
-runtime dependency or public API.
+small static Tailwind strings in the Tailwind story. A helper `.vue` demo component should use its
+own `<style module>` and `$style`; a plain `.stories.ts` runtime template may import its CSS Module
+as a Vite module object and expose that object from `setup`. Do not create CSS typings or extract
+every simple story into an SFC only for IDE completion. Do not share story components across
+framework playgrounds or omit a scenario because its dependency is missing. Port a real runtime
+dependency first. If a story specifically demonstrates interoperability with a nested Ark widget,
+it may use the corresponding verified `@ark-ui/vue` primitive directly inside the playground until
+the moduix wrapper is ported. Do not build a local compatibility wrapper or replace the widget with
+an HTML mimic, and never let this story-only import enter package source or registries.
 
 Build both Vue playgrounds and compare them against the established CSS Modules and Tailwind
 scenarios in a browser. Verify interaction, focus, portals, responsive behavior, animation,
@@ -286,8 +294,8 @@ reduced-motion behavior, and visible empty decorative parts where relevant.
 
 For both Vue packages:
 
-- add a thin component `index.ts` that only assembles and exports the root, namespaced SFC parts,
-  hooks, and public types;
+- add a thin component `index.ts` that exports the root alias, explicit root, flat SFC parts, hooks,
+  and public types;
 - add the package subpath export in alphabetical order;
 - add only direct runtime dependencies actually used by the Vue implementation;
 - add a package-owned registry item with Vue source paths and Vue dependencies;
@@ -308,8 +316,42 @@ changes and inspect the generated Vue and Vue Tailwind items. Never edit `websit
 manually. If registry generation does not yet support the Vue target, report that infrastructure
 gap instead of fabricating generated artifacts.
 
-Do not remove `private: true`, publish the packages, or update public installation documentation as
-part of an ordinary component port. Those are adapter-release decisions.
+Do not remove `private: true`, publish the packages, or update site-wide package installation and
+release documentation as part of an ordinary component port. Those are adapter-release decisions.
+
+## Update the component documentation
+
+Documentation is part of the Vue component migration, not deferred release work. Follow
+`docs-workflow`, its component-page contract, and `rspress-localization`.
+
+- Create one native `.vue` SFC under `website/snippets/<component>/vue/` for every applicable
+  example already documented for React and Solid. Use `<script setup lang="ts">`, the public
+  `@moduix/vue/<component>` import, native Vue state and events, and the same example data and intent.
+- Import Vue snippets with `?raw` and render them through `CodeBlockRuntime` with `lang="vue"`.
+  Keep the live preview React-based and display Vue only as source; do not add Vue to the Rspress
+  runtime bundle.
+- Keep every Vue snippet inside `website/snippets/tsconfig.vue.json` and preserve the website's
+  development dependencies on Vue, Ark Vue, and `@moduix/vue`. Import the root alias and flat Vue
+  parts from the public component subpath, for example `Accordion`, `AccordionItem`, and
+  `AccordionItemTrigger`. Do not use an `Object.assign` compound object to imitate React namespace
+  syntax: Vue tooling reserves reliable dot-notation support for actual module namespace imports.
+- Reuse the example's existing CSS Module through `<style module src="..." />` when the Vue snippet
+  needs the same presentation. Do not copy the same declarations into inline style blocks or import
+  demo styles across the website, playgrounds, and package boundaries.
+- Add Vue to every `groupId="framework"` source tab in the default-language page and every locale.
+  Reuse the same snippet files across locales and keep shared prose, preview, anatomy, and styling
+  outside framework tabs.
+- Add the Vue CSS Modules and Tailwind shadcn commands to the component page only when both registry
+  items exist. Do not turn this component-local staging change into a site-wide release claim.
+- Update framework-specific prose where syntax genuinely differs, such as `v-model`, `ref`, Vue
+  emits, `class`, or `useAccordion()` state. Do not duplicate ordinary Ark behavior per framework.
+- Port a documented component dependency before using it from `@moduix/vue`. A direct Ark import is
+  allowed only when the example deliberately teaches advanced Ark interoperability and remains
+  truthful, native, and self-contained. Never use a fictional moduix export, HTML substitute, or
+  compatibility wrapper to fill a missing dependency.
+- Run the website Vue snippet check against the current Vue package and build the documentation after
+  adding or changing raw snippet imports. A component page missing an applicable Vue example is an
+  incomplete migration.
 
 ## Per-component workflow
 
@@ -323,16 +365,17 @@ part of an ordinary component port. Those are adapter-release decisions.
 7. Port the complete story set to both Vue playgrounds and compare it in a browser.
 8. Add exports, runtime dependencies, and registry items after implementation and declarations
    build.
-9. Re-run the component impact check, generate registries when changed, and finish the validation
-   required by `AGENTS.md`.
+9. Add native Vue snippets and Vue framework tabs to the component page in every locale.
+10. Re-run the component impact check, generate registries when changed, and finish the validation
+    required by `AGENTS.md`.
 
 ## Completion
 
 A Vue component migration is complete only when:
 
 - both Vue styling tracks exist and neither imports React or Solid runtime code or types;
-- the namespace, public parts, semantic behavior, accessibility, states, and visual defaults match
-  the established contract;
+- the public root alias, flat Vue parts, semantic behavior, accessibility, states, and visual
+  defaults match the established contract;
 - Vue props, attrs, emits, `v-model`, slots, contexts, refs, `asChild`, and portals behave natively;
 - both Vue test suites contain equivalent behavioral coverage and pass;
 - both Vue playgrounds contain the complete matching scenario set and pass browser comparison;
@@ -342,6 +385,8 @@ A Vue component migration is complete only when:
 - npm output contains working compiled ESM and `.vue.d.ts` references, while registry items contain
   authored `.vue` SFCs plus all direct Vue-native dependencies; generated artifacts are verified
   when generation supports them;
+- every applicable documented example has one shared native Vue SFC and appears in the framework
+  tabs of every locale, with truthful component-local registry commands;
 - focused package builds and Storybook builds pass;
 - `pnpm run fmt:fix`, `pnpm run lint:check`, and `pnpm run tsc:check` pass from the repository root.
 

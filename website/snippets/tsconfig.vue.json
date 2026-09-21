@@ -1,0 +1,10 @@
+{
+  "extends": "../../packages/vue/tsconfig.json",
+  "compilerOptions": {
+    "types": [],
+    "paths": {
+      "@/*": ["../src/*"]
+    }
+  },
+  "include": ["**/vue", "../theme/env.d.ts"]
+}

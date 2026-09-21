@@ -9,12 +9,13 @@ defineOptions({ inheritAttrs: false });
 
 export interface Props extends /* @vue-ignore */ AccordionRootProviderProps {
   class?: HTMLAttributes['class'];
+  value: AccordionRootProviderProps['value'];
 }
 
-const { class: className } = defineProps<Props>();
+const { class: className, value } = defineProps<Props>();
 defineSlots<{ default?: () => unknown }>();
 
-const attrs = useAttrs() as unknown as AccordionRootProviderProps;
+const attrs = useAttrs();
 const rootClass =
   'box-border flex w-full max-w-full min-w-0 flex-col text-foreground data-[orientation=horizontal]:h-80 data-[orientation=horizontal]:max-h-full data-[orientation=horizontal]:w-auto data-[orientation=horizontal]:flex-row';
 </script>
@@ -23,6 +24,7 @@ const rootClass =
   <ArkAccordionRootProvider
     v-bind="attrs"
     :class="cn(rootClass, className)"
+    :value="value"
     data-slot="accordion-root-provider"
   >
     <slot />

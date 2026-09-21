@@ -14,9 +14,4 @@
   .customIcon {
     --moduix-accordion-icon-open-transform: rotate(180deg);
   }
-
-  .nestedControl {
-    width: 100%;
-    accent-color: var(--moduix-color-primary);
-  }
 }

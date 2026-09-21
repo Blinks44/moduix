@@ -2165,7 +2165,7 @@
   --moduix-popover-title-font-size: initial; /* var(--moduix-text-md) */
   --moduix-popover-title-font-weight: initial; /* var(--moduix-weight-semibold) */
   --moduix-popover-title-line-height: initial; /* var(--moduix-line-height-text-md) */
-  --moduix-popover-transition: initial; /* var(--moduix-duration-fast); content animation only — trigger transitions default to var(--moduix-transition-default) */
+  --moduix-popover-transition: initial; /* var(--moduix-duration-fast); content animation only - trigger transitions default to var(--moduix-transition-default) */
   --moduix-popover-width: initial; /* auto */
 
   /* HoverCard */

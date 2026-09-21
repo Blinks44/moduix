@@ -13,17 +13,7 @@ import AccordionItemTrigger from './AccordionItemTrigger.vue';
 import AccordionRoot from './AccordionRoot.vue';
 import AccordionRootProvider from './AccordionRootProvider.vue';
 
-const Accordion = Object.assign(AccordionRoot, {
-  Root: AccordionRoot,
-  RootProvider: AccordionRootProvider,
-  Context: AccordionContext,
-  ItemContext: AccordionItemContext,
-  Item: AccordionItem,
-  ItemTrigger: AccordionItemTrigger,
-  ItemIndicator: AccordionItemIndicator,
-  ItemContent: AccordionItemContent,
-  ItemBody: AccordionItemBody,
-});
+const Accordion = AccordionRoot;
 
 export {
   Accordion,

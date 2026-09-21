@@ -1,24 +1,20 @@
 .root {
-  width: min(24rem, 100%);
-}
-
-.sliderRoot {
   display: grid;
   gap: var(--moduix-spacing-2);
 }
 
-.sliderLabel {
+.label {
   font-size: var(--moduix-text-sm);
 }
 
-.sliderControl {
+.control {
   position: relative;
   display: flex;
   height: var(--moduix-spacing-5);
   align-items: center;
 }
 
-.sliderTrack {
+.track {
   position: relative;
   width: 100%;
   height: var(--moduix-spacing-1);
@@ -26,14 +22,14 @@
   background: var(--moduix-color-muted);
 }
 
-.sliderRange {
+.range {
   position: absolute;
   height: 100%;
   border-radius: inherit;
   background: var(--moduix-color-primary);
 }
 
-.sliderThumb {
+.thumb {
   width: var(--moduix-spacing-4);
   height: var(--moduix-spacing-4);
   border: var(--moduix-border-width-md) solid var(--moduix-color-primary);
