@@ -25,13 +25,13 @@ import alertSolidWithIcon from '../../../snippets/alert/solid/with-icon.tsx?raw'
 [композиции](https://ark-ui.com/docs/guides/composition), [стилизации](https://ark-ui.com/docs/guides/styling) и
 [работе с ref](https://ark-ui.com/docs/guides/ref).
 
-Импортируйте `Alert` из `@moduix/react/alert` или `@moduix/solid/alert`. Вызов `Alert` и обращение к
-`Alert.Root` дают одну и ту же корневую часть. Остальные публичные части: `Alert.Indicator`, `Alert.Content`,
-`Alert.Title`, `Alert.Description` и `Alert.Actions`.
+Импортируйте `Alert` из `@moduix/react/alert` или `@moduix/solid/alert`. `Alert` — корневая часть.
+Остальные публичные части: `AlertIndicator`, `AlertContent`,
+`AlertTitle`, `AlertDescription` и `AlertActions`.
 
 Каждая часть принимает стандартные свойства своего HTML-элемента, включая `className`/`class` и
 `asChild`, а переданный ref указывает на отрисованный элемент. По умолчанию `status` равен `info`,
-корневой элемент получает `role="status"`, а для `status="error"` - `role="alert"`. `Alert.Indicator`
+корневой элемент получает `role="status"`, а для `status="error"` - `role="alert"`. `AlertIndicator`
 скрыт от вспомогательных технологий, поэтому основной смысл сообщения должен быть в заголовке или описании.
 
 ## Выбор подходящего компонента
@@ -45,8 +45,8 @@ import alertSolidWithIcon from '../../../snippets/alert/solid/with-icon.tsx?raw'
 ## Базовый пример
 
 
-Для обычного встроенного сообщения поместите `Alert.Title` и `Alert.Description` внутрь
-`Alert.Content`. Добавьте `Alert.Indicator`, если значок помогает быстрее понять тип сообщения.
+Для обычного встроенного сообщения поместите `AlertTitle` и `AlertDescription` внутрь
+`AlertContent`. Добавьте `AlertIndicator`, если значок помогает быстрее понять тип сообщения.
 
 <ExampleFrame variant="component">
   <AlertBasic />
@@ -107,37 +107,37 @@ import alertSolidWithIcon from '../../../snippets/alert/solid/with-icon.tsx?raw'
 
 ## Анатомия
 
-Поместите содержимое сообщения в `Alert.Content`. `Alert.Indicator` необязателен и располагается
+Поместите содержимое сообщения в `AlertContent`. `AlertIndicator` необязателен и располагается
 рядом с этим содержимым, когда помогает быстрее понять тип сообщения.
 
 ```text
-Alert / Alert.Root
-├─ Alert.Indicator (optional)
-└─ Alert.Content
-   ├─ Alert.Title
-   ├─ Alert.Description
-   ├─ Alert.Actions (optional)
+Alert
+├─ AlertIndicator (optional)
+└─ AlertContent
+   ├─ AlertTitle
+   ├─ AlertDescription
+   ├─ AlertActions (optional)
    └─ Extra custom blocks
 ```
 
-| Часть                  | Назначение                                                               | `data-part`   |
-| ---------------------- | ------------------------------------------------------------------------ | ------------- |
-| `Alert` / `Alert.Root` | Корневой элемент. Применяет стили статуса и автоматически задаёт семантику области обновлений. | `root`        |
-| `Alert.Indicator`      | Необязательный визуальный ориентир. Вложенные SVG-иконки получают единый размер. | `indicator`   |
-| `Alert.Content`        | Обязательная колонка для содержимого сообщения и действий.                | `content`     |
-| `Alert.Title`          | Заголовок сообщения. По умолчанию рендерится как `p`.                     | `title`       |
-| `Alert.Description`    | Дополнительный текст сообщения.                                           | `description` |
-| `Alert.Actions`        | Необязательная строка действий с переносом внутри `Content`.              | `actions`     |
+| Часть              | Назначение                                                               | `data-part`   |
+| ------------------ | ------------------------------------------------------------------------ | ------------- |
+| `Alert`            | Корневой элемент. Применяет стили статуса и автоматически задаёт семантику области обновлений. | `root`        |
+| `AlertIndicator`   | Необязательный визуальный ориентир. Вложенные SVG-иконки получают единый размер. | `indicator`   |
+| `AlertContent`     | Обязательная колонка для содержимого сообщения и действий.                | `content`     |
+| `AlertTitle`       | Заголовок сообщения. По умолчанию рендерится как `p`.                     | `title`       |
+| `AlertDescription` | Дополнительный текст сообщения.                                           | `description` |
+| `AlertActions`     | Необязательная строка действий с переносом внутри `Content`.              | `actions`     |
 
 ## Композиция
 
 `Alert` отвечает только за отображение: компонент, который его рендерит, владеет состоянием видимости
 и закрытия. `Alert` не управляет фокусом и поведением клавиатуры для кнопок и ссылок, которые вы в него
-помещаете. `Alert.Content` обязателен: он содержит заголовок, описание, элементы управления и другое
+помещаете. `AlertContent` обязателен: он содержит заголовок, описание, элементы управления и другое
 содержимое сообщения. Для стандартной строки действий с переносом поместите элементы управления в
-`Alert.Actions`.
+`AlertActions`.
 
-Если заголовку нужен другой семантический элемент, используйте `Alert.Title asChild` и передайте ровно
+Если заголовку нужен другой семантический элемент, используйте `AlertTitle asChild` и передайте ровно
 один семантически подходящий дочерний элемент. В Solid для `asChild` используется функция рендера - она
 показана в примере «Другой уровень заголовка».
 
@@ -145,7 +145,7 @@ Alert / Alert.Root
 
 ### Другой уровень заголовка
 
-Используйте `asChild` в `Alert.Title`, если заголовок сообщения должен занять определённый уровень
+Используйте `asChild` в `AlertTitle`, если заголовок сообщения должен занять определённый уровень
 в иерархии заголовков страницы.
 
 <ExampleFrame variant="component">
@@ -215,7 +215,7 @@ Alert / Alert.Root
 ### Статусы
 
 Используйте четыре статуса, чтобы различать информационные сообщения, сообщения об успехе,
-предупреждения и ошибки. Добавьте `Alert.Indicator` с подходящей иконкой, если визуальный ориентир
+предупреждения и ошибки. Добавьте `AlertIndicator` с подходящей иконкой, если визуальный ориентир
 помогает быстрее понять сообщение.
 
 <ExampleFrame variant="component">
@@ -255,7 +255,7 @@ Alert / Alert.Root
 
 ### С иконкой
 
-Поместите иконку moduix или собственную SVG-иконку внутрь `Alert.Indicator`.
+Поместите иконку moduix или собственную SVG-иконку внутрь `AlertIndicator`.
 
 <ExampleFrame variant="component">
   <AlertWithIcon />
@@ -289,7 +289,7 @@ Alert / Alert.Root
 
 ### Расширенная настройка
 
-Используйте `Alert.Content` и `Alert.Actions`, когда сообщению нужны кнопки или ссылки для исправления
+Используйте `AlertContent` и `AlertActions`, когда сообщению нужны кнопки или ссылки для исправления
 проблемы и дальнейших действий. Если локальное сообщение нужно скрывать, храните состояние его видимости
 в компоненте, который выводит `Alert`.
 
@@ -355,4 +355,4 @@ Tailwind настраиваются обычными утилитами и по�
 
 - Стабильные селекторы `data-slot`: `alert-root`, `alert-indicator`, `alert-content`, `alert-title`, `alert-description` и `alert-actions`
 - Селекторы в стиле Ark: `data-scope="alert"` с `data-part="root"`, `indicator`, `content`, `title`, `description` или `actions`
-- `Alert.Root` записывает выбранный статус в `data-status`
+- `Alert` записывает выбранный статус в `data-status`

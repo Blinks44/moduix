@@ -27,8 +27,12 @@ import avatarSolidSizesAndFallbackOnly from '../../../snippets/avatar/solid/size
 ## Базовый пример
 
 
-Используйте вместе `Avatar`, `Avatar.Fallback` и `Avatar.Image`. Не убирайте `Avatar.Fallback` из
+Используйте вместе `Avatar`, `AvatarFallback` и `AvatarImage`. Не убирайте `AvatarFallback` из
 дерева, чтобы Ark UI мог переключаться между ним и изображением при изменении состояния загрузки.
+
+В React и Solid действуют одинаковые плоские имена значений. Импортируйте `Avatar` как корень и
+каждую дополнительную часть отдельно, например `AvatarImage` и `AvatarFallback`. Эти же имена
+работают и с npm-пакетами, и с исходниками из shadcn-реестра.
 
 <ExampleFrame variant="component">
   <AvatarBasic />
@@ -90,23 +94,26 @@ import avatarSolidSizesAndFallbackOnly from '../../../snippets/avatar/solid/size
 ## Анатомия
 
 ```text
-Avatar.Root | Avatar.RootProvider
-├─ Avatar.Fallback
-└─ Avatar.Image
+Avatar
+├─ AvatarFallback
+└─ AvatarImage
+
+AvatarRootProvider
+└─ те же части, подключённые к хранилищу useAvatar()
 ```
 
-| Часть                    | Назначение                                                             |
-| ------------------------ | ---------------------------------------------------------------------- |
-| `Avatar` / `Avatar.Root` | Создаёт корневой элемент и хранит состояние аватара Ark UI.            |
-| `Avatar.RootProvider`    | Подключает состояние Ark UI, созданное за пределами компонента.        |
-| `Avatar.Fallback`        | Показывает переданное потребителем содержимое до загрузки изображения.  |
-| `Avatar.Image`           | Показывает изображение после успешной загрузки.                        |
+| Часть                 | Назначение                                                             |
+| --------------------- | ---------------------------------------------------------------------- |
+| `Avatar`              | Создаёт корневой элемент и хранит состояние аватара Ark UI.            |
+| `AvatarRootProvider`  | Подключает состояние Ark UI, созданное за пределами компонента.        |
+| `AvatarFallback`      | Показывает переданное потребителем содержимое до загрузки изображения.  |
+| `AvatarImage`         | Показывает изображение после успешной загрузки.                        |
 
 ## Композиция
 
-Размещайте `Avatar.Fallback` и `Avatar.Image` внутри одного корневого компонента, чтобы Ark мог
+Размещайте `AvatarFallback` и `AvatarImage` внутри одного корневого компонента, чтобы Ark мог
 переключать их видимость. Если состояние должно принадлежать другой части приложения, создайте его
-с помощью `useAvatar()` из пакета нужного фреймворка и напрямую передайте в `Avatar.RootProvider`;
+с помощью `useAvatar()` из пакета нужного фреймворка и напрямую передайте в `AvatarRootProvider`;
 не добавляйте для того же хранилища ещё один корневой компонент. В React хранилище передаётся как
 объект, а в Solid - через реактивную функцию доступа. Для пользовательского рендера изображения используйте
 `useAvatarContext()` и сохраняйте состояния `hidden` и `visible`, которые возвращает
@@ -238,7 +245,7 @@ Avatar.Root | Avatar.RootProvider
 ### Root Provider
 
 Создайте состояние с помощью `useAvatar` из соответствующего пакета, если внешним элементам управления
-нужно работать с аватаром. Передайте его в `Avatar.RootProvider` вместо `Avatar.Root`.
+нужно работать с аватаром. Передайте его в `AvatarRootProvider` вместо `Avatar`.
 
 <ExampleFrame variant="component">
   <AvatarRootProvider />
@@ -372,7 +379,7 @@ CSS-переменных относится к вариантам с CSS Modules
 - `data-slot="avatar-root"`, `avatar-root-provider`, `avatar-image` и `avatar-fallback`.
 - Атрибуты анатомии Ark: `data-scope="avatar"` и
   `data-part="root" | "image" | "fallback"`.
-- Состояние изображения Ark: `data-state="visible" | "hidden"` на `Avatar.Image` и
-  `Avatar.Fallback`.
+- Состояние изображения Ark: `data-state="visible" | "hidden"` на `AvatarImage` и
+  `AvatarFallback`.
 - Состояние размера moduix: `data-size="xs" | "sm" | "md" | "lg" | "xl"` на
-  `Avatar.Root` и `Avatar.RootProvider`, если передан `size`.
+  `Avatar` и `AvatarRootProvider`, если передан `size`.

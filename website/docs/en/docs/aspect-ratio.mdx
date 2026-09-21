@@ -102,18 +102,17 @@ See [Quick Start](/docs/quick-start) for full package setup, registry configurat
 ## Anatomy
 
 ```text
-AspectRatio / AspectRatio.Root
+AspectRatio
 └─ media | iframe | canvas | svg | custom content
 ```
 
-| Part                               | Role                                      |
-| ---------------------------------- | ----------------------------------------- |
-| `AspectRatio` / `AspectRatio.Root` | Responsive ratio container. |
+| Part         | Role                        |
+| ------------ | --------------------------- |
+| `AspectRatio` | Responsive ratio container. |
 
 ## Composition
 
-`AspectRatio` is presentational and owns no state. Use the callable `AspectRatio` root in the usual case;
-`AspectRatio.Root` is an alias when you want to make the root part explicit. The component has one root part and
+`AspectRatio` is presentational and owns no state. The component has one root part and
 no child parts to combine. Use `asChild` only when another semantic element must own the rendered root, and provide
 exactly one child in React or the Solid render-function form shown in Advanced customization. Child sizing,
 fitting, borders, radius, and clipping remain owned by the application.

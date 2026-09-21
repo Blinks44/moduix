@@ -1,4 +1,4 @@
-import { Avatar } from '@moduix/react/avatar';
+import { Avatar, AvatarFallback, AvatarImage } from '@moduix/react/avatar';
 import { Tooltip } from '@moduix/react/tooltip';
 import styles from './expandable-avatar-group.module.css';
 
@@ -59,8 +59,8 @@ export function ExpandableAvatarGroup() {
               aria-label={`${member.name}, ${member.role}`}
             >
               <Avatar size="lg">
-                <Avatar.Image src={member.image} alt="" />
-                <Avatar.Fallback>{member.name.slice(0, 1)}</Avatar.Fallback>
+                <AvatarImage src={member.image} alt="" />
+                <AvatarFallback>{member.name.slice(0, 1)}</AvatarFallback>
               </Avatar>
             </button>
           </Tooltip.Trigger>

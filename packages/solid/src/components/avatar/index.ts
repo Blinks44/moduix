@@ -1,1 +1,9 @@
-export { Avatar, useAvatar, useAvatarContext } from './Avatar.js';
+export {
+  Avatar,
+  AvatarContext,
+  AvatarFallback,
+  AvatarImage,
+  AvatarRootProvider,
+  useAvatar,
+  useAvatarContext,
+} from './Avatar.js';

@@ -1,4 +1,11 @@
-import { AngleSlider, useAngleSlider } from '@moduix/react/angle-slider';
+import {
+  AngleSliderDial,
+  AngleSliderHiddenInput,
+  AngleSliderLabel,
+  AngleSliderMarks,
+  AngleSliderRootProvider,
+  useAngleSlider,
+} from '@moduix/react/angle-slider';
 import { PreviewMeta } from '@/components/mdx/Components';
 import styles from '@/components/examples/angle-slider/angle-slider-root-provider.module.css';
 
@@ -13,13 +20,13 @@ export default function RootProviderAngleSliderDemo() {
 
   return (
     <div className={styles.layout}>
-      <AngleSlider.RootProvider value={angleSlider} className={styles.root}>
-        <AngleSlider.Label>Rotation</AngleSlider.Label>
-        <AngleSlider.Dial>
-          <AngleSlider.Marks values={markerValues} />
-        </AngleSlider.Dial>
-        <AngleSlider.HiddenInput />
-      </AngleSlider.RootProvider>
+      <AngleSliderRootProvider value={angleSlider} className={styles.root}>
+        <AngleSliderLabel>Rotation</AngleSliderLabel>
+        <AngleSliderDial>
+          <AngleSliderMarks values={markerValues} />
+        </AngleSliderDial>
+        <AngleSliderHiddenInput />
+      </AngleSliderRootProvider>
       <PreviewMeta>
         <output>Current angle: {angleSlider.value}°</output>
       </PreviewMeta>

@@ -1,7 +1,16 @@
 import { expect, test } from '@rstest/core';
 import { fireEvent, render, screen, waitFor } from '@testing-library/react';
 import { createRef } from 'react';
-import { AngleSlider, useAngleSlider } from '../src';
+import {
+  AngleSlider,
+  AngleSliderControl,
+  AngleSliderDial,
+  AngleSliderHiddenInput,
+  AngleSliderMarks,
+  AngleSliderRootProvider,
+  AngleSliderThumb,
+  useAngleSlider,
+} from '../src';
 
 function ProviderAngleSlider() {
   const angleSlider = useAngleSlider({
@@ -11,10 +20,10 @@ function ProviderAngleSlider() {
   });
 
   return (
-    <AngleSlider.RootProvider value={angleSlider}>
-      <AngleSlider.Dial />
-      <AngleSlider.HiddenInput form="angle-form" />
-    </AngleSlider.RootProvider>
+    <AngleSliderRootProvider value={angleSlider}>
+      <AngleSliderDial />
+      <AngleSliderHiddenInput form="angle-form" />
+    </AngleSliderRootProvider>
   );
 }
 
@@ -23,8 +32,8 @@ test('submits through explicit hidden inputs for root and RootProvider compositi
     <>
       <form id="angle-form" />
       <AngleSlider defaultValue={135} name="rotation" aria-label="Rotation">
-        <AngleSlider.Dial />
-        <AngleSlider.HiddenInput form="angle-form" />
+        <AngleSliderDial />
+        <AngleSliderHiddenInput form="angle-form" />
       </AngleSlider>
       <ProviderAngleSlider />
     </>,
@@ -51,11 +60,11 @@ test('preserves asChild composition, slots, refs, and explicit input placement',
   const { container } = render(
     <AngleSlider asChild ref={rootRef} defaultValue={90} aria-label="Direction">
       <section>
-        <AngleSlider.Control ref={controlRef}>
-          <AngleSlider.Marks values={[0, 90, 90, 180]} />
-          <AngleSlider.Thumb ref={thumbRef} />
-        </AngleSlider.Control>
-        <AngleSlider.HiddenInput />
+        <AngleSliderControl ref={controlRef}>
+          <AngleSliderMarks values={[0, 90, 90, 180]} />
+          <AngleSliderThumb ref={thumbRef} />
+        </AngleSliderControl>
+        <AngleSliderHiddenInput />
       </section>
     </AngleSlider>,
   );
@@ -74,21 +83,21 @@ test('preserves Ark callback details, keyboard behavior, and non-interactive sta
   render(
     <>
       <AngleSlider aria-label="Rotation" onValueChange={(details) => changes.push(details)}>
-        <AngleSlider.Dial />
+        <AngleSliderDial />
       </AngleSlider>
       <AngleSlider
         readOnly
         aria-label="Read-only rotation"
         onValueChange={(details) => changes.push(details)}
       >
-        <AngleSlider.Dial />
+        <AngleSliderDial />
       </AngleSlider>
       <AngleSlider
         disabled
         aria-label="Disabled rotation"
         onValueChange={(details) => changes.push(details)}
       >
-        <AngleSlider.Dial />
+        <AngleSliderDial />
       </AngleSlider>
     </>,
   );
@@ -114,7 +123,7 @@ test('preserves Ark callback details, keyboard behavior, and non-interactive sta
 test('lets consumer Tailwind classes override conflicting defaults', () => {
   render(
     <AngleSlider className="gap-0" aria-label="Rotation">
-      <AngleSlider.Dial />
+      <AngleSliderDial />
     </AngleSlider>,
   );
 
@@ -128,7 +137,7 @@ test('lets consumer Tailwind classes override conflicting defaults', () => {
 test('draws the circular track with a masked conic fill', () => {
   render(
     <AngleSlider aria-label="Rotation">
-      <AngleSlider.Dial />
+      <AngleSliderDial />
     </AngleSlider>,
   );
 
@@ -146,7 +155,7 @@ test('draws the circular track with a masked conic fill', () => {
 test('mirrors the slider dragging ring through the pressed control state', () => {
   render(
     <AngleSlider defaultValue={135} aria-label="Rotation">
-      <AngleSlider.Dial />
+      <AngleSliderDial />
     </AngleSlider>,
   );
 
@@ -169,7 +178,7 @@ test('focuses the thumb synchronously on left pointer down and respects prevente
 
   const { container, rerender } = render(
     <AngleSlider defaultValue={45} aria-label="Rotation">
-      <AngleSlider.Dial />
+      <AngleSliderDial />
     </AngleSlider>,
   );
   const thumb = screen.getByRole('slider', { name: 'Rotation' });
@@ -182,7 +191,7 @@ test('focuses the thumb synchronously on left pointer down and respects prevente
   thumb.blur();
   rerender(
     <AngleSlider defaultValue={45} aria-label="Rotation">
-      <AngleSlider.Dial onPointerDown={preventPointerDown} />
+      <AngleSliderDial onPointerDown={preventPointerDown} />
     </AngleSlider>,
   );
   fireEvent.pointerDown(container.querySelector('[data-slot="angle-slider-control"]')!, {
@@ -192,7 +201,7 @@ test('focuses the thumb synchronously on left pointer down and respects prevente
 
   const { container: disabledContainer } = render(
     <AngleSlider defaultValue={45} aria-label="Disabled rotation" disabled>
-      <AngleSlider.Dial />
+      <AngleSliderDial />
     </AngleSlider>,
   );
   fireEvent.pointerDown(disabledContainer.querySelector('[data-slot="angle-slider-control"]')!, {

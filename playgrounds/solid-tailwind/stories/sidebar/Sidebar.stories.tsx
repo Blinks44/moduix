@@ -2,7 +2,7 @@ import { createListCollection } from '@ark-ui/solid/collection';
 import type { ComponentProps } from 'solid-js';
 import { createSignal, onMount } from 'solid-js';
 import type { Meta, StoryObj } from 'storybook-solidjs-vite';
-import { Avatar } from '@/components/avatar/Avatar';
+import { Avatar, AvatarFallback } from '@/components/avatar/Avatar';
 import { Button } from '@/components/button/Button';
 import { Collapsible } from '@/components/collapsible/Collapsible';
 import { Menu } from '@/components/menu/Menu';
@@ -139,7 +139,7 @@ function AccountMenu({ accentClassName }: { accentClassName?: string } = {}) {
             class={[accountButtonClassName, accentClassName].filter(Boolean).join(' ')}
           >
             <Avatar size="sm" data-sidebar-icon>
-              <Avatar.Fallback>AM</Avatar.Fallback>
+              <AvatarFallback>AM</AvatarFallback>
             </Avatar>
             <Sidebar.Label class={accountMetaClassName}>
               <strong>Alex Morgan</strong>

@@ -1,21 +1,28 @@
 import { expect, test } from '@rstest/core';
 import { render, screen } from '@solidjs/testing-library';
-import { Alert } from '../src';
+import {
+  Alert,
+  AlertActions,
+  AlertContent,
+  AlertDescription,
+  AlertIndicator,
+  AlertTitle,
+} from '../src';
 
 test('applies status semantics and stable data hooks', () => {
   const { container } = render(() => (
     <>
       <Alert role="status">
-        <Alert.Content>
-          <Alert.Title>Update available</Alert.Title>
-          <Alert.Description>Install the latest version.</Alert.Description>
-        </Alert.Content>
+        <AlertContent>
+          <AlertTitle>Update available</AlertTitle>
+          <AlertDescription>Install the latest version.</AlertDescription>
+        </AlertContent>
       </Alert>
       <Alert status="error" role="alert">
-        <Alert.Indicator>!</Alert.Indicator>
-        <Alert.Content>
-          <Alert.Title>Payment failed</Alert.Title>
-        </Alert.Content>
+        <AlertIndicator>!</AlertIndicator>
+        <AlertContent>
+          <AlertTitle>Payment failed</AlertTitle>
+        </AlertContent>
       </Alert>
     </>
   ));
@@ -37,9 +44,9 @@ test('applies status semantics and stable data hooks', () => {
 test('preserves semantic children with Ark Solid asChild composition', () => {
   render(() => (
     <Alert asChild={(props) => <section {...props()} aria-label="Release notes" />} role="status">
-      <Alert.Content>
-        <Alert.Title asChild={(props) => <h2 {...props()}>Update available</h2>} />
-      </Alert.Content>
+      <AlertContent>
+        <AlertTitle asChild={(props) => <h2 {...props()}>Update available</h2>} />
+      </AlertContent>
     </Alert>
   ));
 
@@ -60,15 +67,15 @@ test('forwards refs and data hooks for ordinary rendered parts', () => {
 
   render(() => (
     <Alert ref={(element) => (rootRef = element)} role="note">
-      <Alert.Indicator ref={(element) => (indicatorRef = element)} aria-hidden={false}>
+      <AlertIndicator ref={(element) => (indicatorRef = element)} aria-hidden={false}>
         i
-      </Alert.Indicator>
-      <Alert.Content ref={(element) => (contentRef = element)}>
-        <Alert.Description ref={(element) => (descriptionRef = element)}>
+      </AlertIndicator>
+      <AlertContent ref={(element) => (contentRef = element)}>
+        <AlertDescription ref={(element) => (descriptionRef = element)}>
           Scheduled maintenance
-        </Alert.Description>
-        <Alert.Actions ref={(element) => (actionsRef = element)}>No action required</Alert.Actions>
-      </Alert.Content>
+        </AlertDescription>
+        <AlertActions ref={(element) => (actionsRef = element)}>No action required</AlertActions>
+      </AlertContent>
     </Alert>
   ));
 

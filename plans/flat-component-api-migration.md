@@ -2,9 +2,13 @@
 
 ## Objective
 
-Migrate every moduix component, styling track, framework adapter, registry source, test, story, and
+Migrate every existing React and Solid component, styling track, registry source, test, story, and
 documentation example to one flat public value API. Complete the migration before releasing the
 branch. Do not preserve the old compound API with compatibility aliases.
+
+Vue is outside this migration. Do not modify `packages/vue`, `packages/vue-tailwind`,
+`playgrounds/vue`, `playgrounds/vue-tailwind`, or Vue website snippets. The later Vue component
+migration must use the finished flat React and Solid contract from the start.
 
 This is a naming and distribution migration. Do not change component behavior, DOM anatomy,
 accessibility, styling defaults, props, events, state ownership, or framework-native mechanics
@@ -67,29 +71,6 @@ export function Example() {
 }
 ```
 
-```vue
-<script setup lang="ts">
-import {
-  Accordion,
-  AccordionItem,
-  AccordionItemBody,
-  AccordionItemContent,
-  AccordionItemTrigger,
-} from '@moduix/vue/accordion';
-</script>
-
-<template>
-  <Accordion :default-value="['first']">
-    <AccordionItem value="first">
-      <AccordionItemTrigger>First item</AccordionItemTrigger>
-      <AccordionItemContent>
-        <AccordionItemBody>First content</AccordionItemBody>
-      </AccordionItemContent>
-    </AccordionItem>
-  </Accordion>
-</template>
-```
-
 ## Completed reference: Accordion
 
 Accordion is the completed end-to-end reference for this migration. Before changing another family,
@@ -97,24 +78,17 @@ inspect how the same flat values are represented across these surfaces:
 
 - React and Solid implementations and barrels:
   `packages/{react,react-tailwind,solid,solid-tailwind}/src/components/accordion`;
-- native Vue root SFCs at
-  `packages/vue/src/components/accordion/Accordion.vue` and
-  `packages/vue-tailwind/src/components/accordion/Accordion.vue`, with their sibling parts and
-  re-export-only barrels in the same directories;
-- behavior tests: `packages/*/tests/accordion.test.*`;
-- parity stories: `playgrounds/*/stories/accordion`;
-- package registry entries: `packages/*/registry.json`;
+- behavior tests in the four scoped React and Solid packages;
+- parity stories in the four scoped React and Solid playgrounds;
+- package registry entries in the four scoped React and Solid packages;
 - maintainer contract: `packages/react/src/components/accordion/accordion.md`;
 - localized public page: `website/docs/{en,fr,ru}/docs/accordion.mdx`;
-- runnable React source and native Solid/Vue snippets under
+- runnable React source and native Solid snippets under
   `website/src/components/examples/accordion` and `website/snippets/accordion`;
 - root and package README examples.
 
 Use Accordion as a structural reference, not as code to copy blindly. Preserve each target family's
-own Ark parts, props, events, generics, contexts, styling, and tests. In Vue, follow Accordion's
-native file shape: the public root lives in `<Family>.vue`, not `<Family>Root.vue`; the barrel exports
-that SFC as `<Family>`, and the registry installs the same filename. Ark's internal root primitive may
-still be imported under an explicitly upstream-prefixed local name such as `ArkAccordionRoot`.
+own Ark parts, props, events, generics, contexts, styling, and tests.
 
 ## Required skills
 
@@ -127,14 +101,38 @@ current Ark part.
 
 ## Migration strategy
 
-Migrate one component family at a time across every existing adapter and styling track. Keep each
-family internally complete before starting the next one. Do not run a blind repository-wide text
-replacement because dotted expressions can refer to Ark primitives, JavaScript properties, CSS
-Modules, or unrelated libraries.
+Migrate one component family at a time across React, React Tailwind, Solid, and Solid Tailwind. Keep
+each family internally complete before starting the next one. Do not run a blind repository-wide
+text replacement because dotted expressions can refer to Ark primitives, JavaScript properties,
+CSS Modules, or unrelated libraries.
 
 Order families by dependency: migrate components imported by other components before their
 consumers. Derive the order from real package imports. Accordion is already complete, so start with
 the next family in that dependency-aware order and keep the repository buildable after every family.
+
+### Parallel agents and file ownership
+
+When several agents work in the same worktree, each agent owns one assigned component family and
+only the files required by that family.
+
+1. Before editing, record `git status --short` and list the component-owned paths plus any shared
+   manifest or documentation file that the migration must touch.
+2. Preserve every pre-existing change. Do not run `git restore`, `git checkout`, `git reset`,
+   `git clean`, `git stash`, or another command that can discard or hide another agent's work.
+3. Do not edit, delete, rename, reformat, or regenerate files belonging to another component family.
+4. Re-read a shared file immediately before changing it and make the smallest additive patch. Never
+   replace the whole file from an older snapshot. Preserve entries and formatting added by other
+   agents.
+5. If another agent has changed the same lines of a required shared file, stop and report the exact
+   overlap instead of choosing a version or reverting either change.
+6. Component agents must never run workspace-wide mutating commands such as `pnpm run fmt:fix` or
+   `pnpm run build:registry`. They may format only their explicitly owned files by passing those
+   exact file paths to the existing formatter. Do not pass a directory, glob, package, or repository
+   root. The designated integration owner runs global formatting and registry generation only after
+   every active component agent has finished.
+7. Before handoff, compare `git status --short` and `git diff --name-only` with the recorded ownership
+   list. Report every intentionally touched shared file and leave unrelated modified or untracked
+   files unchanged.
 
 ### Phase 1: inventory and baseline
 
@@ -154,7 +152,7 @@ Useful discovery commands:
 rg -n 'Object\.assign\(' packages/*/src/components
 rg -n '\b[A-Z][A-Za-z0-9]*\.(Root|RootProvider|Context|Item|Trigger|Content|Control|Indicator|use[A-Z])\b' \
   packages playgrounds website
-rg -n "from ['\"]@moduix/(react|react-tailwind|solid|solid-tailwind|vue|vue-tailwind)/" \
+rg -n "from ['\"]@moduix/(react|react-tailwind|solid|solid-tailwind)/" \
   packages playgrounds website
 ```
 
@@ -164,15 +162,13 @@ Treat these searches as candidate lists, not automatic edit sets.
 
 For each component family:
 
-1. Inspect all existing React, Solid, and Vue implementations in both styling tracks.
+1. Inspect all existing React and Solid implementations in both styling tracks.
 2. Expand the current compound object into an explicit old-to-new value map.
 3. Rename the root implementation value to the family name when practical. Export every part,
    provider, context, convenience component, and hook directly under its flat name.
 4. Delete `Object.assign` and any namespace assembly. Do not keep `.Root`, `.Item`, or
    `<Family>Root` compatibility exports.
-5. Keep component-local `index.ts` files as re-export-only barrels. For Vue, rename the root SFC to
-   `<Family>.vue`, export it as `<Family>`, remove the public `<Family>Root` value, and update the
-   registry source and target paths. Do not rename Ark's upstream root prop and emit types.
+5. Keep component-local `index.ts` files as re-export-only barrels.
 6. Update cross-component imports inside packages. Never reach into another component's private
    implementation file to avoid its public migration.
 7. Update behavior tests and consumer fixtures in every affected package. Assertions must stay
@@ -184,10 +180,10 @@ For each component family:
 11. Update all public usage for that family:
     - root and package README examples;
     - `website/src/components/examples`;
-    - `website/snippets` for every framework;
+    - React and Solid sources under `website/snippets`;
     - every component page and recipe in every configured locale;
-    - imports, JSX or Vue tags, anatomy trees, part tables, prose, RootProvider guidance, and code
-      shown inline in MDX.
+    - imports, JSX tags, anatomy trees, part tables, prose, RootProvider guidance, and code shown
+      inline in MDX.
 12. Run focused tests and builds for every changed package before moving to the next family.
 
 ### Phase 3: documentation rules
@@ -199,7 +195,6 @@ For each component family:
 - RootProvider prose uses the flat provider value and top-level hook.
 - Do not translate public identifiers in localized prose.
 - Keep live previews and copied snippets aligned with the package imports that actually build.
-- Do not claim a Vue component is available until its Vue package export and registry item exist.
 - Do not update generated `website/docs/public/r/**` files manually.
 
 ### Phase 4: registry and distribution
@@ -212,12 +207,19 @@ After a source batch is complete:
 4. Verify both consumer paths:
    - npm package imports resolve every flat value;
    - shadcn-copied source exposes the same imports without relying on package internals.
-5. Keep React, Solid, and Vue implementation source native. The flat API does not authorize a
-   shared runtime or generated cross-framework component layer.
+5. Keep React and Solid implementation source native. The flat API does not authorize a shared
+   runtime or generated cross-framework component layer.
 
 ## Per-family completion checklist
 
-- [ ] All existing framework and styling variants export the same flat value names.
+- [ ] The final changed-file list contains only the assigned component family and predeclared shared
+      files.
+- [ ] Pre-existing and concurrent changes remain intact; no unrelated file was reverted, deleted,
+      reformatted, or regenerated.
+- [ ] No workspace-wide formatter or generator was run by the component agent; any formatting was
+      limited to exact owned file paths.
+- [ ] Every shared-file edit is a minimal merge that preserves other agents' entries.
+- [ ] All four scoped React and Solid variants export the same flat value names.
 - [ ] The root is exported only as the family name.
 - [ ] Every old static member has an explicit flat counterpart or a documented reason for removal.
 - [ ] No `Object.assign`, namespace assembly, static part property, or duplicate root alias remains.
@@ -227,13 +229,15 @@ After a source batch is complete:
 - [ ] Story names and scenarios remain in parity across playgrounds.
 - [ ] npm and registry source expose the same API.
 - [ ] Component-local markdown is updated.
-- [ ] React, Solid, and Vue snippets are updated for every documented example.
+- [ ] React and Solid snippets are updated for every documented example.
 - [ ] English, Russian, and French pages have matching API coverage and structure.
 - [ ] Focused package, Storybook, and documentation checks pass.
 
 ## Final repository gates
 
-Run the complete validation only after all families have passed their focused checks:
+Run the complete validation only after all families have passed their focused checks and active
+component agents have finished. One integration owner runs the workspace-wide mutating commands so
+formatting and generated registries cannot overwrite concurrent work:
 
 ```bash
 pnpm run fmt:fix
@@ -245,8 +249,8 @@ pnpm run build:registry
 pnpm run build:docs
 ```
 
-Build every affected playground Storybook using its package script. Run all public package test
-suites, including Vue packages that already contain the migrated component.
+Build every affected React and Solid playground Storybook using its package script. Run all four
+scoped public package test suites.
 
 Perform final searches and classify every remaining match:
 
@@ -267,9 +271,8 @@ Stop and report rather than guessing when:
 - two current adapters expose different members and tests or Ark behavior do not resolve the
   intended contract;
 - a public static member has no clear flat name;
-- a Vue generic loses inference after a barrel export change;
 - a registry consumer requires a different import surface from the npm package;
-- unrelated worktree changes overlap a required file.
+- unrelated or concurrent worktree changes overlap a required file.
 
 Do not hide a blocker with aliases, type assertions, ignored diagnostics, or compatibility wrappers.
 The final handoff must list migrated families, removed old names, validation results, any intentional
@@ -281,8 +284,13 @@ moduix compound API or stale documentation example remains.
 Give the next agent this instruction together with this file:
 
 > Follow `plans/flat-component-api-migration.md`. Use Accordion as the completed reference. Migrate
-> the next dependency-safe component family across every existing framework and styling track,
+> the next dependency-safe component family across React, React Tailwind, Solid, and Solid Tailwind,
 > including implementation, exports, tests, stories, registries, package and maintainer docs,
 > website examples, snippets, and all locales. Remove the old compound API without compatibility
 > aliases. Preserve behavior and framework-native mechanics, run the per-family checks, and stop
-> after the family is fully green. Do not modify unrelated families.
+> after the family is fully green. Before editing, record the existing worktree changes and declare
+> the paths owned by this component. Do not modify, reformat, regenerate, revert, delete, stash, or
+> overwrite files owned by another component or agent. Preserve concurrent edits in shared files
+> with the smallest additive patch, and stop if the same lines overlap. Leave workspace-wide
+> `fmt:fix` and registry generation to the serialized integration pass. Do not modify Vue packages,
+> Vue playgrounds, or Vue snippets; Vue will be migrated later from the completed flat contract.

@@ -1,4 +1,4 @@
-import { Avatar, useAvatar } from '@moduix/solid/avatar';
+import { AvatarFallback, AvatarImage, AvatarRootProvider, useAvatar } from '@moduix/solid/avatar';
 import { createSignal } from 'solid-js';
 import styles from '@/components/examples/avatar/avatar-root-provider.module.css';
 
@@ -13,10 +13,10 @@ export default function AvatarRootProviderDemo() {
 
   return (
     <div class={styles.root}>
-      <Avatar.RootProvider value={avatar}>
-        <Avatar.Fallback>AT</Avatar.Fallback>
-        <Avatar.Image src={avatarImages[imageIndex()]} alt="Alex T." />
-      </Avatar.RootProvider>
+      <AvatarRootProvider value={avatar}>
+        <AvatarFallback>AT</AvatarFallback>
+        <AvatarImage src={avatarImages[imageIndex()]} alt="Alex T." />
+      </AvatarRootProvider>
       <button
         type="button"
         onClick={() => setImageIndex((value) => (value + 1) % avatarImages.length)}

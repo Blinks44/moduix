@@ -38,12 +38,6 @@ test('preserves semantic children, merged classes, and the ref with asChild', ()
   expect(frame).toHaveClass('frame', 'figure');
 });
 
-test('exposes the same root through the namespace API', () => {
-  const { getByTestId } = render(<AspectRatio.Root ratio={1} data-testid="square" />);
-
-  expect(getByTestId('square').style.getPropertyValue('--_aspect-ratio-value')).toBe('1');
-});
-
 test('keeps the ratio contract while allowing style.aspectRatio to override the CSS rule', () => {
   const { getByTestId } = render(
     <AspectRatio

@@ -5,6 +5,7 @@ import { expect, test } from '@rstest/core';
 import { act, fireEvent, render, screen, waitFor } from '@testing-library/react';
 import {
   AngleSlider,
+  AngleSliderHiddenInput,
   Checkbox,
   ColorPicker,
   DateInput,
@@ -27,7 +28,7 @@ const cases = [
     value: '90',
     render: (input: boolean) => (
       <AngleSlider name="value" defaultValue={90}>
-        {input && <AngleSlider.HiddenInput form="native-form" data-testid="native-input" />}
+        {input && <AngleSliderHiddenInput form="native-form" data-testid="native-input" />}
       </AngleSlider>
     ),
   },

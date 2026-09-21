@@ -46,9 +46,9 @@ circulaire.
 Les mêmes exports sont disponibles depuis `@moduix/solid/angle-slider` pour Solid.
 ## Exemple de base
 
-Commencez par `Dial`, qui réunit la piste circulaire, la valeur centrée et la poignée. La piste se remplit depuis le haut
+Commencez par `AngleSliderDial`, qui réunit la piste circulaire, la valeur centrée et la poignée. La piste se remplit depuis le haut
 à mesure que l’angle augmente. `AngleSlider` accepte une seule valeur d’angle comprise entre 0
-et 360 degrés. Ajoutez si possible un `Label` visible. Si le cadran n’en a pas, ajoutez `aria-label` à la racine.
+et 360 degrés. Ajoutez si possible un `AngleSliderLabel` visible. Si le cadran n’en a pas, ajoutez `aria-label` à la racine.
 
 
 <ExampleFrame variant="component">
@@ -116,38 +116,38 @@ Consultez le [Démarrage rapide](/docs/quick-start) pour la configuration compl�
 ## Anatomie
 
 ```text
-AngleSlider.Root
-├─ AngleSlider.Label
-├─ AngleSlider.Control
-│  ├─ AngleSlider.MarkerGroup
-│  │  └─ AngleSlider.Marker[value]
-│  ├─ AngleSlider.ValueText
-│  └─ AngleSlider.Thumb
-└─ AngleSlider.HiddenInput (explicite)
+AngleSlider
+├─ AngleSliderLabel
+├─ AngleSliderControl
+│  ├─ AngleSliderMarkerGroup
+│  │  └─ AngleSliderMarker[value]
+│  ├─ AngleSliderValueText
+│  └─ AngleSliderThumb
+└─ AngleSliderHiddenInput (explicite)
 ```
 
 | Partie                             | Rôle                                                                    |
 | ---------------------------------- | ----------------------------------------------------------------------- |
-| `AngleSlider` / `AngleSlider.Root` | Racine stylisée qui gère l’état contrôlé ou non contrôlé du curseur.    |
-| `AngleSlider.HiddenInput` | Champ natif d’Ark ; composition explicite décrite ci-dessous. |
-| `AngleSlider.RootProvider`         | Relie les parties à l’état Ark créé en dehors de l’arborescence rendue.  |
-| `AngleSlider.Label`                | Associe une étiquette visible au curseur.                               |
-| `AngleSlider.Control`              | Fournit la zone circulaire d’interaction avec le pointeur.              |
-| `AngleSlider.Dial`                 | Associe `Control`, la `ValueText` centrée et `Thumb` ; accepte des enfants.   |
-| `AngleSlider.MarkerGroup`          | Contient les marqueurs de référence facultatifs.                        |
-| `AngleSlider.Marker`               | Place un marqueur numérique et indique sa relation avec la valeur courante. |
-| `AngleSlider.Marks`                | Composition pratique qui crée les marqueurs à partir d’un tableau `values`. |
-| `AngleSlider.Thumb`                | Poignée circulaire pouvant recevoir le focus et suivant la piste selon l’angle courant. |
-| `AngleSlider.ValueText`            | Affiche la valeur actuelle en degrés ; `Dial` la centre dans le cadran. |
+| `AngleSlider` | Racine stylisée qui gère l’état contrôlé ou non contrôlé du curseur.    |
+| `AngleSliderHiddenInput` | Champ natif d’Ark ; composition explicite décrite ci-dessous. |
+| `AngleSliderRootProvider`         | Relie les parties à l’état Ark créé en dehors de l’arborescence rendue.  |
+| `AngleSliderLabel`                | Associe une étiquette visible au curseur.                               |
+| `AngleSliderControl`              | Fournit la zone circulaire d’interaction avec le pointeur.              |
+| `AngleSliderDial`                 | Associe `AngleSliderControl`, la `AngleSliderValueText` centrée et `AngleSliderThumb` ; accepte des enfants.   |
+| `AngleSliderMarkerGroup`          | Contient les marqueurs de référence facultatifs.                        |
+| `AngleSliderMarker`               | Place un marqueur numérique et indique sa relation avec la valeur courante. |
+| `AngleSliderMarks`                | Composition pratique qui crée les marqueurs à partir d’un tableau `values`. |
+| `AngleSliderThumb`                | Poignée circulaire pouvant recevoir le focus et suivant la piste selon l’angle courant. |
+| `AngleSliderValueText`            | Affiche la valeur actuelle en degrés ; `AngleSliderDial` la centre dans le cadran. |
 
-Composez explicitement `AngleSlider.HiddenInput` dans `Root` ou `RootProvider` lorsque la valeur
+Composez explicitement `AngleSliderHiddenInput` dans la racine ou `AngleSliderRootProvider` lorsque la valeur
 doit participer à un formulaire natif.
 
 ## Composition
 
-Utilisez `defaultValue` pour un curseur non contrôlé et `value` avec `onValueChange(details)` lorsque l’angle est géré par une autre partie de l’application. Utilisez `AngleSlider.RootProvider` avec `useAngleSlider()` du framework concerné uniquement lorsque le store doit être créé en dehors de l’arbre du curseur ; ne rendez pas `Root` et `RootProvider` pour la même instance d’état. En Solid, lisez le store fourni via son accessor, par exemple `angleSlider().value`.
+Utilisez `defaultValue` pour un curseur non contrôlé et `value` avec `onValueChange(details)` lorsque l’angle est géré par une autre partie de l’application. Utilisez `AngleSliderRootProvider` avec `useAngleSlider()` du framework concerné uniquement lorsque le store doit être créé en dehors de l’arbre du curseur ; ne rendez pas la racine et `AngleSliderRootProvider` pour la même instance d’état. En Solid, lisez le store fourni via son accessor, par exemple `angleSlider().value`.
 
-`Dial` et `Marks` sont des compositions pratiques. Utilisez `Control` avec `Thumb`, ou `MarkerGroup` avec `Marker`, lorsque vous avez besoin d’enfants personnalisés, d’un ordre différent ou de propriétés propres à chaque marqueur. Composez explicitement `HiddenInput` pour les formulaires natifs. Définissez `name` sur la racine si le formulaire se trouve dans le même arbre, ou `form` sur `HiddenInput` si le formulaire est ailleurs.
+`AngleSliderDial` et `AngleSliderMarks` sont des compositions pratiques. Utilisez `AngleSliderControl` avec `AngleSliderThumb`, ou `AngleSliderMarkerGroup` avec `AngleSliderMarker`, lorsque vous avez besoin d’enfants personnalisés, d’un ordre différent ou de propriétés propres à chaque marqueur. Composez explicitement `AngleSliderHiddenInput` pour les formulaires natifs. Définissez `name` sur la racine si le formulaire se trouve dans le même arbre, ou `form` sur `AngleSliderHiddenInput` si le formulaire est ailleurs.
 ## Exemples
 
 ### Mode contrôlé
@@ -231,8 +231,8 @@ interactions.
 
 ### Dans un formulaire
 
-Ajoutez `AngleSlider.HiddenInput` et `name` pour inclure l’angle dans les données envoyées. Le bouton
-Reset illustre la réinitialisation native d’Ark. Définissez `form` sur `AngleSlider.HiddenInput` lorsque le formulaire n’est pas un ancêtre du curseur.
+Ajoutez `AngleSliderHiddenInput` et `name` pour inclure l’angle dans les données envoyées. Le bouton
+Reset illustre la réinitialisation native d’Ark. Définissez `form` sur `AngleSliderHiddenInput` lorsque le formulaire n’est pas un ancêtre du curseur.
 
 <ExampleFrame variant="component">
   <AngleSliderForm />
@@ -349,9 +349,9 @@ modifiée.
 
 </ExampleCode>
 
-### Utiliser `RootProvider`
+### Utiliser `AngleSliderRootProvider`
 
-Utilisez `useAngleSlider()` depuis `@moduix/react/angle-slider` avec `AngleSlider.RootProvider` lorsqu’un autre
+Utilisez `useAngleSlider()` depuis `@moduix/react/angle-slider` avec `AngleSliderRootProvider` lorsqu’un autre
 composant doit accéder au même état. L’état externe peut alors alimenter le reste de l’interface.
 
 <ExampleFrame variant="component">
@@ -430,8 +430,8 @@ Utilisez `step` pour faire suivre aux interactions du pointeur et du clavier des
 
 ### Avec des marqueurs
 
-Utilisez `AngleSlider.Marks` lorsque le cadran doit afficher des angles de référence courants sans répéter la
-composition de `MarkerGroup` et `Marker`. `AngleSlider.Dial` regroupe `Control` et `Thumb` dans une seule composition.
+Utilisez `AngleSliderMarks` lorsque le cadran doit afficher des angles de référence courants sans répéter la
+composition de `AngleSliderMarkerGroup` et `AngleSliderMarker`. `AngleSliderDial` regroupe `AngleSliderControl` et `AngleSliderThumb` dans une seule composition.
 
 <ExampleFrame variant="component">
   <AngleSliderWithMarks />
@@ -470,7 +470,7 @@ composition de `MarkerGroup` et `Marker`. `AngleSlider.Dial` regroupe `Control` 
 
 ### Personnalisation avancée
 
-Utilisez les parties explicites à la place de `AngleSlider.Dial` et `AngleSlider.Marks` lorsque le cadran nécessite
+Utilisez les parties explicites à la place de `AngleSliderDial` et `AngleSliderMarks` lorsque le cadran nécessite
 une composition de marqueurs personnalisée ou des enfants supplémentaires dans la zone de contrôle.
 
 <ExampleFrame variant="component">
@@ -529,7 +529,7 @@ approches.
   `:focus-visible`.
 - `data-slot="angle-slider-marker"` expose `data-value` et
   `data-state="under-value | at-value | over-value"`.
-- `AngleSlider.Marks` expose les mêmes sélecteurs `data-slot="angle-slider-marker-group"` et
+- `AngleSliderMarks` expose les mêmes sélecteurs `data-slot="angle-slider-marker-group"` et
   `data-slot="angle-slider-marker"` que les parties de marqueur explicites.
 - Les variables Ark du root `--value` et `--angle`, ainsi que les variables de marqueur `--marker-value` et
   `--marker-display-value`, restent disponibles.

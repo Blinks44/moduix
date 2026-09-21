@@ -1,4 +1,10 @@
-import { Alert } from '@moduix/react/alert';
+import {
+  Alert,
+  AlertContent,
+  AlertDescription,
+  AlertIndicator,
+  AlertTitle,
+} from '@moduix/react/alert';
 import { Check as CheckIcon, Info as InfoIcon } from 'lucide-react';
 import styles from '@/components/examples/alert/alert-statuses.module.css';
 
@@ -9,11 +15,11 @@ export default function AlertStatusesDemo() {
     <div className={styles.stack}>
       {statuses.map((status) => (
         <Alert key={status} status={status}>
-          <Alert.Indicator>{status === 'success' ? <CheckIcon /> : <InfoIcon />}</Alert.Indicator>
-          <Alert.Content>
-            <Alert.Title>{status}</Alert.Title>
-            <Alert.Description>Use this alert for {status} feedback.</Alert.Description>
-          </Alert.Content>
+          <AlertIndicator>{status === 'success' ? <CheckIcon /> : <InfoIcon />}</AlertIndicator>
+          <AlertContent>
+            <AlertTitle>{status}</AlertTitle>
+            <AlertDescription>Use this alert for {status} feedback.</AlertDescription>
+          </AlertContent>
         </Alert>
       ))}
     </div>

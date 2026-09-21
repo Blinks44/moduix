@@ -1,5 +1,5 @@
 import { createListCollection } from '@ark-ui/react/collection';
-import { Avatar } from '@moduix/react/avatar';
+import { Avatar, AvatarFallback } from '@moduix/react/avatar';
 import { Menu } from '@moduix/react/menu';
 import { Select } from '@moduix/react/select';
 import { Sidebar } from '@moduix/react/sidebar';
@@ -163,7 +163,7 @@ export default function WorkspaceSidebar() {
             <Menu.Trigger asChild>
               <Sidebar.NavigationButton size="lg" aria-label="Open account menu">
                 <Avatar size="sm" data-sidebar-icon>
-                  <Avatar.Fallback>AM</Avatar.Fallback>
+                  <AvatarFallback>AM</AvatarFallback>
                 </Avatar>
                 <Sidebar.Label className={styles.accountLabel}>
                   <strong className={styles.accountName}>Alex Morgan</strong>

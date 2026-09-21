@@ -1,4 +1,4 @@
-import { Avatar } from '@moduix/react/avatar';
+import { Avatar, AvatarFallback, AvatarImage } from '@moduix/react/avatar';
 import { useState } from 'react';
 import { PreviewMeta } from '@/components/mdx/Components';
 import styles from '@/components/examples/avatar/avatar-events.module.css';
@@ -12,8 +12,8 @@ export default function AvatarStatusDemo() {
   return (
     <div className={styles.root}>
       <Avatar onStatusChange={(details) => setStatus(details.status)}>
-        <Avatar.Fallback>AT</Avatar.Fallback>
-        <Avatar.Image src={avatarImage} alt="Alex T." />
+        <AvatarFallback>AT</AvatarFallback>
+        <AvatarImage src={avatarImage} alt="Alex T." />
       </Avatar>
       <PreviewMeta>
         <output>Status: {status}</output>

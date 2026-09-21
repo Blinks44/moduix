@@ -1,6 +1,6 @@
 import { useListCollection } from '@ark-ui/react/collection';
 import { useFilter } from '@ark-ui/react/locale';
-import { Avatar } from '@moduix/react/avatar';
+import { Avatar, AvatarFallback, AvatarImage } from '@moduix/react/avatar';
 import { Button } from '@moduix/react/button';
 import { CommandPalette } from '@moduix/react/command-palette';
 import { Menu } from '@moduix/react/menu';
@@ -168,8 +168,8 @@ export function AppHeader() {
                 aria-label={`Open ${account.name}'s account menu`}
               >
                 <Avatar className={styles.avatar} size="sm">
-                  <Avatar.Image src={account.image} alt="" />
-                  <Avatar.Fallback>{account.name.slice(0, 1)}</Avatar.Fallback>
+                  <AvatarImage src={account.image} alt="" />
+                  <AvatarFallback>{account.name.slice(0, 1)}</AvatarFallback>
                 </Avatar>
                 <span className={styles.accountDetails}>
                   <strong>{account.name}</strong>

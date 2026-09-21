@@ -1,4 +1,4 @@
-import { Avatar } from '@moduix/solid/avatar';
+import { Avatar, AvatarFallback } from '@moduix/solid/avatar';
 import { Collapsible } from '@moduix/solid/collapsible';
 import { Menu } from '@moduix/solid/menu';
 import { Sidebar } from '@moduix/solid/sidebar';
@@ -166,7 +166,7 @@ export default function AppSidebar() {
                   )}
                 >
                   <Avatar size="sm" data-sidebar-icon>
-                    <Avatar.Fallback>AM</Avatar.Fallback>
+                    <AvatarFallback>AM</AvatarFallback>
                   </Avatar>
                   <Sidebar.Label class={styles.accountLabel}>
                     <strong class={styles.accountName}>Alex Morgan</strong>

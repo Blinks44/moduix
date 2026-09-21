@@ -1,4 +1,4 @@
-import { Avatar } from '@moduix/solid/avatar';
+import { Avatar, AvatarFallback, AvatarImage } from '@moduix/solid/avatar';
 import { Tooltip } from '@moduix/solid/tooltip';
 import { For } from 'solid-js';
 import styles from './expandable-avatar-group.module.css';
@@ -65,8 +65,8 @@ export function ExpandableAvatarGroup() {
               )}
             >
               <Avatar size="lg">
-                <Avatar.Image src={member.image} alt="" />
-                <Avatar.Fallback>{member.name.slice(0, 1)}</Avatar.Fallback>
+                <AvatarImage src={member.image} alt="" />
+                <AvatarFallback>{member.name.slice(0, 1)}</AvatarFallback>
               </Avatar>
             </Tooltip.Trigger>
             <Tooltip.Body class={styles.tooltip}>

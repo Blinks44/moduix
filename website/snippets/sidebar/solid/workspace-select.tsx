@@ -1,5 +1,5 @@
 import { createListCollection } from '@ark-ui/solid/collection';
-import { Avatar } from '@moduix/solid/avatar';
+import { Avatar, AvatarFallback } from '@moduix/solid/avatar';
 import { Menu } from '@moduix/solid/menu';
 import { Select } from '@moduix/solid/select';
 import { Sidebar } from '@moduix/solid/sidebar';
@@ -147,7 +147,7 @@ export default function WorkspaceSidebar() {
               )}
             >
               <Avatar size="sm" data-sidebar-icon>
-                <Avatar.Fallback>AM</Avatar.Fallback>
+                <AvatarFallback>AM</AvatarFallback>
               </Avatar>
               <Sidebar.Label class={styles.accountLabel}>
                 <strong class={styles.accountName}>Alex Morgan</strong>

@@ -1,7 +1,7 @@
 import { createListCollection } from '@ark-ui/react/collection';
 import type { Meta, StoryObj } from '@storybook/react-vite';
 import { useEffect, useState, type ComponentProps } from 'react';
-import { Avatar } from '@/components/avatar';
+import { Avatar, AvatarFallback } from '@/components/avatar';
 import { Button } from '@/components/button';
 import { Collapsible } from '@/components/collapsible';
 import { Menu } from '@/components/menu';
@@ -133,7 +133,7 @@ function AccountMenu({ accentClassName }: { accentClassName?: string } = {}) {
           className={[accountButtonClassName, accentClassName].filter(Boolean).join(' ')}
         >
           <Avatar size="sm" data-sidebar-icon>
-            <Avatar.Fallback>AM</Avatar.Fallback>
+            <AvatarFallback>AM</AvatarFallback>
           </Avatar>
           <Sidebar.Label className={accountMetaClassName}>
             <strong>Alex Morgan</strong>

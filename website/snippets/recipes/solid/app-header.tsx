@@ -1,6 +1,6 @@
 import { useListCollection } from '@ark-ui/solid/collection';
 import { useFilter } from '@ark-ui/solid/locale';
-import { Avatar } from '@moduix/solid/avatar';
+import { Avatar, AvatarFallback, AvatarImage } from '@moduix/solid/avatar';
 import { Button } from '@moduix/solid/button';
 import { CommandPalette } from '@moduix/solid/command-palette';
 import { Menu } from '@moduix/solid/menu';
@@ -193,8 +193,8 @@ export function AppHeader() {
               )}
             >
               <Avatar class={styles.avatar} size="sm">
-                <Avatar.Image src={account.image} alt="" />
-                <Avatar.Fallback>{account.name.slice(0, 1)}</Avatar.Fallback>
+                <AvatarImage src={account.image} alt="" />
+                <AvatarFallback>{account.name.slice(0, 1)}</AvatarFallback>
               </Avatar>
               <span class={styles.accountDetails}>
                 <strong>{account.name}</strong>

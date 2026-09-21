@@ -41,9 +41,9 @@ Use `AngleSlider` when users need to set a direction or rotation on a circular d
 ## Basic
 
 
-Start with `Dial`, which combines the circular track, the centered value, and the thumb. The track
+Start with `AngleSliderDial`, which combines the circular track, the centered value, and the thumb. The track
 fills from the top as the angle grows. `AngleSlider` accepts one angle
-from 0 to 360 degrees. Add a visible `Label` when possible. If the dial has no visible label, add
+from 0 to 360 degrees. Add a visible `AngleSliderLabel` when possible. If the dial has no visible label, add
 `aria-label` to the root.
 
 <ExampleFrame variant="component">
@@ -111,45 +111,47 @@ See [Quick Start](/docs/quick-start) for full package setup, registry configurat
 ## Anatomy
 
 ```text
-AngleSlider / AngleSlider.Root
-├─ AngleSlider.Label
-├─ AngleSlider.Dial
-│  ├─ AngleSlider.ValueText
-│  └─ AngleSlider.Thumb
-├─ AngleSlider.Marks (optional)
-│  └─ AngleSlider.Marker[value]
-└─ AngleSlider.HiddenInput (explicit)
+AngleSlider
+├─ AngleSliderLabel
+├─ AngleSliderDial
+│  ├─ AngleSliderValueText
+│  └─ AngleSliderThumb
+├─ AngleSliderMarks (optional)
+│  └─ AngleSliderMarker[value]
+└─ AngleSliderHiddenInput (explicit)
 
-AngleSlider.RootProvider
+AngleSliderRootProvider
 └─ same part tree connected to a useAngleSlider() store
 ```
 
 | Part                               | Role                                                                  |
 | ---------------------------------- | --------------------------------------------------------------------- |
-| `AngleSlider` / `AngleSlider.Root` | Styled root that owns controlled or uncontrolled slider state.        |
-| `AngleSlider.RootProvider`         | Connects the parts to state created with `useAngleSlider()`.          |
-| `AngleSlider.Label`                | Associates a visible label with the slider.                           |
-| `AngleSlider.Control`              | Provides the circular pointer interaction area.                       |
-| `AngleSlider.Dial`                 | Convenience composition of `Control`, the centered `ValueText`, and `Thumb`. |
-| `AngleSlider.Thumb`                | Focusable circular handle that rides the track at the current angle.  |
-| `AngleSlider.MarkerGroup`          | Contains optional reference markers.                                  |
-| `AngleSlider.Marker`               | Places a numeric marker around the dial.                               |
-| `AngleSlider.Marks`                | Convenience composition that creates markers from a `values` array.    |
-| `AngleSlider.ValueText`             | Displays the current value in degrees; `Dial` centers it in the dial. |
-| `AngleSlider.HiddenInput`           | Native form control; compose it explicitly when submitting the value. |
+| `AngleSlider` | Styled root that owns controlled or uncontrolled slider state.        |
+| `AngleSliderRootProvider`         | Connects the parts to state created with `useAngleSlider()`.          |
+| `AngleSliderLabel`                | Associates a visible label with the slider.                           |
+| `AngleSliderControl`              | Provides the circular pointer interaction area.                       |
+| `AngleSliderDial`                 | Convenience composition of `Control`, the centered `ValueText`, and `Thumb`. |
+| `AngleSliderThumb`                | Focusable circular handle that rides the track at the current angle.  |
+| `AngleSliderMarkerGroup`          | Contains optional reference markers.                                  |
+| `AngleSliderMarker`               | Places a numeric marker around the dial.                               |
+| `AngleSliderMarks`                | Convenience composition that creates markers from a `values` array.    |
+| `AngleSliderValueText`             | Displays the current value in degrees; `AngleSliderDial` centers it in the dial. |
+| `AngleSliderHiddenInput`           | Native form control; compose it explicitly when submitting the value. |
 
 ## Composition
 
 Use `defaultValue` for an uncontrolled slider and `value` with `onValueChange(details)` when
-another part of the application owns the angle. Use `AngleSlider.RootProvider` with
+another part of the application owns the angle. Use `AngleSliderRootProvider` with
 `useAngleSlider()` from the matching framework package only when the store must be created outside
-the rendered slider tree; do not render `Root` and `RootProvider` for the same state instance. In
+the rendered slider tree; do not render the root and `AngleSliderRootProvider` for the same
+state instance. In
 Solid, read the provider store through its accessor, for example `angleSlider().value`.
 
-`Dial` and `Marks` are convenience compositions. Use `Control` with `Thumb`, or
-`MarkerGroup` with `Marker`, when you need custom children, a different order, or per-marker props.
-Compose `HiddenInput` explicitly for native forms. Set `name` on the root for a form in the same
-tree, or set `form` on `HiddenInput` when the form is elsewhere.
+`AngleSliderDial` and `AngleSliderMarks` are convenience compositions. Use `AngleSliderControl` with
+`AngleSliderThumb`, or `AngleSliderMarkerGroup` with `AngleSliderMarker`, when you need custom
+children, a different order, or per-marker props.
+Compose `AngleSliderHiddenInput` explicitly for native forms. Set `name` on the root for a form in the same
+tree, or set `form` on `AngleSliderHiddenInput` when the form is elsewhere.
 
 ## Examples
 
@@ -233,8 +235,8 @@ Use `disabled` when the control should be unavailable and excluded from focus an
 
 ### In a Form
 
-Add `AngleSlider.HiddenInput` and `name` to include the angle in native form submission. Set `form`
-on `AngleSlider.HiddenInput` when the form is not an ancestor of the slider.
+Add `AngleSliderHiddenInput` and `name` to include the angle in native form submission. Set `form`
+on `AngleSliderHiddenInput` when the form is not an ancestor of the slider.
 
 <ExampleFrame variant="component">
   <AngleSliderForm />
@@ -352,7 +354,7 @@ Use `readOnly` when the current value should remain focusable and visible but no
 
 ### Root Provider
 
-Use `useAngleSlider()` from the matching framework package with `AngleSlider.RootProvider` when
+Use `useAngleSlider()` from the matching framework package with `AngleSliderRootProvider` when
 another component needs direct access to the same state machine. The external state can then drive
 surrounding UI.
 
@@ -432,8 +434,9 @@ Use `step` to snap pointer and keyboard interaction to fixed angular increments.
 
 ### With Marks
 
-Use `AngleSlider.Marks` when the dial should show common reference angles without repeating the
-`MarkerGroup` and `Marker` boilerplate. `AngleSlider.Dial` keeps the `Control` and `Thumb`
+Use `AngleSliderMarks` when the dial should show common reference angles without repeating the
+`AngleSliderMarkerGroup` and `AngleSliderMarker` boilerplate. `AngleSliderDial` keeps the
+`AngleSliderControl` and `AngleSliderThumb`
 composition together.
 
 <ExampleFrame variant="component">
@@ -473,7 +476,7 @@ composition together.
 
 ### Advanced Customization
 
-Use the explicit parts instead of `AngleSlider.Dial` and `AngleSlider.Marks` when the dial needs a
+Use the explicit parts instead of `AngleSliderDial` and `AngleSliderMarks` when the dial needs a
 custom marker composition or extra children inside the control.
 
 <ExampleFrame variant="component">
@@ -529,7 +532,7 @@ variables and the listed data hooks remain available in both styling tracks.
   `angle-slider-label`, `angle-slider-control`, `angle-slider-thumb`, `angle-slider-marker-group`,
   `angle-slider-marker`, and `angle-slider-value-text`.
 - Ark part selectors use `data-scope="angle-slider"` and `data-part`.
-- `AngleSlider.Marks` renders the same marker hooks as the explicit `MarkerGroup` and `Marker`
+- `AngleSliderMarks` renders the same marker hooks as the explicit `AngleSliderMarkerGroup` and `AngleSliderMarker`
   parts.
 - Root variables `--value` and `--angle`, and marker variables `--marker-value` and
   `--marker-display-value`, remain available for styling.

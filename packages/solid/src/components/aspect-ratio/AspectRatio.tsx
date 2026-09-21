@@ -5,14 +5,14 @@ import type { JSX } from 'solid-js';
 import { splitProps } from 'solid-js';
 import styles from './AspectRatio.module.css';
 
-type AspectRatioRootProps = HTMLArkProps<'div'> & {
+type AspectRatioProps = HTMLArkProps<'div'> & {
   ratio: number;
   'data-scope'?: string;
   'data-part'?: string;
   'data-slot'?: string;
 };
 
-function AspectRatioRoot(props: AspectRatioRootProps) {
+function AspectRatio(props: AspectRatioProps) {
   const [local, others] = splitProps(props, [
     'asChild',
     'class',
@@ -48,9 +48,5 @@ function AspectRatioRoot(props: AspectRatioRootProps) {
     />
   );
 }
-
-const AspectRatio = Object.assign(AspectRatioRoot, {
-  Root: AspectRatioRoot,
-});
 
 export { AspectRatio };

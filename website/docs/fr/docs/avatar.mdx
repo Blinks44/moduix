@@ -26,12 +26,14 @@ import avatarSolidSizesAndFallbackOnly from '../../../snippets/avatar/solid/size
 <PrimitiveReference href="https://ark-ui.com/docs/components/avatar" />
 
 
-Les mêmes exports sont disponibles depuis `@moduix/solid/avatar` pour Solid.
 ## Exemple de base
 
-Utilisez `Avatar`, `Avatar.Fallback` et `Avatar.Image` ensemble. Gardez `Avatar.Fallback` dans l’arbre
+Utilisez `Avatar`, `AvatarFallback` et `AvatarImage` ensemble. Gardez `AvatarFallback` dans l’arbre
 pour qu’Ark UI puisse basculer entre le contenu de remplacement et l’image lorsque l’état de chargement change.
 
+React et Solid partagent les mêmes noms de valeurs à plat. Importez `Avatar` comme racine et chaque
+partie supplémentaire directement, par exemple `AvatarImage` et `AvatarFallback`. Ces mêmes noms
+fonctionnent avec les paquets npm et les sources du registre shadcn.
 
 <ExampleFrame variant="component">
   <AvatarBasic />
@@ -93,21 +95,25 @@ Consultez le [Démarrage rapide](/docs/quick-start) pour la configuration compl�
 ## Anatomie
 
 ```text
-Avatar.Root | Avatar.RootProvider
-├─ Avatar.Fallback
-└─ Avatar.Image
+Avatar
+├─ AvatarFallback
+└─ AvatarImage
+
+AvatarRootProvider
+└─ les mêmes parties connectées à un store useAvatar()
 ```
 
-| Composant | Rôle |
-| ------------------------ | ----------------------------------------------------------------- |
-| `Avatar` / `Avatar.Root` | Crée l’élément racine et gère l’état de l’avatar Ark UI. |
-| `Avatar.RootProvider` | Relie l’avatar à un état Ark UI créé en dehors de son arbre. |
-| `Avatar.Fallback` | Affiche le contenu fourni par le consommateur jusqu’au chargement de l’image. |
-| `Avatar.Image` | Affiche l’image après un chargement réussi. |
+| Composant           | Rôle |
+| ------------------- | ----------------------------------------------------------------- |
+| `Avatar`            | Crée l’élément racine et gère l’état de l’avatar Ark UI. |
+| `AvatarRootProvider` | Relie l’avatar à un état Ark UI créé en dehors de son arbre. |
+| `AvatarFallback`    | Affiche le contenu fourni par le consommateur jusqu’au chargement de l’image. |
+| `AvatarImage`       | Affiche l’image après un chargement réussi. |
 
 ## Composition
 
-Gardez `Avatar.Fallback` et `Avatar.Image` sous la même racine afin qu’Ark UI puisse gérer leur visibilité. Lorsqu’une autre partie de l’application possède l’état, créez-le avec `useAvatar()` du framework concerné et transmettez-le directement à `Avatar.RootProvider` ; ne rendez pas une seconde racine pour le même store. React reçoit le store comme un objet, tandis que Solid reçoit un accessor réactif. Pour un rendu d’image personnalisé, utilisez `useAvatarContext()` et conservez les états masqué et visible renvoyés par `getImageProps()`. Utilisez `asChild` avec un seul enfant sémantique lorsqu’un autre élément doit porter le nœud DOM racine.
+Gardez `AvatarFallback` et `AvatarImage` sous la même racine afin qu’Ark UI puisse gérer leur visibilité. Lorsqu’une autre partie de l’application possède l’état, créez-le avec `useAvatar()` du framework concerné et transmettez-le directement à `AvatarRootProvider` ; ne rendez pas une seconde racine pour le même store. React reçoit le store comme un objet, tandis que Solid reçoit un accessor réactif. Pour un rendu d’image personnalisé, utilisez `useAvatarContext()` et conservez les états masqué et visible renvoyés par `getImageProps()`. Utilisez `asChild` avec un seul enfant sémantique lorsqu’un autre élément doit porter le nœud DOM racine.
+
 ## Exemples
 
 ### Contenu de remplacement personnalisé
@@ -232,7 +238,7 @@ Utilisez `onStatusChange(details)` lorsque l’interface voisine doit réagir au
 ### Utiliser `RootProvider`
 
 Créez l’état avec `useAvatar` depuis moduix lorsque des contrôles situés en dehors de l’avatar doivent
-interagir avec lui. Transmettez-le à `Avatar.RootProvider` à la place de `Avatar.Root`.
+interagir avec lui. Transmettez-le à `AvatarRootProvider` à la place de `Avatar`.
 
 <ExampleFrame variant="component">
   <AvatarRootProvider />
@@ -365,7 +371,7 @@ données fournis par Ark lorsque le style dépend de l’état de l’image.
 - `data-slot="avatar-root"`, `avatar-root-provider`, `avatar-image` et `avatar-fallback`.
 - Attributs d’anatomie Ark : `data-scope="avatar"` et
   `data-part="root" | "image" | "fallback"`.
-- État de l’image géré par Ark : `data-state="visible" | "hidden"` sur `Avatar.Image` et
-  `Avatar.Fallback`.
+- État de l’image géré par Ark : `data-state="visible" | "hidden"` sur `AvatarImage` et
+  `AvatarFallback`.
 - Attribut de taille de moduix : `data-size="xs" | "sm" | "md" | "lg" | "xl"` sur
-  `Avatar.Root` et `Avatar.RootProvider` lorsque `size` est fourni.
+  `Avatar` et `AvatarRootProvider` lorsque `size` est fourni.

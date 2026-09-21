@@ -1,22 +1,29 @@
 import { expect, test } from '@rstest/core';
 import { render, screen } from '@testing-library/react';
 import { createRef } from 'react';
-import { Alert } from '../src';
+import {
+  Alert,
+  AlertActions,
+  AlertContent,
+  AlertDescription,
+  AlertIndicator,
+  AlertTitle,
+} from '../src';
 
 test('applies status semantics and stable data hooks', () => {
   const { container } = render(
     <>
       <Alert role="status">
-        <Alert.Content>
-          <Alert.Title>Update available</Alert.Title>
-          <Alert.Description>Install the latest version.</Alert.Description>
-        </Alert.Content>
+        <AlertContent>
+          <AlertTitle>Update available</AlertTitle>
+          <AlertDescription>Install the latest version.</AlertDescription>
+        </AlertContent>
       </Alert>
       <Alert status="error" role="alert">
-        <Alert.Indicator>!</Alert.Indicator>
-        <Alert.Content>
-          <Alert.Title>Payment failed</Alert.Title>
-        </Alert.Content>
+        <AlertIndicator>!</AlertIndicator>
+        <AlertContent>
+          <AlertTitle>Payment failed</AlertTitle>
+        </AlertContent>
       </Alert>
     </>,
   );
@@ -39,11 +46,11 @@ test('preserves semantic children and refs with asChild', () => {
   render(
     <Alert ref={rootRef} asChild role="status">
       <section aria-label="Release notes">
-        <Alert.Content>
-          <Alert.Title ref={titleRef} asChild>
+        <AlertContent>
+          <AlertTitle ref={titleRef} asChild>
             <h2>Update available</h2>
-          </Alert.Title>
-        </Alert.Content>
+          </AlertTitle>
+        </AlertContent>
       </section>
     </Alert>,
   );
@@ -65,13 +72,13 @@ test('forwards refs and data hooks for every optional part', () => {
 
   render(
     <Alert role="note">
-      <Alert.Indicator ref={indicatorRef} aria-hidden={false}>
+      <AlertIndicator ref={indicatorRef} aria-hidden={false}>
         i
-      </Alert.Indicator>
-      <Alert.Content ref={contentRef}>
-        <Alert.Description ref={descriptionRef}>Scheduled maintenance</Alert.Description>
-        <Alert.Actions ref={actionsRef}>No action required</Alert.Actions>
-      </Alert.Content>
+      </AlertIndicator>
+      <AlertContent ref={contentRef}>
+        <AlertDescription ref={descriptionRef}>Scheduled maintenance</AlertDescription>
+        <AlertActions ref={actionsRef}>No action required</AlertActions>
+      </AlertContent>
     </Alert>,
   );
 

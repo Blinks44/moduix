@@ -25,10 +25,9 @@ Ark UI ne fournit pas de primitive `alert` dédiée. moduix construit `Alert` av
 d’Ark, en suivant les recommandations d’Ark en matière de [composition](https://ark-ui.com/docs/guides/composition), de
 [styles](https://ark-ui.com/docs/guides/styling) et de [gestion des refs](https://ark-ui.com/docs/guides/ref).
 
-Importez `Alert` depuis `@moduix/react/alert`. Vous pouvez utiliser `Alert` comme composant racine ou
-passer par `Alert.Root` : les deux formes rendent la même partie racine. Les autres parties publiques sont
-`Alert.Indicator`, `Alert.Content`, `Alert.Title`,
-`Alert.Description` et `Alert.Actions`.
+Importez `Alert` depuis `@moduix/react/alert`. `Alert` est la partie racine, et les autres parties
+publiques sont `AlertIndicator`, `AlertContent`, `AlertTitle`,
+`AlertDescription` et `AlertActions`.
 
 Chaque partie accepte les propriétés usuelles de l’élément qu’elle rend, notamment `className` et
 `asChild`, et transmet la ref à l’élément rendu.
@@ -45,8 +44,8 @@ flux normal du document.
 Les mêmes exports sont disponibles depuis `@moduix/solid/alert` pour Solid.
 ## Exemple de base
 
-Pour un message intégré courant, utilisez la forme courte `<Alert>` avec `Alert.Title` et
-`Alert.Description`. Ajoutez `Alert.Indicator` lorsqu’une icône aide à comprendre plus rapidement le
+Pour un message intégré courant, utilisez la forme courte `<Alert>` avec `AlertTitle` et
+`AlertDescription`. Ajoutez `AlertIndicator` lorsqu’une icône aide à comprendre plus rapidement le
 type de message.
 
 
@@ -109,38 +108,38 @@ Consultez le [Démarrage rapide](/docs/quick-start) pour la configuration compl�
 
 ## Anatomie
 
-Placez le contenu du message dans `Alert.Content`. `Alert.Indicator` est facultatif et se place à
+Placez le contenu du message dans `AlertContent`. `AlertIndicator` est facultatif et se place à
 côté de ce contenu lorsqu’il aide à identifier le message.
 
 ```text
-Alert / Alert.Root
-├─ Alert.Indicator (optional)
-└─ Alert.Content
-   ├─ Alert.Title
-   ├─ Alert.Description
-   ├─ Alert.Actions (optional)
+Alert
+├─ AlertIndicator (optional)
+└─ AlertContent
+   ├─ AlertTitle
+   ├─ AlertDescription
+   ├─ AlertActions (optional)
    └─ Extra custom blocks
 ```
 
-| Partie                 | Rôle                                                                  | `data-part`   |
-| ---------------------- | --------------------------------------------------------------------- | ------------- |
-| `Alert` / `Alert.Root` | Élément racine. Applique les styles du statut et la sémantique automatique de région dynamique. | `root`        |
-| `Alert.Indicator`      | Repère visuel facultatif. Les icônes SVG qu’il contient ont une taille cohérente. | `indicator`   |
-| `Alert.Content`        | Conteneur en colonne obligatoire pour le contenu et les actions.   | `content`     |
-| `Alert.Title`          | Titre de l’alerte. Rend un `p` par défaut.                              | `title`       |
-| `Alert.Description`    | Texte complémentaire du message.                                       | `description` |
-| `Alert.Actions`        | Ligne d’actions facultative avec retour à la ligne dans `Content`.     | `actions`     |
+| Partie             | Rôle                                                                  | `data-part`   |
+| ------------------ | --------------------------------------------------------------------- | ------------- |
+| `Alert`            | Élément racine. Applique les styles du statut et la sémantique automatique de région dynamique. | `root`        |
+| `AlertIndicator`   | Repère visuel facultatif. Les icônes SVG qu’il contient ont une taille cohérente. | `indicator`   |
+| `AlertContent`     | Conteneur en colonne obligatoire pour le contenu et les actions.   | `content`     |
+| `AlertTitle`       | Titre de l’alerte. Rend un `p` par défaut.                              | `title`       |
+| `AlertDescription` | Texte complémentaire du message.                                       | `description` |
+| `AlertActions`     | Ligne d’actions facultative avec retour à la ligne dans `Content`.     | `actions`     |
 
 ## Composition
 
-`Alert` est un composant de présentation : le composant qui l’affiche gère sa visibilité et sa fermeture. Il ne prend pas en charge le focus ni le clavier des boutons et des liens qu’il contient. `Alert.Content` est obligatoire et regroupe le titre, la description, les contrôles et le reste du contenu. Placez les contrôles dans `Alert.Actions` lorsqu’ils doivent bénéficier de la mise en ligne avec retour à la ligne.
+`Alert` est un composant de présentation : le composant qui l’affiche gère sa visibilité et sa fermeture. Il ne prend pas en charge le focus ni le clavier des boutons et des liens qu’il contient. `AlertContent` est obligatoire et regroupe le titre, la description, les contrôles et le reste du contenu. Placez les contrôles dans `AlertActions` lorsqu’ils doivent bénéficier de la mise en ligne avec retour à la ligne.
 
-Si le titre doit utiliser un autre élément sémantique, utilisez `Alert.Title asChild` avec un seul enfant sémantique. En Solid, `asChild` utilise la forme avec fonction de rendu d’Ark UI, comme dans l’exemple « Titre personnalisé ».
+Si le titre doit utiliser un autre élément sémantique, utilisez `AlertTitle asChild` avec un seul enfant sémantique. En Solid, `asChild` utilise la forme avec fonction de rendu d’Ark UI, comme dans l’exemple « Titre personnalisé ».
 ## Exemples
 
 ### Titre personnalisé
 
-Utilisez `asChild` sur `Alert.Title` lorsque le titre de l’alerte doit s’inscrire dans la hiérarchie
+Utilisez `asChild` sur `AlertTitle` lorsque le titre de l’alerte doit s’inscrire dans la hiérarchie
 des titres de la page.
 
 <ExampleFrame variant="component">
@@ -211,7 +210,7 @@ d’un accent visuel plus marqué.
 ### Statuts
 
 Utilisez les quatre statuts pour distinguer les messages d’information, de réussite, d’avertissement et
-d’erreur. Ajoutez `Alert.Indicator` avec l’icône de votre choix lorsque ce repère visuel est utile.
+d’erreur. Ajoutez `AlertIndicator` avec l’icône de votre choix lorsque ce repère visuel est utile.
 
 <ExampleFrame variant="component">
   <AlertStatuses />
@@ -250,7 +249,7 @@ d’erreur. Ajoutez `Alert.Indicator` avec l’icône de votre choix lorsque ce 
 
 ### Avec icône
 
-Placez une icône moduix ou un SVG personnalisé dans `Alert.Indicator`.
+Placez une icône moduix ou un SVG personnalisé dans `AlertIndicator`.
 
 <ExampleFrame variant="component">
   <AlertWithIcon />
@@ -284,7 +283,7 @@ Placez une icône moduix ou un SVG personnalisé dans `Alert.Indicator`.
 
 ### Personnalisation avancée
 
-Utilisez `Alert.Content` et `Alert.Actions` lorsque le message doit proposer des actions pour corriger
+Utilisez `AlertContent` et `AlertActions` lorsque le message doit proposer des actions pour corriger
 un problème ou poursuivre le parcours. Gérez l’état de fermeture dans le composant qui affiche
 l’alerte si vous devez pouvoir la masquer localement.
 
@@ -352,4 +351,4 @@ Les statuts intégrés utilisent également les tokens de palette partagée :
 
 - Sélecteurs `data-slot` stables : `alert-root`, `alert-indicator`, `alert-content`, `alert-title`, `alert-description` et `alert-actions`
 - Sélecteurs de style Ark : `data-scope="alert"` avec `data-part="root"`, `indicator`, `content`, `title`, `description` ou `actions`
-- `Alert.Root` écrit le statut sélectionné dans `data-status`
+- `Alert` écrit le statut sélectionné dans `data-status`

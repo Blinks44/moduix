@@ -185,21 +185,26 @@ const AngleSliderValueText = forwardRef<
   );
 });
 
-const AngleSlider = Object.assign(AngleSliderRoot, {
-  Root: AngleSliderRoot,
-  RootProvider: AngleSliderRootProvider,
-  Context: AngleSliderPrimitive.Context,
-  HiddenInput: AngleSliderPrimitive.HiddenInput,
-  Label: AngleSliderLabel,
-  Control: AngleSliderControl,
-  Dial: AngleSliderDial,
-  Thumb: AngleSliderThumb,
-  MarkerGroup: AngleSliderMarkerGroup,
-  Marker: AngleSliderMarker,
-  Marks: AngleSliderMarks,
-  ValueText: AngleSliderValueText,
-});
+const AngleSlider = AngleSliderRoot;
+
+const AngleSliderContext = AngleSliderPrimitive.Context;
+const AngleSliderHiddenInput = AngleSliderPrimitive.HiddenInput;
 
 const useAngleSlider = useAngleSliderPrimitive;
 
-export { AngleSlider, useAngleSlider, useAngleSliderContext };
+export {
+  AngleSlider,
+  AngleSliderContext,
+  AngleSliderControl,
+  AngleSliderDial,
+  AngleSliderHiddenInput,
+  AngleSliderLabel,
+  AngleSliderMarker,
+  AngleSliderMarkerGroup,
+  AngleSliderMarks,
+  AngleSliderRootProvider,
+  AngleSliderThumb,
+  AngleSliderValueText,
+  useAngleSlider,
+  useAngleSliderContext,
+};

@@ -158,19 +158,24 @@ function AngleSliderValueText(props: ComponentProps<typeof AngleSliderPrimitive.
   );
 }
 
-const AngleSlider = Object.assign(AngleSliderRoot, {
-  Root: AngleSliderRoot,
-  RootProvider: AngleSliderRootProvider,
-  Context: AngleSliderPrimitive.Context,
-  HiddenInput: AngleSliderPrimitive.HiddenInput,
-  Label: AngleSliderLabel,
-  Control: AngleSliderControl,
-  Dial: AngleSliderDial,
-  Thumb: AngleSliderThumb,
-  MarkerGroup: AngleSliderMarkerGroup,
-  Marker: AngleSliderMarker,
-  Marks: AngleSliderMarks,
-  ValueText: AngleSliderValueText,
-});
+const AngleSlider = AngleSliderRoot;
 
-export { AngleSlider, useAngleSlider, useAngleSliderContext };
+const AngleSliderContext = AngleSliderPrimitive.Context;
+const AngleSliderHiddenInput = AngleSliderPrimitive.HiddenInput;
+
+export {
+  AngleSlider,
+  AngleSliderContext,
+  AngleSliderControl,
+  AngleSliderDial,
+  AngleSliderHiddenInput,
+  AngleSliderLabel,
+  AngleSliderMarker,
+  AngleSliderMarkerGroup,
+  AngleSliderMarks,
+  AngleSliderRootProvider,
+  AngleSliderThumb,
+  AngleSliderValueText,
+  useAngleSlider,
+  useAngleSliderContext,
+};

@@ -14,7 +14,7 @@ finite positive `ratio`.
 
 ## Public contract
 
-- `AspectRatio` and `AspectRatio.Root` expose the same single root part.
+- `AspectRatio` is the single flat public value and the only root part.
 - The root renders as an Ark factory `div`, supports `asChild`, forwards its ref, and writes
   `data-scope="aspect-ratio"`, `data-part="root"`, and `data-slot="aspect-ratio-root"`.
 - Invalid ratios throw a `RangeError`.
@@ -35,8 +35,7 @@ radius, and overflow. In particular, the root must not style arbitrary `img`, `v
 
 ## Differences from upstream
 
-Moduix adds numeric ratio validation, stable data hooks, and the namespaced `AspectRatio.Root`
-alias around the Ark factory model.
+Moduix adds numeric ratio validation and stable data hooks around the Ark factory model.
 
 ## Local changelog
 

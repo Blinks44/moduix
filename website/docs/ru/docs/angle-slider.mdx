@@ -42,9 +42,9 @@ import angleSliderSolidWithMarks from '../../../snippets/angle-slider/solid/with
 ## Базовый пример
 
 
-Начните с `Dial`: он объединяет круговой трек, центрированное значение и бегунок. Трек заполняется
+Начните с `AngleSliderDial`: он объединяет круговой трек, центрированное значение и бегунок. Трек заполняется
 сверхи по мере роста угла. `AngleSlider` принимает
-один угол от 0 до 360 градусов. По возможности добавляйте видимую `Label`. Если у диска нет
+один угол от 0 до 360 градусов. По возможности добавляйте видимую `AngleSliderLabel`. Если у диска нет
 видимой подписи, добавьте `aria-label` в корневой компонент.
 
 <ExampleFrame variant="component">
@@ -112,45 +112,46 @@ import angleSliderSolidWithMarks from '../../../snippets/angle-slider/solid/with
 ## Анатомия
 
 ```text
-AngleSlider / AngleSlider.Root
-├─ AngleSlider.Label
-├─ AngleSlider.Dial
-│  ├─ AngleSlider.ValueText
-│  └─ AngleSlider.Thumb
-├─ AngleSlider.Marks (необязательно)
-│  └─ AngleSlider.Marker[value]
-└─ AngleSlider.HiddenInput (явно)
+AngleSlider
+├─ AngleSliderLabel
+├─ AngleSliderDial
+│  ├─ AngleSliderValueText
+│  └─ AngleSliderThumb
+├─ AngleSliderMarks (необязательно)
+│  └─ AngleSliderMarker[value]
+└─ AngleSliderHiddenInput (явно)
 
-AngleSlider.RootProvider
+AngleSliderRootProvider
 └─ same part tree connected to a useAngleSlider() store
 ```
 
 | Часть                              | Назначение                                                            |
 | ---------------------------------- | --------------------------------------------------------------------- |
-| `AngleSlider` / `AngleSlider.Root` | Стилизованный корневой компонент, который хранит состояние слайдера.  |
-| `AngleSlider.RootProvider`         | Подключает части к состоянию, созданному через `useAngleSlider()`.    |
-| `AngleSlider.Label`                | Связывает видимую подпись со слайдером.                               |
-| `AngleSlider.Control`              | Задаёт круглую область для взаимодействия указателем.                 |
-| `AngleSlider.Dial`                 | Удобная композиция из `Control`, центрированной `ValueText` и `Thumb`. |
-| `AngleSlider.Thumb`                | Фокусируемый круглый бегунок, движущийся по треку в соответствии с текущим углом. |
-| `AngleSlider.MarkerGroup`          | Содержит необязательные опорные маркеры.                              |
-| `AngleSlider.Marker`               | Размещает числовой маркер вокруг диска.                               |
-| `AngleSlider.Marks`                | Создаёт маркеры по массиву `values`.                                  |
-| `AngleSlider.ValueText`             | Показывает текущее значение в градусах; `Dial` центрирует его в диске. |
-| `AngleSlider.HiddenInput`           | Нативное поле формы; добавляйте его явно для отправки значения.       |
+| `AngleSlider` | Стилизованный корневой компонент, который хранит состояние слайдера.  |
+| `AngleSliderRootProvider`         | Подключает части к состоянию, созданному через `useAngleSlider()`.    |
+| `AngleSliderLabel`                | Связывает видимую подпись со слайдером.                               |
+| `AngleSliderControl`              | Задаёт круглую область для взаимодействия указателем.                 |
+| `AngleSliderDial`                 | Удобная композиция из `Control`, центрированной `ValueText` и `Thumb`. |
+| `AngleSliderThumb`                | Фокусируемый круглый бегунок, движущийся по треку в соответствии с текущим углом. |
+| `AngleSliderMarkerGroup`          | Содержит необязательные опорные маркеры.                              |
+| `AngleSliderMarker`               | Размещает числовой маркер вокруг диска.                               |
+| `AngleSliderMarks`                | Создаёт маркеры по массиву `values`.                                  |
+| `AngleSliderValueText`             | Показывает текущее значение в градусах; `AngleSliderDial` центрирует его в диске. |
+| `AngleSliderHiddenInput`           | Нативное поле формы; добавляйте его явно для отправки значения.       |
 
 ## Композиция
 
 Используйте `defaultValue` для неконтролируемого слайдера, а `value` вместе с
 `onValueChange(details)` - когда состоянием угла управляет другая часть приложения. Используйте
-`AngleSlider.RootProvider` с `useAngleSlider()` из соответствующего пакета только тогда, когда
-store нужно создать вне дерева слайдера; не рендерите `Root` и `RootProvider` для одного состояния.
+`AngleSliderRootProvider` с `useAngleSlider()` из соответствующего пакета только тогда, когда
+store нужно создать вне дерева слайдера; не рендерите корневой компонент и `AngleSliderRootProvider`
+для одного состояния.
 В Solid состояние store читается через функцию-аксессор, например `angleSlider().value`.
 
-`Dial` и `Marks` - удобные составные компоненты. Используйте `Control` с `Thumb` или
-`MarkerGroup` с `Marker`, если нужны собственные дочерние элементы, другой порядок частей или
-индивидуальные свойства маркеров. Для нативной формы явно добавляйте `HiddenInput`. Укажите `name`
-в корневом компоненте для формы в том же дереве или `form` в `HiddenInput`, если форма находится
+`AngleSliderDial` и `AngleSliderMarks` - удобные составные компоненты. Используйте `AngleSliderControl` с `AngleSliderThumb` или
+`AngleSliderMarkerGroup` с `AngleSliderMarker`, если нужны собственные дочерние элементы, другой порядок частей или
+индивидуальные свойства маркеров. Для нативной формы явно добавляйте `AngleSliderHiddenInput`. Укажите `name`
+в корневом компоненте для формы в том же дереве или `form` в `AngleSliderHiddenInput`, если форма находится
 отдельно.
 
 ## Примеры
@@ -236,8 +237,8 @@ store нужно создать вне дерева слайдера; не ре�
 
 ### В форме
 
-Добавьте `AngleSlider.HiddenInput` и `name`, чтобы включить угол в нативную отправку формы. Кнопка
-Reset показывает встроенный в Ark сброс формы. Укажите `form` в `AngleSlider.HiddenInput`, если форма
+Добавьте `AngleSliderHiddenInput` и `name`, чтобы включить угол в нативную отправку формы. Кнопка
+Reset показывает встроенный в Ark сброс формы. Укажите `form` в `AngleSliderHiddenInput`, если форма
 не является предком слайдера.
 
 <ExampleFrame variant="component">
@@ -357,7 +358,7 @@ Reset показывает встроенный в Ark сброс формы. У
 
 ### Root Provider
 
-Используйте `useAngleSlider()` из соответствующего пакета вместе с `AngleSlider.RootProvider`, если
+Используйте `useAngleSlider()` из соответствующего пакета вместе с `AngleSliderRootProvider`, если
 другому компоненту нужен прямой доступ к тому же автомату состояний. Внешнее состояние можно
 использовать для управления соседним интерфейсом.
 
@@ -438,9 +439,9 @@ Reset показывает встроенный в Ark сброс формы. У
 
 ### С маркерами
 
-Используйте `AngleSlider.Marks`, когда на диске нужны основные угловые отметки и не хочется
-повторять `MarkerGroup` и `Marker`. `AngleSlider.Dial` сохраняет вместе композицию `Control` и
-`Thumb`.
+Используйте `AngleSliderMarks`, когда на диске нужны основные угловые отметки и не хочется
+повторять `AngleSliderMarkerGroup` и `AngleSliderMarker`. `AngleSliderDial` сохраняет вместе композицию `AngleSliderControl` и
+`AngleSliderThumb`.
 
 <ExampleFrame variant="component">
   <AngleSliderWithMarks />
@@ -479,7 +480,7 @@ Reset показывает встроенный в Ark сброс формы. У
 
 ### Расширенная настройка
 
-Используйте явные части вместо `AngleSlider.Dial` и `AngleSlider.Marks`, если диску нужна собственная
+Используйте явные части вместо `AngleSliderDial` и `AngleSliderMarks`, если диску нужна собственная
 композиция маркеров или дополнительные дочерние элементы внутри области управления.
 
 <ExampleFrame variant="component">
@@ -536,7 +537,7 @@ Reset показывает встроенный в Ark сброс формы. У
   `angle-slider-label`, `angle-slider-control`, `angle-slider-thumb`, `angle-slider-marker-group`,
   `angle-slider-marker` и `angle-slider-value-text`.
 - Селекторы частей Ark используют `data-scope="angle-slider"` и `data-part`.
-- `AngleSlider.Marks` создаёт те же хуки маркеров, что и явные части `MarkerGroup` и `Marker`.
+- `AngleSliderMarks` создаёт те же хуки маркеров, что и явные части `AngleSliderMarkerGroup` и `AngleSliderMarker`.
 - Для стилизации доступны переменные корня `--value` и `--angle`, а также переменные маркеров
   `--marker-value` и `--marker-display-value`.
 - При включённом предпочтении пользователя уменьшать движение анимация бегунка отключается.
