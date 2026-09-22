@@ -38,6 +38,10 @@ Use this skill for JS/TS Vue work in this repo.
 - Declare only moduix-owned or deliberately intercepted props as local fields on that interface.
   Use Vue 3.5 reactive destructuring with defaults for those local fields, and forward or translate
   them explicitly. Do not intercept an Ark prop merely to restate its upstream behavior.
+- Template position controls attribute precedence against `v-bind="attrs"`: a wrapper-owned default
+  such as `aria-hidden="true"` goes before `v-bind="attrs"` so consumer attrs can override it, while
+  hook attributes such as `data-slot` go after `v-bind="attrs"` so they always win. Vue compiles both
+  forms into one `mergeProps` call that keeps template order.
 - Never snapshot reactive values outside reactive scopes; read prop and context properties inside
   render, `computed`, and watcher scopes so updates track.
 - Use `computed` for derived values instead of manual `watch` where a computed expression is
@@ -52,13 +56,13 @@ Use this skill for JS/TS Vue work in this repo.
   `clsx`; in `packages/vue-tailwind` merge it last with the local `cn` helper. Do not also leave
   `class` inside an object passed through `v-bind`, which would apply the consumer class twice.
   Preserve `style`, ids, ARIA, data attributes, and native listeners through the remaining attrs.
-- In a CSS Modules SFC, attach the local stylesheet through
-  `<style module src="./Component.module.css" />` and reference classes through `$style` in the
-  template. Use `useCssModule()` only when setup logic genuinely needs the classes object. Do not
-  default-import a CSS Module from `<script setup>` merely to bind template classes. Plain `.ts`
-  files such as Storybook runtime stories may use Vite's normal `import styles from
-'./Story.module.css'` form because they have no SFC style block. Do not add generated CSS typings
-  only to improve IDE completion.
+- In a CSS Modules SFC, import the external stylesheet explicitly from `<script setup>` with
+  `import styles from './Component.module.css'` and reference classes through `styles.root` in the
+  template. This keeps class names visible to IDE CSS Modules tooling and matches the React/Solid
+  source pattern. Vue also supports `<style module>` and `$style`, but do not use that form in
+  package components or documentation snippets. Plain `.ts` files such as Storybook runtime
+  stories use the same normal CSS Module import. Do not add generated CSS typings only to improve
+  IDE completion.
 - Redeclare required Ark props as local fields and forward them explicitly. This gives `vue-tsc` a
   complete child binding without assertions and keeps requiredness visible in generated
   declarations. Leave optional Ark props, especially optional Booleans with upstream defaults, in

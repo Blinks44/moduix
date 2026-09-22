@@ -1,0 +1,5 @@
+.stack {
+  display: grid;
+  width: min(38rem, calc(100vw - 2rem));
+  gap: var(--moduix-spacing-3);
+}

@@ -4,6 +4,7 @@ import type { AccordionItemTriggerProps } from '@ark-ui/vue/accordion';
 import { clsx } from 'clsx';
 import { useAttrs } from 'vue';
 import type { HTMLAttributes } from 'vue';
+import styles from './Accordion.module.css';
 
 defineOptions({ inheritAttrs: false });
 
@@ -20,11 +21,9 @@ const attrs = useAttrs();
 <template>
   <ArkAccordionItemTrigger
     v-bind="attrs"
-    :class="clsx($style.itemTrigger, className)"
+    :class="clsx(styles.itemTrigger, className)"
     data-slot="accordion-item-trigger"
   >
     <slot />
   </ArkAccordionItemTrigger>
 </template>
-
-<style module src="./Accordion.module.css" />

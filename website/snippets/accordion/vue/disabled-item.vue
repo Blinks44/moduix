@@ -7,6 +7,7 @@ import {
   AccordionItemIndicator,
   AccordionItemTrigger,
 } from '@moduix/vue/accordion';
+import styles from '@/components/examples/accordion/accordion-disabled-item.module.css';
 
 const items = [
   {
@@ -29,7 +30,7 @@ const items = [
 </script>
 
 <template>
-  <Accordion :class="$style.root" :default-value="['what-is-ark-ui']">
+  <Accordion :class="styles.root" :default-value="['what-is-ark-ui']">
     <AccordionItem
       v-for="item in items"
       :key="item.value"
@@ -46,5 +47,3 @@ const items = [
     </AccordionItem>
   </Accordion>
 </template>
-
-<style module src="../../../src/components/examples/accordion/accordion-disabled-item.module.css" />

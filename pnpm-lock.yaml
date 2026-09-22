@@ -159,7 +159,6 @@ snapshots:
 lockfileVersion: '9.0'
 
 settings:
-
   autoInstallPeers: true
   excludeLinksFromLockfile: false
 
@@ -948,6 +947,9 @@ importers:
       '@formisch/solid':
         specifier: ^1.1.0
         version: 1.1.0(solid-js@1.9.15)(typescript@6.0.3)(valibot@1.5.0(typescript@6.0.3))
+      '@lucide/vue':
+        specifier: ^1.47.0
+        version: 1.47.0(vue@3.5.43(typescript@6.0.3))
       '@moduix/solid':
         specifier: workspace:*
         version: link:../packages/solid

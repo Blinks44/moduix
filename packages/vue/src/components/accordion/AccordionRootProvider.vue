@@ -4,6 +4,7 @@ import type { AccordionRootProviderProps } from '@ark-ui/vue/accordion';
 import { clsx } from 'clsx';
 import { useAttrs } from 'vue';
 import type { HTMLAttributes } from 'vue';
+import styles from './Accordion.module.css';
 
 defineOptions({ inheritAttrs: false });
 
@@ -21,12 +22,10 @@ const attrs = useAttrs();
 <template>
   <ArkAccordionRootProvider
     v-bind="attrs"
-    :class="clsx($style.root, className)"
+    :class="clsx(styles.root, className)"
     :value="value"
     data-slot="accordion-root-provider"
   >
     <slot />
   </ArkAccordionRootProvider>
 </template>
-
-<style module src="./Accordion.module.css" />

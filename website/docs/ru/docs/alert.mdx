@@ -17,6 +17,11 @@ import alertSolidCustomHeading from '../../../snippets/alert/solid/custom-headin
 import alertSolidError from '../../../snippets/alert/solid/error.tsx?raw';
 import alertSolidStatuses from '../../../snippets/alert/solid/statuses.tsx?raw';
 import alertSolidWithIcon from '../../../snippets/alert/solid/with-icon.tsx?raw';
+import alertVueBasic from '../../../snippets/alert/vue/basic.vue?raw';
+import alertVueCustomHeading from '../../../snippets/alert/vue/custom-heading.vue?raw';
+import alertVueError from '../../../snippets/alert/vue/error.vue?raw';
+import alertVueStatuses from '../../../snippets/alert/vue/statuses.vue?raw';
+import alertVueWithIcon from '../../../snippets/alert/vue/with-icon.vue?raw';
 
 ## Справочник API
 
@@ -25,14 +30,15 @@ import alertSolidWithIcon from '../../../snippets/alert/solid/with-icon.tsx?raw'
 [композиции](https://ark-ui.com/docs/guides/composition), [стилизации](https://ark-ui.com/docs/guides/styling) и
 [работе с ref](https://ark-ui.com/docs/guides/ref).
 
-Импортируйте `Alert` из `@moduix/react/alert` или `@moduix/solid/alert`. `Alert` — корневая часть.
-Остальные публичные части: `AlertIndicator`, `AlertContent`,
+Импортируйте `Alert` из `@moduix/react/alert`, `@moduix/solid/alert` или `@moduix/vue/alert`.
+`Alert` — корневая часть. Остальные публичные части: `AlertIndicator`, `AlertContent`,
 `AlertTitle`, `AlertDescription` и `AlertActions`.
 
 Каждая часть принимает стандартные свойства своего HTML-элемента, включая `className`/`class` и
-`asChild`, а переданный ref указывает на отрисованный элемент. По умолчанию `status` равен `info`,
-корневой элемент получает `role="status"`, а для `status="error"` - `role="alert"`. `AlertIndicator`
-скрыт от вспомогательных технологий, поэтому основной смысл сообщения должен быть в заголовке или описании.
+`asChild`, а переданный ref указывает на отрисованный элемент. По умолчанию `status` равен `info` и
+влияет только на визуальное оформление. Добавьте `role="status"` или `role="alert"`, если сообщение,
+которое добавляется или обновляется динамически, должно стать live-областью. `AlertIndicator` скрыт
+от вспомогательных технологий, поэтому основной смысл сообщения должен быть в заголовке или описании.
 
 ## Выбор подходящего компонента
 
@@ -59,6 +65,7 @@ import alertSolidWithIcon from '../../../snippets/alert/solid/with-icon.tsx?raw'
     values={[
       { label: 'React', value: 'react' },
       { label: 'Solid', value: 'solid' },
+      { label: 'Vue', value: 'vue' },
     ]}
     className="docs-tabs"
   >
@@ -71,6 +78,11 @@ import alertSolidWithIcon from '../../../snippets/alert/solid/with-icon.tsx?raw'
     <Tab value="solid">
 
 <CodeBlockRuntime lang="tsx" code={alertSolidBasic} />
+
+    </Tab>
+    <Tab value="vue">
+
+<CodeBlockRuntime lang="vue" code={alertVueBasic} />
 
     </Tab>
   </Tabs>
@@ -103,6 +115,16 @@ import alertSolidWithIcon from '../../../snippets/alert/solid/with-icon.tsx?raw'
 />
 
   </Tab>
+  <Tab label="Vue" value="vue">
+
+<ShadcnInstallOptions
+  options={[
+    { label: 'CSS Modules', command: 'shadcn@latest add @moduix-vue/alert' },
+    { label: 'Tailwind CSS', command: 'shadcn@latest add @moduix-vue-tailwind/alert' },
+  ]}
+/>
+
+  </Tab>
 </Tabs>
 
 ## Анатомия
@@ -122,7 +144,7 @@ Alert
 
 | Часть              | Назначение                                                               | `data-part`   |
 | ------------------ | ------------------------------------------------------------------------ | ------------- |
-| `Alert`            | Корневой элемент. Применяет стили статуса и автоматически задаёт семантику области обновлений. | `root`        |
+| `Alert`            | Корневой элемент. Применяет стили статуса.                                 | `root`        |
 | `AlertIndicator`   | Необязательный визуальный ориентир. Вложенные SVG-иконки получают единый размер. | `indicator`   |
 | `AlertContent`     | Обязательная колонка для содержимого сообщения и действий.                | `content`     |
 | `AlertTitle`       | Заголовок сообщения. По умолчанию рендерится как `p`.                     | `title`       |
@@ -139,7 +161,8 @@ Alert
 
 Если заголовку нужен другой семантический элемент, используйте `AlertTitle asChild` и передайте ровно
 один семантически подходящий дочерний элемент. В Solid для `asChild` используется функция рендера - она
-показана в примере «Другой уровень заголовка».
+показана в примере «Другой уровень заголовка». Во Vue используется атрибут `as-child` с одним дочерним
+элементом.
 
 ## Примеры
 
@@ -159,6 +182,7 @@ Alert
     values={[
       { label: 'React', value: 'react' },
       { label: 'Solid', value: 'solid' },
+      { label: 'Vue', value: 'vue' },
     ]}
     className="docs-tabs"
   >
@@ -171,6 +195,11 @@ Alert
     <Tab value="solid">
 
 <CodeBlockRuntime lang="tsx" code={alertSolidCustomHeading} />
+
+    </Tab>
+    <Tab value="vue">
+
+<CodeBlockRuntime lang="vue" code={alertVueCustomHeading} />
 
     </Tab>
   </Tabs>
@@ -193,6 +222,7 @@ Alert
     values={[
       { label: 'React', value: 'react' },
       { label: 'Solid', value: 'solid' },
+      { label: 'Vue', value: 'vue' },
     ]}
     className="docs-tabs"
   >
@@ -205,6 +235,11 @@ Alert
     <Tab value="solid">
 
 <CodeBlockRuntime lang="tsx" code={alertSolidError} />
+
+    </Tab>
+    <Tab value="vue">
+
+<CodeBlockRuntime lang="vue" code={alertVueError} />
 
     </Tab>
   </Tabs>
@@ -229,6 +264,7 @@ Alert
     values={[
       { label: 'React', value: 'react' },
       { label: 'Solid', value: 'solid' },
+      { label: 'Vue', value: 'vue' },
     ]}
     className="docs-tabs"
   >
@@ -241,6 +277,11 @@ Alert
     <Tab value="solid">
 
 <CodeBlockRuntime lang="tsx" code={alertSolidStatuses} />
+
+    </Tab>
+    <Tab value="vue">
+
+<CodeBlockRuntime lang="vue" code={alertVueStatuses} />
 
     </Tab>
   </Tabs>
@@ -268,6 +309,7 @@ Alert
     values={[
       { label: 'React', value: 'react' },
       { label: 'Solid', value: 'solid' },
+      { label: 'Vue', value: 'vue' },
     ]}
     className="docs-tabs"
   >
@@ -280,6 +322,11 @@ Alert
     <Tab value="solid">
 
 <CodeBlockRuntime lang="tsx" code={alertSolidWithIcon} />
+
+    </Tab>
+    <Tab value="vue">
+
+<CodeBlockRuntime lang="vue" code={alertVueWithIcon} />
 
     </Tab>
   </Tabs>

@@ -6,5 +6,5 @@
       "@/*": ["../src/*"]
     }
   },
-  "include": ["**/solid", "../theme/env.d.ts"]
+  "include": ["**/solid", "**/vue", "../theme/env.d.ts"]
 }

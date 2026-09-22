@@ -8,7 +8,7 @@
     "deploy": "wrangler deploy",
     "dev": "rspress dev --host",
     "preview": "rspress preview",
-    "tsc:check": "tsc -p tsconfig.json && tsc -p snippets/tsconfig.json && vue-tsc -p snippets/tsconfig.vue.json"
+    "tsc:check": "tsc -p tsconfig.json && tsc -p snippets/tsconfig.json && vue-tsc -p snippets/tsconfig.json"
   },
   "dependencies": {
     "@ark-ui/react": "^5.39.2",
@@ -32,6 +32,7 @@
     "@ark-ui/solid": "^5.39.2",
     "@ark-ui/vue": "^5.39.2",
     "@formisch/solid": "^1.1.0",
+    "@lucide/vue": "^1.47.0",
     "@moduix/solid": "workspace:*",
     "@moduix/vue": "workspace:*",
     "@rspress/plugin-preview": "^2.0.21",

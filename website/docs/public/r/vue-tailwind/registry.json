@@ -79,6 +79,51 @@
       ]
     },
     {
+      "name": "alert",
+      "type": "registry:item",
+      "title": "Alert",
+      "description": "moduix Vue Tailwind Alert component.",
+      "dependencies": ["@ark-ui/vue", "clsx", "tailwind-merge"],
+      "registryDependencies": ["@moduix-vue-tailwind/foundation", "@moduix-vue-tailwind/cn"],
+      "files": [
+        {
+          "path": "src/components/alert/Alert.vue",
+          "target": "@components/ui/alert/Alert.vue",
+          "type": "registry:component"
+        },
+        {
+          "path": "src/components/alert/AlertIndicator.vue",
+          "target": "@components/ui/alert/AlertIndicator.vue",
+          "type": "registry:component"
+        },
+        {
+          "path": "src/components/alert/AlertContent.vue",
+          "target": "@components/ui/alert/AlertContent.vue",
+          "type": "registry:component"
+        },
+        {
+          "path": "src/components/alert/AlertTitle.vue",
+          "target": "@components/ui/alert/AlertTitle.vue",
+          "type": "registry:component"
+        },
+        {
+          "path": "src/components/alert/AlertDescription.vue",
+          "target": "@components/ui/alert/AlertDescription.vue",
+          "type": "registry:component"
+        },
+        {
+          "path": "src/components/alert/AlertActions.vue",
+          "target": "@components/ui/alert/AlertActions.vue",
+          "type": "registry:component"
+        },
+        {
+          "path": "src/components/alert/index.ts",
+          "target": "@components/ui/alert/index.ts",
+          "type": "registry:component"
+        }
+      ]
+    },
+    {
       "name": "foundation",
       "type": "registry:item",
       "title": "moduix Vue Tailwind core",

@@ -8,6 +8,7 @@ import {
   AccordionRootProvider,
   useAccordion,
 } from '@moduix/vue/accordion';
+import styles from '@/components/examples/accordion/accordion-root-provider.module.css';
 
 const items = [
   {
@@ -32,7 +33,7 @@ const accordion = useAccordion({ defaultValue: ['what-is-ark-ui'] });
 </script>
 
 <template>
-  <AccordionRootProvider :class="$style.root" :value="accordion">
+  <AccordionRootProvider :class="styles.root" :value="accordion">
     <AccordionItem v-for="item in items" :key="item.value" :value="item.value">
       <AccordionItemTrigger>
         {{ item.title }}
@@ -45,5 +46,3 @@ const accordion = useAccordion({ defaultValue: ['what-is-ark-ui'] });
   </AccordionRootProvider>
   <output>Open sections: {{ accordion.value.join(', ') }}</output>
 </template>
-
-<style module src="../../../src/components/examples/accordion/accordion-root-provider.module.css" />

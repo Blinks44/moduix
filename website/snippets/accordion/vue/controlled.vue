@@ -8,6 +8,7 @@ import {
   AccordionItemTrigger,
 } from '@moduix/vue/accordion';
 import { ref } from 'vue';
+import styles from '@/components/examples/accordion/accordion-controlled.module.css';
 
 const items = [
   {
@@ -32,7 +33,7 @@ const value = ref<string[]>(['getting-started']);
 </script>
 
 <template>
-  <Accordion v-model="value" :class="$style.root">
+  <Accordion v-model="value" :class="styles.root">
     <AccordionItem v-for="item in items" :key="item.value" :value="item.value">
       <AccordionItemTrigger>
         {{ item.title }}
@@ -44,5 +45,3 @@ const value = ref<string[]>(['getting-started']);
     </AccordionItem>
   </Accordion>
 </template>
-
-<style module src="../../../src/components/examples/accordion/accordion-controlled.module.css" />

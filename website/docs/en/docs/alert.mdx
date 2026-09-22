@@ -17,6 +17,11 @@ import alertSolidCustomHeading from '../../../snippets/alert/solid/custom-headin
 import alertSolidError from '../../../snippets/alert/solid/error.tsx?raw';
 import alertSolidStatuses from '../../../snippets/alert/solid/statuses.tsx?raw';
 import alertSolidWithIcon from '../../../snippets/alert/solid/with-icon.tsx?raw';
+import alertVueBasic from '../../../snippets/alert/vue/basic.vue?raw';
+import alertVueCustomHeading from '../../../snippets/alert/vue/custom-heading.vue?raw';
+import alertVueError from '../../../snippets/alert/vue/error.vue?raw';
+import alertVueStatuses from '../../../snippets/alert/vue/statuses.vue?raw';
+import alertVueWithIcon from '../../../snippets/alert/vue/with-icon.vue?raw';
 
 ## API Reference
 
@@ -25,9 +30,9 @@ Ark UI does not provide a dedicated `alert` primitive. moduix builds `Alert` wit
 [composition](https://ark-ui.com/docs/guides/composition), [styling](https://ark-ui.com/docs/guides/styling), and
 [refs](https://ark-ui.com/docs/guides/ref).
 
-Import `Alert` from `@moduix/react/alert` or `@moduix/solid/alert`. `Alert` is the root part, and
-the other public parts are `AlertIndicator`, `AlertContent`, `AlertTitle`, `AlertDescription`, and
-`AlertActions`.
+Import `Alert` from `@moduix/react/alert`, `@moduix/solid/alert`, or `@moduix/vue/alert`. `Alert` is
+the root part, and the other public parts are `AlertIndicator`, `AlertContent`, `AlertTitle`,
+`AlertDescription`, and `AlertActions`.
 
 Every part accepts the usual props for its rendered element, including `className`/`class` and Ark's
 `asChild`, and forwards refs to the rendered element. `status` defaults to `info` and controls visual
@@ -60,6 +65,7 @@ Add `AlertIndicator` when an icon helps people scan the message.
     values={[
       { label: 'React', value: 'react' },
       { label: 'Solid', value: 'solid' },
+      { label: 'Vue', value: 'vue' },
     ]}
     className="docs-tabs"
   >
@@ -72,6 +78,11 @@ Add `AlertIndicator` when an icon helps people scan the message.
     <Tab value="solid">
 
 <CodeBlockRuntime lang="tsx" code={alertSolidBasic} />
+
+    </Tab>
+    <Tab value="vue">
+
+<CodeBlockRuntime lang="vue" code={alertVueBasic} />
 
     </Tab>
   </Tabs>
@@ -100,6 +111,16 @@ See [Quick Start](/docs/quick-start) for full package setup, registry configurat
   options={[
     { label: 'CSS Modules', command: 'shadcn@latest add @moduix-solid/alert' },
     { label: 'Tailwind CSS', command: 'shadcn@latest add @moduix-solid-tailwind/alert' },
+  ]}
+/>
+
+  </Tab>
+  <Tab label="Vue" value="vue">
+
+<ShadcnInstallOptions
+  options={[
+    { label: 'CSS Modules', command: 'shadcn@latest add @moduix-vue/alert' },
+    { label: 'Tailwind CSS', command: 'shadcn@latest add @moduix-vue-tailwind/alert' },
   ]}
 />
 
@@ -138,7 +159,8 @@ required and contains the title, description, controls, and other message conten
 `AlertActions` when they need the default wrapped action-row styling.
 
 When the title needs a different semantic element, use `AlertTitle asChild` with exactly one semantic
-child. Solid uses Ark's render-function form of `asChild` as shown in the Custom Heading example.
+child. Solid uses Ark's render-function form of `asChild` as shown in the Custom Heading example. Vue
+uses the `as-child` attribute with a single child element.
 
 ## Examples
 
@@ -157,6 +179,7 @@ Use `asChild` on `AlertTitle` when the alert title needs to participate in the p
     values={[
       { label: 'React', value: 'react' },
       { label: 'Solid', value: 'solid' },
+      { label: 'Vue', value: 'vue' },
     ]}
     className="docs-tabs"
   >
@@ -169,6 +192,11 @@ Use `asChild` on `AlertTitle` when the alert title needs to participate in the p
     <Tab value="solid">
 
 <CodeBlockRuntime lang="tsx" code={alertSolidCustomHeading} />
+
+    </Tab>
+    <Tab value="vue">
+
+<CodeBlockRuntime lang="vue" code={alertVueCustomHeading} />
 
     </Tab>
   </Tabs>
@@ -192,6 +220,7 @@ assertive announcement.
     values={[
       { label: 'React', value: 'react' },
       { label: 'Solid', value: 'solid' },
+      { label: 'Vue', value: 'vue' },
     ]}
     className="docs-tabs"
   >
@@ -204,6 +233,11 @@ assertive announcement.
     <Tab value="solid">
 
 <CodeBlockRuntime lang="tsx" code={alertSolidError} />
+
+    </Tab>
+    <Tab value="vue">
+
+<CodeBlockRuntime lang="vue" code={alertVueError} />
 
     </Tab>
   </Tabs>
@@ -227,6 +261,7 @@ Use the four statuses to distinguish informational, successful, warning, and err
     values={[
       { label: 'React', value: 'react' },
       { label: 'Solid', value: 'solid' },
+      { label: 'Vue', value: 'vue' },
     ]}
     className="docs-tabs"
   >
@@ -239,6 +274,11 @@ Use the four statuses to distinguish informational, successful, warning, and err
     <Tab value="solid">
 
 <CodeBlockRuntime lang="tsx" code={alertSolidStatuses} />
+
+    </Tab>
+    <Tab value="vue">
+
+<CodeBlockRuntime lang="vue" code={alertVueStatuses} />
 
     </Tab>
   </Tabs>
@@ -266,6 +306,7 @@ Place a moduix icon or custom SVG inside `AlertIndicator`.
     values={[
       { label: 'React', value: 'react' },
       { label: 'Solid', value: 'solid' },
+      { label: 'Vue', value: 'vue' },
     ]}
     className="docs-tabs"
   >
@@ -278,6 +319,11 @@ Place a moduix icon or custom SVG inside `AlertIndicator`.
     <Tab value="solid">
 
 <CodeBlockRuntime lang="tsx" code={alertSolidWithIcon} />
+
+    </Tab>
+    <Tab value="vue">
+
+<CodeBlockRuntime lang="vue" code={alertVueWithIcon} />
 
     </Tab>
   </Tabs>

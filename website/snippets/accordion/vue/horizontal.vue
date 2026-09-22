@@ -7,6 +7,7 @@ import {
   AccordionItemIndicator,
   AccordionItemTrigger,
 } from '@moduix/vue/accordion';
+import styles from '@/components/examples/accordion/accordion-horizontal.module.css';
 
 const items = [
   {
@@ -29,7 +30,7 @@ const items = [
 </script>
 
 <template>
-  <Accordion :class="$style.root" :default-value="['what-is-ark-ui']" orientation="horizontal">
+  <Accordion :class="styles.root" :default-value="['what-is-ark-ui']" orientation="horizontal">
     <AccordionItem v-for="item in items" :key="item.value" :value="item.value">
       <AccordionItemTrigger>
         {{ item.title }}
@@ -41,5 +42,3 @@ const items = [
     </AccordionItem>
   </Accordion>
 </template>
-
-<style module src="../../../src/components/examples/accordion/accordion-horizontal.module.css" />

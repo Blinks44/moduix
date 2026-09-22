@@ -16,6 +16,7 @@ import {
   AccordionItemIndicator,
   AccordionItemTrigger,
 } from '@moduix/vue/accordion';
+import styles from '@/components/examples/accordion/accordion-with-slider.module.css';
 
 const items = [
   {
@@ -38,7 +39,7 @@ const items = [
 </script>
 
 <template>
-  <Accordion :class="$style.root" :default-value="['what-is-ark-ui']">
+  <Accordion :class="styles.root" :default-value="['what-is-ark-ui']">
     <AccordionItem v-for="item in items" :key="item.value" :value="item.value">
       <AccordionItemTrigger>
         {{ item.title }}
@@ -47,13 +48,13 @@ const items = [
       <AccordionItemContent>
         <AccordionItemBody>
           <span>{{ item.description }}</span>
-          <SliderRoot :class="$style.sliderRoot" :default-value="[40]">
-            <SliderLabel :class="$style.sliderLabel">{{ item.title }} priority</SliderLabel>
-            <SliderControl :class="$style.sliderControl">
-              <SliderTrack :class="$style.sliderTrack">
-                <SliderRange :class="$style.sliderRange" />
+          <SliderRoot :class="styles.sliderRoot" :default-value="[40]">
+            <SliderLabel :class="styles.sliderLabel">{{ item.title }} priority</SliderLabel>
+            <SliderControl :class="styles.sliderControl">
+              <SliderTrack :class="styles.sliderTrack">
+                <SliderRange :class="styles.sliderRange" />
               </SliderTrack>
-              <SliderThumb :class="$style.sliderThumb" :index="0">
+              <SliderThumb :class="styles.sliderThumb" :index="0">
                 <SliderHiddenInput />
               </SliderThumb>
             </SliderControl>
@@ -63,5 +64,3 @@ const items = [
     </AccordionItem>
   </Accordion>
 </template>
-
-<style module src="../../../src/components/examples/accordion/accordion-with-slider.module.css" />

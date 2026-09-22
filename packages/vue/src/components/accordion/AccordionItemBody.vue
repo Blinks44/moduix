@@ -4,6 +4,7 @@ import type { HTMLArkProps } from '@ark-ui/vue/factory';
 import { clsx } from 'clsx';
 import { useAttrs } from 'vue';
 import type { HTMLAttributes } from 'vue';
+import styles from './Accordion.module.css';
 
 defineOptions({ inheritAttrs: false });
 
@@ -20,7 +21,7 @@ const attrs = useAttrs();
 <template>
   <ark.div
     v-bind="attrs"
-    :class="clsx($style.itemBody, className)"
+    :class="clsx(styles.itemBody, className)"
     data-scope="accordion"
     data-part="item-body"
     data-slot="accordion-item-body"
@@ -28,5 +29,3 @@ const attrs = useAttrs();
     <slot />
   </ark.div>
 </template>
-
-<style module src="./Accordion.module.css" />

@@ -5,6 +5,7 @@ import { clsx } from 'clsx';
 import { useAttrs } from 'vue';
 import type { HTMLAttributes } from 'vue';
 import { PlusIcon } from '@/lib/moduix/icons/ui/Icons';
+import styles from './Accordion.module.css';
 
 defineOptions({ inheritAttrs: false });
 
@@ -21,11 +22,9 @@ const attrs = useAttrs();
 <template>
   <ArkAccordionItemIndicator
     v-bind="attrs"
-    :class="clsx($style.itemIndicator, className)"
+    :class="clsx(styles.itemIndicator, className)"
     data-slot="accordion-item-indicator"
   >
     <slot><PlusIcon /></slot>
   </ArkAccordionItemIndicator>
 </template>
-
-<style module src="./Accordion.module.css" />

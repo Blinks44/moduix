@@ -18,6 +18,11 @@ import alertSolidCustomHeading from '../../../snippets/alert/solid/custom-headin
 import alertSolidError from '../../../snippets/alert/solid/error.tsx?raw';
 import alertSolidStatuses from '../../../snippets/alert/solid/statuses.tsx?raw';
 import alertSolidWithIcon from '../../../snippets/alert/solid/with-icon.tsx?raw';
+import alertVueBasic from '../../../snippets/alert/vue/basic.vue?raw';
+import alertVueCustomHeading from '../../../snippets/alert/vue/custom-heading.vue?raw';
+import alertVueError from '../../../snippets/alert/vue/error.vue?raw';
+import alertVueStatuses from '../../../snippets/alert/vue/statuses.vue?raw';
+import alertVueWithIcon from '../../../snippets/alert/vue/with-icon.vue?raw';
 
 ## Référence de l’API
 
@@ -41,7 +46,8 @@ flux normal du document.
 - Utilisez **`Toast`** pour les notifications temporaires qui s’affichent au-dessus de la page, n’occupent pas de place dans le flux du document et se ferment automatiquement.
 
 
-Les mêmes exports sont disponibles depuis `@moduix/solid/alert` pour Solid.
+Les mêmes exports sont disponibles depuis `@moduix/solid/alert` pour Solid et depuis
+`@moduix/vue/alert` pour Vue.
 ## Exemple de base
 
 Pour un message intégré courant, utilisez la forme courte `<Alert>` avec `AlertTitle` et
@@ -60,6 +66,7 @@ type de message.
     values={[
       { label: 'React', value: 'react' },
       { label: 'Solid', value: 'solid' },
+      { label: 'Vue', value: 'vue' },
     ]}
     className="docs-tabs"
   >
@@ -72,6 +79,11 @@ type de message.
     <Tab value="solid">
 
 <CodeBlockRuntime lang="tsx" code={alertSolidBasic} />
+
+    </Tab>
+    <Tab value="vue">
+
+<CodeBlockRuntime lang="vue" code={alertVueBasic} />
 
     </Tab>
   </Tabs>
@@ -104,6 +116,16 @@ Consultez le [Démarrage rapide](/docs/quick-start) pour la configuration compl�
 />
 
   </Tab>
+  <Tab label="Vue" value="vue">
+
+<ShadcnInstallOptions
+  options={[
+    { label: 'CSS Modules', command: 'shadcn@latest add @moduix-vue/alert' },
+    { label: 'Tailwind CSS', command: 'shadcn@latest add @moduix-vue-tailwind/alert' },
+  ]}
+/>
+
+  </Tab>
 </Tabs>
 
 ## Anatomie
@@ -123,7 +145,7 @@ Alert
 
 | Partie             | Rôle                                                                  | `data-part`   |
 | ------------------ | --------------------------------------------------------------------- | ------------- |
-| `Alert`            | Élément racine. Applique les styles du statut et la sémantique automatique de région dynamique. | `root`        |
+| `Alert`            | Élément racine. Applique les styles du statut.                         | `root`        |
 | `AlertIndicator`   | Repère visuel facultatif. Les icônes SVG qu’il contient ont une taille cohérente. | `indicator`   |
 | `AlertContent`     | Conteneur en colonne obligatoire pour le contenu et les actions.   | `content`     |
 | `AlertTitle`       | Titre de l’alerte. Rend un `p` par défaut.                              | `title`       |
@@ -134,7 +156,7 @@ Alert
 
 `Alert` est un composant de présentation : le composant qui l’affiche gère sa visibilité et sa fermeture. Il ne prend pas en charge le focus ni le clavier des boutons et des liens qu’il contient. `AlertContent` est obligatoire et regroupe le titre, la description, les contrôles et le reste du contenu. Placez les contrôles dans `AlertActions` lorsqu’ils doivent bénéficier de la mise en ligne avec retour à la ligne.
 
-Si le titre doit utiliser un autre élément sémantique, utilisez `AlertTitle asChild` avec un seul enfant sémantique. En Solid, `asChild` utilise la forme avec fonction de rendu d’Ark UI, comme dans l’exemple « Titre personnalisé ».
+Si le titre doit utiliser un autre élément sémantique, utilisez `AlertTitle asChild` avec un seul enfant sémantique. En Solid, `asChild` utilise la forme avec fonction de rendu d’Ark UI, comme dans l’exemple « Titre personnalisé ». En Vue, on utilise l’attribut `as-child` avec un seul élément enfant.
 ## Exemples
 
 ### Titre personnalisé
@@ -153,6 +175,7 @@ des titres de la page.
     values={[
       { label: 'React', value: 'react' },
       { label: 'Solid', value: 'solid' },
+      { label: 'Vue', value: 'vue' },
     ]}
     className="docs-tabs"
   >
@@ -165,6 +188,11 @@ des titres de la page.
     <Tab value="solid">
 
 <CodeBlockRuntime lang="tsx" code={alertSolidCustomHeading} />
+
+    </Tab>
+    <Tab value="vue">
+
+<CodeBlockRuntime lang="vue" code={alertVueCustomHeading} />
 
     </Tab>
   </Tabs>
@@ -188,6 +216,7 @@ d’un accent visuel plus marqué.
     values={[
       { label: 'React', value: 'react' },
       { label: 'Solid', value: 'solid' },
+      { label: 'Vue', value: 'vue' },
     ]}
     className="docs-tabs"
   >
@@ -200,6 +229,11 @@ d’un accent visuel plus marqué.
     <Tab value="solid">
 
 <CodeBlockRuntime lang="tsx" code={alertSolidError} />
+
+    </Tab>
+    <Tab value="vue">
+
+<CodeBlockRuntime lang="vue" code={alertVueError} />
 
     </Tab>
   </Tabs>
@@ -223,6 +257,7 @@ d’erreur. Ajoutez `AlertIndicator` avec l’icône de votre choix lorsque ce r
     values={[
       { label: 'React', value: 'react' },
       { label: 'Solid', value: 'solid' },
+      { label: 'Vue', value: 'vue' },
     ]}
     className="docs-tabs"
   >
@@ -235,6 +270,11 @@ d’erreur. Ajoutez `AlertIndicator` avec l’icône de votre choix lorsque ce r
     <Tab value="solid">
 
 <CodeBlockRuntime lang="tsx" code={alertSolidStatuses} />
+
+    </Tab>
+    <Tab value="vue">
+
+<CodeBlockRuntime lang="vue" code={alertVueStatuses} />
 
     </Tab>
   </Tabs>
@@ -262,6 +302,7 @@ Placez une icône moduix ou un SVG personnalisé dans `AlertIndicator`.
     values={[
       { label: 'React', value: 'react' },
       { label: 'Solid', value: 'solid' },
+      { label: 'Vue', value: 'vue' },
     ]}
     className="docs-tabs"
   >
@@ -274,6 +315,11 @@ Placez une icône moduix ou un SVG personnalisé dans `AlertIndicator`.
     <Tab value="solid">
 
 <CodeBlockRuntime lang="tsx" code={alertSolidWithIcon} />
+
+    </Tab>
+    <Tab value="vue">
+
+<CodeBlockRuntime lang="vue" code={alertVueWithIcon} />
 
     </Tab>
   </Tabs>
@@ -324,7 +370,7 @@ l’alerte si vous devez pouvoir la masquer localement.
 
 ## Styles
 
-Utilisez `className` en React ou `class` en Solid sur la racine et ses différentes parties pour
+Utilisez `className` en React ou `class` en Solid et Vue sur la racine et ses différentes parties pour
 appliquer des styles locaux. Les variantes Tailwind se personnalisent avec des utilitaires et des
 classes supplémentaires. Dans les variantes CSS Modules, définissez les variables
 `--moduix-alert-*` sur la racine lorsqu’une alerte nécessite un thème local.
