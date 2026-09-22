@@ -1,4 +1,4 @@
-import { Table } from '@moduix/react/table';
+import { Table, TableBody, TableCaption, TableCell, TableColumnHeader, TableFooter, TableHeader, TableRow, TableScrollArea } from '@moduix/react/table';
 
 const invoices = [
   {
@@ -29,36 +29,36 @@ const invoices = [
 
 export default function TableCaptionAndFooterDemo() {
   return (
-    <Table.ScrollArea>
+    <TableScrollArea>
       <Table>
-        <Table.Caption side="top">
+        <TableCaption side="top">
           A list of recent invoices for the current billing cycle.
-        </Table.Caption>
-        <Table.Header>
-          <Table.Row>
-            <Table.ColumnHeader>Invoice</Table.ColumnHeader>
-            <Table.ColumnHeader>Status</Table.ColumnHeader>
-            <Table.ColumnHeader>Method</Table.ColumnHeader>
-            <Table.ColumnHeader numeric>Amount</Table.ColumnHeader>
-          </Table.Row>
-        </Table.Header>
-        <Table.Body>
+        </TableCaption>
+        <TableHeader>
+          <TableRow>
+            <TableColumnHeader>Invoice</TableColumnHeader>
+            <TableColumnHeader>Status</TableColumnHeader>
+            <TableColumnHeader>Method</TableColumnHeader>
+            <TableColumnHeader numeric>Amount</TableColumnHeader>
+          </TableRow>
+        </TableHeader>
+        <TableBody>
           {invoices.map((invoice) => (
-            <Table.Row key={invoice.id}>
-              <Table.Cell>{invoice.id}</Table.Cell>
-              <Table.Cell>{invoice.status}</Table.Cell>
-              <Table.Cell>{invoice.method}</Table.Cell>
-              <Table.Cell numeric>{invoice.amount}</Table.Cell>
-            </Table.Row>
+            <TableRow key={invoice.id}>
+              <TableCell>{invoice.id}</TableCell>
+              <TableCell>{invoice.status}</TableCell>
+              <TableCell>{invoice.method}</TableCell>
+              <TableCell numeric>{invoice.amount}</TableCell>
+            </TableRow>
           ))}
-        </Table.Body>
-        <Table.Footer>
-          <Table.Row>
-            <Table.Cell colSpan={3}>Total</Table.Cell>
-            <Table.Cell numeric>$1,200.00</Table.Cell>
-          </Table.Row>
-        </Table.Footer>
+        </TableBody>
+        <TableFooter>
+          <TableRow>
+            <TableCell colSpan={3}>Total</TableCell>
+            <TableCell numeric>$1,200.00</TableCell>
+          </TableRow>
+        </TableFooter>
       </Table>
-    </Table.ScrollArea>
+    </TableScrollArea>
   );
 }

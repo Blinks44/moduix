@@ -17,6 +17,7 @@ import {
   RadioGroupOption,
 } from '../src';
 import { RatingGroup, RatingGroupHiddenInput } from '../src';
+import { TagsInput, TagsInputHiddenInput } from '../src';
 import {
   SegmentGroup,
   SegmentGroupItem,
@@ -183,7 +184,7 @@ const cases = [
     value: 'react, solid',
     render: (input: boolean) => (
       <TagsInput name="value" form="native-form" defaultValue={['react', 'solid']}>
-        {input && <TagsInput.HiddenInput data-testid="native-input" />}
+        {input && <TagsInputHiddenInput data-testid="native-input" />}
       </TagsInput>
     ),
   },

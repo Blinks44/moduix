@@ -5,7 +5,7 @@ import type { ComponentRef } from 'react';
 import { forwardRef } from 'react';
 import { cn } from '@/lib/moduix/cn';
 
-type TableRootProps = HTMLArkProps<'table'> & {
+type TableProps = HTMLArkProps<'table'> & {
   interactive?: boolean;
   showColumnBorder?: boolean;
   size?: 'sm' | 'md' | 'lg';
@@ -57,7 +57,7 @@ const tableVariants = cva(
   },
 );
 
-const TableRoot = forwardRef<ComponentRef<typeof ark.table>, TableRootProps>(function TableRoot(
+const Table = forwardRef<ComponentRef<typeof ark.table>, TableProps>(function Table(
   {
     asChild,
     className,
@@ -310,19 +310,17 @@ const TableEmpty = forwardRef<ComponentRef<typeof ark.td>, TableEmptyProps>(func
   );
 });
 
-const Table = Object.assign(TableRoot, {
-  Root: TableRoot,
-  ScrollArea: TableScrollArea,
-  Caption: TableCaption,
-  ColumnGroup: TableColumnGroup,
-  Column: TableColumn,
-  Header: TableHeader,
-  Body: TableBody,
-  Footer: TableFooter,
-  Row: TableRow,
-  ColumnHeader: TableColumnHeader,
-  Cell: TableCell,
-  Empty: TableEmpty,
-});
-
-export { Table };
+export {
+  Table,
+  TableBody,
+  TableCaption,
+  TableCell,
+  TableColumn,
+  TableColumnGroup,
+  TableColumnHeader,
+  TableEmpty,
+  TableFooter,
+  TableHeader,
+  TableRow,
+  TableScrollArea,
+};

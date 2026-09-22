@@ -9,7 +9,7 @@ import {
   ComboboxPositioner,
   ComboboxRootProvider,
 } from '@moduix/react/combobox';
-import { TagsInput, useTagsInput } from '@moduix/react/tags-input';
+import { TagsInputClearTrigger, TagsInputControl, TagsInputInput, TagsInputItems, TagsInputLabel, TagsInputRootProvider, useTagsInput } from '@moduix/react/tags-input';
 import { useId } from 'react';
 import styles from '@/components/examples/tags-input/tags-input-with-combobox.module.css';
 
@@ -52,16 +52,16 @@ export default function ComboboxTagsInput() {
   });
   return (
     <ComboboxRootProvider className={styles.root} value={combobox}>
-      <TagsInput.RootProvider value={tagsInput}>
-        <TagsInput.Label>Frameworks</TagsInput.Label>
-        <TagsInput.Control>
-          <TagsInput.Items />
+      <TagsInputRootProvider value={tagsInput}>
+        <TagsInputLabel>Frameworks</TagsInputLabel>
+        <TagsInputControl>
+          <TagsInputItems />
           <ComboboxInput asChild>
-            <TagsInput.Input placeholder="Add framework" />
+            <TagsInputInput placeholder="Add framework" />
           </ComboboxInput>
-          <TagsInput.ClearTrigger aria-label="Clear frameworks" />
-        </TagsInput.Control>
-      </TagsInput.RootProvider>
+          <TagsInputClearTrigger aria-label="Clear frameworks" />
+        </TagsInputControl>
+      </TagsInputRootProvider>
       <ComboboxPositioner>
         <ComboboxContent>
           <ComboboxEmpty>No frameworks found.</ComboboxEmpty>

@@ -1,5 +1,5 @@
 import { Badge } from '@moduix/react/badge';
-import { Table } from '@moduix/react/table';
+import { Table, TableBody, TableCell, TableColumn, TableColumnGroup, TableColumnHeader, TableHeader, TableRow, TableScrollArea } from '@moduix/react/table';
 import {
   columnVisibilityFeature,
   flexRender,
@@ -44,18 +44,18 @@ export default function DataTableDemo() {
   });
 
   return (
-    <Table.ScrollArea className="data-table">
+    <TableScrollArea className="data-table">
       <Table className="data-table-table">
-        <Table.ColumnGroup>
-          <Table.Column htmlWidth={128} />
-          <Table.Column />
-          <Table.Column htmlWidth={128} />
-        </Table.ColumnGroup>
-        <Table.Header>
+        <TableColumnGroup>
+          <TableColumn htmlWidth={128} />
+          <TableColumn />
+          <TableColumn htmlWidth={128} />
+        </TableColumnGroup>
+        <TableHeader>
           {table.getHeaderGroups().map((headerGroup) => (
-            <Table.Row key={headerGroup.id}>
+            <TableRow key={headerGroup.id}>
               {headerGroup.headers.map((header) => (
-                <Table.ColumnHeader
+                <TableColumnHeader
                   key={header.id}
                   colSpan={header.colSpan}
                   numeric={header.column.id === 'amount'}
@@ -63,27 +63,27 @@ export default function DataTableDemo() {
                   {header.isPlaceholder
                     ? null
                     : flexRender(header.column.columnDef.header, header.getContext())}
-                </Table.ColumnHeader>
+                </TableColumnHeader>
               ))}
-            </Table.Row>
+            </TableRow>
           ))}
-        </Table.Header>
-        <Table.Body>
+        </TableHeader>
+        <TableBody>
           {table.getRowModel().rows.map((row) => (
-            <Table.Row key={row.id}>
+            <TableRow key={row.id}>
               {row.getVisibleCells().map((cell) => (
-                <Table.Cell key={cell.id} numeric={cell.column.id === 'amount'}>
+                <TableCell key={cell.id} numeric={cell.column.id === 'amount'}>
                   {cell.column.id === 'status' ? (
                     <Badge variant="outline">{cell.getValue<string>()}</Badge>
                   ) : (
                     flexRender(cell.column.columnDef.cell, cell.getContext())
                   )}
-                </Table.Cell>
+                </TableCell>
               ))}
-            </Table.Row>
+            </TableRow>
           ))}
-        </Table.Body>
+        </TableBody>
       </Table>
-    </Table.ScrollArea>
+    </TableScrollArea>
   );
 }

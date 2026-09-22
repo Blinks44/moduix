@@ -1,16 +1,16 @@
 import { expect, test } from '@rstest/core';
 import { fireEvent, render, screen } from '@solidjs/testing-library';
 import { createSignal } from 'solid-js';
-import { Tag } from '../src';
+import { Tag, TagCloseTrigger, TagEndElement, TagLabel, TagStartElement } from '../src';
 
 test('renders every part with stable hooks and native defaults', () => {
   render(() => (
     <Tag class="consumer-tag" data-testid="root" size="sm" variant="secondary">
-      <Tag.StartElement data-testid="start" />
-      <Tag.Label data-testid="label">Draft</Tag.Label>
-      <Tag.EndElement data-testid="end">
-        <Tag.CloseTrigger data-testid="close" />
-      </Tag.EndElement>
+      <TagStartElement data-testid="start" />
+      <TagLabel data-testid="label">Draft</TagLabel>
+      <TagEndElement data-testid="end">
+        <TagCloseTrigger data-testid="close" />
+      </TagEndElement>
     </Tag>
   ));
 
@@ -49,8 +49,8 @@ test('forwards refs through ordinary rendered parts', () => {
 
   render(() => (
     <Tag ref={(element) => (rootRef = element)}>
-      <Tag.Label ref={(element) => (labelRef = element)}>Production</Tag.Label>
-      <Tag.CloseTrigger ref={(element) => (closeRef = element)} />
+      <TagLabel ref={(element) => (labelRef = element)}>Production</TagLabel>
+      <TagCloseTrigger ref={(element) => (closeRef = element)} />
     </Tag>
   ));
 
@@ -69,7 +69,7 @@ test('applies the documented root defaults', () => {
 test('uses an accessible close button and prevents disabled activation', () => {
   const [disabled, setDisabled] = createSignal(false);
   let clickCount = 0;
-  render(() => <Tag.CloseTrigger aria-disabled={disabled()} onClick={() => clickCount++} />);
+  render(() => <TagCloseTrigger aria-disabled={disabled()} onClick={() => clickCount++} />);
 
   const close = screen.getByRole('button', { name: 'Remove tag' });
   expect(close).toHaveAccessibleName('Remove tag');
@@ -87,7 +87,7 @@ test('preserves semantic root composition with native Ark Solid asChild', () => 
     <Tag
       asChild={(props) => (
         <button {...props()} type="button">
-          <Tag.Label>Open filter</Tag.Label>
+          <TagLabel>Open filter</TagLabel>
         </button>
       )}
       size="sm"
@@ -124,7 +124,7 @@ test('does not forward refs through native Ark Solid root asChild composition', 
 
 test('preserves semantic close-trigger composition with native Ark Solid asChild', () => {
   render(() => (
-    <Tag.CloseTrigger
+    <TagCloseTrigger
       aria-label="Remove billing tag"
       asChild={(props) => (
         <button {...props()} type="button" data-owner="consumer">
@@ -147,7 +147,7 @@ test('does not forward refs through native Ark Solid close-trigger asChild compo
   let closeRef: HTMLButtonElement | undefined;
 
   render(() => (
-    <Tag.CloseTrigger
+    <TagCloseTrigger
       ref={(element) => (closeRef = element)}
       aria-label="Remove billing tag"
       asChild={(props) => (
@@ -165,7 +165,7 @@ test('does not forward refs through native Ark Solid close-trigger asChild compo
 test('prevents disabled close-trigger activation', () => {
   let clickCount = 0;
 
-  render(() => <Tag.CloseTrigger disabled onClick={() => clickCount++} />);
+  render(() => <TagCloseTrigger disabled onClick={() => clickCount++} />);
 
   const close = screen.getByRole('button', { name: 'Remove tag' });
 

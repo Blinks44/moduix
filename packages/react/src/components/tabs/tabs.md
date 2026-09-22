@@ -20,86 +20,92 @@ State and callbacks must remain Ark-shaped. `onValueChange(details)` exposes the
 
 ## Current behavior contract
 
-- `Tabs` is the short root form and equals `Tabs.Root`.
-- `Tabs.RootProvider` connects parts to state created with moduix `useTabs()` or `Tabs.useTabs()`.
-- `Tabs.RootProvider` reads orientation from the Ark `data-orientation` root DOM hook exposed by the
+- `Tabs` is the root component.
+- `TabsRootProvider` connects parts to state created with moduix `useTabs()`.
+- `TabsRootProvider` reads orientation from the Ark `data-orientation` root DOM hook exposed by the
   `useTabs()` state to resolve the vertical `line` → `default` fallback. This is an Ark DOM-contract
   dependency; if upstream ever drops the attribute, the fallback degrades and the regression tests
   catch it.
-- `Tabs.List`, `Tabs.Trigger`, `Tabs.Indicator`, and `Tabs.Content` are thin styled Ark wrappers.
+- `TabsList`, `TabsTrigger`, `TabsIndicator`, and `TabsContent` are thin styled Ark wrappers.
 - `variant?: 'default' | 'line'` is the only moduix visual sugar on `Tabs` and
-  `Tabs.RootProvider`; `line` applies to horizontal tabs only. Vertical tabs use the default filled
+  `TabsRootProvider`; `line` applies to horizontal tabs only. Vertical tabs use the default filled
   indicator.
-- `Tabs.List` does not auto-render `Tabs.Indicator`. Consumers render the indicator explicitly.
+- `TabsList` does not auto-render `TabsIndicator`. Consumers render the indicator explicitly.
 
 ## Anatomy and exported parts
 
 ```tsx
 <Tabs defaultValue="overview">
-  <Tabs.List>
-    <Tabs.Trigger value="overview" />
-    <Tabs.Indicator />
-  </Tabs.List>
-  <Tabs.Content value="overview" />
+  <TabsList>
+    <TabsTrigger value="overview" />
+    <TabsIndicator />
+  </TabsList>
+  <TabsContent value="overview" />
 </Tabs>
 
-<Tabs.RootProvider value={tabs}>
+<TabsRootProvider value={tabs}>
   {/* same parts connected to useTabs() state */}
-</Tabs.RootProvider>
+</TabsRootProvider>
 ```
 
 | Export              | `data-slot`          | Notes                                              |
 | ------------------- | -------------------- | -------------------------------------------------- |
 | `Tabs`              | `tabs-root`          | Root div, selected value, focus and orientation.   |
-| `Tabs.RootProvider` | `tabs-root-provider` | Root provider div for `useTabs()` state.           |
-| `Tabs.Context`      | -                    | Advanced render-prop access to the current state.  |
-| `Tabs.List`         | `tabs-list`          | Trigger list.                                      |
-| `Tabs.Trigger`      | `tabs-trigger`       | Button by default; supports Ark `asChild`.         |
-| `Tabs.Indicator`    | `tabs-indicator`     | Optional active-trigger indicator.                 |
-| `Tabs.Content`      | `tabs-content`       | Content region for a matching trigger value.       |
-| `useTabs`           | -                    | Ark-compatible state hook for `Tabs.RootProvider`. |
+| `TabsRootProvider` | `tabs-root-provider` | Root provider div for `useTabs()` state.           |
+| `TabsContext`      | -                    | Advanced render-prop access to the current state.  |
+| `TabsList`         | `tabs-list`          | Trigger list.                                      |
+| `TabsTrigger`      | `tabs-trigger`       | Button by default; supports Ark `asChild`.         |
+| `TabsIndicator`    | `tabs-indicator`     | Optional active-trigger indicator.                 |
+| `TabsContent`      | `tabs-content`       | Content region for a matching trigger value.       |
+| `useTabs`           | -                    | Ark-compatible state hook for `TabsRootProvider`. |
 | `useTabsContext`    | -                    | Reads the current state from a Tabs tree.          |
 
 ## Composition
 
 ```tsx
-import { Tabs } from '@moduix/react/tabs';
+import {
+  Tabs,
+  TabsContent,
+  TabsIndicator,
+  TabsList,
+  TabsTrigger,
+} from '@moduix/react/tabs';
 
 export function Example() {
   return (
     <Tabs defaultValue="account">
-      <Tabs.List>
-        <Tabs.Trigger value="account">Account</Tabs.Trigger>
-        <Tabs.Trigger value="password">Password</Tabs.Trigger>
-        <Tabs.Indicator />
-      </Tabs.List>
-      <Tabs.Content value="account">Account settings</Tabs.Content>
-      <Tabs.Content value="password">Password settings</Tabs.Content>
+      <TabsList>
+        <TabsTrigger value="account">Account</TabsTrigger>
+        <TabsTrigger value="password">Password</TabsTrigger>
+        <TabsIndicator />
+      </TabsList>
+      <TabsContent value="account">Account settings</TabsContent>
+      <TabsContent value="password">Password settings</TabsContent>
     </Tabs>
   );
 }
 ```
 
-Use `asChild` on `Tabs.Trigger` for links or router components:
+Use `asChild` on `TabsTrigger` for links or router components:
 
 ```tsx
-<Tabs.Trigger value="account" asChild>
+<TabsTrigger value="account" asChild>
   <a href="#account">Account</a>
-</Tabs.Trigger>
+</TabsTrigger>
 ```
 
 ## Upstream feature coverage
 
 - Basic tabs use `Root`, `List`, `Trigger`, explicit `Indicator`, and `Content`.
 - Controlled state uses `value` and `onValueChange(details)`.
-- Disabled tabs use `disabled` on `Tabs.Trigger`.
-- Indicator support uses explicit `Tabs.Indicator`.
+- Disabled tabs use `disabled` on `TabsTrigger`.
+- Indicator support uses explicit `TabsIndicator`.
 - Lazy mounting uses `lazyMount` and `unmountOnExit` on root or root provider.
-- Links use `asChild` on `Tabs.Trigger`.
+- Links use `asChild` on `TabsTrigger`.
 - Manual activation uses `activationMode="manual"`.
 - Vertical tabs use `orientation="vertical"`.
-- External state uses moduix `useTabs()` or `Tabs.useTabs()` plus `Tabs.RootProvider`.
-- `Tabs.Context` and `useTabsContext()` expose Ark-shaped current state for advanced markup.
+- External state uses moduix `useTabs()` plus `TabsRootProvider`.
+- `TabsContext` and `useTabsContext()` expose Ark-shaped current state for advanced markup.
 
 ## Accessibility and state
 
@@ -110,11 +116,11 @@ tabs use up/down arrow navigation. `loopFocus` defaults to `true` upstream.
 Ark state and styling attributes exposed on parts include `data-scope="tabs"`, `data-part`,
 `data-orientation`, `data-selected`, `data-disabled`, `data-focus`, and SSR state on triggers.
 
-Indicator positioning comes from Ark CSS variables on `Tabs.Indicator`: `--left`, `--top`,
+Indicator positioning comes from Ark CSS variables on `TabsIndicator`: `--left`, `--top`,
 `--width`, `--height`, and `--transition-property`.
 
-`Tabs.Context` receives the current state through a render prop. `useTabsContext()` reads the same
-state from descendants of `Tabs` or `Tabs.RootProvider`.
+`TabsContext` receives the current state through a render prop. `useTabsContext()` reads the same
+state from descendants of `Tabs` or `TabsRootProvider`.
 
 ## Defaults and styling
 
@@ -123,14 +129,14 @@ the existing compact visual identity through `--moduix-tabs-*` variables, design
 motion tokens.
 
 `variant="default"` renders a SegmentGroup-like filled indicator surface with `radius-md`
-and `shadow-sm` when `Tabs.Indicator` is present. Its movement uses Ark's
+and `shadow-sm` when `TabsIndicator` is present. Its movement uses Ark's
 `--transition-duration` and `--transition-timing-function` contract, exposed through separate
 moduix variables for the filled and line variants.
 `variant="line"` switches the same Ark indicator part to an edge line treatment for horizontal tabs.
 Vertical tabs keep the filled treatment even when `line` is passed.
 
 The root defaults to a column layout and switches to row layout for `orientation="vertical"`.
-`Tabs.Content` is bordered, rounded, and padded by default.
+`TabsContent` is bordered, rounded, and padded by default.
 
 ## Intentional sugar and differences from upstream
 
@@ -138,38 +144,38 @@ The root defaults to a column layout and switches to row layout for `orientation
   limited to horizontal tabs.
 - The wrapper adds `data-slot` hooks and default CSS module classes.
 - The wrapper does not add a default indicator automatically. This keeps Ark composition explicit.
-- `Tabs.Root` remains a compatibility alias for `Tabs`; docs use the shorter root form.
-- Legacy flat aliases and render contracts were intentionally removed during migration.
+- The flat API exposes each Tabs part as a family-prefixed value; it does not retain a compound
+  namespace or compatibility aliases.
 
 ## Agent notes
 
-- Keep wrappers thin and namespace-first. Do not re-export flat part aliases unless a future product
-  decision explicitly reverses this migration rule.
+- Keep wrappers thin and flat. Do not reintroduce namespace assembly or compatibility aliases.
 - Preserve Ark callback detail objects and do not add compatibility shims for old legacy signatures.
 - Keep custom styling examples on Ark variables `--left`, `--top`, `--width`, and `--height`.
-- `RootProvider`, `useTabs`, `Tabs.Context`, and `useTabsContext` are the moduix-owned path for
+- `TabsRootProvider`, `useTabs`, `TabsContext`, and `useTabsContext` are the moduix-owned path for
   external and state-driven Tabs composition.
 
 ## Local changelog
 
+- 2026-09-22: Completed the flat Tabs API migration across the shipped React and Solid adapters,
+  tests, stories, registries, and documentation without compatibility aliases.
 - 2026-09-20: Moved the owned `data-variant` attribute after consumer props in `Tabs` and
-  `Tabs.RootProvider` so consumers cannot override the vertical `line` → `default` fallback, and
-  documented the `RootProvider` orientation lookup as an Ark DOM-contract dependency.
+  `TabsRootProvider` so consumers cannot override the vertical `line` → `default` fallback, and
+  documented the `TabsRootProvider` orientation lookup as an Ark DOM-contract dependency.
 - 2026-09-01: Replaced ineffective indicator transition shorthands with per-variant duration and
   timing-function variables that Ark applies at runtime.
-- 2026-08-13: Kept `Tabs.RootProvider`'s public `data-variant` aligned with `Tabs` for vertical
+- 2026-08-13: Kept `TabsRootProvider`'s public `data-variant` aligned with `Tabs` for vertical
   state stores, and added regression coverage for that fallback and manual activation.
 - 2026-07-31: Stabilized the root width, constrained the vertical list on narrow viewports, limited
   the line treatment to horizontal tabs, and documented the public context surfaces.
 - 2026-07-21: Routed shared dimensions, spacing, icon geometry, and focus-ring fallbacks through foundation tokens so density and theme presets can retune the component consistently.
 - 2026-07-03: Removed duplicate Ark type aliases while retaining moduix state hooks and context
   readers for the documented provider workflow.
-- 2026-07-11: Restored `useTabs` as a moduix package and namespace export for the documented
-  `Tabs.RootProvider` external-state path. Indicator CSS now applies Ark positioning variables.
+- 2026-07-11: Restored `useTabs` as a moduix package export for the documented
+  `TabsRootProvider` external-state path. Indicator CSS now applies Ark positioning variables.
 - 2026-06-27: Included moduix `variant` in the public root prop types and simplified custom styling
   examples to use Ark indicator positioning without duplicate trigger styles.
-- 2026-06-21: Migrated Tabs to Ark UI React. Replaced flat part exports with
-  namespace-first `Tabs.*`, added `RootProvider`, `Context`, `useTabs`, and `useTabsContext`,
-  switched callbacks/state/styling to Ark contracts, and removed legacy compatibility props.
+- 2026-06-21: Migrated Tabs to Ark UI React. Added the Ark-shaped provider, context, state hook,
+  and callbacks while removing legacy compatibility props.
 - 2026-06-22: Aligned the default indicator styling with `SegmentGroup`: `radius-md`,
   `shadow-sm`, and explicit transition variables. Kept `variant="line"` as an underline treatment.

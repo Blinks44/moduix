@@ -1,5 +1,5 @@
 import { Badge } from '@moduix/solid/badge';
-import { Table } from '@moduix/solid/table';
+import { Table, TableBody, TableCell, TableColumnHeader, TableHeader, TableRow, TableScrollArea } from '@moduix/solid/table';
 
 const invoices = [
   {
@@ -30,33 +30,33 @@ const invoices = [
 
 export default function TableDemo() {
   return (
-    <Table.ScrollArea>
+    <TableScrollArea>
       <Table>
-        <Table.Header>
-          <Table.Row>
-            <Table.ColumnHeader scope="col">Invoice</Table.ColumnHeader>
-            <Table.ColumnHeader scope="col">Status</Table.ColumnHeader>
-            <Table.ColumnHeader scope="col">Method</Table.ColumnHeader>
-            <Table.ColumnHeader numeric scope="col">
+        <TableHeader>
+          <TableRow>
+            <TableColumnHeader scope="col">Invoice</TableColumnHeader>
+            <TableColumnHeader scope="col">Status</TableColumnHeader>
+            <TableColumnHeader scope="col">Method</TableColumnHeader>
+            <TableColumnHeader numeric scope="col">
               Amount
-            </Table.ColumnHeader>
-          </Table.Row>
-        </Table.Header>
-        <Table.Body>
+            </TableColumnHeader>
+          </TableRow>
+        </TableHeader>
+        <TableBody>
           {invoices.map((invoice) => (
-            <Table.Row>
-              <Table.Cell>{invoice.id}</Table.Cell>
-              <Table.Cell>
+            <TableRow>
+              <TableCell>{invoice.id}</TableCell>
+              <TableCell>
                 <Badge variant={invoice.status === 'Paid' ? 'secondary' : 'outline'}>
                   {invoice.status}
                 </Badge>
-              </Table.Cell>
-              <Table.Cell>{invoice.method}</Table.Cell>
-              <Table.Cell numeric>{invoice.amount}</Table.Cell>
-            </Table.Row>
+              </TableCell>
+              <TableCell>{invoice.method}</TableCell>
+              <TableCell numeric>{invoice.amount}</TableCell>
+            </TableRow>
           ))}
-        </Table.Body>
+        </TableBody>
       </Table>
-    </Table.ScrollArea>
+    </TableScrollArea>
   );
 }

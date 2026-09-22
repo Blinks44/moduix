@@ -7,7 +7,7 @@ import styles from './Tag.module.css';
 
 type TagVariant = 'default' | 'secondary' | 'outline' | 'ghost' | 'destructive';
 type TagSize = 'sm' | 'md';
-type TagRootProps = HTMLArkProps<'span'> & {
+type TagProps = HTMLArkProps<'span'> & {
   variant?: TagVariant;
   size?: TagSize;
 };
@@ -18,7 +18,7 @@ type TagCloseTriggerProps = HTMLArkProps<'button'>;
 
 const DEFAULT_CLOSE_LABEL = 'Remove tag';
 
-function TagRoot(props: TagRootProps) {
+function Tag(props: TagProps) {
   const [local, others] = splitProps(props, ['asChild', 'class', 'size', 'variant']);
 
   return (
@@ -111,12 +111,4 @@ function TagCloseTrigger(props: TagCloseTriggerProps) {
   );
 }
 
-const Tag = Object.assign(TagRoot, {
-  Root: TagRoot,
-  Label: TagLabel,
-  StartElement: TagStartElement,
-  EndElement: TagEndElement,
-  CloseTrigger: TagCloseTrigger,
-});
-
-export { Tag };
+export { Tag, TagCloseTrigger, TagEndElement, TagLabel, TagStartElement };

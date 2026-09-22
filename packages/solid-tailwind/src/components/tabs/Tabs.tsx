@@ -5,7 +5,7 @@ import { cn } from '@/lib/moduix/cn';
 
 type TabsVariant = 'default' | 'line';
 
-function TabsRoot(props: ComponentProps<typeof TabsPrimitive.Root> & { variant?: TabsVariant }) {
+function Tabs(props: ComponentProps<typeof TabsPrimitive.Root> & { variant?: TabsVariant }) {
   const [local, others] = splitProps(props, ['class', 'orientation', 'variant']);
 
   return (
@@ -107,26 +107,16 @@ function TabsContent(props: ComponentProps<typeof TabsPrimitive.Content>) {
   );
 }
 
-type TabsComponent = typeof TabsRoot & {
-  Root: typeof TabsRoot;
-  RootProvider: typeof TabsRootProvider;
-  Context: typeof TabsPrimitive.Context;
-  List: typeof TabsList;
-  Trigger: typeof TabsTrigger;
-  Indicator: typeof TabsIndicator;
-  Content: typeof TabsContent;
-  useTabs: typeof useTabs;
-};
+const TabsContext = TabsPrimitive.Context;
 
-const Tabs: TabsComponent = Object.assign(TabsRoot, {
-  Root: TabsRoot,
-  RootProvider: TabsRootProvider,
-  Context: TabsPrimitive.Context,
-  List: TabsList,
-  Trigger: TabsTrigger,
-  Indicator: TabsIndicator,
-  Content: TabsContent,
+export {
+  Tabs,
+  TabsContext,
+  TabsContent,
+  TabsIndicator,
+  TabsList,
+  TabsRootProvider,
+  TabsTrigger,
   useTabs,
-});
-
-export { Tabs, useTabs, useTabsContext };
+  useTabsContext,
+};

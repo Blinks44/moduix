@@ -2,7 +2,7 @@ import { Badge } from '@moduix/solid/badge';
 import { Button } from '@moduix/solid/button';
 import { Checkbox, CheckboxControl, CheckboxHiddenInput } from '@moduix/solid/checkbox';
 import { Input } from '@moduix/solid/input';
-import { Table } from '@moduix/solid/table';
+import { Table, TableBody, TableCell, TableColumn, TableColumnGroup, TableColumnHeader, TableEmpty, TableHeader, TableRow, TableScrollArea } from '@moduix/solid/table';
 import {
   columnFilteringFeature,
   columnVisibilityFeature,
@@ -142,21 +142,21 @@ export default function DataTableDemo() {
         </span>
       </div>
 
-      <Table.ScrollArea>
+      <TableScrollArea>
         <Table interactive class="data-table-table">
-          <Table.ColumnGroup>
-            <Table.Column htmlWidth={48} />
-            <Table.Column htmlWidth={128} />
-            <Table.Column />
-            <Table.Column htmlWidth={128} />
-          </Table.ColumnGroup>
-          <Table.Header>
+          <TableColumnGroup>
+            <TableColumn htmlWidth={48} />
+            <TableColumn htmlWidth={128} />
+            <TableColumn />
+            <TableColumn htmlWidth={128} />
+          </TableColumnGroup>
+          <TableHeader>
             <For each={table.getHeaderGroups()}>
               {(headerGroup) => (
-                <Table.Row>
+                <TableRow>
                   <For each={headerGroup.headers}>
                     {(header) => (
-                      <Table.ColumnHeader
+                      <TableColumnHeader
                         colSpan={header.colSpan}
                         class={
                           header.column.id === 'select' ? 'data-table-selection-column' : undefined
@@ -167,28 +167,28 @@ export default function DataTableDemo() {
                         <Show when={!header.isPlaceholder}>
                           <table.FlexRender header={header} />
                         </Show>
-                      </Table.ColumnHeader>
+                      </TableColumnHeader>
                     )}
                   </For>
-                </Table.Row>
+                </TableRow>
               )}
             </For>
-          </Table.Header>
-          <Table.Body>
+          </TableHeader>
+          <TableBody>
             <Show
               when={table.getRowModel().rows.length}
               fallback={
-                <Table.Empty colSpan={table.getVisibleLeafColumns().length}>
+                <TableEmpty colSpan={table.getVisibleLeafColumns().length}>
                   No results.
-                </Table.Empty>
+                </TableEmpty>
               }
             >
               <For each={table.getRowModel().rows}>
                 {(row) => (
-                  <Table.Row data-selected={row.getIsSelected() || undefined}>
+                  <TableRow data-selected={row.getIsSelected() || undefined}>
                     <For each={row.getVisibleCells()}>
                       {(cell) => (
-                        <Table.Cell
+                        <TableCell
                           class={
                             cell.column.id === 'select' ? 'data-table-selection-column' : undefined
                           }
@@ -200,16 +200,16 @@ export default function DataTableDemo() {
                           >
                             <Badge variant="outline">{cell.getValue<string>()}</Badge>
                           </Show>
-                        </Table.Cell>
+                        </TableCell>
                       )}
                     </For>
-                  </Table.Row>
+                  </TableRow>
                 )}
               </For>
             </Show>
-          </Table.Body>
+          </TableBody>
         </Table>
-      </Table.ScrollArea>
+      </TableScrollArea>
 
       <div class="data-table-pagination">
         <span>

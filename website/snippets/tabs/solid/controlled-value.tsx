@@ -1,4 +1,10 @@
-import { Tabs } from '@moduix/solid/tabs';
+import {
+  Tabs,
+  TabsContent,
+  TabsIndicator,
+  TabsList,
+  TabsTrigger,
+} from '@moduix/solid/tabs';
 import { createSignal } from 'solid-js';
 
 const items = [
@@ -26,15 +32,15 @@ export default function ControlledTabsDemo() {
 
   return (
     <Tabs value={value()} onValueChange={(details) => setValue(details.value)}>
-      <Tabs.List>
+      <TabsList>
         {items.map((item) => (
-          <Tabs.Trigger value={item.value}>{item.title}</Tabs.Trigger>
+          <TabsTrigger value={item.value}>{item.title}</TabsTrigger>
         ))}
-        <Tabs.Indicator />
-      </Tabs.List>
+        <TabsIndicator />
+      </TabsList>
 
       {items.map((item) => (
-        <Tabs.Content value={item.value}>{item.content}</Tabs.Content>
+        <TabsContent value={item.value}>{item.content}</TabsContent>
       ))}
     </Tabs>
   );

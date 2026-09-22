@@ -4,7 +4,15 @@ import {
   CollapsibleIndicator,
   CollapsibleTrigger,
 } from '@moduix/solid/collapsible';
-import { Toc } from '@moduix/solid/toc';
+import {
+  Toc,
+  TocContext,
+  TocContent,
+  TocIndicator,
+  TocItem,
+  TocLink,
+  TocList,
+} from '@moduix/solid/toc';
 import styles from '@/components/examples/table-of-contents/table-of-contents-with-collapsible.module.css';
 
 const items = [
@@ -27,7 +35,7 @@ export default function TocWithCollapsibleDemo() {
   return (
     <Toc class={styles.root} items={items} scrollEl={() => scrollRef ?? null}>
       <Collapsible class={styles.collapsibleRoot} defaultOpen>
-        <Toc.Context>
+        <TocContext>
           {(context) => {
             const activeIndex = () =>
               items.findIndex((item) => item.value === context().activeItems[0]?.value);
@@ -43,21 +51,21 @@ export default function TocWithCollapsibleDemo() {
               </CollapsibleTrigger>
             );
           }}
-        </Toc.Context>
+        </TocContext>
 
         <CollapsibleContent>
-          <Toc.List>
-            <Toc.Indicator />
+          <TocList>
+            <TocIndicator />
             {items.map((item) => (
-              <Toc.Item item={item}>
-                <Toc.Link href={`#${item.value}`}>{item.label}</Toc.Link>
-              </Toc.Item>
+              <TocItem item={item}>
+                <TocLink href={`#${item.value}`}>{item.label}</TocLink>
+              </TocItem>
             ))}
-          </Toc.List>
+          </TocList>
         </CollapsibleContent>
       </Collapsible>
 
-      <Toc.Content>
+      <TocContent>
         <div
           ref={(element) => (scrollRef = element)}
           aria-label="Scrollable document preview"
@@ -73,7 +81,7 @@ export default function TocWithCollapsibleDemo() {
             </section>
           ))}
         </div>
-      </Toc.Content>
+      </TocContent>
     </Toc>
   );
 }

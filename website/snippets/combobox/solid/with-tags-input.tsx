@@ -9,7 +9,7 @@ import {
   ComboboxPositioner,
   ComboboxRootProvider,
 } from '@moduix/solid/combobox';
-import { TagsInput, useTagsInput } from '@moduix/solid/tags-input';
+import { TagsInputClearTrigger, TagsInputControl, TagsInputInput, TagsInputItems, TagsInputLabel, TagsInputRootProvider, useTagsInput } from '@moduix/solid/tags-input';
 import { createUniqueId, For } from 'solid-js';
 
 const frameworkOptions = ['React', 'Solid', 'Vue', 'Svelte', 'Angular', 'Preact', 'Next.js'];
@@ -41,16 +41,16 @@ export default function ComboboxWithTagsInputDemo() {
 
   return (
     <ComboboxRootProvider value={combobox}>
-      <TagsInput.RootProvider value={tagsInput}>
-        <TagsInput.Label>Frameworks</TagsInput.Label>
-        <TagsInput.Control>
-          <TagsInput.Items />
+      <TagsInputRootProvider value={tagsInput}>
+        <TagsInputLabel>Frameworks</TagsInputLabel>
+        <TagsInputControl>
+          <TagsInputItems />
           <ComboboxInput
-            asChild={(props) => <TagsInput.Input {...props()} placeholder="Add framework" />}
+            asChild={(props) => <TagsInputInput {...props()} placeholder="Add framework" />}
           />
-          <TagsInput.ClearTrigger aria-label="Clear frameworks" />
-        </TagsInput.Control>
-      </TagsInput.RootProvider>
+          <TagsInputClearTrigger aria-label="Clear frameworks" />
+        </TagsInputControl>
+      </TagsInputRootProvider>
       <ComboboxPositioner>
         <ComboboxContent>
           <ComboboxEmpty>No frameworks found.</ComboboxEmpty>

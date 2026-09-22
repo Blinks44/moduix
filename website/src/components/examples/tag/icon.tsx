@@ -1,4 +1,4 @@
-import { Tag } from '@moduix/react/tag';
+import { Tag, TagCloseTrigger, TagEndElement, TagLabel, TagStartElement } from '@moduix/react/tag';
 import { Check as CheckIcon } from 'lucide-react';
 import styles from '@/components/examples/tag/tag-icon.module.css';
 
@@ -20,14 +20,14 @@ export default function TagWithIconDemo() {
     <div className={styles.row}>
       {tags.map((tag) => (
         <Tag key={tag.label} variant={tag.variant}>
-          <Tag.StartElement>
+          <TagStartElement>
             <CheckIcon />
-          </Tag.StartElement>
-          <Tag.Label>{tag.label}</Tag.Label>
+          </TagStartElement>
+          <TagLabel>{tag.label}</TagLabel>
           {tag.removable ? (
-            <Tag.EndElement>
-              <Tag.CloseTrigger aria-label={`Remove ${tag.label} tag`} />
-            </Tag.EndElement>
+            <TagEndElement>
+              <TagCloseTrigger aria-label={`Remove ${tag.label} tag`} />
+            </TagEndElement>
           ) : null}
         </Tag>
       ))}

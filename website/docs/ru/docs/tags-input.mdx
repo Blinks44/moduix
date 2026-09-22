@@ -52,8 +52,9 @@ import tagsInputSolidWithCombobox from '../../../snippets/combobox/solid/with-ta
 ## Базовый пример
 
 
-Начните с корня, подписи, `Control`, `Items`, поля ввода и кнопки очистки. Добавьте
-`TagsInput.HiddenInput` явно, если теги нужно отправлять вместе с формой.
+Начните с `TagsInput`, `TagsInputLabel`, `TagsInputControl`, `TagsInputItems`,
+`TagsInputInput` и `TagsInputClearTrigger`. Добавьте `TagsInputHiddenInput`, если теги нужно
+отправлять вместе с формой.
 
 <ExampleFrame variant="component">
   <TagsInputBasic />
@@ -120,51 +121,51 @@ import tagsInputSolidWithCombobox from '../../../snippets/combobox/solid/with-ta
 ## Анатомия
 
 ```text
-TagsInput / TagsInput.Root
-├─ TagsInput.Label
-├─ TagsInput.Control
-│  ├─ TagsInput.Items
-│  └─ TagsInput.Item[index, value]
-│     ├─ TagsInput.ItemPreview
-│     │  ├─ TagsInput.ItemText
-│     │  └─ TagsInput.ItemDeleteTrigger
-│     └─ TagsInput.ItemInput
-│  ├─ TagsInput.Input
-│  └─ TagsInput.ClearTrigger
-└─ TagsInput.HiddenInput (explicit)
+TagsInput
+├─ TagsInputLabel
+├─ TagsInputControl
+│  ├─ TagsInputItems
+│  └─ TagsInputItem[index, value]
+│     ├─ TagsInputItemPreview
+│     │  ├─ TagsInputItemText
+│     │  └─ TagsInputItemDeleteTrigger
+│     └─ TagsInputItemInput
+│  ├─ TagsInputInput
+│  └─ TagsInputClearTrigger
+└─ TagsInputHiddenInput (explicit)
 
-TagsInput.RootProvider
+TagsInputRootProvider
 └─ same part tree connected to a useTagsInput() store
 ```
 
 | Часть | Назначение |
 | --- | --- |
-| `TagsInput` / `TagsInput.Root` | Корень, который управляет состоянием, значениями тегов, вводом, проверкой и формой. |
-| `TagsInput.RootProvider` | Подключает части к состоянию, которое вернул `useTagsInput()`. |
-| `TagsInput.Label` | Доступная подпись поля тегов. |
-| `TagsInput.Control` | Видимая область с тегами, полем ввода и кнопкой очистки. |
-| `TagsInput.Items` | Стандартно отображает редактируемые теги из текущего состояния. |
-| `TagsInput.Item` | Один тег. Передайте `index` и `value` для собственных элементов. |
-| `TagsInput.ItemContext` | Доступ через render prop к состоянию текущего элемента внутри дерева компонентов. |
-| `TagsInput.ItemPreview` | Отображает тег вне режима редактирования. |
-| `TagsInput.ItemText` | Видимый текст тега. |
-| `TagsInput.ItemDeleteTrigger` | Удаляет один тег и по умолчанию показывает компактный значок закрытия. |
-| `TagsInput.ItemInput` | Поле для редактирования тега на месте. |
-| `TagsInput.Input` | Поле ввода новых тегов. |
-| `TagsInput.ClearTrigger` | Удаляет все теги и по умолчанию использует оформление общей кнопки закрытия. |
-| `TagsInput.HiddenInput` | Явно добавляемое нативное поле для отправки формы. |
-| `TagsInput.Context` | Render prop с доступом к состоянию корня внутри дерева компонента. |
+| `TagsInput` / `TagsInput` | Корень, который управляет состоянием, значениями тегов, вводом, проверкой и формой. |
+| `TagsInputRootProvider` | Подключает части к состоянию, которое вернул `useTagsInput()`. |
+| `TagsInputLabel` | Доступная подпись поля тегов. |
+| `TagsInputControl` | Видимая область с тегами, полем ввода и кнопкой очистки. |
+| `TagsInputItems` | Стандартно отображает редактируемые теги из текущего состояния. |
+| `TagsInputItem` | Один тег. Передайте `index` и `value` для собственных элементов. |
+| `TagsInputItemContext` | Доступ через render prop к состоянию текущего элемента внутри дерева компонентов. |
+| `TagsInputItemPreview` | Отображает тег вне режима редактирования. |
+| `TagsInputItemText` | Видимый текст тега. |
+| `TagsInputItemDeleteTrigger` | Удаляет один тег и по умолчанию показывает компактный значок закрытия. |
+| `TagsInputItemInput` | Поле для редактирования тега на месте. |
+| `TagsInputInput` | Поле ввода новых тегов. |
+| `TagsInputClearTrigger` | Удаляет все теги и по умолчанию использует оформление общей кнопки закрытия. |
+| `TagsInputHiddenInput` | Явно добавляемое нативное поле для отправки формы. |
+| `TagsInputContext` | Render prop с доступом к состоянию корня внутри дерева компонента. |
 
 ## Композиция
 
-Используйте короткую форму `<TagsInput>` для стандартной композиции. Оставьте `TagsInput.Items`,
-`TagsInput.Input` и `TagsInput.ClearTrigger` внутри `TagsInput.Control`. Добавьте
-`TagsInput.HiddenInput` явно и передайте корню `name`, если теги нужно отправлять с формой. Если
+Используйте короткую форму `<TagsInput>` для стандартной композиции. Оставьте `TagsInputItems`,
+`TagsInputInput` и `TagsInputClearTrigger` внутри `TagsInputControl`. Добавьте
+`TagsInputHiddenInput` явно и передайте корню `name`, если теги нужно отправлять с формой. Если
 связанная форма находится вне дерева компонента, задайте `form`.
 
-Для собственного содержимого или действий тегов используйте `TagsInput.Context` и свяжите его
-значения с `TagsInput.Item`, передав `index` и `value`. Оставьте `TagsInput.ItemInput` внутри каждого
-элемента, если нужно сохранить редактирование на месте. Используйте `TagsInput.RootProvider` с
+Для собственного содержимого или действий тегов используйте `TagsInputContext` и свяжите его
+значения с `TagsInputItem`, передав `index` и `value`. Оставьте `TagsInputItemInput` внутри каждого
+элемента, если нужно сохранить редактирование на месте. Используйте `TagsInputRootProvider` с
 `useTagsInput()` только тогда, когда состояние или методы вроде `addValue`, `clearValue` и `focus`
 нужны за пределами дерева компонента. В Solid store является accessor: читайте `tagsInput().value`
 и вызывайте `tagsInput().addValue()`. При объединении с `Combobox` используйте общие идентификаторы
@@ -368,7 +369,7 @@ TagsInput.RootProvider
 
 ### Форма
 
-Передайте корню `name` и добавьте `TagsInput.HiddenInput`, чтобы список тегов попал в `FormData`.
+Передайте корню `name` и добавьте `TagsInputHiddenInput`, чтобы список тегов попал в `FormData`.
 
 <ExampleFrame variant="component">
   <TagsInputForm />
@@ -421,9 +422,9 @@ TagsInput.RootProvider
 </div>
 </ExampleCode>
 
-### Root Provider
+### TagsInputRootProvider
 
-Используйте `useTagsInput` с `RootProvider`, когда состояние и императивные методы нужны за пределами
+Используйте `useTagsInput` с `TagsInputRootProvider`, когда состояние и императивные методы нужны за пределами
 дерева отрисованного поля.
 
 <ExampleFrame variant="component">
@@ -537,8 +538,8 @@ TagsInput.RootProvider
 
 ### Расширенная настройка
 
-Не используйте `Items`, если каждому тегу нужны собственное содержимое или действия. Свяжите значения
-корня с полной структурой частей и оставьте `ItemInput` внутри каждого тега, если редактирование на
+Не используйте `TagsInputItems`, если каждому тегу нужны собственное содержимое или действия. Свяжите значения
+корня с полной структурой частей и оставьте `TagsInputItemInput` внутри каждого тега, если редактирование на
 месте всё ещё нужно.
 
 <ExampleFrame variant="component">
@@ -582,7 +583,7 @@ TagsInput.RootProvider
 
 ### Хуки стилизации
 
-- Корень и `RootProvider` предоставляют `data-slot="tags-input-root"` и `data-slot="tags-input-root-provider"`.
+- `TagsInput` и `TagsInputRootProvider` предоставляют `data-slot="tags-input-root"` и `data-slot="tags-input-root-provider"`.
 - Части Ark сохраняют `data-scope="tags-input"` и значения `data-part` из анатомии.
 - Состояния можно стилизовать через `data-disabled`, `data-readonly`, `data-invalid`, `data-focus`, `data-empty`, `data-required`, `data-value` и `data-highlighted`, если Ark добавляет их к части.
 - Кнопки удаления и очистки имеют стабильные `data-slot`. Для отдельного тега используется компактный значок закрытия, а очистка всех тегов использует оформление общей кнопки закрытия.

@@ -1,24 +1,24 @@
-import { Table } from '@moduix/solid/table';
+import { Table, TableBody, TableCaption, TableColumnHeader, TableEmpty, TableHeader, TableRow, TableScrollArea } from '@moduix/solid/table';
 
 const columnCount = 4;
 
 export default function EmptyStateTableDemo() {
   return (
-    <Table.ScrollArea>
+    <TableScrollArea>
       <Table>
-        <Table.Caption side="top">Projects filtered by the current workspace query.</Table.Caption>
-        <Table.Header>
-          <Table.Row>
-            <Table.ColumnHeader>Project</Table.ColumnHeader>
-            <Table.ColumnHeader>Owner</Table.ColumnHeader>
-            <Table.ColumnHeader>Updated</Table.ColumnHeader>
-            <Table.ColumnHeader numeric>Open issues</Table.ColumnHeader>
-          </Table.Row>
-        </Table.Header>
-        <Table.Body>
-          <Table.Empty colSpan={columnCount}>No projects matched the current filters.</Table.Empty>
-        </Table.Body>
+        <TableCaption side="top">Projects filtered by the current workspace query.</TableCaption>
+        <TableHeader>
+          <TableRow>
+            <TableColumnHeader>Project</TableColumnHeader>
+            <TableColumnHeader>Owner</TableColumnHeader>
+            <TableColumnHeader>Updated</TableColumnHeader>
+            <TableColumnHeader numeric>Open issues</TableColumnHeader>
+          </TableRow>
+        </TableHeader>
+        <TableBody>
+          <TableEmpty colSpan={columnCount}>No projects matched the current filters.</TableEmpty>
+        </TableBody>
       </Table>
-    </Table.ScrollArea>
+    </TableScrollArea>
   );
 }

@@ -1,6 +1,19 @@
 import { expect, rs, test } from '@rstest/core';
 import { fireEvent, render, screen, waitFor } from '@solidjs/testing-library';
-import { Toc, useToc, useTocContext } from '../src';
+import {
+  Toc,
+  TocContent,
+  TocIndicator,
+  TocItem,
+  TocLink,
+  TocList,
+  TocNav,
+  TocRail,
+  TocRootProvider,
+  TocTitle,
+  useToc,
+  useTocContext,
+} from '../src';
 
 const items = [
   { value: 'introduction', depth: 2 },
@@ -21,24 +34,24 @@ function RootProviderExample() {
       <button type="button" onClick={() => toc().setActiveIds(['configuration'])}>
         Set active section
       </button>
-      <Toc.RootProvider value={toc}>
-        <Toc.Content>
+      <TocRootProvider value={toc}>
+        <TocContent>
           <h2 id="introduction">Introduction</h2>
           <h3 id="configuration">Configuration</h3>
-        </Toc.Content>
-        <Toc.Nav>
-          <Toc.Title>On this page</Toc.Title>
-          <Toc.List>
-            <Toc.Indicator />
+        </TocContent>
+        <TocNav>
+          <TocTitle>On this page</TocTitle>
+          <TocList>
+            <TocIndicator />
             {items.map((item) => (
-              <Toc.Item item={item}>
-                <Toc.Link href={`#${item.value}`}>{item.value}</Toc.Link>
-              </Toc.Item>
+              <TocItem item={item}>
+                <TocLink href={`#${item.value}`}>{item.value}</TocLink>
+              </TocItem>
             ))}
-          </Toc.List>
-        </Toc.Nav>
+          </TocList>
+        </TocNav>
         <ActiveSection />
-      </Toc.RootProvider>
+      </TocRootProvider>
     </>
   );
 }
@@ -48,22 +61,22 @@ function ScrollableToc() {
 
   return (
     <Toc items={items} scrollEl={() => scrollRef ?? null}>
-      <Toc.Content>
+      <TocContent>
         <div ref={(element) => (scrollRef = element)} aria-label="Reader">
           <h2 id="introduction">Introduction</h2>
           <h3 id="configuration">Configuration</h3>
         </div>
-      </Toc.Content>
-      <Toc.Nav>
-        <Toc.Title>On this page</Toc.Title>
-        <Toc.List>
+      </TocContent>
+      <TocNav>
+        <TocTitle>On this page</TocTitle>
+        <TocList>
           {items.map((item) => (
-            <Toc.Item item={item}>
-              <Toc.Link href={`#${item.value}`}>{item.value}</Toc.Link>
-            </Toc.Item>
+            <TocItem item={item}>
+              <TocLink href={`#${item.value}`}>{item.value}</TocLink>
+            </TocItem>
           ))}
-        </Toc.List>
-      </Toc.Nav>
+        </TocList>
+      </TocNav>
     </Toc>
   );
 }
@@ -71,26 +84,26 @@ function ScrollableToc() {
 test('preserves Ark navigation semantics and active item state', () => {
   const { container } = render(() => (
     <Toc items={items} defaultActiveIds={['introduction']}>
-      <Toc.Content>
+      <TocContent>
         <h2 id="introduction">Introduction</h2>
         <h3 id="configuration">Configuration</h3>
-      </Toc.Content>
-      <Toc.Nav>
-        <Toc.Title>On this page</Toc.Title>
-        <Toc.List>
-          <Toc.Indicator />
+      </TocContent>
+      <TocNav>
+        <TocTitle>On this page</TocTitle>
+        <TocList>
+          <TocIndicator />
           {items.map((item) => (
-            <Toc.Item item={item}>
-              <Toc.Link href={`#${item.value}`}>
+            <TocItem item={item}>
+              <TocLink href={`#${item.value}`}>
                 {item.value === 'configuration' && (
-                  <Toc.Rail depth={item.depth} previousDepth={2} nextDepth={2} />
+                  <TocRail depth={item.depth} previousDepth={2} nextDepth={2} />
                 )}
                 {item.value}
-              </Toc.Link>
-            </Toc.Item>
+              </TocLink>
+            </TocItem>
           ))}
-        </Toc.List>
-      </Toc.Nav>
+        </TocList>
+      </TocNav>
     </Toc>
   ));
 
@@ -158,9 +171,9 @@ test('supports Ark navigation placement and scrolls the supplied reading pane', 
 
   render(() => (
     <Toc items={items}>
-      <Toc.Nav placement="left">
-        <Toc.Title>Left navigation</Toc.Title>
-      </Toc.Nav>
+      <TocNav placement="left">
+        <TocTitle>Left navigation</TocTitle>
+      </TocNav>
     </Toc>
   ));
 
@@ -180,9 +193,9 @@ test('forwards refs through ordinary parts and preserves semantic asChild compos
       items={items}
       asChild={(props) => <section {...props()} aria-label="Table of contents" />}
     >
-      <Toc.Content ref={(element) => (contentRef = element)}>
+      <TocContent ref={(element) => (contentRef = element)}>
         <h2 id="introduction">Introduction</h2>
-      </Toc.Content>
+      </TocContent>
     </Toc>
   ));
 
@@ -199,9 +212,9 @@ test('forwards refs on the ordinary root path', () => {
 
   render(() => (
     <Toc ref={(element) => (rootRef = element)} items={items}>
-      <Toc.Content>
+      <TocContent>
         <h2 id="introduction">Introduction</h2>
-      </Toc.Content>
+      </TocContent>
     </Toc>
   ));
 

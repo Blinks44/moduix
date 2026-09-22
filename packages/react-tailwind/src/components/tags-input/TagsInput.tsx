@@ -10,10 +10,10 @@ import { cn } from '@/lib/moduix/cn';
 import { CloseIcon } from '@/lib/moduix/icons/ui';
 import { CloseButton } from '../close-button';
 
-const TagsInputRoot = forwardRef<
+const TagsInput = forwardRef<
   ComponentRef<typeof TagsInputPrimitive.Root>,
   ComponentProps<typeof TagsInputPrimitive.Root>
->(function TagsInputRoot({ className, ...props }, ref) {
+>(function TagsInput({ className, ...props }, ref) {
   return (
     <TagsInputPrimitive.Root
       ref={ref}
@@ -224,7 +224,9 @@ const TagsInputClearTrigger = forwardRef<
   );
 });
 
+const TagsInputHiddenInput = TagsInputPrimitive.HiddenInput;
 const TagsInputContext = TagsInputPrimitive.Context;
+const TagsInputItemContext = TagsInputPrimitive.ItemContext;
 
 function TagsInputItems() {
   return (
@@ -244,22 +246,23 @@ function TagsInputItems() {
   );
 }
 
-const TagsInput = Object.assign(TagsInputRoot, {
-  Root: TagsInputRoot,
-  RootProvider: TagsInputRootProvider,
-  HiddenInput: TagsInputPrimitive.HiddenInput,
-  Label: TagsInputLabel,
-  Control: TagsInputControl,
-  Item: TagsInputItem,
-  ItemContext: TagsInputPrimitive.ItemContext,
-  ItemPreview: TagsInputItemPreview,
-  ItemText: TagsInputItemText,
-  ItemDeleteTrigger: TagsInputItemDeleteTrigger,
-  ItemInput: TagsInputItemInput,
-  Input: TagsInputInput,
-  ClearTrigger: TagsInputClearTrigger,
-  Context: TagsInputContext,
-  Items: TagsInputItems,
-});
-
-export { TagsInput, useTagsInput, useTagsInputContext, useTagsInputItemContext };
+export {
+  TagsInput,
+  TagsInputClearTrigger,
+  TagsInputContext,
+  TagsInputControl,
+  TagsInputHiddenInput,
+  TagsInputInput,
+  TagsInputItem,
+  TagsInputItemContext,
+  TagsInputItemDeleteTrigger,
+  TagsInputItemInput,
+  TagsInputItemPreview,
+  TagsInputItemText,
+  TagsInputItems,
+  TagsInputLabel,
+  TagsInputRootProvider,
+  useTagsInput,
+  useTagsInputContext,
+  useTagsInputItemContext,
+};

@@ -1,5 +1,5 @@
 import { Badge } from '@moduix/solid/badge';
-import { Table } from '@moduix/solid/table';
+import { Table, TableBody, TableCell, TableColumn, TableColumnGroup, TableColumnHeader, TableHeader, TableRow, TableScrollArea } from '@moduix/solid/table';
 import {
   createTable,
   columnVisibilityFeature,
@@ -40,54 +40,54 @@ export default function DataTableDemo() {
   const table = createTable({ features, data: payments, columns });
 
   return (
-    <Table.ScrollArea class="data-table">
+    <TableScrollArea class="data-table">
       <Table class="data-table-table">
-        <Table.ColumnGroup>
-          <Table.Column htmlWidth={128} />
-          <Table.Column />
-          <Table.Column htmlWidth={128} />
-        </Table.ColumnGroup>
-        <Table.Header>
+        <TableColumnGroup>
+          <TableColumn htmlWidth={128} />
+          <TableColumn />
+          <TableColumn htmlWidth={128} />
+        </TableColumnGroup>
+        <TableHeader>
           <For each={table.getHeaderGroups()}>
             {(headerGroup) => (
-              <Table.Row>
+              <TableRow>
                 <For each={headerGroup.headers}>
                   {(header) => (
-                    <Table.ColumnHeader
+                    <TableColumnHeader
                       colSpan={header.colSpan}
                       numeric={header.column.id === 'amount'}
                     >
                       <Show when={!header.isPlaceholder}>
                         <table.FlexRender header={header} />
                       </Show>
-                    </Table.ColumnHeader>
+                    </TableColumnHeader>
                   )}
                 </For>
-              </Table.Row>
+              </TableRow>
             )}
           </For>
-        </Table.Header>
-        <Table.Body>
+        </TableHeader>
+        <TableBody>
           <For each={table.getRowModel().rows}>
             {(row) => (
-              <Table.Row>
+              <TableRow>
                 <For each={row.getVisibleCells()}>
                   {(cell) => (
-                    <Table.Cell numeric={cell.column.id === 'amount'}>
+                    <TableCell numeric={cell.column.id === 'amount'}>
                       <Show
                         when={cell.column.id === 'status'}
                         fallback={<table.FlexRender cell={cell} />}
                       >
                         <Badge variant="outline">{cell.getValue<string>()}</Badge>
                       </Show>
-                    </Table.Cell>
+                    </TableCell>
                   )}
                 </For>
-              </Table.Row>
+              </TableRow>
             )}
           </For>
-        </Table.Body>
+        </TableBody>
       </Table>
-    </Table.ScrollArea>
+    </TableScrollArea>
   );
 }

@@ -52,8 +52,9 @@ control.
 ## Basic
 
 
-Start with the root, label, control, `Items`, entry input, clear trigger, and an explicit
-`TagsInput.HiddenInput` when the tags should be submitted with a form.
+Start with `TagsInput`, `TagsInputLabel`, `TagsInputControl`, `TagsInputItems`,
+`TagsInputInput`, and `TagsInputClearTrigger`. Add an explicit `TagsInputHiddenInput` when the
+tags should be submitted with a form.
 
 <ExampleFrame variant="component">
   <TagsInputBasic />
@@ -120,51 +121,51 @@ See [Quick Start](/docs/quick-start) for full package setup, registry configurat
 ## Anatomy
 
 ```text
-TagsInput / TagsInput.Root
-├─ TagsInput.Label
-├─ TagsInput.Control
-│  ├─ TagsInput.Items
-│  └─ TagsInput.Item[index, value]
-│     ├─ TagsInput.ItemPreview
-│     │  ├─ TagsInput.ItemText
-│     │  └─ TagsInput.ItemDeleteTrigger
-│     └─ TagsInput.ItemInput
-│  ├─ TagsInput.Input
-│  └─ TagsInput.ClearTrigger
-└─ TagsInput.HiddenInput (explicit)
+TagsInput
+├─ TagsInputLabel
+├─ TagsInputControl
+│  ├─ TagsInputItems
+│  └─ TagsInputItem[index, value]
+│     ├─ TagsInputItemPreview
+│     │  ├─ TagsInputItemText
+│     │  └─ TagsInputItemDeleteTrigger
+│     └─ TagsInputItemInput
+│  ├─ TagsInputInput
+│  └─ TagsInputClearTrigger
+└─ TagsInputHiddenInput (explicit)
 
-TagsInput.RootProvider
+TagsInputRootProvider
 └─ same part tree connected to a useTagsInput() store
 ```
 
 | Part | Role |
 | --- | --- |
-| `TagsInput` / `TagsInput.Root` | Root state, tag values, entry input, validation, and form integration. |
-| `TagsInput.RootProvider` | Connects the parts to state returned by `useTagsInput()`. |
-| `TagsInput.Label` | Accessible label for the tags input. |
-| `TagsInput.Control` | Visible shell containing tags, the entry input, and the clear trigger. |
-| `TagsInput.Items` | Standard editable tag renderer for the current root values. |
-| `TagsInput.Item` | One tag. Pass `index` and `value` when rendering custom items. |
-| `TagsInput.ItemContext` | Render-prop access to the state of the current item inside the component tree. |
-| `TagsInput.ItemPreview` | Visible tag content outside edit mode. |
-| `TagsInput.ItemText` | Visible tag text. |
-| `TagsInput.ItemDeleteTrigger` | Removes one tag and provides a compact close icon by default. |
-| `TagsInput.ItemInput` | Input used when a tag is edited in place. |
-| `TagsInput.Input` | Entry input for new tags. |
-| `TagsInput.ClearTrigger` | Clears all tags and uses the shared close-button visual by default. |
-| `TagsInput.HiddenInput` | Explicit native input for form submission. |
-| `TagsInput.Context` | Render-prop access to the root state inside the component tree. |
+| `TagsInput` / `TagsInput` | Root state, tag values, entry input, validation, and form integration. |
+| `TagsInputRootProvider` | Connects the parts to state returned by `useTagsInput()`. |
+| `TagsInputLabel` | Accessible label for the tags input. |
+| `TagsInputControl` | Visible shell containing tags, the entry input, and the clear trigger. |
+| `TagsInputItems` | Standard editable tag renderer for the current root values. |
+| `TagsInputItem` | One tag. Pass `index` and `value` when rendering custom items. |
+| `TagsInputItemContext` | Render-prop access to the state of the current item inside the component tree. |
+| `TagsInputItemPreview` | Visible tag content outside edit mode. |
+| `TagsInputItemText` | Visible tag text. |
+| `TagsInputItemDeleteTrigger` | Removes one tag and provides a compact close icon by default. |
+| `TagsInputItemInput` | Input used when a tag is edited in place. |
+| `TagsInputInput` | Entry input for new tags. |
+| `TagsInputClearTrigger` | Clears all tags and uses the shared close-button visual by default. |
+| `TagsInputHiddenInput` | Explicit native input for form submission. |
+| `TagsInputContext` | Render-prop access to the root state inside the component tree. |
 
 ## Composition
 
-Use the short `<TagsInput>` form for the standard composition. Keep `TagsInput.Items`,
-`TagsInput.Input`, and `TagsInput.ClearTrigger` inside `TagsInput.Control`. Add
-`TagsInput.HiddenInput` explicitly and pass `name` to the root when the tags must be submitted with
+Use the short `<TagsInput>` form for the standard composition. Keep `TagsInputItems`,
+`TagsInputInput`, and `TagsInputClearTrigger` inside `TagsInputControl`. Add
+`TagsInputHiddenInput` explicitly and pass `name` to the root when the tags must be submitted with
 a form. Use `form` when the associated form is outside the component tree.
 
-For custom tag content or actions, use `TagsInput.Context` and map its values to
-`TagsInput.Item` with `index` and `value`. Keep `TagsInput.ItemInput` inside each item when inline
-editing should remain available. Use `TagsInput.RootProvider` with `useTagsInput()` only when state
+For custom tag content or actions, use `TagsInputContext` and map its values to
+`TagsInputItem` with `index` and `value`. Keep `TagsInputItemInput` inside each item when inline
+editing should remain available. Use `TagsInputRootProvider` with `useTagsInput()` only when state
 or methods such as `addValue`, `clearValue`, or `focus` must be used outside the component tree.
 In Solid, the store is an accessor, so read `tagsInput().value` and call `tagsInput().addValue()`.
 When combining `TagsInput` with `Combobox`, share the input and control IDs and compose the inputs
@@ -367,7 +368,7 @@ Ark's form accessibility wiring.
 
 ### Form
 
-Pass `name` to the root and add `TagsInput.HiddenInput` to include the tag list in `FormData`.
+Pass `name` to the root and add `TagsInputHiddenInput` to include the tag list in `FormData`.
 
 <ExampleFrame variant="component">
   <TagsInputForm />
@@ -420,9 +421,9 @@ an invalid state.
 </div>
 </ExampleCode>
 
-### Root Provider
+### TagsInputRootProvider
 
-Use `useTagsInput` with `RootProvider` when state and imperative methods need to be used outside the
+Use `useTagsInput` with `TagsInputRootProvider` when state and imperative methods need to be used outside the
 rendered tags input tree.
 
 <ExampleFrame variant="component">
@@ -534,8 +535,8 @@ custom tags. Share the input and control IDs and compose the inputs with `asChil
 
 ### Advanced Customization
 
-Bypass `Items` when each tag needs custom content or actions. Map the root values to the full item
-tree and keep `ItemInput` in each item if inline editing is still needed.
+Bypass `TagsInputItems` when each tag needs custom content or actions. Map the root values to the full item
+tree and keep `TagsInputItemInput` in each item if inline editing is still needed.
 
 <ExampleFrame variant="component">
   <TagsInputAdvancedCustomization />

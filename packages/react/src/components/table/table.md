@@ -8,8 +8,8 @@ Upstream docs:
 
 ## Purpose
 
-Use `Table` for semantic, read-only or lightly interactive tabular data with moduix styling and an
-Ark-style namespace API.
+Use `Table` for semantic, read-only or lightly interactive tabular data with moduix styling and a
+flat public API.
 
 ## Upstream model to preserve
 
@@ -22,78 +22,86 @@ part names and visual props: `Root`, `ScrollArea`, `Caption`, `ColumnGroup`, `Co
 
 ## Current behavior contract
 
-- `Table` is the short root form and is equivalent to `Table.Root`.
-- `Table` renders a native `<table>` by default and accepts `interactive`, `showColumnBorder`,
-  `size`, `stickyHeader`, `striped`, and `variant`.
-- `Table.ScrollArea` is the optional bordered horizontal-scroll shell.
-- `Table.ColumnGroup` and `Table.Column` preserve native `colgroup` / `col` semantics.
-- `Table.Caption`, `Header`, `Body`, `Footer`, `Row`, `ColumnHeader`, and `Cell` render their
-  matching native table elements by default.
-- `Table.Empty` is the only local sugar part. It renders a full empty row with a required `colSpan`.
+- `Table` is the root component, renders a native `<table>` by default, and accepts `interactive`,
+  `showColumnBorder`, `size`, `stickyHeader`, `striped`, and `variant`.
+- `TableScrollArea` is the optional bordered horizontal-scroll shell.
+- `TableColumnGroup` and `TableColumn` preserve native `colgroup` / `col` semantics.
+- `TableCaption`, `TableHeader`, `TableBody`, `TableFooter`, `TableRow`, `TableColumnHeader`, and
+  `TableCell` render their matching native table elements by default.
+- `TableEmpty` is the only local sugar part. It renders a full empty row with a required `colSpan`.
   Its `asChild` escape hatch replaces the generated cell only; use one semantic `td` and compose
-  `Table.Row` plus `Table.Cell` directly when the row itself needs customization.
+  `TableRow` plus `TableCell` directly when the row itself needs customization.
 - The component does not own sorting, filtering, selection, pagination, virtualization, or row
   action state.
 
 ## Anatomy and exported parts
 
 ```text
-Table.ScrollArea (optional)
-└─ Table / Table.Root
-   ├─ Table.ColumnGroup (optional)
-   │  └─ Table.Column
-   ├─ Table.Caption (optional)
-   ├─ Table.Header
-   │  └─ Table.Row
-   │     └─ Table.ColumnHeader
-   ├─ Table.Body
-   │  ├─ Table.Row
-   │  │  └─ Table.Cell
-   │  └─ Table.Empty (optional)
-   └─ Table.Footer (optional)
+TableScrollArea (optional)
+└─ Table
+   ├─ TableColumnGroup (optional)
+   │  └─ TableColumn
+   ├─ TableCaption (optional)
+   ├─ TableHeader
+   │  └─ TableRow
+   │     └─ TableColumnHeader
+   ├─ TableBody
+   │  ├─ TableRow
+   │  │  └─ TableCell
+   │  └─ TableEmpty (optional)
+   └─ TableFooter (optional)
 ```
 
 | Part                   | Element    | `data-part`     | `data-slot`           |
 | ---------------------- | ---------- | --------------- | --------------------- |
-| `Table` / `Table.Root` | `table`    | `root`          | `table-root`          |
-| `Table.ScrollArea`     | `div`      | `scroll-area`   | `table-scroll-area`   |
-| `Table.ColumnGroup`    | `colgroup` | `column-group`  | `table-column-group`  |
-| `Table.Column`         | `col`      | `column`        | `table-column`        |
-| `Table.Caption`        | `caption`  | `caption`       | `table-caption`       |
-| `Table.Header`         | `thead`    | `header`        | `table-header`        |
-| `Table.Body`           | `tbody`    | `body`          | `table-body`          |
-| `Table.Footer`         | `tfoot`    | `footer`        | `table-footer`        |
-| `Table.Row`            | `tr`       | `row`           | `table-row`           |
-| `Table.ColumnHeader`   | `th`       | `column-header` | `table-column-header` |
-| `Table.Cell`           | `td`       | `cell`          | `table-cell`          |
-| `Table.Empty`          | `td`       | `empty`         | `table-empty`         |
+| `Table`                | `table`    | `root`          | `table-root`          |
+| `TableScrollArea`     | `div`      | `scroll-area`   | `table-scroll-area`   |
+| `TableColumnGroup`    | `colgroup` | `column-group`  | `table-column-group`  |
+| `TableColumn`         | `col`      | `column`        | `table-column`        |
+| `TableCaption`        | `caption`  | `caption`       | `table-caption`       |
+| `TableHeader`         | `thead`    | `header`        | `table-header`        |
+| `TableBody`           | `tbody`    | `body`          | `table-body`          |
+| `TableFooter`         | `tfoot`    | `footer`        | `table-footer`        |
+| `TableRow`            | `tr`       | `row`           | `table-row`           |
+| `TableColumnHeader`   | `th`       | `column-header` | `table-column-header` |
+| `TableCell`           | `td`       | `cell`          | `table-cell`          |
+| `TableEmpty`          | `td`       | `empty`         | `table-empty`         |
 
 ## Composition
 
 ```tsx
-import { Table } from '@moduix/react/table';
+import {
+  Table,
+  TableBody,
+  TableCaption,
+  TableCell,
+  TableColumnHeader,
+  TableHeader,
+  TableRow,
+  TableScrollArea,
+} from '@moduix/react/table';
 
 export function InvoiceTable() {
   return (
-    <Table.ScrollArea>
+    <TableScrollArea>
       <Table striped interactive>
-        <Table.Caption side="top">Recent invoices</Table.Caption>
-        <Table.Header>
-          <Table.Row>
-            <Table.ColumnHeader>Invoice</Table.ColumnHeader>
-            <Table.ColumnHeader>Status</Table.ColumnHeader>
-            <Table.ColumnHeader numeric>Amount</Table.ColumnHeader>
-          </Table.Row>
-        </Table.Header>
-        <Table.Body>
-          <Table.Row>
-            <Table.Cell>INV001</Table.Cell>
-            <Table.Cell>Paid</Table.Cell>
-            <Table.Cell numeric>$250.00</Table.Cell>
-          </Table.Row>
-        </Table.Body>
+        <TableCaption side="top">Recent invoices</TableCaption>
+        <TableHeader>
+          <TableRow>
+            <TableColumnHeader>Invoice</TableColumnHeader>
+            <TableColumnHeader>Status</TableColumnHeader>
+            <TableColumnHeader numeric>Amount</TableColumnHeader>
+          </TableRow>
+        </TableHeader>
+        <TableBody>
+          <TableRow>
+            <TableCell>INV001</TableCell>
+            <TableCell>Paid</TableCell>
+            <TableCell numeric>$250.00</TableCell>
+          </TableRow>
+        </TableBody>
       </Table>
-    </Table.ScrollArea>
+    </TableScrollArea>
   );
 }
 ```
@@ -103,7 +111,7 @@ export function InvoiceTable() {
 - Ark composition: every exported DOM part supports `asChild` through `ark.*`; consumers must pass a
   single semantic child when replacing a table element.
 - Ark styling: parts expose `data-scope`, `data-part`, and stable moduix `data-slot` hooks.
-- Chakra usage/anatomy: covered by the namespace part tree and native table semantics.
+- Chakra usage/anatomy: covered by the flat part tree and native table semantics.
 - Chakra sizes/variants: covered by `size="sm" | "md" | "lg"` and `variant="line" | "outline"`.
 - Chakra striped, interactive, sticky header, column border, scroll area, column group, and sticky
   column examples are supported.
@@ -129,9 +137,9 @@ Root state hooks:
 
 Cell state hooks:
 
-- `data-numeric` on `Table.ColumnHeader` and `Table.Cell`
+- `data-numeric` on `TableColumnHeader` and `TableCell`
 - `data-sticky="start" | "end"` on sticky column header/data cells
-- `data-empty` on the row created by `Table.Empty`
+- `data-empty` on the row created by `TableEmpty`
 
 When `interactive` is set, body rows expose the same background feedback on `:hover` and
 `:focus-within`, preserving row context while keyboard users operate a contained control.
@@ -152,33 +160,34 @@ Public CSS variables are registered in `packages/foundation/src/styles/variables
 - `--moduix-table-sticky-header-bg`, `--moduix-table-sticky-column-bg`, and sticky z-index variables
 
 `interactive` controls hover highlighting. `striped` controls zebra rows. `variant="outline"` adds
-a border around the table root; `Table.ScrollArea` owns the common outer surface.
+a border around the table root; `TableScrollArea` owns the common outer surface.
 
 ## Intentional sugar and differences from upstream
 
-- `Table.Empty` is moduix sugar for the common empty-state row. Chakra does not define this part.
+- `TableEmpty` is moduix sugar for the common empty-state row. Chakra does not define this part.
 - `numeric` is the local name for inline-end-aligned tabular numerals on headers and cells.
-- `htmlWidth` on `Table.Column` maps to the native `width` attribute to match Chakra's guidance.
+- `htmlWidth` on `TableColumn` maps to the native `width` attribute to match Chakra's guidance.
 - Moduix keeps the component native and does not wrap TanStack Table or own row selection/action
   state.
 
 ## Agent notes
 
-- Do not re-add flat exports such as `TableCell` or `TableHeader`; the public API is namespace-first.
+- Keep the flat exports such as `TableCell` and `TableHeader`; the public API is direct and
+  namespace-free.
 - Do not add sorting, filtering, selection, or pagination state to this primitive. Build those as
   higher-level compositions on top of `Table`.
-- Keep `Table.Empty` narrow. It should remain a convenience row, not a full empty-state component.
+- Keep `TableEmpty` narrow. It should remain a convenience row, not a full empty-state component.
 - Keep table prop/type aliases private unless a real consumer need appears; the public surface is the
-  namespaced component parts and their runtime behavior.
+  flat component parts and their runtime behavior.
 
 ## Local changelog
 
 - 2026-08-13: Added keyboard-equivalent row feedback for nested actions through `:focus-within`,
-  with a focused-row CSS variable; documented the narrow `Table.Empty asChild` contract and added
+  with a focused-row CSS variable; documented the narrow `TableEmpty asChild` contract and added
   focused coverage for it.
 - 2026-07-11: Added the `data-empty` row hook so empty states exclude hover and striped styling, and made numeric alignment direction-aware.
-- 2026-07-03: Simplified the public surface by keeping table part prop aliases private while
-  preserving namespace composition, `Table.Empty`, and scroll-area styling affordances.
+- 2026-09-22: Replaced the compound namespace with direct flat exports for the root and every
+  table part while preserving the component behavior and styling affordances.
 - 2026-06-27: Audited the owned Ark factory migration, simplified striped/interactive row styling,
   removed docs-only playground code, and aligned public docs with the no-dedicated-Ark-primitive API
   reference wording.

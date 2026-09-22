@@ -39,13 +39,13 @@ d’Ark concernant la [composition](https://ark-ui.com/docs/guides/composition),
 
 Chaque partie rend par défaut l’élément HTML natif correspondant, accepte ses propriétés, `className`
 en React ou `class` en Solid, transmet sa ref et prend en charge `asChild`. Avec `asChild`, fournissez
-un seul élément sémantique. `Table.Empty` fait exception à cette composition habituelle : `asChild` y
+un seul élément sémantique. `TableEmpty` fait exception à cette composition habituelle : `asChild` y
 remplace uniquement la cellule `td` générée.
 
 ## Exemple de base
 
-Si le tableau risque de dépasser la largeur de son conteneur, enveloppez-le dans `Table.ScrollArea`. Composez
-ensuite `Table` avec `Table.Header`, `Table.Body`, `Table.Row` et les parties correspondantes pour les en-têtes et
+Si le tableau risque de dépasser la largeur de son conteneur, enveloppez-le dans `TableScrollArea`. Composez
+ensuite `Table` avec `TableHeader`, `TableBody`, `TableRow` et les parties correspondantes pour les en-têtes et
 les cellules. Cette approche convient aux factures, aux synthèses et aux jeux de données en lecture seule des
 interfaces d’administration.
 
@@ -111,45 +111,45 @@ Consultez le [Démarrage rapide](/docs/quick-start) pour la configuration compl�
 La composition recommandée reste proche du balisage natif des tableaux :
 
 ```text
-Table.ScrollArea (optional)
-└─ Table / Table.Root
-   ├─ Table.ColumnGroup (optional)
-   │  └─ Table.Column
-   ├─ Table.Caption (optional)
-   ├─ Table.Header
-   │  └─ Table.Row
-   │     └─ Table.ColumnHeader
-   ├─ Table.Body
-   │  ├─ Table.Row
-   │  │  └─ Table.Cell
-   │  └─ Table.Empty (optional)
-   └─ Table.Footer (optional)
+TableScrollArea (optional)
+└─ Table
+   ├─ TableColumnGroup (optional)
+   │  └─ TableColumn
+   ├─ TableCaption (optional)
+   ├─ TableHeader
+   │  └─ TableRow
+   │     └─ TableColumnHeader
+   ├─ TableBody
+   │  ├─ TableRow
+   │  │  └─ TableCell
+   │  └─ TableEmpty (optional)
+   └─ TableFooter (optional)
 ```
 
 | Partie                  | Rôle                                                                            |
 | ----------------------- | ------------------------------------------------------------------------------- |
-| `Table` / `Table.Root`  | Racine native `table`. Gère la typographie, les séparateurs et les attributs d’état. |
-| `Table.ScrollArea`      | Conteneur facultatif avec bordure et défilement horizontal.                    |
-| `Table.ColumnGroup`     | Élément natif `colgroup` pour définir la largeur des colonnes.                 |
-| `Table.Column`          | Élément natif `col`. Accepte `htmlWidth`.                                      |
-| `Table.Caption`         | Légende facultative au-dessus ou au-dessous du tableau via `side`.             |
-| `Table.Header`          | Élément natif `thead` pour les en-têtes de colonne.                             |
-| `Table.Body`            | Élément natif `tbody` pour les lignes de données.                               |
-| `Table.Footer`          | Élément natif `tfoot` pour les lignes de synthèse.                              |
-| `Table.Row`             | Élément natif `tr` avec des séparateurs.                                        |
-| `Table.ColumnHeader`    | Élément natif `th`. Accepte `numeric`.                                          |
-| `Table.Cell`            | Élément natif `td`. Accepte `numeric`.                                          |
-| `Table.Empty`           | Ligne et cellule d’état vide pratiques dans `Table.Body`.                      |
+| `Table`            | Racine native `table`. Gère la typographie, les séparateurs et les attributs d’état. |
+| `TableScrollArea`      | Conteneur facultatif avec bordure et défilement horizontal.                    |
+| `TableColumnGroup`     | Élément natif `colgroup` pour définir la largeur des colonnes.                 |
+| `TableColumn`          | Élément natif `col`. Accepte `htmlWidth`.                                      |
+| `TableCaption`         | Légende facultative au-dessus ou au-dessous du tableau via `side`.             |
+| `TableHeader`          | Élément natif `thead` pour les en-têtes de colonne.                             |
+| `TableBody`            | Élément natif `tbody` pour les lignes de données.                               |
+| `TableFooter`          | Élément natif `tfoot` pour les lignes de synthèse.                              |
+| `TableRow`             | Élément natif `tr` avec des séparateurs.                                        |
+| `TableColumnHeader`    | Élément natif `th`. Accepte `numeric`.                                          |
+| `TableCell`            | Élément natif `td`. Accepte `numeric`.                                          |
+| `TableEmpty`           | Ligne et cellule d’état vide pratiques dans `TableBody`.                      |
 
 ## Composition
 
-Utilisez `Table.ScrollArea` lorsque le tableau a besoin d’un conteneur bordé avec défilement horizontal.
+Utilisez `TableScrollArea` lorsque le tableau a besoin d’un conteneur bordé avec défilement horizontal.
 Ne l’utilisez pas si la mise en page parente gère déjà le défilement, les espacements, la bordure ou
 la surface ; placez alors les parties natives du tableau dans votre propre conteneur.
 
-`Table.Empty` crée une ligne vide complète dans `Table.Body`, son `colSpan` obligatoire doit donc
+`TableEmpty` crée une ligne vide complète dans `TableBody`, son `colSpan` obligatoire doit donc
 correspondre au nombre actuel de colonnes. Son `asChild` remplace uniquement le `td` généré ; composez
-directement `Table.Row` et `Table.Cell` lorsque la ligne elle-même doit être personnalisée. `Table`
+directement `TableRow` et `TableCell` lorsque la ligne elle-même doit être personnalisée. `Table`
 gère uniquement la présentation : le tri, le filtrage, la sélection, la pagination, la virtualisation
 et les actions de ligne appartiennent à une composition de niveau supérieur, comme [Data Table](/recipes/data-table).
 
@@ -157,7 +157,7 @@ et les actions de ligne appartiennent à une composition de niveau supérieur, c
 
 `Table` utilise des éléments de tableau natifs : utilisez donc les attributs HTML habituels pour exprimer les
 relations entre les en-têtes et les cellules. Ajoutez `scope="col"` aux en-têtes de colonne, utilisez
-`Table.Caption` pour un nom ou une description accessible courte, et utilisez `id` / `headers` lorsqu’un tableau
+`TableCaption` pour un nom ou une description accessible courte, et utilisez `id` / `headers` lorsqu’un tableau
 complexe nécessite des associations explicites. `Table` n’ajoute ni navigation au clavier, ni sélection, ni gestion
 particulière du focus.
 
@@ -165,7 +165,7 @@ particulière du focus.
 
 ### Légende et totaux
 
-Utilisez `Table.Caption side="top"` lorsque la légende se lit mieux avant les données, et `Table.Footer` pour les
+Utilisez `TableCaption side="top"` lorsque la légende se lit mieux avant les données, et `TableFooter` pour les
 totaux ou les synthèses.
 
 <ExampleFrame variant="component">
@@ -200,7 +200,7 @@ totaux ou les synthèses.
 
 ### Groupe de colonnes et bordures
 
-Utilisez `Table.ColumnGroup` et `Table.Column` pour définir les largeurs natives des colonnes, et
+Utilisez `TableColumnGroup` et `TableColumn` pour définir les largeurs natives des colonnes, et
 `showColumnBorder` lorsque la séparation des colonnes doit être visible.
 
 <ExampleFrame variant="component">
@@ -235,7 +235,7 @@ Utilisez `Table.ColumnGroup` et `Table.Column` pour définir les largeurs native
 
 ### État vide
 
-Utilisez `Table.Empty` lorsque le corps n’afficherait aucune ligne. Définissez `colSpan` sur le nombre actuel de
+Utilisez `TableEmpty` lorsque le corps n’afficherait aucune ligne. Définissez `colSpan` sur le nombre actuel de
 colonnes.
 
 <ExampleFrame variant="component">
@@ -270,7 +270,7 @@ colonnes.
 
 ### Dans Card
 
-`Table.ScrollArea` s’intègre naturellement à `CardBody` lorsque le tableau doit se trouver sur une surface de
+`TableScrollArea` s’intègre naturellement à `CardBody` lorsque le tableau doit se trouver sur une surface de
 carte.
 
 <ExampleFrame variant="component">
@@ -491,7 +491,7 @@ sans passer à une abstraction de tableau plus directive.
 ### Avec le composant ScrollArea
 
 Utilisez directement `ScrollArea` lorsque le tableau nécessite des barres de défilement stylisées sur les deux axes,
-un effet de fondu ou l’API de la zone de défilement. `Table.ScrollArea` est un conteneur plus simple, avec bordure et
+un effet de fondu ou l’API de la zone de défilement. `TableScrollArea` est un conteneur plus simple, avec bordure et
 défilement horizontal. Gardez la structure de `ScrollArea` explicite afin que le tableau reste natif et léger.
 
 <ExampleFrame variant="component">
@@ -531,7 +531,7 @@ défilement horizontal. Gardez la structure de `ScrollArea` explicite afin que l
 
 ### Personnalisation avancée
 
-Utilisez votre propre conteneur à la place de `Table.ScrollArea` lorsque la mise en page environnante gère déjà la
+Utilisez votre propre conteneur à la place de `TableScrollArea` lorsque la mise en page environnante gère déjà la
 surface ou le défilement. La composition native du tableau reste explicite et votre mise en page garde le contrôle du
 conteneur.
 
@@ -595,14 +595,14 @@ natives et les classes du consommateur ; les variables ci-dessous s’appliquent
 
 Utilisez la partie ou l’attribut qui contrôle l’aspect visuel concerné :
 
-- `className` sur `Table.ScrollArea` pour remplacer la bordure, le rayon et le fond du conteneur
+- `className` sur `TableScrollArea` pour remplacer la bordure, le rayon et le fond du conteneur
 - `className` sur `Table` pour la typographie du tableau et les contraintes de largeur
 - `data-slot="table-root"`, `table-scroll-area`, `table-column-group`, `table-column`, `table-caption`,
   `table-header`, `table-body`, `table-footer`, `table-row`, `table-column-header`, `table-cell` et `table-empty` pour
   cibler chaque partie
-- `data-side="top" | "bottom"` sur `Table.Caption` pour styliser la position de la légende
-- `data-numeric` sur `Table.ColumnHeader` et `Table.Cell` pour cibler les colonnes numériques
-- `data-empty` sur la ligne générée par `Table.Empty` pour cibler la ligne vide
+- `data-side="top" | "bottom"` sur `TableCaption` pour styliser la position de la légende
+- `data-numeric` sur `TableColumnHeader` et `TableCell` pour cibler les colonnes numériques
+- `data-empty` sur la ligne générée par `TableEmpty` pour cibler la ligne vide
 - `data-size`, `data-variant`, `data-striped`, `data-interactive`, `data-sticky-header` et
   `data-show-column-border` sur `Table` pour les styles d’état au niveau de la racine
-- `data-sticky="start" | "end"` sur `Table.ColumnHeader` et `Table.Cell` pour les colonnes fixes
+- `data-sticky="start" | "end"` sur `TableColumnHeader` et `TableCell` pour les colonnes fixes

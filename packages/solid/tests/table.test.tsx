@@ -1,39 +1,39 @@
 import { expect, test } from '@rstest/core';
 import { render, screen } from '@solidjs/testing-library';
-import { Table } from '../src';
+import { Table, TableBody, TableCaption, TableCell, TableColumn, TableColumnGroup, TableColumnHeader, TableEmpty, TableFooter, TableHeader, TableRow, TableScrollArea } from '../src';
 
 test('renders the native table anatomy with stable hooks', () => {
   render(() => (
-    <Table.ScrollArea data-testid="scroll-area">
+    <TableScrollArea data-testid="scroll-area">
       <Table data-testid="table" size="lg" variant="outline">
-        <Table.ColumnGroup data-testid="column-group">
-          <Table.Column data-testid="column" htmlWidth="40%" />
-        </Table.ColumnGroup>
-        <Table.Caption data-testid="caption" side="top">
+        <TableColumnGroup data-testid="column-group">
+          <TableColumn data-testid="column" htmlWidth="40%" />
+        </TableColumnGroup>
+        <TableCaption data-testid="caption" side="top">
           Recent invoices
-        </Table.Caption>
-        <Table.Header data-testid="header">
-          <Table.Row data-testid="header-row">
-            <Table.ColumnHeader data-testid="column-header" scope="col">
+        </TableCaption>
+        <TableHeader data-testid="header">
+          <TableRow data-testid="header-row">
+            <TableColumnHeader data-testid="column-header" scope="col">
               Invoice
-            </Table.ColumnHeader>
-            <Table.ColumnHeader numeric>Amount</Table.ColumnHeader>
-          </Table.Row>
-        </Table.Header>
-        <Table.Body data-testid="body">
-          <Table.Row data-testid="row">
-            <Table.Cell data-testid="cell">INV001</Table.Cell>
-            <Table.Cell numeric>$250.00</Table.Cell>
-          </Table.Row>
-        </Table.Body>
-        <Table.Footer data-testid="footer">
-          <Table.Row>
-            <Table.Cell colSpan={1}>Total</Table.Cell>
-            <Table.Cell numeric>$250.00</Table.Cell>
-          </Table.Row>
-        </Table.Footer>
+            </TableColumnHeader>
+            <TableColumnHeader numeric>Amount</TableColumnHeader>
+          </TableRow>
+        </TableHeader>
+        <TableBody data-testid="body">
+          <TableRow data-testid="row">
+            <TableCell data-testid="cell">INV001</TableCell>
+            <TableCell numeric>$250.00</TableCell>
+          </TableRow>
+        </TableBody>
+        <TableFooter data-testid="footer">
+          <TableRow>
+            <TableCell colSpan={1}>Total</TableCell>
+            <TableCell numeric>$250.00</TableCell>
+          </TableRow>
+        </TableFooter>
       </Table>
-    </Table.ScrollArea>
+    </TableScrollArea>
   ));
 
   const table = screen.getByTestId('table');
@@ -123,14 +123,14 @@ test('keeps public hooks when consumer data attributes conflict', () => {
       data-size="custom"
       data-variant="custom"
     >
-      <Table.Caption
+      <TableCaption
         data-testid="caption"
         data-scope="custom"
         data-part="custom"
         data-slot="custom"
         data-side="custom"
       />
-      <Table.Row data-testid="row" data-scope="custom" data-part="custom" data-slot="custom" />
+      <TableRow data-testid="row" data-scope="custom" data-part="custom" data-slot="custom" />
     </Table>
   ));
 
@@ -160,16 +160,16 @@ test('supports native refs on the ordinary factory path', () => {
   let cellRef!: HTMLTableCellElement;
 
   render(() => (
-    <Table.ScrollArea ref={(element) => (scrollAreaRef = element)}>
+    <TableScrollArea ref={(element) => (scrollAreaRef = element)}>
       <Table ref={(element) => (tableRef = element)}>
-        <Table.Caption ref={(element) => (captionRef = element)}>Invoices</Table.Caption>
-        <Table.Body>
-          <Table.Row ref={(element) => (rowRef = element)}>
-            <Table.Cell ref={(element) => (cellRef = element)}>INV001</Table.Cell>
-          </Table.Row>
-        </Table.Body>
+        <TableCaption ref={(element) => (captionRef = element)}>Invoices</TableCaption>
+        <TableBody>
+          <TableRow ref={(element) => (rowRef = element)}>
+            <TableCell ref={(element) => (cellRef = element)}>INV001</TableCell>
+          </TableRow>
+        </TableBody>
       </Table>
-    </Table.ScrollArea>
+    </TableScrollArea>
   ));
 
   expect(tableRef).toHaveAttribute('data-slot', 'table-root');
@@ -214,12 +214,12 @@ test('renders the default and custom empty states', () => {
   let emptyRef!: HTMLTableCellElement;
   render(() => (
     <Table>
-      <Table.Body>
-        <Table.Empty colSpan={3} data-testid="default-empty" />
-        <Table.Empty ref={(element) => (emptyRef = element)} colSpan={3} data-testid="custom-empty">
+      <TableBody>
+        <TableEmpty colSpan={3} data-testid="default-empty" />
+        <TableEmpty ref={(element) => (emptyRef = element)} colSpan={3} data-testid="custom-empty">
           No invoices found.
-        </Table.Empty>
-      </Table.Body>
+        </TableEmpty>
+      </TableBody>
     </Table>
   ));
 
@@ -240,8 +240,8 @@ test('renders the default and custom empty states', () => {
 test('supports replacing only the generated empty cell with asChild', () => {
   render(() => (
     <Table>
-      <Table.Body>
-        <Table.Empty
+      <TableBody>
+        <TableEmpty
           colSpan={2}
           class="custom-empty"
           asChild={(props) => (
@@ -250,7 +250,7 @@ test('supports replacing only the generated empty cell with asChild', () => {
             </td>
           )}
         />
-      </Table.Body>
+      </TableBody>
     </Table>
   ));
 
@@ -268,20 +268,20 @@ test('supports replacing only the generated empty cell with asChild', () => {
 
 test('keeps sticky-column hooks on native table cells', () => {
   render(() => (
-    <Table.ScrollArea>
+    <TableScrollArea>
       <Table>
-        <Table.Header>
-          <Table.Row>
-            <Table.ColumnHeader data-sticky="start">Project</Table.ColumnHeader>
-          </Table.Row>
-        </Table.Header>
-        <Table.Body>
-          <Table.Row>
-            <Table.Cell data-sticky="start">Docs redesign</Table.Cell>
-          </Table.Row>
-        </Table.Body>
+        <TableHeader>
+          <TableRow>
+            <TableColumnHeader data-sticky="start">Project</TableColumnHeader>
+          </TableRow>
+        </TableHeader>
+        <TableBody>
+          <TableRow>
+            <TableCell data-sticky="start">Docs redesign</TableCell>
+          </TableRow>
+        </TableBody>
       </Table>
-    </Table.ScrollArea>
+    </TableScrollArea>
   ));
 
   expect(screen.getByRole('columnheader', { name: 'Project' })).toHaveAttribute(

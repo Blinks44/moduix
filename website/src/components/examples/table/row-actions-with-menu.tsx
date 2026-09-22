@@ -1,6 +1,6 @@
 import { Button } from '@moduix/react/button';
 import { Menu, MenuTrigger, MenuPositioner, MenuContent, MenuViewport, MenuItem, MenuSeparator } from '@moduix/react/menu';
-import { Table } from '@moduix/react/table';
+import { Table, TableBody, TableCell, TableColumnHeader, TableHeader, TableRow, TableScrollArea } from '@moduix/react/table';
 
 const rows = [
   {
@@ -54,31 +54,31 @@ function RowActionsMenu({ itemName }: { itemName: string }) {
 
 export default function TableRowActionsDemo() {
   return (
-    <Table.ScrollArea>
+    <TableScrollArea>
       <Table interactive>
-        <Table.Header>
-          <Table.Row>
-            <Table.ColumnHeader>Project</Table.ColumnHeader>
-            <Table.ColumnHeader>Owner</Table.ColumnHeader>
-            <Table.ColumnHeader>Environment</Table.ColumnHeader>
-            <Table.ColumnHeader>Updated</Table.ColumnHeader>
-            <Table.ColumnHeader>Actions</Table.ColumnHeader>
-          </Table.Row>
-        </Table.Header>
-        <Table.Body>
+        <TableHeader>
+          <TableRow>
+            <TableColumnHeader>Project</TableColumnHeader>
+            <TableColumnHeader>Owner</TableColumnHeader>
+            <TableColumnHeader>Environment</TableColumnHeader>
+            <TableColumnHeader>Updated</TableColumnHeader>
+            <TableColumnHeader>Actions</TableColumnHeader>
+          </TableRow>
+        </TableHeader>
+        <TableBody>
           {rows.map((row) => (
-            <Table.Row key={row.name}>
-              <Table.Cell>{row.name}</Table.Cell>
-              <Table.Cell>{row.owner}</Table.Cell>
-              <Table.Cell>{row.environment}</Table.Cell>
-              <Table.Cell>{row.updated}</Table.Cell>
-              <Table.Cell>
+            <TableRow key={row.name}>
+              <TableCell>{row.name}</TableCell>
+              <TableCell>{row.owner}</TableCell>
+              <TableCell>{row.environment}</TableCell>
+              <TableCell>{row.updated}</TableCell>
+              <TableCell>
                 <RowActionsMenu itemName={row.name} />
-              </Table.Cell>
-            </Table.Row>
+              </TableCell>
+            </TableRow>
           ))}
-        </Table.Body>
+        </TableBody>
       </Table>
-    </Table.ScrollArea>
+    </TableScrollArea>
   );
 }

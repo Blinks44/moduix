@@ -1,4 +1,4 @@
-import { Table } from '@moduix/solid/table';
+import { Table, TableBody, TableCaption, TableCell, TableColumnHeader, TableHeader, TableRow } from '@moduix/solid/table';
 import styles from '@/components/examples/table/table-custom-composition.module.css';
 
 const plans = [
@@ -23,25 +23,25 @@ export default function TableCustomCompositionDemo() {
   return (
     <div class={styles.root}>
       <Table class={styles.table}>
-        <Table.Caption side="bottom">
-          This version uses a plain wrapper instead of Table.ScrollArea.
-        </Table.Caption>
-        <Table.Header>
-          <Table.Row>
-            <Table.ColumnHeader>Plan</Table.ColumnHeader>
-            <Table.ColumnHeader>Seats</Table.ColumnHeader>
-            <Table.ColumnHeader numeric>Monthly cost</Table.ColumnHeader>
-          </Table.Row>
-        </Table.Header>
-        <Table.Body>
+        <TableCaption side="bottom">
+          This version uses a plain wrapper instead of TableScrollArea.
+        </TableCaption>
+        <TableHeader>
+          <TableRow>
+            <TableColumnHeader>Plan</TableColumnHeader>
+            <TableColumnHeader>Seats</TableColumnHeader>
+            <TableColumnHeader numeric>Monthly cost</TableColumnHeader>
+          </TableRow>
+        </TableHeader>
+        <TableBody>
           {plans.map((plan) => (
-            <Table.Row>
-              <Table.Cell>{plan.name}</Table.Cell>
-              <Table.Cell>{plan.seats}</Table.Cell>
-              <Table.Cell numeric>{plan.cost}</Table.Cell>
-            </Table.Row>
+            <TableRow>
+              <TableCell>{plan.name}</TableCell>
+              <TableCell>{plan.seats}</TableCell>
+              <TableCell numeric>{plan.cost}</TableCell>
+            </TableRow>
           ))}
-        </Table.Body>
+        </TableBody>
       </Table>
     </div>
   );

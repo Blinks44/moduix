@@ -1,1 +1,15 @@
-export { Toc, useToc, useTocContext } from './Toc.js';
+export {
+  Toc,
+  TocContext,
+  TocContent,
+  TocIndicator,
+  TocItem,
+  TocLink,
+  TocList,
+  TocNav,
+  TocRail,
+  TocRootProvider,
+  TocTitle,
+  useToc,
+  useTocContext,
+} from './Toc.js';

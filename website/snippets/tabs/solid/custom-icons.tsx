@@ -1,4 +1,9 @@
-import { Tabs } from '@moduix/solid/tabs';
+import {
+  Tabs,
+  TabsContent,
+  TabsList,
+  TabsTrigger,
+} from '@moduix/solid/tabs';
 import { Gift as PresentIcon, Handshake as HandshakeIcon, Map as MapIcon } from 'lucide-solid';
 
 const items = [
@@ -21,23 +26,23 @@ const items = [
 export default function IconTabsDemo() {
   return (
     <Tabs defaultValue="overview">
-      <Tabs.List>
-        <Tabs.Trigger value="overview">
+      <TabsList>
+        <TabsTrigger value="overview">
           <HandshakeIcon />
           <span>Overview</span>
-        </Tabs.Trigger>
-        <Tabs.Trigger value="projects">
+        </TabsTrigger>
+        <TabsTrigger value="projects">
           <PresentIcon />
           <span>Projects</span>
-        </Tabs.Trigger>
-        <Tabs.Trigger value="account">
+        </TabsTrigger>
+        <TabsTrigger value="account">
           <MapIcon />
           <span>Account</span>
-        </Tabs.Trigger>
-      </Tabs.List>
+        </TabsTrigger>
+      </TabsList>
 
       {items.map((item) => (
-        <Tabs.Content value={item.value}>{item.content}</Tabs.Content>
+        <TabsContent value={item.value}>{item.content}</TabsContent>
       ))}
     </Tabs>
   );

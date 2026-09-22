@@ -1,5 +1,5 @@
 import { Card, CardBody, CardHeader, CardTitle } from '@moduix/solid/card';
-import { Table } from '@moduix/solid/table';
+import { Table, TableBody, TableCell, TableColumnHeader, TableHeader, TableRow, TableScrollArea } from '@moduix/solid/table';
 
 const projects = [
   {
@@ -29,28 +29,28 @@ export default function TableInsideCardDemo() {
         <CardTitle>Projects</CardTitle>
       </CardHeader>
       <CardBody>
-        <Table.ScrollArea>
+        <TableScrollArea>
           <Table>
-            <Table.Header>
-              <Table.Row>
-                <Table.ColumnHeader>Project</Table.ColumnHeader>
-                <Table.ColumnHeader>Owner</Table.ColumnHeader>
-                <Table.ColumnHeader>Updated</Table.ColumnHeader>
-                <Table.ColumnHeader>Health</Table.ColumnHeader>
-              </Table.Row>
-            </Table.Header>
-            <Table.Body>
+            <TableHeader>
+              <TableRow>
+                <TableColumnHeader>Project</TableColumnHeader>
+                <TableColumnHeader>Owner</TableColumnHeader>
+                <TableColumnHeader>Updated</TableColumnHeader>
+                <TableColumnHeader>Health</TableColumnHeader>
+              </TableRow>
+            </TableHeader>
+            <TableBody>
               {projects.map((project) => (
-                <Table.Row>
-                  <Table.Cell>{project.name}</Table.Cell>
-                  <Table.Cell>{project.owner}</Table.Cell>
-                  <Table.Cell>{project.updated}</Table.Cell>
-                  <Table.Cell>{project.issues}</Table.Cell>
-                </Table.Row>
+                <TableRow>
+                  <TableCell>{project.name}</TableCell>
+                  <TableCell>{project.owner}</TableCell>
+                  <TableCell>{project.updated}</TableCell>
+                  <TableCell>{project.issues}</TableCell>
+                </TableRow>
               ))}
-            </Table.Body>
+            </TableBody>
           </Table>
-        </Table.ScrollArea>
+        </TableScrollArea>
       </CardBody>
     </Card>
   );

@@ -38,7 +38,7 @@ peut nécessiter une action locale, comme la suppression.
 ## Exemple de base
 
 Commencez par
-un `Tag` racine et `Tag.Label`. Ajoutez les autres parties uniquement si le token a besoin d’une
+un `Tag` racine et `TagLabel`. Ajoutez les autres parties uniquement si le token a besoin d’une
 icône, d’un contenu complémentaire ou d’une action de suppression intégrée.
 
 <ExampleFrame variant="component">
@@ -99,33 +99,33 @@ Consultez le [Démarrage rapide](/docs/quick-start) pour la configuration compl�
 
 ## Anatomie
 
-La racine est également disponible avec `Tag.Root`. Les formes courtes `<Tag>` et `<Tag.Root>` sont équivalentes.
+Utilisez `Tag` comme élément racine.
 
 ```text
-Tag / Tag.Root
-├─ Tag.StartElement (facultatif)
-├─ Tag.Label
-└─ Tag.EndElement (facultatif)
-   └─ Tag.CloseTrigger (facultatif)
+Tag
+├─ TagStartElement (facultatif)
+├─ TagLabel
+└─ TagEndElement (facultatif)
+   └─ TagCloseTrigger (facultatif)
 ```
 
 | Partie             | Rôle                                                                                     |
 | ------------------ | ---------------------------------------------------------------------------------------- |
-| `Tag` / `Tag.Root` | Élément racine. Applique la mise en page du token, la bordure, la taille, la variante et la composition `asChild`. |
-| `Tag.Label`        | Conteneur de la valeur visible et limite de troncature.                                 |
-| `Tag.StartElement` | Zone facultative à gauche pour une icône, un avatar ou un indicateur d’état.              |
-| `Tag.EndElement`   | Zone facultative à droite pour une icône ou une action.                                  |
-| `Tag.CloseTrigger` | Bouton facultatif pour supprimer le token.                                               |
+| `Tag`              | Élément racine. Applique la mise en page du token, la bordure, la taille, la variante et la composition `asChild`. |
+| `TagLabel`        | Conteneur de la valeur visible et limite de troncature.                                 |
+| `TagStartElement` | Zone facultative à gauche pour une icône, un avatar ou un indicateur d’état.              |
+| `TagEndElement`   | Zone facultative à droite pour une icône ou une action.                                  |
+| `TagCloseTrigger` | Bouton facultatif pour supprimer le token.                                               |
 
 ## Composition
 
 `Tag` est uniquement visuel et ne gère pas les valeurs sélectionnées ou supprimées. Conservez la
-collection dans le composant parent, mettez-la à jour depuis `Tag.CloseTrigger` et placez ce trigger
-dans `Tag.EndElement`.
+collection dans le composant parent, mettez-la à jour depuis `TagCloseTrigger` et placez ce trigger
+dans `TagEndElement`.
 
 Utilisez `asChild` uniquement lorsque la racine ou le trigger de suppression doit remplacer son
 élément hôte par défaut. L’enfant unique devient l’hôte DOM et doit fournir la sémantique attendue.
-En particulier, `Tag.CloseTrigger asChild` nécessite un contrôle de fermeture explicite et un nom accessible.
+En particulier, `TagCloseTrigger asChild` nécessite un contrôle de fermeture explicite et un nom accessible.
 
 ## Exemples
 
@@ -170,8 +170,8 @@ de suppression. Donnez à chaque trigger un libellé qui indique la valeur suppr
 
 ### Avec une icône
 
-Utilisez `Tag.StartElement` et `Tag.EndElement` pour les icônes et les actions. Ainsi,
-`Tag.Label` reste la limite de troncature et la taille de l’action reste indépendante.
+Utilisez `TagStartElement` et `TagEndElement` pour les icônes et les actions. Ainsi,
+`TagLabel` reste la limite de troncature et la taille de l’action reste indépendante.
 
 <ExampleFrame variant="component">
   <TagIcon />
@@ -209,7 +209,7 @@ Utilisez `Tag.StartElement` et `Tag.EndElement` pour les icônes et les actions.
 
 ### Débordement
 
-Limitez la racine lorsque les valeurs longues doivent tenir dans une zone étroite. `Tag.Label`
+Limitez la racine lorsque les valeurs longues doivent tenir dans une zone étroite. `TagLabel`
 devient la limite de troncature et affiche des points de suspension. Ajoutez `title` si la valeur
 complète doit rester consultable.
 
@@ -390,4 +390,4 @@ et les hooks `data-slot` sont communs aux deux systèmes de style.
 - Les parties exportées émettent `data-scope="tag"` et `data-part="root" | "label" | "start-element" | "end-element" | "close-trigger"`.
 - `data-slot="tag-root"`, `data-slot="tag-label"`, `data-slot="tag-start-element"`, `data-slot="tag-end-element"` et `data-slot="tag-close-trigger"` sont des sélecteurs moduix stables.
 - `Tag` écrit la taille et la variante sélectionnées dans `data-size` et `data-variant`.
-- `Tag.CloseTrigger` expose `data-disabled` pour les états désactivé ou `aria-disabled` et hérite de la couleur du token.
+- `TagCloseTrigger` expose `data-disabled` pour les états désactivé ou `aria-disabled` et hérite de la couleur du token.

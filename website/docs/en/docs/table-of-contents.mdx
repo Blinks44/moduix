@@ -22,8 +22,8 @@ import tocSolidWithCollapsible from '../../../snippets/table-of-contents/solid/w
 
 `Toc` is the shorthand root component. Pass an `items` array with the headings you want to track.
 Each item needs a `value` that matches a heading's `id` and a `depth` that matches its semantic
-level, such as `2` for `<h2>`. Use the same item when rendering `Toc.Item`, then build the matching
-`Toc.Link` fragment from its `value`.
+level, such as `2` for `<h2>`. Use the same item when rendering `TocItem`, then build the matching
+`TocLink` fragment from its `value`.
 
 
 On a regular document page, omit `scrollEl` and the component observes the page viewport. The
@@ -95,36 +95,36 @@ See [Quick Start](/docs/quick-start) for full package setup, registry configurat
 ## Anatomy
 
 ```text
-Toc / Toc.Root
-├─ Toc.Content
-└─ Toc.Nav
-   ├─ Toc.Title
-   └─ Toc.List
-      ├─ Toc.Indicator (optional)
-      └─ Toc.Item[item]
-         └─ Toc.Link
-            └─ Toc.Rail (optional)
+Toc
+├─ TocContent
+└─ TocNav
+   ├─ TocTitle
+   └─ TocList
+      ├─ TocIndicator (optional)
+      └─ TocItem[item]
+         └─ TocLink
+            └─ TocRail (optional)
 
-Toc.RootProvider
+TocRootProvider
 └─ same part tree connected to useToc()
 ```
 
 | Part               | Role                                                                 |
 | ------------------ | -------------------------------------------------------------------- |
-| `Toc` / `Toc.Root` | Root part that owns tracking state from the item list.               |
-| `Toc.Content`      | Article containing headings whose IDs match item values.             |
-| `Toc.Nav`          | Navigation region connected to the table of contents title.          |
-| `Toc.Title`        | Accessible name and visible heading for the navigation.              |
-| `Toc.List`         | List containing heading links and the optional indicator.             |
-| `Toc.Item`         | List item bound to one heading, with depth and active-state metadata. |
-| `Toc.Link`         | Same-page anchor that scrolls to its matching heading.               |
-| `Toc.Indicator`    | Subtle marker that follows the active range in the list.              |
-| `Toc.RootProvider` | Connects the parts to tracking state created outside the part tree.   |
-| `Toc.Rail`         | Optional SVG branch connecting neighbouring heading depths.            |
+| `Toc`             | Root part that owns tracking state from the item list.               |
+| `TocContent`      | Article containing headings whose IDs match item values.             |
+| `TocNav`          | Navigation region connected to the table of contents title.          |
+| `TocTitle`        | Accessible name and visible heading for the navigation.              |
+| `TocList`         | List containing heading links and the optional indicator.             |
+| `TocItem`         | List item bound to one heading, with depth and active-state metadata. |
+| `TocLink`         | Same-page anchor that scrolls to its matching heading.               |
+| `TocIndicator`    | Subtle marker that follows the active range in the list.              |
+| `TocRootProvider` | Connects the parts to tracking state created outside the part tree.   |
+| `TocRail`         | Optional SVG branch connecting neighbouring heading depths.            |
 
 ## Composition
 
-Pass one item for every tracked heading. Keep `item.value`, the heading `id`, and the `Toc.Link`
+Pass one item for every tracked heading. Keep `item.value`, the heading `id`, and the `TocLink`
 fragment identical, and use the heading's semantic level for `depth`. Omit `scrollEl` when the page
 viewport owns scrolling; pass the reading pane when the content has its own scroll container.
 
@@ -132,12 +132,12 @@ Unlike Ark UI, `autoScroll` defaults to `false` for both `Toc` and `useToc()`. P
 opt in only when automatically revealing the active navigation item cannot scroll an ancestor
 container.
 
-Use `Toc.RootProvider` with `useToc()` only when controls outside the part tree need the same
+Use `TocRootProvider` with `useToc()` only when controls outside the part tree need the same
 tracking state, such as `activeIds` or `scrollTo`. React reads the store as an object; Solid reads
-its reactive state through the returned accessor. Use `Toc.Context` when a surrounding composition
-such as `Collapsible` needs the active items. For router links, use `Toc.Link asChild` with one
+its reactive state through the returned accessor. Use `TocContext` when a surrounding composition
+such as `Collapsible` needs the active items. For router links, use `TocLink asChild` with one
 semantic `<a>` child; in Solid, pass that child through the render function expected by `asChild`.
-Choose either `Toc.Indicator` for an active-range marker or `Toc.Rail` for per-link hierarchy; do
+Choose either `TocIndicator` for an active-range marker or `TocRail` for per-link hierarchy; do
 not render both in the same list.
 
 ## Examples
@@ -183,9 +183,9 @@ Use `useToc()` when another control needs to read the active headings or scroll 
 
 ### Rail
 
-Place `Toc.Rail` inside each link to draw an SVG connector between neighbouring heading depths.
+Place `TocRail` inside each link to draw an SVG connector between neighbouring heading depths.
 Pass the current, previous, and next depths from the same ordered `items` array. The rail on the
-active link uses the indicator colour. Do not render `Toc.Indicator` in the same list.
+active link uses the indicator colour. Do not render `TocIndicator` in the same list.
 
 <ExampleFrame variant="component">
   <TocRail />
@@ -225,7 +225,7 @@ active link uses the indicator colour. Do not render `Toc.Indicator` in the same
 ### With Collapsible
 
 Place the navigation list inside `Collapsible` when readers should be able to hide the full table
-of contents. `Toc.Context` supplies the active item for the trigger label and progress ring, while
+of contents. `TocContext` supplies the active item for the trigger label and progress ring, while
 the links continue to target the same reading pane.
 
 <ExampleFrame variant="component">
@@ -279,6 +279,6 @@ for overrides.
 - `data-slot="toc-root"`, `toc-root-provider`, `toc-content`, `toc-nav`, `toc-title`, `toc-list`,
   `toc-item`, `toc-link`, `toc-indicator`, and `toc-rail`
 - Ark `data-scope="toc"` and `data-part` attributes on primitive parts
-- `Toc.Item` attributes and variables: `data-value`, `data-depth`, `data-active`, `data-first`,
-  `data-last`, and `--depth`; `Toc.Link` exposes `data-value`, `data-active`, and `aria-current`
+- `TocItem` attributes and variables: `data-value`, `data-depth`, `data-active`, `data-first`,
+  `data-last`, and `--depth`; `TocLink` exposes `data-value`, `data-active`, and `aria-current`
 - Ark runtime `--top`, `--left`, `--width`, and `--height` variables on the root

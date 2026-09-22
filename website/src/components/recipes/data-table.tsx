@@ -7,7 +7,7 @@ import {
   InputGroupInput,
 } from '@moduix/react/input-group';
 import { Menu, MenuTrigger, MenuPositioner, MenuContent, MenuViewport, MenuItem, MenuItemGroup, MenuItemGroupLabel, MenuCheckboxItem, MenuItemIndicator, MenuItemText } from '@moduix/react/menu';
-import { Table } from '@moduix/react/table';
+import { Table, TableBody, TableCell, TableColumn, TableColumnGroup, TableColumnHeader, TableEmpty, TableHeader, TableRow, TableScrollArea } from '@moduix/react/table';
 import {
   columnFilteringFeature,
   columnVisibilityFeature,
@@ -404,21 +404,21 @@ function DataTable() {
         </div>
       </div>
 
-      <Table.ScrollArea className={styles.scrollArea}>
+      <TableScrollArea className={styles.scrollArea}>
         <Table interactive className={styles.table}>
-          <Table.ColumnGroup>
+          <TableColumnGroup>
             {table.getVisibleLeafColumns().map((column) => (
-              <Table.Column
+              <TableColumn
                 key={column.id}
                 htmlWidth={columnWidths[column.id as keyof typeof columnWidths]}
               />
             ))}
-          </Table.ColumnGroup>
-          <Table.Header>
+          </TableColumnGroup>
+          <TableHeader>
             {table.getHeaderGroups().map((headerGroup) => (
-              <Table.Row key={headerGroup.id}>
+              <TableRow key={headerGroup.id}>
                 {headerGroup.headers.map((header) => (
-                  <Table.ColumnHeader
+                  <TableColumnHeader
                     key={header.id}
                     colSpan={header.colSpan}
                     className={
@@ -440,17 +440,17 @@ function DataTable() {
                     {header.isPlaceholder
                       ? null
                       : flexRender(header.column.columnDef.header, header.getContext())}
-                  </Table.ColumnHeader>
+                  </TableColumnHeader>
                 ))}
-              </Table.Row>
+              </TableRow>
             ))}
-          </Table.Header>
-          <Table.Body>
+          </TableHeader>
+          <TableBody>
             {table.getRowModel().rows.length ? (
               table.getRowModel().rows.map((row) => (
-                <Table.Row key={row.id} data-selected={row.getIsSelected() || undefined}>
+                <TableRow key={row.id} data-selected={row.getIsSelected() || undefined}>
                   {row.getVisibleCells().map((cell) => (
-                    <Table.Cell
+                    <TableCell
                       key={cell.id}
                       className={
                         cell.column.id === 'select' || cell.column.id === 'actions'
@@ -460,18 +460,18 @@ function DataTable() {
                       numeric={cell.column.id === 'installations'}
                     >
                       {flexRender(cell.column.columnDef.cell, cell.getContext())}
-                    </Table.Cell>
+                    </TableCell>
                   ))}
-                </Table.Row>
+                </TableRow>
               ))
             ) : (
-              <Table.Empty colSpan={table.getVisibleLeafColumns().length}>
+              <TableEmpty colSpan={table.getVisibleLeafColumns().length}>
                 No components found.
-              </Table.Empty>
+              </TableEmpty>
             )}
-          </Table.Body>
+          </TableBody>
         </Table>
-      </Table.ScrollArea>
+      </TableScrollArea>
 
       <div className={styles.pagination}>
         <span className={styles.pageSummary}>

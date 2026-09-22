@@ -9,7 +9,7 @@ import {
   ComboboxPositioner,
   ComboboxRootProvider,
 } from '@moduix/react/combobox';
-import { TagsInput, useTagsInput } from '@moduix/react/tags-input';
+import { TagsInputClearTrigger, TagsInputControl, TagsInputInput, TagsInputItem, TagsInputItemDeleteTrigger, TagsInputItemInput, TagsInputItemPreview, TagsInputItemText, TagsInputLabel, TagsInputRootProvider, useTagsInput } from '@moduix/react/tags-input';
 import { useId } from 'react';
 
 const frameworkOptions = ['React', 'Solid', 'Vue', 'Svelte', 'Angular', 'Preact', 'Next.js'];
@@ -41,24 +41,24 @@ export default function ComboboxWithTagsInputDemo() {
 
   return (
     <ComboboxRootProvider value={combobox}>
-      <TagsInput.RootProvider value={tagsInput}>
-        <TagsInput.Label>Frameworks</TagsInput.Label>
-        <TagsInput.Control>
+      <TagsInputRootProvider value={tagsInput}>
+        <TagsInputLabel>Frameworks</TagsInputLabel>
+        <TagsInputControl>
           {tagsInput.value.map((item, index) => (
-            <TagsInput.Item key={`${item}-${index}`} index={index} value={item}>
-              <TagsInput.ItemPreview>
-                <TagsInput.ItemText>{item}</TagsInput.ItemText>
-                <TagsInput.ItemDeleteTrigger aria-label={`Remove ${item}`} />
-              </TagsInput.ItemPreview>
-              <TagsInput.ItemInput />
-            </TagsInput.Item>
+            <TagsInputItem key={`${item}-${index}`} index={index} value={item}>
+              <TagsInputItemPreview>
+                <TagsInputItemText>{item}</TagsInputItemText>
+                <TagsInputItemDeleteTrigger aria-label={`Remove ${item}`} />
+              </TagsInputItemPreview>
+              <TagsInputItemInput />
+            </TagsInputItem>
           ))}
           <ComboboxInput asChild>
-            <TagsInput.Input placeholder="Add framework" />
+            <TagsInputInput placeholder="Add framework" />
           </ComboboxInput>
-          <TagsInput.ClearTrigger aria-label="Clear frameworks" />
-        </TagsInput.Control>
-      </TagsInput.RootProvider>
+          <TagsInputClearTrigger aria-label="Clear frameworks" />
+        </TagsInputControl>
+      </TagsInputRootProvider>
       <ComboboxPositioner>
         <ComboboxContent>
           <ComboboxEmpty>No frameworks found.</ComboboxEmpty>

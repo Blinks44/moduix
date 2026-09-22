@@ -2,7 +2,7 @@ import { expect, test } from '@rstest/core';
 import { fireEvent, render, screen, waitFor } from '@solidjs/testing-library';
 import type { ComponentProps } from 'solid-js';
 import { createSignal } from 'solid-js';
-import { TagsInput, useTagsInput } from '../src';
+import { TagsInput, TagsInputClearTrigger, TagsInputControl, TagsInputHiddenInput, TagsInputInput, TagsInputItems, TagsInputLabel, TagsInputRootProvider, useTagsInput } from '../src';
 
 function Tags(props: {
   defaultValue?: string[];
@@ -15,13 +15,13 @@ function Tags(props: {
       name={props.name}
       translations={props.translations}
     >
-      <TagsInput.Label>Frameworks</TagsInput.Label>
-      <TagsInput.Control>
-        <TagsInput.Items />
-        <TagsInput.Input placeholder="Add framework" />
-        <TagsInput.ClearTrigger />
-      </TagsInput.Control>
-      <TagsInput.HiddenInput />
+      <TagsInputLabel>Frameworks</TagsInputLabel>
+      <TagsInputControl>
+        <TagsInputItems />
+        <TagsInputInput placeholder="Add framework" />
+        <TagsInputClearTrigger />
+      </TagsInputControl>
+      <TagsInputHiddenInput />
     </TagsInput>
   );
 }
@@ -102,12 +102,12 @@ test('keeps explicit form data for asChild roots', () => {
         defaultValue={['React']}
         name="frameworks"
       >
-        <TagsInput.Label>Frameworks</TagsInput.Label>
-        <TagsInput.Control>
-          <TagsInput.Items />
-          <TagsInput.Input />
-        </TagsInput.Control>
-        <TagsInput.HiddenInput />
+        <TagsInputLabel>Frameworks</TagsInputLabel>
+        <TagsInputControl>
+          <TagsInputItems />
+          <TagsInputInput />
+        </TagsInputControl>
+        <TagsInputHiddenInput />
       </TagsInput>
     </form>
   ));
@@ -125,14 +125,14 @@ test('keeps explicit form data for root providers', async () => {
 
     return (
       <form>
-        <TagsInput.RootProvider value={tagsInput}>
-          <TagsInput.Label>Frameworks</TagsInput.Label>
-          <TagsInput.Control>
-            <TagsInput.Items />
-            <TagsInput.Input />
-          </TagsInput.Control>
-          <TagsInput.HiddenInput />
-        </TagsInput.RootProvider>
+        <TagsInputRootProvider value={tagsInput}>
+          <TagsInputLabel>Frameworks</TagsInputLabel>
+          <TagsInputControl>
+            <TagsInputItems />
+            <TagsInputInput />
+          </TagsInputControl>
+          <TagsInputHiddenInput />
+        </TagsInputRootProvider>
       </form>
     );
   }
@@ -158,11 +158,11 @@ test('keeps the consumer in control of controlled values', async () => {
     return (
       <>
         <TagsInput value={value()} onValueChange={(details) => setValue(details.value)}>
-          <TagsInput.Label>Controlled frameworks</TagsInput.Label>
-          <TagsInput.Control>
-            <TagsInput.Items />
-            <TagsInput.Input />
-          </TagsInput.Control>
+          <TagsInputLabel>Controlled frameworks</TagsInputLabel>
+          <TagsInputControl>
+            <TagsInputItems />
+            <TagsInputInput />
+          </TagsInputControl>
         </TagsInput>
         <output>{value().join(',')}</output>
       </>
@@ -189,10 +189,10 @@ test('forwards refs through ordinary Ark Solid part paths', () => {
 
   render(() => (
     <TagsInput ref={(element) => (rootRef = element)}>
-      <TagsInput.Label ref={(element) => (labelRef = element)}>Frameworks</TagsInput.Label>
-      <TagsInput.Control>
-        <TagsInput.Input ref={(element) => (inputRef = element)} />
-      </TagsInput.Control>
+      <TagsInputLabel ref={(element) => (labelRef = element)}>Frameworks</TagsInputLabel>
+      <TagsInputControl>
+        <TagsInputInput ref={(element) => (inputRef = element)} />
+      </TagsInputControl>
     </TagsInput>
   ));
 
@@ -209,9 +209,9 @@ test('does not forward refs through native Ark Solid root asChild composition', 
       ref={(element) => (rootRef = element)}
       asChild={(props) => <section {...props()} aria-label="Frameworks" />}
     >
-      <TagsInput.Control>
-        <TagsInput.Input />
-      </TagsInput.Control>
+      <TagsInputControl>
+        <TagsInputInput />
+      </TagsInputControl>
     </TagsInput>
   ));
 

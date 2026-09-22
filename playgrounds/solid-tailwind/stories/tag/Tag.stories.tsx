@@ -1,12 +1,12 @@
 import { clsx } from 'clsx';
 import { createSignal, For } from 'solid-js';
 import type { Meta, StoryObj } from 'storybook-solidjs-vite';
-import { Tag } from '@/components/tag/Tag';
+import { Tag, TagCloseTrigger, TagEndElement, TagLabel, TagStartElement } from '@/components/tag/Tag';
 import { CheckIcon } from '@/lib/moduix/icons/ui/Icons';
 
 const meta = {
   title: 'Components/Tag',
-  component: Tag.Root,
+  component: Tag,
   tags: ['autodocs'],
   parameters: {
     layout: 'centered',
@@ -14,7 +14,7 @@ const meta = {
   args: {
     children: 'TypeScript',
   },
-} satisfies Meta<typeof Tag.Root>;
+} satisfies Meta<typeof Tag>;
 
 export default meta;
 
@@ -45,7 +45,7 @@ export const Variants: Story = {
       <For each={variants}>
         {(variant) => (
           <Tag variant={variant}>
-            <Tag.Label>{variant}</Tag.Label>
+            <TagLabel>{variant}</TagLabel>
           </Tag>
         )}
       </For>
@@ -57,10 +57,10 @@ export const Sizes: Story = {
   render: () => (
     <div class={rowClass}>
       <Tag size="sm">
-        <Tag.Label>Compact</Tag.Label>
+        <TagLabel>Compact</TagLabel>
       </Tag>
       <Tag size="md">
-        <Tag.Label>Default</Tag.Label>
+        <TagLabel>Default</TagLabel>
       </Tag>
     </div>
   ),
@@ -75,16 +75,16 @@ export const Removable: Story = {
         <For each={tags()}>
           {(tag) => (
             <Tag variant={tag.variant}>
-              <Tag.Label>{tag.label}</Tag.Label>
-              <Tag.EndElement>
-                <Tag.CloseTrigger
+              <TagLabel>{tag.label}</TagLabel>
+              <TagEndElement>
+                <TagCloseTrigger
                   disabled={tag.disabled}
                   aria-label={`Remove ${tag.label} tag`}
                   onClick={() =>
                     setTags((items) => items.filter((item) => item.label !== tag.label))
                   }
                 />
-              </Tag.EndElement>
+              </TagEndElement>
             </Tag>
           )}
         </For>
@@ -97,19 +97,19 @@ export const WithLeadingIcon: Story = {
   render: () => (
     <div class={rowClass}>
       <Tag>
-        <Tag.StartElement>
+        <TagStartElement>
           <CheckIcon />
-        </Tag.StartElement>
-        <Tag.Label>Selected</Tag.Label>
+        </TagStartElement>
+        <TagLabel>Selected</TagLabel>
       </Tag>
       <Tag variant="outline">
-        <Tag.StartElement>
+        <TagStartElement>
           <CheckIcon />
-        </Tag.StartElement>
-        <Tag.Label>Deployed</Tag.Label>
-        <Tag.EndElement>
-          <Tag.CloseTrigger aria-label="Remove deployed tag" />
-        </Tag.EndElement>
+        </TagStartElement>
+        <TagLabel>Deployed</TagLabel>
+        <TagEndElement>
+          <TagCloseTrigger aria-label="Remove deployed tag" />
+        </TagEndElement>
       </Tag>
     </div>
   ),
@@ -118,12 +118,12 @@ export const WithLeadingIcon: Story = {
 export const TruncatedLabel: Story = {
   render: () => (
     <Tag class={constrainedClass}>
-      <Tag.Label title="Ready for stakeholder review after legal approval">
+      <TagLabel title="Ready for stakeholder review after legal approval">
         Ready for stakeholder review after legal approval
-      </Tag.Label>
-      <Tag.EndElement>
-        <Tag.CloseTrigger aria-label="Remove long tag" />
-      </Tag.EndElement>
+      </TagLabel>
+      <TagEndElement>
+        <TagCloseTrigger aria-label="Remove long tag" />
+      </TagEndElement>
     </Tag>
   ),
 };
@@ -134,7 +134,7 @@ export const RenderAsButton: Story = {
       variant="outline"
       asChild={(props) => (
         <button {...props()} class={clsx(props().class, buttonTagClass)} type="button">
-          <Tag.Label>Open filter</Tag.Label>
+          <TagLabel>Open filter</TagLabel>
         </button>
       )}
     />
@@ -145,16 +145,16 @@ export const CustomStyling: Story = {
   render: () => (
     <div class={rowClass}>
       <Tag class={customSoftClass}>
-        <Tag.StartElement>
+        <TagStartElement>
           <CheckIcon />
-        </Tag.StartElement>
-        <Tag.Label>Priority</Tag.Label>
-        <Tag.EndElement>
-          <Tag.CloseTrigger aria-label="Remove priority tag" />
-        </Tag.EndElement>
+        </TagStartElement>
+        <TagLabel>Priority</TagLabel>
+        <TagEndElement>
+          <TagCloseTrigger aria-label="Remove priority tag" />
+        </TagEndElement>
       </Tag>
       <Tag class={customOutlineClass} variant="outline">
-        <Tag.Label>Customer-facing</Tag.Label>
+        <TagLabel>Customer-facing</TagLabel>
       </Tag>
     </div>
   ),

@@ -1,4 +1,4 @@
-import { Table } from '@moduix/solid/table';
+import { Table, TableBody, TableCell, TableColumnHeader, TableHeader, TableRow, TableScrollArea } from '@moduix/solid/table';
 
 const projects = [
   {
@@ -20,27 +20,27 @@ const projects = [
 
 export default function TableStripedRowsDemo() {
   return (
-    <Table.ScrollArea>
+    <TableScrollArea>
       <Table striped interactive>
-        <Table.Header>
-          <Table.Row>
-            <Table.ColumnHeader>Project</Table.ColumnHeader>
-            <Table.ColumnHeader>Owner</Table.ColumnHeader>
-            <Table.ColumnHeader>Updated</Table.ColumnHeader>
-            <Table.ColumnHeader numeric>Open issues</Table.ColumnHeader>
-          </Table.Row>
-        </Table.Header>
-        <Table.Body>
+        <TableHeader>
+          <TableRow>
+            <TableColumnHeader>Project</TableColumnHeader>
+            <TableColumnHeader>Owner</TableColumnHeader>
+            <TableColumnHeader>Updated</TableColumnHeader>
+            <TableColumnHeader numeric>Open issues</TableColumnHeader>
+          </TableRow>
+        </TableHeader>
+        <TableBody>
           {projects.map((project, index) => (
-            <Table.Row>
-              <Table.Cell>{project.name}</Table.Cell>
-              <Table.Cell>{project.owner}</Table.Cell>
-              <Table.Cell>{project.updated}</Table.Cell>
-              <Table.Cell numeric>{index + 1}</Table.Cell>
-            </Table.Row>
+            <TableRow>
+              <TableCell>{project.name}</TableCell>
+              <TableCell>{project.owner}</TableCell>
+              <TableCell>{project.updated}</TableCell>
+              <TableCell numeric>{index + 1}</TableCell>
+            </TableRow>
           ))}
-        </Table.Body>
+        </TableBody>
       </Table>
-    </Table.ScrollArea>
+    </TableScrollArea>
   );
 }
