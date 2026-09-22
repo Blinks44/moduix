@@ -12,24 +12,28 @@ family name, other parts with the family prefix, and hooks as top-level function
 and `useAccordion`. Skills must not introduce compound `Component.Part` APIs, namespace objects,
 `Object.assign` assembly, or duplicate `ComponentRoot` aliases.
 
+The React and Solid flat-API migration is complete. Flat names are the existing repository contract.
+The current temporary rollout is the native Vue adapter, which implements that contract directly.
+
 Skills are intentionally narrow and composable:
 
 - `AGENTS.md` owns routing, repo-wide rules, and validation.
 - Each skill owns one technical surface; it links to adjacent skills instead of copying their rules.
 - Conditional details live in `references/`, not in every task's initial context.
-- Framework-specific convention and migration skills stay narrow. Add a native skill when a new
-  adapter enters development; do not teach future Vue or Svelte mechanics inside React or Solid skills.
+- Framework-specific convention skills stay narrow. Add a native skill when a new adapter enters
+  development; do not teach future Vue or Svelte mechanics inside React or Solid skills.
+- Finite repository migrations live in the gitignored local `plans/` directory, reference permanent
+  skills for implementation, and are deleted after their completion condition is met. Plans are not
+  repository documentation and must not be committed.
 
 ## Skills
 
 - `engineering-principles`: baseline behavior for all coding work.
 - `changeset-workflow`: an explicitly requested `.changeset` entry.
 - `component-workflow`: coordinates component contracts across every shipped framework and styling adapter.
-- `migration-component-to-solid`: ports one component into both native Solid styling tracks with tests, stories, exports, and registries.
-- `migration-component-to-vue`: ports one component into both native Vue styling tracks with tests, stories, exports, registries, and localized component docs.
-- `migration-css-modules-to-tailwind`: ports a component into every shipped Tailwind counterpart with tests, stories, npm exports, and registry items.
 - `conventions-css`: CSS, CSS Modules, Tailwind, selectors, and public CSS-variable contracts.
 - `conventions-react`: React and TypeScript implementation conventions.
+- `conventions-solid`: Solid and TypeScript implementation conventions.
 - `conventions-vue`: Vue and TypeScript implementation conventions for the in-development Vue adapter.
 - `component-contract-docs`: maintainers' markdown beside a component source file.
 - `research-upstream-libraries`: current Ark UI, Chakra UI, and shadcn research.

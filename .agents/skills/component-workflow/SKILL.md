@@ -33,8 +33,7 @@ Use one flat public component API across every framework and styling track:
 Do not build compound components with `Object.assign`, export namespace objects, or retain duplicate
 compatibility aliases. Framework-native implementation details may differ, but package imports,
 registry source, tests, stories, snippets, anatomy tables, and prose must use the same flat names.
-During the repository-wide migration, this target naming rule supersedes the legacy compound export
-shape. Preserve behavior and anatomy, not the old dotted names.
+The flat shape is the established contract, not an in-progress compatibility migration.
 
 ## Start with an impact check
 
@@ -59,8 +58,8 @@ styling mechanisms: detailed component variables for CSS Modules and utility/cla
 Treat the shipped public behavior, component-local contract docs, and Ark UI behavior as the product
 contract. An existing implementation can provide evidence, but it is not framework-neutral source
 code to copy mechanically. Translate the contract into each adapter's native primitives and syntax.
-Use framework-specific convention or migration skills when they exist, preserve intentional framework
-differences, and verify current Ark APIs instead of emulating missing primitives.
+Use framework-specific convention skills when they exist, preserve intentional framework differences,
+and verify current Ark APIs instead of emulating missing primitives.
 
 ## Synchronization surfaces
 
@@ -76,6 +75,8 @@ For each affected existing variant, update only the surfaces the change reaches:
 
 Never edit `website/docs/public/r` by hand. When a registry source changes, run
 `pnpm run build:registry` and keep only the generated artifacts belonging to the source changes.
+When an active plan reserves shared generation for an integration owner, defer that command and
+report it explicitly instead of mutating concurrent work.
 
 ## Stories and tests
 

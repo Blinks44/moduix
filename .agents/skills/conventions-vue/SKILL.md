@@ -20,6 +20,9 @@ Use this skill for JS/TS Vue work in this repo.
 - One public part per file when a component family exposes multiple parts. Let the `.vue` filename
   provide the inferred component name; use `defineOptions({ name: '...' })` only when the public
   name cannot be inferred correctly.
+- Name the public root SFC `<Family>.vue`, not `<Family>Root.vue`, and name every other public part
+  `<Family><Part>.vue`. Upstream Ark types such as `AccordionRootProps` keep their upstream names;
+  they do not define the moduix value-export shape.
 - Keep component-local `index.ts` files as thin export barrels with no component implementation
   logic. Export the root SFC under the family name and every other part with the family prefix, such
   as `Accordion`, `AccordionItem`, `AccordionItemTrigger`, and `AccordionRootProvider`. Do not also
@@ -69,6 +72,8 @@ Use this skill for JS/TS Vue work in this repo.
   do not erase it to `any` or a broad record to simplify the export barrel.
 - Prefer native Vue primitives where React/Solid use framework portals or context (`Teleport`,
   Vue context). Do not import from `@ark-ui/react` or `@ark-ui/solid`.
+- Keep icons and framework helpers Vue-local. Use `@lucide/vue` or existing Vue helpers and never
+  import runtime code or types from another framework adapter.
 - Omit React-only directives and helpers such as `'use client'`, `cloneElement`, and React context.
   There is no `forwardRef` analog and `ref` is a special template attribute, not an ordinary prop.
   Preserve Vue component-ref semantics and verify the rendered Ark host through `$el`; test the
@@ -122,3 +127,7 @@ Use this skill for JS/TS Vue work in this repo.
   so npm consumers are not required to compile library SFC source. Registry items ship the actual
   native `.vue` files with `<script setup>` and their local `.ts` and style dependencies. Do not
   replace registry SFCs with compiled JavaScript or publish TSX as a Vue source format.
+- In Vue component tests, use Vue Testing Library, await event helpers and Vue updates, and verify
+  controlled state through a parent harness that writes emitted values back into its ref. Test
+  relevant omitted Boolean defaults, fallthrough listeners, scoped slots, ordinary refs through
+  `$el`, and `asChild` separately rather than weakening an established behavior assertion.

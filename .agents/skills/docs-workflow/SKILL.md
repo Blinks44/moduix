@@ -72,8 +72,8 @@ For a new, migrated, or substantially restructured component page, read [the com
 When adding a framework adapter to an existing component page, treat the work as a component-page
 migration: keep the existing example coverage, add native source for the new framework to every
 applicable example, simplify the explanatory structure, and update every locale. Use Accordion as
-the current structural reference, not as authority for legacy dotted API spelling; use Quick Start
-only for shared installation and framework-selection guidance.
+the current structural and flat-API reference. Use Quick Start only for shared installation and
+framework-selection guidance.
 
 ## Runnable previews
 

@@ -32,6 +32,24 @@ Use this skill for CSS, CSS Modules, and styling work in this repo.
   utilities for every shipped Tailwind counterpart.
 - Do not import CSS Modules across packages or add them to a Tailwind component.
 
+## Style ownership and cross-track parity
+
+- Put component-owned presentation on the element or Ark part that owns it. Arbitrary consumer
+  descendants own their own presentation unless the public API exposes a styled part for them.
+- Use a focused descendant selector only for a real child contract, such as normalized icons, or
+  when a runtime state is observable only from an ancestor. Do not put a broad descendant utility
+  bundle on a root merely to reproduce CSS Module selectors.
+- When translating a visual contract between CSS Modules and Tailwind, account for each meaningful
+  property and omit reset declarations only after verifying the semantic host and Tailwind Preflight.
+- Classify custom properties before preserving them: keep Ark measurement and positioning variables;
+  keep a local coordination variable only when multiple owned parts consume a genuinely dynamic
+  value; replace fixed styling aliases with tokens or utilities.
+- Inspect generated CSS for ambiguous arbitrary utilities and verify the emitted property. Prefer
+  explicit arbitrary properties such as `[border-width:var(--runtime-width)]` when shorthand could
+  compile to a different property.
+- For material styling changes, verify empty decorative parts and `asChild` replacement hosts in a
+  browser. A class token in the DOM does not prove visible size, paint, radius, or animation.
+
 ## CSS Variable References
 
 - `packages/foundation/src/styles/variables-moduix.css` and `packages/foundation/src/styles/variables-ark.css` are internal

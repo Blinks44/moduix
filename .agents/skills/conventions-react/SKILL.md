@@ -61,4 +61,4 @@ Use this skill for JS/TS React work in this repo.
 - Keep `asChild` children single and semantic. If a custom child replaces a button, input, label, or link, it must
   preserve the required ARIA, keyboard, and focus behavior.
 - Use `className` in both React packages. In `packages/react-tailwind`, merge defaults and the
-  consumer class with the local `cn` helper according to `migration-css-modules-to-tailwind`.
+  consumer class last with the local `cn` helper according to `conventions-css`.
