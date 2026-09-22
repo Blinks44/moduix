@@ -1,4 +1,10 @@
-import { ScrollArea, ScrollAreaContent, ScrollAreaScrollbar, ScrollAreaThumb, ScrollAreaViewport } from '@moduix/solid/scroll-area';
+import {
+  ScrollArea,
+  ScrollAreaContent,
+  ScrollAreaScrollbar,
+  ScrollAreaThumb,
+  ScrollAreaViewport,
+} from '@moduix/solid/scroll-area';
 import {
   Sidebar,
   SidebarPanel,

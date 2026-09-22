@@ -7,7 +7,13 @@ composition.
 ## Composition
 
 ```tsx
-import { Field, FieldHelperText, FieldInput, FieldLabel, FieldRequiredIndicator } from '@moduix/solid/field';
+import {
+  Field,
+  FieldHelperText,
+  FieldInput,
+  FieldLabel,
+  FieldRequiredIndicator,
+} from '@moduix/solid/field';
 
 export function NameField() {
   return (

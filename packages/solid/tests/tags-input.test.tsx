@@ -2,7 +2,17 @@ import { expect, test } from '@rstest/core';
 import { fireEvent, render, screen, waitFor } from '@solidjs/testing-library';
 import type { ComponentProps } from 'solid-js';
 import { createSignal } from 'solid-js';
-import { TagsInput, TagsInputClearTrigger, TagsInputControl, TagsInputHiddenInput, TagsInputInput, TagsInputItems, TagsInputLabel, TagsInputRootProvider, useTagsInput } from '../src';
+import {
+  TagsInput,
+  TagsInputClearTrigger,
+  TagsInputControl,
+  TagsInputHiddenInput,
+  TagsInputInput,
+  TagsInputItems,
+  TagsInputLabel,
+  TagsInputRootProvider,
+  useTagsInput,
+} from '../src';
 
 function Tags(props: {
   defaultValue?: string[];

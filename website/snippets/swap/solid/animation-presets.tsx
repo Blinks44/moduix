@@ -1,5 +1,5 @@
 import { Button } from '@moduix/solid/button';
-import { Swap, type SwapAnimation } from '@moduix/solid/swap';
+import { Swap, SwapIndicator, type SwapAnimation } from '@moduix/solid/swap';
 import CheckIcon from 'lucide-solid/icons/check';
 import DownloadIcon from 'lucide-solid/icons/download';
 import { createSignal, For } from 'solid-js';
@@ -18,12 +18,12 @@ export default function SwapAnimationPresetsDemo() {
         onClick={() => setDownloaded((value) => !value)}
       >
         <Swap animation={animation()} swap={downloaded()}>
-          <Swap.Indicator aria-hidden="true" type="off">
+          <SwapIndicator aria-hidden="true" type="off">
             <DownloadIcon />
-          </Swap.Indicator>
-          <Swap.Indicator aria-hidden="true" type="on">
+          </SwapIndicator>
+          <SwapIndicator aria-hidden="true" type="on">
             <CheckIcon />
-          </Swap.Indicator>
+          </SwapIndicator>
         </Swap>
       </Button>
       <div class={styles.controls}>

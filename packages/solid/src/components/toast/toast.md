@@ -35,14 +35,14 @@ createToaster()
          └─ ToastCloseTrigger
 ```
 
-| Part                   | `data-slot`            |
-| ---------------------- | ---------------------- |
-| `Toast`               | `toast-root`           |
-| `ToastToaster`        | `toast-toaster`        |
-| `ToastTitle`          | `toast-title`          |
-| `ToastDescription`    | `toast-description`    |
-| `ToastActionTrigger`  | `toast-action-trigger` |
-| `ToastCloseTrigger`   | `toast-close-trigger` |
+| Part                 | `data-slot`            |
+| -------------------- | ---------------------- |
+| `Toast`              | `toast-root`           |
+| `ToastToaster`       | `toast-toaster`        |
+| `ToastTitle`         | `toast-title`          |
+| `ToastDescription`   | `toast-description`    |
+| `ToastActionTrigger` | `toast-action-trigger` |
+| `ToastCloseTrigger`  | `toast-close-trigger`  |
 
 Ark's `data-scope`, `data-part`, state attributes, and runtime layout variables (`--x`, `--y`,
 `--scale`, `--z-index`, `--height`, `--opacity`, and `--gap`) remain intact for styling and

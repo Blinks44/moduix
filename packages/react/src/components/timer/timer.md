@@ -63,19 +63,19 @@ TimerSegments
 └─ TimerArea with TimerItem and TimerSeparator parts
 ```
 
-| Export                 | `data-slot`            | Notes                                                      |
-| ---------------------- | ---------------------- | ---------------------------------------------------------- |
-| `Timer` | `timer-root`           | Owns Ark timer state and ids.                              |
-| `TimerRootProvider`   | `timer-root-provider`  | Connects parts to Ark `useTimer()` state.                  |
-| `TimerSegments`       | `timer-area`           | Composes standard items and separators from `types`.       |
-| `TimerArea`           | `timer-area`           | Groups visible time parts.                                 |
-| `TimerItem`           | `timer-item`           | Renders one formatted time unit and keeps Ark `data-type`. |
-| `TimerSeparator`      | `timer-separator`      | Visual separator between items.                            |
-| `TimerControl`        | `timer-control`        | Groups action triggers.                                    |
-| `TimerActionTrigger`  | `timer-action-trigger` | Button that dispatches an Ark timer action.                |
-| `TimerContext`        | -                      | Reads the current Ark timer API in the rendered subtree.   |
-| `useTimer`             | -                      | Creates Ark timer state for `TimerRootProvider`.          |
-| `useTimerContext`      | -                      | Reads the current Ark timer API from context.              |
+| Export               | `data-slot`            | Notes                                                      |
+| -------------------- | ---------------------- | ---------------------------------------------------------- |
+| `Timer`              | `timer-root`           | Owns Ark timer state and ids.                              |
+| `TimerRootProvider`  | `timer-root-provider`  | Connects parts to Ark `useTimer()` state.                  |
+| `TimerSegments`      | `timer-area`           | Composes standard items and separators from `types`.       |
+| `TimerArea`          | `timer-area`           | Groups visible time parts.                                 |
+| `TimerItem`          | `timer-item`           | Renders one formatted time unit and keeps Ark `data-type`. |
+| `TimerSeparator`     | `timer-separator`      | Visual separator between items.                            |
+| `TimerControl`       | `timer-control`        | Groups action triggers.                                    |
+| `TimerActionTrigger` | `timer-action-trigger` | Button that dispatches an Ark timer action.                |
+| `TimerContext`       | -                      | Reads the current Ark timer API in the rendered subtree.   |
+| `useTimer`           | -                      | Creates Ark timer state for `TimerRootProvider`.           |
+| `useTimerContext`    | -                      | Reads the current Ark timer API from context.              |
 
 ## Composition
 

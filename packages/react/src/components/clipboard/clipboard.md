@@ -160,8 +160,8 @@ The text input and copy trigger use the shared `--moduix-size-md` baseline; the 
 - 2026-07-21: Routed shared dimensions, spacing, icon geometry, and focus-ring fallbacks through foundation tokens so density and theme presets can retune the component consistently.
 - 2026-07-21: Aligned the default input and copy trigger to `--moduix-size-md` and compacted input padding.
 
-- 2026-07-09: Restored `Clipboard.Context`, `Clipboard.useClipboard()`, and `Clipboard.useClipboardContext()` for the public `RootProvider` path; documented `asChild` as advanced customization and covered the copied state in Storybook.
-- 2026-07-07: Added `Clipboard.CopyText`, switched the recommended consumer path to the short `<Clipboard>` root form in examples, and removed the default max-width cap.
-- 2026-07-02: Removed duplicate Ark type exports, `Clipboard.Context`, and clipboard state hook re-exports from the moduix surface. Kept `RootProvider`, the callable root, and all styled visual parts.
-- 2026-06-24: Synced RootProvider docs with the shipped `Clipboard.RootProvider` API and removed stale copied-state styling tokens from examples.
+- 2026-07-09: Restored `ClipboardContext`, `useClipboard()`, and `useClipboardContext()` for the public `RootProvider` path; documented `asChild` as advanced customization and covered the copied state in Storybook.
+- 2026-07-07: Added `ClipboardCopyText`, switched the recommended consumer path to the short `<Clipboard>` root form in examples, and removed the default max-width cap.
+- 2026-07-02: Removed duplicate Ark type exports, `ClipboardContext`, and clipboard state hook re-exports from the moduix surface. Kept `RootProvider`, the callable root, and all styled visual parts.
+- 2026-06-24: Synced RootProvider docs with the shipped `ClipboardRootProvider` API and removed stale copied-state styling tokens from examples.
 - 2026-06-18: Replaced `CopyButton` with an Ark UI `Clipboard` component family and removed the legacy button-only API.

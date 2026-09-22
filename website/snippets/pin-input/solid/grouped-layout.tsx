@@ -1,4 +1,10 @@
-import { PinInput, PinInputLabel, PinInputControl, PinInputInput, PinInputSeparator } from '@moduix/solid/pin-input';
+import {
+  PinInput,
+  PinInputLabel,
+  PinInputControl,
+  PinInputInput,
+  PinInputSeparator,
+} from '@moduix/solid/pin-input';
 
 export default function GroupedPinInput() {
   return (

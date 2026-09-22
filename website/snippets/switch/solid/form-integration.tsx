@@ -1,11 +1,6 @@
 import { Button } from '@moduix/solid/button';
 import { Field, FieldErrorText, FieldHelperText } from '@moduix/solid/field';
-import {
-  Switch,
-  SwitchControl,
-  SwitchHiddenInput,
-  SwitchLabel,
-} from '@moduix/solid/switch';
+import { Switch, SwitchControl, SwitchHiddenInput, SwitchLabel } from '@moduix/solid/switch';
 import { createSignal } from 'solid-js';
 import styles from '@/components/examples/switch/switch-form-integration.module.css';
 

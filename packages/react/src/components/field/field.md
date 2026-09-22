@@ -40,24 +40,30 @@ and stable `data-slot` hooks. `FieldItem` wraps Ark's provider-only `Item` with 
 </Field>
 ```
 
-| Export                   | Ark part                  | `data-slot`                |
-| ------------------------ | ------------------------- | -------------------------- |
-| `Field`                  | `Root`                    | `field-root`               |
-| `FieldRootProvider`      | `RootProvider`            | `field-root-provider`      |
-| `FieldContext`           | `Context`                 | renderless                 |
-| `FieldItem`              | `Item` + local div        | `field-item`               |
-| `FieldLabel`             | `Label`                   | `field-label`              |
-| `FieldInput`             | `Input`                   | `field-input`              |
-| `FieldTextarea`          | `Textarea`                | `field-textarea`           |
-| `FieldSelect`            | `Select`                  | `field-select`             |
-| `FieldHelperText`        | `HelperText`              | `field-helper-text`        |
-| `FieldErrorText`         | `ErrorText`               | `field-error-text`         |
-| `FieldRequiredIndicator` | `RequiredIndicator`       | `field-required-indicator` |
+| Export                   | Ark part            | `data-slot`                |
+| ------------------------ | ------------------- | -------------------------- |
+| `Field`                  | `Root`              | `field-root`               |
+| `FieldRootProvider`      | `RootProvider`      | `field-root-provider`      |
+| `FieldContext`           | `Context`           | renderless                 |
+| `FieldItem`              | `Item` + local div  | `field-item`               |
+| `FieldLabel`             | `Label`             | `field-label`              |
+| `FieldInput`             | `Input`             | `field-input`              |
+| `FieldTextarea`          | `Textarea`          | `field-textarea`           |
+| `FieldSelect`            | `Select`            | `field-select`             |
+| `FieldHelperText`        | `HelperText`        | `field-helper-text`        |
+| `FieldErrorText`         | `ErrorText`         | `field-error-text`         |
+| `FieldRequiredIndicator` | `RequiredIndicator` | `field-required-indicator` |
 
 ## Composition
 
 ```tsx
-import { Field, FieldHelperText, FieldInput, FieldLabel, FieldRequiredIndicator } from '@moduix/react/field';
+import {
+  Field,
+  FieldHelperText,
+  FieldInput,
+  FieldLabel,
+  FieldRequiredIndicator,
+} from '@moduix/react/field';
 
 export function NameField() {
   return (

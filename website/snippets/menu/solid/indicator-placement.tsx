@@ -1,5 +1,18 @@
 import { Button } from '@moduix/solid/button';
-import { Menu, MenuTrigger, MenuIndicator, MenuPositioner, MenuContent, MenuViewport, MenuCheckboxItem, MenuItemIndicator, MenuItemText, MenuItemTextContent, MenuItemTextIcon, MenuItemTextLabel } from '@moduix/solid/menu';
+import {
+  Menu,
+  MenuTrigger,
+  MenuIndicator,
+  MenuPositioner,
+  MenuContent,
+  MenuViewport,
+  MenuCheckboxItem,
+  MenuItemIndicator,
+  MenuItemText,
+  MenuItemTextContent,
+  MenuItemTextIcon,
+  MenuItemTextLabel,
+} from '@moduix/solid/menu';
 import {
   Grid3X3 as Grid3X3Icon,
   Map as MapIcon,

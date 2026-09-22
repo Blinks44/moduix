@@ -56,17 +56,17 @@ renders `TooltipArrowTip` by default when no children are provided.
 
 ## Anatomy and exported parts
 
-| Part               | `data-slot`                | Notes                                                  |
-| ------------------ | -------------------------- | ------------------------------------------------------ |
-| `Tooltip`              | none                       | No DOM wrapper; owns Ark tooltip state.                  |
-| `TooltipRootProvider`  | none                       | Renders from an external `useTooltip()` state object.    |
-| `TooltipBody`          | none                       | Shortcut for `TooltipPositioner + TooltipContent`.       |
-| `TooltipTrigger`       | `tooltip-trigger`          | Ref forwards to the Ark trigger button.                  |
-| `TooltipDisabledTrigger` | `tooltip-disabled-trigger` | Focusable wrapper for one disabled native control.     |
-| `TooltipPositioner`    | `tooltip-positioner`       | Ref forwards to the Ark positioner div.                  |
-| `TooltipContent`       | `tooltip-content`          | Ref forwards to the visible Ark content div.             |
-| `TooltipArrow`         | `tooltip-arrow`            | Ref forwards to the Ark arrow div; renders `TooltipArrowTip`. |
-| `TooltipArrowTip`      | `tooltip-arrow-tip`        | Ref forwards to the Ark arrow tip div.                   |
+| Part                     | `data-slot`                | Notes                                                         |
+| ------------------------ | -------------------------- | ------------------------------------------------------------- |
+| `Tooltip`                | none                       | No DOM wrapper; owns Ark tooltip state.                       |
+| `TooltipRootProvider`    | none                       | Renders from an external `useTooltip()` state object.         |
+| `TooltipBody`            | none                       | Shortcut for `TooltipPositioner + TooltipContent`.            |
+| `TooltipTrigger`         | `tooltip-trigger`          | Ref forwards to the Ark trigger button.                       |
+| `TooltipDisabledTrigger` | `tooltip-disabled-trigger` | Focusable wrapper for one disabled native control.            |
+| `TooltipPositioner`      | `tooltip-positioner`       | Ref forwards to the Ark positioner div.                       |
+| `TooltipContent`         | `tooltip-content`          | Ref forwards to the visible Ark content div.                  |
+| `TooltipArrow`           | `tooltip-arrow`            | Ref forwards to the Ark arrow div; renders `TooltipArrowTip`. |
+| `TooltipArrowTip`        | `tooltip-arrow-tip`        | Ref forwards to the Ark arrow tip div.                        |
 
 ## Composition
 

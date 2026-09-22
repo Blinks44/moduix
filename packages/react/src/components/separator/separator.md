@@ -37,9 +37,9 @@ Separator
 └─ root[data-scope="separator"][data-part="root"][data-slot="separator-root"]
 ```
 
-| Part                           | `data-slot`      | Notes                                                                      |
-| ------------------------------ | ---------------- | -------------------------------------------------------------------------- |
-| `Separator`                    | `separator-root` | Single divider element with orientation, size, variant, and ARIA metadata. |
+| Part        | `data-slot`      | Notes                                                                      |
+| ----------- | ---------------- | -------------------------------------------------------------------------- |
+| `Separator` | `separator-root` | Single divider element with orientation, size, variant, and ARIA metadata. |
 
 ## Composition
 

@@ -1,5 +1,4 @@
 import {
-  PasswordInput,
   PasswordInputControl,
   PasswordInputIndicator,
   PasswordInputInput,

@@ -1,8 +1,5 @@
 import { Field, FieldErrorText, FieldHelperText, FieldLabel } from '@moduix/solid/field';
-import {
-  RadioGroup,
-  RadioGroupOption,
-} from '@moduix/solid/radio-group';
+import { RadioGroup, RadioGroupOption } from '@moduix/solid/radio-group';
 import styles from '@/components/examples/field/field-radiogroup.module.css';
 
 export default function RadioGroupFieldDemo() {

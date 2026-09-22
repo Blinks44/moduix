@@ -12,7 +12,7 @@
 ### AngleSlider
 
 - c7359a1: Redesign the dial as a circular track that fills from the top with a masked conic-gradient arc, a circle thumb matching the linear Slider, and the value text centered in the dial.
-  `AngleSlider.Dial` now renders the centered `ValueText` between `Control` children and `Thumb`; the pointer press suppresses the keyboard focus ring during and after the drag while keyboard focus keeps its ring.
+  `AngleSliderDial` now renders the centered `ValueText` between `Control` children and `Thumb`; the pointer press suppresses the keyboard focus ring during and after the drag while keyboard focus keeps its ring.
   The public `--moduix-angle-slider-*` variable set was retuned; the needle thumb, inner disc, center dot, and track/control border variables were removed.
 
 ### Patch Changes
@@ -187,7 +187,7 @@
 
 ### Typeset
 
-- c7359a1: Tokenize the mark highlight and link focus ring, and document that `Typeset.Scroll` is designed to live inside a `Typeset` or `Typeset.Root` boundary.
+- c7359a1: Tokenize the mark highlight and link focus ring, and document that `TypesetScroll` is designed to live inside a `Typeset` boundary.
 
 ## 1.1.1
 
@@ -224,7 +224,7 @@
 
 ### Alert
 
-- 20bb7e9: Require `Alert.Content` to contain title, description, actions, and other message content.
+- 20bb7e9: Require `AlertContent` to contain title, description, actions, and other message content.
 
 ### Patch Changes
 
@@ -236,4 +236,4 @@
 ### Badge
 
 - f022e4e: Keep direct children unchanged and limit built-in interaction styling to links.
-  Use `Badge.Label` explicitly for truncation; button hover and disabled presentation are now consumer-owned, and `--moduix-badge-opacity-disabled` is removed.
+  Use `BadgeLabel` explicitly for truncation; button hover and disabled presentation are now consumer-owned, and `--moduix-badge-opacity-disabled` is removed.

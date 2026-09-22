@@ -1,9 +1,4 @@
-import {
-  Switch,
-  SwitchControl,
-  SwitchHiddenInput,
-  SwitchLabel,
-} from '@moduix/solid/switch';
+import { Switch, SwitchControl, SwitchHiddenInput, SwitchLabel } from '@moduix/solid/switch';
 import styles from '@/components/examples/switch/switch-disabled.module.css';
 
 export default function DisabledSwitchDemo() {

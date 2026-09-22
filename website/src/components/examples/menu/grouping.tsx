@@ -1,5 +1,16 @@
 import { Button } from '@moduix/react/button';
-import { Menu, MenuTrigger, MenuIndicator, MenuPositioner, MenuContent, MenuViewport, MenuItem, MenuSeparator, MenuItemGroup, MenuItemGroupLabel } from '@moduix/react/menu';
+import {
+  Menu,
+  MenuTrigger,
+  MenuIndicator,
+  MenuPositioner,
+  MenuContent,
+  MenuViewport,
+  MenuItem,
+  MenuSeparator,
+  MenuItemGroup,
+  MenuItemGroupLabel,
+} from '@moduix/react/menu';
 import styles from '@/components/examples/menu/menu-grouping.module.css';
 
 export default function GroupingMenuDemo() {

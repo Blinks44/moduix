@@ -54,16 +54,16 @@ for the same state instance.
 
 ## Anatomy and exported parts
 
-| Export                   | Ark part / element             | `data-slot`            | Notes                                                   |
-| ------------------------ | ------------------------------ | ---------------------- | ------------------------------------------------------- |
-| `Switch`            | `SwitchPrimitive.Root`         | `switch-root`          | Root label, state owner, accepts `size`.                |
-| `SwitchRootProvider`    | `SwitchPrimitive.RootProvider` | `switch-root-provider` | Root label driven by Ark `useSwitch()`, accepts `size`. |
-| `SwitchControl`         | `SwitchPrimitive.Control`      | `switch-control`       | Visual track, focus ring target.                        |
-| `SwitchThumb`           | `SwitchPrimitive.Thumb`        | `switch-thumb`         | Movable thumb; supports custom children.                |
-| `SwitchLabel`           | `SwitchPrimitive.Label`        | `switch-label`         | Ark-connected label text.                               |
-| `SwitchContext`         | `SwitchContext`                | -                      | Render-prop access to the current Ark switch state.     |
-| `useSwitchContext`       | `useSwitchContext`             | -                      | Hook access to the current Ark switch state.            |
-| `useSwitch`              | `useSwitch`                    | -                      | Creates state for `SwitchRootProvider`.                |
+| Export               | Ark part / element             | `data-slot`            | Notes                                                   |
+| -------------------- | ------------------------------ | ---------------------- | ------------------------------------------------------- |
+| `Switch`             | `SwitchPrimitive.Root`         | `switch-root`          | Root label, state owner, accepts `size`.                |
+| `SwitchRootProvider` | `SwitchPrimitive.RootProvider` | `switch-root-provider` | Root label driven by Ark `useSwitch()`, accepts `size`. |
+| `SwitchControl`      | `SwitchPrimitive.Control`      | `switch-control`       | Visual track, focus ring target.                        |
+| `SwitchThumb`        | `SwitchPrimitive.Thumb`        | `switch-thumb`         | Movable thumb; supports custom children.                |
+| `SwitchLabel`        | `SwitchPrimitive.Label`        | `switch-label`         | Ark-connected label text.                               |
+| `SwitchContext`      | `SwitchContext`                | -                      | Render-prop access to the current Ark switch state.     |
+| `useSwitchContext`   | `useSwitchContext`             | -                      | Hook access to the current Ark switch state.            |
+| `useSwitch`          | `useSwitch`                    | -                      | Creates state for `SwitchRootProvider`.                 |
 
 State helpers are imported from `@moduix/react` with `Switch`.
 
@@ -72,12 +72,7 @@ State helpers are imported from `@moduix/react` with `Switch`.
 Canonical labeled switch:
 
 ```tsx
-import {
-  Switch,
-  SwitchControl,
-  SwitchHiddenInput,
-  SwitchLabel,
-} from '@moduix/react/switch';
+import { Switch, SwitchControl, SwitchHiddenInput, SwitchLabel } from '@moduix/react/switch';
 
 export function SwitchDemo() {
   return (
@@ -93,12 +88,7 @@ export function SwitchDemo() {
 Controlled switch:
 
 ```tsx
-import {
-  Switch,
-  SwitchControl,
-  SwitchHiddenInput,
-  SwitchLabel,
-} from '@moduix/react/switch';
+import { Switch, SwitchControl, SwitchHiddenInput, SwitchLabel } from '@moduix/react/switch';
 import { useState } from 'react';
 
 export function ControlledSwitchDemo() {

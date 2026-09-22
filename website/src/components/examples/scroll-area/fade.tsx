@@ -1,4 +1,11 @@
-import { ScrollArea, ScrollAreaContent, ScrollAreaCorner, ScrollAreaScrollbar, ScrollAreaThumb, ScrollAreaViewport } from '@moduix/react/scroll-area';
+import {
+  ScrollArea,
+  ScrollAreaContent,
+  ScrollAreaCorner,
+  ScrollAreaScrollbar,
+  ScrollAreaThumb,
+  ScrollAreaViewport,
+} from '@moduix/react/scroll-area';
 import styles from '@/components/examples/scroll-area/scroll-area-fade.module.css';
 
 const items = Array.from({ length: 10 }, (_, index) => `Section ${index + 1}`);

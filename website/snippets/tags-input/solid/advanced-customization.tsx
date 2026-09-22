@@ -1,4 +1,17 @@
-import { TagsInput, TagsInputClearTrigger, TagsInputContext, TagsInputControl, TagsInputHiddenInput, TagsInputInput, TagsInputItem, TagsInputItemDeleteTrigger, TagsInputItemInput, TagsInputItemPreview, TagsInputItemText, TagsInputLabel } from '@moduix/solid/tags-input';
+import {
+  TagsInput,
+  TagsInputClearTrigger,
+  TagsInputContext,
+  TagsInputControl,
+  TagsInputHiddenInput,
+  TagsInputInput,
+  TagsInputItem,
+  TagsInputItemDeleteTrigger,
+  TagsInputItemInput,
+  TagsInputItemPreview,
+  TagsInputItemText,
+  TagsInputLabel,
+} from '@moduix/solid/tags-input';
 import { For } from 'solid-js';
 import styles from '@/components/examples/tags-input/tags-input-advanced-customization.module.css';
 

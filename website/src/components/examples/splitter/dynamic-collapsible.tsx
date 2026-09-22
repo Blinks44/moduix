@@ -1,4 +1,9 @@
-import { SplitterPanel, SplitterResizeTrigger, SplitterRootProvider, useSplitter } from '@moduix/react/splitter';
+import {
+  SplitterPanel,
+  SplitterResizeTrigger,
+  SplitterRootProvider,
+  useSplitter,
+} from '@moduix/react/splitter';
 import { useEffect, useRef, useState } from 'react';
 import styles from '@/components/examples/splitter/splitter-dynamic-collapsible.module.css';
 

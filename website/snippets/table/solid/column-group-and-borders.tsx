@@ -1,4 +1,14 @@
-import { Table, TableBody, TableCell, TableColumn, TableColumnGroup, TableColumnHeader, TableHeader, TableRow, TableScrollArea } from '@moduix/solid/table';
+import {
+  Table,
+  TableBody,
+  TableCell,
+  TableColumn,
+  TableColumnGroup,
+  TableColumnHeader,
+  TableHeader,
+  TableRow,
+  TableScrollArea,
+} from '@moduix/solid/table';
 
 const products = [
   {

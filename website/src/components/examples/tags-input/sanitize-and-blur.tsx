@@ -1,4 +1,11 @@
-import { TagsInput, TagsInputClearTrigger, TagsInputControl, TagsInputInput, TagsInputItems, TagsInputLabel } from '@moduix/react/tags-input';
+import {
+  TagsInput,
+  TagsInputClearTrigger,
+  TagsInputControl,
+  TagsInputInput,
+  TagsInputItems,
+  TagsInputLabel,
+} from '@moduix/react/tags-input';
 import styles from '@/components/examples/tags-input/tags-input-sanitize-and-blur.module.css';
 
 export default function SanitizeBlurTagsInput() {

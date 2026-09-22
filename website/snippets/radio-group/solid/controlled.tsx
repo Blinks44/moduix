@@ -1,8 +1,4 @@
-import {
-  RadioGroup,
-  RadioGroupLabel,
-  RadioGroupOption,
-} from '@moduix/solid/radio-group';
+import { RadioGroup, RadioGroupLabel, RadioGroupOption } from '@moduix/solid/radio-group';
 import { createSignal } from 'solid-js';
 import styles from '@/components/examples/radio-group/radio-group-controlled.module.css';
 

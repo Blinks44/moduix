@@ -1,9 +1,4 @@
-import {
-  Tooltip,
-  TooltipArrow,
-  TooltipBody,
-  TooltipTrigger,
-} from '@moduix/solid/tooltip';
+import { Tooltip, TooltipArrow, TooltipBody, TooltipTrigger } from '@moduix/solid/tooltip';
 
 export default function TooltipWithArrowDemo() {
   return (

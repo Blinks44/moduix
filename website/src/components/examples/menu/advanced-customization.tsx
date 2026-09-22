@@ -1,5 +1,16 @@
 import { Button } from '@moduix/react/button';
-import { Menu, MenuTrigger, MenuPositioner, MenuContent, MenuViewport, MenuItem, MenuSeparator, MenuItemGroup, MenuItemGroupLabel, MenuItemShortcut } from '@moduix/react/menu';
+import {
+  Menu,
+  MenuTrigger,
+  MenuPositioner,
+  MenuContent,
+  MenuViewport,
+  MenuItem,
+  MenuSeparator,
+  MenuItemGroup,
+  MenuItemGroupLabel,
+  MenuItemShortcut,
+} from '@moduix/react/menu';
 
 export default function AdvancedCustomizationMenuDemo() {
   return (

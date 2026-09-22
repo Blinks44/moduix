@@ -577,9 +577,7 @@ const CommandPaletteFooter = forwardRef<HTMLDivElement, HTMLArkProps<'div'>>(
 );
 
 function CommandPaletteKbd({ className, ...props }: ComponentProps<typeof Kbd>) {
-  return (
-    <Kbd className={clsx(styles.kbd, className)} {...props} data-slot="command-palette-kbd" />
-  );
+  return <Kbd className={clsx(styles.kbd, className)} {...props} data-slot="command-palette-kbd" />;
 }
 
 export {

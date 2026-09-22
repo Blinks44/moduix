@@ -1,7 +1,18 @@
 import { expect, test } from '@rstest/core';
 import { fireEvent, render, screen, waitFor } from '@solidjs/testing-library';
 import { createSignal } from 'solid-js';
-import { Field, PinInput, usePinInput, FieldErrorText, PinInputRootProvider, PinInputHiddenInput, PinInputLabel, PinInputControl, PinInputInput, PinInputInputs } from '../src';
+import {
+  Field,
+  PinInput,
+  usePinInput,
+  FieldErrorText,
+  PinInputRootProvider,
+  PinInputHiddenInput,
+  PinInputLabel,
+  PinInputControl,
+  PinInputInput,
+  PinInputInputs,
+} from '../src';
 
 function ControlledPinInput() {
   const [value, setValue] = createSignal<string[]>([]);

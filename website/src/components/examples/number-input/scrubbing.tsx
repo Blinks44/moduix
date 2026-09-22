@@ -1,4 +1,9 @@
-import { NumberInput, NumberInputField, NumberInputLabel, NumberInputScrubber } from '@moduix/react/number-input';
+import {
+  NumberInput,
+  NumberInputField,
+  NumberInputLabel,
+  NumberInputScrubber,
+} from '@moduix/react/number-input';
 import { useState } from 'react';
 import { PreviewMeta } from '@/components/mdx/Components';
 import styles from '@/components/examples/number-input/number-input-scrubbing.module.css';

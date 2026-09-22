@@ -22,23 +22,22 @@ type ToasterProps = Omit<ComponentProps<typeof ToasterPrimitive>, 'children'> &
     children?: ComponentProps<typeof ToasterPrimitive>['children'];
   };
 
-const ToastToaster = forwardRef<ComponentRef<typeof ToasterPrimitive>, ToasterProps>(function ToastToaster(
-  { className, portalled = true, portalRef, ...props },
-  ref,
-) {
-  return (
-    <Portal disabled={!portalled} container={portalRef}>
-      <ToasterPrimitive
-        ref={ref}
-        className={clsx(styles.toaster, className)}
-        {...props}
-        data-slot="toast-toaster"
-      >
-        {props.children ?? ((toast) => <DefaultToast toast={toast} />)}
-      </ToasterPrimitive>
-    </Portal>
-  );
-});
+const ToastToaster = forwardRef<ComponentRef<typeof ToasterPrimitive>, ToasterProps>(
+  function ToastToaster({ className, portalled = true, portalRef, ...props }, ref) {
+    return (
+      <Portal disabled={!portalled} container={portalRef}>
+        <ToasterPrimitive
+          ref={ref}
+          className={clsx(styles.toaster, className)}
+          {...props}
+          data-slot="toast-toaster"
+        >
+          {props.children ?? ((toast) => <DefaultToast toast={toast} />)}
+        </ToasterPrimitive>
+      </Portal>
+    );
+  },
+);
 
 function DefaultToast({ toast }: { toast: ToastOptions }) {
   return (

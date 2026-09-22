@@ -1,4 +1,11 @@
-import { TagsInput, TagsInputClearTrigger, TagsInputControl, TagsInputInput, TagsInputItems, TagsInputLabel } from '@moduix/react/tags-input';
+import {
+  TagsInput,
+  TagsInputClearTrigger,
+  TagsInputControl,
+  TagsInputInput,
+  TagsInputItems,
+  TagsInputLabel,
+} from '@moduix/react/tags-input';
 import { useState } from 'react';
 import styles from '@/components/examples/tags-input/tags-input-controlled.module.css';
 

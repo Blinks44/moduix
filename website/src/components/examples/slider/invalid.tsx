@@ -1,4 +1,14 @@
-import { Slider, SliderControl, SliderLabel, SliderMarker, SliderMarkerGroup, SliderRange, SliderThumbs, SliderTrack, SliderValueText } from '@moduix/react/slider';
+import {
+  Slider,
+  SliderControl,
+  SliderLabel,
+  SliderMarker,
+  SliderMarkerGroup,
+  SliderRange,
+  SliderThumbs,
+  SliderTrack,
+  SliderValueText,
+} from '@moduix/react/slider';
 import styles from '@/components/examples/slider/slider-invalid.module.css';
 
 export default function InvalidSliderDemo() {

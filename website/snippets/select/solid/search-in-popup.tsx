@@ -1,9 +1,5 @@
 import { createListCollection } from '@ark-ui/solid/collection';
-import {
-  InputGroup,
-  InputGroupAddon,
-  InputGroupInput,
-} from '@moduix/solid/input-group';
+import { InputGroup, InputGroupAddon, InputGroupInput } from '@moduix/solid/input-group';
 import {
   Select,
   SelectLabel,

@@ -3,11 +3,7 @@
   "name": "lightbox",
   "title": "Lightbox",
   "description": "moduix React Tailwind Lightbox component.",
-  "dependencies": [
-    "@ark-ui/react",
-    "clsx",
-    "tailwind-merge"
-  ],
+  "dependencies": ["@ark-ui/react", "clsx", "tailwind-merge"],
   "registryDependencies": [
     "@moduix-react-tailwind/foundation",
     "@moduix-react-tailwind/cn",

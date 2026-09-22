@@ -1,5 +1,14 @@
 import { Button } from '@moduix/solid/button';
-import { Menu, MenuTrigger, MenuIndicator, MenuPositioner, MenuContent, MenuViewport, MenuItem, MenuItemContext } from '@moduix/solid/menu';
+import {
+  Menu,
+  MenuTrigger,
+  MenuIndicator,
+  MenuPositioner,
+  MenuContent,
+  MenuViewport,
+  MenuItem,
+  MenuItemContext,
+} from '@moduix/solid/menu';
 import styles from '@/components/examples/menu/menu-item-context.module.css';
 
 export default function ItemContextMenuDemo() {

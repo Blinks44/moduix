@@ -1,9 +1,4 @@
-import {
-  Marquee,
-  MarqueeContent,
-  MarqueeItem,
-  MarqueeViewport,
-} from '@moduix/solid/marquee';
+import { Marquee, MarqueeContent, MarqueeItem, MarqueeViewport } from '@moduix/solid/marquee';
 import { createSignal } from 'solid-js';
 import styles from '@/components/examples/marquee/marquee-finite-loops.module.css';
 

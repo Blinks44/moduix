@@ -60,13 +60,13 @@ SplitButton
 
 Every exported DOM part accepts `className` and receives stable styling hooks:
 
-| Part                     | `data-slot`               | Notes                                           |
-| ------------------------ | ------------------------- | ----------------------------------------------- |
-| `SplitButton`            | `split-button-root`       | Semantic group around the two attached buttons. |
-| `SplitButtonAction`      | `split-button-action`     | Primary Button action.                          |
-| `SplitButtonTrigger`     | `split-button-trigger`    | Ark Menu trigger rendered through Button.       |
+| Part                    | `data-slot`               | Notes                                           |
+| ----------------------- | ------------------------- | ----------------------------------------------- |
+| `SplitButton`           | `split-button-root`       | Semantic group around the two attached buttons. |
+| `SplitButtonAction`     | `split-button-action`     | Primary Button action.                          |
+| `SplitButtonTrigger`    | `split-button-trigger`    | Ark Menu trigger rendered through Button.       |
 | `SplitButtonPositioner` | `split-button-positioner` | Ark Menu positioner with runtime CSS variables. |
-| `SplitButtonContent`     | `split-button-content`    | Ark Menu content surface with menu state attrs. |
+| `SplitButtonContent`    | `split-button-content`    | Ark Menu content surface with menu state attrs. |
 
 ## Composition
 
@@ -203,7 +203,7 @@ export function SplitButtonExample() {
 - Added `SplitButton` as a composition-first grouped action built from the moduix `Button` and
   `Menu` wrappers.
 - 2026-06-17: Updated the primary action contract from Base button composition props to Ark-style
-  `asChild` through the shared `Button.Root` surface.
+  `asChild` through the shared `Button` surface.
 - 2026-06-18: Synced SplitButton with Ark-backed `Menu`: root positioning moved to `SplitButton`
   through `positioning`, `SplitButtonTrigger` uses `MenuTrigger asChild`, and snippets now use Ark
   `MenuItem value`.

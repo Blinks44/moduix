@@ -10,7 +10,16 @@ import {
   DialogTitle,
   DialogTrigger,
 } from '@moduix/react/dialog';
-import { Menu, MenuTrigger, MenuIndicator, MenuPositioner, MenuContent, MenuViewport, MenuItem, MenuSeparator } from '@moduix/react/menu';
+import {
+  Menu,
+  MenuTrigger,
+  MenuIndicator,
+  MenuPositioner,
+  MenuContent,
+  MenuViewport,
+  MenuItem,
+  MenuSeparator,
+} from '@moduix/react/menu';
 import styles from '@/components/examples/menu/menu-menu-in-dialog.module.css';
 
 export default function MenuInDialogDemo() {

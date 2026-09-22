@@ -15,7 +15,18 @@ import {
   CheckboxHiddenInput,
   CheckboxLabel,
 } from '@moduix/react/checkbox';
-import { Combobox } from '@moduix/react/combobox';
+import {
+  Combobox,
+  ComboboxClearTrigger,
+  ComboboxContent,
+  ComboboxControl,
+  ComboboxEmpty,
+  ComboboxInput,
+  ComboboxList,
+  ComboboxOption,
+  ComboboxPositioner,
+  ComboboxTrigger,
+} from '@moduix/react/combobox';
 import { Field, FieldErrorText, FieldLabel, FieldRequiredIndicator } from '@moduix/react/field';
 import { Input } from '@moduix/react/input';
 import {
@@ -165,27 +176,27 @@ export default function ProjectForm() {
                   onValueChange={(details) => field.onChange(details.value[0] ?? '')}
                   onInputValueChange={(details) => filter(details.inputValue)}
                 >
-                  <Combobox.Control>
-                    <Combobox.Input
+                  <ComboboxControl>
+                    <ComboboxInput
                       ref={field.ref}
                       onBlur={field.onBlur}
                       placeholder="Search people"
                     />
-                    <Combobox.ClearTrigger aria-label="Clear reviewer" />
-                    <Combobox.Trigger aria-label="Open reviewers" />
-                  </Combobox.Control>
-                  <Combobox.Positioner>
-                    <Combobox.Content>
-                      <Combobox.Empty>No reviewers found.</Combobox.Empty>
-                      <Combobox.List>
+                    <ComboboxClearTrigger aria-label="Clear reviewer" />
+                    <ComboboxTrigger aria-label="Open reviewers" />
+                  </ComboboxControl>
+                  <ComboboxPositioner>
+                    <ComboboxContent>
+                      <ComboboxEmpty>No reviewers found.</ComboboxEmpty>
+                      <ComboboxList>
                         {collection.items.map((item) => (
-                          <Combobox.Option key={item.value} item={item}>
+                          <ComboboxOption key={item.value} item={item}>
                             {item.label}
-                          </Combobox.Option>
+                          </ComboboxOption>
                         ))}
-                      </Combobox.List>
-                    </Combobox.Content>
-                  </Combobox.Positioner>
+                      </ComboboxList>
+                    </ComboboxContent>
+                  </ComboboxPositioner>
                 </Combobox>
                 <FieldErrorText>{fieldState.error?.message}</FieldErrorText>
               </Field>

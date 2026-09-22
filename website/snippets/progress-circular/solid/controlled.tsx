@@ -4,7 +4,16 @@ import {
   ProgressCircularRing,
   ProgressCircularValueText,
 } from '@moduix/solid/progress-circular';
-import { Slider, SliderControl, SliderHiddenInput, SliderLabel, SliderRange, SliderThumb, SliderTrack, SliderValueText } from '@moduix/solid/slider';
+import {
+  Slider,
+  SliderControl,
+  SliderHiddenInput,
+  SliderLabel,
+  SliderRange,
+  SliderThumb,
+  SliderTrack,
+  SliderValueText,
+} from '@moduix/solid/slider';
 import { createSignal } from 'solid-js';
 import styles from '@/components/examples/progress-circular/component-controlled.module.css';
 

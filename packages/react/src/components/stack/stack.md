@@ -59,11 +59,11 @@ Stack
 
 Every exported part accepts `className` and uses the standard hooks below:
 
-| Part                   | Hook                     | Notes                                                |
-| ---------------------- | ------------------------ | ---------------------------------------------------- |
-| `Stack`                | `data-slot="stack-root"` | Root flex wrapper for direction, gap, and alignment. |
-| `Stack`                | `data-scope="stack"`     | Ark-aligned component scope.                         |
-| `Stack`                | `data-part="root"`       | Ark-aligned part name.                               |
+| Part    | Hook                     | Notes                                                |
+| ------- | ------------------------ | ---------------------------------------------------- |
+| `Stack` | `data-slot="stack-root"` | Root flex wrapper for direction, gap, and alignment. |
+| `Stack` | `data-scope="stack"`     | Ark-aligned component scope.                         |
+| `Stack` | `data-part="root"`       | Ark-aligned part name.                               |
 
 ## Composition
 

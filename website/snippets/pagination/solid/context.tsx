@@ -1,8 +1,5 @@
 import { Button } from '@moduix/solid/button';
-import {
-  Pagination,
-  PaginationContext,
-} from '@moduix/solid/pagination';
+import { Pagination, PaginationContext } from '@moduix/solid/pagination';
 
 export default function PaginationContextDemo() {
   return (

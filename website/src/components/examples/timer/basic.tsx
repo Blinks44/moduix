@@ -1,9 +1,4 @@
-import {
-  Timer,
-  TimerSegments,
-  TimerControl,
-  TimerActionTrigger,
-} from '@moduix/react/timer';
+import { Timer, TimerSegments, TimerControl, TimerActionTrigger } from '@moduix/react/timer';
 import { Pause as PauseIcon, Play as PlayIcon, RotateCcw as RotateCcwIcon } from 'lucide-react';
 
 export default function TimerDemo() {

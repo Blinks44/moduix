@@ -1,5 +1,15 @@
 import { Badge } from '@moduix/react/badge';
-import { Table, TableBody, TableCell, TableColumn, TableColumnGroup, TableColumnHeader, TableHeader, TableRow, TableScrollArea } from '@moduix/react/table';
+import {
+  Table,
+  TableBody,
+  TableCell,
+  TableColumn,
+  TableColumnGroup,
+  TableColumnHeader,
+  TableHeader,
+  TableRow,
+  TableScrollArea,
+} from '@moduix/react/table';
 import {
   columnVisibilityFeature,
   flexRender,

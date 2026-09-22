@@ -2,7 +2,7 @@ import { Highlight as HighlightPrimitive } from '@ark-ui/react/highlight';
 import type { ComponentProps } from 'react';
 import { cn } from '@/lib/moduix/cn';
 
-function HighlightRoot({ className, ...props }: ComponentProps<typeof HighlightPrimitive>) {
+function Highlight({ className, ...props }: ComponentProps<typeof HighlightPrimitive>) {
   return (
     <HighlightPrimitive
       {...props}
@@ -16,9 +16,5 @@ function HighlightRoot({ className, ...props }: ComponentProps<typeof HighlightP
     />
   );
 }
-
-const Highlight = Object.assign(HighlightRoot, {
-  Root: HighlightRoot,
-});
 
 export { Highlight };

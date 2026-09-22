@@ -39,8 +39,8 @@ Field (optional)
 └─ Textarea
 ```
 
-| Part       | Element / Ark model  | `data-slot`     | Notes                                      |
-| ---------- | -------------------- | --------------- | ------------------------------------------ |
+| Part       | Element / Ark model | `data-slot`     | Notes                                      |
+| ---------- | ------------------- | --------------- | ------------------------------------------ |
 | `Textarea` | Ark `FieldTextarea` | `textarea-root` | Styled textarea root and only public part. |
 
 `Textarea` is the only public component value. No additional provider, context hook, hidden input,
@@ -125,7 +125,7 @@ Public CSS variables from `variables-moduix.css`:
 
 ## Agent notes
 
-- Do not reintroduce the legacy `Field.Control`, `render`, `mergeProps`, `autoResize`, or `onValueChange` adapter contract.
+- Do not reintroduce the legacy `FieldControl`, `render`, `mergeProps`, `autoResize`, or `onValueChange` adapter contract.
 - Keep `Textarea` aligned with Ark `FieldTextarea`; use `FieldTextarea` as the local implementation reference.
 - Keep inline edit/read-only examples on `Editable`, not `Textarea`.
 - Keep stories, docs examples, `variables-moduix.css`, registry output, and this file synchronized when the public contract changes.

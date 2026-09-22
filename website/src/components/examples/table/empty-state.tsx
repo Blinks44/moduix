@@ -1,4 +1,13 @@
-import { Table, TableBody, TableCaption, TableColumnHeader, TableEmpty, TableHeader, TableRow, TableScrollArea } from '@moduix/react/table';
+import {
+  Table,
+  TableBody,
+  TableCaption,
+  TableColumnHeader,
+  TableEmpty,
+  TableHeader,
+  TableRow,
+  TableScrollArea,
+} from '@moduix/react/table';
 
 const columnCount = 4;
 

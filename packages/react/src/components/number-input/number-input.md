@@ -60,19 +60,19 @@ NumberInputRootProvider
 └─ same part tree connected to state created with `useNumberInput()`
 ```
 
-| Part                               | `data-slot`                      | Notes                                           |
-| ---------------------------------- | -------------------------------- | ----------------------------------------------- |
-| `NumberInput`                  | `number-input-root`              | Root state, parsing, formatting, and a11y.      |
-| `NumberInputRootProvider`         | `number-input-root-provider`     | Connects to Ark `useNumberInput()` state.       |
-| `NumberInputContext`              | -                                | Renders access to the current Ark state.        |
-| `NumberInputLabel`                | `number-input-label`             | Accessible label for the input.                 |
-| `NumberInputScrubber`             | `number-input-scrubber`          | Optional drag-to-change affordance.             |
-| `NumberInputControl`              | `number-input-control`           | Wrapper around triggers and input.              |
-| `NumberInputField`                | `number-input-control`           | Default control, input, and trigger group.      |
-| `NumberInputDecrementTrigger`     | `number-input-decrement-trigger` | Renders a minus icon when children are omitted. |
-| `NumberInputInput`                | `number-input-input`             | Managed editable numeric input.                 |
-| `NumberInputIncrementTrigger`     | `number-input-increment-trigger` | Renders a plus icon when children are omitted.  |
-| `NumberInputValueText`            | `number-input-value-text`        | Read-only formatted value text.                 |
+| Part                          | `data-slot`                      | Notes                                           |
+| ----------------------------- | -------------------------------- | ----------------------------------------------- |
+| `NumberInput`                 | `number-input-root`              | Root state, parsing, formatting, and a11y.      |
+| `NumberInputRootProvider`     | `number-input-root-provider`     | Connects to Ark `useNumberInput()` state.       |
+| `NumberInputContext`          | -                                | Renders access to the current Ark state.        |
+| `NumberInputLabel`            | `number-input-label`             | Accessible label for the input.                 |
+| `NumberInputScrubber`         | `number-input-scrubber`          | Optional drag-to-change affordance.             |
+| `NumberInputControl`          | `number-input-control`           | Wrapper around triggers and input.              |
+| `NumberInputField`            | `number-input-control`           | Default control, input, and trigger group.      |
+| `NumberInputDecrementTrigger` | `number-input-decrement-trigger` | Renders a minus icon when children are omitted. |
+| `NumberInputInput`            | `number-input-input`             | Managed editable numeric input.                 |
+| `NumberInputIncrementTrigger` | `number-input-increment-trigger` | Renders a plus icon when children are omitted.  |
+| `NumberInputValueText`        | `number-input-value-text`        | Read-only formatted value text.                 |
 
 Exported values: `NumberInput`, `NumberInputRootProvider`, `NumberInputContext`,
 `NumberInputLabel`, `NumberInputScrubber`, `NumberInputControl`, `NumberInputField`,

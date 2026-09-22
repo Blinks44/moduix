@@ -99,19 +99,19 @@ range becomes a native `<mark>` element. Text that does not match stays as ordin
 surrounding flow.
 
 ```text
-Highlight / Highlight.Root
+Highlight
 └─ matched ranges rendered as repeated <mark> elements
 ```
 
 | Part                           | Role                                                                 |
 | ------------------------------ | -------------------------------------------------------------------- |
-| `Highlight` / `Highlight.Root` | Applies moduix styling to every matched range in the provided text. |
+| `Highlight` / `Highlight` | Applies moduix styling to every matched range in the provided text. |
 
 ## Composition
 
 `Highlight` is stateless and owns no layout wrapper. Place it inside an existing text container such
 as `Text`, a heading, a list item, or a table cell. Control `query` from the parent when search input
-changes, and use `Highlight.Root` only when the namespaced form is clearer. A string-array `query`
+changes, and use `Highlight` only when the namespaced form is clearer. A string-array `query`
 requires `matchAll` to remain `true`; use custom markup in your own component when each match needs a
 different element or interactive behavior.
 

@@ -1,7 +1,17 @@
 import type { Meta, StoryObj } from '@storybook/react-vite';
 import { useId, useState } from 'react';
 import { Field, FieldErrorText, FieldHelperText } from '@/components/field';
-import { TagsInput, TagsInputClearTrigger, TagsInputControl, TagsInputHiddenInput, TagsInputInput, TagsInputItems, TagsInputLabel, TagsInputRootProvider, useTagsInput } from '@/components/tags-input/TagsInput';
+import {
+  TagsInput,
+  TagsInputClearTrigger,
+  TagsInputControl,
+  TagsInputHiddenInput,
+  TagsInputInput,
+  TagsInputItems,
+  TagsInputLabel,
+  TagsInputRootProvider,
+  useTagsInput,
+} from '@/components/tags-input/TagsInput';
 import storyStyles from './TagsInput.stories.module.css';
 
 const initialTags = ['React', 'TypeScript'];

@@ -1,4 +1,4 @@
-import { JsonTreeView } from '@moduix/react/json-tree-view';
+import { JsonTreeView, JsonTreeViewTree } from '@moduix/react/json-tree-view';
 
 const response = {
   checks: ['accessibility', 'visual-regression', 'type-check', 'unit-tests', 'documentation-build'],
@@ -15,7 +15,7 @@ export default function JsonTreeViewCompactPreviewsDemo() {
       defaultExpandedDepth={1}
       maxPreviewItems={3}
     >
-      <JsonTreeView.Tree />
+      <JsonTreeViewTree />
     </JsonTreeView>
   );
 }

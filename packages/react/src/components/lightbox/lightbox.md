@@ -63,7 +63,7 @@ Lightbox
          ├─ LightboxBody (moduix)
          │  ├─ LightboxImage
          │  └─ LightboxGallery
-         │     └─ Carousel.Root
+         │     └─ Carousel
          └─ LightboxFooter (moduix)
 
 LightboxRootProvider
@@ -122,7 +122,7 @@ button. Use `LightboxRootProvider` instead of `Lightbox` when state comes from
 `LightboxCloseIcon` as a sibling of `LightboxContent` inside `LightboxPositioner` so it does
 not inherit content transforms.
 
-For a known image collection, render `Carousel.Root` inside `LightboxGallery`. Keep the current
+For a known image collection, render `Carousel` inside `LightboxGallery`. Keep the current
 page controlled and update it from `LightboxTrigger value` through
 `onTriggerValueChange(details)`. `LightboxGallery` supplies sizing and layout only; Carousel keeps
 its Ark state, controls, indicators, dragging, and keyboard behavior.
@@ -259,15 +259,15 @@ content after the first open; set both props to `false` only when eager initial 
 - 2026-06-19: Restored delegated CMS capture as `LightboxGallery`, using Ark dialog state under
   the hood while keeping the base composition explicit.
 - 2026-06-25: Re-audited the Ark Dialog contract after migration, documented inherited focus,
-  presence, id, and non-modal props, converted `Lightbox.Frame` to an Ark factory part, and
+  presence, id, and non-modal props, converted `LightboxImage` to an Ark factory part, and
   simplified `closeOnClick` composition.
 - 2026-06-30: Documented `Lightbox + Carousel` as the recommended pattern for structured server or
   CMS image arrays and clarified that the then-current `LightboxGallery` helper stayed limited to
   delegated DOM capture.
 - 2026-06-30: Reassigned `LightboxGallery` to the styled Carousel composition path and renamed the
-  delegated DOM helper to `Lightbox.Delegated`; added stable gallery sizing and thumbnail styles.
-- 2026-06-30: Replaced the layout-oriented `Lightbox.Frame` with native `LightboxImage` and renamed
-  the external DOM helper from `Lightbox.Delegated` to user-facing `LightboxBind`.
+  delegated DOM helper to `LightboxBind`; added stable gallery sizing and thumbnail styles.
+- 2026-06-30: Replaced the layout-oriented `LightboxImage` with native `LightboxImage` and renamed
+  the external DOM helper from `LightboxBind` to user-facing `LightboxBind`.
 - 2026-06-30: Reduced `LightboxBind` to a zero-render context behavior part with
   `onImageSelect(details)` so consumers own the full overlay composition.
 - 2026-06-30: Simplified `LightboxBind` to native click activation while retaining full-size image

@@ -258,10 +258,10 @@ Primary theme variables:
   indicators, and documented accessible root labels plus moduix hook exports.
 
 - 2026-07-21: Routed shared dimensions, spacing, icon geometry, and focus-ring fallbacks through foundation tokens so density and theme presets can retune the component consistently.
-- 2026-07-09: Added `Carousel.Indicators`, moved the recommended composition to `ItemGroup` plus a
+- 2026-07-09: Added `CarouselIndicators`, moved the recommended composition to `ItemGroup` plus a
   sibling `Control` toolbar, and reserved manual `IndicatorGroup` rendering for advanced
   customization.
-- 2026-07-07: Re-exported `Carousel.Context`, simplified advanced examples around context usage, and
+- 2026-07-07: Re-exported `CarouselContext`, simplified advanced examples around context usage, and
   documented the two supported `Control` layout patterns plus vertical-only height behavior.
 - 2026-07-02: Removed duplicate Ark type exports, `Context`, and state hooks from the moduix
   surface. Kept `RootProvider`, the callable root, every visual part, and default trigger icons.

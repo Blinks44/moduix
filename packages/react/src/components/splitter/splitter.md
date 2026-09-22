@@ -46,13 +46,13 @@ SplitterRootProvider
 └─ same part tree connected to useSplitter()
 ```
 
-| Part                              | Stable hook                                     | Notes                                                   |
-| --------------------------------- | ----------------------------------------------- | ------------------------------------------------------- |
-| `Splitter`                  | `data-slot="splitter-root"`                     | Splitter machine, panel constraints, size state, callbacks. |
-| `SplitterRootProvider`           | `data-slot="splitter-root-provider"`            | Renders from `useSplitter()` state.                     |
-| `SplitterPanel`                  | `data-slot="splitter-panel"`                    | Resizable region, id must match a panel entry.          |
-| `SplitterResizeTrigger`          | `data-slot="splitter-resize-trigger"`           | Accessible button handle between adjacent panels.       |
-| `SplitterResizeTriggerIndicator` | `data-slot="splitter-resize-trigger-indicator"` | Default visual indicator; custom children replace it.   |
+| Part                             | Stable hook                                     | Notes                                                       |
+| -------------------------------- | ----------------------------------------------- | ----------------------------------------------------------- |
+| `Splitter`                       | `data-slot="splitter-root"`                     | Splitter machine, panel constraints, size state, callbacks. |
+| `SplitterRootProvider`           | `data-slot="splitter-root-provider"`            | Renders from `useSplitter()` state.                         |
+| `SplitterPanel`                  | `data-slot="splitter-panel"`                    | Resizable region, id must match a panel entry.              |
+| `SplitterResizeTrigger`          | `data-slot="splitter-resize-trigger"`           | Accessible button handle between adjacent panels.           |
+| `SplitterResizeTriggerIndicator` | `data-slot="splitter-resize-trigger-indicator"` | Default visual indicator; custom children replace it.       |
 
 ## Composition
 

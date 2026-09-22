@@ -1,4 +1,9 @@
-import { createSplitterRegistry, Splitter, SplitterPanel, SplitterResizeTrigger } from '@moduix/react/splitter';
+import {
+  createSplitterRegistry,
+  Splitter,
+  SplitterPanel,
+  SplitterResizeTrigger,
+} from '@moduix/react/splitter';
 import { useState } from 'react';
 import styles from '@/components/examples/splitter/splitter-nested.module.css';
 

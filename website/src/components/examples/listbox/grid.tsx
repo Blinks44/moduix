@@ -1,5 +1,11 @@
 import { createGridCollection } from '@ark-ui/react/collection';
-import { Listbox, ListboxContent, ListboxItem, ListboxItemText, ListboxLabel } from '@moduix/react/listbox';
+import {
+  Listbox,
+  ListboxContent,
+  ListboxItem,
+  ListboxItemText,
+  ListboxLabel,
+} from '@moduix/react/listbox';
 import styles from '@/components/examples/listbox/listbox-grid.module.css';
 
 const colors = createGridCollection({

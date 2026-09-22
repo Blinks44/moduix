@@ -1,6 +1,4 @@
-import {
-  Button,
-} from '@moduix/solid/button';
+import { Button } from '@moduix/solid/button';
 import {
   TreeViewBranch,
   TreeViewBranchContent,

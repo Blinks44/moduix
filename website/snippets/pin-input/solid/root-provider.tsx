@@ -1,5 +1,11 @@
 import { Button } from '@moduix/solid/button';
-import { usePinInput, PinInputRootProvider, PinInputLabel, PinInputControl, PinInputInput } from '@moduix/solid/pin-input';
+import {
+  usePinInput,
+  PinInputRootProvider,
+  PinInputLabel,
+  PinInputControl,
+  PinInputInput,
+} from '@moduix/solid/pin-input';
 import styles from '@/components/examples/pin-input/pin-input-root-provider.module.css';
 
 export default function RootProviderPinInput() {

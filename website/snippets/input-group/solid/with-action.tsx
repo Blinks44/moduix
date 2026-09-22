@@ -1,9 +1,5 @@
 import { Field, FieldLabel } from '@moduix/solid/field';
-import {
-  InputGroup,
-  InputGroupButton,
-  InputGroupInput,
-} from '@moduix/solid/input-group';
+import { InputGroup, InputGroupButton, InputGroupInput } from '@moduix/solid/input-group';
 import { createSignal } from 'solid-js';
 import styles from '@/components/examples/input-group/input-group-with-action.module.css';
 

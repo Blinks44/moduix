@@ -10,7 +10,16 @@ import {
   DialogTitle,
   DialogTrigger,
 } from '@moduix/solid/dialog';
-import { Menu, MenuTrigger, MenuIndicator, MenuPositioner, MenuContent, MenuViewport, MenuItem, MenuSeparator } from '@moduix/solid/menu';
+import {
+  Menu,
+  MenuTrigger,
+  MenuIndicator,
+  MenuPositioner,
+  MenuContent,
+  MenuViewport,
+  MenuItem,
+  MenuSeparator,
+} from '@moduix/solid/menu';
 
 export default function MenuInDialogDemo() {
   return (

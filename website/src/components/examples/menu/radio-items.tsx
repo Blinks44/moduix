@@ -1,5 +1,18 @@
 import { Button } from '@moduix/react/button';
-import { Menu, MenuTrigger, MenuIndicator, MenuPositioner, MenuContent, MenuViewport, MenuItemGroup, MenuItemGroupLabel, MenuRadioItemGroup, MenuRadioItem, MenuItemIndicator, MenuItemText } from '@moduix/react/menu';
+import {
+  Menu,
+  MenuTrigger,
+  MenuIndicator,
+  MenuPositioner,
+  MenuContent,
+  MenuViewport,
+  MenuItemGroup,
+  MenuItemGroupLabel,
+  MenuRadioItemGroup,
+  MenuRadioItem,
+  MenuItemIndicator,
+  MenuItemText,
+} from '@moduix/react/menu';
 import { useState } from 'react';
 import styles from '@/components/examples/menu/menu-radio-items.module.css';
 

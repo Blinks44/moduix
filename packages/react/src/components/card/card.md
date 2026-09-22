@@ -300,22 +300,22 @@ Public CSS variables:
   the only root value; every other part uses a `Card`-prefixed named export (`CardHeader`,
   `CardBody`, `CardFooter`, `CardMedia`, `CardBackground`, `CardTitle`, `CardDescription`,
   `CardAction`, `CardLink`).
-- 2026-09-07: Stopped resetting margins on arbitrary `Card.Body` children; consumer content owns its
+- 2026-09-07: Stopped resetting margins on arbitrary `CardBody` children; consumer content owns its
   own spacing consistently across all package variants.
-- 2026-08-10: Added `Card.Background` for decorative full-card media with stable styling hooks and
+- 2026-08-10: Added `CardBackground` for decorative full-card media with stable styling hooks and
   automatic foreground layering; gradients and contrast remain consumer-owned.
 - 2026-08-09: Added independent background, foreground, border, and shadow variables for every
-  variant, and gave interactive `Card.Root asChild` compositions the same themeable focus-ring
-  contract as `Card.Link`.
+  variant, and gave interactive `Card asChild` compositions the same themeable focus-ring
+  contract as `CardLink`.
 - 2026-07-26: Made every part's public ref polymorphic for `asChild`, added focused root and
   overlay-link regression coverage, and made documentation previews self-contained.
 - 2026-07-21: Routed shared dimensions, spacing, icon geometry, and focus-ring fallbacks through foundation tokens so density and theme presets can retune the component consistently.
-- 2026-07-09: Added `Card.Media` for predictable edge-to-edge leading media, introduced shared
+- 2026-07-09: Added `CardMedia` for predictable edge-to-edge leading media, introduced shared
   `--moduix-card-spacing*` hooks for shadcn-style spacing control, and moved public docs to an explicit
   sweet-path plus advanced-customization split.
-- 2026-07-07: Clarified the shadcn migration path, documented the `CardContent` to `Card.Body`
-  rename explicitly, and tightened the linked-card guidance around `Card.Root asChild` versus
-  `Card.Link`.
+- 2026-07-07: Clarified the shadcn migration path, documented the `CardContent` to `CardBody`
+  rename explicitly, and tightened the linked-card guidance around `Card asChild` versus
+  `CardLink`.
 - 2026-07-02: Removed duplicate prop and variant type exports while preserving the callable root,
   every visual part, and the moduix size, variant, action, and overlay-link sugar.
 - 2026-06-24: Finalized the Ark factory migration review by aligning public docs with the
@@ -325,7 +325,7 @@ Public CSS variables:
   dependency, added Chakra-aligned `lg` sizing and `elevated` / `outline` / `subtle` variants,
   documented all current Chakra Card example categories, and standardized docs previews with
   Code, Styles, and Data tabs.
-- 2026-06: Migrated `Card` to an Ark-style multipart API based on `Card.Root`, `Card.Header`,
-  `Card.Body`, `Card.Footer`, `Card.Title`, and `Card.Description`; replaced legacy `render` with
-  Ark `asChild`; renamed `CardContent` to `Card.Body`; and added Ark-style `data-scope` /
+- 2026-06: Migrated `Card` to an Ark-style multipart API based on `Card`, `CardHeader`,
+  `CardBody`, `CardFooter`, `CardTitle`, and `CardDescription`; replaced legacy `render` with
+  Ark `asChild`; renamed `CardContent` to `CardBody`; and added Ark-style `data-scope` /
   `data-part` hooks across all parts.

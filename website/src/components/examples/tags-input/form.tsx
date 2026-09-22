@@ -1,5 +1,13 @@
 import { Button } from '@moduix/react/button';
-import { TagsInput, TagsInputClearTrigger, TagsInputControl, TagsInputHiddenInput, TagsInputInput, TagsInputItems, TagsInputLabel } from '@moduix/react/tags-input';
+import {
+  TagsInput,
+  TagsInputClearTrigger,
+  TagsInputControl,
+  TagsInputHiddenInput,
+  TagsInputInput,
+  TagsInputItems,
+  TagsInputLabel,
+} from '@moduix/react/tags-input';
 import type { FormEvent } from 'react';
 import { useState } from 'react';
 import { PreviewMeta } from '@/components/mdx/Components';

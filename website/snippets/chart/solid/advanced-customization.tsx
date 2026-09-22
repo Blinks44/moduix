@@ -42,9 +42,7 @@ const definition = defineChart({
 
 export default function AdvancedCustomizationChartDemo() {
   return (
-    <Chart
-      asChild={(props) => <section {...props()} aria-labelledby="dashboard-revenue-title" />}
-    >
+    <Chart asChild={(props) => <section {...props()} aria-labelledby="dashboard-revenue-title" />}>
       <ChartHeader
         asChild={(props) => (
           <header {...props()} class={`${props().class ?? ''} ${styles.header}`.trim()} />

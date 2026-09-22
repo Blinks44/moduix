@@ -1,7 +1,23 @@
 import { createSignal } from 'solid-js';
 import type { Meta, StoryObj } from 'storybook-solidjs-vite';
 import { Button } from '@/components/button/Button';
-import { Slider, SliderControl, SliderDraggingIndicator, SliderHiddenInput, SliderLabel, SliderMarker, SliderMarkerGroup, SliderRange, SliderRootProvider, SliderThumb, SliderThumbs, SliderTrack, SliderValueText, useSlider, useSliderContext } from '@/components/slider/Slider';
+import {
+  Slider,
+  SliderControl,
+  SliderDraggingIndicator,
+  SliderHiddenInput,
+  SliderLabel,
+  SliderMarker,
+  SliderMarkerGroup,
+  SliderRange,
+  SliderRootProvider,
+  SliderThumb,
+  SliderThumbs,
+  SliderTrack,
+  SliderValueText,
+  useSlider,
+  useSliderContext,
+} from '@/components/slider/Slider';
 import styles from './Slider.stories.module.css';
 
 const meta = {

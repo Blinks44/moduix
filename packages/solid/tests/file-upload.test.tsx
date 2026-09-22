@@ -118,9 +118,7 @@ test('preserves Root asChild composition and an explicit hidden input', () => {
       ref={(element) => (rootRef = element)}
     >
       <FileUploadLabel>Attachments</FileUploadLabel>
-      <FileUploadTrigger ref={(element) => (triggerRef = element)}>
-        Choose files
-      </FileUploadTrigger>
+      <FileUploadTrigger ref={(element) => (triggerRef = element)}>Choose files</FileUploadTrigger>
       <FileUploadHiddenInput />
     </FileUpload>
   ));

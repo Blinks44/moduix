@@ -1,5 +1,13 @@
 import { Button } from '@moduix/react/button';
-import { ScrollAreaContent, ScrollAreaCorner, ScrollAreaRootProvider, ScrollAreaScrollbar, ScrollAreaThumb, ScrollAreaViewport, useScrollArea } from '@moduix/react/scroll-area';
+import {
+  ScrollAreaContent,
+  ScrollAreaCorner,
+  ScrollAreaRootProvider,
+  ScrollAreaScrollbar,
+  ScrollAreaThumb,
+  ScrollAreaViewport,
+  useScrollArea,
+} from '@moduix/react/scroll-area';
 import { useState } from 'react';
 import { PreviewMeta } from '@/components/mdx/Components';
 import styles from '@/components/examples/scroll-area/scroll-area-root-provider.module.css';

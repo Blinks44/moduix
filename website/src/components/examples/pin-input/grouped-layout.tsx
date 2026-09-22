@@ -1,4 +1,10 @@
-import { PinInput, PinInputLabel, PinInputControl, PinInputInput, PinInputSeparator } from '@moduix/react/pin-input';
+import {
+  PinInput,
+  PinInputLabel,
+  PinInputControl,
+  PinInputInput,
+  PinInputSeparator,
+} from '@moduix/react/pin-input';
 
 export default function GroupedPinInput() {
   return (

@@ -63,20 +63,20 @@ PaginationRootProvider
 └─ same trigger, item, ellipsis, and context tree connected to usePagination()
 ```
 
-| Export                            | `data-slot`                | Notes                                                             |
-| --------------------------------- | -------------------------- | ----------------------------------------------------------------- |
-| `Pagination`                      | `pagination-root`          | Ark root; its label comes from `translations.rootLabel`.          |
-| `PaginationRootProvider`         | `pagination-root-provider` | Ark root provider; its label comes from `translations.rootLabel`. |
-| `PaginationItems`                | -                          | Renders the standard computed page items and ellipses.            |
-| `PaginationContext`              | Ark render prop            | Reads page state, helpers, pages, ranges, and slice helper.       |
-| `usePagination`        | -                          | Creates Ark pagination state outside the rendered root.           |
-| `usePaginationContext` | -                          | Reads Ark pagination state from a descendant.                     |
-| `PaginationItem`                 | `pagination-item`          | Ark page item; pass `{...page}` from `pagination.pages`.          |
-| `PaginationEllipsis`             | `pagination-ellipsis`      | Ark ellipsis; `index` is required.                                |
-| `PaginationPrevTrigger`          | `pagination-prev-trigger`  | Ark previous trigger with default Moduix chevron.                 |
-| `PaginationNextTrigger`          | `pagination-next-trigger`  | Ark next trigger with default Moduix chevron.                     |
-| `PaginationFirstTrigger`         | `pagination-first-trigger` | Ark first trigger with default double-chevron visual.             |
-| `PaginationLastTrigger`          | `pagination-last-trigger`  | Ark last trigger with default double-chevron visual.              |
+| Export                   | `data-slot`                | Notes                                                             |
+| ------------------------ | -------------------------- | ----------------------------------------------------------------- |
+| `Pagination`             | `pagination-root`          | Ark root; its label comes from `translations.rootLabel`.          |
+| `PaginationRootProvider` | `pagination-root-provider` | Ark root provider; its label comes from `translations.rootLabel`. |
+| `PaginationItems`        | -                          | Renders the standard computed page items and ellipses.            |
+| `PaginationContext`      | Ark render prop            | Reads page state, helpers, pages, ranges, and slice helper.       |
+| `usePagination`          | -                          | Creates Ark pagination state outside the rendered root.           |
+| `usePaginationContext`   | -                          | Reads Ark pagination state from a descendant.                     |
+| `PaginationItem`         | `pagination-item`          | Ark page item; pass `{...page}` from `pagination.pages`.          |
+| `PaginationEllipsis`     | `pagination-ellipsis`      | Ark ellipsis; `index` is required.                                |
+| `PaginationPrevTrigger`  | `pagination-prev-trigger`  | Ark previous trigger with default Moduix chevron.                 |
+| `PaginationNextTrigger`  | `pagination-next-trigger`  | Ark next trigger with default Moduix chevron.                     |
+| `PaginationFirstTrigger` | `pagination-first-trigger` | Ark first trigger with default double-chevron visual.             |
+| `PaginationLastTrigger`  | `pagination-last-trigger`  | Ark last trigger with default double-chevron visual.              |
 
 ## Composition
 

@@ -54,19 +54,19 @@ EditableRootProvider
 └─ same part tree connected to Ark `useEditable()` state
 ```
 
-| Part                         | `data-slot`               | Notes                                                      |
-| ---------------------------- | ------------------------- | ---------------------------------------------------------- |
-| `Editable`                    | `editable-root`           | Root state, form props, callbacks, and a11y.               |
-| `EditableRootProvider`      | `editable-root-provider`  | Connects to `useEditable()` state.                         |
-| `EditableLabel`             | `editable-label`          | Visible label for the input and preview.                   |
-| `EditableArea`              | `editable-area`           | Shared visual surface around input and preview.            |
-| `EditableInput`             | `editable-input`          | Managed text input; can render a textarea.                 |
-| `EditablePreview`           | `editable-preview`        | Read-mode value or placeholder text.                       |
-| `EditableControl`           | `editable-control`        | Optional wrapper for edit, submit, cancel buttons.         |
-| `EditableControls`          | `editable-control`        | Convenience control that swaps triggers and forwards refs. |
-| `EditableEditTrigger`       | `editable-edit-trigger`   | Renders a pencil icon when children are omitted.           |
-| `EditableSubmitTrigger`     | `editable-submit-trigger` | Renders a check icon when children are omitted.            |
-| `EditableCancelTrigger`     | `editable-cancel-trigger` | Renders a close icon when children are omitted.            |
+| Part                    | `data-slot`               | Notes                                                      |
+| ----------------------- | ------------------------- | ---------------------------------------------------------- |
+| `Editable`              | `editable-root`           | Root state, form props, callbacks, and a11y.               |
+| `EditableRootProvider`  | `editable-root-provider`  | Connects to `useEditable()` state.                         |
+| `EditableLabel`         | `editable-label`          | Visible label for the input and preview.                   |
+| `EditableArea`          | `editable-area`           | Shared visual surface around input and preview.            |
+| `EditableInput`         | `editable-input`          | Managed text input; can render a textarea.                 |
+| `EditablePreview`       | `editable-preview`        | Read-mode value or placeholder text.                       |
+| `EditableControl`       | `editable-control`        | Optional wrapper for edit, submit, cancel buttons.         |
+| `EditableControls`      | `editable-control`        | Convenience control that swaps triggers and forwards refs. |
+| `EditableEditTrigger`   | `editable-edit-trigger`   | Renders a pencil icon when children are omitted.           |
+| `EditableSubmitTrigger` | `editable-submit-trigger` | Renders a check icon when children are omitted.            |
+| `EditableCancelTrigger` | `editable-cancel-trigger` | Renders a close icon when children are omitted.            |
 
 Exported values: `Editable`, `EditableRootProvider`, `EditableLabel`, `EditableArea`,
 `EditableInput`, `EditablePreview`, `EditableControl`, `EditableEditTrigger`,

@@ -1,8 +1,4 @@
-import {
-  SignaturePad,
-  SignaturePadCanvas,
-  SignaturePadLabel,
-} from '@moduix/react/signature-pad';
+import { SignaturePad, SignaturePadCanvas, SignaturePadLabel } from '@moduix/react/signature-pad';
 
 const drawing = {
   fill: '#2563eb',

@@ -2,7 +2,19 @@ import { expect, test } from '@rstest/core';
 import { render, screen, waitFor } from '@testing-library/react';
 import userEvent from '@testing-library/user-event';
 import { createRef, useState } from 'react';
-import { Field, PinInput, usePinInput, FieldErrorText, PinInputRootProvider, PinInputHiddenInput, PinInputLabel, PinInputControl, PinInputInput, PinInputInputs, PinInputSeparator } from '../src';
+import {
+  Field,
+  PinInput,
+  usePinInput,
+  FieldErrorText,
+  PinInputRootProvider,
+  PinInputHiddenInput,
+  PinInputLabel,
+  PinInputControl,
+  PinInputInput,
+  PinInputInputs,
+  PinInputSeparator,
+} from '../src';
 
 function ControlledPinInput() {
   const [value, setValue] = useState<string[]>([]);

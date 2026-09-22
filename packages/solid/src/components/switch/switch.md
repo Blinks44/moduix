@@ -6,12 +6,7 @@ flat anatomy, native form behavior, state attributes, default thumb, and `size` 
 ## Composition
 
 ```tsx
-import {
-  Switch,
-  SwitchControl,
-  SwitchHiddenInput,
-  SwitchLabel,
-} from '@moduix/solid/switch';
+import { Switch, SwitchControl, SwitchHiddenInput, SwitchLabel } from '@moduix/solid/switch';
 
 export function SwitchDemo() {
   return (

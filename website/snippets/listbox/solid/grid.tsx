@@ -1,5 +1,11 @@
 import { createGridCollection } from '@ark-ui/solid/collection';
-import { Listbox, ListboxContent, ListboxItem, ListboxItemText, ListboxLabel } from '@moduix/solid/listbox';
+import {
+  Listbox,
+  ListboxContent,
+  ListboxItem,
+  ListboxItemText,
+  ListboxLabel,
+} from '@moduix/solid/listbox';
 import { For } from 'solid-js';
 import styles from '@/components/examples/listbox/listbox-grid.module.css';
 

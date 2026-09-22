@@ -49,11 +49,11 @@ Spinner
       └─ ring[data-scope="spinner"][data-part="ring"][data-slot="spinner-ring"] (default only)
 ```
 
-| Part                       | Hook                            | Notes                                                      |
-| -------------------------- | ------------------------------- | ---------------------------------------------------------- |
-| `Spinner`                   | `data-slot="spinner-root"`      | Exported root and custom host composition point.           |
-| indicator                  | `data-slot="spinner-indicator"` | Internal rotating wrapper that owns size and animation.    |
-| ring                       | `data-slot="spinner-ring"`      | Internal default ring, omitted when custom children exist. |
+| Part      | Hook                            | Notes                                                      |
+| --------- | ------------------------------- | ---------------------------------------------------------- |
+| `Spinner` | `data-slot="spinner-root"`      | Exported root and custom host composition point.           |
+| indicator | `data-slot="spinner-indicator"` | Internal rotating wrapper that owns size and animation.    |
+| ring      | `data-slot="spinner-ring"`      | Internal default ring, omitted when custom children exist. |
 
 ## Composition
 

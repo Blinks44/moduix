@@ -1,4 +1,14 @@
-import { Table, TableBody, TableCell, TableColumn, TableColumnGroup, TableColumnHeader, TableHeader, TableRow, TableScrollArea } from '@moduix/react/table';
+import {
+  Table,
+  TableBody,
+  TableCell,
+  TableColumn,
+  TableColumnGroup,
+  TableColumnHeader,
+  TableHeader,
+  TableRow,
+  TableScrollArea,
+} from '@moduix/react/table';
 
 const products = [
   {

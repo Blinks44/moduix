@@ -1,5 +1,13 @@
 import { Button } from '@moduix/solid/button';
-import { TagsInput, TagsInputClearTrigger, TagsInputControl, TagsInputHiddenInput, TagsInputInput, TagsInputItems, TagsInputLabel } from '@moduix/solid/tags-input';
+import {
+  TagsInput,
+  TagsInputClearTrigger,
+  TagsInputControl,
+  TagsInputHiddenInput,
+  TagsInputInput,
+  TagsInputItems,
+  TagsInputLabel,
+} from '@moduix/solid/tags-input';
 import { createSignal } from 'solid-js';
 import styles from '@/components/examples/tags-input/tags-input-form.module.css';
 

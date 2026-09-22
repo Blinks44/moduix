@@ -15,9 +15,9 @@ shared close action.
 
 ## Anatomy and stable hooks
 
-| Part               | Element  | `data-slot`         |
-| ------------------ | -------- | ------------------- |
-| `Tag`              | `span`   | `tag-root`          |
+| Part              | Element  | `data-slot`         |
+| ----------------- | -------- | ------------------- |
+| `Tag`             | `span`   | `tag-root`          |
 | `TagLabel`        | `span`   | `tag-label`         |
 | `TagStartElement` | `span`   | `tag-start-element` |
 | `TagEndElement`   | `span`   | `tag-end-element`   |

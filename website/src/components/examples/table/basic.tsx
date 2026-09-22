@@ -1,5 +1,13 @@
 import { Badge } from '@moduix/react/badge';
-import { Table, TableBody, TableCell, TableColumnHeader, TableHeader, TableRow, TableScrollArea } from '@moduix/react/table';
+import {
+  Table,
+  TableBody,
+  TableCell,
+  TableColumnHeader,
+  TableHeader,
+  TableRow,
+  TableScrollArea,
+} from '@moduix/react/table';
 
 const invoices = [
   {

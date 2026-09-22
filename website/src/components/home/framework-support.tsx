@@ -1,9 +1,4 @@
-import {
-  Tooltip,
-  TooltipContent,
-  TooltipPositioner,
-  TooltipTrigger,
-} from '@moduix/react/tooltip';
+import { Tooltip, TooltipContent, TooltipPositioner, TooltipTrigger } from '@moduix/react/tooltip';
 import { useI18n } from '@rspress/core/runtime';
 import styles from './framework-support.module.css';
 

@@ -1,9 +1,5 @@
 import { Button } from '@moduix/react/button';
-import {
-  SignaturePad,
-  SignaturePadCanvas,
-  SignaturePadLabel,
-} from '@moduix/react/signature-pad';
+import { SignaturePad, SignaturePadCanvas, SignaturePadLabel } from '@moduix/react/signature-pad';
 import { useState } from 'react';
 import { PreviewMeta } from '@/components/mdx/Components';
 import styles from '@/components/examples/signature-pad/signature-pad-controlled.module.css';

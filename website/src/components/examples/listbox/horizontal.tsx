@@ -1,5 +1,14 @@
 import { createListCollection } from '@ark-ui/react/collection';
-import { Listbox, ListboxContent, ListboxItem, ListboxItemIndicator, ListboxItemText, ListboxItemTextContent, ListboxItemTextLabel, ListboxLabel } from '@moduix/react/listbox';
+import {
+  Listbox,
+  ListboxContent,
+  ListboxItem,
+  ListboxItemIndicator,
+  ListboxItemText,
+  ListboxItemTextContent,
+  ListboxItemTextLabel,
+  ListboxLabel,
+} from '@moduix/react/listbox';
 import styles from '@/components/examples/listbox/listbox-horizontal.module.css';
 
 const albums = createListCollection({

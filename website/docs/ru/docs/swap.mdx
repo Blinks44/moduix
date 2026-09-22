@@ -85,19 +85,19 @@ import swapSolidRootProvider from '../../../snippets/swap/solid/root-provider.ts
 ## Анатомия
 
 ```text
-Swap / Swap.Root
-├─ Swap.Indicator type="off"
-└─ Swap.Indicator type="on"
+Swap
+├─ SwapIndicator type="off"
+└─ SwapIndicator type="on"
 
-Swap.RootProvider
-└─ то же дерево индикаторов, подключённое к состоянию из Swap.useSwap()
+SwapRootProvider
+└─ то же дерево индикаторов, подключённое к состоянию из useSwap()
 ```
 
 | Часть                | Назначение                                                        |
 | -------------------- | ----------------------------------------------------------------- |
-| `Swap` / `Swap.Root` | Передаёт состояние `swap` и размещает оба визуальных состояния.  |
-| `Swap.RootProvider`  | Подключает части к состоянию, созданному через `Swap.useSwap()`. |
-| `Swap.Indicator`     | Отрисовывает состояние `on` или `off`, выбранное свойством `type`. |
+| `Swap` / `Swap` | Передаёт состояние `swap` и размещает оба визуальных состояния.  |
+| `SwapRootProvider`  | Подключает части к состоянию, созданному через `useSwap()`. |
+| `SwapIndicator`     | Отрисовывает состояние `on` или `off`, выбранное свойством `type`. |
 
 ## Композиция
 
@@ -109,7 +109,7 @@ Swap.RootProvider
 По умолчанию `Swap` использует анимацию `scale`. Передайте в `animation` `fade`, `scale`, `rotate` или
 `flip`, либо задайте пользовательское имя и опишите CSS через `data-animation` корня и атрибуты
 `data-state` индикаторов от Ark. Если состояние нужно создать вне дерева, передайте результат
-`Swap.useSwap()` в `Swap.RootProvider` и не создавайте для этого состояния ещё один корень. При
+`useSwap()` в `SwapRootProvider` и не создавайте для этого состояния ещё один корень. При
 использовании `asChild` передавайте ровно один семантический дочерний элемент.
 
 ## Примеры
@@ -198,7 +198,7 @@ Swap.RootProvider
 
 ### Root Provider
 
-Создайте состояние отдельно с помощью `Swap.useSwap()`, затем передайте его в `Swap.RootProvider`
+Создайте состояние отдельно с помощью `useSwap()`, затем передайте его в `SwapRootProvider`
 через свойство `value`. В этом примере используется `asChild`, поэтому семантическая кнопка становится
 отрисованным корнем `Swap`.
 
@@ -261,11 +261,11 @@ Ark закрепляет раскладку inline-стилями: корень 
 
 ### Хуки стилизации
 
-- `Swap.Root` использует `data-slot="swap-root"`.
-- `Swap.RootProvider` использует `data-slot="swap-root-provider"`.
-- `Swap.Indicator` использует `data-slot="swap-indicator"`.
-- `animation` доступно как `data-animation` на `Swap` и `Swap.RootProvider`.
-- Встроенные рецепты нацелены только на непосредственных потомков `Swap.Indicator` своего корня.
+- `Swap` использует `data-slot="swap-root"`.
+- `SwapRootProvider` использует `data-slot="swap-root-provider"`.
+- `SwapIndicator` использует `data-slot="swap-indicator"`.
+- `animation` доступно как `data-animation` на `Swap` и `SwapRootProvider`.
+- Встроенные рецепты нацелены только на непосредственных потомков `SwapIndicator` своего корня.
 - Ark добавляет `data-scope="swap"` и `data-part="root" | "indicator"`.
 - Ark добавляет индикаторам `data-state="open" | "closed"`. moduix использует эти атрибуты во
   встроенных и пользовательских рецептах анимации.

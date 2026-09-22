@@ -11,12 +11,12 @@
 
 ## Upstream comparison
 
-| Difference                                                  | Classification         | Decision                                                                  |
-| ----------------------------------------------------------- | ---------------------- | ------------------------------------------------------------------------- |
-| Ark exposes the full part tree and `SignaturePadRootProvider`. | Required correctness   | Preserve every part, hook, callback detail object, and provider path.     |
-| Ark's read-only clear trigger can still clear paths.        | Required correctness   | Disable the moduix clear trigger in read-only state to prevent data loss. |
-| Ark requires consumers to repeat the standard drawing tree. | Consumer friction      | Keep `SignaturePadCanvas` as narrow sugar and forward control props and refs. |
-| Chakra UI and shadcn/ui do not ship a matching component.   | Intentional difference | Keep the Ark-shaped moduix contract; do not invent parity APIs.           |
+| Difference                                                     | Classification         | Decision                                                                      |
+| -------------------------------------------------------------- | ---------------------- | ----------------------------------------------------------------------------- |
+| Ark exposes the full part tree and `SignaturePadRootProvider`. | Required correctness   | Preserve every part, hook, callback detail object, and provider path.         |
+| Ark's read-only clear trigger can still clear paths.           | Required correctness   | Disable the moduix clear trigger in read-only state to prevent data loss.     |
+| Ark requires consumers to repeat the standard drawing tree.    | Consumer friction      | Keep `SignaturePadCanvas` as narrow sugar and forward control props and refs. |
+| Chakra UI and shadcn/ui do not ship a matching component.      | Intentional difference | Keep the Ark-shaped moduix contract; do not invent parity APIs.               |
 
 ## Purpose
 
@@ -53,16 +53,16 @@ SignaturePadRootProvider
 └─ same part tree connected to useSignaturePad()
 ```
 
-| Part                                 | Stable hook                               | Notes                                                       |
-| ------------------------------------ | ----------------------------------------- | ----------------------------------------------------------- |
+| Part                       | Stable hook                               | Notes                                                       |
+| -------------------------- | ----------------------------------------- | ----------------------------------------------------------- |
 | `SignaturePad`             | `data-slot="signature-pad-root"`          | Root state, ids, form name, drawing options, and callbacks. |
-| `SignaturePadRootProvider`  | `data-slot="signature-pad-root-provider"` | Renders from `useSignaturePad()` state.                     |
-| `SignaturePadLabel`         | `data-slot="signature-pad-label"`         | Ark label linked to the hidden input and drawing control.   |
-| `SignaturePadCanvas`        | `data-slot="signature-pad-control"`       | Fixed drawing tree; forwards control props and refs.        |
-| `SignaturePadControl`       | `data-slot="signature-pad-control"`       | Focusable drawing region with `role="application"`.         |
-| `SignaturePadSegment`       | `data-slot="signature-pad-segment"`       | SVG paths for saved and current strokes.                    |
-| `SignaturePadGuide`         | `data-slot="signature-pad-guide"`         | Non-interactive baseline.                                   |
-| `SignaturePadClearTrigger`  | `data-slot="signature-pad-clear-trigger"` | Native button hidden by Ark while empty or drawing.         |
+| `SignaturePadRootProvider` | `data-slot="signature-pad-root-provider"` | Renders from `useSignaturePad()` state.                     |
+| `SignaturePadLabel`        | `data-slot="signature-pad-label"`         | Ark label linked to the hidden input and drawing control.   |
+| `SignaturePadCanvas`       | `data-slot="signature-pad-control"`       | Fixed drawing tree; forwards control props and refs.        |
+| `SignaturePadControl`      | `data-slot="signature-pad-control"`       | Focusable drawing region with `role="application"`.         |
+| `SignaturePadSegment`      | `data-slot="signature-pad-segment"`       | SVG paths for saved and current strokes.                    |
+| `SignaturePadGuide`        | `data-slot="signature-pad-guide"`         | Non-interactive baseline.                                   |
+| `SignaturePadClearTrigger` | `data-slot="signature-pad-clear-trigger"` | Native button hidden by Ark while empty or drawing.         |
 
 ## Composition
 

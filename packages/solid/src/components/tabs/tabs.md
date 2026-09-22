@@ -74,15 +74,15 @@ render an indicator automatically.
 
 ## Anatomy and styling hooks
 
-| Part                 | `data-slot`          |
-| -------------------- | -------------------- |
-| `Tabs`               | `tabs-root`          |
-| `TabsRootProvider`  | `tabs-root-provider` |
-| `TabsContext`       | -                    |
-| `TabsList`          | `tabs-list`          |
-| `TabsTrigger`       | `tabs-trigger`       |
-| `TabsIndicator`     | `tabs-indicator`     |
-| `TabsContent`       | `tabs-content`       |
+| Part               | `data-slot`          |
+| ------------------ | -------------------- |
+| `Tabs`             | `tabs-root`          |
+| `TabsRootProvider` | `tabs-root-provider` |
+| `TabsContext`      | -                    |
+| `TabsList`         | `tabs-list`          |
+| `TabsTrigger`      | `tabs-trigger`       |
+| `TabsIndicator`    | `tabs-indicator`     |
+| `TabsContent`      | `tabs-content`       |
 
 Every visual part accepts `class` and keeps the corresponding Ark `data-scope`, `data-part`,
 orientation, selected, disabled, and focus attributes. The CSS Module preserves the React

@@ -1,4 +1,4 @@
-import { JsonTreeView } from '@moduix/react/json-tree-view';
+import { JsonTreeView, JsonTreeViewTree } from '@moduix/react/json-tree-view';
 
 const deployment = {
   environment: 'production',
@@ -13,7 +13,7 @@ const deployment = {
 export default function JsonTreeViewBasicDemo() {
   return (
     <JsonTreeView data={deployment} defaultExpandedDepth={2}>
-      <JsonTreeView.Tree />
+      <JsonTreeViewTree />
     </JsonTreeView>
   );
 }

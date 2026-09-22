@@ -9,7 +9,15 @@ import {
   ComboboxPositioner,
   ComboboxRootProvider,
 } from '@moduix/solid/combobox';
-import { TagsInputClearTrigger, TagsInputControl, TagsInputInput, TagsInputItems, TagsInputLabel, TagsInputRootProvider, useTagsInput } from '@moduix/solid/tags-input';
+import {
+  TagsInputClearTrigger,
+  TagsInputControl,
+  TagsInputInput,
+  TagsInputItems,
+  TagsInputLabel,
+  TagsInputRootProvider,
+  useTagsInput,
+} from '@moduix/solid/tags-input';
 import { createUniqueId, For } from 'solid-js';
 
 const frameworkOptions = ['React', 'Solid', 'Vue', 'Svelte', 'Angular', 'Preact', 'Next.js'];

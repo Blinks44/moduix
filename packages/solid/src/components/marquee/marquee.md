@@ -6,12 +6,7 @@ This component is the moduix Solid wrapper around Ark UI Solid Marquee.
 ## Composition
 
 ```tsx
-import {
-  Marquee,
-  MarqueeContent,
-  MarqueeItem,
-  MarqueeViewport,
-} from '@moduix/solid/marquee';
+import { Marquee, MarqueeContent, MarqueeItem, MarqueeViewport } from '@moduix/solid/marquee';
 
 export function Example() {
   return (
@@ -53,15 +48,15 @@ The package exports `Marquee`, `MarqueeRootProvider`, `MarqueeViewport`, `Marque
 `MarqueeItem`, `MarqueeEdge`, `MarqueeContext`, `useMarquee`, and `useMarqueeContext` as flat
 values.
 
-| Export                     | `data-slot`             | Notes                                         |
-| -------------------------- | ----------------------- | --------------------------------------------- |
-| `Marquee`                 | `marquee-root`          | Ark root and playback state.                  |
-| `MarqueeRootProvider`     | `marquee-root-provider` | Root for an external `useMarquee()` instance. |
-| `MarqueeViewport`         | `marquee-viewport`      | Clipping viewport.                            |
-| `MarqueeContent`          | `marquee-content`       | Animated content and cloned content host.     |
-| `MarqueeItem`             | `marquee-item`          | Individual marquee item.                      |
-| `MarqueeEdge`             | `marquee-edge`          | Optional fade overlay.                        |
-| `MarqueeContext`          | -                       | Advanced context consumer.                    |
+| Export                | `data-slot`             | Notes                                         |
+| --------------------- | ----------------------- | --------------------------------------------- |
+| `Marquee`             | `marquee-root`          | Ark root and playback state.                  |
+| `MarqueeRootProvider` | `marquee-root-provider` | Root for an external `useMarquee()` instance. |
+| `MarqueeViewport`     | `marquee-viewport`      | Clipping viewport.                            |
+| `MarqueeContent`      | `marquee-content`       | Animated content and cloned content host.     |
+| `MarqueeItem`         | `marquee-item`          | Individual marquee item.                      |
+| `MarqueeEdge`         | `marquee-edge`          | Optional fade overlay.                        |
+| `MarqueeContext`      | -                       | Advanced context consumer.                    |
 
 Supported root props include `side`, `speed`, `spacing`, `delay`, `loopCount`, `autoFill`,
 `pauseOnInteraction`, `reverse`, `defaultPaused`, `paused`, `onPauseChange`, `onLoopComplete`,

@@ -169,7 +169,7 @@ test('renders composition parts with semantic defaults and stable hooks', () => 
   render(
     <Chart>
       <ChartHeader data-testid="header">
-<ChartTitle data-testid="title">Monthly revenue</ChartTitle>
+        <ChartTitle data-testid="title">Monthly revenue</ChartTitle>
         <ChartDescription data-testid="description">Revenue by month</ChartDescription>
       </ChartHeader>
       <ChartLegend aria-label="Series" data-testid="legend">

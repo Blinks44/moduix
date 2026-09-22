@@ -18,7 +18,16 @@ import {
   CommandPaletteSearch,
   CommandPaletteTrigger,
 } from '@moduix/react/command-palette';
-import { Menu, MenuTrigger, MenuPositioner, MenuContent, MenuViewport, MenuItem, MenuItemGroup, MenuItemGroupLabel } from '@moduix/react/menu';
+import {
+  Menu,
+  MenuTrigger,
+  MenuPositioner,
+  MenuContent,
+  MenuViewport,
+  MenuItem,
+  MenuItemGroup,
+  MenuItemGroupLabel,
+} from '@moduix/react/menu';
 import {
   ChevronDown,
   CircleHelp,

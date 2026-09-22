@@ -2,7 +2,18 @@ import { Badge } from '@moduix/solid/badge';
 import { Button } from '@moduix/solid/button';
 import { Checkbox, CheckboxControl, CheckboxHiddenInput } from '@moduix/solid/checkbox';
 import { Input } from '@moduix/solid/input';
-import { Table, TableBody, TableCell, TableColumn, TableColumnGroup, TableColumnHeader, TableEmpty, TableHeader, TableRow, TableScrollArea } from '@moduix/solid/table';
+import {
+  Table,
+  TableBody,
+  TableCell,
+  TableColumn,
+  TableColumnGroup,
+  TableColumnHeader,
+  TableEmpty,
+  TableHeader,
+  TableRow,
+  TableScrollArea,
+} from '@moduix/solid/table';
 import {
   columnFilteringFeature,
   columnVisibilityFeature,
@@ -178,9 +189,7 @@ export default function DataTableDemo() {
             <Show
               when={table.getRowModel().rows.length}
               fallback={
-                <TableEmpty colSpan={table.getVisibleLeafColumns().length}>
-                  No results.
-                </TableEmpty>
+                <TableEmpty colSpan={table.getVisibleLeafColumns().length}>No results.</TableEmpty>
               }
             >
               <For each={table.getRowModel().rows}>

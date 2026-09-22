@@ -1,5 +1,10 @@
 import { Button } from '@moduix/react/button';
-import { SplitterPanel, SplitterResizeTrigger, SplitterRootProvider, useSplitter } from '@moduix/react/splitter';
+import {
+  SplitterPanel,
+  SplitterResizeTrigger,
+  SplitterRootProvider,
+  useSplitter,
+} from '@moduix/react/splitter';
 import { PreviewMeta } from '@/components/mdx/Components';
 import styles from '@/components/examples/splitter/splitter-root-provider.module.css';
 

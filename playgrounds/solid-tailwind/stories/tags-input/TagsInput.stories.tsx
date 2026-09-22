@@ -2,7 +2,17 @@ import { clsx } from 'clsx';
 import { createSignal, createUniqueId } from 'solid-js';
 import type { Meta, StoryObj } from 'storybook-solidjs-vite';
 import { Field, FieldErrorText, FieldHelperText } from '@/components/field/Field';
-import { TagsInput, TagsInputClearTrigger, TagsInputControl, TagsInputHiddenInput, TagsInputInput, TagsInputItems, TagsInputLabel, TagsInputRootProvider, useTagsInput } from '@/components/tags-input/TagsInput';
+import {
+  TagsInput,
+  TagsInputClearTrigger,
+  TagsInputControl,
+  TagsInputHiddenInput,
+  TagsInputInput,
+  TagsInputItems,
+  TagsInputLabel,
+  TagsInputRootProvider,
+  useTagsInput,
+} from '@/components/tags-input/TagsInput';
 
 const initialTags = ['React', 'TypeScript'];
 const stackClass = 'grid items-start gap-3';

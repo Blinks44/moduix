@@ -1,8 +1,4 @@
-import {
-  InputGroup,
-  InputGroupAddon,
-  InputGroupInput,
-} from '@moduix/solid/input-group';
+import { InputGroup, InputGroupAddon, InputGroupInput } from '@moduix/solid/input-group';
 import styles from '@/components/examples/input-group/input-group-sizes.module.css';
 
 const inputGroupSizes = ['xs', 'sm', 'md', 'lg', 'xl'] as const;

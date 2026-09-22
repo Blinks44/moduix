@@ -1,9 +1,4 @@
-import {
-  Marquee,
-  MarqueeContent,
-  MarqueeItem,
-  MarqueeViewport,
-} from '@moduix/solid/marquee';
+import { Marquee, MarqueeContent, MarqueeItem, MarqueeViewport } from '@moduix/solid/marquee';
 import styles from '@/components/examples/marquee/marquee-reverse.module.css';
 
 const partners = [

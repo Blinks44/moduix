@@ -1,5 +1,13 @@
 import { Card, CardBody, CardHeader, CardTitle } from '@moduix/react/card';
-import { Table, TableBody, TableCell, TableColumnHeader, TableHeader, TableRow, TableScrollArea } from '@moduix/react/table';
+import {
+  Table,
+  TableBody,
+  TableCell,
+  TableColumnHeader,
+  TableHeader,
+  TableRow,
+  TableScrollArea,
+} from '@moduix/react/table';
 
 const projects = [
   {

@@ -1,10 +1,5 @@
 import { Button } from '@moduix/solid/button';
-import {
-  Tooltip,
-  TooltipContent,
-  TooltipPositioner,
-  TooltipTrigger,
-} from '@moduix/solid/tooltip';
+import { Tooltip, TooltipContent, TooltipPositioner, TooltipTrigger } from '@moduix/solid/tooltip';
 
 export default function AdvancedCustomizationTooltipDemo() {
   return (

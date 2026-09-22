@@ -1,4 +1,11 @@
-import { SegmentGroup, SegmentGroupIndicator, SegmentGroupItem, SegmentGroupItemControl, SegmentGroupItemHiddenInput, SegmentGroupItemText } from '@moduix/react/segment-group';
+import {
+  SegmentGroup,
+  SegmentGroupIndicator,
+  SegmentGroupItem,
+  SegmentGroupItemControl,
+  SegmentGroupItemHiddenInput,
+  SegmentGroupItemText,
+} from '@moduix/react/segment-group';
 import styles from '@/components/examples/segment-group/segment-group-advanced-customization.module.css';
 
 export default function SegmentGroupAsChildDemo() {

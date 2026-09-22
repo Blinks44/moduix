@@ -231,7 +231,7 @@ Primary CSS variables:
 
 ## Local changelog
 
-- 2026-09-21: Replaced the compound `Button.Root` value surface with the shared flat API across
+- 2026-09-21: Replaced the compound `Button` value surface with the shared flat API across
   React and Solid. `Button` is now the only root value and the namespaced form is removed.
 - 2026-08-09: Guarded disabled `asChild` activation before composed child click handlers and added
   focused composition and content-resilience coverage.
@@ -264,7 +264,7 @@ Primary CSS variables:
 - 2026-06-18: Restored safe `type="button"` behavior for native roots, added Ark-style
   `data-disabled`, documented ref forwarding and Chakra recipe coverage, and kept `asChild`
   free of injected button-only defaults.
-- 2026-06-17: Migrated `Button` from legacy to an Ark-style factory wrapper, added `Button.Root`
+- 2026-06-17: Migrated `Button` from legacy to an Ark-style factory wrapper, added `Button`
   plus the callable `Button` alias, and replaced `render` / `nativeButton` with `asChild`.
 - 2026-06-17: Switched disabled styling hooks to native `[disabled]` and `[aria-disabled='true']`
   for the root-only Ark surface.

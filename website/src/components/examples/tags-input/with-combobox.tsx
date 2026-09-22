@@ -9,7 +9,15 @@ import {
   ComboboxPositioner,
   ComboboxRootProvider,
 } from '@moduix/react/combobox';
-import { TagsInputClearTrigger, TagsInputControl, TagsInputInput, TagsInputItems, TagsInputLabel, TagsInputRootProvider, useTagsInput } from '@moduix/react/tags-input';
+import {
+  TagsInputClearTrigger,
+  TagsInputControl,
+  TagsInputInput,
+  TagsInputItems,
+  TagsInputLabel,
+  TagsInputRootProvider,
+  useTagsInput,
+} from '@moduix/react/tags-input';
 import { useId } from 'react';
 import styles from '@/components/examples/tags-input/tags-input-with-combobox.module.css';
 

@@ -92,7 +92,31 @@ State exports: `MenuContext`, `useMenuContext`, `MenuItemContext`, and `useMenuI
 
 ```tsx
 import { Button } from '@moduix/react/button';
-import { Menu, MenuRootProvider, MenuContext, MenuTrigger, MenuTriggerIcon, MenuIndicator, MenuPositioner, MenuContent, MenuViewport, MenuArrow, MenuItem, MenuTriggerItem, MenuTriggerItemIcon, MenuRadioItemGroup, MenuRadioItem, MenuCheckboxItem, MenuItemIndicator, MenuItemText, MenuItemTextContent, MenuItemTextIcon, MenuItemTextLabel, MenuItemShortcut, MenuItemContext } from '@moduix/react/menu';
+import {
+  Menu,
+  MenuRootProvider,
+  MenuContext,
+  MenuTrigger,
+  MenuTriggerIcon,
+  MenuIndicator,
+  MenuPositioner,
+  MenuContent,
+  MenuViewport,
+  MenuArrow,
+  MenuItem,
+  MenuTriggerItem,
+  MenuTriggerItemIcon,
+  MenuRadioItemGroup,
+  MenuRadioItem,
+  MenuCheckboxItem,
+  MenuItemIndicator,
+  MenuItemText,
+  MenuItemTextContent,
+  MenuItemTextIcon,
+  MenuItemTextLabel,
+  MenuItemShortcut,
+  MenuItemContext,
+} from '@moduix/react/menu';
 
 export function Example() {
   return (

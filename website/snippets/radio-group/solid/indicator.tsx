@@ -1,8 +1,4 @@
-import {
-  RadioGroup,
-  RadioGroupIndicator,
-  RadioGroupOption,
-} from '@moduix/solid/radio-group';
+import { RadioGroup, RadioGroupIndicator, RadioGroupOption } from '@moduix/solid/radio-group';
 import styles from '@/components/examples/radio-group/radio-group-indicator.module.css';
 
 const frameworks = ['React', 'Solid', 'Vue'];

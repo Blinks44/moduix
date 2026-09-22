@@ -9,13 +9,15 @@ import { cn } from '@/lib/moduix/cn';
 import { ChevronLeftIcon } from '@/lib/moduix/icons/ui';
 import { Input } from '../input';
 import { Separator } from '../separator';
-import { Splitter, SplitterPanel, SplitterResizeTrigger, SplitterResizeTriggerIndicator, useSplitterContext, type SplitterPanelData } from '../splitter';
 import {
-  Tooltip,
-  TooltipContent,
-  TooltipPositioner,
-  TooltipTrigger,
-} from '../tooltip';
+  Splitter,
+  SplitterPanel,
+  SplitterResizeTrigger,
+  SplitterResizeTriggerIndicator,
+  useSplitterContext,
+  type SplitterPanelData,
+} from '../splitter';
+import { Tooltip, TooltipContent, TooltipPositioner, TooltipTrigger } from '../tooltip';
 
 type SidebarSide = 'left' | 'right';
 type SidebarConfig = {

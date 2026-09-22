@@ -1,5 +1,14 @@
 import { createListCollection } from '@ark-ui/solid/collection';
-import { Listbox, ListboxContent, ListboxItem, ListboxItemIndicator, ListboxItemText, ListboxItemTextContent, ListboxItemTextLabel, ListboxLabel } from '@moduix/solid/listbox';
+import {
+  Listbox,
+  ListboxContent,
+  ListboxItem,
+  ListboxItemIndicator,
+  ListboxItemText,
+  ListboxItemTextContent,
+  ListboxItemTextLabel,
+  ListboxLabel,
+} from '@moduix/solid/listbox';
 import { For } from 'solid-js';
 import styles from '@/components/examples/listbox/listbox-horizontal.module.css';
 

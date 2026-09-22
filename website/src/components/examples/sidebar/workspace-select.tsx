@@ -1,6 +1,18 @@
 import { createListCollection } from '@ark-ui/react/collection';
 import { Avatar, AvatarFallback } from '@moduix/react/avatar';
-import { Menu, MenuTrigger, MenuPositioner, MenuContent, MenuViewport, MenuItem, MenuSeparator, MenuItemText, MenuItemTextContent, MenuItemTextIcon, MenuItemTextLabel } from '@moduix/react/menu';
+import {
+  Menu,
+  MenuTrigger,
+  MenuPositioner,
+  MenuContent,
+  MenuViewport,
+  MenuItem,
+  MenuSeparator,
+  MenuItemText,
+  MenuItemTextContent,
+  MenuItemTextIcon,
+  MenuItemTextLabel,
+} from '@moduix/react/menu';
 import {
   Select,
   SelectTrigger,

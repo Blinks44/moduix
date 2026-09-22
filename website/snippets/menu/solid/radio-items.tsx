@@ -1,5 +1,18 @@
 import { Button } from '@moduix/solid/button';
-import { Menu, MenuTrigger, MenuIndicator, MenuPositioner, MenuContent, MenuViewport, MenuItemGroup, MenuItemGroupLabel, MenuRadioItemGroup, MenuRadioItem, MenuItemIndicator, MenuItemText } from '@moduix/solid/menu';
+import {
+  Menu,
+  MenuTrigger,
+  MenuIndicator,
+  MenuPositioner,
+  MenuContent,
+  MenuViewport,
+  MenuItemGroup,
+  MenuItemGroupLabel,
+  MenuRadioItemGroup,
+  MenuRadioItem,
+  MenuItemIndicator,
+  MenuItemText,
+} from '@moduix/solid/menu';
 import { createSignal } from 'solid-js';
 import styles from '@/components/examples/menu/menu-radio-items.module.css';
 

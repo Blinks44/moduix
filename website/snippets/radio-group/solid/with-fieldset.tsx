@@ -1,8 +1,5 @@
 import { Fieldset, FieldsetLegend } from '@moduix/solid/fieldset';
-import {
-  RadioGroup,
-  RadioGroupOption,
-} from '@moduix/solid/radio-group';
+import { RadioGroup, RadioGroupOption } from '@moduix/solid/radio-group';
 import styles from '@/components/examples/radio-group/radio-group-with-fieldset.module.css';
 
 const frameworks = ['React', 'Solid', 'Vue'];

@@ -7,7 +7,7 @@ import { cn } from '@/lib/moduix/cn';
 
 type SwapAnimation = 'fade' | 'scale' | 'rotate' | 'flip' | (string & {});
 
-type SwapRootProps = ComponentProps<typeof SwapPrimitive.Root> & {
+type SwapProps = ComponentProps<typeof SwapPrimitive.Root> & {
   animation?: SwapAnimation;
 };
 
@@ -15,22 +15,23 @@ type SwapRootProviderProps = ComponentProps<typeof SwapPrimitive.RootProvider> &
   animation?: SwapAnimation;
 };
 
-const SwapRoot = forwardRef<ComponentRef<typeof SwapPrimitive.Root>, SwapRootProps>(
-  function SwapRoot({ animation = 'scale', className, ...props }, ref) {
-    return (
-      <SwapPrimitive.Root
-        ref={ref}
-        className={cn(
-          "group/swap place-items-center align-middle [grid-template-areas:'swap'] data-[animation=flip]:[perspective:24rem]",
-          className,
-        )}
-        {...props}
-        data-animation={animation}
-        data-slot="swap-root"
-      />
-    );
-  },
-);
+const Swap = forwardRef<ComponentRef<typeof SwapPrimitive.Root>, SwapProps>(function Swap(
+  { animation = 'scale', className, ...props },
+  ref,
+) {
+  return (
+    <SwapPrimitive.Root
+      ref={ref}
+      className={cn(
+        "group/swap place-items-center align-middle [grid-template-areas:'swap'] data-[animation=flip]:[perspective:24rem]",
+        className,
+      )}
+      {...props}
+      data-animation={animation}
+      data-slot="swap-root"
+    />
+  );
+});
 
 const SwapRootProvider = forwardRef<
   ComponentRef<typeof SwapPrimitive.RootProvider>,
@@ -67,11 +68,4 @@ const SwapIndicator = forwardRef<
   );
 });
 
-const Swap = Object.assign(SwapRoot, {
-  Root: SwapRoot,
-  RootProvider: SwapRootProvider,
-  Indicator: SwapIndicator,
-  useSwap,
-});
-
-export { Swap, useSwap, useSwapContext, type SwapAnimation };
+export { Swap, SwapIndicator, SwapRootProvider, useSwap, useSwapContext, type SwapAnimation };

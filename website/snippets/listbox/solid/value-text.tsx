@@ -1,5 +1,13 @@
 import { createListCollection } from '@ark-ui/solid/collection';
-import { Listbox, ListboxContent, ListboxItem, ListboxItemIndicator, ListboxItemText, ListboxLabel, ListboxValueText } from '@moduix/solid/listbox';
+import {
+  Listbox,
+  ListboxContent,
+  ListboxItem,
+  ListboxItemIndicator,
+  ListboxItemText,
+  ListboxLabel,
+  ListboxValueText,
+} from '@moduix/solid/listbox';
 import { For } from 'solid-js';
 import styles from '@/components/examples/listbox/listbox-value-text.module.css';
 

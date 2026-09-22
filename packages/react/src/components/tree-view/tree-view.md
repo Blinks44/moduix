@@ -60,9 +60,9 @@ TreeView
          └─ TreeViewItemIndicator (optional)
 ```
 
-| Export                           | `data-slot`                         | Notes                          |
-| -------------------------------- | ----------------------------------- | ------------------------------ |
-| `TreeView`                  | `tree-view-root`                    | Ark root with moduix styling.  |
+| Export                          | `data-slot`                         | Notes                          |
+| ------------------------------- | ----------------------------------- | ------------------------------ |
+| `TreeView`                      | `tree-view-root`                    | Ark root with moduix styling.  |
 | `TreeViewRootProvider`          | `tree-view-root-provider`           | RootProvider styled like root. |
 | `TreeViewLabel`                 | `tree-view-label`                   | Accessible label.              |
 | `TreeViewTree`                  | `tree-view-tree`                    | Tree container.                |

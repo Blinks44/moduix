@@ -9,7 +9,14 @@ import {
   DialogTitle,
   DialogTrigger,
 } from '@moduix/react/dialog';
-import { ScrollArea, ScrollAreaContent, ScrollAreaCorner, ScrollAreaScrollbar, ScrollAreaThumb, ScrollAreaViewport } from '@moduix/react/scroll-area';
+import {
+  ScrollArea,
+  ScrollAreaContent,
+  ScrollAreaCorner,
+  ScrollAreaScrollbar,
+  ScrollAreaThumb,
+  ScrollAreaViewport,
+} from '@moduix/react/scroll-area';
 import styles from '@/components/examples/dialog/dialog-inside-scroll.module.css';
 
 const sections = [

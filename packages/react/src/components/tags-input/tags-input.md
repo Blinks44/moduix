@@ -50,13 +50,13 @@ Use root props such as `name` and `form` to configure native form participation.
 </TagsInput>
 ```
 
-| Export                        | Slot / behavior                                                 |
-| ----------------------------- | --------------------------------------------------------------- |
-| `TagsInput`                   | `data-slot="tags-input-root"`; Ark root state machine.          |
+| Export                       | Slot / behavior                                                 |
+| ---------------------------- | --------------------------------------------------------------- |
+| `TagsInput`                  | `data-slot="tags-input-root"`; Ark root state machine.          |
 | `TagsInputRootProvider`      | `data-slot="tags-input-root-provider"`; external Ark state.     |
 | `TagsInputLabel`             | `data-slot="tags-input-label"`; accessible label.               |
 | `TagsInputControl`           | `data-slot="tags-input-control"`; input shell and tag wrapper.  |
-| `TagsInputItems`             | Default editable item tree rendered from `TagsInputContext`.   |
+| `TagsInputItems`             | Default editable item tree rendered from `TagsInputContext`.    |
 | `TagsInputItem`              | `data-slot="tags-input-item"`; requires `index` and `value`.    |
 | `TagsInputItemContext`       | Ark render-prop state for the current item.                     |
 | `TagsInputItemPreview`       | `data-slot="tags-input-item-preview"`; visible tag surface.     |
@@ -77,7 +77,7 @@ content or actions, map `tagsInput.value` from `TagsInputContext`, pass `index` 
 Use `TagsInputRootProvider` plus moduix `useTagsInput` only when state or imperative methods like `addValue`,
 `setValue`, `clearValue`, or `focus` must be controlled outside the component tree. Use `ids` to
 share an input/control between `TagsInput` and other Ark primitives such as `Combobox`, and compose
-the shared text field with `Combobox.Input asChild` around `TagsInputInput`.
+the shared text field with the Ark Combobox `Input` part using `asChild` around `TagsInputInput`.
 
 Every Ark part supports `asChild` with one semantic child that forwards props and `ref`.
 

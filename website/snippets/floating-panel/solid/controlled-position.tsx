@@ -48,9 +48,7 @@ export default function ControlledPositionDemo() {
                 </FloatingPanelControl>
               </FloatingPanelHeader>
             </FloatingPanelDragTrigger>
-            <FloatingPanelBody>
-              Dragging updates the controlled position object.
-            </FloatingPanelBody>
+            <FloatingPanelBody>Dragging updates the controlled position object.</FloatingPanelBody>
             <FloatingPanelResizeTriggerGroup />
           </FloatingPanelContent>
         </FloatingPanelPositioner>

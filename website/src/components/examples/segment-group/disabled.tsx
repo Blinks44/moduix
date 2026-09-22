@@ -1,4 +1,8 @@
-import { SegmentGroup, SegmentGroupIndicator, SegmentGroupItems } from '@moduix/react/segment-group';
+import {
+  SegmentGroup,
+  SegmentGroupIndicator,
+  SegmentGroupItems,
+} from '@moduix/react/segment-group';
 import styles from '@/components/examples/segment-group/segment-group-disabled.module.css';
 
 const frameworks = [

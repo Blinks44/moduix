@@ -7,7 +7,7 @@
 ### AngleSlider
 
 - c7359a1: Redesign the dial as a circular track that fills from the top with a masked conic-gradient arc, a circle thumb matching the linear Slider, and the value text centered in the dial.
-  `AngleSlider.Dial` now renders the centered `ValueText` between `Control` children and `Thumb`; the pointer press suppresses the keyboard focus ring during and after the drag while keyboard focus keeps its ring.
+  `AngleSliderDial` now renders the centered `ValueText` between `Control` children and `Thumb`; the pointer press suppresses the keyboard focus ring during and after the drag while keyboard focus keeps its ring.
   The public `--moduix-angle-slider-*` variable set was retuned; the needle thumb, inner disc, center dot, and track/control border variables were removed.
 
 ### Patch Changes
@@ -150,7 +150,7 @@
 
 ### Typeset
 
-- c7359a1: Tokenize the mark highlight and link focus ring, and document that `Typeset.Scroll` is designed to live inside a `Typeset` or `Typeset.Root` boundary.
+- c7359a1: Tokenize the mark highlight and link focus ring, and document that `TypesetScroll` is designed to live inside a `Typeset` boundary.
 
 ## 2.7.1
 
@@ -242,7 +242,7 @@
 
 ### Alert
 
-- 20bb7e9: Require `Alert.Content` to contain title, description, actions, and other message content.
+- 20bb7e9: Require `AlertContent` to contain title, description, actions, and other message content.
 
 ### AspectRatio
 
@@ -252,7 +252,7 @@
 ### Badge
 
 - f022e4e: Keep direct children unchanged and limit built-in interaction styling to links.
-  Use `Badge.Label` explicitly for truncation; button hover and disabled presentation are now consumer-owned, and `--moduix-badge-opacity-disabled` is removed.
+  Use `BadgeLabel` explicitly for truncation; button hover and disabled presentation are now consumer-owned, and `--moduix-badge-opacity-disabled` is removed.
 
 ### Patch Changes
 
@@ -270,7 +270,7 @@
 
 ### HoverCard
 
-- 6c2a9fc: Keep arrows integrated with the popup while allowing constrained content to scroll through `HoverCard.Body`.
+- 6c2a9fc: Keep arrows integrated with the popup while allowing constrained content to scroll through `HoverCardBody`.
 
 ### NavigationMenu
 
@@ -945,19 +945,19 @@
 
 ### Alert
 
-- 3a2f3b2: make `Alert.Content` optional for the default composition path, render `Alert.Title` as `p` by default, and reduce default padding.
+- 3a2f3b2: make `AlertContent` optional for the default composition path, render `AlertTitle` as `p` by default, and reduce default padding.
 
 ### Card
 
-- 3a2f3b2: add `Card.Media`, shared spacing hooks, and streamline the docs.
-  Clarifies the `Card.Root asChild` versus `Card.Link` decision path and adds an explicit advanced customization path.
+- 3a2f3b2: add `CardMedia`, shared spacing hooks, and streamline the docs.
+  Clarifies the `Card asChild` versus `CardLink` decision path and adds an explicit advanced customization path.
 - 3a2f3b2: Improve Button loading ergonomics and simplify SplitButton trigger composition.
   Adds a narrow `loading` prop to `Button`, tunes default button interaction styling, and removes the extra `asChild` escape hatch from the SplitButton trigger.
   Also keeps native `disabled` off `Button asChild` hosts, adds inline icon styling hooks, and syncs the Button docs with the shipped contract.
 
 ### Clipboard
 
-- 3a2f3b2: add `Clipboard.useClipboard` for the `RootProvider` composition.
+- 3a2f3b2: add `useClipboard` for the `RootProvider` composition.
 
 ### CommandPalette
 
@@ -965,12 +965,12 @@
 
 ### Alert
 
-- 3a2f3b2: add `Alert.Actions` for grouped action rows and align examples around the shorter root usage.
+- 3a2f3b2: add `AlertActions` for grouped action rows and align examples around the shorter root usage.
 
 ### Sidebar
 
 - 3a2f3b2: Improve navigation composition defaults and migration guidance.
-- 3a2f3b2: Add fixed `DateInput.Segments` and `PasswordInput.Field` helpers with explicit advanced composition paths.
+- 3a2f3b2: Add fixed `DateInputSegments` and `PasswordInputField` helpers with explicit advanced composition paths.
 
 ### Dialog
 
@@ -1021,7 +1021,7 @@
 
 ### Carousel
 
-- 3a2f3b2: Add `Carousel.Indicators` and simplify the recommended composition path.
+- 3a2f3b2: Add `CarouselIndicators` and simplify the recommended composition path.
   Also fixes advanced example page navigation and aligns the docs examples with the shipped API.
 
 ### AspectRatio
@@ -1031,7 +1031,7 @@
 
 ### Tooltip
 
-- 3a2f3b2: add `Tooltip.Body` for the default composition path and align docs around the shorter root usage.
+- 3a2f3b2: add `TooltipBody` for the default composition path and align docs around the shorter root usage.
   Export advanced state hooks from moduix and document explicit customization.
 
 ### HoverCard
@@ -1106,7 +1106,7 @@
 ### ScrollArea
 
 - 3a2f3b2: Add persistent scrollbar visibility and moduix state access.
-  Smooths scrollbar hover growth and adds `ScrollArea.useScrollArea()` for RootProvider composition.
+  Smooths scrollbar hover growth and adds `useScrollArea()` for RootProvider composition.
 
 ### SegmentGroup
 
@@ -1143,7 +1143,7 @@
 
 ### AngleSlider
 
-- 3a2f3b2: add `AngleSlider.Dial`, re-export `useAngleSlider()`, and document invalid state.
+- 3a2f3b2: add `AngleSliderDial`, re-export `useAngleSlider()`, and document invalid state.
 
 ### Switch
 
@@ -1159,7 +1159,7 @@
 
 ### Accordion
 
-- 3a2f3b2: add `Accordion.ItemBody` for default content spacing and make the root fill available width by default.
+- 3a2f3b2: add `AccordionItemBody` for default content spacing and make the root fill available width by default.
 
 ### Text
 
@@ -1171,7 +1171,7 @@
 
 ### Slider
 
-- 3a2f3b2: add `Slider.Thumbs` and re-export advanced state helpers.
+- 3a2f3b2: add `SliderThumbs` and re-export advanced state helpers.
   Shows the thumb focus ring for keyboard interaction and while dragging.
 
 ### Tabs
@@ -1210,7 +1210,7 @@
 
 ### Clipboard
 
-- 3a2f3b2: add `Clipboard.CopyText`, remove the default max-width cap, and improve migration-friendly examples.
+- 3a2f3b2: add `ClipboardCopyText`, remove the default max-width cap, and improve migration-friendly examples.
 
 ### Checkbox
 

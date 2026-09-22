@@ -7,7 +7,14 @@ import {
   BreadcrumbsPage,
   BreadcrumbsSeparator,
 } from '@moduix/solid/breadcrumbs';
-import { Menu, MenuTrigger, MenuPositioner, MenuContent, MenuViewport, MenuItem } from '@moduix/solid/menu';
+import {
+  Menu,
+  MenuTrigger,
+  MenuPositioner,
+  MenuContent,
+  MenuViewport,
+  MenuItem,
+} from '@moduix/solid/menu';
 import styles from '@/components/examples/breadcrumbs/breadcrumbs-collapsed-path.module.css';
 
 const collapsedItems = [

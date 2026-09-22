@@ -5,7 +5,16 @@ import {
   ProgressLinearTrack,
   ProgressLinearRange,
 } from '@moduix/solid/progress-linear';
-import { Slider, SliderControl, SliderHiddenInput, SliderLabel, SliderRange, SliderThumb, SliderTrack, SliderValueText } from '@moduix/solid/slider';
+import {
+  Slider,
+  SliderControl,
+  SliderHiddenInput,
+  SliderLabel,
+  SliderRange,
+  SliderThumb,
+  SliderTrack,
+  SliderValueText,
+} from '@moduix/solid/slider';
 import { createSignal } from 'solid-js';
 
 export default function ControlledProgressLinearDemo() {

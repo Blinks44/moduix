@@ -1,5 +1,13 @@
 import { Button } from '@moduix/solid/button';
-import { Menu, MenuTrigger, MenuIndicator, MenuPositioner, MenuContent, MenuViewport, MenuItem } from '@moduix/solid/menu';
+import {
+  Menu,
+  MenuTrigger,
+  MenuIndicator,
+  MenuPositioner,
+  MenuContent,
+  MenuViewport,
+  MenuItem,
+} from '@moduix/solid/menu';
 import styles from '@/components/examples/menu/menu-links.module.css';
 
 export default function LinkItemsMenuDemo() {

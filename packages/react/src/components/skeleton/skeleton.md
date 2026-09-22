@@ -42,11 +42,11 @@ Skeleton
 └─ children (optional, visible when loading={false})
 ```
 
-| Part                | Stable hooks                                                                            | Notes                                       |
-| ------------------- | --------------------------------------------------------------------------------------- | ------------------------------------------- |
+| Part               | Stable hooks                                                                            | Notes                                              |
+| ------------------ | --------------------------------------------------------------------------------------- | -------------------------------------------------- |
 | `Skeleton`         | `data-scope="skeleton"`, `data-part="root"`, `data-slot="skeleton-root"`                | The single visual root and public component value. |
-| Loading root state  | `data-state="loading"`, `data-loading`, `data-variant="pulse"` or `data-variant="none"` | Placeholder surface is decorative.          |
-| Loaded root state   | `data-state="loaded"`, `data-variant="pulse"` or `data-variant="none"`                  | Children render through the same host.      |
+| Loading root state | `data-state="loading"`, `data-loading`, `data-variant="pulse"` or `data-variant="none"` | Placeholder surface is decorative.                 |
+| Loaded root state  | `data-state="loaded"`, `data-variant="pulse"` or `data-variant="none"`                  | Children render through the same host.             |
 
 ## Composition
 

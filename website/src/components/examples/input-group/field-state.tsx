@@ -1,9 +1,5 @@
 import { Field, FieldErrorText, FieldLabel } from '@moduix/react/field';
-import {
-  InputGroup,
-  InputGroupInput,
-  InputGroupText,
-} from '@moduix/react/input-group';
+import { InputGroup, InputGroupInput, InputGroupText } from '@moduix/react/input-group';
 import styles from '@/components/examples/input-group/input-group-field-state.module.css';
 
 const domainSuffix = '.test.com';

@@ -1,5 +1,12 @@
 import { Stack } from '@moduix/solid/stack';
-import { TagsInput, TagsInputClearTrigger, TagsInputControl, TagsInputInput, TagsInputItems, TagsInputLabel } from '@moduix/solid/tags-input';
+import {
+  TagsInput,
+  TagsInputClearTrigger,
+  TagsInputControl,
+  TagsInputInput,
+  TagsInputItems,
+  TagsInputLabel,
+} from '@moduix/solid/tags-input';
 import styles from '@/components/examples/tags-input/tags-input-disabled-and-read-only.module.css';
 
 export default function StateTagsInput() {

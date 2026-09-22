@@ -82,17 +82,17 @@ ScrollArea
 └─ ScrollAreaCorner
 ```
 
-| Export                           | `data-slot`                 | Notes                                                       |
-| -------------------------------- | --------------------------- | ----------------------------------------------------------- |
-| `ScrollArea`                     | `scroll-area-root`          | Ark root and state owner.                                   |
-| `ScrollAreaRootProvider`        | `scroll-area-root-provider` | Root for an external `useScrollArea()` instance. |
-| `ScrollAreaViewport`            | `scroll-area-viewport`      | Native scroll container and focus target.                   |
-| `ScrollAreaContent`             | `scroll-area-content`       | Measured content wrapper.                                   |
-| `ScrollAreaScrollbar`           | `scroll-area-scrollbar`     | One scrollbar track; vertical by default.                   |
-| `ScrollAreaThumb`               | `scroll-area-thumb`         | Draggable thumb.                                            |
-| `ScrollAreaCorner`              | `scroll-area-corner`        | Bottom-end filler for two-axis overflow.                    |
-| `ScrollAreaContext`             | -                           | Context component for advanced state reads.                 |
-| `useScrollArea`       | -                           | Ark state hook for `ScrollAreaRootProvider` composition.    |
+| Export                   | `data-slot`                 | Notes                                                    |
+| ------------------------ | --------------------------- | -------------------------------------------------------- |
+| `ScrollArea`             | `scroll-area-root`          | Ark root and state owner.                                |
+| `ScrollAreaRootProvider` | `scroll-area-root-provider` | Root for an external `useScrollArea()` instance.         |
+| `ScrollAreaViewport`     | `scroll-area-viewport`      | Native scroll container and focus target.                |
+| `ScrollAreaContent`      | `scroll-area-content`       | Measured content wrapper.                                |
+| `ScrollAreaScrollbar`    | `scroll-area-scrollbar`     | One scrollbar track; vertical by default.                |
+| `ScrollAreaThumb`        | `scroll-area-thumb`         | Draggable thumb.                                         |
+| `ScrollAreaCorner`       | `scroll-area-corner`        | Bottom-end filler for two-axis overflow.                 |
+| `ScrollAreaContext`      | -                           | Context component for advanced state reads.              |
+| `useScrollArea`          | -                           | Ark state hook for `ScrollAreaRootProvider` composition. |
 
 Every public part is exported under its family-prefixed name. Compound properties and duplicate
 root aliases are not exported.

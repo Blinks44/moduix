@@ -1,9 +1,5 @@
 import { Button } from '@moduix/solid/button';
-import {
-  SignaturePad,
-  SignaturePadCanvas,
-  SignaturePadLabel,
-} from '@moduix/solid/signature-pad';
+import { SignaturePad, SignaturePadCanvas, SignaturePadLabel } from '@moduix/solid/signature-pad';
 import { createSignal } from 'solid-js';
 import styles from '@/components/examples/signature-pad/signature-pad-controlled.module.css';
 

@@ -5,7 +5,16 @@ import {
   ProgressLinearTrack,
   ProgressLinearRange,
 } from '@moduix/react/progress-linear';
-import { Slider, SliderControl, SliderHiddenInput, SliderLabel, SliderRange, SliderThumb, SliderTrack, SliderValueText } from '@moduix/react/slider';
+import {
+  Slider,
+  SliderControl,
+  SliderHiddenInput,
+  SliderLabel,
+  SliderRange,
+  SliderThumb,
+  SliderTrack,
+  SliderValueText,
+} from '@moduix/react/slider';
 import { useState } from 'react';
 
 export default function ControlledProgressLinearDemo() {

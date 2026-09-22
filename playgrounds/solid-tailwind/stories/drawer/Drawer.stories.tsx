@@ -24,7 +24,14 @@ import {
   useDrawer,
   useDrawerContext,
 } from '@/components/drawer/Drawer';
-import { ScrollArea, ScrollAreaContent, ScrollAreaCorner, ScrollAreaScrollbar, ScrollAreaThumb, ScrollAreaViewport } from '@/components/scroll-area/ScrollArea';
+import {
+  ScrollArea,
+  ScrollAreaContent,
+  ScrollAreaCorner,
+  ScrollAreaScrollbar,
+  ScrollAreaThumb,
+  ScrollAreaViewport,
+} from '@/components/scroll-area/ScrollArea';
 import { insideScrollSections } from '../data/insideScrollSections';
 
 const DEFAULT_DEMO_SNAP_POINT = 0.3;

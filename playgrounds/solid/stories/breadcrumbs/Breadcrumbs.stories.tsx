@@ -10,7 +10,14 @@ import {
   BreadcrumbsPath,
   BreadcrumbsSeparator,
 } from '@/components/breadcrumbs/Breadcrumbs';
-import { Menu, MenuTrigger, MenuPositioner, MenuContent, MenuViewport, MenuItem } from '@/components/menu/Menu';
+import {
+  Menu,
+  MenuTrigger,
+  MenuPositioner,
+  MenuContent,
+  MenuViewport,
+  MenuItem,
+} from '@/components/menu/Menu';
 
 const accessibilityProps = { 'aria-hidden': 'true', focusable: 'false' } as const;
 

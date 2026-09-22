@@ -1,7 +1,14 @@
 import type { Meta, StoryObj } from '@storybook/react-vite';
 import { useState } from 'react';
 import { Button } from '@/components/button';
-import { createSplitterRegistry, Splitter, SplitterPanel, SplitterResizeTrigger, SplitterRootProvider, useSplitter } from '@/components/splitter/Splitter';
+import {
+  createSplitterRegistry,
+  Splitter,
+  SplitterPanel,
+  SplitterResizeTrigger,
+  SplitterRootProvider,
+  useSplitter,
+} from '@/components/splitter/Splitter';
 import styles from './Splitter.stories.module.css';
 
 const panels = [

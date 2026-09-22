@@ -12,7 +12,15 @@ import {
   useAccordionContext,
   useAccordionItemContext,
 } from '@/components/accordion/Accordion';
-import { Slider, SliderControl, SliderHiddenInput, SliderLabel, SliderRange, SliderThumb, SliderTrack } from '@/components/slider/Slider';
+import {
+  Slider,
+  SliderControl,
+  SliderHiddenInput,
+  SliderLabel,
+  SliderRange,
+  SliderThumb,
+  SliderTrack,
+} from '@/components/slider/Slider';
 import { ChevronDownIcon } from '@/lib/moduix/icons/ui/Icons';
 import styles from './Accordion.stories.module.css';
 

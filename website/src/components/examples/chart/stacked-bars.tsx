@@ -57,7 +57,7 @@ export default function StackedBarsChartDemo() {
   return (
     <Chart>
       <ChartHeader>
-<ChartTitle>Quarterly revenue</ChartTitle>
+        <ChartTitle>Quarterly revenue</ChartTitle>
         <ChartDescription>Product and services revenue by quarter.</ChartDescription>
       </ChartHeader>
       <ChartPlot definition={definition} height={320} ariaLabel="Quarterly revenue by segment" />

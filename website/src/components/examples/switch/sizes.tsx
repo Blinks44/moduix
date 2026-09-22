@@ -21,12 +21,7 @@ const switchSizeOptions = [
   },
 ] as const;
 
-import {
-  Switch,
-  SwitchControl,
-  SwitchHiddenInput,
-  SwitchLabel,
-} from '@moduix/react/switch';
+import { Switch, SwitchControl, SwitchHiddenInput, SwitchLabel } from '@moduix/react/switch';
 import styles from '@/components/examples/switch/switch-sizes.module.css';
 
 export default function SwitchSizesDemo() {

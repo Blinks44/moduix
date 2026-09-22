@@ -1,5 +1,14 @@
 import { useListCollection } from '@ark-ui/solid/collection';
-import { Listbox, ListboxContent, ListboxEmpty, ListboxInput, ListboxItem, ListboxItemIndicator, ListboxItemText, ListboxLabel } from '@moduix/solid/listbox';
+import {
+  Listbox,
+  ListboxContent,
+  ListboxEmpty,
+  ListboxInput,
+  ListboxItem,
+  ListboxItemIndicator,
+  ListboxItemText,
+  ListboxLabel,
+} from '@moduix/solid/listbox';
 import { For } from 'solid-js';
 import styles from '@/components/examples/listbox/listbox-standalone-filter-input.module.css';
 

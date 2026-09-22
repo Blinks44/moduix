@@ -1,5 +1,11 @@
 import { Button } from '@moduix/react/button';
-import { usePinInput, PinInputRootProvider, PinInputLabel, PinInputControl, PinInputInput } from '@moduix/react/pin-input';
+import {
+  usePinInput,
+  PinInputRootProvider,
+  PinInputLabel,
+  PinInputControl,
+  PinInputInput,
+} from '@moduix/react/pin-input';
 import { useId } from 'react';
 import { PreviewMeta } from '@/components/mdx/Components';
 import styles from '@/components/examples/pin-input/pin-input-root-provider.module.css';

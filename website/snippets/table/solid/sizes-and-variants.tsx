@@ -1,4 +1,13 @@
-import { Table, TableBody, TableCaption, TableCell, TableColumnHeader, TableHeader, TableRow, TableScrollArea } from '@moduix/solid/table';
+import {
+  Table,
+  TableBody,
+  TableCaption,
+  TableCell,
+  TableColumnHeader,
+  TableHeader,
+  TableRow,
+  TableScrollArea,
+} from '@moduix/solid/table';
 import styles from '@/components/examples/table/table-sizes-and-variants.module.css';
 
 const projects = [

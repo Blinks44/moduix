@@ -1,5 +1,14 @@
 import { Button } from '@moduix/react/button';
-import { SliderControl, SliderLabel, SliderRange, SliderRootProvider, SliderThumbs, SliderTrack, SliderValueText, useSlider } from '@moduix/react/slider';
+import {
+  SliderControl,
+  SliderLabel,
+  SliderRange,
+  SliderRootProvider,
+  SliderThumbs,
+  SliderTrack,
+  SliderValueText,
+  useSlider,
+} from '@moduix/react/slider';
 import { PreviewMeta } from '@/components/mdx/Components';
 import styles from '@/components/examples/slider/slider-root-provider.module.css';
 

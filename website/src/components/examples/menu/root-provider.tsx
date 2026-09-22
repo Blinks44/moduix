@@ -1,5 +1,14 @@
 import { Button } from '@moduix/react/button';
-import { useMenu, MenuRootProvider, MenuTrigger, MenuIndicator, MenuPositioner, MenuContent, MenuViewport, MenuItem } from '@moduix/react/menu';
+import {
+  useMenu,
+  MenuRootProvider,
+  MenuTrigger,
+  MenuIndicator,
+  MenuPositioner,
+  MenuContent,
+  MenuViewport,
+  MenuItem,
+} from '@moduix/react/menu';
 import { PreviewMeta } from '@/components/mdx/Components';
 import styles from '@/components/examples/menu/menu-root-provider.module.css';
 

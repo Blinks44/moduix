@@ -1,6 +1,13 @@
 import { expect, test } from '@rstest/core';
 import { fireEvent, render, screen, waitFor } from '@testing-library/react';
-import { Toast, ToastCloseTrigger, ToastTitle, ToastToaster, createToaster, useToastContext } from '../src';
+import {
+  Toast,
+  ToastCloseTrigger,
+  ToastTitle,
+  ToastToaster,
+  createToaster,
+  useToastContext,
+} from '../src';
 
 test('renders the default toaster content and keeps closable and action behavior', async () => {
   const toaster = createToaster({ duration: Infinity });

@@ -2,7 +2,18 @@ import { Badge } from '@moduix/react/badge';
 import { Button } from '@moduix/react/button';
 import { Checkbox, CheckboxControl, CheckboxHiddenInput } from '@moduix/react/checkbox';
 import { Input } from '@moduix/react/input';
-import { Table, TableBody, TableCell, TableColumn, TableColumnGroup, TableColumnHeader, TableEmpty, TableHeader, TableRow, TableScrollArea } from '@moduix/react/table';
+import {
+  Table,
+  TableBody,
+  TableCell,
+  TableColumn,
+  TableColumnGroup,
+  TableColumnHeader,
+  TableEmpty,
+  TableHeader,
+  TableRow,
+  TableScrollArea,
+} from '@moduix/react/table';
 import {
   columnFilteringFeature,
   columnVisibilityFeature,

@@ -9,7 +9,15 @@ import {
   DialogPositioner,
   DialogTitle,
 } from '@moduix/solid/dialog';
-import { Menu, MenuTrigger, MenuIndicator, MenuPositioner, MenuContent, MenuViewport, MenuItem } from '@moduix/solid/menu';
+import {
+  Menu,
+  MenuTrigger,
+  MenuIndicator,
+  MenuPositioner,
+  MenuContent,
+  MenuViewport,
+  MenuItem,
+} from '@moduix/solid/menu';
 import { createSignal } from 'solid-js';
 
 export default function OpenFromMenuDialogDemo() {

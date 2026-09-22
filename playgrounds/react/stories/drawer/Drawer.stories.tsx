@@ -23,7 +23,14 @@ import {
   useDrawer,
   useDrawerContext,
 } from '@/components/drawer/Drawer';
-import { ScrollArea, ScrollAreaContent, ScrollAreaCorner, ScrollAreaScrollbar, ScrollAreaThumb, ScrollAreaViewport } from '@/components/scroll-area/ScrollArea';
+import {
+  ScrollArea,
+  ScrollAreaContent,
+  ScrollAreaCorner,
+  ScrollAreaScrollbar,
+  ScrollAreaThumb,
+  ScrollAreaViewport,
+} from '@/components/scroll-area/ScrollArea';
 import { insideScrollSections } from '../data/insideScrollSections';
 import storyStyles from './Drawer.stories.module.css';
 

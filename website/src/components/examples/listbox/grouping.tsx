@@ -1,5 +1,14 @@
 import { createListCollection } from '@ark-ui/react/collection';
-import { Listbox, ListboxContent, ListboxItem, ListboxItemGroup, ListboxItemGroupLabel, ListboxItemIndicator, ListboxItemText, ListboxLabel } from '@moduix/react/listbox';
+import {
+  Listbox,
+  ListboxContent,
+  ListboxItem,
+  ListboxItemGroup,
+  ListboxItemGroupLabel,
+  ListboxItemIndicator,
+  ListboxItemText,
+  ListboxLabel,
+} from '@moduix/react/listbox';
 import styles from '@/components/examples/listbox/listbox-grouping.module.css';
 
 const regions = createListCollection({

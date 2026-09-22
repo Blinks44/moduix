@@ -1,13 +1,32 @@
 import { Badge } from '@moduix/react/badge';
 import { Button } from '@moduix/react/button';
 import { Checkbox, CheckboxControl, CheckboxHiddenInput } from '@moduix/react/checkbox';
+import { InputGroup, InputGroupAddon, InputGroupInput } from '@moduix/react/input-group';
 import {
-  InputGroup,
-  InputGroupAddon,
-  InputGroupInput,
-} from '@moduix/react/input-group';
-import { Menu, MenuTrigger, MenuPositioner, MenuContent, MenuViewport, MenuItem, MenuItemGroup, MenuItemGroupLabel, MenuCheckboxItem, MenuItemIndicator, MenuItemText } from '@moduix/react/menu';
-import { Table, TableBody, TableCell, TableColumn, TableColumnGroup, TableColumnHeader, TableEmpty, TableHeader, TableRow, TableScrollArea } from '@moduix/react/table';
+  Menu,
+  MenuTrigger,
+  MenuPositioner,
+  MenuContent,
+  MenuViewport,
+  MenuItem,
+  MenuItemGroup,
+  MenuItemGroupLabel,
+  MenuCheckboxItem,
+  MenuItemIndicator,
+  MenuItemText,
+} from '@moduix/react/menu';
+import {
+  Table,
+  TableBody,
+  TableCell,
+  TableColumn,
+  TableColumnGroup,
+  TableColumnHeader,
+  TableEmpty,
+  TableHeader,
+  TableRow,
+  TableScrollArea,
+} from '@moduix/react/table';
 import {
   columnFilteringFeature,
   columnVisibilityFeature,

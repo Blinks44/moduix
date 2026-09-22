@@ -3,12 +3,7 @@ import { parseColor } from '@ark-ui/react/color-picker';
 import { CalendarDate } from '@internationalized/date';
 import { expect, test } from '@rstest/core';
 import { act, fireEvent, render, screen, waitFor } from '@testing-library/react';
-import {
-  FileUpload,
-  FileUploadHiddenInput,
-  PinInput,
-  PinInputHiddenInput,
-} from '../src';
+import { FileUpload, FileUploadHiddenInput, PinInput, PinInputHiddenInput } from '../src';
 import {
   RadioGroup,
   RadioGroupItem,
@@ -18,6 +13,10 @@ import {
 } from '../src';
 import { RatingGroup, RatingGroupHiddenInput } from '../src';
 import { TagsInput, TagsInputHiddenInput } from '../src';
+import { AngleSlider, AngleSliderHiddenInput } from '../src';
+import { Checkbox, CheckboxControl, CheckboxHiddenInput, CheckboxLabel } from '../src';
+import { ColorPicker, ColorPickerHiddenInput } from '../src';
+import { DateInput, DateInputHiddenInput } from '../src';
 import {
   SegmentGroup,
   SegmentGroupItem,

@@ -1,4 +1,11 @@
-import { Menu, MenuContextTrigger, MenuPositioner, MenuContent, MenuViewport, MenuItem } from '@moduix/react/menu';
+import {
+  Menu,
+  MenuContextTrigger,
+  MenuPositioner,
+  MenuContent,
+  MenuViewport,
+  MenuItem,
+} from '@moduix/react/menu';
 import styles from '@/components/examples/menu/menu-context-menu.module.css';
 
 export default function ContextMenuDemo() {

@@ -7,11 +7,7 @@ and `RadioGroupOption` and `RadioGroupItemControl` conveniences.
 ## Composition
 
 ```tsx
-import {
-  RadioGroup,
-  RadioGroupLabel,
-  RadioGroupOption,
-} from '@moduix/solid/radio-group';
+import { RadioGroup, RadioGroupLabel, RadioGroupOption } from '@moduix/solid/radio-group';
 
 export function RadioGroupDemo() {
   return (

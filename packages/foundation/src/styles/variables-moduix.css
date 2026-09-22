@@ -495,7 +495,7 @@
   --moduix-clipboard-value-text-line-height: initial; /* inherit */
   --moduix-clipboard-transition: initial; /* var(--moduix-transition-default) */
 
-  /* CloseButton.Root */
+  /* CloseButton */
   --moduix-close-button-bg: initial; /* transparent */
   --moduix-close-button-bg-hover: initial; /* var(--moduix-color-muted) */
   --moduix-close-button-color: initial; /* var(--moduix-color-muted-foreground) */

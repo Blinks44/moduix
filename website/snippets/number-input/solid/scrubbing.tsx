@@ -1,4 +1,9 @@
-import { NumberInput, NumberInputField, NumberInputLabel, NumberInputScrubber } from '@moduix/solid/number-input';
+import {
+  NumberInput,
+  NumberInputField,
+  NumberInputLabel,
+  NumberInputScrubber,
+} from '@moduix/solid/number-input';
 import { createSignal } from 'solid-js';
 import styles from '@/components/examples/number-input/number-input-scrubbing.module.css';
 

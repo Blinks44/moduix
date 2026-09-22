@@ -1,4 +1,14 @@
-import { Table, TableBody, TableCaption, TableCell, TableColumnHeader, TableFooter, TableHeader, TableRow, TableScrollArea } from '@moduix/react/table';
+import {
+  Table,
+  TableBody,
+  TableCaption,
+  TableCell,
+  TableColumnHeader,
+  TableFooter,
+  TableHeader,
+  TableRow,
+  TableScrollArea,
+} from '@moduix/react/table';
 
 const invoices = [
   {

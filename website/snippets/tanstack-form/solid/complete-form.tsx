@@ -15,7 +15,18 @@ import {
   CheckboxHiddenInput,
   CheckboxLabel,
 } from '@moduix/solid/checkbox';
-import { Combobox } from '@moduix/solid/combobox';
+import {
+  Combobox,
+  ComboboxClearTrigger,
+  ComboboxContent,
+  ComboboxControl,
+  ComboboxEmpty,
+  ComboboxInput,
+  ComboboxList,
+  ComboboxOption,
+  ComboboxPositioner,
+  ComboboxTrigger,
+} from '@moduix/solid/combobox';
 import { Field, FieldErrorText, FieldLabel, FieldRequiredIndicator } from '@moduix/solid/field';
 import { Input } from '@moduix/solid/input';
 import {
@@ -186,21 +197,21 @@ export default function ProjectForm() {
                   onValueChange={(details) => field().handleChange(details.value[0] ?? '')}
                   onInputValueChange={(details) => filter(details.inputValue)}
                 >
-                  <Combobox.Control>
-                    <Combobox.Input onBlur={field().handleBlur} placeholder="Search people" />
-                    <Combobox.ClearTrigger aria-label="Clear reviewer" />
-                    <Combobox.Trigger aria-label="Open reviewers" />
-                  </Combobox.Control>
-                  <Combobox.Positioner>
-                    <Combobox.Content>
-                      <Combobox.Empty>No reviewers found.</Combobox.Empty>
-                      <Combobox.List>
+                  <ComboboxControl>
+                    <ComboboxInput onBlur={field().handleBlur} placeholder="Search people" />
+                    <ComboboxClearTrigger aria-label="Clear reviewer" />
+                    <ComboboxTrigger aria-label="Open reviewers" />
+                  </ComboboxControl>
+                  <ComboboxPositioner>
+                    <ComboboxContent>
+                      <ComboboxEmpty>No reviewers found.</ComboboxEmpty>
+                      <ComboboxList>
                         <For each={collection().items}>
-                          {(item) => <Combobox.Option item={item}>{item.label}</Combobox.Option>}
+                          {(item) => <ComboboxOption item={item}>{item.label}</ComboboxOption>}
                         </For>
-                      </Combobox.List>
-                    </Combobox.Content>
-                  </Combobox.Positioner>
+                      </ComboboxList>
+                    </ComboboxContent>
+                  </ComboboxPositioner>
                 </Combobox>
                 <FieldErrorText>{field().state.meta.errors.join(', ')}</FieldErrorText>
               </Field>

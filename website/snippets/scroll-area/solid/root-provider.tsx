@@ -1,5 +1,13 @@
 import { Button } from '@moduix/solid/button';
-import { ScrollAreaContent, ScrollAreaCorner, ScrollAreaRootProvider, ScrollAreaScrollbar, ScrollAreaThumb, ScrollAreaViewport, useScrollArea } from '@moduix/solid/scroll-area';
+import {
+  ScrollAreaContent,
+  ScrollAreaCorner,
+  ScrollAreaRootProvider,
+  ScrollAreaScrollbar,
+  ScrollAreaThumb,
+  ScrollAreaViewport,
+  useScrollArea,
+} from '@moduix/solid/scroll-area';
 import { createSignal } from 'solid-js';
 import styles from '@/components/examples/scroll-area/scroll-area-root-provider.module.css';
 

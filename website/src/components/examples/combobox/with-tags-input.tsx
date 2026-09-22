@@ -9,7 +9,19 @@ import {
   ComboboxPositioner,
   ComboboxRootProvider,
 } from '@moduix/react/combobox';
-import { TagsInputClearTrigger, TagsInputControl, TagsInputInput, TagsInputItem, TagsInputItemDeleteTrigger, TagsInputItemInput, TagsInputItemPreview, TagsInputItemText, TagsInputLabel, TagsInputRootProvider, useTagsInput } from '@moduix/react/tags-input';
+import {
+  TagsInputClearTrigger,
+  TagsInputControl,
+  TagsInputInput,
+  TagsInputItem,
+  TagsInputItemDeleteTrigger,
+  TagsInputItemInput,
+  TagsInputItemPreview,
+  TagsInputItemText,
+  TagsInputLabel,
+  TagsInputRootProvider,
+  useTagsInput,
+} from '@moduix/react/tags-input';
 import { useId } from 'react';
 
 const frameworkOptions = ['React', 'Solid', 'Vue', 'Svelte', 'Angular', 'Preact', 'Next.js'];

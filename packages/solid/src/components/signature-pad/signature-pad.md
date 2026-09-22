@@ -7,11 +7,7 @@ serialization, CSS hooks, and `SignaturePadRootProvider` composition.
 ## Composition
 
 ```tsx
-import {
-  SignaturePad,
-  SignaturePadCanvas,
-  SignaturePadLabel,
-} from '@moduix/solid/signature-pad';
+import { SignaturePad, SignaturePadCanvas, SignaturePadLabel } from '@moduix/solid/signature-pad';
 
 export function SignaturePadDemo() {
   return (

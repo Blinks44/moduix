@@ -1,7 +1,23 @@
 import { expect, test } from '@rstest/core';
 import { fireEvent, render, screen, waitFor } from '@solidjs/testing-library';
 import { createSignal } from 'solid-js';
-import { Menu, useMenu, useMenuContext, useMenuItemContext, MenuRootProvider, MenuTrigger, MenuContextTrigger, MenuPositioner, MenuContent, MenuViewport, MenuArrow, MenuItem, MenuCheckboxItem, MenuItemIndicator, MenuItemText } from '../src';
+import {
+  Menu,
+  useMenu,
+  useMenuContext,
+  useMenuItemContext,
+  MenuRootProvider,
+  MenuTrigger,
+  MenuContextTrigger,
+  MenuPositioner,
+  MenuContent,
+  MenuViewport,
+  MenuArrow,
+  MenuItem,
+  MenuCheckboxItem,
+  MenuItemIndicator,
+  MenuItemText,
+} from '../src';
 import { Button } from '../src/components/button/Button';
 
 function TestMenu() {

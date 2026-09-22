@@ -1,9 +1,4 @@
-import {
-  Switch,
-  SwitchControl,
-  SwitchHiddenInput,
-  SwitchLabel,
-} from '@moduix/solid/switch';
+import { Switch, SwitchControl, SwitchHiddenInput, SwitchLabel } from '@moduix/solid/switch';
 import { createSignal } from 'solid-js';
 import styles from '@/components/examples/switch/switch-controlled.module.css';
 

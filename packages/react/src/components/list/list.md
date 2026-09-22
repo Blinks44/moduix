@@ -31,11 +31,11 @@ There is no dedicated Ark `List` primitive or component page. The wrapper should
 
 ## Upstream comparison
 
-| Source    | Useful difference                                                                         | Decision                                                                                                                                                                                                                       |
-| --------- | ----------------------------------------------------------------------------------------- | ------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------ |
-| Ark UI    | `createListCollection` models collection data; it does not render a semantic visual list. | **Intentional difference:** keep `List` as a native `ul`/`ol` wrapper. Selection and collection state belong to `Listbox` and other Ark primitives.                                                                            |
-| Chakra UI | Exposes a compound root/item API and a marker-style convenience API.                         | **Consumer friction resolved / complexity rejected:** moduix provides a flat root/item composition, while native `li::marker` and tokens remain the styling path instead of adding a translated style-prop API. |
-| shadcn/ui | Does not publish a dedicated List component.                                              | **Intentional difference:** keep the small semantic wrapper; there is no shadcn API to mirror.                                                                                                                                 |
+| Source    | Useful difference                                                                         | Decision                                                                                                                                                                                                        |
+| --------- | ----------------------------------------------------------------------------------------- | --------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------- |
+| Ark UI    | `createListCollection` models collection data; it does not render a semantic visual list. | **Intentional difference:** keep `List` as a native `ul`/`ol` wrapper. Selection and collection state belong to `Listbox` and other Ark primitives.                                                             |
+| Chakra UI | Exposes a compound root/item API and a marker-style convenience API.                      | **Consumer friction resolved / complexity rejected:** moduix provides a flat root/item composition, while native `li::marker` and tokens remain the styling path instead of adding a translated style-prop API. |
+| shadcn/ui | Does not publish a dedicated List component.                                              | **Intentional difference:** keep the small semantic wrapper; there is no shadcn API to mirror.                                                                                                                  |
 
 ## Current behavior contract
 
@@ -61,8 +61,8 @@ List
 └─ ListItem | li
 ```
 
-| Part                 | Stable hooks                                                     | Notes                                                                  |
-| -------------------- | ---------------------------------------------------------------- | ---------------------------------------------------------------------- |
+| Part       | Stable hooks                                                     | Notes                                                                  |
+| ---------- | ---------------------------------------------------------------- | ---------------------------------------------------------------------- |
 | `List`     | `data-scope="list"`, `data-part="root"`, `data-slot="list-root"` | Semantic list root with marker, spacing, size, and tone styling hooks. |
 | `ListItem` | `data-scope="list"`, `data-part="item"`, `data-slot="list-item"` | Thin semantic item wrapper with optional `asChild` composition.        |
 

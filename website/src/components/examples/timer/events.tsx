@@ -1,10 +1,4 @@
-import {
-  Timer,
-  TimerArea,
-  TimerItem,
-  TimerControl,
-  TimerActionTrigger,
-} from '@moduix/react/timer';
+import { Timer, TimerArea, TimerItem, TimerControl, TimerActionTrigger } from '@moduix/react/timer';
 import { Play as PlayIcon, RotateCcw as RotateCcwIcon } from 'lucide-react';
 import { useState } from 'react';
 import { PreviewMeta } from '@/components/mdx/Components';

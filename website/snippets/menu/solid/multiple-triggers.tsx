@@ -1,4 +1,11 @@
-import { Menu, MenuTrigger, MenuPositioner, MenuContent, MenuViewport, MenuItem } from '@moduix/solid/menu';
+import {
+  Menu,
+  MenuTrigger,
+  MenuPositioner,
+  MenuContent,
+  MenuViewport,
+  MenuItem,
+} from '@moduix/solid/menu';
 import { Map as MapIcon } from 'lucide-solid';
 import styles from '@/components/examples/menu/menu-multiple-triggers.module.css';
 

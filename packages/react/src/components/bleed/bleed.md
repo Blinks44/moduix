@@ -145,7 +145,7 @@ Public CSS variables:
 
 ## Local changelog
 
-- 2026-09-21: Removed the `Bleed.Root` namespace alias and migrated the public surface to the flat
+- 2026-09-21: Removed the `Bleed` namespace alias and migrated the public surface to the flat
   value API; `Bleed` is now the only exported root value, and tests and stories use the flat form.
 - 2026-08-09: Synchronized the public full-bleed variable reference with logical viewport units and
   expanded regression coverage for the namespace form, stable hooks, and consumer classes.
@@ -156,7 +156,7 @@ Public CSS variables:
 - 2026-07-07: Kept `Bleed` root-only and token-based, made wrapper-owned root hooks
   non-overridable again, and aligned stories/docs around the short `<Bleed>` path.
 - 2026-07-02: Removed the public `BleedInline`, `BleedBlock`, and `BleedRootProps` aliases while
-  preserving the callable root, `Bleed.Root`, axis props, Ark factory composition, data attributes,
+  preserving the callable root, `Bleed`, axis props, Ark factory composition, data attributes,
   and all token-based bleed behavior.
 - 2026-06-24: Re-audited `Bleed` as a local Ark factory primitive, aligned the public docs API
   reference wording, simplified docs example code, and corrected the local full-bleed CSS override
@@ -164,5 +164,5 @@ Public CSS variables:
 - 2026-06-18: Completed the Ark migration audit, documented factory composition, ref and
   `asChild` constraints, Chakra-informed differences, and the preferred root-only `<Bleed />`
   usage.
-- 2026-06-17: Migrated `Bleed` to an Ark-aligned factory wrapper, added `Bleed.Root`, replaced
+- 2026-06-17: Migrated `Bleed` to an Ark-aligned factory wrapper, added `Bleed`, replaced
   `as` with `asChild`, and aligned docs/examples to the new root contract.

@@ -1,10 +1,4 @@
-import {
-  Empty,
-  EmptyContent,
-  EmptyDescription,
-  EmptyIcon,
-  EmptyTitle,
-} from '@moduix/react/empty';
+import { Empty, EmptyContent, EmptyDescription, EmptyIcon, EmptyTitle } from '@moduix/react/empty';
 import { Map as MapIcon } from 'lucide-react';
 import styles from '@/components/examples/empty/empty-without-actions.module.css';
 

@@ -22,7 +22,7 @@ libellés, les icônes, les liens, le renommage ou le contenu personnalisé des 
 ## Exemple de base
 
 Transmettez via `data` n’importe quelle valeur JavaScript de type JSON ou comparable, puis affichez
-`<JsonTreeView.Tree />` à l’intérieur du composant. `JsonTreeView` génère automatiquement les nœuds des objets, des
+`<JsonTreeViewTree />` à l’intérieur du composant. `JsonTreeView` génère automatiquement les nœuds des objets, des
 tableaux et des valeurs. moduix gère le style des lignes, l’indentation, les états du focus et l’icône d’ouverture
 par défaut.
 
@@ -89,25 +89,25 @@ Consultez le [Démarrage rapide](/docs/quick-start) pour la configuration compl�
 ## Anatomie
 
 ```text
-JsonTreeView / JsonTreeView.Root
-└─ JsonTreeView.Tree
+JsonTreeView
+└─ JsonTreeViewTree
    └─ branches et éléments JSON générés
 
-JsonTreeView.RootProvider
+JsonTreeViewRootProvider
 └─ même arbre relié à un état useJsonTreeView
 ```
 
 | Partie | Rôle |
 | --- | --- |
-| `JsonTreeView` / `JsonTreeView.Root` | Gère les données, la collection générée et l’état de l’arbre Ark. |
-| `JsonTreeView.RootProvider` | Relie les parties à une instance d’état `useJsonTreeView` créée en dehors de l’arbre. |
-| `JsonTreeView.Tree` | Affiche les nœuds générés pour les objets, tableaux et valeurs. |
+| `JsonTreeView` | Gère les données, la collection générée et l’état de l’arbre Ark. |
+| `JsonTreeViewRootProvider` | Relie les parties à une instance d’état `useJsonTreeView` créée en dehors de l’arbre. |
+| `JsonTreeViewTree` | Affiche les nœuds générés pour les objets, tableaux et valeurs. |
 
 ## Composition
 
-Gardez `JsonTreeView.Tree` comme enfant de `JsonTreeView` ou de `JsonTreeView.Root` : il affiche les nœuds JSON
+Gardez `JsonTreeViewTree` comme enfant de `JsonTreeView` ou de `JsonTreeView` : il affiche les nœuds JSON
 générés. Lorsque des contrôles externes gèrent l’état de l’arbre, créez `useJsonTreeView` à partir du package
-correspondant au framework et transmettez son état à `JsonTreeView.RootProvider`, puis affichez `Tree` à l’intérieur.
+correspondant au framework et transmettez son état à `JsonTreeViewRootProvider`, puis affichez `JsonTreeViewTree` à l’intérieur.
 Utilisez `expandedValue`, `selectedValue`, `checkedValue` ou `focusedValue` en mode contrôlé uniquement lorsque
 l’état appartient à l’application. Ne rendez pas `Root` et `RootProvider` pour le même état.
 
@@ -154,13 +154,13 @@ Utilisez `className` en React ou `class` en Solid sur `Root`, `RootProvider` ou 
 mise en page. Les variantes Tailwind utilisent des classes utilitaires et les classes de l’application ; les
 variantes CSS Modules utilisent leurs styles et les tokens de base.
 
-Lorsque `arrow` est omis, `JsonTreeView.Tree` utilise le `ChevronRightIcon` fourni par moduix. Passez votre propre
+Lorsque `arrow` est omis, `JsonTreeViewTree` utilise le `ChevronRightIcon` fourni par moduix. Passez votre propre
 icône via `arrow` si la vue d’inspection utilise un autre indicateur d’ouverture.
 
 Les nœuds générés conservent les attributs Ark `data-scope="json-tree-view"` et `data-part`. moduix ajoute les
 repères stables `data-slot="json-tree-view-root"`, `json-tree-view-root-provider` et `json-tree-view-tree`.
 
-`JsonTreeView.Tree` transmet la prop Ark `indentGuide` lorsque vous activez les guides d’indentation. moduix ne
+`JsonTreeViewTree` transmet la prop Ark `indentGuide` lorsque vous activez les guides d’indentation. moduix ne
 style pas les éléments `[data-part='branch-indent-guide']` générés ; ciblez cet attribut avec vos propres styles
 lorsque les guides sont activés.
 

@@ -13,7 +13,14 @@ import {
   DrawerTitle,
   DrawerTrigger,
 } from '@moduix/react/drawer';
-import { ScrollArea, ScrollAreaContent, ScrollAreaCorner, ScrollAreaScrollbar, ScrollAreaThumb, ScrollAreaViewport } from '@moduix/react/scroll-area';
+import {
+  ScrollArea,
+  ScrollAreaContent,
+  ScrollAreaCorner,
+  ScrollAreaScrollbar,
+  ScrollAreaThumb,
+  ScrollAreaViewport,
+} from '@moduix/react/scroll-area';
 import styles from '@/components/examples/drawer/drawer-scrollable.module.css';
 
 const scrollSections = [

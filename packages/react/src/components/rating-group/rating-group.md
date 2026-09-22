@@ -55,17 +55,17 @@ RatingGroupRootProvider
 └─ same part tree connected to an Ark useRatingGroup() store
 ```
 
-| Part                    | Hook                                      | Notes                                     |
-| ----------------------- | ----------------------------------------- | ----------------------------------------- |
+| Part                       | Hook                                      | Notes                                     |
+| -------------------------- | ----------------------------------------- | ----------------------------------------- |
 | `RatingGroup`              | `data-slot="rating-group-root"`           | Ark root with moduix `size` styling.      |
 | `RatingGroupRootProvider`  | `data-slot="rating-group-root-provider"`  | Connects an Ark `useRatingGroup()` store. |
-| `RatingGroupHiddenInput`   | -                                          | Explicit native form control.             |
+| `RatingGroupHiddenInput`   | -                                         | Explicit native form control.             |
 | `RatingGroupLabel`         | `data-slot="rating-group-label"`          | Ark label part.                           |
 | `RatingGroupControl`       | `data-slot="rating-group-control"`        | Ark item container.                       |
-| `RatingGroupItems`         | -                                          | Renders Ark items and default stars.      |
+| `RatingGroupItems`         | -                                         | Renders Ark items and default stars.      |
 | `RatingGroupItem`          | `data-slot="rating-group-item"`           | Ark item; requires numeric `index`.       |
-| `RatingGroupItemContext`   | -                                          | Render-prop access to current item state. |
-| `RatingGroupContext`       | -                                          | Render-prop access to current root state. |
+| `RatingGroupItemContext`   | -                                         | Render-prop access to current item state. |
+| `RatingGroupContext`       | -                                         | Render-prop access to current root state. |
 | `RatingGroupItemIndicator` | `data-slot="rating-group-item-indicator"` | Default moduix star visual.               |
 
 ## Composition

@@ -8,7 +8,7 @@
   "files": [
     {
       "path": "src/components/kbd/Kbd.tsx",
-      "content": "import type { HTMLArkProps } from '@ark-ui/solid/factory';\nimport { ark } from '@ark-ui/solid/factory';\nimport { clsx } from 'clsx';\nimport { splitProps } from 'solid-js';\nimport styles from './Kbd.module.css';\n\nfunction Kbd(props: HTMLArkProps<'kbd'>) {\n  const [local, others] = splitProps(props, ['class']);\n\n  return (\n    <ark.kbd\n      {...others}\n      data-scope=\"kbd\"\n      data-part=\"root\"\n      class={clsx(styles.root, local.class)}\n      data-slot=\"kbd-root\"\n    />\n  );\n}\n\nfunction KbdGroup(props: HTMLArkProps<'span'>) {\n  const [local, others] = splitProps(props, ['class']);\n\n  return (\n    <ark.span\n      {...others}\n      role=\"group\"\n      data-scope=\"kbd\"\n      data-part=\"group\"\n      class={clsx(styles.group, local.class)}\n      data-slot=\"kbd-group\"\n    />\n  );\n}\n\nexport { Kbd, KbdGroup };\n",
+      "content": "import type { HTMLArkProps } from '@ark-ui/solid/factory';\nimport { ark } from '@ark-ui/solid/factory';\nimport { clsx } from 'clsx';\nimport { splitProps } from 'solid-js';\nimport styles from './Kbd.module.css';\n\nfunction Kbd(props: HTMLArkProps<'kbd'>) {\n  const [local, others] = splitProps(props, ['class']);\n\n  return (\n    <ark.kbd\n      {...others}\n      data-scope=\"kbd\"\n      data-part=\"root\"\n      class={clsx(styles.root, local.class)}\n      data-slot=\"kbd-root\"\n    />\n  );\n}\n\nfunction KbdGroup(props: HTMLArkProps<'span'>) {\n  const [local, others] = splitProps(props, ['class']);\n\n  return (\n    <ark.span\n      {...others}\n      role=\"group\"\n      data-scope=\"kbd\"\n      data-part=\"group\"\n      class={clsx(styles.group, local.class)}\n      data-slot=\"kbd-group\"\n    />\n  );\n}\n\nexport { Kbd, KbdGroup };",
       "type": "registry:component",
       "target": "@components/ui/kbd/Kbd.tsx"
     },
@@ -20,7 +20,7 @@
     },
     {
       "path": "src/components/kbd/index.ts",
-      "content": "export { Kbd, KbdGroup } from './Kbd.js';\n",
+      "content": "export { Kbd, KbdGroup } from './Kbd.js';",
       "type": "registry:component",
       "target": "@components/ui/kbd/index.ts"
     }

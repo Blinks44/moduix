@@ -1,4 +1,13 @@
-import { Slider, SliderControl, SliderHiddenInput, SliderLabel, SliderRange, SliderThumb, SliderTrack, SliderValueText } from '@moduix/solid/slider';
+import {
+  Slider,
+  SliderControl,
+  SliderHiddenInput,
+  SliderLabel,
+  SliderRange,
+  SliderThumb,
+  SliderTrack,
+  SliderValueText,
+} from '@moduix/solid/slider';
 import styles from '@/components/examples/slider/slider-advanced-customization.module.css';
 
 export default function AdvancedCustomizationSliderDemo() {

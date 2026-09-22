@@ -1,4 +1,10 @@
-import { PinInput, PinInputHiddenInput, PinInputLabel, PinInputControl, PinInputInputs } from '@moduix/solid/pin-input';
+import {
+  PinInput,
+  PinInputHiddenInput,
+  PinInputLabel,
+  PinInputControl,
+  PinInputInputs,
+} from '@moduix/solid/pin-input';
 
 export default function PinInputDemo() {
   return (

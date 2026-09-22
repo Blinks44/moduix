@@ -1,9 +1,5 @@
 import { Field, FieldLabel } from '@moduix/react/field';
-import {
-  InputGroup,
-  InputGroupAddon,
-  InputGroupInput,
-} from '@moduix/react/input-group';
+import { InputGroup, InputGroupAddon, InputGroupInput } from '@moduix/react/input-group';
 import styles from '@/components/examples/input-group/input-group-as-child.module.css';
 
 const repositoryOwner = 'moduix/';

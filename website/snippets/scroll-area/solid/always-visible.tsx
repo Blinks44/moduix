@@ -1,4 +1,11 @@
-import { ScrollArea, ScrollAreaContent, ScrollAreaCorner, ScrollAreaScrollbar, ScrollAreaThumb, ScrollAreaViewport } from '@moduix/solid/scroll-area';
+import {
+  ScrollArea,
+  ScrollAreaContent,
+  ScrollAreaCorner,
+  ScrollAreaScrollbar,
+  ScrollAreaThumb,
+  ScrollAreaViewport,
+} from '@moduix/solid/scroll-area';
 import styles from '@/components/examples/scroll-area/scroll-area-always-visible.module.css';
 
 const items = Array.from({ length: 12 }, (_, index) => `Inbox item ${index + 1}`);

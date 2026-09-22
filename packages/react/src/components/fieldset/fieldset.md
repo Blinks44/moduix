@@ -39,13 +39,13 @@ Fieldset | FieldsetRootProvider
 └─ FieldsetErrorText (optional)
 ```
 
-| Part                    | `data-slot`              | Element/role                       |
-| ----------------------- | ------------------------ | ---------------------------------- |
-| `Fieldset`              | `fieldset-root`          | Native `fieldset`; owns state.     |
-| `FieldsetRootProvider`  | `fieldset-root-provider` | Native `fieldset`; external state. |
-| `FieldsetLegend`        | `fieldset-legend`        | Native `legend`.                   |
-| `FieldsetHelperText`    | `fieldset-helper-text`   | Descriptive `span`.                |
-| `FieldsetErrorText`     | `fieldset-error-text`    | Conditional polite-live `span`.    |
+| Part                   | `data-slot`              | Element/role                       |
+| ---------------------- | ------------------------ | ---------------------------------- |
+| `Fieldset`             | `fieldset-root`          | Native `fieldset`; owns state.     |
+| `FieldsetRootProvider` | `fieldset-root-provider` | Native `fieldset`; external state. |
+| `FieldsetLegend`       | `fieldset-legend`        | Native `legend`.                   |
+| `FieldsetHelperText`   | `fieldset-helper-text`   | Descriptive `span`.                |
+| `FieldsetErrorText`    | `fieldset-error-text`    | Conditional polite-live `span`.    |
 
 `FieldsetContext` and `useFieldsetContext` expose the state returned by `useFieldset`; they do not
 render an additional DOM part.

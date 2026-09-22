@@ -41,10 +41,10 @@ picture (native)
 └─ Image
 ```
 
-| Part                   | Hook                       | Notes                                      |
-| ---------------------- | -------------------------- | ------------------------------------------ |
-| `Image`                | `data-slot="image-root"`   | Responsive native `<img>` element.         |
-| `ImageSource`          | `data-slot="image-source"` | Responsive `<source>` for native pictures. |
+| Part          | Hook                       | Notes                                      |
+| ------------- | -------------------------- | ------------------------------------------ |
+| `Image`       | `data-slot="image-root"`   | Responsive native `<img>` element.         |
+| `ImageSource` | `data-slot="image-source"` | Responsive `<source>` for native pictures. |
 
 ## Composition
 

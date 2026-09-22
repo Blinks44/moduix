@@ -1,4 +1,12 @@
-import { Slider, SliderControl, SliderLabel, SliderRange, SliderThumbs, SliderTrack, SliderValueText } from '@moduix/react/slider';
+import {
+  Slider,
+  SliderControl,
+  SliderLabel,
+  SliderRange,
+  SliderThumbs,
+  SliderTrack,
+  SliderValueText,
+} from '@moduix/react/slider';
 import { useState } from 'react';
 import { PreviewMeta } from '@/components/mdx/Components';
 import styles from '@/components/examples/slider/slider-change-events.module.css';

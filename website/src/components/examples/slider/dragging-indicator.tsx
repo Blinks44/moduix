@@ -1,4 +1,13 @@
-import { Slider, SliderControl, SliderDraggingIndicator, SliderHiddenInput, SliderLabel, SliderRange, SliderThumb, SliderTrack } from '@moduix/react/slider';
+import {
+  Slider,
+  SliderControl,
+  SliderDraggingIndicator,
+  SliderHiddenInput,
+  SliderLabel,
+  SliderRange,
+  SliderThumb,
+  SliderTrack,
+} from '@moduix/react/slider';
 
 export default function DraggingIndicatorSliderDemo() {
   return (

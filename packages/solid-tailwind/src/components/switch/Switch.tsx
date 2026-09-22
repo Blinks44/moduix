@@ -1,8 +1,4 @@
-import {
-  Switch as SwitchPrimitive,
-  useSwitch,
-  useSwitchContext,
-} from '@ark-ui/solid/switch';
+import { Switch as SwitchPrimitive, useSwitch, useSwitchContext } from '@ark-ui/solid/switch';
 import type { ComponentProps } from 'solid-js';
 import { children, splitProps } from 'solid-js';
 import { cn } from '@/lib/moduix/cn';

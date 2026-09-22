@@ -10,7 +10,16 @@ import {
   ProgressLinearRootProvider,
   useProgress,
 } from '@/components/progress-linear/ProgressLinear';
-import { Slider, SliderControl, SliderHiddenInput, SliderLabel, SliderRange, SliderThumb, SliderTrack, SliderValueText } from '@/components/slider/Slider';
+import {
+  Slider,
+  SliderControl,
+  SliderHiddenInput,
+  SliderLabel,
+  SliderRange,
+  SliderThumb,
+  SliderTrack,
+  SliderValueText,
+} from '@/components/slider/Slider';
 
 const meta = {
   title: 'Components/ProgressLinear',

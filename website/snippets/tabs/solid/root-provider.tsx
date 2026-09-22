@@ -1,10 +1,4 @@
-import {
-  TabsContent,
-  TabsList,
-  TabsRootProvider,
-  TabsTrigger,
-  useTabs,
-} from '@moduix/solid/tabs';
+import { TabsContent, TabsList, TabsRootProvider, TabsTrigger, useTabs } from '@moduix/solid/tabs';
 import styles from '@/components/examples/tabs/tabs-root-provider.module.css';
 
 const items = [

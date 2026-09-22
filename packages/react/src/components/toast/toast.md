@@ -60,14 +60,14 @@ createToaster()
 
 Every visual exported part accepts `className` and receives a stable `data-slot`:
 
-| Part                  | `data-slot`            | Notes                                                    |
-| --------------------- | ---------------------- | -------------------------------------------------------- |
-| `Toast`               | `toast-root`           | Styled Ark root.                                         |
-| `ToastToaster`        | `toast-toaster`        | Styled Ark group renderer for a `createToaster()` store. |
-| `ToastTitle`          | `toast-title`          | Defaults to the current toast title.                     |
-| `ToastDescription`    | `toast-description`    | Defaults to the current toast description.               |
-| `ToastActionTrigger`  | `toast-action-trigger` | Styled Ark action button for the current toast action.   |
-| `ToastCloseTrigger`   | `toast-close-trigger`  | Defaults to `CloseButton` and the `"Close toast"` label. |
+| Part                 | `data-slot`            | Notes                                                    |
+| -------------------- | ---------------------- | -------------------------------------------------------- |
+| `Toast`              | `toast-root`           | Styled Ark root.                                         |
+| `ToastToaster`       | `toast-toaster`        | Styled Ark group renderer for a `createToaster()` store. |
+| `ToastTitle`         | `toast-title`          | Defaults to the current toast title.                     |
+| `ToastDescription`   | `toast-description`    | Defaults to the current toast description.               |
+| `ToastActionTrigger` | `toast-action-trigger` | Styled Ark action button for the current toast action.   |
+| `ToastCloseTrigger`  | `toast-close-trigger`  | Defaults to `CloseButton` and the `"Close toast"` label. |
 
 ## Composition
 

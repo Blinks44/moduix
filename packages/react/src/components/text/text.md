@@ -56,9 +56,9 @@ Text
 └─ text or inline content
 ```
 
-| Part                 | data-slot   | Notes                                           |
-| -------------------- | ----------- | ----------------------------------------------- |
-| `Text`              | `text-root` | Ark factory root with typography styling hooks. |
+| Part   | data-slot   | Notes                                           |
+| ------ | ----------- | ----------------------------------------------- |
+| `Text` | `text-root` | Ark factory root with typography styling hooks. |
 
 ## Composition
 

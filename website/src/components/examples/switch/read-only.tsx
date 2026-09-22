@@ -1,9 +1,4 @@
-import {
-  Switch,
-  SwitchControl,
-  SwitchHiddenInput,
-  SwitchLabel,
-} from '@moduix/react/switch';
+import { Switch, SwitchControl, SwitchHiddenInput, SwitchLabel } from '@moduix/react/switch';
 import styles from '@/components/examples/switch/switch-read-only.module.css';
 
 export default function ReadOnlySwitchDemo() {

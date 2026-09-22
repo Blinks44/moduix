@@ -1,8 +1,4 @@
-import {
-  RadioGroup,
-  RadioGroupLabel,
-  RadioGroupOption,
-} from '@moduix/solid/radio-group';
+import { RadioGroup, RadioGroupLabel, RadioGroupOption } from '@moduix/solid/radio-group';
 
 export default function RadioGroupItemDisabledDemo() {
   return (

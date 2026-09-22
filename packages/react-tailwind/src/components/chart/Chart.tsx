@@ -48,23 +48,24 @@ function withTooltipStyles<
   return { ...definition, tooltip: styledTooltip };
 }
 
-const Chart = forwardRef<ComponentRef<typeof ark.figure>, HTMLArkProps<'figure'>>(
-  function Chart({ className, ...props }, ref) {
-    return (
-      <ark.figure
-        ref={ref}
-        className={cn(
-          'grid w-full min-w-0 gap-5 rounded-lg border border-border bg-card p-5 text-card-foreground shadow-sm',
-          className,
-        )}
-        {...props}
-        data-scope="chart"
-        data-part="root"
-        data-slot="chart-root"
-      />
-    );
-  },
-);
+const Chart = forwardRef<ComponentRef<typeof ark.figure>, HTMLArkProps<'figure'>>(function Chart(
+  { className, ...props },
+  ref,
+) {
+  return (
+    <ark.figure
+      ref={ref}
+      className={cn(
+        'grid w-full min-w-0 gap-5 rounded-lg border border-border bg-card p-5 text-card-foreground shadow-sm',
+        className,
+      )}
+      {...props}
+      data-scope="chart"
+      data-part="root"
+      data-slot="chart-root"
+    />
+  );
+});
 
 const renderDefaultTooltipBody = ({ content }: ChartTooltipBodyRenderContext) => {
   if (typeof content === 'string') {

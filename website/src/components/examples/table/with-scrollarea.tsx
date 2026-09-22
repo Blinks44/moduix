@@ -1,5 +1,19 @@
-import { ScrollArea, ScrollAreaContent, ScrollAreaCorner, ScrollAreaScrollbar, ScrollAreaThumb, ScrollAreaViewport } from '@moduix/react/scroll-area';
-import { Table, TableBody, TableCell, TableColumnHeader, TableHeader, TableRow } from '@moduix/react/table';
+import {
+  ScrollArea,
+  ScrollAreaContent,
+  ScrollAreaCorner,
+  ScrollAreaScrollbar,
+  ScrollAreaThumb,
+  ScrollAreaViewport,
+} from '@moduix/react/scroll-area';
+import {
+  Table,
+  TableBody,
+  TableCell,
+  TableColumnHeader,
+  TableHeader,
+  TableRow,
+} from '@moduix/react/table';
 import styles from '@/components/examples/table/table-with-scrollarea.module.css';
 
 const rows = [

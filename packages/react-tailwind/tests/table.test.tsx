@@ -1,7 +1,20 @@
 import { expect, test } from '@rstest/core';
 import { render, screen } from '@testing-library/react';
 import { createRef } from 'react';
-import { Table, TableBody, TableCaption, TableCell, TableColumn, TableColumnGroup, TableColumnHeader, TableEmpty, TableFooter, TableHeader, TableRow, TableScrollArea } from '../src';
+import {
+  Table,
+  TableBody,
+  TableCaption,
+  TableCell,
+  TableColumn,
+  TableColumnGroup,
+  TableColumnHeader,
+  TableEmpty,
+  TableFooter,
+  TableHeader,
+  TableRow,
+  TableScrollArea,
+} from '../src';
 
 test('renders the native table anatomy with stable hooks and defaults', () => {
   render(

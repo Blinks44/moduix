@@ -1,10 +1,4 @@
-import {
-  Tabs,
-  TabsContent,
-  TabsIndicator,
-  TabsList,
-  TabsTrigger,
-} from '@moduix/react/tabs';
+import { Tabs, TabsContent, TabsIndicator, TabsList, TabsTrigger } from '@moduix/react/tabs';
 import { useState } from 'react';
 
 const items = [

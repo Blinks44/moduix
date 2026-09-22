@@ -1,5 +1,13 @@
 import { createListCollection } from '@ark-ui/react/collection';
-import { Listbox, ListboxContent, ListboxItem, ListboxItemIndicator, ListboxItemText, ListboxLabel, ListboxValueText } from '@moduix/react/listbox';
+import {
+  Listbox,
+  ListboxContent,
+  ListboxItem,
+  ListboxItemIndicator,
+  ListboxItemText,
+  ListboxLabel,
+  ListboxValueText,
+} from '@moduix/react/listbox';
 import styles from '@/components/examples/listbox/listbox-value-text.module.css';
 
 const countries = createListCollection({

@@ -1,4 +1,11 @@
-import { Menu, MenuTrigger, MenuPositioner, MenuContent, MenuViewport, MenuItem } from '@moduix/react/menu';
+import {
+  Menu,
+  MenuTrigger,
+  MenuPositioner,
+  MenuContent,
+  MenuViewport,
+  MenuItem,
+} from '@moduix/react/menu';
 import { Map as MapIcon } from 'lucide-react';
 import styles from '@/components/examples/menu/menu-multiple-triggers.module.css';
 

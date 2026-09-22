@@ -1,4 +1,12 @@
-import { Slider, SliderControl, SliderMarker, SliderMarkerGroup, SliderRange, SliderThumbs, SliderTrack } from '@moduix/react/slider';
+import {
+  Slider,
+  SliderControl,
+  SliderMarker,
+  SliderMarkerGroup,
+  SliderRange,
+  SliderThumbs,
+  SliderTrack,
+} from '@moduix/react/slider';
 import { useState } from 'react';
 import { PreviewMeta } from '@/components/mdx/Components';
 import styles from '@/components/examples/slider/slider-vertical-with-marks.module.css';

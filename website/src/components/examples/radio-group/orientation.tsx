@@ -1,8 +1,4 @@
-import {
-  RadioGroup,
-  RadioGroupLabel,
-  RadioGroupOption,
-} from '@moduix/react/radio-group';
+import { RadioGroup, RadioGroupLabel, RadioGroupOption } from '@moduix/react/radio-group';
 import styles from '@/components/examples/radio-group/radio-group-orientation.module.css';
 
 const frameworks = ['React', 'Solid', 'Vue'];

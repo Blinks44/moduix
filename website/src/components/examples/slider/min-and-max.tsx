@@ -1,4 +1,12 @@
-import { Slider, SliderControl, SliderLabel, SliderRange, SliderThumbs, SliderTrack, SliderValueText } from '@moduix/react/slider';
+import {
+  Slider,
+  SliderControl,
+  SliderLabel,
+  SliderRange,
+  SliderThumbs,
+  SliderTrack,
+  SliderValueText,
+} from '@moduix/react/slider';
 
 export default function MinMaxSliderDemo() {
   return (

@@ -3,10 +3,7 @@
   "name": "lightbox",
   "title": "Lightbox",
   "description": "moduix React Lightbox component.",
-  "dependencies": [
-    "@ark-ui/react",
-    "clsx"
-  ],
+  "dependencies": ["@ark-ui/react", "clsx"],
   "registryDependencies": [
     "@moduix-react/foundation",
     "@moduix-react/close-button",

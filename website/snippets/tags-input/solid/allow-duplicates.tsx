@@ -1,4 +1,11 @@
-import { TagsInput, TagsInputClearTrigger, TagsInputControl, TagsInputInput, TagsInputItems, TagsInputLabel } from '@moduix/solid/tags-input';
+import {
+  TagsInput,
+  TagsInputClearTrigger,
+  TagsInputControl,
+  TagsInputInput,
+  TagsInputItems,
+  TagsInputLabel,
+} from '@moduix/solid/tags-input';
 import styles from '@/components/examples/tags-input/tags-input-allow-duplicates.module.css';
 
 export default function AllowDuplicatesTagsInput() {

@@ -7,11 +7,7 @@ component's root, fieldset state, ARIA wiring, CSS variables, and `FieldsetRootP
 
 ```tsx
 import { Field } from '@moduix/solid/field';
-import {
-  Fieldset,
-  FieldsetHelperText,
-  FieldsetLegend,
-} from '@moduix/solid/fieldset';
+import { Fieldset, FieldsetHelperText, FieldsetLegend } from '@moduix/solid/fieldset';
 
 export function ContactDetails() {
   return (

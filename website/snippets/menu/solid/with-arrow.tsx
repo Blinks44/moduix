@@ -1,5 +1,15 @@
 import { Button } from '@moduix/solid/button';
-import { Menu, MenuTrigger, MenuIndicator, MenuPositioner, MenuContent, MenuViewport, MenuArrow, MenuArrowTip, MenuItem } from '@moduix/solid/menu';
+import {
+  Menu,
+  MenuTrigger,
+  MenuIndicator,
+  MenuPositioner,
+  MenuContent,
+  MenuViewport,
+  MenuArrow,
+  MenuArrowTip,
+  MenuItem,
+} from '@moduix/solid/menu';
 
 export default function MenuWithArrowDemo() {
   return (

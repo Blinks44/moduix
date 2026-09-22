@@ -18,7 +18,16 @@ import {
   CommandPaletteSearch,
   CommandPaletteTrigger,
 } from '@moduix/solid/command-palette';
-import { Menu, MenuTrigger, MenuPositioner, MenuContent, MenuViewport, MenuItem, MenuItemGroup, MenuItemGroupLabel } from '@moduix/solid/menu';
+import {
+  Menu,
+  MenuTrigger,
+  MenuPositioner,
+  MenuContent,
+  MenuViewport,
+  MenuItem,
+  MenuItemGroup,
+  MenuItemGroupLabel,
+} from '@moduix/solid/menu';
 import {
   ChevronDown,
   CircleHelp,

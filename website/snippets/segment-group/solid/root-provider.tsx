@@ -1,5 +1,10 @@
 import { Button } from '@moduix/solid/button';
-import { SegmentGroupIndicator, SegmentGroupItems, SegmentGroupRootProvider, useSegmentGroup } from '@moduix/solid/segment-group';
+import {
+  SegmentGroupIndicator,
+  SegmentGroupItems,
+  SegmentGroupRootProvider,
+  useSegmentGroup,
+} from '@moduix/solid/segment-group';
 import styles from '@/components/examples/segment-group/segment-group-root-provider.module.css';
 
 const frameworks = [

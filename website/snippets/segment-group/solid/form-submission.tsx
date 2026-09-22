@@ -1,5 +1,9 @@
 import { Button } from '@moduix/solid/button';
-import { SegmentGroup, SegmentGroupIndicator, SegmentGroupItems } from '@moduix/solid/segment-group';
+import {
+  SegmentGroup,
+  SegmentGroupIndicator,
+  SegmentGroupItems,
+} from '@moduix/solid/segment-group';
 import { createSignal } from 'solid-js';
 import styles from '@/components/examples/segment-group/segment-group-form-submission.module.css';
 

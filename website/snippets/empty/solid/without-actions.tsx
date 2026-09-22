@@ -1,10 +1,4 @@
-import {
-  Empty,
-  EmptyContent,
-  EmptyDescription,
-  EmptyIcon,
-  EmptyTitle,
-} from '@moduix/solid/empty';
+import { Empty, EmptyContent, EmptyDescription, EmptyIcon, EmptyTitle } from '@moduix/solid/empty';
 import { Map as MapIcon } from 'lucide-solid';
 import styles from '@/components/examples/empty/empty-without-actions.module.css';
 

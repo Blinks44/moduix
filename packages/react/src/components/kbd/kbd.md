@@ -41,10 +41,10 @@ KbdGroup
 └─ Kbd
 ```
 
-| Part               | Default element | Data attributes                                                                  |
-| ------------------ | --------------- | -------------------------------------------------------------------------------- |
-| `Kbd`              | `kbd`           | `data-scope="kbd"`, `data-part="root"`, `data-slot="kbd-root"`                   |
-| `KbdGroup`         | `span`          | `role="group"`, `data-scope="kbd"`, `data-part="group"`, `data-slot="kbd-group"` |
+| Part       | Default element | Data attributes                                                                  |
+| ---------- | --------------- | -------------------------------------------------------------------------------- |
+| `Kbd`      | `kbd`           | `data-scope="kbd"`, `data-part="root"`, `data-slot="kbd-root"`                   |
+| `KbdGroup` | `span`          | `role="group"`, `data-scope="kbd"`, `data-part="group"`, `data-slot="kbd-group"` |
 
 ## Composition
 

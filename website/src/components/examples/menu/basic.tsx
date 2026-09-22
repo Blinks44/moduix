@@ -1,5 +1,13 @@
 import { Button } from '@moduix/react/button';
-import { Menu, MenuTrigger, MenuIndicator, MenuPositioner, MenuContent, MenuViewport, MenuItem } from '@moduix/react/menu';
+import {
+  Menu,
+  MenuTrigger,
+  MenuIndicator,
+  MenuPositioner,
+  MenuContent,
+  MenuViewport,
+  MenuItem,
+} from '@moduix/react/menu';
 import styles from '@/components/examples/menu/menu-basic.module.css';
 
 const fileItems = [

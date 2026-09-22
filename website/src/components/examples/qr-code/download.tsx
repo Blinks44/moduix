@@ -1,9 +1,4 @@
-import {
-  QrCode,
-  QrCodeDownloadTrigger,
-  QrCodeFrame,
-  QrCodePattern,
-} from '@moduix/react/qr-code';
+import { QrCode, QrCodeDownloadTrigger, QrCodeFrame, QrCodePattern } from '@moduix/react/qr-code';
 
 export default function DownloadQrCodeDemo() {
   return (

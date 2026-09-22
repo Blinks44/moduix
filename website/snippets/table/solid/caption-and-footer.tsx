@@ -1,4 +1,14 @@
-import { Table, TableBody, TableCaption, TableCell, TableColumnHeader, TableFooter, TableHeader, TableRow, TableScrollArea } from '@moduix/solid/table';
+import {
+  Table,
+  TableBody,
+  TableCaption,
+  TableCell,
+  TableColumnHeader,
+  TableFooter,
+  TableHeader,
+  TableRow,
+  TableScrollArea,
+} from '@moduix/solid/table';
 
 const invoices = [
   {

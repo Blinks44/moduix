@@ -1,9 +1,4 @@
-import {
-  Marquee,
-  MarqueeContent,
-  MarqueeItem,
-  MarqueeViewport,
-} from '@moduix/react/marquee';
+import { Marquee, MarqueeContent, MarqueeItem, MarqueeViewport } from '@moduix/react/marquee';
 import styles from '@/components/examples/marquee/marquee-auto-fill.module.css';
 
 const partners = [

@@ -3,18 +3,12 @@
   "name": "native-select",
   "title": "Native Select",
   "description": "moduix React Native Select component.",
-  "dependencies": [
-    "@ark-ui/react",
-    "clsx"
-  ],
-  "registryDependencies": [
-    "@moduix-react/foundation",
-    "@moduix-react/icons"
-  ],
+  "dependencies": ["@ark-ui/react", "clsx"],
+  "registryDependencies": ["@moduix-react/foundation", "@moduix-react/icons"],
   "files": [
     {
       "path": "src/components/native-select/NativeSelect.tsx",
-      "content": "import { Field as FieldPrimitive } from '@ark-ui/react/field';\nimport { clsx } from 'clsx';\nimport type { ComponentProps, ComponentRef } from 'react';\nimport { forwardRef } from 'react';\nimport { ChevronDownIcon } from '@/lib/moduix/icons/ui';\nimport styles from './NativeSelect.module.css';\n\ntype NativeSelectProps = ComponentProps<typeof FieldPrimitive.Select> & {\n  controlProps?: ComponentProps<'span'>;\n};\n\nconst NativeSelect = forwardRef<\n  ComponentRef<typeof FieldPrimitive.Select>,\n  NativeSelectProps\n>(function NativeSelect({ className, controlProps, ...props }, ref) {\n  return (\n    <span\n      {...controlProps}\n      data-scope=\"native-select\"\n      data-part=\"control\"\n      data-slot=\"native-select-control\"\n      className={clsx(styles.control, controlProps?.className)}\n    >\n      <FieldPrimitive.Select\n        {...props}\n        ref={ref}\n        data-scope=\"field\"\n        data-part=\"select\"\n        data-slot=\"native-select-root\"\n        className={clsx(styles.root, className)}\n      />\n      <span\n        aria-hidden=\"true\"\n        data-scope=\"native-select\"\n        data-part=\"indicator\"\n        data-slot=\"native-select-indicator\"\n        className={styles.indicator}\n      >\n        <ChevronDownIcon />\n      </span>\n    </span>\n  );\n});\n\nexport { NativeSelect };\n",
+      "content": "import { Field as FieldPrimitive } from '@ark-ui/react/field';\nimport { clsx } from 'clsx';\nimport type { ComponentProps, ComponentRef } from 'react';\nimport { forwardRef } from 'react';\nimport { ChevronDownIcon } from '@/lib/moduix/icons/ui';\nimport styles from './NativeSelect.module.css';\n\ntype NativeSelectProps = ComponentProps<typeof FieldPrimitive.Select> & {\n  controlProps?: ComponentProps<'span'>;\n};\n\nconst NativeSelect = forwardRef<ComponentRef<typeof FieldPrimitive.Select>, NativeSelectProps>(\n  function NativeSelect({ className, controlProps, ...props }, ref) {\n    return (\n      <span\n        {...controlProps}\n        data-scope=\"native-select\"\n        data-part=\"control\"\n        data-slot=\"native-select-control\"\n        className={clsx(styles.control, controlProps?.className)}\n      >\n        <FieldPrimitive.Select\n          {...props}\n          ref={ref}\n          data-scope=\"field\"\n          data-part=\"select\"\n          data-slot=\"native-select-root\"\n          className={clsx(styles.root, className)}\n        />\n        <span\n          aria-hidden=\"true\"\n          data-scope=\"native-select\"\n          data-part=\"indicator\"\n          data-slot=\"native-select-indicator\"\n          className={styles.indicator}\n        >\n          <ChevronDownIcon />\n        </span>\n      </span>\n    );\n  },\n);\n\nexport { NativeSelect };",
       "type": "registry:component",
       "target": "@components/ui/native-select/NativeSelect.tsx"
     },

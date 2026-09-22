@@ -2,7 +2,20 @@ import type { Meta, StoryObj } from '@storybook/react-vite';
 import { Badge } from '@/components/badge';
 import { Button } from '@/components/button';
 import { Card, CardBody, CardHeader, CardTitle } from '@/components/card/Card';
-import { Table, TableBody, TableCaption, TableCell, TableColumn, TableColumnGroup, TableColumnHeader, TableEmpty, TableFooter, TableHeader, TableRow, TableScrollArea } from '@/components/table/Table';
+import {
+  Table,
+  TableBody,
+  TableCaption,
+  TableCell,
+  TableColumn,
+  TableColumnGroup,
+  TableColumnHeader,
+  TableEmpty,
+  TableFooter,
+  TableHeader,
+  TableRow,
+  TableScrollArea,
+} from '@/components/table/Table';
 import styles from './Table.stories.module.css';
 
 const invoices = [
@@ -311,9 +324,7 @@ export const Empty: Story = {
     <div className={styles.showcase}>
       <TableScrollArea>
         <Table>
-          <TableCaption side="top">
-            Projects filtered by the current workspace query.
-          </TableCaption>
+          <TableCaption side="top">Projects filtered by the current workspace query.</TableCaption>
           <TableHeader>
             <TableRow>
               <TableColumnHeader>Project</TableColumnHeader>

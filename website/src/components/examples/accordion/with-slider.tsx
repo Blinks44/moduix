@@ -6,7 +6,15 @@ import {
   AccordionItemIndicator,
   AccordionItemTrigger,
 } from '@moduix/react/accordion';
-import { Slider, SliderControl, SliderHiddenInput, SliderLabel, SliderRange, SliderThumb, SliderTrack } from '@moduix/react/slider';
+import {
+  Slider,
+  SliderControl,
+  SliderHiddenInput,
+  SliderLabel,
+  SliderRange,
+  SliderThumb,
+  SliderTrack,
+} from '@moduix/react/slider';
 import styles from '@/components/examples/accordion/accordion-with-slider.module.css';
 
 const items = [

@@ -228,7 +228,7 @@ changing the others, or a component-wide variable when every status should share
 - 2026-09-21: Replaced the compound `Alert.*` value surface with the shared flat API. `Alert` is now
   the only root value; every other part uses an `Alert`-prefixed named export.
 
-- 2026-09-06: Made `Alert.Content` required, simplifying the root layout to a single flex row and
+- 2026-09-06: Made `AlertContent` required, simplifying the root layout to a single flex row and
   removing support for direct title and description children.
 - 2026-08-14: Consolidated statuses on the card-based `info` default shared with Toast and removed
   the redundant `neutral` status and variables.
@@ -236,21 +236,21 @@ changing the others, or a component-wide variable when every status should share
   preserved component-wide overrides as the highest-priority theming path; and clarified live-region
   usage in consumer docs.
 - 2026-07-21: Routed shared dimensions, spacing, icon geometry, and focus-ring fallbacks through foundation tokens so density and theme presets can retune the component consistently.
-- 2026-07-09: Added `Alert.Actions` as narrow sugar for wrapped action rows, aligned examples on the
+- 2026-07-09: Added `AlertActions` as narrow sugar for wrapped action rows, aligned examples on the
   short `<Alert>` root form, and moved the low-level docs path under `Advanced Customization`.
-- 2026-07-06: Made `Alert.Content` optional for the simple title/description path, changed
-  `Alert.Title` to render `p` by default, and tightened the default root padding to
+- 2026-07-06: Made `AlertContent` optional for the simple title/description path, changed
+  `AlertTitle` to render `p` by default, and tightened the default root padding to
   `var(--moduix-spacing-3)`.
 - 2026-07-02: Simplified the public type surface by removing Alert prop and status aliases; preserved
   callable-root composition, all visual parts, statuses, automatic roles, refs, `asChild`, and
   styling hooks.
 - 2026-07-01: Aligned runnable examples on the short `<Alert>` root form while preserving
-  `Alert.Root` as the equivalent anatomy/API alias.
-- 2026-06: Migrated `Alert` to an Ark-style compound contract based on `Alert.Root`,
-  `Alert.Indicator`, `Alert.Content`, `Alert.Title`, and `Alert.Description`; replaced
+  `Alert` as the equivalent anatomy/API alias.
+- 2026-06: Migrated `Alert` to an Ark-style compound contract based on `Alert`,
+  `AlertIndicator`, `AlertContent`, `AlertTitle`, and `AlertDescription`; replaced
   `variant` with `status`; renamed `destructive` to `error`; and moved heading polymorphism from
   `as` to `asChild`.
 - 2026-06-18: Updated docs/examples to make every Alert preview reproducible with `Code`,
-  `Styles`, and `Data` tabs, and added a dedicated `Alert.Title asChild` example.
+  `Styles`, and `Data` tabs, and added a dedicated `AlertTitle asChild` example.
 - 2026-06-24: Added explicit Ark-style `data-scope` / `data-part` hooks and finalized local/docs
   guidance for the Ark factory implementation.

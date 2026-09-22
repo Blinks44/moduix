@@ -1,4 +1,12 @@
-import { Slider, SliderControl, SliderLabel, SliderRange, SliderThumbs, SliderTrack, useSliderContext } from '@moduix/solid/slider';
+import {
+  Slider,
+  SliderControl,
+  SliderLabel,
+  SliderRange,
+  SliderThumbs,
+  SliderTrack,
+  useSliderContext,
+} from '@moduix/solid/slider';
 
 function SliderStatus() {
   const slider = useSliderContext();

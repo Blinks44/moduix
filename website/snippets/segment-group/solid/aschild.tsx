@@ -1,4 +1,11 @@
-import { SegmentGroup, SegmentGroupIndicator, SegmentGroupItem, SegmentGroupItemControl, SegmentGroupItemHiddenInput, SegmentGroupItemText } from '@moduix/solid/segment-group';
+import {
+  SegmentGroup,
+  SegmentGroupIndicator,
+  SegmentGroupItem,
+  SegmentGroupItemControl,
+  SegmentGroupItemHiddenInput,
+  SegmentGroupItemText,
+} from '@moduix/solid/segment-group';
 import styles from '@/components/examples/segment-group/segment-group-advanced-customization.module.css';
 
 const billingCycles = [

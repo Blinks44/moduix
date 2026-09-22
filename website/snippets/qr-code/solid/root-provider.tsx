@@ -16,9 +16,7 @@ export default function RootProviderQrCodeDemo() {
       <QrCodeFrame>
         <QrCodePattern />
       </QrCodeFrame>
-      <QrCodeContext>
-        {(context) => <output>Encoded URL: {context().value}</output>}
-      </QrCodeContext>
+      <QrCodeContext>{(context) => <output>Encoded URL: {context().value}</output>}</QrCodeContext>
     </QrCodeRootProvider>
   );
 }

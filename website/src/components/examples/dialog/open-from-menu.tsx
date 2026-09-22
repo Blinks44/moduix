@@ -9,7 +9,15 @@ import {
   DialogPositioner,
   DialogTitle,
 } from '@moduix/react/dialog';
-import { Menu, MenuTrigger, MenuIndicator, MenuPositioner, MenuContent, MenuViewport, MenuItem } from '@moduix/react/menu';
+import {
+  Menu,
+  MenuTrigger,
+  MenuIndicator,
+  MenuPositioner,
+  MenuContent,
+  MenuViewport,
+  MenuItem,
+} from '@moduix/react/menu';
 import { useState } from 'react';
 
 export default function OpenFromMenuDialogDemo() {

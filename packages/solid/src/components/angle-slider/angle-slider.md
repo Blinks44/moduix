@@ -25,7 +25,7 @@ surface follows the shared flat API: `AngleSlider`, `AngleSliderLabel`, `AngleSl
 - The dial is a circular track: a `conic-gradient` fill from the top masked to the ring band, a
   rounded start cap, a circle thumb riding the ring centerline, and the centered value text
   (`Dial` renders `Control`, the centered `ValueText`, and `Thumb`).
-- `AngleSlider.Control` focuses the thumb synchronously on a left pointer down with
+- `AngleSliderControl` focuses the thumb synchronously on a left pointer down with
   `focus({ preventScroll: true, focusVisible: false })` after `event.preventDefault()`, so the
   pointer interaction and its release state stay free of the keyboard focus ring; the deferred Ark
   focus becomes redundant. The handler calls the consumer `onPointerDown` first and skips the focus

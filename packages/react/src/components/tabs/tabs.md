@@ -48,28 +48,22 @@ State and callbacks must remain Ark-shaped. `onValueChange(details)` exposes the
 </TabsRootProvider>
 ```
 
-| Export              | `data-slot`          | Notes                                              |
-| ------------------- | -------------------- | -------------------------------------------------- |
-| `Tabs`              | `tabs-root`          | Root div, selected value, focus and orientation.   |
-| `TabsRootProvider` | `tabs-root-provider` | Root provider div for `useTabs()` state.           |
-| `TabsContext`      | -                    | Advanced render-prop access to the current state.  |
-| `TabsList`         | `tabs-list`          | Trigger list.                                      |
-| `TabsTrigger`      | `tabs-trigger`       | Button by default; supports Ark `asChild`.         |
-| `TabsIndicator`    | `tabs-indicator`     | Optional active-trigger indicator.                 |
-| `TabsContent`      | `tabs-content`       | Content region for a matching trigger value.       |
-| `useTabs`           | -                    | Ark-compatible state hook for `TabsRootProvider`. |
-| `useTabsContext`    | -                    | Reads the current state from a Tabs tree.          |
+| Export             | `data-slot`          | Notes                                             |
+| ------------------ | -------------------- | ------------------------------------------------- |
+| `Tabs`             | `tabs-root`          | Root div, selected value, focus and orientation.  |
+| `TabsRootProvider` | `tabs-root-provider` | Root provider div for `useTabs()` state.          |
+| `TabsContext`      | -                    | Advanced render-prop access to the current state. |
+| `TabsList`         | `tabs-list`          | Trigger list.                                     |
+| `TabsTrigger`      | `tabs-trigger`       | Button by default; supports Ark `asChild`.        |
+| `TabsIndicator`    | `tabs-indicator`     | Optional active-trigger indicator.                |
+| `TabsContent`      | `tabs-content`       | Content region for a matching trigger value.      |
+| `useTabs`          | -                    | Ark-compatible state hook for `TabsRootProvider`. |
+| `useTabsContext`   | -                    | Reads the current state from a Tabs tree.         |
 
 ## Composition
 
 ```tsx
-import {
-  Tabs,
-  TabsContent,
-  TabsIndicator,
-  TabsList,
-  TabsTrigger,
-} from '@moduix/react/tabs';
+import { Tabs, TabsContent, TabsIndicator, TabsList, TabsTrigger } from '@moduix/react/tabs';
 
 export function Example() {
   return (

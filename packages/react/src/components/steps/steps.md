@@ -82,20 +82,20 @@ StepsRootProvider
 └─ same part tree connected to useSteps()
 ```
 
-| Export                   | `data-slot`               | Notes                                                                              |
-| ------------------------ | ------------------------- | ---------------------------------------------------------------------------------- |
-| `Steps`                  | `steps-root`              | Root Ark state machine and default export shape.                                   |
-| `StepsRootProvider`      | `steps-root-provider`     | Uses a `useSteps()` store.                                                         |
-| `StepsList`              | `steps-list`              | Ark tablist.                                                                       |
-| `StepsItem`              | `steps-item`              | Requires zero-based `index`.                                                       |
-| `StepsTrigger`           | `steps-trigger`           | Ark tab button, supports `asChild`.                                                |
-| `StepsIndicator`         | `steps-indicator`         | Defaults to number/check icon when children are omitted.                           |
-| `StepsSeparator`         | `steps-separator`         | Real Ark connector part.                                                           |
-| `StepsContent`           | `steps-content`           | Ark tabpanel for a matching `index`.                                               |
-| `StepsCompletedContent`  | `steps-completed-content` | Ark tabpanel for completion state.                                                 |
-| `StepsPrevTrigger`       | `steps-prev-trigger`      | Previous-step button.                                                              |
-| `StepsNextTrigger`       | `steps-next-trigger`      | Next-step button.                                                                  |
-| `StepsProgress`          | `steps-progress`          | Visual progress track using Ark `--percent`; add an accessible status when needed. |
+| Export                  | `data-slot`               | Notes                                                                              |
+| ----------------------- | ------------------------- | ---------------------------------------------------------------------------------- |
+| `Steps`                 | `steps-root`              | Root Ark state machine and default export shape.                                   |
+| `StepsRootProvider`     | `steps-root-provider`     | Uses a `useSteps()` store.                                                         |
+| `StepsList`             | `steps-list`              | Ark tablist.                                                                       |
+| `StepsItem`             | `steps-item`              | Requires zero-based `index`.                                                       |
+| `StepsTrigger`          | `steps-trigger`           | Ark tab button, supports `asChild`.                                                |
+| `StepsIndicator`        | `steps-indicator`         | Defaults to number/check icon when children are omitted.                           |
+| `StepsSeparator`        | `steps-separator`         | Real Ark connector part.                                                           |
+| `StepsContent`          | `steps-content`           | Ark tabpanel for a matching `index`.                                               |
+| `StepsCompletedContent` | `steps-completed-content` | Ark tabpanel for completion state.                                                 |
+| `StepsPrevTrigger`      | `steps-prev-trigger`      | Previous-step button.                                                              |
+| `StepsNextTrigger`      | `steps-next-trigger`      | Next-step button.                                                                  |
+| `StepsProgress`         | `steps-progress`          | Visual progress track using Ark `--percent`; add an accessible status when needed. |
 
 `useSteps()` creates state for `StepsRootProvider`. `useStepsContext`,
 `useStepsItemContext`, `StepsContext`, and `StepsItemContext` are exported from `@moduix/react`

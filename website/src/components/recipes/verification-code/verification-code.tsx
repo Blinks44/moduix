@@ -1,8 +1,20 @@
 import { Button } from '@moduix/react/button';
 import {
-  Card, CardBody, CardDescription, CardFooter, CardHeader, CardTitle, } from '@moduix/react/card';
+  Card,
+  CardBody,
+  CardDescription,
+  CardFooter,
+  CardHeader,
+  CardTitle,
+} from '@moduix/react/card';
 import { Field, FieldErrorText } from '@moduix/react/field';
-import { PinInput, PinInputHiddenInput, PinInputLabel, PinInputControl, PinInputInputs } from '@moduix/react/pin-input';
+import {
+  PinInput,
+  PinInputHiddenInput,
+  PinInputLabel,
+  PinInputControl,
+  PinInputInputs,
+} from '@moduix/react/pin-input';
 import type { FormEventHandler } from 'react';
 import { useState } from 'react';
 import styles from './verification-code-form.module.css';

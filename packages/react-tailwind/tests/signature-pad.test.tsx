@@ -158,9 +158,9 @@ test('preserves read-only behavior through useSignaturePad and RootProvider', ()
     const signaturePad = useSignaturePad({ defaultPaths, readOnly: true });
 
     return (
-        <SignaturePadRootProvider value={signaturePad}>
-          <SignaturePadParts label="Provider signature" />
-        </SignaturePadRootProvider>
+      <SignaturePadRootProvider value={signaturePad}>
+        <SignaturePadParts label="Provider signature" />
+      </SignaturePadRootProvider>
     );
   }
 

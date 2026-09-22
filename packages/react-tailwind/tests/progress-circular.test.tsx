@@ -183,9 +183,7 @@ function RootProviderProgress() {
   return (
     <ProgressCircularRootProvider value={progress} data-testid="progress-provider">
       <ProgressCircularRing aria-label="Team rollout" />
-      <ProgressCircularContext>
-        {(state) => <output>{state.value}</output>}
-      </ProgressCircularContext>
+      <ProgressCircularContext>{(state) => <output>{state.value}</output>}</ProgressCircularContext>
     </ProgressCircularRootProvider>
   );
 }

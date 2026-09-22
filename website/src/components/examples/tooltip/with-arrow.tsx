@@ -1,9 +1,4 @@
-import {
-  Tooltip,
-  TooltipArrow,
-  TooltipBody,
-  TooltipTrigger,
-} from '@moduix/react/tooltip';
+import { Tooltip, TooltipArrow, TooltipBody, TooltipTrigger } from '@moduix/react/tooltip';
 
 export default function TooltipWithArrowDemo() {
   return (

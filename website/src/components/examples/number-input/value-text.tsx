@@ -1,4 +1,9 @@
-import { NumberInput, NumberInputField, NumberInputLabel, NumberInputValueText } from '@moduix/react/number-input';
+import {
+  NumberInput,
+  NumberInputField,
+  NumberInputLabel,
+  NumberInputValueText,
+} from '@moduix/react/number-input';
 
 export default function ValueTextNumberInputDemo() {
   return (

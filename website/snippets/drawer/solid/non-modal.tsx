@@ -13,7 +13,14 @@ import {
   DrawerTitle,
   DrawerTrigger,
 } from '@moduix/solid/drawer';
-import { ScrollArea, ScrollAreaContent, ScrollAreaCorner, ScrollAreaScrollbar, ScrollAreaThumb, ScrollAreaViewport } from '@moduix/solid/scroll-area';
+import {
+  ScrollArea,
+  ScrollAreaContent,
+  ScrollAreaCorner,
+  ScrollAreaScrollbar,
+  ScrollAreaThumb,
+  ScrollAreaViewport,
+} from '@moduix/solid/scroll-area';
 import { For } from 'solid-js';
 import styles from '@/components/examples/drawer/drawer-non-modal.module.css';
 

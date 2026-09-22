@@ -1,8 +1,4 @@
-import {
-  ToggleGroup,
-  ToggleGroupItem,
-  useToggleGroupContext,
-} from '@moduix/react/toggle-group';
+import { ToggleGroup, ToggleGroupItem, useToggleGroupContext } from '@moduix/react/toggle-group';
 import { CheckIcon } from 'lucide-react';
 import type { ReactNode } from 'react';
 

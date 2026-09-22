@@ -38,8 +38,8 @@ Heading
 └─ text or inline content
 ```
 
-| Part                       | Stable hooks                                                           |
-| -------------------------- | ---------------------------------------------------------------------- |
+| Part      | Stable hooks                                                           |
+| --------- | ---------------------------------------------------------------------- |
 | `Heading` | `data-scope="heading"`, `data-part="root"`, `data-slot="heading-root"` |
 
 The root also exposes `data-size` when `size` is explicit and `data-weight` for the resolved weight

@@ -1,4 +1,14 @@
-import { Slider, SliderControl, SliderLabel, SliderMarker, SliderMarkerGroup, SliderRange, SliderThumbs, SliderTrack, SliderValueText } from '@moduix/solid/slider';
+import {
+  Slider,
+  SliderControl,
+  SliderLabel,
+  SliderMarker,
+  SliderMarkerGroup,
+  SliderRange,
+  SliderThumbs,
+  SliderTrack,
+  SliderValueText,
+} from '@moduix/solid/slider';
 import styles from '@/components/examples/slider/slider-marks.module.css';
 
 const marks = [0, 25, 50, 75, 100];

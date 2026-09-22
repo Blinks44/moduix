@@ -47,17 +47,17 @@ For advanced customization, replace `PasswordInputField` with its explicit Ark p
 </PasswordInput>
 ```
 
-| Part                                   | Hook                                            | Notes                             |
-| -------------------------------------- | ----------------------------------------------- | --------------------------------- |
+| Part                              | Hook                                            | Notes                             |
+| --------------------------------- | ----------------------------------------------- | --------------------------------- |
 | `PasswordInput` / `PasswordInput` | `data-slot="password-input-root"`               | Ark root.                         |
-| `PasswordInputRootProvider`           | `data-slot="password-input-root-provider"`      | Use with `usePasswordInput`.      |
-| `PasswordInputContext`                | -                                               | Render-prop access to root state. |
-| `PasswordInputLabel`                  | `data-slot="password-input-label"`              | Ark label.                        |
-| `PasswordInputField`                  | `data-slot="password-input-control"`            | Default visible parts.            |
-| `PasswordInputControl`                | `data-slot="password-input-control"`            | Positions input and trigger.      |
-| `PasswordInputInput`                  | `data-slot="password-input-input"`              | Native input part.                |
-| `PasswordInputVisibilityTrigger`      | `data-slot="password-input-visibility-trigger"` | Toggle button.                    |
-| `PasswordInputIndicator`              | `data-slot="password-input-indicator"`          | Defaults to moduix eye icons.     |
+| `PasswordInputRootProvider`       | `data-slot="password-input-root-provider"`      | Use with `usePasswordInput`.      |
+| `PasswordInputContext`            | -                                               | Render-prop access to root state. |
+| `PasswordInputLabel`              | `data-slot="password-input-label"`              | Ark label.                        |
+| `PasswordInputField`              | `data-slot="password-input-control"`            | Default visible parts.            |
+| `PasswordInputControl`            | `data-slot="password-input-control"`            | Positions input and trigger.      |
+| `PasswordInputInput`              | `data-slot="password-input-input"`              | Native input part.                |
+| `PasswordInputVisibilityTrigger`  | `data-slot="password-input-visibility-trigger"` | Toggle button.                    |
+| `PasswordInputIndicator`          | `data-slot="password-input-indicator"`          | Defaults to moduix eye icons.     |
 
 ## Composition
 

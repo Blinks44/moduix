@@ -1,5 +1,15 @@
 import { Button } from '@moduix/react/button';
-import { Menu, MenuTrigger, MenuIndicator, MenuPositioner, MenuContent, MenuViewport, MenuArrow, MenuArrowTip, MenuItem } from '@moduix/react/menu';
+import {
+  Menu,
+  MenuTrigger,
+  MenuIndicator,
+  MenuPositioner,
+  MenuContent,
+  MenuViewport,
+  MenuArrow,
+  MenuArrowTip,
+  MenuItem,
+} from '@moduix/react/menu';
 
 export default function MenuWithArrowDemo() {
   return (

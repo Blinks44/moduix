@@ -6,7 +6,19 @@ native form behavior, and explicit `HiddenInput` composition.
 ## Composition
 
 ```tsx
-import { PinInput, PinInputRootProvider, PinInputContext, PinInputHiddenInput, PinInputLabel, PinInputControl, PinInputInput, PinInputInputs, PinInputSeparator, usePinInput, usePinInputContext } from '@moduix/solid/pin-input';
+import {
+  PinInput,
+  PinInputRootProvider,
+  PinInputContext,
+  PinInputHiddenInput,
+  PinInputLabel,
+  PinInputControl,
+  PinInputInput,
+  PinInputInputs,
+  PinInputSeparator,
+  usePinInput,
+  usePinInputContext,
+} from '@moduix/solid/pin-input';
 
 export function VerificationCodeField() {
   return (

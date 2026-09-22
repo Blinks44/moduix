@@ -13,7 +13,15 @@ import {
   useAccordion,
 } from '@/components/accordion/Accordion';
 import { ChevronDownIcon } from '@/lib/moduix/icons/ui';
-import { Slider, SliderControl, SliderHiddenInput, SliderLabel, SliderRange, SliderThumb, SliderTrack } from '../../../../packages/react-tailwind/src/components/slider';
+import {
+  Slider,
+  SliderControl,
+  SliderHiddenInput,
+  SliderLabel,
+  SliderRange,
+  SliderThumb,
+  SliderTrack,
+} from '../../../../packages/react-tailwind/src/components/slider';
 
 const meta = {
   title: 'Components/Accordion',

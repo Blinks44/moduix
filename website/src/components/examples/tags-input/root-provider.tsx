@@ -1,6 +1,14 @@
 import { Button } from '@moduix/react/button';
 import { Stack } from '@moduix/react/stack';
-import { TagsInputClearTrigger, TagsInputControl, TagsInputInput, TagsInputItems, TagsInputLabel, TagsInputRootProvider, useTagsInput } from '@moduix/react/tags-input';
+import {
+  TagsInputClearTrigger,
+  TagsInputControl,
+  TagsInputInput,
+  TagsInputItems,
+  TagsInputLabel,
+  TagsInputRootProvider,
+  useTagsInput,
+} from '@moduix/react/tags-input';
 import { useId } from 'react';
 import { PreviewMeta } from '@/components/mdx/Components';
 import styles from '@/components/examples/tags-input/tags-input-root-provider.module.css';

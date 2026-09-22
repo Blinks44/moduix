@@ -1,10 +1,6 @@
 'use client';
 
-import {
-  Switch as SwitchPrimitive,
-  useSwitch,
-  useSwitchContext,
-} from '@ark-ui/react/switch';
+import { Switch as SwitchPrimitive, useSwitch, useSwitchContext } from '@ark-ui/react/switch';
 import type { ComponentProps, ComponentRef } from 'react';
 import { forwardRef } from 'react';
 import { cn } from '@/lib/moduix/cn';

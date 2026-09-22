@@ -1,5 +1,10 @@
 import { Button } from '@moduix/react/button';
-import { SegmentGroupIndicator, SegmentGroupItems, SegmentGroupRootProvider, useSegmentGroup } from '@moduix/react/segment-group';
+import {
+  SegmentGroupIndicator,
+  SegmentGroupItems,
+  SegmentGroupRootProvider,
+  useSegmentGroup,
+} from '@moduix/react/segment-group';
 import { PreviewMeta } from '@/components/mdx/Components';
 import styles from '@/components/examples/segment-group/segment-group-root-provider.module.css';
 

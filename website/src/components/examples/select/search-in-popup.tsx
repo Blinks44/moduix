@@ -1,9 +1,5 @@
 import { createListCollection } from '@ark-ui/react/collection';
-import {
-  InputGroup,
-  InputGroupAddon,
-  InputGroupInput,
-} from '@moduix/react/input-group';
+import { InputGroup, InputGroupAddon, InputGroupInput } from '@moduix/react/input-group';
 import {
   Select,
   SelectLabel,

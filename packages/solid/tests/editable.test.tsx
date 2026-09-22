@@ -258,9 +258,7 @@ test('forwards refs on ordinary parts and exposes context state', () => {
         <EditableInput ref={(element) => (inputRef = element)} />
         <EditablePreview />
       </EditableArea>
-      <EditableContext>
-        {(editable) => <span>{`render:${editable().value}`}</span>}
-      </EditableContext>
+      <EditableContext>{(editable) => <span>{`render:${editable().value}`}</span>}</EditableContext>
       <EditableStatus />
     </Editable>
   ));

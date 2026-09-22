@@ -1,8 +1,4 @@
-import {
-  RatingGroup,
-  RatingGroupControl,
-  RatingGroupItems,
-} from '@moduix/solid/rating-group';
+import { RatingGroup, RatingGroupControl, RatingGroupItems } from '@moduix/solid/rating-group';
 import styles from '@/components/examples/rating-group/component-sizes.module.css';
 
 export default function RatingGroupSizesDemo() {

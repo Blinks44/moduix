@@ -1,5 +1,14 @@
 import { Button } from '@moduix/react/button';
-import { Slider, SliderControl, SliderHiddenInput, SliderLabel, SliderRange, SliderThumb, SliderTrack, SliderValueText } from '@moduix/react/slider';
+import {
+  Slider,
+  SliderControl,
+  SliderHiddenInput,
+  SliderLabel,
+  SliderRange,
+  SliderThumb,
+  SliderTrack,
+  SliderValueText,
+} from '@moduix/react/slider';
 import type { FormEvent } from 'react';
 import { useState } from 'react';
 import { PreviewMeta } from '@/components/mdx/Components';

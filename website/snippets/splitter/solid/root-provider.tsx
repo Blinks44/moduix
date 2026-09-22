@@ -1,5 +1,10 @@
 import { Button } from '@moduix/solid/button';
-import { SplitterPanel, SplitterResizeTrigger, SplitterRootProvider, useSplitter } from '@moduix/solid/splitter';
+import {
+  SplitterPanel,
+  SplitterResizeTrigger,
+  SplitterRootProvider,
+  useSplitter,
+} from '@moduix/solid/splitter';
 import styles from '@/components/examples/splitter/splitter-root-provider.module.css';
 
 const panels = [

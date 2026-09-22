@@ -1,9 +1,5 @@
 import { Field, FieldLabel } from '@moduix/react/field';
-import {
-  InputGroup,
-  InputGroupButton,
-  InputGroupInput,
-} from '@moduix/react/input-group';
+import { InputGroup, InputGroupButton, InputGroupInput } from '@moduix/react/input-group';
 import { useState } from 'react';
 import styles from '@/components/examples/input-group/input-group-with-action.module.css';
 

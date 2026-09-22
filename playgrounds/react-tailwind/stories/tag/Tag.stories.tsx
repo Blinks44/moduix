@@ -1,6 +1,12 @@
 import type { Meta, StoryObj } from '@storybook/react-vite';
 import { useState } from 'react';
-import { Tag, TagCloseTrigger, TagEndElement, TagLabel, TagStartElement } from '@/components/tag/Tag';
+import {
+  Tag,
+  TagCloseTrigger,
+  TagEndElement,
+  TagLabel,
+  TagStartElement,
+} from '@/components/tag/Tag';
 import { CheckIcon } from '@/lib/moduix/icons/ui';
 
 const meta = {

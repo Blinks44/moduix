@@ -1,4 +1,8 @@
-import { SegmentGroup, SegmentGroupIndicator, SegmentGroupItems } from '@moduix/react/segment-group';
+import {
+  SegmentGroup,
+  SegmentGroupIndicator,
+  SegmentGroupItems,
+} from '@moduix/react/segment-group';
 
 const frameworks = [
   { value: 'React', label: 'React' },

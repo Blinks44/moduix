@@ -1,4 +1,9 @@
-import { createSplitterRegistry, Splitter, SplitterPanel, SplitterResizeTrigger } from '@moduix/solid/splitter';
+import {
+  createSplitterRegistry,
+  Splitter,
+  SplitterPanel,
+  SplitterResizeTrigger,
+} from '@moduix/solid/splitter';
 import { createSignal } from 'solid-js';
 import styles from '@/components/examples/splitter/splitter-nested.module.css';
 

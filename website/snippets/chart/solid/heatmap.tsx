@@ -75,11 +75,7 @@ export default function HeatmapChartDemo() {
         <ChartTitle>Weekly activity</ChartTitle>
         <ChartDescription>Session volume by day and time of day.</ChartDescription>
       </ChartHeader>
-      <ChartPlot
-        definition={definition}
-        height={320}
-        ariaLabel="Weekly session activity heatmap"
-      />
+      <ChartPlot definition={definition} height={320} ariaLabel="Weekly session activity heatmap" />
       <ChartLegend aria-label="Activity levels">
         <ChartLegendItem color="var(--moduix-color-chart-3)">Low</ChartLegendItem>
         <ChartLegendItem color="var(--moduix-color-chart-2)">Medium</ChartLegendItem>

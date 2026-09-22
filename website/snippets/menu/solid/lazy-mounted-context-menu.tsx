@@ -1,4 +1,11 @@
-import { Menu, MenuContextTrigger, MenuPositioner, MenuContent, MenuViewport, MenuItem } from '@moduix/solid/menu';
+import {
+  Menu,
+  MenuContextTrigger,
+  MenuPositioner,
+  MenuContent,
+  MenuViewport,
+  MenuItem,
+} from '@moduix/solid/menu';
 import styles from '@/components/examples/menu/menu-lazy-mounted-context-menu.module.css';
 
 export default function ContextLazyMountMenuDemo() {

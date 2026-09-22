@@ -51,20 +51,20 @@ Slider
 
 Externally owned state replaces `Root` with `RootProvider`.
 
-| Part                       | `data-slot`                  |
-| -------------------------- | ---------------------------- |
-| `Slider`                   | `slider-root`                |
-| `SliderRootProvider`       | `slider-root-provider`       |
-| `SliderLabel`              | `slider-label`               |
-| `SliderValueText`          | `slider-value-text`          |
-| `SliderControl`            | `slider-control`             |
-| `SliderTrack`              | `slider-track`               |
-| `SliderRange`              | `slider-range`               |
-| `SliderThumb`              | `slider-thumb`               |
-| `SliderThumbs`             | Uses `slider-thumb` children |
-| `SliderMarkerGroup`        | `slider-marker-group`        |
-| `SliderMarker`             | `slider-marker`              |
-| `SliderDraggingIndicator`  | `slider-dragging-indicator`  |
+| Part                      | `data-slot`                  |
+| ------------------------- | ---------------------------- |
+| `Slider`                  | `slider-root`                |
+| `SliderRootProvider`      | `slider-root-provider`       |
+| `SliderLabel`             | `slider-label`               |
+| `SliderValueText`         | `slider-value-text`          |
+| `SliderControl`           | `slider-control`             |
+| `SliderTrack`             | `slider-track`               |
+| `SliderRange`             | `slider-range`               |
+| `SliderThumb`             | `slider-thumb`               |
+| `SliderThumbs`            | Uses `slider-thumb` children |
+| `SliderMarkerGroup`       | `slider-marker-group`        |
+| `SliderMarker`            | `slider-marker`              |
+| `SliderDraggingIndicator` | `slider-dragging-indicator`  |
 
 ## Composition
 

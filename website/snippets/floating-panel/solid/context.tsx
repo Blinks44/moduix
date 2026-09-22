@@ -24,9 +24,7 @@ export default function ContextFloatingPanelDemo() {
         height: 260,
       }}
     >
-      <FloatingPanelTrigger
-        asChild={(props) => <Button {...props()}>Open context panel</Button>}
-      />
+      <FloatingPanelTrigger asChild={(props) => <Button {...props()}>Open context panel</Button>} />
       <FloatingPanelPositioner>
         <FloatingPanelContent>
           <FloatingPanelDragTrigger>

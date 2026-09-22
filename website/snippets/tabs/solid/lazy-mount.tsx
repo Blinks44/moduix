@@ -1,10 +1,4 @@
-import {
-  Tabs,
-  TabsContent,
-  TabsIndicator,
-  TabsList,
-  TabsTrigger,
-} from '@moduix/solid/tabs';
+import { Tabs, TabsContent, TabsIndicator, TabsList, TabsTrigger } from '@moduix/solid/tabs';
 
 const items = [
   {

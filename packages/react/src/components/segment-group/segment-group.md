@@ -60,19 +60,19 @@ moduix defaults `orientation` to `horizontal` on `SegmentGroup`. Explicit
 </SegmentGroup>
 ```
 
-| Part                        | `data-slot`                   | Notes                                      |
-| --------------------------- | ----------------------------- | ------------------------------------------ |
-| `SegmentGroup`              | `segment-group-root`          | Ark root, value state, orientation, forms. |
-| `SegmentGroupRootProvider` | `segment-group-root-provider` | Uses state from `useSegmentGroup`.         |
-| `SegmentGroupContext`      | -                             | Advanced render-prop access to root state. |
-| `SegmentGroupItemContext`  | -                             | Advanced render-prop access to item state. |
-| `SegmentGroupLabel`        | `segment-group-label`         | Optional Ark group label.                  |
-| `SegmentGroupItems`        | -                             | Renders standard text items.               |
-| `SegmentGroupItem`         | `segment-group-item`          | Ark item, renders a `label` by default.    |
-| `SegmentGroupItemControl`  | `segment-group-item-control`  | Hidden visual control part for Ark state.  |
-| `SegmentGroupItemText`     | `segment-group-item-text`     | Visible item text.                         |
-| `SegmentGroupItemHiddenInput` | -                          | Native input for form submission and reset. |
-| `SegmentGroupIndicator`    | `segment-group-indicator`     | Measured active-item highlight.            |
+| Part                          | `data-slot`                   | Notes                                       |
+| ----------------------------- | ----------------------------- | ------------------------------------------- |
+| `SegmentGroup`                | `segment-group-root`          | Ark root, value state, orientation, forms.  |
+| `SegmentGroupRootProvider`    | `segment-group-root-provider` | Uses state from `useSegmentGroup`.          |
+| `SegmentGroupContext`         | -                             | Advanced render-prop access to root state.  |
+| `SegmentGroupItemContext`     | -                             | Advanced render-prop access to item state.  |
+| `SegmentGroupLabel`           | `segment-group-label`         | Optional Ark group label.                   |
+| `SegmentGroupItems`           | -                             | Renders standard text items.                |
+| `SegmentGroupItem`            | `segment-group-item`          | Ark item, renders a `label` by default.     |
+| `SegmentGroupItemControl`     | `segment-group-item-control`  | Hidden visual control part for Ark state.   |
+| `SegmentGroupItemText`        | `segment-group-item-text`     | Visible item text.                          |
+| `SegmentGroupItemHiddenInput` | -                             | Native input for form submission and reset. |
+| `SegmentGroupIndicator`       | `segment-group-indicator`     | Measured active-item highlight.             |
 
 Import `useSegmentGroup`, `useSegmentGroupContext`, and `useSegmentGroupItemContext` from
 `@moduix/react` when an advanced state workflow needs `SegmentGroupRootProvider` or current Ark state.

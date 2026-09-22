@@ -1,9 +1,4 @@
-import {
-  Timer,
-  TimerSegments,
-  TimerControl,
-  TimerActionTrigger,
-} from '@moduix/solid/timer';
+import { Timer, TimerSegments, TimerControl, TimerActionTrigger } from '@moduix/solid/timer';
 import { Pause as PauseIcon, Play as PlayIcon, RotateCcw as RotateCcwIcon } from 'lucide-solid';
 
 export default function TimerDemo() {

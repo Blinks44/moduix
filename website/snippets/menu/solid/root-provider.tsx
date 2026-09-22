@@ -1,5 +1,14 @@
 import { Button } from '@moduix/solid/button';
-import { useMenu, MenuRootProvider, MenuTrigger, MenuIndicator, MenuPositioner, MenuContent, MenuViewport, MenuItem } from '@moduix/solid/menu';
+import {
+  useMenu,
+  MenuRootProvider,
+  MenuTrigger,
+  MenuIndicator,
+  MenuPositioner,
+  MenuContent,
+  MenuViewport,
+  MenuItem,
+} from '@moduix/solid/menu';
 import styles from '@/components/examples/menu/menu-root-provider.module.css';
 
 export default function RootProviderMenuDemo() {

@@ -1,6 +1,14 @@
 import { Button } from '@moduix/solid/button';
 import { Stack } from '@moduix/solid/stack';
-import { TagsInputClearTrigger, TagsInputControl, TagsInputInput, TagsInputItems, TagsInputLabel, TagsInputRootProvider, useTagsInput } from '@moduix/solid/tags-input';
+import {
+  TagsInputClearTrigger,
+  TagsInputControl,
+  TagsInputInput,
+  TagsInputItems,
+  TagsInputLabel,
+  TagsInputRootProvider,
+  useTagsInput,
+} from '@moduix/solid/tags-input';
 import { createUniqueId } from 'solid-js';
 import styles from '@/components/examples/tags-input/tags-input-root-provider.module.css';
 

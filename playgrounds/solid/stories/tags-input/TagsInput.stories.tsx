@@ -2,7 +2,17 @@ import { clsx } from 'clsx';
 import { createSignal, createUniqueId } from 'solid-js';
 import type { Meta, StoryObj } from 'storybook-solidjs-vite';
 import { Field, FieldErrorText, FieldHelperText } from '@/components/field';
-import { TagsInput, TagsInputClearTrigger, TagsInputControl, TagsInputHiddenInput, TagsInputInput, TagsInputItems, TagsInputLabel, TagsInputRootProvider, useTagsInput } from '@/components/tags-input/TagsInput';
+import {
+  TagsInput,
+  TagsInputClearTrigger,
+  TagsInputControl,
+  TagsInputHiddenInput,
+  TagsInputInput,
+  TagsInputItems,
+  TagsInputLabel,
+  TagsInputRootProvider,
+  useTagsInput,
+} from '@/components/tags-input/TagsInput';
 import storyStyles from './TagsInput.stories.module.css';
 
 const initialTags = ['React', 'TypeScript'];

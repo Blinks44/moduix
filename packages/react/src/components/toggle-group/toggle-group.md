@@ -54,12 +54,12 @@ ToggleGroupRootProvider
 └─ ToggleGroupItem
 ```
 
-| Part                               | data-slot                    | Purpose                                                |
-| ---------------------------------- | ---------------------------- | ------------------------------------------------------ |
-| `ToggleGroup`                      | `toggle-group-root`          | Ark root with selected values, roving focus, and size. |
-| `ToggleGroupRootProvider`         | `toggle-group-root-provider` | Ark root driven by an external `useToggleGroup` state. |
-| `ToggleGroupContext`              | -                            | Render-prop access to current group state.             |
-| `ToggleGroupItem`                 | `toggle-group-item`          | Ark item button styled with moduix toggle visuals.     |
+| Part                      | data-slot                    | Purpose                                                |
+| ------------------------- | ---------------------------- | ------------------------------------------------------ |
+| `ToggleGroup`             | `toggle-group-root`          | Ark root with selected values, roving focus, and size. |
+| `ToggleGroupRootProvider` | `toggle-group-root-provider` | Ark root driven by an external `useToggleGroup` state. |
+| `ToggleGroupContext`      | -                            | Render-prop access to current group state.             |
+| `ToggleGroupItem`         | `toggle-group-item`          | Ark item button styled with moduix toggle visuals.     |
 
 ## Composition
 

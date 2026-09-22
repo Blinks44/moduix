@@ -1,10 +1,4 @@
-import {
-  Card,
-  CardBody,
-  CardDescription,
-  CardHeader,
-  CardTitle,
-} from '@moduix/solid/card';
+import { Card, CardBody, CardDescription, CardHeader, CardTitle } from '@moduix/solid/card';
 import styles from '@/components/examples/card/card-advanced-customization.module.css';
 
 export default function CardAdvancedCustomizationDemo() {

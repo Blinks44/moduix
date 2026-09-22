@@ -31,9 +31,7 @@ export default function RootProviderDemo() {
           <PopoverContent>
             <PopoverHeader>
               <PopoverTitle>External state</PopoverTitle>
-              <PopoverDescription>
-                The usePopover hook owns this popover state.
-              </PopoverDescription>
+              <PopoverDescription>The usePopover hook owns this popover state.</PopoverDescription>
             </PopoverHeader>
             <PopoverFooter>
               <PopoverCloseTrigger>Close</PopoverCloseTrigger>

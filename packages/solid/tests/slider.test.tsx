@@ -1,6 +1,19 @@
 import { expect, test } from '@rstest/core';
 import { fireEvent, render, screen, waitFor } from '@solidjs/testing-library';
-import { Slider, SliderControl, SliderHiddenInput, SliderLabel, SliderMarker, SliderMarkerGroup, SliderRange, SliderRootProvider, SliderThumb, SliderThumbs, SliderTrack, useSlider } from '../src';
+import {
+  Slider,
+  SliderControl,
+  SliderHiddenInput,
+  SliderLabel,
+  SliderMarker,
+  SliderMarkerGroup,
+  SliderRange,
+  SliderRootProvider,
+  SliderThumb,
+  SliderThumbs,
+  SliderTrack,
+  useSlider,
+} from '../src';
 
 function ProviderSlider() {
   const slider = useSlider({ defaultValue: [45], name: 'provider-volume' });

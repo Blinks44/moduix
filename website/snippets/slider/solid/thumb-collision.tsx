@@ -1,4 +1,12 @@
-import { Slider, SliderControl, SliderLabel, SliderRange, SliderThumbs, SliderTrack, SliderValueText } from '@moduix/solid/slider';
+import {
+  Slider,
+  SliderControl,
+  SliderLabel,
+  SliderRange,
+  SliderThumbs,
+  SliderTrack,
+  SliderValueText,
+} from '@moduix/solid/slider';
 import styles from '@/components/examples/slider/slider-thumb-collision.module.css';
 
 export default function ThumbCollisionSliderDemo() {

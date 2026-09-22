@@ -33,13 +33,7 @@ import {
   SelectItemIndicator,
 } from '@moduix/react/select';
 import { Switch, SwitchControl, SwitchHiddenInput, SwitchLabel } from '@moduix/react/switch';
-import {
-  Tabs,
-  TabsContent,
-  TabsIndicator,
-  TabsList,
-  TabsTrigger,
-} from '@moduix/react/tabs';
+import { Tabs, TabsContent, TabsIndicator, TabsList, TabsTrigger } from '@moduix/react/tabs';
 import { useI18n } from '@rspress/core/runtime';
 import { Link } from '@rspress/core/theme';
 import {

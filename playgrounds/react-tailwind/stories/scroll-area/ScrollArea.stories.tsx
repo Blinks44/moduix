@@ -1,6 +1,15 @@
 import type { Meta, StoryObj } from '@storybook/react-vite';
 import { Button } from '@/components/button/Button';
-import { ScrollArea, ScrollAreaContent, ScrollAreaCorner, ScrollAreaRootProvider, ScrollAreaScrollbar, ScrollAreaThumb, ScrollAreaViewport, useScrollArea } from '@/components/scroll-area/ScrollArea';
+import {
+  ScrollArea,
+  ScrollAreaContent,
+  ScrollAreaCorner,
+  ScrollAreaRootProvider,
+  ScrollAreaScrollbar,
+  ScrollAreaThumb,
+  ScrollAreaViewport,
+  useScrollArea,
+} from '@/components/scroll-area/ScrollArea';
 import { insideScrollSections } from '../data/insideScrollSections';
 
 const meta = {

@@ -44,9 +44,9 @@ Tag
    └─ TagCloseTrigger (optional)
 ```
 
-| Part               | Element  | Stable hooks                                                                     |
-| ------------------ | -------- | -------------------------------------------------------------------------------- |
-| `Tag`              | `span`   | `data-scope="tag"`, `data-part="root"`, `data-slot="tag-root"`                   |
+| Part              | Element  | Stable hooks                                                                     |
+| ----------------- | -------- | -------------------------------------------------------------------------------- |
+| `Tag`             | `span`   | `data-scope="tag"`, `data-part="root"`, `data-slot="tag-root"`                   |
 | `TagLabel`        | `span`   | `data-scope="tag"`, `data-part="label"`, `data-slot="tag-label"`                 |
 | `TagStartElement` | `span`   | `data-scope="tag"`, `data-part="start-element"`, `data-slot="tag-start-element"` |
 | `TagEndElement`   | `span`   | `data-scope="tag"`, `data-part="end-element"`, `data-slot="tag-end-element"`     |
@@ -111,10 +111,10 @@ Use `asChild` only when the root itself needs native semantics:
 
 ## Defaults and styling
 
-| Surface            | Prop         | Default                                                                      |
-| ------------------ | ------------ | ---------------------------------------------------------------------------- |
-| `Tag`              | `variant`    | `default`                                                                    |
-| `Tag`              | `size`       | `md`                                                                         |
+| Surface           | Prop         | Default                                                                      |
+| ----------------- | ------------ | ---------------------------------------------------------------------------- |
+| `Tag`             | `variant`    | `default`                                                                    |
+| `Tag`             | `size`       | `md`                                                                         |
 | `TagCloseTrigger` | `type`       | `button`                                                                     |
 | `TagCloseTrigger` | `children`   | close icon when not using `asChild`                                          |
 | `TagCloseTrigger` | `aria-label` | `Remove tag` when not using `asChild`, no children, and no `aria-labelledby` |

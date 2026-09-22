@@ -2,7 +2,32 @@ import type { Meta, StoryObj } from '@storybook/react-vite';
 import type { ComponentProps, ReactNode } from 'react';
 import { useState } from 'react';
 import { Button } from '@/components/button';
-import { Menu, useMenu, MenuRootProvider, MenuTrigger, MenuIndicator, MenuPositioner, MenuContent, MenuViewport, MenuArrow, MenuItem, MenuTriggerItem, MenuTriggerItemIcon, MenuSeparator, MenuItemGroup, MenuItemGroupLabel, MenuRadioItemGroup, MenuRadioItem, MenuCheckboxItem, MenuItemIndicator, MenuItemText, MenuItemTextContent, MenuItemTextIcon, MenuItemTextLabel, MenuItemShortcut } from '@/components/menu/Menu';
+import {
+  Menu,
+  useMenu,
+  MenuRootProvider,
+  MenuTrigger,
+  MenuIndicator,
+  MenuPositioner,
+  MenuContent,
+  MenuViewport,
+  MenuArrow,
+  MenuItem,
+  MenuTriggerItem,
+  MenuTriggerItemIcon,
+  MenuSeparator,
+  MenuItemGroup,
+  MenuItemGroupLabel,
+  MenuRadioItemGroup,
+  MenuRadioItem,
+  MenuCheckboxItem,
+  MenuItemIndicator,
+  MenuItemText,
+  MenuItemTextContent,
+  MenuItemTextIcon,
+  MenuItemTextLabel,
+  MenuItemShortcut,
+} from '@/components/menu/Menu';
 import { InfoIcon, MapIcon } from '../../icons/demo';
 import storyStyles from './Menu.stories.module.css';
 

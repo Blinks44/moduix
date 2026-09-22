@@ -1,4 +1,13 @@
-import { SliderControl, SliderLabel, SliderRange, SliderRootProvider, SliderThumbs, SliderTrack, SliderValueText, useSlider } from '@moduix/solid/slider';
+import {
+  SliderControl,
+  SliderLabel,
+  SliderRange,
+  SliderRootProvider,
+  SliderThumbs,
+  SliderTrack,
+  SliderValueText,
+  useSlider,
+} from '@moduix/solid/slider';
 import styles from '@/components/examples/slider/slider-root-provider.module.css';
 
 export default function RootProviderSliderDemo() {

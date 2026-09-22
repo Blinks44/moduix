@@ -1,4 +1,9 @@
-import { SplitterPanel, SplitterResizeTrigger, SplitterRootProvider, useSplitter } from '@moduix/solid/splitter';
+import {
+  SplitterPanel,
+  SplitterResizeTrigger,
+  SplitterRootProvider,
+  useSplitter,
+} from '@moduix/solid/splitter';
 import { createEffect, createSignal, onCleanup, onMount } from 'solid-js';
 import styles from '@/components/examples/splitter/splitter-dynamic-collapsible.module.css';
 

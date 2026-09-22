@@ -1,4 +1,8 @@
-import { SegmentGroup, SegmentGroupIndicator, SegmentGroupItems } from '@moduix/solid/segment-group';
+import {
+  SegmentGroup,
+  SegmentGroupIndicator,
+  SegmentGroupItems,
+} from '@moduix/solid/segment-group';
 import { createSignal } from 'solid-js';
 import styles from '@/components/examples/segment-group/segment-group-controlled.module.css';
 

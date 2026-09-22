@@ -9,7 +9,16 @@ import {
   ProgressCircularValueText,
   useProgress,
 } from '@/components/progress-circular/ProgressCircular';
-import { Slider, SliderControl, SliderHiddenInput, SliderLabel, SliderRange, SliderThumb, SliderTrack, SliderValueText } from '@/components/slider/Slider';
+import {
+  Slider,
+  SliderControl,
+  SliderHiddenInput,
+  SliderLabel,
+  SliderRange,
+  SliderThumb,
+  SliderTrack,
+  SliderValueText,
+} from '@/components/slider/Slider';
 import styles from './ProgressCircular.stories.module.css';
 
 const meta = {

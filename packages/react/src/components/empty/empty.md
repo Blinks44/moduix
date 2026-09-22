@@ -52,14 +52,14 @@ Empty
 └─ EmptyActions (optional)
 ```
 
-| Part                | Element | `data-part`   | `data-slot`         |
-| ------------------- | ------- | ------------- | ------------------- |
-| `Empty`             | `div`   | `root`        | `empty-root`        |
-| `EmptyIcon`         | `div`   | `icon`        | `empty-icon`        |
-| `EmptyContent`      | `div`   | `content`     | `empty-content`     |
-| `EmptyTitle`        | `h3`    | `title`       | `empty-title`       |
-| `EmptyDescription`  | `div`   | `description` | `empty-description` |
-| `EmptyActions`      | `div`   | `actions`     | `empty-actions`     |
+| Part               | Element | `data-part`   | `data-slot`         |
+| ------------------ | ------- | ------------- | ------------------- |
+| `Empty`            | `div`   | `root`        | `empty-root`        |
+| `EmptyIcon`        | `div`   | `icon`        | `empty-icon`        |
+| `EmptyContent`     | `div`   | `content`     | `empty-content`     |
+| `EmptyTitle`       | `h3`    | `title`       | `empty-title`       |
+| `EmptyDescription` | `div`   | `description` | `empty-description` |
+| `EmptyActions`     | `div`   | `actions`     | `empty-actions`     |
 
 ## Composition
 

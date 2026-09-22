@@ -43,9 +43,9 @@ Do not unpack or remap `onValueChange`; consumers should read `details.value`.
 </RadioGroup>
 ```
 
-| Part                      | `data-slot`                 | Notes                                     |
-| ------------------------- | --------------------------- | ----------------------------------------- |
-| `RadioGroup`              | `radio-group-root`          | Ark root, value state, orientation, form. |
+| Part                     | `data-slot`                 | Notes                                     |
+| ------------------------ | --------------------------- | ----------------------------------------- |
+| `RadioGroup`             | `radio-group-root`          | Ark root, value state, orientation, form. |
 | `RadioGroupRootProvider` | `radio-group-root-provider` | Uses state from Ark `useRadioGroup()`.    |
 | `RadioGroupLabel`        | `radio-group-label`         | Ark group label.                          |
 | `RadioGroupItem`         | `radio-group-item`          | Ark item, renders a `label` by default.   |

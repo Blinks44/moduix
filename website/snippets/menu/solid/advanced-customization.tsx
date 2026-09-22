@@ -1,5 +1,16 @@
 import { Button } from '@moduix/solid/button';
-import { Menu, MenuTrigger, MenuPositioner, MenuContent, MenuViewport, MenuItem, MenuSeparator, MenuItemGroup, MenuItemGroupLabel, MenuItemShortcut } from '@moduix/solid/menu';
+import {
+  Menu,
+  MenuTrigger,
+  MenuPositioner,
+  MenuContent,
+  MenuViewport,
+  MenuItem,
+  MenuSeparator,
+  MenuItemGroup,
+  MenuItemGroupLabel,
+  MenuItemShortcut,
+} from '@moduix/solid/menu';
 
 export default function AdvancedCustomizationMenuDemo() {
   return (

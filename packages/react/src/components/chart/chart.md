@@ -73,7 +73,7 @@ description do not fully explain the data. The root is a `figure` and its header
 
 ## Differences from upstream
 
-- Chakra uses `Chart.Root` around a Recharts tree; moduix exposes the flat `Chart` root while
+- Chakra uses a chart root around a Recharts tree; moduix exposes the flat `Chart` root while
   `ChartPlot` mounts a complete TanStack definition.
 - shadcn keeps its chart engine unwrapped and adds tooltip and legend presentation. moduix follows
   the same boundary without adding a label/color config that duplicates TanStack color scales.

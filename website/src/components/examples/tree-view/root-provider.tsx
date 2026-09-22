@@ -1,6 +1,4 @@
-import {
-  Button,
-} from '@moduix/react/button';
+import { Button } from '@moduix/react/button';
 import {
   TreeViewBranch,
   TreeViewBranchContent,

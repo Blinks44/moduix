@@ -63,9 +63,7 @@ function FloatingPanelSurface({
     <FloatingPanelPositioner>
       <FloatingPanelContent autoFocus={autoFocus} className={className}>
         <FloatingPanelDragTrigger>
-          <FloatingPanelHeader
-            className={custom ? 'border-b-primary/80 bg-primary/90' : undefined}
-          >
+          <FloatingPanelHeader className={custom ? 'border-b-primary/80 bg-primary/90' : undefined}>
             <FloatingPanelTitle className={custom ? 'text-primary-foreground' : undefined}>
               <FloatingPanelDragIndicator
                 className={custom ? 'text-primary-foreground' : undefined}

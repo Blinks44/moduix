@@ -1,7 +1,20 @@
 import { expect, test } from '@rstest/core';
 import { fireEvent, render, screen, waitFor } from '@testing-library/react';
 import { createRef } from 'react';
-import { Slider, SliderControl, SliderHiddenInput, SliderLabel, SliderMarker, SliderMarkerGroup, SliderRange, SliderRootProvider, SliderThumb, SliderThumbs, SliderTrack, useSlider } from '../src';
+import {
+  Slider,
+  SliderControl,
+  SliderHiddenInput,
+  SliderLabel,
+  SliderMarker,
+  SliderMarkerGroup,
+  SliderRange,
+  SliderRootProvider,
+  SliderThumb,
+  SliderThumbs,
+  SliderTrack,
+  useSlider,
+} from '../src';
 
 function ProviderSlider() {
   const slider = useSlider({ defaultValue: [45], name: 'provider-volume' });

@@ -22,9 +22,7 @@ export const DefaultPath: Story = {
     return (
       <Field className={storyStyles.field}>
         <FieldLabel>Comment</FieldLabel>
-        <FieldHelperText>
-          Included in the issue summary visible to the whole team.
-        </FieldHelperText>
+        <FieldHelperText>Included in the issue summary visible to the whole team.</FieldHelperText>
         <Textarea placeholder="Write a short comment" />
       </Field>
     );

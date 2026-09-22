@@ -143,7 +143,13 @@ export function CheckboxGroupDemo() {
 Provider state:
 
 ```tsx
-import { Checkbox, CheckboxControl, CheckboxLabel, CheckboxHiddenInput, useCheckbox } from '@moduix/react/checkbox';
+import {
+  Checkbox,
+  CheckboxControl,
+  CheckboxLabel,
+  CheckboxHiddenInput,
+  useCheckbox,
+} from '@moduix/react/checkbox';
 
 export function CheckboxProviderDemo() {
   const checkbox = useCheckbox({ defaultChecked: true });
@@ -246,7 +252,7 @@ export function CheckboxProviderDemo() {
   React, React Tailwind, Solid, and Solid Tailwind. The root is the only public `Checkbox`
   value; `CheckboxRootProvider`, `CheckboxContext`, `CheckboxHiddenInput`, `CheckboxControl`,
   `CheckboxIndicator`, `CheckboxLabel`, and `CheckboxGroup` are flat exports, and hooks stay
-  top-level `use*` exports. Removed `Object.assign` namespace assembly and `Checkbox.Root` and
+  top-level `use*` exports. Removed `Object.assign` namespace assembly and `Checkbox` and
   other dotted aliases without compatibility shims.
 - 2026-08-09: Added read-only accessibility semantics, independent checked/invalid hover and invalid
   focus-ring theming hooks, group label color inheritance, and release-gate coverage for refs, form
@@ -260,7 +266,7 @@ export function CheckboxProviderDemo() {
 - 2026-07-09: Re-exported `useCheckbox()` and `useCheckboxGroup()` from the moduix checkbox barrel
   so documented provider flows stay on `@moduix/react`; reordered public docs examples for easier
   scanning.
-- 2026-07-07: Added `Checkbox.Control` default indicator sugar so common usage no longer needs
+- 2026-07-07: Added `CheckboxControl` default indicator sugar so common usage no longer needs
   explicit checked and indeterminate indicator parts; updated recommended docs/examples accordingly.
 - 2026-07-02: Simplified the public checkbox surface to keep visual parts, `Group`,
   `RootProvider`, `size`, and default indicator sugar while removing moduix re-exports for Ark
@@ -274,5 +280,5 @@ export function CheckboxProviderDemo() {
 - 2026-06-18: Expanded docs and stories to cover Ark standalone, provider, context, form, field,
   group, group provider, max-selected, select-all, invalid, and fieldset patterns.
 - 2026-06-18: Migrated `Checkbox` to Ark UI, adopted the Ark namespace API
-  (`Checkbox.Root`, `Checkbox.Control`, `Checkbox.Indicator`, `Checkbox.Label`,
-  the native form input, `Checkbox.Group`), and removed the standalone `CheckboxGroup` component.
+  (`Checkbox`, `CheckboxControl`, `CheckboxIndicator`, `CheckboxLabel`,
+  the native form input, `CheckboxGroup`), and removed the standalone `CheckboxGroup` component.

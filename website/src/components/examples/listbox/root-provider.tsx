@@ -1,6 +1,14 @@
 import { createListCollection } from '@ark-ui/react/collection';
 import { Button } from '@moduix/react/button';
-import { ListboxContent, ListboxItem, ListboxItemIndicator, ListboxItemText, ListboxLabel, ListboxRootProvider, useListbox } from '@moduix/react/listbox';
+import {
+  ListboxContent,
+  ListboxItem,
+  ListboxItemIndicator,
+  ListboxItemText,
+  ListboxLabel,
+  ListboxRootProvider,
+  useListbox,
+} from '@moduix/react/listbox';
 import { PreviewMeta } from '@/components/mdx/Components';
 import styles from '@/components/examples/listbox/listbox-root-provider.module.css';
 

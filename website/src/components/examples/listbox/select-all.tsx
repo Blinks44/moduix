@@ -1,6 +1,14 @@
 import { createListCollection } from '@ark-ui/react/collection';
 import { Button } from '@moduix/react/button';
-import { Listbox, ListboxContent, ListboxItem, ListboxItemIndicator, ListboxItemText, ListboxLabel, useListboxContext } from '@moduix/react/listbox';
+import {
+  Listbox,
+  ListboxContent,
+  ListboxItem,
+  ListboxItemIndicator,
+  ListboxItemText,
+  ListboxLabel,
+  useListboxContext,
+} from '@moduix/react/listbox';
 import { PreviewMeta } from '@/components/mdx/Components';
 import styles from '@/components/examples/listbox/listbox-select-all.module.css';
 

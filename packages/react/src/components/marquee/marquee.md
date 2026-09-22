@@ -25,12 +25,7 @@ Ark CSS variables.
 automatically. Consumers compose the Ark tree explicitly:
 
 ```tsx
-import {
-  Marquee,
-  MarqueeContent,
-  MarqueeItem,
-  MarqueeViewport,
-} from '@moduix/react/marquee';
+import { Marquee, MarqueeContent, MarqueeItem, MarqueeViewport } from '@moduix/react/marquee';
 
 export function Example() {
   return (
@@ -61,17 +56,17 @@ Marquee
 └─ MarqueeEdge[side?]
 ```
 
-| Export                     | `data-slot`             | Notes                                                   |
-| -------------------------- | ----------------------- | ------------------------------------------------------- |
-| `Marquee`                 | `marquee-root`          | Ark root, pause state, ids, orientation, and variables. |
-| `MarqueeRootProvider`     | `marquee-root-provider` | Root for an external `useMarquee()` instance.           |
-| `MarqueeViewport`         | `marquee-viewport`      | Clipping viewport.                                      |
-| `MarqueeContent`          | `marquee-content`       | Animated content wrapper and cloned content host.       |
-| `MarqueeItem`             | `marquee-item`          | Individual marquee item.                                |
-| `MarqueeEdge`             | `marquee-edge`          | Optional fade overlay. Requires `side`.                 |
-| `MarqueeContext`          | -                       | Advanced context consumer for the enclosing marquee.    |
-| `useMarquee`               | -                       | Creates state for `MarqueeRootProvider`.               |
-| `useMarqueeContext`        | -                       | Reads state from the enclosing marquee.                 |
+| Export                | `data-slot`             | Notes                                                   |
+| --------------------- | ----------------------- | ------------------------------------------------------- |
+| `Marquee`             | `marquee-root`          | Ark root, pause state, ids, orientation, and variables. |
+| `MarqueeRootProvider` | `marquee-root-provider` | Root for an external `useMarquee()` instance.           |
+| `MarqueeViewport`     | `marquee-viewport`      | Clipping viewport.                                      |
+| `MarqueeContent`      | `marquee-content`       | Animated content wrapper and cloned content host.       |
+| `MarqueeItem`         | `marquee-item`          | Individual marquee item.                                |
+| `MarqueeEdge`         | `marquee-edge`          | Optional fade overlay. Requires `side`.                 |
+| `MarqueeContext`      | -                       | Advanced context consumer for the enclosing marquee.    |
+| `useMarquee`          | -                       | Creates state for `MarqueeRootProvider`.                |
+| `useMarqueeContext`   | -                       | Reads state from the enclosing marquee.                 |
 
 The old compound shape is not exported. Use the family-prefixed values shown in the table.
 
@@ -117,24 +112,24 @@ Use `MarqueeRootProvider` with moduix `useMarquee()` when controls outside the r
 
 ## Props and callbacks
 
-| Prop or callback     | Notes                                                         |
-| -------------------- | ------------------------------------------------------------- |
-| `side`               | `start`, `end`, `top`, or `bottom`; top/bottom are vertical.  |
-| `speed`              | Pixels per second; Ark calculates duration from content size. |
-| `spacing`            | Gap between content instances and items.                      |
-| `delay`              | Delay before animation starts, in seconds.                    |
-| `loopCount`          | Number of loops; `0` means infinite loops.                    |
-| `autoFill`           | Duplicates content until the viewport is filled.              |
-| `pauseOnInteraction` | Pauses on hover and focus. Recommended for readable content.  |
-| `reverse`            | Reverses animation direction without changing `side`.         |
-| `defaultPaused`      | Initial uncontrolled pause state.                             |
-| `paused`             | Controlled pause state. Pair with `onPauseChange`.            |
-| `onPauseChange`      | Receives Ark pause status details.                            |
-| `onLoopComplete`     | Fires after each loop iteration.                              |
-| `onComplete`         | Fires after the final loop when `loopCount` is finite.        |
-| `translations`       | Localized root label. Use this or `aria-label`.               |
-| `ids`                | Stable ids for root, viewport, and content instances.         |
-| `asChild`            | Preserved on every Ark part for host element replacement.     |
+| Prop or callback            | Notes                                                         |
+| --------------------------- | ------------------------------------------------------------- |
+| `side`                      | `start`, `end`, `top`, or `bottom`; top/bottom are vertical.  |
+| `speed`                     | Pixels per second; Ark calculates duration from content size. |
+| `spacing`                   | Gap between content instances and items.                      |
+| `delay`                     | Delay before animation starts, in seconds.                    |
+| `loopCount`                 | Number of loops; `0` means infinite loops.                    |
+| `autoFill`                  | Duplicates content until the viewport is filled.              |
+| `pauseOnInteraction`        | Pauses on hover and focus. Recommended for readable content.  |
+| `reverse`                   | Reverses animation direction without changing `side`.         |
+| `defaultPaused`             | Initial uncontrolled pause state.                             |
+| `paused`                    | Controlled pause state. Pair with `onPauseChange`.            |
+| `onPauseChange`             | Receives Ark pause status details.                            |
+| `onLoopComplete`            | Fires after each loop iteration.                              |
+| `onComplete`                | Fires after the final loop when `loopCount` is finite.        |
+| `translations`              | Localized root label. Use this or `aria-label`.               |
+| `ids`                       | Stable ids for root, viewport, and content instances.         |
+| `asChild`                   | Preserved on every Ark part for host element replacement.     |
 | `MarqueeEdge side`          | Required edge side: `start`, `end`, `top`, or `bottom`.       |
 | `MarqueeRootProvider.value` | Required `UseMarqueeReturn` from `useMarquee()`.              |
 

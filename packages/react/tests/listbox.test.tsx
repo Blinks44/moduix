@@ -2,7 +2,18 @@ import { createListCollection } from '@ark-ui/react/collection';
 import { expect, test } from '@rstest/core';
 import { fireEvent, render, screen, waitFor } from '@testing-library/react';
 import { createRef, useState } from 'react';
-import { Listbox, ListboxClearTrigger, ListboxContent, ListboxItem, ListboxItemIndicator, ListboxItemText, ListboxLabel, ListboxRootProvider, useListbox, useListboxContext } from '../src';
+import {
+  Listbox,
+  ListboxClearTrigger,
+  ListboxContent,
+  ListboxItem,
+  ListboxItemIndicator,
+  ListboxItemText,
+  ListboxLabel,
+  ListboxRootProvider,
+  useListbox,
+  useListboxContext,
+} from '../src';
 
 const fruits = createListCollection({
   items: [

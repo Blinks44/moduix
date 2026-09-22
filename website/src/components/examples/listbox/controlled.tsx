@@ -1,5 +1,12 @@
 import { createListCollection } from '@ark-ui/react/collection';
-import { Listbox, ListboxContent, ListboxItem, ListboxItemIndicator, ListboxItemText, ListboxLabel } from '@moduix/react/listbox';
+import {
+  Listbox,
+  ListboxContent,
+  ListboxItem,
+  ListboxItemIndicator,
+  ListboxItemText,
+  ListboxLabel,
+} from '@moduix/react/listbox';
 import { useState } from 'react';
 import styles from '@/components/examples/listbox/listbox-controlled.module.css';
 

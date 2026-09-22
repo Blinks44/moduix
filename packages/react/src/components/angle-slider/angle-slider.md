@@ -110,7 +110,7 @@ per-marker props, custom ordering, or no centered value text.
   fixed multi-part composition.
 - `AngleSliderRootProvider` accepts the return value of moduix `useAngleSlider()` and the underlying
   Ark hook.
-- Chakra's `Slider.Marks` convenience informed the narrow `AngleSliderMarks` sugar, and
+- Chakra's `Marks` convenience for Slider informed the narrow `AngleSliderMarks` sugar, and
   `AngleSliderDial` follows the same "common structure first" ergonomics without removing the
   underlying Ark part tree.
 
@@ -209,10 +209,10 @@ per-marker props, custom ordering, or no centered value text.
 - 2026-07-21: Routed shared dimensions, spacing, icon geometry, and focus-ring fallbacks through foundation tokens so density and theme presets can retune the component consistently.
 - 2026-09-04: Exposed Ark `HiddenInput` explicitly and removed root child mutation and custom reset handling.
 - 2026-07-13: Ark `HiddenInput` was internalized at this point in the wrapper history.
-- 2026-07-09: Added `AngleSlider.Dial`, re-exported `useAngleSlider()` for the normal
+- 2026-07-09: Added `AngleSliderDial`, re-exported `useAngleSlider()` for the normal
   `RootProvider` path, documented `invalid`, and moved the full explicit dial composition into
   advanced examples.
-- 2026-07-07: Added `AngleSlider.Marks`, shifted docs and stories to a lighter default composition,
+- 2026-07-07: Added `AngleSliderMarks`, shifted docs and stories to a lighter default composition,
   and made `HiddenInput` form-specific in recommended examples.
 - 2026-07-02: Removed duplicate Ark type exports, the context part, and state hooks from the moduix
   surface. Kept `RootProvider`, the callable root, every styled visual part, and form behavior.

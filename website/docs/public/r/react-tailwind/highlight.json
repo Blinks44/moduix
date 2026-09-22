@@ -8,7 +8,7 @@
   "files": [
     {
       "path": "src/components/highlight/Highlight.tsx",
-      "content": "import { Highlight as HighlightPrimitive } from '@ark-ui/react/highlight';\nimport type { ComponentProps } from 'react';\nimport { cn } from '@/lib/moduix/cn';\n\nfunction HighlightRoot({ className, ...props }: ComponentProps<typeof HighlightPrimitive>) {\n  return (\n    <HighlightPrimitive\n      {...props}\n      data-scope=\"highlight\"\n      data-part=\"root\"\n      data-slot=\"highlight-root\"\n      className={cn(\n        'rounded-xs bg-[color-mix(in_oklab,var(--color-warning)_40%,var(--color-accent))] box-decoration-clone px-1 py-px font-medium text-foreground no-underline shadow-none',\n        className,\n      )}\n    />\n  );\n}\n\nconst Highlight = Object.assign(HighlightRoot, {\n  Root: HighlightRoot,\n});\n\nexport { Highlight };",
+      "content": "import { Highlight as HighlightPrimitive } from '@ark-ui/react/highlight';\nimport type { ComponentProps } from 'react';\nimport { cn } from '@/lib/moduix/cn';\n\nfunction Highlight({ className, ...props }: ComponentProps<typeof HighlightPrimitive>) {\n  return (\n    <HighlightPrimitive\n      {...props}\n      data-scope=\"highlight\"\n      data-part=\"root\"\n      data-slot=\"highlight-root\"\n      className={cn(\n        'rounded-xs bg-[color-mix(in_oklab,var(--color-warning)_40%,var(--color-accent))] box-decoration-clone px-1 py-px font-medium text-foreground no-underline shadow-none',\n        className,\n      )}\n    />\n  );\n}\n\nexport { Highlight };",
       "type": "registry:component",
       "target": "@components/ui/highlight/Highlight.tsx"
     },

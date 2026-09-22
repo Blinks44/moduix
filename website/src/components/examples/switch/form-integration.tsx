@@ -1,11 +1,6 @@
 import { Button } from '@moduix/react/button';
 import { Field, FieldErrorText, FieldHelperText } from '@moduix/react/field';
-import {
-  Switch,
-  SwitchControl,
-  SwitchHiddenInput,
-  SwitchLabel,
-} from '@moduix/react/switch';
+import { Switch, SwitchControl, SwitchHiddenInput, SwitchLabel } from '@moduix/react/switch';
 import { useState } from 'react';
 import { PreviewMeta } from '@/components/mdx/Components';
 import styles from '@/components/examples/switch/switch-form-integration.module.css';

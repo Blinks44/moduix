@@ -1,5 +1,13 @@
 import { Field, FieldErrorText, FieldHelperText } from '@moduix/solid/field';
-import { TagsInput, TagsInputClearTrigger, TagsInputControl, TagsInputHiddenInput, TagsInputInput, TagsInputItems, TagsInputLabel } from '@moduix/solid/tags-input';
+import {
+  TagsInput,
+  TagsInputClearTrigger,
+  TagsInputControl,
+  TagsInputHiddenInput,
+  TagsInputInput,
+  TagsInputItems,
+  TagsInputLabel,
+} from '@moduix/solid/tags-input';
 import styles from '@/components/examples/tags-input/tags-input-field.module.css';
 
 export default function FieldTagsInput() {

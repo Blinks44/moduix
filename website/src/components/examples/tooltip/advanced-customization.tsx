@@ -1,10 +1,5 @@
 import { Button } from '@moduix/react/button';
-import {
-  Tooltip,
-  TooltipContent,
-  TooltipPositioner,
-  TooltipTrigger,
-} from '@moduix/react/tooltip';
+import { Tooltip, TooltipContent, TooltipPositioner, TooltipTrigger } from '@moduix/react/tooltip';
 
 export default function AdvancedCustomizationTooltipDemo() {
   return (

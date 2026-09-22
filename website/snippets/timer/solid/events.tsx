@@ -1,10 +1,4 @@
-import {
-  Timer,
-  TimerArea,
-  TimerItem,
-  TimerControl,
-  TimerActionTrigger,
-} from '@moduix/solid/timer';
+import { Timer, TimerArea, TimerItem, TimerControl, TimerActionTrigger } from '@moduix/solid/timer';
 import { Play as PlayIcon, RotateCcw as RotateCcwIcon } from 'lucide-solid';
 import { createSignal } from 'solid-js';
 import styles from '@/components/examples/timer/timer-events.module.css';

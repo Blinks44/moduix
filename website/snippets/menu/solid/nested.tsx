@@ -1,5 +1,15 @@
 import { Button } from '@moduix/solid/button';
-import { Menu, MenuTrigger, MenuIndicator, MenuPositioner, MenuContent, MenuViewport, MenuItem, MenuTriggerItem, MenuTriggerItemIcon } from '@moduix/solid/menu';
+import {
+  Menu,
+  MenuTrigger,
+  MenuIndicator,
+  MenuPositioner,
+  MenuContent,
+  MenuViewport,
+  MenuItem,
+  MenuTriggerItem,
+  MenuTriggerItemIcon,
+} from '@moduix/solid/menu';
 import styles from '@/components/examples/menu/menu-nested.module.css';
 
 export default function NestedMenuDemo() {

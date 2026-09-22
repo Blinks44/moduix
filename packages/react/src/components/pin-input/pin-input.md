@@ -49,9 +49,9 @@ consumer passes `placeholder` explicitly.
 </PinInput>
 ```
 
-| Export                  | Slot / behavior                                           |
-| ----------------------- | --------------------------------------------------------- |
-| `PinInput`              | `data-slot="pin-input-root"`; Ark root state machine.     |
+| Export                 | Slot / behavior                                           |
+| ---------------------- | --------------------------------------------------------- |
+| `PinInput`             | `data-slot="pin-input-root"`; Ark root state machine.     |
 | `PinInputRootProvider` | `data-slot="pin-input-root-provider"`; external state.    |
 | `PinInputLabel`        | `data-slot="pin-input-label"`; Ark label part.            |
 | `PinInputControl`      | `data-slot="pin-input-control"`; wraps visible inputs.    |
@@ -59,12 +59,22 @@ consumer passes `placeholder` explicitly.
 | `PinInputContext`      | Exposes the current root state to descendants.            |
 | `PinInputInputs`       | Renders one indexed `PinInputInput` per Ark context item. |
 | `PinInputSeparator`    | `data-slot="pin-input-separator"`; decorative moduix aid. |
-| `usePinInput`           | Ark state hook for `PinInputRootProvider`.               |
+| `usePinInput`          | Ark state hook for `PinInputRootProvider`.                |
 
 ## Composition
 
 ```tsx
-import { PinInput, PinInputRootProvider, PinInputHiddenInput, PinInputLabel, PinInputControl, PinInputInput, PinInputInputs, PinInputSeparator, usePinInput } from '@moduix/react/pin-input';
+import {
+  PinInput,
+  PinInputRootProvider,
+  PinInputHiddenInput,
+  PinInputLabel,
+  PinInputControl,
+  PinInputInput,
+  PinInputInputs,
+  PinInputSeparator,
+  usePinInput,
+} from '@moduix/react/pin-input';
 
 export function VerificationCodeField() {
   return (

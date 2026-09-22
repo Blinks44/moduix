@@ -1,4 +1,12 @@
-import { Table, TableBody, TableCaption, TableCell, TableColumnHeader, TableHeader, TableRow } from '@moduix/solid/table';
+import {
+  Table,
+  TableBody,
+  TableCaption,
+  TableCell,
+  TableColumnHeader,
+  TableHeader,
+  TableRow,
+} from '@moduix/solid/table';
 import styles from '@/components/examples/table/table-custom-composition.module.css';
 
 const plans = [

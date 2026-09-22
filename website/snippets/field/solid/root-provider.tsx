@@ -1,10 +1,4 @@
-import {
-  Field,
-  useField,
-  FieldHelperText,
-  FieldLabel,
-  FieldRootProvider,
-} from '@moduix/solid/field';
+import { useField, FieldHelperText, FieldLabel, FieldRootProvider } from '@moduix/solid/field';
 import { Input } from '@moduix/solid/input';
 import styles from '@/components/examples/field/field-root-provider.module.css';
 

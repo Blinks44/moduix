@@ -12,7 +12,16 @@ import {
   ProgressCircularValueText,
   useProgress,
 } from '@/components/progress-circular/ProgressCircular';
-import { Slider, SliderControl, SliderHiddenInput, SliderLabel, SliderRange, SliderThumb, SliderTrack, SliderValueText } from '@/components/slider';
+import {
+  Slider,
+  SliderControl,
+  SliderHiddenInput,
+  SliderLabel,
+  SliderRange,
+  SliderThumb,
+  SliderTrack,
+  SliderValueText,
+} from '@/components/slider';
 import { cn } from '@/lib/moduix/cn';
 
 const meta = {

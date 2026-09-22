@@ -1,4 +1,17 @@
-import { TagsInput, TagsInputClearTrigger, TagsInputContext, TagsInputControl, TagsInputHiddenInput, TagsInputInput, TagsInputItem, TagsInputItemDeleteTrigger, TagsInputItemInput, TagsInputItemPreview, TagsInputItemText, TagsInputLabel } from '@moduix/react/tags-input';
+import {
+  TagsInput,
+  TagsInputClearTrigger,
+  TagsInputContext,
+  TagsInputControl,
+  TagsInputHiddenInput,
+  TagsInputInput,
+  TagsInputItem,
+  TagsInputItemDeleteTrigger,
+  TagsInputItemInput,
+  TagsInputItemPreview,
+  TagsInputItemText,
+  TagsInputLabel,
+} from '@moduix/react/tags-input';
 import styles from '@/components/examples/tags-input/tags-input-advanced-customization.module.css';
 
 export default function AdvancedCustomizationTagsInput() {

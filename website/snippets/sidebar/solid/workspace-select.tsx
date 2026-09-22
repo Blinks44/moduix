@@ -1,6 +1,15 @@
 import { createListCollection } from '@ark-ui/solid/collection';
 import { Avatar, AvatarFallback } from '@moduix/solid/avatar';
-import { Menu, MenuTrigger, MenuPositioner, MenuContent, MenuViewport, MenuItem, MenuSeparator, MenuItemText } from '@moduix/solid/menu';
+import {
+  Menu,
+  MenuTrigger,
+  MenuPositioner,
+  MenuContent,
+  MenuViewport,
+  MenuItem,
+  MenuSeparator,
+  MenuItemText,
+} from '@moduix/solid/menu';
 import {
   Select,
   SelectTrigger,
@@ -68,11 +77,7 @@ export default function WorkspaceSidebar() {
               >
                 <SelectTrigger
                   asChild={(props) => (
-                    <SidebarNavigationButton
-                      {...props()}
-                      size="lg"
-                      aria-label="Select workspace"
-                    />
+                    <SidebarNavigationButton {...props()} size="lg" aria-label="Select workspace" />
                   )}
                 >
                   <span data-sidebar-icon class={styles.workspaceMark}>

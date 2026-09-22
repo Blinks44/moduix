@@ -1,8 +1,4 @@
-import {
-  RadioGroup,
-  RadioGroupLabel,
-  RadioGroupOption,
-} from '@moduix/react/radio-group';
+import { RadioGroup, RadioGroupLabel, RadioGroupOption } from '@moduix/react/radio-group';
 import { useState } from 'react';
 import { PreviewMeta } from '@/components/mdx/Components';
 import styles from '@/components/examples/radio-group/radio-group-controlled.module.css';

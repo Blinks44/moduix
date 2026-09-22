@@ -4,7 +4,14 @@ import {
   CollapsibleIndicator,
   CollapsibleTrigger,
 } from '@moduix/solid/collapsible';
-import { Menu, MenuTrigger, MenuPositioner, MenuContent, MenuViewport, MenuItem } from '@moduix/solid/menu';
+import {
+  Menu,
+  MenuTrigger,
+  MenuPositioner,
+  MenuContent,
+  MenuViewport,
+  MenuItem,
+} from '@moduix/solid/menu';
 import {
   Sidebar,
   SidebarPanel,

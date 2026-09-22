@@ -14,11 +14,11 @@ Checked 2026-08-13:
 
 ## Comparison decisions
 
-| Source    | Finding                                                                                                  | moduix decision                                                                                                                                                         |
-| --------- | -------------------------------------------------------------------------------------------------------- | ----------------------------------------------------------------------------------------------------------------------------------------------------------------------- |
-| Ark UI    | Collection state, the listbox interaction model, and native form controls define the primitive contract. | **Required correctness:** preserve Ark parts, detail objects, lifecycle, context, and native control synchronization.                                                   |
+| Source    | Finding                                                                                                  | moduix decision                                                                                                                                                        |
+| --------- | -------------------------------------------------------------------------------------------------------- | ---------------------------------------------------------------------------------------------------------------------------------------------------------------------- |
+| Ark UI    | Collection state, the listbox interaction model, and native form controls define the primitive contract. | **Required correctness:** preserve Ark parts, detail objects, lifecycle, context, and native control synchronization.                                                  |
 | Chakra UI | Its explicit tree separates an `IndicatorGroup` and supports recipe variants.                            | **Intentional difference:** `SelectField` is the concise default; explicit `Control`, `Trigger`, and visual parts remain available. Do not add a parallel variant API. |
-| shadcn/ui | A compact trigger/content path is easy to discover.                                                      | **Rejected complexity:** keep Ark-shaped collections, item objects, and callbacks instead of compatibility aliases or a second state model.                             |
+| shadcn/ui | A compact trigger/content path is easy to discover.                                                      | **Rejected complexity:** keep Ark-shaped collections, item objects, and callbacks instead of compatibility aliases or a second state model.                            |
 
 ## Upstream model to preserve
 
@@ -80,12 +80,12 @@ Select
 └─ SelectHiddenSelect (explicit)
 ```
 
-| Export                   | `data-slot`                | Notes                               |
-| ------------------------ | -------------------------- | ----------------------------------- |
-| `Select`                  | `select-root`              | Ark root with moduix styling.       |
+| Export                  | `data-slot`                | Notes                               |
+| ----------------------- | -------------------------- | ----------------------------------- |
+| `Select`                | `select-root`              | Ark root with moduix styling.       |
 | `SelectRootProvider`    | `select-root-provider`     | RootProvider styled like root.      |
-| `SelectContext`           | -                          | Ark root context.                   |
-| `SelectHiddenSelect`      | -                          | Native form control.                |
+| `SelectContext`         | -                          | Ark root context.                   |
+| `SelectHiddenSelect`    | -                          | Native form control.                |
 | `SelectLabel`           | `select-label`             | Ark label.                          |
 | `SelectControl`         | `select-control`           | Ark control state wrapper.          |
 | `SelectField`           | `select-control`           | Moduix standard-control helper.     |
@@ -101,7 +101,7 @@ Select
 | `SelectItem`            | `select-item`              | Selectable collection item.         |
 | `SelectItemText`        | `select-item-text`         | Item label text.                    |
 | `SelectItemIndicator`   | `select-item-indicator`    | Default check icon.                 |
-| `SelectItemContext`      | -                          | Ark item context.                   |
+| `SelectItemContext`     | -                          | Ark item context.                   |
 | `SelectItemTextContent` | `select-item-text-content` | Moduix span helper.                 |
 | `SelectItemTextIcon`    | `select-item-text-icon`    | Moduix span helper.                 |
 | `SelectItemTextLabel`   | `select-item-text-label`   | Moduix span helper.                 |

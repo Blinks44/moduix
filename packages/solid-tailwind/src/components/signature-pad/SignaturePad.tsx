@@ -203,13 +203,12 @@ function SignaturePadCanvas(props: SignaturePadCanvasProps) {
 function useSignaturePad(props?: SignaturePadHookProps) {
   const field = useFieldContext();
   const signaturePad = useSignaturePadPrimitive(props);
-  const api: SignaturePadApi = Object.assign(signaturePad, {
-    [signaturePadReadOnly]: () => {
-      const machineProps = typeof props === 'function' ? props() : props;
+  const api: SignaturePadApi = () => signaturePad();
+  api[signaturePadReadOnly] = () => {
+    const machineProps = typeof props === 'function' ? props() : props;
 
-      return machineProps?.readOnly ?? field?.().readOnly ?? false;
-    },
-  });
+    return machineProps?.readOnly ?? field?.().readOnly ?? false;
+  };
 
   return api;
 }

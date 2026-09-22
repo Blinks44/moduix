@@ -87,9 +87,7 @@ export const FieldValidation: Story = {
     <Field className={fieldClassName} invalid required>
       <FieldLabel>Details</FieldLabel>
       <Textarea minLength={10} placeholder="Add at least 10 characters" />
-      <FieldHelperText>
-        Include enough detail for the team to reproduce the issue.
-      </FieldHelperText>
+      <FieldHelperText>Include enough detail for the team to reproduce the issue.</FieldHelperText>
       <FieldErrorText>Please provide details.</FieldErrorText>
       <FieldErrorText>Enter at least 10 characters.</FieldErrorText>
     </Field>

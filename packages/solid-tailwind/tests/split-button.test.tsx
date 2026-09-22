@@ -16,9 +16,7 @@ function TestSplitButton(props: {
 }) {
   return (
     <SplitButton aria-label="Save actions" portalled={false} onOpenChange={props.onOpenChange}>
-      <SplitButtonAction disabled={props.primaryDisabled ?? false}>
-        Save Changes
-      </SplitButtonAction>
+      <SplitButtonAction disabled={props.primaryDisabled ?? false}>Save Changes</SplitButtonAction>
       <SplitButtonTrigger disabled={props.triggerDisabled ?? false} />
       <SplitButtonPositioner>
         <SplitButtonContent>
@@ -95,9 +93,7 @@ test('forwards refs and shares root variant and size defaults', () => {
       size="lg"
       variant="destructive"
     >
-      <SplitButtonAction ref={(element) => (actionRef = element)}>
-        Delete project
-      </SplitButtonAction>
+      <SplitButtonAction ref={(element) => (actionRef = element)}>Delete project</SplitButtonAction>
       <SplitButtonTrigger
         ref={(element) => (triggerRef = element)}
         aria-label="More project actions"

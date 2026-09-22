@@ -3,17 +3,12 @@
   "name": "empty",
   "title": "Empty",
   "description": "Composable empty-state surface for no-results, no-data, and first-run screens.",
-  "dependencies": [
-    "@ark-ui/solid",
-    "clsx"
-  ],
-  "registryDependencies": [
-    "@moduix-solid/foundation"
-  ],
+  "dependencies": ["@ark-ui/solid", "clsx"],
+  "registryDependencies": ["@moduix-solid/foundation"],
   "files": [
     {
       "path": "src/components/empty/Empty.tsx",
-      "content": "import type { HTMLArkProps } from '@ark-ui/solid/factory';\nimport { ark } from '@ark-ui/solid/factory';\nimport { clsx } from 'clsx';\nimport { splitProps } from 'solid-js';\nimport styles from './Empty.module.css';\n\nfunction Empty(props: HTMLArkProps<'div'>) {\n  const [local, others] = splitProps(props, ['asChild', 'class']);\n\n  return (\n    <ark.div\n      asChild={local.asChild}\n      {...others}\n      data-scope=\"empty\"\n      data-part=\"root\"\n      data-slot=\"empty-root\"\n      class={clsx(styles.root, local.class)}\n    />\n  );\n}\n\nfunction EmptyIcon(props: HTMLArkProps<'div'>) {\n  const [local, others] = splitProps(props, ['asChild', 'class']);\n\n  return (\n    <ark.div\n      asChild={local.asChild}\n      {...others}\n      data-scope=\"empty\"\n      data-part=\"icon\"\n      data-slot=\"empty-icon\"\n      class={clsx(styles.icon, local.class)}\n    />\n  );\n}\n\nfunction EmptyContent(props: HTMLArkProps<'div'>) {\n  const [local, others] = splitProps(props, ['asChild', 'class']);\n\n  return (\n    <ark.div\n      asChild={local.asChild}\n      {...others}\n      data-scope=\"empty\"\n      data-part=\"content\"\n      data-slot=\"empty-content\"\n      class={clsx(styles.content, local.class)}\n    />\n  );\n}\n\nfunction EmptyTitle(props: HTMLArkProps<'h3'>) {\n  const [local, others] = splitProps(props, ['asChild', 'class']);\n\n  return (\n    <ark.h3\n      asChild={local.asChild}\n      {...others}\n      data-scope=\"empty\"\n      data-part=\"title\"\n      data-slot=\"empty-title\"\n      class={clsx(styles.title, local.class)}\n    />\n  );\n}\n\nfunction EmptyDescription(props: HTMLArkProps<'div'>) {\n  const [local, others] = splitProps(props, ['asChild', 'class']);\n\n  return (\n    <ark.div\n      asChild={local.asChild}\n      {...others}\n      data-scope=\"empty\"\n      data-part=\"description\"\n      data-slot=\"empty-description\"\n      class={clsx(styles.description, local.class)}\n    />\n  );\n}\n\nfunction EmptyActions(props: HTMLArkProps<'div'>) {\n  const [local, others] = splitProps(props, ['asChild', 'class']);\n\n  return (\n    <ark.div\n      asChild={local.asChild}\n      {...others}\n      data-scope=\"empty\"\n      data-part=\"actions\"\n      data-slot=\"empty-actions\"\n      class={clsx(styles.actions, local.class)}\n    />\n  );\n}\n\nexport { Empty, EmptyActions, EmptyContent, EmptyDescription, EmptyIcon, EmptyTitle };\n",
+      "content": "import type { HTMLArkProps } from '@ark-ui/solid/factory';\nimport { ark } from '@ark-ui/solid/factory';\nimport { clsx } from 'clsx';\nimport { splitProps } from 'solid-js';\nimport styles from './Empty.module.css';\n\nfunction Empty(props: HTMLArkProps<'div'>) {\n  const [local, others] = splitProps(props, ['asChild', 'class']);\n\n  return (\n    <ark.div\n      asChild={local.asChild}\n      {...others}\n      data-scope=\"empty\"\n      data-part=\"root\"\n      data-slot=\"empty-root\"\n      class={clsx(styles.root, local.class)}\n    />\n  );\n}\n\nfunction EmptyIcon(props: HTMLArkProps<'div'>) {\n  const [local, others] = splitProps(props, ['asChild', 'class']);\n\n  return (\n    <ark.div\n      asChild={local.asChild}\n      {...others}\n      data-scope=\"empty\"\n      data-part=\"icon\"\n      data-slot=\"empty-icon\"\n      class={clsx(styles.icon, local.class)}\n    />\n  );\n}\n\nfunction EmptyContent(props: HTMLArkProps<'div'>) {\n  const [local, others] = splitProps(props, ['asChild', 'class']);\n\n  return (\n    <ark.div\n      asChild={local.asChild}\n      {...others}\n      data-scope=\"empty\"\n      data-part=\"content\"\n      data-slot=\"empty-content\"\n      class={clsx(styles.content, local.class)}\n    />\n  );\n}\n\nfunction EmptyTitle(props: HTMLArkProps<'h3'>) {\n  const [local, others] = splitProps(props, ['asChild', 'class']);\n\n  return (\n    <ark.h3\n      asChild={local.asChild}\n      {...others}\n      data-scope=\"empty\"\n      data-part=\"title\"\n      data-slot=\"empty-title\"\n      class={clsx(styles.title, local.class)}\n    />\n  );\n}\n\nfunction EmptyDescription(props: HTMLArkProps<'div'>) {\n  const [local, others] = splitProps(props, ['asChild', 'class']);\n\n  return (\n    <ark.div\n      asChild={local.asChild}\n      {...others}\n      data-scope=\"empty\"\n      data-part=\"description\"\n      data-slot=\"empty-description\"\n      class={clsx(styles.description, local.class)}\n    />\n  );\n}\n\nfunction EmptyActions(props: HTMLArkProps<'div'>) {\n  const [local, others] = splitProps(props, ['asChild', 'class']);\n\n  return (\n    <ark.div\n      asChild={local.asChild}\n      {...others}\n      data-scope=\"empty\"\n      data-part=\"actions\"\n      data-slot=\"empty-actions\"\n      class={clsx(styles.actions, local.class)}\n    />\n  );\n}\n\nexport { Empty, EmptyActions, EmptyContent, EmptyDescription, EmptyIcon, EmptyTitle };",
       "type": "registry:component",
       "target": "@components/ui/empty/Empty.tsx"
     },
@@ -25,7 +20,7 @@
     },
     {
       "path": "src/components/empty/index.ts",
-      "content": "export {\n  Empty,\n  EmptyActions,\n  EmptyContent,\n  EmptyDescription,\n  EmptyIcon,\n  EmptyTitle,\n} from './Empty.js';\n",
+      "content": "export {\n  Empty,\n  EmptyActions,\n  EmptyContent,\n  EmptyDescription,\n  EmptyIcon,\n  EmptyTitle,\n} from './Empty.js';",
       "type": "registry:component",
       "target": "@components/ui/empty/index.ts"
     }

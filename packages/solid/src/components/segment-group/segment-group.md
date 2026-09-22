@@ -4,11 +4,11 @@
 
 Reviewed 2026-09-19:
 
-| Source                                                               | Useful reference                                                                         | Moduix decision                                                                                       |
-| -------------------------------------------------------------------- | ---------------------------------------------------------------------------------------- | ----------------------------------------------------------------------------------------------------- |
-| [Ark UI](https://ark-ui.com/solid/docs/components/segment-group)     | Primitive anatomy, state attributes, machine props, and runtime indicator variables.     | **Required correctness:** retain the complete Ark part tree, props, and ARIA contract unchanged.      |
+| Source                                                               | Useful reference                                                                         | Moduix decision                                                                                                   |
+| -------------------------------------------------------------------- | ---------------------------------------------------------------------------------------- | ----------------------------------------------------------------------------------------------------------------- |
+| [Ark UI](https://ark-ui.com/solid/docs/components/segment-group)     | Primitive anatomy, state attributes, machine props, and runtime indicator variables.     | **Required correctness:** retain the complete Ark part tree, props, and ARIA contract unchanged.                  |
 | [Chakra UI](https://chakra-ui.com/docs/components/segmented-control) | Compound anatomy, `Items` shortcut, and indicator color customization through variables. | **Intentional difference:** keep the horizontal default and the `SegmentGroupItems` sugar; no `size` prop matrix. |
-| [shadcn/ui](https://ui.shadcn.com/docs/components/toggle-group)      | Consumer expectations for single-select segmented controls.                              | **Rejected shortcut:** keep the Ark anatomy instead of a toggle-group-style value/variant API.        |
+| [shadcn/ui](https://ui.shadcn.com/docs/components/toggle-group)      | Consumer expectations for single-select segmented controls.                              | **Rejected shortcut:** keep the Ark anatomy instead of a toggle-group-style value/variant API.                    |
 
 Backed by the Zag `radio-group` machine for segmented controls. The machine's default orientation
 is `vertical`; moduix intentionally defaults the callable root and the shared `useSegmentGroup` hook
@@ -80,21 +80,21 @@ SegmentGroup
 └─ SegmentGroupItem (repeat per option)
 ```
 
-| Export                                                                            | `data-slot`                   | Role                                                                        |
-| --------------------------------------------------------------------------------- | ----------------------------- | --------------------------------------------------------------------------- |
-| `SegmentGroup`                                                                  | `segment-group-root`          | Ark root and state owner; renders the segments container.                   |
-| `SegmentGroupRootProvider`                                                       | `segment-group-root-provider` | Connects the parts to state created with `useSegmentGroup()`.               |
-| `SegmentGroupContext`                                                            | -                             | Render-prop access to the root state.                                       |
-| `SegmentGroupItemContext`                                                        | -                             | Render-prop access to the item state.                                       |
-| `SegmentGroupLabel`                                                              | `segment-group-label`         | Optional group label; renders a `span` by default.                          |
-| `SegmentGroupItems`                                                              | -                             | Moduix convenience renderer for standard item lists.                        |
-| `SegmentGroupItem`                                                               | `segment-group-item`          | Renders a `label` by default; contains text, control, and the hidden input. |
-| `SegmentGroupItemControl`                                                        | `segment-group-item-control`  | Visual check bubble; hidden native control renders separately.              |
-| `SegmentGroupItemText`                                                           | `segment-group-item-text`     | Item text; rendered as a `span` by default.                                 |
-| `SegmentGroupItemHiddenInput`                                                    | -                             | Native radio input for form submission, reset, and autofill.                |
-| `SegmentGroupIndicator`                                                          | `segment-group-indicator`     | Moving checked-segment highlight positioned through Ark runtime variables.  |
-| `useSegmentGroup`                                                    | -                             | Ark state hook plus Field/Fieldset inheritance for `SegmentGroupRootProvider`. |
-| `useSegmentGroupContext` / `useSegmentGroupItemContext` | -                             | Advanced state reads.                                                       |
+| Export                                                  | `data-slot`                   | Role                                                                           |
+| ------------------------------------------------------- | ----------------------------- | ------------------------------------------------------------------------------ |
+| `SegmentGroup`                                          | `segment-group-root`          | Ark root and state owner; renders the segments container.                      |
+| `SegmentGroupRootProvider`                              | `segment-group-root-provider` | Connects the parts to state created with `useSegmentGroup()`.                  |
+| `SegmentGroupContext`                                   | -                             | Render-prop access to the root state.                                          |
+| `SegmentGroupItemContext`                               | -                             | Render-prop access to the item state.                                          |
+| `SegmentGroupLabel`                                     | `segment-group-label`         | Optional group label; renders a `span` by default.                             |
+| `SegmentGroupItems`                                     | -                             | Moduix convenience renderer for standard item lists.                           |
+| `SegmentGroupItem`                                      | `segment-group-item`          | Renders a `label` by default; contains text, control, and the hidden input.    |
+| `SegmentGroupItemControl`                               | `segment-group-item-control`  | Visual check bubble; hidden native control renders separately.                 |
+| `SegmentGroupItemText`                                  | `segment-group-item-text`     | Item text; rendered as a `span` by default.                                    |
+| `SegmentGroupItemHiddenInput`                           | -                             | Native radio input for form submission, reset, and autofill.                   |
+| `SegmentGroupIndicator`                                 | `segment-group-indicator`     | Moving checked-segment highlight positioned through Ark runtime variables.     |
+| `useSegmentGroup`                                       | -                             | Ark state hook plus Field/Fieldset inheritance for `SegmentGroupRootProvider`. |
+| `useSegmentGroupContext` / `useSegmentGroupItemContext` | -                             | Advanced state reads.                                                          |
 
 ## Composition
 

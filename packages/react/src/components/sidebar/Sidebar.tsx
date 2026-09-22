@@ -9,14 +9,16 @@ import { createContext, forwardRef, useContext } from 'react';
 import { ChevronLeftIcon } from '@/lib/moduix/icons/ui';
 import { Input } from '../input';
 import { Separator } from '../separator';
-import { Splitter, SplitterPanel, SplitterResizeTrigger, SplitterResizeTriggerIndicator, useSplitterContext, type SplitterPanelData } from '../splitter';
-import splitterStyles from '../splitter/Splitter.module.css';
 import {
-  Tooltip,
-  TooltipContent,
-  TooltipPositioner,
-  TooltipTrigger,
-} from '../tooltip';
+  Splitter,
+  SplitterPanel,
+  SplitterResizeTrigger,
+  SplitterResizeTriggerIndicator,
+  useSplitterContext,
+  type SplitterPanelData,
+} from '../splitter';
+import splitterStyles from '../splitter/Splitter.module.css';
+import { Tooltip, TooltipContent, TooltipPositioner, TooltipTrigger } from '../tooltip';
 import styles from './Sidebar.module.css';
 
 type SidebarSide = 'left' | 'right';

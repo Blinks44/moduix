@@ -164,9 +164,7 @@ export const CustomStyles: Story = {
           placeholder="Maps Platform"
         />
       </Field>
-      <FieldsetHelperText className="text-primary">
-        Visible to project members.
-      </FieldsetHelperText>
+      <FieldsetHelperText className="text-primary">Visible to project members.</FieldsetHelperText>
     </Fieldset>
   ),
 };

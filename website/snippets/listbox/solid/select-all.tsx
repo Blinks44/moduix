@@ -1,6 +1,14 @@
 import { createListCollection } from '@ark-ui/solid/collection';
 import { Button } from '@moduix/solid/button';
-import { Listbox, ListboxContent, ListboxItem, ListboxItemIndicator, ListboxItemText, ListboxLabel, useListboxContext } from '@moduix/solid/listbox';
+import {
+  Listbox,
+  ListboxContent,
+  ListboxItem,
+  ListboxItemIndicator,
+  ListboxItemText,
+  ListboxLabel,
+  useListboxContext,
+} from '@moduix/solid/listbox';
 import { For } from 'solid-js';
 import styles from '@/components/examples/listbox/listbox-select-all.module.css';
 

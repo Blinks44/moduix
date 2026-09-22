@@ -62,31 +62,38 @@ Listbox
 └─ ListboxValueText
 ```
 
-| Export                     | `data-slot`                 | Notes                                   |
-| -------------------------- | --------------------------- | --------------------------------------- |
-| `Listbox` | `listbox-root`              | Ark root with moduix styling.           |
-| `ListboxRootProvider`     | `listbox-root-provider`     | RootProvider styled like root.          |
-| `ListboxLabel`            | `listbox-label`             | Accessible label.                       |
-| `ListboxFilter`           | `listbox-filter`            | Search icon and unified filter surface. |
-| `ListboxInput`            | `listbox-input`             | Filter input, normally inside `ListboxFilter`. |
-| `ListboxClearTrigger`     | `listbox-clear-trigger`     | Consumer-wired query reset button.      |
-| `ListboxContent`          | `listbox-content`           | Focusable listbox content.              |
-| `ListboxEmpty`            | `listbox-empty`             | Empty-state content.                    |
-| `ListboxItemGroup`        | `listbox-item-group`        | Group wrapper.                          |
-| `ListboxItemGroupLabel`   | `listbox-item-group-label`  | Group label.                            |
-| `ListboxItem`             | `listbox-item`              | Selectable collection item.             |
-| `ListboxItemText`         | `listbox-item-text`         | Item label text.                        |
-| `ListboxItemIndicator`    | `listbox-item-indicator`    | Default check icon.                     |
-| `ListboxValueText`        | `listbox-value-text`        | Selected value summary.                 |
-| `ListboxItemTextContent`  | `listbox-item-text-content` | Moduix span helper.                     |
-| `ListboxItemTextIcon`     | `listbox-item-text-icon`    | Moduix span helper.                     |
-| `ListboxItemTextLabel`    | `listbox-item-text-label`   | Moduix span helper.                     |
+| Export                   | `data-slot`                 | Notes                                          |
+| ------------------------ | --------------------------- | ---------------------------------------------- |
+| `Listbox`                | `listbox-root`              | Ark root with moduix styling.                  |
+| `ListboxRootProvider`    | `listbox-root-provider`     | RootProvider styled like root.                 |
+| `ListboxLabel`           | `listbox-label`             | Accessible label.                              |
+| `ListboxFilter`          | `listbox-filter`            | Search icon and unified filter surface.        |
+| `ListboxInput`           | `listbox-input`             | Filter input, normally inside `ListboxFilter`. |
+| `ListboxClearTrigger`    | `listbox-clear-trigger`     | Consumer-wired query reset button.             |
+| `ListboxContent`         | `listbox-content`           | Focusable listbox content.                     |
+| `ListboxEmpty`           | `listbox-empty`             | Empty-state content.                           |
+| `ListboxItemGroup`       | `listbox-item-group`        | Group wrapper.                                 |
+| `ListboxItemGroupLabel`  | `listbox-item-group-label`  | Group label.                                   |
+| `ListboxItem`            | `listbox-item`              | Selectable collection item.                    |
+| `ListboxItemText`        | `listbox-item-text`         | Item label text.                               |
+| `ListboxItemIndicator`   | `listbox-item-indicator`    | Default check icon.                            |
+| `ListboxValueText`       | `listbox-value-text`        | Selected value summary.                        |
+| `ListboxItemTextContent` | `listbox-item-text-content` | Moduix span helper.                            |
+| `ListboxItemTextIcon`    | `listbox-item-text-icon`    | Moduix span helper.                            |
+| `ListboxItemTextLabel`   | `listbox-item-text-label`   | Moduix span helper.                            |
 
 ## Composition
 
 ```tsx
 import { createListCollection } from '@ark-ui/react/collection';
-import { Listbox, ListboxContent, ListboxItem, ListboxItemIndicator, ListboxItemText, ListboxLabel } from '@moduix/react/listbox';
+import {
+  Listbox,
+  ListboxContent,
+  ListboxItem,
+  ListboxItemIndicator,
+  ListboxItemText,
+  ListboxLabel,
+} from '@moduix/react/listbox';
 
 const countries = createListCollection({
   items: [

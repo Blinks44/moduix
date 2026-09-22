@@ -1,8 +1,4 @@
-import {
-  SignaturePad,
-  SignaturePadCanvas,
-  SignaturePadLabel,
-} from '@moduix/react/signature-pad';
+import { SignaturePad, SignaturePadCanvas, SignaturePadLabel } from '@moduix/react/signature-pad';
 import { useState } from 'react';
 import styles from '@/components/examples/signature-pad/signature-pad-image-preview.module.css';
 

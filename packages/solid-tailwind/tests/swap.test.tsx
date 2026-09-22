@@ -1,7 +1,7 @@
 import { expect, test } from '@rstest/core';
 import { fireEvent, render, screen, waitFor } from '@solidjs/testing-library';
 import { createSignal } from 'solid-js';
-import { Swap, useSwapContext } from '../src';
+import { Swap, SwapIndicator, SwapRootProvider, useSwap, useSwapContext } from '../src';
 
 function ProviderSwapValue() {
   const swap = useSwapContext();
@@ -15,8 +15,8 @@ test('uses the scale animation by default and supports named presets', async () 
 
   render(() => (
     <Swap animation={animation()} data-testid="swap" swap={swapped()}>
-      <Swap.Indicator type="off">Off</Swap.Indicator>
-      <Swap.Indicator type="on">On</Swap.Indicator>
+      <SwapIndicator type="off">Off</SwapIndicator>
+      <SwapIndicator type="on">On</SwapIndicator>
     </Swap>
   ));
 
@@ -42,8 +42,8 @@ test('uses the scale animation by default and supports named presets', async () 
 test('maps the animation prop to data-animation after consumer props', () => {
   render(() => (
     <Swap animation="flip" data-animation="rotate" data-testid="swap" swap>
-      <Swap.Indicator type="off">Off</Swap.Indicator>
-      <Swap.Indicator type="on">On</Swap.Indicator>
+      <SwapIndicator type="off">Off</SwapIndicator>
+      <SwapIndicator type="on">On</SwapIndicator>
     </Swap>
   ));
 
@@ -60,8 +60,8 @@ test('preserves Ark lazy mounting and exit unmounting', async () => {
           Toggle
         </button>
         <Swap lazyMount swap={swapped()} unmountOnExit>
-          <Swap.Indicator type="off">Off</Swap.Indicator>
-          <Swap.Indicator type="on">On</Swap.Indicator>
+          <SwapIndicator type="off">Off</SwapIndicator>
+          <SwapIndicator type="on">On</SwapIndicator>
         </Swap>
       </>
     );
@@ -80,19 +80,19 @@ test('preserves Ark lazy mounting and exit unmounting', async () => {
 
 test('keeps root provider, context, and asChild composition connected', () => {
   function ProviderSwap() {
-    const swap = Swap.useSwap({ swap: true });
+    const swap = useSwap({ swap: true });
 
     return (
-      <Swap.RootProvider
+      <SwapRootProvider
         asChild={(props) => <button {...props()} data-testid="provider-root" type="button" />}
         value={swap}
         animation="fade"
       >
-        <Swap.Indicator type="off">Off</Swap.Indicator>
-        <Swap.Indicator type="on">
+        <SwapIndicator type="off">Off</SwapIndicator>
+        <SwapIndicator type="on">
           <ProviderSwapValue />
-        </Swap.Indicator>
-      </Swap.RootProvider>
+        </SwapIndicator>
+      </SwapRootProvider>
     );
   }
 
@@ -110,13 +110,13 @@ test('forwards refs on native roots', () => {
   render(() => (
     <>
       <Swap ref={(element) => (rootRef = element)}>
-        <Swap.Indicator type="off">Off</Swap.Indicator>
-        <Swap.Indicator type="on">On</Swap.Indicator>
+        <SwapIndicator type="off">Off</SwapIndicator>
+        <SwapIndicator type="on">On</SwapIndicator>
       </Swap>
-      <Swap.RootProvider ref={(element) => (providerRootRef = element)} value={Swap.useSwap()}>
-        <Swap.Indicator type="off">Off</Swap.Indicator>
-        <Swap.Indicator type="on">On</Swap.Indicator>
-      </Swap.RootProvider>
+      <SwapRootProvider ref={(element) => (providerRootRef = element)} value={useSwap()}>
+        <SwapIndicator type="off">Off</SwapIndicator>
+        <SwapIndicator type="on">On</SwapIndicator>
+      </SwapRootProvider>
     </>
   ));
 
@@ -131,13 +131,13 @@ test('preserves asChild composition', () => {
       animation="rotate"
       swap
     >
-      <Swap.Indicator type="off">Off</Swap.Indicator>
-      <Swap.Indicator
+      <SwapIndicator type="off">Off</SwapIndicator>
+      <SwapIndicator
         asChild={(props) => <output {...props()} data-testid="custom-indicator" />}
         type="on"
       >
         On
-      </Swap.Indicator>
+      </SwapIndicator>
     </Swap>
   ));
 
@@ -155,8 +155,8 @@ test('does not forward refs through native Solid asChild composition', () => {
       asChild={(props) => <span {...props()} data-testid="custom-root" />}
       swap
     >
-      <Swap.Indicator type="off">Off</Swap.Indicator>
-      <Swap.Indicator type="on">On</Swap.Indicator>
+      <SwapIndicator type="off">Off</SwapIndicator>
+      <SwapIndicator type="on">On</SwapIndicator>
     </Swap>
   ));
 
@@ -166,7 +166,7 @@ test('does not forward refs through native Solid asChild composition', () => {
 test('applies owning Tailwind utilities to visual parts', () => {
   render(() => (
     <Swap data-testid="swap">
-      <Swap.Indicator data-testid="indicator" type="off" />
+      <SwapIndicator data-testid="indicator" type="off" />
     </Swap>
   ));
 
@@ -185,7 +185,7 @@ test('applies owning Tailwind utilities to visual parts', () => {
 test('lets consumer Tailwind classes override conflicting defaults', () => {
   render(() => (
     <Swap class="place-items-start" data-testid="swap">
-      <Swap.Indicator class="items-start" data-testid="indicator" type="off" />
+      <SwapIndicator class="items-start" data-testid="indicator" type="off" />
     </Swap>
   ));
 

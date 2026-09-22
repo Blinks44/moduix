@@ -1,14 +1,7 @@
 import { expect, test } from '@rstest/core';
 import { render, screen } from '@testing-library/react';
 import { createRef } from 'react';
-import {
-  Empty,
-  EmptyActions,
-  EmptyContent,
-  EmptyDescription,
-  EmptyIcon,
-  EmptyTitle,
-} from '../src';
+import { Empty, EmptyActions, EmptyContent, EmptyDescription, EmptyIcon, EmptyTitle } from '../src';
 
 test('renders presentational anatomy with stable hooks and forwarded refs', () => {
   const rootRef = createRef<HTMLDivElement>();

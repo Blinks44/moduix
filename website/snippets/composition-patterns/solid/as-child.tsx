@@ -1,10 +1,5 @@
 import { Button } from '@moduix/solid/button';
-import {
-  Popover,
-  PopoverContent,
-  PopoverPositioner,
-  PopoverTrigger,
-} from '@moduix/solid/popover';
+import { Popover, PopoverContent, PopoverPositioner, PopoverTrigger } from '@moduix/solid/popover';
 
 export function FiltersPopover() {
   return (

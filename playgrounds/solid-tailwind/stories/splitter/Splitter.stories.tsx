@@ -1,7 +1,15 @@
 import { createSignal } from 'solid-js';
 import type { Meta, StoryObj } from 'storybook-solidjs-vite';
 import { Button } from '@/components/button/Button';
-import { createSplitterRegistry, Splitter, SplitterPanel, SplitterResizeTrigger, SplitterResizeTriggerIndicator, SplitterRootProvider, useSplitter } from '@/components/splitter/Splitter';
+import {
+  createSplitterRegistry,
+  Splitter,
+  SplitterPanel,
+  SplitterResizeTrigger,
+  SplitterResizeTriggerIndicator,
+  SplitterRootProvider,
+  useSplitter,
+} from '@/components/splitter/Splitter';
 
 const panels = [
   { id: 'a', minSize: 20 },

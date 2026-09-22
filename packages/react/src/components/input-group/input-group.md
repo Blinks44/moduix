@@ -54,13 +54,13 @@ InputGroup
 └─ InputGroupButton (optional)
 ```
 
-| Part                             | Stable slot          |
-| -------------------------------- | -------------------- |
-| `InputGroup`                    | `input-group-root`   |
-| `InputGroupInput`               | `input-root`         |
-| `InputGroupAddon`               | `input-group-addon`  |
-| `InputGroupText`                | `input-group-text`   |
-| `InputGroupButton`              | `input-group-button` |
+| Part               | Stable slot          |
+| ------------------ | -------------------- |
+| `InputGroup`       | `input-group-root`   |
+| `InputGroupInput`  | `input-root`         |
+| `InputGroupAddon`  | `input-group-addon`  |
+| `InputGroupText`   | `input-group-text`   |
+| `InputGroupButton` | `input-group-button` |
 
 ## Composition
 

@@ -1,9 +1,4 @@
-import {
-  Tabs,
-  TabsContent,
-  TabsList,
-  TabsTrigger,
-} from '@moduix/solid/tabs';
+import { Tabs, TabsContent, TabsList, TabsTrigger } from '@moduix/solid/tabs';
 import { Gift as PresentIcon, Handshake as HandshakeIcon, Map as MapIcon } from 'lucide-solid';
 
 const items = [

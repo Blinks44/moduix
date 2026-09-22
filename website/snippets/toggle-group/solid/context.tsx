@@ -1,8 +1,4 @@
-import {
-  ToggleGroup,
-  ToggleGroupItem,
-  useToggleGroupContext,
-} from '@moduix/solid/toggle-group';
+import { ToggleGroup, ToggleGroupItem, useToggleGroupContext } from '@moduix/solid/toggle-group';
 import { Check as CheckIcon } from 'lucide-solid';
 import type { JSX } from 'solid-js';
 

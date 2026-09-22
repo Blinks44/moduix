@@ -25,7 +25,7 @@ import jsonTreeViewSolidCompactPreviews from '../../../snippets/json-tree-view/s
 контрактом.
 
 Передайте через `data` любое JSON-подобное JavaScript-значение, а внутри компонента добавьте
-`<JsonTreeView.Tree />`. `JsonTreeView` сам создаёт узлы объектов, массивов и значений. moduix оформляет строки,
+`<JsonTreeViewTree />`. `JsonTreeView` сам создаёт узлы объектов, массивов и значений. moduix оформляет строки,
 отступы, состояния фокуса и стрелку раскрытия по умолчанию.
 
 В примере сразу раскрыты два уровня. С помощью `defaultExpandedDepth` задайте, какая часть ответа или конфигурации
@@ -91,25 +91,25 @@ import jsonTreeViewSolidCompactPreviews from '../../../snippets/json-tree-view/s
 ## Анатомия
 
 ```text
-JsonTreeView / JsonTreeView.Root
-└─ JsonTreeView.Tree
+JsonTreeView
+└─ JsonTreeViewTree
    └─ сгенерированные ветви и элементы JSON
 
-JsonTreeView.RootProvider
+JsonTreeViewRootProvider
 └─ то же дерево, подключённое к состоянию useJsonTreeView
 ```
 
 | Часть | Назначение |
 | --- | --- |
-| `JsonTreeView` / `JsonTreeView.Root` | Хранит данные, сгенерированную коллекцию и состояние дерева Ark. |
-| `JsonTreeView.RootProvider` | Подключает к частям состояние `useJsonTreeView`, созданное вне дерева. |
-| `JsonTreeView.Tree` | Отображает сгенерированные узлы объектов, массивов и значений. |
+| `JsonTreeView` | Хранит данные, сгенерированную коллекцию и состояние дерева Ark. |
+| `JsonTreeViewRootProvider` | Подключает к частям состояние `useJsonTreeView`, созданное вне дерева. |
+| `JsonTreeViewTree` | Отображает сгенерированные узлы объектов, массивов и значений. |
 
 ## Композиция
 
-Оставляйте `JsonTreeView.Tree` дочерней частью `JsonTreeView` или `JsonTreeView.Root`: она отображает
+Оставляйте `JsonTreeViewTree` дочерней частью `JsonTreeView` или `JsonTreeView`: она отображает
 сгенерированные узлы JSON. Если состояние дерева принадлежит внешним элементам управления, создайте
-`useJsonTreeView` из соответствующего фреймворк-пакета, передайте состояние в `JsonTreeView.RootProvider` и
+`useJsonTreeView` из соответствующего фреймворк-пакета, передайте состояние в `JsonTreeViewRootProvider` и
 выведите внутри него `Tree`. Используйте управляемые `expandedValue`, `selectedValue`, `checkedValue` или
 `focusedValue`, только когда состояние должно принадлежать приложению. Не используйте `Root` и `RootProvider` для
 одного состояния.
@@ -158,13 +158,13 @@ JsonTreeView.RootProvider
 компоновку. Варианты Tailwind используют классы Tailwind и классы приложения. Варианты с CSS Modules используют
 свои стили и базовые токены.
 
-Если не передать `arrow`, `JsonTreeView.Tree` использует `ChevronRightIcon` из moduix. Передайте собственную иконку
+Если не передать `arrow`, `JsonTreeViewTree` использует `ChevronRightIcon` из moduix. Передайте собственную иконку
 через `arrow`, если для области просмотра нужна другая стрелка раскрытия.
 
 Сгенерированные узлы сохраняют атрибуты Ark `data-scope="json-tree-view"` и `data-part`. moduix добавляет
 стабильные селекторы `data-slot="json-tree-view-root"`, `json-tree-view-root-provider` и `json-tree-view-tree`.
 
-`JsonTreeView.Tree` пробрасывает проп Ark `indentGuide`, когда вы включаете направляющие отступов. moduix не
+`JsonTreeViewTree` пробрасывает проп Ark `indentGuide`, когда вы включаете направляющие отступов. moduix не
 стилизует сгенерированные элементы `[data-part='branch-indent-guide']`; при включённых направляющих задайте им
 стили самостоятельно через этот атрибут.
 

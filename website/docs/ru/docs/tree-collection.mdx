@@ -246,8 +246,8 @@ const withFile = collection.insertAfter(buttonPath, [
 ]);
 const withoutReadme = collection.remove([readmePath]);
 const renamed = collection.replace(buttonPath, {
-  value: 'src/components/Button.new.tsx',
-  label: 'Button.new.tsx',
+  value: 'src/components/ButtonRenamed.tsx',
+  label: 'ButtonRenamed.tsx',
 });
 const moved = collection.move([readmePath], srcPath);
 ```

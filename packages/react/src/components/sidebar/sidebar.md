@@ -100,33 +100,33 @@ Sidebar
 └─ SidebarInset[id="content"]
 ```
 
-| Part                  | Stable slot                     | Behavior                                                                                          |
-| --------------------- | ------------------------------- | ------------------------------------------------------------------------------------------------- |
-| `Sidebar`    | `sidebar-root`                  | Styled Ark Splitter root with side-aware defaults.                                                |
-| `SidebarPanel`               | `sidebar-panel`                 | Sidebar panel; exposes `data-state="expanded\|collapsed"`.                                        |
-| `SidebarInset`               | `sidebar-inset`                 | Main resizable content panel.                                                                     |
+| Part                         | Stable slot                     | Behavior                                                                                         |
+| ---------------------------- | ------------------------------- | ------------------------------------------------------------------------------------------------ |
+| `Sidebar`                    | `sidebar-root`                  | Styled Ark Splitter root with side-aware defaults.                                               |
+| `SidebarPanel`               | `sidebar-panel`                 | Sidebar panel; exposes `data-state="expanded\|collapsed"`.                                       |
+| `SidebarInset`               | `sidebar-inset`                 | Main resizable content panel.                                                                    |
 | `SidebarResizeTrigger`       | `sidebar-resize-trigger`        | Styled Ark Splitter handle line; renders the shared `SplitterResizeTriggerIndicator` by default. |
-| `SidebarTrigger`             | `sidebar-trigger`               | Side-aware floating collapse/expand control.                                                      |
-| `SidebarLabel`               | `sidebar-label`                 | Text removed from layout in the collapsed icon rail.                                              |
-| `SidebarInput`               | `input-root`                    | Full-width styled search or filter field.                                                         |
-| `SidebarHeader`              | `sidebar-header`                | Non-scrolling top region.                                                                         |
-| `SidebarContent`             | `sidebar-content`               | Scrollable region between header and footer.                                                      |
-| `SidebarFooter`              | `sidebar-footer`                | Non-scrolling bottom region.                                                                      |
-| `SidebarSeparator`           | `separator-root`                | Styled section divider.                                                                           |
-| `SidebarGroup`               | `sidebar-group`                 | Semantic navigation section.                                                                      |
-| `SidebarGroupHeader`         | `sidebar-group-header`          | Flex row for a group label and trailing action.                                                   |
-| `SidebarGroupLabel`          | `sidebar-group-label`           | Heading for a group.                                                                              |
-| `SidebarGroupAction`         | `sidebar-group-action`          | Compact action button aligned with the group heading.                                             |
-| `SidebarExpandedContent`     | `sidebar-expanded-content`      | Content visible only while the panel is expanded.                                                 |
-| `SidebarCollapsedContent`    | `sidebar-collapsed-content`     | Content visible only while the panel is collapsed.                                                |
-| `SidebarNavigationList`      | `sidebar-navigation-list`       | Navigation list.                                                                                  |
-| `SidebarNavigationItem`      | `sidebar-navigation-item`       | Positioned list item for a navigation control.                                                    |
-| `SidebarTooltip`     | n/a                             | Collapsed-only label helper with side-aware placement.                                            |
-| `SidebarNavigationButton`    | `sidebar-navigation-button`     | Button/link composition with active and size states.                                              |
-| `SidebarNavigationBadge`     | `sidebar-navigation-badge`      | Optional counter beside a simple navigation control.                                              |
-| `SidebarNavigationSubList`   | `sidebar-navigation-sub-list`   | Nested navigation list.                                                                           |
-| `SidebarNavigationSubItem`   | `sidebar-navigation-sub-item`   | Nested list item.                                                                                 |
-| `SidebarNavigationSubButton` | `sidebar-navigation-sub-button` | Nested anchor/link composition.                                                                   |
+| `SidebarTrigger`             | `sidebar-trigger`               | Side-aware floating collapse/expand control.                                                     |
+| `SidebarLabel`               | `sidebar-label`                 | Text removed from layout in the collapsed icon rail.                                             |
+| `SidebarInput`               | `input-root`                    | Full-width styled search or filter field.                                                        |
+| `SidebarHeader`              | `sidebar-header`                | Non-scrolling top region.                                                                        |
+| `SidebarContent`             | `sidebar-content`               | Scrollable region between header and footer.                                                     |
+| `SidebarFooter`              | `sidebar-footer`                | Non-scrolling bottom region.                                                                     |
+| `SidebarSeparator`           | `separator-root`                | Styled section divider.                                                                          |
+| `SidebarGroup`               | `sidebar-group`                 | Semantic navigation section.                                                                     |
+| `SidebarGroupHeader`         | `sidebar-group-header`          | Flex row for a group label and trailing action.                                                  |
+| `SidebarGroupLabel`          | `sidebar-group-label`           | Heading for a group.                                                                             |
+| `SidebarGroupAction`         | `sidebar-group-action`          | Compact action button aligned with the group heading.                                            |
+| `SidebarExpandedContent`     | `sidebar-expanded-content`      | Content visible only while the panel is expanded.                                                |
+| `SidebarCollapsedContent`    | `sidebar-collapsed-content`     | Content visible only while the panel is collapsed.                                               |
+| `SidebarNavigationList`      | `sidebar-navigation-list`       | Navigation list.                                                                                 |
+| `SidebarNavigationItem`      | `sidebar-navigation-item`       | Positioned list item for a navigation control.                                                   |
+| `SidebarTooltip`             | n/a                             | Collapsed-only label helper with side-aware placement.                                           |
+| `SidebarNavigationButton`    | `sidebar-navigation-button`     | Button/link composition with active and size states.                                             |
+| `SidebarNavigationBadge`     | `sidebar-navigation-badge`      | Optional counter beside a simple navigation control.                                             |
+| `SidebarNavigationSubList`   | `sidebar-navigation-sub-list`   | Nested navigation list.                                                                          |
+| `SidebarNavigationSubItem`   | `sidebar-navigation-sub-item`   | Nested list item.                                                                                |
+| `SidebarNavigationSubButton` | `sidebar-navigation-sub-button` | Nested anchor/link composition.                                                                  |
 
 Advanced provider, complete context, registry, layout, and resize-indicator APIs intentionally
 remain on `Splitter`; Sidebar keeps the application-navigation contract small.

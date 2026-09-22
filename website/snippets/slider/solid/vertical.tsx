@@ -1,4 +1,10 @@
-import { Slider, SliderControl, SliderRange, SliderThumbs, SliderTrack } from '@moduix/solid/slider';
+import {
+  Slider,
+  SliderControl,
+  SliderRange,
+  SliderThumbs,
+  SliderTrack,
+} from '@moduix/solid/slider';
 import { createSignal } from 'solid-js';
 import styles from '@/components/examples/slider/slider-vertical.module.css';
 

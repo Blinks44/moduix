@@ -1,7 +1,13 @@
 import { clsx } from 'clsx';
 import { createSignal, For } from 'solid-js';
 import type { Meta, StoryObj } from 'storybook-solidjs-vite';
-import { Tag, TagCloseTrigger, TagEndElement, TagLabel, TagStartElement } from '@/components/tag/Tag';
+import {
+  Tag,
+  TagCloseTrigger,
+  TagEndElement,
+  TagLabel,
+  TagStartElement,
+} from '@/components/tag/Tag';
 import { CheckIcon } from '@/lib/moduix/icons/ui/Icons';
 
 const meta = {

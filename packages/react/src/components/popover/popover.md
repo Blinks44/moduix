@@ -59,22 +59,22 @@ Exported Ark-aligned state surfaces are `PopoverRootProvider`, `PopoverContext`,
 `usePopoverContext`. Every rendered wrapper has a matching `data-slot` in kebab-case; the internal
 portal transport and `PopoverContext` do not render DOM elements.
 
-| Export                 | Stable slot             | Notes                                      |
-| ---------------------- | ----------------------- | ------------------------------------------ |
-| `PopoverAnchor`        | `popover-anchor`        | Optional positioning reference.            |
-| `PopoverTrigger`       | `popover-trigger`       | Styled by moduix unless `asChild` is used. |
-| `PopoverIndicator`     | `popover-indicator`     | Optional trigger state indicator.          |
-| `PopoverPositioner`    | `popover-positioner`    | Ark floating positioner.                   |
-| `PopoverContent`       | `popover-content`       | Styled popup surface.                      |
-| `PopoverArrow`         | `popover-arrow`         | Renders `PopoverArrowTip` by default.      |
-| `PopoverArrowTip`      | `popover-arrow-tip`     | Visible arrow tip.                         |
-| `PopoverTitle`         | `popover-title`         | Accessible content title.                  |
-| `PopoverDescription`   | `popover-description`   | Accessible content description.            |
-| `PopoverCloseTrigger`  | `popover-close-trigger` | Styled by moduix unless `asChild` is used. |
-| `PopoverCloseIcon`     | `popover-close-icon`    | Shared icon-only close button helper.      |
-| `PopoverHeader`        | `popover-header`        | Moduix layout helper.                      |
-| `PopoverBody`          | `popover-body`          | Moduix layout helper.                      |
-| `PopoverFooter`        | `popover-footer`        | Moduix action row helper.                  |
+| Export                | Stable slot             | Notes                                      |
+| --------------------- | ----------------------- | ------------------------------------------ |
+| `PopoverAnchor`       | `popover-anchor`        | Optional positioning reference.            |
+| `PopoverTrigger`      | `popover-trigger`       | Styled by moduix unless `asChild` is used. |
+| `PopoverIndicator`    | `popover-indicator`     | Optional trigger state indicator.          |
+| `PopoverPositioner`   | `popover-positioner`    | Ark floating positioner.                   |
+| `PopoverContent`      | `popover-content`       | Styled popup surface.                      |
+| `PopoverArrow`        | `popover-arrow`         | Renders `PopoverArrowTip` by default.      |
+| `PopoverArrowTip`     | `popover-arrow-tip`     | Visible arrow tip.                         |
+| `PopoverTitle`        | `popover-title`         | Accessible content title.                  |
+| `PopoverDescription`  | `popover-description`   | Accessible content description.            |
+| `PopoverCloseTrigger` | `popover-close-trigger` | Styled by moduix unless `asChild` is used. |
+| `PopoverCloseIcon`    | `popover-close-icon`    | Shared icon-only close button helper.      |
+| `PopoverHeader`       | `popover-header`        | Moduix layout helper.                      |
+| `PopoverBody`         | `popover-body`          | Moduix layout helper.                      |
+| `PopoverFooter`       | `popover-footer`        | Moduix action row helper.                  |
 
 ## Composition
 

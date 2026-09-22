@@ -1,7 +1,24 @@
 import { expect, test } from '@rstest/core';
 import { fireEvent, render, screen, waitFor } from '@testing-library/react';
 import { createRef } from 'react';
-import { Button, Menu, useMenu, useMenuContext, useMenuItemContext, MenuRootProvider, MenuTrigger, MenuContextTrigger, MenuPositioner, MenuContent, MenuViewport, MenuArrow, MenuItem, MenuCheckboxItem, MenuItemIndicator, MenuItemText } from '../src';
+import {
+  Button,
+  Menu,
+  useMenu,
+  useMenuContext,
+  useMenuItemContext,
+  MenuRootProvider,
+  MenuTrigger,
+  MenuContextTrigger,
+  MenuPositioner,
+  MenuContent,
+  MenuViewport,
+  MenuArrow,
+  MenuItem,
+  MenuCheckboxItem,
+  MenuItemIndicator,
+  MenuItemText,
+} from '../src';
 
 function TestMenu() {
   return (

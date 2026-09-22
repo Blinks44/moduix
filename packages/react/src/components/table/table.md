@@ -52,20 +52,20 @@ TableScrollArea (optional)
    └─ TableFooter (optional)
 ```
 
-| Part                   | Element    | `data-part`     | `data-slot`           |
-| ---------------------- | ---------- | --------------- | --------------------- |
-| `Table`                | `table`    | `root`          | `table-root`          |
-| `TableScrollArea`     | `div`      | `scroll-area`   | `table-scroll-area`   |
-| `TableColumnGroup`    | `colgroup` | `column-group`  | `table-column-group`  |
-| `TableColumn`         | `col`      | `column`        | `table-column`        |
-| `TableCaption`        | `caption`  | `caption`       | `table-caption`       |
-| `TableHeader`         | `thead`    | `header`        | `table-header`        |
-| `TableBody`           | `tbody`    | `body`          | `table-body`          |
-| `TableFooter`         | `tfoot`    | `footer`        | `table-footer`        |
-| `TableRow`            | `tr`       | `row`           | `table-row`           |
-| `TableColumnHeader`   | `th`       | `column-header` | `table-column-header` |
-| `TableCell`           | `td`       | `cell`          | `table-cell`          |
-| `TableEmpty`          | `td`       | `empty`         | `table-empty`         |
+| Part                | Element    | `data-part`     | `data-slot`           |
+| ------------------- | ---------- | --------------- | --------------------- |
+| `Table`             | `table`    | `root`          | `table-root`          |
+| `TableScrollArea`   | `div`      | `scroll-area`   | `table-scroll-area`   |
+| `TableColumnGroup`  | `colgroup` | `column-group`  | `table-column-group`  |
+| `TableColumn`       | `col`      | `column`        | `table-column`        |
+| `TableCaption`      | `caption`  | `caption`       | `table-caption`       |
+| `TableHeader`       | `thead`    | `header`        | `table-header`        |
+| `TableBody`         | `tbody`    | `body`          | `table-body`          |
+| `TableFooter`       | `tfoot`    | `footer`        | `table-footer`        |
+| `TableRow`          | `tr`       | `row`           | `table-row`           |
+| `TableColumnHeader` | `th`       | `column-header` | `table-column-header` |
+| `TableCell`         | `td`       | `cell`          | `table-cell`          |
+| `TableEmpty`        | `td`       | `empty`         | `table-empty`         |
 
 ## Composition
 
