@@ -116,7 +116,7 @@ and collapsed alternatives with `Menu` or another app-owned navigation pattern.
 
 `SidebarTooltip` delegates to the shared Solid `Tooltip`, defaults to `openDelay={200}` and
 `closeDelay={0}`, disables itself while expanded, and places content to the opposite side of the
-sidebar rail. Its child is the render function passed to `Tooltip.Trigger asChild`.
+sidebar rail. Its child is the render function passed to `TooltipTrigger asChild`.
 
 ## Styling and accessibility
 

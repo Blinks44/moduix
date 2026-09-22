@@ -49,7 +49,7 @@ can allow one selected value or several selected values.
 ## Basic
 
 
-Use `ToggleGroup` as the root and add one `ToggleGroup.Item` for each choice. Give the group an
+Use `ToggleGroup` as the root and add one `ToggleGroupItem` for each choice. Give the group an
 accessible name with `aria-label` or `aria-labelledby`.
 
 <ExampleFrame variant="component">
@@ -111,33 +111,33 @@ See [Quick Start](/docs/quick-start) for full package setup, registry configurat
 ## Anatomy
 
 ```text
-ToggleGroup / ToggleGroup.Root
-├─ ToggleGroup.Context (optional)
-└─ ToggleGroup.Item[value]
+ToggleGroup
+├─ ToggleGroupContext (optional)
+└─ ToggleGroupItem[value]
 
-ToggleGroup.RootProvider
-└─ ToggleGroup.Item[value]
+ToggleGroupRootProvider
+└─ ToggleGroupItem[value]
 ```
 
-| Part                               | Role                                                                                   |
-| ---------------------------------- | -------------------------------------------------------------------------------------- |
-| `ToggleGroup` / `ToggleGroup.Root` | Root part that owns selected values, focus movement, orientation, and disabled state.   |
-| `ToggleGroup.Item`                 | Interactive item with a required `value` and Ark selection state.                      |
-| `ToggleGroup.RootProvider`         | Connects the item tree to state created with `useToggleGroup()`.                       |
-| `ToggleGroup.Context`              | Exposes the current group state through a render prop.                                 |
+| Part                    | Role                                                                                 |
+| ----------------------- | ------------------------------------------------------------------------------------ |
+| `ToggleGroup`           | Root part that owns selected values, focus movement, orientation, and disabled state. |
+| `ToggleGroupItem`       | Interactive item with a required `value` and Ark selection state.                    |
+| `ToggleGroupRootProvider` | Connects the item tree to state created with `useToggleGroup()`.                    |
+| `ToggleGroupContext`    | Exposes the current group state through a render prop.                               |
 
 ## Composition
 
 Use `defaultValue` for an uncontrolled group, or pass `value` with `onValueChange(details)` when
 another part of the application owns the selection. Both values are `string[]` in single and
-multiple-selection modes. Use `ToggleGroup.RootProvider` with `useToggleGroup()` from the matching
+multiple-selection modes. Use `ToggleGroupRootProvider` with `useToggleGroup()` from the matching
 framework package when state must be created outside the rendered tree. React reads the store as an
 object, while Solid reads its reactive state through the returned accessor.
 
-Use `ToggleGroup.Context` or `useToggleGroupContext()` when a custom item needs the current group
+Use `ToggleGroupContext` or `useToggleGroupContext()` when a custom item needs the current group
 state. With `asChild`, React receives one button-like child, while Solid receives a render function
-that returns the element hosting the Ark behavior. Do not render `ToggleGroup.Root` and
-`ToggleGroup.RootProvider` for the same state instance.
+that returns the element hosting the Ark behavior. Do not render `ToggleGroup` and
+`ToggleGroupRootProvider` for the same state instance.
 
 ## Examples
 
@@ -178,7 +178,7 @@ button-like child so Ark can merge the group's semantics and keyboard behavior i
 ### Context
 
 Use `useToggleGroupContext()` in a custom item when its contents need the current group state.
-`ToggleGroup.Context` provides the same state through a render prop.
+`ToggleGroupContext` provides the same state through a render prop.
 
 <ExampleFrame variant="component">
   <ToggleGroupContext />
@@ -424,7 +424,7 @@ Set `orientation="vertical"` when the choices should stack in a column.
 
 ### Advanced Customization
 
-Use `ToggleGroup.RootProvider` with `useToggleGroup()` when the state instance must be created
+Use `ToggleGroupRootProvider` with `useToggleGroup()` when the state instance must be created
 outside the rendered group tree.
 
 <ExampleFrame variant="component">
@@ -472,7 +472,7 @@ either prop when one item needs different treatment.
 
 <CssPropertiesSection properties={ToggleGroupDocs.toggleGroupOverrideCssProperties} />
 
-The table covers group-level properties. Each `ToggleGroup.Item` also supports the [Toggle CSS
+The table covers group-level properties. Each `ToggleGroupItem` also supports the [Toggle CSS
 properties](/docs/toggle#css-properties) for its colors and interaction states. Set a
 `--moduix-toggle-*` property on the root to theme every item, or on an item to override one control.
 

@@ -38,7 +38,7 @@ type ToggleGroupItemProps = ComponentProps<typeof ToggleGroupPrimitive.Item> & {
   size?: ToggleSize;
 };
 
-function ToggleGroupRoot(props: ToggleGroupRootProps) {
+function ToggleGroup(props: ToggleGroupRootProps) {
   const [local, others] = splitProps(props, ['asChild', 'children', 'class', 'size', 'variant']);
   const variant = () => local.variant ?? 'default';
   const size = () => local.size ?? 'md';
@@ -100,14 +100,16 @@ function ToggleGroupItem(props: ToggleGroupItemProps) {
   );
 }
 
-const ToggleGroup = Object.assign(ToggleGroupRoot, {
-  Root: ToggleGroupRoot,
-  RootProvider: ToggleGroupRootProvider,
-  Context: ToggleGroupPrimitive.Context,
-  Item: ToggleGroupItem,
-});
+const ToggleGroupContext = ToggleGroupPrimitive.Context;
 
-export { ToggleGroup, useToggleGroup, useToggleGroupContext };
+export {
+  ToggleGroup,
+  ToggleGroupContext,
+  ToggleGroupItem,
+  ToggleGroupRootProvider,
+  useToggleGroup,
+  useToggleGroupContext,
+};
 export type {
   ToggleGroupItemProps,
   ToggleGroupRootProps,

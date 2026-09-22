@@ -26,12 +26,12 @@ responsible for those decisions.
 
 moduix builds `Typeset` with the
 [Ark factory](https://ark-ui.com/docs/guides/composition#the-ark-factory). `Typeset` and
-`Typeset.Scroll` therefore accept native `div` props, refs, and `asChild` composition.
+`TypesetScroll` therefore accept native `div` props, refs, and `asChild` composition.
 
 The CSS-first contract follows the approach documented in
 [shadcn/typeset](https://ui.shadcn.com/docs/typeset). It uses the same three rhythm controls while
 leaving content rendering and reading width to the application; moduix adds framework-native
-components and `Typeset.Scroll`.
+components and `TypesetScroll`.
 
 ## Basic
 
@@ -99,24 +99,24 @@ See [Quick Start](/docs/quick-start) for full package setup, registry configurat
 ## Anatomy
 
 ```text
-Typeset / Typeset.Root
-└─ Typeset.Scroll (optional)
+Typeset
+└─ TypesetScroll (optional)
 ```
 
 | Part | Role |
 | --- | --- |
-| `Typeset` / `Typeset.Root` | Scoped root that styles semantic descendants. |
-| `Typeset.Scroll` | Focusable horizontal scroller for a wide rendered block. |
+| `Typeset` | Scoped root that styles semantic descendants. |
+| `TypesetScroll` | Focusable horizontal scroller for a wide rendered block. |
 
 ## Composition
 
 `Typeset` owns no state and does not parse, sanitize, or size content. Keep rendered semantic
 elements inside the root, use `asChild` when the root must be an `article` or `section`, and compose
-`Typeset.Scroll` around a wide block that should scroll instead of compressing. Keep `Typeset.Scroll`
-inside a `Typeset` or `Typeset.Root` boundary: the horizontal scrolling, flow spacing, and table
+`TypesetScroll` around a wide block that should scroll instead of compressing. Keep `TypesetScroll`
+inside a `Typeset` boundary: the horizontal scrolling, flow spacing, and table
 widening for the wrapped block come from the Typeset element rules. Mark an application-owned
 subtree with `.not-typeset` or `data-not-typeset` when it needs its own visual treatment. A
-user-facing scroll region should have an accessible name; `Typeset.Scroll` is keyboard-focusable by
+user-facing scroll region should have an accessible name; `TypesetScroll` is keyboard-focusable by
 default.
 
 ## Examples
@@ -236,7 +236,7 @@ props.
 
 ### Scrollable table
 
-Wrap a table produced by your renderer in `Typeset.Scroll` when it should remain wide and scroll in a
+Wrap a table produced by your renderer in `TypesetScroll` when it should remain wide and scroll in a
 narrow container. Give the scroller an accessible name that identifies the table it contains.
 
 <ExampleFrame variant="component">

@@ -1,5 +1,5 @@
 import { Button } from '@moduix/solid/button';
-import { Toaster, createToaster } from '@moduix/solid/toast';
+import { ToastToaster, createToaster } from '@moduix/solid/toast';
 import styles from '@/components/examples/toast/toast-promise-toast.module.css';
 
 const uploadFile = () =>
@@ -15,7 +15,7 @@ const toaster = createToaster({ placement: 'bottom-end', overlap: true, gap: 16 
 export default function ToastPromise() {
   return (
     <div class={styles.root}>
-      <Toaster toaster={toaster} />
+      <ToastToaster toaster={toaster} />
       <Button
         onClick={() =>
           toaster.promise(uploadFile, {

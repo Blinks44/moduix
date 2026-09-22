@@ -2,23 +2,30 @@ import type { CreateToasterReturn, ToastPlacement } from '@ark-ui/solid/toast';
 import { createSignal, type JSX } from 'solid-js';
 import type { Meta, StoryObj } from 'storybook-solidjs-vite';
 import { Button } from '@/components/button/Button';
-import { Toast, Toaster, createToaster } from '@/components/toast/Toast';
+import {
+  Toast,
+  ToastCloseTrigger,
+  ToastDescription,
+  ToastTitle,
+  ToastToaster,
+  createToaster,
+} from '@/components/toast/Toast';
 import { CloseIcon } from '@/internal/icons/ui/Icons';
 import styles from './Toast.stories.module.css';
 
 const meta = {
   title: 'Components/Toast',
-  component: Toast.Root,
+  component: Toast,
   tags: ['autodocs'],
   parameters: {
     layout: 'centered',
   },
-} satisfies Meta<typeof Toast.Root>;
+} satisfies Meta<typeof Toast>;
 
 export default meta;
 
 type Story = StoryObj<typeof meta>;
-type ToastToaster = CreateToasterReturn;
+type ToastStore = CreateToasterReturn;
 const toastTypes = ['info', 'success', 'warning', 'error'] as const;
 
 const basicToaster = createToaster({ placement: 'bottom-end', overlap: true, gap: 24 });
@@ -37,7 +44,7 @@ const varyingHeightToaster = createToaster({ placement: 'bottom-end', overlap: t
 const customToaster = createToaster({ placement: 'bottom-end', overlap: true, gap: 24 });
 const placements = ['top-start', 'top', 'top-end', 'bottom-start', 'bottom', 'bottom-end'] as const;
 const accessibilityProps = { 'aria-hidden': 'true', focusable: 'false' } as const;
-const placementToasters: Record<ToastPlacement, ToastToaster> = {
+const placementToasters: Record<ToastPlacement, ToastStore> = {
   'top-start': createToaster({ placement: 'top-start', overlap: true, gap: 16 }),
   top: createToaster({ placement: 'top', overlap: true, gap: 16 }),
   'top-end': createToaster({ placement: 'top-end', overlap: true, gap: 16 }),
@@ -231,26 +238,26 @@ export const AdvancedCustomization: Story = {
       >
         Create custom toast
       </Button>
-      <Toaster toaster={customToaster}>
+      <ToastToaster toaster={customToaster}>
         {() => (
-          <Toast.Root class={styles.customToast}>
+          <Toast class={styles.customToast}>
             <div class={styles.customContent}>
               <InfoIcon class={styles.customIcon} />
-              <Toast.Title />
-              <Toast.Description />
+              <ToastTitle />
+              <ToastDescription />
             </div>
-            <Toast.CloseTrigger>
+            <ToastCloseTrigger>
               <CloseIcon class={styles.closeIcon} />
-            </Toast.CloseTrigger>
-          </Toast.Root>
+            </ToastCloseTrigger>
+          </Toast>
         )}
-      </Toaster>
+      </ToastToaster>
     </>
   ),
 };
 
-function ToastRenderer(props: { toaster: ToastToaster }) {
-  return <Toaster toaster={props.toaster} />;
+function ToastRenderer(props: { toaster: ToastStore }) {
+  return <ToastToaster toaster={props.toaster} />;
 }
 
 function PlacementStory() {

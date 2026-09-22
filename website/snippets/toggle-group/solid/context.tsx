@@ -1,4 +1,8 @@
-import { ToggleGroup, useToggleGroupContext } from '@moduix/solid/toggle-group';
+import {
+  ToggleGroup,
+  ToggleGroupItem,
+  useToggleGroupContext,
+} from '@moduix/solid/toggle-group';
 import { Check as CheckIcon } from 'lucide-solid';
 import type { JSX } from 'solid-js';
 
@@ -7,10 +11,10 @@ function AlignmentItem(props: { children: JSX.Element; value: string }) {
   const selected = () => toggleGroup().value.includes(props.value);
 
   return (
-    <ToggleGroup.Item value={props.value}>
+    <ToggleGroupItem value={props.value}>
       {props.children}
       {selected() ? <CheckIcon aria-hidden="true" /> : null}
-    </ToggleGroup.Item>
+    </ToggleGroupItem>
   );
 }
 

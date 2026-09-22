@@ -28,7 +28,7 @@ import treeViewSolidRootProvider from '../../../snippets/tree-view/solid/root-pr
 
 
 Создайте коллекцию данных с помощью `createTreeCollection`, затем передайте её в `TreeView`.
-`TreeView.Node` передаёт в рекурсивный рендерер текущие `node`, `indexPath` и `state`, поэтому можно
+`TreeViewNode` передаёт в рекурсивный рендерер текущие `node`, `indexPath` и `state`, поэтому можно
 вывести ветку или конечный узел, сохранив явную структуру частей.
 
 <ExampleFrame variant="component">
@@ -91,49 +91,48 @@ import treeViewSolidRootProvider from '../../../snippets/tree-view/solid/root-pr
 ## Анатомия
 
 ```text
-TreeView / TreeView.Root
-├─ TreeView.Label
-└─ TreeView.Tree
-   └─ TreeView.Node или TreeView.NodeProvider
-      ├─ TreeView.Branch
-      │  ├─ TreeView.BranchControl
-      │  │  ├─ TreeView.BranchIndicator
-      │  │  └─ TreeView.BranchText
-      │  ├─ TreeView.BranchTrigger (опционально, отдельный триггер)
-      │  └─ TreeView.BranchContent
-      │     ├─ TreeView.BranchIndentGuide
+TreeView
+├─ TreeViewLabel
+└─ TreeViewTree
+   └─ TreeViewNode или TreeViewNodeProvider
+      ├─ TreeViewBranch
+      │  ├─ TreeViewBranchControl
+      │  │  ├─ TreeViewBranchIndicator
+      │  │  └─ TreeViewBranchText
+      │  ├─ TreeViewBranchTrigger (опционально, отдельный триггер)
+      │  └─ TreeViewBranchContent
+      │     ├─ TreeViewBranchIndentGuide
       │     └─ вложенные узлы
-      └─ TreeView.Item
-         └─ TreeView.ItemText
+      └─ TreeViewItem
+         └─ TreeViewItemText
 ```
 
 | Часть                            | Назначение                                                            |
 | -------------------------------- | --------------------------------------------------------------------- |
-| `TreeView` / `TreeView.Root`     | Хранит коллекцию и управляет раскрытием, выбором, фокусом, флажками и переименованием. |
-| `TreeView.RootProvider`          | Связывает части дерева с экземпляром, созданным через `useTreeView`. |
-| `TreeView.Label`                 | Задаёт доступное имя дерева.                                         |
-| `TreeView.Tree`                  | Создаёт контейнер дерева с ARIA-разметкой.                           |
-| `TreeView.Node`                  | Упрощённый провайдер с `{ node, indexPath, state }`.                 |
-| `TreeView.NodeProvider`          | Низкоуровневая граница контекста Ark для нестандартной композиции.   |
-| `TreeView.Branch*`               | Раскрываемый узел, его элемент управления, индикатор, текст и содержимое. |
-| `TreeView.Item*`                 | Конечный узел и необязательный индикатор выбранного состояния.       |
-| `TreeView.NodeCheckbox*`         | Флажок и индикатор отмеченного или частично отмеченного состояния.   |
-| `TreeView.NodeRenameInput`       | Поле ввода, которое появляется при переименовании узла.              |
+| `TreeView`                  | Хранит коллекцию и управляет раскрытием, выбором, фокусом, флажками и переименованием. |
+| `TreeViewRootProvider`          | Связывает части дерева с экземпляром, созданным через `useTreeView`. |
+| `TreeViewLabel`                 | Задаёт доступное имя дерева.                                         |
+| `TreeViewTree`                  | Создаёт контейнер дерева с ARIA-разметкой.                           |
+| `TreeViewNode`                  | Упрощённый провайдер с `{ node, indexPath, state }`.                 |
+| `TreeViewNodeProvider`          | Низкоуровневая граница контекста Ark для нестандартной композиции.   |
+| `TreeViewBranch*`               | Раскрываемый узел, его элемент управления, индикатор, текст и содержимое. |
+| `TreeViewItem*`                 | Конечный узел и необязательный индикатор выбранного состояния.       |
+| `TreeViewNodeCheckbox*`         | Флажок и индикатор отмеченного или частично отмеченного состояния.   |
+| `TreeViewNodeRenameInput`       | Поле ввода, которое появляется при переименовании узла.              |
 
 ## Композиция
 
-Для рекурсивного рендера используйте `TreeView.Node`. Он передаёт `node`, `indexPath` и текущее
-состояние узла, а вы выбираете части `Branch` или `Item`. Если вашему рекурсивному компоненту нужен
-прямой доступ к контексту узла, используйте `TreeView.NodeProvider`, а не дополнительную обёртку над
-`Node`. Когда состояние дерева должно быть доступно внешним элементам управления, создайте его через
-`useTreeView` и передайте в `TreeView.RootProvider`; не создавайте второй root для того же хранилища.
-Если у ветки есть отдельный `BranchTrigger`, задайте `role="none"` для `BranchControl`.
+Для рекурсивного рендера используйте `TreeViewNode`. Он передаёт `node`, `indexPath` и текущее
+состояние узла, а вы выбираете части `TreeViewBranch` или `TreeViewItem`. Если вашему рекурсивному компоненту нужен
+прямой доступ к контексту узла, используйте `TreeViewNodeProvider`. Когда состояние дерева должно быть доступно внешним элементам управления, создайте его через
+`useTreeView` и передайте в `TreeViewRootProvider`; не создавайте второй root для того же хранилища.
+Если у ветки есть отдельный `TreeViewBranchTrigger`, задайте `role="none"` для `TreeViewBranchControl`.
 
 ## Примеры
 
 ### Ссылки
 
-Используйте `asChild` у `TreeView.Item`, когда конечный узел должен быть одним семантическим
+Используйте `asChild` у `TreeViewItem`, когда конечный узел должен быть одним семантическим
 элементом, например ссылкой. Этот элемент должен принимать props Ark, чтобы сохранить фокус и
 клавиатурное управление.
 
@@ -239,8 +238,8 @@ TreeView / TreeView.Root
 
 ### Значки файлов
 
-Помещайте декоративные значки файлов и папок внутрь `BranchText` и `ItemText`. Оставьте
-`BranchIndicator` отдельным элементом, чтобы он отвечал только за раскрытие и сворачивание.
+Помещайте декоративные значки файлов и папок внутрь `TreeViewBranchText` и `TreeViewItemText`. Оставьте
+`TreeViewBranchIndicator` отдельным элементом, чтобы он отвечал только за раскрытие и сворачивание.
 
 <ExampleFrame variant="component">
   <FileIconsTreeView />
@@ -316,8 +315,8 @@ TreeView / TreeView.Root
 ### Root provider
 
 Создайте состояние дерева через `useTreeView`, если кнопкам и другим элементам вне дерева нужны
-методы вроде `expand()` или `collapse()`. Передайте состояние в `RootProvider`, а не создавайте второй
-`TreeView.Root`.
+методы вроде `expand()` или `collapse()`. Передайте состояние в `TreeViewRootProvider`, а не создавайте второй
+`TreeView`.
 
 <ExampleFrame variant="component">
   <RootProviderTreeView />

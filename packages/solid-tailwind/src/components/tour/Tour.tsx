@@ -23,7 +23,7 @@ const DEFAULT_CLOSE_BUTTON_LABEL = 'Close tour';
 type TourRootProps = ComponentProps<typeof TourPrimitive.Root> & OverlayPortalProps;
 type TourCloseIconProps = Omit<ComponentProps<typeof TourPrimitive.CloseTrigger>, 'asChild'>;
 
-function TourRoot(props: TourRootProps) {
+function Tour(props: TourRootProps) {
   const [local, others] = splitProps(props, [
     'children',
     'lazyMount',
@@ -269,29 +269,27 @@ function TourActionList(props: { class?: string }) {
   );
 }
 
-const Tour = Object.assign(TourRoot, {
-  Root: TourRoot,
-  Context: TourPrimitive.Context,
-  Backdrop: TourBackdrop,
-  Spotlight: TourSpotlight,
-  Positioner: TourPositioner,
-  Content: TourContent,
-  Arrow: TourArrow,
-  ArrowTip: TourArrowTip,
-  Title: TourTitle,
-  Description: TourDescription,
-  ProgressText: TourProgressText,
-  Body: TourBody,
-  CloseTrigger: TourCloseTrigger,
-  CloseIcon: TourCloseIcon,
-  Control: TourControl,
-  Actions: TourActions,
-  ActionList: TourActionList,
-  ActionTrigger: TourActionTrigger,
-});
+const TourContext = TourPrimitive.Context;
 
 export {
   Tour,
+  TourActionList,
+  TourActionTrigger,
+  TourActions,
+  TourArrow,
+  TourArrowTip,
+  TourBackdrop,
+  TourBody,
+  TourCloseIcon,
+  TourCloseTrigger,
+  TourContent,
+  TourContext,
+  TourControl,
+  TourDescription,
+  TourPositioner,
+  TourProgressText,
+  TourSpotlight,
+  TourTitle,
   useTour,
   useTourContext,
   waitForElement,

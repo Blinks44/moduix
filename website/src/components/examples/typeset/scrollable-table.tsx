@@ -1,10 +1,10 @@
-import { Typeset } from '@moduix/react/typeset';
+import { Typeset, TypesetScroll } from '@moduix/react/typeset';
 import styles from '@/components/examples/typeset/typeset-scrollable-table.module.css';
 
 export default function TypesetScrollableTableDemo() {
   return (
     <Typeset>
-      <Typeset.Scroll aria-label="Typeset settings comparison">
+      <TypesetScroll aria-label="Typeset settings comparison">
         <table className={styles.table}>
           <thead>
             <tr>
@@ -23,7 +23,7 @@ export default function TypesetScrollableTableDemo() {
             </tr>
           </tbody>
         </table>
-      </Typeset.Scroll>
+      </TypesetScroll>
     </Typeset>
   );
 }

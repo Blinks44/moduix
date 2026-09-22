@@ -1,4 +1,14 @@
 import {
+  TreeViewTree,
+  TreeViewLabel,
+  TreeViewBranchIndentGuide,
+  TreeViewBranchContent,
+  TreeViewBranchText,
+  TreeViewBranchIndicator,
+  TreeViewBranchControl,
+  TreeViewBranch,
+  TreeViewItem,
+  TreeViewNode,
   TreeView,
   createTreeCollection,
   type TreeViewNodeProviderProps,
@@ -37,12 +47,12 @@ const collection = createTreeCollection<LinkNode>({
 
 function LinkTreeNode(props: TreeViewNodeProviderProps<LinkNode>) {
   return (
-    <TreeView.Node node={props.node} indexPath={props.indexPath}>
+    <TreeViewNode node={props.node} indexPath={props.indexPath}>
       {({ node: currentNode, indexPath: currentIndexPath, state }) => (
         <Show
           when={state().isBranch}
           fallback={
-            <TreeView.Item
+            <TreeViewItem
               asChild={(itemProps) => (
                 <a {...itemProps()} href={currentNode.href}>
                   {currentNode.name}
@@ -51,35 +61,35 @@ function LinkTreeNode(props: TreeViewNodeProviderProps<LinkNode>) {
             />
           }
         >
-          <TreeView.Branch>
-            <TreeView.BranchControl>
-              <TreeView.BranchIndicator />
-              <TreeView.BranchText>{currentNode.name}</TreeView.BranchText>
-            </TreeView.BranchControl>
-            <TreeView.BranchContent>
-              <TreeView.BranchIndentGuide />
+          <TreeViewBranch>
+            <TreeViewBranchControl>
+              <TreeViewBranchIndicator />
+              <TreeViewBranchText>{currentNode.name}</TreeViewBranchText>
+            </TreeViewBranchControl>
+            <TreeViewBranchContent>
+              <TreeViewBranchIndentGuide />
               <For each={currentNode.children ?? []}>
                 {(child, index) => (
                   <LinkTreeNode node={child} indexPath={[...currentIndexPath, index()]} />
                 )}
               </For>
-            </TreeView.BranchContent>
-          </TreeView.Branch>
+            </TreeViewBranchContent>
+          </TreeViewBranch>
         </Show>
       )}
-    </TreeView.Node>
+    </TreeViewNode>
   );
 }
 
 export default function LinkedTreeViewDemo() {
   return (
     <TreeView collection={collection} defaultExpandedValue={['docs', 'docs/guides']}>
-      <TreeView.Label>Documentation</TreeView.Label>
-      <TreeView.Tree>
+      <TreeViewLabel>Documentation</TreeViewLabel>
+      <TreeViewTree>
         <For each={collection.rootNode.children ?? []}>
           {(node, index) => <LinkTreeNode node={node} indexPath={[index()]} />}
         </For>
-      </TreeView.Tree>
+      </TreeViewTree>
     </TreeView>
   );
 }

@@ -8,7 +8,12 @@ import { ChevronLeftIcon } from '@/lib/moduix/icons/ui/Icons';
 import { Input } from '../input';
 import { Separator } from '../separator';
 import { Splitter, SplitterPanel, SplitterResizeTrigger, SplitterResizeTriggerIndicator, useSplitterContext, type SplitterPanelData } from '../splitter';
-import { Tooltip } from '../tooltip';
+import {
+  Tooltip,
+  TooltipContent,
+  TooltipPositioner,
+  TooltipTrigger,
+} from '../tooltip';
 
 type SidebarSide = 'left' | 'right';
 type SidebarConfig = {
@@ -551,8 +556,8 @@ function SidebarNavigationSubButton(
 
 function SidebarTooltip(
   props: Omit<ComponentProps<typeof Tooltip>, 'children' | 'disabled' | 'positioning'> & {
-    children: NonNullable<ComponentProps<typeof Tooltip.Trigger>['asChild']>;
-    content: ComponentProps<typeof Tooltip.Content>['children'];
+    children: NonNullable<ComponentProps<typeof TooltipTrigger>['asChild']>;
+    content: ComponentProps<typeof TooltipContent>['children'];
     positioning?: ComponentProps<typeof Tooltip>['positioning'];
   },
 ) {
@@ -577,10 +582,10 @@ function SidebarTooltip(
         ...local.positioning,
       }}
     >
-      <Tooltip.Trigger asChild={local.children} />
-      <Tooltip.Positioner>
-        <Tooltip.Content>{local.content}</Tooltip.Content>
-      </Tooltip.Positioner>
+      <TooltipTrigger asChild={local.children} />
+      <TooltipPositioner>
+        <TooltipContent>{local.content}</TooltipContent>
+      </TooltipPositioner>
     </Tooltip>
   );
 }

@@ -21,7 +21,7 @@ import { children, splitProps } from 'solid-js';
 import { CheckIcon, ChevronRightIcon, IndeterminateIcon } from '@/lib/moduix/icons/ui/Icons';
 import styles from './TreeView.module.css';
 
-const TreeViewRoot = function TreeViewRoot<T extends TreeNode>(props: TreeViewRootProps<T>) {
+const TreeView = function TreeView<T extends TreeNode>(props: TreeViewRootProps<T>) {
   const [local, others] = splitProps(props, ['asChild', 'children', 'class']);
 
   return (
@@ -265,6 +265,8 @@ function TreeViewNodeRenameInput(props: ComponentProps<typeof TreeViewPrimitive.
 }
 
 const TreeViewNodeProvider = TreeViewPrimitive.NodeProvider;
+const TreeViewContext = TreeViewPrimitive.Context;
+const TreeViewNodeContext = TreeViewPrimitive.NodeContext;
 
 type TreeViewNodeRenderProps<T extends TreeNode> = {
   indexPath: number[];
@@ -294,56 +296,28 @@ function TreeViewNode<T extends TreeNode>(props: TreeViewNodeProps<T>) {
   );
 }
 
-type TreeViewComponent = typeof TreeViewRoot & {
-  Root: typeof TreeViewRoot;
-  RootProvider: typeof TreeViewRootProvider;
-  Context: typeof TreeViewPrimitive.Context;
-  NodeContext: typeof TreeViewPrimitive.NodeContext;
-  Label: typeof TreeViewLabel;
-  Tree: typeof TreeViewTree;
-  Node: typeof TreeViewNode;
-  NodeProvider: typeof TreeViewNodeProvider;
-  Branch: typeof TreeViewBranch;
-  BranchControl: typeof TreeViewBranchControl;
-  BranchTrigger: typeof TreeViewBranchTrigger;
-  BranchIndicator: typeof TreeViewBranchIndicator;
-  BranchText: typeof TreeViewBranchText;
-  BranchContent: typeof TreeViewBranchContent;
-  BranchIndentGuide: typeof TreeViewBranchIndentGuide;
-  Item: typeof TreeViewItem;
-  ItemText: typeof TreeViewItemText;
-  ItemIndicator: typeof TreeViewItemIndicator;
-  NodeCheckbox: typeof TreeViewNodeCheckbox;
-  NodeCheckboxIndicator: typeof TreeViewNodeCheckboxIndicator;
-  NodeRenameInput: typeof TreeViewNodeRenameInput;
-};
-
-const TreeView: TreeViewComponent = Object.assign(TreeViewRoot, {
-  Root: TreeViewRoot,
-  RootProvider: TreeViewRootProvider,
-  Context: TreeViewPrimitive.Context,
-  NodeContext: TreeViewPrimitive.NodeContext,
-  Label: TreeViewLabel,
-  Tree: TreeViewTree,
-  Node: TreeViewNode,
-  NodeProvider: TreeViewNodeProvider,
-  Branch: TreeViewBranch,
-  BranchControl: TreeViewBranchControl,
-  BranchTrigger: TreeViewBranchTrigger,
-  BranchIndicator: TreeViewBranchIndicator,
-  BranchText: TreeViewBranchText,
-  BranchContent: TreeViewBranchContent,
-  BranchIndentGuide: TreeViewBranchIndentGuide,
-  Item: TreeViewItem,
-  ItemText: TreeViewItemText,
-  ItemIndicator: TreeViewItemIndicator,
-  NodeCheckbox: TreeViewNodeCheckbox,
-  NodeCheckboxIndicator: TreeViewNodeCheckboxIndicator,
-  NodeRenameInput: TreeViewNodeRenameInput,
-});
-
 export {
   TreeView,
+  TreeViewContext,
+  TreeViewNodeContext,
+  TreeViewNodeProvider,
+  TreeViewLabel,
+  TreeViewTree,
+  TreeViewNode,
+  TreeViewBranch,
+  TreeViewBranchControl,
+  TreeViewBranchTrigger,
+  TreeViewBranchIndicator,
+  TreeViewBranchText,
+  TreeViewBranchContent,
+  TreeViewBranchIndentGuide,
+  TreeViewItem,
+  TreeViewItemText,
+  TreeViewItemIndicator,
+  TreeViewNodeCheckbox,
+  TreeViewNodeCheckboxIndicator,
+  TreeViewNodeRenameInput,
+  TreeViewRootProvider,
   createFileTreeCollection,
   createTreeCollection,
   useTreeView,

@@ -5,13 +5,13 @@ time and keeps Ark's timer machine, controls, callbacks, ids, and context API in
 
 ## Public API
 
-`Timer` is equivalent to `Timer.Root` and exposes `RootProvider`, `Area`, `Item`, `Separator`,
-`Control`, `ActionTrigger`, `Context`, and `Segments`. The package also exports `useTimer` and
+`Timer` is the root component and exposes `TimerRootProvider`, `TimerArea`, `TimerItem`, `TimerSeparator`,
+`TimerControl`, `TimerActionTrigger`, `TimerContext`, and `TimerSegments`. The package also exports `useTimer` and
 `useTimerContext`.
 
-`Timer.Segments` renders `hours`, `minutes`, and `seconds` by default. Pass `types` and
-`separator` to customize the generated `Timer.Item` and `Timer.Separator` parts. It forwards
-`Timer.Area` attributes and refs, while owning its generated children and therefore not accepting
+`TimerSegments` renders `hours`, `minutes`, and `seconds` by default. Pass `types` and
+`separator` to customize the generated `TimerItem` and `TimerSeparator` parts. It forwards
+`TimerArea` attributes and refs, while owning its generated children and therefore not accepting
 `asChild`.
 
 ```tsx
@@ -20,12 +20,12 @@ import { Timer } from '@moduix/solid/timer';
 export function Example() {
   return (
     <Timer targetMs={60 * 60 * 1000}>
-      <Timer.Segments />
-      <Timer.Control>
-        <Timer.ActionTrigger action="start">Start</Timer.ActionTrigger>
-        <Timer.ActionTrigger action="pause">Pause</Timer.ActionTrigger>
-        <Timer.ActionTrigger action="reset">Reset</Timer.ActionTrigger>
-      </Timer.Control>
+      <TimerSegments />
+      <TimerControl>
+        <TimerActionTrigger action="start">Start</TimerActionTrigger>
+        <TimerActionTrigger action="pause">Pause</TimerActionTrigger>
+        <TimerActionTrigger action="reset">Reset</TimerActionTrigger>
+      </TimerControl>
     </Timer>
   );
 }
@@ -33,16 +33,16 @@ export function Example() {
 
 ## Provider and context
 
-`useTimer()` returns a Solid accessor. Pass it to `Timer.RootProvider` when timer state is created
-outside the rendered root. `useTimerContext()` and `Timer.Context` expose the current Ark API;
+`useTimer()` returns a Solid accessor. Pass it to `TimerRootProvider` when timer state is created
+outside the rendered root. `useTimerContext()` and `TimerContext` expose the current Ark API;
 read the API through `timer()` or `api()`.
 
 ```tsx
 const timer = useTimer({ targetMs: 60_000 });
 
-<Timer.RootProvider value={timer}>
-  <Timer.Context>{(api) => <output>{api().progressPercent}%</output>}</Timer.Context>
-</Timer.RootProvider>;
+<TimerRootProvider value={timer}>
+  <TimerContext>{(api) => <output>{api().progressPercent}%</output>}</TimerContext>
+</TimerRootProvider>;
 ```
 
 ## Accessibility and styling
@@ -62,5 +62,8 @@ paths. The Solid tests cover both paths independently.
 
 ## Local changelog
 
+- 2026-09-22: Replaced the compound Timer API with flat Timer, TimerRootProvider, TimerArea,
+  TimerItem, TimerSeparator, TimerControl, TimerActionTrigger, TimerContext, and TimerSegments
+  exports.
 - 2026-09-04: Added the Solid Timer wrapper, tests, playground story, and registry entry in parity
   with the React component.

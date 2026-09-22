@@ -1,7 +1,20 @@
 import type { TourStepDetails } from '@ark-ui/solid/tour';
 import { Button } from '@moduix/solid/button';
 import { Input } from '@moduix/solid/input';
-import { Tour, useTour } from '@moduix/solid/tour';
+import {
+  Tour,
+  TourBackdrop,
+  TourSpotlight,
+  TourPositioner,
+  TourContent,
+  TourTitle,
+  TourDescription,
+  TourBody,
+  TourCloseIcon,
+  TourControl,
+  TourActionList,
+  useTour,
+} from '@moduix/solid/tour';
 import { createSignal } from 'solid-js';
 import styles from '@/components/examples/tour/tour-wait-for-input.module.css';
 
@@ -44,20 +57,20 @@ export default function TourWaitForInputDemo() {
       />
 
       <Tour tour={tour} lazyMount unmountOnExit>
-        <Tour.Backdrop />
-        <Tour.Spotlight />
-        <Tour.Positioner>
-          <Tour.Content>
-            <Tour.CloseIcon />
-            <Tour.Body>
-              <Tour.Title />
-              <Tour.Description />
-            </Tour.Body>
-            <Tour.Control>
-              <Tour.ActionList />
-            </Tour.Control>
-          </Tour.Content>
-        </Tour.Positioner>
+        <TourBackdrop />
+        <TourSpotlight />
+        <TourPositioner>
+          <TourContent>
+            <TourCloseIcon />
+            <TourBody>
+              <TourTitle />
+              <TourDescription />
+            </TourBody>
+            <TourControl>
+              <TourActionList />
+            </TourControl>
+          </TourContent>
+        </TourPositioner>
       </Tour>
 
       <output>Tour: {status()}</output>

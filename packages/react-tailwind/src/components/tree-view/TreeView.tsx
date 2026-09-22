@@ -26,7 +26,7 @@ const treeViewRowVariants = cva(
   "relative z-0 box-border flex min-h-8 w-full min-w-0 cursor-pointer items-center gap-2 rounded-sm bg-transparent py-1 pe-2 text-start text-foreground no-underline transition-[color,opacity] duration-200 ease-in-out outline-none select-none [font:inherit] before:pointer-events-none before:absolute before:inset-y-0 before:start-[calc(0.5rem+((var(--depth,1)-1)*1rem))] before:end-0 before:-z-1 before:rounded-sm before:bg-transparent before:ring-1 before:ring-transparent before:transition-[background-color,box-shadow] before:duration-200 before:ease-in-out before:content-[''] before:ring-inset focus-visible:before:ring-ring data-disabled:cursor-default data-disabled:text-muted-foreground data-disabled:opacity-50 data-focus:before:ring-ring data-selected:text-accent-foreground data-selected:before:bg-accent motion-reduce:before:transition-none [@media(hover:hover)]:[&:not([data-disabled]):hover]:text-accent-foreground [@media(hover:hover)]:[&:not([data-disabled]):hover]:before:bg-accent",
 );
 
-const TreeViewRoot = forwardRef(function TreeViewRoot<T extends TreeNode>(
+const TreeView = forwardRef(function TreeView<T extends TreeNode>(
   { className, ...props }: TreeViewRootProps<T>,
   ref: ForwardedRef<HTMLDivElement>,
 ) {
@@ -317,6 +317,8 @@ const TreeViewNodeRenameInput = forwardRef<
 });
 
 const TreeViewNodeProvider = TreeViewPrimitive.NodeProvider;
+const TreeViewContext = TreeViewPrimitive.Context;
+const TreeViewNodeContext = TreeViewPrimitive.NodeContext;
 
 type TreeViewNodeRenderProps<T extends TreeNode> = {
   indexPath: number[];
@@ -348,32 +350,28 @@ function TreeViewNode<T extends TreeNode>({ children, indexPath, node }: TreeVie
   );
 }
 
-const TreeView = Object.assign(TreeViewRoot, {
-  Root: TreeViewRoot,
-  RootProvider: TreeViewRootProvider,
-  Context: TreeViewPrimitive.Context,
-  NodeContext: TreeViewPrimitive.NodeContext,
-  Label: TreeViewLabel,
-  Tree: TreeViewTree,
-  Node: TreeViewNode,
-  NodeProvider: TreeViewNodeProvider,
-  Branch: TreeViewBranch,
-  BranchControl: TreeViewBranchControl,
-  BranchTrigger: TreeViewBranchTrigger,
-  BranchIndicator: TreeViewBranchIndicator,
-  BranchText: TreeViewBranchText,
-  BranchContent: TreeViewBranchContent,
-  BranchIndentGuide: TreeViewBranchIndentGuide,
-  Item: TreeViewItem,
-  ItemText: TreeViewItemText,
-  ItemIndicator: TreeViewItemIndicator,
-  NodeCheckbox: TreeViewNodeCheckbox,
-  NodeCheckboxIndicator: TreeViewNodeCheckboxIndicator,
-  NodeRenameInput: TreeViewNodeRenameInput,
-});
-
 export {
   TreeView,
+  TreeViewContext,
+  TreeViewNodeContext,
+  TreeViewNodeProvider,
+  TreeViewLabel,
+  TreeViewTree,
+  TreeViewNode,
+  TreeViewBranch,
+  TreeViewBranchControl,
+  TreeViewBranchTrigger,
+  TreeViewBranchIndicator,
+  TreeViewBranchText,
+  TreeViewBranchContent,
+  TreeViewBranchIndentGuide,
+  TreeViewItem,
+  TreeViewItemText,
+  TreeViewItemIndicator,
+  TreeViewNodeCheckbox,
+  TreeViewNodeCheckboxIndicator,
+  TreeViewNodeRenameInput,
+  TreeViewRootProvider,
   createFileTreeCollection,
   createTreeCollection,
   useTreeView,

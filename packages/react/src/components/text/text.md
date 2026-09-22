@@ -27,7 +27,7 @@ modes to preserve.
 
 ## Current behavior contract
 
-`Text` renders one root element. The short `<Text>` form and `<Text.Root>` are equivalent.
+`Text` renders one root element through the flat root export.
 
 Default behavior:
 
@@ -52,13 +52,13 @@ Element-based defaults:
 ## Anatomy and exported parts
 
 ```text
-Text / Text.Root
+Text
 └─ text or inline content
 ```
 
 | Part                 | data-slot   | Notes                                           |
 | -------------------- | ----------- | ----------------------------------------------- |
-| `Text` / `Text.Root` | `text-root` | Ark factory root with typography styling hooks. |
+| `Text`              | `text-root` | Ark factory root with typography styling hooks. |
 
 ## Composition
 
@@ -174,8 +174,8 @@ directly when they need upstream typing helpers.
 
 - Keep `Text` root-only. Do not add subparts, local state, callback props, rich-text parsing, or
   layout spacing.
-- Keep `Text.Root` attached so root-only docs can teach short `<Text>` while preserving Ark-style
-  namespace composition.
+- Keep `Text` as the only public root value. It is a root-only component and does not need namespace
+  composition.
 - If new variants or `--moduix-text-*` variables are added, update this file, docs examples, theme tokens,
   and registry artifacts in the same task.
 
@@ -193,7 +193,7 @@ directly when they need upstream typing helpers.
 - 2026-07-03: Dropped duplicate public type exports so `Text` matches the smaller callable-root
   surface used by other simplified components.
 - 2026-06-21: Migrated `Text` from legacy `useRender` to Ark factory, replaced `render` with
-  `asChild`, added `Text.Root`, forwarded refs, Ark-style root data attributes, and Chakra-informed
+  `asChild`, added the flat root export, forwarded refs, Ark-style root data attributes, and Chakra-informed
   `truncate` / `lineClamp` props.
 - 2026-06-03: Rewrote the local documentation around the shipped moduix `Text` contract, including
   defaults, composition, styling hooks, CSS variables, accessibility guidance, and exported types.

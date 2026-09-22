@@ -1,5 +1,5 @@
 import type { Meta, StoryObj } from 'storybook-solidjs-vite';
-import { Typeset } from '@/components/typeset/Typeset';
+import { Typeset, TypesetScroll } from '@/components/typeset/Typeset';
 import styles from './Typeset.stories.module.css';
 
 const meta = {
@@ -106,7 +106,7 @@ export const Compact: Story = {
 export const ScrollableTable: Story = {
   render: () => (
     <Typeset class={styles.article}>
-      <Typeset.Scroll aria-label="Content comparison table">
+      <TypesetScroll aria-label="Content comparison table">
         <table class={styles.wideTable}>
           <thead>
             <tr>
@@ -125,7 +125,7 @@ export const ScrollableTable: Story = {
             </tr>
           </tbody>
         </table>
-      </Typeset.Scroll>
+      </TypesetScroll>
     </Typeset>
   ),
 };

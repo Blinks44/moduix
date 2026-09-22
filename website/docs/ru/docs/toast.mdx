@@ -30,7 +30,7 @@ import toastSolidUpdate from '../../../snippets/toast/solid/update.tsx?raw';
 
 <PrimitiveReference href="https://ark-ui.com/docs/components/toast" />
 
-Moduix экспортирует `Toast`, `Toaster`, `createToaster` и `useToastContext` из
+Moduix экспортирует `Toast`, `ToastToaster`, `createToaster` и `useToastContext` из
 `@moduix/react/toast` и `@moduix/solid/toast`. Полный API хранилища и его частей приведён в
 справочнике Ark.
 
@@ -38,7 +38,7 @@ Moduix экспортирует `Toast`, `Toaster`, `createToaster` и `useToast
 
 
 Один раз создайте toaster через `createToaster()`, добавляйте уведомления его методами и выведите
-их с помощью `Toaster`.
+их с помощью `ToastToaster`.
 
 <ExampleFrame variant="component">
   <ToastBasic />
@@ -106,34 +106,34 @@ Moduix экспортирует `Toast`, `Toaster`, `createToaster` и `useToast
 
 ```text
 createToaster()
-└─ Toaster / Toast.Toaster (portalled to document.body by default)
-   └─ Toast / Toast.Root
-      ├─ Toast.Title
-      ├─ Toast.Description
-      ├─ Toast.ActionTrigger
-      └─ Toast.CloseTrigger
+└─ ToastToaster (portalled to document.body by default)
+   └─ Toast
+      ├─ ToastTitle
+      ├─ ToastDescription
+      ├─ ToastActionTrigger
+      └─ ToastCloseTrigger
 ```
 
 | Часть                          | Назначение                                                                            |
 | ------------------------------ | ------------------------------------------------------------------------------------- |
-| `Toast` / `Toast.Root`         | Корень видимого уведомления. `Toast.Root` является алиасом `Toast` для совместимости. |
-| `Toaster` / `Toast.Toaster`    | Выводит хранилище toaster и управляет группой уведомлений.                            |
-| `Toast.Title`                  | Заголовок. Если дочерние элементы не переданы, использует `title` текущего уведомления. |
-| `Toast.Description`            | Описание. Если дочерние элементы не переданы, использует `description` текущего уведомления. |
-| `Toast.ActionTrigger`          | Кнопка действия, связанная с `toast.action.onClick`.                                 |
-| `Toast.CloseTrigger`           | Кнопка закрытия. По умолчанию использует `CloseButton`.                         |
-| `Toast.Context`                | Контекстная часть для собственной композиции и прямого доступа к состоянию уведомления. |
+| `Toast`               | Корень видимого уведомления.                                      |
+| `ToastToaster`        | Выводит хранилище toaster и управляет группой уведомлений.       |
+| `ToastTitle`          | Заголовок. Если дочерние элементы не переданы, использует `title` текущего уведомления. |
+| `ToastDescription`    | Описание. Если дочерние элементы не переданы, использует `description` текущего уведомления. |
+| `ToastActionTrigger`  | Кнопка действия, связанная с `toast.action.onClick`.             |
+| `ToastCloseTrigger`   | Кнопка закрытия. По умолчанию использует `CloseButton`.          |
+| `ToastContext`        | Контекстная часть для собственной композиции и прямого доступа к состоянию уведомления. |
 
 ## Композиция
 
-По возможности создайте toaster вне тела компонента и передайте тот же экземпляр в `Toaster`.
-Toaster управляет размещением, стеком, очередью, таймерами и фокусом. По умолчанию `Toaster`
+По возможности создайте toaster вне тела компонента и передайте тот же экземпляр в `ToastToaster`.
+ToastToaster управляет размещением, стеком, очередью, таймерами и фокусом. По умолчанию `ToastToaster`
 выводит группу через портал в `document.body`; используйте `portalled={false}` или `portalRef`,
 если группа должна находиться в другом контейнере. Отдельная обёртка `Portal` не нужна.
 
-Для обычного уведомления используйте стандартный рендерер `Toaster`: он выводит заголовок, описание,
+Для обычного уведомления используйте стандартный рендерер `ToastToaster`: он выводит заголовок, описание,
 действие и кнопку закрытия. Для другой разметки или собственных элементов управления передайте
-render prop, оставьте `Toast` или `Toast.Root` внешним элементом и соберите внутри его части.
+render prop, оставьте `Toast` внешним элементом и соберите внутри его части.
 Используйте `asChild` только с семантическим дочерним элементом-кнопкой, а `useToastContext()`
 подключайте, когда собственному элементу нужен прямой доступ к текущему уведомлению.
 
@@ -404,7 +404,7 @@ toaster, а не отдельный режим компонента.
 
 ### Расширенная настройка
 
-Используйте render prop, чтобы заменить стандартную разметку `Toaster`, добавить иконку, изменить
+Используйте render prop, чтобы заменить стандартную разметку `ToastToaster`, добавить иконку, изменить
 иконку закрытия и применить CSS-переменные компонента.
 
 <ExampleFrame variant="component">
@@ -458,17 +458,17 @@ CSS ниже относятся к вариантам с CSS Modules.
 ### Хуки стилизации
 
 На корневом элементе задавайте стили поверхности, границы, анимации и вариантов по типу. Для
-внутренней типографики и элементов управления используйте `Toast.Title`, `Toast.Description`,
-`Toast.ActionTrigger` и `Toast.CloseTrigger`.
+внутренней типографики и элементов управления используйте `ToastTitle`, `ToastDescription`,
+`ToastActionTrigger` и `ToastCloseTrigger`.
 
 Полезные селекторы Ark:
 
-- `[data-scope='toast'][data-part='group']` на `Toaster`
+- `[data-scope='toast'][data-part='group']` на `ToastToaster`
 - `[data-scope='toast'][data-part='root']` на `Toast`
-- `[data-scope='toast'][data-part='title']` на `Toast.Title`
-- `[data-scope='toast'][data-part='description']` на `Toast.Description`
-- `[data-scope='toast'][data-part='action-trigger']` на `Toast.ActionTrigger`
-- `[data-scope='toast'][data-part='close-trigger']` на `Toast.CloseTrigger`
+- `[data-scope='toast'][data-part='title']` на `ToastTitle`
+- `[data-scope='toast'][data-part='description']` на `ToastDescription`
+- `[data-scope='toast'][data-part='action-trigger']` на `ToastActionTrigger`
+- `[data-scope='toast'][data-part='close-trigger']` на `ToastCloseTrigger`
 - `--x`, `--y`, `--scale`, `--z-index`, `--height`, `--opacity` и `--gap` на `Toast`
 
 Moduix также добавляет стабильные хуки: `data-slot="toast-toaster"`, `data-slot="toast-root"`,

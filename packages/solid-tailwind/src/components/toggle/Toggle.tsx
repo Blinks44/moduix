@@ -40,7 +40,7 @@ const toggleVariants = cva(
   },
 );
 
-function ToggleRoot(props: ToggleRootProps) {
+function Toggle(props: ToggleRootProps) {
   const [local, others] = splitProps(props, ['asChild', 'class', 'size', 'variant']);
 
   return (
@@ -71,11 +71,5 @@ function ToggleIndicator(props: ComponentProps<typeof TogglePrimitive.Indicator>
   );
 }
 
-const Toggle = Object.assign(ToggleRoot, {
-  Root: ToggleRoot,
-  Indicator: ToggleIndicator,
-  Context: ToggleContext,
-});
-
-export { Toggle, toggleVariants, useToggleContext };
+export { Toggle, ToggleContext, ToggleIndicator, toggleVariants, useToggleContext };
 export type { ToggleRootProps, ToggleSize, ToggleVariant };

@@ -14,7 +14,7 @@ type TooltipRootProps = ComponentProps<typeof TooltipPrimitive.Root> & OverlayPo
 type TooltipRootProviderProps = ComponentProps<typeof TooltipPrimitive.RootProvider> &
   OverlayPortalProps;
 
-function TooltipRoot({
+function Tooltip({
   lazyMount = true,
   portalled,
   portalRef,
@@ -164,18 +164,20 @@ const TooltipArrowTip = forwardRef<
   );
 });
 
-const Tooltip = Object.assign(TooltipRoot, {
-  Root: TooltipRoot,
-  RootProvider: TooltipRootProvider,
-  Context: TooltipPrimitive.Context,
-  Trigger: TooltipTrigger,
-  DisabledTrigger: TooltipDisabledTrigger,
-  Body: TooltipBody,
-  Positioner: TooltipPositioner,
-  Content: TooltipContent,
-  Arrow: TooltipArrow,
-  ArrowTip: TooltipArrowTip,
-});
+const TooltipContext = TooltipPrimitive.Context;
 
-export { Tooltip, useTooltip, useTooltipContext };
+export {
+  Tooltip,
+  TooltipArrow,
+  TooltipArrowTip,
+  TooltipBody,
+  TooltipContext,
+  TooltipContent,
+  TooltipDisabledTrigger,
+  TooltipPositioner,
+  TooltipRootProvider,
+  TooltipTrigger,
+  useTooltip,
+  useTooltipContext,
+};
 export type { TooltipRootProps, TooltipRootProviderProps };

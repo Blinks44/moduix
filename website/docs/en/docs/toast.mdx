@@ -30,7 +30,7 @@ import toastSolidUpdate from '../../../snippets/toast/solid/update.tsx?raw';
 
 <PrimitiveReference href="https://ark-ui.com/docs/components/toast" />
 
-Moduix exports `Toast`, `Toaster`, `createToaster`, and `useToastContext` from
+Moduix exports `Toast`, `ToastToaster`, `createToaster`, and `useToastContext` from
 `@moduix/react/toast` and `@moduix/solid/toast`. The Ark reference contains the complete store and
 part API.
 
@@ -38,7 +38,7 @@ part API.
 
 
 Create a toaster once with `createToaster()`, use its methods to add notifications, and render it
-with `Toaster`.
+with `ToastToaster`.
 
 <ExampleFrame variant="component">
   <ToastBasic />
@@ -106,34 +106,34 @@ See [Quick Start](/docs/quick-start) for full package setup, registry configurat
 
 ```text
 createToaster()
-└─ Toaster / Toast.Toaster (portalled to document.body by default)
-   └─ Toast / Toast.Root
-      ├─ Toast.Title
-      ├─ Toast.Description
-      ├─ Toast.ActionTrigger
-      └─ Toast.CloseTrigger
+└─ ToastToaster (portalled to document.body by default)
+   └─ Toast
+      ├─ ToastTitle
+      ├─ ToastDescription
+      ├─ ToastActionTrigger
+      └─ ToastCloseTrigger
 ```
 
 | Part                           | Role                                                                                   |
 | ------------------------------ | -------------------------------------------------------------------------------------- |
-| `Toast` / `Toast.Root`         | Root of a visible toast. `Toast.Root` is a compatibility alias for `Toast`.           |
-| `Toaster` / `Toast.Toaster`    | Renders the toaster store and manages the toast group.                                |
-| `Toast.Title`                  | Title part. Uses the current toast `title` when no children are passed.                |
-| `Toast.Description`            | Description part. Uses the current toast `description` when no children are passed.    |
-| `Toast.ActionTrigger`          | Action button connected to `toast.action.onClick`.                                    |
-| `Toast.CloseTrigger`           | Dismiss button. Uses `CloseButton` by default.                                   |
-| `Toast.Context`                | Context part for custom composition and direct toast state access.                    |
+| `Toast`               | Root of a visible toast.                                             |
+| `ToastToaster`        | Renders the toaster store and manages the toast group.               |
+| `ToastTitle`          | Title part. Uses the current toast `title` when no children are passed. |
+| `ToastDescription`    | Description part. Uses the current toast `description` when no children are passed. |
+| `ToastActionTrigger`  | Action button connected to `toast.action.onClick`.                   |
+| `ToastCloseTrigger`   | Dismiss button. Uses `CloseButton` by default.                       |
+| `ToastContext`        | Context part for custom composition and direct toast state access.   |
 
 ## Composition
 
 Create the toaster outside the component render path when possible and pass the same store to
-`Toaster`. The store owns placement, stacking, queue size, timing, and focus behavior. `Toaster`
+`ToastToaster`. The store owns placement, stacking, queue size, timing, and focus behavior. `ToastToaster`
 portals the group to `document.body` by default; use `portalled={false}` or `portalRef` when it must
 stay in another container. A separate `Portal` wrapper is not needed.
 
-Use the default `Toaster` renderer for a title, description, action, and close button. For a different
-layout or custom controls, pass a render prop, keep `Toast` or `Toast.Root` as the outer item, and
-compose its parts inside. Use `asChild` only with a semantic button child, and use `useToastContext()`
+Use the default `ToastToaster` renderer for a title, description, action, and close button. For a different
+layout or custom controls, pass a render prop, keep `Toast` as the outer item, and compose its parts
+inside. Use `asChild` only with a semantic button child, and use `useToastContext()`
 when a custom child needs direct access to the current toast.
 
 ## Examples
@@ -402,7 +402,7 @@ notification should change in place.
 
 ### Advanced Customization
 
-Use the render prop to bypass the default `Toaster` renderer, add an icon, replace the close icon,
+Use the render prop to bypass the default `ToastToaster` renderer, add an icon, replace the close icon,
 and apply component-specific CSS variables.
 
 <ExampleFrame variant="component">
@@ -455,18 +455,18 @@ to the CSS Modules variants.
 
 ### Styling hooks
 
-Use the toast root for the surface, border, motion, and type-based variants. Use `Toast.Title`,
-`Toast.Description`, `Toast.ActionTrigger`, and `Toast.CloseTrigger` for inner typography and
+Use the toast root for the surface, border, motion, and type-based variants. Use `ToastTitle`,
+`ToastDescription`, `ToastActionTrigger`, and `ToastCloseTrigger` for inner typography and
 controls.
 
 Useful Ark selectors:
 
-- `[data-scope='toast'][data-part='group']` on `Toaster`
+- `[data-scope='toast'][data-part='group']` on `ToastToaster`
 - `[data-scope='toast'][data-part='root']` on `Toast`
-- `[data-scope='toast'][data-part='title']` on `Toast.Title`
-- `[data-scope='toast'][data-part='description']` on `Toast.Description`
-- `[data-scope='toast'][data-part='action-trigger']` on `Toast.ActionTrigger`
-- `[data-scope='toast'][data-part='close-trigger']` on `Toast.CloseTrigger`
+- `[data-scope='toast'][data-part='title']` on `ToastTitle`
+- `[data-scope='toast'][data-part='description']` on `ToastDescription`
+- `[data-scope='toast'][data-part='action-trigger']` on `ToastActionTrigger`
+- `[data-scope='toast'][data-part='close-trigger']` on `ToastCloseTrigger`
 - `--x`, `--y`, `--scale`, `--z-index`, `--height`, `--opacity`, and `--gap` on `Toast`
 
 Moduix also adds stable hooks: `data-slot="toast-toaster"`, `data-slot="toast-root"`,

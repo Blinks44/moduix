@@ -1,24 +1,29 @@
-import { Timer } from '@moduix/react/timer';
+import {
+  Timer,
+  TimerSegments,
+  TimerControl,
+  TimerActionTrigger,
+} from '@moduix/react/timer';
 import { Pause as PauseIcon, Play as PlayIcon, RotateCcw as RotateCcwIcon } from 'lucide-react';
 
 export default function TimerDemo() {
   return (
     <Timer targetMs={60 * 60 * 1000} startMs={40 * 60 * 1000}>
-      <Timer.Segments />
-      <Timer.Control>
-        <Timer.ActionTrigger action="start">
+      <TimerSegments />
+      <TimerControl>
+        <TimerActionTrigger action="start">
           <PlayIcon /> Start
-        </Timer.ActionTrigger>
-        <Timer.ActionTrigger action="resume">
+        </TimerActionTrigger>
+        <TimerActionTrigger action="resume">
           <PlayIcon /> Resume
-        </Timer.ActionTrigger>
-        <Timer.ActionTrigger action="pause">
+        </TimerActionTrigger>
+        <TimerActionTrigger action="pause">
           <PauseIcon /> Pause
-        </Timer.ActionTrigger>
-        <Timer.ActionTrigger action="reset">
+        </TimerActionTrigger>
+        <TimerActionTrigger action="reset">
           <RotateCcwIcon /> Reset
-        </Timer.ActionTrigger>
-      </Timer.Control>
+        </TimerActionTrigger>
+      </TimerControl>
     </Timer>
   );
 }

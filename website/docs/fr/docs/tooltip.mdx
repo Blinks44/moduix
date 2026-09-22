@@ -44,8 +44,8 @@ l’élément déclencheur reçoit le focus.
 ## Exemple de base
 
 
-Utilisez `Tooltip.Trigger` pour l’élément qui ouvre l’infobulle et `Tooltip.Body` pour son contenu.
-`Tooltip.Body` réunit `Tooltip.Positioner` et `Tooltip.Content`. Donnez au déclencheur son propre
+Utilisez `TooltipTrigger` pour l’élément qui ouvre l’infobulle et `TooltipBody` pour son contenu.
+`TooltipBody` réunit `TooltipPositioner` et `TooltipContent`. Donnez au déclencheur son propre
 nom accessible. Le contenu de l’infobulle est complémentaire et ne remplace ni le texte visible ni
 `aria-label`.
 
@@ -109,51 +109,51 @@ Consultez le [Démarrage rapide](/docs/quick-start) pour la configuration compl�
 ## Anatomie
 
 ```text
-Tooltip / Tooltip.Root
-├─ Tooltip.Trigger
+Tooltip
+├─ TooltipTrigger
 └─ Sous-arbre flottant (rendu automatiquement dans un portail)
-   └─ Tooltip.Positioner
-      └─ Tooltip.Content
+   └─ TooltipPositioner
+      └─ TooltipContent
          └─ contenu
 ```
 
-Ajoutez `Tooltip.Arrow` comme premier enfant du contenu lorsque la fenêtre flottante doit pointer
-vers son élément déclencheur. `Tooltip.Arrow` rend `Tooltip.ArrowTip` par défaut.
+Ajoutez `TooltipArrow` comme premier enfant du contenu lorsque la fenêtre flottante doit pointer
+vers son élément déclencheur. `TooltipArrow` rend `TooltipArrowTip` par défaut.
 
 ```text
-Tooltip / Tooltip.Root
-├─ Tooltip.Trigger
+Tooltip
+├─ TooltipTrigger
 └─ Sous-arbre flottant (rendu automatiquement dans un portail)
-   └─ Tooltip.Positioner
-      └─ Tooltip.Content
-         ├─ Tooltip.Arrow
-         │  └─ Tooltip.ArrowTip
+   └─ TooltipPositioner
+      └─ TooltipContent
+         ├─ TooltipArrow
+         │  └─ TooltipArrowTip
          └─ contenu
 ```
 
 | Partie | Rôle |
 | --- | --- |
-| `Tooltip` / `Tooltip.Root` | Gère l’état, l’ouverture et la fermeture, les délais, le positionnement et le cycle de vie de l’infobulle. |
-| `Tooltip.RootProvider` | Affiche une infobulle à partir d’un objet d’état `useTooltip()` créé en dehors de l’arbre. |
-| `Tooltip.Context` | Expose l’état courant via une fonction de rendu pour les descendants personnalisés. |
-| `Tooltip.Body` | Raccourci qui rend `Tooltip.Positioner` et `Tooltip.Content` ensemble. |
-| `Tooltip.Trigger` | Élément interactif qui ouvre l’infobulle au survol ou au focus. |
-| `Tooltip.DisabledTrigger` | Enveloppe pouvant recevoir le focus autour d’un unique contrôle natif désactivé qui nécessite une explication. |
-| `Tooltip.Positioner` | Positionne le contenu et expose les variables de positionnement d’Ark. |
-| `Tooltip.Content` | Surface visible de l’infobulle. |
-| `Tooltip.Arrow` | Enveloppe facultative de la flèche, positionnée automatiquement, qui rend `Tooltip.ArrowTip` par défaut. |
-| `Tooltip.ArrowTip` | Pointe visible de la flèche. |
+| `Tooltip` | Gère l’état, l’ouverture et la fermeture, les délais, le positionnement et le cycle de vie de l’infobulle. |
+| `TooltipRootProvider` | Affiche une infobulle à partir d’un objet d’état `useTooltip()` créé en dehors de l’arbre. |
+| `TooltipContext` | Expose l’état courant via une fonction de rendu pour les descendants personnalisés. |
+| `TooltipBody` | Raccourci qui rend `TooltipPositioner` et `TooltipContent` ensemble. |
+| `TooltipTrigger` | Élément interactif qui ouvre l’infobulle au survol ou au focus. |
+| `TooltipDisabledTrigger` | Enveloppe pouvant recevoir le focus autour d’un unique contrôle natif désactivé qui nécessite une explication. |
+| `TooltipPositioner` | Positionne le contenu et expose les variables de positionnement d’Ark. |
+| `TooltipContent` | Surface visible de l’infobulle. |
+| `TooltipArrow` | Enveloppe facultative de la flèche, positionnée automatiquement, qui rend `TooltipArrowTip` par défaut. |
+| `TooltipArrowTip` | Pointe visible de la flèche. |
 
 ## Composition
 
-Utilisez `Tooltip.Body` pour la composition standard du `Trigger` et du contenu. Il réunit
-`Tooltip.Positioner` et `Tooltip.Content` ; utilisez ces parties explicitement lorsqu’elles doivent
+Utilisez `TooltipBody` pour la composition standard du `Trigger` et du contenu. Il réunit
+`TooltipPositioner` et `TooltipContent` ; utilisez ces parties explicitement lorsqu’elles doivent
 avoir un style ou une structure indépendants. La racine possède l’état : utilisez `defaultOpen`
 pour une infobulle non contrôlée, ou `open` avec `onOpenChange(details)` lorsqu’une autre partie de
-l’application en est responsable. Utilisez `Tooltip.RootProvider` avec `useTooltip()` lorsque le
-store est créé en dehors de l’arbre rendu, et `Tooltip.Context` ou `useTooltipContext()` lorsqu’un
+l’application en est responsable. Utilisez `TooltipRootProvider` avec `useTooltip()` lorsque le
+store est créé en dehors de l’arbre rendu, et `TooltipContext` ou `useTooltipContext()` lorsqu’un
 descendant doit lire cet état. `asChild` attend un unique enfant pouvant recevoir le focus ; Solid
-utilise une fonction de rendu. `Tooltip.DisabledTrigger` est prévu pour un seul contrôle natif
+utilise une fonction de rendu. `TooltipDisabledTrigger` est prévu pour un seul contrôle natif
 désactivé. Le portail est activé par défaut : définissez `portalled={false}` ou passez `portalRef`
 uniquement lorsque l’infobulle doit rester dans une limite DOM précise.
 
@@ -263,7 +263,7 @@ Définissez `openDelay` et `closeDelay` sur la racine pour régler le délai au 
 
 ### Déclencheur désactivé
 
-Utilisez `Tooltip.DisabledTrigger` lorsqu’un contrôle natif désactivé nécessite toujours une courte
+Utilisez `TooltipDisabledTrigger` lorsqu’un contrôle natif désactivé nécessite toujours une courte
 explication. L’enveloppe peut recevoir le focus sans modifier l’état désactivé de l’enfant.
 
 <ExampleFrame variant="component">
@@ -377,7 +377,7 @@ Passez les options de positionnement d’Ark à `Tooltip`, notamment le placemen
 
 ### Root Provider
 
-Utilisez `useTooltip()` avec `Tooltip.RootProvider` lorsque l’état de l’infobulle est créé en dehors
+Utilisez `useTooltip()` avec `TooltipRootProvider` lorsque l’état de l’infobulle est créé en dehors
 de l’arbre rendu.
 
 <ExampleFrame variant="component">
@@ -412,9 +412,9 @@ de l’arbre rendu.
 
 ### Avec une flèche
 
-Ajoutez `Tooltip.Arrow` comme premier enfant du contenu lorsque l’infobulle doit pointer vers son
-déclencheur. Avec `Tooltip.Body`, placez-la directement à l’intérieur de `Tooltip.Body` ;
-l’enveloppe fournit `Tooltip.ArrowTip` par défaut.
+Ajoutez `TooltipArrow` comme premier enfant du contenu lorsque l’infobulle doit pointer vers son
+déclencheur. Avec `TooltipBody`, placez-la directement à l’intérieur de `TooltipBody` ;
+l’enveloppe fournit `TooltipArrowTip` par défaut.
 
 <ExampleFrame variant="component">
   <TooltipWithArrow />
@@ -489,7 +489,7 @@ focaliser le déclencheur, de faire défiler le panneau et de vérifier l’alig
 
 ### Personnalisation avancée
 
-Utilisez directement les parties `Tooltip.Positioner` et `Tooltip.Content` lorsqu’elles doivent
+Utilisez directement les parties `TooltipPositioner` et `TooltipContent` lorsqu’elles doivent
 avoir une composition ou une mise en forme indépendantes.
 
 <ExampleFrame variant="component">
@@ -546,14 +546,14 @@ personnalisent les variantes CSS Modules.
 
 ### Ciblage des styles
 
-- `Tooltip.Body` ne crée aucun nœud DOM. Avec la composition explicite, stylez séparément
-  `Tooltip.Positioner` et `Tooltip.Content`.
-- `Tooltip.Trigger` contrôle l’apparence du déclencheur, les états au survol et à l’ouverture, ainsi
+- `TooltipBody` ne crée aucun nœud DOM. Avec la composition explicite, stylez séparément
+  `TooltipPositioner` et `TooltipContent`.
+- `TooltipTrigger` contrôle l’apparence du déclencheur, les états au survol et à l’ouverture, ainsi
   que le style du focus.
-- `Tooltip.DisabledTrigger` contrôle l’enveloppe du contrôle désactivé et son enfant direct désactivé.
-- `Tooltip.Positioner` contrôle les contraintes de la mise en page flottante.
-- `Tooltip.Content` contrôle la surface de la fenêtre flottante.
-- `Tooltip.Arrow` et `Tooltip.ArrowTip` contrôlent la taille, l’arrière-plan et le contour de la flèche.
+- `TooltipDisabledTrigger` contrôle l’enveloppe du contrôle désactivé et son enfant direct désactivé.
+- `TooltipPositioner` contrôle les contraintes de la mise en page flottante.
+- `TooltipContent` contrôle la surface de la fenêtre flottante.
+- `TooltipArrow` et `TooltipArrowTip` contrôlent la taille, l’arrière-plan et le contour de la flèche.
 
 Les principaux points de ciblage publics sont `data-slot="tooltip-trigger"`,
 `data-slot="tooltip-positioner"`, `data-slot="tooltip-content"`,
@@ -562,6 +562,6 @@ Les principaux points de ciblage publics sont `data-slot="tooltip-trigger"`,
 
 Ark ajoute également `data-scope="tooltip"`, `data-part`, `data-state="open" | "closed"`,
 `data-value`, `data-current`, `data-expanded`, `data-instant`, `data-placement` et `data-side` aux
-parties concernées. La partie `Tooltip.Positioner` expose notamment les variables CSS d’exécution
+parties concernées. La partie `TooltipPositioner` expose notamment les variables CSS d’exécution
 `--available-width`, `--available-height`, `--reference-width`, `--reference-height`, `--x`, `--y`,
 `--z-index` et `--transform-origin`.

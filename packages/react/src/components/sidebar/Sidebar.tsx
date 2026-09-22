@@ -11,7 +11,12 @@ import { Input } from '../input';
 import { Separator } from '../separator';
 import { Splitter, SplitterPanel, SplitterResizeTrigger, SplitterResizeTriggerIndicator, useSplitterContext, type SplitterPanelData } from '../splitter';
 import splitterStyles from '../splitter/Splitter.module.css';
-import { Tooltip } from '../tooltip';
+import {
+  Tooltip,
+  TooltipContent,
+  TooltipPositioner,
+  TooltipTrigger,
+} from '../tooltip';
 import styles from './Sidebar.module.css';
 
 type SidebarSide = 'left' | 'right';
@@ -526,8 +531,8 @@ const SidebarTooltip = function SidebarTooltip({
   positioning,
   ...props
 }: Omit<ComponentProps<typeof Tooltip>, 'children' | 'disabled' | 'positioning'> & {
-  children: ComponentProps<typeof Tooltip.Trigger>['children'];
-  content: ComponentProps<typeof Tooltip.Content>['children'];
+  children: ComponentProps<typeof TooltipTrigger>['children'];
+  content: ComponentProps<typeof TooltipContent>['children'];
   positioning?: ComponentProps<typeof Tooltip>['positioning'];
 }) {
   const { collapsed, side } = useSidebar();
@@ -540,10 +545,10 @@ const SidebarTooltip = function SidebarTooltip({
       disabled={!collapsed}
       positioning={{ placement: side === 'left' ? 'right' : 'left', gutter: 8, ...positioning }}
     >
-      <Tooltip.Trigger asChild>{children}</Tooltip.Trigger>
-      <Tooltip.Positioner>
-        <Tooltip.Content>{content}</Tooltip.Content>
-      </Tooltip.Positioner>
+      <TooltipTrigger asChild>{children}</TooltipTrigger>
+      <TooltipPositioner>
+        <TooltipContent>{content}</TooltipContent>
+      </TooltipPositioner>
     </Tooltip>
   );
 };

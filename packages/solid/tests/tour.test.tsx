@@ -1,7 +1,22 @@
 import type { TourStepDetails } from '@ark-ui/solid/tour';
 import { describe, expect, test } from '@rstest/core';
 import { fireEvent, render, screen } from '@solidjs/testing-library';
-import { Tour, useTour } from '../src/components/tour';
+import {
+  Tour,
+  TourBackdrop,
+  TourPositioner,
+  TourContent,
+  TourTitle,
+  TourDescription,
+  TourProgressText,
+  TourBody,
+  TourCloseIcon,
+  TourControl,
+  TourActions,
+  TourActionList,
+  TourActionTrigger,
+  useTour,
+} from '../src/components/tour';
 
 Object.defineProperty(globalThis, 'visualViewport', {
   value: {
@@ -34,20 +49,20 @@ function TourExample(props: { portalled?: boolean }) {
         Start tour
       </button>
       <Tour tour={tour} portalled={props.portalled} lazyMount unmountOnExit>
-        <Tour.Backdrop />
-        <Tour.Positioner>
-          <Tour.Content>
-            <Tour.CloseIcon />
-            <Tour.Body>
-              <Tour.Title />
-              <Tour.Description />
-              <Tour.ProgressText />
-            </Tour.Body>
-            <Tour.Control>
-              <Tour.ActionList />
-            </Tour.Control>
-          </Tour.Content>
-        </Tour.Positioner>
+        <TourBackdrop />
+        <TourPositioner>
+          <TourContent>
+            <TourCloseIcon />
+            <TourBody>
+              <TourTitle />
+              <TourDescription />
+              <TourProgressText />
+            </TourBody>
+            <TourControl>
+              <TourActionList />
+            </TourControl>
+          </TourContent>
+        </TourPositioner>
       </Tour>
     </>
   );
@@ -62,15 +77,15 @@ function CustomActionTourExample() {
         Start custom action tour
       </button>
       <Tour tour={tour} portalled={false} lazyMount unmountOnExit>
-        <Tour.Positioner>
-          <Tour.Content>
-            <Tour.Title />
-            <Tour.Description />
-            <Tour.Control>
-              <Tour.Actions>
+        <TourPositioner>
+          <TourContent>
+            <TourTitle />
+            <TourDescription />
+            <TourControl>
+              <TourActions>
                 {(actions) =>
                   actions().map((action) => (
-                    <Tour.ActionTrigger
+                    <TourActionTrigger
                       action={action}
                       asChild={(triggerProps) => (
                         <button {...triggerProps()} type="button">
@@ -80,10 +95,10 @@ function CustomActionTourExample() {
                     />
                   ))
                 }
-              </Tour.Actions>
-            </Tour.Control>
-          </Tour.Content>
-        </Tour.Positioner>
+              </TourActions>
+            </TourControl>
+          </TourContent>
+        </TourPositioner>
       </Tour>
     </>
   );

@@ -1,21 +1,31 @@
 import { expect, test } from '@rstest/core';
 import { fireEvent, render, screen, waitFor } from '@testing-library/react';
 import { createRef } from 'react';
-import { Timer, useTimer, useTimerContext } from '../src';
+import {
+  Timer,
+  TimerActionTrigger,
+  TimerArea,
+  TimerControl,
+  TimerItem,
+  TimerRootProvider,
+  TimerSegments,
+  TimerSeparator,
+  useTimer,
+  useTimerContext,
+} from '../src';
 
 test('renders the short root form with default segments, stable hooks, and a forwarded ref', () => {
   const ref = createRef<HTMLDivElement>();
 
   const { container } = render(
     <Timer ref={ref} data-testid="timer" targetMs={60_000}>
-      <Timer.Segments />
+      <TimerSegments />
     </Timer>,
   );
 
   const root = screen.getByTestId('timer');
   const area = screen.getByRole('timer');
 
-  expect(Timer.Root).toBe(Timer);
   expect(ref.current).toBe(root);
   expect(root).toHaveAttribute('data-slot', 'timer-root');
   expect(area).toHaveAttribute('data-slot', 'timer-area');
@@ -32,7 +42,7 @@ test('forwards area props and refs through custom segments', () => {
 
   const { container } = render(
     <Timer targetMs={60_000}>
-      <Timer.Segments
+      <TimerSegments
         ref={ref}
         aria-label="Remaining time"
         data-testid="custom-segments"
@@ -55,12 +65,12 @@ test('forwards area props and refs through custom segments', () => {
 test('preserves Ark action visibility and native keyboard semantics', async () => {
   render(
     <Timer targetMs={60_000}>
-      <Timer.Segments />
-      <Timer.Control>
-        <Timer.ActionTrigger action="start">Start</Timer.ActionTrigger>
-        <Timer.ActionTrigger action="pause">Pause</Timer.ActionTrigger>
-        <Timer.ActionTrigger action="reset">Reset</Timer.ActionTrigger>
-      </Timer.Control>
+      <TimerSegments />
+      <TimerControl>
+        <TimerActionTrigger action="start">Start</TimerActionTrigger>
+        <TimerActionTrigger action="pause">Pause</TimerActionTrigger>
+        <TimerActionTrigger action="reset">Reset</TimerActionTrigger>
+      </TimerControl>
     </Timer>,
   );
 
@@ -91,12 +101,12 @@ function ProviderTimer() {
   const timer = useTimer({ targetMs: 60_000 });
 
   return (
-    <Timer.RootProvider value={timer}>
+    <TimerRootProvider value={timer}>
       <ProviderStatus />
-      <Timer.Control>
-        <Timer.ActionTrigger action="start">Start provider timer</Timer.ActionTrigger>
-      </Timer.Control>
-    </Timer.RootProvider>
+      <TimerControl>
+        <TimerActionTrigger action="start">Start provider timer</TimerActionTrigger>
+      </TimerControl>
+    </TimerRootProvider>
   );
 }
 
@@ -118,7 +128,7 @@ test('preserves semantic replacement children with asChild', () => {
   render(
     <Timer asChild targetMs={60_000}>
       <section data-testid="timer-section">
-        <Timer.Segments />
+        <TimerSegments />
       </section>
     </Timer>,
   );
@@ -133,15 +143,15 @@ test('preserves semantic replacement children with asChild', () => {
 test('uses native utilities on every owned part and merges consumer overrides', () => {
   const { container } = render(
     <Timer className="block gap-6 text-primary" targetMs={60_000}>
-      <Timer.Area className="text-lg">
-        <Timer.Item className="min-w-0" type="minutes" />
-        <Timer.Separator className="text-primary">:</Timer.Separator>
-      </Timer.Area>
-      <Timer.Control>
-        <Timer.ActionTrigger className="rounded-full bg-primary" action="start">
+      <TimerArea className="text-lg">
+        <TimerItem className="min-w-0" type="minutes" />
+        <TimerSeparator className="text-primary">:</TimerSeparator>
+      </TimerArea>
+      <TimerControl>
+        <TimerActionTrigger className="rounded-full bg-primary" action="start">
           Start
-        </Timer.ActionTrigger>
-      </Timer.Control>
+        </TimerActionTrigger>
+      </TimerControl>
     </Timer>,
   );
 

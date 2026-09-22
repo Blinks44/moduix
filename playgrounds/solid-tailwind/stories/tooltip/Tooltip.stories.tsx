@@ -2,7 +2,18 @@ import type { JSX } from 'solid-js';
 import { For, createSignal } from 'solid-js';
 import type { Meta, StoryObj } from 'storybook-solidjs-vite';
 import { Button } from '@/components/button/Button';
-import { Tooltip, useTooltip, useTooltipContext } from '@/components/tooltip/Tooltip';
+import {
+  Tooltip,
+  useTooltip,
+  useTooltipContext,
+  TooltipArrow,
+  TooltipBody,
+  TooltipContent,
+  TooltipDisabledTrigger,
+  TooltipPositioner,
+  TooltipRootProvider,
+  TooltipTrigger,
+} from '@/components/tooltip/Tooltip';
 import { PlusIcon } from '@/internal/icons/ui/Icons';
 
 type IconProps = JSX.SvgSVGAttributes<SVGSVGElement>;
@@ -86,7 +97,7 @@ export const Default: Story = {
   render: () => {
     return (
       <Tooltip>
-        <Tooltip.Trigger
+        <TooltipTrigger
           aria-label="Notifications"
           asChild={(triggerProps) => (
             <Button {...triggerProps()}>
@@ -97,7 +108,7 @@ export const Default: Story = {
             </Button>
           )}
         />
-        <Tooltip.Body>Notifications</Tooltip.Body>
+        <TooltipBody>Notifications</TooltipBody>
       </Tooltip>
     );
   },
@@ -108,11 +119,11 @@ export const WithArrow: Story = {
   render: () => {
     return (
       <Tooltip>
-        <Tooltip.Trigger aria-label="Tooltip with arrow">Hover or focus</Tooltip.Trigger>
-        <Tooltip.Body>
-          <Tooltip.Arrow />
+        <TooltipTrigger aria-label="Tooltip with arrow">Hover or focus</TooltipTrigger>
+        <TooltipBody>
+          <TooltipArrow />
           Tooltip with arrow
-        </Tooltip.Body>
+        </TooltipBody>
       </Tooltip>
     );
   },
@@ -122,8 +133,8 @@ export const Delay: Story = {
   render: () => {
     return (
       <Tooltip closeDelay={0} openDelay={0}>
-        <Tooltip.Trigger>Immediate tooltip</Tooltip.Trigger>
-        <Tooltip.Body>No open or close delay</Tooltip.Body>
+        <TooltipTrigger>Immediate tooltip</TooltipTrigger>
+        <TooltipBody>No open or close delay</TooltipBody>
       </Tooltip>
     );
   },
@@ -134,10 +145,10 @@ export const DisabledTrigger: Story = {
   render: () => {
     return (
       <Tooltip>
-        <Tooltip.DisabledTrigger aria-label="Create project is unavailable">
+        <TooltipDisabledTrigger aria-label="Create project is unavailable">
           <Button disabled>Create project</Button>
-        </Tooltip.DisabledTrigger>
-        <Tooltip.Body>Projects are unavailable while offline.</Tooltip.Body>
+        </TooltipDisabledTrigger>
+        <TooltipBody>Projects are unavailable while offline.</TooltipBody>
       </Tooltip>
     );
   },
@@ -165,11 +176,11 @@ export const Positioning: Story = {
         </div>
 
         <Tooltip positioning={{ placement: placement(), offset: { mainAxis: 12 } }}>
-          <Tooltip.Trigger
+          <TooltipTrigger
             aria-label={`Tooltip placement: ${placement()}`}
             asChild={(triggerProps) => <Button {...triggerProps()}>Hover or focus</Button>}
           />
-          <Tooltip.Body>Placement: {placement()}</Tooltip.Body>
+          <TooltipBody>Placement: {placement()}</TooltipBody>
         </Tooltip>
       </div>
     );
@@ -186,8 +197,8 @@ export const Controlled: Story = {
           Toggle
         </Button>
         <Tooltip open={open()} onOpenChange={(details) => setOpen(details.open)}>
-          <Tooltip.Trigger>Controlled tooltip</Tooltip.Trigger>
-          <Tooltip.Body>Open: {String(open())}</Tooltip.Body>
+          <TooltipTrigger>Controlled tooltip</TooltipTrigger>
+          <TooltipBody>Open: {String(open())}</TooltipBody>
         </Tooltip>
       </div>
     );
@@ -198,10 +209,10 @@ export const Context: Story = {
   render: () => {
     return (
       <Tooltip>
-        <Tooltip.Trigger>Context tooltip</Tooltip.Trigger>
-        <Tooltip.Positioner>
+        <TooltipTrigger>Context tooltip</TooltipTrigger>
+        <TooltipPositioner>
           <TooltipStateContent />
-        </Tooltip.Positioner>
+        </TooltipPositioner>
       </Tooltip>
     );
   },
@@ -217,10 +228,10 @@ export const RootProvider: Story = {
         <output class="text-sm leading-5 text-muted-foreground">
           Open: {String(tooltip().open)}
         </output>
-        <Tooltip.RootProvider value={tooltip}>
-          <Tooltip.Trigger>RootProvider tooltip</Tooltip.Trigger>
-          <Tooltip.Body>State is owned outside the tree.</Tooltip.Body>
-        </Tooltip.RootProvider>
+        <TooltipRootProvider value={tooltip}>
+          <TooltipTrigger>RootProvider tooltip</TooltipTrigger>
+          <TooltipBody>State is owned outside the tree.</TooltipBody>
+        </TooltipRootProvider>
       </div>
     );
   },
@@ -240,7 +251,7 @@ export const MultipleTriggers: Story = {
         <div class="inline-flex items-center gap-px rounded-lg border border-border bg-muted p-1">
           <For each={tooltipTools}>
             {(tool) => (
-              <Tooltip.Trigger
+              <TooltipTrigger
                 value={tool.id}
                 aria-label={tool.label}
                 asChild={(triggerProps) => (
@@ -252,14 +263,14 @@ export const MultipleTriggers: Story = {
             )}
           </For>
         </div>
-        <Tooltip.Body>
+        <TooltipBody>
           {activeTool() ? (
             <>
               {activeTool()!.label}{' '}
               <span class="text-xs leading-4 text-muted-foreground">{activeTool()!.shortcut}</span>
             </>
           ) : null}
-        </Tooltip.Body>
+        </TooltipBody>
       </Tooltip>
     );
   },
@@ -274,8 +285,8 @@ export const WithinFixedContainer: Story = {
     return (
       <div class="fixed top-10 left-10 grid min-h-32 min-w-64 place-items-center rounded-lg border border-border bg-muted">
         <Tooltip positioning={{ strategy: 'fixed' }}>
-          <Tooltip.Trigger>Fixed strategy</Tooltip.Trigger>
-          <Tooltip.Body>Positioned from a fixed container.</Tooltip.Body>
+          <TooltipTrigger>Fixed strategy</TooltipTrigger>
+          <TooltipBody>Positioned from a fixed container.</TooltipBody>
         </Tooltip>
       </div>
     );
@@ -287,17 +298,17 @@ export const CustomComposition: Story = {
   render: () => {
     return (
       <Tooltip>
-        <Tooltip.Trigger
+        <TooltipTrigger
           aria-label="Custom styled tooltip"
           class="border-primary bg-primary text-primary-foreground [@media(hover:hover)]:hover:bg-primary/90"
         >
           Custom style
-        </Tooltip.Trigger>
-        <Tooltip.Positioner class="drop-shadow-[0_0.5rem_1rem_rgb(0_0_0_/_14%)]">
-          <Tooltip.Content class="min-w-40 border-primary bg-primary px-3 py-2 text-left text-primary-foreground">
+        </TooltipTrigger>
+        <TooltipPositioner class="drop-shadow-[0_0.5rem_1rem_rgb(0_0_0_/_14%)]">
+          <TooltipContent class="min-w-40 border-primary bg-primary px-3 py-2 text-left text-primary-foreground">
             Styled through explicit Ark parts
-          </Tooltip.Content>
-        </Tooltip.Positioner>
+          </TooltipContent>
+        </TooltipPositioner>
       </Tooltip>
     );
   },
@@ -306,5 +317,5 @@ export const CustomComposition: Story = {
 function TooltipStateContent() {
   const tooltip = useTooltipContext();
 
-  return <Tooltip.Content>Open from context: {tooltip().open.toString()}</Tooltip.Content>;
+  return <TooltipContent>Open from context: {tooltip().open.toString()}</TooltipContent>;
 }

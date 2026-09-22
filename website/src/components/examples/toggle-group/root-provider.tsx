@@ -1,4 +1,8 @@
-import { ToggleGroup, useToggleGroup } from '@moduix/react/toggle-group';
+import {
+  ToggleGroupItem,
+  ToggleGroupRootProvider,
+  useToggleGroup,
+} from '@moduix/react/toggle-group';
 import { PreviewMeta } from '@/components/mdx/Components';
 import styles from '@/components/examples/toggle-group/toggle-group-advanced-customization.module.css';
 
@@ -23,13 +27,13 @@ export default function RootProviderToggleGroupDemo() {
   });
   return (
     <div className={styles.stack}>
-      <ToggleGroup.RootProvider value={toggleGroup} aria-label="Text alignment">
+      <ToggleGroupRootProvider value={toggleGroup} aria-label="Text alignment">
         {alignmentItems.map((item) => (
-          <ToggleGroup.Item key={item.value} value={item.value}>
+          <ToggleGroupItem key={item.value} value={item.value}>
             {item.label}
-          </ToggleGroup.Item>
+          </ToggleGroupItem>
         ))}
-      </ToggleGroup.RootProvider>
+      </ToggleGroupRootProvider>
       <PreviewMeta>
         <output>Selected: {toggleGroup.value.join(', ') || 'empty'}</output>
       </PreviewMeta>

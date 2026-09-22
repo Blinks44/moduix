@@ -43,7 +43,8 @@ Field (optional)
 | ---------- | -------------------- | --------------- | ------------------------------------------ |
 | `Textarea` | Ark `FieldTextarea` | `textarea-root` | Styled textarea root and only public part. |
 
-No `Textarea.Root`, provider, context hook, hidden input, wrapper shell, label prop, counter, or slot bag is exported for this component.
+`Textarea` is the only public component value. No additional provider, context hook, hidden input,
+wrapper shell, label prop, counter, or slot bag is exported for this component.
 
 ## Composition
 

@@ -4,20 +4,19 @@
 queued notifications, and direct toast actions.
 
 The wrapper preserves Ark's store-first model: `createToaster(options)` creates the store and
-`Toaster` renders that store with a render prop. `Toast` is the short root form and also exposes
-`Toast.Root`, `Toast.Context`, `Toast.Title`, `Toast.Description`, `Toast.ActionTrigger`,
-`Toast.CloseTrigger`, and `Toast.Toaster`. `Toaster`, `createToaster`, and `useToastContext` are
-also available as standalone exports.
+`ToastToaster` renders that store with a render prop. The flat exports are `Toast`, `ToastContext`,
+`ToastTitle`, `ToastDescription`, `ToastActionTrigger`, `ToastCloseTrigger`, and `ToastToaster`.
+`createToaster` and `useToastContext` are also available as standalone exports.
 
 ## Behavior contract
 
-- `Toaster` portals to `document.body` by default. Set `portalled={false}` to render inline, or
+- `ToastToaster` portals to `document.body` by default. Set `portalled={false}` to render inline, or
   pass `portalRef` to target a custom container.
-- Without a render prop, `Toaster` renders non-null title and description values, an action when
+- Without a render prop, `ToastToaster` renders non-null title and description values, an action when
   present, and a close trigger unless `closable: false` is set.
-- `Toast.Title` and `Toast.Description` read their current values from Ark context when children
+- `ToastTitle` and `ToastDescription` read their current values from Ark context when children
   are omitted. Explicit `null` children remain empty.
-- `Toast.CloseTrigger` uses the moduix `CloseButton` by default and defaults its accessible
+- `ToastCloseTrigger` uses the moduix `CloseButton` by default and defaults its accessible
   label to `Close toast`.
 - Ark store methods and callback detail objects pass through unchanged, including `create`,
   `success`, `error`, `warning`, `info`, `loading`, `promise`, `update`, `dismiss`, `remove`,
@@ -28,22 +27,22 @@ also available as standalone exports.
 ```text
 createToaster()
 └─ Overlay subtree
-   └─ Toast.Toaster / Toaster
+   └─ ToastToaster
       └─ Toast
-         ├─ Toast.Title
-         ├─ Toast.Description
-         ├─ Toast.ActionTrigger
-         └─ Toast.CloseTrigger
+         ├─ ToastTitle
+         ├─ ToastDescription
+         ├─ ToastActionTrigger
+         └─ ToastCloseTrigger
 ```
 
 | Part                   | `data-slot`            |
 | ---------------------- | ---------------------- |
-| `Toast` / `Toast.Root` | `toast-root`           |
-| `Toaster`              | `toast-toaster`        |
-| `Toast.Title`          | `toast-title`          |
-| `Toast.Description`    | `toast-description`    |
-| `Toast.ActionTrigger`  | `toast-action-trigger` |
-| `Toast.CloseTrigger`   | `toast-close-trigger`  |
+| `Toast`               | `toast-root`           |
+| `ToastToaster`        | `toast-toaster`        |
+| `ToastTitle`          | `toast-title`          |
+| `ToastDescription`    | `toast-description`    |
+| `ToastActionTrigger`  | `toast-action-trigger` |
+| `ToastCloseTrigger`   | `toast-close-trigger` |
 
 Ark's `data-scope`, `data-part`, state attributes, and runtime layout variables (`--x`, `--y`,
 `--scale`, `--z-index`, `--height`, `--opacity`, and `--gap`) remain intact for styling and
@@ -54,7 +53,7 @@ animation.
 Ark Solid uses a render-function `asChild` prop:
 
 ```tsx
-<Toast.CloseTrigger
+<ToastCloseTrigger
   asChild={(props) => (
     <button {...props()} type="button">
       Dismiss
@@ -63,7 +62,7 @@ Ark Solid uses a render-function `asChild` prop:
   aria-label="Dismiss notification"
 >
   Dismiss
-</Toast.CloseTrigger>
+</ToastCloseTrigger>
 ```
 
 The Ark Solid factory does not forward refs through `asChild`. The native rendered parts keep

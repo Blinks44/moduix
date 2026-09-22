@@ -30,7 +30,7 @@ import toastSolidUpdate from '../../../snippets/toast/solid/update.tsx?raw';
 
 <PrimitiveReference href="https://ark-ui.com/docs/components/toast" />
 
-Moduix exporte `Toast`, `Toaster`, `createToaster` et `useToastContext` depuis
+Moduix exporte `Toast`, `ToastToaster`, `createToaster` et `useToastContext` depuis
 `@moduix/react/toast` et `@moduix/solid/toast`. La référence Ark décrit l’API complète du store et
 de ses parties.
 
@@ -38,7 +38,7 @@ de ses parties.
 
 
 Créez une instance de toaster avec `createToaster()`, utilisez ses méthodes pour ajouter des
-notifications, puis affichez-la avec `Toaster`.
+notifications, puis affichez-la avec `ToastToaster`.
 
 <ExampleFrame variant="component">
   <ToastBasic />
@@ -106,34 +106,34 @@ Consultez le [Démarrage rapide](/docs/quick-start) pour la configuration compl�
 
 ```text
 createToaster()
-└─ Toaster / Toast.Toaster (portalled to document.body by default)
-   └─ Toast / Toast.Root
-      ├─ Toast.Title
-      ├─ Toast.Description
-      ├─ Toast.ActionTrigger
-      └─ Toast.CloseTrigger
+└─ ToastToaster (portalled to document.body by default)
+   └─ Toast
+      ├─ ToastTitle
+      ├─ ToastDescription
+      ├─ ToastActionTrigger
+      └─ ToastCloseTrigger
 ```
 
 | Partie                         | Rôle                                                                                 |
 | ------------------------------ | ------------------------------------------------------------------------------------ |
-| `Toast` / `Toast.Root`         | Racine d’une notification visible. `Toast.Root` est un alias de compatibilité de `Toast`. |
-| `Toaster` / `Toast.Toaster`    | Rend le store du toaster et gère le groupe de notifications.                       |
-| `Toast.Title`                  | Partie du titre. Utilise le `title` de la notification courante sans enfant.       |
-| `Toast.Description`            | Partie de la description. Utilise la `description` courante sans enfant.           |
-| `Toast.ActionTrigger`          | Bouton d’action lié à `toast.action.onClick`.                                      |
-| `Toast.CloseTrigger`           | Bouton de fermeture. Utilise `CloseButton` par défaut.                       |
-| `Toast.Context`                | Partie de contexte pour une composition personnalisée et l’accès direct à l’état. |
+| `Toast`               | Racine d’une notification visible.                                      |
+| `ToastToaster`        | Rend le store du toaster et gère le groupe de notifications.            |
+| `ToastTitle`          | Partie du titre. Utilise le `title` de la notification courante sans enfant. |
+| `ToastDescription`    | Partie de la description. Utilise la `description` courante sans enfant. |
+| `ToastActionTrigger`  | Bouton d’action lié à `toast.action.onClick`.                           |
+| `ToastCloseTrigger`   | Bouton de fermeture. Utilise `CloseButton` par défaut.                  |
+| `ToastContext`        | Partie de contexte pour une composition personnalisée et l’accès direct à l’état. |
 
 ## Composition
 
 Créez le toaster en dehors du rendu du composant lorsque c’est possible, puis passez la même instance
-à `Toaster`. Le toaster gère le placement, la pile, la file d’attente, les minuteurs et le focus. Par
-défaut, `Toaster` rend le groupe via un portail vers `document.body` ; utilisez `portalled={false}` ou
+à `ToastToaster`. Le toaster gère le placement, la pile, la file d’attente, les minuteurs et le focus. Par
+défaut, `ToastToaster` rend le groupe via un portail vers `document.body` ; utilisez `portalled={false}` ou
 `portalRef` s’il doit rester dans un autre conteneur. Aucun wrapper `Portal` séparé n’est nécessaire.
 
-Pour une notification standard, utilisez le rendu par défaut de `Toaster`, qui affiche le titre, la
+Pour une notification standard, utilisez le rendu par défaut de `ToastToaster`, qui affiche le titre, la
 description, l’action et le bouton de fermeture. Pour une autre structure ou des contrôles personnalisés,
-passez une render prop, gardez `Toast` ou `Toast.Root` comme élément extérieur et composez ses parties
+passez une render prop, gardez `Toast` comme élément extérieur et composez ses parties
 à l’intérieur. Utilisez `asChild` uniquement avec un enfant bouton sémantique, et
 `useToastContext()` lorsqu’un enfant personnalisé doit accéder directement à la notification courante.
 
@@ -404,7 +404,7 @@ Conservez l’identifiant renvoyé lors de la création d’une notification et 
 
 ### Personnalisation avancée
 
-Utilisez la render prop pour remplacer le rendu standard de `Toaster`, ajouter une icône, remplacer
+Utilisez la render prop pour remplacer le rendu standard de `ToastToaster`, ajouter une icône, remplacer
 l’icône de fermeture et appliquer des variables CSS propres au composant.
 
 <ExampleFrame variant="component">
@@ -458,17 +458,17 @@ classes de l’application ; les variables CSS ci-dessous concernent les variant
 ### Points d’accroche CSS
 
 Utilisez la racine de `Toast` pour la surface, la bordure, les animations et les variantes par type.
-Utilisez `Toast.Title`, `Toast.Description`, `Toast.ActionTrigger` et `Toast.CloseTrigger` pour la
+Utilisez `ToastTitle`, `ToastDescription`, `ToastActionTrigger` et `ToastCloseTrigger` pour la
 typographie et les contrôles internes.
 
 Sélecteurs Ark utiles :
 
-- `[data-scope='toast'][data-part='group']` sur `Toaster`
+- `[data-scope='toast'][data-part='group']` sur `ToastToaster`
 - `[data-scope='toast'][data-part='root']` sur `Toast`
-- `[data-scope='toast'][data-part='title']` sur `Toast.Title`
-- `[data-scope='toast'][data-part='description']` sur `Toast.Description`
-- `[data-scope='toast'][data-part='action-trigger']` sur `Toast.ActionTrigger`
-- `[data-scope='toast'][data-part='close-trigger']` sur `Toast.CloseTrigger`
+- `[data-scope='toast'][data-part='title']` sur `ToastTitle`
+- `[data-scope='toast'][data-part='description']` sur `ToastDescription`
+- `[data-scope='toast'][data-part='action-trigger']` sur `ToastActionTrigger`
+- `[data-scope='toast'][data-part='close-trigger']` sur `ToastCloseTrigger`
 - `--x`, `--y`, `--scale`, `--z-index`, `--height`, `--opacity` et `--gap` sur `Toast`
 
 Moduix ajoute également des points d’accroche stables : `data-slot="toast-toaster"`,

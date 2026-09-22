@@ -42,8 +42,8 @@ const toggleVariants = cva(
   },
 );
 
-const ToggleRoot = forwardRef<ComponentRef<typeof TogglePrimitive.Root>, ToggleRootProps>(
-  function ToggleRoot({ className, variant = 'default', size = 'md', ...props }, ref) {
+const Toggle = forwardRef<ComponentRef<typeof TogglePrimitive.Root>, ToggleRootProps>(
+  function Toggle({ className, variant = 'default', size = 'md', ...props }, ref) {
     return (
       <TogglePrimitive.Root
         ref={ref}
@@ -74,11 +74,5 @@ const ToggleIndicator = forwardRef<
   );
 });
 
-const Toggle = Object.assign(ToggleRoot, {
-  Root: ToggleRoot,
-  Indicator: ToggleIndicator,
-  Context: ToggleContext,
-});
-
-export { Toggle, toggleVariants, useToggleContext };
+export { Toggle, ToggleContext, ToggleIndicator, toggleVariants, useToggleContext };
 export type { ToggleRootProps, ToggleSize, ToggleVariant };

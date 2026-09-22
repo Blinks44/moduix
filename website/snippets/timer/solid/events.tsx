@@ -1,4 +1,10 @@
-import { Timer } from '@moduix/solid/timer';
+import {
+  Timer,
+  TimerArea,
+  TimerItem,
+  TimerControl,
+  TimerActionTrigger,
+} from '@moduix/solid/timer';
 import { Play as PlayIcon, RotateCcw as RotateCcwIcon } from 'lucide-solid';
 import { createSignal } from 'solid-js';
 import styles from '@/components/examples/timer/timer-events.module.css';
@@ -14,20 +20,20 @@ export default function EventsTimerDemo() {
         onTick={() => setTicks((value) => value + 1)}
         onComplete={() => setComplete(true)}
       >
-        <Timer.Area>
+        <TimerArea>
           <span class={styles.itemGroup}>
-            <Timer.Item type="seconds" />
+            <TimerItem type="seconds" />
             <span class={styles.itemLabel}>seconds</span>
           </span>
-        </Timer.Area>
-        <Timer.Control>
-          <Timer.ActionTrigger action="start">
+        </TimerArea>
+        <TimerControl>
+          <TimerActionTrigger action="start">
             <PlayIcon /> Start
-          </Timer.ActionTrigger>
-          <Timer.ActionTrigger action="reset">
+          </TimerActionTrigger>
+          <TimerActionTrigger action="reset">
             <RotateCcwIcon /> Reset
-          </Timer.ActionTrigger>
-        </Timer.Control>
+          </TimerActionTrigger>
+        </TimerControl>
       </Timer>
       <output>
         Ticks: {ticks()} / {complete() ? 'Complete' : 'Running target'}

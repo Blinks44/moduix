@@ -24,7 +24,7 @@ type ToasterProps = Omit<ComponentProps<typeof ToasterPrimitive>, 'children'> &
     children?: ComponentProps<typeof ToasterPrimitive>['children'];
   };
 
-const Toaster = forwardRef<ComponentRef<typeof ToasterPrimitive>, ToasterProps>(function Toaster(
+const ToastToaster = forwardRef<ComponentRef<typeof ToasterPrimitive>, ToasterProps>(function ToastToaster(
   { className, portalled, portalRef, ...props },
   ref,
 ) {
@@ -46,19 +46,19 @@ const Toaster = forwardRef<ComponentRef<typeof ToasterPrimitive>, ToasterProps>(
 
 function DefaultToast({ toast }: { toast: ToastOptions }) {
   return (
-    <ToastRoot key={toast.id}>
+    <Toast key={toast.id}>
       {toast.title != null ? <ToastTitle /> : null}
       {toast.description != null ? <ToastDescription /> : null}
       {toast.action ? <ToastActionTrigger>{toast.action.label}</ToastActionTrigger> : null}
       {toast.closable !== false ? <ToastCloseTrigger /> : null}
-    </ToastRoot>
+    </Toast>
   );
 }
 
-const ToastRoot = forwardRef<
+const Toast = forwardRef<
   ComponentRef<typeof ToastPrimitive.Root>,
   ComponentProps<typeof ToastPrimitive.Root>
->(function ToastRoot({ className, ...props }, ref) {
+>(function Toast({ className, ...props }, ref) {
   return (
     <ToastPrimitive.Root
       ref={ref}
@@ -169,14 +169,16 @@ const ToastCloseTrigger = forwardRef<
   );
 });
 
-const Toast = Object.assign(ToastRoot, {
-  Root: ToastRoot,
-  Context: ToastPrimitive.Context,
-  Title: ToastTitle,
-  Description: ToastDescription,
-  ActionTrigger: ToastActionTrigger,
-  CloseTrigger: ToastCloseTrigger,
-  Toaster,
-});
+const ToastContext = ToastPrimitive.Context;
 
-export { Toast, Toaster, createToaster, useToastContext };
+export {
+  Toast,
+  ToastActionTrigger,
+  ToastCloseTrigger,
+  ToastContext,
+  ToastDescription,
+  ToastTitle,
+  ToastToaster,
+  createToaster,
+  useToastContext,
+};

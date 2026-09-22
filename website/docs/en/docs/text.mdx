@@ -108,21 +108,20 @@ See [Quick Start](/docs/quick-start) for full package setup, registry configurat
 
 ## Anatomy
 
-`Text` renders a single root element using Ark's factory. The short `<Text>` form and `<Text.Root>`
-are equivalent.
+`Text` renders a single root element using Ark's factory through the flat root export.
 
 ```text
-Text / Text.Root
+Text
 └─ text or inline content
 ```
 
 | Part                 | Role                                                             |
 | -------------------- | ---------------------------------------------------------------- |
-| `Text` / `Text.Root` | Typography root with semantic HTML and stable data attributes. |
+| `Text`              | Typography root with semantic HTML and stable data attributes. |
 
 ## Composition
 
-`Text` is root-only and owns no state or child parts. Use `<Text>` or `<Text.Root>` for the same root,
+`Text` is root-only and owns no state or child parts. Use `<Text>` for the root,
 `as` for a supported semantic element, and `asChild` only when one existing element should receive
 the text props and ref. Truncation only constrains rendering, so disclosure state and its control stay
 in the surrounding UI.

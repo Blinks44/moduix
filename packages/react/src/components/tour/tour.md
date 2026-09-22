@@ -11,16 +11,16 @@ Upstream docs:
 
 ## Upstream model to preserve
 
-The wrapper follows Ark UI `Tour`. State is created with `useTour()` and passed to `Tour` / `Tour.Root` through the required `tour` prop. Preserve Ark step objects, action objects, callback detail shapes, focus management, keyboard navigation, wait helpers, and the explicit overlay part tree.
+The wrapper follows Ark UI `Tour`. State is created with `useTour()` and passed to `Tour` through the required `tour` prop. Preserve Ark step objects, action objects, callback detail shapes, focus management, keyboard navigation, wait helpers, and the explicit overlay part tree.
 
 ## Current behavior contract
 
-`Tour.Root` portals `Backdrop`, `Spotlight`, and `Positioner` automatically by default. Set `portalled={false}` to render them inline, or pass `portalRef` to target a custom container. These structural parts remain explicit and independently styleable.
+`Tour` portals `TourBackdrop`, `TourSpotlight`, and `TourPositioner` automatically by default. Set `portalled={false}` to render them inline, or pass `portalRef` to target a custom container. These structural parts remain explicit and independently styleable.
 
-`Tour` is a thin styled wrapper over Ark parts. It exposes `Root`, `Backdrop`, `Spotlight`, `Positioner`, `Content`, `Arrow`, `ArrowTip`, `Title`, `Description`, `ProgressText`, `Body`, `CloseTrigger`, `CloseIcon`, `Control`, `Actions`, `ActionList`, and `ActionTrigger`. The wrapper adds CSS Modules styling, stable `data-slot` hooks, a scrollable `Body` sugar, bottom-aligned progress text, and a default `ArrowTip` when `Tour.Arrow` has no children. It does not add local tour state or convert Ark callbacks.
-`Tour.CloseIcon` is a thin helper for the common icon-only dismiss control.
+`Tour` is a thin styled wrapper over Ark parts. It exposes `TourContext`, `TourBackdrop`, `TourSpotlight`, `TourPositioner`, `TourContent`, `TourArrow`, `TourArrowTip`, `TourTitle`, `TourDescription`, `TourProgressText`, `TourBody`, `TourCloseTrigger`, `TourCloseIcon`, `TourControl`, `TourActions`, `TourActionList`, and `TourActionTrigger`. The wrapper adds CSS Modules styling, stable `data-slot` hooks, a scrollable `TourBody` sugar, bottom-aligned progress text, and a default `TourArrowTip` when `TourArrow` has no children. It does not add local tour state or convert Ark callbacks.
+`TourCloseIcon` is a thin helper for the common icon-only dismiss control.
 
-The package keeps `Tour.Context`, `useTour`, `useTourContext`, and the Ark wait helpers because ordinary tour usage needs them. Duplicate Ark types remain direct imports from `@ark-ui/react/tour`.
+The package keeps `TourContext`, `useTour`, `useTourContext`, and the Ark wait helpers because ordinary tour usage needs them. Duplicate Ark types remain direct imports from `@ark-ui/react/tour`.
 
 ## Anatomy and exported parts
 
@@ -28,42 +28,56 @@ The package keeps `Tour.Context`, `useTour`, `useTourContext`, and the Ark wait 
 const tour = useTour({ steps });
 
 <Tour tour={tour}>
-  <Tour.Backdrop />
-  <Tour.Spotlight />
-  <Tour.Positioner>
-    <Tour.Content>
-      <Tour.CloseIcon />
-      <Tour.Body>
-        <Tour.Title />
-        <Tour.Description />
-        <Tour.ProgressText />
-      </Tour.Body>
-      <Tour.Control>
-        <Tour.ActionList />
-      </Tour.Control>
-    </Tour.Content>
-  </Tour.Positioner>
+  <TourBackdrop />
+  <TourSpotlight />
+  <TourPositioner>
+    <TourContent>
+      <TourCloseIcon />
+      <TourBody>
+        <TourTitle />
+        <TourDescription />
+        <TourProgressText />
+      </TourBody>
+      <TourControl>
+        <TourActionList />
+      </TourControl>
+    </TourContent>
+  </TourPositioner>
 </Tour>;
 ```
 
-- `Tour` / `Tour.Root`: Ark root. Requires the `tour` object returned by `useTour`.
-- `Tour.Backdrop`: optional overlay layer. `data-slot="tour-backdrop"`.
-- `Tour.Spotlight`: target highlight layer. `data-slot="tour-spotlight"`.
-- `Tour.Positioner`: positioned wrapper for dialog, tooltip, and floating layouts. `data-slot="tour-positioner"`.
-- `Tour.Content`: alert dialog surface with title and description wiring. `data-slot="tour-content"`.
-- `Tour.Arrow` / `Tour.ArrowTip`: tooltip arrow. `Tour.Arrow` renders a default `ArrowTip` when empty.
-- `Tour.Title`, `Tour.Description`, `Tour.ProgressText`: current step content from Ark state.
-- `Tour.Body`: moduix scrollable wrapper for the title, description, and progress content. `data-slot="tour-body"`.
-- `Tour.CloseTrigger`: dismiss button primitive. Consumers provide visible content or use `asChild`.
-- `Tour.CloseIcon`: icon-only close-button helper for the common dismiss affordance.
-- `Tour.Control`, `Tour.ActionList`: recommended action rendering path from the current step.
-- `Tour.Actions`, `Tour.ActionTrigger`: explicit Ark action rendering path for custom action UI.
+- `Tour`: Ark root. Requires the `tour` object returned by `useTour`.
+- `TourBackdrop`: optional overlay layer. `data-slot="tour-backdrop"`.
+- `TourSpotlight`: target highlight layer. `data-slot="tour-spotlight"`.
+- `TourPositioner`: positioned wrapper for dialog, tooltip, and floating layouts. `data-slot="tour-positioner"`.
+- `TourContent`: alert dialog surface with title and description wiring. `data-slot="tour-content"`.
+- `TourArrow` / `TourArrowTip`: tooltip arrow. `TourArrow` renders a default `TourArrowTip` when empty.
+- `TourTitle`, `TourDescription`, `TourProgressText`: current step content from Ark state.
+- `TourBody`: moduix scrollable wrapper for the title, description, and progress content. `data-slot="tour-body"`.
+- `TourCloseTrigger`: dismiss button primitive. Consumers provide visible content or use `asChild`.
+- `TourCloseIcon`: icon-only close-button helper for the common dismiss affordance.
+- `TourControl`, `TourActionList`: recommended action rendering path from the current step.
+- `TourActions`, `TourActionTrigger`: explicit Ark action rendering path for custom action UI.
 
 ## Composition
 
 ```tsx
 import type { TourStepDetails } from '@ark-ui/react/tour';
-import { Tour, useTour } from '@moduix/react/tour';
+import {
+  Tour,
+  TourBackdrop,
+  TourSpotlight,
+  TourPositioner,
+  TourContent,
+  TourTitle,
+  TourDescription,
+  TourProgressText,
+  TourBody,
+  TourCloseIcon,
+  TourControl,
+  TourActionList,
+  useTour,
+} from '@moduix/react/tour';
 
 const steps = [
   {
@@ -85,21 +99,21 @@ function Example() {
         Start tour
       </button>
       <Tour tour={tour} lazyMount unmountOnExit>
-        <Tour.Backdrop />
-        <Tour.Spotlight />
-        <Tour.Positioner>
-          <Tour.Content>
-            <Tour.CloseIcon />
-            <Tour.Body>
-              <Tour.Title />
-              <Tour.Description />
-              <Tour.ProgressText />
-            </Tour.Body>
-            <Tour.Control>
-              <Tour.ActionList />
-            </Tour.Control>
-          </Tour.Content>
-        </Tour.Positioner>
+        <TourBackdrop />
+        <TourSpotlight />
+        <TourPositioner>
+          <TourContent>
+            <TourCloseIcon />
+            <TourBody>
+              <TourTitle />
+              <TourDescription />
+              <TourProgressText />
+            </TourBody>
+            <TourControl>
+              <TourActionList />
+            </TourControl>
+          </TourContent>
+        </TourPositioner>
       </Tour>
     </>
   );
@@ -112,9 +126,9 @@ The wrapper supports the Ark examples and guides for basic tours, mixed step typ
 
 ## Accessibility and state
 
-Ark owns `role="alertdialog"`, `aria-modal`, live-region attributes, title and description IDs, dismissal, Escape handling, outside interaction, focus movement, and left/right keyboard navigation. `keyboardNavigation` defaults to enabled. `Tour.ActionTrigger` preserves Ark `StepAction` objects and sets disabled state for unavailable `prev` and `next` actions. Use `action: 'dismiss'` for the skip button pattern shown in the Ark examples. `Tour.Root` has no `RootProvider`; use the `tour` object from `useTour` as the external state handle. No `HiddenInput` or Field context is involved.
+Ark owns `role="alertdialog"`, `aria-modal`, live-region attributes, title and description IDs, dismissal, Escape handling, outside interaction, focus movement, and left/right keyboard navigation. `keyboardNavigation` defaults to enabled. `TourActionTrigger` preserves Ark `StepAction` objects and sets disabled state for unavailable `prev` and `next` actions. Use `action: 'dismiss'` for the skip button pattern shown in the Ark examples. `Tour` has no `RootProvider`; use the `tour` object from `useTour` as the external state handle. No `HiddenInput` or Field context is involved.
 
-Styled DOM parts forward refs to their Ark-rendered elements and preserve Ark `asChild`. `CloseTrigger` and `ActionTrigger` omit moduix button visuals when `asChild` is used so the semantic child owns its styling.
+Styled DOM parts forward refs to their Ark-rendered elements and preserve Ark `asChild`. `TourCloseTrigger` and `TourActionTrigger` omit moduix button visuals when `asChild` is used so the semantic child owns its styling.
 
 Relevant attributes include `data-scope="tour"`, `data-part`, `data-state="open|closed"`, `data-type="dialog|tooltip|floating|wait"`, `data-placement`, `data-side`, `data-step`, and `data-disabled` on disabled action triggers. Runtime CSS variables include `--tour-layer`, `--tour-z-index`, `--reference-width`, `--reference-height`, `--available-width`, `--available-height`, `--x`, `--y`, `--z-index`, `--transform-origin`, `--arrow-size`, `--arrow-size-half`, `--arrow-background`, and `--arrow-offset`.
 
@@ -127,12 +141,12 @@ The CSS module provides visual defaults for backdrop, spotlight, positioner, con
 
 ## Intentional sugar and differences from upstream
 
-Moduix adds only styling, `data-slot` hooks, the default `ArrowTip` inside `Tour.Arrow`, the optional `Tour.CloseIcon` helper, `Tour.Body` for scroll-safe step content, and `Tour.ActionList` for the ordinary action mapping. `ActionList` passes each Ark action object straight to `ActionTrigger`, and its `className` styles every generated trigger; use `Actions` and `ActionTrigger` when action UI needs custom composition. It does not add bundled content sugar, local progress components, or a local state provider.
+Moduix adds only styling, `data-slot` hooks, the default `TourArrowTip` inside `TourArrow`, the optional `TourCloseIcon` helper, `TourBody` for scroll-safe step content, and `TourActionList` for the ordinary action mapping. `TourActionList` passes each Ark action object straight to `TourActionTrigger`, and its `className` styles every generated trigger; use `TourActions` and `TourActionTrigger` when action UI needs custom composition. It does not add bundled content sugar, local progress components, or a local state provider.
 
 ## Agent notes
 
-Keep `Tour.Root` as a required-`tour` root until Ark exposes a real `RootProvider`. Keep
-`Positioner` and `Content` explicit; only portal transport is automatic. Use `Tour.Body` in the
+Keep `Tour` as a required-`tour` root until Ark exposes a real `RootProvider`. Keep
+`TourPositioner` and `TourContent` explicit; only portal transport is automatic. Use `TourBody` in the
 recommended path whenever step content can exceed the available height. If action styling changes,
 update `variables-moduix.css`, docs CSS properties, stories, and registry artifacts together.
 
@@ -153,18 +167,18 @@ content after the first open; set both props to `false` only when eager initial 
 
 - 2026-08-14: Respect reduced-motion preferences for overlay presence and action transitions.
 
-- 2026-08-11: Made the recommended tour composition arrowless and kept `Tour.Arrow` as an explicit
+- 2026-08-11: Made the recommended tour composition arrowless and kept `TourArrow` as an explicit
   visual-anchor option for tooltip steps.
 
 - 2026-08-01: Defaulted portalled overlay presence to lazy mounting and unmounting after exit.
 
-- 2026-08-01: Added `Tour.Body` for scroll-safe step content, fixed Ark layer ordering and floating placements, and restored the moduix context-hook exports in the public documentation.
+- 2026-08-01: Added `TourBody` for scroll-safe step content, fixed Ark layer ordering and floating placements, and restored the moduix context-hook exports in the public documentation.
 - 2026-07-21: Routed shared dimensions, spacing, icon geometry, and focus-ring fallbacks through foundation tokens so density and theme presets can retune the component consistently.
 - 2026-07-16: Added shared `--moduix-popup-motion-*` fallbacks for content motion; backdrop motion remains separate.
-- 2026-07-05: Added `Tour.CloseIcon` so guided-tour examples can use the same close-button helper pattern as the other overlay families.
-- 2026-07-12: Aligned `Tour.CloseIcon` fallback geometry and focus ring with `CloseButton` and the dialog overlay family.
-- 2026-07-12: Added `Tour.ActionList` as the recommended, stylable mapping for ordinary step actions; `Tour.Actions` and `Tour.ActionTrigger` remain available for custom action UI.
-- 2026-07-03: Removed moduix re-exports for `Tour.Context`, `useTourContext`, and duplicate Ark
+- 2026-07-05: Added `TourCloseIcon` so guided-tour examples can use the same close-button helper pattern as the other overlay families.
+- 2026-07-12: Aligned `TourCloseIcon` fallback geometry and focus ring with `CloseButton` and the dialog overlay family.
+- 2026-07-12: Added `TourActionList` as the recommended, stylable mapping for ordinary step actions; `TourActions` and `TourActionTrigger` remain available for custom action UI.
+- 2026-07-03: Removed moduix re-exports for `TourContext`, `useTourContext`, and duplicate Ark
   types. Keep `useTour` and wait helpers in `moduix`; import advanced Ark state/types directly
   from `@ark-ui/react/tour`.
 

@@ -1,12 +1,21 @@
 import { expect, test } from '@rstest/core';
 import { fireEvent, render, screen, waitFor, within } from '@solidjs/testing-library';
-import { Toast, Toaster, createToaster, useToastContext } from '../src';
+import {
+  Toast,
+  ToastActionTrigger,
+  ToastCloseTrigger,
+  ToastDescription,
+  ToastTitle,
+  ToastToaster,
+  createToaster,
+  useToastContext,
+} from '../src';
 
 test('renders the default toaster content and keeps closable and action behavior', async () => {
   const toaster = createToaster({ placement: 'bottom', duration: Infinity });
   let actionCount = 0;
 
-  render(() => <Toaster toaster={toaster} />);
+  render(() => <ToastToaster toaster={toaster} />);
 
   toaster.create({
     title: 'Changes saved',
@@ -31,7 +40,7 @@ test('renders the default toaster content and keeps closable and action behavior
 test('uses info for implicit and explicit info toast types', async () => {
   const toaster = createToaster({ placement: 'bottom', duration: Infinity });
 
-  render(() => <Toaster toaster={toaster} />);
+  render(() => <ToastToaster toaster={toaster} />);
 
   toaster.create({ title: 'Implicit info toast' });
   expect(
@@ -49,15 +58,15 @@ test('keeps the short Toast root form and exported context hook available for cu
 
   function ContextTitle() {
     const toast = useToastContext();
-    return <Toast.Title>{toast().title}</Toast.Title>;
+    return <ToastTitle>{toast().title}</ToastTitle>;
   }
 
   render(() => (
-    <Toaster toaster={toaster} portalled={false}>
+    <ToastToaster toaster={toaster} portalled={false}>
       {() => (
         <Toast>
           <ContextTitle />
-          <Toast.CloseTrigger
+          <ToastCloseTrigger
             asChild={(props) => (
               <button {...props()} type="button">
                 Dismiss
@@ -66,10 +75,10 @@ test('keeps the short Toast root form and exported context hook available for cu
             aria-label="Dismiss custom toast"
           >
             Dismiss
-          </Toast.CloseTrigger>
+          </ToastCloseTrigger>
         </Toast>
       )}
-    </Toaster>
+    </ToastToaster>
   ));
 
   toaster.create({ title: 'Custom toast' });
@@ -83,7 +92,7 @@ test('keeps the short Toast root form and exported context hook available for cu
 
 test('portals by default, supports inline rendering, and accepts a custom portal target', async () => {
   const portalledToaster = createToaster({ placement: 'bottom', duration: Infinity });
-  const portalled = render(() => <Toaster toaster={portalledToaster} />);
+  const portalled = render(() => <ToastToaster toaster={portalledToaster} />);
 
   portalledToaster.create({ title: 'Portalled toast' });
   const portalledTitle = await screen.findByText('Portalled toast');
@@ -91,7 +100,7 @@ test('portals by default, supports inline rendering, and accepts a custom portal
   portalled.unmount();
 
   const inlineToaster = createToaster({ placement: 'bottom', duration: Infinity });
-  const inline = render(() => <Toaster toaster={inlineToaster} portalled={false} />);
+  const inline = render(() => <ToastToaster toaster={inlineToaster} portalled={false} />);
 
   inlineToaster.create({ title: 'Inline toast' });
   const inlineTitle = await screen.findByText('Inline toast');
@@ -105,7 +114,7 @@ test('portals by default, supports inline rendering, and accepts a custom portal
     return (
       <>
         <div ref={(element) => (portalRef = element)} data-testid="toast-portal" />
-        <Toaster toaster={customToaster} portalRef={() => portalRef} />
+        <ToastToaster toaster={customToaster} portalRef={() => portalRef} />
       </>
     );
   }
@@ -128,14 +137,14 @@ test('forwards refs on native parts and keeps Solid asChild composition native',
   let composedCloseRef: HTMLButtonElement | undefined;
 
   render(() => (
-    <Toaster toaster={toaster} portalled={false}>
+    <ToastToaster toaster={toaster} portalled={false}>
       {() => (
-        <Toast.Root ref={(element) => (rootRef = element)}>
-          <Toast.Title ref={(element) => (titleRef = element)} />
-          <Toast.Description ref={(element) => (descriptionRef = element)} />
-          <Toast.ActionTrigger ref={(element) => (actionRef = element)}>Undo</Toast.ActionTrigger>
-          <Toast.CloseTrigger ref={(element) => (closeRef = element)} />
-          <Toast.CloseTrigger
+        <Toast ref={(element) => (rootRef = element)}>
+          <ToastTitle ref={(element) => (titleRef = element)} />
+          <ToastDescription ref={(element) => (descriptionRef = element)} />
+          <ToastActionTrigger ref={(element) => (actionRef = element)}>Undo</ToastActionTrigger>
+          <ToastCloseTrigger ref={(element) => (closeRef = element)} />
+          <ToastCloseTrigger
             ref={(element) => (composedCloseRef = element)}
             asChild={(props) => (
               <button {...props()} type="button">
@@ -145,10 +154,10 @@ test('forwards refs on native parts and keeps Solid asChild composition native',
             aria-label="Custom close"
           >
             Custom close
-          </Toast.CloseTrigger>
-        </Toast.Root>
+          </ToastCloseTrigger>
+        </Toast>
       )}
-    </Toaster>
+    </ToastToaster>
   ));
 
   toaster.create({

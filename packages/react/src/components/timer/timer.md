@@ -19,74 +19,74 @@ state or duplicate Ark's interval logic.
 Ark anatomy:
 
 ```tsx
-<Timer.Root>
-  <Timer.Area>
-    <Timer.Item />
-    <Timer.Separator />
-  </Timer.Area>
-  <Timer.Control>
-    <Timer.ActionTrigger />
-  </Timer.Control>
-</Timer.Root>
+<Timer>
+  <TimerArea>
+    <TimerItem />
+    <TimerSeparator />
+  </TimerArea>
+  <TimerControl>
+    <TimerActionTrigger />
+  </TimerControl>
+</Timer>
 ```
 
 ## Current behavior contract
 
-- `Timer` is the same component as `Timer.Root`.
-- `Timer.Root` accepts Ark timer props including `autoStart`, `countdown`, `startMs`,
+- `Timer` owns Ark timer state and accepts the full set of Ark timer props.
+- `Timer` accepts Ark timer props including `autoStart`, `countdown`, `startMs`,
   `targetMs`, `interval`, `ids`, `translations`, `onTick`, and `onComplete`.
-- `Timer.RootProvider` accepts a `value` from Ark `useTimer()` for externally created timer state.
-- `Timer.ActionTrigger` requires Ark's `action` prop: `start`, `pause`, `resume`, `reset`, or
+- `TimerRootProvider` accepts a `value` from Ark `useTimer()` for externally created timer state.
+- `TimerActionTrigger` requires Ark's `action` prop: `start`, `pause`, `resume`, `reset`, or
   `restart`.
-- `Timer.Item` requires `type`, matching Ark time parts such as `days`, `hours`, `minutes`,
+- `TimerItem` requires `type`, matching Ark time parts such as `days`, `hours`, `minutes`,
   `seconds`, and `milliseconds`.
-- `Timer.Segments` renders hours, minutes, and seconds by default, or standard `Timer.Item` and
-  `Timer.Separator` composition from `types`. It forwards `Timer.Area` attributes and its ref,
+- `TimerSegments` renders hours, minutes, and seconds by default, or standard `TimerItem` and
+  `TimerSeparator` composition from `types`. It forwards `TimerArea` attributes and its ref,
   except `children` and `asChild`, because it owns the generated part tree.
-- moduix re-exports `useTimer` and `useTimerContext`; `Timer.Context` provides the corresponding
+- moduix re-exports `useTimer` and `useTimerContext`; `TimerContext` provides the corresponding
   Ark context surface for normal advanced composition.
 
 ## Anatomy and exported parts
 
 ```tsx
-Timer.Root
-├─ Timer.Area
-│  ├─ Timer.Item
-│  └─ Timer.Separator
-└─ Timer.Control
-   └─ Timer.ActionTrigger
+Timer
+├─ TimerArea
+│  ├─ TimerItem
+│  └─ TimerSeparator
+└─ TimerControl
+   └─ TimerActionTrigger
 
-Timer.RootProvider
+TimerRootProvider
 └─ same part tree connected to Ark useTimer()
 
-Timer.Segments
-└─ Timer.Area with Timer.Item and Timer.Separator parts
+TimerSegments
+└─ TimerArea with TimerItem and TimerSeparator parts
 ```
 
 | Export                 | `data-slot`            | Notes                                                      |
 | ---------------------- | ---------------------- | ---------------------------------------------------------- |
-| `Timer` / `Timer.Root` | `timer-root`           | Owns Ark timer state and ids.                              |
-| `Timer.RootProvider`   | `timer-root-provider`  | Connects parts to Ark `useTimer()` state.                  |
-| `Timer.Segments`       | `timer-area`           | Composes standard items and separators from `types`.       |
-| `Timer.Area`           | `timer-area`           | Groups visible time parts.                                 |
-| `Timer.Item`           | `timer-item`           | Renders one formatted time unit and keeps Ark `data-type`. |
-| `Timer.Separator`      | `timer-separator`      | Visual separator between items.                            |
-| `Timer.Control`        | `timer-control`        | Groups action triggers.                                    |
-| `Timer.ActionTrigger`  | `timer-action-trigger` | Button that dispatches an Ark timer action.                |
-| `Timer.Context`        | -                      | Reads the current Ark timer API in the rendered subtree.   |
-| `useTimer`             | -                      | Creates Ark timer state for `Timer.RootProvider`.          |
+| `Timer` | `timer-root`           | Owns Ark timer state and ids.                              |
+| `TimerRootProvider`   | `timer-root-provider`  | Connects parts to Ark `useTimer()` state.                  |
+| `TimerSegments`       | `timer-area`           | Composes standard items and separators from `types`.       |
+| `TimerArea`           | `timer-area`           | Groups visible time parts.                                 |
+| `TimerItem`           | `timer-item`           | Renders one formatted time unit and keeps Ark `data-type`. |
+| `TimerSeparator`      | `timer-separator`      | Visual separator between items.                            |
+| `TimerControl`        | `timer-control`        | Groups action triggers.                                    |
+| `TimerActionTrigger`  | `timer-action-trigger` | Button that dispatches an Ark timer action.                |
+| `TimerContext`        | -                      | Reads the current Ark timer API in the rendered subtree.   |
+| `useTimer`             | -                      | Creates Ark timer state for `TimerRootProvider`.          |
 | `useTimerContext`      | -                      | Reads the current Ark timer API from context.              |
 
 ## Composition
 
 ```tsx
 <Timer targetMs={60 * 60 * 1000} startMs={40 * 60 * 1000}>
-  <Timer.Segments types={['hours', 'minutes', 'seconds']} />
-  <Timer.Control>
-    <Timer.ActionTrigger action="start">Start</Timer.ActionTrigger>
-    <Timer.ActionTrigger action="pause">Pause</Timer.ActionTrigger>
-    <Timer.ActionTrigger action="reset">Reset</Timer.ActionTrigger>
-  </Timer.Control>
+  <TimerSegments types={['hours', 'minutes', 'seconds']} />
+  <TimerControl>
+    <TimerActionTrigger action="start">Start</TimerActionTrigger>
+    <TimerActionTrigger action="pause">Pause</TimerActionTrigger>
+    <TimerActionTrigger action="reset">Reset</TimerActionTrigger>
+  </TimerControl>
 </Timer>
 ```
 
@@ -94,12 +94,12 @@ Timer.Segments
 
 - Basic elapsed timer is supported through `targetMs` and optional `startMs`.
 - Countdown is supported with `countdown` and `startMs`.
-- Sub-second rendering is supported with `interval` and `Timer.Item type="milliseconds"`.
+- Sub-second rendering is supported with `interval` and `TimerItem type="milliseconds"`.
 - Events are supported through Ark `onTick(details)` and `onComplete()`.
 - Pomodoro-style flows are supported by remounting/changing timer props or controlling state
   outside the component.
-- Root provider usage is supported with moduix `useTimer()` and `Timer.RootProvider`.
-- Programmatic controls and state reads stay available through `Timer.Context` and
+- Root provider usage is supported with moduix `useTimer()` and `TimerRootProvider`.
+- Programmatic controls and state reads stay available through `TimerContext` and
   `useTimerContext()` from moduix.
 
 Timer does not expose a separate controlled `value` prop because Ark Timer is action-driven rather
@@ -113,15 +113,15 @@ renders a button by default, so keyboard activation follows native button behavi
 visibility contract. There is no roving focus or composite keyboard navigation in the timer
 primitive.
 
-`Timer.Item` preserves Ark `data-scope="timer"`, `data-part="item"`, `data-type`, and `--value`.
-Labels such as `days`, `hours`, or `seconds` are ordinary composition around `Timer.Item`, not a
+`TimerItem` preserves Ark `data-scope="timer"`, `data-part="item"`, `data-type`, and `--value`.
+Labels such as `days`, `hours`, or `seconds` are ordinary composition around `TimerItem`, not a
 separate Ark part. All wrapped parts preserve Ark `asChild`, refs, and primitive attributes. Keep
 semantic replacement children compatible when using `asChild`. Use `translations.areaLabel` when
 the default accessible timer label is not appropriate.
 
 ## Defaults and styling
 
-The wrapper adds CSS Modules defaults and stable `data-slot` hooks. `Timer.Root` centers its
+The wrapper adds CSS Modules defaults and stable `data-slot` hooks. `Timer` centers its
 children with `place-items: center` by default. Runtime styling is controlled with component CSS
 variables such as `--moduix-timer-gap`, `--moduix-timer-area-font-size`, `--moduix-timer-item-min-width`,
 `--moduix-timer-action-trigger-bg`, and `--moduix-timer-action-trigger-icon-size`.
@@ -130,14 +130,14 @@ variables such as `--moduix-timer-gap`, `--moduix-timer-area-font-size`, `--modu
 
 ## Intentional sugar and differences from upstream
 
-moduix adds styled button defaults for `Timer.ActionTrigger`, default SVG icon sizing inside
-actions, centered root layout, tabular numeric display for `Timer.Area`, stable `data-slot`
-selectors, and `Timer.Segments` for the common display shape. It does not rename Ark props, add
+moduix adds styled button defaults for `TimerActionTrigger`, default SVG icon sizing inside
+actions, centered root layout, tabular numeric display for `TimerArea`, stable `data-slot`
+selectors, and `TimerSegments` for the common display shape. It does not rename Ark props, add
 hidden controls, or add state outside Ark.
 
-`Timer.Segments` defaults to `hours`, `minutes`, and `seconds`, and accepts `types`, `separator`,
-and `Timer.Area` attributes such as `className`, `id`, and ARIA attributes. It forwards its ref but
-does not support `asChild` because it owns the generated children; use `Timer.Area` when replacing
+`TimerSegments` defaults to `hours`, `minutes`, and `seconds`, and accepts `types`, `separator`,
+and `TimerArea` attributes such as `className`, `id`, and ARIA attributes. It forwards its ref but
+does not support `asChild` because it owns the generated children; use `TimerArea` when replacing
 the host or controlling children. Use the exported lower-level parts when unit labels or per-item
 customization are required.
 
@@ -151,17 +151,20 @@ Keep future additions as explicit parts or style hooks unless Ark adds new timer
 
 ## Local changelog
 
-- 2026-08-13: Made `Timer.Segments` forward the available `Timer.Area` attributes and its ref,
+- 2026-09-22: Replaced the compound Timer API with flat Timer, TimerRootProvider, TimerArea,
+  TimerItem, TimerSeparator, TimerControl, TimerActionTrigger, TimerContext, and TimerSegments
+  exports.
+- 2026-08-13: Made `TimerSegments` forward the available `TimerArea` attributes and its ref,
   while intentionally retaining ownership of its generated children.
-- 2026-07-31: Added default `Timer.Segments` units, responsive time-area wrapping, focused tests,
+- 2026-07-31: Added default `TimerSegments` units, responsive time-area wrapping, focused tests,
   and centered docs previews with semantic interaction output.
 - 2026-07-21: Routed shared dimensions, spacing, icon geometry, and focus-ring fallbacks through foundation tokens so density and theme presets can retune the component consistently.
-- 2026-07-12: Added `Timer.Segments` and moduix-owned `useTimer`, `useTimerContext`, and
-  `Timer.Context` exports for the documented advanced composition path.
+- 2026-07-12: Added `TimerSegments` and moduix-owned `useTimer`, `useTimerContext`, and
+  `TimerContext` exports for the documented advanced composition path.
 - 2026-06-29: Preserved Ark's action-trigger `hidden` state, aligned typography and focus styling,
   exported Ark part/context types, and completed public API and CSS-variable documentation.
 - 2026-07-03: Removed duplicate hook, context, and type re-exports from the moduix surface while
-  keeping `Timer.RootProvider` for Ark-owned external state.
+  keeping `TimerRootProvider` for Ark-owned external state.
 - 2026-06-23: Added `Timer` as an Ark UI wrapper with CSS Modules, Storybook examples, docs, and
   registry support.
 - 2026-06-23: Aligned examples with Ark's icon action triggers and labeled time item composition;

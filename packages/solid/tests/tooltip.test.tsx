@@ -1,7 +1,20 @@
 import { describe, expect, test } from '@rstest/core';
 import { fireEvent, render, screen, waitFor } from '@solidjs/testing-library';
 import { createSignal } from 'solid-js';
-import { Button, Tooltip, useTooltip, useTooltipContext } from '../src';
+import {
+  Button,
+  Tooltip,
+  useTooltip,
+  useTooltipContext,
+  TooltipArrow,
+  TooltipArrowTip,
+  TooltipBody,
+  TooltipContent,
+  TooltipDisabledTrigger,
+  TooltipPositioner,
+  TooltipRootProvider,
+  TooltipTrigger,
+} from '../src';
 
 describe('Tooltip', () => {
   test('preserves Ark open-change details and returns focus after Escape', async () => {
@@ -20,8 +33,8 @@ describe('Tooltip', () => {
             setOpen(detail.open);
           }}
         >
-          <Tooltip.Trigger>Save</Tooltip.Trigger>
-          <Tooltip.Body>Save changes</Tooltip.Body>
+          <TooltipTrigger>Save</TooltipTrigger>
+          <TooltipBody>Save changes</TooltipBody>
         </Tooltip>
       );
     }
@@ -49,8 +62,8 @@ describe('Tooltip', () => {
 
     render(() => (
       <Tooltip open>
-        <Tooltip.Trigger>Save</Tooltip.Trigger>
-        <Tooltip.Body ref={(element) => (ref = element)}>Save changes</Tooltip.Body>
+        <TooltipTrigger>Save</TooltipTrigger>
+        <TooltipBody ref={(element) => (ref = element)}>Save changes</TooltipBody>
       </Tooltip>
     ));
 
@@ -64,10 +77,10 @@ describe('Tooltip', () => {
   test('keeps a disabled control discoverable through DisabledTrigger', async () => {
     render(() => (
       <Tooltip openDelay={0} portalled={false}>
-        <Tooltip.DisabledTrigger aria-label="Create project is unavailable">
+        <TooltipDisabledTrigger aria-label="Create project is unavailable">
           <Button disabled>Create project</Button>
-        </Tooltip.DisabledTrigger>
-        <Tooltip.Body>Projects are unavailable while offline.</Tooltip.Body>
+        </TooltipDisabledTrigger>
+        <TooltipBody>Projects are unavailable while offline.</TooltipBody>
       </Tooltip>
     ));
 
@@ -88,8 +101,8 @@ describe('Tooltip', () => {
   test('portals the positioner by default and can render it inline', async () => {
     const { container, unmount } = render(() => (
       <Tooltip open>
-        <Tooltip.Trigger>Save</Tooltip.Trigger>
-        <Tooltip.Body>Save changes</Tooltip.Body>
+        <TooltipTrigger>Save</TooltipTrigger>
+        <TooltipBody>Save changes</TooltipBody>
       </Tooltip>
     ));
 
@@ -100,8 +113,8 @@ describe('Tooltip', () => {
 
     const inlineTooltip = render(() => (
       <Tooltip open portalled={false}>
-        <Tooltip.Trigger>Save</Tooltip.Trigger>
-        <Tooltip.Body>Save changes</Tooltip.Body>
+        <TooltipTrigger>Save</TooltipTrigger>
+        <TooltipBody>Save changes</TooltipBody>
       </Tooltip>
     ));
 
@@ -109,14 +122,14 @@ describe('Tooltip', () => {
     expect(inlineTooltip.container).toContainElement(inlineContent);
   });
 
-  test('renders the moduix arrow tip when Tooltip.Arrow has no child', async () => {
+  test('renders the moduix arrow tip when TooltipArrow has no child', async () => {
     render(() => (
       <Tooltip open portalled={false}>
-        <Tooltip.Trigger>Save</Tooltip.Trigger>
-        <Tooltip.Body>
-          <Tooltip.Arrow />
+        <TooltipTrigger>Save</TooltipTrigger>
+        <TooltipBody>
+          <TooltipArrow />
           Save changes
-        </Tooltip.Body>
+        </TooltipBody>
       </Tooltip>
     ));
 
@@ -135,11 +148,11 @@ describe('Tooltip', () => {
       const tooltip = useTooltip({ openDelay: 0 });
 
       return (
-        <Tooltip.RootProvider value={tooltip} portalled={false}>
-          <Tooltip.Trigger>Save</Tooltip.Trigger>
-          <Tooltip.Body>Save changes</Tooltip.Body>
+        <TooltipRootProvider value={tooltip} portalled={false}>
+          <TooltipTrigger>Save</TooltipTrigger>
+          <TooltipBody>Save changes</TooltipBody>
           <ContextValue />
-        </Tooltip.RootProvider>
+        </TooltipRootProvider>
       );
     }
 
@@ -164,9 +177,9 @@ describe('Tooltip', () => {
             portalled={false}
             onTriggerValueChange={(detail) => setValue(detail.value ?? '')}
           >
-            <Tooltip.Trigger value="save">Save</Tooltip.Trigger>
-            <Tooltip.Trigger value="share">Share</Tooltip.Trigger>
-            <Tooltip.Body>Action tooltip</Tooltip.Body>
+            <TooltipTrigger value="save">Save</TooltipTrigger>
+            <TooltipTrigger value="share">Share</TooltipTrigger>
+            <TooltipBody>Action tooltip</TooltipBody>
           </Tooltip>
         </>
       );
@@ -191,8 +204,8 @@ describe('Tooltip', () => {
 
     render(() => (
       <Tooltip open portalled={false}>
-        <Tooltip.Trigger ref={(element) => (triggerRef = element)}>Save</Tooltip.Trigger>
-        <Tooltip.Trigger
+        <TooltipTrigger ref={(element) => (triggerRef = element)}>Save</TooltipTrigger>
+        <TooltipTrigger
           ref={(element) => (composedTriggerRef = element)}
           asChild={(props) => (
             <a {...props()} href="#save">
@@ -200,21 +213,21 @@ describe('Tooltip', () => {
             </a>
           )}
         />
-        <Tooltip.DisabledTrigger
+        <TooltipDisabledTrigger
           ref={(element) => (disabledTriggerRef = element)}
           aria-label="Disabled save"
         >
           <Button disabled>Disabled save</Button>
-        </Tooltip.DisabledTrigger>
-        <Tooltip.Body ref={(element) => (bodyRef = element)}>Body ref</Tooltip.Body>
-        <Tooltip.Positioner ref={(element) => (positionerRef = element)}>
-          <Tooltip.Content ref={(element) => (contentRef = element)}>
-            <Tooltip.Arrow ref={(element) => (arrowRef = element)}>
-              <Tooltip.ArrowTip ref={(element) => (arrowTipRef = element)} />
-            </Tooltip.Arrow>
+        </TooltipDisabledTrigger>
+        <TooltipBody ref={(element) => (bodyRef = element)}>Body ref</TooltipBody>
+        <TooltipPositioner ref={(element) => (positionerRef = element)}>
+          <TooltipContent ref={(element) => (contentRef = element)}>
+            <TooltipArrow ref={(element) => (arrowRef = element)}>
+              <TooltipArrowTip ref={(element) => (arrowTipRef = element)} />
+            </TooltipArrow>
             Explicit content
-          </Tooltip.Content>
-        </Tooltip.Positioner>
+          </TooltipContent>
+        </TooltipPositioner>
       </Tooltip>
     ));
 

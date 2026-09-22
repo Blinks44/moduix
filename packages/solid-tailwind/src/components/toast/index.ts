@@ -1,1 +1,11 @@
-export { Toast, Toaster, createToaster, useToastContext } from './Toast.js';
+export {
+  Toast,
+  ToastActionTrigger,
+  ToastCloseTrigger,
+  ToastContext,
+  ToastDescription,
+  ToastTitle,
+  ToastToaster,
+  createToaster,
+  useToastContext,
+} from './Toast.js';

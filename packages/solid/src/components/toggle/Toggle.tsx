@@ -11,7 +11,7 @@ type ToggleRootProps = ComponentProps<typeof TogglePrimitive.Root> & {
   size?: ToggleSize;
 };
 
-function ToggleRoot(props: ToggleRootProps) {
+function Toggle(props: ToggleRootProps) {
   const [local, others] = splitProps(props, ['asChild', 'class', 'size', 'variant']);
 
   return (
@@ -39,11 +39,5 @@ function ToggleIndicator(props: ComponentProps<typeof TogglePrimitive.Indicator>
   );
 }
 
-const Toggle = Object.assign(ToggleRoot, {
-  Root: ToggleRoot,
-  Indicator: ToggleIndicator,
-  Context: ToggleContext,
-});
-
-export { Toggle, useToggleContext };
+export { Toggle, ToggleContext, ToggleIndicator, useToggleContext };
 export type { ToggleRootProps, ToggleSize, ToggleVariant };

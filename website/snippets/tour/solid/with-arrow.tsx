@@ -1,6 +1,20 @@
 import type { TourStepDetails } from '@ark-ui/solid/tour';
 import { Button } from '@moduix/solid/button';
-import { Tour, useTour } from '@moduix/solid/tour';
+import {
+  Tour,
+  TourBackdrop,
+  TourSpotlight,
+  TourPositioner,
+  TourContent,
+  TourArrow,
+  TourTitle,
+  TourDescription,
+  TourBody,
+  TourCloseIcon,
+  TourControl,
+  TourActionList,
+  useTour,
+} from '@moduix/solid/tour';
 import styles from '@/components/examples/tour/tour-with-arrow.module.css';
 
 const steps = [
@@ -24,21 +38,21 @@ export default function TourWithArrowDemo() {
         Upload files
       </Button>
       <Tour tour={tour} lazyMount unmountOnExit>
-        <Tour.Backdrop />
-        <Tour.Spotlight />
-        <Tour.Positioner>
-          <Tour.Content>
-            <Tour.Arrow />
-            <Tour.CloseIcon />
-            <Tour.Body>
-              <Tour.Title />
-              <Tour.Description />
-            </Tour.Body>
-            <Tour.Control>
-              <Tour.ActionList />
-            </Tour.Control>
-          </Tour.Content>
-        </Tour.Positioner>
+        <TourBackdrop />
+        <TourSpotlight />
+        <TourPositioner>
+          <TourContent>
+            <TourArrow />
+            <TourCloseIcon />
+            <TourBody>
+              <TourTitle />
+              <TourDescription />
+            </TourBody>
+            <TourControl>
+              <TourActionList />
+            </TourControl>
+          </TourContent>
+        </TourPositioner>
       </Tour>
       <Button onClick={() => tour().start()}>Start tour</Button>
     </div>

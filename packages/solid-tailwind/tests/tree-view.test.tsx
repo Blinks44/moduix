@@ -3,6 +3,21 @@ import { fireEvent, render, screen, waitFor } from '@solidjs/testing-library';
 import { createSignal, For, Show } from 'solid-js';
 import {
   TreeView,
+  TreeViewBranch,
+  TreeViewBranchContent,
+  TreeViewBranchControl,
+  TreeViewBranchIndicator,
+  TreeViewBranchIndentGuide,
+  TreeViewBranchText,
+  TreeViewItem,
+  TreeViewItemText,
+  TreeViewLabel,
+  TreeViewNode,
+  TreeViewNodeCheckbox,
+  TreeViewNodeCheckboxIndicator,
+  TreeViewNodeProvider,
+  TreeViewRootProvider,
+  TreeViewTree,
   createTreeCollection,
   type TreeViewNodeProviderProps,
   useTreeView,
@@ -30,45 +45,45 @@ const collection = createTreeCollection<FileNode>({
 
 function FileTreeNode(props: TreeViewNodeProviderProps<FileNode>) {
   return (
-    <TreeView.Node node={props.node} indexPath={props.indexPath}>
+    <TreeViewNode node={props.node} indexPath={props.indexPath}>
       {(renderProps) => (
         <Show
           when={renderProps.state().isBranch}
           fallback={
-            <TreeView.Item>
-              <TreeView.ItemText>{renderProps.node.name}</TreeView.ItemText>
-            </TreeView.Item>
+            <TreeViewItem>
+              <TreeViewItemText>{renderProps.node.name}</TreeViewItemText>
+            </TreeViewItem>
           }
         >
-          <TreeView.Branch>
-            <TreeView.BranchControl>
-              <TreeView.BranchIndicator />
-              <TreeView.BranchText>{renderProps.node.name}</TreeView.BranchText>
-            </TreeView.BranchControl>
-            <TreeView.BranchContent>
-              <TreeView.BranchIndentGuide />
+          <TreeViewBranch>
+            <TreeViewBranchControl>
+              <TreeViewBranchIndicator />
+              <TreeViewBranchText>{renderProps.node.name}</TreeViewBranchText>
+            </TreeViewBranchControl>
+            <TreeViewBranchContent>
+              <TreeViewBranchIndentGuide />
               <For each={renderProps.node.children}>
                 {(child, index) => (
                   <FileTreeNode node={child} indexPath={[...renderProps.indexPath, index()]} />
                 )}
               </For>
-            </TreeView.BranchContent>
-          </TreeView.Branch>
+            </TreeViewBranchContent>
+          </TreeViewBranch>
         </Show>
       )}
-    </TreeView.Node>
+    </TreeViewNode>
   );
 }
 
 function TreeParts() {
   return (
     <>
-      <TreeView.Label>Project files</TreeView.Label>
-      <TreeView.Tree>
+      <TreeViewLabel>Project files</TreeViewLabel>
+      <TreeViewTree>
         <For each={collection.rootNode.children}>
           {(node, index) => <FileTreeNode node={node} indexPath={[index()]} />}
         </For>
-      </TreeView.Tree>
+      </TreeViewTree>
     </>
   );
 }
@@ -103,19 +118,19 @@ test('preserves TreeView anatomy, labels, refs, and the Node convenience helper'
 test('wraps the checkbox indicator with its data-slot and consumer class', () => {
   render(() => (
     <TreeView collection={collection}>
-      <TreeView.Label>Checked files</TreeView.Label>
-      <TreeView.Tree>
-        <TreeView.Node node={collection.rootNode.children![1]} indexPath={[1]}>
+      <TreeViewLabel>Checked files</TreeViewLabel>
+      <TreeViewTree>
+        <TreeViewNode node={collection.rootNode.children![1]} indexPath={[1]}>
           {({ node }) => (
-            <TreeView.Item>
-              <TreeView.NodeCheckbox>
-                <TreeView.NodeCheckboxIndicator class="indicator-class" />
-              </TreeView.NodeCheckbox>
-              <TreeView.ItemText>{node.name}</TreeView.ItemText>
-            </TreeView.Item>
+            <TreeViewItem>
+              <TreeViewNodeCheckbox>
+                <TreeViewNodeCheckboxIndicator class="indicator-class" />
+              </TreeViewNodeCheckbox>
+              <TreeViewItemText>{node.name}</TreeViewItemText>
+            </TreeViewItem>
           )}
-        </TreeView.Node>
-      </TreeView.Tree>
+        </TreeViewNode>
+      </TreeViewTree>
     </TreeView>
   ));
 
@@ -214,16 +229,16 @@ test('preserves disabled node semantics', () => {
 
   render(() => (
     <TreeView collection={disabledCollection}>
-      <TreeView.Label>Archives</TreeView.Label>
-      <TreeView.Tree>
-        <TreeView.Node node={disabledCollection.rootNode.children![0]} indexPath={[0]}>
+      <TreeViewLabel>Archives</TreeViewLabel>
+      <TreeViewTree>
+        <TreeViewNode node={disabledCollection.rootNode.children![0]} indexPath={[0]}>
           {({ node }) => (
-            <TreeView.Item>
-              <TreeView.ItemText>{node.name}</TreeView.ItemText>
-            </TreeView.Item>
+            <TreeViewItem>
+              <TreeViewItemText>{node.name}</TreeViewItemText>
+            </TreeViewItem>
           )}
-        </TreeView.Node>
-      </TreeView.Tree>
+        </TreeViewNode>
+      </TreeViewTree>
     </TreeView>
   ));
 
@@ -239,20 +254,20 @@ test('keeps RootProvider and semantic item composition available', () => {
     const treeView = useTreeView({ collection });
 
     return (
-      <TreeView.RootProvider value={treeView}>
-        <TreeView.Label>Documentation</TreeView.Label>
-        <TreeView.Tree>
-          <TreeView.NodeProvider node={collection.rootNode.children![1]} indexPath={[1]}>
-            <TreeView.Item
+      <TreeViewRootProvider value={treeView}>
+        <TreeViewLabel>Documentation</TreeViewLabel>
+        <TreeViewTree>
+          <TreeViewNodeProvider node={collection.rootNode.children![1]} indexPath={[1]}>
+            <TreeViewItem
               asChild={(props) => (
                 <a {...props()} href="/docs">
                   README.md
                 </a>
               )}
             />
-          </TreeView.NodeProvider>
-        </TreeView.Tree>
-      </TreeView.RootProvider>
+          </TreeViewNodeProvider>
+        </TreeViewTree>
+      </TreeViewRootProvider>
     );
   }
 

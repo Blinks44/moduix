@@ -1,5 +1,5 @@
 import { Button } from '@moduix/solid/button';
-import { Tooltip } from '@moduix/solid/tooltip';
+import { Tooltip, TooltipBody, TooltipTrigger } from '@moduix/solid/tooltip';
 import { For, createSignal } from 'solid-js';
 import styles from '@/components/examples/tooltip/component-positioning.module.css';
 
@@ -20,14 +20,14 @@ export default function PositioningTooltipDemo() {
           },
         }}
       >
-        <Tooltip.Trigger
+        <TooltipTrigger
           asChild={(props) => (
             <Button {...props()} aria-label={`Tooltip placement: ${placement()}`}>
               Hover or focus
             </Button>
           )}
         />
-        <Tooltip.Body>Placement: {placement()}</Tooltip.Body>
+        <TooltipBody>Placement: {placement()}</TooltipBody>
       </Tooltip>
       <output>Placement: {placement()}</output>
       <div class={styles.meta}>

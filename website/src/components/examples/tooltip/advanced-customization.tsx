@@ -1,15 +1,20 @@
 import { Button } from '@moduix/react/button';
-import { Tooltip } from '@moduix/react/tooltip';
+import {
+  Tooltip,
+  TooltipContent,
+  TooltipPositioner,
+  TooltipTrigger,
+} from '@moduix/react/tooltip';
 
 export default function AdvancedCustomizationTooltipDemo() {
   return (
     <Tooltip positioning={{ placement: 'right', offset: { mainAxis: 12 } }}>
-      <Tooltip.Trigger asChild>
+      <TooltipTrigger asChild>
         <Button>Hover or focus</Button>
-      </Tooltip.Trigger>
-      <Tooltip.Positioner>
-        <Tooltip.Content>Explicit positioner and content.</Tooltip.Content>
-      </Tooltip.Positioner>
+      </TooltipTrigger>
+      <TooltipPositioner>
+        <TooltipContent>Explicit positioner and content.</TooltipContent>
+      </TooltipPositioner>
     </Tooltip>
   );
 }

@@ -2,7 +2,14 @@ import type { CreateToasterReturn, ToastPlacement } from '@ark-ui/react/toast';
 import type { Meta, StoryObj } from '@storybook/react-vite';
 import { useRef, useState, type ComponentProps } from 'react';
 import { Button } from '@/components/button';
-import { Toast, Toaster, createToaster } from '@/components/toast/Toast';
+import {
+  Toast,
+  ToastCloseTrigger,
+  ToastDescription,
+  ToastTitle,
+  ToastToaster,
+  createToaster,
+} from '@/components/toast/Toast';
 import { CloseIcon } from '@/lib/moduix/icons/ui';
 
 const meta = {
@@ -16,7 +23,7 @@ const meta = {
 export default meta;
 
 type Story = StoryObj<typeof meta>;
-type ToastToaster = CreateToasterReturn;
+type ToastStore = CreateToasterReturn;
 const toastTypes = ['info', 'success', 'warning', 'error'] as const;
 const stackClassName = 'grid justify-items-center gap-3';
 const segmentedClassName = 'flex flex-wrap justify-center gap-1';
@@ -43,7 +50,7 @@ const updateToaster = createToaster({ placement: 'bottom-end', overlap: true, ga
 const varyingHeightToaster = createToaster({ placement: 'bottom-end', overlap: true, gap: 16 });
 const customToaster = createToaster({ placement: 'bottom-end', overlap: true, gap: 24 });
 const placements = ['top-start', 'top', 'top-end', 'bottom-start', 'bottom', 'bottom-end'] as const;
-const placementToasters: Record<ToastPlacement, ToastToaster> = {
+const placementToasters: Record<ToastPlacement, ToastStore> = {
   'top-start': createToaster({ placement: 'top-start', overlap: true, gap: 16 }),
   top: createToaster({ placement: 'top', overlap: true, gap: 16 }),
   'top-end': createToaster({ placement: 'top-end', overlap: true, gap: 16 }),
@@ -239,26 +246,26 @@ export const AdvancedCustomization: Story = {
       >
         Create custom toast
       </Button>
-      <Toaster toaster={customToaster}>
+      <ToastToaster toaster={customToaster}>
         {(toast) => (
-          <Toast.Root key={toast.id} className={customToastClassName}>
+          <Toast key={toast.id} className={customToastClassName}>
             <div className={customContentClassName}>
               <InfoIcon className={customIconClassName} />
-              <Toast.Title />
-              <Toast.Description className="text-primary-foreground/72" />
+              <ToastTitle />
+              <ToastDescription className="text-primary-foreground/72" />
             </div>
-            <Toast.CloseTrigger className="!text-primary-foreground [@media(hover:hover)]:hover:!bg-primary-foreground/14 [@media(hover:hover)]:hover:!text-primary-foreground">
+            <ToastCloseTrigger className="!text-primary-foreground [@media(hover:hover)]:hover:!bg-primary-foreground/14 [@media(hover:hover)]:hover:!text-primary-foreground">
               <CloseIcon className={closeIconClassName} />
-            </Toast.CloseTrigger>
-          </Toast.Root>
+            </ToastCloseTrigger>
+          </Toast>
         )}
-      </Toaster>
+      </ToastToaster>
     </>
   ),
 };
 
-function ToastRenderer({ toaster }: { toaster: ToastToaster }) {
-  return <Toaster toaster={toaster} />;
+function ToastRenderer({ toaster }: { toaster: ToastStore }) {
+  return <ToastToaster toaster={toaster} />;
 }
 
 function PlacementStory() {

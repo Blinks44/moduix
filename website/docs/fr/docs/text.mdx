@@ -108,21 +108,21 @@ Consultez le [Démarrage rapide](/docs/quick-start) pour la configuration compl�
 
 ## Anatomie
 
-`Text` rend un seul élément racine avec la fabrique Ark. Les écritures `<Text>` et `<Text.Root>` sont équivalentes.
+`Text` rend un seul élément racine avec la fabrique Ark via l’export racine plat.
 
 ```text
-Text / Text.Root
+Text
 └─ texte ou contenu en ligne
 ```
 
 | Partie                | Rôle                                                                  |
 | --------------------- | --------------------------------------------------------------------- |
-| `Text` / `Text.Root` | Racine typographique avec sémantique HTML et attributs `data-*` stables. |
+| `Text`              | Racine typographique avec sémantique HTML et attributs `data-*` stables. |
 
 ## Composition
 
-`Text` se limite à un élément racine et ne possède ni état ni sous-parties. Utilisez `<Text>` ou `<Text.Root>`
-pour le même élément racine, `as` pour une balise sémantique prise en charge et `asChild` seulement lorsqu’un élément
+`Text` se limite à un élément racine et ne possède ni état ni sous-parties. Utilisez `<Text>` pour l’élément racine,
+`as` pour une balise sémantique prise en charge et `asChild` seulement lorsqu’un élément
 existant doit recevoir les propriétés et la `ref` du texte. La troncature ne fait que limiter l’affichage ; l’état et le
 contrôle du dépliage restent dans l’interface environnante.
 

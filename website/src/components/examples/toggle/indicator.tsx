@@ -1,13 +1,13 @@
-import { Toggle } from '@moduix/react/toggle';
+import { Toggle, ToggleIndicator } from '@moduix/react/toggle';
 import { Check as CheckIcon } from 'lucide-react';
 import { Star as StarIcon } from 'lucide-react';
 
 export default function IndicatorToggleDemo() {
   return (
     <Toggle aria-label="Favorite" size="icon-md" variant="outline">
-      <Toggle.Indicator fallback={<StarIcon />}>
+      <ToggleIndicator fallback={<StarIcon />}>
         <CheckIcon />
-      </Toggle.Indicator>
+      </ToggleIndicator>
     </Toggle>
   );
 }

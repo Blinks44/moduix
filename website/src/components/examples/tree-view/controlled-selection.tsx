@@ -1,4 +1,12 @@
-import { TreeView, createTreeCollection } from '@moduix/react/tree-view';
+import {
+  TreeViewItemText,
+  TreeViewItem,
+  TreeViewNode,
+  TreeViewTree,
+  TreeViewLabel,
+  TreeView,
+  createTreeCollection,
+} from '@moduix/react/tree-view';
 import { useState } from 'react';
 import { PreviewMeta } from '@/components/mdx/Components';
 import styles from '@/components/examples/tree-view/tree-view-controlled-selection.module.css';
@@ -33,18 +41,18 @@ export default function ControlledSelectionTreeViewDemo() {
         selectionMode="multiple"
         onSelectionChange={(details) => setSelectedValue(details.selectedValue)}
       >
-        <TreeView.Label>Selected files</TreeView.Label>
-        <TreeView.Tree>
+        <TreeViewLabel>Selected files</TreeViewLabel>
+        <TreeViewTree>
           {collection.rootNode.children?.map((node, index) => (
-            <TreeView.Node key={node.id} node={node} indexPath={[index]}>
+            <TreeViewNode key={node.id} node={node} indexPath={[index]}>
               {({ node: currentNode }) => (
-                <TreeView.Item>
-                  <TreeView.ItemText>{currentNode.name}</TreeView.ItemText>
-                </TreeView.Item>
+                <TreeViewItem>
+                  <TreeViewItemText>{currentNode.name}</TreeViewItemText>
+                </TreeViewItem>
               )}
-            </TreeView.Node>
+            </TreeViewNode>
           ))}
-        </TreeView.Tree>
+        </TreeViewTree>
       </TreeView>
       <PreviewMeta>
         <output aria-live="polite">Selected: {selectedValue.join(', ') || 'none'}</output>

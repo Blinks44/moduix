@@ -2,7 +2,7 @@ import { expect, test } from '@rstest/core';
 import { fireEvent, render, screen, waitFor } from '@testing-library/react';
 import userEvent from '@testing-library/user-event';
 import { createRef, useState } from 'react';
-import { Toggle, useToggleContext } from '../src';
+import { Toggle, ToggleIndicator, useToggleContext } from '../src';
 
 function ToggleStateLabel() {
   const toggle = useToggleContext();
@@ -17,9 +17,9 @@ test('preserves the Ark button contract and styled icon slots', () => {
     <Toggle ref={ref} defaultPressed data-testid="toggle">
       <svg aria-hidden="true" />
       Favorite
-      <Toggle.Indicator fallback={<svg aria-label="Off icon" />}>
+      <ToggleIndicator fallback={<svg aria-label="Off icon" />}>
         <svg aria-label="On icon" />
-      </Toggle.Indicator>
+      </ToggleIndicator>
     </Toggle>,
   );
 
@@ -97,9 +97,9 @@ test('applies native utilities to component-owned visual parts', () => {
   render(
     <Toggle variant="outline">
       <svg aria-hidden="true" />
-      <Toggle.Indicator>
+      <ToggleIndicator>
         <svg aria-hidden="true" />
-      </Toggle.Indicator>
+      </ToggleIndicator>
     </Toggle>,
   );
 

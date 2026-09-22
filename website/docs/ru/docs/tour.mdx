@@ -25,7 +25,7 @@ import tourSolidWithArrow from '../../../snippets/tour/solid/with-arrow.tsx?raw'
 
 Создайте состояние тура через `useTour`, опишите шаги и передайте возвращённый объект в `Tour`. В примере сначала
 открывается диалог, затем подсказка у элемента интерфейса, а в конце появляется плавающий шаг. Оставляйте части
-композиции явными, чтобы при необходимости изменить их. `Tour.Body` прокручивает длинный текст внутри панели.
+композиции явными, чтобы при необходимости изменить их. `TourBody` прокручивает длинный текст внутри панели.
 
 <ExampleFrame variant="component">
   <TourBasic />
@@ -92,43 +92,43 @@ import tourSolidWithArrow from '../../../snippets/tour/solid/with-arrow.tsx?raw'
 ## Анатомия
 
 ```text
-Tour / Tour.Root
+Tour
 └─ Поддерево оверлея (по умолчанию выводится в портал)
-   ├─ Tour.Backdrop
-   ├─ Tour.Spotlight
-   └─ Tour.Positioner
-      └─ Tour.Content
-         ├─ Tour.Arrow
-         ├─ Tour.CloseIcon / Tour.CloseTrigger
-         ├─ Tour.Body
-         │  ├─ Tour.Title
-         │  ├─ Tour.Description
-         │  └─ Tour.ProgressText
-         └─ Tour.Control
-            ├─ Tour.ActionList
-            └─ Tour.Actions
-               └─ Tour.ActionTrigger[action]
+   ├─ TourBackdrop
+   ├─ TourSpotlight
+   └─ TourPositioner
+      └─ TourContent
+         ├─ TourArrow
+         ├─ TourCloseIcon / TourCloseTrigger
+         ├─ TourBody
+         │  ├─ TourTitle
+         │  ├─ TourDescription
+         │  └─ TourProgressText
+         └─ TourControl
+            ├─ TourActionList
+            └─ TourActions
+               └─ TourActionTrigger[action]
 ```
 
 | Часть | Роль |
 | --- | --- |
-| `Tour` / `Tour.Root` | Корневой компонент, связанный с объектом, который возвращает `useTour`. |
-| `Tour.Backdrop` / `Tour.Spotlight` | Необязательный фон и подсветка текущего целевого элемента. |
-| `Tour.Positioner` / `Tour.Content` | Позиционируют и отображают элемент `alertdialog` из Ark. |
-| `Tour.Arrow` | По умолчанию выводит `ArrowTip` из moduix для шагов с подсказкой. |
-| `Tour.CloseIcon` / `Tour.CloseTrigger` | Доступное закрытие по умолчанию или собственная кнопка закрытия. |
-| `Tour.Body` | Прокручиваемая обёртка moduix для заголовка, описания и текста прогресса. |
-| `Tour.Control` / `Tour.ActionList` | Рекомендуемая строка действий и действия текущего шага. |
-| `Tour.Actions` / `Tour.ActionTrigger` | Позволяют отрисовать свои действия, сохранив объекты действий Ark. |
+| `Tour` | Корневой компонент, связанный с объектом, который возвращает `useTour`. |
+| `TourBackdrop` / `TourSpotlight` | Необязательный фон и подсветка текущего целевого элемента. |
+| `TourPositioner` / `TourContent` | Позиционируют и отображают элемент `alertdialog` из Ark. |
+| `TourArrow` | По умолчанию выводит `TourArrowTip` из moduix для шагов с подсказкой. |
+| `TourCloseIcon` / `TourCloseTrigger` | Доступное закрытие по умолчанию или собственная кнопка закрытия. |
+| `TourBody` | Прокручиваемая обёртка moduix для заголовка, описания и текста прогресса. |
+| `TourControl` / `TourActionList` | Рекомендуемая строка действий и действия текущего шага. |
+| `TourActions` / `TourActionTrigger` | Позволяют отрисовать свои действия, сохранив объекты действий Ark. |
 
 ## Композиция
 
 Создайте состояние через `useTour` и передайте его в `Tour`. В Solid результат является accessor, поэтому для вызова
-методов вроде `start()` и `next()` используйте `tour()`. Оставляйте структурные части явными и добавляйте `Title` и
-`Description`, чтобы у `alertdialog` были доступные имя и описание. `Backdrop`, `Spotlight` и `Positioner` по
+методов вроде `start()` и `next()` используйте `tour()`. Оставляйте структурные части явными и добавляйте `TourTitle` и
+`TourDescription`, чтобы у `alertdialog` были доступные имя и описание. `TourBackdrop`, `TourSpotlight` и `TourPositioner` по
 умолчанию выводятся в портал; используйте `portalled={false}` или `portalRef`, только если оверлей должен остаться в
-разметке или попасть в определённый контейнер. Используйте `ActionList` для действий из `steps`, а для собственной
-разметки заменяйте его на `Actions` с `ActionTrigger asChild`. По умолчанию `lazyMount` и `unmountOnExit` равны `true`;
+разметке или попасть в определённый контейнер. Используйте `TourActionList` для действий из `steps`, а для собственной
+разметки заменяйте его на `TourActions` с `TourActionTrigger asChild`. По умолчанию `lazyMount` и `unmountOnExit` равны `true`;
 передавайте колбэки в `useTour`, если внешний интерфейс или аналитика должны реагировать на смену шага или статуса.
 
 ## Примеры
@@ -216,7 +216,7 @@ Tour / Tour.Root
 
 ### Со стрелкой
 
-Добавьте `Tour.Arrow` в шаг с подсказкой, если он должен визуально указывать на целевой элемент. Включите у шага
+Добавьте `TourArrow` в шаг с подсказкой, если он должен визуально указывать на целевой элемент. Включите у шага
 опцию `arrow`, и Ark сам расположит стрелку.
 
 <ExampleFrame variant="component">
@@ -256,8 +256,8 @@ Tour / Tour.Root
 
 ### Расширенная настройка
 
-Замените `Tour.ActionList`, когда для каждого действия нужна своя разметка. В примере используются собственные
-элементы `Button` для Continue, Back и Skip tour. Каждый `Tour.ActionTrigger` всё равно получает исходный объект
+Замените `TourActionList`, когда для каждого действия нужна своя разметка. В примере используются собственные
+элементы `Button` для Continue, Back и Skip tour. Каждый `TourActionTrigger` всё равно получает исходный объект
 действия Ark, поэтому навигация, закрытие и отключённое состояние продолжают работать.
 
 <ExampleFrame variant="component">
@@ -319,5 +319,5 @@ Tour / Tour.Root
 `tour-action-trigger`. Ark также добавляет `data-scope="tour"`, `data-part`, `data-state`, `data-type`,
 `data-placement`, `data-side`, `data-step` и `data-disabled`, а также CSS-переменные `--tour-layer`, `--tour-z-index`,
 `--available-width`, `--available-height`, `--transform-origin` и переменные стрелки. Передайте `className` в
-`Tour.ActionList`, чтобы стилизовать каждый созданный триггер. Если пользователь уменьшил анимации в системе, стили
+`TourActionList`, чтобы стилизовать каждый созданный триггер. Если пользователь уменьшил анимации в системе, стили
 сокращают анимацию оверлея и убирают переходы у кнопок действий.

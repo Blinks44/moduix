@@ -1,6 +1,19 @@
-import { Button } from '@moduix/solid/button';
 import {
-  TreeView,
+  Button,
+} from '@moduix/solid/button';
+import {
+  TreeViewBranch,
+  TreeViewBranchContent,
+  TreeViewBranchControl,
+  TreeViewBranchIndicator,
+  TreeViewBranchIndentGuide,
+  TreeViewBranchText,
+  TreeViewItem,
+  TreeViewItemText,
+  TreeViewLabel,
+  TreeViewNode,
+  TreeViewRootProvider,
+  TreeViewTree,
   createTreeCollection,
   type TreeViewNodeProviderProps,
   useTreeView,
@@ -38,33 +51,33 @@ const collection = createTreeCollection<FileNode>({
 
 function FileTreeNode(props: TreeViewNodeProviderProps<FileNode>) {
   return (
-    <TreeView.Node node={props.node} indexPath={props.indexPath}>
+    <TreeViewNode node={props.node} indexPath={props.indexPath}>
       {({ node: currentNode, indexPath: currentIndexPath, state }) => (
         <Show
           when={state().isBranch}
           fallback={
-            <TreeView.Item>
-              <TreeView.ItemText>{currentNode.name}</TreeView.ItemText>
-            </TreeView.Item>
+            <TreeViewItem>
+              <TreeViewItemText>{currentNode.name}</TreeViewItemText>
+            </TreeViewItem>
           }
         >
-          <TreeView.Branch>
-            <TreeView.BranchControl>
-              <TreeView.BranchIndicator />
-              <TreeView.BranchText>{currentNode.name}</TreeView.BranchText>
-            </TreeView.BranchControl>
-            <TreeView.BranchContent>
-              <TreeView.BranchIndentGuide />
+          <TreeViewBranch>
+            <TreeViewBranchControl>
+              <TreeViewBranchIndicator />
+              <TreeViewBranchText>{currentNode.name}</TreeViewBranchText>
+            </TreeViewBranchControl>
+            <TreeViewBranchContent>
+              <TreeViewBranchIndentGuide />
               <For each={currentNode.children ?? []}>
                 {(child, index) => (
                   <FileTreeNode node={child} indexPath={[...currentIndexPath, index()]} />
                 )}
               </For>
-            </TreeView.BranchContent>
-          </TreeView.Branch>
+            </TreeViewBranchContent>
+          </TreeViewBranch>
         </Show>
       )}
-    </TreeView.Node>
+    </TreeViewNode>
   );
 }
 
@@ -73,14 +86,14 @@ export default function RootProviderTreeViewDemo() {
 
   return (
     <div class={styles.root}>
-      <TreeView.RootProvider value={treeView}>
-        <TreeView.Label>Project files</TreeView.Label>
-        <TreeView.Tree>
+      <TreeViewRootProvider value={treeView}>
+        <TreeViewLabel>Project files</TreeViewLabel>
+        <TreeViewTree>
           <For each={collection.rootNode.children ?? []}>
             {(node, index) => <FileTreeNode node={node} indexPath={[index()]} />}
           </For>
-        </TreeView.Tree>
-      </TreeView.RootProvider>
+        </TreeViewTree>
+      </TreeViewRootProvider>
       <output aria-live="polite">Expanded: {treeView().expandedValue.join(', ') || 'none'}</output>
       <div class={styles.actions}>
         <Button variant="outline" onClick={() => treeView().expand()}>

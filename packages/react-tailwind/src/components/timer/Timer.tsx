@@ -5,10 +5,10 @@ import type { ComponentProps, ComponentRef, ReactNode } from 'react';
 import { Fragment, forwardRef } from 'react';
 import { cn } from '@/lib/moduix/cn';
 
-const TimerRoot = forwardRef<
+const Timer = forwardRef<
   ComponentRef<typeof TimerPrimitive.Root>,
   ComponentProps<typeof TimerPrimitive.Root>
->(function TimerRoot({ className, ...props }, ref) {
+>(function Timer({ className, ...props }, ref) {
   return (
     <TimerPrimitive.Root
       ref={ref}
@@ -145,16 +145,19 @@ const TimerSegments = forwardRef<ComponentRef<typeof TimerPrimitive.Area>, Timer
   },
 );
 
-const Timer = Object.assign(TimerRoot, {
-  Root: TimerRoot,
-  RootProvider: TimerRootProvider,
-  Area: TimerArea,
-  Item: TimerItem,
-  Separator: TimerSeparator,
-  Control: TimerControl,
-  ActionTrigger: TimerActionTrigger,
-  Context: TimerPrimitive.Context,
-  Segments: TimerSegments,
-});
+const TimerContext = TimerPrimitive.Context;
 
-export { Timer, type TimerSegmentsProps, useTimer, useTimerContext };
+export {
+  Timer,
+  TimerActionTrigger,
+  TimerArea,
+  TimerContext,
+  TimerControl,
+  TimerItem,
+  TimerRootProvider,
+  TimerSegments,
+  TimerSeparator,
+  type TimerSegmentsProps,
+  useTimer,
+  useTimerContext,
+};

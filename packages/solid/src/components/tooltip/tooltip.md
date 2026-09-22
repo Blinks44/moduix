@@ -11,34 +11,34 @@ presence defaults, `data-slot` hooks, CSS variables, and default arrow-tip sugar
 
 ```tsx
 <Tooltip positioning={{ placement: 'top', offset: { mainAxis: 8 } }}>
-  <Tooltip.Trigger
+  <TooltipTrigger
     asChild={(props) => (
       <button {...props()} type="button">
         Save
       </button>
     )}
   />
-  <Tooltip.Body>Save changes</Tooltip.Body>
+  <TooltipBody>Save changes</TooltipBody>
 </Tooltip>
 ```
 
-`Tooltip` and `Tooltip.Root` are equivalent roots. `Positioner` is portalled by default; set
-`portalled={false}` or pass `portalRef` on `Tooltip`/`Tooltip.RootProvider` to control placement.
+`Tooltip` is the root. `TooltipPositioner` is portalled by default; set
+`portalled={false}` or pass `portalRef` on `Tooltip`/`TooltipRootProvider` to control placement.
 `lazyMount` and `unmountOnExit` default to `true`, matching the React wrapper rather than Ark's
 unmounted-by-default primitive settings.
 
 ## API surface
 
-The adapter exports `Tooltip`, `useTooltip`, and `useTooltipContext`. `Tooltip` exposes `Root`,
-`RootProvider`, `Context`, `Trigger`, `DisabledTrigger`, `Body`, `Positioner`, `Content`, `Arrow`,
-and `ArrowTip`.
+The adapter exports `Tooltip`, `useTooltip`, and `useTooltipContext`, together with
+`TooltipRootProvider`, `TooltipContext`, `TooltipTrigger`, `TooltipDisabledTrigger`, `TooltipBody`,
+`TooltipPositioner`, `TooltipContent`, `TooltipArrow`, and `TooltipArrowTip`.
 
-`Tooltip.Body` renders `Tooltip.Positioner` plus `Tooltip.Content` and forwards props/ref to the
+`TooltipBody` renders `TooltipPositioner` plus `TooltipContent` and forwards props/ref to the
 visible content. Use explicit `Positioner` and `Content` for advanced composition.
 
-`Tooltip.Arrow` renders `Tooltip.ArrowTip` by default when it has no children.
+`TooltipArrow` renders `TooltipArrowTip` by default when it has no children.
 
-`Tooltip.DisabledTrigger` renders Ark's trigger behavior onto a focusable `span` wrapper around one
+`TooltipDisabledTrigger` renders Ark's trigger behavior onto a focusable `span` wrapper around one
 disabled native control. Give the wrapper its own accessible name.
 
 ## Solid composition notes
@@ -49,4 +49,4 @@ forward `ref` through `asChild`, so ordinary refs and custom-host composition ar
 separate native paths.
 
 `useTooltip()` and `useTooltipContext()` return Solid accessors. Read state as `tooltip().open` and
-pass the accessor directly to `Tooltip.RootProvider value={tooltip}`.
+pass the accessor directly to `TooltipRootProvider value={tooltip}`.

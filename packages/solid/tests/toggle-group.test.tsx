@@ -1,7 +1,13 @@
 import { expect, test } from '@rstest/core';
 import { fireEvent, render, screen, waitFor } from '@solidjs/testing-library';
 import { createSignal } from 'solid-js';
-import { ToggleGroup, useToggleGroup, useToggleGroupContext } from '../src';
+import {
+  ToggleGroup,
+  ToggleGroupItem,
+  ToggleGroupRootProvider,
+  useToggleGroup,
+  useToggleGroupContext,
+} from '../src';
 
 function ControlledToggleGroup() {
   const [value, setValue] = createSignal(['left']);
@@ -12,8 +18,8 @@ function ControlledToggleGroup() {
       onValueChange={(details) => setValue(details.value)}
       aria-label="Alignment"
     >
-      <ToggleGroup.Item value="left">Left</ToggleGroup.Item>
-      <ToggleGroup.Item value="center">Center</ToggleGroup.Item>
+      <ToggleGroupItem value="left">Left</ToggleGroupItem>
+      <ToggleGroupItem value="center">Center</ToggleGroupItem>
     </ToggleGroup>
   );
 }
@@ -22,10 +28,10 @@ function ProviderToggleGroup() {
   const toggleGroup = useToggleGroup({ defaultValue: ['center'] });
 
   return (
-    <ToggleGroup.RootProvider value={toggleGroup} aria-label="Alignment">
-      <ToggleGroup.Item value="left">Left</ToggleGroup.Item>
-      <ToggleGroup.Item value="center">Center</ToggleGroup.Item>
-    </ToggleGroup.RootProvider>
+    <ToggleGroupRootProvider value={toggleGroup} aria-label="Alignment">
+      <ToggleGroupItem value="left">Left</ToggleGroupItem>
+      <ToggleGroupItem value="center">Center</ToggleGroupItem>
+    </ToggleGroupRootProvider>
   );
 }
 
@@ -34,9 +40,9 @@ function ContextAwareItem() {
   const selected = () => toggleGroup().value.includes('left');
 
   return (
-    <ToggleGroup.Item value="left" data-selected={selected() || undefined}>
+    <ToggleGroupItem value="left" data-selected={selected() || undefined}>
       {selected() ? 'Selected left' : 'Left'}
-    </ToggleGroup.Item>
+    </ToggleGroupItem>
   );
 }
 
@@ -48,9 +54,9 @@ test('preserves Ark selection details and keyboard navigation', async () => {
       onValueChange={(details) => changes.push(details.value)}
       aria-label="Alignment"
     >
-      <ToggleGroup.Item value="left">Left</ToggleGroup.Item>
-      <ToggleGroup.Item value="center">Center</ToggleGroup.Item>
-      <ToggleGroup.Item value="right">Right</ToggleGroup.Item>
+      <ToggleGroupItem value="left">Left</ToggleGroupItem>
+      <ToggleGroupItem value="center">Center</ToggleGroupItem>
+      <ToggleGroupItem value="right">Right</ToggleGroupItem>
     </ToggleGroup>
   ));
 
@@ -93,7 +99,7 @@ test('keeps visual hooks owned by ToggleGroup while inheriting and allowing item
       data-variant="default"
       data-size="lg"
     >
-      <ToggleGroup.Item
+      <ToggleGroupItem
         value="left"
         variant="ghost"
         size="icon-md"
@@ -102,8 +108,8 @@ test('keeps visual hooks owned by ToggleGroup while inheriting and allowing item
         data-size="lg"
       >
         Left
-      </ToggleGroup.Item>
-      <ToggleGroup.Item value="center">Center</ToggleGroup.Item>
+      </ToggleGroupItem>
+      <ToggleGroupItem value="center">Center</ToggleGroupItem>
     </ToggleGroup>
   ));
 
@@ -123,7 +129,7 @@ test('keeps visual hooks owned by ToggleGroup while inheriting and allowing item
 test('supports disabled groups and asChild items', () => {
   const { unmount } = render(() => (
     <ToggleGroup defaultValue={['left']} aria-label="Disabled alignment" disabled>
-      <ToggleGroup.Item value="left">Left</ToggleGroup.Item>
+      <ToggleGroupItem value="left">Left</ToggleGroupItem>
     </ToggleGroup>
   ));
 
@@ -132,7 +138,7 @@ test('supports disabled groups and asChild items', () => {
 
   render(() => (
     <ToggleGroup defaultValue={['left']} aria-label="Custom alignment">
-      <ToggleGroup.Item
+      <ToggleGroupItem
         asChild={(props) => {
           const resolvedProps = props();
 
@@ -145,7 +151,7 @@ test('supports disabled groups and asChild items', () => {
         value="left"
       >
         Left
-      </ToggleGroup.Item>
+      </ToggleGroupItem>
     </ToggleGroup>
   ));
 
@@ -161,7 +167,7 @@ test('supports asChild root composition', () => {
       defaultValue={['left']}
       aria-label="Custom alignment"
     >
-      <ToggleGroup.Item value="left">Left</ToggleGroup.Item>
+      <ToggleGroupItem value="left">Left</ToggleGroupItem>
     </ToggleGroup>
   ));
 
@@ -183,14 +189,14 @@ test('forwards refs to the Ark root and item elements', () => {
       defaultValue={['left']}
       aria-label="Alignment"
     >
-      <ToggleGroup.Item
+      <ToggleGroupItem
         ref={(element) => {
           itemRef = element;
         }}
         value="left"
       >
         Left
-      </ToggleGroup.Item>
+      </ToggleGroupItem>
     </ToggleGroup>
   ));
 
@@ -202,7 +208,7 @@ test('exposes current state through useToggleGroupContext', async () => {
   render(() => (
     <ToggleGroup defaultValue={['left']} aria-label="Context alignment">
       <ContextAwareItem />
-      <ToggleGroup.Item value="center">Center</ToggleGroup.Item>
+      <ToggleGroupItem value="center">Center</ToggleGroupItem>
     </ToggleGroup>
   ));
 

@@ -26,13 +26,13 @@ texte. Ces choix restent du ressort de l’application.
 
 moduix construit `Typeset` avec la
 [factory d’Ark](https://ark-ui.com/docs/guides/composition#the-ark-factory). `Typeset` et
-`Typeset.Scroll` acceptent donc les attributs natifs d’un `div`, les refs et la composition via
+`TypesetScroll` acceptent donc les attributs natifs d’un `div`, les refs et la composition via
 `asChild`.
 
 Le contrat CSS-first de Typeset suit l’approche présentée dans
 [shadcn/typeset](https://ui.shadcn.com/docs/typeset). Comme dans cette référence, trois variables
 contrôlent le rythme, tandis que le rendu du contenu et sa largeur restent à la charge de
-l’application ; moduix ajoute des composants natifs pour React et Solid ainsi que `Typeset.Scroll`.
+l’application ; moduix ajoute des composants natifs pour React et Solid ainsi que `TypesetScroll`.
 
 ## Exemple de base
 
@@ -101,26 +101,26 @@ Consultez le [Démarrage rapide](/docs/quick-start) pour la configuration compl�
 ## Anatomie
 
 ```text
-Typeset / Typeset.Root
-└─ Typeset.Scroll (facultatif)
+Typeset
+└─ TypesetScroll (facultatif)
 ```
 
 | Partie | Rôle |
 | --- | --- |
-| `Typeset` / `Typeset.Root` | Conteneur racine qui applique les styles aux descendants sémantiques. |
-| `Typeset.Scroll` | Zone de défilement horizontal focusable pour un bloc rendu large. |
+| `Typeset` | Conteneur racine qui applique les styles aux descendants sémantiques. |
+| `TypesetScroll` | Zone de défilement horizontal focusable pour un bloc rendu large. |
 
 ## Composition
 
 `Typeset` ne gère aucun état, n’analyse ni ne filtre le contenu et n’en définit pas la largeur.
 Gardez les éléments sémantiques rendus dans la racine, utilisez `asChild` lorsque celle-ci doit être
-un `article` ou une `section`, et composez `Typeset.Scroll` autour d’un bloc large qui doit défiler
-plutôt que se comprimer. Gardez `Typeset.Scroll` à l’intérieur d’une limite `Typeset` ou
-`Typeset.Root` : le défilement horizontal, les espacements de flux et l’élargissement des tableaux
+un `article` ou une `section`, et composez `TypesetScroll` autour d’un bloc large qui doit défiler
+plutôt que se comprimer. Gardez `TypesetScroll` à l’intérieur d’une limite `Typeset` : le défilement
+horizontal, les espacements de flux et l’élargissement des tableaux
 du bloc enveloppé proviennent des règles d’éléments Typeset. Ajoutez `.not-typeset` ou
 `data-not-typeset` à un sous-arbre appartenant à l’application lorsqu’il doit conserver sa propre
 mise en forme. Une zone de défilement destinée aux utilisateurs doit avoir un nom accessible ;
-`Typeset.Scroll` peut recevoir le focus au clavier par défaut.
+`TypesetScroll` peut recevoir le focus au clavier par défaut.
 
 ## Exemples
 
@@ -239,7 +239,7 @@ sans ajouter de propriétés au composant.
 
 ### Tableau défilant
 
-Placez une table créée par votre moteur de rendu dans `Typeset.Scroll` lorsqu’elle doit conserver sa
+Placez une table créée par votre moteur de rendu dans `TypesetScroll` lorsqu’elle doit conserver sa
 largeur et défiler dans un conteneur étroit. Donnez à la zone de défilement un nom accessible qui
 identifie la table qu’elle contient.
 

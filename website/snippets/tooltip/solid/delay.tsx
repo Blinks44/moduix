@@ -1,10 +1,10 @@
-import { Tooltip } from '@moduix/solid/tooltip';
+import { Tooltip, TooltipBody, TooltipTrigger } from '@moduix/solid/tooltip';
 
 export default function DelayTooltipDemo() {
   return (
     <Tooltip closeDelay={0} openDelay={0}>
-      <Tooltip.Trigger>Immediate tooltip</Tooltip.Trigger>
-      <Tooltip.Body>No open or close delay</Tooltip.Body>
+      <TooltipTrigger>Immediate tooltip</TooltipTrigger>
+      <TooltipBody>No open or close delay</TooltipBody>
     </Tooltip>
   );
 }
