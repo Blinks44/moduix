@@ -1,2 +1,22 @@
-export { Popover, usePopover, usePopoverContext } from './Popover.js';
+export {
+  Popover,
+  PopoverAnchor,
+  PopoverArrow,
+  PopoverArrowTip,
+  PopoverBody,
+  PopoverCloseIcon,
+  PopoverCloseTrigger,
+  PopoverContent,
+  PopoverContext,
+  PopoverDescription,
+  PopoverFooter,
+  PopoverHeader,
+  PopoverIndicator,
+  PopoverPositioner,
+  PopoverRootProvider,
+  PopoverTitle,
+  PopoverTrigger,
+  usePopover,
+  usePopoverContext,
+} from './Popover.js';
 export type { PopoverRootProps, PopoverRootProviderProps } from './Popover.js';

@@ -1,6 +1,16 @@
 import { expect, test } from '@rstest/core';
 import { render, screen } from '@solidjs/testing-library';
-import { ProgressLinear } from '../src';
+import {
+  ProgressLinear,
+  ProgressLinearContext,
+  ProgressLinearLabel,
+  ProgressLinearValueText,
+  ProgressLinearTrack,
+  ProgressLinearRange,
+  ProgressLinearRootProvider,
+  useProgress,
+  useProgressContext,
+} from '../src';
 
 test('renders the linear Ark anatomy with stable hooks and an accessible name', () => {
   let rootRef!: HTMLDivElement;
@@ -8,11 +18,11 @@ test('renders the linear Ark anatomy with stable hooks and an accessible name', 
 
   render(() => (
     <ProgressLinear ref={(element) => (rootRef = element)} defaultValue={42}>
-      <ProgressLinear.Label>Export data</ProgressLinear.Label>
-      <ProgressLinear.ValueText />
-      <ProgressLinear.Track ref={(element) => (trackRef = element)} aria-label="Export data">
-        <ProgressLinear.Range />
-      </ProgressLinear.Track>
+      <ProgressLinearLabel>Export data</ProgressLinearLabel>
+      <ProgressLinearValueText />
+      <ProgressLinearTrack ref={(element) => (trackRef = element)} aria-label="Export data">
+        <ProgressLinearRange />
+      </ProgressLinearTrack>
     </ProgressLinear>
   ));
 
@@ -42,9 +52,9 @@ test('preserves semantic root composition with asChild', () => {
       asChild={(props) => <section {...props()} aria-label="Export status" />}
       defaultValue={70}
     >
-      <ProgressLinear.Track aria-label="Export status">
-        <ProgressLinear.Range />
-      </ProgressLinear.Track>
+      <ProgressLinearTrack aria-label="Export status">
+        <ProgressLinearRange />
+      </ProgressLinearTrack>
     </ProgressLinear>
   ));
 
@@ -59,9 +69,9 @@ test('preserves semantic root composition with asChild', () => {
 test('renders an indeterminate linear progressbar without an ARIA value', () => {
   render(() => (
     <ProgressLinear defaultValue={null}>
-      <ProgressLinear.Track aria-label="Preparing report">
-        <ProgressLinear.Range />
-      </ProgressLinear.Track>
+      <ProgressLinearTrack aria-label="Preparing report">
+        <ProgressLinearRange />
+      </ProgressLinearTrack>
     </ProgressLinear>
   ));
 
@@ -88,12 +98,12 @@ test('preserves custom bounds and accessible value text', () => {
         },
       }}
     >
-      <ProgressLinear.Context>
-        {(state) => <ProgressLinear.ValueText>{state().valueAsString}</ProgressLinear.ValueText>}
-      </ProgressLinear.Context>
-      <ProgressLinear.Track aria-label="Request migration">
-        <ProgressLinear.Range />
-      </ProgressLinear.Track>
+      <ProgressLinearContext>
+        {(state) => <ProgressLinearValueText>{state().valueAsString}</ProgressLinearValueText>}
+      </ProgressLinearContext>
+      <ProgressLinearTrack aria-label="Request migration">
+        <ProgressLinearRange />
+      </ProgressLinearTrack>
     </ProgressLinear>
   ));
 
@@ -106,26 +116,26 @@ test('preserves custom bounds and accessible value text', () => {
 });
 
 function ProgressContextValue() {
-  const progress = ProgressLinear.useProgressContext();
+  const progress = useProgressContext();
 
   return <output>{progress().value}</output>;
 }
 
 function RootProviderProgress() {
-  const progress = ProgressLinear.useProgress({ defaultValue: 58 });
+  const progress = useProgress({ defaultValue: 58 });
 
   return (
-    <ProgressLinear.RootProvider value={progress} data-testid="progress-provider">
-      <ProgressLinear.Track aria-label="Team rollout">
-        <ProgressLinear.Range />
-      </ProgressLinear.Track>
-      <ProgressLinear.Context>{(state) => <output>{state().value}</output>}</ProgressLinear.Context>
+    <ProgressLinearRootProvider value={progress} data-testid="progress-provider">
+      <ProgressLinearTrack aria-label="Team rollout">
+        <ProgressLinearRange />
+      </ProgressLinearTrack>
+      <ProgressLinearContext>{(state) => <output>{state().value}</output>}</ProgressLinearContext>
       <ProgressContextValue />
-    </ProgressLinear.RootProvider>
+    </ProgressLinearRootProvider>
   );
 }
 
-test('keeps RootProvider, Context, and useProgress on the moduix namespace', () => {
+test('exposes the flat RootProvider, Context, and hook exports', () => {
   render(() => <RootProviderProgress />);
 
   const root = screen.getByTestId('progress-provider');
@@ -141,11 +151,11 @@ test('keeps RootProvider, Context, and useProgress on the moduix namespace', () 
 test('lets consumer utilities override defaults on each styled part', () => {
   render(() => (
     <ProgressLinear class="w-80" data-testid="progress-root">
-      <ProgressLinear.Label>Export data</ProgressLinear.Label>
-      <ProgressLinear.ValueText />
-      <ProgressLinear.Track class="h-4" aria-label="Export data">
-        <ProgressLinear.Range class="bg-accent" />
-      </ProgressLinear.Track>
+      <ProgressLinearLabel>Export data</ProgressLinearLabel>
+      <ProgressLinearValueText />
+      <ProgressLinearTrack class="h-4" aria-label="Export data">
+        <ProgressLinearRange class="bg-accent" />
+      </ProgressLinearTrack>
     </ProgressLinear>
   ));
 

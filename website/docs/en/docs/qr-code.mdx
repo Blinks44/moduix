@@ -30,7 +30,7 @@ import qrCodeSolidRootProvider from '../../../snippets/qr-code/solid/root-provid
 
 
 Use `QrCode` for the usual case. Pass the content to encode with `defaultValue`, then render
-`QrCode.Frame` and `QrCode.Pattern` to display the generated SVG. Give `QrCode.Frame` an accessible
+`QrCodeFrame` and `QrCodePattern` to display the generated SVG. Give `QrCodeFrame` an accessible
 name when the QR code conveys information.
 
 <ExampleFrame variant="component">
@@ -93,34 +93,34 @@ See [Quick Start](/docs/quick-start) for full package setup, registry configurat
 ## Anatomy
 
 ```text
-QrCode / QrCode.Root
-├─ QrCode.Frame
-│  └─ QrCode.Pattern
-├─ QrCode.Overlay
-└─ QrCode.DownloadTrigger
+QrCode
+├─ QrCodeFrame
+│  └─ QrCodePattern
+├─ QrCodeOverlay
+└─ QrCodeDownloadTrigger
 
-QrCode.RootProvider
+QrCodeRootProvider
 └─ same part tree connected to a useQrCode() store
 ```
 
 | Part                     | Role                                                                    |
 | ------------------------ | ----------------------------------------------------------------------- |
-| `QrCode` / `QrCode.Root` | Owns the encoded value and generation options, and provides QR state.   |
-| `QrCode.RootProvider`    | Connects the parts to state created with `useQrCode()`.                 |
-| `QrCode.Frame`           | SVG element that contains the generated QR code.                       |
-| `QrCode.Pattern`         | SVG path that draws the QR modules.                                     |
-| `QrCode.Overlay`         | Centered content rendered over the QR code.                             |
-| `QrCode.DownloadTrigger` | Button that downloads the current QR code as an image.                  |
+| `QrCode`                 | Owns the encoded value and generation options, and provides QR state.   |
+| `QrCodeRootProvider`     | Connects the parts to state created with `useQrCode()`.                 |
+| `QrCodeFrame`            | SVG element that contains the generated QR code.                       |
+| `QrCodePattern`          | SVG path that draws the QR modules.                                     |
+| `QrCodeOverlay`          | Centered content rendered over the QR code.                             |
+| `QrCodeDownloadTrigger`  | Button that downloads the current QR code as an image.                  |
 
 ## Composition
 
 Use `defaultValue` for an uncontrolled QR code. When application state owns the value, use `value`
 with `onValueChange(details)` and read the new value from `details.value`. Create state with
-`useQrCode()` from the matching framework package and pass it to `QrCode.RootProvider` when it must
-be shared outside the QR tree. Do not render `QrCode` and `QrCode.RootProvider` for the same store.
+`useQrCode()` from the matching framework package and pass it to `QrCodeRootProvider` when it must
+be shared outside the QR tree. Do not render `QrCode` and `QrCodeRootProvider` for the same store.
 
-Use `QrCode.Context` or `useQrCodeContext()` when a descendant needs the current QR API. Add
-`QrCode.Overlay` only with enough error correction for the covered area, then test the final code
+Use `QrCodeContext` or `useQrCodeContext()` when a descendant needs the current QR API. Add
+`QrCodeOverlay` only with enough error correction for the covered area, then test the final code
 with the scanners your users rely on.
 
 ## Examples
@@ -167,7 +167,7 @@ state.
 
 ### Download
 
-Add `QrCode.DownloadTrigger` when users need to save the generated code as an image. Set both
+Add `QrCodeDownloadTrigger` when users need to save the generated code as an image. Set both
 `fileName` and `mimeType` on the trigger.
 
 <ExampleFrame variant="component">
@@ -327,7 +327,7 @@ Give the frame an accessible name that explains what the code represents.
 
 ### Overlay
 
-Use `QrCode.Overlay` for a compact logo or text mark. Set a high error-correction level and keep the
+Use `QrCodeOverlay` for a compact logo or text mark. Set a high error-correction level and keep the
 overlay small enough that scanners can still read the code.
 
 <ExampleFrame variant="component">
@@ -368,7 +368,7 @@ overlay small enough that scanners can still read the code.
 ### Root Provider
 
 Create QR state with `useQrCode()` when it must be shared with controls outside the QR tree, then
-pass that state to `QrCode.RootProvider`.
+pass that state to `QrCodeRootProvider`.
 
 <ExampleFrame variant="component">
   <RootProviderQrCode />

@@ -13,83 +13,96 @@ surfaces.
 ## Upstream model to preserve
 
 The wrapper follows Ark UI's circular `@ark-ui/react/progress` anatomy: `Root`, optional `Label`,
-`Circle`, `CircleTrack`, `CircleRange`, optional `ValueText`, `View`, and `RootProvider`.
+`ProgressCircularCircle`, `ProgressCircularCircleTrack`, `ProgressCircularCircleRange`, optional `ProgressCircularValueText`, `View`, and `ProgressCircularRootProvider`.
 
 Preserve Ark root props, controlled and uncontrolled value behavior, `onValueChange(details)`,
-`translations.value(details)`, `ids`, `asChild`, state strings, ARIA generated on `Circle`, and SVG
+`translations.value(details)`, `ids`, `asChild`, state strings, ARIA generated on `ProgressCircularCircle`, and SVG
 CSS variables generated on the circle parts.
 
 ## Current behavior contract
 
-`ProgressCircular` is the same part as `ProgressCircular.Root`. It does not auto-render label,
-circle, or value text. `ProgressCircular.Ring` is the recommended convenience part for the fixed
-circle, track, and range subtree; `Circle`, `CircleTrack`, and `CircleRange` remain available for
-low-level composition. Give `Ring` or `Circle` an `aria-label` that describes the task.
+`ProgressCircular` is the public flat root value and the same Ark root part as the upstream `Root`. It does not auto-render label,
+circle, or value text. `ProgressCircularRing` is the recommended convenience part for the fixed
+circle, track, and range subtree; `ProgressCircularCircle`, `ProgressCircularCircleTrack`, and `ProgressCircularCircleRange` remain available for
+low-level composition. Give `ProgressCircularRing` or `ProgressCircularCircle` an `aria-label` that describes the task.
 
 `defaultValue` sets uncontrolled progress. `value` plus `onValueChange(details)` controls progress.
 `defaultValue={null}` or `value={null}` renders indeterminate progress. `min`, `max`,
 `formatOptions`, `locale`, `translations`, `ids`, and `orientation` pass through to Ark.
-`translations.value(details)` supplies Ark's generated accessible name on `Circle`; it does not
-replace `ValueText`'s default formatted percent.
+`translations.value(details)` supplies Ark's generated accessible name on `ProgressCircularCircle`; it does not
+replace `ProgressCircularValueText`'s default formatted percent.
 
-`ProgressCircular.RootProvider` is preserved for externally owned Ark progress state. Create that
-state with `ProgressCircular.useProgress()`. `ProgressCircular.Context` and
-`ProgressCircular.useProgressContext()` expose state below a root/provider without a direct Ark
+`ProgressCircularRootProvider` is preserved for externally owned Ark progress state. Create that
+state with `useProgress()`. `ProgressCircularContext` and
+`useProgressContext()` expose state below a root/provider without a direct Ark
 import.
 
 ## Anatomy and exported parts
 
 ```text
-ProgressCircular / ProgressCircular.Root
-├─ ProgressCircular.Label
-├─ ProgressCircular.Circle
-│  ├─ ProgressCircular.CircleTrack
-│  └─ ProgressCircular.CircleRange
-├─ ProgressCircular.Ring
-│  └─ fixed Circle, CircleTrack, and CircleRange subtree
-├─ ProgressCircular.ValueText
-└─ ProgressCircular.View
+ProgressCircular
+├─ ProgressCircularLabel
+├─ ProgressCircularCircle
+│  ├─ ProgressCircularCircleTrack
+│  └─ ProgressCircularCircleRange
+├─ ProgressCircularRing
+│  └─ fixed ProgressCircularCircle, ProgressCircularCircleTrack, and ProgressCircularCircleRange subtree
+├─ ProgressCircularValueText
+└─ ProgressCircularView
 
-ProgressCircular.RootProvider
-└─ same part tree connected to ProgressCircular.useProgress()
+ProgressCircularRootProvider
+└─ same part tree connected to useProgress()
 ```
 
-- `ProgressCircular` / `ProgressCircular.Root`: `data-slot="progress-circular-root"`; owns Ark
+- `ProgressCircular`: `data-slot="progress-circular-root"`; owns Ark
   state, ids, formatting, `data-value`, `data-max`, `data-state`, and `data-orientation`.
-- `ProgressCircular.RootProvider`: `data-slot="progress-circular-root-provider"`; connects parts
-  to an external `ProgressCircular.useProgress()` store.
-- `ProgressCircular.Context`: render-prop access to the current progress state.
-- `ProgressCircular.useProgressContext()`: hook access to state below a root/provider.
-- `ProgressCircular.Label`: `data-slot="progress-circular-label"`; visible progress context.
-- `ProgressCircular.Circle`: `data-slot="progress-circular-circle"`; SVG progressbar surface with
+- `ProgressCircularRootProvider`: `data-slot="progress-circular-root-provider"`; connects parts
+  to an external `useProgress()` store.
+- `ProgressCircularContext`: render-prop access to the current progress state.
+- `useProgressContext()`: hook access to state below a root/provider.
+- `ProgressCircularLabel`: `data-slot="progress-circular-label"`; visible progress context.
+- `ProgressCircularCircle`: `data-slot="progress-circular-circle"`; SVG progressbar surface with
   role and ARIA value attributes from Ark.
-- `ProgressCircular.CircleTrack`: `data-slot="progress-circular-circle-track"`; background circle.
-- `ProgressCircular.CircleRange`: `data-slot="progress-circular-circle-range"`; foreground circle
+- `ProgressCircularCircleTrack`: `data-slot="progress-circular-circle-track"`; background circle.
+- `ProgressCircularCircleRange`: `data-slot="progress-circular-circle-range"`; foreground circle
   using Ark stroke variables and `data-state`.
-- `ProgressCircular.Ring`: a convenience circle with the default track and range. Its `className`,
-  ref, CSS variables, and `data-slot="progress-circular-circle"` target the underlying `Circle`.
-- `ProgressCircular.ValueText`: `data-slot="progress-circular-value-text"`; formatted value text
+- `ProgressCircularRing`: a convenience circle with the default track and range. Its `className`,
+  ref, CSS variables, and `data-slot="progress-circular-circle"` target the underlying `ProgressCircularCircle`.
+- `ProgressCircularValueText`: `data-slot="progress-circular-value-text"`; formatted value text
   with Ark live-region behavior.
-- `ProgressCircular.View`: `data-slot="progress-circular-view"`; conditional content for Ark
+- `ProgressCircularView`: `data-slot="progress-circular-view"`; conditional content for Ark
   progress states.
 
 ## Composition
 
 ```tsx
-import { ProgressCircular } from '@moduix/react/progress-circular';
+import {
+  ProgressCircular,
+  ProgressCircularCircle,
+  ProgressCircularCircleRange,
+  ProgressCircularCircleTrack,
+  ProgressCircularContext,
+  ProgressCircularLabel,
+  ProgressCircularRing,
+  ProgressCircularRootProvider,
+  ProgressCircularValueText,
+  ProgressCircularView,
+  useProgress,
+  useProgressContext,
+} from '@moduix/react/progress-circular';
 
 export function ExportProgress() {
   return (
     <ProgressCircular defaultValue={42}>
-      <ProgressCircular.Label>Export data</ProgressCircular.Label>
-      <ProgressCircular.Ring aria-label="Export data" />
-      <ProgressCircular.ValueText />
+      <ProgressCircularLabel>Export data</ProgressCircularLabel>
+      <ProgressCircularRing aria-label="Export data" />
+      <ProgressCircularValueText />
     </ProgressCircular>
   );
 }
 ```
 
-Wrap `Circle` and `ValueText` in a local layout element when the value should be centered over the
+Wrap `ProgressCircularCircle` and `ProgressCircularValueText` in a local layout element when the value should be centered over the
 circle. That wrapper is demo layout, not a required library part.
 
 ## Upstream feature coverage
@@ -97,7 +110,7 @@ circle. That wrapper is demo layout, not a required library part.
 The wrapper exposes the circular Ark examples and guide topics: basic progress, `min`/`max`,
 indeterminate progress with `null`, labels, value text, custom accessible
 `translations.value(details)`,
-`RootProvider`, `View`, and circle styling through `--size` and `--thickness`.
+`ProgressCircularRootProvider`, `View`, and circle styling through `--size` and `--thickness`.
 
 Linear Ark parts (`Track` and `Range`) are intentionally not exported here. Use `ProgressLinear`
 for the horizontal progress anatomy.
@@ -105,13 +118,13 @@ for the horizontal progress anatomy.
 ## Accessibility and state
 
 Ark writes `role="progressbar"`, `aria-valuemin`, `aria-valuemax`, `aria-valuenow`, and accessible
-value text to `ProgressCircular.Circle`. `ProgressCircular.Label` provides visible context but does
-not create an ARIA relationship with the circle; pass `aria-label` or `aria-labelledby` to `Ring` /
-`Circle` for the task name.
+value text to `ProgressCircularCircle`. `ProgressCircularLabel` provides visible context but does
+not create an ARIA relationship with the circle; pass `aria-label` or `aria-labelledby` to `ProgressCircularRing` /
+`ProgressCircularCircle` for the task name.
 
-`ProgressCircular.ValueText` uses Ark's formatted percent and live-region behavior. To display the
-custom wording from `translations.value(details)`, render `ValueText` in
-`ProgressCircular.Context` with `progress.valueAsString` as its child. Progress is informational
+`ProgressCircularValueText` uses Ark's formatted percent and live-region behavior. To display the
+custom wording from `translations.value(details)`, render `ProgressCircularValueText` in
+`ProgressCircularContext` with `progress.valueAsString` as its child. Progress is informational
 and has no keyboard interaction or focus management.
 
 Ark state attributes are preserved: root has `data-scope="progress"`, `data-part="root"`,
@@ -129,7 +142,7 @@ transition, an indeterminate range color, indeterminate animation, and its stati
 dash pattern. The indeterminate range rotates around its own center. Under reduced motion, range
 transitions and indeterminate animation are disabled.
 
-`ProgressCircular.Circle` and `ProgressCircular.Ring` map `--moduix-progress-circular-size` to Ark `--size` and
+`ProgressCircularCircle` and `ProgressCircularRing` map `--moduix-progress-circular-size` to Ark `--size` and
 `--moduix-progress-circular-thickness` to Ark `--thickness`. Ark continues to own `--radius`,
 `--circumference`, `--percent`, and `--offset`.
 
@@ -139,8 +152,8 @@ The component splits circular progress into its own public wrapper instead of ex
 `Progress` component with both linear and circular anatomy. This keeps registry items and docs
 focused while preserving Ark's underlying `Progress` API.
 
-`ProgressCircular.Ring` removes the repeated fixed circle/track/range markup but does not center or
-render `ValueText`; keep that layout explicit. Use the individual circle parts when their children
+`ProgressCircularRing` removes the repeated fixed circle/track/range markup but does not center or
+render `ProgressCircularValueText`; keep that layout explicit. Use the individual circle parts when their children
 or Ark `asChild` composition need customization.
 
 The old Base UI names and props are not preserved: `Progress`, `ProgressRoot`, `ProgressLabel`,
@@ -149,31 +162,30 @@ replaced by Ark parts, `formatOptions`, and `translations.value(details)`.
 
 ## Agent notes
 
-Do not add hidden structural wrappers to center `ValueText`; keep that as consumer or docs layout.
-Do not remap Ark callback detail objects or replace `RootProvider` with a local state layer.
-Keep normal state/provider examples on the `ProgressCircular` namespace; direct Ark imports are
+Do not add hidden structural wrappers to center `ProgressCircularValueText`; keep that as consumer or docs layout.
+Do not remap Ark callback detail objects or replace `ProgressCircularRootProvider` with a local state layer.
+Keep normal state/provider examples on the flat moduix exports; direct Ark imports are
 only an advanced escape hatch. When changing styling hooks or CSS variables, update docs examples,
 this file, `variables-moduix.css`, and the registry output.
 
 ## Local changelog
 
 - 2026-08-12: Corrected custom value-text guidance: Ark translations set the generated accessible
-  name, while `Context` supplies the same string to a visible `ValueText`.
+  name, while `ProgressCircularContext` supplies the same string to a visible `ProgressCircularValueText`.
 - 2026-08-12: Added independent indeterminate range theming, centered the SVG rotation, and made
   all range motion respect `prefers-reduced-motion`.
 - 2026-07-29: Clarified the explicit progressbar naming contract, constrained long label/value text,
   and added a visible reduced-motion indeterminate fallback.
 - 2026-07-21: Routed shared dimensions, spacing, icon geometry, and focus-ring fallbacks through foundation tokens so density and theme presets can retune the component consistently.
-- 2026-07-12: Exposed `Context`, `useProgress()`, and `useProgressContext()` on the
-  `ProgressCircular` namespace so normal provider/state composition stays on moduix without a
+- 2026-07-12: Exposed `ProgressCircularContext`, `useProgress()`, and `useProgressContext()` on the
+  flat moduix exports so normal provider/state composition stays on moduix without a
   duplicate named hook export.
-- 2026-07-10: Added `ProgressCircular.Ring` as the recommended, stylable fixed circle/track/range
+- 2026-07-10: Added `ProgressCircularRing` as the recommended, stylable fixed circle/track/range
   composition; retained the individual Ark parts for advanced customization.
-- 2026-07-03: Simplified the public surface to match `Combobox`: kept `RootProvider`, removed
-  moduix re-exports of Ark hooks, context, and duplicate types, and updated docs to point advanced
-  state usage to direct Ark imports.
+- 2026-07-03: Unified the public surface with the flat API and updated provider, context, hook, and documentation
+  exports without retaining the old compound namespace.
 - 2026-06-26: Audited the Ark migration, aligned local docs to the required structure, documented
   circular anatomy and styling hooks, and normalized the default circle thickness to `0.4rem`.
-- Added `ProgressCircular` as an Ark UI circular progress wrapper with RootProvider, Context, hook
+- Added `ProgressCircular` as an Ark UI circular progress wrapper with ProgressCircularRootProvider, ProgressCircularContext, and flat hook
   exports, and `--moduix-progress-circular-*` styling tokens.
 - Split progress into dedicated `ProgressLinear` and `ProgressCircular` public components.

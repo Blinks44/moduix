@@ -1,6 +1,17 @@
 import { createSignal } from 'solid-js';
 import type { Meta, StoryObj } from 'storybook-solidjs-vite';
-import { ProgressCircular } from '@/components/progress-circular/ProgressCircular';
+import {
+  ProgressCircular,
+  ProgressCircularCircle,
+  ProgressCircularCircleRange,
+  ProgressCircularCircleTrack,
+  ProgressCircularContext,
+  ProgressCircularLabel,
+  ProgressCircularRing,
+  ProgressCircularRootProvider,
+  ProgressCircularValueText,
+  useProgress,
+} from '@/components/progress-circular/ProgressCircular';
 import { Slider } from '@/components/slider/Slider';
 import { cn } from '@/lib/moduix/cn';
 
@@ -32,15 +43,15 @@ function CircularParts(props: {
 }) {
   const circle =
     props.rangeClass || props.trackClass ? (
-      <ProgressCircular.Circle
+      <ProgressCircularCircle
         class={cn(overlayClass, props.circleClass)}
         aria-label={props.ariaLabel}
       >
-        <ProgressCircular.CircleTrack class={props.trackClass} />
-        <ProgressCircular.CircleRange class={props.rangeClass} />
-      </ProgressCircular.Circle>
+        <ProgressCircularCircleTrack class={props.trackClass} />
+        <ProgressCircularCircleRange class={props.rangeClass} />
+      </ProgressCircularCircle>
     ) : (
-      <ProgressCircular.Ring
+      <ProgressCircularRing
         aria-label={props.ariaLabel}
         class={cn(overlayClass, props.circleClass)}
       />
@@ -49,7 +60,7 @@ function CircularParts(props: {
   return (
     <div class={circleContainerClass}>
       {circle}
-      <ProgressCircular.ValueText class={overlayClass} />
+      <ProgressCircularValueText class={overlayClass} />
     </div>
   );
 }
@@ -57,7 +68,7 @@ function CircularParts(props: {
 export const Basic: Story = {
   render: (args) => (
     <ProgressCircular {...args}>
-      <ProgressCircular.Label>Export data</ProgressCircular.Label>
+      <ProgressCircularLabel>Export data</ProgressCircularLabel>
       <CircularParts ariaLabel="Export data" />
     </ProgressCircular>
   ),
@@ -70,7 +81,7 @@ export const Controlled: Story = {
     return (
       <div class={stackClass}>
         <ProgressCircular value={value()} onValueChange={(details) => setValue(details.value)}>
-          <ProgressCircular.Label>Upload status</ProgressCircular.Label>
+          <ProgressCircularLabel>Upload status</ProgressCircularLabel>
           <CircularParts ariaLabel="Upload status" />
         </ProgressCircular>
         <Slider
@@ -99,7 +110,7 @@ export const Controlled: Story = {
 export const InitialValue: Story = {
   render: () => (
     <ProgressCircular defaultValue={70}>
-      <ProgressCircular.Label>Import data</ProgressCircular.Label>
+      <ProgressCircularLabel>Import data</ProgressCircularLabel>
       <CircularParts ariaLabel="Import data" />
     </ProgressCircular>
   ),
@@ -108,7 +119,7 @@ export const InitialValue: Story = {
 export const MinMaxRange: Story = {
   render: () => (
     <ProgressCircular defaultValue={420} min={200} max={800}>
-      <ProgressCircular.Label>Requests per minute</ProgressCircular.Label>
+      <ProgressCircularLabel>Requests per minute</ProgressCircularLabel>
       <CircularParts ariaLabel="Requests per minute" />
     </ProgressCircular>
   ),
@@ -117,7 +128,7 @@ export const MinMaxRange: Story = {
 export const Indeterminate: Story = {
   render: () => (
     <ProgressCircular defaultValue={null}>
-      <ProgressCircular.Label>Preparing report</ProgressCircular.Label>
+      <ProgressCircularLabel>Preparing report</ProgressCircularLabel>
       <CircularParts
         ariaLabel="Preparing report"
         rangeClass="data-[state=indeterminate]:stroke-chart-4"
@@ -136,26 +147,26 @@ export const ValueText: Story = {
         },
       }}
     >
-      <ProgressCircular.Label>Migration</ProgressCircular.Label>
-      <ProgressCircular.Ring />
-      <ProgressCircular.Context>
+      <ProgressCircularLabel>Migration</ProgressCircularLabel>
+      <ProgressCircularRing />
+      <ProgressCircularContext>
         {(progress) => (
-          <ProgressCircular.ValueText>{progress().valueAsString}</ProgressCircular.ValueText>
+          <ProgressCircularValueText>{progress().valueAsString}</ProgressCircularValueText>
         )}
-      </ProgressCircular.Context>
+      </ProgressCircularContext>
     </ProgressCircular>
   ),
 };
 
 export const RootProvider: Story = {
   render: () => {
-    const progress = ProgressCircular.useProgress({ defaultValue: 58 });
+    const progress = useProgress({ defaultValue: 58 });
 
     return (
-      <ProgressCircular.RootProvider value={progress}>
-        <ProgressCircular.Label>Team rollout</ProgressCircular.Label>
+      <ProgressCircularRootProvider value={progress}>
+        <ProgressCircularLabel>Team rollout</ProgressCircularLabel>
         <CircularParts ariaLabel="Team rollout" />
-      </ProgressCircular.RootProvider>
+      </ProgressCircularRootProvider>
     );
   },
 };
@@ -163,7 +174,7 @@ export const RootProvider: Story = {
 export const CustomStyles: Story = {
   render: () => (
     <ProgressCircular defaultValue={72}>
-      <ProgressCircular.Label>Monthly quota</ProgressCircular.Label>
+      <ProgressCircularLabel>Monthly quota</ProgressCircularLabel>
       <CircularParts
         ariaLabel="Monthly quota"
         circleClass="[--size:4rem] [--thickness:0.4rem]"

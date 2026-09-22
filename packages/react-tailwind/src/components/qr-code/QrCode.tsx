@@ -5,10 +5,10 @@ import type { ComponentProps, ComponentRef } from 'react';
 import { forwardRef } from 'react';
 import { cn } from '@/lib/moduix/cn';
 
-const QrCodeRoot = forwardRef<
+const QrCode = forwardRef<
   ComponentRef<typeof QrCodePrimitive.Root>,
   ComponentProps<typeof QrCodePrimitive.Root>
->(function QrCodeRoot({ className, ...props }, ref) {
+>(function QrCode({ className, ...props }, ref) {
   return (
     <QrCodePrimitive.Root
       ref={ref}
@@ -101,14 +101,16 @@ const QrCodeDownloadTrigger = forwardRef<
   );
 });
 
-const QrCode = Object.assign(QrCodeRoot, {
-  Root: QrCodeRoot,
-  RootProvider: QrCodeRootProvider,
-  Context: QrCodePrimitive.Context,
-  Frame: QrCodeFrame,
-  Pattern: QrCodePattern,
-  Overlay: QrCodeOverlay,
-  DownloadTrigger: QrCodeDownloadTrigger,
-});
+const QrCodeContext = QrCodePrimitive.Context;
 
-export { QrCode, useQrCode, useQrCodeContext };
+export {
+  QrCode,
+  QrCodeContext,
+  QrCodeDownloadTrigger,
+  QrCodeFrame,
+  QrCodeOverlay,
+  QrCodePattern,
+  QrCodeRootProvider,
+  useQrCode,
+  useQrCodeContext,
+};

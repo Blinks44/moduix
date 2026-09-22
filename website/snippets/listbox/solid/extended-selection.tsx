@@ -1,5 +1,5 @@
 import { createListCollection } from '@ark-ui/solid/collection';
-import { Listbox } from '@moduix/solid/listbox';
+import { Listbox, ListboxContent, ListboxItem, ListboxItemIndicator, ListboxItemText, ListboxLabel } from '@moduix/solid/listbox';
 import { For } from 'solid-js';
 import styles from '@/components/examples/listbox/listbox-extended-selection.module.css';
 
@@ -17,17 +17,17 @@ const frameworks = createListCollection({
 export default function ExtendedListboxDemo() {
   return (
     <Listbox collection={frameworks} class={styles.root} selectionMode="extended">
-      <Listbox.Label>Hold Cmd or Ctrl to select multiple</Listbox.Label>
-      <Listbox.Content>
+      <ListboxLabel>Hold Cmd or Ctrl to select multiple</ListboxLabel>
+      <ListboxContent>
         <For each={frameworks.items}>
           {(item) => (
-            <Listbox.Item item={item}>
-              <Listbox.ItemText>{item.label}</Listbox.ItemText>
-              <Listbox.ItemIndicator />
-            </Listbox.Item>
+            <ListboxItem item={item}>
+              <ListboxItemText>{item.label}</ListboxItemText>
+              <ListboxItemIndicator />
+            </ListboxItem>
           )}
         </For>
-      </Listbox.Content>
+      </ListboxContent>
     </Listbox>
   );
 }

@@ -50,6 +50,10 @@ requièrent toute l’attention de l’utilisateur.
 Utilisez les parties explicites présentées ici. Configurez le positionnement sur la racine et
 utilisez `asChild` lorsque votre propre bouton doit servir de déclencheur.
 
+Utilisez `Popover` comme racine et importez directement chaque partie supplémentaire, par exemple
+`PopoverTrigger` et `PopoverContent`. Ces noms plats sont identiques dans les paquets npm et les
+sources du registre shadcn.
+
 <ExampleFrame variant="component">
   <PopoverBasic />
 </ExampleFrame>
@@ -95,60 +99,60 @@ Consultez le [Démarrage rapide](/docs/quick-start) pour la configuration compl�
 ## Anatomie
 
 ```text
-Popover / Popover.Root
-├─ Popover.Anchor (facultatif)
-├─ Popover.Trigger
-│  └─ Popover.Indicator (facultatif)
+Popover
+├─ PopoverAnchor (facultatif)
+├─ PopoverTrigger
+│  └─ PopoverIndicator (facultatif)
 └─ Sous-arbre de superposition (rendu automatiquement dans un portail)
-   └─ Popover.Positioner
-      └─ Popover.Content
-         ├─ Popover.Arrow
-         │  └─ Popover.ArrowTip
-         ├─ Popover.Header
-         │  ├─ Popover.Title
-         │  └─ Popover.Description
-         ├─ Popover.Body
-         ├─ Popover.Footer
-         └─ Popover.CloseTrigger / Popover.CloseIcon
+   └─ PopoverPositioner
+      └─ PopoverContent
+         ├─ PopoverArrow
+         │  └─ PopoverArrowTip
+         ├─ PopoverHeader
+         │  ├─ PopoverTitle
+         │  └─ PopoverDescription
+         ├─ PopoverBody
+         ├─ PopoverFooter
+         └─ PopoverCloseTrigger / PopoverCloseIcon
 
-Popover.RootProvider
+PopoverRootProvider
 └─ même arborescence reliée à l’état moduix créé avec usePopover()
 
-Popover.Context
+PopoverContext
 └─ fonction de rendu avec l’état courant de la fenêtre contextuelle
 ```
 
 | Partie                       | Rôle                                                                  |
 | --------------------------- | --------------------------------------------------------------------- |
-| `Popover` / `Popover.Root`  | Gère l’état, l’ouverture et la fermeture, le focus, la fermeture extérieure et le positionnement. |
-| `Popover.RootProvider`      | Relie les parties à l’état créé avec `usePopover()`.                 |
-| `Popover.Context`            | Expose l’état courant aux descendants via une fonction de rendu.      |
-| `Popover.Anchor`             | Élément de référence facultatif utilisé pour le positionnement.       |
-| `Popover.Trigger`            | Bouton qui ouvre ou ferme la fenêtre et peut recevoir une `value`.     |
-| `Popover.Indicator`          | Indicateur facultatif de l’état du déclencheur.                       |
-| `Popover.Positioner`         | Calque flottant qui expose les variables CSS de positionnement d’Ark. |
-| `Popover.Content`             | Surface interactive visible de la fenêtre contextuelle.              |
-| `Popover.Arrow` / `ArrowTip` | Flèche positionnée facultative et sa pointe visible.                  |
-| `Popover.Title`               | Titre accessible associé au contenu.                                  |
-| `Popover.Description`         | Description accessible associée au contenu.                           |
-| `Popover.CloseTrigger`        | Déclencheur bas niveau qui ferme la fenêtre.                           |
-| `Popover.CloseIcon`            | Aide moduix qui associe le déclencheur de fermeture Ark à un bouton avec icône. |
-| `Popover.Header` / `Body`      | Aides de mise en page moduix avec des slots stables.                  |
-| `Popover.Footer`               | Aide moduix pour la rangée d’actions avec un slot stable.              |
+| `Popover`  | Gère l’état, l’ouverture et la fermeture, le focus, la fermeture extérieure et le positionnement. |
+| `PopoverRootProvider`      | Relie les parties à l’état créé avec `usePopover()`.                 |
+| `PopoverContext`            | Expose l’état courant aux descendants via une fonction de rendu.      |
+| `PopoverAnchor`             | Élément de référence facultatif utilisé pour le positionnement.       |
+| `PopoverTrigger`            | Bouton qui ouvre ou ferme la fenêtre et peut recevoir une `value`.     |
+| `PopoverIndicator`          | Indicateur facultatif de l’état du déclencheur.                       |
+| `PopoverPositioner`         | Calque flottant qui expose les variables CSS de positionnement d’Ark. |
+| `PopoverContent`             | Surface interactive visible de la fenêtre contextuelle.              |
+| `PopoverArrow` / `PopoverArrowTip` | Flèche positionnée facultative et sa pointe visible.                  |
+| `PopoverTitle`               | Titre accessible associé au contenu.                                  |
+| `PopoverDescription`         | Description accessible associée au contenu.                           |
+| `PopoverCloseTrigger`        | Déclencheur bas niveau qui ferme la fenêtre.                           |
+| `PopoverCloseIcon`            | Aide moduix qui associe le déclencheur de fermeture Ark à un bouton avec icône. |
+| `PopoverHeader` / `PopoverBody`      | Aides de mise en page moduix avec des slots stables.                  |
+| `PopoverFooter`               | Aide moduix pour la rangée d’actions avec un slot stable.              |
 
-Dans le code de l’application, utilisez la forme courte `Popover`. `Popover.Root` reste disponible
-lorsque le nom explicite de la racine rend la composition plus lisible.
+Dans le code de l’application, utilisez `Popover` comme racine. Importez directement les autres
+parties depuis le paquet afin de garder une composition explicite et lisible.
 
 ## Composition
 
-Gardez `Popover.Positioner` et `Popover.Content` explicites afin que la structure de la superposition
-reste facile à styliser. `Positioner` est rendu dans un portail par défaut. Définissez
+Gardez `PopoverPositioner` et `PopoverContent` explicites afin que la structure de la superposition
+reste facile à styliser. `PopoverPositioner` est rendu dans un portail par défaut. Définissez
 `portalled={false}` pour le conserver dans l’arbre DOM courant, ou passez `portalRef` pour choisir un
-conteneur de portail personnalisé. Avec `Popover.RootProvider`, configurez `portalled` dans
-`usePopover()` et transmettez le store au provider. N’utilisez pas `Popover` ou `Popover.Root` pour
-le même store.
+conteneur de portail personnalisé. Avec `PopoverRootProvider`, configurez `portalled` dans
+`usePopover()` et transmettez le store au provider. N’utilisez pas `Popover` et
+`PopoverRootProvider` pour le même store.
 
-Utilisez `Anchor` lorsqu’un autre élément doit déterminer le positionnement. Utilisez `asChild` avec
+Utilisez `PopoverAnchor` lorsqu’un autre élément doit déterminer le positionnement. Utilisez `asChild` avec
 un seul enfant sémantique lorsque votre élément doit rendre un déclencheur, une ancre ou un
 déclencheur de fermeture. Pour les Popover imbriqués, définissez `portalled={false}` sur la racine
 imbriquée afin qu’elle reste dans la superposition parente. Lorsque plusieurs déclencheurs partagent
@@ -159,7 +163,7 @@ une même fenêtre, attribuez une `value` à chacun et mettez à jour le contenu
 
 ### Ancre
 
-Utilisez `Anchor` lorsqu’un autre élément doit fournir la référence de positionnement.
+Utilisez `PopoverAnchor` lorsqu’un autre élément doit fournir la référence de positionnement.
 
 <ExampleFrame variant="component"><PopoverAnchor /></ExampleFrame>
 
@@ -206,7 +210,7 @@ parcours prévoit une action de fermeture explicite.
 ### Contexte
 
 Utilisez `usePopoverContext()` dans un descendant qui a besoin de l’état courant de la fenêtre.
-Utilisez `Popover.Context` lorsqu’une fonction de rendu rend la composition plus claire.
+Utilisez `PopoverContext` lorsqu’une fonction de rendu rend la composition plus claire.
 
 <ExampleFrame variant="component"><PopoverContext /></ExampleFrame>
 
@@ -372,7 +376,7 @@ Transmettez les options de positionnement d’Ark via la propriété `positionin
 
 ### Root Provider
 
-Utilisez `usePopover()` avec `Popover.RootProvider` lorsque des contrôles situés en dehors de
+Utilisez `usePopover()` avec `PopoverRootProvider` lorsque des contrôles situés en dehors de
 l’arborescence du Popover doivent lire ou modifier son état.
 
 <ExampleFrame variant="component"><PopoverRootProvider /></ExampleFrame>
@@ -421,8 +425,8 @@ Définissez `positioning.sameWidth` lorsque le contenu doit avoir la même large
 
 ### Avec une flèche
 
-Ajoutez `Popover.Arrow` lorsque la fenêtre doit pointer visuellement vers son élément de référence.
-L’enveloppe rend par défaut l’élément `ArrowTip` stylisé par moduix.
+Ajoutez `PopoverArrow` lorsque la fenêtre doit pointer visuellement vers son élément de référence.
+L’enveloppe rend par défaut l’élément `PopoverArrowTip` stylisé par moduix.
 
 <ExampleFrame variant="component"><PopoverWithArrow /></ExampleFrame>
 
@@ -490,13 +494,13 @@ Utilisez les variables publiques ci-dessous pour personnaliser la fenêtre sans 
 
 Chaque partie rendue accepte `className` ou `class`. Les parties Ark conservent `data-scope="popover"`
 et leurs valeurs `data-part`, tandis que moduix ajoute `data-slot="popover-*"` aux conteneurs rendus.
-`Popover` et `Popover.RootProvider` fournissent l’état, mais ne rendent pas d’éléments DOM. Pour les
+`Popover` et `PopoverRootProvider` fournissent l’état, mais ne rendent pas d’éléments DOM. Pour les
 styles liés à l’état, ciblez `data-state="open|closed"`, `data-placement`, `data-side`, `data-value`,
 `data-nested`, `data-has-nested`, `data-expanded` et `data-current` lorsque plusieurs déclencheurs
 avec une `value` partagent une même fenêtre.
 
-`Positioner` expose `--reference-width`, `--reference-height`, `--available-width`,
-`--available-height`, `--x`, `--y`, `--z-index` et `--transform-origin`. `Content` expose
-`--layer-index` et `--nested-layer-count`. `Arrow` expose les variables de mesure de la flèche Ark.
+`PopoverPositioner` expose `--reference-width`, `--reference-height`, `--available-width`,
+`--available-height`, `--x`, `--y`, `--z-index` et `--transform-origin`. `PopoverContent` expose
+`--layer-index` et `--nested-layer-count`. `PopoverArrow` expose les variables de mesure de la flèche Ark.
 Le contenu renvoie les longues chaînes sans séparateur à la ligne et désactive ses animations lorsque
 l’utilisateur préfère réduire les animations.

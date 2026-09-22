@@ -1,15 +1,35 @@
 import { expect, test } from '@rstest/core';
 import { fireEvent, render, screen, waitFor, within } from '@solidjs/testing-library';
 import { createSignal } from 'solid-js';
-import { Popover, usePopover, usePopoverContext } from '../src';
+import {
+  Popover,
+  PopoverAnchor,
+  PopoverArrow,
+  PopoverArrowTip,
+  PopoverBody,
+  PopoverCloseIcon,
+  PopoverCloseTrigger,
+  PopoverContent,
+  PopoverContext,
+  PopoverDescription,
+  PopoverFooter,
+  PopoverHeader,
+  PopoverIndicator,
+  PopoverPositioner,
+  PopoverRootProvider,
+  PopoverTitle,
+  PopoverTrigger,
+  usePopover,
+  usePopoverContext,
+} from '../src';
 
 function PopoverSurface() {
   return (
-    <Popover.Positioner>
-      <Popover.Content>
-        <Popover.Title>Preferences</Popover.Title>
-      </Popover.Content>
-    </Popover.Positioner>
+    <PopoverPositioner>
+      <PopoverContent>
+        <PopoverTitle>Preferences</PopoverTitle>
+      </PopoverContent>
+    </PopoverPositioner>
   );
 }
 
@@ -28,7 +48,7 @@ test('preserves open-change details and returns focus after Escape', async () =>
           setOpen(detail.open);
         }}
       >
-        <Popover.Trigger>Open preferences</Popover.Trigger>
+        <PopoverTrigger>Open preferences</PopoverTrigger>
         <PopoverSurface />
       </Popover>
     );
@@ -68,11 +88,11 @@ test('keeps RootProvider state and portalling configuration available through th
 
     return (
       <div data-testid="popover-host">
-        <Popover.RootProvider value={popover}>
-          <Popover.Trigger>Open preferences</Popover.Trigger>
+        <PopoverRootProvider value={popover}>
+          <PopoverTrigger>Open preferences</PopoverTrigger>
           <PopoverSurface />
           <ContextValue />
-        </Popover.RootProvider>
+        </PopoverRootProvider>
       </div>
     );
   }
@@ -90,14 +110,14 @@ test('keeps RootProvider state and portalling configuration available through th
 test('preserves semantic hosts with asChild', () => {
   render(() => (
     <Popover defaultOpen portalled={false}>
-      <Popover.Trigger asChild={(props) => <a {...props()} href="#preferences" />}>
+      <PopoverTrigger asChild={(props) => <a {...props()} href="#preferences" />}>
         Open preferences
-      </Popover.Trigger>
-      <Popover.Positioner>
-        <Popover.Content asChild={(props) => <section {...props()} />}>
-          <Popover.Title>Preferences</Popover.Title>
-        </Popover.Content>
-      </Popover.Positioner>
+      </PopoverTrigger>
+      <PopoverPositioner>
+        <PopoverContent asChild={(props) => <section {...props()} />}>
+          <PopoverTitle>Preferences</PopoverTitle>
+        </PopoverContent>
+      </PopoverPositioner>
     </Popover>
   ));
 
@@ -111,9 +131,9 @@ test('preserves semantic hosts with asChild', () => {
 test('marks only the current trigger when a popover has multiple triggers', async () => {
   render(() => (
     <Popover portalled={false}>
-      <Popover.Trigger value="share">Share</Popover.Trigger>
-      <Popover.Trigger value="export">Export</Popover.Trigger>
-      <Popover.Trigger value="archive">Archive</Popover.Trigger>
+      <PopoverTrigger value="share">Share</PopoverTrigger>
+      <PopoverTrigger value="export">Export</PopoverTrigger>
+      <PopoverTrigger value="archive">Archive</PopoverTrigger>
       <PopoverSurface />
     </Popover>
   ));
@@ -135,11 +155,11 @@ test('renders inline only when portalled is false', () => {
   render(() => (
     <div data-testid="popover-host">
       <Popover defaultOpen portalled={false}>
-        <Popover.Positioner>
-          <Popover.Content>
-            <Popover.Title>Preferences</Popover.Title>
-          </Popover.Content>
-        </Popover.Positioner>
+        <PopoverPositioner>
+          <PopoverContent>
+            <PopoverTitle>Preferences</PopoverTitle>
+          </PopoverContent>
+        </PopoverPositioner>
       </Popover>
     </div>
   ));
@@ -150,11 +170,11 @@ test('renders inline only when portalled is false', () => {
 test('portals content outside the root tree by default', () => {
   const { container } = render(() => (
     <Popover defaultOpen>
-      <Popover.Positioner>
-        <Popover.Content>
-          <Popover.Title>Preferences</Popover.Title>
-        </Popover.Content>
-      </Popover.Positioner>
+      <PopoverPositioner>
+        <PopoverContent>
+          <PopoverTitle>Preferences</PopoverTitle>
+        </PopoverContent>
+      </PopoverPositioner>
     </Popover>
   ));
 
@@ -170,11 +190,11 @@ test('portals content into portalRef when provided', () => {
       <>
         <div ref={(element) => (portalRef = element)} data-testid="popover-portal" />
         <Popover defaultOpen portalRef={() => portalRef}>
-          <Popover.Positioner>
-            <Popover.Content>
-              <Popover.Title>Preferences</Popover.Title>
-            </Popover.Content>
-          </Popover.Positioner>
+          <PopoverPositioner>
+            <PopoverContent>
+              <PopoverTitle>Preferences</PopoverTitle>
+            </PopoverContent>
+          </PopoverPositioner>
         </Popover>
       </>
     );
@@ -188,11 +208,11 @@ test('portals content into portalRef when provided', () => {
 test('keeps modal popovers portalled when portalled is false', () => {
   const { container } = render(() => (
     <Popover defaultOpen modal portalled={false}>
-      <Popover.Positioner>
-        <Popover.Content>
-          <Popover.Title>Preferences</Popover.Title>
-        </Popover.Content>
-      </Popover.Positioner>
+      <PopoverPositioner>
+        <PopoverContent>
+          <PopoverTitle>Preferences</PopoverTitle>
+        </PopoverContent>
+      </PopoverPositioner>
     </Popover>
   ));
 
@@ -205,13 +225,13 @@ test('keeps modal popovers portalled when portalled is false', () => {
 test('closes with CloseIcon and restores focus to its trigger', async () => {
   render(() => (
     <Popover portalled={false}>
-      <Popover.Trigger>Open preferences</Popover.Trigger>
-      <Popover.Positioner>
-        <Popover.Content>
-          <Popover.Title>Preferences</Popover.Title>
-          <Popover.CloseIcon />
-        </Popover.Content>
-      </Popover.Positioner>
+      <PopoverTrigger>Open preferences</PopoverTrigger>
+      <PopoverPositioner>
+        <PopoverContent>
+          <PopoverTitle>Preferences</PopoverTitle>
+          <PopoverCloseIcon />
+        </PopoverContent>
+      </PopoverPositioner>
     </Popover>
   ));
 
@@ -244,33 +264,33 @@ test('forwards refs through native parts and keeps asChild composition native', 
 
   render(() => (
     <Popover defaultOpen portalled={false}>
-      <Popover.Anchor ref={(element) => (anchorRef = element)} />
-      <Popover.Trigger ref={(element) => (triggerRef = element)}>
+      <PopoverAnchor ref={(element) => (anchorRef = element)} />
+      <PopoverTrigger ref={(element) => (triggerRef = element)}>
         Open popover
-        <Popover.Indicator ref={(element) => (indicatorRef = element)} />
-      </Popover.Trigger>
-      <Popover.Trigger
+        <PopoverIndicator ref={(element) => (indicatorRef = element)} />
+      </PopoverTrigger>
+      <PopoverTrigger
         ref={(element) => (composedTriggerRef = element)}
         asChild={(props) => <button {...props()}>Composed trigger</button>}
       />
-      <Popover.Positioner ref={(element) => (positionerRef = element)}>
-        <Popover.Content ref={(element) => (contentRef = element)}>
-          <Popover.Arrow ref={(element) => (arrowRef = element)}>
-            <Popover.ArrowTip ref={(element) => (arrowTipRef = element)} />
-          </Popover.Arrow>
-          <Popover.Title ref={(element) => (titleRef = element)}>Preferences</Popover.Title>
-          <Popover.Description ref={(element) => (descriptionRef = element)}>
+      <PopoverPositioner ref={(element) => (positionerRef = element)}>
+        <PopoverContent ref={(element) => (contentRef = element)}>
+          <PopoverArrow ref={(element) => (arrowRef = element)}>
+            <PopoverArrowTip ref={(element) => (arrowTipRef = element)} />
+          </PopoverArrow>
+          <PopoverTitle ref={(element) => (titleRef = element)}>Preferences</PopoverTitle>
+          <PopoverDescription ref={(element) => (descriptionRef = element)}>
             Description
-          </Popover.Description>
-          <Popover.CloseTrigger ref={(element) => (closeTriggerRef = element)}>
+          </PopoverDescription>
+          <PopoverCloseTrigger ref={(element) => (closeTriggerRef = element)}>
             Close
-          </Popover.CloseTrigger>
-          <Popover.CloseIcon ref={(element) => (closeIconRef = element)} />
-          <Popover.Header ref={(element) => (headerRef = element)} />
-          <Popover.Body ref={(element) => (bodyRef = element)} />
-          <Popover.Footer ref={(element) => (footerRef = element)} />
-        </Popover.Content>
-      </Popover.Positioner>
+          </PopoverCloseTrigger>
+          <PopoverCloseIcon ref={(element) => (closeIconRef = element)} />
+          <PopoverHeader ref={(element) => (headerRef = element)} />
+          <PopoverBody ref={(element) => (bodyRef = element)} />
+          <PopoverFooter ref={(element) => (footerRef = element)} />
+        </PopoverContent>
+      </PopoverPositioner>
     </Popover>
   ));
 
@@ -291,17 +311,17 @@ test('forwards refs through native parts and keeps asChild composition native', 
   expect(closeIconRef).toBeUndefined();
 });
 
-test('exposes the current state through Popover.Context', () => {
+test('exposes the current state through PopoverContext', () => {
   render(() => (
     <Popover defaultOpen portalled={false}>
-      <Popover.Positioner>
-        <Popover.Content>
-          <Popover.Title>Preferences</Popover.Title>
-          <Popover.Context>
+      <PopoverPositioner>
+        <PopoverContent>
+          <PopoverTitle>Preferences</PopoverTitle>
+          <PopoverContext>
             {(popover) => <output>Open: {String(popover().open)}</output>}
-          </Popover.Context>
-        </Popover.Content>
-      </Popover.Positioner>
+          </PopoverContext>
+        </PopoverContent>
+      </PopoverPositioner>
     </Popover>
   ));
 
@@ -311,23 +331,23 @@ test('exposes the current state through Popover.Context', () => {
 test('applies Tailwind defaults to visual parts and lets consumer utilities override them', () => {
   render(() => (
     <Popover defaultOpen portalled={false}>
-      <Popover.Trigger class="px-2 text-primary">Open preferences</Popover.Trigger>
-      <Popover.Positioner class="max-w-none">
-        <Popover.Content data-testid="content" class="bg-card p-6">
-          <Popover.CloseIcon class="top-2" />
-          <Popover.Header>
-            <Popover.Title class="text-lg">Preferences</Popover.Title>
-            <Popover.Description>Description</Popover.Description>
-          </Popover.Header>
-          <Popover.Body class="overflow-hidden">Body</Popover.Body>
-          <Popover.Footer class="justify-start">
-            <Popover.CloseTrigger class="px-2">Close</Popover.CloseTrigger>
-          </Popover.Footer>
-          <Popover.Arrow>
-            <Popover.ArrowTip class="border-primary" />
-          </Popover.Arrow>
-        </Popover.Content>
-      </Popover.Positioner>
+      <PopoverTrigger class="px-2 text-primary">Open preferences</PopoverTrigger>
+      <PopoverPositioner class="max-w-none">
+        <PopoverContent data-testid="content" class="bg-card p-6">
+          <PopoverCloseIcon class="top-2" />
+          <PopoverHeader>
+            <PopoverTitle class="text-lg">Preferences</PopoverTitle>
+            <PopoverDescription>Description</PopoverDescription>
+          </PopoverHeader>
+          <PopoverBody class="overflow-hidden">Body</PopoverBody>
+          <PopoverFooter class="justify-start">
+            <PopoverCloseTrigger class="px-2">Close</PopoverCloseTrigger>
+          </PopoverFooter>
+          <PopoverArrow>
+            <PopoverArrowTip class="border-primary" />
+          </PopoverArrow>
+        </PopoverContent>
+      </PopoverPositioner>
     </Popover>
   ));
 

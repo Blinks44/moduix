@@ -1,4 +1,11 @@
-import { PasswordInput } from '@moduix/solid/password-input';
+import {
+  PasswordInput,
+  PasswordInputControl,
+  PasswordInputIndicator,
+  PasswordInputInput,
+  PasswordInputLabel,
+  PasswordInputVisibilityTrigger,
+} from '@moduix/solid/password-input';
 import { createSignal } from 'solid-js';
 import styles from '@/components/examples/password-input/password-input-controlled-visibility.module.css';
 
@@ -12,13 +19,13 @@ export default function ControlledPasswordInputVisibilityDemo() {
         visible={visible()}
         onVisibilityChange={(details) => setVisible(details.visible)}
       >
-        <PasswordInput.Label>Password</PasswordInput.Label>
-        <PasswordInput.Control>
-          <PasswordInput.Input placeholder="Toggle visibility" />
-          <PasswordInput.VisibilityTrigger>
-            <PasswordInput.Indicator />
-          </PasswordInput.VisibilityTrigger>
-        </PasswordInput.Control>
+        <PasswordInputLabel>Password</PasswordInputLabel>
+        <PasswordInputControl>
+          <PasswordInputInput placeholder="Toggle visibility" />
+          <PasswordInputVisibilityTrigger>
+            <PasswordInputIndicator />
+          </PasswordInputVisibilityTrigger>
+        </PasswordInputControl>
       </PasswordInput>
       <output>Visibility: {visible() ? 'visible' : 'hidden'}</output>
     </>

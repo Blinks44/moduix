@@ -1,4 +1,10 @@
-import { ProgressLinear } from '@moduix/solid/progress-linear';
+import {
+  ProgressLinear,
+  ProgressLinearLabel,
+  ProgressLinearValueText,
+  ProgressLinearTrack,
+  ProgressLinearRange,
+} from '@moduix/solid/progress-linear';
 import { Slider } from '@moduix/solid/slider';
 import { createSignal } from 'solid-js';
 
@@ -8,11 +14,11 @@ export default function ControlledProgressLinearDemo() {
   return (
     <>
       <ProgressLinear value={value()} onValueChange={(details) => setValue(details.value ?? 0)}>
-        <ProgressLinear.Label>Upload status</ProgressLinear.Label>
-        <ProgressLinear.ValueText />
-        <ProgressLinear.Track aria-label="Upload status">
-          <ProgressLinear.Range />
-        </ProgressLinear.Track>
+        <ProgressLinearLabel>Upload status</ProgressLinearLabel>
+        <ProgressLinearValueText />
+        <ProgressLinearTrack aria-label="Upload status">
+          <ProgressLinearRange />
+        </ProgressLinearTrack>
       </ProgressLinear>
       <Slider
         min={0}

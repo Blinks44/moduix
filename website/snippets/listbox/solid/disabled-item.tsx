@@ -1,5 +1,5 @@
 import { createListCollection } from '@ark-ui/solid/collection';
-import { Listbox } from '@moduix/solid/listbox';
+import { Listbox, ListboxContent, ListboxItem, ListboxItemIndicator, ListboxItemText, ListboxLabel } from '@moduix/solid/listbox';
 import { For } from 'solid-js';
 import styles from '@/components/examples/listbox/listbox-disabled-item.module.css';
 
@@ -15,17 +15,17 @@ const plans = createListCollection({
 export default function DisabledItemListboxDemo() {
   return (
     <Listbox collection={plans} class={styles.root}>
-      <Listbox.Label>Select plan</Listbox.Label>
-      <Listbox.Content>
+      <ListboxLabel>Select plan</ListboxLabel>
+      <ListboxContent>
         <For each={plans.items}>
           {(item) => (
-            <Listbox.Item item={item}>
-              <Listbox.ItemText>{item.label}</Listbox.ItemText>
-              <Listbox.ItemIndicator />
-            </Listbox.Item>
+            <ListboxItem item={item}>
+              <ListboxItemText>{item.label}</ListboxItemText>
+              <ListboxItemIndicator />
+            </ListboxItem>
           )}
         </For>
-      </Listbox.Content>
+      </ListboxContent>
     </Listbox>
   );
 }

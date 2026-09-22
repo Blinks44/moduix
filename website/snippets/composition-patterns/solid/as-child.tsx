@@ -1,19 +1,24 @@
 import { Button } from '@moduix/solid/button';
-import { Popover } from '@moduix/solid/popover';
+import {
+  Popover,
+  PopoverContent,
+  PopoverPositioner,
+  PopoverTrigger,
+} from '@moduix/solid/popover';
 
 export function FiltersPopover() {
   return (
     <Popover positioning={{ gutter: 8 }}>
-      <Popover.Trigger
+      <PopoverTrigger
         asChild={(props) => (
           <Button {...props()} variant="outline">
             Filters
           </Button>
         )}
       />
-      <Popover.Positioner>
-        <Popover.Content>Choose one or more filters.</Popover.Content>
-      </Popover.Positioner>
+      <PopoverPositioner>
+        <PopoverContent>Choose one or more filters.</PopoverContent>
+      </PopoverPositioner>
     </Popover>
   );
 }

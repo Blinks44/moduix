@@ -1,5 +1,15 @@
 import { Button } from '@moduix/react/button';
-import { Popover } from '@moduix/react/popover';
+import {
+  Popover,
+  PopoverCloseTrigger,
+  PopoverContent,
+  PopoverDescription,
+  PopoverFooter,
+  PopoverHeader,
+  PopoverPositioner,
+  PopoverTitle,
+  PopoverTrigger,
+} from '@moduix/react/popover';
 
 export default function PositioningPopoverDemo() {
   return (
@@ -9,22 +19,22 @@ export default function PositioningPopoverDemo() {
         gutter: 12,
       }}
     >
-      <Popover.Trigger asChild>
+      <PopoverTrigger asChild>
         <Button>Open on the left</Button>
-      </Popover.Trigger>
-      <Popover.Positioner>
-        <Popover.Content>
-          <Popover.Header>
-            <Popover.Title>Left placement</Popover.Title>
-            <Popover.Description>
+      </PopoverTrigger>
+      <PopoverPositioner>
+        <PopoverContent>
+          <PopoverHeader>
+            <PopoverTitle>Left placement</PopoverTitle>
+            <PopoverDescription>
               Placement and offsets belong to Root.positioning.
-            </Popover.Description>
-          </Popover.Header>
-          <Popover.Footer>
-            <Popover.CloseTrigger>Close</Popover.CloseTrigger>
-          </Popover.Footer>
-        </Popover.Content>
-      </Popover.Positioner>
+            </PopoverDescription>
+          </PopoverHeader>
+          <PopoverFooter>
+            <PopoverCloseTrigger>Close</PopoverCloseTrigger>
+          </PopoverFooter>
+        </PopoverContent>
+      </PopoverPositioner>
     </Popover>
   );
 }

@@ -33,8 +33,8 @@ Utilisez `RatingGroup` lorsque l’utilisateur doit choisir une note numérique 
 ## Exemple de base
 
 
-Utilisez `RatingGroup` comme racine et ajoutez `RatingGroup.Label`, `RatingGroup.Control` et
-`RatingGroup.Items` pour une notation standard par étoiles. Rendez `RatingGroup.HiddenInput`
+Utilisez `RatingGroup` comme racine et ajoutez `RatingGroupLabel`, `RatingGroupControl` et
+`RatingGroupItems` pour une notation standard par étoiles. Rendez `RatingGroupHiddenInput`
 explicitement lorsque la valeur doit participer à l’envoi d’un formulaire natif.
 
 <ExampleFrame variant="component">
@@ -94,43 +94,43 @@ Consultez le [Démarrage rapide](/docs/quick-start) pour la configuration compl�
 ## Anatomie
 
 ```text
-RatingGroup / RatingGroup.Root
-├─ RatingGroup.Label
-└─ RatingGroup.Control
-   ├─ RatingGroup.Items
-   │  └─ RatingGroup.Item[index]
-   │     └─ RatingGroup.ItemIndicator
-   ├─ RatingGroup.Context
-   │  └─ RatingGroup.Item[index]
-   │     └─ RatingGroup.ItemIndicator
-   └─ RatingGroup.HiddenInput (explicite)
+RatingGroup
+├─ RatingGroupLabel
+└─ RatingGroupControl
+   ├─ RatingGroupItems
+   │  └─ RatingGroupItem[index]
+   │     └─ RatingGroupItemIndicator
+   ├─ RatingGroupContext
+   │  └─ RatingGroupItem[index]
+   │     └─ RatingGroupItemIndicator
+   └─ RatingGroupHiddenInput (explicite)
 
-RatingGroup.RootProvider
+RatingGroupRootProvider
 └─ même arbre de parties relié à un état moduix créé avec useRatingGroup()
 ```
 
 | Partie                               | Rôle                                                                |
 | ------------------------------------ | ------------------------------------------------------------------- |
-| `RatingGroup` / `RatingGroup.Root`   | Gère l’état de la note, la navigation au clavier, le focus et les formulaires. |
-| `RatingGroup.HiddenInput`             | Champ natif d’Ark à composer explicitement.                         |
-| `RatingGroup.RootProvider`            | Relie les parties à l’état créé avec `useRatingGroup()`.             |
-| `RatingGroup.Context`                 | Donne accès à l’état racine actuel via une render prop.              |
-| `RatingGroup.ItemContext`             | Donne accès à l’état actuel de l’élément via une render prop.        |
-| `RatingGroup.Label`                   | Libellé accessible du groupe de notation.                            |
-| `RatingGroup.Control`                 | Regroupe les éléments interactifs de notation.                       |
-| `RatingGroup.Items`                   | Crée un élément pour chaque valeur et fournit l’étoile par défaut.   |
-| `RatingGroup.Item`                    | Élément sélectionnable qui nécessite un `index` numérique.           |
-| `RatingGroup.ItemIndicator`           | Visuel étoilé moduix par défaut pour un élément.                     |
+| `RatingGroup`                    | Gère l’état de la note, la navigation au clavier, le focus et les formulaires. |
+| `RatingGroupHiddenInput`             | Champ natif d’Ark à composer explicitement.                         |
+| `RatingGroupRootProvider`            | Relie les parties à l’état créé avec `useRatingGroup()`.             |
+| `RatingGroupContext`                 | Donne accès à l’état racine actuel via une render prop.              |
+| `RatingGroupItemContext`             | Donne accès à l’état actuel de l’élément via une render prop.        |
+| `RatingGroupLabel`                   | Libellé accessible du groupe de notation.                            |
+| `RatingGroupControl`                 | Regroupe les éléments interactifs de notation.                       |
+| `RatingGroupItems`                   | Crée un élément pour chaque valeur et fournit l’étoile par défaut.   |
+| `RatingGroupItem`                    | Élément sélectionnable qui nécessite un `index` numérique.           |
+| `RatingGroupItemIndicator`           | Visuel étoilé moduix par défaut pour un élément.                     |
 
 ## Composition
 
-Utilisez `RatingGroup.Items` pour l’arbre standard généré. Pour remplacer le visuel répété, passez un
-`RatingGroup.ItemIndicator` personnalisé comme enfant. `RatingGroup.HiddenInput` est indépendant de
-`Items`, ajoutez-le donc explicitement dans la racine ou `RatingGroup.RootProvider` ; définissez
+Utilisez `RatingGroupItems` pour l’arbre standard généré. Pour remplacer le visuel répété, passez un
+`RatingGroupItemIndicator` personnalisé comme enfant. `RatingGroupHiddenInput` est indépendant de
+`Items`, ajoutez-le donc explicitement dans la racine ou `RatingGroupRootProvider` ; définissez
 `name` sur la racine lorsque la valeur doit être envoyée par un formulaire natif.
 
-Pour un arbre d’éléments personnalisé, utilisez `RatingGroup.Context` avec `RatingGroup.Item`.
-Utilisez `RatingGroup.RootProvider` avec `useRatingGroup()` lorsque l’état doit être créé en dehors
+Pour un arbre d’éléments personnalisé, utilisez `RatingGroupContext` avec `RatingGroupItem`.
+Utilisez `RatingGroupRootProvider` avec `useRatingGroup()` lorsque l’état doit être créé en dehors
 de l’arbre rendu. React lit le store comme un objet, tandis que Solid lit son état réactif via la
 fonction retournée.
 
@@ -175,7 +175,7 @@ Gérez `value` avec `useState` en React ou `createSignal` en Solid lorsque la no
 
 ### Icône personnalisée
 
-Passez un `RatingGroup.ItemIndicator` personnalisé comme enfant de `RatingGroup.Items` lorsque tous
+Passez un `RatingGroupItemIndicator` personnalisé comme enfant de `RatingGroupItems` lorsque tous
 les éléments doivent utiliser la même icône. L’indicateur reçoit toujours les attributs d’état Ark
 `data-highlighted` et `data-half`, utilisables dans vos styles.
 
@@ -251,7 +251,7 @@ sans permettre sa modification.
 ### Field
 
 Entourez le groupe de notation avec `Field` lorsque le texte d’aide ou de validation doit être
-associé à son `RatingGroup.HiddenInput`. Ark hérite de `Field` les propriétés `disabled`, `readOnly`
+associé à son `RatingGroupHiddenInput`. Ark hérite de `Field` les propriétés `disabled`, `readOnly`
 et `required`; l’état de validation reste géré par `Field` et le code de l’application.
 
 <ExampleFrame variant="component">
@@ -288,7 +288,7 @@ et `required`; l’état de validation reste géré par `Field` et le code de l�
 
 ### Formulaires
 
-Passez `name` et rendez `RatingGroup.HiddenInput` lorsque la note sélectionnée doit être incluse dans
+Passez `name` et rendez `RatingGroupHiddenInput` lorsque la note sélectionnée doit être incluse dans
 `FormData`.
 
 <ExampleFrame variant="component">
@@ -393,8 +393,8 @@ une densité visuelle différente.
 
 ### Composition avancée
 
-Utilisez `RatingGroup.RootProvider` avec `useRatingGroup()` lorsque l’état doit être créé en dehors
-de l’arbre rendu. Utilisez `RatingGroup.Context` lorsque `RatingGroup.Items` ne suffit pas et que
+Utilisez `RatingGroupRootProvider` avec `useRatingGroup()` lorsque l’état doit être créé en dehors
+de l’arbre rendu. Utilisez `RatingGroupContext` lorsque `RatingGroupItems` ne suffit pas et que
 vous devez rendre chaque élément vous-même.
 
 <ExampleFrame variant="component">

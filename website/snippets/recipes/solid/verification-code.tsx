@@ -8,7 +8,13 @@ import {
   CardTitle,
 } from '@moduix/solid/card';
 import { Field, FieldErrorText } from '@moduix/solid/field';
-import { PinInput } from '@moduix/solid/pin-input';
+import {
+  PinInput,
+  PinInputControl,
+  PinInputHiddenInput,
+  PinInputInputs,
+  PinInputLabel,
+} from '@moduix/solid/pin-input';
 import { createSignal } from 'solid-js';
 import styles from './verification-code-form.module.css';
 
@@ -46,11 +52,11 @@ export function VerificationCode({ onSubmit }: { onSubmit?: (event: SubmitEvent)
               otp
               onValueChange={() => setInvalid(false)}
             >
-              <PinInput.Label>Verification code</PinInput.Label>
-              <PinInput.HiddenInput />
-              <PinInput.Control>
-                <PinInput.Inputs />
-              </PinInput.Control>
+              <PinInputLabel>Verification code</PinInputLabel>
+              <PinInputHiddenInput />
+              <PinInputControl>
+                <PinInputInputs />
+              </PinInputControl>
             </PinInput>
             {invalid() ? (
               <FieldErrorText>Enter all six digits before verifying.</FieldErrorText>

@@ -16,7 +16,7 @@ import { cn } from '@/lib/moduix/cn';
 import { CheckIcon, SearchIcon } from '@/lib/moduix/icons/ui/Icons';
 import { CloseButton } from '../close-button';
 
-const ListboxRoot = function ListboxRoot<T extends CollectionItem>(props: ListboxRootProps<T>) {
+const Listbox = function Listbox<T extends CollectionItem>(props: ListboxRootProps<T>) {
   const [local, others] = splitProps(props, ['class']);
 
   return (
@@ -260,54 +260,30 @@ function ListboxItemTextLabel(props: HTMLArkProps<'span'>) {
   );
 }
 
-type ListboxComponent = ListboxRootComponent & {
-  Root: typeof ListboxRoot;
-  RootProvider: typeof ListboxRootProvider;
-  Label: typeof ListboxLabel;
-  Input: typeof ListboxInput;
-  Filter: typeof ListboxFilter;
-  ClearTrigger: typeof ListboxClearTrigger;
-  Content: typeof ListboxContent;
-  Empty: typeof ListboxEmpty;
-  ItemGroup: typeof ListboxItemGroup;
-  ItemGroupLabel: typeof ListboxItemGroupLabel;
-  Item: typeof ListboxItem;
-  ItemText: typeof ListboxItemText;
-  ItemIndicator: typeof ListboxItemIndicator;
-  ValueText: typeof ListboxValueText;
-  Context: typeof ListboxPrimitive.Context;
-  ItemContext: typeof ListboxPrimitive.ItemContext;
-  ItemTextContent: typeof ListboxItemTextContent;
-  ItemTextIcon: typeof ListboxItemTextIcon;
-  ItemTextLabel: typeof ListboxItemTextLabel;
-  useListbox: typeof useListbox;
-  useListboxContext: typeof useListboxContext;
-  useListboxItemContext: typeof useListboxItemContext;
-};
+const ListboxContext = ListboxPrimitive.Context;
+const ListboxItemContext = ListboxPrimitive.ItemContext;
 
-const Listbox: ListboxComponent = Object.assign(ListboxRoot, {
-  Root: ListboxRoot,
-  RootProvider: ListboxRootProvider,
-  Label: ListboxLabel,
-  Input: ListboxInput,
-  Filter: ListboxFilter,
-  ClearTrigger: ListboxClearTrigger,
-  Content: ListboxContent,
-  Empty: ListboxEmpty,
-  ItemGroup: ListboxItemGroup,
-  ItemGroupLabel: ListboxItemGroupLabel,
-  Item: ListboxItem,
-  ItemText: ListboxItemText,
-  ItemIndicator: ListboxItemIndicator,
-  ValueText: ListboxValueText,
-  Context: ListboxPrimitive.Context,
-  ItemContext: ListboxPrimitive.ItemContext,
-  ItemTextContent: ListboxItemTextContent,
-  ItemTextIcon: ListboxItemTextIcon,
-  ItemTextLabel: ListboxItemTextLabel,
+export {
+  Listbox,
+  ListboxClearTrigger,
+  ListboxContent,
+  ListboxContext,
+  ListboxEmpty,
+  ListboxFilter,
+  ListboxInput,
+  ListboxItem,
+  ListboxItemContext,
+  ListboxItemGroup,
+  ListboxItemGroupLabel,
+  ListboxItemIndicator,
+  ListboxItemText,
+  ListboxItemTextContent,
+  ListboxItemTextIcon,
+  ListboxItemTextLabel,
+  ListboxLabel,
+  ListboxRootProvider,
+  ListboxValueText,
   useListbox,
   useListboxContext,
   useListboxItemContext,
-});
-
-export { Listbox, useListbox, useListboxContext, useListboxItemContext };
+};

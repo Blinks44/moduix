@@ -1,13 +1,13 @@
-import { PinInput } from '@moduix/solid/pin-input';
+import { PinInput, PinInputHiddenInput, PinInputLabel, PinInputControl, PinInputInputs } from '@moduix/solid/pin-input';
 
 export default function OtpModePinInput() {
   return (
     <PinInput count={6} otp name="verificationCode">
-      <PinInput.Label>One-time code</PinInput.Label>
-      <PinInput.Control>
-        <PinInput.Inputs />
-      </PinInput.Control>
-      <PinInput.HiddenInput />
+      <PinInputLabel>One-time code</PinInputLabel>
+      <PinInputControl>
+        <PinInputInputs />
+      </PinInputControl>
+      <PinInputHiddenInput />
     </PinInput>
   );
 }

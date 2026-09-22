@@ -1,14 +1,8 @@
 import { Button } from '@moduix/react/button';
 import {
-  Card,
-  CardBody,
-  CardDescription,
-  CardFooter,
-  CardHeader,
-  CardTitle,
-} from '@moduix/react/card';
+  Card, CardBody, CardDescription, CardFooter, CardHeader, CardTitle, } from '@moduix/react/card';
 import { Field, FieldErrorText } from '@moduix/react/field';
-import { PinInput } from '@moduix/react/pin-input';
+import { PinInput, PinInputHiddenInput, PinInputLabel, PinInputControl, PinInputInputs } from '@moduix/react/pin-input';
 import type { FormEventHandler } from 'react';
 import { useState } from 'react';
 import styles from './verification-code-form.module.css';
@@ -47,11 +41,11 @@ export function VerificationCode({ onSubmit }: { onSubmit?: FormEventHandler<HTM
               otp
               onValueChange={() => setInvalid(false)}
             >
-              <PinInput.Label>Verification code</PinInput.Label>
-              <PinInput.HiddenInput />
-              <PinInput.Control>
-                <PinInput.Inputs />
-              </PinInput.Control>
+              <PinInputLabel>Verification code</PinInputLabel>
+              <PinInputHiddenInput />
+              <PinInputControl>
+                <PinInputInputs />
+              </PinInputControl>
             </PinInput>
             {invalid ? (
               <FieldErrorText>Enter all six digits before verifying.</FieldErrorText>

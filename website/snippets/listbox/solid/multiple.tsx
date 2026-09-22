@@ -1,5 +1,5 @@
 import { createListCollection } from '@ark-ui/solid/collection';
-import { Listbox } from '@moduix/solid/listbox';
+import { Listbox, ListboxContent, ListboxItem, ListboxItemIndicator, ListboxItemText, ListboxLabel, ListboxValueText } from '@moduix/solid/listbox';
 import { For } from 'solid-js';
 import styles from '@/components/examples/listbox/listbox-multiple.module.css';
 
@@ -23,18 +23,18 @@ export default function MultipleListboxDemo() {
       selectionMode="multiple"
       defaultValue={['mon', 'wed', 'fri']}
     >
-      <Listbox.Label>Select days</Listbox.Label>
-      <Listbox.Content>
+      <ListboxLabel>Select days</ListboxLabel>
+      <ListboxContent>
         <For each={days.items}>
           {(item) => (
-            <Listbox.Item item={item}>
-              <Listbox.ItemText>{item.label}</Listbox.ItemText>
-              <Listbox.ItemIndicator />
-            </Listbox.Item>
+            <ListboxItem item={item}>
+              <ListboxItemText>{item.label}</ListboxItemText>
+              <ListboxItemIndicator />
+            </ListboxItem>
           )}
         </For>
-      </Listbox.Content>
-      <Listbox.ValueText />
+      </ListboxContent>
+      <ListboxValueText />
     </Listbox>
   );
 }

@@ -1,13 +1,18 @@
-import { ProgressCircular } from '@moduix/solid/progress-circular';
+import {
+  ProgressCircular,
+  ProgressCircularLabel,
+  ProgressCircularRing,
+  ProgressCircularValueText,
+} from '@moduix/solid/progress-circular';
 import styles from '@/components/examples/progress-circular/component-indeterminate.module.css';
 
 export default function IndeterminateProgressCircularDemo() {
   return (
     <ProgressCircular class={styles.indeterminate} defaultValue={null}>
-      <ProgressCircular.Label>Preparing report</ProgressCircular.Label>
+      <ProgressCircularLabel>Preparing report</ProgressCircularLabel>
       <div class={styles.circleContainer}>
-        <ProgressCircular.Ring aria-label="Preparing report" />
-        <ProgressCircular.ValueText />
+        <ProgressCircularRing aria-label="Preparing report" />
+        <ProgressCircularValueText />
       </div>
     </ProgressCircular>
   );

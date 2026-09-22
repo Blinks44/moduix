@@ -6,7 +6,7 @@ import {
 } from '@ark-ui/solid/collection';
 import { createSignal, For } from 'solid-js';
 import type { Meta, StoryObj } from 'storybook-solidjs-vite';
-import { Listbox, useListbox, useListboxContext } from '@/components/listbox/Listbox';
+import { Listbox, ListboxClearTrigger, ListboxContent, ListboxEmpty, ListboxFilter, ListboxInput, ListboxItem, ListboxItemContext, ListboxItemGroup, ListboxItemGroupLabel, ListboxItemIndicator, ListboxItemText, ListboxItemTextContent, ListboxItemTextLabel, ListboxLabel, ListboxRootProvider, ListboxValueText, useListbox, useListboxContext } from '@/components/listbox/Listbox';
 import styles from './Listbox.stories.module.css';
 
 interface OptionItem {
@@ -118,10 +118,10 @@ function OptionItems(props: { collection: ListCollection<OptionItem> }) {
   return (
     <For each={props.collection.items}>
       {(item) => (
-        <Listbox.Item item={item}>
-          <Listbox.ItemText>{item.label}</Listbox.ItemText>
-          <Listbox.ItemIndicator />
-        </Listbox.Item>
+        <ListboxItem item={item}>
+          <ListboxItemText>{item.label}</ListboxItemText>
+          <ListboxItemIndicator />
+        </ListboxItem>
       )}
     </For>
   );
@@ -143,10 +143,10 @@ type Story = StoryObj<Meta<typeof Listbox>>;
 export const Basic: Story = {
   render: () => (
     <Listbox collection={countries}>
-      <Listbox.Label>Select country</Listbox.Label>
-      <Listbox.Content>
+      <ListboxLabel>Select country</ListboxLabel>
+      <ListboxContent>
         <OptionItems collection={countries} />
-      </Listbox.Content>
+      </ListboxContent>
     </Listbox>
   ),
 };
@@ -162,10 +162,10 @@ export const Controlled: Story = {
           value={value()}
           onValueChange={(details) => setValue(details.value)}
         >
-          <Listbox.Label>Select size</Listbox.Label>
-          <Listbox.Content>
+          <ListboxLabel>Select size</ListboxLabel>
+          <ListboxContent>
             <OptionItems collection={sizes} />
-          </Listbox.Content>
+          </ListboxContent>
         </Listbox>
         <span class={styles.state}>Selected: {value()[0] ?? 'none'}</span>
       </div>
@@ -182,12 +182,12 @@ export const RootProvider: Story = {
         <button class={styles.button} type="button" onClick={() => listbox().setValue(['jp'])}>
           Set to Japan
         </button>
-        <Listbox.RootProvider value={listbox}>
-          <Listbox.Label>Select country</Listbox.Label>
-          <Listbox.Content>
+        <ListboxRootProvider value={listbox}>
+          <ListboxLabel>Select country</ListboxLabel>
+          <ListboxContent>
             <OptionItems collection={countries} />
-          </Listbox.Content>
-        </Listbox.RootProvider>
+          </ListboxContent>
+        </ListboxRootProvider>
       </div>
     );
   },
@@ -196,10 +196,10 @@ export const RootProvider: Story = {
 export const DisabledItem: Story = {
   render: () => (
     <Listbox collection={plans}>
-      <Listbox.Label>Select plan</Listbox.Label>
-      <Listbox.Content>
+      <ListboxLabel>Select plan</ListboxLabel>
+      <ListboxContent>
         <OptionItems collection={plans} />
-      </Listbox.Content>
+      </ListboxContent>
     </Listbox>
   ),
 };
@@ -207,11 +207,11 @@ export const DisabledItem: Story = {
 export const Multiple: Story = {
   render: () => (
     <Listbox collection={days} selectionMode="multiple" defaultValue={['mon', 'wed', 'fri']}>
-      <Listbox.Label>Select days</Listbox.Label>
-      <Listbox.Content>
+      <ListboxLabel>Select days</ListboxLabel>
+      <ListboxContent>
         <OptionItems collection={days} />
-      </Listbox.Content>
-      <Listbox.ValueText />
+      </ListboxContent>
+      <ListboxValueText />
     </Listbox>
   ),
 };
@@ -219,10 +219,10 @@ export const Multiple: Story = {
 export const Extended: Story = {
   render: () => (
     <Listbox collection={days} selectionMode="extended">
-      <Listbox.Label>Hold Cmd or Ctrl to select multiple</Listbox.Label>
-      <Listbox.Content>
+      <ListboxLabel>Hold Cmd or Ctrl to select multiple</ListboxLabel>
+      <ListboxContent>
         <OptionItems collection={days} />
-      </Listbox.Content>
+      </ListboxContent>
     </Listbox>
   ),
 };
@@ -230,20 +230,20 @@ export const Extended: Story = {
 export const Grouped: Story = {
   render: () => (
     <Listbox collection={regions}>
-      <Listbox.Label>Select region</Listbox.Label>
-      <Listbox.Content>
+      <ListboxLabel>Select region</ListboxLabel>
+      <ListboxContent>
         {regions.group().map(([region, items]) => (
-          <Listbox.ItemGroup id={region}>
-            <Listbox.ItemGroupLabel>{region}</Listbox.ItemGroupLabel>
+          <ListboxItemGroup id={region}>
+            <ListboxItemGroupLabel>{region}</ListboxItemGroupLabel>
             {items.map((item) => (
-              <Listbox.Item item={item}>
-                <Listbox.ItemText>{item.label}</Listbox.ItemText>
-                <Listbox.ItemIndicator />
-              </Listbox.Item>
+              <ListboxItem item={item}>
+                <ListboxItemText>{item.label}</ListboxItemText>
+                <ListboxItemIndicator />
+              </ListboxItem>
             ))}
-          </Listbox.ItemGroup>
+          </ListboxItemGroup>
         ))}
-      </Listbox.Content>
+      </ListboxContent>
     </Listbox>
   ),
 };
@@ -258,9 +258,9 @@ export const Filtering: Story = {
 
     return (
       <Listbox collection={collectionState.collection()} typeahead={false}>
-        <Listbox.Label>Select framework</Listbox.Label>
-        <Listbox.Filter>
-          <Listbox.Input
+        <ListboxLabel>Select framework</ListboxLabel>
+        <ListboxFilter>
+          <ListboxInput
             placeholder="Search frameworks..."
             value={filterText()}
             onInput={(event) => {
@@ -269,18 +269,18 @@ export const Filtering: Story = {
             }}
           />
           {filterText() ? (
-            <Listbox.ClearTrigger
+            <ListboxClearTrigger
               onClick={() => {
                 setFilterText('');
                 collectionState.filter('');
               }}
             />
           ) : null}
-        </Listbox.Filter>
-        <Listbox.Content>
+        </ListboxFilter>
+        <ListboxContent>
           <OptionItems collection={collectionState.collection()} />
-          <Listbox.Empty>No frameworks found</Listbox.Empty>
-        </Listbox.Content>
+          <ListboxEmpty>No frameworks found</ListboxEmpty>
+        </ListboxContent>
       </Listbox>
     );
   },
@@ -295,15 +295,15 @@ export const StandaloneInput: Story = {
 
     return (
       <Listbox collection={collectionState.collection()} typeahead={false}>
-        <Listbox.Label>Select framework</Listbox.Label>
-        <Listbox.Input
+        <ListboxLabel>Select framework</ListboxLabel>
+        <ListboxInput
           placeholder="Filter frameworks"
           onInput={(event) => collectionState.filter(event.currentTarget.value)}
         />
-        <Listbox.Content>
+        <ListboxContent>
           <OptionItems collection={collectionState.collection()} />
-          <Listbox.Empty>No frameworks found</Listbox.Empty>
-        </Listbox.Content>
+          <ListboxEmpty>No frameworks found</ListboxEmpty>
+        </ListboxContent>
       </Listbox>
     );
   },
@@ -312,20 +312,20 @@ export const StandaloneInput: Story = {
 export const Horizontal: Story = {
   render: () => (
     <Listbox collection={albums} orientation="horizontal" class={styles.horizontalRoot}>
-      <Listbox.Label>Select album</Listbox.Label>
-      <Listbox.Content>
+      <ListboxLabel>Select album</ListboxLabel>
+      <ListboxContent>
         {albums.items.map((item) => (
-          <Listbox.Item item={item}>
-            <Listbox.ItemText>
-              <Listbox.ItemTextContent class={styles.albumText}>
-                <Listbox.ItemTextLabel>{item.title}</Listbox.ItemTextLabel>
+          <ListboxItem item={item}>
+            <ListboxItemText>
+              <ListboxItemTextContent class={styles.albumText}>
+                <ListboxItemTextLabel>{item.title}</ListboxItemTextLabel>
                 <span class={styles.artist}>{item.artist}</span>
-              </Listbox.ItemTextContent>
-            </Listbox.ItemText>
-            <Listbox.ItemIndicator />
-          </Listbox.Item>
+              </ListboxItemTextContent>
+            </ListboxItemText>
+            <ListboxItemIndicator />
+          </ListboxItem>
         ))}
-      </Listbox.Content>
+      </ListboxContent>
     </Listbox>
   ),
 };
@@ -333,14 +333,14 @@ export const Horizontal: Story = {
 export const Grid: Story = {
   render: () => (
     <Listbox collection={colors}>
-      <Listbox.Label>Pick a color</Listbox.Label>
-      <Listbox.Content>
+      <ListboxLabel>Pick a color</ListboxLabel>
+      <ListboxContent>
         {colors.items.map((item) => (
-          <Listbox.Item item={item}>
-            <Listbox.ItemText>{item.label}</Listbox.ItemText>
-          </Listbox.Item>
+          <ListboxItem item={item}>
+            <ListboxItemText>{item.label}</ListboxItemText>
+          </ListboxItem>
         ))}
-      </Listbox.Content>
+      </ListboxContent>
     </Listbox>
   ),
 };
@@ -348,21 +348,21 @@ export const Grid: Story = {
 export const ItemContext: Story = {
   render: () => (
     <Listbox collection={countries} defaultValue={['ca']}>
-      <Listbox.Label>Styled country</Listbox.Label>
-      <Listbox.Content>
+      <ListboxLabel>Styled country</ListboxLabel>
+      <ListboxContent>
         {countries.items.map((item) => (
-          <Listbox.Item item={item}>
-            <Listbox.ItemContext>
+          <ListboxItem item={item}>
+            <ListboxItemContext>
               {(itemContext) => (
-                <Listbox.ItemText>
+                <ListboxItemText>
                   {itemContext().selected ? `${item.label} (selected)` : item.label}
-                </Listbox.ItemText>
+                </ListboxItemText>
               )}
-            </Listbox.ItemContext>
-            <Listbox.ItemIndicator />
-          </Listbox.Item>
+            </ListboxItemContext>
+            <ListboxItemIndicator />
+          </ListboxItem>
         ))}
-      </Listbox.Content>
+      </ListboxContent>
     </Listbox>
   ),
 };
@@ -387,10 +387,10 @@ export const SelectAll: Story = {
 
     return (
       <Listbox collection={days} selectionMode="multiple">
-        <Listbox.Label>Select days</Listbox.Label>
-        <Listbox.Content>
+        <ListboxLabel>Select days</ListboxLabel>
+        <ListboxContent>
           <OptionItems collection={days} />
-        </Listbox.Content>
+        </ListboxContent>
         <SelectAllTrigger />
       </Listbox>
     );
@@ -400,15 +400,15 @@ export const SelectAll: Story = {
 export const CustomStyling: Story = {
   render: () => (
     <Listbox collection={countries} defaultValue={['ca']} class={styles.customRoot}>
-      <Listbox.Label class={styles.customLabel}>Styled country</Listbox.Label>
-      <Listbox.Content class={styles.customContent}>
+      <ListboxLabel class={styles.customLabel}>Styled country</ListboxLabel>
+      <ListboxContent class={styles.customContent}>
         {countries.items.map((item) => (
-          <Listbox.Item item={item} class={styles.customItem}>
-            <Listbox.ItemText>{item.label}</Listbox.ItemText>
-            <Listbox.ItemIndicator />
-          </Listbox.Item>
+          <ListboxItem item={item} class={styles.customItem}>
+            <ListboxItemText>{item.label}</ListboxItemText>
+            <ListboxItemIndicator />
+          </ListboxItem>
         ))}
-      </Listbox.Content>
+      </ListboxContent>
     </Listbox>
   ),
 };

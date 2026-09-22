@@ -1,5 +1,5 @@
 import { Button } from '@moduix/react/button';
-import { QrCode } from '@moduix/react/qr-code';
+import { QrCode, QrCodeFrame, QrCodePattern } from '@moduix/react/qr-code';
 import { useState } from 'react';
 import { PreviewMeta } from '@/components/mdx/Components';
 import styles from '@/components/examples/qr-code/component-error-correction.module.css';
@@ -18,9 +18,9 @@ export default function ErrorCorrectionQrCodeDemo() {
           ecc: errorLevel,
         }}
       >
-        <QrCode.Frame>
-          <QrCode.Pattern />
-        </QrCode.Frame>
+        <QrCodeFrame>
+          <QrCodePattern />
+        </QrCodeFrame>
       </QrCode>
       <PreviewMeta>
         <output>Error correction: {errorLevel}</output>

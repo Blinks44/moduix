@@ -1,6 +1,6 @@
 import { createListCollection } from '@ark-ui/solid/collection';
 import { Button } from '@moduix/solid/button';
-import { Listbox, useListboxContext } from '@moduix/solid/listbox';
+import { Listbox, ListboxContent, ListboxItem, ListboxItemIndicator, ListboxItemText, ListboxLabel, useListboxContext } from '@moduix/solid/listbox';
 import { For } from 'solid-js';
 import styles from '@/components/examples/listbox/listbox-select-all.module.css';
 
@@ -34,17 +34,17 @@ function SelectAllMeta() {
 export default function SelectAllListboxDemo() {
   return (
     <Listbox collection={days} class={styles.root} selectionMode="multiple">
-      <Listbox.Label>Select days</Listbox.Label>
-      <Listbox.Content>
+      <ListboxLabel>Select days</ListboxLabel>
+      <ListboxContent>
         <For each={days.items}>
           {(item) => (
-            <Listbox.Item item={item}>
-              <Listbox.ItemText>{item.label}</Listbox.ItemText>
-              <Listbox.ItemIndicator />
-            </Listbox.Item>
+            <ListboxItem item={item}>
+              <ListboxItemText>{item.label}</ListboxItemText>
+              <ListboxItemIndicator />
+            </ListboxItem>
           )}
         </For>
-      </Listbox.Content>
+      </ListboxContent>
       <SelectAllMeta />
     </Listbox>
   );

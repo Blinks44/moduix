@@ -1,5 +1,11 @@
 import { Button } from '@moduix/solid/button';
-import { RatingGroup } from '@moduix/solid/rating-group';
+import {
+  RatingGroup,
+  RatingGroupControl,
+  RatingGroupHiddenInput,
+  RatingGroupItems,
+  RatingGroupLabel,
+} from '@moduix/solid/rating-group';
 import { createSignal } from 'solid-js';
 
 export default function FormRatingGroupDemo() {
@@ -14,11 +20,11 @@ export default function FormRatingGroupDemo() {
   return (
     <form onSubmit={handleSubmit}>
       <RatingGroup name="review" defaultValue={4} required>
-        <RatingGroup.Label>Review score</RatingGroup.Label>
-        <RatingGroup.Control>
-          <RatingGroup.Items />
-        </RatingGroup.Control>
-        <RatingGroup.HiddenInput />
+        <RatingGroupLabel>Review score</RatingGroupLabel>
+        <RatingGroupControl>
+          <RatingGroupItems />
+        </RatingGroupControl>
+        <RatingGroupHiddenInput />
       </RatingGroup>
       <output>Submitted: {submitted()}</output>
       <Button type="submit">Submit</Button>

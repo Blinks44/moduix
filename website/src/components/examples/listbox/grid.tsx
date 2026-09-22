@@ -1,5 +1,5 @@
 import { createGridCollection } from '@ark-ui/react/collection';
-import { Listbox } from '@moduix/react/listbox';
+import { Listbox, ListboxContent, ListboxItem, ListboxItemText, ListboxLabel } from '@moduix/react/listbox';
 import styles from '@/components/examples/listbox/listbox-grid.module.css';
 
 const colors = createGridCollection({
@@ -23,14 +23,14 @@ const colors = createGridCollection({
 export default function GridListboxDemo() {
   return (
     <Listbox collection={colors} className={styles.gridRoot}>
-      <Listbox.Label>Pick a color</Listbox.Label>
-      <Listbox.Content>
+      <ListboxLabel>Pick a color</ListboxLabel>
+      <ListboxContent>
         {colors.items.map((item) => (
-          <Listbox.Item key={item.value} item={item}>
-            <Listbox.ItemText>{item.label}</Listbox.ItemText>
-          </Listbox.Item>
+          <ListboxItem key={item.value} item={item}>
+            <ListboxItemText>{item.label}</ListboxItemText>
+          </ListboxItem>
         ))}
-      </Listbox.Content>
+      </ListboxContent>
     </Listbox>
   );
 }

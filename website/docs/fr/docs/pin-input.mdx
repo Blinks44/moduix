@@ -33,15 +33,15 @@ import pinInputSolidRootProvider from '../../../snippets/pin-input/solid/root-pr
 Utilisez `PinInput` lorsqu’un code court de longueur fixe doit être saisi caractère par caractère dans des cases séparées.
 
 - Choisissez **`PinInput`** pour les codes à usage unique, les codes PIN, les codes de récupération et les codes d’invitation.
-- Choisissez **`Input`** lorsqu’un seul champ de texte suffit.
+- Choisissez **`PinInputInput`** lorsqu’un seul champ de texte suffit.
 - Choisissez **`PasswordInput`** lorsque la valeur est une chaîne secrète unique avec un bouton d’affichage.
 
 ## Exemple de base
 
 Consultez le [Quick Start](/docs/quick-start) pour configurer le paquet et choisir le mode de style.
 
-Utilisez `PinInput` comme racine et définissez explicitement `count`. Ajoutez `Label` pour donner un nom accessible
-au groupe, placez `Inputs` dans `Control` et composez `HiddenInput` lorsque la valeur doit participer au comportement
+Utilisez `PinInput` comme racine et définissez explicitement `count`. Ajoutez `PinInputLabel` pour donner un nom accessible
+au groupe, placez `PinInputInputs` dans `PinInputControl` et composez `PinInputHiddenInput` lorsque la valeur doit participer au comportement
 d’un formulaire natif.
 
 <ExampleFrame variant="component">
@@ -104,41 +104,41 @@ Consultez le [Démarrage rapide](/docs/quick-start) pour la configuration compl�
 ## Anatomie
 
 ```text
-PinInput / PinInput.Root
-├─ PinInput.Label
-├─ PinInput.Control
-│  ├─ PinInput.Input[index=0]
-│  ├─ PinInput.Input[index=1]
-│  └─ PinInput.Input[index=2]
-└─ PinInput.HiddenInput (explicite)
+PinInput
+├─ PinInputLabel
+├─ PinInputControl
+│  ├─ PinInputInput[index=0]
+│  ├─ PinInputInput[index=1]
+│  └─ PinInputInput[index=2]
+└─ PinInputHiddenInput (explicite)
 
-PinInput.RootProvider
+PinInputRootProvider
 └─ même arbre de parties relié à un store usePinInput()
 ```
 
 | Partie | Rôle |
 | --- | --- |
-| `PinInput` / `PinInput.Root` | Gère le nombre de cases, l’état de la valeur, la validation et les options du formulaire. |
-| `PinInput.HiddenInput` | Contrôle de formulaire natif Ark à composer explicitement. |
-| `PinInput.RootProvider` | Relie les parties à l’état créé avec `usePinInput()`. |
-| `PinInput.Context` | Expose l’état de la racine aux descendants via une render prop. |
-| `PinInput.Label` | Donne un libellé au groupe de saisie du code PIN ou de vérification. |
-| `PinInput.Control` | Conteneur des cases visibles indexées. |
-| `PinInput.Input` | Une case visible pour un caractère. Utilisez un `index` commençant à zéro. |
-| `PinInput.Inputs` | Génère une partie `Input` indexée pour chaque élément du contexte Ark. |
-| `PinInput.Separator` | Aide décorative de moduix pour les groupes, et non une partie du primitif Ark. |
-| `usePinInput` | Crée l’état à utiliser avec `PinInput.RootProvider`. |
+| `PinInput` | Gère le nombre de cases, l’état de la valeur, la validation et les options du formulaire. |
+| `PinInputHiddenInput` | Contrôle de formulaire natif Ark à composer explicitement. |
+| `PinInputRootProvider` | Relie les parties à l’état créé avec `usePinInput()`. |
+| `PinInputContext` | Expose l’état de la racine aux descendants via une render prop. |
+| `PinInputLabel` | Donne un libellé au groupe de saisie du code PIN ou de vérification. |
+| `PinInputControl` | Conteneur des cases visibles indexées. |
+| `PinInputInput` | Une case visible pour un caractère. Utilisez un `index` commençant à zéro. |
+| `PinInputInputs` | Génère une partie `PinInputInput` indexée pour chaque élément du contexte Ark. |
+| `PinInputSeparator` | Aide décorative de moduix pour les groupes, et non une partie du primitif Ark. |
+| `usePinInput` | Crée l’état à utiliser avec `PinInputRootProvider`. |
 | `usePinInputContext` | Lit l’état courant de Pin Input dans l’arbre du composant. |
 
 ## Composition
 
-Composez explicitement `PinInput.HiddenInput` dans `PinInput` ou `PinInput.RootProvider` lorsque la valeur doit
+Composez explicitement `PinInputHiddenInput` dans `PinInput` ou `PinInputRootProvider` lorsque la valeur doit
 être envoyée par un formulaire natif et être réinitialisée avec lui. Définissez `name` sur la racine et utilisez
 `form` lorsque le formulaire se trouve en dehors de l’arbre du composant.
 
-`PinInput.Inputs` génère une case indexée pour chaque élément du contexte Ark. Utilisez des parties `Input` explicites
-avec des index continus commençant à zéro, ainsi que `Separator` lorsque le code doit être divisé en groupes. Les
-valeurs sont des tableaux de chaînes. Utilisez `RootProvider` avec `usePinInput` lorsque l’état ou les méthodes
+`PinInputInputs` génère une case indexée pour chaque élément du contexte Ark. Utilisez des parties `PinInputInput` explicites
+avec des index continus commençant à zéro, ainsi que `PinInputSeparator` lorsque le code doit être divisé en groupes. Les
+valeurs sont des tableaux de chaînes. Utilisez `PinInputRootProvider` avec `usePinInput` lorsque l’état ou les méthodes
 impératives doivent être gérés en dehors de l’arbre rendu ; React reçoit un objet store, tandis que Solid reçoit un
 accessor réactif.
 
@@ -250,7 +250,7 @@ Placez `PinInput` dans `Field` lorsque le libellé, le texte d’aide, le messag
 
 ### Disposition groupée
 
-Utilisez des parties `Input` indexées explicites et `Separator` lorsqu’un séparateur doit diviser le code en groupes.
+Utilisez des parties `PinInputInput` indexées explicites et `PinInputSeparator` lorsqu’un séparateur doit diviser le code en groupes.
 Gardez des index continus dans toute la composition.
 
 <ExampleFrame variant="component">
@@ -376,8 +376,8 @@ Passez `placeholder` pour afficher un caractère dans chaque case vide. Par déf
 
 ### Personnalisation avancée
 
-Utilisez `usePinInput` avec `RootProvider` lorsque l’état et les méthodes impératives doivent être gérés en dehors
-de l’arbre rendu. Cet exemple remplace `Inputs` par des parties `Input` indexées explicites.
+Utilisez `usePinInput` avec `PinInputRootProvider` lorsque l’état et les méthodes impératives doivent être gérés en dehors
+de l’arbre rendu. Cet exemple remplace `PinInputInputs` par des parties `PinInputInput` indexées explicites.
 
 <ExampleFrame variant="component">
   <PinInputRootProvider />
@@ -414,9 +414,9 @@ de l’arbre rendu. Cet exemple remplace `Inputs` par des parties `Input` index�
 ## Accessibilité
 
 Ark gère le transfert du focus, la répartition du texte collé, la saisie au clavier, les données du formulaire et
-le remplissage automatique des codes à usage unique. Ajoutez `Label` pour donner un nom accessible au groupe.
+le remplissage automatique des codes à usage unique. Ajoutez `PinInputLabel` pour donner un nom accessible au groupe.
 
-`PinInput.Separator` est décoratif par défaut et rend `aria-hidden` ainsi que `role="presentation"`. Placez tout
+`PinInputSeparator` est décoratif par défaut et rend `aria-hidden` ainsi que `role="presentation"`. Placez tout
 texte porteur de sens en dehors du séparateur.
 
 ## Styles
@@ -440,11 +440,11 @@ utilitaires natives et les remplacements de l’utilisateur via `className` ou `
 
 ### Points d’accroche CSS
 
-- La racine et `RootProvider` exposent `data-slot="pin-input-root"` et `data-slot="pin-input-root-provider"`.
-- `Label`, `Control` et `Input` exposent `data-slot="pin-input-label"`, `data-slot="pin-input-control"` et
+- La racine et `PinInputRootProvider` exposent `data-slot="pin-input-root"` et `data-slot="pin-input-root-provider"`.
+- `PinInputLabel`, `PinInputControl` et `PinInputInput` exposent `data-slot="pin-input-label"`, `data-slot="pin-input-control"` et
   `data-slot="pin-input-input"`.
 - Les parties Ark utilisent `data-scope="pin-input"` et `data-part="root" | "label" | "control" | "input"`.
 - Les styles de l’état racine utilisent `data-disabled`, `data-invalid`, `data-complete` et `data-readonly`.
 - Les styles d’état des cases utilisent `data-disabled`, `data-invalid`, `data-complete`, `data-filled` et
   `data-index`.
-- `PinInput.Separator` expose `data-slot="pin-input-separator"` et est décoratif par défaut.
+- `PinInputSeparator` expose `data-slot="pin-input-separator"` et est décoratif par défaut.

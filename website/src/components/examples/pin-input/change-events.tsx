@@ -1,4 +1,4 @@
-import { PinInput } from '@moduix/react/pin-input';
+import { PinInput, PinInputLabel, PinInputControl, PinInputInputs } from '@moduix/react/pin-input';
 import { useState } from 'react';
 import { PreviewMeta } from '@/components/mdx/Components';
 import styles from '@/components/examples/pin-input/pin-input-change-events.module.css';
@@ -15,10 +15,10 @@ export default function ChangeEventsPinInput() {
           setValue(details.value);
         }}
       >
-        <PinInput.Label>Invite code</PinInput.Label>
-        <PinInput.Control>
-          <PinInput.Inputs />
-        </PinInput.Control>
+        <PinInputLabel>Invite code</PinInputLabel>
+        <PinInputControl>
+          <PinInputInputs />
+        </PinInputControl>
       </PinInput>
       <PreviewMeta>
         <output>Current value: {value.join('') || 'empty'}</output>

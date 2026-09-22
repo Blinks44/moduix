@@ -1,4 +1,8 @@
-import { RadioGroup } from '@moduix/react/radio-group';
+import {
+  RadioGroup,
+  RadioGroupLabel,
+  RadioGroupOption,
+} from '@moduix/react/radio-group';
 import { useState } from 'react';
 import { PreviewMeta } from '@/components/mdx/Components';
 import styles from '@/components/examples/radio-group/radio-group-controlled.module.css';
@@ -10,11 +14,11 @@ export default function ControlledRadioGroupDemo() {
   return (
     <div className={styles.stack}>
       <RadioGroup value={value} onValueChange={(details) => setValue(details.value)}>
-        <RadioGroup.Label>Framework</RadioGroup.Label>
+        <RadioGroupLabel>Framework</RadioGroupLabel>
         {frameworks.map((framework) => (
-          <RadioGroup.Option key={framework} value={framework}>
+          <RadioGroupOption key={framework} value={framework}>
             {framework}
-          </RadioGroup.Option>
+          </RadioGroupOption>
         ))}
       </RadioGroup>
       <PreviewMeta>

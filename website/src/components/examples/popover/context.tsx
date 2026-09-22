@@ -1,5 +1,16 @@
 import { Button } from '@moduix/react/button';
-import { Popover, usePopoverContext } from '@moduix/react/popover';
+import {
+  Popover,
+  PopoverCloseTrigger,
+  PopoverContent,
+  PopoverDescription,
+  PopoverFooter,
+  PopoverHeader,
+  PopoverPositioner,
+  PopoverTitle,
+  PopoverTrigger,
+  usePopoverContext,
+} from '@moduix/react/popover';
 import { PreviewMeta } from '@/components/mdx/Components';
 
 function PopoverState() {
@@ -15,22 +26,22 @@ export default function PopoverContextDemo() {
   return (
     <Popover positioning={{ gutter: 8 }}>
       <PopoverState />
-      <Popover.Trigger asChild>
+      <PopoverTrigger asChild>
         <Button>Open context example</Button>
-      </Popover.Trigger>
-      <Popover.Positioner>
-        <Popover.Content>
-          <Popover.Header>
-            <Popover.Title>Context state</Popover.Title>
-            <Popover.Description>
+      </PopoverTrigger>
+      <PopoverPositioner>
+        <PopoverContent>
+          <PopoverHeader>
+            <PopoverTitle>Context state</PopoverTitle>
+            <PopoverDescription>
               Read state from a descendant without passing props through the popup tree.
-            </Popover.Description>
-          </Popover.Header>
-          <Popover.Footer>
-            <Popover.CloseTrigger>Close</Popover.CloseTrigger>
-          </Popover.Footer>
-        </Popover.Content>
-      </Popover.Positioner>
+            </PopoverDescription>
+          </PopoverHeader>
+          <PopoverFooter>
+            <PopoverCloseTrigger>Close</PopoverCloseTrigger>
+          </PopoverFooter>
+        </PopoverContent>
+      </PopoverPositioner>
     </Popover>
   );
 }

@@ -1,4 +1,8 @@
-import { RadioGroup } from '@moduix/solid/radio-group';
+import {
+  RadioGroup,
+  RadioGroupIndicator,
+  RadioGroupOption,
+} from '@moduix/solid/radio-group';
 import styles from '@/components/examples/radio-group/radio-group-indicator.module.css';
 
 const frameworks = ['React', 'Solid', 'Vue'];
@@ -8,9 +12,9 @@ export default function RadioGroupIndicatorDemo() {
     <div class={styles.stack}>
       <div>Framework</div>
       <RadioGroup aria-label="Framework" defaultValue="React" class={styles.root}>
-        <RadioGroup.Indicator class={styles.indicator} />
+        <RadioGroupIndicator class={styles.indicator} />
         {frameworks.map((framework) => (
-          <RadioGroup.Option value={framework}>{framework}</RadioGroup.Option>
+          <RadioGroupOption value={framework}>{framework}</RadioGroupOption>
         ))}
       </RadioGroup>
     </div>

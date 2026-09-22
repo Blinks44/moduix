@@ -1,7 +1,17 @@
 import { expect, test } from '@rstest/core';
 import { fireEvent, render, screen } from '@testing-library/react';
 import { createRef, useState } from 'react';
-import { QrCode, useQrCode, useQrCodeContext } from '../src';
+import {
+  QrCode,
+  QrCodeContext,
+  QrCodeDownloadTrigger,
+  QrCodeFrame,
+  QrCodeOverlay,
+  QrCodePattern,
+  QrCodeRootProvider,
+  useQrCode,
+  useQrCodeContext,
+} from '../src';
 
 function QrCodeValue() {
   const qrCode = useQrCodeContext();
@@ -16,13 +26,13 @@ test('renders Ark anatomy with stable hooks, accessible SVG output, and forwarde
 
   render(
     <QrCode ref={rootRef} defaultValue="https://moduix.dev/docs/qr-code">
-      <QrCode.Frame ref={frameRef} role="img" aria-label="QR code for moduix documentation">
-        <QrCode.Pattern ref={patternRef} />
-      </QrCode.Frame>
-      <QrCode.Overlay>MX</QrCode.Overlay>
-      <QrCode.DownloadTrigger fileName="moduix-qr-code.png" mimeType="image/png">
+      <QrCodeFrame ref={frameRef} role="img" aria-label="QR code for moduix documentation">
+        <QrCodePattern ref={patternRef} />
+      </QrCodeFrame>
+      <QrCodeOverlay>MX</QrCodeOverlay>
+      <QrCodeDownloadTrigger fileName="moduix-qr-code.png" mimeType="image/png">
         Download PNG
-      </QrCode.DownloadTrigger>
+      </QrCodeDownloadTrigger>
     </QrCode>,
   );
 
@@ -30,7 +40,6 @@ test('renders Ark anatomy with stable hooks, accessible SVG output, and forwarde
   const frame = screen.getByRole('img', { name: 'QR code for moduix documentation' });
   const trigger = screen.getByRole('button', { name: 'Download PNG' });
 
-  expect(QrCode.Root).toBe(QrCode);
   expect(root).toHaveAttribute('data-scope', 'qr-code');
   expect(root).toHaveAttribute('data-part', 'root');
   expect(root).toHaveAttribute('data-slot', 'qr-code-root');
@@ -51,9 +60,9 @@ test('renders externally controlled values', () => {
     return (
       <>
         <QrCode value={value}>
-          <QrCode.Frame>
-            <QrCode.Pattern />
-          </QrCode.Frame>
+          <QrCodeFrame>
+            <QrCodePattern />
+          </QrCodeFrame>
         </QrCode>
         <button type="button" onClick={() => setValue('https://moduix.dev')}>
           Update code
@@ -78,13 +87,13 @@ test('keeps RootProvider, Context, and useQrCodeContext on the moduix surface', 
     const qrCode = useQrCode({ defaultValue: 'https://moduix.dev/docs/qr-code' });
 
     return (
-      <QrCode.RootProvider value={qrCode} data-testid="qr-code-provider">
-        <QrCode.Frame>
-          <QrCode.Pattern />
-        </QrCode.Frame>
+      <QrCodeRootProvider value={qrCode} data-testid="qr-code-provider">
+        <QrCodeFrame>
+          <QrCodePattern />
+        </QrCodeFrame>
         <QrCodeValue />
-        <QrCode.Context>{(context) => <output>Context: {context.value}</output>}</QrCode.Context>
-      </QrCode.RootProvider>
+        <QrCodeContext>{(context) => <output>Context: {context.value}</output>}</QrCodeContext>
+      </QrCodeRootProvider>
     );
   }
 
@@ -101,12 +110,12 @@ test('keeps RootProvider, Context, and useQrCodeContext on the moduix surface', 
 test('keeps the disabled download trigger unavailable', () => {
   render(
     <QrCode defaultValue="https://moduix.dev/docs/qr-code">
-      <QrCode.Frame>
-        <QrCode.Pattern />
-      </QrCode.Frame>
-      <QrCode.DownloadTrigger disabled fileName="moduix-qr-code.png" mimeType="image/png">
+      <QrCodeFrame>
+        <QrCodePattern />
+      </QrCodeFrame>
+      <QrCodeDownloadTrigger disabled fileName="moduix-qr-code.png" mimeType="image/png">
         Download PNG
-      </QrCode.DownloadTrigger>
+      </QrCodeDownloadTrigger>
     </QrCode>,
   );
 
@@ -116,12 +125,12 @@ test('keeps the disabled download trigger unavailable', () => {
 test('preserves semantic download trigger composition with asChild', () => {
   render(
     <QrCode defaultValue="https://moduix.dev/docs/qr-code">
-      <QrCode.Frame>
-        <QrCode.Pattern />
-      </QrCode.Frame>
-      <QrCode.DownloadTrigger asChild fileName="moduix-qr-code.svg" mimeType="image/svg+xml">
+      <QrCodeFrame>
+        <QrCodePattern />
+      </QrCodeFrame>
+      <QrCodeDownloadTrigger asChild fileName="moduix-qr-code.svg" mimeType="image/svg+xml">
         <a href="#download">Download SVG</a>
-      </QrCode.DownloadTrigger>
+      </QrCodeDownloadTrigger>
     </QrCode>,
   );
 
@@ -134,11 +143,11 @@ test('preserves semantic download trigger composition with asChild', () => {
 test('applies native utilities to the component-owned visual parts', () => {
   const { container } = render(
     <QrCode>
-      <QrCode.Frame>
-        <QrCode.Pattern />
-      </QrCode.Frame>
-      <QrCode.Overlay />
-      <QrCode.DownloadTrigger fileName="moduix-qr-code.png" mimeType="image/png" />
+      <QrCodeFrame>
+        <QrCodePattern />
+      </QrCodeFrame>
+      <QrCodeOverlay />
+      <QrCodeDownloadTrigger fileName="moduix-qr-code.png" mimeType="image/png" />
     </QrCode>,
   );
 
@@ -186,11 +195,11 @@ test('applies native utilities to the component-owned visual parts', () => {
 test('lets consumer Tailwind classes override conflicting defaults', () => {
   const { container } = render(
     <QrCode className="w-48 gap-4 text-primary">
-      <QrCode.Frame className="w-1/2">
-        <QrCode.Pattern />
-      </QrCode.Frame>
-      <QrCode.Overlay className="size-control-xl bg-muted p-2" />
-      <QrCode.DownloadTrigger
+      <QrCodeFrame className="w-1/2">
+        <QrCodePattern />
+      </QrCodeFrame>
+      <QrCodeOverlay className="size-control-xl bg-muted p-2" />
+      <QrCodeDownloadTrigger
         className="rounded-lg bg-muted px-2"
         fileName="moduix-qr-code.png"
         mimeType="image/png"

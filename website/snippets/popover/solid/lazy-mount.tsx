@@ -1,23 +1,33 @@
 import { Button } from '@moduix/solid/button';
-import { Popover } from '@moduix/solid/popover';
+import {
+  Popover,
+  PopoverCloseTrigger,
+  PopoverContent,
+  PopoverDescription,
+  PopoverFooter,
+  PopoverHeader,
+  PopoverPositioner,
+  PopoverTitle,
+  PopoverTrigger,
+} from '@moduix/solid/popover';
 
 export default function LazyMountPopoverDemo() {
   return (
     <Popover lazyMount unmountOnExit positioning={{ gutter: 8 }}>
-      <Popover.Trigger asChild={(props) => <Button {...props()}>Open lazy popover</Button>} />
-      <Popover.Positioner>
-        <Popover.Content>
-          <Popover.Header>
-            <Popover.Title>Lazy mounted</Popover.Title>
-            <Popover.Description>
+      <PopoverTrigger asChild={(props) => <Button {...props()}>Open lazy popover</Button>} />
+      <PopoverPositioner>
+        <PopoverContent>
+          <PopoverHeader>
+            <PopoverTitle>Lazy mounted</PopoverTitle>
+            <PopoverDescription>
               This content mounts on open and unmounts after exit.
-            </Popover.Description>
-          </Popover.Header>
-          <Popover.Footer>
-            <Popover.CloseTrigger>Close</Popover.CloseTrigger>
-          </Popover.Footer>
-        </Popover.Content>
-      </Popover.Positioner>
+            </PopoverDescription>
+          </PopoverHeader>
+          <PopoverFooter>
+            <PopoverCloseTrigger>Close</PopoverCloseTrigger>
+          </PopoverFooter>
+        </PopoverContent>
+      </PopoverPositioner>
     </Popover>
   );
 }

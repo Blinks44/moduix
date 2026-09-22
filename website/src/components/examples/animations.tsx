@@ -1,5 +1,10 @@
 import { Button } from '@moduix/react/button';
-import { Popover } from '@moduix/react/popover';
+import {
+  Popover,
+  PopoverContent,
+  PopoverPositioner,
+  PopoverTrigger,
+} from '@moduix/react/popover';
 import styles from './animations.module.css';
 
 type RecipeCardProps = {
@@ -17,17 +22,17 @@ function RecipeCard({ title, description, popupClassName }: RecipeCardProps) {
       </div>
 
       <Popover positioning={{ gutter: 10 }}>
-        <Popover.Trigger asChild>
+        <PopoverTrigger asChild>
           <Button variant="outline">Preview</Button>
-        </Popover.Trigger>
-        <Popover.Positioner>
-          <Popover.Content className={`${styles.popup} ${popupClassName}`}>
+        </PopoverTrigger>
+        <PopoverPositioner>
+          <PopoverContent className={`${styles.popup} ${popupClassName}`}>
             <div className={styles.popupHeader}>
               <p className={styles.label}>{title}</p>
               <p className={styles.caption}>Same structure, different motion recipe.</p>
             </div>
-          </Popover.Content>
-        </Popover.Positioner>
+          </PopoverContent>
+        </PopoverPositioner>
       </Popover>
     </div>
   );

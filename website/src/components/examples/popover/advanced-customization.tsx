@@ -1,5 +1,13 @@
 import { Button } from '@moduix/react/button';
-import { Popover } from '@moduix/react/popover';
+import {
+  Popover,
+  PopoverCloseIcon,
+  PopoverContent,
+  PopoverDescription,
+  PopoverPositioner,
+  PopoverTitle,
+  PopoverTrigger,
+} from '@moduix/react/popover';
 import styles from '@/components/examples/popover/popover-advanced-customization.module.css';
 
 export default function AdvancedCustomizationPopoverDemo() {
@@ -9,21 +17,21 @@ export default function AdvancedCustomizationPopoverDemo() {
         gutter: 8,
       }}
     >
-      <Popover.Trigger asChild>
+      <PopoverTrigger asChild>
         <Button>Open custom popover</Button>
-      </Popover.Trigger>
-      <Popover.Positioner>
-        <Popover.Content>
+      </PopoverTrigger>
+      <PopoverPositioner>
+        <PopoverContent>
           <div className={styles.header}>
-            <Popover.Title>Custom layout</Popover.Title>
-            <Popover.CloseIcon />
+            <PopoverTitle>Custom layout</PopoverTitle>
+            <PopoverCloseIcon />
           </div>
-          <Popover.Description>
+          <PopoverDescription>
             Compose Ark parts directly and replace the standard arrow when the layout calls for a
             clean anchored panel.
-          </Popover.Description>
-        </Popover.Content>
-      </Popover.Positioner>
+          </PopoverDescription>
+        </PopoverContent>
+      </PopoverPositioner>
     </Popover>
   );
 }

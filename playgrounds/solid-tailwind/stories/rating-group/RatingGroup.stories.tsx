@@ -3,7 +3,18 @@ import type { JSX } from 'solid-js';
 import type { Meta, StoryObj } from 'storybook-solidjs-vite';
 import { Button } from '@/components/button';
 import { Field, FieldHelperText } from '@/components/field';
-import { RatingGroup, useRatingGroup } from '@/components/rating-group';
+import {
+  RatingGroup,
+  RatingGroupContext,
+  RatingGroupControl,
+  RatingGroupHiddenInput,
+  RatingGroupItem,
+  RatingGroupItemIndicator,
+  RatingGroupItems,
+  RatingGroupLabel,
+  RatingGroupRootProvider,
+  useRatingGroup,
+} from '@/components/rating-group';
 
 type IconProps = JSX.SvgSVGAttributes<SVGSVGElement>;
 const accessibilityProps = { 'aria-hidden': 'true', focusable: 'false' } as const;
@@ -49,16 +60,16 @@ function HeartIcon(props: IconProps) {
 
 function RatingItems() {
   return (
-    <RatingGroup.Control>
-      <RatingGroup.Items />
-    </RatingGroup.Control>
+    <RatingGroupControl>
+      <RatingGroupItems />
+    </RatingGroupControl>
   );
 }
 
 export const Basic: Story = {
   render: () => (
     <RatingGroup defaultValue={4}>
-      <RatingGroup.Label>Overall satisfaction</RatingGroup.Label>
+      <RatingGroupLabel>Overall satisfaction</RatingGroupLabel>
       <RatingItems />
     </RatingGroup>
   ),
@@ -71,8 +82,8 @@ export const Controlled: Story = {
     return (
       <div class={stackClass}>
         <RatingGroup value={value()} onValueChange={(details) => setValue(details.value)}>
-          <RatingGroup.HiddenInput />
-          <RatingGroup.Label>Support quality</RatingGroup.Label>
+          <RatingGroupHiddenInput />
+          <RatingGroupLabel>Support quality</RatingGroupLabel>
           <RatingItems />
         </RatingGroup>
         <span class={hintClass}>Current value: {value()}</span>
@@ -84,7 +95,7 @@ export const Controlled: Story = {
 export const HalfRating: Story = {
   render: () => (
     <RatingGroup allowHalf defaultValue={3.5}>
-      <RatingGroup.Label>Average delivery score</RatingGroup.Label>
+      <RatingGroupLabel>Average delivery score</RatingGroupLabel>
       <RatingItems />
     </RatingGroup>
   ),
@@ -97,22 +108,22 @@ export const RootProvider: Story = {
     return (
       <div class={stackClass}>
         <output class={hintClass}>Current value: {ratingGroup().value}</output>
-        <RatingGroup.RootProvider value={ratingGroup}>
-          <RatingGroup.Label>Product quality</RatingGroup.Label>
-          <RatingGroup.Control>
-            <RatingGroup.Context>
+        <RatingGroupRootProvider value={ratingGroup}>
+          <RatingGroupLabel>Product quality</RatingGroupLabel>
+          <RatingGroupControl>
+            <RatingGroupContext>
               {(context) => (
                 <For each={context().items}>
                   {(item) => (
-                    <RatingGroup.Item index={item}>
-                      <RatingGroup.ItemIndicator />
-                    </RatingGroup.Item>
+                    <RatingGroupItem index={item}>
+                      <RatingGroupItemIndicator />
+                    </RatingGroupItem>
                   )}
                 </For>
               )}
-            </RatingGroup.Context>
-          </RatingGroup.Control>
-        </RatingGroup.RootProvider>
+            </RatingGroupContext>
+          </RatingGroupControl>
+        </RatingGroupRootProvider>
       </div>
     );
   },
@@ -122,8 +133,8 @@ export const WithField: Story = {
   render: () => (
     <Field class={fieldClass}>
       <RatingGroup defaultValue={4} required>
-        <RatingGroup.HiddenInput />
-        <RatingGroup.Label>Experience score</RatingGroup.Label>
+        <RatingGroupHiddenInput />
+        <RatingGroupLabel>Experience score</RatingGroupLabel>
         <RatingItems />
       </RatingGroup>
       <FieldHelperText>Required score from 1 to 5.</FieldHelperText>
@@ -157,11 +168,11 @@ export const DisabledAndReadOnly: Story = {
   render: () => (
     <div class={stackClass}>
       <RatingGroup defaultValue={4} disabled>
-        <RatingGroup.Label>Disabled rating</RatingGroup.Label>
+        <RatingGroupLabel>Disabled rating</RatingGroupLabel>
         <RatingItems />
       </RatingGroup>
       <RatingGroup defaultValue={2} readOnly>
-        <RatingGroup.Label>Read-only rating</RatingGroup.Label>
+        <RatingGroupLabel>Read-only rating</RatingGroupLabel>
         <RatingItems />
       </RatingGroup>
     </div>
@@ -172,9 +183,9 @@ export const FormUsage: Story = {
   render: () => (
     <form class={stackClass} onSubmit={(event) => event.preventDefault()}>
       <RatingGroup name="review" defaultValue={4} required>
-        <RatingGroup.Label>Review score</RatingGroup.Label>
+        <RatingGroupLabel>Review score</RatingGroupLabel>
         <RatingItems />
-        <RatingGroup.HiddenInput />
+        <RatingGroupHiddenInput />
       </RatingGroup>
       <Button type="submit">Submit</Button>
     </form>
@@ -184,14 +195,14 @@ export const FormUsage: Story = {
 export const CustomStyles: Story = {
   render: () => (
     <RatingGroup class="gap-2" defaultValue={5}>
-      <RatingGroup.Label>Styled rating</RatingGroup.Label>
-      <RatingGroup.Control class="gap-2">
-        <RatingGroup.Items>
-          <RatingGroup.ItemIndicator class={customIndicatorClass}>
+      <RatingGroupLabel>Styled rating</RatingGroupLabel>
+      <RatingGroupControl class="gap-2">
+        <RatingGroupItems>
+          <RatingGroupItemIndicator class={customIndicatorClass}>
             <HeartIcon />
-          </RatingGroup.ItemIndicator>
-        </RatingGroup.Items>
-      </RatingGroup.Control>
+          </RatingGroupItemIndicator>
+        </RatingGroupItems>
+      </RatingGroupControl>
     </RatingGroup>
   ),
 };
@@ -199,14 +210,14 @@ export const CustomStyles: Story = {
 export const CustomIcon: Story = {
   render: () => (
     <RatingGroup defaultValue={3}>
-      <RatingGroup.Label>Checklist score</RatingGroup.Label>
-      <RatingGroup.Control>
-        <RatingGroup.Items>
-          <RatingGroup.ItemIndicator class={customIndicatorClass}>
+      <RatingGroupLabel>Checklist score</RatingGroupLabel>
+      <RatingGroupControl>
+        <RatingGroupItems>
+          <RatingGroupItemIndicator class={customIndicatorClass}>
             <HeartIcon />
-          </RatingGroup.ItemIndicator>
-        </RatingGroup.Items>
-      </RatingGroup.Control>
+          </RatingGroupItemIndicator>
+        </RatingGroupItems>
+      </RatingGroupControl>
     </RatingGroup>
   ),
 };
@@ -217,10 +228,10 @@ export const AsChild: Story = {
       asChild={(props) => <section class="rounded-md border border-border p-3" {...props()} />}
       defaultValue={4}
     >
-      <RatingGroup.Label>Semantic rating section</RatingGroup.Label>
-      <RatingGroup.Control>
-        <RatingGroup.Items />
-      </RatingGroup.Control>
+      <RatingGroupLabel>Semantic rating section</RatingGroupLabel>
+      <RatingGroupControl>
+        <RatingGroupItems />
+      </RatingGroupControl>
     </RatingGroup>
   ),
 };

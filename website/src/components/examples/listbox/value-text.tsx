@@ -1,5 +1,5 @@
 import { createListCollection } from '@ark-ui/react/collection';
-import { Listbox } from '@moduix/react/listbox';
+import { Listbox, ListboxContent, ListboxItem, ListboxItemIndicator, ListboxItemText, ListboxLabel, ListboxValueText } from '@moduix/react/listbox';
 import styles from '@/components/examples/listbox/listbox-value-text.module.css';
 
 const countries = createListCollection({
@@ -22,16 +22,16 @@ const countries = createListCollection({
 export default function ValueTextListboxDemo() {
   return (
     <Listbox collection={countries} className={styles.root} defaultValue={['ca']}>
-      <Listbox.Label>Select country</Listbox.Label>
-      <Listbox.Content>
+      <ListboxLabel>Select country</ListboxLabel>
+      <ListboxContent>
         {countries.items.map((item) => (
-          <Listbox.Item key={item.value} item={item}>
-            <Listbox.ItemText>{item.label}</Listbox.ItemText>
-            <Listbox.ItemIndicator />
-          </Listbox.Item>
+          <ListboxItem key={item.value} item={item}>
+            <ListboxItemText>{item.label}</ListboxItemText>
+            <ListboxItemIndicator />
+          </ListboxItem>
         ))}
-      </Listbox.Content>
-      <Listbox.ValueText placeholder="No country selected" />
+      </ListboxContent>
+      <ListboxValueText placeholder="No country selected" />
     </Listbox>
   );
 }

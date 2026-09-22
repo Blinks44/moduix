@@ -37,8 +37,8 @@ espace limité.
 ## Exemple de base
 
 
-Composez la barre de progression avec les parties explicites `Label`, `ValueText`, `Track` et
-`Range`. Donnez à `Track` un nom accessible qui décrit la tâche.
+Composez la barre de progression avec les parties explicites `ProgressLinearLabel`, `ProgressLinearValueText`, `ProgressLinearTrack` et
+`ProgressLinearRange`. Donnez à `ProgressLinearTrack` un nom accessible qui décrit la tâche.
 
 <ExampleFrame variant="component">
   <ProgressLinearBasic />
@@ -100,36 +100,36 @@ Consultez le [Démarrage rapide](/docs/quick-start) pour la configuration compl�
 ## Anatomie
 
 ```text
-ProgressLinear / ProgressLinear.Root
-├─ ProgressLinear.Label
-├─ ProgressLinear.ValueText
-├─ ProgressLinear.Track
-│  └─ ProgressLinear.Range
-└─ ProgressLinear.View
+ProgressLinear
+├─ ProgressLinearLabel
+├─ ProgressLinearValueText
+├─ ProgressLinearTrack
+│  └─ ProgressLinearRange
+└─ ProgressLinearView
 
-ProgressLinear.RootProvider
-└─ le même arbre de parties relié à ProgressLinear.useProgress()
+ProgressLinearRootProvider
+└─ le même arbre de parties relié à useProgress()
 ```
 
 | Partie                                    | Rôle                                                                            |
 | ----------------------------------------- | ------------------------------------------------------------------------------- |
-| `ProgressLinear` / `ProgressLinear.Root`  | Gère l’état de progression et transmet à Ark le formatage, les identifiants et les autres propriétés. |
-| `ProgressLinear.RootProvider`             | Relie les parties à l’état renvoyé par `ProgressLinear.useProgress()`.          |
-| `ProgressLinear.Context`                  | Transmet l’état courant à une fonction de rendu.                                |
-| `ProgressLinear.Label`                    | Libellé visible de la tâche. Il ne devient pas automatiquement le nom accessible de `Track`. |
-| `ProgressLinear.ValueText`                | Affiche le pourcentage formaté et annonce les changements. Utilisez `Context` pour un texte personnalisé. |
-| `ProgressLinear.Track`                    | Piste de progression. Ark lui ajoute le rôle et les attributs ARIA de valeur.  |
-| `ProgressLinear.Range`                    | Partie remplie qui représente l’avancement actuel.                             |
-| `ProgressLinear.View`                     | Affiche son contenu uniquement lorsque son `state` correspond à l’état courant. |
+| `ProgressLinear`  | Gère l’état de progression et transmet à Ark le formatage, les identifiants et les autres propriétés. |
+| `ProgressLinearRootProvider`             | Relie les parties à l’état renvoyé par `useProgress()`.          |
+| `ProgressLinearContext`                  | Transmet l’état courant à une fonction de rendu.                                |
+| `ProgressLinearLabel`                    | Libellé visible de la tâche. Il ne devient pas automatiquement le nom accessible de `ProgressLinearTrack`. |
+| `ProgressLinearValueText`                | Affiche le pourcentage formaté et annonce les changements. Utilisez `ProgressLinearContext` pour un texte personnalisé. |
+| `ProgressLinearTrack`                    | Piste de progression. Ark lui ajoute le rôle et les attributs ARIA de valeur.  |
+| `ProgressLinearRange`                    | Partie remplie qui représente l’avancement actuel.                             |
+| `ProgressLinearView`                     | Affiche son contenu uniquement lorsque son `state` correspond à l’état courant. |
 
 ## Composition
 
 Utilisez `defaultValue` pour une progression non contrôlée. Pour une progression contrôlée, utilisez
 `value` avec `onValueChange(details)` lorsque votre application gère la valeur courante. Utilisez
 `defaultValue={null}` ou `value={null}` lorsque l’avancement est inconnu. Si l’état est créé avec
-`ProgressLinear.useProgress()`, rendez les parties dans `ProgressLinear.RootProvider` plutôt que dans
-`ProgressLinear` ou `ProgressLinear.Root`. Utilisez `ProgressLinear.View` pour le contenu dépendant de
-l’état et `ProgressLinear.Context` lorsque votre texte personnalisé doit accéder à l’état courant.
+`useProgress()`, rendez les parties dans `ProgressLinearRootProvider` plutôt que dans
+`ProgressLinear` ou `ProgressLinear`. Utilisez `ProgressLinearView` pour le contenu dépendant de
+l’état et `ProgressLinearContext` lorsque votre texte personnalisé doit accéder à l’état courant.
 
 ## Exemples
 
@@ -274,7 +274,7 @@ Utilisez `min` et `max` lorsque la plage de progression diffère de la plage par
 
 ### Vues d’état
 
-Utilisez `ProgressLinear.View` lorsque le texte ou l’interface d’accompagnement doit changer avec
+Utilisez `ProgressLinearView` lorsque le texte ou l’interface d’accompagnement doit changer avec
 l’état de progression Ark.
 
 <ExampleFrame variant="component">
@@ -309,7 +309,7 @@ l’état de progression Ark.
 
 ### Texte de la valeur
 
-Utilisez `ProgressLinear.Context` avec `translations.value(details)` lorsque le texte visible de la
+Utilisez `ProgressLinearContext` avec `translations.value(details)` lorsque le texte visible de la
 valeur doit être formulé pour une tâche précise.
 
 <ExampleFrame variant="component">
@@ -380,8 +380,8 @@ hauteur, redéfinissez `--moduix-progress-linear-height`.
 
 ### Personnalisation avancée
 
-Créez l’état de progression avec `ProgressLinear.useProgress()` dans un composant parent, puis
-reliez-le aux parties rendues avec `ProgressLinear.RootProvider`.
+Créez l’état de progression avec `useProgress()` dans un composant parent, puis
+reliez-le aux parties rendues avec `ProgressLinearRootProvider`.
 
 <ExampleFrame variant="component">
   <ProgressLinearRootProvider />

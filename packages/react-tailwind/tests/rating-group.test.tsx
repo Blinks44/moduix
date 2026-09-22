@@ -1,13 +1,23 @@
 import { expect, test } from '@rstest/core';
 import { fireEvent, render, screen, waitFor } from '@testing-library/react';
 import { createRef, useState } from 'react';
-import { RatingGroup, useRatingGroup } from '../src';
+import {
+  RatingGroup,
+  RatingGroupControl,
+  RatingGroupHiddenInput,
+  RatingGroupItem,
+  RatingGroupItemIndicator,
+  RatingGroupItems,
+  RatingGroupLabel,
+  RatingGroupRootProvider,
+  useRatingGroup,
+} from '../src';
 
 function RatingItems() {
   return (
-    <RatingGroup.Control>
-      <RatingGroup.Items />
-    </RatingGroup.Control>
+    <RatingGroupControl>
+      <RatingGroupItems />
+    </RatingGroupControl>
   );
 }
 
@@ -15,10 +25,10 @@ function ProviderRatingGroup() {
   const ratingGroup = useRatingGroup({ defaultValue: 3 });
 
   return (
-    <RatingGroup.RootProvider value={ratingGroup}>
-      <RatingGroup.Label>Provider rating</RatingGroup.Label>
+    <RatingGroupRootProvider value={ratingGroup}>
+      <RatingGroupLabel>Provider rating</RatingGroupLabel>
       <RatingItems />
-    </RatingGroup.RootProvider>
+    </RatingGroupRootProvider>
   );
 }
 
@@ -27,7 +37,7 @@ function ControlledRatingGroup() {
 
   return (
     <RatingGroup value={value} onValueChange={(details) => setValue(details.value)}>
-      <RatingGroup.Label>Controlled rating</RatingGroup.Label>
+      <RatingGroupLabel>Controlled rating</RatingGroupLabel>
       <RatingItems />
     </RatingGroup>
   );
@@ -37,9 +47,9 @@ test('submits through an explicit Ark hidden input', async () => {
   render(
     <form data-testid="form">
       <RatingGroup defaultValue={3} name="rating">
-        <RatingGroup.Label>Rating</RatingGroup.Label>
+        <RatingGroupLabel>Rating</RatingGroupLabel>
         <RatingItems />
-        <RatingGroup.HiddenInput />
+        <RatingGroupHiddenInput />
       </RatingGroup>
     </form>,
   );
@@ -59,9 +69,9 @@ test('preserves asChild composition with an explicit hidden input', () => {
   render(
     <RatingGroup asChild defaultValue={2}>
       <section data-testid="rating-root">
-        <RatingGroup.Label>Rating</RatingGroup.Label>
+        <RatingGroupLabel>Rating</RatingGroupLabel>
         <RatingItems />
-        <RatingGroup.HiddenInput />
+        <RatingGroupHiddenInput />
       </section>
     </RatingGroup>,
   );
@@ -76,7 +86,7 @@ test('preserves Ark callback details and controlled and provider paths', async (
   const changes: number[] = [];
   const { rerender } = render(
     <RatingGroup defaultValue={2} onValueChange={(details) => changes.push(details.value)}>
-      <RatingGroup.Label>Rating</RatingGroup.Label>
+      <RatingGroupLabel>Rating</RatingGroupLabel>
       <RatingItems />
     </RatingGroup>,
   );
@@ -95,7 +105,7 @@ test('preserves Ark callback details and controlled and provider paths', async (
 test('keeps half-state and keyboard focus Ark-shaped', async () => {
   render(
     <RatingGroup allowHalf defaultValue={3.5}>
-      <RatingGroup.Label>Rating</RatingGroup.Label>
+      <RatingGroupLabel>Rating</RatingGroupLabel>
       <RatingItems />
     </RatingGroup>,
   );
@@ -111,7 +121,7 @@ test('keeps half-state and keyboard focus Ark-shaped', async () => {
 test('does not mark a mouse-selected item as focus-visible', () => {
   render(
     <RatingGroup defaultValue={3}>
-      <RatingGroup.Label>Rating</RatingGroup.Label>
+      <RatingGroupLabel>Rating</RatingGroupLabel>
       <RatingItems />
     </RatingGroup>,
   );
@@ -126,14 +136,14 @@ test('does not mark a mouse-selected item as focus-visible', () => {
 test('repeats custom indicators with Ark item state', () => {
   render(
     <RatingGroup allowHalf defaultValue={3.5}>
-      <RatingGroup.Label>Rating</RatingGroup.Label>
-      <RatingGroup.Control>
-        <RatingGroup.Items>
-          <RatingGroup.ItemIndicator data-testid="custom-indicator">
+      <RatingGroupLabel>Rating</RatingGroupLabel>
+      <RatingGroupControl>
+        <RatingGroupItems>
+          <RatingGroupItemIndicator data-testid="custom-indicator">
             <span>Star</span>
-          </RatingGroup.ItemIndicator>
-        </RatingGroup.Items>
-      </RatingGroup.Control>
+          </RatingGroupItemIndicator>
+        </RatingGroupItems>
+      </RatingGroupControl>
     </RatingGroup>,
   );
 
@@ -153,13 +163,13 @@ test('forwards refs and exposes stable slots on public parts', () => {
 
   const { container } = render(
     <RatingGroup ref={rootRef} defaultValue={3}>
-      <RatingGroup.Label ref={labelRef}>Rating</RatingGroup.Label>
-      <RatingGroup.Control ref={controlRef}>
-        <RatingGroup.Item ref={itemRef} index={1}>
-          <RatingGroup.ItemIndicator ref={indicatorRef} />
-        </RatingGroup.Item>
-      </RatingGroup.Control>
-      <RatingGroup.HiddenInput />
+      <RatingGroupLabel ref={labelRef}>Rating</RatingGroupLabel>
+      <RatingGroupControl ref={controlRef}>
+        <RatingGroupItem ref={itemRef} index={1}>
+          <RatingGroupItemIndicator ref={indicatorRef} />
+        </RatingGroupItem>
+      </RatingGroupControl>
+      <RatingGroupHiddenInput />
     </RatingGroup>,
   );
 
@@ -174,10 +184,10 @@ test('forwards refs and exposes stable slots on public parts', () => {
 test('applies native utilities to component-owned visual parts', () => {
   render(
     <RatingGroup defaultValue={3}>
-      <RatingGroup.Label>Notifications</RatingGroup.Label>
-      <RatingGroup.Control>
-        <RatingGroup.Items />
-      </RatingGroup.Control>
+      <RatingGroupLabel>Notifications</RatingGroupLabel>
+      <RatingGroupControl>
+        <RatingGroupItems />
+      </RatingGroupControl>
     </RatingGroup>,
   );
 
@@ -214,12 +224,12 @@ test('applies native utilities to component-owned visual parts', () => {
 test('lets consumer Tailwind classes override conflicting defaults', () => {
   render(
     <RatingGroup className="gap-3 text-primary" data-testid="root">
-      <RatingGroup.Label>Notifications</RatingGroup.Label>
-      <RatingGroup.Control className="gap-3">
-        <RatingGroup.Items>
-          <RatingGroup.ItemIndicator className="size-7 text-secondary" />
-        </RatingGroup.Items>
-      </RatingGroup.Control>
+      <RatingGroupLabel>Notifications</RatingGroupLabel>
+      <RatingGroupControl className="gap-3">
+        <RatingGroupItems>
+          <RatingGroupItemIndicator className="size-7 text-secondary" />
+        </RatingGroupItems>
+      </RatingGroupControl>
     </RatingGroup>,
   );
 

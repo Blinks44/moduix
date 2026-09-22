@@ -1,4 +1,10 @@
-import { QrCode, useQrCode } from '@moduix/solid/qr-code';
+import {
+  QrCodeContext,
+  QrCodeFrame,
+  QrCodePattern,
+  QrCodeRootProvider,
+  useQrCode,
+} from '@moduix/solid/qr-code';
 
 export default function RootProviderQrCodeDemo() {
   const qrCode = useQrCode({
@@ -6,13 +12,13 @@ export default function RootProviderQrCodeDemo() {
   });
 
   return (
-    <QrCode.RootProvider value={qrCode}>
-      <QrCode.Frame>
-        <QrCode.Pattern />
-      </QrCode.Frame>
-      <QrCode.Context>
+    <QrCodeRootProvider value={qrCode}>
+      <QrCodeFrame>
+        <QrCodePattern />
+      </QrCodeFrame>
+      <QrCodeContext>
         {(context) => <output>Encoded URL: {context().value}</output>}
-      </QrCode.Context>
-    </QrCode.RootProvider>
+      </QrCodeContext>
+    </QrCodeRootProvider>
   );
 }

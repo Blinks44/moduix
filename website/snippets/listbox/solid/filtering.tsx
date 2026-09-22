@@ -1,5 +1,5 @@
 import { useListCollection } from '@ark-ui/solid/collection';
-import { Listbox } from '@moduix/solid/listbox';
+import { Listbox, ListboxClearTrigger, ListboxContent, ListboxEmpty, ListboxFilter, ListboxInput, ListboxItem, ListboxItemIndicator, ListboxItemText, ListboxLabel } from '@moduix/solid/listbox';
 import { createSignal, For, Show } from 'solid-js';
 import styles from '@/components/examples/listbox/listbox-filtering.module.css';
 
@@ -30,28 +30,28 @@ export default function FilteringListboxDemo() {
 
   return (
     <Listbox collection={collection()} class={styles.root} typeahead={false}>
-      <Listbox.Label>Select framework</Listbox.Label>
-      <Listbox.Filter>
-        <Listbox.Input
+      <ListboxLabel>Select framework</ListboxLabel>
+      <ListboxFilter>
+        <ListboxInput
           placeholder="Search frameworks..."
           value={filterText()}
           onInput={(event) => updateFilter(event.currentTarget.value)}
         />
         <Show when={filterText()}>
-          <Listbox.ClearTrigger onClick={() => updateFilter('')} />
+          <ListboxClearTrigger onClick={() => updateFilter('')} />
         </Show>
-      </Listbox.Filter>
-      <Listbox.Content>
+      </ListboxFilter>
+      <ListboxContent>
         <For each={collection().items}>
           {(item) => (
-            <Listbox.Item item={item}>
-              <Listbox.ItemText>{item.label}</Listbox.ItemText>
-              <Listbox.ItemIndicator />
-            </Listbox.Item>
+            <ListboxItem item={item}>
+              <ListboxItemText>{item.label}</ListboxItemText>
+              <ListboxItemIndicator />
+            </ListboxItem>
           )}
         </For>
-        <Listbox.Empty>No frameworks found</Listbox.Empty>
-      </Listbox.Content>
+        <ListboxEmpty>No frameworks found</ListboxEmpty>
+      </ListboxContent>
     </Listbox>
   );
 }

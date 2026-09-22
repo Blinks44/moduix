@@ -1,6 +1,17 @@
 import { Button } from '@moduix/react/button';
 import { Input } from '@moduix/react/input';
-import { Popover } from '@moduix/react/popover';
+import {
+  Popover,
+  PopoverAnchor,
+  PopoverCloseTrigger,
+  PopoverContent,
+  PopoverDescription,
+  PopoverFooter,
+  PopoverHeader,
+  PopoverPositioner,
+  PopoverTitle,
+  PopoverTrigger,
+} from '@moduix/react/popover';
 import styles from '@/components/examples/popover/popover-anchor.module.css';
 
 export default function AnchorPopoverDemo() {
@@ -11,25 +22,25 @@ export default function AnchorPopoverDemo() {
           gutter: 8,
         }}
       >
-        <Popover.Anchor asChild>
+        <PopoverAnchor asChild>
           <Input placeholder="Popover anchor" />
-        </Popover.Anchor>
-        <Popover.Trigger asChild>
+        </PopoverAnchor>
+        <PopoverTrigger asChild>
           <Button>Open below the input</Button>
-        </Popover.Trigger>
-        <Popover.Positioner>
-          <Popover.Content>
-            <Popover.Header>
-              <Popover.Title>Custom anchor</Popover.Title>
-              <Popover.Description>
+        </PopoverTrigger>
+        <PopoverPositioner>
+          <PopoverContent>
+            <PopoverHeader>
+              <PopoverTitle>Custom anchor</PopoverTitle>
+              <PopoverDescription>
                 The popup is positioned relative to the input instead of the trigger.
-              </Popover.Description>
-            </Popover.Header>
-            <Popover.Footer>
-              <Popover.CloseTrigger>Close</Popover.CloseTrigger>
-            </Popover.Footer>
-          </Popover.Content>
-        </Popover.Positioner>
+              </PopoverDescription>
+            </PopoverHeader>
+            <PopoverFooter>
+              <PopoverCloseTrigger>Close</PopoverCloseTrigger>
+            </PopoverFooter>
+          </PopoverContent>
+        </PopoverPositioner>
       </Popover>
     </div>
   );

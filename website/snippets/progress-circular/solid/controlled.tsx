@@ -1,4 +1,9 @@
-import { ProgressCircular } from '@moduix/solid/progress-circular';
+import {
+  ProgressCircular,
+  ProgressCircularLabel,
+  ProgressCircularRing,
+  ProgressCircularValueText,
+} from '@moduix/solid/progress-circular';
 import { Slider } from '@moduix/solid/slider';
 import { createSignal } from 'solid-js';
 import styles from '@/components/examples/progress-circular/component-controlled.module.css';
@@ -9,10 +14,10 @@ export default function ControlledProgressCircularDemo() {
   return (
     <div class={styles.stack}>
       <ProgressCircular value={value()} onValueChange={(details) => setValue(details.value)}>
-        <ProgressCircular.Label>Upload status</ProgressCircular.Label>
+        <ProgressCircularLabel>Upload status</ProgressCircularLabel>
         <div class={styles.circleContainer}>
-          <ProgressCircular.Ring aria-label="Upload status" />
-          <ProgressCircular.ValueText />
+          <ProgressCircularRing aria-label="Upload status" />
+          <ProgressCircularValueText />
         </div>
       </ProgressCircular>
       <div>

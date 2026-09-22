@@ -49,6 +49,9 @@ non-interactive hints. Use `Dialog` for larger workflows that need the user's fu
 Use the explicit parts shown here. Set positioning on the root and use `asChild` when your own
 button should render the trigger.
 
+Use `Popover` as the root and import each additional part directly, such as `PopoverTrigger` and
+`PopoverContent`. The same flat names work with npm packages and shadcn registry source.
+
 <ExampleFrame variant="component">
   <PopoverBasic />
 </ExampleFrame>
@@ -110,59 +113,59 @@ See [Quick Start](/docs/quick-start) for full package setup, registry configurat
 ## Anatomy
 
 ```text
-Popover / Popover.Root
-├─ Popover.Anchor (optional)
-├─ Popover.Trigger
-│  └─ Popover.Indicator (optional)
+Popover
+├─ PopoverAnchor (optional)
+├─ PopoverTrigger
+│  └─ PopoverIndicator (optional)
 └─ Overlay subtree (automatically rendered in a portal)
-   └─ Popover.Positioner
-      └─ Popover.Content
-         ├─ Popover.Arrow
-         │  └─ Popover.ArrowTip
-         ├─ Popover.Header
-         │  ├─ Popover.Title
-         │  └─ Popover.Description
-         ├─ Popover.Body
-         ├─ Popover.Footer
-         └─ Popover.CloseTrigger / Popover.CloseIcon
+   └─ PopoverPositioner
+      └─ PopoverContent
+         ├─ PopoverArrow
+         │  └─ PopoverArrowTip
+         ├─ PopoverHeader
+         │  ├─ PopoverTitle
+         │  └─ PopoverDescription
+         ├─ PopoverBody
+         ├─ PopoverFooter
+         └─ PopoverCloseTrigger / PopoverCloseIcon
 
-Popover.RootProvider
+PopoverRootProvider
 └─ the same part tree connected to state from moduix usePopover()
 
-Popover.Context
+PopoverContext
 └─ a render prop with the current popover state
 ```
 
 | Part                         | Role                                                                  |
 | ---------------------------- | --------------------------------------------------------------------- |
-| `Popover` / `Popover.Root`   | Owns state, opening and closing, focus, dismissal, and positioning.    |
-| `Popover.RootProvider`       | Connects the parts to state created with `usePopover()`.              |
-| `Popover.Context`            | Exposes current state through a render prop for descendants.          |
-| `Popover.Anchor`             | Optional reference element used for positioning.                      |
-| `Popover.Trigger`            | Button that toggles the popover and can have a trigger `value`.       |
-| `Popover.Indicator`           | Optional indicator for the trigger's state.                            |
-| `Popover.Positioner`         | Floating layer that exposes Ark positioning CSS variables.             |
-| `Popover.Content`             | Visible interactive popover surface.                                   |
-| `Popover.Arrow` / `ArrowTip` | Optional positioned arrow and its visible tip.                        |
-| `Popover.Title`               | Accessible title associated with the content.                          |
-| `Popover.Description`         | Accessible description associated with the content.                    |
-| `Popover.CloseTrigger`        | Low-level trigger that closes the popover.                             |
-| `Popover.CloseIcon`            | Moduix helper that combines Ark's close trigger with an icon button.   |
-| `Popover.Header` / `Body`      | Moduix layout helpers with stable slots.                               |
-| `Popover.Footer`               | Moduix action-row helper with a stable slot.                            |
+| `Popover`   | Owns state, opening and closing, focus, dismissal, and positioning.    |
+| `PopoverRootProvider`       | Connects the parts to state created with `usePopover()`.              |
+| `PopoverContext`            | Exposes current state through a render prop for descendants.          |
+| `PopoverAnchor`             | Optional reference element used for positioning.                      |
+| `PopoverTrigger`            | Button that toggles the popover and can have a trigger `value`.       |
+| `PopoverIndicator`           | Optional indicator for the trigger's state.                            |
+| `PopoverPositioner`         | Floating layer that exposes Ark positioning CSS variables.             |
+| `PopoverContent`             | Visible interactive popover surface.                                   |
+| `PopoverArrow` / `PopoverArrowTip` | Optional positioned arrow and its visible tip.                        |
+| `PopoverTitle`               | Accessible title associated with the content.                          |
+| `PopoverDescription`         | Accessible description associated with the content.                    |
+| `PopoverCloseTrigger`        | Low-level trigger that closes the popover.                             |
+| `PopoverCloseIcon`            | Moduix helper that combines Ark's close trigger with an icon button.   |
+| `PopoverHeader` / `PopoverBody`      | Moduix layout helpers with stable slots.                               |
+| `PopoverFooter`               | Moduix action-row helper with a stable slot.                            |
 
-Use the short `Popover` root form in application code. `Popover.Root` remains available when the
-explicit Ark name makes the composition easier to read.
+Use `Popover` as the root in application code. Import additional parts directly from the component
+package so the composition remains explicit and easy to read.
 
 ## Composition
 
-Keep `Popover.Positioner` and `Popover.Content` explicit so the overlay structure stays easy to
-style. `Positioner` is portalled by default. Set `portalled={false}` for an inline overlay, or pass
-`portalRef` for a custom portal container. With `Popover.RootProvider`, configure `portalled` in
-`usePopover()` and pass the store to the provider. Do not render `Popover` or `Popover.Root` for the
-same store.
+Keep `PopoverPositioner` and `PopoverContent` explicit so the overlay structure stays easy to
+style. `PopoverPositioner` is portalled by default. Set `portalled={false}` for an inline overlay, or pass
+`portalRef` for a custom portal container. With `PopoverRootProvider`, configure `portalled` in
+`usePopover()` and pass the store to the provider. Do not render `Popover` and
+`PopoverRootProvider` for the same store.
 
-Use `Anchor` when another element should determine positioning. Use `asChild` with one semantic
+Use `PopoverAnchor` when another element should determine positioning. Use `asChild` with one semantic
 child when your own element should render a trigger, anchor, or close trigger. For nested popovers,
 set `portalled={false}` on the nested root so it stays inside the parent overlay. When several
 triggers share one popover, give each trigger a `value` and update the surrounding content from
@@ -172,7 +175,7 @@ triggers share one popover, give each trigger a `value` and update the surroundi
 
 ### Anchor
 
-Use `Anchor` when a different element should provide the positioning reference.
+Use `PopoverAnchor` when a different element should provide the positioning reference.
 
 <ExampleFrame variant="component">
   <PopoverAnchor />
@@ -247,7 +250,7 @@ close action.
 ### Context
 
 Use `usePopoverContext()` inside a descendant that needs the current popover state. Use
-`Popover.Context` when a render prop makes the composition clearer.
+`PopoverContext` when a render prop makes the composition clearer.
 
 <ExampleFrame variant="component">
   <PopoverContext />
@@ -511,7 +514,7 @@ Pass Ark positioning options through the root's `positioning` prop.
 
 ### Root Provider
 
-Use `usePopover()` with `Popover.RootProvider` when controls outside the popover tree need to read
+Use `usePopover()` with `PopoverRootProvider` when controls outside the popover tree need to read
 or update its state.
 
 <ExampleFrame variant="component">
@@ -590,8 +593,8 @@ Set `positioning.sameWidth` when the content should match its trigger width.
 
 ### With Arrow
 
-Add `Popover.Arrow` when the popover needs a visual pointer to its reference element. The wrapper
-renders the default moduix-styled `ArrowTip`.
+Add `PopoverArrow` when the popover needs a visual pointer to its reference element. The wrapper
+renders the default moduix-styled `PopoverArrowTip`.
 
 <ExampleFrame variant="component">
   <PopoverWithArrow />
@@ -693,12 +696,12 @@ Use the public variables below to customize the popover without replacing its st
 
 Every rendered part accepts `className` or `class`. Ark parts retain `data-scope="popover"` and
 their `data-part` values, while moduix adds `data-slot="popover-*"` to rendered wrappers. `Popover`
-and `Popover.RootProvider` provide state but do not render DOM elements. For state-aware styling,
+and `PopoverRootProvider` provide state but do not render DOM elements. For state-aware styling,
 target `data-state="open|closed"`, `data-placement`, `data-side`, `data-value`, `data-nested`,
 `data-has-nested`, `data-expanded`, and `data-current` when several valued triggers share one
 popover.
 
-`Positioner` exposes `--reference-width`, `--reference-height`, `--available-width`,
-`--available-height`, `--x`, `--y`, `--z-index`, and `--transform-origin`. `Content` exposes
-`--layer-index` and `--nested-layer-count`. `Arrow` exposes Ark's arrow measurement variables.
+`PopoverPositioner` exposes `--reference-width`, `--reference-height`, `--available-width`,
+`--available-height`, `--x`, `--y`, `--z-index`, and `--transform-origin`. `PopoverContent` exposes
+`--layer-index` and `--nested-layer-count`. `PopoverArrow` exposes Ark's arrow measurement variables.
 Content wraps long unbroken strings and disables its motion when the user prefers reduced motion.

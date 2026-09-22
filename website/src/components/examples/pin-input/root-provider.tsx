@@ -1,5 +1,5 @@
 import { Button } from '@moduix/react/button';
-import { PinInput, usePinInput } from '@moduix/react/pin-input';
+import { usePinInput, PinInputRootProvider, PinInputLabel, PinInputControl, PinInputInput } from '@moduix/react/pin-input';
 import { useId } from 'react';
 import { PreviewMeta } from '@/components/mdx/Components';
 import styles from '@/components/examples/pin-input/pin-input-root-provider.module.css';
@@ -12,19 +12,19 @@ export default function RootProviderPinInput() {
   });
   return (
     <div className={styles.root}>
-      <PinInput.RootProvider value={pinInput}>
-        <PinInput.Label>Verification code</PinInput.Label>
-        <PinInput.Control>
+      <PinInputRootProvider value={pinInput}>
+        <PinInputLabel>Verification code</PinInputLabel>
+        <PinInputControl>
           {Array.from(
             {
               length: 6,
             },
             (_, index) => (
-              <PinInput.Input key={index} index={index} />
+              <PinInputInput key={index} index={index} />
             ),
           )}
-        </PinInput.Control>
-      </PinInput.RootProvider>
+        </PinInputControl>
+      </PinInputRootProvider>
 
       <PreviewMeta>
         <Button type="button" size="sm" variant="outline" onClick={pinInput.focus}>

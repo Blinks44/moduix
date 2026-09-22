@@ -1,1 +1,22 @@
-export * from './Popover';
+export {
+  Popover,
+  PopoverAnchor,
+  PopoverArrow,
+  PopoverArrowTip,
+  PopoverBody,
+  PopoverCloseIcon,
+  PopoverCloseTrigger,
+  PopoverContent,
+  PopoverContext,
+  PopoverDescription,
+  PopoverFooter,
+  PopoverHeader,
+  PopoverIndicator,
+  PopoverPositioner,
+  PopoverRootProvider,
+  PopoverTitle,
+  PopoverTrigger,
+  usePopover,
+  usePopoverContext,
+} from './Popover';
+export type { PopoverRootProps, PopoverRootProviderProps } from './Popover';

@@ -1,7 +1,19 @@
 import { expect, test } from '@rstest/core';
 import { render, screen } from '@testing-library/react';
 import { createRef } from 'react';
-import { ProgressCircular } from '../src';
+import {
+  ProgressCircular,
+  ProgressCircularCircle,
+  ProgressCircularCircleRange,
+  ProgressCircularCircleTrack,
+  ProgressCircularContext,
+  ProgressCircularLabel,
+  ProgressCircularRing,
+  ProgressCircularRootProvider,
+  ProgressCircularValueText,
+  ProgressCircularView,
+  useProgress,
+} from '../src';
 
 test('renders the circular Ark anatomy with stable hooks and an accessible name', () => {
   const rootRef = createRef<HTMLDivElement>();
@@ -9,9 +21,9 @@ test('renders the circular Ark anatomy with stable hooks and an accessible name'
 
   render(
     <ProgressCircular ref={rootRef} defaultValue={42}>
-      <ProgressCircular.Label>Export data</ProgressCircular.Label>
-      <ProgressCircular.Ring ref={circleRef} aria-label="Export data" />
-      <ProgressCircular.ValueText />
+      <ProgressCircularLabel>Export data</ProgressCircularLabel>
+      <ProgressCircularRing ref={circleRef} aria-label="Export data" />
+      <ProgressCircularValueText />
     </ProgressCircular>,
   );
 
@@ -42,7 +54,7 @@ test('preserves semantic root composition with asChild', () => {
   render(
     <ProgressCircular asChild ref={rootRef} defaultValue={70}>
       <section aria-label="Export status">
-        <ProgressCircular.Ring aria-label="Export status" />
+        <ProgressCircularRing aria-label="Export status" />
       </section>
     </ProgressCircular>,
   );
@@ -57,7 +69,7 @@ test('preserves semantic root composition with asChild', () => {
 test('renders an indeterminate circular progressbar without an ARIA value', () => {
   render(
     <ProgressCircular defaultValue={null}>
-      <ProgressCircular.Ring aria-label="Preparing report" />
+      <ProgressCircularRing aria-label="Preparing report" />
     </ProgressCircular>,
   );
 
@@ -79,17 +91,17 @@ test('synchronizes custom circular composition with controlled values and state 
         },
       }}
     >
-      <ProgressCircular.Circle>
-        <ProgressCircular.CircleTrack />
-        <ProgressCircular.CircleRange />
-      </ProgressCircular.Circle>
-      <ProgressCircular.Context>
+      <ProgressCircularCircle>
+        <ProgressCircularCircleTrack />
+        <ProgressCircularCircleRange />
+      </ProgressCircularCircle>
+      <ProgressCircularContext>
         {(progress) => (
-          <ProgressCircular.ValueText>{progress.valueAsString}</ProgressCircular.ValueText>
+          <ProgressCircularValueText>{progress.valueAsString}</ProgressCircularValueText>
         )}
-      </ProgressCircular.Context>
-      <ProgressCircular.View state="loading">Import in progress</ProgressCircular.View>
-      <ProgressCircular.View state="complete">Import complete</ProgressCircular.View>
+      </ProgressCircularContext>
+      <ProgressCircularView state="loading">Import in progress</ProgressCircularView>
+      <ProgressCircularView state="complete">Import complete</ProgressCircularView>
     </ProgressCircular>,
   );
 
@@ -114,17 +126,17 @@ test('synchronizes custom circular composition with controlled values and state 
         },
       }}
     >
-      <ProgressCircular.Circle>
-        <ProgressCircular.CircleTrack />
-        <ProgressCircular.CircleRange />
-      </ProgressCircular.Circle>
-      <ProgressCircular.Context>
+      <ProgressCircularCircle>
+        <ProgressCircularCircleTrack />
+        <ProgressCircularCircleRange />
+      </ProgressCircularCircle>
+      <ProgressCircularContext>
         {(progress) => (
-          <ProgressCircular.ValueText>{progress.valueAsString}</ProgressCircular.ValueText>
+          <ProgressCircularValueText>{progress.valueAsString}</ProgressCircularValueText>
         )}
-      </ProgressCircular.Context>
-      <ProgressCircular.View state="loading">Import in progress</ProgressCircular.View>
-      <ProgressCircular.View state="complete">Import complete</ProgressCircular.View>
+      </ProgressCircularContext>
+      <ProgressCircularView state="loading">Import in progress</ProgressCircularView>
+      <ProgressCircularView state="complete">Import complete</ProgressCircularView>
     </ProgressCircular>,
   );
 
@@ -139,11 +151,11 @@ test('synchronizes custom circular composition with controlled values and state 
 test('keeps component-owned visual utilities and lets consumers override them', () => {
   render(
     <ProgressCircular className="gap-0 text-primary" data-testid="progress-root">
-      <ProgressCircular.Label className="text-lg">Export data</ProgressCircular.Label>
-      <ProgressCircular.Circle className="[--size:4rem]" data-testid="progress-circle">
-        <ProgressCircular.CircleTrack className="stroke-accent" data-testid="progress-track" />
-        <ProgressCircular.CircleRange className="stroke-chart-2" data-testid="progress-range" />
-      </ProgressCircular.Circle>
+      <ProgressCircularLabel className="text-lg">Export data</ProgressCircularLabel>
+      <ProgressCircularCircle className="[--size:4rem]" data-testid="progress-circle">
+        <ProgressCircularCircleTrack className="stroke-accent" data-testid="progress-track" />
+        <ProgressCircularCircleRange className="stroke-chart-2" data-testid="progress-range" />
+      </ProgressCircularCircle>
     </ProgressCircular>,
   );
 
@@ -166,19 +178,19 @@ test('keeps component-owned visual utilities and lets consumers override them', 
 });
 
 function RootProviderProgress() {
-  const progress = ProgressCircular.useProgress({ defaultValue: 58 });
+  const progress = useProgress({ defaultValue: 58 });
 
   return (
-    <ProgressCircular.RootProvider value={progress} data-testid="progress-provider">
-      <ProgressCircular.Ring aria-label="Team rollout" />
-      <ProgressCircular.Context>
+    <ProgressCircularRootProvider value={progress} data-testid="progress-provider">
+      <ProgressCircularRing aria-label="Team rollout" />
+      <ProgressCircularContext>
         {(state) => <output>{state.value}</output>}
-      </ProgressCircular.Context>
-    </ProgressCircular.RootProvider>
+      </ProgressCircularContext>
+    </ProgressCircularRootProvider>
   );
 }
 
-test('keeps RootProvider, Context, and useProgress on the moduix namespace', () => {
+test('keeps flat provider, context, and hook exports', () => {
   render(<RootProviderProgress />);
 
   const root = screen.getByTestId('progress-provider');

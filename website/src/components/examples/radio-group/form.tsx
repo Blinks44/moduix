@@ -1,5 +1,9 @@
 import { Button } from '@moduix/react/button';
-import { RadioGroup } from '@moduix/react/radio-group';
+import {
+  RadioGroup,
+  RadioGroupLabel,
+  RadioGroupOption,
+} from '@moduix/react/radio-group';
 import type { FormEvent } from 'react';
 import { useState } from 'react';
 import { PreviewMeta } from '@/components/mdx/Components';
@@ -22,11 +26,11 @@ export default function RadioGroupFormDemo() {
       onSubmit={handleSubmit}
     >
       <RadioGroup defaultValue="React" name="framework">
-        <RadioGroup.Label>Framework</RadioGroup.Label>
+        <RadioGroupLabel>Framework</RadioGroupLabel>
         {frameworks.map((framework) => (
-          <RadioGroup.Option key={framework} value={framework}>
+          <RadioGroupOption key={framework} value={framework}>
             {framework}
-          </RadioGroup.Option>
+          </RadioGroupOption>
         ))}
       </RadioGroup>
       <PreviewMeta>

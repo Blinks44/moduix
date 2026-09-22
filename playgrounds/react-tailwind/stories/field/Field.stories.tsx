@@ -20,7 +20,13 @@ import {
   FieldTextarea,
 } from '@/components/field/Field';
 import { NativeSelect } from '@/components/native-select/NativeSelect';
-import { RadioGroup } from '@/components/radio-group';
+import {
+  RadioGroup,
+  RadioGroupItem,
+  RadioGroupItemControl,
+  RadioGroupItemHiddenInput,
+  RadioGroupItemText,
+} from '@/components/radio-group';
 
 const meta = {
   title: 'Components/Field',
@@ -143,16 +149,16 @@ export const WithRadioGroup: Story = {
     <Field>
       <FieldLabel>Account type</FieldLabel>
       <RadioGroup defaultValue="team" aria-label="Account type">
-        <RadioGroup.Item value="personal">
-          <RadioGroup.ItemControl />
-          <RadioGroup.ItemText>Personal account</RadioGroup.ItemText>
-          <RadioGroup.ItemHiddenInput />
-        </RadioGroup.Item>
-        <RadioGroup.Item value="team">
-          <RadioGroup.ItemControl />
-          <RadioGroup.ItemText>Team account</RadioGroup.ItemText>
-          <RadioGroup.ItemHiddenInput />
-        </RadioGroup.Item>
+        <RadioGroupItem value="personal">
+          <RadioGroupItemControl />
+          <RadioGroupItemText>Personal account</RadioGroupItemText>
+          <RadioGroupItemHiddenInput />
+        </RadioGroupItem>
+        <RadioGroupItem value="team">
+          <RadioGroupItemControl />
+          <RadioGroupItemText>Team account</RadioGroupItemText>
+          <RadioGroupItemHiddenInput />
+        </RadioGroupItem>
       </RadioGroup>
     </Field>
   ),

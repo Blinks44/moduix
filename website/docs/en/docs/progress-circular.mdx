@@ -34,9 +34,9 @@ small dashboards. Use `ProgressLinear` when progress is easier to compare on a h
 ## Basic
 
 
-Use `ProgressCircular.Ring` to render the standard circle with its track and range. Add
-`ProgressCircular.ValueText` to show the current value. The example wraps the circle and value text
-so the value appears in the center. Give `Ring` an `aria-label` that names the task and matches the
+Use `ProgressCircularRing` to render the standard circle with its track and range. Add
+`ProgressCircularValueText` to show the current value. The example wraps the circle and value text
+so the value appears in the center. Give `ProgressCircularRing` an `aria-label` that names the task and matches the
 visible label.
 
 <ExampleFrame variant="component">
@@ -104,44 +104,44 @@ See [Quick Start](/docs/quick-start) for full package setup, registry configurat
 ## Anatomy
 
 ```text
-ProgressCircular / ProgressCircular.Root
-├─ ProgressCircular.Label
-├─ ProgressCircular.Circle
-│  ├─ ProgressCircular.CircleTrack
-│  └─ ProgressCircular.CircleRange
-├─ ProgressCircular.Ring
-│  └─ fixed Circle, CircleTrack, and CircleRange subtree
-├─ ProgressCircular.ValueText
-└─ ProgressCircular.View
+ProgressCircular
+├─ ProgressCircularLabel
+├─ ProgressCircularCircle
+│  ├─ ProgressCircularCircleTrack
+│  └─ ProgressCircularCircleRange
+├─ ProgressCircularRing
+│  └─ fixed ProgressCircularCircle, ProgressCircularCircleTrack, and ProgressCircularCircleRange subtree
+├─ ProgressCircularValueText
+└─ ProgressCircularView
 
-ProgressCircular.RootProvider
-└─ same part tree connected to ProgressCircular.useProgress()
+ProgressCircularRootProvider
+└─ same part tree connected to useProgress()
 ```
 
 | Part                                         | Role                                                                                       |
 | -------------------------------------------- | ------------------------------------------------------------------------------------------ |
-| `ProgressCircular` / `ProgressCircular.Root` | Owns progress state, formatting, and generated ids.                                        |
-| `ProgressCircular.RootProvider`              | Connects parts to state created with `ProgressCircular.useProgress()`.                     |
-| `ProgressCircular.Context`                   | Exposes the current progress state through a render prop.                                  |
-| `ProgressCircular.Label`                     | Provides visible context for the progress indicator.                                       |
-| `ProgressCircular.Ring`                      | Convenience part that renders the default circle, track, and range.                       |
-| `ProgressCircular.Circle`                    | SVG progressbar element with Ark's role and ARIA value attributes.                        |
-| `ProgressCircular.CircleTrack`               | Background circle.                                                                         |
-| `ProgressCircular.CircleRange`               | Foreground circle that reflects the current progress or indeterminate state.               |
-| `ProgressCircular.ValueText`                 | Displays the formatted value and announces updates.                                       |
-| `ProgressCircular.View`                      | Renders content for `indeterminate`, `loading`, or `complete`.                             |
+| `ProgressCircular` | Owns progress state, formatting, and generated ids.                                        |
+| `ProgressCircularRootProvider`              | Connects parts to state created with `useProgress()`.                     |
+| `ProgressCircularContext`                   | Exposes the current progress state through a render prop.                                  |
+| `ProgressCircularLabel`                     | Provides visible context for the progress indicator.                                       |
+| `ProgressCircularRing`                      | Convenience part that renders the default circle, track, and range.                       |
+| `ProgressCircularCircle`                    | SVG progressbar element with Ark's role and ARIA value attributes.                        |
+| `ProgressCircularCircleTrack`               | Background circle.                                                                         |
+| `ProgressCircularCircleRange`               | Foreground circle that reflects the current progress or indeterminate state.               |
+| `ProgressCircularValueText`                 | Displays the formatted value and announces updates.                                       |
+| `ProgressCircularView`                      | Renders content for `indeterminate`, `loading`, or `complete`.                             |
 
 ## Composition
 
-`ProgressCircular` is shorthand for `ProgressCircular.Root`. Use `ProgressCircular.Ring` when the
-standard circle is enough: it combines `Circle`, `CircleTrack`, and `CircleRange`, but it does not
-render or center `ValueText`. Keep the label, circle, and value text composition explicit when the
+`ProgressCircular` is shorthand for `ProgressCircular`. Use `ProgressCircularRing` when the
+standard circle is enough: it combines `ProgressCircularCircle`, `ProgressCircularCircleTrack`, and `ProgressCircularCircleRange`, but it does not
+render or center `ProgressCircularValueText`. Keep the label, circle, and value text composition explicit when the
 value should appear in the center.
 
 Use `defaultValue` when the component owns progress state. Use `value` with
 `onValueChange(details)` when the application owns it. Set `defaultValue={null}` or `value={null}`
 for indeterminate progress. When state must be created outside the rendered tree, create it with
-`ProgressCircular.useProgress()` and pass the store to `ProgressCircular.RootProvider` instead of
+`useProgress()` and pass the store to `ProgressCircularRootProvider` instead of
 rendering another root for the same store.
 
 ## Examples
@@ -267,8 +267,8 @@ Use `min` and `max` to map values to a range other than the default `0` to `100`
 
 ### Value text
 
-Use `Context` with `translations.value(details)` when visible value text needs task-specific wording.
-Render `progress.valueAsString` as the `ValueText` child so the visible text matches the accessible
+Use `ProgressCircularContext` with `translations.value(details)` when visible value text needs task-specific wording.
+Render `progress.valueAsString` as the `ProgressCircularValueText` child so the visible text matches the accessible
 value string.
 
 <ExampleFrame variant="component">
@@ -303,9 +303,9 @@ value string.
 
 ### Advanced customization
 
-`ProgressCircular.Ring` is the quick path. Compose `Circle`, `CircleTrack`, and `CircleRange`
+`ProgressCircularRing` is the quick path. Compose `ProgressCircularCircle`, `ProgressCircularCircleTrack`, and `ProgressCircularCircleRange`
 directly when the SVG tree or state ownership needs to be customized. Only direct composition can
-give `CircleTrack` and `CircleRange` their own classes, as in this example.
+give `ProgressCircularCircleTrack` and `ProgressCircularCircleRange` their own classes, as in this example.
 
 <ExampleFrame variant="component">
   <CirclePartsProgressCircular />
@@ -342,9 +342,9 @@ give `CircleTrack` and `CircleRange` their own classes, as in this example.
 
 </ExampleCode>
 
-#### RootProvider
+#### ProgressCircularRootProvider
 
-Create the store with `ProgressCircular.useProgress()` and pass it to `RootProvider` when another
+Create the store with `useProgress()` and pass it to `ProgressCircularRootProvider` when another
 component needs to read or update progress outside the rendered tree.
 
 <ExampleFrame variant="component">
@@ -384,7 +384,7 @@ component needs to read or update progress outside the rendered tree.
 
 #### State views
 
-Use `ProgressCircular.View` when supporting text or UI should change with the Ark progress state.
+Use `ProgressCircularView` when supporting text or UI should change with the Ark progress state.
 
 <ExampleFrame variant="component">
   <StateViewsProgressCircular />
@@ -453,7 +453,7 @@ to keep a visible static cue.
   `data-slot="progress-circular-label"`, `data-slot="progress-circular-circle"`,
   `data-slot="progress-circular-circle-track"`, `data-slot="progress-circular-circle-range"`,
   `data-slot="progress-circular-value-text"`, and `data-slot="progress-circular-view"`.
-- `ProgressCircular.Ring` shares `ProgressCircular.Circle`'s `data-slot`, `className`, ref, and
+- `ProgressCircularRing` shares `ProgressCircularCircle`'s `data-slot`, `className`, ref, and
   `--moduix-progress-circular-*` size and thickness variables.
 - Ark hooks: `data-scope="progress"`, `data-part`, `data-state="indeterminate|loading|complete"`,
   `data-orientation`, `data-value`, and `data-max`.

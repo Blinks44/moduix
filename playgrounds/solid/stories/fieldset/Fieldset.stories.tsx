@@ -15,7 +15,13 @@ import {
   FieldsetRootProvider,
   useFieldset,
 } from '@/components/fieldset/Fieldset';
-import { RadioGroup } from '@/components/radio-group';
+import {
+  RadioGroup,
+  RadioGroupItem,
+  RadioGroupItemControl,
+  RadioGroupItemHiddenInput,
+  RadioGroupItemText,
+} from '@/components/radio-group';
 import styles from './Fieldset.stories.module.css';
 
 const meta = {
@@ -105,11 +111,11 @@ export const WithRadioGroup: Story = {
       <FieldsetLegend>Storage type</FieldsetLegend>
       <RadioGroup defaultValue="ssd">
         {['ssd', 'hdd'].map((value) => (
-          <RadioGroup.Item value={value}>
-            <RadioGroup.ItemControl />
-            <RadioGroup.ItemText>{value.toUpperCase()}</RadioGroup.ItemText>
-            <RadioGroup.ItemHiddenInput />
-          </RadioGroup.Item>
+          <RadioGroupItem value={value}>
+            <RadioGroupItemControl />
+            <RadioGroupItemText>{value.toUpperCase()}</RadioGroupItemText>
+            <RadioGroupItemHiddenInput />
+          </RadioGroupItem>
         ))}
       </RadioGroup>
       <FieldsetHelperText>Choose the primary storage medium.</FieldsetHelperText>

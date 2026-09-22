@@ -1,5 +1,5 @@
 import { createListCollection } from '@ark-ui/solid/collection';
-import { Listbox } from '@moduix/solid/listbox';
+import { Listbox, ListboxContent, ListboxItem, ListboxItemGroup, ListboxItemGroupLabel, ListboxItemIndicator, ListboxItemText, ListboxLabel } from '@moduix/solid/listbox';
 import { For } from 'solid-js';
 import styles from '@/components/examples/listbox/listbox-grouping.module.css';
 
@@ -21,24 +21,24 @@ const regions = createListCollection({
 export default function GroupedListboxDemo() {
   return (
     <Listbox collection={regions} class={styles.root}>
-      <Listbox.Label>Select region</Listbox.Label>
-      <Listbox.Content>
+      <ListboxLabel>Select region</ListboxLabel>
+      <ListboxContent>
         <For each={regions.group()}>
           {([region, items]) => (
-            <Listbox.ItemGroup id={region}>
-              <Listbox.ItemGroupLabel>{region}</Listbox.ItemGroupLabel>
+            <ListboxItemGroup id={region}>
+              <ListboxItemGroupLabel>{region}</ListboxItemGroupLabel>
               <For each={items}>
                 {(item) => (
-                  <Listbox.Item item={item}>
-                    <Listbox.ItemText>{item.label}</Listbox.ItemText>
-                    <Listbox.ItemIndicator />
-                  </Listbox.Item>
+                  <ListboxItem item={item}>
+                    <ListboxItemText>{item.label}</ListboxItemText>
+                    <ListboxItemIndicator />
+                  </ListboxItem>
                 )}
               </For>
-            </Listbox.ItemGroup>
+            </ListboxItemGroup>
           )}
         </For>
-      </Listbox.Content>
+      </ListboxContent>
     </Listbox>
   );
 }

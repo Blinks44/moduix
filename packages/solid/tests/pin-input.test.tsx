@@ -1,17 +1,17 @@
 import { expect, test } from '@rstest/core';
 import { fireEvent, render, screen, waitFor } from '@solidjs/testing-library';
 import { createSignal } from 'solid-js';
-import { Field, PinInput, usePinInput, FieldErrorText } from '../src';
+import { Field, PinInput, usePinInput, FieldErrorText, PinInputRootProvider, PinInputHiddenInput, PinInputLabel, PinInputControl, PinInputInput, PinInputInputs } from '../src';
 
 function ControlledPinInput() {
   const [value, setValue] = createSignal<string[]>([]);
 
   return (
     <PinInput count={4} value={value()} onValueChange={(details) => setValue(details.value)}>
-      <PinInput.Label>Verification code</PinInput.Label>
-      <PinInput.Control>
-        <PinInput.Inputs />
-      </PinInput.Control>
+      <PinInputLabel>Verification code</PinInputLabel>
+      <PinInputControl>
+        <PinInputInputs />
+      </PinInputControl>
     </PinInput>
   );
 }
@@ -32,11 +32,11 @@ test('renders the recommended composition with Ark anatomy and form participatio
   const { container } = render(() => (
     <form>
       <PinInput count={4} defaultValue={['1', '2', '3', '4']} name="code" required>
-        <PinInput.Label>Verification code</PinInput.Label>
-        <PinInput.Control>
-          <PinInput.Inputs />
-        </PinInput.Control>
-        <PinInput.HiddenInput />
+        <PinInputLabel>Verification code</PinInputLabel>
+        <PinInputControl>
+          <PinInputInputs />
+        </PinInputControl>
+        <PinInputHiddenInput />
       </PinInput>
     </form>
   ));
@@ -72,10 +72,10 @@ test('keeps invalid, disabled, and read-only Field state on visible inputs', () 
   render(() => (
     <Field disabled invalid readOnly>
       <PinInput count={4}>
-        <PinInput.Label>Verification code</PinInput.Label>
-        <PinInput.Control>
-          <PinInput.Inputs />
-        </PinInput.Control>
+        <PinInputLabel>Verification code</PinInputLabel>
+        <PinInputControl>
+          <PinInputInputs />
+        </PinInputControl>
       </PinInput>
       <FieldErrorText>Enter a valid code.</FieldErrorText>
     </Field>
@@ -100,11 +100,11 @@ test('submits the owning form after completing an auto-submit PinInput', async (
       }}
     >
       <PinInput autoSubmit count={4} name="code">
-        <PinInput.Label>Verification code</PinInput.Label>
-        <PinInput.Control>
-          <PinInput.Inputs />
-        </PinInput.Control>
-        <PinInput.HiddenInput />
+        <PinInputLabel>Verification code</PinInputLabel>
+        <PinInputControl>
+          <PinInputInputs />
+        </PinInputControl>
+        <PinInputHiddenInput />
       </PinInput>
     </form>
   ));
@@ -126,13 +126,13 @@ test('preserves RootProvider and root asChild composition', async () => {
         <button type="button" onClick={() => pinInput().clearValue()}>
           Clear code
         </button>
-        <PinInput.RootProvider value={pinInput}>
-          <PinInput.Label>Provider code</PinInput.Label>
-          <PinInput.Control>
-            <PinInput.Inputs />
-          </PinInput.Control>
-          <PinInput.HiddenInput />
-        </PinInput.RootProvider>
+        <PinInputRootProvider value={pinInput}>
+          <PinInputLabel>Provider code</PinInputLabel>
+          <PinInputControl>
+            <PinInputInputs />
+          </PinInputControl>
+          <PinInputHiddenInput />
+        </PinInputRootProvider>
       </>
     );
   }
@@ -140,11 +140,11 @@ test('preserves RootProvider and root asChild composition', async () => {
   const { container } = render(() => (
     <>
       <PinInput asChild={(props) => <section {...props()} />} count={4}>
-        <PinInput.Label>Custom code</PinInput.Label>
-        <PinInput.Control>
-          <PinInput.Inputs />
-        </PinInput.Control>
-        <PinInput.HiddenInput />
+        <PinInputLabel>Custom code</PinInputLabel>
+        <PinInputControl>
+          <PinInputInputs />
+        </PinInputControl>
+        <PinInputHiddenInput />
       </PinInput>
       <ProviderPinInput />
     </>
@@ -162,9 +162,9 @@ test('forwards refs through ordinary Ark Solid part paths', () => {
 
   render(() => (
     <PinInput ref={(element) => (rootRef = element)} count={4}>
-      <PinInput.Control>
-        <PinInput.Input ref={(element) => (inputRef = element)} index={0} />
-      </PinInput.Control>
+      <PinInputControl>
+        <PinInputInput ref={(element) => (inputRef = element)} index={0} />
+      </PinInputControl>
     </PinInput>
   ));
 
@@ -181,9 +181,9 @@ test('does not forward refs through native Ark Solid asChild composition', () =>
       asChild={(props) => <section {...props()} aria-label="Pin input" />}
       count={4}
     >
-      <PinInput.Control>
-        <PinInput.Inputs />
-      </PinInput.Control>
+      <PinInputControl>
+        <PinInputInputs />
+      </PinInputControl>
     </PinInput>
   ));
 

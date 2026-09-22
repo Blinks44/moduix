@@ -35,9 +35,9 @@ lorsque la progression se compare plus facilement sur une barre horizontale.
 ## Exemple de base
 
 
-Utilisez `ProgressCircular.Ring` pour afficher le cercle SVG standard, sa piste et son arc de
-progression. Ajoutez `ProgressCircular.ValueText` pour afficher la valeur actuelle. L’exemple place
-ce texte au centre du cercle grâce à un conteneur externe. Donnez à `Ring` un `aria-label` qui
+Utilisez `ProgressCircularRing` pour afficher le cercle SVG standard, sa piste et son arc de
+progression. Ajoutez `ProgressCircularValueText` pour afficher la valeur actuelle. L’exemple place
+ce texte au centre du cercle grâce à un conteneur externe. Donnez à `ProgressCircularRing` un `aria-label` qui
 identifie la tâche et correspond au libellé visible.
 
 <ExampleFrame variant="component">
@@ -105,45 +105,45 @@ Consultez le [Démarrage rapide](/docs/quick-start) pour la configuration compl�
 ## Anatomie
 
 ```text
-ProgressCircular / ProgressCircular.Root
-├─ ProgressCircular.Label
-├─ ProgressCircular.Circle
-│  ├─ ProgressCircular.CircleTrack
-│  └─ ProgressCircular.CircleRange
-├─ ProgressCircular.Ring
-│  └─ fixed Circle, CircleTrack, and CircleRange subtree
-├─ ProgressCircular.ValueText
-└─ ProgressCircular.View
+ProgressCircular
+├─ ProgressCircularLabel
+├─ ProgressCircularCircle
+│  ├─ ProgressCircularCircleTrack
+│  └─ ProgressCircularCircleRange
+├─ ProgressCircularRing
+│  └─ fixed ProgressCircularCircle, ProgressCircularCircleTrack, and ProgressCircularCircleRange subtree
+├─ ProgressCircularValueText
+└─ ProgressCircularView
 
-ProgressCircular.RootProvider
-└─ same part tree connected to ProgressCircular.useProgress()
+ProgressCircularRootProvider
+└─ same part tree connected to useProgress()
 ```
 
 | Partie                                        | Rôle                                                                                |
 | --------------------------------------------- | ----------------------------------------------------------------------------------- |
-| `ProgressCircular` / `ProgressCircular.Root`  | Gère l’état de progression, le formatage et les identifiants générés.               |
-| `ProgressCircular.RootProvider`               | Relie les parties à l’état créé par `ProgressCircular.useProgress()`.               |
-| `ProgressCircular.Context`                    | Expose l’état courant via une fonction de rendu.                                     |
-| `ProgressCircular.Label`                      | Fournit le contexte visible de l’indicateur de progression.                         |
-| `ProgressCircular.Ring`                       | Partie pratique qui rend le cercle, la piste et l’arc par défaut.                   |
-| `ProgressCircular.Circle`                     | Élément SVG auquel Ark ajoute le rôle et les attributs ARIA de valeur.              |
-| `ProgressCircular.CircleTrack`                | Cercle d’arrière-plan.                                                              |
-| `ProgressCircular.CircleRange`                | Arc au premier plan qui reflète la progression actuelle ou l’état indéterminé.      |
-| `ProgressCircular.ValueText`                  | Affiche la valeur formatée et annonce les mises à jour.                             |
-| `ProgressCircular.View`                       | Rend du contenu pour les états `indeterminate`, `loading` ou `complete`.            |
+| `ProgressCircular`  | Gère l’état de progression, le formatage et les identifiants générés.               |
+| `ProgressCircularRootProvider`               | Relie les parties à l’état créé par `useProgress()`.               |
+| `ProgressCircularContext`                    | Expose l’état courant via une fonction de rendu.                                     |
+| `ProgressCircularLabel`                      | Fournit le contexte visible de l’indicateur de progression.                         |
+| `ProgressCircularRing`                       | Partie pratique qui rend le cercle, la piste et l’arc par défaut.                   |
+| `ProgressCircularCircle`                     | Élément SVG auquel Ark ajoute le rôle et les attributs ARIA de valeur.              |
+| `ProgressCircularCircleTrack`                | Cercle d’arrière-plan.                                                              |
+| `ProgressCircularCircleRange`                | Arc au premier plan qui reflète la progression actuelle ou l’état indéterminé.      |
+| `ProgressCircularValueText`                  | Affiche la valeur formatée et annonce les mises à jour.                             |
+| `ProgressCircularView`                       | Rend du contenu pour les états `indeterminate`, `loading` ou `complete`.            |
 
 ## Composition
 
-`ProgressCircular` est le raccourci de `ProgressCircular.Root`. Utilisez `ProgressCircular.Ring`
-lorsque le cercle standard suffit : il combine `Circle`, `CircleTrack` et `CircleRange`, mais ne
-rend pas et ne centre pas `ValueText`. Gardez la composition du libellé, du cercle et du texte de
+`ProgressCircular` est le raccourci de `ProgressCircular`. Utilisez `ProgressCircularRing`
+lorsque le cercle standard suffit : il combine `ProgressCircularCircle`, `ProgressCircularCircleTrack` et `ProgressCircularCircleRange`, mais ne
+rend pas et ne centre pas `ProgressCircularValueText`. Gardez la composition du libellé, du cercle et du texte de
 valeur explicite lorsque la valeur doit apparaître au centre.
 
 Utilisez `defaultValue` lorsque le composant possède l’état de progression. Utilisez `value` avec
 `onValueChange(details)` lorsque l’application le possède. Définissez `defaultValue={null}` ou
 `value={null}` pour une progression indéterminée. Lorsque l’état doit être créé en dehors de l’arbre
-rendu, créez-le avec `ProgressCircular.useProgress()` et passez le store à
-`ProgressCircular.RootProvider` au lieu de rendre une autre racine pour le même store.
+rendu, créez-le avec `useProgress()` et passez le store à
+`ProgressCircularRootProvider` au lieu de rendre une autre racine pour le même store.
 
 ## Exemples
 
@@ -269,8 +269,8 @@ Utilisez `min` et `max` pour représenter des valeurs dans une plage autre que l
 
 ### Texte de la valeur
 
-Utilisez `Context` avec `translations.value(details)` lorsque le texte visible de la valeur doit
-être formulé pour une tâche précise. Rendez `progress.valueAsString` comme enfant de `ValueText`
+Utilisez `ProgressCircularContext` avec `translations.value(details)` lorsque le texte visible de la valeur doit
+être formulé pour une tâche précise. Rendez `progress.valueAsString` comme enfant de `ProgressCircularValueText`
 afin que le texte visible corresponde à la chaîne de valeur accessible.
 
 <ExampleFrame variant="component">
@@ -305,9 +305,9 @@ afin que le texte visible corresponde à la chaîne de valeur accessible.
 
 ### Personnalisation avancée
 
-Utilisez les parties individuelles du cercle à la place de `ProgressCircular.Ring` lorsque
+Utilisez les parties individuelles du cercle à la place de `ProgressCircularRing` lorsque
 l’arborescence SVG ou la gestion de l’état doit être personnalisée. Seule la composition directe
-permet de donner à `CircleTrack` et `CircleRange` leurs propres classes, comme dans cet exemple.
+permet de donner à `ProgressCircularCircleTrack` et `ProgressCircularCircleRange` leurs propres classes, comme dans cet exemple.
 
 <ExampleFrame variant="component">
   <CirclePartsProgressCircular />
@@ -344,9 +344,9 @@ permet de donner à `CircleTrack` et `CircleRange` leurs propres classes, comme 
 
 </ExampleCode>
 
-#### RootProvider
+#### ProgressCircularRootProvider
 
-Créez le store avec `ProgressCircular.useProgress()` et passez-le à `RootProvider` lorsqu’un autre
+Créez le store avec `useProgress()` et passez-le à `ProgressCircularRootProvider` lorsqu’un autre
 composant doit lire ou mettre à jour la progression en dehors de l’arbre rendu.
 
 <ExampleFrame variant="component">
@@ -386,7 +386,7 @@ composant doit lire ou mettre à jour la progression en dehors de l’arbre rend
 
 #### Vues d’état
 
-Utilisez `ProgressCircular.View` lorsque le texte ou l’interface d’accompagnement doit changer avec
+Utilisez `ProgressCircularView` lorsque le texte ou l’interface d’accompagnement doit changer avec
 l’état de progression Ark.
 
 <ExampleFrame variant="component">
@@ -458,8 +458,8 @@ statique visible.
   `data-slot="progress-circular-label"`, `data-slot="progress-circular-circle"`,
   `data-slot="progress-circular-circle-track"`, `data-slot="progress-circular-circle-range"`,
   `data-slot="progress-circular-value-text"` et `data-slot="progress-circular-view"`.
-- `ProgressCircular.Ring` utilise les mêmes `data-slot`, `className`, ref et variables de taille et
-  d’épaisseur `--moduix-progress-circular-*` que `ProgressCircular.Circle`.
+- `ProgressCircularRing` utilise les mêmes `data-slot`, `className`, ref et variables de taille et
+  d’épaisseur `--moduix-progress-circular-*` que `ProgressCircularCircle`.
 - Attributs Ark : `data-scope="progress"`, `data-part`, `data-state="indeterminate|loading|complete"`,
   `data-orientation`, `data-value` et `data-max`.
 - Variables SVG Ark du cercle : `--size`, `--thickness`, `--radius`, `--circumference`, `--percent`

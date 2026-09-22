@@ -1,5 +1,5 @@
 import { createListCollection } from '@ark-ui/react/collection';
-import { Listbox } from '@moduix/react/listbox';
+import { Listbox, ListboxContent, ListboxItem, ListboxItemIndicator, ListboxItemText, ListboxLabel } from '@moduix/react/listbox';
 import { useState } from 'react';
 import styles from '@/components/examples/listbox/listbox-controlled.module.css';
 
@@ -33,15 +33,15 @@ export default function ControlledListboxDemo() {
       value={value}
       onValueChange={(details) => setValue(details.value)}
     >
-      <Listbox.Label>Select size</Listbox.Label>
-      <Listbox.Content>
+      <ListboxLabel>Select size</ListboxLabel>
+      <ListboxContent>
         {sizes.items.map((item) => (
-          <Listbox.Item key={item.value} item={item}>
-            <Listbox.ItemText>{item.label}</Listbox.ItemText>
-            <Listbox.ItemIndicator />
-          </Listbox.Item>
+          <ListboxItem key={item.value} item={item}>
+            <ListboxItemText>{item.label}</ListboxItemText>
+            <ListboxItemIndicator />
+          </ListboxItem>
         ))}
-      </Listbox.Content>
+      </ListboxContent>
     </Listbox>
   );
 }

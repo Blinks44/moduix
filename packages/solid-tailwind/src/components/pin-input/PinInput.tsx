@@ -10,7 +10,7 @@ import type { ComponentProps } from 'solid-js';
 import { cn } from '@/lib/moduix/cn';
 import { SeparatorMarkIcon } from '@/lib/moduix/icons/ui/Icons';
 
-function PinInputRoot(props: ComponentProps<typeof PinInputPrimitive.Root>) {
+function PinInput(props: ComponentProps<typeof PinInputPrimitive.Root>) {
   const [local, others] = splitProps(props, [
     'asChild',
     'children',
@@ -130,16 +130,19 @@ function usePinInput(props: UsePinInputProps | (() => UsePinInputProps) = {}): U
   }));
 }
 
-const PinInput = Object.assign(PinInputRoot, {
-  Root: PinInputRoot,
-  RootProvider: PinInputRootProvider,
-  Context: PinInputPrimitive.Context,
-  HiddenInput: PinInputPrimitive.HiddenInput,
-  Label: PinInputLabel,
-  Control: PinInputControl,
-  Input: PinInputInput,
-  Inputs: PinInputInputs,
-  Separator: PinInputSeparator,
-});
+const PinInputContext = PinInputPrimitive.Context;
+const PinInputHiddenInput = PinInputPrimitive.HiddenInput;
 
-export { PinInput, usePinInput, usePinInputContext };
+export {
+  PinInput,
+  PinInputContext,
+  PinInputControl,
+  PinInputHiddenInput,
+  PinInputInput,
+  PinInputInputs,
+  PinInputLabel,
+  PinInputRootProvider,
+  PinInputSeparator,
+  usePinInput,
+  usePinInputContext,
+};

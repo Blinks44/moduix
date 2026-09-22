@@ -1,4 +1,9 @@
-import { ProgressCircular } from '@moduix/react/progress-circular';
+import {
+  ProgressCircular,
+  ProgressCircularLabel,
+  ProgressCircularRing,
+  ProgressCircularValueText,
+} from '@moduix/react/progress-circular';
 import { Slider } from '@moduix/react/slider';
 import { useState } from 'react';
 import { PreviewMeta } from '@/components/mdx/Components';
@@ -9,10 +14,10 @@ export default function ControlledProgressCircularDemo() {
   return (
     <div className={styles.stack}>
       <ProgressCircular value={value} onValueChange={(details) => setValue(details.value)}>
-        <ProgressCircular.Label>Upload status</ProgressCircular.Label>
+        <ProgressCircularLabel>Upload status</ProgressCircularLabel>
         <div className={styles.circleContainer}>
-          <ProgressCircular.Ring aria-label="Upload status" />
-          <ProgressCircular.ValueText />
+          <ProgressCircularRing aria-label="Upload status" />
+          <ProgressCircularValueText />
         </div>
       </ProgressCircular>
       <PreviewMeta>

@@ -1,5 +1,5 @@
 import { createListCollection } from '@ark-ui/react/collection';
-import { Listbox } from '@moduix/react/listbox';
+import { Listbox, ListboxContent, ListboxItem, ListboxItemIndicator, ListboxItemText, ListboxLabel, ListboxValueText } from '@moduix/react/listbox';
 import styles from '@/components/examples/listbox/listbox-multiple.module.css';
 
 const days = createListCollection({
@@ -43,16 +43,16 @@ export default function MultipleListboxDemo() {
       selectionMode="multiple"
       defaultValue={['mon', 'wed', 'fri']}
     >
-      <Listbox.Label>Select days</Listbox.Label>
-      <Listbox.Content>
+      <ListboxLabel>Select days</ListboxLabel>
+      <ListboxContent>
         {days.items.map((item) => (
-          <Listbox.Item key={item.value} item={item}>
-            <Listbox.ItemText>{item.label}</Listbox.ItemText>
-            <Listbox.ItemIndicator />
-          </Listbox.Item>
+          <ListboxItem key={item.value} item={item}>
+            <ListboxItemText>{item.label}</ListboxItemText>
+            <ListboxItemIndicator />
+          </ListboxItem>
         ))}
-      </Listbox.Content>
-      <Listbox.ValueText />
+      </ListboxContent>
+      <ListboxValueText />
     </Listbox>
   );
 }

@@ -1,13 +1,17 @@
-import { RadioGroup } from '@moduix/solid/radio-group';
+import {
+  RadioGroup,
+  RadioGroupLabel,
+  RadioGroupOption,
+} from '@moduix/solid/radio-group';
 
 export default function RadioGroupSizesDemo() {
   return (
     <RadioGroup defaultValue="md">
-      <RadioGroup.Label>Control Size</RadioGroup.Label>
+      <RadioGroupLabel>Control Size</RadioGroupLabel>
       {(['xs', 'sm', 'md', 'lg', 'xl'] as const).map((size) => (
-        <RadioGroup.Option value={size} size={size}>
+        <RadioGroupOption value={size} size={size}>
           {size.toUpperCase()}
-        </RadioGroup.Option>
+        </RadioGroupOption>
       ))}
     </RadioGroup>
   );

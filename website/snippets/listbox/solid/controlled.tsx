@@ -1,5 +1,5 @@
 import { createListCollection } from '@ark-ui/solid/collection';
-import { Listbox } from '@moduix/solid/listbox';
+import { Listbox, ListboxContent, ListboxItem, ListboxItemIndicator, ListboxItemText, ListboxLabel } from '@moduix/solid/listbox';
 import { createSignal, For } from 'solid-js';
 import styles from '@/components/examples/listbox/listbox-controlled.module.css';
 
@@ -22,17 +22,17 @@ export default function ControlledListboxDemo() {
       value={value()}
       onValueChange={(details) => setValue(details.value)}
     >
-      <Listbox.Label>Select size</Listbox.Label>
-      <Listbox.Content>
+      <ListboxLabel>Select size</ListboxLabel>
+      <ListboxContent>
         <For each={sizes.items}>
           {(item) => (
-            <Listbox.Item item={item}>
-              <Listbox.ItemText>{item.label}</Listbox.ItemText>
-              <Listbox.ItemIndicator />
-            </Listbox.Item>
+            <ListboxItem item={item}>
+              <ListboxItemText>{item.label}</ListboxItemText>
+              <ListboxItemIndicator />
+            </ListboxItem>
           )}
         </For>
-      </Listbox.Content>
+      </ListboxContent>
     </Listbox>
   );
 }

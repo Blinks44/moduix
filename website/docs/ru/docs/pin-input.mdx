@@ -33,15 +33,15 @@ import pinInputSolidRootProvider from '../../../snippets/pin-input/solid/root-pr
 Используйте `PinInput`, если короткий код фиксированной длины нужно вводить по одному символу в отдельных ячейках.
 
 - Выбирайте **`PinInput`** для одноразовых кодов, PIN-кодов, резервных кодов и кодов приглашений.
-- Выбирайте **`Input`**, когда достаточно одного обычного текстового поля.
+- Выбирайте **`PinInputInput`**, когда достаточно одного обычного текстового поля.
 - Выбирайте **`PasswordInput`**, когда значение представляет собой одну секретную строку с переключателем видимости.
 
 ## Базовый пример
 
 Интерактивное  Настройку пакета и выбор способа стилизации см. в [Quick Start](/docs/quick-start).
 
-Используйте `PinInput` как корневой компонент и явно задайте `count`. Добавьте `Label` для доступного имени,
-поместите `Inputs` внутрь `Control` и явно добавьте `HiddenInput`, если значение должно участвовать в работе
+Используйте `PinInput` как корневой компонент и явно задайте `count`. Добавьте `PinInputLabel` для доступного имени,
+поместите `PinInputInputs` внутрь `PinInputControl` и явно добавьте `PinInputHiddenInput`, если значение должно участвовать в работе
 нативной формы.
 
 <ExampleFrame variant="component">
@@ -104,41 +104,41 @@ import pinInputSolidRootProvider from '../../../snippets/pin-input/solid/root-pr
 ## Анатомия
 
 ```text
-PinInput / PinInput.Root
-├─ PinInput.Label
-├─ PinInput.Control
-│  ├─ PinInput.Input[index=0]
-│  ├─ PinInput.Input[index=1]
-│  └─ PinInput.Input[index=2]
-└─ PinInput.HiddenInput (явно)
+PinInput
+├─ PinInputLabel
+├─ PinInputControl
+│  ├─ PinInputInput[index=0]
+│  ├─ PinInputInput[index=1]
+│  └─ PinInputInput[index=2]
+└─ PinInputHiddenInput (явно)
 
-PinInput.RootProvider
+PinInputRootProvider
 └─ то же дерево частей, связанное с состоянием usePinInput()
 ```
 
 | Часть | Назначение |
 | --- | --- |
-| `PinInput` / `PinInput.Root` | Управляет количеством ячеек, состоянием значения, проверкой и параметрами формы. |
-| `PinInput.HiddenInput` | Нативное поле Ark, которое нужно добавлять явно. |
-| `PinInput.RootProvider` | Подключает части к состоянию, созданному через `usePinInput()`. |
-| `PinInput.Context` | Передаёт текущее состояние корневого компонента потомкам через render prop. |
-| `PinInput.Label` | Задаёт подпись для группы PIN-кода или кода подтверждения. |
-| `PinInput.Control` | Контейнер видимых ячеек с индексами. |
-| `PinInput.Input` | Одна видимая ячейка для символа. Передайте индекс, начиная с нуля. |
-| `PinInput.Inputs` | Создаёт по одному `Input` с индексом для каждой ячейки контекста Ark. |
-| `PinInput.Separator` | Декоративный вспомогательный компонент moduix для группировки, а не часть примитива Ark. |
-| `usePinInput` | Создаёт состояние для `PinInput.RootProvider`. |
+| `PinInput` | Управляет количеством ячеек, состоянием значения, проверкой и параметрами формы. |
+| `PinInputHiddenInput` | Нативное поле Ark, которое нужно добавлять явно. |
+| `PinInputRootProvider` | Подключает части к состоянию, созданному через `usePinInput()`. |
+| `PinInputContext` | Передаёт текущее состояние корневого компонента потомкам через render prop. |
+| `PinInputLabel` | Задаёт подпись для группы PIN-кода или кода подтверждения. |
+| `PinInputControl` | Контейнер видимых ячеек с индексами. |
+| `PinInputInput` | Одна видимая ячейка для символа. Передайте индекс, начиная с нуля. |
+| `PinInputInputs` | Создаёт по одному `PinInputInput` с индексом для каждой ячейки контекста Ark. |
+| `PinInputSeparator` | Декоративный вспомогательный компонент moduix для группировки, а не часть примитива Ark. |
+| `usePinInput` | Создаёт состояние для `PinInputRootProvider`. |
 | `usePinInputContext` | Читает текущее состояние Pin Input внутри дерева компонента. |
 
 ## Композиция
 
-Явно добавьте `PinInput.HiddenInput` внутрь `PinInput` или `PinInput.RootProvider`, если значение должно
+Явно добавьте `PinInputHiddenInput` внутрь `PinInput` или `PinInputRootProvider`, если значение должно
 отправляться с нативной формой и сбрасываться вместе с ней. Задайте корню `name`, а `form` используйте, если
 форма находится вне дерева компонента.
 
-`PinInput.Inputs` создаёт по одной индексированной ячейке для каждого элемента контекста Ark. Используйте явные
-части `Input` с непрерывными индексами от нуля и `Separator`, если код нужно разделить на группы. Значения
-представлены массивом строк. Используйте `RootProvider` с `usePinInput`, когда состоянием или императивными
+`PinInputInputs` создаёт по одной индексированной ячейке для каждого элемента контекста Ark. Используйте явные
+части `PinInputInput` с непрерывными индексами от нуля и `PinInputSeparator`, если код нужно разделить на группы. Значения
+представлены массивом строк. Используйте `PinInputRootProvider` с `usePinInput`, когда состоянием или императивными
 методами нужно управлять за пределами дерева компонентов. В React передаётся объект состояния, а в Solid
 реактивный accessor.
 
@@ -250,7 +250,7 @@ PinInput.RootProvider
 
 ### Сгруппированная раскладка
 
-Используйте явные части `Input` с `Separator`, если разделитель должен разделить код на группы. Индексы должны
+Используйте явные части `PinInputInput` с `PinInputSeparator`, если разделитель должен разделить код на группы. Индексы должны
 идти непрерывно во всей композиции.
 
 <ExampleFrame variant="component">
@@ -377,8 +377,8 @@ PinInput.RootProvider
 
 ### Расширенная настройка
 
-Используйте `usePinInput` с `RootProvider`, когда состоянием и императивными методами нужно управлять за пределами
-дерева компонентов. В этом примере `Inputs` заменён явными частями `Input` с индексами.
+Используйте `usePinInput` с `PinInputRootProvider`, когда состоянием и императивными методами нужно управлять за пределами
+дерева компонентов. В этом примере `PinInputInputs` заменён явными частями `PinInputInput` с индексами.
 
 <ExampleFrame variant="component">
   <PinInputRootProvider />
@@ -415,9 +415,9 @@ PinInput.RootProvider
 ## Доступность
 
 Ark управляет переводом фокуса, распределением вставленного текста, редактированием с клавиатуры, данными формы
-и автозаполнением одноразовых кодов. Добавьте `Label`, чтобы у группы было доступное имя.
+и автозаполнением одноразовых кодов. Добавьте `PinInputLabel`, чтобы у группы было доступное имя.
 
-`PinInput.Separator` по умолчанию является декоративным и получает `aria-hidden` и `role="presentation"`. Не
+`PinInputSeparator` по умолчанию является декоративным и получает `aria-hidden` и `role="presentation"`. Не
 размещайте внутри него содержательный текст.
 
 ## Стилизация
@@ -441,11 +441,11 @@ Ark управляет переводом фокуса, распределени
 
 ### Хуки стилизации
 
-- Корневой элемент и `RootProvider` имеют `data-slot="pin-input-root"` и `data-slot="pin-input-root-provider"`.
-- `Label`, `Control` и `Input` имеют `data-slot="pin-input-label"`, `data-slot="pin-input-control"` и
+- Корневой элемент и `PinInputRootProvider` имеют `data-slot="pin-input-root"` и `data-slot="pin-input-root-provider"`.
+- `PinInputLabel`, `PinInputControl` и `PinInputInput` имеют `data-slot="pin-input-label"`, `data-slot="pin-input-control"` и
   `data-slot="pin-input-input"`.
 - Части Ark используют `data-scope="pin-input"` и `data-part="root" | "label" | "control" | "input"`.
 - Для стилей состояния корня используются `data-disabled`, `data-invalid`, `data-complete` и `data-readonly`.
 - Для стилей состояния ячейки используются `data-disabled`, `data-invalid`, `data-complete`, `data-filled` и
   `data-index`.
-- `PinInput.Separator` имеет `data-slot="pin-input-separator"` и по умолчанию является декоративным.
+- `PinInputSeparator` имеет `data-slot="pin-input-separator"` и по умолчанию является декоративным.

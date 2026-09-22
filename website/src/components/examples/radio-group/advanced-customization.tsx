@@ -1,17 +1,24 @@
-import { RadioGroup } from '@moduix/react/radio-group';
+import {
+  RadioGroup,
+  RadioGroupItem,
+  RadioGroupItemControl,
+  RadioGroupItemHiddenInput,
+  RadioGroupItemText,
+  RadioGroupLabel,
+} from '@moduix/react/radio-group';
 
 const frameworks = ['React', 'Solid', 'Vue'];
 
 export default function RadioGroupAdvancedCustomizationDemo() {
   return (
     <RadioGroup defaultValue="React">
-      <RadioGroup.Label>Framework</RadioGroup.Label>
+      <RadioGroupLabel>Framework</RadioGroupLabel>
       {frameworks.map((framework) => (
-        <RadioGroup.Item key={framework} value={framework}>
-          <RadioGroup.ItemControl />
-          <RadioGroup.ItemText>{framework}</RadioGroup.ItemText>
-          <RadioGroup.ItemHiddenInput />
-        </RadioGroup.Item>
+        <RadioGroupItem key={framework} value={framework}>
+          <RadioGroupItemControl />
+          <RadioGroupItemText>{framework}</RadioGroupItemText>
+          <RadioGroupItemHiddenInput />
+        </RadioGroupItem>
       ))}
     </RadioGroup>
   );

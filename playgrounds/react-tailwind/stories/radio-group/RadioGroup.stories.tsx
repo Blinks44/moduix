@@ -2,7 +2,18 @@ import type { Meta, StoryObj } from '@storybook/react-vite';
 import { useState } from 'react';
 import { Field, FieldErrorText, FieldHelperText, FieldLabel } from '@/components/field/Field';
 import { Fieldset, FieldsetLegend } from '@/components/fieldset/Fieldset';
-import { RadioGroup, useRadioGroup } from '@/components/radio-group/RadioGroup';
+import {
+  RadioGroup,
+  RadioGroupIndicator,
+  RadioGroupItem,
+  RadioGroupItemControl,
+  RadioGroupItemHiddenInput,
+  RadioGroupItemText,
+  RadioGroupLabel,
+  RadioGroupOption,
+  RadioGroupRootProvider,
+  useRadioGroup,
+} from '@/components/radio-group';
 
 const meta = {
   title: 'Components/RadioGroup',
@@ -29,11 +40,11 @@ function RadioItems({ items = frameworks }: { items?: readonly string[] }) {
   return (
     <>
       {items.map((item) => (
-        <RadioGroup.Item key={item} value={item}>
-          <RadioGroup.ItemControl />
-          <RadioGroup.ItemText>{item}</RadioGroup.ItemText>
-          <RadioGroup.ItemHiddenInput />
-        </RadioGroup.Item>
+        <RadioGroupItem key={item} value={item}>
+          <RadioGroupItemControl />
+          <RadioGroupItemText>{item}</RadioGroupItemText>
+          <RadioGroupItemHiddenInput />
+        </RadioGroupItem>
       ))}
     </>
   );
@@ -43,9 +54,9 @@ function RadioOptions({ items = frameworks }: { items?: readonly string[] }) {
   return (
     <>
       {items.map((item) => (
-        <RadioGroup.Option key={item} value={item}>
+        <RadioGroupOption key={item} value={item}>
           {item}
-        </RadioGroup.Option>
+        </RadioGroupOption>
       ))}
     </>
   );
@@ -54,7 +65,7 @@ function RadioOptions({ items = frameworks }: { items?: readonly string[] }) {
 export const Basic: Story = {
   render: () => (
     <RadioGroup defaultValue="React">
-      <RadioGroup.Label>Framework</RadioGroup.Label>
+      <RadioGroupLabel>Framework</RadioGroupLabel>
       <RadioOptions />
     </RadioGroup>
   ),
@@ -63,7 +74,7 @@ export const Basic: Story = {
 export const InitialValue: Story = {
   render: () => (
     <RadioGroup defaultValue="Solid">
-      <RadioGroup.Label>Framework</RadioGroup.Label>
+      <RadioGroupLabel>Framework</RadioGroupLabel>
       <RadioItems />
     </RadioGroup>
   ),
@@ -76,7 +87,7 @@ export const Controlled: Story = {
     return (
       <div className={stackClassName}>
         <RadioGroup value={value} onValueChange={(details) => setValue(details.value)}>
-          <RadioGroup.Label>Framework</RadioGroup.Label>
+          <RadioGroupLabel>Framework</RadioGroupLabel>
           <RadioItems />
         </RadioGroup>
         <span className={hintClassName}>Current value: {value ?? 'none'}</span>
@@ -91,10 +102,10 @@ export const RootProvider: Story = {
 
     return (
       <div className={stackClassName}>
-        <RadioGroup.RootProvider value={radioGroup}>
-          <RadioGroup.Label>Framework</RadioGroup.Label>
+        <RadioGroupRootProvider value={radioGroup}>
+          <RadioGroupLabel>Framework</RadioGroupLabel>
           <RadioItems />
-        </RadioGroup.RootProvider>
+        </RadioGroupRootProvider>
         <button
           className={buttonClassName}
           type="button"
@@ -110,7 +121,7 @@ export const RootProvider: Story = {
 export const Orientation: Story = {
   render: () => (
     <RadioGroup orientation="horizontal" defaultValue="React">
-      <RadioGroup.Label>Framework</RadioGroup.Label>
+      <RadioGroupLabel>Framework</RadioGroupLabel>
       <div className="flex flex-wrap gap-2">
         <RadioItems />
       </div>
@@ -121,13 +132,13 @@ export const Orientation: Story = {
 export const Sizes: Story = {
   render: () => (
     <RadioGroup defaultValue="md">
-      <RadioGroup.Label>Control Size</RadioGroup.Label>
+      <RadioGroupLabel>Control Size</RadioGroupLabel>
       {(['xs', 'sm', 'md', 'lg', 'xl'] as const).map((size) => (
-        <RadioGroup.Item key={size} value={size}>
-          <RadioGroup.ItemControl size={size} />
-          <RadioGroup.ItemText>{size.toUpperCase()}</RadioGroup.ItemText>
-          <RadioGroup.ItemHiddenInput />
-        </RadioGroup.Item>
+        <RadioGroupItem key={size} value={size}>
+          <RadioGroupItemControl size={size} />
+          <RadioGroupItemText>{size.toUpperCase()}</RadioGroupItemText>
+          <RadioGroupItemHiddenInput />
+        </RadioGroupItem>
       ))}
     </RadioGroup>
   ),
@@ -136,7 +147,7 @@ export const Sizes: Story = {
 export const Disabled: Story = {
   render: () => (
     <RadioGroup defaultValue="React" disabled>
-      <RadioGroup.Label>Framework</RadioGroup.Label>
+      <RadioGroupLabel>Framework</RadioGroupLabel>
       <RadioItems />
     </RadioGroup>
   ),
@@ -145,12 +156,12 @@ export const Disabled: Story = {
 export const ItemDisabled: Story = {
   render: () => (
     <RadioGroup defaultValue="React">
-      <RadioGroup.Label>Framework</RadioGroup.Label>
-      <RadioGroup.Option value="React">React</RadioGroup.Option>
-      <RadioGroup.Option disabled value="Solid">
+      <RadioGroupLabel>Framework</RadioGroupLabel>
+      <RadioGroupOption value="React">React</RadioGroupOption>
+      <RadioGroupOption disabled value="Solid">
         Solid
-      </RadioGroup.Option>
-      <RadioGroup.Option value="Vue">Vue</RadioGroup.Option>
+      </RadioGroupOption>
+      <RadioGroupOption value="Vue">Vue</RadioGroupOption>
     </RadioGroup>
   ),
 };
@@ -158,7 +169,7 @@ export const ItemDisabled: Story = {
 export const ReadOnly: Story = {
   render: () => (
     <RadioGroup defaultValue="Solid" readOnly>
-      <RadioGroup.Label>Framework</RadioGroup.Label>
+      <RadioGroupLabel>Framework</RadioGroupLabel>
       <RadioItems />
     </RadioGroup>
   ),
@@ -167,13 +178,13 @@ export const ReadOnly: Story = {
 export const CustomStyling: Story = {
   render: () => (
     <RadioGroup defaultValue="React" className="gap-3 text-primary">
-      <RadioGroup.Label>Styled Framework</RadioGroup.Label>
+      <RadioGroupLabel>Styled Framework</RadioGroupLabel>
       {frameworks.map((item) => (
-        <RadioGroup.Item key={item} value={item} className="gap-3">
-          <RadioGroup.ItemControl className="border-primary data-[state=checked]:bg-primary" />
-          <RadioGroup.ItemText>{item}</RadioGroup.ItemText>
-          <RadioGroup.ItemHiddenInput />
-        </RadioGroup.Item>
+        <RadioGroupItem key={item} value={item} className="gap-3">
+          <RadioGroupItemControl className="border-primary data-[state=checked]:bg-primary" />
+          <RadioGroupItemText>{item}</RadioGroupItemText>
+          <RadioGroupItemHiddenInput />
+        </RadioGroupItem>
       ))}
     </RadioGroup>
   ),
@@ -182,15 +193,15 @@ export const CustomStyling: Story = {
 export const AsChild: Story = {
   render: () => (
     <RadioGroup defaultValue="React">
-      <RadioGroup.Label>Framework</RadioGroup.Label>
+      <RadioGroupLabel>Framework</RadioGroupLabel>
       {frameworks.map((item) => (
-        <RadioGroup.Item key={item} value={item} asChild>
+        <RadioGroupItem key={item} value={item} asChild>
           <label className={cardClassName}>
-            <RadioGroup.ItemControl />
-            <RadioGroup.ItemText>{item}</RadioGroup.ItemText>
-            <RadioGroup.ItemHiddenInput />
+            <RadioGroupItemControl />
+            <RadioGroupItemText>{item}</RadioGroupItemText>
+            <RadioGroupItemHiddenInput />
           </label>
-        </RadioGroup.Item>
+        </RadioGroupItem>
       ))}
     </RadioGroup>
   ),
@@ -201,7 +212,7 @@ export const WithIndicator: Story = {
     <div className="grid gap-2">
       <div>Framework</div>
       <RadioGroup aria-label="Framework" defaultValue="React" className="p-1">
-        <RadioGroup.Indicator className="rounded-md" />
+        <RadioGroupIndicator className="rounded-md" />
         <RadioItems />
       </RadioGroup>
     </div>

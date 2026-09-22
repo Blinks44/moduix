@@ -46,8 +46,8 @@ valeur dans une liste contextuelle.
 ## Exemple de base
 
 
-Passez une `collection`, rendez `Listbox.Content` et transmettez chaque élément de la collection à
-`Listbox.Item` via `item`. Ajoutez `Listbox.ItemIndicator` lorsque les lignes doivent afficher leur
+Passez une `collection`, rendez `ListboxContent` et transmettez chaque élément de la collection à
+`ListboxItem` via `item`. Ajoutez `ListboxItemIndicator` lorsque les lignes doivent afficher leur
 état sélectionné.
 
 <ExampleFrame variant="component">
@@ -115,63 +115,63 @@ Consultez le [Démarrage rapide](/docs/quick-start) pour la configuration compl�
 ## Anatomie
 
 ```text
-Listbox / Listbox.Root
-├─ Listbox.Label
-├─ Listbox.Filter
-│  ├─ Listbox.Input
-│  └─ Listbox.ClearTrigger
-├─ Listbox.Content
-│  ├─ Listbox.Empty
-│  ├─ Listbox.ItemGroup
-│  │  ├─ Listbox.ItemGroupLabel
-│  │  └─ Listbox.Item[item]
-│  │     ├─ Listbox.ItemText
-│  │     └─ Listbox.ItemIndicator
-│  └─ Listbox.Item[item]
-│     ├─ Listbox.ItemText
-│     │  └─ Listbox.ItemTextContent (facultatif)
-│     │     ├─ Listbox.ItemTextIcon (facultatif)
-│     │     └─ Listbox.ItemTextLabel (facultatif)
-│     └─ Listbox.ItemIndicator
-└─ Listbox.ValueText
+Listbox
+├─ ListboxLabel
+├─ ListboxFilter
+│  ├─ ListboxInput
+│  └─ ListboxClearTrigger
+├─ ListboxContent
+│  ├─ ListboxEmpty
+│  ├─ ListboxItemGroup
+│  │  ├─ ListboxItemGroupLabel
+│  │  └─ ListboxItem[item]
+│  │     ├─ ListboxItemText
+│  │     └─ ListboxItemIndicator
+│  └─ ListboxItem[item]
+│     ├─ ListboxItemText
+│     │  └─ ListboxItemTextContent (facultatif)
+│     │     ├─ ListboxItemTextIcon (facultatif)
+│     │     └─ ListboxItemTextLabel (facultatif)
+│     └─ ListboxItemIndicator
+└─ ListboxValueText
 
-Listbox.RootProvider
+ListboxRootProvider
 └─ même arbre d’éléments relié à un store useListbox()
 ```
 
 | Partie                     | Rôle                                                                                     |
 | ------------------------- | ---------------------------------------------------------------------------------------- |
-| `Listbox` / `Listbox.Root` | Gère la collection, les valeurs sélectionnées, l’élément mis en évidence et le mode de sélection. |
-| `Listbox.RootProvider`     | Rend l’arbre de la listbox à partir de l’état renvoyé par `useListbox`.                   |
-| `Listbox.Label`            | Libellé qui fournit un nom accessible à la listbox.                                      |
-| `Listbox.Filter`           | Conteneur visuel pour un champ de filtrage avec l’icône de recherche par défaut. Placez-le avant `Listbox.Content`. |
-| `Listbox.Input`            | Champ de filtrage, généralement placé dans `Filter`.                                    |
-| `Listbox.ClearTrigger`     | Bouton qui réinitialise la requête de filtrage, avec l’icône de fermeture par défaut.   |
-| `Listbox.Content`          | Conteneur focalisable qui gère la navigation au clavier.                                |
-| `Listbox.Empty`            | Contenu affiché lorsque la collection filtrée ne contient aucun élément.                 |
-| `Listbox.ItemGroup`        | Conteneur pour des éléments liés de la collection.                                      |
-| `Listbox.ItemGroupLabel`   | Libellé d’un groupe d’éléments.                                                          |
-| `Listbox.Item`             | Élément sélectionnable. Transmettez-lui l’élément de la collection via `item`.           |
-| `Listbox.ItemText`         | Texte utilisé pour l’affichage et l’accessibilité.                                      |
-| `Listbox.ItemTextContent`  | Conteneur facultatif pour organiser une icône et du texte dans `ItemText`.               |
-| `Listbox.ItemTextIcon`     | Conteneur facultatif pour une icône dans `ItemTextContent`.                              |
-| `Listbox.ItemTextLabel`    | Conteneur du texte dans `ItemTextContent`, qui peut tronquer les libellés longs sans perturber la mise en page. |
-| `Listbox.ItemIndicator`    | Indicateur de sélection avec l’icône de coche moduix par défaut.                         |
-| `Listbox.ValueText`        | Résumé des valeurs sélectionnées.                                                        |
+| `Listbox` | Gère la collection, les valeurs sélectionnées, l’élément mis en évidence et le mode de sélection. |
+| `ListboxRootProvider`     | Rend l’arbre de la listbox à partir de l’état renvoyé par `useListbox`.                   |
+| `ListboxLabel`            | Libellé qui fournit un nom accessible à la listbox.                                      |
+| `ListboxFilter`           | Conteneur visuel pour un champ de filtrage avec l’icône de recherche par défaut. Placez-le avant `ListboxContent`. |
+| `ListboxInput`            | Champ de filtrage, généralement placé dans `ListboxFilter`.                                    |
+| `ListboxClearTrigger`     | Bouton qui réinitialise la requête de filtrage, avec l’icône de fermeture par défaut.   |
+| `ListboxContent`          | Conteneur focalisable qui gère la navigation au clavier.                                |
+| `ListboxEmpty`            | Contenu affiché lorsque la collection filtrée ne contient aucun élément.                 |
+| `ListboxItemGroup`        | Conteneur pour des éléments liés de la collection.                                      |
+| `ListboxItemGroupLabel`   | Libellé d’un groupe d’éléments.                                                          |
+| `ListboxItem`             | Élément sélectionnable. Transmettez-lui l’élément de la collection via `item`.           |
+| `ListboxItemText`         | Texte utilisé pour l’affichage et l’accessibilité.                                      |
+| `ListboxItemTextContent`  | Conteneur facultatif pour organiser une icône et du texte dans `ListboxItemText`.               |
+| `ListboxItemTextIcon`     | Conteneur facultatif pour une icône dans `ListboxItemTextContent`.                              |
+| `ListboxItemTextLabel`    | Conteneur du texte dans `ListboxItemTextContent`, qui peut tronquer les libellés longs sans perturber la mise en page. |
+| `ListboxItemIndicator`    | Indicateur de sélection avec l’icône de coche moduix par défaut.                         |
+| `ListboxValueText`        | Résumé des valeurs sélectionnées.                                                        |
 
 ## Composition
 
 Utilisez `defaultValue` pour une sélection non contrôlée. Lorsqu’une autre partie de l’application
 gère la sélection, passez `value` et mettez-le à jour avec `onValueChange(details.value)`. Pour le
 filtrage, définissez `typeahead={false}`, conservez la requête dans l’état de l’application et
-appelez la fonction `filter` renvoyée par `useListCollection` depuis le gestionnaire du champ. `Listbox.Filter` ne
+appelez la fonction `filter` renvoyée par `useListCollection` depuis le gestionnaire du champ. `ListboxFilter` ne
 fournit que l’apparence regroupée du champ de recherche ; l’action d’effacement doit donc
 réinitialiser la requête et le filtre de la collection.
 
-Utilisez `useListbox` du paquet correspondant au framework avec `Listbox.RootProvider` lorsque le
-store doit être créé en dehors de l’arbre rendu. Passez le store obtenu à `RootProvider` et ne rendez
-pas `Listbox` ou `Listbox.Root` pour ce même store. `Listbox.Input` peut être rendu directement si le
-filtre doit avoir son propre conteneur, et `Listbox.ValueText` peut être placé après `Content` pour
+Utilisez `useListbox` du paquet correspondant au framework avec `ListboxRootProvider` lorsque le
+store doit être créé en dehors de l’arbre rendu. Passez le store obtenu à `ListboxRootProvider` et ne rendez
+ne rendez pas `Listbox` pour ce même store. `ListboxInput` peut être rendu directement si le
+filtre doit avoir son propre conteneur, et `ListboxValueText` peut être placé après `ListboxContent` pour
 afficher un résumé des valeurs sélectionnées.
 
 ## Exemples
@@ -276,8 +276,8 @@ touches modificatrices.
 
 ### Filtrage
 
-Utilisez `Listbox.Filter` avec `useListCollection`. Il ajoute l’icône de recherche par défaut et
-relie visuellement le filtre à `Content` ; désactivez le typeahead lorsque le champ gère la recherche.
+Utilisez `ListboxFilter` avec `useListCollection`. Il ajoute l’icône de recherche par défaut et
+relie visuellement le filtre à `ListboxContent` ; désactivez le typeahead lorsque le champ gère la recherche.
 
 <ExampleFrame variant="component">
   <ListboxFiltering />
@@ -310,7 +310,7 @@ relie visuellement le filtre à `Content` ; désactivez le typeahead lorsque le 
 ### Grille
 
 Passez une collection créée avec `createGridCollection` pour activer la navigation au clavier dans
-une grille. Ark ajoute `data-layout="grid"` et la variable CSS `--column-count` à `Content`.
+une grille. Ark ajoute `data-layout="grid"` et la variable CSS `--column-count` à `ListboxContent`.
 
 <ExampleFrame variant="component">
   <ListboxGrid />
@@ -342,8 +342,8 @@ une grille. Ark ajoute `data-layout="grid"` et la variable CSS `--column-count` 
 
 ### Groupement
 
-Définissez `groupBy` lors de la création de la collection et rendez `ItemGroup` avec
-`ItemGroupLabel`.
+Définissez `groupBy` lors de la création de la collection et rendez `ListboxItemGroup` avec
+`ListboxItemGroupLabel`.
 
 <ExampleFrame variant="component">
   <ListboxGrouping />
@@ -440,7 +440,7 @@ Définissez `selectionMode="multiple"` pour activer plusieurs valeurs sans touch
 
 ### Root Provider
 
-Utilisez `useListbox()` du paquet correspondant au framework avec `Listbox.RootProvider` lorsque des
+Utilisez `useListbox()` du paquet correspondant au framework avec `ListboxRootProvider` lorsque des
 contrôles externes doivent accéder directement au store de la listbox.
 
 <ExampleFrame variant="component">
@@ -506,7 +506,7 @@ sélection de la listbox.
 
 ### Champ de filtre indépendant
 
-Rendez `Listbox.Input` directement lorsque le champ de filtrage et les résultats doivent rester dans
+Rendez `ListboxInput` directement lorsque le champ de filtrage et les résultats doivent rester dans
 des surfaces distinctes.
 
 <ExampleFrame variant="component">
@@ -539,7 +539,7 @@ des surfaces distinctes.
 
 ### Texte de valeur
 
-Rendez `Listbox.ValueText` lorsque le résumé des valeurs sélectionnées doit rester visible à côté de
+Rendez `ListboxValueText` lorsque le résumé des valeurs sélectionnées doit rester visible à côté de
 la liste.
 
 <ExampleFrame variant="component">

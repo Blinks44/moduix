@@ -1,5 +1,9 @@
 import { Button } from '@moduix/solid/button';
-import { RadioGroup } from '@moduix/solid/radio-group';
+import {
+  RadioGroup,
+  RadioGroupLabel,
+  RadioGroupOption,
+} from '@moduix/solid/radio-group';
 import { createSignal } from 'solid-js';
 import styles from '@/components/examples/radio-group/radio-group-form.module.css';
 
@@ -21,9 +25,9 @@ export default function RadioGroupFormDemo() {
       onSubmit={handleSubmit}
     >
       <RadioGroup defaultValue="React" name="framework">
-        <RadioGroup.Label>Framework</RadioGroup.Label>
+        <RadioGroupLabel>Framework</RadioGroupLabel>
         {frameworks.map((framework) => (
-          <RadioGroup.Option value={framework}>{framework}</RadioGroup.Option>
+          <RadioGroupOption value={framework}>{framework}</RadioGroupOption>
         ))}
       </RadioGroup>
       <output>{submitted()}</output>

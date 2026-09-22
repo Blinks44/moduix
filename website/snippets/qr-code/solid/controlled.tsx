@@ -1,4 +1,4 @@
-import { QrCode } from '@moduix/solid/qr-code';
+import { QrCode, QrCodeFrame, QrCodePattern } from '@moduix/solid/qr-code';
 import { createSignal } from 'solid-js';
 
 const destinations = ['https://ark-ui.com', 'https://moduix.dev'];
@@ -9,9 +9,9 @@ export default function ControlledQrCodeDemo() {
   return (
     <>
       <QrCode value={value()} onValueChange={(details) => setValue(details.value)}>
-        <QrCode.Frame>
-          <QrCode.Pattern />
-        </QrCode.Frame>
+        <QrCodeFrame>
+          <QrCodePattern />
+        </QrCodeFrame>
       </QrCode>
       <output>Encoded URL: {value()}</output>
       {destinations.map((destination) => (

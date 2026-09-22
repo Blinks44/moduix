@@ -12,7 +12,13 @@ import {
   DialogTitle,
   DialogTrigger,
 } from '@moduix/react/dialog';
-import { ProgressLinear } from '@moduix/react/progress-linear';
+import {
+  ProgressLinear,
+  ProgressLinearLabel,
+  ProgressLinearValueText,
+  ProgressLinearTrack,
+  ProgressLinearRange,
+} from '@moduix/react/progress-linear';
 import { Select } from '@moduix/react/select';
 import { Switch } from '@moduix/react/switch';
 import { Tabs } from '@moduix/react/tabs';
@@ -257,11 +263,11 @@ function HomeShowcase() {
                 <Switch.Label>{t('homeAutoReview')}</Switch.Label>
               </Switch>
               <ProgressLinear value={progressValue} className={styles.heroProgress}>
-                <ProgressLinear.Label>{t('homeReleaseReadiness')}</ProgressLinear.Label>
-                <ProgressLinear.ValueText />
-                <ProgressLinear.Track>
-                  <ProgressLinear.Range />
-                </ProgressLinear.Track>
+                <ProgressLinearLabel>{t('homeReleaseReadiness')}</ProgressLinearLabel>
+                <ProgressLinearValueText />
+                <ProgressLinearTrack>
+                  <ProgressLinearRange />
+                </ProgressLinearTrack>
               </ProgressLinear>
               <div className={styles.statusRow}>
                 <span>{automationEnabled ? t('homeChecksEnabled') : t('homeManualReview')}</span>

@@ -1,5 +1,5 @@
 import { createListCollection } from '@ark-ui/react/collection';
-import { Listbox } from '@moduix/react/listbox';
+import { Listbox, ListboxContent, ListboxItem, ListboxItemIndicator, ListboxItemText, ListboxLabel } from '@moduix/react/listbox';
 import styles from '@/components/examples/listbox/listbox-disabled-item.module.css';
 
 const plans = createListCollection({
@@ -27,15 +27,15 @@ const plans = createListCollection({
 export default function DisabledItemListboxDemo() {
   return (
     <Listbox collection={plans} className={styles.root}>
-      <Listbox.Label>Select plan</Listbox.Label>
-      <Listbox.Content>
+      <ListboxLabel>Select plan</ListboxLabel>
+      <ListboxContent>
         {plans.items.map((item) => (
-          <Listbox.Item key={item.value} item={item}>
-            <Listbox.ItemText>{item.label}</Listbox.ItemText>
-            <Listbox.ItemIndicator />
-          </Listbox.Item>
+          <ListboxItem key={item.value} item={item}>
+            <ListboxItemText>{item.label}</ListboxItemText>
+            <ListboxItemIndicator />
+          </ListboxItem>
         ))}
-      </Listbox.Content>
+      </ListboxContent>
     </Listbox>
   );
 }

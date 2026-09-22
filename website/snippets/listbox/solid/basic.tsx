@@ -1,5 +1,5 @@
 import { createListCollection } from '@ark-ui/solid/collection';
-import { Listbox } from '@moduix/solid/listbox';
+import { Listbox, ListboxContent, ListboxItem, ListboxItemIndicator, ListboxItemText, ListboxLabel } from '@moduix/solid/listbox';
 import { For } from 'solid-js';
 import styles from '@/components/examples/listbox/listbox-basic.module.css';
 
@@ -18,17 +18,17 @@ const countries = createListCollection({
 export default function ListboxDemo() {
   return (
     <Listbox collection={countries} class={styles.root}>
-      <Listbox.Label>Select country</Listbox.Label>
-      <Listbox.Content>
+      <ListboxLabel>Select country</ListboxLabel>
+      <ListboxContent>
         <For each={countries.items}>
           {(item) => (
-            <Listbox.Item item={item}>
-              <Listbox.ItemText>{item.label}</Listbox.ItemText>
-              <Listbox.ItemIndicator />
-            </Listbox.Item>
+            <ListboxItem item={item}>
+              <ListboxItemText>{item.label}</ListboxItemText>
+              <ListboxItemIndicator />
+            </ListboxItem>
           )}
         </For>
-      </Listbox.Content>
+      </ListboxContent>
     </Listbox>
   );
 }

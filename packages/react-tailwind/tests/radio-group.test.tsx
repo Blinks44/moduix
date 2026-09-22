@@ -1,7 +1,18 @@
 import { expect, test } from '@rstest/core';
 import { fireEvent, render, screen, waitFor } from '@testing-library/react';
 import { createRef, useState } from 'react';
-import { RadioGroup, useRadioGroup } from '../src';
+import {
+  RadioGroup,
+  RadioGroupIndicator,
+  RadioGroupItem,
+  RadioGroupItemControl,
+  RadioGroupItemHiddenInput,
+  RadioGroupItemText,
+  RadioGroupLabel,
+  RadioGroupOption,
+  RadioGroupRootProvider,
+  useRadioGroup,
+} from '../src';
 
 const frameworks = ['React', 'Solid', 'Vue'];
 
@@ -9,9 +20,9 @@ function RadioItems() {
   return (
     <>
       {frameworks.map((framework) => (
-        <RadioGroup.Option key={framework} value={framework}>
+        <RadioGroupOption key={framework} value={framework}>
           {framework}
-        </RadioGroup.Option>
+        </RadioGroupOption>
       ))}
     </>
   );
@@ -22,7 +33,7 @@ function ControlledRadioGroup() {
 
   return (
     <RadioGroup value={value} onValueChange={(details) => setValue(details.value)}>
-      <RadioGroup.Label>Framework</RadioGroup.Label>
+      <RadioGroupLabel>Framework</RadioGroupLabel>
       <RadioItems />
     </RadioGroup>
   );
@@ -32,10 +43,10 @@ function ProviderRadioGroup() {
   const radioGroup = useRadioGroup({ defaultValue: 'Solid' });
 
   return (
-    <RadioGroup.RootProvider value={radioGroup}>
-      <RadioGroup.Label>Framework</RadioGroup.Label>
+    <RadioGroupRootProvider value={radioGroup}>
+      <RadioGroupLabel>Framework</RadioGroupLabel>
       <RadioItems />
-    </RadioGroup.RootProvider>
+    </RadioGroupRootProvider>
   );
 }
 
@@ -43,7 +54,7 @@ test('submits through explicit Ark item inputs', async () => {
   render(
     <form data-testid="form">
       <RadioGroup defaultValue="React" name="framework">
-        <RadioGroup.Label>Framework</RadioGroup.Label>
+        <RadioGroupLabel>Framework</RadioGroupLabel>
         <RadioItems />
       </RadioGroup>
     </form>,
@@ -64,13 +75,13 @@ test('submits through explicit Ark item inputs', async () => {
 test('keeps asChild composition semantic with an explicit item input', () => {
   render(
     <RadioGroup defaultValue="React">
-      <RadioGroup.Item asChild value="React">
+      <RadioGroupItem asChild value="React">
         <label data-testid="custom-item">
-          <RadioGroup.ItemControl />
-          <RadioGroup.ItemHiddenInput />
-          <RadioGroup.ItemText>React</RadioGroup.ItemText>
+          <RadioGroupItemControl />
+          <RadioGroupItemHiddenInput />
+          <RadioGroupItemText>React</RadioGroupItemText>
         </label>
-      </RadioGroup.Item>
+      </RadioGroupItem>
     </RadioGroup>,
   );
 
@@ -83,7 +94,7 @@ test('preserves Ark value change callback details', async () => {
   const changes: string[] = [];
   render(
     <RadioGroup defaultValue="React" onValueChange={(details) => changes.push(details.value ?? '')}>
-      <RadioGroup.Label>Framework</RadioGroup.Label>
+      <RadioGroupLabel>Framework</RadioGroupLabel>
       <RadioItems />
     </RadioGroup>,
   );
@@ -110,16 +121,16 @@ test('preserves disabled, read-only, invalid, and required semantics', () => {
   render(
     <>
       <RadioGroup disabled>
-        <RadioGroup.Label>Disabled framework</RadioGroup.Label>
-        <RadioGroup.Option value="React">Disabled option</RadioGroup.Option>
+        <RadioGroupLabel>Disabled framework</RadioGroupLabel>
+        <RadioGroupOption value="React">Disabled option</RadioGroupOption>
       </RadioGroup>
       <RadioGroup readOnly>
-        <RadioGroup.Label>Read-only framework</RadioGroup.Label>
-        <RadioGroup.Option value="React">Read-only option</RadioGroup.Option>
+        <RadioGroupLabel>Read-only framework</RadioGroupLabel>
+        <RadioGroupOption value="React">Read-only option</RadioGroupOption>
       </RadioGroup>
       <RadioGroup invalid required>
-        <RadioGroup.Label>Required framework</RadioGroup.Label>
-        <RadioGroup.Option value="React">Required option</RadioGroup.Option>
+        <RadioGroupLabel>Required framework</RadioGroupLabel>
+        <RadioGroupOption value="React">Required option</RadioGroupOption>
       </RadioGroup>
     </>,
   );
@@ -151,13 +162,13 @@ test('forwards refs and exposes stable slots on public parts', () => {
 
   render(
     <RadioGroup ref={rootRef} defaultValue="React" orientation="horizontal">
-      <RadioGroup.Label ref={labelRef}>Framework</RadioGroup.Label>
-      <RadioGroup.Item ref={itemRef} value="React">
-        <RadioGroup.ItemControl ref={controlRef} />
-        <RadioGroup.ItemHiddenInput />
-        <RadioGroup.ItemText ref={textRef}>React</RadioGroup.ItemText>
-      </RadioGroup.Item>
-      <RadioGroup.Indicator ref={indicatorRef} />
+      <RadioGroupLabel ref={labelRef}>Framework</RadioGroupLabel>
+      <RadioGroupItem ref={itemRef} value="React">
+        <RadioGroupItemControl ref={controlRef} />
+        <RadioGroupItemHiddenInput />
+        <RadioGroupItemText ref={textRef}>React</RadioGroupItemText>
+      </RadioGroupItem>
+      <RadioGroupIndicator ref={indicatorRef} />
     </RadioGroup>,
   );
 
@@ -174,17 +185,17 @@ test('forwards refs and exposes stable slots on public parts', () => {
 test('exposes invalid and disabled state on the Ark item parts', () => {
   render(
     <RadioGroup invalid>
-      <RadioGroup.Label>Framework</RadioGroup.Label>
-      <RadioGroup.Item value="React">
-        <RadioGroup.ItemControl data-testid="invalid-control" />
-        <RadioGroup.ItemHiddenInput />
-        <RadioGroup.ItemText>React</RadioGroup.ItemText>
-      </RadioGroup.Item>
-      <RadioGroup.Item disabled value="Solid">
-        <RadioGroup.ItemControl />
-        <RadioGroup.ItemHiddenInput />
-        <RadioGroup.ItemText>Solid</RadioGroup.ItemText>
-      </RadioGroup.Item>
+      <RadioGroupLabel>Framework</RadioGroupLabel>
+      <RadioGroupItem value="React">
+        <RadioGroupItemControl data-testid="invalid-control" />
+        <RadioGroupItemHiddenInput />
+        <RadioGroupItemText>React</RadioGroupItemText>
+      </RadioGroupItem>
+      <RadioGroupItem disabled value="Solid">
+        <RadioGroupItemControl />
+        <RadioGroupItemHiddenInput />
+        <RadioGroupItemText>Solid</RadioGroupItemText>
+      </RadioGroupItem>
     </RadioGroup>,
   );
 
@@ -195,8 +206,8 @@ test('exposes invalid and disabled state on the Ark item parts', () => {
 test('applies native utilities to component-owned visual parts', () => {
   render(
     <RadioGroup defaultValue="React">
-      <RadioGroup.Label>Framework</RadioGroup.Label>
-      <RadioGroup.Option value="React">React</RadioGroup.Option>
+      <RadioGroupLabel>Framework</RadioGroupLabel>
+      <RadioGroupOption value="React">React</RadioGroupOption>
     </RadioGroup>,
   );
 
@@ -217,15 +228,15 @@ test('applies native utilities to component-owned visual parts', () => {
 test('lets consumer Tailwind classes override conflicting defaults', () => {
   render(
     <RadioGroup className="gap-4 text-primary" data-testid="root">
-      <RadioGroup.Label>Framework</RadioGroup.Label>
-      <RadioGroup.Item value="React">
-        <RadioGroup.ItemControl
+      <RadioGroupLabel>Framework</RadioGroupLabel>
+      <RadioGroupItem value="React">
+        <RadioGroupItemControl
           className="size-6 border-primary bg-muted before:size-3"
           data-testid="control"
         />
-        <RadioGroup.ItemHiddenInput />
-        <RadioGroup.ItemText>React</RadioGroup.ItemText>
-      </RadioGroup.Item>
+        <RadioGroupItemHiddenInput />
+        <RadioGroupItemText>React</RadioGroupItemText>
+      </RadioGroupItem>
     </RadioGroup>,
   );
 

@@ -1,6 +1,6 @@
 import { createListCollection } from '@ark-ui/react/collection';
 import { Button } from '@moduix/react/button';
-import { Listbox, useListbox } from '@moduix/react/listbox';
+import { ListboxContent, ListboxItem, ListboxItemIndicator, ListboxItemText, ListboxLabel, ListboxRootProvider, useListbox } from '@moduix/react/listbox';
 import { PreviewMeta } from '@/components/mdx/Components';
 import styles from '@/components/examples/listbox/listbox-root-provider.module.css';
 
@@ -31,17 +31,17 @@ export default function RootProviderListboxDemo() {
   });
   return (
     <div className={styles.stack}>
-      <Listbox.RootProvider value={listbox} className={styles.root}>
-        <Listbox.Label>Select priority</Listbox.Label>
-        <Listbox.Content>
+      <ListboxRootProvider value={listbox} className={styles.root}>
+        <ListboxLabel>Select priority</ListboxLabel>
+        <ListboxContent>
           {priorities.items.map((item) => (
-            <Listbox.Item key={item.value} item={item}>
-              <Listbox.ItemText>{item.label}</Listbox.ItemText>
-              <Listbox.ItemIndicator />
-            </Listbox.Item>
+            <ListboxItem key={item.value} item={item}>
+              <ListboxItemText>{item.label}</ListboxItemText>
+              <ListboxItemIndicator />
+            </ListboxItem>
           ))}
-        </Listbox.Content>
-      </Listbox.RootProvider>
+        </ListboxContent>
+      </ListboxRootProvider>
       <PreviewMeta style={{ placeSelf: 'center' }}>
         <output>Selected: {listbox.value[0] ?? 'none'}</output>
         <Button onClick={() => listbox.setValue(['high'])}>Set to high</Button>

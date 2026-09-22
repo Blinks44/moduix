@@ -1,5 +1,5 @@
 import { useListCollection } from '@ark-ui/solid/collection';
-import { Listbox } from '@moduix/solid/listbox';
+import { Listbox, ListboxContent, ListboxEmpty, ListboxInput, ListboxItem, ListboxItemIndicator, ListboxItemText, ListboxLabel } from '@moduix/solid/listbox';
 import { For } from 'solid-js';
 import styles from '@/components/examples/listbox/listbox-standalone-filter-input.module.css';
 
@@ -20,22 +20,22 @@ export default function StandaloneFilterInputListboxDemo() {
 
   return (
     <Listbox collection={collection()} class={styles.root} typeahead={false}>
-      <Listbox.Label>Select framework</Listbox.Label>
-      <Listbox.Input
+      <ListboxLabel>Select framework</ListboxLabel>
+      <ListboxInput
         placeholder="Filter frameworks"
         onInput={(event) => filter(event.currentTarget.value)}
       />
-      <Listbox.Content>
+      <ListboxContent>
         <For each={collection().items}>
           {(item) => (
-            <Listbox.Item item={item}>
-              <Listbox.ItemText>{item.label}</Listbox.ItemText>
-              <Listbox.ItemIndicator />
-            </Listbox.Item>
+            <ListboxItem item={item}>
+              <ListboxItemText>{item.label}</ListboxItemText>
+              <ListboxItemIndicator />
+            </ListboxItem>
           )}
         </For>
-        <Listbox.Empty>No frameworks found</Listbox.Empty>
-      </Listbox.Content>
+        <ListboxEmpty>No frameworks found</ListboxEmpty>
+      </ListboxContent>
     </Listbox>
   );
 }

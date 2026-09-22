@@ -1,1 +1,13 @@
-export { PasswordInput, usePasswordInput, usePasswordInputContext } from './PasswordInput.js';
+export {
+  PasswordInput,
+  PasswordInputContext,
+  PasswordInputControl,
+  PasswordInputField,
+  PasswordInputIndicator,
+  PasswordInputInput,
+  PasswordInputLabel,
+  PasswordInputRootProvider,
+  PasswordInputVisibilityTrigger,
+  usePasswordInput,
+  usePasswordInputContext,
+} from './PasswordInput.js';

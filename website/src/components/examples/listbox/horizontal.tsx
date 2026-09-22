@@ -1,5 +1,5 @@
 import { createListCollection } from '@ark-ui/react/collection';
-import { Listbox } from '@moduix/react/listbox';
+import { Listbox, ListboxContent, ListboxItem, ListboxItemIndicator, ListboxItemText, ListboxItemTextContent, ListboxItemTextLabel, ListboxLabel } from '@moduix/react/listbox';
 import styles from '@/components/examples/listbox/listbox-horizontal.module.css';
 
 const albums = createListCollection({
@@ -32,20 +32,20 @@ const albums = createListCollection({
 export default function HorizontalListboxDemo() {
   return (
     <Listbox collection={albums} orientation="horizontal" className={styles.horizontalRoot}>
-      <Listbox.Label>Select album</Listbox.Label>
-      <Listbox.Content>
+      <ListboxLabel>Select album</ListboxLabel>
+      <ListboxContent>
         {albums.items.map((item) => (
-          <Listbox.Item key={item.title} item={item}>
-            <Listbox.ItemText>
-              <Listbox.ItemTextContent className={styles.albumText}>
-                <Listbox.ItemTextLabel>{item.title}</Listbox.ItemTextLabel>
+          <ListboxItem key={item.title} item={item}>
+            <ListboxItemText>
+              <ListboxItemTextContent className={styles.albumText}>
+                <ListboxItemTextLabel>{item.title}</ListboxItemTextLabel>
                 <span className={styles.artist}>{item.artist}</span>
-              </Listbox.ItemTextContent>
-            </Listbox.ItemText>
-            <Listbox.ItemIndicator />
-          </Listbox.Item>
+              </ListboxItemTextContent>
+            </ListboxItemText>
+            <ListboxItemIndicator />
+          </ListboxItem>
         ))}
-      </Listbox.Content>
+      </ListboxContent>
     </Listbox>
   );
 }

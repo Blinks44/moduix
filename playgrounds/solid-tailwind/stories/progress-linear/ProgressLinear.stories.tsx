@@ -1,6 +1,15 @@
 import { createSignal } from 'solid-js';
 import type { Meta, StoryObj } from 'storybook-solidjs-vite';
-import { ProgressLinear } from '@/components/progress-linear/ProgressLinear';
+import {
+  ProgressLinear,
+  ProgressLinearContext,
+  ProgressLinearLabel,
+  ProgressLinearValueText,
+  ProgressLinearTrack,
+  ProgressLinearRange,
+  ProgressLinearRootProvider,
+  useProgress,
+} from '@/components/progress-linear/ProgressLinear';
 import { Slider } from '@/components/slider/Slider';
 
 const meta = {
@@ -22,11 +31,11 @@ type Story = StoryObj<typeof meta>;
 export const Basic: Story = {
   render: (args) => (
     <ProgressLinear {...args}>
-      <ProgressLinear.Label>Export data</ProgressLinear.Label>
-      <ProgressLinear.ValueText />
-      <ProgressLinear.Track aria-label="Export data">
-        <ProgressLinear.Range />
-      </ProgressLinear.Track>
+      <ProgressLinearLabel>Export data</ProgressLinearLabel>
+      <ProgressLinearValueText />
+      <ProgressLinearTrack aria-label="Export data">
+        <ProgressLinearRange />
+      </ProgressLinearTrack>
     </ProgressLinear>
   ),
 };
@@ -38,11 +47,11 @@ export const Controlled: Story = {
     return (
       <div class="grid gap-4">
         <ProgressLinear value={value()} onValueChange={(details) => setValue(details.value)}>
-          <ProgressLinear.Label>Upload status</ProgressLinear.Label>
-          <ProgressLinear.ValueText />
-          <ProgressLinear.Track aria-label="Upload status">
-            <ProgressLinear.Range />
-          </ProgressLinear.Track>
+          <ProgressLinearLabel>Upload status</ProgressLinearLabel>
+          <ProgressLinearValueText />
+          <ProgressLinearTrack aria-label="Upload status">
+            <ProgressLinearRange />
+          </ProgressLinearTrack>
         </ProgressLinear>
         <Slider
           class="w-48"
@@ -70,11 +79,11 @@ export const Controlled: Story = {
 export const InitialValue: Story = {
   render: () => (
     <ProgressLinear defaultValue={70}>
-      <ProgressLinear.Label>Import data</ProgressLinear.Label>
-      <ProgressLinear.ValueText />
-      <ProgressLinear.Track aria-label="Import data">
-        <ProgressLinear.Range />
-      </ProgressLinear.Track>
+      <ProgressLinearLabel>Import data</ProgressLinearLabel>
+      <ProgressLinearValueText />
+      <ProgressLinearTrack aria-label="Import data">
+        <ProgressLinearRange />
+      </ProgressLinearTrack>
     </ProgressLinear>
   ),
 };
@@ -82,11 +91,11 @@ export const InitialValue: Story = {
 export const MinMaxRange: Story = {
   render: () => (
     <ProgressLinear defaultValue={420} min={200} max={800}>
-      <ProgressLinear.Label>Requests per minute</ProgressLinear.Label>
-      <ProgressLinear.ValueText />
-      <ProgressLinear.Track aria-label="Requests per minute">
-        <ProgressLinear.Range />
-      </ProgressLinear.Track>
+      <ProgressLinearLabel>Requests per minute</ProgressLinearLabel>
+      <ProgressLinearValueText />
+      <ProgressLinearTrack aria-label="Requests per minute">
+        <ProgressLinearRange />
+      </ProgressLinearTrack>
     </ProgressLinear>
   ),
 };
@@ -94,11 +103,11 @@ export const MinMaxRange: Story = {
 export const Indeterminate: Story = {
   render: () => (
     <ProgressLinear defaultValue={null}>
-      <ProgressLinear.Label>Preparing report</ProgressLinear.Label>
-      <ProgressLinear.ValueText />
-      <ProgressLinear.Track aria-label="Preparing report">
-        <ProgressLinear.Range />
-      </ProgressLinear.Track>
+      <ProgressLinearLabel>Preparing report</ProgressLinearLabel>
+      <ProgressLinearValueText />
+      <ProgressLinearTrack aria-label="Preparing report">
+        <ProgressLinearRange />
+      </ProgressLinearTrack>
     </ProgressLinear>
   ),
 };
@@ -110,11 +119,11 @@ export const Vertical: Story = {
       orientation="vertical"
       class="data-[orientation=vertical]:h-40"
     >
-      <ProgressLinear.Label>Indexing files</ProgressLinear.Label>
-      <ProgressLinear.ValueText />
-      <ProgressLinear.Track aria-label="Indexing files">
-        <ProgressLinear.Range />
-      </ProgressLinear.Track>
+      <ProgressLinearLabel>Indexing files</ProgressLinearLabel>
+      <ProgressLinearValueText />
+      <ProgressLinearTrack aria-label="Indexing files">
+        <ProgressLinearRange />
+      </ProgressLinearTrack>
     </ProgressLinear>
   ),
 };
@@ -129,32 +138,32 @@ export const ValueText: Story = {
         },
       }}
     >
-      <ProgressLinear.Label>Migration</ProgressLinear.Label>
-      <ProgressLinear.Context>
-        {(state) => <ProgressLinear.ValueText>{state().valueAsString}</ProgressLinear.ValueText>}
-      </ProgressLinear.Context>
-      <ProgressLinear.Track aria-label="Migration">
-        <ProgressLinear.Range />
-      </ProgressLinear.Track>
+      <ProgressLinearLabel>Migration</ProgressLinearLabel>
+      <ProgressLinearContext>
+        {(state) => <ProgressLinearValueText>{state().valueAsString}</ProgressLinearValueText>}
+      </ProgressLinearContext>
+      <ProgressLinearTrack aria-label="Migration">
+        <ProgressLinearRange />
+      </ProgressLinearTrack>
     </ProgressLinear>
   ),
 };
 
 export const RootProvider: Story = {
   render: () => {
-    const progress = ProgressLinear.useProgress({ defaultValue: 58 });
+    const progress = useProgress({ defaultValue: 58 });
 
     return (
-      <ProgressLinear.RootProvider value={progress}>
-        <ProgressLinear.Label>Team rollout</ProgressLinear.Label>
-        <ProgressLinear.ValueText />
-        <ProgressLinear.Track
+      <ProgressLinearRootProvider value={progress}>
+        <ProgressLinearLabel>Team rollout</ProgressLinearLabel>
+        <ProgressLinearValueText />
+        <ProgressLinearTrack
           class="h-4 rounded-md bg-background ring-1 ring-chart-3/55 ring-inset"
           aria-label="Team rollout"
         >
-          <ProgressLinear.Range class="rounded-[inherit] bg-linear-to-r from-chart-3 to-primary" />
-        </ProgressLinear.Track>
-      </ProgressLinear.RootProvider>
+          <ProgressLinearRange class="rounded-[inherit] bg-linear-to-r from-chart-3 to-primary" />
+        </ProgressLinearTrack>
+      </ProgressLinearRootProvider>
     );
   },
 };
@@ -162,14 +171,14 @@ export const RootProvider: Story = {
 export const CustomStyles: Story = {
   render: () => (
     <ProgressLinear defaultValue={72} class="w-64">
-      <ProgressLinear.Label>Monthly quota</ProgressLinear.Label>
-      <ProgressLinear.ValueText />
-      <ProgressLinear.Track
+      <ProgressLinearLabel>Monthly quota</ProgressLinearLabel>
+      <ProgressLinearValueText />
+      <ProgressLinearTrack
         class="h-3 bg-accent ring-2 ring-primary/25 ring-inset"
         aria-label="Monthly quota"
       >
-        <ProgressLinear.Range class="bg-linear-to-r from-primary to-chart-2" />
-      </ProgressLinear.Track>
+        <ProgressLinearRange class="bg-linear-to-r from-primary to-chart-2" />
+      </ProgressLinearTrack>
     </ProgressLinear>
   ),
 };

@@ -30,8 +30,8 @@ import qrCodeSolidRootProvider from '../../../snippets/qr-code/solid/root-provid
 
 
 Используйте `QrCode` в обычном сценарии. Передайте содержимое для кодирования через `defaultValue`,
-затем явно отрисуйте `QrCode.Frame` и `QrCode.Pattern`, чтобы показать созданный SVG. Если QR-код
-передаёт информацию, задайте для `QrCode.Frame` доступное имя.
+затем явно отрисуйте `QrCodeFrame` и `QrCodePattern`, чтобы показать созданный SVG. Если QR-код
+передаёт информацию, задайте для `QrCodeFrame` доступное имя.
 
 <ExampleFrame variant="component">
   <QrCodeBasic />
@@ -93,35 +93,35 @@ import qrCodeSolidRootProvider from '../../../snippets/qr-code/solid/root-provid
 ## Анатомия
 
 ```text
-QrCode / QrCode.Root
-├─ QrCode.Frame
-│  └─ QrCode.Pattern
-├─ QrCode.Overlay
-└─ QrCode.DownloadTrigger
+QrCode
+├─ QrCodeFrame
+│  └─ QrCodePattern
+├─ QrCodeOverlay
+└─ QrCodeDownloadTrigger
 
-QrCode.RootProvider
+QrCodeRootProvider
 └─ то же дерево частей, подключённое к хранилищу useQrCode()
 ```
 
 | Part                     | Назначение                                                            |
 | ------------------------ | --------------------------------------------------------------------- |
-| `QrCode` / `QrCode.Root` | Хранит кодируемое значение и параметры генерации, предоставляет состояние QR-кода. |
-| `QrCode.RootProvider`    | Подключает части к состоянию, созданному через `useQrCode()`.          |
-| `QrCode.Frame`           | SVG-элемент, содержащий созданный QR-код.                              |
-| `QrCode.Pattern`         | SVG-путь, который рисует модули QR-кода.                               |
-| `QrCode.Overlay`         | Содержимое, отображаемое по центру QR-кода.                            |
-| `QrCode.DownloadTrigger` | Кнопка для скачивания текущего QR-кода как изображения.                |
+| `QrCode`                | Хранит кодируемое значение и параметры генерации, предоставляет состояние QR-кода. |
+| `QrCodeRootProvider`    | Подключает части к состоянию, созданному через `useQrCode()`.          |
+| `QrCodeFrame`           | SVG-элемент, содержащий созданный QR-код.                              |
+| `QrCodePattern`         | SVG-путь, который рисует модули QR-кода.                               |
+| `QrCodeOverlay`         | Содержимое, отображаемое по центру QR-кода.                            |
+| `QrCodeDownloadTrigger` | Кнопка для скачивания текущего QR-кода как изображения.                |
 
 ## Композиция
 
 Используйте `defaultValue` для неконтролируемого QR-кода. Если значение хранится в состоянии
 приложения, передайте `value` и `onValueChange(details)`, а новое значение читайте из
 `details.value`. Создайте состояние через `useQrCode()` из соответствующего фреймворку пакета и
-передайте его в `QrCode.RootProvider`, если состояние должно использоваться за пределами дерева
-QR-кода. Не создавайте для одного хранилища одновременно `QrCode` и `QrCode.RootProvider`.
+передайте его в `QrCodeRootProvider`, если состояние должно использоваться за пределами дерева
+QR-кода. Не создавайте для одного хранилища одновременно `QrCode` и `QrCodeRootProvider`.
 
-Используйте `QrCode.Context` или `useQrCodeContext()`, когда потомку нужен текущий API QR-кода.
-Добавляйте `QrCode.Overlay` только при достаточном уровне коррекции ошибок для закрытой области и
+Используйте `QrCodeContext` или `useQrCodeContext()`, когда потомку нужен текущий API QR-кода.
+Добавляйте `QrCodeOverlay` только при достаточном уровне коррекции ошибок для закрытой области и
 проверяйте итоговый код сканерами, которыми пользуются ваши пользователи.
 
 ## Примеры
@@ -168,7 +168,7 @@ QR-кода. Не создавайте для одного хранилища о
 
 ### Скачивание
 
-Добавьте `QrCode.DownloadTrigger`, если пользователям нужно сохранить QR-код как изображение.
+Добавьте `QrCodeDownloadTrigger`, если пользователям нужно сохранить QR-код как изображение.
 Укажите в триггере и `fileName`, и `mimeType`.
 
 <ExampleFrame variant="component">
@@ -329,7 +329,7 @@ QR-кода. Не создавайте для одного хранилища о
 
 ### Наложение
 
-Используйте `QrCode.Overlay` для компактного логотипа или текстовой отметки. Задайте высокий
+Используйте `QrCodeOverlay` для компактного логотипа или текстовой отметки. Задайте высокий
 уровень коррекции ошибок и оставьте наложение достаточно маленьким, чтобы сканеры продолжали
 распознавать код.
 
@@ -371,7 +371,7 @@ QR-кода. Не создавайте для одного хранилища о
 ### Root Provider
 
 Создайте состояние QR-кода через `useQrCode()`, если его нужно разделить с контролами за пределами
-дерева QR-кода, затем передайте состояние в `QrCode.RootProvider`.
+дерева QR-кода, затем передайте состояние в `QrCodeRootProvider`.
 
 <ExampleFrame variant="component">
   <RootProviderQrCode />

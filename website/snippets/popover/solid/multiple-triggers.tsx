@@ -1,4 +1,11 @@
-import { Popover } from '@moduix/solid/popover';
+import {
+  Popover,
+  PopoverContent,
+  PopoverDescription,
+  PopoverPositioner,
+  PopoverTitle,
+  PopoverTrigger,
+} from '@moduix/solid/popover';
 import { For, createSignal } from 'solid-js';
 import styles from '@/components/examples/popover/popover-multiple-triggers.module.css';
 
@@ -19,17 +26,17 @@ export default function MultipleTriggersDemo() {
     >
       <div class={styles.root}>
         <For each={actions}>
-          {(item) => <Popover.Trigger value={item.id}>{item.label}</Popover.Trigger>}
+          {(item) => <PopoverTrigger value={item.id}>{item.label}</PopoverTrigger>}
         </For>
       </div>
-      <Popover.Positioner>
-        <Popover.Content>
-          <Popover.Title>{activeItem()?.label ?? 'Select an action'}</Popover.Title>
-          <Popover.Description>
+      <PopoverPositioner>
+        <PopoverContent>
+          <PopoverTitle>{activeItem()?.label ?? 'Select an action'}</PopoverTitle>
+          <PopoverDescription>
             {activeItem()?.detail ?? 'Choose one of the actions.'}
-          </Popover.Description>
-        </Popover.Content>
-      </Popover.Positioner>
+          </PopoverDescription>
+        </PopoverContent>
+      </PopoverPositioner>
     </Popover>
   );
 }

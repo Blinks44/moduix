@@ -1,5 +1,5 @@
 import { useListCollection } from '@ark-ui/react/collection';
-import { Listbox } from '@moduix/react/listbox';
+import { Listbox, ListboxClearTrigger, ListboxContent, ListboxEmpty, ListboxFilter, ListboxInput, ListboxItem, ListboxItemIndicator, ListboxItemText, ListboxLabel } from '@moduix/react/listbox';
 import { useState } from 'react';
 import styles from '@/components/examples/listbox/listbox-filtering.module.css';
 
@@ -54,9 +54,9 @@ export default function FilteringListboxDemo() {
   });
   return (
     <Listbox collection={collection} className={styles.root} typeahead={false}>
-      <Listbox.Label>Select framework</Listbox.Label>
-      <Listbox.Filter>
-        <Listbox.Input
+      <ListboxLabel>Select framework</ListboxLabel>
+      <ListboxFilter>
+        <ListboxInput
           placeholder="Search frameworks..."
           value={filterText}
           onChange={(event) => {
@@ -65,23 +65,23 @@ export default function FilteringListboxDemo() {
           }}
         />
         {filterText ? (
-          <Listbox.ClearTrigger
+          <ListboxClearTrigger
             onClick={() => {
               setFilterText('');
               filter('');
             }}
           />
         ) : null}
-      </Listbox.Filter>
-      <Listbox.Content>
+      </ListboxFilter>
+      <ListboxContent>
         {collection.items.map((item) => (
-          <Listbox.Item key={item.value} item={item}>
-            <Listbox.ItemText>{item.label}</Listbox.ItemText>
-            <Listbox.ItemIndicator />
-          </Listbox.Item>
+          <ListboxItem key={item.value} item={item}>
+            <ListboxItemText>{item.label}</ListboxItemText>
+            <ListboxItemIndicator />
+          </ListboxItem>
         ))}
-        <Listbox.Empty>No frameworks found</Listbox.Empty>
-      </Listbox.Content>
+        <ListboxEmpty>No frameworks found</ListboxEmpty>
+      </ListboxContent>
     </Listbox>
   );
 }

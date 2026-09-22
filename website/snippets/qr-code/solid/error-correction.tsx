@@ -1,4 +1,4 @@
-import { QrCode } from '@moduix/solid/qr-code';
+import { QrCode, QrCodeFrame, QrCodePattern } from '@moduix/solid/qr-code';
 import { createSignal } from 'solid-js';
 
 const errorLevels = ['L', 'M', 'Q', 'H'] as const;
@@ -10,9 +10,9 @@ export default function ErrorCorrectionQrCodeDemo() {
   return (
     <>
       <QrCode defaultValue="https://moduix.dev/docs/qr-code" encoding={{ ecc: errorLevel() }}>
-        <QrCode.Frame>
-          <QrCode.Pattern />
-        </QrCode.Frame>
+        <QrCodeFrame>
+          <QrCodePattern />
+        </QrCodeFrame>
       </QrCode>
       <output>Error correction: {errorLevel()}</output>
       {errorLevels.map((level) => (

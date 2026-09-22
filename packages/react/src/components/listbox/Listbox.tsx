@@ -19,7 +19,7 @@ import { CheckIcon, SearchIcon } from '@/lib/moduix/icons/ui';
 import { CloseButton } from '../close-button';
 import styles from './Listbox.module.css';
 
-const ListboxRoot = forwardRef(function ListboxRoot<T extends CollectionItem>(
+const Listbox = forwardRef(function Listbox<T extends CollectionItem>(
   { className, ...props }: ListboxRootProps<T>,
   ref: ForwardedRef<ComponentRef<typeof ListboxPrimitive.Root>>,
 ) {
@@ -257,29 +257,30 @@ const ListboxItemTextLabel = forwardRef<ComponentRef<typeof ark.span>, HTMLArkPr
   },
 );
 
-const Listbox = Object.assign(ListboxRoot, {
-  Root: ListboxRoot,
-  RootProvider: ListboxRootProvider,
-  Label: ListboxLabel,
-  Input: ListboxInput,
-  Filter: ListboxFilter,
-  ClearTrigger: ListboxClearTrigger,
-  Content: ListboxContent,
-  Empty: ListboxEmpty,
-  ItemGroup: ListboxItemGroup,
-  ItemGroupLabel: ListboxItemGroupLabel,
-  Item: ListboxItem,
-  ItemText: ListboxItemText,
-  ItemIndicator: ListboxItemIndicator,
-  ValueText: ListboxValueText,
-  Context: ListboxPrimitive.Context,
-  ItemContext: ListboxPrimitive.ItemContext,
-  ItemTextContent: ListboxItemTextContent,
-  ItemTextIcon: ListboxItemTextIcon,
-  ItemTextLabel: ListboxItemTextLabel,
+const ListboxContext = ListboxPrimitive.Context;
+const ListboxItemContext = ListboxPrimitive.ItemContext;
+
+export {
+  Listbox,
+  ListboxClearTrigger,
+  ListboxContent,
+  ListboxContext,
+  ListboxEmpty,
+  ListboxFilter,
+  ListboxInput,
+  ListboxItem,
+  ListboxItemContext,
+  ListboxItemGroup,
+  ListboxItemGroupLabel,
+  ListboxItemIndicator,
+  ListboxItemText,
+  ListboxItemTextContent,
+  ListboxItemTextIcon,
+  ListboxItemTextLabel,
+  ListboxLabel,
+  ListboxRootProvider,
+  ListboxValueText,
   useListbox,
   useListboxContext,
   useListboxItemContext,
-});
-
-export { Listbox, useListbox, useListboxContext, useListboxItemContext };
+};

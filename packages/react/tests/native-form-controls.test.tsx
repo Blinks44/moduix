@@ -6,7 +6,17 @@ import { act, fireEvent, render, screen, waitFor } from '@testing-library/react'
 import {
   FileUpload,
   FileUploadHiddenInput,
+  PinInput,
+  PinInputHiddenInput,
 } from '../src';
+import {
+  RadioGroup,
+  RadioGroupItem,
+  RadioGroupItemHiddenInput,
+  RadioGroupItemText,
+  RadioGroupOption,
+} from '../src';
+import { RatingGroup, RatingGroupHiddenInput } from '../src';
 
 const collection = createListCollection({ items: [{ label: 'React', value: 'react' }] });
 const cases = [
@@ -66,7 +76,7 @@ const cases = [
     value: '1234',
     render: (input: boolean) => (
       <PinInput name="value" form="native-form" count={4} defaultValue={['1', '2', '3', '4']}>
-        {input && <PinInput.HiddenInput data-testid="native-input" />}
+        {input && <PinInputHiddenInput data-testid="native-input" />}
       </PinInput>
     ),
   },
@@ -75,10 +85,10 @@ const cases = [
     value: 'react',
     render: (input: boolean) => (
       <RadioGroup name="value" form="native-form" defaultValue="react">
-        <RadioGroup.Item value="react">
-          <RadioGroup.ItemText>React</RadioGroup.ItemText>
-          {input && <RadioGroup.ItemHiddenInput data-testid="native-input" />}
-        </RadioGroup.Item>
+        <RadioGroupItem value="react">
+          <RadioGroupItemText>React</RadioGroupItemText>
+          {input && <RadioGroupItemHiddenInput data-testid="native-input" />}
+        </RadioGroupItem>
       </RadioGroup>
     ),
   },
@@ -87,7 +97,7 @@ const cases = [
     value: '3',
     render: (input: boolean) => (
       <RatingGroup name="value" form="native-form" defaultValue={3}>
-        {input && <RatingGroup.HiddenInput data-testid="native-input" />}
+        {input && <RatingGroupHiddenInput data-testid="native-input" />}
       </RatingGroup>
     ),
   },
@@ -237,7 +247,7 @@ test('fixed compositions include exactly one native control per generated item',
   const { container } = render(
     <form>
       <RadioGroup name="framework" defaultValue="react">
-        <RadioGroup.Option value="react">React</RadioGroup.Option>
+        <RadioGroupOption value="react">React</RadioGroupOption>
       </RadioGroup>
       <SegmentGroup name="view" defaultValue="list">
         <SegmentGroup.Items items={[{ label: 'List', value: 'list' }]} />

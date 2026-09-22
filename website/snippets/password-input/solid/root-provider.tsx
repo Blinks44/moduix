@@ -1,4 +1,13 @@
-import { PasswordInput, usePasswordInput } from '@moduix/solid/password-input';
+import {
+  PasswordInput,
+  PasswordInputControl,
+  PasswordInputIndicator,
+  PasswordInputInput,
+  PasswordInputLabel,
+  PasswordInputRootProvider,
+  PasswordInputVisibilityTrigger,
+  usePasswordInput,
+} from '@moduix/solid/password-input';
 import styles from '@/components/examples/password-input/password-input-root-provider.module.css';
 
 export default function PasswordInputRootProviderDemo() {
@@ -6,15 +15,15 @@ export default function PasswordInputRootProviderDemo() {
 
   return (
     <>
-      <PasswordInput.RootProvider class={styles.root} value={passwordInput}>
-        <PasswordInput.Label>Password</PasswordInput.Label>
-        <PasswordInput.Control>
-          <PasswordInput.Input placeholder="Managed outside the tree" />
-          <PasswordInput.VisibilityTrigger>
-            <PasswordInput.Indicator />
-          </PasswordInput.VisibilityTrigger>
-        </PasswordInput.Control>
-      </PasswordInput.RootProvider>
+      <PasswordInputRootProvider class={styles.root} value={passwordInput}>
+        <PasswordInputLabel>Password</PasswordInputLabel>
+        <PasswordInputControl>
+          <PasswordInputInput placeholder="Managed outside the tree" />
+          <PasswordInputVisibilityTrigger>
+            <PasswordInputIndicator />
+          </PasswordInputVisibilityTrigger>
+        </PasswordInputControl>
+      </PasswordInputRootProvider>
       <output>Visibility: {passwordInput().visible ? 'visible' : 'hidden'}</output>
     </>
   );

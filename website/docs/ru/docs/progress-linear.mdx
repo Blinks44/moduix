@@ -37,7 +37,7 @@ import progressLinearSolidRootProvider from '../../../snippets/progress-linear/s
 ## Базовый пример
 
 
-Соберите индикатор из явных частей `Label`, `ValueText`, `Track` и `Range`. Задайте для `Track`
+Соберите индикатор из явных частей `ProgressLinearLabel`, `ProgressLinearValueText`, `ProgressLinearTrack` и `ProgressLinearRange`. Задайте для `ProgressLinearTrack`
 доступное имя, которое описывает задачу.
 
 <ExampleFrame variant="component">
@@ -100,36 +100,36 @@ import progressLinearSolidRootProvider from '../../../snippets/progress-linear/s
 ## Анатомия
 
 ```text
-ProgressLinear / ProgressLinear.Root
-├─ ProgressLinear.Label
-├─ ProgressLinear.ValueText
-├─ ProgressLinear.Track
-│  └─ ProgressLinear.Range
-└─ ProgressLinear.View
+ProgressLinear
+├─ ProgressLinearLabel
+├─ ProgressLinearValueText
+├─ ProgressLinearTrack
+│  └─ ProgressLinearRange
+└─ ProgressLinearView
 
-ProgressLinear.RootProvider
-└─ та же структура частей, подключённая к ProgressLinear.useProgress()
+ProgressLinearRootProvider
+└─ та же структура частей, подключённая к useProgress()
 ```
 
 | Часть                                      | Назначение                                                                    |
 | ------------------------------------------ | ----------------------------------------------------------------------------- |
-| `ProgressLinear` / `ProgressLinear.Root`   | Хранит состояние прогресса и передаёт Ark форматирование, идентификаторы и другие свойства. |
-| `ProgressLinear.RootProvider`              | Подключает части к хранилищу, которое возвращает `ProgressLinear.useProgress()`. |
-| `ProgressLinear.Context`                   | Передаёт текущее состояние прогресса функции, переданной как дочерний элемент. |
-| `ProgressLinear.Label`                     | Видимая подпись задачи. Она автоматически не становится доступным именем `Track`. |
-| `ProgressLinear.ValueText`                 | Показывает отформатированный процент и сообщает об изменениях. Через `Context` можно вывести свой текст. |
-| `ProgressLinear.Track`                     | Основа полосы прогресса. Ark добавляет ей роль и ARIA-атрибуты значения.       |
-| `ProgressLinear.Range`                     | Заполненная часть, отражающая текущий прогресс.                               |
-| `ProgressLinear.View`                      | Показывает содержимое, только когда его `state` совпадает с текущим состоянием прогресса. |
+| `ProgressLinear`   | Хранит состояние прогресса и передаёт Ark форматирование, идентификаторы и другие свойства. |
+| `ProgressLinearRootProvider`              | Подключает части к хранилищу, которое возвращает `useProgress()`. |
+| `ProgressLinearContext`                   | Передаёт текущее состояние прогресса функции, переданной как дочерний элемент. |
+| `ProgressLinearLabel`                     | Видимая подпись задачи. Она автоматически не становится доступным именем `ProgressLinearTrack`. |
+| `ProgressLinearValueText`                 | Показывает отформатированный процент и сообщает об изменениях. Через `ProgressLinearContext` можно вывести свой текст. |
+| `ProgressLinearTrack`                     | Основа полосы прогресса. Ark добавляет ей роль и ARIA-атрибуты значения.       |
+| `ProgressLinearRange`                     | Заполненная часть, отражающая текущий прогресс.                               |
+| `ProgressLinearView`                      | Показывает содержимое, только когда его `state` совпадает с текущим состоянием прогресса. |
 
 ## Композиция
 
 Используйте `defaultValue` для неуправляемого прогресса. В управляемом режиме передайте `value` и
 `onValueChange(details)`, если приложение хранит текущее значение. Используйте `defaultValue={null}`
 или `value={null}`, когда прогресс неизвестен. Если состояние создано через
-`ProgressLinear.useProgress()`, отрисовывайте части внутри `ProgressLinear.RootProvider`, а не внутри
-`ProgressLinear` или `ProgressLinear.Root`. Используйте `ProgressLinear.View` для содержимого,
-зависящего от состояния, а `ProgressLinear.Context` для собственного текста, которому нужно текущее
+`useProgress()`, отрисовывайте части внутри `ProgressLinearRootProvider`, а не внутри
+`ProgressLinear` или `ProgressLinear`. Используйте `ProgressLinearView` для содержимого,
+зависящего от состояния, а `ProgressLinearContext` для собственного текста, которому нужно текущее
 состояние.
 
 ## Примеры
@@ -275,7 +275,7 @@ ProgressLinear.RootProvider
 
 ### Представления состояния
 
-Используйте `ProgressLinear.View`, если вспомогательный текст или интерфейс должен меняться вместе
+Используйте `ProgressLinearView`, если вспомогательный текст или интерфейс должен меняться вместе
 с состоянием прогресса Ark.
 
 <ExampleFrame variant="component">
@@ -310,7 +310,7 @@ ProgressLinear.RootProvider
 
 ### Текст значения
 
-Используйте `ProgressLinear.Context` с `translations.value(details)`, если отображаемому значению
+Используйте `ProgressLinearContext` с `translations.value(details)`, если отображаемому значению
 нужна формулировка, связанная с конкретной задачей.
 
 <ExampleFrame variant="component">
@@ -381,8 +381,8 @@ ProgressLinear.RootProvider
 
 ### Расширенная настройка
 
-Создайте состояние прогресса с помощью `ProgressLinear.useProgress()` в родительском компоненте,
-а затем подключите его к частям через `ProgressLinear.RootProvider`.
+Создайте состояние прогресса с помощью `useProgress()` в родительском компоненте,
+а затем подключите его к частям через `ProgressLinearRootProvider`.
 
 <ExampleFrame variant="component">
   <ProgressLinearRootProvider />

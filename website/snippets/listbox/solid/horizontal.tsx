@@ -1,5 +1,5 @@
 import { createListCollection } from '@ark-ui/solid/collection';
-import { Listbox } from '@moduix/solid/listbox';
+import { Listbox, ListboxContent, ListboxItem, ListboxItemIndicator, ListboxItemText, ListboxItemTextContent, ListboxItemTextLabel, ListboxLabel } from '@moduix/solid/listbox';
 import { For } from 'solid-js';
 import styles from '@/components/examples/listbox/listbox-horizontal.module.css';
 
@@ -18,22 +18,22 @@ const albums = createListCollection({
 export default function HorizontalListboxDemo() {
   return (
     <Listbox collection={albums} orientation="horizontal" class={styles.horizontalRoot}>
-      <Listbox.Label>Select album</Listbox.Label>
-      <Listbox.Content>
+      <ListboxLabel>Select album</ListboxLabel>
+      <ListboxContent>
         <For each={albums.items}>
           {(item) => (
-            <Listbox.Item item={item}>
-              <Listbox.ItemText>
-                <Listbox.ItemTextContent class={styles.albumText}>
-                  <Listbox.ItemTextLabel>{item.title}</Listbox.ItemTextLabel>
+            <ListboxItem item={item}>
+              <ListboxItemText>
+                <ListboxItemTextContent class={styles.albumText}>
+                  <ListboxItemTextLabel>{item.title}</ListboxItemTextLabel>
                   <span class={styles.artist}>{item.artist}</span>
-                </Listbox.ItemTextContent>
-              </Listbox.ItemText>
-              <Listbox.ItemIndicator />
-            </Listbox.Item>
+                </ListboxItemTextContent>
+              </ListboxItemText>
+              <ListboxItemIndicator />
+            </ListboxItem>
           )}
         </For>
-      </Listbox.Content>
+      </ListboxContent>
     </Listbox>
   );
 }
