@@ -30,8 +30,8 @@ import splitterSolidVertical from '../../../snippets/splitter/solid/vertical.tsx
 ## Basic
 
 
-Build a splitter from `Splitter`, `Splitter.Panel`, and `Splitter.ResizeTrigger`. The `panels` prop
-lists the panel ids and their size constraints. Each rendered `Splitter.Panel` must use one of those
+Build a splitter from `Splitter`, `SplitterPanel`, and `SplitterResizeTrigger`. The `panels` prop
+lists the panel ids and their size constraints. Each rendered `SplitterPanel` must use one of those
 ids. When you omit the trigger's children, moduix renders a resize indicator for you.
 
 <ExampleFrame variant="component">
@@ -99,28 +99,28 @@ See [Quick Start](/docs/quick-start) for full package setup, registry configurat
 ## Anatomy
 
 ```text
-Splitter / Splitter.Root
-├─ Splitter.Panel[id]
-├─ Splitter.ResizeTrigger[id="panel-a:panel-b"]
-│  └─ Splitter.ResizeTriggerIndicator (default, customizable)
-└─ Splitter.Panel[id]
+Splitter
+├─ SplitterPanel[id]
+├─ SplitterResizeTrigger[id="panel-a:panel-b"]
+│  └─ SplitterResizeTriggerIndicator (default, customizable)
+└─ SplitterPanel[id]
 
-Splitter.RootProvider
+SplitterRootProvider
 └─ same panel tree connected to a useSplitter() store
 ```
 
 | Part                              | Role                                                                           |
 | --------------------------------- | ------------------------------------------------------------------------------ |
-| `Splitter` / `Splitter.Root`      | Manages panel definitions, sizes, orientation, callbacks, and splitter state. |
-| `Splitter.Panel`                  | Resizable region whose `id` must match an entry in `panels`.                  |
-| `Splitter.ResizeTrigger`          | Accessible button for resizing the two adjacent panels.                       |
-| `Splitter.ResizeTriggerIndicator` | Default visual handle. Custom trigger children replace it.                   |
-| `Splitter.RootProvider`            | Renders the same parts using state created with `useSplitter()`.              |
+| `Splitter`                  | Manages panel definitions, sizes, orientation, callbacks, and splitter state. |
+| `SplitterPanel`                  | Resizable region whose `id` must match an entry in `panels`.                  |
+| `SplitterResizeTrigger`          | Accessible button for resizing the two adjacent panels.                       |
+| `SplitterResizeTriggerIndicator` | Default visual handle. Custom trigger children replace it.                   |
+| `SplitterRootProvider`            | Renders the same parts using state created with `useSplitter()`.              |
 
 ## Composition
 
 Use `size` with `onResize(details)` when the application owns the current panel sizes. Use
-`Splitter.RootProvider` with `useSplitter()` when the store or its controls must live outside the
+`SplitterRootProvider` with `useSplitter()` when the store or its controls must live outside the
 rendered panel tree, and choose one root for each store. For nested splitters that should resize
 together at handle intersections, create one `createSplitterRegistry()` and pass it to every root.
 Numeric `defaultSize`, `size`, and `minSize` values are percentages expected to total 100, and Ark
@@ -332,9 +332,9 @@ by the application.
 
 </ExampleCode>
 
-### RootProvider
+### SplitterRootProvider
 
-Use `useSplitter()` with `Splitter.RootProvider` when state or controls need to live outside the
+Use `useSplitter()` with `SplitterRootProvider` when state or controls need to live outside the
 rendered splitter parts. The returned API includes methods such as `getSizes()`, `setSizes()`,
 `resizePanel()`, `collapsePanel()`, `expandPanel()`, and `resetSizes()`.
 

@@ -1,7 +1,12 @@
 import { expect, test } from '@rstest/core';
 import { fireEvent, render, screen, waitFor } from '@testing-library/react';
 import { createRef } from 'react';
-import { Splitter } from '../src';
+import {
+  Splitter,
+  SplitterPanel,
+  SplitterResizeTrigger,
+  SplitterResizeTriggerIndicator,
+} from '../src';
 
 const panels = [
   { id: 'a', minSize: 20 },
@@ -11,9 +16,9 @@ const panels = [
 test('preserves Ark keyboard affordances and moduix trigger defaults', async () => {
   const { container } = render(
     <Splitter panels={panels} defaultSize={[40, 60]}>
-      <Splitter.Panel id="a">A</Splitter.Panel>
-      <Splitter.ResizeTrigger id="a:b" aria-label="Resize panels" />
-      <Splitter.Panel id="b">B</Splitter.Panel>
+      <SplitterPanel id="a">A</SplitterPanel>
+      <SplitterResizeTrigger id="a:b" aria-label="Resize panels" />
+      <SplitterPanel id="b">B</SplitterPanel>
     </Splitter>,
   );
 
@@ -33,11 +38,11 @@ test('preserves Ark keyboard affordances and moduix trigger defaults', async () 
 test('keeps custom trigger content and disabled behavior intact', () => {
   const { container } = render(
     <Splitter panels={panels} defaultSize={[40, 60]}>
-      <Splitter.Panel id="a">A</Splitter.Panel>
-      <Splitter.ResizeTrigger id="a:b" aria-label="Disabled resize" disabled>
+      <SplitterPanel id="a">A</SplitterPanel>
+      <SplitterResizeTrigger id="a:b" aria-label="Disabled resize" disabled>
         <span>Grip</span>
-      </Splitter.ResizeTrigger>
-      <Splitter.Panel id="b">B</Splitter.Panel>
+      </SplitterResizeTrigger>
+      <SplitterPanel id="b">B</SplitterPanel>
     </Splitter>,
   );
 
@@ -59,13 +64,13 @@ test('forwards refs to every styled part', () => {
 
   render(
     <Splitter ref={rootRef} panels={panels} defaultSize={[40, 60]}>
-      <Splitter.Panel ref={panelRef} id="a">
+      <SplitterPanel ref={panelRef} id="a">
         A
-      </Splitter.Panel>
-      <Splitter.ResizeTrigger ref={triggerRef} id="a:b" aria-label="Resize panels">
-        <Splitter.ResizeTriggerIndicator ref={indicatorRef} />
-      </Splitter.ResizeTrigger>
-      <Splitter.Panel id="b">B</Splitter.Panel>
+      </SplitterPanel>
+      <SplitterResizeTrigger ref={triggerRef} id="a:b" aria-label="Resize panels">
+        <SplitterResizeTriggerIndicator ref={indicatorRef} />
+      </SplitterResizeTrigger>
+      <SplitterPanel id="b">B</SplitterPanel>
     </Splitter>,
   );
 
@@ -78,11 +83,11 @@ test('forwards refs to every styled part', () => {
 test('keeps an asChild resize trigger as the interactive host', () => {
   const { container } = render(
     <Splitter panels={panels} defaultSize={[40, 60]}>
-      <Splitter.Panel id="a">A</Splitter.Panel>
-      <Splitter.ResizeTrigger asChild id="a:b" aria-label="Resize panels">
+      <SplitterPanel id="a">A</SplitterPanel>
+      <SplitterResizeTrigger asChild id="a:b" aria-label="Resize panels">
         <button type="button">Resize panels</button>
-      </Splitter.ResizeTrigger>
-      <Splitter.Panel id="b">B</Splitter.Panel>
+      </SplitterResizeTrigger>
+      <SplitterPanel id="b">B</SplitterPanel>
     </Splitter>,
   );
 

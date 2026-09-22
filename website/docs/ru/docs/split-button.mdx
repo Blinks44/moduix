@@ -38,8 +38,8 @@ import splitButtonSolidWithIcons from '../../../snippets/split-button/solid/with
 ## Базовый пример
 
 
-Используйте короткую запись `<SplitButton>`, эквивалентную `<SplitButton.Root>`, и оставляйте структуру меню явной:
-`SplitButton.Action`, `SplitButton.Trigger`, `SplitButton.Positioner` и `SplitButton.Content`.
+Используйте `<SplitButton>` как корневой компонент и оставляйте структуру меню явной:
+`SplitButtonAction`, `SplitButtonTrigger`, `SplitButtonPositioner` и `SplitButtonContent`.
 Основное действие использует тот же контракт `onClick`, что и `Button`.
 
 <ExampleFrame variant="component">
@@ -107,12 +107,12 @@ import splitButtonSolidWithIcons from '../../../snippets/split-button/solid/with
 ## Анатомия
 
 ```text
-SplitButton / SplitButton.Root
-├─ SplitButton.Action
-├─ SplitButton.Trigger
+SplitButton
+├─ SplitButtonAction
+├─ SplitButtonTrigger
 └─ Ветка всплывающего меню (по умолчанию в портале)
-   └─ SplitButton.Positioner
-      └─ SplitButton.Content
+   └─ SplitButtonPositioner
+      └─ SplitButtonContent
          ├─ MenuItem
          ├─ MenuSeparator
          └─ другие общие части Menu
@@ -120,16 +120,16 @@ SplitButton / SplitButton.Root
 
 | Часть                             | Назначение                                                               |
 | -------------------------------- | ------------------------------------------------------------------------ |
-| `SplitButton` / `SplitButton.Root` | Корень, управляющий состоянием меню и семантической группой двух кнопок. |
-| `SplitButton.Action`             | Основное действие `Button`.                                             |
-| `SplitButton.Trigger`            | Триггер Ark Menu в виде кнопки moduix; по умолчанию показывает шеврон.  |
-| `SplitButton.Positioner`         | Размещает всплывающее меню Ark.                                          |
-| `SplitButton.Content`            | Поверхность содержимого Ark Menu для общих частей `Menu.*`.              |
+| `SplitButton`                    | Корень, управляющий состоянием меню и семантической группой двух кнопок. |
+| `SplitButtonAction`             | Основное действие `Button`.                                             |
+| `SplitButtonTrigger`            | Триггер Ark Menu в виде кнопки moduix; по умолчанию показывает шеврон.  |
+| `SplitButtonPositioner`         | Размещает всплывающее меню Ark.                                          |
+| `SplitButtonContent`            | Поверхность содержимого Ark Menu для общих частей `Menu.*`.              |
 
 ## Композиция
 
-`SplitButton` объединяет основное действие `Action` и `Trigger`. Оставляйте дерево всплывающего меню явным:
-`Positioner` → `Content`, а общие части `Menu.*` размещайте внутри `Content`. Позиционер автоматически
+`SplitButton` объединяет основное действие `SplitButtonAction` и `SplitButtonTrigger`. Оставляйте дерево всплывающего меню явным:
+`SplitButtonPositioner` → `SplitButtonContent`, а общие части `Menu.*` размещайте внутри `SplitButtonContent`. Позиционер автоматически
 рендерится в портале; используйте `portalled={false}` или `portalRef`, только если меню должно находиться
 в другом контейнере. Корневые `size` и `variant` задают значения по умолчанию для обеих кнопок. Корень
 рендерит семантический `role="group"`; задайте `aria-label` или `aria-labelledby`, если окружающий
@@ -137,7 +137,7 @@ SplitButton / SplitButton.Root
 
 По умолчанию состоянием меню управляет сам компонент. Передайте `open` и `onOpenChange(details)`, если состояние
 должно принадлежать другой части приложения. Для расширенного доступа к состоянию используйте общий API `Menu`,
-а не добавляйте отдельную обёртку состояния для split button. Используйте `Action asChild` для ссылки; собственное
+а не добавляйте отдельную обёртку состояния для split button. Используйте `SplitButtonAction asChild` для ссылки; собственное
 содержимое триггера передавайте через `children`, чтобы триггер меню Ark и кнопка moduix оставались одним элементом.
 
 ## Примеры
@@ -213,7 +213,7 @@ SplitButton / SplitButton.Root
 
 ### Действие-ссылка
 
-Используйте `asChild` на `SplitButton.Action`, если основное действие должно быть ссылкой.
+Используйте `asChild` на `SplitButtonAction`, если основное действие должно быть ссылкой.
 
 <ExampleFrame variant="component">
   <SplitButtonLinkAction />
@@ -394,7 +394,7 @@ SplitButton / SplitButton.Root
 
 ### Расширенная настройка
 
-Используйте общие части `Menu.*` внутри `SplitButton.Content`, если дополнительным действиям нужны группы,
+Используйте общие части `Menu.*` внутри `SplitButtonContent`, если дополнительным действиям нужны группы,
 разделители или сгруппированные пункты.
 
 <ExampleFrame variant="component">
@@ -449,6 +449,6 @@ Tailwind настраиваются обычными утилитами и по�
 - `data-slot="split-button-trigger"` выбирает триггер меню.
 - `data-slot="split-button-positioner"` выбирает позиционер Ark Menu.
 - `data-slot="split-button-content"` выбирает поверхность содержимого Ark Menu.
-- `SplitButton.Trigger` получает атрибуты состояния Ark Menu, включая `aria-expanded`, `aria-controls` и `data-state`.
-- `SplitButton.Content` получает атрибуты Ark Menu, включая `data-state`, `data-side`, `data-placement`,
+- `SplitButtonTrigger` получает атрибуты состояния Ark Menu, включая `aria-expanded`, `aria-controls` и `data-state`.
+- `SplitButtonContent` получает атрибуты Ark Menu, включая `data-state`, `data-side`, `data-placement`,
   `data-nested` и `data-has-nested`.

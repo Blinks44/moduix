@@ -7,7 +7,7 @@ import { cn } from '@/lib/moduix/cn';
 
 type StackDirection = 'row' | 'row-reverse' | 'column' | 'column-reverse';
 
-type StackRootProps = HTMLArkProps<'div'> & {
+type StackProps = HTMLArkProps<'div'> & {
   direction?:
     | StackDirection
     | {
@@ -45,7 +45,7 @@ const stackVariants = cva('flex', {
   },
 });
 
-const StackRoot = forwardRef<HTMLElement, StackRootProps>(function StackRoot(
+const Stack = forwardRef<HTMLElement, StackProps>(function Stack(
   { asChild, children, className, style, direction, gap, align, justify, wrap, fill, ...props },
   ref,
 ) {
@@ -81,10 +81,6 @@ const StackRoot = forwardRef<HTMLElement, StackRootProps>(function StackRoot(
       {children}
     </ark.div>
   );
-});
-
-const Stack = Object.assign(StackRoot, {
-  Root: StackRoot,
 });
 
 export { Stack };

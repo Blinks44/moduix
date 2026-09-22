@@ -1,4 +1,4 @@
-import { Slider } from '@moduix/react/slider';
+import { Slider, SliderControl, SliderRange, SliderThumbs, SliderTrack } from '@moduix/react/slider';
 import { useState } from 'react';
 import { PreviewMeta } from '@/components/mdx/Components';
 import styles from '@/components/examples/slider/slider-vertical.module.css';
@@ -14,12 +14,12 @@ export default function VerticalSliderDemo() {
         value={value}
         onValueChange={(details) => setValue(details.value)}
       >
-        <Slider.Control>
-          <Slider.Track>
-            <Slider.Range />
-          </Slider.Track>
-          <Slider.Thumbs />
-        </Slider.Control>
+        <SliderControl>
+          <SliderTrack>
+            <SliderRange />
+          </SliderTrack>
+          <SliderThumbs />
+        </SliderControl>
       </Slider>
       <PreviewMeta>
         <output>Output: {value.join(', ')}</output>

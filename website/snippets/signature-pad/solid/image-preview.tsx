@@ -1,4 +1,8 @@
-import { SignaturePad } from '@moduix/solid/signature-pad';
+import {
+  SignaturePad,
+  SignaturePadCanvas,
+  SignaturePadLabel,
+} from '@moduix/solid/signature-pad';
 import { createSignal } from 'solid-js';
 import styles from '@/components/examples/signature-pad/signature-pad-image-preview.module.css';
 
@@ -14,8 +18,8 @@ export default function ImagePreviewSignaturePadDemo() {
           void details.getDataUrl(imageType).then(setImageUrl);
         }}
       >
-        <SignaturePad.Label>Sign below</SignaturePad.Label>
-        <SignaturePad.Canvas />
+        <SignaturePadLabel>Sign below</SignaturePadLabel>
+        <SignaturePadCanvas />
       </SignaturePad>
       {imageUrl() ? (
         <img src={imageUrl()} alt="Signature preview" class={styles.preview} />

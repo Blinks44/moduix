@@ -45,7 +45,7 @@ valeur booléenne.
 ## Exemple de base
 
 
-Un switch de base comprend une racine, un contrôle visuel, un libellé et `Switch.HiddenInput` explicitement rendu pour les interactions
+Un switch de base comprend une racine, un contrôle visuel, un libellé et `SwitchHiddenInput` explicitement rendu pour les interactions
 natives et les formulaires. Le contrôle reçoit un thumb par défaut lorsqu’il n’a pas d’enfants.
 
 <ExampleFrame variant="component">
@@ -108,38 +108,38 @@ Consultez le [Démarrage rapide](/docs/quick-start) pour la configuration compl�
 ## Anatomie
 
 ```text
-Switch / Switch.Root
-├─ Switch.Control
-│  └─ Switch.Thumb
-├─ Switch.Label
-└─ Switch.HiddenInput (explicit)
+Switch
+├─ SwitchControl
+│  └─ SwitchThumb
+├─ SwitchLabel
+└─ SwitchHiddenInput (explicit)
 ```
 
 | Partie                        | Rôle                                                                    |
 | ----------------------------- | ----------------------------------------------------------------------- |
-| `Switch` / `Switch.Root`      | Élément `label` racine. Gère l’état, les identifiants, les props de formulaire et `size`. |
-| `Switch.HiddenInput`          | Contrôle de formulaire natif d’Ark ; composez-le explicitement comme indiqué ci-dessous. |
-| `Switch.RootProvider`         | Élément `label` racine piloté par l’état créé avec `useSwitch()`.     |
-| `Switch.Control`              | Piste visuelle et cible de l’anneau de focus. Ajoute `Switch.Thumb` par défaut. |
-| `Switch.Thumb`                | Thumb mobile pour l’apparence par défaut ou un contenu personnalisé.  |
-| `Switch.Label`                | Texte du libellé relié à Ark.                                         |
+| `Switch`                 | Élément `label` racine. Gère l’état, les identifiants, les props de formulaire et `size`. |
+| `SwitchHiddenInput`          | Contrôle de formulaire natif d’Ark ; composez-le explicitement comme indiqué ci-dessous. |
+| `SwitchRootProvider`         | Élément `label` racine piloté par l’état créé avec `useSwitch()`.     |
+| `SwitchControl`              | Piste visuelle et cible de l’anneau de focus. Ajoute `SwitchThumb` par défaut. |
+| `SwitchThumb`                | Thumb mobile pour l’apparence par défaut ou un contenu personnalisé.  |
+| `SwitchLabel`                | Texte du libellé relié à Ark.                                         |
 
-`Switch` et `Switch.Root` sont deux noms pour la même racine. `Switch.Context`,
-`useSwitchContext` et `useSwitch` sont exportés depuis `@moduix/react` avec le composant.
+`Switch` est le composant racine. `SwitchContext`, `useSwitchContext` et `useSwitch` sont exportés
+depuis `@moduix/react` avec le composant.
 Les exports Solid correspondants sont disponibles depuis `@moduix/solid` et `@moduix/solid/switch`.
 
 ## Composition
 
-Rendez `Switch.HiddenInput` explicitement à l’intérieur de `Switch` ou `Switch.RootProvider`, y compris lorsque le
+Rendez `SwitchHiddenInput` explicitement à l’intérieur de `Switch` ou `SwitchRootProvider`, y compris lorsque le
 switch ne se trouve pas dans un formulaire. Il fournit le champ natif qu’Ark utilise pour le focus, le clavier,
 l’accessibilité et l’envoi du formulaire.
 
-Lorsque `Switch.Control` n’a pas d’enfants, il ajoute `Switch.Thumb` par défaut. Ajoutez `Switch.Thumb`
+Lorsque `SwitchControl` n’a pas d’enfants, il ajoute `SwitchThumb` par défaut. Ajoutez `SwitchThumb`
 explicitement uniquement lorsque le thumb a besoin d’un contenu ou de styles personnalisés.
 
-Utilisez `Switch.Context` ou `useSwitchContext` lorsque l’interface voisine doit lire l’état du switch. Utilisez
-`useSwitch` avec `Switch.RootProvider` lorsque l’état doit être créé en dehors de l’arbre rendu du switch.
-Ne rendez pas `Switch` et `Switch.RootProvider` pour la même instance d’état.
+Utilisez `SwitchContext` ou `useSwitchContext` lorsque l’interface voisine doit lire l’état du switch. Utilisez
+`useSwitch` avec `SwitchRootProvider` lorsque l’état doit être créé en dehors de l’arbre rendu du switch.
+Ne rendez pas `Switch` et `SwitchRootProvider` pour la même instance d’état.
 
 Avec `asChild`, fournissez un seul élément sémantique compatible avec `label` afin qu’Ark conserve l’accessibilité
 du switch.
@@ -412,7 +412,7 @@ Utilisez `readOnly` lorsque l’état actuel doit rester visible sans que l’ut
 
 ### Root Provider
 
-Importez `useSwitch` depuis `@moduix/react` et associez-le à `Switch.RootProvider` lorsque l’état doit être créé
+Importez `useSwitch` depuis `@moduix/react` et associez-le à `SwitchRootProvider` lorsque l’état doit être créé
 et contrôlé en dehors de l’arbre rendu du switch.
 
 <ExampleFrame variant="component">
@@ -491,7 +491,7 @@ Utilisez `size` de moduix pour adapter la densité du formulaire sans modifier l
 
 ### Personnalisation avancée
 
-Ajoutez `Switch.Thumb` explicitement lorsque le thumb a besoin d’un contenu ou de styles personnalisés.
+Ajoutez `SwitchThumb` explicitement lorsque le thumb a besoin d’un contenu ou de styles personnalisés.
 
 <ExampleFrame variant="component">
   <SwitchAdvancedCustomization />
@@ -551,11 +551,11 @@ partir de `--_switch-width`.
 
 ### Points d’accroche CSS
 
-- `Switch` et `Switch.RootProvider` exposent `data-slot="switch-root"` /
+- `Switch` et `SwitchRootProvider` exposent `data-slot="switch-root"` /
   `data-slot="switch-root-provider"` et définissent l’attribut `data-size` de moduix.
-- `Switch.Control` expose `data-slot="switch-control"` et reçoit les attributs d’état Ark comme
+- `SwitchControl` expose `data-slot="switch-control"` et reçoit les attributs d’état Ark comme
   `data-state`, `data-focus-visible`, `data-hover`, `data-active`, `data-disabled`, `data-readonly`,
   `data-invalid` et `data-required`.
-- `Switch.Thumb` expose `data-slot="switch-thumb"` et reçoit les mêmes attributs d’état Ark pour
+- `SwitchThumb` expose `data-slot="switch-thumb"` et reçoit les mêmes attributs d’état Ark pour
   le déplacement du thumb et le style de son contenu personnalisé.
-- `Switch.Label` expose `data-slot="switch-label"` pour personnaliser la typographie.
+- `SwitchLabel` expose `data-slot="switch-label"` pour personnaliser la typographie.

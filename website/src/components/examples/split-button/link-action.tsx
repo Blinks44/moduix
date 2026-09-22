@@ -1,23 +1,29 @@
 import { MenuItem } from '@moduix/react/menu';
-import { SplitButton } from '@moduix/react/split-button';
+import {
+  SplitButton,
+  SplitButtonAction,
+  SplitButtonContent,
+  SplitButtonPositioner,
+  SplitButtonTrigger,
+} from '@moduix/react/split-button';
 import { ArrowUpRight as ArrowUpRightIcon } from 'lucide-react';
 
 export default function SplitButtonLinkActionDemo() {
   return (
     <SplitButton aria-label="Documentation actions" variant="outline">
-      <SplitButton.Action asChild>
+      <SplitButtonAction asChild>
         <a href="#split-button">
           Open Docs
           <ArrowUpRightIcon />
         </a>
-      </SplitButton.Action>
-      <SplitButton.Trigger aria-label="More docs actions" />
-      <SplitButton.Positioner>
-        <SplitButton.Content>
+      </SplitButtonAction>
+      <SplitButtonTrigger aria-label="More docs actions" />
+      <SplitButtonPositioner>
+        <SplitButtonContent>
           <MenuItem value="copy-link">Copy Link</MenuItem>
           <MenuItem value="open-new-tab">Open in New Tab</MenuItem>
-        </SplitButton.Content>
-      </SplitButton.Positioner>
+        </SplitButtonContent>
+      </SplitButtonPositioner>
     </SplitButton>
   );
 }

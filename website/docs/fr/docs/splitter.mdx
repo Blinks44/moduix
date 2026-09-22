@@ -30,9 +30,9 @@ import splitterSolidVertical from '../../../snippets/splitter/solid/vertical.tsx
 ## Exemple de base
 
 
-Construisez un splitter avec `Splitter`, `Splitter.Panel` et `Splitter.ResizeTrigger`. La prop
+Construisez un splitter avec `Splitter`, `SplitterPanel` et `SplitterResizeTrigger`. La prop
 `panels` contient les identifiants des panneaux et leurs contraintes de taille. Chaque
-`Splitter.Panel` rendu doit utiliser l'un de ces identifiants. Si vous n'ajoutez pas de contenu à la
+`SplitterPanel` rendu doit utiliser l'un de ces identifiants. Si vous n'ajoutez pas de contenu à la
 poignée, moduix génère automatiquement l'indicateur de redimensionnement.
 
 <ExampleFrame variant="component">
@@ -100,28 +100,28 @@ Consultez le [Démarrage rapide](/docs/quick-start) pour la configuration compl�
 ## Anatomie
 
 ```text
-Splitter / Splitter.Root
-├─ Splitter.Panel[id]
-├─ Splitter.ResizeTrigger[id="panel-a:panel-b"]
-│  └─ Splitter.ResizeTriggerIndicator (par défaut, personnalisable)
-└─ Splitter.Panel[id]
+Splitter
+├─ SplitterPanel[id]
+├─ SplitterResizeTrigger[id="panel-a:panel-b"]
+│  └─ SplitterResizeTriggerIndicator (par défaut, personnalisable)
+└─ SplitterPanel[id]
 
-Splitter.RootProvider
+SplitterRootProvider
 └─ même arborescence de panneaux reliée à un état useSplitter()
 ```
 
 | Partie                              | Rôle                                                                          |
 | ----------------------------------- | ----------------------------------------------------------------------------- |
-| `Splitter` / `Splitter.Root`        | Gère les panneaux, leurs tailles, l'orientation, les rappels et l'état.      |
-| `Splitter.Panel`                    | Région redimensionnable dont l'`id` correspond à une entrée de `panels`.      |
-| `Splitter.ResizeTrigger`            | Bouton accessible qui redimensionne les deux panneaux adjacents.             |
-| `Splitter.ResizeTriggerIndicator`   | Poignée visuelle par défaut. Un contenu personnalisé la remplace.             |
-| `Splitter.RootProvider`             | Affiche les mêmes parties avec l'état créé par `useSplitter()`.              |
+| `Splitter`                    | Gère les panneaux, leurs tailles, l'orientation, les rappels et l'état.      |
+| `SplitterPanel`                    | Région redimensionnable dont l'`id` correspond à une entrée de `panels`.      |
+| `SplitterResizeTrigger`            | Bouton accessible qui redimensionne les deux panneaux adjacents.             |
+| `SplitterResizeTriggerIndicator`   | Poignée visuelle par défaut. Un contenu personnalisé la remplace.             |
+| `SplitterRootProvider`             | Affiche les mêmes parties avec l'état créé par `useSplitter()`.              |
 
 ## Composition
 
 Utilisez `size` avec `onResize(details)` lorsque l'application doit gérer les tailles actuelles des
-panneaux. Utilisez `Splitter.RootProvider` avec `useSplitter()` lorsque l'état ou ses contrôles
+panneaux. Utilisez `SplitterRootProvider` avec `useSplitter()` lorsque l'état ou ses contrôles
 doivent vivre en dehors de l'arborescence rendue, et choisissez une seule racine par état. Pour des
 splitters imbriqués qui doivent se redimensionner ensemble aux intersections des poignées, créez un
 seul `createSplitterRegistry()` et transmettez-le à chaque racine. Les valeurs numériques de
@@ -337,9 +337,9 @@ disponible mesurée par l'application.
 
 </ExampleCode>
 
-### RootProvider
+### SplitterRootProvider
 
-Utilisez `useSplitter()` avec `Splitter.RootProvider` lorsque l'état ou les contrôles doivent se
+Utilisez `useSplitter()` avec `SplitterRootProvider` lorsque l'état ou les contrôles doivent se
 trouver en dehors des parties rendues du splitter. L'API renvoyée fournit notamment `getSizes()`,
 `setSizes()`, `resizePanel()`, `collapsePanel()`, `expandPanel()` et `resetSizes()`.
 

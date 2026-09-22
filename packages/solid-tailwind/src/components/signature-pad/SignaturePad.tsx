@@ -18,7 +18,7 @@ type SignaturePadApi = ReturnType<typeof useSignaturePadPrimitive> & {
 };
 type SignaturePadHookProps = Parameters<typeof useSignaturePadPrimitive>[0];
 
-function SignaturePadRoot(props: ComponentProps<typeof SignaturePadPrimitive.Root>) {
+function SignaturePad(props: ComponentProps<typeof SignaturePadPrimitive.Root>) {
   const [local, others] = splitProps(props, ['asChild', 'children', 'class']);
   const field = useFieldContext();
 
@@ -200,19 +200,6 @@ function SignaturePadCanvas(props: SignaturePadCanvasProps) {
   );
 }
 
-const SignaturePad = Object.assign(SignaturePadRoot, {
-  Root: SignaturePadRoot,
-  RootProvider: SignaturePadRootProvider,
-  Context: SignaturePadPrimitive.Context,
-  HiddenInput: SignaturePadPrimitive.HiddenInput,
-  Label: SignaturePadLabel,
-  Control: SignaturePadControl,
-  Canvas: SignaturePadCanvas,
-  Segment: SignaturePadSegment,
-  Guide: SignaturePadGuide,
-  ClearTrigger: SignaturePadClearTrigger,
-});
-
 function useSignaturePad(props?: SignaturePadHookProps) {
   const field = useFieldContext();
   const signaturePad = useSignaturePadPrimitive(props);
@@ -227,4 +214,20 @@ function useSignaturePad(props?: SignaturePadHookProps) {
   return api;
 }
 
-export { SignaturePad, useSignaturePad, useSignaturePadContext };
+const SignaturePadContext = SignaturePadPrimitive.Context;
+const SignaturePadHiddenInput = SignaturePadPrimitive.HiddenInput;
+
+export {
+  SignaturePad,
+  SignaturePadCanvas,
+  SignaturePadClearTrigger,
+  SignaturePadContext,
+  SignaturePadControl,
+  SignaturePadGuide,
+  SignaturePadHiddenInput,
+  SignaturePadLabel,
+  SignaturePadRootProvider,
+  SignaturePadSegment,
+  useSignaturePad,
+  useSignaturePadContext,
+};

@@ -32,7 +32,7 @@ import {
   SelectItemText,
   SelectItemIndicator,
 } from '@moduix/react/select';
-import { Switch } from '@moduix/react/switch';
+import { Switch, SwitchControl, SwitchHiddenInput, SwitchLabel } from '@moduix/react/switch';
 import { Tabs } from '@moduix/react/tabs';
 import { useI18n } from '@rspress/core/runtime';
 import { Link } from '@rspress/core/theme';
@@ -270,9 +270,9 @@ function HomeShowcase() {
                 onCheckedChange={handleAutomationChange}
                 className={styles.switchRow}
               >
-                <Switch.Control />
-                <Switch.HiddenInput />
-                <Switch.Label>{t('homeAutoReview')}</Switch.Label>
+                <SwitchControl />
+                <SwitchHiddenInput />
+                <SwitchLabel>{t('homeAutoReview')}</SwitchLabel>
               </Switch>
               <ProgressLinear value={progressValue} className={styles.heroProgress}>
                 <ProgressLinearLabel>{t('homeReleaseReadiness')}</ProgressLinearLabel>

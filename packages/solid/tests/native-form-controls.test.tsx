@@ -25,6 +25,16 @@ import {
   SegmentGroupItems,
 } from '../src';
 import { Select, SelectHiddenSelect } from '../src';
+import { Switch, SwitchControl, SwitchHiddenInput } from '../src';
+import { SignaturePad, SignaturePadHiddenInput } from '../src';
+import {
+  Slider,
+  SliderControl,
+  SliderHiddenInput,
+  SliderLabel,
+  SliderThumb,
+  SliderThumbs,
+} from '../src';
 
 const collection = createListCollection({ items: [{ label: 'React', value: 'react' }] });
 const cases = [
@@ -136,7 +146,7 @@ const cases = [
     render: (input: boolean) => (
       <SignaturePad name="value" defaultPaths={['M1,1 L2,2']}>
         {input && (
-          <SignaturePad.HiddenInput
+          <SignaturePadHiddenInput
             value={JSON.stringify(['M1,1 L2,2'])}
             form="native-form"
             data-testid="native-input"
@@ -150,11 +160,11 @@ const cases = [
     value: '40',
     render: (input: boolean) => (
       <Slider name="value" form="native-form" defaultValue={[40]}>
-        <Slider.Control>
-          <Slider.Thumb index={0}>
-            {input && <Slider.HiddenInput data-testid="native-input" />}
-          </Slider.Thumb>
-        </Slider.Control>
+        <SliderControl>
+          <SliderThumb index={0}>
+            {input && <SliderHiddenInput data-testid="native-input" />}
+          </SliderThumb>
+        </SliderControl>
       </Slider>
     ),
   },
@@ -163,8 +173,8 @@ const cases = [
     value: 'on',
     render: (input: boolean) => (
       <Switch name="value" form="native-form" defaultChecked>
-        <Switch.Control />
-        {input && <Switch.HiddenInput data-testid="native-input" />}
+        <SwitchControl />
+        {input && <SwitchHiddenInput data-testid="native-input" />}
       </Switch>
     ),
   },
@@ -222,12 +232,12 @@ test('explicit controls synchronize interaction and native reset with FormData',
         <CheckboxHiddenInput />
       </Checkbox>
       <Slider name="volume" defaultValue={[40]} thumbAlignment="center">
-        <Slider.Label>Volume</Slider.Label>
-        <Slider.Control>
-          <Slider.Thumb index={0}>
-            <Slider.HiddenInput />
-          </Slider.Thumb>
-        </Slider.Control>
+        <SliderLabel>Volume</SliderLabel>
+        <SliderControl>
+          <SliderThumb index={0}>
+            <SliderHiddenInput />
+          </SliderThumb>
+        </SliderControl>
       </Slider>
     </form>
   ));
@@ -260,9 +270,9 @@ test('fixed compositions include exactly one native control per generated item',
         <SegmentGroupItems items={[{ label: 'List', value: 'list' }]} />
       </SegmentGroup>
       <Slider name="range" defaultValue={[20, 80]}>
-        <Slider.Control>
-          <Slider.Thumbs />
-        </Slider.Control>
+        <SliderControl>
+          <SliderThumbs />
+        </SliderControl>
       </Slider>
     </form>
   ));

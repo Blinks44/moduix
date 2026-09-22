@@ -100,21 +100,20 @@ l’alignement, le retour à la ligne et un simple changement de direction respo
 plus générales dans votre CSS local.
 
 ```text
-Stack / Stack.Root
+Stack
 └─ root[data-scope="stack"][data-part="root"][data-slot="stack-root"]
    └─ children
 ```
 
 | Partie                 | Rôle                                                                    |
 | ---------------------- | ----------------------------------------------------------------------- |
-| `Stack` / `Stack.Root` | Conteneur flex racine pour la direction, l’espacement, l’alignement et l’écart entre les enfants. |
+| `Stack`                | Conteneur flex racine pour la direction, l’espacement, l’alignement et l’écart entre les enfants. |
 
 ## Composition
 
-`Stack` ne gère aucun état et n’expose qu’une racine. Utilisez la forme courte `<Stack>` pour rendre normalement un
-`div` ; `Stack.Root` est un alias de cette même racine. `fill` agit sur le `Stack` en tant qu’élément flex, et non sur
-ses enfants. Ajoutez directement `Separator` lorsqu’un séparateur est nécessaire et utilisez `asChild` lorsque la
-racine doit être un élément sémantique.
+`Stack` ne gère aucun état et n’expose qu’une racine. Utilisez `<Stack>` pour rendre normalement un `div`. `fill` agit
+sur le `Stack` en tant qu’élément flex, et non sur ses enfants. Ajoutez directement `Separator` lorsqu’un séparateur est
+nécessaire et utilisez `asChild` lorsque la racine doit être un élément sémantique.
 
 ## Exemples
 

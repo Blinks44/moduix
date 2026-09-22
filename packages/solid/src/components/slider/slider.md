@@ -5,35 +5,44 @@ or a range of values.
 
 ## Public contract
 
-`Slider` is the styled root and is equivalent to `Slider.Root`. Compose the Ark parts explicitly:
+`Slider` is the styled root. Compose the flat Ark wrappers explicitly:
 
 ```tsx
-import { Slider } from '@moduix/solid/slider';
+import {
+  Slider,
+  SliderControl,
+  SliderLabel,
+  SliderRange,
+  SliderThumbs,
+  SliderTrack,
+  SliderValueText,
+} from '@moduix/solid/slider';
 
 export function VolumeSlider() {
   return (
     <Slider defaultValue={[40]} name="volume">
-      <Slider.Label>Volume</Slider.Label>
-      <Slider.ValueText />
-      <Slider.Control>
-        <Slider.Track>
-          <Slider.Range />
-        </Slider.Track>
-        <Slider.Thumbs />
-      </Slider.Control>
+      <SliderLabel>Volume</SliderLabel>
+      <SliderValueText />
+      <SliderControl>
+        <SliderTrack>
+          <SliderRange />
+        </SliderTrack>
+        <SliderThumbs />
+      </SliderControl>
     </Slider>
   );
 }
 ```
 
-The namespace exposes `Root`, `RootProvider`, `Context`, `Label`, `ValueText`, `Control`, `Track`,
-`Range`, `Thumb`, `Thumbs`, `HiddenInput`, `MarkerGroup`, `Marker`, and `DraggingIndicator`, together with
-`useSlider` and `useSliderContext`.
+The flat API exposes `SliderRootProvider`, `SliderContext`, `SliderLabel`, `SliderValueText`,
+`SliderControl`, `SliderTrack`, `SliderRange`, `SliderThumb`, `SliderThumbs`, `SliderHiddenInput`,
+`SliderMarkerGroup`, `SliderMarker`, and `SliderDraggingIndicator`, together with `useSlider` and
+`useSliderContext`.
 
 Values are `number[]`; controlled and uncontrolled props, Ark callback detail objects, keyboard
 behavior, pointer dragging, orientation, IDs, and accessibility attributes pass through unchanged.
-`Slider.Thumbs` renders one styled thumb with an Ark `HiddenInput` per value. With explicit
-`Slider.Thumb` parts, nest `Slider.HiddenInput` inside each thumb yourself.
+`SliderThumbs` renders one styled thumb with an Ark `HiddenInput` per value. With explicit
+`SliderThumb` parts, nest `SliderHiddenInput` inside each thumb yourself.
 
 ## Solid composition
 
@@ -41,12 +50,12 @@ Ark Solid uses a render-function `asChild` prop:
 
 ```tsx
 <Slider asChild={(props) => <section {...props()} />} defaultValue={[40]} aria-label={['Volume']}>
-  <Slider.Control>
-    <Slider.Track>
-      <Slider.Range />
-    </Slider.Track>
-    <Slider.Thumbs />
-  </Slider.Control>
+  <SliderControl>
+    <SliderTrack>
+      <SliderRange />
+    </SliderTrack>
+    <SliderThumbs />
+  </SliderControl>
 </Slider>
 ```
 
@@ -54,7 +63,7 @@ Ordinary Solid refs are forwarded through Ark parts. Ark Solid does not forward 
 `asChild` render function, so custom-host composition and ordinary refs are supported as separate
 native paths.
 
-`RootProvider` accepts the accessor returned by `useSlider()`. `useSliderContext()` exposes
+`SliderRootProvider` accepts the accessor returned by `useSlider()`. `useSliderContext()` exposes
 accessor-based state, so read values as `slider().value` and `slider().dragging`.
 
 ## Styling

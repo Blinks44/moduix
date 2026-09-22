@@ -26,7 +26,7 @@ type SplitButtonContextValue = {
   variant: SplitButtonVariant;
 };
 
-type SplitButtonRootProps = Omit<ComponentProps<typeof Menu>, 'children'> & {
+type SplitButtonProps = Omit<ComponentProps<typeof Menu>, 'children'> & {
   'aria-label'?: string;
   'aria-labelledby'?: string;
   children?: ReactNode;
@@ -54,13 +54,13 @@ function useSplitButtonContext(componentName: string) {
   const context = useContext(SplitButtonContext);
 
   if (!context) {
-    throw new Error(`${componentName} must be used within SplitButton.Root.`);
+    throw new Error(`${componentName} must be used within SplitButton.`);
   }
 
   return context;
 }
 
-const SplitButtonRoot = forwardRef<HTMLDivElement, SplitButtonRootProps>(function SplitButtonRoot(
+const SplitButton = forwardRef<HTMLDivElement, SplitButtonProps>(function SplitButton(
   {
     children,
     className,
@@ -95,7 +95,7 @@ const SplitButtonRoot = forwardRef<HTMLDivElement, SplitButtonRootProps>(functio
 
 const SplitButtonAction = forwardRef<ComponentRef<typeof Button>, SplitButtonActionProps>(
   function SplitButtonAction({ className, size, variant, ...props }, ref) {
-    const context = useSplitButtonContext('SplitButton.Action');
+    const context = useSplitButtonContext('SplitButtonAction');
 
     return (
       <Button
@@ -117,7 +117,7 @@ const SplitButtonTrigger = forwardRef<
   { children, className, size, variant, 'aria-label': ariaLabel, ...props },
   ref,
 ) {
-  const context = useSplitButtonContext('SplitButton.Trigger');
+  const context = useSplitButtonContext('SplitButtonTrigger');
   const isIconOnly = children == null;
 
   return (
@@ -169,12 +169,10 @@ const SplitButtonContent = forwardRef<
   );
 });
 
-const SplitButton = Object.assign(SplitButtonRoot, {
-  Root: SplitButtonRoot,
-  Action: SplitButtonAction,
-  Trigger: SplitButtonTrigger,
-  Positioner: SplitButtonPositioner,
-  Content: SplitButtonContent,
-});
-
-export { SplitButton };
+export {
+  SplitButton,
+  SplitButtonAction,
+  SplitButtonContent,
+  SplitButtonPositioner,
+  SplitButtonTrigger,
+};

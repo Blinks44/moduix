@@ -5,10 +5,10 @@ import type { ComponentProps, ComponentRef } from 'react';
 import { forwardRef } from 'react';
 import { cn } from '@/lib/moduix/cn';
 
-const SliderRoot = forwardRef<
+const Slider = forwardRef<
   ComponentRef<typeof SliderPrimitive.Root>,
   ComponentProps<typeof SliderPrimitive.Root>
->(function SliderRoot({ className, readOnly, ...props }, ref) {
+>(function Slider({ className, readOnly, ...props }, ref) {
   return (
     <SliderPrimitive.Root
       ref={ref}
@@ -204,23 +204,24 @@ const SliderDraggingIndicator = forwardRef<
   );
 });
 
-const Slider = Object.assign(SliderRoot, {
-  Root: SliderRoot,
-  RootProvider: SliderRootProvider,
-  Context: SliderPrimitive.Context,
+const SliderContext = SliderPrimitive.Context;
+const SliderHiddenInput = SliderPrimitive.HiddenInput;
+
+export {
+  Slider,
+  SliderContext,
+  SliderControl,
+  SliderDraggingIndicator,
+  SliderHiddenInput,
+  SliderLabel,
+  SliderMarker,
+  SliderMarkerGroup,
+  SliderRange,
+  SliderRootProvider,
+  SliderThumb,
+  SliderThumbs,
+  SliderTrack,
+  SliderValueText,
   useSlider,
   useSliderContext,
-  Label: SliderLabel,
-  ValueText: SliderValueText,
-  Control: SliderControl,
-  HiddenInput: SliderPrimitive.HiddenInput,
-  Track: SliderTrack,
-  Range: SliderRange,
-  Thumb: SliderThumb,
-  Thumbs: SliderThumbs,
-  MarkerGroup: SliderMarkerGroup,
-  Marker: SliderMarker,
-  DraggingIndicator: SliderDraggingIndicator,
-});
-
-export { Slider, useSlider, useSliderContext };
+};

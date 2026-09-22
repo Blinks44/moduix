@@ -1,4 +1,4 @@
-import { Slider } from '@moduix/solid/slider';
+import { Slider, SliderControl, SliderLabel, SliderRange, SliderThumbs, SliderTrack, SliderValueText } from '@moduix/solid/slider';
 import { createSignal } from 'solid-js';
 import styles from '@/components/examples/slider/slider-change-events.module.css';
 
@@ -14,15 +14,15 @@ export default function EventsSliderDemo() {
         onValueChangeEnd={(details) => setCommittedValue(details.value)}
       >
         <div class={styles.header}>
-          <Slider.Label>Gain</Slider.Label>
-          <Slider.ValueText />
+          <SliderLabel>Gain</SliderLabel>
+          <SliderValueText />
         </div>
-        <Slider.Control>
-          <Slider.Track>
-            <Slider.Range />
-          </Slider.Track>
-          <Slider.Thumbs />
-        </Slider.Control>
+        <SliderControl>
+          <SliderTrack>
+            <SliderRange />
+          </SliderTrack>
+          <SliderThumbs />
+        </SliderControl>
       </Slider>
       <output>
         Live: {liveValue().join(', ')} / Committed: {committedValue().join(', ')}

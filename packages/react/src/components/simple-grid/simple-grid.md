@@ -19,7 +19,7 @@ It has one root part and no provider, context, state machine, or item wrappers.
 
 ## Current behavior contract
 
-- `SimpleGrid` and `SimpleGrid.Root` reference the same root component.
+- `SimpleGrid` is the only root component export.
 - Root accepts Ark factory div props, including `asChild`.
 - `columns` creates a fixed number of equal-width tracks with
   `repeat(columns, minmax(0, 1fr))`.
@@ -34,11 +34,10 @@ It has one root part and no provider, context, state machine, or item wrappers.
 
 ```text
 SimpleGrid
-└─ Root (data-slot="simple-grid-root")
+└─ root (data-slot="simple-grid-root")
 ```
 
-- `SimpleGrid`: recommended short root form.
-- `SimpleGrid.Root`: equivalent namespace form.
+- `SimpleGrid`: root component.
 
 The root exposes `data-scope="simple-grid"`, `data-part="root"`, and
 `data-slot="simple-grid-root"`.

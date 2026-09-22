@@ -7,7 +7,7 @@ import { cn } from '@/lib/moduix/cn';
 import { ChevronLeftIcon } from '@/lib/moduix/icons/ui/Icons';
 import { Input } from '../input';
 import { Separator } from '../separator';
-import { Splitter, type SplitterPanelData, useSplitterContext } from '../splitter';
+import { Splitter, SplitterPanel, SplitterResizeTrigger, SplitterResizeTriggerIndicator, useSplitterContext, type SplitterPanelData } from '../splitter';
 import { Tooltip } from '../tooltip';
 
 type SidebarSide = 'left' | 'right';
@@ -15,13 +15,13 @@ type SidebarConfig = {
   panelId: Accessor<string>;
   side: Accessor<SidebarSide>;
 };
-type SidebarRootProps = Omit<ComponentProps<typeof Splitter.Root>, 'orientation' | 'panels'> & {
+type SidebarRootProps = Omit<ComponentProps<typeof Splitter>, 'orientation' | 'panels'> & {
   panelId?: string;
   side?: SidebarSide;
 };
-type SidebarPanelProps = Omit<ComponentProps<typeof Splitter.Panel>, 'id'>;
-type SidebarResizeTriggerProps = Omit<ComponentProps<typeof Splitter.ResizeTrigger>, 'id'>;
-type SidebarDefaultSize = ComponentProps<typeof Splitter.Root>['defaultSize'];
+type SidebarPanelProps = Omit<ComponentProps<typeof SplitterPanel>, 'id'>;
+type SidebarResizeTriggerProps = Omit<ComponentProps<typeof SplitterResizeTrigger>, 'id'>;
+type SidebarDefaultSize = ComponentProps<typeof Splitter>['defaultSize'];
 type SidebarTriggerProps = HTMLArkProps<'button'>;
 
 const sidebarPanel = {
@@ -158,7 +158,7 @@ function SidebarInset(props: SidebarPanelProps) {
 function SidebarResizeTrigger(props: SidebarResizeTriggerProps) {
   const [local, others] = splitProps(props, ['aria-label', 'asChild', 'class', 'children']);
   const config = useSidebarConfig();
-  const id = (): NonNullable<ComponentProps<typeof Splitter.ResizeTrigger>['id']> =>
+  const id = (): NonNullable<ComponentProps<typeof SplitterResizeTrigger>['id']> =>
     config.side() === 'left' ? `${config.panelId()}:content` : `content:${config.panelId()}`;
 
   return (
@@ -176,7 +176,7 @@ function SidebarResizeTrigger(props: SidebarResizeTriggerProps) {
       )}
     >
       {local.children === undefined && !local.asChild ? (
-        <Splitter.ResizeTriggerIndicator />
+        <SplitterResizeTriggerIndicator />
       ) : (
         local.children
       )}

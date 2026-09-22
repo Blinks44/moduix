@@ -1,4 +1,9 @@
-import { Switch } from '@moduix/solid/switch';
+import {
+  Switch,
+  SwitchControl,
+  SwitchHiddenInput,
+  SwitchLabel,
+} from '@moduix/solid/switch';
 import styles from '@/components/examples/switch/switch-sizes.module.css';
 
 const switchSizeOptions = [
@@ -14,9 +19,9 @@ export default function SwitchSizesDemo() {
     <div class={styles.column}>
       {switchSizeOptions.map((item) => (
         <Switch size={item.value} defaultChecked>
-          <Switch.Control />
-          <Switch.Label>{item.label}</Switch.Label>
-          <Switch.HiddenInput />
+          <SwitchControl />
+          <SwitchLabel>{item.label}</SwitchLabel>
+          <SwitchHiddenInput />
         </Switch>
       ))}
     </div>

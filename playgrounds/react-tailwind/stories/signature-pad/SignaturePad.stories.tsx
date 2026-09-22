@@ -4,6 +4,14 @@ import { useState } from 'react';
 import { Field, FieldErrorText, FieldHelperText } from '@/components/field';
 import {
   SignaturePad,
+  SignaturePadCanvas,
+  SignaturePadClearTrigger,
+  SignaturePadControl,
+  SignaturePadGuide,
+  SignaturePadHiddenInput,
+  SignaturePadLabel,
+  SignaturePadRootProvider,
+  SignaturePadSegment,
   useSignaturePad,
   useSignaturePadContext,
 } from '@/components/signature-pad/SignaturePad';
@@ -25,17 +33,17 @@ type Story = StoryObj<typeof meta>;
 function SignaturePadFormInput() {
   const signaturePad = useSignaturePadContext();
 
-  return <SignaturePad.HiddenInput value={signaturePad.paths.join(' ')} />;
+  return <SignaturePadHiddenInput value={signaturePad.paths.join(' ')} />;
 }
 
 function SignaturePadParts({
   label = 'Sign below',
   ...props
-}: ComponentProps<typeof SignaturePad.Root> & { label?: string }) {
+}: ComponentProps<typeof SignaturePad> & { label?: string }) {
   return (
     <SignaturePad {...props}>
-      <SignaturePad.Label>{label}</SignaturePad.Label>
-      <SignaturePad.Canvas />
+      <SignaturePadLabel>{label}</SignaturePadLabel>
+      <SignaturePadCanvas />
     </SignaturePad>
   );
 }
@@ -84,8 +92,8 @@ export const WithField: Story = {
   render: () => (
     <Field className="w-auto items-center" invalid required>
       <SignaturePad name="signature">
-        <SignaturePad.Label>Sign below</SignaturePad.Label>
-        <SignaturePad.Canvas />
+        <SignaturePadLabel>Sign below</SignaturePadLabel>
+        <SignaturePadCanvas />
         <SignaturePadFormInput />
       </SignaturePad>
       <FieldHelperText>Use a pointer or touch input to sign.</FieldHelperText>
@@ -100,17 +108,17 @@ export const RootProvider: Story = {
 
     return (
       <div className="grid justify-items-center gap-4">
-        <SignaturePad.RootProvider value={signaturePad}>
-          <SignaturePad.Label>Sign below</SignaturePad.Label>
-          <SignaturePad.Control>
-            <SignaturePad.Segment className="text-primary" />
-            <SignaturePad.ClearTrigger>
+        <SignaturePadRootProvider value={signaturePad}>
+          <SignaturePadLabel>Sign below</SignaturePadLabel>
+          <SignaturePadControl>
+            <SignaturePadSegment className="text-primary" />
+            <SignaturePadClearTrigger>
               <RotateCcwIcon className="size-4" aria-hidden="true" />
-            </SignaturePad.ClearTrigger>
-            <SignaturePad.Guide className="border-primary/45" />
-          </SignaturePad.Control>
+            </SignaturePadClearTrigger>
+            <SignaturePadGuide className="border-primary/45" />
+          </SignaturePadControl>
           <SignaturePadFormInput />
-        </SignaturePad.RootProvider>
+        </SignaturePadRootProvider>
         <output className="text-sm leading-5 text-muted-foreground">
           Paths: {signaturePad.paths.length}
         </output>

@@ -1,4 +1,15 @@
-import { Steps } from '@moduix/solid/steps';
+import {
+  Steps,
+  StepsCompletedContent,
+  StepsContent,
+  StepsIndicator,
+  StepsItem,
+  StepsList,
+  StepsNextTrigger,
+  StepsPrevTrigger,
+  StepsSeparator,
+  StepsTrigger,
+} from '@moduix/solid/steps';
 import styles from '@/components/examples/steps/steps-vertical.module.css';
 
 const items = [
@@ -23,33 +34,33 @@ const items = [
 export default function StepsVerticalDemo() {
   return (
     <Steps count={items.length} defaultStep={1} orientation="vertical">
-      <Steps.List>
+      <StepsList>
         {items.map((item, index) => (
-          <Steps.Item index={index}>
-            <Steps.Trigger>
-              <Steps.Indicator />
+          <StepsItem index={index}>
+            <StepsTrigger>
+              <StepsIndicator />
               <span class={styles.label}>
                 <strong>{item.title}</strong>
                 <small class={styles.description}>{item.description}</small>
               </span>
-            </Steps.Trigger>
-            <Steps.Separator />
-          </Steps.Item>
+            </StepsTrigger>
+            <StepsSeparator />
+          </StepsItem>
         ))}
-      </Steps.List>
+      </StepsList>
 
       <div class={styles.contentColumn}>
         {items.map((item, index) => (
-          <Steps.Content index={index}>
+          <StepsContent index={index}>
             {item.title} - {item.description}
-          </Steps.Content>
+          </StepsContent>
         ))}
 
-        <Steps.CompletedContent>Steps complete. The workspace is ready.</Steps.CompletedContent>
+        <StepsCompletedContent>Steps complete. The workspace is ready.</StepsCompletedContent>
 
         <div class={styles.actions}>
-          <Steps.PrevTrigger>Back</Steps.PrevTrigger>
-          <Steps.NextTrigger>Next</Steps.NextTrigger>
+          <StepsPrevTrigger>Back</StepsPrevTrigger>
+          <StepsNextTrigger>Next</StepsNextTrigger>
         </div>
       </div>
     </Steps>

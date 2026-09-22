@@ -1,1 +1,18 @@
-export * from './Slider.js';
+export {
+  Slider,
+  SliderContext,
+  SliderControl,
+  SliderDraggingIndicator,
+  SliderHiddenInput,
+  SliderLabel,
+  SliderMarker,
+  SliderMarkerGroup,
+  SliderRange,
+  SliderRootProvider,
+  SliderThumb,
+  SliderThumbs,
+  SliderTrack,
+  SliderValueText,
+  useSlider,
+  useSliderContext,
+} from './Slider.js';

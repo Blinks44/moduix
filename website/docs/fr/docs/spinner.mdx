@@ -105,7 +105,7 @@ Un contenu personnalisé passé via `children` remplace l’anneau ; `asChild` r
 de l’indicateur.
 
 ```text
-Spinner / Spinner.Root
+Spinner
 └─ root[data-scope="spinner"][data-part="root"][data-slot="spinner-root"][data-size]
    └─ indicator[data-scope="spinner"][data-part="indicator"][data-slot="spinner-indicator"]
       └─ ring[data-scope="spinner"][data-part="ring"][data-slot="spinner-ring"] (par défaut uniquement)
@@ -113,7 +113,7 @@ Spinner / Spinner.Root
 
 | Partie              | Rôle                                                                                                        |
 | ------------------- | ----------------------------------------------------------------------------------------------------------- |
-| `Spinner` / `Spinner.Root` | Racine publique. Accepte `size`, `decorative`, `asChild`, `children` et les propriétés natives de `span`. |
+| `Spinner`                   | Racine publique. Accepte `size`, `decorative`, `asChild`, `children` et les propriétés natives de `span`. |
 | indicator                  | Enveloppe interne rotative qui gère la taille et l’animation de l’indicateur.                     |
 | ring                       | Anneau par défaut interne. Il n’est pas rendu lorsqu’un contenu personnalisé est fourni via `children`. |
 

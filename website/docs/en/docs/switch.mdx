@@ -45,7 +45,7 @@ boolean value.
 ## Basic
 
 
-A basic switch has a root, a visual control, a label, and an explicit `Switch.HiddenInput` for native
+A basic switch has a root, a visual control, a label, and an explicit `SwitchHiddenInput` for native
 interaction and form behavior. The control receives a default thumb when it has no children.
 
 <ExampleFrame variant="component">
@@ -108,38 +108,38 @@ See [Quick Start](/docs/quick-start) for full package setup, registry configurat
 ## Anatomy
 
 ```text
-Switch / Switch.Root
-├─ Switch.Control
-│  └─ Switch.Thumb
-├─ Switch.Label
-└─ Switch.HiddenInput (explicit)
+Switch
+├─ SwitchControl
+│  └─ SwitchThumb
+├─ SwitchLabel
+└─ SwitchHiddenInput (explicit)
 ```
 
 | Part                          | Role                                                                 |
 | ----------------------------- | -------------------------------------------------------------------- |
-| `Switch` / `Switch.Root`      | Root `label` element. Owns switch state, ids, form props, and `size`. |
-| `Switch.HiddenInput`           | Native Ark form control; compose explicitly as described below.      |
-| `Switch.RootProvider`          | Root `label` driven by state created with `useSwitch()`.             |
-| `Switch.Control`               | Visual track and focus-ring target. Adds `Switch.Thumb` by default.  |
-| `Switch.Thumb`                 | Movable thumb for the default visuals or custom thumb content.       |
-| `Switch.Label`                 | Ark-connected label text.                                            |
+| `Switch`                 | Root `label` element. Owns switch state, ids, form props, and `size`. |
+| `SwitchHiddenInput`           | Native Ark form control; compose explicitly as described below.      |
+| `SwitchRootProvider`          | Root `label` driven by state created with `useSwitch()`.             |
+| `SwitchControl`               | Visual track and focus-ring target. Adds `SwitchThumb` by default.  |
+| `SwitchThumb`                 | Movable thumb for the default visuals or custom thumb content.       |
+| `SwitchLabel`                 | Ark-connected label text.                                            |
 
-`Switch` and `Switch.Root` are two names for the same root component. `Switch.Context`,
-`useSwitchContext`, and `useSwitch` are exported from `@moduix/react` alongside the component.
+`Switch` is the root component. `SwitchContext`, `useSwitchContext`, and `useSwitch` are exported
+from `@moduix/react` alongside the component.
 The matching Solid exports are available from `@moduix/solid` and `@moduix/solid/switch`.
 
 ## Composition
 
-Render `Switch.HiddenInput` explicitly inside `Switch` or `Switch.RootProvider`, including when the
+Render `SwitchHiddenInput` explicitly inside `Switch` or `SwitchRootProvider`, including when the
 switch is not in a form. It provides the native input that Ark uses for focus, keyboard interaction,
 accessibility, and form submission.
 
-When `Switch.Control` has no children, it adds the default `Switch.Thumb`. Add `Switch.Thumb`
+When `SwitchControl` has no children, it adds the default `SwitchThumb`. Add `SwitchThumb`
 explicitly only when it needs custom content or styling.
 
-Use `Switch.Context` or `useSwitchContext` when nearby UI needs to read the switch state. Use
-`useSwitch` with `Switch.RootProvider` when the state must be created outside the rendered switch
-tree. Do not render `Switch` and `Switch.RootProvider` for the same state instance.
+Use `SwitchContext` or `useSwitchContext` when nearby UI needs to read the switch state. Use
+`useSwitch` with `SwitchRootProvider` when the state must be created outside the rendered switch
+tree. Do not render `Switch` and `SwitchRootProvider` for the same state instance.
 
 With `asChild`, provide one semantic element compatible with `label` so Ark can keep the switch
 accessible.
@@ -412,7 +412,7 @@ Use `readOnly` when the current state should remain visible but users must not b
 
 ### Root Provider
 
-Import `useSwitch` from `@moduix/react` and pair it with `Switch.RootProvider` when you need to create
+Import `useSwitch` from `@moduix/react` and pair it with `SwitchRootProvider` when you need to create
 and control the state outside the rendered switch tree.
 
 <ExampleFrame variant="component">
@@ -491,7 +491,7 @@ Use moduix `size` to match different form densities without changing the Ark par
 
 ### Advanced Customization
 
-Add `Switch.Thumb` explicitly when the thumb needs custom content or styling.
+Add `SwitchThumb` explicitly when the thumb needs custom content or styling.
 
 <ExampleFrame variant="component">
   <SwitchAdvancedCustomization />
@@ -550,11 +550,11 @@ utilities as well. The CSS Modules track recomputes the movement from `--_switch
 
 ### Styling hooks
 
-- `Switch` and `Switch.RootProvider` expose `data-slot="switch-root"` /
+- `Switch` and `SwitchRootProvider` expose `data-slot="switch-root"` /
   `data-slot="switch-root-provider"` and set the moduix `data-size` attribute.
-- `Switch.Control` exposes `data-slot="switch-control"` and receives Ark state attributes such as
+- `SwitchControl` exposes `data-slot="switch-control"` and receives Ark state attributes such as
   `data-state`, `data-focus-visible`, `data-hover`, `data-active`, `data-disabled`, `data-readonly`,
   `data-invalid`, and `data-required`.
-- `Switch.Thumb` exposes `data-slot="switch-thumb"` and receives the same Ark state attributes for
+- `SwitchThumb` exposes `data-slot="switch-thumb"` and receives the same Ark state attributes for
   thumb movement and custom content styling.
-- `Switch.Label` exposes `data-slot="switch-label"` for typography overrides.
+- `SwitchLabel` exposes `data-slot="switch-label"` for typography overrides.

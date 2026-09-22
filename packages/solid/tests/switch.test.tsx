@@ -1,17 +1,25 @@
 import { expect, test } from '@rstest/core';
 import { fireEvent, render, screen, waitFor } from '@solidjs/testing-library';
 import { createSignal } from 'solid-js';
-import { Switch, useSwitch } from '../src/components/switch/index';
+import {
+  Switch,
+  SwitchControl,
+  SwitchHiddenInput,
+  SwitchLabel,
+  SwitchRootProvider,
+  SwitchThumb,
+  useSwitch,
+} from '../src/components/switch/index';
 
 function ProviderSwitch() {
   const switchApi = useSwitch({ defaultChecked: true, name: 'provider-notifications' });
 
   return (
-    <Switch.RootProvider value={switchApi}>
-      <Switch.Control />
-      <Switch.HiddenInput />
-      <Switch.Label>Provider notifications</Switch.Label>
-    </Switch.RootProvider>
+    <SwitchRootProvider value={switchApi}>
+      <SwitchControl />
+      <SwitchHiddenInput />
+      <SwitchLabel>Provider notifications</SwitchLabel>
+    </SwitchRootProvider>
   );
 }
 
@@ -19,9 +27,9 @@ test('submits through explicit Ark inputs', () => {
   const { container } = render(() => (
     <form>
       <Switch defaultChecked name="notifications" value="email">
-        <Switch.Control />
-        <Switch.HiddenInput />
-        <Switch.Label>Email notifications</Switch.Label>
+        <SwitchControl />
+        <SwitchHiddenInput />
+        <SwitchLabel>Email notifications</SwitchLabel>
       </Switch>
       <ProviderSwitch />
     </form>
@@ -39,9 +47,9 @@ test('submits through explicit Ark inputs', () => {
 test('preserves Ark behavior and semantic asChild composition', () => {
   render(() => (
     <Switch asChild={(props) => <label {...props()} />}>
-      <Switch.Control />
-      <Switch.HiddenInput />
-      <Switch.Label>Enable reminders</Switch.Label>
+      <SwitchControl />
+      <SwitchHiddenInput />
+      <SwitchLabel>Enable reminders</SwitchLabel>
     </Switch>
   ));
 
@@ -61,11 +69,11 @@ test('forwards refs and exposes stable slots on public parts', () => {
 
   render(() => (
     <Switch ref={(element) => (rootRef = element)} size="lg">
-      <Switch.Control ref={(element) => (controlRef = element)}>
-        <Switch.Thumb ref={(element) => (thumbRef = element)} />
-      </Switch.Control>
-      <Switch.HiddenInput />
-      <Switch.Label ref={(element) => (labelRef = element)}>Email notifications</Switch.Label>
+      <SwitchControl ref={(element) => (controlRef = element)}>
+        <SwitchThumb ref={(element) => (thumbRef = element)} />
+      </SwitchControl>
+      <SwitchHiddenInput />
+      <SwitchLabel ref={(element) => (labelRef = element)}>Email notifications</SwitchLabel>
     </Switch>
   ));
 
@@ -85,8 +93,8 @@ test('does not forward refs through native Ark Solid asChild composition', () =>
       asChild={(props) => <label {...props()} />}
       aria-label="Enable reminders"
     >
-      <Switch.Control />
-      <Switch.HiddenInput />
+      <SwitchControl />
+      <SwitchHiddenInput />
     </Switch>
   ));
 
@@ -97,9 +105,9 @@ test('does not forward refs through native Ark Solid asChild composition', () =>
 test('keeps the moduix data-size attribute authoritative over consumer value', () => {
   render(() => (
     <Switch size="lg" data-size="sm">
-      <Switch.Control />
-      <Switch.HiddenInput />
-      <Switch.Label>Authoritative size</Switch.Label>
+      <SwitchControl />
+      <SwitchHiddenInput />
+      <SwitchLabel>Authoritative size</SwitchLabel>
     </Switch>
   ));
 
@@ -112,19 +120,19 @@ test('preserves disabled, read-only, invalid, and required semantics', () => {
   render(() => (
     <>
       <Switch disabled>
-        <Switch.Control />
-        <Switch.HiddenInput />
-        <Switch.Label>Disabled option</Switch.Label>
+        <SwitchControl />
+        <SwitchHiddenInput />
+        <SwitchLabel>Disabled option</SwitchLabel>
       </Switch>
       <Switch readOnly>
-        <Switch.Control />
-        <Switch.HiddenInput />
-        <Switch.Label>Read-only option</Switch.Label>
+        <SwitchControl />
+        <SwitchHiddenInput />
+        <SwitchLabel>Read-only option</SwitchLabel>
       </Switch>
       <Switch invalid required>
-        <Switch.Control />
-        <Switch.HiddenInput />
-        <Switch.Label>Required option</Switch.Label>
+        <SwitchControl />
+        <SwitchHiddenInput />
+        <SwitchLabel>Required option</SwitchLabel>
       </Switch>
     </>
   ));
@@ -153,9 +161,9 @@ test('keeps controlled state and invalid styling hooks Ark-shaped', async () => 
         checked={checked()}
         onCheckedChange={(details) => setChecked(details.checked)}
       >
-        <Switch.Control />
-        <Switch.HiddenInput />
-        <Switch.Label>Enable alerts</Switch.Label>
+        <SwitchControl />
+        <SwitchHiddenInput />
+        <SwitchLabel>Enable alerts</SwitchLabel>
       </Switch>
     );
   }

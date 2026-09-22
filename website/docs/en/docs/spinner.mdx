@@ -37,9 +37,6 @@ token resolves to `none`, and the Tailwind indicator adds `motion-reduce:animate
 Modules packages, set `--moduix-spinner-animation` to restore motion for reduced-motion users.
 
 
-Use `Spinner` as the root in most cases. `Spinner.Root` is an alias for the same root when you want
-to make that part explicit in your composition.
-
 <ExampleFrame variant="component">
   <SpinnerBasic />
 </ExampleFrame>
@@ -105,7 +102,7 @@ Custom `children` replace the ring, while `asChild` replaces the root and leaves
 markup to the child.
 
 ```text
-Spinner / Spinner.Root
+Spinner
 └─ root[data-scope="spinner"][data-part="root"][data-slot="spinner-root"][data-size]
    └─ indicator[data-scope="spinner"][data-part="indicator"][data-slot="spinner-indicator"]
       └─ ring[data-scope="spinner"][data-part="ring"][data-slot="spinner-ring"] (default only)
@@ -113,7 +110,7 @@ Spinner / Spinner.Root
 
 | Part                       | Role                                                                                  |
 | -------------------------- | ------------------------------------------------------------------------------------- |
-| `Spinner` / `Spinner.Root` | Public root. Accepts `size`, `decorative`, `asChild`, `children`, and native `span` props. |
+| `Spinner`                   | Public root. Accepts `size`, `decorative`, `asChild`, `children`, and native `span` props. |
 | indicator                  | Internal rotating wrapper that owns the indicator's size and animation.                     |
 | ring                       | Internal default ring. It is omitted when custom `children` are provided.                    |
 

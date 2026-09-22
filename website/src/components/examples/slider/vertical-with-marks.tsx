@@ -1,4 +1,4 @@
-import { Slider } from '@moduix/react/slider';
+import { Slider, SliderControl, SliderMarker, SliderMarkerGroup, SliderRange, SliderThumbs, SliderTrack } from '@moduix/react/slider';
 import { useState } from 'react';
 import { PreviewMeta } from '@/components/mdx/Components';
 import styles from '@/components/examples/slider/slider-vertical-with-marks.module.css';
@@ -16,19 +16,19 @@ export default function VerticalMarksSliderDemo() {
         value={value}
         onValueChange={(details) => setValue(details.value)}
       >
-        <Slider.Control>
-          <Slider.Track>
-            <Slider.Range />
-          </Slider.Track>
-          <Slider.Thumbs />
-        </Slider.Control>
-        <Slider.MarkerGroup>
+        <SliderControl>
+          <SliderTrack>
+            <SliderRange />
+          </SliderTrack>
+          <SliderThumbs />
+        </SliderControl>
+        <SliderMarkerGroup>
           {marks.map((mark) => (
-            <Slider.Marker key={mark} value={mark}>
+            <SliderMarker key={mark} value={mark}>
               {mark}
-            </Slider.Marker>
+            </SliderMarker>
           ))}
-        </Slider.MarkerGroup>
+        </SliderMarkerGroup>
       </Slider>
       <PreviewMeta>
         <output>Output: {value.join(', ')}</output>

@@ -1,5 +1,11 @@
 import { Button } from '@moduix/react/button';
-import { SignaturePad, useSignaturePadContext } from '@moduix/react/signature-pad';
+import {
+  SignaturePad,
+  SignaturePadCanvas,
+  SignaturePadHiddenInput,
+  SignaturePadLabel,
+  useSignaturePadContext,
+} from '@moduix/react/signature-pad';
 import type { FormEvent } from 'react';
 import { useState } from 'react';
 import { PreviewMeta } from '@/components/mdx/Components';
@@ -8,7 +14,7 @@ import styles from '@/components/examples/signature-pad/signature-pad-form-seria
 function SignaturePadFormInput() {
   const signaturePad = useSignaturePadContext();
 
-  return <SignaturePad.HiddenInput value={JSON.stringify(signaturePad.paths)} />;
+  return <SignaturePadHiddenInput value={JSON.stringify(signaturePad.paths)} />;
 }
 
 export default function FormSerializationSignaturePadDemo() {
@@ -22,8 +28,8 @@ export default function FormSerializationSignaturePadDemo() {
   return (
     <form className={styles.root} onSubmit={handleSubmit}>
       <SignaturePad name="signature">
-        <SignaturePad.Label>Sign below</SignaturePad.Label>
-        <SignaturePad.Canvas />
+        <SignaturePadLabel>Sign below</SignaturePadLabel>
+        <SignaturePadCanvas />
         <SignaturePadFormInput />
       </SignaturePad>
       <PreviewMeta>

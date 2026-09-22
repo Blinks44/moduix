@@ -63,8 +63,8 @@ Utilisez `Slider` lorsque l’utilisateur doit ajuster une valeur numérique dan
 ## Exemple de base
 
 
-`Slider.Thumbs` crée une poignée avec un champ natif par valeur. Pour personnaliser le contenu,
-composez chaque `Slider.Thumb` explicitement et placez `Slider.HiddenInput` à l’intérieur.
+`SliderThumbs` crée une poignée avec un champ natif par valeur. Pour personnaliser le contenu,
+composez chaque `SliderThumb` explicitement et placez `SliderHiddenInput` à l’intérieur.
 
 <ExampleFrame variant="component">
   <SliderBasic />
@@ -131,48 +131,47 @@ Consultez le [Démarrage rapide](/docs/quick-start) pour la configuration compl�
 ## Anatomie
 
 ```text
-Slider / Slider.Root
-├─ Slider.Label
-├─ Slider.ValueText
-├─ Slider.Control
-│  ├─ Slider.Track
-│  │  └─ Slider.Range
-│  └─ Slider.Thumb[index]
-│     ├─ Slider.DraggingIndicator
-│     └─ Slider.HiddenInput
-└─ Slider.MarkerGroup
-   └─ Slider.Marker[value]
+Slider
+├─ SliderLabel
+├─ SliderValueText
+├─ SliderControl
+│  ├─ SliderTrack
+│  │  └─ SliderRange
+│  └─ SliderThumb[index]
+│     ├─ SliderDraggingIndicator
+│     └─ SliderHiddenInput
+└─ SliderMarkerGroup
+   └─ SliderMarker[value]
 ```
 
 | Partie                                  | Rôle                                                                    |
 | --------------------------------------- | ----------------------------------------------------------------------- |
-| `Slider` / `Slider.Root`               | Racine Ark stylisée pour un état contrôlé ou non contrôlé.              |
-| `Slider.HiddenInput` | Champ natif d’Ark ; composition explicite décrite ci-dessous. |
-| `Slider.RootProvider`                  | Racine connectée à un état `useSlider` créé à l’extérieur.             |
-| `Slider.Label`                         | Libellé visible du groupe.                                              |
-| `Slider.ValueText`                     | Texte de la valeur actuelle généré par Ark.                             |
-| `Slider.Control`                       | Zone d’interaction au pointeur.                                         |
-| `Slider.Track`                         | Piste visuelle complète.                                                |
-| `Slider.Range`                         | Partie remplie entre l’origine configurée et la valeur.                 |
-| `Slider.Thumb`                         | Poignée du slider qui peut recevoir le focus.                           |
-| `Slider.Thumbs`                        | Utilitaire moduix qui génère une poignée par valeur.                    |
-| `Slider.MarkerGroup` / `Slider.Marker` | Groupe facultatif de repères et repère individuel.                      |
-| `Slider.DraggingIndicator`             | Bulle de valeur facultative affichée pendant le glissement.             |
+| `Slider` / `Slider`               | Racine Ark stylisée pour un état contrôlé ou non contrôlé.              |
+| `SliderHiddenInput` | Champ natif d’Ark ; composition explicite décrite ci-dessous. |
+| `SliderRootProvider`                  | Racine connectée à un état `useSlider` créé à l’extérieur.             |
+| `SliderLabel`                         | Libellé visible du groupe.                                              |
+| `SliderValueText`                     | Texte de la valeur actuelle généré par Ark.                             |
+| `SliderControl`                       | Zone d’interaction au pointeur.                                         |
+| `SliderTrack`                         | Piste visuelle complète.                                                |
+| `SliderRange`                         | Partie remplie entre l’origine configurée et la valeur.                 |
+| `SliderThumb`                         | Poignée du slider qui peut recevoir le focus.                           |
+| `SliderThumbs`                        | Utilitaire moduix qui génère une poignée par valeur.                    |
+| `SliderMarkerGroup` / `SliderMarker` | Groupe facultatif de repères et repère individuel.                      |
+| `SliderDraggingIndicator`             | Bulle de valeur facultative affichée pendant le glissement.             |
 
 ## Composition
 
-Utilisez `Slider.Thumbs` pour la composition standard avec une poignée par valeur : le composant
-ajoute aussi un `Slider.HiddenInput` par poignée. Lorsqu’une poignée doit contenir des enfants
+Utilisez `SliderThumbs` pour la composition standard avec une poignée par valeur : le composant
+ajoute aussi un `SliderHiddenInput` par poignée. Lorsqu’une poignée doit contenir des enfants
 personnalisés, porter un nom accessible ou suivre un ordre précis, composez explicitement
-`Slider.Thumb` et placez-y un `Slider.HiddenInput`. Définissez `name` sur la racine pour la
+`SliderThumb` et placez-y un `SliderHiddenInput`. Définissez `name` sur la racine pour la
 soumission du formulaire.
 
 Pour un état contrôlé, stockez `details.value` fourni par `onValueChange` ou
 `onValueChangeEnd`. Utilisez `useSliderContext` dans les descendants pour lire l’état. Si l’état
 doit être créé en dehors de l’arbre rendu, créez-le avec `useSlider` et transmettez-le à
-`Slider.RootProvider` ; ne rendez pas une autre racine pour le même store. React lit le store
-comme un objet, tandis que Solid le lit via l’accessor retourné. `Slider` est l’alias de
-`Slider.Root`.
+`SliderRootProvider` ; ne rendez pas une autre racine pour le même store. React lit le store
+comme un objet, tandis que Solid le lit via l’accessor retourné. La valeur racine est `Slider`.
 
 ## Exemples
 
@@ -370,7 +369,7 @@ Utilisez `disabled` pour garder la valeur visible tout en désactivant les inter
 
 ### Indicateur de glissement
 
-Placez `Slider.DraggingIndicator` dans une poignée pour afficher sa valeur active pendant le glissement.
+Placez `SliderDraggingIndicator` dans une poignée pour afficher sa valeur active pendant le glissement.
 
 <ExampleFrame variant="component">
   <SliderDraggingIndicator />
@@ -405,7 +404,7 @@ Placez `Slider.DraggingIndicator` dans une poignée pour afficher sa valeur acti
 
 ### Formulaire
 
-Définissez `name` et placez `Slider.HiddenInput` dans chaque poignée explicite pour envoyer la valeur actuelle.
+Définissez `name` et placez `SliderHiddenInput` dans chaque poignée explicite pour envoyer la valeur actuelle.
 
 <ExampleFrame variant="component">
   <SliderForm />
@@ -484,7 +483,7 @@ l’état invalide tout en restant interactives.
 
 ### Repères
 
-Utilisez `Slider.MarkerGroup` et `Slider.Marker` pour afficher des repères. Les repères Ark exposent
+Utilisez `SliderMarkerGroup` et `SliderMarker` pour afficher des repères. Les repères Ark exposent
 `data-state="under-value | at-value | over-value"`, que vous pouvez utiliser pour les styles.
 
 <ExampleFrame variant="component">
@@ -558,7 +557,7 @@ Utilisez `min` et `max` lorsque l’intervalle du slider ne commence pas à `0` 
 
 ### Plage
 
-Transmettez un tableau contenant une valeur par poignée. `Slider.Thumbs` génère les poignées correspondantes et leurs
+Transmettez un tableau contenant une valeur par poignée. `SliderThumbs` génère les poignées correspondantes et leurs
 champs natifs.
 
 <ExampleFrame variant="component">
@@ -633,8 +632,8 @@ curseur système par défaut dans cet état afin que le slider ne paraisse pas i
 
 ### Root Provider
 
-Utilisez `useSlider` de moduix avec `Slider.RootProvider` lorsque l’état doit être créé en dehors de l’arbre qui affiche
-les parties du slider. Placez ces parties dans `RootProvider` et n’utilisez pas une seconde racine pour le même état.
+Utilisez `useSlider` de moduix avec `SliderRootProvider` lorsque l’état doit être créé en dehors de l’arbre qui affiche
+les parties du slider. Placez ces parties dans `SliderRootProvider` et n’utilisez pas une seconde racine pour le même état.
 
 <ExampleFrame variant="component">
   <SliderRootProvider />
@@ -909,7 +908,7 @@ En orientation verticale, les repères restent alignés sur la piste et exposent
 
 ### Personnalisation avancée
 
-Utilisez des `Slider.Thumb` explicites plutôt que `Slider.Thumbs` lorsque chaque poignée nécessite des enfants
+Utilisez des `SliderThumb` explicites plutôt que `SliderThumbs` lorsque chaque poignée nécessite des enfants
 personnalisés, un nom accessible ou un ordre particulier.
 
 <ExampleFrame variant="component">

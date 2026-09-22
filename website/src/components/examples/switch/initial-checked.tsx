@@ -1,11 +1,16 @@
-import { Switch } from '@moduix/react/switch';
+import {
+  Switch,
+  SwitchControl,
+  SwitchHiddenInput,
+  SwitchLabel,
+} from '@moduix/react/switch';
 
 export default function InitialCheckedSwitchDemo() {
   return (
     <Switch defaultChecked>
-      <Switch.Control />
-      <Switch.Label>Start enabled</Switch.Label>
-      <Switch.HiddenInput />
+      <SwitchControl />
+      <SwitchLabel>Start enabled</SwitchLabel>
+      <SwitchHiddenInput />
     </Switch>
   );
 }

@@ -24,8 +24,7 @@ There is no Ark state machine, provider, context hook, controlled state, hidden 
 
 ## Current behavior contract
 
-- `Spinner` and `Spinner.Root` are the same root component.
-- `Spinner.Root` accepts `HTMLArkProps<'span'>` plus `size` and `decorative`.
+- `Spinner` is the public root and accepts `HTMLArkProps<'span'>` plus `size` and `decorative`.
 - `size` defaults to `'md'`, accepts `'inherit' | 'xs' | 'sm' | 'md' | 'lg' | 'xl'`, and writes
   `data-size` on the root. `'inherit'` uses `1em`.
 - `decorative` defaults to `false`.
@@ -44,7 +43,7 @@ There is no Ark state machine, provider, context hook, controlled state, hidden 
 ## Anatomy and exported parts
 
 ```text
-Spinner / Spinner.Root
+Spinner
 └─ root[data-scope="spinner"][data-part="root"][data-slot="spinner-root"][data-size]
    └─ indicator[data-scope="spinner"][data-part="indicator"][data-slot="spinner-indicator"]
       └─ ring[data-scope="spinner"][data-part="ring"][data-slot="spinner-ring"] (default only)
@@ -52,7 +51,7 @@ Spinner / Spinner.Root
 
 | Part                       | Hook                            | Notes                                                      |
 | -------------------------- | ------------------------------- | ---------------------------------------------------------- |
-| `Spinner` / `Spinner.Root` | `data-slot="spinner-root"`      | Exported root and custom host composition point.           |
+| `Spinner`                   | `data-slot="spinner-root"`      | Exported root and custom host composition point.           |
 | indicator                  | `data-slot="spinner-indicator"` | Internal rotating wrapper that owns size and animation.    |
 | ring                       | `data-slot="spinner-ring"`      | Internal default ring, omitted when custom children exist. |
 
@@ -141,7 +140,6 @@ The default non-decorative path announces a loading status. Prefer `decorative` 
 - There is no dedicated Ark Spinner primitive to mirror.
 - Moduix adds default status semantics, the `decorative` prop, the `size` prop, and the default ring.
 - `children` is convenience sugar for replacing the default ring while keeping the indicator wrapper.
-- `Spinner.Root` exists only to keep the API aligned with root-only Ark-style components.
 - `size="inherit"` matches the spinner to the surrounding font size without a custom CSS variable.
 
 ## Agent notes
@@ -152,6 +150,8 @@ The default non-decorative path announces a loading status. Prefer `decorative` 
 
 ## Local changelog
 
+- 2026-09-22: Migrated Spinner to the flat public API and removed the legacy compound root alias.
+
 - 2026-09-20: Corrected the reduced-motion contract note: the foundation `prefers-reduced-motion`
   guard sets `--moduix-animation-spin` to `none`, so Spinner motion stops by default under
   reduced motion.
@@ -161,5 +161,5 @@ The default non-decorative path announces a loading status. Prefer `decorative` 
 - 2026-07-03: Stopped exporting `SpinnerRootProps` and `SpinnerSize`; docs and examples now infer
   props from `Spinner` directly to keep the public surface smaller.
 - 2026-06-27: Re-audited the local Ark factory contract, simplified `asChild` examples to reuse public data hooks, aligned docs API text, and removed non-token ring thickness overrides from examples.
-- 2026-06-21: Migrated `Spinner` to an Ark-style root-only component with `@ark-ui/react/factory`, `asChild`, `Spinner.Root`, `data-scope="spinner"`, `data-part` styling hooks, docs examples with Code/Styles/Data tabs, and the `SpinnerRootProps` public type.
+- 2026-06-21: Migrated `Spinner` to an Ark-style root-only component with `@ark-ui/react/factory`, `asChild`, `data-scope="spinner"`, `data-part` styling hooks, docs examples with Code/Styles/Data tabs, and the `SpinnerRootProps` public type.
 - 2026-06-03: Rewrote the local documentation around the actual moduix `Spinner` contract, documented semantics/composition/styling hooks, exposed the default ring as `data-slot="spinner-ring"`, added public prop and size type exports, and added `--moduix-spinner-animation` while disabling motion under `prefers-reduced-motion`.

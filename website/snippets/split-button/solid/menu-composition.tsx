@@ -1,13 +1,19 @@
 import { MenuItem, MenuSeparator, MenuItemGroup, MenuItemGroupLabel } from '@moduix/solid/menu';
-import { SplitButton } from '@moduix/solid/split-button';
+import {
+  SplitButton,
+  SplitButtonAction,
+  SplitButtonContent,
+  SplitButtonPositioner,
+  SplitButtonTrigger,
+} from '@moduix/solid/split-button';
 
 export default function SplitButtonMenuCompositionDemo() {
   return (
     <SplitButton aria-label="Copy and export actions" variant="outline">
-      <SplitButton.Action>Copy</SplitButton.Action>
-      <SplitButton.Trigger aria-label="More copy actions" />
-      <SplitButton.Positioner>
-        <SplitButton.Content>
+      <SplitButtonAction>Copy</SplitButtonAction>
+      <SplitButtonTrigger aria-label="More copy actions" />
+      <SplitButtonPositioner>
+        <SplitButtonContent>
           <MenuItemGroup>
             <MenuItemGroupLabel>Clipboard</MenuItemGroupLabel>
             <MenuItem value="copy">Copy</MenuItem>
@@ -19,8 +25,8 @@ export default function SplitButtonMenuCompositionDemo() {
             <MenuItem value="export-pdf">Export PDF</MenuItem>
             <MenuItem value="export-csv">Export CSV</MenuItem>
           </MenuItemGroup>
-        </SplitButton.Content>
-      </SplitButton.Positioner>
+        </SplitButtonContent>
+      </SplitButtonPositioner>
     </SplitButton>
   );
 }

@@ -1,1 +1,19 @@
-export { Steps, useSteps, useStepsContext, useStepsItemContext } from './Steps';
+export {
+  Steps,
+  StepsCompletedContent,
+  StepsContext,
+  StepsContent,
+  StepsIndicator,
+  StepsItem,
+  StepsItemContext,
+  StepsList,
+  StepsNextTrigger,
+  StepsPrevTrigger,
+  StepsProgress,
+  StepsRootProvider,
+  StepsSeparator,
+  StepsTrigger,
+  useSteps,
+  useStepsContext,
+  useStepsItemContext,
+} from './Steps';

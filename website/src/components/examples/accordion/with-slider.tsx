@@ -6,7 +6,7 @@ import {
   AccordionItemIndicator,
   AccordionItemTrigger,
 } from '@moduix/react/accordion';
-import { Slider } from '@moduix/react/slider';
+import { Slider, SliderControl, SliderHiddenInput, SliderLabel, SliderRange, SliderThumb, SliderTrack } from '@moduix/react/slider';
 import styles from '@/components/examples/accordion/accordion-with-slider.module.css';
 
 const items = [
@@ -41,15 +41,15 @@ export default function WithSliderAccordionDemo() {
             <AccordionItemBody>
               <span>{item.description}</span>
               <Slider defaultValue={[40]}>
-                <Slider.Label>{item.title} priority</Slider.Label>
-                <Slider.Control>
-                  <Slider.Track>
-                    <Slider.Range />
-                  </Slider.Track>
-                  <Slider.Thumb index={0}>
-                    <Slider.HiddenInput />
-                  </Slider.Thumb>
-                </Slider.Control>
+                <SliderLabel>{item.title} priority</SliderLabel>
+                <SliderControl>
+                  <SliderTrack>
+                    <SliderRange />
+                  </SliderTrack>
+                  <SliderThumb index={0}>
+                    <SliderHiddenInput />
+                  </SliderThumb>
+                </SliderControl>
               </Slider>
             </AccordionItemBody>
           </AccordionItemContent>

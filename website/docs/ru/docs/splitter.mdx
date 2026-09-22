@@ -30,8 +30,8 @@ import splitterSolidVertical from '../../../snippets/splitter/solid/vertical.tsx
 ## Базовый пример
 
 
-Соберите Splitter из `Splitter`, `Splitter.Panel` и `Splitter.ResizeTrigger`. Свойство `panels`
-содержит идентификаторы панелей и ограничения их размеров. У каждой отрисованной `Splitter.Panel`
+Соберите Splitter из `Splitter`, `SplitterPanel` и `SplitterResizeTrigger`. Свойство `panels`
+содержит идентификаторы панелей и ограничения их размеров. У каждой отрисованной `SplitterPanel`
 должен быть один из этих идентификаторов. Если не передавать триггеру дочерние элементы, moduix
 добавит индикатор изменения размера автоматически.
 
@@ -100,28 +100,28 @@ import splitterSolidVertical from '../../../snippets/splitter/solid/vertical.tsx
 ## Анатомия
 
 ```text
-Splitter / Splitter.Root
-├─ Splitter.Panel[id]
-├─ Splitter.ResizeTrigger[id="panel-a:panel-b"]
-│  └─ Splitter.ResizeTriggerIndicator (по умолчанию, настраивается)
-└─ Splitter.Panel[id]
+Splitter
+├─ SplitterPanel[id]
+├─ SplitterResizeTrigger[id="panel-a:panel-b"]
+│  └─ SplitterResizeTriggerIndicator (по умолчанию, настраивается)
+└─ SplitterPanel[id]
 
-Splitter.RootProvider
+SplitterRootProvider
 └─ то же дерево панелей, подключённое к состоянию useSplitter()
 ```
 
 | Часть                              | Назначение                                                                     |
 | ---------------------------------- | ------------------------------------------------------------------------------ |
-| `Splitter` / `Splitter.Root`       | Управляет панелями, их размерами, ориентацией, колбэками и состоянием.          |
-| `Splitter.Panel`                   | Область с изменяемым размером. Её `id` должен совпадать с записью в `panels`.  |
-| `Splitter.ResizeTrigger`           | Доступная кнопка для изменения размера двух соседних панелей.                  |
-| `Splitter.ResizeTriggerIndicator`  | Стандартная визуальная ручка. Дочерние элементы триггера заменяют её.           |
-| `Splitter.RootProvider`            | Отображает те же части, используя состояние из `useSplitter()`.                |
+| `Splitter`                    | Управляет панелями, их размерами, ориентацией, колбэками и состоянием.          |
+| `SplitterPanel`                   | Область с изменяемым размером. Её `id` должен совпадать с записью в `panels`.  |
+| `SplitterResizeTrigger`           | Доступная кнопка для изменения размера двух соседних панелей.                  |
+| `SplitterResizeTriggerIndicator`  | Стандартная визуальная ручка. Дочерние элементы триггера заменяют её.           |
+| `SplitterRootProvider`            | Отображает те же части, используя состояние из `useSplitter()`.                |
 
 ## Композиция
 
 Используйте `size` вместе с `onResize(details)`, если приложение владеет текущими размерами панелей.
-Выбирайте `Splitter.RootProvider` с `useSplitter()`, если состояние или элементы управления должны
+Выбирайте `SplitterRootProvider` с `useSplitter()`, если состояние или элементы управления должны
 находиться за пределами дерева панелей, и используйте только один корень для каждого состояния. Для
 вложенных Splitter, которые должны изменять размер одновременно на пересечениях ручек, создайте один
 `createSplitterRegistry()` и передайте его каждому корню. Числовые значения `defaultSize`, `size` и
@@ -337,9 +337,9 @@ Splitter.RootProvider
 
 </ExampleCode>
 
-### RootProvider
+### SplitterRootProvider
 
-Используйте `useSplitter()` с `Splitter.RootProvider`, если состояние или элементы управления должны
+Используйте `useSplitter()` с `SplitterRootProvider`, если состояние или элементы управления должны
 находиться за пределами отрисованных частей Splitter. Возвращаемый API включает, например,
 `getSizes()`, `setSizes()`, `resizePanel()`, `collapsePanel()`, `expandPanel()` и `resetSizes()`.
 

@@ -18,7 +18,7 @@ function toCssLength(value: number | string): string {
   return typeof value === 'number' ? `${value}px` : value;
 }
 
-function SimpleGridRoot(props: SimpleGridRootProps) {
+function SimpleGrid(props: SimpleGridRootProps) {
   const [local, others] = splitProps(props, [
     'asChild',
     'class',
@@ -99,9 +99,5 @@ function SimpleGridRoot(props: SimpleGridRootProps) {
     />
   );
 }
-
-const SimpleGrid = Object.assign(SimpleGridRoot, {
-  Root: SimpleGridRoot,
-});
 
 export { SimpleGrid };

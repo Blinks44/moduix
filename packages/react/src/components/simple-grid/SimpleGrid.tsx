@@ -11,7 +11,7 @@ type SimpleGridRootProps = HTMLArkProps<'div'> & {
   columnGap?: number | string;
 };
 
-const SimpleGridRoot = forwardRef<HTMLDivElement, SimpleGridRootProps>(function SimpleGridRoot(
+const SimpleGrid = forwardRef<HTMLDivElement, SimpleGridRootProps>(function SimpleGrid(
   { asChild, className, style, columns, minChildWidth, gap, rowGap, columnGap, ...props },
   ref,
 ) {
@@ -55,10 +55,6 @@ const SimpleGridRoot = forwardRef<HTMLDivElement, SimpleGridRootProps>(function 
       style={rootStyle}
     />
   );
-});
-
-const SimpleGrid = Object.assign(SimpleGridRoot, {
-  Root: SimpleGridRoot,
 });
 
 export { SimpleGrid };

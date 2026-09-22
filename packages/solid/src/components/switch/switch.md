@@ -1,36 +1,44 @@
 # Switch (Solid)
 
 `Switch` is the moduix Solid wrapper around Ark UI Switch. It preserves the React wrapper's
-compound anatomy, native form behavior, state attributes, default thumb, and `size` styling hook.
+flat anatomy, native form behavior, state attributes, default thumb, and `size` styling hook.
 
 ## Composition
 
 ```tsx
-import { Switch } from '@moduix/solid/switch';
+import {
+  Switch,
+  SwitchControl,
+  SwitchHiddenInput,
+  SwitchLabel,
+} from '@moduix/solid/switch';
 
 export function SwitchDemo() {
   return (
-    <Switch.Root defaultChecked>
-      <Switch.Control />
-      <Switch.Label>Enable notifications</Switch.Label>
-    </Switch.Root>
+    <Switch defaultChecked>
+      <SwitchControl />
+      <SwitchLabel>Enable notifications</SwitchLabel>
+      <SwitchHiddenInput />
+    </Switch>
   );
 }
 ```
 
-Compose `Switch.HiddenInput` explicitly inside `Root` or `RootProvider`. `Control` renders a
-default `Thumb` when it has no children. The public parts are `Root`, `RootProvider`, `Control`,
-`Thumb`, `Label`, and `Context`; the barrel also re-exports `useSwitch` and `useSwitchContext`.
+Compose `SwitchHiddenInput` explicitly inside `Switch` or `SwitchRootProvider`. `SwitchControl`
+renders a default `SwitchThumb` when it has no children. The public parts are `Switch`,
+`SwitchRootProvider`, `SwitchControl`, `SwitchThumb`, `SwitchLabel`, and `SwitchContext`; the barrel
+also re-exports `useSwitch` and `useSwitchContext`.
 
 ## Ark Solid behavior
 
 Solid uses a render-function `asChild` prop:
 
 ```tsx
-<Switch.Root asChild={(props) => <label {...props()} />}>
-  <Switch.Control />
-  <Switch.Label>Enable reminders</Switch.Label>
-</Switch.Root>
+<Switch asChild={(props) => <label {...props()} />}>
+  <SwitchControl />
+  <SwitchLabel>Enable reminders</SwitchLabel>
+  <SwitchHiddenInput />
+</Switch>
 ```
 
 The installed Ark Solid primitive does not forward `ref` through an `asChild` render function.

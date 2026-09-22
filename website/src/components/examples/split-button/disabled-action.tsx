@@ -1,17 +1,23 @@
 import { MenuItem } from '@moduix/react/menu';
-import { SplitButton } from '@moduix/react/split-button';
+import {
+  SplitButton,
+  SplitButtonAction,
+  SplitButtonContent,
+  SplitButtonPositioner,
+  SplitButtonTrigger,
+} from '@moduix/react/split-button';
 
 export default function SplitButtonDisabledActionDemo() {
   return (
     <SplitButton aria-label="Save actions">
-      <SplitButton.Action disabled>Save Changes</SplitButton.Action>
-      <SplitButton.Trigger aria-label="More save actions" />
-      <SplitButton.Positioner>
-        <SplitButton.Content>
+      <SplitButtonAction disabled>Save Changes</SplitButtonAction>
+      <SplitButtonTrigger aria-label="More save actions" />
+      <SplitButtonPositioner>
+        <SplitButtonContent>
           <MenuItem value="save-draft">Save as Draft</MenuItem>
           <MenuItem value="duplicate">Duplicate</MenuItem>
-        </SplitButton.Content>
-      </SplitButton.Positioner>
+        </SplitButtonContent>
+      </SplitButtonPositioner>
     </SplitButton>
   );
 }

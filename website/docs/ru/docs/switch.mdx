@@ -45,7 +45,7 @@ import switchSolidSizes from '../../../snippets/switch/solid/sizes.tsx?raw';
 ## Базовый пример
 
 
-Базовый переключатель состоит из корня, визуальной дорожки, подписи и явного `Switch.HiddenInput` для нативного
+Базовый переключатель состоит из корня, визуальной дорожки, подписи и явного `SwitchHiddenInput` для нативного
 взаимодействия и работы с формой. Если у дорожки нет дочерних элементов, она получает стандартный бегунок.
 
 <ExampleFrame variant="component">
@@ -108,38 +108,38 @@ import switchSolidSizes from '../../../snippets/switch/solid/sizes.tsx?raw';
 ## Анатомия
 
 ```text
-Switch / Switch.Root
-├─ Switch.Control
-│  └─ Switch.Thumb
-├─ Switch.Label
-└─ Switch.HiddenInput (explicit)
+Switch
+├─ SwitchControl
+│  └─ SwitchThumb
+├─ SwitchLabel
+└─ SwitchHiddenInput (explicit)
 ```
 
 | Часть                         | Назначение                                                              |
 | ----------------------------- | ----------------------------------------------------------------------- |
-| `Switch` / `Switch.Root`      | Корневой элемент `label`. Хранит состояние, ID, свойства формы и `size`. |
-| `Switch.HiddenInput`          | Нативное поле Ark; правила явной композиции описаны ниже.               |
-| `Switch.RootProvider`         | Корневой элемент с состоянием, созданным через `useSwitch()`.            |
-| `Switch.Control`              | Визуальная дорожка и цель для кольца фокуса. По умолчанию добавляет бегунок. |
-| `Switch.Thumb`                | Подвижный бегунок для стандартного вида или пользовательского содержимого. |
-| `Switch.Label`                | Подпись, связанная с переключателем через Ark.                         |
+| `Switch`                 | Корневой элемент `label`. Хранит состояние, ID, свойства формы и `size`. |
+| `SwitchHiddenInput`          | Нативное поле Ark; правила явной композиции описаны ниже.               |
+| `SwitchRootProvider`         | Корневой элемент с состоянием, созданным через `useSwitch()`.            |
+| `SwitchControl`              | Визуальная дорожка и цель для кольца фокуса. По умолчанию добавляет бегунок. |
+| `SwitchThumb`                | Подвижный бегунок для стандартного вида или пользовательского содержимого. |
+| `SwitchLabel`                | Подпись, связанная с переключателем через Ark.                         |
 
-`Switch` и `Switch.Root` - два имени одного и того же корневого компонента. `Switch.Context`,
-`useSwitchContext` и `useSwitch` экспортируются из `@moduix/react` вместе с компонентом.
+`Switch` - корневой компонент. `SwitchContext`, `useSwitchContext` и `useSwitch` экспортируются
+из `@moduix/react` вместе с компонентом.
 Соответствующие экспорты Solid доступны из `@moduix/solid` и `@moduix/solid/switch`.
 
 ## Композиция
 
-Явно добавляйте `Switch.HiddenInput` внутрь `Switch` или `Switch.RootProvider`, даже если
+Явно добавляйте `SwitchHiddenInput` внутрь `Switch` или `SwitchRootProvider`, даже если
 переключатель находится не в форме. Это нативное поле, которое Ark использует для фокуса, работы с клавиатурой,
 доступности и отправки формы.
 
-Если у `Switch.Control` нет дочерних элементов, он добавляет стандартный `Switch.Thumb`. Добавляйте `Switch.Thumb`
+Если у `SwitchControl` нет дочерних элементов, он добавляет стандартный `SwitchThumb`. Добавляйте `SwitchThumb`
 явно только при необходимости настроить содержимое или стили бегунка.
 
-Используйте `Switch.Context` или `useSwitchContext`, когда соседнему интерфейсу нужно читать состояние переключателя. Используйте
-`useSwitch` вместе с `Switch.RootProvider`, когда состояние нужно создать вне дерева переключателя.
-Не рендерите `Switch` и `Switch.RootProvider` для одного экземпляра состояния.
+Используйте `SwitchContext` или `useSwitchContext`, когда соседнему интерфейсу нужно читать состояние переключателя. Используйте
+`useSwitch` вместе с `SwitchRootProvider`, когда состояние нужно создать вне дерева переключателя.
+Не рендерите `Switch` и `SwitchRootProvider` для одного экземпляра состояния.
 
 При использовании `asChild` передавайте один семантический элемент, совместимый с `label`, чтобы Ark сохранял
 доступность переключателя.
@@ -412,7 +412,7 @@ Switch / Switch.Root
 
 ### Состояние через RootProvider
 
-Импортируйте `useSwitch` из `@moduix/react` и передайте созданное состояние в `Switch.RootProvider`, когда нужно создать
+Импортируйте `useSwitch` из `@moduix/react` и передайте созданное состояние в `SwitchRootProvider`, когда нужно создать
 и управлять состоянием вне дерева переключателя.
 
 <ExampleFrame variant="component">
@@ -491,7 +491,7 @@ Switch / Switch.Root
 
 ### Расширенная настройка
 
-Добавьте `Switch.Thumb` явно, когда бегунку нужны пользовательское содержимое или собственная стилизация.
+Добавьте `SwitchThumb` явно, когда бегунку нужны пользовательское содержимое или собственная стилизация.
 
 <ExampleFrame variant="component">
   <SwitchAdvancedCustomization />
@@ -551,11 +551,11 @@ Switch / Switch.Root
 
 ### Хуки стилизации
 
-- `Switch` и `Switch.RootProvider` предоставляют `data-slot="switch-root"` /
+- `Switch` и `SwitchRootProvider` предоставляют `data-slot="switch-root"` /
   `data-slot="switch-root-provider"` и добавляют атрибут `data-size` от moduix.
-- `Switch.Control` предоставляет `data-slot="switch-control"` и получает атрибуты состояния Ark, включая
+- `SwitchControl` предоставляет `data-slot="switch-control"` и получает атрибуты состояния Ark, включая
   `data-state`, `data-focus-visible`, `data-hover`, `data-active`, `data-disabled`, `data-readonly`,
   `data-invalid` и `data-required`.
-- `Switch.Thumb` предоставляет `data-slot="switch-thumb"` и получает те же атрибуты состояния Ark для
+- `SwitchThumb` предоставляет `data-slot="switch-thumb"` и получает те же атрибуты состояния Ark для
   движения бегунка и стилизации пользовательского содержимого.
-- `Switch.Label` предоставляет `data-slot="switch-label"` для переопределения типографики.
+- `SwitchLabel` предоставляет `data-slot="switch-label"` для переопределения типографики.

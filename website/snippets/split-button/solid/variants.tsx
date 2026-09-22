@@ -1,5 +1,11 @@
 import { MenuItem } from '@moduix/solid/menu';
-import { SplitButton } from '@moduix/solid/split-button';
+import {
+  SplitButton,
+  SplitButtonAction,
+  SplitButtonContent,
+  SplitButtonPositioner,
+  SplitButtonTrigger,
+} from '@moduix/solid/split-button';
 import styles from '@/components/examples/split-button/split-button-variants.module.css';
 
 const variants = [
@@ -16,14 +22,14 @@ export default function SplitButtonVariantsDemo() {
     <div class={styles.row}>
       {variants.map((variant) => (
         <SplitButton aria-label={`${variant} actions`} variant={variant}>
-          <SplitButton.Action>{variant}</SplitButton.Action>
-          <SplitButton.Trigger />
-          <SplitButton.Positioner>
-            <SplitButton.Content>
+          <SplitButtonAction>{variant}</SplitButtonAction>
+          <SplitButtonTrigger />
+          <SplitButtonPositioner>
+            <SplitButtonContent>
               <MenuItem value={`${variant}-edit`}>Edit</MenuItem>
               <MenuItem value={`${variant}-duplicate`}>Duplicate</MenuItem>
-            </SplitButton.Content>
-          </SplitButton.Positioner>
+            </SplitButtonContent>
+          </SplitButtonPositioner>
         </SplitButton>
       ))}
     </div>

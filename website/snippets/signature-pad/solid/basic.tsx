@@ -1,4 +1,8 @@
-import { SignaturePad } from '@moduix/solid/signature-pad';
+import {
+  SignaturePad,
+  SignaturePadCanvas,
+  SignaturePadLabel,
+} from '@moduix/solid/signature-pad';
 
 const signaturePadTranslations = {
   control: 'Signature drawing area',
@@ -8,8 +12,8 @@ const signaturePadTranslations = {
 export default function SignaturePadDemo() {
   return (
     <SignaturePad translations={signaturePadTranslations}>
-      <SignaturePad.Label>Sign below</SignaturePad.Label>
-      <SignaturePad.Canvas />
+      <SignaturePadLabel>Sign below</SignaturePadLabel>
+      <SignaturePadCanvas />
     </SignaturePad>
   );
 }

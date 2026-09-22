@@ -1,4 +1,9 @@
-import { Switch } from '@moduix/solid/switch';
+import {
+  Switch,
+  SwitchControl,
+  SwitchHiddenInput,
+  SwitchLabel,
+} from '@moduix/solid/switch';
 import { createSignal } from 'solid-js';
 import styles from '@/components/examples/switch/switch-controlled.module.css';
 
@@ -8,9 +13,9 @@ export default function ControlledSwitchDemo() {
   return (
     <div class={styles.stack}>
       <Switch checked={checked()} onCheckedChange={(details) => setChecked(details.checked)}>
-        <Switch.Control />
-        <Switch.Label>{checked() ? 'On' : 'Off'}</Switch.Label>
-        <Switch.HiddenInput />
+        <SwitchControl />
+        <SwitchLabel>{checked() ? 'On' : 'Off'}</SwitchLabel>
+        <SwitchHiddenInput />
       </Switch>
       <output>Current value: {String(checked())}</output>
     </div>

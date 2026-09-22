@@ -1,7 +1,7 @@
 import type { Meta, StoryObj } from '@storybook/react-vite';
 import { useState } from 'react';
 import { Button } from '@/components/button';
-import { createSplitterRegistry, Splitter, useSplitter } from '@/components/splitter/Splitter';
+import { createSplitterRegistry, Splitter, SplitterPanel, SplitterResizeTrigger, SplitterRootProvider, useSplitter } from '@/components/splitter/Splitter';
 import styles from './Splitter.stories.module.css';
 
 const panels = [
@@ -27,13 +27,13 @@ type Story = StoryObj<typeof meta>;
 export const Basic: Story = {
   render: () => (
     <Splitter panels={panels} defaultSize={[40, 60]} className={styles.demo}>
-      <Splitter.Panel id="a" className={styles.panel}>
+      <SplitterPanel id="a" className={styles.panel}>
         A
-      </Splitter.Panel>
-      <Splitter.ResizeTrigger id="a:b" aria-label="Resize panels" />
-      <Splitter.Panel id="b" className={styles.panel}>
+      </SplitterPanel>
+      <SplitterResizeTrigger id="a:b" aria-label="Resize panels" />
+      <SplitterPanel id="b" className={styles.panel}>
         B
-      </Splitter.Panel>
+      </SplitterPanel>
     </Splitter>
   ),
 };
@@ -46,13 +46,13 @@ export const Vertical: Story = {
       defaultSize={[45, 55]}
       className={styles.vertical}
     >
-      <Splitter.Panel id="a" className={styles.panel}>
+      <SplitterPanel id="a" className={styles.panel}>
         Top
-      </Splitter.Panel>
-      <Splitter.ResizeTrigger id="a:b" aria-label="Resize panels" />
-      <Splitter.Panel id="b" className={styles.panel}>
+      </SplitterPanel>
+      <SplitterResizeTrigger id="a:b" aria-label="Resize panels" />
+      <SplitterPanel id="b" className={styles.panel}>
         Bottom
-      </Splitter.Panel>
+      </SplitterPanel>
     </Splitter>
   ),
 };
@@ -69,13 +69,13 @@ export const Controlled: Story = {
           onResize={(details) => setSize(details.size)}
           className={styles.demo}
         >
-          <Splitter.Panel id="a" className={styles.panel}>
+          <SplitterPanel id="a" className={styles.panel}>
             A
-          </Splitter.Panel>
-          <Splitter.ResizeTrigger id="a:b" aria-label="Resize panels" />
-          <Splitter.Panel id="b" className={styles.panel}>
+          </SplitterPanel>
+          <SplitterResizeTrigger id="a:b" aria-label="Resize panels" />
+          <SplitterPanel id="b" className={styles.panel}>
             B
-          </Splitter.Panel>
+          </SplitterPanel>
         </Splitter>
         <output className={styles.status}>Sizes: {size.join(' / ')}</output>
       </div>
@@ -93,13 +93,13 @@ export const Collapsible: Story = {
       defaultSize={[28, 72]}
       className={styles.demo}
     >
-      <Splitter.Panel id="sidebar" className={styles.panel}>
+      <SplitterPanel id="sidebar" className={styles.panel}>
         Sidebar
-      </Splitter.Panel>
-      <Splitter.ResizeTrigger id="sidebar:content" aria-label="Resize panels" />
-      <Splitter.Panel id="content" className={styles.panel}>
+      </SplitterPanel>
+      <SplitterResizeTrigger id="sidebar:content" aria-label="Resize panels" />
+      <SplitterPanel id="content" className={styles.panel}>
         Content
-      </Splitter.Panel>
+      </SplitterPanel>
     </Splitter>
   ),
 };
@@ -115,17 +115,17 @@ export const MultiplePanels: Story = {
       defaultSize={[25, 45, 30]}
       className={styles.demo}
     >
-      <Splitter.Panel id="a" className={styles.panel}>
+      <SplitterPanel id="a" className={styles.panel}>
         A
-      </Splitter.Panel>
-      <Splitter.ResizeTrigger id="a:b" aria-label="Resize panels A and B" />
-      <Splitter.Panel id="b" className={styles.panel}>
+      </SplitterPanel>
+      <SplitterResizeTrigger id="a:b" aria-label="Resize panels A and B" />
+      <SplitterPanel id="b" className={styles.panel}>
         B
-      </Splitter.Panel>
-      <Splitter.ResizeTrigger id="b:c" aria-label="Resize panels B and C" />
-      <Splitter.Panel id="c" className={styles.panel}>
+      </SplitterPanel>
+      <SplitterResizeTrigger id="b:c" aria-label="Resize panels B and C" />
+      <SplitterPanel id="c" className={styles.panel}>
         C
-      </Splitter.Panel>
+      </SplitterPanel>
     </Splitter>
   ),
 };
@@ -140,15 +140,15 @@ export const RootProvider: Story = {
           <Button onClick={() => splitter.resetSizes()}>Reset</Button>
           <Button onClick={() => splitter.resizePanel('a', 25)}>Set A to 25%</Button>
         </div>
-        <Splitter.RootProvider value={splitter} className={styles.demo}>
-          <Splitter.Panel id="a" className={styles.panel}>
+        <SplitterRootProvider value={splitter} className={styles.demo}>
+          <SplitterPanel id="a" className={styles.panel}>
             A
-          </Splitter.Panel>
-          <Splitter.ResizeTrigger id="a:b" aria-label="Resize panels" />
-          <Splitter.Panel id="b" className={styles.panel}>
+          </SplitterPanel>
+          <SplitterResizeTrigger id="a:b" aria-label="Resize panels" />
+          <SplitterPanel id="b" className={styles.panel}>
             B
-          </Splitter.Panel>
-        </Splitter.RootProvider>
+          </SplitterPanel>
+        </SplitterRootProvider>
       </div>
     );
   },
@@ -169,11 +169,11 @@ export const Nested: Story = {
         registry={registry}
         className={styles.demo}
       >
-        <Splitter.Panel id="left" className={styles.panel}>
+        <SplitterPanel id="left" className={styles.panel}>
           Left
-        </Splitter.Panel>
-        <Splitter.ResizeTrigger id="left:right" aria-label="Resize panels" />
-        <Splitter.Panel id="right">
+        </SplitterPanel>
+        <SplitterResizeTrigger id="left:right" aria-label="Resize panels" />
+        <SplitterPanel id="right">
           <Splitter
             orientation="vertical"
             panels={[
@@ -184,15 +184,15 @@ export const Nested: Story = {
             registry={registry}
             onResize={({ size }) => setVerticalSize(size)}
           >
-            <Splitter.Panel id="top" className={styles.panel}>
+            <SplitterPanel id="top" className={styles.panel}>
               Top
-            </Splitter.Panel>
-            <Splitter.ResizeTrigger id="top:bottom" aria-label="Resize panels" />
-            <Splitter.Panel id="bottom" className={styles.panel}>
+            </SplitterPanel>
+            <SplitterResizeTrigger id="top:bottom" aria-label="Resize panels" />
+            <SplitterPanel id="bottom" className={styles.panel}>
               Bottom
-            </Splitter.Panel>
+            </SplitterPanel>
           </Splitter>
-        </Splitter.Panel>
+        </SplitterPanel>
       </Splitter>
     );
   },
@@ -201,13 +201,13 @@ export const Nested: Story = {
 export const CustomStyling: Story = {
   render: () => (
     <Splitter panels={panels} defaultSize={[42, 58]} className={styles.custom}>
-      <Splitter.Panel id="a" className={styles.panel}>
+      <SplitterPanel id="a" className={styles.panel}>
         A
-      </Splitter.Panel>
-      <Splitter.ResizeTrigger id="a:b" aria-label="Resize panels" />
-      <Splitter.Panel id="b" className={styles.panel}>
+      </SplitterPanel>
+      <SplitterResizeTrigger id="a:b" aria-label="Resize panels" />
+      <SplitterPanel id="b" className={styles.panel}>
         B
-      </Splitter.Panel>
+      </SplitterPanel>
     </Splitter>
   ),
 };

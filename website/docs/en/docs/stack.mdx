@@ -98,20 +98,20 @@ See [Quick Start](/docs/quick-start) for full package setup, registry configurat
 a simple responsive direction switch. Keep broader layout rules in your local CSS.
 
 ```text
-Stack / Stack.Root
+Stack
 └─ root[data-scope="stack"][data-part="root"][data-slot="stack-root"]
    └─ children
 ```
 
 | Part                   | Role                                                                |
 | ---------------------- | ------------------------------------------------------------------- |
-| `Stack` / `Stack.Root` | Root flex wrapper for direction, gap, alignment, and child spacing. |
+| `Stack`                | Root flex wrapper for direction, gap, alignment, and child spacing. |
 
 ## Composition
 
-`Stack` owns no managed state and exposes one root. Use the short `<Stack>` form for regular `div` output; `Stack.Root`
-is an alias for the same root. `fill` applies to the `Stack` as a flex item, not to its children. Add `Separator`
-directly as a child when the layout needs a divider, and use `asChild` when the root should be a semantic element.
+`Stack` owns no managed state and exposes one root. Use `<Stack>` for regular `div` output. `fill` applies to the
+`Stack` as a flex item, not to its children. Add `Separator` directly as a child when the layout needs a divider,
+and use `asChild` when the root should be a semantic element.
 
 ## Examples
 

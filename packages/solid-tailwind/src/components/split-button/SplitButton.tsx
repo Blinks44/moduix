@@ -18,7 +18,7 @@ type SplitButtonContextValue = {
   variant: Accessor<SplitButtonVariant>;
 };
 
-type SplitButtonRootProps = Omit<ComponentProps<typeof Menu>, 'children'> & {
+type SplitButtonProps = Omit<ComponentProps<typeof Menu>, 'children'> & {
   'aria-label'?: string;
   'aria-labelledby'?: string;
   children?: JSX.Element;
@@ -79,13 +79,13 @@ function useSplitButtonContext(componentName: string) {
   const context = useContext(SplitButtonContext);
 
   if (!context) {
-    throw new Error(`${componentName} must be used within SplitButton.Root.`);
+    throw new Error(`${componentName} must be used within SplitButton.`);
   }
 
   return context;
 }
 
-function SplitButtonRoot(props: SplitButtonRootProps) {
+function SplitButton(props: SplitButtonProps) {
   const [local, others] = splitProps(props, [
     'aria-label',
     'aria-labelledby',
@@ -129,7 +129,7 @@ function SplitButtonRoot(props: SplitButtonRootProps) {
 
 function SplitButtonAction(props: SplitButtonActionProps) {
   const [local, others] = splitProps(props, ['class', 'size', 'variant']);
-  const context = useSplitButtonContext('SplitButton.Action');
+  const context = useSplitButtonContext('SplitButtonAction');
 
   return (
     <Button
@@ -151,7 +151,7 @@ function SplitButtonTrigger(props: SplitButtonTriggerProps) {
     'size',
     'variant',
   ]);
-  const context = useSplitButtonContext('SplitButton.Trigger');
+  const context = useSplitButtonContext('SplitButtonTrigger');
   const resolvedChildren = children(() => local.children);
   const resolvedSize = () => local.size ?? context.size();
   const resolvedVariant = () => local.variant ?? context.variant();
@@ -216,20 +216,10 @@ function SplitButtonContent(props: SplitButtonContentProps) {
   );
 }
 
-type SplitButtonComponent = typeof SplitButtonRoot & {
-  Root: typeof SplitButtonRoot;
-  Action: typeof SplitButtonAction;
-  Trigger: typeof SplitButtonTrigger;
-  Positioner: typeof SplitButtonPositioner;
-  Content: typeof SplitButtonContent;
+export {
+  SplitButton,
+  SplitButtonAction,
+  SplitButtonContent,
+  SplitButtonPositioner,
+  SplitButtonTrigger,
 };
-
-const SplitButton: SplitButtonComponent = Object.assign(SplitButtonRoot, {
-  Root: SplitButtonRoot,
-  Action: SplitButtonAction,
-  Trigger: SplitButtonTrigger,
-  Positioner: SplitButtonPositioner,
-  Content: SplitButtonContent,
-});
-
-export { SplitButton };

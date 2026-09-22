@@ -1,5 +1,16 @@
 import { Input } from '@moduix/solid/input';
-import { Steps } from '@moduix/solid/steps';
+import {
+  Steps,
+  StepsCompletedContent,
+  StepsContent,
+  StepsIndicator,
+  StepsItem,
+  StepsList,
+  StepsNextTrigger,
+  StepsPrevTrigger,
+  StepsSeparator,
+  StepsTrigger,
+} from '@moduix/solid/steps';
 import { createSignal } from 'solid-js';
 import styles from '@/components/examples/steps/steps-validation.module.css';
 
@@ -16,34 +27,34 @@ export default function StepsValidationDemo() {
         onStepInvalid={() => setMessage('Enter a name before moving to the next step.')}
         onStepChange={() => setMessage('Step changed.')}
       >
-        <Steps.List>
-          <Steps.Item index={0}>
-            <Steps.Trigger>
-              <Steps.Indicator />
+        <StepsList>
+          <StepsItem index={0}>
+            <StepsTrigger>
+              <StepsIndicator />
               Account
-            </Steps.Trigger>
-            <Steps.Separator />
-          </Steps.Item>
-          <Steps.Item index={1}>
-            <Steps.Trigger>
-              <Steps.Indicator />
+            </StepsTrigger>
+            <StepsSeparator />
+          </StepsItem>
+          <StepsItem index={1}>
+            <StepsTrigger>
+              <StepsIndicator />
               Profile
-            </Steps.Trigger>
-          </Steps.Item>
-        </Steps.List>
+            </StepsTrigger>
+          </StepsItem>
+        </StepsList>
 
-        <Steps.Content index={0}>
+        <StepsContent index={0}>
           <label>
             Name
             <Input value={name()} onInput={(event) => setName(event.currentTarget.value)} />
           </label>
-        </Steps.Content>
-        <Steps.Content index={1}>Your profile can now be completed.</Steps.Content>
-        <Steps.CompletedContent>Steps complete.</Steps.CompletedContent>
+        </StepsContent>
+        <StepsContent index={1}>Your profile can now be completed.</StepsContent>
+        <StepsCompletedContent>Steps complete.</StepsCompletedContent>
 
         <div class={styles.actions}>
-          <Steps.PrevTrigger>Back</Steps.PrevTrigger>
-          <Steps.NextTrigger>Next</Steps.NextTrigger>
+          <StepsPrevTrigger>Back</StepsPrevTrigger>
+          <StepsNextTrigger>Next</StepsNextTrigger>
         </div>
       </Steps>
       <output>{message()}</output>

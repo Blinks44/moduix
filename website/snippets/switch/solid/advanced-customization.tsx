@@ -1,4 +1,10 @@
-import { Switch } from '@moduix/solid/switch';
+import {
+  Switch,
+  SwitchControl,
+  SwitchHiddenInput,
+  SwitchLabel,
+  SwitchThumb,
+} from '@moduix/solid/switch';
 
 function PowerIcon() {
   return (
@@ -16,13 +22,13 @@ function PowerIcon() {
 export default function AdvancedCustomizationSwitchDemo() {
   return (
     <Switch defaultChecked>
-      <Switch.Control>
-        <Switch.Thumb>
+      <SwitchControl>
+        <SwitchThumb>
           <PowerIcon />
-        </Switch.Thumb>
-      </Switch.Control>
-      <Switch.Label>Use custom thumb icon</Switch.Label>
-      <Switch.HiddenInput />
+        </SwitchThumb>
+      </SwitchControl>
+      <SwitchLabel>Use custom thumb icon</SwitchLabel>
+      <SwitchHiddenInput />
     </Switch>
   );
 }

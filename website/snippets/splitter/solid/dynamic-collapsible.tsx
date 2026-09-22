@@ -1,4 +1,4 @@
-import { Splitter, useSplitter } from '@moduix/solid/splitter';
+import { SplitterPanel, SplitterResizeTrigger, SplitterRootProvider, useSplitter } from '@moduix/solid/splitter';
 import { createEffect, createSignal, onCleanup, onMount } from 'solid-js';
 import styles from '@/components/examples/splitter/splitter-dynamic-collapsible.module.css';
 
@@ -35,18 +35,18 @@ export default function DynamicCollapsibleSplitterDemo() {
   });
 
   return (
-    <Splitter.RootProvider
+    <SplitterRootProvider
       ref={(element) => (rootRef = element)}
       value={splitter}
       class={styles.root}
     >
-      <Splitter.Panel id="sidebar" class={styles.panel}>
+      <SplitterPanel id="sidebar" class={styles.panel}>
         Sidebar
-      </Splitter.Panel>
-      <Splitter.ResizeTrigger id="sidebar:content" aria-label="Resize panels" />
-      <Splitter.Panel id="content" class={styles.panel}>
+      </SplitterPanel>
+      <SplitterResizeTrigger id="sidebar:content" aria-label="Resize panels" />
+      <SplitterPanel id="content" class={styles.panel}>
         Content
-      </Splitter.Panel>
-    </Splitter.RootProvider>
+      </SplitterPanel>
+    </SplitterRootProvider>
   );
 }

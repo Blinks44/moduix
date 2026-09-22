@@ -1,5 +1,5 @@
 import type { Meta, StoryObj } from 'storybook-solidjs-vite';
-import { Skeleton } from '@/components/skeleton/Skeleton';
+import { Skeleton } from '@/components/skeleton';
 import { Stack } from '@/components/stack/Stack';
 import styles from './Skeleton.stories.module.css';
 

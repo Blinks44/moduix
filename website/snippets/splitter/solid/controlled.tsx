@@ -1,4 +1,4 @@
-import { Splitter } from '@moduix/solid/splitter';
+import { Splitter, SplitterPanel, SplitterResizeTrigger } from '@moduix/solid/splitter';
 import { createSignal } from 'solid-js';
 import styles from '@/components/examples/splitter/splitter-controlled.module.css';
 
@@ -24,13 +24,13 @@ export default function ControlledSplitterDemo() {
         onResize={(details) => setSize(details.size)}
         class={styles.root}
       >
-        <Splitter.Panel id="a" class={styles.panel}>
+        <SplitterPanel id="a" class={styles.panel}>
           A
-        </Splitter.Panel>
-        <Splitter.ResizeTrigger id="a:b" aria-label="Resize panels" />
-        <Splitter.Panel id="b" class={styles.panel}>
+        </SplitterPanel>
+        <SplitterResizeTrigger id="a:b" aria-label="Resize panels" />
+        <SplitterPanel id="b" class={styles.panel}>
           B
-        </Splitter.Panel>
+        </SplitterPanel>
       </Splitter>
       <output class={styles.status}>Sizes: {size().join(' / ')}</output>
     </div>

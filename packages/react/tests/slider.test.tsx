@@ -1,23 +1,23 @@
 import { expect, test } from '@rstest/core';
 import { fireEvent, render, screen, waitFor } from '@testing-library/react';
 import { createRef } from 'react';
-import { Slider, useSlider } from '../src';
+import { Slider, SliderControl, SliderHiddenInput, SliderLabel, SliderMarker, SliderMarkerGroup, SliderRange, SliderRootProvider, SliderThumb, SliderThumbs, SliderTrack, useSlider } from '../src';
 
 function ProviderSlider() {
   const slider = useSlider({ defaultValue: [45], name: 'provider-volume' });
 
   return (
-    <Slider.RootProvider value={slider}>
-      <Slider.Label>Provider volume</Slider.Label>
-      <Slider.Control>
-        <Slider.Track>
-          <Slider.Range />
-        </Slider.Track>
-        <Slider.Thumb index={0}>
-          <Slider.HiddenInput />
-        </Slider.Thumb>
-      </Slider.Control>
-    </Slider.RootProvider>
+    <SliderRootProvider value={slider}>
+      <SliderLabel>Provider volume</SliderLabel>
+      <SliderControl>
+        <SliderTrack>
+          <SliderRange />
+        </SliderTrack>
+        <SliderThumb index={0}>
+          <SliderHiddenInput />
+        </SliderThumb>
+      </SliderControl>
+    </SliderRootProvider>
   );
 }
 
@@ -25,29 +25,29 @@ test('submits through explicit Ark hidden inputs', () => {
   const { container } = render(
     <form>
       <Slider defaultValue={[40]} name="volume">
-        <Slider.Label>Volume</Slider.Label>
-        <Slider.Control>
-          <Slider.Track>
-            <Slider.Range />
-          </Slider.Track>
-          <Slider.Thumb index={0}>
-            <Slider.HiddenInput />
-          </Slider.Thumb>
-        </Slider.Control>
+        <SliderLabel>Volume</SliderLabel>
+        <SliderControl>
+          <SliderTrack>
+            <SliderRange />
+          </SliderTrack>
+          <SliderThumb index={0}>
+            <SliderHiddenInput />
+          </SliderThumb>
+        </SliderControl>
       </Slider>
       <Slider defaultValue={[20, 80]} name="range">
-        <Slider.Label>Range</Slider.Label>
-        <Slider.Control>
-          <Slider.Track>
-            <Slider.Range />
-          </Slider.Track>
-          <Slider.Thumb index={0}>
-            <Slider.HiddenInput />
-          </Slider.Thumb>
-          <Slider.Thumb index={1}>
-            <Slider.HiddenInput />
-          </Slider.Thumb>
-        </Slider.Control>
+        <SliderLabel>Range</SliderLabel>
+        <SliderControl>
+          <SliderTrack>
+            <SliderRange />
+          </SliderTrack>
+          <SliderThumb index={0}>
+            <SliderHiddenInput />
+          </SliderThumb>
+          <SliderThumb index={1}>
+            <SliderHiddenInput />
+          </SliderThumb>
+        </SliderControl>
       </Slider>
       <ProviderSlider />
     </form>,
@@ -75,13 +75,13 @@ test('preserves keyboard behavior and makes read-only state visible without chan
         thumbAlignment="center"
         onValueChange={(details) => changes.push(details.value)}
       >
-        <Slider.Label>Volume</Slider.Label>
-        <Slider.Control>
-          <Slider.Track>
-            <Slider.Range />
-          </Slider.Track>
-          <Slider.Thumbs />
-        </Slider.Control>
+        <SliderLabel>Volume</SliderLabel>
+        <SliderControl>
+          <SliderTrack>
+            <SliderRange />
+          </SliderTrack>
+          <SliderThumbs />
+        </SliderControl>
       </Slider>
       <Slider
         defaultValue={[40]}
@@ -89,13 +89,13 @@ test('preserves keyboard behavior and makes read-only state visible without chan
         thumbAlignment="center"
         onValueChange={(details) => changes.push(details.value)}
       >
-        <Slider.Label>Read-only volume</Slider.Label>
-        <Slider.Control>
-          <Slider.Track>
-            <Slider.Range />
-          </Slider.Track>
-          <Slider.Thumbs />
-        </Slider.Control>
+        <SliderLabel>Read-only volume</SliderLabel>
+        <SliderControl>
+          <SliderTrack>
+            <SliderRange />
+          </SliderTrack>
+          <SliderThumbs />
+        </SliderControl>
       </Slider>
       <Slider
         defaultValue={[40]}
@@ -103,13 +103,13 @@ test('preserves keyboard behavior and makes read-only state visible without chan
         thumbAlignment="center"
         onValueChange={(details) => changes.push(details.value)}
       >
-        <Slider.Label>Disabled volume</Slider.Label>
-        <Slider.Control>
-          <Slider.Track>
-            <Slider.Range />
-          </Slider.Track>
-          <Slider.Thumbs />
-        </Slider.Control>
+        <SliderLabel>Disabled volume</SliderLabel>
+        <SliderControl>
+          <SliderTrack>
+            <SliderRange />
+          </SliderTrack>
+          <SliderThumbs />
+        </SliderControl>
       </Slider>
     </>,
   );
@@ -134,9 +134,9 @@ test('preserves keyboard behavior and makes read-only state visible without chan
 test('keeps generated thumbs mounted while their values change', async () => {
   const { container } = render(
     <Slider defaultValue={[40]}>
-      <Slider.Control>
-        <Slider.Thumbs />
-      </Slider.Control>
+      <SliderControl>
+        <SliderThumbs />
+      </SliderControl>
     </Slider>,
   );
 
@@ -155,17 +155,17 @@ test('preserves refs and explicit form inputs with asChild composition', () => {
   render(
     <Slider asChild ref={ref} defaultValue={[40]}>
       <div data-testid="slider-root">
-        <Slider.Label>Volume</Slider.Label>
-        <Slider.Control>
-          <Slider.Track>
-            <Slider.Range />
-          </Slider.Track>
-          <Slider.Thumb asChild index={0} aria-label="Volume">
+        <SliderLabel>Volume</SliderLabel>
+        <SliderControl>
+          <SliderTrack>
+            <SliderRange />
+          </SliderTrack>
+          <SliderThumb asChild index={0} aria-label="Volume">
             <span data-testid="slider-thumb">
-              <Slider.HiddenInput />
+              <SliderHiddenInput />
             </span>
-          </Slider.Thumb>
-        </Slider.Control>
+          </SliderThumb>
+        </SliderControl>
       </div>
     </Slider>,
   );
@@ -179,17 +179,17 @@ test('preserves refs and explicit form inputs with asChild composition', () => {
 test('preserves active marker state for invalid sliders', () => {
   const { container } = render(
     <Slider defaultValue={[40]} invalid>
-      <Slider.Label>Volume</Slider.Label>
-      <Slider.Control>
-        <Slider.Track>
-          <Slider.Range />
-        </Slider.Track>
-        <Slider.Thumbs />
-      </Slider.Control>
-      <Slider.MarkerGroup>
-        <Slider.Marker value={0}>0</Slider.Marker>
-        <Slider.Marker value={100}>100</Slider.Marker>
-      </Slider.MarkerGroup>
+      <SliderLabel>Volume</SliderLabel>
+      <SliderControl>
+        <SliderTrack>
+          <SliderRange />
+        </SliderTrack>
+        <SliderThumbs />
+      </SliderControl>
+      <SliderMarkerGroup>
+        <SliderMarker value={0}>0</SliderMarker>
+        <SliderMarker value={100}>100</SliderMarker>
+      </SliderMarkerGroup>
     </Slider>,
   );
 

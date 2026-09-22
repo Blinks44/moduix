@@ -1,6 +1,11 @@
 import { expect, test } from '@rstest/core';
 import { fireEvent, render, screen, waitFor } from '@solidjs/testing-library';
-import { Splitter } from '../src';
+import {
+  Splitter,
+  SplitterPanel,
+  SplitterResizeTrigger,
+  SplitterResizeTriggerIndicator,
+} from '../src';
 
 const panels = [
   { id: 'a', minSize: 20 },
@@ -10,9 +15,9 @@ const panels = [
 test('preserves Ark keyboard affordances and Tailwind trigger defaults', async () => {
   const { container } = render(() => (
     <Splitter panels={panels} defaultSize={[40, 60]}>
-      <Splitter.Panel id="a">A</Splitter.Panel>
-      <Splitter.ResizeTrigger id="a:b" aria-label="Resize panels" />
-      <Splitter.Panel id="b">B</Splitter.Panel>
+      <SplitterPanel id="a">A</SplitterPanel>
+      <SplitterResizeTrigger id="a:b" aria-label="Resize panels" />
+      <SplitterPanel id="b">B</SplitterPanel>
     </Splitter>
   ));
 
@@ -54,11 +59,11 @@ test('preserves Ark keyboard affordances and Tailwind trigger defaults', async (
 test('keeps custom trigger content and disabled behavior intact', () => {
   const { container } = render(() => (
     <Splitter panels={panels} defaultSize={[40, 60]}>
-      <Splitter.Panel id="a">A</Splitter.Panel>
-      <Splitter.ResizeTrigger id="a:b" aria-label="Disabled resize" disabled>
+      <SplitterPanel id="a">A</SplitterPanel>
+      <SplitterResizeTrigger id="a:b" aria-label="Disabled resize" disabled>
         <span>Grip</span>
-      </Splitter.ResizeTrigger>
-      <Splitter.Panel id="b">B</Splitter.Panel>
+      </SplitterResizeTrigger>
+      <SplitterPanel id="b">B</SplitterPanel>
     </Splitter>
   ));
 
@@ -80,17 +85,17 @@ test('forwards refs to every styled part through ordinary Ark Solid paths', () =
 
   render(() => (
     <Splitter ref={(element) => (rootRef = element)} panels={panels} defaultSize={[40, 60]}>
-      <Splitter.Panel ref={(element) => (panelRef = element)} id="a">
+      <SplitterPanel ref={(element) => (panelRef = element)} id="a">
         A
-      </Splitter.Panel>
-      <Splitter.ResizeTrigger
+      </SplitterPanel>
+      <SplitterResizeTrigger
         ref={(element) => (triggerRef = element)}
         id="a:b"
         aria-label="Resize panels"
       >
-        <Splitter.ResizeTriggerIndicator ref={(element) => (indicatorRef = element)} />
-      </Splitter.ResizeTrigger>
-      <Splitter.Panel id="b">B</Splitter.Panel>
+        <SplitterResizeTriggerIndicator ref={(element) => (indicatorRef = element)} />
+      </SplitterResizeTrigger>
+      <SplitterPanel id="b">B</SplitterPanel>
     </Splitter>
   ));
 
@@ -104,8 +109,8 @@ test('keeps an asChild resize trigger as the interactive host', () => {
   let triggerRef: HTMLButtonElement | undefined;
   const { container } = render(() => (
     <Splitter panels={panels} defaultSize={[40, 60]}>
-      <Splitter.Panel id="a">A</Splitter.Panel>
-      <Splitter.ResizeTrigger
+      <SplitterPanel id="a">A</SplitterPanel>
+      <SplitterResizeTrigger
         ref={(element) => (triggerRef = element)}
         asChild={(props) => (
           <button {...props()} type="button">
@@ -115,7 +120,7 @@ test('keeps an asChild resize trigger as the interactive host', () => {
         id="a:b"
         aria-label="Resize panels"
       />
-      <Splitter.Panel id="b">B</Splitter.Panel>
+      <SplitterPanel id="b">B</SplitterPanel>
     </Splitter>
   ));
 
@@ -132,11 +137,11 @@ test('keeps an asChild resize trigger as the interactive host', () => {
 test('lets consumer utilities replace fixed defaults', () => {
   const { container } = render(() => (
     <Splitter panels={panels} defaultSize={[40, 60]} class="h-64 w-96 border-2 bg-muted">
-      <Splitter.Panel id="a" class="min-h-0 p-6">
+      <SplitterPanel id="a" class="min-h-0 p-6">
         A
-      </Splitter.Panel>
-      <Splitter.ResizeTrigger id="a:b" aria-label="Resize panels" class="w-2 min-w-2" />
-      <Splitter.Panel id="b">B</Splitter.Panel>
+      </SplitterPanel>
+      <SplitterResizeTrigger id="a:b" aria-label="Resize panels" class="w-2 min-w-2" />
+      <SplitterPanel id="b">B</SplitterPanel>
     </Splitter>
   ));
 

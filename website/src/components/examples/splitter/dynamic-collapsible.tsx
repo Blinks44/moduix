@@ -1,4 +1,4 @@
-import { Splitter, useSplitter } from '@moduix/react/splitter';
+import { SplitterPanel, SplitterResizeTrigger, SplitterRootProvider, useSplitter } from '@moduix/react/splitter';
 import { useEffect, useRef, useState } from 'react';
 import styles from '@/components/examples/splitter/splitter-dynamic-collapsible.module.css';
 
@@ -34,14 +34,14 @@ export default function DynamicCollapsibleSplitterDemo() {
     else splitter.expandPanel('sidebar');
   }, [isCompact, splitter]);
   return (
-    <Splitter.RootProvider ref={rootRef} value={splitter} className={styles.root}>
-      <Splitter.Panel id="sidebar" className={styles.panel}>
+    <SplitterRootProvider ref={rootRef} value={splitter} className={styles.root}>
+      <SplitterPanel id="sidebar" className={styles.panel}>
         Sidebar
-      </Splitter.Panel>
-      <Splitter.ResizeTrigger id="sidebar:content" aria-label="Resize panels" />
-      <Splitter.Panel id="content" className={styles.panel}>
+      </SplitterPanel>
+      <SplitterResizeTrigger id="sidebar:content" aria-label="Resize panels" />
+      <SplitterPanel id="content" className={styles.panel}>
         Content
-      </Splitter.Panel>
-    </Splitter.RootProvider>
+      </SplitterPanel>
+    </SplitterRootProvider>
   );
 }

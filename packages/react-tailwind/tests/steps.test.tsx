@@ -1,7 +1,21 @@
 import { expect, test } from '@rstest/core';
 import { fireEvent, render, screen, waitFor } from '@testing-library/react';
 import { useState } from 'react';
-import { Steps } from '../src';
+import {
+  Steps,
+  StepsCompletedContent,
+  StepsContent,
+  StepsIndicator,
+  StepsItem,
+  StepsList,
+  StepsNextTrigger,
+  StepsPrevTrigger,
+  StepsProgress,
+  StepsRootProvider,
+  StepsSeparator,
+  StepsTrigger,
+  useSteps,
+} from '../src';
 
 const items = [
   { title: 'Account', content: 'Account content' },
@@ -30,25 +44,25 @@ function TestSteps({
       isStepValid={isStepValid}
       onStepInvalid={onStepInvalid}
     >
-      <Steps.List>
+      <StepsList>
         {items.map((item, index) => (
-          <Steps.Item key={item.title} index={index}>
-            <Steps.Trigger>
-              <Steps.Indicator />
+          <StepsItem key={item.title} index={index}>
+            <StepsTrigger>
+              <StepsIndicator />
               {item.title}
-            </Steps.Trigger>
-            <Steps.Separator />
-          </Steps.Item>
+            </StepsTrigger>
+            <StepsSeparator />
+          </StepsItem>
         ))}
-      </Steps.List>
+      </StepsList>
       {items.map((item, index) => (
-        <Steps.Content key={item.title} index={index}>
+        <StepsContent key={item.title} index={index}>
           {item.content}
-        </Steps.Content>
+        </StepsContent>
       ))}
-      <Steps.CompletedContent>Complete</Steps.CompletedContent>
-      <Steps.PrevTrigger>Back</Steps.PrevTrigger>
-      <Steps.NextTrigger>Next</Steps.NextTrigger>
+      <StepsCompletedContent>Complete</StepsCompletedContent>
+      <StepsPrevTrigger>Back</StepsPrevTrigger>
+      <StepsNextTrigger>Next</StepsNextTrigger>
     </Steps>
   );
 }
@@ -65,7 +79,7 @@ function ControlledSteps() {
 }
 
 function RootProviderSteps() {
-  const steps = Steps.useSteps({ count: items.length });
+  const steps = useSteps({ count: items.length });
 
   return (
     <>
@@ -73,15 +87,15 @@ function RootProviderSteps() {
         Advance externally
       </button>
       <output>Current step: {steps.value + 1}</output>
-      <Steps.RootProvider value={steps}>
-        <Steps.List>
+      <StepsRootProvider value={steps}>
+        <StepsList>
           {items.map((item, index) => (
-            <Steps.Item key={item.title} index={index}>
-              <Steps.Trigger>{item.title}</Steps.Trigger>
-            </Steps.Item>
+            <StepsItem key={item.title} index={index}>
+              <StepsTrigger>{item.title}</StepsTrigger>
+            </StepsItem>
           ))}
-        </Steps.List>
-      </Steps.RootProvider>
+        </StepsList>
+      </StepsRootProvider>
     </>
   );
 }
@@ -154,18 +168,18 @@ test('preserves Ark linear validation and prevents direct navigation', async () 
 test('exposes native Tailwind utilities for empty visual parts', () => {
   const { container } = render(
     <Steps count={items.length}>
-      <Steps.Progress />
-      <Steps.List>
+      <StepsProgress />
+      <StepsList>
         {items.map((item, index) => (
-          <Steps.Item key={item.title} index={index}>
-            <Steps.Trigger>
-              <Steps.Indicator />
+          <StepsItem key={item.title} index={index}>
+            <StepsTrigger>
+              <StepsIndicator />
               {item.title}
-            </Steps.Trigger>
-            <Steps.Separator />
-          </Steps.Item>
+            </StepsTrigger>
+            <StepsSeparator />
+          </StepsItem>
         ))}
-      </Steps.List>
+      </StepsList>
     </Steps>,
   );
 
@@ -190,14 +204,14 @@ test('exposes native Tailwind utilities for empty visual parts', () => {
 test('lets consumer Tailwind classes override conflicting defaults', () => {
   render(
     <Steps count={items.length}>
-      <Steps.List>
-        <Steps.Item index={0}>
-          <Steps.Trigger>
-            <Steps.Indicator className="size-6" />
+      <StepsList>
+        <StepsItem index={0}>
+          <StepsTrigger>
+            <StepsIndicator className="size-6" />
             Account
-          </Steps.Trigger>
-        </Steps.Item>
-      </Steps.List>
+          </StepsTrigger>
+        </StepsItem>
+      </StepsList>
     </Steps>,
   );
 

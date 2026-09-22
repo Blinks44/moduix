@@ -33,8 +33,7 @@ legacy `as` contract. Chakra's Stack recipe informs the public layout props.
 
 ## Current behavior contract
 
-- `Stack` is the primary root component.
-- `Stack.Root` is the same component exposed for Ark-style namespace consistency.
+- `Stack` is the root component and the only public value.
 - Root accepts Ark factory div props, including `asChild`.
 - Applies `data-scope="stack"`, `data-part="root"`, and `data-slot="stack-root"` on the root.
 - Always applies the local root class from `Stack.module.css`, which sets `display: flex`.
@@ -54,7 +53,7 @@ legacy `as` contract. Chakra's Stack recipe informs the public layout props.
 ## Anatomy and exported parts
 
 ```text
-Stack / Stack.Root
+Stack
 └─ children
 ```
 
@@ -62,9 +61,9 @@ Every exported part accepts `className` and uses the standard hooks below:
 
 | Part                   | Hook                     | Notes                                                |
 | ---------------------- | ------------------------ | ---------------------------------------------------- |
-| `Stack` / `Stack.Root` | `data-slot="stack-root"` | Root flex wrapper for direction, gap, and alignment. |
-| `Stack` / `Stack.Root` | `data-scope="stack"`     | Ark-aligned component scope.                         |
-| `Stack` / `Stack.Root` | `data-part="root"`       | Ark-aligned part name.                               |
+| `Stack`                | `data-slot="stack-root"` | Root flex wrapper for direction, gap, and alignment. |
+| `Stack`                | `data-scope="stack"`     | Ark-aligned component scope.                         |
+| `Stack`                | `data-part="root"`       | Ark-aligned part name.                               |
 
 ## Composition
 
@@ -91,10 +90,9 @@ export function Example() {
 }
 ```
 
-Prefer the short `<Stack>` form for normal `div` output. Use the equivalent `<Stack.Root>` namespace
-form when consistency with multipart component anatomy is useful. Use `asChild` when a semantic
-element such as `section`, `article`, `nav`, or `header` should own the DOM node; the child must be
-a single element that accepts `className`, `style`, and DOM attributes.
+Use `<Stack>` for normal `div` output. Use `asChild` when a semantic element such as `section`,
+`article`, `nav`, or `header` should own the DOM node; the child must be a single element that
+accepts `className`, `style`, and DOM attributes.
 
 ## Upstream feature coverage
 
@@ -147,8 +145,6 @@ per-instance override escape hatch.
 - There is no dedicated Ark Stack primitive, so `Stack` is a moduix-owned root-only wrapper rather
   than a direct primitive namespace.
 - Legacy `as` was removed. Use Ark factory `asChild` instead.
-- `Stack.Root` exists only for Ark-style namespace consistency; it is the same root component as
-  `Stack`.
 - `Stack` does not re-export a separate prop type surface from moduix; consumers use the component
   directly and can derive prop types locally if they need them.
 - `Stack` does not add `HStack`, `VStack`, item wrappers, built-in divider styling, or a `separator`
@@ -172,6 +168,9 @@ per-instance override escape hatch.
 
 ## Local changelog
 
+- 2026-09-22: Replaced the compound root value surface with the single flat `Stack` export
+  across the React, Solid, Tailwind, stories, tests, and documentation contract.
+
 - 2026-08-13: Revalidated the release contract against current Ark, Chakra, and shadcn documentation
   and expanded tests for namespace identity, responsive fallback, styling precedence, and `asChild`
   prop merging.
@@ -182,8 +181,8 @@ per-instance override escape hatch.
 - 2026-07-03: Removed the extra `StackRootProps` re-export so the public surface stays root-only.
 - 2026-06-27: Stopped writing default `--moduix-stack-*` inline variables when `direction` or `fill` are
   omitted, so consumer CSS variables can override the built-in fallbacks.
-- 2026-06-21: Migrated `Stack` to `@ark-ui/react/factory`, added `Stack.Root`, `asChild`,
-  `data-scope="stack"`, `data-part="root"`, and forwarded root refs.
+- 2026-06-21: Migrated `Stack` to `@ark-ui/react/factory`, added `asChild`, `data-scope="stack"`,
+  `data-part="root"`, and forwarded root refs.
 - 2026-06-21: Removed the legacy `as` contract in favor of Ark factory `asChild`.
 - 2026-06-03: Rewrote the local documentation around the real shipped `Stack` contract, including
   the root-only composition model, responsive-direction fallback behavior, styling hooks,

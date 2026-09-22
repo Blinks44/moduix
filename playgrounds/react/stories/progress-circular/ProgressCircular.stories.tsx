@@ -9,7 +9,7 @@ import {
   ProgressCircularValueText,
   useProgress,
 } from '@/components/progress-circular/ProgressCircular';
-import { Slider } from '@/components/slider';
+import { Slider, SliderControl, SliderHiddenInput, SliderLabel, SliderRange, SliderThumb, SliderTrack, SliderValueText } from '@/components/slider';
 import styles from './ProgressCircular.stories.module.css';
 
 const meta = {
@@ -67,16 +67,16 @@ export const Controlled: Story = {
             setValue(details.value[0] ?? 0);
           }}
         >
-          <Slider.Label>Progress value</Slider.Label>
-          <Slider.ValueText />
-          <Slider.Control>
-            <Slider.Track>
-              <Slider.Range />
-            </Slider.Track>
-            <Slider.Thumb index={0} aria-label="Progress value">
-              <Slider.HiddenInput />
-            </Slider.Thumb>
-          </Slider.Control>
+          <SliderLabel>Progress value</SliderLabel>
+          <SliderValueText />
+          <SliderControl>
+            <SliderTrack>
+              <SliderRange />
+            </SliderTrack>
+            <SliderThumb index={0} aria-label="Progress value">
+              <SliderHiddenInput />
+            </SliderThumb>
+          </SliderControl>
         </Slider>
       </div>
     );

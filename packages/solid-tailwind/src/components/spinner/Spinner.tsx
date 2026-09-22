@@ -27,7 +27,7 @@ type SpinnerProps = HTMLArkProps<'span'> & {
   decorative?: boolean;
 };
 
-function SpinnerRoot(props: SpinnerProps) {
+function Spinner(props: SpinnerProps) {
   const [local, others] = splitProps(props, [
     'asChild',
     'children',
@@ -77,9 +77,5 @@ function SpinnerRoot(props: SpinnerProps) {
     </ark.span>
   );
 }
-
-const Spinner = Object.assign(SpinnerRoot, {
-  Root: SpinnerRoot,
-});
 
 export { Spinner };

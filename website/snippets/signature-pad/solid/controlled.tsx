@@ -1,5 +1,9 @@
 import { Button } from '@moduix/solid/button';
-import { SignaturePad } from '@moduix/solid/signature-pad';
+import {
+  SignaturePad,
+  SignaturePadCanvas,
+  SignaturePadLabel,
+} from '@moduix/solid/signature-pad';
 import { createSignal } from 'solid-js';
 import styles from '@/components/examples/signature-pad/signature-pad-controlled.module.css';
 
@@ -13,8 +17,8 @@ export default function ControlledSignaturePadDemo() {
   return (
     <div class={styles.root}>
       <SignaturePad paths={paths()} onDraw={(details) => setPaths(details.paths)}>
-        <SignaturePad.Label>Sign below</SignaturePad.Label>
-        <SignaturePad.Canvas />
+        <SignaturePadLabel>Sign below</SignaturePadLabel>
+        <SignaturePadCanvas />
       </SignaturePad>
       <div>
         <output>Paths: {paths().length}</output>

@@ -15,7 +15,7 @@ Resizable, collapsible application navigation beside a main content inset.
 
 ## Public contract
 
-`Sidebar` wraps the Solid `Splitter.Root`. `orientation` and `panels` are owned by
+`Sidebar` wraps the Solid `Splitter`. `orientation` and `panels` are owned by
 Sidebar and omitted from the public root props. `side="left" | "right"` selects panel order,
 resize-trigger id order, side attributes, and trigger icon direction. `panelId` renames the sidebar
 panel while the inset remains `content`.

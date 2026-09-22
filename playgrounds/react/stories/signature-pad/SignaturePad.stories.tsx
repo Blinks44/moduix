@@ -4,6 +4,10 @@ import { useState } from 'react';
 import { Field, FieldErrorText, FieldHelperText } from '@/components/field';
 import {
   SignaturePad,
+  SignaturePadCanvas,
+  SignaturePadHiddenInput,
+  SignaturePadLabel,
+  SignaturePadRootProvider,
   useSignaturePad,
   useSignaturePadContext,
 } from '@/components/signature-pad/SignaturePad';
@@ -25,17 +29,17 @@ type Story = StoryObj<typeof meta>;
 function SignaturePadFormInput() {
   const signaturePad = useSignaturePadContext();
 
-  return <SignaturePad.HiddenInput value={signaturePad.paths.join(' ')} />;
+  return <SignaturePadHiddenInput value={signaturePad.paths.join(' ')} />;
 }
 
 function SignaturePadParts({
   label = 'Sign below',
   ...props
-}: ComponentProps<typeof SignaturePad.Root> & { label?: string }) {
+}: ComponentProps<typeof SignaturePad> & { label?: string }) {
   return (
     <SignaturePad {...props}>
-      <SignaturePad.Label>{label}</SignaturePad.Label>
-      <SignaturePad.Canvas />
+      <SignaturePadLabel>{label}</SignaturePadLabel>
+      <SignaturePadCanvas />
     </SignaturePad>
   );
 }
@@ -82,8 +86,8 @@ export const WithField: Story = {
   render: () => (
     <Field className={styles.field} invalid required>
       <SignaturePad name="signature">
-        <SignaturePad.Label>Sign below</SignaturePad.Label>
-        <SignaturePad.Canvas />
+        <SignaturePadLabel>Sign below</SignaturePadLabel>
+        <SignaturePadCanvas />
         <SignaturePadFormInput />
       </SignaturePad>
       <FieldHelperText>Use a pointer or touch input to sign.</FieldHelperText>
@@ -98,11 +102,11 @@ export const RootProvider: Story = {
 
     return (
       <div className={styles.preview}>
-        <SignaturePad.RootProvider value={signaturePad} className={styles.custom}>
-          <SignaturePad.Label>Sign below</SignaturePad.Label>
-          <SignaturePad.Canvas />
+        <SignaturePadRootProvider value={signaturePad} className={styles.custom}>
+          <SignaturePadLabel>Sign below</SignaturePadLabel>
+          <SignaturePadCanvas />
           <SignaturePadFormInput />
-        </SignaturePad.RootProvider>
+        </SignaturePadRootProvider>
         <output className={styles.status}>Paths: {signaturePad.paths.length}</output>
       </div>
     );

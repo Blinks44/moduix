@@ -7,7 +7,7 @@ import { cn } from '@/lib/moduix/cn';
 
 type StackDirection = 'row' | 'row-reverse' | 'column' | 'column-reverse';
 
-type StackRootProps = HTMLArkProps<'div'> & {
+type StackProps = HTMLArkProps<'div'> & {
   direction?:
     | StackDirection
     | {
@@ -48,7 +48,7 @@ const stackVariants = cva('flex', {
 const toCssLength = (value: number | string | undefined) =>
   typeof value === 'number' ? `${value}px` : value;
 
-function StackRoot(props: StackRootProps) {
+function Stack(props: StackProps) {
   const [local, others] = splitProps(props, [
     'asChild',
     'class',
@@ -109,9 +109,5 @@ function StackRoot(props: StackRootProps) {
     />
   );
 }
-
-const Stack = Object.assign(StackRoot, {
-  Root: StackRoot,
-});
 
 export { Stack };

@@ -2,6 +2,10 @@ import { expect, test } from '@rstest/core';
 import { render, screen } from '@solidjs/testing-library';
 import { Skeleton } from '../src';
 
+test('exports a flat root without compound aliases', () => {
+  expect(Skeleton).not.toHaveProperty('Root');
+});
+
 test('owns stable loading hooks even when passthrough props provide conflicting values', () => {
   render(() => (
     <Skeleton

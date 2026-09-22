@@ -1,18 +1,23 @@
-import { Switch } from '@moduix/solid/switch';
+import {
+  Switch,
+  SwitchControl,
+  SwitchHiddenInput,
+  SwitchLabel,
+} from '@moduix/solid/switch';
 import styles from '@/components/examples/switch/switch-disabled.module.css';
 
 export default function DisabledSwitchDemo() {
   return (
     <div class={styles.stack}>
       <Switch disabled>
-        <Switch.Control />
-        <Switch.Label>Enable dark mode</Switch.Label>
-        <Switch.HiddenInput />
+        <SwitchControl />
+        <SwitchLabel>Enable dark mode</SwitchLabel>
+        <SwitchHiddenInput />
       </Switch>
       <Switch defaultChecked disabled>
-        <Switch.Control />
-        <Switch.Label>Keep me signed in</Switch.Label>
-        <Switch.HiddenInput />
+        <SwitchControl />
+        <SwitchLabel>Keep me signed in</SwitchLabel>
+        <SwitchHiddenInput />
       </Switch>
     </div>
   );

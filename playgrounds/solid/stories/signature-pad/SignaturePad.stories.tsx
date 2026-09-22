@@ -5,6 +5,10 @@ import type { Meta, StoryObj } from 'storybook-solidjs-vite';
 import { Field, FieldErrorText, FieldHelperText } from '@/components/field';
 import {
   SignaturePad,
+  SignaturePadCanvas,
+  SignaturePadHiddenInput,
+  SignaturePadLabel,
+  SignaturePadRootProvider,
   useSignaturePad,
   useSignaturePadContext,
 } from '@/components/signature-pad/SignaturePad';
@@ -26,18 +30,18 @@ type Story = StoryObj<typeof meta>;
 function SignaturePadFormInput() {
   const signaturePad = useSignaturePadContext();
 
-  return <SignaturePad.HiddenInput value={signaturePad().paths.join(' ')} />;
+  return <SignaturePadHiddenInput value={signaturePad().paths.join(' ')} />;
 }
 
-type SignaturePadPartsProps = ComponentProps<typeof SignaturePad.Root> & { label?: string };
+type SignaturePadPartsProps = ComponentProps<typeof SignaturePad> & { label?: string };
 
 function SignaturePadParts(props: SignaturePadPartsProps) {
   const [local, others] = splitProps(props, ['label']);
 
   return (
     <SignaturePad {...others}>
-      <SignaturePad.Label>{local.label ?? 'Sign below'}</SignaturePad.Label>
-      <SignaturePad.Canvas />
+      <SignaturePadLabel>{local.label ?? 'Sign below'}</SignaturePadLabel>
+      <SignaturePadCanvas />
     </SignaturePad>
   );
 }
@@ -74,8 +78,8 @@ export const ImagePreview: Story = {
             void details.getDataUrl('image/png').then(setImageUrl);
           }}
         >
-          <SignaturePad.Label>Sign below</SignaturePad.Label>
-          <SignaturePad.Canvas />
+          <SignaturePadLabel>Sign below</SignaturePadLabel>
+          <SignaturePadCanvas />
         </SignaturePad>
         {imageUrl() ? <img src={imageUrl()} alt="Signature preview" /> : null}
       </div>
@@ -87,8 +91,8 @@ export const WithField: Story = {
   render: () => (
     <Field class={styles.field} invalid required>
       <SignaturePad name="signature">
-        <SignaturePad.Label>Sign below</SignaturePad.Label>
-        <SignaturePad.Canvas />
+        <SignaturePadLabel>Sign below</SignaturePadLabel>
+        <SignaturePadCanvas />
         <SignaturePadFormInput />
       </SignaturePad>
       <FieldHelperText>Use a pointer or touch input to sign.</FieldHelperText>
@@ -103,11 +107,11 @@ export const RootProvider: Story = {
 
     return (
       <div class={styles.preview}>
-        <SignaturePad.RootProvider value={signaturePad} class={styles.custom}>
-          <SignaturePad.Label>Sign below</SignaturePad.Label>
-          <SignaturePad.Canvas />
+        <SignaturePadRootProvider value={signaturePad} class={styles.custom}>
+          <SignaturePadLabel>Sign below</SignaturePadLabel>
+          <SignaturePadCanvas />
           <SignaturePadFormInput />
-        </SignaturePad.RootProvider>
+        </SignaturePadRootProvider>
         <output class={styles.status}>Paths: {signaturePad().paths.length}</output>
       </div>
     );

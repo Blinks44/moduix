@@ -952,7 +952,7 @@
 - 3a2f3b2: add `Card.Media`, shared spacing hooks, and streamline the docs.
   Clarifies the `Card.Root asChild` versus `Card.Link` decision path and adds an explicit advanced customization path.
 - 3a2f3b2: Improve Button loading ergonomics and simplify SplitButton trigger composition.
-  Adds a narrow `loading` prop to `Button`, tunes default button interaction styling, and removes the extra `asChild` escape hatch from `SplitButton.Trigger`.
+  Adds a narrow `loading` prop to `Button`, tunes default button interaction styling, and removes the extra `asChild` escape hatch from the SplitButton trigger.
   Also keeps native `disabled` off `Button asChild` hosts, adds inline icon styling hooks, and syncs the Button docs with the shipped contract.
 
 ### Clipboard

@@ -38,8 +38,8 @@ Use `Button` for a single action. Use `Menu` when the available actions are peer
 ## Basic
 
 
-Use the short `<SplitButton>` form, which is equivalent to `<SplitButton.Root>`, and keep the menu structure explicit
-with `SplitButton.Action`, `SplitButton.Trigger`, `SplitButton.Positioner`, and `SplitButton.Content`.
+Use `<SplitButton>` as the root and keep the menu structure explicit
+with `SplitButtonAction`, `SplitButtonTrigger`, `SplitButtonPositioner`, and `SplitButtonContent`.
 The primary action follows the same `onClick` contract as `Button`.
 
 <ExampleFrame variant="component">
@@ -107,12 +107,12 @@ See [Quick Start](/docs/quick-start) for full package setup, registry configurat
 ## Anatomy
 
 ```text
-SplitButton / SplitButton.Root
-├─ SplitButton.Action
-├─ SplitButton.Trigger
+SplitButton
+├─ SplitButtonAction
+├─ SplitButtonTrigger
 └─ Popup subtree (automatically portalled)
-   └─ SplitButton.Positioner
-      └─ SplitButton.Content
+   └─ SplitButtonPositioner
+      └─ SplitButtonContent
          ├─ MenuItem
          ├─ MenuSeparator
          └─ other shared Menu parts
@@ -120,23 +120,23 @@ SplitButton / SplitButton.Root
 
 | Part                               | Role                                                                  |
 | ---------------------------------- | --------------------------------------------------------------------- |
-| `SplitButton` / `SplitButton.Root` | Root that owns menu state and the semantic group around both buttons. |
-| `SplitButton.Action`               | Primary Button action.                                                |
-| `SplitButton.Trigger`              | Ark Menu trigger rendered as a moduix Button with a chevron by default. |
-| `SplitButton.Positioner`           | Positions the Ark Menu popup.                                         |
-| `SplitButton.Content`              | Ark Menu content surface for shared `Menu.*` parts.                   |
+| `SplitButton`                     | Root that owns menu state and the semantic group around both buttons. |
+| `SplitButtonAction`               | Primary Button action.                                                |
+| `SplitButtonTrigger`              | Ark Menu trigger rendered as a moduix Button with a chevron by default. |
+| `SplitButtonPositioner`           | Positions the Ark Menu popup.                                         |
+| `SplitButtonContent`              | Ark Menu content surface for shared `Menu.*` parts.                   |
 
 ## Composition
 
-`SplitButton` combines one primary `Action` with a `Trigger`; keep the popup tree explicit as
-`Positioner` → `Content` and place shared `Menu.*` rows inside `Content`. The positioner is portalled automatically;
+`SplitButton` combines one primary `SplitButtonAction` with a `SplitButtonTrigger`; keep the popup tree explicit as
+`SplitButtonPositioner` → `SplitButtonContent` and place shared `Menu.*` rows inside `SplitButtonContent`. The positioner is portalled automatically;
 use `portalled={false}` or `portalRef` only when the popup must use a different container. Root `size` and `variant`
 provide the defaults for both button parts. The root renders a semantic `role="group"`; provide `aria-label` or
 `aria-labelledby` when the surrounding context does not already identify the group.
 
 Menu state is internal by default. Pass `open` with `onOpenChange(details)` when another part of the application
 owns the open state. For advanced state access, use the shared `Menu` API instead of adding a split-button-specific
-state wrapper. Use `Action asChild` for a link; custom trigger content goes through `Trigger` `children` so Ark's
+state wrapper. Use `SplitButtonAction asChild` for a link; custom trigger content goes through `SplitButtonTrigger` `children` so Ark's
 menu trigger and the moduix Button remain on one element.
 
 ## Examples
@@ -212,7 +212,7 @@ Disable the primary action while keeping the alternate-actions menu available wh
 
 ### Link Action
 
-Use `asChild` on `SplitButton.Action` when the primary action should render as a link.
+Use `asChild` on `SplitButtonAction` when the primary action should render as a link.
 
 <ExampleFrame variant="component">
   <SplitButtonLinkAction />
@@ -392,7 +392,7 @@ Add an icon to the primary action when it clarifies the default action without r
 
 ### Advanced Customization
 
-Use shared `Menu.*` parts inside `SplitButton.Content` when alternate actions need groups, separators, or grouped
+Use shared `Menu.*` parts inside `SplitButtonContent` when alternate actions need groups, separators, or grouped
 rows.
 
 <ExampleFrame variant="component">
@@ -446,6 +446,6 @@ trigger padding use the `--moduix-split-button-separator-*` and `--moduix-split-
 - `data-slot="split-button-trigger"` targets the menu trigger.
 - `data-slot="split-button-positioner"` targets the Ark Menu positioner.
 - `data-slot="split-button-content"` targets the Ark Menu content surface.
-- `SplitButton.Trigger` carries Ark Menu state attributes such as `aria-expanded`, `aria-controls`, and `data-state`.
-- `SplitButton.Content` carries Ark Menu attributes such as `data-state`, `data-side`, `data-placement`, `data-nested`,
+- `SplitButtonTrigger` carries Ark Menu state attributes such as `aria-expanded`, `aria-controls`, and `data-state`.
+- `SplitButtonContent` carries Ark Menu attributes such as `data-state`, `data-side`, `data-placement`, `data-nested`,
   and `data-has-nested`.

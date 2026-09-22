@@ -1,7 +1,7 @@
 # Skeleton (Solid)
 
 `Skeleton` reserves space for content that has not loaded yet and preserves the React component's
-loading state, sizing props, styling hooks, and `Skeleton.Root` namespace.
+loading state, sizing props, and styling hooks.
 
 ## Ark Solid composition
 

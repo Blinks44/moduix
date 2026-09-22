@@ -9,7 +9,7 @@ import { createContext, forwardRef, useContext } from 'react';
 import { ChevronLeftIcon } from '@/lib/moduix/icons/ui';
 import { Input } from '../input';
 import { Separator } from '../separator';
-import { Splitter, type SplitterPanelData, useSplitterContext } from '../splitter';
+import { Splitter, SplitterPanel, SplitterResizeTrigger, SplitterResizeTriggerIndicator, useSplitterContext, type SplitterPanelData } from '../splitter';
 import splitterStyles from '../splitter/Splitter.module.css';
 import { Tooltip } from '../tooltip';
 import styles from './Sidebar.module.css';
@@ -19,13 +19,13 @@ type SidebarConfig = {
   panelId: string;
   side: SidebarSide;
 };
-type SidebarRootProps = Omit<ComponentProps<typeof Splitter.Root>, 'orientation' | 'panels'> & {
+type SidebarRootProps = Omit<ComponentProps<typeof Splitter>, 'orientation' | 'panels'> & {
   panelId?: string;
   side?: SidebarSide;
 };
-type SidebarPanelProps = Omit<ComponentProps<typeof Splitter.Panel>, 'id'>;
-type SidebarResizeTriggerProps = Omit<ComponentProps<typeof Splitter.ResizeTrigger>, 'id'>;
-type SidebarDefaultSize = ComponentProps<typeof Splitter.Root>['defaultSize'];
+type SidebarPanelProps = Omit<ComponentProps<typeof SplitterPanel>, 'id'>;
+type SidebarResizeTriggerProps = Omit<ComponentProps<typeof SplitterResizeTrigger>, 'id'>;
+type SidebarDefaultSize = ComponentProps<typeof Splitter>['defaultSize'];
 
 const sidebarPanel = {
   id: 'sidebar',
@@ -156,7 +156,7 @@ const SidebarResizeTrigger = forwardRef<
   ref,
 ) {
   const { panelId, side } = useContext(SidebarConfigContext);
-  const id: NonNullable<ComponentProps<typeof Splitter.ResizeTrigger>['id']> =
+  const id: NonNullable<ComponentProps<typeof SplitterResizeTrigger>['id']> =
     side === 'left' ? `${panelId}:content` : `content:${panelId}`;
 
   return (
@@ -170,7 +170,7 @@ const SidebarResizeTrigger = forwardRef<
       data-slot="sidebar-resize-trigger"
       className={clsx(splitterStyles.resizeTrigger, styles.resizeTrigger, className)}
     >
-      {children === undefined && !asChild ? <Splitter.ResizeTriggerIndicator /> : children}
+      {children === undefined && !asChild ? <SplitterResizeTriggerIndicator /> : children}
     </SplitterPrimitive.ResizeTrigger>
   );
 });

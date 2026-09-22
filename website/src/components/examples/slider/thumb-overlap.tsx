@@ -1,19 +1,19 @@
-import { Slider } from '@moduix/react/slider';
+import { Slider, SliderControl, SliderLabel, SliderRange, SliderThumbs, SliderTrack, SliderValueText } from '@moduix/react/slider';
 import styles from '@/components/examples/slider/slider-thumb-overlap.module.css';
 
 export default function ThumbOverlapSliderDemo() {
   return (
     <Slider defaultValue={[25, 60]} minStepsBetweenThumbs={5}>
       <div className={styles.header}>
-        <Slider.Label>Minimum gap</Slider.Label>
-        <Slider.ValueText />
+        <SliderLabel>Minimum gap</SliderLabel>
+        <SliderValueText />
       </div>
-      <Slider.Control>
-        <Slider.Track>
-          <Slider.Range />
-        </Slider.Track>
-        <Slider.Thumbs />
-      </Slider.Control>
+      <SliderControl>
+        <SliderTrack>
+          <SliderRange />
+        </SliderTrack>
+        <SliderThumbs />
+      </SliderControl>
     </Slider>
   );
 }

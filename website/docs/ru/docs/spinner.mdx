@@ -38,9 +38,6 @@ Modules задайте `--moduix-spinner-animation`, чтобы вернуть �
 режимом reduced-motion.
 
 
-В большинстве случаев используйте `Spinner` как корневой элемент. `Spinner.Root` - псевдоним того же
-корня, если эту часть композиции нужно обозначить явно.
-
 <ExampleFrame variant="component">
   <SpinnerBasic />
 </ExampleFrame>
@@ -106,7 +103,7 @@ Modules задайте `--moduix-spinner-animation`, чтобы вернуть �
 разметку индикатора на дочернем элементе.
 
 ```text
-Spinner / Spinner.Root
+Spinner
 └─ root[data-scope="spinner"][data-part="root"][data-slot="spinner-root"][data-size]
    └─ indicator[data-scope="spinner"][data-part="indicator"][data-slot="spinner-indicator"]
       └─ ring[data-scope="spinner"][data-part="ring"][data-slot="spinner-ring"] (только по умолчанию)
@@ -114,7 +111,7 @@ Spinner / Spinner.Root
 
 | Часть               | Назначение                                                                                  |
 | ------------------- | ------------------------------------------------------------------------------------------- |
-| `Spinner` / `Spinner.Root` | Публичный корневой элемент. Принимает `size`, `decorative`, `asChild`, `children` и нативные свойства `span`. |
+| `Spinner`                   | Публичный корневой элемент. Принимает `size`, `decorative`, `asChild`, `children` и нативные свойства `span`. |
 | indicator                   | Внутренняя вращающаяся обёртка, которая отвечает за размер и анимацию индикатора.               |
 | ring                        | Внутреннее стандартное кольцо. Не создаётся, если передано собственное `children`.             |
 

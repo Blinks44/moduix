@@ -13,7 +13,7 @@ import {
   useAccordion,
 } from '@/components/accordion/Accordion';
 import { ChevronDownIcon } from '@/lib/moduix/icons/ui';
-import { Slider } from '../../../../packages/react-tailwind/src/components/slider';
+import { Slider, SliderControl, SliderHiddenInput, SliderLabel, SliderRange, SliderThumb, SliderTrack } from '../../../../packages/react-tailwind/src/components/slider';
 
 const meta = {
   title: 'Components/Accordion',
@@ -196,15 +196,15 @@ export const AdvancedCustomization: Story = {
             <AccordionItemBody>
               <span>{item.description}</span>
               <Slider defaultValue={[40]}>
-                <Slider.Label>{item.title} priority</Slider.Label>
-                <Slider.Control>
-                  <Slider.Track>
-                    <Slider.Range />
-                  </Slider.Track>
-                  <Slider.Thumb index={0}>
-                    <Slider.HiddenInput />
-                  </Slider.Thumb>
-                </Slider.Control>
+                <SliderLabel>{item.title} priority</SliderLabel>
+                <SliderControl>
+                  <SliderTrack>
+                    <SliderRange />
+                  </SliderTrack>
+                  <SliderThumb index={0}>
+                    <SliderHiddenInput />
+                  </SliderThumb>
+                </SliderControl>
               </Slider>
             </AccordionItemBody>
           </AccordionItemContent>

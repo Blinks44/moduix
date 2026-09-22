@@ -1,4 +1,16 @@
-import { Steps } from '@moduix/solid/steps';
+import {
+  StepsCompletedContent,
+  StepsContent,
+  StepsIndicator,
+  StepsItem,
+  StepsList,
+  StepsNextTrigger,
+  StepsPrevTrigger,
+  StepsRootProvider,
+  StepsSeparator,
+  StepsTrigger,
+  useSteps,
+} from '@moduix/solid/steps';
 import styles from '@/components/examples/steps/steps-root-provider.module.css';
 
 const items = [
@@ -17,39 +29,39 @@ const items = [
 ];
 
 export default function RootProviderStepsDemo() {
-  const steps = Steps.useSteps({ count: items.length });
+  const steps = useSteps({ count: items.length });
 
   return (
     <>
-      <Steps.RootProvider class={styles.root} value={steps}>
-        <Steps.List>
+      <StepsRootProvider class={styles.root} value={steps}>
+        <StepsList>
           {items.map((item, index) => (
-            <Steps.Item index={index}>
-              <Steps.Trigger>
-                <Steps.Indicator />
+            <StepsItem index={index}>
+              <StepsTrigger>
+                <StepsIndicator />
                 <span class={styles.label}>
                   <strong>{item.title}</strong>
                   <small class={styles.description}>{item.description}</small>
                 </span>
-              </Steps.Trigger>
-              <Steps.Separator />
-            </Steps.Item>
+              </StepsTrigger>
+              <StepsSeparator />
+            </StepsItem>
           ))}
-        </Steps.List>
+        </StepsList>
 
         {items.map((item, index) => (
-          <Steps.Content index={index}>
+          <StepsContent index={index}>
             {item.title} - {item.description}
-          </Steps.Content>
+          </StepsContent>
         ))}
 
-        <Steps.CompletedContent>Steps complete. The workspace is ready.</Steps.CompletedContent>
+        <StepsCompletedContent>Steps complete. The workspace is ready.</StepsCompletedContent>
 
         <div class={styles.actions}>
-          <Steps.PrevTrigger>Back</Steps.PrevTrigger>
-          <Steps.NextTrigger>Next</Steps.NextTrigger>
+          <StepsPrevTrigger>Back</StepsPrevTrigger>
+          <StepsNextTrigger>Next</StepsNextTrigger>
         </div>
-      </Steps.RootProvider>
+      </StepsRootProvider>
       <output>Current step: {steps().value + 1}</output>
     </>
   );

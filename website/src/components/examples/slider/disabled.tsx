@@ -1,19 +1,19 @@
-import { Slider } from '@moduix/react/slider';
+import { Slider, SliderControl, SliderLabel, SliderRange, SliderThumbs, SliderTrack, SliderValueText } from '@moduix/react/slider';
 import styles from '@/components/examples/slider/slider-disabled.module.css';
 
 export default function DisabledSliderDemo() {
   return (
     <Slider defaultValue={[32]} disabled>
       <div className={styles.header}>
-        <Slider.Label>Notifications</Slider.Label>
-        <Slider.ValueText />
+        <SliderLabel>Notifications</SliderLabel>
+        <SliderValueText />
       </div>
-      <Slider.Control>
-        <Slider.Track>
-          <Slider.Range />
-        </Slider.Track>
-        <Slider.Thumbs />
-      </Slider.Control>
+      <SliderControl>
+        <SliderTrack>
+          <SliderRange />
+        </SliderTrack>
+        <SliderThumbs />
+      </SliderControl>
     </Slider>
   );
 }
