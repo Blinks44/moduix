@@ -18,7 +18,19 @@ import {
 import { Combobox } from '@moduix/solid/combobox';
 import { Field, FieldLabel, FieldRequiredIndicator } from '@moduix/solid/field';
 import { Input } from '@moduix/solid/input';
-import { Select } from '@moduix/solid/select';
+import {
+  Select,
+  SelectControl,
+  SelectTrigger,
+  SelectValueText,
+  SelectIndicator,
+  SelectPositioner,
+  SelectContent,
+  SelectItem,
+  SelectItemText,
+  SelectItemIndicator,
+  SelectHiddenSelect,
+} from '@moduix/solid/select';
 import { Textarea } from '@moduix/solid/textarea';
 import { For } from 'solid-js';
 import styles from '@/components/examples/forms/forms-native-form.module.css';
@@ -74,25 +86,25 @@ export default function NativeForm() {
               <FieldRequiredIndicator />
             </FieldLabel>
             <Select collection={teams} name="team">
-              <Select.Control>
-                <Select.Trigger>
-                  <Select.ValueText placeholder="Choose a team" />
-                </Select.Trigger>
-                <Select.Indicator />
-              </Select.Control>
-              <Select.Positioner>
-                <Select.Content>
+              <SelectControl>
+                <SelectTrigger>
+                  <SelectValueText placeholder="Choose a team" />
+                </SelectTrigger>
+                <SelectIndicator />
+              </SelectControl>
+              <SelectPositioner>
+                <SelectContent>
                   <For each={teams.items}>
                     {(item) => (
-                      <Select.Item item={item}>
-                        <Select.ItemText>{item.label}</Select.ItemText>
-                        <Select.ItemIndicator />
-                      </Select.Item>
+                      <SelectItem item={item}>
+                        <SelectItemText>{item.label}</SelectItemText>
+                        <SelectItemIndicator />
+                      </SelectItem>
                     )}
                   </For>
-                </Select.Content>
-              </Select.Positioner>
-              <Select.HiddenSelect />
+                </SelectContent>
+              </SelectPositioner>
+              <SelectHiddenSelect />
             </Select>
           </Field>
 

@@ -1,4 +1,4 @@
-import { ScrollArea } from '@moduix/solid/scroll-area';
+import { ScrollArea, ScrollAreaContent, ScrollAreaCorner, ScrollAreaScrollbar, ScrollAreaThumb, ScrollAreaViewport } from '@moduix/solid/scroll-area';
 import styles from '@/components/examples/scroll-area/scroll-area-horizontal.module.css';
 
 const copy =
@@ -7,15 +7,15 @@ const copy =
 export default function HorizontalScrollAreaDemo() {
   return (
     <ScrollArea class={styles.root}>
-      <ScrollArea.Viewport>
-        <ScrollArea.Content>
+      <ScrollAreaViewport>
+        <ScrollAreaContent>
           <p class={styles.copy}>{copy}</p>
-        </ScrollArea.Content>
-      </ScrollArea.Viewport>
-      <ScrollArea.Scrollbar orientation="horizontal">
-        <ScrollArea.Thumb />
-      </ScrollArea.Scrollbar>
-      <ScrollArea.Corner />
+        </ScrollAreaContent>
+      </ScrollAreaViewport>
+      <ScrollAreaScrollbar orientation="horizontal">
+        <ScrollAreaThumb />
+      </ScrollAreaScrollbar>
+      <ScrollAreaCorner />
     </ScrollArea>
   );
 }

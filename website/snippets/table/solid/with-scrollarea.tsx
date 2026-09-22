@@ -1,4 +1,4 @@
-import { ScrollArea } from '@moduix/solid/scroll-area';
+import { ScrollArea, ScrollAreaContent, ScrollAreaCorner, ScrollAreaScrollbar, ScrollAreaThumb, ScrollAreaViewport } from '@moduix/solid/scroll-area';
 import { Table } from '@moduix/solid/table';
 import styles from '@/components/examples/table/table-with-scrollarea.module.css';
 
@@ -26,8 +26,8 @@ const rows = [
 export default function TableWithScrollareaDemo() {
   return (
     <ScrollArea class={styles.root}>
-      <ScrollArea.Viewport>
-        <ScrollArea.Content>
+      <ScrollAreaViewport>
+        <ScrollAreaContent>
           <Table class={styles.table}>
             <Table.Header>
               <Table.Row>
@@ -52,15 +52,15 @@ export default function TableWithScrollareaDemo() {
               )}
             </Table.Body>
           </Table>
-        </ScrollArea.Content>
-      </ScrollArea.Viewport>
-      <ScrollArea.Scrollbar>
-        <ScrollArea.Thumb />
-      </ScrollArea.Scrollbar>
-      <ScrollArea.Scrollbar orientation="horizontal">
-        <ScrollArea.Thumb />
-      </ScrollArea.Scrollbar>
-      <ScrollArea.Corner />
+        </ScrollAreaContent>
+      </ScrollAreaViewport>
+      <ScrollAreaScrollbar>
+        <ScrollAreaThumb />
+      </ScrollAreaScrollbar>
+      <ScrollAreaScrollbar orientation="horizontal">
+        <ScrollAreaThumb />
+      </ScrollAreaScrollbar>
+      <ScrollAreaCorner />
     </ScrollArea>
   );
 }

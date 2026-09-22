@@ -13,7 +13,7 @@ import {
   DrawerTitle,
   DrawerTrigger,
 } from '@moduix/react/drawer';
-import { ScrollArea } from '@moduix/react/scroll-area';
+import { ScrollArea, ScrollAreaContent, ScrollAreaCorner, ScrollAreaScrollbar, ScrollAreaThumb, ScrollAreaViewport } from '@moduix/react/scroll-area';
 import styles from '@/components/examples/drawer/drawer-non-modal.module.css';
 
 const modal = false;
@@ -57,8 +57,8 @@ export default function NonModalDrawerDemo() {
           </DrawerGrabber>
           <DrawerBody className={styles.body}>
             <ScrollArea className={styles.scrollArea}>
-              <ScrollArea.Viewport className={styles.viewport}>
-                <ScrollArea.Content className={styles.content}>
+              <ScrollAreaViewport className={styles.viewport}>
+                <ScrollAreaContent className={styles.content}>
                   {paragraphs.map((paragraph) => (
                     <Card key={paragraph} size="sm" className={styles.card}>
                       <CardBody>
@@ -66,12 +66,12 @@ export default function NonModalDrawerDemo() {
                       </CardBody>
                     </Card>
                   ))}
-                </ScrollArea.Content>
-              </ScrollArea.Viewport>
-              <ScrollArea.Scrollbar>
-                <ScrollArea.Thumb />
-              </ScrollArea.Scrollbar>
-              <ScrollArea.Corner />
+                </ScrollAreaContent>
+              </ScrollAreaViewport>
+              <ScrollAreaScrollbar>
+                <ScrollAreaThumb />
+              </ScrollAreaScrollbar>
+              <ScrollAreaCorner />
             </ScrollArea>
           </DrawerBody>
         </DrawerContent>

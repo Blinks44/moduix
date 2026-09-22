@@ -24,7 +24,7 @@ import {
   useDrawer,
   useDrawerContext,
 } from '@/components/drawer/Drawer';
-import { ScrollArea } from '@/components/scroll-area/ScrollArea';
+import { ScrollArea, ScrollAreaContent, ScrollAreaCorner, ScrollAreaScrollbar, ScrollAreaThumb, ScrollAreaViewport } from '@/components/scroll-area/ScrollArea';
 import { insideScrollSections } from '../data/insideScrollSections';
 
 const DEFAULT_DEMO_SNAP_POINT = 0.3;
@@ -161,8 +161,8 @@ export const NonModal: Story = {
           </DrawerGrabber>
           <DrawerBody class="min-h-0 flex-1 overflow-hidden">
             <ScrollArea class="h-full min-h-0">
-              <ScrollArea.Viewport class="h-full min-h-0 pe-2">
-                <ScrollArea.Content class="grid gap-3">
+              <ScrollAreaViewport class="h-full min-h-0 pe-2">
+                <ScrollAreaContent class="grid gap-3">
                   <For each={insideScrollSections}>
                     {(item) => (
                       <section>
@@ -171,12 +171,12 @@ export const NonModal: Story = {
                       </section>
                     )}
                   </For>
-                </ScrollArea.Content>
-              </ScrollArea.Viewport>
-              <ScrollArea.Scrollbar>
-                <ScrollArea.Thumb />
-              </ScrollArea.Scrollbar>
-              <ScrollArea.Corner />
+                </ScrollAreaContent>
+              </ScrollAreaViewport>
+              <ScrollAreaScrollbar>
+                <ScrollAreaThumb />
+              </ScrollAreaScrollbar>
+              <ScrollAreaCorner />
             </ScrollArea>
           </DrawerBody>
         </DrawerContent>

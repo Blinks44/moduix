@@ -1,5 +1,19 @@
 import { createListCollection } from '@ark-ui/solid/collection';
-import { Select } from '@moduix/solid/select';
+import {
+  useSelect,
+  SelectRootProvider,
+  SelectLabel,
+  SelectControl,
+  SelectTrigger,
+  SelectValueText,
+  SelectIndicator,
+  SelectClearTrigger,
+  SelectPositioner,
+  SelectContent,
+  SelectItem,
+  SelectItemText,
+  SelectItemIndicator,
+} from '@moduix/solid/select';
 import { For } from 'solid-js';
 
 const fruits = createListCollection({
@@ -18,7 +32,7 @@ const fruits = createListCollection({
 });
 
 export default function SelectSelectOnHighlightDemo() {
-  const select = Select.useSelect({
+  const select = useSelect({
     collection: fruits,
     onHighlightChange({ highlightedValue }) {
       if (highlightedValue) select().selectValue(highlightedValue);
@@ -26,27 +40,27 @@ export default function SelectSelectOnHighlightDemo() {
   });
 
   return (
-    <Select.RootProvider value={select}>
-      <Select.Label>Choose fruit</Select.Label>
-      <Select.Control>
-        <Select.Trigger>
-          <Select.ValueText placeholder="Select an option" />
-        </Select.Trigger>
-        <Select.Indicator />
-        <Select.ClearTrigger aria-label="Clear selection" />
-      </Select.Control>
-      <Select.Positioner>
-        <Select.Content>
+    <SelectRootProvider value={select}>
+      <SelectLabel>Choose fruit</SelectLabel>
+      <SelectControl>
+        <SelectTrigger>
+          <SelectValueText placeholder="Select an option" />
+        </SelectTrigger>
+        <SelectIndicator />
+        <SelectClearTrigger aria-label="Clear selection" />
+      </SelectControl>
+      <SelectPositioner>
+        <SelectContent>
           <For each={fruits.items}>
             {(item) => (
-              <Select.Item item={item}>
-                <Select.ItemText>{item.label}</Select.ItemText>
-                <Select.ItemIndicator />
-              </Select.Item>
+              <SelectItem item={item}>
+                <SelectItemText>{item.label}</SelectItemText>
+                <SelectItemIndicator />
+              </SelectItem>
             )}
           </For>
-        </Select.Content>
-      </Select.Positioner>
-    </Select.RootProvider>
+        </SelectContent>
+      </SelectPositioner>
+    </SelectRootProvider>
   );
 }

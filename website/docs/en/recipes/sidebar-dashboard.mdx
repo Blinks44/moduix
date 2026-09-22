@@ -13,8 +13,8 @@ Use this recipe as a starting point for a desktop application shell. It combines
 workspace menu in the sidebar footer. The main area includes a small overview with metric cards so
 you can see where your application content belongs.
 
-You can resize the sidebar by dragging the divider or using the keyboard. `Sidebar.Trigger`
-collapses and expands the panel, while `Sidebar.Tooltip` keeps navigation labels available when the
+You can resize the sidebar by dragging the divider or using the keyboard. `SidebarTrigger`
+collapses and expands the panel, while `SidebarTooltip` keeps navigation labels available when the
 sidebar is reduced to its icon rail.
 
 This is a copy-ready composition, not a `SidebarDashboard` component exported by moduix.
@@ -66,11 +66,11 @@ The live preview uses the React package. The source tabs show native React and S
 ## Adapt it to your app
 
 Replace the `#overview`, `#website`, and other example anchors with routes from your application. If
-your router provides a link component, use it with `Sidebar.NavigationButton` or
-`Sidebar.NavigationSubButton` and the `asChild` prop so the router owns navigation. Mark the active
+your router provides a link component, use it with `SidebarNavigationButton` or
+`SidebarNavigationSubButton` and the `asChild` prop so the router owns navigation. Mark the active
 destination with `aria-current="page"`.
 
-Keep `Sidebar.Tooltip` around icon navigation buttons so their labels remain available in the
+Keep `SidebarTooltip` around icon navigation buttons so their labels remain available in the
 collapsed rail. Use `Collapsible` for nested navigation groups and `Menu` for workspace actions.
 Connect the `New project` button to the flow that creates a project, and replace the static metrics
 and message in the main area with data from your application.

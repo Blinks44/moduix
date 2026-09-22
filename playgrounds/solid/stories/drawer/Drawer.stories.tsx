@@ -24,7 +24,7 @@ import {
   useDrawer,
   useDrawerContext,
 } from '@/components/drawer/Drawer';
-import { ScrollArea } from '@/components/scroll-area/ScrollArea';
+import { ScrollArea, ScrollAreaContent, ScrollAreaCorner, ScrollAreaScrollbar, ScrollAreaThumb, ScrollAreaViewport } from '@/components/scroll-area/ScrollArea';
 import { insideScrollSections } from '../data/insideScrollSections';
 import storyStyles from './Drawer.stories.module.css';
 
@@ -162,8 +162,8 @@ export const NonModal: Story = {
           </DrawerGrabber>
           <DrawerBody class={storyStyles.nonModalScrollRegion}>
             <ScrollArea class={storyStyles.nonModalScrollArea}>
-              <ScrollArea.Viewport class={storyStyles.nonModalScrollViewport}>
-                <ScrollArea.Content class={storyStyles.nonModalScrollContent}>
+              <ScrollAreaViewport class={storyStyles.nonModalScrollViewport}>
+                <ScrollAreaContent class={storyStyles.nonModalScrollContent}>
                   <For each={insideScrollSections}>
                     {(item) => (
                       <section>
@@ -172,12 +172,12 @@ export const NonModal: Story = {
                       </section>
                     )}
                   </For>
-                </ScrollArea.Content>
-              </ScrollArea.Viewport>
-              <ScrollArea.Scrollbar>
-                <ScrollArea.Thumb />
-              </ScrollArea.Scrollbar>
-              <ScrollArea.Corner />
+                </ScrollAreaContent>
+              </ScrollAreaViewport>
+              <ScrollAreaScrollbar>
+                <ScrollAreaThumb />
+              </ScrollAreaScrollbar>
+              <ScrollAreaCorner />
             </ScrollArea>
           </DrawerBody>
         </DrawerContent>

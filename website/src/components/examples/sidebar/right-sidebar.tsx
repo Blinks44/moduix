@@ -1,5 +1,20 @@
 import { Menu, MenuTrigger, MenuPositioner, MenuContent, MenuViewport, MenuItem } from '@moduix/react/menu';
-import { Sidebar } from '@moduix/react/sidebar';
+import {
+  Sidebar,
+  SidebarPanel,
+  SidebarInset,
+  SidebarResizeTrigger,
+  SidebarTrigger,
+  SidebarLabel,
+  SidebarHeader,
+  SidebarContent,
+  SidebarFooter,
+  SidebarGroup,
+  SidebarGroupLabel,
+  SidebarNavigationList,
+  SidebarNavigationItem,
+  SidebarNavigationButton,
+} from '@moduix/react/sidebar';
 import {
   FileSearch,
   History,
@@ -13,63 +28,63 @@ import styles from '@/components/examples/sidebar/sidebar-right-sidebar.module.c
 export default function RightSidebar() {
   return (
     <Sidebar side="right" className={styles.root}>
-      <Sidebar.Inset>
+      <SidebarInset>
         <header className={styles.header}>Dashboard</header>
         <main className={styles.content}>
           <strong>Page settings</strong>
           <section className={styles.card}>Select an Inspector tool to edit this page.</section>
         </main>
-      </Sidebar.Inset>
-      <Sidebar.Trigger />
-      <Sidebar.ResizeTrigger />
-      <Sidebar.Panel>
-        <Sidebar.Header>
+      </SidebarInset>
+      <SidebarTrigger />
+      <SidebarResizeTrigger />
+      <SidebarPanel>
+        <SidebarHeader>
           <strong data-sidebar-icon>IN</strong>
-          <Sidebar.Label>Inspector</Sidebar.Label>
-        </Sidebar.Header>
-        <Sidebar.Content>
-          <Sidebar.Group>
-            <Sidebar.GroupLabel>Tools</Sidebar.GroupLabel>
-            <Sidebar.NavigationList>
-              <Sidebar.NavigationItem>
-                <Sidebar.NavigationButton active>
+          <SidebarLabel>Inspector</SidebarLabel>
+        </SidebarHeader>
+        <SidebarContent>
+          <SidebarGroup>
+            <SidebarGroupLabel>Tools</SidebarGroupLabel>
+            <SidebarNavigationList>
+              <SidebarNavigationItem>
+                <SidebarNavigationButton active>
                   <PanelRight />
-                  <Sidebar.Label>Properties</Sidebar.Label>
-                </Sidebar.NavigationButton>
-              </Sidebar.NavigationItem>
-              <Sidebar.NavigationItem>
-                <Sidebar.NavigationButton>
+                  <SidebarLabel>Properties</SidebarLabel>
+                </SidebarNavigationButton>
+              </SidebarNavigationItem>
+              <SidebarNavigationItem>
+                <SidebarNavigationButton>
                   <SlidersHorizontal />
-                  <Sidebar.Label>Appearance</Sidebar.Label>
-                </Sidebar.NavigationButton>
-              </Sidebar.NavigationItem>
-              <Sidebar.NavigationItem>
-                <Sidebar.NavigationButton>
+                  <SidebarLabel>Appearance</SidebarLabel>
+                </SidebarNavigationButton>
+              </SidebarNavigationItem>
+              <SidebarNavigationItem>
+                <SidebarNavigationButton>
                   <FileSearch />
-                  <Sidebar.Label>Accessibility</Sidebar.Label>
-                </Sidebar.NavigationButton>
-              </Sidebar.NavigationItem>
-            </Sidebar.NavigationList>
-          </Sidebar.Group>
-          <Sidebar.Group>
-            <Sidebar.GroupLabel>Activity</Sidebar.GroupLabel>
-            <Sidebar.NavigationList>
-              <Sidebar.NavigationItem>
-                <Sidebar.NavigationButton>
+                  <SidebarLabel>Accessibility</SidebarLabel>
+                </SidebarNavigationButton>
+              </SidebarNavigationItem>
+            </SidebarNavigationList>
+          </SidebarGroup>
+          <SidebarGroup>
+            <SidebarGroupLabel>Activity</SidebarGroupLabel>
+            <SidebarNavigationList>
+              <SidebarNavigationItem>
+                <SidebarNavigationButton>
                   <History />
-                  <Sidebar.Label>Version history</Sidebar.Label>
-                </Sidebar.NavigationButton>
-              </Sidebar.NavigationItem>
-              <Sidebar.NavigationItem>
-                <Sidebar.NavigationButton>
+                  <SidebarLabel>Version history</SidebarLabel>
+                </SidebarNavigationButton>
+              </SidebarNavigationItem>
+              <SidebarNavigationItem>
+                <SidebarNavigationButton>
                   <MessageSquare />
-                  <Sidebar.Label>Comments</Sidebar.Label>
-                </Sidebar.NavigationButton>
-              </Sidebar.NavigationItem>
-            </Sidebar.NavigationList>
-          </Sidebar.Group>
-        </Sidebar.Content>
-        <Sidebar.Footer>
+                  <SidebarLabel>Comments</SidebarLabel>
+                </SidebarNavigationButton>
+              </SidebarNavigationItem>
+            </SidebarNavigationList>
+          </SidebarGroup>
+        </SidebarContent>
+        <SidebarFooter>
           <Menu
             positioning={{
               placement: 'right-end',
@@ -78,10 +93,10 @@ export default function RightSidebar() {
             }}
           >
             <MenuTrigger asChild>
-              <Sidebar.NavigationButton>
+              <SidebarNavigationButton>
                 <Settings />
-                <Sidebar.Label>Inspector settings</Sidebar.Label>
-              </Sidebar.NavigationButton>
+                <SidebarLabel>Inspector settings</SidebarLabel>
+              </SidebarNavigationButton>
             </MenuTrigger>
             <MenuPositioner>
               <MenuContent>
@@ -93,8 +108,8 @@ export default function RightSidebar() {
               </MenuContent>
             </MenuPositioner>
           </Menu>
-        </Sidebar.Footer>
-      </Sidebar.Panel>
+        </SidebarFooter>
+      </SidebarPanel>
     </Sidebar>
   );
 }

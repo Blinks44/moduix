@@ -9,7 +9,7 @@ import {
   DialogTitle,
   DialogTrigger,
 } from '@moduix/solid/dialog';
-import { ScrollArea } from '@moduix/solid/scroll-area';
+import { ScrollArea, ScrollAreaContent, ScrollAreaCorner, ScrollAreaScrollbar, ScrollAreaThumb, ScrollAreaViewport } from '@moduix/solid/scroll-area';
 import styles from '@/components/examples/dialog/dialog-inside-scroll.module.css';
 
 const sections = [
@@ -44,8 +44,8 @@ export default function DialogScrollDemo() {
         <DialogContent>
           <DialogTitle>Terms of service</DialogTitle>
           <ScrollArea class={styles.scrollArea}>
-            <ScrollArea.Viewport>
-              <ScrollArea.Content>
+            <ScrollAreaViewport>
+              <ScrollAreaContent>
                 <div class={styles.content}>
                   {sections.map((section) => (
                     <section class={styles.section}>
@@ -54,12 +54,12 @@ export default function DialogScrollDemo() {
                     </section>
                   ))}
                 </div>
-              </ScrollArea.Content>
-            </ScrollArea.Viewport>
-            <ScrollArea.Scrollbar>
-              <ScrollArea.Thumb />
-            </ScrollArea.Scrollbar>
-            <ScrollArea.Corner />
+              </ScrollAreaContent>
+            </ScrollAreaViewport>
+            <ScrollAreaScrollbar>
+              <ScrollAreaThumb />
+            </ScrollAreaScrollbar>
+            <ScrollAreaCorner />
           </ScrollArea>
           <DialogFooter>
             <DialogCloseTrigger

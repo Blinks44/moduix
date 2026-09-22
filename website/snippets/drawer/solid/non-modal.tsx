@@ -13,7 +13,7 @@ import {
   DrawerTitle,
   DrawerTrigger,
 } from '@moduix/solid/drawer';
-import { ScrollArea } from '@moduix/solid/scroll-area';
+import { ScrollArea, ScrollAreaContent, ScrollAreaCorner, ScrollAreaScrollbar, ScrollAreaThumb, ScrollAreaViewport } from '@moduix/solid/scroll-area';
 import { For } from 'solid-js';
 import styles from '@/components/examples/drawer/drawer-non-modal.module.css';
 
@@ -57,8 +57,8 @@ export default function NonModalDrawerDemo() {
           </DrawerGrabber>
           <DrawerBody class={styles.body}>
             <ScrollArea class={styles.scrollArea}>
-              <ScrollArea.Viewport class={styles.viewport}>
-                <ScrollArea.Content class={styles.content}>
+              <ScrollAreaViewport class={styles.viewport}>
+                <ScrollAreaContent class={styles.content}>
                   <For each={paragraphs}>
                     {(paragraph) => (
                       <Card size="sm" class={styles.card}>
@@ -68,12 +68,12 @@ export default function NonModalDrawerDemo() {
                       </Card>
                     )}
                   </For>
-                </ScrollArea.Content>
-              </ScrollArea.Viewport>
-              <ScrollArea.Scrollbar>
-                <ScrollArea.Thumb />
-              </ScrollArea.Scrollbar>
-              <ScrollArea.Corner />
+                </ScrollAreaContent>
+              </ScrollAreaViewport>
+              <ScrollAreaScrollbar>
+                <ScrollAreaThumb />
+              </ScrollAreaScrollbar>
+              <ScrollAreaCorner />
             </ScrollArea>
           </DrawerBody>
         </DrawerContent>

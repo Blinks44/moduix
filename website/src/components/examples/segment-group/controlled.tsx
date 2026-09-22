@@ -1,4 +1,4 @@
-import { SegmentGroup } from '@moduix/react/segment-group';
+import { SegmentGroup, SegmentGroupIndicator, SegmentGroupItems } from '@moduix/react/segment-group';
 import { useState } from 'react';
 import { PreviewMeta } from '@/components/mdx/Components';
 import styles from '@/components/examples/segment-group/segment-group-controlled.module.css';
@@ -19,8 +19,8 @@ export default function ControlledSegmentGroupDemo() {
         value={value}
         onValueChange={(details) => setValue(details.value)}
       >
-        <SegmentGroup.Indicator />
-        <SegmentGroup.Items items={frameworks} />
+        <SegmentGroupIndicator />
+        <SegmentGroupItems items={frameworks} />
       </SegmentGroup>
       <PreviewMeta>
         <output>Selected: {value ?? 'none'}</output>

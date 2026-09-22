@@ -1,6 +1,20 @@
 import { createListCollection } from '@ark-ui/react/collection';
 import { Button } from '@moduix/react/button';
-import { Select } from '@moduix/react/select';
+import {
+  Select,
+  SelectLabel,
+  SelectControl,
+  SelectTrigger,
+  SelectValueText,
+  SelectIndicator,
+  SelectClearTrigger,
+  SelectPositioner,
+  SelectContent,
+  SelectItem,
+  SelectItemText,
+  SelectItemIndicator,
+  SelectHiddenSelect,
+} from '@moduix/react/select';
 import type { FormEvent } from 'react';
 import { useState } from 'react';
 import { PreviewMeta } from '@/components/mdx/Components';
@@ -35,25 +49,25 @@ export default function SelectFormUsageDemo() {
   return (
     <form className={styles.root} onSubmit={handleSubmit}>
       <Select collection={themes} name="theme" required>
-        <Select.Label>Theme</Select.Label>
-        <Select.Control>
-          <Select.Trigger>
-            <Select.ValueText placeholder="Select theme" />
-          </Select.Trigger>
-          <Select.Indicator />
-          <Select.ClearTrigger aria-label="Clear selection" />
-        </Select.Control>
-        <Select.Positioner>
-          <Select.Content>
+        <SelectLabel>Theme</SelectLabel>
+        <SelectControl>
+          <SelectTrigger>
+            <SelectValueText placeholder="Select theme" />
+          </SelectTrigger>
+          <SelectIndicator />
+          <SelectClearTrigger aria-label="Clear selection" />
+        </SelectControl>
+        <SelectPositioner>
+          <SelectContent>
             {themes.items.map((item) => (
-              <Select.Item key={item.value} item={item}>
-                <Select.ItemText>{item.label}</Select.ItemText>
-                <Select.ItemIndicator />
-              </Select.Item>
+              <SelectItem key={item.value} item={item}>
+                <SelectItemText>{item.label}</SelectItemText>
+                <SelectItemIndicator />
+              </SelectItem>
             ))}
-          </Select.Content>
-        </Select.Positioner>
-        <Select.HiddenSelect />
+          </SelectContent>
+        </SelectPositioner>
+        <SelectHiddenSelect />
       </Select>
       <PreviewMeta>
         <output>Submitted: {submitted}</output>

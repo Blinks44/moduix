@@ -1,10 +1,6 @@
 import { createListCollection } from '@ark-ui/solid/collection';
 import { parseDate, type DateValue } from '@ark-ui/solid/date-picker';
 import { Field as FieldPrimitive } from '@ark-ui/solid/field';
-import {
-  Select as SelectPrimitive,
-  type SelectRootProps as ArkSelectRootProps,
-} from '@ark-ui/solid/select';
 import { today } from '@internationalized/date';
 import { createSignal } from 'solid-js';
 import type { Meta, StoryObj } from 'storybook-solidjs-vite';
@@ -39,6 +35,19 @@ import {
   DatePickerDayTable,
   DatePickerPresetTrigger,
 } from '@/components/date-picker/DatePicker';
+import {
+  Select,
+  SelectPositioner,
+  SelectContent,
+  SelectList,
+  SelectItem,
+  SelectItemText,
+  SelectItemIndicator,
+  SelectControl,
+  SelectTrigger,
+  SelectValueText,
+  SelectIndicator,
+} from '@/components/select/Select';
 
 type DatePickerSelectItem = {
   label: string;
@@ -63,13 +72,6 @@ const monthSelectItems: DatePickerSelectItem[] = [
 const monthSelectCollection = createListCollection<DatePickerSelectItem>({
   items: monthSelectItems,
 });
-
-const Select = Object.assign(
-  <T extends DatePickerSelectItem>(props: ArkSelectRootProps<T>) => (
-    <SelectPrimitive.Root {...props} />
-  ),
-  SelectPrimitive,
-);
 
 const meta = {
   title: 'Components/DatePicker',
@@ -330,32 +332,32 @@ function MultipleMonthsDatePickerContent() {
 
 function DatePickerSelectContent(props: { items: DatePickerSelectItem[] }) {
   return (
-    <Select.Positioner class="z-50 outline-0">
-      <Select.Content class="min-w-40 rounded-md border border-border bg-popover p-1 text-popover-foreground shadow-lg">
-        <Select.List class="grid gap-1">
+    <SelectPositioner class="z-50 outline-0">
+      <SelectContent class="min-w-40 rounded-md border border-border bg-popover p-1 text-popover-foreground shadow-lg">
+        <SelectList class="grid gap-1">
           {props.items.map((item) => (
-            <Select.Item
+            <SelectItem
               item={item}
               class="flex min-h-control-sm cursor-pointer items-center justify-between gap-2 rounded-sm px-2 text-sm outline-0 data-highlighted:bg-accent data-selected:bg-primary data-selected:text-primary-foreground"
             >
-              <Select.ItemText class="truncate">{item.label}</Select.ItemText>
-              <Select.ItemIndicator class="text-current" />
-            </Select.Item>
+              <SelectItemText class="truncate">{item.label}</SelectItemText>
+              <SelectItemIndicator class="text-current" />
+            </SelectItem>
           ))}
-        </Select.List>
-      </Select.Content>
-    </Select.Positioner>
+        </SelectList>
+      </SelectContent>
+    </SelectPositioner>
   );
 }
 
 function DatePickerSelectControl() {
   return (
-    <Select.Control class="relative flex w-full">
-      <Select.Trigger class="inline-flex h-control-sm w-full items-center justify-between rounded-md border border-border bg-background px-2 text-sm text-foreground outline-0 focus-visible:outline-2 focus-visible:outline-ring">
-        <Select.ValueText class="truncate" />
-      </Select.Trigger>
-      <Select.Indicator class="pointer-events-none absolute end-2 text-muted-foreground" />
-    </Select.Control>
+    <SelectControl class="relative flex w-full">
+      <SelectTrigger class="inline-flex h-control-sm w-full items-center justify-between rounded-md border border-border bg-background px-2 text-sm text-foreground outline-0 focus-visible:outline-2 focus-visible:outline-ring">
+        <SelectValueText class="truncate" />
+      </SelectTrigger>
+      <SelectIndicator class="pointer-events-none absolute end-2 text-muted-foreground" />
+    </SelectControl>
   );
 }
 

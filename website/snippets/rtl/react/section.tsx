@@ -1,7 +1,17 @@
 import { createListCollection } from '@ark-ui/react/collection';
 import { Button } from '@moduix/react/button';
 import { LocaleProvider } from '@moduix/react/locale';
-import { Select } from '@moduix/react/select';
+import {
+  Select,
+  SelectLabel,
+  SelectField,
+  SelectPositioner,
+  SelectContent,
+  SelectItemGroup,
+  SelectItem,
+  SelectItemText,
+  SelectItemIndicator,
+} from '@moduix/react/select';
 
 const cities = createListCollection({
   items: [
@@ -15,20 +25,20 @@ export function ArabicPreferences() {
     <div dir="rtl" lang="ar">
       <LocaleProvider locale="ar-EG">
         <Select collection={cities}>
-          <Select.Label>المدينة</Select.Label>
-          <Select.Field placeholder="اختر مدينة" />
-          <Select.Positioner>
-            <Select.Content>
-              <Select.ItemGroup>
+          <SelectLabel>المدينة</SelectLabel>
+          <SelectField placeholder="اختر مدينة" />
+          <SelectPositioner>
+            <SelectContent>
+              <SelectItemGroup>
                 {cities.items.map((city) => (
-                  <Select.Item key={city.value} item={city}>
-                    <Select.ItemText>{city.label}</Select.ItemText>
-                    <Select.ItemIndicator />
-                  </Select.Item>
+                  <SelectItem key={city.value} item={city}>
+                    <SelectItemText>{city.label}</SelectItemText>
+                    <SelectItemIndicator />
+                  </SelectItem>
                 ))}
-              </Select.ItemGroup>
-            </Select.Content>
-          </Select.Positioner>
+              </SelectItemGroup>
+            </SelectContent>
+          </SelectPositioner>
         </Select>
         <Button>حفظ</Button>
       </LocaleProvider>

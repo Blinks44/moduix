@@ -15,27 +15,27 @@ Resizable, collapsible application navigation beside a main content inset.
 
 ## Public contract
 
-`Sidebar` and `Sidebar.Root` wrap the Solid `Splitter.Root`. `orientation` and `panels` are owned by
+`Sidebar` wraps the Solid `Splitter.Root`. `orientation` and `panels` are owned by
 Sidebar and omitted from the public root props. `side="left" | "right"` selects panel order,
 resize-trigger id order, side attributes, and trigger icon direction. `panelId` renames the sidebar
 panel while the inset remains `content`.
 
 Defaults match the React component: expanded size `16rem`, min/collapsed size `3rem`, max size
-`18rem`, horizontal layout, `aria-label="Resize sidebar"` on `ResizeTrigger`, and
-`aria-label="Toggle sidebar"` plus `type="button"` on `Trigger`.
+`18rem`, horizontal layout, `aria-label="Resize sidebar"` on `SidebarResizeTrigger`, and
+`aria-label="Toggle sidebar"` plus `type="button"` on `SidebarTrigger`.
 
 Exported parts:
 
-- `Root`, `Panel`, `Inset`, `ResizeTrigger`, `Trigger`
-- `Label`, `Input`, `Header`, `Content`, `ExpandedContent`, `CollapsedContent`, `Footer`, `Separator`
-- `Group`, `GroupHeader`, `GroupLabel`, `GroupAction`
-- `NavigationList`, `NavigationItem`, `NavigationButton`, `NavigationBadge`
-- `NavigationSubList`, `NavigationSubItem`, `NavigationSubButton`, `Tooltip`
+- `Sidebar`, `SidebarPanel`, `SidebarInset`, `SidebarResizeTrigger`, `SidebarTrigger`
+- `SidebarLabel`, `SidebarInput`, `SidebarHeader`, `SidebarContent`, `SidebarExpandedContent`, `SidebarCollapsedContent`, `SidebarFooter`, `SidebarSeparator`
+- `SidebarGroup`, `SidebarGroupHeader`, `SidebarGroupLabel`, `SidebarGroupAction`
+- `SidebarNavigationList`, `SidebarNavigationItem`, `SidebarNavigationButton`, `SidebarNavigationBadge`
+- `SidebarNavigationSubList`, `SidebarNavigationSubItem`, `SidebarNavigationSubButton`, `SidebarTooltip`
 - `useSidebar`
 
 `useSidebar()` returns native Solid accessors: `collapsed()`, `side()`, and `state()`, plus
-`toggleSidebar()`. The hook and layout parts require the Splitter context created by `Sidebar.Root`.
-Text that must disappear in the collapsed rail belongs in `Sidebar.Label`; Sidebar does not infer
+`toggleSidebar()`. The hook and layout parts require the Splitter context created by `Sidebar`.
+Text that must disappear in the collapsed rail belongs in `SidebarLabel`; Sidebar does not infer
 text children from arbitrary markup.
 
 ## Composition
@@ -45,76 +45,76 @@ collapsed-label tooltips:
 
 ```tsx
 <Sidebar>
-  <Sidebar.Panel>
-    <Sidebar.Header>
+  <SidebarPanel>
+    <SidebarHeader>
       <div>
         <Logo data-sidebar-icon />
-        <Sidebar.Label>Moduix</Sidebar.Label>
+        <SidebarLabel>Moduix</SidebarLabel>
       </div>
-      <Sidebar.Input placeholder="Search" />
-    </Sidebar.Header>
-    <Sidebar.Content>
-      <Sidebar.Group>
-        <Sidebar.GroupHeader>
-          <Sidebar.GroupLabel>Workspace</Sidebar.GroupLabel>
-          <Sidebar.GroupAction aria-label="Add workspace item">
+      <SidebarInput placeholder="Search" />
+    </SidebarHeader>
+    <SidebarContent>
+      <SidebarGroup>
+        <SidebarGroupHeader>
+          <SidebarGroupLabel>Workspace</SidebarGroupLabel>
+          <SidebarGroupAction aria-label="Add workspace item">
             <PlusIcon />
-          </Sidebar.GroupAction>
-        </Sidebar.GroupHeader>
-        <Sidebar.NavigationList>
-          <Sidebar.NavigationItem>
-            <Sidebar.Tooltip content="Overview">
+          </SidebarGroupAction>
+        </SidebarGroupHeader>
+        <SidebarNavigationList>
+          <SidebarNavigationItem>
+            <SidebarTooltip content="Overview">
               {(props) => (
-                <Sidebar.NavigationButton
+                <SidebarNavigationButton
                   {...props()}
                   active
                   asChild={(buttonProps) => (
                     <a {...buttonProps()} href="#overview">
                       <ProjectsIcon />
-                      <Sidebar.Label>Overview</Sidebar.Label>
+                      <SidebarLabel>Overview</SidebarLabel>
                     </a>
                   )}
                 />
               )}
-            </Sidebar.Tooltip>
-          </Sidebar.NavigationItem>
-        </Sidebar.NavigationList>
-      </Sidebar.Group>
-    </Sidebar.Content>
-  </Sidebar.Panel>
-  <Sidebar.ResizeTrigger />
-  <Sidebar.Trigger />
-  <Sidebar.Inset>
+            </SidebarTooltip>
+          </SidebarNavigationItem>
+        </SidebarNavigationList>
+      </SidebarGroup>
+    </SidebarContent>
+  </SidebarPanel>
+  <SidebarResizeTrigger />
+  <SidebarTrigger />
+  <SidebarInset>
     <main>{children}</main>
-  </Sidebar.Inset>
+  </SidebarInset>
 </Sidebar>
 ```
 
-For a right sidebar, render `Inset`, `Trigger`, `ResizeTrigger`, and `Panel` in that visual order.
+For a right sidebar, render `SidebarInset`, `SidebarTrigger`, `SidebarResizeTrigger`, and `SidebarPanel` in that visual order.
 Use controlled `size`, `onResize(details)`, and `onResizeEnd(details)` to persist width. Use
 `Splitter` directly for custom panel constraints, more than two panels, custom inset ids, registries,
 or root-provider layouts.
 
 ## Preservation notes
 
-`Panel`, `Inset`, and `ResizeTrigger` derive ids from the root `panelId`/`side` contract so
+`SidebarPanel`, `SidebarInset`, and `SidebarResizeTrigger` derive ids from the root `panelId`/`side` contract so
 `useSidebar()`, Ark panel data, rendered panels, and the adjacent splitter handle stay aligned.
-`Trigger` reads the current Ark Splitter state at click time, invokes any consumer `onClick` first,
+`SidebarTrigger` reads the current Ark Splitter state at click time, invokes any consumer `onClick` first,
 and does not toggle when the event is prevented.
 
-`NavigationButton` supports `active`, `size="sm" | "md" | "lg"`, and native Solid `asChild`.
+`SidebarNavigationButton` supports `active`, `size="sm" | "md" | "lg"`, and native Solid `asChild`.
 Active navigation controls set `data-active` and default `aria-current="page"`.
-`NavigationSubButton` renders an anchor by default, supports `active` and `asChild`, and wraps string
+`SidebarNavigationSubButton` renders an anchor by default, supports `active` and `asChild`, and wraps string
 children in `data-slot="sidebar-navigation-sub-label"` for truncation.
-`NavigationBadge` is an optional counter placed after a direct `NavigationButton` or
-`NavigationSubButton` sibling. It reserves trailing space for truncation, hides in the compact rail,
+`SidebarNavigationBadge` is an optional counter placed after a direct `SidebarNavigationButton` or
+`SidebarNavigationSubButton` sibling. It reserves trailing space for truncation, hides in the compact rail,
 and does not add special handling to Collapsible or Select triggers.
 
-`ExpandedContent` and `CollapsedContent` only toggle the HTML `hidden` attribute from Splitter state;
+`SidebarExpandedContent` and `SidebarCollapsedContent` only toggle the HTML `hidden` attribute from Splitter state;
 they do not create popup or collapsible state. Compose nested expanded navigation with `Collapsible`
 and collapsed alternatives with `Menu` or another app-owned navigation pattern.
 
-`Sidebar.Tooltip` delegates to the shared Solid `Tooltip`, defaults to `openDelay={200}` and
+`SidebarTooltip` delegates to the shared Solid `Tooltip`, defaults to `openDelay={200}` and
 `closeDelay={0}`, disables itself while expanded, and places content to the opposite side of the
 sidebar rail. Its child is the render function passed to `Tooltip.Trigger asChild`.
 
@@ -137,7 +137,10 @@ render function; ordinary refs and custom-host composition remain separate nativ
 
 ## Local changelog
 
-- 2026-09-13: Added `NavigationBadge` for direct `NavigationButton` and `NavigationSubButton`
+- 2026-09-22: Replaced the compound Sidebar API with the flat exports `Sidebar`, `SidebarPanel`,
+  `SidebarNavigationButton`, and the other family-prefixed parts. Removed static members and
+  compatibility aliases across package consumers, stories, tests, registries, and docs.
+- 2026-09-13: Added `SidebarNavigationBadge` for direct `SidebarNavigationButton` and `SidebarNavigationSubButton`
   siblings with compact-rail hiding and preserved label truncation.
 - 2026-09-03: Ported Sidebar to Solid with native Splitter/Tooltip composition, accessor-based
   `useSidebar`, equivalent CSS, tests, playground stories, package exports, and registry metadata.

@@ -13,7 +13,19 @@ import {
   DatePickerNextTrigger,
   DatePickerDayTable,
 } from '@moduix/react/date-picker';
-import { Select } from '@moduix/react/select';
+import {
+  Select,
+  SelectControl,
+  SelectTrigger,
+  SelectValueText,
+  SelectIndicator,
+  SelectPositioner,
+  SelectContent,
+  SelectList,
+  SelectItem,
+  SelectItemText,
+  SelectItemIndicator,
+} from '@moduix/react/select';
 import styles from '@/components/examples/date-picker/date-picker-month-year-select.module.css';
 
 const monthItems = [
@@ -61,24 +73,24 @@ export default function MonthYearSelectDatePickerDemo() {
                           datePicker.setFocusedValue(datePicker.focusedValue.set({ month }));
                       }}
                     >
-                      <Select.Control>
-                        <Select.Trigger>
-                          <Select.ValueText />
-                        </Select.Trigger>
-                        <Select.Indicator />
-                      </Select.Control>
-                      <Select.Positioner>
-                        <Select.Content>
-                          <Select.List>
+                      <SelectControl>
+                        <SelectTrigger>
+                          <SelectValueText />
+                        </SelectTrigger>
+                        <SelectIndicator />
+                      </SelectControl>
+                      <SelectPositioner>
+                        <SelectContent>
+                          <SelectList>
                             {monthItems.map((item) => (
-                              <Select.Item key={item.value} item={item}>
-                                <Select.ItemText>{item.label}</Select.ItemText>
-                                <Select.ItemIndicator />
-                              </Select.Item>
+                              <SelectItem key={item.value} item={item}>
+                                <SelectItemText>{item.label}</SelectItemText>
+                                <SelectItemIndicator />
+                              </SelectItem>
                             ))}
-                          </Select.List>
-                        </Select.Content>
-                      </Select.Positioner>
+                          </SelectList>
+                        </SelectContent>
+                      </SelectPositioner>
                     </Select>
                     <Select
                       className={styles.yearSelect}
@@ -89,24 +101,24 @@ export default function MonthYearSelectDatePickerDemo() {
                         if (year) datePicker.setFocusedValue(datePicker.focusedValue.set({ year }));
                       }}
                     >
-                      <Select.Control>
-                        <Select.Trigger>
-                          <Select.ValueText />
-                        </Select.Trigger>
-                        <Select.Indicator />
-                      </Select.Control>
-                      <Select.Positioner>
-                        <Select.Content>
-                          <Select.List>
+                      <SelectControl>
+                        <SelectTrigger>
+                          <SelectValueText />
+                        </SelectTrigger>
+                        <SelectIndicator />
+                      </SelectControl>
+                      <SelectPositioner>
+                        <SelectContent>
+                          <SelectList>
                             {yearItems.map((item) => (
-                              <Select.Item key={item.value} item={item}>
-                                <Select.ItemText>{item.label}</Select.ItemText>
-                                <Select.ItemIndicator />
-                              </Select.Item>
+                              <SelectItem key={item.value} item={item}>
+                                <SelectItemText>{item.label}</SelectItemText>
+                                <SelectItemIndicator />
+                              </SelectItem>
                             ))}
-                          </Select.List>
-                        </Select.Content>
-                      </Select.Positioner>
+                          </SelectList>
+                        </SelectContent>
+                      </SelectPositioner>
                     </Select>
                   </div>
                 );

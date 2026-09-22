@@ -19,7 +19,19 @@ import {
 import { Combobox } from '@moduix/solid/combobox';
 import { Field, FieldErrorText, FieldLabel, FieldRequiredIndicator } from '@moduix/solid/field';
 import { Input } from '@moduix/solid/input';
-import { Select } from '@moduix/solid/select';
+import {
+  Select,
+  SelectControl,
+  SelectTrigger,
+  SelectValueText,
+  SelectIndicator,
+  SelectPositioner,
+  SelectContent,
+  SelectItem,
+  SelectItemText,
+  SelectItemIndicator,
+  SelectHiddenSelect,
+} from '@moduix/solid/select';
 import { Textarea } from '@moduix/solid/textarea';
 import { For } from 'solid-js';
 import * as v from 'valibot';
@@ -110,30 +122,30 @@ export default function ProjectForm() {
                   onValueChange={(details) => field.onInput(details.value[0] ?? '')}
                   invalid={field.errors !== null}
                 >
-                  <Select.Control>
-                    <Select.Trigger
+                  <SelectControl>
+                    <SelectTrigger
                       ref={field.props.ref as unknown as (element: HTMLButtonElement) => void}
                       autofocus={field.props.autofocus}
                       onFocus={field.props.onFocus}
                       onBlur={field.props.onBlur}
                     >
-                      <Select.ValueText placeholder="Choose a team" />
-                    </Select.Trigger>
-                    <Select.Indicator />
-                  </Select.Control>
-                  <Select.Positioner>
-                    <Select.Content>
+                      <SelectValueText placeholder="Choose a team" />
+                    </SelectTrigger>
+                    <SelectIndicator />
+                  </SelectControl>
+                  <SelectPositioner>
+                    <SelectContent>
                       <For each={teams.items}>
                         {(item) => (
-                          <Select.Item item={item}>
-                            <Select.ItemText>{item.label}</Select.ItemText>
-                            <Select.ItemIndicator />
-                          </Select.Item>
+                          <SelectItem item={item}>
+                            <SelectItemText>{item.label}</SelectItemText>
+                            <SelectItemIndicator />
+                          </SelectItem>
                         )}
                       </For>
-                    </Select.Content>
-                  </Select.Positioner>
-                  <Select.HiddenSelect />
+                    </SelectContent>
+                  </SelectPositioner>
+                  <SelectHiddenSelect />
                 </Select>
                 <FieldErrorText>{field.errors?.[0]}</FieldErrorText>
               </Field>

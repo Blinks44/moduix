@@ -97,19 +97,19 @@ Consultez le [Démarrage rapide](/docs/quick-start) pour la configuration compl�
 `Separator` n’expose qu’une seule partie racine.
 
 ```text
-Separator / Separator.Root
+Separator
 └─ root[data-scope="separator"][data-part="root"][data-slot="separator-root"]
 ```
 
-| Partie                             | Rôle                                                                    |
-| ---------------------------------- | ----------------------------------------------------------------------- |
-| `Separator` / `Separator.Root` | Élément séparateur racine. Définit l’orientation, l’accessibilité et le style. |
+| Partie      | Rôle                                                                    |
+| ----------- | ----------------------------------------------------------------------- |
+| `Separator` | Élément séparateur racine. Définit l’orientation, l’accessibilité et le style. |
 
 ## Composition
 
 `Separator` se limite à une partie racine : il ne gère donc aucun état et ne nécessite pas de
-provider. Pour un séparateur courant, utilisez `<Separator />`, qui est la même racine que
-`<Separator.Root />`. Lorsqu’un autre élément doit porter le séparateur, utilisez `asChild` avec
+provider. Pour un séparateur courant, utilisez `<Separator />`. Lorsqu’un autre élément doit porter
+le séparateur, utilisez `asChild` avec
 un seul enfant capable d’accepter les propriétés fusionnées de rôle, ARIA, `data-*`, de classe et de
 ref. En React, l’élément enfant est transmis directement ; en Solid, utilisez
 `asChild={(props) => <hr {...props()} />}`.

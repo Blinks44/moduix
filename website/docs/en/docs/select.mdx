@@ -51,7 +51,7 @@ Use `Select` when users choose from a fixed collection and the trigger stays rea
 
 ## Basic
 
-Pass a collection to `Select`, use `Select.Field` for the standard visible control, and keep the popup structure explicit. `clearLabel` adds an accessible clear action. Add `Select.HiddenSelect` explicitly when native submission, autofill, validation, and reset are needed.
+Pass a collection to `Select`, use `SelectField` for the standard visible control, and keep the popup structure explicit. `clearLabel` adds an accessible clear action. Add `SelectHiddenSelect` explicitly when native submission, autofill, validation, and reset are needed.
 
 <ExampleFrame variant="component">
   <SelectBasic />
@@ -113,59 +113,61 @@ See [Quick Start](/docs/quick-start) for full package setup, registry configurat
 ## Anatomy
 
 ```text
-Select / Select.Root
-├─ Select.Label
-├─ Select.Control / Select.Field
-│  ├─ Select.Trigger
-│  │  ├─ Select.ValueText
-│  ├─ Select.ClearTrigger
-│  └─ Select.Indicator
+Select
+├─ SelectLabel
+├─ SelectControl / SelectField
+│  ├─ SelectTrigger
+│  │  ├─ SelectValueText
+│  ├─ SelectClearTrigger
+│  └─ SelectIndicator
 ├─ Overlay subtree (automatically portalled)
-│  └─ Select.Positioner
-│     └─ Select.Content
-│        ├─ Select.List
-│        └─ Select.ItemGroup
-│           ├─ Select.ItemGroupLabel
-│           └─ Select.Item[item]
-│              ├─ Select.ItemText
-│              │  └─ Select.ItemTextContent
-│              │     ├─ Select.ItemTextIcon
-│              │     └─ Select.ItemTextLabel
-│              └─ Select.ItemIndicator
-└─ Select.HiddenSelect (explicit)
+│  └─ SelectPositioner
+│     └─ SelectContent
+│        ├─ SelectList
+│        └─ SelectItemGroup
+│           ├─ SelectItemGroupLabel
+│           └─ SelectItem[item]
+│              ├─ SelectItemText
+│              │  └─ SelectItemTextContent
+│              │     ├─ SelectItemTextIcon
+│              │     └─ SelectItemTextLabel
+│              └─ SelectItemIndicator
+└─ SelectHiddenSelect (explicit)
 ```
 
 | Part                     | Role                                                                   |
 | ------------------------ | ---------------------------------------------------------------------- |
-| `Select` / `Select.Root` | Root state, collection, selection, popup lifecycle, and form data.     |
-| `Select.HiddenSelect` | Native Ark form control; compose explicitly as described below. |
-| `Select.RootProvider`    | Renders a select tree from state returned by `Select.useSelect`.       |
-| `Select.Label`           | Accessible label inherited by the trigger and native form control.     |
-| `Select.Control`         | Visual field wrapper that receives focus, invalid, and open state.     |
-| `Select.Field`           | moduix helper that renders the standard control, trigger, and actions. |
-| `Select.Trigger`         | Button that opens the popup and owns keyboard entry.                   |
-| `Select.ValueText`       | Placeholder or selected item labels.                                   |
-| `Select.ClearTrigger`    | Button that clears the current value.                                  |
-| `Select.Indicator`       | Trigger indicator with the moduix default chevron icon.                |
-| `Select.Positioner`      | Floating layer that exposes Ark positioning CSS variables.             |
-| `Select.Content`         | Popup surface and listbox container.                                   |
-| `Select.List`            | Optional list wrapper for virtualized or custom list layouts.          |
-| `Select.ItemGroup`       | Group wrapper for related collection items.                            |
-| `Select.ItemGroupLabel`  | Label for a collection group.                                          |
-| `Select.Item`            | Selectable row. Pass the collection item through `item`.               |
-| `Select.ItemText`        | Text used for display and accessibility.                               |
-| `Select.ItemTextContent` | Layout helper for rich item text.                                     |
-| `Select.ItemTextIcon`    | Icon wrapper for rich item text.                                      |
-| `Select.ItemTextLabel`   | Label wrapper for rich item text.                                    |
-| `Select.ItemIndicator`   | Selected-state indicator with the moduix default check icon.           |
+| `Select`                  | Root state, collection, selection, popup lifecycle, and form data.     |
+| `SelectHiddenSelect`      | Native Ark form control; compose explicitly as described below.       |
+| `SelectRootProvider`      | Renders a select tree from state returned by `useSelect`.              |
+| `SelectContext`           | Root context for advanced state reads.                                 |
+| `SelectItemContext`       | Item context for advanced state reads.                                 |
+| `SelectLabel`           | Accessible label inherited by the trigger and native form control.     |
+| `SelectControl`         | Visual field wrapper that receives focus, invalid, and open state.     |
+| `SelectField`           | moduix helper that renders the standard control, trigger, and actions. |
+| `SelectTrigger`         | Button that opens the popup and owns keyboard entry.                   |
+| `SelectValueText`       | Placeholder or selected item labels.                                   |
+| `SelectClearTrigger`    | Button that clears the current value.                                  |
+| `SelectIndicator`       | Trigger indicator with the moduix default chevron icon.                |
+| `SelectPositioner`      | Floating layer that exposes Ark positioning CSS variables.             |
+| `SelectContent`         | Popup surface and listbox container.                                   |
+| `SelectList`            | Optional list wrapper for virtualized or custom list layouts.          |
+| `SelectItemGroup`       | Group wrapper for related collection items.                            |
+| `SelectItemGroupLabel`  | Label for a collection group.                                          |
+| `SelectItem`            | Selectable row. Pass the collection item through `item`.               |
+| `SelectItemText`        | Text used for display and accessibility.                               |
+| `SelectItemTextContent` | Layout helper for rich item text.                                     |
+| `SelectItemTextIcon`    | Icon wrapper for rich item text.                                      |
+| `SelectItemTextLabel`   | Label wrapper for rich item text.                                    |
+| `SelectItemIndicator`   | Selected-state indicator with the moduix default check icon.           |
 
 ## Composition
 
-`Select.Field` is the shortcut for `Control`, `Trigger`, `ValueText`, and the default `Indicator`. Add `clearLabel` for a labelled clear action, or use the explicit parts when the trigger layout needs independent styling. Keep `Positioner`, `Content`, and the collection items in the same Select tree.
+`SelectField` is the shortcut for `SelectControl`, `SelectTrigger`, `SelectValueText`, and the default `SelectIndicator`. Add `clearLabel` for a labelled clear action, or use the explicit parts when the trigger layout needs independent styling. Keep `SelectPositioner`, `SelectContent`, and the collection items in the same Select tree.
 
-Add `Select.HiddenSelect` explicitly inside `Select` or `Select.RootProvider` when the selection must participate in native form submission, validation, autofill, or reset. The root does not render it automatically. `Positioner` is portalled automatically; set `portalled={false}` for inline rendering or use `portalRef` for a custom container.
+Add `SelectHiddenSelect` explicitly inside `Select` or `SelectRootProvider` when the selection must participate in native form submission, validation, autofill, or reset. The root does not render it automatically. `Positioner` is portalled automatically; set `portalled={false}` for inline rendering or use `portalRef` for a custom container.
 
-Use `Select.useSelect` with `Select.RootProvider` when state must be shared with controls outside the Select tree. The returned store is an object in React and an accessor in Solid.
+Use `useSelect` with `SelectRootProvider` when state must be shared with controls outside the Select tree. The returned store is an object in React and an accessor in Solid.
 
 ## Examples
 
@@ -205,7 +207,7 @@ Control the selected string array from React state or a Solid signal and update 
 
 ### Custom Item Layout
 
-Use `Select.ItemTextContent`, `Select.ItemTextIcon`, and `Select.ItemTextLabel` inside `ItemText`
+Use `SelectItemTextContent`, `SelectItemTextIcon`, and `SelectItemTextLabel` inside `ItemText`
 when an item needs a stable icon and an ellipsized label.
 
 <ExampleFrame variant="component">
@@ -319,7 +321,7 @@ to a form field.
 
 ### Form Usage
 
-The explicitly composed `Select.HiddenSelect` keeps native form submission working. Read submitted values from
+The explicitly composed `SelectHiddenSelect` keeps native form submission working. Read submitted values from
 `FormData`.
 
 <ExampleFrame variant="component">
@@ -497,7 +499,7 @@ collection.
 
 ### Native Form Control
 
-Compose `Select.HiddenSelect` explicitly when the selection should participate in a native form.
+Compose `SelectHiddenSelect` explicitly when the selection should participate in a native form.
 This example focuses on the submitted `FormData`.
 
 <ExampleFrame variant="component">
@@ -572,7 +574,7 @@ Use `positioning.fitViewport` for long lists. The content already limits its hei
 
 ### Root Provider
 
-Use `Select.useSelect` with `Select.RootProvider` when state is read or controlled outside the
+Use `useSelect` with `SelectRootProvider` when state is read or controlled outside the
 rendered Select tree.
 
 <ExampleFrame variant="component">
@@ -652,7 +654,7 @@ collection in your component rather than extending the Select API.
 
 ### Select All
 
-Keep bulk actions outside the listbox. `Select.useSelect` keeps the action and the Select backed by
+Keep bulk actions outside the listbox. `useSelect` keeps the action and the Select backed by
 the same Ark state instance.
 
 <ExampleFrame variant="component">
@@ -726,7 +728,7 @@ Use `onHighlightChange(details)` when moving through options should immediately 
 
 ### Advanced Customization
 
-Bypass `Select.Field` when the trigger, value text, or indicator needs independent composition and
+Bypass `SelectField` when the trigger, value text, or indicator needs independent composition and
 styling.
 
 <ExampleFrame variant="component">
@@ -769,7 +771,7 @@ Style Select with `className` in React or `class` in Solid, stable `data-slot="s
 
 ### Styling hooks
 
-`Select.Field` renders the existing `select-control`, `select-trigger`, `select-value-text`,
+`SelectField` renders the existing `select-control`, `select-trigger`, `select-value-text`,
 `select-indicator`, and optional `select-clear-trigger` slots. Its `indicator` prop supplies the
 child of the existing indicator slot. Rich item text helpers expose `select-item-text-content`,
 `select-item-text-icon`, and `select-item-text-label` slots.
@@ -779,5 +781,5 @@ child of the existing indicator slot. Rich item text helpers expose `select-item
 - State styling uses `data-state="open" | "closed"`, `data-focus`, `data-invalid`,
   `data-disabled`, `data-readonly`, `data-required`, `data-placeholder-shown`, `data-highlighted`,
   and item `data-state="checked" | "unchecked"`.
-- `Select.Positioner` exposes `--reference-width`, `--reference-height`, `--available-width`,
+- `SelectPositioner` exposes `--reference-width`, `--reference-height`, `--available-width`,
   `--available-height`, `--x`, `--y`, `--z-index`, and `--transform-origin`.

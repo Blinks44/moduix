@@ -1,8 +1,36 @@
 import { createListCollection } from '@ark-ui/solid/collection';
 import { Avatar, AvatarFallback } from '@moduix/solid/avatar';
 import { Menu, MenuTrigger, MenuPositioner, MenuContent, MenuViewport, MenuItem, MenuSeparator, MenuItemText } from '@moduix/solid/menu';
-import { Select } from '@moduix/solid/select';
-import { Sidebar } from '@moduix/solid/sidebar';
+import {
+  Select,
+  SelectTrigger,
+  SelectValueText,
+  SelectIndicator,
+  SelectPositioner,
+  SelectContent,
+  SelectItem,
+  SelectItemText,
+  SelectItemIndicator,
+} from '@moduix/solid/select';
+import {
+  Sidebar,
+  SidebarPanel,
+  SidebarInset,
+  SidebarResizeTrigger,
+  SidebarTrigger,
+  SidebarLabel,
+  SidebarHeader,
+  SidebarContent,
+  SidebarFooter,
+  SidebarSeparator,
+  SidebarGroup,
+  SidebarGroupHeader,
+  SidebarGroupLabel,
+  SidebarGroupAction,
+  SidebarNavigationList,
+  SidebarNavigationItem,
+  SidebarNavigationButton,
+} from '@moduix/solid/sidebar';
 import {
   BarChart3,
   Bell,
@@ -28,19 +56,19 @@ const workspaces = createListCollection({
 export default function WorkspaceSidebar() {
   return (
     <Sidebar class={styles.root}>
-      <Sidebar.Panel>
-        <Sidebar.Header>
-          <Sidebar.NavigationList>
-            <Sidebar.NavigationItem>
+      <SidebarPanel>
+        <SidebarHeader>
+          <SidebarNavigationList>
+            <SidebarNavigationItem>
               <Select
                 class={styles.workspaceSelect}
                 collection={workspaces}
                 defaultValue={['acme']}
                 positioning={{ placement: 'right-start', gutter: 8, flip: false }}
               >
-                <Select.Trigger
+                <SelectTrigger
                   asChild={(props) => (
-                    <Sidebar.NavigationButton
+                    <SidebarNavigationButton
                       {...props()}
                       size="lg"
                       aria-label="Select workspace"
@@ -50,109 +78,109 @@ export default function WorkspaceSidebar() {
                   <span data-sidebar-icon class={styles.workspaceMark}>
                     AC
                   </span>
-                  <Sidebar.Label class={styles.accountLabel}>
+                  <SidebarLabel class={styles.accountLabel}>
                     <strong class={styles.accountName}>
-                      <Select.ValueText placeholder="Select workspace" />
+                      <SelectValueText placeholder="Select workspace" />
                     </strong>
                     <span class={styles.accountEmail}>Workspace</span>
-                  </Sidebar.Label>
-                  <Select.Indicator />
-                </Select.Trigger>
-                <Select.Positioner>
-                  <Select.Content>
+                  </SidebarLabel>
+                  <SelectIndicator />
+                </SelectTrigger>
+                <SelectPositioner>
+                  <SelectContent>
                     <For each={workspaces.items}>
                       {(workspace) => (
-                        <Select.Item item={workspace}>
-                          <Select.ItemText>{workspace.label}</Select.ItemText>
-                          <Select.ItemIndicator />
-                        </Select.Item>
+                        <SelectItem item={workspace}>
+                          <SelectItemText>{workspace.label}</SelectItemText>
+                          <SelectItemIndicator />
+                        </SelectItem>
                       )}
                     </For>
-                  </Select.Content>
-                </Select.Positioner>
+                  </SelectContent>
+                </SelectPositioner>
               </Select>
-            </Sidebar.NavigationItem>
-          </Sidebar.NavigationList>
-        </Sidebar.Header>
-        <Sidebar.Content>
-          <Sidebar.Group>
-            <Sidebar.GroupHeader>
-              <Sidebar.GroupLabel>Workspace</Sidebar.GroupLabel>
-              <Sidebar.GroupAction aria-label="Create workspace item">
+            </SidebarNavigationItem>
+          </SidebarNavigationList>
+        </SidebarHeader>
+        <SidebarContent>
+          <SidebarGroup>
+            <SidebarGroupHeader>
+              <SidebarGroupLabel>Workspace</SidebarGroupLabel>
+              <SidebarGroupAction aria-label="Create workspace item">
                 <Plus />
-              </Sidebar.GroupAction>
-            </Sidebar.GroupHeader>
-            <Sidebar.NavigationList>
-              <Sidebar.NavigationItem>
-                <Sidebar.NavigationButton
+              </SidebarGroupAction>
+            </SidebarGroupHeader>
+            <SidebarNavigationList>
+              <SidebarNavigationItem>
+                <SidebarNavigationButton
                   active
                   asChild={(props) => <a {...props()} href="/overview" />}
                 >
                   <Gauge />
-                  <Sidebar.Label>Overview</Sidebar.Label>
-                </Sidebar.NavigationButton>
-              </Sidebar.NavigationItem>
-              <Sidebar.NavigationItem>
-                <Sidebar.NavigationButton asChild={(props) => <a {...props()} href="/calendar" />}>
+                  <SidebarLabel>Overview</SidebarLabel>
+                </SidebarNavigationButton>
+              </SidebarNavigationItem>
+              <SidebarNavigationItem>
+                <SidebarNavigationButton asChild={(props) => <a {...props()} href="/calendar" />}>
                   <CalendarDays />
-                  <Sidebar.Label>Calendar</Sidebar.Label>
-                </Sidebar.NavigationButton>
-              </Sidebar.NavigationItem>
-              <Sidebar.NavigationItem>
-                <Sidebar.NavigationButton asChild={(props) => <a {...props()} href="/team" />}>
+                  <SidebarLabel>Calendar</SidebarLabel>
+                </SidebarNavigationButton>
+              </SidebarNavigationItem>
+              <SidebarNavigationItem>
+                <SidebarNavigationButton asChild={(props) => <a {...props()} href="/team" />}>
                   <Users />
-                  <Sidebar.Label>Team</Sidebar.Label>
-                </Sidebar.NavigationButton>
-              </Sidebar.NavigationItem>
-            </Sidebar.NavigationList>
-          </Sidebar.Group>
-          <Sidebar.Group>
-            <Sidebar.GroupLabel>Library</Sidebar.GroupLabel>
-            <Sidebar.NavigationList>
-              <Sidebar.NavigationItem>
-                <Sidebar.NavigationButton asChild={(props) => <a {...props()} href="/documents" />}>
+                  <SidebarLabel>Team</SidebarLabel>
+                </SidebarNavigationButton>
+              </SidebarNavigationItem>
+            </SidebarNavigationList>
+          </SidebarGroup>
+          <SidebarGroup>
+            <SidebarGroupLabel>Library</SidebarGroupLabel>
+            <SidebarNavigationList>
+              <SidebarNavigationItem>
+                <SidebarNavigationButton asChild={(props) => <a {...props()} href="/documents" />}>
                   <FileText />
-                  <Sidebar.Label>Documents</Sidebar.Label>
-                </Sidebar.NavigationButton>
-              </Sidebar.NavigationItem>
-              <Sidebar.NavigationItem>
-                <Sidebar.NavigationButton asChild={(props) => <a {...props()} href="/analytics" />}>
+                  <SidebarLabel>Documents</SidebarLabel>
+                </SidebarNavigationButton>
+              </SidebarNavigationItem>
+              <SidebarNavigationItem>
+                <SidebarNavigationButton asChild={(props) => <a {...props()} href="/analytics" />}>
                   <BarChart3 />
-                  <Sidebar.Label>Analytics</Sidebar.Label>
-                </Sidebar.NavigationButton>
-              </Sidebar.NavigationItem>
-              <Sidebar.NavigationItem>
-                <Sidebar.NavigationButton
+                  <SidebarLabel>Analytics</SidebarLabel>
+                </SidebarNavigationButton>
+              </SidebarNavigationItem>
+              <SidebarNavigationItem>
+                <SidebarNavigationButton
                   asChild={(props) => <a {...props()} href="/notifications" />}
                 >
                   <Bell />
-                  <Sidebar.Label>Notifications</Sidebar.Label>
-                </Sidebar.NavigationButton>
-              </Sidebar.NavigationItem>
-              <Sidebar.NavigationItem>
-                <Sidebar.NavigationButton asChild={(props) => <a {...props()} href="/settings" />}>
+                  <SidebarLabel>Notifications</SidebarLabel>
+                </SidebarNavigationButton>
+              </SidebarNavigationItem>
+              <SidebarNavigationItem>
+                <SidebarNavigationButton asChild={(props) => <a {...props()} href="/settings" />}>
                   <Settings />
-                  <Sidebar.Label>Settings</Sidebar.Label>
-                </Sidebar.NavigationButton>
-              </Sidebar.NavigationItem>
-            </Sidebar.NavigationList>
-          </Sidebar.Group>
-        </Sidebar.Content>
-        <Sidebar.Footer class={styles.footer}>
-          <Sidebar.Separator />
+                  <SidebarLabel>Settings</SidebarLabel>
+                </SidebarNavigationButton>
+              </SidebarNavigationItem>
+            </SidebarNavigationList>
+          </SidebarGroup>
+        </SidebarContent>
+        <SidebarFooter class={styles.footer}>
+          <SidebarSeparator />
           <Menu positioning={{ placement: 'right-end', gutter: 8, flip: false }}>
             <MenuTrigger
               asChild={(props) => (
-                <Sidebar.NavigationButton {...props()} size="lg" aria-label="Open account menu" />
+                <SidebarNavigationButton {...props()} size="lg" aria-label="Open account menu" />
               )}
             >
               <Avatar size="sm" data-sidebar-icon>
                 <AvatarFallback>AM</AvatarFallback>
               </Avatar>
-              <Sidebar.Label class={styles.accountLabel}>
+              <SidebarLabel class={styles.accountLabel}>
                 <strong class={styles.accountName}>Alex Morgan</strong>
                 <span class={styles.accountEmail}>alex@acme.dev</span>
-              </Sidebar.Label>
+              </SidebarLabel>
             </MenuTrigger>
             <MenuPositioner>
               <MenuContent>
@@ -170,11 +198,11 @@ export default function WorkspaceSidebar() {
               </MenuContent>
             </MenuPositioner>
           </Menu>
-        </Sidebar.Footer>
-      </Sidebar.Panel>
-      <Sidebar.ResizeTrigger />
-      <Sidebar.Trigger />
-      <Sidebar.Inset>
+        </SidebarFooter>
+      </SidebarPanel>
+      <SidebarResizeTrigger />
+      <SidebarTrigger />
+      <SidebarInset>
         <header class={styles.header}>Dashboard</header>
         <main class={styles.content}>
           <strong>Acme Inc.</strong>
@@ -182,7 +210,7 @@ export default function WorkspaceSidebar() {
             Switch workspaces without changing the navigation shell.
           </section>
         </main>
-      </Sidebar.Inset>
+      </SidebarInset>
     </Sidebar>
   );
 }

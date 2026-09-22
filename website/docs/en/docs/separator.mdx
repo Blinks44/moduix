@@ -102,19 +102,19 @@ See [Quick Start](/docs/quick-start) for full package setup, registry configurat
 `Separator` exposes one root part.
 
 ```text
-Separator / Separator.Root
+Separator
 └─ root[data-scope="separator"][data-part="root"][data-slot="separator-root"]
 ```
 
-| Part                               | Role                                                                       |
-| ---------------------------------- | -------------------------------------------------------------------------- |
-| `Separator` / `Separator.Root` | Root divider element. Sets orientation, accessibility metadata, and style. |
+| Part        | Role                                                                       |
+| ----------- | -------------------------------------------------------------------------- |
+| `Separator` | Root divider element. Sets orientation, accessibility metadata, and style. |
 
 ## Composition
 
 `Separator` is a root-only component, so it does not own state or require a provider. Use
-`<Separator />` for the usual divider; it is the same root as `<Separator.Root />`. When another
-element must host the divider, use `asChild` with one child that accepts the merged role, ARIA,
+`<Separator />` for the usual divider. When another element must host the divider, use `asChild`
+with one child that accepts the merged role, ARIA,
 `data-*`, class, and ref props. React passes the child element directly, while Solid uses
 `asChild={(props) => <hr {...props()} />}`.
 

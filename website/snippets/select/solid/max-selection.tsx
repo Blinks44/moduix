@@ -1,5 +1,14 @@
 import { createListCollection } from '@ark-ui/solid/collection';
-import { Select } from '@moduix/solid/select';
+import {
+  Select,
+  SelectLabel,
+  SelectField,
+  SelectPositioner,
+  SelectContent,
+  SelectItem,
+  SelectItemText,
+  SelectItemIndicator,
+} from '@moduix/solid/select';
 import { createMemo, createSignal, For } from 'solid-js';
 
 const languages = [
@@ -31,20 +40,20 @@ export default function SelectMaxSelectionDemo() {
         if (details.value.length <= 3) setValue(details.value);
       }}
     >
-      <Select.Label>Languages</Select.Label>
-      <Select.Field placeholder="Select up to 3" clearLabel="Clear selection" />
-      <Select.Positioner>
-        <Select.Content>
+      <SelectLabel>Languages</SelectLabel>
+      <SelectField placeholder="Select up to 3" clearLabel="Clear selection" />
+      <SelectPositioner>
+        <SelectContent>
           <For each={collection().items}>
             {(item) => (
-              <Select.Item item={item}>
-                <Select.ItemText>{item.label}</Select.ItemText>
-                <Select.ItemIndicator />
-              </Select.Item>
+              <SelectItem item={item}>
+                <SelectItemText>{item.label}</SelectItemText>
+                <SelectItemIndicator />
+              </SelectItem>
             )}
           </For>
-        </Select.Content>
-      </Select.Positioner>
+        </SelectContent>
+      </SelectPositioner>
     </Select>
   );
 }

@@ -16,7 +16,7 @@ type ModuixScrollAreaRootProviderProps = ComponentProps<typeof ScrollAreaPrimiti
   variant?: 'hover' | 'always';
 };
 
-function ScrollAreaRoot(props: ModuixScrollAreaRootProps) {
+function ScrollArea(props: ModuixScrollAreaRootProps) {
   const [local, others] = splitProps(props, ['class', 'fade', 'variant']);
 
   return (
@@ -119,17 +119,18 @@ function ScrollAreaCorner(props: ComponentProps<typeof ScrollAreaPrimitive.Corne
   );
 }
 
-const ScrollArea = Object.assign(ScrollAreaRoot, {
-  Root: ScrollAreaRoot,
-  RootProvider: ScrollAreaRootProvider,
-  Context: ScrollAreaPrimitive.Context,
-  Viewport: ScrollAreaViewport,
-  Content: ScrollAreaContent,
-  Scrollbar: ScrollAreaScrollbar,
-  Thumb: ScrollAreaThumb,
-  Corner: ScrollAreaCorner,
-  useScrollArea,
-});
+const ScrollAreaContext = ScrollAreaPrimitive.Context;
 
-export { ScrollArea, useScrollArea, useScrollAreaContext };
+export {
+  ScrollArea,
+  ScrollAreaContext,
+  ScrollAreaContent,
+  ScrollAreaCorner,
+  ScrollAreaRootProvider,
+  ScrollAreaScrollbar,
+  ScrollAreaThumb,
+  ScrollAreaViewport,
+  useScrollArea,
+  useScrollAreaContext,
+};
 export type { ModuixScrollAreaRootProps, ModuixScrollAreaRootProviderProps };

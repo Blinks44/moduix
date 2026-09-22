@@ -19,7 +19,7 @@ import {
   useDialog,
   useDialogContext,
 } from '@/components/dialog/Dialog';
-import { ScrollArea } from '@/components/scroll-area/ScrollArea';
+import { ScrollArea, ScrollAreaContent, ScrollAreaCorner, ScrollAreaScrollbar, ScrollAreaThumb, ScrollAreaViewport } from '@/components/scroll-area/ScrollArea';
 import { insideScrollSections } from '../data/insideScrollSections';
 import storyStyles from './Dialog.stories.module.css';
 
@@ -185,8 +185,8 @@ export const ScrollableBody: Story = {
           </DialogHeader>
           <DialogBody class={storyStyles.scrollBody}>
             <ScrollArea class={storyStyles.scrollArea}>
-              <ScrollArea.Viewport>
-                <ScrollArea.Content>
+              <ScrollAreaViewport>
+                <ScrollAreaContent>
                   <div class={storyStyles.scrollSections}>
                     <For each={insideScrollSections}>
                       {(item) => (
@@ -197,12 +197,12 @@ export const ScrollableBody: Story = {
                       )}
                     </For>
                   </div>
-                </ScrollArea.Content>
-              </ScrollArea.Viewport>
-              <ScrollArea.Scrollbar>
-                <ScrollArea.Thumb />
-              </ScrollArea.Scrollbar>
-              <ScrollArea.Corner />
+                </ScrollAreaContent>
+              </ScrollAreaViewport>
+              <ScrollAreaScrollbar>
+                <ScrollAreaThumb />
+              </ScrollAreaScrollbar>
+              <ScrollAreaCorner />
             </ScrollArea>
           </DialogBody>
         </DialogContent>

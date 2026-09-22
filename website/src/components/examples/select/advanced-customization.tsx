@@ -1,5 +1,20 @@
 import { createListCollection } from '@ark-ui/react/collection';
-import { Select } from '@moduix/react/select';
+import {
+  Select,
+  SelectLabel,
+  SelectControl,
+  SelectTrigger,
+  SelectValueText,
+  SelectClearTrigger,
+  SelectIndicator,
+  SelectPositioner,
+  SelectContent,
+  SelectItemGroup,
+  SelectItemGroupLabel,
+  SelectItem,
+  SelectItemText,
+  SelectItemIndicator,
+} from '@moduix/react/select';
 
 const fruits = createListCollection({
   items: [
@@ -21,27 +36,27 @@ const fruits = createListCollection({
 export default function AdvancedCustomizationSelectDemo() {
   return (
     <Select collection={fruits}>
-      <Select.Label>Choose fruit</Select.Label>
-      <Select.Control>
-        <Select.Trigger>
-          <Select.ValueText placeholder="Select an option" />
-        </Select.Trigger>
-        <Select.ClearTrigger aria-label="Clear selection" />
-        <Select.Indicator />
-      </Select.Control>
-      <Select.Positioner>
-        <Select.Content>
-          <Select.ItemGroup>
-            <Select.ItemGroupLabel>Fruits</Select.ItemGroupLabel>
+      <SelectLabel>Choose fruit</SelectLabel>
+      <SelectControl>
+        <SelectTrigger>
+          <SelectValueText placeholder="Select an option" />
+        </SelectTrigger>
+        <SelectClearTrigger aria-label="Clear selection" />
+        <SelectIndicator />
+      </SelectControl>
+      <SelectPositioner>
+        <SelectContent>
+          <SelectItemGroup>
+            <SelectItemGroupLabel>Fruits</SelectItemGroupLabel>
             {fruits.items.map((item) => (
-              <Select.Item key={item.value} item={item}>
-                <Select.ItemText>{item.label}</Select.ItemText>
-                <Select.ItemIndicator />
-              </Select.Item>
+              <SelectItem key={item.value} item={item}>
+                <SelectItemText>{item.label}</SelectItemText>
+                <SelectItemIndicator />
+              </SelectItem>
             ))}
-          </Select.ItemGroup>
-        </Select.Content>
-      </Select.Positioner>
+          </SelectItemGroup>
+        </SelectContent>
+      </SelectPositioner>
     </Select>
   );
 }

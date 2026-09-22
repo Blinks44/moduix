@@ -45,9 +45,9 @@ import segmentGroupSolidVerticalOrientation from '../../../snippets/segment-grou
 
 Интерактивные
 
-Используйте `SegmentGroup` как корневой компонент, разместите `SegmentGroup.Indicator` перед
-элементами и выберите `SegmentGroup.Items`, если каждому сегменту нужна только текстовая подпись.
-`Items` создаёт для каждого элемента части item, text и control, а также одно синхронизированное
+Используйте `SegmentGroup` как корневой компонент, разместите `SegmentGroupIndicator` перед
+элементами и выберите `SegmentGroupItems`, если каждому сегменту нужна только текстовая подпись.
+`SegmentGroupItems` создаёт для каждого элемента части item, text и control, а также одно синхронизированное
 нативное поле формы.
 
 <ExampleFrame variant="component">
@@ -110,44 +110,45 @@ import segmentGroupSolidVerticalOrientation from '../../../snippets/segment-grou
 ## Анатомия
 
 ```text
-SegmentGroup / SegmentGroup.Root
-├─ SegmentGroup.Label (необязательно)
-├─ SegmentGroup.Indicator
-└─ SegmentGroup.Item[value]
-   ├─ SegmentGroup.ItemText
-   ├─ SegmentGroup.ItemControl
+SegmentGroup
+├─ SegmentGroupLabel (необязательно)
+├─ SegmentGroupIndicator
+└─ SegmentGroupItem[value]
+   ├─ SegmentGroupItemText
+   ├─ SegmentGroupItemControl
    └─ нативное поле формы
 
-SegmentGroup.RootProvider
+SegmentGroupRootProvider
 └─ то же дерево элементов, подключённое к хранилищу moduix useSegmentGroup()
 
-SegmentGroup.Context / SegmentGroup.ItemContext
+SegmentGroupContext / SegmentGroupItemContext
 └─ расширенный доступ к состоянию Ark через render prop
 ```
 
 | Часть                                 | Назначение                                                               |
 | ------------------------------------ | ------------------------------------------------------------------------ |
-| `SegmentGroup` / `SegmentGroup.Root` | Управляет выбранным значением, навигацией с клавиатуры и формами.        |
-| `SegmentGroup.ItemHiddenInput` | Нативное поле Ark; правила явной композиции описаны ниже. |
-| `SegmentGroup.RootProvider`          | Подключает части к состоянию, созданному хуком `useSegmentGroup()` из moduix. |
-| `SegmentGroup.Context`               | Даёт расширенный доступ к состоянию корневого элемента через render prop. |
-| `SegmentGroup.ItemContext`           | Даёт расширенный доступ к состоянию текущего элемента через render prop. |
-| `SegmentGroup.Label`                 | Необязательная доступная подпись группы.                                 |
-| `SegmentGroup.Indicator`             | Размещает выделение активного элемента с помощью CSS-переменных Ark.     |
-| `SegmentGroup.Items`                 | Рекомендуемый способ отрисовать стандартные текстовые сегменты.         |
-| `SegmentGroup.Item`                  | Один выбираемый сегмент; по умолчанию создаёт элемент `label`.           |
-| `SegmentGroup.ItemText`              | Видимая подпись сегмента.                                                  |
-| `SegmentGroup.ItemControl`           | Часть Ark для состояния элемента; по умолчанию скрыта стилями moduix.    |
+| `SegmentGroup` | Управляет выбранным значением, навигацией с клавиатуры и формами.        |
+| `SegmentGroupItemHiddenInput` | Нативное поле Ark; правила явной композиции описаны ниже. |
+| `SegmentGroupRootProvider`          | Подключает части к состоянию, созданному хуком `useSegmentGroup()` из moduix. |
+| `SegmentGroupContext`               | Даёт расширенный доступ к состоянию корневого элемента через render prop. |
+| `SegmentGroupItemContext`           | Даёт расширенный доступ к состоянию текущего элемента через render prop. |
+| `SegmentGroupLabel`                 | Необязательная доступная подпись группы.                                 |
+| `SegmentGroupIndicator`             | Размещает выделение активного элемента с помощью CSS-переменных Ark.     |
+| `SegmentGroupItems`                 | Рекомендуемый способ отрисовать стандартные текстовые сегменты.         |
+| `SegmentGroupItem`                  | Один выбираемый сегмент; по умолчанию создаёт элемент `label`.           |
+| `SegmentGroupItemText`              | Видимая подпись сегмента.                                                  |
+| `SegmentGroupItemControl`           | Часть Ark для состояния элемента; по умолчанию скрыта стилями moduix.    |
 
 ## Композиция
 
-Для обычной композиции используйте `SegmentGroup` с `SegmentGroup.Indicator` перед
-`SegmentGroup.Items`. `Items` добавляет к каждому элементу `ItemText`, `ItemControl` и ровно одно
-`ItemHiddenInput`. Если вы собираете `SegmentGroup.Item` напрямую, добавьте эти части самостоятельно
-и оставьте внутри каждого элемента ровно одно `ItemHiddenInput`. Прямой дочерний элемент
+Для обычной композиции используйте `SegmentGroup` с `SegmentGroupIndicator` перед
+`SegmentGroupItems`. `SegmentGroupItems` добавляет к каждому элементу `SegmentGroupItemText`,
+`SegmentGroupItemControl` и ровно одно `SegmentGroupItemHiddenInput`. Если вы собираете
+`SegmentGroupItem` напрямую, добавьте эти части самостоятельно и оставьте внутри каждого элемента
+ровно одно `SegmentGroupItemHiddenInput`. Прямой дочерний элемент
 `asChild` должен оставаться одним семантическим `label`.
 
-Используйте `SegmentGroup.RootProvider` вместе с `useSegmentGroup()`, если состояние нужно создать
+Используйте `SegmentGroupRootProvider` вместе с `useSegmentGroup()`, если состояние нужно создать
 вне дерева компонента или передать управление другой части приложения. React читает хранилище как
 объект, а Solid получает реактивное состояние через возвращаемую функцию доступа.
 
@@ -318,7 +319,7 @@ SegmentGroup.Context / SegmentGroup.ItemContext
 ### Отправка формы
 
 Передайте `name` в корневой элемент, чтобы выбранное значение попало в данные нативной формы.
-`SegmentGroup.Items` добавляет нативное поле формы в каждый созданный элемент.
+`SegmentGroupItems` добавляет нативное поле формы в каждый созданный элемент.
 
 <ExampleFrame variant="component">
   <SegmentGroupFormSubmission />
@@ -392,7 +393,7 @@ SegmentGroup.Context / SegmentGroup.ItemContext
 
 ### Root Provider
 
-Используйте `useSegmentGroup()` вместе с `RootProvider`, если элементам управления за пределами
+Используйте `useSegmentGroup()` вместе с `SegmentGroupRootProvider`, если элементам управления за пределами
 дерева сегментов нужен доступ к тому же состоянию.
 
 <ExampleFrame variant="component">
@@ -472,7 +473,7 @@ SegmentGroup.Context / SegmentGroup.ItemContext
 
 ### Расширенная настройка
 
-Используйте `SegmentGroup.Item asChild` вместо `SegmentGroup.Items`, если собственная разметка
+Используйте `SegmentGroupItem asChild` вместо `SegmentGroupItems`, если собственная разметка
 подписи должна владеть DOM-узлом элемента.
 
 <ExampleFrame variant="component">

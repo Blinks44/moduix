@@ -19,7 +19,7 @@ import {
 } from '@/lib/moduix/overlayPortal';
 import closeButtonStyles from '../close-button/CloseButton.module.css';
 import { Kbd } from '../kbd';
-import { ScrollArea } from '../scroll-area';
+import { ScrollArea, ScrollAreaContent, ScrollAreaViewport } from '../scroll-area';
 import styles from './CommandPalette.module.css';
 
 const DEFAULT_CLEAR_TRIGGER_LABEL = 'Clear search';
@@ -369,17 +369,17 @@ function CommandPaletteList(props: ComponentProps<typeof ComboboxPrimitive.Conte
       data-slot="command-palette-list"
     >
       <ScrollArea data-slot="command-palette-scroll-area" class={styles.scrollArea}>
-        <ScrollArea.Viewport
+        <ScrollAreaViewport
           data-slot="command-palette-scroll-viewport"
           class={styles.scrollViewport}
         >
-          <ScrollArea.Content
+          <ScrollAreaContent
             data-slot="command-palette-scroll-content"
             class={styles.scrollContent}
           >
             {local.children}
-          </ScrollArea.Content>
-        </ScrollArea.Viewport>
+          </ScrollAreaContent>
+        </ScrollAreaViewport>
       </ScrollArea>
     </ComboboxPrimitive.Content>
   );

@@ -43,9 +43,9 @@ Use `SegmentGroup` when users choose one value from a small set that is visible 
 ## Basic
 
 
-Use `SegmentGroup` as the root, place `SegmentGroup.Indicator` before the items, and use
-`SegmentGroup.Items` when every segment only needs a text label. `Items` creates the item, text,
-control, and one synchronized native form input for every entry.
+Use `SegmentGroup` as the root, place `SegmentGroupIndicator` before the items, and use
+`SegmentGroupItems` when every segment only needs a text label. `SegmentGroupItems` creates the item,
+text, control, and one synchronized native form input for every entry.
 
 <ExampleFrame variant="component">
   <SegmentGroupBasic />
@@ -107,41 +107,41 @@ See [Quick Start](/docs/quick-start) for full package setup, registry configurat
 ## Anatomy
 
 ```text
-SegmentGroup / SegmentGroup.Root
-├─ SegmentGroup.Label (optional)
-├─ SegmentGroup.Indicator
-└─ SegmentGroup.Item[value]
-   ├─ SegmentGroup.ItemText
-   ├─ SegmentGroup.ItemControl
+SegmentGroup
+├─ SegmentGroupLabel (optional)
+├─ SegmentGroupIndicator
+└─ SegmentGroupItem[value]
+   ├─ SegmentGroupItemText
+   ├─ SegmentGroupItemControl
    └─ the native form input
 
-SegmentGroup.RootProvider
+SegmentGroupRootProvider
 └─ the same item tree connected to a useSegmentGroup() store
 ```
 
 | Part | Role |
 | ---- | ---- |
-| `SegmentGroup` / `SegmentGroup.Root` | Root part that owns the selected value, keyboard navigation, and form integration. |
-| `SegmentGroup.RootProvider` | Connects the parts to state created with `useSegmentGroup()`. |
-| `SegmentGroup.Context` | Render-prop access to the root state for advanced composition. |
-| `SegmentGroup.ItemContext` | Render-prop access to the item state for advanced composition. |
-| `SegmentGroup.Item` | One selectable segment with a required `value`. |
-| `SegmentGroup.ItemHiddenInput` | Native Ark form control for an explicit item composition. |
-| `SegmentGroup.ItemText` | Visible text for a segment. |
-| `SegmentGroup.ItemControl` | Ark control part used for item state and hidden by moduix styles. |
-| `SegmentGroup.Items` | Renderer for standard text segments with the native input included. |
-| `SegmentGroup.Indicator` | Positions the active-item highlight using Ark CSS variables. |
-| `SegmentGroup.Label` | Optional accessible label for the group. |
+| `SegmentGroup` | Root part that owns the selected value, keyboard navigation, and form integration. |
+| `SegmentGroupRootProvider` | Connects the parts to state created with `useSegmentGroup()`. |
+| `SegmentGroupContext` | Render-prop access to the root state for advanced composition. |
+| `SegmentGroupItemContext` | Render-prop access to the item state for advanced composition. |
+| `SegmentGroupItem` | One selectable segment with a required `value`. |
+| `SegmentGroupItemHiddenInput` | Native Ark form control for an explicit item composition. |
+| `SegmentGroupItemText` | Visible text for a segment. |
+| `SegmentGroupItemControl` | Ark control part used for item state and hidden by moduix styles. |
+| `SegmentGroupItems` | Renderer for standard text segments with the native input included. |
+| `SegmentGroupIndicator` | Positions the active-item highlight using Ark CSS variables. |
+| `SegmentGroupLabel` | Optional accessible label for the group. |
 
 ## Composition
 
-Use `SegmentGroup` with `SegmentGroup.Indicator` before `SegmentGroup.Items` for the usual
-composition. `Items` includes `ItemText`, `ItemControl`, and exactly one
-`ItemHiddenInput` for every item. When rendering `SegmentGroup.Item` directly, compose those
-parts yourself and keep exactly one `ItemHiddenInput` inside each item. The direct child of
+Use `SegmentGroup` with `SegmentGroupIndicator` before `SegmentGroupItems` for the usual
+composition. `SegmentGroupItems` includes `SegmentGroupItemText`, `SegmentGroupItemControl`, and
+exactly one `SegmentGroupItemHiddenInput` for every item. When rendering `SegmentGroupItem` directly,
+compose those parts yourself and keep exactly one `SegmentGroupItemHiddenInput` inside each item. The direct child of
 `asChild` must remain one semantic `label`.
 
-Use `SegmentGroup.RootProvider` with `useSegmentGroup()` when the state must be created outside
+Use `SegmentGroupRootProvider` with `useSegmentGroup()` when the state must be created outside
 the rendered tree or controlled by another part of the application. React reads the store as an
 object, while Solid reads its reactive state through the returned accessor.
 
@@ -309,7 +309,7 @@ Ark inherits the field's disabled, invalid, required, and read-only state.
 
 ### Form Submission
 
-Pass `name` to the root to include the selected value in native form data. `SegmentGroup.Items`
+Pass `name` to the root to include the selected value in native form data. `SegmentGroupItems`
 adds a native form input to every generated item.
 
 <ExampleFrame variant="component">
@@ -384,7 +384,7 @@ group participates in native form validation.
 
 ### Root Provider
 
-Use `useSegmentGroup()` with `RootProvider` when controls outside the segment tree need access
+Use `useSegmentGroup()` with `SegmentGroupRootProvider` when controls outside the segment tree need access
 to the same state.
 
 <ExampleFrame variant="component">
@@ -464,7 +464,7 @@ navigation.
 
 ### Advanced Customization
 
-Use `SegmentGroup.Item asChild` instead of `SegmentGroup.Items` when a custom label layout should
+Use `SegmentGroupItem asChild` instead of `SegmentGroupItems` when a custom label layout should
 own the item's DOM node.
 
 <ExampleFrame variant="component">

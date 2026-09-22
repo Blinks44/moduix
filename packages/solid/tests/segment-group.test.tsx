@@ -1,7 +1,19 @@
 import { expect, test } from '@rstest/core';
 import { fireEvent, render, screen, waitFor } from '@solidjs/testing-library';
 import { createSignal } from 'solid-js';
-import { Field, Fieldset, SegmentGroup, useSegmentGroup } from '../src';
+import {
+  Field,
+  Fieldset,
+  SegmentGroup,
+  SegmentGroupIndicator,
+  SegmentGroupItem,
+  SegmentGroupItemControl,
+  SegmentGroupItemHiddenInput,
+  SegmentGroupItemText,
+  SegmentGroupItems,
+  SegmentGroupRootProvider,
+  useSegmentGroup,
+} from '../src';
 
 const frameworks = ['React', 'Solid', 'Vue'];
 const frameworkItems = frameworks.map((value) => ({ value, label: value }));
@@ -9,8 +21,8 @@ const frameworkItems = frameworks.map((value) => ({ value, label: value }));
 function SegmentItems() {
   return (
     <>
-      <SegmentGroup.Indicator />
-      <SegmentGroup.Items items={frameworkItems} />
+      <SegmentGroupIndicator />
+      <SegmentGroupItems items={frameworkItems} />
     </>
   );
 }
@@ -29,9 +41,9 @@ function ProviderSegmentGroup() {
   const segmentGroup = useSegmentGroup({ defaultValue: 'Solid' });
 
   return (
-    <SegmentGroup.RootProvider value={segmentGroup}>
+    <SegmentGroupRootProvider value={segmentGroup}>
       <SegmentItems />
-    </SegmentGroup.RootProvider>
+    </SegmentGroupRootProvider>
   );
 }
 
@@ -59,16 +71,16 @@ test('submits through explicit Ark item inputs', async () => {
 test('keeps asChild composition semantic with an explicit item input', () => {
   render(() => (
     <SegmentGroup defaultValue="React">
-      <SegmentGroup.Item
+      <SegmentGroupItem
         asChild={(props) => <label data-testid="custom-item" {...props()} />}
         value="React"
       >
         <>
-          <SegmentGroup.ItemControl />
-          <SegmentGroup.ItemHiddenInput />
-          <SegmentGroup.ItemText>React</SegmentGroup.ItemText>
+          <SegmentGroupItemControl />
+          <SegmentGroupItemHiddenInput />
+          <SegmentGroupItemText>React</SegmentGroupItemText>
         </>
-      </SegmentGroup.Item>
+      </SegmentGroupItem>
     </SegmentGroup>
   ));
 
@@ -80,27 +92,27 @@ test('keeps asChild composition semantic with an explicit item input', () => {
 test('keeps asChild item state reactive after selection changes', async () => {
   render(() => (
     <SegmentGroup defaultValue="Monthly">
-      <SegmentGroup.Indicator data-testid="indicator" />
-      <SegmentGroup.Item
+      <SegmentGroupIndicator data-testid="indicator" />
+      <SegmentGroupItem
         value="Monthly"
         asChild={(props) => <label data-testid="monthly" {...props()} />}
       >
         <>
-          <SegmentGroup.ItemText>Monthly</SegmentGroup.ItemText>
-          <SegmentGroup.ItemControl />
-          <SegmentGroup.ItemHiddenInput />
+          <SegmentGroupItemText>Monthly</SegmentGroupItemText>
+          <SegmentGroupItemControl />
+          <SegmentGroupItemHiddenInput />
         </>
-      </SegmentGroup.Item>
-      <SegmentGroup.Item
+      </SegmentGroupItem>
+      <SegmentGroupItem
         value="Annual"
         asChild={(props) => <label data-testid="annual" {...props()} />}
       >
         <>
-          <SegmentGroup.ItemText>Annual</SegmentGroup.ItemText>
-          <SegmentGroup.ItemControl />
-          <SegmentGroup.ItemHiddenInput />
+          <SegmentGroupItemText>Annual</SegmentGroupItemText>
+          <SegmentGroupItemControl />
+          <SegmentGroupItemHiddenInput />
         </>
-      </SegmentGroup.Item>
+      </SegmentGroupItem>
     </SegmentGroup>
   ));
 
@@ -133,17 +145,17 @@ test('does not forward refs through native Ark Solid asChild composition', () =>
 
   render(() => (
     <SegmentGroup>
-      <SegmentGroup.Item
+      <SegmentGroupItem
         ref={(element) => (itemRef = element)}
         asChild={(props) => <label {...props()} />}
         value="React"
       >
         <>
-          <SegmentGroup.ItemControl />
-          <SegmentGroup.ItemHiddenInput />
-          <SegmentGroup.ItemText>React</SegmentGroup.ItemText>
+          <SegmentGroupItemControl />
+          <SegmentGroupItemHiddenInput />
+          <SegmentGroupItemText>React</SegmentGroupItemText>
         </>
-      </SegmentGroup.Item>
+      </SegmentGroupItem>
     </SegmentGroup>
   ));
 
@@ -172,22 +184,22 @@ test('preserves Ark value change callback details', async () => {
 test('preserves native radio semantics and disabled items', async () => {
   render(() => (
     <SegmentGroup defaultValue="React" name="framework">
-      <SegmentGroup.Indicator />
-      <SegmentGroup.Item value="React">
-        <SegmentGroup.ItemText>React</SegmentGroup.ItemText>
-        <SegmentGroup.ItemControl />
-        <SegmentGroup.ItemHiddenInput />
-      </SegmentGroup.Item>
-      <SegmentGroup.Item value="Solid" disabled>
-        <SegmentGroup.ItemText>Solid</SegmentGroup.ItemText>
-        <SegmentGroup.ItemControl />
-        <SegmentGroup.ItemHiddenInput />
-      </SegmentGroup.Item>
-      <SegmentGroup.Item value="Vue">
-        <SegmentGroup.ItemText>Vue</SegmentGroup.ItemText>
-        <SegmentGroup.ItemControl />
-        <SegmentGroup.ItemHiddenInput />
-      </SegmentGroup.Item>
+      <SegmentGroupIndicator />
+      <SegmentGroupItem value="React">
+        <SegmentGroupItemText>React</SegmentGroupItemText>
+        <SegmentGroupItemControl />
+        <SegmentGroupItemHiddenInput />
+      </SegmentGroupItem>
+      <SegmentGroupItem value="Solid" disabled>
+        <SegmentGroupItemText>Solid</SegmentGroupItemText>
+        <SegmentGroupItemControl />
+        <SegmentGroupItemHiddenInput />
+      </SegmentGroupItem>
+      <SegmentGroupItem value="Vue">
+        <SegmentGroupItemText>Vue</SegmentGroupItemText>
+        <SegmentGroupItemControl />
+        <SegmentGroupItemHiddenInput />
+      </SegmentGroupItem>
     </SegmentGroup>
   ));
 
@@ -227,12 +239,12 @@ test('forwards refs through the root, item, and indicator wrappers', () => {
 
   render(() => (
     <SegmentGroup ref={(element) => (rootRef = element)} defaultValue="React">
-      <SegmentGroup.Indicator ref={(element) => (indicatorRef = element)} />
-      <SegmentGroup.Item ref={(element) => (itemRef = element)} value="React">
-        <SegmentGroup.ItemText>React</SegmentGroup.ItemText>
-        <SegmentGroup.ItemControl />
-        <SegmentGroup.ItemHiddenInput />
-      </SegmentGroup.Item>
+      <SegmentGroupIndicator ref={(element) => (indicatorRef = element)} />
+      <SegmentGroupItem ref={(element) => (itemRef = element)} value="React">
+        <SegmentGroupItemText>React</SegmentGroupItemText>
+        <SegmentGroupItemControl />
+        <SegmentGroupItemHiddenInput />
+      </SegmentGroupItem>
     </SegmentGroup>
   ));
 
@@ -273,11 +285,11 @@ test('inherits Field state on Ark item parts', () => {
   render(() => (
     <Field disabled invalid readOnly required>
       <SegmentGroup defaultValue="React">
-        <SegmentGroup.Item value="React">
-          <SegmentGroup.ItemControl data-testid="invalid-control" />
-          <SegmentGroup.ItemHiddenInput />
-          <SegmentGroup.ItemText>React</SegmentGroup.ItemText>
-        </SegmentGroup.Item>
+        <SegmentGroupItem value="React">
+          <SegmentGroupItemControl data-testid="invalid-control" />
+          <SegmentGroupItemHiddenInput />
+          <SegmentGroupItemText>React</SegmentGroupItemText>
+        </SegmentGroupItem>
       </SegmentGroup>
     </Field>
   ));
@@ -290,11 +302,11 @@ test('inherits Fieldset disabled and invalid state', () => {
   render(() => (
     <Fieldset disabled invalid>
       <SegmentGroup defaultValue="React">
-        <SegmentGroup.Item value="React">
-          <SegmentGroup.ItemControl data-testid="fieldset-invalid-control" />
-          <SegmentGroup.ItemHiddenInput />
-          <SegmentGroup.ItemText>React</SegmentGroup.ItemText>
-        </SegmentGroup.Item>
+        <SegmentGroupItem value="React">
+          <SegmentGroupItemControl data-testid="fieldset-invalid-control" />
+          <SegmentGroupItemHiddenInput />
+          <SegmentGroupItemText>React</SegmentGroupItemText>
+        </SegmentGroupItem>
       </SegmentGroup>
     </Fieldset>
   ));

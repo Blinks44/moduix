@@ -1,5 +1,18 @@
 import { createListCollection } from '@ark-ui/react/collection';
-import { Select } from '@moduix/react/select';
+import {
+  Select,
+  SelectLabel,
+  SelectControl,
+  SelectTrigger,
+  SelectValueText,
+  SelectIndicator,
+  SelectClearTrigger,
+  SelectPositioner,
+  SelectContent,
+  SelectItem,
+  SelectItemText,
+  SelectItemIndicator,
+} from '@moduix/react/select';
 
 const languages = createListCollection({
   items: [
@@ -33,24 +46,24 @@ const languages = createListCollection({
 export default function SelectMultipleDemo() {
   return (
     <Select collection={languages} multiple defaultValue={['javascript', 'typescript']}>
-      <Select.Label>Languages</Select.Label>
-      <Select.Control>
-        <Select.Trigger>
-          <Select.ValueText placeholder="Select languages" />
-        </Select.Trigger>
-        <Select.Indicator />
-        <Select.ClearTrigger aria-label="Clear selection" />
-      </Select.Control>
-      <Select.Positioner>
-        <Select.Content>
+      <SelectLabel>Languages</SelectLabel>
+      <SelectControl>
+        <SelectTrigger>
+          <SelectValueText placeholder="Select languages" />
+        </SelectTrigger>
+        <SelectIndicator />
+        <SelectClearTrigger aria-label="Clear selection" />
+      </SelectControl>
+      <SelectPositioner>
+        <SelectContent>
           {languages.items.map((item) => (
-            <Select.Item key={item.value} item={item}>
-              <Select.ItemText>{item.label}</Select.ItemText>
-              <Select.ItemIndicator />
-            </Select.Item>
+            <SelectItem key={item.value} item={item}>
+              <SelectItemText>{item.label}</SelectItemText>
+              <SelectItemIndicator />
+            </SelectItem>
           ))}
-        </Select.Content>
-      </Select.Positioner>
+        </SelectContent>
+      </SelectPositioner>
     </Select>
   );
 }

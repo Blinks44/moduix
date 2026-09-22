@@ -3,12 +3,17 @@
   "name": "separator",
   "title": "Separator",
   "description": "moduix Solid Separator component.",
-  "dependencies": ["@ark-ui/solid", "clsx"],
-  "registryDependencies": ["@moduix-solid/foundation"],
+  "dependencies": [
+    "@ark-ui/solid",
+    "clsx"
+  ],
+  "registryDependencies": [
+    "@moduix-solid/foundation"
+  ],
   "files": [
     {
       "path": "src/components/separator/Separator.tsx",
-      "content": "import type { HTMLArkProps } from '@ark-ui/solid/factory';\nimport { ark } from '@ark-ui/solid/factory';\nimport { clsx } from 'clsx';\nimport { splitProps } from 'solid-js';\nimport styles from './Separator.module.css';\n\ntype SeparatorRootProps = HTMLArkProps<'span'> & {\n  orientation?: 'horizontal' | 'vertical';\n  size?: 'xs' | 'sm' | 'md' | 'lg';\n  variant?: 'solid' | 'dashed' | 'dotted';\n  'data-scope'?: string;\n  'data-part'?: string;\n  'data-slot'?: string;\n  'data-orientation'?: string;\n  'data-size'?: string;\n  'data-variant'?: string;\n};\n\nfunction SeparatorRoot(props: SeparatorRootProps) {\n  const [local, others] = splitProps(props, [\n    'aria-orientation',\n    'asChild',\n    'class',\n    'data-orientation',\n    'data-part',\n    'data-scope',\n    'data-size',\n    'data-slot',\n    'data-variant',\n    'orientation',\n    'role',\n    'size',\n    'variant',\n  ]);\n  const orientation = () => local.orientation ?? 'horizontal';\n  const role = () => local.role ?? 'separator';\n\n  return (\n    <ark.span\n      asChild={local.asChild}\n      {...others}\n      role={role()}\n      aria-orientation={role() === 'separator' ? orientation() : undefined}\n      data-scope=\"separator\"\n      data-part=\"root\"\n      data-slot=\"separator-root\"\n      data-orientation={orientation()}\n      data-size={local.size ?? 'sm'}\n      data-variant={local.variant ?? 'solid'}\n      class={clsx(styles.root, local.class)}\n    />\n  );\n}\n\nconst Separator = Object.assign(SeparatorRoot, {\n  Root: SeparatorRoot,\n});\n\nexport { Separator };",
+      "content": "import type { HTMLArkProps } from '@ark-ui/solid/factory';\nimport { ark } from '@ark-ui/solid/factory';\nimport { clsx } from 'clsx';\nimport { splitProps } from 'solid-js';\nimport styles from './Separator.module.css';\n\ntype SeparatorProps = HTMLArkProps<'span'> & {\n  orientation?: 'horizontal' | 'vertical';\n  size?: 'xs' | 'sm' | 'md' | 'lg';\n  variant?: 'solid' | 'dashed' | 'dotted';\n  'data-scope'?: string;\n  'data-part'?: string;\n  'data-slot'?: string;\n  'data-orientation'?: string;\n  'data-size'?: string;\n  'data-variant'?: string;\n};\n\nfunction Separator(props: SeparatorProps) {\n  const [local, others] = splitProps(props, [\n    'aria-orientation',\n    'asChild',\n    'class',\n    'data-orientation',\n    'data-part',\n    'data-scope',\n    'data-size',\n    'data-slot',\n    'data-variant',\n    'orientation',\n    'role',\n    'size',\n    'variant',\n  ]);\n  const orientation = () => local.orientation ?? 'horizontal';\n  const role = () => local.role ?? 'separator';\n\n  return (\n    <ark.span\n      asChild={local.asChild}\n      {...others}\n      role={role()}\n      aria-orientation={role() === 'separator' ? orientation() : undefined}\n      data-scope=\"separator\"\n      data-part=\"root\"\n      data-slot=\"separator-root\"\n      data-orientation={orientation()}\n      data-size={local.size ?? 'sm'}\n      data-variant={local.variant ?? 'solid'}\n      class={clsx(styles.root, local.class)}\n    />\n  );\n}\n\nexport { Separator };\n",
       "type": "registry:component",
       "target": "@components/ui/separator/Separator.tsx"
     },

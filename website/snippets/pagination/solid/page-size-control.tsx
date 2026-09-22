@@ -6,7 +6,19 @@ import {
   PaginationNextTrigger,
   PaginationPrevTrigger,
 } from '@moduix/solid/pagination';
-import { Select } from '@moduix/solid/select';
+import {
+  Select,
+  SelectLabel,
+  SelectControl,
+  SelectTrigger,
+  SelectValueText,
+  SelectIndicator,
+  SelectPositioner,
+  SelectContent,
+  SelectItem,
+  SelectItemText,
+  SelectItemIndicator,
+} from '@moduix/solid/select';
 import { For } from 'solid-js';
 import styles from '@/components/examples/pagination/pagination-page-size-control.module.css';
 
@@ -36,25 +48,25 @@ export default function PaginationPageSizeControlDemo() {
                   if (nextValue) pagination().setPageSize(Number(nextValue));
                 }}
               >
-                <Select.Label>Items per page</Select.Label>
-                <Select.Control>
-                  <Select.Trigger>
-                    <Select.ValueText placeholder="Page size" />
-                  </Select.Trigger>
-                  <Select.Indicator />
-                </Select.Control>
-                <Select.Positioner>
-                  <Select.Content>
+                <SelectLabel>Items per page</SelectLabel>
+                <SelectControl>
+                  <SelectTrigger>
+                    <SelectValueText placeholder="Page size" />
+                  </SelectTrigger>
+                  <SelectIndicator />
+                </SelectControl>
+                <SelectPositioner>
+                  <SelectContent>
                     <For each={pageSizes.items}>
                       {(item) => (
-                        <Select.Item item={item}>
-                          <Select.ItemText>{item.label}</Select.ItemText>
-                          <Select.ItemIndicator />
-                        </Select.Item>
+                        <SelectItem item={item}>
+                          <SelectItemText>{item.label}</SelectItemText>
+                          <SelectItemIndicator />
+                        </SelectItem>
                       )}
                     </For>
-                  </Select.Content>
-                </Select.Positioner>
+                  </SelectContent>
+                </SelectPositioner>
               </Select>
             </div>
             <div class={styles.row}>

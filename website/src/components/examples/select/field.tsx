@@ -1,6 +1,20 @@
 import { createListCollection } from '@ark-ui/react/collection';
 import { Field, FieldHelperText } from '@moduix/react/field';
-import { Select } from '@moduix/react/select';
+import {
+  Select,
+  SelectLabel,
+  SelectControl,
+  SelectTrigger,
+  SelectValueText,
+  SelectClearTrigger,
+  SelectIndicator,
+  SelectPositioner,
+  SelectContent,
+  SelectItem,
+  SelectItemText,
+  SelectItemIndicator,
+  SelectHiddenSelect,
+} from '@moduix/react/select';
 import styles from '@/components/examples/select/select-field.module.css';
 
 const frameworks = createListCollection({
@@ -29,25 +43,25 @@ export default function SelectFieldDemo() {
   return (
     <Field className={styles.root} required>
       <Select collection={frameworks} name="framework">
-        <Select.Label>Framework</Select.Label>
-        <Select.Control>
-          <Select.Trigger>
-            <Select.ValueText placeholder="Select framework" />
-          </Select.Trigger>
-          <Select.ClearTrigger aria-label="Clear selection" />
-          <Select.Indicator />
-        </Select.Control>
-        <Select.Positioner>
-          <Select.Content>
+        <SelectLabel>Framework</SelectLabel>
+        <SelectControl>
+          <SelectTrigger>
+            <SelectValueText placeholder="Select framework" />
+          </SelectTrigger>
+          <SelectClearTrigger aria-label="Clear selection" />
+          <SelectIndicator />
+        </SelectControl>
+        <SelectPositioner>
+          <SelectContent>
             {frameworks.items.map((item) => (
-              <Select.Item key={item.value} item={item}>
-                <Select.ItemText>{item.label}</Select.ItemText>
-                <Select.ItemIndicator />
-              </Select.Item>
+              <SelectItem key={item.value} item={item}>
+                <SelectItemText>{item.label}</SelectItemText>
+                <SelectItemIndicator />
+              </SelectItem>
             ))}
-          </Select.Content>
-        </Select.Positioner>
-        <Select.HiddenSelect />
+          </SelectContent>
+        </SelectPositioner>
+        <SelectHiddenSelect />
       </Select>
       <FieldHelperText>Pick the framework used by this project.</FieldHelperText>
     </Field>

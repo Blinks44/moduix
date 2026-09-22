@@ -19,7 +19,7 @@ import {
   useDialog,
   useDialogContext,
 } from '@/components/dialog/Dialog';
-import { ScrollArea } from '@/components/scroll-area/ScrollArea';
+import { ScrollArea, ScrollAreaContent, ScrollAreaCorner, ScrollAreaScrollbar, ScrollAreaThumb, ScrollAreaViewport } from '@/components/scroll-area/ScrollArea';
 import { insideScrollSections } from '../data/insideScrollSections';
 
 const meta = {
@@ -184,8 +184,8 @@ export const ScrollableBody: Story = {
           </DialogHeader>
           <DialogBody class="min-h-0 flex-1 overflow-hidden">
             <ScrollArea class="h-full min-h-0">
-              <ScrollArea.Viewport>
-                <ScrollArea.Content>
+              <ScrollAreaViewport>
+                <ScrollAreaContent>
                   <div class="flex flex-col gap-5">
                     <For each={insideScrollSections}>
                       {(item) => (
@@ -196,12 +196,12 @@ export const ScrollableBody: Story = {
                       )}
                     </For>
                   </div>
-                </ScrollArea.Content>
-              </ScrollArea.Viewport>
-              <ScrollArea.Scrollbar>
-                <ScrollArea.Thumb />
-              </ScrollArea.Scrollbar>
-              <ScrollArea.Corner />
+                </ScrollAreaContent>
+              </ScrollAreaViewport>
+              <ScrollAreaScrollbar>
+                <ScrollAreaThumb />
+              </ScrollAreaScrollbar>
+              <ScrollAreaCorner />
             </ScrollArea>
           </DialogBody>
         </DialogContent>

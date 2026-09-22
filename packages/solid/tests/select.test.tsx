@@ -1,7 +1,21 @@
 import { createListCollection } from '@ark-ui/solid/collection';
 import { expect, test } from '@rstest/core';
 import { fireEvent, render, screen, waitFor } from '@solidjs/testing-library';
-import { Field, Select, useSelect, useSelectContext } from '../src';
+import {
+  Field,
+  Select,
+  useSelect,
+  useSelectContext,
+  SelectLabel,
+  SelectField,
+  SelectPositioner,
+  SelectContent,
+  SelectItem,
+  SelectItemText,
+  SelectItemIndicator,
+  SelectHiddenSelect,
+  SelectRootProvider,
+} from '../src';
 
 const fruits = createListCollection({
   items: [
@@ -19,19 +33,19 @@ function FruitSelect(props: { defaultOpen?: boolean; defaultValue?: string[] }) 
       name="fruit"
       portalled={false}
     >
-      <Select.Label>Fruit</Select.Label>
-      <Select.Field placeholder="Select fruit" clearLabel="Clear fruit" />
-      <Select.Positioner>
-        <Select.Content>
+      <SelectLabel>Fruit</SelectLabel>
+      <SelectField placeholder="Select fruit" clearLabel="Clear fruit" />
+      <SelectPositioner>
+        <SelectContent>
           {fruits.items.map((item) => (
-            <Select.Item item={item}>
-              <Select.ItemText>{item.label}</Select.ItemText>
-              <Select.ItemIndicator />
-            </Select.Item>
+            <SelectItem item={item}>
+              <SelectItemText>{item.label}</SelectItemText>
+              <SelectItemIndicator />
+            </SelectItem>
           ))}
-        </Select.Content>
-      </Select.Positioner>
-      <Select.HiddenSelect />
+        </SelectContent>
+      </SelectPositioner>
+      <SelectHiddenSelect />
     </Select>
   );
 }
@@ -90,17 +104,17 @@ test('portals popup content by default and forwards root and field refs', () => 
   let fieldRef!: HTMLDivElement;
   const { container } = render(() => (
     <Select ref={(element) => (rootRef = element)} collection={fruits} defaultOpen>
-      <Select.Label>Portalled fruit</Select.Label>
-      <Select.Field ref={(element) => (fieldRef = element)} placeholder="Select fruit" />
-      <Select.Positioner>
-        <Select.Content>
+      <SelectLabel>Portalled fruit</SelectLabel>
+      <SelectField ref={(element) => (fieldRef = element)} placeholder="Select fruit" />
+      <SelectPositioner>
+        <SelectContent>
           {fruits.items.map((item) => (
-            <Select.Item item={item}>
-              <Select.ItemText>{item.label}</Select.ItemText>
-            </Select.Item>
+            <SelectItem item={item}>
+              <SelectItemText>{item.label}</SelectItemText>
+            </SelectItem>
           ))}
-        </Select.Content>
-      </Select.Positioner>
+        </SelectContent>
+      </SelectPositioner>
     </Select>
   ));
 
@@ -163,11 +177,11 @@ test('exposes RootProvider state through the moduix context hook', () => {
     const select = useSelect({ collection: fruits, defaultValue: ['mango'] });
 
     return (
-      <Select.RootProvider value={select} portalled={false}>
-        <Select.Label>Provider fruit</Select.Label>
-        <Select.Field placeholder="Select fruit" />
+      <SelectRootProvider value={select} portalled={false}>
+        <SelectLabel>Provider fruit</SelectLabel>
+        <SelectField placeholder="Select fruit" />
         <ContextValue />
-      </Select.RootProvider>
+      </SelectRootProvider>
     );
   }
 
@@ -185,9 +199,9 @@ test('preserves native asChild composition and its Ark Solid ref limitation', ()
       asChild={(props) => <section {...props()} aria-label="Fruit selection" />}
       collection={fruits}
     >
-      <Select.Label>Fruit</Select.Label>
-      <Select.Field placeholder="Select fruit" />
-      <Select.HiddenSelect />
+      <SelectLabel>Fruit</SelectLabel>
+      <SelectField placeholder="Select fruit" />
+      <SelectHiddenSelect />
     </Select>
   ));
 

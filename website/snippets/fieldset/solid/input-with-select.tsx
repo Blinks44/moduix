@@ -2,7 +2,20 @@ import { createListCollection } from '@ark-ui/solid/collection';
 import { Field, FieldLabel } from '@moduix/solid/field';
 import { Fieldset, FieldsetHelperText, FieldsetLegend } from '@moduix/solid/fieldset';
 import { Input } from '@moduix/solid/input';
-import { Select } from '@moduix/solid/select';
+import {
+  Select,
+  SelectLabel,
+  SelectControl,
+  SelectTrigger,
+  SelectValueText,
+  SelectIndicator,
+  SelectPositioner,
+  SelectContent,
+  SelectItem,
+  SelectItemText,
+  SelectItemIndicator,
+  SelectHiddenSelect,
+} from '@moduix/solid/select';
 import { For } from 'solid-js';
 import styles from '@/components/examples/fieldset/fieldset-input-with-select.module.css';
 
@@ -38,26 +51,26 @@ export default function PhoneInput() {
           defaultValue={['+1']}
           name="countryCode"
         >
-          <Select.Label>Code</Select.Label>
-          <Select.Control>
-            <Select.Trigger>
-              <Select.ValueText />
-            </Select.Trigger>
-            <Select.Indicator />
-          </Select.Control>
-          <Select.Positioner>
-            <Select.Content>
+          <SelectLabel>Code</SelectLabel>
+          <SelectControl>
+            <SelectTrigger>
+              <SelectValueText />
+            </SelectTrigger>
+            <SelectIndicator />
+          </SelectControl>
+          <SelectPositioner>
+            <SelectContent>
               <For each={countryCodes.items}>
                 {(item) => (
-                  <Select.Item item={item}>
-                    <Select.ItemText>{item.label}</Select.ItemText>
-                    <Select.ItemIndicator />
-                  </Select.Item>
+                  <SelectItem item={item}>
+                    <SelectItemText>{item.label}</SelectItemText>
+                    <SelectItemIndicator />
+                  </SelectItem>
                 )}
               </For>
-            </Select.Content>
-          </Select.Positioner>
-          <Select.HiddenSelect />
+            </SelectContent>
+          </SelectPositioner>
+          <SelectHiddenSelect />
         </Select>
         <Field>
           <FieldLabel>Phone</FieldLabel>

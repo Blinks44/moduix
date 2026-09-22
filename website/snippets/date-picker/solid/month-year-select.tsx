@@ -13,7 +13,19 @@ import {
   DatePickerNextTrigger,
   DatePickerDayTable,
 } from '@moduix/solid/date-picker';
-import { Select } from '@moduix/solid/select';
+import {
+  Select,
+  SelectControl,
+  SelectTrigger,
+  SelectValueText,
+  SelectIndicator,
+  SelectPositioner,
+  SelectContent,
+  SelectList,
+  SelectItem,
+  SelectItemText,
+  SelectItemIndicator,
+} from '@moduix/solid/select';
 import { For, createMemo } from 'solid-js';
 
 type SelectItem = {
@@ -70,26 +82,26 @@ export default function MonthYearSelectDatePickerDemo() {
                           datePicker().setFocusedValue(datePicker().focusedValue.set({ month }));
                       }}
                     >
-                      <Select.Control>
-                        <Select.Trigger>
-                          <Select.ValueText />
-                        </Select.Trigger>
-                        <Select.Indicator />
-                      </Select.Control>
-                      <Select.Positioner>
-                        <Select.Content>
-                          <Select.List>
+                      <SelectControl>
+                        <SelectTrigger>
+                          <SelectValueText />
+                        </SelectTrigger>
+                        <SelectIndicator />
+                      </SelectControl>
+                      <SelectPositioner>
+                        <SelectContent>
+                          <SelectList>
                             <For each={monthItems}>
                               {(item) => (
-                                <Select.Item item={item}>
-                                  <Select.ItemText>{item.label}</Select.ItemText>
-                                  <Select.ItemIndicator />
-                                </Select.Item>
+                                <SelectItem item={item}>
+                                  <SelectItemText>{item.label}</SelectItemText>
+                                  <SelectItemIndicator />
+                                </SelectItem>
                               )}
                             </For>
-                          </Select.List>
-                        </Select.Content>
-                      </Select.Positioner>
+                          </SelectList>
+                        </SelectContent>
+                      </SelectPositioner>
                     </Select>
                     <Select
                       collection={yearCollection()}
@@ -100,26 +112,26 @@ export default function MonthYearSelectDatePickerDemo() {
                           datePicker().setFocusedValue(datePicker().focusedValue.set({ year }));
                       }}
                     >
-                      <Select.Control>
-                        <Select.Trigger>
-                          <Select.ValueText />
-                        </Select.Trigger>
-                        <Select.Indicator />
-                      </Select.Control>
-                      <Select.Positioner>
-                        <Select.Content>
-                          <Select.List>
+                      <SelectControl>
+                        <SelectTrigger>
+                          <SelectValueText />
+                        </SelectTrigger>
+                        <SelectIndicator />
+                      </SelectControl>
+                      <SelectPositioner>
+                        <SelectContent>
+                          <SelectList>
                             <For each={yearItems()}>
                               {(item) => (
-                                <Select.Item item={item}>
-                                  <Select.ItemText>{item.label}</Select.ItemText>
-                                  <Select.ItemIndicator />
-                                </Select.Item>
+                                <SelectItem item={item}>
+                                  <SelectItemText>{item.label}</SelectItemText>
+                                  <SelectItemIndicator />
+                                </SelectItem>
                               )}
                             </For>
-                          </Select.List>
-                        </Select.Content>
-                      </Select.Positioner>
+                          </SelectList>
+                        </SelectContent>
+                      </SelectPositioner>
                     </Select>
                   </>
                 );

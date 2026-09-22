@@ -19,7 +19,19 @@ import {
   ProgressLinearTrack,
   ProgressLinearRange,
 } from '@moduix/react/progress-linear';
-import { Select } from '@moduix/react/select';
+import {
+  Select,
+  SelectLabel,
+  SelectControl,
+  SelectTrigger,
+  SelectValueText,
+  SelectIndicator,
+  SelectPositioner,
+  SelectContent,
+  SelectItem,
+  SelectItemText,
+  SelectItemIndicator,
+} from '@moduix/react/select';
 import { Switch } from '@moduix/react/switch';
 import { Tabs } from '@moduix/react/tabs';
 import { useI18n } from '@rspress/core/runtime';
@@ -341,24 +353,24 @@ function HomeShowcase() {
               value={workspaceValue}
               onValueChange={(details) => setWorkspaceValue(details.value)}
             >
-              <Select.Label>{t('homeActiveWorkspace')}</Select.Label>
-              <Select.Control>
-                <Select.Trigger>
-                  <Select.ValueText placeholder={t('homeSelectWorkspace')} />
-                </Select.Trigger>
-                <Select.Indicator />
-              </Select.Control>
+              <SelectLabel>{t('homeActiveWorkspace')}</SelectLabel>
+              <SelectControl>
+                <SelectTrigger>
+                  <SelectValueText placeholder={t('homeSelectWorkspace')} />
+                </SelectTrigger>
+                <SelectIndicator />
+              </SelectControl>
 
-              <Select.Positioner>
-                <Select.Content>
+              <SelectPositioner>
+                <SelectContent>
                   {workspaceCollection.items.map((item) => (
-                    <Select.Item key={item.value} item={item}>
-                      <Select.ItemText>{item.label}</Select.ItemText>
-                      <Select.ItemIndicator />
-                    </Select.Item>
+                    <SelectItem key={item.value} item={item}>
+                      <SelectItemText>{item.label}</SelectItemText>
+                      <SelectItemIndicator />
+                    </SelectItem>
                   ))}
-                </Select.Content>
-              </Select.Positioner>
+                </SelectContent>
+              </SelectPositioner>
             </Select>
           </div>
           <div className={styles.miniStats}>

@@ -74,7 +74,7 @@ function useSidebarConfig() {
   return useContext(SidebarConfigContext);
 }
 
-function SidebarRoot(props: SidebarRootProps) {
+function Sidebar(props: SidebarRootProps) {
   const [local, others] = splitProps(props, ['class', 'defaultSize', 'panelId', 'side', 'style']);
   const panelId = () => local.panelId ?? 'sidebar';
   const side = () => local.side ?? 'left';
@@ -534,38 +534,37 @@ function SidebarInput(props: ComponentProps<typeof Input>) {
   return <Input class={clsx(styles.input, local.class)} {...others} />;
 }
 
-function SidebarSeparator(props: ComponentProps<typeof Separator.Root>) {
+function SidebarSeparator(props: ComponentProps<typeof Separator>) {
   const [local, others] = splitProps(props, ['class']);
 
-  return <Separator.Root class={clsx(styles.separator, local.class)} {...others} />;
+  return <Separator class={clsx(styles.separator, local.class)} {...others} />;
 }
 
-const Sidebar = Object.assign(SidebarRoot, {
-  Root: SidebarRoot,
-  Panel: SidebarPanel,
-  Inset: SidebarInset,
-  ResizeTrigger: SidebarResizeTrigger,
-  Trigger: SidebarTrigger,
-  Label: SidebarLabel,
-  Input: SidebarInput,
-  Header: SidebarHeader,
-  Content: SidebarContent,
-  ExpandedContent: SidebarExpandedContent,
-  CollapsedContent: SidebarCollapsedContent,
-  Footer: SidebarFooter,
-  Separator: SidebarSeparator,
-  Group: SidebarGroup,
-  GroupHeader: SidebarGroupHeader,
-  GroupLabel: SidebarGroupLabel,
-  GroupAction: SidebarGroupAction,
-  NavigationList: SidebarNavigationList,
-  NavigationItem: SidebarNavigationItem,
-  Tooltip: SidebarTooltip,
-  NavigationButton: SidebarNavigationButton,
-  NavigationBadge: SidebarNavigationBadge,
-  NavigationSubList: SidebarNavigationSubList,
-  NavigationSubItem: SidebarNavigationSubItem,
-  NavigationSubButton: SidebarNavigationSubButton,
-});
-
-export { Sidebar, useSidebar };
+export {
+  Sidebar,
+  SidebarCollapsedContent,
+  SidebarContent,
+  SidebarExpandedContent,
+  SidebarFooter,
+  SidebarGroup,
+  SidebarGroupAction,
+  SidebarGroupHeader,
+  SidebarGroupLabel,
+  SidebarHeader,
+  SidebarInput,
+  SidebarInset,
+  SidebarLabel,
+  SidebarNavigationBadge,
+  SidebarNavigationButton,
+  SidebarNavigationItem,
+  SidebarNavigationList,
+  SidebarNavigationSubButton,
+  SidebarNavigationSubItem,
+  SidebarNavigationSubList,
+  SidebarPanel,
+  SidebarResizeTrigger,
+  SidebarSeparator,
+  SidebarTooltip,
+  SidebarTrigger,
+  useSidebar,
+};

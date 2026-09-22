@@ -18,7 +18,7 @@ import {
   type OverlayPortalProps,
 } from '@/lib/moduix/overlayPortal';
 import { Kbd } from '../kbd';
-import { ScrollArea } from '../scroll-area';
+import { ScrollArea, ScrollAreaContent, ScrollAreaViewport } from '../scroll-area';
 
 const DEFAULT_CLEAR_TRIGGER_LABEL = 'Clear search';
 const DEFAULT_SEARCH_INPUT_LABEL = 'Search commands';
@@ -393,14 +393,14 @@ function CommandPaletteList(props: ComponentProps<typeof ComboboxPrimitive.Conte
       data-slot="command-palette-list"
     >
       <ScrollArea data-slot="command-palette-scroll-area" class="h-auto min-h-0 flex-1">
-        <ScrollArea.Viewport data-slot="command-palette-scroll-viewport" class="scroll-py-2">
-          <ScrollArea.Content
+        <ScrollAreaViewport data-slot="command-palette-scroll-viewport" class="scroll-py-2">
+          <ScrollAreaContent
             data-slot="command-palette-scroll-content"
             class="min-h-full px-3 py-3 group-data-[empty]/list:p-0"
           >
             {local.children}
-          </ScrollArea.Content>
-        </ScrollArea.Viewport>
+          </ScrollAreaContent>
+        </ScrollAreaViewport>
       </ScrollArea>
     </ComboboxPrimitive.Content>
   );

@@ -19,7 +19,19 @@ import {
 import { Combobox } from '@moduix/react/combobox';
 import { Field, FieldErrorText, FieldLabel, FieldRequiredIndicator } from '@moduix/react/field';
 import { Input } from '@moduix/react/input';
-import { Select } from '@moduix/react/select';
+import {
+  Select,
+  SelectControl,
+  SelectTrigger,
+  SelectValueText,
+  SelectIndicator,
+  SelectPositioner,
+  SelectContent,
+  SelectItem,
+  SelectItemText,
+  SelectItemIndicator,
+  SelectHiddenSelect,
+} from '@moduix/react/select';
 import { Textarea } from '@moduix/react/textarea';
 import * as v from 'valibot';
 import styles from './formisch-complete-form.module.css';
@@ -106,23 +118,23 @@ export default function ProjectForm() {
                   onValueChange={(details) => field.onChange(details.value[0] ?? '')}
                   invalid={field.errors !== null}
                 >
-                  <Select.Control>
-                    <Select.Trigger onFocus={field.props.onFocus} onBlur={field.props.onBlur}>
-                      <Select.ValueText placeholder="Choose a team" />
-                    </Select.Trigger>
-                    <Select.Indicator />
-                  </Select.Control>
-                  <Select.Positioner>
-                    <Select.Content>
+                  <SelectControl>
+                    <SelectTrigger onFocus={field.props.onFocus} onBlur={field.props.onBlur}>
+                      <SelectValueText placeholder="Choose a team" />
+                    </SelectTrigger>
+                    <SelectIndicator />
+                  </SelectControl>
+                  <SelectPositioner>
+                    <SelectContent>
                       {teams.items.map((item) => (
-                        <Select.Item key={item.value} item={item}>
-                          <Select.ItemText>{item.label}</Select.ItemText>
-                          <Select.ItemIndicator />
-                        </Select.Item>
+                        <SelectItem key={item.value} item={item}>
+                          <SelectItemText>{item.label}</SelectItemText>
+                          <SelectItemIndicator />
+                        </SelectItem>
                       ))}
-                    </Select.Content>
-                  </Select.Positioner>
-                  <Select.HiddenSelect />
+                    </SelectContent>
+                  </SelectPositioner>
+                  <SelectHiddenSelect />
                 </Select>
                 <FieldErrorText>{field.errors?.[0]}</FieldErrorText>
               </Field>

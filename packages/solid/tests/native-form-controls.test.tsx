@@ -17,6 +17,14 @@ import {
   RadioGroupOption,
 } from '../src';
 import { RatingGroup, RatingGroupHiddenInput } from '../src';
+import {
+  SegmentGroup,
+  SegmentGroupItem,
+  SegmentGroupItemHiddenInput,
+  SegmentGroupItemText,
+  SegmentGroupItems,
+} from '../src';
+import { Select, SelectHiddenSelect } from '../src';
 
 const collection = createListCollection({ items: [{ label: 'React', value: 'react' }] });
 const cases = [
@@ -106,10 +114,10 @@ const cases = [
     value: 'react',
     render: (input: boolean) => (
       <SegmentGroup name="value" form="native-form" defaultValue="react">
-        <SegmentGroup.Item value="react">
-          <SegmentGroup.ItemText>React</SegmentGroup.ItemText>
-          {input && <SegmentGroup.ItemHiddenInput data-testid="native-input" />}
-        </SegmentGroup.Item>
+        <SegmentGroupItem value="react">
+          <SegmentGroupItemText>React</SegmentGroupItemText>
+          {input && <SegmentGroupItemHiddenInput data-testid="native-input" />}
+        </SegmentGroupItem>
       </SegmentGroup>
     ),
   },
@@ -118,7 +126,7 @@ const cases = [
     value: 'react',
     render: (input: boolean) => (
       <Select collection={collection} name="value" form="native-form" defaultValue={['react']}>
-        {input && <Select.HiddenSelect data-testid="native-input" />}
+        {input && <SelectHiddenSelect data-testid="native-input" />}
       </Select>
     ),
   },
@@ -249,7 +257,7 @@ test('fixed compositions include exactly one native control per generated item',
         <RadioGroupOption value="react">React</RadioGroupOption>
       </RadioGroup>
       <SegmentGroup name="view" defaultValue="list">
-        <SegmentGroup.Items items={[{ label: 'List', value: 'list' }]} />
+        <SegmentGroupItems items={[{ label: 'List', value: 'list' }]} />
       </SegmentGroup>
       <Slider name="range" defaultValue={[20, 80]}>
         <Slider.Control>

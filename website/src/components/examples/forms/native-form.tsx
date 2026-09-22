@@ -18,7 +18,19 @@ import {
 import { Combobox } from '@moduix/react/combobox';
 import { Field, FieldLabel, FieldRequiredIndicator } from '@moduix/react/field';
 import { Input } from '@moduix/react/input';
-import { Select } from '@moduix/react/select';
+import {
+  Select,
+  SelectControl,
+  SelectTrigger,
+  SelectValueText,
+  SelectIndicator,
+  SelectPositioner,
+  SelectContent,
+  SelectItem,
+  SelectItemText,
+  SelectItemIndicator,
+  SelectHiddenSelect,
+} from '@moduix/react/select';
 import { Textarea } from '@moduix/react/textarea';
 import styles from './forms-native-form.module.css';
 
@@ -73,23 +85,23 @@ export default function NativeForm() {
               <FieldRequiredIndicator />
             </FieldLabel>
             <Select collection={teams} name="team">
-              <Select.Control>
-                <Select.Trigger>
-                  <Select.ValueText placeholder="Choose a team" />
-                </Select.Trigger>
-                <Select.Indicator />
-              </Select.Control>
-              <Select.Positioner>
-                <Select.Content>
+              <SelectControl>
+                <SelectTrigger>
+                  <SelectValueText placeholder="Choose a team" />
+                </SelectTrigger>
+                <SelectIndicator />
+              </SelectControl>
+              <SelectPositioner>
+                <SelectContent>
                   {teams.items.map((item) => (
-                    <Select.Item key={item.value} item={item}>
-                      <Select.ItemText>{item.label}</Select.ItemText>
-                      <Select.ItemIndicator />
-                    </Select.Item>
+                    <SelectItem key={item.value} item={item}>
+                      <SelectItemText>{item.label}</SelectItemText>
+                      <SelectItemIndicator />
+                    </SelectItem>
                   ))}
-                </Select.Content>
-              </Select.Positioner>
-              <Select.HiddenSelect />
+                </SelectContent>
+              </SelectPositioner>
+              <SelectHiddenSelect />
             </Select>
           </Field>
 

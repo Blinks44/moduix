@@ -1,140 +1,164 @@
 import { Button } from '@moduix/solid/button';
 import { Card, CardBody } from '@moduix/solid/card';
-import { Collapsible } from '@moduix/solid/collapsible';
+import {
+  Collapsible,
+  CollapsibleTrigger,
+  CollapsibleIndicator,
+  CollapsibleContent,
+} from '@moduix/solid/collapsible';
 import { Menu, MenuTrigger, MenuIndicator, MenuPositioner, MenuContent, MenuViewport, MenuItem, MenuItemText, MenuItemTextContent, MenuItemTextIcon, MenuItemTextLabel } from '@moduix/solid/menu';
-import { Sidebar } from '@moduix/solid/sidebar';
+import {
+  Sidebar,
+  SidebarPanel,
+  SidebarInset,
+  SidebarResizeTrigger,
+  SidebarTrigger,
+  SidebarLabel,
+  SidebarHeader,
+  SidebarContent,
+  SidebarFooter,
+  SidebarGroup,
+  SidebarGroupLabel,
+  SidebarNavigationList,
+  SidebarNavigationItem,
+  SidebarTooltip,
+  SidebarNavigationButton,
+  SidebarNavigationSubList,
+  SidebarNavigationSubItem,
+  SidebarNavigationSubButton,
+} from '@moduix/solid/sidebar';
 import { ChevronsUpDown, FileText, FolderOpen, Gauge, Settings, Users } from 'lucide-solid';
 import styles from './sidebar-dashboard.module.css';
 
 export function SidebarDashboard() {
   return (
     <Sidebar class={styles.root}>
-      <Sidebar.Panel>
-        <Sidebar.Header>
+      <SidebarPanel>
+        <SidebarHeader>
           <a class={styles.brand} href="#overview">
             <span class={styles.brandMark} data-sidebar-icon>
               M
             </span>
-            <Sidebar.Label>Moduix</Sidebar.Label>
+            <SidebarLabel>Moduix</SidebarLabel>
           </a>
-        </Sidebar.Header>
+        </SidebarHeader>
 
-        <Sidebar.Content>
-          <Sidebar.Group>
-            <Sidebar.GroupLabel>Workspace</Sidebar.GroupLabel>
-            <Sidebar.NavigationList>
-              <Sidebar.NavigationItem>
-                <Sidebar.Tooltip content="Overview">
+        <SidebarContent>
+          <SidebarGroup>
+            <SidebarGroupLabel>Workspace</SidebarGroupLabel>
+            <SidebarNavigationList>
+              <SidebarNavigationItem>
+                <SidebarTooltip content="Overview">
                   {(props) => (
-                    <Sidebar.NavigationButton
+                    <SidebarNavigationButton
                       {...props()}
                       active
                       asChild={(buttonProps) => (
                         <a {...buttonProps()} href="#overview">
                           <Gauge />
-                          <Sidebar.Label>Overview</Sidebar.Label>
+                          <SidebarLabel>Overview</SidebarLabel>
                         </a>
                       )}
                     />
                   )}
-                </Sidebar.Tooltip>
-              </Sidebar.NavigationItem>
-              <Sidebar.NavigationItem>
+                </SidebarTooltip>
+              </SidebarNavigationItem>
+              <SidebarNavigationItem>
                 <Collapsible defaultOpen>
-                  <Sidebar.Tooltip content="Projects">
+                  <SidebarTooltip content="Projects">
                     {(props) => (
-                      <Collapsible.Trigger
+                      <CollapsibleTrigger
                         {...props()}
-                        asChild={(triggerProps) => <Sidebar.NavigationButton {...triggerProps()} />}
+                        asChild={(triggerProps) => <SidebarNavigationButton {...triggerProps()} />}
                       >
                         <FolderOpen />
-                        <Sidebar.Label>Projects</Sidebar.Label>
-                        <Collapsible.Indicator />
-                      </Collapsible.Trigger>
+                        <SidebarLabel>Projects</SidebarLabel>
+                        <CollapsibleIndicator />
+                      </CollapsibleTrigger>
                     )}
-                  </Sidebar.Tooltip>
-                  <Collapsible.Content>
-                    <Sidebar.NavigationSubList>
-                      <Sidebar.NavigationSubItem>
-                        <Sidebar.NavigationSubButton
+                  </SidebarTooltip>
+                  <CollapsibleContent>
+                    <SidebarNavigationSubList>
+                      <SidebarNavigationSubItem>
+                        <SidebarNavigationSubButton
                           asChild={(props) => <a {...props()} href="#website" />}
                         >
                           Website
-                        </Sidebar.NavigationSubButton>
-                      </Sidebar.NavigationSubItem>
-                      <Sidebar.NavigationSubItem>
-                        <Sidebar.NavigationSubButton
+                        </SidebarNavigationSubButton>
+                      </SidebarNavigationSubItem>
+                      <SidebarNavigationSubItem>
+                        <SidebarNavigationSubButton
                           asChild={(props) => <a {...props()} href="#mobile-app" />}
                         >
                           Mobile app
-                        </Sidebar.NavigationSubButton>
-                      </Sidebar.NavigationSubItem>
-                    </Sidebar.NavigationSubList>
-                  </Collapsible.Content>
+                        </SidebarNavigationSubButton>
+                      </SidebarNavigationSubItem>
+                    </SidebarNavigationSubList>
+                  </CollapsibleContent>
                 </Collapsible>
-              </Sidebar.NavigationItem>
-              <Sidebar.NavigationItem>
-                <Sidebar.Tooltip content="Documents">
+              </SidebarNavigationItem>
+              <SidebarNavigationItem>
+                <SidebarTooltip content="Documents">
                   {(props) => (
-                    <Sidebar.NavigationButton
+                    <SidebarNavigationButton
                       {...props()}
                       asChild={(buttonProps) => (
                         <a {...buttonProps()} href="#documents">
                           <FileText />
-                          <Sidebar.Label>Documents</Sidebar.Label>
+                          <SidebarLabel>Documents</SidebarLabel>
                         </a>
                       )}
                     />
                   )}
-                </Sidebar.Tooltip>
-              </Sidebar.NavigationItem>
-            </Sidebar.NavigationList>
-          </Sidebar.Group>
+                </SidebarTooltip>
+              </SidebarNavigationItem>
+            </SidebarNavigationList>
+          </SidebarGroup>
 
-          <Sidebar.Group>
-            <Sidebar.GroupLabel>Manage</Sidebar.GroupLabel>
-            <Sidebar.NavigationList>
-              <Sidebar.NavigationItem>
-                <Sidebar.Tooltip content="Team">
+          <SidebarGroup>
+            <SidebarGroupLabel>Manage</SidebarGroupLabel>
+            <SidebarNavigationList>
+              <SidebarNavigationItem>
+                <SidebarTooltip content="Team">
                   {(props) => (
-                    <Sidebar.NavigationButton
+                    <SidebarNavigationButton
                       {...props()}
                       asChild={(buttonProps) => (
                         <a {...buttonProps()} href="#team">
                           <Users />
-                          <Sidebar.Label>Team</Sidebar.Label>
+                          <SidebarLabel>Team</SidebarLabel>
                         </a>
                       )}
                     />
                   )}
-                </Sidebar.Tooltip>
-              </Sidebar.NavigationItem>
-              <Sidebar.NavigationItem>
-                <Sidebar.Tooltip content="Settings">
+                </SidebarTooltip>
+              </SidebarNavigationItem>
+              <SidebarNavigationItem>
+                <SidebarTooltip content="Settings">
                   {(props) => (
-                    <Sidebar.NavigationButton
+                    <SidebarNavigationButton
                       {...props()}
                       asChild={(buttonProps) => (
                         <a {...buttonProps()} href="#settings">
                           <Settings />
-                          <Sidebar.Label>Settings</Sidebar.Label>
+                          <SidebarLabel>Settings</SidebarLabel>
                         </a>
                       )}
                     />
                   )}
-                </Sidebar.Tooltip>
-              </Sidebar.NavigationItem>
-            </Sidebar.NavigationList>
-          </Sidebar.Group>
-        </Sidebar.Content>
+                </SidebarTooltip>
+              </SidebarNavigationItem>
+            </SidebarNavigationList>
+          </SidebarGroup>
+        </SidebarContent>
 
-        <Sidebar.Footer>
-          <Sidebar.NavigationList>
-            <Sidebar.NavigationItem>
+        <SidebarFooter>
+          <SidebarNavigationList>
+            <SidebarNavigationItem>
               <Menu positioning={{ placement: 'right-end', gutter: 8, flip: false }}>
                 <MenuTrigger
                   asChild={(props) => (
-                    <Sidebar.NavigationButton
+                    <SidebarNavigationButton
                       {...props()}
                       size="lg"
                       aria-label="Open workspace menu"
@@ -145,7 +169,7 @@ export function SidebarDashboard() {
                   <span class={styles.workspaceMark} data-sidebar-icon>
                     AC
                   </span>
-                  <Sidebar.Label>Acme Inc.</Sidebar.Label>
+                  <SidebarLabel>Acme Inc.</SidebarLabel>
                   <MenuIndicator>
                     <ChevronsUpDown />
                   </MenuIndicator>
@@ -177,15 +201,15 @@ export function SidebarDashboard() {
                   </MenuContent>
                 </MenuPositioner>
               </Menu>
-            </Sidebar.NavigationItem>
-          </Sidebar.NavigationList>
-        </Sidebar.Footer>
-      </Sidebar.Panel>
+            </SidebarNavigationItem>
+          </SidebarNavigationList>
+        </SidebarFooter>
+      </SidebarPanel>
 
-      <Sidebar.ResizeTrigger />
-      <Sidebar.Trigger />
+      <SidebarResizeTrigger />
+      <SidebarTrigger />
 
-      <Sidebar.Inset>
+      <SidebarInset>
         <main class={styles.content} id="overview">
           <header class={styles.header}>
             <div>
@@ -224,7 +248,7 @@ export function SidebarDashboard() {
             </CardBody>
           </Card>
         </main>
-      </Sidebar.Inset>
+      </SidebarInset>
     </Sidebar>
   );
 }

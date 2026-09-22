@@ -1,4 +1,4 @@
-import { SegmentGroup } from '@moduix/solid/segment-group';
+import { SegmentGroup, SegmentGroupIndicator, SegmentGroupItem, SegmentGroupItemControl, SegmentGroupItemHiddenInput, SegmentGroupItemText } from '@moduix/solid/segment-group';
 import styles from '@/components/examples/segment-group/segment-group-advanced-customization.module.css';
 
 const billingCycles = [
@@ -9,20 +9,20 @@ const billingCycles = [
 export default function SegmentGroupAsChildDemo() {
   return (
     <SegmentGroup aria-label="Billing cycle" defaultValue="Monthly">
-      <SegmentGroup.Indicator />
+      <SegmentGroupIndicator />
       {billingCycles.map(([item, description]) => (
-        <SegmentGroup.Item
+        <SegmentGroupItem
           value={item}
           class={styles.item}
           asChild={(props) => <label {...props()} />}
         >
           <>
-            <SegmentGroup.ItemText class={styles.title}>{item}</SegmentGroup.ItemText>
+            <SegmentGroupItemText class={styles.title}>{item}</SegmentGroupItemText>
             <span class={styles.description}>{description}</span>
-            <SegmentGroup.ItemControl />
-            <SegmentGroup.ItemHiddenInput />
+            <SegmentGroupItemControl />
+            <SegmentGroupItemHiddenInput />
           </>
-        </SegmentGroup.Item>
+        </SegmentGroupItem>
       ))}
     </SegmentGroup>
   );

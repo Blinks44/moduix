@@ -1,6 +1,20 @@
 import { createListCollection } from '@ark-ui/react/collection';
 import { Button } from '@moduix/react/button';
-import { Select } from '@moduix/react/select';
+import {
+  useSelect,
+  SelectRootProvider,
+  SelectLabel,
+  SelectControl,
+  SelectTrigger,
+  SelectValueText,
+  SelectIndicator,
+  SelectClearTrigger,
+  SelectPositioner,
+  SelectContent,
+  SelectItem,
+  SelectItemText,
+  SelectItemIndicator,
+} from '@moduix/react/select';
 import { PreviewMeta } from '@/components/mdx/Components';
 import styles from '@/components/examples/select/select-root-provider.module.css';
 
@@ -50,32 +64,32 @@ const fruits = createListCollection({
 });
 
 export default function SelectRootProviderDemo() {
-  const select = Select.useSelect({
+  const select = useSelect({
     collection: fruits,
     defaultValue: ['banana'],
   });
   return (
     <div className={styles.root}>
-      <Select.RootProvider value={select}>
-        <Select.Label>Choose fruit</Select.Label>
-        <Select.Control>
-          <Select.Trigger>
-            <Select.ValueText placeholder="Select an option" />
-          </Select.Trigger>
-          <Select.Indicator />
-          <Select.ClearTrigger aria-label="Clear selection" />
-        </Select.Control>
-        <Select.Positioner>
-          <Select.Content>
+      <SelectRootProvider value={select}>
+        <SelectLabel>Choose fruit</SelectLabel>
+        <SelectControl>
+          <SelectTrigger>
+            <SelectValueText placeholder="Select an option" />
+          </SelectTrigger>
+          <SelectIndicator />
+          <SelectClearTrigger aria-label="Clear selection" />
+        </SelectControl>
+        <SelectPositioner>
+          <SelectContent>
             {fruits.items.map((item) => (
-              <Select.Item key={item.value} item={item}>
-                <Select.ItemText>{item.label}</Select.ItemText>
-                <Select.ItemIndicator />
-              </Select.Item>
+              <SelectItem key={item.value} item={item}>
+                <SelectItemText>{item.label}</SelectItemText>
+                <SelectItemIndicator />
+              </SelectItem>
             ))}
-          </Select.Content>
-        </Select.Positioner>
-      </Select.RootProvider>
+          </SelectContent>
+        </SelectPositioner>
+      </SelectRootProvider>
       <PreviewMeta>
         <output>Selected: {select.valueAsString || 'none'}</output>
         <Button type="button" size="sm" onClick={() => select.setValue(['banana'])}>

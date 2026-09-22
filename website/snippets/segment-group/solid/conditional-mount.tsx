@@ -1,5 +1,5 @@
 import { Button } from '@moduix/solid/button';
-import { SegmentGroup } from '@moduix/solid/segment-group';
+import { SegmentGroup, SegmentGroupIndicator, SegmentGroupItems } from '@moduix/solid/segment-group';
 import { createSignal } from 'solid-js';
 import styles from '@/components/examples/segment-group/segment-group-conditional-mount.module.css';
 
@@ -17,8 +17,8 @@ export default function ConditionalSegmentGroupDemo() {
     <div class={styles.root}>
       {visible() ? (
         <SegmentGroup aria-label="Framework" defaultValue="React">
-          <SegmentGroup.Indicator />
-          <SegmentGroup.Items items={frameworks} />
+          <SegmentGroupIndicator />
+          <SegmentGroupItems items={frameworks} />
         </SegmentGroup>
       ) : null}
       <output>Segment group: {visible() ? 'visible' : 'hidden'}</output>

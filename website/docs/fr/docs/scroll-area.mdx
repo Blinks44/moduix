@@ -27,8 +27,9 @@ import scrollAreaSolidRootProvider from '../../../snippets/scroll-area/solid/roo
 ## Exemple de base
 
 
-Utilisez `ScrollArea` comme racine. Placez `Viewport` autour de `Content`, ajoutez un `Scrollbar`
-et un `Thumb` pour chaque axe de défilement, puis ajoutez `Corner` lorsque les deux axes peuvent
+Utilisez `ScrollArea` comme racine. Placez `ScrollAreaViewport` autour de `ScrollAreaContent`,
+ajoutez un `ScrollAreaScrollbar` et un `ScrollAreaThumb` pour chaque axe de défilement, puis ajoutez
+`ScrollAreaCorner` lorsque les deux axes peuvent
 déborder. Donnez à la racine une hauteur ou une taille de bloc limitée pour que le contenu puisse
 défiler.
 
@@ -97,38 +98,38 @@ Consultez le [Démarrage rapide](/docs/quick-start) pour la configuration compl�
 ## Anatomie
 
 ```text
-ScrollArea / ScrollArea.Root
-├─ ScrollArea.Viewport
-│  └─ ScrollArea.Content
+ScrollArea
+├─ ScrollAreaViewport
+│  └─ ScrollAreaContent
 │     └─ children
-├─ ScrollArea.Scrollbar
-│  └─ ScrollArea.Thumb
-└─ ScrollArea.Corner
+├─ ScrollAreaScrollbar
+│  └─ ScrollAreaThumb
+└─ ScrollAreaCorner
 
-ScrollArea.RootProvider
+ScrollAreaRootProvider
 └─ même arborescence reliée à un store useScrollArea()
 ```
 
 | Partie                           | Rôle                                                               |
 | -------------------------------- | ------------------------------------------------------------------ |
-| `ScrollArea` / `ScrollArea.Root` | Racine qui gère l’état du défilement et le positionnement.         |
-| `ScrollArea.RootProvider`        | Relie les parties à l’état créé avec `useScrollArea()`.           |
-| `ScrollArea.Viewport`            | Conteneur de défilement natif et cible du focus.                   |
-| `ScrollArea.Content`             | Enveloppe interne mesurée par Ark UI.                              |
-| `ScrollArea.Scrollbar`           | Piste de défilement stylisée pour un axe.                          |
-| `ScrollArea.Thumb`               | Curseur déplaçable dans une piste.                                 |
-| `ScrollArea.Corner`              | Remplit l’intersection lorsque les deux axes débordent.            |
+| `ScrollArea`                     | Racine qui gère l’état du défilement et le positionnement.         |
+| `ScrollAreaRootProvider`        | Relie les parties à l’état créé avec `useScrollArea()`.           |
+| `ScrollAreaViewport`            | Conteneur de défilement natif et cible du focus.                   |
+| `ScrollAreaContent`             | Enveloppe interne mesurée par Ark UI.                              |
+| `ScrollAreaScrollbar`           | Piste de défilement stylisée pour un axe.                          |
+| `ScrollAreaThumb`               | Curseur déplaçable dans une piste.                                 |
+| `ScrollAreaCorner`              | Remplit l’intersection lorsque les deux axes débordent.            |
 
 ## Composition
 
-Chaque axe de défilement nécessite sa propre `ScrollArea.Scrollbar` avec un `ScrollArea.Thumb`. La
+Chaque axe de défilement nécessite sa propre `ScrollAreaScrollbar` avec un `ScrollAreaThumb`. La
 barre verticale est utilisée par défaut ; définissez `orientation="horizontal"` pour un axe
-horizontal. Gardez `Viewport` autour de `Content` et conservez une arborescence complète et
+horizontal. Gardez `ScrollAreaViewport` autour de `ScrollAreaContent` et conservez une arborescence complète et
 indépendante pour les zones imbriquées.
 
-Utilisez `ScrollArea.RootProvider` avec `ScrollArea.useScrollArea()` lorsque des contrôles externes
-doivent accéder à l’API de défilement. Passez le store renvoyé à `RootProvider` et ne rendez pas
-`ScrollArea` et `ScrollArea.RootProvider` pour le même store. Dans Solid, lisez et utilisez le store
+Utilisez `ScrollAreaRootProvider` avec `useScrollArea()` lorsque des contrôles externes
+doivent accéder à l’API de défilement. Passez le store renvoyé à `ScrollAreaRootProvider` et ne
+rendez pas `ScrollArea` et `ScrollAreaRootProvider` pour le même store. Dans Solid, lisez et utilisez le store
 via l’accesseur renvoyé par `useScrollArea()`.
 
 ## Exemples
@@ -333,7 +334,7 @@ imbriquée afin qu’Ark puisse les mesurer indépendamment.
 
 ### Root Provider
 
-Utilisez `ScrollArea.useScrollArea()` avec `ScrollArea.RootProvider` lorsque des contrôles externes
+Utilisez `useScrollArea()` avec `ScrollAreaRootProvider` lorsque des contrôles externes
 doivent accéder à l’API de défilement.
 
 <ExampleFrame variant="component">
@@ -388,12 +389,12 @@ la surface sans remplacer la structure.
   `scroll-area-root-provider`, `scroll-area-viewport`, `scroll-area-content`,
   `scroll-area-scrollbar`, `scroll-area-thumb` et `scroll-area-corner`.
 - La propriété `fade` ajoute `data-fade`, tandis que `variant` ajoute
-  `data-variant="hover" | "always"` à `ScrollArea` et `ScrollArea.RootProvider`.
+  `data-variant="hover" | "always"` à `ScrollArea` et `ScrollAreaRootProvider`.
 - Ark ajoute `data-scope="scroll-area"` et `data-part` à chaque partie.
 - `data-overflow-x` et `data-overflow-y` apparaissent lorsque le contenu mesuré déborde sur l’axe
   correspondant.
-- `data-at-top`, `data-at-bottom`, `data-at-left` et `data-at-right` sont disponibles sur le
-  `Viewport`.
+- `data-at-top`, `data-at-bottom`, `data-at-left` et `data-at-right` sont disponibles sur
+  `ScrollAreaViewport`.
 - `data-orientation="vertical"` et `data-orientation="horizontal"` sont disponibles sur les
   barres de défilement et les curseurs.
 - `data-hover` et `data-dragging` sont disponibles sur les parties de barre et les curseurs ;

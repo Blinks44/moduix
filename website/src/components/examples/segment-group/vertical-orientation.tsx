@@ -1,4 +1,4 @@
-import { SegmentGroup } from '@moduix/react/segment-group';
+import { SegmentGroup, SegmentGroupIndicator, SegmentGroupItems } from '@moduix/react/segment-group';
 import styles from '@/components/examples/segment-group/segment-group-vertical-orientation.module.css';
 
 const views = [
@@ -15,8 +15,8 @@ export default function VerticalSegmentGroupDemo() {
       orientation="vertical"
       className={styles.root}
     >
-      <SegmentGroup.Indicator />
-      <SegmentGroup.Items items={views} />
+      <SegmentGroupIndicator />
+      <SegmentGroupItems items={views} />
     </SegmentGroup>
   );
 }

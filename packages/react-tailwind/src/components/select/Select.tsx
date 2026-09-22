@@ -37,7 +37,7 @@ type SelectFieldProps = Omit<
   placeholder?: ComponentProps<typeof SelectPrimitive.ValueText>['placeholder'];
 };
 
-const SelectRoot = forwardRef(function SelectRoot<T extends CollectionItem>(
+const Select = forwardRef(function Select<T extends CollectionItem>(
   {
     asChild,
     children,
@@ -405,33 +405,35 @@ const SelectItemTextLabel = forwardRef<ComponentRef<typeof ark.span>, HTMLArkPro
   },
 );
 
-const Select = Object.assign(SelectRoot, {
-  Root: SelectRoot,
-  RootProvider: SelectRootProvider,
-  Context: SelectPrimitive.Context,
-  HiddenSelect: SelectPrimitive.HiddenSelect,
-  ItemContext: SelectPrimitive.ItemContext,
+const SelectContext = SelectPrimitive.Context;
+const SelectHiddenSelect = SelectPrimitive.HiddenSelect;
+const SelectItemContext = SelectPrimitive.ItemContext;
+
+export {
+  Select,
+  SelectClearTrigger,
+  SelectContext,
+  SelectControl,
+  SelectContent,
+  SelectField,
+  SelectHiddenSelect,
+  SelectIndicator,
+  SelectItem,
+  SelectItemContext,
+  SelectItemGroup,
+  SelectItemGroupLabel,
+  SelectItemIndicator,
+  SelectItemText,
+  SelectItemTextContent,
+  SelectItemTextIcon,
+  SelectItemTextLabel,
+  SelectLabel,
+  SelectList,
+  SelectPositioner,
+  SelectRootProvider,
+  SelectTrigger,
+  SelectValueText,
   useSelect,
   useSelectContext,
   useSelectItemContext,
-  Label: SelectLabel,
-  Control: SelectControl,
-  Field: SelectField,
-  Trigger: SelectTrigger,
-  ValueText: SelectValueText,
-  ClearTrigger: SelectClearTrigger,
-  Indicator: SelectIndicator,
-  Positioner: SelectPositioner,
-  Content: SelectContent,
-  List: SelectList,
-  ItemGroup: SelectItemGroup,
-  ItemGroupLabel: SelectItemGroupLabel,
-  Item: SelectItem,
-  ItemText: SelectItemText,
-  ItemIndicator: SelectItemIndicator,
-  ItemTextContent: SelectItemTextContent,
-  ItemTextIcon: SelectItemTextIcon,
-  ItemTextLabel: SelectItemTextLabel,
-});
-
-export { Select, useSelect, useSelectContext, useSelectItemContext };
+};

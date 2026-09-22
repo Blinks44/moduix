@@ -9,7 +9,7 @@ import {
   DialogTitle,
   DialogTrigger,
 } from '@moduix/react/dialog';
-import { ScrollArea } from '@moduix/react/scroll-area';
+import { ScrollArea, ScrollAreaContent, ScrollAreaCorner, ScrollAreaScrollbar, ScrollAreaThumb, ScrollAreaViewport } from '@moduix/react/scroll-area';
 import styles from '@/components/examples/dialog/dialog-inside-scroll.module.css';
 
 const sections = [
@@ -45,8 +45,8 @@ export default function DialogScrollDemo() {
         <DialogContent>
           <DialogTitle>Terms of service</DialogTitle>
           <ScrollArea className={styles.scrollArea}>
-            <ScrollArea.Viewport>
-              <ScrollArea.Content>
+            <ScrollAreaViewport>
+              <ScrollAreaContent>
                 <div className={styles.content}>
                   {sections.map((section) => (
                     <section key={section.title} className={styles.section}>
@@ -55,12 +55,12 @@ export default function DialogScrollDemo() {
                     </section>
                   ))}
                 </div>
-              </ScrollArea.Content>
-            </ScrollArea.Viewport>
-            <ScrollArea.Scrollbar>
-              <ScrollArea.Thumb />
-            </ScrollArea.Scrollbar>
-            <ScrollArea.Corner />
+              </ScrollAreaContent>
+            </ScrollAreaViewport>
+            <ScrollAreaScrollbar>
+              <ScrollAreaThumb />
+            </ScrollAreaScrollbar>
+            <ScrollAreaCorner />
           </ScrollArea>
           <DialogFooter>
             <DialogCloseTrigger asChild>

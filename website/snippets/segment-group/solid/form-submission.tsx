@@ -1,5 +1,5 @@
 import { Button } from '@moduix/solid/button';
-import { SegmentGroup } from '@moduix/solid/segment-group';
+import { SegmentGroup, SegmentGroupIndicator, SegmentGroupItems } from '@moduix/solid/segment-group';
 import { createSignal } from 'solid-js';
 import styles from '@/components/examples/segment-group/segment-group-form-submission.module.css';
 
@@ -22,8 +22,8 @@ export default function FormSegmentGroupDemo() {
   return (
     <form class={styles.root} onSubmit={handleSubmit}>
       <SegmentGroup aria-label="Framework" name="framework" defaultValue="React">
-        <SegmentGroup.Indicator />
-        <SegmentGroup.Items items={frameworks} />
+        <SegmentGroupIndicator />
+        <SegmentGroupItems items={frameworks} />
       </SegmentGroup>
       <output>Submitted: {submitted()}</output>
       <Button type="submit" size="sm">

@@ -1,6 +1,19 @@
 import { createListCollection } from '@ark-ui/solid/collection';
 import { Field, FieldHelperText } from '@moduix/solid/field';
-import { Select } from '@moduix/solid/select';
+import {
+  Select,
+  SelectLabel,
+  SelectControl,
+  SelectTrigger,
+  SelectValueText,
+  SelectIndicator,
+  SelectPositioner,
+  SelectContent,
+  SelectItem,
+  SelectItemText,
+  SelectItemIndicator,
+  SelectHiddenSelect,
+} from '@moduix/solid/select';
 import styles from '@/components/examples/field/field-select.module.css';
 
 const priorities = createListCollection({
@@ -15,24 +28,24 @@ export default function SelectFieldDemo() {
   return (
     <Field class={styles.root}>
       <Select collection={priorities} required name="priority">
-        <Select.Label>Priority</Select.Label>
-        <Select.Control>
-          <Select.Trigger>
-            <Select.ValueText placeholder="Select priority" />
-          </Select.Trigger>
-          <Select.Indicator />
-        </Select.Control>
-        <Select.Positioner>
-          <Select.Content>
+        <SelectLabel>Priority</SelectLabel>
+        <SelectControl>
+          <SelectTrigger>
+            <SelectValueText placeholder="Select priority" />
+          </SelectTrigger>
+          <SelectIndicator />
+        </SelectControl>
+        <SelectPositioner>
+          <SelectContent>
             {priorities.items.map((item) => (
-              <Select.Item item={item}>
-                <Select.ItemText>{item.label}</Select.ItemText>
-                <Select.ItemIndicator />
-              </Select.Item>
+              <SelectItem item={item}>
+                <SelectItemText>{item.label}</SelectItemText>
+                <SelectItemIndicator />
+              </SelectItem>
             ))}
-          </Select.Content>
-        </Select.Positioner>
-        <Select.HiddenSelect />
+          </SelectContent>
+        </SelectPositioner>
+        <SelectHiddenSelect />
       </Select>
       <FieldHelperText>Used for triage queues.</FieldHelperText>
     </Field>

@@ -1,31 +1,31 @@
 import { Button } from '@moduix/solid/button';
-import { ScrollArea } from '@moduix/solid/scroll-area';
+import { ScrollAreaContent, ScrollAreaCorner, ScrollAreaRootProvider, ScrollAreaScrollbar, ScrollAreaThumb, ScrollAreaViewport, useScrollArea } from '@moduix/solid/scroll-area';
 import { createSignal } from 'solid-js';
 import styles from '@/components/examples/scroll-area/scroll-area-root-provider.module.css';
 
 const items = Array.from({ length: 12 }, (_, index) => `Activity item ${index + 1}`);
 
 export default function RootProviderScrollAreaDemo() {
-  const scrollArea = ScrollArea.useScrollArea();
+  const scrollArea = useScrollArea();
   const [edge, setEdge] = createSignal('top');
 
   return (
     <div class={styles.root}>
-      <ScrollArea.RootProvider value={scrollArea} class={styles.scrollArea}>
-        <ScrollArea.Viewport>
-          <ScrollArea.Content>
+      <ScrollAreaRootProvider value={scrollArea} class={styles.scrollArea}>
+        <ScrollAreaViewport>
+          <ScrollAreaContent>
             <div class={styles.content}>
               {items.map((item) => (
                 <div class={styles.item}>{item}</div>
               ))}
             </div>
-          </ScrollArea.Content>
-        </ScrollArea.Viewport>
-        <ScrollArea.Scrollbar>
-          <ScrollArea.Thumb />
-        </ScrollArea.Scrollbar>
-        <ScrollArea.Corner />
-      </ScrollArea.RootProvider>
+          </ScrollAreaContent>
+        </ScrollAreaViewport>
+        <ScrollAreaScrollbar>
+          <ScrollAreaThumb />
+        </ScrollAreaScrollbar>
+        <ScrollAreaCorner />
+      </ScrollAreaRootProvider>
       <output>Current edge: {edge()}</output>
       <Button
         type="button"

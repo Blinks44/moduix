@@ -1,5 +1,5 @@
 import { Button } from '@moduix/react/button';
-import { SegmentGroup } from '@moduix/react/segment-group';
+import { SegmentGroup, SegmentGroupIndicator, SegmentGroupItems } from '@moduix/react/segment-group';
 import { useState, type FormEvent } from 'react';
 import { PreviewMeta } from '@/components/mdx/Components';
 import styles from '@/components/examples/segment-group/segment-group-form-submission.module.css';
@@ -22,8 +22,8 @@ export default function FormSegmentGroupDemo() {
   return (
     <form className={styles.root} onSubmit={handleSubmit}>
       <SegmentGroup aria-label="Framework" name="framework" defaultValue="React">
-        <SegmentGroup.Indicator />
-        <SegmentGroup.Items items={frameworks} />
+        <SegmentGroupIndicator />
+        <SegmentGroupItems items={frameworks} />
       </SegmentGroup>
       <PreviewMeta>
         <output>Submitted: {submitted}</output>

@@ -35,7 +35,19 @@ import {
   DatePickerPresetTrigger,
 } from '@/components/date-picker/DatePicker';
 import { Field, FieldErrorText } from '@/components/field';
-import { Select } from '@/components/select/Select';
+import {
+  Select,
+  SelectPositioner,
+  SelectContent,
+  SelectList,
+  SelectItem,
+  SelectItemText,
+  SelectItemIndicator,
+  SelectControl,
+  SelectTrigger,
+  SelectValueText,
+  SelectIndicator,
+} from '@/components/select/Select';
 import storyStyles from './DatePicker.stories.module.css';
 
 type DatePickerSelectItem = {
@@ -329,29 +341,29 @@ function MultipleMonthsDatePickerContent() {
 
 function DatePickerSelectContent({ items }: { items: DatePickerSelectItem[] }) {
   return (
-    <Select.Positioner>
-      <Select.Content>
-        <Select.List>
+    <SelectPositioner>
+      <SelectContent>
+        <SelectList>
           {items.map((item) => (
-            <Select.Item key={item.value} item={item}>
-              <Select.ItemText>{item.label}</Select.ItemText>
-              <Select.ItemIndicator />
-            </Select.Item>
+            <SelectItem key={item.value} item={item}>
+              <SelectItemText>{item.label}</SelectItemText>
+              <SelectItemIndicator />
+            </SelectItem>
           ))}
-        </Select.List>
-      </Select.Content>
-    </Select.Positioner>
+        </SelectList>
+      </SelectContent>
+    </SelectPositioner>
   );
 }
 
 function DatePickerSelectControl() {
   return (
-    <Select.Control>
-      <Select.Trigger>
-        <Select.ValueText />
-      </Select.Trigger>
-      <Select.Indicator />
-    </Select.Control>
+    <SelectControl>
+      <SelectTrigger>
+        <SelectValueText />
+      </SelectTrigger>
+      <SelectIndicator />
+    </SelectControl>
   );
 }
 

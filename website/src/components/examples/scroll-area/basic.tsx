@@ -1,4 +1,4 @@
-import { ScrollArea } from '@moduix/react/scroll-area';
+import { ScrollArea, ScrollAreaContent, ScrollAreaCorner, ScrollAreaScrollbar, ScrollAreaThumb, ScrollAreaViewport } from '@moduix/react/scroll-area';
 import styles from '@/components/examples/scroll-area/scroll-area-basic.module.css';
 
 const sections = [
@@ -27,8 +27,8 @@ const sections = [
 export default function ScrollAreaDemo() {
   return (
     <ScrollArea className={styles.root}>
-      <ScrollArea.Viewport>
-        <ScrollArea.Content>
+      <ScrollAreaViewport>
+        <ScrollAreaContent>
           <div className={styles.content}>
             {sections.map((item) => (
               <section key={item.title}>
@@ -37,12 +37,12 @@ export default function ScrollAreaDemo() {
               </section>
             ))}
           </div>
-        </ScrollArea.Content>
-      </ScrollArea.Viewport>
-      <ScrollArea.Scrollbar>
-        <ScrollArea.Thumb />
-      </ScrollArea.Scrollbar>
-      <ScrollArea.Corner />
+        </ScrollAreaContent>
+      </ScrollAreaViewport>
+      <ScrollAreaScrollbar>
+        <ScrollAreaThumb />
+      </ScrollAreaScrollbar>
+      <ScrollAreaCorner />
     </ScrollArea>
   );
 }
