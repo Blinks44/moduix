@@ -1,5 +1,11 @@
 import { createListCollection } from '@ark-ui/solid/collection';
-import { Pagination } from '@moduix/solid/pagination';
+import {
+  Pagination,
+  PaginationContext,
+  PaginationItems,
+  PaginationNextTrigger,
+  PaginationPrevTrigger,
+} from '@moduix/solid/pagination';
 import { Select } from '@moduix/solid/select';
 import { For } from 'solid-js';
 import styles from '@/components/examples/pagination/pagination-page-size-control.module.css';
@@ -16,7 +22,7 @@ const pageSizes = createListCollection({
 export default function PaginationPageSizeControlDemo() {
   return (
     <Pagination count={200} defaultPageSize={10}>
-      <Pagination.Context>
+      <PaginationContext>
         {(pagination) => (
           <div class={styles.stack}>
             <div class={styles.row}>
@@ -52,16 +58,16 @@ export default function PaginationPageSizeControlDemo() {
               </Select>
             </div>
             <div class={styles.row}>
-              <Pagination.PrevTrigger />
-              <Pagination.Items />
-              <Pagination.NextTrigger />
+              <PaginationPrevTrigger />
+              <PaginationItems />
+              <PaginationNextTrigger />
             </div>
             <output>
               Page {pagination().page} of {pagination().totalPages}
             </output>
           </div>
         )}
-      </Pagination.Context>
+      </PaginationContext>
     </Pagination>
   );
 }

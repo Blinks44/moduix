@@ -10,10 +10,10 @@ import { forwardRef } from 'react';
 import { cn } from '@/lib/moduix/cn';
 import { MinusIcon, PlusIcon } from '@/lib/moduix/icons/ui';
 
-const NumberInputRoot = forwardRef<
+const NumberInput = forwardRef<
   ComponentRef<typeof NumberInputPrimitive.Root>,
   ComponentProps<typeof NumberInputPrimitive.Root>
->(function NumberInputRoot({ className, ...props }, ref) {
+>(function NumberInput({ className, ...props }, ref) {
   return (
     <NumberInputPrimitive.Root
       ref={ref}
@@ -176,18 +176,20 @@ const NumberInputField = forwardRef<
   );
 });
 
-const NumberInput = Object.assign(NumberInputRoot, {
-  Root: NumberInputRoot,
-  RootProvider: NumberInputRootProvider,
-  Context: NumberInputPrimitive.Context,
-  Label: NumberInputLabel,
-  Scrubber: NumberInputScrubber,
-  Control: NumberInputControl,
-  Field: NumberInputField,
-  DecrementTrigger: NumberInputDecrementTrigger,
-  Input: NumberInputInput,
-  IncrementTrigger: NumberInputIncrementTrigger,
-  ValueText: NumberInputValueText,
-});
+const NumberInputContext = NumberInputPrimitive.Context;
 
-export { NumberInput, useNumberInput, useNumberInputContext };
+export {
+  NumberInput,
+  NumberInputContext,
+  NumberInputControl,
+  NumberInputDecrementTrigger,
+  NumberInputField,
+  NumberInputIncrementTrigger,
+  NumberInputInput,
+  NumberInputLabel,
+  NumberInputRootProvider,
+  NumberInputScrubber,
+  NumberInputValueText,
+  useNumberInput,
+  useNumberInputContext,
+};

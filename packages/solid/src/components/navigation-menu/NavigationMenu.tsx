@@ -8,7 +8,7 @@ import type { ComponentProps } from 'solid-js';
 import { splitProps } from 'solid-js';
 import styles from './NavigationMenu.module.css';
 
-function NavigationMenuRoot(props: ComponentProps<typeof NavigationMenuPrimitive.Root>) {
+function NavigationMenu(props: ComponentProps<typeof NavigationMenuPrimitive.Root>) {
   const [local, others] = splitProps(props, ['class']);
 
   return (
@@ -160,22 +160,22 @@ function NavigationMenuViewport(props: ComponentProps<typeof NavigationMenuPrimi
   );
 }
 
-const NavigationMenu = Object.assign(NavigationMenuRoot, {
-  Root: NavigationMenuRoot,
-  RootProvider: NavigationMenuRootProvider,
-  Context: NavigationMenuPrimitive.Context,
-  List: NavigationMenuList,
-  Item: NavigationMenuItem,
-  Trigger: NavigationMenuTrigger,
-  Content: NavigationMenuContent,
-  Link: NavigationMenuLink,
-  Indicator: NavigationMenuIndicator,
-  ItemIndicator: NavigationMenuItemIndicator,
-  Arrow: NavigationMenuArrow,
-  ViewportPositioner: NavigationMenuViewportPositioner,
-  Viewport: NavigationMenuViewport,
-  useNavigationMenu,
-});
+const NavigationMenuContext = NavigationMenuPrimitive.Context;
 
-export { useNavigationMenu, useNavigationMenuContext };
-export { NavigationMenu };
+export {
+  NavigationMenu,
+  NavigationMenuArrow,
+  NavigationMenuContent,
+  NavigationMenuContext,
+  NavigationMenuIndicator,
+  NavigationMenuItem,
+  NavigationMenuItemIndicator,
+  NavigationMenuLink,
+  NavigationMenuList,
+  NavigationMenuRootProvider,
+  NavigationMenuTrigger,
+  NavigationMenuViewport,
+  NavigationMenuViewportPositioner,
+  useNavigationMenu,
+  useNavigationMenuContext,
+};

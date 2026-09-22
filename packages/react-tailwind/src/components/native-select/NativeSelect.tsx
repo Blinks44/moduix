@@ -6,14 +6,14 @@ import { forwardRef } from 'react';
 import { cn } from '@/lib/moduix/cn';
 import { ChevronDownIcon } from '@/lib/moduix/icons/ui';
 
-type NativeSelectRootProps = ComponentProps<typeof FieldPrimitive.Select> & {
+type NativeSelectProps = ComponentProps<typeof FieldPrimitive.Select> & {
   controlProps?: ComponentProps<'span'>;
 };
 
-const NativeSelectRoot = forwardRef<
+const NativeSelect = forwardRef<
   ComponentRef<typeof FieldPrimitive.Select>,
-  NativeSelectRootProps
->(function NativeSelectRoot({ className, controlProps, multiple, size, ...props }, ref) {
+  NativeSelectProps
+>(function NativeSelect({ className, controlProps, multiple, size, ...props }, ref) {
   const isList = multiple || (size !== undefined && size > 1);
 
   return (
@@ -52,10 +52,6 @@ const NativeSelectRoot = forwardRef<
       </span>
     </span>
   );
-});
-
-const NativeSelect = Object.assign(NativeSelectRoot, {
-  Root: NativeSelectRoot,
 });
 
 export { NativeSelect };

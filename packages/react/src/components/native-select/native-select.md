@@ -20,7 +20,7 @@ single-component public API.
 
 ## Current behavior contract
 
-- `NativeSelect` is the direct public API. `NativeSelect.Root` is an equivalent compatibility alias.
+- `NativeSelect` is the only public root value.
 - `controlProps` target the outer layout span; use its `className` or `style` for styling that must
   reach both the select and indicator.
 - Native `value`, `defaultValue`, `onChange(event)`, `name`, `required`, `disabled`, `multiple`, and
@@ -108,7 +108,7 @@ The single-select control defaults to `--moduix-size-md`; multi-select controls 
 
 ## Intentional sugar and differences from upstream
 
-- moduix exports the direct `<NativeSelect>` form and an equivalent `NativeSelect.Root` alias.
+- moduix exposes one direct `<NativeSelect>` component instead of a multipart public API.
 - `controlProps` is narrow styling sugar for the outer layout span; it does not alter native select
   behavior.
 - The indicator is visual only and does not alter native select behavior.
@@ -124,6 +124,8 @@ The single-select control defaults to `--moduix-size-md`; multi-select controls 
 
 ## Local changelog
 
+- 2026-09-22: Aligned the public component export with the flat API; `NativeSelect` is the only
+  public root value.
 - 2026-08-11: Aligned the indicator and text spacing fallback, documented the complete public
   indicator token contract, and covered native reset and `asChild` preservation.
 - 2026-07-21: Routed shared dimensions, spacing, icon geometry, and focus-ring fallbacks through foundation tokens so density and theme presets can retune the component consistently.

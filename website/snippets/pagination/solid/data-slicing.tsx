@@ -1,4 +1,11 @@
-import { Pagination } from '@moduix/solid/pagination';
+import {
+  Pagination,
+  PaginationContext,
+  PaginationEllipsis,
+  PaginationItem,
+  PaginationNextTrigger,
+  PaginationPrevTrigger,
+} from '@moduix/solid/pagination';
 import { For } from 'solid-js';
 import styles from '@/components/examples/pagination/pagination-data-slicing.module.css';
 
@@ -20,7 +27,7 @@ const users = [
 export default function PaginationDataSlicingDemo() {
   return (
     <Pagination count={users.length} pageSize={4}>
-      <Pagination.Context>
+      <PaginationContext>
         {(pagination) => (
           <div class={styles.stack}>
             <div class={styles.users}>
@@ -34,21 +41,21 @@ export default function PaginationDataSlicingDemo() {
               </For>
             </div>
             <div class={styles.row}>
-              <Pagination.PrevTrigger />
+              <PaginationPrevTrigger />
               <For each={pagination().pages}>
                 {(page, index) =>
                   page.type === 'page' ? (
-                    <Pagination.Item {...page}>{page.value}</Pagination.Item>
+                    <PaginationItem {...page}>{page.value}</PaginationItem>
                   ) : (
-                    <Pagination.Ellipsis index={index()} />
+                    <PaginationEllipsis index={index()} />
                   )
                 }
               </For>
-              <Pagination.NextTrigger />
+              <PaginationNextTrigger />
             </div>
           </div>
         )}
-      </Pagination.Context>
+      </PaginationContext>
     </Pagination>
   );
 }

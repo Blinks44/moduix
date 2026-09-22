@@ -42,8 +42,8 @@ Importez-le depuis
 `@moduix/react/number-input` ou `@moduix/solid/number-input` pour CSS Modules, et depuis le chemin correspondant
 `@moduix/react-tailwind/number-input` ou `@moduix/solid-tailwind/number-input` pour Tailwind CSS.
 
-Utilisez `NumberInput` comme racine et `NumberInput.Field` pour le champ standard avec ses boutons d’incrémentation et
-de décrémentation. Donnez au champ un nom accessible avec `NumberInput.Label`, `aria-label` ou `aria-labelledby`.
+Utilisez `NumberInput` comme racine et `NumberInputField` pour le champ standard avec ses boutons d’incrémentation et
+de décrémentation. Donnez au champ un nom accessible avec `NumberInputLabel`, `aria-label` ou `aria-labelledby`.
 
 <ExampleFrame variant="component">
   <NumberInputBasic />
@@ -105,45 +105,45 @@ Consultez le [Démarrage rapide](/docs/quick-start) pour la configuration compl�
 ## Anatomie
 
 ```text
-NumberInput / NumberInput.Root
-├─ NumberInput.Label
-├─ NumberInput.Scrubber (facultatif)
-├─ NumberInput.Field (raccourci recommandé)
-│  └─ affiche NumberInput.Control
-│     ├─ NumberInput.DecrementTrigger
-│     ├─ NumberInput.Input
-│     └─ NumberInput.IncrementTrigger
-└─ NumberInput.ValueText (facultatif)
+NumberInput
+├─ NumberInputLabel
+├─ NumberInputScrubber (facultatif)
+├─ NumberInputField (raccourci recommandé)
+│  └─ affiche NumberInputControl
+│     ├─ NumberInputDecrementTrigger
+│     ├─ NumberInputInput
+│     └─ NumberInputIncrementTrigger
+└─ NumberInputValueText (facultatif)
 
-NumberInput.RootProvider
+NumberInputRootProvider
 └─ même arborescence reliée à l’état créé avec `useNumberInput()`
 ```
 
 | Partie | Rôle |
 | --- | --- |
-| `NumberInput` / `NumberInput.Root` | Gère l’état du champ numérique, l’interprétation de la saisie, le formatage et le comportement au clavier. |
-| `NumberInput.RootProvider` | Relie les parties à l’état créé avec `useNumberInput()`. |
-| `NumberInput.Context` | Expose les valeurs formatée et numérique, ainsi que les méthodes impératives de gestion de l’état. |
-| `NumberInput.Label` | Libellé accessible associé au champ géré. |
-| `NumberInput.Scrubber` | Zone de glissement facultative qui modifie la valeur selon le déplacement du pointeur. |
-| `NumberInput.Control` | Regroupe le champ et les boutons d’incrémentation et de décrémentation. |
-| `NumberInput.Field` | Partie pratique qui affiche le contrôle standard et le groupe de boutons. |
-| `NumberInput.DecrementTrigger` | Bouton qui diminue la valeur actuelle. Il affiche par défaut l’icône moins de moduix. |
-| `NumberInput.Input` | Champ de texte numérique modifiable géré par Ark UI. |
-| `NumberInput.IncrementTrigger` | Bouton qui augmente la valeur actuelle. Il affiche par défaut l’icône plus de moduix. |
-| `NumberInput.ValueText` | Texte en lecture seule qui affiche la valeur formatée. |
+| `NumberInput` / `NumberInput` | Gère l’état du champ numérique, l’interprétation de la saisie, le formatage et le comportement au clavier. |
+| `NumberInputRootProvider` | Relie les parties à l’état créé avec `useNumberInput()`. |
+| `NumberInputContext` | Expose les valeurs formatée et numérique, ainsi que les méthodes impératives de gestion de l’état. |
+| `NumberInputLabel` | Libellé accessible associé au champ géré. |
+| `NumberInputScrubber` | Zone de glissement facultative qui modifie la valeur selon le déplacement du pointeur. |
+| `NumberInputControl` | Regroupe le champ et les boutons d’incrémentation et de décrémentation. |
+| `NumberInputField` | Partie pratique qui affiche le contrôle standard et le groupe de boutons. |
+| `NumberInputDecrementTrigger` | Bouton qui diminue la valeur actuelle. Il affiche par défaut l’icône moins de moduix. |
+| `NumberInputInput` | Champ de texte numérique modifiable géré par Ark UI. |
+| `NumberInputIncrementTrigger` | Bouton qui augmente la valeur actuelle. Il affiche par défaut l’icône plus de moduix. |
+| `NumberInputValueText` | Texte en lecture seule qui affiche la valeur formatée. |
 
 ## Composition
 
-Utilisez `NumberInput.Field` pour le contrôle standard en trois parties. Conservez `value` et `defaultValue` sous forme
+Utilisez `NumberInputField` pour le contrôle standard en trois parties. Conservez `value` et `defaultValue` sous forme
 de chaînes et utilisez `details.value` de `onValueChange` lorsque le champ est contrôlé. Lorsque l’état doit être créé
 en dehors de l’arbre des parties rendues, appelez `useNumberInput()` et transmettez le store correspondant à
-`NumberInput.RootProvider`. Ne rendez pas `NumberInput` ou `NumberInput.Root` pour ce même store. React lit directement
+`NumberInputRootProvider`. Ne rendez pas `NumberInput` ou `NumberInput` pour ce même store. React lit directement
 les propriétés du store, tandis que Solid les lit via l’accesseur renvoyé.
 
-Utilisez `NumberInput.Control` avec les parties individuelles lorsque l’ordre des boutons, les icônes ou le style du
-champ doit changer. Ajoutez `NumberInput.Scrubber` à côté du champ pour permettre la modification par glissement.
-Utilisez `NumberInput.Context` uniquement lorsqu’un autre élément, par exemple un champ masqué de formulaire, a besoin
+Utilisez `NumberInputControl` avec les parties individuelles lorsque l’ordre des boutons, les icônes ou le style du
+champ doit changer. Ajoutez `NumberInputScrubber` à côté du champ pour permettre la modification par glissement.
+Utilisez `NumberInputContext` uniquement lorsqu’un autre élément, par exemple un champ masqué de formulaire, a besoin
 de la valeur formatée ou de `valueAsNumber`.
 
 ## Exemples
@@ -332,7 +332,7 @@ Activez `allowMouseWheel` lorsque la molette doit modifier la valeur dans votre 
 ### Soumission native du formulaire
 
 Définissez `name` pour inclure le spinbutton textuel visible dans la soumission d’un formulaire natif. `NumberInput`
-soumet sa valeur affichée sous forme de chaîne. Utilisez `NumberInput.Context` pour un second champ masqué uniquement
+soumet sa valeur affichée sous forme de chaîne. Utilisez `NumberInputContext` pour un second champ masqué uniquement
 lorsque le formulaire attend la représentation numérique.
 
 <ExampleFrame variant="component">
@@ -393,7 +393,7 @@ chiffres après la virgule.
 
 ### Root Provider
 
-Utilisez `useNumberInput()` avec `NumberInput.RootProvider` lorsque l’état doit être créé en dehors de l’arbre des
+Utilisez `useNumberInput()` avec `NumberInputRootProvider` lorsque l’état doit être créé en dehors de l’arbre des
 parties rendues.
 
 <ExampleFrame variant="component">
@@ -426,7 +426,7 @@ parties rendues.
 
 ### Modification par glissement
 
-Faites glisser `NumberInput.Scrubber` vers la gauche ou la droite pour modifier la valeur.
+Faites glisser `NumberInputScrubber` vers la gauche ou la droite pour modifier la valeur.
 
 <ExampleFrame variant="component">
   <NumberInputScrubbing />
@@ -458,7 +458,7 @@ Faites glisser `NumberInput.Scrubber` vers la gauche ou la droite pour modifier 
 
 ### Texte de la valeur
 
-Utilisez `NumberInput.ValueText` lorsque la valeur formatée doit également apparaître à l’extérieur du champ modifiable.
+Utilisez `NumberInputValueText` lorsque la valeur formatée doit également apparaître à l’extérieur du champ modifiable.
 
 <ExampleFrame variant="component">
   <NumberInputValueText />
@@ -485,7 +485,7 @@ Utilisez `NumberInput.ValueText` lorsque la valeur formatée doit également app
 
 ### Personnalisation avancée
 
-Assemblez directement les parties de bas niveau au lieu d’utiliser `NumberInput.Field` lorsque les icônes des boutons
+Assemblez directement les parties de bas niveau au lieu d’utiliser `NumberInputField` lorsque les icônes des boutons
 ou le style du champ doivent être personnalisés. Transmettez `translations` lorsque le contenu personnalisé des boutons
 nécessite des libellés localisés pour les technologies d’assistance.
 

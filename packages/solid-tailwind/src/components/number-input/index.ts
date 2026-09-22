@@ -1,1 +1,15 @@
-export { NumberInput, useNumberInput, useNumberInputContext } from './NumberInput.js';
+export {
+  NumberInput,
+  NumberInputContext,
+  NumberInputControl,
+  NumberInputDecrementTrigger,
+  NumberInputField,
+  NumberInputIncrementTrigger,
+  NumberInputInput,
+  NumberInputLabel,
+  NumberInputRootProvider,
+  NumberInputScrubber,
+  NumberInputValueText,
+  useNumberInput,
+  useNumberInputContext,
+} from './NumberInput.js';

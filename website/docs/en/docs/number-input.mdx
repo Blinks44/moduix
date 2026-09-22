@@ -42,8 +42,8 @@ Import it from
 `@moduix/react/number-input` or `@moduix/solid/number-input` for CSS Modules, and from the matching
 `@moduix/react-tailwind/number-input` or `@moduix/solid-tailwind/number-input` path for Tailwind CSS.
 
-Use `NumberInput` as the root and `NumberInput.Field` for the standard input with increment and
-decrement controls. Give the input an accessible name with `NumberInput.Label`, `aria-label`, or
+Use `NumberInput` as the root and `NumberInputField` for the standard input with increment and
+decrement controls. Give the input an accessible name with `NumberInputLabel`, `aria-label`, or
 `aria-labelledby`.
 
 <ExampleFrame variant="component">
@@ -106,45 +106,45 @@ See [Quick Start](/docs/quick-start) for full package setup, registry configurat
 ## Anatomy
 
 ```text
-NumberInput / NumberInput.Root
-├─ NumberInput.Label
-├─ NumberInput.Scrubber (optional)
-├─ NumberInput.Field (recommended shortcut)
-│  └─ renders NumberInput.Control
-│     ├─ NumberInput.DecrementTrigger
-│     ├─ NumberInput.Input
-│     └─ NumberInput.IncrementTrigger
-└─ NumberInput.ValueText (optional)
+NumberInput
+├─ NumberInputLabel
+├─ NumberInputScrubber (optional)
+├─ NumberInputField (recommended shortcut)
+│  └─ renders NumberInputControl
+│     ├─ NumberInputDecrementTrigger
+│     ├─ NumberInputInput
+│     └─ NumberInputIncrementTrigger
+└─ NumberInputValueText (optional)
 
-NumberInput.RootProvider
+NumberInputRootProvider
 └─ same part tree connected to state created by `useNumberInput()`
 ```
 
 | Part | Role |
 | --- | --- |
-| `NumberInput` / `NumberInput.Root` | Owns number input state, parsing, formatting, and keyboard behavior. |
-| `NumberInput.RootProvider` | Connects parts to state created with `useNumberInput()`. |
-| `NumberInput.Context` | Exposes formatted and numeric values plus imperative state methods. |
-| `NumberInput.Label` | Accessible label for the managed input. |
-| `NumberInput.Scrubber` | Optional drag target that changes the value as the pointer moves. |
-| `NumberInput.Control` | Groups the input and increment and decrement triggers. |
-| `NumberInput.Field` | Convenience part that renders the standard control and trigger group. |
-| `NumberInput.DecrementTrigger` | Button that decreases the current value. It renders the moduix minus icon by default. |
-| `NumberInput.Input` | Editable numeric text input managed by Ark UI. |
-| `NumberInput.IncrementTrigger` | Button that increases the current value. It renders the moduix plus icon by default. |
-| `NumberInput.ValueText` | Read-only text element for the formatted value. |
+| `NumberInput` / `NumberInput` | Owns number input state, parsing, formatting, and keyboard behavior. |
+| `NumberInputRootProvider` | Connects parts to state created with `useNumberInput()`. |
+| `NumberInputContext` | Exposes formatted and numeric values plus imperative state methods. |
+| `NumberInputLabel` | Accessible label for the managed input. |
+| `NumberInputScrubber` | Optional drag target that changes the value as the pointer moves. |
+| `NumberInputControl` | Groups the input and increment and decrement triggers. |
+| `NumberInputField` | Convenience part that renders the standard control and trigger group. |
+| `NumberInputDecrementTrigger` | Button that decreases the current value. It renders the moduix minus icon by default. |
+| `NumberInputInput` | Editable numeric text input managed by Ark UI. |
+| `NumberInputIncrementTrigger` | Button that increases the current value. It renders the moduix plus icon by default. |
+| `NumberInputValueText` | Read-only text element for the formatted value. |
 
 ## Composition
 
-Use `NumberInput.Field` for the standard three-part control. Keep `value` and `defaultValue` as
+Use `NumberInputField` for the standard three-part control. Keep `value` and `defaultValue` as
 strings, and read `details.value` from `onValueChange` when the input is controlled. When state must
 be created outside the rendered part tree, call `useNumberInput()` and pass the matching store to
-`NumberInput.RootProvider`; do not render `NumberInput` or `NumberInput.Root` for the same store.
+`NumberInputRootProvider`; do not render `NumberInput` or `NumberInput` for the same store.
 React reads store properties directly, while Solid reads them through the returned accessor.
 
-Use `NumberInput.Control` with individual parts when the trigger order, icons, or input styling must
-differ. Add `NumberInput.Scrubber` alongside the field for drag-to-change behavior. Use
-`NumberInput.Context` only when another part, such as a hidden form control, needs the formatted value
+Use `NumberInputControl` with individual parts when the trigger order, icons, or input styling must
+differ. Add `NumberInputScrubber` alongside the field for drag-to-change behavior. Use
+`NumberInputContext` only when another part, such as a hidden form control, needs the formatted value
 or `valueAsNumber`.
 
 ## Examples
@@ -332,7 +332,7 @@ Set `allowMouseWheel` when changing the value with the mouse wheel is intentiona
 ### Native form submission
 
 Set `name` to submit the visible text spinbutton through a native form. `NumberInput` submits its
-displayed string value. Use `NumberInput.Context` for a second hidden input only when the form needs
+displayed string value. Use `NumberInputContext` for a second hidden input only when the form needs
 the parsed numeric representation.
 
 <ExampleFrame variant="component">
@@ -393,7 +393,7 @@ fraction digits.
 
 ### Root Provider
 
-Use `useNumberInput()` with `NumberInput.RootProvider` when state must be created outside the rendered
+Use `useNumberInput()` with `NumberInputRootProvider` when state must be created outside the rendered
 part tree.
 
 <ExampleFrame variant="component">
@@ -426,7 +426,7 @@ part tree.
 
 ### Scrubbing
 
-Drag `NumberInput.Scrubber` left or right to change the value.
+Drag `NumberInputScrubber` left or right to change the value.
 
 <ExampleFrame variant="component">
   <NumberInputScrubbing />
@@ -458,7 +458,7 @@ Drag `NumberInput.Scrubber` left or right to change the value.
 
 ### Value text
 
-Use `NumberInput.ValueText` when the formatted value should also be visible outside the editable
+Use `NumberInputValueText` when the formatted value should also be visible outside the editable
 input.
 
 <ExampleFrame variant="component">
@@ -486,7 +486,7 @@ input.
 
 ### Advanced Customization
 
-Compose the low-level parts instead of `NumberInput.Field` when the trigger icons or input styling
+Compose the low-level parts instead of `NumberInputField` when the trigger icons or input styling
 must be customized. Pass `translations` when custom trigger content needs localized accessible labels.
 
 <ExampleFrame variant="component">

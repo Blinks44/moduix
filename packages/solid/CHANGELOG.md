@@ -34,11 +34,11 @@
 
 ### Navigation Menu
 
-- c7359a1: Expose `useNavigationMenu` as a `NavigationMenu.useNavigationMenu` static in Solid adapters, matching the React adapters.
+- c7359a1: Expose `useNavigationMenu` from the NavigationMenu component entry point in Solid adapters, matching the React adapters.
 
 ### Navigation Menu
 
-- c7359a1: Align the viewport enter/exit keyframes with the shared popup motion so reduced-motion and preset tuning follow foundation tokens, and document the `ViewportPositioner` `align` prop.
+- c7359a1: Align the viewport enter/exit keyframes with the shared popup motion so reduced-motion and preset tuning follow foundation tokens, and document the `NavigationMenuViewportPositioner` `align` prop.
 
 ### NumberInput
 

@@ -8,10 +8,10 @@ import { forwardRef } from 'react';
 import { cn } from '@/lib/moduix/cn';
 import { ChevronLeftIcon, ChevronRightIcon } from '@/lib/moduix/icons/ui';
 
-const PaginationRoot = forwardRef<
+const Pagination = forwardRef<
   ComponentRef<typeof PaginationPrimitive.Root>,
   ComponentProps<typeof PaginationPrimitive.Root>
->(function PaginationRoot({ className, ...props }, ref) {
+>(function Pagination({ className, ...props }, ref) {
   return (
     <PaginationPrimitive.Root
       ref={ref}
@@ -205,19 +205,17 @@ function PaginationItems() {
   );
 }
 
-const Pagination = Object.assign(PaginationRoot, {
-  Root: PaginationRoot,
-  RootProvider: PaginationRootProvider,
-  Item: PaginationItem,
-  Ellipsis: PaginationEllipsis,
-  PrevTrigger: PaginationPrevTrigger,
-  NextTrigger: PaginationNextTrigger,
-  FirstTrigger: PaginationFirstTrigger,
-  LastTrigger: PaginationLastTrigger,
-  Context: PaginationContext,
-  Items: PaginationItems,
+export {
+  Pagination,
+  PaginationContext,
+  PaginationEllipsis,
+  PaginationFirstTrigger,
+  PaginationItem,
+  PaginationItems,
+  PaginationLastTrigger,
+  PaginationNextTrigger,
+  PaginationPrevTrigger,
+  PaginationRootProvider,
   usePagination,
   usePaginationContext,
-});
-
-export { Pagination, usePagination, usePaginationContext };
+};

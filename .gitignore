@@ -36,5 +36,4 @@ pnpm-debug.log*
 !.vscode/extensions.json
 .idea/
 audits/
-plans/*
-!plans/flat-component-api-migration.md
+plans/

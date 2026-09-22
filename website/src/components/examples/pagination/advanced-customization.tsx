@@ -1,24 +1,31 @@
-import { Pagination } from '@moduix/react/pagination';
+import {
+  Pagination,
+  PaginationContext,
+  PaginationEllipsis,
+  PaginationItem,
+  PaginationNextTrigger,
+  PaginationPrevTrigger,
+} from '@moduix/react/pagination';
 import styles from '@/components/examples/pagination/pagination-advanced-customization.module.css';
 
 export default function AdvancedCustomizationPaginationDemo() {
   return (
     <Pagination className={styles.root} count={200} pageSize={10} siblingCount={2}>
-      <Pagination.PrevTrigger />
-      <Pagination.Context>
+      <PaginationPrevTrigger />
+      <PaginationContext>
         {(pagination) =>
           pagination.pages.map((page, index) =>
             page.type === 'page' ? (
-              <Pagination.Item key={index} {...page}>
+              <PaginationItem key={index} {...page}>
                 Page {page.value}
-              </Pagination.Item>
+              </PaginationItem>
             ) : (
-              <Pagination.Ellipsis key={index} index={index} />
+              <PaginationEllipsis key={index} index={index} />
             ),
           )
         }
-      </Pagination.Context>
-      <Pagination.NextTrigger />
+      </PaginationContext>
+      <PaginationNextTrigger />
     </Pagination>
   );
 }

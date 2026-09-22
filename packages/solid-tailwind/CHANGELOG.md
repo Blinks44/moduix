@@ -38,7 +38,7 @@
 
 ### Navigation Menu
 
-- c7359a1: Expose `useNavigationMenu` as a `NavigationMenu.useNavigationMenu` static in Solid adapters, matching the React adapters.
+- c7359a1: Expose `useNavigationMenu` from the NavigationMenu component entry point in Solid adapters, matching the React adapters.
 
 ### NumberInput
 

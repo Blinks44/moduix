@@ -24,73 +24,78 @@ many items map to one page.
 Use `Pagination` as the root:
 
 ```tsx
-import { Pagination } from '@moduix/react/pagination';
+import {
+  Pagination,
+  PaginationItems,
+  PaginationNextTrigger,
+  PaginationPrevTrigger,
+} from '@moduix/react/pagination';
 
 export function Example() {
   return (
     <Pagination count={5000} pageSize={10} siblingCount={2}>
-      <Pagination.PrevTrigger />
-      <Pagination.Items />
-      <Pagination.NextTrigger />
+      <PaginationPrevTrigger />
+      <PaginationItems />
+      <PaginationNextTrigger />
     </Pagination>
   );
 }
 ```
 
-The public API is Ark-shaped. Use namespace parts, Ark callback details, and Ark state helpers
-directly instead of local range math or layout aliases. `Pagination.usePagination()` and
-`Pagination.usePaginationContext()` preserve the upstream hook contracts for normal advanced usage.
+The public API is Ark-shaped. Use flat parts, Ark callback details, and Ark state helpers
+directly instead of local range math or layout aliases. `usePagination()` and
+`usePaginationContext()` preserve the upstream hook contracts for normal advanced usage.
 
 ## Anatomy and exported parts
 
 ```text
 Pagination
-├─ Pagination.FirstTrigger (optional)
-├─ Pagination.PrevTrigger
-├─ Pagination.Items (recommended)
-├─ Pagination.Context (advanced render-prop access)
-│  ├─ Pagination.Item
-│  └─ Pagination.Ellipsis
-├─ Pagination.NextTrigger
-└─ Pagination.LastTrigger (optional)
+├─ PaginationFirstTrigger (optional)
+├─ PaginationPrevTrigger
+├─ PaginationItems (recommended)
+├─ PaginationContext (advanced render-prop access)
+│  ├─ PaginationItem
+│  └─ PaginationEllipsis
+├─ PaginationNextTrigger
+└─ PaginationLastTrigger (optional)
 
-Pagination.RootProvider
+PaginationRootProvider
 └─ same trigger, item, ellipsis, and context tree connected to usePagination()
 ```
 
 | Export                            | `data-slot`                | Notes                                                             |
 | --------------------------------- | -------------------------- | ----------------------------------------------------------------- |
 | `Pagination`                      | `pagination-root`          | Ark root; its label comes from `translations.rootLabel`.          |
-| `Pagination.RootProvider`         | `pagination-root-provider` | Ark root provider; its label comes from `translations.rootLabel`. |
-| `Pagination.Items`                | -                          | Renders the standard computed page items and ellipses.            |
-| `Pagination.Context`              | Ark render prop            | Reads page state, helpers, pages, ranges, and slice helper.       |
-| `Pagination.usePagination`        | -                          | Creates Ark pagination state outside the rendered root.           |
-| `Pagination.usePaginationContext` | -                          | Reads Ark pagination state from a descendant.                     |
-| `Pagination.Item`                 | `pagination-item`          | Ark page item; pass `{...page}` from `pagination.pages`.          |
-| `Pagination.Ellipsis`             | `pagination-ellipsis`      | Ark ellipsis; `index` is required.                                |
-| `Pagination.PrevTrigger`          | `pagination-prev-trigger`  | Ark previous trigger with default Moduix chevron.                 |
-| `Pagination.NextTrigger`          | `pagination-next-trigger`  | Ark next trigger with default Moduix chevron.                     |
-| `Pagination.FirstTrigger`         | `pagination-first-trigger` | Ark first trigger with default double-chevron visual.             |
-| `Pagination.LastTrigger`          | `pagination-last-trigger`  | Ark last trigger with default double-chevron visual.              |
+| `PaginationRootProvider`         | `pagination-root-provider` | Ark root provider; its label comes from `translations.rootLabel`. |
+| `PaginationItems`                | -                          | Renders the standard computed page items and ellipses.            |
+| `PaginationContext`              | Ark render prop            | Reads page state, helpers, pages, ranges, and slice helper.       |
+| `usePagination`        | -                          | Creates Ark pagination state outside the rendered root.           |
+| `usePaginationContext` | -                          | Reads Ark pagination state from a descendant.                     |
+| `PaginationItem`                 | `pagination-item`          | Ark page item; pass `{...page}` from `pagination.pages`.          |
+| `PaginationEllipsis`             | `pagination-ellipsis`      | Ark ellipsis; `index` is required.                                |
+| `PaginationPrevTrigger`          | `pagination-prev-trigger`  | Ark previous trigger with default Moduix chevron.                 |
+| `PaginationNextTrigger`          | `pagination-next-trigger`  | Ark next trigger with default Moduix chevron.                     |
+| `PaginationFirstTrigger`         | `pagination-first-trigger` | Ark first trigger with default double-chevron visual.             |
+| `PaginationLastTrigger`          | `pagination-last-trigger`  | Ark last trigger with default double-chevron visual.              |
 
 ## Composition
 
-Use `Pagination.Items` for normal item rendering:
+Use `PaginationItems` for normal item rendering:
 
 ```tsx
-<Pagination.Items />
+<PaginationItems />
 ```
 
-Use `Pagination.Context` when page items need custom content or layout. Use `type="link"` with
-`getPageUrl(details)` and `asChild` anchors for anchor navigation. Use `Pagination.usePagination()` plus
-`Pagination.RootProvider` when pagination state must be created outside the rendered root. Do not
-render `Pagination.Root` and `Pagination.RootProvider` for the same state instance.
+Use `PaginationContext` when page items need custom content or layout. Use `type="link"` with
+`getPageUrl(details)` and `asChild` anchors for anchor navigation. Use `usePagination()` plus
+`PaginationRootProvider` when pagination state must be created outside the rendered root. Do not
+render `Pagination` and `PaginationRootProvider` for the same state instance.
 
 ## Upstream feature coverage
 
 Supported Ark docs coverage:
 
-- Basic page rendering through `Pagination.Items`, or `Pagination.Context` and `pagination.pages`
+- Basic page rendering through `PaginationItems`, or `PaginationContext` and `pagination.pages`
   for custom item rendering.
 - Controlled page state through `page` and `onPageChange(details)`.
 - Custom translations through `translations`.
@@ -101,8 +106,8 @@ Supported Ark docs coverage:
 - Page range display through `pagination.pageRange`.
 - Page-size control through `defaultPageSize`, `pageSize`, `onPageSizeChange(details)`, and
   `pagination.setPageSize()`.
-- Root provider composition with `Pagination.usePagination()` and `Pagination.RootProvider`.
-- Edge navigation with `Pagination.FirstTrigger` and `Pagination.LastTrigger`.
+- Root provider composition with `usePagination()` and `PaginationRootProvider`.
+- Edge navigation with `PaginationFirstTrigger` and `PaginationLastTrigger`.
 
 ## Accessibility and state
 
@@ -116,7 +121,7 @@ translations, and page navigation state. The wrapper preserves Ark callback deta
 State and attributes to preserve:
 
 - `data-scope="pagination"` and `data-part` are emitted by Ark parts.
-- `data-selected` marks the active `Pagination.Item`.
+- `data-selected` marks the active `PaginationItem`.
 - `data-disabled` marks unavailable triggers.
 - `ids` can provide stable IDs for root, item, ellipsis, and trigger parts.
 - All exported parts preserve Ark `asChild`; provide one semantic child when using it.
@@ -168,15 +173,16 @@ Public CSS variables:
 
 ## Intentional sugar and differences from upstream
 
-The wrapper keeps Ark API names and does not expose flat aliases. Moduix sugar is limited to
-`Pagination.Items`, Ark hook namespace re-exports, default icons, default ellipsis text, `data-slot`
+The wrapper keeps Ark API names and exposes wrapped parts through flat family-prefixed exports.
+Moduix sugar is limited to `PaginationItems`, top-level Ark hook re-exports, default icons,
+default ellipsis text, `data-slot`
 hooks, and styling tokens.
 
 ## Agent notes
 
-Keep the wrapper thin. Do not add local range math, flat aliases, or a high-level configuration API.
-Keep `Pagination.Context` for custom item rendering and `Pagination.Items` for the ordinary page
-list. Custom renderers must pass page objects directly into `Pagination.Item`.
+Keep the wrapper thin. Do not add local range math, compatibility aliases, or a high-level configuration API.
+Keep `PaginationContext` for custom item rendering and `PaginationItems` for the ordinary page
+list. Custom renderers must pass page objects directly into `PaginationItem`.
 
 ## Local changelog
 
@@ -194,16 +200,16 @@ list. Custom renderers must pass page objects directly into `Pagination.Item`.
 - 2026-07-21: Routed shared dimensions, spacing, icon geometry, and focus-ring fallbacks through foundation tokens so density and theme presets can retune the component consistently.
 - 2026-07-21: Reduced default pagination items and icon triggers to `--moduix-size-md`.
 
-- 2026-07-10: Added `Pagination.Items` for the standard page list and namespace re-exports for
-  `usePagination()` and `usePaginationContext()`; documented the explicit `Context` map as the
+- 2026-07-10: Added `PaginationItems` for the standard page list and flat re-exports for
+  `usePagination()` and `usePaginationContext()`; documented the explicit `PaginationContext` map as the
   advanced customization path.
 
 - 2026-07-03: Removed direct package-barrel re-exports of Ark pagination hooks and duplicate public
-  types while keeping `Pagination.Context` for ordinary Ark-shaped page rendering.
+  types while keeping `PaginationContext` for ordinary Ark-shaped page rendering.
 - 2026-06-26: Audited the Ark UI migration, replaced structural icon-only trigger CSS with an
   internal class, removed stale previous-contract guidance, and aligned docs examples with the
   current Ark-shaped composition.
 - 2026-06-20: Migrated Pagination from a previous custom Toolbar composition to Ark UI
-  `@ark-ui/react/pagination`; replaced flat aliases with namespace parts, re-exported Ark hooks and
+  `@ark-ui/react/pagination`; replaced flat aliases with flat parts, re-exported Ark hooks and
   types, updated styling hooks, docs, stories, registry dependencies, and documented breaking API
   removals.

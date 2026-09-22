@@ -1,4 +1,9 @@
-import { Pagination } from '@moduix/solid/pagination';
+import {
+  Pagination,
+  PaginationItems,
+  PaginationNextTrigger,
+  PaginationPrevTrigger,
+} from '@moduix/solid/pagination';
 import { createSignal } from 'solid-js';
 import styles from '@/components/examples/pagination/pagination-controlled.module.css';
 
@@ -15,9 +20,9 @@ export default function ControlledPaginationDemo() {
         siblingCount={2}
         onPageChange={(details) => setPage(details.page)}
       >
-        <Pagination.PrevTrigger />
-        <Pagination.Items />
-        <Pagination.NextTrigger />
+        <PaginationPrevTrigger />
+        <PaginationItems />
+        <PaginationNextTrigger />
       </Pagination>
       <output>Current page: {page()}</output>
     </div>

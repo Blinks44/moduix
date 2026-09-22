@@ -2,7 +2,16 @@ import { expect, test } from '@rstest/core';
 import { render, screen, waitFor } from '@testing-library/react';
 import userEvent from '@testing-library/user-event';
 import { createRef } from 'react';
-import { Field, NumberInput, useNumberInput, FieldErrorText } from '../src';
+import {
+  Field,
+  FieldErrorText,
+  NumberInput,
+  NumberInputContext,
+  NumberInputField,
+  NumberInputLabel,
+  NumberInputRootProvider,
+  useNumberInput,
+} from '../src';
 
 test('renders the Field shortcut and preserves keyboard value changes', async () => {
   const changes: string[] = [];
@@ -11,8 +20,8 @@ test('renders the Field shortcut and preserves keyboard value changes', async ()
 
   render(
     <NumberInput defaultValue="2" onValueChange={(details) => changes.push(details.value)}>
-      <NumberInput.Label>Amount</NumberInput.Label>
-      <NumberInput.Field ref={controlRef} />
+      <NumberInputLabel>Amount</NumberInputLabel>
+      <NumberInputField ref={controlRef} />
     </NumberInput>,
   );
 
@@ -40,8 +49,8 @@ test('inherits Field state for disabled, read-only, and invalid number inputs', 
   render(
     <Field disabled invalid readOnly>
       <NumberInput>
-        <NumberInput.Label>Items</NumberInput.Label>
-        <NumberInput.Field />
+        <NumberInputLabel>Items</NumberInputLabel>
+        <NumberInputField />
       </NumberInput>
       <FieldErrorText>Choose a valid amount.</FieldErrorText>
     </Field>,
@@ -68,10 +77,10 @@ test('keeps RootProvider state and root asChild composition Ark-shaped', async (
         <button type="button" onClick={() => numberInput.setToMax()}>
           Set maximum
         </button>
-        <NumberInput.RootProvider value={numberInput}>
-          <NumberInput.Label>Guests</NumberInput.Label>
-          <NumberInput.Field />
-        </NumberInput.RootProvider>
+        <NumberInputRootProvider value={numberInput}>
+          <NumberInputLabel>Guests</NumberInputLabel>
+          <NumberInputField />
+        </NumberInputRootProvider>
       </>
     );
   }
@@ -80,8 +89,8 @@ test('keeps RootProvider state and root asChild composition Ark-shaped', async (
     <>
       <NumberInput asChild defaultValue="4">
         <section>
-          <NumberInput.Label>Capacity</NumberInput.Label>
-          <NumberInput.Field />
+          <NumberInputLabel>Capacity</NumberInputLabel>
+          <NumberInputField />
         </section>
       </NumberInput>
       <ProviderNumberInput />
@@ -97,11 +106,11 @@ test('supports numeric form submission through Context', () => {
   const { container } = render(
     <form>
       <NumberInput defaultValue="42">
-        <NumberInput.Label>Quantity</NumberInput.Label>
-        <NumberInput.Field />
-        <NumberInput.Context>
+        <NumberInputLabel>Quantity</NumberInputLabel>
+        <NumberInputField />
+        <NumberInputContext>
           {(context) => <input name="quantity" type="hidden" value={context.valueAsNumber} />}
-        </NumberInput.Context>
+        </NumberInputContext>
       </NumberInput>
     </form>,
   );
@@ -117,8 +126,8 @@ test('preserves native form ownership through name and form', () => {
     <>
       <form id="quantity-form" />
       <NumberInput defaultValue="42" form="quantity-form" name="quantity">
-        <NumberInput.Label>Quantity</NumberInput.Label>
-        <NumberInput.Field />
+        <NumberInputLabel>Quantity</NumberInputLabel>
+        <NumberInputField />
       </NumberInput>
     </>,
   );

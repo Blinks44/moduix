@@ -1,6 +1,19 @@
 import { createSignal } from 'solid-js';
 import type { Meta, StoryObj } from 'storybook-solidjs-vite';
-import { NavigationMenu, useNavigationMenu } from '@/components/navigation-menu/NavigationMenu';
+import {
+  NavigationMenu,
+  useNavigationMenu,
+  NavigationMenuList,
+  NavigationMenuItem,
+  NavigationMenuLink,
+  NavigationMenuTrigger,
+  NavigationMenuContent,
+  NavigationMenuIndicator,
+  NavigationMenuArrow,
+  NavigationMenuViewportPositioner,
+  NavigationMenuViewport,
+  NavigationMenuRootProvider,
+} from '@/components/navigation-menu/NavigationMenu';
 import { ChevronDownIcon } from '@/lib/moduix/icons/ui/Icons';
 
 const meta = {
@@ -16,31 +29,31 @@ type Story = StoryObj<typeof meta>;
 
 function NavigationMenuParts() {
   return (
-    <NavigationMenu.List>
-      <NavigationMenu.Item value="home">
-        <NavigationMenu.Link href="#home">Home</NavigationMenu.Link>
-      </NavigationMenu.Item>
-      <NavigationMenu.Item value="products">
-        <NavigationMenu.Trigger>
+    <NavigationMenuList>
+      <NavigationMenuItem value="home">
+        <NavigationMenuLink href="#home">Home</NavigationMenuLink>
+      </NavigationMenuItem>
+      <NavigationMenuItem value="products">
+        <NavigationMenuTrigger>
           Products
           <ChevronDownIcon />
-        </NavigationMenu.Trigger>
-        <NavigationMenu.Content>
-          <NavigationMenu.Link href="#analytics">Analytics</NavigationMenu.Link>
-          <NavigationMenu.Link href="#automation">Automation</NavigationMenu.Link>
-        </NavigationMenu.Content>
-      </NavigationMenu.Item>
-      <NavigationMenu.Item value="docs">
-        <NavigationMenu.Trigger>
+        </NavigationMenuTrigger>
+        <NavigationMenuContent>
+          <NavigationMenuLink href="#analytics">Analytics</NavigationMenuLink>
+          <NavigationMenuLink href="#automation">Automation</NavigationMenuLink>
+        </NavigationMenuContent>
+      </NavigationMenuItem>
+      <NavigationMenuItem value="docs">
+        <NavigationMenuTrigger>
           Docs
           <ChevronDownIcon />
-        </NavigationMenu.Trigger>
-        <NavigationMenu.Content>
-          <NavigationMenu.Link href="#guides">Guides</NavigationMenu.Link>
-          <NavigationMenu.Link href="#api">API reference</NavigationMenu.Link>
-        </NavigationMenu.Content>
-      </NavigationMenu.Item>
-    </NavigationMenu.List>
+        </NavigationMenuTrigger>
+        <NavigationMenuContent>
+          <NavigationMenuLink href="#guides">Guides</NavigationMenuLink>
+          <NavigationMenuLink href="#api">API reference</NavigationMenuLink>
+        </NavigationMenuContent>
+      </NavigationMenuItem>
+    </NavigationMenuList>
   );
 }
 
@@ -73,50 +86,50 @@ export const Controlled: Story = {
 export const Viewport: Story = {
   render: () => (
     <NavigationMenu>
-      <NavigationMenu.List>
-        <NavigationMenu.Item value="products">
-          <NavigationMenu.Trigger>
+      <NavigationMenuList>
+        <NavigationMenuItem value="products">
+          <NavigationMenuTrigger>
             Products
             <ChevronDownIcon />
-          </NavigationMenu.Trigger>
-          <NavigationMenu.Content class="w-80">
+          </NavigationMenuTrigger>
+          <NavigationMenuContent class="w-80">
             <div class="grid grid-cols-2">
-              <NavigationMenu.Link href="#analytics">Analytics</NavigationMenu.Link>
-              <NavigationMenu.Link href="#automation">Automation</NavigationMenu.Link>
-              <NavigationMenu.Link href="#integrations">Integrations</NavigationMenu.Link>
-              <NavigationMenu.Link href="#reports">Reports</NavigationMenu.Link>
+              <NavigationMenuLink href="#analytics">Analytics</NavigationMenuLink>
+              <NavigationMenuLink href="#automation">Automation</NavigationMenuLink>
+              <NavigationMenuLink href="#integrations">Integrations</NavigationMenuLink>
+              <NavigationMenuLink href="#reports">Reports</NavigationMenuLink>
             </div>
-          </NavigationMenu.Content>
-        </NavigationMenu.Item>
-        <NavigationMenu.Item value="company">
-          <NavigationMenu.Trigger>
+          </NavigationMenuContent>
+        </NavigationMenuItem>
+        <NavigationMenuItem value="company">
+          <NavigationMenuTrigger>
             Company
             <ChevronDownIcon />
-          </NavigationMenu.Trigger>
-          <NavigationMenu.Content class="w-56">
-            <NavigationMenu.Link href="#about">About</NavigationMenu.Link>
-            <NavigationMenu.Link href="#careers">Careers</NavigationMenu.Link>
-            <NavigationMenu.Link href="#contact">Contact</NavigationMenu.Link>
-          </NavigationMenu.Content>
-        </NavigationMenu.Item>
-        <NavigationMenu.Item value="resources">
-          <NavigationMenu.Trigger>
+          </NavigationMenuTrigger>
+          <NavigationMenuContent class="w-56">
+            <NavigationMenuLink href="#about">About</NavigationMenuLink>
+            <NavigationMenuLink href="#careers">Careers</NavigationMenuLink>
+            <NavigationMenuLink href="#contact">Contact</NavigationMenuLink>
+          </NavigationMenuContent>
+        </NavigationMenuItem>
+        <NavigationMenuItem value="resources">
+          <NavigationMenuTrigger>
             Resources
             <ChevronDownIcon />
-          </NavigationMenu.Trigger>
-          <NavigationMenu.Content class="w-72">
-            <NavigationMenu.Link href="#blog">Blog</NavigationMenu.Link>
-            <NavigationMenu.Link href="#customers">Customer stories</NavigationMenu.Link>
-            <NavigationMenu.Link href="#support">Support</NavigationMenu.Link>
-          </NavigationMenu.Content>
-        </NavigationMenu.Item>
-        <NavigationMenu.Indicator>
-          <NavigationMenu.Arrow />
-        </NavigationMenu.Indicator>
-      </NavigationMenu.List>
-      <NavigationMenu.ViewportPositioner>
-        <NavigationMenu.Viewport />
-      </NavigationMenu.ViewportPositioner>
+          </NavigationMenuTrigger>
+          <NavigationMenuContent class="w-72">
+            <NavigationMenuLink href="#blog">Blog</NavigationMenuLink>
+            <NavigationMenuLink href="#customers">Customer stories</NavigationMenuLink>
+            <NavigationMenuLink href="#support">Support</NavigationMenuLink>
+          </NavigationMenuContent>
+        </NavigationMenuItem>
+        <NavigationMenuIndicator>
+          <NavigationMenuArrow />
+        </NavigationMenuIndicator>
+      </NavigationMenuList>
+      <NavigationMenuViewportPositioner>
+        <NavigationMenuViewport />
+      </NavigationMenuViewportPositioner>
     </NavigationMenu>
   ),
 };
@@ -130,9 +143,9 @@ export const RootProvider: Story = {
         <output class="text-sm text-muted-foreground">
           open: {navigationMenu().value ?? 'none'}
         </output>
-        <NavigationMenu.RootProvider value={navigationMenu}>
+        <NavigationMenuRootProvider value={navigationMenu}>
           <NavigationMenuParts />
-        </NavigationMenu.RootProvider>
+        </NavigationMenuRootProvider>
       </div>
     );
   },

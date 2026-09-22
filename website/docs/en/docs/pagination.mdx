@@ -35,7 +35,7 @@ import paginationSolidWithEdges from '../../../snippets/pagination/solid/with-ed
 ## Basic
 
 
-Use `Pagination` as the root component. `Pagination.Items` renders the page buttons and ellipses for
+Use `Pagination` as the root component. `PaginationItems` renders the page buttons and ellipses for
 the current page range.
 
 <ExampleFrame variant="component">
@@ -103,34 +103,34 @@ See [Quick Start](/docs/quick-start) for full package setup, registry configurat
 ## Anatomy
 
 ```text
-Pagination / Pagination.Root
-├─ Pagination.FirstTrigger (optional)
-├─ Pagination.PrevTrigger
-├─ Pagination.Items (recommended)
-├─ Pagination.Context (advanced render-prop access)
-│  ├─ Pagination.Item
-│  └─ Pagination.Ellipsis
-├─ Pagination.NextTrigger
-└─ Pagination.LastTrigger (optional)
+Pagination
+├─ PaginationFirstTrigger (optional)
+├─ PaginationPrevTrigger
+├─ PaginationItems (recommended)
+├─ PaginationContext (advanced render-prop access)
+│  ├─ PaginationItem
+│  └─ PaginationEllipsis
+├─ PaginationNextTrigger
+└─ PaginationLastTrigger (optional)
 
-Pagination.RootProvider
+PaginationRootProvider
 └─ same trigger, item, ellipsis, and context tree connected to usePagination()
 ```
 
 | Part                              | Role                                                               |
 | --------------------------------- | ------------------------------------------------------------------ |
 | `Pagination`                      | Navigation root that manages the current page and page size.       |
-| `Pagination.RootProvider`         | Connects parts to state created by `Pagination.usePagination()`.   |
-| `Pagination.Items`                | Renders the computed page items and ellipses.                      |
-| `Pagination.Context`              | Exposes root state and navigation helpers through an Ark render prop. |
-| `Pagination.usePagination`        | Creates pagination state outside the rendered tree.                |
-| `Pagination.usePaginationContext` | Reads pagination state from a descendant.                          |
-| `Pagination.Item`                 | Interactive page control. Pass a page object as its props.        |
-| `Pagination.Ellipsis`             | Non-interactive marker for a collapsed page range. Requires `index`. |
-| `Pagination.PrevTrigger`          | Moves to the previous page and disables itself on the first page.  |
-| `Pagination.NextTrigger`          | Moves to the next page and disables itself on the last page.      |
-| `Pagination.FirstTrigger`         | Moves to the first page and disables itself when already there.    |
-| `Pagination.LastTrigger`          | Moves to the last page and disables itself when already there.     |
+| `PaginationRootProvider`         | Connects parts to state created by `usePagination()`.   |
+| `PaginationItems`                | Renders the computed page items and ellipses.                      |
+| `PaginationContext`              | Exposes root state and navigation helpers through an Ark render prop. |
+| `usePagination`        | Creates pagination state outside the rendered tree.                |
+| `usePaginationContext` | Reads pagination state from a descendant.                          |
+| `PaginationItem`                 | Interactive page control. Pass a page object as its props.        |
+| `PaginationEllipsis`             | Non-interactive marker for a collapsed page range. Requires `index`. |
+| `PaginationPrevTrigger`          | Moves to the previous page and disables itself on the first page.  |
+| `PaginationNextTrigger`          | Moves to the next page and disables itself on the last page.      |
+| `PaginationFirstTrigger`         | Moves to the first page and disables itself when already there.    |
+| `PaginationLastTrigger`          | Moves to the last page and disables itself when already there.     |
 
 ## Composition
 
@@ -139,9 +139,9 @@ matching change callbacks when another part of the application owns it. Set `cou
 number of data items, not the number of pages, and pair it with a page-size prop so Ark can calculate
 `totalPages`.
 
-Use `Pagination.Items` for the standard page list. Use `Pagination.Context` when page items or
+Use `PaginationItems` for the standard page list. Use `PaginationContext` when page items or
 nearby controls need custom rendering. If state must be created outside the rendered tree, create it
-with `Pagination.usePagination()` and pass it to `Pagination.RootProvider`. For URL navigation, set
+with `usePagination()` and pass it to `PaginationRootProvider`. For URL navigation, set
 `type="link"`, provide `getPageUrl(details)`, and render semantic anchors with `asChild`.
 
 ## Examples
@@ -187,7 +187,7 @@ Pass the active page with `page` and update it in `onPageChange(details)`.
 
 ### Context
 
-Use `Pagination.Context` to place custom controls next to the page list and call helpers such as
+Use `PaginationContext` to place custom controls next to the page list and call helpers such as
 `goToFirstPage()` and `goToLastPage()`.
 
 <ExampleFrame variant="component">
@@ -381,7 +381,7 @@ items per page.
 
 ### Root Provider
 
-Create state with `Pagination.usePagination()` and pass it to `Pagination.RootProvider` when the
+Create state with `usePagination()` and pass it to `PaginationRootProvider` when the
 state owner lives outside the rendered pagination tree.
 
 <ExampleFrame variant="component">
@@ -461,7 +461,7 @@ Use `translations` to customize accessible labels. Adjust the visible page windo
 
 ### First and Last Page Controls
 
-Add `Pagination.FirstTrigger` and `Pagination.LastTrigger` when users need shortcuts to the first
+Add `PaginationFirstTrigger` and `PaginationLastTrigger` when users need shortcuts to the first
 and last page.
 
 <ExampleFrame variant="component">
@@ -501,8 +501,8 @@ and last page.
 
 ### Advanced Customization
 
-Use `Pagination.Context` instead of `Pagination.Items` when page buttons or ellipses need custom
-content. Pass each page object to `Pagination.Item` unchanged so Ark can keep its state and
+Use `PaginationContext` instead of `PaginationItems` when page buttons or ellipses need custom
+content. Pass each page object to `PaginationItem` unchanged so Ark can keep its state and
 accessibility behavior.
 
 <ExampleFrame variant="component">
@@ -562,9 +562,9 @@ footprint, while longer labels can expand without being clipped.
 
 ### Styling hooks
 
-- `data-scope="pagination"` and `data-part="item"` on `Pagination.Item`
-- `data-scope="pagination"` and `data-part="prev-trigger"` on `Pagination.PrevTrigger`
-- `data-scope="pagination"` and `data-part="next-trigger"` on `Pagination.NextTrigger`
+- `data-scope="pagination"` and `data-part="item"` on `PaginationItem`
+- `data-scope="pagination"` and `data-part="prev-trigger"` on `PaginationPrevTrigger`
+- `data-scope="pagination"` and `data-part="next-trigger"` on `PaginationNextTrigger`
 - `data-scope="pagination"` with `data-part="first-trigger"` or `data-part="last-trigger"` on edge triggers
 - `data-selected` on the active page item
 - `data-disabled` on unavailable triggers

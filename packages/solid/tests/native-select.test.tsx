@@ -3,6 +3,10 @@ import { fireEvent, render, screen } from '@solidjs/testing-library';
 import { createSignal } from 'solid-js';
 import { Field, NativeSelect, FieldErrorText, FieldLabel } from '../src';
 
+test('exports only the flat NativeSelect root', () => {
+  expect(NativeSelect).not.toHaveProperty('Root');
+});
+
 test('preserves Field state and control styling hooks', () => {
   render(() => (
     <Field disabled id="framework" invalid required>

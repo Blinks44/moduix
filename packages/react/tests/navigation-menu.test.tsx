@@ -1,29 +1,42 @@
 import { expect, test } from '@rstest/core';
 import { fireEvent, render, screen, waitFor, within } from '@testing-library/react';
 import { renderToString } from 'react-dom/server';
-import { NavigationMenu, useNavigationMenu, useNavigationMenuContext } from '../src';
+import {
+  NavigationMenu,
+  useNavigationMenu,
+  useNavigationMenuContext,
+  NavigationMenuList,
+  NavigationMenuItem,
+  NavigationMenuLink,
+  NavigationMenuTrigger,
+  NavigationMenuContent,
+  NavigationMenuRootProvider,
+  NavigationMenuIndicator,
+  NavigationMenuViewportPositioner,
+  NavigationMenuViewport,
+} from '../src';
 
 function NavigationMenuParts() {
   return (
-    <NavigationMenu.List>
-      <NavigationMenu.Item value="home">
-        <NavigationMenu.Link current href="#home">
+    <NavigationMenuList>
+      <NavigationMenuItem value="home">
+        <NavigationMenuLink current href="#home">
           Home
-        </NavigationMenu.Link>
-      </NavigationMenu.Item>
-      <NavigationMenu.Item value="products">
-        <NavigationMenu.Trigger>Products</NavigationMenu.Trigger>
-        <NavigationMenu.Content>
-          <NavigationMenu.Link href="#analytics">Analytics</NavigationMenu.Link>
-        </NavigationMenu.Content>
-      </NavigationMenu.Item>
-      <NavigationMenu.Item value="docs">
-        <NavigationMenu.Trigger>Docs</NavigationMenu.Trigger>
-        <NavigationMenu.Content>
-          <NavigationMenu.Link href="#guides">Guides</NavigationMenu.Link>
-        </NavigationMenu.Content>
-      </NavigationMenu.Item>
-    </NavigationMenu.List>
+        </NavigationMenuLink>
+      </NavigationMenuItem>
+      <NavigationMenuItem value="products">
+        <NavigationMenuTrigger>Products</NavigationMenuTrigger>
+        <NavigationMenuContent>
+          <NavigationMenuLink href="#analytics">Analytics</NavigationMenuLink>
+        </NavigationMenuContent>
+      </NavigationMenuItem>
+      <NavigationMenuItem value="docs">
+        <NavigationMenuTrigger>Docs</NavigationMenuTrigger>
+        <NavigationMenuContent>
+          <NavigationMenuLink href="#guides">Guides</NavigationMenuLink>
+        </NavigationMenuContent>
+      </NavigationMenuItem>
+    </NavigationMenuList>
   );
 }
 
@@ -31,10 +44,10 @@ function ProviderNavigationMenu() {
   const navigationMenu = useNavigationMenu({ defaultValue: 'products' });
 
   return (
-    <NavigationMenu.RootProvider value={navigationMenu}>
+    <NavigationMenuRootProvider value={navigationMenu}>
       <NavigationMenuParts />
       <ContextValue />
-    </NavigationMenu.RootProvider>
+    </NavigationMenuRootProvider>
   );
 }
 
@@ -91,15 +104,15 @@ test('renders safely on the server', () => {
 test('preserves Content children without an internal wrapper', () => {
   render(
     <NavigationMenu defaultValue="products">
-      <NavigationMenu.List>
-        <NavigationMenu.Item value="products">
-          <NavigationMenu.Trigger>Products</NavigationMenu.Trigger>
-          <NavigationMenu.Content data-testid="products-content">
+      <NavigationMenuList>
+        <NavigationMenuItem value="products">
+          <NavigationMenuTrigger>Products</NavigationMenuTrigger>
+          <NavigationMenuContent data-testid="products-content">
             <div data-testid="content-heading">Products</div>
-            <NavigationMenu.Link href="#analytics">Analytics</NavigationMenu.Link>
-          </NavigationMenu.Content>
-        </NavigationMenu.Item>
-      </NavigationMenu.List>
+            <NavigationMenuLink href="#analytics">Analytics</NavigationMenuLink>
+          </NavigationMenuContent>
+        </NavigationMenuItem>
+      </NavigationMenuList>
     </NavigationMenu>,
   );
 
@@ -112,21 +125,21 @@ test('preserves Content children without an internal wrapper', () => {
 test('keeps a shared indicator outside content and updates its state', async () => {
   const { container } = render(
     <NavigationMenu defaultValue="products">
-      <NavigationMenu.List>
-        <NavigationMenu.Item value="products">
-          <NavigationMenu.Trigger>Products</NavigationMenu.Trigger>
-          <NavigationMenu.Content>
-            <NavigationMenu.Link href="#analytics">Analytics</NavigationMenu.Link>
-          </NavigationMenu.Content>
-        </NavigationMenu.Item>
-        <NavigationMenu.Item value="docs">
-          <NavigationMenu.Trigger>Docs</NavigationMenu.Trigger>
-          <NavigationMenu.Content>
-            <NavigationMenu.Link href="#guides">Guides</NavigationMenu.Link>
-          </NavigationMenu.Content>
-        </NavigationMenu.Item>
-        <NavigationMenu.Indicator />
-      </NavigationMenu.List>
+      <NavigationMenuList>
+        <NavigationMenuItem value="products">
+          <NavigationMenuTrigger>Products</NavigationMenuTrigger>
+          <NavigationMenuContent>
+            <NavigationMenuLink href="#analytics">Analytics</NavigationMenuLink>
+          </NavigationMenuContent>
+        </NavigationMenuItem>
+        <NavigationMenuItem value="docs">
+          <NavigationMenuTrigger>Docs</NavigationMenuTrigger>
+          <NavigationMenuContent>
+            <NavigationMenuLink href="#guides">Guides</NavigationMenuLink>
+          </NavigationMenuContent>
+        </NavigationMenuItem>
+        <NavigationMenuIndicator />
+      </NavigationMenuList>
     </NavigationMenu>,
   );
 
@@ -148,20 +161,20 @@ test('keeps a shared indicator outside content and updates its state', async () 
 test('preserves asChild and current link styling hooks', () => {
   render(
     <NavigationMenu>
-      <NavigationMenu.List>
-        <NavigationMenu.Item value="home">
-          <NavigationMenu.Link asChild current>
+      <NavigationMenuList>
+        <NavigationMenuItem value="home">
+          <NavigationMenuLink asChild current>
             <a data-testid="home-link" href="#home">
               Home
             </a>
-          </NavigationMenu.Link>
-        </NavigationMenu.Item>
-        <NavigationMenu.Item value="products">
-          <NavigationMenu.Trigger asChild>
+          </NavigationMenuLink>
+        </NavigationMenuItem>
+        <NavigationMenuItem value="products">
+          <NavigationMenuTrigger asChild>
             <button type="button">Products</button>
-          </NavigationMenu.Trigger>
-        </NavigationMenu.Item>
-      </NavigationMenu.List>
+          </NavigationMenuTrigger>
+        </NavigationMenuItem>
+      </NavigationMenuList>
     </NavigationMenu>,
   );
 
@@ -181,9 +194,9 @@ test('keeps viewport motion and provider composition Ark-shaped', async () => {
   const { container: viewportContainer } = render(
     <NavigationMenu defaultValue="products">
       <NavigationMenuParts />
-      <NavigationMenu.ViewportPositioner align="center">
-        <NavigationMenu.Viewport />
-      </NavigationMenu.ViewportPositioner>
+      <NavigationMenuViewportPositioner align="center">
+        <NavigationMenuViewport />
+      </NavigationMenuViewportPositioner>
     </NavigationMenu>,
   );
 

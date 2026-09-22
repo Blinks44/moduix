@@ -1,11 +1,14 @@
 import { Button } from '@moduix/react/button';
-import { Pagination } from '@moduix/react/pagination';
+import {
+  Pagination,
+  PaginationContext,
+} from '@moduix/react/pagination';
 import { PreviewMeta } from '@/components/mdx/Components';
 
 export default function PaginationContextDemo() {
   return (
     <Pagination count={200} pageSize={10}>
-      <Pagination.Context>
+      <PaginationContext>
         {(pagination) => (
           <PreviewMeta>
             <output>
@@ -25,7 +28,7 @@ export default function PaginationContextDemo() {
             </Button>
           </PreviewMeta>
         )}
-      </Pagination.Context>
+      </PaginationContext>
     </Pagination>
   );
 }
