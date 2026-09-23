@@ -3,6 +3,7 @@
 [![npm](https://img.shields.io/npm/v/@moduix/react?logo=npm&label=npm)](https://www.npmjs.com/package/@moduix/react)
 [![License: MIT](https://img.shields.io/badge/license-MIT-green.svg)](./LICENSE.md)
 [![TypeScript](https://img.shields.io/badge/TypeScript-Ready-3178C6?logo=typescript&logoColor=white)](https://www.typescriptlang.org/)
+[![CI](https://github.com/Blinks44/moduix/actions/workflows/verify.yml/badge.svg)](https://github.com/Blinks44/moduix/actions/workflows/verify.yml)
 
 # moduix
 
@@ -168,7 +169,6 @@ Before opening a pull request, run the repository checks:
 ```bash
 pnpm run fmt:fix
 pnpm run lint:check
-pnpm run build:packages
 pnpm run tsc:check
 ```
 
@@ -180,7 +180,8 @@ Contributions are welcome, especially focused component improvements, accessibil
 reports, and documentation corrections. Keep public component behavior, local component notes,
 documentation, and registry output synchronized when a public contract changes.
 
-See [AGENTS.md](./AGENTS.md) for repository conventions.
+See [CONTRIBUTING.md](./CONTRIBUTING.md) for the full workflow, and [AGENTS.md](./AGENTS.md) for
+repository conventions. Security issues go through [SECURITY.md](./SECURITY.md).
 
 ## Acknowledgements
 

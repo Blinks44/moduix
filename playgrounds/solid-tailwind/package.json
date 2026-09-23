@@ -8,19 +8,19 @@
     "tsc:check": "tsc -p tsconfig.json"
   },
   "devDependencies": {
-    "@ark-ui/solid": "^5.39.2",
-    "@internationalized/date": "^3.12.4",
-    "@tailwindcss/vite": "^4.3.3",
-    "@tanstack/charts": "^0.16.2",
-    "@types/node": "^26.5.1",
-    "clsx": "^2.1.1",
-    "solid-js": "^1.9.15",
-    "storybook": "^10.6.0",
-    "storybook-solidjs-vite": "10.7.1",
-    "tailwind-merge": "^3.7.0",
-    "tailwindcss": "^4.3.3",
+    "@ark-ui/solid": "catalog:",
+    "@internationalized/date": "catalog:",
+    "@tailwindcss/vite": "catalog:",
+    "@tanstack/charts": "catalog:",
+    "@types/node": "catalog:",
+    "clsx": "catalog:",
+    "solid-js": "catalog:",
+    "storybook": "catalog:",
+    "storybook-solidjs-vite": "catalog:",
+    "tailwind-merge": "catalog:",
+    "tailwindcss": "catalog:",
     "typescript": "~7.0.2",
-    "vite": "^8.3.0",
-    "vite-plugin-solid": "^2.11.14"
+    "vite": "catalog:",
+    "vite-plugin-solid": "catalog:"
   }
 }

@@ -83,27 +83,27 @@
     "tsc:check": "vue-tsc --noEmit"
   },
   "dependencies": {
-    "@lucide/vue": "^1.47.0",
-    "clsx": "^2.1.1"
+    "@lucide/vue": "catalog:",
+    "clsx": "catalog:"
   },
   "devDependencies": {
-    "@ark-ui/vue": "^5.39.2",
-    "@rsbuild/core": "^2.2.6",
-    "@rsbuild/plugin-vue": "^2.0.1",
-    "@rslib/core": "^1.0.0",
-    "@rstest/adapter-rslib": "^0.11.12",
-    "@rstest/core": "^0.11.12",
-    "@testing-library/dom": "^10.4.2",
-    "@testing-library/jest-dom": "^7.0.1",
-    "@testing-library/vue": "^8.1.0",
-    "@types/node": "^26.5.1",
-    "@vue/language-core": "^3.3.11",
-    "@vue/server-renderer": "^3.5.43",
-    "happy-dom": "^20.14.5",
+    "@ark-ui/vue": "catalog:",
+    "@rsbuild/core": "catalog:",
+    "@rsbuild/plugin-vue": "catalog:",
+    "@rslib/core": "catalog:",
+    "@rstest/adapter-rslib": "catalog:",
+    "@rstest/core": "catalog:",
+    "@testing-library/dom": "catalog:",
+    "@testing-library/jest-dom": "catalog:",
+    "@testing-library/vue": "catalog:",
+    "@types/node": "catalog:",
+    "@vue/language-core": "catalog:",
+    "@vue/server-renderer": "catalog:",
+    "happy-dom": "catalog:",
     "typescript": "~6.0.3",
-    "unplugin-dts": "^1.1.0",
-    "vue": "^3.5.43",
-    "vue-tsc": "^3.3.11"
+    "unplugin-dts": "catalog:",
+    "vue": "catalog:",
+    "vue-tsc": "catalog:"
   },
   "peerDependencies": {
     "@ark-ui/vue": "^5.37.2",

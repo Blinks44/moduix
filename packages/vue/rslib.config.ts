@@ -6,7 +6,7 @@ import dts from 'unplugin-dts/rspack';
 export default defineConfig({
   source: {
     entry: {
-      index: ['./src/**/*.{css,ts,vue}', '!./src/styles/**/*', '!./src/presets/**/*'],
+      index: ['./src/**/*.{css,ts,vue}'],
     },
     tsconfigPath: './tsconfig.build.json',
   },

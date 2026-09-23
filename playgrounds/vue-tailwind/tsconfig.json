@@ -8,8 +8,7 @@
     "skipLibCheck": true,
     "paths": {
       "@/lib/moduix/*": ["../../packages/vue-tailwind/src/internal/*"],
-      "@/*": ["../../packages/vue-tailwind/src/*"],
-      "@foundation/*": ["../../packages/foundation/src/*"]
+      "@/*": ["../../packages/vue-tailwind/src/*"]
     },
     "moduleResolution": "bundler",
     "allowImportingTsExtensions": true,

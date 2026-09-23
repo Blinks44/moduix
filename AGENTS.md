@@ -9,7 +9,7 @@
 - `playgrounds/<framework>` and `playgrounds/<framework>-tailwind`: private playgrounds for parity checks when that adapter ships.
 - `website` - the Rspress documentation site, runnable component examples, and generated registry artifacts.
 - `packages/foundation/registry.json` and each public package's `registry.json` - source manifests for the hosted registries; each manifest owns files within its package.
-- `packages/oxlint-config` and `packages/oxfmt-config` - shared linting and formatting configuration.
+- Root `.oxlintrc.json` and `.oxfmtrc.json` - shared linting and formatting configuration (oxlint and oxfmt are root devDependencies).
 
 ## README package-manager commands
 

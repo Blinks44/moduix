@@ -8,20 +8,19 @@
     "tsc:check": "vue-tsc -p tsconfig.json"
   },
   "devDependencies": {
-    "@ark-ui/vue": "^5.39.2",
-    "@internationalized/date": "^3.12.4",
-    "@storybook/vue3-vite": "^10.6.0",
-    "@tailwindcss/vite": "^4.3.3",
-    "@tanstack/charts": "^0.16.2",
-    "@types/node": "^26.5.1",
-    "@vitejs/plugin-vue": "^6.0.9",
-    "clsx": "^2.1.1",
-    "storybook": "^10.6.0",
-    "tailwind-merge": "^3.7.0",
-    "tailwindcss": "^4.3.3",
+    "@ark-ui/vue": "catalog:",
+    "@internationalized/date": "catalog:",
+    "@storybook/vue3-vite": "catalog:",
+    "@tailwindcss/vite": "catalog:",
+    "@tanstack/charts": "catalog:",
+    "@types/node": "catalog:",
+    "@vitejs/plugin-vue": "catalog:",
+    "storybook": "catalog:",
+    "tailwind-merge": "catalog:",
+    "tailwindcss": "catalog:",
     "typescript": "~6.0.3",
-    "vite": "^8.3.0",
-    "vue": "^3.5.43",
-    "vue-tsc": "^3.3.11"
+    "vite": "catalog:",
+    "vue": "catalog:",
+    "vue-tsc": "catalog:"
   }
 }

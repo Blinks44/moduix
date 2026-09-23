@@ -8,21 +8,21 @@
     "tsc:check": "tsc -p tsconfig.json"
   },
   "devDependencies": {
-    "@ark-ui/react": "^5.39.2",
-    "@internationalized/date": "^3.12.4",
-    "@storybook/react-vite": "^10.6.0",
-    "@tailwindcss/vite": "^4.3.3",
-    "@tanstack/charts": "^0.16.2",
-    "@types/node": "^26.5.1",
-    "@types/react": "^19.3.0",
-    "@types/react-dom": "^19.3.0",
-    "clsx": "^2.1.1",
-    "react": "^19.3.0",
-    "react-dom": "^19.3.0",
-    "storybook": "^10.6.0",
-    "tailwind-merge": "^3.7.0",
-    "tailwindcss": "^4.3.3",
+    "@ark-ui/react": "catalog:",
+    "@internationalized/date": "catalog:",
+    "@storybook/react-vite": "catalog:",
+    "@tailwindcss/vite": "catalog:",
+    "@tanstack/charts": "catalog:",
+    "@types/node": "catalog:",
+    "@types/react": "catalog:",
+    "@types/react-dom": "catalog:",
+    "clsx": "catalog:",
+    "react": "catalog:",
+    "react-dom": "catalog:",
+    "storybook": "catalog:",
+    "tailwind-merge": "catalog:",
+    "tailwindcss": "catalog:",
     "typescript": "~7.0.2",
-    "vite": "^8.3.0"
+    "vite": "catalog:"
   }
 }

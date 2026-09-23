@@ -32,8 +32,10 @@ website/
 ```
 
 The site uses Rspress search, navigation, outline, appearance switching, edit links, last-updated
-metadata, package-manager tabs, and tabs. Official plugins provide runnable component previews,
-per-page Markdown, `llms.txt`, `llms-full.txt`, and `sitemap.xml`.
+metadata, package-manager tabs, and tabs. Official plugins power `llms.txt`, `llms-full.txt`, and
+`sitemap.xml`; the `plugin-preview` plugin stays in pure mode (no rendered code blocks) and its
+`?raw` asset rule feeds the Solid and Vue snippet code panels. Live runnable examples are ordinary
+React components imported by MDX from `src/components/examples`.
 
 ## Localization
 
