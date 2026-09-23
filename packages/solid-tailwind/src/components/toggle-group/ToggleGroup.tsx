@@ -7,8 +7,8 @@ import { cva } from 'class-variance-authority';
 import type { Accessor, ComponentProps } from 'solid-js';
 import { createContext, splitProps, useContext } from 'solid-js';
 import { cn } from '@/lib/moduix/cn';
-import { toggleVariants } from '../toggle/Toggle';
 import type { ToggleSize, ToggleVariant } from '../toggle/Toggle';
+import { toggleVariants } from '../toggle/Toggle.variants';
 
 const defaultToggleGroupStyles = {
   variant: () => 'default' as ToggleVariant,

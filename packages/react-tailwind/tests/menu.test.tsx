@@ -22,6 +22,15 @@ import {
   MenuItemIndicator,
   MenuItemText,
 } from '../src';
+import * as menuEntry from '../src/components/menu';
+import * as menuSource from '../src/components/menu/Menu';
+
+test('keeps Tailwind recipes out of Menu entry points', () => {
+  expect('menuContentVariants' in menuEntry).toBe(false);
+  expect('menuPositionerVariants' in menuEntry).toBe(false);
+  expect('menuContentVariants' in menuSource).toBe(false);
+  expect('menuPositionerVariants' in menuSource).toBe(false);
+});
 
 function TestMenu() {
   return (

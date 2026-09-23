@@ -1142,6 +1142,11 @@
           "type": "registry:component"
         },
         {
+          "path": "src/components/menu/Menu.variants.ts",
+          "target": "@components/ui/menu/Menu.variants.ts",
+          "type": "registry:component"
+        },
+        {
           "path": "src/components/menu/index.ts",
           "target": "@components/ui/menu/index.ts",
           "type": "registry:component"
@@ -1758,6 +1763,11 @@
         {
           "path": "src/components/toggle/Toggle.tsx",
           "target": "@components/ui/toggle/Toggle.tsx",
+          "type": "registry:component"
+        },
+        {
+          "path": "src/components/toggle/Toggle.variants.ts",
+          "target": "@components/ui/toggle/Toggle.variants.ts",
           "type": "registry:component"
         },
         {

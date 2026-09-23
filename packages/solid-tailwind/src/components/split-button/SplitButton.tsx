@@ -7,7 +7,7 @@ import { ChevronDownIcon } from '@/lib/moduix/icons/ui';
 import { OverlayPortal } from '@/lib/moduix/overlayPortal';
 import { Button } from '../button';
 import { Menu, MenuViewport } from '../menu';
-import { menuContentVariants, menuPositionerVariants } from '../menu/Menu';
+import { menuContentVariants, menuPositionerVariants } from '../menu/Menu.variants';
 
 type ButtonProps = ComponentProps<typeof Button>;
 type SplitButtonVariant = Exclude<NonNullable<ButtonProps['variant']>, 'link'>;

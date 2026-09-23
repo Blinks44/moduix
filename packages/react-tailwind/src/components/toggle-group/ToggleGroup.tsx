@@ -9,8 +9,8 @@ import { cva } from 'class-variance-authority';
 import type { ComponentProps, ComponentRef } from 'react';
 import { createContext, forwardRef, useContext } from 'react';
 import { cn } from '@/lib/moduix/cn';
-import { toggleVariants } from '../toggle/Toggle';
 import type { ToggleSize, ToggleVariant } from '../toggle/Toggle';
+import { toggleVariants } from '../toggle/Toggle.variants';
 
 const defaultToggleGroupStyles = {
   variant: 'default' as ToggleVariant,

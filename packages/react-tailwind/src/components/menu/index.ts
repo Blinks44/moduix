@@ -27,8 +27,6 @@ export {
   MenuTriggerItem,
   MenuTriggerItemIcon,
   MenuViewport,
-  menuContentVariants,
-  menuPositionerVariants,
   useMenu,
   useMenuContext,
   useMenuItemContext,

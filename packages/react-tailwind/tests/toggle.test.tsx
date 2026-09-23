@@ -3,6 +3,13 @@ import { fireEvent, render, screen, waitFor } from '@testing-library/react';
 import userEvent from '@testing-library/user-event';
 import { createRef, useState } from 'react';
 import { Toggle, ToggleIndicator, useToggleContext } from '../src';
+import * as toggleEntry from '../src/components/toggle';
+import * as toggleSource from '../src/components/toggle/Toggle';
+
+test('keeps toggleVariants out of package and registry source entry points', () => {
+  expect('toggleVariants' in toggleEntry).toBe(false);
+  expect('toggleVariants' in toggleSource).toBe(false);
+});
 
 function ToggleStateLabel() {
   const toggle = useToggleContext();
