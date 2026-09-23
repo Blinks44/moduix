@@ -107,11 +107,11 @@ JsonTreeViewRootProvider
 
 ## Композиция
 
-Оставляйте `JsonTreeViewTree` дочерней частью `JsonTreeView` или `JsonTreeView`: она отображает
+Оставляйте `JsonTreeViewTree` дочерней частью `JsonTreeView` или `JsonTreeViewRootProvider`: она отображает
 сгенерированные узлы JSON. Если состояние дерева принадлежит внешним элементам управления, создайте
 `useJsonTreeView` из соответствующего фреймворк-пакета, передайте состояние в `JsonTreeViewRootProvider` и
-выведите внутри него `Tree`. Используйте управляемые `expandedValue`, `selectedValue`, `checkedValue` или
-`focusedValue`, только когда состояние должно принадлежать приложению. Не используйте `Root` и `RootProvider` для
+выведите внутри него `JsonTreeViewTree`. Используйте управляемые `expandedValue`, `selectedValue`, `checkedValue` или
+`focusedValue`, только когда состояние должно принадлежать приложению. Не используйте `JsonTreeView` и `JsonTreeViewRootProvider` для
 одного состояния.
 
 ## Примеры
@@ -154,7 +154,7 @@ JsonTreeViewRootProvider
 
 ## Стилизация
 
-Используйте `className` в React или `class` в Solid на `Root`, `RootProvider` или `Tree`, чтобы локально изменить
+Используйте `className` в React или `class` в Solid на `JsonTreeView`, `JsonTreeViewRootProvider` или `JsonTreeViewTree`, чтобы локально изменить
 компоновку. Варианты Tailwind используют классы Tailwind и классы приложения. Варианты с CSS Modules используют
 свои стили и базовые токены.
 

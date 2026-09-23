@@ -45,8 +45,12 @@ import menuSolidWithArrow from '../../../snippets/menu/solid/with-arrow.tsx?raw'
 
 <PrimitiveReference href="https://ark-ui.com/docs/components/menu" />
 
+## Choisir le bon composant
 
-Les mêmes exports sont disponibles depuis `@moduix/solid/menu` pour Solid.
+Utilisez `Menu` pour des actions contextuelles dans une fenêtre contextuelle temporaire, comme des
+commandes, des liens ou un menu contextuel. Utilisez `NavigationMenu` pour une navigation de site ou
+de produit persistante, et `Dialog` pour les flux qui exigent toute l’attention de l’utilisateur.
+
 ## Exemple de base
 
 Utilisez la composition standard pour un menu ouvert par un bouton, un déclencheur personnalisé ou un déclencheur contextuel. Le composant racine gère la navigation au clavier, la recherche par saisie, le focus et la fermeture. Attribuez une valeur `value` stable à chaque élément afin de préserver la sélection et la recherche par saisie lorsque la liste change.

@@ -35,11 +35,7 @@ Use `PinInput` when a short, fixed-length code should be entered one character a
 - Choose **`PinInput`** for one-time codes, PINs, backup codes, and invite codes.
 - Choose **`PinInputInput`** when one plain text field is enough.
 - Choose **`PasswordInput`** when the value is a single secret string with a visibility toggle.
-
 ## Basic
-
-See
-[Quick Start](/docs/quick-start) for package setup and styling-track guidance.
 
 Use `PinInput` as the root and set `count` explicitly. Add `PinInputLabel` for an accessible name, put `PinInputInputs` inside
 `PinInputControl`, and compose `PinInputHiddenInput` when the value must participate in native form behavior.
@@ -140,6 +136,10 @@ outside the component tree.
 continuous zero-based indexes and `PinInputSeparator` when the code needs groups. Values are string arrays. Use
 `PinInputRootProvider` with `usePinInput` when state or imperative methods must be owned outside the rendered tree; React
 receives a store object, while Solid receives an accessor.
+
+Ark manages focus transfer, paste distribution, keyboard editing, and one-time-code autocomplete; add
+`PinInputLabel` so the group has an accessible name. `PinInputSeparator` is decorative and renders with
+`aria-hidden` and `role="presentation"`, so keep meaningful text outside it.
 
 ## Examples
 
@@ -373,7 +373,7 @@ Pass `placeholder` to show a character in each empty cell. moduix leaves the pla
 
 </ExampleCode>
 
-### Advanced Customization
+### Root Provider
 
 Use `usePinInput` with `PinInputRootProvider` when state and imperative methods must be managed outside the rendered tree.
 This example replaces `PinInputInputs` with explicit indexed `PinInputInput` parts.
@@ -409,14 +409,6 @@ This example replaces `PinInputInputs` with explicit indexed `PinInputInput` par
 </div>
 
 </ExampleCode>
-
-## Accessibility
-
-Ark manages focus transfer, paste distribution, keyboard editing, hidden form data, and one-time-code
-autocomplete. Add `PinInputLabel` so the group has an accessible name.
-
-`PinInputSeparator` is decorative by default and renders with `aria-hidden` and `role="presentation"`. Keep
-meaningful text outside the separator.
 
 ## Styling
 

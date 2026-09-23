@@ -21,9 +21,9 @@ style. Les exemples utilisent les imports des paquets CSS Modules ; l’emplacem
 les alias, le SSR et les vérifications d’hydratation restent identiques avec le paquet ou le registre
 Tailwind correspondant.
 
-Toutes les commandes de paquet et tous les imports de feuilles de style présentés ci-dessous concernent
-CSS Modules. Utilisez la réinitialisation de moduix présentée ci-dessous ou une réinitialisation correcte de votre application.
-Avec Tailwind, conservez la feuille globale configurée dans le Démarrage rapide.
+La configuration du paquet ci-dessous utilise CSS Modules et inclut la réinitialisation de moduix. Si vous
+utilisez plutôt les commandes du registre Tailwind, conservez la feuille de styles globale configurée dans le
+[Démarrage rapide](/docs/quick-start#installer-le-paquet).
 
 ## Installation par paquet
 
@@ -117,7 +117,10 @@ Si le projet ne fait pas déjà pointer `@/*` vers `src/*`, ajoutez cet alias au
 ```
 
 Le même alias doit être accessible au bundler. Rsbuild reprend directement les chemins TypeScript ;
-avec Vite, suivez le guide de TanStack Start consacré aux alias. Ajoutez ensuite le composant :
+avec Vite, suivez le guide de TanStack Start consacré aux alias de chemins pour
+[React](https://tanstack.com/start/latest/docs/framework/react/guide/path-aliases) ou
+[Solid](https://tanstack.com/start/latest/docs/framework/solid/guide/path-aliases). Ajoutez ensuite le
+composant :
 
 <Tabs groupId="framework">
   <Tab label="React" value="react">

@@ -1,7 +1,7 @@
 import type { CssPropertyInput } from '../../mdx/reference';
 import { CSSPropertiesReferenceTable } from '../../mdx/reference';
 
-const editableOverrideCssProperties: CssPropertyInput[] = [
+export const editableOverrideCssProperties: CssPropertyInput[] = [
   [
     '--moduix-editable-area-height',
     'var(--moduix-size-md)',

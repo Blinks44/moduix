@@ -12,6 +12,10 @@ Use this header when your application has one main navigation level and a small 
 Its open layout keeps the product identity, current workspace, navigation, and account controls easy to
 scan.
 
+This is a copy-ready composition, not an `AppHeader` component exported by moduix. It combines
+`CommandPalette`, `Menu`, and other moduix components. Install those components, copy the source
+and styles below, then replace the sample navigation and account data with your own.
+
 ## Recipe contents
 
 - Main navigation with `aria-current="page"` on the active destination.
@@ -63,7 +67,7 @@ The live preview uses the React package. The source tabs show native React and S
 
 <ShadcnInstall packageName={['avatar', 'button', 'command-palette', 'menu']} itemKind="recipe" frameworks copiedSource dependencies={['lucide-react']} solidDependencies={['lucide-solid']} />
 
-## In your application
+## Use the recipe in your application
 
 The demo uses anchors such as `#overview`, and selecting a command updates `window.location.hash`, so
 it works without a router. Replace the anchors and command-selection handler with your router's
@@ -72,7 +76,8 @@ navigation. Place the recipe in the layout that owns primary navigation and acco
 ## Customize
 
 The recipe uses ordinary links for navigation and `aria-current="page"` for the active destination.
-Replace the fixtures with values from your router and account state.
+Replace the fixtures with values from your router and account state. The `CommandPalette` is covered
+in the [Command Palette docs](/docs/command-palette).
 
 | Replace this fixture       | With your application value                                             |
 | -------------------------- | ----------------------------------------------------------------------- |

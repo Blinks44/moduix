@@ -4,7 +4,7 @@ component: dialog
 description: Fenêtre modale pour les tâches ciblées comme les formulaires, les confirmations et les détails.
 ---
 
-import { DialogCssPropertiesPanel } from '@/components/examples/dialog/css-properties';
+import * as DialogDocs from '@/components/examples/dialog/css-properties';
 import DialogAdvancedCustomization from '@/components/examples/dialog/advanced-customization.tsx';
 import DialogAlertDialog from '@/components/examples/dialog/alert-dialog.tsx';
 import DialogBasic from '@/components/examples/dialog/basic.tsx';
@@ -131,7 +131,7 @@ DialogContext
 
 | Partie                    | Rôle                                                               |
 | ------------------------ | ------------------------------------------------------------------ |
-| `Dialog` / `Dialog` | Gère l’état d’ouverture, le focus et la fermeture du dialogue.      |
+| `Dialog` / `DialogRootProvider` | Gère l’état d’ouverture, le focus et la fermeture du dialogue.      |
 | `DialogRootProvider`    | Relie les parties à l’état créé avec `useDialog()`.                |
 | `DialogTrigger`         | Ouvre le dialogue.                                                   |
 | `DialogBackdrop`        | Couche d’arrière-plan facultative du dialogue modal.                |
@@ -568,8 +568,8 @@ composants réutilisables.
 
 ### Personnalisation avancée
 
-N’utilisez pas `Header`, `Body`, `Footer` ni `CloseIcon` lorsque la mise en page personnalisée doit
-contrôler directement chaque partie du dialogue Ark.
+N’utilisez pas `DialogHeader`, `DialogBody`, `DialogFooter` ni `DialogCloseIcon` lorsque la mise en
+page personnalisée doit contrôler directement chaque partie du dialogue Ark.
 
 <ExampleFrame variant="component">
   <DialogAdvancedCustomization />
@@ -617,17 +617,7 @@ sont communs aux deux approches.
 
 ### Propriétés CSS
 
-<div className="docs-reference">
-  <Tabs
-    values={[{ label: 'CSS Variables', value: 'CSS Variables' }]}
-    className="docs-reference-tabs"
-    contentItemClassName="docs-reference-panel"
-  >
-    <Tab>
-      <DialogCssPropertiesPanel />
-    </Tab>
-  </Tabs>
-</div>
+<CssPropertiesSection properties={DialogDocs.dialogOverrideCssProperties} />
 
 ### Points d’accroche CSS
 

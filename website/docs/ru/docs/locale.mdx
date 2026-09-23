@@ -16,7 +16,7 @@ import localeSolidDocument from '../../../snippets/locale/solid/document.tsx?raw
 
 <PrimitiveReference href="https://ark-ui.com/docs/utilities/locale" />
 
-Импортируйте утилиту из пакета Ark UI для используемого фреймворка:
+Импортируйте утилиту из соответствующего пакета moduix — он реэкспортирует провайдер локали Ark UI:
 
 <Tabs
   groupId="framework"
@@ -29,14 +29,14 @@ import localeSolidDocument from '../../../snippets/locale/solid/document.tsx?raw
   <Tab value="react">
 
 ```tsx
-import { LocaleProvider, useLocaleContext } from '@ark-ui/react/locale';
+import { LocaleProvider, useLocaleContext } from '@moduix/react/locale';
 ```
 
   </Tab>
   <Tab value="solid">
 
 ```tsx
-import { LocaleProvider, useLocaleContext } from '@ark-ui/solid/locale';
+import { LocaleProvider, useLocaleContext } from '@moduix/solid/locale';
 ```
 
   </Tab>

@@ -294,7 +294,7 @@ Pass `name` to include the current value in a native form submission.
 
 </ExampleCode>
 
-### Ark options
+### Click to Edit
 
 The root accepts common Ark options such as activation mode, auto-resize, maximum length,
 mode-specific placeholders, and localized control labels. This example sets `activationMode` to
@@ -455,14 +455,15 @@ for targeted overrides.
 
 ### CSS Properties
 
-<div className="docs-reference">
-  <Tabs
-    values={[{ label: 'CSS Variables', value: 'CSS Variables' }]}
-    className="docs-reference-tabs"
-    contentItemClassName="docs-reference-panel"
-  >
-    <Tab value="CSS Variables">
-      <EditableDocs.EditableCssPropertiesPanel />
-    </Tab>
-  </Tabs>
-</div>
+<CssPropertiesSection properties={EditableDocs.editableOverrideCssProperties} />
+
+### Styling hooks
+
+- Stable `data-slot` selectors: `editable-root`, `editable-root-provider`, `editable-label`,
+  `editable-area`, `editable-input`, `editable-preview`, `editable-control`,
+  `editable-edit-trigger`, `editable-submit-trigger`, and `editable-cancel-trigger`.
+- Ark part selectors: `data-scope="editable"` and
+  `data-part="root|area|label|preview|input|edit-trigger|submit-trigger|cancel-trigger|control"`.
+- Ark state selectors: `data-disabled`, `data-focus`, `data-invalid`, `data-readonly`,
+  `data-required`, `data-placeholder-shown`, and `data-autoresize`.
+- `EditableControls` shares the `editable-control` slot with `EditableControl`.

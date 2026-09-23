@@ -65,12 +65,13 @@ L’aperçu interactif utilise le paquet React. Les onglets de code présentent 
 
 <ShadcnInstall packageName={['button', 'card', 'collapsible', 'menu', 'sidebar']} itemKind="recipe" frameworks copiedSource dependencies={['lucide-react']} solidDependencies={['lucide-solid']} />
 
-## Adapter la recette à l’application
+## Utiliser la recette dans votre application
 
 Remplacez les ancres `#overview`, `#website` et les autres liens de démonstration par les routes de
 votre application. Si votre routeur fournit un composant de lien, utilisez-le avec
 `SidebarNavigationButton` ou `SidebarNavigationSubButton` et la prop `asChild` pour lui laisser
-gérer la navigation. Marquez la destination active avec `aria-current="page"`.
+gérer la navigation. Marquez la destination active avec `aria-current="page"`. Les parties `Sidebar`
+sont décrites dans la [documentation de Sidebar](/docs/sidebar).
 
 Conservez `SidebarTooltip` autour des boutons de navigation afin que leurs libellés restent
 accessibles dans la barre repliée. Utilisez `Collapsible` pour les groupes imbriqués et `Menu` pour

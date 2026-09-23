@@ -42,13 +42,15 @@ import checkboxSolidSizes from '../../../snippets/checkbox/solid/sizes.tsx?raw';
 import checkboxSolidWithField from '../../../snippets/checkbox/solid/with-field.tsx?raw';
 import checkboxSolidWithForm from '../../../snippets/checkbox/solid/with-form.tsx?raw';
 
-Используйте `Checkbox`, когда пользователь может выбрать один или несколько независимых вариантов
-в форме, настройках или списке фильтров. Если нужно выбрать только один вариант, используйте
-`RadioGroup`. Если настройка должна применяться сразу, используйте `Switch`.
-
 ## Справочник API
 
 <PrimitiveReference href="https://ark-ui.com/docs/components/checkbox" />
+
+## Выбор подходящего компонента
+
+Используйте `Checkbox`, когда пользователь может выбрать один или несколько независимых вариантов
+в форме, настройках или списке фильтров. Если нужно выбрать только один вариант, используйте
+`RadioGroup`. Если настройка должна применяться сразу, используйте `Switch`.
 
 ## Базовый пример
 
@@ -157,7 +159,7 @@ CheckboxGroup
 
 Если состояние нужно создать вне дерева компонентов, создайте его с помощью `useCheckbox()` и
 передайте хранилище в `CheckboxRootProvider`. Не используйте для того же состояния `Checkbox` или
-`Checkbox`.
+`CheckboxRootProvider`.
 
 ## Примеры
 

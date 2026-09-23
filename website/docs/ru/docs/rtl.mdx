@@ -64,8 +64,9 @@ import { LocaleProvider } from '@moduix/solid/locale';
   </Tab>
 </Tabs>
 
-Коллекция импортируется из соответствующего адаптера Ark UI, а Select, Button и LocaleProvider из
-соответствующего адаптера Moduix. Отдельное RTL-свойство компонентам не требуется.
+Пример собирает коллекцию через `createListCollection` из `@ark-ui/react/collection` или
+`@ark-ui/solid/collection`. Select, Button и LocaleProvider приходят из соответствующего адаптера Moduix.
+Компоненты читают направление из контекста локали, и отдельное RTL-свойство им не требуется.
 
 ## Учтите порталы и смешанное направление
 

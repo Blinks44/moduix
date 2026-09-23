@@ -36,6 +36,11 @@ import numberInputSolidCustomIcons from '../../../snippets/number-input/solid/cu
 
 <PrimitiveReference href="https://ark-ui.com/docs/components/number-input" />
 
+## Choosing the right component
+
+Use `NumberInput` when users enter numeric values that need stepping, clamping, and formatting. Use
+`Input` for free text, and `Slider` when choosing a point in a visual range is the goal.
+
 ## Basic
 
 Import it from
@@ -122,7 +127,7 @@ NumberInputRootProvider
 
 | Part | Role |
 | --- | --- |
-| `NumberInput` / `NumberInput` | Owns number input state, parsing, formatting, and keyboard behavior. |
+| `NumberInput` | Owns number input state, parsing, formatting, and keyboard behavior. |
 | `NumberInputRootProvider` | Connects parts to state created with `useNumberInput()`. |
 | `NumberInputContext` | Exposes formatted and numeric values plus imperative state methods. |
 | `NumberInputLabel` | Accessible label for the managed input. |
@@ -139,7 +144,7 @@ NumberInputRootProvider
 Use `NumberInputField` for the standard three-part control. Keep `value` and `defaultValue` as
 strings, and read `details.value` from `onValueChange` when the input is controlled. When state must
 be created outside the rendered part tree, call `useNumberInput()` and pass the matching store to
-`NumberInputRootProvider`; do not render `NumberInput` or `NumberInput` for the same store.
+`NumberInputRootProvider`; do not render `NumberInput` or `NumberInputRootProvider` for the same store.
 React reads store properties directly, while Solid reads them through the returned accessor.
 
 Use `NumberInputControl` with individual parts when the trigger order, icons, or input styling must
@@ -525,7 +530,19 @@ Data attributes and `data-slot` hooks are shared by both styling tracks.
 
 ### CSS Properties
 
-<NumberInputDocs.NumberInputCssPropertiesPanel />
+<div className="docs-reference">
+  <Tabs
+    values={[{ label: 'CSS Variables', value: 'CSS Variables' }]}
+    className="docs-reference-tabs"
+    contentItemClassName="docs-reference-panel"
+  >
+    <Tab value="CSS Variables">
+      <div>
+        <NumberInputDocs.NumberInputCssPropertiesPanel />
+      </div>
+    </Tab>
+  </Tabs>
+</div>
 
 ### Styling hooks
 

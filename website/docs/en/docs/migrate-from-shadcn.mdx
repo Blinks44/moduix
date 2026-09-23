@@ -78,31 +78,31 @@ migration.
 
 | Familiar shadcn name | Use in moduix | What to change |
 | --- | --- | --- |
-| Accordion | `Accordion` | Import flat parts such as `AccordionItem` and `AccordionItemContent`. |
-| Alert Dialog | `Dialog` | Set `role="alertdialog"` on `DialogContent` for a critical confirmation flow. |
-| Avatar | `Avatar` | Put fallback content and the image in `AvatarFallback` and `AvatarImage`. |
-| Breadcrumb | `Breadcrumbs` | The family name is plural; keep semantic links and the current-page state. |
-| Calendar | `DatePicker` or `DateInput` | Use `DatePicker` for a calendar and `DateInput` when users only need editable date segments. |
-| Carousel | `Carousel` | Compose the controls, indicators, and item group from its named parts. |
-| Collapsible | `Collapsible` | Read `details.open` from `onOpenChange(details)` instead of accepting a boolean. |
-| Combobox | `Combobox` | Create an Ark collection and define item values for object-based items. |
-| Command | `CommandPalette` | Use the command-oriented component instead of a generic list alias. |
-| Context Menu | `MenuContextTrigger` | Keep the same `Menu` family and use its context trigger. |
-| Data Table | `Table` plus the Data Table recipe | Keep sorting, filtering, and server state in application code. |
-| Date Picker | `DatePicker` | Use the composed date input and calendar family. |
-| Dropdown Menu | `Menu` | Use the regular `MenuTrigger` composition. |
-| Form | `Field` and `Fieldset` | Use them for field structure; keep validation and submission in your form library or application. |
-| Hover Card | `HoverCard` | Check the target page for the explicit positioning and lifecycle parts. |
-| Input OTP | `PinInput` | Preserve its native form and SSR setup. |
-| Progress | `ProgressLinear` or `ProgressCircular` | Choose the visual form explicitly. |
-| Resizable | `Splitter` | Give panels stable ids and keep layout state explicit. |
-| Select | `Select` | Use an Ark collection instead of an ad hoc array of option objects. |
-| Sheet | `Drawer` | Use the edge-panel component with a Dialog-aligned lifecycle. |
-| Sidebar | `Sidebar` | Keep your product navigation and responsive composition in the application. |
-| Sonner / Toast | `Toast` and `Toaster` | Keep notification text and when to show it under application control. |
-| Tabs | `Tabs` | Use flat parts such as `TabsList` and `TabsTrigger` for the same interaction. |
-| Toggle Group | `ToggleGroup` | Use item values and group state from the Ark contract. |
-| Tooltip | `Tooltip` | Keep the trigger and portalled content explicit. |
+| Accordion | [`Accordion`](/docs/accordion) | Import flat parts such as `AccordionItem` and `AccordionItemContent`. |
+| Alert Dialog | [`Dialog`](/docs/dialog) | Set `role="alertdialog"` on `DialogContent` for a critical confirmation flow. |
+| Avatar | [`Avatar`](/docs/avatar) | Put fallback content and the image in `AvatarFallback` and `AvatarImage`. |
+| Breadcrumb | [`Breadcrumbs`](/docs/breadcrumbs) | The family name is plural; keep semantic links and the current-page state. |
+| Calendar | [`DatePicker`](/docs/date-picker) or [`DateInput`](/docs/date-input) | Use `DatePicker` for a calendar and `DateInput` when users only need editable date segments. |
+| Carousel | [`Carousel`](/docs/carousel) | Compose the controls, indicators, and item group from its named parts. |
+| Collapsible | [`Collapsible`](/docs/collapsible) | Read `details.open` from `onOpenChange(details)` instead of accepting a boolean. |
+| Combobox | [`Combobox`](/docs/combobox) | Create an Ark collection and define item values for object-based items. |
+| Command | [`CommandPalette`](/docs/command-palette) | Use the command-oriented component instead of a generic list alias. |
+| Context Menu | [`MenuContextTrigger`](/docs/menu) | Keep the same `Menu` family and use its context trigger. |
+| Data Table | [`Table`](/docs/table) plus the [Data Table recipe](/recipes/data-table) | Keep sorting, filtering, and server state in application code. |
+| Date Picker | [`DatePicker`](/docs/date-picker) | Use the composed date input and calendar family. |
+| Dropdown Menu | [`Menu`](/docs/menu) | Use the regular `MenuTrigger` composition. |
+| Form | [`Field`](/docs/field) and [`Fieldset`](/docs/fieldset) | Use them for field structure; keep validation and submission in your form library or application. |
+| Hover Card | [`HoverCard`](/docs/hover-card) | Check the target page for the explicit positioning and lifecycle parts. |
+| Input OTP | [`PinInput`](/docs/pin-input) | Preserve its native form and SSR setup. |
+| Progress | [`ProgressLinear`](/docs/progress-linear) or [`ProgressCircular`](/docs/progress-circular) | Choose the visual form explicitly. |
+| Resizable | [`Splitter`](/docs/splitter) | Give panels stable ids and keep layout state explicit. |
+| Select | [`Select`](/docs/select) | Use an Ark collection instead of an ad hoc array of option objects. |
+| Sheet | [`Drawer`](/docs/drawer) | Use the edge-panel component with a Dialog-aligned lifecycle. |
+| Sidebar | [`Sidebar`](/docs/sidebar) | Keep your product navigation and responsive composition in the application. |
+| Sonner / Toast | [`Toast`](/docs/toast) and [`Toaster`](/docs/toast) | Keep notification text and when to show it under application control. |
+| Tabs | [`Tabs`](/docs/tabs) | Use flat parts such as `TabsList` and `TabsTrigger` for the same interaction. |
+| Toggle Group | [`ToggleGroup`](/docs/toggle-group) | Use item values and group state from the Ark contract. |
+| Tooltip | [`Tooltip`](/docs/tooltip) | Keep the trigger and portalled content explicit. |
 
 Navigation Menu and Menubar do not need forced one-to-one replacements. Choose `Sidebar`, `Menu`,
 `Breadcrumbs`, or ordinary links based on the interaction your product needs.
@@ -116,9 +116,6 @@ import { Dialog, DialogContent, DialogTitle, DialogTrigger } from '@/components/
 ```
 
 moduix uses the same flat family-prefixed shape across frameworks:
-
-<Tabs groupId="framework">
-  <Tab label="React" value="react">
 
 ```tsx
 import { Accordion, AccordionItem, AccordionItemContent, AccordionItemTrigger } from '@moduix/react/accordion';
@@ -135,26 +132,11 @@ export function FrequentlyAskedQuestions() {
 }
 ```
 
-  </Tab>
-  <Tab label="Solid" value="solid">
+In Solid, only the import specifier changes:
 
 ```tsx
 import { Accordion, AccordionItem, AccordionItemContent, AccordionItemTrigger } from '@moduix/solid/accordion';
-
-export function FrequentlyAskedQuestions() {
-  return (
-    <Accordion defaultValue={['first']}>
-      <AccordionItem value="first">
-        <AccordionItemTrigger>What is moduix?</AccordionItemTrigger>
-        <AccordionItemContent>A multi-framework component system.</AccordionItemContent>
-      </AccordionItem>
-    </Accordion>
-  );
-}
 ```
-
-  </Tab>
-</Tabs>
 
 For a copy-owned install, keep the composition and change only the import source:
 
@@ -214,9 +196,6 @@ slots, CSS variables, and React `className` or Solid `class` props.
 Ark callbacks receive a `details` object. Read the value you need from that object instead of
 copying a shadcn callback that expects a positional value:
 
-<Tabs groupId="framework">
-  <Tab label="React" value="react">
-
 ```tsx
 import { useState } from 'react';
 import { Accordion, AccordionItem, AccordionItemContent, AccordionItemTrigger } from '@moduix/react/accordion';
@@ -235,29 +214,13 @@ export function ControlledAccordion() {
 }
 ```
 
-  </Tab>
-  <Tab label="Solid" value="solid">
+In Solid, `useState` becomes `createSignal` from `solid-js`, the signal is read as `value()`, and
+the imports change accordingly:
 
 ```tsx
 import { createSignal } from 'solid-js';
 import { Accordion, AccordionItem, AccordionItemContent, AccordionItemTrigger } from '@moduix/solid/accordion';
-
-export function ControlledAccordion() {
-  const [value, setValue] = createSignal<string[]>([]);
-
-  return (
-    <Accordion value={value()} onValueChange={(details) => setValue(details.value)}>
-      <AccordionItem value="first">
-        <AccordionItemTrigger>What is moduix?</AccordionItemTrigger>
-        <AccordionItemContent>A multi-framework component system.</AccordionItemContent>
-      </AccordionItem>
-    </Accordion>
-  );
-}
 ```
-
-  </Tab>
-</Tabs>
 
 Components with collections, including `Combobox` and `Select`, use explicit Ark collection state.
 For object items, define how an item becomes its visible string and stable value with

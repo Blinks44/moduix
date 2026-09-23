@@ -63,12 +63,13 @@ The live preview uses the React package. The source tabs show native React and S
 
 <ShadcnInstall packageName={['button', 'card', 'collapsible', 'menu', 'sidebar']} itemKind="recipe" frameworks copiedSource dependencies={['lucide-react']} solidDependencies={['lucide-solid']} />
 
-## Adapt it to your app
+## Use the recipe in your application
 
 Replace the `#overview`, `#website`, and other example anchors with routes from your application. If
 your router provides a link component, use it with `SidebarNavigationButton` or
 `SidebarNavigationSubButton` and the `asChild` prop so the router owns navigation. Mark the active
-destination with `aria-current="page"`.
+destination with `aria-current="page"`. The `Sidebar` parts are covered in the
+[Sidebar docs](/docs/sidebar).
 
 Keep `SidebarTooltip` around icon navigation buttons so their labels remain available in the
 collapsed rail. Use `Collapsible` for nested navigation groups and `Menu` for workspace actions.

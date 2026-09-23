@@ -1,7 +1,7 @@
 ---
 title: Lightbox
 component: lightbox
-description: Build accessible media previews in React or Solid with package and shadcn installation options.
+description: Build a modal image viewer with gallery navigation and controlled state in React or Solid.
 ---
 
 import * as LightboxDocs from '@/components/examples/lightbox/css-properties';
@@ -173,7 +173,7 @@ parts. `LightboxImage closeOnClick` is the shortcut for closing after an image c
 
 Use `LightboxBind` when preview images come from a CMS or third-party markup that you cannot render
 directly with `LightboxTrigger`. Point it at a container with `rootRef` or `rootSelector`, choose a
-`selector`, and handle the resolved `{ src, alt, element }` through `onImageSelect`. `Bind` opens its
+`selector`, and handle the resolved `{ src, alt, element }` through `onImageSelect`. `LightboxBind` opens its
 parent Lightbox but renders no overlay structure, so the backdrop, content, close controls, and image
 layout remain yours to compose. It reads the source from `data-lightbox-src`, then `currentSrc`, then
 `src`, and preloads it on pointer hover or keyboard focus. Use a semantic button or link for the
@@ -419,7 +419,7 @@ component does not maintain a hidden image registry.
 ### Non-modal
 
 Set `modal={false}` for rare previews that should leave the page interactive. Ark disables focus
-trapping and scroll prevention in this mode. Omit `Backdrop` so background actions remain available
+trapping and scroll prevention in this mode. Omit `LightboxBackdrop` so background actions remain available
 while the image is open.
 
 <ExampleFrame variant="component">
@@ -500,7 +500,7 @@ component with `useLightboxContext()`. The external opener is a regular moduix `
 ### Advanced Customization
 
 Skip the optional layout helpers when the media surface needs custom slot classes and token
-overrides. `Backdrop`, `Positioner`, and `Content` remain explicit.
+overrides. `LightboxBackdrop`, `LightboxPositioner`, and `LightboxContent` remain explicit.
 
 <ExampleFrame variant="component">
   <LightboxAdvancedCustomization />

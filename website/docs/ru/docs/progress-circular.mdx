@@ -134,8 +134,7 @@ ProgressCircularRootProvider
 
 ## Композиция
 
-`ProgressCircular` является сокращённой формой `ProgressCircular`. Используйте
-`ProgressCircularRing`, когда достаточно стандартного круга: он объединяет `ProgressCircularCircle`,
+Используйте `ProgressCircularRing`, когда достаточно стандартного круга: он объединяет `ProgressCircularCircle`,
 `ProgressCircularCircleTrack` и `ProgressCircularCircleRange`, но не выводит и не центрирует `ProgressCircularValueText`. Если значение должно быть
 в центре, явно соберите композицию из метки, круга и текста значения.
 
@@ -344,7 +343,7 @@ ProgressCircularRootProvider
 
 </ExampleCode>
 
-#### ProgressCircularRootProvider
+### Root Provider
 
 Создайте хранилище состояния через `useProgress()` и передайте его в `ProgressCircularRootProvider`, если
 другому компоненту нужно читать или изменять прогресс за пределами отрисованного дерева.
@@ -384,7 +383,7 @@ ProgressCircularRootProvider
 
 </ExampleCode>
 
-#### Представления состояния
+### Представления состояния
 
 Используйте `ProgressCircularView`, если вспомогательный текст или интерфейс должны меняться
 вместе с состоянием прогресса Ark.

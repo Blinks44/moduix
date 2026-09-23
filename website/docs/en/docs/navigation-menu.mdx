@@ -140,18 +140,18 @@ NavigationMenuContext
 ## Composition
 
 Use `defaultValue` for an uncontrolled menu. When another part of the application owns the open
-item, pass `value` and `onValueChange(details)`; `details.value` is the open item's value or an
-empty string when all panels are closed. Use `NavigationMenuRootProvider` with
-`useNavigationMenu()` when the store must be created outside the rendered tree. Pass the returned
-store to `NavigationMenuRootProvider` and do not render another root for that store. React reads the store as an
-object; Solid reads its reactive state through the returned accessor.
+item, pass `value` with `onValueChange(details)`; `details.value` is the open item's value or an
+empty string when all panels are closed. Create the store with `useNavigationMenu()` and pass it
+to `NavigationMenuRootProvider` when it must live outside the rendered tree; do not render another
+root for that store. React reads the store as an object; Solid reads its reactive state through
+the returned accessor. Use `NavigationMenuContext` when a descendant needs the current state
+through a render prop instead of a store.
 
-Add `NavigationMenuViewportPositioner` and `NavigationMenuViewport` when several panels should share one animated surface. The
-positioner accepts Ark's `align` prop (`"start" | "center" | "end"`, default `"center"`) to align the
-viewport against the value positioner. Keep
-`NavigationMenuIndicator` inside `NavigationMenuList`, and add `NavigationMenuArrow` there only with a shared viewport. Without a shared
-viewport, `NavigationMenuContent` renders beside its item. Use `asChild` for router links or custom triggers only
-when the child remains one interactive, focusable element.
+Without a shared viewport, `NavigationMenuContent` renders beside its item. Add
+`NavigationMenuViewportPositioner` and `NavigationMenuViewport` when several panels should share one
+animated surface; the positioner's `align` prop (`"start" | "center" | "end"`, default `"center"`)
+aligns the viewport against the value positioner. Use `asChild` for router links or custom
+triggers only when the child remains one interactive, focusable element.
 
 ## Examples
 

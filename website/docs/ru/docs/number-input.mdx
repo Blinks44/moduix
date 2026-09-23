@@ -36,6 +36,12 @@ import numberInputSolidCustomIcons from '../../../snippets/number-input/solid/cu
 
 <PrimitiveReference href="https://ark-ui.com/docs/components/number-input" />
 
+## Выбор подходящего компонента
+
+Используйте `NumberInput`, когда пользователи вводят числовые значения, требующие пошагового изменения,
+ограничения диапазона и форматирования. Для произвольного текста используйте `Input`, а для выбора точки
+на визуальном диапазоне - `Slider`.
+
 ## Базовый пример
 
 Для CSS Modules импортируйте
@@ -121,7 +127,7 @@ NumberInputRootProvider
 
 | Часть | Назначение |
 | --- | --- |
-| `NumberInput` / `NumberInput` | Управляет состоянием числового поля, разбором введённого значения, форматированием и поведением клавиатуры. |
+| `NumberInput` | Управляет состоянием числового поля, разбором введённого значения, форматированием и поведением клавиатуры. |
 | `NumberInputRootProvider` | Подключает части к состоянию, созданному с помощью `useNumberInput()`. |
 | `NumberInputContext` | Предоставляет форматированное и числовое представление значения, а также императивные методы работы с состоянием. |
 | `NumberInputLabel` | Доступная подпись управляемого поля. |
@@ -138,7 +144,7 @@ NumberInputRootProvider
 Используйте `NumberInputField` для стандартного контрола из трёх частей. Храните `value` и `defaultValue` в виде строк,
 а в управляемом поле передавайте в состояние `details.value` из `onValueChange`. Если состояние нужно создать вне
 дерева отображаемых частей, вызовите `useNumberInput()` и передайте соответствующее хранилище в
-`NumberInputRootProvider`. Не отображайте `NumberInput` или `NumberInput` для того же хранилища. В React свойства
+`NumberInputRootProvider`. Не отображайте `NumberInput` или `NumberInputRootProvider` для того же хранилища. В React свойства
 хранилища читаются напрямую, а в Solid через возвращаемый аксессор.
 
 Используйте `NumberInputControl` с отдельными частями, если нужно изменить порядок кнопок, значки или стили поля.
@@ -523,7 +529,19 @@ NumberInputRootProvider
 
 ### CSS-свойства
 
-<NumberInputDocs.NumberInputCssPropertiesPanel />
+<div className="docs-reference">
+  <Tabs
+    values={[{ label: 'CSS Variables', value: 'CSS Variables' }]}
+    className="docs-reference-tabs"
+    contentItemClassName="docs-reference-panel"
+  >
+    <Tab value="CSS Variables">
+      <div>
+        <NumberInputDocs.NumberInputCssPropertiesPanel />
+      </div>
+    </Tab>
+  </Tabs>
+</div>
 
 ### Хуки стилизации
 

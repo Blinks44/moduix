@@ -296,7 +296,7 @@ EditableRootProvider
 
 </ExampleCode>
 
-### Возможности Ark
+### Редактирование по щелчку
 
 Корневой компонент принимает основные свойства Ark: режим активации, автоматическое изменение размера,
 максимальную длину, разные плейсхолдеры для режима просмотра и редактирования и локализованные подписи
@@ -459,14 +459,15 @@ EditableRootProvider
 
 ### CSS-свойства
 
-<div className="docs-reference">
-  <Tabs
-    values={[{ label: 'CSS-переменные', value: 'CSS Variables' }]}
-    className="docs-reference-tabs"
-    contentItemClassName="docs-reference-panel"
-  >
-    <Tab value="CSS Variables">
-      <EditableDocs.EditableCssPropertiesPanel />
-    </Tab>
-  </Tabs>
-</div>
+<CssPropertiesSection properties={EditableDocs.editableOverrideCssProperties} />
+
+### Хуки стилизации
+
+- Стабильные селекторы `data-slot`: `editable-root`, `editable-root-provider`, `editable-label`,
+  `editable-area`, `editable-input`, `editable-preview`, `editable-control`,
+  `editable-edit-trigger`, `editable-submit-trigger` и `editable-cancel-trigger`.
+- Селекторы частей Ark: `data-scope="editable"` и
+  `data-part="root|area|label|preview|input|edit-trigger|submit-trigger|cancel-trigger|control"`.
+- Селекторы состояния Ark: `data-disabled`, `data-focus`, `data-invalid`, `data-readonly`,
+  `data-required`, `data-placeholder-shown` и `data-autoresize`.
+- `EditableControls` использует слот `editable-control` вместе с `EditableControl`.

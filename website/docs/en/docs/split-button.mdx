@@ -124,12 +124,12 @@ SplitButton
 | `SplitButtonAction`               | Primary Button action.                                                |
 | `SplitButtonTrigger`              | Ark Menu trigger rendered as a moduix Button with a chevron by default. |
 | `SplitButtonPositioner`           | Positions the Ark Menu popup.                                         |
-| `SplitButtonContent`              | Ark Menu content surface for shared `Menu.*` parts.                   |
+| `SplitButtonContent`              | Ark Menu content surface for shared `MenuItem` and `MenuItemGroup` parts. |
 
 ## Composition
 
 `SplitButton` combines one primary `SplitButtonAction` with a `SplitButtonTrigger`; keep the popup tree explicit as
-`SplitButtonPositioner` → `SplitButtonContent` and place shared `Menu.*` rows inside `SplitButtonContent`. The positioner is portalled automatically;
+`SplitButtonPositioner` → `SplitButtonContent` and place shared `MenuItem` rows inside `SplitButtonContent`. The positioner is portalled automatically;
 use `portalled={false}` or `portalRef` only when the popup must use a different container. Root `size` and `variant`
 provide the defaults for both button parts. The root renders a semantic `role="group"`; provide `aria-label` or
 `aria-labelledby` when the surrounding context does not already identify the group.
@@ -392,7 +392,7 @@ Add an icon to the primary action when it clarifies the default action without r
 
 ### Advanced Customization
 
-Use shared `Menu.*` parts inside `SplitButtonContent` when alternate actions need groups, separators, or grouped
+Use `MenuItemGroup`, `MenuItemGroupLabel`, `MenuItem`, and `MenuSeparator` inside `SplitButtonContent` when alternate actions need groups, separators, or grouped
 rows.
 
 <ExampleFrame variant="component">

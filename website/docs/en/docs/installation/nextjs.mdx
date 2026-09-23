@@ -20,9 +20,9 @@ Complete the shared [package setup](/docs/quick-start#install-as-a-package) or
 uses CSS Modules package imports to keep the Next.js-specific layout and client-boundary steps clear;
 those steps stay the same with `@moduix/react-tailwind` or `@moduix-react-tailwind`.
 
-All package commands and stylesheet imports shown below belong to CSS Modules. Use the moduix reset
-shown below or a correct reset from your application. With Tailwind, keep the global stylesheet configured in
-Quick Start instead.
+The package setup below uses CSS Modules and includes the moduix reset. If you use the Tailwind
+registry commands instead, keep the global stylesheet from
+[Quick Start](/docs/quick-start#install-as-a-package) configured in your application.
 
 ## Install as a package
 
@@ -76,6 +76,9 @@ export default function Page() {
   );
 }
 ```
+
+Interactive components imported directly from the package must render inside a component marked
+with `'use client'`. Registry-generated components carry the directive where it applies.
 
 Server Components can render the surrounding markup and include `ContinueButton`. Pass serializable
 data to a client component. Event handlers and other functions cannot cross the server/client boundary.

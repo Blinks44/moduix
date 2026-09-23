@@ -146,7 +146,7 @@ Slider
 
 | Partie                                  | Rôle                                                                    |
 | --------------------------------------- | ----------------------------------------------------------------------- |
-| `Slider` / `Slider`               | Racine Ark stylisée pour un état contrôlé ou non contrôlé.              |
+| `Slider`               | Racine Ark stylisée pour un état contrôlé ou non contrôlé.              |
 | `SliderHiddenInput` | Champ natif d’Ark ; composition explicite décrite ci-dessous. |
 | `SliderRootProvider`                  | Racine connectée à un état `useSlider` créé à l’extérieur.             |
 | `SliderLabel`                         | Libellé visible du groupe.                                              |
@@ -171,7 +171,7 @@ Pour un état contrôlé, stockez `details.value` fourni par `onValueChange` ou
 `onValueChangeEnd`. Utilisez `useSliderContext` dans les descendants pour lire l’état. Si l’état
 doit être créé en dehors de l’arbre rendu, créez-le avec `useSlider` et transmettez-le à
 `SliderRootProvider` ; ne rendez pas une autre racine pour le même store. React lit le store
-comme un objet, tandis que Solid le lit via l’accessor retourné. La valeur racine est `Slider`.
+comme un objet, tandis que Solid le lit via l’accessor retourné.
 
 ## Exemples
 

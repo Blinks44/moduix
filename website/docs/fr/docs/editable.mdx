@@ -297,7 +297,7 @@ Passez `name` pour inclure la valeur actuelle dans l’envoi natif du formulaire
 
 </ExampleCode>
 
-### Options Ark
+### Édition au clic
 
 Le composant racine accepte les options courantes d’Ark, notamment le mode d’activation, le redimensionnement
 automatique, la longueur maximale, des espaces réservés différents selon le mode et les libellés localisés
@@ -459,14 +459,15 @@ et les attributs d’état d’Ark permettent des personnalisations ciblées.
 
 ### Propriétés CSS
 
-<div className="docs-reference">
-  <Tabs
-    values={[{ label: 'Variables CSS', value: 'CSS Variables' }]}
-    className="docs-reference-tabs"
-    contentItemClassName="docs-reference-panel"
-  >
-    <Tab value="CSS Variables">
-      <EditableDocs.EditableCssPropertiesPanel />
-    </Tab>
-  </Tabs>
-</div>
+<CssPropertiesSection properties={EditableDocs.editableOverrideCssProperties} />
+
+### Points d’accroche CSS
+
+- Sélecteurs `data-slot` stables : `editable-root`, `editable-root-provider`, `editable-label`,
+  `editable-area`, `editable-input`, `editable-preview`, `editable-control`,
+  `editable-edit-trigger`, `editable-submit-trigger` et `editable-cancel-trigger`.
+- Sélecteurs des parties Ark : `data-scope="editable"` et
+  `data-part="root|area|label|preview|input|edit-trigger|submit-trigger|cancel-trigger|control"`.
+- Sélecteurs d’état Ark : `data-disabled`, `data-focus`, `data-invalid`, `data-readonly`,
+  `data-required`, `data-placeholder-shown` et `data-autoresize`.
+- `EditableControls` partage le slot `editable-control` avec `EditableControl`.

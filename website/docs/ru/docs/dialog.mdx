@@ -4,7 +4,7 @@ component: dialog
 description: Модальное окно для сосредоточенных задач, например форм, подтверждений и просмотра деталей.
 ---
 
-import { DialogCssPropertiesPanel } from '@/components/examples/dialog/css-properties';
+import * as DialogDocs from '@/components/examples/dialog/css-properties';
 import DialogAdvancedCustomization from '@/components/examples/dialog/advanced-customization.tsx';
 import DialogAlertDialog from '@/components/examples/dialog/alert-dialog.tsx';
 import DialogBasic from '@/components/examples/dialog/basic.tsx';
@@ -131,7 +131,7 @@ DialogContext
 
 | Часть                    | Назначение                                                          |
 | ------------------------ | ------------------------------------------------------------------- |
-| `Dialog` / `Dialog` | Управляет состоянием открытия, фокусом и закрытием.                 |
+| `Dialog` / `DialogRootProvider` | Управляет состоянием открытия, фокусом и закрытием.                 |
 | `DialogRootProvider`    | Подключает части к состоянию, созданному с помощью `useDialog()`.   |
 | `DialogTrigger`         | Открывает диалог.                                                    |
 | `DialogBackdrop`        | Необязательный фон модального диалога.                              |
@@ -567,8 +567,8 @@ moduix использует это состояние, чтобы отодвин
 
 ### Расширенная настройка
 
-Пропустите `Header`, `Body`, `Footer` и `CloseIcon`, если пользовательская разметка требует прямого
-управления каждой частью диалога Ark.
+Пропустите `DialogHeader`, `DialogBody`, `DialogFooter` и `DialogCloseIcon`, если пользовательская
+разметка требует прямого управления каждой частью диалога Ark.
 
 <ExampleFrame variant="component">
   <DialogAdvancedCustomization />
@@ -615,17 +615,7 @@ moduix использует это состояние, чтобы отодвин
 
 ### CSS-свойства
 
-<div className="docs-reference">
-  <Tabs
-    values={[{ label: 'CSS Variables', value: 'CSS Variables' }]}
-    className="docs-reference-tabs"
-    contentItemClassName="docs-reference-panel"
-  >
-    <Tab>
-      <DialogCssPropertiesPanel />
-    </Tab>
-  </Tabs>
-</div>
+<CssPropertiesSection properties={DialogDocs.dialogOverrideCssProperties} />
 
 ### Хуки стилизации
 

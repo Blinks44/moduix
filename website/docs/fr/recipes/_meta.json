@@ -48,7 +48,7 @@
   {
     "type": "file",
     "name": "file-upload-manager",
-    "label": "Import de fichiers",
+    "label": "Téléversement de fichiers",
     "tag": "file-text"
   },
   {
@@ -58,7 +58,7 @@
   {
     "type": "file",
     "name": "expandable-avatar-group",
-    "label": "Groupe d’avatars",
+    "label": "Groupe d’avatars extensible",
     "tag": "users-round"
   },
   {

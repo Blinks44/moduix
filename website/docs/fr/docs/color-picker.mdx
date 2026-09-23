@@ -153,18 +153,26 @@ ColorPicker
 | --- | --- |
 | `ColorPicker` | Gère la couleur et son format, l’ouverture de la fenêtre contextuelle et la participation au formulaire. |
 | `ColorPickerHiddenInput` | Champ natif d’Ark ; composition explicite décrite ci-dessous. |
+| `ColorPickerLabel` | Libellé accessible des contrôles visibles de la palette. |
 | `ColorPickerControl` | Regroupe les champs visibles et le bouton d’ouverture. |
 | `ColorPickerTrigger` | Bouton qui ouvre la fenêtre contextuelle et affiche par défaut la pastille de la couleur actuelle. |
+| `ColorPickerPositioner` | Calque flottant qui positionne la fenêtre contextuelle et expose les variables CSS de positionnement d’Ark. |
 | `ColorPickerContent` | Contenu de la fenêtre contextuelle basée sur Ark. |
 | `ColorPickerArea` | Zone bidimensionnelle de sélection de la couleur. |
+| `ColorPickerAreaBackground` | Couche d’arrière-plan qui capte la saisie du pointeur pour la zone de couleur. |
+| `ColorPickerEyeDropperTrigger` | Prélève une couleur à l’écran ; rendu uniquement lorsque le navigateur prend en charge l’API EyeDropper. |
 | `ColorPickerChannelSlider` | Contrôle unidimensionnel de la teinte, du canal alpha ou d’un autre canal. |
+| `ColorPickerTransparencyGrid` | Fond en damier qui rend l’alpha visible derrière un bouton d’ouverture ou un curseur de canal. |
 | `ColorPickerSliders` | Paire intégrée de curseurs pour la teinte et le canal alpha. |
 | `ColorPickerChannelInput` | Champ texte ou numérique pour un canal de couleur donné. |
 | `ColorPickerSwatchTrigger` | Bouton de sélection d’une couleur prédéfinie. |
+| `ColorPickerSwatch` | Surface colorée rendue dans un bouton de pastille ou une pastille de valeur. |
+| `ColorPickerSwatchIndicator` | Marqueur facultatif dans une pastille, par exemple une coche pour le préréglage sélectionné. |
 | `ColorPickerValueSwatch` | Affiche une pastille de la couleur actuelle. |
+| `ColorPickerValueText` | Texte en lecture seule de la valeur formatée. |
 
 `ColorPickerRootProvider`, `parseColor`, `useColorPicker` et `useColorPickerContext` couvrent les scénarios avancés
-habituels de gestion d’état. Importez directement les types auxiliaires d’Ark uniquement si nécessaire.
+habituels de gestion d’état.
 
 ## Composition
 
@@ -593,7 +601,7 @@ Utilisez l’état contrôlé `open` lorsqu’un autre contrôle ou un autre flu
 
 </ExampleCode>
 
-### ColorPickerRootProvider
+### Root Provider
 
 Utilisez `useColorPicker` de moduix avec `ColorPickerRootProvider` lorsque l’état du sélecteur doit être créé en dehors de l’arbre
 rendu et partagé avec des contrôles voisins.

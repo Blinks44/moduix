@@ -12,6 +12,11 @@ Cette recette montre comment composer un en-tête d’application responsive ave
 `CommandPalette` et `Menu`. Elle réunit le lien vers le produit, l’espace de travail actif, la
 navigation principale, la recherche et les actions du compte dans une mise en page compacte.
 
+Cette recette est une composition à copier, et non un composant `AppHeader` exporté par moduix. Elle
+combine `CommandPalette`, `Menu` et d’autres composants moduix. Installez ces composants, copiez le
+code source et les styles ci-dessous, puis remplacez la navigation et les données de compte d’exemple
+par les vôtres.
+
 ## Contenu de la recette
 
 - Une navigation principale qui marque la destination active avec `aria-current="page"`.
@@ -66,7 +71,7 @@ onglets « Composant » et « Styles » contiennent les fichiers à copier dans 
 
 <ShadcnInstall packageName={['avatar', 'button', 'command-palette', 'menu']} itemKind="recipe" frameworks copiedSource dependencies={['lucide-react']} solidDependencies={['lucide-solid']} />
 
-## Dans votre application
+## Utiliser la recette dans votre application
 
 La démonstration utilise des ancres comme `#overview`, et la sélection d’une commande met à jour
 `window.location.hash`. L’exemple peut ainsi fonctionner sans routeur. Remplacez les ancres et le
@@ -78,7 +83,8 @@ Conservez `aria-current="page"` uniquement sur le lien correspondant à la route
 ## Personnalisation
 
 Remplacez les données de démonstration par vos routes, l’état de l’espace de travail et les données
-de l’utilisateur authentifié.
+de l’utilisateur authentifié. La `CommandPalette` est décrite dans la
+[documentation de Command Palette](/docs/command-palette).
 
 | À remplacer | Par la valeur de votre application |
 | ----------- | ---------------------------------- |

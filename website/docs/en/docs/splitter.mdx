@@ -214,7 +214,7 @@ Keep panel sizes in application state and update that state from `details.size` 
 
 ### Multiple panels
 
-Add another `Panel` and an adjacent `ResizeTrigger` for a three-panel layout. Every panel needs a
+Add another `SplitterPanel` and an adjacent `SplitterResizeTrigger` for a three-panel layout. Every panel needs a
 matching entry in `panels`, and every trigger id must connect its two neighbors.
 
 <ExampleFrame variant="component">
@@ -415,7 +415,7 @@ resize.
 
 ## Accessibility
 
-`ResizeTrigger` renders a button and provides pointer and keyboard resizing according to the WAI-ARIA
+`SplitterResizeTrigger` renders a button and provides pointer and keyboard resizing according to the WAI-ARIA
 Window Splitter pattern. Give each trigger an accessible name, for example with
 `aria-label="Resize panels"`, when its visual handle has no text label. If you use `asChild`, the
 custom host must keep button semantics, focus behavior, and keyboard interaction.

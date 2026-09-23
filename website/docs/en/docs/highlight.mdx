@@ -31,7 +31,6 @@ renders the matched ranges, but does not add a layout wrapper of its own.
 
 ## Basic
 
-
 Pass the complete source string through `text` and the term to find through `query`. Place
 `Highlight` inside the text component or HTML element that should provide the surrounding layout
 and semantics.
@@ -105,13 +104,13 @@ Highlight
 
 | Part                           | Role                                                                 |
 | ------------------------------ | -------------------------------------------------------------------- |
-| `Highlight` / `Highlight` | Applies moduix styling to every matched range in the provided text. |
+| `Highlight` | Applies moduix styling to every matched range in the provided text. |
 
 ## Composition
 
 `Highlight` is stateless and owns no layout wrapper. Place it inside an existing text container such
 as `Text`, a heading, a list item, or a table cell. Control `query` from the parent when search input
-changes, and use `Highlight` only when the namespaced form is clearer. A string-array `query`
+changes. A string-array `query`
 requires `matchAll` to remain `true`; use custom markup in your own component when each match needs a
 different element or interactive behavior.
 

@@ -1,7 +1,7 @@
 ---
 title: Lightbox
 component: lightbox
-description: Доступный просмотр изображений и медиаконтента в React и Solid с установкой пакетом или через shadcn.
+description: Модальный просмотрщик изображений с навигацией по галерее и управляемым состоянием в React и Solid.
 ---
 
 import * as LightboxDocs from '@/components/examples/lightbox/css-properties';
@@ -153,18 +153,18 @@ LightboxRootProvider
 
 ## Композиция
 
-`Lightbox` управляет состоянием `Dialog`, а `Backdrop`, `Positioner` и `Content` остаются явными.
+`Lightbox` управляет состоянием `Dialog`, а `LightboxBackdrop`, `LightboxPositioner` и `LightboxContent` остаются явными.
 По умолчанию части окна выводятся через портал. Используйте `portalled={false}`, чтобы оставить их
-на месте, или `portalRef`, чтобы выбрать контейнер. Размещайте `CloseIcon` рядом с `Content` внутри
-`Positioner`, если кнопку нужно закрепить относительно окна, а не перемещать вместе с содержимым.
+на месте, или `portalRef`, чтобы выбрать контейнер. Размещайте `LightboxCloseIcon` рядом с `LightboxContent` внутри
+`LightboxPositioner`, если кнопку нужно закрепить относительно окна, а не перемещать вместе с содержимым.
 Для `asChild` передавайте один семантический элемент. В Solid это render-функция, получающая его props.
 
 В галереях храните выбранное изображение и страницу `Carousel` в состоянии приложения. Передавайте
 ключ изображения в `LightboxTrigger value` и обновляйте состояние из `onTriggerValueChange(details)`
 или callback страницы `Carousel`. Используйте `LightboxRootProvider` с `useLightbox()`, если состояние или
 кнопка открытия находятся за пределами корня, а в дочерних компонентах читайте его через
-`useLightboxContext()`. `Bind` не выводит разметку и только выбирает изображение во внешнем DOM, поэтому
-остальные части Lightbox нужно собрать явно. `Image closeOnClick` закрывает окно после клика по изображению.
+`useLightboxContext()`. `LightboxBind` не выводит разметку и только выбирает изображение во внешнем DOM, поэтому
+остальные части Lightbox нужно собрать явно. `LightboxImage closeOnClick` закрывает окно после клика по изображению.
 
 ## Примеры
 
@@ -172,7 +172,7 @@ LightboxRootProvider
 
 Используйте `LightboxBind`, если изображения приходят из CMS или сторонней разметки, которую нельзя
 вывести напрямую через `LightboxTrigger`. Укажите контейнер через `rootRef` или `rootSelector`,
-задайте `selector` и обработайте `{ src, alt, element }` в `onImageSelect`. `Bind` открывает родительский
+задайте `selector` и обработайте `{ src, alt, element }` в `onImageSelect`. `LightboxBind` открывает родительский
 Lightbox, но не создаёт его подложку, содержимое и элементы закрытия. Источник читается из
 `data-lightbox-src`, затем `currentSrc` и `src`, а найденное изображение заранее загружается при
 наведении указателя или фокусе с клавиатуры. В `selector` указывайте семантическую кнопку или ссылку,
@@ -420,7 +420,7 @@ Lightbox, но не создаёт его подложку, содержимое
 ### Немодальный режим
 
 Задайте `modal={false}`, если страница должна оставаться интерактивной во время просмотра. В этом
-режиме Ark отключает удержание фокуса и блокировку прокрутки. Не добавляйте `Backdrop`, чтобы
+режиме Ark отключает удержание фокуса и блокировку прокрутки. Не добавляйте `LightboxBackdrop`, чтобы
 действия на фоне оставались доступными, пока изображение открыто.
 
 <ExampleFrame variant="component">
@@ -502,7 +502,7 @@ Lightbox, но не создаёт его подложку, содержимое
 ### Расширенная настройка
 
 Не используйте необязательные компоненты компоновки, если для медиаконтента нужны собственные классы
-слотов и переопределения токенов. `Backdrop`, `Positioner` и `Content` остаются явными.
+слотов и переопределения токенов. `LightboxBackdrop`, `LightboxPositioner` и `LightboxContent` остаются явными.
 
 <ExampleFrame variant="component">
   <LightboxAdvancedCustomization />

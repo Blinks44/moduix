@@ -43,7 +43,7 @@
   {
     "type": "file",
     "name": "expandable-avatar-group",
-    "label": "Группа аватаров",
+    "label": "Раскрывающаяся группа аватаров",
     "tag": "users-round"
   },
   {

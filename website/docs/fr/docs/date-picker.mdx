@@ -155,7 +155,7 @@ DatePickerRootProvider
 
 | Partie                            | Rôle                                                               |
 | --------------------------------- | ------------------------------------------------------------------ |
-| `DatePicker` / `DatePicker`  | Racine qui gère la valeur, la vue, l’ouverture, la locale, la validation et le formulaire. |
+| `DatePicker`  | Racine qui gère la valeur, la vue, l’ouverture, la locale, la validation et le formulaire. |
 | `DatePickerRootProvider`         | Affiche les parties avec l’état renvoyé par `useDatePicker()`.     |
 | `DatePickerLabel`                | Libellé accessible du champ de date.                               |
 | `DatePickerControl`              | Conteneur du champ pour une disposition personnalisée.             |
@@ -607,7 +607,7 @@ plage ainsi que le format de saisie. Une plage utilise deux saisies indexées.
 
 ### Root Provider
 
-Utilisez `useDatePicker()` depuis `@moduix/solid/date-picker` avec `DatePickerRootProvider`
+Utilisez `useDatePicker()` depuis le paquet correspondant au framework avec `DatePickerRootProvider`
 lorsque l’état du calendrier doit être partagé avec des contrôles hors de l’arbre racine.
 
 <ExampleFrame variant="component">
@@ -772,17 +772,7 @@ attributs d’état Ark et les hooks `data-slot` de moduix.
 
 ### Propriétés CSS
 
-<div className="docs-reference">
-  <Tabs
-    values={[{ label: 'CSS Variables', value: 'CSS Variables' }]}
-    className="docs-reference-tabs"
-    contentItemClassName="docs-reference-panel"
-  >
-    <Tab>
-      <DatePickerDocs.DatePickerCssPropertiesPanel />
-    </Tab>
-  </Tabs>
-</div>
+<CssPropertiesSection properties={DatePickerDocs.datePickerOverrideCssProperties} />
 
 ### Points d’accroche CSS
 

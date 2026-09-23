@@ -218,7 +218,7 @@ dans `onResize`.
 
 ### Plusieurs panneaux
 
-Ajoutez un autre `Panel` et une `ResizeTrigger` adjacente pour créer une mise en page à trois panneaux.
+Ajoutez un autre `SplitterPanel` et une `SplitterResizeTrigger` adjacente pour créer une mise en page à trois panneaux.
 Chaque panneau doit avoir une entrée correspondante dans `panels`, et chaque identifiant de poignée doit
 relier ses deux voisins.
 
@@ -420,7 +420,7 @@ empilés disposent de l'espace nécessaire pour être redimensionnés.
 
 ## Accessibilité
 
-`ResizeTrigger` génère un bouton et prend en charge le redimensionnement à la souris et au clavier,
+`SplitterResizeTrigger` génère un bouton et prend en charge le redimensionnement à la souris et au clavier,
 conformément au modèle WAI-ARIA Window Splitter. Donnez à chaque poignée un nom accessible, par exemple
 avec `aria-label="Resize panels"`, lorsque l'indicateur visuel n'a pas de libellé. Avec `asChild`,
 l'élément hôte personnalisé doit conserver la sémantique d'un bouton, le focus et les interactions au

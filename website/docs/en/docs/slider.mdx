@@ -148,7 +148,7 @@ Slider
 
 | Part                                   | Role                                                        |
 | -------------------------------------- | ----------------------------------------------------------- |
-| `Slider` / `Slider`               | Styled Ark root for controlled and uncontrolled state.       |
+| `Slider`               | Styled Ark root for controlled and uncontrolled state.       |
 | `SliderHiddenInput` | Native Ark form control; compose explicitly as described below. |
 | `SliderRootProvider`                  | Root connected to an externally created `useSlider` state.  |
 | `SliderLabel`                         | Visible label for the slider group.                          |
@@ -172,7 +172,7 @@ For controlled state, store `details.value` from `onValueChange` or `onValueChan
 `useSliderContext` inside descendants to read state. If state must live outside the rendered
 tree, create it with `useSlider` and pass it to `SliderRootProvider`; do not render another
 root for the same store. React reads the store as an object, while Solid reads it through the
-returned accessor. `Slider` is the root value.
+returned accessor.
 
 ## Examples
 

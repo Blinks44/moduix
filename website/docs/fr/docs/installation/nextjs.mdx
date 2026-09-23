@@ -21,9 +21,9 @@ style. Cette page utilise les imports du paquet CSS Modules pour garder les éta
 et aux frontières client de Next.js bien visibles. Elles restent identiques avec
 `@moduix/react-tailwind` ou `@moduix-react-tailwind`.
 
-Toutes les commandes de paquet et tous les imports de feuilles de style présentés ci-dessous concernent
-CSS Modules. Utilisez la réinitialisation de moduix présentée ci-dessous ou une réinitialisation correcte de votre application.
-Avec Tailwind, conservez la feuille globale configurée dans le Démarrage rapide.
+La configuration du paquet ci-dessous utilise CSS Modules et inclut la réinitialisation de moduix. Si vous
+utilisez plutôt les commandes du registre Tailwind, conservez la feuille de styles globale configurée dans le
+[Démarrage rapide](/docs/quick-start#installer-le-paquet).
 
 ## Installation par paquet
 
@@ -77,6 +77,9 @@ export default function Page() {
   );
 }
 ```
+
+Les composants interactifs importés directement depuis le paquet doivent être rendus dans un composant
+marqué avec `'use client'`. Les composants générés par le registre portent la directive là où c’est nécessaire.
 
 Les Server Components peuvent afficher le balisage environnant et utiliser `ContinueButton`. Transmettez uniquement
 des données sérialisables à un composant client. Les gestionnaires d’événements et les autres fonctions ne peuvent pas

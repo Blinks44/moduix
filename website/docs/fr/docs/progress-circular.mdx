@@ -134,7 +134,7 @@ ProgressCircularRootProvider
 
 ## Composition
 
-`ProgressCircular` est le raccourci de `ProgressCircular`. Utilisez `ProgressCircularRing`
+Utilisez `ProgressCircularRing`
 lorsque le cercle standard suffit : il combine `ProgressCircularCircle`, `ProgressCircularCircleTrack` et `ProgressCircularCircleRange`, mais ne
 rend pas et ne centre pas `ProgressCircularValueText`. Gardez la composition du libellé, du cercle et du texte de
 valeur explicite lorsque la valeur doit apparaître au centre.
@@ -344,7 +344,7 @@ permet de donner à `ProgressCircularCircleTrack` et `ProgressCircularCircleRang
 
 </ExampleCode>
 
-#### ProgressCircularRootProvider
+### Root Provider
 
 Créez le store avec `useProgress()` et passez-le à `ProgressCircularRootProvider` lorsqu’un autre
 composant doit lire ou mettre à jour la progression en dehors de l’arbre rendu.
@@ -384,7 +384,7 @@ composant doit lire ou mettre à jour la progression en dehors de l’arbre rend
 
 </ExampleCode>
 
-#### Vues d’état
+### Vues d’état
 
 Utilisez `ProgressCircularView` lorsque le texte ou l’interface d’accompagnement doit changer avec
 l’état de progression Ark.

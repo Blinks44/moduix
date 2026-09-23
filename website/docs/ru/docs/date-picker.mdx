@@ -56,8 +56,6 @@ import datePickerSolidYearPicker from '../../../snippets/date-picker/solid/year-
 
 ## Базовый пример
 
-Интерактивный
-
 Используйте `DatePicker` как корневой компонент, `DatePickerField` для стандартного поля и
 `DatePickerDayTable` для таблицы дней. Когда календарь должен быть всплывающим, явно добавьте
 `DatePickerPositioner` и `DatePickerContent`.
@@ -607,7 +605,7 @@ DatePickerRootProvider
 
 ### Root Provider
 
-Используйте `useDatePicker()` из `@moduix/solid/date-picker` вместе с `DatePickerRootProvider`,
+Используйте `useDatePicker()` из пакета выбранного фреймворка вместе с `DatePickerRootProvider`,
 когда состояние календаря нужно разделить с элементами вне дерева корня.
 
 <ExampleFrame variant="component">
@@ -771,17 +769,7 @@ moduix.
 
 ### CSS-свойства
 
-<div className="docs-reference">
-  <Tabs
-    values={[{ label: 'CSS Variables', value: 'CSS Variables' }]}
-    className="docs-reference-tabs"
-    contentItemClassName="docs-reference-panel"
-  >
-    <Tab>
-      <DatePickerDocs.DatePickerCssPropertiesPanel />
-    </Tab>
-  </Tabs>
-</div>
+<CssPropertiesSection properties={DatePickerDocs.datePickerOverrideCssProperties} />
 
 ### Хуки стилизации
 

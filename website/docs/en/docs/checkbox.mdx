@@ -42,13 +42,15 @@ import checkboxSolidSizes from '../../../snippets/checkbox/solid/sizes.tsx?raw';
 import checkboxSolidWithField from '../../../snippets/checkbox/solid/with-field.tsx?raw';
 import checkboxSolidWithForm from '../../../snippets/checkbox/solid/with-form.tsx?raw';
 
-Use `Checkbox` when people need to select one or more independent options in a form, settings panel,
-or filter list. Use `RadioGroup` when only one option can be selected. Use `Switch` when a setting
-should take effect immediately.
-
 ## API Reference
 
 <PrimitiveReference href="https://ark-ui.com/docs/components/checkbox" />
+
+## Choosing the right component
+
+Use `Checkbox` when people need to select one or more independent options in a form, settings panel,
+or filter list. Use `RadioGroup` when only one option can be selected. Use `Switch` when a setting
+should take effect immediately.
 
 ## Basic
 
@@ -155,7 +157,7 @@ for a group, put `name` on `CheckboxGroup` and `value` on each `Checkbox`.
 `CheckboxControl` only for a custom indicator.
 
 When state must be created outside the rendered tree, create it with `useCheckbox()` and pass the
-store to `CheckboxRootProvider`. Do not render `Checkbox` or `Checkbox` for the same store.
+store to `CheckboxRootProvider`. Do not render `Checkbox` or `CheckboxRootProvider` for the same store.
 
 ## Examples
 

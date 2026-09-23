@@ -124,12 +124,12 @@ SplitButton
 | `SplitButtonAction`             | Основное действие `Button`.                                             |
 | `SplitButtonTrigger`            | Триггер Ark Menu в виде кнопки moduix; по умолчанию показывает шеврон.  |
 | `SplitButtonPositioner`         | Размещает всплывающее меню Ark.                                          |
-| `SplitButtonContent`            | Поверхность содержимого Ark Menu для общих частей `Menu.*`.              |
+| `SplitButtonContent`            | Поверхность содержимого Ark Menu для общих частей `MenuItem` и `MenuItemGroup`.              |
 
 ## Композиция
 
 `SplitButton` объединяет основное действие `SplitButtonAction` и `SplitButtonTrigger`. Оставляйте дерево всплывающего меню явным:
-`SplitButtonPositioner` → `SplitButtonContent`, а общие части `Menu.*` размещайте внутри `SplitButtonContent`. Позиционер автоматически
+`SplitButtonPositioner` → `SplitButtonContent`, а общие части `MenuItem` и `MenuItemGroup` размещайте внутри `SplitButtonContent`. Позиционер автоматически
 рендерится в портале; используйте `portalled={false}` или `portalRef`, только если меню должно находиться
 в другом контейнере. Корневые `size` и `variant` задают значения по умолчанию для обеих кнопок. Корень
 рендерит семантический `role="group"`; задайте `aria-label` или `aria-labelledby`, если окружающий
@@ -394,7 +394,7 @@ SplitButton
 
 ### Расширенная настройка
 
-Используйте общие части `Menu.*` внутри `SplitButtonContent`, если дополнительным действиям нужны группы,
+Используйте `MenuItemGroup`, `MenuItemGroupLabel`, `MenuItem` и `MenuSeparator` внутри `SplitButtonContent`, если дополнительным действиям нужны группы,
 разделители или сгруппированные пункты.
 
 <ExampleFrame variant="component">

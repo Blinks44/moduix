@@ -24,22 +24,25 @@ import clipboardSolidRootProvider from '../../../snippets/clipboard/solid/root-p
 import clipboardSolidTimeout from '../../../snippets/clipboard/solid/timeout.tsx?raw';
 import clipboardSolidValueText from '../../../snippets/clipboard/solid/value-text.tsx?raw';
 
-Используйте `Clipboard`, когда пользователю нужно скопировать текст. В зависимости от выбранных
-частей значение можно редактировать, оставить только для чтения или вывести как обычный текст.
-
 ## Справочник API
 
 <PrimitiveReference href="https://ark-ui.com/docs/components/clipboard" />
 
-## Базовый пример
+## Выбор подходящего компонента
 
-Интерактивное  Настройку пакета и выбор варианта стилизации см. в
-[Quick Start](/docs/quick-start).
+Используйте `Clipboard`, когда пользователю нужно скопировать текст. В зависимости от выбранных
+частей значение можно редактировать, оставить только для чтения или вывести как обычный текст.
+
+## Базовый пример
 
 Используйте `Clipboard` как корневой компонент. Внутри `ClipboardControl` разместите одну
 поверхность значения - `ClipboardInput` или `ClipboardValueText` - и `ClipboardTrigger`.
 `ClipboardLabel` необязателен. Внутри триггера можно разместить `ClipboardIndicator`,
 `ClipboardCopyText` или обе части.
+
+React и Solid используют одинаковые плоские имена. Импортируйте `Clipboard` как корневой
+компонент, а каждую дополнительную часть - напрямую, например `ClipboardInput` и
+`ClipboardTrigger`. Эти имена одинаково работают в npm-пакетах и исходниках shadcn-реестра.
 
 <ExampleFrame variant="component">
   <ClipboardBasic />

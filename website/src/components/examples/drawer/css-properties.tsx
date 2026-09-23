@@ -1,7 +1,7 @@
 import type { CssPropertyInput } from '../../mdx/reference';
 import { CSSPropertiesReferenceTable } from '../../mdx/reference';
 
-const drawerOverrideCssProperties: CssPropertyInput[] = [
+export const drawerOverrideCssProperties: CssPropertyInput[] = [
   [
     '--moduix-drawer-backdrop-bg',
     'var(--moduix-backdrop-bg, var(--moduix-color-overlay))',

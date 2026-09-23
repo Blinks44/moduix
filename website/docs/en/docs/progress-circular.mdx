@@ -133,7 +133,7 @@ ProgressCircularRootProvider
 
 ## Composition
 
-`ProgressCircular` is shorthand for `ProgressCircular`. Use `ProgressCircularRing` when the
+Use `ProgressCircularRing` when the
 standard circle is enough: it combines `ProgressCircularCircle`, `ProgressCircularCircleTrack`, and `ProgressCircularCircleRange`, but it does not
 render or center `ProgressCircularValueText`. Keep the label, circle, and value text composition explicit when the
 value should appear in the center.
@@ -342,7 +342,7 @@ give `ProgressCircularCircleTrack` and `ProgressCircularCircleRange` their own c
 
 </ExampleCode>
 
-#### ProgressCircularRootProvider
+### Root Provider
 
 Create the store with `useProgress()` and pass it to `ProgressCircularRootProvider` when another
 component needs to read or update progress outside the rendered tree.
@@ -382,7 +382,7 @@ component needs to read or update progress outside the rendered tree.
 
 </ExampleCode>
 
-#### State views
+### State views
 
 Use `ProgressCircularView` when supporting text or UI should change with the Ark progress state.
 
@@ -433,7 +433,7 @@ semantic color from determinate progress. When reduced motion is preferred, the 
 transitions nor spins. Use `--moduix-progress-circular-range-indeterminate-reduced-motion-dasharray`
 to keep a visible static cue.
 
-### CSS properties
+### CSS Properties
 
 <div className="docs-reference">
   <Tabs

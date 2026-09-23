@@ -140,16 +140,17 @@ NavigationMenuContext
 ## Composition
 
 Utilisez `defaultValue` pour un menu non contrôlé. Lorsqu’une autre partie de l’application gère
-l’élément ouvert, transmettez `value` et `onValueChange(details)` ; `details.value` contient la valeur
-de l’élément ouvert ou une chaîne vide lorsque tous les panneaux sont fermés. Utilisez
-`NavigationMenuRootProvider` avec `useNavigationMenu()` lorsque le store doit être créé en dehors de
-l’arbre rendu. Transmettez le store obtenu à `NavigationMenuRootProvider` et ne rendez pas une autre racine pour ce
-store. React expose le store comme un objet, tandis que Solid donne accès à son état réactif au moyen
-de la fonction retournée.
+l’élément ouvert, transmettez `value` avec `onValueChange(details)` ; `details.value` contient la valeur
+de l’élément ouvert ou une chaîne vide lorsque tous les panneaux sont fermés. Créez le store avec
+`useNavigationMenu()` et transmettez-le à `NavigationMenuRootProvider` lorsqu’il doit vivre en dehors de
+l’arbre rendu ; ne rendez pas une autre racine pour ce même store. React lit le store comme un objet,
+tandis que Solid lit son état réactif via la fonction retournée. Utilisez `NavigationMenuContext`
+lorsqu’un descendant a besoin de l’état courant via une fonction de rendu plutôt que via le store.
 
-Ajoutez `NavigationMenuViewportPositioner` et `NavigationMenuViewport` lorsque plusieurs panneaux doivent partager une même zone
-animée. Placez `NavigationMenuIndicator` dans `NavigationMenuList` et ajoutez-y `NavigationMenuArrow` uniquement avec une zone `NavigationMenuViewport`
-partagée. Sans zone `NavigationMenuViewport` partagée, `NavigationMenuContent` s’affiche à côté de son `NavigationMenuItem`. Utilisez `asChild`
+Sans zone `NavigationMenuViewport` partagée, `NavigationMenuContent` s’affiche à côté de son élément.
+Ajoutez `NavigationMenuViewportPositioner` et `NavigationMenuViewport` lorsque plusieurs panneaux doivent
+partager une même surface animée ; la prop `align` du positioner (`"start" | "center" | "end"`,
+`"center"` par défaut) aligne la zone par rapport au positionneur de la valeur. Utilisez `asChild`
 pour les liens de routeur ou les déclencheurs personnalisés uniquement si l’enfant reste un seul élément
 interactif pouvant recevoir le focus.
 

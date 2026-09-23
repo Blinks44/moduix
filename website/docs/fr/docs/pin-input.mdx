@@ -38,8 +38,6 @@ Utilisez `PinInput` lorsqu’un code court de longueur fixe doit être saisi car
 
 ## Exemple de base
 
-Consultez le [Quick Start](/docs/quick-start) pour configurer le paquet et choisir le mode de style.
-
 Utilisez `PinInput` comme racine et définissez explicitement `count`. Ajoutez `PinInputLabel` pour donner un nom accessible
 au groupe, placez `PinInputInputs` dans `PinInputControl` et composez `PinInputHiddenInput` lorsque la valeur doit participer au comportement
 d’un formulaire natif.
@@ -141,6 +139,11 @@ avec des index continus commençant à zéro, ainsi que `PinInputSeparator` lors
 valeurs sont des tableaux de chaînes. Utilisez `PinInputRootProvider` avec `usePinInput` lorsque l’état ou les méthodes
 impératives doivent être gérés en dehors de l’arbre rendu ; React reçoit un objet store, tandis que Solid reçoit un
 accessor réactif.
+
+Ark gère le transfert du focus, la répartition du texte collé, la saisie au clavier et le remplissage automatique
+des codes à usage unique ; ajoutez `PinInputLabel` pour donner un nom accessible au groupe. `PinInputSeparator`
+est décoratif et rend `aria-hidden` ainsi que `role="presentation"` ; placez tout texte porteur de sens en dehors
+du séparateur.
 
 ## Exemples
 
@@ -374,7 +377,7 @@ Passez `placeholder` pour afficher un caractère dans chaque case vide. Par déf
 
 </ExampleCode>
 
-### Personnalisation avancée
+### Root Provider
 
 Utilisez `usePinInput` avec `PinInputRootProvider` lorsque l’état et les méthodes impératives doivent être gérés en dehors
 de l’arbre rendu. Cet exemple remplace `PinInputInputs` par des parties `PinInputInput` indexées explicites.
@@ -410,14 +413,6 @@ de l’arbre rendu. Cet exemple remplace `PinInputInputs` par des parties `PinIn
 </div>
 
 </ExampleCode>
-
-## Accessibilité
-
-Ark gère le transfert du focus, la répartition du texte collé, la saisie au clavier, les données du formulaire et
-le remplissage automatique des codes à usage unique. Ajoutez `PinInputLabel` pour donner un nom accessible au groupe.
-
-`PinInputSeparator` est décoratif par défaut et rend `aria-hidden` ainsi que `role="presentation"`. Placez tout
-texte porteur de sens en dehors du séparateur.
 
 ## Styles
 

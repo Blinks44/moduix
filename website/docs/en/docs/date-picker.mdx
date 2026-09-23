@@ -603,7 +603,7 @@ the range, and input formatting. A range uses two indexed inputs, one for each d
 
 ### Root Provider
 
-Use `useDatePicker()` from `@moduix/react/date-picker` with `DatePickerRootProvider` when
+Use `useDatePicker()` from the matching framework package with `DatePickerRootProvider` when
 calendar state must be shared with controls outside the root tree.
 
 <ExampleFrame variant="component">
@@ -761,19 +761,9 @@ Use `className` in React or `class` in Solid on exported parts for structural st
 variants use native utilities and consumer classes; CSS Modules variants expose the variables
 below. Both styling tracks share Ark state attributes and moduix `data-slot` hooks.
 
-### CSS properties
+### CSS Properties
 
-<div className="docs-reference">
-  <Tabs
-    values={[{ label: 'CSS Variables', value: 'CSS Variables' }]}
-    className="docs-reference-tabs"
-    contentItemClassName="docs-reference-panel"
-  >
-    <Tab>
-      <DatePickerDocs.DatePickerCssPropertiesPanel />
-    </Tab>
-  </Tabs>
-</div>
+<CssPropertiesSection properties={DatePickerDocs.datePickerOverrideCssProperties} />
 
 ### Styling hooks
 

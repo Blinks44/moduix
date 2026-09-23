@@ -125,6 +125,8 @@ import '@moduix/solid/style.css';
 
 This stylesheet is required. It provides the shared design tokens and base layer styles that
 component CSS depends on. Component styles are still loaded alongside the components you import.
+This keeps `style.css` focused on the global foundation, while unused component CSS can stay out
+of the consuming bundle.
 
 All moduix design tokens use the `--moduix-*` namespace. Your project can keep its own token names
 and selectively map them in a stylesheet that loads after `style.css`; see [Tokens](/docs/tokens).
@@ -151,9 +153,6 @@ import '@moduix/solid/style.css';
 </Tabs>
 
 If your application already has its own correct reset, use it instead of the moduix reset.
-
-That keeps `style.css` focused on the global foundation, while unused component CSS can stay out of
-the consuming bundle.
 
 For a curated visual starting point, import one optional preset after `style.css`; see
 [Themes](/docs/themes).
@@ -435,27 +434,15 @@ body {
 
 ## Styling
 
-moduix works with the styling approach your project already uses:
-
-- Native CSS with global selectors, cascade layers, and CSS variables.
-- CSS Modules through React `className` or Solid `class` and component slot class props.
-- Tailwind CSS utility classes for layout and one-off styling.
-- CSS-in-JS libraries that attach classes or pass scoped styles through your own wrappers.
-
-In the CSS Modules track, the default density uses `--moduix-size-md: 36px` for primary controls and
-`--moduix-size-sm: 32px` for popup rows. Changing those tokens updates related components together.
-Tailwind variants express their sizing with utilities and can be adjusted with consumer classes.
-
-Component pages list shared styling hooks and the public variables available to CSS Modules.
-Tailwind variants use semantic utilities and consumer classes instead of reproducing those
-component variables. See [Tokens](/docs/tokens) for the complete hierarchy and
+Consumer classes, component variables, tokens, and cascade troubleshooting are covered in the
+dedicated [Styling](/docs/styling) guide. See [Tokens](/docs/tokens) for the token hierarchy and
 [Animations](/docs/animations) for motion recipes.
 
 ## Troubleshooting
 
 | Symptom                                  | Check                                                                                 |
 | ---------------------------------------- | ------------------------------------------------------------------------------------- |
-| Components render without styles         | Follow the import order for your styling track.                                           |
+| Components render without styles         | Verify the foundation stylesheet is imported in your entry point and loads before component styles; see [Styling](/docs/styling). |
 | Hidden component content remains visible | With CSS Modules, check that the moduix reset or your own reset is loaded. Keep Tailwind Preflight enabled for the Tailwind track. |
 | A generated component import is unresolved | Verify the `@/*` alias in TypeScript and your bundler, then check `components.json`.    |
 | A popup appears below page content       | Add `isolation: isolate` to the application root and avoid unrelated global z-indexes. |

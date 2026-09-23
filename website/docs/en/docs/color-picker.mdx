@@ -152,18 +152,26 @@ ColorPicker
 | ---------------------------------- | ---------------------------------------------------------------------- |
 | `ColorPicker` | Owns color value, format, popup state, and form integration.           |
 | `ColorPickerHiddenInput` | Native Ark form control; compose explicitly as described below. |
+| `ColorPickerLabel` | Accessible label for the visible picker controls. |
 | `ColorPickerControl`              | Groups visible inputs and trigger.                                     |
 | `ColorPickerTrigger`              | Button that opens the popup and renders the current swatch by default. |
+| `ColorPickerPositioner` | Floating layer that positions the popup and exposes Ark positioning CSS variables. |
 | `ColorPickerContent`              | Actual Ark popup content part.                                         |
 | `ColorPickerArea`                 | Two-dimensional color interaction surface.                             |
+| `ColorPickerAreaBackground` | Background layer that captures pointer input for the color area. |
+| `ColorPickerEyeDropperTrigger` | Samples a color from the screen; rendered only where the browser supports the EyeDropper API. |
 | `ColorPickerChannelSlider`        | One-dimensional channel control for hue, alpha, or other channels.     |
+| `ColorPickerTransparencyGrid` | Checkerboard backdrop that makes alpha visible behind a trigger or channel slider. |
 | `ColorPickerSliders`              | Styled hue and alpha slider pair.                                      |
 | `ColorPickerChannelInput`         | Text or numeric input for a specific color channel.                    |
 | `ColorPickerSwatchTrigger`        | Selectable preset color button.                                        |
+| `ColorPickerSwatch` | Colored surface rendered inside a swatch trigger or value swatch. |
+| `ColorPickerSwatchIndicator` | Optional marker inside a swatch, such as a check for the selected preset. |
 | `ColorPickerValueSwatch`          | Visual swatch for the current value.                                   |
+| `ColorPickerValueText` | Read-only text of the formatted value. |
 
 `ColorPickerRootProvider`, `parseColor`, `useColorPicker`, and `useColorPickerContext` cover the
-normal advanced state path. Import Ark-only type helpers directly when needed as an escape hatch.
+normal advanced state path.
 
 ## Composition
 
@@ -594,7 +602,7 @@ Use controlled `open` state when another control or workflow owns the popup's vi
 
 </ExampleCode>
 
-### ColorPickerRootProvider
+### Root Provider
 
 Use moduix `useColorPicker` with `ColorPickerRootProvider` when the color picker state must be created outside
 the rendered tree and shared with nearby controls.

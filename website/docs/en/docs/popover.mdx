@@ -46,11 +46,9 @@ non-interactive hints. Use `Dialog` for larger workflows that need the user's fu
 ## Basic
 
 
-Use the explicit parts shown here. Set positioning on the root and use `asChild` when your own
-button should render the trigger.
-
 Use `Popover` as the root and import each additional part directly, such as `PopoverTrigger` and
-`PopoverContent`. The same flat names work with npm packages and shadcn registry source.
+`PopoverContent`. The same flat names work with npm packages and shadcn registry source. Set
+positioning on the root and use `asChild` when your own button should render the trigger.
 
 <ExampleFrame variant="component">
   <PopoverBasic />
@@ -153,9 +151,6 @@ PopoverContext
 | `PopoverCloseIcon`            | Moduix helper that combines Ark's close trigger with an icon button.   |
 | `PopoverHeader` / `PopoverBody`      | Moduix layout helpers with stable slots.                               |
 | `PopoverFooter`               | Moduix action-row helper with a stable slot.                            |
-
-Use `Popover` as the root in application code. Import additional parts directly from the component
-package so the composition remains explicit and easy to read.
 
 ## Composition
 

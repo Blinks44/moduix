@@ -105,11 +105,11 @@ JsonTreeViewRootProvider
 
 ## Composition
 
-Gardez `JsonTreeViewTree` comme enfant de `JsonTreeView` ou de `JsonTreeView` : il affiche les nœuds JSON
+Gardez `JsonTreeViewTree` comme enfant de `JsonTreeView` ou de `JsonTreeViewRootProvider` : il affiche les nœuds JSON
 générés. Lorsque des contrôles externes gèrent l’état de l’arbre, créez `useJsonTreeView` à partir du package
 correspondant au framework et transmettez son état à `JsonTreeViewRootProvider`, puis affichez `JsonTreeViewTree` à l’intérieur.
 Utilisez `expandedValue`, `selectedValue`, `checkedValue` ou `focusedValue` en mode contrôlé uniquement lorsque
-l’état appartient à l’application. Ne rendez pas `Root` et `RootProvider` pour le même état.
+l’état appartient à l’application. Ne rendez pas `JsonTreeView` et `JsonTreeViewRootProvider` pour le même état.
 
 ## Exemples
 
@@ -150,7 +150,7 @@ raccourcir les chaînes longues. L’utilisateur peut ouvrir un nœud pour consu
 
 ## Styles
 
-Utilisez `className` en React ou `class` en Solid sur `Root`, `RootProvider` ou `Tree` pour modifier localement la
+Utilisez `className` en React ou `class` en Solid sur `JsonTreeView`, `JsonTreeViewRootProvider` ou `JsonTreeViewTree` pour modifier localement la
 mise en page. Les variantes Tailwind utilisent des classes utilitaires et les classes de l’application ; les
 variantes CSS Modules utilisent leurs styles et les tokens de base.
 

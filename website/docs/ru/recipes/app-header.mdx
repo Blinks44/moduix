@@ -12,6 +12,10 @@ import appHeaderSolid from '../../../snippets/recipes/solid/app-header.tsx?raw';
 `CommandPalette` и `Menu`. В одной компактной панели собраны ссылка на продукт, текущее рабочее
 пространство, основная навигация, поиск и действия с учётной записью.
 
+Это готовая к копированию композиция, а не компонент `AppHeader`, который поставляет moduix. Рецепт
+собран из `CommandPalette`, `Menu` и других компонентов moduix. Установите их, скопируйте исходный код
+и стили ниже, затем замените демонстрационные данные навигации и учётной записи своими.
+
 ## Что входит в рецепт
 
 - Основная навигация с `aria-current="page"` для активного маршрута.
@@ -66,7 +70,7 @@ import appHeaderSolid from '../../../snippets/recipes/solid/app-header.tsx?raw';
 
 <ShadcnInstall packageName={['avatar', 'button', 'command-palette', 'menu']} itemKind="recipe" frameworks copiedSource dependencies={['lucide-react']} solidDependencies={['lucide-solid']} />
 
-## Подключение к приложению
+## Используйте рецепт в приложении
 
 В примере используются хеш-ссылки вроде `#overview`, а при выборе команды обновляется
 `window.location.hash`. Благодаря этому пример работает без роутера. Замените хеш-ссылки и
@@ -78,7 +82,8 @@ import appHeaderSolid from '../../../snippets/recipes/solid/app-header.tsx?raw';
 ## Настройка
 
 Замените демонстрационные данные маршрутами, состоянием рабочего пространства и данными
-авторизованного пользователя.
+авторизованного пользователя. Команда `CommandPalette` описана в
+[документации Command Palette](/docs/command-palette).
 
 | Что заменить | Что использовать в приложении |
 | ----------- | ----------------------------- |

@@ -104,11 +104,11 @@ JsonTreeViewRootProvider
 
 ## Composition
 
-Keep `JsonTreeViewTree` as the child of `JsonTreeView` or `JsonTreeView`; it renders the generated JSON nodes.
+Keep `JsonTreeViewTree` as the child of `JsonTreeView` or `JsonTreeViewRootProvider`; it renders the generated JSON nodes.
 When controls outside the tree own its state, create `useJsonTreeView` from the matching framework package and pass
 the store to `JsonTreeViewRootProvider`, then render `JsonTreeViewTree` inside it. Use controlled `expandedValue`,
 `selectedValue`, `checkedValue`, or `focusedValue` only when that state belongs to the application. Do not render
-`Root` and `RootProvider` for the same store.
+`JsonTreeView` and `JsonTreeViewRootProvider` for the same store.
 
 ## Examples
 
@@ -149,7 +149,7 @@ Users can expand a node to inspect its complete value.
 
 ## Styling
 
-Use `className` in React or `class` in Solid on `Root`, `RootProvider`, or `Tree` for local layout changes. Tailwind
+Use `className` in React or `class` in Solid on `JsonTreeView`, `JsonTreeViewRootProvider`, or `JsonTreeViewTree` for local layout changes. Tailwind
 variants use utility classes and consumer classes; CSS Modules variants use their bundled styles and foundation
 tokens.
 

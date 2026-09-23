@@ -36,6 +36,12 @@ import numberInputSolidCustomIcons from '../../../snippets/number-input/solid/cu
 
 <PrimitiveReference href="https://ark-ui.com/docs/components/number-input" />
 
+## Choisir le bon composant
+
+Utilisez `NumberInput` lorsque l’utilisateur saisit des valeurs numériques qui doivent pouvoir être
+incrémentées, bornées et formatées. Utilisez `Input` pour du texte libre, et `Slider` lorsque
+l’objectif est de choisir un point dans une plage visuelle.
+
 ## Exemple de base
 
 Importez-le depuis
@@ -121,7 +127,7 @@ NumberInputRootProvider
 
 | Partie | Rôle |
 | --- | --- |
-| `NumberInput` / `NumberInput` | Gère l’état du champ numérique, l’interprétation de la saisie, le formatage et le comportement au clavier. |
+| `NumberInput` | Gère l’état du champ numérique, l’interprétation de la saisie, le formatage et le comportement au clavier. |
 | `NumberInputRootProvider` | Relie les parties à l’état créé avec `useNumberInput()`. |
 | `NumberInputContext` | Expose les valeurs formatée et numérique, ainsi que les méthodes impératives de gestion de l’état. |
 | `NumberInputLabel` | Libellé accessible associé au champ géré. |
@@ -138,7 +144,7 @@ NumberInputRootProvider
 Utilisez `NumberInputField` pour le contrôle standard en trois parties. Conservez `value` et `defaultValue` sous forme
 de chaînes et utilisez `details.value` de `onValueChange` lorsque le champ est contrôlé. Lorsque l’état doit être créé
 en dehors de l’arbre des parties rendues, appelez `useNumberInput()` et transmettez le store correspondant à
-`NumberInputRootProvider`. Ne rendez pas `NumberInput` ou `NumberInput` pour ce même store. React lit directement
+`NumberInputRootProvider`. Ne rendez pas `NumberInput` ou `NumberInputRootProvider` pour ce même store. React lit directement
 les propriétés du store, tandis que Solid les lit via l’accesseur renvoyé.
 
 Utilisez `NumberInputControl` avec les parties individuelles lorsque l’ordre des boutons, les icônes ou le style du
@@ -525,7 +531,19 @@ les variantes CSS Modules. Les attributs de données et les hooks `data-slot` so
 
 ### Propriétés CSS
 
-<NumberInputDocs.NumberInputCssPropertiesPanel />
+<div className="docs-reference">
+  <Tabs
+    values={[{ label: 'CSS Variables', value: 'CSS Variables' }]}
+    className="docs-reference-tabs"
+    contentItemClassName="docs-reference-panel"
+  >
+    <Tab value="CSS Variables">
+      <div>
+        <NumberInputDocs.NumberInputCssPropertiesPanel />
+      </div>
+    </Tab>
+  </Tabs>
+</div>
 
 ### Points d’accroche CSS
 

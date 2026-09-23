@@ -125,12 +125,12 @@ SplitButton
 | `SplitButtonAction`              | Action principale `Button`.                                           |
 | `SplitButtonTrigger`             | Déclencheur Ark Menu rendu comme un Button moduix, avec un chevron par défaut. |
 | `SplitButtonPositioner`          | Positionne la fenêtre contextuelle Ark Menu.                           |
-| `SplitButtonContent`              | Surface de contenu Ark Menu pour les parties `Menu.*` partagées.       |
+| `SplitButtonContent`              | Surface de contenu Ark Menu pour les parties `MenuItem` et `MenuItemGroup` partagées.       |
 
 ## Composition
 
 `SplitButton` associe une action principale `SplitButtonAction` à un `SplitButtonTrigger`. Gardez l’arbre de la fenêtre contextuelle
-explicite : `SplitButtonPositioner` → `SplitButtonContent`, avec les éléments `Menu.*` partagés à l’intérieur de `SplitButtonContent`. Le positionneur
+explicite : `SplitButtonPositioner` → `SplitButtonContent`, avec les éléments `MenuItem` partagés à l’intérieur de `SplitButtonContent`. Le positionneur
 est placé automatiquement dans un portail ; utilisez `portalled={false}` ou `portalRef` uniquement lorsque la
 fenêtre doit utiliser un autre conteneur. Les propriétés racine `size` et `variant` fournissent les valeurs par
 défaut des deux boutons. La racine rend un `role="group"` sémantique ; fournissez `aria-label` ou `aria-labelledby`
@@ -397,7 +397,7 @@ Ajoutez une icône à l’action principale lorsqu’elle clarifie l’action sa
 
 ### Personnalisation avancée
 
-Utilisez les parties `Menu.*` partagées dans `SplitButtonContent` lorsque les actions alternatives nécessitent des
+Utilisez `MenuItemGroup`, `MenuItemGroupLabel`, `MenuItem` et `MenuSeparator` dans `SplitButtonContent` lorsque les actions alternatives nécessitent des
 groupes, des séparateurs ou des éléments regroupés.
 
 <ExampleFrame variant="component">

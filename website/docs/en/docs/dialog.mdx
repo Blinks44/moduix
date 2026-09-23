@@ -4,7 +4,7 @@ component: dialog
 description: A modal window for focused tasks such as forms, confirmations, and details.
 ---
 
-import { DialogCssPropertiesPanel } from '@/components/examples/dialog/css-properties';
+import * as DialogDocs from '@/components/examples/dialog/css-properties';
 import DialogAdvancedCustomization from '@/components/examples/dialog/advanced-customization.tsx';
 import DialogAlertDialog from '@/components/examples/dialog/alert-dialog.tsx';
 import DialogBasic from '@/components/examples/dialog/basic.tsx';
@@ -130,7 +130,7 @@ DialogContext
 
 | Part                     | Role                                                                |
 | ------------------------ | ------------------------------------------------------------------- |
-| `Dialog` / `Dialog` | Owns open state, focus management, and dismissal behavior.          |
+| `Dialog` / `DialogRootProvider` | Owns open state, focus management, and dismissal behavior.          |
 | `DialogRootProvider`    | Connects parts to state created with `useDialog()`.                 |
 | `DialogTrigger`         | Opens the dialog.                                                    |
 | `DialogBackdrop`        | Optional background layer for a modal dialog.                       |
@@ -562,8 +562,8 @@ components.
 
 ### Advanced Customization
 
-Skip `Header`, `Body`, `Footer`, and `CloseIcon` when a custom layout needs direct control over every
-Ark dialog part.
+Skip `DialogHeader`, `DialogBody`, `DialogFooter`, and `DialogCloseIcon` when a custom layout needs
+direct control over every Ark dialog part.
 
 <ExampleFrame variant="component">
   <DialogAdvancedCustomization />
@@ -610,17 +610,7 @@ by both styling tracks.
 
 ### CSS Properties
 
-<div className="docs-reference">
-  <Tabs
-    values={[{ label: 'CSS Variables', value: 'CSS Variables' }]}
-    className="docs-reference-tabs"
-    contentItemClassName="docs-reference-panel"
-  >
-    <Tab>
-      <DialogCssPropertiesPanel />
-    </Tab>
-  </Tabs>
-</div>
+<CssPropertiesSection properties={DialogDocs.dialogOverrideCssProperties} />
 
 ### Styling hooks
 

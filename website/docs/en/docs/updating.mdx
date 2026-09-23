@@ -30,8 +30,9 @@ a smaller component catalog while ports are still in progress.
 
 ## Update packages
 
-Read the [Changelog](/docs/changelog) before changing versions, then use the package manager already
-used by the application.
+Check [What's new](/docs/changelog) for notable changes and the
+[GitHub releases](https://github.com/Blinks44/moduix/releases) for versions, then use the package
+manager already used by the application.
 
 <Tabs groupId="styling">
   <Tab label="CSS Modules" value="css-modules">
@@ -81,7 +82,8 @@ the registry namespace that matches both axes:
 | React | `@moduix-react` | `@moduix-react-tailwind` |
 | Solid | `@moduix-solid` | `@moduix-solid-tailwind` |
 
-Preview a component before changing local files:
+Preview a component before changing local files: `view` prints the upstream item, while `add
+--dry-run` and `add --diff` show what an update would write:
 
 <PackageManagerTabs command="shadcn@latest view @moduix-react/button" dlx />
 
@@ -121,3 +123,9 @@ When a release changes tokens, density, colors, or motion, review [Themes](/docs
 - Exercise the components and interactions named in the changelog.
 - Check keyboard behavior, focus return, portals, and reduced motion when relevant.
 - Compare local registry changes with the complete upstream diff before shipping.
+
+## Related
+
+- [What's new](/docs/changelog)
+- [Quick start](/docs/quick-start)
+- [Styling](/docs/styling)

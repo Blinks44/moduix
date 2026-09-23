@@ -1,7 +1,7 @@
 import type { CssPropertyInput } from '../../mdx/reference';
 import { CSSPropertiesReferenceTable } from '../../mdx/reference';
 
-const dialogOverrideCssProperties: CssPropertyInput[] = [
+export const dialogOverrideCssProperties: CssPropertyInput[] = [
   [
     '--moduix-dialog-backdrop-bg',
     'var(--moduix-backdrop-bg, var(--moduix-color-overlay))',

@@ -16,7 +16,6 @@ import SelectGrouping from '@/components/examples/select/grouping.tsx';
 import SelectLazyMount from '@/components/examples/select/lazy-mount.tsx';
 import SelectMaxSelection from '@/components/examples/select/max-selection.tsx';
 import SelectMultiple from '@/components/examples/select/multiple.tsx';
-import SelectNativeFormControl from '@/components/examples/select/native-form-control.tsx';
 import SelectOverflow from '@/components/examples/select/overflow.tsx';
 import SelectRootProvider from '@/components/examples/select/root-provider.tsx';
 import SelectSearchInPopup from '@/components/examples/select/search-in-popup.tsx';
@@ -33,7 +32,6 @@ import selectSolidGrouping from '../../../snippets/select/solid/grouping.tsx?raw
 import selectSolidLazyMount from '../../../snippets/select/solid/lazy-mount.tsx?raw';
 import selectSolidMaxSelection from '../../../snippets/select/solid/max-selection.tsx?raw';
 import selectSolidMultiple from '../../../snippets/select/solid/multiple.tsx?raw';
-import selectSolidNativeFormControl from '../../../snippets/select/solid/native-form-control.tsx?raw';
 import selectSolidOverflow from '../../../snippets/select/solid/overflow.tsx?raw';
 import selectSolidRootProvider from '../../../snippets/select/solid/root-provider.tsx?raw';
 import selectSolidSearchInPopup from '../../../snippets/select/solid/search-in-popup.tsx?raw';
@@ -497,46 +495,6 @@ libellés des éléments sélectionnés à partir de la collection.
 
     </Tab>
   </Tabs>
-</div>
-
-</ExampleCode>
-
-### Contrôle de formulaire natif
-
-Composez explicitement `SelectHiddenSelect` lorsque la sélection doit participer à un formulaire
-natif. Cet exemple montre les valeurs envoyées dans `FormData`.
-
-<ExampleFrame variant="component">
-  <SelectNativeFormControl />
-</ExampleFrame>
-
-<ExampleCode>
-<div className="docs-reference">
-  <Tabs
-    groupId="framework"
-    values={[
-      { label: 'React', value: 'react' },
-      { label: 'Solid', value: 'solid' },
-    ]}
-    className="docs-tabs"
-  >
-    <Tab value="react">
-
-```tsx pure file="../../../src/components/examples/select/native-form-control.tsx"
-```
-
-    </Tab>
-    <Tab value="solid">
-
-<CodeBlockRuntime lang="tsx" code={selectSolidNativeFormControl} />
-
-    </Tab>
-  </Tabs>
-
-**Styles**
-
-```css file="../../../src/components/examples/select/select-native-form-control.module.css"
-```
 </div>
 
 </ExampleCode>

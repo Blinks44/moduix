@@ -42,13 +42,15 @@ import checkboxSolidSizes from '../../../snippets/checkbox/solid/sizes.tsx?raw';
 import checkboxSolidWithField from '../../../snippets/checkbox/solid/with-field.tsx?raw';
 import checkboxSolidWithForm from '../../../snippets/checkbox/solid/with-form.tsx?raw';
 
-Utilisez `Checkbox` lorsque l’utilisateur peut sélectionner une ou plusieurs options indépendantes
-dans un formulaire, un panneau de réglages ou une liste de filtres. Utilisez `RadioGroup` lorsqu’un
-seul choix est possible, et `Switch` lorsqu’un réglage doit s’appliquer immédiatement.
-
 ## Référence de l’API
 
 <PrimitiveReference href="https://ark-ui.com/docs/components/checkbox" />
+
+## Choisir le bon composant
+
+Utilisez `Checkbox` lorsque l’utilisateur peut sélectionner une ou plusieurs options indépendantes
+dans un formulaire, un panneau de réglages ou une liste de filtres. Utilisez `RadioGroup` lorsqu’un
+seul choix est possible, et `Switch` lorsqu’un réglage doit s’appliquer immédiatement.
 
 ## Exemple de base
 
@@ -156,7 +158,7 @@ avec son propre `value`. Laissez `CheckboxControl` vide pour utiliser les icône
 moduix. Ajoutez `CheckboxIndicator` dans `CheckboxControl` uniquement pour une icône personnalisée.
 
 Lorsque l’état doit être créé en dehors de l’arbre rendu, créez-le avec `useCheckbox()` et transmettez
-le store à `CheckboxRootProvider`. Ne rendez pas `Checkbox` ou `Checkbox` pour ce même store.
+le store à `CheckboxRootProvider`. Ne rendez pas `Checkbox` ou `CheckboxRootProvider` pour ce même store.
 
 ## Exemples
 

@@ -21,9 +21,9 @@ Complete the shared [package setup](/docs/quick-start#install-as-a-package) or
 uses CSS Modules package imports; root-route placement, aliases, SSR, and hydration checks stay the
 same with the matching Tailwind package or registry.
 
-All package commands and stylesheet imports shown below belong to CSS Modules. Use the moduix reset
-shown below or a correct reset from your application. With Tailwind, keep the global stylesheet configured in
-Quick Start instead.
+The package setup below uses CSS Modules and includes the moduix reset. If you use the Tailwind
+registry commands instead, keep the global stylesheet from
+[Quick Start](/docs/quick-start#install-as-a-package) configured in your application.
 
 ## Install as a package
 
@@ -116,7 +116,10 @@ not already map `@/*` to `src/*`, add the alias to the root `tsconfig.json`:
 ```
 
 Make the same alias available to the selected bundler. Rsbuild reads the TypeScript paths directly;
-for Vite, follow TanStack Start's path-alias guide. Then add the component:
+for Vite, follow TanStack Start's path-alias guide for
+[React](https://tanstack.com/start/latest/docs/framework/react/guide/path-aliases) or
+[Solid](https://tanstack.com/start/latest/docs/framework/solid/guide/path-aliases). Then add the
+component:
 
 <Tabs groupId="framework">
   <Tab label="React" value="react">
