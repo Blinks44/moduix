@@ -18,7 +18,7 @@
     },
     {
       "path": "src/components/accordion/index.ts",
-      "content": "export {\n  Accordion,\n  AccordionContext,\n  AccordionItem,\n  AccordionItemBody,\n  AccordionItemContent,\n  AccordionItemContext,\n  AccordionItemIndicator,\n  AccordionItemTrigger,\n  AccordionRootProvider,\n  useAccordion,\n  useAccordionContext,\n  useAccordionItemContext,\n} from './Accordion.js';",
+      "content": "export * from './Accordion.js';",
       "type": "registry:component",
       "target": "@components/ui/accordion/index.ts"
     }

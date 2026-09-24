@@ -1,0 +1,16 @@
+{
+  "$schema": "https://ui.shadcn.com/schema/registry-item.json",
+  "name": "default-values",
+  "title": "moduix default values",
+  "description": "Internal defaultValue helpers for native form controls required only by registry components that forward React-style defaultValue.",
+  "dependencies": [],
+  "files": [
+    {
+      "path": "src/internal/defaultValue.ts",
+      "content": "import type { Accessor } from 'solid-js';\nimport { createEffect, untrack } from 'solid-js';\n\ntype DefaultValue = string | number | readonly string[];\ntype MaybeDefaultValue = DefaultValue | Accessor<DefaultValue | undefined>;\n\nfunction resolveValue(value: MaybeDefaultValue): DefaultValue | undefined {\n  return typeof value === 'function' ? value() : value;\n}\n\n/**\n * Applies React-style `defaultValue` to a rendered native control.\n * Needed because Ark Solid does not forward `defaultValue` to the DOM element\n * when `asChild` wraps a custom component.\n */\nexport function applyDefaultValue(\n  ref: HTMLElement & { defaultValue: string },\n  value: MaybeDefaultValue,\n) {\n  createEffect(() => {\n    ref.defaultValue = String(untrack(() => resolveValue(value)) ?? '');\n  });\n}\n\n/** Selects the option matching `defaultValue` on a native `<select>`. */\nexport function applyDefaultSelected(ref: HTMLSelectElement, value: MaybeDefaultValue) {\n  createEffect(() => {\n    const defaultValue = untrack(() => resolveValue(value));\n\n    if (defaultValue === undefined) return;\n\n    const values = new Set(\n      (Array.isArray(defaultValue) ? defaultValue : [defaultValue]).map((v) => String(v)),\n    );\n\n    for (const option of Array.from(ref.options)) {\n      const selected = values.has(option.value);\n      option.selected = selected;\n      option.defaultSelected = selected;\n    }\n  });\n}\n\nexport function toPropDefaultValue(value: DefaultValue | undefined) {\n  return {\n    'prop:defaultValue': value === undefined ? undefined : (value as string | number | string[]),\n  } as const;\n}",
+      "type": "registry:lib",
+      "target": "@lib/moduix/defaultValue.ts"
+    }
+  ],
+  "type": "registry:item"
+}

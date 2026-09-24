@@ -5,7 +5,6 @@ import {
   Clipboard,
   ClipboardContext,
   ClipboardControl,
-  ClipboardCopyText,
   ClipboardIndicator,
   ClipboardInput,
   ClipboardLabel,
@@ -112,7 +111,6 @@ test('forwards refs and renders the default copy affordance', async () => {
         <ClipboardInput ref={(element) => (inputRef = element)} readOnly />
         <ClipboardTrigger ref={(element) => (triggerRef = element)}>
           <ClipboardIndicator />
-          <ClipboardCopyText />
         </ClipboardTrigger>
       </ClipboardControl>
     </Clipboard>
@@ -121,14 +119,13 @@ test('forwards refs and renders the default copy affordance', async () => {
   expect(rootRef).toHaveAttribute('data-slot', 'clipboard-root');
   expect(inputRef).toBe(screen.getByRole('textbox', { name: 'Copy this link' }));
   expect(triggerRef).toBe(screen.getByRole('button', { name: 'Copy to clipboard' }));
-  expect(screen.getByText('Copy')).toHaveAttribute('data-slot', 'clipboard-copy-text');
   expect(
     container.querySelector('[data-slot="clipboard-indicator-idle-icon"]'),
   ).toBeInTheDocument();
 
   fireEvent.click(triggerRef);
 
-  await waitFor(() => expect(screen.getByText('Copied')).toBeInTheDocument());
+  await waitFor(() => expect(triggerRef).toHaveAttribute('data-copied'));
   expect(
     container.querySelector('[data-slot="clipboard-indicator-idle-icon"]'),
   ).not.toBeInTheDocument();

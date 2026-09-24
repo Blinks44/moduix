@@ -14,7 +14,7 @@
     },
     {
       "path": "src/components/segment-group/index.ts",
-      "content": "export {\n  SegmentGroup,\n  SegmentGroupContext,\n  SegmentGroupIndicator,\n  SegmentGroupItem,\n  SegmentGroupItemContext,\n  SegmentGroupItemControl,\n  SegmentGroupItemHiddenInput,\n  SegmentGroupItems,\n  SegmentGroupItemText,\n  SegmentGroupLabel,\n  SegmentGroupRootProvider,\n  useSegmentGroup,\n  useSegmentGroupContext,\n  useSegmentGroupItemContext,\n} from './SegmentGroup.js';",
+      "content": "export * from './SegmentGroup.js';",
       "type": "registry:component",
       "target": "@components/ui/segment-group/index.ts"
     }

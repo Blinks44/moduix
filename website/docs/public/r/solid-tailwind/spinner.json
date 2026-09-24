@@ -14,7 +14,7 @@
     },
     {
       "path": "src/components/spinner/index.ts",
-      "content": "export { Spinner } from './Spinner.js';",
+      "content": "export * from './Spinner.js';",
       "type": "registry:component",
       "target": "@components/ui/spinner/index.ts"
     }

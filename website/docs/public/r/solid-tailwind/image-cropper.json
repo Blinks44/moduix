@@ -14,7 +14,7 @@
     },
     {
       "path": "src/components/image-cropper/index.ts",
-      "content": "export {\n  ImageCropper,\n  ImageCropperContext,\n  ImageCropperCropArea,\n  ImageCropperGrid,\n  ImageCropperHandle,\n  ImageCropperHandles,\n  ImageCropperImage,\n  ImageCropperRootProvider,\n  ImageCropperSelection,\n  ImageCropperViewport,\n  useImageCropper,\n  useImageCropperContext,\n} from './ImageCropper.js';",
+      "content": "export * from './ImageCropper.js';",
       "type": "registry:component",
       "target": "@components/ui/image-cropper/index.ts"
     }

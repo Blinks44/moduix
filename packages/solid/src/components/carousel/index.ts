@@ -1,18 +1,1 @@
-export {
-  Carousel,
-  CarouselAutoplayIndicator,
-  CarouselAutoplayTrigger,
-  CarouselContext,
-  CarouselControl,
-  CarouselIndicator,
-  CarouselIndicatorGroup,
-  CarouselIndicators,
-  CarouselItem,
-  CarouselItemGroup,
-  CarouselNextTrigger,
-  CarouselPrevTrigger,
-  CarouselProgressText,
-  CarouselRootProvider,
-  useCarousel,
-  useCarouselContext,
-} from './Carousel.js';
+export * from './Carousel.js';

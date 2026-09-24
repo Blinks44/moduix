@@ -19,7 +19,7 @@
     },
     {
       "path": "src/components/popover/index.ts",
-      "content": "export {\n  Popover,\n  PopoverAnchor,\n  PopoverArrow,\n  PopoverArrowTip,\n  PopoverBody,\n  PopoverCloseIcon,\n  PopoverCloseTrigger,\n  PopoverContent,\n  PopoverContext,\n  PopoverDescription,\n  PopoverFooter,\n  PopoverHeader,\n  PopoverIndicator,\n  PopoverPositioner,\n  PopoverRootProvider,\n  PopoverTitle,\n  PopoverTrigger,\n  usePopover,\n  usePopoverContext,\n} from './Popover';\nexport type { PopoverRootProps, PopoverRootProviderProps } from './Popover';",
+      "content": "export * from './Popover.js';",
       "type": "registry:component",
       "target": "@components/ui/popover/index.ts"
     }

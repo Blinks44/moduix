@@ -14,7 +14,7 @@
     },
     {
       "path": "src/components/date-input/index.ts",
-      "content": "export {\n  DateInput,\n  DateInputContext,\n  DateInputControl,\n  DateInputHiddenInput,\n  DateInputLabel,\n  DateInputRootProvider,\n  DateInputSegment,\n  DateInputSegmentContext,\n  DateInputSegmentGroup,\n  DateInputSegments,\n  DateInputSeparator,\n  type DateInputDateValue,\n  useDateInput,\n  useDateInputContext,\n} from './DateInput';",
+      "content": "export * from './DateInput.js';",
       "type": "registry:component",
       "target": "@components/ui/date-input/index.ts"
     }

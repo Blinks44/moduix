@@ -20,7 +20,7 @@
     },
     {
       "path": "src/components/carousel/index.ts",
-      "content": "export {\n  Carousel,\n  CarouselAutoplayIndicator,\n  CarouselAutoplayTrigger,\n  CarouselContext,\n  CarouselControl,\n  CarouselIndicator,\n  CarouselIndicatorGroup,\n  CarouselIndicators,\n  CarouselItem,\n  CarouselItemGroup,\n  CarouselNextTrigger,\n  CarouselPrevTrigger,\n  CarouselProgressText,\n  CarouselRootProvider,\n  useCarousel,\n  useCarouselContext,\n} from './Carousel.js';",
+      "content": "export * from './Carousel.js';",
       "type": "registry:component",
       "target": "@components/ui/carousel/index.ts"
     }

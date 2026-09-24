@@ -2,7 +2,6 @@ import { Button } from '@moduix/solid/button';
 import {
   Clipboard,
   ClipboardControl,
-  ClipboardCopyText,
   ClipboardIndicator,
   ClipboardInput,
   ClipboardLabel,
@@ -19,7 +18,6 @@ export default function AsChildClipboardDemo() {
         <ClipboardInput asChild={(props) => <Input {...props()} readOnly />} />
         <ClipboardTrigger asChild={(props) => <Button {...props()} variant="outline" />}>
           <ClipboardIndicator />
-          <ClipboardCopyText />
         </ClipboardTrigger>
       </ClipboardControl>
     </Clipboard>

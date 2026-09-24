@@ -14,7 +14,7 @@
     },
     {
       "path": "src/components/list/index.ts",
-      "content": "export { List, ListItem } from './List.js';",
+      "content": "export * from './List.js';",
       "type": "registry:component",
       "target": "@components/ui/list/index.ts"
     }

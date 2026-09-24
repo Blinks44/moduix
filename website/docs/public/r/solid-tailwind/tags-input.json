@@ -19,7 +19,7 @@
     },
     {
       "path": "src/components/tags-input/index.ts",
-      "content": "export {\n  TagsInput,\n  TagsInputClearTrigger,\n  TagsInputContext,\n  TagsInputControl,\n  TagsInputHiddenInput,\n  TagsInputInput,\n  TagsInputItem,\n  TagsInputItemContext,\n  TagsInputItemDeleteTrigger,\n  TagsInputItemInput,\n  TagsInputItemPreview,\n  TagsInputItemText,\n  TagsInputItems,\n  TagsInputLabel,\n  TagsInputRootProvider,\n  useTagsInput,\n  useTagsInputContext,\n  useTagsInputItemContext,\n} from './TagsInput.js';",
+      "content": "export * from './TagsInput.js';",
       "type": "registry:component",
       "target": "@components/ui/tags-input/index.ts"
     }

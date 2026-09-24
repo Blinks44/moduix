@@ -1,7 +1,6 @@
 import {
   Clipboard,
   ClipboardControl,
-  ClipboardCopyText,
   ClipboardIndicator,
   ClipboardInput,
   ClipboardLabel,
@@ -17,7 +16,6 @@ export default function TimeoutClipboardDemo() {
         <ClipboardInput readOnly />
         <ClipboardTrigger>
           <ClipboardIndicator />
-          <ClipboardCopyText />
         </ClipboardTrigger>
       </ClipboardControl>
     </Clipboard>

@@ -137,7 +137,7 @@ test('passes TanStack’s native default body to a custom tooltip renderer', () 
   ));
 
   expect(screen.getByTestId('custom-tooltip')).toContainElement(
-    document.querySelector('.ts-chart-tooltip__rows'),
+    document.querySelector('[data-slot="chart-tooltip-rows"]'),
   );
 });
 

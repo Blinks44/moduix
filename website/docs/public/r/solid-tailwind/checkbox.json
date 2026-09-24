@@ -18,7 +18,7 @@
     },
     {
       "path": "src/components/checkbox/index.ts",
-      "content": "export {\n  Checkbox,\n  CheckboxContext,\n  CheckboxControl,\n  CheckboxGroup,\n  CheckboxHiddenInput,\n  CheckboxIndicator,\n  CheckboxLabel,\n  CheckboxRootProvider,\n  useCheckbox,\n  useCheckboxContext,\n  useCheckboxGroup,\n  useCheckboxGroupContext,\n} from './Checkbox.js';",
+      "content": "export * from './Checkbox.js';",
       "type": "registry:component",
       "target": "@components/ui/checkbox/index.ts"
     }

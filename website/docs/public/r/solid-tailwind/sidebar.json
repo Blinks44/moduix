@@ -22,7 +22,7 @@
     },
     {
       "path": "src/components/sidebar/index.ts",
-      "content": "export {\n  Sidebar,\n  SidebarCollapsedContent,\n  SidebarContent,\n  SidebarExpandedContent,\n  SidebarFooter,\n  SidebarGroup,\n  SidebarGroupAction,\n  SidebarGroupHeader,\n  SidebarGroupLabel,\n  SidebarHeader,\n  SidebarInput,\n  SidebarInset,\n  SidebarLabel,\n  SidebarNavigationBadge,\n  SidebarNavigationButton,\n  SidebarNavigationItem,\n  SidebarNavigationList,\n  SidebarNavigationSubButton,\n  SidebarNavigationSubItem,\n  SidebarNavigationSubList,\n  SidebarPanel,\n  SidebarResizeTrigger,\n  SidebarSeparator,\n  SidebarTooltip,\n  SidebarTrigger,\n  useSidebar,\n} from './Sidebar.js';",
+      "content": "export * from './Sidebar.js';",
       "type": "registry:component",
       "target": "@components/ui/sidebar/index.ts"
     }

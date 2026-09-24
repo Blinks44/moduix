@@ -13,6 +13,7 @@ import { ark, type HTMLArkProps } from '@ark-ui/solid/factory';
 import { clsx } from 'clsx';
 import type { ComponentProps, JSX } from 'solid-js';
 import { children, splitProps } from 'solid-js';
+import { a11yLabels } from '@/lib/moduix/a11yLabels';
 import { CheckIcon, ChevronUpDownIcon } from '@/lib/moduix/icons/ui/Icons';
 import {
   OverlayPortal,
@@ -155,7 +156,7 @@ function ComboboxClearTrigger(props: ComponentProps<typeof ComboboxPrimitive.Cle
             {...resolvedProps}
             aria-label={
               local['aria-label'] ??
-              (local['aria-labelledby'] == null ? 'Clear selection' : undefined)
+              (local['aria-labelledby'] == null ? a11yLabels.clearSelection : undefined)
             }
             aria-labelledby={local['aria-labelledby']}
           >

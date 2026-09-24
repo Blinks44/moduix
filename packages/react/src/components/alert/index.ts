@@ -1,8 +1,1 @@
-export {
-  Alert,
-  AlertActions,
-  AlertContent,
-  AlertDescription,
-  AlertIndicator,
-  AlertTitle,
-} from './Alert.js';
+export * from './Alert.js';

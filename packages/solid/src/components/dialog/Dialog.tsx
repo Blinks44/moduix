@@ -4,6 +4,7 @@ import { ark } from '@ark-ui/solid/factory';
 import { clsx } from 'clsx';
 import type { ComponentProps } from 'solid-js';
 import { children, splitProps } from 'solid-js';
+import { a11yLabels } from '@/lib/moduix/a11yLabels';
 import {
   OverlayPortal,
   OverlayPortalProvider,
@@ -11,8 +12,6 @@ import {
 } from '@/lib/moduix/overlayPortal';
 import { CloseButton } from '../close-button';
 import styles from './Dialog.module.css';
-
-const DEFAULT_CLOSE_BUTTON_LABEL = 'Close dialog';
 
 type DialogRootProps = ComponentProps<typeof DialogPrimitive.Root> & OverlayPortalProps;
 type DialogRootProviderProps = ComponentProps<typeof DialogPrimitive.RootProvider> &
@@ -163,7 +162,7 @@ function DialogCloseIcon(props: DialogCloseIconProps) {
         <CloseButton
           {...triggerProps()}
           data-slot="dialog-close-icon"
-          aria-label={local['aria-label'] ?? DEFAULT_CLOSE_BUTTON_LABEL}
+          aria-label={local['aria-label'] ?? a11yLabels.closeDialog}
           aria-labelledby={local['aria-labelledby']}
           class={clsx(styles.closeIcon, local.class)}
         >

@@ -11,6 +11,7 @@ import {
 import { clsx } from 'clsx';
 import { For, children, splitProps } from 'solid-js';
 import type { ComponentProps } from 'solid-js';
+import { a11yLabels } from '@/lib/moduix/a11yLabels';
 import {
   OverlayPortal,
   OverlayPortalProvider,
@@ -18,8 +19,6 @@ import {
 } from '@/lib/moduix/overlayPortal';
 import { CloseButton } from '../close-button';
 import styles from './Tour.module.css';
-
-const DEFAULT_CLOSE_BUTTON_LABEL = 'Close tour';
 
 type TourRootProps = ComponentProps<typeof TourPrimitive.Root> & OverlayPortalProps;
 type TourCloseIconProps = Omit<ComponentProps<typeof TourPrimitive.CloseTrigger>, 'asChild'>;
@@ -188,7 +187,7 @@ function TourCloseIcon(props: TourCloseIconProps) {
         <CloseButton
           {...triggerProps()}
           data-slot="tour-close-icon"
-          aria-label={local['aria-label'] ?? DEFAULT_CLOSE_BUTTON_LABEL}
+          aria-label={local['aria-label'] ?? a11yLabels.closeTour}
           aria-labelledby={local['aria-labelledby']}
           class={clsx(styles.closeIcon, local.class)}
         >

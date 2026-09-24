@@ -18,7 +18,7 @@
     },
     {
       "path": "src/components/toggle-group/index.ts",
-      "content": "export {\n  ToggleGroup,\n  ToggleGroupContext,\n  ToggleGroupItem,\n  ToggleGroupRootProvider,\n  useToggleGroup,\n  useToggleGroupContext,\n} from './ToggleGroup.js';\nexport type {\n  ToggleGroupItemProps,\n  ToggleGroupRootProps,\n  ToggleGroupRootProviderProps,\n  ToggleSize,\n  ToggleVariant,\n} from './ToggleGroup.js';",
+      "content": "export * from './ToggleGroup.js';",
       "type": "registry:component",
       "target": "@components/ui/toggle-group/index.ts"
     }

@@ -10,6 +10,7 @@ import { ark, type HTMLArkProps } from '@ark-ui/react/factory';
 import { clsx } from 'clsx';
 import type { ComponentProps, ComponentRef } from 'react';
 import { createContext, forwardRef, useContext } from 'react';
+import { a11yLabels } from '@/lib/moduix/a11yLabels';
 import {
   OverlayPortal,
   OverlayPortalProvider,
@@ -18,7 +19,6 @@ import {
 import { CloseButton } from '../close-button';
 import styles from './Drawer.module.css';
 
-const DEFAULT_CLOSE_BUTTON_LABEL = 'Close drawer';
 type DrawerVariant = 'island';
 const DrawerVariantContext = createContext<DrawerVariant | undefined>(undefined);
 
@@ -217,7 +217,7 @@ const DrawerCloseIcon = forwardRef<
   ComponentRef<typeof CloseButton>,
   Omit<ComponentProps<typeof DrawerPrimitive.CloseTrigger>, 'asChild'>
 >(function DrawerCloseIcon(
-  { className, children, 'aria-label': ariaLabel = DEFAULT_CLOSE_BUTTON_LABEL, ...props },
+  { className, children, 'aria-label': ariaLabel = a11yLabels.closeDrawer, ...props },
   ref,
 ) {
   return (

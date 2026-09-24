@@ -10,6 +10,7 @@ import {
 import { clsx } from 'clsx';
 import type { ComponentProps, ComponentRef } from 'react';
 import { forwardRef } from 'react';
+import { a11yLabels } from '@/lib/moduix/a11yLabels';
 import { CloseIcon, FileIcon, TrashIcon, UploadIcon } from '@/lib/moduix/icons/ui';
 import { CloseButton } from '../close-button';
 import styles from './FileUpload.module.css';
@@ -263,7 +264,7 @@ const FileUploadClearTrigger = forwardRef<
   },
   ref,
 ) {
-  const clearLabel = ariaLabel ?? (ariaLabelledBy == null ? 'Clear files' : undefined);
+  const clearLabel = ariaLabel ?? (ariaLabelledBy == null ? a11yLabels.clearFiles : undefined);
   const triggerClassName = clsx(
     styles.clearTrigger,
     children != null && styles.clearTriggerWithContent,

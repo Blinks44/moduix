@@ -2,6 +2,7 @@ import type { HTMLArkProps } from '@ark-ui/solid/factory';
 import { ark } from '@ark-ui/solid/factory';
 import { clsx } from 'clsx';
 import { children, splitProps } from 'solid-js';
+import { a11yLabels } from '@/lib/moduix/a11yLabels';
 import styles from './Table.module.css';
 
 type TableDataProps = {
@@ -340,7 +341,7 @@ function TableEmpty(props: TableEmptyProps) {
         colSpan={local.colSpan}
         class={clsx(styles.cell, styles.empty, local.class)}
       >
-        {resolvedChildren() ?? 'No results.'}
+        {resolvedChildren() ?? a11yLabels.noResults}
       </ark.td>
     </ark.tr>
   );

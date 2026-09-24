@@ -20,7 +20,7 @@
     },
     {
       "path": "src/components/number-input/index.ts",
-      "content": "export {\n  NumberInput,\n  NumberInputContext,\n  NumberInputControl,\n  NumberInputDecrementTrigger,\n  NumberInputField,\n  NumberInputIncrementTrigger,\n  NumberInputInput,\n  NumberInputLabel,\n  NumberInputRootProvider,\n  NumberInputScrubber,\n  NumberInputValueText,\n  useNumberInput,\n  useNumberInputContext,\n} from './NumberInput.js';",
+      "content": "export * from './NumberInput.js';",
       "type": "registry:component",
       "target": "@components/ui/number-input/index.ts"
     }

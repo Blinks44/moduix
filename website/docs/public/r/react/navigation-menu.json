@@ -20,7 +20,7 @@
     },
     {
       "path": "src/components/navigation-menu/index.ts",
-      "content": "export {\n  NavigationMenu,\n  NavigationMenuArrow,\n  NavigationMenuContent,\n  NavigationMenuContext,\n  NavigationMenuIndicator,\n  NavigationMenuItem,\n  NavigationMenuItemIndicator,\n  NavigationMenuLink,\n  NavigationMenuList,\n  NavigationMenuRootProvider,\n  NavigationMenuTrigger,\n  NavigationMenuViewport,\n  NavigationMenuViewportPositioner,\n  useNavigationMenu,\n  useNavigationMenuContext,\n} from './NavigationMenu.js';",
+      "content": "export * from './NavigationMenu.js';",
       "type": "registry:component",
       "target": "@components/ui/navigation-menu/index.ts"
     }

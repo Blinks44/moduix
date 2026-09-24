@@ -18,7 +18,7 @@
     },
     {
       "path": "src/components/carousel/index.ts",
-      "content": "export * from './Carousel';",
+      "content": "export * from './Carousel.js';",
       "type": "registry:component",
       "target": "@components/ui/carousel/index.ts"
     }

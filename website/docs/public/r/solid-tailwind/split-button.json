@@ -21,7 +21,7 @@
     },
     {
       "path": "src/components/split-button/index.ts",
-      "content": "export {\n  SplitButton,\n  SplitButtonAction,\n  SplitButtonContent,\n  SplitButtonPositioner,\n  SplitButtonTrigger,\n} from './SplitButton.js';",
+      "content": "export * from './SplitButton.js';",
       "type": "registry:component",
       "target": "@components/ui/split-button/index.ts"
     }

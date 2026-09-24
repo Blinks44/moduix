@@ -11,6 +11,7 @@ import { isHotKey } from '@ark-ui/solid/hotkeys';
 import { clsx } from 'clsx';
 import type { ComponentProps } from 'solid-js';
 import { children, createEffect, onCleanup, splitProps } from 'solid-js';
+import { a11yLabels } from '@/lib/moduix/a11yLabels';
 import { CheckIcon, CloseIcon } from '@/lib/moduix/icons/ui/Icons';
 import {
   OverlayPortal,
@@ -21,9 +22,6 @@ import closeButtonStyles from '../close-button/CloseButton.module.css';
 import { Kbd } from '../kbd';
 import { ScrollArea, ScrollAreaContent, ScrollAreaViewport } from '../scroll-area';
 import styles from './CommandPalette.module.css';
-
-const DEFAULT_CLEAR_TRIGGER_LABEL = 'Clear search';
-const DEFAULT_SEARCH_INPUT_LABEL = 'Search commands';
 
 type CommandPaletteProps = ComponentProps<typeof DialogPrimitive.Root> & {
   shortcut?: false | string;
@@ -299,7 +297,7 @@ function CommandPaletteSearch(props: ComponentProps<typeof ComboboxPrimitive.Inp
       <CommandPaletteInput
         aria-label={
           local['aria-label'] ??
-          (local['aria-labelledby'] == null ? DEFAULT_SEARCH_INPUT_LABEL : undefined)
+          (local['aria-labelledby'] == null ? a11yLabels.searchCommands : undefined)
         }
         aria-labelledby={local['aria-labelledby']}
         {...others}
@@ -330,7 +328,7 @@ function CommandPaletteClearTrigger(props: ComponentProps<typeof ComboboxPrimiti
           aria-label={
             local['aria-label'] ??
             (!local.asChild && local.children == null && local['aria-labelledby'] == null
-              ? DEFAULT_CLEAR_TRIGGER_LABEL
+              ? a11yLabels.clearSearch
               : undefined)
           }
           aria-labelledby={local['aria-labelledby']}
@@ -339,6 +337,7 @@ function CommandPaletteClearTrigger(props: ComponentProps<typeof ComboboxPrimiti
             (local.onClick as ((event: MouseEvent) => void) | undefined)?.(event);
 
             if (!event.defaultPrevented) {
+              event.preventDefault();
               combobox().setInputValue('');
             }
           }}

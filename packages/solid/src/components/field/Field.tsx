@@ -2,7 +2,12 @@ import { Field as FieldPrimitive, useField, useFieldContext } from '@ark-ui/soli
 import { clsx } from 'clsx';
 import type { ComponentProps } from 'solid-js';
 import type { JSX } from 'solid-js';
-import { createEffect, splitProps } from 'solid-js';
+import { splitProps } from 'solid-js';
+import {
+  applyDefaultSelected,
+  applyDefaultValue,
+  toPropDefaultValue,
+} from '@/lib/moduix/defaultValue';
 import styles from './Field.module.css';
 
 type FieldItemProps = ComponentProps<typeof FieldPrimitive.Item> & ComponentProps<'div'>;
@@ -15,6 +20,7 @@ type FieldTextareaProps = ComponentProps<typeof FieldPrimitive.Textarea> & {
 type FieldSelectProps = ComponentProps<typeof FieldPrimitive.Select> & {
   defaultValue?: ComponentProps<typeof FieldPrimitive.Select>['value'];
 };
+
 type FieldSelectPrimitiveProps = ComponentProps<typeof FieldPrimitive.Select> & {
   'prop:defaultValue'?: FieldSelectProps['defaultValue'];
 };
@@ -81,21 +87,16 @@ function FieldLabel(props: ComponentProps<typeof FieldPrimitive.Label>) {
 
 function FieldInput(props: FieldInputProps) {
   const [local, others] = splitProps(props, ['asChild', 'class', 'defaultValue', 'ref']);
-  let inputRef: HTMLInputElement | undefined;
-
-  createEffect(() => {
-    if (inputRef) inputRef.defaultValue = String(local.defaultValue ?? '');
-  });
 
   return (
     <FieldPrimitive.Input
       asChild={local.asChild}
       {...others}
-      {...(local.asChild ? { 'prop:defaultValue': local.defaultValue } : {})}
+      {...(local.asChild ? toPropDefaultValue(local.defaultValue) : {})}
       data-slot="field-input"
       class={clsx(styles.control, local.class)}
       ref={(element) => {
-        inputRef = element;
+        applyDefaultValue(element, () => local.defaultValue);
         if (typeof local.ref === 'function') local.ref(element);
       }}
     />
@@ -104,21 +105,16 @@ function FieldInput(props: FieldInputProps) {
 
 function FieldTextarea(props: FieldTextareaProps) {
   const [local, others] = splitProps(props, ['asChild', 'class', 'defaultValue', 'ref']);
-  let textareaRef: HTMLTextAreaElement | undefined;
-
-  createEffect(() => {
-    if (textareaRef) textareaRef.defaultValue = String(local.defaultValue ?? '');
-  });
 
   return (
     <FieldPrimitive.Textarea
       asChild={local.asChild}
       {...others}
-      {...(local.asChild ? { 'prop:defaultValue': local.defaultValue } : {})}
+      {...(local.asChild ? toPropDefaultValue(local.defaultValue) : {})}
       data-slot="field-textarea"
       class={clsx(styles.control, styles.textarea, local.class)}
       ref={(element) => {
-        textareaRef = element;
+        applyDefaultValue(element, () => local.defaultValue);
         if (typeof local.ref === 'function') local.ref(element);
       }}
     />
@@ -127,33 +123,16 @@ function FieldTextarea(props: FieldTextareaProps) {
 
 function FieldSelect(props: FieldSelectProps) {
   const [local, others] = splitProps(props, ['asChild', 'class', 'defaultValue', 'ref']);
-  let selectRef: HTMLSelectElement | undefined;
-
-  createEffect(() => {
-    const defaultValue = local.defaultValue;
-
-    if (!selectRef || defaultValue === undefined) return;
-
-    const values = new Set(
-      (Array.isArray(defaultValue) ? defaultValue : [defaultValue]).map((value) => String(value)),
-    );
-
-    for (const option of Array.from(selectRef.options)) {
-      const selected = values.has(option.value);
-      option.selected = selected;
-      option.defaultSelected = selected;
-    }
-  });
 
   return (
     <FieldSelectPrimitive
       asChild={local.asChild}
       {...others}
-      prop:defaultValue={local.defaultValue}
+      {...toPropDefaultValue(local.defaultValue)}
       data-slot="field-select"
       class={clsx(styles.control, local.class)}
       ref={(element) => {
-        selectRef = element;
+        applyDefaultSelected(element, () => local.defaultValue);
         if (typeof local.ref === 'function') local.ref(element);
       }}
     />

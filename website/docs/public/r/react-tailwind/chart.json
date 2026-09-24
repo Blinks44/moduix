@@ -14,7 +14,7 @@
     },
     {
       "path": "src/components/chart/index.ts",
-      "content": "export {\n  Chart,\n  ChartDescription,\n  ChartHeader,\n  ChartLegend,\n  ChartLegendItem,\n  ChartPlot,\n  ChartTitle,\n} from './Chart.js';",
+      "content": "export * from './Chart.js';",
       "type": "registry:component",
       "target": "@components/ui/chart/index.ts"
     }

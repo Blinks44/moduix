@@ -14,7 +14,7 @@
     },
     {
       "path": "src/components/aspect-ratio/index.ts",
-      "content": "export { AspectRatio } from './AspectRatio.js';",
+      "content": "export * from './AspectRatio.js';",
       "type": "registry:component",
       "target": "@components/ui/aspect-ratio/index.ts"
     }

@@ -5,6 +5,7 @@ import { ark, type HTMLArkProps } from '@ark-ui/react/factory';
 import { clsx } from 'clsx';
 import type { ComponentProps, ComponentRef } from 'react';
 import { forwardRef } from 'react';
+import { a11yLabels } from '@/lib/moduix/a11yLabels';
 import {
   OverlayPortal,
   OverlayPortalProvider,
@@ -12,8 +13,6 @@ import {
 } from '@/lib/moduix/overlayPortal';
 import { CloseButton } from '../close-button';
 import styles from './Dialog.module.css';
-
-const DEFAULT_CLOSE_BUTTON_LABEL = 'Close dialog';
 
 type DialogRootProps = ComponentProps<typeof DialogPrimitive.Root> & OverlayPortalProps;
 type DialogRootProviderProps = ComponentProps<typeof DialogPrimitive.RootProvider> &
@@ -159,7 +158,7 @@ const DialogCloseIcon = forwardRef<
   ComponentRef<typeof CloseButton>,
   Omit<ComponentProps<typeof DialogPrimitive.CloseTrigger>, 'asChild'>
 >(function DialogCloseIcon(
-  { className, children, 'aria-label': ariaLabel = DEFAULT_CLOSE_BUTTON_LABEL, ...props },
+  { className, children, 'aria-label': ariaLabel = a11yLabels.closeDialog, ...props },
   ref,
 ) {
   return (

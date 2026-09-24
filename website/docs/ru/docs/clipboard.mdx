@@ -37,8 +37,8 @@ import clipboardSolidValueText from '../../../snippets/clipboard/solid/value-tex
 
 Используйте `Clipboard` как корневой компонент. Внутри `ClipboardControl` разместите одну
 поверхность значения - `ClipboardInput` или `ClipboardValueText` - и `ClipboardTrigger`.
-`ClipboardLabel` необязателен. Внутри триггера можно разместить `ClipboardIndicator`,
-`ClipboardCopyText` или обе части.
+`ClipboardLabel` необязателен. Внутри триггера можно разместить `ClipboardIndicator` - его `children` и `copied` принимают
+как текст, так и иконки.
 
 React и Solid используют одинаковые плоские имена. Импортируйте `Clipboard` как корневой
 компонент, а каждую дополнительную часть - напрямую, например `ClipboardInput` и
@@ -114,8 +114,7 @@ Clipboard | ClipboardRootProvider
 ├─ ClipboardControl
 │  ├─ ClipboardInput или ClipboardValueText
 │  └─ ClipboardTrigger
-│     ├─ ClipboardIndicator (необязательно)
-│     └─ ClipboardCopyText (необязательно)
+│     └─ ClipboardIndicator (необязательно)
 ```
 
 | Часть | Назначение |
@@ -126,17 +125,16 @@ Clipboard | ClipboardRootProvider
 | `ClipboardControl` | Объединяет отображение значения и кнопку копирования. |
 | `ClipboardInput` | Показывает значение в поле. Поле можно редактировать, если не указать `readOnly`. |
 | `ClipboardTrigger` | Копирует текущее значение при активации. По умолчанию отображается как кнопка. |
-| `ClipboardIndicator` | Показывает разное содержимое до и после копирования. |
-| `ClipboardCopyText` | Текстовый вариант такого индикатора. По умолчанию это `Copy` и `Copied`. |
+| `ClipboardIndicator` | Показывает разное содержимое до и после копирования. По умолчанию это иконки копирования и подтверждения; для текста передайте `copied="Copied"` и `children`. |
 | `ClipboardValueText` | Выводит значение как текст, когда поле ввода не подходит. |
 
 ## Композиция
 
 `Clipboard` владеет значением и состоянием после копирования. Внутри `ClipboardControl` размещайте
 одну поверхность значения (`ClipboardInput` или `ClipboardValueText`) и `ClipboardTrigger`;
-`ClipboardIndicator` и `ClipboardCopyText` необязательны и могут использоваться вместе внутри
-триггера. Они следуют одному состоянию копирования, а moduix подставляет стандартные иконки
-копирования и подтверждения, а также подписи `Copy` и `Copied`, если содержимое не задано.
+`ClipboardIndicator` необязателен внутри триггера. Он следует состоянию копирования, а moduix
+подставляет стандартные иконки копирования и подтверждения, если содержимое не задано. Для
+текстовых подписей передайте `copied="Copied"` и `children`.
 
 Используйте `defaultValue` для неконтролируемого значения. Если значение принадлежит другой части
 приложения или интерфейсу нужно реагировать на копирование, используйте `value` вместе с
@@ -236,7 +234,7 @@ Clipboard | ClipboardRootProvider
 
 ### Свой текст копирования
 
-Передайте собственное содержимое или значение `copied` в `ClipboardCopyText`, если кнопке нужны
+Передайте собственное содержимое или значение `copied` в `ClipboardIndicator`, если кнопке нужны
 подписи, соответствующие вашему продукту.
 
 <ExampleFrame variant="component">
@@ -495,7 +493,6 @@ Clipboard | ClipboardRootProvider
 - `ClipboardInput` -> `data-slot="clipboard-input"`
 - `ClipboardTrigger` -> `data-slot="clipboard-trigger"`
 - `ClipboardIndicator` -> `data-slot="clipboard-indicator"`
-- `ClipboardCopyText` -> `data-slot="clipboard-copy-text"`
 - `ClipboardValueText` -> `data-slot="clipboard-value-text"`
 - Пока активно состояние копирования, Ark добавляет `data-copied` к `Clipboard`, `ClipboardLabel`,
   `ClipboardControl`, `ClipboardInput` и `ClipboardTrigger`.

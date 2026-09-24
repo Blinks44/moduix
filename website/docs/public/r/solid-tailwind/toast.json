@@ -19,7 +19,7 @@
     },
     {
       "path": "src/components/toast/index.ts",
-      "content": "export {\n  Toast,\n  ToastActionTrigger,\n  ToastCloseTrigger,\n  ToastContext,\n  ToastDescription,\n  ToastTitle,\n  ToastToaster,\n  createToaster,\n  useToastContext,\n} from './Toast.js';",
+      "content": "export * from './Toast.js';",
       "type": "registry:component",
       "target": "@components/ui/toast/index.ts"
     }

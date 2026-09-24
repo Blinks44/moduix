@@ -2,6 +2,7 @@ import type { HTMLArkProps } from '@ark-ui/react/factory';
 import { ark } from '@ark-ui/react/factory';
 import { clsx } from 'clsx';
 import { forwardRef } from 'react';
+import { a11yLabels } from '@/lib/moduix/a11yLabels';
 import styles from './Spinner.module.css';
 
 type SpinnerProps = HTMLArkProps<'span'> & {
@@ -24,7 +25,7 @@ const Spinner = forwardRef<HTMLSpanElement, SpinnerProps>(function Spinner(
 ) {
   const accessibleLabel = decorative
     ? undefined
-    : (ariaLabel ?? (ariaLabelledBy ? undefined : 'Loading'));
+    : (ariaLabel ?? (ariaLabelledBy ? undefined : a11yLabels.loading));
 
   return (
     <ark.span

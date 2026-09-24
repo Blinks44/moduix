@@ -20,7 +20,7 @@
     },
     {
       "path": "src/components/pin-input/index.ts",
-      "content": "export {\n  PinInput,\n  PinInputContext,\n  PinInputControl,\n  PinInputHiddenInput,\n  PinInputInput,\n  PinInputInputs,\n  PinInputLabel,\n  PinInputRootProvider,\n  PinInputSeparator,\n  usePinInput,\n  usePinInputContext,\n} from './PinInput.js';",
+      "content": "export * from './PinInput.js';",
       "type": "registry:component",
       "target": "@components/ui/pin-input/index.ts"
     }

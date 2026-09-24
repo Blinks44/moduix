@@ -13,6 +13,7 @@ import { isHotKey } from '@ark-ui/react/hotkeys';
 import { clsx } from 'clsx';
 import type { ComponentProps, ComponentRef, ForwardedRef } from 'react';
 import { forwardRef, useEffect } from 'react';
+import { a11yLabels } from '@/lib/moduix/a11yLabels';
 import { CheckIcon, CloseIcon } from '@/lib/moduix/icons/ui';
 import {
   OverlayPortal,
@@ -23,9 +24,6 @@ import closeButtonStyles from '../close-button/CloseButton.module.css';
 import { Kbd } from '../kbd';
 import { ScrollArea, ScrollAreaContent, ScrollAreaViewport } from '../scroll-area';
 import styles from './CommandPalette.module.css';
-
-const DEFAULT_CLEAR_TRIGGER_LABEL = 'Clear search';
-const DEFAULT_SEARCH_INPUT_LABEL = 'Search commands';
 
 type CommandPaletteProps = ComponentProps<typeof DialogPrimitive.Root> & {
   shortcut?: false | string;
@@ -318,7 +316,7 @@ const CommandPaletteSearch = forwardRef<
     <CommandPaletteControl>
       <CommandPaletteInput
         ref={ref}
-        aria-label={ariaLabel ?? (ariaLabelledBy == null ? DEFAULT_SEARCH_INPUT_LABEL : undefined)}
+        aria-label={ariaLabel ?? (ariaLabelledBy == null ? a11yLabels.searchCommands : undefined)}
         aria-labelledby={ariaLabelledBy}
         {...props}
       />
@@ -355,7 +353,7 @@ const CommandPaletteClearTrigger = forwardRef<
           aria-label={
             ariaLabel ??
             (!asChild && children == null && ariaLabelledBy == null
-              ? DEFAULT_CLEAR_TRIGGER_LABEL
+              ? a11yLabels.clearSearch
               : undefined)
           }
           aria-labelledby={ariaLabelledBy}

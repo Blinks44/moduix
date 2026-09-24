@@ -1,6 +1,6 @@
 {
   "name": "@moduix/solid",
-  "version": "2.0.0",
+  "version": "3.0.0",
   "description": "Solid implementation of the moduix component system, built on Ark UI primitives.",
   "keywords": [
     "accessible",
@@ -601,6 +601,7 @@
   },
   "dependencies": {
     "@unpic/core": "catalog:",
+    "@unpic/solid": "1.0.0",
     "clsx": "catalog:",
     "lucide-solid": "catalog:"
   },

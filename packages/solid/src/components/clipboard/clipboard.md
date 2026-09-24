@@ -10,7 +10,6 @@ flat anatomy, copy lifecycle, callback details, accessibility behavior, CSS hook
 import {
   Clipboard,
   ClipboardControl,
-  ClipboardCopyText,
   ClipboardIndicator,
   ClipboardInput,
   ClipboardLabel,
@@ -25,7 +24,6 @@ export function ClipboardDemo() {
         <ClipboardInput readOnly />
         <ClipboardTrigger>
           <ClipboardIndicator />
-          <ClipboardCopyText />
         </ClipboardTrigger>
       </ClipboardControl>
     </Clipboard>
@@ -34,10 +32,10 @@ export function ClipboardDemo() {
 ```
 
 `ClipboardIndicator` renders moduix's default copy and check icons when its children and `copied`
-content are omitted. `ClipboardCopyText` renders `Copy` and `Copied` by default.
+content are omitted. Text usage passes `copied="Copied"` and children directly to `ClipboardIndicator`.
 
 The public values are `Clipboard`, `ClipboardRootProvider`, `ClipboardContext`, `ClipboardLabel`,
-`ClipboardControl`, `ClipboardInput`, `ClipboardTrigger`, `ClipboardIndicator`, `ClipboardCopyText`,
+`ClipboardControl`, `ClipboardInput`, `ClipboardTrigger`, `ClipboardIndicator`,
 and `ClipboardValueText`. The barrel also re-exports the `useClipboard` and `useClipboardContext`
 hooks.
 

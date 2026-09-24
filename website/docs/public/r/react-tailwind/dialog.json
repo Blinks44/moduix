@@ -19,7 +19,7 @@
     },
     {
       "path": "src/components/dialog/index.ts",
-      "content": "export {\n  Dialog,\n  DialogBackdrop,\n  DialogBody,\n  DialogCloseIcon,\n  DialogCloseTrigger,\n  DialogContext,\n  DialogContent,\n  DialogDescription,\n  DialogFooter,\n  DialogHeader,\n  DialogPositioner,\n  DialogRootProvider,\n  DialogTitle,\n  DialogTrigger,\n  useDialog,\n  useDialogContext,\n} from './Dialog';\nexport type { DialogRootProps, DialogRootProviderProps } from './Dialog';",
+      "content": "export * from './Dialog.js';",
       "type": "registry:component",
       "target": "@components/ui/dialog/index.ts"
     }

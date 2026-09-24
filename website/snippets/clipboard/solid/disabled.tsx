@@ -1,7 +1,6 @@
 import {
   Clipboard,
   ClipboardControl,
-  ClipboardCopyText,
   ClipboardIndicator,
   ClipboardInput,
   ClipboardLabel,
@@ -17,7 +16,6 @@ export default function DisabledClipboardDemo() {
         <ClipboardInput disabled />
         <ClipboardTrigger disabled>
           <ClipboardIndicator />
-          <ClipboardCopyText />
         </ClipboardTrigger>
       </ClipboardControl>
     </Clipboard>

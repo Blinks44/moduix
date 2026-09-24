@@ -1,1 +1,1 @@
-export { Stack } from './Stack.js';
+export * from './Stack.js';

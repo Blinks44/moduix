@@ -20,7 +20,7 @@
     },
     {
       "path": "src/components/switch/index.ts",
-      "content": "export {\n  Switch,\n  SwitchContext,\n  SwitchControl,\n  SwitchHiddenInput,\n  SwitchLabel,\n  SwitchRootProvider,\n  SwitchThumb,\n  useSwitch,\n  useSwitchContext,\n} from './Switch.js';\nexport type { SwitchRootProps, SwitchRootProviderProps, SwitchSize } from './Switch.js';",
+      "content": "export * from './Switch.js';",
       "type": "registry:component",
       "target": "@components/ui/switch/index.ts"
     }

@@ -1,1 +1,1 @@
-export { Tag, TagCloseTrigger, TagEndElement, TagLabel, TagStartElement } from './Tag.js';
+export * from './Tag.js';

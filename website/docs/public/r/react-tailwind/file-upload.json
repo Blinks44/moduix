@@ -19,7 +19,7 @@
     },
     {
       "path": "src/components/file-upload/index.ts",
-      "content": "export {\n  FileUpload,\n  FileUploadClearTrigger,\n  FileUploadContext,\n  FileUploadDropzone,\n  FileUploadDropzoneIcon,\n  FileUploadHiddenInput,\n  FileUploadItem,\n  FileUploadItemDeleteTrigger,\n  FileUploadItemGroup,\n  FileUploadItemMetadata,\n  FileUploadItemName,\n  FileUploadItems,\n  FileUploadItemPreview,\n  FileUploadItemPreviewIcon,\n  FileUploadItemPreviewImage,\n  FileUploadItemSizeText,\n  FileUploadLabel,\n  FileUploadRootProvider,\n  FileUploadTrigger,\n  useFileUpload,\n  useFileUploadContext,\n} from './FileUpload.js';",
+      "content": "export * from './FileUpload.js';",
       "type": "registry:component",
       "target": "@components/ui/file-upload/index.ts"
     }

@@ -4,11 +4,11 @@
   "title": "Textarea",
   "description": "moduix Solid Textarea component.",
   "dependencies": ["@ark-ui/solid", "clsx"],
-  "registryDependencies": ["@moduix-solid/foundation"],
+  "registryDependencies": ["@moduix-solid/default-values", "@moduix-solid/foundation"],
   "files": [
     {
       "path": "src/components/textarea/Textarea.tsx",
-      "content": "import { Field as FieldPrimitive } from '@ark-ui/solid/field';\nimport type { FieldTextareaProps } from '@ark-ui/solid/field';\nimport { clsx } from 'clsx';\nimport { createEffect, splitProps } from 'solid-js';\nimport styles from './Textarea.module.css';\n\ntype TextareaProps = FieldTextareaProps & {\n  defaultValue?: string | number | readonly string[];\n  'data-scope'?: string;\n  'data-part'?: string;\n  'data-slot'?: string;\n};\n\nfunction Textarea(props: TextareaProps) {\n  const [local, others] = splitProps(props, [\n    'asChild',\n    'autoresize',\n    'class',\n    'defaultValue',\n    'data-scope',\n    'data-part',\n    'data-slot',\n    'ref',\n  ]);\n  let textareaRef: HTMLTextAreaElement | undefined;\n\n  createEffect(() => {\n    if (textareaRef) textareaRef.defaultValue = String(local.defaultValue ?? '');\n  });\n\n  return (\n    <FieldPrimitive.Textarea\n      asChild={local.asChild}\n      {...others}\n      {...(local.asChild ? { 'prop:defaultValue': local.defaultValue } : {})}\n      data-scope=\"field\"\n      data-part=\"textarea\"\n      data-slot=\"textarea-root\"\n      data-autoresize={local.autoresize ? '' : undefined}\n      class={clsx(styles.root, local.class)}\n      autoresize={local.autoresize}\n      ref={(element) => {\n        textareaRef = element;\n        if (typeof local.ref === 'function') local.ref(element);\n      }}\n    />\n  );\n}\n\nexport { Textarea };",
+      "content": "import { Field as FieldPrimitive } from '@ark-ui/solid/field';\nimport type { FieldTextareaProps } from '@ark-ui/solid/field';\nimport { clsx } from 'clsx';\nimport { splitProps } from 'solid-js';\nimport { applyDefaultValue, toPropDefaultValue } from '@/lib/moduix/defaultValue';\nimport styles from './Textarea.module.css';\n\ntype TextareaProps = FieldTextareaProps & {\n  defaultValue?: string | number | readonly string[];\n  'data-scope'?: string;\n  'data-part'?: string;\n  'data-slot'?: string;\n};\n\nfunction Textarea(props: TextareaProps) {\n  const [local, others] = splitProps(props, [\n    'asChild',\n    'autoresize',\n    'class',\n    'defaultValue',\n    'data-scope',\n    'data-part',\n    'data-slot',\n    'ref',\n  ]);\n  return (\n    <FieldPrimitive.Textarea\n      asChild={local.asChild}\n      {...others}\n      {...(local.asChild ? toPropDefaultValue(local.defaultValue) : {})}\n      data-scope=\"field\"\n      data-part=\"textarea\"\n      data-slot=\"textarea-root\"\n      data-autoresize={local.autoresize ? '' : undefined}\n      class={clsx(styles.root, local.class)}\n      autoresize={local.autoresize}\n      ref={(element) => {\n        applyDefaultValue(element, () => local.defaultValue);\n        if (typeof local.ref === 'function') local.ref(element);\n      }}\n    />\n  );\n}\n\nexport { Textarea };",
       "type": "registry:component",
       "target": "@components/ui/textarea/Textarea.tsx"
     },
@@ -20,7 +20,7 @@
     },
     {
       "path": "src/components/textarea/index.ts",
-      "content": "export { Textarea } from './Textarea.js';",
+      "content": "export * from './Textarea.js';",
       "type": "registry:component",
       "target": "@components/ui/textarea/index.ts"
     }

@@ -13,6 +13,7 @@ import {
 import { clsx } from 'clsx';
 import type { ComponentProps, ComponentRef } from 'react';
 import { forwardRef } from 'react';
+import { a11yLabels } from '@/lib/moduix/a11yLabels';
 import {
   OverlayPortal,
   OverlayPortalProvider,
@@ -20,8 +21,6 @@ import {
 } from '@/lib/moduix/overlayPortal';
 import { CloseButton } from '../close-button';
 import styles from './Tour.module.css';
-
-const DEFAULT_CLOSE_BUTTON_LABEL = 'Close tour';
 
 type TourRootProps = ComponentProps<typeof TourPrimitive.Root> & OverlayPortalProps;
 type TourCloseIconProps = Omit<ComponentProps<typeof TourPrimitive.CloseTrigger>, 'asChild'>;
@@ -200,7 +199,7 @@ const TourCloseTrigger = forwardRef<
 
 const TourCloseIcon = forwardRef<ComponentRef<typeof CloseButton>, TourCloseIconProps>(
   function TourCloseIcon(
-    { className, children, 'aria-label': ariaLabel = DEFAULT_CLOSE_BUTTON_LABEL, ...props },
+    { className, children, 'aria-label': ariaLabel = a11yLabels.closeTour, ...props },
     ref,
   ) {
     return (

@@ -19,7 +19,7 @@
     },
     {
       "path": "src/components/drawer/index.ts",
-      "content": "export {\n  Drawer,\n  DrawerBackdrop,\n  DrawerBody,\n  DrawerCloseIcon,\n  DrawerCloseTrigger,\n  DrawerContext,\n  DrawerContent,\n  DrawerDescription,\n  DrawerFooter,\n  DrawerGrabber,\n  DrawerGrabberIndicator,\n  DrawerHeader,\n  DrawerIndent,\n  DrawerIndentBackground,\n  DrawerPositioner,\n  DrawerRootProvider,\n  DrawerStack,\n  DrawerSwipeArea,\n  DrawerTitle,\n  DrawerTrigger,\n  useDrawer,\n  useDrawerContext,\n  useDrawerStackContext,\n} from './Drawer.js';",
+      "content": "export * from './Drawer.js';",
       "type": "registry:component",
       "target": "@components/ui/drawer/index.ts"
     }

@@ -149,30 +149,12 @@ const ClipboardValueText = forwardRef<
   );
 });
 
-const ClipboardCopyText = forwardRef<
-  ComponentRef<typeof ClipboardPrimitive.Indicator>,
-  ComponentProps<typeof ClipboardPrimitive.Indicator>
->(function ClipboardCopyText({ className, copied = 'Copied', children = 'Copy', ...props }, ref) {
-  return (
-    <ClipboardPrimitive.Indicator
-      ref={ref}
-      className={cn('inline-flex shrink-0 items-center justify-center', className)}
-      copied={copied}
-      {...props}
-      data-slot="clipboard-copy-text"
-    >
-      {children}
-    </ClipboardPrimitive.Indicator>
-  );
-});
-
 const ClipboardContext = ClipboardPrimitive.Context;
 
 export {
   Clipboard,
   ClipboardContext,
   ClipboardControl,
-  ClipboardCopyText,
   ClipboardIndicator,
   ClipboardInput,
   ClipboardLabel,

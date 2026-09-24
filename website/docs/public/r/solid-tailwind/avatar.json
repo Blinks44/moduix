@@ -14,7 +14,7 @@
     },
     {
       "path": "src/components/avatar/index.ts",
-      "content": "export {\n  Avatar,\n  AvatarContext,\n  AvatarFallback,\n  AvatarImage,\n  AvatarRootProvider,\n  useAvatar,\n  useAvatarContext,\n} from './Avatar.js';",
+      "content": "export * from './Avatar.js';",
       "type": "registry:component",
       "target": "@components/ui/avatar/index.ts"
     }

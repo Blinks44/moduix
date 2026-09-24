@@ -18,7 +18,7 @@
     },
     {
       "path": "src/components/rating-group/index.ts",
-      "content": "export {\n  RatingGroup,\n  RatingGroupContext,\n  RatingGroupControl,\n  RatingGroupHiddenInput,\n  RatingGroupItem,\n  RatingGroupItemContext,\n  RatingGroupItemIndicator,\n  RatingGroupItems,\n  RatingGroupLabel,\n  RatingGroupRootProvider,\n  useRatingGroup,\n  useRatingGroupContext,\n  useRatingGroupItemContext,\n} from './RatingGroup';\nexport type {\n  RatingGroupItemIndicatorProps,\n  RatingGroupRootProps,\n  RatingGroupRootProviderProps,\n  RatingGroupSize,\n} from './RatingGroup';",
+      "content": "export * from './RatingGroup.js';",
       "type": "registry:component",
       "target": "@components/ui/rating-group/index.ts"
     }

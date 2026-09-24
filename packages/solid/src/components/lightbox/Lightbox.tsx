@@ -4,6 +4,7 @@ import { ark } from '@ark-ui/solid/factory';
 import { clsx } from 'clsx';
 import type { ComponentProps } from 'solid-js';
 import { children, createEffect, onCleanup, splitProps } from 'solid-js';
+import { a11yLabels } from '@/lib/moduix/a11yLabels';
 import {
   OverlayPortal,
   OverlayPortalProvider,
@@ -11,8 +12,6 @@ import {
 } from '@/lib/moduix/overlayPortal';
 import { CloseButton } from '../close-button';
 import styles from './Lightbox.module.css';
-
-const DEFAULT_CLOSE_LABEL = 'Close image';
 
 type LightboxImageSelectDetails = {
   alt?: string;
@@ -233,7 +232,7 @@ function LightboxCloseIcon(props: LightboxCloseIconProps) {
           {...triggerProps()}
           data-slot="lightbox-close-icon"
           data-state={dialog().open ? 'open' : 'closed'}
-          aria-label={local['aria-label'] ?? DEFAULT_CLOSE_LABEL}
+          aria-label={local['aria-label'] ?? a11yLabels.closeImage}
           aria-labelledby={local['aria-labelledby']}
           class={clsx(styles.closeIcon, local.class)}
         >

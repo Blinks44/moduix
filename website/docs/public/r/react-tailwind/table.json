@@ -14,7 +14,7 @@
     },
     {
       "path": "src/components/table/index.ts",
-      "content": "export {\n  Table,\n  TableBody,\n  TableCaption,\n  TableCell,\n  TableColumn,\n  TableColumnGroup,\n  TableColumnHeader,\n  TableEmpty,\n  TableFooter,\n  TableHeader,\n  TableRow,\n  TableScrollArea,\n} from './Table.js';",
+      "content": "export * from './Table.js';",
       "type": "registry:component",
       "target": "@components/ui/table/index.ts"
     }

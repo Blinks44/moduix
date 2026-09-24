@@ -14,7 +14,7 @@
     },
     {
       "path": "src/components/skeleton/index.ts",
-      "content": "export { Skeleton } from './Skeleton.js';",
+      "content": "export * from './Skeleton.js';",
       "type": "registry:component",
       "target": "@components/ui/skeleton/index.ts"
     }

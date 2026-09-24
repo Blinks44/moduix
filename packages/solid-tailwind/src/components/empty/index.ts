@@ -1,8 +1,1 @@
-export {
-  Empty,
-  EmptyActions,
-  EmptyContent,
-  EmptyDescription,
-  EmptyIcon,
-  EmptyTitle,
-} from './Empty.js';
+export * from './Empty.js';

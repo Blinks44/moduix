@@ -14,7 +14,7 @@
     },
     {
       "path": "src/components/card/index.ts",
-      "content": "export {\n  Card,\n  CardAction,\n  CardBackground,\n  CardBody,\n  CardDescription,\n  CardFooter,\n  CardHeader,\n  CardLink,\n  CardMedia,\n  CardTitle,\n} from './Card.js';",
+      "content": "export * from './Card.js';",
       "type": "registry:component",
       "target": "@components/ui/card/index.ts"
     }

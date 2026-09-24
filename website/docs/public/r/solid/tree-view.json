@@ -20,7 +20,7 @@
     },
     {
       "path": "src/components/tree-view/index.ts",
-      "content": "export {\n  TreeView,\n  TreeViewBranch,\n  TreeViewBranchContent,\n  TreeViewBranchControl,\n  TreeViewBranchIndicator,\n  TreeViewBranchIndentGuide,\n  TreeViewBranchText,\n  TreeViewBranchTrigger,\n  TreeViewContext,\n  TreeViewItem,\n  TreeViewItemIndicator,\n  TreeViewItemText,\n  TreeViewLabel,\n  TreeViewNode,\n  TreeViewNodeCheckbox,\n  TreeViewNodeCheckboxIndicator,\n  TreeViewNodeContext,\n  TreeViewNodeProvider,\n  TreeViewNodeRenameInput,\n  TreeViewRootProvider,\n  TreeViewTree,\n  createFileTreeCollection,\n  createTreeCollection,\n  useTreeView,\n  useTreeViewContext,\n  useTreeViewNodeContext,\n  type TreeViewLoadChildrenDetails,\n  type TreeViewNodeProps,\n  type TreeViewNodeRenderProps,\n  type TreeViewNodeState,\n  type TreeViewNodeProviderProps,\n} from './TreeView.js';",
+      "content": "export * from './TreeView.js';",
       "type": "registry:component",
       "target": "@components/ui/tree-view/index.ts"
     }

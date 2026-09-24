@@ -14,7 +14,7 @@
     },
     {
       "path": "src/components/simple-grid/index.ts",
-      "content": "export { SimpleGrid } from './SimpleGrid.js';",
+      "content": "export * from './SimpleGrid.js';",
       "type": "registry:component",
       "target": "@components/ui/simple-grid/index.ts"
     }

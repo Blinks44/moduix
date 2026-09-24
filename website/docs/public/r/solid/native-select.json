@@ -20,7 +20,7 @@
     },
     {
       "path": "src/components/native-select/index.ts",
-      "content": "export { NativeSelect } from './NativeSelect.js';",
+      "content": "export * from './NativeSelect.js';",
       "type": "registry:component",
       "target": "@components/ui/native-select/index.ts"
     }

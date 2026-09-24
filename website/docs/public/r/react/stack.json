@@ -20,7 +20,7 @@
     },
     {
       "path": "src/components/stack/index.ts",
-      "content": "export { Stack } from './Stack.js';",
+      "content": "export * from './Stack.js';",
       "type": "registry:component",
       "target": "@components/ui/stack/index.ts"
     }

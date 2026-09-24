@@ -20,7 +20,7 @@
     },
     {
       "path": "src/components/separator/index.ts",
-      "content": "export { Separator } from './Separator.js';",
+      "content": "export * from './Separator.js';",
       "type": "registry:component",
       "target": "@components/ui/separator/index.ts"
     }

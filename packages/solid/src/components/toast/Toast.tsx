@@ -8,6 +8,7 @@ import {
 import { clsx } from 'clsx';
 import type { Accessor, ComponentProps } from 'solid-js';
 import { children as resolveChildren, splitProps } from 'solid-js';
+import { a11yLabels } from '@/lib/moduix/a11yLabels';
 import {
   OverlayPortal,
   OverlayPortalProvider,
@@ -15,8 +16,6 @@ import {
 } from '@/lib/moduix/overlayPortal';
 import { CloseButton } from '../close-button';
 import styles from './Toast.module.css';
-
-const DEFAULT_CLOSE_TRIGGER_LABEL = 'Close toast';
 
 type ToasterProps = Omit<ComponentProps<typeof ToasterPrimitive>, 'children'> &
   OverlayPortalProps & {
@@ -122,8 +121,7 @@ function ToastCloseTrigger(props: ComponentProps<typeof ToastPrimitive.CloseTrig
     'class',
   ]);
   const resolvedChildren = resolveChildren(() => local.children);
-  const ariaLabel =
-    local['aria-label'] === undefined ? DEFAULT_CLOSE_TRIGGER_LABEL : local['aria-label'];
+  const ariaLabel = local['aria-label'] === undefined ? a11yLabels.closeToast : local['aria-label'];
 
   if (local.asChild) {
     return (

@@ -20,7 +20,7 @@
     },
     {
       "path": "src/components/input/index.ts",
-      "content": "export { Input } from './Input.js';",
+      "content": "export * from './Input.js';",
       "type": "registry:component",
       "target": "@components/ui/input/index.ts"
     }

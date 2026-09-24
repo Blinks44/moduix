@@ -37,7 +37,8 @@ utilisées, cette valeur peut être modifiable, en lecture seule ou affichée co
 
 Utilisez `Clipboard` comme racine. Placez une seule surface pour la valeur - `ClipboardInput` ou
 `ClipboardValueText` - ainsi que `ClipboardTrigger` dans `ClipboardControl`. `ClipboardLabel` est
-facultatif. Le bouton peut contenir `ClipboardIndicator`, `ClipboardCopyText` ou les deux.
+facultatif. Le bouton peut contenir `ClipboardIndicator` dont les props `children` et `copied`
+acceptent aussi bien du texte que des icônes.
 
 React et Solid utilisent les mêmes noms de valeurs plats. Importez `Clipboard` comme racine et
 importez directement chaque partie supplémentaire, par exemple `ClipboardInput` et `ClipboardTrigger`.
@@ -113,8 +114,7 @@ Clipboard | ClipboardRootProvider
 ├─ ClipboardControl
 │  ├─ ClipboardInput ou ClipboardValueText
 │  └─ ClipboardTrigger
-│     ├─ ClipboardIndicator (facultatif)
-│     └─ ClipboardCopyText (facultatif)
+│     └─ ClipboardIndicator (facultatif)
 ```
 
 | Partie | Rôle |
@@ -125,17 +125,16 @@ Clipboard | ClipboardRootProvider
 | `ClipboardControl` | Regroupe l’affichage de la valeur et le bouton de copie. |
 | `ClipboardInput` | Affiche la valeur dans un champ. Il est modifiable sauf si `readOnly` est défini. |
 | `ClipboardTrigger` | Copie la valeur actuelle lorsqu’il est activé. Il s’affiche comme un bouton par défaut. |
-| `ClipboardIndicator` | Affiche un contenu différent selon que la valeur a été copiée ou non. |
-| `ClipboardCopyText` | Version textuelle du même indicateur. Les valeurs par défaut sont `Copy` et `Copied`. |
+| `ClipboardIndicator` | Affiche un contenu différent selon que la valeur a été copiée ou non. Par défaut : icônes de copie et de confirmation ; passez `copied="Copied"` et `children` pour du texte. |
 | `ClipboardValueText` | Affiche la valeur sous forme de texte lorsqu’un champ n’est pas adapté. |
 
 ## Composition
 
 `Clipboard` gère la valeur et l’état après copie. Placez une seule surface pour la valeur
 (`ClipboardInput` ou `ClipboardValueText`) et `ClipboardTrigger` dans `ClipboardControl` ;
-`ClipboardIndicator` et `ClipboardCopyText` sont facultatifs et peuvent être combinés dans le
-bouton. Ils suivent le même état de copie, et moduix fournit les icônes de copie et de confirmation
-ainsi que les libellés `Copy` et `Copied` lorsque leur contenu est omis.
+`ClipboardIndicator` est facultatif dans le bouton. Il suit le même état de copie, et moduix
+fournit les icônes de copie et de confirmation lorsque son contenu est omis. Passez
+`copied="Copied"` et `children` pour des libellés textuels.
 
 Utilisez `defaultValue` pour une valeur non contrôlée. Lorsqu’une autre partie de l’application gère
 la valeur ou doit réagir à la copie, utilisez `value` avec `onValueChange(details)` et
@@ -234,8 +233,8 @@ réussie. L’exemple conserve un compteur fondé sur `details.copied`.
 
 ### Texte de copie personnalisé
 
-Fournissez votre propre contenu ou une valeur `copied` à `ClipboardCopyText` lorsque le bouton doit
-utiliser des libellés adaptés à votre produit.
+Fournissez votre propre contenu ou une valeur `copied` à `ClipboardIndicator` lorsque le bouton
+doit utiliser des libellés adaptés à votre produit.
 
 <ExampleFrame variant="component">
   <CustomCopyTextClipboardDemo />
@@ -492,7 +491,6 @@ utilisez l’attribut Ark `data-copied` avec les hooks `data-slot` de moduix.
 - `ClipboardInput` -> `data-slot="clipboard-input"`
 - `ClipboardTrigger` -> `data-slot="clipboard-trigger"`
 - `ClipboardIndicator` -> `data-slot="clipboard-indicator"`
-- `ClipboardCopyText` -> `data-slot="clipboard-copy-text"`
 - `ClipboardValueText` -> `data-slot="clipboard-value-text"`
 - Ark ajoute `data-copied` à `Clipboard`, `ClipboardLabel`, `ClipboardControl`, `ClipboardInput` et
   `ClipboardTrigger` tant que l’état copié est actif.

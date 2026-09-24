@@ -4,6 +4,7 @@ import { Splitter as SplitterPrimitive } from '@ark-ui/solid/splitter';
 import { clsx } from 'clsx';
 import type { Accessor, ComponentProps } from 'solid-js';
 import { createContext, splitProps, useContext } from 'solid-js';
+import { a11yLabels } from '@/lib/moduix/a11yLabels';
 import { ChevronLeftIcon } from '@/lib/moduix/icons/ui/Icons';
 import { Input } from '../input';
 import { Separator } from '../separator';
@@ -167,7 +168,7 @@ function SidebarResizeTrigger(props: SidebarResizeTriggerProps) {
       {...others}
       asChild={local.asChild}
       id={id()}
-      aria-label={local['aria-label'] ?? 'Resize sidebar'}
+      aria-label={local['aria-label'] ?? a11yLabels.resizeSidebar}
       data-side={config.side()}
       data-slot="sidebar-resize-trigger"
       class={clsx(splitterStyles.resizeTrigger, styles.resizeTrigger, local.class)}
@@ -204,7 +205,7 @@ function SidebarTrigger(props: SidebarTriggerProps) {
     <ark.button
       asChild={local.asChild}
       type={local.type ?? 'button'}
-      aria-label={local['aria-label'] ?? 'Toggle sidebar'}
+      aria-label={local['aria-label'] ?? a11yLabels.toggleSidebar}
       aria-expanded={!collapsed()}
       class={clsx(styles.trigger, local.class)}
       onClick={handleClick}

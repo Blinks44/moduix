@@ -18,7 +18,7 @@
     },
     {
       "path": "src/components/close-button/index.ts",
-      "content": "export { CloseButton } from './CloseButton.js';",
+      "content": "export * from './CloseButton.js';",
       "type": "registry:component",
       "target": "@components/ui/close-button/index.ts"
     }

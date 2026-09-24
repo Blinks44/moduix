@@ -37,7 +37,7 @@ rendered as ordinary text, depending on which parts you use.
 
 Use `Clipboard` as the root. Put one value surface, `ClipboardInput` or `ClipboardValueText`, and
 `ClipboardTrigger` inside `ClipboardControl`. `ClipboardLabel` is optional. The trigger can
-contain `ClipboardIndicator`, `ClipboardCopyText`, or both.
+contain `ClipboardIndicator`, whose children and `copied` accept text as well as icons.
 
 React and Solid use the same flat value names. Import `Clipboard` as the root and import each
 additional part directly, such as `ClipboardInput` and `ClipboardTrigger`. The same names work with
@@ -113,8 +113,7 @@ Clipboard | ClipboardRootProvider
 ├─ ClipboardControl
 │  ├─ ClipboardInput or ClipboardValueText
 │  └─ ClipboardTrigger
-│     ├─ ClipboardIndicator (optional)
-│     └─ ClipboardCopyText (optional)
+│     └─ ClipboardIndicator (optional)
 ```
 
 | Part | Role |
@@ -125,17 +124,15 @@ Clipboard | ClipboardRootProvider
 | `ClipboardControl` | Groups the value surface and the copy button. |
 | `ClipboardInput` | Renders the value in an input. It is editable unless you set `readOnly`. |
 | `ClipboardTrigger` | Copies the current value when activated. It renders a button by default. |
-| `ClipboardIndicator` | Shows different content for the idle and copied states. |
-| `ClipboardCopyText` | Text convenience for the same states. Its defaults are `Copy` and `Copied`. |
+| `ClipboardIndicator` | Shows different content for the idle and copied states. Its defaults are the copy/check icons; pass `copied="Copied"` and children for text. |
 | `ClipboardValueText` | Renders the value as text when an input is not the right surface. |
 
 ## Composition
 
 `Clipboard` owns the value and copied state. Keep one value surface (`ClipboardInput` or
-`ClipboardValueText`) and `ClipboardTrigger` inside `ClipboardControl`; `ClipboardIndicator` and
-`ClipboardCopyText` are optional and can be combined in the trigger. They follow the same copied
-state, and moduix supplies the default copy/check icons and `Copy`/`Copied` labels when their
-content is omitted.
+`ClipboardValueText`) and `ClipboardTrigger` inside `ClipboardControl`; `ClipboardIndicator` is
+optional in the trigger. It follows the same copied state, and moduix supplies the default
+copy/check icons when its content is omitted. Pass `copied="Copied"` and children for text labels.
 
 Use `defaultValue` for an uncontrolled value. When another part of the application owns the value
 or needs to react to copying, use `value` with `onValueChange(details)` and
@@ -233,8 +230,8 @@ The example keeps a count based on `details.copied`.
 
 ### Custom copy text
 
-Pass your own children or `copied` content to `ClipboardCopyText` when the button needs labels that
-match your product.
+Pass your own children or `copied` content to `ClipboardIndicator` when the button needs labels
+that match your product.
 
 <ExampleFrame variant="component">
   <CustomCopyTextClipboardDemo />
@@ -490,7 +487,6 @@ below. For copied-state styles, use Ark's `data-copied` attribute together with 
 - `ClipboardInput` -> `data-slot="clipboard-input"`
 - `ClipboardTrigger` -> `data-slot="clipboard-trigger"`
 - `ClipboardIndicator` -> `data-slot="clipboard-indicator"`
-- `ClipboardCopyText` -> `data-slot="clipboard-copy-text"`
 - `ClipboardValueText` -> `data-slot="clipboard-value-text"`
 - Ark adds `data-copied` to `Clipboard`, `ClipboardLabel`, `ClipboardControl`, `ClipboardInput`, and
   `ClipboardTrigger` while the copied state is active.

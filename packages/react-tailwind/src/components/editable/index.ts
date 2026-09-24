@@ -1,16 +1,1 @@
-export {
-  Editable,
-  EditableArea,
-  EditableCancelTrigger,
-  EditableContext,
-  EditableControl,
-  EditableControls,
-  EditableEditTrigger,
-  EditableInput,
-  EditableLabel,
-  EditablePreview,
-  EditableRootProvider,
-  EditableSubmitTrigger,
-  useEditable,
-  useEditableContext,
-} from './Editable';
+export * from './Editable.js';

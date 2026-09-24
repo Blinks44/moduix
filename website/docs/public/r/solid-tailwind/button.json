@@ -14,7 +14,7 @@
     },
     {
       "path": "src/components/button/index.ts",
-      "content": "export { Button } from './Button.js';",
+      "content": "export * from './Button.js';",
       "type": "registry:component",
       "target": "@components/ui/button/index.ts"
     }

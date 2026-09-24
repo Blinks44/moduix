@@ -5,7 +5,7 @@ import {
 } from '@ark-ui/solid/carousel';
 import { clsx } from 'clsx';
 import type { ComponentProps } from 'solid-js';
-import { children, For, splitProps } from 'solid-js';
+import { children, Index, splitProps } from 'solid-js';
 import { ChevronLeftIcon, ChevronRightIcon } from '@/lib/moduix/icons/ui/Icons';
 import styles from './Carousel.module.css';
 
@@ -147,9 +147,9 @@ function CarouselIndicators(props: CarouselIndicatorsProps) {
     <CarouselPrimitive.Context>
       {(api) => (
         <CarouselIndicatorGroup class={local.class} {...others}>
-          <For each={api().pageSnapPoints}>
-            {(_, index) => <CarouselIndicator index={index()} class={local.indicatorClassName} />}
-          </For>
+          <Index each={api().pageSnapPoints}>
+            {(_, index) => <CarouselIndicator index={index} class={local.indicatorClassName} />}
+          </Index>
         </CarouselIndicatorGroup>
       )}
     </CarouselPrimitive.Context>

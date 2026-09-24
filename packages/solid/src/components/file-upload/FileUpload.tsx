@@ -8,6 +8,7 @@ import {
 import { clsx } from 'clsx';
 import { For, children as resolveChildren, splitProps } from 'solid-js';
 import type { ComponentProps } from 'solid-js';
+import { a11yLabels } from '@/lib/moduix/a11yLabels';
 import { CloseIcon, FileIcon, TrashIcon, UploadIcon } from '@/lib/moduix/icons/ui/Icons';
 import { CloseButton } from '../close-button';
 import styles from './FileUpload.module.css';
@@ -257,7 +258,7 @@ function FileUploadClearTrigger(props: ComponentProps<typeof FileUploadPrimitive
   ]);
   const resolvedChildren = resolveChildren(() => local.children);
   const clearLabel = () =>
-    local['aria-label'] ?? (local['aria-labelledby'] == null ? 'Clear files' : undefined);
+    local['aria-label'] ?? (local['aria-labelledby'] == null ? a11yLabels.clearFiles : undefined);
   const triggerClass = () =>
     clsx(
       styles.clearTrigger,

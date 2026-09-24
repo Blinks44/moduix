@@ -20,7 +20,7 @@
     },
     {
       "path": "src/components/toggle/index.ts",
-      "content": "export { Toggle, ToggleContext, ToggleIndicator, useToggleContext } from './Toggle.js';\nexport type { ToggleRootProps, ToggleSize, ToggleVariant } from './Toggle.js';",
+      "content": "export * from './Toggle.js';",
       "type": "registry:component",
       "target": "@components/ui/toggle/index.ts"
     }

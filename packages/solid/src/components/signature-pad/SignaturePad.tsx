@@ -12,11 +12,15 @@ import { CloseButton } from '../close-button';
 import styles from './SignaturePad.module.css';
 
 const SignaturePadReadOnlyContext = createContext<Accessor<boolean>>(() => false);
-const signaturePadReadOnly = Symbol();
 
-type SignaturePadApi = ReturnType<typeof useSignaturePadPrimitive> & {
-  [signaturePadReadOnly]: Accessor<boolean>;
+type SignaturePadMachineApi = ReturnType<ReturnType<typeof useSignaturePadPrimitive>>;
+type SignaturePadApi = ((...args: never[]) => SignaturePadMachineApi) & {
+  readOnly: Accessor<boolean>;
 };
+type SignaturePadRootProviderProps = Omit<
+  ComponentProps<typeof SignaturePadPrimitive.RootProvider>,
+  'value'
+> & { value: SignaturePadApi };
 type SignaturePadHookProps = Parameters<typeof useSignaturePadPrimitive>[0];
 function SignaturePad(props: ComponentProps<typeof SignaturePadPrimitive.Root>) {
   const [local, others] = splitProps(props, ['asChild', 'children', 'class']);
@@ -38,19 +42,11 @@ function SignaturePad(props: ComponentProps<typeof SignaturePadPrimitive.Root>) 
   );
 }
 
-function SignaturePadRootProvider(
-  props: ComponentProps<typeof SignaturePadPrimitive.RootProvider>,
-) {
+function SignaturePadRootProvider(props: SignaturePadRootProviderProps) {
   const [local, others] = splitProps(props, ['asChild', 'children', 'class']);
 
   return (
-    <SignaturePadReadOnlyContext.Provider
-      value={() => {
-        const signaturePad = others.value as Partial<SignaturePadApi>;
-
-        return signaturePad[signaturePadReadOnly]?.() ?? false;
-      }}
-    >
+    <SignaturePadReadOnlyContext.Provider value={() => props.value.readOnly() ?? false}>
       <SignaturePadPrimitive.RootProvider
         asChild={local.asChild}
         class={clsx(styles.root, local.class)}
@@ -186,11 +182,13 @@ function SignaturePadCanvas(props: SignaturePadCanvasProps) {
   );
 }
 
-function useSignaturePad(props?: SignaturePadHookProps) {
+function useSignaturePad(props?: SignaturePadHookProps): SignaturePadApi {
   const field = useFieldContext();
   const signaturePad = useSignaturePadPrimitive(props);
-  const api: SignaturePadApi = () => signaturePad();
-  api[signaturePadReadOnly] = () => {
+  const api = ((...args: never[]) =>
+    signaturePad(...(args as Parameters<typeof signaturePad>))) as SignaturePadApi;
+
+  api.readOnly = () => {
     const machineProps = typeof props === 'function' ? props() : props;
 
     return machineProps?.readOnly ?? field?.().readOnly ?? false;

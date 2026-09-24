@@ -18,7 +18,7 @@
     },
     {
       "path": "src/components/editable/index.ts",
-      "content": "export {\n  Editable,\n  EditableArea,\n  EditableCancelTrigger,\n  EditableContext,\n  EditableControl,\n  EditableControls,\n  EditableEditTrigger,\n  EditableInput,\n  EditableLabel,\n  EditablePreview,\n  EditableRootProvider,\n  EditableSubmitTrigger,\n  useEditable,\n  useEditableContext,\n} from './Editable';",
+      "content": "export * from './Editable.js';",
       "type": "registry:component",
       "target": "@components/ui/editable/index.ts"
     }

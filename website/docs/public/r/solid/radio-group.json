@@ -20,7 +20,7 @@
     },
     {
       "path": "src/components/radio-group/index.ts",
-      "content": "export {\n  RadioGroup,\n  RadioGroupContext,\n  RadioGroupIndicator,\n  RadioGroupItem,\n  RadioGroupItemContext,\n  RadioGroupItemControl,\n  RadioGroupItemHiddenInput,\n  RadioGroupItemText,\n  RadioGroupLabel,\n  RadioGroupOption,\n  RadioGroupRootProvider,\n  useRadioGroup,\n  useRadioGroupContext,\n  useRadioGroupItemContext,\n} from './RadioGroup.js';\nexport type {\n  RadioGroupItemControlProps,\n  RadioGroupItemControlSize,\n  RadioGroupOptionProps,\n} from './RadioGroup.js';",
+      "content": "export * from './RadioGroup.js';",
       "type": "registry:component",
       "target": "@components/ui/radio-group/index.ts"
     }

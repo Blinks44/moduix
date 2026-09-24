@@ -20,7 +20,7 @@
     },
     {
       "path": "src/components/slider/index.ts",
-      "content": "export {\n  Slider,\n  SliderContext,\n  SliderControl,\n  SliderDraggingIndicator,\n  SliderHiddenInput,\n  SliderLabel,\n  SliderMarker,\n  SliderMarkerGroup,\n  SliderRange,\n  SliderRootProvider,\n  SliderThumb,\n  SliderThumbs,\n  SliderTrack,\n  SliderValueText,\n  useSlider,\n  useSliderContext,\n} from './Slider.js';",
+      "content": "export * from './Slider.js';",
       "type": "registry:component",
       "target": "@components/ui/slider/index.ts"
     }

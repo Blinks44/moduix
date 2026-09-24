@@ -14,7 +14,7 @@
     },
     {
       "path": "src/components/progress-linear/index.ts",
-      "content": "export {\n  ProgressLinear,\n  ProgressLinearContext,\n  ProgressLinearLabel,\n  ProgressLinearRange,\n  ProgressLinearRootProvider,\n  ProgressLinearTrack,\n  ProgressLinearValueText,\n  ProgressLinearView,\n  useProgress,\n  useProgressContext,\n} from './ProgressLinear.js';",
+      "content": "export * from './ProgressLinear.js';",
       "type": "registry:component",
       "target": "@components/ui/progress-linear/index.ts"
     }

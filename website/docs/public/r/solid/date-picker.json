@@ -25,7 +25,7 @@
     },
     {
       "path": "src/components/date-picker/index.ts",
-      "content": "export {\n  DatePicker,\n  DatePickerClearTrigger,\n  DatePickerContext,\n  DatePickerContent,\n  DatePickerControl,\n  DatePickerDayTable,\n  DatePickerField,\n  DatePickerInput,\n  DatePickerLabel,\n  DatePickerMonthSelect,\n  DatePickerNextTrigger,\n  DatePickerPositioner,\n  DatePickerPresetTrigger,\n  DatePickerPrevTrigger,\n  DatePickerRangeField,\n  DatePickerRangeText,\n  DatePickerRootProvider,\n  DatePickerTable,\n  DatePickerTableBody,\n  DatePickerTableCell,\n  DatePickerTableCellTrigger,\n  DatePickerTableHead,\n  DatePickerTableHeader,\n  DatePickerTableRow,\n  DatePickerTrigger,\n  DatePickerValueText,\n  DatePickerView,\n  DatePickerViewControl,\n  DatePickerViewTrigger,\n  DatePickerWeekNumberCell,\n  DatePickerWeekNumberHeaderCell,\n  DatePickerYearSelect,\n  useDatePicker,\n  useDatePickerContext,\n} from './DatePicker.js';\nexport type {\n  DatePickerDayTableProps,\n  DatePickerFieldProps,\n  DatePickerRangeFieldProps,\n  DatePickerRootProps,\n  DatePickerRootProviderProps,\n} from './DatePicker.js';",
+      "content": "export * from './DatePicker.js';",
       "type": "registry:component",
       "target": "@components/ui/date-picker/index.ts"
     }

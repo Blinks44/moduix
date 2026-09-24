@@ -18,7 +18,7 @@
     },
     {
       "path": "src/components/pagination/index.ts",
-      "content": "export {\n  Pagination,\n  PaginationContext,\n  PaginationEllipsis,\n  PaginationFirstTrigger,\n  PaginationItem,\n  PaginationItems,\n  PaginationLastTrigger,\n  PaginationNextTrigger,\n  PaginationPrevTrigger,\n  PaginationRootProvider,\n  usePagination,\n  usePaginationContext,\n} from './Pagination.js';",
+      "content": "export * from './Pagination.js';",
       "type": "registry:component",
       "target": "@components/ui/pagination/index.ts"
     }

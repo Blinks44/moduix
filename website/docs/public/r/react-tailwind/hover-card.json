@@ -18,7 +18,7 @@
     },
     {
       "path": "src/components/hover-card/index.ts",
-      "content": "export * from './HoverCard';",
+      "content": "export * from './HoverCard.js';",
       "type": "registry:component",
       "target": "@components/ui/hover-card/index.ts"
     }

@@ -20,7 +20,7 @@
     },
     {
       "path": "src/components/badge/index.ts",
-      "content": "export { Badge, BadgeDot, BadgeLabel } from './Badge.js';",
+      "content": "export * from './Badge.js';",
       "type": "registry:component",
       "target": "@components/ui/badge/index.ts"
     }

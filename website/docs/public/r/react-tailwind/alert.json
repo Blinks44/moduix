@@ -14,7 +14,7 @@
     },
     {
       "path": "src/components/alert/index.ts",
-      "content": "export {\n  Alert,\n  AlertActions,\n  AlertContent,\n  AlertDescription,\n  AlertIndicator,\n  AlertTitle,\n} from './Alert.js';",
+      "content": "export * from './Alert.js';",
       "type": "registry:component",
       "target": "@components/ui/alert/index.ts"
     }

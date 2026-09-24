@@ -20,7 +20,7 @@
     },
     {
       "path": "src/components/progress-circular/index.ts",
-      "content": "export {\n  ProgressCircular,\n  ProgressCircularCircle,\n  ProgressCircularCircleRange,\n  ProgressCircularCircleTrack,\n  ProgressCircularContext,\n  ProgressCircularLabel,\n  ProgressCircularRing,\n  ProgressCircularRootProvider,\n  ProgressCircularValueText,\n  ProgressCircularView,\n  useProgress,\n  useProgressContext,\n} from './ProgressCircular.js';",
+      "content": "export * from './ProgressCircular.js';",
       "type": "registry:component",
       "target": "@components/ui/progress-circular/index.ts"
     }

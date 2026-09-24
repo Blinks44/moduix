@@ -20,7 +20,7 @@
     },
     {
       "path": "src/components/hover-card/index.ts",
-      "content": "export {\n  HoverCard,\n  HoverCardArrow,\n  HoverCardArrowTip,\n  HoverCardBody,\n  HoverCardContent,\n  HoverCardContext,\n  HoverCardPositioner,\n  HoverCardRootProvider,\n  HoverCardTrigger,\n  useHoverCard,\n  useHoverCardContext,\n} from './HoverCard.js';\nexport type { HoverCardRootProps, HoverCardRootProviderProps } from './HoverCard.js';",
+      "content": "export * from './HoverCard.js';",
       "type": "registry:component",
       "target": "@components/ui/hover-card/index.ts"
     }

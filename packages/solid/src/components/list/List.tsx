@@ -1,7 +1,9 @@
 import type { HTMLArkProps } from '@ark-ui/solid/factory';
 import { ark } from '@ark-ui/solid/factory';
 import { clsx } from 'clsx';
-import { Show, splitProps } from 'solid-js';
+import type { ValidComponent } from 'solid-js';
+import { splitProps } from 'solid-js';
+import { Dynamic } from 'solid-js/web';
 import styles from './List.module.css';
 
 type ListMarker = 'disc' | 'decimal' | 'none';
@@ -43,17 +45,6 @@ type ListRootProps =
       });
 
 function List(props: ListRootProps) {
-  return (
-    <Show
-      when={props.as === 'ol'}
-      fallback={<UnorderedListRoot {...(props as Extract<ListRootProps, { as?: 'ul' }>)} />}
-    >
-      <OrderedListRoot {...(props as Extract<ListRootProps, { as: 'ol' }>)} />
-    </Show>
-  );
-}
-
-function OrderedListRoot(props: Extract<ListRootProps, { as: 'ol' }>) {
   const [local, others] = splitProps(props, [
     'as',
     'asChild',
@@ -73,43 +64,8 @@ function OrderedListRoot(props: Extract<ListRootProps, { as: 'ol' }>) {
   ]);
 
   return (
-    <ark.ol
-      asChild={local.asChild}
-      {...others}
-      role={local.role ?? (local.marker === 'none' ? 'list' : undefined)}
-      data-scope="list"
-      data-part="root"
-      data-slot="list-root"
-      data-gap={local.gap ?? 'sm'}
-      data-marker={local.marker ?? 'auto'}
-      data-size={local.size ?? 'md'}
-      data-tone={local.tone ?? 'default'}
-      class={clsx(styles.root, local.class)}
-    />
-  );
-}
-
-function UnorderedListRoot(props: Extract<ListRootProps, { as?: 'ul' }>) {
-  const [local, others] = splitProps(props, [
-    'as',
-    'asChild',
-    'class',
-    'gap',
-    'marker',
-    'role',
-    'size',
-    'tone',
-    'data-scope',
-    'data-part',
-    'data-slot',
-    'data-gap',
-    'data-marker',
-    'data-size',
-    'data-tone',
-  ]);
-
-  return (
-    <ark.ul
+    <Dynamic
+      component={(local.as === 'ol' ? ark.ol : ark.ul) as ValidComponent}
       asChild={local.asChild}
       {...others}
       role={local.role ?? (local.marker === 'none' ? 'list' : undefined)}

@@ -2,6 +2,7 @@ import { Menu as MenuPrimitive } from '@ark-ui/solid/menu';
 import { clsx } from 'clsx';
 import type { Accessor, ComponentProps, JSX } from 'solid-js';
 import { children, createContext, splitProps, useContext } from 'solid-js';
+import { a11yLabels } from '@/lib/moduix/a11yLabels';
 import { ChevronDownIcon } from '@/lib/moduix/icons/ui/Icons';
 import { OverlayPortal } from '@/lib/moduix/overlayPortal';
 import { Button } from '../button';
@@ -128,7 +129,7 @@ function SplitButtonTrigger(props: SplitButtonTriggerProps) {
   const resolvedChildren = children(() => local.children);
   const isIconOnly = () => resolvedChildren() == null;
   const ariaLabel = () =>
-    isIconOnly() ? (local['aria-label'] ?? 'More actions') : local['aria-label'];
+    isIconOnly() ? (local['aria-label'] ?? a11yLabels.moreActions) : local['aria-label'];
 
   return (
     <MenuPrimitive.Trigger

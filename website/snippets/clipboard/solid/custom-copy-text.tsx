@@ -1,7 +1,6 @@
 import {
   Clipboard,
   ClipboardControl,
-  ClipboardCopyText,
   ClipboardIndicator,
   ClipboardInput,
   ClipboardLabel,
@@ -17,7 +16,7 @@ export default function CustomCopyTextClipboardDemo() {
         <ClipboardInput readOnly />
         <ClipboardTrigger>
           <ClipboardIndicator />
-          <ClipboardCopyText copied="Copied!">Copy secret</ClipboardCopyText>
+          <ClipboardIndicator copied="Copied!">Copy secret</ClipboardIndicator>
         </ClipboardTrigger>
       </ClipboardControl>
     </Clipboard>

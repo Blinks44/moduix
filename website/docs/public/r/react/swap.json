@@ -20,7 +20,7 @@
     },
     {
       "path": "src/components/swap/index.ts",
-      "content": "export {\n  Swap,\n  SwapIndicator,\n  SwapRootProvider,\n  useSwap,\n  useSwapContext,\n  type SwapAnimation,\n} from './Swap.js';",
+      "content": "export * from './Swap.js';",
       "type": "registry:component",
       "target": "@components/ui/swap/index.ts"
     }

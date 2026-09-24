@@ -2,6 +2,7 @@ import type { HTMLArkProps } from '@ark-ui/react/factory';
 import { ark } from '@ark-ui/react/factory';
 import { clsx } from 'clsx';
 import { forwardRef, type ComponentRef } from 'react';
+import { a11yLabels } from '@/lib/moduix/a11yLabels';
 import { CloseButton } from '../close-button';
 import styles from './Tag.module.css';
 
@@ -15,8 +16,6 @@ type TagLabelProps = HTMLArkProps<'span'>;
 type TagStartElementProps = HTMLArkProps<'span'>;
 type TagEndElementProps = HTMLArkProps<'span'>;
 type TagCloseTriggerProps = HTMLArkProps<'button'>;
-
-const DEFAULT_CLOSE_LABEL = 'Remove tag';
 
 const Tag = forwardRef<HTMLSpanElement, TagProps>(function Tag(
   { className, size = 'md', variant = 'default', ...props },
@@ -106,7 +105,7 @@ const TagCloseTrigger = forwardRef<ComponentRef<typeof CloseButton>, TagCloseTri
         data-slot="tag-close-trigger"
         aria-label={
           ariaLabel ??
-          (!asChild && children == null && ariaLabelledBy == null ? DEFAULT_CLOSE_LABEL : undefined)
+          (!asChild && children == null && ariaLabelledBy == null ? a11yLabels.closeTag : undefined)
         }
         aria-labelledby={ariaLabelledBy}
         className={clsx(styles.closeTrigger, className)}

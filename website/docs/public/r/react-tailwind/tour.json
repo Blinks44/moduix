@@ -19,7 +19,7 @@
     },
     {
       "path": "src/components/tour/index.ts",
-      "content": "export {\n  Tour,\n  TourActionList,\n  TourActionTrigger,\n  TourActions,\n  TourArrow,\n  TourArrowTip,\n  TourBackdrop,\n  TourBody,\n  TourCloseIcon,\n  TourCloseTrigger,\n  TourContent,\n  TourContext,\n  TourControl,\n  TourDescription,\n  TourPositioner,\n  TourProgressText,\n  TourSpotlight,\n  TourTitle,\n  useTour,\n  useTourContext,\n  waitForElement,\n  waitForElementValue,\n  waitForEvent,\n  waitForPromise,\n} from './Tour';\nexport type { TourCloseIconProps, TourRootProps } from './Tour';",
+      "content": "export * from './Tour.js';",
       "type": "registry:component",
       "target": "@components/ui/tour/index.ts"
     }

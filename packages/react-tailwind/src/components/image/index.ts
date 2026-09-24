@@ -1,1 +1,1 @@
-export { Image, ImageSource } from './Image.js';
+export * from './Image.js';

@@ -20,7 +20,7 @@
     },
     {
       "path": "src/components/tooltip/index.ts",
-      "content": "export {\n  Tooltip,\n  TooltipArrow,\n  TooltipArrowTip,\n  TooltipBody,\n  TooltipContext,\n  TooltipContent,\n  TooltipDisabledTrigger,\n  TooltipPositioner,\n  TooltipRootProvider,\n  TooltipTrigger,\n  useTooltip,\n  useTooltipContext,\n} from './Tooltip.js';\nexport type { TooltipRootProps, TooltipRootProviderProps } from './Tooltip.js';",
+      "content": "export * from './Tooltip.js';",
       "type": "registry:component",
       "target": "@components/ui/tooltip/index.ts"
     }

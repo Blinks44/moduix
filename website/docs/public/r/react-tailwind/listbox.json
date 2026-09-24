@@ -19,7 +19,7 @@
     },
     {
       "path": "src/components/listbox/index.ts",
-      "content": "export {\n  Listbox,\n  ListboxClearTrigger,\n  ListboxContent,\n  ListboxContext,\n  ListboxEmpty,\n  ListboxFilter,\n  ListboxInput,\n  ListboxItem,\n  ListboxItemContext,\n  ListboxItemGroup,\n  ListboxItemGroupLabel,\n  ListboxItemIndicator,\n  ListboxItemText,\n  ListboxItemTextContent,\n  ListboxItemTextIcon,\n  ListboxItemTextLabel,\n  ListboxLabel,\n  ListboxRootProvider,\n  ListboxValueText,\n  useListbox,\n  useListboxContext,\n  useListboxItemContext,\n} from './Listbox.js';",
+      "content": "export * from './Listbox.js';",
       "type": "registry:component",
       "target": "@components/ui/listbox/index.ts"
     }

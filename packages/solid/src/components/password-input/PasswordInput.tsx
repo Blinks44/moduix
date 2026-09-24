@@ -6,6 +6,7 @@ import {
 import { clsx } from 'clsx';
 import type { ComponentProps } from 'solid-js';
 import { children, splitProps } from 'solid-js';
+import { toPropDefaultValue } from '@/lib/moduix/defaultValue';
 import { EyeClosedIcon, EyeIcon } from '@/lib/moduix/icons/ui/Icons';
 import styles from './PasswordInput.module.css';
 
@@ -70,7 +71,7 @@ function PasswordInputInput(props: PasswordInputInputProps) {
     <PasswordInputPrimitive.Input
       asChild={local.asChild}
       {...others}
-      {...{ 'prop:defaultValue': local.defaultValue }}
+      {...toPropDefaultValue(local.defaultValue)}
       data-slot="password-input-input"
       class={clsx(styles.input, local.class)}
     />

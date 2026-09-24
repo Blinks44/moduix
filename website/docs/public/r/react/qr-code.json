@@ -20,7 +20,7 @@
     },
     {
       "path": "src/components/qr-code/index.ts",
-      "content": "export {\n  QrCode,\n  QrCodeContext,\n  QrCodeDownloadTrigger,\n  QrCodeFrame,\n  QrCodeOverlay,\n  QrCodePattern,\n  QrCodeRootProvider,\n  useQrCode,\n  useQrCodeContext,\n} from './QrCode.js';",
+      "content": "export * from './QrCode.js';",
       "type": "registry:component",
       "target": "@components/ui/qr-code/index.ts"
     }

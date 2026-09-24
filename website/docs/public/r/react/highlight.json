@@ -20,7 +20,7 @@
     },
     {
       "path": "src/components/highlight/index.ts",
-      "content": "export { Highlight } from './Highlight.js';",
+      "content": "export * from './Highlight.js';",
       "type": "registry:component",
       "target": "@components/ui/highlight/index.ts"
     }

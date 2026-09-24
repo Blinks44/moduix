@@ -363,6 +363,7 @@ function CommandPaletteClearTrigger(props: ComponentProps<typeof ComboboxPrimiti
             (local.onClick as ((event: MouseEvent) => void) | undefined)?.(event);
 
             if (!event.defaultPrevented) {
+              event.preventDefault();
               combobox().setInputValue('');
             }
           }}

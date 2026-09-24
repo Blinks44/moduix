@@ -20,7 +20,7 @@
     },
     {
       "path": "src/components/combobox/index.ts",
-      "content": "export {\n  Combobox,\n  ComboboxClearTrigger,\n  ComboboxContext,\n  ComboboxContent,\n  ComboboxControl,\n  ComboboxEmpty,\n  ComboboxInput,\n  ComboboxItem,\n  ComboboxItemContext,\n  ComboboxItemGroup,\n  ComboboxItemGroupLabel,\n  ComboboxItemIndicator,\n  ComboboxItemText,\n  ComboboxLabel,\n  ComboboxList,\n  ComboboxOption,\n  ComboboxPositioner,\n  ComboboxRootProvider,\n  ComboboxStatus,\n  ComboboxTrigger,\n  useCombobox,\n  useComboboxContext,\n  useComboboxItemContext,\n} from './Combobox.js';",
+      "content": "export * from './Combobox.js';",
       "type": "registry:component",
       "target": "@components/ui/combobox/index.ts"
     }

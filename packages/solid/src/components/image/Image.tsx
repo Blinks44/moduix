@@ -1,50 +1,48 @@
-import type { UnpicImageProps, UnpicSourceProps } from '@unpic/core';
-import { transformProps, transformSourceProps } from '@unpic/core';
+import { Image as UnpicImage, Source as UnpicSource } from '@unpic/solid';
+import type { ImageProps as UnpicImageProps, SourceProps as UnpicSourceProps } from '@unpic/solid';
 import { clsx } from 'clsx';
-import { createMemo, splitProps } from 'solid-js';
 import type { JSX } from 'solid-js';
+import { splitProps } from 'solid-js';
 import styles from './Image.module.css';
 
-type ImageProps = Omit<
-  UnpicImageProps<JSX.ImgHTMLAttributes<HTMLImageElement>>,
-  'fetchpriority'
-> & {
+type ImageProps = Omit<UnpicImageProps, 'fetchpriority' | 'style'> & {
   fetchpriority?: JSX.ImgHTMLAttributes<HTMLImageElement>['fetchpriority'];
   style?: JSX.ImgHTMLAttributes<HTMLImageElement>['style'];
+  class?: string;
+  ref?: (element: HTMLImageElement) => void;
 };
 
-type ImageTransformProps = UnpicImageProps<JSX.ImgHTMLAttributes<HTMLImageElement>> & {
-  style?: JSX.ImgHTMLAttributes<HTMLImageElement>['style'];
+type ImageSourceProps = Omit<UnpicSourceProps, 'class'> & {
+  class?: string;
+  ref?: (element: HTMLSourceElement) => void;
 };
-
-type ImageSourceProps = UnpicSourceProps &
-  Omit<
-    JSX.SourceHTMLAttributes<HTMLSourceElement>,
-    'height' | 'media' | 'sizes' | 'src' | 'srcset' | 'type' | 'width'
-  >;
 
 function Image(props: ImageProps) {
-  const [local, others] = splitProps(props, ['class', 'fetchpriority']);
-  const imageProps = createMemo(() => {
-    const transformed = transformProps<JSX.ImgHTMLAttributes<HTMLImageElement>>({
-      ...others,
-    } as ImageTransformProps);
+  const [local, others] = splitProps(props, ['class', 'fetchpriority', 'style']);
 
-    return local.fetchpriority === undefined
-      ? transformed
-      : { ...transformed, fetchpriority: local.fetchpriority };
-  });
-
-  return <img {...imageProps()} data-slot="image-root" class={clsx(styles.root, local.class)} />;
+  return (
+    <UnpicImage
+      {...(others as UnpicImageProps)}
+      {...(local.fetchpriority !== undefined
+        ? { fetchpriority: local.fetchpriority as never }
+        : {})}
+      {...(local.style !== undefined ? { style: local.style as never } : {})}
+      data-slot="image-root"
+      class={clsx(styles.root, local.class)}
+    />
+  );
 }
 
 function ImageSource(props: ImageSourceProps) {
   const [local, others] = splitProps(props, ['class']);
-  const sourceProps = createMemo(() =>
-    transformSourceProps<JSX.SourceHTMLAttributes<HTMLSourceElement>>({ ...others }),
-  );
 
-  return <source {...sourceProps()} data-slot="image-source" class={local.class} />;
+  return (
+    <UnpicSource
+      {...(others as UnpicSourceProps)}
+      {...(local.class !== undefined ? { class: local.class as never } : {})}
+      data-slot="image-source"
+    />
+  );
 }
 
 export { Image, ImageSource };

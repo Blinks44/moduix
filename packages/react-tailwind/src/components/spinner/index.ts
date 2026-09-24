@@ -1,1 +1,1 @@
-export { Spinner } from './Spinner.js';
+export * from './Spinner.js';

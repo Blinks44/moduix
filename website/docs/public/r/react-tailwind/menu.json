@@ -25,7 +25,7 @@
     },
     {
       "path": "src/components/menu/index.ts",
-      "content": "export {\n  Menu,\n  MenuArrow,\n  MenuArrowTip,\n  MenuCheckboxItem,\n  MenuContext,\n  MenuContextTrigger,\n  MenuContent,\n  MenuIndicator,\n  MenuItem,\n  MenuItemContext,\n  MenuItemGroup,\n  MenuItemGroupLabel,\n  MenuItemIndicator,\n  MenuItemShortcut,\n  MenuItemText,\n  MenuItemTextContent,\n  MenuItemTextIcon,\n  MenuItemTextLabel,\n  MenuPositioner,\n  MenuRadioItem,\n  MenuRadioItemGroup,\n  MenuRootProvider,\n  MenuSeparator,\n  MenuTrigger,\n  MenuTriggerIcon,\n  MenuTriggerItem,\n  MenuTriggerItemIcon,\n  MenuViewport,\n  useMenu,\n  useMenuContext,\n  useMenuItemContext,\n} from './Menu';",
+      "content": "export * from './Menu.js';",
       "type": "registry:component",
       "target": "@components/ui/menu/index.ts"
     }

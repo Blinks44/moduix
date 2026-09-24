@@ -20,7 +20,7 @@
     },
     {
       "path": "src/components/toc/index.ts",
-      "content": "export {\n  Toc,\n  TocContext,\n  TocContent,\n  TocIndicator,\n  TocItem,\n  TocLink,\n  TocList,\n  TocNav,\n  TocRail,\n  TocRootProvider,\n  TocTitle,\n  useToc,\n  useTocContext,\n} from './Toc.js';",
+      "content": "export * from './Toc.js';",
       "type": "registry:component",
       "target": "@components/ui/toc/index.ts"
     }

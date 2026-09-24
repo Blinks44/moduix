@@ -14,7 +14,7 @@
     },
     {
       "path": "src/components/timer/index.ts",
-      "content": "export {\n  Timer,\n  TimerActionTrigger,\n  TimerArea,\n  TimerContext,\n  TimerControl,\n  TimerItem,\n  TimerRootProvider,\n  TimerSegments,\n  TimerSeparator,\n  useTimer,\n  useTimerContext,\n} from './Timer.js';\nexport type { TimerSegmentsProps } from './Timer.js';",
+      "content": "export * from './Timer.js';",
       "type": "registry:component",
       "target": "@components/ui/timer/index.ts"
     }

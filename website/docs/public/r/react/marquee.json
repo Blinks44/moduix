@@ -20,7 +20,7 @@
     },
     {
       "path": "src/components/marquee/index.ts",
-      "content": "export {\n  Marquee,\n  MarqueeContext,\n  MarqueeContent,\n  MarqueeEdge,\n  MarqueeItem,\n  MarqueeRootProvider,\n  MarqueeViewport,\n  useMarquee,\n  useMarqueeContext,\n} from './Marquee.js';",
+      "content": "export * from './Marquee.js';",
       "type": "registry:component",
       "target": "@components/ui/marquee/index.ts"
     }

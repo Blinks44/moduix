@@ -1,10 +1,1 @@
-export {
-  Breadcrumbs,
-  BreadcrumbsEllipsis,
-  BreadcrumbsItem,
-  BreadcrumbsLink,
-  BreadcrumbsList,
-  BreadcrumbsPage,
-  BreadcrumbsPath,
-  BreadcrumbsSeparator,
-} from './Breadcrumbs.js';
+export * from './Breadcrumbs.js';

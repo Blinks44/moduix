@@ -20,7 +20,7 @@
     },
     {
       "path": "src/components/floating-panel/index.ts",
-      "content": "export {\n  FloatingPanel,\n  FloatingPanelContext,\n  FloatingPanelRootProvider,\n  FloatingPanelTrigger,\n  FloatingPanelPositioner,\n  FloatingPanelContent,\n  FloatingPanelDragTrigger,\n  FloatingPanelHeader,\n  FloatingPanelTitle,\n  FloatingPanelControl,\n  FloatingPanelStageTrigger,\n  FloatingPanelCloseTrigger,\n  FloatingPanelCloseIcon,\n  FloatingPanelBody,\n  FloatingPanelFooter,\n  FloatingPanelResizeTrigger,\n  FloatingPanelResizeTriggerGroup,\n  FloatingPanelDragIndicator,\n  resizeTriggerAxes,\n  useFloatingPanel,\n  useFloatingPanelContext,\n} from './FloatingPanel';\nexport type { FloatingPanelRootProps, FloatingPanelRootProviderProps } from './FloatingPanel';",
+      "content": "export * from './FloatingPanel.js';",
       "type": "registry:component",
       "target": "@components/ui/floating-panel/index.ts"
     }

@@ -14,7 +14,7 @@
     },
     {
       "path": "src/components/image/index.ts",
-      "content": "export { Image, ImageSource } from './Image.js';",
+      "content": "export * from './Image.js';",
       "type": "registry:component",
       "target": "@components/ui/image/index.ts"
     }

@@ -18,7 +18,7 @@
     },
     {
       "path": "src/components/tag/index.ts",
-      "content": "export { Tag, TagCloseTrigger, TagEndElement, TagLabel, TagStartElement } from './Tag.js';",
+      "content": "export * from './Tag.js';",
       "type": "registry:component",
       "target": "@components/ui/tag/index.ts"
     }

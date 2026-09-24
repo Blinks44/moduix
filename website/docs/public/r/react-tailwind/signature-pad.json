@@ -19,7 +19,7 @@
     },
     {
       "path": "src/components/signature-pad/index.ts",
-      "content": "export {\n  SignaturePad,\n  SignaturePadCanvas,\n  SignaturePadClearTrigger,\n  SignaturePadContext,\n  SignaturePadControl,\n  SignaturePadGuide,\n  SignaturePadHiddenInput,\n  SignaturePadLabel,\n  SignaturePadRootProvider,\n  SignaturePadSegment,\n  useSignaturePad,\n  useSignaturePadContext,\n} from './SignaturePad.js';",
+      "content": "export * from './SignaturePad.js';",
       "type": "registry:component",
       "target": "@components/ui/signature-pad/index.ts"
     }

@@ -21,7 +21,7 @@
     },
     {
       "path": "src/components/command-palette/index.ts",
-      "content": "export {\n  CommandPalette,\n  CommandPaletteBackdrop,\n  CommandPaletteBody,\n  CommandPaletteClearTrigger,\n  CommandPaletteCombobox,\n  CommandPaletteContent,\n  CommandPaletteControl,\n  CommandPaletteDescription,\n  CommandPaletteEmpty,\n  CommandPaletteFooter,\n  CommandPaletteHeader,\n  CommandPaletteInput,\n  CommandPaletteItem,\n  CommandPaletteItemDescription,\n  CommandPaletteItemGroup,\n  CommandPaletteItemGroupLabel,\n  CommandPaletteItemIcon,\n  CommandPaletteItemIndicator,\n  CommandPaletteItemLabel,\n  CommandPaletteItemMeta,\n  CommandPaletteItemText,\n  CommandPaletteKbd,\n  CommandPaletteList,\n  CommandPalettePanel,\n  CommandPalettePositioner,\n  CommandPaletteRootProvider,\n  CommandPaletteSearch,\n  CommandPaletteSeparator,\n  CommandPaletteTitle,\n  CommandPaletteTrigger,\n} from './CommandPalette.js';",
+      "content": "export * from './CommandPalette.js';",
       "type": "registry:component",
       "target": "@components/ui/command-palette/index.ts"
     }

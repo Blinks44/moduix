@@ -19,7 +19,7 @@
     },
     {
       "path": "src/components/input-group/index.ts",
-      "content": "export {\n  InputGroup,\n  InputGroupAddon,\n  InputGroupButton,\n  InputGroupInput,\n  InputGroupText,\n} from './InputGroup.js';",
+      "content": "export * from './InputGroup.js';",
       "type": "registry:component",
       "target": "@components/ui/input-group/index.ts"
     }

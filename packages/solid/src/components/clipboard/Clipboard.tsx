@@ -119,29 +119,12 @@ function ClipboardValueText(props: ComponentProps<typeof ClipboardPrimitive.Valu
   );
 }
 
-function ClipboardCopyText(props: ComponentProps<typeof ClipboardPrimitive.Indicator>) {
-  const [local, others] = splitProps(props, ['children', 'class', 'copied']);
-  const resolvedChildren = children(() => local.children);
-
-  return (
-    <ClipboardPrimitive.Indicator
-      class={clsx(styles.indicator, local.class)}
-      copied={local.copied === undefined ? 'Copied' : local.copied}
-      {...others}
-      data-slot="clipboard-copy-text"
-    >
-      {resolvedChildren() === undefined ? 'Copy' : resolvedChildren()}
-    </ClipboardPrimitive.Indicator>
-  );
-}
-
 const ClipboardContext = ClipboardPrimitive.Context;
 
 export {
   Clipboard,
   ClipboardContext,
   ClipboardControl,
-  ClipboardCopyText,
   ClipboardIndicator,
   ClipboardInput,
   ClipboardLabel,

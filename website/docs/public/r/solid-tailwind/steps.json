@@ -18,7 +18,7 @@
     },
     {
       "path": "src/components/steps/index.ts",
-      "content": "export {\n  Steps,\n  StepsCompletedContent,\n  StepsContext,\n  StepsContent,\n  StepsIndicator,\n  StepsItem,\n  StepsItemContext,\n  StepsList,\n  StepsNextTrigger,\n  StepsPrevTrigger,\n  StepsProgress,\n  StepsRootProvider,\n  StepsSeparator,\n  StepsTrigger,\n  useSteps,\n  useStepsContext,\n  useStepsItemContext,\n} from './Steps';",
+      "content": "export * from './Steps.js';",
       "type": "registry:component",
       "target": "@components/ui/steps/index.ts"
     }

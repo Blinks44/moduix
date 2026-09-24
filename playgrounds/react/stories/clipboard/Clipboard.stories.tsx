@@ -5,7 +5,6 @@ import {
   Clipboard,
   ClipboardContext,
   ClipboardControl,
-  ClipboardCopyText,
   ClipboardIndicator,
   ClipboardInput,
   ClipboardLabel,
@@ -42,7 +41,6 @@ export const Basic: Story = {
           <ClipboardInput readOnly />
           <ClipboardTrigger>
             <ClipboardIndicator />
-            <ClipboardCopyText />
           </ClipboardTrigger>
         </ClipboardControl>
       </Clipboard>
@@ -66,7 +64,6 @@ export const Controlled: Story = {
             <ClipboardInput />
             <ClipboardTrigger>
               <ClipboardIndicator />
-              <ClipboardCopyText />
             </ClipboardTrigger>
           </ClipboardControl>
         </Clipboard>
@@ -129,7 +126,6 @@ export const Timeout: Story = {
           <ClipboardInput readOnly />
           <ClipboardTrigger>
             <ClipboardIndicator />
-            <ClipboardCopyText />
           </ClipboardTrigger>
         </ClipboardControl>
       </Clipboard>
@@ -148,7 +144,6 @@ export const RootProvider: Story = {
           <ClipboardInput readOnly />
           <ClipboardTrigger>
             <ClipboardIndicator />
-            <ClipboardCopyText />
           </ClipboardTrigger>
         </ClipboardControl>
       </ClipboardRootProvider>
@@ -164,7 +159,6 @@ export const ContextState: Story = {
           <ClipboardValueText className={styles.valueText} />
           <ClipboardTrigger>
             <ClipboardIndicator />
-            <ClipboardCopyText />
           </ClipboardTrigger>
         </ClipboardControl>
         <ClipboardContext>
@@ -184,7 +178,6 @@ export const Disabled: Story = {
           <ClipboardInput disabled />
           <ClipboardTrigger disabled>
             <ClipboardIndicator />
-            <ClipboardCopyText />
           </ClipboardTrigger>
         </ClipboardControl>
       </Clipboard>
@@ -204,7 +197,6 @@ export const AsChildBridge: Story = {
           <ClipboardTrigger asChild>
             <Button variant="outline">
               <ClipboardIndicator />
-              <ClipboardCopyText />
             </Button>
           </ClipboardTrigger>
         </ClipboardControl>
@@ -222,7 +214,7 @@ export const CustomCopyText: Story = {
           <ClipboardInput readOnly />
           <ClipboardTrigger>
             <ClipboardIndicator />
-            <ClipboardCopyText copied="Copied!">Copy secret</ClipboardCopyText>
+            <ClipboardIndicator copied="Copied!">Copy secret</ClipboardIndicator>
           </ClipboardTrigger>
         </ClipboardControl>
       </Clipboard>

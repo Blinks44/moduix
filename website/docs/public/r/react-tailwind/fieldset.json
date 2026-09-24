@@ -14,7 +14,7 @@
     },
     {
       "path": "src/components/fieldset/index.ts",
-      "content": "export {\n  Fieldset,\n  FieldsetContext,\n  FieldsetErrorText,\n  FieldsetHelperText,\n  FieldsetLegend,\n  FieldsetRootProvider,\n  useFieldset,\n  useFieldsetContext,\n} from './Fieldset.js';",
+      "content": "export * from './Fieldset.js';",
       "type": "registry:component",
       "target": "@components/ui/fieldset/index.ts"
     }

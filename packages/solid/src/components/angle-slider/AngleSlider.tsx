@@ -36,12 +36,11 @@ function AngleSliderLabel(props: ComponentProps<typeof AngleSliderPrimitive.Labe
 }
 
 function AngleSliderRootProvider(props: ComponentProps<typeof AngleSliderPrimitive.RootProvider>) {
-  const [local, others] = splitProps(props, ['asChild', 'children', 'class', 'value']);
+  const [local, others] = splitProps(props, ['asChild', 'children', 'class']);
 
   return (
     <AngleSliderPrimitive.RootProvider
       asChild={local.asChild}
-      value={local.value}
       class={clsx(styles.root, local.class)}
       {...others}
       data-slot="angle-slider-root-provider"

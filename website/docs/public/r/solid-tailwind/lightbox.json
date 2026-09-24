@@ -19,7 +19,7 @@
     },
     {
       "path": "src/components/lightbox/index.ts",
-      "content": "export {\n  Lightbox,\n  LightboxRootProvider,\n  LightboxTrigger,\n  LightboxBackdrop,\n  LightboxPositioner,\n  LightboxContent,\n  LightboxTitle,\n  LightboxDescription,\n  LightboxCloseTrigger,\n  LightboxCloseIcon,\n  LightboxHeader,\n  LightboxBody,\n  LightboxFooter,\n  LightboxImage,\n  LightboxGallery,\n  LightboxBind,\n  useLightbox,\n  useLightboxContext,\n} from './Lightbox';\nexport type { LightboxBindProps, LightboxImageSelectDetails } from './Lightbox';",
+      "content": "export * from './Lightbox.js';",
       "type": "registry:component",
       "target": "@components/ui/lightbox/index.ts"
     }

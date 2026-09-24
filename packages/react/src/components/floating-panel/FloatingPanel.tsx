@@ -10,6 +10,7 @@ import {
 import { clsx } from 'clsx';
 import type { ComponentProps, ComponentRef } from 'react';
 import { forwardRef } from 'react';
+import { a11yLabels } from '@/lib/moduix/a11yLabels';
 import { GripIcon, MaximizeIcon, MinusIcon, RestoreIcon } from '@/lib/moduix/icons/ui';
 import {
   OverlayPortal,
@@ -19,7 +20,6 @@ import {
 import { CloseButton } from '../close-button';
 import styles from './FloatingPanel.module.css';
 
-const DEFAULT_CLOSE_BUTTON_LABEL = 'Close panel';
 const resizeTriggerAxes = [
   'n',
   'e',
@@ -223,7 +223,7 @@ const FloatingPanelCloseIcon = forwardRef<
   ComponentRef<typeof CloseButton>,
   Omit<ComponentProps<typeof FloatingPanelPrimitive.CloseTrigger>, 'asChild'>
 >(function FloatingPanelCloseIcon(
-  { className, children, 'aria-label': ariaLabel = DEFAULT_CLOSE_BUTTON_LABEL, ...props },
+  { className, children, 'aria-label': ariaLabel = a11yLabels.closePanel, ...props },
   ref,
 ) {
   return (

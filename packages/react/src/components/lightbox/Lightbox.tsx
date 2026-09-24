@@ -5,6 +5,7 @@ import { ark, type HTMLArkProps } from '@ark-ui/react/factory';
 import { clsx } from 'clsx';
 import type { ComponentProps, ComponentRef, RefObject } from 'react';
 import { forwardRef, useEffect } from 'react';
+import { a11yLabels } from '@/lib/moduix/a11yLabels';
 import {
   OverlayPortal,
   OverlayPortalProvider,
@@ -12,8 +13,6 @@ import {
 } from '@/lib/moduix/overlayPortal';
 import { CloseButton } from '../close-button';
 import styles from './Lightbox.module.css';
-
-const DEFAULT_CLOSE_LABEL = 'Close image';
 
 type LightboxImageSelectDetails = {
   alt?: string;
@@ -215,7 +214,7 @@ const LightboxCloseIcon = forwardRef<
   ComponentRef<typeof CloseButton>,
   Omit<ComponentProps<typeof DialogPrimitive.CloseTrigger>, 'asChild'>
 >(function LightboxCloseIcon(
-  { className, children, 'aria-label': ariaLabel = DEFAULT_CLOSE_LABEL, ...props },
+  { className, children, 'aria-label': ariaLabel = a11yLabels.closeImage, ...props },
   ref,
 ) {
   const dialog = useDialogContext();

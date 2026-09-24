@@ -2,7 +2,6 @@ import { Button } from '@moduix/react/button';
 import {
   Clipboard,
   ClipboardControl,
-  ClipboardCopyText,
   ClipboardIndicator,
   ClipboardInput,
   ClipboardLabel,
@@ -22,7 +21,6 @@ export default function AsChildClipboardDemo() {
         <ClipboardTrigger asChild>
           <Button variant="outline">
             <ClipboardIndicator />
-            <ClipboardCopyText />
           </Button>
         </ClipboardTrigger>
       </ClipboardControl>

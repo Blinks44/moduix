@@ -20,7 +20,7 @@
     },
     {
       "path": "src/components/empty/index.ts",
-      "content": "export {\n  Empty,\n  EmptyActions,\n  EmptyContent,\n  EmptyDescription,\n  EmptyIcon,\n  EmptyTitle,\n} from './Empty.js';",
+      "content": "export * from './Empty.js';",
       "type": "registry:component",
       "target": "@components/ui/empty/index.ts"
     }

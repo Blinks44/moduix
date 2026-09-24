@@ -20,7 +20,7 @@
     },
     {
       "path": "src/components/collapsible/index.ts",
-      "content": "export {\n  Collapsible,\n  CollapsibleBody,\n  CollapsibleContent,\n  CollapsibleContext,\n  CollapsibleIndicator,\n  CollapsibleRootProvider,\n  CollapsibleTrigger,\n  useCollapsible,\n  useCollapsibleContext,\n} from './Collapsible.js';",
+      "content": "export * from './Collapsible.js';",
       "type": "registry:component",
       "target": "@components/ui/collapsible/index.ts"
     }

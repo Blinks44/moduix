@@ -1,6 +1,5 @@
 import {
   ClipboardControl,
-  ClipboardCopyText,
   ClipboardIndicator,
   ClipboardInput,
   ClipboardLabel,
@@ -24,7 +23,6 @@ export default function RootProviderClipboardDemo() {
           <ClipboardInput readOnly />
           <ClipboardTrigger>
             <ClipboardIndicator />
-            <ClipboardCopyText />
           </ClipboardTrigger>
         </ClipboardControl>
       </ClipboardRootProvider>

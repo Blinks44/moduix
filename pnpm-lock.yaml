@@ -507,6 +507,9 @@ importers:
       '@unpic/core':
         specifier: 'catalog:'
         version: 1.0.3
+      '@unpic/solid':
+        specifier: 1.0.0
+        version: 1.0.0(solid-js@1.9.15)
       clsx:
         specifier: 'catalog:'
         version: 2.1.1
@@ -656,7 +659,7 @@ importers:
         version: 2.2.6
       '@rsbuild/plugin-vue':
         specifier: 'catalog:'
-        version: 2.0.1(@rsbuild/core@2.2.6)(@rspack/core@2.2.4)(@vue/compiler-sfc@3.5.43)(vue@3.5.43(typescript@6.0.3))
+        version: 2.0.1(@rsbuild/core@2.2.6)(@vue/compiler-sfc@3.5.43)(vue@3.5.43(typescript@6.0.3))
       '@rslib/core':
         specifier: 'catalog:'
         version: 1.0.0(@microsoft/api-extractor@7.59.1(@types/node@24.13.6))(typescript@6.0.3)
@@ -692,7 +695,7 @@ importers:
         version: 6.0.3
       unplugin-dts:
         specifier: 'catalog:'
-        version: 1.1.0(@microsoft/api-extractor@7.59.1(@types/node@24.13.6))(@rspack/core@2.2.4)(@vue/language-core@3.3.11)(esbuild@0.28.2)(rolldown@1.2.8)(rollup@4.63.1)(supports-color@10.2.2)(typescript@6.0.3)(vite@8.3.0(@types/node@24.13.6)(esbuild@0.28.2))(webpack@5.109.2(clean-css@5.3.3)(esbuild@0.28.2)(html-minifier-terser@7.2.0)(lightningcss@1.33.0)(postcss@8.5.28))
+        version: 1.1.0(@microsoft/api-extractor@7.59.1(@types/node@24.13.6))(@vue/language-core@3.3.11)(esbuild@0.28.2)(rolldown@1.2.8)(rollup@4.63.1)(supports-color@10.2.2)(typescript@6.0.3)(vite@8.3.0(@types/node@24.13.6)(esbuild@0.28.2))(webpack@5.109.2(clean-css@5.3.3)(esbuild@0.28.2)(html-minifier-terser@7.2.0)(lightningcss@1.33.0)(postcss@8.5.28))
       vue:
         specifier: 'catalog:'
         version: 3.5.43(typescript@6.0.3)
@@ -723,7 +726,7 @@ importers:
         version: 2.2.6
       '@rsbuild/plugin-vue':
         specifier: 'catalog:'
-        version: 2.0.1(@rsbuild/core@2.2.6)(@rspack/core@2.2.4)(@vue/compiler-sfc@3.5.43)(vue@3.5.43(typescript@6.0.3))
+        version: 2.0.1(@rsbuild/core@2.2.6)(@vue/compiler-sfc@3.5.43)(vue@3.5.43(typescript@6.0.3))
       '@rslib/core':
         specifier: 'catalog:'
         version: 1.0.0(@microsoft/api-extractor@7.59.1(@types/node@24.13.6))(typescript@6.0.3)
@@ -762,7 +765,7 @@ importers:
         version: 6.0.3
       unplugin-dts:
         specifier: 'catalog:'
-        version: 1.1.0(@microsoft/api-extractor@7.59.1(@types/node@24.13.6))(@rspack/core@2.2.4)(@vue/language-core@3.3.11)(esbuild@0.28.2)(rolldown@1.2.8)(rollup@4.63.1)(supports-color@10.2.2)(typescript@6.0.3)(vite@8.3.0(@types/node@24.13.6)(esbuild@0.28.2))(webpack@5.109.2(clean-css@5.3.3)(esbuild@0.28.2)(html-minifier-terser@7.2.0)(lightningcss@1.33.0)(postcss@8.5.28))
+        version: 1.1.0(@microsoft/api-extractor@7.59.1(@types/node@24.13.6))(@vue/language-core@3.3.11)(esbuild@0.28.2)(rolldown@1.2.8)(rollup@4.63.1)(supports-color@10.2.2)(typescript@6.0.3)(vite@8.3.0(@types/node@24.13.6)(esbuild@0.28.2))(webpack@5.109.2(clean-css@5.3.3)(esbuild@0.28.2)(html-minifier-terser@7.2.0)(lightningcss@1.33.0)(postcss@8.5.28))
       vue:
         specifier: 'catalog:'
         version: 3.5.43(typescript@6.0.3)
@@ -3885,6 +3888,11 @@ packages:
     peerDependenciesMeta:
       next:
         optional: true
+
+  '@unpic/solid@1.0.0':
+    resolution: {integrity: sha512-aokmADdrmoMLt8N0vDJw6dptbdYsKIKQtrGjYowVhgxYxDjjrTuJA/7JMQDKtcf7Is4xW5xkAWBau7/KceQJxw==}
+    peerDependencies:
+      solid-js: ^1.0.0
 
   '@vitejs/plugin-vue@6.0.9':
     resolution: {integrity: sha512-rD/MORlhaZMlXWW0rEn4FB4wMinWC0z/D7Ye160S5+Rs1mC8ZDAdcDp4SjKfUhG5t8q1ktcPVw4xuTkPRlzrSA==}
@@ -9614,9 +9622,9 @@ snapshots:
       - solid-js
       - supports-color
 
-  '@rsbuild/plugin-vue@2.0.1(@rsbuild/core@2.2.6)(@rspack/core@2.2.4)(@vue/compiler-sfc@3.5.43)(vue@3.5.43(typescript@6.0.3))':
+  '@rsbuild/plugin-vue@2.0.1(@rsbuild/core@2.2.6)(@vue/compiler-sfc@3.5.43)(vue@3.5.43(typescript@6.0.3))':
     dependencies:
-      rspack-vue-loader: 17.7.0(@rspack/core@2.2.4)(@vue/compiler-sfc@3.5.43)(vue@3.5.43(typescript@6.0.3))
+      rspack-vue-loader: 17.7.0(@vue/compiler-sfc@3.5.43)(vue@3.5.43(typescript@6.0.3))
     optionalDependencies:
       '@rsbuild/core': 2.2.6
     transitivePeerDependencies:
@@ -10510,6 +10518,11 @@ snapshots:
       '@unpic/core': 1.0.3
       react: 19.3.0
       react-dom: 19.3.0(react@19.3.0)
+
+  '@unpic/solid@1.0.0(solid-js@1.9.15)':
+    dependencies:
+      '@unpic/core': 1.0.3
+      solid-js: 1.9.15
 
   '@vitejs/plugin-vue@6.0.9(vite@8.3.0(@types/node@24.13.6)(esbuild@0.28.2)(jiti@2.7.0)(terser@5.50.0)(yaml@2.9.1))(vue@3.5.43(typescript@6.0.3))':
     dependencies:
@@ -14454,12 +14467,11 @@ snapshots:
       '@microsoft/api-extractor': 7.59.1(@types/node@24.13.6)
       typescript: 7.0.2
 
-  rspack-vue-loader@17.7.0(@rspack/core@2.2.4)(@vue/compiler-sfc@3.5.43)(vue@3.5.43(typescript@6.0.3)):
+  rspack-vue-loader@17.7.0(@vue/compiler-sfc@3.5.43)(vue@3.5.43(typescript@6.0.3)):
     dependencies:
       '@rspack/lite-tapable': 1.1.5
       chalk: 4.1.2
     optionalDependencies:
-      '@rspack/core': 2.2.4(@swc/helpers@0.5.23)
       '@vue/compiler-sfc': 3.5.43
       vue: 3.5.43(typescript@6.0.3)
 
@@ -15041,7 +15053,7 @@ snapshots:
 
   unpipe@1.0.0: {}
 
-  unplugin-dts@1.1.0(@microsoft/api-extractor@7.59.1(@types/node@24.13.6))(@rspack/core@2.2.4)(@vue/language-core@3.3.11)(esbuild@0.28.2)(rolldown@1.2.8)(rollup@4.63.1)(supports-color@10.2.2)(typescript@6.0.3)(vite@8.3.0(@types/node@24.13.6)(esbuild@0.28.2))(webpack@5.109.2(clean-css@5.3.3)(esbuild@0.28.2)(html-minifier-terser@7.2.0)(lightningcss@1.33.0)(postcss@8.5.28)):
+  unplugin-dts@1.1.0(@microsoft/api-extractor@7.59.1(@types/node@24.13.6))(@vue/language-core@3.3.11)(esbuild@0.28.2)(rolldown@1.2.8)(rollup@4.63.1)(supports-color@10.2.2)(typescript@6.0.3)(vite@8.3.0(@types/node@24.13.6)(esbuild@0.28.2))(webpack@5.109.2(clean-css@5.3.3)(esbuild@0.28.2)(html-minifier-terser@7.2.0)(lightningcss@1.33.0)(postcss@8.5.28)):
     dependencies:
       '@rollup/pluginutils': 5.4.0(rollup@4.63.1)
       '@volar/typescript': 2.4.28(typescript@6.0.3)
@@ -15055,7 +15067,6 @@ snapshots:
       unplugin: 2.3.11
     optionalDependencies:
       '@microsoft/api-extractor': 7.59.1(@types/node@24.13.6)
-      '@rspack/core': 2.2.4(@swc/helpers@0.5.23)
       '@vue/language-core': 3.3.11
       esbuild: 0.28.2
       rolldown: 1.2.8

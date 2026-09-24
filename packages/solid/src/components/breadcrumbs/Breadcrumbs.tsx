@@ -3,6 +3,7 @@ import { ark } from '@ark-ui/solid/factory';
 import { clsx } from 'clsx';
 import type { JSX } from 'solid-js';
 import { children, For, splitProps } from 'solid-js';
+import { a11yLabels } from '@/lib/moduix/a11yLabels';
 import { ChevronRightIcon } from '@/lib/moduix/icons/ui/Icons';
 import styles from './Breadcrumbs.module.css';
 
@@ -22,7 +23,7 @@ function Breadcrumbs(props: HTMLArkProps<'nav'>) {
 
   return (
     <ark.nav
-      aria-label={local['aria-label'] === undefined ? 'Breadcrumb' : local['aria-label']}
+      aria-label={local['aria-label'] === undefined ? a11yLabels.breadcrumb : local['aria-label']}
       {...others}
       data-slot="breadcrumbs-root"
       class={clsx(styles.root, local.class)}

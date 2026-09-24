@@ -2,7 +2,6 @@ import {
   Clipboard,
   ClipboardContext,
   ClipboardControl,
-  ClipboardCopyText,
   ClipboardIndicator,
   ClipboardTrigger,
   ClipboardValueText,
@@ -16,7 +15,6 @@ export default function ContextClipboardDemo() {
         <ClipboardValueText />
         <ClipboardTrigger>
           <ClipboardIndicator />
-          <ClipboardCopyText />
         </ClipboardTrigger>
       </ClipboardControl>
       <ClipboardContext>

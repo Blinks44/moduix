@@ -1,0 +1,16 @@
+{
+  "$schema": "https://ui.shadcn.com/schema/registry-item.json",
+  "name": "a11y-labels",
+  "title": "moduix a11y labels",
+  "description": "Internal accessible label defaults required only by registry components that render text fallbacks.",
+  "dependencies": [],
+  "files": [
+    {
+      "path": "src/internal/a11yLabels.ts",
+      "content": "// Default accessible labels for interactive fallbacks. Consumers override via aria-label/children.\nexport const a11yLabels = {\n  breadcrumb: 'Breadcrumb',\n  clipboardCopied: 'Copied',\n  clipboardCopy: 'Copy',\n  clearFiles: 'Clear files',\n  clearSearch: 'Clear search',\n  clearSelection: 'Clear selection',\n  close: 'Close',\n  closeDialog: 'Close dialog',\n  closeDrawer: 'Close drawer',\n  closeImage: 'Close image',\n  closeModal: 'Close modal',\n  closePanel: 'Close panel',\n  closePopover: 'Close popover',\n  closeTag: 'Remove tag',\n  closeToast: 'Close toast',\n  closeTour: 'Close tour',\n  loading: 'Loading',\n  moreActions: 'More actions',\n  noResults: 'No results.',\n  resizeSidebar: 'Resize sidebar',\n  searchCommands: 'Search commands',\n  toggleSidebar: 'Toggle sidebar',\n} as const;",
+      "type": "registry:lib",
+      "target": "@lib/moduix/a11yLabels.ts"
+    }
+  ],
+  "type": "registry:item"
+}
