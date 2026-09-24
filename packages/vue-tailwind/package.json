@@ -65,6 +65,10 @@
       "types": "./dist/components/aspect-ratio/index.d.ts",
       "import": "./dist/components/aspect-ratio/index.js"
     },
+    "./avatar": {
+      "types": "./dist/components/avatar/index.d.ts",
+      "import": "./dist/components/avatar/index.js"
+    },
     "./locale": {
       "types": "./dist/locale.d.ts",
       "import": "./dist/locale.js"

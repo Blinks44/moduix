@@ -20,6 +20,13 @@ import avatarSolidCustomImage from '../../../snippets/avatar/solid/custom-image.
 import avatarSolidEvents from '../../../snippets/avatar/solid/events.tsx?raw';
 import avatarSolidRootProvider from '../../../snippets/avatar/solid/root-provider.tsx?raw';
 import avatarSolidSizesAndFallbackOnly from '../../../snippets/avatar/solid/sizes-and-fallback-only.tsx?raw';
+import avatarVueBasic from '../../../snippets/avatar/vue/basic.vue?raw';
+import avatarVueCustomComposition from '../../../snippets/avatar/vue/custom-composition.vue?raw';
+import avatarVueCustomFallback from '../../../snippets/avatar/vue/custom-fallback.vue?raw';
+import avatarVueCustomImage from '../../../snippets/avatar/vue/custom-image.vue?raw';
+import avatarVueEvents from '../../../snippets/avatar/vue/events.vue?raw';
+import avatarVueRootProvider from '../../../snippets/avatar/vue/root-provider.vue?raw';
+import avatarVueSizesAndFallbackOnly from '../../../snippets/avatar/vue/sizes-and-fallback-only.vue?raw';
 
 ## Référence de l’API
 
@@ -31,7 +38,7 @@ import avatarSolidSizesAndFallbackOnly from '../../../snippets/avatar/solid/size
 Utilisez `Avatar`, `AvatarFallback` et `AvatarImage` ensemble. Gardez `AvatarFallback` dans l’arbre
 pour qu’Ark UI puisse basculer entre le contenu de remplacement et l’image lorsque l’état de chargement change.
 
-React et Solid partagent les mêmes noms de valeurs à plat. Importez `Avatar` comme racine et chaque
+React, Solid et Vue partagent les mêmes noms de valeurs à plat. Importez `Avatar` comme racine et chaque
 partie supplémentaire directement, par exemple `AvatarImage` et `AvatarFallback`. Ces mêmes noms
 fonctionnent avec les paquets npm et les sources du registre shadcn.
 
@@ -46,6 +53,7 @@ fonctionnent avec les paquets npm et les sources du registre shadcn.
     values={[
       { label: 'React', value: 'react' },
       { label: 'Solid', value: 'solid' },
+      { label: 'Vue', value: 'vue' },
     ]}
     className="docs-tabs"
   >
@@ -58,6 +66,11 @@ fonctionnent avec les paquets npm et les sources du registre shadcn.
     <Tab value="solid">
 
 <CodeBlockRuntime lang="tsx" code={avatarSolidBasic} />
+
+    </Tab>
+    <Tab value="vue">
+
+<CodeBlockRuntime lang="vue" code={avatarVueBasic} />
 
     </Tab>
   </Tabs>
@@ -90,6 +103,16 @@ Consultez le [Démarrage rapide](/docs/quick-start) pour la configuration compl�
 />
 
   </Tab>
+  <Tab label="Vue" value="vue">
+
+<ShadcnInstallOptions
+  options={[
+    { label: 'CSS Modules', command: 'shadcn@latest add @moduix-vue/avatar' },
+    { label: 'Tailwind CSS', command: 'shadcn@latest add @moduix-vue-tailwind/avatar' },
+  ]}
+/>
+
+  </Tab>
 </Tabs>
 
 ## Anatomie
@@ -112,7 +135,7 @@ AvatarRootProvider
 
 ## Composition
 
-Gardez `AvatarFallback` et `AvatarImage` sous la même racine afin qu’Ark UI puisse gérer leur visibilité. Lorsqu’une autre partie de l’application possède l’état, créez-le avec `useAvatar()` du framework concerné et transmettez-le directement à `AvatarRootProvider` ; ne rendez pas une seconde racine pour le même store. React reçoit le store comme un objet, tandis que Solid reçoit un accessor réactif. Pour un rendu d’image personnalisé, utilisez `useAvatarContext()` et conservez les états masqué et visible renvoyés par `getImageProps()`. Utilisez `asChild` avec un seul enfant sémantique lorsqu’un autre élément doit porter le nœud DOM racine.
+Gardez `AvatarFallback` et `AvatarImage` sous la même racine afin qu’Ark UI puisse gérer leur visibilité. Lorsqu’une autre partie de l’application possède l’état, créez-le avec `useAvatar()` du framework concerné et transmettez-le directement à `AvatarRootProvider` ; ne rendez pas une seconde racine pour le même store. React reçoit le store comme un objet, tandis que Solid fournit un accesseur réactif. En Vue, transmettez directement le résultat de `useAvatar()` à `AvatarRootProvider`. React et Solid peuvent utiliser `useAvatarContext()` pour un rendu d’image personnalisé et conserver les états masqué et visible de `getImageProps()`. En Vue, le slot de `AvatarContext` expose le même état. Utilisez `asChild` avec un seul enfant sémantique lorsqu’un autre élément doit porter le nœud DOM racine.
 
 ## Exemples
 
@@ -132,6 +155,7 @@ un nom accessible si ce contenu apporte une information absente du texte voisin.
     values={[
       { label: 'React', value: 'react' },
       { label: 'Solid', value: 'solid' },
+      { label: 'Vue', value: 'vue' },
     ]}
     className="docs-tabs"
   >
@@ -146,6 +170,11 @@ un nom accessible si ce contenu apporte une information absente du texte voisin.
 <CodeBlockRuntime lang="tsx" code={avatarSolidCustomFallback} />
 
     </Tab>
+    <Tab value="vue">
+
+<CodeBlockRuntime lang="vue" code={avatarVueCustomFallback} />
+
+    </Tab>
   </Tabs>
 
 **Styles**
@@ -158,8 +187,9 @@ un nom accessible si ce contenu apporte une information absente du texte voisin.
 
 ### Image personnalisée
 
-Utilisez `useAvatarContext()` depuis moduix lorsqu’un composant d’image fourni par un framework ou un
-moteur de rendu personnalisé doit s’intégrer au cycle de chargement géré par Ark.
+Utilisez `useAvatarContext()` depuis moduix avec React ou Solid lorsqu’un composant d’image ou un
+moteur de rendu personnalisé doit s’intégrer au cycle de chargement géré par Ark. En Vue, le slot de
+`AvatarContext` fournit l’état de l’image.
 
 <ExampleFrame variant="component">
   <AvatarCustomImage />
@@ -172,6 +202,7 @@ moteur de rendu personnalisé doit s’intégrer au cycle de chargement géré p
     values={[
       { label: 'React', value: 'react' },
       { label: 'Solid', value: 'solid' },
+      { label: 'Vue', value: 'vue' },
     ]}
     className="docs-tabs"
   >
@@ -184,6 +215,11 @@ moteur de rendu personnalisé doit s’intégrer au cycle de chargement géré p
     <Tab value="solid">
 
 <CodeBlockRuntime lang="tsx" code={avatarSolidCustomImage} />
+
+    </Tab>
+    <Tab value="vue">
+
+<CodeBlockRuntime lang="vue" code={avatarVueCustomImage} />
 
     </Tab>
   </Tabs>
@@ -211,6 +247,7 @@ Utilisez `onStatusChange(details)` lorsque l’interface voisine doit réagir au
     values={[
       { label: 'React', value: 'react' },
       { label: 'Solid', value: 'solid' },
+      { label: 'Vue', value: 'vue' },
     ]}
     className="docs-tabs"
   >
@@ -223,6 +260,11 @@ Utilisez `onStatusChange(details)` lorsque l’interface voisine doit réagir au
     <Tab value="solid">
 
 <CodeBlockRuntime lang="tsx" code={avatarSolidEvents} />
+
+    </Tab>
+    <Tab value="vue">
+
+<CodeBlockRuntime lang="vue" code={avatarVueEvents} />
 
     </Tab>
   </Tabs>
@@ -251,6 +293,7 @@ interagir avec lui. Transmettez-le à `AvatarRootProvider` à la place de `Avata
     values={[
       { label: 'React', value: 'react' },
       { label: 'Solid', value: 'solid' },
+      { label: 'Vue', value: 'vue' },
     ]}
     className="docs-tabs"
   >
@@ -263,6 +306,11 @@ interagir avec lui. Transmettez-le à `AvatarRootProvider` à la place de `Avata
     <Tab value="solid">
 
 <CodeBlockRuntime lang="tsx" code={avatarSolidRootProvider} />
+
+    </Tab>
+    <Tab value="vue">
+
+<CodeBlockRuntime lang="vue" code={avatarVueRootProvider} />
 
     </Tab>
   </Tabs>
@@ -292,6 +340,7 @@ d’image n’est disponible.
     values={[
       { label: 'React', value: 'react' },
       { label: 'Solid', value: 'solid' },
+      { label: 'Vue', value: 'vue' },
     ]}
     className="docs-tabs"
   >
@@ -304,6 +353,11 @@ d’image n’est disponible.
     <Tab value="solid">
 
 <CodeBlockRuntime lang="tsx" code={avatarSolidSizesAndFallbackOnly} />
+
+    </Tab>
+    <Tab value="vue">
+
+<CodeBlockRuntime lang="vue" code={avatarVueSizesAndFallbackOnly} />
 
     </Tab>
   </Tabs>
@@ -333,6 +387,7 @@ de remplacement et la composition explicite des parties.
     values={[
       { label: 'React', value: 'react' },
       { label: 'Solid', value: 'solid' },
+      { label: 'Vue', value: 'vue' },
     ]}
     className="docs-tabs"
   >
@@ -347,6 +402,11 @@ de remplacement et la composition explicite des parties.
 <CodeBlockRuntime lang="tsx" code={avatarSolidCustomComposition} />
 
     </Tab>
+    <Tab value="vue">
+
+<CodeBlockRuntime lang="vue" code={avatarVueCustomComposition} />
+
+    </Tab>
   </Tabs>
 
 **Styles**
@@ -359,7 +419,7 @@ de remplacement et la composition explicite des parties.
 
 ## Styles
 
-Utilisez `className` et les variables CSS de moduix pour modifier l’apparence. Utilisez les attributs de
+Utilisez `className` dans React ou `class` dans Solid et Vue, ainsi que les variables CSS de moduix, pour modifier l’apparence. Utilisez les attributs de
 données fournis par Ark lorsque le style dépend de l’état de l’image.
 
 ### Propriétés CSS

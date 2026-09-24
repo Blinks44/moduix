@@ -19,6 +19,13 @@ import avatarSolidCustomImage from '../../../snippets/avatar/solid/custom-image.
 import avatarSolidEvents from '../../../snippets/avatar/solid/events.tsx?raw';
 import avatarSolidRootProvider from '../../../snippets/avatar/solid/root-provider.tsx?raw';
 import avatarSolidSizesAndFallbackOnly from '../../../snippets/avatar/solid/sizes-and-fallback-only.tsx?raw';
+import avatarVueBasic from '../../../snippets/avatar/vue/basic.vue?raw';
+import avatarVueCustomComposition from '../../../snippets/avatar/vue/custom-composition.vue?raw';
+import avatarVueCustomFallback from '../../../snippets/avatar/vue/custom-fallback.vue?raw';
+import avatarVueCustomImage from '../../../snippets/avatar/vue/custom-image.vue?raw';
+import avatarVueEvents from '../../../snippets/avatar/vue/events.vue?raw';
+import avatarVueRootProvider from '../../../snippets/avatar/vue/root-provider.vue?raw';
+import avatarVueSizesAndFallbackOnly from '../../../snippets/avatar/vue/sizes-and-fallback-only.vue?raw';
 
 ## Справочник API
 
@@ -30,7 +37,7 @@ import avatarSolidSizesAndFallbackOnly from '../../../snippets/avatar/solid/size
 Используйте вместе `Avatar`, `AvatarFallback` и `AvatarImage`. Не убирайте `AvatarFallback` из
 дерева, чтобы Ark UI мог переключаться между ним и изображением при изменении состояния загрузки.
 
-В React и Solid действуют одинаковые плоские имена значений. Импортируйте `Avatar` как корень и
+В React, Solid и Vue действуют одинаковые плоские имена значений. Импортируйте `Avatar` как корень и
 каждую дополнительную часть отдельно, например `AvatarImage` и `AvatarFallback`. Эти же имена
 работают и с npm-пакетами, и с исходниками из shadcn-реестра.
 
@@ -45,6 +52,7 @@ import avatarSolidSizesAndFallbackOnly from '../../../snippets/avatar/solid/size
     values={[
       { label: 'React', value: 'react' },
       { label: 'Solid', value: 'solid' },
+      { label: 'Vue', value: 'vue' },
     ]}
     className="docs-tabs"
   >
@@ -57,6 +65,11 @@ import avatarSolidSizesAndFallbackOnly from '../../../snippets/avatar/solid/size
     <Tab value="solid">
 
 <CodeBlockRuntime lang="tsx" code={avatarSolidBasic} />
+
+    </Tab>
+    <Tab value="vue">
+
+<CodeBlockRuntime lang="vue" code={avatarVueBasic} />
 
     </Tab>
   </Tabs>
@@ -89,6 +102,16 @@ import avatarSolidSizesAndFallbackOnly from '../../../snippets/avatar/solid/size
 />
 
   </Tab>
+  <Tab label="Vue" value="vue">
+
+<ShadcnInstallOptions
+  options={[
+    { label: 'CSS Modules', command: 'shadcn@latest add @moduix-vue/avatar' },
+    { label: 'Tailwind CSS', command: 'shadcn@latest add @moduix-vue-tailwind/avatar' },
+  ]}
+/>
+
+  </Tab>
 </Tabs>
 
 ## Анатомия
@@ -115,10 +138,11 @@ AvatarRootProvider
 переключать их видимость. Если состояние должно принадлежать другой части приложения, создайте его
 с помощью `useAvatar()` из пакета нужного фреймворка и напрямую передайте в `AvatarRootProvider`;
 не добавляйте для того же хранилища ещё один корневой компонент. В React хранилище передаётся как
-объект, а в Solid - через реактивную функцию доступа. Для пользовательского рендера изображения используйте
-`useAvatarContext()` и сохраняйте состояния `hidden` и `visible`, которые возвращает
-`getImageProps()`. Применяйте `asChild` только с одним семантически подходящим дочерним элементом,
-если другой элемент должен владеть корневым DOM-узлом.
+объект, а Solid предоставляет реактивную функцию доступа. В Vue напрямую передавайте результат
+`useAvatar()` в `AvatarRootProvider`. В React и Solid для пользовательского изображения используйте
+`useAvatarContext()` и сохраняйте состояния `hidden` и `visible`, возвращаемые `getImageProps()`.
+В Vue `AvatarContext` предоставляет эти данные через слот. Применяйте `asChild` только с одним
+семантически подходящим дочерним элементом, если другой элемент должен владеть корневым DOM-узлом.
 
 ## Примеры
 
@@ -138,6 +162,7 @@ AvatarRootProvider
     values={[
       { label: 'React', value: 'react' },
       { label: 'Solid', value: 'solid' },
+      { label: 'Vue', value: 'vue' },
     ]}
     className="docs-tabs"
   >
@@ -152,6 +177,11 @@ AvatarRootProvider
 <CodeBlockRuntime lang="tsx" code={avatarSolidCustomFallback} />
 
     </Tab>
+    <Tab value="vue">
+
+<CodeBlockRuntime lang="vue" code={avatarVueCustomFallback} />
+
+    </Tab>
   </Tabs>
 
 **Стили**
@@ -164,8 +194,9 @@ AvatarRootProvider
 
 ### Пользовательское изображение
 
-Используйте `useAvatarContext()` из соответствующего пакета moduix, если компонент изображения из
-фреймворка или пользовательский рендерер должен подключиться к жизненному циклу загрузки Ark.
+Используйте `useAvatarContext()` из пакета moduix для React или Solid, если компонент изображения
+или пользовательский рендерер должен подключиться к жизненному циклу загрузки Ark. В Vue состояние
+изображения доступно через слот `AvatarContext`.
 
 <ExampleFrame variant="component">
   <AvatarCustomImage />
@@ -178,6 +209,7 @@ AvatarRootProvider
     values={[
       { label: 'React', value: 'react' },
       { label: 'Solid', value: 'solid' },
+      { label: 'Vue', value: 'vue' },
     ]}
     className="docs-tabs"
   >
@@ -190,6 +222,11 @@ AvatarRootProvider
     <Tab value="solid">
 
 <CodeBlockRuntime lang="tsx" code={avatarSolidCustomImage} />
+
+    </Tab>
+    <Tab value="vue">
+
+<CodeBlockRuntime lang="vue" code={avatarVueCustomImage} />
 
     </Tab>
   </Tabs>
@@ -218,6 +255,7 @@ AvatarRootProvider
     values={[
       { label: 'React', value: 'react' },
       { label: 'Solid', value: 'solid' },
+      { label: 'Vue', value: 'vue' },
     ]}
     className="docs-tabs"
   >
@@ -230,6 +268,11 @@ AvatarRootProvider
     <Tab value="solid">
 
 <CodeBlockRuntime lang="tsx" code={avatarSolidEvents} />
+
+    </Tab>
+    <Tab value="vue">
+
+<CodeBlockRuntime lang="vue" code={avatarVueEvents} />
 
     </Tab>
   </Tabs>
@@ -258,6 +301,7 @@ AvatarRootProvider
     values={[
       { label: 'React', value: 'react' },
       { label: 'Solid', value: 'solid' },
+      { label: 'Vue', value: 'vue' },
     ]}
     className="docs-tabs"
   >
@@ -270,6 +314,11 @@ AvatarRootProvider
     <Tab value="solid">
 
 <CodeBlockRuntime lang="tsx" code={avatarSolidRootProvider} />
+
+    </Tab>
+    <Tab value="vue">
+
+<CodeBlockRuntime lang="vue" code={avatarVueRootProvider} />
 
     </Tab>
   </Tabs>
@@ -298,6 +347,7 @@ AvatarRootProvider
     values={[
       { label: 'React', value: 'react' },
       { label: 'Solid', value: 'solid' },
+      { label: 'Vue', value: 'vue' },
     ]}
     className="docs-tabs"
   >
@@ -310,6 +360,11 @@ AvatarRootProvider
     <Tab value="solid">
 
 <CodeBlockRuntime lang="tsx" code={avatarSolidSizesAndFallbackOnly} />
+
+    </Tab>
+    <Tab value="vue">
+
+<CodeBlockRuntime lang="vue" code={avatarVueSizesAndFallbackOnly} />
 
     </Tab>
   </Tabs>
@@ -339,6 +394,7 @@ AvatarRootProvider
     values={[
       { label: 'React', value: 'react' },
       { label: 'Solid', value: 'solid' },
+      { label: 'Vue', value: 'vue' },
     ]}
     className="docs-tabs"
   >
@@ -353,6 +409,11 @@ AvatarRootProvider
 <CodeBlockRuntime lang="tsx" code={avatarSolidCustomComposition} />
 
     </Tab>
+    <Tab value="vue">
+
+<CodeBlockRuntime lang="vue" code={avatarVueCustomComposition} />
+
+    </Tab>
   </Tabs>
 
 **Стили**
@@ -365,7 +426,7 @@ AvatarRootProvider
 
 ## Стилизация
 
-Для структурных стилей используйте `className` в React или `class` в Solid на экспортируемых частях.
+Для структурных стилей используйте `className` в React или `class` в Solid и Vue на экспортируемых частях.
 Варианты Tailwind используют обычные утилитарные классы и классы потребителя; приведённый ниже список
 CSS-переменных относится к вариантам с CSS Modules. Если стиль зависит от состояния изображения,
 используйте атрибуты данных Ark вместе с селекторами `data-slot` moduix.

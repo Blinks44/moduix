@@ -118,6 +118,9 @@ Use this skill for JS/TS Vue work in this repo.
   variables on every public composition path.
 - Ark Vue context and state values are refs or computed values. Expose them in the idiomatic Ark
   Vue form while keeping the same names and meaning as the React package.
+- Check the exact scoped-slot payload declared by an Ark Vue context component before typing a
+  helper that consumes it. The payload can be `UnwrapRef<UseFooContext>` while the exported context
+  type itself is a computed ref; for example, Avatar's template slot is `UnwrapRef<UseAvatarContext>`.
 - Keep `asChild` children single and semantic, mirroring the React/Solid contract. Verify the
   installed Ark Vue factory's `asChild` and `ref` behavior before claiming parity; record any
   unavoidable Ark Vue difference with the component.

@@ -225,6 +225,46 @@
       ]
     },
     {
+      "name": "avatar",
+      "type": "registry:item",
+      "title": "Avatar",
+      "description": "moduix Vue Avatar component.",
+      "dependencies": ["@ark-ui/vue", "clsx"],
+      "registryDependencies": ["@moduix-vue/foundation"],
+      "files": [
+        {
+          "path": "src/components/avatar/Avatar.vue",
+          "target": "@components/ui/avatar/Avatar.vue",
+          "type": "registry:component"
+        },
+        {
+          "path": "src/components/avatar/AvatarRootProvider.vue",
+          "target": "@components/ui/avatar/AvatarRootProvider.vue",
+          "type": "registry:component"
+        },
+        {
+          "path": "src/components/avatar/AvatarFallback.vue",
+          "target": "@components/ui/avatar/AvatarFallback.vue",
+          "type": "registry:component"
+        },
+        {
+          "path": "src/components/avatar/AvatarImage.vue",
+          "target": "@components/ui/avatar/AvatarImage.vue",
+          "type": "registry:component"
+        },
+        {
+          "path": "src/components/avatar/Avatar.module.css",
+          "target": "@components/ui/avatar/Avatar.module.css",
+          "type": "registry:file"
+        },
+        {
+          "path": "src/components/avatar/index.ts",
+          "target": "@components/ui/avatar/index.ts",
+          "type": "registry:component"
+        }
+      ]
+    },
+    {
       "name": "core",
       "type": "registry:item",
       "title": "moduix core",

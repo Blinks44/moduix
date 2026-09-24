@@ -209,6 +209,41 @@
       ]
     },
     {
+      "name": "avatar",
+      "type": "registry:item",
+      "title": "Avatar",
+      "description": "moduix Vue Tailwind Avatar component.",
+      "dependencies": ["@ark-ui/vue", "class-variance-authority", "clsx", "tailwind-merge"],
+      "registryDependencies": ["@moduix-vue-tailwind/foundation", "@moduix-vue-tailwind/cn"],
+      "files": [
+        {
+          "path": "src/components/avatar/Avatar.vue",
+          "target": "@components/ui/avatar/Avatar.vue",
+          "type": "registry:component"
+        },
+        {
+          "path": "src/components/avatar/AvatarRootProvider.vue",
+          "target": "@components/ui/avatar/AvatarRootProvider.vue",
+          "type": "registry:component"
+        },
+        {
+          "path": "src/components/avatar/AvatarFallback.vue",
+          "target": "@components/ui/avatar/AvatarFallback.vue",
+          "type": "registry:component"
+        },
+        {
+          "path": "src/components/avatar/AvatarImage.vue",
+          "target": "@components/ui/avatar/AvatarImage.vue",
+          "type": "registry:component"
+        },
+        {
+          "path": "src/components/avatar/index.ts",
+          "target": "@components/ui/avatar/index.ts",
+          "type": "registry:component"
+        }
+      ]
+    },
+    {
       "name": "foundation",
       "type": "registry:item",
       "title": "moduix Vue Tailwind core",
