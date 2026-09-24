@@ -1,7 +1,7 @@
 ---
 title: Button
 component: button
-description: Un bouton stylisé pour les actions, construit avec le modèle de composition d’Ark factory.
+description: Un bouton stylisé pour React, Solid et Vue, avec des variantes CSS Modules et Tailwind.
 ---
 
 import * as ButtonDocs from '@/components/examples/button/css-properties';
@@ -22,6 +22,14 @@ import buttonSolidPendingState from '../../../snippets/button/solid/pending-stat
 import buttonSolidRef from '../../../snippets/button/solid/ref.tsx?raw';
 import buttonSolidSizes from '../../../snippets/button/solid/sizes.tsx?raw';
 import buttonSolidVariants from '../../../snippets/button/solid/variants.tsx?raw';
+import buttonVueAsChildLink from '../../../snippets/button/vue/as-child-link.vue?raw';
+import buttonVueBasic from '../../../snippets/button/vue/basic.vue?raw';
+import buttonVueDisabled from '../../../snippets/button/vue/disabled.vue?raw';
+import buttonVueIcons from '../../../snippets/button/vue/icons.vue?raw';
+import buttonVuePendingState from '../../../snippets/button/vue/pending-state.vue?raw';
+import buttonVueRef from '../../../snippets/button/vue/ref.vue?raw';
+import buttonVueSizes from '../../../snippets/button/vue/sizes.vue?raw';
+import buttonVueVariants from '../../../snippets/button/vue/variants.vue?raw';
 
 ## Référence de l’API
 
@@ -31,7 +39,7 @@ Ark UI ne fournit pas de primitive `button` dédiée. moduix construit ce compos
 [gestion des refs](https://ark-ui.com/docs/guides/ref).
 
 
-Les mêmes exports sont disponibles depuis `@moduix/solid/button` pour Solid.
+Les mêmes exports sont disponibles depuis `@moduix/solid/button` pour Solid et `@moduix/vue/button` pour Vue.
 ## Exemple de base
 
 Pour la plupart des actions, utilisez `<Button>...</Button>`.
@@ -48,6 +56,7 @@ Pour la plupart des actions, utilisez `<Button>...</Button>`.
     values={[
       { label: 'React', value: 'react' },
       { label: 'Solid', value: 'solid' },
+      { label: 'Vue', value: 'vue' },
     ]}
     className="docs-tabs"
   >
@@ -60,6 +69,11 @@ Pour la plupart des actions, utilisez `<Button>...</Button>`.
     <Tab value="solid">
 
 <CodeBlockRuntime lang="tsx" code={buttonSolidBasic} />
+
+    </Tab>
+    <Tab value="vue">
+
+<CodeBlockRuntime lang="vue" code={buttonVueBasic} />
 
     </Tab>
   </Tabs>
@@ -92,6 +106,16 @@ Consultez le [Démarrage rapide](/docs/quick-start) pour la configuration compl�
 />
 
   </Tab>
+  <Tab label="Vue" value="vue">
+
+<ShadcnInstallOptions
+  options={[
+    { label: 'CSS Modules', command: 'shadcn@latest add @moduix-vue/button' },
+    { label: 'Tailwind CSS', command: 'shadcn@latest add @moduix-vue-tailwind/button' },
+  ]}
+/>
+
+  </Tab>
 </Tabs>
 
 ## Anatomie
@@ -110,7 +134,7 @@ Button
 
 ## Composition
 
-`Button` est une racine à partie unique. Utilisez `asChild` lorsqu’un autre élément sémantique doit porter le nœud DOM rendu : React reçoit exactement un enfant, tandis que Solid utilise une fonction de rendu avec `asChild`. Lorsqu’une partie Ark compose Button, le parent reste propriétaire de `data-scope` et `data-part` ; Button conserve ses classes de recette et son `data-slot` stable.
+`Button` est une racine à partie unique. Utilisez `asChild` lorsqu’un autre élément sémantique doit porter le nœud DOM rendu : React reçoit exactement un enfant, Solid utilise une fonction de rendu avec `asChild` et Vue fournit l’élément sémantique comme contenu du slot par défaut. Lorsqu’une partie Ark compose Button, le parent reste propriétaire de `data-scope` et `data-part` ; Button conserve ses classes de recette et son `data-slot` stable.
 
 La propriété `loading` ne gère que l’état occupé et désactivé (`data-loading`, `aria-busy` et `data-disabled`) ; l’application reste responsable de l’indicateur de chargement, du libellé et du cycle asynchrone. Les racines natives utilisent `type="button"` par défaut, mais les cibles `asChild` ne reçoivent pas cette valeur par défaut.
 ## Exemples
@@ -130,6 +154,7 @@ Utilisez `disabled` avec les boutons natifs et les éléments utilisés avec `as
     values={[
       { label: 'React', value: 'react' },
       { label: 'Solid', value: 'solid' },
+      { label: 'Vue', value: 'vue' },
     ]}
     className="docs-tabs"
   >
@@ -142,6 +167,11 @@ Utilisez `disabled` avec les boutons natifs et les éléments utilisés avec `as
     <Tab value="solid">
 
 <CodeBlockRuntime lang="tsx" code={buttonSolidDisabled} />
+
+    </Tab>
+    <Tab value="vue">
+
+<CodeBlockRuntime lang="vue" code={buttonVueDisabled} />
 
     </Tab>
   </Tabs>
@@ -169,6 +199,7 @@ Les icônes peuvent se placer avant ou après le texte. Leur ordre dans le JSX e
     values={[
       { label: 'React', value: 'react' },
       { label: 'Solid', value: 'solid' },
+      { label: 'Vue', value: 'vue' },
     ]}
     className="docs-tabs"
   >
@@ -181,6 +212,11 @@ Les icônes peuvent se placer avant ou après le texte. Leur ordre dans le JSX e
     <Tab value="solid">
 
 <CodeBlockRuntime lang="tsx" code={buttonSolidIcons} />
+
+    </Tab>
+    <Tab value="vue">
+
+<CodeBlockRuntime lang="vue" code={buttonVueIcons} />
 
     </Tab>
   </Tabs>
@@ -209,6 +245,7 @@ recevant les styles du bouton.
     values={[
       { label: 'React', value: 'react' },
       { label: 'Solid', value: 'solid' },
+      { label: 'Vue', value: 'vue' },
     ]}
     className="docs-tabs"
   >
@@ -221,6 +258,11 @@ recevant les styles du bouton.
     <Tab value="solid">
 
 <CodeBlockRuntime lang="tsx" code={buttonSolidAsChildLink} />
+
+    </Tab>
+    <Tab value="vue">
+
+<CodeBlockRuntime lang="vue" code={buttonVueAsChildLink} />
 
     </Tab>
   </Tabs>
@@ -245,6 +287,7 @@ l’activation au clic.
     values={[
       { label: 'React', value: 'react' },
       { label: 'Solid', value: 'solid' },
+      { label: 'Vue', value: 'vue' },
     ]}
     className="docs-tabs"
   >
@@ -259,6 +302,11 @@ l’activation au clic.
 <CodeBlockRuntime lang="tsx" code={buttonSolidPendingState} />
 
     </Tab>
+    <Tab value="vue">
+
+<CodeBlockRuntime lang="vue" code={buttonVuePendingState} />
+
+    </Tab>
   </Tabs>
 </div>
 
@@ -266,7 +314,7 @@ l’activation au clic.
 
 ### Ref
 
-La ref transmise pointe vers l’élément racine rendu ; vous pouvez l’utiliser pour lui donner le focus par programmation ou le mesurer.
+La ref transmise pointe vers l’élément racine rendu ; vous pouvez l’utiliser pour lui donner le focus par programmation ou le mesurer. Dans Vue, une ref de template pointe vers l’instance du composant ; utilisez `$el` pour accéder à la racine rendue, qui est l’élément sémantique enfant avec `asChild`.
 
 <ExampleFrame variant="component">
   <ButtonRef />
@@ -279,6 +327,7 @@ La ref transmise pointe vers l’élément racine rendu ; vous pouvez l’utilis
     values={[
       { label: 'React', value: 'react' },
       { label: 'Solid', value: 'solid' },
+      { label: 'Vue', value: 'vue' },
     ]}
     className="docs-tabs"
   >
@@ -291,6 +340,11 @@ La ref transmise pointe vers l’élément racine rendu ; vous pouvez l’utilis
     <Tab value="solid">
 
 <CodeBlockRuntime lang="tsx" code={buttonSolidRef} />
+
+    </Tab>
+    <Tab value="vue">
+
+<CodeBlockRuntime lang="vue" code={buttonVueRef} />
 
     </Tab>
   </Tabs>
@@ -318,6 +372,7 @@ Les boutons avec texte et les boutons composés uniquement d’une icône utilis
     values={[
       { label: 'React', value: 'react' },
       { label: 'Solid', value: 'solid' },
+      { label: 'Vue', value: 'vue' },
     ]}
     className="docs-tabs"
   >
@@ -330,6 +385,11 @@ Les boutons avec texte et les boutons composés uniquement d’une icône utilis
     <Tab value="solid">
 
 <CodeBlockRuntime lang="tsx" code={buttonSolidSizes} />
+
+    </Tab>
+    <Tab value="vue">
+
+<CodeBlockRuntime lang="vue" code={buttonVueSizes} />
 
     </Tab>
   </Tabs>
@@ -357,6 +417,7 @@ Utilisez les variantes pour exprimer la priorité et l’intention de l’action
     values={[
       { label: 'React', value: 'react' },
       { label: 'Solid', value: 'solid' },
+      { label: 'Vue', value: 'vue' },
     ]}
     className="docs-tabs"
   >
@@ -371,6 +432,11 @@ Utilisez les variantes pour exprimer la priorité et l’intention de l’action
 <CodeBlockRuntime lang="tsx" code={buttonSolidVariants} />
 
     </Tab>
+    <Tab value="vue">
+
+<CodeBlockRuntime lang="vue" code={buttonVueVariants} />
+
+    </Tab>
   </Tabs>
 
 **Styles**
@@ -382,6 +448,8 @@ Utilisez les variantes pour exprimer la priorité et l’intention de l’action
 </ExampleCode>
 
 ## Styles
+
+Utilisez `className` en React et `class` en Solid ou Vue sur la racine pour appliquer des classes personnalisées.
 
 ### Propriétés CSS
 

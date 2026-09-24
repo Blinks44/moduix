@@ -18,6 +18,7 @@ import alertSolidError from '../../../snippets/alert/solid/error.tsx?raw';
 import alertSolidStatuses from '../../../snippets/alert/solid/statuses.tsx?raw';
 import alertSolidWithIcon from '../../../snippets/alert/solid/with-icon.tsx?raw';
 import alertVueBasic from '../../../snippets/alert/vue/basic.vue?raw';
+import alertVueCustomComposition from '../../../snippets/alert/vue/custom-composition.vue?raw';
 import alertVueCustomHeading from '../../../snippets/alert/vue/custom-heading.vue?raw';
 import alertVueError from '../../../snippets/alert/vue/error.vue?raw';
 import alertVueStatuses from '../../../snippets/alert/vue/statuses.vue?raw';
@@ -351,6 +352,7 @@ Alert
     values={[
       { label: 'React', value: 'react' },
       { label: 'Solid', value: 'solid' },
+      { label: 'Vue', value: 'vue' },
     ]}
     className="docs-tabs"
   >
@@ -363,6 +365,11 @@ Alert
     <Tab value="solid">
 
 <CodeBlockRuntime lang="tsx" code={alertSolidCustomComposition} />
+
+    </Tab>
+    <Tab value="vue">
+
+<CodeBlockRuntime lang="vue" code={alertVueCustomComposition} />
 
     </Tab>
   </Tabs>

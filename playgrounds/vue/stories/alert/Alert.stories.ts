@@ -1,12 +1,14 @@
 import type { Meta, StoryObj } from '@storybook/vue3-vite';
-import { defineComponent, h } from 'vue';
+import { defineComponent, h, ref } from 'vue';
 import {
   Alert,
+  AlertActions,
   AlertContent,
   AlertDescription,
   AlertIndicator,
   AlertTitle,
 } from '@/components/alert';
+import { Button } from '@/components/button';
 import { CheckIcon } from '@/lib/moduix/icons/ui/Icons';
 import styles from './Alert.stories.module.css';
 
@@ -48,10 +50,12 @@ const statuses = ['info', 'success', 'warning', 'error'] as const;
 
 const alertComponents = {
   Alert,
+  AlertActions,
   AlertContent,
   AlertDescription,
   AlertIndicator,
   AlertTitle,
+  Button,
   CheckIcon,
   InfoIcon,
 };
@@ -142,4 +146,33 @@ export const WithIcon: Story = {
   `),
 };
 
-// AdvancedCustomization is deferred until the moduix Button family is ported to Vue.
+export const AdvancedCustomization: Story = {
+  render: () => {
+    const visible = ref(true);
+    const dismiss = () => (visible.value = false);
+
+    return defineComponent({
+      components: alertComponents,
+      setup() {
+        return { dismiss, styles, visible };
+      },
+      template: `
+        <div :class="styles.stack">
+          <Alert v-if="visible" status="warning" :class="styles.customAlert">
+            <AlertIndicator><InfoIcon /></AlertIndicator>
+            <AlertContent>
+              <AlertTitle>Storage is almost full</AlertTitle>
+              <AlertDescription>
+                You are using 92% of the available storage. Archive old uploads or upgrade the plan.
+              </AlertDescription>
+              <AlertActions>
+                <Button size="sm">Review uploads</Button>
+                <Button size="sm" variant="outline" @click="dismiss">Dismiss</Button>
+              </AlertActions>
+            </AlertContent>
+          </Alert>
+        </div>
+      `,
+    });
+  },
+};

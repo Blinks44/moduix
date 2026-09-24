@@ -19,6 +19,13 @@ import badgeSolidLongLabels from '../../../snippets/badge/solid/long-labels.tsx?
 import badgeSolidVariants from '../../../snippets/badge/solid/variants.tsx?raw';
 import badgeSolidWithDot from '../../../snippets/badge/solid/with-dot.tsx?raw';
 import badgeSolidWithIcon from '../../../snippets/badge/solid/with-icon.tsx?raw';
+import badgeVueBasic from '../../../snippets/badge/vue/basic.vue?raw';
+import badgeVueCustomStyling from '../../../snippets/badge/vue/custom-styling.vue?raw';
+import badgeVueLink from '../../../snippets/badge/vue/link.vue?raw';
+import badgeVueLongLabels from '../../../snippets/badge/vue/long-labels.vue?raw';
+import badgeVueVariants from '../../../snippets/badge/vue/variants.vue?raw';
+import badgeVueWithDot from '../../../snippets/badge/vue/with-dot.vue?raw';
+import badgeVueWithIcon from '../../../snippets/badge/vue/with-icon.vue?raw';
 
 ## API Reference
 
@@ -34,6 +41,8 @@ for a control that lets the user select or edit a value.
 
 - Choose **`Badge`** for short metadata such as status, category, version, or count.
 - Choose **`Tag`** for selected values, filters, assignments, or labels that are part of the current interface state.
+
+The Vue exports are available from `@moduix/vue/badge` for CSS Modules and `@moduix/vue-tailwind/badge` for Tailwind CSS.
 
 ## Basic
 
@@ -53,6 +62,7 @@ only when the status benefits from a visual indicator.
     values={[
       { label: 'React', value: 'react' },
       { label: 'Solid', value: 'solid' },
+      { label: 'Vue', value: 'vue' },
     ]}
     className="docs-tabs"
   >
@@ -65,6 +75,11 @@ only when the status benefits from a visual indicator.
     <Tab value="solid">
 
 <CodeBlockRuntime lang="tsx" code={badgeSolidBasic} />
+
+    </Tab>
+    <Tab value="vue">
+
+<CodeBlockRuntime lang="vue" code={badgeVueBasic} />
 
     </Tab>
   </Tabs>
@@ -93,6 +108,16 @@ See [Quick Start](/docs/quick-start) for full package setup, registry configurat
   options={[
     { label: 'CSS Modules', command: 'shadcn@latest add @moduix-solid/badge' },
     { label: 'Tailwind CSS', command: 'shadcn@latest add @moduix-solid-tailwind/badge' },
+  ]}
+/>
+
+  </Tab>
+  <Tab label="Vue" value="vue">
+
+<ShadcnInstallOptions
+  options={[
+    { label: 'CSS Modules', command: 'shadcn@latest add @moduix-vue/badge' },
+    { label: 'Tailwind CSS', command: 'shadcn@latest add @moduix-vue-tailwind/badge' },
   ]}
 />
 
@@ -126,6 +151,8 @@ a render function to `asChild`; the rendered child keeps its native semantics.
 In Solid, assign a ref to the element created inside the `asChild` render function. A ref on `Badge`
 itself is not forwarded through that composition path.
 
+In Vue, place exactly one child in the default slot when using `as-child`; the child keeps its native semantics.
+
 ## Examples
 
 ### Custom Styling
@@ -144,6 +171,7 @@ a small adjustment.
     values={[
       { label: 'React', value: 'react' },
       { label: 'Solid', value: 'solid' },
+      { label: 'Vue', value: 'vue' },
     ]}
     className="docs-tabs"
   >
@@ -156,6 +184,11 @@ a small adjustment.
     <Tab value="solid">
 
 <CodeBlockRuntime lang="tsx" code={badgeSolidCustomStyling} />
+
+    </Tab>
+    <Tab value="vue">
+
+<CodeBlockRuntime lang="vue" code={badgeVueCustomStyling} />
 
     </Tab>
   </Tabs>
@@ -184,6 +217,7 @@ element remains a real link and keeps its native semantics.
     values={[
       { label: 'React', value: 'react' },
       { label: 'Solid', value: 'solid' },
+      { label: 'Vue', value: 'vue' },
     ]}
     className="docs-tabs"
   >
@@ -196,6 +230,11 @@ element remains a real link and keeps its native semantics.
     <Tab value="solid">
 
 <CodeBlockRuntime lang="tsx" code={badgeSolidLink} />
+
+    </Tab>
+    <Tab value="vue">
+
+<CodeBlockRuntime lang="vue" code={badgeVueLink} />
 
     </Tab>
   </Tabs>
@@ -220,6 +259,7 @@ space.
     values={[
       { label: 'React', value: 'react' },
       { label: 'Solid', value: 'solid' },
+      { label: 'Vue', value: 'vue' },
     ]}
     className="docs-tabs"
   >
@@ -232,6 +272,11 @@ space.
     <Tab value="solid">
 
 <CodeBlockRuntime lang="tsx" code={badgeSolidLongLabels} />
+
+    </Tab>
+    <Tab value="vue">
+
+<CodeBlockRuntime lang="vue" code={badgeVueLongLabels} />
 
     </Tab>
   </Tabs>
@@ -259,6 +304,7 @@ Use the built-in variants for common styles.
     values={[
       { label: 'React', value: 'react' },
       { label: 'Solid', value: 'solid' },
+      { label: 'Vue', value: 'vue' },
     ]}
     className="docs-tabs"
   >
@@ -271,6 +317,11 @@ Use the built-in variants for common styles.
     <Tab value="solid">
 
 <CodeBlockRuntime lang="tsx" code={badgeSolidVariants} />
+
+    </Tab>
+    <Tab value="vue">
+
+<CodeBlockRuntime lang="vue" code={badgeVueVariants} />
 
     </Tab>
   </Tabs>
@@ -299,6 +350,7 @@ status meaning in the visible text because the dot is decorative.
     values={[
       { label: 'React', value: 'react' },
       { label: 'Solid', value: 'solid' },
+      { label: 'Vue', value: 'vue' },
     ]}
     className="docs-tabs"
   >
@@ -311,6 +363,11 @@ status meaning in the visible text because the dot is decorative.
     <Tab value="solid">
 
 <CodeBlockRuntime lang="tsx" code={badgeSolidWithDot} />
+
+    </Tab>
+    <Tab value="vue">
+
+<CodeBlockRuntime lang="vue" code={badgeVueWithDot} />
 
     </Tab>
   </Tabs>
@@ -338,6 +395,7 @@ Place a direct child SVG icon next to the label when the metadata needs another 
     values={[
       { label: 'React', value: 'react' },
       { label: 'Solid', value: 'solid' },
+      { label: 'Vue', value: 'vue' },
     ]}
     className="docs-tabs"
   >
@@ -350,6 +408,11 @@ Place a direct child SVG icon next to the label when the metadata needs another 
     <Tab value="solid">
 
 <CodeBlockRuntime lang="tsx" code={badgeSolidWithIcon} />
+
+    </Tab>
+    <Tab value="vue">
+
+<CodeBlockRuntime lang="vue" code={badgeVueWithIcon} />
 
     </Tab>
   </Tabs>
@@ -371,8 +434,8 @@ Start with a built-in variant. For a one-off size or style change, set the publi
 the variant-specific values for an individual badge. These CSS variables apply to the CSS Modules
 packages; Tailwind packages use native utilities and consumer classes instead.
 
-Use `className` in React or `class` in Solid on exported parts. The stable `data-slot` hooks and
-Ark data attributes are shared by both styling tracks.
+Use `className` in React or `class` in Solid and Vue on exported parts. The stable `data-slot` hooks and
+Ark data attributes are shared by all styling tracks.
 
 ### CSS Properties
 

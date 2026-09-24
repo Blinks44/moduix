@@ -1,7 +1,7 @@
 ---
 title: Button
 component: button
-description: A styled single-part action control for React and Solid, with CSS Modules and Tailwind packages.
+description: A styled single-part action control for React, Solid, and Vue, with CSS Modules and Tailwind packages.
 ---
 
 import * as ButtonDocs from '@/components/examples/button/css-properties';
@@ -21,6 +21,14 @@ import buttonSolidPendingState from '../../../snippets/button/solid/pending-stat
 import buttonSolidRef from '../../../snippets/button/solid/ref.tsx?raw';
 import buttonSolidSizes from '../../../snippets/button/solid/sizes.tsx?raw';
 import buttonSolidVariants from '../../../snippets/button/solid/variants.tsx?raw';
+import buttonVueAsChildLink from '../../../snippets/button/vue/as-child-link.vue?raw';
+import buttonVueBasic from '../../../snippets/button/vue/basic.vue?raw';
+import buttonVueDisabled from '../../../snippets/button/vue/disabled.vue?raw';
+import buttonVueIcons from '../../../snippets/button/vue/icons.vue?raw';
+import buttonVuePendingState from '../../../snippets/button/vue/pending-state.vue?raw';
+import buttonVueRef from '../../../snippets/button/vue/ref.vue?raw';
+import buttonVueSizes from '../../../snippets/button/vue/sizes.vue?raw';
+import buttonVueVariants from '../../../snippets/button/vue/variants.vue?raw';
 
 ## API Reference
 
@@ -44,6 +52,7 @@ For most actions, use `<Button>...</Button>`.
     values={[
       { label: 'React', value: 'react' },
       { label: 'Solid', value: 'solid' },
+      { label: 'Vue', value: 'vue' },
     ]}
     className="docs-tabs"
   >
@@ -56,6 +65,11 @@ For most actions, use `<Button>...</Button>`.
     <Tab value="solid">
 
 <CodeBlockRuntime lang="tsx" code={buttonSolidBasic} />
+
+    </Tab>
+    <Tab value="vue">
+
+<CodeBlockRuntime lang="vue" code={buttonVueBasic} />
 
     </Tab>
   </Tabs>
@@ -88,6 +102,16 @@ See [Quick Start](/docs/quick-start) for full package setup, registry configurat
 />
 
   </Tab>
+  <Tab label="Vue" value="vue">
+
+<ShadcnInstallOptions
+  options={[
+    { label: 'CSS Modules', command: 'shadcn@latest add @moduix-vue/button' },
+    { label: 'Tailwind CSS', command: 'shadcn@latest add @moduix-vue-tailwind/button' },
+  ]}
+/>
+
+  </Tab>
 </Tabs>
 
 ## Anatomy
@@ -107,8 +131,9 @@ Button
 ## Composition
 
 `Button` is a single-part root. Use `asChild` when another semantic element should own the rendered DOM node:
-React passes exactly one child, while Solid uses an `asChild` render function. When an Ark part composes Button,
-the parent keeps ownership of `data-scope` and `data-part`; Button keeps its recipe classes and stable `data-slot`.
+React passes exactly one child, Solid uses an `asChild` render function, and Vue supplies its semantic element as
+the default slot child. When an Ark part composes Button, the parent keeps ownership of `data-scope` and `data-part`;
+Button keeps its recipe classes and stable `data-slot`.
 
 The `loading` prop owns only busy and disabled state (`data-loading`, `aria-busy`, and `data-disabled`); your
 application owns the spinner, label, and async lifecycle. Native roots default to `type="button"`, while
@@ -131,6 +156,7 @@ Use `disabled` with native buttons and elements used with `asChild`.
     values={[
       { label: 'React', value: 'react' },
       { label: 'Solid', value: 'solid' },
+      { label: 'Vue', value: 'vue' },
     ]}
     className="docs-tabs"
   >
@@ -143,6 +169,11 @@ Use `disabled` with native buttons and elements used with `asChild`.
     <Tab value="solid">
 
 <CodeBlockRuntime lang="tsx" code={buttonSolidDisabled} />
+
+    </Tab>
+    <Tab value="vue">
+
+<CodeBlockRuntime lang="vue" code={buttonVueDisabled} />
 
     </Tab>
   </Tabs>
@@ -170,6 +201,7 @@ Icons can appear before or after the label. Their order in JSX and the Button ro
     values={[
       { label: 'React', value: 'react' },
       { label: 'Solid', value: 'solid' },
+      { label: 'Vue', value: 'vue' },
     ]}
     className="docs-tabs"
   >
@@ -182,6 +214,11 @@ Icons can appear before or after the label. Their order in JSX and the Button ro
     <Tab value="solid">
 
 <CodeBlockRuntime lang="tsx" code={buttonSolidIcons} />
+
+    </Tab>
+    <Tab value="vue">
+
+<CodeBlockRuntime lang="vue" code={buttonVueIcons} />
 
     </Tab>
   </Tabs>
@@ -209,6 +246,7 @@ Use `asChild` for navigation so the anchor keeps its link semantics while using 
     values={[
       { label: 'React', value: 'react' },
       { label: 'Solid', value: 'solid' },
+      { label: 'Vue', value: 'vue' },
     ]}
     className="docs-tabs"
   >
@@ -221,6 +259,11 @@ Use `asChild` for navigation so the anchor keeps its link semantics while using 
     <Tab value="solid">
 
 <CodeBlockRuntime lang="tsx" code={buttonSolidAsChildLink} />
+
+    </Tab>
+    <Tab value="vue">
+
+<CodeBlockRuntime lang="vue" code={buttonVueAsChildLink} />
 
     </Tab>
   </Tabs>
@@ -244,6 +287,7 @@ application code. It also prevents click activation on elements used with `asChi
     values={[
       { label: 'React', value: 'react' },
       { label: 'Solid', value: 'solid' },
+      { label: 'Vue', value: 'vue' },
     ]}
     className="docs-tabs"
   >
@@ -258,6 +302,11 @@ application code. It also prevents click activation on elements used with `asChi
 <CodeBlockRuntime lang="tsx" code={buttonSolidPendingState} />
 
     </Tab>
+    <Tab value="vue">
+
+<CodeBlockRuntime lang="vue" code={buttonVuePendingState} />
+
+    </Tab>
   </Tabs>
 </div>
 
@@ -267,7 +316,8 @@ application code. It also prevents click activation on elements used with `asChi
 
 The forwarded ref points to the rendered root and can be used to focus or measure it programmatically. In Solid,
 assign a ref to the element created inside the `asChild` render function, because a ref on `Button` itself is not
-forwarded through that composition path.
+forwarded through that composition path. In Vue, a template ref points to the component instance; use `$el` for the
+rendered root, which is the semantic child when using `asChild`.
 
 <ExampleFrame variant="component">
   <ButtonRef />
@@ -280,6 +330,7 @@ forwarded through that composition path.
     values={[
       { label: 'React', value: 'react' },
       { label: 'Solid', value: 'solid' },
+      { label: 'Vue', value: 'vue' },
     ]}
     className="docs-tabs"
   >
@@ -292,6 +343,11 @@ forwarded through that composition path.
     <Tab value="solid">
 
 <CodeBlockRuntime lang="tsx" code={buttonSolidRef} />
+
+    </Tab>
+    <Tab value="vue">
+
+<CodeBlockRuntime lang="vue" code={buttonVueRef} />
 
     </Tab>
   </Tabs>
@@ -319,6 +375,7 @@ Text and icon-only buttons use the same root API.
     values={[
       { label: 'React', value: 'react' },
       { label: 'Solid', value: 'solid' },
+      { label: 'Vue', value: 'vue' },
     ]}
     className="docs-tabs"
   >
@@ -331,6 +388,11 @@ Text and icon-only buttons use the same root API.
     <Tab value="solid">
 
 <CodeBlockRuntime lang="tsx" code={buttonSolidSizes} />
+
+    </Tab>
+    <Tab value="vue">
+
+<CodeBlockRuntime lang="vue" code={buttonVueSizes} />
 
     </Tab>
   </Tabs>
@@ -358,6 +420,7 @@ Use variants to communicate an action's priority and intent.
     values={[
       { label: 'React', value: 'react' },
       { label: 'Solid', value: 'solid' },
+      { label: 'Vue', value: 'vue' },
     ]}
     className="docs-tabs"
   >
@@ -372,6 +435,11 @@ Use variants to communicate an action's priority and intent.
 <CodeBlockRuntime lang="tsx" code={buttonSolidVariants} />
 
     </Tab>
+    <Tab value="vue">
+
+<CodeBlockRuntime lang="vue" code={buttonVueVariants} />
+
+    </Tab>
   </Tabs>
 
 **Styles**
@@ -384,7 +452,7 @@ Use variants to communicate an action's priority and intent.
 
 ## Styling
 
-Use `className` in React or `class` in Solid on the root for consumer styles. CSS Modules variants expose the
+Use `className` in React or `class` in Solid and Vue on the root for consumer styles. CSS Modules variants expose the
 Button variables below; Tailwind variants use native utilities and consumer classes. State attributes and
 `data-slot` hooks are shared by both styling tracks.
 

@@ -19,6 +19,13 @@ import badgeSolidLongLabels from '../../../snippets/badge/solid/long-labels.tsx?
 import badgeSolidVariants from '../../../snippets/badge/solid/variants.tsx?raw';
 import badgeSolidWithDot from '../../../snippets/badge/solid/with-dot.tsx?raw';
 import badgeSolidWithIcon from '../../../snippets/badge/solid/with-icon.tsx?raw';
+import badgeVueBasic from '../../../snippets/badge/vue/basic.vue?raw';
+import badgeVueCustomStyling from '../../../snippets/badge/vue/custom-styling.vue?raw';
+import badgeVueLink from '../../../snippets/badge/vue/link.vue?raw';
+import badgeVueLongLabels from '../../../snippets/badge/vue/long-labels.vue?raw';
+import badgeVueVariants from '../../../snippets/badge/vue/variants.vue?raw';
+import badgeVueWithDot from '../../../snippets/badge/vue/with-dot.vue?raw';
+import badgeVueWithIcon from '../../../snippets/badge/vue/with-icon.vue?raw';
 
 ## Справочник API
 
@@ -34,6 +41,8 @@ import badgeSolidWithIcon from '../../../snippets/badge/solid/with-icon.tsx?raw'
 
 - Выбирайте **`Badge`** для коротких метаданных: статуса, категории, версии или количества.
 - Выбирайте **`Tag`** для выбранных значений, фильтров, назначений или меток, которые относятся к текущему состоянию интерфейса.
+
+Экспорты Vue доступны из `@moduix/vue/badge` для CSS Modules и `@moduix/vue-tailwind/badge` для Tailwind CSS.
 
 ## Базовый пример
 
@@ -53,6 +62,7 @@ import badgeSolidWithIcon from '../../../snippets/badge/solid/with-icon.tsx?raw'
     values={[
       { label: 'React', value: 'react' },
       { label: 'Solid', value: 'solid' },
+      { label: 'Vue', value: 'vue' },
     ]}
     className="docs-tabs"
   >
@@ -65,6 +75,11 @@ import badgeSolidWithIcon from '../../../snippets/badge/solid/with-icon.tsx?raw'
     <Tab value="solid">
 
 <CodeBlockRuntime lang="tsx" code={badgeSolidBasic} />
+
+    </Tab>
+    <Tab value="vue">
+
+<CodeBlockRuntime lang="vue" code={badgeVueBasic} />
 
     </Tab>
   </Tabs>
@@ -97,6 +112,16 @@ import badgeSolidWithIcon from '../../../snippets/badge/solid/with-icon.tsx?raw'
 />
 
   </Tab>
+  <Tab label="Vue" value="vue">
+
+<ShadcnInstallOptions
+  options={[
+    { label: 'CSS Modules', command: 'shadcn@latest add @moduix-vue/badge' },
+    { label: 'Tailwind CSS', command: 'shadcn@latest add @moduix-vue-tailwind/badge' },
+  ]}
+/>
+
+  </Tab>
 </Tabs>
 
 ## Анатомия
@@ -125,6 +150,8 @@ Badge
 дочерний элемент. В Solid передайте в `asChild` функцию рендера - созданный элемент сохранит нативную
 семантику.
 
+В Vue поместите ровно один дочерний элемент в слот по умолчанию при использовании `as-child`; он сохранит нативную семантику.
+
 ## Примеры
 
 ### Пользовательская стилизация
@@ -143,6 +170,7 @@ Badge
     values={[
       { label: 'React', value: 'react' },
       { label: 'Solid', value: 'solid' },
+      { label: 'Vue', value: 'vue' },
     ]}
     className="docs-tabs"
   >
@@ -155,6 +183,11 @@ Badge
     <Tab value="solid">
 
 <CodeBlockRuntime lang="tsx" code={badgeSolidCustomStyling} />
+
+    </Tab>
+    <Tab value="vue">
+
+<CodeBlockRuntime lang="vue" code={badgeVueCustomStyling} />
 
     </Tab>
   </Tabs>
@@ -183,6 +216,7 @@ Badge
     values={[
       { label: 'React', value: 'react' },
       { label: 'Solid', value: 'solid' },
+      { label: 'Vue', value: 'vue' },
     ]}
     className="docs-tabs"
   >
@@ -195,6 +229,11 @@ Badge
     <Tab value="solid">
 
 <CodeBlockRuntime lang="tsx" code={badgeSolidLink} />
+
+    </Tab>
+    <Tab value="vue">
+
+<CodeBlockRuntime lang="vue" code={badgeVueLink} />
 
     </Tab>
   </Tabs>
@@ -219,6 +258,7 @@ Badge
     values={[
       { label: 'React', value: 'react' },
       { label: 'Solid', value: 'solid' },
+      { label: 'Vue', value: 'vue' },
     ]}
     className="docs-tabs"
   >
@@ -231,6 +271,11 @@ Badge
     <Tab value="solid">
 
 <CodeBlockRuntime lang="tsx" code={badgeSolidLongLabels} />
+
+    </Tab>
+    <Tab value="vue">
+
+<CodeBlockRuntime lang="vue" code={badgeVueLongLabels} />
 
     </Tab>
   </Tabs>
@@ -258,6 +303,7 @@ Badge
     values={[
       { label: 'React', value: 'react' },
       { label: 'Solid', value: 'solid' },
+      { label: 'Vue', value: 'vue' },
     ]}
     className="docs-tabs"
   >
@@ -270,6 +316,11 @@ Badge
     <Tab value="solid">
 
 <CodeBlockRuntime lang="tsx" code={badgeSolidVariants} />
+
+    </Tab>
+    <Tab value="vue">
+
+<CodeBlockRuntime lang="vue" code={badgeVueVariants} />
 
     </Tab>
   </Tabs>
@@ -298,6 +349,7 @@ Badge
     values={[
       { label: 'React', value: 'react' },
       { label: 'Solid', value: 'solid' },
+      { label: 'Vue', value: 'vue' },
     ]}
     className="docs-tabs"
   >
@@ -310,6 +362,11 @@ Badge
     <Tab value="solid">
 
 <CodeBlockRuntime lang="tsx" code={badgeSolidWithDot} />
+
+    </Tab>
+    <Tab value="vue">
+
+<CodeBlockRuntime lang="vue" code={badgeVueWithDot} />
 
     </Tab>
   </Tabs>
@@ -337,6 +394,7 @@ Badge
     values={[
       { label: 'React', value: 'react' },
       { label: 'Solid', value: 'solid' },
+      { label: 'Vue', value: 'vue' },
     ]}
     className="docs-tabs"
   >
@@ -349,6 +407,11 @@ Badge
     <Tab value="solid">
 
 <CodeBlockRuntime lang="tsx" code={badgeSolidWithIcon} />
+
+    </Tab>
+    <Tab value="vue">
+
+<CodeBlockRuntime lang="vue" code={badgeVueWithIcon} />
 
     </Tab>
   </Tabs>
@@ -370,8 +433,8 @@ Badge
 для отдельного бейджа. Таблица CSS-переменных относится к пакетам с CSS Modules; в пакетах Tailwind используются
 обычные утилитарные классы и классы приложения.
 
-Для структурных стилей передавайте экспортируемым частям `className` в React или `class` в Solid. Стабильные
-хуки `data-slot` и атрибуты данных Ark общие для обоих подходов.
+Для структурных стилей передавайте экспортируемым частям `className` в React или `class` в Solid и Vue. Стабильные
+хуки `data-slot` и атрибуты данных Ark общие для всех подходов.
 
 ### CSS-свойства
 

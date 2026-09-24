@@ -952,6 +952,9 @@ importers:
       '@internationalized/date':
         specifier: 'catalog:'
         version: 3.12.4
+      '@lucide/vue':
+        specifier: 'catalog:'
+        version: 1.47.0(vue@3.5.43(typescript@6.0.3))
       '@storybook/vue3-vite':
         specifier: 'catalog:'
         version: 10.6.0(storybook@10.6.0(@types/react@19.3.0)(prettier@2.8.8)(react@19.3.0))(typescript@6.0.3)(vite@8.3.0(@types/node@24.13.6)(esbuild@0.28.2)(jiti@2.7.0)(terser@5.50.0)(yaml@2.9.1))(vue@3.5.43(typescript@6.0.3))
@@ -988,6 +991,9 @@ importers:
       '@internationalized/date':
         specifier: 'catalog:'
         version: 3.12.4
+      '@lucide/vue':
+        specifier: 'catalog:'
+        version: 1.47.0(vue@3.5.43(typescript@6.0.3))
       '@storybook/vue3-vite':
         specifier: 'catalog:'
         version: 10.6.0(storybook@10.6.0(@types/react@19.3.0)(prettier@2.8.8)(react@19.3.0))(typescript@6.0.3)(vite@8.3.0(@types/node@24.13.6)(esbuild@0.28.2)(jiti@2.7.0)(terser@5.50.0)(yaml@2.9.1))(vue@3.5.43(typescript@6.0.3))

@@ -1,0 +1,45 @@
+.row {
+  display: flex;
+  flex-wrap: wrap;
+  align-items: center;
+  gap: var(--moduix-spacing-2);
+}
+
+.constrained {
+  max-width: 14rem;
+}
+
+.customBadge {
+  --moduix-badge-bg: color-mix(
+    in oklab,
+    var(--moduix-color-primary) 20%,
+    var(--moduix-color-background)
+  );
+  --moduix-badge-border-color: color-mix(in oklab, var(--moduix-color-primary) 35%, transparent);
+  --moduix-badge-color: var(--moduix-color-primary);
+  --moduix-badge-dot-size: 0.5rem;
+  --moduix-badge-radius: var(--moduix-radius-sm);
+  --moduix-badge-height: 1.5rem;
+  --moduix-badge-padding-x: var(--moduix-spacing-3);
+}
+
+.small {
+  --moduix-badge-height: 1rem;
+  --moduix-badge-font-size: var(--moduix-text-xs);
+  --moduix-badge-icon-size: 0.75rem;
+  --moduix-badge-line-height: var(--moduix-line-height-text-xs);
+  --moduix-badge-padding-x: 0.5rem;
+}
+
+.large {
+  --moduix-badge-height: 2rem;
+  --moduix-badge-font-size: var(--moduix-text-sm);
+  --moduix-badge-icon-size: 1rem;
+  --moduix-badge-line-height: var(--moduix-line-height-text-sm);
+  --moduix-badge-padding-x: 1rem;
+}
+
+.disabledButton {
+  cursor: not-allowed;
+  opacity: var(--moduix-opacity-disabled);
+}

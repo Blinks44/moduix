@@ -15,6 +15,11 @@ import bleedSolidBlockBleed from '../../../snippets/bleed/solid/block-bleed.tsx?
 import bleedSolidCustomStyling from '../../../snippets/bleed/solid/custom-styling.tsx?raw';
 import bleedSolidInlineAmounts from '../../../snippets/bleed/solid/inline-amounts.tsx?raw';
 import bleedSolidSemanticElement from '../../../snippets/bleed/solid/semantic-element.tsx?raw';
+import bleedVueBasic from '../../../snippets/bleed/vue/basic.vue?raw';
+import bleedVueBlockBleed from '../../../snippets/bleed/vue/block-bleed.vue?raw';
+import bleedVueCustomStyling from '../../../snippets/bleed/vue/custom-styling.vue?raw';
+import bleedVueInlineAmounts from '../../../snippets/bleed/vue/inline-amounts.vue?raw';
+import bleedVueSemanticElement from '../../../snippets/bleed/vue/semantic-element.vue?raw';
 
 ## Справочник API
 
@@ -26,9 +31,9 @@ import bleedSolidSemanticElement from '../../../snippets/bleed/solid/semantic-el
 Используйте [Container](/docs/container), чтобы сохранить удобную для чтения ширину основного содержимого.
 Размещайте внутри него `Bleed`, если за границы контейнера должен выйти только медиаблок, фон, разделитель или баннер.
 
-Импортируйте `Bleed` из пакета, соответствующего фреймворку и способу стилизации: для CSS Modules это
-`@moduix/react/bleed` или `@moduix/solid/bleed`, а для Tailwind - по соответствующему пути
-`@moduix/react-tailwind/bleed` или `@moduix/solid-tailwind/bleed`.
+Импортируйте `Bleed` из пакета, соответствующего фреймворку и способу стилизации. Для CSS Modules используйте
+`@moduix/react/bleed`, `@moduix/solid/bleed` или `@moduix/vue/bleed`, а для Tailwind -
+`@moduix/react-tailwind/bleed`, `@moduix/solid-tailwind/bleed` или `@moduix/vue-tailwind/bleed`.
 
 ## Базовый пример
 
@@ -47,6 +52,7 @@ import bleedSolidSemanticElement from '../../../snippets/bleed/solid/semantic-el
     values={[
       { label: 'React', value: 'react' },
       { label: 'Solid', value: 'solid' },
+      { label: 'Vue', value: 'vue' },
     ]}
     className="docs-tabs"
   >
@@ -59,6 +65,11 @@ import bleedSolidSemanticElement from '../../../snippets/bleed/solid/semantic-el
     <Tab value="solid">
 
 <CodeBlockRuntime lang="tsx" code={bleedSolidBasic} />
+
+    </Tab>
+    <Tab value="vue">
+
+<CodeBlockRuntime lang="vue" code={bleedVueBasic} />
 
     </Tab>
   </Tabs>
@@ -96,6 +107,16 @@ import bleedSolidSemanticElement from '../../../snippets/bleed/solid/semantic-el
 />
 
   </Tab>
+  <Tab label="Vue" value="vue">
+
+<ShadcnInstallOptions
+  options={[
+    { label: 'CSS Modules', command: 'shadcn@latest add @moduix-vue/bleed' },
+    { label: 'Tailwind CSS', command: 'shadcn@latest add @moduix-vue-tailwind/bleed' },
+  ]}
+/>
+
+  </Tab>
 </Tabs>
 
 ## Анатомия
@@ -121,6 +142,8 @@ Bleed
 семантический элемент, передайте в React ровно одного дочернего элемента, который принимает DOM-свойства и ref,
 или используйте функцию рендера в Solid. В React ref указывает на отрисованный корневой или дочерний элемент;
 функция рендера Solid не передаёт ref от компонента к пользовательскому элементу.
+Во Vue `asChild` передаёт корневой элемент одному семантическому потомку через фабрику Ark; DOM-узел компонента
+доступен через `$el`.
 
 Сочетайте `inline` и `block`, если поверхность должна выйти за отступы по обеим логическим осям. `inline="full"`
 рассчитывается относительно окна браузера, поэтому во вложенной оболочке могут понадобиться локальные переопределения
@@ -143,6 +166,7 @@ Bleed
     values={[
       { label: 'React', value: 'react' },
       { label: 'Solid', value: 'solid' },
+      { label: 'Vue', value: 'vue' },
     ]}
     className="docs-tabs"
   >
@@ -155,6 +179,11 @@ Bleed
     <Tab value="solid">
 
 <CodeBlockRuntime lang="tsx" code={bleedSolidBlockBleed} />
+
+    </Tab>
+    <Tab value="vue">
+
+<CodeBlockRuntime lang="vue" code={bleedVueBlockBleed} />
 
     </Tab>
   </Tabs>
@@ -183,6 +212,7 @@ Bleed
     values={[
       { label: 'React', value: 'react' },
       { label: 'Solid', value: 'solid' },
+      { label: 'Vue', value: 'vue' },
     ]}
     className="docs-tabs"
   >
@@ -195,6 +225,11 @@ Bleed
     <Tab value="solid">
 
 <CodeBlockRuntime lang="tsx" code={bleedSolidCustomStyling} />
+
+    </Tab>
+    <Tab value="vue">
+
+<CodeBlockRuntime lang="vue" code={bleedVueCustomStyling} />
 
     </Tab>
   </Tabs>
@@ -223,6 +258,7 @@ Bleed
     values={[
       { label: 'React', value: 'react' },
       { label: 'Solid', value: 'solid' },
+      { label: 'Vue', value: 'vue' },
     ]}
     className="docs-tabs"
   >
@@ -235,6 +271,11 @@ Bleed
     <Tab value="solid">
 
 <CodeBlockRuntime lang="tsx" code={bleedSolidInlineAmounts} />
+
+    </Tab>
+    <Tab value="vue">
+
+<CodeBlockRuntime lang="vue" code={bleedVueInlineAmounts} />
 
     </Tab>
   </Tabs>
@@ -263,6 +304,7 @@ Bleed
     values={[
       { label: 'React', value: 'react' },
       { label: 'Solid', value: 'solid' },
+      { label: 'Vue', value: 'vue' },
     ]}
     className="docs-tabs"
   >
@@ -275,6 +317,11 @@ Bleed
     <Tab value="solid">
 
 <CodeBlockRuntime lang="tsx" code={bleedSolidSemanticElement} />
+
+    </Tab>
+    <Tab value="vue">
+
+<CodeBlockRuntime lang="vue" code={bleedVueSemanticElement} />
 
     </Tab>
   </Tabs>
@@ -290,7 +337,7 @@ Bleed
 ## Стилизация
 
 `Bleed` предоставляет CSS-переменные и стабильные data-атрибуты на корневом элементе. Для структурных стилей
-используйте `className` в React или `class` в Solid. Варианты Tailwind используют обычные utility-классы и классы
+используйте `className` в React и `class` в Solid или Vue. Варианты Tailwind используют обычные utility-классы и классы
 приложения, а переменные ниже настраивают варианты с CSS Modules. Data-атрибуты и `data-slot` общие для обоих
 способов стилизации. Предки с `overflow: hidden` или `overflow: clip` могут обрезать выход за границы.
 

@@ -244,6 +244,76 @@
       ]
     },
     {
+      "name": "badge",
+      "type": "registry:item",
+      "title": "Badge",
+      "description": "moduix Vue Tailwind Badge component.",
+      "dependencies": ["@ark-ui/vue", "class-variance-authority", "clsx", "tailwind-merge"],
+      "registryDependencies": ["@moduix-vue-tailwind/foundation", "@moduix-vue-tailwind/cn"],
+      "files": [
+        {
+          "path": "src/components/badge/Badge.vue",
+          "target": "@components/ui/badge/Badge.vue",
+          "type": "registry:component"
+        },
+        {
+          "path": "src/components/badge/BadgeDot.vue",
+          "target": "@components/ui/badge/BadgeDot.vue",
+          "type": "registry:component"
+        },
+        {
+          "path": "src/components/badge/BadgeLabel.vue",
+          "target": "@components/ui/badge/BadgeLabel.vue",
+          "type": "registry:component"
+        },
+        {
+          "path": "src/components/badge/index.ts",
+          "target": "@components/ui/badge/index.ts",
+          "type": "registry:component"
+        }
+      ]
+    },
+    {
+      "name": "button",
+      "type": "registry:item",
+      "title": "Button",
+      "description": "moduix Vue Tailwind Button component.",
+      "dependencies": ["@ark-ui/vue", "class-variance-authority", "clsx", "tailwind-merge"],
+      "registryDependencies": ["@moduix-vue-tailwind/foundation", "@moduix-vue-tailwind/cn"],
+      "files": [
+        {
+          "path": "src/components/button/Button.vue",
+          "target": "@components/ui/button/Button.vue",
+          "type": "registry:component"
+        },
+        {
+          "path": "src/components/button/index.ts",
+          "target": "@components/ui/button/index.ts",
+          "type": "registry:component"
+        }
+      ]
+    },
+    {
+      "name": "bleed",
+      "type": "registry:item",
+      "title": "Bleed",
+      "description": "moduix Vue Tailwind Bleed component.",
+      "dependencies": ["@ark-ui/vue", "class-variance-authority", "clsx", "tailwind-merge"],
+      "registryDependencies": ["@moduix-vue-tailwind/foundation", "@moduix-vue-tailwind/cn"],
+      "files": [
+        {
+          "path": "src/components/bleed/Bleed.vue",
+          "target": "@components/ui/bleed/Bleed.vue",
+          "type": "registry:component"
+        },
+        {
+          "path": "src/components/bleed/index.ts",
+          "target": "@components/ui/bleed/index.ts",
+          "type": "registry:component"
+        }
+      ]
+    },
+    {
       "name": "foundation",
       "type": "registry:item",
       "title": "moduix Vue Tailwind core",

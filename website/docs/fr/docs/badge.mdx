@@ -20,6 +20,13 @@ import badgeSolidLongLabels from '../../../snippets/badge/solid/long-labels.tsx?
 import badgeSolidVariants from '../../../snippets/badge/solid/variants.tsx?raw';
 import badgeSolidWithDot from '../../../snippets/badge/solid/with-dot.tsx?raw';
 import badgeSolidWithIcon from '../../../snippets/badge/solid/with-icon.tsx?raw';
+import badgeVueBasic from '../../../snippets/badge/vue/basic.vue?raw';
+import badgeVueCustomStyling from '../../../snippets/badge/vue/custom-styling.vue?raw';
+import badgeVueLink from '../../../snippets/badge/vue/link.vue?raw';
+import badgeVueLongLabels from '../../../snippets/badge/vue/long-labels.vue?raw';
+import badgeVueVariants from '../../../snippets/badge/vue/variants.vue?raw';
+import badgeVueWithDot from '../../../snippets/badge/vue/with-dot.vue?raw';
+import badgeVueWithIcon from '../../../snippets/badge/vue/with-icon.vue?raw';
 
 ## Référence de l’API
 
@@ -36,7 +43,7 @@ pas un contrôle qui permet à l’utilisateur de sélectionner ou de modifier u
 - Choisissez **`Tag`** pour des valeurs sélectionnées, des filtres, des affectations ou des libellés qui font partie de l’état actuel de l’interface.
 
 
-Les mêmes exports sont disponibles depuis `@moduix/solid/badge` pour Solid.
+Les exports Vue sont disponibles depuis `@moduix/vue/badge` pour CSS Modules et `@moduix/vue-tailwind/badge` pour Tailwind CSS. Les exports Solid restent disponibles depuis `@moduix/solid/badge`.
 ## Exemple de base
 
 Commencez par un `<Badge>` simple. Par défaut, le composant rend un `span` de présentation. Définissez `variant` pour
@@ -54,6 +61,7 @@ choisir un style intégré et ajoutez `BadgeDot` uniquement lorsqu’un statut a
     values={[
       { label: 'React', value: 'react' },
       { label: 'Solid', value: 'solid' },
+      { label: 'Vue', value: 'vue' },
     ]}
     className="docs-tabs"
   >
@@ -66,6 +74,11 @@ choisir un style intégré et ajoutez `BadgeDot` uniquement lorsqu’un statut a
     <Tab value="solid">
 
 <CodeBlockRuntime lang="tsx" code={badgeSolidBasic} />
+
+    </Tab>
+    <Tab value="vue">
+
+<CodeBlockRuntime lang="vue" code={badgeVueBasic} />
 
     </Tab>
   </Tabs>
@@ -98,6 +111,16 @@ Consultez le [Démarrage rapide](/docs/quick-start) pour la configuration compl�
 />
 
   </Tab>
+  <Tab label="Vue" value="vue">
+
+<ShadcnInstallOptions
+  options={[
+    { label: 'CSS Modules', command: 'shadcn@latest add @moduix-vue/badge' },
+    { label: 'Tailwind CSS', command: 'shadcn@latest add @moduix-vue-tailwind/badge' },
+  ]}
+/>
+
+  </Tab>
 </Tabs>
 
 ## Anatomie
@@ -120,6 +143,8 @@ Badge
 ## Composition
 
 `Badge` est un composant de présentation et ne gère aucun état. Le texte direct reste inchangé ; utilisez `BadgeLabel` lorsqu’un libellé contraint doit être tronqué ou lorsqu’il est combiné avec `BadgeDot` ou une icône. Pour un lien ou un bouton sémantique, utilisez `asChild` avec exactement un enfant en React. En Solid, passez une fonction de rendu à `asChild` ; l’enfant rendu conserve ses sémantiques natives.
+
+En Vue, placez exactement un enfant dans le slot par défaut avec `as-child` ; l’enfant conserve ses sémantiques natives.
 ## Exemples
 
 ### Styles personnalisés
@@ -138,6 +163,7 @@ ou définissez des variables CSS directement sur le badge.
     values={[
       { label: 'React', value: 'react' },
       { label: 'Solid', value: 'solid' },
+      { label: 'Vue', value: 'vue' },
     ]}
     className="docs-tabs"
   >
@@ -150,6 +176,11 @@ ou définissez des variables CSS directement sur le badge.
     <Tab value="solid">
 
 <CodeBlockRuntime lang="tsx" code={badgeSolidCustomStyling} />
+
+    </Tab>
+    <Tab value="vue">
+
+<CodeBlockRuntime lang="vue" code={badgeVueCustomStyling} />
 
     </Tab>
   </Tabs>
@@ -178,6 +209,7 @@ enfant reste un véritable lien et conserve sa sémantique native.
     values={[
       { label: 'React', value: 'react' },
       { label: 'Solid', value: 'solid' },
+      { label: 'Vue', value: 'vue' },
     ]}
     className="docs-tabs"
   >
@@ -190,6 +222,11 @@ enfant reste un véritable lien et conserve sa sémantique native.
     <Tab value="solid">
 
 <CodeBlockRuntime lang="tsx" code={badgeSolidLink} />
+
+    </Tab>
+    <Tab value="vue">
+
+<CodeBlockRuntime lang="vue" code={badgeVueLink} />
 
     </Tab>
   </Tabs>
@@ -213,6 +250,7 @@ rendre le libellé complet visible au survol. Dans les interfaces tactiles, choi
     values={[
       { label: 'React', value: 'react' },
       { label: 'Solid', value: 'solid' },
+      { label: 'Vue', value: 'vue' },
     ]}
     className="docs-tabs"
   >
@@ -225,6 +263,11 @@ rendre le libellé complet visible au survol. Dans les interfaces tactiles, choi
     <Tab value="solid">
 
 <CodeBlockRuntime lang="tsx" code={badgeSolidLongLabels} />
+
+    </Tab>
+    <Tab value="vue">
+
+<CodeBlockRuntime lang="vue" code={badgeVueLongLabels} />
 
     </Tab>
   </Tabs>
@@ -252,6 +295,7 @@ Utilisez les variantes intégrées pour les styles courants.
     values={[
       { label: 'React', value: 'react' },
       { label: 'Solid', value: 'solid' },
+      { label: 'Vue', value: 'vue' },
     ]}
     className="docs-tabs"
   >
@@ -264,6 +308,11 @@ Utilisez les variantes intégrées pour les styles courants.
     <Tab value="solid">
 
 <CodeBlockRuntime lang="tsx" code={badgeSolidVariants} />
+
+    </Tab>
+    <Tab value="vue">
+
+<CodeBlockRuntime lang="vue" code={badgeVueVariants} />
 
     </Tab>
   </Tabs>
@@ -292,6 +341,7 @@ porter le sens du statut, car le point est décoratif.
     values={[
       { label: 'React', value: 'react' },
       { label: 'Solid', value: 'solid' },
+      { label: 'Vue', value: 'vue' },
     ]}
     className="docs-tabs"
   >
@@ -304,6 +354,11 @@ porter le sens du statut, car le point est décoratif.
     <Tab value="solid">
 
 <CodeBlockRuntime lang="tsx" code={badgeSolidWithDot} />
+
+    </Tab>
+    <Tab value="vue">
+
+<CodeBlockRuntime lang="vue" code={badgeVueWithDot} />
 
     </Tab>
   </Tabs>
@@ -331,6 +386,7 @@ Placez une icône SVG enfant directe à côté du libellé lorsque les métadonn
     values={[
       { label: 'React', value: 'react' },
       { label: 'Solid', value: 'solid' },
+      { label: 'Vue', value: 'vue' },
     ]}
     className="docs-tabs"
   >
@@ -343,6 +399,11 @@ Placez une icône SVG enfant directe à côté du libellé lorsque les métadonn
     <Tab value="solid">
 
 <CodeBlockRuntime lang="tsx" code={badgeSolidWithIcon} />
+
+    </Tab>
+    <Tab value="vue">
+
+<CodeBlockRuntime lang="vue" code={badgeVueWithIcon} />
 
     </Tab>
   </Tabs>
@@ -362,6 +423,8 @@ Commencez avec une variante intégrée. Pour une modification ponctuelle de tail
 `--moduix-badge-<variant>-*` pour personnaliser une variante dans toute l’application. Les variables générales
 `--moduix-badge-bg`, `--moduix-badge-border-color` et `--moduix-badge-color` remplacent les valeurs propres à la variante
 pour un badge donné.
+
+Ces variables CSS s’appliquent aux packages CSS Modules ; les packages Tailwind utilisent des utilitaires natifs et les classes du consommateur. Utilisez `className` en React ou `class` en Solid et Vue sur les parties exportées. Les hooks `data-slot` et les attributs Ark sont communs aux trois pistes de style.
 
 ### Propriétés CSS
 

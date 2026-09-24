@@ -225,6 +225,131 @@
       ]
     },
     {
+      "name": "avatar",
+      "type": "registry:item",
+      "title": "Avatar",
+      "description": "moduix Vue Avatar component.",
+      "dependencies": ["@ark-ui/vue", "clsx"],
+      "registryDependencies": ["@moduix-vue/foundation"],
+      "files": [
+        {
+          "path": "src/components/avatar/Avatar.vue",
+          "target": "@components/ui/avatar/Avatar.vue",
+          "type": "registry:component"
+        },
+        {
+          "path": "src/components/avatar/AvatarRootProvider.vue",
+          "target": "@components/ui/avatar/AvatarRootProvider.vue",
+          "type": "registry:component"
+        },
+        {
+          "path": "src/components/avatar/AvatarFallback.vue",
+          "target": "@components/ui/avatar/AvatarFallback.vue",
+          "type": "registry:component"
+        },
+        {
+          "path": "src/components/avatar/AvatarImage.vue",
+          "target": "@components/ui/avatar/AvatarImage.vue",
+          "type": "registry:component"
+        },
+        {
+          "path": "src/components/avatar/Avatar.module.css",
+          "target": "@components/ui/avatar/Avatar.module.css",
+          "type": "registry:file"
+        },
+        {
+          "path": "src/components/avatar/index.ts",
+          "target": "@components/ui/avatar/index.ts",
+          "type": "registry:component"
+        }
+      ]
+    },
+    {
+      "name": "badge",
+      "type": "registry:item",
+      "title": "Badge",
+      "description": "moduix Vue Badge component.",
+      "dependencies": ["@ark-ui/vue", "clsx"],
+      "registryDependencies": ["@moduix-vue/foundation"],
+      "files": [
+        {
+          "path": "src/components/badge/Badge.vue",
+          "target": "@components/ui/badge/Badge.vue",
+          "type": "registry:component"
+        },
+        {
+          "path": "src/components/badge/BadgeDot.vue",
+          "target": "@components/ui/badge/BadgeDot.vue",
+          "type": "registry:component"
+        },
+        {
+          "path": "src/components/badge/BadgeLabel.vue",
+          "target": "@components/ui/badge/BadgeLabel.vue",
+          "type": "registry:component"
+        },
+        {
+          "path": "src/components/badge/Badge.module.css",
+          "target": "@components/ui/badge/Badge.module.css",
+          "type": "registry:file"
+        },
+        {
+          "path": "src/components/badge/index.ts",
+          "target": "@components/ui/badge/index.ts",
+          "type": "registry:component"
+        }
+      ]
+    },
+    {
+      "name": "button",
+      "type": "registry:item",
+      "title": "Button",
+      "description": "moduix Vue Button component.",
+      "dependencies": ["@ark-ui/vue", "clsx"],
+      "registryDependencies": ["@moduix-vue/foundation"],
+      "files": [
+        {
+          "path": "src/components/button/Button.vue",
+          "target": "@components/ui/button/Button.vue",
+          "type": "registry:component"
+        },
+        {
+          "path": "src/components/button/Button.module.css",
+          "target": "@components/ui/button/Button.module.css",
+          "type": "registry:file"
+        },
+        {
+          "path": "src/components/button/index.ts",
+          "target": "@components/ui/button/index.ts",
+          "type": "registry:component"
+        }
+      ]
+    },
+    {
+      "name": "bleed",
+      "type": "registry:item",
+      "title": "Bleed",
+      "description": "moduix Vue Bleed component.",
+      "dependencies": ["@ark-ui/vue", "clsx"],
+      "registryDependencies": ["@moduix-vue/foundation"],
+      "files": [
+        {
+          "path": "src/components/bleed/Bleed.vue",
+          "target": "@components/ui/bleed/Bleed.vue",
+          "type": "registry:component"
+        },
+        {
+          "path": "src/components/bleed/Bleed.module.css",
+          "target": "@components/ui/bleed/Bleed.module.css",
+          "type": "registry:file"
+        },
+        {
+          "path": "src/components/bleed/index.ts",
+          "target": "@components/ui/bleed/index.ts",
+          "type": "registry:component"
+        }
+      ]
+    },
+    {
       "name": "core",
       "type": "registry:item",
       "title": "moduix core",

@@ -38,6 +38,11 @@ Use this skill for JS/TS Vue work in this repo.
 - Declare only moduix-owned or deliberately intercepted props as local fields on that interface.
   Use Vue 3.5 reactive destructuring with defaults for those local fields, and forward or translate
   them explicitly. Do not intercept an Ark prop merely to restate its upstream behavior.
+- Declare local SFC prop keys in camelCase, including owned anatomy props such as
+  `dataScope`, then bind them with kebab-case names in the template, such as
+  `:data-scope`. Do not declare hyphenated keys in the local TypeScript props
+  interface and destructure them by string key; Vue normalizes runtime prop names
+  and the generated binding can otherwise resolve to `undefined`.
 - Template position controls attribute precedence against `v-bind="attrs"`: a wrapper-owned default
   such as `aria-hidden="true"` goes before `v-bind="attrs"` so consumer attrs can override it, while
   hook attributes such as `data-slot` go after `v-bind="attrs"` so they always win. Vue compiles both

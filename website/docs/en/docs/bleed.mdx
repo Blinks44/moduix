@@ -15,6 +15,11 @@ import bleedSolidBlockBleed from '../../../snippets/bleed/solid/block-bleed.tsx?
 import bleedSolidCustomStyling from '../../../snippets/bleed/solid/custom-styling.tsx?raw';
 import bleedSolidInlineAmounts from '../../../snippets/bleed/solid/inline-amounts.tsx?raw';
 import bleedSolidSemanticElement from '../../../snippets/bleed/solid/semantic-element.tsx?raw';
+import bleedVueBasic from '../../../snippets/bleed/vue/basic.vue?raw';
+import bleedVueBlockBleed from '../../../snippets/bleed/vue/block-bleed.vue?raw';
+import bleedVueCustomStyling from '../../../snippets/bleed/vue/custom-styling.vue?raw';
+import bleedVueInlineAmounts from '../../../snippets/bleed/vue/inline-amounts.vue?raw';
+import bleedVueSemanticElement from '../../../snippets/bleed/vue/semantic-element.vue?raw';
 
 ## API Reference
 
@@ -26,9 +31,10 @@ Ark UI does not include a dedicated `bleed` primitive. moduix builds `Bleed` wit
 Use [Container](/docs/container) to keep the main content at a readable width. Put `Bleed` inside it when
 only a media block, background, divider, or banner should extend beyond the container.
 
-Import `Bleed` from the matching runtime and styling package: `@moduix/react/bleed` or
-`@moduix/solid/bleed` for CSS Modules, and the corresponding `@moduix/react-tailwind/bleed` or
-`@moduix/solid-tailwind/bleed` subpath for Tailwind.
+Import `Bleed` from the matching runtime and styling package: `@moduix/react/bleed`,
+`@moduix/solid/bleed`, or `@moduix/vue/bleed` for CSS Modules, and the corresponding
+`@moduix/react-tailwind/bleed`, `@moduix/solid-tailwind/bleed`, or `@moduix/vue-tailwind/bleed`
+subpath for Tailwind.
 
 ## Basic
 
@@ -47,6 +53,7 @@ remaining in the normal document flow.
     values={[
       { label: 'React', value: 'react' },
       { label: 'Solid', value: 'solid' },
+      { label: 'Vue', value: 'vue' },
     ]}
     className="docs-tabs"
   >
@@ -59,6 +66,11 @@ remaining in the normal document flow.
     <Tab value="solid">
 
 <CodeBlockRuntime lang="tsx" code={bleedSolidBasic} />
+
+    </Tab>
+    <Tab value="vue">
+
+<CodeBlockRuntime lang="vue" code={bleedVueBasic} />
 
     </Tab>
   </Tabs>
@@ -96,6 +108,16 @@ See [Quick Start](/docs/quick-start) for full package setup, registry configurat
 />
 
   </Tab>
+  <Tab label="Vue" value="vue">
+
+<ShadcnInstallOptions
+  options={[
+    { label: 'CSS Modules', command: 'shadcn@latest add @moduix-vue/bleed' },
+    { label: 'Tailwind CSS', command: 'shadcn@latest add @moduix-vue-tailwind/bleed' },
+  ]}
+/>
+
+  </Tab>
 </Tabs>
 
 ## Anatomy
@@ -120,6 +142,7 @@ The defaults are `inline="full"`, `block="none"`, and `asChild={false}`.
 When `asChild` should give the rendered root to one semantic element, provide exactly one child that accepts DOM
 props and a ref in React, or use the Solid render-function form. React refs target the rendered root or child;
 the Solid form does not forward the component ref through the custom host.
+In Vue, Ark's factory renders one semantic child for `asChild`; read a component ref's rendered host through `$el`.
 
 Combine `inline` and `block` when a surface should extend through padding on both logical axes. `inline="full"`
 is viewport-relative, so a nested shell may need local `--moduix-bleed-inline-full` and
@@ -142,6 +165,7 @@ Add `block` when a surface should extend through the container's block-axis padd
     values={[
       { label: 'React', value: 'react' },
       { label: 'Solid', value: 'solid' },
+      { label: 'Vue', value: 'vue' },
     ]}
     className="docs-tabs"
   >
@@ -154,6 +178,11 @@ Add `block` when a surface should extend through the container's block-axis padd
     <Tab value="solid">
 
 <CodeBlockRuntime lang="tsx" code={bleedSolidBlockBleed} />
+
+    </Tab>
+    <Tab value="vue">
+
+<CodeBlockRuntime lang="vue" code={bleedVueBlockBleed} />
 
     </Tab>
   </Tabs>
@@ -182,6 +211,7 @@ should size the bleed to its own content area instead of the viewport.
     values={[
       { label: 'React', value: 'react' },
       { label: 'Solid', value: 'solid' },
+      { label: 'Vue', value: 'vue' },
     ]}
     className="docs-tabs"
   >
@@ -194,6 +224,11 @@ should size the bleed to its own content area instead of the viewport.
     <Tab value="solid">
 
 <CodeBlockRuntime lang="tsx" code={bleedSolidCustomStyling} />
+
+    </Tab>
+    <Tab value="vue">
+
+<CodeBlockRuntime lang="vue" code={bleedVueCustomStyling} />
 
     </Tab>
   </Tabs>
@@ -222,6 +257,7 @@ Set `inline` to control how far content extends along the inline axis. This exam
     values={[
       { label: 'React', value: 'react' },
       { label: 'Solid', value: 'solid' },
+      { label: 'Vue', value: 'vue' },
     ]}
     className="docs-tabs"
   >
@@ -234,6 +270,11 @@ Set `inline` to control how far content extends along the inline axis. This exam
     <Tab value="solid">
 
 <CodeBlockRuntime lang="tsx" code={bleedSolidInlineAmounts} />
+
+    </Tab>
+    <Tab value="vue">
+
+<CodeBlockRuntime lang="vue" code={bleedVueInlineAmounts} />
 
     </Tab>
   </Tabs>
@@ -262,6 +303,7 @@ element becomes the `Bleed` root.
     values={[
       { label: 'React', value: 'react' },
       { label: 'Solid', value: 'solid' },
+      { label: 'Vue', value: 'vue' },
     ]}
     className="docs-tabs"
   >
@@ -274,6 +316,11 @@ element becomes the `Bleed` root.
     <Tab value="solid">
 
 <CodeBlockRuntime lang="tsx" code={bleedSolidSemanticElement} />
+
+    </Tab>
+    <Tab value="vue">
+
+<CodeBlockRuntime lang="vue" code={bleedVueSemanticElement} />
 
     </Tab>
   </Tabs>
@@ -289,7 +336,7 @@ element becomes the `Bleed` root.
 ## Styling
 
 `Bleed` exposes CSS variables and stable data attributes on its root. Use `className` in React or `class` in
-Solid for structural styles. Tailwind variants use native utilities and consumer classes; the variables below
+Solid and Vue for structural styles. Tailwind variants use native utilities and consumer classes; the variables below
 customize the CSS Modules variants. Data attributes and `data-slot` hooks are shared by both styling tracks.
 Ancestors with `overflow: hidden` or `overflow: clip` can crop the bleed.
 

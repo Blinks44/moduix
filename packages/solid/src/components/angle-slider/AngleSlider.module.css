@@ -57,8 +57,7 @@
       mask: radial-gradient(
         closest-side,
         transparent calc(100% - var(--moduix-angle-slider-ring-thickness, 0.5rem) - 1px),
-        var(--moduix-angle-slider-mask-color, rgb(0 0 0 / 1))
-          calc(100% - var(--moduix-angle-slider-ring-thickness, 0.5rem))
+        #000 calc(100% - var(--moduix-angle-slider-ring-thickness, 0.5rem))
       );
       content: '';
     }

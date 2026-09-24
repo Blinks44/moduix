@@ -1,6 +1,6 @@
 <script setup lang="ts">
 import { AngleSliderRoot as ArkAngleSliderRoot } from '@ark-ui/vue/angle-slider';
-import type { AngleSliderRootProps, UseAngleSliderProps } from '@ark-ui/vue/angle-slider';
+import type { AngleSliderRootProps } from '@ark-ui/vue/angle-slider';
 import { useAttrs } from 'vue';
 import type { HTMLAttributes } from 'vue';
 import { cn } from '@/lib/moduix/cn';
@@ -11,9 +11,14 @@ export interface Props extends /* @vue-ignore */ AngleSliderRootProps {
   class?: HTMLAttributes['class'];
 }
 
+type AngleSliderValueChangeDetails = {
+  value: number;
+  valueAsDegree: string;
+};
+
 type AngleSliderRootEmits = {
-  valueChange: [details: Parameters<NonNullable<UseAngleSliderProps['onValueChange']>>[0]];
-  valueChangeEnd: [details: Parameters<NonNullable<UseAngleSliderProps['onValueChangeEnd']>>[0]];
+  valueChange: [details: AngleSliderValueChangeDetails];
+  valueChangeEnd: [details: AngleSliderValueChangeDetails];
   'update:modelValue': [value: number];
 };
 
