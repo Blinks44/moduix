@@ -37,7 +37,9 @@ Use this skill for JS/TS Vue work in this repo.
   a default of `true`.
 - Declare only moduix-owned or deliberately intercepted props as local fields on that interface.
   Use Vue 3.5 reactive destructuring with defaults for those local fields, and forward or translate
-  them explicitly. Do not intercept an Ark prop merely to restate its upstream behavior.
+  them explicitly. An optional local Boolean prop is cast to `false` when absent unless it has an
+  explicit default, so choose the default deliberately when `undefined` or `true` is required.
+  Do not intercept an Ark prop merely to restate its upstream behavior.
 - Declare local SFC prop keys in camelCase, including owned anatomy props such as
   `dataScope`, then bind them with kebab-case names in the template, such as
   `:data-scope`. Do not declare hyphenated keys in the local TypeScript props

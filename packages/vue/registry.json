@@ -300,6 +300,66 @@
       ]
     },
     {
+      "name": "breadcrumbs",
+      "type": "registry:item",
+      "title": "Breadcrumbs",
+      "description": "moduix Vue Breadcrumbs component.",
+      "dependencies": ["@ark-ui/vue", "clsx"],
+      "registryDependencies": ["@moduix-vue/foundation", "@moduix-vue/icons"],
+      "files": [
+        {
+          "path": "src/components/breadcrumbs/Breadcrumbs.vue",
+          "target": "@components/ui/breadcrumbs/Breadcrumbs.vue",
+          "type": "registry:component"
+        },
+        {
+          "path": "src/components/breadcrumbs/BreadcrumbsList.vue",
+          "target": "@components/ui/breadcrumbs/BreadcrumbsList.vue",
+          "type": "registry:component"
+        },
+        {
+          "path": "src/components/breadcrumbs/BreadcrumbsItem.vue",
+          "target": "@components/ui/breadcrumbs/BreadcrumbsItem.vue",
+          "type": "registry:component"
+        },
+        {
+          "path": "src/components/breadcrumbs/BreadcrumbsLink.vue",
+          "target": "@components/ui/breadcrumbs/BreadcrumbsLink.vue",
+          "type": "registry:component"
+        },
+        {
+          "path": "src/components/breadcrumbs/BreadcrumbsPage.vue",
+          "target": "@components/ui/breadcrumbs/BreadcrumbsPage.vue",
+          "type": "registry:component"
+        },
+        {
+          "path": "src/components/breadcrumbs/BreadcrumbsPath.vue",
+          "target": "@components/ui/breadcrumbs/BreadcrumbsPath.vue",
+          "type": "registry:component"
+        },
+        {
+          "path": "src/components/breadcrumbs/BreadcrumbsSeparator.vue",
+          "target": "@components/ui/breadcrumbs/BreadcrumbsSeparator.vue",
+          "type": "registry:component"
+        },
+        {
+          "path": "src/components/breadcrumbs/BreadcrumbsEllipsis.vue",
+          "target": "@components/ui/breadcrumbs/BreadcrumbsEllipsis.vue",
+          "type": "registry:component"
+        },
+        {
+          "path": "src/components/breadcrumbs/Breadcrumbs.module.css",
+          "target": "@components/ui/breadcrumbs/Breadcrumbs.module.css",
+          "type": "registry:file"
+        },
+        {
+          "path": "src/components/breadcrumbs/index.ts",
+          "target": "@components/ui/breadcrumbs/index.ts",
+          "type": "registry:component"
+        }
+      ]
+    },
+    {
       "name": "button",
       "type": "registry:item",
       "title": "Button",
@@ -325,6 +385,76 @@
       ]
     },
     {
+      "name": "card",
+      "type": "registry:item",
+      "title": "Card",
+      "description": "moduix Vue Card component.",
+      "dependencies": ["@ark-ui/vue", "clsx"],
+      "registryDependencies": ["@moduix-vue/foundation"],
+      "files": [
+        {
+          "path": "src/components/card/Card.vue",
+          "target": "@components/ui/card/Card.vue",
+          "type": "registry:component"
+        },
+        {
+          "path": "src/components/card/CardHeader.vue",
+          "target": "@components/ui/card/CardHeader.vue",
+          "type": "registry:component"
+        },
+        {
+          "path": "src/components/card/CardBody.vue",
+          "target": "@components/ui/card/CardBody.vue",
+          "type": "registry:component"
+        },
+        {
+          "path": "src/components/card/CardMedia.vue",
+          "target": "@components/ui/card/CardMedia.vue",
+          "type": "registry:component"
+        },
+        {
+          "path": "src/components/card/CardBackground.vue",
+          "target": "@components/ui/card/CardBackground.vue",
+          "type": "registry:component"
+        },
+        {
+          "path": "src/components/card/CardFooter.vue",
+          "target": "@components/ui/card/CardFooter.vue",
+          "type": "registry:component"
+        },
+        {
+          "path": "src/components/card/CardTitle.vue",
+          "target": "@components/ui/card/CardTitle.vue",
+          "type": "registry:component"
+        },
+        {
+          "path": "src/components/card/CardDescription.vue",
+          "target": "@components/ui/card/CardDescription.vue",
+          "type": "registry:component"
+        },
+        {
+          "path": "src/components/card/CardAction.vue",
+          "target": "@components/ui/card/CardAction.vue",
+          "type": "registry:component"
+        },
+        {
+          "path": "src/components/card/CardLink.vue",
+          "target": "@components/ui/card/CardLink.vue",
+          "type": "registry:component"
+        },
+        {
+          "path": "src/components/card/Card.module.css",
+          "target": "@components/ui/card/Card.module.css",
+          "type": "registry:file"
+        },
+        {
+          "path": "src/components/card/index.ts",
+          "target": "@components/ui/card/index.ts",
+          "type": "registry:component"
+        }
+      ]
+    },
+    {
       "name": "bleed",
       "type": "registry:item",
       "title": "Bleed",
@@ -345,6 +475,195 @@
         {
           "path": "src/components/bleed/index.ts",
           "target": "@components/ui/bleed/index.ts",
+          "type": "registry:component"
+        }
+      ]
+    },
+    {
+      "name": "menu",
+      "type": "registry:item",
+      "title": "Menu",
+      "description": "moduix Vue Menu component.",
+      "dependencies": ["@ark-ui/vue", "clsx"],
+      "registryDependencies": [
+        "@moduix-vue/foundation",
+        "@moduix-vue/icons",
+        "@moduix-vue/overlay-portal"
+      ],
+      "files": [
+        {
+          "path": "src/components/menu/Menu.vue",
+          "target": "@components/ui/menu/Menu.vue",
+          "type": "registry:component"
+        },
+        {
+          "path": "src/components/menu/MenuArrow.vue",
+          "target": "@components/ui/menu/MenuArrow.vue",
+          "type": "registry:component"
+        },
+        {
+          "path": "src/components/menu/MenuArrowTip.vue",
+          "target": "@components/ui/menu/MenuArrowTip.vue",
+          "type": "registry:component"
+        },
+        {
+          "path": "src/components/menu/MenuCheckboxItem.vue",
+          "target": "@components/ui/menu/MenuCheckboxItem.vue",
+          "type": "registry:component"
+        },
+        {
+          "path": "src/components/menu/MenuContext.vue",
+          "target": "@components/ui/menu/MenuContext.vue",
+          "type": "registry:component"
+        },
+        {
+          "path": "src/components/menu/MenuContextTrigger.vue",
+          "target": "@components/ui/menu/MenuContextTrigger.vue",
+          "type": "registry:component"
+        },
+        {
+          "path": "src/components/menu/MenuContent.vue",
+          "target": "@components/ui/menu/MenuContent.vue",
+          "type": "registry:component"
+        },
+        {
+          "path": "src/components/menu/MenuIndicator.vue",
+          "target": "@components/ui/menu/MenuIndicator.vue",
+          "type": "registry:component"
+        },
+        {
+          "path": "src/components/menu/MenuItem.vue",
+          "target": "@components/ui/menu/MenuItem.vue",
+          "type": "registry:component"
+        },
+        {
+          "path": "src/components/menu/MenuItemContext.vue",
+          "target": "@components/ui/menu/MenuItemContext.vue",
+          "type": "registry:component"
+        },
+        {
+          "path": "src/components/menu/MenuItemGroup.vue",
+          "target": "@components/ui/menu/MenuItemGroup.vue",
+          "type": "registry:component"
+        },
+        {
+          "path": "src/components/menu/MenuItemGroupLabel.vue",
+          "target": "@components/ui/menu/MenuItemGroupLabel.vue",
+          "type": "registry:component"
+        },
+        {
+          "path": "src/components/menu/MenuItemIndicator.vue",
+          "target": "@components/ui/menu/MenuItemIndicator.vue",
+          "type": "registry:component"
+        },
+        {
+          "path": "src/components/menu/MenuItemShortcut.vue",
+          "target": "@components/ui/menu/MenuItemShortcut.vue",
+          "type": "registry:component"
+        },
+        {
+          "path": "src/components/menu/MenuItemText.vue",
+          "target": "@components/ui/menu/MenuItemText.vue",
+          "type": "registry:component"
+        },
+        {
+          "path": "src/components/menu/MenuItemTextContent.vue",
+          "target": "@components/ui/menu/MenuItemTextContent.vue",
+          "type": "registry:component"
+        },
+        {
+          "path": "src/components/menu/MenuItemTextIcon.vue",
+          "target": "@components/ui/menu/MenuItemTextIcon.vue",
+          "type": "registry:component"
+        },
+        {
+          "path": "src/components/menu/MenuItemTextLabel.vue",
+          "target": "@components/ui/menu/MenuItemTextLabel.vue",
+          "type": "registry:component"
+        },
+        {
+          "path": "src/components/menu/MenuPositioner.vue",
+          "target": "@components/ui/menu/MenuPositioner.vue",
+          "type": "registry:component"
+        },
+        {
+          "path": "src/components/menu/MenuRadioItem.vue",
+          "target": "@components/ui/menu/MenuRadioItem.vue",
+          "type": "registry:component"
+        },
+        {
+          "path": "src/components/menu/MenuRadioItemGroup.vue",
+          "target": "@components/ui/menu/MenuRadioItemGroup.vue",
+          "type": "registry:component"
+        },
+        {
+          "path": "src/components/menu/MenuRootProvider.vue",
+          "target": "@components/ui/menu/MenuRootProvider.vue",
+          "type": "registry:component"
+        },
+        {
+          "path": "src/components/menu/MenuSeparator.vue",
+          "target": "@components/ui/menu/MenuSeparator.vue",
+          "type": "registry:component"
+        },
+        {
+          "path": "src/components/menu/MenuTrigger.vue",
+          "target": "@components/ui/menu/MenuTrigger.vue",
+          "type": "registry:component"
+        },
+        {
+          "path": "src/components/menu/MenuTriggerIcon.vue",
+          "target": "@components/ui/menu/MenuTriggerIcon.vue",
+          "type": "registry:component"
+        },
+        {
+          "path": "src/components/menu/MenuTriggerItem.vue",
+          "target": "@components/ui/menu/MenuTriggerItem.vue",
+          "type": "registry:component"
+        },
+        {
+          "path": "src/components/menu/MenuTriggerItemIcon.vue",
+          "target": "@components/ui/menu/MenuTriggerItemIcon.vue",
+          "type": "registry:component"
+        },
+        {
+          "path": "src/components/menu/MenuViewport.vue",
+          "target": "@components/ui/menu/MenuViewport.vue",
+          "type": "registry:component"
+        },
+        {
+          "path": "src/components/menu/Menu.module.css",
+          "target": "@components/ui/menu/Menu.module.css",
+          "type": "registry:file"
+        },
+        {
+          "path": "src/components/menu/index.ts",
+          "target": "@components/ui/menu/index.ts",
+          "type": "registry:component"
+        }
+      ]
+    },
+    {
+      "name": "close-button",
+      "type": "registry:item",
+      "title": "CloseButton",
+      "description": "moduix Vue CloseButton component.",
+      "dependencies": ["@ark-ui/vue", "clsx"],
+      "registryDependencies": ["@moduix-vue/foundation", "@moduix-vue/icons"],
+      "files": [
+        {
+          "path": "src/components/close-button/CloseButton.vue",
+          "target": "@components/ui/close-button/CloseButton.vue",
+          "type": "registry:component"
+        },
+        {
+          "path": "src/components/close-button/CloseButton.module.css",
+          "target": "@components/ui/close-button/CloseButton.module.css",
+          "type": "registry:file"
+        },
+        {
+          "path": "src/components/close-button/index.ts",
+          "target": "@components/ui/close-button/index.ts",
           "type": "registry:component"
         }
       ]

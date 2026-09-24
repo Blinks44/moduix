@@ -1,7 +1,7 @@
 ---
 title: Breadcrumbs
 component: breadcrumbs
-description: Accessible breadcrumb navigation for React and Solid with explicit parts and a compact shorthand for short paths.
+description: Accessible breadcrumb navigation for React, Solid, and Vue with explicit parts and a compact shorthand for short paths.
 ---
 
 import * as BreadcrumbsDocs from '@/components/examples/breadcrumbs/css-properties';
@@ -17,6 +17,12 @@ import breadcrumbsSolidCollapsedPath from '../../../snippets/breadcrumbs/solid/c
 import breadcrumbsSolidCustomSeparator from '../../../snippets/breadcrumbs/solid/custom-separator.tsx?raw';
 import breadcrumbsSolidFrameworkLink from '../../../snippets/breadcrumbs/solid/framework-link.tsx?raw';
 import breadcrumbsSolidLongCurrentLabel from '../../../snippets/breadcrumbs/solid/long-current-label.tsx?raw';
+import breadcrumbsVueAdvancedCustomization from '../../../snippets/breadcrumbs/vue/advanced-customization.vue?raw';
+import breadcrumbsVueBasic from '../../../snippets/breadcrumbs/vue/basic.vue?raw';
+import breadcrumbsVueCollapsedPath from '../../../snippets/breadcrumbs/vue/collapsed-path.vue?raw';
+import breadcrumbsVueCustomSeparator from '../../../snippets/breadcrumbs/vue/custom-separator.vue?raw';
+import breadcrumbsVueFrameworkLink from '../../../snippets/breadcrumbs/vue/framework-link.vue?raw';
+import breadcrumbsVueLongCurrentLabel from '../../../snippets/breadcrumbs/vue/long-current-label.vue?raw';
 
 ## API Reference
 
@@ -31,7 +37,7 @@ Ark UI does not provide a dedicated breadcrumbs primitive. moduix builds this co
 Use `BreadcrumbsPath` when you already have the path segments to display. It builds the ordered list,
 items, links, current page, and separators from required `links` and `page` props.
 
-React and Solid use the same flat value names. Import `Breadcrumbs` as the root and import each
+React, Solid, and Vue use the same flat value names. Import `Breadcrumbs` as the root and import each
 additional part directly, such as `BreadcrumbsPath` and `BreadcrumbsLink`. The same names work
 with npm packages and shadcn registry source.
 
@@ -46,6 +52,7 @@ with npm packages and shadcn registry source.
     values={[
       { label: 'React', value: 'react' },
       { label: 'Solid', value: 'solid' },
+      { label: 'Vue', value: 'vue' },
     ]}
     className="docs-tabs"
   >
@@ -58,6 +65,11 @@ with npm packages and shadcn registry source.
     <Tab value="solid">
 
 <CodeBlockRuntime lang="tsx" code={breadcrumbsSolidBasic} />
+
+    </Tab>
+    <Tab value="vue">
+
+<CodeBlockRuntime lang="vue" code={breadcrumbsVueBasic} />
 
     </Tab>
   </Tabs>
@@ -86,6 +98,16 @@ See [Quick Start](/docs/quick-start) for full package setup, registry configurat
   options={[
     { label: 'CSS Modules', command: 'shadcn@latest add @moduix-solid/breadcrumbs' },
     { label: 'Tailwind CSS', command: 'shadcn@latest add @moduix-solid-tailwind/breadcrumbs' },
+  ]}
+/>
+
+  </Tab>
+  <Tab label="Vue" value="vue">
+
+<ShadcnInstallOptions
+  options={[
+    { label: 'CSS Modules', command: 'shadcn@latest add @moduix-vue/breadcrumbs' },
+    { label: 'Tailwind CSS', command: 'shadcn@latest add @moduix-vue-tailwind/breadcrumbs' },
   ]}
 />
 
@@ -154,6 +176,7 @@ of `BreadcrumbsPath`.
     values={[
       { label: 'React', value: 'react' },
       { label: 'Solid', value: 'solid' },
+      { label: 'Vue', value: 'vue' },
     ]}
     className="docs-tabs"
   >
@@ -166,6 +189,11 @@ of `BreadcrumbsPath`.
     <Tab value="solid">
 
 <CodeBlockRuntime lang="tsx" code={breadcrumbsSolidCollapsedPath} />
+
+    </Tab>
+    <Tab value="vue">
+
+<CodeBlockRuntime lang="vue" code={breadcrumbsVueCollapsedPath} />
 
     </Tab>
   </Tabs>
@@ -194,6 +222,7 @@ default chevron.
     values={[
       { label: 'React', value: 'react' },
       { label: 'Solid', value: 'solid' },
+      { label: 'Vue', value: 'vue' },
     ]}
     className="docs-tabs"
   >
@@ -206,6 +235,11 @@ default chevron.
     <Tab value="solid">
 
 <CodeBlockRuntime lang="tsx" code={breadcrumbsSolidCustomSeparator} />
+
+    </Tab>
+    <Tab value="vue">
+
+<CodeBlockRuntime lang="vue" code={breadcrumbsVueCustomSeparator} />
 
     </Tab>
   </Tabs>
@@ -233,6 +267,7 @@ Use Ark `asChild` to render a link provided by the app's framework router.
     values={[
       { label: 'React', value: 'react' },
       { label: 'Solid', value: 'solid' },
+      { label: 'Vue', value: 'vue' },
     ]}
     className="docs-tabs"
   >
@@ -245,6 +280,11 @@ Use Ark `asChild` to render a link provided by the app's framework router.
     <Tab value="solid">
 
 <CodeBlockRuntime lang="tsx" code={breadcrumbsSolidFrameworkLink} />
+
+    </Tab>
+    <Tab value="vue">
+
+<CodeBlockRuntime lang="vue" code={breadcrumbsVueFrameworkLink} />
 
     </Tab>
   </Tabs>
@@ -272,6 +312,7 @@ Pass a node as the `page` prop when the current page needs extra attributes, suc
     values={[
       { label: 'React', value: 'react' },
       { label: 'Solid', value: 'solid' },
+      { label: 'Vue', value: 'vue' },
     ]}
     className="docs-tabs"
   >
@@ -284,6 +325,11 @@ Pass a node as the `page` prop when the current page needs extra attributes, suc
     <Tab value="solid">
 
 <CodeBlockRuntime lang="tsx" code={breadcrumbsSolidLongCurrentLabel} />
+
+    </Tab>
+    <Tab value="vue">
+
+<CodeBlockRuntime lang="vue" code={breadcrumbsVueLongCurrentLabel} />
 
     </Tab>
   </Tabs>
@@ -312,6 +358,7 @@ separator, and a current-page label with extra markup.
     values={[
       { label: 'React', value: 'react' },
       { label: 'Solid', value: 'solid' },
+      { label: 'Vue', value: 'vue' },
     ]}
     className="docs-tabs"
   >
@@ -326,6 +373,11 @@ separator, and a current-page label with extra markup.
 <CodeBlockRuntime lang="tsx" code={breadcrumbsSolidAdvancedCustomization} />
 
     </Tab>
+    <Tab value="vue">
+
+<CodeBlockRuntime lang="vue" code={breadcrumbsVueAdvancedCustomization} />
+
+    </Tab>
   </Tabs>
 
 **Styles**
@@ -338,7 +390,7 @@ separator, and a current-page label with extra markup.
 
 ## Styling
 
-Use `className` in React or `class` in Solid on exported parts for structural styles. Tailwind variants
+Use `className` in React or `class` in Solid and Vue on exported parts for structural styles. Tailwind variants
 use native utility classes and consumer classes; the CSS Variables reference below applies to CSS Modules
 variants. For state-based styles, prefer Ark data attributes together with moduix `data-slot` selectors.
 

@@ -1,7 +1,7 @@
 ---
 title: Card
 component: card
-description: Build flexible cards in React or Solid with package and shadcn installation options.
+description: "Create flexible cards in React, Solid, or Vue, with package and shadcn installation options."
 ---
 
 import * as CardDocs from '@/components/examples/card/css-properties';
@@ -30,6 +30,19 @@ import cardSolidWithBackground from '../../../snippets/card/solid/with-backgroun
 import cardSolidWithImage from '../../../snippets/card/solid/with-image.tsx?raw';
 import cardSolidWithinForm from '../../../snippets/card/solid/within-form.tsx?raw';
 
+import cardVueAdvancedCustomization from '../../../snippets/card/vue/advanced-customization.vue?raw';
+import cardVueBasic from '../../../snippets/card/vue/basic.vue?raw';
+import cardVueHeaderAction from '../../../snippets/card/vue/header-action.vue?raw';
+import cardVueHorizontal from '../../../snippets/card/vue/horizontal.vue?raw';
+import cardVueOverlayLink from '../../../snippets/card/vue/overlay-link.vue?raw';
+import cardVueRootAsLink from '../../../snippets/card/vue/root-as-link.vue?raw';
+import cardVueSizes from '../../../snippets/card/vue/sizes.vue?raw';
+import cardVueVariants from '../../../snippets/card/vue/variants.vue?raw';
+import cardVueWithAvatar from '../../../snippets/card/vue/with-avatar.vue?raw';
+import cardVueWithBackground from '../../../snippets/card/vue/with-background.vue?raw';
+import cardVueWithImage from '../../../snippets/card/vue/with-image.vue?raw';
+import cardVueWithinForm from '../../../snippets/card/vue/within-form.vue?raw';
+
 ## API Reference
 
 Ark UI does not provide a dedicated Card primitive. moduix builds Card with Ark's official
@@ -54,6 +67,7 @@ as `CardHeader` and `CardTitle`. The same names work with npm packages and shadc
     values={[
       { label: 'React', value: 'react' },
       { label: 'Solid', value: 'solid' },
+      { label: 'Vue', value: 'vue' },
     ]}
     className="docs-tabs"
   >
@@ -66,6 +80,11 @@ as `CardHeader` and `CardTitle`. The same names work with npm packages and shadc
     <Tab value="solid">
 
 <CodeBlockRuntime lang="tsx" code={cardSolidBasic} />
+
+    </Tab>
+    <Tab value="vue">
+
+<CodeBlockRuntime lang="vue" code={cardVueBasic} />
 
     </Tab>
   </Tabs>
@@ -99,6 +118,16 @@ See [Quick Start](/docs/quick-start) for full package setup, registry configurat
   options={[
     { label: 'CSS Modules', command: 'shadcn@latest add @moduix-solid/card' },
     { label: 'Tailwind CSS', command: 'shadcn@latest add @moduix-solid-tailwind/card' },
+  ]}
+/>
+
+  </Tab>
+  <Tab label="Vue" value="vue">
+
+<ShadcnInstallOptions
+  options={[
+    { label: 'CSS Modules', command: 'shadcn@latest add @moduix-vue/card' },
+    { label: 'Tailwind CSS', command: 'shadcn@latest add @moduix-vue-tailwind/card' },
   ]}
 />
 
@@ -166,6 +195,7 @@ Use `CardAction` for a compact status or control at the end of the header.
     values={[
       { label: 'React', value: 'react' },
       { label: 'Solid', value: 'solid' },
+      { label: 'Vue', value: 'vue' },
     ]}
     className="docs-tabs"
   >
@@ -178,6 +208,11 @@ Use `CardAction` for a compact status or control at the end of the header.
     <Tab value="solid">
 
 <CodeBlockRuntime lang="tsx" code={cardSolidHeaderAction} />
+
+    </Tab>
+    <Tab value="vue">
+
+<CodeBlockRuntime lang="vue" code={cardVueHeaderAction} />
 
     </Tab>
   </Tabs>
@@ -206,6 +241,7 @@ for this layout.
     values={[
       { label: 'React', value: 'react' },
       { label: 'Solid', value: 'solid' },
+      { label: 'Vue', value: 'vue' },
     ]}
     className="docs-tabs"
   >
@@ -218,6 +254,11 @@ for this layout.
     <Tab value="solid">
 
 <CodeBlockRuntime lang="tsx" code={cardSolidHorizontal} />
+
+    </Tab>
+    <Tab value="vue">
+
+<CodeBlockRuntime lang="vue" code={cardVueHorizontal} />
 
     </Tab>
   </Tabs>
@@ -245,6 +286,7 @@ Use `CardLink` when the card needs navigation and separate actions.
     values={[
       { label: 'React', value: 'react' },
       { label: 'Solid', value: 'solid' },
+      { label: 'Vue', value: 'vue' },
     ]}
     className="docs-tabs"
   >
@@ -257,6 +299,11 @@ Use `CardLink` when the card needs navigation and separate actions.
     <Tab value="solid">
 
 <CodeBlockRuntime lang="tsx" code={cardSolidOverlayLink} />
+
+    </Tab>
+    <Tab value="vue">
+
+<CodeBlockRuntime lang="vue" code={cardVueOverlayLink} />
 
     </Tab>
   </Tabs>
@@ -284,6 +331,7 @@ Use `asChild` when the entire card is one link and contains no nested controls.
     values={[
       { label: 'React', value: 'react' },
       { label: 'Solid', value: 'solid' },
+      { label: 'Vue', value: 'vue' },
     ]}
     className="docs-tabs"
   >
@@ -296,6 +344,11 @@ Use `asChild` when the entire card is one link and contains no nested controls.
     <Tab value="solid">
 
 <CodeBlockRuntime lang="tsx" code={cardSolidRootAsLink} />
+
+    </Tab>
+    <Tab value="vue">
+
+<CodeBlockRuntime lang="vue" code={cardVueRootAsLink} />
 
     </Tab>
   </Tabs>
@@ -323,6 +376,7 @@ Choose `sm`, `md`, or `lg` to change the card's padding and title scale.
     values={[
       { label: 'React', value: 'react' },
       { label: 'Solid', value: 'solid' },
+      { label: 'Vue', value: 'vue' },
     ]}
     className="docs-tabs"
   >
@@ -335,6 +389,11 @@ Choose `sm`, `md`, or `lg` to change the card's padding and title scale.
     <Tab value="solid">
 
 <CodeBlockRuntime lang="tsx" code={cardSolidSizes} />
+
+    </Tab>
+    <Tab value="vue">
+
+<CodeBlockRuntime lang="vue" code={cardVueSizes} />
 
     </Tab>
   </Tabs>
@@ -362,6 +421,7 @@ Use the variants to communicate the hierarchy between surfaces.
     values={[
       { label: 'React', value: 'react' },
       { label: 'Solid', value: 'solid' },
+      { label: 'Vue', value: 'vue' },
     ]}
     className="docs-tabs"
   >
@@ -374,6 +434,11 @@ Use the variants to communicate the hierarchy between surfaces.
     <Tab value="solid">
 
 <CodeBlockRuntime lang="tsx" code={cardSolidVariants} />
+
+    </Tab>
+    <Tab value="vue">
+
+<CodeBlockRuntime lang="vue" code={cardVueVariants} />
 
     </Tab>
   </Tabs>
@@ -401,6 +466,7 @@ Place profile media in the header when the card represents a person or entity.
     values={[
       { label: 'React', value: 'react' },
       { label: 'Solid', value: 'solid' },
+      { label: 'Vue', value: 'vue' },
     ]}
     className="docs-tabs"
   >
@@ -413,6 +479,11 @@ Place profile media in the header when the card represents a person or entity.
     <Tab value="solid">
 
 <CodeBlockRuntime lang="tsx" code={cardSolidWithAvatar} />
+
+    </Tab>
+    <Tab value="vue">
+
+<CodeBlockRuntime lang="vue" code={cardVueWithAvatar} />
 
     </Tab>
   </Tabs>
@@ -441,6 +512,7 @@ styles in your application.
     values={[
       { label: 'React', value: 'react' },
       { label: 'Solid', value: 'solid' },
+      { label: 'Vue', value: 'vue' },
     ]}
     className="docs-tabs"
   >
@@ -453,6 +525,11 @@ styles in your application.
     <Tab value="solid">
 
 <CodeBlockRuntime lang="tsx" code={cardSolidWithBackground} />
+
+    </Tab>
+    <Tab value="vue">
+
+<CodeBlockRuntime lang="vue" code={cardVueWithBackground} />
 
     </Tab>
   </Tabs>
@@ -480,6 +557,7 @@ Use `CardMedia` for leading media that should span the card width with consisten
     values={[
       { label: 'React', value: 'react' },
       { label: 'Solid', value: 'solid' },
+      { label: 'Vue', value: 'vue' },
     ]}
     className="docs-tabs"
   >
@@ -492,6 +570,11 @@ Use `CardMedia` for leading media that should span the card width with consisten
     <Tab value="solid">
 
 <CodeBlockRuntime lang="tsx" code={cardSolidWithImage} />
+
+    </Tab>
+    <Tab value="vue">
+
+<CodeBlockRuntime lang="vue" code={cardVueWithImage} />
 
     </Tab>
   </Tabs>
@@ -519,6 +602,7 @@ Use the root as a form when the card groups related fields and actions.
     values={[
       { label: 'React', value: 'react' },
       { label: 'Solid', value: 'solid' },
+      { label: 'Vue', value: 'vue' },
     ]}
     className="docs-tabs"
   >
@@ -531,6 +615,11 @@ Use the root as a form when the card groups related fields and actions.
     <Tab value="solid">
 
 <CodeBlockRuntime lang="tsx" code={cardSolidWithinForm} />
+
+    </Tab>
+    <Tab value="vue">
+
+<CodeBlockRuntime lang="vue" code={cardVueWithinForm} />
 
     </Tab>
   </Tabs>
@@ -559,6 +648,7 @@ hooks.
     values={[
       { label: 'React', value: 'react' },
       { label: 'Solid', value: 'solid' },
+      { label: 'Vue', value: 'vue' },
     ]}
     className="docs-tabs"
   >
@@ -571,6 +661,11 @@ hooks.
     <Tab value="solid">
 
 <CodeBlockRuntime lang="tsx" code={cardSolidAdvancedCustomization} />
+
+    </Tab>
+    <Tab value="vue">
+
+<CodeBlockRuntime lang="vue" code={cardVueAdvancedCustomization} />
 
     </Tab>
   </Tabs>

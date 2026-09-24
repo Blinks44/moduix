@@ -1,7 +1,7 @@
 ---
 title: Card
 component: card
-description: Гибкие карточки для React и Solid с вариантами установки через пакет или shadcn.
+description: "Гибкие карточки на React, Solid и Vue: установка из пакета или через shadcn."
 ---
 
 import * as CardDocs from '@/components/examples/card/css-properties';
@@ -30,6 +30,19 @@ import cardSolidWithBackground from '../../../snippets/card/solid/with-backgroun
 import cardSolidWithImage from '../../../snippets/card/solid/with-image.tsx?raw';
 import cardSolidWithinForm from '../../../snippets/card/solid/within-form.tsx?raw';
 
+import cardVueAdvancedCustomization from '../../../snippets/card/vue/advanced-customization.vue?raw';
+import cardVueBasic from '../../../snippets/card/vue/basic.vue?raw';
+import cardVueHeaderAction from '../../../snippets/card/vue/header-action.vue?raw';
+import cardVueHorizontal from '../../../snippets/card/vue/horizontal.vue?raw';
+import cardVueOverlayLink from '../../../snippets/card/vue/overlay-link.vue?raw';
+import cardVueRootAsLink from '../../../snippets/card/vue/root-as-link.vue?raw';
+import cardVueSizes from '../../../snippets/card/vue/sizes.vue?raw';
+import cardVueVariants from '../../../snippets/card/vue/variants.vue?raw';
+import cardVueWithAvatar from '../../../snippets/card/vue/with-avatar.vue?raw';
+import cardVueWithBackground from '../../../snippets/card/vue/with-background.vue?raw';
+import cardVueWithImage from '../../../snippets/card/vue/with-image.vue?raw';
+import cardVueWithinForm from '../../../snippets/card/vue/within-form.vue?raw';
+
 ## Справочник API
 
 В Ark UI нет отдельного примитива Card. Компонент Card в moduix построен на официальной
@@ -54,6 +67,7 @@ import cardSolidWithinForm from '../../../snippets/card/solid/within-form.tsx?ra
     values={[
       { label: 'React', value: 'react' },
       { label: 'Solid', value: 'solid' },
+      { label: 'Vue', value: 'vue' },
     ]}
     className="docs-tabs"
   >
@@ -66,6 +80,11 @@ import cardSolidWithinForm from '../../../snippets/card/solid/within-form.tsx?ra
     <Tab value="solid">
 
 <CodeBlockRuntime lang="tsx" code={cardSolidBasic} />
+
+    </Tab>
+    <Tab value="vue">
+
+<CodeBlockRuntime lang="vue" code={cardVueBasic} />
 
     </Tab>
   </Tabs>
@@ -99,6 +118,16 @@ import cardSolidWithinForm from '../../../snippets/card/solid/within-form.tsx?ra
   options={[
     { label: 'CSS Modules', command: 'shadcn@latest add @moduix-solid/card' },
     { label: 'Tailwind CSS', command: 'shadcn@latest add @moduix-solid-tailwind/card' },
+  ]}
+/>
+
+  </Tab>
+  <Tab label="Vue" value="vue">
+
+<ShadcnInstallOptions
+  options={[
+    { label: 'CSS Modules', command: 'shadcn@latest add @moduix-vue/card' },
+    { label: 'Tailwind CSS', command: 'shadcn@latest add @moduix-vue-tailwind/card' },
   ]}
 />
 
@@ -164,6 +193,7 @@ Card не управляет состоянием, колбэками, пров�
     values={[
       { label: 'React', value: 'react' },
       { label: 'Solid', value: 'solid' },
+      { label: 'Vue', value: 'vue' },
     ]}
     className="docs-tabs"
   >
@@ -176,6 +206,11 @@ Card не управляет состоянием, колбэками, пров�
     <Tab value="solid">
 
 <CodeBlockRuntime lang="tsx" code={cardSolidHeaderAction} />
+
+    </Tab>
+    <Tab value="vue">
+
+<CodeBlockRuntime lang="vue" code={cardVueHeaderAction} />
 
     </Tab>
   </Tabs>
@@ -204,6 +239,7 @@ Card не управляет состоянием, колбэками, пров�
     values={[
       { label: 'React', value: 'react' },
       { label: 'Solid', value: 'solid' },
+      { label: 'Vue', value: 'vue' },
     ]}
     className="docs-tabs"
   >
@@ -216,6 +252,11 @@ Card не управляет состоянием, колбэками, пров�
     <Tab value="solid">
 
 <CodeBlockRuntime lang="tsx" code={cardSolidHorizontal} />
+
+    </Tab>
+    <Tab value="vue">
+
+<CodeBlockRuntime lang="vue" code={cardVueHorizontal} />
 
     </Tab>
   </Tabs>
@@ -243,6 +284,7 @@ Card не управляет состоянием, колбэками, пров�
     values={[
       { label: 'React', value: 'react' },
       { label: 'Solid', value: 'solid' },
+      { label: 'Vue', value: 'vue' },
     ]}
     className="docs-tabs"
   >
@@ -255,6 +297,11 @@ Card не управляет состоянием, колбэками, пров�
     <Tab value="solid">
 
 <CodeBlockRuntime lang="tsx" code={cardSolidOverlayLink} />
+
+    </Tab>
+    <Tab value="vue">
+
+<CodeBlockRuntime lang="vue" code={cardVueOverlayLink} />
 
     </Tab>
   </Tabs>
@@ -282,6 +329,7 @@ Card не управляет состоянием, колбэками, пров�
     values={[
       { label: 'React', value: 'react' },
       { label: 'Solid', value: 'solid' },
+      { label: 'Vue', value: 'vue' },
     ]}
     className="docs-tabs"
   >
@@ -294,6 +342,11 @@ Card не управляет состоянием, колбэками, пров�
     <Tab value="solid">
 
 <CodeBlockRuntime lang="tsx" code={cardSolidRootAsLink} />
+
+    </Tab>
+    <Tab value="vue">
+
+<CodeBlockRuntime lang="vue" code={cardVueRootAsLink} />
 
     </Tab>
   </Tabs>
@@ -321,6 +374,7 @@ Card не управляет состоянием, колбэками, пров�
     values={[
       { label: 'React', value: 'react' },
       { label: 'Solid', value: 'solid' },
+      { label: 'Vue', value: 'vue' },
     ]}
     className="docs-tabs"
   >
@@ -333,6 +387,11 @@ Card не управляет состоянием, колбэками, пров�
     <Tab value="solid">
 
 <CodeBlockRuntime lang="tsx" code={cardSolidSizes} />
+
+    </Tab>
+    <Tab value="vue">
+
+<CodeBlockRuntime lang="vue" code={cardVueSizes} />
 
     </Tab>
   </Tabs>
@@ -360,6 +419,7 @@ Card не управляет состоянием, колбэками, пров�
     values={[
       { label: 'React', value: 'react' },
       { label: 'Solid', value: 'solid' },
+      { label: 'Vue', value: 'vue' },
     ]}
     className="docs-tabs"
   >
@@ -372,6 +432,11 @@ Card не управляет состоянием, колбэками, пров�
     <Tab value="solid">
 
 <CodeBlockRuntime lang="tsx" code={cardSolidVariants} />
+
+    </Tab>
+    <Tab value="vue">
+
+<CodeBlockRuntime lang="vue" code={cardVueVariants} />
 
     </Tab>
   </Tabs>
@@ -399,6 +464,7 @@ Card не управляет состоянием, колбэками, пров�
     values={[
       { label: 'React', value: 'react' },
       { label: 'Solid', value: 'solid' },
+      { label: 'Vue', value: 'vue' },
     ]}
     className="docs-tabs"
   >
@@ -411,6 +477,11 @@ Card не управляет состоянием, колбэками, пров�
     <Tab value="solid">
 
 <CodeBlockRuntime lang="tsx" code={cardSolidWithAvatar} />
+
+    </Tab>
+    <Tab value="vue">
+
+<CodeBlockRuntime lang="vue" code={cardVueWithAvatar} />
 
     </Tab>
   </Tabs>
@@ -439,6 +510,7 @@ Card не управляет состоянием, колбэками, пров�
     values={[
       { label: 'React', value: 'react' },
       { label: 'Solid', value: 'solid' },
+      { label: 'Vue', value: 'vue' },
     ]}
     className="docs-tabs"
   >
@@ -451,6 +523,11 @@ Card не управляет состоянием, колбэками, пров�
     <Tab value="solid">
 
 <CodeBlockRuntime lang="tsx" code={cardSolidWithBackground} />
+
+    </Tab>
+    <Tab value="vue">
+
+<CodeBlockRuntime lang="vue" code={cardVueWithBackground} />
 
     </Tab>
   </Tabs>
@@ -479,6 +556,7 @@ Card не управляет состоянием, колбэками, пров�
     values={[
       { label: 'React', value: 'react' },
       { label: 'Solid', value: 'solid' },
+      { label: 'Vue', value: 'vue' },
     ]}
     className="docs-tabs"
   >
@@ -491,6 +569,11 @@ Card не управляет состоянием, колбэками, пров�
     <Tab value="solid">
 
 <CodeBlockRuntime lang="tsx" code={cardSolidWithImage} />
+
+    </Tab>
+    <Tab value="vue">
+
+<CodeBlockRuntime lang="vue" code={cardVueWithImage} />
 
     </Tab>
   </Tabs>
@@ -518,6 +601,7 @@ Card не управляет состоянием, колбэками, пров�
     values={[
       { label: 'React', value: 'react' },
       { label: 'Solid', value: 'solid' },
+      { label: 'Vue', value: 'vue' },
     ]}
     className="docs-tabs"
   >
@@ -530,6 +614,11 @@ Card не управляет состоянием, колбэками, пров�
     <Tab value="solid">
 
 <CodeBlockRuntime lang="tsx" code={cardSolidWithinForm} />
+
+    </Tab>
+    <Tab value="vue">
+
+<CodeBlockRuntime lang="vue" code={cardVueWithinForm} />
 
     </Tab>
   </Tabs>
@@ -558,6 +647,7 @@ Card не управляет состоянием, колбэками, пров�
     values={[
       { label: 'React', value: 'react' },
       { label: 'Solid', value: 'solid' },
+      { label: 'Vue', value: 'vue' },
     ]}
     className="docs-tabs"
   >
@@ -570,6 +660,11 @@ Card не управляет состоянием, колбэками, пров�
     <Tab value="solid">
 
 <CodeBlockRuntime lang="tsx" code={cardSolidAdvancedCustomization} />
+
+    </Tab>
+    <Tab value="vue">
+
+<CodeBlockRuntime lang="vue" code={cardVueAdvancedCustomization} />
 
     </Tab>
   </Tabs>

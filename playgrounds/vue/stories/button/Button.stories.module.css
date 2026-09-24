@@ -15,3 +15,16 @@
 .wrappingButton {
   white-space: normal;
 }
+
+.spinner {
+  box-sizing: border-box;
+  width: var(--moduix-spinner-size, var(--moduix-spinner-size-sm, var(--moduix-spacing-4)));
+  height: var(--moduix-spinner-size, var(--moduix-spinner-size-sm, var(--moduix-spacing-4)));
+  flex: 0 0 auto;
+  color: var(--moduix-spinner-color, currentColor);
+  border: var(--moduix-spinner-ring-border-width, var(--moduix-border-width-md)) solid
+    var(--moduix-spinner-ring-track-color, color-mix(in oklab, currentColor 22%, transparent));
+  border-block-start-color: currentColor;
+  border-radius: var(--moduix-spinner-radius, var(--moduix-radius-full));
+  animation: var(--moduix-spinner-animation, var(--moduix-animation-spin));
+}

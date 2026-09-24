@@ -121,13 +121,13 @@ export const TruncatedLabel: Story = {
 export const CustomStyling: Story = {
   render: renderStory(`
     <div :class="rowClass">
-      <Badge :class="customBadgeClass">
-        <BadgeDot />
-        <BadgeLabel>Priority</BadgeLabel>
-      </Badge>
       <Badge :class="smallBadgeClass">Small</Badge>
       <Badge>Default</Badge>
       <Badge :class="largeBadgeClass">Large</Badge>
+      <Badge :class="customBadgeClass">
+        <BadgeDot class="size-2" />
+        <BadgeLabel>Priority</BadgeLabel>
+      </Badge>
     </div>
   `),
 };

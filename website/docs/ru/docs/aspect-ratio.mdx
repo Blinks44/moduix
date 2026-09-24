@@ -19,6 +19,8 @@ import aspectRatioVueBasic from '../../../snippets/aspect-ratio/vue/basic.vue?ra
 import aspectRatioVueEmbeddedContent from '../../../snippets/aspect-ratio/vue/embedded-content.vue?raw';
 import aspectRatioVueMigration from '../../../snippets/aspect-ratio/vue/migrating-from-shadcn.vue?raw';
 
+import aspectRatioVueCardGrid from '../../../snippets/aspect-ratio/vue/card-grid.vue?raw';
+
 ## Справочник API
 
 В Ark UI нет отдельного примитива `aspect-ratio`. В moduix этот компонент построен на официальной
@@ -161,6 +163,7 @@ AspectRatio
     values={[
       { label: 'React', value: 'react' },
       { label: 'Solid', value: 'solid' },
+      { label: 'Vue', value: 'vue' },
     ]}
     className="docs-tabs"
   >
@@ -173,6 +176,11 @@ AspectRatio
     <Tab value="solid">
 
 <CodeBlockRuntime lang="tsx" code={aspectRatioSolidCardGrid} />
+
+    </Tab>
+    <Tab value="vue">
+
+<CodeBlockRuntime lang="vue" code={aspectRatioVueCardGrid} />
 
     </Tab>
   </Tabs>

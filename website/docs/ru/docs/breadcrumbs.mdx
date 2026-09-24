@@ -1,7 +1,7 @@
 ---
 title: Breadcrumbs
 component: breadcrumbs
-description: Доступная навигация по иерархии страниц для React и Solid с явными частями и компактным API для коротких цепочек.
+description: Доступная навигация по иерархии страниц для React, Solid и Vue с явными частями и компактным API для коротких цепочек.
 ---
 
 import * as BreadcrumbsDocs from '@/components/examples/breadcrumbs/css-properties';
@@ -17,6 +17,12 @@ import breadcrumbsSolidCollapsedPath from '../../../snippets/breadcrumbs/solid/c
 import breadcrumbsSolidCustomSeparator from '../../../snippets/breadcrumbs/solid/custom-separator.tsx?raw';
 import breadcrumbsSolidFrameworkLink from '../../../snippets/breadcrumbs/solid/framework-link.tsx?raw';
 import breadcrumbsSolidLongCurrentLabel from '../../../snippets/breadcrumbs/solid/long-current-label.tsx?raw';
+import breadcrumbsVueAdvancedCustomization from '../../../snippets/breadcrumbs/vue/advanced-customization.vue?raw';
+import breadcrumbsVueBasic from '../../../snippets/breadcrumbs/vue/basic.vue?raw';
+import breadcrumbsVueCollapsedPath from '../../../snippets/breadcrumbs/vue/collapsed-path.vue?raw';
+import breadcrumbsVueCustomSeparator from '../../../snippets/breadcrumbs/vue/custom-separator.vue?raw';
+import breadcrumbsVueFrameworkLink from '../../../snippets/breadcrumbs/vue/framework-link.vue?raw';
+import breadcrumbsVueLongCurrentLabel from '../../../snippets/breadcrumbs/vue/long-current-label.vue?raw';
 
 ## Справочник API
 
@@ -31,7 +37,7 @@ Ark UI не предоставляет отдельного примитива �
 Используйте `BreadcrumbsPath`, если у вас уже есть список сегментов пути. На основе обязательных пропсов `links` и `page`
 компонент создаёт упорядоченный список, элементы, ссылки, текущую страницу и разделители.
 
-В React и Solid используются одинаковые плоские имена значений. Импортируйте `Breadcrumbs` как корень и импортируйте
+В React, Solid и Vue используются одинаковые плоские имена значений. Импортируйте `Breadcrumbs` как корень и импортируйте
 каждую дополнительную часть напрямую, например `BreadcrumbsPath` и `BreadcrumbsLink`. Эти же имена работают и в пакетах
 npm, и в исходниках реестра shadcn.
 
@@ -46,6 +52,7 @@ npm, и в исходниках реестра shadcn.
     values={[
       { label: 'React', value: 'react' },
       { label: 'Solid', value: 'solid' },
+      { label: 'Vue', value: 'vue' },
     ]}
     className="docs-tabs"
   >
@@ -58,6 +65,11 @@ npm, и в исходниках реестра shadcn.
     <Tab value="solid">
 
 <CodeBlockRuntime lang="tsx" code={breadcrumbsSolidBasic} />
+
+    </Tab>
+    <Tab value="vue">
+
+<CodeBlockRuntime lang="vue" code={breadcrumbsVueBasic} />
 
     </Tab>
   </Tabs>
@@ -86,6 +98,16 @@ npm, и в исходниках реестра shadcn.
   options={[
     { label: 'CSS Modules', command: 'shadcn@latest add @moduix-solid/breadcrumbs' },
     { label: 'Tailwind CSS', command: 'shadcn@latest add @moduix-solid-tailwind/breadcrumbs' },
+  ]}
+/>
+
+  </Tab>
+  <Tab label="Vue" value="vue">
+
+<ShadcnInstallOptions
+  options={[
+    { label: 'CSS Modules', command: 'shadcn@latest add @moduix-vue/breadcrumbs' },
+    { label: 'Tailwind CSS', command: 'shadcn@latest add @moduix-vue-tailwind/breadcrumbs' },
   ]}
 />
 
@@ -152,6 +174,7 @@ Breadcrumbs
     values={[
       { label: 'React', value: 'react' },
       { label: 'Solid', value: 'solid' },
+      { label: 'Vue', value: 'vue' },
     ]}
     className="docs-tabs"
   >
@@ -164,6 +187,11 @@ Breadcrumbs
     <Tab value="solid">
 
 <CodeBlockRuntime lang="tsx" code={breadcrumbsSolidCollapsedPath} />
+
+    </Tab>
+    <Tab value="vue">
+
+<CodeBlockRuntime lang="vue" code={breadcrumbsVueCollapsedPath} />
 
     </Tab>
   </Tabs>
@@ -192,6 +220,7 @@ Breadcrumbs
     values={[
       { label: 'React', value: 'react' },
       { label: 'Solid', value: 'solid' },
+      { label: 'Vue', value: 'vue' },
     ]}
     className="docs-tabs"
   >
@@ -204,6 +233,11 @@ Breadcrumbs
     <Tab value="solid">
 
 <CodeBlockRuntime lang="tsx" code={breadcrumbsSolidCustomSeparator} />
+
+    </Tab>
+    <Tab value="vue">
+
+<CodeBlockRuntime lang="vue" code={breadcrumbsVueCustomSeparator} />
 
     </Tab>
   </Tabs>
@@ -231,6 +265,7 @@ Breadcrumbs
     values={[
       { label: 'React', value: 'react' },
       { label: 'Solid', value: 'solid' },
+      { label: 'Vue', value: 'vue' },
     ]}
     className="docs-tabs"
   >
@@ -243,6 +278,11 @@ Breadcrumbs
     <Tab value="solid">
 
 <CodeBlockRuntime lang="tsx" code={breadcrumbsSolidFrameworkLink} />
+
+    </Tab>
+    <Tab value="vue">
+
+<CodeBlockRuntime lang="vue" code={breadcrumbsVueFrameworkLink} />
 
     </Tab>
   </Tabs>
@@ -271,6 +311,7 @@ Breadcrumbs
     values={[
       { label: 'React', value: 'react' },
       { label: 'Solid', value: 'solid' },
+      { label: 'Vue', value: 'vue' },
     ]}
     className="docs-tabs"
   >
@@ -283,6 +324,11 @@ Breadcrumbs
     <Tab value="solid">
 
 <CodeBlockRuntime lang="tsx" code={breadcrumbsSolidLongCurrentLabel} />
+
+    </Tab>
+    <Tab value="vue">
+
+<CodeBlockRuntime lang="vue" code={breadcrumbsVueLongCurrentLabel} />
 
     </Tab>
   </Tabs>
@@ -311,6 +357,7 @@ Breadcrumbs
     values={[
       { label: 'React', value: 'react' },
       { label: 'Solid', value: 'solid' },
+      { label: 'Vue', value: 'vue' },
     ]}
     className="docs-tabs"
   >
@@ -325,6 +372,11 @@ Breadcrumbs
 <CodeBlockRuntime lang="tsx" code={breadcrumbsSolidAdvancedCustomization} />
 
     </Tab>
+    <Tab value="vue">
+
+<CodeBlockRuntime lang="vue" code={breadcrumbsVueAdvancedCustomization} />
+
+    </Tab>
   </Tabs>
 
 **Стили**
@@ -337,7 +389,7 @@ Breadcrumbs
 
 ## Стилизация
 
-Используйте `className` в React или `class` в Solid на экспортируемых частях для структурных стилей. Варианты на
+Используйте `className` в React или `class` в Solid и Vue на экспортируемых частях для структурных стилей. Варианты на
 Tailwind используют нативные классы Tailwind и классы приложения; справочник CSS-переменных ниже относится к вариантам
 с CSS Modules. Для стилей, зависящих от состояния, используйте атрибуты данных Ark вместе с селекторами `data-slot`
 moduix.

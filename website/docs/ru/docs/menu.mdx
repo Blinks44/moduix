@@ -39,6 +39,23 @@ import menuSolidRadioItems from '../../../snippets/menu/solid/radio-items.tsx?ra
 import menuSolidRootProvider from '../../../snippets/menu/solid/root-provider.tsx?raw';
 import menuSolidSelectEvent from '../../../snippets/menu/solid/select-event.tsx?raw';
 import menuSolidWithArrow from '../../../snippets/menu/solid/with-arrow.tsx?raw';
+import menuVueAdvancedCustomization from '../../../snippets/menu/vue/advanced-customization.vue?raw';
+import menuVueBasic from '../../../snippets/menu/vue/basic.vue?raw';
+import menuVueCheckboxItems from '../../../snippets/menu/vue/checkbox-items.vue?raw';
+import menuVueContext from '../../../snippets/menu/vue/context-menu.vue?raw';
+import menuVueControlled from '../../../snippets/menu/vue/controlled.vue?raw';
+import menuVueGrouping from '../../../snippets/menu/vue/grouping.vue?raw';
+import menuVueIndicatorPlacement from '../../../snippets/menu/vue/indicator-placement.vue?raw';
+import menuVueItemContext from '../../../snippets/menu/vue/item-context.vue?raw';
+import menuVueLazyMountedContext from '../../../snippets/menu/vue/lazy-mounted-context-menu.vue?raw';
+import menuVueLinks from '../../../snippets/menu/vue/links.vue?raw';
+import menuVueInDialog from '../../../snippets/menu/vue/menu-in-dialog.vue?raw';
+import menuVueMultipleTriggers from '../../../snippets/menu/vue/multiple-triggers.vue?raw';
+import menuVueNested from '../../../snippets/menu/vue/nested.vue?raw';
+import menuVueRadioItems from '../../../snippets/menu/vue/radio-items.vue?raw';
+import menuVueRootProvider from '../../../snippets/menu/vue/root-provider.vue?raw';
+import menuVueSelectEvent from '../../../snippets/menu/vue/select-event.vue?raw';
+import menuVueWithArrow from '../../../snippets/menu/vue/with-arrow.vue?raw';
 
 ## Справочник API
 
@@ -71,6 +88,7 @@ import menuSolidWithArrow from '../../../snippets/menu/solid/with-arrow.tsx?raw'
     values={[
       { label: 'React', value: 'react' },
       { label: 'Solid', value: 'solid' },
+      { label: 'Vue', value: 'vue' },
     ]}
     className="docs-tabs"
   >
@@ -83,6 +101,10 @@ import menuSolidWithArrow from '../../../snippets/menu/solid/with-arrow.tsx?raw'
     <Tab value="solid">
 
 <CodeBlockRuntime lang="tsx" code={menuSolidBasic} />
+    </Tab>
+    <Tab value="vue">
+
+<CodeBlockRuntime lang="vue" code={menuVueBasic} />
 
     </Tab>
   </Tabs>
@@ -116,6 +138,16 @@ import menuSolidWithArrow from '../../../snippets/menu/solid/with-arrow.tsx?raw'
   options={[
     { label: 'CSS Modules', command: 'shadcn@latest add @moduix-solid/menu' },
     { label: 'Tailwind CSS', command: 'shadcn@latest add @moduix-solid-tailwind/menu' },
+  ]}
+/>
+
+  </Tab>
+  <Tab label="Vue" value="vue">
+
+<ShadcnInstallOptions
+  options={[
+    { label: 'CSS Modules', command: 'shadcn@latest add @moduix-vue/menu' },
+    { label: 'Tailwind CSS', command: 'shadcn@latest add @moduix-vue-tailwind/menu' },
   ]}
 />
 
@@ -207,7 +239,7 @@ render-функции `asChild`: ref на самой части `Menu` чере�
 
 <ExampleCode>
 <div className="docs-reference">
-  <Tabs groupId="framework" values={[{ label: 'React', value: 'react' }, { label: 'Solid', value: 'solid' }]} className="docs-tabs">
+  <Tabs groupId="framework" values={[{ label: 'React', value: 'react' }, { label: 'Solid', value: 'solid' }, { label: 'Vue', value: 'vue' }]} className="docs-tabs">
     <Tab value="react">
 
 ```tsx pure file="../../../src/components/examples/menu/checkbox-items.tsx"
@@ -217,6 +249,10 @@ render-функции `asChild`: ref на самой части `Menu` чере�
     <Tab value="solid">
 
 <CodeBlockRuntime lang="tsx" code={menuSolidCheckboxItems} />
+    </Tab>
+    <Tab value="vue">
+
+<CodeBlockRuntime lang="vue" code={menuVueCheckboxItems} />
 
     </Tab>
   </Tabs>
@@ -240,7 +276,7 @@ render-функции `asChild`: ref на самой части `Menu` чере�
 
 <ExampleCode>
 <div className="docs-reference">
-  <Tabs groupId="framework" values={[{ label: 'React', value: 'react' }, { label: 'Solid', value: 'solid' }]} className="docs-tabs">
+  <Tabs groupId="framework" values={[{ label: 'React', value: 'react' }, { label: 'Solid', value: 'solid' }, { label: 'Vue', value: 'vue' }]} className="docs-tabs">
     <Tab value="react">
 
 ```tsx pure file="../../../src/components/examples/menu/context-menu.tsx"
@@ -250,6 +286,10 @@ render-функции `asChild`: ref на самой части `Menu` чере�
     <Tab value="solid">
 
 <CodeBlockRuntime lang="tsx" code={menuSolidContext} />
+    </Tab>
+    <Tab value="vue">
+
+<CodeBlockRuntime lang="vue" code={menuVueContext} />
 
     </Tab>
   </Tabs>
@@ -273,7 +313,7 @@ render-функции `asChild`: ref на самой части `Menu` чере�
 
 <ExampleCode>
 <div className="docs-reference">
-  <Tabs groupId="framework" values={[{ label: 'React', value: 'react' }, { label: 'Solid', value: 'solid' }]} className="docs-tabs">
+  <Tabs groupId="framework" values={[{ label: 'React', value: 'react' }, { label: 'Solid', value: 'solid' }, { label: 'Vue', value: 'vue' }]} className="docs-tabs">
     <Tab value="react">
 
 ```tsx pure file="../../../src/components/examples/menu/controlled.tsx"
@@ -283,6 +323,10 @@ render-функции `asChild`: ref на самой части `Menu` чере�
     <Tab value="solid">
 
 <CodeBlockRuntime lang="tsx" code={menuSolidControlled} />
+    </Tab>
+    <Tab value="vue">
+
+<CodeBlockRuntime lang="vue" code={menuVueControlled} />
 
     </Tab>
   </Tabs>
@@ -306,7 +350,7 @@ render-функции `asChild`: ref на самой части `Menu` чере�
 
 <ExampleCode>
 <div className="docs-reference">
-  <Tabs groupId="framework" values={[{ label: 'React', value: 'react' }, { label: 'Solid', value: 'solid' }]} className="docs-tabs">
+  <Tabs groupId="framework" values={[{ label: 'React', value: 'react' }, { label: 'Solid', value: 'solid' }, { label: 'Vue', value: 'vue' }]} className="docs-tabs">
     <Tab value="react">
 
 ```tsx pure file="../../../src/components/examples/menu/grouping.tsx"
@@ -316,6 +360,10 @@ render-функции `asChild`: ref на самой части `Menu` чере�
     <Tab value="solid">
 
 <CodeBlockRuntime lang="tsx" code={menuSolidGrouping} />
+    </Tab>
+    <Tab value="vue">
+
+<CodeBlockRuntime lang="vue" code={menuVueGrouping} />
 
     </Tab>
   </Tabs>
@@ -339,7 +387,7 @@ render-функции `asChild`: ref на самой части `Menu` чере�
 
 <ExampleCode>
 <div className="docs-reference">
-  <Tabs groupId="framework" values={[{ label: 'React', value: 'react' }, { label: 'Solid', value: 'solid' }]} className="docs-tabs">
+  <Tabs groupId="framework" values={[{ label: 'React', value: 'react' }, { label: 'Solid', value: 'solid' }, { label: 'Vue', value: 'vue' }]} className="docs-tabs">
     <Tab value="react">
 
 ```tsx pure file="../../../src/components/examples/menu/indicator-placement.tsx"
@@ -349,6 +397,10 @@ render-функции `asChild`: ref на самой части `Menu` чере�
     <Tab value="solid">
 
 <CodeBlockRuntime lang="tsx" code={menuSolidIndicatorPlacement} />
+    </Tab>
+    <Tab value="vue">
+
+<CodeBlockRuntime lang="vue" code={menuVueIndicatorPlacement} />
 
     </Tab>
   </Tabs>
@@ -372,7 +424,7 @@ render-функции `asChild`: ref на самой части `Menu` чере�
 
 <ExampleCode>
 <div className="docs-reference">
-  <Tabs groupId="framework" values={[{ label: 'React', value: 'react' }, { label: 'Solid', value: 'solid' }]} className="docs-tabs">
+  <Tabs groupId="framework" values={[{ label: 'React', value: 'react' }, { label: 'Solid', value: 'solid' }, { label: 'Vue', value: 'vue' }]} className="docs-tabs">
     <Tab value="react">
 
 ```tsx pure file="../../../src/components/examples/menu/item-context.tsx"
@@ -382,6 +434,10 @@ render-функции `asChild`: ref на самой части `Menu` чере�
     <Tab value="solid">
 
 <CodeBlockRuntime lang="tsx" code={menuSolidItemContext} />
+    </Tab>
+    <Tab value="vue">
+
+<CodeBlockRuntime lang="vue" code={menuVueItemContext} />
 
     </Tab>
   </Tabs>
@@ -406,7 +462,7 @@ render-функции `asChild`: ref на самой части `Menu` чере�
 
 <ExampleCode>
 <div className="docs-reference">
-  <Tabs groupId="framework" values={[{ label: 'React', value: 'react' }, { label: 'Solid', value: 'solid' }]} className="docs-tabs">
+  <Tabs groupId="framework" values={[{ label: 'React', value: 'react' }, { label: 'Solid', value: 'solid' }, { label: 'Vue', value: 'vue' }]} className="docs-tabs">
     <Tab value="react">
 
 ```tsx pure file="../../../src/components/examples/menu/lazy-mounted-context-menu.tsx"
@@ -416,6 +472,10 @@ render-функции `asChild`: ref на самой части `Menu` чере�
     <Tab value="solid">
 
 <CodeBlockRuntime lang="tsx" code={menuSolidLazyMountedContext} />
+    </Tab>
+    <Tab value="vue">
+
+<CodeBlockRuntime lang="vue" code={menuVueLazyMountedContext} />
 
     </Tab>
   </Tabs>
@@ -439,7 +499,7 @@ ARIA-атрибуты, клавиатурное поведение и обраб
 
 <ExampleCode>
 <div className="docs-reference">
-  <Tabs groupId="framework" values={[{ label: 'React', value: 'react' }, { label: 'Solid', value: 'solid' }]} className="docs-tabs">
+  <Tabs groupId="framework" values={[{ label: 'React', value: 'react' }, { label: 'Solid', value: 'solid' }, { label: 'Vue', value: 'vue' }]} className="docs-tabs">
     <Tab value="react">
 
 ```tsx pure file="../../../src/components/examples/menu/links.tsx"
@@ -449,6 +509,10 @@ ARIA-атрибуты, клавиатурное поведение и обраб
     <Tab value="solid">
 
 <CodeBlockRuntime lang="tsx" code={menuSolidLinks} />
+    </Tab>
+    <Tab value="vue">
+
+<CodeBlockRuntime lang="vue" code={menuVueLinks} />
 
     </Tab>
   </Tabs>
@@ -473,7 +537,7 @@ ARIA-атрибуты, клавиатурное поведение и обраб
 
 <ExampleCode>
 <div className="docs-reference">
-  <Tabs groupId="framework" values={[{ label: 'React', value: 'react' }, { label: 'Solid', value: 'solid' }]} className="docs-tabs">
+  <Tabs groupId="framework" values={[{ label: 'React', value: 'react' }, { label: 'Solid', value: 'solid' }, { label: 'Vue', value: 'vue' }]} className="docs-tabs">
     <Tab value="react">
 
 ```tsx pure file="../../../src/components/examples/menu/menu-in-dialog.tsx"
@@ -483,6 +547,10 @@ ARIA-атрибуты, клавиатурное поведение и обраб
     <Tab value="solid">
 
 <CodeBlockRuntime lang="tsx" code={menuSolidInDialog} />
+    </Tab>
+    <Tab value="vue">
+
+<CodeBlockRuntime lang="vue" code={menuVueInDialog} />
 
     </Tab>
   </Tabs>
@@ -506,7 +574,7 @@ ARIA-атрибуты, клавиатурное поведение и обраб
 
 <ExampleCode>
 <div className="docs-reference">
-  <Tabs groupId="framework" values={[{ label: 'React', value: 'react' }, { label: 'Solid', value: 'solid' }]} className="docs-tabs">
+  <Tabs groupId="framework" values={[{ label: 'React', value: 'react' }, { label: 'Solid', value: 'solid' }, { label: 'Vue', value: 'vue' }]} className="docs-tabs">
     <Tab value="react">
 
 ```tsx pure file="../../../src/components/examples/menu/multiple-triggers.tsx"
@@ -516,6 +584,10 @@ ARIA-атрибуты, клавиатурное поведение и обраб
     <Tab value="solid">
 
 <CodeBlockRuntime lang="tsx" code={menuSolidMultipleTriggers} />
+    </Tab>
+    <Tab value="vue">
+
+<CodeBlockRuntime lang="vue" code={menuVueMultipleTriggers} />
 
     </Tab>
   </Tabs>
@@ -539,7 +611,7 @@ ARIA-атрибуты, клавиатурное поведение и обраб
 
 <ExampleCode>
 <div className="docs-reference">
-  <Tabs groupId="framework" values={[{ label: 'React', value: 'react' }, { label: 'Solid', value: 'solid' }]} className="docs-tabs">
+  <Tabs groupId="framework" values={[{ label: 'React', value: 'react' }, { label: 'Solid', value: 'solid' }, { label: 'Vue', value: 'vue' }]} className="docs-tabs">
     <Tab value="react">
 
 ```tsx pure file="../../../src/components/examples/menu/nested.tsx"
@@ -549,6 +621,10 @@ ARIA-атрибуты, клавиатурное поведение и обраб
     <Tab value="solid">
 
 <CodeBlockRuntime lang="tsx" code={menuSolidNested} />
+    </Tab>
+    <Tab value="vue">
+
+<CodeBlockRuntime lang="vue" code={menuVueNested} />
 
     </Tab>
   </Tabs>
@@ -572,7 +648,7 @@ ARIA-атрибуты, клавиатурное поведение и обраб
 
 <ExampleCode>
 <div className="docs-reference">
-  <Tabs groupId="framework" values={[{ label: 'React', value: 'react' }, { label: 'Solid', value: 'solid' }]} className="docs-tabs">
+  <Tabs groupId="framework" values={[{ label: 'React', value: 'react' }, { label: 'Solid', value: 'solid' }, { label: 'Vue', value: 'vue' }]} className="docs-tabs">
     <Tab value="react">
 
 ```tsx pure file="../../../src/components/examples/menu/radio-items.tsx"
@@ -582,6 +658,10 @@ ARIA-атрибуты, клавиатурное поведение и обраб
     <Tab value="solid">
 
 <CodeBlockRuntime lang="tsx" code={menuSolidRadioItems} />
+    </Tab>
+    <Tab value="vue">
+
+<CodeBlockRuntime lang="vue" code={menuVueRadioItems} />
 
     </Tab>
   </Tabs>
@@ -605,7 +685,7 @@ ARIA-атрибуты, клавиатурное поведение и обраб
 
 <ExampleCode>
 <div className="docs-reference">
-  <Tabs groupId="framework" values={[{ label: 'React', value: 'react' }, { label: 'Solid', value: 'solid' }]} className="docs-tabs">
+  <Tabs groupId="framework" values={[{ label: 'React', value: 'react' }, { label: 'Solid', value: 'solid' }, { label: 'Vue', value: 'vue' }]} className="docs-tabs">
     <Tab value="react">
 
 ```tsx pure file="../../../src/components/examples/menu/root-provider.tsx"
@@ -615,6 +695,10 @@ ARIA-атрибуты, клавиатурное поведение и обраб
     <Tab value="solid">
 
 <CodeBlockRuntime lang="tsx" code={menuSolidRootProvider} />
+    </Tab>
+    <Tab value="vue">
+
+<CodeBlockRuntime lang="vue" code={menuVueRootProvider} />
 
     </Tab>
   </Tabs>
@@ -638,7 +722,7 @@ ARIA-атрибуты, клавиатурное поведение и обраб
 
 <ExampleCode>
 <div className="docs-reference">
-  <Tabs groupId="framework" values={[{ label: 'React', value: 'react' }, { label: 'Solid', value: 'solid' }]} className="docs-tabs">
+  <Tabs groupId="framework" values={[{ label: 'React', value: 'react' }, { label: 'Solid', value: 'solid' }, { label: 'Vue', value: 'vue' }]} className="docs-tabs">
     <Tab value="react">
 
 ```tsx pure file="../../../src/components/examples/menu/select-event.tsx"
@@ -648,6 +732,10 @@ ARIA-атрибуты, клавиатурное поведение и обраб
     <Tab value="solid">
 
 <CodeBlockRuntime lang="tsx" code={menuSolidSelectEvent} />
+    </Tab>
+    <Tab value="vue">
+
+<CodeBlockRuntime lang="vue" code={menuVueSelectEvent} />
 
     </Tab>
   </Tabs>
@@ -671,7 +759,7 @@ ARIA-атрибуты, клавиатурное поведение и обраб
 
 <ExampleCode>
 <div className="docs-reference">
-  <Tabs groupId="framework" values={[{ label: 'React', value: 'react' }, { label: 'Solid', value: 'solid' }]} className="docs-tabs">
+  <Tabs groupId="framework" values={[{ label: 'React', value: 'react' }, { label: 'Solid', value: 'solid' }, { label: 'Vue', value: 'vue' }]} className="docs-tabs">
     <Tab value="react">
 
 ```tsx pure file="../../../src/components/examples/menu/with-arrow.tsx"
@@ -681,6 +769,10 @@ ARIA-атрибуты, клавиатурное поведение и обраб
     <Tab value="solid">
 
 <CodeBlockRuntime lang="tsx" code={menuSolidWithArrow} />
+    </Tab>
+    <Tab value="vue">
+
+<CodeBlockRuntime lang="vue" code={menuVueWithArrow} />
 
     </Tab>
   </Tabs>
@@ -699,7 +791,7 @@ ARIA-атрибуты, клавиатурное поведение и обраб
 
 <ExampleCode>
 <div className="docs-reference">
-  <Tabs groupId="framework" values={[{ label: 'React', value: 'react' }, { label: 'Solid', value: 'solid' }]} className="docs-tabs">
+  <Tabs groupId="framework" values={[{ label: 'React', value: 'react' }, { label: 'Solid', value: 'solid' }, { label: 'Vue', value: 'vue' }]} className="docs-tabs">
     <Tab value="react">
 
 ```tsx pure file="../../../src/components/examples/menu/advanced-customization.tsx"
@@ -709,6 +801,10 @@ ARIA-атрибуты, клавиатурное поведение и обраб
     <Tab value="solid">
 
 <CodeBlockRuntime lang="tsx" code={menuSolidAdvancedCustomization} />
+    </Tab>
+    <Tab value="vue">
+
+<CodeBlockRuntime lang="vue" code={menuVueAdvancedCustomization} />
 
     </Tab>
   </Tabs>
@@ -718,7 +814,7 @@ ARIA-атрибуты, клавиатурное поведение и обраб
 
 ## Стилизация
 
-Используйте `className` в React или `class` в Solid на экспортируемых частях для структурных стилей.
+Используйте `className` в React или `class` в Solid и Vue на экспортируемых частях для структурных стилей.
 Для стилей по состоянию предпочитайте атрибуты Ark, такие как `data-state`, `data-disabled` и
 `data-highlighted`, вместе с селекторами `data-slot` moduix. Варианты Tailwind используют нативные
 утилиты и классы потребителя; CSS-переменные ниже настраивают варианты с CSS Modules. Атрибуты

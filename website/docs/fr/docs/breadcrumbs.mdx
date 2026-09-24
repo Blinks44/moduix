@@ -1,7 +1,7 @@
 ---
 title: Breadcrumbs
 component: breadcrumbs
-description: Navigation sémantique en fil d’Ariane, avec une composition explicite et une API compacte pour les chemins courts.
+description: Navigation sémantique en fil d’Ariane pour React, Solid et Vue, avec une composition explicite et une API compacte pour les chemins courts.
 ---
 
 import * as BreadcrumbsDocs from '@/components/examples/breadcrumbs/css-properties';
@@ -18,6 +18,12 @@ import breadcrumbsSolidCollapsedPath from '../../../snippets/breadcrumbs/solid/c
 import breadcrumbsSolidCustomSeparator from '../../../snippets/breadcrumbs/solid/custom-separator.tsx?raw';
 import breadcrumbsSolidFrameworkLink from '../../../snippets/breadcrumbs/solid/framework-link.tsx?raw';
 import breadcrumbsSolidLongCurrentLabel from '../../../snippets/breadcrumbs/solid/long-current-label.tsx?raw';
+import breadcrumbsVueAdvancedCustomization from '../../../snippets/breadcrumbs/vue/advanced-customization.vue?raw';
+import breadcrumbsVueBasic from '../../../snippets/breadcrumbs/vue/basic.vue?raw';
+import breadcrumbsVueCollapsedPath from '../../../snippets/breadcrumbs/vue/collapsed-path.vue?raw';
+import breadcrumbsVueCustomSeparator from '../../../snippets/breadcrumbs/vue/custom-separator.vue?raw';
+import breadcrumbsVueFrameworkLink from '../../../snippets/breadcrumbs/vue/framework-link.vue?raw';
+import breadcrumbsVueLongCurrentLabel from '../../../snippets/breadcrumbs/vue/long-current-label.vue?raw';
 
 ## Référence de l’API
 
@@ -27,13 +33,13 @@ en matière de [composition](https://ark-ui.com/docs/guides/composition), de [st
 et de gestion des [ref](https://ark-ui.com/docs/guides/ref).
 
 
-Les mêmes exports sont disponibles depuis `@moduix/solid/breadcrumbs` pour Solid.
+Les mêmes exports sont disponibles depuis `@moduix/solid/breadcrumbs` pour Solid et `@moduix/vue/breadcrumbs` pour Vue.
 ## Exemple de base
 
 Utilisez `BreadcrumbsPath` lorsque vous disposez déjà des segments du chemin à afficher. Le composant génère la liste
 ordonnée, les éléments, les liens, la page actuelle et les séparateurs à partir des props requises `links` et `page`.
 
-React et Solid utilisent les mêmes noms de valeurs à plat. Importez `Breadcrumbs` comme racine et importez chaque
+React, Solid et Vue utilisent les mêmes noms de valeurs à plat. Importez `Breadcrumbs` comme racine et importez chaque
 partie additionnelle directement, comme `BreadcrumbsPath` et `BreadcrumbsLink`. Les mêmes noms fonctionnent avec les
 paquets npm et la source du registre shadcn.
 
@@ -49,6 +55,7 @@ paquets npm et la source du registre shadcn.
     values={[
       { label: 'React', value: 'react' },
       { label: 'Solid', value: 'solid' },
+      { label: 'Vue', value: 'vue' },
     ]}
     className="docs-tabs"
   >
@@ -61,6 +68,11 @@ paquets npm et la source du registre shadcn.
     <Tab value="solid">
 
 <CodeBlockRuntime lang="tsx" code={breadcrumbsSolidBasic} />
+
+    </Tab>
+    <Tab value="vue">
+
+<CodeBlockRuntime lang="vue" code={breadcrumbsVueBasic} />
 
     </Tab>
   </Tabs>
@@ -89,6 +101,16 @@ Consultez le [Démarrage rapide](/docs/quick-start) pour la configuration compl�
   options={[
     { label: 'CSS Modules', command: 'shadcn@latest add @moduix-solid/breadcrumbs' },
     { label: 'Tailwind CSS', command: 'shadcn@latest add @moduix-solid-tailwind/breadcrumbs' },
+  ]}
+/>
+
+  </Tab>
+  <Tab label="Vue" value="vue">
+
+<ShadcnInstallOptions
+  options={[
+    { label: 'CSS Modules', command: 'shadcn@latest add @moduix-vue/breadcrumbs' },
+    { label: 'Tailwind CSS', command: 'shadcn@latest add @moduix-vue-tailwind/breadcrumbs' },
   ]}
 />
 
@@ -146,6 +168,7 @@ explicites plutôt que `BreadcrumbsPath`.
     values={[
       { label: 'React', value: 'react' },
       { label: 'Solid', value: 'solid' },
+      { label: 'Vue', value: 'vue' },
     ]}
     className="docs-tabs"
   >
@@ -158,6 +181,11 @@ explicites plutôt que `BreadcrumbsPath`.
     <Tab value="solid">
 
 <CodeBlockRuntime lang="tsx" code={breadcrumbsSolidCollapsedPath} />
+
+    </Tab>
+    <Tab value="vue">
+
+<CodeBlockRuntime lang="vue" code={breadcrumbsVueCollapsedPath} />
 
     </Tab>
   </Tabs>
@@ -186,6 +214,7 @@ dans tous les intervalles visibles.
     values={[
       { label: 'React', value: 'react' },
       { label: 'Solid', value: 'solid' },
+      { label: 'Vue', value: 'vue' },
     ]}
     className="docs-tabs"
   >
@@ -198,6 +227,11 @@ dans tous les intervalles visibles.
     <Tab value="solid">
 
 <CodeBlockRuntime lang="tsx" code={breadcrumbsSolidCustomSeparator} />
+
+    </Tab>
+    <Tab value="vue">
+
+<CodeBlockRuntime lang="vue" code={breadcrumbsVueCustomSeparator} />
 
     </Tab>
   </Tabs>
@@ -225,6 +259,7 @@ Utilisez `asChild` d’Ark pour intégrer un lien fourni par le routeur du frame
     values={[
       { label: 'React', value: 'react' },
       { label: 'Solid', value: 'solid' },
+      { label: 'Vue', value: 'vue' },
     ]}
     className="docs-tabs"
   >
@@ -239,6 +274,11 @@ Utilisez `asChild` d’Ark pour intégrer un lien fourni par le routeur du frame
 <CodeBlockRuntime lang="tsx" code={breadcrumbsSolidFrameworkLink} />
 
     </Tab>
+    <Tab value="vue">
+
+<CodeBlockRuntime lang="vue" code={breadcrumbsVueFrameworkLink} />
+
+    </Tab>
   </Tabs>
 
 **Styles**
@@ -251,7 +291,7 @@ Utilisez `asChild` d’Ark pour intégrer un lien fourni par le routeur du frame
 
 ### Libellé long de la page actuelle
 
-Passez un nœud React via la prop `page` lorsque la page actuelle nécessite des attributs supplémentaires, par exemple
+Passez un nœud via la prop `page` lorsque la page actuelle nécessite des attributs supplémentaires, par exemple
 `title`. Les éléments parents peuvent eux aussi rétrécir ; les longs libellés intermédiaires
 risquent donc moins de faire déborder le fil d’Ariane.
 
@@ -266,6 +306,7 @@ risquent donc moins de faire déborder le fil d’Ariane.
     values={[
       { label: 'React', value: 'react' },
       { label: 'Solid', value: 'solid' },
+      { label: 'Vue', value: 'vue' },
     ]}
     className="docs-tabs"
   >
@@ -278,6 +319,11 @@ risquent donc moins de faire déborder le fil d’Ariane.
     <Tab value="solid">
 
 <CodeBlockRuntime lang="tsx" code={breadcrumbsSolidLongCurrentLabel} />
+
+    </Tab>
+    <Tab value="vue">
+
+<CodeBlockRuntime lang="vue" code={breadcrumbsVueLongCurrentLabel} />
 
     </Tab>
   </Tabs>
@@ -306,6 +352,7 @@ framework, un séparateur personnalisé et un libellé de page actuelle enrichi 
     values={[
       { label: 'React', value: 'react' },
       { label: 'Solid', value: 'solid' },
+      { label: 'Vue', value: 'vue' },
     ]}
     className="docs-tabs"
   >
@@ -318,6 +365,11 @@ framework, un séparateur personnalisé et un libellé de page actuelle enrichi 
     <Tab value="solid">
 
 <CodeBlockRuntime lang="tsx" code={breadcrumbsSolidAdvancedCustomization} />
+
+    </Tab>
+    <Tab value="vue">
+
+<CodeBlockRuntime lang="vue" code={breadcrumbsVueAdvancedCustomization} />
 
     </Tab>
   </Tabs>

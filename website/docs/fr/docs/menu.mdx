@@ -40,6 +40,23 @@ import menuSolidRadioItems from '../../../snippets/menu/solid/radio-items.tsx?ra
 import menuSolidRootProvider from '../../../snippets/menu/solid/root-provider.tsx?raw';
 import menuSolidSelectEvent from '../../../snippets/menu/solid/select-event.tsx?raw';
 import menuSolidWithArrow from '../../../snippets/menu/solid/with-arrow.tsx?raw';
+import menuVueAdvancedCustomization from '../../../snippets/menu/vue/advanced-customization.vue?raw';
+import menuVueBasic from '../../../snippets/menu/vue/basic.vue?raw';
+import menuVueCheckboxItems from '../../../snippets/menu/vue/checkbox-items.vue?raw';
+import menuVueContext from '../../../snippets/menu/vue/context-menu.vue?raw';
+import menuVueControlled from '../../../snippets/menu/vue/controlled.vue?raw';
+import menuVueGrouping from '../../../snippets/menu/vue/grouping.vue?raw';
+import menuVueIndicatorPlacement from '../../../snippets/menu/vue/indicator-placement.vue?raw';
+import menuVueItemContext from '../../../snippets/menu/vue/item-context.vue?raw';
+import menuVueLazyMountedContext from '../../../snippets/menu/vue/lazy-mounted-context-menu.vue?raw';
+import menuVueLinks from '../../../snippets/menu/vue/links.vue?raw';
+import menuVueInDialog from '../../../snippets/menu/vue/menu-in-dialog.vue?raw';
+import menuVueMultipleTriggers from '../../../snippets/menu/vue/multiple-triggers.vue?raw';
+import menuVueNested from '../../../snippets/menu/vue/nested.vue?raw';
+import menuVueRadioItems from '../../../snippets/menu/vue/radio-items.vue?raw';
+import menuVueRootProvider from '../../../snippets/menu/vue/root-provider.vue?raw';
+import menuVueSelectEvent from '../../../snippets/menu/vue/select-event.vue?raw';
+import menuVueWithArrow from '../../../snippets/menu/vue/with-arrow.vue?raw';
 
 ## Référence de l’API
 
@@ -70,6 +87,7 @@ supplémentaire casse la recherche d’éléments, la navigation par saisie et l
     values={[
       { label: 'React', value: 'react' },
       { label: 'Solid', value: 'solid' },
+      { label: 'Vue', value: 'vue' },
     ]}
     className="docs-tabs"
   >
@@ -82,6 +100,10 @@ supplémentaire casse la recherche d’éléments, la navigation par saisie et l
     <Tab value="solid">
 
 <CodeBlockRuntime lang="tsx" code={menuSolidBasic} />
+    </Tab>
+    <Tab value="vue">
+
+<CodeBlockRuntime lang="vue" code={menuVueBasic} />
 
     </Tab>
   </Tabs>
@@ -115,6 +137,16 @@ Consultez le [Démarrage rapide](/docs/quick-start) pour la configuration compl�
   options={[
     { label: 'CSS Modules', command: 'shadcn@latest add @moduix-solid/menu' },
     { label: 'Tailwind CSS', command: 'shadcn@latest add @moduix-solid-tailwind/menu' },
+  ]}
+/>
+
+  </Tab>
+  <Tab label="Vue" value="vue">
+
+<ShadcnInstallOptions
+  options={[
+    { label: 'CSS Modules', command: 'shadcn@latest add @moduix-vue/menu' },
+    { label: 'Tailwind CSS', command: 'shadcn@latest add @moduix-vue-tailwind/menu' },
   ]}
 />
 
@@ -197,6 +229,7 @@ Utilisez ces éléments pour des options indépendantes qui peuvent être activ�
     values={[
       { label: 'React', value: 'react' },
       { label: 'Solid', value: 'solid' },
+      { label: 'Vue', value: 'vue' },
     ]}
     className="docs-tabs"
   >
@@ -209,6 +242,10 @@ Utilisez ces éléments pour des options indépendantes qui peuvent être activ�
     <Tab value="solid">
 
 <CodeBlockRuntime lang="tsx" code={menuSolidCheckboxItems} />
+    </Tab>
+    <Tab value="vue">
+
+<CodeBlockRuntime lang="vue" code={menuVueCheckboxItems} />
 
     </Tab>
   </Tabs>
@@ -236,6 +273,7 @@ Utilisez `MenuContextTrigger` lorsque les actions doivent apparaître après un 
     values={[
       { label: 'React', value: 'react' },
       { label: 'Solid', value: 'solid' },
+      { label: 'Vue', value: 'vue' },
     ]}
     className="docs-tabs"
   >
@@ -248,6 +286,10 @@ Utilisez `MenuContextTrigger` lorsque les actions doivent apparaître après un 
     <Tab value="solid">
 
 <CodeBlockRuntime lang="tsx" code={menuSolidContext} />
+    </Tab>
+    <Tab value="vue">
+
+<CodeBlockRuntime lang="vue" code={menuVueContext} />
 
     </Tab>
   </Tabs>
@@ -275,6 +317,7 @@ Contrôlez `open` avec l’état React lorsqu’un autre contrôle doit ouvrir o
     values={[
       { label: 'React', value: 'react' },
       { label: 'Solid', value: 'solid' },
+      { label: 'Vue', value: 'vue' },
     ]}
     className="docs-tabs"
   >
@@ -287,6 +330,10 @@ Contrôlez `open` avec l’état React lorsqu’un autre contrôle doit ouvrir o
     <Tab value="solid">
 
 <CodeBlockRuntime lang="tsx" code={menuSolidControlled} />
+    </Tab>
+    <Tab value="vue">
+
+<CodeBlockRuntime lang="vue" code={menuVueControlled} />
 
     </Tab>
   </Tabs>
@@ -314,6 +361,7 @@ Utilisez `MenuItemGroup` et `MenuItemGroupLabel` pour organiser les éléments a
     values={[
       { label: 'React', value: 'react' },
       { label: 'Solid', value: 'solid' },
+      { label: 'Vue', value: 'vue' },
     ]}
     className="docs-tabs"
   >
@@ -326,6 +374,10 @@ Utilisez `MenuItemGroup` et `MenuItemGroupLabel` pour organiser les éléments a
     <Tab value="solid">
 
 <CodeBlockRuntime lang="tsx" code={menuSolidGrouping} />
+    </Tab>
+    <Tab value="vue">
+
+<CodeBlockRuntime lang="vue" code={menuVueGrouping} />
 
     </Tab>
   </Tabs>
@@ -353,6 +405,7 @@ Définissez `indicator="start"`, `"end"` ou `"none"` sur les éléments avec cas
     values={[
       { label: 'React', value: 'react' },
       { label: 'Solid', value: 'solid' },
+      { label: 'Vue', value: 'vue' },
     ]}
     className="docs-tabs"
   >
@@ -365,6 +418,10 @@ Définissez `indicator="start"`, `"end"` ou `"none"` sur les éléments avec cas
     <Tab value="solid">
 
 <CodeBlockRuntime lang="tsx" code={menuSolidIndicatorPlacement} />
+    </Tab>
+    <Tab value="vue">
+
+<CodeBlockRuntime lang="vue" code={menuVueIndicatorPlacement} />
 
     </Tab>
   </Tabs>
@@ -392,6 +449,7 @@ Utilisez `MenuItemContext` lorsque le contenu d’un élément doit réagir à s
     values={[
       { label: 'React', value: 'react' },
       { label: 'Solid', value: 'solid' },
+      { label: 'Vue', value: 'vue' },
     ]}
     className="docs-tabs"
   >
@@ -404,6 +462,10 @@ Utilisez `MenuItemContext` lorsque le contenu d’un élément doit réagir à s
     <Tab value="solid">
 
 <CodeBlockRuntime lang="tsx" code={menuSolidItemContext} />
+    </Tab>
+    <Tab value="vue">
+
+<CodeBlockRuntime lang="vue" code={menuVueItemContext} />
 
     </Tab>
   </Tabs>
@@ -431,6 +493,7 @@ Par défaut, le contenu du menu contextuel est monté à la première ouverture 
     values={[
       { label: 'React', value: 'react' },
       { label: 'Solid', value: 'solid' },
+      { label: 'Vue', value: 'vue' },
     ]}
     className="docs-tabs"
   >
@@ -443,6 +506,10 @@ Par défaut, le contenu du menu contextuel est monté à la première ouverture 
     <Tab value="solid">
 
 <CodeBlockRuntime lang="tsx" code={menuSolidLazyMountedContext} />
+    </Tab>
+    <Tab value="vue">
+
+<CodeBlockRuntime lang="vue" code={menuVueLazyMountedContext} />
 
     </Tab>
   </Tabs>
@@ -470,6 +537,7 @@ Utilisez `MenuItem asChild` et faites de l’ancre l’élément de menu lui-mê
     values={[
       { label: 'React', value: 'react' },
       { label: 'Solid', value: 'solid' },
+      { label: 'Vue', value: 'vue' },
     ]}
     className="docs-tabs"
   >
@@ -482,6 +550,10 @@ Utilisez `MenuItem asChild` et faites de l’ancre l’élément de menu lui-mê
     <Tab value="solid">
 
 <CodeBlockRuntime lang="tsx" code={menuSolidLinks} />
+    </Tab>
+    <Tab value="vue">
+
+<CodeBlockRuntime lang="vue" code={menuVueLinks} />
 
     </Tab>
   </Tabs>
@@ -509,6 +581,7 @@ Définissez `portalled={false}` pour garder la fenêtre contextuelle dans une bo
     values={[
       { label: 'React', value: 'react' },
       { label: 'Solid', value: 'solid' },
+      { label: 'Vue', value: 'vue' },
     ]}
     className="docs-tabs"
   >
@@ -521,6 +594,10 @@ Définissez `portalled={false}` pour garder la fenêtre contextuelle dans une bo
     <Tab value="solid">
 
 <CodeBlockRuntime lang="tsx" code={menuSolidInDialog} />
+    </Tab>
+    <Tab value="vue">
+
+<CodeBlockRuntime lang="vue" code={menuVueInDialog} />
 
     </Tab>
   </Tabs>
@@ -548,6 +625,7 @@ Partagez un même menu entre plusieurs déclencheurs en attribuant une valeur `v
     values={[
       { label: 'React', value: 'react' },
       { label: 'Solid', value: 'solid' },
+      { label: 'Vue', value: 'vue' },
     ]}
     className="docs-tabs"
   >
@@ -560,6 +638,10 @@ Partagez un même menu entre plusieurs déclencheurs en attribuant une valeur `v
     <Tab value="solid">
 
 <CodeBlockRuntime lang="tsx" code={menuSolidMultipleTriggers} />
+    </Tab>
+    <Tab value="vue">
+
+<CodeBlockRuntime lang="vue" code={menuVueMultipleTriggers} />
 
     </Tab>
   </Tabs>
@@ -587,6 +669,7 @@ Rendez un `Menu` enfant dans le contenu du menu parent et ouvrez-le avec `MenuTr
     values={[
       { label: 'React', value: 'react' },
       { label: 'Solid', value: 'solid' },
+      { label: 'Vue', value: 'vue' },
     ]}
     className="docs-tabs"
   >
@@ -599,6 +682,10 @@ Rendez un `Menu` enfant dans le contenu du menu parent et ouvrez-le avec `MenuTr
     <Tab value="solid">
 
 <CodeBlockRuntime lang="tsx" code={menuSolidNested} />
+    </Tab>
+    <Tab value="vue">
+
+<CodeBlockRuntime lang="vue" code={menuVueNested} />
 
     </Tab>
   </Tabs>
@@ -626,6 +713,7 @@ Utilisez `MenuRadioItemGroup` lorsque l’utilisateur doit choisir une seule val
     values={[
       { label: 'React', value: 'react' },
       { label: 'Solid', value: 'solid' },
+      { label: 'Vue', value: 'vue' },
     ]}
     className="docs-tabs"
   >
@@ -638,6 +726,10 @@ Utilisez `MenuRadioItemGroup` lorsque l’utilisateur doit choisir une seule val
     <Tab value="solid">
 
 <CodeBlockRuntime lang="tsx" code={menuSolidRadioItems} />
+    </Tab>
+    <Tab value="vue">
+
+<CodeBlockRuntime lang="vue" code={menuVueRadioItems} />
 
     </Tab>
   </Tabs>
@@ -665,6 +757,7 @@ Utilisez `useMenu` et `MenuRootProvider` lorsque du code situé en dehors de l�
     values={[
       { label: 'React', value: 'react' },
       { label: 'Solid', value: 'solid' },
+      { label: 'Vue', value: 'vue' },
     ]}
     className="docs-tabs"
   >
@@ -677,6 +770,10 @@ Utilisez `useMenu` et `MenuRootProvider` lorsque du code situé en dehors de l�
     <Tab value="solid">
 
 <CodeBlockRuntime lang="tsx" code={menuSolidRootProvider} />
+    </Tab>
+    <Tab value="vue">
+
+<CodeBlockRuntime lang="vue" code={menuVueRootProvider} />
 
     </Tab>
   </Tabs>
@@ -704,6 +801,7 @@ Utilisez `onSelect(details)` sur la racine lorsqu’un seul gestionnaire doit r�
     values={[
       { label: 'React', value: 'react' },
       { label: 'Solid', value: 'solid' },
+      { label: 'Vue', value: 'vue' },
     ]}
     className="docs-tabs"
   >
@@ -716,6 +814,10 @@ Utilisez `onSelect(details)` sur la racine lorsqu’un seul gestionnaire doit r�
     <Tab value="solid">
 
 <CodeBlockRuntime lang="tsx" code={menuSolidSelectEvent} />
+    </Tab>
+    <Tab value="vue">
+
+<CodeBlockRuntime lang="vue" code={menuVueSelectEvent} />
 
     </Tab>
   </Tabs>
@@ -743,6 +845,7 @@ Ajoutez `MenuArrow` et `MenuArrowTip` directement dans `MenuContent` lorsque la 
     values={[
       { label: 'React', value: 'react' },
       { label: 'Solid', value: 'solid' },
+      { label: 'Vue', value: 'vue' },
     ]}
     className="docs-tabs"
   >
@@ -755,6 +858,10 @@ Ajoutez `MenuArrow` et `MenuArrowTip` directement dans `MenuContent` lorsque la 
     <Tab value="solid">
 
 <CodeBlockRuntime lang="tsx" code={menuSolidWithArrow} />
+    </Tab>
+    <Tab value="vue">
+
+<CodeBlockRuntime lang="vue" code={menuVueWithArrow} />
 
     </Tab>
   </Tabs>
@@ -777,6 +884,7 @@ Utilisez les composants utilitaires pour les mises en page courantes, puis compo
     values={[
       { label: 'React', value: 'react' },
       { label: 'Solid', value: 'solid' },
+      { label: 'Vue', value: 'vue' },
     ]}
     className="docs-tabs"
   >
@@ -789,6 +897,10 @@ Utilisez les composants utilitaires pour les mises en page courantes, puis compo
     <Tab value="solid">
 
 <CodeBlockRuntime lang="tsx" code={menuSolidAdvancedCustomization} />
+    </Tab>
+    <Tab value="vue">
+
+<CodeBlockRuntime lang="vue" code={menuVueAdvancedCustomization} />
 
     </Tab>
   </Tabs>
@@ -797,6 +909,8 @@ Utilisez les composants utilitaires pour les mises en page courantes, puis compo
 </ExampleCode>
 
 ## Styles
+
+Utilisez `className` dans React, ou `class` dans Solid et Vue, sur les parties exportées pour appliquer des styles structurels. Pour les styles liés à un état, privilégiez les attributs de données Ark tels que `data-state`, `data-disabled` et `data-highlighted`, avec les sélecteurs `data-slot` de moduix. Les variantes Tailwind utilisent des classes utilitaires natives et les classes du consommateur ; les variables CSS ci-dessous personnalisent les variantes CSS Modules. Les attributs de données et les sélecteurs `data-slot` sont communs aux deux modes de style.
 
 ### Propriétés CSS
 

@@ -77,17 +77,33 @@
       "types": "./dist/components/badge/index.d.ts",
       "import": "./dist/components/badge/index.js"
     },
+    "./breadcrumbs": {
+      "types": "./dist/components/breadcrumbs/index.d.ts",
+      "import": "./dist/components/breadcrumbs/index.js"
+    },
     "./button": {
       "types": "./dist/components/button/index.d.ts",
       "import": "./dist/components/button/index.js"
+    },
+    "./card": {
+      "types": "./dist/components/card/index.d.ts",
+      "import": "./dist/components/card/index.js"
     },
     "./bleed": {
       "types": "./dist/components/bleed/index.d.ts",
       "import": "./dist/components/bleed/index.js"
     },
+    "./menu": {
+      "types": "./dist/components/menu/index.d.ts",
+      "import": "./dist/components/menu/index.js"
+    },
     "./locale": {
       "types": "./dist/locale.d.ts",
       "import": "./dist/locale.js"
+    },
+    "./close-button": {
+      "types": "./dist/components/close-button/index.d.ts",
+      "import": "./dist/components/close-button/index.js"
     },
     "./style.css": "./dist/styles/style.css",
     "./reset.css": "./dist/styles/reset.css",

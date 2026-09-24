@@ -13,6 +13,10 @@ import closeButtonSolidAsChild from '../../../snippets/close-button/solid/as-chi
 import closeButtonSolidBasic from '../../../snippets/close-button/solid/basic.tsx?raw';
 import closeButtonSolidCustomChildren from '../../../snippets/close-button/solid/custom-children.tsx?raw';
 import closeButtonSolidDisabled from '../../../snippets/close-button/solid/disabled-state.tsx?raw';
+import closeButtonVueAsChild from '../../../snippets/close-button/vue/as-child.vue?raw';
+import closeButtonVueBasic from '../../../snippets/close-button/vue/basic.vue?raw';
+import closeButtonVueCustomChildren from '../../../snippets/close-button/vue/custom-children.vue?raw';
+import closeButtonVueDisabled from '../../../snippets/close-button/vue/disabled-state.vue?raw';
 
 ## API Reference
 
@@ -39,6 +43,7 @@ a default accessible name, and shows a `CloseIcon`, but it does not manage the s
     values={[
       { label: 'React', value: 'react' },
       { label: 'Solid', value: 'solid' },
+      { label: 'Vue', value: 'vue' },
     ]}
     className="docs-tabs"
   >
@@ -51,6 +56,11 @@ a default accessible name, and shows a `CloseIcon`, but it does not manage the s
     <Tab value="solid">
 
 <CodeBlockRuntime lang="tsx" code={closeButtonSolidBasic} />
+
+    </Tab>
+    <Tab value="vue">
+
+<CodeBlockRuntime lang="vue" code={closeButtonVueBasic} />
 
     </Tab>
   </Tabs>
@@ -70,7 +80,7 @@ See [Quick Start](/docs/quick-start) for full package setup, registry configurat
 <Tabs groupId="framework">
   <Tab label="React" value="react">
 
-<ShadcnInstallOptions
+  <ShadcnInstallOptions
   options={[
     { label: 'CSS Modules', command: 'shadcn@latest add @moduix-react/close-button' },
     { label: 'Tailwind CSS', command: 'shadcn@latest add @moduix-react-tailwind/close-button' },
@@ -84,6 +94,16 @@ See [Quick Start](/docs/quick-start) for full package setup, registry configurat
   options={[
     { label: 'CSS Modules', command: 'shadcn@latest add @moduix-solid/close-button' },
     { label: 'Tailwind CSS', command: 'shadcn@latest add @moduix-solid-tailwind/close-button' },
+  ]}
+  />
+
+  </Tab>
+  <Tab label="Vue" value="vue">
+
+<ShadcnInstallOptions
+  options={[
+    { label: 'CSS Modules', command: 'shadcn@latest add @moduix-vue/close-button' },
+    { label: 'Tailwind CSS', command: 'shadcn@latest add @moduix-vue-tailwind/close-button' },
   ]}
 />
 
@@ -111,8 +131,8 @@ removes that surface. If a Dialog, Drawer, or another overlay already provides a
 the parent keeps control of dismissal and focus return.
 
 Use `asChild` when one semantic button from another component must own the DOM node. The child must render the icon;
-set `type="button"` on it when needed, especially inside a form. In Solid, pass a render function to `asChild` and
-spread `props()` onto the child.
+set `type="button"` on it when needed, especially inside a form. In Vue, place that button in the default slot. In
+Solid, pass a render function to `asChild` and spread `props()` onto the child.
 
 ## Examples
 
@@ -132,6 +152,7 @@ custom icon decorative with `aria-hidden="true"` when the button's accessible na
     values={[
       { label: 'React', value: 'react' },
       { label: 'Solid', value: 'solid' },
+      { label: 'Vue', value: 'vue' },
     ]}
     className="docs-tabs"
   >
@@ -144,6 +165,11 @@ custom icon decorative with `aria-hidden="true"` when the button's accessible na
     <Tab value="solid">
 
 <CodeBlockRuntime lang="tsx" code={closeButtonSolidCustomChildren} />
+
+    </Tab>
+    <Tab value="vue">
+
+<CodeBlockRuntime lang="vue" code={closeButtonVueCustomChildren} />
 
     </Tab>
   </Tabs>
@@ -172,6 +198,7 @@ focusable but must not activate.
     values={[
       { label: 'React', value: 'react' },
       { label: 'Solid', value: 'solid' },
+      { label: 'Vue', value: 'vue' },
     ]}
     className="docs-tabs"
   >
@@ -184,6 +211,11 @@ focusable but must not activate.
     <Tab value="solid">
 
 <CodeBlockRuntime lang="tsx" code={closeButtonSolidDisabled} />
+
+    </Tab>
+    <Tab value="vue">
+
+<CodeBlockRuntime lang="vue" code={closeButtonVueDisabled} />
 
     </Tab>
   </Tabs>
@@ -212,6 +244,7 @@ and data attributes. Put the icon in that child and set its type explicitly.
     values={[
       { label: 'React', value: 'react' },
       { label: 'Solid', value: 'solid' },
+      { label: 'Vue', value: 'vue' },
     ]}
     className="docs-tabs"
   >
@@ -226,6 +259,11 @@ and data attributes. Put the icon in that child and set its type explicitly.
 <CodeBlockRuntime lang="tsx" code={closeButtonSolidAsChild} />
 
     </Tab>
+    <Tab value="vue">
+
+<CodeBlockRuntime lang="vue" code={closeButtonVueAsChild} />
+
+    </Tab>
   </Tabs>
 
 **Styles**
@@ -238,9 +276,9 @@ and data attributes. Put the icon in that child and set its type explicitly.
 
 ## Styling
 
-Use `className` in React or `class` in Solid on the root for structural styles. Tailwind variants use native utility
-classes and consumer class overrides; the variables below apply to the CSS Modules variants. Data attributes and
-`data-slot` hooks are shared by both styling tracks.
+Use `className` in React or `class` in Solid and Vue on the root for structural styles. Tailwind variants use native
+utility classes and consumer class overrides; the variables below apply to the CSS Modules variants. Data attributes
+and `data-slot` hooks are shared by both styling tracks.
 
 ### CSS Properties
 

@@ -1,0 +1,217 @@
+.card {
+  width: min(24rem, calc(100vw - var(--moduix-spacing-8)));
+}
+
+.cardGrid {
+  display: grid;
+  gap: var(--moduix-spacing-4);
+  width: min(28rem, calc(100vw - var(--moduix-spacing-8)));
+}
+
+.cardGridItem {
+  width: 100%;
+}
+
+.releaseSummary {
+  display: grid;
+  grid-template-columns: repeat(2, minmax(0, 1fr));
+  gap: var(--moduix-spacing-3);
+}
+
+.metric {
+  display: grid;
+  gap: var(--moduix-spacing-1);
+}
+
+.metricValue {
+  color: var(--moduix-color-foreground);
+  font-size: var(--moduix-text-2xl);
+  font-weight: var(--moduix-weight-semibold);
+  line-height: var(--moduix-line-height-text-2xl);
+}
+
+.metricLabel,
+.statLabel {
+  color: var(--moduix-color-muted-foreground);
+  font-size: var(--moduix-text-sm);
+  line-height: var(--moduix-line-height-text-sm);
+}
+
+.statsGrid {
+  display: grid;
+  grid-template-columns: repeat(2, minmax(0, 1fr));
+  gap: var(--moduix-spacing-3);
+}
+
+.statValue {
+  display: block;
+  color: var(--moduix-color-foreground);
+  font-size: var(--moduix-text-xl);
+  font-weight: var(--moduix-weight-semibold);
+  line-height: var(--moduix-line-height-text-xl);
+}
+
+.image {
+  aspect-ratio: 16 / 9;
+  width: 100%;
+  object-fit: cover;
+}
+
+.backgroundCard {
+  min-height: 24rem;
+  border: 0;
+  background: var(--moduix-color-muted);
+  color: #fff;
+}
+
+.backgroundImage {
+  transform: scale(1.06);
+}
+
+.backgroundOverlay {
+  position: absolute;
+  inset: 0;
+  background: linear-gradient(180deg, rgb(0 0 0 / 4%) 24%, rgb(0 0 0 / 78%) 100%);
+}
+
+.backgroundHeader {
+  margin-top: auto;
+  padding-block: var(--moduix-spacing-6);
+  color: inherit;
+  text-shadow: 0 1px 16px rgb(0 0 0 / 32%);
+}
+
+.backgroundDescription {
+  color: rgb(255 255 255 / 80%);
+}
+
+.horizontalCard {
+  display: grid;
+  width: min(40rem, calc(100vw - var(--moduix-spacing-8)));
+  grid-template-columns: minmax(10rem, 0.8fr) minmax(0, 1.2fr);
+  overflow: hidden;
+}
+
+.horizontalImage {
+  width: 100%;
+  height: 100%;
+  min-height: 14rem;
+  object-fit: cover;
+}
+
+.horizontalContent {
+  display: flex;
+  min-width: 0;
+  flex-direction: column;
+}
+
+.formGrid {
+  display: grid;
+  gap: var(--moduix-spacing-3);
+}
+
+.formField {
+  display: grid;
+  gap: var(--moduix-spacing-1);
+  color: var(--moduix-color-foreground);
+  font-weight: var(--moduix-weight-medium);
+}
+
+.formField input {
+  box-sizing: border-box;
+  width: 100%;
+  min-height: var(--moduix-size-md);
+  margin: 0;
+  min-width: 0;
+  border: var(--moduix-border-width-sm) solid var(--moduix-color-border);
+  border-radius: var(--moduix-radius-md);
+  background: var(--moduix-color-background);
+  padding: var(--moduix-spacing-1) var(--moduix-spacing-3);
+  color: var(--moduix-color-foreground);
+  font: inherit;
+  font-size: var(--moduix-text-md);
+  line-height: var(--moduix-line-height-text-md);
+  outline: var(--moduix-border-width-sm) solid transparent;
+  outline-offset: calc(0px - var(--moduix-border-width-sm));
+  transition:
+    border-color var(--moduix-transition-default),
+    outline-color var(--moduix-transition-default),
+    opacity var(--moduix-transition-default);
+}
+
+.formField input:focus-visible {
+  outline-color: var(--moduix-color-ring);
+}
+
+.profile {
+  display: flex;
+  align-items: center;
+  gap: var(--moduix-spacing-3);
+}
+
+.avatar {
+  display: inline-grid;
+  width: 3rem;
+  height: 3rem;
+  flex: none;
+  place-items: center;
+  border-radius: var(--moduix-radius-full);
+  background: var(--moduix-color-primary);
+  color: var(--moduix-color-primary-foreground);
+  font-weight: var(--moduix-weight-semibold);
+}
+
+.customCard {
+  --moduix-card-bg: color-mix(in oklab, var(--moduix-color-card) 94%, var(--moduix-color-primary));
+  --moduix-card-border-color: color-mix(
+    in oklab,
+    var(--moduix-color-primary) 35%,
+    var(--moduix-color-border)
+  );
+  --moduix-card-radius: var(--moduix-radius-md);
+  --moduix-card-shadow: var(--moduix-shadow-md);
+  width: min(24rem, calc(100vw - var(--moduix-spacing-8)));
+}
+
+.customSpacingCard {
+  --moduix-card-spacing: var(--moduix-spacing-4);
+  width: min(24rem, calc(100vw - var(--moduix-spacing-8)));
+}
+
+.footerBetween {
+  justify-content: space-between;
+}
+
+.capacity {
+  display: grid;
+  gap: var(--moduix-spacing-2);
+  color: var(--moduix-color-foreground);
+  font-size: var(--moduix-text-2xl);
+  font-weight: var(--moduix-weight-semibold);
+  line-height: var(--moduix-line-height-text-2xl);
+}
+
+.capacityBar {
+  height: 0.5rem;
+  overflow: hidden;
+  border-radius: var(--moduix-radius-full);
+  background-color: var(--moduix-color-muted);
+}
+
+.capacityBar > div {
+  width: 72%;
+  height: 100%;
+  border-radius: inherit;
+  background-color: var(--moduix-color-primary);
+}
+
+@media (width < 36rem) {
+  .horizontalCard {
+    grid-template-columns: 1fr;
+  }
+
+  .horizontalImage {
+    aspect-ratio: 16 / 9;
+    min-height: 0;
+  }
+}
