@@ -1,7 +1,7 @@
 ---
 title: Angle Slider
 component: angle-slider
-description: Contrôle circulaire permettant de choisir un angle compris entre 0 et 360 degrés.
+description: Contrôle circulaire permettant de choisir un angle compris entre 0 et 360 degrés avec React, Solid ou Vue.
 ---
 
 import * as AngleSliderDocs from '@/components/examples/angle-slider/css-properties';
@@ -27,6 +27,17 @@ import angleSliderSolidRootProvider from '../../../snippets/angle-slider/solid/r
 import angleSliderSolidSteps from '../../../snippets/angle-slider/solid/steps.tsx?raw';
 import angleSliderSolidWithMarks from '../../../snippets/angle-slider/solid/with-marks.tsx?raw';
 
+import angleSliderVueAdvancedCustomization from '../../../snippets/angle-slider/vue/advanced-customization.vue?raw';
+import angleSliderVueBasic from '../../../snippets/angle-slider/vue/basic.vue?raw';
+import angleSliderVueControlled from '../../../snippets/angle-slider/vue/controlled.vue?raw';
+import angleSliderVueDisabled from '../../../snippets/angle-slider/vue/disabled.vue?raw';
+import angleSliderVueForm from '../../../snippets/angle-slider/vue/form.vue?raw';
+import angleSliderVueInvalid from '../../../snippets/angle-slider/vue/invalid.vue?raw';
+import angleSliderVueReadOnly from '../../../snippets/angle-slider/vue/read-only.vue?raw';
+import angleSliderVueRootProvider from '../../../snippets/angle-slider/vue/root-provider.vue?raw';
+import angleSliderVueSteps from '../../../snippets/angle-slider/vue/steps.vue?raw';
+import angleSliderVueWithMarks from '../../../snippets/angle-slider/vue/with-marks.vue?raw';
+
 ## Référence API
 
 <PrimitiveReference href="https://ark-ui.com/docs/components/angle-slider" />
@@ -43,7 +54,7 @@ circulaire.
   manipulation directe.
 
 
-Les mêmes exports sont disponibles depuis `@moduix/solid/angle-slider` pour Solid.
+Les mêmes exports sont disponibles dans les packages `@moduix/react`, `@moduix/solid` et `@moduix/vue`, sous le sous-chemin `angle-slider`.
 ## Exemple de base
 
 Commencez par `AngleSliderDial`, qui réunit la piste circulaire, la valeur centrée et la poignée. La piste se remplit depuis le haut
@@ -62,6 +73,7 @@ et 360 degrés. Ajoutez si possible un `AngleSliderLabel` visible. Si le cadran 
     values={[
       { label: 'React', value: 'react' },
       { label: 'Solid', value: 'solid' },
+      { label: 'Vue', value: 'vue' },
     ]}
     className="docs-tabs"
   >
@@ -74,6 +86,11 @@ et 360 degrés. Ajoutez si possible un `AngleSliderLabel` visible. Si le cadran 
     <Tab value="solid">
 
 <CodeBlockRuntime lang="tsx" code={angleSliderSolidBasic} />
+
+    </Tab>
+    <Tab value="vue">
+
+<CodeBlockRuntime lang="vue" code={angleSliderVueBasic} />
 
     </Tab>
   </Tabs>
@@ -107,6 +124,16 @@ Consultez le [Démarrage rapide](/docs/quick-start) pour la configuration compl�
   options={[
     { label: 'CSS Modules', command: 'shadcn@latest add @moduix-solid/angle-slider' },
     { label: 'Tailwind CSS', command: 'shadcn@latest add @moduix-solid-tailwind/angle-slider' },
+  ]}
+/>
+
+  </Tab>
+  <Tab label="Vue" value="vue">
+
+<ShadcnInstallOptions
+  options={[
+    { label: 'CSS Modules', command: 'shadcn@latest add @moduix-vue/angle-slider' },
+    { label: 'Tailwind CSS', command: 'shadcn@latest add @moduix-vue-tailwind/angle-slider' },
   ]}
 />
 
@@ -165,6 +192,7 @@ Utilisez le mode contrôlé lorsque l’angle doit rester synchronisé avec l’
     values={[
       { label: 'React', value: 'react' },
       { label: 'Solid', value: 'solid' },
+      { label: 'Vue', value: 'vue' },
     ]}
     className="docs-tabs"
   >
@@ -177,6 +205,11 @@ Utilisez le mode contrôlé lorsque l’angle doit rester synchronisé avec l’
     <Tab value="solid">
 
 <CodeBlockRuntime lang="tsx" code={angleSliderSolidControlled} />
+
+    </Tab>
+    <Tab value="vue">
+
+<CodeBlockRuntime lang="vue" code={angleSliderVueControlled} />
 
     </Tab>
   </Tabs>
@@ -205,6 +238,7 @@ interactions.
     values={[
       { label: 'React', value: 'react' },
       { label: 'Solid', value: 'solid' },
+      { label: 'Vue', value: 'vue' },
     ]}
     className="docs-tabs"
   >
@@ -217,6 +251,11 @@ interactions.
     <Tab value="solid">
 
 <CodeBlockRuntime lang="tsx" code={angleSliderSolidDisabled} />
+
+    </Tab>
+    <Tab value="vue">
+
+<CodeBlockRuntime lang="vue" code={angleSliderVueDisabled} />
 
     </Tab>
   </Tabs>
@@ -245,6 +284,7 @@ Reset illustre la réinitialisation native d’Ark. Définissez `form` sur `Angl
     values={[
       { label: 'React', value: 'react' },
       { label: 'Solid', value: 'solid' },
+      { label: 'Vue', value: 'vue' },
     ]}
     className="docs-tabs"
   >
@@ -257,6 +297,11 @@ Reset illustre la réinitialisation native d’Ark. Définissez `form` sur `Angl
     <Tab value="solid">
 
 <CodeBlockRuntime lang="tsx" code={angleSliderSolidForm} />
+
+    </Tab>
+    <Tab value="vue">
+
+<CodeBlockRuntime lang="vue" code={angleSliderVueForm} />
 
     </Tab>
   </Tabs>
@@ -285,6 +330,7 @@ dans ses styles et ses attributs ARIA, sans modifier son mode d’interaction.
     values={[
       { label: 'React', value: 'react' },
       { label: 'Solid', value: 'solid' },
+      { label: 'Vue', value: 'vue' },
     ]}
     className="docs-tabs"
   >
@@ -297,6 +343,11 @@ dans ses styles et ses attributs ARIA, sans modifier son mode d’interaction.
     <Tab value="solid">
 
 <CodeBlockRuntime lang="tsx" code={angleSliderSolidInvalid} />
+
+    </Tab>
+    <Tab value="vue">
+
+<CodeBlockRuntime lang="vue" code={angleSliderVueInvalid} />
 
     </Tab>
   </Tabs>
@@ -325,6 +376,7 @@ modifiée.
     values={[
       { label: 'React', value: 'react' },
       { label: 'Solid', value: 'solid' },
+      { label: 'Vue', value: 'vue' },
     ]}
     className="docs-tabs"
   >
@@ -339,6 +391,11 @@ modifiée.
 <CodeBlockRuntime lang="tsx" code={angleSliderSolidReadOnly} />
 
     </Tab>
+    <Tab value="vue">
+
+<CodeBlockRuntime lang="vue" code={angleSliderVueReadOnly} />
+
+    </Tab>
   </Tabs>
 
 **Styles**
@@ -351,8 +408,7 @@ modifiée.
 
 ### Utiliser `AngleSliderRootProvider`
 
-Utilisez `useAngleSlider()` depuis `@moduix/react/angle-slider` avec `AngleSliderRootProvider` lorsqu’un autre
-composant doit accéder au même état. L’état externe peut alors alimenter le reste de l’interface.
+Utilisez `useAngleSlider()` et `AngleSliderRootProvider` depuis le sous-chemin `angle-slider` du package correspondant à votre framework lorsqu’un autre composant doit accéder au même état. L’état externe peut alors alimenter le reste de l’interface.
 
 <ExampleFrame variant="component">
   <AngleSliderRootProvider />
@@ -365,6 +421,7 @@ composant doit accéder au même état. L’état externe peut alors alimenter l
     values={[
       { label: 'React', value: 'react' },
       { label: 'Solid', value: 'solid' },
+      { label: 'Vue', value: 'vue' },
     ]}
     className="docs-tabs"
   >
@@ -377,6 +434,11 @@ composant doit accéder au même état. L’état externe peut alors alimenter l
     <Tab value="solid">
 
 <CodeBlockRuntime lang="tsx" code={angleSliderSolidRootProvider} />
+
+    </Tab>
+    <Tab value="vue">
+
+<CodeBlockRuntime lang="vue" code={angleSliderVueRootProvider} />
 
     </Tab>
   </Tabs>
@@ -404,6 +466,7 @@ Utilisez `step` pour faire suivre aux interactions du pointeur et du clavier des
     values={[
       { label: 'React', value: 'react' },
       { label: 'Solid', value: 'solid' },
+      { label: 'Vue', value: 'vue' },
     ]}
     className="docs-tabs"
   >
@@ -416,6 +479,11 @@ Utilisez `step` pour faire suivre aux interactions du pointeur et du clavier des
     <Tab value="solid">
 
 <CodeBlockRuntime lang="tsx" code={angleSliderSolidSteps} />
+
+    </Tab>
+    <Tab value="vue">
+
+<CodeBlockRuntime lang="vue" code={angleSliderVueSteps} />
 
     </Tab>
   </Tabs>
@@ -444,6 +512,7 @@ composition de `AngleSliderMarkerGroup` et `AngleSliderMarker`. `AngleSliderDial
     values={[
       { label: 'React', value: 'react' },
       { label: 'Solid', value: 'solid' },
+      { label: 'Vue', value: 'vue' },
     ]}
     className="docs-tabs"
   >
@@ -456,6 +525,11 @@ composition de `AngleSliderMarkerGroup` et `AngleSliderMarker`. `AngleSliderDial
     <Tab value="solid">
 
 <CodeBlockRuntime lang="tsx" code={angleSliderSolidWithMarks} />
+
+    </Tab>
+    <Tab value="vue">
+
+<CodeBlockRuntime lang="vue" code={angleSliderVueWithMarks} />
 
     </Tab>
   </Tabs>
@@ -484,6 +558,7 @@ une composition de marqueurs personnalisée ou des enfants supplémentaires dans
     values={[
       { label: 'React', value: 'react' },
       { label: 'Solid', value: 'solid' },
+      { label: 'Vue', value: 'vue' },
     ]}
     className="docs-tabs"
   >
@@ -498,6 +573,11 @@ une composition de marqueurs personnalisée ou des enfants supplémentaires dans
 <CodeBlockRuntime lang="tsx" code={angleSliderSolidAdvancedCustomization} />
 
     </Tab>
+    <Tab value="vue">
+
+<CodeBlockRuntime lang="vue" code={angleSliderVueAdvancedCustomization} />
+
+    </Tab>
   </Tabs>
 
 **Styles**
@@ -510,7 +590,7 @@ une composition de marqueurs personnalisée ou des enfants supplémentaires dans
 
 ## Styles
 
-Personnalisez l’apparence du composant avec `className` en React ou `class` en Solid, les sélecteurs
+Personnalisez l’apparence du composant avec `className` en React et `class` en Solid ou Vue, les sélecteurs
 stables `data-slot="angle-slider-*"`, les attributs Ark `data-scope="angle-slider"` / `data-part` et
 les attributs d’état. Les variantes Tailwind se personnalisent avec des utilitaires et des classes
 supplémentaires ; les variables de composant ci-dessous concernent uniquement les variantes CSS

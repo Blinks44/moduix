@@ -14,6 +14,10 @@ import aspectRatioSolidBasic from '../../../snippets/aspect-ratio/solid/basic.ts
 import aspectRatioSolidCardGrid from '../../../snippets/aspect-ratio/solid/card-grid.tsx?raw';
 import aspectRatioSolidEmbeddedContent from '../../../snippets/aspect-ratio/solid/embedded-content.tsx?raw';
 import aspectRatioSolidMigration from '../../../snippets/aspect-ratio/solid/migrating-from-shadcn.tsx?raw';
+import aspectRatioVueAdvancedCustomization from '../../../snippets/aspect-ratio/vue/advanced-customization.vue?raw';
+import aspectRatioVueBasic from '../../../snippets/aspect-ratio/vue/basic.vue?raw';
+import aspectRatioVueEmbeddedContent from '../../../snippets/aspect-ratio/vue/embedded-content.vue?raw';
+import aspectRatioVueMigration from '../../../snippets/aspect-ratio/vue/migrating-from-shadcn.vue?raw';
 
 ## Справочник API
 
@@ -23,8 +27,9 @@ import aspectRatioSolidMigration from '../../../snippets/aspect-ratio/solid/migr
 [работе с ref](https://ark-ui.com/docs/guides/ref).
 
 Импортируйте `AspectRatio` из пакета, соответствующего фреймворку и способу стилизации: для CSS Modules это
-`@moduix/react/aspect-ratio` или `@moduix/solid/aspect-ratio`, а для Tailwind - по соответствующему пути
-`@moduix/react-tailwind/aspect-ratio` или `@moduix/solid-tailwind/aspect-ratio`.
+`@moduix/react/aspect-ratio`, `@moduix/solid/aspect-ratio` или `@moduix/vue/aspect-ratio`, а для Tailwind - по
+соответствующему пути `@moduix/react-tailwind/aspect-ratio`, `@moduix/solid-tailwind/aspect-ratio` или
+`@moduix/vue-tailwind/aspect-ratio`.
 
 ## Базовый пример
 
@@ -48,6 +53,7 @@ import aspectRatioSolidMigration from '../../../snippets/aspect-ratio/solid/migr
     values={[
       { label: 'React', value: 'react' },
       { label: 'Solid', value: 'solid' },
+      { label: 'Vue', value: 'vue' },
     ]}
     className="docs-tabs"
   >
@@ -60,6 +66,11 @@ import aspectRatioSolidMigration from '../../../snippets/aspect-ratio/solid/migr
     <Tab value="solid">
 
 <CodeBlockRuntime lang="tsx" code={aspectRatioSolidBasic} />
+
+    </Tab>
+    <Tab value="vue">
+
+<CodeBlockRuntime lang="vue" code={aspectRatioVueBasic} />
 
     </Tab>
   </Tabs>
@@ -97,6 +108,16 @@ import aspectRatioSolidMigration from '../../../snippets/aspect-ratio/solid/migr
 />
 
   </Tab>
+  <Tab label="Vue" value="vue">
+
+<ShadcnInstallOptions
+  options={[
+    { label: 'CSS Modules', command: 'shadcn@latest add @moduix-vue/aspect-ratio' },
+    { label: 'Tailwind CSS', command: 'shadcn@latest add @moduix-vue-tailwind/aspect-ratio' },
+  ]}
+/>
+
+  </Tab>
 </Tabs>
 
 ## Анатомия
@@ -115,8 +136,12 @@ AspectRatio
 `AspectRatio` отвечает только за раскладку и не владеет состоянием. У
 компонента одна корневая часть, и дополнительные части не нужно комбинировать. Используйте `asChild` только если
 отрисованным корневым элементом должен владеть другой семантический элемент: передайте ровно одного дочернего
-элемента в React или используйте показанную в примере «Расширенная настройка» функцию рендера Solid. Размеры,
+элемента в React или используйте показанную в примере «Расширенная настройка» функцию рендера Solid. Во Vue
+используйте атрибут `as-child` с одним дочерним элементом. Размеры,
 вписывание, границы, радиус и обрезка дочернего содержимого остаются ответственностью приложения.
+
+В Solid передавайте `ref` элементу, созданному внутри функции рендера для `asChild`. Сам компонент
+`AspectRatio` не передаёт `ref` по этому пути композиции.
 
 ## Примеры
 
@@ -176,6 +201,7 @@ AspectRatio
     values={[
       { label: 'React', value: 'react' },
       { label: 'Solid', value: 'solid' },
+      { label: 'Vue', value: 'vue' },
     ]}
     className="docs-tabs"
   >
@@ -188,6 +214,11 @@ AspectRatio
     <Tab value="solid">
 
 <CodeBlockRuntime lang="tsx" code={aspectRatioSolidEmbeddedContent} />
+
+    </Tab>
+    <Tab value="vue">
+
+<CodeBlockRuntime lang="vue" code={aspectRatioVueEmbeddedContent} />
 
     </Tab>
   </Tabs>
@@ -216,6 +247,7 @@ AspectRatio
     values={[
       { label: 'React', value: 'react' },
       { label: 'Solid', value: 'solid' },
+      { label: 'Vue', value: 'vue' },
     ]}
     className="docs-tabs"
   >
@@ -228,6 +260,11 @@ AspectRatio
     <Tab value="solid">
 
 <CodeBlockRuntime lang="tsx" code={aspectRatioSolidMigration} />
+
+    </Tab>
+    <Tab value="vue">
+
+<CodeBlockRuntime lang="vue" code={aspectRatioVueMigration} />
 
     </Tab>
   </Tabs>
@@ -256,6 +293,7 @@ AspectRatio
     values={[
       { label: 'React', value: 'react' },
       { label: 'Solid', value: 'solid' },
+      { label: 'Vue', value: 'vue' },
     ]}
     className="docs-tabs"
   >
@@ -268,6 +306,11 @@ AspectRatio
     <Tab value="solid">
 
 <CodeBlockRuntime lang="tsx" code={aspectRatioSolidAdvancedCustomization} />
+
+    </Tab>
+    <Tab value="vue">
+
+<CodeBlockRuntime lang="vue" code={aspectRatioVueAdvancedCustomization} />
 
     </Tab>
   </Tabs>

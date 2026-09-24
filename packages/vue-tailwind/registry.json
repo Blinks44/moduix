@@ -124,6 +124,91 @@
       ]
     },
     {
+      "name": "angle-slider",
+      "type": "registry:item",
+      "title": "AngleSlider",
+      "description": "moduix Vue Tailwind AngleSlider component.",
+      "dependencies": ["@ark-ui/vue", "clsx", "tailwind-merge"],
+      "registryDependencies": ["@moduix-vue-tailwind/foundation", "@moduix-vue-tailwind/cn"],
+      "files": [
+        {
+          "path": "src/components/angle-slider/AngleSlider.vue",
+          "target": "@components/ui/angle-slider/AngleSlider.vue",
+          "type": "registry:component"
+        },
+        {
+          "path": "src/components/angle-slider/AngleSliderRootProvider.vue",
+          "target": "@components/ui/angle-slider/AngleSliderRootProvider.vue",
+          "type": "registry:component"
+        },
+        {
+          "path": "src/components/angle-slider/AngleSliderLabel.vue",
+          "target": "@components/ui/angle-slider/AngleSliderLabel.vue",
+          "type": "registry:component"
+        },
+        {
+          "path": "src/components/angle-slider/AngleSliderControl.vue",
+          "target": "@components/ui/angle-slider/AngleSliderControl.vue",
+          "type": "registry:component"
+        },
+        {
+          "path": "src/components/angle-slider/AngleSliderDial.vue",
+          "target": "@components/ui/angle-slider/AngleSliderDial.vue",
+          "type": "registry:component"
+        },
+        {
+          "path": "src/components/angle-slider/AngleSliderValueText.vue",
+          "target": "@components/ui/angle-slider/AngleSliderValueText.vue",
+          "type": "registry:component"
+        },
+        {
+          "path": "src/components/angle-slider/AngleSliderThumb.vue",
+          "target": "@components/ui/angle-slider/AngleSliderThumb.vue",
+          "type": "registry:component"
+        },
+        {
+          "path": "src/components/angle-slider/AngleSliderMarkerGroup.vue",
+          "target": "@components/ui/angle-slider/AngleSliderMarkerGroup.vue",
+          "type": "registry:component"
+        },
+        {
+          "path": "src/components/angle-slider/AngleSliderMarker.vue",
+          "target": "@components/ui/angle-slider/AngleSliderMarker.vue",
+          "type": "registry:component"
+        },
+        {
+          "path": "src/components/angle-slider/AngleSliderMarks.vue",
+          "target": "@components/ui/angle-slider/AngleSliderMarks.vue",
+          "type": "registry:component"
+        },
+        {
+          "path": "src/components/angle-slider/index.ts",
+          "target": "@components/ui/angle-slider/index.ts",
+          "type": "registry:component"
+        }
+      ]
+    },
+    {
+      "name": "aspect-ratio",
+      "type": "registry:item",
+      "title": "AspectRatio",
+      "description": "moduix Vue Tailwind AspectRatio component.",
+      "dependencies": ["@ark-ui/vue", "clsx", "tailwind-merge"],
+      "registryDependencies": ["@moduix-vue-tailwind/foundation", "@moduix-vue-tailwind/cn"],
+      "files": [
+        {
+          "path": "src/components/aspect-ratio/AspectRatio.vue",
+          "target": "@components/ui/aspect-ratio/AspectRatio.vue",
+          "type": "registry:component"
+        },
+        {
+          "path": "src/components/aspect-ratio/index.ts",
+          "target": "@components/ui/aspect-ratio/index.ts",
+          "type": "registry:component"
+        }
+      ]
+    },
+    {
       "name": "foundation",
       "type": "registry:item",
       "title": "moduix Vue Tailwind core",

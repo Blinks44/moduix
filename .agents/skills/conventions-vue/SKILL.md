@@ -56,6 +56,9 @@ Use this skill for JS/TS Vue work in this repo.
   `clsx`; in `packages/vue-tailwind` merge it last with the local `cn` helper. Do not also leave
   `class` inside an object passed through `v-bind`, which would apply the consumer class twice.
   Preserve `style`, ids, ARIA, data attributes, and native listeners through the remaining attrs.
+- Preserve every accepted Vue `StyleValue` form when a wrapper consumes `style`. Merge wrapper-owned
+  inline values through a style array and put them last, so consumer styles remain intact while
+  required wrapper values retain precedence.
 - In a CSS Modules SFC, import the external stylesheet explicitly from `<script setup>` with
   `import styles from './Component.module.css'` and reference classes through `styles.root` in the
   template. This keeps class names visible to IDE CSS Modules tooling and matches the React/Solid

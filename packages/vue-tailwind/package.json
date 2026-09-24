@@ -57,6 +57,14 @@
       "types": "./dist/components/alert/index.d.ts",
       "import": "./dist/components/alert/index.js"
     },
+    "./angle-slider": {
+      "types": "./dist/components/angle-slider/index.d.ts",
+      "import": "./dist/components/angle-slider/index.js"
+    },
+    "./aspect-ratio": {
+      "types": "./dist/components/aspect-ratio/index.d.ts",
+      "import": "./dist/components/aspect-ratio/index.js"
+    },
     "./locale": {
       "types": "./dist/locale.d.ts",
       "import": "./dist/locale.js"

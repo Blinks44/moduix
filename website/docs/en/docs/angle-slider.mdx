@@ -1,7 +1,7 @@
 ---
 title: Angle Slider
 component: angle-slider
-description: A circular control for selecting an angle between 0 and 360 degrees in React or Solid.
+description: A circular control for selecting an angle between 0 and 360 degrees in React, Solid, or Vue.
 ---
 
 import * as AngleSliderDocs from '@/components/examples/angle-slider/css-properties';
@@ -25,6 +25,16 @@ import angleSliderSolidReadOnly from '../../../snippets/angle-slider/solid/read-
 import angleSliderSolidRootProvider from '../../../snippets/angle-slider/solid/root-provider.tsx?raw';
 import angleSliderSolidSteps from '../../../snippets/angle-slider/solid/steps.tsx?raw';
 import angleSliderSolidWithMarks from '../../../snippets/angle-slider/solid/with-marks.tsx?raw';
+import angleSliderVueAdvancedCustomization from '../../../snippets/angle-slider/vue/advanced-customization.vue?raw';
+import angleSliderVueBasic from '../../../snippets/angle-slider/vue/basic.vue?raw';
+import angleSliderVueControlled from '../../../snippets/angle-slider/vue/controlled.vue?raw';
+import angleSliderVueDisabled from '../../../snippets/angle-slider/vue/disabled.vue?raw';
+import angleSliderVueForm from '../../../snippets/angle-slider/vue/form.vue?raw';
+import angleSliderVueInvalid from '../../../snippets/angle-slider/vue/invalid.vue?raw';
+import angleSliderVueReadOnly from '../../../snippets/angle-slider/vue/read-only.vue?raw';
+import angleSliderVueRootProvider from '../../../snippets/angle-slider/vue/root-provider.vue?raw';
+import angleSliderVueSteps from '../../../snippets/angle-slider/vue/steps.vue?raw';
+import angleSliderVueWithMarks from '../../../snippets/angle-slider/vue/with-marks.vue?raw';
 
 ## API Reference
 
@@ -57,6 +67,7 @@ from 0 to 360 degrees. Add a visible `AngleSliderLabel` when possible. If the di
     values={[
       { label: 'React', value: 'react' },
       { label: 'Solid', value: 'solid' },
+      { label: 'Vue', value: 'vue' },
     ]}
     className="docs-tabs"
   >
@@ -69,6 +80,11 @@ from 0 to 360 degrees. Add a visible `AngleSliderLabel` when possible. If the di
     <Tab value="solid">
 
 <CodeBlockRuntime lang="tsx" code={angleSliderSolidBasic} />
+
+    </Tab>
+    <Tab value="vue">
+
+<CodeBlockRuntime lang="vue" code={angleSliderVueBasic} />
 
     </Tab>
   </Tabs>
@@ -102,6 +118,16 @@ See [Quick Start](/docs/quick-start) for full package setup, registry configurat
   options={[
     { label: 'CSS Modules', command: 'shadcn@latest add @moduix-solid/angle-slider' },
     { label: 'Tailwind CSS', command: 'shadcn@latest add @moduix-solid-tailwind/angle-slider' },
+  ]}
+/>
+
+  </Tab>
+  <Tab label="Vue" value="vue">
+
+<ShadcnInstallOptions
+  options={[
+    { label: 'CSS Modules', command: 'shadcn@latest add @moduix-vue/angle-slider' },
+    { label: 'Tailwind CSS', command: 'shadcn@latest add @moduix-vue-tailwind/angle-slider' },
   ]}
 />
 
@@ -170,6 +196,7 @@ Use controlled state when the angle needs to stay synchronized with application 
     values={[
       { label: 'React', value: 'react' },
       { label: 'Solid', value: 'solid' },
+      { label: 'Vue', value: 'vue' },
     ]}
     className="docs-tabs"
   >
@@ -182,6 +209,11 @@ Use controlled state when the angle needs to stay synchronized with application 
     <Tab value="solid">
 
 <CodeBlockRuntime lang="tsx" code={angleSliderSolidControlled} />
+
+    </Tab>
+    <Tab value="vue">
+
+<CodeBlockRuntime lang="vue" code={angleSliderVueControlled} />
 
     </Tab>
   </Tabs>
@@ -209,6 +241,7 @@ Use `disabled` when the control should be unavailable and excluded from focus an
     values={[
       { label: 'React', value: 'react' },
       { label: 'Solid', value: 'solid' },
+      { label: 'Vue', value: 'vue' },
     ]}
     className="docs-tabs"
   >
@@ -221,6 +254,11 @@ Use `disabled` when the control should be unavailable and excluded from focus an
     <Tab value="solid">
 
 <CodeBlockRuntime lang="tsx" code={angleSliderSolidDisabled} />
+
+    </Tab>
+    <Tab value="vue">
+
+<CodeBlockRuntime lang="vue" code={angleSliderVueDisabled} />
 
     </Tab>
   </Tabs>
@@ -249,6 +287,7 @@ on `AngleSliderHiddenInput` when the form is not an ancestor of the slider.
     values={[
       { label: 'React', value: 'react' },
       { label: 'Solid', value: 'solid' },
+      { label: 'Vue', value: 'vue' },
     ]}
     className="docs-tabs"
   >
@@ -261,6 +300,11 @@ on `AngleSliderHiddenInput` when the form is not an ancestor of the slider.
     <Tab value="solid">
 
 <CodeBlockRuntime lang="tsx" code={angleSliderSolidForm} />
+
+    </Tab>
+    <Tab value="vue">
+
+<CodeBlockRuntime lang="vue" code={angleSliderVueForm} />
 
     </Tab>
   </Tabs>
@@ -289,6 +333,7 @@ corresponding ARIA state without changing its interaction model.
     values={[
       { label: 'React', value: 'react' },
       { label: 'Solid', value: 'solid' },
+      { label: 'Vue', value: 'vue' },
     ]}
     className="docs-tabs"
   >
@@ -301,6 +346,11 @@ corresponding ARIA state without changing its interaction model.
     <Tab value="solid">
 
 <CodeBlockRuntime lang="tsx" code={angleSliderSolidInvalid} />
+
+    </Tab>
+    <Tab value="vue">
+
+<CodeBlockRuntime lang="vue" code={angleSliderVueInvalid} />
 
     </Tab>
   </Tabs>
@@ -328,6 +378,7 @@ Use `readOnly` when the current value should remain focusable and visible but no
     values={[
       { label: 'React', value: 'react' },
       { label: 'Solid', value: 'solid' },
+      { label: 'Vue', value: 'vue' },
     ]}
     className="docs-tabs"
   >
@@ -340,6 +391,11 @@ Use `readOnly` when the current value should remain focusable and visible but no
     <Tab value="solid">
 
 <CodeBlockRuntime lang="tsx" code={angleSliderSolidReadOnly} />
+
+    </Tab>
+    <Tab value="vue">
+
+<CodeBlockRuntime lang="vue" code={angleSliderVueReadOnly} />
 
     </Tab>
   </Tabs>
@@ -369,6 +425,7 @@ surrounding UI.
     values={[
       { label: 'React', value: 'react' },
       { label: 'Solid', value: 'solid' },
+      { label: 'Vue', value: 'vue' },
     ]}
     className="docs-tabs"
   >
@@ -381,6 +438,11 @@ surrounding UI.
     <Tab value="solid">
 
 <CodeBlockRuntime lang="tsx" code={angleSliderSolidRootProvider} />
+
+    </Tab>
+    <Tab value="vue">
+
+<CodeBlockRuntime lang="vue" code={angleSliderVueRootProvider} />
 
     </Tab>
   </Tabs>
@@ -408,6 +470,7 @@ Use `step` to snap pointer and keyboard interaction to fixed angular increments.
     values={[
       { label: 'React', value: 'react' },
       { label: 'Solid', value: 'solid' },
+      { label: 'Vue', value: 'vue' },
     ]}
     className="docs-tabs"
   >
@@ -420,6 +483,11 @@ Use `step` to snap pointer and keyboard interaction to fixed angular increments.
     <Tab value="solid">
 
 <CodeBlockRuntime lang="tsx" code={angleSliderSolidSteps} />
+
+    </Tab>
+    <Tab value="vue">
+
+<CodeBlockRuntime lang="vue" code={angleSliderVueSteps} />
 
     </Tab>
   </Tabs>
@@ -450,6 +518,7 @@ composition together.
     values={[
       { label: 'React', value: 'react' },
       { label: 'Solid', value: 'solid' },
+      { label: 'Vue', value: 'vue' },
     ]}
     className="docs-tabs"
   >
@@ -462,6 +531,11 @@ composition together.
     <Tab value="solid">
 
 <CodeBlockRuntime lang="tsx" code={angleSliderSolidWithMarks} />
+
+    </Tab>
+    <Tab value="vue">
+
+<CodeBlockRuntime lang="vue" code={angleSliderVueWithMarks} />
 
     </Tab>
   </Tabs>
@@ -490,6 +564,7 @@ custom marker composition or extra children inside the control.
     values={[
       { label: 'React', value: 'react' },
       { label: 'Solid', value: 'solid' },
+      { label: 'Vue', value: 'vue' },
     ]}
     className="docs-tabs"
   >
@@ -504,6 +579,11 @@ custom marker composition or extra children inside the control.
 <CodeBlockRuntime lang="tsx" code={angleSliderSolidAdvancedCustomization} />
 
     </Tab>
+    <Tab value="vue">
+
+<CodeBlockRuntime lang="vue" code={angleSliderVueAdvancedCustomization} />
+
+    </Tab>
   </Tabs>
 
 **Styles**
@@ -516,7 +596,7 @@ custom marker composition or extra children inside the control.
 
 ## Styling
 
-Use `className` in React or `class` in Solid on exported parts for structural styles. For state-based
+Use `className` in React or `class` in Solid and Vue on exported parts for structural styles. For state-based
 styles, prefer Ark data attributes such as `data-state`, `data-disabled`, `data-invalid`, and
 `data-readonly`, together with moduix `data-slot` selectors. Tailwind variants use native utilities
 and consumer classes; the component variables below customize the CSS Modules variants. Ark runtime

@@ -1,7 +1,7 @@
 ---
 title: Angle Slider
 component: angle-slider
-description: Круговой элемент управления для выбора угла от 0 до 360 градусов в React или Solid.
+description: Круговой элемент управления для выбора угла от 0 до 360 градусов в React, Solid или Vue.
 ---
 
 import * as AngleSliderDocs from '@/components/examples/angle-slider/css-properties';
@@ -25,6 +25,16 @@ import angleSliderSolidReadOnly from '../../../snippets/angle-slider/solid/read-
 import angleSliderSolidRootProvider from '../../../snippets/angle-slider/solid/root-provider.tsx?raw';
 import angleSliderSolidSteps from '../../../snippets/angle-slider/solid/steps.tsx?raw';
 import angleSliderSolidWithMarks from '../../../snippets/angle-slider/solid/with-marks.tsx?raw';
+import angleSliderVueAdvancedCustomization from '../../../snippets/angle-slider/vue/advanced-customization.vue?raw';
+import angleSliderVueBasic from '../../../snippets/angle-slider/vue/basic.vue?raw';
+import angleSliderVueControlled from '../../../snippets/angle-slider/vue/controlled.vue?raw';
+import angleSliderVueDisabled from '../../../snippets/angle-slider/vue/disabled.vue?raw';
+import angleSliderVueForm from '../../../snippets/angle-slider/vue/form.vue?raw';
+import angleSliderVueInvalid from '../../../snippets/angle-slider/vue/invalid.vue?raw';
+import angleSliderVueReadOnly from '../../../snippets/angle-slider/vue/read-only.vue?raw';
+import angleSliderVueRootProvider from '../../../snippets/angle-slider/vue/root-provider.vue?raw';
+import angleSliderVueSteps from '../../../snippets/angle-slider/vue/steps.vue?raw';
+import angleSliderVueWithMarks from '../../../snippets/angle-slider/vue/with-marks.vue?raw';
 
 ## Справочник API
 
@@ -58,6 +68,7 @@ import angleSliderSolidWithMarks from '../../../snippets/angle-slider/solid/with
     values={[
       { label: 'React', value: 'react' },
       { label: 'Solid', value: 'solid' },
+      { label: 'Vue', value: 'vue' },
     ]}
     className="docs-tabs"
   >
@@ -70,6 +81,11 @@ import angleSliderSolidWithMarks from '../../../snippets/angle-slider/solid/with
     <Tab value="solid">
 
 <CodeBlockRuntime lang="tsx" code={angleSliderSolidBasic} />
+
+    </Tab>
+    <Tab value="vue">
+
+<CodeBlockRuntime lang="vue" code={angleSliderVueBasic} />
 
     </Tab>
   </Tabs>
@@ -103,6 +119,16 @@ import angleSliderSolidWithMarks from '../../../snippets/angle-slider/solid/with
   options={[
     { label: 'CSS Modules', command: 'shadcn@latest add @moduix-solid/angle-slider' },
     { label: 'Tailwind CSS', command: 'shadcn@latest add @moduix-solid-tailwind/angle-slider' },
+  ]}
+/>
+
+  </Tab>
+  <Tab label="Vue" value="vue">
+
+<ShadcnInstallOptions
+  options={[
+    { label: 'CSS Modules', command: 'shadcn@latest add @moduix-vue/angle-slider' },
+    { label: 'Tailwind CSS', command: 'shadcn@latest add @moduix-vue-tailwind/angle-slider' },
   ]}
 />
 
@@ -171,6 +197,7 @@ store нужно создать вне дерева слайдера; не ре�
     values={[
       { label: 'React', value: 'react' },
       { label: 'Solid', value: 'solid' },
+      { label: 'Vue', value: 'vue' },
     ]}
     className="docs-tabs"
   >
@@ -183,6 +210,11 @@ store нужно создать вне дерева слайдера; не ре�
     <Tab value="solid">
 
 <CodeBlockRuntime lang="tsx" code={angleSliderSolidControlled} />
+
+    </Tab>
+    <Tab value="vue">
+
+<CodeBlockRuntime lang="vue" code={angleSliderVueControlled} />
 
     </Tab>
   </Tabs>
@@ -211,6 +243,7 @@ store нужно создать вне дерева слайдера; не ре�
     values={[
       { label: 'React', value: 'react' },
       { label: 'Solid', value: 'solid' },
+      { label: 'Vue', value: 'vue' },
     ]}
     className="docs-tabs"
   >
@@ -223,6 +256,11 @@ store нужно создать вне дерева слайдера; не ре�
     <Tab value="solid">
 
 <CodeBlockRuntime lang="tsx" code={angleSliderSolidDisabled} />
+
+    </Tab>
+    <Tab value="vue">
+
+<CodeBlockRuntime lang="vue" code={angleSliderVueDisabled} />
 
     </Tab>
   </Tabs>
@@ -252,6 +290,7 @@ Reset показывает встроенный в Ark сброс формы. У
     values={[
       { label: 'React', value: 'react' },
       { label: 'Solid', value: 'solid' },
+      { label: 'Vue', value: 'vue' },
     ]}
     className="docs-tabs"
   >
@@ -264,6 +303,11 @@ Reset показывает встроенный в Ark сброс формы. У
     <Tab value="solid">
 
 <CodeBlockRuntime lang="tsx" code={angleSliderSolidForm} />
+
+    </Tab>
+    <Tab value="vue">
+
+<CodeBlockRuntime lang="vue" code={angleSliderVueForm} />
 
     </Tab>
   </Tabs>
@@ -292,6 +336,7 @@ Reset показывает встроенный в Ark сброс формы. У
     values={[
       { label: 'React', value: 'react' },
       { label: 'Solid', value: 'solid' },
+      { label: 'Vue', value: 'vue' },
     ]}
     className="docs-tabs"
   >
@@ -304,6 +349,11 @@ Reset показывает встроенный в Ark сброс формы. У
     <Tab value="solid">
 
 <CodeBlockRuntime lang="tsx" code={angleSliderSolidInvalid} />
+
+    </Tab>
+    <Tab value="vue">
+
+<CodeBlockRuntime lang="vue" code={angleSliderVueInvalid} />
 
     </Tab>
   </Tabs>
@@ -332,6 +382,7 @@ Reset показывает встроенный в Ark сброс формы. У
     values={[
       { label: 'React', value: 'react' },
       { label: 'Solid', value: 'solid' },
+      { label: 'Vue', value: 'vue' },
     ]}
     className="docs-tabs"
   >
@@ -344,6 +395,11 @@ Reset показывает встроенный в Ark сброс формы. У
     <Tab value="solid">
 
 <CodeBlockRuntime lang="tsx" code={angleSliderSolidReadOnly} />
+
+    </Tab>
+    <Tab value="vue">
+
+<CodeBlockRuntime lang="vue" code={angleSliderVueReadOnly} />
 
     </Tab>
   </Tabs>
@@ -373,6 +429,7 @@ Reset показывает встроенный в Ark сброс формы. У
     values={[
       { label: 'React', value: 'react' },
       { label: 'Solid', value: 'solid' },
+      { label: 'Vue', value: 'vue' },
     ]}
     className="docs-tabs"
   >
@@ -385,6 +442,11 @@ Reset показывает встроенный в Ark сброс формы. У
     <Tab value="solid">
 
 <CodeBlockRuntime lang="tsx" code={angleSliderSolidRootProvider} />
+
+    </Tab>
+    <Tab value="vue">
+
+<CodeBlockRuntime lang="vue" code={angleSliderVueRootProvider} />
 
     </Tab>
   </Tabs>
@@ -413,6 +475,7 @@ Reset показывает встроенный в Ark сброс формы. У
     values={[
       { label: 'React', value: 'react' },
       { label: 'Solid', value: 'solid' },
+      { label: 'Vue', value: 'vue' },
     ]}
     className="docs-tabs"
   >
@@ -425,6 +488,11 @@ Reset показывает встроенный в Ark сброс формы. У
     <Tab value="solid">
 
 <CodeBlockRuntime lang="tsx" code={angleSliderSolidSteps} />
+
+    </Tab>
+    <Tab value="vue">
+
+<CodeBlockRuntime lang="vue" code={angleSliderVueSteps} />
 
     </Tab>
   </Tabs>
@@ -454,6 +522,7 @@ Reset показывает встроенный в Ark сброс формы. У
     values={[
       { label: 'React', value: 'react' },
       { label: 'Solid', value: 'solid' },
+      { label: 'Vue', value: 'vue' },
     ]}
     className="docs-tabs"
   >
@@ -466,6 +535,11 @@ Reset показывает встроенный в Ark сброс формы. У
     <Tab value="solid">
 
 <CodeBlockRuntime lang="tsx" code={angleSliderSolidWithMarks} />
+
+    </Tab>
+    <Tab value="vue">
+
+<CodeBlockRuntime lang="vue" code={angleSliderVueWithMarks} />
 
     </Tab>
   </Tabs>
@@ -494,6 +568,7 @@ Reset показывает встроенный в Ark сброс формы. У
     values={[
       { label: 'React', value: 'react' },
       { label: 'Solid', value: 'solid' },
+      { label: 'Vue', value: 'vue' },
     ]}
     className="docs-tabs"
   >
@@ -508,6 +583,11 @@ Reset показывает встроенный в Ark сброс формы. У
 <CodeBlockRuntime lang="tsx" code={angleSliderSolidAdvancedCustomization} />
 
     </Tab>
+    <Tab value="vue">
+
+<CodeBlockRuntime lang="vue" code={angleSliderVueAdvancedCustomization} />
+
+    </Tab>
   </Tabs>
 
 **Стили**
@@ -520,7 +600,7 @@ Reset показывает встроенный в Ark сброс формы. У
 
 ## Стилизация
 
-Используйте `className` в React или `class` в Solid для структурных стилей экспортируемых частей.
+Используйте `className` в React и `class` в Solid или Vue для структурных стилей экспортируемых частей.
 Для стилей состояний предпочитайте атрибуты Ark - `data-state`, `data-disabled`, `data-invalid` и
 `data-readonly` - вместе с селекторами moduix `data-slot`. Варианты на Tailwind настраиваются
 обычными утилитами и пользовательскими классами; перечисленные ниже переменные компонента относятся
