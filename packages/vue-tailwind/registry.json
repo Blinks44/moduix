@@ -79,6 +79,60 @@
       ]
     },
     {
+      "name": "checkbox",
+      "type": "registry:item",
+      "title": "Checkbox",
+      "description": "moduix Vue Tailwind Checkbox component.",
+      "dependencies": ["@ark-ui/vue", "clsx", "tailwind-merge"],
+      "registryDependencies": [
+        "@moduix-vue-tailwind/foundation",
+        "@moduix-vue-tailwind/cn",
+        "@moduix-vue-tailwind/icons"
+      ],
+      "files": [
+        {
+          "path": "src/components/checkbox/Checkbox.vue",
+          "target": "@components/ui/checkbox/Checkbox.vue",
+          "type": "registry:component"
+        },
+        {
+          "path": "src/components/checkbox/CheckboxRootProvider.vue",
+          "target": "@components/ui/checkbox/CheckboxRootProvider.vue",
+          "type": "registry:component"
+        },
+        {
+          "path": "src/components/checkbox/CheckboxControl.vue",
+          "target": "@components/ui/checkbox/CheckboxControl.vue",
+          "type": "registry:component"
+        },
+        {
+          "path": "src/components/checkbox/CheckboxIndicator.vue",
+          "target": "@components/ui/checkbox/CheckboxIndicator.vue",
+          "type": "registry:component"
+        },
+        {
+          "path": "src/components/checkbox/CheckboxLabel.vue",
+          "target": "@components/ui/checkbox/CheckboxLabel.vue",
+          "type": "registry:component"
+        },
+        {
+          "path": "src/components/checkbox/CheckboxGroup.vue",
+          "target": "@components/ui/checkbox/CheckboxGroup.vue",
+          "type": "registry:component"
+        },
+        {
+          "path": "src/components/checkbox/checkbox.types.ts",
+          "target": "@components/ui/checkbox/checkbox.types.ts",
+          "type": "registry:file"
+        },
+        {
+          "path": "src/components/checkbox/index.ts",
+          "target": "@components/ui/checkbox/index.ts",
+          "type": "registry:component"
+        }
+      ]
+    },
+    {
       "name": "alert",
       "type": "registry:item",
       "title": "Alert",
@@ -418,6 +472,90 @@
       ]
     },
     {
+      "name": "carousel",
+      "type": "registry:item",
+      "title": "Carousel",
+      "description": "moduix Vue Tailwind Carousel component.",
+      "dependencies": ["@ark-ui/vue", "clsx", "tailwind-merge"],
+      "registryDependencies": [
+        "@moduix-vue-tailwind/foundation",
+        "@moduix-vue-tailwind/cn",
+        "@moduix-vue-tailwind/icons"
+      ],
+      "files": [
+        {
+          "path": "src/components/carousel/Carousel.vue",
+          "target": "@components/ui/carousel/Carousel.vue",
+          "type": "registry:component"
+        },
+        {
+          "path": "src/components/carousel/CarouselRootProvider.vue",
+          "target": "@components/ui/carousel/CarouselRootProvider.vue",
+          "type": "registry:component"
+        },
+        {
+          "path": "src/components/carousel/CarouselControl.vue",
+          "target": "@components/ui/carousel/CarouselControl.vue",
+          "type": "registry:component"
+        },
+        {
+          "path": "src/components/carousel/CarouselItemGroup.vue",
+          "target": "@components/ui/carousel/CarouselItemGroup.vue",
+          "type": "registry:component"
+        },
+        {
+          "path": "src/components/carousel/CarouselItem.vue",
+          "target": "@components/ui/carousel/CarouselItem.vue",
+          "type": "registry:component"
+        },
+        {
+          "path": "src/components/carousel/CarouselPrevTrigger.vue",
+          "target": "@components/ui/carousel/CarouselPrevTrigger.vue",
+          "type": "registry:component"
+        },
+        {
+          "path": "src/components/carousel/CarouselNextTrigger.vue",
+          "target": "@components/ui/carousel/CarouselNextTrigger.vue",
+          "type": "registry:component"
+        },
+        {
+          "path": "src/components/carousel/CarouselIndicatorGroup.vue",
+          "target": "@components/ui/carousel/CarouselIndicatorGroup.vue",
+          "type": "registry:component"
+        },
+        {
+          "path": "src/components/carousel/CarouselIndicator.vue",
+          "target": "@components/ui/carousel/CarouselIndicator.vue",
+          "type": "registry:component"
+        },
+        {
+          "path": "src/components/carousel/CarouselIndicators.vue",
+          "target": "@components/ui/carousel/CarouselIndicators.vue",
+          "type": "registry:component"
+        },
+        {
+          "path": "src/components/carousel/CarouselAutoplayTrigger.vue",
+          "target": "@components/ui/carousel/CarouselAutoplayTrigger.vue",
+          "type": "registry:component"
+        },
+        {
+          "path": "src/components/carousel/CarouselAutoplayIndicator.vue",
+          "target": "@components/ui/carousel/CarouselAutoplayIndicator.vue",
+          "type": "registry:component"
+        },
+        {
+          "path": "src/components/carousel/CarouselProgressText.vue",
+          "target": "@components/ui/carousel/CarouselProgressText.vue",
+          "type": "registry:component"
+        },
+        {
+          "path": "src/components/carousel/index.ts",
+          "target": "@components/ui/carousel/index.ts",
+          "type": "registry:component"
+        }
+      ]
+    },
+    {
       "name": "bleed",
       "type": "registry:item",
       "title": "Bleed",
@@ -622,6 +760,56 @@
         {
           "path": "src/components/close-button/index.ts",
           "target": "@components/ui/close-button/index.ts",
+          "type": "registry:component"
+        }
+      ]
+    },
+    {
+      "name": "chart",
+      "type": "registry:item",
+      "title": "Chart",
+      "description": "moduix Vue Tailwind Chart component backed by TanStack Charts.",
+      "dependencies": ["@ark-ui/vue", "@tanstack/charts", "clsx", "tailwind-merge"],
+      "registryDependencies": ["@moduix-vue-tailwind/foundation", "@moduix-vue-tailwind/cn"],
+      "files": [
+        {
+          "path": "src/components/chart/Chart.vue",
+          "target": "@components/ui/chart/Chart.vue",
+          "type": "registry:component"
+        },
+        {
+          "path": "src/components/chart/ChartPlot.vue",
+          "target": "@components/ui/chart/ChartPlot.vue",
+          "type": "registry:component"
+        },
+        {
+          "path": "src/components/chart/ChartHeader.vue",
+          "target": "@components/ui/chart/ChartHeader.vue",
+          "type": "registry:component"
+        },
+        {
+          "path": "src/components/chart/ChartTitle.vue",
+          "target": "@components/ui/chart/ChartTitle.vue",
+          "type": "registry:component"
+        },
+        {
+          "path": "src/components/chart/ChartDescription.vue",
+          "target": "@components/ui/chart/ChartDescription.vue",
+          "type": "registry:component"
+        },
+        {
+          "path": "src/components/chart/ChartLegend.vue",
+          "target": "@components/ui/chart/ChartLegend.vue",
+          "type": "registry:component"
+        },
+        {
+          "path": "src/components/chart/ChartLegendItem.vue",
+          "target": "@components/ui/chart/ChartLegendItem.vue",
+          "type": "registry:component"
+        },
+        {
+          "path": "src/components/chart/index.ts",
+          "target": "@components/ui/chart/index.ts",
           "type": "registry:component"
         }
       ]

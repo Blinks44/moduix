@@ -23,6 +23,15 @@ import chartSolidHorizontalBars from '../../../snippets/chart/solid/horizontal-b
 import chartSolidColors from '../../../snippets/chart/solid/line-colors.tsx?raw';
 import chartSolidScatter from '../../../snippets/chart/solid/scatter.tsx?raw';
 import chartSolidStackedBars from '../../../snippets/chart/solid/stacked-bars.tsx?raw';
+import chartVueAdvancedCustomization from '../../../snippets/chart/vue/advanced-customization.vue?raw';
+import chartVueAnimatedArea from '../../../snippets/chart/vue/animated-area.vue?raw';
+import chartVueBasic from '../../../snippets/chart/vue/basic.vue?raw';
+import chartVueDonut from '../../../snippets/chart/vue/donut.vue?raw';
+import chartVueHeatmap from '../../../snippets/chart/vue/heatmap.vue?raw';
+import chartVueHorizontalBars from '../../../snippets/chart/vue/horizontal-bars.vue?raw';
+import chartVueColors from '../../../snippets/chart/vue/line-colors.vue?raw';
+import chartVueScatter from '../../../snippets/chart/vue/scatter.vue?raw';
+import chartVueStackedBars from '../../../snippets/chart/vue/stacked-bars.vue?raw';
 
 ## API Reference
 
@@ -32,8 +41,8 @@ API](https://tanstack.com/charts/latest/docs/framework/react/reference/chart). D
 scales, interactions, and callbacks with TanStack Charts; moduix keeps the accessible composition
 around them.
 
-`@tanstack/charts` is an optional peer dependency of moduix. The React and Solid packages expose the
-same chart definition API; the Solid package uses TanStack's renderer adapter.
+`@tanstack/charts` is an optional peer dependency of moduix. The React, Solid, and Vue packages
+expose the same chart definition API; the Solid and Vue packages use TanStack's renderer adapter.
 
 ## Basic
 
@@ -52,6 +61,7 @@ legend around the plot, then provide a concise `ariaLabel` for assistive technol
     values={[
       { label: 'React', value: 'react' },
       { label: 'Solid', value: 'solid' },
+      { label: 'Vue', value: 'vue' },
     ]}
     className="docs-tabs"
   >
@@ -64,6 +74,11 @@ legend around the plot, then provide a concise `ariaLabel` for assistive technol
     <Tab value="solid">
 
 <CodeBlockRuntime lang="tsx" code={chartSolidBasic} />
+
+    </Tab>
+    <Tab value="vue">
+
+<CodeBlockRuntime lang="vue" code={chartVueBasic} />
 
     </Tab>
   </Tabs>
@@ -96,6 +111,16 @@ See [Quick Start](/docs/quick-start) for full package setup, registry configurat
 />
 
   </Tab>
+  <Tab label="Vue" value="vue">
+
+<ShadcnInstallOptions
+  options={[
+    { label: 'CSS Modules', command: 'shadcn@latest add @moduix-vue/chart' },
+    { label: 'Tailwind CSS', command: 'shadcn@latest add @moduix-vue-tailwind/chart' },
+  ]}
+/>
+
+  </Tab>
 </Tabs>
 
 ## Anatomy
@@ -113,7 +138,7 @@ Chart
 
 | Part | Role |
 | --- | --- |
-| `Chart` | Composed `figure` root. Accepts native props, `asChild`, and an `HTMLElement` ref. |
+| `Chart` | Composed `figure` root. Accepts native props, `asChild`, and an `HTMLElement` ref (`$el` of the component ref in Vue). |
 | `ChartPlot` | TanStack Charts host. Requires `definition` and `ariaLabel`; uses the moduix motion preset by default and accepts `motion={false}`. |
 | `ChartHeader` | `figcaption` layout for the title and description. |
 | `ChartTitle` | Chart heading; renders `h3` by default. |
@@ -145,7 +170,7 @@ Area, line, points, grouped focus, and tooltip motion all remain native TanStack
 
 <ExampleCode>
 <div className="docs-reference">
-  <Tabs groupId="framework" values={[{ label: 'React', value: 'react' }, { label: 'Solid', value: 'solid' }]} className="docs-tabs">
+  <Tabs groupId="framework" values={[{ label: 'React', value: 'react' }, { label: 'Solid', value: 'solid' }, { label: 'Vue', value: 'vue' }]} className="docs-tabs">
     <Tab value="react">
 
 ```tsx pure file="../../../src/components/examples/chart/animated-area.tsx"
@@ -155,6 +180,11 @@ Area, line, points, grouped focus, and tooltip motion all remain native TanStack
     <Tab value="solid">
 
 <CodeBlockRuntime lang="tsx" code={chartSolidAnimatedArea} />
+
+    </Tab>
+    <Tab value="vue">
+
+<CodeBlockRuntime lang="vue" code={chartVueAnimatedArea} />
 
     </Tab>
   </Tabs>
@@ -172,7 +202,7 @@ and automatically follow the active theme.
 
 <ExampleCode>
 <div className="docs-reference">
-  <Tabs groupId="framework" values={[{ label: 'React', value: 'react' }, { label: 'Solid', value: 'solid' }]} className="docs-tabs">
+  <Tabs groupId="framework" values={[{ label: 'React', value: 'react' }, { label: 'Solid', value: 'solid' }, { label: 'Vue', value: 'vue' }]} className="docs-tabs">
     <Tab value="react">
 
 ```tsx pure file="../../../src/components/examples/chart/line-colors.tsx"
@@ -182,6 +212,11 @@ and automatically follow the active theme.
     <Tab value="solid">
 
 <CodeBlockRuntime lang="tsx" code={chartSolidColors} />
+
+    </Tab>
+    <Tab value="vue">
+
+<CodeBlockRuntime lang="vue" code={chartVueColors} />
 
     </Tab>
   </Tabs>
@@ -199,7 +234,7 @@ same composition of `ChartPlot`, motion, focus, tooltip, and legend works outsid
 
 <ExampleCode>
 <div className="docs-reference">
-  <Tabs groupId="framework" values={[{ label: 'React', value: 'react' }, { label: 'Solid', value: 'solid' }]} className="docs-tabs">
+  <Tabs groupId="framework" values={[{ label: 'React', value: 'react' }, { label: 'Solid', value: 'solid' }, { label: 'Vue', value: 'vue' }]} className="docs-tabs">
     <Tab value="react">
 
 ```tsx pure file="../../../src/components/examples/chart/donut.tsx"
@@ -209,6 +244,11 @@ same composition of `ChartPlot`, motion, focus, tooltip, and legend works outsid
     <Tab value="solid">
 
 <CodeBlockRuntime lang="tsx" code={chartSolidDonut} />
+
+    </Tab>
+    <Tab value="vue">
+
+<CodeBlockRuntime lang="vue" code={chartVueDonut} />
 
     </Tab>
   </Tabs>
@@ -226,7 +266,7 @@ turns each cell's level into a theme-aware paint value.
 
 <ExampleCode>
 <div className="docs-reference">
-  <Tabs groupId="framework" values={[{ label: 'React', value: 'react' }, { label: 'Solid', value: 'solid' }]} className="docs-tabs">
+  <Tabs groupId="framework" values={[{ label: 'React', value: 'react' }, { label: 'Solid', value: 'solid' }, { label: 'Vue', value: 'vue' }]} className="docs-tabs">
     <Tab value="react">
 
 ```tsx pure file="../../../src/components/examples/chart/heatmap.tsx"
@@ -236,6 +276,11 @@ turns each cell's level into a theme-aware paint value.
     <Tab value="solid">
 
 <CodeBlockRuntime lang="tsx" code={chartSolidHeatmap} />
+
+    </Tab>
+    <Tab value="vue">
+
+<CodeBlockRuntime lang="vue" code={chartVueHeatmap} />
 
     </Tab>
   </Tabs>
@@ -253,7 +298,7 @@ value belongs on x and the category belongs on y.
 
 <ExampleCode>
 <div className="docs-reference">
-  <Tabs groupId="framework" values={[{ label: 'React', value: 'react' }, { label: 'Solid', value: 'solid' }]} className="docs-tabs">
+  <Tabs groupId="framework" values={[{ label: 'React', value: 'react' }, { label: 'Solid', value: 'solid' }, { label: 'Vue', value: 'vue' }]} className="docs-tabs">
     <Tab value="react">
 
 ```tsx pure file="../../../src/components/examples/chart/horizontal-bars.tsx"
@@ -263,6 +308,11 @@ value belongs on x and the category belongs on y.
     <Tab value="solid">
 
 <CodeBlockRuntime lang="tsx" code={chartSolidHorizontalBars} />
+
+    </Tab>
+    <Tab value="vue">
+
+<CodeBlockRuntime lang="vue" code={chartVueHorizontalBars} />
 
     </Tab>
   </Tabs>
@@ -280,7 +330,7 @@ without changing the x and y relationship.
 
 <ExampleCode>
 <div className="docs-reference">
-  <Tabs groupId="framework" values={[{ label: 'React', value: 'react' }, { label: 'Solid', value: 'solid' }]} className="docs-tabs">
+  <Tabs groupId="framework" values={[{ label: 'React', value: 'react' }, { label: 'Solid', value: 'solid' }, { label: 'Vue', value: 'vue' }]} className="docs-tabs">
     <Tab value="react">
 
 ```tsx pure file="../../../src/components/examples/chart/scatter.tsx"
@@ -290,6 +340,11 @@ without changing the x and y relationship.
     <Tab value="solid">
 
 <CodeBlockRuntime lang="tsx" code={chartSolidScatter} />
+
+    </Tab>
+    <Tab value="vue">
+
+<CodeBlockRuntime lang="vue" code={chartVueScatter} />
 
     </Tab>
   </Tabs>
@@ -307,7 +362,7 @@ keeps the tooltip and keyboard focus grouped by quarter.
 
 <ExampleCode>
 <div className="docs-reference">
-  <Tabs groupId="framework" values={[{ label: 'React', value: 'react' }, { label: 'Solid', value: 'solid' }]} className="docs-tabs">
+  <Tabs groupId="framework" values={[{ label: 'React', value: 'react' }, { label: 'Solid', value: 'solid' }, { label: 'Vue', value: 'vue' }]} className="docs-tabs">
     <Tab value="react">
 
 ```tsx pure file="../../../src/components/examples/chart/stacked-bars.tsx"
@@ -317,6 +372,11 @@ keeps the tooltip and keyboard focus grouped by quarter.
     <Tab value="solid">
 
 <CodeBlockRuntime lang="tsx" code={chartSolidStackedBars} />
+
+    </Tab>
+    <Tab value="vue">
+
+<CodeBlockRuntime lang="vue" code={chartVueStackedBars} />
 
     </Tab>
   </Tabs>
@@ -340,7 +400,7 @@ to a pinned tooltip.
 
 <ExampleCode>
 <div className="docs-reference">
-  <Tabs groupId="framework" values={[{ label: 'React', value: 'react' }, { label: 'Solid', value: 'solid' }]} className="docs-tabs">
+  <Tabs groupId="framework" values={[{ label: 'React', value: 'react' }, { label: 'Solid', value: 'solid' }, { label: 'Vue', value: 'vue' }]} className="docs-tabs">
     <Tab value="react">
 
 ```tsx pure file="../../../src/components/examples/chart/advanced-customization.tsx"
@@ -350,6 +410,11 @@ to a pinned tooltip.
     <Tab value="solid">
 
 <CodeBlockRuntime lang="tsx" code={chartSolidAdvancedCustomization} />
+
+    </Tab>
+    <Tab value="vue">
+
+<CodeBlockRuntime lang="vue" code={chartVueAdvancedCustomization} />
 
     </Tab>
   </Tabs>
@@ -388,7 +453,7 @@ Give the root a local class (`className` in React or `class` in Solid) when a ch
 
 - `Chart`, `ChartHeader`, `ChartTitle`, `ChartDescription`, `ChartLegend`, and
   `ChartLegendItem` expose `data-scope="chart"`, `data-part`, and `data-slot`.
-- `className` in React and `class` in Solid on `ChartPlot` reach the outer `.ts-chart-host` element.
+- `className` in React and `class` in Solid and Vue on `ChartPlot` reach the outer `.ts-chart-host` element.
 - The default tooltip uses `chart-tooltip-body`, `chart-tooltip-title`, `chart-tooltip-rows`,
   `chart-tooltip-row`, `chart-tooltip-swatch`, `chart-tooltip-label`, `chart-tooltip-value`, and
   `chart-tooltip-text` data slots.

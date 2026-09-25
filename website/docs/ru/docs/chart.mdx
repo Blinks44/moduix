@@ -23,6 +23,15 @@ import chartSolidHorizontalBars from '../../../snippets/chart/solid/horizontal-b
 import chartSolidColors from '../../../snippets/chart/solid/line-colors.tsx?raw';
 import chartSolidScatter from '../../../snippets/chart/solid/scatter.tsx?raw';
 import chartSolidStackedBars from '../../../snippets/chart/solid/stacked-bars.tsx?raw';
+import chartVueAdvancedCustomization from '../../../snippets/chart/vue/advanced-customization.vue?raw';
+import chartVueAnimatedArea from '../../../snippets/chart/vue/animated-area.vue?raw';
+import chartVueBasic from '../../../snippets/chart/vue/basic.vue?raw';
+import chartVueDonut from '../../../snippets/chart/vue/donut.vue?raw';
+import chartVueHeatmap from '../../../snippets/chart/vue/heatmap.vue?raw';
+import chartVueHorizontalBars from '../../../snippets/chart/vue/horizontal-bars.vue?raw';
+import chartVueColors from '../../../snippets/chart/vue/line-colors.vue?raw';
+import chartVueScatter from '../../../snippets/chart/vue/scatter.vue?raw';
+import chartVueStackedBars from '../../../snippets/chart/vue/stacked-bars.vue?raw';
 
 ## Справочник API
 
@@ -32,8 +41,9 @@ Charts](https://tanstack.com/charts/latest/docs/framework/react/reference/chart)
 элементы, шкалы, взаимодействия и колбэки вы по-прежнему задаёте средствами TanStack Charts, а
 moduix предоставляет доступную оболочку композиции.
 
-`@tanstack/charts` - необязательная peer-зависимость moduix. Пакеты для React и Solid используют
-одинаковый API определения графика; пакет Solid работает через адаптер рендерера TanStack.
+`@tanstack/charts` - необязательная peer-зависимость moduix. Пакеты для React, Solid и Vue
+используют одинаковый API определения графика; пакеты Solid и Vue работают через адаптер рендерера
+TanStack.
 
 ## Базовый пример
 
@@ -53,6 +63,7 @@ moduix предоставляет доступную оболочку компо
     values={[
       { label: 'React', value: 'react' },
       { label: 'Solid', value: 'solid' },
+      { label: 'Vue', value: 'vue' },
     ]}
     className="docs-tabs"
   >
@@ -65,6 +76,11 @@ moduix предоставляет доступную оболочку компо
     <Tab value="solid">
 
 <CodeBlockRuntime lang="tsx" code={chartSolidBasic} />
+
+    </Tab>
+    <Tab value="vue">
+
+<CodeBlockRuntime lang="vue" code={chartVueBasic} />
 
     </Tab>
   </Tabs>
@@ -97,6 +113,16 @@ moduix предоставляет доступную оболочку компо
 />
 
   </Tab>
+  <Tab label="Vue" value="vue">
+
+<ShadcnInstallOptions
+  options={[
+    { label: 'CSS Modules', command: 'shadcn@latest add @moduix-vue/chart' },
+    { label: 'Tailwind CSS', command: 'shadcn@latest add @moduix-vue-tailwind/chart' },
+  ]}
+/>
+
+  </Tab>
 </Tabs>
 
 ## Анатомия
@@ -114,7 +140,7 @@ Chart
 
 | Часть | Назначение |
 | --- | --- |
-| `Chart` | Составной корневой элемент `figure`. Принимает нативные свойства, `asChild` и ref на `HTMLElement`. |
+| `Chart` | Составной корневой элемент `figure`. Принимает нативные свойства, `asChild` и ref на `HTMLElement` (у Vue это `$el` компонента). |
 | `ChartPlot` | Хост TanStack Charts. Требует `definition` и `ariaLabel`, по умолчанию использует пресет анимации moduix и принимает `motion={false}`. |
 | `ChartHeader` | Разметка `figcaption` для заголовка и описания. |
 | `ChartTitle` | Заголовок графика, по умолчанию рендерится как `h3`. |
@@ -148,7 +174,7 @@ TanStack.
 
 <ExampleCode>
 <div className="docs-reference">
-  <Tabs groupId="framework" values={[{ label: 'React', value: 'react' }, { label: 'Solid', value: 'solid' }]} className="docs-tabs">
+  <Tabs groupId="framework" values={[{ label: 'React', value: 'react' }, { label: 'Solid', value: 'solid' }, { label: 'Vue', value: 'vue' }]} className="docs-tabs">
     <Tab value="react">
 
 ```tsx pure file="../../../src/components/examples/chart/animated-area.tsx"
@@ -158,6 +184,11 @@ TanStack.
     <Tab value="solid">
 
 <CodeBlockRuntime lang="tsx" code={chartSolidAnimatedArea} />
+
+    </Tab>
+    <Tab value="vue">
+
+<CodeBlockRuntime lang="vue" code={chartVueAnimatedArea} />
 
     </Tab>
   </Tabs>
@@ -175,7 +206,7 @@ TanStack.
 
 <ExampleCode>
 <div className="docs-reference">
-  <Tabs groupId="framework" values={[{ label: 'React', value: 'react' }, { label: 'Solid', value: 'solid' }]} className="docs-tabs">
+  <Tabs groupId="framework" values={[{ label: 'React', value: 'react' }, { label: 'Solid', value: 'solid' }, { label: 'Vue', value: 'vue' }]} className="docs-tabs">
     <Tab value="react">
 
 ```tsx pure file="../../../src/components/examples/chart/line-colors.tsx"
@@ -185,6 +216,11 @@ TanStack.
     <Tab value="solid">
 
 <CodeBlockRuntime lang="tsx" code={chartSolidColors} />
+
+    </Tab>
+    <Tab value="vue">
+
+<CodeBlockRuntime lang="vue" code={chartVueColors} />
 
     </Tab>
   </Tabs>
@@ -203,7 +239,7 @@ TanStack.
 
 <ExampleCode>
 <div className="docs-reference">
-  <Tabs groupId="framework" values={[{ label: 'React', value: 'react' }, { label: 'Solid', value: 'solid' }]} className="docs-tabs">
+  <Tabs groupId="framework" values={[{ label: 'React', value: 'react' }, { label: 'Solid', value: 'solid' }, { label: 'Vue', value: 'vue' }]} className="docs-tabs">
     <Tab value="react">
 
 ```tsx pure file="../../../src/components/examples/chart/donut.tsx"
@@ -213,6 +249,11 @@ TanStack.
     <Tab value="solid">
 
 <CodeBlockRuntime lang="tsx" code={chartSolidDonut} />
+
+    </Tab>
+    <Tab value="vue">
+
+<CodeBlockRuntime lang="vue" code={chartVueDonut} />
 
     </Tab>
   </Tabs>
@@ -230,7 +271,7 @@ TanStack.
 
 <ExampleCode>
 <div className="docs-reference">
-  <Tabs groupId="framework" values={[{ label: 'React', value: 'react' }, { label: 'Solid', value: 'solid' }]} className="docs-tabs">
+  <Tabs groupId="framework" values={[{ label: 'React', value: 'react' }, { label: 'Solid', value: 'solid' }, { label: 'Vue', value: 'vue' }]} className="docs-tabs">
     <Tab value="react">
 
 ```tsx pure file="../../../src/components/examples/chart/heatmap.tsx"
@@ -240,6 +281,11 @@ TanStack.
     <Tab value="solid">
 
 <CodeBlockRuntime lang="tsx" code={chartSolidHeatmap} />
+
+    </Tab>
+    <Tab value="vue">
+
+<CodeBlockRuntime lang="vue" code={chartVueHeatmap} />
 
     </Tab>
   </Tabs>
@@ -257,7 +303,7 @@ TanStack.
 
 <ExampleCode>
 <div className="docs-reference">
-  <Tabs groupId="framework" values={[{ label: 'React', value: 'react' }, { label: 'Solid', value: 'solid' }]} className="docs-tabs">
+  <Tabs groupId="framework" values={[{ label: 'React', value: 'react' }, { label: 'Solid', value: 'solid' }, { label: 'Vue', value: 'vue' }]} className="docs-tabs">
     <Tab value="react">
 
 ```tsx pure file="../../../src/components/examples/chart/horizontal-bars.tsx"
@@ -267,6 +313,11 @@ TanStack.
     <Tab value="solid">
 
 <CodeBlockRuntime lang="tsx" code={chartSolidHorizontalBars} />
+
+    </Tab>
+    <Tab value="vue">
+
+<CodeBlockRuntime lang="vue" code={chartVueHorizontalBars} />
 
     </Tab>
   </Tabs>
@@ -284,7 +335,7 @@ TanStack.
 
 <ExampleCode>
 <div className="docs-reference">
-  <Tabs groupId="framework" values={[{ label: 'React', value: 'react' }, { label: 'Solid', value: 'solid' }]} className="docs-tabs">
+  <Tabs groupId="framework" values={[{ label: 'React', value: 'react' }, { label: 'Solid', value: 'solid' }, { label: 'Vue', value: 'vue' }]} className="docs-tabs">
     <Tab value="react">
 
 ```tsx pure file="../../../src/components/examples/chart/scatter.tsx"
@@ -294,6 +345,11 @@ TanStack.
     <Tab value="solid">
 
 <CodeBlockRuntime lang="tsx" code={chartSolidScatter} />
+
+    </Tab>
+    <Tab value="vue">
+
+<CodeBlockRuntime lang="vue" code={chartVueScatter} />
 
     </Tab>
   </Tabs>
@@ -311,7 +367,7 @@ TanStack.
 
 <ExampleCode>
 <div className="docs-reference">
-  <Tabs groupId="framework" values={[{ label: 'React', value: 'react' }, { label: 'Solid', value: 'solid' }]} className="docs-tabs">
+  <Tabs groupId="framework" values={[{ label: 'React', value: 'react' }, { label: 'Solid', value: 'solid' }, { label: 'Vue', value: 'vue' }]} className="docs-tabs">
     <Tab value="react">
 
 ```tsx pure file="../../../src/components/examples/chart/stacked-bars.tsx"
@@ -321,6 +377,11 @@ TanStack.
     <Tab value="solid">
 
 <CodeBlockRuntime lang="tsx" code={chartSolidStackedBars} />
+
+    </Tab>
+    <Tab value="vue">
+
+<CodeBlockRuntime lang="vue" code={chartVueStackedBars} />
 
     </Tab>
   </Tabs>
@@ -345,7 +406,7 @@ TanStack.
 
 <ExampleCode>
 <div className="docs-reference">
-  <Tabs groupId="framework" values={[{ label: 'React', value: 'react' }, { label: 'Solid', value: 'solid' }]} className="docs-tabs">
+  <Tabs groupId="framework" values={[{ label: 'React', value: 'react' }, { label: 'Solid', value: 'solid' }, { label: 'Vue', value: 'vue' }]} className="docs-tabs">
     <Tab value="react">
 
 ```tsx pure file="../../../src/components/examples/chart/advanced-customization.tsx"
@@ -355,6 +416,11 @@ TanStack.
     <Tab value="solid">
 
 <CodeBlockRuntime lang="tsx" code={chartSolidAdvancedCustomization} />
+
+    </Tab>
+    <Tab value="vue">
+
+<CodeBlockRuntime lang="vue" code={chartVueAdvancedCustomization} />
 
     </Tab>
   </Tabs>
@@ -396,7 +462,7 @@ CSS-свойства настраивают варианты с CSS Modules. А�
 
 - `Chart`, `ChartHeader`, `ChartTitle`, `ChartDescription`, `ChartLegend` и
   `ChartLegendItem` предоставляют `data-scope="chart"`, `data-part` и `data-slot`.
-- `className` в React и `class` в Solid у `ChartPlot` применяются к внешнему элементу `.ts-chart-host`.
+- `className` в React и `class` в Solid и Vue у `ChartPlot` применяются к внешнему элементу `.ts-chart-host`.
 - Стандартная подсказка использует слоты данных `chart-tooltip-body`, `chart-tooltip-title`,
   `chart-tooltip-rows`, `chart-tooltip-row`, `chart-tooltip-swatch`, `chart-tooltip-label`,
   `chart-tooltip-value` и `chart-tooltip-text`.

@@ -37,6 +37,22 @@ import carouselSolidSpacing from '../../../snippets/carousel/solid/spacing.tsx?r
 import carouselSolidThumbnailIndicators from '../../../snippets/carousel/solid/thumbnail-indicators.tsx?raw';
 import carouselSolidVariableSizes from '../../../snippets/carousel/solid/variable-sizes.tsx?raw';
 import carouselSolidVertical from '../../../snippets/carousel/solid/vertical.tsx?raw';
+import carouselVueAdvancedCustomization from '../../../snippets/carousel/vue/advanced-customization.vue?raw';
+import carouselVueAutoplay from '../../../snippets/carousel/vue/autoplay.vue?raw';
+import carouselVueBasic from '../../../snippets/carousel/vue/basic.vue?raw';
+import carouselVueCards from '../../../snippets/carousel/vue/cards.vue?raw';
+import carouselVueControlled from '../../../snippets/carousel/vue/controlled.vue?raw';
+import carouselVueDynamic from '../../../snippets/carousel/vue/dynamic.vue?raw';
+import carouselVueLoop from '../../../snippets/carousel/vue/loop.vue?raw';
+import carouselVueMouseDrag from '../../../snippets/carousel/vue/mouse-drag.vue?raw';
+import carouselVuePauseOnHover from '../../../snippets/carousel/vue/pause-on-hover.vue?raw';
+import carouselVueRootProvider from '../../../snippets/carousel/vue/root-provider.vue?raw';
+import carouselVueScrollToSlide from '../../../snippets/carousel/vue/scroll-to-slide.vue?raw';
+import carouselVueSlidesPerPage from '../../../snippets/carousel/vue/slides-per-page.vue?raw';
+import carouselVueSpacing from '../../../snippets/carousel/vue/spacing.vue?raw';
+import carouselVueThumbnailIndicators from '../../../snippets/carousel/vue/thumbnail-indicators.vue?raw';
+import carouselVueVariableSizes from '../../../snippets/carousel/vue/variable-sizes.vue?raw';
+import carouselVueVertical from '../../../snippets/carousel/vue/vertical.vue?raw';
 
 ## Справочник API
 
@@ -60,6 +76,7 @@ import carouselSolidVertical from '../../../snippets/carousel/solid/vertical.tsx
     values={[
       { label: 'React', value: 'react' },
       { label: 'Solid', value: 'solid' },
+      { label: 'Vue', value: 'vue' },
     ]}
     className="docs-tabs"
   >
@@ -72,6 +89,11 @@ import carouselSolidVertical from '../../../snippets/carousel/solid/vertical.tsx
     <Tab value="solid">
 
 <CodeBlockRuntime lang="tsx" code={carouselSolidBasic} />
+
+    </Tab>
+    <Tab value="vue">
+
+<CodeBlockRuntime lang="vue" code={carouselVueBasic} />
 
     </Tab>
   </Tabs>
@@ -105,6 +127,16 @@ import carouselSolidVertical from '../../../snippets/carousel/solid/vertical.tsx
   options={[
     { label: 'CSS Modules', command: 'shadcn@latest add @moduix-solid/carousel' },
     { label: 'Tailwind CSS', command: 'shadcn@latest add @moduix-solid-tailwind/carousel' },
+  ]}
+/>
+
+  </Tab>
+  <Tab label="Vue" value="vue">
+
+<ShadcnInstallOptions
+  options={[
+    { label: 'CSS Modules', command: 'shadcn@latest add @moduix-vue/carousel' },
+    { label: 'Tailwind CSS', command: 'shadcn@latest add @moduix-vue-tailwind/carousel' },
   ]}
 />
 
@@ -158,6 +190,12 @@ CarouselRootProvider
 внутри `CarouselContext`; используйте `pageSnapPoints` из API контекста, если число индикаторов должно
 соответствовать рассчитанным страницам.
 
+В Solid назначайте ref на элемент, созданный внутри рендер-функции `asChild`. Ref на самой части
+Carousel не пробрасывается через этот путь композиции.
+
+Во Vue template-ref на части указывает на её отрисованный хост через `$el`, включая замещающий
+хост, созданный при использовании `asChild`.
+
 ## Примеры
 
 ### Автопрокрутка
@@ -173,7 +211,7 @@ CarouselRootProvider
 
 <ExampleCode>
 <div className="docs-reference">
-  <Tabs groupId="framework" values={[{ label: 'React', value: 'react' }, { label: 'Solid', value: 'solid' }]} className="docs-tabs">
+  <Tabs groupId="framework" values={[{ label: 'React', value: 'react' }, { label: 'Solid', value: 'solid' }, { label: 'Vue', value: 'vue' }]} className="docs-tabs">
     <Tab value="react">
 
 ```tsx pure file="../../../src/components/examples/carousel/autoplay.tsx"
@@ -183,6 +221,11 @@ CarouselRootProvider
     <Tab value="solid">
 
 <CodeBlockRuntime lang="tsx" code={carouselSolidAutoplay} />
+
+    </Tab>
+    <Tab value="vue">
+
+<CodeBlockRuntime lang="vue" code={carouselVueAutoplay} />
 
     </Tab>
   </Tabs>
@@ -208,7 +251,7 @@ CarouselRootProvider
 
 <ExampleCode>
 <div className="docs-reference">
-  <Tabs groupId="framework" values={[{ label: 'React', value: 'react' }, { label: 'Solid', value: 'solid' }]} className="docs-tabs">
+  <Tabs groupId="framework" values={[{ label: 'React', value: 'react' }, { label: 'Solid', value: 'solid' }, { label: 'Vue', value: 'vue' }]} className="docs-tabs">
     <Tab value="react">
 
 ```tsx pure file="../../../src/components/examples/carousel/cards.tsx"
@@ -218,6 +261,11 @@ CarouselRootProvider
     <Tab value="solid">
 
 <CodeBlockRuntime lang="tsx" code={carouselSolidCards} />
+
+    </Tab>
+    <Tab value="vue">
+
+<CodeBlockRuntime lang="vue" code={carouselVueCards} />
 
     </Tab>
   </Tabs>
@@ -240,7 +288,7 @@ CarouselRootProvider
 
 <ExampleCode>
 <div className="docs-reference">
-  <Tabs groupId="framework" values={[{ label: 'React', value: 'react' }, { label: 'Solid', value: 'solid' }]} className="docs-tabs">
+  <Tabs groupId="framework" values={[{ label: 'React', value: 'react' }, { label: 'Solid', value: 'solid' }, { label: 'Vue', value: 'vue' }]} className="docs-tabs">
     <Tab value="react">
 
 ```tsx pure file="../../../src/components/examples/carousel/controlled.tsx"
@@ -250,6 +298,11 @@ CarouselRootProvider
     <Tab value="solid">
 
 <CodeBlockRuntime lang="tsx" code={carouselSolidControlled} />
+
+    </Tab>
+    <Tab value="vue">
+
+<CodeBlockRuntime lang="vue" code={carouselVueControlled} />
 
     </Tab>
   </Tabs>
@@ -272,7 +325,7 @@ CarouselRootProvider
 
 <ExampleCode>
 <div className="docs-reference">
-  <Tabs groupId="framework" values={[{ label: 'React', value: 'react' }, { label: 'Solid', value: 'solid' }]} className="docs-tabs">
+  <Tabs groupId="framework" values={[{ label: 'React', value: 'react' }, { label: 'Solid', value: 'solid' }, { label: 'Vue', value: 'vue' }]} className="docs-tabs">
     <Tab value="react">
 
 ```tsx pure file="../../../src/components/examples/carousel/dynamic.tsx"
@@ -282,6 +335,11 @@ CarouselRootProvider
     <Tab value="solid">
 
 <CodeBlockRuntime lang="tsx" code={carouselSolidDynamic} />
+
+    </Tab>
+    <Tab value="vue">
+
+<CodeBlockRuntime lang="vue" code={carouselVueDynamic} />
 
     </Tab>
   </Tabs>
@@ -303,7 +361,7 @@ CarouselRootProvider
 
 <ExampleCode>
 <div className="docs-reference">
-  <Tabs groupId="framework" values={[{ label: 'React', value: 'react' }, { label: 'Solid', value: 'solid' }]} className="docs-tabs">
+  <Tabs groupId="framework" values={[{ label: 'React', value: 'react' }, { label: 'Solid', value: 'solid' }, { label: 'Vue', value: 'vue' }]} className="docs-tabs">
     <Tab value="react">
 
 ```tsx pure file="../../../src/components/examples/carousel/loop.tsx"
@@ -313,6 +371,11 @@ CarouselRootProvider
     <Tab value="solid">
 
 <CodeBlockRuntime lang="tsx" code={carouselSolidLoop} />
+
+    </Tab>
+    <Tab value="vue">
+
+<CodeBlockRuntime lang="vue" code={carouselVueLoop} />
 
     </Tab>
   </Tabs>
@@ -335,7 +398,7 @@ CarouselRootProvider
 
 <ExampleCode>
 <div className="docs-reference">
-  <Tabs groupId="framework" values={[{ label: 'React', value: 'react' }, { label: 'Solid', value: 'solid' }]} className="docs-tabs">
+  <Tabs groupId="framework" values={[{ label: 'React', value: 'react' }, { label: 'Solid', value: 'solid' }, { label: 'Vue', value: 'vue' }]} className="docs-tabs">
     <Tab value="react">
 
 ```tsx pure file="../../../src/components/examples/carousel/mouse-drag.tsx"
@@ -345,6 +408,11 @@ CarouselRootProvider
     <Tab value="solid">
 
 <CodeBlockRuntime lang="tsx" code={carouselSolidMouseDrag} />
+
+    </Tab>
+    <Tab value="vue">
+
+<CodeBlockRuntime lang="vue" code={carouselVueMouseDrag} />
 
     </Tab>
   </Tabs>
@@ -368,7 +436,7 @@ CarouselRootProvider
 
 <ExampleCode>
 <div className="docs-reference">
-  <Tabs groupId="framework" values={[{ label: 'React', value: 'react' }, { label: 'Solid', value: 'solid' }]} className="docs-tabs">
+  <Tabs groupId="framework" values={[{ label: 'React', value: 'react' }, { label: 'Solid', value: 'solid' }, { label: 'Vue', value: 'vue' }]} className="docs-tabs">
     <Tab value="react">
 
 ```tsx pure file="../../../src/components/examples/carousel/pause-on-hover.tsx"
@@ -378,6 +446,11 @@ CarouselRootProvider
     <Tab value="solid">
 
 <CodeBlockRuntime lang="tsx" code={carouselSolidPauseOnHover} />
+
+    </Tab>
+    <Tab value="vue">
+
+<CodeBlockRuntime lang="vue" code={carouselVuePauseOnHover} />
 
     </Tab>
   </Tabs>
@@ -400,7 +473,7 @@ CarouselRootProvider
 
 <ExampleCode>
 <div className="docs-reference">
-  <Tabs groupId="framework" values={[{ label: 'React', value: 'react' }, { label: 'Solid', value: 'solid' }]} className="docs-tabs">
+  <Tabs groupId="framework" values={[{ label: 'React', value: 'react' }, { label: 'Solid', value: 'solid' }, { label: 'Vue', value: 'vue' }]} className="docs-tabs">
     <Tab value="react">
 
 ```tsx pure file="../../../src/components/examples/carousel/root-provider.tsx"
@@ -410,6 +483,11 @@ CarouselRootProvider
     <Tab value="solid">
 
 <CodeBlockRuntime lang="tsx" code={carouselSolidRootProvider} />
+
+    </Tab>
+    <Tab value="vue">
+
+<CodeBlockRuntime lang="vue" code={carouselVueRootProvider} />
 
     </Tab>
   </Tabs>
@@ -432,7 +510,7 @@ CarouselRootProvider
 
 <ExampleCode>
 <div className="docs-reference">
-  <Tabs groupId="framework" values={[{ label: 'React', value: 'react' }, { label: 'Solid', value: 'solid' }]} className="docs-tabs">
+  <Tabs groupId="framework" values={[{ label: 'React', value: 'react' }, { label: 'Solid', value: 'solid' }, { label: 'Vue', value: 'vue' }]} className="docs-tabs">
     <Tab value="react">
 
 ```tsx pure file="../../../src/components/examples/carousel/scroll-to-slide.tsx"
@@ -442,6 +520,11 @@ CarouselRootProvider
     <Tab value="solid">
 
 <CodeBlockRuntime lang="tsx" code={carouselSolidScrollToSlide} />
+
+    </Tab>
+    <Tab value="vue">
+
+<CodeBlockRuntime lang="vue" code={carouselVueScrollToSlide} />
 
     </Tab>
   </Tabs>
@@ -464,7 +547,7 @@ CarouselRootProvider
 
 <ExampleCode>
 <div className="docs-reference">
-  <Tabs groupId="framework" values={[{ label: 'React', value: 'react' }, { label: 'Solid', value: 'solid' }]} className="docs-tabs">
+  <Tabs groupId="framework" values={[{ label: 'React', value: 'react' }, { label: 'Solid', value: 'solid' }, { label: 'Vue', value: 'vue' }]} className="docs-tabs">
     <Tab value="react">
 
 ```tsx pure file="../../../src/components/examples/carousel/slides-per-page.tsx"
@@ -474,6 +557,11 @@ CarouselRootProvider
     <Tab value="solid">
 
 <CodeBlockRuntime lang="tsx" code={carouselSolidSlidesPerPage} />
+
+    </Tab>
+    <Tab value="vue">
+
+<CodeBlockRuntime lang="vue" code={carouselVueSlidesPerPage} />
 
     </Tab>
   </Tabs>
@@ -496,7 +584,7 @@ CarouselRootProvider
 
 <ExampleCode>
 <div className="docs-reference">
-  <Tabs groupId="framework" values={[{ label: 'React', value: 'react' }, { label: 'Solid', value: 'solid' }]} className="docs-tabs">
+  <Tabs groupId="framework" values={[{ label: 'React', value: 'react' }, { label: 'Solid', value: 'solid' }, { label: 'Vue', value: 'vue' }]} className="docs-tabs">
     <Tab value="react">
 
 ```tsx pure file="../../../src/components/examples/carousel/spacing.tsx"
@@ -506,6 +594,11 @@ CarouselRootProvider
     <Tab value="solid">
 
 <CodeBlockRuntime lang="tsx" code={carouselSolidSpacing} />
+
+    </Tab>
+    <Tab value="vue">
+
+<CodeBlockRuntime lang="vue" code={carouselVueSpacing} />
 
     </Tab>
   </Tabs>
@@ -528,7 +621,7 @@ CarouselRootProvider
 
 <ExampleCode>
 <div className="docs-reference">
-  <Tabs groupId="framework" values={[{ label: 'React', value: 'react' }, { label: 'Solid', value: 'solid' }]} className="docs-tabs">
+  <Tabs groupId="framework" values={[{ label: 'React', value: 'react' }, { label: 'Solid', value: 'solid' }, { label: 'Vue', value: 'vue' }]} className="docs-tabs">
     <Tab value="react">
 
 ```tsx pure file="../../../src/components/examples/carousel/thumbnail-indicators.tsx"
@@ -538,6 +631,11 @@ CarouselRootProvider
     <Tab value="solid">
 
 <CodeBlockRuntime lang="tsx" code={carouselSolidThumbnailIndicators} />
+
+    </Tab>
+    <Tab value="vue">
+
+<CodeBlockRuntime lang="vue" code={carouselVueThumbnailIndicators} />
 
     </Tab>
   </Tabs>
@@ -560,7 +658,7 @@ CarouselRootProvider
 
 <ExampleCode>
 <div className="docs-reference">
-  <Tabs groupId="framework" values={[{ label: 'React', value: 'react' }, { label: 'Solid', value: 'solid' }]} className="docs-tabs">
+  <Tabs groupId="framework" values={[{ label: 'React', value: 'react' }, { label: 'Solid', value: 'solid' }, { label: 'Vue', value: 'vue' }]} className="docs-tabs">
     <Tab value="react">
 
 ```tsx pure file="../../../src/components/examples/carousel/variable-sizes.tsx"
@@ -570,6 +668,11 @@ CarouselRootProvider
     <Tab value="solid">
 
 <CodeBlockRuntime lang="tsx" code={carouselSolidVariableSizes} />
+
+    </Tab>
+    <Tab value="vue">
+
+<CodeBlockRuntime lang="vue" code={carouselVueVariableSizes} />
 
     </Tab>
   </Tabs>
@@ -592,7 +695,7 @@ CarouselRootProvider
 
 <ExampleCode>
 <div className="docs-reference">
-  <Tabs groupId="framework" values={[{ label: 'React', value: 'react' }, { label: 'Solid', value: 'solid' }]} className="docs-tabs">
+  <Tabs groupId="framework" values={[{ label: 'React', value: 'react' }, { label: 'Solid', value: 'solid' }, { label: 'Vue', value: 'vue' }]} className="docs-tabs">
     <Tab value="react">
 
 ```tsx pure file="../../../src/components/examples/carousel/vertical.tsx"
@@ -602,6 +705,11 @@ CarouselRootProvider
     <Tab value="solid">
 
 <CodeBlockRuntime lang="tsx" code={carouselSolidVertical} />
+
+    </Tab>
+    <Tab value="vue">
+
+<CodeBlockRuntime lang="vue" code={carouselVueVertical} />
 
     </Tab>
   </Tabs>
@@ -624,7 +732,7 @@ CarouselRootProvider
 
 <ExampleCode>
 <div className="docs-reference">
-  <Tabs groupId="framework" values={[{ label: 'React', value: 'react' }, { label: 'Solid', value: 'solid' }]} className="docs-tabs">
+  <Tabs groupId="framework" values={[{ label: 'React', value: 'react' }, { label: 'Solid', value: 'solid' }, { label: 'Vue', value: 'vue' }]} className="docs-tabs">
     <Tab value="react">
 
 ```tsx pure file="../../../src/components/examples/carousel/advanced-customization.tsx"
@@ -634,6 +742,11 @@ CarouselRootProvider
     <Tab value="solid">
 
 <CodeBlockRuntime lang="tsx" code={carouselSolidAdvancedCustomization} />
+
+    </Tab>
+    <Tab value="vue">
+
+<CodeBlockRuntime lang="vue" code={carouselVueAdvancedCustomization} />
 
     </Tab>
   </Tabs>
@@ -647,9 +760,9 @@ CarouselRootProvider
 
 ## Стилизация
 
-Используйте `className` в React или `class` в Solid на экспортируемых частях для структурных стилей.
-Для стилей состояний предпочитайте атрибуты Ark UI, например `data-orientation`, `data-current` и
-`data-dragging`, вместе с селекторами moduix `data-slot`. Варианты Tailwind используют нативные
+Используйте `className` в React или `class` в Solid и Vue на экспортируемых частях для структурных
+стилей. Для стилей состояний предпочитайте атрибуты Ark UI, например `data-orientation`,
+`data-current` и `data-dragging`, вместе с селекторами moduix `data-slot`. Варианты Tailwind используют нативные
 utility-классы и переопределения через классы потребителя; приведённый ниже справочник CSS-свойств
 относится к пакетам CSS Modules.
 

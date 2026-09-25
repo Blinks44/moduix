@@ -38,6 +38,22 @@ import carouselSolidSpacing from '../../../snippets/carousel/solid/spacing.tsx?r
 import carouselSolidThumbnailIndicators from '../../../snippets/carousel/solid/thumbnail-indicators.tsx?raw';
 import carouselSolidVariableSizes from '../../../snippets/carousel/solid/variable-sizes.tsx?raw';
 import carouselSolidVertical from '../../../snippets/carousel/solid/vertical.tsx?raw';
+import carouselVueAdvancedCustomization from '../../../snippets/carousel/vue/advanced-customization.vue?raw';
+import carouselVueAutoplay from '../../../snippets/carousel/vue/autoplay.vue?raw';
+import carouselVueBasic from '../../../snippets/carousel/vue/basic.vue?raw';
+import carouselVueCards from '../../../snippets/carousel/vue/cards.vue?raw';
+import carouselVueControlled from '../../../snippets/carousel/vue/controlled.vue?raw';
+import carouselVueDynamic from '../../../snippets/carousel/vue/dynamic.vue?raw';
+import carouselVueLoop from '../../../snippets/carousel/vue/loop.vue?raw';
+import carouselVueMouseDrag from '../../../snippets/carousel/vue/mouse-drag.vue?raw';
+import carouselVuePauseOnHover from '../../../snippets/carousel/vue/pause-on-hover.vue?raw';
+import carouselVueRootProvider from '../../../snippets/carousel/vue/root-provider.vue?raw';
+import carouselVueScrollToSlide from '../../../snippets/carousel/vue/scroll-to-slide.vue?raw';
+import carouselVueSlidesPerPage from '../../../snippets/carousel/vue/slides-per-page.vue?raw';
+import carouselVueSpacing from '../../../snippets/carousel/vue/spacing.vue?raw';
+import carouselVueThumbnailIndicators from '../../../snippets/carousel/vue/thumbnail-indicators.vue?raw';
+import carouselVueVariableSizes from '../../../snippets/carousel/vue/variable-sizes.vue?raw';
+import carouselVueVertical from '../../../snippets/carousel/vue/vertical.vue?raw';
 
 ## Référence de l’API
 
@@ -63,6 +79,7 @@ placez les boutons précédent et suivant dans `CarouselControl`, puis utilisez 
     values={[
       { label: 'React', value: 'react' },
       { label: 'Solid', value: 'solid' },
+      { label: 'Vue', value: 'vue' },
     ]}
     className="docs-tabs"
   >
@@ -75,6 +92,11 @@ placez les boutons précédent et suivant dans `CarouselControl`, puis utilisez 
     <Tab value="solid">
 
 <CodeBlockRuntime lang="tsx" code={carouselSolidBasic} />
+
+    </Tab>
+    <Tab value="vue">
+
+<CodeBlockRuntime lang="vue" code={carouselVueBasic} />
 
     </Tab>
   </Tabs>
@@ -108,6 +130,16 @@ Consultez le [Démarrage rapide](/docs/quick-start) pour la configuration compl�
   options={[
     { label: 'CSS Modules', command: 'shadcn@latest add @moduix-solid/carousel' },
     { label: 'Tailwind CSS', command: 'shadcn@latest add @moduix-solid-tailwind/carousel' },
+  ]}
+/>
+
+  </Tab>
+  <Tab label="Vue" value="vue">
+
+<ShadcnInstallOptions
+  options={[
+    { label: 'CSS Modules', command: 'shadcn@latest add @moduix-vue/carousel' },
+    { label: 'Tailwind CSS', command: 'shadcn@latest add @moduix-vue-tailwind/carousel' },
   ]}
 />
 
@@ -163,6 +195,10 @@ aussi importer le composant depuis `@moduix/react/carousel`.
 Utilisez `CarouselRootProvider` avec `useCarousel()` lorsque le store doit être créé en dehors de l’arbre rendu ou partagé entre plusieurs limites de composition. Passez ce store à `CarouselRootProvider` et ne rendez pas une seconde racine `Carousel` pour le même store.
 
 `CarouselIndicators` lit `pageSnapPoints` dans le contexte et crée les indicateurs standard. Pour personnaliser leur contenu, rendez `CarouselIndicatorGroup` et `CarouselIndicator` dans `CarouselContext`, puis utilisez `pageSnapPoints` de l’API du contexte lorsque le nombre d’indicateurs doit suivre le nombre de pages calculées.
+
+En Solid, assignez la ref à l’élément créé dans la fonction de rendu `asChild` ; une ref posée sur une partie Carousel elle-même n’est pas transmise par ce chemin de composition.
+
+En Vue, une ref de template sur une partie pointe vers son hôte rendu via `$el`, y compris l’hôte de substitution créé par `asChild`.
 ## Exemples
 
 ### Lecture automatique
@@ -182,6 +218,7 @@ qu’un élément reçoit le focus. L’utilisateur peut la relancer avec `Carou
     values={[
       { label: 'React', value: 'react' },
       { label: 'Solid', value: 'solid' },
+      { label: 'Vue', value: 'vue' },
     ]}
     className="docs-tabs"
   >
@@ -194,6 +231,11 @@ qu’un élément reçoit le focus. L’utilisateur peut la relancer avec `Carou
     <Tab value="solid">
 
 <CodeBlockRuntime lang="tsx" code={carouselSolidAutoplay} />
+
+    </Tab>
+    <Tab value="vue">
+
+<CodeBlockRuntime lang="vue" code={carouselVueAutoplay} />
 
     </Tab>
   </Tabs>
@@ -225,6 +267,7 @@ diapositive, utilisez vos propres styles et centrez-la.
     values={[
       { label: 'React', value: 'react' },
       { label: 'Solid', value: 'solid' },
+      { label: 'Vue', value: 'vue' },
     ]}
     className="docs-tabs"
   >
@@ -237,6 +280,11 @@ diapositive, utilisez vos propres styles et centrez-la.
     <Tab value="solid">
 
 <CodeBlockRuntime lang="tsx" code={carouselSolidCards} />
+
+    </Tab>
+    <Tab value="vue">
+
+<CodeBlockRuntime lang="vue" code={carouselVueCards} />
 
     </Tab>
   </Tabs>
@@ -265,6 +313,7 @@ filtres ou des données analytiques.
     values={[
       { label: 'React', value: 'react' },
       { label: 'Solid', value: 'solid' },
+      { label: 'Vue', value: 'vue' },
     ]}
     className="docs-tabs"
   >
@@ -277,6 +326,11 @@ filtres ou des données analytiques.
     <Tab value="solid">
 
 <CodeBlockRuntime lang="tsx" code={carouselSolidControlled} />
+
+    </Tab>
+    <Tab value="vue">
+
+<CodeBlockRuntime lang="vue" code={carouselVueControlled} />
 
     </Tab>
   </Tabs>
@@ -305,6 +359,7 @@ liste des éléments affichés.
     values={[
       { label: 'React', value: 'react' },
       { label: 'Solid', value: 'solid' },
+      { label: 'Vue', value: 'vue' },
     ]}
     className="docs-tabs"
   >
@@ -317,6 +372,11 @@ liste des éléments affichés.
     <Tab value="solid">
 
 <CodeBlockRuntime lang="tsx" code={carouselSolidDynamic} />
+
+    </Tab>
+    <Tab value="vue">
+
+<CodeBlockRuntime lang="vue" code={carouselVueDynamic} />
 
     </Tab>
   </Tabs>
@@ -344,6 +404,7 @@ Définissez `loop` pour que le carrousel revienne à la première diapositive ap
     values={[
       { label: 'React', value: 'react' },
       { label: 'Solid', value: 'solid' },
+      { label: 'Vue', value: 'vue' },
     ]}
     className="docs-tabs"
   >
@@ -356,6 +417,11 @@ Définissez `loop` pour que le carrousel revienne à la première diapositive ap
     <Tab value="solid">
 
 <CodeBlockRuntime lang="tsx" code={carouselSolidLoop} />
+
+    </Tab>
+    <Tab value="vue">
+
+<CodeBlockRuntime lang="vue" code={carouselVueLoop} />
 
     </Tab>
   </Tabs>
@@ -384,6 +450,7 @@ avec le même geste que sur un écran tactile.
     values={[
       { label: 'React', value: 'react' },
       { label: 'Solid', value: 'solid' },
+      { label: 'Vue', value: 'vue' },
     ]}
     className="docs-tabs"
   >
@@ -396,6 +463,11 @@ avec le même geste que sur un écran tactile.
     <Tab value="solid">
 
 <CodeBlockRuntime lang="tsx" code={carouselSolidMouseDrag} />
+
+    </Tab>
+    <Tab value="vue">
+
+<CodeBlockRuntime lang="vue" code={carouselVueMouseDrag} />
 
     </Tab>
   </Tabs>
@@ -425,6 +497,7 @@ en pause lorsque le carrousel reçoit le focus.
     values={[
       { label: 'React', value: 'react' },
       { label: 'Solid', value: 'solid' },
+      { label: 'Vue', value: 'vue' },
     ]}
     className="docs-tabs"
   >
@@ -437,6 +510,11 @@ en pause lorsque le carrousel reçoit le focus.
     <Tab value="solid">
 
 <CodeBlockRuntime lang="tsx" code={carouselSolidPauseOnHover} />
+
+    </Tab>
+    <Tab value="vue">
+
+<CodeBlockRuntime lang="vue" code={carouselVuePauseOnHover} />
 
     </Tab>
   </Tabs>
@@ -465,6 +543,7 @@ partagé entre plusieurs parties de la composition.
     values={[
       { label: 'React', value: 'react' },
       { label: 'Solid', value: 'solid' },
+      { label: 'Vue', value: 'vue' },
     ]}
     className="docs-tabs"
   >
@@ -477,6 +556,11 @@ partagé entre plusieurs parties de la composition.
     <Tab value="solid">
 
 <CodeBlockRuntime lang="tsx" code={carouselSolidRootProvider} />
+
+    </Tab>
+    <Tab value="vue">
+
+<CodeBlockRuntime lang="vue" code={carouselVueRootProvider} />
 
     </Tab>
   </Tabs>
@@ -504,6 +588,7 @@ Utilisez l’API du carrousel via le contexte lorsqu’un autre contrôle doit a
     values={[
       { label: 'React', value: 'react' },
       { label: 'Solid', value: 'solid' },
+      { label: 'Vue', value: 'vue' },
     ]}
     className="docs-tabs"
   >
@@ -516,6 +601,11 @@ Utilisez l’API du carrousel via le contexte lorsqu’un autre contrôle doit a
     <Tab value="solid">
 
 <CodeBlockRuntime lang="tsx" code={carouselSolidScrollToSlide} />
+
+    </Tab>
+    <Tab value="vue">
+
+<CodeBlockRuntime lang="vue" code={carouselVueScrollToSlide} />
 
     </Tab>
   </Tabs>
@@ -543,6 +633,7 @@ Augmentez `slidesPerPage` pour afficher plusieurs éléments à la fois au lieu 
     values={[
       { label: 'React', value: 'react' },
       { label: 'Solid', value: 'solid' },
+      { label: 'Vue', value: 'vue' },
     ]}
     className="docs-tabs"
   >
@@ -555,6 +646,11 @@ Augmentez `slidesPerPage` pour afficher plusieurs éléments à la fois au lieu 
     <Tab value="solid">
 
 <CodeBlockRuntime lang="tsx" code={carouselSolidSlidesPerPage} />
+
+    </Tab>
+    <Tab value="vue">
+
+<CodeBlockRuntime lang="vue" code={carouselVueSlidesPerPage} />
 
     </Tab>
   </Tabs>
@@ -583,6 +679,7 @@ des galeries de produits ou des interfaces personnalisées.
     values={[
       { label: 'React', value: 'react' },
       { label: 'Solid', value: 'solid' },
+      { label: 'Vue', value: 'vue' },
     ]}
     className="docs-tabs"
   >
@@ -595,6 +692,11 @@ des galeries de produits ou des interfaces personnalisées.
     <Tab value="solid">
 
 <CodeBlockRuntime lang="tsx" code={carouselSolidSpacing} />
+
+    </Tab>
+    <Tab value="vue">
+
+<CodeBlockRuntime lang="vue" code={carouselVueSpacing} />
 
     </Tab>
   </Tabs>
@@ -623,6 +725,7 @@ sous forme de miniatures plutôt que de simples points.
     values={[
       { label: 'React', value: 'react' },
       { label: 'Solid', value: 'solid' },
+      { label: 'Vue', value: 'vue' },
     ]}
     className="docs-tabs"
   >
@@ -635,6 +738,11 @@ sous forme de miniatures plutôt que de simples points.
     <Tab value="solid">
 
 <CodeBlockRuntime lang="tsx" code={carouselSolidThumbnailIndicators} />
+
+    </Tab>
+    <Tab value="vue">
+
+<CodeBlockRuntime lang="vue" code={carouselVueThumbnailIndicators} />
 
     </Tab>
   </Tabs>
@@ -662,6 +770,7 @@ Activez `autoSize` lorsque la largeur des diapositives doit suivre leur contenu 
     values={[
       { label: 'React', value: 'react' },
       { label: 'Solid', value: 'solid' },
+      { label: 'Vue', value: 'vue' },
     ]}
     className="docs-tabs"
   >
@@ -674,6 +783,11 @@ Activez `autoSize` lorsque la largeur des diapositives doit suivre leur contenu 
     <Tab value="solid">
 
 <CodeBlockRuntime lang="tsx" code={carouselSolidVariableSizes} />
+
+    </Tab>
+    <Tab value="vue">
+
+<CodeBlockRuntime lang="vue" code={carouselVueVariableSizes} />
 
     </Tab>
   </Tabs>
@@ -701,6 +815,7 @@ Passez à l’orientation verticale lorsque le carrousel et ses contrôles doive
     values={[
       { label: 'React', value: 'react' },
       { label: 'Solid', value: 'solid' },
+      { label: 'Vue', value: 'vue' },
     ]}
     className="docs-tabs"
   >
@@ -713,6 +828,11 @@ Passez à l’orientation verticale lorsque le carrousel et ses contrôles doive
     <Tab value="solid">
 
 <CodeBlockRuntime lang="tsx" code={carouselSolidVertical} />
+
+    </Tab>
+    <Tab value="vue">
+
+<CodeBlockRuntime lang="vue" code={carouselVueVertical} />
 
     </Tab>
   </Tabs>
@@ -741,6 +861,7 @@ N’utilisez pas `CarouselIndicators` lorsque vous devez afficher vous-même `pa
     values={[
       { label: 'React', value: 'react' },
       { label: 'Solid', value: 'solid' },
+      { label: 'Vue', value: 'vue' },
     ]}
     className="docs-tabs"
   >
@@ -755,6 +876,11 @@ N’utilisez pas `CarouselIndicators` lorsque vous devez afficher vous-même `pa
 <CodeBlockRuntime lang="tsx" code={carouselSolidAdvancedCustomization} />
 
     </Tab>
+    <Tab value="vue">
+
+<CodeBlockRuntime lang="vue" code={carouselVueAdvancedCustomization} />
+
+    </Tab>
   </Tabs>
 
 **Styles**
@@ -767,9 +893,9 @@ N’utilisez pas `CarouselIndicators` lorsque vous devez afficher vous-même `pa
 
 ## Styles
 
-Utilisez `className` sur les parties exportées pour appliquer les styles structurels. Pour les styles liés à l’état,
-privilégiez les attributs de données Ark (`data-part`, `data-orientation`, `data-current`, `data-dragging`) et les
-points d’accroche `data-slot` de moduix.
+Utilisez `className` en React ou `class` en Solid et Vue sur les parties exportées pour appliquer les styles
+structurels. Pour les styles liés à l’état, privilégiez les attributs de données Ark (`data-part`,
+`data-orientation`, `data-current`, `data-dragging`) et les points d’accroche `data-slot` de moduix.
 
 ### Propriétés CSS
 

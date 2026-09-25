@@ -1,0 +1,62 @@
+<script setup lang="ts">
+import {
+  Chart,
+  ChartDescription,
+  ChartHeader,
+  ChartLegend,
+  ChartLegendItem,
+  ChartPlot,
+  ChartTitle,
+} from '@moduix/vue/chart';
+import { barY, defineChart, stack } from '@tanstack/charts';
+import { scaleBand } from '@tanstack/charts/scales/band';
+import { scaleLinear } from '@tanstack/charts/scales/linear';
+import { tooltip } from '@tanstack/charts/tooltip';
+
+const revenue = [
+  { quarter: 'Q1', segment: 'Product', value: 42 },
+  { quarter: 'Q1', segment: 'Services', value: 18 },
+  { quarter: 'Q2', segment: 'Product', value: 48 },
+  { quarter: 'Q2', segment: 'Services', value: 24 },
+  { quarter: 'Q3', segment: 'Product', value: 53 },
+  { quarter: 'Q3', segment: 'Services', value: 31 },
+  { quarter: 'Q4', segment: 'Product', value: 59 },
+  { quarter: 'Q4', segment: 'Services', value: 38 },
+] as const;
+
+const definition = defineChart({
+  marks: [
+    barY(revenue, {
+      x: 'quarter',
+      y: 'value',
+      color: 'segment',
+      layout: stack(),
+      inset: 3,
+    }),
+  ],
+  scales: {
+    x: { scale: scaleBand, axis: { label: 'Quarter' } },
+    y: { scale: scaleLinear, nice: true, grid: true, axis: { label: 'Revenue ($k)' } },
+  },
+  color: {
+    domain: ['Product', 'Services'],
+    range: ['var(--moduix-color-chart-1)', 'var(--moduix-color-chart-2)'],
+  },
+  focus: 'group-x',
+  tooltip,
+});
+</script>
+
+<template>
+  <Chart>
+    <ChartHeader>
+      <ChartTitle>Quarterly revenue</ChartTitle>
+      <ChartDescription>Product and services revenue by quarter.</ChartDescription>
+    </ChartHeader>
+    <ChartPlot :definition="definition" :height="320" ariaLabel="Quarterly revenue by segment" />
+    <ChartLegend aria-label="Revenue segments">
+      <ChartLegendItem color="var(--moduix-color-chart-1)">Product</ChartLegendItem>
+      <ChartLegendItem color="var(--moduix-color-chart-2)">Services</ChartLegendItem>
+    </ChartLegend>
+  </Chart>
+</template>

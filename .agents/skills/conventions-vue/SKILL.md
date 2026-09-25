@@ -125,6 +125,11 @@ Use this skill for JS/TS Vue work in this repo.
   variables on every public composition path.
 - Ark Vue context and state values are refs or computed values. Expose them in the idiomatic Ark
   Vue form while keeping the same names and meaning as the React package.
+- In wrappers that internally read an Ark context (such as a generated-indicator part), call the
+  exported `useXxxContext()` in setup instead of wrapping Ark's context render component. A wrapper
+  whose template root is the context component is a fragment, and a template ref on it resolves to
+  the fragment anchor text node, not to the rendered part; a single-root wrapper keeps `$el` on the
+  real host, matching the React/Solid ref contract.
 - Check the exact scoped-slot payload declared by an Ark Vue context component before typing a
   helper that consumes it. The payload can be `UnwrapRef<UseFooContext>` while the exported context
   type itself is a computed ref; for example, Avatar's template slot is `UnwrapRef<UseAvatarContext>`.
