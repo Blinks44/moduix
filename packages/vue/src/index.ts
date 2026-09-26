@@ -2,6 +2,7 @@
 
 export * from './components/accordion';
 export * from './components/collapsible';
+export * from './components/dialog';
 export * from './components/alert';
 export * from './components/angle-slider';
 export * from './components/aspect-ratio';
@@ -16,6 +17,9 @@ export * from './components/checkbox';
 export * from './components/clipboard';
 export * from './components/chart';
 export * from './components/color-picker';
+export * from './components/combobox';
+export * from './components/container';
+export * from './components/scroll-area';
 export * from './components/menu';
 export * from './components/close-button';
 export * from './components/stack';

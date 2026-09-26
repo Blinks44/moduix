@@ -140,6 +140,211 @@
       ]
     },
     {
+      "name": "combobox",
+      "type": "registry:item",
+      "title": "Combobox",
+      "description": "moduix Vue Combobox component.",
+      "dependencies": ["@ark-ui/vue", "clsx"],
+      "registryDependencies": [
+        "@moduix-vue/foundation",
+        "@moduix-vue/icons",
+        "@moduix-vue/close-button",
+        "@moduix-vue/overlay-portal"
+      ],
+      "files": [
+        {
+          "path": "src/components/combobox/Combobox.vue",
+          "target": "@components/ui/combobox/Combobox.vue",
+          "type": "registry:component"
+        },
+        {
+          "path": "src/components/combobox/ComboboxRootProvider.vue",
+          "target": "@components/ui/combobox/ComboboxRootProvider.vue",
+          "type": "registry:component"
+        },
+        {
+          "path": "src/components/combobox/ComboboxLabel.vue",
+          "target": "@components/ui/combobox/ComboboxLabel.vue",
+          "type": "registry:component"
+        },
+        {
+          "path": "src/components/combobox/ComboboxControl.vue",
+          "target": "@components/ui/combobox/ComboboxControl.vue",
+          "type": "registry:component"
+        },
+        {
+          "path": "src/components/combobox/ComboboxInput.vue",
+          "target": "@components/ui/combobox/ComboboxInput.vue",
+          "type": "registry:component"
+        },
+        {
+          "path": "src/components/combobox/ComboboxClearTrigger.vue",
+          "target": "@components/ui/combobox/ComboboxClearTrigger.vue",
+          "type": "registry:component"
+        },
+        {
+          "path": "src/components/combobox/ComboboxTrigger.vue",
+          "target": "@components/ui/combobox/ComboboxTrigger.vue",
+          "type": "registry:component"
+        },
+        {
+          "path": "src/components/combobox/ComboboxPositioner.vue",
+          "target": "@components/ui/combobox/ComboboxPositioner.vue",
+          "type": "registry:component"
+        },
+        {
+          "path": "src/components/combobox/ComboboxContent.vue",
+          "target": "@components/ui/combobox/ComboboxContent.vue",
+          "type": "registry:component"
+        },
+        {
+          "path": "src/components/combobox/ComboboxEmpty.vue",
+          "target": "@components/ui/combobox/ComboboxEmpty.vue",
+          "type": "registry:component"
+        },
+        {
+          "path": "src/components/combobox/ComboboxStatus.vue",
+          "target": "@components/ui/combobox/ComboboxStatus.vue",
+          "type": "registry:component"
+        },
+        {
+          "path": "src/components/combobox/ComboboxList.vue",
+          "target": "@components/ui/combobox/ComboboxList.vue",
+          "type": "registry:component"
+        },
+        {
+          "path": "src/components/combobox/ComboboxItemGroup.vue",
+          "target": "@components/ui/combobox/ComboboxItemGroup.vue",
+          "type": "registry:component"
+        },
+        {
+          "path": "src/components/combobox/ComboboxItemGroupLabel.vue",
+          "target": "@components/ui/combobox/ComboboxItemGroupLabel.vue",
+          "type": "registry:component"
+        },
+        {
+          "path": "src/components/combobox/ComboboxItem.vue",
+          "target": "@components/ui/combobox/ComboboxItem.vue",
+          "type": "registry:component"
+        },
+        {
+          "path": "src/components/combobox/ComboboxItemText.vue",
+          "target": "@components/ui/combobox/ComboboxItemText.vue",
+          "type": "registry:component"
+        },
+        {
+          "path": "src/components/combobox/ComboboxItemIndicator.vue",
+          "target": "@components/ui/combobox/ComboboxItemIndicator.vue",
+          "type": "registry:component"
+        },
+        {
+          "path": "src/components/combobox/ComboboxOption.vue",
+          "target": "@components/ui/combobox/ComboboxOption.vue",
+          "type": "registry:component"
+        },
+        {
+          "path": "src/components/combobox/ComboboxContext.vue",
+          "target": "@components/ui/combobox/ComboboxContext.vue",
+          "type": "registry:component"
+        },
+        {
+          "path": "src/components/combobox/ComboboxItemContext.vue",
+          "target": "@components/ui/combobox/ComboboxItemContext.vue",
+          "type": "registry:component"
+        },
+        {
+          "path": "src/components/combobox/Combobox.module.css",
+          "target": "@components/ui/combobox/Combobox.module.css",
+          "type": "registry:file"
+        },
+        {
+          "path": "src/components/combobox/index.ts",
+          "target": "@components/ui/combobox/index.ts",
+          "type": "registry:component"
+        }
+      ]
+    },
+    {
+      "name": "scroll-area",
+      "type": "registry:item",
+      "title": "Scroll Area",
+      "description": "moduix Vue Scroll Area component.",
+      "dependencies": ["@ark-ui/vue", "clsx"],
+      "registryDependencies": ["@moduix-vue/foundation"],
+      "files": [
+        {
+          "path": "src/components/scroll-area/ScrollArea.vue",
+          "target": "@components/ui/scroll-area/ScrollArea.vue",
+          "type": "registry:component"
+        },
+        {
+          "path": "src/components/scroll-area/ScrollAreaRootProvider.vue",
+          "target": "@components/ui/scroll-area/ScrollAreaRootProvider.vue",
+          "type": "registry:component"
+        },
+        {
+          "path": "src/components/scroll-area/ScrollAreaViewport.vue",
+          "target": "@components/ui/scroll-area/ScrollAreaViewport.vue",
+          "type": "registry:component"
+        },
+        {
+          "path": "src/components/scroll-area/ScrollAreaContent.vue",
+          "target": "@components/ui/scroll-area/ScrollAreaContent.vue",
+          "type": "registry:component"
+        },
+        {
+          "path": "src/components/scroll-area/ScrollAreaScrollbar.vue",
+          "target": "@components/ui/scroll-area/ScrollAreaScrollbar.vue",
+          "type": "registry:component"
+        },
+        {
+          "path": "src/components/scroll-area/ScrollAreaThumb.vue",
+          "target": "@components/ui/scroll-area/ScrollAreaThumb.vue",
+          "type": "registry:component"
+        },
+        {
+          "path": "src/components/scroll-area/ScrollAreaCorner.vue",
+          "target": "@components/ui/scroll-area/ScrollAreaCorner.vue",
+          "type": "registry:component"
+        },
+        {
+          "path": "src/components/scroll-area/ScrollArea.module.css",
+          "target": "@components/ui/scroll-area/ScrollArea.module.css",
+          "type": "registry:file"
+        },
+        {
+          "path": "src/components/scroll-area/index.ts",
+          "target": "@components/ui/scroll-area/index.ts",
+          "type": "registry:component"
+        }
+      ]
+    },
+    {
+      "name": "container",
+      "type": "registry:item",
+      "title": "Container",
+      "description": "moduix Vue Container component.",
+      "dependencies": ["@ark-ui/vue", "clsx"],
+      "registryDependencies": ["@moduix-vue/foundation"],
+      "files": [
+        {
+          "path": "src/components/container/Container.vue",
+          "target": "@components/ui/container/Container.vue",
+          "type": "registry:component"
+        },
+        {
+          "path": "src/components/container/Container.module.css",
+          "target": "@components/ui/container/Container.module.css",
+          "type": "registry:file"
+        },
+        {
+          "path": "src/components/container/index.ts",
+          "target": "@components/ui/container/index.ts",
+          "type": "registry:component"
+        }
+      ]
+    },
+    {
       "name": "collapsible",
       "type": "registry:item",
       "title": "Collapsible",
@@ -185,6 +390,100 @@
         {
           "path": "src/components/collapsible/index.ts",
           "target": "@components/ui/collapsible/index.ts",
+          "type": "registry:component"
+        }
+      ]
+    },
+    {
+      "name": "dialog",
+      "type": "registry:item",
+      "title": "Dialog",
+      "description": "moduix Vue Dialog component.",
+      "dependencies": ["@ark-ui/vue", "clsx"],
+      "registryDependencies": [
+        "@moduix-vue/close-button",
+        "@moduix-vue/foundation",
+        "@moduix-vue/overlay-portal"
+      ],
+      "files": [
+        {
+          "path": "src/components/dialog/Dialog.vue",
+          "target": "@components/ui/dialog/Dialog.vue",
+          "type": "registry:component"
+        },
+        {
+          "path": "src/components/dialog/DialogRootProvider.vue",
+          "target": "@components/ui/dialog/DialogRootProvider.vue",
+          "type": "registry:component"
+        },
+        {
+          "path": "src/components/dialog/DialogTrigger.vue",
+          "target": "@components/ui/dialog/DialogTrigger.vue",
+          "type": "registry:component"
+        },
+        {
+          "path": "src/components/dialog/DialogBackdrop.vue",
+          "target": "@components/ui/dialog/DialogBackdrop.vue",
+          "type": "registry:component"
+        },
+        {
+          "path": "src/components/dialog/DialogPositioner.vue",
+          "target": "@components/ui/dialog/DialogPositioner.vue",
+          "type": "registry:component"
+        },
+        {
+          "path": "src/components/dialog/DialogContent.vue",
+          "target": "@components/ui/dialog/DialogContent.vue",
+          "type": "registry:component"
+        },
+        {
+          "path": "src/components/dialog/DialogTitle.vue",
+          "target": "@components/ui/dialog/DialogTitle.vue",
+          "type": "registry:component"
+        },
+        {
+          "path": "src/components/dialog/DialogDescription.vue",
+          "target": "@components/ui/dialog/DialogDescription.vue",
+          "type": "registry:component"
+        },
+        {
+          "path": "src/components/dialog/DialogCloseTrigger.vue",
+          "target": "@components/ui/dialog/DialogCloseTrigger.vue",
+          "type": "registry:component"
+        },
+        {
+          "path": "src/components/dialog/DialogCloseIcon.vue",
+          "target": "@components/ui/dialog/DialogCloseIcon.vue",
+          "type": "registry:component"
+        },
+        {
+          "path": "src/components/dialog/DialogHeader.vue",
+          "target": "@components/ui/dialog/DialogHeader.vue",
+          "type": "registry:component"
+        },
+        {
+          "path": "src/components/dialog/DialogBody.vue",
+          "target": "@components/ui/dialog/DialogBody.vue",
+          "type": "registry:component"
+        },
+        {
+          "path": "src/components/dialog/DialogFooter.vue",
+          "target": "@components/ui/dialog/DialogFooter.vue",
+          "type": "registry:component"
+        },
+        {
+          "path": "src/components/dialog/DialogContext.vue",
+          "target": "@components/ui/dialog/DialogContext.vue",
+          "type": "registry:component"
+        },
+        {
+          "path": "src/components/dialog/Dialog.module.css",
+          "target": "@components/ui/dialog/Dialog.module.css",
+          "type": "registry:file"
+        },
+        {
+          "path": "src/components/dialog/index.ts",
+          "target": "@components/ui/dialog/index.ts",
           "type": "registry:component"
         }
       ]

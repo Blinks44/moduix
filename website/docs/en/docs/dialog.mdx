@@ -31,6 +31,19 @@ import dialogSolidNonModal from '../../../snippets/dialog/solid/non-modal.tsx?ra
 import dialogSolidOpenFromMenu from '../../../snippets/dialog/solid/open-from-menu.tsx?raw';
 import dialogSolidOutsideScroll from '../../../snippets/dialog/solid/outside-scroll.tsx?raw';
 import dialogSolidRootProvider from '../../../snippets/dialog/solid/root-provider-and-ark-context-hooks.tsx?raw';
+import dialogVueAdvancedCustomization from '../../../snippets/dialog/vue/advanced-customization.vue?raw';
+import dialogVueAlertDialog from '../../../snippets/dialog/vue/alert-dialog.vue?raw';
+import dialogVueBasic from '../../../snippets/dialog/vue/basic.vue?raw';
+import dialogVueConfirmation from '../../../snippets/dialog/vue/confirmation.vue?raw';
+import dialogVueControlled from '../../../snippets/dialog/vue/controlled.vue?raw';
+import dialogVueInsideScroll from '../../../snippets/dialog/vue/inside-scroll.vue?raw';
+import dialogVueMountingAndFocusLifecycle from '../../../snippets/dialog/vue/mounting-and-focus-lifecycle.vue?raw';
+import dialogVueMultipleTriggers from '../../../snippets/dialog/vue/multiple-triggers.vue?raw';
+import dialogVueNested from '../../../snippets/dialog/vue/nested.vue?raw';
+import dialogVueNonModal from '../../../snippets/dialog/vue/non-modal.vue?raw';
+import dialogVueOpenFromMenu from '../../../snippets/dialog/vue/open-from-menu.vue?raw';
+import dialogVueOutsideScroll from '../../../snippets/dialog/vue/outside-scroll.vue?raw';
+import dialogVueRootProvider from '../../../snippets/dialog/vue/root-provider-and-ark-context-hooks.vue?raw';
 
 ## API Reference
 
@@ -59,6 +72,7 @@ modal background, `DialogPositioner` places the dialog, and `DialogContent` cont
     values={[
       { label: 'React', value: 'react' },
       { label: 'Solid', value: 'solid' },
+      { label: 'Vue', value: 'vue' },
     ]}
     className="docs-tabs"
   >
@@ -71,6 +85,11 @@ modal background, `DialogPositioner` places the dialog, and `DialogContent` cont
     <Tab value="solid">
 
 <CodeBlockRuntime lang="tsx" code={dialogSolidBasic} />
+
+    </Tab>
+    <Tab value="vue">
+
+<CodeBlockRuntime lang="vue" code={dialogVueBasic} />
 
     </Tab>
   </Tabs>
@@ -99,6 +118,16 @@ See [Quick Start](/docs/quick-start) for full package setup, registry configurat
   options={[
     { label: 'CSS Modules', command: 'shadcn@latest add @moduix-solid/dialog' },
     { label: 'Tailwind CSS', command: 'shadcn@latest add @moduix-solid-tailwind/dialog' },
+  ]}
+/>
+
+  </Tab>
+  <Tab label="Vue" value="vue">
+
+<ShadcnInstallOptions
+  options={[
+    { label: 'CSS Modules', command: 'shadcn@latest add @moduix-vue/dialog' },
+    { label: 'Tailwind CSS', command: 'shadcn@latest add @moduix-vue-tailwind/dialog' },
   ]}
 />
 
@@ -178,6 +207,7 @@ and a separate action that confirms the decision.
     values={[
       { label: 'React', value: 'react' },
       { label: 'Solid', value: 'solid' },
+      { label: 'Vue', value: 'vue' },
     ]}
     className="docs-tabs"
   >
@@ -190,6 +220,11 @@ and a separate action that confirms the decision.
     <Tab value="solid">
 
 <CodeBlockRuntime lang="tsx" code={dialogSolidAlertDialog} />
+
+    </Tab>
+    <Tab value="vue">
+
+<CodeBlockRuntime lang="vue" code={dialogVueAlertDialog} />
 
     </Tab>
   </Tabs>
@@ -213,6 +248,7 @@ user wants to discard them.
     values={[
       { label: 'React', value: 'react' },
       { label: 'Solid', value: 'solid' },
+      { label: 'Vue', value: 'vue' },
     ]}
     className="docs-tabs"
   >
@@ -227,6 +263,11 @@ user wants to discard them.
 <CodeBlockRuntime lang="tsx" code={dialogSolidConfirmation} />
 
     </Tab>
+    <Tab value="vue">
+
+<CodeBlockRuntime lang="vue" code={dialogVueConfirmation} />
+
+    </Tab>
   </Tabs>
 </div>
 
@@ -234,8 +275,8 @@ user wants to discard them.
 
 ### Controlled
 
-Keep `open` in React state or a Solid signal and read `details.open` from `onOpenChange` to
-synchronize the dialog with the rest of the application.
+Keep `open` in React state, a Solid signal, or a Vue ref and read `details.open` from
+`onOpenChange` (or bind `v-model:open`) to synchronize the dialog with the rest of the application.
 
 <ExampleFrame variant="component">
   <DialogControlled />
@@ -248,6 +289,7 @@ synchronize the dialog with the rest of the application.
     values={[
       { label: 'React', value: 'react' },
       { label: 'Solid', value: 'solid' },
+      { label: 'Vue', value: 'vue' },
     ]}
     className="docs-tabs"
   >
@@ -260,6 +302,11 @@ synchronize the dialog with the rest of the application.
     <Tab value="solid">
 
 <CodeBlockRuntime lang="tsx" code={dialogSolidControlled} />
+
+    </Tab>
+    <Tab value="vue">
+
+<CodeBlockRuntime lang="vue" code={dialogVueControlled} />
 
     </Tab>
   </Tabs>
@@ -282,6 +329,7 @@ Make only the main content scrollable when the title and actions should remain v
     values={[
       { label: 'React', value: 'react' },
       { label: 'Solid', value: 'solid' },
+      { label: 'Vue', value: 'vue' },
     ]}
     className="docs-tabs"
   >
@@ -294,6 +342,11 @@ Make only the main content scrollable when the title and actions should remain v
     <Tab value="solid">
 
 <CodeBlockRuntime lang="tsx" code={dialogSolidInsideScroll} />
+
+    </Tab>
+    <Tab value="vue">
+
+<CodeBlockRuntime lang="vue" code={dialogVueInsideScroll} />
 
     </Tab>
   </Tabs>
@@ -322,6 +375,7 @@ Use `lazyMount` and `unmountOnExit` for the presence lifecycle. Use `initialFocu
     values={[
       { label: 'React', value: 'react' },
       { label: 'Solid', value: 'solid' },
+      { label: 'Vue', value: 'vue' },
     ]}
     className="docs-tabs"
   >
@@ -334,6 +388,11 @@ Use `lazyMount` and `unmountOnExit` for the presence lifecycle. Use `initialFocu
     <Tab value="solid">
 
 <CodeBlockRuntime lang="tsx" code={dialogSolidMountingAndFocusLifecycle} />
+
+    </Tab>
+    <Tab value="vue">
+
+<CodeBlockRuntime lang="vue" code={dialogVueMountingAndFocusLifecycle} />
 
     </Tab>
   </Tabs>
@@ -357,6 +416,7 @@ Share one dialog between several triggers by giving each trigger a `value` and h
     values={[
       { label: 'React', value: 'react' },
       { label: 'Solid', value: 'solid' },
+      { label: 'Vue', value: 'vue' },
     ]}
     className="docs-tabs"
   >
@@ -369,6 +429,11 @@ Share one dialog between several triggers by giving each trigger a `value` and h
     <Tab value="solid">
 
 <CodeBlockRuntime lang="tsx" code={dialogSolidMultipleTriggers} />
+
+    </Tab>
+    <Tab value="vue">
+
+<CodeBlockRuntime lang="vue" code={dialogVueMultipleTriggers} />
 
     </Tab>
   </Tabs>
@@ -392,6 +457,7 @@ uses the resulting state to make the parent recede while the nested dialog is op
     values={[
       { label: 'React', value: 'react' },
       { label: 'Solid', value: 'solid' },
+      { label: 'Vue', value: 'vue' },
     ]}
     className="docs-tabs"
   >
@@ -404,6 +470,11 @@ uses the resulting state to make the parent recede while the nested dialog is op
     <Tab value="solid">
 
 <CodeBlockRuntime lang="tsx" code={dialogSolidNested} />
+
+    </Tab>
+    <Tab value="vue">
+
+<CodeBlockRuntime lang="vue" code={dialogVueNested} />
 
     </Tab>
   </Tabs>
@@ -432,6 +503,7 @@ outside the dialog.
     values={[
       { label: 'React', value: 'react' },
       { label: 'Solid', value: 'solid' },
+      { label: 'Vue', value: 'vue' },
     ]}
     className="docs-tabs"
   >
@@ -444,6 +516,11 @@ outside the dialog.
     <Tab value="solid">
 
 <CodeBlockRuntime lang="tsx" code={dialogSolidNonModal} />
+
+    </Tab>
+    <Tab value="vue">
+
+<CodeBlockRuntime lang="vue" code={dialogVueNonModal} />
 
     </Tab>
   </Tabs>
@@ -466,6 +543,7 @@ Control `open` from a menu item when a contextual action should open a confirmat
     values={[
       { label: 'React', value: 'react' },
       { label: 'Solid', value: 'solid' },
+      { label: 'Vue', value: 'vue' },
     ]}
     className="docs-tabs"
   >
@@ -478,6 +556,11 @@ Control `open` from a menu item when a contextual action should open a confirmat
     <Tab value="solid">
 
 <CodeBlockRuntime lang="tsx" code={dialogSolidOpenFromMenu} />
+
+    </Tab>
+    <Tab value="vue">
+
+<CodeBlockRuntime lang="vue" code={dialogVueOpenFromMenu} />
 
     </Tab>
   </Tabs>
@@ -500,6 +583,7 @@ Let `DialogPositioner` scroll the whole dialog when long content should keep its
     values={[
       { label: 'React', value: 'react' },
       { label: 'Solid', value: 'solid' },
+      { label: 'Vue', value: 'vue' },
     ]}
     className="docs-tabs"
   >
@@ -512,6 +596,11 @@ Let `DialogPositioner` scroll the whole dialog when long content should keep its
     <Tab value="solid">
 
 <CodeBlockRuntime lang="tsx" code={dialogSolidOutsideScroll} />
+
+    </Tab>
+    <Tab value="vue">
+
+<CodeBlockRuntime lang="vue" code={dialogVueOutsideScroll} />
 
     </Tab>
   </Tabs>
@@ -541,6 +630,7 @@ components.
     values={[
       { label: 'React', value: 'react' },
       { label: 'Solid', value: 'solid' },
+      { label: 'Vue', value: 'vue' },
     ]}
     className="docs-tabs"
   >
@@ -553,6 +643,11 @@ components.
     <Tab value="solid">
 
 <CodeBlockRuntime lang="tsx" code={dialogSolidRootProvider} />
+
+    </Tab>
+    <Tab value="vue">
+
+<CodeBlockRuntime lang="vue" code={dialogVueRootProvider} />
 
     </Tab>
   </Tabs>
@@ -576,6 +671,7 @@ direct control over every Ark dialog part.
     values={[
       { label: 'React', value: 'react' },
       { label: 'Solid', value: 'solid' },
+      { label: 'Vue', value: 'vue' },
     ]}
     className="docs-tabs"
   >
@@ -590,6 +686,11 @@ direct control over every Ark dialog part.
 <CodeBlockRuntime lang="tsx" code={dialogSolidAdvancedCustomization} />
 
     </Tab>
+    <Tab value="vue">
+
+<CodeBlockRuntime lang="vue" code={dialogVueAdvancedCustomization} />
+
+    </Tab>
   </Tabs>
 
 **Styles**
@@ -602,8 +703,8 @@ direct control over every Ark dialog part.
 
 ## Styling
 
-Use `className` in React or `class` in Solid on exported parts for structural styles. For state-based
-styles, prefer Ark data attributes such as `data-state` and `data-has-nested`, together with moduix
+Use `className` in React or `class` in Solid and Vue on exported parts for structural styles. For
+state-based styles, prefer Ark data attributes such as `data-state` and `data-has-nested`, together with moduix
 `data-slot` selectors. Tailwind variants use native utilities and consumer classes; the component
 variables below customize the CSS Modules variants. Data attributes and `data-slot` hooks are shared
 by both styling tracks.

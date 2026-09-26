@@ -15,6 +15,11 @@ import containerSolidFullWidth from '../../../snippets/container/solid/full-widt
 import containerSolidGutters from '../../../snippets/container/solid/gutters.tsx?raw';
 import containerSolidSemanticElement from '../../../snippets/container/solid/semantic-element.tsx?raw';
 import containerSolidWithBleed from '../../../snippets/container/solid/with-bleed.tsx?raw';
+import containerVueBasic from '../../../snippets/container/vue/basic.vue?raw';
+import containerVueFullWidth from '../../../snippets/container/vue/full-width.vue?raw';
+import containerVueGutters from '../../../snippets/container/vue/gutters.vue?raw';
+import containerVueSemanticElement from '../../../snippets/container/vue/semantic-element.vue?raw';
+import containerVueWithBleed from '../../../snippets/container/vue/with-bleed.vue?raw';
 
 ## Справочник API
 
@@ -26,8 +31,9 @@ import containerSolidWithBleed from '../../../snippets/container/solid/with-blee
 ## Базовый пример
 
 
-Импортируйте `Container` из подходящего пакета: `@moduix/react/container` или `@moduix/solid/container` для CSS Modules,
-а для Tailwind CSS используйте `@moduix/react-tailwind/container` или `@moduix/solid-tailwind/container`.
+Импортируйте `Container` из подходящего пакета: `@moduix/react/container`, `@moduix/solid/container` или
+`@moduix/vue/container` для CSS Modules, а для Tailwind CSS используйте `@moduix/react-tailwind/container`,
+`@moduix/solid-tailwind/container` или `@moduix/vue-tailwind/container`.
 
 Используйте `Container` для центрированной колонки с читабельной шириной. Компонент добавляет адаптивные
 горизонтальные отступы, а вертикальные интервалы остаются задачей внешней разметки.
@@ -43,6 +49,7 @@ import containerSolidWithBleed from '../../../snippets/container/solid/with-blee
     values={[
       { label: 'React', value: 'react' },
       { label: 'Solid', value: 'solid' },
+      { label: 'Vue', value: 'vue' },
     ]}
     className="docs-tabs"
   >
@@ -55,6 +62,11 @@ import containerSolidWithBleed from '../../../snippets/container/solid/with-blee
     <Tab value="solid">
 
 <CodeBlockRuntime lang="tsx" code={containerSolidBasic} />
+
+    </Tab>
+    <Tab value="vue">
+
+<CodeBlockRuntime lang="vue" code={containerVueBasic} />
 
     </Tab>
   </Tabs>
@@ -92,6 +104,16 @@ import containerSolidWithBleed from '../../../snippets/container/solid/with-blee
 />
 
   </Tab>
+  <Tab label="Vue" value="vue">
+
+<ShadcnInstallOptions
+  options={[
+    { label: 'CSS Modules', command: 'shadcn@latest add @moduix-vue/container' },
+    { label: 'Tailwind CSS', command: 'shadcn@latest add @moduix-vue-tailwind/container' },
+  ]}
+/>
+
+  </Tab>
 </Tabs>
 
 ## Анатомия
@@ -113,9 +135,11 @@ Container
 корень и размещайте содержимое страницы или секции непосредственно внутри.
 
 Используйте `asChild`, когда семантический элемент должен стать отрисованным корнем. Передавайте ровно один дочерний
-элемент: в React он вкладывается внутрь `Container`, а в Solid используется форма с render-функцией
-`asChild={(props) => <main {...props()} />}`. Размещайте `Bleed` внутри `Container`, если только один дочерний блок
-должен выйти за пределы ограниченной текстовой колонки.
+элемент: React и Vue делают его корнем `Container`, а в Solid используется форма с render-функцией
+`asChild={(props) => <main {...props()} />}`. В Solid ref нужно назначать элементу внутри render-функции, потому что
+ref на самом `Container` через `asChild` не передаётся; в Vue отрендерированный элемент доступен через `$el` у ref
+компонента. Размещайте `Bleed` внутри `Container`, если только один дочерний блок должен выйти за пределы ограниченной
+текстовой колонки.
 
 ## Примеры
 
@@ -134,6 +158,7 @@ Container
     values={[
       { label: 'React', value: 'react' },
       { label: 'Solid', value: 'solid' },
+      { label: 'Vue', value: 'vue' },
     ]}
     className="docs-tabs"
   >
@@ -146,6 +171,11 @@ Container
     <Tab value="solid">
 
 <CodeBlockRuntime lang="tsx" code={containerSolidFullWidth} />
+
+    </Tab>
+    <Tab value="vue">
+
+<CodeBlockRuntime lang="vue" code={containerVueFullWidth} />
 
     </Tab>
   </Tabs>
@@ -173,6 +203,7 @@ Container
     values={[
       { label: 'React', value: 'react' },
       { label: 'Solid', value: 'solid' },
+      { label: 'Vue', value: 'vue' },
     ]}
     className="docs-tabs"
   >
@@ -185,6 +216,11 @@ Container
     <Tab value="solid">
 
 <CodeBlockRuntime lang="tsx" code={containerSolidGutters} />
+
+    </Tab>
+    <Tab value="vue">
+
+<CodeBlockRuntime lang="vue" code={containerVueGutters} />
 
     </Tab>
   </Tabs>
@@ -212,6 +248,7 @@ Container
     values={[
       { label: 'React', value: 'react' },
       { label: 'Solid', value: 'solid' },
+      { label: 'Vue', value: 'vue' },
     ]}
     className="docs-tabs"
   >
@@ -224,6 +261,11 @@ Container
     <Tab value="solid">
 
 <CodeBlockRuntime lang="tsx" code={containerSolidSemanticElement} />
+
+    </Tab>
+    <Tab value="vue">
+
+<CodeBlockRuntime lang="vue" code={containerVueSemanticElement} />
 
     </Tab>
   </Tabs>
@@ -251,6 +293,7 @@ Container
     values={[
       { label: 'React', value: 'react' },
       { label: 'Solid', value: 'solid' },
+      { label: 'Vue', value: 'vue' },
     ]}
     className="docs-tabs"
   >
@@ -263,6 +306,11 @@ Container
     <Tab value="solid">
 
 <CodeBlockRuntime lang="tsx" code={containerSolidWithBleed} />
+
+    </Tab>
+    <Tab value="vue">
+
+<CodeBlockRuntime lang="vue" code={containerVueWithBleed} />
 
     </Tab>
   </Tabs>
@@ -279,8 +327,8 @@ Container
 
 Для пакетов CSS Modules переопределяйте CSS-переменные на корневом элементе, если оболочке страницы нужны другие
 значения ширины или отступов. Пакеты Tailwind вместо этих переменных используют utility-классы и классы потребителя.
-Для локальных стилей блока, например фона, границ или внутренних отступов, используйте `className` в React и `class` в
-Solid.
+Для локальных стилей блока, например фона, границ или внутренних отступов, используйте `className` в React, `class` в
+Solid и `class` в Vue.
 
 ### CSS-свойства
 

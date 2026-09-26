@@ -1,7 +1,7 @@
 ---
 title: Scroll Area
 component: scroll-area
-description: Créez des conteneurs de défilement avec des barres de défilement stylisées en React ou Solid avec une installation par package ou via shadcn.
+description: Créez des conteneurs de défilement avec des barres de défilement stylisées en React, Solid ou Vue avec une installation par package ou via shadcn.
 ---
 
 import * as ScrollAreaDocs from '@/components/examples/scroll-area/css-properties';
@@ -19,6 +19,13 @@ import scrollAreaSolidFade from '../../../snippets/scroll-area/solid/fade.tsx?ra
 import scrollAreaSolidHorizontal from '../../../snippets/scroll-area/solid/horizontal.tsx?raw';
 import scrollAreaSolidNested from '../../../snippets/scroll-area/solid/nested.tsx?raw';
 import scrollAreaSolidRootProvider from '../../../snippets/scroll-area/solid/root-provider.tsx?raw';
+import scrollAreaVueAlwaysVisible from '../../../snippets/scroll-area/vue/always-visible.vue?raw';
+import scrollAreaVueBasic from '../../../snippets/scroll-area/vue/basic.vue?raw';
+import scrollAreaVueBothDirections from '../../../snippets/scroll-area/vue/both-directions.vue?raw';
+import scrollAreaVueFade from '../../../snippets/scroll-area/vue/fade.vue?raw';
+import scrollAreaVueHorizontal from '../../../snippets/scroll-area/vue/horizontal.vue?raw';
+import scrollAreaVueNested from '../../../snippets/scroll-area/vue/nested.vue?raw';
+import scrollAreaVueRootProvider from '../../../snippets/scroll-area/vue/root-provider.vue?raw';
 
 ## Référence de l’API
 
@@ -44,6 +51,7 @@ défiler.
     values={[
       { label: 'React', value: 'react' },
       { label: 'Solid', value: 'solid' },
+      { label: 'Vue', value: 'vue' },
     ]}
     className="docs-tabs"
   >
@@ -56,6 +64,11 @@ défiler.
     <Tab value="solid">
 
 <CodeBlockRuntime lang="tsx" code={scrollAreaSolidBasic} />
+
+    </Tab>
+    <Tab value="vue">
+
+<CodeBlockRuntime lang="vue" code={scrollAreaVueBasic} />
 
     </Tab>
   </Tabs>
@@ -89,6 +102,16 @@ Consultez le [Démarrage rapide](/docs/quick-start) pour la configuration compl�
   options={[
     { label: 'CSS Modules', command: 'shadcn@latest add @moduix-solid/scroll-area' },
     { label: 'Tailwind CSS', command: 'shadcn@latest add @moduix-solid-tailwind/scroll-area' },
+  ]}
+/>
+
+  </Tab>
+  <Tab label="Vue" value="vue">
+
+<ShadcnInstallOptions
+  options={[
+    { label: 'CSS Modules', command: 'shadcn@latest add @moduix-vue/scroll-area' },
+    { label: 'Tailwind CSS', command: 'shadcn@latest add @moduix-vue-tailwind/scroll-area' },
   ]}
 />
 
@@ -150,6 +173,7 @@ et interactive au repos.
     values={[
       { label: 'React', value: 'react' },
       { label: 'Solid', value: 'solid' },
+      { label: 'Vue', value: 'vue' },
     ]}
     className="docs-tabs"
   >
@@ -162,6 +186,11 @@ et interactive au repos.
     <Tab value="solid">
 
 <CodeBlockRuntime lang="tsx" code={scrollAreaSolidAlwaysVisible} />
+
+    </Tab>
+    <Tab value="vue">
+
+<CodeBlockRuntime lang="vue" code={scrollAreaVueAlwaysVisible} />
 
     </Tab>
   </Tabs>
@@ -189,6 +218,7 @@ Affichez des barres verticale et horizontale lorsque le contenu peut déborder s
     values={[
       { label: 'React', value: 'react' },
       { label: 'Solid', value: 'solid' },
+      { label: 'Vue', value: 'vue' },
     ]}
     className="docs-tabs"
   >
@@ -201,6 +231,11 @@ Affichez des barres verticale et horizontale lorsque le contenu peut déborder s
     <Tab value="solid">
 
 <CodeBlockRuntime lang="tsx" code={scrollAreaSolidBothDirections} />
+
+    </Tab>
+    <Tab value="vue">
+
+<CodeBlockRuntime lang="vue" code={scrollAreaVueBothDirections} />
 
     </Tab>
   </Tabs>
@@ -229,6 +264,7 @@ la zone visible.
     values={[
       { label: 'React', value: 'react' },
       { label: 'Solid', value: 'solid' },
+      { label: 'Vue', value: 'vue' },
     ]}
     className="docs-tabs"
   >
@@ -241,6 +277,11 @@ la zone visible.
     <Tab value="solid">
 
 <CodeBlockRuntime lang="tsx" code={scrollAreaSolidFade} />
+
+    </Tab>
+    <Tab value="vue">
+
+<CodeBlockRuntime lang="vue" code={scrollAreaVueFade} />
 
     </Tab>
   </Tabs>
@@ -268,6 +309,7 @@ Utilisez une barre horizontale lorsque le contenu est volontairement plus large 
     values={[
       { label: 'React', value: 'react' },
       { label: 'Solid', value: 'solid' },
+      { label: 'Vue', value: 'vue' },
     ]}
     className="docs-tabs"
   >
@@ -280,6 +322,11 @@ Utilisez une barre horizontale lorsque le contenu est volontairement plus large 
     <Tab value="solid">
 
 <CodeBlockRuntime lang="tsx" code={scrollAreaSolidHorizontal} />
+
+    </Tab>
+    <Tab value="vue">
+
+<CodeBlockRuntime lang="vue" code={scrollAreaVueHorizontal} />
 
     </Tab>
   </Tabs>
@@ -308,6 +355,7 @@ imbriquée afin qu’Ark puisse les mesurer indépendamment.
     values={[
       { label: 'React', value: 'react' },
       { label: 'Solid', value: 'solid' },
+      { label: 'Vue', value: 'vue' },
     ]}
     className="docs-tabs"
   >
@@ -320,6 +368,11 @@ imbriquée afin qu’Ark puisse les mesurer indépendamment.
     <Tab value="solid">
 
 <CodeBlockRuntime lang="tsx" code={scrollAreaSolidNested} />
+
+    </Tab>
+    <Tab value="vue">
+
+<CodeBlockRuntime lang="vue" code={scrollAreaVueNested} />
 
     </Tab>
   </Tabs>
@@ -348,6 +401,7 @@ doivent accéder à l’API de défilement.
     values={[
       { label: 'React', value: 'react' },
       { label: 'Solid', value: 'solid' },
+      { label: 'Vue', value: 'vue' },
     ]}
     className="docs-tabs"
   >
@@ -360,6 +414,11 @@ doivent accéder à l’API de défilement.
     <Tab value="solid">
 
 <CodeBlockRuntime lang="tsx" code={scrollAreaSolidRootProvider} />
+
+    </Tab>
+    <Tab value="vue">
+
+<CodeBlockRuntime lang="vue" code={scrollAreaVueRootProvider} />
 
     </Tab>
   </Tabs>

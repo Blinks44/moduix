@@ -57,6 +57,10 @@
       "types": "./dist/components/collapsible/index.d.ts",
       "import": "./dist/components/collapsible/index.js"
     },
+    "./dialog": {
+      "types": "./dist/components/dialog/index.d.ts",
+      "import": "./dist/components/dialog/index.js"
+    },
     "./alert": {
       "types": "./dist/components/alert/index.d.ts",
       "import": "./dist/components/alert/index.js"
@@ -108,6 +112,18 @@
     "./color-picker": {
       "types": "./dist/components/color-picker/index.d.ts",
       "import": "./dist/components/color-picker/index.js"
+    },
+    "./combobox": {
+      "types": "./dist/components/combobox/index.d.ts",
+      "import": "./dist/components/combobox/index.js"
+    },
+    "./container": {
+      "types": "./dist/components/container/index.d.ts",
+      "import": "./dist/components/container/index.js"
+    },
+    "./scroll-area": {
+      "types": "./dist/components/scroll-area/index.d.ts",
+      "import": "./dist/components/scroll-area/index.js"
     },
     "./bleed": {
       "types": "./dist/components/bleed/index.d.ts",

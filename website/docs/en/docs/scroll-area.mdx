@@ -1,7 +1,7 @@
 ---
 title: Scroll Area
 component: scroll-area
-description: Build scroll containers with styled scrollbars in React or Solid with package and shadcn installation options.
+description: Build scroll containers with styled scrollbars in React, Solid, or Vue with package and shadcn installation options.
 ---
 
 import * as ScrollAreaDocs from '@/components/examples/scroll-area/css-properties';
@@ -19,6 +19,13 @@ import scrollAreaSolidFade from '../../../snippets/scroll-area/solid/fade.tsx?ra
 import scrollAreaSolidHorizontal from '../../../snippets/scroll-area/solid/horizontal.tsx?raw';
 import scrollAreaSolidNested from '../../../snippets/scroll-area/solid/nested.tsx?raw';
 import scrollAreaSolidRootProvider from '../../../snippets/scroll-area/solid/root-provider.tsx?raw';
+import scrollAreaVueAlwaysVisible from '../../../snippets/scroll-area/vue/always-visible.vue?raw';
+import scrollAreaVueBasic from '../../../snippets/scroll-area/vue/basic.vue?raw';
+import scrollAreaVueBothDirections from '../../../snippets/scroll-area/vue/both-directions.vue?raw';
+import scrollAreaVueFade from '../../../snippets/scroll-area/vue/fade.vue?raw';
+import scrollAreaVueHorizontal from '../../../snippets/scroll-area/vue/horizontal.vue?raw';
+import scrollAreaVueNested from '../../../snippets/scroll-area/vue/nested.vue?raw';
+import scrollAreaVueRootProvider from '../../../snippets/scroll-area/vue/root-provider.vue?raw';
 
 ## API Reference
 
@@ -43,6 +50,7 @@ block size so the content has room to scroll.
     values={[
       { label: 'React', value: 'react' },
       { label: 'Solid', value: 'solid' },
+      { label: 'Vue', value: 'vue' },
     ]}
     className="docs-tabs"
   >
@@ -55,6 +63,11 @@ block size so the content has room to scroll.
     <Tab value="solid">
 
 <CodeBlockRuntime lang="tsx" code={scrollAreaSolidBasic} />
+
+    </Tab>
+    <Tab value="vue">
+
+<CodeBlockRuntime lang="vue" code={scrollAreaVueBasic} />
 
     </Tab>
   </Tabs>
@@ -88,6 +101,16 @@ See [Quick Start](/docs/quick-start) for full package setup, registry configurat
   options={[
     { label: 'CSS Modules', command: 'shadcn@latest add @moduix-solid/scroll-area' },
     { label: 'Tailwind CSS', command: 'shadcn@latest add @moduix-solid-tailwind/scroll-area' },
+  ]}
+/>
+
+  </Tab>
+  <Tab label="Vue" value="vue">
+
+<ShadcnInstallOptions
+  options={[
+    { label: 'CSS Modules', command: 'shadcn@latest add @moduix-vue/scroll-area' },
+    { label: 'Tailwind CSS', command: 'shadcn@latest add @moduix-vue-tailwind/scroll-area' },
   ]}
 />
 
@@ -148,6 +171,7 @@ Set `variant="always"` when an overflowing scrollbar should remain visible and i
     values={[
       { label: 'React', value: 'react' },
       { label: 'Solid', value: 'solid' },
+      { label: 'Vue', value: 'vue' },
     ]}
     className="docs-tabs"
   >
@@ -160,6 +184,11 @@ Set `variant="always"` when an overflowing scrollbar should remain visible and i
     <Tab value="solid">
 
 <CodeBlockRuntime lang="tsx" code={scrollAreaSolidAlwaysVisible} />
+
+    </Tab>
+    <Tab value="vue">
+
+<CodeBlockRuntime lang="vue" code={scrollAreaVueAlwaysVisible} />
 
     </Tab>
   </Tabs>
@@ -187,6 +216,7 @@ Render vertical and horizontal scrollbars when content can overflow on both axes
     values={[
       { label: 'React', value: 'react' },
       { label: 'Solid', value: 'solid' },
+      { label: 'Vue', value: 'vue' },
     ]}
     className="docs-tabs"
   >
@@ -199,6 +229,11 @@ Render vertical and horizontal scrollbars when content can overflow on both axes
     <Tab value="solid">
 
 <CodeBlockRuntime lang="tsx" code={scrollAreaSolidBothDirections} />
+
+    </Tab>
+    <Tab value="vue">
+
+<CodeBlockRuntime lang="vue" code={scrollAreaVueBothDirections} />
 
     </Tab>
   </Tabs>
@@ -226,6 +261,7 @@ Set `fade` to hint that long vertical content continues above and below the curr
     values={[
       { label: 'React', value: 'react' },
       { label: 'Solid', value: 'solid' },
+      { label: 'Vue', value: 'vue' },
     ]}
     className="docs-tabs"
   >
@@ -238,6 +274,11 @@ Set `fade` to hint that long vertical content continues above and below the curr
     <Tab value="solid">
 
 <CodeBlockRuntime lang="tsx" code={scrollAreaSolidFade} />
+
+    </Tab>
+    <Tab value="vue">
+
+<CodeBlockRuntime lang="vue" code={scrollAreaVueFade} />
 
     </Tab>
   </Tabs>
@@ -265,6 +306,7 @@ Use a horizontal scrollbar when the content is intentionally wider than the fram
     values={[
       { label: 'React', value: 'react' },
       { label: 'Solid', value: 'solid' },
+      { label: 'Vue', value: 'vue' },
     ]}
     className="docs-tabs"
   >
@@ -277,6 +319,11 @@ Use a horizontal scrollbar when the content is intentionally wider than the fram
     <Tab value="solid">
 
 <CodeBlockRuntime lang="tsx" code={scrollAreaSolidHorizontal} />
+
+    </Tab>
+    <Tab value="vue">
+
+<CodeBlockRuntime lang="vue" code={scrollAreaVueHorizontal} />
 
     </Tab>
   </Tabs>
@@ -305,6 +352,7 @@ measure each area independently.
     values={[
       { label: 'React', value: 'react' },
       { label: 'Solid', value: 'solid' },
+      { label: 'Vue', value: 'vue' },
     ]}
     className="docs-tabs"
   >
@@ -317,6 +365,11 @@ measure each area independently.
     <Tab value="solid">
 
 <CodeBlockRuntime lang="tsx" code={scrollAreaSolidNested} />
+
+    </Tab>
+    <Tab value="vue">
+
+<CodeBlockRuntime lang="vue" code={scrollAreaVueNested} />
 
     </Tab>
   </Tabs>
@@ -345,6 +398,7 @@ to the scrolling API.
     values={[
       { label: 'React', value: 'react' },
       { label: 'Solid', value: 'solid' },
+      { label: 'Vue', value: 'vue' },
     ]}
     className="docs-tabs"
   >
@@ -357,6 +411,11 @@ to the scrolling API.
     <Tab value="solid">
 
 <CodeBlockRuntime lang="tsx" code={scrollAreaSolidRootProvider} />
+
+    </Tab>
+    <Tab value="vue">
+
+<CodeBlockRuntime lang="vue" code={scrollAreaVueRootProvider} />
 
     </Tab>
   </Tabs>

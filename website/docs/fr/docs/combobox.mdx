@@ -1,7 +1,7 @@
 ---
 title: Combobox
 component: combobox
-description: Un champ pour rechercher et sélectionner une ou plusieurs valeurs dans une collection Ark UI avec React ou Solid.
+description: Un champ pour rechercher et sélectionner une ou plusieurs valeurs dans une collection Ark UI avec React, Solid ou Vue.
 ---
 
 import * as ComboboxDocs from '@/components/examples/combobox/css-properties';
@@ -33,6 +33,18 @@ import comboboxSolidMultiple from '../../../snippets/combobox/solid/multiple.tsx
 import comboboxSolidRootProvider from '../../../snippets/combobox/solid/root-provider.tsx?raw';
 import comboboxSolidVirtualized from '../../../snippets/combobox/solid/virtualized.tsx?raw';
 import comboboxSolidWithTagsInput from '../../../snippets/combobox/solid/with-tags-input.tsx?raw';
+import comboboxVueAdvancedCustomization from '../../../snippets/combobox/vue/advanced-customization.vue?raw';
+import comboboxVueAsyncSearch from '../../../snippets/combobox/vue/async-search.vue?raw';
+import comboboxVueAutoHighlight from '../../../snippets/combobox/vue/auto-highlight.vue?raw';
+import comboboxVueBasic from '../../../snippets/combobox/vue/basic.vue?raw';
+import comboboxVueControlled from '../../../snippets/combobox/vue/controlled.vue?raw';
+import comboboxVueCreatable from '../../../snippets/combobox/vue/creatable.vue?raw';
+import comboboxVueCustomObjectsAndGrouping from '../../../snippets/combobox/vue/custom-objects-and-grouping.vue?raw';
+import comboboxVueDynamic from '../../../snippets/combobox/vue/dynamic.vue?raw';
+import comboboxVueInlineAutocomplete from '../../../snippets/combobox/vue/inline-autocomplete.vue?raw';
+import comboboxVueLimitResults from '../../../snippets/combobox/vue/limit-results.vue?raw';
+import comboboxVueMultiple from '../../../snippets/combobox/vue/multiple.vue?raw';
+import comboboxVueRootProvider from '../../../snippets/combobox/vue/root-provider.vue?raw';
 
 ## Référence de l’API
 
@@ -49,6 +61,7 @@ Utilisez `Select` lorsque la liste est prédéfinie et qu’un champ modifiable 
 Créez une collection Ark avec `useListCollection`, puis transmettez-la à `Combobox`. Déclarez explicitement la structure
 de la liste. Utilisez `ComboboxOption` pour les options simples et `ComboboxItem` lorsqu’une ligne nécessite une mise en page personnalisée.
 La fonction `onInputValueChange` reçoit un objet `details` fourni par Ark.
+Les exemples Vue utilisent des SFC natifs avec `script setup`, des refs, des slots et `v-model` lorsque le contrat du composant expose un modèle Vue.
 
 <ExampleFrame variant="component">
   <ComboboxBasic />
@@ -61,6 +74,7 @@ La fonction `onInputValueChange` reçoit un objet `details` fourni par Ark.
     values={[
       { label: 'React', value: 'react' },
       { label: 'Solid', value: 'solid' },
+      { label: 'Vue', value: 'vue' },
     ]}
     className="docs-tabs"
   >
@@ -73,6 +87,11 @@ La fonction `onInputValueChange` reçoit un objet `details` fourni par Ark.
     <Tab value="solid">
 
 <CodeBlockRuntime lang="tsx" code={comboboxSolidBasic} />
+
+    </Tab>
+    <Tab value="vue">
+
+<CodeBlockRuntime lang="vue" code={comboboxVueBasic} />
 
     </Tab>
   </Tabs>
@@ -106,6 +125,16 @@ Consultez le [Démarrage rapide](/docs/quick-start) pour la configuration compl�
   options={[
     { label: 'CSS Modules', command: 'shadcn@latest add @moduix-solid/combobox' },
     { label: 'Tailwind CSS', command: 'shadcn@latest add @moduix-solid-tailwind/combobox' },
+  ]}
+/>
+
+  </Tab>
+  <Tab label="Vue" value="vue">
+
+<ShadcnInstallOptions
+  options={[
+    { label: 'CSS Modules', command: 'shadcn@latest add @moduix-vue/combobox' },
+    { label: 'Tailwind CSS', command: 'shadcn@latest add @moduix-vue-tailwind/combobox' },
   ]}
 />
 
@@ -205,6 +234,11 @@ Si le champ est vide, affichez `Start typing to search…` pour que la liste res
 <CodeBlockRuntime lang="tsx" code={comboboxSolidAsyncSearch} />
 
     </Tab>
+    <Tab value="vue">
+
+<CodeBlockRuntime lang="vue" code={comboboxVueAsyncSearch} />
+
+    </Tab>
   </Tabs>
 
 **Styles**
@@ -245,6 +279,11 @@ sélectionner avec la touche Entrée sans appuyer d’abord sur une flèche.
 <CodeBlockRuntime lang="tsx" code={comboboxSolidAutoHighlight} />
 
     </Tab>
+    <Tab value="vue">
+
+<CodeBlockRuntime lang="vue" code={comboboxVueAutoHighlight} />
+
+    </Tab>
   </Tabs>
 
 **Styles**
@@ -282,6 +321,11 @@ Contrôlez le tableau des chaînes sélectionnées et lisez la nouvelle valeur d
     <Tab value="solid">
 
 <CodeBlockRuntime lang="tsx" code={comboboxSolidControlled} />
+
+    </Tab>
+    <Tab value="vue">
+
+<CodeBlockRuntime lang="vue" code={comboboxVueControlled} />
 
     </Tab>
   </Tabs>
@@ -324,6 +368,11 @@ remplacez cette valeur temporaire par le texte saisi par l’utilisateur après 
 <CodeBlockRuntime lang="tsx" code={comboboxSolidCreatable} />
 
     </Tab>
+    <Tab value="vue">
+
+<CodeBlockRuntime lang="vue" code={comboboxVueCreatable} />
+
+    </Tab>
   </Tabs>
 
 **Styles**
@@ -362,6 +411,11 @@ Indiquez dans la collection comment extraire les libellés et les valeurs des ob
     <Tab value="solid">
 
 <CodeBlockRuntime lang="tsx" code={comboboxSolidCustomObjectsAndGrouping} />
+
+    </Tab>
+    <Tab value="vue">
+
+<CodeBlockRuntime lang="vue" code={comboboxVueCustomObjectsAndGrouping} />
 
     </Tab>
   </Tabs>
@@ -404,6 +458,11 @@ Vérifiez `details.reason` pour ne pas la reconstruire après une modification d
 <CodeBlockRuntime lang="tsx" code={comboboxSolidDynamic} />
 
     </Tab>
+    <Tab value="vue">
+
+<CodeBlockRuntime lang="vue" code={comboboxVueDynamic} />
+
+    </Tab>
   </Tabs>
 
 **Styles**
@@ -442,6 +501,11 @@ correspondant tout en conservant la navigation au clavier d’Ark.
     <Tab value="solid">
 
 <CodeBlockRuntime lang="tsx" code={comboboxSolidInlineAutocomplete} />
+
+    </Tab>
+    <Tab value="vue">
+
+<CodeBlockRuntime lang="vue" code={comboboxVueInlineAutocomplete} />
 
     </Tab>
   </Tabs>
@@ -484,6 +548,11 @@ Définissez `limit` dans `useListCollection` lorsque tous les résultats ne sont
 <CodeBlockRuntime lang="tsx" code={comboboxSolidLimitResults} />
 
     </Tab>
+    <Tab value="vue">
+
+<CodeBlockRuntime lang="vue" code={comboboxVueLimitResults} />
+
+    </Tab>
   </Tabs>
 
 **Styles**
@@ -524,6 +593,11 @@ Pour les placer dans le même conteneur de champ, composez `Combobox` avec `Tags
 <CodeBlockRuntime lang="tsx" code={comboboxSolidMultiple} />
 
     </Tab>
+    <Tab value="vue">
+
+<CodeBlockRuntime lang="vue" code={comboboxVueMultiple} />
+
+    </Tab>
   </Tabs>
 
 **Styles**
@@ -562,6 +636,11 @@ partagé avant l’affichage de la racine. `ComboboxRootProvider` conserve les s
     <Tab value="solid">
 
 <CodeBlockRuntime lang="tsx" code={comboboxSolidRootProvider} />
+
+    </Tab>
+    <Tab value="vue">
+
+<CodeBlockRuntime lang="vue" code={comboboxVueRootProvider} />
 
     </Tab>
   </Tabs>
@@ -680,6 +759,11 @@ Cet exemple affiche chaque résultat comme un lien avec `ComboboxItem asChild`.
 <CodeBlockRuntime lang="tsx" code={comboboxSolidAdvancedCustomization} />
 
     </Tab>
+    <Tab value="vue">
+
+<CodeBlockRuntime lang="vue" code={comboboxVueAdvancedCustomization} />
+
+    </Tab>
   </Tabs>
 
 **Styles**
@@ -692,7 +776,7 @@ Cet exemple affiche chaque résultat comme un lien avec `ComboboxItem asChild`.
 
 ## Styles
 
-Utilisez `className` avec React ou `class` avec Solid sur les parties exportées pour les styles structurels.
+Utilisez `className` avec React ou `class` avec Solid et Vue sur les parties exportées pour les styles structurels.
 Les variantes Tailwind utilisent les utilitaires natifs et les classes de l’application ; les variables CSS ci-dessous
 personnalisent les variantes CSS Modules. Les attributs d’état et les hooks `data-slot` sont communs aux deux modes de style.
 

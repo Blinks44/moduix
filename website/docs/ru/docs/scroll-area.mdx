@@ -1,7 +1,7 @@
 ---
 title: Scroll Area
 component: scroll-area
-description: Создавайте контейнеры прокрутки со стилизованными полосами прокрутки в React и Solid с установкой пакетом или через shadcn.
+description: Создавайте контейнеры прокрутки со стилизованными полосами прокрутки в React, Solid и Vue с установкой пакетом или через shadcn.
 ---
 
 import * as ScrollAreaDocs from '@/components/examples/scroll-area/css-properties';
@@ -19,6 +19,13 @@ import scrollAreaSolidFade from '../../../snippets/scroll-area/solid/fade.tsx?ra
 import scrollAreaSolidHorizontal from '../../../snippets/scroll-area/solid/horizontal.tsx?raw';
 import scrollAreaSolidNested from '../../../snippets/scroll-area/solid/nested.tsx?raw';
 import scrollAreaSolidRootProvider from '../../../snippets/scroll-area/solid/root-provider.tsx?raw';
+import scrollAreaVueAlwaysVisible from '../../../snippets/scroll-area/vue/always-visible.vue?raw';
+import scrollAreaVueBasic from '../../../snippets/scroll-area/vue/basic.vue?raw';
+import scrollAreaVueBothDirections from '../../../snippets/scroll-area/vue/both-directions.vue?raw';
+import scrollAreaVueFade from '../../../snippets/scroll-area/vue/fade.vue?raw';
+import scrollAreaVueHorizontal from '../../../snippets/scroll-area/vue/horizontal.vue?raw';
+import scrollAreaVueNested from '../../../snippets/scroll-area/vue/nested.vue?raw';
+import scrollAreaVueRootProvider from '../../../snippets/scroll-area/vue/root-provider.vue?raw';
 
 ## Справочник API
 
@@ -44,6 +51,7 @@ import scrollAreaSolidRootProvider from '../../../snippets/scroll-area/solid/roo
     values={[
       { label: 'React', value: 'react' },
       { label: 'Solid', value: 'solid' },
+      { label: 'Vue', value: 'vue' },
     ]}
     className="docs-tabs"
   >
@@ -56,6 +64,11 @@ import scrollAreaSolidRootProvider from '../../../snippets/scroll-area/solid/roo
     <Tab value="solid">
 
 <CodeBlockRuntime lang="tsx" code={scrollAreaSolidBasic} />
+
+    </Tab>
+    <Tab value="vue">
+
+<CodeBlockRuntime lang="vue" code={scrollAreaVueBasic} />
 
     </Tab>
   </Tabs>
@@ -89,6 +102,16 @@ import scrollAreaSolidRootProvider from '../../../snippets/scroll-area/solid/roo
   options={[
     { label: 'CSS Modules', command: 'shadcn@latest add @moduix-solid/scroll-area' },
     { label: 'Tailwind CSS', command: 'shadcn@latest add @moduix-solid-tailwind/scroll-area' },
+  ]}
+/>
+
+  </Tab>
+  <Tab label="Vue" value="vue">
+
+<ShadcnInstallOptions
+  options={[
+    { label: 'CSS Modules', command: 'shadcn@latest add @moduix-vue/scroll-area' },
+    { label: 'Tailwind CSS', command: 'shadcn@latest add @moduix-vue-tailwind/scroll-area' },
   ]}
 />
 
@@ -150,6 +173,7 @@ ScrollAreaRootProvider
     values={[
       { label: 'React', value: 'react' },
       { label: 'Solid', value: 'solid' },
+      { label: 'Vue', value: 'vue' },
     ]}
     className="docs-tabs"
   >
@@ -162,6 +186,11 @@ ScrollAreaRootProvider
     <Tab value="solid">
 
 <CodeBlockRuntime lang="tsx" code={scrollAreaSolidAlwaysVisible} />
+
+    </Tab>
+    <Tab value="vue">
+
+<CodeBlockRuntime lang="vue" code={scrollAreaVueAlwaysVisible} />
 
     </Tab>
   </Tabs>
@@ -190,6 +219,7 @@ ScrollAreaRootProvider
     values={[
       { label: 'React', value: 'react' },
       { label: 'Solid', value: 'solid' },
+      { label: 'Vue', value: 'vue' },
     ]}
     className="docs-tabs"
   >
@@ -202,6 +232,11 @@ ScrollAreaRootProvider
     <Tab value="solid">
 
 <CodeBlockRuntime lang="tsx" code={scrollAreaSolidBothDirections} />
+
+    </Tab>
+    <Tab value="vue">
+
+<CodeBlockRuntime lang="vue" code={scrollAreaVueBothDirections} />
 
     </Tab>
   </Tabs>
@@ -230,6 +265,7 @@ ScrollAreaRootProvider
     values={[
       { label: 'React', value: 'react' },
       { label: 'Solid', value: 'solid' },
+      { label: 'Vue', value: 'vue' },
     ]}
     className="docs-tabs"
   >
@@ -242,6 +278,11 @@ ScrollAreaRootProvider
     <Tab value="solid">
 
 <CodeBlockRuntime lang="tsx" code={scrollAreaSolidFade} />
+
+    </Tab>
+    <Tab value="vue">
+
+<CodeBlockRuntime lang="vue" code={scrollAreaVueFade} />
 
     </Tab>
   </Tabs>
@@ -269,6 +310,7 @@ ScrollAreaRootProvider
     values={[
       { label: 'React', value: 'react' },
       { label: 'Solid', value: 'solid' },
+      { label: 'Vue', value: 'vue' },
     ]}
     className="docs-tabs"
   >
@@ -281,6 +323,11 @@ ScrollAreaRootProvider
     <Tab value="solid">
 
 <CodeBlockRuntime lang="tsx" code={scrollAreaSolidHorizontal} />
+
+    </Tab>
+    <Tab value="vue">
+
+<CodeBlockRuntime lang="vue" code={scrollAreaVueHorizontal} />
 
     </Tab>
   </Tabs>
@@ -309,6 +356,7 @@ Ark мог измерять их независимо.
     values={[
       { label: 'React', value: 'react' },
       { label: 'Solid', value: 'solid' },
+      { label: 'Vue', value: 'vue' },
     ]}
     className="docs-tabs"
   >
@@ -321,6 +369,11 @@ Ark мог измерять их независимо.
     <Tab value="solid">
 
 <CodeBlockRuntime lang="tsx" code={scrollAreaSolidNested} />
+
+    </Tab>
+    <Tab value="vue">
+
+<CodeBlockRuntime lang="vue" code={scrollAreaVueNested} />
 
     </Tab>
   </Tabs>
@@ -349,6 +402,7 @@ Ark мог измерять их независимо.
     values={[
       { label: 'React', value: 'react' },
       { label: 'Solid', value: 'solid' },
+      { label: 'Vue', value: 'vue' },
     ]}
     className="docs-tabs"
   >
@@ -361,6 +415,11 @@ Ark мог измерять их независимо.
     <Tab value="solid">
 
 <CodeBlockRuntime lang="tsx" code={scrollAreaSolidRootProvider} />
+
+    </Tab>
+    <Tab value="vue">
+
+<CodeBlockRuntime lang="vue" code={scrollAreaVueRootProvider} />
 
     </Tab>
   </Tabs>

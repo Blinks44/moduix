@@ -1,7 +1,7 @@
 ---
 title: Combobox
 component: combobox
-description: Поле для поиска и выбора одного или нескольких значений из коллекции Ark UI в React и Solid.
+description: Поле для поиска и выбора одного или нескольких значений из коллекции Ark UI в React, Solid и Vue.
 ---
 
 import * as ComboboxDocs from '@/components/examples/combobox/css-properties';
@@ -33,6 +33,18 @@ import comboboxSolidMultiple from '../../../snippets/combobox/solid/multiple.tsx
 import comboboxSolidRootProvider from '../../../snippets/combobox/solid/root-provider.tsx?raw';
 import comboboxSolidVirtualized from '../../../snippets/combobox/solid/virtualized.tsx?raw';
 import comboboxSolidWithTagsInput from '../../../snippets/combobox/solid/with-tags-input.tsx?raw';
+import comboboxVueAdvancedCustomization from '../../../snippets/combobox/vue/advanced-customization.vue?raw';
+import comboboxVueAsyncSearch from '../../../snippets/combobox/vue/async-search.vue?raw';
+import comboboxVueAutoHighlight from '../../../snippets/combobox/vue/auto-highlight.vue?raw';
+import comboboxVueBasic from '../../../snippets/combobox/vue/basic.vue?raw';
+import comboboxVueControlled from '../../../snippets/combobox/vue/controlled.vue?raw';
+import comboboxVueCreatable from '../../../snippets/combobox/vue/creatable.vue?raw';
+import comboboxVueCustomObjectsAndGrouping from '../../../snippets/combobox/vue/custom-objects-and-grouping.vue?raw';
+import comboboxVueDynamic from '../../../snippets/combobox/vue/dynamic.vue?raw';
+import comboboxVueInlineAutocomplete from '../../../snippets/combobox/vue/inline-autocomplete.vue?raw';
+import comboboxVueLimitResults from '../../../snippets/combobox/vue/limit-results.vue?raw';
+import comboboxVueMultiple from '../../../snippets/combobox/vue/multiple.vue?raw';
+import comboboxVueRootProvider from '../../../snippets/combobox/vue/root-provider.vue?raw';
 
 ## Справочник API
 
@@ -49,6 +61,7 @@ import comboboxSolidWithTagsInput from '../../../snippets/combobox/solid/with-ta
 Создайте коллекцию Ark с помощью `useListCollection` и передайте её в `Combobox`. Структуру списка задайте явно.
 Для обычных вариантов используйте `ComboboxOption`, а если нужна нестандартная разметка, используйте `ComboboxItem`.
 Колбэк `onInputValueChange` получает объект `details` от Ark.
+Примеры для Vue используют нативные SFC с `script setup`, refs, слотами и `v-model`, когда это предусмотрено контрактом компонента.
 
 <ExampleFrame variant="component">
   <ComboboxBasic />
@@ -61,6 +74,7 @@ import comboboxSolidWithTagsInput from '../../../snippets/combobox/solid/with-ta
     values={[
       { label: 'React', value: 'react' },
       { label: 'Solid', value: 'solid' },
+      { label: 'Vue', value: 'vue' },
     ]}
     className="docs-tabs"
   >
@@ -73,6 +87,11 @@ import comboboxSolidWithTagsInput from '../../../snippets/combobox/solid/with-ta
     <Tab value="solid">
 
 <CodeBlockRuntime lang="tsx" code={comboboxSolidBasic} />
+
+    </Tab>
+    <Tab value="vue">
+
+<CodeBlockRuntime lang="vue" code={comboboxVueBasic} />
 
     </Tab>
   </Tabs>
@@ -106,6 +125,16 @@ import comboboxSolidWithTagsInput from '../../../snippets/combobox/solid/with-ta
   options={[
     { label: 'CSS Modules', command: 'shadcn@latest add @moduix-solid/combobox' },
     { label: 'Tailwind CSS', command: 'shadcn@latest add @moduix-solid-tailwind/combobox' },
+  ]}
+/>
+
+  </Tab>
+  <Tab label="Vue" value="vue">
+
+<ShadcnInstallOptions
+  options={[
+    { label: 'CSS Modules', command: 'shadcn@latest add @moduix-vue/combobox' },
+    { label: 'Tailwind CSS', command: 'shadcn@latest add @moduix-vue-tailwind/combobox' },
   ]}
 />
 
@@ -207,6 +236,11 @@ Combobox[collection]
 <CodeBlockRuntime lang="tsx" code={comboboxSolidAsyncSearch} />
 
     </Tab>
+    <Tab value="vue">
+
+<CodeBlockRuntime lang="vue" code={comboboxVueAsyncSearch} />
+
+    </Tab>
   </Tabs>
 
 **Стили**
@@ -247,6 +281,11 @@ Combobox[collection]
 <CodeBlockRuntime lang="tsx" code={comboboxSolidAutoHighlight} />
 
     </Tab>
+    <Tab value="vue">
+
+<CodeBlockRuntime lang="vue" code={comboboxVueAutoHighlight} />
+
+    </Tab>
   </Tabs>
 
 **Стили**
@@ -284,6 +323,11 @@ Combobox[collection]
     <Tab value="solid">
 
 <CodeBlockRuntime lang="tsx" code={comboboxSolidControlled} />
+
+    </Tab>
+    <Tab value="vue">
+
+<CodeBlockRuntime lang="vue" code={comboboxVueControlled} />
 
     </Tab>
   </Tabs>
@@ -326,6 +370,11 @@ Combobox[collection]
 <CodeBlockRuntime lang="tsx" code={comboboxSolidCreatable} />
 
     </Tab>
+    <Tab value="vue">
+
+<CodeBlockRuntime lang="vue" code={comboboxVueCreatable} />
+
+    </Tab>
   </Tabs>
 
 **Стили**
@@ -364,6 +413,11 @@ Combobox[collection]
     <Tab value="solid">
 
 <CodeBlockRuntime lang="tsx" code={comboboxSolidCustomObjectsAndGrouping} />
+
+    </Tab>
+    <Tab value="vue">
+
+<CodeBlockRuntime lang="vue" code={comboboxVueCustomObjectsAndGrouping} />
 
     </Tab>
   </Tabs>
@@ -406,6 +460,11 @@ Combobox[collection]
 <CodeBlockRuntime lang="tsx" code={comboboxSolidDynamic} />
 
     </Tab>
+    <Tab value="vue">
+
+<CodeBlockRuntime lang="vue" code={comboboxVueDynamic} />
+
+    </Tab>
   </Tabs>
 
 **Стили**
@@ -444,6 +503,11 @@ Combobox[collection]
     <Tab value="solid">
 
 <CodeBlockRuntime lang="tsx" code={comboboxSolidInlineAutocomplete} />
+
+    </Tab>
+    <Tab value="vue">
+
+<CodeBlockRuntime lang="vue" code={comboboxVueInlineAutocomplete} />
 
     </Tab>
   </Tabs>
@@ -486,6 +550,11 @@ Combobox[collection]
 <CodeBlockRuntime lang="tsx" code={comboboxSolidLimitResults} />
 
     </Tab>
+    <Tab value="vue">
+
+<CodeBlockRuntime lang="vue" code={comboboxVueLimitResults} />
+
+    </Tab>
   </Tabs>
 
 **Стили**
@@ -526,6 +595,11 @@ Combobox[collection]
 <CodeBlockRuntime lang="tsx" code={comboboxSolidMultiple} />
 
     </Tab>
+    <Tab value="vue">
+
+<CodeBlockRuntime lang="vue" code={comboboxVueMultiple} />
+
+    </Tab>
   </Tabs>
 
 **Стили**
@@ -564,6 +638,11 @@ Combobox[collection]
     <Tab value="solid">
 
 <CodeBlockRuntime lang="tsx" code={comboboxSolidRootProvider} />
+
+    </Tab>
+    <Tab value="vue">
+
+<CodeBlockRuntime lang="vue" code={comboboxVueRootProvider} />
 
     </Tab>
   </Tabs>
@@ -682,6 +761,11 @@ Combobox[collection]
 <CodeBlockRuntime lang="tsx" code={comboboxSolidAdvancedCustomization} />
 
     </Tab>
+    <Tab value="vue">
+
+<CodeBlockRuntime lang="vue" code={comboboxVueAdvancedCustomization} />
+
+    </Tab>
   </Tabs>
 
 **Стили**
@@ -694,7 +778,7 @@ Combobox[collection]
 
 ## Стилизация
 
-Используйте `className` в React и `class` в Solid для структурных стилей экспортируемых частей.
+Используйте `className` в React и `class` в Solid и Vue для структурных стилей экспортируемых частей.
 Варианты Tailwind используют обычные utility-классы и классы приложения, а CSS-переменные ниже настраивают
 варианты CSS Modules. Атрибуты состояния и `data-slot` общие для обоих вариантов стилизации.
 
