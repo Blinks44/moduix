@@ -51,7 +51,11 @@ const slides = [
     :slide-count="slides.length"
   >
     <CarouselContext v-slot="api">
-      <CarouselItemGroup :class="styles.itemGroup" @focusin="api.pause()" @pointerenter="api.pause()">
+      <CarouselItemGroup
+        :class="styles.itemGroup"
+        @focusin="api.pause()"
+        @pointerenter="api.pause()"
+      >
         <CarouselItem v-for="(slide, index) in slides" :key="slide.id" :index="index">
           <img :class="styles.image" :src="slide.src" :alt="slide.alt" />
         </CarouselItem>
