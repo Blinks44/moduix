@@ -1,7 +1,7 @@
 ---
 title: Stack
 component: stack
-description: Une primitive flex légère pour composer des interfaces verticales ou horizontales avec React ou Solid.
+description: Une primitive flex légère pour composer des interfaces verticales ou horizontales avec React, Solid ou Vue.
 ---
 
 import * as StackDocs from '@/components/examples/stack/css-properties';
@@ -21,6 +21,14 @@ import stackSolidRowLayout from '../../../snippets/stack/solid/row-layout.tsx?ra
 import stackSolidSemanticElement from '../../../snippets/stack/solid/semantic-element.tsx?raw';
 import stackSolidSeparator from '../../../snippets/stack/solid/separator.tsx?raw';
 import stackSolidWrappedItems from '../../../snippets/stack/solid/wrapped-items.tsx?raw';
+import stackVueBasic from '../../../snippets/stack/vue/basic.vue?raw';
+import stackVueFill from '../../../snippets/stack/vue/growing-child-stack.vue?raw';
+import stackVueLoadingLayout from '../../../snippets/stack/vue/loading-layout.vue?raw';
+import stackVueResponsiveDirection from '../../../snippets/stack/vue/responsive-direction.vue?raw';
+import stackVueRowLayout from '../../../snippets/stack/vue/row-layout.vue?raw';
+import stackVueSemanticElement from '../../../snippets/stack/vue/semantic-element.vue?raw';
+import stackVueSeparator from '../../../snippets/stack/vue/separator.vue?raw';
+import stackVueWrappedItems from '../../../snippets/stack/vue/wrapped-items.vue?raw';
 
 ## Référence de l’API
 
@@ -47,6 +55,7 @@ l’alignement.
     values={[
       { label: 'React', value: 'react' },
       { label: 'Solid', value: 'solid' },
+      { label: 'Vue', value: 'vue' },
     ]}
     className="docs-tabs"
   >
@@ -59,6 +68,11 @@ l’alignement.
     <Tab value="solid">
 
 <CodeBlockRuntime lang="tsx" code={stackSolidBasic} />
+
+    </Tab>
+    <Tab value="vue">
+
+<CodeBlockRuntime lang="vue" code={stackVueBasic} />
 
     </Tab>
   </Tabs>
@@ -87,6 +101,16 @@ Consultez le [Démarrage rapide](/docs/quick-start) pour la configuration compl�
   options={[
     { label: 'CSS Modules', command: 'shadcn@latest add @moduix-solid/stack' },
     { label: 'Tailwind CSS', command: 'shadcn@latest add @moduix-solid-tailwind/stack' },
+  ]}
+/>
+
+  </Tab>
+  <Tab label="Vue" value="vue">
+
+<ShadcnInstallOptions
+  options={[
+    { label: 'CSS Modules', command: 'shadcn@latest add @moduix-vue/stack' },
+    { label: 'Tailwind CSS', command: 'shadcn@latest add @moduix-vue-tailwind/stack' },
   ]}
 />
 
@@ -132,6 +156,7 @@ Utilisez `fill` lorsqu’un `Stack` imbriqué doit occuper l’espace restant da
     values={[
       { label: 'React', value: 'react' },
       { label: 'Solid', value: 'solid' },
+      { label: 'Vue', value: 'vue' },
     ]}
     className="docs-tabs"
   >
@@ -144,6 +169,11 @@ Utilisez `fill` lorsqu’un `Stack` imbriqué doit occuper l’espace restant da
     <Tab value="solid">
 
 <CodeBlockRuntime lang="tsx" code={stackSolidFill} />
+
+    </Tab>
+    <Tab value="vue">
+
+<CodeBlockRuntime lang="vue" code={stackVueFill} />
 
     </Tab>
   </Tabs>
@@ -166,6 +196,7 @@ Associez `Stack` et `Skeleton` pour un état de chargement qui ne nécessite qu�
     values={[
       { label: 'React', value: 'react' },
       { label: 'Solid', value: 'solid' },
+      { label: 'Vue', value: 'vue' },
     ]}
     className="docs-tabs"
   >
@@ -178,6 +209,11 @@ Associez `Stack` et `Skeleton` pour un état de chargement qui ne nécessite qu�
     <Tab value="solid">
 
 <CodeBlockRuntime lang="tsx" code={stackSolidLoadingLayout} />
+
+    </Tab>
+    <Tab value="vue">
+
+<CodeBlockRuntime lang="vue" code={stackVueLoadingLayout} />
 
     </Tab>
   </Tabs>
@@ -202,6 +238,7 @@ deux points de rupture.
     values={[
       { label: 'React', value: 'react' },
       { label: 'Solid', value: 'solid' },
+      { label: 'Vue', value: 'vue' },
     ]}
     className="docs-tabs"
   >
@@ -214,6 +251,11 @@ deux points de rupture.
     <Tab value="solid">
 
 <CodeBlockRuntime lang="tsx" code={stackSolidResponsiveDirection} />
+
+    </Tab>
+    <Tab value="vue">
+
+<CodeBlockRuntime lang="vue" code={stackVueResponsiveDirection} />
 
     </Tab>
   </Tabs>
@@ -236,6 +278,7 @@ Utilisez `direction="row"` et les propriétés d’alignement pour disposer le c
     values={[
       { label: 'React', value: 'react' },
       { label: 'Solid', value: 'solid' },
+      { label: 'Vue', value: 'vue' },
     ]}
     className="docs-tabs"
   >
@@ -248,6 +291,11 @@ Utilisez `direction="row"` et les propriétés d’alignement pour disposer le c
     <Tab value="solid">
 
 <CodeBlockRuntime lang="tsx" code={stackSolidRowLayout} />
+
+    </Tab>
+    <Tab value="vue">
+
+<CodeBlockRuntime lang="vue" code={stackVueRowLayout} />
 
     </Tab>
   </Tabs>
@@ -270,6 +318,7 @@ Utilisez `asChild` d’Ark lorsque l’enveloppe de mise en page doit également
     values={[
       { label: 'React', value: 'react' },
       { label: 'Solid', value: 'solid' },
+      { label: 'Vue', value: 'vue' },
     ]}
     className="docs-tabs"
   >
@@ -282,6 +331,11 @@ Utilisez `asChild` d’Ark lorsque l’enveloppe de mise en page doit également
     <Tab value="solid">
 
 <CodeBlockRuntime lang="tsx" code={stackSolidSemanticElement} />
+
+    </Tab>
+    <Tab value="vue">
+
+<CodeBlockRuntime lang="vue" code={stackVueSemanticElement} />
 
     </Tab>
   </Tabs>
@@ -305,6 +359,7 @@ ses enfants. `gap` s’applique à chaque enfant, y compris aux séparateurs.
     values={[
       { label: 'React', value: 'react' },
       { label: 'Solid', value: 'solid' },
+      { label: 'Vue', value: 'vue' },
     ]}
     className="docs-tabs"
   >
@@ -317,6 +372,11 @@ ses enfants. `gap` s’applique à chaque enfant, y compris aux séparateurs.
     <Tab value="solid">
 
 <CodeBlockRuntime lang="tsx" code={stackSolidSeparator} />
+
+    </Tab>
+    <Tab value="vue">
+
+<CodeBlockRuntime lang="vue" code={stackVueSeparator} />
 
     </Tab>
   </Tabs>
@@ -339,6 +399,7 @@ Utilisez `wrap="wrap"` lorsque les éléments doivent passer à la ligne suivant
     values={[
       { label: 'React', value: 'react' },
       { label: 'Solid', value: 'solid' },
+      { label: 'Vue', value: 'vue' },
     ]}
     className="docs-tabs"
   >
@@ -353,6 +414,11 @@ Utilisez `wrap="wrap"` lorsque les éléments doivent passer à la ligne suivant
 <CodeBlockRuntime lang="tsx" code={stackSolidWrappedItems} />
 
     </Tab>
+    <Tab value="vue">
+
+<CodeBlockRuntime lang="vue" code={stackVueWrappedItems} />
+
+    </Tab>
   </Tabs>
 </div>
 
@@ -360,7 +426,7 @@ Utilisez `wrap="wrap"` lorsque les éléments doivent passer à la ligne suivant
 
 ## Styles
 
-Utilisez `className` en React ou `class` en Solid sur la racine pour les styles structurels. Les variantes Tailwind
+Utilisez `className` en React ou `class` en Solid et Vue sur la racine pour les styles structurels. Les variantes Tailwind
 utilisent des classes utilitaires natives et les surcharges du consommateur ; les variables CSS ci-dessous
 personnalisent les variantes CSS Modules. Les attributs de données et le hook `data-slot` sont communs aux deux
 approches de style.

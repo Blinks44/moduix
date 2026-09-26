@@ -1,6 +1,7 @@
 // Internal test barrel. The package intentionally exposes component subpaths only.
 
 export * from './components/accordion';
+export * from './components/collapsible';
 export * from './components/alert';
 export * from './components/angle-slider';
 export * from './components/aspect-ratio';
@@ -12,6 +13,11 @@ export * from './components/card';
 export * from './components/carousel';
 export * from './components/bleed';
 export * from './components/checkbox';
+export * from './components/clipboard';
 export * from './components/chart';
+export * from './components/color-picker';
 export * from './components/menu';
 export * from './components/close-button';
+export * from './components/stack';
+export * from './components/spinner';
+export * from './components/splitter';

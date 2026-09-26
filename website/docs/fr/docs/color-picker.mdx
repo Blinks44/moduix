@@ -1,7 +1,7 @@
 ---
 title: Color Picker
 component: color-picker
-description: Un sélecteur de couleurs basé sur Ark UI pour choisir une couleur, modifier ses canaux et sélectionner des couleurs prédéfinies.
+description: Un sélecteur de couleurs basé sur Ark UI pour choisir une couleur, modifier ses canaux et sélectionner des couleurs prédéfinies, avec React, Solid ou Vue.
 ---
 
 import * as ColorPickerDocs from '@/components/examples/color-picker/css-properties';
@@ -40,6 +40,23 @@ import colorPickerSolidSliderOnly from '../../../snippets/color-picker/solid/sli
 import colorPickerSolidSwatchOnly from '../../../snippets/color-picker/solid/swatch-only.tsx?raw';
 import colorPickerSolidSwatches from '../../../snippets/color-picker/solid/swatches.tsx?raw';
 import colorPickerSolidValueSwatch from '../../../snippets/color-picker/solid/value-swatch.tsx?raw';
+import colorPickerVueAdvancedCustomization from '../../../snippets/color-picker/vue/advanced-customization.vue?raw';
+import colorPickerVueBasic from '../../../snippets/color-picker/vue/basic.vue?raw';
+import colorPickerVueCompactTrigger from '../../../snippets/color-picker/vue/compact-trigger.vue?raw';
+import colorPickerVueControlled from '../../../snippets/color-picker/vue/controlled.vue?raw';
+import colorPickerVueDisabled from '../../../snippets/color-picker/vue/disabled.vue?raw';
+import colorPickerVueFieldState from '../../../snippets/color-picker/vue/field-state.vue?raw';
+import colorPickerVueFormUsage from '../../../snippets/color-picker/vue/form-usage.vue?raw';
+import colorPickerVueFormatViews from '../../../snippets/color-picker/vue/format-views.vue?raw';
+import colorPickerVueInline from '../../../snippets/color-picker/vue/inline.vue?raw';
+import colorPickerVueInsideDialog from '../../../snippets/color-picker/vue/inside-dialog.vue?raw';
+import colorPickerVueInputOnly from '../../../snippets/color-picker/vue/input-only.vue?raw';
+import colorPickerVueOpenControlled from '../../../snippets/color-picker/vue/open-controlled.vue?raw';
+import colorPickerVueRootProvider from '../../../snippets/color-picker/vue/root-provider.vue?raw';
+import colorPickerVueSliderOnly from '../../../snippets/color-picker/vue/slider-only.vue?raw';
+import colorPickerVueSwatchOnly from '../../../snippets/color-picker/vue/swatch-only.vue?raw';
+import colorPickerVueSwatches from '../../../snippets/color-picker/vue/swatches.vue?raw';
+import colorPickerVueValueSwatch from '../../../snippets/color-picker/vue/value-swatch.vue?raw';
 
 ## Référence de l’API
 
@@ -68,6 +85,7 @@ la couleur doit être envoyée avec le formulaire.
     values={[
       { label: 'React', value: 'react' },
       { label: 'Solid', value: 'solid' },
+      { label: 'Vue', value: 'vue' },
     ]}
     className="docs-tabs"
   >
@@ -80,6 +98,11 @@ la couleur doit être envoyée avec le formulaire.
     <Tab value="solid">
 
 <CodeBlockRuntime lang="tsx" code={colorPickerSolidBasic} />
+
+    </Tab>
+    <Tab value="vue">
+
+<CodeBlockRuntime lang="vue" code={colorPickerVueBasic} />
 
     </Tab>
   </Tabs>
@@ -113,6 +136,16 @@ Consultez le [Démarrage rapide](/docs/quick-start) pour la configuration compl�
   options={[
     { label: 'CSS Modules', command: 'shadcn@latest add @moduix-solid/color-picker' },
     { label: 'Tailwind CSS', command: 'shadcn@latest add @moduix-solid-tailwind/color-picker' },
+  ]}
+/>
+
+  </Tab>
+  <Tab label="Vue" value="vue">
+
+<ShadcnInstallOptions
+  options={[
+    { label: 'CSS Modules', command: 'shadcn@latest add @moduix-vue/color-picker' },
+    { label: 'Tailwind CSS', command: 'shadcn@latest add @moduix-vue-tailwind/color-picker' },
   ]}
 />
 
@@ -176,9 +209,13 @@ habituels de gestion d’état.
 
 ## Composition
 
-Utilisez `defaultValue` pour un état local. Lorsque l’application doit contrôler la couleur sélectionnée ou l’ouverture, passez `value` avec `onValueChange(details)` ou `open` avec `onOpenChange(details)`. Pour créer l’état en dehors de l’arbre rendu, passez le résultat de `useColorPicker()` à `ColorPickerRootProvider`; ne rendez pas `ColorPicker` et `ColorPickerRootProvider` pour le même état.
+Utilisez `defaultValue` pour un état local. Lorsque l’application doit contrôler la couleur sélectionnée ou l’ouverture, passez `value` avec `onValueChange(details)` ou `open` avec `onOpenChange(details)`. En Vue, liez le même état nativement avec `v-model`, `v-model:open` et `v-model:format`. Pour créer l’état en dehors de l’arbre rendu, passez le résultat de `useColorPicker()` à `ColorPickerRootProvider`; ne rendez pas `ColorPicker` et `ColorPickerRootProvider` pour le même état.
 
 `ColorPickerPositioner` est rendu dans un portail par défaut. Définissez `portalled={false}` lorsque la palette doit rester dans un autre contexte d’empilement. Pour inclure la couleur dans un formulaire natif, définissez `name` sur la racine et rendez explicitement `ColorPickerHiddenInput`. `ColorPickerArea`, `ColorPickerChannelSlider` et `ColorPickerSwatchTrigger` fournissent leurs parties visuelles par défaut; ne passez des enfants que pour modifier leur structure.
+
+En Solid, affectez un `ref` à l’élément créé dans la fonction de rendu `asChild` : un `ref` sur la
+partie ColorPicker elle-même n’est pas transmis via ce chemin de composition. En Vue, utilisez le
+`ref` de template ordinaire sur une partie et lisez l’élément rendu via `$el`.
 
 ## Exemples
 
@@ -198,6 +235,7 @@ mais pas de champs pour saisir les canaux au clavier.
     values={[
       { label: 'React', value: 'react' },
       { label: 'Solid', value: 'solid' },
+      { label: 'Vue', value: 'vue' },
     ]}
     className="docs-tabs"
   >
@@ -210,6 +248,11 @@ mais pas de champs pour saisir les canaux au clavier.
     <Tab value="solid">
 
 <CodeBlockRuntime lang="tsx" code={colorPickerSolidSliderOnly} />
+
+    </Tab>
+    <Tab value="vue">
+
+<CodeBlockRuntime lang="vue" code={colorPickerVueSliderOnly} />
 
     </Tab>
   </Tabs>
@@ -233,6 +276,7 @@ former une pastille carrée. Ce format convient par exemple pour remplacer un ch
     values={[
       { label: 'React', value: 'react' },
       { label: 'Solid', value: 'solid' },
+      { label: 'Vue', value: 'vue' },
     ]}
     className="docs-tabs"
   >
@@ -245,6 +289,11 @@ former une pastille carrée. Ce format convient par exemple pour remplacer un ch
     <Tab value="solid">
 
 <CodeBlockRuntime lang="tsx" code={colorPickerSolidCompactTrigger} />
+
+    </Tab>
+    <Tab value="vue">
+
+<CodeBlockRuntime lang="vue" code={colorPickerVueCompactTrigger} />
 
     </Tab>
   </Tabs>
@@ -272,6 +321,7 @@ Utilisez une valeur contrôlée lorsque la couleur sélectionnée doit rester sy
     values={[
       { label: 'React', value: 'react' },
       { label: 'Solid', value: 'solid' },
+      { label: 'Vue', value: 'vue' },
     ]}
     className="docs-tabs"
   >
@@ -284,6 +334,11 @@ Utilisez une valeur contrôlée lorsque la couleur sélectionnée doit rester sy
     <Tab value="solid">
 
 <CodeBlockRuntime lang="tsx" code={colorPickerSolidControlled} />
+
+    </Tab>
+    <Tab value="vue">
+
+<CodeBlockRuntime lang="vue" code={colorPickerVueControlled} />
 
     </Tab>
   </Tabs>
@@ -307,6 +362,7 @@ couleur actuelle visible.
     values={[
       { label: 'React', value: 'react' },
       { label: 'Solid', value: 'solid' },
+      { label: 'Vue', value: 'vue' },
     ]}
     className="docs-tabs"
   >
@@ -319,6 +375,11 @@ couleur actuelle visible.
     <Tab value="solid">
 
 <CodeBlockRuntime lang="tsx" code={colorPickerSolidDisabled} />
+
+    </Tab>
+    <Tab value="vue">
+
+<CodeBlockRuntime lang="vue" code={colorPickerVueDisabled} />
 
     </Tab>
   </Tabs>
@@ -342,6 +403,7 @@ trouve dans un conteneur de champ et doit exposer cet état avec les attributs d
     values={[
       { label: 'React', value: 'react' },
       { label: 'Solid', value: 'solid' },
+      { label: 'Vue', value: 'vue' },
     ]}
     className="docs-tabs"
   >
@@ -354,6 +416,11 @@ trouve dans un conteneur de champ et doit exposer cet état avec les attributs d
     <Tab value="solid">
 
 <CodeBlockRuntime lang="tsx" code={colorPickerSolidFieldState} />
+
+    </Tab>
+    <Tab value="vue">
+
+<CodeBlockRuntime lang="vue" code={colorPickerVueFieldState} />
 
     </Tab>
   </Tabs>
@@ -381,6 +448,7 @@ Définissez `name` sur `ColorPicker` et ajoutez explicitement `ColorPickerHidden
     values={[
       { label: 'React', value: 'react' },
       { label: 'Solid', value: 'solid' },
+      { label: 'Vue', value: 'vue' },
     ]}
     className="docs-tabs"
   >
@@ -393,6 +461,11 @@ Définissez `name` sur `ColorPicker` et ajoutez explicitement `ColorPickerHidden
     <Tab value="solid">
 
 <CodeBlockRuntime lang="tsx" code={colorPickerSolidFormUsage} />
+
+    </Tab>
+    <Tab value="vue">
+
+<CodeBlockRuntime lang="vue" code={colorPickerVueFormUsage} />
 
     </Tab>
   </Tabs>
@@ -418,6 +491,7 @@ RGBA, HSLA et HSBA. Le navigateur gère la liste des options.
     values={[
       { label: 'React', value: 'react' },
       { label: 'Solid', value: 'solid' },
+      { label: 'Vue', value: 'vue' },
     ]}
     className="docs-tabs"
   >
@@ -430,6 +504,11 @@ RGBA, HSLA et HSBA. Le navigateur gère la liste des options.
     <Tab value="solid">
 
 <CodeBlockRuntime lang="tsx" code={colorPickerSolidFormatViews} />
+
+    </Tab>
+    <Tab value="vue">
+
+<CodeBlockRuntime lang="vue" code={colorPickerVueFormatViews} />
 
     </Tab>
   </Tabs>
@@ -458,6 +537,7 @@ d’ouverture de fenêtre contextuelle.
     values={[
       { label: 'React', value: 'react' },
       { label: 'Solid', value: 'solid' },
+      { label: 'Vue', value: 'vue' },
     ]}
     className="docs-tabs"
   >
@@ -470,6 +550,11 @@ d’ouverture de fenêtre contextuelle.
     <Tab value="solid">
 
 <CodeBlockRuntime lang="tsx" code={colorPickerSolidInline} />
+
+    </Tab>
+    <Tab value="vue">
+
+<CodeBlockRuntime lang="vue" code={colorPickerVueInline} />
 
     </Tab>
   </Tabs>
@@ -498,6 +583,7 @@ contextuelle ajouterait une complexité inutile à l’interface.
     values={[
       { label: 'React', value: 'react' },
       { label: 'Solid', value: 'solid' },
+      { label: 'Vue', value: 'vue' },
     ]}
     className="docs-tabs"
   >
@@ -510,6 +596,11 @@ contextuelle ajouterait une complexité inutile à l’interface.
     <Tab value="solid">
 
 <CodeBlockRuntime lang="tsx" code={colorPickerSolidInputOnly} />
+
+    </Tab>
+    <Tab value="vue">
+
+<CodeBlockRuntime lang="vue" code={colorPickerVueInputOnly} />
 
     </Tab>
   </Tabs>
@@ -538,6 +629,7 @@ dans le même contexte d’empilement que le dialogue et demeure interactive au-
     values={[
       { label: 'React', value: 'react' },
       { label: 'Solid', value: 'solid' },
+      { label: 'Vue', value: 'vue' },
     ]}
     className="docs-tabs"
   >
@@ -550,6 +642,11 @@ dans le même contexte d’empilement que le dialogue et demeure interactive au-
     <Tab value="solid">
 
 <CodeBlockRuntime lang="tsx" code={colorPickerSolidInsideDialog} />
+
+    </Tab>
+    <Tab value="vue">
+
+<CodeBlockRuntime lang="vue" code={colorPickerVueInsideDialog} />
 
     </Tab>
   </Tabs>
@@ -577,6 +674,7 @@ Utilisez l’état contrôlé `open` lorsqu’un autre contrôle ou un autre flu
     values={[
       { label: 'React', value: 'react' },
       { label: 'Solid', value: 'solid' },
+      { label: 'Vue', value: 'vue' },
     ]}
     className="docs-tabs"
   >
@@ -589,6 +687,11 @@ Utilisez l’état contrôlé `open` lorsqu’un autre contrôle ou un autre flu
     <Tab value="solid">
 
 <CodeBlockRuntime lang="tsx" code={colorPickerSolidOpenControlled} />
+
+    </Tab>
+    <Tab value="vue">
+
+<CodeBlockRuntime lang="vue" code={colorPickerVueOpenControlled} />
 
     </Tab>
   </Tabs>
@@ -617,6 +720,7 @@ rendu et partagé avec des contrôles voisins.
     values={[
       { label: 'React', value: 'react' },
       { label: 'Solid', value: 'solid' },
+      { label: 'Vue', value: 'vue' },
     ]}
     className="docs-tabs"
   >
@@ -629,6 +733,11 @@ rendu et partagé avec des contrôles voisins.
     <Tab value="solid">
 
 <CodeBlockRuntime lang="tsx" code={colorPickerSolidRootProvider} />
+
+    </Tab>
+    <Tab value="vue">
+
+<CodeBlockRuntime lang="vue" code={colorPickerVueRootProvider} />
 
     </Tab>
   </Tabs>
@@ -657,6 +766,7 @@ champs sont inutiles.
     values={[
       { label: 'React', value: 'react' },
       { label: 'Solid', value: 'solid' },
+      { label: 'Vue', value: 'vue' },
     ]}
     className="docs-tabs"
   >
@@ -669,6 +779,11 @@ champs sont inutiles.
     <Tab value="solid">
 
 <CodeBlockRuntime lang="tsx" code={colorPickerSolidSwatchOnly} />
+
+    </Tab>
+    <Tab value="vue">
+
+<CodeBlockRuntime lang="vue" code={colorPickerVueSwatchOnly} />
 
     </Tab>
   </Tabs>
@@ -697,6 +812,7 @@ sélection libre. `closeOnSelect` conserve le comportement d’Ark et ferme la f
     values={[
       { label: 'React', value: 'react' },
       { label: 'Solid', value: 'solid' },
+      { label: 'Vue', value: 'vue' },
     ]}
     className="docs-tabs"
   >
@@ -709,6 +825,11 @@ sélection libre. `closeOnSelect` conserve le comportement d’Ark et ferme la f
     <Tab value="solid">
 
 <CodeBlockRuntime lang="tsx" code={colorPickerSolidSwatches} />
+
+    </Tab>
+    <Tab value="vue">
+
+<CodeBlockRuntime lang="vue" code={colorPickerVueSwatches} />
 
     </Tab>
   </Tabs>
@@ -732,6 +853,7 @@ sélecteur complet.
     values={[
       { label: 'React', value: 'react' },
       { label: 'Solid', value: 'solid' },
+      { label: 'Vue', value: 'vue' },
     ]}
     className="docs-tabs"
   >
@@ -744,6 +866,11 @@ sélecteur complet.
     <Tab value="solid">
 
 <CodeBlockRuntime lang="tsx" code={colorPickerSolidValueSwatch} />
+
+    </Tab>
+    <Tab value="vue">
+
+<CodeBlockRuntime lang="vue" code={colorPickerVueValueSwatch} />
 
     </Tab>
   </Tabs>
@@ -772,6 +899,7 @@ visuelle est nécessaire.
     values={[
       { label: 'React', value: 'react' },
       { label: 'Solid', value: 'solid' },
+      { label: 'Vue', value: 'vue' },
     ]}
     className="docs-tabs"
   >
@@ -786,6 +914,11 @@ visuelle est nécessaire.
 <CodeBlockRuntime lang="tsx" code={colorPickerSolidAdvancedCustomization} />
 
     </Tab>
+    <Tab value="vue">
+
+<CodeBlockRuntime lang="vue" code={colorPickerVueAdvancedCustomization} />
+
+    </Tab>
   </Tabs>
 </div>
 
@@ -793,7 +926,7 @@ visuelle est nécessaire.
 
 ## Styles
 
-Utilisez `className` en React ou `class` en Solid sur les parties exportées. Les variantes Tailwind utilisent les utilitaires natifs et les classes de votre application; les variantes CSS Modules utilisent les variables CSS publiques `--moduix-color-picker-*` présentées ci-dessous. Les deux versions exposent les hooks stables `data-slot="color-picker-*"` et les attributs Ark `data-scope` / `data-part`.
+Utilisez `className` en React ou `class` en Solid et Vue sur les parties exportées. Les variantes Tailwind utilisent les utilitaires natifs et les classes de votre application; les variantes CSS Modules utilisent les variables CSS publiques `--moduix-color-picker-*` présentées ci-dessous. Les deux versions exposent les hooks stables `data-slot="color-picker-*"` et les attributs Ark `data-scope` / `data-part`.
 ### Propriétés CSS
 
 <CssPropertiesSection properties={ColorPickerDocs.colorPickerOverrideCssProperties} />

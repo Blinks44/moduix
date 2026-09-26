@@ -17,6 +17,12 @@ import spinnerSolidButton from '../../../snippets/spinner/solid/button.tsx?raw';
 import spinnerSolidCustomIndicator from '../../../snippets/spinner/solid/custom-indicator.tsx?raw';
 import spinnerSolidInlineLoadingText from '../../../snippets/spinner/solid/inline-loading-text.tsx?raw';
 import spinnerSolidSizes from '../../../snippets/spinner/solid/sizes.tsx?raw';
+import spinnerVueAsChild from '../../../snippets/spinner/vue/as-child.vue?raw';
+import spinnerVueBasic from '../../../snippets/spinner/vue/basic.vue?raw';
+import spinnerVueButton from '../../../snippets/spinner/vue/button.vue?raw';
+import spinnerVueCustomIndicator from '../../../snippets/spinner/vue/custom-indicator.vue?raw';
+import spinnerVueInlineLoadingText from '../../../snippets/spinner/vue/inline-loading-text.vue?raw';
+import spinnerVueSizes from '../../../snippets/spinner/vue/sizes.vue?raw';
 
 ## API Reference
 
@@ -48,6 +54,7 @@ Modules packages, set `--moduix-spinner-animation` to restore motion for reduced
     values={[
       { label: 'React', value: 'react' },
       { label: 'Solid', value: 'solid' },
+      { label: 'Vue', value: 'vue' },
     ]}
     className="docs-tabs"
   >
@@ -60,6 +67,11 @@ Modules packages, set `--moduix-spinner-animation` to restore motion for reduced
     <Tab value="solid">
 
 <CodeBlockRuntime lang="tsx" code={spinnerSolidBasic} />
+
+    </Tab>
+    <Tab value="vue">
+
+<CodeBlockRuntime lang="vue" code={spinnerVueBasic} />
 
     </Tab>
   </Tabs>
@@ -92,12 +104,22 @@ See [Quick Start](/docs/quick-start) for full package setup, registry configurat
 />
 
   </Tab>
+  <Tab label="Vue" value="vue">
+
+<ShadcnInstallOptions
+  options={[
+    { label: 'CSS Modules', command: 'shadcn@latest add @moduix-vue/spinner' },
+    { label: 'Tailwind CSS', command: 'shadcn@latest add @moduix-vue-tailwind/spinner' },
+  ]}
+/>
+
+  </Tab>
 </Tabs>
 
 ## Anatomy
 
 `Spinner` exposes one public root. In the default composition, moduix adds an internal indicator
-wrapper and a default ring. These are DOM nodes and styling hooks, not exported React components.
+wrapper and a default ring. These are DOM nodes and styling hooks, not separately exported components.
 Custom `children` replace the ring, while `asChild` replaces the root and leaves the indicator
 markup to the child.
 
@@ -142,6 +164,7 @@ should stay the same.
     values={[
       { label: 'React', value: 'react' },
       { label: 'Solid', value: 'solid' },
+      { label: 'Vue', value: 'vue' },
     ]}
     className="docs-tabs"
   >
@@ -154,6 +177,11 @@ should stay the same.
     <Tab value="solid">
 
 <CodeBlockRuntime lang="tsx" code={spinnerSolidCustomIndicator} />
+
+    </Tab>
+    <Tab value="vue">
+
+<CodeBlockRuntime lang="vue" code={spinnerVueCustomIndicator} />
 
     </Tab>
   </Tabs>
@@ -177,6 +205,7 @@ Keep the spinner decorative when the button text already describes the action. T
     values={[
       { label: 'React', value: 'react' },
       { label: 'Solid', value: 'solid' },
+      { label: 'Vue', value: 'vue' },
     ]}
     className="docs-tabs"
   >
@@ -189,6 +218,11 @@ Keep the spinner decorative when the button text already describes the action. T
     <Tab value="solid">
 
 <CodeBlockRuntime lang="tsx" code={spinnerSolidButton} />
+
+    </Tab>
+    <Tab value="vue">
+
+<CodeBlockRuntime lang="vue" code={spinnerVueButton} />
 
     </Tab>
   </Tabs>
@@ -217,6 +251,7 @@ Use `decorative` when visible text next to the spinner already explains what is 
     values={[
       { label: 'React', value: 'react' },
       { label: 'Solid', value: 'solid' },
+      { label: 'Vue', value: 'vue' },
     ]}
     className="docs-tabs"
   >
@@ -229,6 +264,11 @@ Use `decorative` when visible text next to the spinner already explains what is 
     <Tab value="solid">
 
 <CodeBlockRuntime lang="tsx" code={spinnerSolidInlineLoadingText} />
+
+    </Tab>
+    <Tab value="vue">
+
+<CodeBlockRuntime lang="vue" code={spinnerVueInlineLoadingText} />
 
     </Tab>
   </Tabs>
@@ -257,6 +297,7 @@ Use smaller sizes inside compact controls and larger sizes for standalone loadin
     values={[
       { label: 'React', value: 'react' },
       { label: 'Solid', value: 'solid' },
+      { label: 'Vue', value: 'vue' },
     ]}
     className="docs-tabs"
   >
@@ -269,6 +310,11 @@ Use smaller sizes inside compact controls and larger sizes for standalone loadin
     <Tab value="solid">
 
 <CodeBlockRuntime lang="tsx" code={spinnerSolidSizes} />
+
+    </Tab>
+    <Tab value="vue">
+
+<CodeBlockRuntime lang="vue" code={spinnerVueSizes} />
 
     </Tab>
   </Tabs>
@@ -297,6 +343,7 @@ attributes and class name, and must render the visual indicator itself.
     values={[
       { label: 'React', value: 'react' },
       { label: 'Solid', value: 'solid' },
+      { label: 'Vue', value: 'vue' },
     ]}
     className="docs-tabs"
   >
@@ -311,6 +358,11 @@ attributes and class name, and must render the visual indicator itself.
 <CodeBlockRuntime lang="tsx" code={spinnerSolidAsChild} />
 
     </Tab>
+    <Tab value="vue">
+
+<CodeBlockRuntime lang="vue" code={spinnerVueAsChild} />
+
+    </Tab>
   </Tabs>
 
 **Styles**
@@ -323,7 +375,7 @@ attributes and class name, and must render the visual indicator itself.
 
 ## Styling
 
-Style `Spinner` with `className` in React, `class` in Solid, Ark `data-scope` / `data-part`
+Style `Spinner` with `className` in React, `class` in Solid and Vue, Ark `data-scope` / `data-part`
 selectors, stable `data-slot` hooks, `data-size`, and the public `--moduix-spinner-*` variables
 documented by the CSS API. The CSS Modules packages expose those variables; Tailwind packages use
 utility classes and consumer class overrides instead of mirroring the CSS Modules variable layer.

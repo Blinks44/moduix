@@ -1,0 +1,80 @@
+@layer moduix.storybook {
+  .demo {
+    --moduix-splitter-width: min(56rem, calc(100vw - var(--moduix-spacing-8)));
+    --moduix-splitter-height: 28rem;
+  }
+
+  .panel {
+    display: grid;
+    place-items: center;
+    font-weight: var(--moduix-weight-medium);
+  }
+
+  .vertical {
+    --moduix-splitter-width: min(34rem, calc(100vw - var(--moduix-spacing-8)));
+    --moduix-splitter-height: 28rem;
+  }
+
+  .vertical > .panel {
+    min-height: 0;
+  }
+
+  .stack {
+    display: grid;
+    gap: var(--moduix-spacing-4);
+    width: min(56rem, calc(100vw - var(--moduix-spacing-8)));
+    min-width: min(42rem, calc(100vw - var(--moduix-spacing-8)));
+  }
+
+  .toolbar {
+    display: flex;
+    flex-wrap: wrap;
+    gap: var(--moduix-spacing-2);
+  }
+
+  .status {
+    color: var(--moduix-color-muted-foreground);
+    font-size: var(--moduix-text-sm);
+    line-height: var(--moduix-line-height-text-sm);
+  }
+
+  .custom {
+    --moduix-splitter-width: min(56rem, calc(100vw - var(--moduix-spacing-8)));
+    --moduix-splitter-height: 28rem;
+    --moduix-splitter-bg: color-mix(
+      in oklab,
+      var(--moduix-color-primary) 3%,
+      var(--moduix-color-card)
+    );
+    --moduix-splitter-border-color: color-mix(
+      in oklab,
+      var(--moduix-color-foreground) 16%,
+      var(--moduix-color-border)
+    );
+    --moduix-splitter-panel-bg: color-mix(
+      in oklab,
+      var(--moduix-color-primary) 4%,
+      var(--moduix-color-background)
+    );
+    --moduix-splitter-resize-trigger-line-color: color-mix(
+      in oklab,
+      var(--moduix-color-foreground) 24%,
+      transparent
+    );
+    --moduix-splitter-resize-trigger-indicator-border-color: color-mix(
+      in oklab,
+      var(--moduix-color-foreground) 24%,
+      var(--moduix-color-border)
+    );
+  }
+
+  .demo [data-orientation='vertical'] {
+    --moduix-splitter-width: 100%;
+    --moduix-splitter-height: 100%;
+    min-height: 0;
+  }
+
+  .demo [data-orientation='vertical'] > [data-slot='splitter-panel'] {
+    min-height: 0;
+  }
+}

@@ -18,6 +18,12 @@ import spinnerSolidButton from '../../../snippets/spinner/solid/button.tsx?raw';
 import spinnerSolidCustomIndicator from '../../../snippets/spinner/solid/custom-indicator.tsx?raw';
 import spinnerSolidInlineLoadingText from '../../../snippets/spinner/solid/inline-loading-text.tsx?raw';
 import spinnerSolidSizes from '../../../snippets/spinner/solid/sizes.tsx?raw';
+import spinnerVueAsChild from '../../../snippets/spinner/vue/as-child.vue?raw';
+import spinnerVueBasic from '../../../snippets/spinner/vue/basic.vue?raw';
+import spinnerVueButton from '../../../snippets/spinner/vue/button.vue?raw';
+import spinnerVueCustomIndicator from '../../../snippets/spinner/vue/custom-indicator.vue?raw';
+import spinnerVueInlineLoadingText from '../../../snippets/spinner/vue/inline-loading-text.vue?raw';
+import spinnerVueSizes from '../../../snippets/spinner/vue/sizes.vue?raw';
 
 ## Référence de l’API
 
@@ -27,7 +33,7 @@ et expose une API réduite centrée sur une seule racine. Le composant suit les 
 [transfert de `ref`](https://ark-ui.com/docs/guides/ref).
 
 
-Les mêmes exports sont disponibles depuis `@moduix/solid/spinner` pour Solid.
+Les mêmes exports sont disponibles depuis `@moduix/solid/spinner` pour Solid et `@moduix/vue/spinner` pour Vue.
 ## Exemple de base
 
 Utilisez `Spinner` pour les états de chargement de courte durée dans les boutons, les lignes de statut et les petits
@@ -51,6 +57,7 @@ définissez `--moduix-spinner-animation` pour rétablir l’animation pour les u
     values={[
       { label: 'React', value: 'react' },
       { label: 'Solid', value: 'solid' },
+      { label: 'Vue', value: 'vue' },
     ]}
     className="docs-tabs"
   >
@@ -63,6 +70,11 @@ définissez `--moduix-spinner-animation` pour rétablir l’animation pour les u
     <Tab value="solid">
 
 <CodeBlockRuntime lang="tsx" code={spinnerSolidBasic} />
+
+    </Tab>
+    <Tab value="vue">
+
+<CodeBlockRuntime lang="vue" code={spinnerVueBasic} />
 
     </Tab>
   </Tabs>
@@ -95,12 +107,22 @@ Consultez le [Démarrage rapide](/docs/quick-start) pour la configuration compl�
 />
 
   </Tab>
+  <Tab label="Vue" value="vue">
+
+<ShadcnInstallOptions
+  options={[
+    { label: 'CSS Modules', command: 'shadcn@latest add @moduix-vue/spinner' },
+    { label: 'Tailwind CSS', command: 'shadcn@latest add @moduix-vue-tailwind/spinner' },
+  ]}
+/>
+
+  </Tab>
 </Tabs>
 
 ## Anatomie
 
 `Spinner` n’expose qu’une racine publique. En mode standard, moduix ajoute une enveloppe interne pour l’indicateur
-et un anneau par défaut. Ce sont des nœuds DOM et des points d’accroche CSS, pas des composants React exportés.
+et un anneau par défaut. Ce sont des nœuds DOM et des points d’accroche CSS, pas des composants exportés séparément.
 Un contenu personnalisé passé via `children` remplace l’anneau ; `asChild` remplace la racine et laisse l’enfant fournir la structure
 de l’indicateur.
 
@@ -140,6 +162,7 @@ comportement standard de taille et de statut.
     values={[
       { label: 'React', value: 'react' },
       { label: 'Solid', value: 'solid' },
+      { label: 'Vue', value: 'vue' },
     ]}
     className="docs-tabs"
   >
@@ -152,6 +175,11 @@ comportement standard de taille et de statut.
     <Tab value="solid">
 
 <CodeBlockRuntime lang="tsx" code={spinnerSolidCustomIndicator} />
+
+    </Tab>
+    <Tab value="vue">
+
+<CodeBlockRuntime lang="vue" code={spinnerVueCustomIndicator} />
 
     </Tab>
   </Tabs>
@@ -175,6 +203,7 @@ le bouton et l’état courant est affiché dessous uniquement pour la démonstr
     values={[
       { label: 'React', value: 'react' },
       { label: 'Solid', value: 'solid' },
+      { label: 'Vue', value: 'vue' },
     ]}
     className="docs-tabs"
   >
@@ -187,6 +216,11 @@ le bouton et l’état courant est affiché dessous uniquement pour la démonstr
     <Tab value="solid">
 
 <CodeBlockRuntime lang="tsx" code={spinnerSolidButton} />
+
+    </Tab>
+    <Tab value="vue">
+
+<CodeBlockRuntime lang="vue" code={spinnerVueButton} />
 
     </Tab>
   </Tabs>
@@ -214,6 +248,7 @@ Utilisez `decorative` lorsqu’un texte visible à côté de `Spinner` explique 
     values={[
       { label: 'React', value: 'react' },
       { label: 'Solid', value: 'solid' },
+      { label: 'Vue', value: 'vue' },
     ]}
     className="docs-tabs"
   >
@@ -226,6 +261,11 @@ Utilisez `decorative` lorsqu’un texte visible à côté de `Spinner` explique 
     <Tab value="solid">
 
 <CodeBlockRuntime lang="tsx" code={spinnerSolidInlineLoadingText} />
+
+    </Tab>
+    <Tab value="vue">
+
+<CodeBlockRuntime lang="vue" code={spinnerVueInlineLoadingText} />
 
     </Tab>
   </Tabs>
@@ -253,6 +293,7 @@ Utilisez les petites tailles dans les contrôles compacts et les grandes tailles
     values={[
       { label: 'React', value: 'react' },
       { label: 'Solid', value: 'solid' },
+      { label: 'Vue', value: 'vue' },
     ]}
     className="docs-tabs"
   >
@@ -265,6 +306,11 @@ Utilisez les petites tailles dans les contrôles compacts et les grandes tailles
     <Tab value="solid">
 
 <CodeBlockRuntime lang="tsx" code={spinnerSolidSizes} />
+
+    </Tab>
+    <Tab value="vue">
+
+<CodeBlockRuntime lang="vue" code={spinnerVueSizes} />
 
     </Tab>
   </Tabs>
@@ -293,6 +339,7 @@ de classe de la racine Spinner et doit rendre lui-même l’indicateur visuel.
     values={[
       { label: 'React', value: 'react' },
       { label: 'Solid', value: 'solid' },
+      { label: 'Vue', value: 'vue' },
     ]}
     className="docs-tabs"
   >
@@ -307,6 +354,11 @@ de classe de la racine Spinner et doit rendre lui-même l’indicateur visuel.
 <CodeBlockRuntime lang="tsx" code={spinnerSolidAsChild} />
 
     </Tab>
+    <Tab value="vue">
+
+<CodeBlockRuntime lang="vue" code={spinnerVueAsChild} />
+
+    </Tab>
   </Tabs>
 
 **Styles**
@@ -319,7 +371,7 @@ de classe de la racine Spinner et doit rendre lui-même l’indicateur visuel.
 
 ## Styles
 
-Appliquez des styles à `Spinner` avec `className`, les sélecteurs Ark `data-scope` / `data-part`, les points d’accroche
+Appliquez des styles à `Spinner` avec `className` en React, `class` en Solid et Vue, les sélecteurs Ark `data-scope` / `data-part`, les points d’accroche
 `data-slot` stables, `data-size` et les variables publiques `--moduix-spinner-*` décrites dans l’API CSS.
 
 ### Propriétés CSS

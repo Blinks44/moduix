@@ -1,7 +1,7 @@
 ---
 title: Splitter
 component: splitter
-description: Доступная раскладка с изменяемыми панелями для React и Solid с вариантами установки через пакет и shadcn.
+description: Доступная раскладка с изменяемыми панелями для React, Solid и Vue с вариантами установки через пакет и shadcn.
 ---
 
 import { CssPropertiesSection } from '@/components/mdx/Components';
@@ -22,6 +22,14 @@ import splitterSolidMultiplePanels from '../../../snippets/splitter/solid/multip
 import splitterSolidNested from '../../../snippets/splitter/solid/nested.tsx?raw';
 import splitterSolidRootProvider from '../../../snippets/splitter/solid/root-provider.tsx?raw';
 import splitterSolidVertical from '../../../snippets/splitter/solid/vertical.tsx?raw';
+import splitterVueBasic from '../../../snippets/splitter/vue/basic.vue?raw';
+import splitterVueCollapsiblePanels from '../../../snippets/splitter/vue/collapsible-panels.vue?raw';
+import splitterVueControlled from '../../../snippets/splitter/vue/controlled.vue?raw';
+import splitterVueDynamicCollapsible from '../../../snippets/splitter/vue/dynamic-collapsible.vue?raw';
+import splitterVueMultiplePanels from '../../../snippets/splitter/vue/multiple-panels.vue?raw';
+import splitterVueNested from '../../../snippets/splitter/vue/nested.vue?raw';
+import splitterVueRootProvider from '../../../snippets/splitter/vue/root-provider.vue?raw';
+import splitterVueVertical from '../../../snippets/splitter/vue/vertical.vue?raw';
 
 ## Справочник API
 
@@ -46,6 +54,7 @@ import splitterSolidVertical from '../../../snippets/splitter/solid/vertical.tsx
     values={[
       { label: 'React', value: 'react' },
       { label: 'Solid', value: 'solid' },
+      { label: 'Vue', value: 'vue' },
     ]}
     className="docs-tabs"
   >
@@ -58,6 +67,11 @@ import splitterSolidVertical from '../../../snippets/splitter/solid/vertical.tsx
     <Tab value="solid">
 
 <CodeBlockRuntime lang="tsx" code={splitterSolidBasic} />
+
+    </Tab>
+    <Tab value="vue">
+
+<CodeBlockRuntime lang="vue" code={splitterVueBasic} />
 
     </Tab>
   </Tabs>
@@ -91,6 +105,16 @@ import splitterSolidVertical from '../../../snippets/splitter/solid/vertical.tsx
   options={[
     { label: 'CSS Modules', command: 'shadcn@latest add @moduix-solid/splitter' },
     { label: 'Tailwind CSS', command: 'shadcn@latest add @moduix-solid-tailwind/splitter' },
+  ]}
+/>
+
+  </Tab>
+  <Tab label="Vue" value="vue">
+
+<ShadcnInstallOptions
+  options={[
+    { label: 'CSS Modules', command: 'shadcn@latest add @moduix-vue/splitter' },
+    { label: 'Tailwind CSS', command: 'shadcn@latest add @moduix-vue-tailwind/splitter' },
   ]}
 />
 
@@ -133,6 +157,10 @@ SplitterRootProvider
 В Solid `useSplitter()` возвращает accessor: передавайте его в `value`, а API читайте через
 `splitter()`.
 
+В Vue используйте `v-model:size` для управляемого Ark состояния размеров. `useSplitter()` возвращает
+реактивное состояние, которое можно напрямую передать в `SplitterRootProvider`; вызывайте его методы
+в шаблоне и не создавайте второй контейнер состояния.
+
 ## Примеры
 
 ### Сворачиваемые панели
@@ -153,6 +181,7 @@ SplitterRootProvider
     values={[
       { label: 'React', value: 'react' },
       { label: 'Solid', value: 'solid' },
+      { label: 'Vue', value: 'vue' },
     ]}
     className="docs-tabs"
   >
@@ -165,6 +194,11 @@ SplitterRootProvider
     <Tab value="solid">
 
 <CodeBlockRuntime lang="tsx" code={splitterSolidCollapsiblePanels} />
+
+    </Tab>
+    <Tab value="vue">
+
+<CodeBlockRuntime lang="vue" code={splitterVueCollapsiblePanels} />
 
     </Tab>
   </Tabs>
@@ -193,6 +227,7 @@ SplitterRootProvider
     values={[
       { label: 'React', value: 'react' },
       { label: 'Solid', value: 'solid' },
+      { label: 'Vue', value: 'vue' },
     ]}
     className="docs-tabs"
   >
@@ -205,6 +240,11 @@ SplitterRootProvider
     <Tab value="solid">
 
 <CodeBlockRuntime lang="tsx" code={splitterSolidControlled} />
+
+    </Tab>
+    <Tab value="vue">
+
+<CodeBlockRuntime lang="vue" code={splitterVueControlled} />
 
     </Tab>
   </Tabs>
@@ -233,6 +273,7 @@ SplitterRootProvider
     values={[
       { label: 'React', value: 'react' },
       { label: 'Solid', value: 'solid' },
+      { label: 'Vue', value: 'vue' },
     ]}
     className="docs-tabs"
   >
@@ -245,6 +286,11 @@ SplitterRootProvider
     <Tab value="solid">
 
 <CodeBlockRuntime lang="tsx" code={splitterSolidMultiplePanels} />
+
+    </Tab>
+    <Tab value="vue">
+
+<CodeBlockRuntime lang="vue" code={splitterVueMultiplePanels} />
 
     </Tab>
   </Tabs>
@@ -273,6 +319,7 @@ SplitterRootProvider
     values={[
       { label: 'React', value: 'react' },
       { label: 'Solid', value: 'solid' },
+      { label: 'Vue', value: 'vue' },
     ]}
     className="docs-tabs"
   >
@@ -285,6 +332,11 @@ SplitterRootProvider
     <Tab value="solid">
 
 <CodeBlockRuntime lang="tsx" code={splitterSolidNested} />
+
+    </Tab>
+    <Tab value="vue">
+
+<CodeBlockRuntime lang="vue" code={splitterVueNested} />
 
     </Tab>
   </Tabs>
@@ -313,6 +365,7 @@ SplitterRootProvider
     values={[
       { label: 'React', value: 'react' },
       { label: 'Solid', value: 'solid' },
+      { label: 'Vue', value: 'vue' },
     ]}
     className="docs-tabs"
   >
@@ -325,6 +378,11 @@ SplitterRootProvider
     <Tab value="solid">
 
 <CodeBlockRuntime lang="tsx" code={splitterSolidDynamicCollapsible} />
+
+    </Tab>
+    <Tab value="vue">
+
+<CodeBlockRuntime lang="vue" code={splitterVueDynamicCollapsible} />
 
     </Tab>
   </Tabs>
@@ -354,6 +412,7 @@ SplitterRootProvider
     values={[
       { label: 'React', value: 'react' },
       { label: 'Solid', value: 'solid' },
+      { label: 'Vue', value: 'vue' },
     ]}
     className="docs-tabs"
   >
@@ -366,6 +425,11 @@ SplitterRootProvider
     <Tab value="solid">
 
 <CodeBlockRuntime lang="tsx" code={splitterSolidRootProvider} />
+
+    </Tab>
+    <Tab value="vue">
+
+<CodeBlockRuntime lang="vue" code={splitterVueRootProvider} />
 
     </Tab>
   </Tabs>
@@ -394,6 +458,7 @@ SplitterRootProvider
     values={[
       { label: 'React', value: 'react' },
       { label: 'Solid', value: 'solid' },
+      { label: 'Vue', value: 'vue' },
     ]}
     className="docs-tabs"
   >
@@ -406,6 +471,11 @@ SplitterRootProvider
     <Tab value="solid">
 
 <CodeBlockRuntime lang="tsx" code={splitterSolidVertical} />
+
+    </Tab>
+    <Tab value="vue">
+
+<CodeBlockRuntime lang="vue" code={splitterVueVertical} />
 
     </Tab>
   </Tabs>
@@ -431,7 +501,7 @@ Ark сообщает о состоянии через атрибуты `data-ori
 
 ## Стилизация
 
-Используйте `className` в React или `class` в Solid на экспортируемых частях для структурных стилей.
+Используйте `className` в React или `class` в Solid и Vue на экспортируемых частях для структурных стилей.
 Варианты Tailwind используют нативные utility-классы и классы потребителя, а вариант с CSS Modules
 предоставляет переменные компонента ниже. Атрибуты состояния и точки привязки `data-slot` общие для
 обоих вариантов стилизации.

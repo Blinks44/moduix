@@ -1,7 +1,7 @@
 ---
 title: Splitter
 component: splitter
-description: Build accessible resizable layouts in React or Solid with package and shadcn installation options.
+description: Build accessible resizable layouts in React, Solid, or Vue with package and shadcn installation options.
 ---
 
 import { CssPropertiesSection } from '@/components/mdx/Components';
@@ -22,6 +22,14 @@ import splitterSolidMultiplePanels from '../../../snippets/splitter/solid/multip
 import splitterSolidNested from '../../../snippets/splitter/solid/nested.tsx?raw';
 import splitterSolidRootProvider from '../../../snippets/splitter/solid/root-provider.tsx?raw';
 import splitterSolidVertical from '../../../snippets/splitter/solid/vertical.tsx?raw';
+import splitterVueBasic from '../../../snippets/splitter/vue/basic.vue?raw';
+import splitterVueCollapsiblePanels from '../../../snippets/splitter/vue/collapsible-panels.vue?raw';
+import splitterVueControlled from '../../../snippets/splitter/vue/controlled.vue?raw';
+import splitterVueDynamicCollapsible from '../../../snippets/splitter/vue/dynamic-collapsible.vue?raw';
+import splitterVueMultiplePanels from '../../../snippets/splitter/vue/multiple-panels.vue?raw';
+import splitterVueNested from '../../../snippets/splitter/vue/nested.vue?raw';
+import splitterVueRootProvider from '../../../snippets/splitter/vue/root-provider.vue?raw';
+import splitterVueVertical from '../../../snippets/splitter/vue/vertical.vue?raw';
 
 ## API Reference
 
@@ -45,6 +53,7 @@ ids. When you omit the trigger's children, moduix renders a resize indicator for
     values={[
       { label: 'React', value: 'react' },
       { label: 'Solid', value: 'solid' },
+      { label: 'Vue', value: 'vue' },
     ]}
     className="docs-tabs"
   >
@@ -57,6 +66,11 @@ ids. When you omit the trigger's children, moduix renders a resize indicator for
     <Tab value="solid">
 
 <CodeBlockRuntime lang="tsx" code={splitterSolidBasic} />
+
+    </Tab>
+    <Tab value="vue">
+
+<CodeBlockRuntime lang="vue" code={splitterVueBasic} />
 
     </Tab>
   </Tabs>
@@ -90,6 +104,16 @@ See [Quick Start](/docs/quick-start) for full package setup, registry configurat
   options={[
     { label: 'CSS Modules', command: 'shadcn@latest add @moduix-solid/splitter' },
     { label: 'Tailwind CSS', command: 'shadcn@latest add @moduix-solid-tailwind/splitter' },
+  ]}
+/>
+
+  </Tab>
+  <Tab label="Vue" value="vue">
+
+<ShadcnInstallOptions
+  options={[
+    { label: 'CSS Modules', command: 'shadcn@latest add @moduix-vue/splitter' },
+    { label: 'Tailwind CSS', command: 'shadcn@latest add @moduix-vue-tailwind/splitter' },
   ]}
 />
 
@@ -130,6 +154,10 @@ Use `asChild` only with one interactive child that keeps button semantics, focus
 keyboard interaction; it replaces the default resize indicator. In Solid, `useSplitter()` returns an
 accessor, so pass it to `value` and read the API as `splitter()`.
 
+In Vue, use `v-model:size` for the Ark-controlled size contract. `useSplitter()` returns a reactive
+store that can be passed directly to `SplitterRootProvider`; read its methods in the template without
+creating a second state container.
+
 ## Examples
 
 ### Collapsible panels
@@ -149,6 +177,7 @@ Set `collapsible: true` and choose a `collapsedSize` for a panel that can turn i
     values={[
       { label: 'React', value: 'react' },
       { label: 'Solid', value: 'solid' },
+      { label: 'Vue', value: 'vue' },
     ]}
     className="docs-tabs"
   >
@@ -161,6 +190,11 @@ Set `collapsible: true` and choose a `collapsedSize` for a panel that can turn i
     <Tab value="solid">
 
 <CodeBlockRuntime lang="tsx" code={splitterSolidCollapsiblePanels} />
+
+    </Tab>
+    <Tab value="vue">
+
+<CodeBlockRuntime lang="vue" code={splitterVueCollapsiblePanels} />
 
     </Tab>
   </Tabs>
@@ -188,6 +222,7 @@ Keep panel sizes in application state and update that state from `details.size` 
     values={[
       { label: 'React', value: 'react' },
       { label: 'Solid', value: 'solid' },
+      { label: 'Vue', value: 'vue' },
     ]}
     className="docs-tabs"
   >
@@ -200,6 +235,11 @@ Keep panel sizes in application state and update that state from `details.size` 
     <Tab value="solid">
 
 <CodeBlockRuntime lang="tsx" code={splitterSolidControlled} />
+
+    </Tab>
+    <Tab value="vue">
+
+<CodeBlockRuntime lang="vue" code={splitterVueControlled} />
 
     </Tab>
   </Tabs>
@@ -228,6 +268,7 @@ matching entry in `panels`, and every trigger id must connect its two neighbors.
     values={[
       { label: 'React', value: 'react' },
       { label: 'Solid', value: 'solid' },
+      { label: 'Vue', value: 'vue' },
     ]}
     className="docs-tabs"
   >
@@ -240,6 +281,11 @@ matching entry in `panels`, and every trigger id must connect its two neighbors.
     <Tab value="solid">
 
 <CodeBlockRuntime lang="tsx" code={splitterSolidMultiplePanels} />
+
+    </Tab>
+    <Tab value="vue">
+
+<CodeBlockRuntime lang="vue" code={splitterVueMultiplePanels} />
 
     </Tab>
   </Tabs>
@@ -268,6 +314,7 @@ and vertical handles.
     values={[
       { label: 'React', value: 'react' },
       { label: 'Solid', value: 'solid' },
+      { label: 'Vue', value: 'vue' },
     ]}
     className="docs-tabs"
   >
@@ -280,6 +327,11 @@ and vertical handles.
     <Tab value="solid">
 
 <CodeBlockRuntime lang="tsx" code={splitterSolidNested} />
+
+    </Tab>
+    <Tab value="vue">
+
+<CodeBlockRuntime lang="vue" code={splitterVueNested} />
 
     </Tab>
   </Tabs>
@@ -308,6 +360,7 @@ by the application.
     values={[
       { label: 'React', value: 'react' },
       { label: 'Solid', value: 'solid' },
+      { label: 'Vue', value: 'vue' },
     ]}
     className="docs-tabs"
   >
@@ -320,6 +373,11 @@ by the application.
     <Tab value="solid">
 
 <CodeBlockRuntime lang="tsx" code={splitterSolidDynamicCollapsible} />
+
+    </Tab>
+    <Tab value="vue">
+
+<CodeBlockRuntime lang="vue" code={splitterVueDynamicCollapsible} />
 
     </Tab>
   </Tabs>
@@ -349,6 +407,7 @@ rendered splitter parts. The returned API includes methods such as `getSizes()`,
     values={[
       { label: 'React', value: 'react' },
       { label: 'Solid', value: 'solid' },
+      { label: 'Vue', value: 'vue' },
     ]}
     className="docs-tabs"
   >
@@ -361,6 +420,11 @@ rendered splitter parts. The returned API includes methods such as `getSizes()`,
     <Tab value="solid">
 
 <CodeBlockRuntime lang="tsx" code={splitterSolidRootProvider} />
+
+    </Tab>
+    <Tab value="vue">
+
+<CodeBlockRuntime lang="vue" code={splitterVueRootProvider} />
 
     </Tab>
   </Tabs>
@@ -389,6 +453,7 @@ resize.
     values={[
       { label: 'React', value: 'react' },
       { label: 'Solid', value: 'solid' },
+      { label: 'Vue', value: 'vue' },
     ]}
     className="docs-tabs"
   >
@@ -401,6 +466,11 @@ resize.
     <Tab value="solid">
 
 <CodeBlockRuntime lang="tsx" code={splitterSolidVertical} />
+
+    </Tab>
+    <Tab value="vue">
+
+<CodeBlockRuntime lang="vue" code={splitterVueVertical} />
 
     </Tab>
   </Tabs>
@@ -425,7 +495,7 @@ Ark exposes state through attributes such as `data-orientation`, `data-dragging`
 
 ## Styling
 
-Use `className` in React or `class` in Solid on exported parts for structural styles. Tailwind
+Use `className` in React or `class` in Solid and Vue on exported parts for structural styles. Tailwind
 variants use native utilities and consumer classes; the CSS Modules variants expose the component
 variables below. Data attributes and `data-slot` hooks are shared by both styling tracks.
 

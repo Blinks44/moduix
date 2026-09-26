@@ -57,6 +57,10 @@
       "types": "./dist/components/accordion/index.d.ts",
       "import": "./dist/components/accordion/index.js"
     },
+    "./collapsible": {
+      "types": "./dist/components/collapsible/index.d.ts",
+      "import": "./dist/components/collapsible/index.js"
+    },
     "./alert": {
       "types": "./dist/components/alert/index.d.ts",
       "import": "./dist/components/alert/index.js"
@@ -97,9 +101,17 @@
       "types": "./dist/components/checkbox/index.d.ts",
       "import": "./dist/components/checkbox/index.js"
     },
+    "./clipboard": {
+      "types": "./dist/components/clipboard/index.d.ts",
+      "import": "./dist/components/clipboard/index.js"
+    },
     "./chart": {
       "types": "./dist/components/chart/index.d.ts",
       "import": "./dist/components/chart/index.js"
+    },
+    "./color-picker": {
+      "types": "./dist/components/color-picker/index.d.ts",
+      "import": "./dist/components/color-picker/index.js"
     },
     "./bleed": {
       "types": "./dist/components/bleed/index.d.ts",
@@ -109,6 +121,14 @@
       "types": "./dist/components/menu/index.d.ts",
       "import": "./dist/components/menu/index.js"
     },
+    "./stack": {
+      "types": "./dist/components/stack/index.d.ts",
+      "import": "./dist/components/stack/index.js"
+    },
+    "./splitter": {
+      "types": "./dist/components/splitter/index.d.ts",
+      "import": "./dist/components/splitter/index.js"
+    },
     "./locale": {
       "types": "./dist/locale.d.ts",
       "import": "./dist/locale.js"
@@ -116,6 +136,10 @@
     "./close-button": {
       "types": "./dist/components/close-button/index.d.ts",
       "import": "./dist/components/close-button/index.js"
+    },
+    "./spinner": {
+      "types": "./dist/components/spinner/index.d.ts",
+      "import": "./dist/components/spinner/index.js"
     },
     "./style.css": "./dist/styles/style.css",
     "./reset.css": "./dist/styles/reset.css",

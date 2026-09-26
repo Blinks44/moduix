@@ -1,0 +1,166 @@
+import { expect, test } from '@rstest/core';
+import { render, screen } from '@testing-library/vue';
+import { renderToString } from '@vue/server-renderer';
+import { createSSRApp, defineComponent, ref } from 'vue';
+import type { ComponentPublicInstance } from 'vue';
+import { Stack } from '../src';
+
+test('renders a flex root with stable styling hooks', () => {
+  render({
+    components: { Stack },
+    template:
+      '<Stack data-part="custom" data-scope="custom" data-slot="custom" data-testid="stack" />',
+  });
+
+  const stack = screen.getByTestId('stack');
+
+  expect(stack).toHaveAttribute('data-scope', 'stack');
+  expect(stack).toHaveAttribute('data-part', 'root');
+  expect(stack).toHaveAttribute('data-slot', 'stack-root');
+});
+
+test('writes flex props and reverse directions as root styles', () => {
+  render({
+    components: { Stack },
+    template: `
+      <Stack
+        align="center"
+        :direction="{ mobile: 'column-reverse', desktop: 'row-reverse' }"
+        fill
+        :gap="12"
+        justify="space-between"
+        wrap="wrap"
+        data-testid="stack"
+      />
+    `,
+  });
+
+  const stack = screen.getByTestId('stack');
+
+  expect(stack.style.getPropertyValue('--moduix-stack-direction-mobile')).toBe('column-reverse');
+  expect(stack.style.getPropertyValue('--moduix-stack-direction-desktop')).toBe('row-reverse');
+  expect(stack.style.getPropertyValue('--moduix-stack-flex')).toBe('1 1 0%');
+  expect(stack).toHaveStyle({
+    alignItems: 'center',
+    flexWrap: 'wrap',
+    gap: '12px',
+    justifyContent: 'space-between',
+  });
+});
+
+test('cross-falls back responsive directions when only one breakpoint is provided', () => {
+  render({
+    components: { Stack },
+    template: `
+      <Stack :direction="{ desktop: 'row' }" data-testid="desktop-only" />
+      <Stack :direction="{ mobile: 'column-reverse' }" data-testid="mobile-only" />
+    `,
+  });
+
+  const desktopOnly = screen.getByTestId('desktop-only');
+  const mobileOnly = screen.getByTestId('mobile-only');
+
+  expect(desktopOnly.style.getPropertyValue('--moduix-stack-direction-mobile')).toBe('row');
+  expect(desktopOnly.style.getPropertyValue('--moduix-stack-direction-desktop')).toBe('row');
+  expect(mobileOnly.style.getPropertyValue('--moduix-stack-direction-mobile')).toBe(
+    'column-reverse',
+  );
+  expect(mobileOnly.style.getPropertyValue('--moduix-stack-direction-desktop')).toBe(
+    'column-reverse',
+  );
+});
+
+test('keeps the default direction on nested roots', () => {
+  render({
+    components: { Stack },
+    template: `
+      <Stack direction="row" data-testid="outer">
+        <Stack data-testid="inner" />
+      </Stack>
+    `,
+  });
+
+  const inner = screen.getByTestId('inner');
+
+  expect(inner.style.getPropertyValue('--moduix-stack-direction-mobile')).toBe('column');
+  expect(inner.style.getPropertyValue('--moduix-stack-direction-desktop')).toBe('column');
+});
+
+test('leaves optional layout styles unset and lets style override layout props', () => {
+  render({
+    components: { Stack },
+    template: `
+      <Stack data-testid="defaults" />
+      <Stack
+        direction="row"
+        fill
+        :gap="12"
+        wrap="wrap"
+        :style="{ gap: '2rem', flexWrap: 'nowrap' }"
+        data-testid="overridden"
+      />
+    `,
+  });
+
+  const defaults = screen.getByTestId('defaults');
+  const overridden = screen.getByTestId('overridden');
+
+  expect(defaults.style.getPropertyValue('--moduix-stack-direction-mobile')).toBe('column');
+  expect(defaults.style.getPropertyValue('--moduix-stack-direction-desktop')).toBe('column');
+  expect(defaults.style.getPropertyValue('--moduix-stack-flex')).toBe('');
+  expect(defaults.style.gap).toBe('');
+  expect(overridden).toHaveStyle({ flexWrap: 'nowrap', gap: '2rem' });
+});
+
+test('preserves semantic hosts and refs with asChild', () => {
+  const rootRef = ref<ComponentPublicInstance>();
+  const Harness = defineComponent({
+    components: { Stack },
+    setup() {
+      return { rootRef };
+    },
+    template: `
+      <Stack ref="rootRef" as-child :gap="12" class="stack-class">
+        <section aria-label="Project updates" class="section-class" style="color: red" />
+      </Stack>
+    `,
+  });
+
+  render(Harness);
+
+  const section = screen.getByRole('region', { name: 'Project updates' });
+
+  expect(rootRef.value?.$el).toBe(section);
+  expect(section.style.gap).toBe('12px');
+  expect(section).toHaveClass('section-class', 'stack-class');
+  expect(section).toHaveStyle({ color: 'red' });
+  expect(section).toHaveAttribute('data-slot', 'stack-root');
+});
+
+test('renders and hydrates a semantic asChild root without changing its host', async () => {
+  const App = defineComponent({
+    components: { Stack },
+    template: `
+      <Stack as-child direction="row" class="figure">
+        <figure aria-label="Project updates">Project updates</figure>
+      </Stack>
+    `,
+  });
+
+  const html = await renderToString(createSSRApp(App));
+  expect(html).toContain('<figure');
+  expect(html).toContain('data-slot="stack-root"');
+
+  const host = document.createElement('div');
+  host.innerHTML = html;
+  document.body.append(host);
+  const app = createSSRApp(App);
+  app.mount(host);
+
+  expect(host.querySelectorAll('figure')).toHaveLength(1);
+  expect(host.querySelector('figure')).toHaveClass('figure');
+  expect(host.querySelector('figure')).toHaveAttribute('data-slot', 'stack-root');
+
+  app.unmount();
+  host.remove();
+});

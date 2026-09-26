@@ -1,7 +1,7 @@
 ---
 title: Collapsible
 component: collapsible
-description: Un composant accessible pour déplier ou replier une seule zone de contenu avec React ou Solid.
+description: Un composant accessible pour déplier ou replier une seule zone de contenu avec React, Solid ou Vue.
 ---
 
 import * as CollapsibleDocs from '@/components/examples/collapsible/css-properties';
@@ -27,6 +27,17 @@ import collapsibleSolidPartialCollapse from '../../../snippets/collapsible/solid
 import collapsibleSolidPartialCollapseWidth from '../../../snippets/collapsible/solid/partial-collapse-width.tsx?raw';
 import collapsibleSolidRootProvider from '../../../snippets/collapsible/solid/root-provider.tsx?raw';
 import collapsibleSolidCustomComposition from '../../../snippets/collapsible/solid/custom-composition.tsx?raw';
+import collapsibleVueBasic from '../../../snippets/collapsible/vue/basic.vue?raw';
+import collapsibleVueContext from '../../../snippets/collapsible/vue/context.vue?raw';
+import collapsibleVueControlled from '../../../snippets/collapsible/vue/controlled.vue?raw';
+import collapsibleVueDefaultOpen from '../../../snippets/collapsible/vue/default-open.vue?raw';
+import collapsibleVueDisabled from '../../../snippets/collapsible/vue/disabled.vue?raw';
+import collapsibleVueLazyMount from '../../../snippets/collapsible/vue/lazy-mount.vue?raw';
+import collapsibleVueNested from '../../../snippets/collapsible/vue/nested.vue?raw';
+import collapsibleVuePartialCollapse from '../../../snippets/collapsible/vue/partial-collapse.vue?raw';
+import collapsibleVuePartialCollapseWidth from '../../../snippets/collapsible/vue/partial-collapse-width.vue?raw';
+import collapsibleVueRootProvider from '../../../snippets/collapsible/vue/root-provider.vue?raw';
+import collapsibleVueCustomComposition from '../../../snippets/collapsible/vue/custom-composition.vue?raw';
 
 ## Référence de l’API
 
@@ -55,6 +66,7 @@ interne recommandé pour les espacements et la mise en page.
     values={[
       { label: 'React', value: 'react' },
       { label: 'Solid', value: 'solid' },
+      { label: 'Vue', value: 'vue' },
     ]}
     className="docs-tabs"
   >
@@ -67,6 +79,11 @@ interne recommandé pour les espacements et la mise en page.
     <Tab value="solid">
 
 <CodeBlockRuntime lang="tsx" code={collapsibleSolidBasic} />
+
+    </Tab>
+    <Tab value="vue">
+
+<CodeBlockRuntime lang="vue" code={collapsibleVueBasic} />
 
     </Tab>
   </Tabs>
@@ -105,6 +122,16 @@ Consultez le [Démarrage rapide](/docs/quick-start) pour la configuration compl�
 />
 
   </Tab>
+  <Tab label="Vue" value="vue">
+
+<ShadcnInstallOptions
+  options={[
+    { label: 'CSS Modules', command: 'shadcn@latest add @moduix-vue/collapsible' },
+    { label: 'Tailwind CSS', command: 'shadcn@latest add @moduix-vue-tailwind/collapsible' },
+  ]}
+/>
+
+  </Tab>
   </Tabs>
 
 ## Anatomie
@@ -134,8 +161,9 @@ CollapsibleRootProvider
 ## Composition
 
 `Collapsible` conserve son état dans la racine. Utilisez `defaultOpen` pour une zone non contrôlée, ou
-`open` avec `onOpenChange(details)` lorsqu’une autre partie de l’application gère l’état. Le callback
-conserve l’objet `details` d’Ark : l’état contrôlé se lit donc avec `details.open`.
+`open` avec `onOpenChange(details)` lorsqu’une autre partie de l’application gère l’état. En Vue,
+utilisez `v-model:open` pour ce même contrat contrôlé. Le callback conserve l’objet `details` d’Ark :
+l’état contrôlé se lit donc avec `details.open`.
 
 Utilisez `CollapsibleRootProvider` avec `useCollapsible()` du paquet correspondant au framework lorsque
 le store doit être créé en dehors de l’arbre rendu ou partagé entre plusieurs limites de composition.
@@ -167,6 +195,7 @@ la zone par programmation.
     values={[
       { label: 'React', value: 'react' },
       { label: 'Solid', value: 'solid' },
+      { label: 'Vue', value: 'vue' },
     ]}
     className="docs-tabs"
   >
@@ -179,6 +208,11 @@ la zone par programmation.
     <Tab value="solid">
 
 <CodeBlockRuntime lang="tsx" code={collapsibleSolidContext} />
+
+    </Tab>
+    <Tab value="vue">
+
+<CodeBlockRuntime lang="vue" code={collapsibleVueContext} />
 
     </Tab>
   </Tabs>
@@ -208,6 +242,7 @@ gère l’état.
     values={[
       { label: 'React', value: 'react' },
       { label: 'Solid', value: 'solid' },
+      { label: 'Vue', value: 'vue' },
     ]}
     className="docs-tabs"
   >
@@ -220,6 +255,11 @@ gère l’état.
     <Tab value="solid">
 
 <CodeBlockRuntime lang="tsx" code={collapsibleSolidControlled} />
+
+    </Tab>
+    <Tab value="vue">
+
+<CodeBlockRuntime lang="vue" code={collapsibleVueControlled} />
 
     </Tab>
   </Tabs>
@@ -248,6 +288,7 @@ Définissez `defaultOpen` pour qu’un composant non contrôlé soit ouvert dès
     values={[
       { label: 'React', value: 'react' },
       { label: 'Solid', value: 'solid' },
+      { label: 'Vue', value: 'vue' },
     ]}
     className="docs-tabs"
   >
@@ -260,6 +301,11 @@ Définissez `defaultOpen` pour qu’un composant non contrôlé soit ouvert dès
     <Tab value="solid">
 
 <CodeBlockRuntime lang="tsx" code={collapsibleSolidDefaultOpen} />
+
+    </Tab>
+    <Tab value="vue">
+
+<CodeBlockRuntime lang="vue" code={collapsibleVueDefaultOpen} />
 
     </Tab>
   </Tabs>
@@ -288,6 +334,7 @@ Ajoutez `disabled` à la racine pour empêcher l’utilisateur d’ouvrir ou de 
     values={[
       { label: 'React', value: 'react' },
       { label: 'Solid', value: 'solid' },
+      { label: 'Vue', value: 'vue' },
     ]}
     className="docs-tabs"
   >
@@ -300,6 +347,11 @@ Ajoutez `disabled` à la racine pour empêcher l’utilisateur d’ouvrir ou de 
     <Tab value="solid">
 
 <CodeBlockRuntime lang="tsx" code={collapsibleSolidDisabled} />
+
+    </Tab>
+    <Tab value="vue">
+
+<CodeBlockRuntime lang="vue" code={collapsibleVueDisabled} />
 
     </Tab>
   </Tabs>
@@ -329,6 +381,7 @@ le retirer du DOM après sa fermeture.
     values={[
       { label: 'React', value: 'react' },
       { label: 'Solid', value: 'solid' },
+      { label: 'Vue', value: 'vue' },
     ]}
     className="docs-tabs"
   >
@@ -341,6 +394,11 @@ le retirer du DOM après sa fermeture.
     <Tab value="solid">
 
 <CodeBlockRuntime lang="tsx" code={collapsibleSolidLazyMount} />
+
+    </Tab>
+    <Tab value="vue">
+
+<CodeBlockRuntime lang="vue" code={collapsibleVueLazyMount} />
 
     </Tab>
   </Tabs>
@@ -369,6 +427,7 @@ Imbriquez des racines indépendantes lorsqu’une section ouverte contient un au
     values={[
       { label: 'React', value: 'react' },
       { label: 'Solid', value: 'solid' },
+      { label: 'Vue', value: 'vue' },
     ]}
     className="docs-tabs"
   >
@@ -381,6 +440,11 @@ Imbriquez des racines indépendantes lorsqu’une section ouverte contient un au
     <Tab value="solid">
 
 <CodeBlockRuntime lang="tsx" code={collapsibleSolidNested} />
+
+    </Tab>
+    <Tab value="vue">
+
+<CodeBlockRuntime lang="vue" code={collapsibleVueNested} />
 
     </Tab>
   </Tabs>
@@ -411,6 +475,7 @@ repliée. Placez donc les actions qui doivent rester disponibles en dehors de `C
     values={[
       { label: 'React', value: 'react' },
       { label: 'Solid', value: 'solid' },
+      { label: 'Vue', value: 'vue' },
     ]}
     className="docs-tabs"
   >
@@ -423,6 +488,11 @@ repliée. Placez donc les actions qui doivent rester disponibles en dehors de `C
     <Tab value="solid">
 
 <CodeBlockRuntime lang="tsx" code={collapsibleSolidPartialCollapse} />
+
+    </Tab>
+    <Tab value="vue">
+
+<CodeBlockRuntime lang="vue" code={collapsibleVuePartialCollapse} />
 
     </Tab>
   </Tabs>
@@ -451,6 +521,7 @@ Utilisez `collapsedWidth` lorsqu’un aperçu horizontal est plus utile qu’un 
     values={[
       { label: 'React', value: 'react' },
       { label: 'Solid', value: 'solid' },
+      { label: 'Vue', value: 'vue' },
     ]}
     className="docs-tabs"
   >
@@ -463,6 +534,11 @@ Utilisez `collapsedWidth` lorsqu’un aperçu horizontal est plus utile qu’un 
     <Tab value="solid">
 
 <CodeBlockRuntime lang="tsx" code={collapsibleSolidPartialCollapseWidth} />
+
+    </Tab>
+    <Tab value="vue">
+
+<CodeBlockRuntime lang="vue" code={collapsibleVuePartialCollapseWidth} />
 
     </Tab>
   </Tabs>
@@ -492,6 +568,7 @@ extérieur à l’arborescence rendue doit y accéder.
     values={[
       { label: 'React', value: 'react' },
       { label: 'Solid', value: 'solid' },
+      { label: 'Vue', value: 'vue' },
     ]}
     className="docs-tabs"
   >
@@ -504,6 +581,11 @@ extérieur à l’arborescence rendue doit y accéder.
     <Tab value="solid">
 
 <CodeBlockRuntime lang="tsx" code={collapsibleSolidRootProvider} />
+
+    </Tab>
+    <Tab value="vue">
+
+<CodeBlockRuntime lang="vue" code={collapsibleVueRootProvider} />
 
     </Tab>
   </Tabs>
@@ -534,6 +616,7 @@ les attributs d’état sont conservés.
     values={[
       { label: 'React', value: 'react' },
       { label: 'Solid', value: 'solid' },
+      { label: 'Vue', value: 'vue' },
     ]}
     className="docs-tabs"
   >
@@ -546,6 +629,11 @@ les attributs d’état sont conservés.
     <Tab value="solid">
 
 <CodeBlockRuntime lang="tsx" code={collapsibleSolidCustomComposition} />
+
+    </Tab>
+    <Tab value="vue">
+
+<CodeBlockRuntime lang="vue" code={collapsibleVueCustomComposition} />
 
     </Tab>
   </Tabs>

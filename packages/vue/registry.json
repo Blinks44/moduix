@@ -25,6 +25,66 @@
       "registryDependencies": ["@moduix-vue/foundation"]
     },
     {
+      "name": "clipboard",
+      "type": "registry:item",
+      "title": "Clipboard",
+      "description": "moduix Vue Clipboard component.",
+      "dependencies": ["@ark-ui/vue", "clsx"],
+      "registryDependencies": ["@moduix-vue/foundation", "@moduix-vue/icons"],
+      "files": [
+        {
+          "path": "src/components/clipboard/Clipboard.vue",
+          "target": "@components/ui/clipboard/Clipboard.vue",
+          "type": "registry:component"
+        },
+        {
+          "path": "src/components/clipboard/ClipboardRootProvider.vue",
+          "target": "@components/ui/clipboard/ClipboardRootProvider.vue",
+          "type": "registry:component"
+        },
+        {
+          "path": "src/components/clipboard/ClipboardLabel.vue",
+          "target": "@components/ui/clipboard/ClipboardLabel.vue",
+          "type": "registry:component"
+        },
+        {
+          "path": "src/components/clipboard/ClipboardControl.vue",
+          "target": "@components/ui/clipboard/ClipboardControl.vue",
+          "type": "registry:component"
+        },
+        {
+          "path": "src/components/clipboard/ClipboardInput.vue",
+          "target": "@components/ui/clipboard/ClipboardInput.vue",
+          "type": "registry:component"
+        },
+        {
+          "path": "src/components/clipboard/ClipboardTrigger.vue",
+          "target": "@components/ui/clipboard/ClipboardTrigger.vue",
+          "type": "registry:component"
+        },
+        {
+          "path": "src/components/clipboard/ClipboardIndicator.vue",
+          "target": "@components/ui/clipboard/ClipboardIndicator.vue",
+          "type": "registry:component"
+        },
+        {
+          "path": "src/components/clipboard/ClipboardValueText.vue",
+          "target": "@components/ui/clipboard/ClipboardValueText.vue",
+          "type": "registry:component"
+        },
+        {
+          "path": "src/components/clipboard/Clipboard.module.css",
+          "target": "@components/ui/clipboard/Clipboard.module.css",
+          "type": "registry:file"
+        },
+        {
+          "path": "src/components/clipboard/index.ts",
+          "target": "@components/ui/clipboard/index.ts",
+          "type": "registry:component"
+        }
+      ]
+    },
+    {
       "name": "accordion",
       "type": "registry:item",
       "title": "Accordion",
@@ -75,6 +135,56 @@
         {
           "path": "src/components/accordion/index.ts",
           "target": "@components/ui/accordion/index.ts",
+          "type": "registry:component"
+        }
+      ]
+    },
+    {
+      "name": "collapsible",
+      "type": "registry:item",
+      "title": "Collapsible",
+      "description": "moduix Vue Collapsible component.",
+      "dependencies": ["@ark-ui/vue", "clsx"],
+      "registryDependencies": ["@moduix-vue/foundation", "@moduix-vue/icons"],
+      "files": [
+        {
+          "path": "src/components/collapsible/Collapsible.vue",
+          "target": "@components/ui/collapsible/Collapsible.vue",
+          "type": "registry:component"
+        },
+        {
+          "path": "src/components/collapsible/CollapsibleRootProvider.vue",
+          "target": "@components/ui/collapsible/CollapsibleRootProvider.vue",
+          "type": "registry:component"
+        },
+        {
+          "path": "src/components/collapsible/CollapsibleTrigger.vue",
+          "target": "@components/ui/collapsible/CollapsibleTrigger.vue",
+          "type": "registry:component"
+        },
+        {
+          "path": "src/components/collapsible/CollapsibleIndicator.vue",
+          "target": "@components/ui/collapsible/CollapsibleIndicator.vue",
+          "type": "registry:component"
+        },
+        {
+          "path": "src/components/collapsible/CollapsibleContent.vue",
+          "target": "@components/ui/collapsible/CollapsibleContent.vue",
+          "type": "registry:component"
+        },
+        {
+          "path": "src/components/collapsible/CollapsibleBody.vue",
+          "target": "@components/ui/collapsible/CollapsibleBody.vue",
+          "type": "registry:component"
+        },
+        {
+          "path": "src/components/collapsible/Collapsible.module.css",
+          "target": "@components/ui/collapsible/Collapsible.module.css",
+          "type": "registry:file"
+        },
+        {
+          "path": "src/components/collapsible/index.ts",
+          "target": "@components/ui/collapsible/index.ts",
           "type": "registry:component"
         }
       ]
@@ -784,6 +894,101 @@
       ]
     },
     {
+      "name": "spinner",
+      "type": "registry:item",
+      "title": "Spinner",
+      "description": "moduix Vue Spinner component.",
+      "dependencies": ["@ark-ui/vue", "clsx"],
+      "registryDependencies": ["@moduix-vue/foundation"],
+      "files": [
+        {
+          "path": "src/components/spinner/Spinner.vue",
+          "target": "@components/ui/spinner/Spinner.vue",
+          "type": "registry:component"
+        },
+        {
+          "path": "src/components/spinner/Spinner.module.css",
+          "target": "@components/ui/spinner/Spinner.module.css",
+          "type": "registry:file"
+        },
+        {
+          "path": "src/components/spinner/index.ts",
+          "target": "@components/ui/spinner/index.ts",
+          "type": "registry:component"
+        }
+      ]
+    },
+    {
+      "name": "stack",
+      "type": "registry:item",
+      "title": "Stack",
+      "description": "moduix Vue Stack component.",
+      "dependencies": ["@ark-ui/vue", "clsx"],
+      "registryDependencies": ["@moduix-vue/foundation"],
+      "files": [
+        {
+          "path": "src/components/stack/Stack.vue",
+          "target": "@components/ui/stack/Stack.vue",
+          "type": "registry:component"
+        },
+        {
+          "path": "src/components/stack/Stack.module.css",
+          "target": "@components/ui/stack/Stack.module.css",
+          "type": "registry:file"
+        },
+        {
+          "path": "src/components/stack/index.ts",
+          "target": "@components/ui/stack/index.ts",
+          "type": "registry:component"
+        }
+      ]
+    },
+    {
+      "name": "splitter",
+      "type": "registry:item",
+      "title": "Splitter",
+      "description": "moduix Vue Splitter component.",
+      "dependencies": ["@ark-ui/vue", "clsx"],
+      "registryDependencies": ["@moduix-vue/foundation"],
+      "files": [
+        {
+          "path": "src/components/splitter/Splitter.vue",
+          "target": "@components/ui/splitter/Splitter.vue",
+          "type": "registry:component"
+        },
+        {
+          "path": "src/components/splitter/SplitterRootProvider.vue",
+          "target": "@components/ui/splitter/SplitterRootProvider.vue",
+          "type": "registry:component"
+        },
+        {
+          "path": "src/components/splitter/SplitterPanel.vue",
+          "target": "@components/ui/splitter/SplitterPanel.vue",
+          "type": "registry:component"
+        },
+        {
+          "path": "src/components/splitter/SplitterResizeTrigger.vue",
+          "target": "@components/ui/splitter/SplitterResizeTrigger.vue",
+          "type": "registry:component"
+        },
+        {
+          "path": "src/components/splitter/SplitterResizeTriggerIndicator.vue",
+          "target": "@components/ui/splitter/SplitterResizeTriggerIndicator.vue",
+          "type": "registry:component"
+        },
+        {
+          "path": "src/components/splitter/Splitter.module.css",
+          "target": "@components/ui/splitter/Splitter.module.css",
+          "type": "registry:file"
+        },
+        {
+          "path": "src/components/splitter/index.ts",
+          "target": "@components/ui/splitter/index.ts",
+          "type": "registry:component"
+        }
+      ]
+    },
+    {
       "name": "close-button",
       "type": "registry:item",
       "title": "CloseButton",
@@ -859,6 +1064,170 @@
         {
           "path": "src/components/chart/index.ts",
           "target": "@components/ui/chart/index.ts",
+          "type": "registry:component"
+        }
+      ]
+    },
+    {
+      "name": "color-picker",
+      "type": "registry:item",
+      "title": "ColorPicker",
+      "description": "moduix Vue ColorPicker component.",
+      "dependencies": ["@ark-ui/vue", "clsx"],
+      "registryDependencies": [
+        "@moduix-vue/foundation",
+        "@moduix-vue/icons",
+        "@moduix-vue/overlay-portal"
+      ],
+      "files": [
+        {
+          "path": "src/components/color-picker/ColorPicker.vue",
+          "target": "@components/ui/color-picker/ColorPicker.vue",
+          "type": "registry:component"
+        },
+        {
+          "path": "src/components/color-picker/ColorPickerRootProvider.vue",
+          "target": "@components/ui/color-picker/ColorPickerRootProvider.vue",
+          "type": "registry:component"
+        },
+        {
+          "path": "src/components/color-picker/ColorPickerLabel.vue",
+          "target": "@components/ui/color-picker/ColorPickerLabel.vue",
+          "type": "registry:component"
+        },
+        {
+          "path": "src/components/color-picker/ColorPickerControl.vue",
+          "target": "@components/ui/color-picker/ColorPickerControl.vue",
+          "type": "registry:component"
+        },
+        {
+          "path": "src/components/color-picker/ColorPickerTrigger.vue",
+          "target": "@components/ui/color-picker/ColorPickerTrigger.vue",
+          "type": "registry:component"
+        },
+        {
+          "path": "src/components/color-picker/ColorPickerPositioner.vue",
+          "target": "@components/ui/color-picker/ColorPickerPositioner.vue",
+          "type": "registry:component"
+        },
+        {
+          "path": "src/components/color-picker/ColorPickerContent.vue",
+          "target": "@components/ui/color-picker/ColorPickerContent.vue",
+          "type": "registry:component"
+        },
+        {
+          "path": "src/components/color-picker/ColorPickerArea.vue",
+          "target": "@components/ui/color-picker/ColorPickerArea.vue",
+          "type": "registry:component"
+        },
+        {
+          "path": "src/components/color-picker/ColorPickerAreaBackground.vue",
+          "target": "@components/ui/color-picker/ColorPickerAreaBackground.vue",
+          "type": "registry:component"
+        },
+        {
+          "path": "src/components/color-picker/ColorPickerAreaThumb.vue",
+          "target": "@components/ui/color-picker/ColorPickerAreaThumb.vue",
+          "type": "registry:component"
+        },
+        {
+          "path": "src/components/color-picker/ColorPickerChannelSlider.vue",
+          "target": "@components/ui/color-picker/ColorPickerChannelSlider.vue",
+          "type": "registry:component"
+        },
+        {
+          "path": "src/components/color-picker/ColorPickerSliders.vue",
+          "target": "@components/ui/color-picker/ColorPickerSliders.vue",
+          "type": "registry:component"
+        },
+        {
+          "path": "src/components/color-picker/ColorPickerChannelSliderTrack.vue",
+          "target": "@components/ui/color-picker/ColorPickerChannelSliderTrack.vue",
+          "type": "registry:component"
+        },
+        {
+          "path": "src/components/color-picker/ColorPickerChannelSliderThumb.vue",
+          "target": "@components/ui/color-picker/ColorPickerChannelSliderThumb.vue",
+          "type": "registry:component"
+        },
+        {
+          "path": "src/components/color-picker/ColorPickerChannelSliderLabel.vue",
+          "target": "@components/ui/color-picker/ColorPickerChannelSliderLabel.vue",
+          "type": "registry:component"
+        },
+        {
+          "path": "src/components/color-picker/ColorPickerChannelSliderValueText.vue",
+          "target": "@components/ui/color-picker/ColorPickerChannelSliderValueText.vue",
+          "type": "registry:component"
+        },
+        {
+          "path": "src/components/color-picker/ColorPickerChannelInput.vue",
+          "target": "@components/ui/color-picker/ColorPickerChannelInput.vue",
+          "type": "registry:component"
+        },
+        {
+          "path": "src/components/color-picker/ColorPickerEyeDropperTrigger.vue",
+          "target": "@components/ui/color-picker/ColorPickerEyeDropperTrigger.vue",
+          "type": "registry:component"
+        },
+        {
+          "path": "src/components/color-picker/ColorPickerFormatSelect.vue",
+          "target": "@components/ui/color-picker/ColorPickerFormatSelect.vue",
+          "type": "registry:component"
+        },
+        {
+          "path": "src/components/color-picker/ColorPickerFormatTrigger.vue",
+          "target": "@components/ui/color-picker/ColorPickerFormatTrigger.vue",
+          "type": "registry:component"
+        },
+        {
+          "path": "src/components/color-picker/ColorPickerSwatchGroup.vue",
+          "target": "@components/ui/color-picker/ColorPickerSwatchGroup.vue",
+          "type": "registry:component"
+        },
+        {
+          "path": "src/components/color-picker/ColorPickerSwatchTrigger.vue",
+          "target": "@components/ui/color-picker/ColorPickerSwatchTrigger.vue",
+          "type": "registry:component"
+        },
+        {
+          "path": "src/components/color-picker/ColorPickerSwatch.vue",
+          "target": "@components/ui/color-picker/ColorPickerSwatch.vue",
+          "type": "registry:component"
+        },
+        {
+          "path": "src/components/color-picker/ColorPickerSwatchIndicator.vue",
+          "target": "@components/ui/color-picker/ColorPickerSwatchIndicator.vue",
+          "type": "registry:component"
+        },
+        {
+          "path": "src/components/color-picker/ColorPickerTransparencyGrid.vue",
+          "target": "@components/ui/color-picker/ColorPickerTransparencyGrid.vue",
+          "type": "registry:component"
+        },
+        {
+          "path": "src/components/color-picker/ColorPickerValueSwatch.vue",
+          "target": "@components/ui/color-picker/ColorPickerValueSwatch.vue",
+          "type": "registry:component"
+        },
+        {
+          "path": "src/components/color-picker/ColorPickerValueText.vue",
+          "target": "@components/ui/color-picker/ColorPickerValueText.vue",
+          "type": "registry:component"
+        },
+        {
+          "path": "src/components/color-picker/ColorPickerView.vue",
+          "target": "@components/ui/color-picker/ColorPickerView.vue",
+          "type": "registry:component"
+        },
+        {
+          "path": "src/components/color-picker/ColorPicker.module.css",
+          "target": "@components/ui/color-picker/ColorPicker.module.css",
+          "type": "registry:file"
+        },
+        {
+          "path": "src/components/color-picker/index.ts",
+          "target": "@components/ui/color-picker/index.ts",
           "type": "registry:component"
         }
       ]
