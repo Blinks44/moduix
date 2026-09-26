@@ -3,6 +3,7 @@
 export * from './components/accordion';
 export * from './components/collapsible';
 export * from './components/dialog';
+export * from './components/field';
 export * from './components/alert';
 export * from './components/angle-slider';
 export * from './components/aspect-ratio';
@@ -16,6 +17,7 @@ export * from './components/card';
 export * from './components/carousel';
 export * from './components/bleed';
 export * from './components/checkbox';
+export * from './components/fieldset';
 export * from './components/clipboard';
 export * from './components/chart';
 export * from './components/color-picker';

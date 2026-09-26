@@ -1,5 +1,4 @@
 <script setup lang="ts">
-import { FieldLabel, FieldRoot } from '@ark-ui/vue/field';
 import { Button } from '@moduix/vue/button';
 import {
   DialogBackdrop,
@@ -14,6 +13,7 @@ import {
   DialogTitle,
   useDialog,
 } from '@moduix/vue/dialog';
+import { Field, FieldLabel } from '@moduix/vue/field';
 import { computed, ref } from 'vue';
 
 const formContent = ref('');
@@ -50,10 +50,10 @@ const handleDiscard = () => {
         <DialogCloseIcon />
         <DialogDescription>Unsaved changes ask for confirmation before closing.</DialogDescription>
         <DialogBody>
-          <FieldRoot>
+          <Field>
             <FieldLabel>Content</FieldLabel>
             <textarea v-model="formContent" placeholder="Enter some text..." rows="4" />
-          </FieldRoot>
+          </Field>
         </DialogBody>
       </DialogContent>
     </DialogPositioner>

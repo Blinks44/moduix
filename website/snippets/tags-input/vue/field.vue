@@ -1,5 +1,5 @@
 <script setup lang="ts">
-import { FieldErrorText, FieldHelperText, FieldRoot } from '@ark-ui/vue/field';
+import { Field, FieldErrorText, FieldHelperText } from '@moduix/vue/field';
 import {
   TagsInput,
   TagsInputClearTrigger,
@@ -13,7 +13,7 @@ import styles from '@/components/examples/tags-input/tags-input-field.module.css
 </script>
 
 <template>
-  <FieldRoot :class="styles.root" invalid required>
+  <Field :class="styles.root" invalid required>
     <TagsInput :default-value="['api']" name="topics">
       <TagsInputLabel>Topics</TagsInputLabel>
       <TagsInputControl>
@@ -25,5 +25,5 @@ import styles from '@/components/examples/tags-input/tags-input-field.module.css
     </TagsInput>
     <FieldHelperText>Add at least one topic.</FieldHelperText>
     <FieldErrorText>Topics are required.</FieldErrorText>
-  </FieldRoot>
+  </Field>
 </template>

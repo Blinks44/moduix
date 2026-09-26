@@ -1,5 +1,6 @@
 import type { Meta, StoryObj } from '@storybook/vue3-vite';
 import { defineComponent } from 'vue';
+import type { Component } from 'vue';
 import { Badge } from '@/components/badge';
 import { Button } from '@/components/button';
 import {
@@ -14,6 +15,7 @@ import {
   CardMedia,
   CardTitle,
 } from '@/components/card';
+import { Input } from '@/components/input';
 import styles from './Card.stories.module.css';
 
 const meta = {
@@ -44,7 +46,8 @@ const storyComponents = {
   CardLink,
   CardMedia,
   CardTitle,
-};
+  Input,
+} as Record<string, Component>;
 
 function renderStory(template: string) {
   return () =>
@@ -146,8 +149,8 @@ export const WithinForm: Story = {
         <CardHeader><CardTitle>Create account</CardTitle><CardDescription>Enter the contact details for the new member.</CardDescription></CardHeader>
         <CardBody>
           <div :class="styles.formGrid">
-            <label :class="styles.formField">First name<input name="firstName" /></label>
-            <label :class="styles.formField">Last name<input name="lastName" /></label>
+            <label>First name<Input name="firstName" /></label>
+            <label>Last name<Input name="lastName" /></label>
           </div>
         </CardBody>
         <CardFooter><Button type="reset" variant="outline">Cancel</Button><Button type="submit">Create account</Button></CardFooter>

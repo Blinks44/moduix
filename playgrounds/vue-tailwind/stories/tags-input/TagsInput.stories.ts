@@ -1,7 +1,7 @@
-import { FieldErrorText, FieldHelperText, FieldRoot } from '@ark-ui/vue/field';
 import type { Meta, StoryObj } from '@storybook/vue3-vite';
 import { defineComponent, ref, useId } from 'vue';
 import type { Component } from 'vue';
+import { Field, FieldErrorText, FieldHelperText } from '@/components/field';
 import {
   TagsInput,
   TagsInputClearTrigger,
@@ -35,7 +35,7 @@ const clearButtonClass =
 const storyComponents = {
   FieldErrorText,
   FieldHelperText,
-  FieldRoot,
+  Field,
   TagsInput,
   TagsInputClearTrigger,
   TagsInputControl,
@@ -168,7 +168,7 @@ export const MaxWithOverflow: Story = {
 
 export const WithFieldValidation: Story = {
   render: renderStory(`
-    <FieldRoot :class="fieldClass" invalid required>
+    <Field :class="fieldClass" invalid required>
       <TagsInput :default-value="['api']" name="topics">
         <TagsInputLabel>Topics</TagsInputLabel>
         <TagsInputControl>
@@ -180,7 +180,7 @@ export const WithFieldValidation: Story = {
       </TagsInput>
       <FieldHelperText>Add at least one topic.</FieldHelperText>
       <FieldErrorText>Topics are required.</FieldErrorText>
-    </FieldRoot>
+    </Field>
   `),
 };
 

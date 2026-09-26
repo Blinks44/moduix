@@ -19,6 +19,13 @@ import fieldsetSolidField from '../../../snippets/fieldset/solid/field.tsx?raw';
 import fieldsetSolidInputWithSelect from '../../../snippets/fieldset/solid/input-with-select.tsx?raw';
 import fieldsetSolidInvalid from '../../../snippets/fieldset/solid/invalid.tsx?raw';
 import fieldsetSolidRootProvider from '../../../snippets/fieldset/solid/root-provider.tsx?raw';
+import fieldsetVueBasic from '../../../snippets/fieldset/vue/basic.vue?raw';
+import fieldsetVueCheckbox from '../../../snippets/fieldset/vue/checkbox.vue?raw';
+import fieldsetVueDisabled from '../../../snippets/fieldset/vue/disabled.vue?raw';
+import fieldsetVueField from '../../../snippets/fieldset/vue/field.vue?raw';
+import fieldsetVueInputWithSelect from '../../../snippets/fieldset/vue/input-with-select.vue?raw';
+import fieldsetVueInvalid from '../../../snippets/fieldset/vue/invalid.vue?raw';
+import fieldsetVueRootProvider from '../../../snippets/fieldset/vue/root-provider.vue?raw';
 
 ## API Reference
 
@@ -33,8 +40,9 @@ text, and validation message.
 ## Basic
 
 
-Import `Fieldset` from `@moduix/react/fieldset` or `@moduix/solid/fieldset` for CSS Modules, and from
-`@moduix/react-tailwind/fieldset` or `@moduix/solid-tailwind/fieldset` for Tailwind CSS.
+Import `Fieldset` from `@moduix/react/fieldset`, `@moduix/solid/fieldset`, or `@moduix/vue/fieldset`
+for CSS Modules, and from `@moduix/react-tailwind/fieldset`, `@moduix/solid-tailwind/fieldset`, or
+`@moduix/vue-tailwind/fieldset` for Tailwind CSS.
 
 Build a group with `Fieldset`, `FieldsetLegend`, the related controls, and optional helper or error
 text. `Fieldset` is the root component for the group.
@@ -50,6 +58,7 @@ text. `Fieldset` is the root component for the group.
     values={[
       { label: 'React', value: 'react' },
       { label: 'Solid', value: 'solid' },
+      { label: 'Vue', value: 'vue' },
     ]}
     className="docs-tabs"
   >
@@ -62,6 +71,11 @@ text. `Fieldset` is the root component for the group.
     <Tab value="solid">
 
 <CodeBlockRuntime lang="tsx" code={fieldsetSolidBasic} />
+
+    </Tab>
+    <Tab value="vue">
+
+<CodeBlockRuntime lang="vue" code={fieldsetVueBasic} />
 
     </Tab>
   </Tabs>
@@ -95,6 +109,16 @@ See [Quick Start](/docs/quick-start) for full package setup, registry configurat
   options={[
     { label: 'CSS Modules', command: 'shadcn@latest add @moduix-solid/fieldset' },
     { label: 'Tailwind CSS', command: 'shadcn@latest add @moduix-solid-tailwind/fieldset' },
+  ]}
+/>
+
+  </Tab>
+  <Tab label="Vue" value="vue">
+
+<ShadcnInstallOptions
+  options={[
+    { label: 'CSS Modules', command: 'shadcn@latest add @moduix-vue/fieldset' },
+    { label: 'Tailwind CSS', command: 'shadcn@latest add @moduix-vue-tailwind/fieldset' },
   ]}
 />
 
@@ -150,6 +174,7 @@ checkbox that needs native focus, form submission, and form reset behavior.
     values={[
       { label: 'React', value: 'react' },
       { label: 'Solid', value: 'solid' },
+      { label: 'Vue', value: 'vue' },
     ]}
     className="docs-tabs"
   >
@@ -162,6 +187,11 @@ checkbox that needs native focus, form submission, and form reset behavior.
     <Tab value="solid">
 
 <CodeBlockRuntime lang="tsx" code={fieldsetSolidCheckbox} />
+
+    </Tab>
+    <Tab value="vue">
+
+<CodeBlockRuntime lang="vue" code={fieldsetVueCheckbox} />
 
     </Tab>
   </Tabs>
@@ -190,6 +220,7 @@ state from the fieldset context.
     values={[
       { label: 'React', value: 'react' },
       { label: 'Solid', value: 'solid' },
+      { label: 'Vue', value: 'vue' },
     ]}
     className="docs-tabs"
   >
@@ -202,6 +233,11 @@ state from the fieldset context.
     <Tab value="solid">
 
 <CodeBlockRuntime lang="tsx" code={fieldsetSolidDisabled} />
+
+    </Tab>
+    <Tab value="vue">
+
+<CodeBlockRuntime lang="vue" code={fieldsetVueDisabled} />
 
     </Tab>
   </Tabs>
@@ -230,6 +266,7 @@ to the shared legend.
     values={[
       { label: 'React', value: 'react' },
       { label: 'Solid', value: 'solid' },
+      { label: 'Vue', value: 'vue' },
     ]}
     className="docs-tabs"
   >
@@ -242,6 +279,11 @@ to the shared legend.
     <Tab value="solid">
 
 <CodeBlockRuntime lang="tsx" code={fieldsetSolidField} />
+
+    </Tab>
+    <Tab value="vue">
+
+<CodeBlockRuntime lang="vue" code={fieldsetVueField} />
 
     </Tab>
   </Tabs>
@@ -270,6 +312,7 @@ one phone number.
     values={[
       { label: 'React', value: 'react' },
       { label: 'Solid', value: 'solid' },
+      { label: 'Vue', value: 'vue' },
     ]}
     className="docs-tabs"
   >
@@ -282,6 +325,11 @@ one phone number.
     <Tab value="solid">
 
 <CodeBlockRuntime lang="tsx" code={fieldsetSolidInputWithSelect} />
+
+    </Tab>
+    <Tab value="vue">
+
+<CodeBlockRuntime lang="vue" code={fieldsetVueInputWithSelect} />
 
     </Tab>
   </Tabs>
@@ -310,6 +358,7 @@ on nested `Field` components as well when individual controls need their own inv
     values={[
       { label: 'React', value: 'react' },
       { label: 'Solid', value: 'solid' },
+      { label: 'Vue', value: 'vue' },
     ]}
     className="docs-tabs"
   >
@@ -322,6 +371,11 @@ on nested `Field` components as well when individual controls need their own inv
     <Tab value="solid">
 
 <CodeBlockRuntime lang="tsx" code={fieldsetSolidInvalid} />
+
+    </Tab>
+    <Tab value="vue">
+
+<CodeBlockRuntime lang="vue" code={fieldsetVueInvalid} />
 
     </Tab>
   </Tabs>
@@ -350,6 +404,7 @@ it with sibling controls or reusable descendants.
     values={[
       { label: 'React', value: 'react' },
       { label: 'Solid', value: 'solid' },
+      { label: 'Vue', value: 'vue' },
     ]}
     className="docs-tabs"
   >
@@ -362,6 +417,11 @@ it with sibling controls or reusable descendants.
     <Tab value="solid">
 
 <CodeBlockRuntime lang="tsx" code={fieldsetSolidRootProvider} />
+
+    </Tab>
+    <Tab value="vue">
+
+<CodeBlockRuntime lang="vue" code={fieldsetVueRootProvider} />
 
     </Tab>
   </Tabs>
@@ -394,6 +454,6 @@ it with sibling controls or reusable descendants.
 
 Every DOM part has Ark's `data-scope="fieldset"` and a `data-part` that matches the anatomy. The root
 and legend expose `data-disabled` and `data-invalid`; moduix also adds `data-slot="fieldset-*"` hooks.
-Use `className` in React or `class` in Solid for local overrides. CSS Modules packages use the
+Use `className` in React or `class` in Solid and Vue for local overrides. CSS Modules packages use the
 `--moduix-fieldset-*` variables below for theme-level customization, while Tailwind packages use
 utilities and consumer class overrides.

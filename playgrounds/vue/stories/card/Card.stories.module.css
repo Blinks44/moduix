@@ -108,39 +108,17 @@
 .formGrid {
   display: grid;
   gap: var(--moduix-spacing-3);
-}
 
-.formField {
-  display: grid;
-  gap: var(--moduix-spacing-1);
-  color: var(--moduix-color-foreground);
-  font-weight: var(--moduix-weight-medium);
-}
+  & label {
+    display: grid;
+    gap: var(--moduix-spacing-1);
+    color: var(--moduix-color-foreground);
+    font-weight: var(--moduix-weight-medium);
+  }
 
-.formField input {
-  box-sizing: border-box;
-  width: 100%;
-  min-height: var(--moduix-size-md);
-  margin: 0;
-  min-width: 0;
-  border: var(--moduix-border-width-sm) solid var(--moduix-color-border);
-  border-radius: var(--moduix-radius-md);
-  background: var(--moduix-color-background);
-  padding: var(--moduix-spacing-1) var(--moduix-spacing-3);
-  color: var(--moduix-color-foreground);
-  font: inherit;
-  font-size: var(--moduix-text-md);
-  line-height: var(--moduix-line-height-text-md);
-  outline: var(--moduix-border-width-sm) solid transparent;
-  outline-offset: calc(0px - var(--moduix-border-width-sm));
-  transition:
-    border-color var(--moduix-transition-default),
-    outline-color var(--moduix-transition-default),
-    opacity var(--moduix-transition-default);
-}
-
-.formField input:focus-visible {
-  outline-color: var(--moduix-color-ring);
+  & [data-slot='input-root'] {
+    min-width: 0;
+  }
 }
 
 .profile {

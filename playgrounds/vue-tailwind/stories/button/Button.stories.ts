@@ -3,6 +3,7 @@ import type { Meta, StoryObj } from '@storybook/vue3-vite';
 import { defineComponent, ref } from 'vue';
 import type { ComponentPublicInstance } from 'vue';
 import { Button } from '@/components/button';
+import { Spinner } from '@/components/spinner';
 
 const meta = {
   title: 'Components/Button',
@@ -33,7 +34,7 @@ const variants = [
 
 const sizes = ['xs', 'sm', 'md', 'lg', 'xl'] as const;
 
-const buttonComponents = { Button, Plus };
+const buttonComponents = { Button, Plus, Spinner };
 
 function renderStory(template: string, setup: () => Record<string, unknown> = () => ({})) {
   return () =>
@@ -150,7 +151,7 @@ export const AsChildLink: Story = {
   `),
 };
 
-export const Ref: Story = {
+export const ForwardedRef: Story = {
   render: renderStory(
     `
       <div :class="rowClassName">
@@ -174,12 +175,7 @@ export const PendingState: Story = {
   render: renderStory(
     `
       <Button :loading="pending" @click="save">
-        <span
-          v-if="pending"
-          class="box-border size-4 shrink-0 animate-[var(--moduix-animation-spin)] rounded-full border-2 border-solid border-current/[22%] [border-block-start-color:currentColor]"
-          role="presentation"
-          aria-hidden="true"
-        ></span>
+        <Spinner v-if="pending" decorative size="sm" />
         {{ pending ? 'Saving' : 'Save Changes' }}
       </Button>
     `,

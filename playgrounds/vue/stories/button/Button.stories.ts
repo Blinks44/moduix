@@ -3,6 +3,7 @@ import type { Meta, StoryObj } from '@storybook/vue3-vite';
 import { defineComponent, ref } from 'vue';
 import type { ComponentPublicInstance } from 'vue';
 import { Button } from '@/components/button';
+import { Spinner } from '@/components/spinner';
 import styles from './Button.stories.module.css';
 
 const meta = {
@@ -30,7 +31,7 @@ const variants = [
 
 const sizes = ['xs', 'sm', 'md', 'lg', 'xl'] as const;
 
-const buttonComponents = { Button, Plus };
+const buttonComponents = { Button, Plus, Spinner };
 
 function renderStory(template: string, setup: () => Record<string, unknown> = () => ({ styles })) {
   return () =>
@@ -144,7 +145,7 @@ export const AsChildLink: Story = {
   `),
 };
 
-export const Ref: Story = {
+export const ForwardedRef: Story = {
   render: renderStory(
     `
       <div :class="styles.row">
@@ -166,7 +167,7 @@ export const Ref: Story = {
 
 export const PendingState: Story = {
   render: renderStory(
-    '<Button :loading="pending" @click="save"><span v-if="pending" :class="styles.spinner" role="presentation" aria-hidden="true"></span>{{ pending ? \'Saving\' : \'Save Changes\' }}</Button>',
+    '<Button :loading="pending" @click="save"><Spinner v-if="pending" decorative size="sm" />{{ pending ? \'Saving\' : \'Save Changes\' }}</Button>',
     () => {
       const pending = ref(false);
       const save = () => {

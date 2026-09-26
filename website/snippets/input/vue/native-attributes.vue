@@ -1,11 +1,11 @@
 <script setup lang="ts">
-import { FieldLabel, FieldRoot } from '@ark-ui/vue/field';
+import { Field, FieldLabel } from '@moduix/vue/field';
 import { Input } from '@moduix/vue/input';
 import styles from '@/components/examples/input/input-native-attributes.module.css';
 </script>
 
 <template>
-  <FieldRoot :class="styles.root">
+  <Field :class="styles.root">
     <FieldLabel>Security code</FieldLabel>
     <Input
       :html-size="8"
@@ -15,5 +15,5 @@ import styles from '@/components/examples/input/input-native-attributes.module.c
       autocomplete="one-time-code"
       placeholder="000000"
     />
-  </FieldRoot>
+  </Field>
 </template>

@@ -1,5 +1,4 @@
 <script setup lang="ts">
-import { FieldLabel, FieldRoot } from '@ark-ui/vue/field';
 import { Button } from '@moduix/vue/button';
 import {
   Dialog,
@@ -11,6 +10,7 @@ import {
   DialogTitle,
   DialogTrigger,
 } from '@moduix/vue/dialog';
+import { Field, FieldLabel } from '@moduix/vue/field';
 import { ref } from 'vue';
 
 const inputRef = ref<HTMLInputElement | null>(null);
@@ -31,10 +31,10 @@ const finalFocusRef = ref<HTMLElement | null>(null);
       <DialogContent>
         <DialogTitle>Edit profile</DialogTitle>
         <DialogBody>
-          <FieldRoot>
+          <Field>
             <FieldLabel>Name</FieldLabel>
             <input ref="inputRef" />
-          </FieldRoot>
+          </Field>
         </DialogBody>
         <DialogCloseIcon />
       </DialogContent>

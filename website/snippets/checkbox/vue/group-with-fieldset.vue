@@ -1,5 +1,4 @@
 <script setup lang="ts">
-import { FieldsetLegend, FieldsetRoot } from '@ark-ui/vue/fieldset';
 import {
   Checkbox,
   CheckboxControl,
@@ -7,6 +6,7 @@ import {
   CheckboxHiddenInput,
   CheckboxLabel,
 } from '@moduix/vue/checkbox';
+import { Fieldset, FieldsetLegend } from '@moduix/vue/fieldset';
 import styles from '@/components/examples/checkbox/checkbox-group-with-fieldset.module.css';
 
 const options = [
@@ -19,7 +19,7 @@ const defaultValue = ['react'];
 </script>
 
 <template>
-  <FieldsetRoot :class="styles.root">
+  <Fieldset :class="styles.root">
     <FieldsetLegend>Frameworks</FieldsetLegend>
     <CheckboxGroup :default-value="defaultValue" name="frameworks">
       <Checkbox v-for="option in options" :key="option.value" :value="option.value">
@@ -28,5 +28,5 @@ const defaultValue = ['react'];
         <CheckboxHiddenInput />
       </Checkbox>
     </CheckboxGroup>
-  </FieldsetRoot>
+  </Fieldset>
 </template>

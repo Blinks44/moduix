@@ -140,6 +140,51 @@
       ]
     },
     {
+      "name": "fieldset",
+      "type": "registry:item",
+      "title": "Fieldset",
+      "description": "moduix Vue Fieldset component.",
+      "dependencies": ["@ark-ui/vue", "clsx"],
+      "registryDependencies": ["@moduix-vue/foundation"],
+      "files": [
+        {
+          "path": "src/components/fieldset/Fieldset.vue",
+          "target": "@components/ui/fieldset/Fieldset.vue",
+          "type": "registry:component"
+        },
+        {
+          "path": "src/components/fieldset/FieldsetRootProvider.vue",
+          "target": "@components/ui/fieldset/FieldsetRootProvider.vue",
+          "type": "registry:component"
+        },
+        {
+          "path": "src/components/fieldset/FieldsetLegend.vue",
+          "target": "@components/ui/fieldset/FieldsetLegend.vue",
+          "type": "registry:component"
+        },
+        {
+          "path": "src/components/fieldset/FieldsetHelperText.vue",
+          "target": "@components/ui/fieldset/FieldsetHelperText.vue",
+          "type": "registry:component"
+        },
+        {
+          "path": "src/components/fieldset/FieldsetErrorText.vue",
+          "target": "@components/ui/fieldset/FieldsetErrorText.vue",
+          "type": "registry:component"
+        },
+        {
+          "path": "src/components/fieldset/Fieldset.module.css",
+          "target": "@components/ui/fieldset/Fieldset.module.css",
+          "type": "registry:file"
+        },
+        {
+          "path": "src/components/fieldset/index.ts",
+          "target": "@components/ui/fieldset/index.ts",
+          "type": "registry:component"
+        }
+      ]
+    },
+    {
       "name": "input",
       "type": "registry:item",
       "title": "Input",
@@ -805,6 +850,76 @@
         {
           "path": "src/components/dialog/index.ts",
           "target": "@components/ui/dialog/index.ts",
+          "type": "registry:component"
+        }
+      ]
+    },
+    {
+      "name": "field",
+      "type": "registry:item",
+      "title": "Field",
+      "description": "moduix Vue Field component.",
+      "dependencies": ["@ark-ui/vue", "clsx"],
+      "registryDependencies": ["@moduix-vue/foundation"],
+      "files": [
+        {
+          "path": "src/components/field/Field.vue",
+          "target": "@components/ui/field/Field.vue",
+          "type": "registry:component"
+        },
+        {
+          "path": "src/components/field/FieldRootProvider.vue",
+          "target": "@components/ui/field/FieldRootProvider.vue",
+          "type": "registry:component"
+        },
+        {
+          "path": "src/components/field/FieldItem.vue",
+          "target": "@components/ui/field/FieldItem.vue",
+          "type": "registry:component"
+        },
+        {
+          "path": "src/components/field/FieldLabel.vue",
+          "target": "@components/ui/field/FieldLabel.vue",
+          "type": "registry:component"
+        },
+        {
+          "path": "src/components/field/FieldInput.vue",
+          "target": "@components/ui/field/FieldInput.vue",
+          "type": "registry:component"
+        },
+        {
+          "path": "src/components/field/FieldTextarea.vue",
+          "target": "@components/ui/field/FieldTextarea.vue",
+          "type": "registry:component"
+        },
+        {
+          "path": "src/components/field/FieldSelect.vue",
+          "target": "@components/ui/field/FieldSelect.vue",
+          "type": "registry:component"
+        },
+        {
+          "path": "src/components/field/FieldHelperText.vue",
+          "target": "@components/ui/field/FieldHelperText.vue",
+          "type": "registry:component"
+        },
+        {
+          "path": "src/components/field/FieldErrorText.vue",
+          "target": "@components/ui/field/FieldErrorText.vue",
+          "type": "registry:component"
+        },
+        {
+          "path": "src/components/field/FieldRequiredIndicator.vue",
+          "target": "@components/ui/field/FieldRequiredIndicator.vue",
+          "type": "registry:component"
+        },
+        {
+          "path": "src/components/field/Field.module.css",
+          "target": "@components/ui/field/Field.module.css",
+          "type": "registry:file"
+        },
+        {
+          "path": "src/components/field/index.ts",
+          "target": "@components/ui/field/index.ts",
           "type": "registry:component"
         }
       ]

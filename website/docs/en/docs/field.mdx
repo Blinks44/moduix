@@ -1,7 +1,7 @@
 ---
 title: Field
 component: field
-description: Accessible form field context for React and Solid with CSS Modules and Tailwind package options.
+description: Accessible form field context for React, Solid, and Vue with CSS Modules and Tailwind package options.
 ---
 
 import * as FieldDocs from '@/components/examples/field/css-properties';
@@ -29,6 +29,18 @@ import fieldSolidReadOnly from '../../../snippets/field/solid/read-only.tsx?raw'
 import fieldSolidRootProvider from '../../../snippets/field/solid/root-provider.tsx?raw';
 import fieldSolidSelect from '../../../snippets/field/solid/select.tsx?raw';
 import fieldSolidTextarea from '../../../snippets/field/solid/textarea.tsx?raw';
+import fieldVueBasic from '../../../snippets/field/vue/basic.vue?raw';
+import fieldVueCheckbox from '../../../snippets/field/vue/checkbox.vue?raw';
+import fieldVueControlledInvalid from '../../../snippets/field/vue/controlled-invalid.vue?raw';
+import fieldVueDisabled from '../../../snippets/field/vue/disabled.vue?raw';
+import fieldVueInvalid from '../../../snippets/field/vue/invalid.vue?raw';
+import fieldVueItemTarget from '../../../snippets/field/vue/item-target.vue?raw';
+import fieldVueNativeSelect from '../../../snippets/field/vue/native-select.vue?raw';
+import fieldVueRadioGroup from '../../../snippets/field/vue/radiogroup.vue?raw';
+import fieldVueReadOnly from '../../../snippets/field/vue/read-only.vue?raw';
+import fieldVueRootProvider from '../../../snippets/field/vue/root-provider.vue?raw';
+import fieldVueSelect from '../../../snippets/field/vue/select.vue?raw';
+import fieldVueTextarea from '../../../snippets/field/vue/textarea.vue?raw';
 
 ## API Reference
 
@@ -60,6 +72,7 @@ Use `Field` as the wrapper for one form control. Put `FieldLabel` before the con
     values={[
       { label: 'React', value: 'react' },
       { label: 'Solid', value: 'solid' },
+      { label: 'Vue', value: 'vue' },
     ]}
     className="docs-tabs"
   >
@@ -72,6 +85,11 @@ Use `Field` as the wrapper for one form control. Put `FieldLabel` before the con
     <Tab value="solid">
 
 <CodeBlockRuntime lang="tsx" code={fieldSolidBasic} />
+
+    </Tab>
+    <Tab value="vue">
+
+<CodeBlockRuntime lang="vue" code={fieldVueBasic} />
 
     </Tab>
   </Tabs>
@@ -105,6 +123,16 @@ See [Quick Start](/docs/quick-start) for full package setup, registry configurat
   options={[
     { label: 'CSS Modules', command: 'shadcn@latest add @moduix-solid/field' },
     { label: 'Tailwind CSS', command: 'shadcn@latest add @moduix-solid-tailwind/field' },
+  ]}
+/>
+
+  </Tab>
+  <Tab label="Vue" value="vue">
+
+<ShadcnInstallOptions
+  options={[
+    { label: 'CSS Modules', command: 'shadcn@latest add @moduix-vue/field' },
+    { label: 'Tailwind CSS', command: 'shadcn@latest add @moduix-vue-tailwind/field' },
   ]}
 />
 
@@ -165,7 +193,7 @@ state and form props to `Checkbox`.
 
 <ExampleCode>
 <div className="docs-reference">
-  <Tabs groupId="framework" values={[{ label: 'React', value: 'react' }, { label: 'Solid', value: 'solid' }]} className="docs-tabs">
+  <Tabs groupId="framework" values={[{ label: 'React', value: 'react' }, { label: 'Solid', value: 'solid' }, { label: 'Vue', value: 'vue' }]} className="docs-tabs">
     <Tab value="react">
 
 ```tsx pure file="../../../src/components/examples/field/checkbox.tsx"
@@ -175,6 +203,11 @@ state and form props to `Checkbox`.
     <Tab value="solid">
 
 <CodeBlockRuntime lang="tsx" code={fieldSolidCheckbox} />
+
+    </Tab>
+    <Tab value="vue">
+
+<CodeBlockRuntime lang="vue" code={fieldVueCheckbox} />
 
     </Tab>
   </Tabs>
@@ -198,7 +231,7 @@ appears only while the field is invalid.
 
 <ExampleCode>
 <div className="docs-reference">
-  <Tabs groupId="framework" values={[{ label: 'React', value: 'react' }, { label: 'Solid', value: 'solid' }]} className="docs-tabs">
+  <Tabs groupId="framework" values={[{ label: 'React', value: 'react' }, { label: 'Solid', value: 'solid' }, { label: 'Vue', value: 'vue' }]} className="docs-tabs">
     <Tab value="react">
 
 ```tsx pure file="../../../src/components/examples/field/controlled-invalid.tsx"
@@ -208,6 +241,11 @@ appears only while the field is invalid.
     <Tab value="solid">
 
 <CodeBlockRuntime lang="tsx" code={fieldSolidControlledInvalid} />
+
+    </Tab>
+    <Tab value="vue">
+
+<CodeBlockRuntime lang="vue" code={fieldVueControlledInvalid} />
 
     </Tab>
   </Tabs>
@@ -230,7 +268,7 @@ Set `disabled` on the root to pass the disabled state to the supported Ark field
 
 <ExampleCode>
 <div className="docs-reference">
-  <Tabs groupId="framework" values={[{ label: 'React', value: 'react' }, { label: 'Solid', value: 'solid' }]} className="docs-tabs">
+  <Tabs groupId="framework" values={[{ label: 'React', value: 'react' }, { label: 'Solid', value: 'solid' }, { label: 'Vue', value: 'vue' }]} className="docs-tabs">
     <Tab value="react">
 
 ```tsx pure file="../../../src/components/examples/field/disabled.tsx"
@@ -240,6 +278,11 @@ Set `disabled` on the root to pass the disabled state to the supported Ark field
     <Tab value="solid">
 
 <CodeBlockRuntime lang="tsx" code={fieldSolidDisabled} />
+
+    </Tab>
+    <Tab value="vue">
+
+<CodeBlockRuntime lang="vue" code={fieldVueDisabled} />
 
     </Tab>
   </Tabs>
@@ -263,7 +306,7 @@ compound child root as well when that component owns its invalid state.
 
 <ExampleCode>
 <div className="docs-reference">
-  <Tabs groupId="framework" values={[{ label: 'React', value: 'react' }, { label: 'Solid', value: 'solid' }]} className="docs-tabs">
+  <Tabs groupId="framework" values={[{ label: 'React', value: 'react' }, { label: 'Solid', value: 'solid' }, { label: 'Vue', value: 'vue' }]} className="docs-tabs">
     <Tab value="react">
 
 ```tsx pure file="../../../src/components/examples/field/invalid.tsx"
@@ -273,6 +316,11 @@ compound child root as well when that component owns its invalid state.
     <Tab value="solid">
 
 <CodeBlockRuntime lang="tsx" code={fieldSolidInvalid} />
+
+    </Tab>
+    <Tab value="vue">
+
+<CodeBlockRuntime lang="vue" code={fieldVueInvalid} />
 
     </Tab>
   </Tabs>
@@ -295,7 +343,7 @@ Use `FieldItem` with the root `target` prop when one label should target a contr
 
 <ExampleCode>
 <div className="docs-reference">
-  <Tabs groupId="framework" values={[{ label: 'React', value: 'react' }, { label: 'Solid', value: 'solid' }]} className="docs-tabs">
+  <Tabs groupId="framework" values={[{ label: 'React', value: 'react' }, { label: 'Solid', value: 'solid' }, { label: 'Vue', value: 'vue' }]} className="docs-tabs">
     <Tab value="react">
 
 ```tsx pure file="../../../src/components/examples/field/item-target.tsx"
@@ -305,6 +353,11 @@ Use `FieldItem` with the root `target` prop when one label should target a contr
     <Tab value="solid">
 
 <CodeBlockRuntime lang="tsx" code={fieldSolidItemTarget} />
+
+    </Tab>
+    <Tab value="vue">
+
+<CodeBlockRuntime lang="vue" code={fieldVueItemTarget} />
 
     </Tab>
   </Tabs>
@@ -328,7 +381,7 @@ description.
 
 <ExampleCode>
 <div className="docs-reference">
-  <Tabs groupId="framework" values={[{ label: 'React', value: 'react' }, { label: 'Solid', value: 'solid' }]} className="docs-tabs">
+  <Tabs groupId="framework" values={[{ label: 'React', value: 'react' }, { label: 'Solid', value: 'solid' }, { label: 'Vue', value: 'vue' }]} className="docs-tabs">
     <Tab value="react">
 
 ```tsx pure file="../../../src/components/examples/field/native-select.tsx"
@@ -338,6 +391,11 @@ description.
     <Tab value="solid">
 
 <CodeBlockRuntime lang="tsx" code={fieldSolidNativeSelect} />
+
+    </Tab>
+    <Tab value="vue">
+
+<CodeBlockRuntime lang="vue" code={fieldVueNativeSelect} />
 
     </Tab>
   </Tabs>
@@ -362,7 +420,7 @@ the whole set of choices rather than individual radio items. Pass the group's ow
 
 <ExampleCode>
 <div className="docs-reference">
-  <Tabs groupId="framework" values={[{ label: 'React', value: 'react' }, { label: 'Solid', value: 'solid' }]} className="docs-tabs">
+  <Tabs groupId="framework" values={[{ label: 'React', value: 'react' }, { label: 'Solid', value: 'solid' }, { label: 'Vue', value: 'vue' }]} className="docs-tabs">
     <Tab value="react">
 
 ```tsx pure file="../../../src/components/examples/field/radiogroup.tsx"
@@ -372,6 +430,11 @@ the whole set of choices rather than individual radio items. Pass the group's ow
     <Tab value="solid">
 
 <CodeBlockRuntime lang="tsx" code={fieldSolidRadioGroup} />
+
+    </Tab>
+    <Tab value="vue">
+
+<CodeBlockRuntime lang="vue" code={fieldVueRadioGroup} />
 
     </Tab>
   </Tabs>
@@ -394,7 +457,7 @@ Set `readOnly` on the root when users can copy the control's value but cannot ed
 
 <ExampleCode>
 <div className="docs-reference">
-  <Tabs groupId="framework" values={[{ label: 'React', value: 'react' }, { label: 'Solid', value: 'solid' }]} className="docs-tabs">
+  <Tabs groupId="framework" values={[{ label: 'React', value: 'react' }, { label: 'Solid', value: 'solid' }, { label: 'Vue', value: 'vue' }]} className="docs-tabs">
     <Tab value="react">
 
 ```tsx pure file="../../../src/components/examples/field/read-only.tsx"
@@ -404,6 +467,11 @@ Set `readOnly` on the root when users can copy the control's value but cannot ed
     <Tab value="solid">
 
 <CodeBlockRuntime lang="tsx" code={fieldSolidReadOnly} />
+
+    </Tab>
+    <Tab value="vue">
+
+<CodeBlockRuntime lang="vue" code={fieldVueReadOnly} />
 
     </Tab>
   </Tabs>
@@ -427,7 +495,7 @@ tree.
 
 <ExampleCode>
 <div className="docs-reference">
-  <Tabs groupId="framework" values={[{ label: 'React', value: 'react' }, { label: 'Solid', value: 'solid' }]} className="docs-tabs">
+  <Tabs groupId="framework" values={[{ label: 'React', value: 'react' }, { label: 'Solid', value: 'solid' }, { label: 'Vue', value: 'vue' }]} className="docs-tabs">
     <Tab value="react">
 
 ```tsx pure file="../../../src/components/examples/field/root-provider.tsx"
@@ -437,6 +505,11 @@ tree.
     <Tab value="solid">
 
 <CodeBlockRuntime lang="tsx" code={fieldSolidRootProvider} />
+
+    </Tab>
+    <Tab value="vue">
+
+<CodeBlockRuntime lang="vue" code={fieldVueRootProvider} />
 
     </Tab>
   </Tabs>
@@ -461,7 +534,7 @@ to `Select` when needed.
 
 <ExampleCode>
 <div className="docs-reference">
-  <Tabs groupId="framework" values={[{ label: 'React', value: 'react' }, { label: 'Solid', value: 'solid' }]} className="docs-tabs">
+  <Tabs groupId="framework" values={[{ label: 'React', value: 'react' }, { label: 'Solid', value: 'solid' }, { label: 'Vue', value: 'vue' }]} className="docs-tabs">
     <Tab value="react">
 
 ```tsx pure file="../../../src/components/examples/field/select.tsx"
@@ -471,6 +544,11 @@ to `Select` when needed.
     <Tab value="solid">
 
 <CodeBlockRuntime lang="tsx" code={fieldSolidSelect} />
+
+    </Tab>
+    <Tab value="vue">
+
+<CodeBlockRuntime lang="vue" code={fieldVueSelect} />
 
     </Tab>
   </Tabs>
@@ -494,7 +572,7 @@ connections.
 
 <ExampleCode>
 <div className="docs-reference">
-  <Tabs groupId="framework" values={[{ label: 'React', value: 'react' }, { label: 'Solid', value: 'solid' }]} className="docs-tabs">
+  <Tabs groupId="framework" values={[{ label: 'React', value: 'react' }, { label: 'Solid', value: 'solid' }, { label: 'Vue', value: 'vue' }]} className="docs-tabs">
     <Tab value="react">
 
 ```tsx pure file="../../../src/components/examples/field/textarea.tsx"
@@ -504,6 +582,11 @@ connections.
     <Tab value="solid">
 
 <CodeBlockRuntime lang="tsx" code={fieldSolidTextarea} />
+
+    </Tab>
+    <Tab value="vue">
+
+<CodeBlockRuntime lang="vue" code={fieldVueTextarea} />
 
     </Tab>
   </Tabs>
@@ -518,7 +601,7 @@ connections.
 
 ## Styling
 
-Use `className` in React or `class` in Solid on exported parts for structural styles. For state-based
+Use `className` in React or `class` in Solid and Vue on exported parts for structural styles. For state-based
 styles, prefer Ark data attributes such as `data-disabled`, `data-invalid`, `data-readonly`, and
 `data-required`, together with moduix `data-slot` selectors. Tailwind variants use native utilities and
 consumer classes; the CSS variables below customize the CSS Modules variants.

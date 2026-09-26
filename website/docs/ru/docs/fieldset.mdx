@@ -19,6 +19,13 @@ import fieldsetSolidField from '../../../snippets/fieldset/solid/field.tsx?raw';
 import fieldsetSolidInputWithSelect from '../../../snippets/fieldset/solid/input-with-select.tsx?raw';
 import fieldsetSolidInvalid from '../../../snippets/fieldset/solid/invalid.tsx?raw';
 import fieldsetSolidRootProvider from '../../../snippets/fieldset/solid/root-provider.tsx?raw';
+import fieldsetVueBasic from '../../../snippets/fieldset/vue/basic.vue?raw';
+import fieldsetVueCheckbox from '../../../snippets/fieldset/vue/checkbox.vue?raw';
+import fieldsetVueDisabled from '../../../snippets/fieldset/vue/disabled.vue?raw';
+import fieldsetVueField from '../../../snippets/fieldset/vue/field.vue?raw';
+import fieldsetVueInputWithSelect from '../../../snippets/fieldset/vue/input-with-select.vue?raw';
+import fieldsetVueInvalid from '../../../snippets/fieldset/vue/invalid.vue?raw';
+import fieldsetVueRootProvider from '../../../snippets/fieldset/vue/root-provider.vue?raw';
 
 ## Справочник API
 
@@ -32,8 +39,9 @@ import fieldsetSolidRootProvider from '../../../snippets/fieldset/solid/root-pro
 
 ## Базовый пример
 
-Импортируйте `Fieldset` из `@moduix/react/fieldset` или `@moduix/solid/fieldset` для CSS Modules, а для Tailwind CSS
-используйте `@moduix/react-tailwind/fieldset` или `@moduix/solid-tailwind/fieldset`.
+Импортируйте `Fieldset` из `@moduix/react/fieldset`, `@moduix/solid/fieldset` или `@moduix/vue/fieldset` для CSS Modules,
+а для Tailwind CSS используйте `@moduix/react-tailwind/fieldset`, `@moduix/solid-tailwind/fieldset` или
+`@moduix/vue-tailwind/fieldset`.
 
 Создайте группу из `Fieldset`, `FieldsetLegend`, связанных элементов управления и, если нужно, поясняющего текста или
 сообщения об ошибке. `Fieldset` является корневым компонентом группы.
@@ -49,6 +57,7 @@ import fieldsetSolidRootProvider from '../../../snippets/fieldset/solid/root-pro
     values={[
       { label: 'React', value: 'react' },
       { label: 'Solid', value: 'solid' },
+      { label: 'Vue', value: 'vue' },
     ]}
     className="docs-tabs"
   >
@@ -61,6 +70,11 @@ import fieldsetSolidRootProvider from '../../../snippets/fieldset/solid/root-pro
     <Tab value="solid">
 
 <CodeBlockRuntime lang="tsx" code={fieldsetSolidBasic} />
+
+    </Tab>
+    <Tab value="vue">
+
+<CodeBlockRuntime lang="vue" code={fieldsetVueBasic} />
 
     </Tab>
   </Tabs>
@@ -94,6 +108,16 @@ import fieldsetSolidRootProvider from '../../../snippets/fieldset/solid/root-pro
   options={[
     { label: 'CSS Modules', command: 'shadcn@latest add @moduix-solid/fieldset' },
     { label: 'Tailwind CSS', command: 'shadcn@latest add @moduix-solid-tailwind/fieldset' },
+  ]}
+/>
+
+  </Tab>
+  <Tab label="Vue" value="vue">
+
+<ShadcnInstallOptions
+  options={[
+    { label: 'CSS Modules', command: 'shadcn@latest add @moduix-vue/fieldset' },
+    { label: 'Tailwind CSS', command: 'shadcn@latest add @moduix-vue-tailwind/fieldset' },
   ]}
 />
 
@@ -150,6 +174,7 @@ Fieldset | FieldsetRootProvider
     values={[
       { label: 'React', value: 'react' },
       { label: 'Solid', value: 'solid' },
+      { label: 'Vue', value: 'vue' },
     ]}
     className="docs-tabs"
   >
@@ -162,6 +187,11 @@ Fieldset | FieldsetRootProvider
     <Tab value="solid">
 
 <CodeBlockRuntime lang="tsx" code={fieldsetSolidCheckbox} />
+
+    </Tab>
+    <Tab value="vue">
+
+<CodeBlockRuntime lang="vue" code={fieldsetVueCheckbox} />
 
     </Tab>
   </Tabs>
@@ -190,6 +220,7 @@ Fieldset | FieldsetRootProvider
     values={[
       { label: 'React', value: 'react' },
       { label: 'Solid', value: 'solid' },
+      { label: 'Vue', value: 'vue' },
     ]}
     className="docs-tabs"
   >
@@ -202,6 +233,11 @@ Fieldset | FieldsetRootProvider
     <Tab value="solid">
 
 <CodeBlockRuntime lang="tsx" code={fieldsetSolidDisabled} />
+
+    </Tab>
+    <Tab value="vue">
+
+<CodeBlockRuntime lang="vue" code={fieldsetVueDisabled} />
 
     </Tab>
   </Tabs>
@@ -230,6 +266,7 @@ Fieldset | FieldsetRootProvider
     values={[
       { label: 'React', value: 'react' },
       { label: 'Solid', value: 'solid' },
+      { label: 'Vue', value: 'vue' },
     ]}
     className="docs-tabs"
   >
@@ -242,6 +279,11 @@ Fieldset | FieldsetRootProvider
     <Tab value="solid">
 
 <CodeBlockRuntime lang="tsx" code={fieldsetSolidField} />
+
+    </Tab>
+    <Tab value="vue">
+
+<CodeBlockRuntime lang="vue" code={fieldsetVueField} />
 
     </Tab>
   </Tabs>
@@ -269,6 +311,7 @@ Fieldset | FieldsetRootProvider
     values={[
       { label: 'React', value: 'react' },
       { label: 'Solid', value: 'solid' },
+      { label: 'Vue', value: 'vue' },
     ]}
     className="docs-tabs"
   >
@@ -281,6 +324,11 @@ Fieldset | FieldsetRootProvider
     <Tab value="solid">
 
 <CodeBlockRuntime lang="tsx" code={fieldsetSolidInputWithSelect} />
+
+    </Tab>
+    <Tab value="vue">
+
+<CodeBlockRuntime lang="vue" code={fieldsetVueInputWithSelect} />
 
     </Tab>
   </Tabs>
@@ -310,6 +358,7 @@ ARIA-состояние.
     values={[
       { label: 'React', value: 'react' },
       { label: 'Solid', value: 'solid' },
+      { label: 'Vue', value: 'vue' },
     ]}
     className="docs-tabs"
   >
@@ -322,6 +371,11 @@ ARIA-состояние.
     <Tab value="solid">
 
 <CodeBlockRuntime lang="tsx" code={fieldsetSolidInvalid} />
+
+    </Tab>
+    <Tab value="vue">
+
+<CodeBlockRuntime lang="vue" code={fieldsetVueInvalid} />
 
     </Tab>
   </Tabs>
@@ -350,6 +404,7 @@ ARIA-состояние.
     values={[
       { label: 'React', value: 'react' },
       { label: 'Solid', value: 'solid' },
+      { label: 'Vue', value: 'vue' },
     ]}
     className="docs-tabs"
   >
@@ -362,6 +417,11 @@ ARIA-состояние.
     <Tab value="solid">
 
 <CodeBlockRuntime lang="tsx" code={fieldsetSolidRootProvider} />
+
+    </Tab>
+    <Tab value="vue">
+
+<CodeBlockRuntime lang="vue" code={fieldsetVueRootProvider} />
 
     </Tab>
   </Tabs>
@@ -394,6 +454,6 @@ ARIA-состояние.
 
 Для каждой части DOM Ark добавляет атрибуты `data-scope="fieldset"` и `data-part`, соответствующие анатомии. Корневой
 компонент и заголовок получают `data-disabled` и `data-invalid`; moduix также добавляет атрибуты `data-slot="fieldset-*"`.
-Используйте `className` в React или `class` в Solid для локальных переопределений. В пакетах CSS Modules переменные
+Используйте `className` в React или `class` в Solid и Vue для локальных переопределений. В пакетах CSS Modules переменные
 `--moduix-fieldset-*` позволяют настраивать тему, а в Tailwind-пакетах для этого используются классы-утилиты и классы
 потребителя.

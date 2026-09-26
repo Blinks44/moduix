@@ -1,7 +1,7 @@
-import { FieldErrorText, FieldHelperText, FieldLabel, FieldRoot } from '@ark-ui/vue/field';
 import type { Meta, StoryObj } from '@storybook/vue3-vite';
 import { defineComponent, ref } from 'vue';
 import type { Component } from 'vue';
+import { Field, FieldErrorText, FieldHelperText, FieldLabel } from '@/components/field';
 import { Input } from '@/components/input';
 
 const meta = {
@@ -26,7 +26,7 @@ const storyComponents = {
   FieldErrorText,
   FieldHelperText,
   FieldLabel,
-  FieldRoot,
+  Field,
   Input,
 } as unknown as Record<string, Component>;
 
@@ -43,21 +43,21 @@ function renderStory(template: string, setup?: () => Record<string, unknown>) {
 
 export const Basic: Story = {
   render: renderStory(`
-    <FieldRoot :class="fieldClass">
+    <Field :class="fieldClass">
       <FieldLabel>Name</FieldLabel>
       <FieldHelperText>Used in your public workspace profile.</FieldHelperText>
       <Input placeholder="Enter your name" />
-    </FieldRoot>
+    </Field>
   `),
 };
 
 export const Controlled: Story = {
   render: renderStory(
     `
-      <FieldRoot :class="fieldClass">
+      <Field :class="fieldClass">
         <FieldLabel>Username</FieldLabel>
         <Input v-model="value" placeholder="Type to control value" />
-      </FieldRoot>
+      </Field>
     `,
     () => ({ value: ref('') }),
   ),
@@ -77,7 +77,7 @@ export const Sizes: Story = {
 
 export const NativeAttributes: Story = {
   render: renderStory(`
-    <FieldRoot :class="fieldClass">
+    <Field :class="fieldClass">
       <FieldLabel>Security code</FieldLabel>
       <Input
         :html-size="8"
@@ -88,28 +88,28 @@ export const NativeAttributes: Story = {
         type="text"
         autocomplete="one-time-code"
       />
-    </FieldRoot>
+    </Field>
   `),
 };
 
 export const File: Story = {
   render: renderStory(`
-    <FieldRoot :class="fieldClass">
+    <Field :class="fieldClass">
       <FieldLabel>Attachment</FieldLabel>
       <Input accept=".pdf,.png" type="file" />
       <FieldHelperText>Choose a PDF or PNG file.</FieldHelperText>
-    </FieldRoot>
+    </Field>
   `),
 };
 
 export const AsChild: Story = {
   render: renderStory(`
-    <FieldRoot :class="fieldClass">
+    <Field :class="fieldClass">
       <FieldLabel>Repository</FieldLabel>
       <Input as-child>
         <input name="repository" placeholder="owner/project" />
       </Input>
-    </FieldRoot>
+    </Field>
   `),
 };
 
@@ -124,19 +124,19 @@ export const DisabledAndReadOnly: Story = {
 
 export const WithFieldValidation: Story = {
   render: renderStory(`
-    <FieldRoot :class="fieldClass" invalid>
+    <Field :class="fieldClass" invalid>
       <FieldLabel>Email</FieldLabel>
       <Input type="email" placeholder="name@example.com" />
       <FieldErrorText>Enter a valid email address.</FieldErrorText>
-    </FieldRoot>
+    </Field>
   `),
 };
 
 export const CustomStyles: Story = {
   render: renderStory(`
-    <FieldRoot :class="fieldClass">
+    <Field :class="fieldClass">
       <FieldLabel>Project key</FieldLabel>
       <Input placeholder="MAPS" :class="customInputClass" />
-    </FieldRoot>
+    </Field>
   `),
 };

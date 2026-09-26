@@ -1,5 +1,4 @@
 <script setup lang="ts">
-import { Field, FieldErrorText, FieldHelperText } from '@ark-ui/vue/field';
 import {
   ColorPicker,
   parseColor,
@@ -12,6 +11,7 @@ import {
   ColorPickerArea,
   ColorPickerChannelInput,
 } from '@moduix/vue/color-picker';
+import { Field, FieldErrorText, FieldHelperText } from '@moduix/vue/field';
 import styles from '@/components/examples/color-picker/color-picker-field-state.module.css';
 </script>
 
