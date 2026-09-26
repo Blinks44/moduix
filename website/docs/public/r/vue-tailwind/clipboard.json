@@ -1,0 +1,69 @@
+{
+  "$schema": "https://ui.shadcn.com/schema/registry-item.json",
+  "name": "clipboard",
+  "title": "Clipboard",
+  "description": "moduix Vue Tailwind Clipboard component.",
+  "dependencies": ["@ark-ui/vue", "clsx", "tailwind-merge"],
+  "registryDependencies": [
+    "@moduix-vue-tailwind/foundation",
+    "@moduix-vue-tailwind/cn",
+    "@moduix-vue-tailwind/icons"
+  ],
+  "files": [
+    {
+      "path": "src/components/clipboard/Clipboard.vue",
+      "content": "<script setup lang=\"ts\">\nimport { ClipboardRoot as ArkClipboardRoot } from '@ark-ui/vue/clipboard';\nimport type { ClipboardCopyStatusDetails, ClipboardRootProps } from '@ark-ui/vue/clipboard';\nimport { useAttrs } from 'vue';\nimport type { HTMLAttributes } from 'vue';\nimport { cn } from '@/lib/moduix/cn';\n\ndefineOptions({ inheritAttrs: false });\n\nexport interface Props extends /* @vue-ignore */ ClipboardRootProps {\n  class?: HTMLAttributes['class'];\n}\n\nexport interface ClipboardValueChangeDetails {\n  value: string;\n}\n\nexport interface Emits {\n  valueChange: [details: ClipboardValueChangeDetails];\n  'update:modelValue': [value: string];\n  statusChange: [details: ClipboardCopyStatusDetails];\n}\n\nconst { class: className } = defineProps<Props>();\nconst emit = defineEmits<Emits>();\ndefineSlots<{ default?: () => unknown }>();\n\nconst attrs = useAttrs();\nconst rootClass = 'flex w-full flex-col gap-1.5 text-foreground';\n</script>\n\n<template>\n  <ArkClipboardRoot\n    v-bind=\"attrs\"\n    :class=\"cn(rootClass, className)\"\n    data-slot=\"clipboard-root\"\n    @value-change=\"emit('valueChange', $event)\"\n    @update:model-value=\"emit('update:modelValue', $event)\"\n    @status-change=\"emit('statusChange', $event)\"\n  >\n    <slot />\n  </ArkClipboardRoot>\n</template>",
+      "type": "registry:component",
+      "target": "@components/ui/clipboard/Clipboard.vue"
+    },
+    {
+      "path": "src/components/clipboard/ClipboardRootProvider.vue",
+      "content": "<script setup lang=\"ts\">\nimport { ClipboardRootProvider as ArkClipboardRootProvider } from '@ark-ui/vue/clipboard';\nimport type { ClipboardRootProviderProps } from '@ark-ui/vue/clipboard';\nimport { useAttrs } from 'vue';\nimport type { HTMLAttributes } from 'vue';\nimport { cn } from '@/lib/moduix/cn';\n\ndefineOptions({ inheritAttrs: false });\n\nexport interface Props extends /* @vue-ignore */ ClipboardRootProviderProps {\n  class?: HTMLAttributes['class'];\n  value: ClipboardRootProviderProps['value'];\n}\n\nconst { class: className, value } = defineProps<Props>();\ndefineSlots<{ default?: () => unknown }>();\n\nconst attrs = useAttrs();\nconst rootClass = 'flex w-full flex-col gap-1.5 text-foreground';\n</script>\n\n<template>\n  <ArkClipboardRootProvider\n    v-bind=\"attrs\"\n    :class=\"cn(rootClass, className)\"\n    :value=\"value\"\n    data-slot=\"clipboard-root-provider\"\n  >\n    <slot />\n  </ArkClipboardRootProvider>\n</template>",
+      "type": "registry:component",
+      "target": "@components/ui/clipboard/ClipboardRootProvider.vue"
+    },
+    {
+      "path": "src/components/clipboard/ClipboardLabel.vue",
+      "content": "<script setup lang=\"ts\">\nimport { ClipboardLabel as ArkClipboardLabel } from '@ark-ui/vue/clipboard';\nimport type { ClipboardLabelProps } from '@ark-ui/vue/clipboard';\nimport { useAttrs } from 'vue';\nimport type { HTMLAttributes } from 'vue';\nimport { cn } from '@/lib/moduix/cn';\n\ndefineOptions({ inheritAttrs: false });\n\nexport interface Props extends /* @vue-ignore */ ClipboardLabelProps {\n  class?: HTMLAttributes['class'];\n}\n\nconst { class: className } = defineProps<Props>();\ndefineSlots<{ default?: () => unknown }>();\n\nconst attrs = useAttrs();\n</script>\n\n<template>\n  <ArkClipboardLabel\n    v-bind=\"attrs\"\n    :class=\"cn('text-sm leading-5 font-medium', className)\"\n    data-slot=\"clipboard-label\"\n  >\n    <slot />\n  </ArkClipboardLabel>\n</template>",
+      "type": "registry:component",
+      "target": "@components/ui/clipboard/ClipboardLabel.vue"
+    },
+    {
+      "path": "src/components/clipboard/ClipboardControl.vue",
+      "content": "<script setup lang=\"ts\">\nimport { ClipboardControl as ArkClipboardControl } from '@ark-ui/vue/clipboard';\nimport type { ClipboardControlProps } from '@ark-ui/vue/clipboard';\nimport { useAttrs } from 'vue';\nimport type { HTMLAttributes } from 'vue';\nimport { cn } from '@/lib/moduix/cn';\n\ndefineOptions({ inheritAttrs: false });\n\nexport interface Props extends /* @vue-ignore */ ClipboardControlProps {\n  class?: HTMLAttributes['class'];\n}\n\nconst { class: className } = defineProps<Props>();\ndefineSlots<{ default?: () => unknown }>();\n\nconst attrs = useAttrs();\n</script>\n\n<template>\n  <ArkClipboardControl\n    v-bind=\"attrs\"\n    :class=\"cn('flex w-full items-center gap-2', className)\"\n    data-slot=\"clipboard-control\"\n  >\n    <slot />\n  </ArkClipboardControl>\n</template>",
+      "type": "registry:component",
+      "target": "@components/ui/clipboard/ClipboardControl.vue"
+    },
+    {
+      "path": "src/components/clipboard/ClipboardInput.vue",
+      "content": "<script setup lang=\"ts\">\nimport { ClipboardInput as ArkClipboardInput } from '@ark-ui/vue/clipboard';\nimport type { ClipboardInputProps } from '@ark-ui/vue/clipboard';\nimport { computed, useAttrs } from 'vue';\nimport type { HTMLAttributes } from 'vue';\nimport { cn } from '@/lib/moduix/cn';\n\ndefineOptions({ inheritAttrs: false });\n\nexport interface Props extends /* @vue-ignore */ ClipboardInputProps {}\n\ndefineProps<Props>();\ndefineSlots<{ default?: () => unknown }>();\n\nconst attrs = useAttrs();\nconst className = computed(() => attrs.class as HTMLAttributes['class'] | undefined);\nconst forwardedAttrs = computed(() => {\n  const { class: _class, ...rest } = attrs;\n  return rest;\n});\nconst inputClass =\n  'box-border min-h-control-md w-full min-w-0 rounded-md border border-border bg-background px-3.5 py-1 text-md leading-6 text-foreground outline-1 -outline-offset-1 outline-transparent transition duration-200 ease-in-out placeholder:text-muted-foreground focus-visible:outline-ring disabled:pointer-events-none disabled:opacity-50 data-disabled:pointer-events-none data-disabled:opacity-50';\n</script>\n\n<template>\n  <ArkClipboardInput\n    v-bind=\"forwardedAttrs\"\n    :class=\"cn(inputClass, className)\"\n    data-slot=\"clipboard-input\"\n  >\n    <slot />\n  </ArkClipboardInput>\n</template>",
+      "type": "registry:component",
+      "target": "@components/ui/clipboard/ClipboardInput.vue"
+    },
+    {
+      "path": "src/components/clipboard/ClipboardTrigger.vue",
+      "content": "<script setup lang=\"ts\">\nimport { ClipboardTrigger as ArkClipboardTrigger } from '@ark-ui/vue/clipboard';\nimport type { ClipboardTriggerProps } from '@ark-ui/vue/clipboard';\nimport { useAttrs } from 'vue';\nimport type { HTMLAttributes } from 'vue';\nimport { cn } from '@/lib/moduix/cn';\n\ndefineOptions({ inheritAttrs: false });\n\nexport interface Props extends /* @vue-ignore */ ClipboardTriggerProps {\n  class?: HTMLAttributes['class'];\n}\n\nconst { class: className } = defineProps<Props>();\ndefineSlots<{ default?: () => unknown }>();\n\nconst attrs = useAttrs();\nconst triggerClass =\n  'box-border inline-flex min-h-control-md shrink-0 cursor-pointer appearance-none items-center justify-center gap-2 rounded-md border border-border bg-background px-4 text-sm leading-5 font-medium whitespace-nowrap text-foreground transition duration-200 ease-in-out select-none focus-visible:outline-2 focus-visible:-outline-offset-1 focus-visible:outline-ring disabled:pointer-events-none disabled:cursor-default disabled:opacity-50 data-disabled:pointer-events-none data-disabled:cursor-default data-disabled:opacity-50 motion-reduce:transition-none [&_svg]:size-4 [&_svg]:shrink-0 [&:active:not(:disabled):not([data-disabled])]:opacity-[0.94] motion-safe:[&:active:not(:disabled):not([data-disabled])]:translate-y-px motion-safe:[&:active:not(:disabled):not([data-disabled])]:scale-[0.985] [@media(hover:hover)]:[&:not(:disabled):not([data-disabled]):hover]:bg-accent';\n</script>\n\n<template>\n  <ArkClipboardTrigger\n    v-bind=\"attrs\"\n    :class=\"cn(triggerClass, className)\"\n    data-slot=\"clipboard-trigger\"\n  >\n    <slot />\n  </ArkClipboardTrigger>\n</template>",
+      "type": "registry:component",
+      "target": "@components/ui/clipboard/ClipboardTrigger.vue"
+    },
+    {
+      "path": "src/components/clipboard/ClipboardIndicator.vue",
+      "content": "<script setup lang=\"ts\">\nimport { ClipboardIndicator as ArkClipboardIndicator } from '@ark-ui/vue/clipboard';\nimport type { ClipboardIndicatorProps } from '@ark-ui/vue/clipboard';\nimport { useAttrs } from 'vue';\nimport type { HTMLAttributes } from 'vue';\nimport { cn } from '@/lib/moduix/cn';\nimport { CheckIcon, CopyIcon } from '@/lib/moduix/icons/ui';\n\ndefineOptions({ inheritAttrs: false });\n\nexport interface Props extends /* @vue-ignore */ ClipboardIndicatorProps {\n  class?: HTMLAttributes['class'];\n}\n\nconst { class: className } = defineProps<Props>();\ndefineSlots<{\n  copied?: () => unknown;\n  default?: () => unknown;\n}>();\n\nconst attrs = useAttrs();\nconst iconClass = 'inline-flex shrink-0 items-center justify-center';\n</script>\n\n<template>\n  <ArkClipboardIndicator\n    v-bind=\"attrs\"\n    :class=\"cn('inline-flex shrink-0 items-center justify-center', className)\"\n    data-slot=\"clipboard-indicator\"\n  >\n    <template #copied>\n      <slot name=\"copied\">\n        <span aria-hidden=\"true\" data-slot=\"clipboard-indicator-copied-icon\" :class=\"iconClass\">\n          <CheckIcon />\n        </span>\n      </slot>\n    </template>\n    <template #default>\n      <slot>\n        <span aria-hidden=\"true\" data-slot=\"clipboard-indicator-idle-icon\" :class=\"iconClass\">\n          <CopyIcon />\n        </span>\n      </slot>\n    </template>\n  </ArkClipboardIndicator>\n</template>",
+      "type": "registry:component",
+      "target": "@components/ui/clipboard/ClipboardIndicator.vue"
+    },
+    {
+      "path": "src/components/clipboard/ClipboardValueText.vue",
+      "content": "<script setup lang=\"ts\">\nimport { ClipboardValueText as ArkClipboardValueText } from '@ark-ui/vue/clipboard';\nimport type { ClipboardValueTextProps } from '@ark-ui/vue/clipboard';\nimport { useAttrs } from 'vue';\nimport type { HTMLAttributes } from 'vue';\nimport { cn } from '@/lib/moduix/cn';\n\ndefineOptions({ inheritAttrs: false });\n\nexport interface Props extends /* @vue-ignore */ ClipboardValueTextProps {\n  class?: HTMLAttributes['class'];\n}\n\nconst { class: className } = defineProps<Props>();\ndefineSlots<{ default?: () => unknown }>();\n\nconst attrs = useAttrs();\n</script>\n\n<template>\n  <ArkClipboardValueText\n    v-bind=\"attrs\"\n    :class=\"cn('min-w-0 overflow-hidden text-ellipsis whitespace-nowrap', className)\"\n    data-slot=\"clipboard-value-text\"\n  >\n    <slot />\n  </ArkClipboardValueText>\n</template>",
+      "type": "registry:component",
+      "target": "@components/ui/clipboard/ClipboardValueText.vue"
+    },
+    {
+      "path": "src/components/clipboard/index.ts",
+      "content": "import { ClipboardContext, useClipboard, useClipboardContext } from '@ark-ui/vue/clipboard';\nimport Clipboard from './Clipboard.vue';\nimport ClipboardControl from './ClipboardControl.vue';\nimport ClipboardIndicator from './ClipboardIndicator.vue';\nimport ClipboardInput from './ClipboardInput.vue';\nimport ClipboardLabel from './ClipboardLabel.vue';\nimport ClipboardRootProvider from './ClipboardRootProvider.vue';\nimport ClipboardTrigger from './ClipboardTrigger.vue';\nimport ClipboardValueText from './ClipboardValueText.vue';\n\nexport {\n  Clipboard,\n  ClipboardContext,\n  ClipboardControl,\n  ClipboardIndicator,\n  ClipboardInput,\n  ClipboardLabel,\n  ClipboardRootProvider,\n  ClipboardTrigger,\n  ClipboardValueText,\n  useClipboard,\n  useClipboardContext,\n};\n\nexport type {\n  ClipboardContextProps,\n  ClipboardControlProps,\n  ClipboardCopyStatusDetails,\n  ClipboardIndicatorProps,\n  ClipboardInputProps,\n  ClipboardLabelProps,\n  ClipboardRootEmits,\n  ClipboardRootProps,\n  ClipboardRootProviderProps,\n  ClipboardTriggerProps,\n  ClipboardValueTextProps,\n  UseClipboardContext,\n  UseClipboardProps,\n  UseClipboardReturn,\n} from '@ark-ui/vue/clipboard';",
+      "type": "registry:component",
+      "target": "@components/ui/clipboard/index.ts"
+    }
+  ],
+  "type": "registry:item"
+}

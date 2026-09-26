@@ -3,7 +3,7 @@
   "name": "alert",
   "title": "Alert",
   "description": "moduix Vue Tailwind Alert component.",
-  "dependencies": ["@ark-ui/vue", "clsx", "tailwind-merge"],
+  "dependencies": ["@ark-ui/vue", "class-variance-authority", "clsx", "tailwind-merge"],
   "registryDependencies": ["@moduix-vue-tailwind/foundation", "@moduix-vue-tailwind/cn"],
   "files": [
     {

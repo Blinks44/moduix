@@ -1,0 +1,196 @@
+{
+  "$schema": "https://ui.shadcn.com/schema/registry-item.json",
+  "name": "menu",
+  "title": "Menu",
+  "description": "moduix Vue Tailwind Menu component.",
+  "dependencies": ["@ark-ui/vue", "class-variance-authority", "clsx", "tailwind-merge"],
+  "registryDependencies": [
+    "@moduix-vue-tailwind/foundation",
+    "@moduix-vue-tailwind/cn",
+    "@moduix-vue-tailwind/icons",
+    "@moduix-vue-tailwind/overlay-portal"
+  ],
+  "files": [
+    {
+      "path": "src/components/menu/Menu.vue",
+      "content": "<script setup lang=\"ts\">\nimport { MenuRoot as ArkMenuRoot } from '@ark-ui/vue/menu';\nimport type { MenuRootEmits, MenuRootProps } from '@ark-ui/vue/menu';\nimport { useAttrs } from 'vue';\nimport type { PortalRef } from '../../internal/overlayPortal/context';\nimport OverlayPortalProvider from '../../internal/overlayPortal/OverlayPortalProvider.vue';\n\ndefineOptions({ inheritAttrs: false });\n\ninterface Props extends /* @vue-ignore */ MenuRootProps {\n  lazyMount?: boolean;\n  portalled?: boolean;\n  portalRef?: PortalRef;\n  unmountOnExit?: boolean;\n}\ninterface Emits extends /* @vue-ignore */ MenuRootEmits {}\n\nconst {\n  lazyMount = true,\n  portalled = true,\n  portalRef,\n  unmountOnExit = true,\n} = defineProps<Props>();\ndefineEmits<Emits>();\ndefineSlots<{ default?: () => unknown }>();\nconst attrs = useAttrs();\n</script>\n\n<template>\n  <OverlayPortalProvider :portalled=\"portalled\" :portal-ref=\"portalRef\">\n    <ArkMenuRoot v-bind=\"attrs\" :lazy-mount=\"lazyMount\" :unmount-on-exit=\"unmountOnExit\">\n      <slot />\n    </ArkMenuRoot>\n  </OverlayPortalProvider>\n</template>",
+      "type": "registry:component",
+      "target": "@components/ui/menu/Menu.vue"
+    },
+    {
+      "path": "src/components/menu/MenuArrow.vue",
+      "content": "<script setup lang=\"ts\">\nimport { MenuArrow as ArkMenuArrow } from '@ark-ui/vue/menu';\nimport type { MenuArrowProps } from '@ark-ui/vue/menu';\nimport { useAttrs } from 'vue';\nimport type { HTMLAttributes } from 'vue';\nimport { cn } from '@/lib/moduix/cn';\nimport MenuArrowTip from './MenuArrowTip.vue';\n\ndefineOptions({ inheritAttrs: false });\n\ninterface Props extends /* @vue-ignore */ MenuArrowProps {\n  class?: HTMLAttributes['class'];\n}\n\nconst { class: className } = defineProps<Props>();\ndefineSlots<{ default?: () => unknown }>();\nconst attrs = useAttrs();\n</script>\n\n<template>\n  <ArkMenuArrow\n    v-bind=\"attrs\"\n    :class=\"cn('[--arrow-background:var(--color-popover)]', className)\"\n    data-slot=\"menu-arrow\"\n  >\n    <slot><MenuArrowTip /></slot>\n  </ArkMenuArrow>\n</template>",
+      "type": "registry:component",
+      "target": "@components/ui/menu/MenuArrow.vue"
+    },
+    {
+      "path": "src/components/menu/MenuArrowTip.vue",
+      "content": "<script setup lang=\"ts\">\nimport { MenuArrowTip as ArkMenuArrowTip } from '@ark-ui/vue/menu';\nimport type { MenuArrowTipProps } from '@ark-ui/vue/menu';\nimport { useAttrs } from 'vue';\nimport type { HTMLAttributes } from 'vue';\nimport { cn } from '@/lib/moduix/cn';\n\ndefineOptions({ inheritAttrs: false });\n\ninterface Props extends /* @vue-ignore */ MenuArrowTipProps {\n  class?: HTMLAttributes['class'];\n}\n\nconst { class: className } = defineProps<Props>();\nconst attrs = useAttrs();\n</script>\n\n<template>\n  <ArkMenuArrowTip\n    v-bind=\"attrs\"\n    :class=\"\n      cn(\n        '[border-block-start:1px_solid_var(--color-border)] [border-inline-start:1px_solid_var(--color-border)]',\n        className,\n      )\n    \"\n    data-slot=\"menu-arrow-tip\"\n  />\n</template>",
+      "type": "registry:component",
+      "target": "@components/ui/menu/MenuArrowTip.vue"
+    },
+    {
+      "path": "src/components/menu/MenuCheckboxItem.vue",
+      "content": "<script setup lang=\"ts\">\nimport { MenuCheckboxItem as ArkMenuCheckboxItem } from '@ark-ui/vue/menu';\nimport type { MenuCheckboxItemProps, MenuCheckboxItemEmits } from '@ark-ui/vue/menu';\nimport { useAttrs } from 'vue';\nimport type { HTMLAttributes } from 'vue';\nimport { cn } from '@/lib/moduix/cn';\nimport { menuItemStyles } from './Menu.variants';\n\ndefineOptions({ inheritAttrs: false });\n\ntype MenuIndicatorPosition = 'start' | 'end' | 'none';\ninterface Props extends /* @vue-ignore */ MenuCheckboxItemProps {\n  checked: MenuCheckboxItemProps['checked'];\n  class?: HTMLAttributes['class'];\n  indicator?: MenuIndicatorPosition;\n  value: MenuCheckboxItemProps['value'];\n}\n\nconst { checked, class: className, indicator = 'start', value } = defineProps<Props>();\ninterface Emits extends /* @vue-ignore */ MenuCheckboxItemEmits {}\ndefineEmits<Emits>();\ndefineSlots<{ default?: () => unknown }>();\nconst attrs = useAttrs();\n</script>\n\n<template>\n  <ArkMenuCheckboxItem\n    v-bind=\"attrs\"\n    :class=\"cn(menuItemStyles({ layout: 'indicatorItem', indicator }), className)\"\n    :checked=\"checked\"\n    :value=\"value\"\n    :data-indicator-position=\"indicator\"\n    data-slot=\"menu-checkbox-item\"\n  >\n    <slot />\n  </ArkMenuCheckboxItem>\n</template>",
+      "type": "registry:component",
+      "target": "@components/ui/menu/MenuCheckboxItem.vue"
+    },
+    {
+      "path": "src/components/menu/MenuContext.vue",
+      "content": "<script setup lang=\"ts\">\nimport { MenuContext as ArkMenuContext, type UseMenuContext } from '@ark-ui/vue/menu';\nimport type { UnwrapRef } from 'vue';\n\ndefineSlots<{ default: (context: UnwrapRef<UseMenuContext>) => unknown }>();\n</script>\n\n<template>\n  <ArkMenuContext v-slot=\"context\">\n    <slot v-bind=\"context\" />\n  </ArkMenuContext>\n</template>",
+      "type": "registry:component",
+      "target": "@components/ui/menu/MenuContext.vue"
+    },
+    {
+      "path": "src/components/menu/MenuContextTrigger.vue",
+      "content": "<script setup lang=\"ts\">\nimport { MenuContextTrigger as ArkMenuContextTrigger } from '@ark-ui/vue/menu';\nimport type { MenuContextTriggerProps } from '@ark-ui/vue/menu';\nimport { useAttrs } from 'vue';\nimport type { HTMLAttributes } from 'vue';\nimport { cn } from '@/lib/moduix/cn';\n\ndefineOptions({ inheritAttrs: false });\n\ninterface Props extends /* @vue-ignore */ MenuContextTriggerProps {\n  asChild?: boolean;\n  class?: HTMLAttributes['class'];\n}\n\nconst { asChild, class: className } = defineProps<Props>();\ndefineSlots<{ default?: () => unknown }>();\nconst attrs = useAttrs();\n</script>\n\n<template>\n  <ArkMenuContextTrigger\n    v-bind=\"attrs\"\n    :as-child=\"asChild\"\n    :class=\"\n      cn(\n        !asChild &&\n          'inline-flex min-h-control-md cursor-pointer items-center justify-center gap-2 rounded-md border border-border bg-background px-4 py-1 text-sm font-medium text-foreground outline-0 transition-colors duration-200 ease-in-out select-none focus-visible:outline-1 focus-visible:-outline-offset-1 focus-visible:outline-ring active:bg-muted data-disabled:pointer-events-none data-disabled:opacity-50 data-[current]:data-[state=open]:bg-muted motion-reduce:transition-none [@media(hover:hover)]:hover:bg-muted',\n        className,\n      )\n    \"\n    data-slot=\"menu-context-trigger\"\n  >\n    <slot />\n  </ArkMenuContextTrigger>\n</template>",
+      "type": "registry:component",
+      "target": "@components/ui/menu/MenuContextTrigger.vue"
+    },
+    {
+      "path": "src/components/menu/MenuContent.vue",
+      "content": "<script setup lang=\"ts\">\nimport { MenuContent as ArkMenuContent } from '@ark-ui/vue/menu';\nimport type { MenuContentProps } from '@ark-ui/vue/menu';\nimport { useAttrs } from 'vue';\nimport type { HTMLAttributes } from 'vue';\nimport { cn } from '@/lib/moduix/cn';\nimport { menuContentVariants } from './Menu.variants';\n\ndefineOptions({ inheritAttrs: false });\n\ninterface Props extends /* @vue-ignore */ MenuContentProps {\n  class?: HTMLAttributes['class'];\n}\n\nconst { class: className } = defineProps<Props>();\ndefineSlots<{ default?: () => unknown }>();\nconst attrs = useAttrs();\n</script>\n\n<template>\n  <ArkMenuContent\n    v-bind=\"attrs\"\n    :class=\"cn(menuContentVariants(), className)\"\n    data-slot=\"menu-content\"\n  >\n    <slot />\n  </ArkMenuContent>\n</template>",
+      "type": "registry:component",
+      "target": "@components/ui/menu/MenuContent.vue"
+    },
+    {
+      "path": "src/components/menu/MenuIndicator.vue",
+      "content": "<script setup lang=\"ts\">\nimport { MenuIndicator as ArkMenuIndicator } from '@ark-ui/vue/menu';\nimport type { MenuIndicatorProps } from '@ark-ui/vue/menu';\nimport { useAttrs } from 'vue';\nimport type { HTMLAttributes } from 'vue';\nimport { cn } from '@/lib/moduix/cn';\nimport { ChevronDownIcon } from '@/lib/moduix/icons/ui';\n\ndefineOptions({ inheritAttrs: false });\n\ninterface Props extends /* @vue-ignore */ MenuIndicatorProps {\n  class?: HTMLAttributes['class'];\n}\n\nconst { class: className } = defineProps<Props>();\ndefineSlots<{ default?: () => unknown }>();\nconst attrs = useAttrs();\n</script>\n\n<template>\n  <ArkMenuIndicator\n    v-bind=\"attrs\"\n    :class=\"\n      cn('inline-flex size-4 shrink-0 items-center justify-center [&_svg]:size-full', className)\n    \"\n    data-slot=\"menu-indicator\"\n  >\n    <slot><ChevronDownIcon /></slot>\n  </ArkMenuIndicator>\n</template>",
+      "type": "registry:component",
+      "target": "@components/ui/menu/MenuIndicator.vue"
+    },
+    {
+      "path": "src/components/menu/MenuItem.vue",
+      "content": "<script setup lang=\"ts\">\nimport { MenuItem as ArkMenuItem } from '@ark-ui/vue/menu';\nimport type { MenuItemProps } from '@ark-ui/vue/menu';\nimport { useAttrs } from 'vue';\nimport type { HTMLAttributes } from 'vue';\nimport { cn } from '@/lib/moduix/cn';\nimport { menuItemStyles } from './Menu.variants';\n\ndefineOptions({ inheritAttrs: false });\n\ntype MenuItemTone = 'default' | 'destructive';\ninterface Props extends /* @vue-ignore */ MenuItemProps {\n  class?: HTMLAttributes['class'];\n  tone?: MenuItemTone;\n  value: MenuItemProps['value'];\n}\n\nconst { class: className, tone = 'default', value } = defineProps<Props>();\ndefineSlots<{ default?: () => unknown }>();\nconst attrs = useAttrs();\n</script>\n\n<template>\n  <ArkMenuItem\n    v-bind=\"attrs\"\n    :class=\"cn(menuItemStyles({ layout: 'item', tone }), className)\"\n    :value=\"value\"\n    :data-tone=\"tone\"\n    data-slot=\"menu-item\"\n  >\n    <slot />\n  </ArkMenuItem>\n</template>",
+      "type": "registry:component",
+      "target": "@components/ui/menu/MenuItem.vue"
+    },
+    {
+      "path": "src/components/menu/MenuItemContext.vue",
+      "content": "<script setup lang=\"ts\">\nimport { MenuItemContext as ArkMenuItemContext, type UseMenuItemContext } from '@ark-ui/vue/menu';\nimport type { UnwrapRef } from 'vue';\n\ndefineSlots<{ default: (context: UnwrapRef<UseMenuItemContext>) => unknown }>();\n</script>\n\n<template>\n  <ArkMenuItemContext v-slot=\"context\">\n    <slot v-bind=\"context\" />\n  </ArkMenuItemContext>\n</template>",
+      "type": "registry:component",
+      "target": "@components/ui/menu/MenuItemContext.vue"
+    },
+    {
+      "path": "src/components/menu/MenuItemGroup.vue",
+      "content": "<script setup lang=\"ts\">\nimport { MenuItemGroup as ArkMenuItemGroup } from '@ark-ui/vue/menu';\nimport type { MenuItemGroupProps } from '@ark-ui/vue/menu';\nimport { useAttrs } from 'vue';\nimport type { HTMLAttributes } from 'vue';\nimport { cn } from '@/lib/moduix/cn';\n\ndefineOptions({ inheritAttrs: false });\n\ninterface Props extends /* @vue-ignore */ MenuItemGroupProps {\n  class?: HTMLAttributes['class'];\n}\n\nconst { class: className } = defineProps<Props>();\ndefineSlots<{ default?: () => unknown }>();\nconst attrs = useAttrs();\n</script>\n\n<template>\n  <ArkMenuItemGroup v-bind=\"attrs\" :class=\"cn('grid', className)\" data-slot=\"menu-item-group\">\n    <slot />\n  </ArkMenuItemGroup>\n</template>",
+      "type": "registry:component",
+      "target": "@components/ui/menu/MenuItemGroup.vue"
+    },
+    {
+      "path": "src/components/menu/MenuItemGroupLabel.vue",
+      "content": "<script setup lang=\"ts\">\nimport { MenuItemGroupLabel as ArkMenuItemGroupLabel } from '@ark-ui/vue/menu';\nimport type { MenuItemGroupLabelProps } from '@ark-ui/vue/menu';\nimport { useAttrs } from 'vue';\nimport type { HTMLAttributes } from 'vue';\nimport { cn } from '@/lib/moduix/cn';\n\ndefineOptions({ inheritAttrs: false });\n\ninterface Props extends /* @vue-ignore */ MenuItemGroupLabelProps {\n  class?: HTMLAttributes['class'];\n}\n\nconst { class: className } = defineProps<Props>();\ndefineSlots<{ default?: () => unknown }>();\nconst attrs = useAttrs();\n</script>\n\n<template>\n  <ArkMenuItemGroupLabel\n    v-bind=\"attrs\"\n    :class=\"\n      cn(\n        'cursor-default px-2.5 py-1 text-xs font-normal text-muted-foreground select-none',\n        className,\n      )\n    \"\n    data-slot=\"menu-item-group-label\"\n  >\n    <slot />\n  </ArkMenuItemGroupLabel>\n</template>",
+      "type": "registry:component",
+      "target": "@components/ui/menu/MenuItemGroupLabel.vue"
+    },
+    {
+      "path": "src/components/menu/MenuItemIndicator.vue",
+      "content": "<script setup lang=\"ts\">\nimport { MenuItemIndicator as ArkMenuItemIndicator } from '@ark-ui/vue/menu';\nimport type { MenuItemIndicatorProps } from '@ark-ui/vue/menu';\nimport { useAttrs } from 'vue';\nimport type { HTMLAttributes } from 'vue';\nimport { cn } from '@/lib/moduix/cn';\nimport { CheckIcon } from '@/lib/moduix/icons/ui';\n\ndefineOptions({ inheritAttrs: false });\n\ninterface Props extends /* @vue-ignore */ MenuItemIndicatorProps {\n  class?: HTMLAttributes['class'];\n}\n\nconst { class: className } = defineProps<Props>();\ndefineSlots<{ default?: () => unknown }>();\nconst attrs = useAttrs();\n</script>\n\n<template>\n  <ArkMenuItemIndicator\n    v-bind=\"attrs\"\n    :class=\"\n      cn('inline-flex size-3 items-center justify-center rounded-xs [&_svg]:size-full', className)\n    \"\n    data-slot=\"menu-item-indicator\"\n  >\n    <slot><CheckIcon /></slot>\n  </ArkMenuItemIndicator>\n</template>",
+      "type": "registry:component",
+      "target": "@components/ui/menu/MenuItemIndicator.vue"
+    },
+    {
+      "path": "src/components/menu/MenuItemShortcut.vue",
+      "content": "<script setup lang=\"ts\">\nimport { ark, type HTMLArkProps } from '@ark-ui/vue/factory';\nimport { useAttrs } from 'vue';\nimport type { HTMLAttributes } from 'vue';\nimport { cn } from '@/lib/moduix/cn';\n\ndefineOptions({ inheritAttrs: false });\n\ninterface Props extends /* @vue-ignore */ HTMLArkProps<'span'> {\n  class?: HTMLAttributes['class'];\n}\n\nconst { class: className } = defineProps<Props>();\ndefineSlots<{ default?: () => unknown }>();\nconst attrs = useAttrs();\n</script>\n\n<template>\n  <ark.span\n    v-bind=\"attrs\"\n    :class=\"cn('ms-auto ps-4 text-xs whitespace-nowrap text-muted-foreground', className)\"\n    data-slot=\"menu-item-shortcut\"\n  >\n    <slot />\n  </ark.span>\n</template>",
+      "type": "registry:component",
+      "target": "@components/ui/menu/MenuItemShortcut.vue"
+    },
+    {
+      "path": "src/components/menu/MenuItemText.vue",
+      "content": "<script setup lang=\"ts\">\nimport { MenuItemText as ArkMenuItemText } from '@ark-ui/vue/menu';\nimport type { MenuItemTextProps } from '@ark-ui/vue/menu';\nimport { useAttrs } from 'vue';\nimport type { HTMLAttributes } from 'vue';\nimport { cn } from '@/lib/moduix/cn';\n\ndefineOptions({ inheritAttrs: false });\n\ninterface Props extends /* @vue-ignore */ MenuItemTextProps {\n  class?: HTMLAttributes['class'];\n}\n\nconst { class: className } = defineProps<Props>();\ndefineSlots<{ default?: () => unknown }>();\nconst attrs = useAttrs();\n</script>\n\n<template>\n  <ArkMenuItemText\n    v-bind=\"attrs\"\n    :class=\"cn('min-w-0 overflow-hidden', className)\"\n    data-slot=\"menu-item-text\"\n  >\n    <slot />\n  </ArkMenuItemText>\n</template>",
+      "type": "registry:component",
+      "target": "@components/ui/menu/MenuItemText.vue"
+    },
+    {
+      "path": "src/components/menu/MenuItemTextContent.vue",
+      "content": "<script setup lang=\"ts\">\nimport { ark, type HTMLArkProps } from '@ark-ui/vue/factory';\nimport { useAttrs } from 'vue';\nimport type { HTMLAttributes } from 'vue';\nimport { cn } from '@/lib/moduix/cn';\n\ndefineOptions({ inheritAttrs: false });\n\ninterface Props extends /* @vue-ignore */ HTMLArkProps<'span'> {\n  class?: HTMLAttributes['class'];\n}\n\nconst { class: className } = defineProps<Props>();\ndefineSlots<{ default?: () => unknown }>();\nconst attrs = useAttrs();\n</script>\n\n<template>\n  <ark.span\n    v-bind=\"attrs\"\n    :class=\"cn('inline-flex max-w-full min-w-0 items-center gap-2 align-top', className)\"\n    data-slot=\"menu-item-text-content\"\n  >\n    <slot />\n  </ark.span>\n</template>",
+      "type": "registry:component",
+      "target": "@components/ui/menu/MenuItemTextContent.vue"
+    },
+    {
+      "path": "src/components/menu/MenuItemTextIcon.vue",
+      "content": "<script setup lang=\"ts\">\nimport { ark, type HTMLArkProps } from '@ark-ui/vue/factory';\nimport { useAttrs } from 'vue';\nimport type { HTMLAttributes } from 'vue';\nimport { cn } from '@/lib/moduix/cn';\n\ndefineOptions({ inheritAttrs: false });\n\ninterface Props extends /* @vue-ignore */ HTMLArkProps<'span'> {\n  class?: HTMLAttributes['class'];\n}\n\nconst { class: className } = defineProps<Props>();\ndefineSlots<{ default?: () => unknown }>();\nconst attrs = useAttrs();\n</script>\n\n<template>\n  <ark.span\n    v-bind=\"attrs\"\n    :class=\"\n      cn('inline-flex size-4 shrink-0 items-center justify-center [&_svg]:size-full', className)\n    \"\n    data-slot=\"menu-item-text-icon\"\n  >\n    <slot />\n  </ark.span>\n</template>",
+      "type": "registry:component",
+      "target": "@components/ui/menu/MenuItemTextIcon.vue"
+    },
+    {
+      "path": "src/components/menu/MenuItemTextLabel.vue",
+      "content": "<script setup lang=\"ts\">\nimport { ark, type HTMLArkProps } from '@ark-ui/vue/factory';\nimport { useAttrs } from 'vue';\nimport type { HTMLAttributes } from 'vue';\nimport { cn } from '@/lib/moduix/cn';\n\ndefineOptions({ inheritAttrs: false });\n\ninterface Props extends /* @vue-ignore */ HTMLArkProps<'span'> {\n  class?: HTMLAttributes['class'];\n}\n\nconst { class: className } = defineProps<Props>();\ndefineSlots<{ default?: () => unknown }>();\nconst attrs = useAttrs();\n</script>\n\n<template>\n  <ark.span\n    v-bind=\"attrs\"\n    :class=\"cn('min-w-0 overflow-hidden text-ellipsis whitespace-nowrap', className)\"\n    data-slot=\"menu-item-text-label\"\n  >\n    <slot />\n  </ark.span>\n</template>",
+      "type": "registry:component",
+      "target": "@components/ui/menu/MenuItemTextLabel.vue"
+    },
+    {
+      "path": "src/components/menu/MenuPositioner.vue",
+      "content": "<script setup lang=\"ts\">\nimport { MenuPositioner as ArkMenuPositioner } from '@ark-ui/vue/menu';\nimport type { MenuPositionerProps } from '@ark-ui/vue/menu';\nimport { useAttrs } from 'vue';\nimport type { HTMLAttributes } from 'vue';\nimport { cn } from '@/lib/moduix/cn';\nimport OverlayPortal from '../../internal/overlayPortal/OverlayPortal.vue';\nimport { menuPositionerVariants } from './Menu.variants';\n\ndefineOptions({ inheritAttrs: false });\n\ninterface Props extends /* @vue-ignore */ MenuPositionerProps {\n  class?: HTMLAttributes['class'];\n}\n\nconst { class: className } = defineProps<Props>();\ndefineSlots<{ default?: () => unknown }>();\nconst attrs = useAttrs();\n</script>\n\n<template>\n  <OverlayPortal>\n    <ArkMenuPositioner\n      v-bind=\"attrs\"\n      :class=\"cn(menuPositionerVariants(), className)\"\n      data-slot=\"menu-positioner\"\n    >\n      <slot />\n    </ArkMenuPositioner>\n  </OverlayPortal>\n</template>",
+      "type": "registry:component",
+      "target": "@components/ui/menu/MenuPositioner.vue"
+    },
+    {
+      "path": "src/components/menu/MenuRadioItem.vue",
+      "content": "<script setup lang=\"ts\">\nimport { MenuRadioItem as ArkMenuRadioItem } from '@ark-ui/vue/menu';\nimport type { MenuRadioItemProps } from '@ark-ui/vue/menu';\nimport { useAttrs } from 'vue';\nimport type { HTMLAttributes } from 'vue';\nimport { cn } from '@/lib/moduix/cn';\nimport { menuItemStyles } from './Menu.variants';\n\ndefineOptions({ inheritAttrs: false });\n\ntype MenuIndicatorPosition = 'start' | 'end' | 'none';\ninterface Props extends /* @vue-ignore */ MenuRadioItemProps {\n  class?: HTMLAttributes['class'];\n  indicator?: MenuIndicatorPosition;\n  value: MenuRadioItemProps['value'];\n}\n\nconst { class: className, indicator = 'start', value } = defineProps<Props>();\ndefineSlots<{ default?: () => unknown }>();\nconst attrs = useAttrs();\n</script>\n\n<template>\n  <ArkMenuRadioItem\n    v-bind=\"attrs\"\n    :class=\"cn(menuItemStyles({ layout: 'indicatorItem', indicator }), className)\"\n    :value=\"value\"\n    :data-indicator-position=\"indicator\"\n    data-slot=\"menu-radio-item\"\n  >\n    <slot />\n  </ArkMenuRadioItem>\n</template>",
+      "type": "registry:component",
+      "target": "@components/ui/menu/MenuRadioItem.vue"
+    },
+    {
+      "path": "src/components/menu/MenuRadioItemGroup.vue",
+      "content": "<script setup lang=\"ts\">\nimport { MenuRadioItemGroup as ArkMenuRadioItemGroup } from '@ark-ui/vue/menu';\nimport type { MenuRadioItemGroupProps, MenuRadioItemGroupEmits } from '@ark-ui/vue/menu';\nimport { useAttrs } from 'vue';\nimport type { HTMLAttributes } from 'vue';\nimport { cn } from '@/lib/moduix/cn';\n\ndefineOptions({ inheritAttrs: false });\n\ninterface Props extends /* @vue-ignore */ MenuRadioItemGroupProps {\n  class?: HTMLAttributes['class'];\n}\n\nconst { class: className } = defineProps<Props>();\ninterface Emits extends /* @vue-ignore */ MenuRadioItemGroupEmits {}\ndefineEmits<Emits>();\ndefineSlots<{ default?: () => unknown }>();\nconst attrs = useAttrs();\n</script>\n\n<template>\n  <ArkMenuRadioItemGroup\n    v-bind=\"attrs\"\n    :class=\"cn('grid', className)\"\n    data-slot=\"menu-radio-item-group\"\n  >\n    <slot />\n  </ArkMenuRadioItemGroup>\n</template>",
+      "type": "registry:component",
+      "target": "@components/ui/menu/MenuRadioItemGroup.vue"
+    },
+    {
+      "path": "src/components/menu/MenuRootProvider.vue",
+      "content": "<script setup lang=\"ts\">\nimport { MenuRootProvider as ArkMenuRootProvider } from '@ark-ui/vue/menu';\nimport type { MenuRootProviderEmits, MenuRootProviderProps } from '@ark-ui/vue/menu';\nimport { useAttrs } from 'vue';\nimport type { PortalRef } from '../../internal/overlayPortal/context';\nimport OverlayPortalProvider from '../../internal/overlayPortal/OverlayPortalProvider.vue';\n\ndefineOptions({ inheritAttrs: false });\n\ninterface Props extends /* @vue-ignore */ MenuRootProviderProps {\n  lazyMount?: boolean;\n  portalled?: boolean;\n  portalRef?: PortalRef;\n  unmountOnExit?: boolean;\n  value: MenuRootProviderProps['value'];\n}\ninterface Emits extends /* @vue-ignore */ MenuRootProviderEmits {}\n\nconst {\n  lazyMount = true,\n  portalled,\n  portalRef,\n  unmountOnExit = true,\n  value,\n} = defineProps<Props>();\ndefineEmits<Emits>();\ndefineSlots<{ default?: () => unknown }>();\nconst attrs = useAttrs();\n</script>\n\n<template>\n  <OverlayPortalProvider :portalled=\"portalled\" :portal-ref=\"portalRef\">\n    <ArkMenuRootProvider\n      v-bind=\"attrs\"\n      :lazy-mount=\"lazyMount\"\n      :unmount-on-exit=\"unmountOnExit\"\n      :value=\"value\"\n    >\n      <slot />\n    </ArkMenuRootProvider>\n  </OverlayPortalProvider>\n</template>",
+      "type": "registry:component",
+      "target": "@components/ui/menu/MenuRootProvider.vue"
+    },
+    {
+      "path": "src/components/menu/MenuSeparator.vue",
+      "content": "<script setup lang=\"ts\">\nimport { MenuSeparator as ArkMenuSeparator } from '@ark-ui/vue/menu';\nimport type { MenuSeparatorProps } from '@ark-ui/vue/menu';\nimport { useAttrs } from 'vue';\nimport type { HTMLAttributes } from 'vue';\nimport { cn } from '@/lib/moduix/cn';\n\ndefineOptions({ inheritAttrs: false });\n\ninterface Props extends /* @vue-ignore */ MenuSeparatorProps {\n  class?: HTMLAttributes['class'];\n}\n\nconst { class: className } = defineProps<Props>();\nconst attrs = useAttrs();\n</script>\n\n<template>\n  <ArkMenuSeparator\n    v-bind=\"attrs\"\n    :class=\"cn('mx-3 my-1.5 h-px border-0 bg-border', className)\"\n    data-slot=\"menu-separator\"\n  />\n</template>",
+      "type": "registry:component",
+      "target": "@components/ui/menu/MenuSeparator.vue"
+    },
+    {
+      "path": "src/components/menu/MenuTrigger.vue",
+      "content": "<script setup lang=\"ts\">\nimport { MenuTrigger as ArkMenuTrigger } from '@ark-ui/vue/menu';\nimport type { MenuTriggerProps } from '@ark-ui/vue/menu';\nimport { useAttrs } from 'vue';\nimport type { HTMLAttributes } from 'vue';\nimport { cn } from '@/lib/moduix/cn';\n\ndefineOptions({ inheritAttrs: false });\n\ninterface Props extends /* @vue-ignore */ MenuTriggerProps {\n  asChild?: boolean;\n  class?: HTMLAttributes['class'];\n}\n\nconst { asChild, class: className } = defineProps<Props>();\ndefineSlots<{ default?: () => unknown }>();\nconst attrs = useAttrs();\n</script>\n\n<template>\n  <ArkMenuTrigger\n    v-bind=\"attrs\"\n    :as-child=\"asChild\"\n    :class=\"\n      cn(\n        !asChild &&\n          'inline-flex min-h-control-md cursor-pointer items-center justify-center gap-2 rounded-md border border-border bg-background px-4 py-1 text-sm font-medium text-foreground outline-0 transition-colors duration-200 ease-in-out select-none focus-visible:outline-1 focus-visible:-outline-offset-1 focus-visible:outline-ring active:bg-muted data-disabled:pointer-events-none data-disabled:opacity-50 data-[current]:data-[state=open]:bg-muted motion-reduce:transition-none [@media(hover:hover)]:hover:bg-muted',\n        className,\n      )\n    \"\n    data-slot=\"menu-trigger\"\n  >\n    <slot />\n  </ArkMenuTrigger>\n</template>",
+      "type": "registry:component",
+      "target": "@components/ui/menu/MenuTrigger.vue"
+    },
+    {
+      "path": "src/components/menu/MenuTriggerIcon.vue",
+      "content": "<script setup lang=\"ts\">\nimport { useAttrs } from 'vue';\nimport type { HTMLAttributes } from 'vue';\nimport { cn } from '@/lib/moduix/cn';\nimport { ChevronDownIcon } from '@/lib/moduix/icons/ui';\n\ndefineOptions({ inheritAttrs: false });\n\ninterface Props extends /* @vue-ignore */ HTMLAttributes {\n  class?: HTMLAttributes['class'];\n}\n\nconst { class: className } = defineProps<Props>();\ndefineSlots<{ default?: () => unknown }>();\nconst attrs = useAttrs();\n</script>\n\n<template>\n  <span\n    v-bind=\"attrs\"\n    :class=\"\n      cn('inline-flex size-4 shrink-0 items-center justify-center [&_svg]:size-full', className)\n    \"\n    data-slot=\"menu-trigger-icon\"\n  >\n    <slot><ChevronDownIcon /></slot>\n  </span>\n</template>",
+      "type": "registry:component",
+      "target": "@components/ui/menu/MenuTriggerIcon.vue"
+    },
+    {
+      "path": "src/components/menu/MenuTriggerItem.vue",
+      "content": "<script setup lang=\"ts\">\nimport { MenuTriggerItem as ArkMenuTriggerItem } from '@ark-ui/vue/menu';\nimport type { MenuTriggerItemProps } from '@ark-ui/vue/menu';\nimport { useAttrs } from 'vue';\nimport type { HTMLAttributes } from 'vue';\nimport { cn } from '@/lib/moduix/cn';\nimport { menuItemStyles } from './Menu.variants';\n\ndefineOptions({ inheritAttrs: false });\n\ninterface Props extends /* @vue-ignore */ MenuTriggerItemProps {\n  class?: HTMLAttributes['class'];\n}\n\nconst { class: className } = defineProps<Props>();\ndefineSlots<{ default?: () => unknown }>();\nconst attrs = useAttrs();\n</script>\n\n<template>\n  <ArkMenuTriggerItem\n    v-bind=\"attrs\"\n    :class=\"cn(menuItemStyles({ layout: 'triggerItem' }), className)\"\n    data-slot=\"menu-trigger-item\"\n  >\n    <slot />\n  </ArkMenuTriggerItem>\n</template>",
+      "type": "registry:component",
+      "target": "@components/ui/menu/MenuTriggerItem.vue"
+    },
+    {
+      "path": "src/components/menu/MenuTriggerItemIcon.vue",
+      "content": "<script setup lang=\"ts\">\nimport { useAttrs } from 'vue';\nimport type { HTMLAttributes } from 'vue';\nimport { cn } from '@/lib/moduix/cn';\nimport { ChevronRightIcon } from '@/lib/moduix/icons/ui';\n\ndefineOptions({ inheritAttrs: false });\n\ninterface Props extends /* @vue-ignore */ HTMLAttributes {\n  class?: HTMLAttributes['class'];\n}\n\nconst { class: className } = defineProps<Props>();\ndefineSlots<{ default?: () => unknown }>();\nconst attrs = useAttrs();\n</script>\n\n<template>\n  <span\n    v-bind=\"attrs\"\n    :class=\"cn('inline-flex size-3.5 shrink-0 rtl:-scale-x-100 [&_svg]:size-full', className)\"\n    data-slot=\"menu-trigger-item-icon\"\n  >\n    <slot><ChevronRightIcon /></slot>\n  </span>\n</template>",
+      "type": "registry:component",
+      "target": "@components/ui/menu/MenuTriggerItemIcon.vue"
+    },
+    {
+      "path": "src/components/menu/MenuViewport.vue",
+      "content": "<script setup lang=\"ts\">\nimport { ark, type HTMLArkProps } from '@ark-ui/vue/factory';\nimport { useAttrs } from 'vue';\nimport type { HTMLAttributes } from 'vue';\nimport { cn } from '@/lib/moduix/cn';\n\ndefineOptions({ inheritAttrs: false });\n\ninterface Props extends /* @vue-ignore */ HTMLArkProps<'div'> {\n  class?: HTMLAttributes['class'];\n}\n\nconst { class: className } = defineProps<Props>();\ndefineSlots<{ default?: () => unknown }>();\nconst attrs = useAttrs();\n</script>\n\n<template>\n  <ark.div\n    v-bind=\"attrs\"\n    :class=\"\n      cn('flex max-h-[min(24rem,var(--available-height,100dvh))] flex-col overflow-auto', className)\n    \"\n    data-scope=\"menu\"\n    data-part=\"viewport\"\n    data-slot=\"menu-viewport\"\n  >\n    <slot />\n  </ark.div>\n</template>",
+      "type": "registry:component",
+      "target": "@components/ui/menu/MenuViewport.vue"
+    },
+    {
+      "path": "src/components/menu/Menu.variants.ts",
+      "content": "import { cva } from 'class-variance-authority';\n\nexport const menuPositionerVariants = cva(\n  'z-[var(--z-index)] w-[var(--positioner-width,auto)] max-w-[var(--available-width)] outline-0',\n);\n\nexport const menuContentVariants = cva(\n  'relative z-[calc(var(--moduix-z-popup)+var(--layer-index,0))] flex max-w-[min(20rem,var(--available-width,100vw))] min-w-[min(max(var(--reference-width,0px),12rem),var(--available-width,100vw))] origin-[var(--transform-origin)] flex-col overflow-visible rounded-md bg-popover py-1 text-popover-foreground shadow-lg outline-1 outline-border [--arrow-background:var(--color-popover)] [--arrow-size:0.625rem] data-[state=closed]:animate-moduix-menu-closed data-[state=open]:animate-moduix-menu-open motion-reduce:[animation-delay:0ms] motion-reduce:[animation-duration:1ms]',\n);\n\nexport const menuItemStyles = cva(\n  \"relative z-0 min-h-control-sm cursor-default rounded-sm bg-transparent text-sm text-inherit no-underline outline-0 select-none before:absolute before:inset-x-1 before:inset-y-0 before:-z-1 before:rounded-sm before:bg-transparent before:content-[''] data-disabled:pointer-events-none data-disabled:text-muted-foreground data-highlighted:text-accent-foreground data-highlighted:before:bg-accent data-[state=open]:before:bg-accent\",\n  {\n    variants: {\n      layout: {\n        item: 'flex items-center gap-2 px-3 py-1',\n        triggerItem: 'flex items-center justify-between gap-3 px-3 py-1',\n        indicatorItem: 'grid items-center gap-2 py-1 ps-2.5 pe-3',\n      },\n      tone: {\n        default: '',\n        destructive:\n          'text-destructive data-highlighted:text-destructive data-highlighted:before:bg-[color-mix(in_oklab,var(--color-destructive)_12%,transparent)]',\n      },\n      indicator: {\n        start:\n          \"grid-cols-[0.75rem_minmax(0,1fr)] [&>[data-slot='menu-item-indicator']]:col-start-1 [&>[data-slot='menu-item-text']]:col-start-2\",\n        end: \"grid-cols-[minmax(0,1fr)_0.75rem] [&>[data-slot='menu-item-indicator']]:col-start-2 [&>[data-slot='menu-item-indicator']]:justify-self-end [&>[data-slot='menu-item-text']]:col-start-1\",\n        none: \"grid-cols-[minmax(0,1fr)] ps-3 [&>[data-slot='menu-item-indicator']]:hidden [&>[data-slot='menu-item-text']]:col-start-1\",\n      },\n    },\n    defaultVariants: { tone: 'default' },\n  },\n);",
+      "type": "registry:component",
+      "target": "@components/ui/menu/Menu.variants.ts"
+    },
+    {
+      "path": "src/components/menu/index.ts",
+      "content": "export { default as Menu } from './Menu.vue';\nexport { default as MenuArrow } from './MenuArrow.vue';\nexport { default as MenuArrowTip } from './MenuArrowTip.vue';\nexport { default as MenuCheckboxItem } from './MenuCheckboxItem.vue';\nexport { default as MenuContext } from './MenuContext.vue';\nexport { default as MenuContextTrigger } from './MenuContextTrigger.vue';\nexport { default as MenuContent } from './MenuContent.vue';\nexport { default as MenuIndicator } from './MenuIndicator.vue';\nexport { default as MenuItem } from './MenuItem.vue';\nexport { default as MenuItemContext } from './MenuItemContext.vue';\nexport { default as MenuItemGroup } from './MenuItemGroup.vue';\nexport { default as MenuItemGroupLabel } from './MenuItemGroupLabel.vue';\nexport { default as MenuItemIndicator } from './MenuItemIndicator.vue';\nexport { default as MenuItemShortcut } from './MenuItemShortcut.vue';\nexport { default as MenuItemText } from './MenuItemText.vue';\nexport { default as MenuItemTextContent } from './MenuItemTextContent.vue';\nexport { default as MenuItemTextIcon } from './MenuItemTextIcon.vue';\nexport { default as MenuItemTextLabel } from './MenuItemTextLabel.vue';\nexport { default as MenuPositioner } from './MenuPositioner.vue';\nexport { default as MenuRadioItem } from './MenuRadioItem.vue';\nexport { default as MenuRadioItemGroup } from './MenuRadioItemGroup.vue';\nexport { default as MenuRootProvider } from './MenuRootProvider.vue';\nexport { default as MenuSeparator } from './MenuSeparator.vue';\nexport { default as MenuTrigger } from './MenuTrigger.vue';\nexport { default as MenuTriggerIcon } from './MenuTriggerIcon.vue';\nexport { default as MenuTriggerItem } from './MenuTriggerItem.vue';\nexport { default as MenuTriggerItemIcon } from './MenuTriggerItemIcon.vue';\nexport { default as MenuViewport } from './MenuViewport.vue';\n\nexport { useMenu, useMenuContext, useMenuItemContext } from '@ark-ui/vue/menu';\n\nexport type {\n  MenuArrowBaseProps,\n  MenuArrowProps,\n  MenuArrowTipBaseProps,\n  MenuArrowTipProps,\n  MenuCheckboxItemBaseProps,\n  MenuCheckboxItemEmits,\n  MenuCheckboxItemProps,\n  MenuContentBaseProps,\n  MenuContentProps,\n  MenuContextProps,\n  MenuContextTriggerBaseProps,\n  MenuContextTriggerProps,\n  MenuFocusOutsideEvent,\n  MenuHighlightChangeDetails,\n  MenuIndicatorBaseProps,\n  MenuIndicatorProps,\n  MenuInteractOutsideEvent,\n  MenuItemBaseProps,\n  MenuItemContextProps,\n  MenuItemGroupBaseProps,\n  MenuItemGroupLabelBaseProps,\n  MenuItemGroupLabelProps,\n  MenuItemGroupProps,\n  MenuItemIndicatorBaseProps,\n  MenuItemIndicatorProps,\n  MenuItemProps,\n  MenuItemTextBaseProps,\n  MenuItemTextProps,\n  MenuOpenChangeDetails,\n  MenuPointerDownOutsideEvent,\n  MenuPositionerBaseProps,\n  MenuPositionerProps,\n  MenuRadioItemBaseProps,\n  MenuRadioItemGroupBaseProps,\n  MenuRadioItemGroupEmits,\n  MenuRadioItemGroupProps,\n  MenuRadioItemProps,\n  MenuRootBaseProps,\n  MenuRootEmits,\n  MenuRootProps,\n  MenuRootProviderBaseProps,\n  MenuRootProviderEmits,\n  MenuRootProviderProps,\n  MenuSelectionDetails,\n  MenuSeparatorBaseProps,\n  MenuSeparatorProps,\n  MenuTriggerBaseProps,\n  MenuTriggerItemBaseProps,\n  MenuTriggerItemProps,\n  MenuTriggerProps,\n  MenuTriggerValueChangeDetails,\n  MenuValueChangeDetails,\n  UseMenuContext,\n  UseMenuItemContext,\n  UseMenuProps,\n  UseMenuReturn,\n} from '@ark-ui/vue/menu';",
+      "type": "registry:component",
+      "target": "@components/ui/menu/index.ts"
+    }
+  ],
+  "type": "registry:item"
+}

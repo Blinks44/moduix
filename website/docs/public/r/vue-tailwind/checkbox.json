@@ -1,0 +1,63 @@
+{
+  "$schema": "https://ui.shadcn.com/schema/registry-item.json",
+  "name": "checkbox",
+  "title": "Checkbox",
+  "description": "moduix Vue Tailwind Checkbox component.",
+  "dependencies": ["@ark-ui/vue", "clsx", "tailwind-merge"],
+  "registryDependencies": [
+    "@moduix-vue-tailwind/foundation",
+    "@moduix-vue-tailwind/cn",
+    "@moduix-vue-tailwind/icons"
+  ],
+  "files": [
+    {
+      "path": "src/components/checkbox/Checkbox.vue",
+      "content": "<script setup lang=\"ts\">\nimport { CheckboxRoot as ArkCheckboxRoot } from '@ark-ui/vue/checkbox';\nimport type { CheckboxRootEmits, CheckboxRootProps } from '@ark-ui/vue/checkbox';\nimport { useAttrs } from 'vue';\nimport type { HTMLAttributes } from 'vue';\nimport { cn } from '@/lib/moduix/cn';\n\ndefineOptions({ inheritAttrs: false });\n\ntype CheckboxSize = 'xs' | 'sm' | 'md' | 'lg' | 'xl';\n\nexport interface Props extends /* @vue-ignore */ CheckboxRootProps {\n  class?: HTMLAttributes['class'];\n  size?: CheckboxSize;\n}\n\nexport interface Emits extends /* @vue-ignore */ CheckboxRootEmits {}\n\nconst { class: className, size = 'md' } = defineProps<Props>();\ndefineEmits<Emits>();\ndefineSlots<{ default?: () => unknown }>();\n\nconst attrs = useAttrs();\n</script>\n\n<template>\n  <ArkCheckboxRoot\n    v-bind=\"attrs\"\n    :class=\"\n      cn(\n        'group/checkbox inline-flex cursor-pointer items-center gap-2 align-middle text-foreground data-disabled:cursor-default data-disabled:opacity-50 data-readonly:cursor-default',\n        className,\n      )\n    \"\n    :data-size=\"size\"\n    data-slot=\"checkbox-root\"\n  >\n    <slot />\n  </ArkCheckboxRoot>\n</template>",
+      "type": "registry:component",
+      "target": "@components/ui/checkbox/Checkbox.vue"
+    },
+    {
+      "path": "src/components/checkbox/CheckboxRootProvider.vue",
+      "content": "<script setup lang=\"ts\">\nimport { CheckboxRootProvider as ArkCheckboxRootProvider } from '@ark-ui/vue/checkbox';\nimport type { CheckboxRootProviderProps } from '@ark-ui/vue/checkbox';\nimport { useAttrs } from 'vue';\nimport type { HTMLAttributes } from 'vue';\nimport { cn } from '@/lib/moduix/cn';\n\ndefineOptions({ inheritAttrs: false });\n\ntype CheckboxSize = 'xs' | 'sm' | 'md' | 'lg' | 'xl';\n\nexport interface Props extends /* @vue-ignore */ CheckboxRootProviderProps {\n  class?: HTMLAttributes['class'];\n  size?: CheckboxSize;\n  value: CheckboxRootProviderProps['value'];\n}\n\nconst { class: className, size = 'md', value } = defineProps<Props>();\ndefineSlots<{ default?: () => unknown }>();\n\nconst attrs = useAttrs();\n</script>\n\n<template>\n  <ArkCheckboxRootProvider\n    v-bind=\"attrs\"\n    :class=\"\n      cn(\n        'group/checkbox inline-flex cursor-pointer items-center gap-2 align-middle text-foreground data-disabled:cursor-default data-disabled:opacity-50 data-readonly:cursor-default',\n        className,\n      )\n    \"\n    :data-size=\"size\"\n    :value=\"value\"\n    data-slot=\"checkbox-root-provider\"\n  >\n    <slot />\n  </ArkCheckboxRootProvider>\n</template>",
+      "type": "registry:component",
+      "target": "@components/ui/checkbox/CheckboxRootProvider.vue"
+    },
+    {
+      "path": "src/components/checkbox/CheckboxControl.vue",
+      "content": "<script setup lang=\"ts\">\nimport { CheckboxControl as ArkCheckboxControl } from '@ark-ui/vue/checkbox';\nimport type { CheckboxControlProps } from '@ark-ui/vue/checkbox';\nimport { useAttrs } from 'vue';\nimport type { HTMLAttributes } from 'vue';\nimport { cn } from '@/lib/moduix/cn';\nimport CheckboxIndicator from './CheckboxIndicator.vue';\n\ndefineOptions({ inheritAttrs: false });\n\nexport interface Props extends /* @vue-ignore */ CheckboxControlProps {\n  class?: HTMLAttributes['class'];\n}\n\nconst { class: className } = defineProps<Props>();\ndefineSlots<{ default?: () => unknown }>();\n\nconst attrs = useAttrs();\n</script>\n\n<template>\n  <ArkCheckboxControl\n    v-bind=\"attrs\"\n    :class=\"\n      cn(\n        `[@media(hover:hover)]:[&:not([data-disabled]):not([data-readonly])[data-state='unchecked'][data-hover]:bg-accent box-border inline-flex size-5 shrink-0 items-center justify-center rounded-xs border border-border bg-background p-0 leading-none text-primary-foreground transition-[background-color,border-color,color,opacity] duration-200 select-none group-data-[size=lg]/checkbox:size-control-xs group-data-[size=sm]/checkbox:size-4 group-data-[size=xl]/checkbox:size-7 group-data-[size=xs]/checkbox:size-3.5 data-focus-visible:outline-1 data-focus-visible:outline-offset-1 data-focus-visible:outline-ring data-invalid:border-destructive data-invalid:text-destructive-foreground data-invalid:data-focus-visible:outline-destructive data-[state=checked]:border-primary data-[state=checked]:bg-primary data-invalid:data-[state=checked]:border-destructive data-invalid:data-[state=checked]:bg-destructive data-[state=indeterminate]:border-primary data-[state=indeterminate]:bg-primary data-invalid:data-[state=indeterminate]:border-destructive data-invalid:data-[state=indeterminate]:bg-destructive motion-reduce:transition-none`,\n        className,\n      )\n    \"\n    data-slot=\"checkbox-control\"\n  >\n    <slot>\n      <CheckboxIndicator />\n      <CheckboxIndicator indeterminate />\n    </slot>\n  </ArkCheckboxControl>\n</template>",
+      "type": "registry:component",
+      "target": "@components/ui/checkbox/CheckboxControl.vue"
+    },
+    {
+      "path": "src/components/checkbox/CheckboxIndicator.vue",
+      "content": "<script setup lang=\"ts\">\nimport { CheckboxIndicator as ArkCheckboxIndicator } from '@ark-ui/vue/checkbox';\nimport type { CheckboxIndicatorProps } from '@ark-ui/vue/checkbox';\nimport { useAttrs } from 'vue';\nimport type { HTMLAttributes } from 'vue';\nimport { cn } from '@/lib/moduix/cn';\nimport { CheckIcon, IndeterminateIcon } from '@/lib/moduix/icons/ui';\n\ndefineOptions({ inheritAttrs: false });\n\nexport interface Props extends /* @vue-ignore */ CheckboxIndicatorProps {\n  class?: HTMLAttributes['class'];\n  indeterminate?: CheckboxIndicatorProps['indeterminate'];\n}\n\nconst { class: className, indeterminate = undefined } = defineProps<Props>();\ndefineSlots<{ default?: () => unknown }>();\n\nconst attrs = useAttrs();\n</script>\n\n<template>\n  <ArkCheckboxIndicator\n    v-bind=\"attrs\"\n    :class=\"cn('inline-flex h-full w-full items-center justify-center text-inherit', className)\"\n    :indeterminate=\"indeterminate\"\n    data-slot=\"checkbox-indicator\"\n  >\n    <slot>\n      <span\n        aria-hidden=\"true\"\n        class=\"inline-flex size-3 items-center justify-center leading-none text-inherit group-data-[size=lg]/checkbox:size-3.5 group-data-[size=sm]/checkbox:size-2.5 group-data-[size=xl]/checkbox:size-4 group-data-[size=xs]/checkbox:size-2 [&>svg]:size-full\"\n        :data-slot=\"\n          indeterminate\n            ? 'checkbox-indicator-indeterminate-icon'\n            : 'checkbox-indicator-checked-icon'\n        \"\n      >\n        <IndeterminateIcon v-if=\"indeterminate\" />\n        <CheckIcon v-else />\n      </span>\n    </slot>\n  </ArkCheckboxIndicator>\n</template>",
+      "type": "registry:component",
+      "target": "@components/ui/checkbox/CheckboxIndicator.vue"
+    },
+    {
+      "path": "src/components/checkbox/CheckboxLabel.vue",
+      "content": "<script setup lang=\"ts\">\nimport { CheckboxLabel as ArkCheckboxLabel } from '@ark-ui/vue/checkbox';\nimport type { CheckboxLabelProps } from '@ark-ui/vue/checkbox';\nimport { useAttrs } from 'vue';\nimport type { HTMLAttributes } from 'vue';\nimport { cn } from '@/lib/moduix/cn';\n\ndefineOptions({ inheritAttrs: false });\n\nexport interface Props extends /* @vue-ignore */ CheckboxLabelProps {\n  class?: HTMLAttributes['class'];\n}\n\nconst { class: className } = defineProps<Props>();\ndefineSlots<{ default?: () => unknown }>();\n\nconst attrs = useAttrs();\n</script>\n\n<template>\n  <ArkCheckboxLabel\n    v-bind=\"attrs\"\n    :class=\"cn('text-sm leading-5 font-medium text-inherit', className)\"\n    data-slot=\"checkbox-label\"\n  >\n    <slot />\n  </ArkCheckboxLabel>\n</template>",
+      "type": "registry:component",
+      "target": "@components/ui/checkbox/CheckboxLabel.vue"
+    },
+    {
+      "path": "src/components/checkbox/CheckboxGroup.vue",
+      "content": "<script setup lang=\"ts\">\nimport { CheckboxGroup as ArkCheckboxGroup } from '@ark-ui/vue/checkbox';\nimport type { CheckboxGroupProps } from '@ark-ui/vue/checkbox';\nimport { useAttrs } from 'vue';\nimport type { HTMLAttributes } from 'vue';\nimport { cn } from '@/lib/moduix/cn';\nimport type { CheckboxGroupEmits } from './checkbox.types';\n\ndefineOptions({ inheritAttrs: false });\n\nexport interface Props extends /* @vue-ignore */ CheckboxGroupProps {\n  class?: HTMLAttributes['class'];\n}\n\nexport interface Emits extends /* @vue-ignore */ CheckboxGroupEmits {}\n\nconst { class: className } = defineProps<Props>();\ndefineEmits<Emits>();\ndefineSlots<{ default?: () => unknown }>();\n\nconst attrs = useAttrs();\n</script>\n\n<template>\n  <ArkCheckboxGroup\n    v-bind=\"attrs\"\n    :class=\"cn('flex flex-col gap-2 text-foreground', className)\"\n    data-slot=\"checkbox-group\"\n  >\n    <slot />\n  </ArkCheckboxGroup>\n</template>",
+      "type": "registry:component",
+      "target": "@components/ui/checkbox/CheckboxGroup.vue"
+    },
+    {
+      "path": "src/components/checkbox/checkbox.types.ts",
+      "content": "export interface CheckboxGroupEmits {\n  valueChange: (value: string[]) => void;\n  'update:modelValue': (value: string[]) => void;\n}",
+      "type": "registry:file",
+      "target": "@components/ui/checkbox/checkbox.types.ts"
+    },
+    {
+      "path": "src/components/checkbox/index.ts",
+      "content": "import {\n  CheckboxContext,\n  CheckboxHiddenInput,\n  useCheckbox,\n  useCheckboxContext,\n  useCheckboxGroup,\n  useCheckboxGroupContext,\n} from '@ark-ui/vue/checkbox';\nimport Checkbox from './Checkbox.vue';\nimport CheckboxControl from './CheckboxControl.vue';\nimport CheckboxGroup from './CheckboxGroup.vue';\nimport CheckboxIndicator from './CheckboxIndicator.vue';\nimport CheckboxLabel from './CheckboxLabel.vue';\nimport CheckboxRootProvider from './CheckboxRootProvider.vue';\n\nexport {\n  Checkbox,\n  CheckboxContext,\n  CheckboxControl,\n  CheckboxGroup,\n  CheckboxHiddenInput,\n  CheckboxIndicator,\n  CheckboxLabel,\n  CheckboxRootProvider,\n  useCheckbox,\n  useCheckboxContext,\n  useCheckboxGroup,\n  useCheckboxGroupContext,\n};\n\nexport type {\n  CheckboxContextProps,\n  CheckboxControlProps,\n  CheckboxGroupProps,\n  CheckboxHiddenInputProps,\n  CheckboxIndicatorProps,\n  CheckboxLabelProps,\n  CheckboxRootEmits,\n  CheckboxRootProps,\n  CheckboxRootProviderProps,\n  UseCheckboxContext,\n  UseCheckboxGroupContext,\n  UseCheckboxGroupProps,\n  UseCheckboxGroupReturn,\n  UseCheckboxProps,\n  UseCheckboxReturn,\n} from '@ark-ui/vue/checkbox';",
+      "type": "registry:component",
+      "target": "@components/ui/checkbox/index.ts"
+    }
+  ],
+  "type": "registry:item"
+}

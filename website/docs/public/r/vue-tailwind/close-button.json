@@ -1,0 +1,27 @@
+{
+  "$schema": "https://ui.shadcn.com/schema/registry-item.json",
+  "name": "close-button",
+  "title": "CloseButton",
+  "description": "moduix Vue Tailwind CloseButton component.",
+  "dependencies": ["@ark-ui/vue", "clsx", "tailwind-merge"],
+  "registryDependencies": [
+    "@moduix-vue-tailwind/foundation",
+    "@moduix-vue-tailwind/cn",
+    "@moduix-vue-tailwind/icons"
+  ],
+  "files": [
+    {
+      "path": "src/components/close-button/CloseButton.vue",
+      "content": "<script setup lang=\"ts\">\nimport { ark } from '@ark-ui/vue/factory';\nimport type { HTMLArkProps } from '@ark-ui/vue/factory';\nimport { computed, useAttrs } from 'vue';\nimport type { HTMLAttributes } from 'vue';\nimport { CloseIcon } from '@/internal/icons/ui/Icons';\nimport { cn } from '@/lib/moduix/cn';\n\ndefineOptions({ inheritAttrs: false });\n\ntype Booleanish = boolean | 'false' | 'true';\n\nexport interface Props extends /* @vue-ignore */ HTMLArkProps<'button'> {\n  asChild?: boolean;\n  ariaLabel?: string;\n  ariaLabelledby?: string;\n  class?: HTMLAttributes['class'];\n  dataDisabled?: string;\n  dataPart?: string;\n  dataScope?: string;\n  dataSlot?: string;\n  disabled?: boolean;\n  onClick?: (event: MouseEvent) => void;\n  onClickCapture?: (event: MouseEvent) => void;\n  type?: 'button' | 'reset' | 'submit';\n}\n\nconst {\n  asChild = false,\n  ariaLabel,\n  ariaLabelledby,\n  class: className,\n  dataDisabled,\n  dataPart = 'root',\n  dataScope = 'close-button',\n  dataSlot = 'close-button-root',\n  disabled = false,\n  onClick,\n  onClickCapture,\n  type,\n} = defineProps<Props>();\n\ndefineSlots<{ default?: () => unknown }>();\n\nconst attrs = useAttrs();\nconst ariaDisabled = computed(() => attrs['aria-disabled'] as Booleanish | undefined);\nconst isDisabled = computed(\n  () =>\n    disabled ||\n    ariaDisabled.value === true ||\n    ariaDisabled.value === 'true' ||\n    dataDisabled !== undefined,\n);\n\nconst handleClickCapture = (event: MouseEvent) => {\n  if (isDisabled.value) {\n    event.preventDefault();\n    event.stopPropagation();\n    return;\n  }\n\n  onClickCapture?.(event);\n};\n\nconst handleClick = (event: MouseEvent) => {\n  if (isDisabled.value) {\n    event.preventDefault();\n    event.stopPropagation();\n    return;\n  }\n\n  onClick?.(event);\n};\n</script>\n\n<template>\n  <ark.button\n    v-bind=\"attrs\"\n    :as-child=\"asChild\"\n    :type=\"asChild ? type : (type ?? 'button')\"\n    :disabled=\"asChild ? undefined : disabled\"\n    :aria-disabled=\"asChild && disabled ? true : ariaDisabled\"\n    :aria-label=\"ariaLabel ?? (ariaLabelledby == null ? 'Close' : undefined)\"\n    :aria-labelledby=\"ariaLabelledby\"\n    @click.capture=\"handleClickCapture\"\n    @click=\"handleClick\"\n    :data-scope=\"dataScope\"\n    :data-part=\"dataPart\"\n    :data-slot=\"dataSlot\"\n    :data-disabled=\"dataDisabled ?? (isDisabled ? '' : undefined)\"\n    :class=\"\n      cn(\n        `m-0 box-border inline-flex size-7 shrink-0 cursor-pointer appearance-none items-center justify-center rounded-sm border-0 bg-transparent p-0 text-muted-foreground transition-[background-color,color,opacity] duration-200 ease-in-out select-none focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-ring data-disabled:pointer-events-none data-disabled:cursor-default data-disabled:opacity-50 [&:active:not([data-disabled])]:opacity-[0.94] [&>svg]:shrink-0 [&>svg:not([class*='size-'])]:size-3 [@media(hover:hover)]:[&:not([data-disabled]):hover]:bg-muted [@media(hover:hover)]:[&:not([data-disabled]):hover]:text-foreground`,\n        className,\n      )\n    \"\n  >\n    <slot><CloseIcon class=\"size-3 shrink-0\" /></slot>\n  </ark.button>\n</template>",
+      "type": "registry:component",
+      "target": "@components/ui/close-button/CloseButton.vue"
+    },
+    {
+      "path": "src/components/close-button/index.ts",
+      "content": "export { default as CloseButton } from './CloseButton.vue';",
+      "type": "registry:component",
+      "target": "@components/ui/close-button/index.ts"
+    }
+  ],
+  "type": "registry:item"
+}
