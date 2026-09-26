@@ -89,6 +89,14 @@
       "types": "./dist/components/button/index.d.ts",
       "import": "./dist/components/button/index.js"
     },
+    "./kbd": {
+      "types": "./dist/components/kbd/index.d.ts",
+      "import": "./dist/components/kbd/index.js"
+    },
+    "./input": {
+      "types": "./dist/components/input/index.d.ts",
+      "import": "./dist/components/input/index.js"
+    },
     "./card": {
       "types": "./dist/components/card/index.d.ts",
       "import": "./dist/components/card/index.js"
@@ -116,6 +124,14 @@
     "./combobox": {
       "types": "./dist/components/combobox/index.d.ts",
       "import": "./dist/components/combobox/index.js"
+    },
+    "./command-palette": {
+      "types": "./dist/components/command-palette/index.d.ts",
+      "import": "./dist/components/command-palette/index.js"
+    },
+    "./tags-input": {
+      "types": "./dist/components/tags-input/index.d.ts",
+      "import": "./dist/components/tags-input/index.js"
     },
     "./container": {
       "types": "./dist/components/container/index.d.ts",

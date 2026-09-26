@@ -19,7 +19,7 @@ import ComboboxItemText from './ComboboxItemText.vue';
 
 defineOptions({ inheritAttrs: false });
 
-const { class: className, indicator, item } = defineProps<Props<T>>();
+const { class: className, indicator = undefined, item } = defineProps<Props<T>>();
 defineSlots<{ default?: () => unknown }>();
 
 const VNodeOutlet = defineComponent((props: { value: VNodeChild }) => () => props.value, {

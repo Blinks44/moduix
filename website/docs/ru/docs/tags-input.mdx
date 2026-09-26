@@ -35,6 +35,21 @@ import tagsInputSolidRootProvider from '../../../snippets/tags-input/solid/root-
 import tagsInputSolidSanitizeAndBlur from '../../../snippets/tags-input/solid/sanitize-and-blur.tsx?raw';
 import tagsInputSolidValidationAndMax from '../../../snippets/tags-input/solid/validation-and-max.tsx?raw';
 import tagsInputSolidWithCombobox from '../../../snippets/combobox/solid/with-tags-input.tsx?raw';
+import tagsInputVueAdvancedCustomization from '../../../snippets/tags-input/vue/advanced-customization.vue?raw';
+import tagsInputVueAllowDuplicates from '../../../snippets/tags-input/vue/allow-duplicates.vue?raw';
+import tagsInputVueBasic from '../../../snippets/tags-input/vue/basic.vue?raw';
+import tagsInputVueControlled from '../../../snippets/tags-input/vue/controlled.vue?raw';
+import tagsInputVueControlledInputValue from '../../../snippets/tags-input/vue/controlled-input-value.vue?raw';
+import tagsInputVueDelimiterAndPaste from '../../../snippets/tags-input/vue/delimiter-and-paste.vue?raw';
+import tagsInputVueDisableEditing from '../../../snippets/tags-input/vue/disable-editing.vue?raw';
+import tagsInputVueDisabledAndReadOnly from '../../../snippets/tags-input/vue/disabled-and-read-only.vue?raw';
+import tagsInputVueField from '../../../snippets/tags-input/vue/field.vue?raw';
+import tagsInputVueForm from '../../../snippets/tags-input/vue/form.vue?raw';
+import tagsInputVueMaxWithOverflow from '../../../snippets/tags-input/vue/max-with-overflow.vue?raw';
+import tagsInputVueRootProvider from '../../../snippets/tags-input/vue/root-provider.vue?raw';
+import tagsInputVueSanitizeAndBlur from '../../../snippets/tags-input/vue/sanitize-and-blur.vue?raw';
+import tagsInputVueValidationAndMax from '../../../snippets/tags-input/vue/validation-and-max.vue?raw';
+import tagsInputVueWithCombobox from '../../../snippets/combobox/vue/with-tags-input.vue?raw';
 
 ## Справочник API
 
@@ -67,6 +82,7 @@ import tagsInputSolidWithCombobox from '../../../snippets/combobox/solid/with-ta
     values={[
       { label: 'React', value: 'react' },
       { label: 'Solid', value: 'solid' },
+      { label: 'Vue', value: 'vue' },
     ]}
     className="docs-tabs"
   >
@@ -79,6 +95,11 @@ import tagsInputSolidWithCombobox from '../../../snippets/combobox/solid/with-ta
     <Tab value="solid">
 
 <CodeBlockRuntime lang="tsx" code={tagsInputSolidBasic} />
+
+    </Tab>
+    <Tab value="vue">
+
+<CodeBlockRuntime lang="vue" code={tagsInputVueBasic} />
 
     </Tab>
   </Tabs>
@@ -112,6 +133,16 @@ import tagsInputSolidWithCombobox from '../../../snippets/combobox/solid/with-ta
   options={[
     { label: 'CSS Modules', command: 'shadcn@latest add @moduix-solid/tags-input' },
     { label: 'Tailwind CSS', command: 'shadcn@latest add @moduix-solid-tailwind/tags-input' },
+  ]}
+/>
+
+  </Tab>
+  <Tab label="Vue" value="vue">
+
+<ShadcnInstallOptions
+  options={[
+    { label: 'CSS Modules', command: 'shadcn@latest add @moduix-vue/tags-input' },
+    { label: 'Tailwind CSS', command: 'shadcn@latest add @moduix-vue-tailwind/tags-input' },
   ]}
 />
 
@@ -183,7 +214,7 @@ TagsInputRootProvider
 
 <ExampleCode>
 <div className="docs-reference">
-  <Tabs groupId="framework" values={[{ label: 'React', value: 'react' }, { label: 'Solid', value: 'solid' }]} className="docs-tabs">
+  <Tabs groupId="framework" values={[{ label: 'React', value: 'react' }, { label: 'Solid', value: 'solid' }, { label: 'Vue', value: 'vue' }]} className="docs-tabs">
     <Tab value="react">
 
 ```tsx pure file="../../../src/components/examples/tags-input/allow-duplicates.tsx"
@@ -191,6 +222,7 @@ TagsInputRootProvider
 
     </Tab>
     <Tab value="solid"><CodeBlockRuntime lang="tsx" code={tagsInputSolidAllowDuplicates} /></Tab>
+    <Tab value="vue"><CodeBlockRuntime lang="vue" code={tagsInputVueAllowDuplicates} /></Tab>
   </Tabs>
 
 **Стили**
@@ -211,7 +243,7 @@ TagsInputRootProvider
 
 <ExampleCode>
 <div className="docs-reference">
-  <Tabs groupId="framework" values={[{ label: 'React', value: 'react' }, { label: 'Solid', value: 'solid' }]} className="docs-tabs">
+  <Tabs groupId="framework" values={[{ label: 'React', value: 'react' }, { label: 'Solid', value: 'solid' }, { label: 'Vue', value: 'vue' }]} className="docs-tabs">
     <Tab value="react">
 
 ```tsx pure file="../../../src/components/examples/tags-input/controlled.tsx"
@@ -219,6 +251,7 @@ TagsInputRootProvider
 
     </Tab>
     <Tab value="solid"><CodeBlockRuntime lang="tsx" code={tagsInputSolidControlled} /></Tab>
+    <Tab value="vue"><CodeBlockRuntime lang="vue" code={tagsInputVueControlled} /></Tab>
   </Tabs>
 
 **Стили**
@@ -239,7 +272,7 @@ TagsInputRootProvider
 
 <ExampleCode>
 <div className="docs-reference">
-  <Tabs groupId="framework" values={[{ label: 'React', value: 'react' }, { label: 'Solid', value: 'solid' }]} className="docs-tabs">
+  <Tabs groupId="framework" values={[{ label: 'React', value: 'react' }, { label: 'Solid', value: 'solid' }, { label: 'Vue', value: 'vue' }]} className="docs-tabs">
     <Tab value="react">
 
 ```tsx pure file="../../../src/components/examples/tags-input/controlled-input-value.tsx"
@@ -247,6 +280,7 @@ TagsInputRootProvider
 
     </Tab>
     <Tab value="solid"><CodeBlockRuntime lang="tsx" code={tagsInputSolidControlledInputValue} /></Tab>
+    <Tab value="vue"><CodeBlockRuntime lang="vue" code={tagsInputVueControlledInputValue} /></Tab>
   </Tabs>
 
 **Стили**
@@ -267,7 +301,7 @@ TagsInputRootProvider
 
 <ExampleCode>
 <div className="docs-reference">
-  <Tabs groupId="framework" values={[{ label: 'React', value: 'react' }, { label: 'Solid', value: 'solid' }]} className="docs-tabs">
+  <Tabs groupId="framework" values={[{ label: 'React', value: 'react' }, { label: 'Solid', value: 'solid' }, { label: 'Vue', value: 'vue' }]} className="docs-tabs">
     <Tab value="react">
 
 ```tsx pure file="../../../src/components/examples/tags-input/delimiter-and-paste.tsx"
@@ -275,6 +309,7 @@ TagsInputRootProvider
 
     </Tab>
     <Tab value="solid"><CodeBlockRuntime lang="tsx" code={tagsInputSolidDelimiterAndPaste} /></Tab>
+    <Tab value="vue"><CodeBlockRuntime lang="vue" code={tagsInputVueDelimiterAndPaste} /></Tab>
   </Tabs>
 
 **Стили**
@@ -294,7 +329,7 @@ TagsInputRootProvider
 
 <ExampleCode>
 <div className="docs-reference">
-  <Tabs groupId="framework" values={[{ label: 'React', value: 'react' }, { label: 'Solid', value: 'solid' }]} className="docs-tabs">
+  <Tabs groupId="framework" values={[{ label: 'React', value: 'react' }, { label: 'Solid', value: 'solid' }, { label: 'Vue', value: 'vue' }]} className="docs-tabs">
     <Tab value="react">
 
 ```tsx pure file="../../../src/components/examples/tags-input/disable-editing.tsx"
@@ -302,6 +337,7 @@ TagsInputRootProvider
 
     </Tab>
     <Tab value="solid"><CodeBlockRuntime lang="tsx" code={tagsInputSolidDisableEditing} /></Tab>
+    <Tab value="vue"><CodeBlockRuntime lang="vue" code={tagsInputVueDisableEditing} /></Tab>
   </Tabs>
 
 **Стили**
@@ -322,7 +358,7 @@ TagsInputRootProvider
 
 <ExampleCode>
 <div className="docs-reference">
-  <Tabs groupId="framework" values={[{ label: 'React', value: 'react' }, { label: 'Solid', value: 'solid' }]} className="docs-tabs">
+  <Tabs groupId="framework" values={[{ label: 'React', value: 'react' }, { label: 'Solid', value: 'solid' }, { label: 'Vue', value: 'vue' }]} className="docs-tabs">
     <Tab value="react">
 
 ```tsx pure file="../../../src/components/examples/tags-input/disabled-and-read-only.tsx"
@@ -330,6 +366,7 @@ TagsInputRootProvider
 
     </Tab>
     <Tab value="solid"><CodeBlockRuntime lang="tsx" code={tagsInputSolidDisabledAndReadOnly} /></Tab>
+    <Tab value="vue"><CodeBlockRuntime lang="vue" code={tagsInputVueDisabledAndReadOnly} /></Tab>
   </Tabs>
 
 **Стили**
@@ -350,7 +387,7 @@ TagsInputRootProvider
 
 <ExampleCode>
 <div className="docs-reference">
-  <Tabs groupId="framework" values={[{ label: 'React', value: 'react' }, { label: 'Solid', value: 'solid' }]} className="docs-tabs">
+  <Tabs groupId="framework" values={[{ label: 'React', value: 'react' }, { label: 'Solid', value: 'solid' }, { label: 'Vue', value: 'vue' }]} className="docs-tabs">
     <Tab value="react">
 
 ```tsx pure file="../../../src/components/examples/tags-input/field.tsx"
@@ -358,6 +395,7 @@ TagsInputRootProvider
 
     </Tab>
     <Tab value="solid"><CodeBlockRuntime lang="tsx" code={tagsInputSolidField} /></Tab>
+    <Tab value="vue"><CodeBlockRuntime lang="vue" code={tagsInputVueField} /></Tab>
   </Tabs>
 
 **Стили**
@@ -377,7 +415,7 @@ TagsInputRootProvider
 
 <ExampleCode>
 <div className="docs-reference">
-  <Tabs groupId="framework" values={[{ label: 'React', value: 'react' }, { label: 'Solid', value: 'solid' }]} className="docs-tabs">
+  <Tabs groupId="framework" values={[{ label: 'React', value: 'react' }, { label: 'Solid', value: 'solid' }, { label: 'Vue', value: 'vue' }]} className="docs-tabs">
     <Tab value="react">
 
 ```tsx pure file="../../../src/components/examples/tags-input/form.tsx"
@@ -385,6 +423,7 @@ TagsInputRootProvider
 
     </Tab>
     <Tab value="solid"><CodeBlockRuntime lang="tsx" code={tagsInputSolidForm} /></Tab>
+    <Tab value="vue"><CodeBlockRuntime lang="vue" code={tagsInputVueForm} /></Tab>
   </Tabs>
 
 **Стили**
@@ -405,7 +444,7 @@ TagsInputRootProvider
 
 <ExampleCode>
 <div className="docs-reference">
-  <Tabs groupId="framework" values={[{ label: 'React', value: 'react' }, { label: 'Solid', value: 'solid' }]} className="docs-tabs">
+  <Tabs groupId="framework" values={[{ label: 'React', value: 'react' }, { label: 'Solid', value: 'solid' }, { label: 'Vue', value: 'vue' }]} className="docs-tabs">
     <Tab value="react">
 
 ```tsx pure file="../../../src/components/examples/tags-input/max-with-overflow.tsx"
@@ -413,6 +452,7 @@ TagsInputRootProvider
 
     </Tab>
     <Tab value="solid"><CodeBlockRuntime lang="tsx" code={tagsInputSolidMaxWithOverflow} /></Tab>
+    <Tab value="vue"><CodeBlockRuntime lang="vue" code={tagsInputVueMaxWithOverflow} /></Tab>
   </Tabs>
 
 **Стили**
@@ -433,7 +473,7 @@ TagsInputRootProvider
 
 <ExampleCode>
 <div className="docs-reference">
-  <Tabs groupId="framework" values={[{ label: 'React', value: 'react' }, { label: 'Solid', value: 'solid' }]} className="docs-tabs">
+  <Tabs groupId="framework" values={[{ label: 'React', value: 'react' }, { label: 'Solid', value: 'solid' }, { label: 'Vue', value: 'vue' }]} className="docs-tabs">
     <Tab value="react">
 
 ```tsx pure file="../../../src/components/examples/tags-input/root-provider.tsx"
@@ -441,6 +481,7 @@ TagsInputRootProvider
 
     </Tab>
     <Tab value="solid"><CodeBlockRuntime lang="tsx" code={tagsInputSolidRootProvider} /></Tab>
+    <Tab value="vue"><CodeBlockRuntime lang="vue" code={tagsInputVueRootProvider} /></Tab>
   </Tabs>
 
 **Стили**
@@ -461,7 +502,7 @@ TagsInputRootProvider
 
 <ExampleCode>
 <div className="docs-reference">
-  <Tabs groupId="framework" values={[{ label: 'React', value: 'react' }, { label: 'Solid', value: 'solid' }]} className="docs-tabs">
+  <Tabs groupId="framework" values={[{ label: 'React', value: 'react' }, { label: 'Solid', value: 'solid' }, { label: 'Vue', value: 'vue' }]} className="docs-tabs">
     <Tab value="react">
 
 ```tsx pure file="../../../src/components/examples/tags-input/sanitize-and-blur.tsx"
@@ -469,6 +510,7 @@ TagsInputRootProvider
 
     </Tab>
     <Tab value="solid"><CodeBlockRuntime lang="tsx" code={tagsInputSolidSanitizeAndBlur} /></Tab>
+    <Tab value="vue"><CodeBlockRuntime lang="vue" code={tagsInputVueSanitizeAndBlur} /></Tab>
   </Tabs>
 
 **Стили**
@@ -490,7 +532,7 @@ TagsInputRootProvider
 
 <ExampleCode>
 <div className="docs-reference">
-  <Tabs groupId="framework" values={[{ label: 'React', value: 'react' }, { label: 'Solid', value: 'solid' }]} className="docs-tabs">
+  <Tabs groupId="framework" values={[{ label: 'React', value: 'react' }, { label: 'Solid', value: 'solid' }, { label: 'Vue', value: 'vue' }]} className="docs-tabs">
     <Tab value="react">
 
 ```tsx pure file="../../../src/components/examples/tags-input/validation-and-max.tsx"
@@ -498,6 +540,7 @@ TagsInputRootProvider
 
     </Tab>
     <Tab value="solid"><CodeBlockRuntime lang="tsx" code={tagsInputSolidValidationAndMax} /></Tab>
+    <Tab value="vue"><CodeBlockRuntime lang="vue" code={tagsInputVueValidationAndMax} /></Tab>
   </Tabs>
 
 **Стили**
@@ -519,7 +562,7 @@ TagsInputRootProvider
 
 <ExampleCode>
 <div className="docs-reference">
-  <Tabs groupId="framework" values={[{ label: 'React', value: 'react' }, { label: 'Solid', value: 'solid' }]} className="docs-tabs">
+  <Tabs groupId="framework" values={[{ label: 'React', value: 'react' }, { label: 'Solid', value: 'solid' }, { label: 'Vue', value: 'vue' }]} className="docs-tabs">
     <Tab value="react">
 
 ```tsx pure file="../../../src/components/examples/tags-input/with-combobox.tsx"
@@ -527,6 +570,7 @@ TagsInputRootProvider
 
     </Tab>
     <Tab value="solid"><CodeBlockRuntime lang="tsx" code={tagsInputSolidWithCombobox} /></Tab>
+    <Tab value="vue"><CodeBlockRuntime lang="vue" code={tagsInputVueWithCombobox} /></Tab>
   </Tabs>
 
 **Стили**
@@ -548,7 +592,7 @@ TagsInputRootProvider
 
 <ExampleCode>
 <div className="docs-reference">
-  <Tabs groupId="framework" values={[{ label: 'React', value: 'react' }, { label: 'Solid', value: 'solid' }]} className="docs-tabs">
+  <Tabs groupId="framework" values={[{ label: 'React', value: 'react' }, { label: 'Solid', value: 'solid' }, { label: 'Vue', value: 'vue' }]} className="docs-tabs">
     <Tab value="react">
 
 ```tsx pure file="../../../src/components/examples/tags-input/advanced-customization.tsx"
@@ -556,6 +600,7 @@ TagsInputRootProvider
 
     </Tab>
     <Tab value="solid"><CodeBlockRuntime lang="tsx" code={tagsInputSolidAdvancedCustomization} /></Tab>
+    <Tab value="vue"><CodeBlockRuntime lang="vue" code={tagsInputVueAdvancedCustomization} /></Tab>
   </Tabs>
 
 **Стили**

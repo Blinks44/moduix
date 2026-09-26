@@ -1,0 +1,10 @@
+.triggerMeta {
+  color: var(--moduix-color-muted-foreground);
+}
+
+.footerHint {
+  display: inline-flex;
+  align-items: center;
+  gap: var(--moduix-spacing-1);
+  min-width: 0;
+}

@@ -15,6 +15,11 @@ import kbdSolidCompactDensity from '../../../snippets/kbd/solid/compact-density.
 import kbdSolidCustomElement from '../../../snippets/kbd/solid/custom-element.tsx?raw';
 import kbdSolidShortcutList from '../../../snippets/kbd/solid/shortcut-list.tsx?raw';
 import kbdSolidSingleKey from '../../../snippets/kbd/solid/single-key.tsx?raw';
+import kbdVueBasic from '../../../snippets/kbd/vue/basic.vue?raw';
+import kbdVueCompactDensity from '../../../snippets/kbd/vue/compact-density.vue?raw';
+import kbdVueCustomElement from '../../../snippets/kbd/vue/custom-element.vue?raw';
+import kbdVueShortcutList from '../../../snippets/kbd/vue/shortcut-list.vue?raw';
+import kbdVueSingleKey from '../../../snippets/kbd/vue/single-key.vue?raw';
 
 ## Référence de l’API
 
@@ -36,6 +41,7 @@ Utilisez `Kbd` pour afficher une touche. Pour un raccourci composé de plusieurs
     values={[
       { label: 'React', value: 'react' },
       { label: 'Solid', value: 'solid' },
+      { label: 'Vue', value: 'vue' },
     ]}
     className="docs-tabs"
   >
@@ -48,6 +54,11 @@ Utilisez `Kbd` pour afficher une touche. Pour un raccourci composé de plusieurs
     <Tab value="solid">
 
 <CodeBlockRuntime lang="tsx" code={kbdSolidBasic} />
+
+    </Tab>
+    <Tab value="vue">
+
+<CodeBlockRuntime lang="vue" code={kbdVueBasic} />
 
     </Tab>
   </Tabs>
@@ -81,6 +92,16 @@ Consultez le [Démarrage rapide](/docs/quick-start) pour la configuration compl�
   options={[
     { label: 'CSS Modules', command: 'shadcn@latest add @moduix-solid/kbd' },
     { label: 'Tailwind CSS', command: 'shadcn@latest add @moduix-solid-tailwind/kbd' },
+  ]}
+/>
+
+  </Tab>
+  <Tab label="Vue" value="vue">
+
+<ShadcnInstallOptions
+  options={[
+    { label: 'CSS Modules', command: 'shadcn@latest add @moduix-vue/kbd' },
+    { label: 'Tailwind CSS', command: 'shadcn@latest add @moduix-vue-tailwind/kbd' },
   ]}
 />
 
@@ -126,6 +147,7 @@ Utilisez des variables CSS locales lorsque vous souhaitez réduire les touches d
     values={[
       { label: 'React', value: 'react' },
       { label: 'Solid', value: 'solid' },
+      { label: 'Vue', value: 'vue' },
     ]}
     className="docs-tabs"
   >
@@ -138,6 +160,11 @@ Utilisez des variables CSS locales lorsque vous souhaitez réduire les touches d
     <Tab value="solid">
 
 <CodeBlockRuntime lang="tsx" code={kbdSolidCompactDensity} />
+
+    </Tab>
+    <Tab value="vue">
+
+<CodeBlockRuntime lang="vue" code={kbdVueCompactDensity} />
 
     </Tab>
   </Tabs>
@@ -165,6 +192,7 @@ Utilisez `asChild` lorsqu’un autre composant rend déjà l’élément sémant
     values={[
       { label: 'React', value: 'react' },
       { label: 'Solid', value: 'solid' },
+      { label: 'Vue', value: 'vue' },
     ]}
     className="docs-tabs"
   >
@@ -177,6 +205,11 @@ Utilisez `asChild` lorsqu’un autre composant rend déjà l’élément sémant
     <Tab value="solid">
 
 <CodeBlockRuntime lang="tsx" code={kbdSolidCustomElement} />
+
+    </Tab>
+    <Tab value="vue">
+
+<CodeBlockRuntime lang="vue" code={kbdVueCustomElement} />
 
     </Tab>
   </Tabs>
@@ -199,6 +232,7 @@ Associez `KbdGroup` à un texte explicatif pour présenter plusieurs raccourcis 
     values={[
       { label: 'React', value: 'react' },
       { label: 'Solid', value: 'solid' },
+      { label: 'Vue', value: 'vue' },
     ]}
     className="docs-tabs"
   >
@@ -211,6 +245,11 @@ Associez `KbdGroup` à un texte explicatif pour présenter plusieurs raccourcis 
     <Tab value="solid">
 
 <CodeBlockRuntime lang="tsx" code={kbdSolidShortcutList} />
+
+    </Tab>
+    <Tab value="vue">
+
+<CodeBlockRuntime lang="vue" code={kbdVueShortcutList} />
 
     </Tab>
   </Tabs>
@@ -238,6 +277,7 @@ Utilisez `Kbd` directement pour afficher une seule touche, par exemple `Esc`.
     values={[
       { label: 'React', value: 'react' },
       { label: 'Solid', value: 'solid' },
+      { label: 'Vue', value: 'vue' },
     ]}
     className="docs-tabs"
   >
@@ -252,6 +292,11 @@ Utilisez `Kbd` directement pour afficher une seule touche, par exemple `Esc`.
 <CodeBlockRuntime lang="tsx" code={kbdSolidSingleKey} />
 
     </Tab>
+    <Tab value="vue">
+
+<CodeBlockRuntime lang="vue" code={kbdVueSingleKey} />
+
+    </Tab>
   </Tabs>
 </div>
 
@@ -259,7 +304,7 @@ Utilisez `Kbd` directement pour afficher une seule touche, par exemple `Esc`.
 
 ## Styles
 
-Personnalisez `Kbd` et `KbdGroup` avec `className` en React ou `class` en Solid, les attributs d’anatomie Ark, les points d’accroche `data-slot` stables et les variables CSS publiques `--moduix-kbd-*` listées ci-dessous. Les variantes Tailwind utilisent des classes utilitaires natives ; les variantes CSS Modules utilisent les variables du composant et le CSS de l’application.
+Personnalisez `Kbd` et `KbdGroup` avec `className` en React ou `class` en Solid et Vue, les attributs d’anatomie Ark, les points d’accroche `data-slot` stables et les variables CSS publiques `--moduix-kbd-*` listées ci-dessous. Les variantes Tailwind utilisent des classes utilitaires natives ; les variantes CSS Modules utilisent les variables du composant et le CSS de l’application.
 
 ### Propriétés CSS
 

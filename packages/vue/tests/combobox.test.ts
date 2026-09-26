@@ -98,6 +98,11 @@ test('keeps Ark semantics, form values, anatomy, and flat exports', () => {
   expect(itemRef.value?.$el).toBe(item);
   expect(item).toHaveAttribute('data-slot', 'combobox-item');
   expect(item.querySelector('[data-slot="combobox-item-text"]')).toHaveTextContent('Apple');
+  expect(item.querySelector('[data-slot="combobox-item-indicator"]')).toHaveAttribute(
+    'data-state',
+    'checked',
+  );
+  expect(item.querySelector('[data-slot="combobox-item-indicator"] svg')).toBeInTheDocument();
   expect(new FormData(container.querySelector('form')!).get('fruit')).toBe('Apple');
 });
 

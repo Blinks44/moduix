@@ -76,8 +76,14 @@ test('keeps Ark semantics and form values', () => {
 
   const { container } = render(Harness);
   const input = screen.getByRole('combobox', { name: 'Fruit' });
+  const item = screen.getByRole('option', { name: 'Apple' });
   expect(rootRef.value?.$el).toHaveAttribute('data-slot', 'combobox-root');
   expect(input).toHaveValue('Apple');
+  expect(item.querySelector('[data-slot="combobox-item-indicator"]')).toHaveAttribute(
+    'data-state',
+    'checked',
+  );
+  expect(item.querySelector('[data-slot="combobox-item-indicator"] svg')).toBeInTheDocument();
   expect(new FormData(container.querySelector('form')!).get('fruit')).toBe('Apple');
 });
 

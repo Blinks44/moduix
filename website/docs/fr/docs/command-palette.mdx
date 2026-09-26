@@ -15,6 +15,11 @@ import commandPaletteSolidAdvanced from '../../../snippets/command-palette/solid
 import commandPaletteSolidControlled from '../../../snippets/command-palette/solid/controlled-open-state.tsx?raw';
 import commandPaletteSolidShortcut from '../../../snippets/command-palette/solid/enable-the-global-shortcut.tsx?raw';
 import commandPaletteSolidActions from '../../../snippets/command-palette/solid/item-actions.tsx?raw';
+import commandPaletteVueBasic from '../../../snippets/command-palette/vue/basic.vue?raw';
+import commandPaletteVueAdvanced from '../../../snippets/command-palette/vue/advanced-customization.vue?raw';
+import commandPaletteVueControlled from '../../../snippets/command-palette/vue/controlled-open-state.vue?raw';
+import commandPaletteVueShortcut from '../../../snippets/command-palette/vue/enable-the-global-shortcut.vue?raw';
+import commandPaletteVueActions from '../../../snippets/command-palette/vue/item-actions.vue?raw';
 
 ## Référence de l'API
 
@@ -43,6 +48,7 @@ ajoute le champ de saisie et un bouton d'effacement, visible dès qu'une requêt
     values={[
       { label: 'React', value: 'react' },
       { label: 'Solid', value: 'solid' },
+      { label: 'Vue', value: 'vue' },
     ]}
     className="docs-tabs"
   >
@@ -55,6 +61,11 @@ ajoute le champ de saisie et un bouton d'effacement, visible dès qu'une requêt
     <Tab value="solid">
 
 <CodeBlockRuntime lang="tsx" code={commandPaletteSolidBasic} />
+
+    </Tab>
+    <Tab value="vue">
+
+<CodeBlockRuntime lang="vue" code={commandPaletteVueBasic} />
 
     </Tab>
   </Tabs>
@@ -88,6 +99,16 @@ Consultez le [Démarrage rapide](/docs/quick-start) pour la configuration compl�
   options={[
     { label: 'CSS Modules', command: 'shadcn@latest add @moduix-solid/command-palette' },
     { label: 'Tailwind CSS', command: 'shadcn@latest add @moduix-solid-tailwind/command-palette' },
+  ]}
+/>
+
+  </Tab>
+  <Tab label="Vue" value="vue">
+
+<ShadcnInstallOptions
+  options={[
+    { label: 'CSS Modules', command: 'shadcn@latest add @moduix-vue/command-palette' },
+    { label: 'Tailwind CSS', command: 'shadcn@latest add @moduix-vue-tailwind/command-palette' },
   ]}
 />
 
@@ -189,6 +210,7 @@ L'exemple réinitialise le filtre externe de la collection à la fermeture de la
     values={[
       { label: 'React', value: 'react' },
       { label: 'Solid', value: 'solid' },
+      { label: 'Vue', value: 'vue' },
     ]}
     className="docs-tabs"
   >
@@ -201,6 +223,11 @@ L'exemple réinitialise le filtre externe de la collection à la fermeture de la
     <Tab value="solid">
 
 <CodeBlockRuntime lang="tsx" code={commandPaletteSolidControlled} />
+
+    </Tab>
+    <Tab value="vue">
+
+<CodeBlockRuntime lang="vue" code={commandPaletteVueControlled} />
 
     </Tab>
   </Tabs>
@@ -229,6 +256,7 @@ aperçu de la page qui enregistre `Alt+K`.
     values={[
       { label: 'React', value: 'react' },
       { label: 'Solid', value: 'solid' },
+      { label: 'Vue', value: 'vue' },
     ]}
     className="docs-tabs"
   >
@@ -241,6 +269,11 @@ aperçu de la page qui enregistre `Alt+K`.
     <Tab value="solid">
 
 <CodeBlockRuntime lang="tsx" code={commandPaletteSolidShortcut} />
+
+    </Tab>
+    <Tab value="vue">
+
+<CodeBlockRuntime lang="vue" code={commandPaletteVueShortcut} />
 
     </Tab>
   </Tabs>
@@ -269,6 +302,7 @@ ferme après l'exécution de l'action sélectionnée.
     values={[
       { label: 'React', value: 'react' },
       { label: 'Solid', value: 'solid' },
+      { label: 'Vue', value: 'vue' },
     ]}
     className="docs-tabs"
   >
@@ -281,6 +315,11 @@ ferme après l'exécution de l'action sélectionnée.
     <Tab value="solid">
 
 <CodeBlockRuntime lang="tsx" code={commandPaletteSolidActions} />
+
+    </Tab>
+    <Tab value="vue">
+
+<CodeBlockRuntime lang="vue" code={commandPaletteVueActions} />
 
     </Tab>
   </Tabs>
@@ -310,6 +349,7 @@ les composants utilitaires `CommandPalettePanel` et `CommandPaletteSearch` par u
     values={[
       { label: 'React', value: 'react' },
       { label: 'Solid', value: 'solid' },
+      { label: 'Vue', value: 'vue' },
     ]}
     className="docs-tabs"
   >
@@ -322,6 +362,11 @@ les composants utilitaires `CommandPalettePanel` et `CommandPaletteSearch` par u
     <Tab value="solid">
 
 <CodeBlockRuntime lang="tsx" code={commandPaletteSolidAdvanced} />
+
+    </Tab>
+    <Tab value="vue">
+
+<CodeBlockRuntime lang="vue" code={commandPaletteVueAdvanced} />
 
     </Tab>
   </Tabs>

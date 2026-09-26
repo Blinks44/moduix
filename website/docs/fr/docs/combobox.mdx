@@ -45,6 +45,8 @@ import comboboxVueInlineAutocomplete from '../../../snippets/combobox/vue/inline
 import comboboxVueLimitResults from '../../../snippets/combobox/vue/limit-results.vue?raw';
 import comboboxVueMultiple from '../../../snippets/combobox/vue/multiple.vue?raw';
 import comboboxVueRootProvider from '../../../snippets/combobox/vue/root-provider.vue?raw';
+import comboboxVueVirtualized from '../../../snippets/combobox/vue/virtualized.vue?raw';
+import comboboxVueWithTagsInput from '../../../snippets/combobox/vue/with-tags-input.vue?raw';
 
 ## Référence de l’API
 
@@ -218,8 +220,8 @@ Si le champ est vide, affichez `Start typing to search…` pour que la liste res
   <Tabs
     groupId="framework"
     values={[
-      { label: 'React', value: 'react' },
-      { label: 'Solid', value: 'solid' },
+    { label: 'React', value: 'react' },
+    { label: 'Solid', value: 'solid' },
     ]}
     className="docs-tabs"
   >
@@ -656,8 +658,9 @@ partagé avant l’affichage de la racine. `ComboboxRootProvider` conserve les s
 ### Virtualisation
 
 Pour les grandes collections, n’affichez que les lignes visibles avec TanStack Virtual. Utilisez
-`@tanstack/react-virtual` avec React et `@tanstack/solid-virtual` avec Solid, puis reliez la navigation au clavier d’Ark à
-`scrollToIndexFn`. Conservez `aria-setsize` et `aria-posinset` sur les lignes virtualisées.
+`@tanstack/react-virtual` avec React, `@tanstack/solid-virtual` avec Solid et `@tanstack/vue-virtual`
+avec Vue, puis reliez la navigation au clavier d’Ark à `scrollToIndexFn`. Conservez `aria-setsize`
+et `aria-posinset` sur les lignes virtualisées.
 
 <ExampleFrame variant="component">
   <ComboboxVirtualized />
@@ -670,6 +673,7 @@ Pour les grandes collections, n’affichez que les lignes visibles avec TanStack
     values={[
       { label: 'React', value: 'react' },
       { label: 'Solid', value: 'solid' },
+      { label: 'Vue', value: 'vue' },
     ]}
     className="docs-tabs"
   >
@@ -682,6 +686,11 @@ Pour les grandes collections, n’affichez que les lignes visibles avec TanStack
     <Tab value="solid">
 
 <CodeBlockRuntime lang="tsx" code={comboboxSolidVirtualized} />
+
+    </Tab>
+    <Tab value="vue">
+
+<CodeBlockRuntime lang="vue" code={comboboxVueVirtualized} />
 
     </Tab>
   </Tabs>
@@ -710,6 +719,7 @@ doivent apparaître dans le même champ éditable que les tags.
     values={[
       { label: 'React', value: 'react' },
       { label: 'Solid', value: 'solid' },
+      { label: 'Vue', value: 'vue' },
     ]}
     className="docs-tabs"
   >
@@ -722,6 +732,11 @@ doivent apparaître dans le même champ éditable que les tags.
     <Tab value="solid">
 
 <CodeBlockRuntime lang="tsx" code={comboboxSolidWithTagsInput} />
+
+    </Tab>
+    <Tab value="vue">
+
+<CodeBlockRuntime lang="vue" code={comboboxVueWithTagsInput} />
 
     </Tab>
   </Tabs>

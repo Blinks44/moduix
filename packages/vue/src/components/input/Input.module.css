@@ -1,0 +1,146 @@
+@layer moduix.components {
+  .root {
+    box-sizing: border-box;
+    width: var(--moduix-input-width, var(--_input-default-width, 100%));
+    max-width: var(--moduix-input-max-width, none);
+    min-height: var(--moduix-input-height, var(--moduix-input-height-md, var(--moduix-size-md)));
+    margin: 0;
+    border: var(--moduix-input-border-width, var(--moduix-border-width-sm))
+      var(--moduix-input-border-style, solid)
+      var(--moduix-input-border-color, var(--moduix-color-border));
+    border-radius: var(--moduix-input-radius, var(--moduix-radius-md));
+    padding: var(
+        --moduix-input-padding-y,
+        var(--moduix-input-padding-y-md, var(--moduix-spacing-1))
+      )
+      var(--moduix-input-padding-x, var(--moduix-input-padding-x-md, var(--moduix-spacing-3)));
+    background-color: var(--moduix-input-bg, var(--moduix-color-background));
+    color: var(--moduix-input-color, var(--moduix-color-foreground));
+    font: inherit;
+    font-size: var(
+      --moduix-input-font-size,
+      var(--moduix-input-font-size-md, var(--moduix-text-md))
+    );
+    line-height: var(
+      --moduix-input-line-height,
+      var(--moduix-input-line-height-md, var(--moduix-line-height-text-md))
+    );
+    outline: var(
+        --moduix-input-focus-ring-width,
+        var(
+          --moduix-input-border-width,
+          var(--moduix-focus-ring-inset-width, var(--moduix-border-width-sm))
+        )
+      )
+      solid transparent;
+    outline-offset: var(
+      --moduix-input-focus-ring-offset,
+      calc(0px - var(--moduix-input-border-width, var(--moduix-border-width-sm)))
+    );
+    transition:
+      border-color var(--moduix-input-transition, var(--moduix-transition-default)),
+      outline-color var(--moduix-input-transition, var(--moduix-transition-default)),
+      opacity var(--moduix-input-transition, var(--moduix-transition-default));
+
+    &::placeholder {
+      color: var(--moduix-input-placeholder-color, var(--moduix-color-muted-foreground));
+    }
+
+    &::file-selector-button {
+      margin-inline-end: var(--moduix-spacing-3);
+      border: var(--moduix-button-border-width, var(--moduix-border-width-sm)) solid
+        var(--moduix-button-default-border-color, var(--moduix-color-primary));
+      border-radius: var(--moduix-button-radius, var(--moduix-radius-md));
+      padding: var(--moduix-spacing-0-5) var(--moduix-spacing-2);
+      background-color: var(--moduix-button-default-bg, var(--moduix-color-primary));
+      color: var(--moduix-button-default-color, var(--moduix-color-primary-foreground));
+      font: inherit;
+      font-weight: var(--moduix-button-font-weight, var(--moduix-weight-medium));
+      line-height: inherit;
+      cursor: pointer;
+      transition: background-color var(--moduix-input-transition, var(--moduix-transition-default));
+
+      @media (hover: hover) {
+        &:hover {
+          background-color: var(--moduix-button-default-bg-hover, var(--moduix-color-foreground));
+        }
+      }
+    }
+
+    &[data-html-size] {
+      --_input-default-width: auto;
+    }
+
+    &:focus-visible {
+      outline-color: var(--moduix-input-focus-ring-color, var(--moduix-color-ring));
+    }
+
+    &:is([data-invalid], [aria-invalid='true']) {
+      border-color: var(--moduix-input-border-color-invalid, var(--moduix-color-destructive));
+
+      &:focus-visible {
+        outline-color: var(--moduix-input-border-color-invalid, var(--moduix-color-destructive));
+      }
+    }
+
+    &:is([data-disabled], :disabled) {
+      pointer-events: none;
+      opacity: var(--moduix-input-disabled-opacity, var(--moduix-opacity-disabled));
+    }
+
+    &:is(:read-only, [data-readonly]) {
+      background-color: var(
+        --moduix-input-readonly-bg,
+        var(--moduix-input-bg, var(--moduix-color-background))
+      );
+      color: var(
+        --moduix-input-readonly-color,
+        var(--moduix-input-color, var(--moduix-color-foreground))
+      );
+    }
+
+    &[data-size='xs'] {
+      --moduix-input-height: var(--moduix-input-height-xs, var(--moduix-size-xs));
+      --moduix-input-padding-x: var(--moduix-input-padding-x-xs, var(--moduix-spacing-2));
+      --moduix-input-padding-y: var(--moduix-input-padding-y-xs, var(--moduix-spacing-0-5));
+      --moduix-input-font-size: var(--moduix-input-font-size-xs, var(--moduix-text-xs));
+      --moduix-input-line-height: var(
+        --moduix-input-line-height-xs,
+        var(--moduix-line-height-text-xs)
+      );
+    }
+
+    &[data-size='sm'] {
+      --moduix-input-height: var(--moduix-input-height-sm, var(--moduix-size-sm));
+      --moduix-input-padding-x: var(--moduix-input-padding-x-sm, var(--moduix-spacing-2));
+      --moduix-input-padding-y: var(--moduix-input-padding-y-sm, var(--moduix-spacing-1));
+      --moduix-input-font-size: var(--moduix-input-font-size-sm, var(--moduix-text-sm));
+      --moduix-input-line-height: var(
+        --moduix-input-line-height-sm,
+        var(--moduix-line-height-text-sm)
+      );
+    }
+
+    &[data-size='lg'] {
+      --moduix-input-height: var(--moduix-input-height-lg, var(--moduix-size-lg));
+      --moduix-input-padding-x: var(--moduix-input-padding-x-lg, var(--moduix-spacing-4));
+      --moduix-input-padding-y: var(--moduix-input-padding-y-lg, var(--moduix-spacing-1));
+      --moduix-input-font-size: var(--moduix-input-font-size-lg, var(--moduix-text-lg));
+      --moduix-input-line-height: var(
+        --moduix-input-line-height-lg,
+        var(--moduix-line-height-text-lg)
+      );
+    }
+
+    &[data-size='xl'] {
+      --moduix-input-height: var(--moduix-input-height-xl, var(--moduix-size-xl));
+      --moduix-input-padding-x: var(--moduix-input-padding-x-xl, var(--moduix-spacing-4));
+      --moduix-input-padding-y: var(--moduix-input-padding-y-xl, var(--moduix-spacing-2));
+      --moduix-input-font-size: var(--moduix-input-font-size-xl, var(--moduix-text-lg));
+      --moduix-input-line-height: var(
+        --moduix-input-line-height-xl,
+        var(--moduix-line-height-text-lg)
+      );
+    }
+  }
+}

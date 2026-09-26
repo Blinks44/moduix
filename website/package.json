@@ -39,6 +39,7 @@
     "@tanstack/solid-form": "^1.33.5",
     "@tanstack/solid-table": "^9.2.4",
     "@tanstack/solid-virtual": "^3.13.40",
+    "@tanstack/vue-virtual": "^3.13.39",
     "@types/node": "catalog:",
     "@types/react": "catalog:",
     "@types/react-dom": "catalog:",

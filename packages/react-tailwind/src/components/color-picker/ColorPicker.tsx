@@ -208,7 +208,7 @@ const ColorPickerArea = forwardRef<
           />
           <ColorPickerPrimitive.AreaThumb
             data-slot="color-picker-area-thumb"
-            className="box-border size-4 -translate-x-1/2 -translate-y-1/2 rounded-full bg-background shadow-[0_0_0_4px_rgb(0_0_0_/_18%),0_2px_4px_0_rgb(0_0_0_/_10%),0_1px_2px_-1px_rgb(0_0_0_/_10%)] ring-2 ring-background outline-0 focus-visible:ring-ring data-disabled:pointer-events-none"
+            className="box-border size-4 rounded-full bg-background shadow-[0_0_0_4px_rgb(0_0_0_/_18%),0_2px_4px_0_rgb(0_0_0_/_10%),0_1px_2px_-1px_rgb(0_0_0_/_10%)] ring-2 ring-background outline-0 focus-visible:shadow-[0_0_0_4px_var(--color-ring),0_2px_4px_0_rgb(0_0_0_/_10%),0_1px_2px_-1px_rgb(0_0_0_/_10%)] focus-visible:ring-background data-disabled:pointer-events-none"
           />
         </>
       )}
@@ -238,7 +238,7 @@ const ColorPickerAreaThumb = forwardRef<
     <ColorPickerPrimitive.AreaThumb
       ref={ref}
       className={cn(
-        'box-border size-4 -translate-x-1/2 -translate-y-1/2 rounded-full bg-background shadow-[0_0_0_4px_rgb(0_0_0_/_18%),0_2px_4px_0_rgb(0_0_0_/_10%),0_1px_2px_-1px_rgb(0_0_0_/_10%)] ring-2 ring-background outline-0 focus-visible:ring-ring data-disabled:pointer-events-none',
+        'box-border size-4 rounded-full bg-background shadow-[0_0_0_4px_rgb(0_0_0_/_18%),0_2px_4px_0_rgb(0_0_0_/_10%),0_1px_2px_-1px_rgb(0_0_0_/_10%)] ring-2 ring-background outline-0 focus-visible:shadow-[0_0_0_4px_var(--color-ring),0_2px_4px_0_rgb(0_0_0_/_10%),0_1px_2px_-1px_rgb(0_0_0_/_10%)] focus-visible:ring-background data-disabled:pointer-events-none',
         className,
       )}
       {...props}

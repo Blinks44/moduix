@@ -45,6 +45,8 @@ import comboboxVueInlineAutocomplete from '../../../snippets/combobox/vue/inline
 import comboboxVueLimitResults from '../../../snippets/combobox/vue/limit-results.vue?raw';
 import comboboxVueMultiple from '../../../snippets/combobox/vue/multiple.vue?raw';
 import comboboxVueRootProvider from '../../../snippets/combobox/vue/root-provider.vue?raw';
+import comboboxVueVirtualized from '../../../snippets/combobox/vue/virtualized.vue?raw';
+import comboboxVueWithTagsInput from '../../../snippets/combobox/vue/with-tags-input.vue?raw';
 
 ## API Reference
 
@@ -220,8 +222,8 @@ show a `Start typing to search…` status so the popup remains informative.
   <Tabs
     groupId="framework"
     values={[
-      { label: 'React', value: 'react' },
-      { label: 'Solid', value: 'solid' },
+    { label: 'React', value: 'react' },
+    { label: 'Solid', value: 'solid' },
     ]}
     className="docs-tabs"
   >
@@ -658,9 +660,10 @@ configuration.
 
 ### Virtualized
 
-For large collections, render only visible rows with TanStack Virtual. Use `@tanstack/react-virtual`
-with React and `@tanstack/solid-virtual` with Solid, then connect Ark keyboard navigation through
-`scrollToIndexFn`. Keep `aria-setsize` and `aria-posinset` on virtualized rows.
+For large collections, render only visible rows with TanStack Virtual. Use
+`@tanstack/react-virtual` with React, `@tanstack/solid-virtual` with Solid, and
+`@tanstack/vue-virtual` with Vue, then connect Ark keyboard navigation through `scrollToIndexFn`.
+Keep `aria-setsize` and `aria-posinset` on virtualized rows.
 
 <ExampleFrame variant="component">
   <ComboboxVirtualized />
@@ -673,6 +676,7 @@ with React and `@tanstack/solid-virtual` with Solid, then connect Ark keyboard n
     values={[
       { label: 'React', value: 'react' },
       { label: 'Solid', value: 'solid' },
+      { label: 'Vue', value: 'vue' },
     ]}
     className="docs-tabs"
   >
@@ -685,6 +689,11 @@ with React and `@tanstack/solid-virtual` with Solid, then connect Ark keyboard n
     <Tab value="solid">
 
 <CodeBlockRuntime lang="tsx" code={comboboxSolidVirtualized} />
+
+    </Tab>
+    <Tab value="vue">
+
+<CodeBlockRuntime lang="vue" code={comboboxVueVirtualized} />
 
     </Tab>
   </Tabs>
@@ -713,6 +722,7 @@ live inside one editable chip field.
     values={[
       { label: 'React', value: 'react' },
       { label: 'Solid', value: 'solid' },
+      { label: 'Vue', value: 'vue' },
     ]}
     className="docs-tabs"
   >
@@ -725,6 +735,11 @@ live inside one editable chip field.
     <Tab value="solid">
 
 <CodeBlockRuntime lang="tsx" code={comboboxSolidWithTagsInput} />
+
+    </Tab>
+    <Tab value="vue">
+
+<CodeBlockRuntime lang="vue" code={comboboxVueWithTagsInput} />
 
     </Tab>
   </Tabs>

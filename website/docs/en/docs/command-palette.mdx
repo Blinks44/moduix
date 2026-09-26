@@ -15,6 +15,11 @@ import commandPaletteSolidAdvanced from '../../../snippets/command-palette/solid
 import commandPaletteSolidControlled from '../../../snippets/command-palette/solid/controlled-open-state.tsx?raw';
 import commandPaletteSolidShortcut from '../../../snippets/command-palette/solid/enable-the-global-shortcut.tsx?raw';
 import commandPaletteSolidActions from '../../../snippets/command-palette/solid/item-actions.tsx?raw';
+import commandPaletteVueBasic from '../../../snippets/command-palette/vue/basic.vue?raw';
+import commandPaletteVueAdvanced from '../../../snippets/command-palette/vue/advanced-customization.vue?raw';
+import commandPaletteVueControlled from '../../../snippets/command-palette/vue/controlled-open-state.vue?raw';
+import commandPaletteVueShortcut from '../../../snippets/command-palette/vue/enable-the-global-shortcut.vue?raw';
+import commandPaletteVueActions from '../../../snippets/command-palette/vue/item-actions.vue?raw';
 
 ## API Reference
 
@@ -43,6 +48,7 @@ once the user enters a query.
     values={[
       { label: 'React', value: 'react' },
       { label: 'Solid', value: 'solid' },
+      { label: 'Vue', value: 'vue' },
     ]}
     className="docs-tabs"
   >
@@ -55,6 +61,11 @@ once the user enters a query.
     <Tab value="solid">
 
 <CodeBlockRuntime lang="tsx" code={commandPaletteSolidBasic} />
+
+    </Tab>
+    <Tab value="vue">
+
+<CodeBlockRuntime lang="vue" code={commandPaletteVueBasic} />
 
     </Tab>
   </Tabs>
@@ -88,6 +99,16 @@ See [Quick Start](/docs/quick-start) for full package setup, registry configurat
   options={[
     { label: 'CSS Modules', command: 'shadcn@latest add @moduix-solid/command-palette' },
     { label: 'Tailwind CSS', command: 'shadcn@latest add @moduix-solid-tailwind/command-palette' },
+  ]}
+/>
+
+  </Tab>
+  <Tab label="Vue" value="vue">
+
+<ShadcnInstallOptions
+  options={[
+    { label: 'CSS Modules', command: 'shadcn@latest add @moduix-vue/command-palette' },
+    { label: 'Tailwind CSS', command: 'shadcn@latest add @moduix-vue-tailwind/command-palette' },
   ]}
 />
 
@@ -188,6 +209,7 @@ example resets the external collection filter when the palette closes.
     values={[
       { label: 'React', value: 'react' },
       { label: 'Solid', value: 'solid' },
+      { label: 'Vue', value: 'vue' },
     ]}
     className="docs-tabs"
   >
@@ -200,6 +222,11 @@ example resets the external collection filter when the palette closes.
     <Tab value="solid">
 
 <CodeBlockRuntime lang="tsx" code={commandPaletteSolidControlled} />
+
+    </Tab>
+    <Tab value="vue">
+
+<CodeBlockRuntime lang="vue" code={commandPaletteVueControlled} />
 
     </Tab>
   </Tabs>
@@ -228,6 +255,7 @@ Set `shortcut="alt+k"` to register a global toggle. This is the only preview on 
     values={[
       { label: 'React', value: 'react' },
       { label: 'Solid', value: 'solid' },
+      { label: 'Vue', value: 'vue' },
     ]}
     className="docs-tabs"
   >
@@ -240,6 +268,11 @@ Set `shortcut="alt+k"` to register a global toggle. This is the only preview on 
     <Tab value="solid">
 
 <CodeBlockRuntime lang="tsx" code={commandPaletteSolidShortcut} />
+
+    </Tab>
+    <Tab value="vue">
+
+<CodeBlockRuntime lang="vue" code={commandPaletteVueShortcut} />
 
     </Tab>
   </Tabs>
@@ -268,6 +301,7 @@ after the selected action runs.
     values={[
       { label: 'React', value: 'react' },
       { label: 'Solid', value: 'solid' },
+      { label: 'Vue', value: 'vue' },
     ]}
     className="docs-tabs"
   >
@@ -280,6 +314,11 @@ after the selected action runs.
     <Tab value="solid">
 
 <CodeBlockRuntime lang="tsx" code={commandPaletteSolidActions} />
+
+    </Tab>
+    <Tab value="vue">
+
+<CodeBlockRuntime lang="vue" code={commandPaletteVueActions} />
 
     </Tab>
   </Tabs>
@@ -308,6 +347,7 @@ example keeps Ark Dialog and Combobox behavior while replacing the convenience `
     values={[
       { label: 'React', value: 'react' },
       { label: 'Solid', value: 'solid' },
+      { label: 'Vue', value: 'vue' },
     ]}
     className="docs-tabs"
   >
@@ -320,6 +360,11 @@ example keeps Ark Dialog and Combobox behavior while replacing the convenience `
     <Tab value="solid">
 
 <CodeBlockRuntime lang="tsx" code={commandPaletteSolidAdvanced} />
+
+    </Tab>
+    <Tab value="vue">
+
+<CodeBlockRuntime lang="vue" code={commandPaletteVueAdvanced} />
 
     </Tab>
   </Tabs>

@@ -15,6 +15,11 @@ import commandPaletteSolidAdvanced from '../../../snippets/command-palette/solid
 import commandPaletteSolidControlled from '../../../snippets/command-palette/solid/controlled-open-state.tsx?raw';
 import commandPaletteSolidShortcut from '../../../snippets/command-palette/solid/enable-the-global-shortcut.tsx?raw';
 import commandPaletteSolidActions from '../../../snippets/command-palette/solid/item-actions.tsx?raw';
+import commandPaletteVueBasic from '../../../snippets/command-palette/vue/basic.vue?raw';
+import commandPaletteVueAdvanced from '../../../snippets/command-palette/vue/advanced-customization.vue?raw';
+import commandPaletteVueControlled from '../../../snippets/command-palette/vue/controlled-open-state.vue?raw';
+import commandPaletteVueShortcut from '../../../snippets/command-palette/vue/enable-the-global-shortcut.vue?raw';
+import commandPaletteVueActions from '../../../snippets/command-palette/vue/item-actions.vue?raw';
 
 ## Справочник API
 
@@ -45,6 +50,7 @@ import commandPaletteSolidActions from '../../../snippets/command-palette/solid/
     values={[
       { label: 'React', value: 'react' },
       { label: 'Solid', value: 'solid' },
+      { label: 'Vue', value: 'vue' },
     ]}
     className="docs-tabs"
   >
@@ -57,6 +63,11 @@ import commandPaletteSolidActions from '../../../snippets/command-palette/solid/
     <Tab value="solid">
 
 <CodeBlockRuntime lang="tsx" code={commandPaletteSolidBasic} />
+
+    </Tab>
+    <Tab value="vue">
+
+<CodeBlockRuntime lang="vue" code={commandPaletteVueBasic} />
 
     </Tab>
   </Tabs>
@@ -90,6 +101,16 @@ import commandPaletteSolidActions from '../../../snippets/command-palette/solid/
   options={[
     { label: 'CSS Modules', command: 'shadcn@latest add @moduix-solid/command-palette' },
     { label: 'Tailwind CSS', command: 'shadcn@latest add @moduix-solid-tailwind/command-palette' },
+  ]}
+/>
+
+  </Tab>
+  <Tab label="Vue" value="vue">
+
+<ShadcnInstallOptions
+  options={[
+    { label: 'CSS Modules', command: 'shadcn@latest add @moduix-vue/command-palette' },
+    { label: 'Tailwind CSS', command: 'shadcn@latest add @moduix-vue-tailwind/command-palette' },
   ]}
 />
 
@@ -191,6 +212,7 @@ framework-пакета, если состояние диалога создаё�
     values={[
       { label: 'React', value: 'react' },
       { label: 'Solid', value: 'solid' },
+      { label: 'Vue', value: 'vue' },
     ]}
     className="docs-tabs"
   >
@@ -203,6 +225,11 @@ framework-пакета, если состояние диалога создаё�
     <Tab value="solid">
 
 <CodeBlockRuntime lang="tsx" code={commandPaletteSolidControlled} />
+
+    </Tab>
+    <Tab value="vue">
+
+<CodeBlockRuntime lang="vue" code={commandPaletteVueControlled} />
 
     </Tab>
   </Tabs>
@@ -231,6 +258,7 @@ framework-пакета, если состояние диалога создаё�
     values={[
       { label: 'React', value: 'react' },
       { label: 'Solid', value: 'solid' },
+      { label: 'Vue', value: 'vue' },
     ]}
     className="docs-tabs"
   >
@@ -243,6 +271,11 @@ framework-пакета, если состояние диалога создаё�
     <Tab value="solid">
 
 <CodeBlockRuntime lang="tsx" code={commandPaletteSolidShortcut} />
+
+    </Tab>
+    <Tab value="vue">
+
+<CodeBlockRuntime lang="vue" code={commandPaletteVueShortcut} />
 
     </Tab>
   </Tabs>
@@ -271,6 +304,7 @@ framework-пакета, если состояние диалога создаё�
     values={[
       { label: 'React', value: 'react' },
       { label: 'Solid', value: 'solid' },
+      { label: 'Vue', value: 'vue' },
     ]}
     className="docs-tabs"
   >
@@ -283,6 +317,11 @@ framework-пакета, если состояние диалога создаё�
     <Tab value="solid">
 
 <CodeBlockRuntime lang="tsx" code={commandPaletteSolidActions} />
+
+    </Tab>
+    <Tab value="vue">
+
+<CodeBlockRuntime lang="vue" code={commandPaletteVueActions} />
 
     </Tab>
   </Tabs>
@@ -312,6 +351,7 @@ framework-пакета, если состояние диалога создаё�
     values={[
       { label: 'React', value: 'react' },
       { label: 'Solid', value: 'solid' },
+      { label: 'Vue', value: 'vue' },
     ]}
     className="docs-tabs"
   >
@@ -324,6 +364,11 @@ framework-пакета, если состояние диалога создаё�
     <Tab value="solid">
 
 <CodeBlockRuntime lang="tsx" code={commandPaletteSolidAdvanced} />
+
+    </Tab>
+    <Tab value="vue">
+
+<CodeBlockRuntime lang="vue" code={commandPaletteVueAdvanced} />
 
     </Tab>
   </Tabs>

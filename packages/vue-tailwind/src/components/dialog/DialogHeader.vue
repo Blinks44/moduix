@@ -21,7 +21,7 @@ const attrs = useAttrs();
     v-bind="attrs"
     :class="
       cn(
-        'grid grid-cols-[minmax(0,1fr)_auto] items-start gap-1 [&>[data-slot=\'dialog-close-trigger\']]:col-start-2 [&>[data-slot=\'dialog-close-trigger\']]:justify-self-end [&>[data-slot=\'dialog-description\']]:col-span-2 [&>[data-slot=\'dialog-title\']]:col-start-1',
+        `grid grid-cols-[minmax(0,1fr)_auto] items-start gap-1 [&>[data-slot='dialog-close-trigger']]:col-start-2 [&>[data-slot='dialog-close-trigger']]:justify-self-end [&>[data-slot='dialog-description']]:col-span-2 [&>[data-slot='dialog-title']]:col-start-1`,
         className,
       )
     "

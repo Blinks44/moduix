@@ -15,6 +15,11 @@ import kbdSolidCompactDensity from '../../../snippets/kbd/solid/compact-density.
 import kbdSolidCustomElement from '../../../snippets/kbd/solid/custom-element.tsx?raw';
 import kbdSolidShortcutList from '../../../snippets/kbd/solid/shortcut-list.tsx?raw';
 import kbdSolidSingleKey from '../../../snippets/kbd/solid/single-key.tsx?raw';
+import kbdVueBasic from '../../../snippets/kbd/vue/basic.vue?raw';
+import kbdVueCompactDensity from '../../../snippets/kbd/vue/compact-density.vue?raw';
+import kbdVueCustomElement from '../../../snippets/kbd/vue/custom-element.vue?raw';
+import kbdVueShortcutList from '../../../snippets/kbd/vue/shortcut-list.vue?raw';
+import kbdVueSingleKey from '../../../snippets/kbd/vue/single-key.vue?raw';
 
 ## API Reference
 
@@ -41,6 +46,7 @@ Use `Kbd` to show one key. For a shortcut made of several keys, place the keycap
     values={[
       { label: 'React', value: 'react' },
       { label: 'Solid', value: 'solid' },
+      { label: 'Vue', value: 'vue' },
     ]}
     className="docs-tabs"
   >
@@ -53,6 +59,11 @@ Use `Kbd` to show one key. For a shortcut made of several keys, place the keycap
     <Tab value="solid">
 
 <CodeBlockRuntime lang="tsx" code={kbdSolidBasic} />
+
+    </Tab>
+    <Tab value="vue">
+
+<CodeBlockRuntime lang="vue" code={kbdVueBasic} />
 
     </Tab>
   </Tabs>
@@ -86,6 +97,16 @@ See [Quick Start](/docs/quick-start) for full package setup, registry configurat
   options={[
     { label: 'CSS Modules', command: 'shadcn@latest add @moduix-solid/kbd' },
     { label: 'Tailwind CSS', command: 'shadcn@latest add @moduix-solid-tailwind/kbd' },
+  ]}
+/>
+
+  </Tab>
+  <Tab label="Vue" value="vue">
+
+<ShadcnInstallOptions
+  options={[
+    { label: 'CSS Modules', command: 'shadcn@latest add @moduix-vue/kbd' },
+    { label: 'Tailwind CSS', command: 'shadcn@latest add @moduix-vue-tailwind/kbd' },
   ]}
 />
 
@@ -134,6 +155,7 @@ Use local CSS variables when one part of your interface needs more compact keyca
     values={[
       { label: 'React', value: 'react' },
       { label: 'Solid', value: 'solid' },
+      { label: 'Vue', value: 'vue' },
     ]}
     className="docs-tabs"
   >
@@ -146,6 +168,11 @@ Use local CSS variables when one part of your interface needs more compact keyca
     <Tab value="solid">
 
 <CodeBlockRuntime lang="tsx" code={kbdSolidCompactDensity} />
+
+    </Tab>
+    <Tab value="vue">
+
+<CodeBlockRuntime lang="vue" code={kbdVueCompactDensity} />
 
     </Tab>
   </Tabs>
@@ -173,6 +200,7 @@ Use `asChild` when another component renders the semantic `<kbd>` element and yo
     values={[
       { label: 'React', value: 'react' },
       { label: 'Solid', value: 'solid' },
+      { label: 'Vue', value: 'vue' },
     ]}
     className="docs-tabs"
   >
@@ -185,6 +213,11 @@ Use `asChild` when another component renders the semantic `<kbd>` element and yo
     <Tab value="solid">
 
 <CodeBlockRuntime lang="tsx" code={kbdSolidCustomElement} />
+
+    </Tab>
+    <Tab value="vue">
+
+<CodeBlockRuntime lang="vue" code={kbdVueCustomElement} />
 
     </Tab>
   </Tabs>
@@ -207,6 +240,7 @@ Combine `KbdGroup` with explanatory text to present a list of available shortcut
     values={[
       { label: 'React', value: 'react' },
       { label: 'Solid', value: 'solid' },
+      { label: 'Vue', value: 'vue' },
     ]}
     className="docs-tabs"
   >
@@ -219,6 +253,11 @@ Combine `KbdGroup` with explanatory text to present a list of available shortcut
     <Tab value="solid">
 
 <CodeBlockRuntime lang="tsx" code={kbdSolidShortcutList} />
+
+    </Tab>
+    <Tab value="vue">
+
+<CodeBlockRuntime lang="vue" code={kbdVueShortcutList} />
 
     </Tab>
   </Tabs>
@@ -246,6 +285,7 @@ Use `Kbd` directly when you need to show one key, such as `Esc`.
     values={[
       { label: 'React', value: 'react' },
       { label: 'Solid', value: 'solid' },
+      { label: 'Vue', value: 'vue' },
     ]}
     className="docs-tabs"
   >
@@ -260,6 +300,11 @@ Use `Kbd` directly when you need to show one key, such as `Esc`.
 <CodeBlockRuntime lang="tsx" code={kbdSolidSingleKey} />
 
     </Tab>
+    <Tab value="vue">
+
+<CodeBlockRuntime lang="vue" code={kbdVueSingleKey} />
+
+    </Tab>
   </Tabs>
 </div>
 
@@ -267,7 +312,7 @@ Use `Kbd` directly when you need to show one key, such as `Esc`.
 
 ## Styling
 
-Customize `Kbd` and `KbdGroup` with `className` in React or `class` in Solid, Ark anatomy attributes, stable
+Customize `Kbd` and `KbdGroup` with `className` in React, `class` in Solid and Vue, Ark anatomy attributes, stable
 `data-slot` hooks, and the public `--moduix-kbd-*` CSS variables listed below. Tailwind variants use native utility
 classes, while CSS Modules variants use the component variables and consumer CSS.
 

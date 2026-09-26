@@ -23,6 +23,15 @@ import inputSolidNativeAttributes from '../../../snippets/input/solid/native-att
 import inputSolidSizes from '../../../snippets/input/solid/sizes.tsx?raw';
 import inputSolidStandalone from '../../../snippets/input/solid/standalone-input.tsx?raw';
 import inputSolidStates from '../../../snippets/input/solid/disabled-and-readonly.tsx?raw';
+import inputVueAsChild from '../../../snippets/input/vue/as-child.vue?raw';
+import inputVueBasic from '../../../snippets/input/vue/basic.vue?raw';
+import inputVueControlled from '../../../snippets/input/vue/controlled.vue?raw';
+import inputVueFieldState from '../../../snippets/input/vue/field-state.vue?raw';
+import inputVueFile from '../../../snippets/input/vue/file-input.vue?raw';
+import inputVueNativeAttributes from '../../../snippets/input/vue/native-attributes.vue?raw';
+import inputVueSizes from '../../../snippets/input/vue/sizes.vue?raw';
+import inputVueStandalone from '../../../snippets/input/vue/standalone-input.vue?raw';
+import inputVueStates from '../../../snippets/input/vue/disabled-and-readonly.vue?raw';
 
 ## API Reference
 
@@ -60,6 +69,7 @@ connects that content to the control, generates the necessary ids, and provides 
     values={[
       { label: 'React', value: 'react' },
       { label: 'Solid', value: 'solid' },
+      { label: 'Vue', value: 'vue' },
     ]}
     className="docs-tabs"
   >
@@ -72,6 +82,11 @@ connects that content to the control, generates the necessary ids, and provides 
     <Tab value="solid">
 
 <CodeBlockRuntime lang="tsx" code={inputSolidBasic} />
+
+    </Tab>
+    <Tab value="vue">
+
+<CodeBlockRuntime lang="vue" code={inputVueBasic} />
 
     </Tab>
   </Tabs>
@@ -109,6 +124,16 @@ See [Quick Start](/docs/quick-start) for full package setup, registry configurat
 />
 
   </Tab>
+  <Tab label="Vue" value="vue">
+
+<ShadcnInstallOptions
+  options={[
+    { label: 'CSS Modules', command: 'shadcn@latest add @moduix-vue/input' },
+    { label: 'Tailwind CSS', command: 'shadcn@latest add @moduix-vue-tailwind/input' },
+  ]}
+/>
+
+  </Tab>
 </Tabs>
 
 ## Anatomy
@@ -126,8 +151,8 @@ Field (optional wrapper)
 
 Use `Field` as the owner of the label, helper or error text, generated ids, and shared `disabled`,
 `invalid`, `required`, or `readOnly` state. `Input` remains the native control: use `value` with
-`onChange(event)` for controlled React state or `defaultValue` for an uncontrolled input. It does
-not manage validation, focus, or keyboard navigation.
+`onChange(event)` for controlled React state, `v-model` for controlled Vue state, or `defaultValue`
+for an uncontrolled input. It does not manage validation, focus, or keyboard navigation.
 
 For a standalone control, provide its accessible name yourself. Use `asChild` only with one
 focusable, input-compatible child; Ark merges the `Input` and `Field` props, class, and ref into
@@ -138,8 +163,8 @@ that DOM node.
 ### Controlled value
 
 Use this pattern when the surrounding component owns the current value. In React, read the next
-value from native `onChange(event)`; in Solid, use `onInput`. Pass the current value back through
-`value`.
+value from native `onChange(event)`; in Solid, use `onInput`; in Vue, use `v-model`. Pass the current
+value back through `value` when the framework uses separate input and value bindings.
 
 <ExampleFrame variant="component">
   <InputControlled />
@@ -152,6 +177,7 @@ value from native `onChange(event)`; in Solid, use `onInput`. Pass the current v
     values={[
       { label: 'React', value: 'react' },
       { label: 'Solid', value: 'solid' },
+      { label: 'Vue', value: 'vue' },
     ]}
     className="docs-tabs"
   >
@@ -164,6 +190,11 @@ value from native `onChange(event)`; in Solid, use `onInput`. Pass the current v
     <Tab value="solid">
 
 <CodeBlockRuntime lang="tsx" code={inputSolidControlled} />
+
+    </Tab>
+    <Tab value="vue">
+
+<CodeBlockRuntime lang="vue" code={inputVueControlled} />
 
     </Tab>
   </Tabs>
@@ -193,6 +224,7 @@ and select the value but must not edit it. Set them directly on `Input` for one 
     values={[
       { label: 'React', value: 'react' },
       { label: 'Solid', value: 'solid' },
+      { label: 'Vue', value: 'vue' },
     ]}
     className="docs-tabs"
   >
@@ -205,6 +237,11 @@ and select the value but must not edit it. Set them directly on `Input` for one 
     <Tab value="solid">
 
 <CodeBlockRuntime lang="tsx" code={inputSolidStates} />
+
+    </Tab>
+    <Tab value="vue">
+
+<CodeBlockRuntime lang="vue" code={inputVueStates} />
 
     </Tab>
   </Tabs>
@@ -233,6 +270,7 @@ input and connects it to the error text.
     values={[
       { label: 'React', value: 'react' },
       { label: 'Solid', value: 'solid' },
+      { label: 'Vue', value: 'vue' },
     ]}
     className="docs-tabs"
   >
@@ -245,6 +283,11 @@ input and connects it to the error text.
     <Tab value="solid">
 
 <CodeBlockRuntime lang="tsx" code={inputSolidFieldState} />
+
+    </Tab>
+    <Tab value="vue">
+
+<CodeBlockRuntime lang="vue" code={inputVueFieldState} />
 
     </Tab>
   </Tabs>
@@ -273,6 +316,7 @@ needs to keep selected files in state, show a dropzone, or manage an upload flow
     values={[
       { label: 'React', value: 'react' },
       { label: 'Solid', value: 'solid' },
+      { label: 'Vue', value: 'vue' },
     ]}
     className="docs-tabs"
   >
@@ -285,6 +329,11 @@ needs to keep selected files in state, show a dropzone, or manage an upload flow
     <Tab value="solid">
 
 <CodeBlockRuntime lang="tsx" code={inputSolidFile} />
+
+    </Tab>
+    <Tab value="vue">
+
+<CodeBlockRuntime lang="vue" code={inputVueFile} />
 
     </Tab>
   </Tabs>
@@ -300,8 +349,8 @@ needs to keep selected files in state, show a dropzone, or manage an upload flow
 ### Native attributes
 
 Use native attributes for browser behavior such as validation, input mode, autocomplete, and form
-submission. Use `htmlSize` for a character-based width and `size` for visual density in both React
-and Solid.
+submission. Use `htmlSize` for a character-based width and `size` for visual density in React, Solid,
+and Vue.
 
 <ExampleFrame variant="component">
   <InputNativeAttributes />
@@ -314,6 +363,7 @@ and Solid.
     values={[
       { label: 'React', value: 'react' },
       { label: 'Solid', value: 'solid' },
+      { label: 'Vue', value: 'vue' },
     ]}
     className="docs-tabs"
   >
@@ -326,6 +376,11 @@ and Solid.
     <Tab value="solid">
 
 <CodeBlockRuntime lang="tsx" code={inputSolidNativeAttributes} />
+
+    </Tab>
+    <Tab value="vue">
+
+<CodeBlockRuntime lang="vue" code={inputVueNativeAttributes} />
 
     </Tab>
   </Tabs>
@@ -354,6 +409,7 @@ native character-based width.
     values={[
       { label: 'React', value: 'react' },
       { label: 'Solid', value: 'solid' },
+      { label: 'Vue', value: 'vue' },
     ]}
     className="docs-tabs"
   >
@@ -366,6 +422,11 @@ native character-based width.
     <Tab value="solid">
 
 <CodeBlockRuntime lang="tsx" code={inputSolidSizes} />
+
+    </Tab>
+    <Tab value="vue">
+
+<CodeBlockRuntime lang="vue" code={inputVueSizes} />
 
     </Tab>
   </Tabs>
@@ -395,6 +456,7 @@ ids are not generated automatically and helper or error text is not connected to
     values={[
       { label: 'React', value: 'react' },
       { label: 'Solid', value: 'solid' },
+      { label: 'Vue', value: 'vue' },
     ]}
     className="docs-tabs"
   >
@@ -407,6 +469,11 @@ ids are not generated automatically and helper or error text is not connected to
     <Tab value="solid">
 
 <CodeBlockRuntime lang="tsx" code={inputSolidStandalone} />
+
+    </Tab>
+    <Tab value="vue">
+
+<CodeBlockRuntime lang="vue" code={inputVueStandalone} />
 
     </Tab>
   </Tabs>
@@ -435,6 +502,7 @@ focusable input element that can receive the merged props and `ref`.
     values={[
       { label: 'React', value: 'react' },
       { label: 'Solid', value: 'solid' },
+      { label: 'Vue', value: 'vue' },
     ]}
     className="docs-tabs"
   >
@@ -449,6 +517,11 @@ focusable input element that can receive the merged props and `ref`.
 <CodeBlockRuntime lang="tsx" code={inputSolidAsChild} />
 
     </Tab>
+    <Tab value="vue">
+
+<CodeBlockRuntime lang="vue" code={inputVueAsChild} />
+
+    </Tab>
   </Tabs>
 
 **Styles**
@@ -461,9 +534,9 @@ focusable input element that can receive the merged props and `ref`.
 
 ## Styling
 
-Use `className` in React or `class` in Solid on `Input`. CSS Modules variants expose the variables
-below, while Tailwind variants use native utility classes and consumer classes. Use the shared data
-attributes and native state selectors when styling field state.
+Use `className` in React or `class` in Solid and Vue on `Input`. CSS Modules variants expose the
+variables below, while Tailwind variants use native utility classes and consumer classes. Use the
+shared data attributes and native state selectors when styling field state.
 
 ### CSS Properties
 

@@ -1,0 +1,47 @@
+@layer moduix.components {
+  .root[data-scope='kbd'][data-part='root'] {
+    box-sizing: border-box;
+    display: inline-flex;
+    flex: none;
+    min-width: var(--moduix-kbd-min-width, var(--moduix-kbd-height, var(--moduix-size-xs)));
+    max-width: 100%;
+    min-height: var(--moduix-kbd-height, var(--moduix-size-xs));
+    align-items: center;
+    justify-content: center;
+    border: var(--moduix-kbd-border-width, var(--moduix-border-width-sm)) solid
+      var(--moduix-kbd-border-color, var(--moduix-color-border));
+    border-radius: var(--moduix-kbd-radius, var(--moduix-radius-sm));
+    padding: var(--moduix-kbd-padding-y, 0) var(--moduix-kbd-padding-x, var(--moduix-spacing-2));
+    background-color: var(--moduix-kbd-bg, var(--moduix-color-muted));
+    box-shadow: var(
+      --moduix-kbd-shadow,
+      inset 0 -1px 0 color-mix(in oklab, var(--moduix-color-foreground) 12%, transparent)
+    );
+    color: var(--moduix-kbd-color, var(--moduix-color-foreground));
+    font-family: var(--moduix-kbd-font-family, var(--moduix-font-mono)), monospace;
+    font-size: var(--moduix-kbd-font-size, var(--moduix-text-xs));
+    font-weight: var(--moduix-kbd-font-weight, var(--moduix-weight-medium));
+    line-height: var(--moduix-kbd-line-height, var(--moduix-line-height-text-xs));
+    font-variant-numeric: tabular-nums;
+    text-align: center;
+    vertical-align: middle;
+    overflow-wrap: anywhere;
+    user-select: none;
+  }
+
+  .group[data-scope='kbd'][data-part='group'] {
+    box-sizing: border-box;
+    display: inline-flex;
+    max-width: 100%;
+    align-items: center;
+    flex-wrap: wrap;
+    gap: var(--moduix-kbd-group-gap, var(--moduix-spacing-1));
+    padding: 0;
+    border: 0;
+    background: none;
+    box-shadow: none;
+    color: var(--moduix-kbd-group-separator-color, var(--moduix-color-muted-foreground));
+    font: inherit;
+    vertical-align: middle;
+  }
+}

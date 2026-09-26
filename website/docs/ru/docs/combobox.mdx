@@ -45,6 +45,8 @@ import comboboxVueInlineAutocomplete from '../../../snippets/combobox/vue/inline
 import comboboxVueLimitResults from '../../../snippets/combobox/vue/limit-results.vue?raw';
 import comboboxVueMultiple from '../../../snippets/combobox/vue/multiple.vue?raw';
 import comboboxVueRootProvider from '../../../snippets/combobox/vue/root-provider.vue?raw';
+import comboboxVueVirtualized from '../../../snippets/combobox/vue/virtualized.vue?raw';
+import comboboxVueWithTagsInput from '../../../snippets/combobox/vue/with-tags-input.vue?raw';
 
 ## Справочник API
 
@@ -220,8 +222,8 @@ Combobox[collection]
   <Tabs
     groupId="framework"
     values={[
-      { label: 'React', value: 'react' },
-      { label: 'Solid', value: 'solid' },
+    { label: 'React', value: 'react' },
+    { label: 'Solid', value: 'solid' },
     ]}
     className="docs-tabs"
   >
@@ -658,8 +660,9 @@ Combobox[collection]
 ### Виртуализация
 
 Для больших коллекций отображайте только видимые строки с помощью TanStack Virtual. В React используйте
-`@tanstack/react-virtual`, а в Solid - `@tanstack/solid-virtual`, затем свяжите клавиатурную навигацию Ark
-с `scrollToIndexFn`. Сохраняйте `aria-setsize` и `aria-posinset` у виртуализированных строк.
+`@tanstack/react-virtual`, в Solid - `@tanstack/solid-virtual`, а в Vue - `@tanstack/vue-virtual`,
+затем свяжите клавиатурную навигацию Ark с `scrollToIndexFn`. Сохраняйте `aria-setsize` и
+`aria-posinset` у виртуализированных строк.
 
 <ExampleFrame variant="component">
   <ComboboxVirtualized />
@@ -672,6 +675,7 @@ Combobox[collection]
     values={[
       { label: 'React', value: 'react' },
       { label: 'Solid', value: 'solid' },
+      { label: 'Vue', value: 'vue' },
     ]}
     className="docs-tabs"
   >
@@ -684,6 +688,11 @@ Combobox[collection]
     <Tab value="solid">
 
 <CodeBlockRuntime lang="tsx" code={comboboxSolidVirtualized} />
+
+    </Tab>
+    <Tab value="vue">
+
+<CodeBlockRuntime lang="vue" code={comboboxVueVirtualized} />
 
     </Tab>
   </Tabs>
@@ -712,6 +721,7 @@ Combobox[collection]
     values={[
       { label: 'React', value: 'react' },
       { label: 'Solid', value: 'solid' },
+      { label: 'Vue', value: 'vue' },
     ]}
     className="docs-tabs"
   >
@@ -724,6 +734,11 @@ Combobox[collection]
     <Tab value="solid">
 
 <CodeBlockRuntime lang="tsx" code={comboboxSolidWithTagsInput} />
+
+    </Tab>
+    <Tab value="vue">
+
+<CodeBlockRuntime lang="vue" code={comboboxVueWithTagsInput} />
 
     </Tab>
   </Tabs>
