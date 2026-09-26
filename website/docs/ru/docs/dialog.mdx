@@ -4,7 +4,7 @@ component: dialog
 description: Модальное окно для сосредоточенных задач, например форм, подтверждений и просмотра деталей.
 ---
 
-import { DialogCssPropertiesPanel } from '@/components/examples/dialog/css-properties';
+import * as DialogDocs from '@/components/examples/dialog/css-properties';
 import DialogAdvancedCustomization from '@/components/examples/dialog/advanced-customization.tsx';
 import DialogAlertDialog from '@/components/examples/dialog/alert-dialog.tsx';
 import DialogBasic from '@/components/examples/dialog/basic.tsx';
@@ -46,8 +46,8 @@ import dialogSolidRootProvider from '../../../snippets/dialog/solid/root-provide
 
 
 Используйте `Dialog` как корневой компонент и явно соберите его структурные части.
-`Dialog.Backdrop` отвечает за модальный фон, `Dialog.Positioner` размещает диалог, а
-`Dialog.Content` содержит его поверхность.
+`DialogBackdrop` отвечает за модальный фон, `DialogPositioner` размещает диалог, а
+`DialogContent` содержит его поверхность.
 
 <ExampleFrame variant="component">
   <DialogBasic />
@@ -109,45 +109,45 @@ import dialogSolidRootProvider from '../../../snippets/dialog/solid/root-provide
 ## Анатомия
 
 ```text
-Dialog / Dialog.Root
-├─ Dialog.Trigger
+Dialog
+├─ DialogTrigger
 └─ Содержимое overlay (автоматически переносится в portal)
-   ├─ Dialog.Backdrop (необязательно)
-   └─ Dialog.Positioner
-      └─ Dialog.Content
-         ├─ Dialog.CloseTrigger или Dialog.CloseIcon
-         ├─ Dialog.Title
-         ├─ Dialog.Description
-         ├─ Dialog.Header (вспомогательная часть moduix для разметки)
-         ├─ Dialog.Body (вспомогательная часть moduix для разметки)
-         └─ Dialog.Footer (вспомогательная часть moduix для разметки)
+   ├─ DialogBackdrop (необязательно)
+   └─ DialogPositioner
+      └─ DialogContent
+         ├─ DialogCloseTrigger или DialogCloseIcon
+         ├─ DialogTitle
+         ├─ DialogDescription
+         ├─ DialogHeader (вспомогательная часть moduix для разметки)
+         ├─ DialogBody (вспомогательная часть moduix для разметки)
+         └─ DialogFooter (вспомогательная часть moduix для разметки)
 
-Dialog.RootProvider
+DialogRootProvider
 └─ то же дерево частей, подключённое к состоянию из moduix useDialog()
 
-Dialog.Context
+DialogContext
 └─ render-функция с текущим состоянием и методами диалога
 ```
 
 | Часть                    | Назначение                                                          |
 | ------------------------ | ------------------------------------------------------------------- |
-| `Dialog` / `Dialog.Root` | Управляет состоянием открытия, фокусом и закрытием.                 |
-| `Dialog.RootProvider`    | Подключает части к состоянию, созданному с помощью `useDialog()`.   |
-| `Dialog.Trigger`         | Открывает диалог.                                                    |
-| `Dialog.Backdrop`        | Необязательный фон модального диалога.                              |
-| `Dialog.Positioner`      | Размещает содержимое диалога.                                        |
-| `Dialog.Content`         | Содержит видимую поверхность диалога.                               |
-| `Dialog.Title`           | Задаёт доступное имя диалога.                                       |
-| `Dialog.Description`     | Добавляет дополнительный доступный текст.                           |
-| `Dialog.CloseTrigger`    | Закрывает диалог.                                                    |
-| `Dialog.CloseIcon`       | Вспомогательная кнопка moduix, которая закрывает диалог.             |
-| `Dialog.Header`          | Вспомогательная часть moduix для разметки заголовка.                 |
-| `Dialog.Body`            | Вспомогательная часть moduix для основного содержимого.              |
-| `Dialog.Footer`          | Вспомогательная часть moduix для действий.                          |
-| `Dialog.Context`         | Передаёт дочерним элементам состояние и методы диалога.             |
+| `Dialog` / `DialogRootProvider` | Управляет состоянием открытия, фокусом и закрытием.                 |
+| `DialogRootProvider`    | Подключает части к состоянию, созданному с помощью `useDialog()`.   |
+| `DialogTrigger`         | Открывает диалог.                                                    |
+| `DialogBackdrop`        | Необязательный фон модального диалога.                              |
+| `DialogPositioner`      | Размещает содержимое диалога.                                        |
+| `DialogContent`         | Содержит видимую поверхность диалога.                               |
+| `DialogTitle`           | Задаёт доступное имя диалога.                                       |
+| `DialogDescription`     | Добавляет дополнительный доступный текст.                           |
+| `DialogCloseTrigger`    | Закрывает диалог.                                                    |
+| `DialogCloseIcon`       | Вспомогательная кнопка moduix, которая закрывает диалог.             |
+| `DialogHeader`          | Вспомогательная часть moduix для разметки заголовка.                 |
+| `DialogBody`            | Вспомогательная часть moduix для основного содержимого.              |
+| `DialogFooter`          | Вспомогательная часть moduix для действий.                          |
+| `DialogContext`         | Передаёт дочерним элементам состояние и методы диалога.             |
 
 Импортируйте `useDialog()`, если состояние диалога должно находиться за пределами его дерева.
-Читайте или обновляйте это состояние через `Dialog.Context` или `useDialogContext()` из выбранного
+Читайте или обновляйте это состояние через `DialogContext` или `useDialogContext()` из выбранного
 пакета.
 
 ## Композиция
@@ -155,11 +155,11 @@ Dialog.Context
 По умолчанию `Dialog` сам управляет состоянием открытия. Используйте `open` и
 `onOpenChange(details)`, если состояние принадлежит другой части приложения. Если состояние нужно
 создать за пределами дерева диалога, создайте одно хранилище через `useDialog()` и передайте его в
-`Dialog.RootProvider`; не создавайте для того же хранилища второй корневой компонент.
+`DialogRootProvider`; не создавайте для того же хранилища второй корневой компонент.
 
-Корневой компонент автоматически переносит `Dialog.Backdrop` и `Dialog.Positioner` в portal.
+Корневой компонент автоматически переносит `DialogBackdrop` и `DialogPositioner` в portal.
 Укажите `portalled={false}`, чтобы оставить их в текущем дереве, или передайте `portalRef` для
-своего контейнера. Держите дерево частей явным, а `Dialog.Header`, `Dialog.Body` и `Dialog.Footer`
+своего контейнера. Держите дерево частей явным, а `DialogHeader`, `DialogBody` и `DialogFooter`
 используйте только тогда, когда их готовая разметка подходит композиции.
 
 ## Примеры
@@ -491,7 +491,7 @@ moduix использует это состояние, чтобы отодвин
 
 ### Прокрутка позиционера
 
-Позвольте `Dialog.Positioner` прокручивать весь диалог, если длинное содержимое должно сохранять
+Позвольте `DialogPositioner` прокручивать весь диалог, если длинное содержимое должно сохранять
 естественную высоту.
 
 <ExampleFrame variant="component">
@@ -532,7 +532,7 @@ moduix использует это состояние, чтобы отодвин
 ### Root Provider
 
 Создайте состояние через `useDialog()`, если элементы управления находятся за пределами диалога.
-Подключите его с помощью `Dialog.RootProvider`, а затем читайте через `Dialog.Context` или
+Подключите его с помощью `DialogRootProvider`, а затем читайте через `DialogContext` или
 `useDialogContext()` в переиспользуемых компонентах.
 
 <ExampleFrame variant="component">
@@ -567,8 +567,8 @@ moduix использует это состояние, чтобы отодвин
 
 ### Расширенная настройка
 
-Пропустите `Header`, `Body`, `Footer` и `CloseIcon`, если пользовательская разметка требует прямого
-управления каждой частью диалога Ark.
+Пропустите `DialogHeader`, `DialogBody`, `DialogFooter` и `DialogCloseIcon`, если пользовательская
+разметка требует прямого управления каждой частью диалога Ark.
 
 <ExampleFrame variant="component">
   <DialogAdvancedCustomization />
@@ -615,17 +615,7 @@ moduix использует это состояние, чтобы отодвин
 
 ### CSS-свойства
 
-<div className="docs-reference">
-  <Tabs
-    values={[{ label: 'CSS Variables', value: 'CSS Variables' }]}
-    className="docs-reference-tabs"
-    contentItemClassName="docs-reference-panel"
-  >
-    <Tab>
-      <DialogCssPropertiesPanel />
-    </Tab>
-  </Tabs>
-</div>
+<CssPropertiesSection properties={DialogDocs.dialogOverrideCssProperties} />
 
 ### Хуки стилизации
 
@@ -637,5 +627,5 @@ moduix использует это состояние, чтобы отодвин
 - Атрибуты состояния: `data-state="open|closed"`, `data-has-nested`, `data-nested`, `data-current`,
   `data-value`.
 - Переменные рантайма: `--layer-index` и `--nested-layer-count`.
-- `Dialog.CloseIcon` позиционируется относительно угла `Dialog.Content`, поэтому его размещение не
-  зависит от `Dialog.Header`.
+- `DialogCloseIcon` позиционируется относительно угла `DialogContent`, поэтому его размещение не
+  зависит от `DialogHeader`.

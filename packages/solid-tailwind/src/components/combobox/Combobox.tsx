@@ -25,7 +25,7 @@ type ComboboxRootProps<T extends CollectionItem> = ArkComboboxRootProps<T> & Ove
 type ComboboxRootProviderProps<T extends CollectionItem> = ArkComboboxRootProviderProps<T> &
   OverlayPortalProps;
 
-const ComboboxRoot = function ComboboxRoot<T extends CollectionItem>(props: ComboboxRootProps<T>) {
+const Combobox = function Combobox<T extends CollectionItem>(props: ComboboxRootProps<T>) {
   const [local, others] = splitProps(props, [
     'asChild',
     'children',
@@ -169,7 +169,7 @@ function ComboboxClearTrigger(props: ComponentProps<typeof ComboboxPrimitive.Cle
         const resolvedProps = triggerProps();
 
         return (
-          <CloseButton.Root
+          <CloseButton
             {...resolvedProps}
             aria-label={
               local['aria-label'] ??
@@ -178,7 +178,7 @@ function ComboboxClearTrigger(props: ComponentProps<typeof ComboboxPrimitive.Cle
             aria-labelledby={local['aria-labelledby']}
           >
             {resolvedChildren()}
-          </CloseButton.Root>
+          </CloseButton>
         );
       }}
       class={triggerClass}
@@ -364,50 +364,31 @@ function ComboboxOption(props: ComboboxOptionProps) {
   );
 }
 
-type ComboboxComponent = ArkComboboxRootComponent<OverlayPortalProps> & {
-  Root: typeof ComboboxRoot;
-  RootProvider: typeof ComboboxRootProvider;
-  Label: typeof ComboboxLabel;
-  Control: typeof ComboboxControl;
-  Input: typeof ComboboxInput;
-  ClearTrigger: typeof ComboboxClearTrigger;
-  Trigger: typeof ComboboxTrigger;
-  Positioner: typeof ComboboxPositioner;
-  Content: typeof ComboboxContent;
-  Empty: typeof ComboboxEmpty;
-  Status: typeof ComboboxStatus;
-  List: typeof ComboboxList;
-  ItemGroup: typeof ComboboxItemGroup;
-  ItemGroupLabel: typeof ComboboxItemGroupLabel;
-  Item: typeof ComboboxItem;
-  ItemText: typeof ComboboxItemText;
-  ItemIndicator: typeof ComboboxItemIndicator;
-  Option: typeof ComboboxOption;
-  Context: typeof ComboboxPrimitive.Context;
-  ItemContext: typeof ComboboxPrimitive.ItemContext;
+const ComboboxContext = ComboboxPrimitive.Context;
+const ComboboxItemContext = ComboboxPrimitive.ItemContext;
+
+export {
+  Combobox,
+  ComboboxClearTrigger,
+  ComboboxContext,
+  ComboboxContent,
+  ComboboxControl,
+  ComboboxEmpty,
+  ComboboxInput,
+  ComboboxItem,
+  ComboboxItemContext,
+  ComboboxItemGroup,
+  ComboboxItemGroupLabel,
+  ComboboxItemIndicator,
+  ComboboxItemText,
+  ComboboxLabel,
+  ComboboxList,
+  ComboboxOption,
+  ComboboxPositioner,
+  ComboboxRootProvider,
+  ComboboxStatus,
+  ComboboxTrigger,
+  useCombobox,
+  useComboboxContext,
+  useComboboxItemContext,
 };
-
-const Combobox: ComboboxComponent = Object.assign(ComboboxRoot, {
-  Root: ComboboxRoot,
-  RootProvider: ComboboxRootProvider,
-  Label: ComboboxLabel,
-  Control: ComboboxControl,
-  Input: ComboboxInput,
-  ClearTrigger: ComboboxClearTrigger,
-  Trigger: ComboboxTrigger,
-  Positioner: ComboboxPositioner,
-  Content: ComboboxContent,
-  Empty: ComboboxEmpty,
-  Status: ComboboxStatus,
-  List: ComboboxList,
-  ItemGroup: ComboboxItemGroup,
-  ItemGroupLabel: ComboboxItemGroupLabel,
-  Item: ComboboxItem,
-  ItemText: ComboboxItemText,
-  ItemIndicator: ComboboxItemIndicator,
-  Option: ComboboxOption,
-  Context: ComboboxPrimitive.Context,
-  ItemContext: ComboboxPrimitive.ItemContext,
-});
-
-export { Combobox, useCombobox, useComboboxContext, useComboboxItemContext };

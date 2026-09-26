@@ -1,5 +1,17 @@
 import { createListCollection } from '@ark-ui/solid/collection';
-import { Combobox, useCombobox } from '@moduix/solid/combobox';
+import {
+  useCombobox,
+  ComboboxClearTrigger,
+  ComboboxContent,
+  ComboboxControl,
+  ComboboxInput,
+  ComboboxLabel,
+  ComboboxList,
+  ComboboxOption,
+  ComboboxPositioner,
+  ComboboxRootProvider,
+  ComboboxTrigger,
+} from '@moduix/solid/combobox';
 import { For } from 'solid-js';
 import styles from '@/components/examples/combobox/component-root-provider.module.css';
 
@@ -15,22 +27,22 @@ export default function RootProviderComboboxDemo() {
   const combobox = useCombobox({ collection });
 
   return (
-    <Combobox.RootProvider value={combobox}>
-      <Combobox.Label>Job title</Combobox.Label>
-      <Combobox.Control>
-        <Combobox.Input />
-        <Combobox.ClearTrigger aria-label="Clear selection" />
-        <Combobox.Trigger aria-label="Open options" />
-      </Combobox.Control>
-      <Combobox.Positioner>
-        <Combobox.Content class={styles.content}>
-          <Combobox.List>
+    <ComboboxRootProvider value={combobox}>
+      <ComboboxLabel>Job title</ComboboxLabel>
+      <ComboboxControl>
+        <ComboboxInput />
+        <ComboboxClearTrigger aria-label="Clear selection" />
+        <ComboboxTrigger aria-label="Open options" />
+      </ComboboxControl>
+      <ComboboxPositioner>
+        <ComboboxContent class={styles.content}>
+          <ComboboxList>
             <For each={collection.items}>
-              {(item) => <Combobox.Option item={item}>{item.label}</Combobox.Option>}
+              {(item) => <ComboboxOption item={item}>{item.label}</ComboboxOption>}
             </For>
-          </Combobox.List>
-        </Combobox.Content>
-      </Combobox.Positioner>
-    </Combobox.RootProvider>
+          </ComboboxList>
+        </ComboboxContent>
+      </ComboboxPositioner>
+    </ComboboxRootProvider>
   );
 }

@@ -46,8 +46,8 @@ Use `Field` when one form control needs an accessible label, helper text, an err
 ## Basic
 
 
-Use `Field` as the wrapper for one form control. Put `Field.Label` before the control, then add helper
-or error text when the user needs more information.
+Use `Field` as the wrapper for one form control. Put `FieldLabel` before the control, then add
+`FieldHelperText` or `FieldErrorText` when the user needs more information.
 
 <ExampleFrame variant="component">
   <FieldBasic />
@@ -113,44 +113,44 @@ See [Quick Start](/docs/quick-start) for full package setup, registry configurat
 
 ## Anatomy
 
-The public `Field` namespace follows Ark UI's part names. Use the low-level `Field.*` controls for
+The public `Field` API uses flat, family-prefixed values. Use the low-level `Field*` controls for
 explicit Ark composition. For regular forms, prefer the matching moduix components such as `Input`,
 `Textarea`, or `NativeSelect`.
 
 ```text
 Field
-├─ Field.Label
-├─ Field.Input | Field.Textarea | Field.Select | custom control
-├─ Field.HelperText
-├─ Field.ErrorText
-└─ Field.RequiredIndicator
+├─ FieldLabel
+├─ FieldInput | FieldTextarea | FieldSelect | custom control
+├─ FieldHelperText
+├─ FieldErrorText
+└─ FieldRequiredIndicator
 
-Field.RootProvider
+FieldRootProvider
 └─ same part tree connected to a useField() store
 ```
 
 | Part                      | Role                                                                                          |
 | ------------------------- | --------------------------------------------------------------------------------------------- |
-| `Field` / `Field.Root`    | Root context. It renders a `<div role="group">` by default.                                |
-| `Field.RootProvider`      | Root that uses a `useField()` state object created outside the tree.                          |
-| `Field.Context`           | Reads the current field state without adding an element to the DOM.                          |
-| `Field.Label`             | Accessible label associated with the current control.                                         |
-| `Field.Input`             | Low-level native input. Use `Input` for the usual moduix-styled input.                       |
-| `Field.Textarea`          | Low-level native textarea. Use `Textarea` for the usual moduix-styled textarea.               |
-| `Field.Select`            | Low-level native select. Use `NativeSelect` for the usual moduix-styled select.               |
-| `Field.HelperText`        | Helper text associated with the control through `aria-describedby`.                           |
-| `Field.ErrorText`         | Error text rendered when the root is `invalid`.                                               |
-| `Field.RequiredIndicator` | Visual marker for a required field. Use `fallback` to replace its default marker.              |
-| `Field.Item`              | Nested context for a grouped control identified by `value`; its ref points to the local row wrapper. |
+| `Field`                  | Root context. It renders a `<div role="group">` by default.                                |
+| `FieldRootProvider`      | Root that uses a `useField()` state object created outside the tree.                          |
+| `FieldContext`           | Reads the current field state without adding an element to the DOM.                          |
+| `FieldLabel`             | Accessible label associated with the current control.                                         |
+| `FieldInput`             | Low-level native input. Use `Input` for the usual moduix-styled input.                       |
+| `FieldTextarea`          | Low-level native textarea. Use `Textarea` for the usual moduix-styled textarea.               |
+| `FieldSelect`            | Low-level native select. Use `NativeSelect` for the usual moduix-styled select.               |
+| `FieldHelperText`        | Helper text associated with the control through `aria-describedby`.                           |
+| `FieldErrorText`         | Error text rendered when the root is `invalid`.                                               |
+| `FieldRequiredIndicator` | Visual marker for a required field. Use `fallback` to replace its default marker.              |
+| `FieldItem`              | Nested context for a grouped control identified by `value`; its ref points to the local row wrapper. |
 
 ## Composition
 
-Use the root to combine one control with `Field.Label`, `Field.HelperText`, `Field.ErrorText`, and
-`Field.RequiredIndicator`. Compound controls such as `Checkbox`, `RadioGroup`, and `Select` own their
+Use the root to combine one control with `FieldLabel`, `FieldHelperText`, `FieldErrorText`, and
+`FieldRequiredIndicator`. Compound controls such as `Checkbox`, `RadioGroup`, and `Select` own their
 control state, so pass `required`, `invalid`, `disabled`, or `readOnly` to their root when they own it.
-For several native controls, wrap each one in `Field.Item value` and set the root `target`. Use
-`Field.RootProvider` with `useField()` when state is created outside the rendered tree; custom controls
-can read the current state through `Field.Context` or `useFieldContext`.
+For several native controls, wrap each one in `FieldItem value` and set the root `target`. Use
+`FieldRootProvider` with `useField()` when state is created outside the rendered tree; custom controls
+can read the current state through `FieldContext` or `useFieldContext`.
 
 ## Examples
 
@@ -287,7 +287,7 @@ compound child root as well when that component owns its invalid state.
 
 ### Item target
 
-Use `Field.Item` with the root `target` prop when one label should target a control inside a group.
+Use `FieldItem` with the root `target` prop when one label should target a control inside a group.
 
 <ExampleFrame variant="component">
   <FieldItemTarget />
@@ -418,7 +418,7 @@ Set `readOnly` on the root when users can copy the control's value but cannot ed
 
 ### Root Provider
 
-Use `useField` with `Field.RootProvider` when the field state must be created outside the rendered
+Use `useField` with `FieldRootProvider` when the field state must be created outside the rendered
 tree.
 
 <ExampleFrame variant="component">
@@ -530,6 +530,6 @@ consumer classes; the CSS variables below customize the CSS Modules variants.
 ### Styling hooks
 
 Ark adds `data-disabled`, `data-invalid`, `data-readonly`, and `data-required` to the relevant parts.
-`Field.ErrorText` exists only while the current field context is invalid. The helper text id is included
+`FieldErrorText` exists only while the current field context is invalid. The helper text id is included
 in the control's `aria-describedby`, and the active error text id is included in `aria-errormessage`.
 Every DOM part also keeps a stable `data-slot="field-*"` hook.

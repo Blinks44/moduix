@@ -2,6 +2,10 @@ import { expect, test } from '@rstest/core';
 import { render, screen } from '@solidjs/testing-library';
 import { Container } from '../src';
 
+test('exposes only the flat root value', () => {
+  expect('Root' in Container).toBe(false);
+});
+
 test('renders the default root with stable hooks', () => {
   render(() => <Container data-testid="container" />);
   const container = screen.getByTestId('container');

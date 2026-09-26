@@ -1,7 +1,7 @@
 ---
 title: Collapsible
 component: collapsible
-description: An accessible disclosure control for showing and hiding one content region in React or Solid.
+description: An accessible disclosure control for showing and hiding one content region in React, Solid, or Vue.
 ---
 
 import * as CollapsibleDocs from '@/components/examples/collapsible/css-properties';
@@ -27,6 +27,17 @@ import collapsibleSolidPartialCollapse from '../../../snippets/collapsible/solid
 import collapsibleSolidPartialCollapseWidth from '../../../snippets/collapsible/solid/partial-collapse-width.tsx?raw';
 import collapsibleSolidRootProvider from '../../../snippets/collapsible/solid/root-provider.tsx?raw';
 import collapsibleSolidCustomComposition from '../../../snippets/collapsible/solid/custom-composition.tsx?raw';
+import collapsibleVueBasic from '../../../snippets/collapsible/vue/basic.vue?raw';
+import collapsibleVueContext from '../../../snippets/collapsible/vue/context.vue?raw';
+import collapsibleVueControlled from '../../../snippets/collapsible/vue/controlled.vue?raw';
+import collapsibleVueDefaultOpen from '../../../snippets/collapsible/vue/default-open.vue?raw';
+import collapsibleVueDisabled from '../../../snippets/collapsible/vue/disabled.vue?raw';
+import collapsibleVueLazyMount from '../../../snippets/collapsible/vue/lazy-mount.vue?raw';
+import collapsibleVueNested from '../../../snippets/collapsible/vue/nested.vue?raw';
+import collapsibleVuePartialCollapse from '../../../snippets/collapsible/vue/partial-collapse.vue?raw';
+import collapsibleVuePartialCollapseWidth from '../../../snippets/collapsible/vue/partial-collapse-width.vue?raw';
+import collapsibleVueRootProvider from '../../../snippets/collapsible/vue/root-provider.vue?raw';
+import collapsibleVueCustomComposition from '../../../snippets/collapsible/vue/custom-composition.vue?raw';
 
 ## API Reference
 
@@ -40,8 +51,8 @@ need shared keyboard navigation or coordinated state.
 ## Basic
 
 
-Use `Collapsible` with `Trigger`, the optional `Indicator`, and `Content` to show and hide one
-content region. Put the content inside `Collapsible.Body` when you need the recommended inner
+Use `Collapsible` with `CollapsibleTrigger`, the optional `CollapsibleIndicator`, and `CollapsibleContent` to show and hide one
+content region. Put the content inside `CollapsibleBody` when you need the recommended inner
 wrapper for spacing and layout.
 
 <ExampleFrame variant="component">
@@ -55,6 +66,7 @@ wrapper for spacing and layout.
     values={[
       { label: 'React', value: 'react' },
       { label: 'Solid', value: 'solid' },
+      { label: 'Vue', value: 'vue' },
     ]}
     className="docs-tabs"
   >
@@ -67,6 +79,11 @@ wrapper for spacing and layout.
     <Tab value="solid">
 
 <CodeBlockRuntime lang="tsx" code={collapsibleSolidBasic} />
+
+    </Tab>
+    <Tab value="vue">
+
+<CodeBlockRuntime lang="vue" code={collapsibleVueBasic} />
 
     </Tab>
   </Tabs>
@@ -105,44 +122,55 @@ See [Quick Start](/docs/quick-start) for full package setup, registry configurat
 />
 
   </Tab>
+  <Tab label="Vue" value="vue">
+
+<ShadcnInstallOptions
+  options={[
+    { label: 'CSS Modules', command: 'shadcn@latest add @moduix-vue/collapsible' },
+    { label: 'Tailwind CSS', command: 'shadcn@latest add @moduix-vue-tailwind/collapsible' },
+  ]}
+/>
+
+  </Tab>
 </Tabs>
 
 ## Anatomy
 
 ```text
-Collapsible / Collapsible.Root
-├─ Collapsible.Trigger
+Collapsible
+├─ CollapsibleTrigger
 │  ├─ label
-│  └─ Collapsible.Indicator (optional)
-└─ Collapsible.Content
-   └─ Collapsible.Body
+│  └─ CollapsibleIndicator (optional)
+└─ CollapsibleContent
+   └─ CollapsibleBody
       └─ content
 
-Collapsible.RootProvider
+CollapsibleRootProvider
 └─ same part tree connected to a useCollapsible() store
 ```
 
-| Part                               | Role                                                               |
-| ---------------------------------- | ------------------------------------------------------------------ |
-| `Collapsible` / `Collapsible.Root` | Owns the open state for one disclosure.                            |
-| `Collapsible.RootProvider`         | Connects the parts to state created with `useCollapsible`.         |
-| `Collapsible.Trigger`              | Accessible button that opens or closes the content.                 |
-| `Collapsible.Indicator`            | Optional state indicator that renders a moduix chevron by default. |
-| `Collapsible.Content`              | Animated region whose dimensions Ark measures.                     |
-| `Collapsible.Body`                 | Inner wrapper for spacing and content layout.                       |
+| Part                      | Role                                                               |
+| ------------------------- | ------------------------------------------------------------------ |
+| `Collapsible`             | Owns the open state for one disclosure.                            |
+| `CollapsibleRootProvider` | Connects the parts to state created with `useCollapsible`.         |
+| `CollapsibleTrigger`      | Accessible button that opens or closes the content.                 |
+| `CollapsibleIndicator`    | Optional state indicator that renders a moduix chevron by default. |
+| `CollapsibleContent`      | Animated region whose dimensions Ark measures.                     |
+| `CollapsibleBody`         | Inner wrapper for spacing and content layout.                       |
 
 ## Composition
 
 `Collapsible` owns state inside the root. Use `defaultOpen` for an uncontrolled disclosure; use
-`open` with `onOpenChange(details)` when another part of the application owns it. The callback keeps
-Ark's details object, so controlled state reads `details.open`.
+`open` with `onOpenChange(details)` when another part of the application owns it. In Vue, use
+`v-model:open` for the same controlled contract. The callback keeps Ark's details object, so
+controlled state reads `details.open`.
 
-Use `Collapsible.RootProvider` with `useCollapsible()` from the matching framework package when the
+Use `CollapsibleRootProvider` with `useCollapsible()` from the matching framework package when the
 store must be created outside the rendered tree or shared across composition boundaries. Pass that
-store to `RootProvider` and do not render a second `Collapsible` root for the same store.
+store to `CollapsibleRootProvider` and do not render a second `Collapsible` root for the same store.
 
-Keep padding and surface styles on `Collapsible.Body`, not `Collapsible.Content`, so Ark can measure
-the animated content part correctly. `Collapsible.Indicator` is optional and defaults to the moduix
+Keep padding and surface styles on `CollapsibleBody`, not `CollapsibleContent`, so Ark can measure
+the animated content part correctly. `CollapsibleIndicator` is optional and defaults to the moduix
 chevron.
 
 Use `asChild` only when a consumer-owned semantic element should receive the trigger behavior; it
@@ -167,6 +195,7 @@ programmatically.
     values={[
       { label: 'React', value: 'react' },
       { label: 'Solid', value: 'solid' },
+      { label: 'Vue', value: 'vue' },
     ]}
     className="docs-tabs"
   >
@@ -179,6 +208,11 @@ programmatically.
     <Tab value="solid">
 
 <CodeBlockRuntime lang="tsx" code={collapsibleSolidContext} />
+
+    </Tab>
+    <Tab value="vue">
+
+<CodeBlockRuntime lang="vue" code={collapsibleVueContext} />
 
     </Tab>
   </Tabs>
@@ -207,6 +241,7 @@ Use `open` with the Ark `onOpenChange(details)` callback when another part of yo
     values={[
       { label: 'React', value: 'react' },
       { label: 'Solid', value: 'solid' },
+      { label: 'Vue', value: 'vue' },
     ]}
     className="docs-tabs"
   >
@@ -219,6 +254,11 @@ Use `open` with the Ark `onOpenChange(details)` callback when another part of yo
     <Tab value="solid">
 
 <CodeBlockRuntime lang="tsx" code={collapsibleSolidControlled} />
+
+    </Tab>
+    <Tab value="vue">
+
+<CodeBlockRuntime lang="vue" code={collapsibleVueControlled} />
 
     </Tab>
   </Tabs>
@@ -247,6 +287,7 @@ Set `defaultOpen` to start an uncontrolled disclosure in the open state.
     values={[
       { label: 'React', value: 'react' },
       { label: 'Solid', value: 'solid' },
+      { label: 'Vue', value: 'vue' },
     ]}
     className="docs-tabs"
   >
@@ -259,6 +300,11 @@ Set `defaultOpen` to start an uncontrolled disclosure in the open state.
     <Tab value="solid">
 
 <CodeBlockRuntime lang="tsx" code={collapsibleSolidDefaultOpen} />
+
+    </Tab>
+    <Tab value="vue">
+
+<CodeBlockRuntime lang="vue" code={collapsibleVueDefaultOpen} />
 
     </Tab>
   </Tabs>
@@ -287,6 +333,7 @@ Set `disabled` on the root to prevent users from opening or closing the disclosu
     values={[
       { label: 'React', value: 'react' },
       { label: 'Solid', value: 'solid' },
+      { label: 'Vue', value: 'vue' },
     ]}
     className="docs-tabs"
   >
@@ -299,6 +346,11 @@ Set `disabled` on the root to prevent users from opening or closing the disclosu
     <Tab value="solid">
 
 <CodeBlockRuntime lang="tsx" code={collapsibleSolidDisabled} />
+
+    </Tab>
+    <Tab value="vue">
+
+<CodeBlockRuntime lang="vue" code={collapsibleVueDisabled} />
 
     </Tab>
   </Tabs>
@@ -328,6 +380,7 @@ the DOM after it closes.
     values={[
       { label: 'React', value: 'react' },
       { label: 'Solid', value: 'solid' },
+      { label: 'Vue', value: 'vue' },
     ]}
     className="docs-tabs"
   >
@@ -340,6 +393,11 @@ the DOM after it closes.
     <Tab value="solid">
 
 <CodeBlockRuntime lang="tsx" code={collapsibleSolidLazyMount} />
+
+    </Tab>
+    <Tab value="vue">
+
+<CodeBlockRuntime lang="vue" code={collapsibleVueLazyMount} />
 
     </Tab>
   </Tabs>
@@ -368,6 +426,7 @@ Nest independent roots when a revealed section contains another optional detail.
     values={[
       { label: 'React', value: 'react' },
       { label: 'Solid', value: 'solid' },
+      { label: 'Vue', value: 'vue' },
     ]}
     className="docs-tabs"
   >
@@ -380,6 +439,11 @@ Nest independent roots when a revealed section contains another optional detail.
     <Tab value="solid">
 
 <CodeBlockRuntime lang="tsx" code={collapsibleSolidNested} />
+
+    </Tab>
+    <Tab value="vue">
+
+<CodeBlockRuntime lang="vue" code={collapsibleVueNested} />
 
     </Tab>
   </Tabs>
@@ -397,7 +461,7 @@ Nest independent roots when a revealed section contains another optional detail.
 
 Use `collapsedHeight` or `collapsedWidth` to keep part of the content visible while closed.
 Interactive elements in that area become inert until the disclosure opens, so keep actions that must
-stay available outside `Collapsible.Content`.
+stay available outside `CollapsibleContent`.
 
 <ExampleFrame variant="component">
   <CollapsiblePartialCollapse />
@@ -410,6 +474,7 @@ stay available outside `Collapsible.Content`.
     values={[
       { label: 'React', value: 'react' },
       { label: 'Solid', value: 'solid' },
+      { label: 'Vue', value: 'vue' },
     ]}
     className="docs-tabs"
   >
@@ -422,6 +487,11 @@ stay available outside `Collapsible.Content`.
     <Tab value="solid">
 
 <CodeBlockRuntime lang="tsx" code={collapsibleSolidPartialCollapse} />
+
+    </Tab>
+    <Tab value="vue">
+
+<CodeBlockRuntime lang="vue" code={collapsibleVuePartialCollapse} />
 
     </Tab>
   </Tabs>
@@ -450,6 +520,7 @@ Use `collapsedWidth` when a horizontal preview is more useful than a height-limi
     values={[
       { label: 'React', value: 'react' },
       { label: 'Solid', value: 'solid' },
+      { label: 'Vue', value: 'vue' },
     ]}
     className="docs-tabs"
   >
@@ -462,6 +533,11 @@ Use `collapsedWidth` when a horizontal preview is more useful than a height-limi
     <Tab value="solid">
 
 <CodeBlockRuntime lang="tsx" code={collapsibleSolidPartialCollapseWidth} />
+
+    </Tab>
+    <Tab value="vue">
+
+<CodeBlockRuntime lang="vue" code={collapsibleVuePartialCollapseWidth} />
 
     </Tab>
   </Tabs>
@@ -477,7 +553,7 @@ Use `collapsedWidth` when a horizontal preview is more useful than a height-limi
 
 ### Root Provider
 
-Create the state with `useCollapsible()` and pass it to `Collapsible.RootProvider` when code outside
+Create the state with `useCollapsible()` and pass it to `CollapsibleRootProvider` when code outside
 the rendered component tree needs access to the state.
 
 <ExampleFrame variant="component">
@@ -491,6 +567,7 @@ the rendered component tree needs access to the state.
     values={[
       { label: 'React', value: 'react' },
       { label: 'Solid', value: 'solid' },
+      { label: 'Vue', value: 'vue' },
     ]}
     className="docs-tabs"
   >
@@ -503,6 +580,11 @@ the rendered component tree needs access to the state.
     <Tab value="solid">
 
 <CodeBlockRuntime lang="tsx" code={collapsibleSolidRootProvider} />
+
+    </Tab>
+    <Tab value="vue">
+
+<CodeBlockRuntime lang="vue" code={collapsibleVueRootProvider} />
 
     </Tab>
   </Tabs>
@@ -519,7 +601,7 @@ the rendered component tree needs access to the state.
 ### Advanced Customization
 
 Use `asChild` to apply the trigger behavior to a button you own. This skips the default
-`Collapsible.Trigger` styling while preserving Ark behavior and state attributes.
+`CollapsibleTrigger` styling while preserving Ark behavior and state attributes.
 
 <ExampleFrame variant="component">
   <CollapsibleCustomComposition />
@@ -532,6 +614,7 @@ Use `asChild` to apply the trigger behavior to a button you own. This skips the 
     values={[
       { label: 'React', value: 'react' },
       { label: 'Solid', value: 'solid' },
+      { label: 'Vue', value: 'vue' },
     ]}
     className="docs-tabs"
   >
@@ -544,6 +627,11 @@ Use `asChild` to apply the trigger behavior to a button you own. This skips the 
     <Tab value="solid">
 
 <CodeBlockRuntime lang="tsx" code={collapsibleSolidCustomComposition} />
+
+    </Tab>
+    <Tab value="vue">
+
+<CodeBlockRuntime lang="vue" code={collapsibleVueCustomComposition} />
 
     </Tab>
   </Tabs>
@@ -565,7 +653,7 @@ styles, prefer Ark data attributes such as `data-state` and `data-disabled`, tog
 variables below customize the CSS Modules variants. Data attributes and `data-slot` hooks are shared
 by both styling tracks.
 
-Put spacing on `Collapsible.Body`, not `Collapsible.Content`, so Ark can measure and animate the
+Put spacing on `CollapsibleBody`, not `CollapsibleContent`, so Ark can measure and animate the
 content correctly.
 
 ### CSS Properties

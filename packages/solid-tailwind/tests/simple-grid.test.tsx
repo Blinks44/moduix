@@ -60,12 +60,6 @@ test('preserves semantic children with asChild', () => {
   expect(grid.style.gridTemplateColumns).toBe('repeat(2, minmax(0, 1fr))');
 });
 
-test('exposes the same root through the namespace API', () => {
-  render(() => <SimpleGrid.Root columns={2} data-testid="grid" />);
-
-  expect(screen.getByTestId('grid').style.gridTemplateColumns).toBe('repeat(2, minmax(0, 1fr))');
-});
-
 test('preserves the Solid style string form while keeping generated styles first', () => {
   render(() => (
     <SimpleGrid

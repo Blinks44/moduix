@@ -4,7 +4,7 @@ import { clsx } from 'clsx';
 import { splitProps } from 'solid-js';
 import styles from './Empty.module.css';
 
-function EmptyRoot(props: HTMLArkProps<'div'>) {
+function Empty(props: HTMLArkProps<'div'>) {
   const [local, others] = splitProps(props, ['asChild', 'class']);
 
   return (
@@ -94,13 +94,4 @@ function EmptyActions(props: HTMLArkProps<'div'>) {
   );
 }
 
-const Empty = Object.assign(EmptyRoot, {
-  Root: EmptyRoot,
-  Icon: EmptyIcon,
-  Content: EmptyContent,
-  Title: EmptyTitle,
-  Description: EmptyDescription,
-  Actions: EmptyActions,
-});
-
-export { Empty };
+export { Empty, EmptyActions, EmptyContent, EmptyDescription, EmptyIcon, EmptyTitle };

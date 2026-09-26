@@ -1,6 +1,13 @@
 import { expect, test } from '@rstest/core';
 import { fireEvent, render, screen, waitFor } from '@solidjs/testing-library';
-import { Menu, SplitButton } from '../src';
+import {
+  MenuItem,
+  SplitButton,
+  SplitButtonAction,
+  SplitButtonContent,
+  SplitButtonPositioner,
+  SplitButtonTrigger,
+} from '../src';
 
 function TestSplitButton(props: {
   onOpenChange?: (details: { open: boolean }) => void;
@@ -9,15 +16,13 @@ function TestSplitButton(props: {
 }) {
   return (
     <SplitButton aria-label="Save actions" portalled={false} onOpenChange={props.onOpenChange}>
-      <SplitButton.Action disabled={props.primaryDisabled ?? false}>
-        Save Changes
-      </SplitButton.Action>
-      <SplitButton.Trigger disabled={props.triggerDisabled ?? false} />
-      <SplitButton.Positioner>
-        <SplitButton.Content>
-          <Menu.Item value="save-draft">Save as Draft</Menu.Item>
-        </SplitButton.Content>
-      </SplitButton.Positioner>
+      <SplitButtonAction disabled={props.primaryDisabled ?? false}>Save Changes</SplitButtonAction>
+      <SplitButtonTrigger disabled={props.triggerDisabled ?? false} />
+      <SplitButtonPositioner>
+        <SplitButtonContent>
+          <MenuItem value="save-draft">Save as Draft</MenuItem>
+        </SplitButtonContent>
+      </SplitButtonPositioner>
     </SplitButton>
   );
 }
@@ -82,25 +87,23 @@ test('forwards refs and shares root variant and size defaults', () => {
   let triggerRef!: HTMLButtonElement;
 
   render(() => (
-    <SplitButton.Root
+    <SplitButton
       ref={(element: HTMLDivElement) => (rootRef = element)}
       aria-label="Project actions"
       size="lg"
       variant="destructive"
     >
-      <SplitButton.Action ref={(element) => (actionRef = element)}>
-        Delete project
-      </SplitButton.Action>
-      <SplitButton.Trigger
+      <SplitButtonAction ref={(element) => (actionRef = element)}>Delete project</SplitButtonAction>
+      <SplitButtonTrigger
         ref={(element) => (triggerRef = element)}
         aria-label="More project actions"
       />
-      <SplitButton.Positioner>
-        <SplitButton.Content>
-          <Menu.Item value="archive">Archive project</Menu.Item>
-        </SplitButton.Content>
-      </SplitButton.Positioner>
-    </SplitButton.Root>
+      <SplitButtonPositioner>
+        <SplitButtonContent>
+          <MenuItem value="archive">Archive project</MenuItem>
+        </SplitButtonContent>
+      </SplitButtonPositioner>
+    </SplitButton>
   ));
 
   expect(rootRef).toHaveAttribute('data-slot', 'split-button-root');
@@ -123,13 +126,13 @@ test('keeps the primary action independent and exposes stable popup slots', asyn
       onSelect={(details) => actions.push(details.value)}
     >
       <span id="document-actions-label">Document actions</span>
-      <SplitButton.Action onClick={() => actions.push('save')}>Save</SplitButton.Action>
-      <SplitButton.Trigger>Options</SplitButton.Trigger>
-      <SplitButton.Positioner>
-        <SplitButton.Content>
-          <Menu.Item value="duplicate">Duplicate</Menu.Item>
-        </SplitButton.Content>
-      </SplitButton.Positioner>
+      <SplitButtonAction onClick={() => actions.push('save')}>Save</SplitButtonAction>
+      <SplitButtonTrigger>Options</SplitButtonTrigger>
+      <SplitButtonPositioner>
+        <SplitButtonContent>
+          <MenuItem value="duplicate">Duplicate</MenuItem>
+        </SplitButtonContent>
+      </SplitButtonPositioner>
     </SplitButton>
   ));
 

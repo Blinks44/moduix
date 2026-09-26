@@ -14,6 +14,7 @@ import {
 import { clsx } from 'clsx';
 import type { ComponentProps, JSX } from 'solid-js';
 import { children, splitProps } from 'solid-js';
+import { a11yLabels } from '@/lib/moduix/a11yLabels';
 import { CheckIcon, ChevronUpDownIcon } from '@/lib/moduix/icons/ui/Icons';
 import {
   OverlayPortal,
@@ -37,7 +38,7 @@ type SelectFieldProps = Omit<
   placeholder?: ComponentProps<typeof SelectPrimitive.ValueText>['placeholder'];
 };
 
-const SelectRoot = function SelectRoot<T extends CollectionItem>(props: SelectRootProps<T>) {
+const Select = function Select<T extends CollectionItem>(props: SelectRootProps<T>) {
   const [local, others] = splitProps(props, [
     'asChild',
     'children',
@@ -174,16 +175,16 @@ function SelectClearTrigger(props: ComponentProps<typeof SelectPrimitive.ClearTr
         const resolvedProps = triggerProps();
 
         return (
-          <CloseButton.Root
+          <CloseButton
             {...resolvedProps}
             aria-label={
               local['aria-label'] ??
-              (local['aria-labelledby'] == null ? 'Clear selection' : undefined)
+              (local['aria-labelledby'] == null ? a11yLabels.clearSelection : undefined)
             }
             aria-labelledby={local['aria-labelledby']}
           >
             {resolvedChildren()}
-          </CloseButton.Root>
+          </CloseButton>
         );
       }}
       class={triggerClass}
@@ -359,62 +360,35 @@ function SelectItemTextLabel(props: HTMLArkProps<'span'>) {
   );
 }
 
-type SelectComponent = SelectRootComponent & {
-  Root: SelectRootComponent;
-  RootProvider: SelectRootProviderComponent;
-  Context: typeof SelectPrimitive.Context;
-  HiddenSelect: typeof SelectPrimitive.HiddenSelect;
-  ItemContext: typeof SelectPrimitive.ItemContext;
-  useSelect: typeof useSelect;
-  useSelectContext: typeof useSelectContext;
-  useSelectItemContext: typeof useSelectItemContext;
-  Label: typeof SelectLabel;
-  Control: typeof SelectControl;
-  Field: typeof SelectField;
-  Trigger: typeof SelectTrigger;
-  ValueText: typeof SelectValueText;
-  ClearTrigger: typeof SelectClearTrigger;
-  Indicator: typeof SelectIndicator;
-  Positioner: typeof SelectPositioner;
-  Content: typeof SelectContent;
-  List: typeof SelectList;
-  ItemGroup: typeof SelectItemGroup;
-  ItemGroupLabel: typeof SelectItemGroupLabel;
-  Item: typeof SelectItem;
-  ItemText: typeof SelectItemText;
-  ItemIndicator: typeof SelectItemIndicator;
-  ItemTextContent: typeof SelectItemTextContent;
-  ItemTextIcon: typeof SelectItemTextIcon;
-  ItemTextLabel: typeof SelectItemTextLabel;
-};
+const SelectContext = SelectPrimitive.Context;
+const SelectHiddenSelect = SelectPrimitive.HiddenSelect;
+const SelectItemContext = SelectPrimitive.ItemContext;
 
-const Select: SelectComponent = Object.assign(SelectRoot, {
-  Root: SelectRoot,
-  RootProvider: SelectRootProvider,
-  Context: SelectPrimitive.Context,
-  HiddenSelect: SelectPrimitive.HiddenSelect,
-  ItemContext: SelectPrimitive.ItemContext,
+export {
+  Select,
+  SelectClearTrigger,
+  SelectContext,
+  SelectControl,
+  SelectContent,
+  SelectField,
+  SelectHiddenSelect,
+  SelectIndicator,
+  SelectItem,
+  SelectItemContext,
+  SelectItemGroup,
+  SelectItemGroupLabel,
+  SelectItemIndicator,
+  SelectItemText,
+  SelectItemTextContent,
+  SelectItemTextIcon,
+  SelectItemTextLabel,
+  SelectLabel,
+  SelectList,
+  SelectPositioner,
+  SelectRootProvider,
+  SelectTrigger,
+  SelectValueText,
   useSelect,
   useSelectContext,
   useSelectItemContext,
-  Label: SelectLabel,
-  Control: SelectControl,
-  Field: SelectField,
-  Trigger: SelectTrigger,
-  ValueText: SelectValueText,
-  ClearTrigger: SelectClearTrigger,
-  Indicator: SelectIndicator,
-  Positioner: SelectPositioner,
-  Content: SelectContent,
-  List: SelectList,
-  ItemGroup: SelectItemGroup,
-  ItemGroupLabel: SelectItemGroupLabel,
-  Item: SelectItem,
-  ItemText: SelectItemText,
-  ItemIndicator: SelectItemIndicator,
-  ItemTextContent: SelectItemTextContent,
-  ItemTextIcon: SelectItemTextIcon,
-  ItemTextLabel: SelectItemTextLabel,
-});
-
-export { Select, useSelect, useSelectContext, useSelectItemContext };
+};

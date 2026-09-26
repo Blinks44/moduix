@@ -1,5 +1,5 @@
 import type { Meta, StoryObj } from 'storybook-solidjs-vite';
-import { Kbd } from '@/components/kbd/Kbd';
+import { Kbd, KbdGroup } from '@/components/kbd/Kbd';
 import styles from './Kbd.stories.module.css';
 
 const meta = {
@@ -20,16 +20,16 @@ type Story = StoryObj<typeof meta>;
 
 export const Basic: Story = {
   render: () => (
-    <Kbd.Group aria-label="Command K">
+    <KbdGroup aria-label="Command K">
       <Kbd>Cmd</Kbd>+<Kbd>K</Kbd>
-    </Kbd.Group>
+    </KbdGroup>
   ),
 };
 
 export const SingleKey: Story = {};
 
 export const RootPart: Story = {
-  render: () => <Kbd.Root>Enter</Kbd.Root>,
+  render: () => <Kbd>Enter</Kbd>,
 };
 
 export const AsChild: Story = {
@@ -38,9 +38,9 @@ export const AsChild: Story = {
 
 export const GroupAsChild: Story = {
   render: () => (
-    <Kbd.Group asChild={(props) => <span {...props()} />} aria-label="Command K">
+    <KbdGroup asChild={(props) => <span {...props()} />} aria-label="Command K">
       <Kbd>Cmd</Kbd>+<Kbd>K</Kbd>
-    </Kbd.Group>
+    </KbdGroup>
   ),
 };
 
@@ -48,15 +48,15 @@ export const ShortcutList: Story = {
   render: () => (
     <div class={styles.column}>
       <div class={styles.shortcutRow}>
-        <Kbd.Group aria-label="Command K">
+        <KbdGroup aria-label="Command K">
           <Kbd>Cmd</Kbd>+<Kbd>K</Kbd>
-        </Kbd.Group>
+        </KbdGroup>
         Open command menu
       </div>
       <div class={styles.shortcutRow}>
-        <Kbd.Group aria-label="Shift question mark">
+        <KbdGroup aria-label="Shift question mark">
           <Kbd>Shift</Kbd>+<Kbd>?</Kbd>
-        </Kbd.Group>
+        </KbdGroup>
         Show shortcuts
       </div>
       <div class={styles.shortcutRow}>
@@ -79,8 +79,8 @@ export const Dense: Story = {
 
 export const CustomStyling: Story = {
   render: () => (
-    <Kbd.Group aria-label="Command K" class={styles.customGroup}>
+    <KbdGroup aria-label="Command K" class={styles.customGroup}>
       <Kbd class={styles.customKbd}>Cmd</Kbd>+<Kbd class={styles.customKbd}>K</Kbd>
-    </Kbd.Group>
+    </KbdGroup>
   ),
 };

@@ -1,5 +1,5 @@
 import { Button } from '@moduix/solid/button';
-import { Toaster, createToaster } from '@moduix/solid/toast';
+import { ToastToaster, createToaster } from '@moduix/solid/toast';
 import { createSignal } from 'solid-js';
 import styles from '@/components/examples/toast/toast-placement.module.css';
 
@@ -22,7 +22,7 @@ export default function ToastPlacement() {
   return (
     <div class={styles.root}>
       {placements.map((item) => (
-        <Toaster toaster={toasters[item]} />
+        <ToastToaster toaster={toasters[item]} />
       ))}
       {placements.map((item) => (
         <Button

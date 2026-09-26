@@ -1,4 +1,11 @@
-import { TagsInput } from '@moduix/solid/tags-input';
+import {
+  TagsInput,
+  TagsInputClearTrigger,
+  TagsInputControl,
+  TagsInputInput,
+  TagsInputItems,
+  TagsInputLabel,
+} from '@moduix/solid/tags-input';
 import styles from '@/components/examples/tags-input/tags-input-sanitize-and-blur.module.css';
 
 export default function SanitizeBlurTagsInput() {
@@ -9,12 +16,12 @@ export default function SanitizeBlurTagsInput() {
       sanitizeValue={(value) => value.trim().toLowerCase()}
       defaultValue={['design']}
     >
-      <TagsInput.Label>Topics</TagsInput.Label>
-      <TagsInput.Control>
-        <TagsInput.Items />
-        <TagsInput.Input placeholder="Blur to add" />
-        <TagsInput.ClearTrigger aria-label="Clear topics" />
-      </TagsInput.Control>
+      <TagsInputLabel>Topics</TagsInputLabel>
+      <TagsInputControl>
+        <TagsInputItems />
+        <TagsInputInput placeholder="Blur to add" />
+        <TagsInputClearTrigger aria-label="Clear topics" />
+      </TagsInputControl>
     </TagsInput>
   );
 }

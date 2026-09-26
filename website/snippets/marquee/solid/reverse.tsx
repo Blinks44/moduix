@@ -1,4 +1,4 @@
-import { Marquee } from '@moduix/solid/marquee';
+import { Marquee, MarqueeContent, MarqueeItem, MarqueeViewport } from '@moduix/solid/marquee';
 import styles from '@/components/examples/marquee/marquee-reverse.module.css';
 
 const partners = [
@@ -13,16 +13,16 @@ const partners = [
 export default function ReverseMarqueeDemo() {
   return (
     <Marquee aria-label="Partner logos" reverse class={styles.root}>
-      <Marquee.Viewport>
-        <Marquee.Content>
+      <MarqueeViewport>
+        <MarqueeContent>
           {partners.map((item) => (
-            <Marquee.Item class={styles.item}>
+            <MarqueeItem class={styles.item}>
               <span>{item.mark}</span>
               <span>{item.name}</span>
-            </Marquee.Item>
+            </MarqueeItem>
           ))}
-        </Marquee.Content>
-      </Marquee.Viewport>
+        </MarqueeContent>
+      </MarqueeViewport>
     </Marquee>
   );
 }

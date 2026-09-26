@@ -1,9 +1,33 @@
 import { useListCollection } from '@ark-ui/react/collection';
 import { useFilter } from '@ark-ui/react/locale';
-import { Avatar } from '@moduix/react/avatar';
+import { Avatar, AvatarFallback, AvatarImage } from '@moduix/react/avatar';
 import { Button } from '@moduix/react/button';
-import { CommandPalette } from '@moduix/react/command-palette';
-import { Menu } from '@moduix/react/menu';
+import {
+  CommandPalette,
+  CommandPaletteCombobox,
+  CommandPaletteEmpty,
+  CommandPaletteItem,
+  CommandPaletteItemDescription,
+  CommandPaletteItemGroup,
+  CommandPaletteItemGroupLabel,
+  CommandPaletteItemIcon,
+  CommandPaletteItemLabel,
+  CommandPaletteItemText,
+  CommandPaletteList,
+  CommandPalettePanel,
+  CommandPaletteSearch,
+  CommandPaletteTrigger,
+} from '@moduix/react/command-palette';
+import {
+  Menu,
+  MenuTrigger,
+  MenuPositioner,
+  MenuContent,
+  MenuViewport,
+  MenuItem,
+  MenuItemGroup,
+  MenuItemGroupLabel,
+} from '@moduix/react/menu';
 import {
   ChevronDown,
   CircleHelp,
@@ -124,31 +148,31 @@ export function AppHeader() {
         <div className={styles.actions}>
           <span className={styles.mobileNavigation}>
             <Menu positioning={{ placement: 'bottom-end', gutter: 10 }}>
-              <Menu.Trigger asChild>
+              <MenuTrigger asChild>
                 <Button variant="ghost" size="icon-sm" aria-label="Open navigation">
                   <MenuIcon />
                 </Button>
-              </Menu.Trigger>
-              <Menu.Positioner>
-                <Menu.Content className={styles.mobileNavigationMenu}>
-                  <Menu.Viewport>
-                    <Menu.ItemGroup>
-                      <Menu.ItemGroupLabel>Navigation</Menu.ItemGroupLabel>
+              </MenuTrigger>
+              <MenuPositioner>
+                <MenuContent className={styles.mobileNavigationMenu}>
+                  <MenuViewport>
+                    <MenuItemGroup>
+                      <MenuItemGroupLabel>Navigation</MenuItemGroupLabel>
                       {navigation.map((item, index) => (
-                        <Menu.Item value={item.href} asChild key={item.href}>
+                        <MenuItem value={item.href} asChild key={item.href}>
                           <a href={item.href} aria-current={index === 0 ? 'page' : undefined}>
                             {item.label}
                           </a>
-                        </Menu.Item>
+                        </MenuItem>
                       ))}
-                    </Menu.ItemGroup>
-                  </Menu.Viewport>
-                </Menu.Content>
-              </Menu.Positioner>
+                    </MenuItemGroup>
+                  </MenuViewport>
+                </MenuContent>
+              </MenuPositioner>
             </Menu>
           </span>
 
-          <CommandPalette.Trigger asChild>
+          <CommandPaletteTrigger asChild>
             <Button
               className={styles.searchTrigger}
               variant="ghost"
@@ -157,10 +181,10 @@ export function AppHeader() {
             >
               <Search aria-hidden />
             </Button>
-          </CommandPalette.Trigger>
+          </CommandPaletteTrigger>
 
           <Menu positioning={{ placement: 'bottom-end', gutter: 10 }}>
-            <Menu.Trigger asChild>
+            <MenuTrigger asChild>
               <Button
                 className={styles.accountTrigger}
                 variant="ghost"
@@ -168,8 +192,8 @@ export function AppHeader() {
                 aria-label={`Open ${account.name}'s account menu`}
               >
                 <Avatar className={styles.avatar} size="sm">
-                  <Avatar.Image src={account.image} alt="" />
-                  <Avatar.Fallback>{account.name.slice(0, 1)}</Avatar.Fallback>
+                  <AvatarImage src={account.image} alt="" />
+                  <AvatarFallback>{account.name.slice(0, 1)}</AvatarFallback>
                 </Avatar>
                 <span className={styles.accountDetails}>
                   <strong>{account.name}</strong>
@@ -177,71 +201,71 @@ export function AppHeader() {
                 </span>
                 <ChevronDown className={styles.accountChevron} aria-hidden />
               </Button>
-            </Menu.Trigger>
-            <Menu.Positioner>
-              <Menu.Content className={styles.accountMenu}>
-                <Menu.Viewport>
-                  <Menu.ItemGroup>
-                    <Menu.ItemGroupLabel className={styles.accountSummary}>
+            </MenuTrigger>
+            <MenuPositioner>
+              <MenuContent className={styles.accountMenu}>
+                <MenuViewport>
+                  <MenuItemGroup>
+                    <MenuItemGroupLabel className={styles.accountSummary}>
                       <strong>{account.name}</strong>
                       <span>{account.email}</span>
-                    </Menu.ItemGroupLabel>
-                    <Menu.Item value="profile" asChild>
+                    </MenuItemGroupLabel>
+                    <MenuItem value="profile" asChild>
                       <a className={styles.menuLink} href="#profile">
                         <UserRound aria-hidden />
                         Profile
                       </a>
-                    </Menu.Item>
-                    <Menu.Item value="workspace-settings" asChild>
+                    </MenuItem>
+                    <MenuItem value="workspace-settings" asChild>
                       <a className={styles.menuLink} href="#workspace-settings">
                         <Settings aria-hidden />
                         Workspace settings
                       </a>
-                    </Menu.Item>
-                    <Menu.Item value="help" asChild>
+                    </MenuItem>
+                    <MenuItem value="help" asChild>
                       <a className={styles.menuLink} href="#help">
                         <CircleHelp aria-hidden />
                         Help and support
                       </a>
-                    </Menu.Item>
-                  </Menu.ItemGroup>
-                </Menu.Viewport>
-              </Menu.Content>
-            </Menu.Positioner>
+                    </MenuItem>
+                  </MenuItemGroup>
+                </MenuViewport>
+              </MenuContent>
+            </MenuPositioner>
           </Menu>
         </div>
       </header>
 
-      <CommandPalette.Panel className={styles.commandPalette}>
-        <CommandPalette.Combobox
+      <CommandPalettePanel className={styles.commandPalette}>
+        <CommandPaletteCombobox
           collection={collection}
           onInputValueChange={(details) => filter(details.inputValue)}
           onSelect={(details) => {
             window.location.hash = details.itemValue;
           }}
         >
-          <CommandPalette.Search placeholder="Search workspace..." />
-          <CommandPalette.List>
-            <CommandPalette.Empty>No commands found.</CommandPalette.Empty>
+          <CommandPaletteSearch placeholder="Search workspace..." />
+          <CommandPaletteList>
+            <CommandPaletteEmpty>No commands found.</CommandPaletteEmpty>
             {collection.group().map(([section, items]) => (
-              <CommandPalette.ItemGroup key={section}>
-                <CommandPalette.ItemGroupLabel>{section}</CommandPalette.ItemGroupLabel>
+              <CommandPaletteItemGroup key={section}>
+                <CommandPaletteItemGroupLabel>{section}</CommandPaletteItemGroupLabel>
                 {items.map((item) => (
-                  <CommandPalette.Item key={item.id} item={item}>
-                    <CommandPalette.ItemIcon>{item.icon}</CommandPalette.ItemIcon>
-                    <CommandPalette.ItemText>
-                      <CommandPalette.ItemLabel>{item.label}</CommandPalette.ItemLabel>
-                      <CommandPalette.ItemDescription>
+                  <CommandPaletteItem key={item.id} item={item}>
+                    <CommandPaletteItemIcon>{item.icon}</CommandPaletteItemIcon>
+                    <CommandPaletteItemText>
+                      <CommandPaletteItemLabel>{item.label}</CommandPaletteItemLabel>
+                      <CommandPaletteItemDescription>
                         {item.description}
-                      </CommandPalette.ItemDescription>
-                    </CommandPalette.ItemText>
-                  </CommandPalette.Item>
+                      </CommandPaletteItemDescription>
+                    </CommandPaletteItemText>
+                  </CommandPaletteItem>
                 ))}
-              </CommandPalette.ItemGroup>
+              </CommandPaletteItemGroup>
             ))}
-          </CommandPalette.List>
-        </CommandPalette.Combobox>
-      </CommandPalette.Panel>
+          </CommandPaletteList>
+        </CommandPaletteCombobox>
+      </CommandPalettePanel>
     </CommandPalette>
   );
 }

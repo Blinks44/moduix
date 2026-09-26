@@ -36,9 +36,9 @@ import ImageCropperRotationFlipAndReset from '@/components/examples/image-croppe
 
 ## Базовый пример
 
-Используйте `ImageCropper` вместе с `Viewport`, `Image` и `CropArea`. Передайте URL изображения в
-`ImageCropper.Image`. Компонент `CropArea` сам добавит область кадрирования, линии сетки и маркеры
-изменения размера.
+Используйте `ImageCropper` вместе с `ImageCropperViewport`, `ImageCropperImage` и
+`ImageCropperCropArea`. Передайте URL изображения в `ImageCropperImage`. Компонент
+`ImageCropperCropArea` сам добавит область кадрирования, линии сетки и маркеры изменения размера.
 
 <ExampleFrame variant="component">
   <ImageCropperBasic />
@@ -64,7 +64,7 @@ import ImageCropperRotationFlipAndReset from '@/components/examples/image-croppe
 </ExampleCode>
 
 Если вы вызываете `getCroppedImage()` для изображения с другого домена, сервер изображения должен
-разрешать CORS, а в `ImageCropper.Image` нужно передать `crossOrigin="anonymous"`. В примерах это
+разрешать CORS, а в `ImageCropperImage` нужно передать `crossOrigin="anonymous"`. В примерах это
 уже настроено для изображения с Unsplash.
 
 ## Установка через shadcn
@@ -98,34 +98,35 @@ import ImageCropperRotationFlipAndReset from '@/components/examples/image-croppe
 
 ```tsx
 <ImageCropper>
-  <ImageCropper.Viewport>
-    <ImageCropper.Image />
-    <ImageCropper.CropArea />
-  </ImageCropper.Viewport>
+  <ImageCropperViewport>
+    <ImageCropperImage />
+    <ImageCropperCropArea />
+  </ImageCropperViewport>
 </ImageCropper>
 ```
 
 | Часть                                | Назначение                                                                                  |
 | ------------------------------------ | ------------------------------------------------------------------------------------------- |
-| `ImageCropper` / `ImageCropper.Root` | Корневой компонент, который управляет состоянием кадрирования и преобразований, ARIA-атрибутами и CSS-переменными, обновляемыми во время работы. |
-| `ImageCropper.RootProvider`          | Корневой компонент, связанный с экземпляром `useImageCropper`, созданным вне дерева компонентов. |
-| `ImageCropper.Viewport`              | Область просмотра, в которой можно панорамировать изображение; всё за её границами скрывается. |
-| `ImageCropper.Image`                 | Элемент изображения, к которому Ark применяет преобразования.                              |
-| `ImageCropper.Selection`             | Фокусируемая область кадрирования и цель для управления с клавиатуры. При `fixedCropArea` она исключается из порядка перехода по Tab. |
-| `ImageCropper.Grid`                  | Неинтерактивная горизонтальная или вертикальная линия сетки. Требуется `axis`.              |
-| `ImageCropper.Handle`                | Маркер изменения размера для позиции из `ImageCropper.handles`. Требуется `position`.       |
-| `ImageCropper.CropArea`              | Готовая область кадрирования с обеими сетками и всеми маркерами изменения размера. Не принимает `children` и `asChild`. |
+| `ImageCropper`                    | Корневой компонент, который управляет состоянием кадрирования и преобразований, ARIA-атрибутами и CSS-переменными, обновляемыми во время работы. |
+| `ImageCropperRootProvider`          | Корневой компонент, связанный с экземпляром `useImageCropper`, созданным вне дерева компонентов. |
+| `ImageCropperViewport`              | Область просмотра, в которой можно панорамировать изображение; всё за её границами скрывается. |
+| `ImageCropperImage`                 | Элемент изображения, к которому Ark применяет преобразования.                              |
+| `ImageCropperSelection`             | Фокусируемая область кадрирования и цель для управления с клавиатуры. При `fixedCropArea` она исключается из порядка перехода по Tab. |
+| `ImageCropperGrid`                  | Неинтерактивная горизонтальная или вертикальная линия сетки. Требуется `axis`.              |
+| `ImageCropperHandle`                | Маркер изменения размера для позиции из `ImageCropperHandles`. Требуется `position`.       |
+| `ImageCropperCropArea`              | Готовая область кадрирования с обеими сетками и всеми маркерами изменения размера. Не принимает `children` и `asChild`. |
 
 ## Композиция
 
-Используйте `ImageCropper.CropArea` для стандартной области кадрирования. Она сама создаёт две сетки
+Используйте `ImageCropperCropArea` для стандартной области кадрирования. Она сама создаёт две сетки
 и все маркеры изменения размера, поэтому не принимает `children` и `asChild`. Для стилизации
 области и созданных частей используйте `className`, `gridClassName` и `handleClassName`.
 
-Для элементов управления внутри корневого компонента используйте `ImageCropper.Context`. Создайте
-`useImageCropper()` и передайте его в `ImageCropper.RootProvider`, если панели инструментов,
+Для элементов управления внутри корневого компонента используйте `ImageCropperContext`. Создайте
+`useImageCropper()` и передайте его в `ImageCropperRootProvider`, если панели инструментов,
 предварительному просмотру или логике формы нужен экземпляр кадрирования за пределами дерева
-компонентов. Для одного экземпляра состояния выбирайте либо `Root`, либо `RootProvider`.
+компонентов. Для одного экземпляра состояния выбирайте либо `ImageCropper`, либо
+`ImageCropperRootProvider`.
 
 Используйте управляемые `zoom`, `rotation` или `flip` с соответствующим обратным вызовом, если
 состоянием владеет другая часть приложения. Ark передаёт новое значение в объекте `details`.
@@ -379,8 +380,8 @@ import ImageCropperRotationFlipAndReset from '@/components/examples/image-croppe
 
 ### Root Provider
 
-Используйте `RootProvider` с экземпляром `useImageCropper`, если панель инструментов или другой
-сценарий должны управлять кадрированием за пределами дерева его компонентов.
+Используйте `ImageCropperRootProvider` с экземпляром `useImageCropper`, если панель инструментов или
+другой сценарий должны управлять кадрированием за пределами дерева его компонентов.
 
 <ExampleFrame variant="component">
   <ImageCropperRootProvider />
@@ -412,7 +413,7 @@ import ImageCropperRotationFlipAndReset from '@/components/examples/image-croppe
 
 ### Поворот, отражение и сброс
 
-Используйте `ImageCropper.Context`, чтобы подключить к панели инструментов действия масштабирования,
+Используйте `ImageCropperContext`, чтобы подключить к панели инструментов действия масштабирования,
 поворота, отражения и сброса. В этом примере состояние поворота и отражения контролируется из React.
 
 <ExampleFrame variant="component">
@@ -445,9 +446,9 @@ import ImageCropperRotationFlipAndReset from '@/components/examples/image-croppe
 
 ### Расширенная настройка
 
-Замените `CropArea` на отдельные части `Selection`, `Grid` и `Handle`, если области кадрирования
-нужна другая структура или собственные дочерние элементы. Для `Grid` требуется `axis`, а для
-`Handle` требуется `position`.
+Замените `ImageCropperCropArea` на отдельные части `ImageCropperSelection`, `ImageCropperGrid` и
+`ImageCropperHandle`, если области кадрирования нужна другая структура или собственные дочерние
+элементы. Для `ImageCropperGrid` требуется `axis`, а для `ImageCropperHandle` требуется `position`.
 
 <ExampleFrame variant="component">
   <ImageCropperAdvancedCustomization />

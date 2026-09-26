@@ -1,1 +1,1 @@
-export { Toc, useToc, useTocContext } from './Toc.js';
+export * from './Toc.js';

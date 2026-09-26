@@ -16,16 +16,16 @@ Upstream docs:
   `Thumb`, `ValueText`, and the explicit `HiddenInput`.
 - Preserve controlled/uncontrolled state, callback detail objects, keyboard behavior, pointer
   dragging, native submission and reset, external form ownership, IDs, refs, and `asChild`.
-- `RootProvider` owns an externally created `useAngleSlider` instance and must not be nested with a
-  `Root` for that same instance.
+- `AngleSliderRootProvider` owns an externally created `useAngleSlider` instance and must not be
+  nested with a root for that same instance.
 
 ## Current behavior contract
 
-- `AngleSlider` is the styled root and is equivalent to `AngleSlider.Root`.
+- `AngleSlider` is the styled root.
 - All DOM parts are thin wrappers over the corresponding Ark parts and forward refs.
-- `AngleSlider.Dial` is narrow sugar for `Control`, the centered `ValueText`, and `Thumb`, with
+- `AngleSliderDial` is narrow sugar for `Control`, the centered `ValueText`, and `Thumb`, with
   optional children rendered inside the control before the value text.
-- `AngleSlider.Control` focuses the thumb synchronously on a left pointer down with
+- `AngleSliderControl` focuses the thumb synchronously on a left pointer down with
   `focus({ preventScroll: true, focusVisible: false })` and calls `event.preventDefault()` first.
   Zag defers its own thumb focus to a later frame, which Chrome treats as script focus and flags
   with `:focus-visible`; the synchronous suppressed focus makes that deferred focus redundant, so
@@ -33,61 +33,66 @@ Upstream docs:
   thumb remains focused for keyboard continuation. The handler calls the consumer `onPointerDown`
   first and skips the focus when the event is prevented or the control is disabled or read-only.
   Browsers without the `focusVisible` focus option ignore it and fall back to the browser default.
-- `AngleSlider.Marks` is narrow sugar for `MarkerGroup` plus repeated `Marker` children from a
+- `AngleSliderMarks` is narrow sugar for `MarkerGroup` plus repeated `Marker` children from a
   `values` array.
-- `useAngleSlider()` is re-exported from moduix for the normal `RootProvider` path.
+- `useAngleSlider()` is re-exported from moduix for the normal `AngleSliderRootProvider` path.
 - `value`, `defaultValue`, `step`, `disabled`, `invalid`, `readOnly`, `name`, `ids`,
   `onValueChange(details)`, and `onValueChangeEnd(details)` pass through unchanged.
 - The lightest recommended composition is `Dial`, which already shows the value in the dial center;
-  add `Label` and `Marks` only when that behavior is needed. Add `AngleSlider.HiddenInput`
+  add `Label` and `Marks` only when that behavior is needed. Add `AngleSliderHiddenInput`
   explicitly for native form behavior.
-- `AngleSlider.Context` and `useAngleSliderContext()` are exported from moduix; Ark type aliases
+- `AngleSliderContext` and `useAngleSliderContext()` are exported from moduix; Ark type aliases
   remain direct imports from `@ark-ui/react/angle-slider`.
 
 ## Anatomy and exported parts
 
 ```text
-AngleSlider.Root
-├─ AngleSlider.Label
-├─ AngleSlider.Control
-│  ├─ AngleSlider.MarkerGroup
-│  │  └─ AngleSlider.Marker[value]
-│  ├─ AngleSlider.ValueText
-│  └─ AngleSlider.Thumb
+AngleSlider
+├─ AngleSliderLabel
+├─ AngleSliderControl
+│  ├─ AngleSliderMarkerGroup
+│  │  └─ AngleSliderMarker[value]
+│  ├─ AngleSliderValueText
+│  └─ AngleSliderThumb
 └─ (ValueText outside Control renders as a plain block)
 ```
 
-Externally owned state replaces `Root` with `RootProvider`.
+Externally owned state replaces the root with `AngleSliderRootProvider`.
 
-| Part                       | `data-slot`                  |
-| -------------------------- | ---------------------------- |
-| `AngleSlider.Root`         | `angle-slider-root`          |
-| `AngleSlider.RootProvider` | `angle-slider-root-provider` |
-| `AngleSlider.Label`        | `angle-slider-label`         |
-| `AngleSlider.Control`      | `angle-slider-control`       |
-| `AngleSlider.Dial`         | `angle-slider-control`       |
-| `AngleSlider.MarkerGroup`  | `angle-slider-marker-group`  |
-| `AngleSlider.Marker`       | `angle-slider-marker`        |
-| `AngleSlider.Thumb`        | `angle-slider-thumb`         |
-| `AngleSlider.ValueText`    | `angle-slider-value-text`    |
+| Part                      | `data-slot`                  |
+| ------------------------- | ---------------------------- |
+| `AngleSlider`             | `angle-slider-root`          |
+| `AngleSliderRootProvider` | `angle-slider-root-provider` |
+| `AngleSliderLabel`        | `angle-slider-label`         |
+| `AngleSliderControl`      | `angle-slider-control`       |
+| `AngleSliderDial`         | `angle-slider-control`       |
+| `AngleSliderMarkerGroup`  | `angle-slider-marker-group`  |
+| `AngleSliderMarker`       | `angle-slider-marker`        |
+| `AngleSliderThumb`        | `angle-slider-thumb`         |
+| `AngleSliderValueText`    | `angle-slider-value-text`    |
 
-`AngleSlider.Dial` renders the same `Control`, `ValueText`, and `Thumb` slots; `AngleSlider.Marks`
+`AngleSliderDial` renders the same `Control`, `ValueText`, and `Thumb` slots; `AngleSliderMarks`
 renders the same `MarkerGroup` and `Marker` slots. Neither adds a separate DOM part or styling hook.
 
 ## Composition
 
 ```tsx
-import { AngleSlider } from '@moduix/react/angle-slider';
+import {
+  AngleSlider,
+  AngleSliderDial,
+  AngleSliderLabel,
+  AngleSliderMarks,
+} from '@moduix/react/angle-slider';
 
 const markerValues = [0, 45, 90, 135, 180, 225, 270, 315];
 
 export function RotationAngleSlider() {
   return (
     <AngleSlider defaultValue={135} aria-label="Rotation" name="rotation">
-      <AngleSlider.Label>Rotation</AngleSlider.Label>
-      <AngleSlider.Dial>
-        <AngleSlider.Marks values={markerValues} />
-      </AngleSlider.Dial>
+      <AngleSliderLabel>Rotation</AngleSliderLabel>
+      <AngleSliderDial>
+        <AngleSliderMarks values={markerValues} />
+      </AngleSliderDial>
     </AngleSlider>
   );
 }
@@ -103,24 +108,26 @@ per-marker props, custom ordering, or no centered value text.
 - `readOnly`, `invalid`, `name`, `ids`, `onValueChangeEnd`, and refs pass through and are
   documented. `asChild` is available on the underlying Ark DOM parts; `Dial` and `Marks` keep their
   fixed multi-part composition.
-- `RootProvider` accepts the return value of moduix `useAngleSlider()` and the underlying Ark hook.
-- Chakra's `Slider.Marks` convenience informed the narrow `AngleSlider.Marks` sugar, and
-  `AngleSlider.Dial` follows the same "common structure first" ergonomics without removing the
+- `AngleSliderRootProvider` accepts the return value of moduix `useAngleSlider()` and the underlying
+  Ark hook.
+- Chakra's `Marks` convenience for Slider informed the narrow `AngleSliderMarks` sugar, and
+  `AngleSliderDial` follows the same "common structure first" ergonomics without removing the
   underlying Ark part tree.
 
 ## Accessibility and state
 
 - `Label` and `aria-label` / `aria-labelledby` preserve Ark slider naming.
 - `Thumb` remains the focusable slider element with Ark keyboard and ARIA behavior.
-- `AngleSlider.HiddenInput` renders Ark's hidden native input. With `name`, it participates in native
+- `AngleSliderHiddenInput` renders Ark's hidden native input. With `name`, it participates in native
   form submission; set `form` on `HiddenInput` for an external form owner. Ark owns reset synchronization.
 - `disabled`, `invalid`, and `readOnly` are Ark root props. The wrapper does not add a separate
   moduix form-state adapter.
-- `RootProvider` is the moduix-owned advanced state path; `useAngleSlider()` is re-exported for the
-  same flow, while uncommon context utilities remain direct Ark imports.
-- `asChild` is available on Ark DOM parts and requires one compatible child. For `Root` and
-  `RootProvider`, use a container that can contain the explicitly composed hidden input and slider
-  parts. `Dial` and `Marks` do not accept `asChild` because each renders a fixed multi-part tree.
+- `AngleSliderRootProvider` is the moduix-owned advanced state path; `useAngleSlider()` is
+  re-exported for the same flow, while uncommon context utilities remain direct Ark imports.
+- `asChild` is available on Ark DOM parts and requires one compatible child. For the root and
+  `AngleSliderRootProvider`, use a container that can contain the explicitly composed hidden input
+  and slider parts. `Dial` and `Marks` do not accept `asChild` because each renders a fixed
+  multi-part tree.
 - `ids` can stabilize the root, thumb, hidden input, control, value text, and label IDs.
 - Ark state hooks remain intact:
   - root, label, control, and thumb: `data-disabled`, `data-invalid`, `data-readonly`
@@ -149,40 +156,43 @@ per-marker props, custom ordering, or no centered value text.
   release because the press focus was suppressed with `focusVisible: false`. Keyboard focus still
   shows the ring through `:focus-visible`. Thumb transitions are removed under
   `prefers-reduced-motion`.
-- `AngleSlider.Marks` preserves the same marker styling hooks as explicit `MarkerGroup` /
+- `AngleSliderMarks` preserves the same marker styling hooks as explicit `MarkerGroup` /
   `Marker` composition.
 
 ## Intentional sugar and differences from upstream
 
 - Ark is headless; moduix provides default visuals and stable `data-slot` hooks.
-- Compose `AngleSlider.HiddenInput` explicitly inside `Root` or `RootProvider` when native form
-  participation is needed.
-- `AngleSlider.Dial` is narrow sugar for the most common `Control` + `Thumb` composition and keeps
+- Compose `AngleSliderHiddenInput` explicitly inside the root or `AngleSliderRootProvider` when
+  native form participation is needed.
+- `AngleSliderDial` is narrow sugar for the most common `Control` + `Thumb` composition and keeps
   children inline for marker or overlay customization.
-- `AngleSlider.Marks` is the only marker sugar. It reduces repeated docs and app boilerplate without
+- `AngleSliderMarks` is the only marker sugar. It reduces repeated docs and app boilerplate without
   generating thumbs, labels, value text, or form controls.
 - Explicit `Control`, `Thumb`, `MarkerGroup`, and `Marker` composition remains supported and is
   still the escape hatch for custom dial rendering.
-- moduix keeps `RootProvider`, `AngleSlider.Context`, and re-exports `useAngleSlider()` and
-  `useAngleSliderContext()` for the normal provider and context flows. Ark type aliases remain
+- moduix keeps `AngleSliderRootProvider`, `AngleSliderContext`, and re-exports `useAngleSlider()`
+  and `useAngleSliderContext()` for the normal provider and context flows. Ark type aliases remain
   direct imports from `@ark-ui/react/angle-slider`.
 - No legacy aliases, positional callback adapters, custom state context, or `render` prop remain.
 
 ## Agent notes
 
-- Keep `RootProvider` styled with the same root class as `Root`.
-- Keep `AngleSlider.Dial` as narrow sugar over `Control`, centered `ValueText`, and `Thumb`; do not
+- Keep `AngleSliderRootProvider` styled with the same root class as the root.
+- Keep `AngleSliderDial` as narrow sugar over `Control`, centered `ValueText`, and `Thumb`; do not
   expand it into a configuration surface for labels, value text, or form behavior.
-- Keep `AngleSlider.Marks` as narrow sugar over `MarkerGroup` and `Marker`; do not expand it into a
+- Keep `AngleSliderMarks` as narrow sugar over `MarkerGroup` and `Marker`; do not expand it into a
   configuration surface for thumb, label, or form behavior.
-- Keep `AngleSlider.HiddenInput` aligned with Ark's explicit composition.
-- Do not render both `Root` and `RootProvider` for one machine.
+- Keep `AngleSliderHiddenInput` aligned with Ark's explicit composition.
+- Do not render both the root and `AngleSliderRootProvider` for one machine.
 - Preserve the Ark detail object passed to value callbacks.
 - Keep geometry driven by Ark `--angle` / marker variables and state attributes.
 - Keep docs previews synchronized with `Code` and `CSS`.
 
 ## Local changelog
 
+- 2026-09-21: Migrated the public surface to the flat component API: the root is exported as
+  `AngleSlider`, parts as `AngleSlider<Part>` values, and hooks stay top-level `use*` exports; the
+  compound `AngleSlider.*` namespace was removed without compatibility aliases.
 - 2026-09-17: Redesigned the dial as a circular track with a conic-gradient fill from the top,
   a circle thumb riding the ring, and the value text centered in the dial (`Dial` now renders the
   centered `ValueText`); removed the needle thumb, inner disc, center dot, and track/control border
@@ -199,10 +209,10 @@ per-marker props, custom ordering, or no centered value text.
 - 2026-07-21: Routed shared dimensions, spacing, icon geometry, and focus-ring fallbacks through foundation tokens so density and theme presets can retune the component consistently.
 - 2026-09-04: Exposed Ark `HiddenInput` explicitly and removed root child mutation and custom reset handling.
 - 2026-07-13: Ark `HiddenInput` was internalized at this point in the wrapper history.
-- 2026-07-09: Added `AngleSlider.Dial`, re-exported `useAngleSlider()` for the normal
+- 2026-07-09: Added `AngleSliderDial`, re-exported `useAngleSlider()` for the normal
   `RootProvider` path, documented `invalid`, and moved the full explicit dial composition into
   advanced examples.
-- 2026-07-07: Added `AngleSlider.Marks`, shifted docs and stories to a lighter default composition,
+- 2026-07-07: Added `AngleSliderMarks`, shifted docs and stories to a lighter default composition,
   and made `HiddenInput` form-specific in recommended examples.
 - 2026-07-02: Removed duplicate Ark type exports, the context part, and state hooks from the moduix
   surface. Kept `RootProvider`, the callable root, every styled visual part, and form behavior.

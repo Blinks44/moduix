@@ -30,8 +30,8 @@ Callbacks and state shapes must remain Ark-shaped: `onOpenChange(details)`,
 
 `Root` and `RootProvider` portal `Positioner` automatically by default. Set `portalled={false}` to render it inline, or pass `portalRef` to target a custom container. The structural parts remain explicit and independently styleable.
 
-The component exports thin styled wrappers over Ark parts. `useMenu`, `Menu.Context`,
-`useMenuContext`, `Menu.ItemContext`, and `useMenuItemContext` are available from the moduix package
+The component exports thin styled wrappers over Ark parts. `useMenu`, `MenuContext`,
+`useMenuContext`, `MenuItemContext`, and `useMenuItemContext` are available from the moduix package
 surface for provider and descendant state paths. `ContextTrigger` uses the compact trigger styling by
 default and leaves a custom `asChild` host untouched.
 
@@ -39,40 +39,40 @@ Breaking legacy APIs were removed:
 
 - no `render` prop contract; use Ark `asChild`
 - no `closeOnClick`; use Ark `closeOnSelect` or item/root defaults
-- no `MenuSubmenu`; nested menus are regular `Menu` roots opened by `Menu.TriggerItem`
-- no `MenuLinkItem`; use `Menu.Item asChild` with an anchor
-- no high-level `Menu.Content` wrapper that hides `Positioner`
+- no `MenuSubmenu`; nested menus are regular `Menu` roots opened by `MenuTriggerItem`
+- no `MenuLinkItem`; use `MenuItem asChild` with an anchor
+- no high-level `MenuContent` wrapper that hides `Positioner`
 - no `createMenuHandle`, `MenuPopup`, `MenuBackdrop`, or `MenuPortal` aliases
 
 ## Anatomy and exported parts
 
 ```tsx
 <Menu>
-  <Menu.Trigger>
-    <Menu.Indicator />
-  </Menu.Trigger>
-  <Menu.Positioner>
-    <Menu.Content>
-      <Menu.Viewport>
-        <Menu.Item value="edit" />
-        <Menu.CheckboxItem value="toolbar" checked={checked}>
-          <Menu.ItemIndicator />
-          <Menu.ItemText />
-        </Menu.CheckboxItem>
-        <Menu.RadioItemGroup value={value}>
-          <Menu.RadioItem value="date" />
-        </Menu.RadioItemGroup>
+  <MenuTrigger>
+    <MenuIndicator />
+  </MenuTrigger>
+  <MenuPositioner>
+    <MenuContent>
+      <MenuViewport>
+        <MenuItem value="edit" />
+        <MenuCheckboxItem value="toolbar" checked={checked}>
+          <MenuItemIndicator />
+          <MenuItemText />
+        </MenuCheckboxItem>
+        <MenuRadioItemGroup value={value}>
+          <MenuRadioItem value="date" />
+        </MenuRadioItemGroup>
         <Menu>
-          <Menu.TriggerItem />
-          <Menu.Positioner>
-            <Menu.Content>
-              <Menu.Viewport />
-            </Menu.Content>
-          </Menu.Positioner>
+          <MenuTriggerItem />
+          <MenuPositioner>
+            <MenuContent>
+              <MenuViewport />
+            </MenuContent>
+          </MenuPositioner>
         </Menu>
-      </Menu.Viewport>
-    </Menu.Content>
-  </Menu.Positioner>
+      </MenuViewport>
+    </MenuContent>
+  </MenuPositioner>
 </Menu>
 ```
 
@@ -86,35 +86,59 @@ Stable slots:
 - `menu-item-indicator`, `menu-item-text`, `menu-item-text-content`, `menu-item-text-icon`,
   `menu-item-text-label`, `menu-item-shortcut`
 
-State exports: `Menu.Context`, `useMenuContext`, `Menu.ItemContext`, and `useMenuItemContext`.
+State exports: `MenuContext`, `useMenuContext`, `MenuItemContext`, and `useMenuItemContext`.
 
 ## Composition
 
 ```tsx
 import { Button } from '@moduix/react/button';
-import { Menu } from '@moduix/react/menu';
+import {
+  Menu,
+  MenuRootProvider,
+  MenuContext,
+  MenuTrigger,
+  MenuTriggerIcon,
+  MenuIndicator,
+  MenuPositioner,
+  MenuContent,
+  MenuViewport,
+  MenuArrow,
+  MenuItem,
+  MenuTriggerItem,
+  MenuTriggerItemIcon,
+  MenuRadioItemGroup,
+  MenuRadioItem,
+  MenuCheckboxItem,
+  MenuItemIndicator,
+  MenuItemText,
+  MenuItemTextContent,
+  MenuItemTextIcon,
+  MenuItemTextLabel,
+  MenuItemShortcut,
+  MenuItemContext,
+} from '@moduix/react/menu';
 
 export function Example() {
   return (
     <Menu positioning={{ placement: 'bottom-start', gutter: 8 }}>
-      <Menu.Trigger asChild>
+      <MenuTrigger asChild>
         <Button>Actions</Button>
-      </Menu.Trigger>
-      <Menu.Positioner>
-        <Menu.Content>
-          <Menu.Viewport>
-            <Menu.Item value="edit">Edit</Menu.Item>
-            <Menu.Item value="duplicate">Duplicate</Menu.Item>
-          </Menu.Viewport>
-        </Menu.Content>
-      </Menu.Positioner>
+      </MenuTrigger>
+      <MenuPositioner>
+        <MenuContent>
+          <MenuViewport>
+            <MenuItem value="edit">Edit</MenuItem>
+            <MenuItem value="duplicate">Duplicate</MenuItem>
+          </MenuViewport>
+        </MenuContent>
+      </MenuPositioner>
     </Menu>
   );
 }
 ```
 
-Use `Menu.RootProvider` with moduix `useMenu()` only when state must be controlled from outside the
-tree. Do not render `Menu` and `Menu.RootProvider` for the same state instance.
+Use `MenuRootProvider` with moduix `useMenu()` only when state must be controlled from outside the
+tree. Do not render `Menu` and `MenuRootProvider` for the same state instance.
 
 ## Upstream feature coverage
 
@@ -123,9 +147,9 @@ Supported Ark examples and guides:
 - basic button-triggered menus with `Positioner` and `Content`
 - controlled `open` state and `onOpenChange(details)`
 - `RootProvider` and moduix `useMenu`
-- `Menu.ItemContext` for inline item state
+- `MenuItemContext` for inline item state
 - item grouping and labels
-- link items through `Menu.Item asChild`
+- link items through `MenuItem asChild`
 - checkbox items and `onCheckedChange(checked)`
 - radio item groups and `onValueChange(details)`
 - context menus through `ContextTrigger`
@@ -143,12 +167,12 @@ right-click context behavior, long-press context behavior, and nested menu keybo
 Use `value` for item identity. Do not set arbitrary item `id` values because Ark uses generated
 IDs internally for item lookup.
 
-Refs forward to the corresponding Ark DOM part. `Menu.Trigger` targets the trigger button,
-`Menu.Content` targets the menu content element, and item refs target their item elements.
+Refs forward to the corresponding Ark DOM part. `MenuTrigger` targets the trigger button,
+`MenuContent` targets the menu content element, and item refs target their item elements.
 
-`Menu.Viewport` scrolls when its height reaches `--moduix-menu-popup-max-height` or Ark's available
-viewport height. Keep an optional `Menu.Arrow` as a direct child of `Menu.Content`, next to the
-viewport, so it remains outside the scroll clip. The default `Menu.TriggerItemIcon` flips in RTL so
+`MenuViewport` scrolls when its height reaches `--moduix-menu-popup-max-height` or Ark's available
+viewport height. Keep an optional `MenuArrow` as a direct child of `MenuContent`, next to the
+viewport, so it remains outside the scroll clip. The default `MenuTriggerItemIcon` flips in RTL so
 its direction matches submenu navigation. Both `Content` and `Viewport` support `asChild` without
 reordering or inspecting their children, including during SSR.
 
@@ -167,8 +191,8 @@ remain the more specific override.
 Visual defaults preserve moduix tokens for trigger density, popup radius, shadow, item highlight,
 destructive tone, indicators, and shortcuts.
 
-`Menu.Content` allows its overflow to be overridden with `--moduix-menu-popup-overflow`; it defaults
-to `visible` so the direct `Menu.Arrow` can extend beyond the popup outline. Set it to `hidden` only
+`MenuContent` allows its overflow to be overridden with `--moduix-menu-popup-overflow`; it defaults
+to `visible` so the direct `MenuArrow` can extend beyond the popup outline. Set it to `hidden` only
 when clipping popup content is required.
 
 Styles target Ark state and layout hooks:
@@ -186,13 +210,13 @@ Public `--moduix-menu-*` variables are declared in `packages/foundation/src/styl
 
 moduix adds leaf-level styling helpers only:
 
-- `Menu.TriggerIcon` defaults to `ChevronDownIcon`
-- `Menu.Indicator` defaults to `ChevronDownIcon` and sizes a direct custom SVG to its icon box
-- `Menu.TriggerItemIcon` defaults to `ChevronRightIcon`
-- `Menu.ItemIndicator` defaults to `CheckIcon`
-- `Menu.ItemShortcut`, `Menu.ItemTextContent`, `Menu.ItemTextIcon`, and `Menu.ItemTextLabel` support
+- `MenuTriggerIcon` defaults to `ChevronDownIcon`
+- `MenuIndicator` defaults to `ChevronDownIcon` and sizes a direct custom SVG to its icon box
+- `MenuTriggerItemIcon` defaults to `ChevronRightIcon`
+- `MenuItemIndicator` defaults to `CheckIcon`
+- `MenuItemShortcut`, `MenuItemTextContent`, `MenuItemTextIcon`, and `MenuItemTextLabel` support
   common row layouts
-- `tone="destructive"` on `Menu.Item`
+- `tone="destructive"` on `MenuItem`
 - `indicator="start" | "end" | "none"` on checkbox and radio item wrappers; defaults to `start`
   and is reflected through `data-indicator-position`
 
@@ -200,12 +224,12 @@ These helpers must not hide the Ark part tree or remap Ark callback detail objec
 
 ## Agent notes
 
-Keep `Menu.Content` as the real Ark content part. Do not reintroduce a wrapper that renders,
+Keep `MenuContent` as the real Ark content part. Do not reintroduce a wrapper that renders,
 reorders, or detects `Positioner`, `Viewport`, or `Arrow` internally; only portal transport belongs
-to the root. Consumers compose `Menu.Viewport` explicitly around the scrollable item collection and
-keep `Menu.Arrow` as a direct content child so it can extend beyond the popup outline.
+to the root. Consumers compose `MenuViewport` explicitly around the scrollable item collection and
+keep `MenuArrow` as a direct content child so it can extend beyond the popup outline.
 
-Keep `useMenu` and `Menu.ItemContext` aligned with Ark because the public provider and item-state
+Keep `useMenu` and `MenuItemContext` aligned with Ark because the public provider and item-state
 examples use them. Other Ark state surfaces remain escape hatches until moduix documents them.
 
 ## Mount lifecycle
@@ -216,28 +240,28 @@ content after the first open; set both props to `false` only when eager initial 
 
 ## Local changelog
 
-- 2026-09-08: Added the explicit `Menu.Viewport` part and removed child inspection/reordering from
-  `Menu.Content`, making the popup structure deterministic across client rendering, SSR, and
-  hydration. Existing content must wrap its scrollable item collection in `Menu.Viewport`.
+- 2026-09-08: Added the explicit `MenuViewport` part and removed child inspection/reordering from
+  `MenuContent`, making the popup structure deterministic across client rendering, SSR, and
+  hydration. Existing content must wrap its scrollable item collection in `MenuViewport`.
 
 - 2026-08-11: Added a reduced-motion path for popup and trigger transitions, corrected the public
   CSS-variable reference, and covered the automatic and inline portal contracts.
 
-- 2026-08-11: Made the recommended popup composition arrowless and kept `Menu.Arrow` as an
+- 2026-08-11: Made the recommended popup composition arrowless and kept `MenuArrow` as an
   explicit visual-anchor option.
 
 - 2026-08-01: Defaulted portalled overlay presence to lazy mounting and unmounting after exit.
 
-- 2026-07-29: Added `--moduix-menu-popup-overflow` so consumers can clip `Menu.Content` when needed;
+- 2026-07-29: Added `--moduix-menu-popup-overflow` so consumers can clip `MenuContent` when needed;
   it defaults to `visible` to preserve direct-arrow rendering.
 
-- 2026-07-29: Restored Ark `Menu.Content asChild` composition so a custom single host stays the
+- 2026-07-29: Restored Ark `MenuContent asChild` composition so a custom single host stays the
   actual menu content element. Removed the stale `option-item` styling hook from the docs.
 
 - 2026-07-25: Scope the open trigger treatment to Ark's `data-current` so a shared menu only
   highlights the trigger that opened it.
 
-- 2026-07-24: Let `Menu.Arrow` extend beyond and paint over the content outline, so its stroke
+- 2026-07-24: Let `MenuArrow` extend beyond and paint over the content outline, so its stroke
   joins the popup border instead of being clipped or layered beneath it.
 
 - 2026-07-24: Kept custom context triggers unstyled with `asChild`, made menu content scroll within
@@ -249,7 +273,7 @@ content after the first open; set both props to `false` only when eager initial 
 - 2026-07-21: Compacted default popup items to `--moduix-size-sm` with `--moduix-spacing-1` block padding.
 
 - 2026-07-16: Added shared `--moduix-popup-motion-*` fallbacks for project-wide popup content motion.
-- 2026-07-10: Exported `useMenu` and `Menu.ItemContext` through moduix so normal provider and
+- 2026-07-10: Exported `useMenu` and `MenuItemContext` through moduix so normal provider and
   item-state examples do not require direct Ark imports.
 
 - 2026-07-03: Removed Ark hook, context, and duplicate type re-exports from the moduix surface.
@@ -258,17 +282,17 @@ content after the first open; set both props to `false` only when eager initial 
 - 2026-07-01: Made overlay portalling automatic by default, added `portalled` and `portalRef`, and removed explicit `Portal` wrappers from recommended composition.
 
 - 2026-06-24: Made checkbox and radio `indicator` placement explicit by defaulting
-  `data-indicator-position` to `start`, switched menu docs and stories to the Ark `Menu.Indicator`
+  `data-indicator-position` to `start`, switched menu docs and stories to the Ark `MenuIndicator`
   part, and removed stale backdrop story styles.
 - 2026-06-19: Aligned popup item highlight defaults with `Select` and `Combobox` by switching
   menu highlighted-row fallback tokens from foreground/background to accent/accent-foreground.
-- 2026-06-19: `Menu.Trigger` now skips the internal `.trigger` class when `asChild` is enabled, so
+- 2026-06-19: `MenuTrigger` now skips the internal `.trigger` class when `asChild` is enabled, so
   consumer host components (for example, `Button`) keep their own background styles in
   hover/active/open states.
-- 2026-06-19: Removed hardcoded hover/open fallback colors on `Menu.Trigger`. Hover/open background
+- 2026-06-19: Removed hardcoded hover/open fallback colors on `MenuTrigger`. Hover/open background
   now applies only when `--moduix-menu-trigger-bg-hover` and/or `--moduix-menu-trigger-bg-active` are explicitly
-  set, so `Menu.Trigger asChild` does not override consumer button styling.
-- 2026-06-19: Changed `Menu.Trigger` open-state background fallback to `--moduix-menu-trigger-bg` so
+  set, so `MenuTrigger asChild` does not override consumer button styling.
+- 2026-06-19: Changed `MenuTrigger` open-state background fallback to `--moduix-menu-trigger-bg` so
   opening a popup no longer forces the hover accent color unless `--moduix-menu-trigger-bg-active` is set.
 - 2026-06-18: Migrated `Menu` to Ark UI React. Removed legacy compatibility exports
   and rewrote the public contract around Ark parts, `asChild`, `value` items, `RootProvider`,

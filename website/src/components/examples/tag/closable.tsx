@@ -1,4 +1,4 @@
-import { Tag } from '@moduix/react/tag';
+import { Tag, TagCloseTrigger, TagEndElement, TagLabel } from '@moduix/react/tag';
 import { useState, type ComponentProps } from 'react';
 import styles from '@/components/examples/tag/tag-closable.module.css';
 
@@ -31,16 +31,16 @@ export default function RemovableTagDemo() {
     <div className={styles.row}>
       {visibleTags.map((tag) => (
         <Tag key={tag.label} variant={tag.variant}>
-          <Tag.Label>{tag.label}</Tag.Label>
-          <Tag.EndElement>
-            <Tag.CloseTrigger
+          <TagLabel>{tag.label}</TagLabel>
+          <TagEndElement>
+            <TagCloseTrigger
               disabled={tag.disabled}
               aria-label={`Remove ${tag.label} tag`}
               onClick={() => {
                 setVisibleTags((tags) => tags.filter((item) => item.label !== tag.label));
               }}
             />
-          </Tag.EndElement>
+          </TagEndElement>
         </Tag>
       ))}
     </div>

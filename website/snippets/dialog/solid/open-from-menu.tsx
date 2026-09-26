@@ -1,6 +1,23 @@
 import { Button } from '@moduix/solid/button';
-import { Dialog } from '@moduix/solid/dialog';
-import { Menu } from '@moduix/solid/menu';
+import {
+  Dialog,
+  DialogBackdrop,
+  DialogCloseTrigger,
+  DialogContent,
+  DialogDescription,
+  DialogFooter,
+  DialogPositioner,
+  DialogTitle,
+} from '@moduix/solid/dialog';
+import {
+  Menu,
+  MenuTrigger,
+  MenuIndicator,
+  MenuPositioner,
+  MenuContent,
+  MenuViewport,
+  MenuItem,
+} from '@moduix/solid/menu';
 import { createSignal } from 'solid-js';
 
 export default function OpenFromMenuDialogDemo() {
@@ -9,35 +26,35 @@ export default function OpenFromMenuDialogDemo() {
   return (
     <>
       <Menu onSelect={(details) => details.value === 'delete' && setOpen(true)}>
-        <Menu.Trigger
+        <MenuTrigger
           asChild={(props) => (
             <Button {...props()} variant="outline">
               Actions
-              <Menu.Indicator />
+              <MenuIndicator />
             </Button>
           )}
         />
-        <Menu.Positioner>
-          <Menu.Content>
-            <Menu.Viewport>
-              <Menu.Item value="edit">Edit</Menu.Item>
-              <Menu.Item value="duplicate">Duplicate</Menu.Item>
-              <Menu.Item value="delete" tone="destructive">
+        <MenuPositioner>
+          <MenuContent>
+            <MenuViewport>
+              <MenuItem value="edit">Edit</MenuItem>
+              <MenuItem value="duplicate">Duplicate</MenuItem>
+              <MenuItem value="delete" tone="destructive">
                 Delete...
-              </Menu.Item>
-            </Menu.Viewport>
-          </Menu.Content>
-        </Menu.Positioner>
+              </MenuItem>
+            </MenuViewport>
+          </MenuContent>
+        </MenuPositioner>
       </Menu>
 
       <Dialog open={open()} onOpenChange={(details) => setOpen(details.open)} role="alertdialog">
-        <Dialog.Backdrop />
-        <Dialog.Positioner>
-          <Dialog.Content>
-            <Dialog.Title>Confirm delete</Dialog.Title>
-            <Dialog.Description>This action cannot be undone.</Dialog.Description>
-            <Dialog.Footer>
-              <Dialog.CloseTrigger
+        <DialogBackdrop />
+        <DialogPositioner>
+          <DialogContent>
+            <DialogTitle>Confirm delete</DialogTitle>
+            <DialogDescription>This action cannot be undone.</DialogDescription>
+            <DialogFooter>
+              <DialogCloseTrigger
                 asChild={(props) => (
                   <Button {...props()} variant="outline">
                     Cancel
@@ -45,9 +62,9 @@ export default function OpenFromMenuDialogDemo() {
                 )}
               />
               <Button onClick={() => setOpen(false)}>Delete</Button>
-            </Dialog.Footer>
-          </Dialog.Content>
-        </Dialog.Positioner>
+            </DialogFooter>
+          </DialogContent>
+        </DialogPositioner>
       </Dialog>
     </>
   );

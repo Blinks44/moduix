@@ -7,7 +7,7 @@ import type { ComponentRef } from 'react';
 import { forwardRef } from 'react';
 import { cn } from '@/lib/moduix/cn';
 
-type CardRootProps = HTMLArkProps<'div'> & {
+type CardProps = HTMLArkProps<'div'> & {
   size?: 'sm' | 'md' | 'lg';
   variant?: 'elevated' | 'outline' | 'subtle';
 };
@@ -28,7 +28,7 @@ const cardRootVariants = cva(
   },
 );
 
-const CardRoot = forwardRef<ComponentRef<typeof ark.div>, CardRootProps>(function CardRoot(
+const Card = forwardRef<ComponentRef<typeof ark.div>, CardProps>(function Card(
   { className, size, variant, ...props },
   ref,
 ) {
@@ -209,17 +209,15 @@ const CardLink = forwardRef<ComponentRef<typeof ark.a>, HTMLArkProps<'a'>>(funct
   );
 });
 
-const Card = Object.assign(CardRoot, {
-  Root: CardRoot,
-  Header: CardHeader,
-  Body: CardBody,
-  Media: CardMedia,
-  Background: CardBackground,
-  Footer: CardFooter,
-  Title: CardTitle,
-  Description: CardDescription,
-  Action: CardAction,
-  Link: CardLink,
-});
-
-export { Card };
+export {
+  Card,
+  CardAction,
+  CardBackground,
+  CardBody,
+  CardDescription,
+  CardFooter,
+  CardHeader,
+  CardLink,
+  CardMedia,
+  CardTitle,
+};

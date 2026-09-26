@@ -1,12 +1,12 @@
-import { PinInput } from '@moduix/react/pin-input';
+import { PinInput, PinInputLabel, PinInputControl, PinInputInputs } from '@moduix/react/pin-input';
 
 export default function MaskedPinInput() {
   return (
     <PinInput count={4} mask>
-      <PinInput.Label>PIN</PinInput.Label>
-      <PinInput.Control>
-        <PinInput.Inputs />
-      </PinInput.Control>
+      <PinInputLabel>PIN</PinInputLabel>
+      <PinInputControl>
+        <PinInputInputs />
+      </PinInputControl>
     </PinInput>
   );
 }

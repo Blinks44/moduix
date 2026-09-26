@@ -1,27 +1,37 @@
 import { Button } from '@moduix/react/button';
-import { Dialog } from '@moduix/react/dialog';
+import {
+  Dialog,
+  DialogBackdrop,
+  DialogCloseTrigger,
+  DialogContent,
+  DialogDescription,
+  DialogFooter,
+  DialogPositioner,
+  DialogTitle,
+  DialogTrigger,
+} from '@moduix/react/dialog';
 
 export default function DeleteAccountDialog() {
   return (
     <Dialog role="alertdialog">
-      <Dialog.Trigger asChild>
+      <DialogTrigger asChild>
         <Button>Delete account</Button>
-      </Dialog.Trigger>
-      <Dialog.Backdrop />
-      <Dialog.Positioner>
-        <Dialog.Content>
-          <Dialog.Title>Are you absolutely sure?</Dialog.Title>
-          <Dialog.Description>This action cannot be undone.</Dialog.Description>
-          <Dialog.Footer>
-            <Dialog.CloseTrigger asChild id="cancel-delete-account">
+      </DialogTrigger>
+      <DialogBackdrop />
+      <DialogPositioner>
+        <DialogContent>
+          <DialogTitle>Are you absolutely sure?</DialogTitle>
+          <DialogDescription>This action cannot be undone.</DialogDescription>
+          <DialogFooter>
+            <DialogCloseTrigger asChild id="cancel-delete-account">
               <Button variant="outline">Cancel</Button>
-            </Dialog.CloseTrigger>
-            <Dialog.CloseTrigger asChild id="confirm-delete-account">
+            </DialogCloseTrigger>
+            <DialogCloseTrigger asChild id="confirm-delete-account">
               <Button>Delete account</Button>
-            </Dialog.CloseTrigger>
-          </Dialog.Footer>
-        </Dialog.Content>
-      </Dialog.Positioner>
+            </DialogCloseTrigger>
+          </DialogFooter>
+        </DialogContent>
+      </DialogPositioner>
     </Dialog>
   );
 }

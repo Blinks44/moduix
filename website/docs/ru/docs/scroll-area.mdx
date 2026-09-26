@@ -1,7 +1,7 @@
 ---
 title: Scroll Area
 component: scroll-area
-description: Создавайте нативные контейнеры прокрутки в React и Solid с установкой пакетом или через shadcn.
+description: Создавайте контейнеры прокрутки со стилизованными полосами прокрутки в React и Solid с установкой пакетом или через shadcn.
 ---
 
 import * as ScrollAreaDocs from '@/components/examples/scroll-area/css-properties';
@@ -27,9 +27,10 @@ import scrollAreaSolidRootProvider from '../../../snippets/scroll-area/solid/roo
 ## Базовый пример
 
 
-Используйте `ScrollArea` как корневой элемент. Разместите `Viewport` вокруг `Content`, добавьте по
-одному `Scrollbar` и `Thumb` для каждой оси прокрутки, а при переполнении по обеим осям добавьте
-`Corner`. Задайте корневому элементу ограниченную высоту или размер по блочной оси, чтобы
+Используйте `ScrollArea` как корневой элемент. Разместите `ScrollAreaViewport` вокруг
+`ScrollAreaContent`, добавьте по одному `ScrollAreaScrollbar` и `ScrollAreaThumb` для каждой оси
+прокрутки, а при переполнении по обеим осям добавьте
+`ScrollAreaCorner`. Задайте корневому элементу ограниченную высоту или размер по блочной оси, чтобы
 содержимое можно было прокручивать.
 
 <ExampleFrame variant="component">
@@ -97,37 +98,38 @@ import scrollAreaSolidRootProvider from '../../../snippets/scroll-area/solid/roo
 ## Анатомия
 
 ```text
-ScrollArea / ScrollArea.Root
-├─ ScrollArea.Viewport
-│  └─ ScrollArea.Content
+ScrollArea
+├─ ScrollAreaViewport
+│  └─ ScrollAreaContent
 │     └─ children
-├─ ScrollArea.Scrollbar
-│  └─ ScrollArea.Thumb
-└─ ScrollArea.Corner
+├─ ScrollAreaScrollbar
+│  └─ ScrollAreaThumb
+└─ ScrollAreaCorner
 
-ScrollArea.RootProvider
+ScrollAreaRootProvider
 └─ то же дерево, подключённое к состоянию useScrollArea()
 ```
 
 | Часть                             | Назначение                                                       |
 | -------------------------------- | ---------------------------------------------------------------- |
-| `ScrollArea` / `ScrollArea.Root` | Управляет состоянием прокрутки и позиционированием.              |
-| `ScrollArea.RootProvider`        | Подключает части к состоянию из `useScrollArea()`.               |
-| `ScrollArea.Viewport`            | Нативный контейнер прокрутки и элемент, принимающий фокус.      |
-| `ScrollArea.Content`             | Внутренняя оболочка содержимого, которую измеряет Ark UI.       |
-| `ScrollArea.Scrollbar`           | Стилизованная полоса прокрутки для одной оси.                   |
-| `ScrollArea.Thumb`               | Перетаскиваемый бегунок внутри полосы прокрутки.                 |
-| `ScrollArea.Corner`              | Заполняет область пересечения при переполнении по обеим осям.  |
+| `ScrollArea`                     | Управляет состоянием прокрутки и позиционированием.              |
+| `ScrollAreaRootProvider`        | Подключает части к состоянию из `useScrollArea()`.               |
+| `ScrollAreaViewport`            | Нативный контейнер прокрутки и элемент, принимающий фокус.      |
+| `ScrollAreaContent`             | Внутренняя оболочка содержимого, которую измеряет Ark UI.       |
+| `ScrollAreaScrollbar`           | Стилизованная полоса прокрутки для одной оси.                   |
+| `ScrollAreaThumb`               | Перетаскиваемый бегунок внутри полосы прокрутки.                 |
+| `ScrollAreaCorner`              | Заполняет область пересечения при переполнении по обеим осям.  |
 
 ## Композиция
 
-Для каждой оси прокрутки нужна отдельная `ScrollArea.Scrollbar` с `ScrollArea.Thumb`. По умолчанию
+Для каждой оси прокрутки нужна отдельная `ScrollAreaScrollbar` с `ScrollAreaThumb`. По умолчанию
 полоса вертикальная, для горизонтальной установите `orientation="horizontal"`. Размещайте
-`Viewport` вокруг `Content`, а для вложенных областей сохраняйте полное независимое дерево.
+`ScrollAreaViewport` вокруг `ScrollAreaContent`, а для вложенных областей сохраняйте полное
+независимое дерево.
 
-Используйте `ScrollArea.RootProvider` вместе с `ScrollArea.useScrollArea()`, если внешним элементам
-управления нужен API прокрутки. Передайте возвращённое состояние в `RootProvider` и не используйте
-`ScrollArea` и `ScrollArea.RootProvider` для одного состояния. В Solid читайте состояние и вызывайте
+Используйте `ScrollAreaRootProvider` вместе с `useScrollArea()`, если внешним элементам
+управления нужен API прокрутки. Передайте возвращённое состояние в `ScrollAreaRootProvider` и не
+используйте `ScrollArea` и `ScrollAreaRootProvider` для одного состояния. В Solid читайте состояние и вызывайте
 его методы через аксессор, возвращённый `useScrollArea()`.
 
 ## Примеры
@@ -333,7 +335,7 @@ Ark мог измерять их независимо.
 
 ### Root Provider
 
-Используйте `ScrollArea.useScrollArea()` вместе с `ScrollArea.RootProvider`, если внешним элементам
+Используйте `useScrollArea()` вместе с `ScrollAreaRootProvider`, если внешним элементам
 управления нужен доступ к API прокрутки.
 
 <ExampleFrame variant="component">
@@ -388,15 +390,16 @@ Ark мог измерять их независимо.
   `scroll-area-root-provider`, `scroll-area-viewport`, `scroll-area-content`,
   `scroll-area-scrollbar`, `scroll-area-thumb` и `scroll-area-corner`.
 - Свойство `fade` добавляет `data-fade`, а свойство `variant` добавляет
-  `data-variant="hover" | "always"` на `ScrollArea` и `ScrollArea.RootProvider`.
+  `data-variant="hover" | "always"` на `ScrollArea` и `ScrollAreaRootProvider`.
 - Ark добавляет `data-scope="scroll-area"` и `data-part` для каждой части.
 - `data-overflow-x` и `data-overflow-y` появляются, когда измеренное содержимое переполняется по
   соответствующей оси.
-- `data-at-top`, `data-at-bottom`, `data-at-left` и `data-at-right` доступны на `Viewport`.
+- `data-at-top`, `data-at-bottom`, `data-at-left` и `data-at-right` доступны на
+  `ScrollAreaViewport`.
 - `data-orientation="vertical"` и `data-orientation="horizontal"` доступны на полосах прокрутки
   и бегунках.
 - `data-hover` и `data-dragging` доступны на полосах и бегунках, а `data-scrolling` на полосах.
 - Корневые переменные Ark `--corner-width`, `--corner-height`, `--thumb-width` и `--thumb-height`
-  управляют смещением угла и размерами бегунка. Переменные `Viewport`
+  управляют смещением угла и размерами бегунка. Переменные `ScrollAreaViewport`
   `--scroll-area-overflow-x-start`, `--scroll-area-overflow-x-end`,
   `--scroll-area-overflow-y-start` и `--scroll-area-overflow-y-end` показывают расстояние до краёв.

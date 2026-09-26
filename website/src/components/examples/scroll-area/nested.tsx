@@ -1,4 +1,11 @@
-import { ScrollArea } from '@moduix/react/scroll-area';
+import {
+  ScrollArea,
+  ScrollAreaContent,
+  ScrollAreaCorner,
+  ScrollAreaScrollbar,
+  ScrollAreaThumb,
+  ScrollAreaViewport,
+} from '@moduix/react/scroll-area';
 import styles from '@/components/examples/scroll-area/scroll-area-nested.module.css';
 
 const sections = [
@@ -15,16 +22,16 @@ const sections = [
 export default function NestedScrollAreaDemo() {
   return (
     <ScrollArea className={styles.root}>
-      <ScrollArea.Viewport>
-        <ScrollArea.Content>
+      <ScrollAreaViewport>
+        <ScrollAreaContent>
           <div className={styles.content}>
             <section>
               <h3>Outer release notes</h3>
               <p className={styles.description}>{sections[0].body}</p>
             </section>
             <ScrollArea className={styles.nested}>
-              <ScrollArea.Viewport>
-                <ScrollArea.Content>
+              <ScrollAreaViewport>
+                <ScrollAreaContent>
                   <div className={styles.nestedContent}>
                     {sections.map((item) => (
                       <section key={item.title}>
@@ -33,20 +40,20 @@ export default function NestedScrollAreaDemo() {
                       </section>
                     ))}
                   </div>
-                </ScrollArea.Content>
-              </ScrollArea.Viewport>
-              <ScrollArea.Scrollbar>
-                <ScrollArea.Thumb />
-              </ScrollArea.Scrollbar>
-              <ScrollArea.Corner />
+                </ScrollAreaContent>
+              </ScrollAreaViewport>
+              <ScrollAreaScrollbar>
+                <ScrollAreaThumb />
+              </ScrollAreaScrollbar>
+              <ScrollAreaCorner />
             </ScrollArea>
           </div>
-        </ScrollArea.Content>
-      </ScrollArea.Viewport>
-      <ScrollArea.Scrollbar>
-        <ScrollArea.Thumb />
-      </ScrollArea.Scrollbar>
-      <ScrollArea.Corner />
+        </ScrollAreaContent>
+      </ScrollAreaViewport>
+      <ScrollAreaScrollbar>
+        <ScrollAreaThumb />
+      </ScrollAreaScrollbar>
+      <ScrollAreaCorner />
     </ScrollArea>
   );
 }

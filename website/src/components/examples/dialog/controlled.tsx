@@ -1,21 +1,29 @@
 import { Button } from '@moduix/react/button';
-import { Dialog } from '@moduix/react/dialog';
+import {
+  Dialog,
+  DialogBackdrop,
+  DialogCloseIcon,
+  DialogContent,
+  DialogPositioner,
+  DialogTitle,
+  DialogTrigger,
+} from '@moduix/react/dialog';
 import { useState } from 'react';
 
 export default function ControlledDialogDemo() {
   const [open, setOpen] = useState(false);
   return (
     <Dialog open={open} onOpenChange={(details) => setOpen(details.open)}>
-      <Dialog.Trigger asChild>
+      <DialogTrigger asChild>
         <Button>Open controlled dialog</Button>
-      </Dialog.Trigger>
-      <Dialog.Backdrop />
-      <Dialog.Positioner>
-        <Dialog.Content>
-          <Dialog.Title>Publish changes?</Dialog.Title>
-          <Dialog.CloseIcon />
-        </Dialog.Content>
-      </Dialog.Positioner>
+      </DialogTrigger>
+      <DialogBackdrop />
+      <DialogPositioner>
+        <DialogContent>
+          <DialogTitle>Publish changes?</DialogTitle>
+          <DialogCloseIcon />
+        </DialogContent>
+      </DialogPositioner>
     </Dialog>
   );
 }

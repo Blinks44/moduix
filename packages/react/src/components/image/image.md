@@ -14,13 +14,13 @@ contract.
 ## Upstream model to preserve
 
 Unpic owns responsive `srcset` and `sizes` generation, supported CDN detection, layout modes,
-loading priority, and native `<img>` attributes. `Image.Source` preserves Unpic's `<picture>`
+loading priority, and native `<img>` attributes. `ImageSource` preserves Unpic's `<picture>`
 composition for art direction and format sources.
 
 ## Current behavior contract
 
-- `Image` and `Image.Root` are the same ref-forwarding `<img>` component.
-- `Image.Source` is a ref-forwarding `<source>` component that must be a child of a native
+- `Image` is the ref-forwarding `<img>` component.
+- `ImageSource` is a ref-forwarding `<source>` component that must be a child of a native
   `<picture>`; put `Image` last in that picture as the fallback image.
 - The component passes through Unpic React props: `layout`, `priority`, `background`,
   `aspectRatio`, `fallback`, `operations`, `options`, and `breakpoints`, alongside native image
@@ -33,18 +33,18 @@ composition for art direction and format sources.
 ## Anatomy and exported parts
 
 ```text
-Image / Image.Root
+Image
 └─ img
 
 picture (native)
-├─ Image.Source
-└─ Image / Image.Root
+├─ ImageSource
+└─ Image
 ```
 
-| Part                   | Hook                       | Notes                                      |
-| ---------------------- | -------------------------- | ------------------------------------------ |
-| `Image` / `Image.Root` | `data-slot="image-root"`   | Responsive native `<img>` element.         |
-| `Image.Source`         | `data-slot="image-source"` | Responsive `<source>` for native pictures. |
+| Part          | Hook                       | Notes                                      |
+| ------------- | -------------------------- | ------------------------------------------ |
+| `Image`       | `data-slot="image-root"`   | Responsive native `<img>` element.         |
+| `ImageSource` | `data-slot="image-source"` | Responsive `<source>` for native pictures. |
 
 ## Composition
 
@@ -77,7 +77,7 @@ container width.
 - `background="auto"`: preserved; Unpic generates a low-resolution background from supported
   image providers. The background remains after loading, so use it only for opaque images.
 - `fallback`, `operations`, `options`, and `breakpoints`: preserved for CDN-specific control.
-- `Image.Source`: preserved for native `<picture>` media and type selection. Put a `type` source
+- `ImageSource`: preserved for native `<picture>` media and type selection. Put a `type` source
   before an equivalent source without `type` so browsers can fall back to a supported format.
 
 ## Accessibility and state
@@ -85,7 +85,7 @@ container width.
 - `Image` is a native image element; provide meaningful `alt` text when it conveys information.
   Use `alt=""` for decorative media.
 - Unpic gives decorative images `role="presentation"` when `alt=""` unless a role is supplied.
-- The forwarded `Image` ref targets the underlying `<img>` and `Image.Source` targets `<source>`.
+- The forwarded `Image` ref targets the underlying `<img>` and `ImageSource` targets `<source>`.
 - The component has no managed state, callbacks, form integration, or Ark context.
 
 ## Defaults and styling
@@ -102,8 +102,7 @@ consumer CSS.
 
 ## Intentional sugar and differences from upstream
 
-- moduix adds `Image.Root` as a namespace alias and exposes Unpic's source component as
-  `Image.Source` instead of a separate top-level export.
+- moduix exposes Unpic's source component as the separate top-level `ImageSource` export.
 - Unlike Chakra's `Image`, moduix deliberately does not offer `asChild`: this component always
   renders a native `<img>` so Unpic's responsive output and `<picture>` fallback remain semantic.
 - moduix does not expose Unpic's Next.js entry point. The shipped component uses Unpic's standard
@@ -115,7 +114,7 @@ consumer CSS.
 ## Agent notes
 
 - Keep this wrapper thin and preserve Unpic prop names and generated responsive attributes.
-- Keep `Image.Source` attached to `Image` and document native `<picture>` composition whenever it
+- Keep `ImageSource` as a direct export and document native `<picture>` composition whenever it
   changes.
 - Do not add Next.js-specific behavior to this entry point.
 
@@ -123,8 +122,9 @@ consumer CSS.
 
 - 2026-08-11: Preserved explicit React `fetchPriority` overrides when `priority` is set and
   documented the native-element composition decision.
+- 2026-09-21: Migrated the component to the flat `Image` and `ImageSource` public API.
 - 2026-07-28: Kept image and source `data-slot` hooks invariant, added focused tests and priority
   coverage, and aligned preview sizing, copied examples, and Unpic format/layout guidance.
-- 2026-07-14: Added the Unpic-backed responsive `Image` component, `Image.Source`, styles,
+- 2026-07-14: Added the Unpic-backed responsive `Image` component, `ImageSource`, styles,
   stories, docs, package exports, and registry metadata. Fixed layout now preserves Unpic's exact
   dimensions and has dedicated Storybook and documentation examples.

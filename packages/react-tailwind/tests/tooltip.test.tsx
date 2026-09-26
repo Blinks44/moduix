@@ -2,7 +2,19 @@ import { describe, expect, test } from '@rstest/core';
 import { fireEvent, render, screen, waitFor } from '@testing-library/react';
 import { useState } from 'react';
 import { Button } from '../src/components/button';
-import { Tooltip, useTooltip, useTooltipContext } from '../src/components/tooltip';
+import {
+  Tooltip,
+  useTooltip,
+  useTooltipContext,
+  TooltipArrow,
+  TooltipArrowTip,
+  TooltipBody,
+  TooltipContent,
+  TooltipDisabledTrigger,
+  TooltipPositioner,
+  TooltipRootProvider,
+  TooltipTrigger,
+} from '../src/components/tooltip';
 
 describe('Tooltip', () => {
   test('preserves Ark open-change details and returns focus after Escape', async () => {
@@ -21,8 +33,8 @@ describe('Tooltip', () => {
             setOpen(detail.open);
           }}
         >
-          <Tooltip.Trigger>Save</Tooltip.Trigger>
-          <Tooltip.Body>Save changes</Tooltip.Body>
+          <TooltipTrigger>Save</TooltipTrigger>
+          <TooltipBody>Save changes</TooltipBody>
         </Tooltip>
       );
     }
@@ -50,8 +62,8 @@ describe('Tooltip', () => {
 
     render(
       <Tooltip open>
-        <Tooltip.Trigger>Save</Tooltip.Trigger>
-        <Tooltip.Body ref={ref}>Save changes</Tooltip.Body>
+        <TooltipTrigger>Save</TooltipTrigger>
+        <TooltipBody ref={ref}>Save changes</TooltipBody>
       </Tooltip>,
     );
 
@@ -65,10 +77,10 @@ describe('Tooltip', () => {
   test('keeps a disabled control discoverable through DisabledTrigger', async () => {
     render(
       <Tooltip openDelay={0} portalled={false}>
-        <Tooltip.DisabledTrigger aria-label="Create project is unavailable">
+        <TooltipDisabledTrigger aria-label="Create project is unavailable">
           <Button disabled>Create project</Button>
-        </Tooltip.DisabledTrigger>
-        <Tooltip.Body>Projects are unavailable while offline.</Tooltip.Body>
+        </TooltipDisabledTrigger>
+        <TooltipBody>Projects are unavailable while offline.</TooltipBody>
       </Tooltip>,
     );
 
@@ -89,8 +101,8 @@ describe('Tooltip', () => {
   test('portals the positioner by default and can render it inline', async () => {
     const { container, unmount } = render(
       <Tooltip open>
-        <Tooltip.Trigger>Save</Tooltip.Trigger>
-        <Tooltip.Body>Save changes</Tooltip.Body>
+        <TooltipTrigger>Save</TooltipTrigger>
+        <TooltipBody>Save changes</TooltipBody>
       </Tooltip>,
     );
 
@@ -101,8 +113,8 @@ describe('Tooltip', () => {
 
     const inlineTooltip = render(
       <Tooltip open portalled={false}>
-        <Tooltip.Trigger>Save</Tooltip.Trigger>
-        <Tooltip.Body>Save changes</Tooltip.Body>
+        <TooltipTrigger>Save</TooltipTrigger>
+        <TooltipBody>Save changes</TooltipBody>
       </Tooltip>,
     );
 
@@ -110,14 +122,14 @@ describe('Tooltip', () => {
     expect(inlineTooltip.container).toContainElement(inlineContent);
   });
 
-  test('renders the moduix arrow tip when Tooltip.Arrow has no child', async () => {
+  test('renders the moduix arrow tip when TooltipArrow has no child', async () => {
     render(
       <Tooltip open portalled={false}>
-        <Tooltip.Trigger>Save</Tooltip.Trigger>
-        <Tooltip.Body>
-          <Tooltip.Arrow />
+        <TooltipTrigger>Save</TooltipTrigger>
+        <TooltipBody>
+          <TooltipArrow />
           Save changes
-        </Tooltip.Body>
+        </TooltipBody>
       </Tooltip>,
     );
 
@@ -136,11 +148,11 @@ describe('Tooltip', () => {
       const tooltip = useTooltip({ openDelay: 0 });
 
       return (
-        <Tooltip.RootProvider value={tooltip} portalled={false}>
-          <Tooltip.Trigger>Save</Tooltip.Trigger>
-          <Tooltip.Body>Save changes</Tooltip.Body>
+        <TooltipRootProvider value={tooltip} portalled={false}>
+          <TooltipTrigger>Save</TooltipTrigger>
+          <TooltipBody>Save changes</TooltipBody>
           <ContextValue />
-        </Tooltip.RootProvider>
+        </TooltipRootProvider>
       );
     }
 
@@ -165,9 +177,9 @@ describe('Tooltip', () => {
             portalled={false}
             onTriggerValueChange={(detail) => setValue(detail.value ?? '')}
           >
-            <Tooltip.Trigger value="save">Save</Tooltip.Trigger>
-            <Tooltip.Trigger value="share">Share</Tooltip.Trigger>
-            <Tooltip.Body>Action tooltip</Tooltip.Body>
+            <TooltipTrigger value="save">Save</TooltipTrigger>
+            <TooltipTrigger value="share">Share</TooltipTrigger>
+            <TooltipBody>Action tooltip</TooltipBody>
           </Tooltip>
         </>
       );
@@ -192,22 +204,22 @@ describe('Tooltip', () => {
 
     render(
       <Tooltip open portalled={false}>
-        <Tooltip.Trigger ref={triggerRef}>Save</Tooltip.Trigger>
-        <Tooltip.Trigger ref={composedTriggerRef} asChild aria-label="Composed save">
+        <TooltipTrigger ref={triggerRef}>Save</TooltipTrigger>
+        <TooltipTrigger ref={composedTriggerRef} asChild aria-label="Composed save">
           <a href="#save">Composed save</a>
-        </Tooltip.Trigger>
-        <Tooltip.DisabledTrigger ref={disabledTriggerRef} aria-label="Disabled save">
+        </TooltipTrigger>
+        <TooltipDisabledTrigger ref={disabledTriggerRef} aria-label="Disabled save">
           <Button disabled>Disabled save</Button>
-        </Tooltip.DisabledTrigger>
-        <Tooltip.Body ref={bodyRef}>Body ref</Tooltip.Body>
-        <Tooltip.Positioner ref={positionerRef}>
-          <Tooltip.Content ref={contentRef}>
-            <Tooltip.Arrow ref={arrowRef}>
-              <Tooltip.ArrowTip ref={arrowTipRef} />
-            </Tooltip.Arrow>
+        </TooltipDisabledTrigger>
+        <TooltipBody ref={bodyRef}>Body ref</TooltipBody>
+        <TooltipPositioner ref={positionerRef}>
+          <TooltipContent ref={contentRef}>
+            <TooltipArrow ref={arrowRef}>
+              <TooltipArrowTip ref={arrowTipRef} />
+            </TooltipArrow>
             Explicit content
-          </Tooltip.Content>
-        </Tooltip.Positioner>
+          </TooltipContent>
+        </TooltipPositioner>
       </Tooltip>,
     );
 
@@ -224,15 +236,15 @@ describe('Tooltip', () => {
   test('applies Tailwind defaults to visual parts and lets consumer utilities override them', () => {
     render(
       <Tooltip open portalled={false}>
-        <Tooltip.Trigger className="px-2 text-primary">Save</Tooltip.Trigger>
-        <Tooltip.Positioner className="max-w-none">
-          <Tooltip.Content data-testid="content" className="bg-card px-6 text-left">
-            <Tooltip.Arrow>
-              <Tooltip.ArrowTip className="border-primary" />
-            </Tooltip.Arrow>
+        <TooltipTrigger className="px-2 text-primary">Save</TooltipTrigger>
+        <TooltipPositioner className="max-w-none">
+          <TooltipContent data-testid="content" className="bg-card px-6 text-left">
+            <TooltipArrow>
+              <TooltipArrowTip className="border-primary" />
+            </TooltipArrow>
             Save changes
-          </Tooltip.Content>
-        </Tooltip.Positioner>
+          </TooltipContent>
+        </TooltipPositioner>
       </Tooltip>,
     );
 

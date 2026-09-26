@@ -1,4 +1,12 @@
-import { Chart } from '@moduix/react/chart';
+import {
+  Chart,
+  ChartDescription,
+  ChartHeader,
+  ChartLegend,
+  ChartLegendItem,
+  ChartPlot,
+  ChartTitle,
+} from '@moduix/react/chart';
 import { defineChart, dot } from '@tanstack/charts';
 import { scaleLinear } from '@tanstack/charts/scales/linear';
 import { tooltip } from '@tanstack/charts/tooltip';
@@ -53,20 +61,20 @@ const definition = defineChart({
 export default function ScatterChartDemo() {
   return (
     <Chart>
-      <Chart.Header>
-        <Chart.Title>Engagement and conversion</Chart.Title>
-        <Chart.Description>Each point represents one customer account.</Chart.Description>
-      </Chart.Header>
-      <Chart.Plot
+      <ChartHeader>
+        <ChartTitle>Engagement and conversion</ChartTitle>
+        <ChartDescription>Each point represents one customer account.</ChartDescription>
+      </ChartHeader>
+      <ChartPlot
         definition={definition}
         height={320}
         ariaLabel="Account sessions and conversion rate"
       />
-      <Chart.Legend aria-label="Account segments">
-        <Chart.LegendItem color="var(--moduix-color-chart-1)">Starter</Chart.LegendItem>
-        <Chart.LegendItem color="var(--moduix-color-chart-2)">Growth</Chart.LegendItem>
-        <Chart.LegendItem color="var(--moduix-color-chart-3)">Scale</Chart.LegendItem>
-      </Chart.Legend>
+      <ChartLegend aria-label="Account segments">
+        <ChartLegendItem color="var(--moduix-color-chart-1)">Starter</ChartLegendItem>
+        <ChartLegendItem color="var(--moduix-color-chart-2)">Growth</ChartLegendItem>
+        <ChartLegendItem color="var(--moduix-color-chart-3)">Scale</ChartLegendItem>
+      </ChartLegend>
     </Chart>
   );
 }

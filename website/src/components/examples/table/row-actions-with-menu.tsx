@@ -1,6 +1,22 @@
 import { Button } from '@moduix/react/button';
-import { Menu } from '@moduix/react/menu';
-import { Table } from '@moduix/react/table';
+import {
+  Menu,
+  MenuTrigger,
+  MenuPositioner,
+  MenuContent,
+  MenuViewport,
+  MenuItem,
+  MenuSeparator,
+} from '@moduix/react/menu';
+import {
+  Table,
+  TableBody,
+  TableCell,
+  TableColumnHeader,
+  TableHeader,
+  TableRow,
+  TableScrollArea,
+} from '@moduix/react/table';
 
 const rows = [
   {
@@ -30,55 +46,55 @@ function RowActionsMenu({ itemName }: { itemName: string }) {
         placement: 'bottom-end',
       }}
     >
-      <Menu.Trigger asChild>
+      <MenuTrigger asChild>
         <Button variant="ghost" size="icon-sm" aria-label={`Open actions for ${itemName}`}>
           <span aria-hidden>…</span>
         </Button>
-      </Menu.Trigger>
-      <Menu.Positioner>
-        <Menu.Content>
-          <Menu.Viewport>
-            <Menu.Item value="open">Open project</Menu.Item>
-            <Menu.Item value="copy-link">Copy link</Menu.Item>
-            <Menu.Item value="duplicate">Duplicate</Menu.Item>
-            <Menu.Separator />
-            <Menu.Item value="archive" tone="destructive">
+      </MenuTrigger>
+      <MenuPositioner>
+        <MenuContent>
+          <MenuViewport>
+            <MenuItem value="open">Open project</MenuItem>
+            <MenuItem value="copy-link">Copy link</MenuItem>
+            <MenuItem value="duplicate">Duplicate</MenuItem>
+            <MenuSeparator />
+            <MenuItem value="archive" tone="destructive">
               Archive
-            </Menu.Item>
-          </Menu.Viewport>
-        </Menu.Content>
-      </Menu.Positioner>
+            </MenuItem>
+          </MenuViewport>
+        </MenuContent>
+      </MenuPositioner>
     </Menu>
   );
 }
 
 export default function TableRowActionsDemo() {
   return (
-    <Table.ScrollArea>
+    <TableScrollArea>
       <Table interactive>
-        <Table.Header>
-          <Table.Row>
-            <Table.ColumnHeader>Project</Table.ColumnHeader>
-            <Table.ColumnHeader>Owner</Table.ColumnHeader>
-            <Table.ColumnHeader>Environment</Table.ColumnHeader>
-            <Table.ColumnHeader>Updated</Table.ColumnHeader>
-            <Table.ColumnHeader>Actions</Table.ColumnHeader>
-          </Table.Row>
-        </Table.Header>
-        <Table.Body>
+        <TableHeader>
+          <TableRow>
+            <TableColumnHeader>Project</TableColumnHeader>
+            <TableColumnHeader>Owner</TableColumnHeader>
+            <TableColumnHeader>Environment</TableColumnHeader>
+            <TableColumnHeader>Updated</TableColumnHeader>
+            <TableColumnHeader>Actions</TableColumnHeader>
+          </TableRow>
+        </TableHeader>
+        <TableBody>
           {rows.map((row) => (
-            <Table.Row key={row.name}>
-              <Table.Cell>{row.name}</Table.Cell>
-              <Table.Cell>{row.owner}</Table.Cell>
-              <Table.Cell>{row.environment}</Table.Cell>
-              <Table.Cell>{row.updated}</Table.Cell>
-              <Table.Cell>
+            <TableRow key={row.name}>
+              <TableCell>{row.name}</TableCell>
+              <TableCell>{row.owner}</TableCell>
+              <TableCell>{row.environment}</TableCell>
+              <TableCell>{row.updated}</TableCell>
+              <TableCell>
                 <RowActionsMenu itemName={row.name} />
-              </Table.Cell>
-            </Table.Row>
+              </TableCell>
+            </TableRow>
           ))}
-        </Table.Body>
+        </TableBody>
       </Table>
-    </Table.ScrollArea>
+    </TableScrollArea>
   );
 }

@@ -5,8 +5,8 @@ Upstream docs:
 - Ark UI: no dedicated Empty primitive; use https://ark-ui.com/react/docs/guides/composition and
   https://ark-ui.com/react/docs/guides/styling plus https://ark-ui.com/react/docs/guides/ref
 - Chakra UI: https://chakra-ui.com/docs/components/empty-state provides an `EmptyState` reference
-  composition. Moduix intentionally keeps `Empty.Icon` as a root sibling rather than nesting it in
-  `Empty.Content`.
+  composition. Moduix intentionally keeps `EmptyIcon` as a root sibling rather than nesting it in
+  `EmptyContent`.
 
 ## Purpose
 
@@ -28,15 +28,15 @@ Preserve these Ark guide concepts:
 
 ## Current behavior contract
 
-- `Empty` is the callable root and is equivalent to `Empty.Root`.
-- `Empty.Icon`, `Empty.Content`, `Empty.Title`, `Empty.Description`, and `Empty.Actions` are
-  namespaced parts on the root component.
+- `Empty` is the callable root.
+- `EmptyIcon`, `EmptyContent`, `EmptyTitle`, `EmptyDescription`, and `EmptyActions` are flat
+  family-prefixed parts.
 - Every part forwards its ref to the rendered DOM element.
 - The package does not export dedicated `Empty*Props` aliases. Advanced typing should use Ark
   factory intrinsic props directly, for example `HTMLArkProps<'div'>` or `HTMLArkProps<'h3'>`.
-- `Empty.Title` renders `h3` by default. Use `asChild` with a heading element when the page outline
+- `EmptyTitle` renders `h3` by default. Use `asChild` with a heading element when the page outline
   needs a different level.
-- `Empty.Description` renders a `div`, not a `p`, so it can safely contain paragraphs, links, or
+- `EmptyDescription` renders a `div`, not a `p`, so it can safely contain paragraphs, links, or
   short block content.
 - The component does not provide built-in button props, icon props, variants, alignment flags, or
   state logic. Those concerns stay in composition.
@@ -44,47 +44,53 @@ Preserve these Ark guide concepts:
 ## Anatomy and exported parts
 
 ```text
-Empty / Empty.Root
-├─ Empty.Icon (optional)
-├─ Empty.Content
-│  ├─ Empty.Title
-│  └─ Empty.Description
-└─ Empty.Actions (optional)
+Empty
+├─ EmptyIcon (optional)
+├─ EmptyContent
+│  ├─ EmptyTitle
+│  └─ EmptyDescription
+└─ EmptyActions (optional)
 ```
 
-| Part                | Element | `data-part`   | `data-slot`         |
-| ------------------- | ------- | ------------- | ------------------- |
-| `Empty`             | `div`   | `root`        | `empty-root`        |
-| `Empty.Root`        | `div`   | `root`        | `empty-root`        |
-| `Empty.Icon`        | `div`   | `icon`        | `empty-icon`        |
-| `Empty.Content`     | `div`   | `content`     | `empty-content`     |
-| `Empty.Title`       | `h3`    | `title`       | `empty-title`       |
-| `Empty.Description` | `div`   | `description` | `empty-description` |
-| `Empty.Actions`     | `div`   | `actions`     | `empty-actions`     |
+| Part               | Element | `data-part`   | `data-slot`         |
+| ------------------ | ------- | ------------- | ------------------- |
+| `Empty`            | `div`   | `root`        | `empty-root`        |
+| `EmptyIcon`        | `div`   | `icon`        | `empty-icon`        |
+| `EmptyContent`     | `div`   | `content`     | `empty-content`     |
+| `EmptyTitle`       | `h3`    | `title`       | `empty-title`       |
+| `EmptyDescription` | `div`   | `description` | `empty-description` |
+| `EmptyActions`     | `div`   | `actions`     | `empty-actions`     |
 
 ## Composition
 
 ```tsx
 import { Button } from '@moduix/react/button';
-import { Empty } from '@moduix/react/empty';
+import {
+  Empty,
+  EmptyActions,
+  EmptyContent,
+  EmptyDescription,
+  EmptyIcon,
+  EmptyTitle,
+} from '@moduix/react/empty';
 import { Map as MapIcon } from 'lucide-react';
 
 export function EmptyResults() {
   return (
     <Empty>
-      <Empty.Icon>
+      <EmptyIcon>
         <MapIcon aria-hidden />
-      </Empty.Icon>
-      <Empty.Content>
-        <Empty.Title>No saved places</Empty.Title>
-        <Empty.Description>
+      </EmptyIcon>
+      <EmptyContent>
+        <EmptyTitle>No saved places</EmptyTitle>
+        <EmptyDescription>
           Save frequently used destinations to keep them close to your workspace.
-        </Empty.Description>
-      </Empty.Content>
-      <Empty.Actions>
+        </EmptyDescription>
+      </EmptyContent>
+      <EmptyActions>
         <Button>Add place</Button>
         <Button variant="outline">Import list</Button>
-      </Empty.Actions>
+      </EmptyActions>
     </Empty>
   );
 }
@@ -93,9 +99,9 @@ export function EmptyResults() {
 For a different heading level, use Ark factory composition:
 
 ```tsx
-<Empty.Title asChild>
+<EmptyTitle asChild>
   <h2>No saved places</h2>
-</Empty.Title>
+</EmptyTitle>
 ```
 
 ## Upstream feature coverage
@@ -114,7 +120,7 @@ For a different heading level, use Ark factory composition:
 choose the correct surrounding landmark, live-region behavior, and heading level for the screen.
 
 Refs point at the rendered part elements. `asChild` can replace a host element, but the child must
-remain semantic: use a heading for `Empty.Title`, a neutral container for `Empty.Description`, and a
+remain semantic: use a heading for `EmptyTitle`, a neutral container for `EmptyDescription`, and a
 button/link wrapper only where that semantic role is intentional.
 
 ## Defaults and styling
@@ -154,12 +160,12 @@ Public CSS variables:
 
 ## Intentional sugar and differences from upstream
 
-- There is no upstream Ark Empty API. The namespace is moduix-owned but shaped like other
-  Ark-aligned factory wrappers in this package.
+- There is no upstream Ark Empty API. The flat family-prefixed API is moduix-owned and shaped like
+  other Ark-aligned factory wrappers in this package.
 - Public `Empty*Props` aliases are intentionally omitted because they only duplicate Ark factory
   intrinsic prop types.
-- The previous flat exports (`EmptyIcon`, `EmptyContent`, `EmptyTitle`, `EmptyDescription`,
-  `EmptyActions`) were removed in favor of `Empty.*` namespaced parts.
+- The component parts are exported directly as `EmptyIcon`, `EmptyContent`, `EmptyTitle`,
+  `EmptyDescription`, and `EmptyActions`; no namespace assembly or compatibility aliases are kept.
 - The previous `EmptyTitle as` prop was removed. Use Ark factory `asChild` instead.
 - Optional parts are omitted through normal JSX composition rather than through boolean props.
 
@@ -167,7 +173,7 @@ Public CSS variables:
 
 - Keep `Empty` presentational. Do not add variants, alignment flags, image-loading helpers, state
   hooks, or built-in action props without a concrete product requirement.
-- Preserve `Empty.Description` as a `div`; replacing it with `p` makes block content composition
+- Preserve `EmptyDescription` as a `div`; replacing it with `p` makes block content composition
   error-prone.
 - If public `--moduix-empty-*` variables change, update `variables-moduix.css`, stories, docs examples, and the CSS
   properties reference in the same task.
@@ -183,10 +189,11 @@ Public CSS variables:
   long, added focused anatomy and `asChild` tests, and documented the presentational accessibility
   contract in the site docs.
 - 2026-07-21: Routed shared dimensions, spacing, icon geometry, and focus-ring fallbacks through foundation tokens so density and theme presets can retune the component consistently.
+- 2026-09-21: Replaced the compound `Empty.*` surface with the flat API across React, Solid, and
+  Tailwind variants. `Empty` is the only root value; every part uses an `Empty`-prefixed export.
 - 2026-07-02: Removed redundant exported `Empty*Props` aliases; the public API now exposes only the
-  callable `Empty` namespace while typing stays on Ark factory intrinsics.
+  callable `Empty` root while typing stays on Ark factory intrinsics.
 - 2026-06-25: Audited the Ark factory migration, confirmed the TSX and CSS contracts, and aligned
   public docs with the required local-only Ark factory API reference text.
 - 2026-06-19: Migrated `Empty` to an Ark-aligned factory wrapper with `data-scope`/`data-part`,
-  namespaced `Empty.*` parts, forwarded refs, and `asChild` composition. Removed flat part exports
-  and `EmptyTitle as`.
+  flat family-prefixed parts, forwarded refs, and `asChild` composition. Removed `EmptyTitle as`.

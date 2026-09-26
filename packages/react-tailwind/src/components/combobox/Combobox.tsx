@@ -27,7 +27,7 @@ type ComboboxRootProps<T extends CollectionItem> = ArkComboboxRootProps<T> & Ove
 type ComboboxRootProviderProps<T extends CollectionItem> = ArkComboboxRootProviderProps<T> &
   OverlayPortalProps;
 
-const ComboboxRoot = forwardRef(function ComboboxRoot<T extends CollectionItem>(
+const Combobox = forwardRef(function Combobox<T extends CollectionItem>(
   {
     className,
     lazyMount = true,
@@ -168,12 +168,12 @@ const ComboboxClearTrigger = forwardRef<
       {asChild ? (
         children
       ) : (
-        <CloseButton.Root
+        <CloseButton
           aria-label={ariaLabel ?? (ariaLabelledBy == null ? 'Clear selection' : undefined)}
           aria-labelledby={ariaLabelledBy}
         >
           {children}
-        </CloseButton.Root>
+        </CloseButton>
       )}
     </ComboboxPrimitive.ClearTrigger>
   );
@@ -372,27 +372,31 @@ const ComboboxOption = forwardRef<ComponentRef<typeof ComboboxPrimitive.Item>, C
   },
 );
 
-const Combobox = Object.assign(ComboboxRoot, {
-  Root: ComboboxRoot,
-  RootProvider: ComboboxRootProvider,
-  Label: ComboboxLabel,
-  Control: ComboboxControl,
-  Input: ComboboxInput,
-  ClearTrigger: ComboboxClearTrigger,
-  Trigger: ComboboxTrigger,
-  Positioner: ComboboxPositioner,
-  Content: ComboboxContent,
-  Empty: ComboboxEmpty,
-  Status: ComboboxStatus,
-  List: ComboboxList,
-  ItemGroup: ComboboxItemGroup,
-  ItemGroupLabel: ComboboxItemGroupLabel,
-  Item: ComboboxItem,
-  ItemText: ComboboxItemText,
-  ItemIndicator: ComboboxItemIndicator,
-  Option: ComboboxOption,
-  Context: ComboboxPrimitive.Context,
-  ItemContext: ComboboxPrimitive.ItemContext,
-});
+const ComboboxContext = ComboboxPrimitive.Context;
+const ComboboxItemContext = ComboboxPrimitive.ItemContext;
 
-export { Combobox, useCombobox, useComboboxContext, useComboboxItemContext };
+export {
+  Combobox,
+  ComboboxClearTrigger,
+  ComboboxContext,
+  ComboboxContent,
+  ComboboxControl,
+  ComboboxEmpty,
+  ComboboxInput,
+  ComboboxItem,
+  ComboboxItemContext,
+  ComboboxItemGroup,
+  ComboboxItemGroupLabel,
+  ComboboxItemIndicator,
+  ComboboxItemText,
+  ComboboxLabel,
+  ComboboxList,
+  ComboboxOption,
+  ComboboxPositioner,
+  ComboboxRootProvider,
+  ComboboxStatus,
+  ComboboxTrigger,
+  useCombobox,
+  useComboboxContext,
+  useComboboxItemContext,
+};

@@ -4,7 +4,7 @@ import { clsx } from 'clsx';
 import { splitProps } from 'solid-js';
 import styles from './Kbd.module.css';
 
-function KbdRoot(props: HTMLArkProps<'kbd'>) {
+function Kbd(props: HTMLArkProps<'kbd'>) {
   const [local, others] = splitProps(props, ['class']);
 
   return (
@@ -18,7 +18,7 @@ function KbdRoot(props: HTMLArkProps<'kbd'>) {
   );
 }
 
-function KbdGroupPart(props: HTMLArkProps<'span'>) {
+function KbdGroup(props: HTMLArkProps<'span'>) {
   const [local, others] = splitProps(props, ['class']);
 
   return (
@@ -33,9 +33,4 @@ function KbdGroupPart(props: HTMLArkProps<'span'>) {
   );
 }
 
-const Kbd = Object.assign(KbdRoot, {
-  Root: KbdRoot,
-  Group: KbdGroupPart,
-});
-
-export { Kbd };
+export { Kbd, KbdGroup };

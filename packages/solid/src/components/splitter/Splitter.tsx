@@ -25,7 +25,7 @@ function getRootStyle(style: SplitterRootStyle): JSX.CSSProperties | string {
   return { ...rootStyle, ...style };
 }
 
-function SplitterRoot(props: ComponentProps<typeof SplitterPrimitive.Root>) {
+function Splitter(props: ComponentProps<typeof SplitterPrimitive.Root>) {
   const [local, others] = splitProps(props, ['asChild', 'class', 'style']);
 
   return (
@@ -98,27 +98,16 @@ function SplitterResizeTrigger(props: ComponentProps<typeof SplitterPrimitive.Re
   );
 }
 
-type SplitterComponent = typeof SplitterRoot & {
-  Root: typeof SplitterRoot;
-  RootProvider: typeof SplitterRootProvider;
-  Context: typeof SplitterPrimitive.Context;
-  Panel: typeof SplitterPanel;
-  ResizeTrigger: typeof SplitterResizeTrigger;
-  ResizeTriggerIndicator: typeof SplitterResizeTriggerIndicator;
-};
-
-const Splitter: SplitterComponent = Object.assign(SplitterRoot, {
-  Root: SplitterRoot,
-  RootProvider: SplitterRootProvider,
-  Context: SplitterPrimitive.Context,
-  Panel: SplitterPanel,
-  ResizeTrigger: SplitterResizeTrigger,
-  ResizeTriggerIndicator: SplitterResizeTriggerIndicator,
-});
+const SplitterContext = SplitterPrimitive.Context;
 
 export {
   createSplitterRegistry,
   Splitter,
+  SplitterContext,
+  SplitterPanel,
+  SplitterResizeTrigger,
+  SplitterResizeTriggerIndicator,
+  SplitterRootProvider,
   type SplitterPanelData,
   useSplitter,
   useSplitterContext,

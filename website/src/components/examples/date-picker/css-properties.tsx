@@ -1,7 +1,7 @@
 import type { CssPropertyInput } from '../../mdx/reference';
 import { CSSPropertiesReferenceTable } from '../../mdx/reference';
 
-const datePickerOverrideCssProperties: CssPropertyInput[] = [
+export const datePickerOverrideCssProperties: CssPropertyInput[] = [
   ['--moduix-date-picker-action-bg', 'transparent', 'Controls action background.'],
   [
     '--moduix-date-picker-action-bg-hover',

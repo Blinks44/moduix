@@ -1,5 +1,15 @@
 import { Button } from '@moduix/solid/button';
-import { Toc, useToc } from '@moduix/solid/toc';
+import {
+  TocContent,
+  TocIndicator,
+  TocItem,
+  TocLink,
+  TocList,
+  TocNav,
+  TocRootProvider,
+  TocTitle,
+  useToc,
+} from '@moduix/solid/toc';
 import styles from '@/components/examples/table-of-contents/table-of-contents-root-provider.module.css';
 
 const items = [
@@ -33,8 +43,8 @@ export default function TocRootProviderDemo() {
         ))}
       </div>
 
-      <Toc.RootProvider class={styles.toc} value={toc}>
-        <Toc.Content>
+      <TocRootProvider class={styles.toc} value={toc}>
+        <TocContent>
           <div
             ref={(element) => (scrollRef = element)}
             aria-label="Scrollable document preview"
@@ -50,19 +60,19 @@ export default function TocRootProviderDemo() {
               </section>
             ))}
           </div>
-        </Toc.Content>
-        <Toc.Nav>
-          <Toc.Title>On this page</Toc.Title>
-          <Toc.List>
-            <Toc.Indicator />
+        </TocContent>
+        <TocNav>
+          <TocTitle>On this page</TocTitle>
+          <TocList>
+            <TocIndicator />
             {items.map((item) => (
-              <Toc.Item item={item}>
-                <Toc.Link href={`#${item.value}`}>{item.label}</Toc.Link>
-              </Toc.Item>
+              <TocItem item={item}>
+                <TocLink href={`#${item.value}`}>{item.label}</TocLink>
+              </TocItem>
             ))}
-          </Toc.List>
-        </Toc.Nav>
-      </Toc.RootProvider>
+          </TocList>
+        </TocNav>
+      </TocRootProvider>
     </div>
   );
 }

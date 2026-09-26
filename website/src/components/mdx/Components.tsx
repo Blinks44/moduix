@@ -1,4 +1,9 @@
-import { Collapsible } from '@moduix/react/collapsible';
+import {
+  Collapsible,
+  CollapsibleBody,
+  CollapsibleContent,
+  CollapsibleTrigger,
+} from '@moduix/react/collapsible';
 import { useI18n } from '@rspress/core/runtime';
 import { CodeBlockRuntime, Link, PackageManagerTabs, Tab, Tabs } from '@rspress/core/theme';
 import { ArrowUpRight, Code2, Layers3 } from 'lucide-react';
@@ -272,7 +277,7 @@ function ExampleCode({ children }: { children: ReactNode }) {
 
   return (
     <Collapsible className={styles.exampleCode}>
-      <Collapsible.Trigger asChild>
+      <CollapsibleTrigger asChild>
         <button
           aria-label={t('showCode')}
           className={styles.exampleCodeTrigger}
@@ -281,10 +286,10 @@ function ExampleCode({ children }: { children: ReactNode }) {
         >
           <Code2 aria-hidden="true" />
         </button>
-      </Collapsible.Trigger>
-      <Collapsible.Content className={styles.exampleCodeContent}>
-        <Collapsible.Body className={styles.exampleCodeBody}>{children}</Collapsible.Body>
-      </Collapsible.Content>
+      </CollapsibleTrigger>
+      <CollapsibleContent className={styles.exampleCodeContent}>
+        <CollapsibleBody className={styles.exampleCodeBody}>{children}</CollapsibleBody>
+      </CollapsibleContent>
     </Collapsible>
   );
 }

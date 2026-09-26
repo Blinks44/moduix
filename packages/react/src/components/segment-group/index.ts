@@ -1,6 +1,1 @@
-export {
-  SegmentGroup,
-  useSegmentGroup,
-  useSegmentGroupContext,
-  useSegmentGroupItemContext,
-} from './SegmentGroup.js';
+export * from './SegmentGroup.js';

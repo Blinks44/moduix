@@ -36,8 +36,8 @@ libellé, texte d’aide et message de validation.
 Importez `Fieldset` depuis `@moduix/react/fieldset` ou `@moduix/solid/fieldset` pour CSS Modules, et depuis
 `@moduix/react-tailwind/fieldset` ou `@moduix/solid-tailwind/fieldset` pour Tailwind CSS.
 
-Créez un groupe avec `Fieldset`, `Fieldset.Legend`, les contrôles associés et, si nécessaire, un texte d’aide ou un message
-d’erreur. La syntaxe courte `<Fieldset>` est équivalente à `<Fieldset.Root>`.
+Créez un groupe avec `Fieldset`, `FieldsetLegend`, les contrôles associés et, si nécessaire, un texte d’aide ou un message
+d’erreur. `Fieldset` est le composant racine du groupe.
 
 <ExampleFrame variant="component">
   <FieldsetBasic />
@@ -104,32 +104,32 @@ Consultez le [Démarrage rapide](/docs/quick-start) pour la configuration compl�
 ## Anatomie
 
 ```text
-Fieldset.Root | Fieldset.RootProvider
-├─ Fieldset.Legend
+Fieldset | FieldsetRootProvider
+├─ FieldsetLegend
 ├─ grouped controls
-├─ Fieldset.HelperText (optional)
-└─ Fieldset.ErrorText (optional)
+├─ FieldsetHelperText (optional)
+└─ FieldsetErrorText (optional)
 ```
 
 | Partie                        | Rôle                                                                                              |
 | ----------------------------- | ------------------------------------------------------------------------------------------------- |
-| `Fieldset` / `Fieldset.Root`  | Crée l’état et rend un élément `fieldset` natif.                                                  |
-| `Fieldset.RootProvider`       | Rend un `fieldset` natif avec l’état créé par `useFieldset`.                                      |
-| `Fieldset.Context`            | Expose l’état courant du groupe aux descendants sans rendre d’élément DOM supplémentaire.       |
-| `Fieldset.Legend`             | Élément `legend` natif qui fournit le nom accessible du groupe.                                   |
-| `Fieldset.HelperText`         | Description associée à la racine via `aria-describedby`.                                         |
-| `Fieldset.ErrorText`          | Message de validation annoncé via `aria-live="polite"` et rendu uniquement quand `invalid` vaut `true`. |
+| `Fieldset`                    | Crée l’état et rend un élément `fieldset` natif.                                                  |
+| `FieldsetRootProvider`        | Rend un `fieldset` natif avec l’état créé par `useFieldset`.                                      |
+| `FieldsetContext`             | Expose l’état courant du groupe aux descendants sans rendre d’élément DOM supplémentaire.       |
+| `FieldsetLegend`              | Élément `legend` natif qui fournit le nom accessible du groupe.                                   |
+| `FieldsetHelperText`          | Description associée à la racine via `aria-describedby`.                                         |
+| `FieldsetErrorText`           | Message de validation annoncé via `aria-live="polite"` et rendu uniquement quand `invalid` vaut `true`. |
 
 ## Composition
 
-Gardez une seule `Fieldset.Legend` visible dans la racine, puis placez les contrôles associés et leurs parties `Field` dans
+Gardez une seule `FieldsetLegend` visible dans la racine, puis placez les contrôles associés et leurs parties `Field` dans
 la même composition. Définissez `invalid` sur la racine pour une erreur de groupe et sur les composants `Field` imbriqués
 lorsque des contrôles individuels ont besoin de leur propre état de validation. Un fieldset désactivé transmet son état aux
 contrôles natifs et aux descendants compatibles avec Ark.
 
-Utilisez `useFieldset` du package correspondant (`@moduix/react` ou `@moduix/solid`) avec `Fieldset.RootProvider` lorsque
-l’état doit être créé en dehors de l’arbre rendu ou partagé avec des contrôles voisins. Utilisez `Fieldset.Context` ou
-`useFieldsetContext()` pour lire cet état dans un descendant, et ne rendez pas `Fieldset.Root` avec `Fieldset.RootProvider`
+Utilisez `useFieldset` du package correspondant (`@moduix/react` ou `@moduix/solid`) avec `FieldsetRootProvider` lorsque
+l’état doit être créé en dehors de l’arbre rendu ou partagé avec des contrôles voisins. Utilisez `FieldsetContext` ou
+`useFieldsetContext()` pour lire cet état dans un descendant, et ne rendez pas `Fieldset` avec `FieldsetRootProvider`
 pour la même instance. Utilisez `asChild` avec un seul enfant sémantique pour remplacer l’élément rendu par une partie.
 
 ## Exemples
@@ -137,7 +137,7 @@ pour la même instance. Utilisez `asChild` avec un seul enfant sémantique pour 
 ### Checkbox
 
 Utilisez la légende du fieldset pour donner un nom à un groupe de cases à cocher associées. Ajoutez
-`Checkbox.HiddenInput` à chaque case qui doit prendre en charge le focus natif, la soumission et la
+`CheckboxHiddenInput` à chaque case qui doit prendre en charge le focus natif, la soumission et la
 réinitialisation du formulaire.
 
 <ExampleFrame variant="component">
@@ -337,7 +337,7 @@ composants `Field` imbriqués lorsque des contrôles individuels doivent affiche
 
 ### Personnalisation avancée
 
-Utilisez `useFieldset` avec `Fieldset.RootProvider` pour créer l’état du fieldset en dehors de l’arbre JSX et le partager avec
+Utilisez `useFieldset` avec `FieldsetRootProvider` pour créer l’état du fieldset en dehors de l’arbre JSX et le partager avec
 des contrôles voisins ou des descendants réutilisables.
 
 <ExampleFrame variant="component">

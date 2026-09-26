@@ -1,28 +1,37 @@
-import { Editable } from '@moduix/solid/editable';
+import {
+  Editable,
+  EditableArea,
+  EditableContext,
+  EditableControl,
+  EditableEditTrigger,
+  EditableInput,
+  EditableLabel,
+  EditablePreview,
+} from '@moduix/solid/editable';
 import { Show } from 'solid-js';
 
 export default function AdvancedEditableCustomizationDemo() {
   return (
     <Editable defaultValue="Service area">
-      <Editable.Label>Name</Editable.Label>
-      <Editable.Area>
-        <Editable.Input />
-        <Editable.Preview />
-      </Editable.Area>
-      <Editable.Context>
+      <EditableLabel>Name</EditableLabel>
+      <EditableArea>
+        <EditableInput />
+        <EditablePreview />
+      </EditableArea>
+      <EditableContext>
         {(editable) => (
           <Show
             when={editable().editing}
             fallback={
-              <Editable.Control>
-                <Editable.EditTrigger />
-              </Editable.Control>
+              <EditableControl>
+                <EditableEditTrigger />
+              </EditableControl>
             }
           >
             <span>Enter to save, Esc to cancel.</span>
           </Show>
         )}
-      </Editable.Context>
+      </EditableContext>
     </Editable>
   );
 }

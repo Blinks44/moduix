@@ -25,7 +25,7 @@ ci-dessous ne séparent que les mécanismes propres au framework.
 | Comportement standard | Parties Moduix fournies |
 | Imports locaux du produit | Réexportations directes |
 | Règle visuelle ou structurelle répétée | Wrapper ciblé autour de la partie responsable |
-| État hors de l’arbre rendu | `use<Component>()` avec `RootProvider` |
+| État hors de l’arbre rendu | `use<Component>()` avec `<Family>RootProvider` |
 
 Choisissez le niveau le plus simple qui couvre le besoin répété. Une classe ou un callback isolé ne
 justifie pas une nouvelle API.
@@ -37,19 +37,19 @@ structurelles visibles pour préserver la responsabilité du placement, du défi
 styles.
 
 ```text
-Dialog / Dialog.Root
-├─ Dialog.Trigger
+Dialog
+├─ DialogTrigger
 └─ Overlay subtree, automatically portalled
-   ├─ Dialog.Backdrop
-   └─ Dialog.Positioner
-      └─ Dialog.Content
-         ├─ Dialog.Title
-         ├─ Dialog.Description
-         └─ Dialog.CloseTrigger
+   ├─ DialogBackdrop
+   └─ DialogPositioner
+      └─ DialogContent
+         ├─ DialogTitle
+         ├─ DialogDescription
+         └─ DialogCloseTrigger
 ```
 
 Utilisez `portalled={false}` pour un rendu en ligne et `portalRef` pour un conteneur personnalisé si
-le composant les prend en charge. `RootProvider` sert uniquement à un état créé hors de l’arbre rendu.
+le composant les prend en charge. `DialogRootProvider` sert uniquement à un état créé hors de l’arbre rendu.
 
 ## Composer un élément sémantique
 
@@ -80,22 +80,18 @@ Une réexportation stabilise l’import du produit sans modifier le comportement
   <Tab label="React" value="react">
 
 ```tsx
-import { Dialog as ModuixDialog } from '@moduix/react/dialog';
+import { Dialog, DialogContent, DialogTrigger } from '@moduix/react/dialog';
 
-export const Dialog = ModuixDialog;
-export const DialogTrigger = ModuixDialog.Trigger;
-export const DialogContent = ModuixDialog.Content;
+export { Dialog, DialogTrigger, DialogContent };
 ```
 
   </Tab>
   <Tab label="Solid" value="solid">
 
 ```tsx
-import { Dialog as ModuixDialog } from '@moduix/solid/dialog';
+import { Dialog, DialogContent, DialogTrigger } from '@moduix/solid/dialog';
 
-export const Dialog = ModuixDialog;
-export const DialogTrigger = ModuixDialog.Trigger;
-export const DialogContent = ModuixDialog.Content;
+export { Dialog, DialogTrigger, DialogContent };
 ```
 
   </Tab>
@@ -105,7 +101,7 @@ Le passage entre les imports du package et le code du registre reste alors simpl
 
 ## Ajouter un contrat produit
 
-N’enveloppez que la partie responsable de la décision. Ici, `Dialog.Content` ajoute `tone` et le
+N’enveloppez que la partie responsable de la décision. Ici, `DialogContent` ajoute `tone` et le
 traduit en variables publiques de Dialog sans modifier le reste de l’arbre.
 
 <div className="docs-reference">
@@ -138,8 +134,8 @@ convient pas.
 
 ## Déplacer l’état avec sa responsabilité
 
-Utilisez `Context` pour une lecture ponctuelle dans l’arbre et `useDialogContext()` dans un descendant
-réutilisable. Créez l’état avec `useDialog()` et reliez-le à `Dialog.RootProvider` uniquement lorsque
+Utilisez `DialogContext` pour une lecture ponctuelle dans l’arbre et `useDialogContext()` dans un descendant
+réutilisable. Créez l’état avec `useDialog()` et reliez-le à `DialogRootProvider` uniquement lorsque
 des contrôles extérieurs au Dialog en ont besoin.
 
 <Tabs groupId="framework">
@@ -157,7 +153,7 @@ des contrôles extérieurs au Dialog en ont besoin.
 
 ## Vérifier la frontière
 
-- Gardez les parties fournies tant que le produit n’introduit pas de règle répétée.
+- Gardez `DialogBackdrop`, `DialogPositioner`, `DialogContent` et les autres parties portant du sens visibles.
 - Réexportez l’API avant de créer un wrapper.
 - Transmettez les propriétés, classes et références d’origine.
 - N’ajoutez une propriété publique que pour une décision répétée du produit.

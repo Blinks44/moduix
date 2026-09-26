@@ -1,6 +1,15 @@
 import { createListCollection } from '@ark-ui/solid/collection';
 import { Input } from '@moduix/solid/input';
-import { Select } from '@moduix/solid/select';
+import {
+  Select,
+  SelectLabel,
+  SelectField,
+  SelectPositioner,
+  SelectContent,
+  SelectItem,
+  SelectItemText,
+  SelectItemIndicator,
+} from '@moduix/solid/select';
 import { createMemo, createSignal, For } from 'solid-js';
 import styles from '@/components/examples/select/select-dynamic-items.module.css';
 
@@ -34,20 +43,20 @@ export default function SelectDynamicItemsDemo() {
         placeholder="Filter fruits"
       />
       <Select collection={collection()}>
-        <Select.Label>Choose fruit</Select.Label>
-        <Select.Field placeholder="Select an option" clearLabel="Clear selection" />
-        <Select.Positioner>
-          <Select.Content>
+        <SelectLabel>Choose fruit</SelectLabel>
+        <SelectField placeholder="Select an option" clearLabel="Clear selection" />
+        <SelectPositioner>
+          <SelectContent>
             <For each={collection().items}>
               {(item) => (
-                <Select.Item item={item}>
-                  <Select.ItemText>{item.label}</Select.ItemText>
-                  <Select.ItemIndicator />
-                </Select.Item>
+                <SelectItem item={item}>
+                  <SelectItemText>{item.label}</SelectItemText>
+                  <SelectItemIndicator />
+                </SelectItem>
               )}
             </For>
-          </Select.Content>
-        </Select.Positioner>
+          </SelectContent>
+        </SelectPositioner>
       </Select>
     </div>
   );

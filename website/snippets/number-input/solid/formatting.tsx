@@ -1,4 +1,4 @@
-import { NumberInput } from '@moduix/solid/number-input';
+import { NumberInput, NumberInputField, NumberInputLabel } from '@moduix/solid/number-input';
 
 export default function FormattedNumberInputDemo() {
   return (
@@ -12,8 +12,8 @@ export default function FormattedNumberInputDemo() {
         maximumFractionDigits: 0,
       }}
     >
-      <NumberInput.Label>Price</NumberInput.Label>
-      <NumberInput.Field />
+      <NumberInputLabel>Price</NumberInputLabel>
+      <NumberInputField />
     </NumberInput>
   );
 }

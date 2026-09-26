@@ -46,7 +46,7 @@ import dateInputSolidTimeOnly from '../../../snippets/date-input/solid/time-only
 ## Basic
 
 `DateInput` renders locale-aware date segments that users can edit with the keyboard. Put
-`DateInput.Segments` inside `DateInput.Control` for the standard composition. The preview uses the
+`DateInputSegments` inside `DateInputControl` for the standard composition.
 
 <ExampleFrame variant="component">
   <DateInputBasic />
@@ -113,48 +113,48 @@ See [Quick Start](/docs/quick-start) for full package setup, registry configurat
 ## Anatomy
 
 ```text
-DateInput / DateInput.Root
-├─ DateInput.Label
-├─ DateInput.Control
-│  ├─ DateInput.Segments
-│  └─ DateInput.Separator (optional, range layouts)
-└─ DateInput.HiddenInput[index] (explicit, one per submitted date)
+DateInput
+├─ DateInputLabel
+├─ DateInputControl
+│  ├─ DateInputSegments
+│  └─ DateInputSeparator (optional, range layouts)
+└─ DateInputHiddenInput[index] (explicit, one per submitted date)
 
 Advanced customization:
 
-DateInput.SegmentGroup
-└─ DateInput.SegmentContext
-   └─ DateInput.Segment
+DateInputSegmentGroup
+└─ DateInputSegmentContext
+   └─ DateInputSegment
 
-DateInput.RootProvider
+DateInputRootProvider
 └─ same part tree connected to a useDateInput() store
 ```
 
 | Part | Role |
 | ---- | ---- |
-| `DateInput` / `DateInput.Root` | Owns date values, locale formatting, segment focus, and validation. |
-| `DateInput.HiddenInput` | Native Ark form control that must be composed explicitly for submission. |
-| `DateInput.RootProvider` | Connects the parts to state created by `useDateInput()`. |
-| `DateInput.Label` | Accessible label for the date input. |
-| `DateInput.Control` | Visual frame around one or more segment groups. |
-| `DateInput.SegmentGroup` | Groups segments for one date index. |
-| `DateInput.Segment` | Editable or literal segment supplied by Ark UI. |
-| `DateInput.Segments` | Renders one locale-aware segment group for the common case. |
-| `DateInput.Separator` | Presentational text used between range groups. |
-| `DateInput.Context` | Renderless access to the current date input state. |
-| `DateInput.SegmentContext` | Render helper for locale-aware segment rendering. |
+| `DateInput` | Owns date values, locale formatting, segment focus, and validation. |
+| `DateInputHiddenInput` | Native Ark form control that must be composed explicitly for submission. |
+| `DateInputRootProvider` | Connects the parts to state created by `useDateInput()`. |
+| `DateInputLabel` | Accessible label for the date input. |
+| `DateInputControl` | Visual frame around one or more segment groups. |
+| `DateInputSegmentGroup` | Groups segments for one date index. |
+| `DateInputSegment` | Editable or literal segment supplied by Ark UI. |
+| `DateInputSegments` | Renders one locale-aware segment group for the common case. |
+| `DateInputSeparator` | Presentational text used between range groups. |
+| `DateInputContext` | Renderless access to the current date input state. |
+| `DateInputSegmentContext` | Render helper for locale-aware segment rendering. |
 
 ## Composition
 
-Use `DateInput` with `DateInput.Control` and `DateInput.Segments` for the standard field. Keep the
+Use `DateInput` with `DateInputControl` and `DateInputSegments` for the standard field. Keep the
 state uncontrolled with `defaultValue`, control it with `value` and `onValueChange(details)`, or
-create it with `useDateInput()` and connect the parts through `DateInput.RootProvider`. Values use
+create it with `useDateInput()` and connect the parts through `DateInputRootProvider`. Values use
 the `DateInputDateValue[]` shape from `@internationalized/date`, not strings.
 
-`DateInput.HiddenInput` is explicit because the root does not add native inputs. Render one hidden
+`DateInputHiddenInput` is explicit because the root does not add native inputs. Render one hidden
 input for each submitted date and use matching `index` values for a range. Use
-`DateInput.SegmentGroup`, `DateInput.SegmentContext`, and `DateInput.Segment` only when the default
-`DateInput.Segments` rendering is not enough.
+`DateInputSegmentGroup`, `DateInputSegmentContext`, and `DateInputSegment` only when the default
+`DateInputSegments` rendering is not enough.
 
 ## Examples
 
@@ -437,7 +437,7 @@ Use `min`, `max`, and `isDateUnavailable` to mark entered dates outside business
 ### Range
 
 Use `selectionMode="range"`, pass `index` to each segment group, and add matching indexed
-`DateInput.HiddenInput` parts when the values belong to a form.
+`DateInputHiddenInput` parts when the values belong to a form.
 
 <ExampleFrame variant="component">
   <DateInputRange />
@@ -515,7 +515,7 @@ Set `dir="rtl"` with an RTL locale to keep the locale's segment order and direct
 
 ### Root Provider
 
-Use `useDateInput()` from `@moduix/react` or `@moduix/solid` with `DateInput.RootProvider` when
+Use `useDateInput()` from `@moduix/react` or `@moduix/solid` with `DateInputRootProvider` when
 state actions need to be available outside the rendered root tree.
 
 <ExampleFrame variant="component">
@@ -596,7 +596,7 @@ of the value users edit.
 ### Advanced customization
 
 Use the full segment composition when rendering needs to vary based on Ark segment data.
-`DateInput.Segments` remains the default path for standard rendering.
+`DateInputSegments` remains the default path for standard rendering.
 
 <ExampleFrame variant="component">
   <DateInputAdvancedCustomization />

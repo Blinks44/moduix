@@ -1,16 +1,27 @@
 import { expect, test } from '@rstest/core';
 import { fireEvent, render, screen, waitFor } from '@testing-library/react';
 import { createRef, useState } from 'react';
-import { HoverCard, useHoverCard, useHoverCardContext } from '../src';
+import {
+  HoverCard,
+  HoverCardArrow,
+  HoverCardArrowTip,
+  HoverCardBody,
+  HoverCardContent,
+  HoverCardPositioner,
+  HoverCardRootProvider,
+  HoverCardTrigger,
+  useHoverCard,
+  useHoverCardContext,
+} from '../src';
 
 function HoverCardSurface({ children = 'Profile details' }: { children?: string }) {
   return (
-    <HoverCard.Positioner>
-      <HoverCard.Content data-testid="content">
-        <HoverCard.Arrow />
-        <HoverCard.Body>{children}</HoverCard.Body>
-      </HoverCard.Content>
-    </HoverCard.Positioner>
+    <HoverCardPositioner>
+      <HoverCardContent data-testid="content">
+        <HoverCardArrow />
+        <HoverCardBody>{children}</HoverCardBody>
+      </HoverCardContent>
+    </HoverCardPositioner>
   );
 }
 
@@ -27,7 +38,7 @@ test('opens from a focused trigger and keeps Ark open-change details', async () 
           portalled={false}
           onOpenChange={(details) => setOpen(details.open)}
         >
-          <HoverCard.Trigger>Profile</HoverCard.Trigger>
+          <HoverCardTrigger>Profile</HoverCardTrigger>
           <HoverCardSurface />
         </HoverCard>
       </>
@@ -45,7 +56,7 @@ test('opens from a focused trigger and keeps Ark open-change details', async () 
 test('does not mount a disabled hover card before it opens', () => {
   render(
     <HoverCard disabled openDelay={0} portalled={false}>
-      <HoverCard.Trigger>Profile</HoverCard.Trigger>
+      <HoverCardTrigger>Profile</HoverCardTrigger>
       <HoverCardSurface />
     </HoverCard>,
   );
@@ -58,7 +69,7 @@ test('does not mount a disabled hover card before it opens', () => {
 test('portals the positioner by default and can render it inline', () => {
   const { container, unmount } = render(
     <HoverCard open>
-      <HoverCard.Trigger>Profile</HoverCard.Trigger>
+      <HoverCardTrigger>Profile</HoverCardTrigger>
       <HoverCardSurface />
     </HoverCard>,
   );
@@ -69,7 +80,7 @@ test('portals the positioner by default and can render it inline', () => {
 
   const inlineHoverCard = render(
     <HoverCard open portalled={false}>
-      <HoverCard.Trigger>Profile</HoverCard.Trigger>
+      <HoverCardTrigger>Profile</HoverCardTrigger>
       <HoverCardSurface />
     </HoverCard>,
   );
@@ -77,10 +88,10 @@ test('portals the positioner by default and can render it inline', () => {
   expect(inlineHoverCard.container).toContainElement(screen.getByTestId('content'));
 });
 
-test('renders the moduix arrow tip when HoverCard.Arrow has no child', () => {
+test('renders the moduix arrow tip when HoverCardArrow has no child', () => {
   render(
     <HoverCard open portalled={false}>
-      <HoverCard.Trigger>Profile</HoverCard.Trigger>
+      <HoverCardTrigger>Profile</HoverCardTrigger>
       <HoverCardSurface />
     </HoverCard>,
   );
@@ -103,11 +114,11 @@ test('keeps RootProvider state available through the moduix context hook', async
     const hoverCard = useHoverCard({ openDelay: 0 });
 
     return (
-      <HoverCard.RootProvider value={hoverCard} portalled={false}>
-        <HoverCard.Trigger>Profile</HoverCard.Trigger>
+      <HoverCardRootProvider value={hoverCard} portalled={false}>
+        <HoverCardTrigger>Profile</HoverCardTrigger>
         <HoverCardSurface />
         <ContextValue />
-      </HoverCard.RootProvider>
+      </HoverCardRootProvider>
     );
   }
 
@@ -130,8 +141,8 @@ test('reports the active value when moving between triggers', async () => {
           portalled={false}
           onTriggerValueChange={(details) => setValue(details.value ?? '')}
         >
-          <HoverCard.Trigger value="sarah">Sarah</HoverCard.Trigger>
-          <HoverCard.Trigger value="alex">Alex</HoverCard.Trigger>
+          <HoverCardTrigger value="sarah">Sarah</HoverCardTrigger>
+          <HoverCardTrigger value="alex">Alex</HoverCardTrigger>
           <HoverCardSurface />
         </HoverCard>
       </>
@@ -154,18 +165,18 @@ test('forwards refs through native parts and preserves asChild composition', () 
 
   render(
     <HoverCard open portalled={false}>
-      <HoverCard.Trigger ref={triggerRef}>Profile</HoverCard.Trigger>
-      <HoverCard.Trigger asChild>
+      <HoverCardTrigger ref={triggerRef}>Profile</HoverCardTrigger>
+      <HoverCardTrigger asChild>
         <a href="#profile">Composed profile</a>
-      </HoverCard.Trigger>
-      <HoverCard.Positioner ref={positionerRef}>
-        <HoverCard.Content ref={contentRef}>
-          <HoverCard.Arrow ref={arrowRef}>
-            <HoverCard.ArrowTip ref={arrowTipRef} />
-          </HoverCard.Arrow>
-          <HoverCard.Body />
-        </HoverCard.Content>
-      </HoverCard.Positioner>
+      </HoverCardTrigger>
+      <HoverCardPositioner ref={positionerRef}>
+        <HoverCardContent ref={contentRef}>
+          <HoverCardArrow ref={arrowRef}>
+            <HoverCardArrowTip ref={arrowTipRef} />
+          </HoverCardArrow>
+          <HoverCardBody />
+        </HoverCardContent>
+      </HoverCardPositioner>
     </HoverCard>,
   );
 
@@ -183,15 +194,15 @@ test('forwards refs through native parts and preserves asChild composition', () 
 test('lets consumer classes override defaults and keeps visual parts styled', () => {
   render(
     <HoverCard open portalled={false}>
-      <HoverCard.Trigger className="gap-2 text-destructive">Profile</HoverCard.Trigger>
-      <HoverCard.Positioner className="max-w-none">
-        <HoverCard.Content data-testid="content" className="bg-card p-4">
-          <HoverCard.Arrow className="[--arrow-size:1rem]">
-            <HoverCard.ArrowTip className="border-primary" />
-          </HoverCard.Arrow>
-          <HoverCard.Body className="overflow-hidden">Profile details</HoverCard.Body>
-        </HoverCard.Content>
-      </HoverCard.Positioner>
+      <HoverCardTrigger className="gap-2 text-destructive">Profile</HoverCardTrigger>
+      <HoverCardPositioner className="max-w-none">
+        <HoverCardContent data-testid="content" className="bg-card p-4">
+          <HoverCardArrow className="[--arrow-size:1rem]">
+            <HoverCardArrowTip className="border-primary" />
+          </HoverCardArrow>
+          <HoverCardBody className="overflow-hidden">Profile details</HoverCardBody>
+        </HoverCardContent>
+      </HoverCardPositioner>
     </HoverCard>,
   );
 

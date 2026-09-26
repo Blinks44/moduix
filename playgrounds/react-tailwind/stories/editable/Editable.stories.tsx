@@ -1,7 +1,17 @@
 import { Field as FieldPrimitive } from '@ark-ui/react/field';
 import type { Meta, StoryObj } from '@storybook/react-vite';
 import { useState } from 'react';
-import { Editable, useEditable } from '@/components/editable/Editable';
+import {
+  Editable,
+  EditableArea,
+  EditableContext,
+  EditableControls,
+  EditableInput,
+  EditableLabel,
+  EditablePreview,
+  EditableRootProvider,
+  useEditable,
+} from '@/components/editable/Editable';
 
 const meta = {
   title: 'Components/Editable',
@@ -23,12 +33,12 @@ const actionClassName = 'rounded-sm border border-border bg-background px-2 py-1
 export const Basic: Story = {
   render: () => (
     <Editable defaultValue="Layer name">
-      <Editable.Label>Name</Editable.Label>
-      <Editable.Area>
-        <Editable.Input />
-        <Editable.Preview />
-      </Editable.Area>
-      <Editable.Controls />
+      <EditableLabel>Name</EditableLabel>
+      <EditableArea>
+        <EditableInput />
+        <EditablePreview />
+      </EditableArea>
+      <EditableControls />
     </Editable>
   ),
 };
@@ -40,12 +50,12 @@ export const Controlled: Story = {
     return (
       <div className={stackClassName}>
         <Editable value={value} onValueChange={(details) => setValue(details.value)}>
-          <Editable.Label>Controlled value</Editable.Label>
-          <Editable.Area>
-            <Editable.Input />
-            <Editable.Preview />
-          </Editable.Area>
-          <Editable.Controls />
+          <EditableLabel>Controlled value</EditableLabel>
+          <EditableArea>
+            <EditableInput />
+            <EditablePreview />
+          </EditableArea>
+          <EditableControls />
         </Editable>
         <p className={hintClassName}>Current value: {value || 'empty'}</p>
       </div>
@@ -56,17 +66,17 @@ export const Controlled: Story = {
 export const AdvancedCustomization: Story = {
   render: () => (
     <Editable defaultValue="Service area">
-      <Editable.Label>Name</Editable.Label>
-      <Editable.Area>
-        <Editable.Input />
-        <Editable.Preview />
-      </Editable.Area>
-      <Editable.Controls />
-      <Editable.Context>
+      <EditableLabel>Name</EditableLabel>
+      <EditableArea>
+        <EditableInput />
+        <EditablePreview />
+      </EditableArea>
+      <EditableControls />
+      <EditableContext>
         {(editable) =>
           editable.editing ? <p className={hintClassName}>Enter to save, Esc to cancel.</p> : null
         }
-      </Editable.Context>
+      </EditableContext>
     </Editable>
   ),
 };
@@ -74,12 +84,12 @@ export const AdvancedCustomization: Story = {
 export const Controls: Story = {
   render: () => (
     <Editable defaultValue="Transit corridor" submitMode="none">
-      <Editable.Label>Project title</Editable.Label>
-      <Editable.Area>
-        <Editable.Input />
-        <Editable.Preview />
-      </Editable.Area>
-      <Editable.Controls />
+      <EditableLabel>Project title</EditableLabel>
+      <EditableArea>
+        <EditableInput />
+        <EditablePreview />
+      </EditableArea>
+      <EditableControls />
     </Editable>
   ),
 };
@@ -92,14 +102,14 @@ export const Textarea: Story = {
       submitMode="none"
       placeholder="Enter a description"
     >
-      <Editable.Label>Description</Editable.Label>
-      <Editable.Area className="items-start">
-        <Editable.Input asChild>
+      <EditableLabel>Description</EditableLabel>
+      <EditableArea className="items-start">
+        <EditableInput asChild>
           <textarea />
-        </Editable.Input>
-        <Editable.Preview className="min-h-24 whitespace-pre-wrap" />
-      </Editable.Area>
-      <Editable.Controls className="self-start" />
+        </EditableInput>
+        <EditablePreview className="min-h-24 whitespace-pre-wrap" />
+      </EditableArea>
+      <EditableControls className="self-start" />
       <p className={hintClassName}>Double-click to edit. Press Cmd/Ctrl + Enter to save.</p>
     </Editable>
   ),
@@ -109,12 +119,12 @@ export const WithField: Story = {
   render: () => (
     <FieldPrimitive.Root invalid>
       <Editable defaultValue="" placeholder="Click to edit your bio" required>
-        <Editable.Label>Bio</Editable.Label>
-        <Editable.Area>
-          <Editable.Input />
-          <Editable.Preview />
-        </Editable.Area>
-        <Editable.Controls />
+        <EditableLabel>Bio</EditableLabel>
+        <EditableArea>
+          <EditableInput />
+          <EditablePreview />
+        </EditableArea>
+        <EditableControls />
       </Editable>
       <FieldPrimitive.ErrorText className={hintClassName}>
         Bio is required.
@@ -127,21 +137,21 @@ export const DisabledAndReadOnly: Story = {
   render: () => (
     <div className={stackClassName}>
       <Editable disabled defaultValue="Managed by your workspace">
-        <Editable.Label>Disabled name</Editable.Label>
-        <Editable.Area>
-          <Editable.Input />
-          <Editable.Preview />
-        </Editable.Area>
-        <Editable.Controls />
+        <EditableLabel>Disabled name</EditableLabel>
+        <EditableArea>
+          <EditableInput />
+          <EditablePreview />
+        </EditableArea>
+        <EditableControls />
       </Editable>
 
       <Editable readOnly defaultValue="Assigned workspace">
-        <Editable.Label>Read-only name</Editable.Label>
-        <Editable.Area>
-          <Editable.Input />
-          <Editable.Preview />
-        </Editable.Area>
-        <Editable.Controls />
+        <EditableLabel>Read-only name</EditableLabel>
+        <EditableArea>
+          <EditableInput />
+          <EditablePreview />
+        </EditableArea>
+        <EditableControls />
       </Editable>
     </div>
   ),
@@ -156,14 +166,14 @@ export const RootProvider: Story = {
 
     return (
       <div className={stackClassName}>
-        <Editable.RootProvider value={editable}>
-          <Editable.Label>External state</Editable.Label>
-          <Editable.Area>
-            <Editable.Input />
-            <Editable.Preview />
-          </Editable.Area>
-          <Editable.Controls />
-        </Editable.RootProvider>
+        <EditableRootProvider value={editable}>
+          <EditableLabel>External state</EditableLabel>
+          <EditableArea>
+            <EditableInput />
+            <EditablePreview />
+          </EditableArea>
+          <EditableControls />
+        </EditableRootProvider>
         <div className="flex gap-2">
           <button className={actionClassName} type="button" onClick={() => editable.edit()}>
             Edit
@@ -184,12 +194,12 @@ export const RootProvider: Story = {
 export const CustomStyling: Story = {
   render: () => (
     <Editable defaultValue="Custom area">
-      <Editable.Label>Styled editable</Editable.Label>
-      <Editable.Area className="w-64 rounded-sm border-primary data-focus:outline-primary">
-        <Editable.Input />
-        <Editable.Preview />
-      </Editable.Area>
-      <Editable.Controls />
+      <EditableLabel>Styled editable</EditableLabel>
+      <EditableArea className="w-64 rounded-sm border-primary data-focus:outline-primary">
+        <EditableInput />
+        <EditablePreview />
+      </EditableArea>
+      <EditableControls />
     </Editable>
   ),
 };

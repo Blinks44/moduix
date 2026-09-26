@@ -22,13 +22,13 @@ const inputVariants = cva(
   },
 );
 
-const InputRoot = forwardRef<
+const Input = forwardRef<
   ComponentRef<typeof FieldPrimitive.Input>,
   Omit<ComponentProps<typeof FieldPrimitive.Input>, 'size'> & {
     size?: 'xs' | 'sm' | 'md' | 'lg' | 'xl';
     htmlSize?: ComponentProps<'input'>['size'];
   }
->(function InputRoot({ className, htmlSize, size = 'md', ...props }, ref) {
+>(function Input({ className, htmlSize, size = 'md', ...props }, ref) {
   return (
     <FieldPrimitive.Input
       {...props}
@@ -46,10 +46,6 @@ const InputRoot = forwardRef<
       size={htmlSize}
     />
   );
-});
-
-const Input = Object.assign(InputRoot, {
-  Root: InputRoot,
 });
 
 export { Input };

@@ -1,4 +1,12 @@
-import { Lightbox } from '@moduix/solid/lightbox';
+import {
+  LightboxTrigger,
+  LightboxBackdrop,
+  LightboxPositioner,
+  LightboxContent,
+  LightboxCloseIcon,
+  LightboxImage,
+  Lightbox,
+} from '@moduix/solid/lightbox';
 import { For, createSignal } from 'solid-js';
 import styles from '@/components/examples/lightbox/lightbox-multiple-triggers.module.css';
 
@@ -38,7 +46,7 @@ export default function MultipleTriggersLightboxDemo() {
       <div class={styles.gallery}>
         <For each={images}>
           {(image) => (
-            <Lightbox.Trigger
+            <LightboxTrigger
               value={image.id}
               asChild={(props) => (
                 <button {...props()} type="button" class={styles.galleryTrigger}>
@@ -49,13 +57,13 @@ export default function MultipleTriggersLightboxDemo() {
           )}
         </For>
       </div>
-      <Lightbox.Backdrop />
-      <Lightbox.Positioner>
-        <Lightbox.CloseIcon />
-        <Lightbox.Content aria-label={activeImage().alt}>
-          <Lightbox.Image src={activeImage().src} alt={activeImage().alt} />
-        </Lightbox.Content>
-      </Lightbox.Positioner>
+      <LightboxBackdrop />
+      <LightboxPositioner>
+        <LightboxCloseIcon />
+        <LightboxContent aria-label={activeImage().alt}>
+          <LightboxImage src={activeImage().src} alt={activeImage().alt} />
+        </LightboxContent>
+      </LightboxPositioner>
     </Lightbox>
   );
 }

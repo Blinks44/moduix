@@ -1,4 +1,13 @@
-import { Carousel } from '@moduix/react/carousel';
+import {
+  Carousel,
+  CarouselAutoplayIndicator,
+  CarouselAutoplayTrigger,
+  CarouselContext,
+  CarouselControl,
+  CarouselIndicators,
+  CarouselItem,
+  CarouselItemGroup,
+} from '@moduix/react/carousel';
 import { PreviewMeta } from '@/components/mdx/Components';
 import styles from '@/components/examples/carousel/carousel-pause-on-hover.module.css';
 
@@ -39,38 +48,38 @@ export default function PauseOnHoverCarousel() {
       loop
       slideCount={slides.length}
     >
-      <Carousel.Context>
+      <CarouselContext>
         {(api) => (
           <>
-            <Carousel.ItemGroup
+            <CarouselItemGroup
               className={styles.itemGroup}
               onFocus={() => api.pause()}
               onPointerEnter={() => api.pause()}
               onPointerLeave={() => api.play()}
             >
               {slides.map((slide, index) => (
-                <Carousel.Item key={slide.id} index={index}>
+                <CarouselItem key={slide.id} index={index}>
                   <img className={styles.image} src={slide.src} alt={slide.alt} />
-                </Carousel.Item>
+                </CarouselItem>
               ))}
-            </Carousel.ItemGroup>
-            <Carousel.Control
+            </CarouselItemGroup>
+            <CarouselControl
               className={styles.control}
               onFocus={() => api.pause()}
               onPointerEnter={() => api.pause()}
               onPointerLeave={() => api.play()}
             >
-              <Carousel.AutoplayTrigger>
-                <Carousel.AutoplayIndicator fallback="Play">Pause</Carousel.AutoplayIndicator>
-              </Carousel.AutoplayTrigger>
-              <Carousel.Indicators />
-            </Carousel.Control>
+              <CarouselAutoplayTrigger>
+                <CarouselAutoplayIndicator fallback="Play">Pause</CarouselAutoplayIndicator>
+              </CarouselAutoplayTrigger>
+              <CarouselIndicators />
+            </CarouselControl>
             <PreviewMeta style={{ marginInline: 'auto' }}>
               <output>Autoplay: {api.isPlaying ? 'playing' : 'paused'}</output>
             </PreviewMeta>
           </>
         )}
-      </Carousel.Context>
+      </CarouselContext>
     </Carousel>
   );
 }

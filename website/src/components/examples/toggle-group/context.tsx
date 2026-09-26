@@ -1,4 +1,4 @@
-import { ToggleGroup, useToggleGroupContext } from '@moduix/react/toggle-group';
+import { ToggleGroup, ToggleGroupItem, useToggleGroupContext } from '@moduix/react/toggle-group';
 import { CheckIcon } from 'lucide-react';
 import type { ReactNode } from 'react';
 
@@ -7,10 +7,10 @@ function AlignmentItem({ children, value }: { children: ReactNode; value: string
   const selected = toggleGroup.value.includes(value);
 
   return (
-    <ToggleGroup.Item value={value}>
+    <ToggleGroupItem value={value}>
       {children}
       {selected ? <CheckIcon aria-hidden="true" /> : null}
-    </ToggleGroup.Item>
+    </ToggleGroupItem>
   );
 }
 

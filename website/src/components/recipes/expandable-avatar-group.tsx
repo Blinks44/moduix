@@ -1,5 +1,5 @@
-import { Avatar } from '@moduix/react/avatar';
-import { Tooltip } from '@moduix/react/tooltip';
+import { Avatar, AvatarFallback, AvatarImage } from '@moduix/react/avatar';
+import { Tooltip, TooltipBody, TooltipTrigger } from '@moduix/react/tooltip';
 import styles from './expandable-avatar-group.module.css';
 
 const members = [
@@ -52,22 +52,22 @@ export function ExpandableAvatarGroup() {
     <div className={styles.group} role="group" aria-label="Project team">
       {members.map((member) => (
         <Tooltip key={member.name} positioning={{ placement: 'top', gutter: 10 }} openDelay={120}>
-          <Tooltip.Trigger asChild>
+          <TooltipTrigger asChild>
             <button
               className={styles.member}
               type="button"
               aria-label={`${member.name}, ${member.role}`}
             >
               <Avatar size="lg">
-                <Avatar.Image src={member.image} alt="" />
-                <Avatar.Fallback>{member.name.slice(0, 1)}</Avatar.Fallback>
+                <AvatarImage src={member.image} alt="" />
+                <AvatarFallback>{member.name.slice(0, 1)}</AvatarFallback>
               </Avatar>
             </button>
-          </Tooltip.Trigger>
-          <Tooltip.Body className={styles.tooltip}>
+          </TooltipTrigger>
+          <TooltipBody className={styles.tooltip}>
             <strong>{member.name}</strong>
             <span>{member.role}</span>
-          </Tooltip.Body>
+          </TooltipBody>
         </Tooltip>
       ))}
     </div>

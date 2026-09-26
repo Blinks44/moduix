@@ -49,8 +49,8 @@ centrée qui n'a pas besoin d'être déplacée.
 
 
 Composez le panneau avec les parties structurelles d'Ark. Cet exemple s'ouvre sur un point d'ancrage
-compact, puis peut être déplacé jusqu'à sa hauteur maximale. `Drawer.Content` est la surface
-interactive, `Drawer.Positioner` la positionne et `Drawer.Backdrop` fournit le calque modal.
+compact, puis peut être déplacé jusqu'à sa hauteur maximale. `DrawerContent` est la surface
+interactive, `DrawerPositioner` la positionne et `DrawerBackdrop` fournit le calque modal.
 
 <ExampleFrame variant="component">
   <DrawerBasic />
@@ -117,58 +117,58 @@ Consultez le [Démarrage rapide](/docs/quick-start) pour la configuration compl�
 ## Anatomie
 
 ```text
-Drawer / Drawer.Root
-├─ Drawer.Trigger
-├─ Drawer.SwipeArea (facultatif)
-├─ Drawer.Backdrop
-└─ Drawer.Positioner
-   └─ Drawer.Content
-      ├─ Drawer.Grabber
-      │  └─ Drawer.GrabberIndicator
-      ├─ Drawer.Header (aide de mise en page facultative)
-      │  ├─ Drawer.Title
-      │  ├─ Drawer.Description
-      │  └─ Drawer.CloseIcon (aide facultative)
-      ├─ Drawer.Body (aide de mise en page facultative)
-      └─ Drawer.Footer (aide de mise en page facultative)
+Drawer
+├─ DrawerTrigger
+├─ DrawerSwipeArea (facultatif)
+├─ DrawerBackdrop
+└─ DrawerPositioner
+   └─ DrawerContent
+      ├─ DrawerGrabber
+      │  └─ DrawerGrabberIndicator
+      ├─ DrawerHeader (aide de mise en page facultative)
+      │  ├─ DrawerTitle
+      │  ├─ DrawerDescription
+      │  └─ DrawerCloseIcon (aide facultative)
+      ├─ DrawerBody (aide de mise en page facultative)
+      └─ DrawerFooter (aide de mise en page facultative)
 
-Drawer.RootProvider
+DrawerRootProvider
 └─ même arborescence de parties connectée à un store useDrawer()
 ```
 
 | Partie | Rôle |
 | --- | --- |
-| `Drawer` / `Drawer.Root` | Partie racine qui gère l'état d'ouverture, les points d'ancrage et le balayage. |
-| `Drawer.RootProvider` | Connecte les parties à l'état créé avec `useDrawer()`. |
-| `Drawer.Trigger` | Ouvre le panneau. |
-| `Drawer.SwipeArea` | Zone facultative au bord de l'écran qui ouvre le panneau par balayage. |
-| `Drawer.Backdrop` | Calque modal. |
-| `Drawer.Positioner` | Positionne le contenu du panneau. |
-| `Drawer.Content` | Surface interactive du panneau. |
-| `Drawer.Grabber` | Conteneur de la poignée de déplacement. |
-| `Drawer.GrabberIndicator` | Indicateur visuel dans la poignée. |
-| `Drawer.Title` | Nom accessible du panneau. |
-| `Drawer.Description` | Description accessible du panneau. |
-| `Drawer.CloseTrigger` | Ferme le panneau. |
-| `Drawer.CloseIcon` | Contrôle de fermeture moduix composé avec `CloseTrigger`. |
-| `Drawer.Stack` | Coordonne les panneaux imbriqués et les surfaces décalées. |
-| `Drawer.Indent` | Surface qui recule lorsqu'un panneau empilé s'ouvre. |
-| `Drawer.IndentBackground` | Arrière-plan derrière une surface décalée. |
-| `Drawer.Header`, `Drawer.Body`, `Drawer.Footer` | Aides de mise en page facultatives sans état propre. |
+| `Drawer` | Partie racine qui gère l'état d'ouverture, les points d'ancrage et le balayage. |
+| `DrawerRootProvider` | Connecte les parties à l'état créé avec `useDrawer()`. |
+| `DrawerTrigger` | Ouvre le panneau. |
+| `DrawerSwipeArea` | Zone facultative au bord de l'écran qui ouvre le panneau par balayage. |
+| `DrawerBackdrop` | Calque modal. |
+| `DrawerPositioner` | Positionne le contenu du panneau. |
+| `DrawerContent` | Surface interactive du panneau. |
+| `DrawerGrabber` | Conteneur de la poignée de déplacement. |
+| `DrawerGrabberIndicator` | Indicateur visuel dans la poignée. |
+| `DrawerTitle` | Nom accessible du panneau. |
+| `DrawerDescription` | Description accessible du panneau. |
+| `DrawerCloseTrigger` | Ferme le panneau. |
+| `DrawerCloseIcon` | Contrôle de fermeture moduix composé avec `DrawerCloseTrigger`. |
+| `DrawerStack` | Coordonne les panneaux imbriqués et les surfaces décalées. |
+| `DrawerIndent` | Surface qui recule lorsqu'un panneau empilé s'ouvre. |
+| `DrawerIndentBackground` | Arrière-plan derrière une surface décalée. |
+| `DrawerHeader`, `DrawerBody`, `DrawerFooter` | Aides de mise en page facultatives sans état propre. |
 
 ## Composition
 
-Par défaut, `Drawer` gère son état et rend `Backdrop` et `Positioner` dans un portail. Gardez ces
+Par défaut, `Drawer` gère son état et rend `DrawerBackdrop` et `DrawerPositioner` dans un portail. Gardez ces
 parties structurelles explicites. Définissez `portalled={false}` pour les rendre dans l'arborescence
 actuelle, ou transmettez `portalRef` pour utiliser un conteneur personnalisé.
 
 Lorsque l'état doit être créé en dehors de l'arborescence du panneau, créez un store avec
-`useDrawer()` et transmettez-le à un seul `Drawer.RootProvider`. Ne rendez pas `Drawer` ou
-`Drawer.Root` pour ce même store. Les panneaux imbriqués utilisent des stores et des arborescences
-`RootProvider` distincts afin de conserver leur propre état d'ouverture et de focus.
+`useDrawer()` et transmettez-le à un seul `DrawerRootProvider`. Ne rendez pas `Drawer` pour ce même
+store. Les panneaux imbriqués utilisent des stores et des arborescences
+`DrawerRootProvider` distincts afin de conserver leur propre état d'ouverture et de focus.
 
-Regroupez dans `Drawer.Stack` les surfaces qui doivent se déplacer ensemble, puis associez
-`Drawer.IndentBackground` et `Drawer.Indent`. Utilisez `asChild` pour un hôte personnalisé du trigger
+Regroupez dans `DrawerStack` les surfaces qui doivent se déplacer ensemble, puis associez
+`DrawerIndentBackground` et `DrawerIndent`. Utilisez `asChild` pour un hôte personnalisé du trigger
 ou de la fermeture : React reçoit un seul enfant pouvant recevoir le focus, tandis que Solid utilise
 une fonction de rendu qui diffuse `props()` sur l'enfant. Les callbacks Ark reçoivent des objets de
 détails, comme `details.open`, `details.snapPoint` et `details.value`.
@@ -209,7 +209,7 @@ Lisez `details.open` dans le callback Ark. Le callback reçoit un objet de déta
 ### Contrôles du déplacement
 
 Ajoutez `data-no-drag` aux zones interactives qui ne doivent pas lancer un déplacement. Définissez
-`draggable={false}` sur `Drawer.Content` si le panneau doit se déplacer uniquement depuis la poignée.
+`draggable={false}` sur `DrawerContent` si le panneau doit se déplacer uniquement depuis la poignée.
 
 <ExampleFrame variant="component">
   <DrawerDragControls />
@@ -240,7 +240,7 @@ Ajoutez `data-no-drag` aux zones interactives qui ne doivent pas lancer un dépl
 
 ### Poignée flottante
 
-Placez `Drawer.Grabber` au-dessus de la surface lorsque la poignée doit apparaître comme un contrôle
+Placez `DrawerGrabber` au-dessus de la surface lorsque la poignée doit apparaître comme un contrôle
 distinct. Le style de cet exemple laisse un espace de 10px entre la poignée et le bord du panneau.
 
 <ExampleFrame variant="component">
@@ -272,8 +272,8 @@ distinct. Le style de cet exemple laisse un espace de 10px entre la poignée et 
 
 ### Arrière-plan décalé
 
-`Drawer.Stack` utilise l'état de la pile et la progression du balayage d'Ark pour déplacer
-`IndentBackground` et `Indent` ensemble.
+`DrawerStack` utilise l'état de la pile et la progression du balayage d'Ark pour déplacer
+`DrawerIndentBackground` et `DrawerIndent` ensemble.
 
 <ExampleFrame variant="component">
   <DrawerIndentBackground />
@@ -304,7 +304,7 @@ distinct. Le style de cet exemple laisse un espace de 10px entre la poignée et 
 
 ### Îlot
 
-Définissez `variant="island"` sur `Drawer.Content` lorsqu'un panneau compact doit rester à
+Définissez `variant="island"` sur `DrawerContent` lorsqu'un panneau compact doit rester à
 l'intérieur de la fenêtre avec un retrait, plutôt que de dépasser visuellement du bord d'ouverture.
 
 <ExampleFrame variant="component">
@@ -368,7 +368,7 @@ indique quel trigger est actif.
 
 ### Panneaux imbriqués
 
-Utilisez des instances Ark `useDrawer` et des arborescences moduix `Drawer.RootProvider` distinctes
+Utilisez des instances Ark `useDrawer` et des arborescences moduix `DrawerRootProvider` distinctes
 pour les panneaux imbriqués. Chaque panneau conserve ainsi son propre état d'ouverture et son cycle
 de vie du focus.
 
@@ -465,7 +465,7 @@ doivent l'ouvrir ou modifier ses points d'ancrage.
 
 ### Contenu défilant
 
-Placez le contenu long dans `Drawer.Body`. Utilisez `ScrollArea` lorsque le panneau doit disposer
+Placez le contenu long dans `DrawerBody`. Utilisez `ScrollArea` lorsque le panneau doit disposer
 d'une zone de défilement dédiée tandis que la poignée et l'en-tête restent fixes.
 
 <ExampleFrame variant="component">
@@ -561,7 +561,7 @@ fonctionne en LTR et en RTL. Utilisez `up` pour un panneau supérieur et `down` 
 
 ### Personnalisation avancée
 
-Omettez les aides facultatives `Header`, `Body`, `Footer` et `CloseIcon` lorsqu'une mise en page
+Omettez les aides facultatives `DrawerHeader`, `DrawerBody`, `DrawerFooter` et `DrawerCloseIcon` lorsqu'une mise en page
 personnalisée a besoin de toute l'anatomie bas niveau de Drawer.
 
 <ExampleFrame variant="component">
@@ -602,17 +602,7 @@ variables ci-dessous personnalisent les variantes CSS Modules. Les attributs de 
 
 ### Propriétés CSS
 
-<div className="docs-reference">
-  <Tabs
-    values={[{ label: 'CSS Variables', value: 'CSS Variables' }]}
-    className="docs-reference-tabs"
-    contentItemClassName="docs-reference-panel"
-  >
-    <Tab>
-      <DrawerDocs.DrawerCssPropertiesPanel />
-    </Tab>
-  </Tabs>
-</div>
+<CssPropertiesSection properties={DrawerDocs.drawerOverrideCssProperties} />
 
 ### Points d’accroche CSS
 
@@ -620,7 +610,7 @@ variables ci-dessous personnalisent les variantes CSS Modules. Les attributs de 
   `drawer-grabber`, `drawer-grabber-indicator`, `drawer-title`, `drawer-description`,
   `drawer-close-trigger`, `drawer-close-icon`, `drawer-swipe-area`, `drawer-indent`,
   `drawer-indent-background`, `drawer-header`, `drawer-body` et `drawer-footer`.
-- `Drawer.Content` écrit `data-variant="island"` lorsque sa présentation en îlot est active.
+- `DrawerContent` écrit `data-variant="island"` lorsque sa présentation en îlot est active.
 - hooks des parties Ark : `data-scope="drawer"` avec `data-part`.
 - hooks d'état : `data-state="open|closed"`, `data-swipe-direction`, `data-swiping`,
   `data-dragging`, `data-expanded`, `data-current`, `data-value`, `data-disabled`,

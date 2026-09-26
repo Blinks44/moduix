@@ -1,5 +1,5 @@
-import { Fieldset } from '@moduix/react/fieldset';
-import { RadioGroup } from '@moduix/react/radio-group';
+import { Fieldset, FieldsetLegend } from '@moduix/react/fieldset';
+import { RadioGroup, RadioGroupOption } from '@moduix/react/radio-group';
 import styles from '@/components/examples/radio-group/radio-group-with-fieldset.module.css';
 
 const frameworks = ['React', 'Solid', 'Vue'];
@@ -7,12 +7,12 @@ const frameworks = ['React', 'Solid', 'Vue'];
 export default function RadioGroupFieldsetDemo() {
   return (
     <Fieldset className={styles.root}>
-      <Fieldset.Legend>Select a framework</Fieldset.Legend>
+      <FieldsetLegend>Select a framework</FieldsetLegend>
       <RadioGroup defaultValue="React">
         {frameworks.map((framework) => (
-          <RadioGroup.Option key={framework} value={framework}>
+          <RadioGroupOption key={framework} value={framework}>
             {framework}
-          </RadioGroup.Option>
+          </RadioGroupOption>
         ))}
       </RadioGroup>
     </Fieldset>

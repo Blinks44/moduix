@@ -19,7 +19,7 @@ export type PopoverRootProviderProps = ComponentProps<typeof PopoverPrimitive.Ro
   portalRef?: OverlayPortalProps['portalRef'];
 };
 
-function PopoverRoot({
+function Popover({
   lazyMount = true,
   modal,
   portalled,
@@ -225,7 +225,7 @@ const PopoverCloseTrigger = forwardRef<
 });
 
 const PopoverCloseIcon = forwardRef<
-  ComponentRef<typeof CloseButton.Root>,
+  ComponentRef<typeof CloseButton>,
   Omit<ComponentProps<typeof PopoverPrimitive.CloseTrigger>, 'asChild'>
 >(function PopoverCloseIcon(
   { className, children, 'aria-label': ariaLabel = DEFAULT_CLOSE_BUTTON_LABEL, ...props },
@@ -233,7 +233,7 @@ const PopoverCloseIcon = forwardRef<
 ) {
   return (
     <PopoverPrimitive.CloseTrigger asChild {...props}>
-      <CloseButton.Root
+      <CloseButton
         ref={ref}
         data-slot="popover-close-icon"
         aria-label={ariaLabel}
@@ -243,7 +243,7 @@ const PopoverCloseIcon = forwardRef<
         )}
       >
         {children}
-      </CloseButton.Root>
+      </CloseButton>
     </PopoverPrimitive.CloseTrigger>
   );
 });
@@ -285,24 +285,26 @@ const PopoverFooter = forwardRef<ComponentRef<typeof ark.div>, HTMLArkProps<'div
   },
 );
 
-const Popover = Object.assign(PopoverRoot, {
-  Root: PopoverRoot,
-  RootProvider: PopoverRootProvider,
-  Context: PopoverPrimitive.Context,
-  Anchor: PopoverAnchor,
-  Trigger: PopoverTrigger,
-  Indicator: PopoverIndicator,
-  Positioner: PopoverPositioner,
-  Content: PopoverContent,
-  Arrow: PopoverArrow,
-  ArrowTip: PopoverArrowTip,
-  Title: PopoverTitle,
-  Description: PopoverDescription,
-  CloseTrigger: PopoverCloseTrigger,
-  CloseIcon: PopoverCloseIcon,
-  Header: PopoverHeader,
-  Body: PopoverBody,
-  Footer: PopoverFooter,
-});
+const PopoverContext = PopoverPrimitive.Context;
 
-export { Popover, usePopover, usePopoverContext };
+export {
+  Popover,
+  PopoverAnchor,
+  PopoverArrow,
+  PopoverArrowTip,
+  PopoverBody,
+  PopoverCloseIcon,
+  PopoverCloseTrigger,
+  PopoverContent,
+  PopoverContext,
+  PopoverDescription,
+  PopoverFooter,
+  PopoverHeader,
+  PopoverIndicator,
+  PopoverPositioner,
+  PopoverRootProvider,
+  PopoverTitle,
+  PopoverTrigger,
+  usePopover,
+  usePopoverContext,
+};

@@ -108,9 +108,8 @@ SimpleGrid
 
 ## Composition
 
-Use the short `<SimpleGrid>` form for the root; `SimpleGrid.Root` is an equivalent compatibility
-alias. Choose either `minChildWidth` for an intrinsic column count or `columns` for a fixed count.
-If both are provided, `minChildWidth` takes priority.
+Use `<SimpleGrid>` as the root. Choose either `minChildWidth` for an intrinsic column count or
+`columns` for a fixed count. If both are provided, `minChildWidth` takes priority.
 
 Use `asChild` when the grid root should be a semantic element such as `ul`, `section`, or `nav`.
 It requires exactly one element child, which becomes the rendered root. In React, pass `asChild` as

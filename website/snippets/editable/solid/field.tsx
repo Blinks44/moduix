@@ -1,19 +1,26 @@
-import { Editable } from '@moduix/solid/editable';
-import { Field } from '@moduix/solid/field';
+import {
+  Editable,
+  EditableArea,
+  EditableControls,
+  EditableInput,
+  EditableLabel,
+  EditablePreview,
+} from '@moduix/solid/editable';
+import { Field, FieldErrorText } from '@moduix/solid/field';
 import styles from '@/components/examples/editable/editable-field.module.css';
 
 export default function FieldEditableDemo() {
   return (
     <Field class={styles.root} invalid>
       <Editable defaultValue="" placeholder="Click to edit your bio" required>
-        <Editable.Label>Bio</Editable.Label>
-        <Editable.Area>
-          <Editable.Input />
-          <Editable.Preview />
-        </Editable.Area>
-        <Editable.Controls />
+        <EditableLabel>Bio</EditableLabel>
+        <EditableArea>
+          <EditableInput />
+          <EditablePreview />
+        </EditableArea>
+        <EditableControls />
       </Editable>
-      <Field.ErrorText>Bio is required.</Field.ErrorText>
+      <FieldErrorText>Bio is required.</FieldErrorText>
     </Field>
   );
 }

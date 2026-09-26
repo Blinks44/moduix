@@ -1,0 +1,29 @@
+{
+  "$schema": "https://ui.shadcn.com/schema/registry-item.json",
+  "name": "close-button",
+  "title": "CloseButton",
+  "description": "moduix Vue CloseButton component.",
+  "dependencies": ["@ark-ui/vue", "clsx"],
+  "registryDependencies": ["@moduix-vue/foundation", "@moduix-vue/icons"],
+  "files": [
+    {
+      "path": "src/components/close-button/CloseButton.vue",
+      "content": "<script setup lang=\"ts\">\nimport { ark } from '@ark-ui/vue/factory';\nimport type { HTMLArkProps } from '@ark-ui/vue/factory';\nimport { clsx } from 'clsx';\nimport { computed, useAttrs } from 'vue';\nimport type { HTMLAttributes } from 'vue';\nimport { CloseIcon } from '@/internal/icons/ui/Icons';\nimport styles from './CloseButton.module.css';\n\ndefineOptions({ inheritAttrs: false });\n\ntype Booleanish = boolean | 'false' | 'true';\n\nexport interface Props extends /* @vue-ignore */ HTMLArkProps<'button'> {\n  asChild?: boolean;\n  ariaLabel?: string;\n  ariaLabelledby?: string;\n  class?: HTMLAttributes['class'];\n  dataDisabled?: string;\n  dataPart?: string;\n  dataScope?: string;\n  dataSlot?: string;\n  disabled?: boolean;\n  onClick?: (event: MouseEvent) => void;\n  onClickCapture?: (event: MouseEvent) => void;\n  type?: 'button' | 'reset' | 'submit';\n}\n\nconst {\n  asChild = false,\n  ariaLabel,\n  ariaLabelledby,\n  class: className,\n  dataDisabled,\n  dataPart = 'root',\n  dataScope = 'close-button',\n  dataSlot = 'close-button-root',\n  disabled = false,\n  onClick,\n  onClickCapture,\n  type,\n} = defineProps<Props>();\n\ndefineSlots<{ default?: () => unknown }>();\n\nconst attrs = useAttrs();\nconst ariaDisabled = computed(() => attrs['aria-disabled'] as Booleanish | undefined);\nconst isDisabled = computed(\n  () =>\n    disabled ||\n    ariaDisabled.value === true ||\n    ariaDisabled.value === 'true' ||\n    dataDisabled !== undefined,\n);\n\nconst handleClickCapture = (event: MouseEvent) => {\n  if (isDisabled.value) {\n    event.preventDefault();\n    event.stopPropagation();\n    return;\n  }\n\n  onClickCapture?.(event);\n};\n\nconst handleClick = (event: MouseEvent) => {\n  if (isDisabled.value) {\n    event.preventDefault();\n    event.stopPropagation();\n    return;\n  }\n\n  onClick?.(event);\n};\n</script>\n\n<template>\n  <ark.button\n    v-bind=\"attrs\"\n    :as-child=\"asChild\"\n    :type=\"asChild ? type : (type ?? 'button')\"\n    :disabled=\"asChild ? undefined : disabled\"\n    :aria-disabled=\"asChild && disabled ? true : ariaDisabled\"\n    :aria-label=\"ariaLabel ?? (ariaLabelledby == null ? 'Close' : undefined)\"\n    :aria-labelledby=\"ariaLabelledby\"\n    @click.capture=\"handleClickCapture\"\n    @click=\"handleClick\"\n    :data-scope=\"dataScope\"\n    :data-part=\"dataPart\"\n    :data-slot=\"dataSlot\"\n    :data-disabled=\"dataDisabled ?? (isDisabled ? '' : undefined)\"\n    :class=\"clsx(styles.root, className)\"\n  >\n    <slot><CloseIcon /></slot>\n  </ark.button>\n</template>",
+      "type": "registry:component",
+      "target": "@components/ui/close-button/CloseButton.vue"
+    },
+    {
+      "path": "src/components/close-button/CloseButton.module.css",
+      "content": "@layer moduix.components {\n  .root {\n    box-sizing: border-box;\n    display: inline-flex;\n    align-items: center;\n    justify-content: center;\n    flex-shrink: 0;\n    width: var(--moduix-close-button-size, var(--moduix-spacing-7));\n    height: var(--moduix-close-button-size, var(--moduix-spacing-7));\n    margin: 0;\n    padding: 0;\n    border: none;\n    background-color: var(--moduix-close-button-bg, transparent);\n    border-radius: var(--moduix-close-button-radius, var(--moduix-radius-sm));\n    color: var(--moduix-close-button-color, var(--moduix-color-muted-foreground));\n    appearance: none;\n    font: inherit;\n    user-select: none;\n    cursor: pointer;\n    transition:\n      background-color var(--moduix-close-button-transition, var(--moduix-transition-default)),\n      color var(--moduix-close-button-transition, var(--moduix-transition-default)),\n      opacity var(--moduix-close-button-transition, var(--moduix-transition-default));\n\n    & > svg {\n      flex-shrink: 0;\n      width: var(--moduix-close-button-icon-size, var(--moduix-spacing-3));\n      height: var(--moduix-close-button-icon-size, var(--moduix-spacing-3));\n    }\n\n    @media (hover: hover) {\n      &:hover:not([data-disabled]) {\n        background-color: var(--moduix-close-button-bg-hover, var(--moduix-color-muted));\n        color: var(--moduix-close-button-color-hover, var(--moduix-color-foreground));\n      }\n    }\n\n    &:focus-visible {\n      outline: var(\n          --moduix-close-button-focus-ring-width,\n          var(--moduix-focus-ring-width, var(--moduix-border-width-md))\n        )\n        solid var(--moduix-close-button-focus-ring-color, var(--moduix-color-ring));\n      outline-offset: var(--moduix-close-button-focus-ring-offset, var(--moduix-focus-ring-offset));\n    }\n\n    &:active:not([data-disabled]) {\n      opacity: 0.94;\n    }\n\n    &[data-disabled] {\n      cursor: default;\n      pointer-events: none;\n      opacity: var(--moduix-close-button-disabled-opacity, var(--moduix-opacity-disabled));\n    }\n  }\n}",
+      "type": "registry:file",
+      "target": "@components/ui/close-button/CloseButton.module.css"
+    },
+    {
+      "path": "src/components/close-button/index.ts",
+      "content": "export { default as CloseButton } from './CloseButton.vue';",
+      "type": "registry:component",
+      "target": "@components/ui/close-button/index.ts"
+    }
+  ],
+  "type": "registry:item"
+}

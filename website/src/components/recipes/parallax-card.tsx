@@ -1,4 +1,4 @@
-import { Card } from '@moduix/react/card';
+import { Card, CardBackground, CardDescription, CardHeader, CardTitle } from '@moduix/react/card';
 import type { PointerEvent } from 'react';
 import styles from './parallax-card.module.css';
 
@@ -20,21 +20,21 @@ export function ParallaxCard() {
   return (
     <div className={styles.tilt} onPointerMove={updateTilt} onPointerLeave={resetTilt}>
       <Card className={styles.card} variant="elevated">
-        <Card.Background>
+        <CardBackground>
           <img
             className={styles.image}
             src="https://images.unsplash.com/photo-1500534623283-312aade485b7?auto=format&fit=crop&w=1200&q=85"
             alt=""
           />
           <div aria-hidden="true" className={styles.overlay} />
-        </Card.Background>
-        <Card.Header className={styles.header}>
+        </CardBackground>
+        <CardHeader className={styles.header}>
           <span className={styles.eyebrow}>Weekend guide</span>
-          <Card.Title className={styles.title}>A quieter way to travel</Card.Title>
-          <Card.Description className={styles.description}>
+          <CardTitle className={styles.title}>A quieter way to travel</CardTitle>
+          <CardDescription className={styles.description}>
             Three places to slow down, look around, and stay a little longer.
-          </Card.Description>
-        </Card.Header>
+          </CardDescription>
+        </CardHeader>
       </Card>
     </div>
   );

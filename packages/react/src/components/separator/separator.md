@@ -22,10 +22,8 @@ Chakra's current Separator recipe materially informs this contract: `orientation
 
 ## Current behavior contract
 
-- Public API is part-first: `Separator.Root`.
-- The callable `Separator` export is the root part itself, so `<Separator />` and
-  `<Separator.Root />` are equivalent.
-- `Separator.Root` accepts Ark factory span props plus local `orientation`, `variant`, and `size`.
+- The flat `Separator` export is the only public root component.
+- `Separator` accepts Ark factory span props plus local `orientation`, `variant`, and `size`.
 - `asChild` replaces the host element through Ark factory composition; there is no legacy `render`
   prop.
 - Default props are `orientation="horizontal"`, `variant="solid"`, and `size="sm"`.
@@ -35,13 +33,13 @@ Chakra's current Separator recipe materially informs this contract: `orientation
 ## Anatomy and exported parts
 
 ```text
-Separator / Separator.Root
+Separator
 └─ root[data-scope="separator"][data-part="root"][data-slot="separator-root"]
 ```
 
-| Part                           | `data-slot`      | Notes                                                                      |
-| ------------------------------ | ---------------- | -------------------------------------------------------------------------- |
-| `Separator` / `Separator.Root` | `separator-root` | Single divider element with orientation, size, variant, and ARIA metadata. |
+| Part        | `data-slot`      | Notes                                                                      |
+| ----------- | ---------------- | -------------------------------------------------------------------------- |
+| `Separator` | `separator-root` | Single divider element with orientation, size, variant, and ARIA metadata. |
 
 ## Composition
 
@@ -146,6 +144,8 @@ Public CSS variables:
 
 ## Local changelog
 
+- 2026-09-22: Replaced the compound root alias with the flat `Separator` export and aligned
+  consumers, tests, stories, registries, and documentation with the finished flat API.
 - 2026-09-20: Privatized the per-size recipe thickness plumbing into
   `--_separator-size-thickness` and kept `--moduix-separator-thickness` plus the
   `--moduix-separator-thickness-*` tokens as the public theming surface.
@@ -154,14 +154,13 @@ Public CSS variables:
 - 2026-07-30: Protected stable ARIA and data hooks from passthrough overrides and normalized margins
   for `asChild` native hosts.
 - 2026-07-21: Routed shared dimensions, spacing, icon geometry, and focus-ring fallbacks through foundation tokens so density and theme presets can retune the component consistently.
-- 2026-07-03: Removed public prop and option type aliases. The public surface is now only the
-  callable root component with `.Root`.
+- 2026-07-03: Removed public prop and option type aliases while keeping the callable root component
+  as the only public component value.
 - 2026-06-27: Re-audited the Ark factory contract, simplified size and variant CSS selectors,
   made `--moduix-separator-border-style` a consumer override above the recipe variant, and aligned public
   docs/examples with the local-only Ark factory API text.
-- 2026-06-20: Migrated from legacy to an Ark factory wrapper, added `Separator.Root`, `asChild`,
-  `variant`, `size`, Ark-style data hooks, Chakra-informed ARIA semantics, and removed legacy
-  `render` compatibility.
+- 2026-06-20: Migrated from legacy to an Ark factory wrapper, added `asChild`, `variant`, `size`,
+  Ark-style data hooks, Chakra-informed ARIA semantics, and removed legacy `render` compatibility.
 - 2026-06-03: Rewrote the local documentation around the real moduix wrapper, documented the
   shipped styling contract and accessibility behavior, and aligned the wrapper with the repo Base
   UI `forwardRef` pattern.

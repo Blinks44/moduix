@@ -1,6 +1,14 @@
 import { createSignal } from 'solid-js';
 import type { Meta, StoryObj } from 'storybook-solidjs-vite';
-import { AngleSlider, useAngleSlider } from '@/components/angle-slider/AngleSlider';
+import {
+  AngleSlider,
+  AngleSliderDial,
+  AngleSliderHiddenInput,
+  AngleSliderLabel,
+  AngleSliderMarks,
+  AngleSliderRootProvider,
+  useAngleSlider,
+} from '@/components/angle-slider/AngleSlider';
 import styles from './AngleSlider.stories.module.css';
 
 const markerValues = Array.from({ length: 8 }, (_, index) => index * 45);
@@ -21,10 +29,10 @@ type Story = StoryObj<typeof meta>;
 function AngleSliderMarkedParts() {
   return (
     <>
-      <AngleSlider.Dial>
-        <AngleSlider.Marks values={markerValues} />
-      </AngleSlider.Dial>
-      <AngleSlider.HiddenInput />
+      <AngleSliderDial>
+        <AngleSliderMarks values={markerValues} />
+      </AngleSliderDial>
+      <AngleSliderHiddenInput />
     </>
   );
 }
@@ -32,8 +40,8 @@ function AngleSliderMarkedParts() {
 export const Basic: Story = {
   render: () => (
     <AngleSlider defaultValue={135} aria-label="Rotation" class={styles.demoRoot}>
-      <AngleSlider.Dial />
-      <AngleSlider.HiddenInput />
+      <AngleSliderDial />
+      <AngleSliderHiddenInput />
     </AngleSlider>
   ),
 };
@@ -45,8 +53,8 @@ export const AsChild: Story = {
       defaultValue={135}
       aria-label="Rotation"
     >
-      <AngleSlider.Dial />
-      <AngleSlider.HiddenInput />
+      <AngleSliderDial />
+      <AngleSliderHiddenInput />
     </AngleSlider>
   ),
 };
@@ -62,7 +70,7 @@ export const Controlled: Story = {
         class={styles.demoRoot}
         onValueChange={(details) => setValue(details.value)}
       >
-        <AngleSlider.Label>Heading</AngleSlider.Label>
+        <AngleSliderLabel>Heading</AngleSliderLabel>
         <AngleSliderMarkedParts />
       </AngleSlider>
     );
@@ -72,7 +80,7 @@ export const Controlled: Story = {
 export const Disabled: Story = {
   render: () => (
     <AngleSlider defaultValue={45} disabled aria-label="Disabled rotation" class={styles.demoRoot}>
-      <AngleSlider.Label>Rotation</AngleSlider.Label>
+      <AngleSliderLabel>Rotation</AngleSliderLabel>
       <AngleSliderMarkedParts />
     </AngleSlider>
   ),
@@ -94,7 +102,7 @@ function FormStory() {
       onSubmit={handleSubmit}
     >
       <AngleSlider defaultValue={135} aria-label="Rotation" name="rotation" class={styles.demoRoot}>
-        <AngleSlider.Label>Rotation</AngleSlider.Label>
+        <AngleSliderLabel>Rotation</AngleSliderLabel>
         <AngleSliderMarkedParts />
       </AngleSlider>
       <div class={styles.formActions}>
@@ -113,7 +121,7 @@ export const Form: Story = {
 export const Invalid: Story = {
   render: () => (
     <AngleSlider defaultValue={315} invalid aria-label="Invalid heading" class={styles.demoRoot}>
-      <AngleSlider.Label>Heading</AngleSlider.Label>
+      <AngleSliderLabel>Heading</AngleSliderLabel>
       <AngleSliderMarkedParts />
     </AngleSlider>
   ),
@@ -122,7 +130,7 @@ export const Invalid: Story = {
 export const ReadOnly: Story = {
   render: () => (
     <AngleSlider defaultValue={300} readOnly aria-label="Locked angle" class={styles.demoRoot}>
-      <AngleSlider.Label>Locked angle</AngleSlider.Label>
+      <AngleSliderLabel>Locked angle</AngleSliderLabel>
       <AngleSliderMarkedParts />
     </AngleSlider>
   ),
@@ -133,10 +141,10 @@ function RootProviderStory() {
 
   return (
     <div class={styles.providerLayout}>
-      <AngleSlider.RootProvider value={angleSlider} class={styles.demoRoot}>
-        <AngleSlider.Label>Rotation</AngleSlider.Label>
+      <AngleSliderRootProvider value={angleSlider} class={styles.demoRoot}>
+        <AngleSliderLabel>Rotation</AngleSliderLabel>
         <AngleSliderMarkedParts />
-      </AngleSlider.RootProvider>
+      </AngleSliderRootProvider>
       <button
         type="button"
         class={styles.providerButton}
@@ -155,7 +163,7 @@ export const RootProvider: Story = {
 export const Steps: Story = {
   render: () => (
     <AngleSlider defaultValue={60} step={15} aria-label="Snap angle" class={styles.demoRoot}>
-      <AngleSlider.Label>Snap angle</AngleSlider.Label>
+      <AngleSliderLabel>Snap angle</AngleSliderLabel>
       <AngleSliderMarkedParts />
     </AngleSlider>
   ),
@@ -164,7 +172,7 @@ export const Steps: Story = {
 export const WithMarks: Story = {
   render: () => (
     <AngleSlider defaultValue={135} aria-label="Rotation" class={styles.demoRoot}>
-      <AngleSlider.Label>Rotation</AngleSlider.Label>
+      <AngleSliderLabel>Rotation</AngleSliderLabel>
       <AngleSliderMarkedParts />
     </AngleSlider>
   ),
@@ -177,7 +185,7 @@ export const ContentStress: Story = {
       aria-label="Direction of the primary studio spotlight"
       class={styles.stressRoot}
     >
-      <AngleSlider.Label>Direction of the primary studio spotlight</AngleSlider.Label>
+      <AngleSliderLabel>Direction of the primary studio spotlight</AngleSliderLabel>
       <AngleSliderMarkedParts />
     </AngleSlider>
   ),
@@ -186,7 +194,7 @@ export const ContentStress: Story = {
 export const CustomStyling: Story = {
   render: () => (
     <AngleSlider defaultValue={45} aria-label="Compass heading" class={styles.customRoot}>
-      <AngleSlider.Label>Compass</AngleSlider.Label>
+      <AngleSliderLabel>Compass</AngleSliderLabel>
       <AngleSliderMarkedParts />
     </AngleSlider>
   ),

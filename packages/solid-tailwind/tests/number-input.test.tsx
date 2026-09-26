@@ -1,6 +1,21 @@
 import { expect, test } from '@rstest/core';
 import { fireEvent, render, screen, waitFor } from '@solidjs/testing-library';
-import { Field, NumberInput, useNumberInput } from '../src';
+import {
+  Field,
+  FieldErrorText,
+  NumberInput,
+  NumberInputContext,
+  NumberInputControl,
+  NumberInputDecrementTrigger,
+  NumberInputField,
+  NumberInputIncrementTrigger,
+  NumberInputInput,
+  NumberInputLabel,
+  NumberInputRootProvider,
+  NumberInputScrubber,
+  NumberInputValueText,
+  useNumberInput,
+} from '../src';
 
 test('renders the Field shortcut and preserves keyboard value changes', async () => {
   const changes: string[] = [];
@@ -8,8 +23,8 @@ test('renders the Field shortcut and preserves keyboard value changes', async ()
 
   render(() => (
     <NumberInput defaultValue="2" onValueChange={(details) => changes.push(details.value)}>
-      <NumberInput.Label>Amount</NumberInput.Label>
-      <NumberInput.Field ref={(element) => (controlRef = element)} />
+      <NumberInputLabel>Amount</NumberInputLabel>
+      <NumberInputField ref={(element) => (controlRef = element)} />
     </NumberInput>
   ));
 
@@ -38,10 +53,10 @@ test('inherits Field state for disabled, read-only, and invalid number inputs', 
   render(() => (
     <Field disabled invalid readOnly>
       <NumberInput>
-        <NumberInput.Label>Items</NumberInput.Label>
-        <NumberInput.Field />
+        <NumberInputLabel>Items</NumberInputLabel>
+        <NumberInputField />
       </NumberInput>
-      <Field.ErrorText>Choose a valid amount.</Field.ErrorText>
+      <FieldErrorText>Choose a valid amount.</FieldErrorText>
     </Field>
   ));
 
@@ -64,10 +79,10 @@ test('keeps RootProvider state and root asChild composition Ark-shaped', async (
         <button type="button" onClick={() => numberInput().setToMax()}>
           Set maximum
         </button>
-        <NumberInput.RootProvider value={numberInput}>
-          <NumberInput.Label>Guests</NumberInput.Label>
-          <NumberInput.Field />
-        </NumberInput.RootProvider>
+        <NumberInputRootProvider value={numberInput}>
+          <NumberInputLabel>Guests</NumberInputLabel>
+          <NumberInputField />
+        </NumberInputRootProvider>
       </>
     );
   }
@@ -75,8 +90,8 @@ test('keeps RootProvider state and root asChild composition Ark-shaped', async (
   const { container } = render(() => (
     <>
       <NumberInput asChild={(props) => <section {...props()} />} defaultValue="4">
-        <NumberInput.Label>Capacity</NumberInput.Label>
-        <NumberInput.Field />
+        <NumberInputLabel>Capacity</NumberInputLabel>
+        <NumberInputField />
       </NumberInput>
       <ProviderNumberInput />
     </>
@@ -93,10 +108,10 @@ test('forwards refs through ordinary Ark Solid part paths', () => {
 
   render(() => (
     <NumberInput ref={(element) => (rootRef = element)}>
-      <NumberInput.Scrubber ref={(element) => (scrubberRef = element)}>
+      <NumberInputScrubber ref={(element) => (scrubberRef = element)}>
         Adjust value
-      </NumberInput.Scrubber>
-      <NumberInput.Field />
+      </NumberInputScrubber>
+      <NumberInputField />
     </NumberInput>
   ));
 
@@ -112,7 +127,7 @@ test('does not forward refs through native Ark Solid asChild composition', () =>
       ref={(element) => (rootRef = element)}
       asChild={(props) => <section {...props()} />}
     >
-      <NumberInput.Field />
+      <NumberInputField />
     </NumberInput>
   ));
 
@@ -123,11 +138,11 @@ test('supports numeric form submission through Context', () => {
   const { container } = render(() => (
     <form>
       <NumberInput defaultValue="42">
-        <NumberInput.Label>Quantity</NumberInput.Label>
-        <NumberInput.Field />
-        <NumberInput.Context>
+        <NumberInputLabel>Quantity</NumberInputLabel>
+        <NumberInputField />
+        <NumberInputContext>
           {(context) => <input name="quantity" type="hidden" value={context().valueAsNumber} />}
-        </NumberInput.Context>
+        </NumberInputContext>
       </NumberInput>
     </form>
   ));
@@ -143,8 +158,8 @@ test('preserves native form ownership through name and form', () => {
     <>
       <form id="quantity-form" />
       <NumberInput defaultValue="42" form="quantity-form" name="quantity">
-        <NumberInput.Label>Quantity</NumberInput.Label>
-        <NumberInput.Field />
+        <NumberInputLabel>Quantity</NumberInputLabel>
+        <NumberInputField />
       </NumberInput>
     </>
   ));
@@ -158,10 +173,10 @@ test('preserves native form ownership through name and form', () => {
 test('applies native utilities to component-owned parts', () => {
   const { container } = render(() => (
     <NumberInput defaultValue="42">
-      <NumberInput.Label>Amount</NumberInput.Label>
-      <NumberInput.Scrubber>Adjust</NumberInput.Scrubber>
-      <NumberInput.Field />
-      <NumberInput.ValueText />
+      <NumberInputLabel>Amount</NumberInputLabel>
+      <NumberInputScrubber>Adjust</NumberInputScrubber>
+      <NumberInputField />
+      <NumberInputValueText />
     </NumberInput>
   ));
 
@@ -227,12 +242,12 @@ test('applies native utilities to component-owned parts', () => {
 test('lets consumer Tailwind classes override conflicting defaults', () => {
   const { container } = render(() => (
     <NumberInput class="w-80 max-w-sm gap-4 text-primary">
-      <NumberInput.Label>Amount</NumberInput.Label>
-      <NumberInput.Control class="gap-4">
-        <NumberInput.DecrementTrigger class="size-12 min-w-12 rounded-lg bg-muted p-2" />
-        <NumberInput.Input class="h-12 w-40 rounded-md bg-muted px-0 py-0 text-primary" />
-        <NumberInput.IncrementTrigger class="size-12 min-w-12 rounded-lg bg-muted p-2" />
-      </NumberInput.Control>
+      <NumberInputLabel>Amount</NumberInputLabel>
+      <NumberInputControl class="gap-4">
+        <NumberInputDecrementTrigger class="size-12 min-w-12 rounded-lg bg-muted p-2" />
+        <NumberInputInput class="h-12 w-40 rounded-md bg-muted px-0 py-0 text-primary" />
+        <NumberInputIncrementTrigger class="size-12 min-w-12 rounded-lg bg-muted p-2" />
+      </NumberInputControl>
     </NumberInput>
   ));
 

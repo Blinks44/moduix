@@ -1,4 +1,8 @@
-import { SegmentGroup } from '@moduix/react/segment-group';
+import {
+  SegmentGroup,
+  SegmentGroupIndicator,
+  SegmentGroupItems,
+} from '@moduix/react/segment-group';
 
 const frameworks = [
   { value: 'React', label: 'React' },
@@ -10,8 +14,8 @@ const frameworks = [
 export default function InvalidSegmentGroupDemo() {
   return (
     <SegmentGroup aria-label="Framework" name="framework" defaultValue="React" invalid required>
-      <SegmentGroup.Indicator />
-      <SegmentGroup.Items items={frameworks} />
+      <SegmentGroupIndicator />
+      <SegmentGroupItems items={frameworks} />
     </SegmentGroup>
   );
 }

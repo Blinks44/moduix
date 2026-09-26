@@ -1,5 +1,19 @@
-import { ScrollArea } from '@moduix/react/scroll-area';
-import { Table } from '@moduix/react/table';
+import {
+  ScrollArea,
+  ScrollAreaContent,
+  ScrollAreaCorner,
+  ScrollAreaScrollbar,
+  ScrollAreaThumb,
+  ScrollAreaViewport,
+} from '@moduix/react/scroll-area';
+import {
+  Table,
+  TableBody,
+  TableCell,
+  TableColumnHeader,
+  TableHeader,
+  TableRow,
+} from '@moduix/react/table';
 import styles from '@/components/examples/table/table-with-scrollarea.module.css';
 
 const rows = [
@@ -26,44 +40,44 @@ const rows = [
 export default function TableWithScrollareaDemo() {
   return (
     <ScrollArea className={styles.root}>
-      <ScrollArea.Viewport>
-        <ScrollArea.Content>
+      <ScrollAreaViewport>
+        <ScrollAreaContent>
           <Table className={styles.table}>
-            <Table.Header>
-              <Table.Row>
-                <Table.ColumnHeader>Project</Table.ColumnHeader>
-                <Table.ColumnHeader>Owner</Table.ColumnHeader>
-                <Table.ColumnHeader>Environment</Table.ColumnHeader>
-                <Table.ColumnHeader>Updated</Table.ColumnHeader>
-                <Table.ColumnHeader numeric>Open issues</Table.ColumnHeader>
-              </Table.Row>
-            </Table.Header>
-            <Table.Body>
+            <TableHeader>
+              <TableRow>
+                <TableColumnHeader>Project</TableColumnHeader>
+                <TableColumnHeader>Owner</TableColumnHeader>
+                <TableColumnHeader>Environment</TableColumnHeader>
+                <TableColumnHeader>Updated</TableColumnHeader>
+                <TableColumnHeader numeric>Open issues</TableColumnHeader>
+              </TableRow>
+            </TableHeader>
+            <TableBody>
               {Array.from(
                 {
                   length: 12,
                 },
                 (_, index) => rows[index % rows.length],
               ).map((row, index) => (
-                <Table.Row key={`${row.name}-${index}`}>
-                  <Table.Cell>{row.name}</Table.Cell>
-                  <Table.Cell>{row.owner}</Table.Cell>
-                  <Table.Cell>{row.environment}</Table.Cell>
-                  <Table.Cell>{row.updated}</Table.Cell>
-                  <Table.Cell numeric>{index + 1}</Table.Cell>
-                </Table.Row>
+                <TableRow key={`${row.name}-${index}`}>
+                  <TableCell>{row.name}</TableCell>
+                  <TableCell>{row.owner}</TableCell>
+                  <TableCell>{row.environment}</TableCell>
+                  <TableCell>{row.updated}</TableCell>
+                  <TableCell numeric>{index + 1}</TableCell>
+                </TableRow>
               ))}
-            </Table.Body>
+            </TableBody>
           </Table>
-        </ScrollArea.Content>
-      </ScrollArea.Viewport>
-      <ScrollArea.Scrollbar>
-        <ScrollArea.Thumb />
-      </ScrollArea.Scrollbar>
-      <ScrollArea.Scrollbar orientation="horizontal">
-        <ScrollArea.Thumb />
-      </ScrollArea.Scrollbar>
-      <ScrollArea.Corner />
+        </ScrollAreaContent>
+      </ScrollAreaViewport>
+      <ScrollAreaScrollbar>
+        <ScrollAreaThumb />
+      </ScrollAreaScrollbar>
+      <ScrollAreaScrollbar orientation="horizontal">
+        <ScrollAreaThumb />
+      </ScrollAreaScrollbar>
+      <ScrollAreaCorner />
     </ScrollArea>
   );
 }

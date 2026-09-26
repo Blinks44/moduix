@@ -1,1 +1,1 @@
-export { Collapsible, useCollapsible, useCollapsibleContext } from './Collapsible.js';
+export * from './Collapsible.js';

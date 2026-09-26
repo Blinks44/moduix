@@ -1,6 +1,16 @@
 import { Button } from '@moduix/solid/button';
-import { Card } from '@moduix/solid/card';
-import { Drawer } from '@moduix/solid/drawer';
+import { Card, CardBody } from '@moduix/solid/card';
+import {
+  Drawer,
+  DrawerBackdrop,
+  DrawerBody,
+  DrawerCloseIcon,
+  DrawerContent,
+  DrawerDescription,
+  DrawerHeader,
+  DrawerPositioner,
+  DrawerTitle,
+} from '@moduix/solid/drawer';
 import { createSignal } from 'solid-js';
 import styles from '@/components/examples/drawer/drawer-controlled.module.css';
 
@@ -21,21 +31,21 @@ export default function ControlledDrawerDemo() {
         defaultSnapPoint={snapPoints[0]}
         onOpenChange={(details) => setOpen(details.open)}
       >
-        <Drawer.Backdrop />
-        <Drawer.Positioner>
-          <Drawer.Content>
-            <Drawer.Header>
-              <Drawer.Title>Controlled drawer</Drawer.Title>
-              <Drawer.CloseIcon />
-              <Drawer.Description>Open: {String(open())}</Drawer.Description>
-            </Drawer.Header>
-            <Drawer.Body class={styles.body}>
+        <DrawerBackdrop />
+        <DrawerPositioner>
+          <DrawerContent>
+            <DrawerHeader>
+              <DrawerTitle>Controlled drawer</DrawerTitle>
+              <DrawerCloseIcon />
+              <DrawerDescription>Open: {String(open())}</DrawerDescription>
+            </DrawerHeader>
+            <DrawerBody class={styles.body}>
               <Card size="sm" class={styles.card}>
-                <Card.Body>The trigger and close controls both update the same state.</Card.Body>
+                <CardBody>The trigger and close controls both update the same state.</CardBody>
               </Card>
-            </Drawer.Body>
-          </Drawer.Content>
-        </Drawer.Positioner>
+            </DrawerBody>
+          </DrawerContent>
+        </DrawerPositioner>
       </Drawer>
     </>
   );

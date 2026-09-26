@@ -10,9 +10,9 @@ It is the native Solid wrapper around Ark UI Solid Json Tree View.
 
 ## Public contract
 
-- `JsonTreeView` and `JsonTreeView.Root` accept Ark's `data`, expansion, selection, focus, and preview options.
-- `JsonTreeView.Tree` renders the generated JSON nodes and supplies a chevron when `arrow` is omitted.
-- `JsonTreeView.RootProvider` connects a `useJsonTreeView` state accessor to `Tree`; do not render `Root` for the same instance.
+- `JsonTreeView` and `JsonTreeView` accept Ark's `data`, expansion, selection, focus, and preview options.
+- `JsonTreeViewTree` renders the generated JSON nodes and supplies a chevron when `arrow` is omitted.
+- `JsonTreeViewRootProvider` connects a `useJsonTreeView` state accessor to `Tree`; do not render `Root` for the same instance.
 - `useJsonTreeView` and Ark's public props and return types are re-exported from `@moduix/solid/json-tree-view`.
 - The wrapper exposes stable `data-slot` values on `Root`, `RootProvider`, and `Tree`; generated nodes retain Ark's
   `data-scope="json-tree-view"` and `data-part` hooks.

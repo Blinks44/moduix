@@ -1,5 +1,15 @@
 import { Button } from '@moduix/react/button';
-import { Menu } from '@moduix/react/menu';
+import {
+  Menu,
+  MenuTrigger,
+  MenuIndicator,
+  MenuPositioner,
+  MenuContent,
+  MenuViewport,
+  MenuCheckboxItem,
+  MenuItemIndicator,
+  MenuItemText,
+} from '@moduix/react/menu';
 import { useState } from 'react';
 import styles from '@/components/examples/menu/menu-checkbox-items.module.css';
 
@@ -10,50 +20,50 @@ export default function CheckboxItemsMenuDemo() {
   const [showLineNumbers, setShowLineNumbers] = useState(true);
   return (
     <Menu closeOnSelect={false}>
-      <Menu.Trigger asChild>
+      <MenuTrigger asChild>
         <Button>
           View
-          <Menu.Indicator />
+          <MenuIndicator />
         </Button>
-      </Menu.Trigger>
-      <Menu.Positioner>
-        <Menu.Content className={styles.content}>
-          <Menu.Viewport>
-            <Menu.CheckboxItem
+      </MenuTrigger>
+      <MenuPositioner>
+        <MenuContent className={styles.content}>
+          <MenuViewport>
+            <MenuCheckboxItem
               checked={showToolbar}
               value="toolbar"
               onCheckedChange={setShowToolbar}
             >
-              <Menu.ItemIndicator />
-              <Menu.ItemText>Show Toolbar</Menu.ItemText>
-            </Menu.CheckboxItem>
-            <Menu.CheckboxItem
+              <MenuItemIndicator />
+              <MenuItemText>Show Toolbar</MenuItemText>
+            </MenuCheckboxItem>
+            <MenuCheckboxItem
               checked={showSidebar}
               value="sidebar"
               onCheckedChange={setShowSidebar}
             >
-              <Menu.ItemIndicator />
-              <Menu.ItemText>Show Sidebar</Menu.ItemText>
-            </Menu.CheckboxItem>
-            <Menu.CheckboxItem
+              <MenuItemIndicator />
+              <MenuItemText>Show Sidebar</MenuItemText>
+            </MenuCheckboxItem>
+            <MenuCheckboxItem
               checked={showStatusBar}
               value="status-bar"
               onCheckedChange={setShowStatusBar}
             >
-              <Menu.ItemIndicator />
-              <Menu.ItemText>Show Status Bar</Menu.ItemText>
-            </Menu.CheckboxItem>
-            <Menu.CheckboxItem
+              <MenuItemIndicator />
+              <MenuItemText>Show Status Bar</MenuItemText>
+            </MenuCheckboxItem>
+            <MenuCheckboxItem
               checked={showLineNumbers}
               value="line-numbers"
               onCheckedChange={setShowLineNumbers}
             >
-              <Menu.ItemIndicator />
-              <Menu.ItemText>Show Line Numbers</Menu.ItemText>
-            </Menu.CheckboxItem>
-          </Menu.Viewport>
-        </Menu.Content>
-      </Menu.Positioner>
+              <MenuItemIndicator />
+              <MenuItemText>Show Line Numbers</MenuItemText>
+            </MenuCheckboxItem>
+          </MenuViewport>
+        </MenuContent>
+      </MenuPositioner>
     </Menu>
   );
 }

@@ -11,10 +11,10 @@ import { forwardRef } from 'react';
 import { ChevronLeftIcon, ChevronRightIcon } from '@/lib/moduix/icons/ui';
 import styles from './Carousel.module.css';
 
-const CarouselRoot = forwardRef<
+const Carousel = forwardRef<
   ComponentRef<typeof CarouselPrimitive.Root>,
   ComponentProps<typeof CarouselPrimitive.Root>
->(function CarouselRoot({ className, ...props }, ref) {
+>(function Carousel({ className, ...props }, ref) {
   return (
     <CarouselPrimitive.Root
       ref={ref}
@@ -210,21 +210,23 @@ const CarouselProgressText = forwardRef<
   );
 });
 
-const Carousel = Object.assign(CarouselRoot, {
-  Root: CarouselRoot,
-  RootProvider: CarouselRootProvider,
-  Context: CarouselPrimitive.Context,
-  Control: CarouselControl,
-  ItemGroup: CarouselItemGroup,
-  Item: CarouselItem,
-  PrevTrigger: CarouselPrevTrigger,
-  NextTrigger: CarouselNextTrigger,
-  IndicatorGroup: CarouselIndicatorGroup,
-  Indicator: CarouselIndicator,
-  Indicators: CarouselIndicators,
-  AutoplayTrigger: CarouselAutoplayTrigger,
-  AutoplayIndicator: CarouselAutoplayIndicator,
-  ProgressText: CarouselProgressText,
-});
+const CarouselContext = CarouselPrimitive.Context;
 
-export { Carousel, useCarousel, useCarouselContext };
+export {
+  Carousel,
+  CarouselAutoplayIndicator,
+  CarouselAutoplayTrigger,
+  CarouselContext,
+  CarouselControl,
+  CarouselIndicator,
+  CarouselIndicatorGroup,
+  CarouselIndicators,
+  CarouselItem,
+  CarouselItemGroup,
+  CarouselNextTrigger,
+  CarouselPrevTrigger,
+  CarouselProgressText,
+  CarouselRootProvider,
+  useCarousel,
+  useCarouselContext,
+};

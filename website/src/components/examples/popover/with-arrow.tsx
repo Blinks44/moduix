@@ -1,5 +1,16 @@
 import { Button } from '@moduix/react/button';
-import { Popover } from '@moduix/react/popover';
+import {
+  Popover,
+  PopoverArrow,
+  PopoverCloseTrigger,
+  PopoverContent,
+  PopoverDescription,
+  PopoverFooter,
+  PopoverHeader,
+  PopoverPositioner,
+  PopoverTitle,
+  PopoverTrigger,
+} from '@moduix/react/popover';
 
 export default function PopoverWithArrowDemo() {
   return (
@@ -8,23 +19,23 @@ export default function PopoverWithArrowDemo() {
         gutter: 8,
       }}
     >
-      <Popover.Trigger asChild>
+      <PopoverTrigger asChild>
         <Button>Open with arrow</Button>
-      </Popover.Trigger>
-      <Popover.Positioner>
-        <Popover.Content>
-          <Popover.Arrow />
-          <Popover.Header>
-            <Popover.Title>With arrow</Popover.Title>
-            <Popover.Description>
+      </PopoverTrigger>
+      <PopoverPositioner>
+        <PopoverContent>
+          <PopoverArrow />
+          <PopoverHeader>
+            <PopoverTitle>With arrow</PopoverTitle>
+            <PopoverDescription>
               Arrow and ArrowTip use Ark positioning variables.
-            </Popover.Description>
-          </Popover.Header>
-          <Popover.Footer>
-            <Popover.CloseTrigger>Close</Popover.CloseTrigger>
-          </Popover.Footer>
-        </Popover.Content>
-      </Popover.Positioner>
+            </PopoverDescription>
+          </PopoverHeader>
+          <PopoverFooter>
+            <PopoverCloseTrigger>Close</PopoverCloseTrigger>
+          </PopoverFooter>
+        </PopoverContent>
+      </PopoverPositioner>
     </Popover>
   );
 }

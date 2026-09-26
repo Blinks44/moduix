@@ -17,121 +17,134 @@ control defaults.
 ## Upstream model to preserve
 
 There is no Ark UI `Lightbox` primitive. The wrapper follows `@ark-ui/react/dialog` directly and
-keeps its `Root`, `RootProvider`, `Trigger`, `Backdrop`, `Positioner`, `Content`, `Title`,
-`Description`, and `CloseTrigger` contracts. `RootProvider` remains the moduix bridge for Ark
-state created with `useLightbox()`.
+preserves its root, provider, trigger, backdrop, positioner, content, title, description, and close
+contracts. `LightboxRootProvider` remains the moduix bridge for Ark state created with
+`useLightbox()`.
 
-Keep `Backdrop → Positioner → Content` explicit. `Root` owns the portal boundary.
+Keep `LightboxBackdrop → LightboxPositioner → LightboxContent` explicit. `Lightbox` owns the portal
+boundary.
 
 ## Current behavior contract
 
-`Root` and `RootProvider` portal `Backdrop` and `Positioner` automatically by default. Set `portalled={false}` to render them inline, or pass `portalRef` to target a custom container. The structural parts remain explicit and independently styleable.
+`Lightbox` and `LightboxRootProvider` portal `LightboxBackdrop` and `LightboxPositioner`
+automatically by default. Set `portalled={false}` to render them inline, or pass `portalRef` to
+target a custom container. The structural parts remain explicit and independently styleable.
 
-`Lightbox` and `Lightbox.Root` are the same root component. Root props pass through unchanged,
+`Lightbox` is the root component. Its props pass through unchanged,
 including controlled and uncontrolled open state, trigger values, focus lifecycle, dismissal,
 presence, `ids`, modal behavior, and Ark callback detail objects.
 
-For `modal={false}`, omit `Lightbox.Backdrop`: Ark keeps the positioner pointer-transparent outside
-`Lightbox.Content`, so the surrounding page remains interactive.
+For `modal={false}`, omit `LightboxBackdrop`: Ark keeps the positioner pointer-transparent outside
+`LightboxContent`, so the surrounding page remains interactive.
 
-The base `Lightbox` parts do not manage image sources or gallery state. `Lightbox.Image` renders a
+The base `Lightbox` parts do not manage image sources or gallery state. `LightboxImage` renders a
 styled native image for the single-image path and adds the wrapper-specific `closeOnClick`
-interaction. `Lightbox.Gallery` is a layout and styling boundary for a composed `Carousel`; it does
-not own image data or slide state. `Lightbox.Bind` is a zero-render behavior part for CMS or
-third-party markup that cannot render `Lightbox.Trigger` directly. It requires a selector for a
+interaction. `LightboxGallery` is a layout and styling boundary for a composed `Carousel`; it does
+not own image data or slide state. `LightboxBind` is a zero-render behavior part for CMS or
+third-party markup that cannot render `LightboxTrigger` directly. It requires a selector for a
 semantic button or link, uses the surrounding Dialog context, and leaves all overlay markup
-consumer-owned. `Header`, `Body`, and `Footer` are plain
+consumer-owned. `LightboxHeader`, `LightboxBody`, and `LightboxFooter` are plain
 layout helpers for captions, metadata, or actions around the media surface.
 
 ## Anatomy and exported parts
 
 ```text
-Lightbox.Root
-├─ Lightbox.Trigger
-├─ Lightbox.Bind
+Lightbox
+├─ LightboxTrigger
+├─ LightboxBind
 └─ Overlay subtree (automatically portalled)
-   ├─ Lightbox.Backdrop
-   └─ Lightbox.Positioner
-      ├─ Lightbox.CloseTrigger or Lightbox.CloseIcon
-      └─ Lightbox.Content
-         ├─ Lightbox.Header (moduix)
-         │  ├─ Lightbox.Title
-         │  └─ Lightbox.Description
-         ├─ Lightbox.Body (moduix)
-         │  ├─ Lightbox.Image
-         │  └─ Lightbox.Gallery
-         │     └─ Carousel.Root
-         └─ Lightbox.Footer (moduix)
+   ├─ LightboxBackdrop
+   └─ LightboxPositioner
+      ├─ LightboxCloseTrigger or LightboxCloseIcon
+      └─ LightboxContent
+         ├─ LightboxHeader (moduix)
+         │  ├─ LightboxTitle
+         │  └─ LightboxDescription
+         ├─ LightboxBody (moduix)
+         │  ├─ LightboxImage
+         │  └─ LightboxGallery
+         │     └─ Carousel
+         └─ LightboxFooter (moduix)
 
-Lightbox.RootProvider
+LightboxRootProvider
 └─ the same part tree connected to useLightbox()
 ```
 
 Stable slots are `lightbox-trigger`, `lightbox-backdrop`, `lightbox-positioner`,
 `lightbox-content`, `lightbox-title`, `lightbox-description`, `lightbox-close-trigger`,
 `lightbox-close-icon`, `lightbox-header`, `lightbox-body`, `lightbox-footer`, `lightbox-image`,
-and `lightbox-gallery`. `Lightbox.Image` also exposes `data-close-on-click` when that behavior is
+and `lightbox-gallery`. `LightboxImage` also exposes `data-close-on-click` when that behavior is
 enabled.
 
-`Lightbox.Gallery` is a moduix layout part. `Lightbox.Bind` is a zero-render behavior helper, not
+`LightboxGallery` is a moduix layout part. `LightboxBind` is a zero-render behavior helper, not
 an Ark anatomy part.
 
 ## Composition
 
 ```tsx
-import { Lightbox } from '@moduix/react/lightbox';
+import {
+  Lightbox,
+  LightboxTrigger,
+  LightboxBackdrop,
+  LightboxPositioner,
+  LightboxCloseIcon,
+  LightboxContent,
+  LightboxBody,
+  LightboxImage,
+} from '@moduix/react/lightbox';
 
 export function LightboxDemo() {
   return (
     <Lightbox aria-label="Mountain ridge at sunset">
-      <Lightbox.Trigger asChild>
+      <LightboxTrigger asChild>
         <button type="button">
           <img src={thumbnail} alt="Mountain ridge at sunset" />
         </button>
-      </Lightbox.Trigger>
-      <Lightbox.Backdrop />
-      <Lightbox.Positioner>
-        <Lightbox.CloseIcon />
-        <Lightbox.Content>
-          <Lightbox.Body>
-            <Lightbox.Image src={fullSize} alt="Mountain ridge at sunset" />
-          </Lightbox.Body>
-        </Lightbox.Content>
-      </Lightbox.Positioner>
+      </LightboxTrigger>
+      <LightboxBackdrop />
+      <LightboxPositioner>
+        <LightboxCloseIcon />
+        <LightboxContent>
+          <LightboxBody>
+            <LightboxImage src={fullSize} alt="Mountain ridge at sunset" />
+          </LightboxBody>
+        </LightboxContent>
+      </LightboxPositioner>
     </Lightbox>
   );
 }
 ```
 
 Use `asChild` with one semantic child. An image alone is not an interactive trigger; wrap it in a
-button. Use `Lightbox.RootProvider` instead of `Lightbox.Root` when state comes from
+button. Use `LightboxRootProvider` instead of `Lightbox` when state comes from
 `useLightbox()`. Read child state with `useLightboxContext()`; both APIs are available from
-`@moduix/react` and on the `Lightbox` namespace. When the close control should stay pinned to the viewport corner, render
-`Lightbox.CloseIcon` as a sibling of `Lightbox.Content` inside `Lightbox.Positioner` so it does
+`@moduix/react` as direct top-level hooks. When the close control should stay pinned to the viewport corner, render
+`LightboxCloseIcon` as a sibling of `LightboxContent` inside `LightboxPositioner` so it does
 not inherit content transforms.
 
-For a known image collection, render `Carousel.Root` inside `Lightbox.Gallery`. Keep the current
-page controlled and update it from `Lightbox.Trigger value` through
-`onTriggerValueChange(details)`. `Lightbox.Gallery` supplies sizing and layout only; Carousel keeps
+For a known image collection, render `Carousel` inside `LightboxGallery`. Keep the current
+page controlled and update it from `LightboxTrigger value` through
+`onTriggerValueChange(details)`. `LightboxGallery` supplies sizing and layout only; Carousel keeps
 its Ark state, controls, indicators, dragging, and keyboard behavior.
 
-For external markup, render `Lightbox.Bind` inside the root, store
-`LightboxImageSelectDetails` from `onImageSelect`, and compose the same explicit overlay tree. Bind
-opens the surrounding Dialog through context but does not render `Backdrop`, `Positioner`,
-`Content`, `CloseIcon`, or `Image`. Use a semantic button or link as the matched `selector` when
-images must be keyboard-accessible; Bind relies on the element's native click activation. It
-preloads the resolved full-size source on pointer hover or keyboard focus.
+For external markup, render `LightboxBind` inside the root, store
+`LightboxImageSelectDetails` from `onImageSelect`, and compose the same explicit overlay tree.
+`LightboxBind` opens the surrounding Dialog through context but does not render `LightboxBackdrop`,
+`LightboxPositioner`, `LightboxContent`, `LightboxCloseIcon`, or `LightboxImage`. Use a semantic
+button or link as the matched `selector` when images must be keyboard-accessible;
+`LightboxBind` relies on the element's native click activation. It preloads the resolved full-size
+source on pointer hover or keyboard focus.
 
 ## Upstream feature coverage
 
 - Basic, controlled, root-provider, lazy-mount, initial-focus, final-focus, nested, and
   multiple-trigger flows come from Ark Dialog unchanged.
-- Gallery selection uses `Trigger.value` and `onTriggerValueChange(details)`.
-- Structured server or CMS image arrays compose `Carousel` inside `Lightbox.Gallery` and sync the
-  current slide through `Trigger.value`, `onTriggerValueChange(details)`, and carousel page state.
-- `Lightbox.Gallery` styles Carousel controls, a stable media viewport, dot indicators, and image
+- Gallery selection uses `LightboxTrigger.value` and `onTriggerValueChange(details)`.
+- Structured server or CMS image arrays compose `Carousel` inside `LightboxGallery` and sync the
+  current slide through `LightboxTrigger.value`, `onTriggerValueChange(details)`, and carousel page state.
+- `LightboxGallery` styles Carousel controls, a stable media viewport, dot indicators, and image
   thumbnail indicators without wrapping or translating Carousel props.
-- `Lightbox.Bind` listens to external markup, calls `onImageSelect(details)`, and opens its parent
+- `LightboxBind` listens to external markup, calls `onImageSelect(details)`, and opens its parent
   Dialog through context. It renders nothing and intentionally stays single-image capture, not a
   hidden carousel or image registry. Its props are `rootRef`, `rootSelector`, the required semantic
   `selector`, and the required `onImageSelect`. It listens for native click activation and preloads the resolved image
@@ -142,25 +155,25 @@ preloads the resolved full-size source on pointer hover or keyboard focus.
   `persistentElements`, `restoreFocus`, dismissal callbacks, focus props, `lazyMount`,
   `unmountOnExit`, `present`, `immediate`, `skipAnimationOnMount`, and `onExitComplete` pass
   through.
-- Chakra's carousel lightbox recipe can be composed inside `Lightbox.Content`; carousel behavior is
+- Chakra's carousel lightbox recipe can be composed inside `LightboxContent`; carousel behavior is
   intentionally not duplicated here.
-- `Lightbox.Image closeOnClick` closes through Dialog context after the native image `onClick`
+- `LightboxImage closeOnClick` closes through Dialog context after the native image `onClick`
   handler unless that handler calls `event.preventDefault()`.
-- `useLightbox` and `useLightboxContext` re-export Ark's state hooks unchanged through the moduix
-  package and `Lightbox` namespace for the normal `RootProvider` and child-state paths.
+- `useLightbox` and `useLightboxContext` re-export Ark's state hooks unchanged as direct top-level
+  moduix package exports for the normal `LightboxRootProvider` and child-state paths.
 
 ## Accessibility and state
 
 Ark owns focus trapping, Escape handling, outside interaction, scroll locking, focus restoration,
-layering, and ARIA wiring. Render `Lightbox.Title` or provide root `aria-label`. Media still needs
+layering, and ARIA wiring. Render `LightboxTitle` or provide root `aria-label`. Media still needs
 useful native `alt`, captions, or equivalent accessible text.
 
-Refs on Ark Dialog parts target their DOM elements. `Lightbox.CloseIcon` forwards its ref to the
-library `CloseButton.Root`. `Lightbox.Image` forwards its ref to the native `HTMLImageElement`.
+Refs on Ark Dialog parts target their DOM elements. `LightboxCloseIcon` forwards its ref to the
+library `CloseButton`. `LightboxImage` forwards its ref to the native `HTMLImageElement`.
 
 Ark parts expose `data-scope="dialog"`, `data-part`, and `data-state="open|closed"`.
-`Lightbox.Content` also preserves nested-dialog state and `--layer-index` /
-`--nested-layer-count`; `Lightbox.Backdrop` preserves `--layer-index`.
+`LightboxContent` also preserves nested-dialog state and `--layer-index` /
+`--nested-layer-count`; `LightboxBackdrop` preserves `--layer-index`.
 
 ## Defaults and styling
 
@@ -186,17 +199,17 @@ ratio, viewport height, gap, track background, and thumbnail sizing/state.
 
 ## Intentional sugar and differences from upstream
 
-- `Lightbox.Image` is a styled native `<img>` that accepts native image props.
-- `Lightbox.Image closeOnClick` is narrow Moduix sugar for image-preview workflows.
-- `Lightbox.Gallery` is a styled composition boundary for a nested `Carousel`; it adds no state,
+- `LightboxImage` is a styled native `<img>` that accepts native image props.
+- `LightboxImage closeOnClick` is narrow Moduix sugar for image-preview workflows.
+- `LightboxGallery` is a styled composition boundary for a nested `Carousel`; it adds no state,
   image registry, render callbacks, or translated Carousel API.
-- `Lightbox.Bind` is narrow zero-render sugar for binding image selection to CMS or external DOM.
+- `LightboxBind` is narrow zero-render sugar for binding image selection to CMS or external DOM.
   Consumers keep ownership of image state and the complete overlay composition.
-- `Lightbox.Header`, `Lightbox.Body`, and `Lightbox.Footer` provide only layout and stable slots.
+- `LightboxHeader`, `LightboxBody`, and `LightboxFooter` provide only layout and stable slots.
 - `useLightbox` and `useLightboxContext` are direct Ark hook re-exports for the normal advanced
   state path; they do not alter callback detail objects or dialog state behavior.
 - Structured image data and slide state stay consumer-owned.
-- `Lightbox.CloseIcon` composes Ark `CloseTrigger` with the library `CloseButton.Root` and defaults
+- `LightboxCloseIcon` composes Ark `CloseTrigger` with the library `CloseButton` and defaults
   its label to `"Close image"`.
 - Part wrappers add `data-slot` hooks and lightbox-specific visual defaults.
 - Legacy adapters, hidden overlay composition, flat part exports, and image registry props stay
@@ -205,9 +218,9 @@ ratio, viewport height, gap, track background, and thumbnail sizing/state.
 ## Agent notes
 
 Do not add a convenience component that hides `Backdrop`, `Positioner`, or `Content`.
-Keep external DOM binding scoped to `Lightbox.Bind`; do not smear source-capture behavior back
-into the base `Lightbox` parts or `Lightbox.Gallery`. When data already exists as a structured image
-array, prefer explicit `Lightbox.Gallery + Carousel` composition.
+Keep external DOM binding scoped to `LightboxBind`; do not smear source-capture behavior back
+into the base `Lightbox` parts or `LightboxGallery`. When data already exists as a structured image
+array, prefer explicit `LightboxGallery + Carousel` composition.
 
 ## Mount lifecycle
 
@@ -222,40 +235,40 @@ content after the first open; set both props to `false` only when eager initial 
 
 - 2026-08-01: Defaulted portalled overlay presence to lazy mounting and unmounting after exit.
 
-- 2026-07-28: Required `Lightbox.Bind.selector` so external previews always target a semantic
+- 2026-07-28: Required `LightboxBind.selector` so external previews always target a semantic
   keyboard-accessible activator; made the positioner scrollable and constrained content by its
   configured viewport padding.
 - 2026-07-28: Documented non-modal composition without `Backdrop`; it preserves interaction with
   page content outside the lightbox.
 - 2026-07-21: Routed shared dimensions, spacing, icon geometry, and focus-ring fallbacks through foundation tokens so density and theme presets can retune the component consistently.
 - 2026-07-16: Added shared `--moduix-popup-motion-*` fallbacks for content motion; backdrop motion remains separate.
-- 2026-07-10: Re-exported `useLightbox` and `useLightboxContext` through moduix and the Lightbox
-  namespace so `RootProvider` and context examples no longer require direct Ark imports.
-- 2026-07-05: Added a library-colored focus-visible outline to `Lightbox.Trigger` after focus
+- 2026-07-10: Re-exported `useLightbox` and `useLightboxContext` as direct moduix package exports
+  so `LightboxRootProvider` and context examples no longer require direct Ark imports.
+- 2026-07-05: Added a library-colored focus-visible outline to `LightboxTrigger` after focus
   restoration and exposed `--moduix-lightbox-trigger-focus-ring-*` tokens for trigger ring overrides.
-- 2026-07-05: Changed `Lightbox.Gallery` from a forced width to a centered max-width cap so `Lightbox + Carousel` keeps its natural centered size inside `Lightbox.Content`.
-- 2026-07-05: Kept `Lightbox.Gallery` centered inside the new `Content` grid layout so `Lightbox + Carousel` stays visually centered.
-- 2026-07-05: Added `Lightbox.Header`, `Lightbox.Body`, and `Lightbox.Footer`, and documented the layout-helper composition path around media content.
+- 2026-07-05: Changed `LightboxGallery` from a forced width to a centered max-width cap so `Lightbox + Carousel` keeps its natural centered size inside `LightboxContent`.
+- 2026-07-05: Kept `LightboxGallery` centered inside the new `Content` grid layout so `Lightbox + Carousel` stays visually centered.
+- 2026-07-05: Added `LightboxHeader`, `LightboxBody`, and `LightboxFooter`, and documented the layout-helper composition path around media content.
 - 2026-07-01: Made overlay portalling automatic by default, added `portalled` and `portalRef`, and removed explicit `Portal` wrappers from recommended composition.
-- 2026-07-03: Kept `RootProvider` but removed moduix re-exports of Ark dialog hooks, contexts, and
+- 2026-07-03: Kept `LightboxRootProvider` but removed moduix re-exports of Ark dialog hooks, contexts, and
   renamed detail-object types; advanced state access now imports from `@ark-ui/react/dialog`.
 
-- 2026-06-19: Adopted Ark UI Dialog, adopted Ark anatomy, namespace exports,
+- 2026-06-19: Adopted Ark UI Dialog, adopted Ark anatomy, flat exports,
   callbacks, provider/context hooks, data-state styling, and explicit overlay composition; removed
   all legacy adapters and image/gallery state helpers.
-- 2026-06-19: Restored delegated CMS capture as `Lightbox.Gallery`, using Ark dialog state under
+- 2026-06-19: Restored delegated CMS capture as `LightboxGallery`, using Ark dialog state under
   the hood while keeping the base composition explicit.
 - 2026-06-25: Re-audited the Ark Dialog contract after migration, documented inherited focus,
-  presence, id, and non-modal props, converted `Lightbox.Frame` to an Ark factory part, and
+  presence, id, and non-modal props, converted `LightboxImage` to an Ark factory part, and
   simplified `closeOnClick` composition.
 - 2026-06-30: Documented `Lightbox + Carousel` as the recommended pattern for structured server or
-  CMS image arrays and clarified that the then-current `Lightbox.Gallery` helper stayed limited to
+  CMS image arrays and clarified that the then-current `LightboxGallery` helper stayed limited to
   delegated DOM capture.
-- 2026-06-30: Reassigned `Lightbox.Gallery` to the styled Carousel composition path and renamed the
-  delegated DOM helper to `Lightbox.Delegated`; added stable gallery sizing and thumbnail styles.
-- 2026-06-30: Replaced the layout-oriented `Lightbox.Frame` with native `Lightbox.Image` and renamed
-  the external DOM helper from `Lightbox.Delegated` to user-facing `Lightbox.Bind`.
-- 2026-06-30: Reduced `Lightbox.Bind` to a zero-render context behavior part with
+- 2026-06-30: Reassigned `LightboxGallery` to the styled Carousel composition path and renamed the
+  delegated DOM helper to `LightboxBind`; added stable gallery sizing and thumbnail styles.
+- 2026-06-30: Replaced the layout-oriented `LightboxImage` with native `LightboxImage` and renamed
+  the external DOM helper from `LightboxBind` to user-facing `LightboxBind`.
+- 2026-06-30: Reduced `LightboxBind` to a zero-render context behavior part with
   `onImageSelect(details)` so consumers own the full overlay composition.
-- 2026-06-30: Simplified `Lightbox.Bind` to native click activation while retaining full-size image
+- 2026-06-30: Simplified `LightboxBind` to native click activation while retaining full-size image
   preload on pointer hover and keyboard focus.

@@ -58,7 +58,7 @@ L’aperçu interactif utilise le paquet React. Les onglets de code présentent 
 La commande ajoute `Carousel` à votre projet. Copiez le composant de la recette et sa feuille de styles depuis les
 onglets ci-dessus, puis remplacez le contenu de démonstration par le vôtre.
 
-## Utiliser la recette dans une page
+## Utiliser la recette dans votre application
 
 Le fichier copié est prêt à être adapté :
 
@@ -76,7 +76,7 @@ espacements de la galerie dans son conteneur.
 
 ## Fonctionnement
 
-La recette utilise deux blocs `Carousel.Context` connectés à la même racine. Le premier lit l’API du carrousel pour
+La recette utilise deux blocs `CarouselContext` connectés à la même racine. Le premier lit l’API du carrousel pour
 marquer la diapositive active et afficher les boutons précédent et suivant. Le second construit les indicateurs de
 progression à partir de `api.pageSnapPoints` et marque l’indicateur courant avec `data-current`.
 
@@ -88,7 +88,7 @@ Les clics sur les flèches et les indicateurs appellent `requestAnimationFrame(a
 lecture automatique en pause : le lancement au prochain cycle d’affichage laisse le changement de diapositive se terminer
 avant de lancer un nouvel intervalle. Les interactions tactiles et le défilement horizontal à la molette mettent également
 la lecture automatique en pause. Si votre produit doit la reprendre après ces interactions, ajoutez ce comportement à votre
-logique ou affichez `Carousel.AutoplayTrigger`.
+logique ou affichez `CarouselAutoplayTrigger`.
 
 Ark met la lecture automatique en pause lorsque le document est masqué. La recette écoute `visibilitychange` et appelle
 la méthode publique `api.play()` lorsque le document redevient visible.
@@ -102,5 +102,5 @@ ne soit obligé d’attendre le minuteur.
 
 Lorsque `prefers-reduced-motion: reduce` est actif, la recette supprime les transitions des diapositives et l’animation
 des indicateurs. Le minuteur continue toutefois de faire avancer le carrousel. Si les utilisateurs doivent pouvoir
-arrêter les changements automatiques, ajoutez `Carousel.AutoplayTrigger` ou retirez la prop `autoplay`. Consultez la
+arrêter les changements automatiques, ajoutez `CarouselAutoplayTrigger` ou retirez la prop `autoplay`. Consultez la
 [documentation de Carousel](/docs/carousel) pour les contrôles de lecture automatique et l’API complète.

@@ -88,7 +88,7 @@ each node's numeric position as its `indexPath`.
 
 </ExampleCode>
 
-`TreeView.Label` gives the tree an accessible name, while `TreeView` provides focus management,
+`TreeViewLabel` gives the tree an accessible name, while `TreeView` provides focus management,
 keyboard navigation, expansion, and selection. For the complete component anatomy and behavior, see
 [Tree View](/docs/tree-view).
 
@@ -245,8 +245,8 @@ const withFile = collection.insertAfter(buttonPath, [
 ]);
 const withoutReadme = collection.remove([readmePath]);
 const renamed = collection.replace(buttonPath, {
-  value: 'src/components/Button.new.tsx',
-  label: 'Button.new.tsx',
+  value: 'src/components/ButtonRenamed.tsx',
+  label: 'ButtonRenamed.tsx',
 });
 const moved = collection.move([readmePath], srcPath);
 ```

@@ -3,6 +3,10 @@ import { render } from '@testing-library/react';
 import { createRef } from 'react';
 import { Skeleton } from '../src';
 
+test('exports a flat root without compound aliases', () => {
+  expect(Skeleton).not.toHaveProperty('Root');
+});
+
 test('owns stable loading hooks even when passthrough props provide conflicting values', () => {
   const { getByTestId } = render(
     <Skeleton

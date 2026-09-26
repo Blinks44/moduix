@@ -47,7 +47,7 @@ Utilisez `Select` lorsque la liste est prédéfinie et qu’un champ modifiable 
 
 
 Créez une collection Ark avec `useListCollection`, puis transmettez-la à `Combobox`. Déclarez explicitement la structure
-de la liste. Utilisez `Combobox.Option` pour les options simples et `Combobox.Item` lorsqu’une ligne nécessite une mise en page personnalisée.
+de la liste. Utilisez `ComboboxOption` pour les options simples et `ComboboxItem` lorsqu’une ligne nécessite une mise en page personnalisée.
 La fonction `onInputValueChange` reçoit un objet `details` fourni par Ark.
 
 <ExampleFrame variant="component">
@@ -115,68 +115,68 @@ Consultez le [Démarrage rapide](/docs/quick-start) pour la configuration compl�
 ## Anatomie
 
 ```text
-Combobox / Combobox.Root[collection]
-├─ Combobox.Label
-├─ Combobox.Control
-│  ├─ Combobox.Input
-│  ├─ Combobox.ClearTrigger
-│  └─ Combobox.Trigger
+Combobox[collection]
+├─ ComboboxLabel
+├─ ComboboxControl
+│  ├─ ComboboxInput
+│  ├─ ComboboxClearTrigger
+│  └─ ComboboxTrigger
 └─ Sous-arbre du menu déroulant (placé automatiquement dans un portail)
- └─ Combobox.Positioner
-    └─ Combobox.Content
-       ├─ Combobox.Empty
-       ├─ Combobox.Status
-       ├─ Combobox.List
-       │  ├─ Combobox.Option[item]
-       │  └─ Combobox.Item[item]
-       │     ├─ Combobox.ItemText
-       │     └─ Combobox.ItemIndicator
-       └─ Combobox.ItemGroup
-          ├─ Combobox.ItemGroupLabel
-          └─ Combobox.Item
+ └─ ComboboxPositioner
+    └─ ComboboxContent
+       ├─ ComboboxEmpty
+       ├─ ComboboxStatus
+       ├─ ComboboxList
+       │  ├─ ComboboxOption[item]
+       │  └─ ComboboxItem[item]
+       │     ├─ ComboboxItemText
+       │     └─ ComboboxItemIndicator
+       └─ ComboboxItemGroup
+          ├─ ComboboxItemGroupLabel
+          └─ ComboboxItem
 ```
 
 | Partie | Rôle |
 | --- | --- |
-| `Combobox` / `Combobox.Root` | Gère l’état du composant, le filtrage, la mise en évidence et les valeurs sélectionnées. |
-| `Combobox.Control` | Conteneur du champ de saisie et des boutons d’action. |
-| `Combobox.Input` | Champ de texte utilisé pour rechercher et sélectionner une option. |
-| `Combobox.Trigger` | Ouvre et ferme la liste d’options. |
-| `Combobox.ClearTrigger` | Efface la valeur sélectionnée et/ou le texte du champ. |
-| `Combobox.Positioner` | Positionne la liste flottante. |
-| `Combobox.Content` | Conteneur du contenu de la liste. |
-| `Combobox.Status` | Conteneur stylisé pour les messages de chargement, d’erreur ou d’aide de l’application. |
-| `Combobox.List` | Conteneur de la liste des options. |
-| `Combobox.Option` | Ligne prête à l’emploi pour une option simple, avec texte et indicateur. |
-| `Combobox.Item` | Option sélectionnable de la liste. |
-| `Combobox.ItemText` | Slot du texte de l’élément. |
-| `Combobox.ItemIndicator` | Slot de l’indicateur de sélection. |
-| `Combobox.Context` | Accès à l’état actuel du composant sans ajouter d’éléments au DOM. |
-| `Combobox.ItemContext` | Accès à l’état de l’élément courant sans ajouter d’éléments au DOM. |
+| `Combobox` | Gère l’état du composant, le filtrage, la mise en évidence et les valeurs sélectionnées. |
+| `ComboboxControl` | Conteneur du champ de saisie et des boutons d’action. |
+| `ComboboxInput` | Champ de texte utilisé pour rechercher et sélectionner une option. |
+| `ComboboxTrigger` | Ouvre et ferme la liste d’options. |
+| `ComboboxClearTrigger` | Efface la valeur sélectionnée et/ou le texte du champ. |
+| `ComboboxPositioner` | Positionne la liste flottante. |
+| `ComboboxContent` | Conteneur du contenu de la liste. |
+| `ComboboxStatus` | Conteneur stylisé pour les messages de chargement, d’erreur ou d’aide de l’application. |
+| `ComboboxList` | Conteneur de la liste des options. |
+| `ComboboxOption` | Ligne prête à l’emploi pour une option simple, avec texte et indicateur. |
+| `ComboboxItem` | Option sélectionnable de la liste. |
+| `ComboboxItemText` | Slot du texte de l’élément. |
+| `ComboboxItemIndicator` | Slot de l’indicateur de sélection. |
+| `ComboboxContext` | Accès à l’état actuel du composant sans ajouter d’éléments au DOM. |
+| `ComboboxItemContext` | Accès à l’état de l’élément courant sans ajouter d’éléments au DOM. |
 
-`Combobox.RootProvider` conserve le style du composant racine et l’applique à un état créé avec `useCombobox` de moduix.
-Accédez à l’état du composant `Combobox` dans l’arbre avec `Combobox.Context` ou `useComboboxContext`. Pour l’état d’un élément,
-utilisez `Combobox.ItemContext` ou `useComboboxItemContext`.
+`ComboboxRootProvider` conserve le style du composant racine et l’applique à un état créé avec `useCombobox` de moduix.
+Accédez à l’état du composant `Combobox` dans l’arbre avec `ComboboxContext` ou `useComboboxContext`. Pour l’état d’un élément,
+utilisez `ComboboxItemContext` ou `useComboboxItemContext`.
 
 ## Composition
 
 Utilisez `createListCollection` pour les éléments statiques et `useListCollection` lorsque le filtrage ou d’autres mises à jour
 modifient la collection. Pour les objets, définissez `itemToString` et `itemToValue`.
 
-La racine place automatiquement `Positioner` dans un portail, mais `Positioner` et `Content` restent des parties explicites
+`Combobox` place automatiquement `ComboboxPositioner` dans un portail, mais `ComboboxPositioner` et `ComboboxContent` restent des parties explicites
 de la composition. Définissez `portalled={false}` pour garder la liste dans l’arbre courant, ou transmettez `portalRef` pour
-un conteneur précis. Utilisez `Combobox.Option` pour les lignes simples et `Combobox.Item` avec `asChild` pour les lignes personnalisées.
+un conteneur précis. Utilisez `ComboboxOption` pour les lignes simples et `ComboboxItem` avec `asChild` pour les lignes personnalisées.
 
 Conservez `value` dans l’état de l’application lorsqu’il doit être utilisé par d’autres éléments de l’interface. Si l’état est créé
-en dehors de l’arbre rendu, transmettez `useCombobox` à `Combobox.RootProvider`. En sélection multiple, les tags et toute autre
+en dehors de l’arbre rendu, transmettez `useCombobox` à `ComboboxRootProvider`. En sélection multiple, les tags et toute autre
 représentation des valeurs appartiennent à l’application ; composez avec `TagsInput` pour les placer dans le même champ.
-`Combobox.Status` est également un conteneur de messages géré par l’application et ne contrôle pas les états de chargement ou d’erreur.
+`ComboboxStatus` est également un conteneur de messages géré par l’application et ne contrôle pas les états de chargement ou d’erreur.
 
 ## Exemples
 
 ### Recherche asynchrone
 
-Remplacez les éléments de la collection par les résultats d’une requête asynchrone et affichez `Combobox.Status` pendant
+Remplacez les éléments de la collection par les résultats d’une requête asynchrone et affichez `ComboboxStatus` pendant
 l’attente. Utilisez `details.reason` pour distinguer la saisie de l’utilisateur d’une mise à jour déclenchée par le code.
 Si le champ est vide, affichez `Start typing to search…` pour que la liste reste informative.
 
@@ -537,7 +537,7 @@ Pour les placer dans le même conteneur de champ, composez `Combobox` avec `Tags
 ### Root Provider
 
 Créez l’état avec `useCombobox` de moduix lorsque des contrôles externes ont besoin de méthodes impératives ou d’un état
-partagé avant l’affichage de la racine. `Combobox.RootProvider` conserve les styles racine moduix et les réglages du portail.
+partagé avant l’affichage de la racine. `ComboboxRootProvider` conserve les styles racine moduix et les réglages du portail.
 
 <ExampleFrame variant="component">
   <ComboboxRootProvider />
@@ -653,7 +653,7 @@ doivent apparaître dans le même champ éditable que les tags.
 ### Personnalisation avancée
 
 Utilisez la composition complète d’un élément lorsqu’il nécessite son propre élément sémantique ou sa propre disposition.
-Cet exemple affiche chaque résultat comme un lien avec `Combobox.Item asChild`.
+Cet exemple affiche chaque résultat comme un lien avec `ComboboxItem asChild`.
 
 <ExampleFrame variant="component">
   <ComboboxAdvancedCustomization />
@@ -708,7 +708,7 @@ personnalisent les variantes CSS Modules. Les attributs d’état et les hooks `
   `combobox-control`, `combobox-input`, `combobox-clear-trigger`, `combobox-trigger`,
   `combobox-positioner`, `combobox-content`, `combobox-empty`, `combobox-status`, `combobox-list`,
   `combobox-item-group`, `combobox-item-group-label`, `combobox-item`, `combobox-item-text` et
-  `combobox-item-indicator`. `Combobox.Option` réutilise les slots de l’élément sans ajouter de point d’accroche.
+  `combobox-item-indicator`. `ComboboxOption` réutilise les slots de l’élément sans ajouter de point d’accroche.
 - Les attributs d’état Ark comprennent `data-state="open|closed"`, `data-focus`, `data-invalid`, `data-disabled`,
   `data-highlighted`, `data-empty`, `data-placement` et `data-side`.
 - Les variables de positionnement Ark comprennent `--reference-width`, `--available-width`, `--available-height`,

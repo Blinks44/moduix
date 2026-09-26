@@ -1,5 +1,5 @@
 import { Button } from '@moduix/solid/button';
-import { Tooltip } from '@moduix/solid/tooltip';
+import { Tooltip, TooltipBody, TooltipTrigger } from '@moduix/solid/tooltip';
 import { Info as InfoIcon, Plus as PlusIcon, Share as ShareIcon } from 'lucide-solid';
 import { For, Show, createSignal } from 'solid-js';
 import { Dynamic } from 'solid-js/web';
@@ -38,7 +38,7 @@ export default function MultipleTriggersTooltipDemo() {
       <div class={styles.tools}>
         <For each={tooltipTools}>
           {(tool) => (
-            <Tooltip.Trigger
+            <TooltipTrigger
               value={tool.id}
               asChild={(props) => (
                 <Button {...props()} variant="ghost" size="icon-md" aria-label={tool.label}>
@@ -49,7 +49,7 @@ export default function MultipleTriggersTooltipDemo() {
           )}
         </For>
       </div>
-      <Tooltip.Body>
+      <TooltipBody>
         <Show when={activeTool()}>
           {(tool) => (
             <>
@@ -57,7 +57,7 @@ export default function MultipleTriggersTooltipDemo() {
             </>
           )}
         </Show>
-      </Tooltip.Body>
+      </TooltipBody>
     </Tooltip>
   );
 }

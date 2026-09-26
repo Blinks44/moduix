@@ -1,5 +1,5 @@
 import type { Meta, StoryObj } from 'storybook-solidjs-vite';
-import { Image } from '@/components/image/Image';
+import { Image, ImageSource } from '@/components/image/Image';
 import styles from './Image.stories.module.css';
 
 const mountainImage = 'https://images.unsplash.com/photo-1506905925346-21bda4d32df4';
@@ -83,14 +83,14 @@ export const FullWidth: Story = {
 export const ArtDirection: Story = {
   render: () => (
     <picture class={styles.picture}>
-      <Image.Source
+      <ImageSource
         media="(min-width: 48rem)"
         type="image/avif"
         src={architectureImage}
         width={800}
         height={520}
       />
-      <Image.Source media="(min-width: 48rem)" src={architectureImage} width={800} height={520} />
+      <ImageSource media="(min-width: 48rem)" src={architectureImage} width={800} height={520} />
       <Image src={portraitImage} alt="Team member in a sunlit workspace" width={800} height={520} />
     </picture>
   ),

@@ -1,6 +1,21 @@
 import { Button } from '@moduix/solid/button';
-import { Card } from '@moduix/solid/card';
-import { Drawer } from '@moduix/solid/drawer';
+import { Card, CardBody } from '@moduix/solid/card';
+import {
+  Drawer,
+  DrawerBackdrop,
+  DrawerBody,
+  DrawerCloseIcon,
+  DrawerCloseTrigger,
+  DrawerContent,
+  DrawerDescription,
+  DrawerFooter,
+  DrawerGrabber,
+  DrawerGrabberIndicator,
+  DrawerHeader,
+  DrawerPositioner,
+  DrawerTitle,
+  DrawerTrigger,
+} from '@moduix/solid/drawer';
 import { For } from 'solid-js';
 import styles from '@/components/examples/drawer/drawer-basic.module.css';
 
@@ -14,39 +29,39 @@ const notifications = [
 export default function DrawerDemo() {
   return (
     <Drawer snapPoints={snapPoints} defaultSnapPoint={snapPoints[0]}>
-      <Drawer.Trigger asChild={(props) => <Button {...props()}>Open drawer</Button>} />
-      <Drawer.Backdrop />
-      <Drawer.Positioner>
-        <Drawer.Content>
-          <Drawer.Grabber>
-            <Drawer.GrabberIndicator />
-          </Drawer.Grabber>
-          <Drawer.Header>
-            <Drawer.Title>Notifications</Drawer.Title>
-            <Drawer.CloseIcon />
-            <Drawer.Description>Three updates need your attention.</Drawer.Description>
-          </Drawer.Header>
-          <Drawer.Body class={styles.body}>
+      <DrawerTrigger asChild={(props) => <Button {...props()}>Open drawer</Button>} />
+      <DrawerBackdrop />
+      <DrawerPositioner>
+        <DrawerContent>
+          <DrawerGrabber>
+            <DrawerGrabberIndicator />
+          </DrawerGrabber>
+          <DrawerHeader>
+            <DrawerTitle>Notifications</DrawerTitle>
+            <DrawerCloseIcon />
+            <DrawerDescription>Three updates need your attention.</DrawerDescription>
+          </DrawerHeader>
+          <DrawerBody class={styles.body}>
             <Card size="sm" class={styles.card}>
-              <Card.Body>
+              <CardBody>
                 <ul>
                   <For each={notifications}>{(notification) => <li>{notification}</li>}</For>
                 </ul>
-              </Card.Body>
+              </CardBody>
             </Card>
-          </Drawer.Body>
-          <Drawer.Footer>
+          </DrawerBody>
+          <DrawerFooter>
             <Button>View inbox</Button>
-            <Drawer.CloseTrigger
+            <DrawerCloseTrigger
               asChild={(props) => (
                 <Button {...props()} variant="outline">
                   Close
                 </Button>
               )}
             />
-          </Drawer.Footer>
-        </Drawer.Content>
-      </Drawer.Positioner>
+          </DrawerFooter>
+        </DrawerContent>
+      </DrawerPositioner>
     </Drawer>
   );
 }

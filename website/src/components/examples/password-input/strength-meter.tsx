@@ -1,4 +1,11 @@
-import { PasswordInput } from '@moduix/react/password-input';
+import {
+  PasswordInput,
+  PasswordInputControl,
+  PasswordInputIndicator,
+  PasswordInputInput,
+  PasswordInputLabel,
+  PasswordInputVisibilityTrigger,
+} from '@moduix/react/password-input';
 import { useState } from 'react';
 import styles from '@/components/examples/password-input/password-input-strength-meter.module.css';
 
@@ -7,17 +14,17 @@ export default function PasswordInputStrengthMeterDemo() {
   const strength = getPasswordStrength(password);
   return (
     <PasswordInput className={styles.root}>
-      <PasswordInput.Label>Password</PasswordInput.Label>
-      <PasswordInput.Control>
-        <PasswordInput.Input
+      <PasswordInputLabel>Password</PasswordInputLabel>
+      <PasswordInputControl>
+        <PasswordInputInput
           value={password}
           onChange={(event) => setPassword(event.currentTarget.value)}
           placeholder="Enter your password"
         />
-        <PasswordInput.VisibilityTrigger>
-          <PasswordInput.Indicator />
-        </PasswordInput.VisibilityTrigger>
-      </PasswordInput.Control>
+        <PasswordInputVisibilityTrigger>
+          <PasswordInputIndicator />
+        </PasswordInputVisibilityTrigger>
+      </PasswordInputControl>
       {strength ? (
         <div className={styles.strengthMeter}>
           <div className={styles.strengthBar}>

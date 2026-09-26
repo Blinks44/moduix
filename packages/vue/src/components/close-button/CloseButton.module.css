@@ -1,0 +1,57 @@
+@layer moduix.components {
+  .root {
+    box-sizing: border-box;
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+    flex-shrink: 0;
+    width: var(--moduix-close-button-size, var(--moduix-spacing-7));
+    height: var(--moduix-close-button-size, var(--moduix-spacing-7));
+    margin: 0;
+    padding: 0;
+    border: none;
+    background-color: var(--moduix-close-button-bg, transparent);
+    border-radius: var(--moduix-close-button-radius, var(--moduix-radius-sm));
+    color: var(--moduix-close-button-color, var(--moduix-color-muted-foreground));
+    appearance: none;
+    font: inherit;
+    user-select: none;
+    cursor: pointer;
+    transition:
+      background-color var(--moduix-close-button-transition, var(--moduix-transition-default)),
+      color var(--moduix-close-button-transition, var(--moduix-transition-default)),
+      opacity var(--moduix-close-button-transition, var(--moduix-transition-default));
+
+    & > svg {
+      flex-shrink: 0;
+      width: var(--moduix-close-button-icon-size, var(--moduix-spacing-3));
+      height: var(--moduix-close-button-icon-size, var(--moduix-spacing-3));
+    }
+
+    @media (hover: hover) {
+      &:hover:not([data-disabled]) {
+        background-color: var(--moduix-close-button-bg-hover, var(--moduix-color-muted));
+        color: var(--moduix-close-button-color-hover, var(--moduix-color-foreground));
+      }
+    }
+
+    &:focus-visible {
+      outline: var(
+          --moduix-close-button-focus-ring-width,
+          var(--moduix-focus-ring-width, var(--moduix-border-width-md))
+        )
+        solid var(--moduix-close-button-focus-ring-color, var(--moduix-color-ring));
+      outline-offset: var(--moduix-close-button-focus-ring-offset, var(--moduix-focus-ring-offset));
+    }
+
+    &:active:not([data-disabled]) {
+      opacity: 0.94;
+    }
+
+    &[data-disabled] {
+      cursor: default;
+      pointer-events: none;
+      opacity: var(--moduix-close-button-disabled-opacity, var(--moduix-opacity-disabled));
+    }
+  }
+}

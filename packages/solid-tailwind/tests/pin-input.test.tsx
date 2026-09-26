@@ -1,17 +1,29 @@
 import { expect, test } from '@rstest/core';
 import { fireEvent, render, screen, waitFor } from '@solidjs/testing-library';
 import { createSignal } from 'solid-js';
-import { Field, PinInput, usePinInput } from '../src';
+import {
+  Field,
+  PinInput,
+  usePinInput,
+  FieldErrorText,
+  PinInputRootProvider,
+  PinInputHiddenInput,
+  PinInputLabel,
+  PinInputControl,
+  PinInputInput,
+  PinInputInputs,
+  PinInputSeparator,
+} from '../src';
 
 function ControlledPinInput() {
   const [value, setValue] = createSignal<string[]>([]);
 
   return (
     <PinInput count={4} value={value()} onValueChange={(details) => setValue(details.value)}>
-      <PinInput.Label>Verification code</PinInput.Label>
-      <PinInput.Control>
-        <PinInput.Inputs />
-      </PinInput.Control>
+      <PinInputLabel>Verification code</PinInputLabel>
+      <PinInputControl>
+        <PinInputInputs />
+      </PinInputControl>
     </PinInput>
   );
 }
@@ -32,11 +44,11 @@ test('renders the recommended composition with Ark anatomy and form participatio
   const { container } = render(() => (
     <form>
       <PinInput count={4} defaultValue={['1', '2', '3', '4']} name="code" required>
-        <PinInput.Label>Verification code</PinInput.Label>
-        <PinInput.Control>
-          <PinInput.Inputs />
-        </PinInput.Control>
-        <PinInput.HiddenInput />
+        <PinInputLabel>Verification code</PinInputLabel>
+        <PinInputControl>
+          <PinInputInputs />
+        </PinInputControl>
+        <PinInputHiddenInput />
       </PinInput>
     </form>
   ));
@@ -72,12 +84,12 @@ test('keeps invalid, disabled, and read-only Field state on visible inputs', () 
   render(() => (
     <Field disabled invalid readOnly>
       <PinInput count={4}>
-        <PinInput.Label>Verification code</PinInput.Label>
-        <PinInput.Control>
-          <PinInput.Inputs />
-        </PinInput.Control>
+        <PinInputLabel>Verification code</PinInputLabel>
+        <PinInputControl>
+          <PinInputInputs />
+        </PinInputControl>
       </PinInput>
-      <Field.ErrorText>Enter a valid code.</Field.ErrorText>
+      <FieldErrorText>Enter a valid code.</FieldErrorText>
     </Field>
   ));
 
@@ -100,11 +112,11 @@ test('submits the owning form after completing an auto-submit PinInput', async (
       }}
     >
       <PinInput autoSubmit count={4} name="code">
-        <PinInput.Label>Verification code</PinInput.Label>
-        <PinInput.Control>
-          <PinInput.Inputs />
-        </PinInput.Control>
-        <PinInput.HiddenInput />
+        <PinInputLabel>Verification code</PinInputLabel>
+        <PinInputControl>
+          <PinInputInputs />
+        </PinInputControl>
+        <PinInputHiddenInput />
       </PinInput>
     </form>
   ));
@@ -126,13 +138,13 @@ test('preserves RootProvider and root asChild composition', async () => {
         <button type="button" onClick={() => pinInput().clearValue()}>
           Clear code
         </button>
-        <PinInput.RootProvider value={pinInput}>
-          <PinInput.Label>Provider code</PinInput.Label>
-          <PinInput.Control>
-            <PinInput.Inputs />
-          </PinInput.Control>
-          <PinInput.HiddenInput />
-        </PinInput.RootProvider>
+        <PinInputRootProvider value={pinInput}>
+          <PinInputLabel>Provider code</PinInputLabel>
+          <PinInputControl>
+            <PinInputInputs />
+          </PinInputControl>
+          <PinInputHiddenInput />
+        </PinInputRootProvider>
       </>
     );
   }
@@ -140,11 +152,11 @@ test('preserves RootProvider and root asChild composition', async () => {
   const { container } = render(() => (
     <>
       <PinInput asChild={(props) => <section {...props()} />} count={4}>
-        <PinInput.Label>Custom code</PinInput.Label>
-        <PinInput.Control>
-          <PinInput.Inputs />
-        </PinInput.Control>
-        <PinInput.HiddenInput />
+        <PinInputLabel>Custom code</PinInputLabel>
+        <PinInputControl>
+          <PinInputInputs />
+        </PinInputControl>
+        <PinInputHiddenInput />
       </PinInput>
       <ProviderPinInput />
     </>
@@ -162,9 +174,9 @@ test('forwards refs through ordinary Ark Solid part paths', () => {
 
   render(() => (
     <PinInput ref={(element) => (rootRef = element)} count={4}>
-      <PinInput.Control>
-        <PinInput.Input ref={(element) => (inputRef = element)} index={0} />
-      </PinInput.Control>
+      <PinInputControl>
+        <PinInputInput ref={(element) => (inputRef = element)} index={0} />
+      </PinInputControl>
     </PinInput>
   ));
 
@@ -181,9 +193,9 @@ test('does not forward refs through native Ark Solid asChild composition', () =>
       asChild={(props) => <section {...props()} aria-label="Pin input" />}
       count={4}
     >
-      <PinInput.Control>
-        <PinInput.Inputs />
-      </PinInput.Control>
+      <PinInputControl>
+        <PinInputInputs />
+      </PinInputControl>
     </PinInput>
   ));
 
@@ -197,11 +209,11 @@ test('does not forward refs through native Ark Solid asChild composition', () =>
 test('applies native utilities to component-owned parts', () => {
   const { container } = render(() => (
     <PinInput count={4}>
-      <PinInput.Label>Verification code</PinInput.Label>
-      <PinInput.Control>
-        <PinInput.Inputs />
-        <PinInput.Separator />
-      </PinInput.Control>
+      <PinInputLabel>Verification code</PinInputLabel>
+      <PinInputControl>
+        <PinInputInputs />
+        <PinInputSeparator />
+      </PinInputControl>
     </PinInput>
   ));
 
@@ -252,14 +264,14 @@ test('applies native utilities to component-owned parts', () => {
 test('lets consumer Tailwind classes override conflicting defaults', () => {
   const { container } = render(() => (
     <PinInput class="w-80 max-w-sm gap-4">
-      <PinInput.Label class="text-lg text-primary">Verification code</PinInput.Label>
-      <PinInput.Control class="gap-4">
-        <PinInput.Input
+      <PinInputLabel class="text-lg text-primary">Verification code</PinInputLabel>
+      <PinInputControl class="gap-4">
+        <PinInputInput
           class="h-12 w-40 rounded-lg border-2 bg-muted px-2 py-1 text-primary"
           index={0}
         />
-        <PinInput.Separator class="size-8 text-primary" />
-      </PinInput.Control>
+        <PinInputSeparator class="size-8 text-primary" />
+      </PinInputControl>
     </PinInput>
   ));
 

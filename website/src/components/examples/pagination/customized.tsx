@@ -1,4 +1,9 @@
-import { Pagination } from '@moduix/react/pagination';
+import {
+  Pagination,
+  PaginationItems,
+  PaginationNextTrigger,
+  PaginationPrevTrigger,
+} from '@moduix/react/pagination';
 import styles from '@/components/examples/pagination/pagination-customized.module.css';
 
 export default function CustomizedPaginationDemo() {
@@ -14,9 +19,9 @@ export default function CustomizedPaginationDemo() {
         itemLabel: (details) => `Page ${details.page}`,
       }}
     >
-      <Pagination.PrevTrigger />
-      <Pagination.Items />
-      <Pagination.NextTrigger />
+      <PaginationPrevTrigger />
+      <PaginationItems />
+      <PaginationNextTrigger />
     </Pagination>
   );
 }

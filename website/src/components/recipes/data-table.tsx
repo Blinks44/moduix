@@ -1,9 +1,32 @@
 import { Badge } from '@moduix/react/badge';
 import { Button } from '@moduix/react/button';
-import { Checkbox } from '@moduix/react/checkbox';
-import { InputGroup } from '@moduix/react/input-group';
-import { Menu } from '@moduix/react/menu';
-import { Table } from '@moduix/react/table';
+import { Checkbox, CheckboxControl, CheckboxHiddenInput } from '@moduix/react/checkbox';
+import { InputGroup, InputGroupAddon, InputGroupInput } from '@moduix/react/input-group';
+import {
+  Menu,
+  MenuTrigger,
+  MenuPositioner,
+  MenuContent,
+  MenuViewport,
+  MenuItem,
+  MenuItemGroup,
+  MenuItemGroupLabel,
+  MenuCheckboxItem,
+  MenuItemIndicator,
+  MenuItemText,
+} from '@moduix/react/menu';
+import {
+  Table,
+  TableBody,
+  TableCell,
+  TableColumn,
+  TableColumnGroup,
+  TableColumnHeader,
+  TableEmpty,
+  TableHeader,
+  TableRow,
+  TableScrollArea,
+} from '@moduix/react/table';
 import {
   columnFilteringFeature,
   columnVisibilityFeature,
@@ -271,8 +294,8 @@ const columns: ColumnDef<typeof features, ComponentRow>[] = [
         aria-label="Select all visible components"
         onCheckedChange={(details) => table.toggleAllPageRowsSelected(details.checked === true)}
       >
-        <Checkbox.Control />
-        <Checkbox.HiddenInput />
+        <CheckboxControl />
+        <CheckboxHiddenInput />
       </Checkbox>
     ),
     cell: ({ row }) => (
@@ -281,8 +304,8 @@ const columns: ColumnDef<typeof features, ComponentRow>[] = [
         aria-label={`Select ${row.original.name}`}
         onCheckedChange={(details) => row.toggleSelected(details.checked === true)}
       >
-        <Checkbox.Control />
-        <Checkbox.HiddenInput />
+        <CheckboxControl />
+        <CheckboxHiddenInput />
       </Checkbox>
     ),
     enableHiding: false,
@@ -382,10 +405,10 @@ function DataTable() {
     <div className={styles.root}>
       <div className={styles.toolbar}>
         <InputGroup className={styles.search}>
-          <InputGroup.Addon>
+          <InputGroupAddon>
             <Search size={16} aria-hidden="true" />
-          </InputGroup.Addon>
-          <InputGroup.Input
+          </InputGroupAddon>
+          <InputGroupInput
             placeholder="Search components..."
             aria-label="Search components"
             value={(table.getColumn('name')?.getFilterValue() as string) ?? ''}
@@ -400,21 +423,21 @@ function DataTable() {
         </div>
       </div>
 
-      <Table.ScrollArea className={styles.scrollArea}>
+      <TableScrollArea className={styles.scrollArea}>
         <Table interactive className={styles.table}>
-          <Table.ColumnGroup>
+          <TableColumnGroup>
             {table.getVisibleLeafColumns().map((column) => (
-              <Table.Column
+              <TableColumn
                 key={column.id}
                 htmlWidth={columnWidths[column.id as keyof typeof columnWidths]}
               />
             ))}
-          </Table.ColumnGroup>
-          <Table.Header>
+          </TableColumnGroup>
+          <TableHeader>
             {table.getHeaderGroups().map((headerGroup) => (
-              <Table.Row key={headerGroup.id}>
+              <TableRow key={headerGroup.id}>
                 {headerGroup.headers.map((header) => (
-                  <Table.ColumnHeader
+                  <TableColumnHeader
                     key={header.id}
                     colSpan={header.colSpan}
                     className={
@@ -436,17 +459,17 @@ function DataTable() {
                     {header.isPlaceholder
                       ? null
                       : flexRender(header.column.columnDef.header, header.getContext())}
-                  </Table.ColumnHeader>
+                  </TableColumnHeader>
                 ))}
-              </Table.Row>
+              </TableRow>
             ))}
-          </Table.Header>
-          <Table.Body>
+          </TableHeader>
+          <TableBody>
             {table.getRowModel().rows.length ? (
               table.getRowModel().rows.map((row) => (
-                <Table.Row key={row.id} data-selected={row.getIsSelected() || undefined}>
+                <TableRow key={row.id} data-selected={row.getIsSelected() || undefined}>
                   {row.getVisibleCells().map((cell) => (
-                    <Table.Cell
+                    <TableCell
                       key={cell.id}
                       className={
                         cell.column.id === 'select' || cell.column.id === 'actions'
@@ -456,18 +479,18 @@ function DataTable() {
                       numeric={cell.column.id === 'installations'}
                     >
                       {flexRender(cell.column.columnDef.cell, cell.getContext())}
-                    </Table.Cell>
+                    </TableCell>
                   ))}
-                </Table.Row>
+                </TableRow>
               ))
             ) : (
-              <Table.Empty colSpan={table.getVisibleLeafColumns().length}>
+              <TableEmpty colSpan={table.getVisibleLeafColumns().length}>
                 No components found.
-              </Table.Empty>
+              </TableEmpty>
             )}
-          </Table.Body>
+          </TableBody>
         </Table>
-      </Table.ScrollArea>
+      </TableScrollArea>
 
       <div className={styles.pagination}>
         <span className={styles.pageSummary}>
@@ -511,37 +534,37 @@ function ColumnVisibilityMenu({
 }) {
   return (
     <Menu closeOnSelect={false} positioning={{ placement: 'bottom-end', gutter: 8 }}>
-      <Menu.Trigger asChild>
+      <MenuTrigger asChild>
         <Button type="button" variant="outline" size="sm">
           <Columns3 size={16} aria-hidden="true" />
           Columns
         </Button>
-      </Menu.Trigger>
-      <Menu.Positioner>
-        <Menu.Content>
-          <Menu.Viewport>
-            <Menu.ItemGroup>
-              <Menu.ItemGroupLabel>Visible columns</Menu.ItemGroupLabel>
+      </MenuTrigger>
+      <MenuPositioner>
+        <MenuContent>
+          <MenuViewport>
+            <MenuItemGroup>
+              <MenuItemGroupLabel>Visible columns</MenuItemGroupLabel>
               {table
                 .getAllLeafColumns()
                 .filter((column) => column.getCanHide())
                 .map((column) => (
-                  <Menu.CheckboxItem
+                  <MenuCheckboxItem
                     key={column.id}
                     checked={column.getIsVisible()}
                     value={column.id}
                     onCheckedChange={() => column.toggleVisibility()}
                   >
-                    <Menu.ItemIndicator />
-                    <Menu.ItemText>
+                    <MenuItemIndicator />
+                    <MenuItemText>
                       {column.id === 'installations' ? 'Installs' : column.id}
-                    </Menu.ItemText>
-                  </Menu.CheckboxItem>
+                    </MenuItemText>
+                  </MenuCheckboxItem>
                 ))}
-            </Menu.ItemGroup>
-          </Menu.Viewport>
-        </Menu.Content>
-      </Menu.Positioner>
+            </MenuItemGroup>
+          </MenuViewport>
+        </MenuContent>
+      </MenuPositioner>
     </Menu>
   );
 }
@@ -549,7 +572,7 @@ function ColumnVisibilityMenu({
 function RowActions({ id, name }: { id: string; name: string }) {
   return (
     <Menu positioning={{ placement: 'bottom-end', gutter: 8 }}>
-      <Menu.Trigger asChild>
+      <MenuTrigger asChild>
         <Button
           type="button"
           variant="ghost"
@@ -559,22 +582,22 @@ function RowActions({ id, name }: { id: string; name: string }) {
         >
           <Ellipsis size={16} aria-hidden="true" />
         </Button>
-      </Menu.Trigger>
-      <Menu.Positioner>
-        <Menu.Content>
-          <Menu.Viewport>
-            <Menu.Item value="open-docs" asChild>
+      </MenuTrigger>
+      <MenuPositioner>
+        <MenuContent>
+          <MenuViewport>
+            <MenuItem value="open-docs" asChild>
               <a href={`#${id}`}>Open details</a>
-            </Menu.Item>
-            <Menu.Item
+            </MenuItem>
+            <MenuItem
               value="copy-identifier"
               onSelect={() => void navigator.clipboard.writeText(id)}
             >
               Copy identifier
-            </Menu.Item>
-          </Menu.Viewport>
-        </Menu.Content>
-      </Menu.Positioner>
+            </MenuItem>
+          </MenuViewport>
+        </MenuContent>
+      </MenuPositioner>
     </Menu>
   );
 }

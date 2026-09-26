@@ -1,5 +1,10 @@
 import { Button } from '@moduix/solid/button';
-import { ImageCropper } from '@moduix/solid/image-cropper';
+import {
+  ImageCropper,
+  ImageCropperCropArea,
+  ImageCropperImage,
+  ImageCropperViewport,
+} from '@moduix/solid/image-cropper';
 import { ZoomIn as ZoomInIcon, ZoomOut as ZoomOutIcon } from 'lucide-solid';
 import { createSignal } from 'solid-js';
 
@@ -21,10 +26,10 @@ export default function ControlledZoomImageCropperDemo() {
         aria-label="Image cropper"
         onZoomChange={(details) => setZoom(details.zoom)}
       >
-        <ImageCropper.Viewport>
-          <ImageCropper.Image src={sampleImage} alt="Landscape" crossOrigin="anonymous" />
-          <ImageCropper.CropArea />
-        </ImageCropper.Viewport>
+        <ImageCropperViewport>
+          <ImageCropperImage src={sampleImage} alt="Landscape" crossOrigin="anonymous" />
+          <ImageCropperCropArea />
+        </ImageCropperViewport>
       </ImageCropper>
       <output>Zoom: {zoom().toFixed(1)}x</output>
       <Button

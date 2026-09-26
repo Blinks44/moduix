@@ -8,7 +8,7 @@
   "files": [
     {
       "path": "src/components/highlight/Highlight.tsx",
-      "content": "import { Highlight as HighlightPrimitive } from '@ark-ui/react/highlight';\nimport { clsx } from 'clsx';\nimport type { ComponentProps } from 'react';\nimport styles from './Highlight.module.css';\n\nfunction HighlightRoot({ className, ...props }: ComponentProps<typeof HighlightPrimitive>) {\n  return (\n    <HighlightPrimitive\n      className={clsx(styles.root, className)}\n      {...props}\n      data-scope=\"highlight\"\n      data-part=\"root\"\n      data-slot=\"highlight-root\"\n    />\n  );\n}\n\nconst Highlight = Object.assign(HighlightRoot, {\n  Root: HighlightRoot,\n});\n\nexport { Highlight };",
+      "content": "import { Highlight as HighlightPrimitive } from '@ark-ui/react/highlight';\nimport { clsx } from 'clsx';\nimport type { ComponentProps } from 'react';\nimport styles from './Highlight.module.css';\n\nfunction Highlight({ className, ...props }: ComponentProps<typeof HighlightPrimitive>) {\n  return (\n    <HighlightPrimitive\n      className={clsx(styles.root, className)}\n      {...props}\n      data-scope=\"highlight\"\n      data-part=\"root\"\n      data-slot=\"highlight-root\"\n    />\n  );\n}\n\nexport { Highlight };",
       "type": "registry:component",
       "target": "@components/ui/highlight/Highlight.tsx"
     },
@@ -20,7 +20,7 @@
     },
     {
       "path": "src/components/highlight/index.ts",
-      "content": "export { Highlight } from './Highlight.js';",
+      "content": "export * from './Highlight.js';",
       "type": "registry:component",
       "target": "@components/ui/highlight/index.ts"
     }

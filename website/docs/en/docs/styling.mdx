@@ -97,7 +97,7 @@ hatch:
 Prefer a direct consumer class whenever the part is available. Put classes or local variables on
 portalled parts themselves, or scope them to the portal container.
 
-## Use Panda CSS
+## Style with Panda CSS
 
 Panda CSS can generate consumer classes for every supported framework. Its token names come from your Panda
 theme, not from Moduix. Generate class strings once, then attach them to exported parts with
@@ -116,7 +116,7 @@ const trigger = css({
 });
 ```
 
-## Use Tailwind CSS
+## Style with Tailwind CSS
 
 Tailwind packages already contain the component's default utility-backed styling. Add consumer
 utilities to the exact part you want to change. The component API remains native to each framework:
@@ -128,10 +128,10 @@ utilities to the exact part you want to change. The component API remains native
 import { Accordion } from '@moduix/react-tailwind/accordion';
 
 <Accordion collapsible>
-  <Accordion.Item value="shipping" className="rounded-lg border data-[state=open]:border-blue-500">
-    <Accordion.ItemTrigger className="px-4">Shipping</Accordion.ItemTrigger>
-    <Accordion.ItemContent className="px-4">Usually 2 to 4 days.</Accordion.ItemContent>
-  </Accordion.Item>
+  <AccordionItem value="shipping" className="rounded-lg border data-[state=open]:border-blue-500">
+    <AccordionItemTrigger className="px-4">Shipping</AccordionItemTrigger>
+    <AccordionItemContent className="px-4">Usually 2 to 4 days.</AccordionItemContent>
+  </AccordionItem>
 </Accordion>;
 ```
 
@@ -142,10 +142,10 @@ import { Accordion } from '@moduix/react-tailwind/accordion';
 import { Accordion } from '@moduix/solid-tailwind/accordion';
 
 <Accordion collapsible>
-  <Accordion.Item value="shipping" class="rounded-lg border data-[state=open]:border-blue-500">
-    <Accordion.ItemTrigger class="px-4">Shipping</Accordion.ItemTrigger>
-    <Accordion.ItemContent class="px-4">Usually 2 to 4 days.</Accordion.ItemContent>
-  </Accordion.Item>
+  <AccordionItem value="shipping" class="rounded-lg border data-[state=open]:border-blue-500">
+    <AccordionItemTrigger class="px-4">Shipping</AccordionItemTrigger>
+    <AccordionItemContent class="px-4">Usually 2 to 4 days.</AccordionItemContent>
+  </AccordionItem>
 </Accordion>;
 ```
 

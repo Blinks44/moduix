@@ -1,4 +1,11 @@
-import { Clipboard } from '@moduix/react/clipboard';
+import {
+  Clipboard,
+  ClipboardControl,
+  ClipboardIndicator,
+  ClipboardInput,
+  ClipboardLabel,
+  ClipboardTrigger,
+} from '@moduix/react/clipboard';
 import { useState } from 'react';
 
 export default function ControlledClipboardDemo() {
@@ -6,14 +13,13 @@ export default function ControlledClipboardDemo() {
 
   return (
     <Clipboard value={value} onValueChange={(details) => setValue(details.value)}>
-      <Clipboard.Label>Share URL</Clipboard.Label>
-      <Clipboard.Control>
-        <Clipboard.Input />
-        <Clipboard.Trigger>
-          <Clipboard.Indicator />
-          <Clipboard.CopyText />
-        </Clipboard.Trigger>
-      </Clipboard.Control>
+      <ClipboardLabel>Share URL</ClipboardLabel>
+      <ClipboardControl>
+        <ClipboardInput />
+        <ClipboardTrigger>
+          <ClipboardIndicator />
+        </ClipboardTrigger>
+      </ClipboardControl>
     </Clipboard>
   );
 }

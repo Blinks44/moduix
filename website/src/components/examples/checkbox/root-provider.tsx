@@ -1,5 +1,11 @@
 import { Button } from '@moduix/react/button';
-import { Checkbox, useCheckbox } from '@moduix/react/checkbox';
+import {
+  CheckboxControl,
+  CheckboxHiddenInput,
+  CheckboxLabel,
+  CheckboxRootProvider,
+  useCheckbox,
+} from '@moduix/react/checkbox';
 import { PreviewMeta } from '@/components/mdx/Components';
 import styles from '@/components/examples/checkbox/checkbox-root-provider.module.css';
 
@@ -8,11 +14,11 @@ export default function RootProviderCheckboxDemo() {
 
   return (
     <div className={styles.root}>
-      <Checkbox.RootProvider value={checkbox}>
-        <Checkbox.Control />
-        <Checkbox.Label>Managed outside the tree</Checkbox.Label>
-        <Checkbox.HiddenInput />
-      </Checkbox.RootProvider>
+      <CheckboxRootProvider value={checkbox}>
+        <CheckboxControl />
+        <CheckboxLabel>Managed outside the tree</CheckboxLabel>
+        <CheckboxHiddenInput />
+      </CheckboxRootProvider>
       <PreviewMeta>
         <Button
           type="button"

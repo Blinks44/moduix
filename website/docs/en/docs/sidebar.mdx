@@ -43,7 +43,7 @@ contract.
 
 Compose the navigation panel, resize handle, and main content panel as direct children of the root.
 The default ids and constraints cover the usual left-sidebar layout. Wrap icon-only navigation
-buttons in `Sidebar.Tooltip` so their labels remain available after collapse.
+buttons in `SidebarTooltip` so their labels remain available after collapse.
 
 <ExampleFrame variant="component">
   <SidebarBasic />
@@ -107,73 +107,73 @@ See [Quick Start](/docs/quick-start) for full package setup, registry configurat
 ## Anatomy
 
 ```text
-Sidebar / Sidebar.Root
-├─ Sidebar.Panel[id="sidebar"]
-│  ├─ Sidebar.Header
-│  │  ├─ Sidebar.Label
-│  │  └─ Sidebar.Input
-│  ├─ Sidebar.Content
-│  │  └─ Sidebar.Group
-│  │     ├─ Sidebar.GroupHeader
-│  │     │  ├─ Sidebar.GroupLabel
-│  │     │  └─ Sidebar.GroupAction
-│  │     └─ Sidebar.NavigationList
-│  │        └─ Sidebar.NavigationItem
-│  │           ├─ Sidebar.NavigationButton
-│  │           ├─ Sidebar.NavigationBadge (optional)
-│  │           ├─ Sidebar.ExpandedContent
-│  │           ├─ Sidebar.CollapsedContent
-│  │           └─ Sidebar.NavigationSubList
-│  │              └─ Sidebar.NavigationSubItem
-│  │                 ├─ Sidebar.NavigationSubButton
-│  │                 └─ Sidebar.NavigationBadge (optional)
-│  └─ Sidebar.Footer
-│     └─ Sidebar.Separator
-├─ Sidebar.ResizeTrigger
-├─ Sidebar.Trigger
-└─ Sidebar.Inset[id="content"]
+Sidebar
+├─ SidebarPanel[id="sidebar"]
+│  ├─ SidebarHeader
+│  │  ├─ SidebarLabel
+│  │  └─ SidebarInput
+│  ├─ SidebarContent
+│  │  └─ SidebarGroup
+│  │     ├─ SidebarGroupHeader
+│  │     │  ├─ SidebarGroupLabel
+│  │     │  └─ SidebarGroupAction
+│  │     └─ SidebarNavigationList
+│  │        └─ SidebarNavigationItem
+│  │           ├─ SidebarNavigationButton
+│  │           ├─ SidebarNavigationBadge (optional)
+│  │           ├─ SidebarExpandedContent
+│  │           ├─ SidebarCollapsedContent
+│  │           └─ SidebarNavigationSubList
+│  │              └─ SidebarNavigationSubItem
+│  │                 ├─ SidebarNavigationSubButton
+│  │                 └─ SidebarNavigationBadge (optional)
+│  └─ SidebarFooter
+│     └─ SidebarSeparator
+├─ SidebarResizeTrigger
+├─ SidebarTrigger
+└─ SidebarInset[id="content"]
 ```
 
 | Part | Role |
 | --- | --- |
-| `Sidebar` / `Sidebar.Root` | Ark Splitter root with defaults for a two-panel sidebar. |
-| `Sidebar.Panel` | Collapsible navigation panel; its default id is `"sidebar"`. |
-| `Sidebar.Inset` | Main content panel; its default id is `"content"`. |
-| `Sidebar.ResizeTrigger` | Accessible handle line for pointer and keyboard resizing; it renders the shared `Splitter.ResizeTriggerIndicator` by default, and custom children replace it. |
-| `Sidebar.Trigger` | Side-aware control for collapsing and expanding the panel. |
-| `Sidebar.Header` | Non-scrolling top region. |
-| `Sidebar.Content` | Scrolling middle region. |
-| `Sidebar.Footer` | Non-scrolling bottom region. |
-| `Sidebar.Group` | Semantic navigation section. |
-| `Sidebar.NavigationButton` | Button or `asChild` link with active and size states. |
-| `Sidebar.NavigationBadge` | Optional counter beside a simple navigation button or sub-button. |
-| `Sidebar.ExpandedContent` | Content shown while the panel is expanded. |
-| `Sidebar.CollapsedContent` | Content shown while the panel is collapsed. |
-| `Sidebar.Tooltip` | Collapsed-only label helper with side-aware placement. |
-| `Sidebar.NavigationSubList` | Nested navigation list. |
+| `Sidebar` | Ark Splitter root with defaults for a two-panel sidebar. |
+| `SidebarPanel` | Collapsible navigation panel; its default id is `"sidebar"`. |
+| `SidebarInset` | Main content panel; its default id is `"content"`. |
+| `SidebarResizeTrigger` | Accessible handle line for pointer and keyboard resizing; it renders the shared `SplitterResizeTriggerIndicator` by default, and custom children replace it. |
+| `SidebarTrigger` | Side-aware control for collapsing and expanding the panel. |
+| `SidebarHeader` | Non-scrolling top region. |
+| `SidebarContent` | Scrolling middle region. |
+| `SidebarFooter` | Non-scrolling bottom region. |
+| `SidebarGroup` | Semantic navigation section. |
+| `SidebarNavigationButton` | Button or `asChild` link with active and size states. |
+| `SidebarNavigationBadge` | Optional counter beside a simple navigation button or sub-button. |
+| `SidebarExpandedContent` | Content shown while the panel is expanded. |
+| `SidebarCollapsedContent` | Content shown while the panel is collapsed. |
+| `SidebarTooltip` | Collapsed-only label helper with side-aware placement. |
+| `SidebarNavigationSubList` | Nested navigation list. |
 
 ## Composition
 
 `Sidebar` owns the Splitter layout state, while nested `Collapsible`, popup `Menu`, and
-`Sidebar.Tooltip` instances own their own state. Keep `Panel`, `ResizeTrigger`, `Trigger`, and
-`Inset` as direct children in visual order: `Panel` first for a left sidebar, and `Inset` first for
-a right sidebar. `ExpandedContent` and `CollapsedContent` only switch which composition is visible;
+`SidebarTooltip` instances own their own state. Keep `SidebarPanel`, `SidebarResizeTrigger`, `SidebarTrigger`, and
+`SidebarInset` as direct children in visual order: `SidebarPanel` first for a left sidebar, and `SidebarInset` first for
+a right sidebar. `SidebarExpandedContent` and `SidebarCollapsedContent` only switch which composition is visible;
 use them to pair inline `Collapsible` links with a collapsed `Menu` without moving state into
 Sidebar. For a persisted width, control `size`, update it from `onResize(details)`, and save it from
 `onResizeEnd(details)`. In Solid, `asChild` uses a render function that receives the merged props.
-Place `NavigationBadge` after a simple `NavigationButton` or `NavigationSubButton`; it reserves
+Place `SidebarNavigationBadge` after a simple `SidebarNavigationButton` or `SidebarNavigationSubButton`; it reserves
 trailing space for the counter and hides with the other trailing affordances in the compact rail.
 
 `useSidebar()` from the matching framework package exposes the sidebar state as `collapsed`, `side`,
 and `state`, plus a `toggleSidebar()` callback. In Solid these are accessors read as
-`collapsed()` and friends. It reads the Splitter context created by `Sidebar`/`Sidebar.Root`, so
+`collapsed()` and friends. It reads the Splitter context created by `Sidebar`, so
 use it only inside the sidebar tree.
 
 ## Examples
 
 ### Nested Navigation
 
-Use `ExpandedContent` for inline nested links and `CollapsedContent` for the same links in a popup
+Use `SidebarExpandedContent` for inline nested links and `SidebarCollapsedContent` for the same links in a popup
 menu. Both branches remain application-owned compositions.
 
 <ExampleFrame variant="component">
@@ -206,7 +206,7 @@ menu. Both branches remain application-owned compositions.
 
 ### Custom Scroll Area
 
-Native scrolling is the default. Put `ScrollArea` inside `Sidebar.Content` when the sidebar needs a
+Native scrolling is the default. Put `ScrollArea` inside `SidebarContent` when the sidebar needs a
 styled scrollbar or edge fade, and make its viewport the only scroll container.
 
 <ExampleFrame variant="component">
@@ -305,7 +305,7 @@ inside one application shell. Each nested primitive keeps its own state and focu
 
 ### Right Sidebar
 
-Pass `side="right"` and render `Inset`, `Trigger`, `ResizeTrigger`, and `Panel` in that order.
+Pass `side="right"` and render `SidebarInset`, `SidebarTrigger`, `SidebarResizeTrigger`, and `SidebarPanel` in that order.
 Sidebar adjusts panel setup, trigger ids, placement, and chevron direction automatically.
 
 <ExampleFrame variant="component">
@@ -338,8 +338,8 @@ Sidebar adjusts panel setup, trigger ids, placement, and chevron direction autom
 
 ### Workspace Select
 
-Use `Select.Trigger asChild` with `Sidebar.NavigationButton`. Keep the selected value in
-`Sidebar.Label`, keep `Select.Indicator` as a direct child of the trigger, and mark a compact
+Use `SelectTrigger asChild` with `SidebarNavigationButton`. Keep the selected value in
+`SidebarLabel`, keep `SelectIndicator` as a direct child of the trigger, and mark a compact
 visual anchor with `data-sidebar-icon`.
 
 <ExampleFrame variant="component">
@@ -406,9 +406,9 @@ a different starting point.
 ## Styling
 
 Every semantic part accepts `className` in React and `class` in Solid and exposes a stable
-`data-slot="sidebar-*"` hook. `Sidebar.Panel` adds `data-state="expanded"` or `"collapsed"`, and
-layout parts expose `data-side`. `NavigationButton` and `NavigationSubButton` expose
-`data-active`; `NavigationButton` also exposes `data-size`.
+`data-slot="sidebar-*"` hook. `SidebarPanel` adds `data-state="expanded"` or `"collapsed"`, and
+layout parts expose `data-side`. `SidebarNavigationButton` and `SidebarNavigationSubButton` expose
+`data-active`; `SidebarNavigationButton` also exposes `data-size`.
 
 When collapsed, labels and group labels leave the visual layout while remaining available to
 assistive technology. Nested lists, inputs, actions, badges, and indicators are hidden to keep the
@@ -435,7 +435,7 @@ dimensions, colors, and the trigger offset.
 
 ### Styling hooks
 
-Sidebar shell parts also expose `data-scope="sidebar"` and `data-part`. `Sidebar.Input` and
-`Sidebar.Separator` retain the scopes of their underlying primitives, while Ark-backed layout parts
+Sidebar shell parts also expose `data-scope="sidebar"` and `data-part`. `SidebarInput` and
+`SidebarSeparator` retain the scopes of their underlying primitives, while Ark-backed layout parts
 retain Splitter state attributes such as `data-focus`, `data-dragging`, `data-disabled`, and
 `data-orientation`.

@@ -35,8 +35,8 @@ import fieldsetSolidRootProvider from '../../../snippets/fieldset/solid/root-pro
 Импортируйте `Fieldset` из `@moduix/react/fieldset` или `@moduix/solid/fieldset` для CSS Modules, а для Tailwind CSS
 используйте `@moduix/react-tailwind/fieldset` или `@moduix/solid-tailwind/fieldset`.
 
-Создайте группу из `Fieldset`, `Fieldset.Legend`, связанных элементов управления и, если нужно, поясняющего текста или
-сообщения об ошибке. Короткая запись `<Fieldset>` равнозначна `<Fieldset.Root>`.
+Создайте группу из `Fieldset`, `FieldsetLegend`, связанных элементов управления и, если нужно, поясняющего текста или
+сообщения об ошибке. `Fieldset` является корневым компонентом группы.
 
 <ExampleFrame variant="component">
   <FieldsetBasic />
@@ -103,33 +103,33 @@ import fieldsetSolidRootProvider from '../../../snippets/fieldset/solid/root-pro
 ## Анатомия
 
 ```text
-Fieldset.Root | Fieldset.RootProvider
-├─ Fieldset.Legend
+Fieldset | FieldsetRootProvider
+├─ FieldsetLegend
 ├─ grouped controls
-├─ Fieldset.HelperText (optional)
-└─ Fieldset.ErrorText (optional)
+├─ FieldsetHelperText (optional)
+└─ FieldsetErrorText (optional)
 ```
 
 | Часть                        | Назначение                                                                                         |
 | ---------------------------- | -------------------------------------------------------------------------------------------------- |
-| `Fieldset` / `Fieldset.Root` | Создаёт состояние и добавляет в DOM нативный элемент `fieldset`.                                  |
-| `Fieldset.RootProvider`      | Добавляет в DOM нативный `fieldset` с состоянием, созданным через `useFieldset`.                   |
-| `Fieldset.Context`           | Даёт дочерним компонентам доступ к состоянию группы и не добавляет отдельный элемент в DOM.       |
-| `Fieldset.Legend`            | Нативный `legend`, задающий доступное имя группы.                                                  |
-| `Fieldset.HelperText`        | Поясняющий текст, связанный с корнем через `aria-describedby`.                                     |
-| `Fieldset.ErrorText`         | Сообщение об ошибке, объявляемое через `aria-live="polite"`; выводится только когда `invalid` равно `true`. |
+| `Fieldset`                   | Создаёт состояние и добавляет в DOM нативный элемент `fieldset`.                                  |
+| `FieldsetRootProvider`       | Добавляет в DOM нативный `fieldset` с состоянием, созданным через `useFieldset`.                   |
+| `FieldsetContext`            | Даёт дочерним компонентам доступ к состоянию группы и не добавляет отдельный элемент в DOM.       |
+| `FieldsetLegend`             | Нативный `legend`, задающий доступное имя группы.                                                  |
+| `FieldsetHelperText`         | Поясняющий текст, связанный с корнем через `aria-describedby`.                                     |
+| `FieldsetErrorText`          | Сообщение об ошибке, объявляемое через `aria-live="polite"`; выводится только когда `invalid` равно `true`. |
 
 ## Композиция
 
-Оставьте внутри корневого компонента один видимый `Fieldset.Legend`, а связанные элементы управления и их части `Field`
+Оставьте внутри корневого компонента один видимый `FieldsetLegend`, а связанные элементы управления и их части `Field`
 разместите в той же композиции. Установите `invalid` у корня для общей ошибки и у вложенных `Field`, если отдельным
 элементам управления нужно собственное состояние валидации. Отключённый fieldset передаёт состояние нативным элементам
 управления и совместимым с Ark дочерним компонентам.
 
 Используйте `useFieldset` из соответствующего пакета (`@moduix/react` или `@moduix/solid`) вместе с
-`Fieldset.RootProvider`, если состояние нужно создать вне дерева или разделить с соседними элементами управления.
-Для чтения состояния в дочернем компоненте используйте `Fieldset.Context` или `useFieldsetContext()`. Не размещайте
-`Fieldset.Root` вместе с `Fieldset.RootProvider` для одного хранилища. Чтобы заменить HTML-элемент части, используйте
+`FieldsetRootProvider`, если состояние нужно создать вне дерева или разделить с соседними элементами управления.
+Для чтения состояния в дочернем компоненте используйте `FieldsetContext` или `useFieldsetContext()`. Не размещайте
+`Fieldset` вместе с `FieldsetRootProvider` для одного хранилища. Чтобы заменить HTML-элемент части, используйте
 `asChild` с одним семантическим дочерним элементом.
 
 ## Примеры
@@ -137,7 +137,7 @@ Fieldset.Root | Fieldset.RootProvider
 ### Checkbox
 
 Используйте заголовок fieldset, чтобы задать общее имя группе связанных флажков. Добавляйте
-`Checkbox.HiddenInput` в каждый флажок, которому нужны нативный фокус, отправка и сброс формы.
+`CheckboxHiddenInput` в каждый флажок, которому нужны нативный фокус, отправка и сброс формы.
 
 <ExampleFrame variant="component">
   <FieldsetCheckbox />
@@ -336,7 +336,7 @@ ARIA-состояние.
 
 ### Расширенная настройка
 
-Создайте состояние fieldset вне JSX-дерева с помощью `useFieldset` и передайте его в `Fieldset.RootProvider`, если им должны
+Создайте состояние fieldset вне JSX-дерева с помощью `useFieldset` и передайте его в `FieldsetRootProvider`, если им должны
 пользоваться соседние элементы управления или повторно используемые компоненты.
 
 <ExampleFrame variant="component">

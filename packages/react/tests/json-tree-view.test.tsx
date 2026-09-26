@@ -1,6 +1,6 @@
 import { expect, test } from '@rstest/core';
 import { fireEvent, render, screen, waitFor } from '@testing-library/react';
-import { JsonTreeView } from '../src';
+import { JsonTreeView, JsonTreeViewTree } from '../src';
 
 const data = {
   release: {
@@ -12,7 +12,7 @@ const data = {
 test('renders a styled Ark tree with the generated JSON nodes', async () => {
   render(
     <JsonTreeView data={data} defaultExpandedDepth={1}>
-      <JsonTreeView.Tree />
+      <JsonTreeViewTree />
     </JsonTreeView>,
   );
 

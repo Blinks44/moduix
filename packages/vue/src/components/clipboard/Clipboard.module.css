@@ -1,0 +1,335 @@
+@layer moduix.components {
+  .root {
+    display: flex;
+    flex-direction: column;
+    gap: var(--moduix-clipboard-gap, var(--moduix-spacing-1-5));
+    width: var(--moduix-clipboard-width, 100%);
+    max-width: var(--moduix-clipboard-max-width, none);
+    color: var(--moduix-clipboard-color, var(--moduix-color-foreground));
+  }
+
+  .label {
+    color: var(--moduix-clipboard-label-color, currentColor);
+    font-size: var(--moduix-clipboard-label-font-size, var(--moduix-text-sm));
+    font-weight: var(--moduix-clipboard-label-font-weight, var(--moduix-weight-medium));
+    line-height: var(--moduix-clipboard-label-line-height, var(--moduix-line-height-text-sm));
+  }
+
+  .control {
+    display: flex;
+    align-items: center;
+    gap: var(--moduix-clipboard-control-gap, var(--moduix-spacing-2));
+    width: 100%;
+  }
+
+  .input {
+    box-sizing: border-box;
+    width: 100%;
+    min-width: 0;
+    min-height: var(
+      --moduix-clipboard-input-height,
+      var(--moduix-input-height-md, var(--moduix-size-md))
+    );
+    margin: 0;
+    border: var(
+        --moduix-clipboard-input-border-width,
+        var(--moduix-input-border-width, var(--moduix-border-width-sm))
+      )
+      solid
+      var(
+        --moduix-clipboard-input-border-color,
+        var(--moduix-input-border-color, var(--moduix-color-border))
+      );
+    border-radius: var(
+      --moduix-clipboard-input-radius,
+      var(--moduix-input-radius, var(--moduix-radius-md))
+    );
+    padding-block: var(
+      --moduix-clipboard-input-padding-y,
+      var(--moduix-input-padding-y-md, var(--moduix-spacing-1))
+    );
+    padding-inline: var(
+      --moduix-clipboard-input-padding-x,
+      var(--moduix-input-padding-x-md, var(--moduix-spacing-3-5))
+    );
+    background-color: var(
+      --moduix-clipboard-input-bg,
+      var(--moduix-input-bg, var(--moduix-color-background))
+    );
+    color: var(
+      --moduix-clipboard-input-color,
+      var(--moduix-input-color, var(--moduix-color-foreground))
+    );
+    font: inherit;
+    font-size: var(
+      --moduix-clipboard-input-font-size,
+      var(--moduix-input-font-size-md, var(--moduix-text-md))
+    );
+    line-height: var(
+      --moduix-clipboard-input-line-height,
+      var(--moduix-input-line-height-md, var(--moduix-line-height-text-md))
+    );
+    outline: var(
+        --moduix-clipboard-input-focus-ring-width,
+        var(
+          --moduix-input-focus-ring-width,
+          var(
+            --moduix-clipboard-input-border-width,
+            var(
+              --moduix-input-border-width,
+              var(--moduix-focus-ring-inset-width, var(--moduix-border-width-sm))
+            )
+          )
+        )
+      )
+      solid transparent;
+    outline-offset: calc(
+      var(
+          --moduix-clipboard-input-focus-ring-offset,
+          var(
+            --moduix-clipboard-input-border-width,
+            var(--moduix-input-border-width, var(--moduix-border-width-sm))
+          )
+        ) *
+        -1
+    );
+    transition:
+      border-color
+        var(
+          --moduix-clipboard-transition,
+          var(--moduix-input-transition, var(--moduix-transition-default))
+        ),
+      outline-color
+        var(
+          --moduix-clipboard-transition,
+          var(--moduix-input-transition, var(--moduix-transition-default))
+        ),
+      background-color
+        var(
+          --moduix-clipboard-transition,
+          var(--moduix-input-transition, var(--moduix-transition-default))
+        ),
+      color
+        var(
+          --moduix-clipboard-transition,
+          var(--moduix-input-transition, var(--moduix-transition-default))
+        ),
+      opacity
+        var(
+          --moduix-clipboard-transition,
+          var(--moduix-input-transition, var(--moduix-transition-default))
+        );
+
+    &::placeholder {
+      color: var(
+        --moduix-clipboard-input-placeholder-color,
+        var(--moduix-input-placeholder-color, var(--moduix-color-muted-foreground))
+      );
+    }
+
+    &:focus-visible {
+      outline-color: var(
+        --moduix-clipboard-input-focus-ring-color,
+        var(--moduix-input-focus-ring-color, var(--moduix-color-ring))
+      );
+    }
+
+    &[data-readonly] {
+      background-color: var(
+        --moduix-clipboard-input-readonly-bg,
+        var(
+          --moduix-input-readonly-bg,
+          var(--moduix-clipboard-input-bg, var(--moduix-color-background))
+        )
+      );
+      color: var(
+        --moduix-clipboard-input-readonly-color,
+        var(
+          --moduix-input-readonly-color,
+          var(--moduix-clipboard-input-color, var(--moduix-color-foreground))
+        )
+      );
+    }
+
+    &:is(:disabled, [data-disabled]) {
+      pointer-events: none;
+      opacity: var(
+        --moduix-clipboard-disabled-opacity,
+        var(--moduix-input-disabled-opacity, var(--moduix-opacity-disabled))
+      );
+    }
+  }
+
+  .trigger {
+    box-sizing: border-box;
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+    flex-shrink: 0;
+    gap: var(
+      --moduix-clipboard-trigger-gap,
+      var(--moduix-button-content-gap, var(--moduix-spacing-2))
+    );
+    min-height: var(
+      --moduix-clipboard-trigger-height,
+      var(--moduix-button-size-md, var(--moduix-size-md))
+    );
+    padding-inline: var(
+      --moduix-clipboard-trigger-padding-x,
+      var(--moduix-button-padding-x-md, var(--moduix-spacing-4))
+    );
+    border: var(
+        --moduix-clipboard-trigger-border-width,
+        var(--moduix-button-border-width, var(--moduix-border-width-sm))
+      )
+      solid
+      var(
+        --moduix-clipboard-trigger-border-color,
+        var(--moduix-button-outline-border-color, var(--moduix-color-border))
+      );
+    border-radius: var(
+      --moduix-clipboard-trigger-radius,
+      var(--moduix-button-radius, var(--moduix-radius-md))
+    );
+    background-color: var(
+      --moduix-clipboard-trigger-bg,
+      var(--moduix-button-outline-bg, var(--moduix-color-background))
+    );
+    color: var(
+      --moduix-clipboard-trigger-color,
+      var(--moduix-button-outline-color, var(--moduix-color-foreground))
+    );
+    appearance: none;
+    font: inherit;
+    font-size: var(
+      --moduix-clipboard-trigger-font-size,
+      var(--moduix-button-font-size, var(--moduix-text-sm))
+    );
+    font-weight: var(
+      --moduix-clipboard-trigger-font-weight,
+      var(--moduix-button-font-weight, var(--moduix-weight-medium))
+    );
+    line-height: var(
+      --moduix-clipboard-trigger-line-height,
+      var(--moduix-button-line-height, var(--moduix-line-height-text-sm))
+    );
+    user-select: none;
+    white-space: nowrap;
+    cursor: pointer;
+    transition:
+      border-color
+        var(
+          --moduix-clipboard-transition,
+          var(--moduix-button-transition, var(--moduix-transition-default))
+        ),
+      background-color
+        var(
+          --moduix-clipboard-transition,
+          var(--moduix-button-transition, var(--moduix-transition-default))
+        ),
+      color
+        var(
+          --moduix-clipboard-transition,
+          var(--moduix-button-transition, var(--moduix-transition-default))
+        ),
+      opacity
+        var(
+          --moduix-clipboard-transition,
+          var(--moduix-button-transition, var(--moduix-transition-default))
+        ),
+      box-shadow
+        var(
+          --moduix-clipboard-transition,
+          var(--moduix-button-transition, var(--moduix-transition-default))
+        ),
+      transform
+        var(
+          --moduix-clipboard-transition,
+          var(--moduix-button-transition, var(--moduix-transition-default))
+        );
+
+    & :where(svg) {
+      width: var(
+        --moduix-clipboard-indicator-size,
+        var(--moduix-button-icon-size, var(--moduix-spacing-4))
+      );
+      height: var(
+        --moduix-clipboard-indicator-size,
+        var(--moduix-button-icon-size, var(--moduix-spacing-4))
+      );
+      flex-shrink: 0;
+    }
+
+    @media (hover: hover) {
+      &:hover:not(:disabled, [data-disabled]) {
+        background-color: var(
+          --moduix-clipboard-trigger-bg-hover,
+          var(--moduix-button-outline-bg-hover, var(--moduix-color-accent))
+        );
+      }
+    }
+
+    &:focus-visible {
+      outline: var(
+          --moduix-clipboard-trigger-focus-ring-width,
+          var(
+            --moduix-button-focus-ring-width,
+            var(--moduix-focus-ring-width, var(--moduix-border-width-md))
+          )
+        )
+        solid
+        var(
+          --moduix-clipboard-trigger-focus-ring-color,
+          var(--moduix-button-focus-ring-color, var(--moduix-color-ring))
+        );
+      outline-offset: calc(
+        var(
+            --moduix-clipboard-trigger-focus-ring-offset,
+            var(
+              --moduix-clipboard-trigger-border-width,
+              var(--moduix-button-border-width, var(--moduix-border-width-sm))
+            )
+          ) *
+          -1
+      );
+    }
+
+    &:active:not(:disabled, [data-disabled]) {
+      opacity: 0.94;
+    }
+
+    @media (prefers-reduced-motion: no-preference) {
+      &:active:not(:disabled, [data-disabled]) {
+        transform: translateY(1px) scale(0.985);
+      }
+    }
+
+    &:is(:disabled, [data-disabled]) {
+      pointer-events: none;
+      opacity: var(
+        --moduix-clipboard-disabled-opacity,
+        var(--moduix-button-disabled-opacity, var(--moduix-opacity-disabled))
+      );
+      cursor: default;
+    }
+  }
+
+  .indicator,
+  .icon {
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+    flex-shrink: 0;
+  }
+
+  .valueText {
+    min-width: 0;
+    color: var(--moduix-clipboard-value-text-color, currentColor);
+    font-size: var(--moduix-clipboard-value-text-font-size, inherit);
+    font-weight: var(--moduix-clipboard-value-text-font-weight, inherit);
+    line-height: var(--moduix-clipboard-value-text-line-height, inherit);
+    white-space: nowrap;
+    overflow: hidden;
+    text-overflow: ellipsis;
+  }
+}

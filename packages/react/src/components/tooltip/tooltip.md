@@ -15,58 +15,58 @@ The wrapper follows Ark UI React `@ark-ui/react/tooltip`. Preserve the explicit 
 
 ```tsx
 <Tooltip>
-  <Tooltip.Trigger />
-  <Tooltip.Positioner>
-    <Tooltip.Content>
-      <Tooltip.Arrow>
-        <Tooltip.ArrowTip />
-      </Tooltip.Arrow>
-    </Tooltip.Content>
-  </Tooltip.Positioner>
+  <TooltipTrigger />
+  <TooltipPositioner>
+    <TooltipContent>
+      <TooltipArrow>
+        <TooltipArrowTip />
+      </TooltipArrow>
+    </TooltipContent>
+  </TooltipPositioner>
 </Tooltip>
 ```
 
 Ark is the source of truth for controlled state, callback detail objects, positioning, `ids`,
-presence props, `RootProvider`, and the advanced state hooks available directly from
+presence props, `TooltipRootProvider`, and the advanced state hooks available directly from
 `@ark-ui/react/tooltip`.
 
 ## Current behavior contract
 
-`Root` and `RootProvider` portal `Positioner` automatically by default. Set `portalled={false}` to render it inline, or pass `portalRef` to target a custom container. The structural parts remain explicit and independently styleable.
+`Tooltip` and `TooltipRootProvider` portal `TooltipPositioner` automatically by default. Set `portalled={false}` to render it inline, or pass `portalRef` to target a custom container. The structural parts remain explicit and independently styleable.
 
-`Tooltip` is the root component and also exposes Ark-aligned namespace parts:
+`Tooltip` is the root component and the adapter exports these Ark-aligned parts:
 
-- `Tooltip.Root`
-- `Tooltip.RootProvider`
-- `Tooltip.Trigger`
-- `Tooltip.DisabledTrigger`
-- `Tooltip.Body`
-- `Tooltip.Positioner`
-- `Tooltip.Content`
-- `Tooltip.Arrow`
-- `Tooltip.ArrowTip`
+- `Tooltip`
+- `TooltipRootProvider`
+- `TooltipTrigger`
+- `TooltipDisabledTrigger`
+- `TooltipBody`
+- `TooltipPositioner`
+- `TooltipContent`
+- `TooltipArrow`
+- `TooltipArrowTip`
 
 For externally owned state, use the moduix exports `useTooltip` and `useTooltipContext` with
-`Tooltip.RootProvider`.
+`TooltipRootProvider`.
 
 The wrapper adds default Moduix styling, stable `data-slot` hooks, and three narrow sugars:
-`Tooltip.DisabledTrigger` makes a disabled native control focusable for an explanatory tooltip,
-`Tooltip.Body` renders `Tooltip.Positioner` and `Tooltip.Content` together, and `Tooltip.Arrow`
-renders `Tooltip.ArrowTip` by default when no children are provided.
+`TooltipDisabledTrigger` makes a disabled native control focusable for an explanatory tooltip,
+`TooltipBody` renders `TooltipPositioner` and `TooltipContent` together, and `TooltipArrow`
+renders `TooltipArrowTip` by default when no children are provided.
 
 ## Anatomy and exported parts
 
-| Part               | `data-slot`                | Notes                                                  |
-| ------------------ | -------------------------- | ------------------------------------------------------ |
-| `Tooltip` / `Root` | none                       | No DOM wrapper; owns Ark tooltip state.                |
-| `RootProvider`     | none                       | Renders from an external `useTooltip()` state object.  |
-| `Body`             | none                       | Shortcut for `Positioner + Content`.                   |
-| `Trigger`          | `tooltip-trigger`          | Ref forwards to the Ark trigger button.                |
-| `DisabledTrigger`  | `tooltip-disabled-trigger` | Focusable wrapper for one disabled native control.     |
-| `Positioner`       | `tooltip-positioner`       | Ref forwards to the Ark positioner div.                |
-| `Content`          | `tooltip-content`          | Ref forwards to the visible Ark content div.           |
-| `Arrow`            | `tooltip-arrow`            | Ref forwards to the Ark arrow div; renders `ArrowTip`. |
-| `ArrowTip`         | `tooltip-arrow-tip`        | Ref forwards to the Ark arrow tip div.                 |
+| Part                     | `data-slot`                | Notes                                                         |
+| ------------------------ | -------------------------- | ------------------------------------------------------------- |
+| `Tooltip`                | none                       | No DOM wrapper; owns Ark tooltip state.                       |
+| `TooltipRootProvider`    | none                       | Renders from an external `useTooltip()` state object.         |
+| `TooltipBody`            | none                       | Shortcut for `TooltipPositioner + TooltipContent`.            |
+| `TooltipTrigger`         | `tooltip-trigger`          | Ref forwards to the Ark trigger button.                       |
+| `TooltipDisabledTrigger` | `tooltip-disabled-trigger` | Focusable wrapper for one disabled native control.            |
+| `TooltipPositioner`      | `tooltip-positioner`       | Ref forwards to the Ark positioner div.                       |
+| `TooltipContent`         | `tooltip-content`          | Ref forwards to the visible Ark content div.                  |
+| `TooltipArrow`           | `tooltip-arrow`            | Ref forwards to the Ark arrow div; renders `TooltipArrowTip`. |
+| `TooltipArrowTip`        | `tooltip-arrow-tip`        | Ref forwards to the Ark arrow tip div.                        |
 
 ## Composition
 
@@ -77,22 +77,22 @@ import { Tooltip } from '@moduix/react/tooltip';
 export function Example() {
   return (
     <Tooltip positioning={{ placement: 'top', offset: { mainAxis: 8 } }}>
-      <Tooltip.Trigger asChild aria-label="Save">
+      <TooltipTrigger asChild aria-label="Save">
         <Button>Save</Button>
-      </Tooltip.Trigger>
-      <Tooltip.Body>Save changes</Tooltip.Body>
+      </TooltipTrigger>
+      <TooltipBody>Save changes</TooltipBody>
     </Tooltip>
   );
 }
 ```
 
 Use `asChild` for custom trigger hosts. The child must stay a single semantic interactive element.
-Use `Tooltip.DisabledTrigger` around one disabled native control when it needs an explanatory
-tooltip; give the wrapper its own accessible name. The regular `Tooltip.Trigger` remains the
+Use `TooltipDisabledTrigger` around one disabled native control when it needs an explanatory
+tooltip; give the wrapper its own accessible name. The regular `TooltipTrigger` remains the
 Ark-shaped path for every enabled trigger.
 Use `positioning` on `Tooltip` for placement, offset, strategy, collision, and fixed-container
-behavior. Use explicit `Tooltip.Positioner` and `Tooltip.Content` when you need positioner-specific
-styling or a lower-level Ark-shaped composition path. For shadcn-style migration, `Tooltip.Body` is
+behavior. Use explicit `TooltipPositioner` and `TooltipContent` when you need positioner-specific
+styling or a lower-level Ark-shaped composition path. For shadcn-style migration, `TooltipBody` is
 the closest equivalent to the common single `TooltipContent` step.
 
 ## Upstream feature coverage
@@ -101,8 +101,8 @@ Supported Ark examples and patterns:
 
 - basic explicit composition with `Positioner` and `Content`
 - controlled `open` with `onOpenChange(details)`
-- `RootProvider` with moduix `useTooltip`
-- `Body` as a shortcut over `Positioner + Content`
+- `TooltipRootProvider` with moduix `useTooltip`
+- `TooltipBody` as a shortcut over `TooltipPositioner + TooltipContent`
 - `DisabledTrigger` for the common disabled-native-control wrapper
 - `Arrow` and `ArrowTip`
 - `openDelay` and `closeDelay`
@@ -115,10 +115,10 @@ control.
 
 ## Accessibility and state
 
-Ark owns hover, focus, Escape, scroll, and pointer-down behavior. `Tooltip.Trigger` must keep its
+Ark owns hover, focus, Escape, scroll, and pointer-down behavior. `TooltipTrigger` must keep its
 own accessible name because tooltip content is supplemental.
 
-`Tooltip.DisabledTrigger` keeps its wrapper in the tab sequence and makes its disabled direct child
+`TooltipDisabledTrigger` keeps its wrapper in the tab sequence and makes its disabled direct child
 ignore pointer events, so the tooltip remains discoverable by pointer and keyboard. It is for a
 single disabled native control, not for arbitrary composite content.
 
@@ -127,7 +127,7 @@ Preserve Ark callback shapes:
 - `onOpenChange(details)` with `details.open`
 - `onTriggerValueChange(details)` with `details.value`
 
-`Tooltip.Body` forwards its ref and props to `Tooltip.Content`, so imperative access still targets
+`TooltipBody` forwards its ref and props to `TooltipContent`, so imperative access still targets
 the visible content element.
 
 Relevant Ark attributes and variables:
@@ -147,31 +147,31 @@ The styled tooltip trigger defaults to `--moduix-size-md` with `--moduix-spacing
 Content motion falls back to the shared `--moduix-popup-motion-*` tokens; `--moduix-tooltip-*` motion variables
 remain the more specific override.
 
-Default trigger styling is applied only when `Tooltip.Trigger` does not use `asChild`. With
+Default trigger styling is applied only when `TooltipTrigger` does not use `asChild`. With
 `asChild`, the child component owns visual styling.
 
-`Tooltip.Content` uses Moduix tokens for background, foreground, radius, border, shadow, font size,
+`TooltipContent` uses Moduix tokens for background, foreground, radius, border, shadow, font size,
 and motion. Animations are tied to Ark `data-state` and use Ark `--transform-origin`. It wraps
 long unbroken text, and respects `prefers-reduced-motion` by disabling trigger transitions and
 content animations. Tooltip remains for short, non-essential hints; use Popover or HoverCard for
 long or interactive content.
 
 Public CSS variables use the `--moduix-tooltip-*` prefix where Moduix owns the visual contract. Ark runtime
-variables remain available for placement and arrow mechanics. `Tooltip.Body` has no DOM node or
+variables remain available for placement and arrow mechanics. `TooltipBody` has no DOM node or
 `data-slot`; style `Positioner` and `Content` when you need lower-level control.
 
 ## Intentional sugar and differences from upstream
 
 The root owns the portal boundary; `Positioner` and `Content` remain tooltip-owned parts.
 
-`Tooltip.Body` removes the repeated `Positioner + Content` ceremony for common tooltips without
+`TooltipBody` removes the repeated `Positioner + Content` ceremony for common tooltips without
 introducing a new positioning API.
 
-`Tooltip.Arrow` renders `Tooltip.ArrowTip` by default. Add it when the popup needs a visual anchor;
+`TooltipArrow` renders `TooltipArrowTip` by default. Add it when the popup needs a visual anchor;
 consumers can pass custom children when they need a custom arrow shape.
 
-`Tooltip.DisabledTrigger` replaces the repeated focusable wrapper and pointer-events rule needed for
-a disabled native control. It keeps the lower-level `Tooltip.Trigger asChild` path available when a
+`TooltipDisabledTrigger` replaces the repeated focusable wrapper and pointer-events rule needed for
+a disabled native control. It keeps the lower-level `TooltipTrigger asChild` path available when a
 different trigger host is required.
 
 ## Agent notes
@@ -194,12 +194,12 @@ content after the first open; set both props to `false` only when eager initial 
 - 2026-08-14: Added reduced-motion handling and coverage for keyboard dismissal, provider state,
   multiple triggers, portalling, and the default arrow tip.
 
-- 2026-08-11: Made the recommended popup composition arrowless and kept `Tooltip.Arrow` as an
+- 2026-08-11: Made the recommended popup composition arrowless and kept `TooltipArrow` as an
   explicit visual-anchor option.
 
 - 2026-08-01: Defaulted portalled overlay presence to lazy mounting and unmounting after exit.
 
-- 2026-08-01: Added `Tooltip.DisabledTrigger` for accessible disabled native controls, made long
+- 2026-08-01: Added `TooltipDisabledTrigger` for accessible disabled native controls, made long
   unbroken tooltip text wrap safely, and synchronized component tests and consumer-facing docs
   examples.
 
@@ -207,8 +207,8 @@ content after the first open; set both props to `false` only when eager initial 
 - 2026-07-21: Reduced the styled tooltip trigger to `--moduix-size-md` and compacted its block padding.
 
 - 2026-07-16: Added shared `--moduix-popup-motion-*` fallbacks for project-wide popup content motion.
-- 2026-07-07: Added `Tooltip.Body` as the default shortcut for `Tooltip.Positioner +
-Tooltip.Content`, updated docs/examples, and kept the explicit Ark parts available for advanced
+- 2026-07-07: Added `TooltipBody` as the default shortcut for `TooltipPositioner +
+TooltipContent`, updated docs/examples, and kept the explicit Ark parts available for advanced
   composition.
 - 2026-07-12: Restored moduix exports for `useTooltip` and `useTooltipContext` so normal advanced
   composition does not require direct Ark imports.

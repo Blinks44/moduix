@@ -1,4 +1,4 @@
-import { Tag } from '@moduix/solid/tag';
+import { Tag, TagCloseTrigger, TagEndElement, TagLabel } from '@moduix/solid/tag';
 import { createSignal } from 'solid-js';
 import styles from '@/components/examples/tag/tag-closable.module.css';
 
@@ -32,9 +32,9 @@ export default function RemovableTagDemo() {
     <div class={styles.row}>
       {visibleTags().map((tag) => (
         <Tag variant={tag.variant}>
-          <Tag.Label>{tag.label}</Tag.Label>
-          <Tag.EndElement>
-            <Tag.CloseTrigger
+          <TagLabel>{tag.label}</TagLabel>
+          <TagEndElement>
+            <TagCloseTrigger
               disabled={tag.disabled}
               aria-label={`Remove ${tag.label} tag`}
               onClick={() => {
@@ -43,7 +43,7 @@ export default function RemovableTagDemo() {
                 );
               }}
             />
-          </Tag.EndElement>
+          </TagEndElement>
         </Tag>
       ))}
     </div>

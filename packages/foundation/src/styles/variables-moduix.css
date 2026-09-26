@@ -442,7 +442,7 @@
   --moduix-checkbox-size-xl: initial; /* var(--moduix-spacing-7) */
   --moduix-checkbox-transition: initial; /* var(--moduix-transition-default) */
 
-  /* Checkbox.Group */
+  /* CheckboxGroup */
   --moduix-checkbox-group-color: initial; /* var(--moduix-color-foreground) */
   --moduix-checkbox-group-gap: initial; /* var(--moduix-spacing-2) */
 
@@ -495,7 +495,7 @@
   --moduix-clipboard-value-text-line-height: initial; /* inherit */
   --moduix-clipboard-transition: initial; /* var(--moduix-transition-default) */
 
-  /* CloseButton.Root */
+  /* CloseButton */
   --moduix-close-button-bg: initial; /* transparent */
   --moduix-close-button-bg-hover: initial; /* var(--moduix-color-muted) */
   --moduix-close-button-color: initial; /* var(--moduix-color-muted-foreground) */
@@ -2165,7 +2165,7 @@
   --moduix-popover-title-font-size: initial; /* var(--moduix-text-md) */
   --moduix-popover-title-font-weight: initial; /* var(--moduix-weight-semibold) */
   --moduix-popover-title-line-height: initial; /* var(--moduix-line-height-text-md) */
-  --moduix-popover-transition: initial; /* var(--moduix-duration-fast); content animation only — trigger transitions default to var(--moduix-transition-default) */
+  --moduix-popover-transition: initial; /* var(--moduix-duration-fast); content animation only - trigger transitions default to var(--moduix-transition-default) */
   --moduix-popover-width: initial; /* auto */
 
   /* HoverCard */

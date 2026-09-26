@@ -1,6 +1,17 @@
 import { useListCollection } from '@ark-ui/solid/collection';
 import { useFilter } from '@ark-ui/solid/locale';
-import { Combobox } from '@moduix/solid/combobox';
+import {
+  Combobox,
+  ComboboxContent,
+  ComboboxControl,
+  ComboboxEmpty,
+  ComboboxInput,
+  ComboboxLabel,
+  ComboboxList,
+  ComboboxOption,
+  ComboboxPositioner,
+  ComboboxTrigger,
+} from '@moduix/solid/combobox';
 import { For } from 'solid-js';
 import styles from '@/components/examples/combobox/component-limit-results.module.css';
 
@@ -35,21 +46,21 @@ export default function LimitComboboxDemo() {
       collection={collection()}
       onInputValueChange={(details) => filter(details.inputValue)}
     >
-      <Combobox.Label>City</Combobox.Label>
-      <Combobox.Control>
-        <Combobox.Input placeholder="e.g. San" />
-        <Combobox.Trigger aria-label="Open options" />
-      </Combobox.Control>
-      <Combobox.Positioner>
-        <Combobox.Content class={styles.content}>
-          <Combobox.Empty>No cities found.</Combobox.Empty>
-          <Combobox.List>
+      <ComboboxLabel>City</ComboboxLabel>
+      <ComboboxControl>
+        <ComboboxInput placeholder="e.g. San" />
+        <ComboboxTrigger aria-label="Open options" />
+      </ComboboxControl>
+      <ComboboxPositioner>
+        <ComboboxContent class={styles.content}>
+          <ComboboxEmpty>No cities found.</ComboboxEmpty>
+          <ComboboxList>
             <For each={collection().items}>
-              {(item) => <Combobox.Option item={item}>{item.label}</Combobox.Option>}
+              {(item) => <ComboboxOption item={item}>{item.label}</ComboboxOption>}
             </For>
-          </Combobox.List>
-        </Combobox.Content>
-      </Combobox.Positioner>
+          </ComboboxList>
+        </ComboboxContent>
+      </ComboboxPositioner>
     </Combobox>
   );
 }

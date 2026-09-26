@@ -7,7 +7,7 @@ import type { ComponentProps } from 'solid-js';
 import { splitProps } from 'solid-js';
 import { cn } from '@/lib/moduix/cn';
 
-function ProgressLinearRoot(props: ComponentProps<typeof ProgressPrimitive.Root>) {
+function ProgressLinear(props: ComponentProps<typeof ProgressPrimitive.Root>) {
   const [local, others] = splitProps(props, ['asChild', 'children', 'class']);
 
   return (
@@ -120,30 +120,17 @@ function ProgressLinearView(props: ComponentProps<typeof ProgressPrimitive.View>
   );
 }
 
-type ProgressLinearComponent = typeof ProgressLinearRoot & {
-  Root: typeof ProgressLinearRoot;
-  RootProvider: typeof ProgressLinearRootProvider;
-  Context: typeof ProgressPrimitive.Context;
-  Label: typeof ProgressLinearLabel;
-  ValueText: typeof ProgressLinearValueText;
-  Track: typeof ProgressLinearTrack;
-  Range: typeof ProgressLinearRange;
-  View: typeof ProgressLinearView;
-  useProgress: typeof useProgress;
-  useProgressContext: typeof useProgressContext;
-};
+const ProgressLinearContext = ProgressPrimitive.Context;
 
-const ProgressLinear: ProgressLinearComponent = Object.assign(ProgressLinearRoot, {
-  Root: ProgressLinearRoot,
-  RootProvider: ProgressLinearRootProvider,
-  Context: ProgressPrimitive.Context,
-  Label: ProgressLinearLabel,
-  ValueText: ProgressLinearValueText,
-  Track: ProgressLinearTrack,
-  Range: ProgressLinearRange,
-  View: ProgressLinearView,
+export {
+  ProgressLinear,
+  ProgressLinearContext,
+  ProgressLinearLabel,
+  ProgressLinearRange,
+  ProgressLinearRootProvider,
+  ProgressLinearTrack,
+  ProgressLinearValueText,
+  ProgressLinearView,
   useProgress,
   useProgressContext,
-});
-
-export { ProgressLinear };
+};

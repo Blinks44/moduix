@@ -1,7 +1,7 @@
 import { expect, test } from '@rstest/core';
 import { render, screen } from '@testing-library/react';
 import { createRef } from 'react';
-import { Badge } from '../src';
+import { Badge, BadgeDot, BadgeLabel } from '../src';
 
 test('protects variants, accessibility, and stable data hooks', () => {
   render(
@@ -13,7 +13,7 @@ test('protects variants, accessibility, and stable data hooks', () => {
       data-slot="custom"
       data-variant="outline"
     >
-      <Badge.Dot data-testid="dot" data-part="custom" aria-hidden={false} />
+      <BadgeDot data-testid="dot" data-part="custom" aria-hidden={false} />
       Draft
     </Badge>,
   );
@@ -65,10 +65,10 @@ test('exposes a composable label with a forwarded ref', () => {
 
   render(
     <Badge>
-      <Badge.Dot />
-      <Badge.Label ref={ref} asChild data-part="custom">
+      <BadgeDot />
+      <BadgeLabel ref={ref} asChild data-part="custom">
         <strong>Production ready</strong>
-      </Badge.Label>
+      </BadgeLabel>
     </Badge>,
   );
 

@@ -1,0 +1,29 @@
+{
+  "$schema": "https://ui.shadcn.com/schema/registry-item.json",
+  "name": "stack",
+  "title": "Stack",
+  "description": "moduix Vue Stack component.",
+  "dependencies": ["@ark-ui/vue", "clsx"],
+  "registryDependencies": ["@moduix-vue/foundation"],
+  "files": [
+    {
+      "path": "src/components/stack/Stack.vue",
+      "content": "<script setup lang=\"ts\">\nimport { ark } from '@ark-ui/vue/factory';\nimport type { HTMLArkProps } from '@ark-ui/vue/factory';\nimport { clsx } from 'clsx';\nimport { computed, useAttrs } from 'vue';\nimport type { CSSProperties, HTMLAttributes, StyleValue } from 'vue';\nimport styles from './Stack.module.css';\n\ntype StackDirection = 'row' | 'row-reverse' | 'column' | 'column-reverse';\n\ntype ResponsiveDirection = {\n  mobile?: StackDirection;\n  desktop?: StackDirection;\n};\n\ndefineOptions({ inheritAttrs: false });\n\nexport interface Props extends /* @vue-ignore */ HTMLArkProps<'div'> {\n  align?: CSSProperties['alignItems'];\n  class?: HTMLAttributes['class'];\n  direction?: StackDirection | ResponsiveDirection;\n  fill?: boolean;\n  gap?: number | string;\n  justify?: CSSProperties['justifyContent'];\n  style?: StyleValue;\n  wrap?: CSSProperties['flexWrap'];\n}\n\nconst {\n  align,\n  class: className,\n  direction,\n  fill = undefined,\n  gap,\n  justify,\n  style,\n  wrap,\n} = defineProps<Props>();\ndefineSlots<{ default?: () => unknown }>();\n\nconst attrs = useAttrs();\n\nconst mobileDirection = computed(() =>\n  typeof direction === 'string' ? direction : (direction?.mobile ?? direction?.desktop),\n);\nconst desktopDirection = computed(() =>\n  typeof direction === 'string' ? direction : (direction?.desktop ?? direction?.mobile),\n);\n\nconst toCssLength = (value: number | string | undefined) =>\n  typeof value === 'number' ? `${value}px` : value;\n\nconst stackStyle = computed<StyleValue>(() => [\n  {\n    '--moduix-stack-direction-desktop': desktopDirection.value ?? 'column',\n    '--moduix-stack-direction-mobile': mobileDirection.value ?? 'column',\n    ...(fill == null ? {} : { '--moduix-stack-flex': fill ? '1 1 0%' : 'initial' }),\n    gap: toCssLength(gap),\n    alignItems: align,\n    justifyContent: justify,\n    flexWrap: wrap,\n  },\n  style,\n]);\n</script>\n\n<template>\n  <ark.div\n    v-bind=\"attrs\"\n    :class=\"clsx(styles.root, className)\"\n    :style=\"stackStyle\"\n    data-scope=\"stack\"\n    data-part=\"root\"\n    data-slot=\"stack-root\"\n  >\n    <slot />\n  </ark.div>\n</template>",
+      "type": "registry:component",
+      "target": "@components/ui/stack/Stack.vue"
+    },
+    {
+      "path": "src/components/stack/Stack.module.css",
+      "content": "@layer moduix.components {\n  .root {\n    display: flex;\n    flex: var(--moduix-stack-flex, initial);\n    flex-direction: var(--moduix-stack-direction-mobile, column);\n  }\n\n  @media (min-width: 640px) {\n    .root {\n      flex-direction: var(\n        --moduix-stack-direction-desktop,\n        var(--moduix-stack-direction-mobile, column)\n      );\n    }\n  }\n}",
+      "type": "registry:file",
+      "target": "@components/ui/stack/Stack.module.css"
+    },
+    {
+      "path": "src/components/stack/index.ts",
+      "content": "export { default as Stack } from './Stack.vue';",
+      "type": "registry:component",
+      "target": "@components/ui/stack/index.ts"
+    }
+  ],
+  "type": "registry:item"
+}

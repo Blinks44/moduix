@@ -1,8 +1,35 @@
 import { createSignal } from 'solid-js';
 import type { Meta, StoryObj } from 'storybook-solidjs-vite';
-import { Carousel } from '@/components/carousel/Carousel';
+import {
+  Carousel,
+  CarouselControl,
+  CarouselIndicator,
+  CarouselIndicatorGroup,
+  CarouselItem,
+  CarouselItemGroup,
+  CarouselNextTrigger,
+  CarouselPrevTrigger,
+} from '@/components/carousel/Carousel';
 import type { LightboxImageSelectDetails } from '@/components/lightbox/Lightbox';
-import { Lightbox, useLightbox, useLightboxContext } from '@/components/lightbox/Lightbox';
+import {
+  LightboxRootProvider,
+  LightboxTrigger,
+  LightboxBackdrop,
+  LightboxPositioner,
+  LightboxContent,
+  LightboxTitle,
+  LightboxDescription,
+  LightboxCloseIcon,
+  LightboxHeader,
+  LightboxBody,
+  LightboxFooter,
+  LightboxImage,
+  LightboxGallery,
+  LightboxBind,
+  Lightbox,
+  useLightbox,
+  useLightboxContext,
+} from '@/components/lightbox/Lightbox';
 import styles from './Lightbox.stories.module.css';
 
 const images = [
@@ -26,15 +53,15 @@ const images = [
 function LightboxSurface(props: { src: string; alt: string }) {
   return (
     <>
-      <Lightbox.Backdrop />
-      <Lightbox.Positioner>
-        <Lightbox.CloseIcon />
-        <Lightbox.Content aria-label={props.alt}>
-          <Lightbox.Body>
-            <Lightbox.Image src={props.src} alt={props.alt} />
-          </Lightbox.Body>
-        </Lightbox.Content>
-      </Lightbox.Positioner>
+      <LightboxBackdrop />
+      <LightboxPositioner>
+        <LightboxCloseIcon />
+        <LightboxContent aria-label={props.alt}>
+          <LightboxBody>
+            <LightboxImage src={props.src} alt={props.alt} />
+          </LightboxBody>
+        </LightboxContent>
+      </LightboxPositioner>
     </>
   );
 }
@@ -42,15 +69,15 @@ function LightboxSurface(props: { src: string; alt: string }) {
 function ClickToCloseLightboxSurface(props: { src: string; alt: string }) {
   return (
     <>
-      <Lightbox.Backdrop />
-      <Lightbox.Positioner>
-        <Lightbox.CloseIcon />
-        <Lightbox.Content aria-label={props.alt}>
-          <Lightbox.Body>
-            <Lightbox.Image src={props.src} alt={props.alt} closeOnClick />
-          </Lightbox.Body>
-        </Lightbox.Content>
-      </Lightbox.Positioner>
+      <LightboxBackdrop />
+      <LightboxPositioner>
+        <LightboxCloseIcon />
+        <LightboxContent aria-label={props.alt}>
+          <LightboxBody>
+            <LightboxImage src={props.src} alt={props.alt} closeOnClick />
+          </LightboxBody>
+        </LightboxContent>
+      </LightboxPositioner>
     </>
   );
 }
@@ -76,7 +103,7 @@ type Story = StoryObj<typeof meta>;
 export const Basic: Story = {
   render: () => (
     <Lightbox>
-      <Lightbox.Trigger
+      <LightboxTrigger
         asChild={(triggerProps) => (
           <button {...triggerProps()} type="button" class={styles.imageTrigger}>
             <img src={images[0].src} alt={images[0].alt} />
@@ -96,7 +123,7 @@ export const Controlled: Story = {
       <div class={styles.stack}>
         <span>{open() ? 'Open' : 'Closed'}</span>
         <Lightbox open={open()} onOpenChange={(details) => setOpen(details.open)}>
-          <Lightbox.Trigger class={styles.textTrigger}>Open controlled lightbox</Lightbox.Trigger>
+          <LightboxTrigger class={styles.textTrigger}>Open controlled lightbox</LightboxTrigger>
           <LightboxSurface src={images[1].src} alt={images[1].alt} />
         </Lightbox>
       </div>
@@ -116,7 +143,7 @@ export const MultipleTriggers: Story = {
       >
         <div class={styles.gallery}>
           {images.map((image) => (
-            <Lightbox.Trigger
+            <LightboxTrigger
               value={image.id}
               asChild={(triggerProps) => (
                 <button {...triggerProps()} type="button" class={styles.galleryTrigger}>
@@ -141,24 +168,24 @@ export const RootProviderAndContext: Story = {
         <button type="button" class={styles.textTrigger} onClick={() => lightbox().setOpen(true)}>
           Lightbox is {lightbox().open ? 'open' : 'closed'}
         </button>
-        <Lightbox.RootProvider value={lightbox}>
-          <Lightbox.Backdrop />
-          <Lightbox.Positioner>
-            <Lightbox.CloseIcon />
-            <Lightbox.Content aria-label={images[2].alt}>
-              <Lightbox.Header>
-                <Lightbox.Title>{images[2].alt}</Lightbox.Title>
-                <Lightbox.Description>State comes from useLightbox.</Lightbox.Description>
-              </Lightbox.Header>
-              <Lightbox.Body>
-                <Lightbox.Image src={images[2].src} alt={images[2].alt} />
-              </Lightbox.Body>
-              <Lightbox.Footer>
+        <LightboxRootProvider value={lightbox}>
+          <LightboxBackdrop />
+          <LightboxPositioner>
+            <LightboxCloseIcon />
+            <LightboxContent aria-label={images[2].alt}>
+              <LightboxHeader>
+                <LightboxTitle>{images[2].alt}</LightboxTitle>
+                <LightboxDescription>State comes from useLightbox.</LightboxDescription>
+              </LightboxHeader>
+              <LightboxBody>
+                <LightboxImage src={images[2].src} alt={images[2].alt} />
+              </LightboxBody>
+              <LightboxFooter>
                 <LightboxStatus />
-              </Lightbox.Footer>
-            </Lightbox.Content>
-          </Lightbox.Positioner>
-        </Lightbox.RootProvider>
+              </LightboxFooter>
+            </LightboxContent>
+          </LightboxPositioner>
+        </LightboxRootProvider>
       </div>
     );
   },
@@ -179,22 +206,22 @@ export const BoundContent: Story = {
           ))}
         </div>
         <Lightbox lazyMount unmountOnExit>
-          <Lightbox.Bind
+          <LightboxBind
             rootRef={() => rootRef}
             selector="button"
             onImageSelect={(details) => setActiveImage(details)}
           />
-          <Lightbox.Backdrop />
-          <Lightbox.Positioner>
-            <Lightbox.CloseIcon />
-            <Lightbox.Content aria-label={activeImage()?.alt ?? 'Image preview'}>
-              <Lightbox.Body>
+          <LightboxBackdrop />
+          <LightboxPositioner>
+            <LightboxCloseIcon />
+            <LightboxContent aria-label={activeImage()?.alt ?? 'Image preview'}>
+              <LightboxBody>
                 {activeImage() ? (
-                  <Lightbox.Image src={activeImage()!.src} alt={activeImage()!.alt ?? ''} />
+                  <LightboxImage src={activeImage()!.src} alt={activeImage()!.alt ?? ''} />
                 ) : null}
-              </Lightbox.Body>
-            </Lightbox.Content>
-          </Lightbox.Positioner>
+              </LightboxBody>
+            </LightboxContent>
+          </LightboxPositioner>
         </Lightbox>
       </>
     );
@@ -215,7 +242,7 @@ export const GalleryFromServerData: Story = {
       >
         <div class={styles.gallery}>
           {images.map((image) => (
-            <Lightbox.Trigger
+            <LightboxTrigger
               value={image.id}
               asChild={(triggerProps) => (
                 <button {...triggerProps()} type="button" class={styles.galleryTrigger}>
@@ -225,39 +252,39 @@ export const GalleryFromServerData: Story = {
             />
           ))}
         </div>
-        <Lightbox.Backdrop />
-        <Lightbox.Positioner>
-          <Lightbox.CloseIcon />
-          <Lightbox.Content aria-label={activeImage().alt}>
-            <Lightbox.Gallery>
+        <LightboxBackdrop />
+        <LightboxPositioner>
+          <LightboxCloseIcon />
+          <LightboxContent aria-label={activeImage().alt}>
+            <LightboxGallery>
               <Carousel
                 aria-label="Server-driven image carousel"
                 page={activeIndex()}
                 onPageChange={(details) => setActiveIndex(details.page)}
                 slideCount={images.length}
               >
-                <Carousel.Control>
-                  <Carousel.PrevTrigger />
-                  <Carousel.ItemGroup>
+                <CarouselControl>
+                  <CarouselPrevTrigger />
+                  <CarouselItemGroup>
                     {images.map((image, index) => (
-                      <Carousel.Item index={index}>
+                      <CarouselItem index={index}>
                         <img src={image.src} alt={image.alt} />
-                      </Carousel.Item>
+                      </CarouselItem>
                     ))}
-                  </Carousel.ItemGroup>
-                  <Carousel.NextTrigger />
-                </Carousel.Control>
-                <Carousel.IndicatorGroup>
+                  </CarouselItemGroup>
+                  <CarouselNextTrigger />
+                </CarouselControl>
+                <CarouselIndicatorGroup>
                   {images.map((image, index) => (
-                    <Carousel.Indicator index={index}>
+                    <CarouselIndicator index={index}>
                       <img src={image.src} alt="" />
-                    </Carousel.Indicator>
+                    </CarouselIndicator>
                   ))}
-                </Carousel.IndicatorGroup>
+                </CarouselIndicatorGroup>
               </Carousel>
-            </Lightbox.Gallery>
-          </Lightbox.Content>
-        </Lightbox.Positioner>
+            </LightboxGallery>
+          </LightboxContent>
+        </LightboxPositioner>
       </Lightbox>
     );
   },
@@ -266,7 +293,7 @@ export const GalleryFromServerData: Story = {
 export const ClickToCloseImage: Story = {
   render: () => (
     <Lightbox>
-      <Lightbox.Trigger class={styles.textTrigger}>Open click-to-close lightbox</Lightbox.Trigger>
+      <LightboxTrigger class={styles.textTrigger}>Open click-to-close lightbox</LightboxTrigger>
       <ClickToCloseLightboxSurface src={images[1].src} alt={images[1].alt} />
     </Lightbox>
   ),
@@ -275,16 +302,16 @@ export const ClickToCloseImage: Story = {
 export const CustomStyling: Story = {
   render: () => (
     <Lightbox>
-      <Lightbox.Trigger class={styles.textTrigger}>Open styled lightbox</Lightbox.Trigger>
-      <Lightbox.Backdrop class={styles.customBackdrop} />
-      <Lightbox.Positioner>
-        <Lightbox.CloseIcon class={styles.customCloseIcon} />
-        <Lightbox.Content class={styles.customContent} aria-label={images[1].alt}>
-          <Lightbox.Body>
-            <Lightbox.Image src={images[1].src} alt={images[1].alt} />
-          </Lightbox.Body>
-        </Lightbox.Content>
-      </Lightbox.Positioner>
+      <LightboxTrigger class={styles.textTrigger}>Open styled lightbox</LightboxTrigger>
+      <LightboxBackdrop class={styles.customBackdrop} />
+      <LightboxPositioner>
+        <LightboxCloseIcon class={styles.customCloseIcon} />
+        <LightboxContent class={styles.customContent} aria-label={images[1].alt}>
+          <LightboxBody>
+            <LightboxImage src={images[1].src} alt={images[1].alt} />
+          </LightboxBody>
+        </LightboxContent>
+      </LightboxPositioner>
     </Lightbox>
   ),
 };

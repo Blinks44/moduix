@@ -1,5 +1,5 @@
 import { Button } from '@moduix/react/button';
-import { Tooltip } from '@moduix/react/tooltip';
+import { Tooltip, TooltipBody, TooltipTrigger } from '@moduix/react/tooltip';
 import { useState } from 'react';
 import { PreviewMeta } from '@/components/mdx/Components';
 import styles from '@/components/examples/tooltip/component-positioning.module.css';
@@ -20,10 +20,10 @@ export default function PositioningTooltipDemo() {
           },
         }}
       >
-        <Tooltip.Trigger asChild aria-label={`Tooltip placement: ${placement}`}>
+        <TooltipTrigger asChild aria-label={`Tooltip placement: ${placement}`}>
           <Button>Hover or focus</Button>
-        </Tooltip.Trigger>
-        <Tooltip.Body>Placement: {placement}</Tooltip.Body>
+        </TooltipTrigger>
+        <TooltipBody>Placement: {placement}</TooltipBody>
       </Tooltip>
       <PreviewMeta className={styles.meta}>
         <output>Placement: {placement}</output>

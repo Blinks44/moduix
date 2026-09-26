@@ -1,7 +1,7 @@
 ---
 title: Card
 component: card
-description: Гибкие карточки для React и Solid с вариантами установки через пакет или shadcn.
+description: "Гибкие карточки на React, Solid и Vue: установка из пакета или через shadcn."
 ---
 
 import * as CardDocs from '@/components/examples/card/css-properties';
@@ -10,7 +10,7 @@ import CardBasic from '@/components/examples/card/basic.tsx';
 import CardHeaderAction from '@/components/examples/card/header-action.tsx';
 import CardHorizontal from '@/components/examples/card/horizontal.tsx';
 import CardOverlayLink from '@/components/examples/card/overlay-link.tsx';
-import CardRootAsLink from '@/components/examples/card/root-as-link.tsx';
+import CardAsLink from '@/components/examples/card/root-as-link.tsx';
 import CardSizes from '@/components/examples/card/sizes.tsx';
 import CardVariants from '@/components/examples/card/variants.tsx';
 import CardWithAvatar from '@/components/examples/card/with-avatar.tsx';
@@ -30,6 +30,19 @@ import cardSolidWithBackground from '../../../snippets/card/solid/with-backgroun
 import cardSolidWithImage from '../../../snippets/card/solid/with-image.tsx?raw';
 import cardSolidWithinForm from '../../../snippets/card/solid/within-form.tsx?raw';
 
+import cardVueAdvancedCustomization from '../../../snippets/card/vue/advanced-customization.vue?raw';
+import cardVueBasic from '../../../snippets/card/vue/basic.vue?raw';
+import cardVueHeaderAction from '../../../snippets/card/vue/header-action.vue?raw';
+import cardVueHorizontal from '../../../snippets/card/vue/horizontal.vue?raw';
+import cardVueOverlayLink from '../../../snippets/card/vue/overlay-link.vue?raw';
+import cardVueRootAsLink from '../../../snippets/card/vue/root-as-link.vue?raw';
+import cardVueSizes from '../../../snippets/card/vue/sizes.vue?raw';
+import cardVueVariants from '../../../snippets/card/vue/variants.vue?raw';
+import cardVueWithAvatar from '../../../snippets/card/vue/with-avatar.vue?raw';
+import cardVueWithBackground from '../../../snippets/card/vue/with-background.vue?raw';
+import cardVueWithImage from '../../../snippets/card/vue/with-image.vue?raw';
+import cardVueWithinForm from '../../../snippets/card/vue/within-form.vue?raw';
+
 ## Справочник API
 
 В Ark UI нет отдельного примитива Card. Компонент Card в moduix построен на официальной
@@ -39,13 +52,9 @@ import cardSolidWithinForm from '../../../snippets/card/solid/within-form.tsx?ra
 
 ## Базовый пример
 
-Визуальный
-
-Используйте `Card` как корневой компонент и добавляйте только нужные части. `Card.Root` - это
-псевдоним того же корня, если вы хотите явно указать его в композиции.
-
-В [Быстром старте](/docs/quick-start) описаны установка пакета, настройка registry и выбор варианта
-стилизации.
+Используйте `Card` как корневой компонент и добавляйте только нужные части. Импортируйте каждую
+часть напрямую, например `CardHeader` и `CardTitle`. Те же имена работают с npm-пакетами и
+исходниками registry shadcn.
 
 <ExampleFrame variant="component">
   <CardBasic />
@@ -58,6 +67,7 @@ import cardSolidWithinForm from '../../../snippets/card/solid/within-form.tsx?ra
     values={[
       { label: 'React', value: 'react' },
       { label: 'Solid', value: 'solid' },
+      { label: 'Vue', value: 'vue' },
     ]}
     className="docs-tabs"
   >
@@ -70,6 +80,11 @@ import cardSolidWithinForm from '../../../snippets/card/solid/within-form.tsx?ra
     <Tab value="solid">
 
 <CodeBlockRuntime lang="tsx" code={cardSolidBasic} />
+
+    </Tab>
+    <Tab value="vue">
+
+<CodeBlockRuntime lang="vue" code={cardVueBasic} />
 
     </Tab>
   </Tabs>
@@ -107,36 +122,44 @@ import cardSolidWithinForm from '../../../snippets/card/solid/within-form.tsx?ra
 />
 
   </Tab>
+  <Tab label="Vue" value="vue">
+
+<ShadcnInstallOptions
+  options={[
+    { label: 'CSS Modules', command: 'shadcn@latest add @moduix-vue/card' },
+    { label: 'Tailwind CSS', command: 'shadcn@latest add @moduix-vue-tailwind/card' },
+  ]}
+/>
+
+  </Tab>
 </Tabs>
 
 ## Анатомия
 
 ```text
-Card / Card.Root
-├─ Card.Background (необязательный помощник moduix)
-├─ Card.Media (необязательный помощник moduix)
-├─ Card.Header
-│  ├─ Card.Title
-│  ├─ Card.Description
-│  └─ Card.Action (необязательный помощник moduix)
-├─ Card.Body
-└─ Card.Footer (необязательно)
+Card
+├─ CardBackground (необязательный помощник moduix)
+├─ CardMedia (необязательный помощник moduix)
+├─ CardHeader
+│  ├─ CardTitle
+│  ├─ CardDescription
+│  └─ CardAction (необязательный помощник moduix)
+├─ CardBody
+└─ CardFooter (необязательно)
 ```
-
-`Card` и `Card.Root` обозначают один и тот же корневой компонент.
 
 | Часть                | Назначение                                                                                |
 | -------------------- | ------------------------------------------------------------------------------------------ |
-| `Card` / `Card.Root` | Корневой контейнер со свойствами `size`, `variant` и `asChild`.                            |
-| `Card.Background`    | Необязательный фоновый слой на всю карточку для декоративного медиа.                      |
-| `Card.Media`         | Необязательная обёртка для медиа на всю ширину с единым скруглением верхних углов.        |
-| `Card.Header`        | Контейнер для заголовка, описания и необязательного действия справа.                      |
-| `Card.Body`          | Основная область содержимого.                                                              |
-| `Card.Footer`        | Нижняя строка для действий или метаданных. При необходимости содержимое переносится.     |
-| `Card.Title`         | Заголовок, по умолчанию рендерится как `h3`; для другого уровня используйте `asChild`.   |
-| `Card.Description`   | Дополнительный текст под заголовком.                                                       |
-| `Card.Action`        | Слот для действия в заголовке.                                                             |
-| `Card.Link`          | Ссылка с расширенной областью клика, которая не перекрывает остальные элементы управления. |
+| `Card` | Корневой контейнер со свойствами `size`, `variant` и `asChild`.                            |
+| `CardBackground`    | Необязательный фоновый слой на всю карточку для декоративного медиа.                      |
+| `CardMedia`         | Необязательная обёртка для медиа на всю ширину с единым скруглением верхних углов.        |
+| `CardHeader`        | Контейнер для заголовка, описания и необязательного действия справа.                      |
+| `CardBody`          | Основная область содержимого.                                                              |
+| `CardFooter`        | Нижняя строка для действий или метаданных. При необходимости содержимое переносится.     |
+| `CardTitle`         | Заголовок, по умолчанию рендерится как `h3`; для другого уровня используйте `asChild`.   |
+| `CardDescription`   | Дополнительный текст под заголовком.                                                       |
+| `CardAction`        | Слот для действия в заголовке.                                                             |
+| `CardLink`          | Ссылка с расширенной областью клика, которая не перекрывает остальные элементы управления. |
 
 ## Композиция
 
@@ -147,17 +170,17 @@ Card не управляет состоянием, колбэками, пров�
 например `asChild={(props) => <a {...props()} />}`.
 
 Если вся карточка является одной ссылкой без вложенных элементов управления, соберите корень через
-`asChild`. Если в карточке есть кнопки или другие действия, поместите `Card.Link` внутрь `Card.Title`,
-а эти элементы управления - в `Card.Action`: расширенная область клика ссылки не перекроет остальные
-интерактивные элементы. Используйте `Card.Media` для информативного медиа в начале карточки, а
-`Card.Background` - для декоративного фона за содержимым. Для фонового изображения оставляйте пустой
+`asChild`. Если в карточке есть кнопки или другие действия, поместите `CardLink` внутрь `CardTitle`,
+а эти элементы управления - в `CardAction`: расширенная область клика ссылки не перекроет остальные
+интерактивные элементы. Используйте `CardMedia` для информативного медиа в начале карточки, а
+`CardBackground` - для декоративного фона за содержимым. Для фонового изображения оставляйте пустой
 `alt`, а наложение и контраст текста настраивайте в приложении.
 
 ## Примеры
 
 ### Действие в заголовке
 
-Используйте `Card.Action`, чтобы разместить компактный статус или элемент управления в конце заголовка.
+Используйте `CardAction`, чтобы разместить компактный статус или элемент управления в конце заголовка.
 
 <ExampleFrame variant="component">
   <CardHeaderAction />
@@ -170,6 +193,7 @@ Card не управляет состоянием, колбэками, пров�
     values={[
       { label: 'React', value: 'react' },
       { label: 'Solid', value: 'solid' },
+      { label: 'Vue', value: 'vue' },
     ]}
     className="docs-tabs"
   >
@@ -182,6 +206,11 @@ Card не управляет состоянием, колбэками, пров�
     <Tab value="solid">
 
 <CodeBlockRuntime lang="tsx" code={cardSolidHeaderAction} />
+
+    </Tab>
+    <Tab value="vue">
+
+<CodeBlockRuntime lang="vue" code={cardVueHeaderAction} />
 
     </Tab>
   </Tabs>
@@ -210,6 +239,7 @@ Card не управляет состоянием, колбэками, пров�
     values={[
       { label: 'React', value: 'react' },
       { label: 'Solid', value: 'solid' },
+      { label: 'Vue', value: 'vue' },
     ]}
     className="docs-tabs"
   >
@@ -224,6 +254,11 @@ Card не управляет состоянием, колбэками, пров�
 <CodeBlockRuntime lang="tsx" code={cardSolidHorizontal} />
 
     </Tab>
+    <Tab value="vue">
+
+<CodeBlockRuntime lang="vue" code={cardVueHorizontal} />
+
+    </Tab>
   </Tabs>
 
 **Стили**
@@ -236,7 +271,7 @@ Card не управляет состоянием, колбэками, пров�
 
 ### Ссылка с расширенной областью клика
 
-Используйте `Card.Link`, если карточка должна вести на другую страницу и содержать отдельные действия.
+Используйте `CardLink`, если карточка должна вести на другую страницу и содержать отдельные действия.
 
 <ExampleFrame variant="component">
   <CardOverlayLink />
@@ -249,6 +284,7 @@ Card не управляет состоянием, колбэками, пров�
     values={[
       { label: 'React', value: 'react' },
       { label: 'Solid', value: 'solid' },
+      { label: 'Vue', value: 'vue' },
     ]}
     className="docs-tabs"
   >
@@ -261,6 +297,11 @@ Card не управляет состоянием, колбэками, пров�
     <Tab value="solid">
 
 <CodeBlockRuntime lang="tsx" code={cardSolidOverlayLink} />
+
+    </Tab>
+    <Tab value="vue">
+
+<CodeBlockRuntime lang="vue" code={cardVueOverlayLink} />
 
     </Tab>
   </Tabs>
@@ -278,7 +319,7 @@ Card не управляет состоянием, колбэками, пров�
 Используйте `asChild`, если вся карточка должна быть одной ссылкой и не содержит вложенных элементов управления.
 
 <ExampleFrame variant="component">
-  <CardRootAsLink />
+  <CardAsLink />
 </ExampleFrame>
 
 <ExampleCode>
@@ -288,6 +329,7 @@ Card не управляет состоянием, колбэками, пров�
     values={[
       { label: 'React', value: 'react' },
       { label: 'Solid', value: 'solid' },
+      { label: 'Vue', value: 'vue' },
     ]}
     className="docs-tabs"
   >
@@ -300,6 +342,11 @@ Card не управляет состоянием, колбэками, пров�
     <Tab value="solid">
 
 <CodeBlockRuntime lang="tsx" code={cardSolidRootAsLink} />
+
+    </Tab>
+    <Tab value="vue">
+
+<CodeBlockRuntime lang="vue" code={cardVueRootAsLink} />
 
     </Tab>
   </Tabs>
@@ -327,6 +374,7 @@ Card не управляет состоянием, колбэками, пров�
     values={[
       { label: 'React', value: 'react' },
       { label: 'Solid', value: 'solid' },
+      { label: 'Vue', value: 'vue' },
     ]}
     className="docs-tabs"
   >
@@ -339,6 +387,11 @@ Card не управляет состоянием, колбэками, пров�
     <Tab value="solid">
 
 <CodeBlockRuntime lang="tsx" code={cardSolidSizes} />
+
+    </Tab>
+    <Tab value="vue">
+
+<CodeBlockRuntime lang="vue" code={cardVueSizes} />
 
     </Tab>
   </Tabs>
@@ -366,6 +419,7 @@ Card не управляет состоянием, колбэками, пров�
     values={[
       { label: 'React', value: 'react' },
       { label: 'Solid', value: 'solid' },
+      { label: 'Vue', value: 'vue' },
     ]}
     className="docs-tabs"
   >
@@ -378,6 +432,11 @@ Card не управляет состоянием, колбэками, пров�
     <Tab value="solid">
 
 <CodeBlockRuntime lang="tsx" code={cardSolidVariants} />
+
+    </Tab>
+    <Tab value="vue">
+
+<CodeBlockRuntime lang="vue" code={cardVueVariants} />
 
     </Tab>
   </Tabs>
@@ -405,6 +464,7 @@ Card не управляет состоянием, колбэками, пров�
     values={[
       { label: 'React', value: 'react' },
       { label: 'Solid', value: 'solid' },
+      { label: 'Vue', value: 'vue' },
     ]}
     className="docs-tabs"
   >
@@ -419,6 +479,11 @@ Card не управляет состоянием, колбэками, пров�
 <CodeBlockRuntime lang="tsx" code={cardSolidWithAvatar} />
 
     </Tab>
+    <Tab value="vue">
+
+<CodeBlockRuntime lang="vue" code={cardVueWithAvatar} />
+
+    </Tab>
   </Tabs>
 
 **Стили**
@@ -431,7 +496,7 @@ Card не управляет состоянием, колбэками, пров�
 
 ### С фоновым изображением
 
-Используйте `Card.Background` для декоративного изображения за содержимым всей карточки. Наложение и
+Используйте `CardBackground` для декоративного изображения за содержимым всей карточки. Наложение и
 контраст текста настройте в стилях приложения.
 
 <ExampleFrame variant="component">
@@ -445,6 +510,7 @@ Card не управляет состоянием, колбэками, пров�
     values={[
       { label: 'React', value: 'react' },
       { label: 'Solid', value: 'solid' },
+      { label: 'Vue', value: 'vue' },
     ]}
     className="docs-tabs"
   >
@@ -459,6 +525,11 @@ Card не управляет состоянием, колбэками, пров�
 <CodeBlockRuntime lang="tsx" code={cardSolidWithBackground} />
 
     </Tab>
+    <Tab value="vue">
+
+<CodeBlockRuntime lang="vue" code={cardVueWithBackground} />
+
+    </Tab>
   </Tabs>
 
 **Стили**
@@ -471,7 +542,7 @@ Card не управляет состоянием, колбэками, пров�
 
 ### С изображением
 
-Используйте `Card.Media` для медиа в начале карточки, которое должно занимать всю её ширину с единым
+Используйте `CardMedia` для медиа в начале карточки, которое должно занимать всю её ширину с единым
 скруглением верхних углов.
 
 <ExampleFrame variant="component">
@@ -485,6 +556,7 @@ Card не управляет состоянием, колбэками, пров�
     values={[
       { label: 'React', value: 'react' },
       { label: 'Solid', value: 'solid' },
+      { label: 'Vue', value: 'vue' },
     ]}
     className="docs-tabs"
   >
@@ -497,6 +569,11 @@ Card не управляет состоянием, колбэками, пров�
     <Tab value="solid">
 
 <CodeBlockRuntime lang="tsx" code={cardSolidWithImage} />
+
+    </Tab>
+    <Tab value="vue">
+
+<CodeBlockRuntime lang="vue" code={cardVueWithImage} />
 
     </Tab>
   </Tabs>
@@ -524,6 +601,7 @@ Card не управляет состоянием, колбэками, пров�
     values={[
       { label: 'React', value: 'react' },
       { label: 'Solid', value: 'solid' },
+      { label: 'Vue', value: 'vue' },
     ]}
     className="docs-tabs"
   >
@@ -538,6 +616,11 @@ Card не управляет состоянием, колбэками, пров�
 <CodeBlockRuntime lang="tsx" code={cardSolidWithinForm} />
 
     </Tab>
+    <Tab value="vue">
+
+<CodeBlockRuntime lang="vue" code={cardVueWithinForm} />
+
+    </Tab>
   </Tabs>
 
 **Стили**
@@ -550,7 +633,7 @@ Card не управляет состоянием, колбэками, пров�
 
 ### Расширенная настройка
 
-Не используйте `Card.Media`, если нужно самостоятельно оформить медиа и настроить карточку через
+Не используйте `CardMedia`, если нужно самостоятельно оформить медиа и настроить карточку через
 низкоуровневые точки стилизации.
 
 <ExampleFrame variant="component">
@@ -564,6 +647,7 @@ Card не управляет состоянием, колбэками, пров�
     values={[
       { label: 'React', value: 'react' },
       { label: 'Solid', value: 'solid' },
+      { label: 'Vue', value: 'vue' },
     ]}
     className="docs-tabs"
   >
@@ -576,6 +660,11 @@ Card не управляет состоянием, колбэками, пров�
     <Tab value="solid">
 
 <CodeBlockRuntime lang="tsx" code={cardSolidAdvancedCustomization} />
+
+    </Tab>
+    <Tab value="vue">
+
+<CodeBlockRuntime lang="vue" code={cardVueAdvancedCustomization} />
 
     </Tab>
   </Tabs>

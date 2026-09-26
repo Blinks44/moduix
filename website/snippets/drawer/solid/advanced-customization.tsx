@@ -1,39 +1,55 @@
 import { Button } from '@moduix/solid/button';
-import { Card } from '@moduix/solid/card';
-import { Checkbox } from '@moduix/solid/checkbox';
-import { Drawer } from '@moduix/solid/drawer';
+import { Card, CardBody } from '@moduix/solid/card';
+import {
+  Checkbox,
+  CheckboxControl,
+  CheckboxHiddenInput,
+  CheckboxLabel,
+} from '@moduix/solid/checkbox';
+import {
+  Drawer,
+  DrawerBackdrop,
+  DrawerCloseTrigger,
+  DrawerContent,
+  DrawerDescription,
+  DrawerGrabber,
+  DrawerGrabberIndicator,
+  DrawerPositioner,
+  DrawerTitle,
+  DrawerTrigger,
+} from '@moduix/solid/drawer';
 import styles from '@/components/examples/drawer/drawer-advanced-customization.module.css';
 
 export default function AdvancedCustomizationDrawerDemo() {
   return (
     <Drawer swipeDirection="end">
-      <Drawer.Trigger asChild={(props) => <Button {...props()}>Open preferences</Button>} />
-      <Drawer.Backdrop />
-      <Drawer.Positioner>
-        <Drawer.Content class={styles.content}>
-          <Drawer.Grabber>
-            <Drawer.GrabberIndicator />
-          </Drawer.Grabber>
-          <Drawer.Title>Preferences</Drawer.Title>
-          <Drawer.Description>Choose how you want notifications delivered.</Drawer.Description>
+      <DrawerTrigger asChild={(props) => <Button {...props()}>Open preferences</Button>} />
+      <DrawerBackdrop />
+      <DrawerPositioner>
+        <DrawerContent class={styles.content}>
+          <DrawerGrabber>
+            <DrawerGrabberIndicator />
+          </DrawerGrabber>
+          <DrawerTitle>Preferences</DrawerTitle>
+          <DrawerDescription>Choose how you want notifications delivered.</DrawerDescription>
           <Card size="sm" class={styles.card}>
-            <Card.Body>
+            <CardBody>
               <Checkbox defaultChecked>
-                <Checkbox.Control />
-                <Checkbox.Label>Email notifications</Checkbox.Label>
-                <Checkbox.HiddenInput />
+                <CheckboxControl />
+                <CheckboxLabel>Email notifications</CheckboxLabel>
+                <CheckboxHiddenInput />
               </Checkbox>
-            </Card.Body>
+            </CardBody>
           </Card>
-          <Drawer.CloseTrigger
+          <DrawerCloseTrigger
             asChild={(props) => (
               <Button {...props()} variant="outline">
                 Done
               </Button>
             )}
           />
-        </Drawer.Content>
-      </Drawer.Positioner>
+        </DrawerContent>
+      </DrawerPositioner>
     </Drawer>
   );
 }

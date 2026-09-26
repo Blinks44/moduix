@@ -1,4 +1,13 @@
-import { Lightbox } from '@moduix/react/lightbox';
+import {
+  LightboxTrigger,
+  LightboxBackdrop,
+  LightboxPositioner,
+  LightboxContent,
+  LightboxCloseIcon,
+  LightboxBody,
+  LightboxImage,
+  Lightbox,
+} from '@moduix/react/lightbox';
 import styles from '@/components/examples/lightbox/lightbox-basic.module.css';
 
 const images = [
@@ -28,20 +37,20 @@ const images = [
 export default function LightboxDemo() {
   return (
     <Lightbox>
-      <Lightbox.Trigger asChild>
+      <LightboxTrigger asChild>
         <button type="button" className={styles.trigger}>
           <img src={images[0].thumbnail} alt={images[0].alt} />
         </button>
-      </Lightbox.Trigger>
-      <Lightbox.Backdrop />
-      <Lightbox.Positioner>
-        <Lightbox.CloseIcon />
-        <Lightbox.Content aria-label={images[0].alt}>
-          <Lightbox.Body>
-            <Lightbox.Image src={images[0].src} alt={images[0].alt} />
-          </Lightbox.Body>
-        </Lightbox.Content>
-      </Lightbox.Positioner>
+      </LightboxTrigger>
+      <LightboxBackdrop />
+      <LightboxPositioner>
+        <LightboxCloseIcon />
+        <LightboxContent aria-label={images[0].alt}>
+          <LightboxBody>
+            <LightboxImage src={images[0].src} alt={images[0].alt} />
+          </LightboxBody>
+        </LightboxContent>
+      </LightboxPositioner>
     </Lightbox>
   );
 }

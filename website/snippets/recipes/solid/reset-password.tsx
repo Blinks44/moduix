@@ -1,26 +1,33 @@
 import { Button } from '@moduix/solid/button';
-import { Card } from '@moduix/solid/card';
-import { Field } from '@moduix/solid/field';
+import {
+  Card,
+  CardBody,
+  CardDescription,
+  CardFooter,
+  CardHeader,
+  CardTitle,
+} from '@moduix/solid/card';
+import { Field, FieldLabel } from '@moduix/solid/field';
 import { Input } from '@moduix/solid/input';
 import styles from './reset-password-form.module.css';
 
 export function ResetPassword({ onSubmit }: { onSubmit?: (event: SubmitEvent) => void }) {
   return (
     <Card class={styles.root}>
-      <Card.Header class={styles.header}>
-        <Card.Title>Create a new password</Card.Title>
-        <Card.Description>Choose a strong password you don&apos;t use elsewhere.</Card.Description>
-      </Card.Header>
+      <CardHeader class={styles.header}>
+        <CardTitle>Create a new password</CardTitle>
+        <CardDescription>Choose a strong password you don&apos;t use elsewhere.</CardDescription>
+      </CardHeader>
 
-      <Card.Body>
+      <CardBody>
         <form class={styles.stack} onSubmit={onSubmit}>
           <Field required>
-            <Field.Label>New password</Field.Label>
+            <FieldLabel>New password</FieldLabel>
             <Input name="password" type="password" autocomplete="new-password" />
           </Field>
 
           <Field required>
-            <Field.Label>Confirm new password</Field.Label>
+            <FieldLabel>Confirm new password</FieldLabel>
             <Input name="confirm-password" type="password" autocomplete="new-password" />
           </Field>
 
@@ -28,16 +35,16 @@ export function ResetPassword({ onSubmit }: { onSubmit?: (event: SubmitEvent) =>
             Reset password
           </Button>
         </form>
-      </Card.Body>
+      </CardBody>
 
-      <Card.Footer class={styles.footer}>
+      <CardFooter class={styles.footer}>
         <p>
           Remembered your password?{' '}
           <a class={styles.link} href="/sign-in">
             Sign in
           </a>
         </p>
-      </Card.Footer>
+      </CardFooter>
     </Card>
   );
 }

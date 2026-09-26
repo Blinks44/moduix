@@ -10,7 +10,7 @@ type SeparatorProps = HTMLArkProps<'span'> & {
   variant?: 'solid' | 'dashed' | 'dotted';
 };
 
-const SeparatorRoot = forwardRef<HTMLSpanElement, SeparatorProps>(function SeparatorRoot(
+const Separator = forwardRef<HTMLSpanElement, SeparatorProps>(function Separator(
   {
     asChild,
     className,
@@ -41,10 +41,6 @@ const SeparatorRoot = forwardRef<HTMLSpanElement, SeparatorProps>(function Separ
       className={clsx(styles.root, className)}
     />
   );
-});
-
-const Separator = Object.assign(SeparatorRoot, {
-  Root: SeparatorRoot,
 });
 
 export { Separator };

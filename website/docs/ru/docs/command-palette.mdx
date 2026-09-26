@@ -29,9 +29,9 @@ import commandPaletteSolidActions from '../../../snippets/command-palette/solid/
 Просмотр на этой странице
 использует пакет React CSS Modules,
 
-Используйте `CommandPalette.Panel` для стандартной структуры диалога. Он сам отрисовывает фон, контейнер
-позиционирования, содержимое и основную область. Поместите внутрь `CommandPalette.Combobox`, передайте ему
-коллекцию и выведите отфильтрованные команды в `CommandPalette.List`. `CommandPalette.Search` добавляет поле
+Используйте `CommandPalettePanel` для стандартной структуры диалога. Он сам отрисовывает фон, контейнер
+позиционирования, содержимое и основную область. Поместите внутрь `CommandPaletteCombobox`, передайте ему
+коллекцию и выведите отфильтрованные команды в `CommandPaletteList`. `CommandPaletteSearch` добавляет поле
 ввода и кнопку очистки, которая появляется после ввода запроса.
 
 <ExampleFrame variant="component">
@@ -99,78 +99,78 @@ import commandPaletteSolidActions from '../../../snippets/command-palette/solid/
 ## Анатомия
 
 ```text
-CommandPalette / CommandPalette.Root
-├─ CommandPalette.Trigger
+CommandPalette
+├─ CommandPaletteTrigger
 └─ Содержимое оверлея, автоматически помещаемое в портал
-   ├─ CommandPalette.Backdrop
-   └─ CommandPalette.Positioner
-      └─ CommandPalette.Content
-         ├─ CommandPalette.Header
-         │  ├─ CommandPalette.Title
-         │  └─ CommandPalette.Description
-         └─ CommandPalette.Body
-            └─ CommandPalette.Combobox
-               ├─ CommandPalette.Control
-               │  ├─ CommandPalette.Input
-               │  └─ CommandPalette.ClearTrigger
-               ├─ CommandPalette.List
-               │  ├─ CommandPalette.Empty
-               │  └─ CommandPalette.ItemGroup
-               │     ├─ CommandPalette.ItemGroupLabel
-               │     └─ CommandPalette.Item
-               │        ├─ CommandPalette.ItemIcon
-               │        ├─ CommandPalette.ItemText
-               │        │  ├─ CommandPalette.ItemLabel
-               │        │  └─ CommandPalette.ItemDescription
-               │        ├─ CommandPalette.ItemMeta
-               │        └─ CommandPalette.ItemIndicator
-               └─ CommandPalette.Footer
-                  └─ CommandPalette.Kbd
+   ├─ CommandPaletteBackdrop
+   └─ CommandPalettePositioner
+      └─ CommandPaletteContent
+         ├─ CommandPaletteHeader
+         │  ├─ CommandPaletteTitle
+         │  └─ CommandPaletteDescription
+         └─ CommandPaletteBody
+            └─ CommandPaletteCombobox
+               ├─ CommandPaletteControl
+               │  ├─ CommandPaletteInput
+               │  └─ CommandPaletteClearTrigger
+               ├─ CommandPaletteList
+               │  ├─ CommandPaletteEmpty
+               │  └─ CommandPaletteItemGroup
+               │     ├─ CommandPaletteItemGroupLabel
+               │     └─ CommandPaletteItem
+               │        ├─ CommandPaletteItemIcon
+               │        ├─ CommandPaletteItemText
+               │        │  ├─ CommandPaletteItemLabel
+               │        │  └─ CommandPaletteItemDescription
+               │        ├─ CommandPaletteItemMeta
+               │        └─ CommandPaletteItemIndicator
+               └─ CommandPaletteFooter
+                  └─ CommandPaletteKbd
 
-CommandPalette.Panel
-└─ сокращённая композиция для Backdrop, Positioner, Content и Body
+CommandPalettePanel
+└─ сокращённая композиция для CommandPaletteBackdrop, CommandPalettePositioner, CommandPaletteContent и CommandPaletteBody
 
-CommandPalette.RootProvider
+CommandPaletteRootProvider
 └─ то же дерево, подключённое к состоянию из useDialog()
 ```
 
 | Часть | Назначение |
 | --- | --- |
-| `CommandPalette` / `CommandPalette.Root` | Управляет состоянием Ark Dialog и необязательным обработчиком глобального сочетания клавиш. |
-| `CommandPalette.RootProvider` | Подключает части палитры к состоянию диалога, созданному вне дерева компонентов. |
-| `CommandPalette.Trigger` | Открывает палитру. Используйте `asChild`, чтобы передать собственный элемент триггера. |
-| `CommandPalette.Backdrop` | Фон Ark Dialog с состоянием анимации в `data-state`. |
-| `CommandPalette.Positioner` | Размещает диалог в области просмотра и не даёт его содержимому выйти за её пределы. |
-| `CommandPalette.Content` | Содержимое диалога и визуальная поверхность палитры. |
-| `CommandPalette.Panel` | Готовый каркас со стандартными `Backdrop`, `Positioner`, `Content` и `Body`. |
-| `CommandPalette.Header` / `Title` / `Description` | Необязательные элементы компоновки, заголовка и описания Ark Dialog. |
-| `CommandPalette.Body` | Контейнер области Combobox внутри диалога. |
-| `CommandPalette.Combobox` | Корневой компонент Ark Combobox для поиска и выбора команд. |
-| `CommandPalette.Control` | Объединяет поле поиска и кнопку очистки. |
-| `CommandPalette.Input` | Поле ввода Ark Combobox. |
-| `CommandPalette.Search` | Готовая строка поиска с `Control`, `Input` и `ClearTrigger`. Также добавляет полю ввода доступное имя по умолчанию. Если части нужно настраивать по отдельности, используйте явную композицию. |
-| `CommandPalette.ClearTrigger` | Очищает поисковый запрос и скрыта, пока поле пустое. |
-| `CommandPalette.List` | Список результатов Ark Combobox, обёрнутый во встроенный `ScrollArea` из moduix. |
-| `CommandPalette.Empty` | Сообщение, которое показывается, если после фильтрации результатов нет. |
-| `CommandPalette.ItemGroup` / `ItemGroupLabel` | Группы результатов команд и их заголовки. |
-| `CommandPalette.Item` | Строка команды с состояниями подсветки, выбора и отключения. |
-| `CommandPalette.ItemText` | Контейнер для названия и описания команды. |
-| `CommandPalette.ItemIndicator` | Индикатор выбранного состояния с иконкой галочки по умолчанию. |
-| `CommandPalette.ItemIcon`, `ItemLabel`, `ItemDescription`, `ItemMeta` | Визуальные части для иконки, текста, описания и метаданных справа. |
-| `CommandPalette.Separator` | Визуальный разделитель между группами команд. |
-| `CommandPalette.Footer` / `Kbd` | Нижняя область и обёртка `Kbd` из moduix для обозначения сочетаний клавиш. |
+| `CommandPalette` | Управляет состоянием Ark Dialog и необязательным обработчиком глобального сочетания клавиш. |
+| `CommandPaletteRootProvider` | Подключает части палитры к состоянию диалога, созданному вне дерева компонентов. |
+| `CommandPaletteTrigger` | Открывает палитру. Используйте `asChild`, чтобы передать собственный элемент триггера. |
+| `CommandPaletteBackdrop` | Фон Ark Dialog с состоянием анимации в `data-state`. |
+| `CommandPalettePositioner` | Размещает диалог в области просмотра и не даёт его содержимому выйти за её пределы. |
+| `CommandPaletteContent` | Содержимое диалога и визуальная поверхность палитры. |
+| `CommandPalettePanel` | Готовый каркас со стандартными `CommandPaletteBackdrop`, `CommandPalettePositioner`, `CommandPaletteContent` и `CommandPaletteBody`. |
+| `CommandPaletteHeader` / `CommandPaletteTitle` / `CommandPaletteDescription` | Необязательные элементы компоновки, заголовка и описания Ark Dialog. |
+| `CommandPaletteBody` | Контейнер области Combobox внутри диалога. |
+| `CommandPaletteCombobox` | Корневой компонент Ark Combobox для поиска и выбора команд. |
+| `CommandPaletteControl` | Объединяет поле поиска и кнопку очистки. |
+| `CommandPaletteInput` | Поле ввода Ark Combobox. |
+| `CommandPaletteSearch` | Готовая строка поиска с `CommandPaletteControl`, `CommandPaletteInput` и `CommandPaletteClearTrigger`. Также добавляет полю ввода доступное имя по умолчанию. Если части нужно настраивать по отдельности, используйте явную композицию. |
+| `CommandPaletteClearTrigger` | Очищает поисковый запрос и скрыта, пока поле пустое. |
+| `CommandPaletteList` | Список результатов Ark Combobox, обёрнутый во встроенный `ScrollArea` из moduix. |
+| `CommandPaletteEmpty` | Сообщение, которое показывается, если после фильтрации результатов нет. |
+| `CommandPaletteItemGroup` / `CommandPaletteItemGroupLabel` | Группы результатов команд и их заголовки. |
+| `CommandPaletteItem` | Строка команды с состояниями подсветки, выбора и отключения. |
+| `CommandPaletteItemText` | Контейнер для названия и описания команды. |
+| `CommandPaletteItemIndicator` | Индикатор выбранного состояния с иконкой галочки по умолчанию. |
+| `CommandPaletteItemIcon`, `CommandPaletteItemLabel`, `CommandPaletteItemDescription`, `CommandPaletteItemMeta` | Визуальные части для иконки, текста, описания и метаданных справа. |
+| `CommandPaletteSeparator` | Визуальный разделитель между группами команд. |
+| `CommandPaletteFooter` / `CommandPaletteKbd` | Нижняя область и обёртка `Kbd` из moduix для обозначения сочетаний клавиш. |
 
 ## Композиция
 
-Корневой компонент владеет состоянием Dialog и автоматически помещает `Backdrop` и `Positioner` в портал.
+Корневой компонент владеет состоянием Dialog и автоматически помещает `CommandPaletteBackdrop` и `CommandPalettePositioner` в портал.
 Чтобы отрисовать их в текущем дереве, задайте `portalled={false}`, а для собственного контейнера передайте
-`portalRef`. Для обычной структуры используйте `Panel` и `Search`, а при нестандартной разметке диалога или
+`portalRef`. Для обычной структуры используйте `CommandPalettePanel` и `CommandPaletteSearch`, а при нестандартной разметке диалога или
 поиска рендерите структурные части напрямую.
 
-Храните фильтрацию коллекции рядом с владельцем `Combobox`: настройте `useListCollection` с помощью
+Храните фильтрацию коллекции рядом с владельцем `CommandPaletteCombobox`: настройте `useListCollection` с помощью
 `itemToString`, `itemToValue` и `groupBy`, а в `onInputValueChange` вызывайте `filter(details.inputValue)`.
 Если коллекция хранится вне палитры, сбрасывайте фильтр при закрытии. Задайте `closeOnSelect={false}`, чтобы
-палитра оставалась открытой после действия, или используйте `RootProvider` с `useDialog` из соответствующего
+палитра оставалась открытой после действия, или используйте `CommandPaletteRootProvider` с `useDialog` из соответствующего
 framework-пакета, если состояние диалога создаётся вне дерева компонентов.
 
 ## Примеры
@@ -298,7 +298,7 @@ framework-пакета, если состояние диалога создаё�
 ### Расширенная настройка
 
 Используйте явные части диалога и поиска, если палитре нужны собственный заголовок или нестандартная строка
-поиска. В примере сохраняется поведение Ark Dialog и Combobox, а готовые помощники `Panel` и `Search` заменяются
+поиска. В примере сохраняется поведение Ark Dialog и Combobox, а готовые помощники `CommandPalettePanel` и `CommandPaletteSearch` заменяются
 явной разметкой.
 
 <ExampleFrame variant="component">
@@ -340,7 +340,7 @@ framework-пакета, если состояние диалога создаё�
 
 Используйте CSS-переменные на частях триггера, фона, содержимого, списка и элементов, если палитра должна
 соответствовать плотному интерфейсу или фирменному оформлению. Для изменения разметки или слоёв используйте
-структурные части. `CommandPalette.List` остаётся прокручиваемым, но не показывает видимую полосу прокрутки.
+структурные части. `CommandPaletteList` остаётся прокручиваемым, но не показывает видимую полосу прокрутки.
 
 ### CSS-свойства
 

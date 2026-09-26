@@ -1,8 +1,18 @@
 import { clsx } from 'clsx';
 import { createSignal, createUniqueId } from 'solid-js';
 import type { Meta, StoryObj } from 'storybook-solidjs-vite';
-import { Field } from '@/components/field/Field';
-import { TagsInput, useTagsInput } from '@/components/tags-input/TagsInput';
+import { Field, FieldErrorText, FieldHelperText } from '@/components/field/Field';
+import {
+  TagsInput,
+  TagsInputClearTrigger,
+  TagsInputControl,
+  TagsInputHiddenInput,
+  TagsInputInput,
+  TagsInputItems,
+  TagsInputLabel,
+  TagsInputRootProvider,
+  useTagsInput,
+} from '@/components/tags-input/TagsInput';
 
 const initialTags = ['React', 'TypeScript'];
 const stackClass = 'grid items-start gap-3';
@@ -28,13 +38,13 @@ type Story = StoryObj<typeof meta>;
 export const Basic: Story = {
   render: () => (
     <TagsInput defaultValue={initialTags} name="frameworks">
-      <TagsInput.Label>Frameworks</TagsInput.Label>
-      <TagsInput.Control>
-        <TagsInput.Items />
-        <TagsInput.Input placeholder="Add framework" />
-        <TagsInput.ClearTrigger aria-label="Clear frameworks" />
-      </TagsInput.Control>
-      <TagsInput.HiddenInput />
+      <TagsInputLabel>Frameworks</TagsInputLabel>
+      <TagsInputControl>
+        <TagsInputItems />
+        <TagsInputInput placeholder="Add framework" />
+        <TagsInputClearTrigger aria-label="Clear frameworks" />
+      </TagsInputControl>
+      <TagsInputHiddenInput />
     </TagsInput>
   ),
 };
@@ -46,12 +56,12 @@ export const Controlled: Story = {
     return (
       <div class={stackClass}>
         <TagsInput value={value()} onValueChange={(details) => setValue(details.value)}>
-          <TagsInput.Label>Skills</TagsInput.Label>
-          <TagsInput.Control>
-            <TagsInput.Items />
-            <TagsInput.Input placeholder="Add skill" />
-            <TagsInput.ClearTrigger aria-label="Clear skills" />
-          </TagsInput.Control>
+          <TagsInputLabel>Skills</TagsInputLabel>
+          <TagsInputControl>
+            <TagsInputItems />
+            <TagsInputInput placeholder="Add skill" />
+            <TagsInputClearTrigger aria-label="Clear skills" />
+          </TagsInputControl>
         </TagsInput>
         <p class={hintClass}>Current value: {value().join(', ') || 'empty'}</p>
       </div>
@@ -62,12 +72,12 @@ export const Controlled: Story = {
 export const DelimiterPaste: Story = {
   render: () => (
     <TagsInput defaultValue={['React', 'Solid', 'Vue']} delimiter={/[,;\s]/} addOnPaste>
-      <TagsInput.Label>Frameworks</TagsInput.Label>
-      <TagsInput.Control>
-        <TagsInput.Items />
-        <TagsInput.Input placeholder="Comma, semicolon, or space" />
-        <TagsInput.ClearTrigger aria-label="Clear frameworks" />
-      </TagsInput.Control>
+      <TagsInputLabel>Frameworks</TagsInputLabel>
+      <TagsInputControl>
+        <TagsInputItems />
+        <TagsInputInput placeholder="Comma, semicolon, or space" />
+        <TagsInputClearTrigger aria-label="Clear frameworks" />
+      </TagsInputControl>
     </TagsInput>
   ),
 };
@@ -87,12 +97,12 @@ export const Validation: Story = {
           }
           onValueInvalid={(details) => setInvalidReason(details.reason)}
         >
-          <TagsInput.Label>Labels</TagsInput.Label>
-          <TagsInput.Control>
-            <TagsInput.Items />
-            <TagsInput.Input placeholder="Add unique label" />
-            <TagsInput.ClearTrigger aria-label="Clear labels" />
-          </TagsInput.Control>
+          <TagsInputLabel>Labels</TagsInputLabel>
+          <TagsInputControl>
+            <TagsInputItems />
+            <TagsInputInput placeholder="Add unique label" />
+            <TagsInputClearTrigger aria-label="Clear labels" />
+          </TagsInputControl>
         </TagsInput>
         <p class={hintClass}>Last invalid reason: {invalidReason()}</p>
       </div>
@@ -103,12 +113,12 @@ export const Validation: Story = {
 export const AllowDuplicates: Story = {
   render: () => (
     <TagsInput allowDuplicates defaultValue={['React', 'React']}>
-      <TagsInput.Label>Frameworks</TagsInput.Label>
-      <TagsInput.Control>
-        <TagsInput.Items />
-        <TagsInput.Input placeholder="Add framework" />
-        <TagsInput.ClearTrigger aria-label="Clear frameworks" />
-      </TagsInput.Control>
+      <TagsInputLabel>Frameworks</TagsInputLabel>
+      <TagsInputControl>
+        <TagsInputItems />
+        <TagsInputInput placeholder="Add framework" />
+        <TagsInputClearTrigger aria-label="Clear frameworks" />
+      </TagsInputControl>
     </TagsInput>
   ),
 };
@@ -116,12 +126,12 @@ export const AllowDuplicates: Story = {
 export const MaxWithOverflow: Story = {
   render: () => (
     <TagsInput max={2} allowOverflow defaultValue={['React', 'Solid']}>
-      <TagsInput.Label>Frameworks</TagsInput.Label>
-      <TagsInput.Control>
-        <TagsInput.Items />
-        <TagsInput.Input placeholder="Add framework" />
-        <TagsInput.ClearTrigger aria-label="Clear frameworks" />
-      </TagsInput.Control>
+      <TagsInputLabel>Frameworks</TagsInputLabel>
+      <TagsInputControl>
+        <TagsInputItems />
+        <TagsInputInput placeholder="Add framework" />
+        <TagsInputClearTrigger aria-label="Clear frameworks" />
+      </TagsInputControl>
     </TagsInput>
   ),
 };
@@ -130,16 +140,16 @@ export const WithFieldValidation: Story = {
   render: () => (
     <Field invalid required class={fieldClass}>
       <TagsInput defaultValue={['api']} name="topics">
-        <TagsInput.Label>Topics</TagsInput.Label>
-        <TagsInput.Control>
-          <TagsInput.Items />
-          <TagsInput.Input placeholder="Add topic" />
-          <TagsInput.ClearTrigger aria-label="Clear topics" />
-        </TagsInput.Control>
-        <TagsInput.HiddenInput />
+        <TagsInputLabel>Topics</TagsInputLabel>
+        <TagsInputControl>
+          <TagsInputItems />
+          <TagsInputInput placeholder="Add topic" />
+          <TagsInputClearTrigger aria-label="Clear topics" />
+        </TagsInputControl>
+        <TagsInputHiddenInput />
       </TagsInput>
-      <Field.HelperText>Add at least one topic.</Field.HelperText>
-      <Field.ErrorText>Topics are required.</Field.ErrorText>
+      <FieldHelperText>Add at least one topic.</FieldHelperText>
+      <FieldErrorText>Topics are required.</FieldErrorText>
     </Field>
   ),
 };
@@ -148,20 +158,20 @@ export const DisabledAndReadOnly: Story = {
   render: () => (
     <div class={stackClass}>
       <TagsInput disabled defaultValue={initialTags}>
-        <TagsInput.Label>Disabled frameworks</TagsInput.Label>
-        <TagsInput.Control>
-          <TagsInput.Items />
-          <TagsInput.Input placeholder="Add framework" />
-          <TagsInput.ClearTrigger aria-label="Clear disabled frameworks" />
-        </TagsInput.Control>
+        <TagsInputLabel>Disabled frameworks</TagsInputLabel>
+        <TagsInputControl>
+          <TagsInputItems />
+          <TagsInputInput placeholder="Add framework" />
+          <TagsInputClearTrigger aria-label="Clear disabled frameworks" />
+        </TagsInputControl>
       </TagsInput>
       <TagsInput readOnly defaultValue={initialTags}>
-        <TagsInput.Label>Read-only frameworks</TagsInput.Label>
-        <TagsInput.Control>
-          <TagsInput.Items />
-          <TagsInput.Input placeholder="Add framework" />
-          <TagsInput.ClearTrigger aria-label="Clear read-only frameworks" />
-        </TagsInput.Control>
+        <TagsInputLabel>Read-only frameworks</TagsInputLabel>
+        <TagsInputControl>
+          <TagsInputItems />
+          <TagsInputInput placeholder="Add framework" />
+          <TagsInputClearTrigger aria-label="Clear read-only frameworks" />
+        </TagsInputControl>
       </TagsInput>
     </div>
   ),
@@ -171,12 +181,12 @@ export const ClearButtonBelow: Story = {
   render: () => (
     <div class={stackClass}>
       <TagsInput defaultValue={initialTags}>
-        <TagsInput.Label>Frameworks</TagsInput.Label>
-        <TagsInput.Control>
-          <TagsInput.Items />
-          <TagsInput.Input placeholder="Add framework" />
-        </TagsInput.Control>
-        <TagsInput.ClearTrigger
+        <TagsInputLabel>Frameworks</TagsInputLabel>
+        <TagsInputControl>
+          <TagsInputItems />
+          <TagsInputInput placeholder="Add framework" />
+        </TagsInputControl>
+        <TagsInputClearTrigger
           asChild={(props) => (
             <button {...props()} class={clsx(props().class, clearButtonClass)} type="button">
               Clear all tags
@@ -205,14 +215,14 @@ export const RootProvider: Story = {
             Focus
           </button>
         </div>
-        <TagsInput.RootProvider value={tagsInput}>
-          <TagsInput.Label>Frameworks</TagsInput.Label>
-          <TagsInput.Control>
-            <TagsInput.Items />
-            <TagsInput.Input placeholder="Add framework" />
-            <TagsInput.ClearTrigger aria-label="Clear frameworks" />
-          </TagsInput.Control>
-        </TagsInput.RootProvider>
+        <TagsInputRootProvider value={tagsInput}>
+          <TagsInputLabel>Frameworks</TagsInputLabel>
+          <TagsInputControl>
+            <TagsInputItems />
+            <TagsInputInput placeholder="Add framework" />
+            <TagsInputClearTrigger aria-label="Clear frameworks" />
+          </TagsInputControl>
+        </TagsInputRootProvider>
       </div>
     );
   },
@@ -221,18 +231,18 @@ export const RootProvider: Story = {
 export const CustomStyling: Story = {
   render: () => (
     <TagsInput class="w-96" defaultValue={['Design', 'API']}>
-      <TagsInput.Label class="text-primary">Workstreams</TagsInput.Label>
-      <TagsInput.Control class="border-primary/40 bg-primary/5">
-        <TagsInput.Items />
-        <TagsInput.Input
+      <TagsInputLabel class="text-primary">Workstreams</TagsInputLabel>
+      <TagsInputControl class="border-primary/40 bg-primary/5">
+        <TagsInputItems />
+        <TagsInputInput
           class="text-primary placeholder:text-primary/60"
           placeholder="Add workstream"
         />
-        <TagsInput.ClearTrigger
+        <TagsInputClearTrigger
           class="text-primary hover:bg-primary/10 hover:text-primary"
           aria-label="Clear workstreams"
         />
-      </TagsInput.Control>
+      </TagsInputControl>
     </TagsInput>
   ),
 };

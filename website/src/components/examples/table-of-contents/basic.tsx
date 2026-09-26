@@ -1,4 +1,13 @@
-import { Toc } from '@moduix/react/toc';
+import {
+  Toc,
+  TocContent,
+  TocIndicator,
+  TocItem,
+  TocLink,
+  TocList,
+  TocNav,
+  TocTitle,
+} from '@moduix/react/toc';
 import { useRef } from 'react';
 import styles from '@/components/examples/table-of-contents/table-of-contents-basic.module.css';
 
@@ -40,7 +49,7 @@ export default function TocDemo() {
 
   return (
     <Toc className={styles.root} items={items} scrollEl={() => scrollRef.current}>
-      <Toc.Content>
+      <TocContent>
         <div
           ref={scrollRef}
           aria-label="Scrollable document preview"
@@ -61,19 +70,19 @@ export default function TocDemo() {
             );
           })}
         </div>
-      </Toc.Content>
+      </TocContent>
 
-      <Toc.Nav>
-        <Toc.Title>On this page</Toc.Title>
-        <Toc.List>
-          <Toc.Indicator />
+      <TocNav>
+        <TocTitle>On this page</TocTitle>
+        <TocList>
+          <TocIndicator />
           {items.map((item) => (
-            <Toc.Item key={item.value} item={item}>
-              <Toc.Link href={`#${item.value}`}>{item.label}</Toc.Link>
-            </Toc.Item>
+            <TocItem key={item.value} item={item}>
+              <TocLink href={`#${item.value}`}>{item.label}</TocLink>
+            </TocItem>
           ))}
-        </Toc.List>
-      </Toc.Nav>
+        </TocList>
+      </TocNav>
     </Toc>
   );
 }

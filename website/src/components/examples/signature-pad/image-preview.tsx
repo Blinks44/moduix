@@ -1,4 +1,4 @@
-import { SignaturePad } from '@moduix/react/signature-pad';
+import { SignaturePad, SignaturePadCanvas, SignaturePadLabel } from '@moduix/react/signature-pad';
 import { useState } from 'react';
 import styles from '@/components/examples/signature-pad/signature-pad-image-preview.module.css';
 
@@ -13,8 +13,8 @@ export default function ImagePreviewSignaturePadDemo() {
           void details.getDataUrl(imageType).then(setImageUrl);
         }}
       >
-        <SignaturePad.Label>Sign below</SignaturePad.Label>
-        <SignaturePad.Canvas />
+        <SignaturePadLabel>Sign below</SignaturePadLabel>
+        <SignaturePadCanvas />
       </SignaturePad>
       {imageUrl ? (
         <img src={imageUrl} alt="Signature preview" className={styles.preview} />

@@ -1,15 +1,14 @@
-import { Field } from '@ark-ui/solid/field';
 import { expect, test } from '@rstest/core';
 import { fireEvent, render, screen } from '@solidjs/testing-library';
 import { createSignal } from 'solid-js';
-import { Textarea } from '../src';
+import { Field, Textarea, FieldLabel } from '../src';
 
 test('preserves native field state and component-owned styling hooks', () => {
   render(() => (
-    <Field.Root disabled id="summary" invalid readOnly required>
-      <Field.Label>Summary</Field.Label>
+    <Field disabled id="summary" invalid readOnly required>
+      <FieldLabel>Summary</FieldLabel>
       <Textarea data-part="consumer-part" data-scope="consumer-scope" data-slot="consumer-slot" />
-    </Field.Root>
+    </Field>
   ));
 
   const textarea = screen.getByRole('textbox', { name: 'Summary' });
@@ -27,10 +26,10 @@ test('forwards the textarea ref on the ordinary path', () => {
   let textareaRef!: HTMLTextAreaElement;
 
   render(() => (
-    <Field.Root>
-      <Field.Label>Repository summary</Field.Label>
+    <Field>
+      <FieldLabel>Repository summary</FieldLabel>
       <Textarea ref={(element) => (textareaRef = element)} />
-    </Field.Root>
+    </Field>
   ));
 
   const textarea = screen.getByRole('textbox', { name: 'Repository summary' });
@@ -43,14 +42,14 @@ test('preserves asChild composition without forwarding the ref through Ark Solid
   let textareaRef: HTMLTextAreaElement | undefined;
 
   render(() => (
-    <Field.Root>
-      <Field.Label>Repository summary</Field.Label>
+    <Field>
+      <FieldLabel>Repository summary</FieldLabel>
       <Textarea
         defaultValue="Draft"
         ref={(element) => (textareaRef = element)}
         asChild={(props) => <textarea {...props()} name="summary" />}
       />
-    </Field.Root>
+    </Field>
   ));
 
   const textarea = screen.getByRole('textbox', { name: 'Repository summary' });

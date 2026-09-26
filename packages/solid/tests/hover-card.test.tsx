@@ -1,16 +1,27 @@
 import { expect, test } from '@rstest/core';
 import { fireEvent, render, screen, waitFor } from '@solidjs/testing-library';
 import { createSignal } from 'solid-js';
-import { HoverCard, useHoverCard, useHoverCardContext } from '../src';
+import {
+  HoverCard,
+  HoverCardArrow,
+  HoverCardArrowTip,
+  HoverCardBody,
+  HoverCardContent,
+  HoverCardPositioner,
+  HoverCardRootProvider,
+  HoverCardTrigger,
+  useHoverCard,
+  useHoverCardContext,
+} from '../src';
 
 function HoverCardSurface(props: { children?: string }) {
   return (
-    <HoverCard.Positioner>
-      <HoverCard.Content data-testid="content">
-        <HoverCard.Arrow />
-        <HoverCard.Body>{props.children ?? 'Profile details'}</HoverCard.Body>
-      </HoverCard.Content>
-    </HoverCard.Positioner>
+    <HoverCardPositioner>
+      <HoverCardContent data-testid="content">
+        <HoverCardArrow />
+        <HoverCardBody>{props.children ?? 'Profile details'}</HoverCardBody>
+      </HoverCardContent>
+    </HoverCardPositioner>
   );
 }
 
@@ -27,7 +38,7 @@ test('opens from a focused trigger and keeps Ark open-change details', async () 
           portalled={false}
           onOpenChange={(details) => setOpen(details.open)}
         >
-          <HoverCard.Trigger>Profile</HoverCard.Trigger>
+          <HoverCardTrigger>Profile</HoverCardTrigger>
           <HoverCardSurface />
         </HoverCard>
       </>
@@ -45,7 +56,7 @@ test('opens from a focused trigger and keeps Ark open-change details', async () 
 test('does not mount a disabled hover card before it opens', () => {
   render(() => (
     <HoverCard disabled openDelay={0} portalled={false}>
-      <HoverCard.Trigger>Profile</HoverCard.Trigger>
+      <HoverCardTrigger>Profile</HoverCardTrigger>
       <HoverCardSurface />
     </HoverCard>
   ));
@@ -58,7 +69,7 @@ test('does not mount a disabled hover card before it opens', () => {
 test('portals the positioner by default and can render it inline', () => {
   const { container, unmount } = render(() => (
     <HoverCard open>
-      <HoverCard.Trigger>Profile</HoverCard.Trigger>
+      <HoverCardTrigger>Profile</HoverCardTrigger>
       <HoverCardSurface />
     </HoverCard>
   ));
@@ -69,7 +80,7 @@ test('portals the positioner by default and can render it inline', () => {
 
   const inlineHoverCard = render(() => (
     <HoverCard open portalled={false}>
-      <HoverCard.Trigger>Profile</HoverCard.Trigger>
+      <HoverCardTrigger>Profile</HoverCardTrigger>
       <HoverCardSurface />
     </HoverCard>
   ));
@@ -77,10 +88,10 @@ test('portals the positioner by default and can render it inline', () => {
   expect(inlineHoverCard.container).toContainElement(screen.getByTestId('content'));
 });
 
-test('renders the moduix arrow tip when HoverCard.Arrow has no child', () => {
+test('renders the moduix arrow tip when HoverCardArrow has no child', () => {
   render(() => (
     <HoverCard open portalled={false}>
-      <HoverCard.Trigger>Profile</HoverCard.Trigger>
+      <HoverCardTrigger>Profile</HoverCardTrigger>
       <HoverCardSurface />
     </HoverCard>
   ));
@@ -103,11 +114,11 @@ test('keeps RootProvider state available through the moduix context hook', async
     const hoverCard = useHoverCard({ openDelay: 0 });
 
     return (
-      <HoverCard.RootProvider value={hoverCard} portalled={false}>
-        <HoverCard.Trigger>Profile</HoverCard.Trigger>
+      <HoverCardRootProvider value={hoverCard} portalled={false}>
+        <HoverCardTrigger>Profile</HoverCardTrigger>
         <HoverCardSurface />
         <ContextValue />
-      </HoverCard.RootProvider>
+      </HoverCardRootProvider>
     );
   }
 
@@ -130,8 +141,8 @@ test('reports the active value when moving between triggers', async () => {
           portalled={false}
           onTriggerValueChange={(details) => setValue(details.value ?? '')}
         >
-          <HoverCard.Trigger value="sarah">Sarah</HoverCard.Trigger>
-          <HoverCard.Trigger value="alex">Alex</HoverCard.Trigger>
+          <HoverCardTrigger value="sarah">Sarah</HoverCardTrigger>
+          <HoverCardTrigger value="alex">Alex</HoverCardTrigger>
           <HoverCardSurface />
         </HoverCard>
       </>
@@ -155,8 +166,8 @@ test('forwards refs on native parts and keeps asChild composition native', () =>
 
   render(() => (
     <HoverCard open portalled={false}>
-      <HoverCard.Trigger ref={(element) => (triggerRef = element)}>Profile</HoverCard.Trigger>
-      <HoverCard.Trigger
+      <HoverCardTrigger ref={(element) => (triggerRef = element)}>Profile</HoverCardTrigger>
+      <HoverCardTrigger
         ref={(element) => (composedTriggerRef = element)}
         asChild={(props) => (
           <a {...props()} href="#profile">
@@ -164,14 +175,14 @@ test('forwards refs on native parts and keeps asChild composition native', () =>
           </a>
         )}
       />
-      <HoverCard.Positioner ref={(element) => (positionerRef = element)}>
-        <HoverCard.Content ref={(element) => (contentRef = element)}>
-          <HoverCard.Arrow ref={(element) => (arrowRef = element)}>
-            <HoverCard.ArrowTip ref={(element) => (arrowTipRef = element)} />
-          </HoverCard.Arrow>
-          <HoverCard.Body />
-        </HoverCard.Content>
-      </HoverCard.Positioner>
+      <HoverCardPositioner ref={(element) => (positionerRef = element)}>
+        <HoverCardContent ref={(element) => (contentRef = element)}>
+          <HoverCardArrow ref={(element) => (arrowRef = element)}>
+            <HoverCardArrowTip ref={(element) => (arrowTipRef = element)} />
+          </HoverCardArrow>
+          <HoverCardBody />
+        </HoverCardContent>
+      </HoverCardPositioner>
     </HoverCard>
   ));
 
@@ -186,15 +197,15 @@ test('forwards refs on native parts and keeps asChild composition native', () =>
 test('forwards consumer classes to visual parts', () => {
   render(() => (
     <HoverCard open portalled={false}>
-      <HoverCard.Trigger class="trigger-class">Profile</HoverCard.Trigger>
-      <HoverCard.Positioner class="positioner-class">
-        <HoverCard.Content class="content-class">
-          <HoverCard.Arrow class="arrow-class">
-            <HoverCard.ArrowTip class="tip-class" />
-          </HoverCard.Arrow>
-          <HoverCard.Body class="body-class">Profile details</HoverCard.Body>
-        </HoverCard.Content>
-      </HoverCard.Positioner>
+      <HoverCardTrigger class="trigger-class">Profile</HoverCardTrigger>
+      <HoverCardPositioner class="positioner-class">
+        <HoverCardContent class="content-class">
+          <HoverCardArrow class="arrow-class">
+            <HoverCardArrowTip class="tip-class" />
+          </HoverCardArrow>
+          <HoverCardBody class="body-class">Profile details</HoverCardBody>
+        </HoverCardContent>
+      </HoverCardPositioner>
     </HoverCard>
   ));
 

@@ -1,4 +1,12 @@
-import { TreeView, createTreeCollection } from '@moduix/solid/tree-view';
+import {
+  TreeViewItemText,
+  TreeViewItem,
+  TreeViewNode,
+  TreeViewTree,
+  TreeViewLabel,
+  TreeView,
+  createTreeCollection,
+} from '@moduix/solid/tree-view';
 import { createSignal, For } from 'solid-js';
 import styles from '@/components/examples/tree-view/tree-view-controlled-selection.module.css';
 
@@ -32,20 +40,20 @@ export default function ControlledSelectionTreeViewDemo() {
         selectionMode="multiple"
         onSelectionChange={(details) => setSelectedValue(details.selectedValue)}
       >
-        <TreeView.Label>Selected files</TreeView.Label>
-        <TreeView.Tree>
+        <TreeViewLabel>Selected files</TreeViewLabel>
+        <TreeViewTree>
           <For each={collection.rootNode.children ?? []}>
             {(node, index) => (
-              <TreeView.Node node={node} indexPath={[index()]}>
+              <TreeViewNode node={node} indexPath={[index()]}>
                 {({ node: currentNode }) => (
-                  <TreeView.Item>
-                    <TreeView.ItemText>{currentNode.name}</TreeView.ItemText>
-                  </TreeView.Item>
+                  <TreeViewItem>
+                    <TreeViewItemText>{currentNode.name}</TreeViewItemText>
+                  </TreeViewItem>
                 )}
-              </TreeView.Node>
+              </TreeViewNode>
             )}
           </For>
-        </TreeView.Tree>
+        </TreeViewTree>
       </TreeView>
       <output aria-live="polite">Selected: {selectedValue().join(', ') || 'none'}</output>
     </div>

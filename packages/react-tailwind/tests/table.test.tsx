@@ -1,42 +1,55 @@
 import { expect, test } from '@rstest/core';
 import { render, screen } from '@testing-library/react';
 import { createRef } from 'react';
-import { Table } from '../src';
+import {
+  Table,
+  TableBody,
+  TableCaption,
+  TableCell,
+  TableColumn,
+  TableColumnGroup,
+  TableColumnHeader,
+  TableEmpty,
+  TableFooter,
+  TableHeader,
+  TableRow,
+  TableScrollArea,
+} from '../src';
 
 test('renders the native table anatomy with stable hooks and defaults', () => {
   render(
-    <Table.ScrollArea data-testid="scroll-area">
+    <TableScrollArea data-testid="scroll-area">
       <Table data-testid="table" size="lg" variant="outline">
-        <Table.ColumnGroup data-testid="column-group">
-          <Table.Column data-testid="column" htmlWidth="40%" />
-        </Table.ColumnGroup>
-        <Table.Caption data-testid="caption" side="top">
+        <TableColumnGroup data-testid="column-group">
+          <TableColumn data-testid="column" htmlWidth="40%" />
+        </TableColumnGroup>
+        <TableCaption data-testid="caption" side="top">
           Recent invoices
-        </Table.Caption>
-        <Table.Header data-testid="header">
-          <Table.Row data-testid="header-row">
-            <Table.ColumnHeader data-testid="column-header" scope="col">
+        </TableCaption>
+        <TableHeader data-testid="header">
+          <TableRow data-testid="header-row">
+            <TableColumnHeader data-testid="column-header" scope="col">
               Invoice
-            </Table.ColumnHeader>
-            <Table.ColumnHeader data-testid="numeric-header" numeric>
+            </TableColumnHeader>
+            <TableColumnHeader data-testid="numeric-header" numeric>
               Amount
-            </Table.ColumnHeader>
-          </Table.Row>
-        </Table.Header>
-        <Table.Body data-testid="body">
-          <Table.Row data-testid="row">
-            <Table.Cell data-testid="cell">INV001</Table.Cell>
-            <Table.Cell numeric>$250.00</Table.Cell>
-          </Table.Row>
-        </Table.Body>
-        <Table.Footer data-testid="footer">
-          <Table.Row>
-            <Table.Cell colSpan={1}>Total</Table.Cell>
-            <Table.Cell numeric>$250.00</Table.Cell>
-          </Table.Row>
-        </Table.Footer>
+            </TableColumnHeader>
+          </TableRow>
+        </TableHeader>
+        <TableBody data-testid="body">
+          <TableRow data-testid="row">
+            <TableCell data-testid="cell">INV001</TableCell>
+            <TableCell numeric>$250.00</TableCell>
+          </TableRow>
+        </TableBody>
+        <TableFooter data-testid="footer">
+          <TableRow>
+            <TableCell colSpan={1}>Total</TableCell>
+            <TableCell numeric>$250.00</TableCell>
+          </TableRow>
+        </TableFooter>
       </Table>
-    </Table.ScrollArea>,
+    </TableScrollArea>,
   );
 
   const table = screen.getByTestId('table');
@@ -120,16 +133,16 @@ test('renders interactive, striped, sticky, and column-border state hooks', () =
 test('scopes interactive row styles to body rows', () => {
   render(
     <Table interactive striped>
-      <Table.Header>
-        <Table.Row data-testid="header-row">
-          <Table.ColumnHeader>Invoice</Table.ColumnHeader>
-        </Table.Row>
-      </Table.Header>
-      <Table.Body data-testid="body">
-        <Table.Row data-testid="body-row">
-          <Table.Cell>INV001</Table.Cell>
-        </Table.Row>
-      </Table.Body>
+      <TableHeader>
+        <TableRow data-testid="header-row">
+          <TableColumnHeader>Invoice</TableColumnHeader>
+        </TableRow>
+      </TableHeader>
+      <TableBody data-testid="body">
+        <TableRow data-testid="body-row">
+          <TableCell>INV001</TableCell>
+        </TableRow>
+      </TableBody>
     </Table>,
   );
 
@@ -155,14 +168,14 @@ test('keeps public hooks when consumer data attributes conflict', () => {
       data-size="custom"
       data-variant="custom"
     >
-      <Table.Caption
+      <TableCaption
         data-testid="caption"
         data-scope="custom"
         data-part="custom"
         data-slot="custom"
         data-side="custom"
       />
-      <Table.Row data-testid="row" data-scope="custom" data-part="custom" data-slot="custom" />
+      <TableRow data-testid="row" data-scope="custom" data-part="custom" data-slot="custom" />
     </Table>,
   );
 
@@ -192,16 +205,16 @@ test('supports native refs on the ordinary factory path', () => {
   const cellRef = createRef<HTMLTableCellElement>();
 
   render(
-    <Table.ScrollArea ref={scrollAreaRef}>
+    <TableScrollArea ref={scrollAreaRef}>
       <Table ref={tableRef}>
-        <Table.Caption ref={captionRef}>Invoices</Table.Caption>
-        <Table.Body>
-          <Table.Row ref={rowRef}>
-            <Table.Cell ref={cellRef}>INV001</Table.Cell>
-          </Table.Row>
-        </Table.Body>
+        <TableCaption ref={captionRef}>Invoices</TableCaption>
+        <TableBody>
+          <TableRow ref={rowRef}>
+            <TableCell ref={cellRef}>INV001</TableCell>
+          </TableRow>
+        </TableBody>
       </Table>
-    </Table.ScrollArea>,
+    </TableScrollArea>,
   );
 
   expect(tableRef.current).toHaveAttribute('data-slot', 'table-root');
@@ -232,12 +245,12 @@ test('renders the default and custom empty states', () => {
 
   render(
     <Table>
-      <Table.Body>
-        <Table.Empty colSpan={3} data-testid="default-empty" />
-        <Table.Empty ref={emptyRef} colSpan={3} data-testid="custom-empty">
+      <TableBody>
+        <TableEmpty colSpan={3} data-testid="default-empty" />
+        <TableEmpty ref={emptyRef} colSpan={3} data-testid="custom-empty">
           No invoices found.
-        </Table.Empty>
-      </Table.Body>
+        </TableEmpty>
+      </TableBody>
     </Table>,
   );
 
@@ -260,11 +273,11 @@ test('renders the default and custom empty states', () => {
 test('supports replacing only the generated empty cell with asChild', () => {
   render(
     <Table>
-      <Table.Body>
-        <Table.Empty colSpan={2} className="custom-empty" asChild>
+      <TableBody>
+        <TableEmpty colSpan={2} className="custom-empty" asChild>
           <td data-testid="custom-empty-cell">Nothing to review.</td>
-        </Table.Empty>
-      </Table.Body>
+        </TableEmpty>
+      </TableBody>
     </Table>,
   );
 
@@ -282,20 +295,20 @@ test('supports replacing only the generated empty cell with asChild', () => {
 
 test('keeps sticky-column hooks on native table cells', () => {
   render(
-    <Table.ScrollArea>
+    <TableScrollArea>
       <Table>
-        <Table.Header>
-          <Table.Row>
-            <Table.ColumnHeader data-sticky="start">Project</Table.ColumnHeader>
-          </Table.Row>
-        </Table.Header>
-        <Table.Body>
-          <Table.Row>
-            <Table.Cell data-sticky="start">Docs redesign</Table.Cell>
-          </Table.Row>
-        </Table.Body>
+        <TableHeader>
+          <TableRow>
+            <TableColumnHeader data-sticky="start">Project</TableColumnHeader>
+          </TableRow>
+        </TableHeader>
+        <TableBody>
+          <TableRow>
+            <TableCell data-sticky="start">Docs redesign</TableCell>
+          </TableRow>
+        </TableBody>
       </Table>
-    </Table.ScrollArea>,
+    </TableScrollArea>,
   );
 
   expect(screen.getByRole('columnheader', { name: 'Project' })).toHaveAttribute(

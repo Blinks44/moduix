@@ -1,4 +1,4 @@
-import { SignaturePad } from '@moduix/solid/signature-pad';
+import { SignaturePad, SignaturePadCanvas, SignaturePadLabel } from '@moduix/solid/signature-pad';
 
 const drawing = {
   fill: '#2563eb',
@@ -9,8 +9,8 @@ const drawing = {
 export default function DrawingSignaturePadDemo() {
   return (
     <SignaturePad drawing={drawing}>
-      <SignaturePad.Label>Sign below</SignaturePad.Label>
-      <SignaturePad.Canvas />
+      <SignaturePadLabel>Sign below</SignaturePadLabel>
+      <SignaturePadCanvas />
     </SignaturePad>
   );
 }

@@ -39,7 +39,7 @@ const buttonVariants = cva(
   },
 );
 
-const ButtonRoot = forwardRef<
+const Button = forwardRef<
   HTMLButtonElement,
   HTMLArkProps<'button'> & {
     loading?: boolean;
@@ -56,7 +56,7 @@ const ButtonRoot = forwardRef<
     'data-part'?: string;
     'data-slot'?: string;
   }
->(function ButtonRoot(
+>(function Button(
   {
     asChild,
     className,
@@ -118,10 +118,6 @@ const ButtonRoot = forwardRef<
       className={cn(buttonVariants({ variant, size }), className)}
     />
   );
-});
-
-const Button = Object.assign(ButtonRoot, {
-  Root: ButtonRoot,
 });
 
 export { Button };

@@ -5,7 +5,25 @@ import { For, createSignal } from 'solid-js';
 import type { JSX } from 'solid-js';
 import type { Meta, StoryObj } from 'storybook-solidjs-vite';
 import { Button } from '@/components/button/Button';
-import { CommandPalette } from '@/components/command-palette/CommandPalette';
+import {
+  CommandPalette,
+  CommandPaletteCombobox,
+  CommandPaletteEmpty,
+  CommandPaletteFooter,
+  CommandPaletteItem,
+  CommandPaletteItemDescription,
+  CommandPaletteItemGroup,
+  CommandPaletteItemGroupLabel,
+  CommandPaletteItemIcon,
+  CommandPaletteItemLabel,
+  CommandPaletteItemMeta,
+  CommandPaletteItemText,
+  CommandPaletteKbd,
+  CommandPaletteList,
+  CommandPalettePanel,
+  CommandPaletteSearch,
+  CommandPaletteTrigger,
+} from '@/components/command-palette/CommandPalette';
 import { PlusIcon } from '@/internal/icons/ui/Icons';
 import styles from './CommandPalette.stories.module.css';
 
@@ -122,32 +140,32 @@ function createFilter(filterOptions: UseFilterReturn) {
 
 function CommandPaletteItems<T extends CommandItem>(props: { collection: ListCollection<T> }) {
   return (
-    <CommandPalette.List>
-      <CommandPalette.Empty>No commands found.</CommandPalette.Empty>
+    <CommandPaletteList>
+      <CommandPaletteEmpty>No commands found.</CommandPaletteEmpty>
       <For each={props.collection.group()}>
         {([section, items]) => (
-          <CommandPalette.ItemGroup>
-            <CommandPalette.ItemGroupLabel>{section}</CommandPalette.ItemGroupLabel>
+          <CommandPaletteItemGroup>
+            <CommandPaletteItemGroupLabel>{section}</CommandPaletteItemGroupLabel>
             <For each={items}>
               {(item) => (
-                <CommandPalette.Item item={item}>
-                  <CommandPalette.ItemIcon>{item.icon}</CommandPalette.ItemIcon>
-                  <CommandPalette.ItemText>
-                    <CommandPalette.ItemLabel>{item.label}</CommandPalette.ItemLabel>
-                    <CommandPalette.ItemDescription>
+                <CommandPaletteItem item={item}>
+                  <CommandPaletteItemIcon>{item.icon}</CommandPaletteItemIcon>
+                  <CommandPaletteItemText>
+                    <CommandPaletteItemLabel>{item.label}</CommandPaletteItemLabel>
+                    <CommandPaletteItemDescription>
                       {item.description}
-                    </CommandPalette.ItemDescription>
-                  </CommandPalette.ItemText>
+                    </CommandPaletteItemDescription>
+                  </CommandPaletteItemText>
                   {item.shortcut ? (
-                    <CommandPalette.ItemMeta>{item.shortcut}</CommandPalette.ItemMeta>
+                    <CommandPaletteItemMeta>{item.shortcut}</CommandPaletteItemMeta>
                   ) : null}
-                </CommandPalette.Item>
+                </CommandPaletteItem>
               )}
             </For>
-          </CommandPalette.ItemGroup>
+          </CommandPaletteItemGroup>
         )}
       </For>
-    </CommandPalette.List>
+    </CommandPaletteList>
   );
 }
 
@@ -184,19 +202,19 @@ function CommandPaletteShell<T extends CommandItem>(props: {
         }
       }}
     >
-      <CommandPalette.Trigger
+      <CommandPaletteTrigger
         asChild={(triggerProps) => <Button {...triggerProps()}>{props.trigger}</Button>}
       />
-      <CommandPalette.Panel>
-        <CommandPalette.Combobox
+      <CommandPalettePanel>
+        <CommandPaletteCombobox
           collection={props.collection}
           onInputValueChange={(details) => props.filter(details.inputValue)}
           onSelect={props.onSelect}
         >
-          <CommandPalette.Search placeholder={props.placeholder} />
+          <CommandPaletteSearch placeholder={props.placeholder} />
           {props.children}
-        </CommandPalette.Combobox>
-      </CommandPalette.Panel>
+        </CommandPaletteCombobox>
+      </CommandPalettePanel>
     </CommandPalette>
   );
 }
@@ -219,14 +237,14 @@ export const Basic: Story = {
         }
       >
         <CommandPaletteItems collection={collection()} />
-        <CommandPalette.Footer>
+        <CommandPaletteFooter>
           <span class={styles.footerHint}>
-            <CommandPalette.Kbd>Enter</CommandPalette.Kbd> run
+            <CommandPaletteKbd>Enter</CommandPaletteKbd> run
           </span>
           <span class={styles.footerHint}>
-            <CommandPalette.Kbd>Esc</CommandPalette.Kbd> close
+            <CommandPaletteKbd>Esc</CommandPaletteKbd> close
           </span>
-        </CommandPalette.Footer>
+        </CommandPaletteFooter>
       </CommandPaletteShell>
     );
   },
@@ -254,12 +272,12 @@ export const Actions: Story = {
         trigger={<>Open actions</>}
       >
         <CommandPaletteItems collection={collection()} />
-        <CommandPalette.Footer>
+        <CommandPaletteFooter>
           <span class={styles.footerHint}>
-            <CommandPalette.Kbd>Enter</CommandPalette.Kbd> run
+            <CommandPaletteKbd>Enter</CommandPaletteKbd> run
           </span>
           <span class={styles.footerHint}>{lastCommand()}</span>
-        </CommandPalette.Footer>
+        </CommandPaletteFooter>
       </CommandPaletteShell>
     );
   },
@@ -277,30 +295,27 @@ export const CustomComposition: Story = {
         placeholder="Jump to places, pages, and settings..."
         trigger={<>Open custom palette</>}
       >
-        <CommandPalette.List>
-          <CommandPalette.Empty>No commands found.</CommandPalette.Empty>
+        <CommandPaletteList>
+          <CommandPaletteEmpty>No commands found.</CommandPaletteEmpty>
           <For each={collection().items}>
             {(item) => (
-              <CommandPalette.Item item={item}>
-                <CommandPalette.ItemText>
-                  <CommandPalette.ItemLabel>{item.label}</CommandPalette.ItemLabel>
-                  <CommandPalette.ItemDescription>
-                    {item.description}
-                  </CommandPalette.ItemDescription>
-                </CommandPalette.ItemText>
+              <CommandPaletteItem item={item}>
+                <CommandPaletteItemText>
+                  <CommandPaletteItemLabel>{item.label}</CommandPaletteItemLabel>
+                  <CommandPaletteItemDescription>{item.description}</CommandPaletteItemDescription>
+                </CommandPaletteItemText>
                 {item.shortcut ? (
-                  <CommandPalette.ItemMeta>{item.shortcut}</CommandPalette.ItemMeta>
+                  <CommandPaletteItemMeta>{item.shortcut}</CommandPaletteItemMeta>
                 ) : null}
-              </CommandPalette.Item>
+              </CommandPaletteItem>
             )}
           </For>
-        </CommandPalette.List>
-        <CommandPalette.Footer>
+        </CommandPaletteList>
+        <CommandPaletteFooter>
           <span class={styles.footerHint}>
-            <CommandPalette.Kbd>Alt</CommandPalette.Kbd> +{' '}
-            <CommandPalette.Kbd>K</CommandPalette.Kbd>
+            <CommandPaletteKbd>Alt</CommandPaletteKbd> + <CommandPaletteKbd>K</CommandPaletteKbd>
           </span>
-        </CommandPalette.Footer>
+        </CommandPaletteFooter>
       </CommandPaletteShell>
     );
   },

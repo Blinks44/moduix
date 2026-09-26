@@ -1,9 +1,31 @@
 import { createListCollection } from '@ark-ui/react/collection';
 import { Badge } from '@moduix/react/badge';
 import { Button } from '@moduix/react/button';
-import { Card } from '@moduix/react/card';
+import {
+  Card,
+  CardAction,
+  CardBody,
+  CardDescription,
+  CardFooter,
+  CardHeader,
+  CardTitle,
+} from '@moduix/react/card';
 import { Input } from '@moduix/react/input';
-import { Select } from '@moduix/react/select';
+import {
+  Select,
+  SelectLabel,
+  SelectControl,
+  SelectTrigger,
+  SelectValueText,
+  SelectIndicator,
+  SelectPositioner,
+  SelectContent,
+  SelectItemGroup,
+  SelectItemGroupLabel,
+  SelectItem,
+  SelectItemText,
+  SelectItemIndicator,
+} from '@moduix/react/select';
 import { useI18n } from '@rspress/core/runtime';
 import { useState } from 'react';
 import styles from './theme-presets.module.css';
@@ -121,51 +143,51 @@ function ThemePresets() {
 
         <div className={styles.previewCanvas}>
           <Card className={styles.previewCard}>
-            <Card.Header>
+            <CardHeader>
               <div>
-                <Card.Title>{t('themePreviewReleaseWorkspace')}</Card.Title>
-                <Card.Description>{t('themePreviewOneVisualDecision')}</Card.Description>
+                <CardTitle>{t('themePreviewReleaseWorkspace')}</CardTitle>
+                <CardDescription>{t('themePreviewOneVisualDecision')}</CardDescription>
               </div>
-              <Card.Action>
+              <CardAction>
                 <Badge>{t('themePreviewReady')}</Badge>
-              </Card.Action>
-            </Card.Header>
-            <Card.Body className={styles.previewBody}>
+              </CardAction>
+            </CardHeader>
+            <CardBody className={styles.previewBody}>
               <label className={styles.field}>
                 {t('themePreviewProjectName')}
                 <Input defaultValue={t('themePreviewSpringRelease')} />
               </label>
               <Select collection={stageCollection} defaultValue={['review']} portalled={false}>
-                <Select.Label>{t('themePreviewStage')}</Select.Label>
-                <Select.Control>
-                  <Select.Trigger>
-                    <Select.ValueText placeholder={t('themePreviewSelectStage')} />
-                  </Select.Trigger>
-                  <Select.Indicator />
-                </Select.Control>
-                <Select.Positioner>
-                  <Select.Content>
-                    <Select.ItemGroup>
-                      <Select.ItemGroupLabel>{t('themePreviewWorkflow')}</Select.ItemGroupLabel>
+                <SelectLabel>{t('themePreviewStage')}</SelectLabel>
+                <SelectControl>
+                  <SelectTrigger>
+                    <SelectValueText placeholder={t('themePreviewSelectStage')} />
+                  </SelectTrigger>
+                  <SelectIndicator />
+                </SelectControl>
+                <SelectPositioner>
+                  <SelectContent>
+                    <SelectItemGroup>
+                      <SelectItemGroupLabel>{t('themePreviewWorkflow')}</SelectItemGroupLabel>
                       {stageCollection.items.map((item) => (
-                        <Select.Item key={item.value} item={item}>
-                          <Select.ItemText>{item.label}</Select.ItemText>
-                          <Select.ItemIndicator />
-                        </Select.Item>
+                        <SelectItem key={item.value} item={item}>
+                          <SelectItemText>{item.label}</SelectItemText>
+                          <SelectItemIndicator />
+                        </SelectItem>
                       ))}
-                    </Select.ItemGroup>
-                  </Select.Content>
-                </Select.Positioner>
+                    </SelectItemGroup>
+                  </SelectContent>
+                </SelectPositioner>
               </Select>
               <div className={styles.stats}>
                 <span>{t('themePreviewTaskCount')}</span>
                 <span>{t('themePreviewReviewerCount')}</span>
               </div>
-            </Card.Body>
-            <Card.Footer>
+            </CardBody>
+            <CardFooter>
               <Button>{t('themePreviewCreateWorkspace')}</Button>
               <Button variant="outline">{t('themePreviewPreview')}</Button>
-            </Card.Footer>
+            </CardFooter>
           </Card>
         </div>
       </div>

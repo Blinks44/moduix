@@ -1,13 +1,22 @@
 import { expect, test } from '@rstest/core';
 import { fireEvent, render, screen, waitFor } from '@testing-library/react';
 import { useState } from 'react';
-import { RatingGroup, useRatingGroup } from '../src';
+import {
+  RatingGroup,
+  RatingGroupControl,
+  RatingGroupHiddenInput,
+  RatingGroupItemIndicator,
+  RatingGroupItems,
+  RatingGroupLabel,
+  RatingGroupRootProvider,
+  useRatingGroup,
+} from '../src';
 
 function RatingItems() {
   return (
-    <RatingGroup.Control>
-      <RatingGroup.Items />
-    </RatingGroup.Control>
+    <RatingGroupControl>
+      <RatingGroupItems />
+    </RatingGroupControl>
   );
 }
 
@@ -15,10 +24,10 @@ function ProviderRatingGroup() {
   const ratingGroup = useRatingGroup({ defaultValue: 3 });
 
   return (
-    <RatingGroup.RootProvider value={ratingGroup}>
-      <RatingGroup.Label>Provider rating</RatingGroup.Label>
+    <RatingGroupRootProvider value={ratingGroup}>
+      <RatingGroupLabel>Provider rating</RatingGroupLabel>
       <RatingItems />
-    </RatingGroup.RootProvider>
+    </RatingGroupRootProvider>
   );
 }
 
@@ -27,7 +36,7 @@ function ControlledRatingGroup() {
 
   return (
     <RatingGroup value={value} onValueChange={(details) => setValue(details.value)}>
-      <RatingGroup.Label>Controlled rating</RatingGroup.Label>
+      <RatingGroupLabel>Controlled rating</RatingGroupLabel>
       <RatingItems />
     </RatingGroup>
   );
@@ -37,9 +46,9 @@ test('submits through an explicit Ark hidden input', async () => {
   render(
     <form data-testid="form">
       <RatingGroup defaultValue={3} name="rating">
-        <RatingGroup.Label>Rating</RatingGroup.Label>
+        <RatingGroupLabel>Rating</RatingGroupLabel>
         <RatingItems />
-        <RatingGroup.HiddenInput />
+        <RatingGroupHiddenInput />
       </RatingGroup>
     </form>,
   );
@@ -59,9 +68,9 @@ test('preserves asChild composition with an explicit hidden input', () => {
   render(
     <RatingGroup asChild defaultValue={2}>
       <section data-testid="rating-root">
-        <RatingGroup.Label>Rating</RatingGroup.Label>
+        <RatingGroupLabel>Rating</RatingGroupLabel>
         <RatingItems />
-        <RatingGroup.HiddenInput />
+        <RatingGroupHiddenInput />
       </section>
     </RatingGroup>,
   );
@@ -76,7 +85,7 @@ test('preserves Ark callback details and controlled and provider paths', async (
   const changes: number[] = [];
   const { rerender } = render(
     <RatingGroup defaultValue={2} onValueChange={(details) => changes.push(details.value)}>
-      <RatingGroup.Label>Rating</RatingGroup.Label>
+      <RatingGroupLabel>Rating</RatingGroupLabel>
       <RatingItems />
     </RatingGroup>,
   );
@@ -95,7 +104,7 @@ test('preserves Ark callback details and controlled and provider paths', async (
 test('keeps half-state and keyboard focus Ark-shaped', async () => {
   render(
     <RatingGroup allowHalf defaultValue={3.5}>
-      <RatingGroup.Label>Rating</RatingGroup.Label>
+      <RatingGroupLabel>Rating</RatingGroupLabel>
       <RatingItems />
     </RatingGroup>,
   );
@@ -111,7 +120,7 @@ test('keeps half-state and keyboard focus Ark-shaped', async () => {
 test('does not mark a mouse-selected item as focus-visible', () => {
   render(
     <RatingGroup defaultValue={3}>
-      <RatingGroup.Label>Rating</RatingGroup.Label>
+      <RatingGroupLabel>Rating</RatingGroupLabel>
       <RatingItems />
     </RatingGroup>,
   );
@@ -126,14 +135,14 @@ test('does not mark a mouse-selected item as focus-visible', () => {
 test('repeats custom indicators with Ark item state', () => {
   render(
     <RatingGroup allowHalf defaultValue={3.5}>
-      <RatingGroup.Label>Rating</RatingGroup.Label>
-      <RatingGroup.Control>
-        <RatingGroup.Items>
-          <RatingGroup.ItemIndicator data-testid="custom-indicator">
+      <RatingGroupLabel>Rating</RatingGroupLabel>
+      <RatingGroupControl>
+        <RatingGroupItems>
+          <RatingGroupItemIndicator data-testid="custom-indicator">
             <span>Star</span>
-          </RatingGroup.ItemIndicator>
-        </RatingGroup.Items>
-      </RatingGroup.Control>
+          </RatingGroupItemIndicator>
+        </RatingGroupItems>
+      </RatingGroupControl>
     </RatingGroup>,
   );
 

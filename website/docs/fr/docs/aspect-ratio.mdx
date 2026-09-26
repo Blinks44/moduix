@@ -15,6 +15,12 @@ import aspectRatioSolidBasic from '../../../snippets/aspect-ratio/solid/basic.ts
 import aspectRatioSolidCardGrid from '../../../snippets/aspect-ratio/solid/card-grid.tsx?raw';
 import aspectRatioSolidEmbeddedContent from '../../../snippets/aspect-ratio/solid/embedded-content.tsx?raw';
 import aspectRatioSolidMigration from '../../../snippets/aspect-ratio/solid/migrating-from-shadcn.tsx?raw';
+import aspectRatioVueAdvancedCustomization from '../../../snippets/aspect-ratio/vue/advanced-customization.vue?raw';
+import aspectRatioVueBasic from '../../../snippets/aspect-ratio/vue/basic.vue?raw';
+import aspectRatioVueEmbeddedContent from '../../../snippets/aspect-ratio/vue/embedded-content.vue?raw';
+import aspectRatioVueMigration from '../../../snippets/aspect-ratio/vue/migrating-from-shadcn.vue?raw';
+
+import aspectRatioVueCardGrid from '../../../snippets/aspect-ratio/vue/card-grid.vue?raw';
 
 ## Référence de l’API
 
@@ -24,7 +30,9 @@ Ark UI ne propose pas de primitive `aspect-ratio` dédiée. moduix construit ce 
 [gestion des refs](https://ark-ui.com/docs/guides/ref).
 
 
-Les mêmes exports sont disponibles depuis `@moduix/solid/aspect-ratio` pour Solid.
+Les exports CSS Modules sont disponibles depuis `@moduix/react/aspect-ratio`, `@moduix/solid/aspect-ratio`
+et `@moduix/vue/aspect-ratio`. Pour Tailwind, utilisez respectivement `@moduix/react-tailwind/aspect-ratio`,
+`@moduix/solid-tailwind/aspect-ratio` ou `@moduix/vue-tailwind/aspect-ratio`.
 ## Exemple de base
 
 Utilisez `AspectRatio` comme racine du cadre adaptatif. Par défaut, il occupe toute la largeur disponible dans
@@ -47,6 +55,7 @@ débordements et le rayon à la racine uniquement lorsque la composition en a be
     values={[
       { label: 'React', value: 'react' },
       { label: 'Solid', value: 'solid' },
+      { label: 'Vue', value: 'vue' },
     ]}
     className="docs-tabs"
   >
@@ -59,6 +68,11 @@ débordements et le rayon à la racine uniquement lorsque la composition en a be
     <Tab value="solid">
 
 <CodeBlockRuntime lang="tsx" code={aspectRatioSolidBasic} />
+
+    </Tab>
+    <Tab value="vue">
+
+<CodeBlockRuntime lang="vue" code={aspectRatioVueBasic} />
 
     </Tab>
   </Tabs>
@@ -96,22 +110,34 @@ Consultez le [Démarrage rapide](/docs/quick-start) pour la configuration compl�
 />
 
   </Tab>
+  <Tab label="Vue" value="vue">
+
+<ShadcnInstallOptions
+  options={[
+    { label: 'CSS Modules', command: 'shadcn@latest add @moduix-vue/aspect-ratio' },
+    { label: 'Tailwind CSS', command: 'shadcn@latest add @moduix-vue-tailwind/aspect-ratio' },
+  ]}
+/>
+
+  </Tab>
 </Tabs>
 
 ## Anatomie
 
 ```text
-AspectRatio / AspectRatio.Root
+AspectRatio
 └─ media | iframe | canvas | svg | custom content
 ```
 
-| Partie                             | Rôle                                      |
-| ---------------------------------- | ----------------------------------------- |
-| `AspectRatio` / `AspectRatio.Root` | Conteneur adaptatif avec un rapport fixe. |
+| Partie         | Rôle                                       |
+| -------------- | ------------------------------------------ |
+| `AspectRatio` | Conteneur adaptatif avec un rapport fixe. |
 
 ## Composition
 
-`AspectRatio` est un composant de présentation et ne gère aucun état. Utilisez la racine fonctionnelle `AspectRatio` dans le cas courant ; `AspectRatio.Root` est son alias lorsque vous souhaitez expliciter cette partie. Le composant ne possède qu’une racine et aucune partie enfant à combiner. Utilisez `asChild` uniquement lorsqu’un autre élément sémantique doit porter la racine rendue, avec exactement un enfant en React ou la fonction de rendu Solid présentée dans l’exemple de personnalisation avancée. Le dimensionnement, l’ajustement, les bordures, les rayons et le masquage du contenu restent sous la responsabilité de l’application.
+`AspectRatio` est un composant de présentation et ne gère aucun état. Le composant ne possède qu’une racine et aucune partie enfant à combiner. Utilisez `asChild` uniquement lorsqu’un autre élément sémantique doit porter la racine rendue, avec exactement un enfant en React ou la fonction de rendu Solid présentée dans l’exemple de personnalisation avancée. En Vue, utilisez l’attribut `as-child` avec un seul élément enfant. Le dimensionnement, l’ajustement, les bordures, les rayons et le masquage du contenu restent sous la responsabilité de l’application.
+En Solid, affectez le `ref` à l’élément créé dans la fonction de rendu utilisée avec `asChild`. Le `ref` placé sur `AspectRatio` n’est pas transmis dans cette composition.
+
 ## Exemples
 
 ### Dispositions de cartes
@@ -130,6 +156,7 @@ dimensions différentes.
     values={[
       { label: 'React', value: 'react' },
       { label: 'Solid', value: 'solid' },
+      { label: 'Vue', value: 'vue' },
     ]}
     className="docs-tabs"
   >
@@ -142,6 +169,11 @@ dimensions différentes.
     <Tab value="solid">
 
 <CodeBlockRuntime lang="tsx" code={aspectRatioSolidCardGrid} />
+
+    </Tab>
+    <Tab value="vue">
+
+<CodeBlockRuntime lang="vue" code={aspectRatioVueCardGrid} />
 
     </Tab>
   </Tabs>
@@ -170,6 +202,7 @@ chargement du contenu externe.
     values={[
       { label: 'React', value: 'react' },
       { label: 'Solid', value: 'solid' },
+      { label: 'Vue', value: 'vue' },
     ]}
     className="docs-tabs"
   >
@@ -182,6 +215,11 @@ chargement du contenu externe.
     <Tab value="solid">
 
 <CodeBlockRuntime lang="tsx" code={aspectRatioSolidEmbeddedContent} />
+
+    </Tab>
+    <Tab value="vue">
+
+<CodeBlockRuntime lang="vue" code={aspectRatioVueEmbeddedContent} />
 
     </Tab>
   </Tabs>
@@ -210,6 +248,7 @@ sur un conteneur extérieur. La même racine fonctionne avec `Image` de Next.js 
     values={[
       { label: 'React', value: 'react' },
       { label: 'Solid', value: 'solid' },
+      { label: 'Vue', value: 'vue' },
     ]}
     className="docs-tabs"
   >
@@ -222,6 +261,11 @@ sur un conteneur extérieur. La même racine fonctionne avec `Image` de Next.js 
     <Tab value="solid">
 
 <CodeBlockRuntime lang="tsx" code={aspectRatioSolidMigration} />
+
+    </Tab>
+    <Tab value="vue">
+
+<CodeBlockRuntime lang="vue" code={aspectRatioVueMigration} />
 
     </Tab>
   </Tabs>
@@ -250,6 +294,7 @@ propriétés du composant à son unique enfant.
     values={[
       { label: 'React', value: 'react' },
       { label: 'Solid', value: 'solid' },
+      { label: 'Vue', value: 'vue' },
     ]}
     className="docs-tabs"
   >
@@ -262,6 +307,11 @@ propriétés du composant à son unique enfant.
     <Tab value="solid">
 
 <CodeBlockRuntime lang="tsx" code={aspectRatioSolidAdvancedCustomization} />
+
+    </Tab>
+    <Tab value="vue">
+
+<CodeBlockRuntime lang="vue" code={aspectRatioVueAdvancedCustomization} />
 
     </Tab>
   </Tabs>

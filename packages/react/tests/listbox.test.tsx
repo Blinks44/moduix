@@ -2,7 +2,18 @@ import { createListCollection } from '@ark-ui/react/collection';
 import { expect, test } from '@rstest/core';
 import { fireEvent, render, screen, waitFor } from '@testing-library/react';
 import { createRef, useState } from 'react';
-import { Listbox, useListbox, useListboxContext } from '../src';
+import {
+  Listbox,
+  ListboxClearTrigger,
+  ListboxContent,
+  ListboxItem,
+  ListboxItemIndicator,
+  ListboxItemText,
+  ListboxLabel,
+  ListboxRootProvider,
+  useListbox,
+  useListboxContext,
+} from '../src';
 
 const fruits = createListCollection({
   items: [
@@ -15,15 +26,15 @@ const fruits = createListCollection({
 function FruitListbox({ defaultValue }: { defaultValue?: string[] }) {
   return (
     <Listbox collection={fruits} defaultValue={defaultValue}>
-      <Listbox.Label>Fruit</Listbox.Label>
-      <Listbox.Content>
+      <ListboxLabel>Fruit</ListboxLabel>
+      <ListboxContent>
         {fruits.items.map((item) => (
-          <Listbox.Item key={item.value} item={item}>
-            <Listbox.ItemText>{item.label}</Listbox.ItemText>
-            <Listbox.ItemIndicator />
-          </Listbox.Item>
+          <ListboxItem key={item.value} item={item}>
+            <ListboxItemText>{item.label}</ListboxItemText>
+            <ListboxItemIndicator />
+          </ListboxItem>
         ))}
-      </Listbox.Content>
+      </ListboxContent>
     </Listbox>
   );
 }
@@ -33,15 +44,15 @@ test('preserves Ark semantics, refs, and stable styling hooks', () => {
 
   render(
     <Listbox ref={ref} collection={fruits} defaultValue={['apple']}>
-      <Listbox.Label>Fruit</Listbox.Label>
-      <Listbox.Content>
+      <ListboxLabel>Fruit</ListboxLabel>
+      <ListboxContent>
         {fruits.items.map((item) => (
-          <Listbox.Item key={item.value} item={item}>
-            <Listbox.ItemText>{item.label}</Listbox.ItemText>
-            <Listbox.ItemIndicator />
-          </Listbox.Item>
+          <ListboxItem key={item.value} item={item}>
+            <ListboxItemText>{item.label}</ListboxItemText>
+            <ListboxItemIndicator />
+          </ListboxItem>
         ))}
-      </Listbox.Content>
+      </ListboxContent>
     </Listbox>,
   );
 
@@ -65,14 +76,14 @@ test('renders controlled values from consumer state', () => {
           value={value}
           onValueChange={(details) => setValue(details.value)}
         >
-          <Listbox.Label>Controlled fruit</Listbox.Label>
-          <Listbox.Content>
+          <ListboxLabel>Controlled fruit</ListboxLabel>
+          <ListboxContent>
             {fruits.items.map((item) => (
-              <Listbox.Item key={item.value} item={item}>
-                <Listbox.ItemText>{item.label}</Listbox.ItemText>
-              </Listbox.Item>
+              <ListboxItem key={item.value} item={item}>
+                <ListboxItemText>{item.label}</ListboxItemText>
+              </ListboxItem>
             ))}
-          </Listbox.Content>
+          </ListboxContent>
         </Listbox>
         <button type="button" onClick={() => setValue(['apple'])}>
           Set apple
@@ -140,17 +151,17 @@ test('exposes RootProvider state through the moduix context hook', () => {
     const listbox = useListbox({ collection: fruits, defaultValue: ['mango'] });
 
     return (
-      <Listbox.RootProvider value={listbox}>
-        <Listbox.Label>Provider fruit</Listbox.Label>
-        <Listbox.Content>
+      <ListboxRootProvider value={listbox}>
+        <ListboxLabel>Provider fruit</ListboxLabel>
+        <ListboxContent>
           {fruits.items.map((item) => (
-            <Listbox.Item key={item.value} item={item}>
-              <Listbox.ItemText>{item.label}</Listbox.ItemText>
-            </Listbox.Item>
+            <ListboxItem key={item.value} item={item}>
+              <ListboxItemText>{item.label}</ListboxItemText>
+            </ListboxItem>
           ))}
-        </Listbox.Content>
+        </ListboxContent>
         <ContextValue />
-      </Listbox.RootProvider>
+      </ListboxRootProvider>
     );
   }
 
@@ -162,7 +173,7 @@ test('exposes RootProvider state through the moduix context hook', () => {
 test('renders the consumer-wired clear trigger as an accessible button', () => {
   const handleClick = () => undefined;
 
-  render(<Listbox.ClearTrigger onClick={handleClick} />);
+  render(<ListboxClearTrigger onClick={handleClick} />);
 
   expect(screen.getByRole('button', { name: 'Clear search' })).toHaveAttribute('type', 'button');
 });

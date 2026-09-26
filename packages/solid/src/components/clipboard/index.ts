@@ -1,1 +1,1 @@
-export { Clipboard, useClipboard, useClipboardContext } from './Clipboard.js';
+export * from './Clipboard.js';

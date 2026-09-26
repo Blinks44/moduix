@@ -37,10 +37,10 @@ type ToggleGroupItemProps = ComponentProps<typeof ToggleGroupPrimitive.Item> & {
   size?: ToggleSize;
 };
 
-const ToggleGroupRoot = forwardRef<
+const ToggleGroup = forwardRef<
   ComponentRef<typeof ToggleGroupPrimitive.Root>,
   ToggleGroupRootProps
->(function ToggleGroupRoot({ className, variant = 'default', size = 'md', ...props }, ref) {
+>(function ToggleGroup({ className, variant = 'default', size = 'md', ...props }, ref) {
   return (
     <ToggleGroupStyleContext.Provider value={{ variant, size }}>
       <ToggleGroupPrimitive.Root
@@ -91,14 +91,16 @@ const ToggleGroupItem = forwardRef<
   );
 });
 
-const ToggleGroup = Object.assign(ToggleGroupRoot, {
-  Root: ToggleGroupRoot,
-  RootProvider: ToggleGroupRootProvider,
-  Context: ToggleGroupPrimitive.Context,
-  Item: ToggleGroupItem,
-});
+const ToggleGroupContext = ToggleGroupPrimitive.Context;
 
-export { ToggleGroup, useToggleGroup, useToggleGroupContext };
+export {
+  ToggleGroup,
+  ToggleGroupContext,
+  ToggleGroupItem,
+  ToggleGroupRootProvider,
+  useToggleGroup,
+  useToggleGroupContext,
+};
 export type {
   ToggleGroupItemProps,
   ToggleGroupRootProps,

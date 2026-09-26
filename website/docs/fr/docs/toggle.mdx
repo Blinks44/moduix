@@ -43,8 +43,7 @@ Utilisez `Toggle` lorsque le contrôle doit se comporter comme un bouton et indi
 ## Exemple de base
 
 
-Utilisez `Toggle` dans le cas courant. C’est la forme abrégée de `Toggle.Root` et elle conserve le comportement
-d’Ark lié à l’état activé.
+Utilisez `Toggle` dans le cas courant et conservez le comportement d’Ark lié à l’état activé.
 
 <ExampleFrame variant="component">
   <ToggleBasic />
@@ -105,24 +104,24 @@ Consultez le [Démarrage rapide](/docs/quick-start) pour la configuration compl�
 ## Anatomie
 
 ```text
-Toggle / Toggle.Root
-└─ Toggle.Indicator (facultatif)
+Toggle
+└─ ToggleIndicator (facultatif)
 
-Toggle.Context (lecteur d’état, pas une partie du DOM)
+ToggleContext (lecteur d’état, pas une partie du DOM)
 ```
 
 | Partie | Rôle |
 | ------ | --- |
-| `Toggle` / `Toggle.Root` | Partie racine qui gère l’état activé, le focus, la désactivation et la composition `asChild`. |
-| `Toggle.Indicator` | Partie facultative qui affiche le contenu activé et son `fallback` lorsque le toggle est désactivé. |
-| `Toggle.Context` | Lit l’état du toggle le plus proche pour les descendants personnalisés ; il ne rend pas de partie du DOM. |
+| `Toggle` | Partie racine qui gère l’état activé, le focus, la désactivation et la composition `asChild`. |
+| `ToggleIndicator` | Partie facultative qui affiche le contenu activé et son `fallback` lorsque le toggle est désactivé. |
+| `ToggleContext` | Lit l’état du toggle le plus proche pour les descendants personnalisés ; il ne rend pas de partie du DOM. |
 
 ## Composition
 
-`Toggle` est la forme abrégée de `Toggle.Root`. Utilisez `defaultPressed` pour un toggle non contrôlé, ou passez
-`pressed` avec `onPressedChange` lorsque l’état appartient à l’application. Utilisez `Toggle.Indicator` lorsque
+Utilisez `defaultPressed` pour un toggle non contrôlé, ou passez `pressed` avec `onPressedChange` lorsque l’état
+appartient à l’application. Utilisez `ToggleIndicator` lorsque
 le contenu du bouton change selon son état. Pour les descendants personnalisés qui doivent lire cet état, utilisez
-`Toggle.Context` ou `useToggleContext()` depuis le package correspondant. Utilisez `asChild` lorsqu’un autre bouton
+`ToggleContext` ou `useToggleContext()` depuis le package correspondant. Utilisez `asChild` lorsqu’un autre bouton
 doit porter le comportement du toggle. Dans Solid, `asChild` reçoit une fonction de rendu ; dans React, il reçoit
 un seul enfant compatible avec un bouton.
 
@@ -279,7 +278,7 @@ par exemple avec `aria-label`.
 
 ### Indicateur
 
-Utilisez `Toggle.Indicator` lorsque le contenu intégré doit différer selon que le toggle est activé ou non.
+Utilisez `ToggleIndicator` lorsque le contenu intégré doit différer selon que le toggle est activé ou non.
 
 <ExampleFrame variant="component">
   <ToggleIndicator />
@@ -390,7 +389,7 @@ Définissez `variant` sur `default`, `outline` ou `ghost` pour l’adapter à la
 ### Personnalisation avancée
 
 Utilisez le hook de contexte lorsqu’un descendant personnalisé doit connaître l’état activé, sans modifier le contenu
-du bouton avec `Toggle.Indicator`.
+du bouton avec `ToggleIndicator`.
 
 <ExampleFrame variant="component">
   <ToggleAdvancedCustomization />
@@ -447,5 +446,5 @@ tokens `--moduix-toggle-*` pour les variantes, les tailles, l’anneau de focus,
 - Sélecteurs des parties Ark UI : `data-scope="toggle"` et `data-part="root" | "indicator"`.
 - Sélecteurs d’état Ark UI : `data-state="on" | "off"`, `data-pressed` et `data-disabled`.
 - Sélecteurs moduix : `data-variant` et `data-size`, notamment `icon-sm`, `icon-md` et `icon-lg`.
-- Les icônes enfants directes et celles de `Toggle.Indicator` utilisent
+- Les icônes enfants directes et celles de `ToggleIndicator` utilisent
   `--moduix-toggle-icon-size` sur le chemin CSS Modules.

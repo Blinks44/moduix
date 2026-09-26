@@ -1,6 +1,15 @@
 import { expect, test } from '@rstest/core';
 import { fireEvent, render, screen, waitFor } from '@solidjs/testing-library';
-import { Field, SignaturePad, useSignaturePad, useSignaturePadContext } from '../src';
+import {
+  Field,
+  SignaturePad,
+  SignaturePadCanvas,
+  SignaturePadHiddenInput,
+  SignaturePadLabel,
+  SignaturePadRootProvider,
+  useSignaturePad,
+  useSignaturePadContext,
+} from '../src';
 
 const defaultPaths = ['M1,1 L2,2'];
 const translations = {
@@ -13,9 +22,9 @@ function SignaturePadParts(props: { label?: string }) {
 
   return (
     <>
-      <SignaturePad.Label>{props.label ?? 'Signature'}</SignaturePad.Label>
-      <SignaturePad.Canvas />
-      <SignaturePad.HiddenInput value={signaturePad().paths.join(' ')} />
+      <SignaturePadLabel>{props.label ?? 'Signature'}</SignaturePadLabel>
+      <SignaturePadCanvas />
+      <SignaturePadHiddenInput value={signaturePad().paths.join(' ')} />
     </>
   );
 }
@@ -98,8 +107,8 @@ test('forwards Canvas control props and ref', () => {
 
   render(() => (
     <SignaturePad translations={translations}>
-      <SignaturePad.Label>Signature</SignaturePad.Label>
-      <SignaturePad.Canvas
+      <SignaturePadLabel>Signature</SignaturePadLabel>
+      <SignaturePadCanvas
         ref={(element) => (canvasRef = element)}
         aria-label="Contract signature area"
         data-testid="canvas"
@@ -119,9 +128,9 @@ test('preserves root asChild composition and RootProvider state', () => {
     const signaturePad = useSignaturePad({ defaultPaths });
 
     return (
-      <SignaturePad.RootProvider value={signaturePad}>
+      <SignaturePadRootProvider value={signaturePad}>
         <SignaturePadParts label="Provider signature" />
-      </SignaturePad.RootProvider>
+      </SignaturePadRootProvider>
     );
   }
 
@@ -151,9 +160,9 @@ test('preserves read-only behavior through useSignaturePad and RootProvider', ()
     const signaturePad = useSignaturePad({ defaultPaths, readOnly: true });
 
     return (
-      <SignaturePad.RootProvider value={signaturePad}>
+      <SignaturePadRootProvider value={signaturePad}>
         <SignaturePadParts label="Provider signature" />
-      </SignaturePad.RootProvider>
+      </SignaturePadRootProvider>
     );
   }
 

@@ -1,7 +1,24 @@
 import type { TourStepDetails } from '@ark-ui/react/tour';
 import { describe, expect, test } from '@rstest/core';
 import { fireEvent, render, screen } from '@testing-library/react';
-import { Button, Tour, useTour } from '../src';
+import {
+  Tour,
+  TourBackdrop,
+  TourSpotlight,
+  TourPositioner,
+  TourContent,
+  TourTitle,
+  TourDescription,
+  TourProgressText,
+  TourBody,
+  TourCloseIcon,
+  TourControl,
+  TourActions,
+  TourActionList,
+  TourActionTrigger,
+  Button,
+  useTour,
+} from '../src';
 
 Object.defineProperty(globalThis, 'visualViewport', {
   value: {
@@ -32,20 +49,20 @@ function TourExample({ portalled }: { portalled?: boolean }) {
     <>
       <Button onClick={() => tour.start()}>Start tour</Button>
       <Tour tour={tour} portalled={portalled} lazyMount unmountOnExit>
-        <Tour.Backdrop />
-        <Tour.Positioner>
-          <Tour.Content>
-            <Tour.CloseIcon />
-            <Tour.Body>
-              <Tour.Title />
-              <Tour.Description />
-              <Tour.ProgressText />
-            </Tour.Body>
-            <Tour.Control>
-              <Tour.ActionList />
-            </Tour.Control>
-          </Tour.Content>
-        </Tour.Positioner>
+        <TourBackdrop />
+        <TourPositioner>
+          <TourContent>
+            <TourCloseIcon />
+            <TourBody>
+              <TourTitle />
+              <TourDescription />
+              <TourProgressText />
+            </TourBody>
+            <TourControl>
+              <TourActionList />
+            </TourControl>
+          </TourContent>
+        </TourPositioner>
       </Tour>
     </>
   );
@@ -58,23 +75,23 @@ function CustomActionTourExample() {
     <>
       <Button onClick={() => tour.start()}>Start custom action tour</Button>
       <Tour tour={tour} portalled={false} lazyMount unmountOnExit>
-        <Tour.Positioner>
-          <Tour.Content>
-            <Tour.Title />
-            <Tour.Description />
-            <Tour.Control>
-              <Tour.Actions>
+        <TourPositioner>
+          <TourContent>
+            <TourTitle />
+            <TourDescription />
+            <TourControl>
+              <TourActions>
                 {(actions) =>
                   actions.map((action, index) => (
-                    <Tour.ActionTrigger key={`${action.label}-${index}`} action={action} asChild>
+                    <TourActionTrigger key={`${action.label}-${index}`} action={action} asChild>
                       <button type="button">{action.label}</button>
-                    </Tour.ActionTrigger>
+                    </TourActionTrigger>
                   ))
                 }
-              </Tour.Actions>
-            </Tour.Control>
-          </Tour.Content>
-        </Tour.Positioner>
+              </TourActions>
+            </TourControl>
+          </TourContent>
+        </TourPositioner>
       </Tour>
     </>
   );
@@ -87,21 +104,21 @@ function StyledTourExample() {
     <>
       <Button onClick={() => tour.start()}>Start styled tour</Button>
       <Tour tour={tour} portalled={false} lazyMount unmountOnExit>
-        <Tour.Backdrop />
-        <Tour.Spotlight />
-        <Tour.Positioner>
-          <Tour.Content className="w-96 bg-card p-4">
-            <Tour.CloseIcon className="size-8 rounded-full bg-primary" />
-            <Tour.Body>
-              <Tour.Title className="text-xl">Welcome</Tour.Title>
-              <Tour.Description className="text-base">Start the tour.</Tour.Description>
-              <Tour.ProgressText />
-            </Tour.Body>
-            <Tour.Control>
-              <Tour.ActionList />
-            </Tour.Control>
-          </Tour.Content>
-        </Tour.Positioner>
+        <TourBackdrop />
+        <TourSpotlight />
+        <TourPositioner>
+          <TourContent className="w-96 bg-card p-4">
+            <TourCloseIcon className="size-8 rounded-full bg-primary" />
+            <TourBody>
+              <TourTitle className="text-xl">Welcome</TourTitle>
+              <TourDescription className="text-base">Start the tour.</TourDescription>
+              <TourProgressText />
+            </TourBody>
+            <TourControl>
+              <TourActionList />
+            </TourControl>
+          </TourContent>
+        </TourPositioner>
       </Tour>
     </>
   );

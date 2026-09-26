@@ -1,4 +1,11 @@
-import { Pagination } from '@moduix/react/pagination';
+import {
+  Pagination,
+  PaginationContext,
+  PaginationEllipsis,
+  PaginationItem,
+  PaginationNextTrigger,
+  PaginationPrevTrigger,
+} from '@moduix/react/pagination';
 import styles from '@/components/examples/pagination/pagination-data-slicing.module.css';
 
 const users = [
@@ -67,7 +74,7 @@ const users = [
 export default function PaginationDataSlicingDemo() {
   return (
     <Pagination count={users.length} pageSize={4}>
-      <Pagination.Context>
+      <PaginationContext>
         {(pagination) => (
           <div className={styles.stack}>
             <div className={styles.users}>
@@ -79,21 +86,21 @@ export default function PaginationDataSlicingDemo() {
               ))}
             </div>
             <div className={styles.row}>
-              <Pagination.PrevTrigger />
+              <PaginationPrevTrigger />
               {pagination.pages.map((page, index) =>
                 page.type === 'page' ? (
-                  <Pagination.Item key={index} {...page}>
+                  <PaginationItem key={index} {...page}>
                     {page.value}
-                  </Pagination.Item>
+                  </PaginationItem>
                 ) : (
-                  <Pagination.Ellipsis key={index} index={index} />
+                  <PaginationEllipsis key={index} index={index} />
                 ),
               )}
-              <Pagination.NextTrigger />
+              <PaginationNextTrigger />
             </div>
           </div>
         )}
-      </Pagination.Context>
+      </PaginationContext>
     </Pagination>
   );
 }

@@ -1,31 +1,43 @@
 import { parseDate } from '@ark-ui/solid/date-picker';
-import { DatePicker } from '@moduix/solid/date-picker';
+import {
+  DatePicker,
+  DatePickerContext,
+  DatePickerLabel,
+  DatePickerField,
+  DatePickerPositioner,
+  DatePickerContent,
+  DatePickerViewControl,
+  DatePickerPrevTrigger,
+  DatePickerNextTrigger,
+  DatePickerRangeText,
+  DatePickerDayTable,
+} from '@moduix/solid/date-picker';
 
 export default function MultipleMonthsDatePickerDemo() {
   return (
     <DatePicker defaultValue={[parseDate('2026-06-22')]} numOfMonths={2}>
-      <DatePicker.Label>Planning window</DatePicker.Label>
-      <DatePicker.Field />
-      <DatePicker.Positioner>
-        <DatePicker.Content>
-          <DatePicker.ViewControl>
-            <DatePicker.PrevTrigger />
-            <DatePicker.RangeText />
-            <DatePicker.NextTrigger />
-          </DatePicker.ViewControl>
+      <DatePickerLabel>Planning window</DatePickerLabel>
+      <DatePickerField />
+      <DatePickerPositioner>
+        <DatePickerContent>
+          <DatePickerViewControl>
+            <DatePickerPrevTrigger />
+            <DatePickerRangeText />
+            <DatePickerNextTrigger />
+          </DatePickerViewControl>
           <div>
-            <DatePicker.DayTable showHeader={false} />
-            <DatePicker.Context>
+            <DatePickerDayTable showHeader={false} />
+            <DatePickerContext>
               {(datePicker) => (
-                <DatePicker.DayTable
+                <DatePickerDayTable
                   offset={datePicker().getOffset({ months: 1 })}
                   showHeader={false}
                 />
               )}
-            </DatePicker.Context>
+            </DatePickerContext>
           </div>
-        </DatePicker.Content>
-      </DatePicker.Positioner>
+        </DatePickerContent>
+      </DatePickerPositioner>
     </DatePicker>
   );
 }

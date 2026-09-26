@@ -24,10 +24,10 @@ const useToc = ({ autoScroll = false, ...props }: UseTocProps) =>
 
 const useTocContext = useTocContextPrimitive;
 
-const TocRoot = forwardRef<
+const Toc = forwardRef<
   ComponentRef<typeof TocPrimitive.Root>,
   ComponentProps<typeof TocPrimitive.Root>
->(function TocRoot({ autoScroll = false, className, ...props }, ref) {
+>(function Toc({ autoScroll = false, className, ...props }, ref) {
   return (
     <TocPrimitive.Root
       ref={ref}
@@ -208,18 +208,20 @@ const TocRail = forwardRef<SVGSVGElement, TocRailProps>(function TocRail(
   );
 });
 
-const Toc = Object.assign(TocRoot, {
-  Root: TocRoot,
-  RootProvider: TocRootProvider,
-  Context: TocPrimitive.Context,
-  Content: TocContent,
-  Nav: TocNav,
-  Title: TocTitle,
-  List: TocList,
-  Item: TocItem,
-  Link: TocLink,
-  Indicator: TocIndicator,
-  Rail: TocRail,
-});
+const TocContext = TocPrimitive.Context;
 
-export { Toc, useToc, useTocContext };
+export {
+  Toc,
+  TocContext,
+  TocContent,
+  TocIndicator,
+  TocItem,
+  TocLink,
+  TocList,
+  TocNav,
+  TocRail,
+  TocRootProvider,
+  TocTitle,
+  useToc,
+  useTocContext,
+};

@@ -99,19 +99,18 @@ Consultez le [Démarrage rapide](/docs/quick-start) pour la configuration compl�
 `Container` rend un seul élément racine et n’ajoute aucune enveloppe supplémentaire.
 
 ```text
-Container / Container.Root
+Container
 └─ enfants
 ```
 
-| Partie                         | Rôle                                                                                  |
-| ----------------------------- | ------------------------------------------------------------------------------------- |
-| `Container` / `Container.Root` | Élément racine de mise en page. Centre le contenu et gère sa largeur ainsi que ses espacements horizontaux. |
+| Partie      | Rôle                                                                                  |
+| ----------- | ------------------------------------------------------------------------------------- |
+| `Container` | Élément racine de mise en page. Centre le contenu et gère sa largeur ainsi que ses espacements horizontaux. |
 
 ## Composition
 
 `Container` ne gère aucun état et ne comporte aucune sous-partie à coordonner. Utilisez-le comme racine et placez
-directement le contenu de la page ou de la section à l’intérieur. `Container.Root` est un alias de cette même racine,
-utile lorsque cette notation s’accorde mieux avec le reste de votre composition.
+directement le contenu de la page ou de la section à l’intérieur.
 
 Utilisez `asChild` lorsqu’un élément sémantique doit devenir la racine rendue. Fournissez exactement un enfant : React
 imbrique cet élément dans `Container`, tandis que Solid utilise la forme avec fonction de rendu
@@ -293,7 +292,7 @@ avec des utilitaires.
 
 ### Points d’accroche CSS
 
-- `Container` et `Container.Root` exposent `data-slot="container-root"` sur la racine.
+- `Container` expose `data-slot="container-root"` sur la racine.
 - `data-scope="container"` et `data-part="root"` suivent les conventions de style d’Ark.
 - `data-size` sélectionne la largeur : `xs`, `sm`, `md`, `lg`, `xl`, `full`.
 - `data-gutter` sélectionne l’espacement latéral : `none`, `sm`, `md`, `lg`.

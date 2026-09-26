@@ -1,27 +1,36 @@
 import { Button } from '@moduix/solid/button';
-import { Dialog } from '@moduix/solid/dialog';
+import {
+  Dialog,
+  DialogBackdrop,
+  DialogCloseTrigger,
+  DialogContent,
+  DialogDescription,
+  DialogPositioner,
+  DialogTitle,
+  DialogTrigger,
+} from '@moduix/solid/dialog';
 import styles from '@/components/examples/dialog/dialog-advanced-customization.module.css';
 
 export default function AdvancedCustomizationDialogDemo() {
   return (
     <Dialog>
-      <Dialog.Trigger asChild={(props) => <Button {...props()}>Open custom dialog</Button>} />
-      <Dialog.Backdrop />
-      <Dialog.Positioner>
-        <Dialog.Content>
-          <Dialog.Title>Custom content layout</Dialog.Title>
-          <Dialog.Description>
+      <DialogTrigger asChild={(props) => <Button {...props()}>Open custom dialog</Button>} />
+      <DialogBackdrop />
+      <DialogPositioner>
+        <DialogContent>
+          <DialogTitle>Custom content layout</DialogTitle>
+          <DialogDescription>
             Compose the Ark parts directly when the layout helpers do not fit.
-          </Dialog.Description>
-          <Dialog.CloseTrigger
+          </DialogDescription>
+          <DialogCloseTrigger
             asChild={(props) => (
               <Button {...props()} class={styles.closeButton} variant="outline">
                 Close
               </Button>
             )}
           />
-        </Dialog.Content>
-      </Dialog.Positioner>
+        </DialogContent>
+      </DialogPositioner>
     </Dialog>
   );
 }

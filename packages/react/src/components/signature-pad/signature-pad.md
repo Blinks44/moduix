@@ -11,12 +11,12 @@
 
 ## Upstream comparison
 
-| Difference                                                  | Classification         | Decision                                                                  |
-| ----------------------------------------------------------- | ---------------------- | ------------------------------------------------------------------------- |
-| Ark exposes the full part tree and `RootProvider`.          | Required correctness   | Preserve every part, hook, callback detail object, and provider path.     |
-| Ark's read-only clear trigger can still clear paths.        | Required correctness   | Disable the moduix clear trigger in read-only state to prevent data loss. |
-| Ark requires consumers to repeat the standard drawing tree. | Consumer friction      | Keep `Canvas` as narrow sugar and forward control props and refs.         |
-| Chakra UI and shadcn/ui do not ship a matching component.   | Intentional difference | Keep the Ark-shaped moduix contract; do not invent parity APIs.           |
+| Difference                                                     | Classification         | Decision                                                                      |
+| -------------------------------------------------------------- | ---------------------- | ----------------------------------------------------------------------------- |
+| Ark exposes the full part tree and `SignaturePadRootProvider`. | Required correctness   | Preserve every part, hook, callback detail object, and provider path.         |
+| Ark's read-only clear trigger can still clear paths.           | Required correctness   | Disable the moduix clear trigger in read-only state to prevent data loss.     |
+| Ark requires consumers to repeat the standard drawing tree.    | Consumer friction      | Keep `SignaturePadCanvas` as narrow sugar and forward control props and refs. |
+| Chakra UI and shadcn/ui do not ship a matching component.      | Intentional difference | Keep the Ark-shaped moduix contract; do not invent parity APIs.               |
 
 ## Purpose
 
@@ -24,45 +24,45 @@
 
 ## Upstream model to preserve
 
-The wrapper follows Ark UI `SignaturePad` exactly: `Root` or `RootProvider` owns the Zag state machine, `Control` is the focusable drawing area, `Segment` renders the SVG and Ark's internal `segmentPath` nodes, `Guide` renders the baseline, and `ClearTrigger` clears the current paths. `HiddenInput` is composed explicitly.
+The wrapper follows Ark UI `SignaturePad` exactly: `SignaturePad` or `SignaturePadRootProvider` owns the Zag state machine, `SignaturePadControl` is the focusable drawing area, `SignaturePadSegment` renders the SVG and Ark's internal `segmentPath` nodes, `SignaturePadGuide` renders the baseline, and `SignaturePadClearTrigger` clears the current paths. `SignaturePadHiddenInput` is composed explicitly.
 
 Preserve Ark callback detail objects for `onDraw(details)` and `onDrawEnd(details)`. `onDrawEnd` exposes `details.getDataUrl(type, quality?)` for PNG, JPEG, or SVG previews.
 
 ## Current behavior contract
 
-`SignaturePad` is the styled alias for `SignaturePad.Root`. It supports all Ark root props, including `defaultPaths`, controlled `paths`, `drawing`, `name`, `disabled`, `readOnly`, `required`, `ids`, `translations`, `onDraw`, and `onDrawEnd`.
+`SignaturePad` is the styled root component. It supports all Ark root props, including `defaultPaths`, controlled `paths`, `drawing`, `name`, `disabled`, `readOnly`, `required`, `ids`, `translations`, `onDraw`, and `onDrawEnd`.
 
-`useSignaturePad()` with `SignaturePad.RootProvider` is exported for state that must be created outside the rendered tree. `useSignaturePadContext()` is exported for advanced in-tree state reads.
+`useSignaturePad()` with `SignaturePadRootProvider` is exported for state that must be created outside the rendered tree. `useSignaturePadContext()` is exported for advanced in-tree state reads.
 
-Compose `SignaturePad.HiddenInput` explicitly and pass its required serialized `value`. Use
+Compose `SignaturePadHiddenInput` explicitly and pass its required serialized `value`. Use
 `useSignaturePadContext()` inside the root when the value should follow the current paths.
 
 ## Anatomy and exported parts
 
 ```tsx
-SignaturePad / SignaturePad.Root
-├─ SignaturePad.Label
-├─ SignaturePad.Canvas (moduix sugar)
-│  └─ SignaturePad.Control
-│     ├─ SignaturePad.Segment
-│     ├─ SignaturePad.ClearTrigger
-│     └─ SignaturePad.Guide
-└─ SignaturePad.HiddenInput value={serializedPaths} (explicit)
+SignaturePad
+├─ SignaturePadLabel
+├─ SignaturePadCanvas (moduix sugar)
+│  └─ SignaturePadControl
+│     ├─ SignaturePadSegment
+│     ├─ SignaturePadClearTrigger
+│     └─ SignaturePadGuide
+└─ SignaturePadHiddenInput value={serializedPaths} (explicit)
 
-SignaturePad.RootProvider
+SignaturePadRootProvider
 └─ same part tree connected to useSignaturePad()
 ```
 
-| Part                                 | Stable hook                               | Notes                                                       |
-| ------------------------------------ | ----------------------------------------- | ----------------------------------------------------------- |
-| `SignaturePad` / `SignaturePad.Root` | `data-slot="signature-pad-root"`          | Root state, ids, form name, drawing options, and callbacks. |
-| `SignaturePad.RootProvider`          | `data-slot="signature-pad-root-provider"` | Renders from `useSignaturePad()` state.                     |
-| `SignaturePad.Label`                 | `data-slot="signature-pad-label"`         | Ark label linked to the hidden input and drawing control.   |
-| `SignaturePad.Canvas`                | `data-slot="signature-pad-control"`       | Fixed drawing tree; forwards control props and refs.        |
-| `SignaturePad.Control`               | `data-slot="signature-pad-control"`       | Focusable drawing region with `role="application"`.         |
-| `SignaturePad.Segment`               | `data-slot="signature-pad-segment"`       | SVG paths for saved and current strokes.                    |
-| `SignaturePad.Guide`                 | `data-slot="signature-pad-guide"`         | Non-interactive baseline.                                   |
-| `SignaturePad.ClearTrigger`          | `data-slot="signature-pad-clear-trigger"` | Native button hidden by Ark while empty or drawing.         |
+| Part                       | Stable hook                               | Notes                                                       |
+| -------------------------- | ----------------------------------------- | ----------------------------------------------------------- |
+| `SignaturePad`             | `data-slot="signature-pad-root"`          | Root state, ids, form name, drawing options, and callbacks. |
+| `SignaturePadRootProvider` | `data-slot="signature-pad-root-provider"` | Renders from `useSignaturePad()` state.                     |
+| `SignaturePadLabel`        | `data-slot="signature-pad-label"`         | Ark label linked to the hidden input and drawing control.   |
+| `SignaturePadCanvas`       | `data-slot="signature-pad-control"`       | Fixed drawing tree; forwards control props and refs.        |
+| `SignaturePadControl`      | `data-slot="signature-pad-control"`       | Focusable drawing region with `role="application"`.         |
+| `SignaturePadSegment`      | `data-slot="signature-pad-segment"`       | SVG paths for saved and current strokes.                    |
+| `SignaturePadGuide`        | `data-slot="signature-pad-guide"`         | Non-interactive baseline.                                   |
+| `SignaturePadClearTrigger` | `data-slot="signature-pad-clear-trigger"` | Native button hidden by Ark while empty or drawing.         |
 
 ## Composition
 
@@ -72,8 +72,8 @@ import { SignaturePad } from '@moduix/react/signature-pad';
 export function SignaturePadDemo() {
   return (
     <SignaturePad>
-      <SignaturePad.Label>Sign below</SignaturePad.Label>
-      <SignaturePad.Canvas />
+      <SignaturePadLabel>Sign below</SignaturePadLabel>
+      <SignaturePadCanvas />
     </SignaturePad>
   );
 }
@@ -86,27 +86,27 @@ export function SignaturePadDemo() {
 - Controlled state uses `paths` with `onDraw(details)`; uncontrolled state uses `defaultPaths`.
 - `drawing` forwards Zag stroke options: `fill`, `size`, and `simulatePressure`. `drawing.fill` must be a valid CSS color string. If it is not set, moduix CSS supplies the default stroke color through `--moduix-signature-pad-stroke-color`.
 - The installed Zag default is `{ size: 2, simulatePressure: false }`; pass `drawing` to opt into pressure simulation.
-- Form usage combines Ark form props with an explicit `SignaturePad.HiddenInput value={...}`.
-- `Field.Root` context carries `disabled`, `required`, `readOnly`, and shared ids into `SignaturePad`. `Field` invalid state controls helper/error messaging and native-input descriptions, but Ark does not add `data-invalid` to signature pad parts.
-- `Fieldset.Root` disabled state reaches `SignaturePad` through nested `Field.Root`, matching Ark's field/fieldset model. Set required, read-only, and invalid messaging state on `Field.Root` when those states belong to one signature field.
-- `RootProvider`, `useSignaturePad()`, and `useSignaturePadContext()` are exported from moduix.
+- Form usage combines Ark form props with an explicit `SignaturePadHiddenInput value={...}`.
+- `Field` context carries `disabled`, `required`, `readOnly`, and shared ids into `SignaturePad`. `Field` invalid state controls helper/error messaging and native-input descriptions, but Ark does not add `data-invalid` to signature pad parts.
+- `Fieldset` disabled state reaches `SignaturePad` through nested `Field`, matching Ark's field/fieldset model. Set required, read-only, and invalid messaging state on `Field` when those states belong to one signature field.
+- `SignaturePadRootProvider`, `useSignaturePad()`, and `useSignaturePadContext()` are exported from moduix.
 
 ## Accessibility and state
 
-Ark gives `Control` a focusable drawing surface with `role="application"`, `aria-roledescription="signature pad"`, `aria-label` from `translations.control`, and pointer capture during drawing. `ClearTrigger` is a native button with its accessible label from `translations.clearTrigger`.
+Ark gives `SignaturePadControl` a focusable drawing surface with `role="application"`, `aria-roledescription="signature pad"`, `aria-label` from `translations.control`, and pointer capture during drawing. `SignaturePadClearTrigger` is a native button with its accessible label from `translations.clearTrigger`.
 
-moduix disables `ClearTrigger` when `readOnly` comes from the root, `Field`, or `useSignaturePad()`.
+moduix disables `SignaturePadClearTrigger` when `readOnly` comes from the root, `Field`, or `useSignaturePad()`.
 This closes an upstream data-loss gap while leaving programmatic `clear()` available to application code.
 
 Data attributes from Ark:
 
-- `Root`: `data-scope="signature-pad"`, `data-part="root"`, `data-disabled`
-- `Label`: `data-scope="signature-pad"`, `data-part="label"`, `data-disabled`, `data-required`
-- `Control`: `data-scope="signature-pad"`, `data-part="control"`, `data-disabled`
-- `Segment`: `data-scope="signature-pad"`, `data-part="segment"`
-- `Segment` child paths: `data-scope="signature-pad"`, `data-part="segment-path"`
-- `Guide`: `data-scope="signature-pad"`, `data-part="guide"`, `data-disabled`
-- `ClearTrigger`: `data-scope="signature-pad"`, `data-part="clear-trigger"`
+- `SignaturePad`: `data-scope="signature-pad"`, `data-part="root"`, `data-disabled`
+- `SignaturePadLabel`: `data-scope="signature-pad"`, `data-part="label"`, `data-disabled`, `data-required`
+- `SignaturePadControl`: `data-scope="signature-pad"`, `data-part="control"`, `data-disabled`
+- `SignaturePadSegment`: `data-scope="signature-pad"`, `data-part="segment"`
+- `SignaturePadSegment` child paths: `data-scope="signature-pad"`, `data-part="segment-path"`
+- `SignaturePadGuide`: `data-scope="signature-pad"`, `data-part="guide"`, `data-disabled`
+- `SignaturePadClearTrigger`: `data-scope="signature-pad"`, `data-part="clear-trigger"`
 
 ## Defaults and styling
 
@@ -114,7 +114,7 @@ Every styled part accepts `className`, merged with moduix defaults through `clsx
 
 The default drawing control is `17.5rem` by `10rem`, which is approximately `280px` by `160px` with the default token scale. Its default minimum height follows the configured control height, so reducing either public height variable also reduces the usable drawing area. The default shadow is `var(--moduix-shadow-sm)`.
 
-`ClearTrigger` composes the shared `CloseButton` by default and uses the reset `RotateCcwIcon`.
+`SignaturePadClearTrigger` composes the shared `CloseButton` by default and uses the reset `RotateCcwIcon`.
 Ark remains the source of its translated accessible label and empty/drawing visibility. moduix also
 disables the action in read-only state.
 
@@ -124,9 +124,9 @@ The guide line and clear action use logical inline positioning, so their layout 
 
 ## Intentional sugar and differences from upstream
 
-moduix adds styled defaults, stable `data-slot` hooks, and `Canvas` for the fixed default drawing surface. The default clear control uses the shared `CloseButton`; use the exported Ark-shaped parts for custom structure, icons, or `asChild` composition. It does not rename Ark props, convert callback signatures, or add local state.
+moduix adds styled defaults, stable `data-slot` hooks, and `SignaturePadCanvas` for the fixed default drawing surface. The default clear control uses the shared `CloseButton`; use the exported Ark-shaped parts for custom structure, icons, or `asChild` composition. It does not rename Ark props, convert callback signatures, or add local state.
 
-`Canvas` forwards `Control` props and its DOM ref. Its children remain fixed by design; use the
+`SignaturePadCanvas` forwards `SignaturePadControl` props and its DOM ref. Its children remain fixed by design; use the
 lower-level parts when the drawing tree itself needs to change.
 
 The CSS default stroke color applies only when `drawing.fill` is not provided; explicit Ark `drawing.fill` remains the source of truth.
@@ -140,7 +140,7 @@ override `--moduix-signature-pad-stroke-color` instead.
 
 ## Local changelog
 
-- 2026-08-12: Disabled clearing in read-only state, forwarded `Canvas` control props and refs, added
+- 2026-08-12: Disabled clearing in read-only state, forwarded `SignaturePadCanvas` control props and refs, added
   state coverage, and aligned the documented Zag drawing defaults with runtime behavior.
 - 2026-07-30: Made disabled opacity apply once across the composed drawing surface, aligned the height and minimum-height defaults, and clarified CSS-variable stroke colors.
 - 2026-07-21: Routed shared dimensions, spacing, icon geometry, and focus-ring fallbacks through foundation tokens so density and theme presets can retune the component consistently.
@@ -148,11 +148,11 @@ override `--moduix-signature-pad-stroke-color` instead.
 - 2026-07-17: Composed the default clear control with `CloseButton`, preserving Ark translations,
   states, and custom composition while mapping signature-pad tokens to the shared styles.
 
-- 2026-09-04: Exposed Ark `HiddenInput` explicitly and removed automatic serialization and the
+- 2026-09-04: Exposed Ark `SignaturePadHiddenInput` explicitly and removed automatic serialization and the
   wrapper-specific serializer prop.
 - 2026-07-13: Native form input serialization lived in the root at this point in the wrapper history.
 
-- 2026-07-11: Added `Canvas` as the recommended fixed drawing surface and re-exported `useSignaturePadContext()` for form and in-tree state usage.
+- 2026-07-11: Added `SignaturePadCanvas` as the recommended fixed drawing surface and re-exported `useSignaturePadContext()` for form and in-tree state usage.
 - 2026-06-27: Tightened the Field form contract, documented `segmentPath` data attributes, and
   aligned the default shadow token.
 - 2026-06-22: Added the initial Ark-backed `SignaturePad` wrapper, CSS Module defaults, exports, stories, docs, and registry metadata.

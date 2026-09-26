@@ -4,7 +4,7 @@ import type { ComponentProps } from 'solid-js';
 import { splitProps } from 'solid-js';
 import styles from './QrCode.module.css';
 
-function QrCodeRoot(props: ComponentProps<typeof QrCodePrimitive.Root>) {
+function QrCode(props: ComponentProps<typeof QrCodePrimitive.Root>) {
   const [local, others] = splitProps(props, ['asChild', 'children', 'class']);
 
   return (
@@ -92,24 +92,16 @@ function QrCodeDownloadTrigger(props: ComponentProps<typeof QrCodePrimitive.Down
   );
 }
 
-type QrCodeComponent = typeof QrCodeRoot & {
-  Root: typeof QrCodeRoot;
-  RootProvider: typeof QrCodeRootProvider;
-  Context: typeof QrCodePrimitive.Context;
-  Frame: typeof QrCodeFrame;
-  Pattern: typeof QrCodePattern;
-  Overlay: typeof QrCodeOverlay;
-  DownloadTrigger: typeof QrCodeDownloadTrigger;
+const QrCodeContext = QrCodePrimitive.Context;
+
+export {
+  QrCode,
+  QrCodeContext,
+  QrCodeDownloadTrigger,
+  QrCodeFrame,
+  QrCodeOverlay,
+  QrCodePattern,
+  QrCodeRootProvider,
+  useQrCode,
+  useQrCodeContext,
 };
-
-const QrCode: QrCodeComponent = Object.assign(QrCodeRoot, {
-  Root: QrCodeRoot,
-  RootProvider: QrCodeRootProvider,
-  Context: QrCodePrimitive.Context,
-  Frame: QrCodeFrame,
-  Pattern: QrCodePattern,
-  Overlay: QrCodeOverlay,
-  DownloadTrigger: QrCodeDownloadTrigger,
-});
-
-export { QrCode, useQrCode, useQrCodeContext };

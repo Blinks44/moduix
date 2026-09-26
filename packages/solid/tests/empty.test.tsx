@@ -1,6 +1,6 @@
 import { expect, test } from '@rstest/core';
 import { render, screen } from '@solidjs/testing-library';
-import { Empty } from '../src';
+import { Empty, EmptyActions, EmptyContent, EmptyDescription, EmptyIcon, EmptyTitle } from '../src';
 
 test('renders presentational anatomy with stable hooks and forwarded refs', () => {
   let rootRef!: HTMLDivElement;
@@ -8,14 +8,14 @@ test('renders presentational anatomy with stable hooks and forwarded refs', () =
 
   render(() => (
     <Empty ref={(element) => (rootRef = element)} data-testid="empty">
-      <Empty.Icon data-testid="empty-icon">⌘</Empty.Icon>
-      <Empty.Content>
-        <Empty.Title ref={(element) => (titleRef = element)}>No projects</Empty.Title>
-        <Empty.Description>Start by creating a project.</Empty.Description>
-      </Empty.Content>
-      <Empty.Actions>
+      <EmptyIcon data-testid="empty-icon">⌘</EmptyIcon>
+      <EmptyContent>
+        <EmptyTitle ref={(element) => (titleRef = element)}>No projects</EmptyTitle>
+        <EmptyDescription>Start by creating a project.</EmptyDescription>
+      </EmptyContent>
+      <EmptyActions>
         <button type="button">Create project</button>
-      </Empty.Actions>
+      </EmptyActions>
     </Empty>
   ));
 
@@ -38,20 +38,20 @@ test('renders presentational anatomy with stable hooks and forwarded refs', () =
 test('preserves semantic elements and hooks with native Ark Solid asChild composition', () => {
   render(() => (
     <Empty asChild={(props) => <section {...props()} aria-label="Projects" />}>
-      <Empty.Icon
+      <EmptyIcon
         asChild={(props) => (
           <span {...props()} data-testid="empty-icon">
             ⌘
           </span>
         )}
       />
-      <Empty.Content asChild={(props) => <div {...props()} data-testid="empty-content" />}>
-        <Empty.Title asChild={(props) => <h2 {...props()}>No projects</h2>} />
-        <Empty.Description asChild={(props) => <p {...props()}>Start by creating a project.</p>} />
-      </Empty.Content>
-      <Empty.Actions asChild={(props) => <nav {...props()} aria-label="Project actions" />}>
+      <EmptyContent asChild={(props) => <div {...props()} data-testid="empty-content" />}>
+        <EmptyTitle asChild={(props) => <h2 {...props()}>No projects</h2>} />
+        <EmptyDescription asChild={(props) => <p {...props()}>Start by creating a project.</p>} />
+      </EmptyContent>
+      <EmptyActions asChild={(props) => <nav {...props()} aria-label="Project actions" />}>
         <button type="button">Create project</button>
-      </Empty.Actions>
+      </EmptyActions>
     </Empty>
   ));
 
@@ -85,7 +85,7 @@ test('does not forward refs through native Ark Solid asChild composition', () =>
       ref={(element) => (rootRef = element)}
       asChild={(props) => <section {...props()} aria-label="Projects" />}
     >
-      <Empty.Title
+      <EmptyTitle
         ref={(element) => (titleRef = element)}
         asChild={(props) => <h2 {...props()}>No projects</h2>}
       />

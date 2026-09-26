@@ -1,13 +1,19 @@
-import { HoverCard } from '@moduix/solid/hover-card';
+import {
+  HoverCard,
+  HoverCardBody,
+  HoverCardContent,
+  HoverCardPositioner,
+  HoverCardTrigger,
+} from '@moduix/solid/hover-card';
 import styles from '@/components/examples/hover-card/hover-card-disabled.module.css';
 
 export default function DisabledHoverCard() {
   return (
     <HoverCard disabled>
-      <HoverCard.Trigger class={styles.trigger}>Profile preview unavailable</HoverCard.Trigger>
-      <HoverCard.Positioner>
-        <HoverCard.Content>
-          <HoverCard.Body>
+      <HoverCardTrigger class={styles.trigger}>Profile preview unavailable</HoverCardTrigger>
+      <HoverCardPositioner>
+        <HoverCardContent>
+          <HoverCardBody>
             <div class={styles.preview}>
               <img
                 alt="Sunlit workspace with a laptop and plants"
@@ -21,9 +27,9 @@ export default function DisabledHoverCard() {
                 </p>
               </div>
             </div>
-          </HoverCard.Body>
-        </HoverCard.Content>
-      </HoverCard.Positioner>
+          </HoverCardBody>
+        </HoverCardContent>
+      </HoverCardPositioner>
     </HoverCard>
   );
 }

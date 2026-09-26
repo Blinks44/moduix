@@ -1,12 +1,11 @@
 # Separator (Solid)
 
 `Separator` is a semantic divider for visually separating related content groups with a horizontal
-or vertical rule. It preserves the React component's single root, styling hooks, defaults, and
-`Separator.Root` namespace.
+or vertical rule. It preserves the React component's single root, styling hooks, and defaults.
 
 ## Public contract
 
-- `Separator` and `Separator.Root` are equivalent root components.
+- `Separator` is the only public root component.
 - The root accepts Ark Solid factory span props plus `orientation`, `variant`, and `size`.
 - Defaults are `orientation="horizontal"`, `variant="solid"`, and `size="sm"`.
 - The root emits `data-scope="separator"`, `data-part="root"`, `data-slot="separator-root"`,

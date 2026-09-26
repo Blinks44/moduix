@@ -15,7 +15,7 @@ type InputGroupDataProps = {
   'data-slot'?: string;
 };
 
-type InputGroupRootProps = HTMLArkProps<'div'> &
+type InputGroupProps = HTMLArkProps<'div'> &
   InputGroupDataProps & {
     size?: InputGroupSize;
     'data-size'?: string;
@@ -25,7 +25,7 @@ const defaultInputGroupSize: InputGroupSize = 'md';
 const defaultInputGroupSizeAccessor: Accessor<InputGroupSize> = () => defaultInputGroupSize;
 const InputGroupSizeContext = createContext(defaultInputGroupSizeAccessor);
 
-function InputGroupRoot(props: InputGroupRootProps) {
+function InputGroup(props: InputGroupProps) {
   const [local, others] = splitProps(props, [
     'asChild',
     'children',
@@ -121,12 +121,4 @@ function InputGroupButton(props: ComponentProps<typeof Button>) {
   );
 }
 
-const InputGroup = Object.assign(InputGroupRoot, {
-  Root: InputGroupRoot,
-  Input: InputGroupInput,
-  Addon: InputGroupAddon,
-  Text: InputGroupText,
-  Button: InputGroupButton,
-});
-
-export { InputGroup };
+export { InputGroup, InputGroupAddon, InputGroupButton, InputGroupInput, InputGroupText };

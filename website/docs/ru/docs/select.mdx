@@ -16,7 +16,6 @@ import SelectGrouping from '@/components/examples/select/grouping.tsx';
 import SelectLazyMount from '@/components/examples/select/lazy-mount.tsx';
 import SelectMaxSelection from '@/components/examples/select/max-selection.tsx';
 import SelectMultiple from '@/components/examples/select/multiple.tsx';
-import SelectNativeFormControl from '@/components/examples/select/native-form-control.tsx';
 import SelectOverflow from '@/components/examples/select/overflow.tsx';
 import SelectRootProvider from '@/components/examples/select/root-provider.tsx';
 import SelectSearchInPopup from '@/components/examples/select/search-in-popup.tsx';
@@ -33,7 +32,6 @@ import selectSolidGrouping from '../../../snippets/select/solid/grouping.tsx?raw
 import selectSolidLazyMount from '../../../snippets/select/solid/lazy-mount.tsx?raw';
 import selectSolidMaxSelection from '../../../snippets/select/solid/max-selection.tsx?raw';
 import selectSolidMultiple from '../../../snippets/select/solid/multiple.tsx?raw';
-import selectSolidNativeFormControl from '../../../snippets/select/solid/native-form-control.tsx?raw';
 import selectSolidOverflow from '../../../snippets/select/solid/overflow.tsx?raw';
 import selectSolidRootProvider from '../../../snippets/select/solid/root-provider.tsx?raw';
 import selectSolidSearchInPopup from '../../../snippets/select/solid/search-in-popup.tsx?raw';
@@ -52,7 +50,7 @@ import selectSolidSelectOnHighlight from '../../../snippets/select/solid/select-
 
 ## Базовый пример
 
-Передайте коллекцию в `Select`, используйте `Select.Field` для стандартного видимого поля и явно опишите структуру всплывающего окна. Свойство `clearLabel` добавляет доступную кнопку очистки. Явно добавьте `Select.HiddenSelect`, когда нужны нативная отправка, автозаполнение, валидация и сброс.
+Передайте коллекцию в `Select`, используйте `SelectField` для стандартного видимого поля и явно опишите структуру всплывающего окна. Свойство `clearLabel` добавляет доступную кнопку очистки. Явно добавьте `SelectHiddenSelect`, когда нужны нативная отправка, автозаполнение, валидация и сброс.
 
 <ExampleFrame variant="component">
   <SelectBasic />
@@ -114,59 +112,61 @@ import selectSolidSelectOnHighlight from '../../../snippets/select/solid/select-
 ## Анатомия
 
 ```text
-Select / Select.Root
-├─ Select.Label
-├─ Select.Control / Select.Field
-│  ├─ Select.Trigger
-│  │  ├─ Select.ValueText
-│  ├─ Select.ClearTrigger
-│  └─ Select.Indicator
+Select
+├─ SelectLabel
+├─ SelectControl / SelectField
+│  ├─ SelectTrigger
+│  │  ├─ SelectValueText
+│  ├─ SelectClearTrigger
+│  └─ SelectIndicator
 ├─ Поддерево оверлея (портируется автоматически)
-│  └─ Select.Positioner
-│     └─ Select.Content
-│        ├─ Select.List
-│        └─ Select.ItemGroup
-│           ├─ Select.ItemGroupLabel
-│           └─ Select.Item[item]
-│              ├─ Select.ItemText
-│              │  └─ Select.ItemTextContent
-│              │     ├─ Select.ItemTextIcon
-│              │     └─ Select.ItemTextLabel
-│              └─ Select.ItemIndicator
-└─ Select.HiddenSelect (явно)
+│  └─ SelectPositioner
+│     └─ SelectContent
+│        ├─ SelectList
+│        └─ SelectItemGroup
+│           ├─ SelectItemGroupLabel
+│           └─ SelectItem[item]
+│              ├─ SelectItemText
+│              │  └─ SelectItemTextContent
+│              │     ├─ SelectItemTextIcon
+│              │     └─ SelectItemTextLabel
+│              └─ SelectItemIndicator
+└─ SelectHiddenSelect (явно)
 ```
 
 | Часть                     | Назначение                                                               |
 | ------------------------- | ------------------------------------------------------------------------ |
-| `Select` / `Select.Root`  | Корневое состояние, коллекция, выбор, жизненный цикл всплывающего окна и данные формы. |
-| `Select.HiddenSelect` | Нативное поле Ark; правила явной композиции описаны ниже. |
-| `Select.RootProvider`     | Рендерит дерево Select на основе состояния, возвращённого `Select.useSelect`. |
-| `Select.Label`            | Доступная подпись, с которой связаны триггер и нативный элемент формы.   |
-| `Select.Control`          | Обёртка видимого поля, которая отражает состояния фокуса, ошибки и открытого списка. |
-| `Select.Field`            | Вспомогательный компонент moduix для стандартного поля, триггера и действий. |
-| `Select.Trigger`          | Кнопка, открывающая всплывающее окно и обрабатывающая ввод с клавиатуры. |
-| `Select.ValueText`        | Плейсхолдер или подписи выбранных элементов.                             |
-| `Select.ClearTrigger`     | Кнопка, очищающая текущее значение.                                     |
-| `Select.Indicator`        | Индикатор триггера со стандартной иконкой стрелки moduix.               |
-| `Select.Positioner`       | Плавающий слой, который предоставляет CSS-переменные Ark для позиционирования. |
-| `Select.Content`           | Содержимое всплывающего окна и контейнер listbox.                       |
-| `Select.List`              | Необязательная обёртка списка для виртуализации или собственной разметки. |
-| `Select.ItemGroup`         | Обёртка группы связанных элементов коллекции.                           |
-| `Select.ItemGroupLabel`   | Подпись группы коллекции.                                                |
-| `Select.Item`              | Выбираемая строка. Передайте элемент коллекции через `item`.             |
-| `Select.ItemText`          | Текст для отображения и доступности.                                    |
-| `Select.ItemTextContent`   | Вспомогательный компонент для разметки сложного текста элемента.        |
-| `Select.ItemTextIcon`      | Обёртка для иконки в тексте элемента.                                   |
-| `Select.ItemTextLabel`     | Обёртка для подписи в тексте элемента.                                  |
-| `Select.ItemIndicator`     | Индикатор выбранного состояния со стандартной иконкой галочки moduix.    |
+| `Select`                  | Корневое состояние, коллекция, выбор, жизненный цикл всплывающего окна и данные формы. |
+| `SelectHiddenSelect`      | Нативное поле Ark; правила явной композиции описаны ниже.                       |
+| `SelectRootProvider`      | Рендерит дерево Select на основе состояния, возвращённого `useSelect`.          |
+| `SelectContext`           | Корневой контекст для чтения расширенного состояния.                             |
+| `SelectItemContext`       | Контекст элемента для чтения расширенного состояния.                            |
+| `SelectLabel`            | Доступная подпись, с которой связаны триггер и нативный элемент формы.   |
+| `SelectControl`          | Обёртка видимого поля, которая отражает состояния фокуса, ошибки и открытого списка. |
+| `SelectField`            | Вспомогательный компонент moduix для стандартного поля, триггера и действий. |
+| `SelectTrigger`          | Кнопка, открывающая всплывающее окно и обрабатывающая ввод с клавиатуры. |
+| `SelectValueText`        | Плейсхолдер или подписи выбранных элементов.                             |
+| `SelectClearTrigger`     | Кнопка, очищающая текущее значение.                                     |
+| `SelectIndicator`        | Индикатор триггера со стандартной иконкой стрелки moduix.               |
+| `SelectPositioner`       | Плавающий слой, который предоставляет CSS-переменные Ark для позиционирования. |
+| `SelectContent`           | Содержимое всплывающего окна и контейнер listbox.                       |
+| `SelectList`              | Необязательная обёртка списка для виртуализации или собственной разметки. |
+| `SelectItemGroup`         | Обёртка группы связанных элементов коллекции.                           |
+| `SelectItemGroupLabel`   | Подпись группы коллекции.                                                |
+| `SelectItem`              | Выбираемая строка. Передайте элемент коллекции через `item`.             |
+| `SelectItemText`          | Текст для отображения и доступности.                                    |
+| `SelectItemTextContent`   | Вспомогательный компонент для разметки сложного текста элемента.        |
+| `SelectItemTextIcon`      | Обёртка для иконки в тексте элемента.                                   |
+| `SelectItemTextLabel`     | Обёртка для подписи в тексте элемента.                                  |
+| `SelectItemIndicator`     | Индикатор выбранного состояния со стандартной иконкой галочки moduix.    |
 
 ## Композиция
 
-`Select.Field` объединяет `Control`, `Trigger`, `ValueText` и стандартный `Indicator`. Передайте `clearLabel`, чтобы добавить подписанную кнопку очистки, или используйте явные части, когда разметку триггера нужно стилизовать независимо. Оставляйте `Positioner`, `Content` и элементы коллекции в одном дереве Select.
+`SelectField` объединяет `SelectControl`, `SelectTrigger`, `SelectValueText` и стандартный `SelectIndicator`. Передайте `clearLabel`, чтобы добавить подписанную кнопку очистки, или используйте явные части, когда разметку триггера нужно стилизовать независимо. Оставляйте `SelectPositioner`, `SelectContent` и элементы коллекции в одном дереве Select.
 
-Явно добавьте `Select.HiddenSelect` внутрь `Select` или `Select.RootProvider`, если выбор должен участвовать в нативной отправке формы, валидации, автозаполнении или сбросе. Корневой компонент не создаёт его автоматически. `Positioner` по умолчанию размещается через портал: для рендера в обычном потоке укажите `portalled={false}`, а для собственного контейнера используйте `portalRef`.
+Явно добавьте `SelectHiddenSelect` внутрь `Select` или `SelectRootProvider`, если выбор должен участвовать в нативной отправке формы, валидации, автозаполнении или сбросе. Корневой компонент не создаёт его автоматически. `Positioner` по умолчанию размещается через портал: для рендера в обычном потоке укажите `portalled={false}`, а для собственного контейнера используйте `portalRef`.
 
-Используйте `Select.useSelect` вместе с `Select.RootProvider`, когда состояние нужно разделить с элементами за пределами дерева Select. В React возвращается объект, а в Solid реактивный accessor.
+Используйте `useSelect` вместе с `SelectRootProvider`, когда состояние нужно разделить с элементами за пределами дерева Select. В React возвращается объект, а в Solid реактивный accessor.
 
 ## Примеры
 
@@ -206,7 +206,7 @@ Select / Select.Root
 
 ### Пользовательская разметка элемента
 
-Используйте `Select.ItemTextContent`, `Select.ItemTextIcon` и `Select.ItemTextLabel` внутри
+Используйте `SelectItemTextContent`, `SelectItemTextIcon` и `SelectItemTextLabel` внутри
 `ItemText`, когда элементу нужны иконка и подпись с обрезанием по ширине.
 
 <ExampleFrame variant="component">
@@ -281,7 +281,7 @@ Select / Select.Root
 
 ### Поле формы
 
-Оберните Select в `Field.Root`, когда к полю формы относятся подпись, текст подсказки или состояния
+Оберните Select в `Field`, когда к полю формы относятся подпись, текст подсказки или состояния
 `invalid`, `required` и `disabled`.
 
 <ExampleFrame variant="component">
@@ -321,7 +321,7 @@ Select / Select.Root
 
 ### Использование в форме
 
-Явно добавленный `Select.HiddenSelect` сохраняет обычную отправку формы. Читайте отправленные
+Явно добавленный `SelectHiddenSelect` сохраняет обычную отправку формы. Читайте отправленные
 значения из `FormData`.
 
 <ExampleFrame variant="component">
@@ -499,46 +499,6 @@ Select / Select.Root
 
 </ExampleCode>
 
-### Нативный элемент формы
-
-Добавьте `Select.HiddenSelect` явно, когда выбранное значение должно участвовать в нативной форме.
-Этот пример показывает, какие значения попадают в отправляемый `FormData`.
-
-<ExampleFrame variant="component">
-  <SelectNativeFormControl />
-</ExampleFrame>
-
-<ExampleCode>
-<div className="docs-reference">
-  <Tabs
-    groupId="framework"
-    values={[
-      { label: 'React', value: 'react' },
-      { label: 'Solid', value: 'solid' },
-    ]}
-    className="docs-tabs"
-  >
-    <Tab value="react">
-
-```tsx pure file="../../../src/components/examples/select/native-form-control.tsx"
-```
-
-    </Tab>
-    <Tab value="solid">
-
-<CodeBlockRuntime lang="tsx" code={selectSolidNativeFormControl} />
-
-    </Tab>
-  </Tabs>
-
-**Styles**
-
-```css file="../../../src/components/examples/select/select-native-form-control.module.css"
-```
-</div>
-
-</ExampleCode>
-
 ### Переполнение
 
 Для длинных списков используйте `positioning.fitViewport`. Содержимое уже ограничивает высоту с
@@ -576,7 +536,7 @@ Select / Select.Root
 
 ### Root Provider
 
-Используйте `Select.useSelect` вместе с `Select.RootProvider`, когда состояние нужно читать или
+Используйте `useSelect` вместе с `SelectRootProvider`, когда состояние нужно читать или
 контролировать за пределами отрендеренного дерева Select.
 
 <ExampleFrame variant="component">
@@ -656,7 +616,7 @@ Select / Select.Root
 
 ### Выбрать все
 
-Разместите массовые действия за пределами listbox. `Select.useSelect` позволяет использовать их и
+Разместите массовые действия за пределами listbox. `useSelect` позволяет использовать их и
 Select с одним экземпляром состояния Ark.
 
 <ExampleFrame variant="component">
@@ -731,7 +691,7 @@ Select с одним экземпляром состояния Ark.
 ### Расширенная настройка
 
 Соберите триггер, текст значения и индикатор вручную, если им нужны независимые композиция и
-стилизация. В этом случае не используйте `Select.Field`.
+стилизация. В этом случае не используйте `SelectField`.
 
 <ExampleFrame variant="component">
   <SelectAdvancedCustomization />
@@ -773,7 +733,7 @@ Select с одним экземпляром состояния Ark.
 
 ### Хуки стилизации
 
-`Select.Field` создаёт существующие слоты `select-control`, `select-trigger`, `select-value-text`,
+`SelectField` создаёт существующие слоты `select-control`, `select-trigger`, `select-value-text`,
 `select-indicator` и необязательный `select-clear-trigger`. Его свойство `indicator` передаёт
 дочерний элемент в существующий слот индикатора. Вспомогательные компоненты текста элемента
 предоставляют слоты `select-item-text-content`, `select-item-text-icon` и `select-item-text-label`.
@@ -783,5 +743,5 @@ Select с одним экземпляром состояния Ark.
 - Для состояний доступны `data-state="open" | "closed"`, `data-focus`, `data-invalid`,
   `data-disabled`, `data-readonly`, `data-required`, `data-placeholder-shown`,
   `data-highlighted`, а для элементов списка - `data-state="checked" | "unchecked"`.
-- `Select.Positioner` предоставляет `--reference-width`, `--reference-height`, `--available-width`,
+- `SelectPositioner` предоставляет `--reference-width`, `--reference-height`, `--available-width`,
   `--available-height`, `--x`, `--y`, `--z-index` и `--transform-origin`.

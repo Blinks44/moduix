@@ -1,7 +1,16 @@
 import { createListCollection } from '@ark-ui/react/collection';
 import { expect, rs, test } from '@rstest/core';
 import { fireEvent, render, screen, waitFor } from '@testing-library/react';
-import { CommandPalette } from '../src';
+import {
+  CommandPalette,
+  CommandPaletteCombobox,
+  CommandPaletteDescription,
+  CommandPaletteItem,
+  CommandPaletteList,
+  CommandPalettePanel,
+  CommandPaletteSearch,
+  CommandPaletteTitle,
+} from '../src';
 
 const commands = createListCollection({
   items: [{ label: 'Open settings', value: 'settings' }],
@@ -12,14 +21,14 @@ test('opens and closes from the Ark shortcut while suppressing repeated events',
     <>
       <input aria-label="Editable target" />
       <CommandPalette aria-label="Command palette" portalled={false} shortcut="alt+k">
-        <CommandPalette.Panel>
-          <CommandPalette.Combobox collection={commands}>
-            <CommandPalette.Search />
-            <CommandPalette.List>
-              <CommandPalette.Item item={commands.items[0]}>Open settings</CommandPalette.Item>
-            </CommandPalette.List>
-          </CommandPalette.Combobox>
-        </CommandPalette.Panel>
+        <CommandPalettePanel>
+          <CommandPaletteCombobox collection={commands}>
+            <CommandPaletteSearch />
+            <CommandPaletteList>
+              <CommandPaletteItem item={commands.items[0]}>Open settings</CommandPaletteItem>
+            </CommandPaletteList>
+          </CommandPaletteCombobox>
+        </CommandPalettePanel>
       </CommandPalette>
     </>,
   );
@@ -53,14 +62,14 @@ test('forwards selection details and respects closeOnSelect=false', async () => 
 
   render(
     <CommandPalette defaultOpen aria-label="Command palette" portalled={false}>
-      <CommandPalette.Panel>
-        <CommandPalette.Combobox closeOnSelect={false} collection={commands} onSelect={onSelect}>
-          <CommandPalette.Search />
-          <CommandPalette.List>
-            <CommandPalette.Item item={commands.items[0]}>Open settings</CommandPalette.Item>
-          </CommandPalette.List>
-        </CommandPalette.Combobox>
-      </CommandPalette.Panel>
+      <CommandPalettePanel>
+        <CommandPaletteCombobox closeOnSelect={false} collection={commands} onSelect={onSelect}>
+          <CommandPaletteSearch />
+          <CommandPaletteList>
+            <CommandPaletteItem item={commands.items[0]}>Open settings</CommandPaletteItem>
+          </CommandPaletteList>
+        </CommandPaletteCombobox>
+      </CommandPalettePanel>
     </CommandPalette>,
   );
 
@@ -77,16 +86,16 @@ test('forwards selection details and respects closeOnSelect=false', async () => 
 test('uses dialog title and description semantics and closes after selection by default', async () => {
   render(
     <CommandPalette defaultOpen portalled={false}>
-      <CommandPalette.Panel>
-        <CommandPalette.Title>Command palette</CommandPalette.Title>
-        <CommandPalette.Description>Select a command to continue.</CommandPalette.Description>
-        <CommandPalette.Combobox collection={commands}>
-          <CommandPalette.Search />
-          <CommandPalette.List>
-            <CommandPalette.Item item={commands.items[0]}>Open settings</CommandPalette.Item>
-          </CommandPalette.List>
-        </CommandPalette.Combobox>
-      </CommandPalette.Panel>
+      <CommandPalettePanel>
+        <CommandPaletteTitle>Command palette</CommandPaletteTitle>
+        <CommandPaletteDescription>Select a command to continue.</CommandPaletteDescription>
+        <CommandPaletteCombobox collection={commands}>
+          <CommandPaletteSearch />
+          <CommandPaletteList>
+            <CommandPaletteItem item={commands.items[0]}>Open settings</CommandPaletteItem>
+          </CommandPaletteList>
+        </CommandPaletteCombobox>
+      </CommandPalettePanel>
     </CommandPalette>,
   );
 
@@ -104,14 +113,14 @@ test('uses dialog title and description semantics and closes after selection by 
 test('provides an accessible search control that clears without losing focus', async () => {
   render(
     <CommandPalette defaultOpen aria-label="Command palette" portalled={false}>
-      <CommandPalette.Panel>
-        <CommandPalette.Combobox collection={commands}>
-          <CommandPalette.Search />
-          <CommandPalette.List>
-            <CommandPalette.Item item={commands.items[0]}>Open settings</CommandPalette.Item>
-          </CommandPalette.List>
-        </CommandPalette.Combobox>
-      </CommandPalette.Panel>
+      <CommandPalettePanel>
+        <CommandPaletteCombobox collection={commands}>
+          <CommandPaletteSearch />
+          <CommandPaletteList>
+            <CommandPaletteItem item={commands.items[0]}>Open settings</CommandPaletteItem>
+          </CommandPaletteList>
+        </CommandPaletteCombobox>
+      </CommandPalettePanel>
     </CommandPalette>,
   );
 

@@ -1,7 +1,16 @@
 import { For } from 'solid-js';
 import type { Meta, StoryObj } from 'storybook-solidjs-vite';
 import { Button } from '@/components/button/Button';
-import { ScrollArea } from '@/components/scroll-area/ScrollArea';
+import {
+  ScrollArea,
+  ScrollAreaContent,
+  ScrollAreaCorner,
+  ScrollAreaRootProvider,
+  ScrollAreaScrollbar,
+  ScrollAreaThumb,
+  ScrollAreaViewport,
+  useScrollArea,
+} from '@/components/scroll-area/ScrollArea';
 import { insideScrollSections } from '../data/insideScrollSections';
 import styles from './ScrollArea.stories.module.css';
 
@@ -38,21 +47,21 @@ function TextContent() {
 function VerticalScrollArea() {
   return (
     <ScrollArea class={styles.root}>
-      <ScrollArea.Viewport>
-        <ScrollArea.Content>
+      <ScrollAreaViewport>
+        <ScrollAreaContent>
           <TextContent />
-        </ScrollArea.Content>
-      </ScrollArea.Viewport>
-      <ScrollArea.Scrollbar>
-        <ScrollArea.Thumb />
-      </ScrollArea.Scrollbar>
-      <ScrollArea.Corner />
+        </ScrollAreaContent>
+      </ScrollAreaViewport>
+      <ScrollAreaScrollbar>
+        <ScrollAreaThumb />
+      </ScrollAreaScrollbar>
+      <ScrollAreaCorner />
     </ScrollArea>
   );
 }
 
 function RootProviderStory() {
-  const scrollArea = ScrollArea.useScrollArea();
+  const scrollArea = useScrollArea();
 
   return (
     <div class={styles.providerStack}>
@@ -72,17 +81,17 @@ function RootProviderStory() {
           Bottom
         </Button>
       </div>
-      <ScrollArea.RootProvider value={scrollArea} class={styles.root}>
-        <ScrollArea.Viewport>
-          <ScrollArea.Content>
+      <ScrollAreaRootProvider value={scrollArea} class={styles.root}>
+        <ScrollAreaViewport>
+          <ScrollAreaContent>
             <TextContent />
-          </ScrollArea.Content>
-        </ScrollArea.Viewport>
-        <ScrollArea.Scrollbar>
-          <ScrollArea.Thumb />
-        </ScrollArea.Scrollbar>
-        <ScrollArea.Corner />
-      </ScrollArea.RootProvider>
+          </ScrollAreaContent>
+        </ScrollAreaViewport>
+        <ScrollAreaScrollbar>
+          <ScrollAreaThumb />
+        </ScrollAreaScrollbar>
+        <ScrollAreaCorner />
+      </ScrollAreaRootProvider>
     </div>
   );
 }
@@ -95,15 +104,15 @@ export const AlwaysVisible: Story = {
   name: 'Always Visible',
   render: () => (
     <ScrollArea class={styles.root} variant="always">
-      <ScrollArea.Viewport>
-        <ScrollArea.Content>
+      <ScrollAreaViewport>
+        <ScrollAreaContent>
           <TextContent />
-        </ScrollArea.Content>
-      </ScrollArea.Viewport>
-      <ScrollArea.Scrollbar>
-        <ScrollArea.Thumb />
-      </ScrollArea.Scrollbar>
-      <ScrollArea.Corner />
+        </ScrollAreaContent>
+      </ScrollAreaViewport>
+      <ScrollAreaScrollbar>
+        <ScrollAreaThumb />
+      </ScrollAreaScrollbar>
+      <ScrollAreaCorner />
     </ScrollArea>
   ),
 };
@@ -111,15 +120,15 @@ export const AlwaysVisible: Story = {
 export const Fade: Story = {
   render: () => (
     <ScrollArea class={styles.root} fade>
-      <ScrollArea.Viewport>
-        <ScrollArea.Content>
+      <ScrollAreaViewport>
+        <ScrollAreaContent>
           <TextContent />
-        </ScrollArea.Content>
-      </ScrollArea.Viewport>
-      <ScrollArea.Scrollbar>
-        <ScrollArea.Thumb />
-      </ScrollArea.Scrollbar>
-      <ScrollArea.Corner />
+        </ScrollAreaContent>
+      </ScrollAreaViewport>
+      <ScrollAreaScrollbar>
+        <ScrollAreaThumb />
+      </ScrollAreaScrollbar>
+      <ScrollAreaCorner />
     </ScrollArea>
   ),
 };
@@ -127,15 +136,15 @@ export const Fade: Story = {
 export const Horizontal: Story = {
   render: () => (
     <ScrollArea class={styles.horizontalRoot}>
-      <ScrollArea.Viewport>
-        <ScrollArea.Content>
+      <ScrollAreaViewport>
+        <ScrollAreaContent>
           <p class={styles.wideParagraph}>{insideScrollSections[0]?.body}</p>
-        </ScrollArea.Content>
-      </ScrollArea.Viewport>
-      <ScrollArea.Scrollbar orientation="horizontal">
-        <ScrollArea.Thumb />
-      </ScrollArea.Scrollbar>
-      <ScrollArea.Corner />
+        </ScrollAreaContent>
+      </ScrollAreaViewport>
+      <ScrollAreaScrollbar orientation="horizontal">
+        <ScrollAreaThumb />
+      </ScrollAreaScrollbar>
+      <ScrollAreaCorner />
     </ScrollArea>
   ),
 };
@@ -144,18 +153,18 @@ export const RTL: Story = {
   name: 'RTL',
   render: () => (
     <ScrollArea class={styles.horizontalRoot} dir="rtl" variant="always">
-      <ScrollArea.Viewport aria-label="ملاحظات الإصدار">
-        <ScrollArea.Content>
+      <ScrollAreaViewport aria-label="ملاحظات الإصدار">
+        <ScrollAreaContent>
           <p class={styles.wideParagraph}>
             تدعم منطقة التمرير اتجاه النص من اليمين إلى اليسار مع الحفاظ على التمرير الأصلي وأجزاء
             شريط التمرير القابلة للتخصيص.
           </p>
-        </ScrollArea.Content>
-      </ScrollArea.Viewport>
-      <ScrollArea.Scrollbar orientation="horizontal">
-        <ScrollArea.Thumb />
-      </ScrollArea.Scrollbar>
-      <ScrollArea.Corner />
+        </ScrollAreaContent>
+      </ScrollAreaViewport>
+      <ScrollAreaScrollbar orientation="horizontal">
+        <ScrollAreaThumb />
+      </ScrollAreaScrollbar>
+      <ScrollAreaCorner />
     </ScrollArea>
   ),
 };
@@ -164,20 +173,20 @@ export const BothDirections: Story = {
   name: 'Both Directions',
   render: () => (
     <ScrollArea class={styles.root}>
-      <ScrollArea.Viewport>
-        <ScrollArea.Content>
+      <ScrollAreaViewport>
+        <ScrollAreaContent>
           <div class={styles.gridContent}>
             <For each={gridItems}>{(item) => <div class={styles.cell}>{item}</div>}</For>
           </div>
-        </ScrollArea.Content>
-      </ScrollArea.Viewport>
-      <ScrollArea.Scrollbar>
-        <ScrollArea.Thumb />
-      </ScrollArea.Scrollbar>
-      <ScrollArea.Scrollbar orientation="horizontal">
-        <ScrollArea.Thumb />
-      </ScrollArea.Scrollbar>
-      <ScrollArea.Corner />
+        </ScrollAreaContent>
+      </ScrollAreaViewport>
+      <ScrollAreaScrollbar>
+        <ScrollAreaThumb />
+      </ScrollAreaScrollbar>
+      <ScrollAreaScrollbar orientation="horizontal">
+        <ScrollAreaThumb />
+      </ScrollAreaScrollbar>
+      <ScrollAreaCorner />
     </ScrollArea>
   ),
 };
@@ -185,8 +194,8 @@ export const BothDirections: Story = {
 export const Nested: Story = {
   render: () => (
     <ScrollArea class={styles.root}>
-      <ScrollArea.Viewport>
-        <ScrollArea.Content>
+      <ScrollAreaViewport>
+        <ScrollAreaContent>
           <div class={styles.textContent}>
             <section>
               <h3>Outer release notes</h3>
@@ -198,12 +207,12 @@ export const Nested: Story = {
               <p class={styles.paragraph}>{insideScrollSections[1]?.body}</p>
             </section>
           </div>
-        </ScrollArea.Content>
-      </ScrollArea.Viewport>
-      <ScrollArea.Scrollbar>
-        <ScrollArea.Thumb />
-      </ScrollArea.Scrollbar>
-      <ScrollArea.Corner />
+        </ScrollAreaContent>
+      </ScrollAreaViewport>
+      <ScrollAreaScrollbar>
+        <ScrollAreaThumb />
+      </ScrollAreaScrollbar>
+      <ScrollAreaCorner />
     </ScrollArea>
   ),
 };

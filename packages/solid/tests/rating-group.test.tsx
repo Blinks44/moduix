@@ -1,13 +1,23 @@
 import { expect, test } from '@rstest/core';
 import { fireEvent, render, screen, waitFor } from '@solidjs/testing-library';
 import { createSignal } from 'solid-js';
-import { RatingGroup, useRatingGroup } from '../src';
+import {
+  RatingGroup,
+  RatingGroupControl,
+  RatingGroupHiddenInput,
+  RatingGroupItem,
+  RatingGroupItemIndicator,
+  RatingGroupItems,
+  RatingGroupLabel,
+  RatingGroupRootProvider,
+  useRatingGroup,
+} from '../src';
 
 function RatingItems() {
   return (
-    <RatingGroup.Control>
-      <RatingGroup.Items />
-    </RatingGroup.Control>
+    <RatingGroupControl>
+      <RatingGroupItems />
+    </RatingGroupControl>
   );
 }
 
@@ -15,10 +25,10 @@ function ProviderRatingGroup() {
   const ratingGroup = useRatingGroup({ defaultValue: 3 });
 
   return (
-    <RatingGroup.RootProvider value={ratingGroup}>
-      <RatingGroup.Label>Provider rating</RatingGroup.Label>
+    <RatingGroupRootProvider value={ratingGroup}>
+      <RatingGroupLabel>Provider rating</RatingGroupLabel>
       <RatingItems />
-    </RatingGroup.RootProvider>
+    </RatingGroupRootProvider>
   );
 }
 
@@ -27,7 +37,7 @@ function ControlledRatingGroup() {
 
   return (
     <RatingGroup value={value()} onValueChange={(details) => setValue(details.value)}>
-      <RatingGroup.Label>Controlled rating</RatingGroup.Label>
+      <RatingGroupLabel>Controlled rating</RatingGroupLabel>
       <RatingItems />
     </RatingGroup>
   );
@@ -37,9 +47,9 @@ test('submits through an explicit Ark hidden input', async () => {
   const { container } = render(() => (
     <form>
       <RatingGroup defaultValue={3} name="rating">
-        <RatingGroup.Label>Rating</RatingGroup.Label>
+        <RatingGroupLabel>Rating</RatingGroupLabel>
         <RatingItems />
-        <RatingGroup.HiddenInput />
+        <RatingGroupHiddenInput />
       </RatingGroup>
     </form>
   ));
@@ -62,9 +72,9 @@ test('preserves asChild composition with an explicit hidden input', () => {
       defaultValue={2}
     >
       <>
-        <RatingGroup.Label>Rating</RatingGroup.Label>
+        <RatingGroupLabel>Rating</RatingGroupLabel>
         <RatingItems />
-        <RatingGroup.HiddenInput />
+        <RatingGroupHiddenInput />
       </>
     </RatingGroup>
   ));
@@ -96,7 +106,7 @@ test('preserves Ark callback details and controlled and provider paths', async (
   const changes: number[] = [];
   const { unmount } = render(() => (
     <RatingGroup defaultValue={2} onValueChange={(details) => changes.push(details.value)}>
-      <RatingGroup.Label>Rating</RatingGroup.Label>
+      <RatingGroupLabel>Rating</RatingGroupLabel>
       <RatingItems />
     </RatingGroup>
   ));
@@ -123,7 +133,7 @@ test('preserves Ark callback details and controlled and provider paths', async (
 test('keeps half-state and keyboard focus Ark-shaped', async () => {
   render(() => (
     <RatingGroup allowHalf defaultValue={3.5}>
-      <RatingGroup.Label>Rating</RatingGroup.Label>
+      <RatingGroupLabel>Rating</RatingGroupLabel>
       <RatingItems />
     </RatingGroup>
   ));
@@ -139,7 +149,7 @@ test('keeps half-state and keyboard focus Ark-shaped', async () => {
 test('does not mark a mouse-selected item as focus-visible', () => {
   render(() => (
     <RatingGroup defaultValue={3}>
-      <RatingGroup.Label>Rating</RatingGroup.Label>
+      <RatingGroupLabel>Rating</RatingGroupLabel>
       <RatingItems />
     </RatingGroup>
   ));
@@ -152,14 +162,14 @@ test('does not mark a mouse-selected item as focus-visible', () => {
 test('repeats custom indicators with Ark item state', () => {
   render(() => (
     <RatingGroup allowHalf defaultValue={3.5}>
-      <RatingGroup.Label>Rating</RatingGroup.Label>
-      <RatingGroup.Control>
-        <RatingGroup.Items>
-          <RatingGroup.ItemIndicator data-testid="custom-indicator">
+      <RatingGroupLabel>Rating</RatingGroupLabel>
+      <RatingGroupControl>
+        <RatingGroupItems>
+          <RatingGroupItemIndicator data-testid="custom-indicator">
             <span>Star</span>
-          </RatingGroup.ItemIndicator>
-        </RatingGroup.Items>
-      </RatingGroup.Control>
+          </RatingGroupItemIndicator>
+        </RatingGroupItems>
+      </RatingGroupControl>
     </RatingGroup>
   ));
 
@@ -179,13 +189,13 @@ test('forwards refs and exposes stable slots on public parts', () => {
 
   const { container } = render(() => (
     <RatingGroup ref={(element) => (rootRef = element)} defaultValue={3}>
-      <RatingGroup.Label ref={(element) => (labelRef = element)}>Rating</RatingGroup.Label>
-      <RatingGroup.Control ref={(element) => (controlRef = element)}>
-        <RatingGroup.Item ref={(element) => (itemRef = element)} index={1}>
-          <RatingGroup.ItemIndicator ref={(element) => (indicatorRef = element)} />
-        </RatingGroup.Item>
-      </RatingGroup.Control>
-      <RatingGroup.HiddenInput />
+      <RatingGroupLabel ref={(element) => (labelRef = element)}>Rating</RatingGroupLabel>
+      <RatingGroupControl ref={(element) => (controlRef = element)}>
+        <RatingGroupItem ref={(element) => (itemRef = element)} index={1}>
+          <RatingGroupItemIndicator ref={(element) => (indicatorRef = element)} />
+        </RatingGroupItem>
+      </RatingGroupControl>
+      <RatingGroupHiddenInput />
     </RatingGroup>
   ));
 

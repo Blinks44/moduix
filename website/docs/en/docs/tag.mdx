@@ -38,7 +38,7 @@ need a local action, such as removal.
 ## Basic
 
 Start with a `Tag`
-root and `Tag.Label`. Add the other parts only when the token needs an icon, supporting content,
+root and `TagLabel`. Add the other parts only when the token needs an icon, supporting content,
 or an inline close action.
 
 <ExampleFrame variant="component">
@@ -99,32 +99,32 @@ See [Quick Start](/docs/quick-start) for full package setup, registry configurat
 
 ## Anatomy
 
-The root is also available as `Tag.Root`. The short `<Tag>` form and `<Tag.Root>` are equivalent.
+Use `Tag` as the root element.
 
 ```text
-Tag / Tag.Root
-├─ Tag.StartElement (optional)
-├─ Tag.Label
-└─ Tag.EndElement (optional)
-   └─ Tag.CloseTrigger (optional)
+Tag
+├─ TagStartElement (optional)
+├─ TagLabel
+└─ TagEndElement (optional)
+   └─ TagCloseTrigger (optional)
 ```
 
 | Part               | Role                                                                                     |
 | ------------------ | ---------------------------------------------------------------------------------------- |
-| `Tag` / `Tag.Root` | Root element. Applies the token layout, border, size, variant, and `asChild` composition. |
-| `Tag.Label`        | Visible value wrapper and truncation boundary.                                            |
-| `Tag.StartElement` | Optional leading area for an icon, avatar, or status indicator.                           |
-| `Tag.EndElement`   | Optional trailing area for an icon or action.                                              |
-| `Tag.CloseTrigger` | Optional button for removing the token.                                                   |
+| `Tag`              | Root element. Applies the token layout, border, size, variant, and `asChild` composition. |
+| `TagLabel`        | Visible value wrapper and truncation boundary.                                            |
+| `TagStartElement` | Optional leading area for an icon, avatar, or status indicator.                           |
+| `TagEndElement`   | Optional trailing area for an icon or action.                                              |
+| `TagCloseTrigger` | Optional button for removing the token.                                                   |
 
 ## Composition
 
 `Tag` is presentational and does not own selected or removed values. Keep the collection in the
-parent, update it from `Tag.CloseTrigger`, and place that trigger inside `Tag.EndElement`.
+parent, update it from `TagCloseTrigger`, and place that trigger inside `TagEndElement`.
 
 Use `asChild` only when the root or close trigger must replace its default host element. The single
 child becomes the DOM host and must provide the required semantics. In particular,
-`Tag.CloseTrigger asChild` needs an explicit close control and accessible name.
+`TagCloseTrigger asChild` needs an explicit close control and accessible name.
 
 ## Examples
 
@@ -169,7 +169,7 @@ Give each trigger a label that includes the value being removed.
 
 ### Icon
 
-Use `Tag.StartElement` and `Tag.EndElement` for icons and actions so `Tag.Label` remains the
+Use `TagStartElement` and `TagEndElement` for icons and actions so `TagLabel` remains the
 truncation boundary and action sizing stays independent.
 
 <ExampleFrame variant="component">
@@ -208,7 +208,7 @@ truncation boundary and action sizing stays independent.
 
 ### Overflow
 
-Constrain the root when long values need to fit a narrow area. `Tag.Label` becomes the truncation
+Constrain the root when long values need to fit a narrow area. `TagLabel` becomes the truncation
 boundary and shows an ellipsis; add `title` when the full value should remain discoverable.
 
 <ExampleFrame variant="component">
@@ -386,4 +386,4 @@ classes on the exported parts. Data attributes and `data-slot` hooks are shared 
 - Exported parts emit `data-scope="tag"` and `data-part="root" | "label" | "start-element" | "end-element" | "close-trigger"`.
 - `data-slot="tag-root"`, `data-slot="tag-label"`, `data-slot="tag-start-element"`, `data-slot="tag-end-element"`, and `data-slot="tag-close-trigger"` are stable moduix selectors.
 - `Tag` writes the selected size and variant to `data-size` and `data-variant`.
-- `Tag.CloseTrigger` exposes `data-disabled` for disabled or `aria-disabled` states and inherits the token color.
+- `TagCloseTrigger` exposes `data-disabled` for disabled or `aria-disabled` states and inherits the token color.

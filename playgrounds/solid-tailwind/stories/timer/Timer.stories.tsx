@@ -1,12 +1,23 @@
 import { createSignal, Show } from 'solid-js';
 import type { ComponentProps } from 'solid-js';
 import type { Meta, StoryObj } from 'storybook-solidjs-vite';
-import { Timer, useTimer } from '@/components/timer/Timer';
+import {
+  Timer,
+  TimerItem,
+  TimerArea,
+  TimerSeparator,
+  TimerControl,
+  TimerActionTrigger,
+  TimerSegments,
+  TimerRootProvider,
+  TimerContext,
+  useTimer,
+} from '@/components/timer/Timer';
 import { PauseIcon, PlayIcon, RotateCcwIcon } from '@/lib/moduix/icons/ui/Icons';
 
 const meta = {
   title: 'Components/Timer',
-  component: Timer.Root,
+  component: Timer,
   tags: ['autodocs'],
   args: {
     targetMs: 60 * 60 * 1000,
@@ -15,7 +26,7 @@ const meta = {
   parameters: {
     layout: 'centered',
   },
-} satisfies Meta<typeof Timer.Root>;
+} satisfies Meta<typeof Timer>;
 
 export default meta;
 
@@ -24,11 +35,11 @@ type Story = StoryObj<typeof meta>;
 function TimerItemGroup(props: {
   itemClass?: string;
   label: string;
-  type: ComponentProps<typeof Timer.Item>['type'];
+  type: ComponentProps<typeof TimerItem>['type'];
 }) {
   return (
     <span class="inline-grid justify-items-center gap-1">
-      <Timer.Item class={props.itemClass} type={props.type} />
+      <TimerItem class={props.itemClass} type={props.type} />
       <span class="text-xs leading-4 font-normal text-muted-foreground">{props.label}</span>
     </span>
   );
@@ -36,61 +47,61 @@ function TimerItemGroup(props: {
 
 function ShortTimerValue() {
   return (
-    <Timer.Area>
+    <TimerArea>
       <TimerItemGroup type="minutes" label="minutes" />
-      <Timer.Separator>:</Timer.Separator>
+      <TimerSeparator>:</TimerSeparator>
       <TimerItemGroup type="seconds" label="seconds" />
-    </Timer.Area>
+    </TimerArea>
   );
 }
 
 function TimerControls(props: { actionClass?: string }) {
   return (
-    <Timer.Control>
-      <Timer.ActionTrigger action="start" class={props.actionClass}>
+    <TimerControl>
+      <TimerActionTrigger action="start" class={props.actionClass}>
         <PlayIcon /> Start
-      </Timer.ActionTrigger>
-      <Timer.ActionTrigger action="resume" class={props.actionClass}>
+      </TimerActionTrigger>
+      <TimerActionTrigger action="resume" class={props.actionClass}>
         <PlayIcon /> Resume
-      </Timer.ActionTrigger>
-      <Timer.ActionTrigger action="pause" class={props.actionClass}>
+      </TimerActionTrigger>
+      <TimerActionTrigger action="pause" class={props.actionClass}>
         <PauseIcon /> Pause
-      </Timer.ActionTrigger>
-      <Timer.ActionTrigger action="reset" class={props.actionClass}>
+      </TimerActionTrigger>
+      <TimerActionTrigger action="reset" class={props.actionClass}>
         <RotateCcwIcon /> Reset
-      </Timer.ActionTrigger>
-    </Timer.Control>
+      </TimerActionTrigger>
+    </TimerControl>
   );
 }
 
 export const Basic: Story = {
   render: (args) => (
-    <Timer.Root {...args}>
-      <Timer.Segments />
+    <Timer {...args}>
+      <TimerSegments />
       <TimerControls />
-    </Timer.Root>
+    </Timer>
   ),
 };
 
 export const Countdown: Story = {
   render: () => (
-    <Timer.Root countdown startMs={10 * 60 * 1000}>
+    <Timer countdown startMs={10 * 60 * 1000}>
       <ShortTimerValue />
       <TimerControls />
-    </Timer.Root>
+    </Timer>
   ),
 };
 
 export const Interval: Story = {
   render: () => (
-    <Timer.Root interval={100} targetMs={60 * 1000}>
-      <Timer.Area>
+    <Timer interval={100} targetMs={60 * 1000}>
+      <TimerArea>
         <TimerItemGroup type="seconds" label="seconds" />
-        <Timer.Separator>.</Timer.Separator>
+        <TimerSeparator>.</TimerSeparator>
         <TimerItemGroup type="milliseconds" label="ms" />
-      </Timer.Area>
+      </TimerArea>
       <TimerControls />
-    </Timer.Root>
+    </Timer>
   ),
 };
 
@@ -100,19 +111,19 @@ export const Events: Story = {
     const [complete, setComplete] = createSignal(false);
 
     return (
-      <Timer.Root
+      <Timer
         targetMs={10 * 1000}
         onTick={() => setTicks((value) => value + 1)}
         onComplete={() => setComplete(true)}
       >
-        <Timer.Area>
+        <TimerArea>
           <TimerItemGroup type="seconds" label="seconds" />
-        </Timer.Area>
+        </TimerArea>
         <TimerControls />
         <p class="m-0 text-sm leading-5 text-muted-foreground">
           Ticks: {ticks()} / {complete() ? 'Complete' : 'Running target'}
         </p>
-      </Timer.Root>
+      </Timer>
     );
   },
 };
@@ -127,7 +138,7 @@ export const Pomodoro: Story = {
           const targetMs = currentMode === 'work' ? 25 * 60 * 1000 : 5 * 60 * 1000;
 
           return (
-            <Timer.Root
+            <Timer
               countdown
               startMs={targetMs}
               onComplete={() => setMode((value) => (value === 'work' ? 'break' : 'work'))}
@@ -137,7 +148,7 @@ export const Pomodoro: Story = {
               </p>
               <ShortTimerValue />
               <TimerControls />
-            </Timer.Root>
+            </Timer>
           );
         }}
       </Show>
@@ -150,30 +161,30 @@ export const RootProvider: Story = {
     const timer = useTimer({ targetMs: 60 * 60 * 1000 });
 
     return (
-      <Timer.RootProvider value={timer}>
-        <Timer.Context>
+      <TimerRootProvider value={timer}>
+        <TimerContext>
           {(api) => (
             <p class="m-0 text-sm leading-5 text-muted-foreground">
               Progress: {(api().progressPercent * 100).toFixed(0)}%
             </p>
           )}
-        </Timer.Context>
+        </TimerContext>
         <ShortTimerValue />
         <TimerControls />
-      </Timer.RootProvider>
+      </TimerRootProvider>
     );
   },
 };
 
 export const CustomStyling: Story = {
   render: () => (
-    <Timer.Root targetMs={15 * 60 * 1000}>
-      <Timer.Area class="text-3xl">
-        <Timer.Item class="text-primary" type="minutes" />
-        <Timer.Separator class="text-chart-2">·</Timer.Separator>
-        <Timer.Item class="text-primary" type="seconds" />
-      </Timer.Area>
+    <Timer targetMs={15 * 60 * 1000}>
+      <TimerArea class="text-3xl">
+        <TimerItem class="text-primary" type="minutes" />
+        <TimerSeparator class="text-chart-2">·</TimerSeparator>
+        <TimerItem class="text-primary" type="seconds" />
+      </TimerArea>
       <TimerControls actionClass="border-transparent bg-muted" />
-    </Timer.Root>
+    </Timer>
   ),
 };

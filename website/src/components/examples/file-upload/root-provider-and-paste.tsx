@@ -1,4 +1,14 @@
-import { FileUpload, useFileUpload } from '@moduix/react/file-upload';
+import {
+  useFileUpload,
+  FileUploadContext,
+  FileUploadHiddenInput,
+  FileUploadItem,
+  FileUploadItemDeleteTrigger,
+  FileUploadItemGroup,
+  FileUploadItemName,
+  FileUploadLabel,
+  FileUploadRootProvider,
+} from '@moduix/react/file-upload';
 import { Textarea } from '@moduix/react/textarea';
 import styles from '@/components/examples/file-upload/file-upload-root-provider-and-paste.module.css';
 
@@ -10,25 +20,25 @@ export default function RootProviderPasteUploadDemo() {
     accept,
   });
   return (
-    <FileUpload.RootProvider className={styles.root} value={fileUpload}>
-      <FileUpload.Label>Images</FileUpload.Label>
+    <FileUploadRootProvider className={styles.root} value={fileUpload}>
+      <FileUploadLabel>Images</FileUploadLabel>
       <Textarea
         placeholder="Paste an image here"
         onPaste={(event) => fileUpload.setClipboardFiles(event.clipboardData)}
       />
-      <FileUpload.ItemGroup>
-        <FileUpload.Context>
+      <FileUploadItemGroup>
+        <FileUploadContext>
           {({ acceptedFiles }) =>
             acceptedFiles.map((file) => (
-              <FileUpload.Item key={file.name} file={file}>
-                <FileUpload.ItemName />
-                <FileUpload.ItemDeleteTrigger aria-label={`Remove ${file.name}`} />
-              </FileUpload.Item>
+              <FileUploadItem key={file.name} file={file}>
+                <FileUploadItemName />
+                <FileUploadItemDeleteTrigger aria-label={`Remove ${file.name}`} />
+              </FileUploadItem>
             ))
           }
-        </FileUpload.Context>
-      </FileUpload.ItemGroup>
-      <FileUpload.HiddenInput />
-    </FileUpload.RootProvider>
+        </FileUploadContext>
+      </FileUploadItemGroup>
+      <FileUploadHiddenInput />
+    </FileUploadRootProvider>
   );
 }

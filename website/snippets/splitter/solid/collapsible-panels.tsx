@@ -1,4 +1,4 @@
-import { Splitter } from '@moduix/solid/splitter';
+import { Splitter, SplitterPanel, SplitterResizeTrigger } from '@moduix/solid/splitter';
 import styles from '@/components/examples/splitter/splitter-collapsible-panels.module.css';
 
 const panels = [
@@ -18,13 +18,13 @@ const panels = [
 export default function CollapsibleSplitterDemo() {
   return (
     <Splitter panels={panels} defaultSize={[28, 72]} class={styles.root}>
-      <Splitter.Panel id="sidebar" class={styles.panel}>
+      <SplitterPanel id="sidebar" class={styles.panel}>
         Sidebar
-      </Splitter.Panel>
-      <Splitter.ResizeTrigger id="sidebar:content" aria-label="Resize panels" />
-      <Splitter.Panel id="content" class={styles.panel}>
+      </SplitterPanel>
+      <SplitterResizeTrigger id="sidebar:content" aria-label="Resize panels" />
+      <SplitterPanel id="content" class={styles.panel}>
         Content
-      </Splitter.Panel>
+      </SplitterPanel>
     </Splitter>
   );
 }

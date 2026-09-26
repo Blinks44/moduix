@@ -1,5 +1,11 @@
-import { Menu } from '@moduix/react/menu';
-import { SplitButton } from '@moduix/react/split-button';
+import { MenuItem } from '@moduix/react/menu';
+import {
+  SplitButton,
+  SplitButtonAction,
+  SplitButtonContent,
+  SplitButtonPositioner,
+  SplitButtonTrigger,
+} from '@moduix/react/split-button';
 import styles from '@/components/examples/split-button/split-button-sizes.module.css';
 
 const sizes = ['xs', 'sm', 'md', 'lg', 'xl'] as const;
@@ -9,14 +15,14 @@ export default function SplitButtonSizesDemo() {
     <div className={styles.row}>
       {sizes.map((size) => (
         <SplitButton key={size} aria-label={`${size} create actions`} size={size} variant="outline">
-          <SplitButton.Action>{size}</SplitButton.Action>
-          <SplitButton.Trigger />
-          <SplitButton.Positioner>
-            <SplitButton.Content>
-              <Menu.Item value={`${size}-create`}>Create</Menu.Item>
-              <Menu.Item value={`${size}-create-open`}>Create and Open</Menu.Item>
-            </SplitButton.Content>
-          </SplitButton.Positioner>
+          <SplitButtonAction>{size}</SplitButtonAction>
+          <SplitButtonTrigger />
+          <SplitButtonPositioner>
+            <SplitButtonContent>
+              <MenuItem value={`${size}-create`}>Create</MenuItem>
+              <MenuItem value={`${size}-create-open`}>Create and Open</MenuItem>
+            </SplitButtonContent>
+          </SplitButtonPositioner>
         </SplitButton>
       ))}
     </div>

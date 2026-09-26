@@ -2,7 +2,17 @@ import { expect, test } from '@rstest/core';
 import { fireEvent, render, screen, waitFor } from '@testing-library/react';
 import type { ComponentProps } from 'react';
 import { createRef, useState } from 'react';
-import { TagsInput, useTagsInput } from '../src';
+import {
+  TagsInput,
+  TagsInputClearTrigger,
+  TagsInputControl,
+  TagsInputHiddenInput,
+  TagsInputInput,
+  TagsInputItems,
+  TagsInputLabel,
+  TagsInputRootProvider,
+  useTagsInput,
+} from '../src';
 
 function Tags({
   defaultValue = ['React'],
@@ -15,13 +25,13 @@ function Tags({
 }) {
   return (
     <TagsInput defaultValue={defaultValue} name={name} translations={translations}>
-      <TagsInput.Label>Frameworks</TagsInput.Label>
-      <TagsInput.Control>
-        <TagsInput.Items />
-        <TagsInput.Input placeholder="Add framework" />
-        <TagsInput.ClearTrigger />
-      </TagsInput.Control>
-      <TagsInput.HiddenInput />
+      <TagsInputLabel>Frameworks</TagsInputLabel>
+      <TagsInputControl>
+        <TagsInputItems />
+        <TagsInputInput placeholder="Add framework" />
+        <TagsInputClearTrigger />
+      </TagsInputControl>
+      <TagsInputHiddenInput />
     </TagsInput>
   );
 }
@@ -97,12 +107,12 @@ test('keeps explicit form data for asChild roots', () => {
     <form>
       <TagsInput asChild defaultValue={['React']} name="frameworks">
         <section>
-          <TagsInput.Label>Frameworks</TagsInput.Label>
-          <TagsInput.Control>
-            <TagsInput.Items />
-            <TagsInput.Input />
-          </TagsInput.Control>
-          <TagsInput.HiddenInput />
+          <TagsInputLabel>Frameworks</TagsInputLabel>
+          <TagsInputControl>
+            <TagsInputItems />
+            <TagsInputInput />
+          </TagsInputControl>
+          <TagsInputHiddenInput />
         </section>
       </TagsInput>
     </form>,
@@ -120,14 +130,14 @@ test('keeps explicit form data for root providers', async () => {
 
     return (
       <form>
-        <TagsInput.RootProvider value={tagsInput}>
-          <TagsInput.Label>Frameworks</TagsInput.Label>
-          <TagsInput.Control>
-            <TagsInput.Items />
-            <TagsInput.Input />
-          </TagsInput.Control>
-          <TagsInput.HiddenInput />
-        </TagsInput.RootProvider>
+        <TagsInputRootProvider value={tagsInput}>
+          <TagsInputLabel>Frameworks</TagsInputLabel>
+          <TagsInputControl>
+            <TagsInputItems />
+            <TagsInputInput />
+          </TagsInputControl>
+          <TagsInputHiddenInput />
+        </TagsInputRootProvider>
       </form>
     );
   }
@@ -151,11 +161,11 @@ test('keeps the consumer in control of controlled values', async () => {
     return (
       <>
         <TagsInput value={value} onValueChange={(details) => setValue(details.value)}>
-          <TagsInput.Label>Controlled frameworks</TagsInput.Label>
-          <TagsInput.Control>
-            <TagsInput.Items />
-            <TagsInput.Input />
-          </TagsInput.Control>
+          <TagsInputLabel>Controlled frameworks</TagsInputLabel>
+          <TagsInputControl>
+            <TagsInputItems />
+            <TagsInputInput />
+          </TagsInputControl>
         </TagsInput>
         <output>{value.join(',')}</output>
       </>
@@ -180,10 +190,10 @@ test('forwards refs through ordinary Ark React part paths', () => {
 
   render(
     <TagsInput ref={rootRef}>
-      <TagsInput.Label ref={labelRef}>Frameworks</TagsInput.Label>
-      <TagsInput.Control>
-        <TagsInput.Input ref={inputRef} />
-      </TagsInput.Control>
+      <TagsInputLabel ref={labelRef}>Frameworks</TagsInputLabel>
+      <TagsInputControl>
+        <TagsInputInput ref={inputRef} />
+      </TagsInputControl>
     </TagsInput>,
   );
 
@@ -195,12 +205,12 @@ test('forwards refs through ordinary Ark React part paths', () => {
 test('lets consumer utilities replace defaults and keeps visual parts visible', () => {
   const { container } = render(
     <TagsInput className="w-80" defaultValue={['React']}>
-      <TagsInput.Label>Styled frameworks</TagsInput.Label>
-      <TagsInput.Control className="rounded-lg">
-        <TagsInput.Items />
-        <TagsInput.Input className="h-8" />
-        <TagsInput.ClearTrigger className="size-5" aria-label="Clear styled frameworks" />
-      </TagsInput.Control>
+      <TagsInputLabel>Styled frameworks</TagsInputLabel>
+      <TagsInputControl className="rounded-lg">
+        <TagsInputItems />
+        <TagsInputInput className="h-8" />
+        <TagsInputClearTrigger className="size-5" aria-label="Clear styled frameworks" />
+      </TagsInputControl>
     </TagsInput>,
   );
 
@@ -226,15 +236,15 @@ test('lets consumer utilities replace defaults and keeps visual parts visible', 
 test('keeps consumer-owned styles on an asChild clear trigger', () => {
   const { container } = render(
     <TagsInput defaultValue={['React']}>
-      <TagsInput.Control>
-        <TagsInput.Items />
-        <TagsInput.Input />
-      </TagsInput.Control>
-      <TagsInput.ClearTrigger asChild>
+      <TagsInputControl>
+        <TagsInputItems />
+        <TagsInputInput />
+      </TagsInputControl>
+      <TagsInputClearTrigger asChild>
         <button className="h-9 rounded-lg" type="button">
           Clear all tags
         </button>
-      </TagsInput.ClearTrigger>
+      </TagsInputClearTrigger>
     </TagsInput>,
   );
 

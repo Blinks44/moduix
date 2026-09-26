@@ -1,5 +1,5 @@
 import type { Meta, StoryObj } from '@storybook/react-vite';
-import { JsonTreeView } from '@/components/json-tree-view/JsonTreeView';
+import { JsonTreeView, JsonTreeViewTree } from '@/components/json-tree-view/JsonTreeView';
 
 const release = {
   build: {
@@ -16,17 +16,17 @@ const release = {
 
 const meta = {
   title: 'Utilities/JsonTreeView',
-  component: JsonTreeView.Root,
+  component: JsonTreeView,
   args: {
     data: release,
     defaultExpandedDepth: 2,
   },
   render: (args) => (
     <JsonTreeView {...args}>
-      <JsonTreeView.Tree />
+      <JsonTreeViewTree />
     </JsonTreeView>
   ),
-} satisfies Meta<typeof JsonTreeView.Root>;
+} satisfies Meta<typeof JsonTreeView>;
 
 export default meta;
 type Story = StoryObj<typeof meta>;

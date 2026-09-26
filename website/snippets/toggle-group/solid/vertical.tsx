@@ -1,4 +1,4 @@
-import { ToggleGroup } from '@moduix/solid/toggle-group';
+import { ToggleGroup, ToggleGroupItem } from '@moduix/solid/toggle-group';
 
 const viewItems = [
   {
@@ -24,7 +24,7 @@ export default function VerticalToggleGroupDemo() {
       variant="outline"
     >
       {viewItems.map((item) => (
-        <ToggleGroup.Item value={item.value}>{item.label}</ToggleGroup.Item>
+        <ToggleGroupItem value={item.value}>{item.label}</ToggleGroupItem>
       ))}
     </ToggleGroup>
   );

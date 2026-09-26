@@ -44,8 +44,8 @@ import tooltipSolidWithinFixedContainers from '../../../snippets/tooltip/solid/w
 ## Базовый пример
 
 
-Используйте `Tooltip.Trigger` для элемента, который открывает подсказку, а `Tooltip.Body` для её
-содержимого. `Tooltip.Body` объединяет `Tooltip.Positioner` и `Tooltip.Content`. У триггера должно
+Используйте `TooltipTrigger` для элемента, который открывает подсказку, а `TooltipBody` для её
+содержимого. `TooltipBody` объединяет `TooltipPositioner` и `TooltipContent`. У триггера должно
 быть собственное доступное имя. Содержимое подсказки дополняет интерфейс и не заменяет видимый
 текст или `aria-label`.
 
@@ -109,51 +109,51 @@ import tooltipSolidWithinFixedContainers from '../../../snippets/tooltip/solid/w
 ## Анатомия
 
 ```text
-Tooltip / Tooltip.Root
-├─ Tooltip.Trigger
+Tooltip
+├─ TooltipTrigger
 └─ Поддерево всплывающего содержимого (автоматически выводится через портал)
-   └─ Tooltip.Positioner
-      └─ Tooltip.Content
+   └─ TooltipPositioner
+      └─ TooltipContent
          └─ содержимое
 ```
 
-Добавьте `Tooltip.Arrow` первым потомком содержимого, если всплывающий элемент должен указывать на
-триггер. `Tooltip.Arrow` по умолчанию выводит `Tooltip.ArrowTip`.
+Добавьте `TooltipArrow` первым потомком содержимого, если всплывающий элемент должен указывать на
+триггер. `TooltipArrow` по умолчанию выводит `TooltipArrowTip`.
 
 ```text
-Tooltip / Tooltip.Root
-├─ Tooltip.Trigger
+Tooltip
+├─ TooltipTrigger
 └─ Поддерево всплывающего содержимого (автоматически выводится через портал)
-   └─ Tooltip.Positioner
-      └─ Tooltip.Content
-         ├─ Tooltip.Arrow
-         │  └─ Tooltip.ArrowTip
+   └─ TooltipPositioner
+      └─ TooltipContent
+         ├─ TooltipArrow
+         │  └─ TooltipArrowTip
          └─ содержимое
 ```
 
 | Часть | Назначение |
 | --- | --- |
-| `Tooltip` / `Tooltip.Root` | Управляет состоянием подсказки, открытием и закрытием, задержками, позиционированием и жизненным циклом. |
-| `Tooltip.RootProvider` | Отображает подсказку из объекта состояния `useTooltip()`, созданного за пределами дерева. |
-| `Tooltip.Context` | Передаёт текущее состояние пользовательским потомкам через render prop. |
-| `Tooltip.Body` | Удобная обёртка, которая одновременно выводит `Tooltip.Positioner` и `Tooltip.Content`. |
-| `Tooltip.Trigger` | Интерактивный элемент, открывающий подсказку при наведении или фокусе. |
-| `Tooltip.DisabledTrigger` | Доступная для фокуса обёртка для одного отключённого нативного элемента управления, которому нужно пояснение. |
-| `Tooltip.Positioner` | Позиционирует содержимое и предоставляет переменные позиционирования Ark. |
-| `Tooltip.Content` | Видимая поверхность подсказки. |
-| `Tooltip.Arrow` | Необязательная позиционируемая обёртка стрелки, по умолчанию выводящая `Tooltip.ArrowTip`. |
-| `Tooltip.ArrowTip` | Видимый наконечник стрелки. |
+| `Tooltip` | Управляет состоянием подсказки, открытием и закрытием, задержками, позиционированием и жизненным циклом. |
+| `TooltipRootProvider` | Отображает подсказку из объекта состояния `useTooltip()`, созданного за пределами дерева. |
+| `TooltipContext` | Передаёт текущее состояние пользовательским потомкам через render prop. |
+| `TooltipBody` | Удобная обёртка, которая одновременно выводит `TooltipPositioner` и `TooltipContent`. |
+| `TooltipTrigger` | Интерактивный элемент, открывающий подсказку при наведении или фокусе. |
+| `TooltipDisabledTrigger` | Доступная для фокуса обёртка для одного отключённого нативного элемента управления, которому нужно пояснение. |
+| `TooltipPositioner` | Позиционирует содержимое и предоставляет переменные позиционирования Ark. |
+| `TooltipContent` | Видимая поверхность подсказки. |
+| `TooltipArrow` | Необязательная позиционируемая обёртка стрелки, по умолчанию выводящая `TooltipArrowTip`. |
+| `TooltipArrowTip` | Видимый наконечник стрелки. |
 
 ## Композиция
 
-Для стандартной композиции `Trigger` и содержимого используйте `Tooltip.Body`: он объединяет
-`Tooltip.Positioner` и `Tooltip.Content`. Используйте эти части явно, если им нужны независимые
+Для стандартной композиции `Trigger` и содержимого используйте `TooltipBody`: он объединяет
+`TooltipPositioner` и `TooltipContent`. Используйте эти части явно, если им нужны независимые
 стили или структура. Корневой компонент владеет состоянием: `defaultOpen` подходит для
 неконтролируемой подсказки, а `open` вместе с `onOpenChange(details)` используется, когда состояние
-хранится в другой части приложения. Используйте `Tooltip.RootProvider` с `useTooltip()`, если
-хранилище создаётся за пределами дерева, а `Tooltip.Context` или `useTooltipContext()`, если
+хранится в другой части приложения. Используйте `TooltipRootProvider` с `useTooltip()`, если
+хранилище создаётся за пределами дерева, а `TooltipContext` или `useTooltipContext()`, если
 состояние нужно потомку. `asChild` принимает один доступный для фокуса элемент, а в Solid
-используется функция рендеринга. `Tooltip.DisabledTrigger` предназначен для одного отключённого
+используется функция рендеринга. `TooltipDisabledTrigger` предназначен для одного отключённого
 нативного элемента. Портал включён по умолчанию, поэтому задавайте `portalled={false}` или
 передавайте `portalRef` только при необходимости ограничить подсказку конкретной DOM-областью.
 
@@ -264,7 +264,7 @@ Tooltip / Tooltip.Root
 
 ### Отключённый триггер
 
-Используйте `Tooltip.DisabledTrigger`, когда отключённому нативному элементу управления всё ещё
+Используйте `TooltipDisabledTrigger`, когда отключённому нативному элементу управления всё ещё
 нужно краткое пояснение. Обёртка может получать фокус, не меняя состояние отключённого потомка.
 
 <ExampleFrame variant="component">
@@ -378,7 +378,7 @@ Tooltip / Tooltip.Root
 
 ### Root Provider
 
-Используйте `useTooltip()` вместе с `Tooltip.RootProvider`, если состояние подсказки создаётся за
+Используйте `useTooltip()` вместе с `TooltipRootProvider`, если состояние подсказки создаётся за
 пределами дерева, в котором она отображается.
 
 <ExampleFrame variant="component">
@@ -413,9 +413,9 @@ Tooltip / Tooltip.Root
 
 ### Со стрелкой
 
-Добавьте `Tooltip.Arrow` первым потомком содержимого, если подсказка должна визуально указывать на
-триггер. При использовании `Tooltip.Body` разместите его непосредственно внутри `Tooltip.Body`,
-обёртка сама добавит стандартный `Tooltip.ArrowTip`.
+Добавьте `TooltipArrow` первым потомком содержимого, если подсказка должна визуально указывать на
+триггер. При использовании `TooltipBody` разместите его непосредственно внутри `TooltipBody`,
+обёртка сама добавит стандартный `TooltipArrowTip`.
 
 <ExampleFrame variant="component">
   <TooltipWithArrow />
@@ -490,7 +490,7 @@ Tooltip / Tooltip.Root
 
 ### Расширенная настройка
 
-Используйте явные части `Tooltip.Positioner` и `Tooltip.Content`, когда им нужны независимые
+Используйте явные части `TooltipPositioner` и `TooltipContent`, когда им нужны независимые
 композиция или стилизация.
 
 <ExampleFrame variant="component">
@@ -546,15 +546,15 @@ Tooltip / Tooltip.Root
 
 ### Точки для стилизации
 
-- `Tooltip.Body` не создаёт DOM-узел. При явной композиции стилизуйте отдельно
-  `Tooltip.Positioner` и `Tooltip.Content`.
-- `Tooltip.Trigger` отвечает за оформление триггера, состояния при наведении и открытии, а также за
+- `TooltipBody` не создаёт DOM-узел. При явной композиции стилизуйте отдельно
+  `TooltipPositioner` и `TooltipContent`.
+- `TooltipTrigger` отвечает за оформление триггера, состояния при наведении и открытии, а также за
   стили фокуса.
-- `Tooltip.DisabledTrigger` отвечает за обёртку отключённого элемента управления и его прямого
+- `TooltipDisabledTrigger` отвечает за обёртку отключённого элемента управления и его прямого
   отключённого потомка.
-- `Tooltip.Positioner` отвечает за ограничения плавающего позиционирования.
-- `Tooltip.Content` отвечает за оформление всплывающей поверхности.
-- `Tooltip.Arrow` и `Tooltip.ArrowTip` отвечают за размер, фон и обводку стрелки.
+- `TooltipPositioner` отвечает за ограничения плавающего позиционирования.
+- `TooltipContent` отвечает за оформление всплывающей поверхности.
+- `TooltipArrow` и `TooltipArrowTip` отвечают за размер, фон и обводку стрелки.
 
 Основные публичные точки привязки: `data-slot="tooltip-trigger"`,
 `data-slot="tooltip-positioner"`, `data-slot="tooltip-content"`,

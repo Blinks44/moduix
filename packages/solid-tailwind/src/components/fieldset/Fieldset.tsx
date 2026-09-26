@@ -7,7 +7,7 @@ import type { ComponentProps } from 'solid-js';
 import { splitProps } from 'solid-js';
 import { cn } from '@/lib/moduix/cn';
 
-function FieldsetRoot(props: ComponentProps<typeof FieldsetPrimitive.Root>) {
+function Fieldset(props: ComponentProps<typeof FieldsetPrimitive.Root>) {
   const [local, others] = splitProps(props, ['asChild', 'class']);
 
   return (
@@ -81,13 +81,15 @@ function FieldsetErrorText(props: ComponentProps<typeof FieldsetPrimitive.ErrorT
   );
 }
 
-const Fieldset = Object.assign(FieldsetRoot, {
-  Root: FieldsetRoot,
-  RootProvider: FieldsetRootProvider,
-  Context: FieldsetPrimitive.Context,
-  Legend: FieldsetLegend,
-  HelperText: FieldsetHelperText,
-  ErrorText: FieldsetErrorText,
-});
+const FieldsetContext = FieldsetPrimitive.Context;
 
-export { Fieldset, useFieldset, useFieldsetContext };
+export {
+  Fieldset,
+  FieldsetContext,
+  FieldsetErrorText,
+  FieldsetHelperText,
+  FieldsetLegend,
+  FieldsetRootProvider,
+  useFieldset,
+  useFieldsetContext,
+};

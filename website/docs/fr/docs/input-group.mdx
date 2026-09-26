@@ -1,7 +1,7 @@
 ---
 title: Input Group
 component: input-group
-description: Créez des groupes de saisie accessibles avec React ou Solid, installés par paquet ou avec la CLI shadcn.
+description: Créez des champs de saisie avec préfixes, suffixes et actions en ligne en React ou Solid, installés par paquet ou avec la CLI shadcn.
 ---
 
 import * as InputGroupDocs from '@/components/examples/input-group/css-properties';
@@ -39,8 +39,8 @@ suit les recommandations d’Ark pour la [composition](https://ark-ui.com/docs/g
 ## Exemple de base
 
 
-Utilisez `InputGroup` comme racine et composez un seul `InputGroup.Input` avec les parties
-`Addon`, `Text` ou `Button` nécessaires.
+Utilisez `InputGroup` comme racine et composez un seul `InputGroupInput` avec les parties
+`InputGroupAddon`, `InputGroupText` ou `InputGroupButton` nécessaires.
 
 <ExampleFrame variant="component">
   <InputGroupBasic />
@@ -107,32 +107,32 @@ Consultez le [Démarrage rapide](/docs/quick-start) pour la configuration compl�
 ## Anatomie
 
 ```text
-InputGroup / InputGroup.Root
-├─ InputGroup.Addon (facultatif)
-├─ InputGroup.Input
-├─ InputGroup.Text (facultatif)
-└─ InputGroup.Button (facultatif)
+InputGroup
+├─ InputGroupAddon (facultatif)
+├─ InputGroupInput
+├─ InputGroupText (facultatif)
+└─ InputGroupButton (facultatif)
 ```
 
 | Partie                            | Rôle                                                       |
 | --------------------------------- | ---------------------------------------------------------- |
-| `InputGroup` / `InputGroup.Root` | Conteneur passif avec styles et contexte de taille partagés. |
-| `InputGroup.Input`               | Élément `<input>` natif qui possède la valeur et l’état du champ. |
-| `InputGroup.Addon`               | Préfixe ou suffixe avec un fond.                           |
-| `InputGroup.Text`                | Texte intégré sans fond.                                  |
-| `InputGroup.Button`              | Bouton d’action associé au champ.                         |
+| `InputGroup`                    | Conteneur passif avec styles et contexte de taille partagés. |
+| `InputGroupInput`               | Élément `<input>` natif qui possède la valeur et l’état du champ. |
+| `InputGroupAddon`               | Préfixe ou suffixe avec un fond.                           |
+| `InputGroupText`                | Texte intégré sans fond.                                  |
+| `InputGroupButton`              | Bouton d’action associé au champ.                         |
 
 ## Composition
 
-Conservez un seul `InputGroup.Input` dans chaque groupe. Le champ imbriqué possède la valeur, le
+Conservez un seul `InputGroupInput` dans chaque groupe. Le champ imbriqué possède la valeur, le
 comportement du formulaire, l’état de validation et la `ref` ; les props contrôlées ou non contrôlées
 se placent donc sur ce champ, tandis que le libellé et les messages de validation vont dans `Field`.
-La taille de la racine est héritée par `InputGroup.Input` et `InputGroup.Button` ; les boutons ont
+La taille de la racine est héritée par `InputGroupInput` et `InputGroupButton` ; les boutons ont
 par défaut `type="button"` et n’héritent pas de `disabled` depuis `Field`. En React, utilisez
 `onChange` pour un champ contrôlé ; en Solid, utilisez `onInput`.
 
-Utilisez `Addon` et `Text` pour du contenu intégré non interactif, et `Button` pour les actions. La
-racine, `Addon` et `Text` prennent en charge `asChild` avec un seul enfant sémantique qui accepte les
+Utilisez `InputGroupAddon` et `InputGroupText` pour du contenu intégré non interactif, et `InputGroupButton` pour les actions. La
+racine, `InputGroupAddon` et `InputGroupText` prennent en charge `asChild` avec un seul enfant sémantique qui accepte les
 props fusionnées et la ref. Utilisez `Editable` lorsque la valeur doit passer du mode lecture au mode édition.
 
 ## Exemples
@@ -180,7 +180,7 @@ indisponibles.
 ### État du champ
 
 Définissez `invalid` sur `Field` lorsque la validation échoue. Ark transmet l’état et les attributs
-ARIA nécessaires à `InputGroup.Input`, puis le groupe reflète cet état.
+ARIA nécessaires à `InputGroupInput`, puis le groupe reflète cet état.
 
 <ExampleFrame variant="component">
   <InputGroupFieldState />
@@ -219,7 +219,7 @@ ARIA nécessaires à `InputGroup.Input`, puis le groupe reflète cet état.
 
 ### Préfixe et suffixe
 
-Utilisez `Addon` pour un préfixe ou un suffixe avec fond et `Text` pour un texte intégré sans fond.
+Utilisez `InputGroupAddon` pour un préfixe ou un suffixe avec fond et `InputGroupText` pour un texte intégré sans fond.
 
 <ExampleFrame variant="component">
   <InputGroupPrefixAndSuffix />
@@ -298,7 +298,7 @@ restent alignés.
 
 ### Avec une action
 
-Utilisez `InputGroup.Button` pour une action liée à la valeur du champ. Dans cet exemple, le champ
+Utilisez `InputGroupButton` pour une action liée à la valeur du champ. Dans cet exemple, le champ
 est contrôlé et `Send` ne devient disponible qu’après la saisie d’une valeur.
 
 <ExampleFrame variant="component">

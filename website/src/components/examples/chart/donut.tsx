@@ -1,4 +1,12 @@
-import { Chart } from '@moduix/react/chart';
+import {
+  Chart,
+  ChartDescription,
+  ChartHeader,
+  ChartLegend,
+  ChartLegendItem,
+  ChartPlot,
+  ChartTitle,
+} from '@moduix/react/chart';
 import { defineChart } from '@tanstack/charts';
 import { pie, polar, radialArc } from '@tanstack/charts/polar';
 import { tooltip } from '@tanstack/charts/tooltip';
@@ -54,22 +62,22 @@ const definition = defineChart({
 export default function DonutChartDemo() {
   return (
     <Chart>
-      <Chart.Header>
-        <Chart.Title>Revenue mix</Chart.Title>
-        <Chart.Description>Share of revenue by acquisition channel.</Chart.Description>
-      </Chart.Header>
-      <Chart.Plot
+      <ChartHeader>
+        <ChartTitle>Revenue mix</ChartTitle>
+        <ChartDescription>Share of revenue by acquisition channel.</ChartDescription>
+      </ChartHeader>
+      <ChartPlot
         definition={definition}
         height={320}
         ariaLabel="Revenue share by acquisition channel"
       />
-      <Chart.Legend aria-label="Acquisition channels">
+      <ChartLegend aria-label="Acquisition channels">
         {revenue.map(({ channel }, index) => (
-          <Chart.LegendItem key={channel} color={`var(--moduix-color-chart-${index + 1})`}>
+          <ChartLegendItem key={channel} color={`var(--moduix-color-chart-${index + 1})`}>
             {channel}
-          </Chart.LegendItem>
+          </ChartLegendItem>
         ))}
-      </Chart.Legend>
+      </ChartLegend>
     </Chart>
   );
 }

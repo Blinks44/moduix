@@ -2,17 +2,27 @@ import { expect, test } from '@rstest/core';
 import { render, screen, waitFor } from '@testing-library/react';
 import userEvent from '@testing-library/user-event';
 import { createRef, useState } from 'react';
-import { Field, PinInput, usePinInput } from '../src';
+import {
+  Field,
+  PinInput,
+  usePinInput,
+  FieldErrorText,
+  PinInputRootProvider,
+  PinInputHiddenInput,
+  PinInputLabel,
+  PinInputControl,
+  PinInputInputs,
+} from '../src';
 
 function ControlledPinInput() {
   const [value, setValue] = useState<string[]>([]);
 
   return (
     <PinInput count={4} value={value} onValueChange={(details) => setValue(details.value)}>
-      <PinInput.Label>Verification code</PinInput.Label>
-      <PinInput.Control>
-        <PinInput.Inputs />
-      </PinInput.Control>
+      <PinInputLabel>Verification code</PinInputLabel>
+      <PinInputControl>
+        <PinInputInputs />
+      </PinInputControl>
     </PinInput>
   );
 }
@@ -21,11 +31,11 @@ test('renders the recommended composition with Ark anatomy and form participatio
   const { container } = render(
     <form>
       <PinInput count={4} defaultValue={['1', '2', '3', '4']} name="code" required>
-        <PinInput.Label>Verification code</PinInput.Label>
-        <PinInput.Control>
-          <PinInput.Inputs />
-        </PinInput.Control>
-        <PinInput.HiddenInput />
+        <PinInputLabel>Verification code</PinInputLabel>
+        <PinInputControl>
+          <PinInputInputs />
+        </PinInputControl>
+        <PinInputHiddenInput />
       </PinInput>
     </form>,
   );
@@ -61,12 +71,12 @@ test('keeps invalid, disabled, and read-only Field state on visible inputs', () 
   render(
     <Field disabled invalid readOnly>
       <PinInput count={4}>
-        <PinInput.Label>Verification code</PinInput.Label>
-        <PinInput.Control>
-          <PinInput.Inputs />
-        </PinInput.Control>
+        <PinInputLabel>Verification code</PinInputLabel>
+        <PinInputControl>
+          <PinInputInputs />
+        </PinInputControl>
       </PinInput>
-      <Field.ErrorText>Enter a valid code.</Field.ErrorText>
+      <FieldErrorText>Enter a valid code.</FieldErrorText>
     </Field>,
   );
 
@@ -90,11 +100,11 @@ test('submits the owning form after completing an auto-submit PinInput', async (
       }}
     >
       <PinInput autoSubmit count={4} name="code">
-        <PinInput.Label>Verification code</PinInput.Label>
-        <PinInput.Control>
-          <PinInput.Inputs />
-        </PinInput.Control>
-        <PinInput.HiddenInput />
+        <PinInputLabel>Verification code</PinInputLabel>
+        <PinInputControl>
+          <PinInputInputs />
+        </PinInputControl>
+        <PinInputHiddenInput />
       </PinInput>
     </form>,
   );
@@ -117,13 +127,13 @@ test('preserves RootProvider and root asChild composition', async () => {
         <button type="button" onClick={pinInput.clearValue}>
           Clear code
         </button>
-        <PinInput.RootProvider value={pinInput}>
-          <PinInput.Label>Provider code</PinInput.Label>
-          <PinInput.Control>
-            <PinInput.Inputs />
-          </PinInput.Control>
-          <PinInput.HiddenInput />
-        </PinInput.RootProvider>
+        <PinInputRootProvider value={pinInput}>
+          <PinInputLabel>Provider code</PinInputLabel>
+          <PinInputControl>
+            <PinInputInputs />
+          </PinInputControl>
+          <PinInputHiddenInput />
+        </PinInputRootProvider>
       </>
     );
   }
@@ -132,11 +142,11 @@ test('preserves RootProvider and root asChild composition', async () => {
     <>
       <PinInput asChild count={4} ref={rootRef}>
         <section>
-          <PinInput.Label>Custom code</PinInput.Label>
-          <PinInput.Control>
-            <PinInput.Inputs />
-          </PinInput.Control>
-          <PinInput.HiddenInput />
+          <PinInputLabel>Custom code</PinInputLabel>
+          <PinInputControl>
+            <PinInputInputs />
+          </PinInputControl>
+          <PinInputHiddenInput />
         </section>
       </PinInput>
       <ProviderPinInput />

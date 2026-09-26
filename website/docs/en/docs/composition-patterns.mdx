@@ -25,7 +25,7 @@ the shadcn registry. Framework tabs below show only the mechanics that actually 
 | Standard component behavior | Shipped Moduix parts |
 | Product-owned import paths | Direct re-exports |
 | Repeated visual or layout rule | A focused wrapper around the part that owns it |
-| State outside the rendered tree | `use<Component>()` with `RootProvider` |
+| State outside the rendered tree | `use<Component>()` with `<Family>RootProvider` |
 
 Choose the lowest level that solves the repeated need. A one-off class or callback does not justify a
 new component API.
@@ -36,19 +36,19 @@ Read the anatomy on the component page before writing a wrapper. Keep structural
 placement, scrolling, focus, and styling ownership remain easy to find.
 
 ```text
-Dialog / Dialog.Root
-├─ Dialog.Trigger
+Dialog
+├─ DialogTrigger
 └─ Overlay subtree, automatically portalled
-   ├─ Dialog.Backdrop
-   └─ Dialog.Positioner
-      └─ Dialog.Content
-         ├─ Dialog.Title
-         ├─ Dialog.Description
-         └─ Dialog.CloseTrigger
+   ├─ DialogBackdrop
+   └─ DialogPositioner
+      └─ DialogContent
+         ├─ DialogTitle
+         ├─ DialogDescription
+         └─ DialogCloseTrigger
 ```
 
 Use `portalled={false}` for inline rendering and `portalRef` for a custom container when the component
-supports those props. Use `RootProvider` only when state was created outside the rendered tree.
+supports those props. Use `DialogRootProvider` only when dialog state was created outside the rendered tree.
 
 ## Compose a semantic child
 
@@ -81,22 +81,18 @@ adapter and expose only the names your product wants to support:
   <Tab label="React" value="react">
 
 ```tsx
-import { Dialog as ModuixDialog } from '@moduix/react/dialog';
+import { Dialog, DialogContent, DialogTrigger } from '@moduix/react/dialog';
 
-export const Dialog = ModuixDialog;
-export const DialogTrigger = ModuixDialog.Trigger;
-export const DialogContent = ModuixDialog.Content;
+export { Dialog, DialogTrigger, DialogContent };
 ```
 
   </Tab>
   <Tab label="Solid" value="solid">
 
 ```tsx
-import { Dialog as ModuixDialog } from '@moduix/solid/dialog';
+import { Dialog, DialogContent, DialogTrigger } from '@moduix/solid/dialog';
 
-export const Dialog = ModuixDialog;
-export const DialogTrigger = ModuixDialog.Trigger;
-export const DialogContent = ModuixDialog.Content;
+export { Dialog, DialogTrigger, DialogContent };
 ```
 
   </Tab>
@@ -106,7 +102,7 @@ This keeps a later move between package imports and source-owned registry import
 
 ## Add a product contract
 
-Wrap only the part that owns the product decision. In this example, `Dialog.Content` adds a `tone`
+Wrap only the part that owns the product decision. In this example, `DialogContent` adds a `tone`
 prop and maps it to public Dialog variables. The rest of the part tree remains unchanged.
 
 <div className="docs-reference">
@@ -138,8 +134,8 @@ a useful local styling hook; copied component CSS is not.
 
 ## Move state only when ownership changes
 
-Use `Context` for a one-off read inside the tree. Use `useDialogContext()` in reusable descendants.
-Create state with `useDialog()` and connect it through `Dialog.RootProvider` only when controls outside
+Use `DialogContext` for a one-off read inside the tree. Use `useDialogContext()` in reusable descendants.
+Create state with `useDialog()` and connect it through `DialogRootProvider` only when controls outside
 the dialog need the same state.
 
 <Tabs groupId="framework">
@@ -155,12 +151,12 @@ the dialog need the same state.
   </Tab>
 </Tabs>
 
-Do not render `Root` and `RootProvider` for the same state instance. Keep Ark detail objects intact,
+Do not render `Dialog` and `DialogRootProvider` for the same state instance. Keep Ark detail objects intact,
 such as `onOpenChange(details)` and `details.open`.
 
 ## Review the boundary
 
-- Keep `Backdrop`, `Positioner`, `Content`, and other meaningful parts visible.
+- Keep `DialogBackdrop`, `DialogPositioner`, `DialogContent`, and other meaningful parts visible.
 - Prefer public CSS variables and state attributes over copied internal styles.
 - Forward every native prop and framework-specific ref contract your wrapper accepts.
 - Add a custom prop only for a repeated product decision.

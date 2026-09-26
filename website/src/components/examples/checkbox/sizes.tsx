@@ -1,11 +1,16 @@
-import { Checkbox } from '@moduix/react/checkbox';
+import {
+  Checkbox,
+  CheckboxControl,
+  CheckboxHiddenInput,
+  CheckboxLabel,
+} from '@moduix/react/checkbox';
 
 export default function CheckboxSizesDemo() {
   return (
     <Checkbox size="lg" defaultChecked>
-      <Checkbox.Control />
-      <Checkbox.Label>Large</Checkbox.Label>
-      <Checkbox.HiddenInput />
+      <CheckboxControl />
+      <CheckboxLabel>Large</CheckboxLabel>
+      <CheckboxHiddenInput />
     </Checkbox>
   );
 }

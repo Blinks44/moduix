@@ -7,7 +7,15 @@ import { tooltip } from '@tanstack/charts/tooltip';
 import { Show } from 'solid-js';
 import type { Meta, StoryObj } from 'storybook-solidjs-vite';
 import { Button } from '@/components/button/Button';
-import { Chart } from '@/components/chart/Chart';
+import {
+  Chart,
+  ChartDescription,
+  ChartHeader,
+  ChartLegend,
+  ChartLegendItem,
+  ChartPlot,
+  ChartTitle,
+} from '@/components/chart/Chart';
 
 const monthlyRevenue = [
   { month: 'Jan', revenue: 42, target: 48 },
@@ -174,7 +182,7 @@ const donutDefinition = defineChart({
 
 const meta = {
   title: 'Components/Chart',
-  component: Chart.Plot,
+  component: ChartPlot,
   tags: ['autodocs'],
   parameters: {
     layout: 'padded',
@@ -184,7 +192,7 @@ const meta = {
     definition: barDefinition,
     height: 320,
   },
-} satisfies Meta<typeof Chart.Plot>;
+} satisfies Meta<typeof ChartPlot>;
 
 export default meta;
 
@@ -193,14 +201,14 @@ type Story = StoryObj<typeof meta>;
 export const Basic: Story = {
   render: (args) => (
     <Chart>
-      <Chart.Header>
-        <Chart.Title>Monthly revenue</Chart.Title>
-        <Chart.Description>Revenue in thousands of dollars.</Chart.Description>
-      </Chart.Header>
-      <Chart.Plot {...args} />
-      <Chart.Legend aria-label="Revenue series">
-        <Chart.LegendItem color="var(--moduix-color-chart-1)">Revenue</Chart.LegendItem>
-      </Chart.Legend>
+      <ChartHeader>
+        <ChartTitle>Monthly revenue</ChartTitle>
+        <ChartDescription>Revenue in thousands of dollars.</ChartDescription>
+      </ChartHeader>
+      <ChartPlot {...args} />
+      <ChartLegend aria-label="Revenue series">
+        <ChartLegendItem color="var(--moduix-color-chart-1)">Revenue</ChartLegendItem>
+      </ChartLegend>
     </Chart>
   ),
 };
@@ -212,15 +220,15 @@ export const AnimatedArea: Story = {
   },
   render: (args) => (
     <Chart>
-      <Chart.Header>
-        <Chart.Title>Revenue and target</Chart.Title>
-        <Chart.Description>Marks and tooltip share the default motion renderer.</Chart.Description>
-      </Chart.Header>
-      <Chart.Plot {...args} />
-      <Chart.Legend aria-label="Revenue series">
-        <Chart.LegendItem color="var(--moduix-color-chart-1)">Revenue</Chart.LegendItem>
-        <Chart.LegendItem color="var(--moduix-color-chart-2)">Target</Chart.LegendItem>
-      </Chart.Legend>
+      <ChartHeader>
+        <ChartTitle>Revenue and target</ChartTitle>
+        <ChartDescription>Marks and tooltip share the default motion renderer.</ChartDescription>
+      </ChartHeader>
+      <ChartPlot {...args} />
+      <ChartLegend aria-label="Revenue series">
+        <ChartLegendItem color="var(--moduix-color-chart-1)">Revenue</ChartLegendItem>
+        <ChartLegendItem color="var(--moduix-color-chart-2)">Target</ChartLegendItem>
+      </ChartLegend>
     </Chart>
   ),
 };
@@ -228,11 +236,11 @@ export const AnimatedArea: Story = {
 export const CustomTooltip: Story = {
   render: (args) => (
     <Chart>
-      <Chart.Header>
-        <Chart.Title>Monthly revenue</Chart.Title>
-        <Chart.Description>Pin the tooltip, then dismiss it from its content.</Chart.Description>
-      </Chart.Header>
-      <Chart.Plot
+      <ChartHeader>
+        <ChartTitle>Monthly revenue</ChartTitle>
+        <ChartDescription>Pin the tooltip, then dismiss it from its content.</ChartDescription>
+      </ChartHeader>
+      <ChartPlot
         {...args}
         renderTooltipBody={(tooltipContext) => (
           <div class="grid gap-3">
@@ -245,9 +253,9 @@ export const CustomTooltip: Story = {
           </div>
         )}
       />
-      <Chart.Legend aria-label="Revenue series">
-        <Chart.LegendItem color="var(--moduix-color-chart-1)">Revenue</Chart.LegendItem>
-      </Chart.Legend>
+      <ChartLegend aria-label="Revenue series">
+        <ChartLegendItem color="var(--moduix-color-chart-1)">Revenue</ChartLegendItem>
+      </ChartLegend>
     </Chart>
   ),
 };
@@ -255,22 +263,22 @@ export const CustomTooltip: Story = {
 export const Donut: Story = {
   render: () => (
     <Chart>
-      <Chart.Header>
-        <Chart.Title>Revenue mix</Chart.Title>
-        <Chart.Description>Share of revenue by acquisition channel.</Chart.Description>
-      </Chart.Header>
-      <Chart.Plot
+      <ChartHeader>
+        <ChartTitle>Revenue mix</ChartTitle>
+        <ChartDescription>Share of revenue by acquisition channel.</ChartDescription>
+      </ChartHeader>
+      <ChartPlot
         definition={donutDefinition}
         height={320}
         ariaLabel="Revenue share by acquisition channel"
       />
-      <Chart.Legend aria-label="Acquisition channels">
+      <ChartLegend aria-label="Acquisition channels">
         {revenueByChannel.map(({ channel }, index) => (
-          <Chart.LegendItem color={`var(--moduix-color-chart-${index + 1})`}>
+          <ChartLegendItem color={`var(--moduix-color-chart-${index + 1})`}>
             {channel}
-          </Chart.LegendItem>
+          </ChartLegendItem>
         ))}
-      </Chart.Legend>
+      </ChartLegend>
     </Chart>
   ),
 };
@@ -282,15 +290,15 @@ export const StackedBars: Story = {
   },
   render: (args) => (
     <Chart>
-      <Chart.Header>
-        <Chart.Title>Quarterly revenue</Chart.Title>
-        <Chart.Description>Product and services revenue by quarter.</Chart.Description>
-      </Chart.Header>
-      <Chart.Plot {...args} />
-      <Chart.Legend aria-label="Revenue segments">
-        <Chart.LegendItem color="var(--moduix-color-chart-1)">Product</Chart.LegendItem>
-        <Chart.LegendItem color="var(--moduix-color-chart-2)">Services</Chart.LegendItem>
-      </Chart.Legend>
+      <ChartHeader>
+        <ChartTitle>Quarterly revenue</ChartTitle>
+        <ChartDescription>Product and services revenue by quarter.</ChartDescription>
+      </ChartHeader>
+      <ChartPlot {...args} />
+      <ChartLegend aria-label="Revenue segments">
+        <ChartLegendItem color="var(--moduix-color-chart-1)">Product</ChartLegendItem>
+        <ChartLegendItem color="var(--moduix-color-chart-2)">Services</ChartLegendItem>
+      </ChartLegend>
     </Chart>
   ),
 };

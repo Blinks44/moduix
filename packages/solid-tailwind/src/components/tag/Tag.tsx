@@ -7,7 +7,7 @@ import { CloseButton } from '../close-button';
 
 type TagVariant = 'default' | 'secondary' | 'outline' | 'ghost' | 'destructive';
 type TagSize = 'sm' | 'md';
-type TagRootProps = HTMLArkProps<'span'> & {
+type TagProps = HTMLArkProps<'span'> & {
   variant?: TagVariant;
   size?: TagSize;
 };
@@ -39,7 +39,7 @@ const tagVariants = cva(
   },
 );
 
-function TagRoot(props: TagRootProps) {
+function Tag(props: TagProps) {
   const [local, others] = splitProps(props, ['asChild', 'class', 'size', 'variant']);
 
   return (
@@ -118,7 +118,7 @@ function TagCloseTrigger(props: TagCloseTriggerProps) {
   const resolvedChildren = resolveChildren(() => local.children);
 
   return (
-    <CloseButton.Root
+    <CloseButton
       asChild={local.asChild}
       {...others}
       data-scope="tag"
@@ -137,16 +137,8 @@ function TagCloseTrigger(props: TagCloseTriggerProps) {
       )}
     >
       {local.children}
-    </CloseButton.Root>
+    </CloseButton>
   );
 }
 
-const Tag = Object.assign(TagRoot, {
-  Root: TagRoot,
-  Label: TagLabel,
-  StartElement: TagStartElement,
-  EndElement: TagEndElement,
-  CloseTrigger: TagCloseTrigger,
-});
-
-export { Tag };
+export { Tag, TagCloseTrigger, TagEndElement, TagLabel, TagStartElement };

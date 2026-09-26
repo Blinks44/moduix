@@ -1,7 +1,24 @@
 import { createListCollection } from '@ark-ui/solid/collection';
 import { expect, rs, test } from '@rstest/core';
 import { fireEvent, render, screen, waitFor } from '@solidjs/testing-library';
-import { CommandPalette } from '../src';
+import {
+  CommandPalette,
+  CommandPaletteClearTrigger,
+  CommandPaletteCombobox,
+  CommandPaletteDescription,
+  CommandPaletteFooter,
+  CommandPaletteItem,
+  CommandPaletteItemDescription,
+  CommandPaletteItemIcon,
+  CommandPaletteItemLabel,
+  CommandPaletteItemMeta,
+  CommandPaletteItemText,
+  CommandPaletteKbd,
+  CommandPaletteList,
+  CommandPalettePanel,
+  CommandPaletteSearch,
+  CommandPaletteTitle,
+} from '../src';
 
 const commands = createListCollection({
   items: [{ label: 'Open settings', value: 'settings' }],
@@ -12,14 +29,14 @@ test('opens and closes from the Ark shortcut while suppressing repeated events',
     <>
       <input aria-label="Editable target" />
       <CommandPalette aria-label="Command palette" portalled={false} shortcut="alt+k">
-        <CommandPalette.Panel>
-          <CommandPalette.Combobox collection={commands}>
-            <CommandPalette.Search />
-            <CommandPalette.List>
-              <CommandPalette.Item item={commands.items[0]}>Open settings</CommandPalette.Item>
-            </CommandPalette.List>
-          </CommandPalette.Combobox>
-        </CommandPalette.Panel>
+        <CommandPalettePanel>
+          <CommandPaletteCombobox collection={commands}>
+            <CommandPaletteSearch />
+            <CommandPaletteList>
+              <CommandPaletteItem item={commands.items[0]}>Open settings</CommandPaletteItem>
+            </CommandPaletteList>
+          </CommandPaletteCombobox>
+        </CommandPalettePanel>
       </CommandPalette>
     </>
   ));
@@ -53,14 +70,14 @@ test('forwards selection details and respects closeOnSelect=false', async () => 
 
   render(() => (
     <CommandPalette defaultOpen aria-label="Command palette" portalled={false}>
-      <CommandPalette.Panel>
-        <CommandPalette.Combobox closeOnSelect={false} collection={commands} onSelect={onSelect}>
-          <CommandPalette.Search />
-          <CommandPalette.List>
-            <CommandPalette.Item item={commands.items[0]}>Open settings</CommandPalette.Item>
-          </CommandPalette.List>
-        </CommandPalette.Combobox>
-      </CommandPalette.Panel>
+      <CommandPalettePanel>
+        <CommandPaletteCombobox closeOnSelect={false} collection={commands} onSelect={onSelect}>
+          <CommandPaletteSearch />
+          <CommandPaletteList>
+            <CommandPaletteItem item={commands.items[0]}>Open settings</CommandPaletteItem>
+          </CommandPaletteList>
+        </CommandPaletteCombobox>
+      </CommandPalettePanel>
     </CommandPalette>
   ));
 
@@ -77,16 +94,16 @@ test('forwards selection details and respects closeOnSelect=false', async () => 
 test('uses dialog title and description semantics and closes after selection by default', async () => {
   render(() => (
     <CommandPalette defaultOpen portalled={false}>
-      <CommandPalette.Panel>
-        <CommandPalette.Title>Command palette</CommandPalette.Title>
-        <CommandPalette.Description>Select a command to continue.</CommandPalette.Description>
-        <CommandPalette.Combobox collection={commands}>
-          <CommandPalette.Search />
-          <CommandPalette.List>
-            <CommandPalette.Item item={commands.items[0]}>Open settings</CommandPalette.Item>
-          </CommandPalette.List>
-        </CommandPalette.Combobox>
-      </CommandPalette.Panel>
+      <CommandPalettePanel>
+        <CommandPaletteTitle>Command palette</CommandPaletteTitle>
+        <CommandPaletteDescription>Select a command to continue.</CommandPaletteDescription>
+        <CommandPaletteCombobox collection={commands}>
+          <CommandPaletteSearch />
+          <CommandPaletteList>
+            <CommandPaletteItem item={commands.items[0]}>Open settings</CommandPaletteItem>
+          </CommandPaletteList>
+        </CommandPaletteCombobox>
+      </CommandPalettePanel>
     </CommandPalette>
   ));
 
@@ -104,14 +121,14 @@ test('uses dialog title and description semantics and closes after selection by 
 test('provides an accessible search control that clears without losing focus', async () => {
   render(() => (
     <CommandPalette defaultOpen aria-label="Command palette" portalled={false}>
-      <CommandPalette.Panel>
-        <CommandPalette.Combobox collection={commands}>
-          <CommandPalette.Search />
-          <CommandPalette.List>
-            <CommandPalette.Item item={commands.items[0]}>Open settings</CommandPalette.Item>
-          </CommandPalette.List>
-        </CommandPalette.Combobox>
-      </CommandPalette.Panel>
+      <CommandPalettePanel>
+        <CommandPaletteCombobox collection={commands}>
+          <CommandPaletteSearch />
+          <CommandPaletteList>
+            <CommandPaletteItem item={commands.items[0]}>Open settings</CommandPaletteItem>
+          </CommandPaletteList>
+        </CommandPaletteCombobox>
+      </CommandPalettePanel>
     </CommandPalette>
   ));
 
@@ -131,12 +148,12 @@ test('provides an accessible search control that clears without losing focus', a
 test('keeps the search value when clearing is cancelled', async () => {
   render(() => (
     <CommandPalette defaultOpen aria-label="Command palette" portalled={false}>
-      <CommandPalette.Panel>
-        <CommandPalette.Combobox collection={commands}>
-          <CommandPalette.Search />
-          <CommandPalette.ClearTrigger onClick={(event) => event.preventDefault()} />
-        </CommandPalette.Combobox>
-      </CommandPalette.Panel>
+      <CommandPalettePanel>
+        <CommandPaletteCombobox collection={commands}>
+          <CommandPaletteSearch />
+          <CommandPaletteClearTrigger onClick={(event) => event.preventDefault()} />
+        </CommandPaletteCombobox>
+      </CommandPalettePanel>
     </CommandPalette>
   ));
 
@@ -150,24 +167,24 @@ test('keeps the search value when clearing is cancelled', async () => {
 test('lets consumer utilities replace conflicting defaults and keeps visual parts styled', () => {
   const { container } = render(() => (
     <CommandPalette defaultOpen aria-label="Command palette" portalled={false}>
-      <CommandPalette.Panel class="max-h-96">
-        <CommandPalette.Combobox collection={commands}>
-          <CommandPalette.Search />
-          <CommandPalette.List class="p-0">
-            <CommandPalette.Item item={commands.items[0]} class="rounded-none px-0">
-              <CommandPalette.ItemIcon />
-              <CommandPalette.ItemText>
-                <CommandPalette.ItemLabel>Open settings</CommandPalette.ItemLabel>
-                <CommandPalette.ItemDescription>Open app settings</CommandPalette.ItemDescription>
-              </CommandPalette.ItemText>
-              <CommandPalette.ItemMeta>⌘K</CommandPalette.ItemMeta>
-            </CommandPalette.Item>
-          </CommandPalette.List>
-          <CommandPalette.Footer>
-            <CommandPalette.Kbd>Enter</CommandPalette.Kbd>
-          </CommandPalette.Footer>
-        </CommandPalette.Combobox>
-      </CommandPalette.Panel>
+      <CommandPalettePanel class="max-h-96">
+        <CommandPaletteCombobox collection={commands}>
+          <CommandPaletteSearch />
+          <CommandPaletteList class="p-0">
+            <CommandPaletteItem item={commands.items[0]} class="rounded-none px-0">
+              <CommandPaletteItemIcon />
+              <CommandPaletteItemText>
+                <CommandPaletteItemLabel>Open settings</CommandPaletteItemLabel>
+                <CommandPaletteItemDescription>Open app settings</CommandPaletteItemDescription>
+              </CommandPaletteItemText>
+              <CommandPaletteItemMeta>⌘K</CommandPaletteItemMeta>
+            </CommandPaletteItem>
+          </CommandPaletteList>
+          <CommandPaletteFooter>
+            <CommandPaletteKbd>Enter</CommandPaletteKbd>
+          </CommandPaletteFooter>
+        </CommandPaletteCombobox>
+      </CommandPalettePanel>
     </CommandPalette>
   ));
 

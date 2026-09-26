@@ -26,13 +26,13 @@ import stepsSolidCustomComposition from '../../../snippets/steps/solid/custom-co
 
 ## Exemple de base
 
-Utilisez `Steps` avec `count`, une `Steps.List` contenant un `Steps.Item` par étape, les panneaux
-`Steps.Content` correspondants et les boutons intégrés pour avancer ou reculer. Les index des étapes
+Utilisez `Steps` avec `count`, une `StepsList` contenant un `StepsItem` par étape, les panneaux
+`StepsContent` correspondants et les boutons intégrés pour avancer ou reculer. Les index des étapes
 commencent à zéro. Par exemple, `count={3}` utilise les index `0`, `1` et `2`. Lorsque la valeur de
-l’étape atteint `count`, `Steps.CompletedContent` s’affiche.
+l’étape atteint `count`, `StepsCompletedContent` s’affiche.
 
-L’export `Steps` est le composant racine. Utilisez `Steps.Root` lorsque vous souhaitez expliciter le
-nom de cette partie.
+L’export `Steps` est le composant racine. Utilisez `StepsRootProvider` avec `useSteps()` lorsque l’état
+doit être créé en dehors de l’arbre des parties rendues.
 
 <ExampleFrame variant="component">
   <StepsBasic />
@@ -100,46 +100,49 @@ Consultez le [Démarrage rapide](/docs/quick-start) pour la configuration compl�
 
 ```text
 Steps
-├─ Steps.Progress (optional)
-├─ Steps.List
-│  └─ Steps.Item[index]
-│     ├─ Steps.Trigger
-│     │  └─ Steps.Indicator
-│     └─ Steps.Separator
-├─ Steps.Content[index]
-├─ Steps.CompletedContent
-├─ Steps.PrevTrigger
-└─ Steps.NextTrigger
+├─ StepsProgress (optional)
+├─ StepsList
+│  └─ StepsItem[index]
+│     ├─ StepsTrigger
+│     │  └─ StepsIndicator
+│     └─ StepsSeparator
+├─ StepsContent[index]
+├─ StepsCompletedContent
+├─ StepsPrevTrigger
+└─ StepsNextTrigger
 
-Steps.RootProvider
-└─ same part tree connected to a Steps.useSteps() store
+StepsRootProvider
+└─ same part tree connected to a useSteps() store
 ```
 
 | Partie                            | Rôle                                                                                |
 | --------------------------------- | ----------------------------------------------------------------------------------- |
-| `Steps` / `Steps.Root`            | Machine d’état racine pour les étapes, l’orientation, la navigation, la validation et les identifiants. |
-| `Steps.RootProvider`              | Relie les parties à l’état créé avec `Steps.useSteps()`.                            |
-| `Steps.Progress`                  | Barre de progression visuelle facultative, pilotée par la variable Ark `--percent`. |
-| `Steps.List`                      | Liste d’onglets contenant les déclencheurs des étapes.                              |
-| `Steps.Item`                      | Étape avec un `index` obligatoire commençant à zéro.                               |
-| `Steps.Trigger`                   | Déclencheur d’onglet ; prend en charge `asChild` pour les éléments sémantiques.     |
-| `Steps.Indicator`                 | Marqueur d’étape avec un nombre ou une icône de validation par défaut.              |
-| `Steps.Separator`                 | Connecteur décoratif entre les étapes.                                              |
-| `Steps.Content`                   | Panneau de contenu d’une étape, associé à son `index`.                              |
-| `Steps.CompletedContent`           | Panneau affiché lorsque la valeur de l’étape courante vaut `count`.                 |
-| `Steps.PrevTrigger` / `NextTrigger` | Boutons reliés aux actions Ark précédente et suivante.                              |
+| `Steps`                            | Machine d’état racine pour les étapes, l’orientation, la navigation, la validation et les identifiants. |
+| `StepsRootProvider`               | Relie les parties à l’état créé avec `useSteps()`.                                  |
+| `StepsProgress`                   | Barre de progression visuelle facultative, pilotée par la variable Ark `--percent`. |
+| `StepsList`                       | Liste d’onglets contenant les déclencheurs des étapes.                              |
+| `StepsItem`                       | Étape avec un `index` obligatoire commençant à zéro.                                |
+| `StepsTrigger`                    | Déclencheur d’onglet ; prend en charge `asChild` pour les éléments sémantiques.     |
+| `StepsIndicator`                  | Marqueur d’étape avec un nombre ou une icône de validation par défaut.               |
+| `StepsSeparator`                  | Connecteur décoratif entre les étapes.                                              |
+| `StepsContent`                    | Panneau de contenu d’une étape, associé à son `index`.                              |
+| `StepsCompletedContent`           | Panneau affiché lorsque la valeur de l’étape courante vaut `count`.                 |
+| `StepsPrevTrigger` / `StepsNextTrigger` | Boutons reliés aux actions Ark précédente et suivante.                       |
 
 ## Composition
 
-Utilisez `Steps` ou `Steps.Root` comme propriétaire de l’état. Chaque `Steps.Item` et le
-`Steps.Content` correspondant doivent partager le même `index` commençant à zéro ; `count` définit
-le nombre total d’étapes et sa valeur représente la fin du parcours. Utilisez `Steps.RootProvider`
-uniquement avec un store créé par `Steps.useSteps()` lorsque l’état doit être créé en dehors de
+Utilisez `Steps` comme propriétaire de l’état. Chaque `StepsItem` et le
+`StepsContent` correspondant doivent partager le même `index` commençant à zéro ; `count` définit
+le nombre total d’étapes et sa valeur représente la fin du parcours. Utilisez `StepsRootProvider`
+uniquement avec un store créé par `useSteps()` lorsque l’état doit être créé en dehors de
 l’arbre des parties. Ne rendez pas la racine et le provider pour un même store.
 
-`Steps.Trigger`, `Steps.PrevTrigger` et `Steps.NextTrigger` acceptent `asChild`. Passez un seul
+Pour lire l’état de plus bas niveau, utilisez `useStepsContext` et `useStepsItemContext`, ou les
+valeurs de contexte plates `StepsContext` et `StepsItemContext`.
+
+`StepsTrigger`, `StepsPrevTrigger` et `StepsNextTrigger` acceptent `asChild`. Passez un seul
 enfant sémantique lorsqu’un contrôle doit être rendu comme une ancre, un lien de routeur ou un bouton
-de votre système de design. Sans enfant, `Steps.Indicator` affiche le numéro de l’étape ou l’icône
+de votre système de design. Sans enfant, `StepsIndicator` affiche le numéro de l’étape ou l’icône
 de validation partagée lorsque l’étape est terminée ; fournissez un contenu pour personnaliser le
 marqueur.
 
@@ -227,7 +230,7 @@ courante ne respecte pas votre règle de validation.
 
 ### Progression
 
-Ajoutez `Steps.Progress` lorsque le parcours doit afficher une barre de progression à côté de la
+Ajoutez `StepsProgress` lorsque le parcours doit afficher une barre de progression à côté de la
 liste des étapes. Ajoutez votre propre statut accessible si la progression doit être annoncée aux
 technologies d’assistance.
 
@@ -268,8 +271,8 @@ technologies d’assistance.
 
 ### RootProvider
 
-Créez l’état avec `Steps.useSteps()` en dehors de l’arbre des parties rendues, puis transmettez-le à
-`Steps.RootProvider` lorsque des contrôles externes doivent utiliser ce même état.
+Créez l’état avec `useSteps()` en dehors de l’arbre des parties rendues, puis transmettez-le à
+`StepsRootProvider` lorsque des contrôles externes doivent utiliser ce même état.
 
 <ExampleFrame variant="component">
   <StepsRootProvider />
@@ -411,12 +414,12 @@ variables CSS publiques `--moduix-steps-*` listées ci-dessous.
 
 Les hooks publics utiles sont les suivants :
 
-- `className` dans React ou `class` dans Solid sur `Steps`, `Steps.RootProvider`, `Steps.List`, `Steps.Item`, `Steps.Trigger`, `Steps.Indicator`, `Steps.Separator`, `Steps.Content`, `Steps.CompletedContent`, `Steps.PrevTrigger`, `Steps.NextTrigger` et `Steps.Progress`
+- `className` dans React ou `class` dans Solid sur `Steps`, `StepsRootProvider`, `StepsList`, `StepsItem`, `StepsTrigger`, `StepsIndicator`, `StepsSeparator`, `StepsContent`, `StepsCompletedContent`, `StepsPrevTrigger`, `StepsNextTrigger` et `StepsProgress`
 - `data-slot="steps-root"`, `steps-root-provider`, `steps-list`, `steps-item`, `steps-trigger`, `steps-indicator`, `steps-separator`, `steps-content`, `steps-completed-content`, `steps-prev-trigger`, `steps-next-trigger` et `steps-progress`
 - Les valeurs Ark `data-scope="steps"` et `data-part` pour chaque partie primitive
 - `data-orientation="horizontal" | "vertical"` sur la racine, la liste, l’étape, le déclencheur, le contenu et le séparateur
 - `data-current`, `data-complete` et `data-incomplete` sur les surfaces d’état de l’indicateur, du séparateur et du déclencheur
-- `data-skippable` sur `Steps.Item` lorsque l’étape est marquée comme pouvant être sautée
+- `data-skippable` sur `StepsItem` lorsque l’étape est marquée comme pouvant être sautée
 - `data-state="open" | "closed"` sur les déclencheurs et les panneaux de contenu
-- `data-complete` sur `Steps.Progress`
-- La variable Ark `--percent` sur la racine, consommée par `Steps.Progress`
+- `data-complete` sur `StepsProgress`
+- La variable Ark `--percent` sur la racine, consommée par `StepsProgress`

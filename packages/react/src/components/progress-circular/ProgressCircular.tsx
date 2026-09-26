@@ -8,10 +8,10 @@ import type { ComponentProps, ComponentRef } from 'react';
 import { forwardRef } from 'react';
 import styles from './ProgressCircular.module.css';
 
-const ProgressCircularRoot = forwardRef<
+const ProgressCircular = forwardRef<
   ComponentRef<typeof ProgressPrimitive.Root>,
   ComponentProps<typeof ProgressPrimitive.Root>
->(function ProgressCircularRoot({ className, ...props }, ref) {
+>(function ProgressCircular({ className, ...props }, ref) {
   return (
     <ProgressPrimitive.Root
       ref={ref}
@@ -137,19 +137,19 @@ const ProgressCircularView = forwardRef<
   );
 });
 
-const ProgressCircular = Object.assign(ProgressCircularRoot, {
-  Root: ProgressCircularRoot,
-  RootProvider: ProgressCircularRootProvider,
-  Context: ProgressPrimitive.Context,
-  Label: ProgressCircularLabel,
-  ValueText: ProgressCircularValueText,
-  Circle: ProgressCircularCircle,
-  CircleTrack: ProgressCircularCircleTrack,
-  CircleRange: ProgressCircularCircleRange,
-  Ring: ProgressCircularRing,
-  View: ProgressCircularView,
+const ProgressCircularContext = ProgressPrimitive.Context;
+
+export {
+  ProgressCircular,
+  ProgressCircularCircle,
+  ProgressCircularCircleRange,
+  ProgressCircularCircleTrack,
+  ProgressCircularContext,
+  ProgressCircularLabel,
+  ProgressCircularRing,
+  ProgressCircularRootProvider,
+  ProgressCircularValueText,
+  ProgressCircularView,
   useProgress,
   useProgressContext,
-});
-
-export { ProgressCircular };
+};

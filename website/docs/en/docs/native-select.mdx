@@ -17,7 +17,7 @@ import nativeSelectSolidMultiple from '../../../snippets/native-select/solid/mul
 ## API Reference
 
 `NativeSelect` is a styled wrapper around Ark UI's
-[`Field.Select`](https://ark-ui.com/docs/components/field). It renders a real HTML `<select>`, so the
+[`FieldSelect`](https://ark-ui.com/docs/components/field). It renders a real HTML `<select>`, so the
 browser remains responsible for option rendering, keyboard interaction, form submission, autofill,
 validation, and reset.
 
@@ -98,7 +98,7 @@ controls also get a decorative `ChevronDownIcon`; the indicator is hidden for `m
 `size > 1`, when the browser displays a list.
 
 ```text
-NativeSelect / NativeSelect.Root
+NativeSelect
 └─ span[data-scope="native-select"][data-part="control"][data-slot="native-select-control"]
    ├─ select[data-scope="field"][data-part="select"][data-slot="native-select-root"]
    │  ├─ option
@@ -109,14 +109,14 @@ NativeSelect / NativeSelect.Root
 
 | Part | Role |
 | ---- | ---- |
-| `NativeSelect` / `NativeSelect.Root` | Public root component. Renders the native `<select>` and decorative indicator. |
+| `NativeSelect` | Public root component. Renders the native `<select>` and decorative indicator. |
 
 ## Composition
 
 React builds an uncontrolled select with the native `defaultValue` prop. In Solid, pass the native
 `selected` attribute to the `<option>` that should be initially selected: a `defaultValue` prop on
 the Solid `NativeSelect` has no effect. Use `value` with `onChange` when application state owns
-the current value. Wrap `NativeSelect` in `Field.Root` when the label, supporting text, validation, or
+the current value. Wrap `NativeSelect` in `Field` when the label, supporting text, validation, or
 disabled state should be shared with the control. The `Field` parts connect that content to the native
 select while the browser still owns option selection. With `multiple` or `size > 1`, the browser owns
 the list interaction and the decorative indicator is hidden. `asChild` can replace the rendered select,
@@ -161,7 +161,7 @@ native event and pass it back through `value`.
 
 ### Field
 
-Use `Field.Root` when the select needs a visible label, helper text, error message, or shared field
+Use `Field` when the select needs a visible label, helper text, error message, or shared field
 state. Field connects that content to the native control.
 
 <ExampleFrame variant="component">

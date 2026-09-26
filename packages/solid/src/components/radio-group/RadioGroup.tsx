@@ -21,7 +21,7 @@ type RadioGroupOptionProps = Omit<
   size?: RadioGroupItemControlSize;
 };
 
-function RadioGroupRoot(props: ComponentProps<typeof RadioGroupPrimitive.Root>) {
+function RadioGroup(props: ComponentProps<typeof RadioGroupPrimitive.Root>) {
   const [local, others] = splitProps(props, ['asChild', 'class']);
 
   return (
@@ -123,19 +123,24 @@ function RadioGroupIndicator(props: ComponentProps<typeof RadioGroupPrimitive.In
   );
 }
 
-const RadioGroup = Object.assign(RadioGroupRoot, {
-  Root: RadioGroupRoot,
-  RootProvider: RadioGroupRootProvider,
-  Context: RadioGroupPrimitive.Context,
-  ItemContext: RadioGroupPrimitive.ItemContext,
-  Label: RadioGroupLabel,
-  Item: RadioGroupItem,
-  ItemHiddenInput: RadioGroupPrimitive.ItemHiddenInput,
-  Option: RadioGroupOption,
-  ItemControl: RadioGroupItemControl,
-  ItemText: RadioGroupItemText,
-  Indicator: RadioGroupIndicator,
-});
+const RadioGroupContext = RadioGroupPrimitive.Context;
+const RadioGroupItemContext = RadioGroupPrimitive.ItemContext;
+const RadioGroupItemHiddenInput = RadioGroupPrimitive.ItemHiddenInput;
 
-export { RadioGroup, useRadioGroup, useRadioGroupContext, useRadioGroupItemContext };
+export {
+  RadioGroup,
+  RadioGroupContext,
+  RadioGroupIndicator,
+  RadioGroupItem,
+  RadioGroupItemContext,
+  RadioGroupItemControl,
+  RadioGroupItemHiddenInput,
+  RadioGroupItemText,
+  RadioGroupLabel,
+  RadioGroupOption,
+  RadioGroupRootProvider,
+  useRadioGroup,
+  useRadioGroupContext,
+  useRadioGroupItemContext,
+};
 export type { RadioGroupItemControlProps, RadioGroupItemControlSize, RadioGroupOptionProps };

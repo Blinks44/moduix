@@ -1,6 +1,15 @@
 import { afterAll, beforeAll, expect, test } from '@rstest/core';
 import { fireEvent, render, screen, waitFor } from '@solidjs/testing-library';
-import { Carousel } from '../src';
+import {
+  Carousel,
+  CarouselControl,
+  CarouselIndicators,
+  CarouselItem,
+  CarouselItemGroup,
+  CarouselNextTrigger,
+  CarouselPrevTrigger,
+  CarouselProgressText,
+} from '../src';
 
 const originalGetBoundingClientRect = HTMLElement.prototype.getBoundingClientRect;
 const dimensionDescriptors = {
@@ -82,16 +91,16 @@ function TestCarousel(props: {
       onPageChange={props.onPageChange}
       slideCount={2}
     >
-      <Carousel.ItemGroup>
-        <Carousel.Item index={0}>First</Carousel.Item>
-        <Carousel.Item index={1}>Second</Carousel.Item>
-      </Carousel.ItemGroup>
-      <Carousel.Control>
-        <Carousel.PrevTrigger />
-        <Carousel.NextTrigger />
-        <Carousel.Indicators />
-      </Carousel.Control>
-      <Carousel.ProgressText />
+      <CarouselItemGroup>
+        <CarouselItem index={0}>First</CarouselItem>
+        <CarouselItem index={1}>Second</CarouselItem>
+      </CarouselItemGroup>
+      <CarouselControl>
+        <CarouselPrevTrigger />
+        <CarouselNextTrigger />
+        <CarouselIndicators />
+      </CarouselControl>
+      <CarouselProgressText />
     </Carousel>
   );
 }
@@ -126,18 +135,18 @@ test('preserves ordinary refs and generated indicator styling hooks', () => {
 
   render(() => (
     <Carousel ref={(element) => (rootRef = element)} aria-label="Gallery" slideCount={2}>
-      <Carousel.ItemGroup>
-        <Carousel.Item index={0}>First</Carousel.Item>
-        <Carousel.Item index={1}>Second</Carousel.Item>
-      </Carousel.ItemGroup>
-      <Carousel.Control>
-        <Carousel.PrevTrigger />
-        <Carousel.NextTrigger />
-        <Carousel.Indicators
+      <CarouselItemGroup>
+        <CarouselItem index={0}>First</CarouselItem>
+        <CarouselItem index={1}>Second</CarouselItem>
+      </CarouselItemGroup>
+      <CarouselControl>
+        <CarouselPrevTrigger />
+        <CarouselNextTrigger />
+        <CarouselIndicators
           ref={(element) => (indicatorsRef = element)}
           indicatorClassName="generated-indicator"
         />
-      </Carousel.Control>
+      </CarouselControl>
     </Carousel>
   ));
 
@@ -157,21 +166,21 @@ test('preserves semantic hosts with native Ark Solid asChild composition', () =>
       aria-label="Composed gallery"
       slideCount={2}
     >
-      <Carousel.ItemGroup>
-        <Carousel.Item index={0}>First</Carousel.Item>
-        <Carousel.Item index={1}>Second</Carousel.Item>
-      </Carousel.ItemGroup>
-      <Carousel.Control>
-        <Carousel.PrevTrigger
+      <CarouselItemGroup>
+        <CarouselItem index={0}>First</CarouselItem>
+        <CarouselItem index={1}>Second</CarouselItem>
+      </CarouselItemGroup>
+      <CarouselControl>
+        <CarouselPrevTrigger
           asChild={(props) => (
             <button {...props()} type="button">
               Back
             </button>
           )}
         />
-        <Carousel.NextTrigger />
-        <Carousel.Indicators indicatorClassName="generated-indicator" />
-      </Carousel.Control>
+        <CarouselNextTrigger />
+        <CarouselIndicators indicatorClassName="generated-indicator" />
+      </CarouselControl>
     </Carousel>
   ));
 

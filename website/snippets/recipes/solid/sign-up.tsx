@@ -1,44 +1,56 @@
 import { Button } from '@moduix/solid/button';
-import { Card } from '@moduix/solid/card';
-import { Checkbox } from '@moduix/solid/checkbox';
-import { Field } from '@moduix/solid/field';
+import {
+  Card,
+  CardBody,
+  CardDescription,
+  CardFooter,
+  CardHeader,
+  CardTitle,
+} from '@moduix/solid/card';
+import {
+  Checkbox,
+  CheckboxControl,
+  CheckboxHiddenInput,
+  CheckboxLabel,
+} from '@moduix/solid/checkbox';
+import { Field, FieldLabel } from '@moduix/solid/field';
 import { Input } from '@moduix/solid/input';
 import styles from './sign-up-form.module.css';
 
 export function SignUp({ onSubmit }: { onSubmit?: (event: SubmitEvent) => void }) {
   return (
     <Card class={styles.root}>
-      <Card.Header class={styles.header}>
-        <Card.Title>Create your account</Card.Title>
-        <Card.Description>Start building with moduix in minutes.</Card.Description>
-      </Card.Header>
+      <CardHeader class={styles.header}>
+        <CardTitle>Create your account</CardTitle>
+        <CardDescription>Start building with moduix in minutes.</CardDescription>
+      </CardHeader>
 
-      <Card.Body>
+      <CardBody>
         <form class={styles.stack} onSubmit={onSubmit}>
           <Field required>
-            <Field.Label>Full name</Field.Label>
+            <FieldLabel>Full name</FieldLabel>
             <Input name="name" autocomplete="name" placeholder="Alex Morgan" />
           </Field>
 
           <Field required>
-            <Field.Label>Email address</Field.Label>
+            <FieldLabel>Email address</FieldLabel>
             <Input name="email" type="email" autocomplete="email" placeholder="you@example.com" />
           </Field>
 
           <Field required>
-            <Field.Label>Password</Field.Label>
+            <FieldLabel>Password</FieldLabel>
             <Input name="password" type="password" autocomplete="new-password" />
           </Field>
 
           <Field required>
-            <Field.Label>Confirm password</Field.Label>
+            <FieldLabel>Confirm password</FieldLabel>
             <Input name="confirm-password" type="password" autocomplete="new-password" />
           </Field>
 
           <Checkbox name="terms" required>
-            <Checkbox.HiddenInput />
-            <Checkbox.Control />
-            <Checkbox.Label>
+            <CheckboxHiddenInput />
+            <CheckboxControl />
+            <CheckboxLabel>
               I agree to the{' '}
               <a class={styles.link} href="/terms">
                 Terms of service
@@ -48,23 +60,23 @@ export function SignUp({ onSubmit }: { onSubmit?: (event: SubmitEvent) => void }
                 Privacy policy
               </a>
               .
-            </Checkbox.Label>
+            </CheckboxLabel>
           </Checkbox>
 
           <Button type="submit" class={styles.submit}>
             Create account
           </Button>
         </form>
-      </Card.Body>
+      </CardBody>
 
-      <Card.Footer class={styles.footer}>
+      <CardFooter class={styles.footer}>
         <p>
           Already have an account?{' '}
           <a class={styles.link} href="/sign-in">
             Sign in
           </a>
         </p>
-      </Card.Footer>
+      </CardFooter>
     </Card>
   );
 }

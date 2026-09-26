@@ -1,5 +1,5 @@
 import { Button } from '@moduix/react/button';
-import { Toaster, createToaster } from '@moduix/react/toast';
+import { ToastToaster, createToaster } from '@moduix/react/toast';
 import { useState } from 'react';
 import { PreviewMeta } from '@/components/mdx/Components';
 import styles from '@/components/examples/toast/toast-types.module.css';
@@ -12,7 +12,7 @@ export default function App() {
 
   return (
     <div className={styles.root}>
-      <Toaster toaster={toaster} />
+      <ToastToaster toaster={toaster} />
       <PreviewMeta>
         <output>Last event: {event}</output>
         {types.map((type) => (

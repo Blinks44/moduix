@@ -19,6 +19,9 @@ duplicated local markdown unless they expose a genuine styling-specific contract
 ## Write the wrapper contract
 
 - Describe moduix's exported parts, defaults, composition, accessibility, styling hooks, and intentional differences from upstream.
+- Write every public value with the flat moduix name: the family-named root, family-prefixed parts,
+  and top-level hooks. Use `Accordion`, `AccordionItem`, `AccordionRootProvider`, and `useAccordion`,
+  never `Accordion.Root`, `Accordion.Item`, or `AccordionRoot`.
 - Use Ark and Chakra only to understand the model. Preserve the Ark mental model first, then explain moduix conveniences.
 - If no dedicated Ark primitive exists, say so plainly and name the exact Ark guide, factory model, or moduix-owned contract. Do not invent upstream anatomy.
 - Keep public identifiers, imports, callbacks, CSS variables, and state names exact.

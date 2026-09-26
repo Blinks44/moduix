@@ -1,15 +1,25 @@
 import { expect, test } from '@rstest/core';
 import { fireEvent, render, screen, waitFor } from '@testing-library/react';
 import { createRef, useState } from 'react';
-import { PasswordInput, usePasswordInput } from '../src';
+import {
+  PasswordInput,
+  PasswordInputControl,
+  PasswordInputField,
+  PasswordInputIndicator,
+  PasswordInputInput,
+  PasswordInputLabel,
+  PasswordInputRootProvider,
+  PasswordInputVisibilityTrigger,
+  usePasswordInput,
+} from '../src';
 
 function ControlledPasswordInput() {
   const [visible, setVisible] = useState(false);
 
   return (
     <PasswordInput visible={visible} onVisibilityChange={(details) => setVisible(details.visible)}>
-      <PasswordInput.Label>Password</PasswordInput.Label>
-      <PasswordInput.Field />
+      <PasswordInputLabel>Password</PasswordInputLabel>
+      <PasswordInputField />
     </PasswordInput>
   );
 }
@@ -18,18 +28,18 @@ function ProviderPasswordInput() {
   const passwordInput = usePasswordInput();
 
   return (
-    <PasswordInput.RootProvider value={passwordInput}>
-      <PasswordInput.Label>Password</PasswordInput.Label>
-      <PasswordInput.Field />
-    </PasswordInput.RootProvider>
+    <PasswordInputRootProvider value={passwordInput}>
+      <PasswordInputLabel>Password</PasswordInputLabel>
+      <PasswordInputField />
+    </PasswordInputRootProvider>
   );
 }
 
 test('renders the default Field composition with Ark anatomy and moduix slots', () => {
   render(
     <PasswordInput name="password" required>
-      <PasswordInput.Label>Password</PasswordInput.Label>
-      <PasswordInput.Field />
+      <PasswordInputLabel>Password</PasswordInputLabel>
+      <PasswordInputField />
     </PasswordInput>,
   );
 
@@ -57,8 +67,8 @@ test('toggles controlled visibility through Ark details', async () => {
 test('preserves disabled and readonly interaction contracts', () => {
   const { rerender } = render(
     <PasswordInput disabled>
-      <PasswordInput.Label>Password</PasswordInput.Label>
-      <PasswordInput.Field />
+      <PasswordInputLabel>Password</PasswordInputLabel>
+      <PasswordInputField />
     </PasswordInput>,
   );
 
@@ -67,8 +77,8 @@ test('preserves disabled and readonly interaction contracts', () => {
 
   rerender(
     <PasswordInput readOnly>
-      <PasswordInput.Label>Password</PasswordInput.Label>
-      <PasswordInput.Field />
+      <PasswordInputLabel>Password</PasswordInputLabel>
+      <PasswordInputField />
     </PasswordInput>,
   );
 
@@ -85,13 +95,13 @@ test('uses the native input for form submission and reset', () => {
   render(
     <form data-testid="form">
       <PasswordInput name="password">
-        <PasswordInput.Label>Password</PasswordInput.Label>
-        <PasswordInput.Control>
-          <PasswordInput.Input defaultValue="initial-password" />
-          <PasswordInput.VisibilityTrigger>
-            <PasswordInput.Indicator />
-          </PasswordInput.VisibilityTrigger>
-        </PasswordInput.Control>
+        <PasswordInputLabel>Password</PasswordInputLabel>
+        <PasswordInputControl>
+          <PasswordInputInput defaultValue="initial-password" />
+          <PasswordInputVisibilityTrigger>
+            <PasswordInputIndicator />
+          </PasswordInputVisibilityTrigger>
+        </PasswordInputControl>
       </PasswordInput>
     </form>,
   );
@@ -116,8 +126,8 @@ test('forwards root and Field refs to their Ark elements', () => {
 
   render(
     <PasswordInput ref={rootRef}>
-      <PasswordInput.Label>Password</PasswordInput.Label>
-      <PasswordInput.Field ref={fieldRef} />
+      <PasswordInputLabel>Password</PasswordInputLabel>
+      <PasswordInputField ref={fieldRef} />
     </PasswordInput>,
   );
 
@@ -134,8 +144,8 @@ test('renders the default Field composition through RootProvider', () => {
 test('applies native utilities to component-owned parts', () => {
   const { container } = render(
     <PasswordInput>
-      <PasswordInput.Label>Password</PasswordInput.Label>
-      <PasswordInput.Field />
+      <PasswordInputLabel>Password</PasswordInputLabel>
+      <PasswordInputField />
     </PasswordInput>,
   );
 
@@ -195,13 +205,13 @@ test('applies native utilities to component-owned parts', () => {
 test('lets consumer utilities replace component defaults', () => {
   const { container } = render(
     <PasswordInput className="w-80 max-w-sm gap-4 text-muted-foreground">
-      <PasswordInput.Label>Password</PasswordInput.Label>
-      <PasswordInput.Control className="min-h-20 rounded-lg border-2 border-primary bg-muted pr-0">
-        <PasswordInput.Input />
-        <PasswordInput.VisibilityTrigger>
-          <PasswordInput.Indicator />
-        </PasswordInput.VisibilityTrigger>
-      </PasswordInput.Control>
+      <PasswordInputLabel>Password</PasswordInputLabel>
+      <PasswordInputControl className="min-h-20 rounded-lg border-2 border-primary bg-muted pr-0">
+        <PasswordInputInput />
+        <PasswordInputVisibilityTrigger>
+          <PasswordInputIndicator />
+        </PasswordInputVisibilityTrigger>
+      </PasswordInputControl>
     </PasswordInput>,
   );
 

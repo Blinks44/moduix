@@ -2,7 +2,21 @@ import { createListCollection } from '@ark-ui/solid/collection';
 import { expect, test } from '@rstest/core';
 import { fireEvent, render, screen, waitFor } from '@solidjs/testing-library';
 import { createSignal } from 'solid-js';
-import { Listbox, useListbox, useListboxContext } from '../src';
+import {
+  Listbox,
+  ListboxClearTrigger,
+  ListboxContent,
+  ListboxFilter,
+  ListboxInput,
+  ListboxItem,
+  ListboxItemContext,
+  ListboxItemIndicator,
+  ListboxItemText,
+  ListboxLabel,
+  ListboxRootProvider,
+  useListbox,
+  useListboxContext,
+} from '../src';
 
 const fruits = createListCollection({
   items: [
@@ -15,15 +29,15 @@ const fruits = createListCollection({
 function FruitListbox(props: { defaultValue?: string[] }) {
   return (
     <Listbox collection={fruits} defaultValue={props.defaultValue}>
-      <Listbox.Label>Fruit</Listbox.Label>
-      <Listbox.Content>
+      <ListboxLabel>Fruit</ListboxLabel>
+      <ListboxContent>
         {fruits.items.map((item) => (
-          <Listbox.Item item={item}>
-            <Listbox.ItemText>{item.label}</Listbox.ItemText>
-            <Listbox.ItemIndicator />
-          </Listbox.Item>
+          <ListboxItem item={item}>
+            <ListboxItemText>{item.label}</ListboxItemText>
+            <ListboxItemIndicator />
+          </ListboxItem>
         ))}
-      </Listbox.Content>
+      </ListboxContent>
     </Listbox>
   );
 }
@@ -33,15 +47,15 @@ test('preserves Ark semantics, refs, and stable styling hooks', () => {
 
   render(() => (
     <Listbox ref={(element) => (rootRef = element)} collection={fruits} defaultValue={['apple']}>
-      <Listbox.Label>Fruit</Listbox.Label>
-      <Listbox.Content>
+      <ListboxLabel>Fruit</ListboxLabel>
+      <ListboxContent>
         {fruits.items.map((item) => (
-          <Listbox.Item item={item}>
-            <Listbox.ItemText>{item.label}</Listbox.ItemText>
-            <Listbox.ItemIndicator />
-          </Listbox.Item>
+          <ListboxItem item={item}>
+            <ListboxItemText>{item.label}</ListboxItemText>
+            <ListboxItemIndicator />
+          </ListboxItem>
         ))}
-      </Listbox.Content>
+      </ListboxContent>
     </Listbox>
   ));
 
@@ -65,14 +79,14 @@ test('renders controlled values from consumer state', () => {
           value={value()}
           onValueChange={(details) => setValue(details.value)}
         >
-          <Listbox.Label>Controlled fruit</Listbox.Label>
-          <Listbox.Content>
+          <ListboxLabel>Controlled fruit</ListboxLabel>
+          <ListboxContent>
             {fruits.items.map((item) => (
-              <Listbox.Item item={item}>
-                <Listbox.ItemText>{item.label}</Listbox.ItemText>
-              </Listbox.Item>
+              <ListboxItem item={item}>
+                <ListboxItemText>{item.label}</ListboxItemText>
+              </ListboxItem>
             ))}
-          </Listbox.Content>
+          </ListboxContent>
         </Listbox>
         <button type="button" onClick={() => setValue(['apple'])}>
           Set apple
@@ -92,19 +106,19 @@ test('renders controlled values from consumer state', () => {
 test('exposes initial item state through the Ark ItemContext', () => {
   render(() => (
     <Listbox collection={fruits} defaultValue={['apple']}>
-      <Listbox.Content>
+      <ListboxContent>
         {fruits.items.map((item) => (
-          <Listbox.Item item={item}>
-            <Listbox.ItemContext>
+          <ListboxItem item={item}>
+            <ListboxItemContext>
               {(itemContext) => (
-                <Listbox.ItemText>
+                <ListboxItemText>
                   {itemContext().selected ? `${item.label} (selected)` : item.label}
-                </Listbox.ItemText>
+                </ListboxItemText>
               )}
-            </Listbox.ItemContext>
-          </Listbox.Item>
+            </ListboxItemContext>
+          </ListboxItem>
         ))}
-      </Listbox.Content>
+      </ListboxContent>
     </Listbox>
   ));
 
@@ -162,17 +176,17 @@ test('exposes RootProvider state through the moduix context hook', () => {
     const listbox = useListbox({ collection: fruits, defaultValue: ['mango'] });
 
     return (
-      <Listbox.RootProvider value={listbox}>
-        <Listbox.Label>Provider fruit</Listbox.Label>
-        <Listbox.Content>
+      <ListboxRootProvider value={listbox}>
+        <ListboxLabel>Provider fruit</ListboxLabel>
+        <ListboxContent>
           {fruits.items.map((item) => (
-            <Listbox.Item item={item}>
-              <Listbox.ItemText>{item.label}</Listbox.ItemText>
-            </Listbox.Item>
+            <ListboxItem item={item}>
+              <ListboxItemText>{item.label}</ListboxItemText>
+            </ListboxItem>
           ))}
-        </Listbox.Content>
+        </ListboxContent>
         <ContextValue />
-      </Listbox.RootProvider>
+      </ListboxRootProvider>
     );
   }
 
@@ -184,7 +198,7 @@ test('exposes RootProvider state through the moduix context hook', () => {
 test('renders the consumer-wired clear trigger as an accessible button', () => {
   const handleClick = () => undefined;
 
-  render(() => <Listbox.ClearTrigger onClick={handleClick} />);
+  render(() => <ListboxClearTrigger onClick={handleClick} />);
 
   expect(screen.getByRole('button', { name: 'Clear search' })).toHaveAttribute('type', 'button');
 });
@@ -192,21 +206,21 @@ test('renders the consumer-wired clear trigger as an accessible button', () => {
 test('exposes the item context and keeps component-owned visual parts visible', () => {
   const { container } = render(() => (
     <Listbox collection={fruits} defaultValue={['apple']}>
-      <Listbox.Label>Styled fruit</Listbox.Label>
-      <Listbox.Content>
+      <ListboxLabel>Styled fruit</ListboxLabel>
+      <ListboxContent>
         {fruits.items.map((item) => (
-          <Listbox.Item item={item}>
-            <Listbox.ItemContext>
+          <ListboxItem item={item}>
+            <ListboxItemContext>
               {(itemContext) => (
-                <Listbox.ItemText>
+                <ListboxItemText>
                   {itemContext().selected ? `${item.label} (selected)` : item.label}
-                </Listbox.ItemText>
+                </ListboxItemText>
               )}
-            </Listbox.ItemContext>
-            <Listbox.ItemIndicator />
-          </Listbox.Item>
+            </ListboxItemContext>
+            <ListboxItemIndicator />
+          </ListboxItem>
         ))}
-      </Listbox.Content>
+      </ListboxContent>
     </Listbox>
   ));
 
@@ -229,17 +243,17 @@ test('exposes the item context and keeps component-owned visual parts visible', 
 test('lets consumer utilities replace conflicting defaults', () => {
   const { container } = render(() => (
     <Listbox collection={fruits} class="w-80">
-      <Listbox.Label class="text-lg">Styled fruit</Listbox.Label>
-      <Listbox.Filter>
-        <Listbox.Input class="min-h-10" />
-        <Listbox.ClearTrigger class="size-5" />
-      </Listbox.Filter>
-      <Listbox.Content class="max-h-80 p-0">
-        <Listbox.Item item={fruits.items[0]} class="px-0">
-          <Listbox.ItemText>Apple</Listbox.ItemText>
-          <Listbox.ItemIndicator class="size-5" />
-        </Listbox.Item>
-      </Listbox.Content>
+      <ListboxLabel class="text-lg">Styled fruit</ListboxLabel>
+      <ListboxFilter>
+        <ListboxInput class="min-h-10" />
+        <ListboxClearTrigger class="size-5" />
+      </ListboxFilter>
+      <ListboxContent class="max-h-80 p-0">
+        <ListboxItem item={fruits.items[0]} class="px-0">
+          <ListboxItemText>Apple</ListboxItemText>
+          <ListboxItemIndicator class="size-5" />
+        </ListboxItem>
+      </ListboxContent>
     </Listbox>
   ));
 

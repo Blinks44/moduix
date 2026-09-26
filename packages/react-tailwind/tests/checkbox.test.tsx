@@ -1,17 +1,26 @@
 import { expect, test } from '@rstest/core';
 import { fireEvent, render, screen, waitFor } from '@testing-library/react';
 import { createRef, useState } from 'react';
-import { Checkbox, useCheckbox } from '../src';
+import {
+  Checkbox,
+  CheckboxControl,
+  CheckboxGroup,
+  CheckboxHiddenInput,
+  CheckboxIndicator,
+  CheckboxLabel,
+  CheckboxRootProvider,
+  useCheckbox,
+} from '../src';
 
 function ProviderCheckbox() {
   const checkbox = useCheckbox({ defaultChecked: true, name: 'provider-notifications' });
 
   return (
-    <Checkbox.RootProvider value={checkbox}>
-      <Checkbox.Control />
-      <Checkbox.HiddenInput />
-      <Checkbox.Label>Provider notifications</Checkbox.Label>
-    </Checkbox.RootProvider>
+    <CheckboxRootProvider value={checkbox}>
+      <CheckboxControl />
+      <CheckboxHiddenInput />
+      <CheckboxLabel>Provider notifications</CheckboxLabel>
+    </CheckboxRootProvider>
   );
 }
 
@@ -19,23 +28,23 @@ test('submits through explicit Ark inputs for roots', () => {
   const { container } = render(
     <form>
       <Checkbox defaultChecked name="notifications" value="email">
-        <Checkbox.Control />
-        <Checkbox.HiddenInput />
-        <Checkbox.Label>Email notifications</Checkbox.Label>
+        <CheckboxControl />
+        <CheckboxHiddenInput />
+        <CheckboxLabel>Email notifications</CheckboxLabel>
       </Checkbox>
       <ProviderCheckbox />
-      <Checkbox.Group defaultValue={['react']} name="frameworks">
+      <CheckboxGroup defaultValue={['react']} name="frameworks">
         <Checkbox value="react">
-          <Checkbox.Control />
-          <Checkbox.HiddenInput />
-          <Checkbox.Label>React</Checkbox.Label>
+          <CheckboxControl />
+          <CheckboxHiddenInput />
+          <CheckboxLabel>React</CheckboxLabel>
         </Checkbox>
         <Checkbox value="vue">
-          <Checkbox.Control />
-          <Checkbox.HiddenInput />
-          <Checkbox.Label>Vue</Checkbox.Label>
+          <CheckboxControl />
+          <CheckboxHiddenInput />
+          <CheckboxLabel>Vue</CheckboxLabel>
         </Checkbox>
-      </Checkbox.Group>
+      </CheckboxGroup>
     </form>,
   );
 
@@ -53,9 +62,9 @@ test('preserves Ark behavior and semantic asChild composition', () => {
   render(
     <Checkbox asChild>
       <label>
-        <Checkbox.Control />
-        <Checkbox.HiddenInput />
-        <Checkbox.Label>Accept terms</Checkbox.Label>
+        <CheckboxControl />
+        <CheckboxHiddenInput />
+        <CheckboxLabel>Accept terms</CheckboxLabel>
       </label>
     </Checkbox>,
   );
@@ -76,15 +85,15 @@ test('forwards refs and exposes stable slots on public parts', () => {
   const groupRef = createRef<HTMLDivElement>();
 
   render(
-    <Checkbox.Group ref={groupRef} defaultValue={['email']}>
+    <CheckboxGroup ref={groupRef} defaultValue={['email']}>
       <Checkbox ref={rootRef} value="email" size="lg">
-        <Checkbox.Control ref={controlRef}>
-          <Checkbox.Indicator ref={indicatorRef} />
-        </Checkbox.Control>
-        <Checkbox.HiddenInput />
-        <Checkbox.Label ref={labelRef}>Email notifications</Checkbox.Label>
+        <CheckboxControl ref={controlRef}>
+          <CheckboxIndicator ref={indicatorRef} />
+        </CheckboxControl>
+        <CheckboxHiddenInput />
+        <CheckboxLabel ref={labelRef}>Email notifications</CheckboxLabel>
       </Checkbox>
-    </Checkbox.Group>,
+    </CheckboxGroup>,
   );
 
   expect(rootRef.current).toHaveAttribute('data-slot', 'checkbox-root');
@@ -99,27 +108,27 @@ test('preserves disabled, read-only, invalid, and required semantics', () => {
   render(
     <>
       <Checkbox disabled>
-        <Checkbox.Control />
-        <Checkbox.HiddenInput />
-        <Checkbox.Label>Disabled option</Checkbox.Label>
+        <CheckboxControl />
+        <CheckboxHiddenInput />
+        <CheckboxLabel>Disabled option</CheckboxLabel>
       </Checkbox>
       <Checkbox readOnly>
-        <Checkbox.Control />
-        <Checkbox.HiddenInput />
-        <Checkbox.Label>Read-only option</Checkbox.Label>
+        <CheckboxControl />
+        <CheckboxHiddenInput />
+        <CheckboxLabel>Read-only option</CheckboxLabel>
       </Checkbox>
       <Checkbox invalid required>
-        <Checkbox.Control />
-        <Checkbox.HiddenInput />
-        <Checkbox.Label>Required option</Checkbox.Label>
+        <CheckboxControl />
+        <CheckboxHiddenInput />
+        <CheckboxLabel>Required option</CheckboxLabel>
       </Checkbox>
-      <Checkbox.Group readOnly>
+      <CheckboxGroup readOnly>
         <Checkbox value="group-option">
-          <Checkbox.Control />
-          <Checkbox.HiddenInput />
-          <Checkbox.Label>Read-only group option</Checkbox.Label>
+          <CheckboxControl />
+          <CheckboxHiddenInput />
+          <CheckboxLabel>Read-only group option</CheckboxLabel>
         </Checkbox>
-      </Checkbox.Group>
+      </CheckboxGroup>
     </>,
   );
 
@@ -146,9 +155,9 @@ test('keeps controlled indeterminate state transitions Ark-shaped', async () => 
 
     return (
       <Checkbox checked={checked} onCheckedChange={(details) => setChecked(details.checked)}>
-        <Checkbox.Control />
-        <Checkbox.HiddenInput />
-        <Checkbox.Label>Select all</Checkbox.Label>
+        <CheckboxControl />
+        <CheckboxHiddenInput />
+        <CheckboxLabel>Select all</CheckboxLabel>
       </Checkbox>
     );
   }
@@ -167,9 +176,9 @@ test('keeps controlled indeterminate state transitions Ark-shaped', async () => 
 test('applies native utilities to component-owned visual parts', () => {
   render(
     <Checkbox defaultChecked>
-      <Checkbox.Control />
-      <Checkbox.Label>Notifications</Checkbox.Label>
-      <Checkbox.HiddenInput />
+      <CheckboxControl />
+      <CheckboxLabel>Notifications</CheckboxLabel>
+      <CheckboxHiddenInput />
     </Checkbox>,
   );
 
@@ -188,9 +197,9 @@ test('applies native utilities to component-owned visual parts', () => {
 test('lets consumer Tailwind classes override conflicting defaults', () => {
   render(
     <Checkbox className="gap-4 text-primary" data-testid="root">
-      <Checkbox.Control className="rounded-md bg-muted p-1" />
-      <Checkbox.Label>Notifications</Checkbox.Label>
-      <Checkbox.HiddenInput />
+      <CheckboxControl className="rounded-md bg-muted p-1" />
+      <CheckboxLabel>Notifications</CheckboxLabel>
+      <CheckboxHiddenInput />
     </Checkbox>,
   );
 

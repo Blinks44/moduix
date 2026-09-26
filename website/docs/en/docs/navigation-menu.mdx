@@ -1,7 +1,7 @@
 ---
 title: Navigation Menu
 component: navigation-menu
-description: A composable navigation bar for direct links and disclosure panels, with an optional shared viewport for animated transitions.
+description: A composable navigation bar for direct links and disclosure panels, with an optional shared NavigationMenuViewport for animated transitions.
 ---
 
 import * as NavigationMenuDocs from '@/components/examples/navigation-menu/css-properties';
@@ -32,9 +32,9 @@ Import it from the matching package subpath: `@moduix/react/navigation-menu`,
 `@moduix/solid/navigation-menu`, `@moduix/react-tailwind/navigation-menu`, or
 `@moduix/solid-tailwind/navigation-menu`.
 
-Use `NavigationMenu` with `NavigationMenu.List` and `NavigationMenu.Item`. Give every item a unique
-`value`. For a group of links, place `NavigationMenu.Trigger` and `NavigationMenu.Content` inside
-the same item. Use `NavigationMenu.Link` for direct top-level destinations and for links inside a
+Use `NavigationMenu` with `NavigationMenuList` and `NavigationMenuItem`. Give every item a unique
+`value`. For a group of links, place `NavigationMenuTrigger` and `NavigationMenuContent` inside
+the same item. Use `NavigationMenuLink` for direct top-level destinations and for links inside a
 panel.
 
 <ExampleFrame variant="component">
@@ -102,56 +102,56 @@ See [Quick Start](/docs/quick-start) for full package setup, registry configurat
 ## Anatomy
 
 ```text
-NavigationMenu / NavigationMenu.Root
-├─ NavigationMenu.List
-│  ├─ NavigationMenu.Item[value]
-│  │  └─ NavigationMenu.Link
-│  └─ NavigationMenu.Item[value]
-│     ├─ NavigationMenu.Trigger
-│     ├─ NavigationMenu.ItemIndicator (optional)
-│     └─ NavigationMenu.Content
-│        └─ NavigationMenu.Link
-│  └─ NavigationMenu.Indicator > NavigationMenu.Arrow (optional)
-└─ NavigationMenu.ViewportPositioner (optional)
-   └─ NavigationMenu.Viewport
+NavigationMenu
+├─ NavigationMenuList
+│  ├─ NavigationMenuItem[value]
+│  │  └─ NavigationMenuLink
+│  └─ NavigationMenuItem[value]
+│     ├─ NavigationMenuTrigger
+│     ├─ NavigationMenuItemIndicator (optional)
+│     └─ NavigationMenuContent
+│        └─ NavigationMenuLink
+│  └─ NavigationMenuIndicator > NavigationMenuArrow (optional)
+└─ NavigationMenuViewportPositioner (optional)
+   └─ NavigationMenuViewport
 
-NavigationMenu.RootProvider
+NavigationMenuRootProvider
 └─ same part tree connected to a useNavigationMenu() store
 
-NavigationMenu.Context
+NavigationMenuContext
 └─ advanced render-prop access to the current navigation state
 ```
 
 | Part | Role |
 | --- | --- |
-| `NavigationMenu` / `NavigationMenu.Root` | Root `nav` element that owns the open value, delays, focus behavior, and orientation. |
-| `NavigationMenu.RootProvider` | Connects the parts to a store created with `useNavigationMenu()`. |
-| `NavigationMenu.Context` | Exposes the current navigation state through a render prop. |
-| `NavigationMenu.List` | Groups top-level navigation items. |
-| `NavigationMenu.Item` | Requires a unique `value` and connects an item's trigger, content, and links. |
-| `NavigationMenu.Trigger` | Button that opens or closes the item's disclosure panel. |
-| `NavigationMenu.Content` | Disclosure panel for an item. It can render beside the item or inside a shared `Viewport`. |
-| `NavigationMenu.Link` | Anchor for a direct destination or a link inside a disclosure panel. |
-| `NavigationMenu.ItemIndicator` | Optional visual marker for the current item. |
-| `NavigationMenu.Indicator` | Optional marker for the active trigger; render it inside `List`. Use `Arrow` with a shared `Viewport`. |
-| `NavigationMenu.ViewportPositioner` | Positions a shared `Viewport`. |
-| `NavigationMenu.Viewport` | Shared animated surface for the currently open content. |
+| `NavigationMenu` | Root `nav` element that owns the open value, delays, focus behavior, and orientation. |
+| `NavigationMenuRootProvider` | Connects the parts to a store created with `useNavigationMenu()`. |
+| `NavigationMenuContext` | Exposes the current navigation state through a render prop. |
+| `NavigationMenuList` | Groups top-level navigation items. |
+| `NavigationMenuItem` | Requires a unique `value` and connects an item's trigger, content, and links. |
+| `NavigationMenuTrigger` | Button that opens or closes the item's disclosure panel. |
+| `NavigationMenuContent` | Disclosure panel for an item. It can render beside the item or inside a shared `NavigationMenuViewport`. |
+| `NavigationMenuLink` | Anchor for a direct destination or a link inside a disclosure panel. |
+| `NavigationMenuItemIndicator` | Optional visual marker for the current item. |
+| `NavigationMenuIndicator` | Optional marker for the active trigger; render it inside `NavigationMenuList`. Use `NavigationMenuArrow` with a shared `NavigationMenuViewport`. |
+| `NavigationMenuViewportPositioner` | Positions a shared `NavigationMenuViewport`. |
+| `NavigationMenuViewport` | Shared animated surface for the currently open content. |
 
 ## Composition
 
 Use `defaultValue` for an uncontrolled menu. When another part of the application owns the open
-item, pass `value` and `onValueChange(details)`; `details.value` is the open item's value or an
-empty string when all panels are closed. Use `NavigationMenu.RootProvider` with
-`useNavigationMenu()` when the store must be created outside the rendered tree. Pass the returned
-store to `RootProvider` and do not render another root for that store. React reads the store as an
-object; Solid reads its reactive state through the returned accessor.
+item, pass `value` with `onValueChange(details)`; `details.value` is the open item's value or an
+empty string when all panels are closed. Create the store with `useNavigationMenu()` and pass it
+to `NavigationMenuRootProvider` when it must live outside the rendered tree; do not render another
+root for that store. React reads the store as an object; Solid reads its reactive state through
+the returned accessor. Use `NavigationMenuContext` when a descendant needs the current state
+through a render prop instead of a store.
 
-Add `ViewportPositioner` and `Viewport` when several panels should share one animated surface. The
-positioner accepts Ark's `align` prop (`"start" | "center" | "end"`, default `"center"`) to align the
-viewport against the value positioner. Keep
-`Indicator` inside `List`, and add `Arrow` there only with a shared viewport. Without a shared
-viewport, `Content` renders beside its item. Use `asChild` for router links or custom triggers only
-when the child remains one interactive, focusable element.
+Without a shared viewport, `NavigationMenuContent` renders beside its item. Add
+`NavigationMenuViewportPositioner` and `NavigationMenuViewport` when several panels should share one
+animated surface; the positioner's `align` prop (`"start" | "center" | "end"`, default `"center"`)
+aligns the viewport against the value positioner. Use `asChild` for router links or custom
+triggers only when the child remains one interactive, focusable element.
 
 ## Examples
 
@@ -195,9 +195,9 @@ nearby application UI. The output below shows the value of the currently open it
 
 </ExampleCode>
 
-### Viewport
+### Shared viewport
 
-Use a shared `Viewport` when panels have different sizes but should animate inside one surface. This
+Use a shared `NavigationMenuViewport` when panels have different sizes but should animate inside one surface. This
 example uses a two-column panel and panels with different widths, so switching triggers visibly
 animates the viewport's measured width and height.
 
@@ -263,11 +263,11 @@ hooks are shared by both styling tracks.
 Target the part that owns the visual concern:
 
 - `NavigationMenu` for root width, text color, and layout position.
-- `NavigationMenu.List` for top-level spacing and orientation.
-- `NavigationMenu.Trigger` and `NavigationMenu.Link` for navigation controls, current state, and focus.
-- `NavigationMenu.Content` for disclosure panel surfaces and their links.
-- `NavigationMenu.Indicator` and `ItemIndicator` for optional active-state decoration; use `Arrow` with a shared `Viewport`.
-- `NavigationMenu.ViewportPositioner` and `Viewport` for a shared animated panel surface.
+- `NavigationMenuList` for top-level spacing and orientation.
+- `NavigationMenuTrigger` and `NavigationMenuLink` for navigation controls, current state, and focus.
+- `NavigationMenuContent` for disclosure panel surfaces and their links.
+- `NavigationMenuIndicator` and `NavigationMenuItemIndicator` for optional active-state decoration; use `NavigationMenuArrow` with a shared `NavigationMenuViewport`.
+- `NavigationMenuViewportPositioner` and `NavigationMenuViewport` for a shared animated panel surface.
 
 The main public hooks are `data-slot="navigation-menu-root"`,
 `data-slot="navigation-menu-root-provider"`, `data-slot="navigation-menu-list"`,

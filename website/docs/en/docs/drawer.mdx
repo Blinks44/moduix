@@ -48,8 +48,8 @@ points. Choose `Dialog` for a centered surface that does not need to be dragged.
 
 
 Compose the drawer from Ark's structural parts. This example opens at a compact snap point, then lets
-the user drag it to full height. `Drawer.Content` is the interactive surface, `Drawer.Positioner`
-places it, and `Drawer.Backdrop` provides the modal layer.
+the user drag it to full height. `DrawerContent` is the interactive surface, `DrawerPositioner`
+places it, and `DrawerBackdrop` provides the modal layer.
 
 <ExampleFrame variant="component">
   <DrawerBasic />
@@ -116,57 +116,57 @@ See [Quick Start](/docs/quick-start) for full package setup, registry configurat
 ## Anatomy
 
 ```text
-Drawer / Drawer.Root
-├─ Drawer.Trigger
-├─ Drawer.SwipeArea (optional)
-├─ Drawer.Backdrop
-└─ Drawer.Positioner
-   └─ Drawer.Content
-      ├─ Drawer.Grabber
-      │  └─ Drawer.GrabberIndicator
-      ├─ Drawer.Header (optional layout helper)
-      │  ├─ Drawer.Title
-      │  ├─ Drawer.Description
-      │  └─ Drawer.CloseIcon (optional helper)
-      ├─ Drawer.Body (optional layout helper)
-      └─ Drawer.Footer (optional layout helper)
+Drawer
+├─ DrawerTrigger
+├─ DrawerSwipeArea (optional)
+├─ DrawerBackdrop
+└─ DrawerPositioner
+   └─ DrawerContent
+      ├─ DrawerGrabber
+      │  └─ DrawerGrabberIndicator
+      ├─ DrawerHeader (optional layout helper)
+      │  ├─ DrawerTitle
+      │  ├─ DrawerDescription
+      │  └─ DrawerCloseIcon (optional helper)
+      ├─ DrawerBody (optional layout helper)
+      └─ DrawerFooter (optional layout helper)
 
-Drawer.RootProvider
+DrawerRootProvider
 └─ same part tree connected to a useDrawer() store
 ```
 
 | Part | Role |
 | --- | --- |
-| `Drawer` / `Drawer.Root` | Root part that owns open state, snap points, and swipe behavior. |
-| `Drawer.RootProvider` | Connects the parts to state created with `useDrawer()`. |
-| `Drawer.Trigger` | Opens the drawer. |
-| `Drawer.SwipeArea` | Optional edge region that opens the drawer on swipe. |
-| `Drawer.Backdrop` | Modal backdrop layer. |
-| `Drawer.Positioner` | Positions the drawer content. |
-| `Drawer.Content` | Interactive surface of the drawer. |
-| `Drawer.Grabber` | Container for the drag handle. |
-| `Drawer.GrabberIndicator` | Visual indicator inside the drag handle. |
-| `Drawer.Title` | Accessible title for the drawer. |
-| `Drawer.Description` | Accessible description for the drawer. |
-| `Drawer.CloseTrigger` | Closes the drawer. |
-| `Drawer.CloseIcon` | Moduix close control composed from `CloseTrigger`. |
-| `Drawer.Stack` | Coordinates nested drawers and indented surfaces. |
-| `Drawer.Indent` | Surface that moves back when a stacked drawer opens. |
-| `Drawer.IndentBackground` | Background behind an indented surface. |
-| `Drawer.Header`, `Drawer.Body`, `Drawer.Footer` | Optional layout helpers with no state of their own. |
+| `Drawer` | Root part that owns open state, snap points, and swipe behavior. |
+| `DrawerRootProvider` | Connects the parts to state created with `useDrawer()`. |
+| `DrawerTrigger` | Opens the drawer. |
+| `DrawerSwipeArea` | Optional edge region that opens the drawer on swipe. |
+| `DrawerBackdrop` | Modal backdrop layer. |
+| `DrawerPositioner` | Positions the drawer content. |
+| `DrawerContent` | Interactive surface of the drawer. |
+| `DrawerGrabber` | Container for the drag handle. |
+| `DrawerGrabberIndicator` | Visual indicator inside the drag handle. |
+| `DrawerTitle` | Accessible title for the drawer. |
+| `DrawerDescription` | Accessible description for the drawer. |
+| `DrawerCloseTrigger` | Closes the drawer. |
+| `DrawerCloseIcon` | Moduix close control composed from `DrawerCloseTrigger`. |
+| `DrawerStack` | Coordinates nested drawers and indented surfaces. |
+| `DrawerIndent` | Surface that moves back when a stacked drawer opens. |
+| `DrawerIndentBackground` | Background behind an indented surface. |
+| `DrawerHeader`, `DrawerBody`, `DrawerFooter` | Optional layout helpers with no state of their own. |
 
 ## Composition
 
-`Drawer` owns its state by default and renders `Backdrop` and `Positioner` through a portal. Keep
+`Drawer` owns its state by default and renders `DrawerBackdrop` and `DrawerPositioner` through a portal. Keep
 those structural parts explicit. Set `portalled={false}` to render them inline, or pass `portalRef`
 to use a custom container.
 
 When state must be created outside the drawer tree, create one store with `useDrawer()` and pass it to
-one `Drawer.RootProvider`. Do not render `Drawer` or `Drawer.Root` for that same store. Nested drawers
-use separate stores and separate `RootProvider` trees so each drawer keeps its own focus and open state.
+one `DrawerRootProvider`. Do not render `Drawer` for that same store. Nested drawers
+use separate stores and separate `DrawerRootProvider` trees so each drawer keeps its own focus and open state.
 
-Wrap surfaces that should move together in `Drawer.Stack`, then pair `Drawer.IndentBackground` with
-`Drawer.Indent`. Use `asChild` for a custom trigger or close host: React receives one focusable child,
+Wrap surfaces that should move together in `DrawerStack`, then pair `DrawerIndentBackground` with
+`DrawerIndent`. Use `asChild` for a custom trigger or close host: React receives one focusable child,
 while Solid uses a render function that spreads `props()` onto the child. Ark callbacks receive detail
 objects, such as `details.open`, `details.snapPoint`, and `details.value`.
 
@@ -206,7 +206,7 @@ Read `details.open` from the Ark callback. The callback receives a details objec
 ### Drag Controls
 
 Add `data-no-drag` to interactive regions that must not start a drag. Set `draggable={false}` on
-`Drawer.Content` when the drawer should move only from the grabber.
+`DrawerContent` when the drawer should move only from the grabber.
 
 <ExampleFrame variant="component">
   <DrawerDragControls />
@@ -237,7 +237,7 @@ Add `data-no-drag` to interactive regions that must not start a drag. Set `dragg
 
 ### Floating Grabber
 
-Place `Drawer.Grabber` above the surface when the handle should appear as a separate control. The
+Place `DrawerGrabber` above the surface when the handle should appear as a separate control. The
 styling in this example leaves a 10px gap between the handle and the drawer edge.
 
 <ExampleFrame variant="component">
@@ -269,7 +269,7 @@ styling in this example leaves a 10px gap between the handle and the drawer edge
 
 ### Indent Background
 
-`Drawer.Stack` uses Ark stack state and swipe progress to move `IndentBackground` and `Indent` together.
+`DrawerStack` uses Ark stack state and swipe progress to move `DrawerIndentBackground` and `DrawerIndent` together.
 
 <ExampleFrame variant="component">
   <DrawerIndentBackground />
@@ -300,7 +300,7 @@ styling in this example leaves a 10px gap between the handle and the drawer edge
 
 ### Island
 
-Set `variant="island"` on `Drawer.Content` when a compact drawer should sit inside the viewport with
+Set `variant="island"` on `DrawerContent` when a compact drawer should sit inside the viewport with
 an inset instead of extending visually past the edge where it opens.
 
 <ExampleFrame variant="component">
@@ -364,7 +364,7 @@ active.
 
 ### Nested
 
-Use separate Ark `useDrawer` instances and separate moduix `Drawer.RootProvider` trees for nested
+Use separate Ark `useDrawer` instances and separate moduix `DrawerRootProvider` trees for nested
 drawers. Each drawer then keeps its own open state and focus lifecycle.
 
 <ExampleFrame variant="component">
@@ -460,7 +460,7 @@ snap points.
 
 ### Scrollable
 
-Put long content in `Drawer.Body`. Use `ScrollArea` when the drawer should have a dedicated scroll
+Put long content in `DrawerBody`. Use `ScrollArea` when the drawer should have a dedicated scroll
 container while the grabber and header stay fixed.
 
 <ExampleFrame variant="component">
@@ -555,7 +555,7 @@ for a top drawer and `down` for a bottom drawer.
 
 ### Advanced Customization
 
-Skip the optional `Header`, `Body`, `Footer`, and `CloseIcon` helpers when a custom layout needs the
+Skip the optional `DrawerHeader`, `DrawerBody`, `DrawerFooter`, and `DrawerCloseIcon` helpers when a custom layout needs the
 full low-level Drawer anatomy.
 
 <ExampleFrame variant="component">
@@ -595,17 +595,7 @@ classes; the component variables below customize the CSS Modules variants. Data 
 
 ### CSS Properties
 
-<div className="docs-reference">
-  <Tabs
-    values={[{ label: 'CSS Variables', value: 'CSS Variables' }]}
-    className="docs-reference-tabs"
-    contentItemClassName="docs-reference-panel"
-  >
-    <Tab>
-      <DrawerDocs.DrawerCssPropertiesPanel />
-    </Tab>
-  </Tabs>
-</div>
+<CssPropertiesSection properties={DrawerDocs.drawerOverrideCssProperties} />
 
 ### Styling hooks
 
@@ -613,7 +603,7 @@ classes; the component variables below customize the CSS Modules variants. Data 
   `drawer-grabber`, `drawer-grabber-indicator`, `drawer-title`, `drawer-description`,
   `drawer-close-trigger`, `drawer-close-icon`, `drawer-swipe-area`, `drawer-indent`,
   `drawer-indent-background`, `drawer-header`, `drawer-body`, and `drawer-footer`.
-- `Drawer.Content` writes `data-variant="island"` when its island presentation is active.
+- `DrawerContent` writes `data-variant="island"` when its island presentation is active.
 - Ark part hooks: `data-scope="drawer"` with `data-part`.
 - State hooks: `data-state="open|closed"`, `data-swipe-direction`, `data-swiping`,
   `data-dragging`, `data-expanded`, `data-current`, `data-value`, `data-disabled`,

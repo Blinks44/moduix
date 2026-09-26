@@ -1,1 +1,1 @@
-export { SplitButton } from './SplitButton.js';
+export * from './SplitButton.js';

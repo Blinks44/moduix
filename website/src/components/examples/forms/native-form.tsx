@@ -1,12 +1,47 @@
 import { createListCollection, useListCollection } from '@ark-ui/react/collection';
 import { useFilter } from '@ark-ui/react/locale';
 import { Button } from '@moduix/react/button';
-import { Card } from '@moduix/react/card';
-import { Checkbox } from '@moduix/react/checkbox';
-import { Combobox } from '@moduix/react/combobox';
-import { Field } from '@moduix/react/field';
+import {
+  Card,
+  CardBody,
+  CardDescription,
+  CardFooter,
+  CardHeader,
+  CardTitle,
+} from '@moduix/react/card';
+import {
+  Checkbox,
+  CheckboxControl,
+  CheckboxHiddenInput,
+  CheckboxLabel,
+} from '@moduix/react/checkbox';
+import {
+  Combobox,
+  ComboboxClearTrigger,
+  ComboboxContent,
+  ComboboxControl,
+  ComboboxEmpty,
+  ComboboxInput,
+  ComboboxList,
+  ComboboxOption,
+  ComboboxPositioner,
+  ComboboxTrigger,
+} from '@moduix/react/combobox';
+import { Field, FieldLabel, FieldRequiredIndicator } from '@moduix/react/field';
 import { Input } from '@moduix/react/input';
-import { Select } from '@moduix/react/select';
+import {
+  Select,
+  SelectControl,
+  SelectTrigger,
+  SelectValueText,
+  SelectIndicator,
+  SelectPositioner,
+  SelectContent,
+  SelectItem,
+  SelectItemText,
+  SelectItemIndicator,
+  SelectHiddenSelect,
+} from '@moduix/react/select';
 import { Textarea } from '@moduix/react/textarea';
 import styles from './forms-native-form.module.css';
 
@@ -41,93 +76,93 @@ export default function NativeForm() {
       }}
     >
       <Card>
-        <Card.Header>
-          <Card.Title>Create project</Card.Title>
-          <Card.Description>Share the details your team needs to get started.</Card.Description>
-        </Card.Header>
+        <CardHeader>
+          <CardTitle>Create project</CardTitle>
+          <CardDescription>Share the details your team needs to get started.</CardDescription>
+        </CardHeader>
 
-        <Card.Body className={styles.stack}>
+        <CardBody className={styles.stack}>
           <Field required>
-            <Field.Label>
+            <FieldLabel>
               Project name
-              <Field.RequiredIndicator />
-            </Field.Label>
+              <FieldRequiredIndicator />
+            </FieldLabel>
             <Input name="name" />
           </Field>
 
           <Field required>
-            <Field.Label>
+            <FieldLabel>
               Team
-              <Field.RequiredIndicator />
-            </Field.Label>
+              <FieldRequiredIndicator />
+            </FieldLabel>
             <Select collection={teams} name="team">
-              <Select.Control>
-                <Select.Trigger>
-                  <Select.ValueText placeholder="Choose a team" />
-                </Select.Trigger>
-                <Select.Indicator />
-              </Select.Control>
-              <Select.Positioner>
-                <Select.Content>
+              <SelectControl>
+                <SelectTrigger>
+                  <SelectValueText placeholder="Choose a team" />
+                </SelectTrigger>
+                <SelectIndicator />
+              </SelectControl>
+              <SelectPositioner>
+                <SelectContent>
                   {teams.items.map((item) => (
-                    <Select.Item key={item.value} item={item}>
-                      <Select.ItemText>{item.label}</Select.ItemText>
-                      <Select.ItemIndicator />
-                    </Select.Item>
+                    <SelectItem key={item.value} item={item}>
+                      <SelectItemText>{item.label}</SelectItemText>
+                      <SelectItemIndicator />
+                    </SelectItem>
                   ))}
-                </Select.Content>
-              </Select.Positioner>
-              <Select.HiddenSelect />
+                </SelectContent>
+              </SelectPositioner>
+              <SelectHiddenSelect />
             </Select>
           </Field>
 
           <Field required>
-            <Field.Label>
+            <FieldLabel>
               Reviewer
-              <Field.RequiredIndicator />
-            </Field.Label>
+              <FieldRequiredIndicator />
+            </FieldLabel>
             <Combobox
               collection={collection}
               name="reviewer"
               onInputValueChange={(details) => filter(details.inputValue)}
             >
-              <Combobox.Control>
-                <Combobox.Input placeholder="Search people" />
-                <Combobox.ClearTrigger aria-label="Clear reviewer" />
-                <Combobox.Trigger aria-label="Open reviewers" />
-              </Combobox.Control>
-              <Combobox.Positioner>
-                <Combobox.Content>
-                  <Combobox.Empty>No reviewers found.</Combobox.Empty>
-                  <Combobox.List>
+              <ComboboxControl>
+                <ComboboxInput placeholder="Search people" />
+                <ComboboxClearTrigger aria-label="Clear reviewer" />
+                <ComboboxTrigger aria-label="Open reviewers" />
+              </ComboboxControl>
+              <ComboboxPositioner>
+                <ComboboxContent>
+                  <ComboboxEmpty>No reviewers found.</ComboboxEmpty>
+                  <ComboboxList>
                     {collection.items.map((item) => (
-                      <Combobox.Option key={item.value} item={item}>
+                      <ComboboxOption key={item.value} item={item}>
                         {item.label}
-                      </Combobox.Option>
+                      </ComboboxOption>
                     ))}
-                  </Combobox.List>
-                </Combobox.Content>
-              </Combobox.Positioner>
+                  </ComboboxList>
+                </ComboboxContent>
+              </ComboboxPositioner>
             </Combobox>
           </Field>
 
           <Field>
-            <Field.Label>Summary</Field.Label>
+            <FieldLabel>Summary</FieldLabel>
             <Textarea name="summary" placeholder="What are you planning to build?" rows={3} />
           </Field>
 
           <Checkbox name="notifications">
-            <Checkbox.Control />
-            <Checkbox.Label>Send status notifications</Checkbox.Label>
-            <Checkbox.HiddenInput />
+            <CheckboxControl />
+            <CheckboxLabel>Send status notifications</CheckboxLabel>
+            <CheckboxHiddenInput />
           </Checkbox>
-        </Card.Body>
+        </CardBody>
 
-        <Card.Footer>
+        <CardFooter>
           <Button className={styles.submit} type="submit">
             Create project
           </Button>
-        </Card.Footer>
+        </CardFooter>
       </Card>
     </form>
   );

@@ -1,5 +1,15 @@
 import { Button } from '@moduix/react/button';
-import { Toc, useToc } from '@moduix/react/toc';
+import {
+  TocContent,
+  TocIndicator,
+  TocItem,
+  TocLink,
+  TocList,
+  TocNav,
+  TocRootProvider,
+  TocTitle,
+  useToc,
+} from '@moduix/react/toc';
 import { useRef } from 'react';
 import { PreviewMeta } from '@/components/mdx/Components';
 import styles from '@/components/examples/table-of-contents/table-of-contents-root-provider.module.css';
@@ -42,8 +52,8 @@ export default function TocRootProviderDemo() {
         ))}
       </div>
 
-      <Toc.RootProvider className={styles.toc} value={toc}>
-        <Toc.Content>
+      <TocRootProvider className={styles.toc} value={toc}>
+        <TocContent>
           <div
             ref={scrollRef}
             aria-label="Scrollable document preview"
@@ -59,19 +69,19 @@ export default function TocRootProviderDemo() {
               </section>
             ))}
           </div>
-        </Toc.Content>
-        <Toc.Nav>
-          <Toc.Title>On this page</Toc.Title>
-          <Toc.List>
-            <Toc.Indicator />
+        </TocContent>
+        <TocNav>
+          <TocTitle>On this page</TocTitle>
+          <TocList>
+            <TocIndicator />
             {items.map((item) => (
-              <Toc.Item key={item.value} item={item}>
-                <Toc.Link href={`#${item.value}`}>{item.label}</Toc.Link>
-              </Toc.Item>
+              <TocItem key={item.value} item={item}>
+                <TocLink href={`#${item.value}`}>{item.label}</TocLink>
+              </TocItem>
             ))}
-          </Toc.List>
-        </Toc.Nav>
-      </Toc.RootProvider>
+          </TocList>
+        </TocNav>
+      </TocRootProvider>
     </div>
   );
 }

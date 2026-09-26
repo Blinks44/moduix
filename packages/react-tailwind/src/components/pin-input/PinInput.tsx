@@ -11,10 +11,10 @@ import { forwardRef } from 'react';
 import { cn } from '@/lib/moduix/cn';
 import { SeparatorMarkIcon } from '@/lib/moduix/icons/ui';
 
-const PinInputRoot = forwardRef<
+const PinInput = forwardRef<
   ComponentRef<typeof PinInputPrimitive.Root>,
   ComponentProps<typeof PinInputPrimitive.Root>
->(function PinInputRoot({ className, count, placeholder = '', ...props }, ref) {
+>(function PinInput({ className, count, placeholder = '', ...props }, ref) {
   return (
     <PinInputPrimitive.Root
       ref={ref}
@@ -125,16 +125,19 @@ function usePinInput(props: UsePinInputProps = {}) {
   return usePinInputPrimitive({ placeholder: '', ...props });
 }
 
-const PinInput = Object.assign(PinInputRoot, {
-  Root: PinInputRoot,
-  RootProvider: PinInputRootProvider,
-  Context: PinInputPrimitive.Context,
-  HiddenInput: PinInputPrimitive.HiddenInput,
-  Label: PinInputLabel,
-  Control: PinInputControl,
-  Input: PinInputInput,
-  Inputs: PinInputInputs,
-  Separator: PinInputSeparator,
-});
+const PinInputContext = PinInputPrimitive.Context;
+const PinInputHiddenInput = PinInputPrimitive.HiddenInput;
 
-export { PinInput, usePinInput, usePinInputContext };
+export {
+  PinInput,
+  PinInputContext,
+  PinInputControl,
+  PinInputHiddenInput,
+  PinInputInput,
+  PinInputInputs,
+  PinInputLabel,
+  PinInputRootProvider,
+  PinInputSeparator,
+  usePinInput,
+  usePinInputContext,
+};

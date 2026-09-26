@@ -8,7 +8,7 @@ import type { ComponentProps } from 'solid-js';
 import { splitProps } from 'solid-js';
 import { cn } from '@/lib/moduix/cn';
 
-function DateInputRoot(props: ComponentProps<typeof DateInputPrimitive.Root>) {
+function DateInput(props: ComponentProps<typeof DateInputPrimitive.Root>) {
   const [local, others] = splitProps(props, ['asChild', 'children', 'class']);
 
   return (
@@ -127,18 +127,23 @@ function DateInputSeparator(props: ComponentProps<'span'>) {
   );
 }
 
-const DateInput = Object.assign(DateInputRoot, {
-  Root: DateInputRoot,
-  RootProvider: DateInputRootProvider,
-  HiddenInput: DateInputPrimitive.HiddenInput,
-  Label: DateInputLabel,
-  Control: DateInputControl,
-  SegmentGroup: DateInputSegmentGroup,
-  Segment: DateInputSegment,
-  Segments: DateInputSegments,
-  Separator: DateInputSeparator,
-  Context: DateInputPrimitive.Context,
-  SegmentContext: DateInputPrimitive.SegmentContext,
-});
+const DateInputHiddenInput = DateInputPrimitive.HiddenInput;
+const DateInputContext = DateInputPrimitive.Context;
+const DateInputSegmentContext = DateInputPrimitive.SegmentContext;
 
-export { DateInput, type DateInputDateValue, useDateInput, useDateInputContext };
+export {
+  DateInput,
+  DateInputContext,
+  DateInputControl,
+  DateInputHiddenInput,
+  DateInputLabel,
+  DateInputRootProvider,
+  DateInputSegment,
+  DateInputSegmentContext,
+  DateInputSegmentGroup,
+  DateInputSegments,
+  DateInputSeparator,
+  type DateInputDateValue,
+  useDateInput,
+  useDateInputContext,
+};

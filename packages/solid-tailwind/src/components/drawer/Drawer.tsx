@@ -29,7 +29,7 @@ type DrawerContentProps = ComponentProps<typeof DrawerPrimitive.Content> & {
 };
 type DrawerCloseIconProps = Omit<ComponentProps<typeof DrawerPrimitive.CloseTrigger>, 'asChild'>;
 
-function DrawerRoot(props: DrawerRootProps) {
+function Drawer(props: DrawerRootProps) {
   const [local, others] = splitProps(props, [
     'children',
     'lazyMount',
@@ -237,7 +237,7 @@ function DrawerCloseIcon(props: DrawerCloseIconProps) {
   return (
     <DrawerPrimitive.CloseTrigger
       asChild={(triggerProps) => (
-        <CloseButton.Root
+        <CloseButton
           {...triggerProps()}
           data-slot="drawer-close-icon"
           aria-label={
@@ -251,7 +251,7 @@ function DrawerCloseIcon(props: DrawerCloseIconProps) {
           )}
         >
           {resolvedChildren()}
-        </CloseButton.Root>
+        </CloseButton>
       )}
       {...others}
     />
@@ -345,27 +345,30 @@ function DrawerFooter(props: HTMLArkProps<'div'>) {
   );
 }
 
-const Drawer = Object.assign(DrawerRoot, {
-  Root: DrawerRoot,
-  RootProvider: DrawerRootProvider,
-  Context: DrawerPrimitive.Context,
-  Stack: DrawerStack,
-  Trigger: DrawerTrigger,
-  Backdrop: DrawerBackdrop,
-  Positioner: DrawerPositioner,
-  Content: DrawerContent,
-  Grabber: DrawerGrabber,
-  GrabberIndicator: DrawerGrabberIndicator,
-  Title: DrawerTitle,
-  Description: DrawerDescription,
-  CloseTrigger: DrawerCloseTrigger,
-  CloseIcon: DrawerCloseIcon,
-  SwipeArea: DrawerSwipeArea,
-  Indent: DrawerIndent,
-  IndentBackground: DrawerIndentBackground,
-  Header: DrawerHeader,
-  Body: DrawerBody,
-  Footer: DrawerFooter,
-});
+const DrawerContext = DrawerPrimitive.Context;
 
-export { Drawer, useDrawer, useDrawerContext, useDrawerStackContext };
+export {
+  Drawer,
+  DrawerBackdrop,
+  DrawerBody,
+  DrawerCloseIcon,
+  DrawerCloseTrigger,
+  DrawerContext,
+  DrawerContent,
+  DrawerDescription,
+  DrawerFooter,
+  DrawerGrabber,
+  DrawerGrabberIndicator,
+  DrawerHeader,
+  DrawerIndent,
+  DrawerIndentBackground,
+  DrawerPositioner,
+  DrawerRootProvider,
+  DrawerStack,
+  DrawerSwipeArea,
+  DrawerTitle,
+  DrawerTrigger,
+  useDrawer,
+  useDrawerContext,
+  useDrawerStackContext,
+};

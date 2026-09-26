@@ -1,1 +1,1 @@
-export { Marquee, useMarquee, useMarqueeContext } from './Marquee.js';
+export * from './Marquee.js';

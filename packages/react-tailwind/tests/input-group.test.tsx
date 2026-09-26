@@ -1,12 +1,20 @@
 import { expect, test } from '@rstest/core';
 import { render, screen } from '@testing-library/react';
 import { createRef } from 'react';
-import { Field, InputGroup } from '../src';
+import {
+  Field,
+  FieldLabel,
+  InputGroup,
+  InputGroupAddon,
+  InputGroupButton,
+  InputGroupInput,
+  InputGroupText,
+} from '../src';
 
 test('keeps the Input slot that drives grouped field state styling', () => {
   render(
     <Field disabled id="workspace" invalid readOnly>
-      <Field.Label>Workspace</Field.Label>
+      <FieldLabel>Workspace</FieldLabel>
       <InputGroup
         className="consumer-root"
         data-part="consumer-part"
@@ -16,26 +24,26 @@ test('keeps the Input slot that drives grouped field state styling', () => {
         data-testid="input-group"
         size="lg"
       >
-        <InputGroup.Addon
+        <InputGroupAddon
           className="consumer-addon"
           data-part="consumer-part"
           data-scope="consumer-scope"
           data-slot="consumer-slot"
         >
           @
-        </InputGroup.Addon>
-        <InputGroup.Input />
-        <InputGroup.Text
+        </InputGroupAddon>
+        <InputGroupInput />
+        <InputGroupText
           className="consumer-text"
           data-part="consumer-part"
           data-scope="consumer-scope"
           data-slot="consumer-slot"
         >
           .com
-        </InputGroup.Text>
-        <InputGroup.Button className="consumer-button" data-slot="consumer-slot">
+        </InputGroupText>
+        <InputGroupButton className="consumer-button" data-slot="consumer-slot">
           Copy
-        </InputGroup.Button>
+        </InputGroupButton>
       </InputGroup>
     </Field>,
   );
@@ -74,8 +82,8 @@ test('keeps the Input slot that drives grouped field state styling', () => {
 test('keeps the group size context reactive', () => {
   const { rerender } = render(
     <InputGroup size="sm" data-testid="responsive-group">
-      <InputGroup.Input aria-label="Workspace" />
-      <InputGroup.Button>Copy</InputGroup.Button>
+      <InputGroupInput aria-label="Workspace" />
+      <InputGroupButton>Copy</InputGroupButton>
     </InputGroup>,
   );
 
@@ -89,8 +97,8 @@ test('keeps the group size context reactive', () => {
 
   rerender(
     <InputGroup size="xl" data-testid="responsive-group">
-      <InputGroup.Input aria-label="Workspace" />
-      <InputGroup.Button>Copy</InputGroup.Button>
+      <InputGroupInput aria-label="Workspace" />
+      <InputGroupButton>Copy</InputGroupButton>
     </InputGroup>,
   );
 
@@ -107,12 +115,12 @@ test('forwards refs to ordinary parts', () => {
   const buttonRef = createRef<HTMLButtonElement>();
 
   render(
-    <InputGroup.Root ref={rootRef} data-testid="ordinary-root">
-      <InputGroup.Addon ref={addonRef}>@</InputGroup.Addon>
-      <InputGroup.Input ref={inputRef} aria-label="Workspace" />
-      <InputGroup.Text ref={textRef}>.com</InputGroup.Text>
-      <InputGroup.Button ref={buttonRef}>Copy</InputGroup.Button>
-    </InputGroup.Root>,
+    <InputGroup ref={rootRef} data-testid="ordinary-root">
+      <InputGroupAddon ref={addonRef}>@</InputGroupAddon>
+      <InputGroupInput ref={inputRef} aria-label="Workspace" />
+      <InputGroupText ref={textRef}>.com</InputGroupText>
+      <InputGroupButton ref={buttonRef}>Copy</InputGroupButton>
+    </InputGroup>,
   );
 
   expect(rootRef.current).toBe(screen.getByTestId('ordinary-root'));
@@ -124,17 +132,17 @@ test('forwards refs to ordinary parts', () => {
 
 test('preserves semantic hosts with asChild composition', () => {
   render(
-    <InputGroup.Root data-testid="as-child-root" asChild>
+    <InputGroup data-testid="as-child-root" asChild>
       <section aria-label="Workspace group">
-        <InputGroup.Addon asChild>
+        <InputGroupAddon asChild>
           <strong>@</strong>
-        </InputGroup.Addon>
-        <InputGroup.Input aria-label="Workspace" />
-        <InputGroup.Text asChild>
+        </InputGroupAddon>
+        <InputGroupInput aria-label="Workspace" />
+        <InputGroupText asChild>
           <em>.com</em>
-        </InputGroup.Text>
+        </InputGroupText>
       </section>
-    </InputGroup.Root>,
+    </InputGroup>,
   );
 
   const root = screen.getByTestId('as-child-root');
@@ -148,10 +156,10 @@ test('preserves semantic hosts with asChild composition', () => {
 test('applies native utilities to the component-owned parts', () => {
   const { container } = render(
     <InputGroup>
-      <InputGroup.Addon>@</InputGroup.Addon>
-      <InputGroup.Input aria-label="Workspace" />
-      <InputGroup.Text>.com</InputGroup.Text>
-      <InputGroup.Button>Copy</InputGroup.Button>
+      <InputGroupAddon>@</InputGroupAddon>
+      <InputGroupInput aria-label="Workspace" />
+      <InputGroupText>.com</InputGroupText>
+      <InputGroupButton>Copy</InputGroupButton>
     </InputGroup>,
   );
 
@@ -228,9 +236,9 @@ test('applies each group size with native utilities', () => {
     <>
       {sizes.map(([size]) => (
         <InputGroup key={size} size={size} data-testid={`group-${size}`}>
-          <InputGroup.Addon>@</InputGroup.Addon>
-          <InputGroup.Input aria-label={`${size} input`} />
-          <InputGroup.Button>Copy</InputGroup.Button>
+          <InputGroupAddon>@</InputGroupAddon>
+          <InputGroupInput aria-label={`${size} input`} />
+          <InputGroupButton>Copy</InputGroupButton>
         </InputGroup>
       ))}
     </>,
@@ -252,9 +260,9 @@ test('applies each group size with native utilities', () => {
 test('lets consumer Tailwind classes override conflicting defaults', () => {
   const { container } = render(
     <InputGroup size="lg" className="min-h-20 w-80 max-w-sm rounded-lg bg-muted px-0 text-primary">
-      <InputGroup.Addon className="bg-background px-0 text-primary">@</InputGroup.Addon>
-      <InputGroup.Input className="min-h-20 w-80 max-w-sm rounded-lg bg-muted px-0 py-0 leading-5" />
-      <InputGroup.Button className="rounded-lg bg-muted px-2 text-primary">Copy</InputGroup.Button>
+      <InputGroupAddon className="bg-background px-0 text-primary">@</InputGroupAddon>
+      <InputGroupInput className="min-h-20 w-80 max-w-sm rounded-lg bg-muted px-0 py-0 leading-5" />
+      <InputGroupButton className="rounded-lg bg-muted px-2 text-primary">Copy</InputGroupButton>
     </InputGroup>,
   );
 
@@ -301,7 +309,7 @@ test('lets consumer Tailwind classes override conflicting defaults', () => {
 test('uses a local Input size for its grouped utilities', () => {
   render(
     <InputGroup size="lg">
-      <InputGroup.Input aria-label="Workspace" size="xs" />
+      <InputGroupInput aria-label="Workspace" size="xs" />
     </InputGroup>,
   );
 

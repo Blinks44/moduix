@@ -1,7 +1,7 @@
 ---
 title: Button
 component: button
-description: Стилизованный односоставный элемент управления действиями для React и Solid с вариантами на CSS Modules и Tailwind.
+description: Стилизованный односоставный элемент управления действиями для React, Solid и Vue с вариантами на CSS Modules и Tailwind.
 ---
 
 import * as ButtonDocs from '@/components/examples/button/css-properties';
@@ -21,6 +21,14 @@ import buttonSolidPendingState from '../../../snippets/button/solid/pending-stat
 import buttonSolidRef from '../../../snippets/button/solid/ref.tsx?raw';
 import buttonSolidSizes from '../../../snippets/button/solid/sizes.tsx?raw';
 import buttonSolidVariants from '../../../snippets/button/solid/variants.tsx?raw';
+import buttonVueAsChildLink from '../../../snippets/button/vue/as-child-link.vue?raw';
+import buttonVueBasic from '../../../snippets/button/vue/basic.vue?raw';
+import buttonVueDisabled from '../../../snippets/button/vue/disabled.vue?raw';
+import buttonVueIcons from '../../../snippets/button/vue/icons.vue?raw';
+import buttonVuePendingState from '../../../snippets/button/vue/pending-state.vue?raw';
+import buttonVueRef from '../../../snippets/button/vue/ref.vue?raw';
+import buttonVueSizes from '../../../snippets/button/vue/sizes.vue?raw';
+import buttonVueVariants from '../../../snippets/button/vue/variants.vue?raw';
 
 ## Справочник API
 
@@ -33,8 +41,7 @@ import buttonSolidVariants from '../../../snippets/button/solid/variants.tsx?raw
 
 Интерактивный пример на этой странице
 
-Для большинства действий используйте короткую запись `<Button>...</Button>`. Для записи через пространство
-имён используйте `Button.Root`.
+Для большинства действий используйте `<Button>...</Button>`.
 
 <ExampleFrame variant="component">
   <ButtonBasic />
@@ -47,6 +54,7 @@ import buttonSolidVariants from '../../../snippets/button/solid/variants.tsx?raw
     values={[
       { label: 'React', value: 'react' },
       { label: 'Solid', value: 'solid' },
+      { label: 'Vue', value: 'vue' },
     ]}
     className="docs-tabs"
   >
@@ -59,6 +67,11 @@ import buttonSolidVariants from '../../../snippets/button/solid/variants.tsx?raw
     <Tab value="solid">
 
 <CodeBlockRuntime lang="tsx" code={buttonSolidBasic} />
+
+    </Tab>
+    <Tab value="vue">
+
+<CodeBlockRuntime lang="vue" code={buttonVueBasic} />
 
     </Tab>
   </Tabs>
@@ -91,6 +104,16 @@ import buttonSolidVariants from '../../../snippets/button/solid/variants.tsx?raw
 />
 
   </Tab>
+  <Tab label="Vue" value="vue">
+
+<ShadcnInstallOptions
+  options={[
+    { label: 'CSS Modules', command: 'shadcn@latest add @moduix-vue/button' },
+    { label: 'Tailwind CSS', command: 'shadcn@latest add @moduix-vue-tailwind/button' },
+  ]}
+/>
+
+  </Tab>
 </Tabs>
 
 ## Анатомия
@@ -98,22 +121,21 @@ import buttonSolidVariants from '../../../snippets/button/solid/variants.tsx?raw
 `Button` состоит из одной части.
 
 ```text
-Button / Button.Root
+Button
 └─ root[data-scope="button"][data-part="root"][data-slot="button-root"]
    └─ children
 ```
 
-| Часть                    | Назначение                                          |
-| ------------------------ | --------------------------------------------------- |
-| `Button` / `Button.Root` | Единый интерактивный корневой элемент со стилями moduix. |
-| `Button`                 | Вызываемая форма `Button.Root`.                     |
+| Часть    | Назначение                                              |
+| -------- | ------------------------------------------------------- |
+| `Button` | Единый интерактивный корневой элемент со стилями moduix. |
 
 ## Композиция
 
 `Button` - односоставной корневой элемент. Используйте `asChild`, если итоговым DOM-узлом должен владеть
-другой семантический элемент: в React передаётся ровно один дочерний элемент, а в Solid - render-функция
-`asChild`. Если Button компонует часть Ark, родитель сохраняет `data-scope` и `data-part`, а Button - свои
-классы рецепта и стабильный `data-slot`.
+другой семантический элемент: в React передаётся ровно один дочерний элемент, в Solid используется render-функция
+`asChild`, а Vue передаёт семантический элемент как содержимое слота по умолчанию. Если Button компонует часть Ark,
+родитель сохраняет `data-scope` и `data-part`, а Button - свои классы рецепта и стабильный `data-slot`.
 
 Свойство `loading` отвечает только за состояние занятости и отключения (`data-loading`, `aria-busy` и
 `data-disabled`); индикатор, текст и асинхронный жизненный цикл остаются под контролем приложения. Для
@@ -137,6 +159,7 @@ Button / Button.Root
     values={[
       { label: 'React', value: 'react' },
       { label: 'Solid', value: 'solid' },
+      { label: 'Vue', value: 'vue' },
     ]}
     className="docs-tabs"
   >
@@ -149,6 +172,11 @@ Button / Button.Root
     <Tab value="solid">
 
 <CodeBlockRuntime lang="tsx" code={buttonSolidDisabled} />
+
+    </Tab>
+    <Tab value="vue">
+
+<CodeBlockRuntime lang="vue" code={buttonVueDisabled} />
 
     </Tab>
   </Tabs>
@@ -177,6 +205,7 @@ Button / Button.Root
     values={[
       { label: 'React', value: 'react' },
       { label: 'Solid', value: 'solid' },
+      { label: 'Vue', value: 'vue' },
     ]}
     className="docs-tabs"
   >
@@ -189,6 +218,11 @@ Button / Button.Root
     <Tab value="solid">
 
 <CodeBlockRuntime lang="tsx" code={buttonSolidIcons} />
+
+    </Tab>
+    <Tab value="vue">
+
+<CodeBlockRuntime lang="vue" code={buttonVueIcons} />
 
     </Tab>
   </Tabs>
@@ -216,6 +250,7 @@ Button / Button.Root
     values={[
       { label: 'React', value: 'react' },
       { label: 'Solid', value: 'solid' },
+      { label: 'Vue', value: 'vue' },
     ]}
     className="docs-tabs"
   >
@@ -228,6 +263,11 @@ Button / Button.Root
     <Tab value="solid">
 
 <CodeBlockRuntime lang="tsx" code={buttonSolidAsChildLink} />
+
+    </Tab>
+    <Tab value="vue">
+
+<CodeBlockRuntime lang="vue" code={buttonVueAsChildLink} />
 
     </Tab>
   </Tabs>
@@ -252,6 +292,7 @@ Button / Button.Root
     values={[
       { label: 'React', value: 'react' },
       { label: 'Solid', value: 'solid' },
+      { label: 'Vue', value: 'vue' },
     ]}
     className="docs-tabs"
   >
@@ -266,6 +307,11 @@ Button / Button.Root
 <CodeBlockRuntime lang="tsx" code={buttonSolidPendingState} />
 
     </Tab>
+    <Tab value="vue">
+
+<CodeBlockRuntime lang="vue" code={buttonVuePendingState} />
+
+    </Tab>
   </Tabs>
 </div>
 
@@ -274,7 +320,8 @@ Button / Button.Root
 ### Ref
 
 Переданный ref указывает на отрисованный корневой элемент. Это позволяет программно установить на нём
-фокус или измерить его.
+фокус или измерить его. В Vue template ref указывает на экземпляр компонента; используйте `$el`, чтобы получить
+корневой элемент (с `asChild` это семантический дочерний элемент).
 
 <ExampleFrame variant="component">
   <ButtonRef />
@@ -287,6 +334,7 @@ Button / Button.Root
     values={[
       { label: 'React', value: 'react' },
       { label: 'Solid', value: 'solid' },
+      { label: 'Vue', value: 'vue' },
     ]}
     className="docs-tabs"
   >
@@ -299,6 +347,11 @@ Button / Button.Root
     <Tab value="solid">
 
 <CodeBlockRuntime lang="tsx" code={buttonSolidRef} />
+
+    </Tab>
+    <Tab value="vue">
+
+<CodeBlockRuntime lang="vue" code={buttonVueRef} />
 
     </Tab>
   </Tabs>
@@ -326,6 +379,7 @@ Button / Button.Root
     values={[
       { label: 'React', value: 'react' },
       { label: 'Solid', value: 'solid' },
+      { label: 'Vue', value: 'vue' },
     ]}
     className="docs-tabs"
   >
@@ -338,6 +392,11 @@ Button / Button.Root
     <Tab value="solid">
 
 <CodeBlockRuntime lang="tsx" code={buttonSolidSizes} />
+
+    </Tab>
+    <Tab value="vue">
+
+<CodeBlockRuntime lang="vue" code={buttonVueSizes} />
 
     </Tab>
   </Tabs>
@@ -365,6 +424,7 @@ Button / Button.Root
     values={[
       { label: 'React', value: 'react' },
       { label: 'Solid', value: 'solid' },
+      { label: 'Vue', value: 'vue' },
     ]}
     className="docs-tabs"
   >
@@ -379,6 +439,11 @@ Button / Button.Root
 <CodeBlockRuntime lang="tsx" code={buttonSolidVariants} />
 
     </Tab>
+    <Tab value="vue">
+
+<CodeBlockRuntime lang="vue" code={buttonVueVariants} />
+
+    </Tab>
   </Tabs>
 
 **Стили**
@@ -391,7 +456,7 @@ Button / Button.Root
 
 ## Стилизация
 
-Для пользовательских стилей передавайте корневому элементу `className` в React или `class` в Solid. Варианты
+Для пользовательских стилей передавайте корневому элементу `className` в React или `class` в Solid и Vue. Варианты
 с CSS Modules используют перечисленные ниже переменные Button, а варианты на Tailwind - обычные утилиты и
 классы приложения. Атрибуты состояния и хуки `data-slot` общие для обоих подходов.
 

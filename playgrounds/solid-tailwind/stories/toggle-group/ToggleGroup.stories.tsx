@@ -3,6 +3,8 @@ import type { JSX } from 'solid-js';
 import type { Meta, StoryObj } from 'storybook-solidjs-vite';
 import {
   ToggleGroup,
+  ToggleGroupItem,
+  ToggleGroupRootProvider,
   useToggleGroup,
   useToggleGroupContext,
 } from '@/components/toggle-group/ToggleGroup';
@@ -60,9 +62,9 @@ type Story = StoryObj<typeof meta>;
 export const Default: Story = {
   render: (args) => (
     <ToggleGroup {...args}>
-      <ToggleGroup.Item value="left">Left</ToggleGroup.Item>
-      <ToggleGroup.Item value="center">Center</ToggleGroup.Item>
-      <ToggleGroup.Item value="right">Right</ToggleGroup.Item>
+      <ToggleGroupItem value="left">Left</ToggleGroupItem>
+      <ToggleGroupItem value="center">Center</ToggleGroupItem>
+      <ToggleGroupItem value="right">Right</ToggleGroupItem>
     </ToggleGroup>
   ),
 };
@@ -70,15 +72,15 @@ export const Default: Story = {
 export const Multiple: Story = {
   render: () => (
     <ToggleGroup multiple defaultValue={['bold', 'italic']} aria-label="Text formatting" size="md">
-      <ToggleGroup.Item value="bold" aria-label="Bold">
+      <ToggleGroupItem value="bold" aria-label="Bold">
         <strong>B</strong>
-      </ToggleGroup.Item>
-      <ToggleGroup.Item value="italic" aria-label="Italic">
+      </ToggleGroupItem>
+      <ToggleGroupItem value="italic" aria-label="Italic">
         <em>I</em>
-      </ToggleGroup.Item>
-      <ToggleGroup.Item value="underline" aria-label="Underline">
+      </ToggleGroupItem>
+      <ToggleGroupItem value="underline" aria-label="Underline">
         <span class="underline">U</span>
-      </ToggleGroup.Item>
+      </ToggleGroupItem>
     </ToggleGroup>
   ),
 };
@@ -87,19 +89,19 @@ export const Variants: Story = {
   render: () => (
     <div class={stackClass}>
       <ToggleGroup defaultValue={['one']} aria-label="Default variant">
-        <ToggleGroup.Item value="one">One</ToggleGroup.Item>
-        <ToggleGroup.Item value="two">Two</ToggleGroup.Item>
-        <ToggleGroup.Item value="three">Three</ToggleGroup.Item>
+        <ToggleGroupItem value="one">One</ToggleGroupItem>
+        <ToggleGroupItem value="two">Two</ToggleGroupItem>
+        <ToggleGroupItem value="three">Three</ToggleGroupItem>
       </ToggleGroup>
       <ToggleGroup defaultValue={['one']} aria-label="Outline variant" variant="outline">
-        <ToggleGroup.Item value="one">One</ToggleGroup.Item>
-        <ToggleGroup.Item value="two">Two</ToggleGroup.Item>
-        <ToggleGroup.Item value="three">Three</ToggleGroup.Item>
+        <ToggleGroupItem value="one">One</ToggleGroupItem>
+        <ToggleGroupItem value="two">Two</ToggleGroupItem>
+        <ToggleGroupItem value="three">Three</ToggleGroupItem>
       </ToggleGroup>
       <ToggleGroup defaultValue={['one']} aria-label="Ghost variant" variant="ghost">
-        <ToggleGroup.Item value="one">One</ToggleGroup.Item>
-        <ToggleGroup.Item value="two">Two</ToggleGroup.Item>
-        <ToggleGroup.Item value="three">Three</ToggleGroup.Item>
+        <ToggleGroupItem value="one">One</ToggleGroupItem>
+        <ToggleGroupItem value="two">Two</ToggleGroupItem>
+        <ToggleGroupItem value="three">Three</ToggleGroupItem>
       </ToggleGroup>
     </div>
   ),
@@ -109,20 +111,20 @@ export const Sizes: Story = {
   render: () => (
     <div class={stackClass}>
       <ToggleGroup defaultValue={['xs']} aria-label="Extra small size" size="xs">
-        <ToggleGroup.Item value="xs">XS</ToggleGroup.Item>
-        <ToggleGroup.Item value="sm">SM</ToggleGroup.Item>
+        <ToggleGroupItem value="xs">XS</ToggleGroupItem>
+        <ToggleGroupItem value="sm">SM</ToggleGroupItem>
       </ToggleGroup>
       <ToggleGroup defaultValue={['sm']} aria-label="Small size" size="sm">
-        <ToggleGroup.Item value="sm">Small</ToggleGroup.Item>
-        <ToggleGroup.Item value="md">Medium</ToggleGroup.Item>
+        <ToggleGroupItem value="sm">Small</ToggleGroupItem>
+        <ToggleGroupItem value="md">Medium</ToggleGroupItem>
       </ToggleGroup>
       <ToggleGroup defaultValue={['md']} aria-label="Medium size" size="md">
-        <ToggleGroup.Item value="md">Medium</ToggleGroup.Item>
-        <ToggleGroup.Item value="lg">Large</ToggleGroup.Item>
+        <ToggleGroupItem value="md">Medium</ToggleGroupItem>
+        <ToggleGroupItem value="lg">Large</ToggleGroupItem>
       </ToggleGroup>
       <ToggleGroup defaultValue={['lg']} aria-label="Large size" size="lg">
-        <ToggleGroup.Item value="lg">Large</ToggleGroup.Item>
-        <ToggleGroup.Item value="xl">Extra</ToggleGroup.Item>
+        <ToggleGroupItem value="lg">Large</ToggleGroupItem>
+        <ToggleGroupItem value="xl">Extra</ToggleGroupItem>
       </ToggleGroup>
     </div>
   ),
@@ -131,14 +133,14 @@ export const Sizes: Story = {
 export const WithIcons: Story = {
   render: () => (
     <ToggleGroup defaultValue={['favorites']} aria-label="Notification channels">
-      <ToggleGroup.Item value="favorites">
+      <ToggleGroupItem value="favorites">
         <StarIcon />
         Favorites
-      </ToggleGroup.Item>
-      <ToggleGroup.Item value="alerts">
+      </ToggleGroupItem>
+      <ToggleGroupItem value="alerts">
         <BellIcon />
         Alerts
-      </ToggleGroup.Item>
+      </ToggleGroupItem>
     </ToggleGroup>
   ),
 };
@@ -151,9 +153,9 @@ export const Vertical: Story = {
       aria-label="View mode"
       variant="outline"
     >
-      <ToggleGroup.Item value="list">List</ToggleGroup.Item>
-      <ToggleGroup.Item value="grid">Grid</ToggleGroup.Item>
-      <ToggleGroup.Item value="map">Map</ToggleGroup.Item>
+      <ToggleGroupItem value="list">List</ToggleGroupItem>
+      <ToggleGroupItem value="grid">Grid</ToggleGroupItem>
+      <ToggleGroupItem value="map">Map</ToggleGroupItem>
     </ToggleGroup>
   ),
 };
@@ -162,14 +164,14 @@ export const Disabled: Story = {
   render: () => (
     <div class={rowClass}>
       <ToggleGroup defaultValue={['one']} aria-label="Disabled group" disabled>
-        <ToggleGroup.Item value="one">One</ToggleGroup.Item>
-        <ToggleGroup.Item value="two">Two</ToggleGroup.Item>
+        <ToggleGroupItem value="one">One</ToggleGroupItem>
+        <ToggleGroupItem value="two">Two</ToggleGroupItem>
       </ToggleGroup>
       <ToggleGroup defaultValue={['one']} aria-label="Disabled item">
-        <ToggleGroup.Item value="one">One</ToggleGroup.Item>
-        <ToggleGroup.Item value="two" disabled>
+        <ToggleGroupItem value="one">One</ToggleGroupItem>
+        <ToggleGroupItem value="two" disabled>
           Two
-        </ToggleGroup.Item>
+        </ToggleGroupItem>
       </ToggleGroup>
     </div>
   ),
@@ -178,9 +180,9 @@ export const Disabled: Story = {
 export const LoopFocus: Story = {
   render: () => (
     <ToggleGroup defaultValue={['day']} aria-label="Schedule range" loopFocus={false}>
-      <ToggleGroup.Item value="day">Day</ToggleGroup.Item>
-      <ToggleGroup.Item value="week">Week</ToggleGroup.Item>
-      <ToggleGroup.Item value="month">Month</ToggleGroup.Item>
+      <ToggleGroupItem value="day">Day</ToggleGroupItem>
+      <ToggleGroupItem value="week">Week</ToggleGroupItem>
+      <ToggleGroupItem value="month">Month</ToggleGroupItem>
     </ToggleGroup>
   ),
 };
@@ -197,14 +199,14 @@ export const Controlled: Story = {
           aria-label="Controlled options"
           multiple
         >
-          <ToggleGroup.Item value="favorites">
+          <ToggleGroupItem value="favorites">
             {value().includes('favorites') ? <CheckIcon /> : <StarIcon />}
             Favorites
-          </ToggleGroup.Item>
-          <ToggleGroup.Item value="alerts">
+          </ToggleGroupItem>
+          <ToggleGroupItem value="alerts">
             <BellIcon />
             Alerts
-          </ToggleGroup.Item>
+          </ToggleGroupItem>
         </ToggleGroup>
         <span class={hintClass}>Current value: {value().join(', ') || 'empty'}</span>
       </div>
@@ -218,11 +220,11 @@ export const RootProvider: Story = {
     const toggleGroup = useToggleGroup({ defaultValue: ['left'] });
 
     return (
-      <ToggleGroup.RootProvider value={toggleGroup} aria-label="Text alignment">
-        <ToggleGroup.Item value="left">Left</ToggleGroup.Item>
-        <ToggleGroup.Item value="center">Center</ToggleGroup.Item>
-        <ToggleGroup.Item value="right">Right</ToggleGroup.Item>
-      </ToggleGroup.RootProvider>
+      <ToggleGroupRootProvider value={toggleGroup} aria-label="Text alignment">
+        <ToggleGroupItem value="left">Left</ToggleGroupItem>
+        <ToggleGroupItem value="center">Center</ToggleGroupItem>
+        <ToggleGroupItem value="right">Right</ToggleGroupItem>
+      </ToggleGroupRootProvider>
     );
   },
 };
@@ -232,10 +234,10 @@ function ContextItem(props: { value: string }) {
   const selected = () => toggleGroup().value.includes(props.value);
 
   return (
-    <ToggleGroup.Item value={props.value}>
+    <ToggleGroupItem value={props.value}>
       {selected() ? <CheckIcon /> : null}
       {props.value}
-    </ToggleGroup.Item>
+    </ToggleGroupItem>
   );
 }
 
@@ -252,15 +254,15 @@ export const Context: Story = {
 export const CustomStyles: Story = {
   render: () => (
     <ToggleGroup defaultValue={['day']} aria-label="Schedule density" class={customGroupClass}>
-      <ToggleGroup.Item value="day" class={customItemClass}>
+      <ToggleGroupItem value="day" class={customItemClass}>
         Day
-      </ToggleGroup.Item>
-      <ToggleGroup.Item value="week" class={customItemClass}>
+      </ToggleGroupItem>
+      <ToggleGroupItem value="week" class={customItemClass}>
         Week
-      </ToggleGroup.Item>
-      <ToggleGroup.Item value="month" class={customItemClass}>
+      </ToggleGroupItem>
+      <ToggleGroupItem value="month" class={customItemClass}>
         Month
-      </ToggleGroup.Item>
+      </ToggleGroupItem>
     </ToggleGroup>
   ),
 };

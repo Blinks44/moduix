@@ -1,4 +1,11 @@
-import { Alert } from '@moduix/react/alert';
+import {
+  Alert,
+  AlertActions,
+  AlertContent,
+  AlertDescription,
+  AlertIndicator,
+  AlertTitle,
+} from '@moduix/react/alert';
 import { Button } from '@moduix/react/button';
 import { Info as InfoIcon } from 'lucide-react';
 import { useState } from 'react';
@@ -19,19 +26,19 @@ export default function AlertActionsDemo() {
 
   return (
     <Alert status="warning" className={styles.custom}>
-      <Alert.Indicator>
+      <AlertIndicator>
         <InfoIcon />
-      </Alert.Indicator>
-      <Alert.Content>
-        <Alert.Title>{alert.title}</Alert.Title>
-        <Alert.Description>{alert.description}</Alert.Description>
-        <Alert.Actions>
+      </AlertIndicator>
+      <AlertContent>
+        <AlertTitle>{alert.title}</AlertTitle>
+        <AlertDescription>{alert.description}</AlertDescription>
+        <AlertActions>
           <Button size="sm">{alert.primaryAction}</Button>
           <Button size="sm" variant="outline" onClick={() => setVisible(false)}>
             {alert.secondaryAction}
           </Button>
-        </Alert.Actions>
-      </Alert.Content>
+        </AlertActions>
+      </AlertContent>
     </Alert>
   );
 }

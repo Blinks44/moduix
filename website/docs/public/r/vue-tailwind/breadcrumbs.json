@@ -1,0 +1,69 @@
+{
+  "$schema": "https://ui.shadcn.com/schema/registry-item.json",
+  "name": "breadcrumbs",
+  "title": "Breadcrumbs",
+  "description": "moduix Vue Tailwind Breadcrumbs component.",
+  "dependencies": ["@ark-ui/vue", "clsx", "tailwind-merge"],
+  "registryDependencies": [
+    "@moduix-vue-tailwind/foundation",
+    "@moduix-vue-tailwind/cn",
+    "@moduix-vue-tailwind/icons"
+  ],
+  "files": [
+    {
+      "path": "src/components/breadcrumbs/Breadcrumbs.vue",
+      "content": "<script setup lang=\"ts\">\nimport { ark } from '@ark-ui/vue/factory';\nimport type { HTMLArkProps } from '@ark-ui/vue/factory';\nimport { useAttrs } from 'vue';\nimport type { HTMLAttributes } from 'vue';\nimport { cn } from '@/lib/moduix/cn';\n\ndefineOptions({ inheritAttrs: false });\n\nexport interface Props extends /* @vue-ignore */ HTMLArkProps<'nav'> {\n  class?: HTMLAttributes['class'];\n}\n\nconst { class: className } = defineProps<Props>();\ndefineSlots<{ default?: () => unknown }>();\n\nconst attrs = useAttrs();\n</script>\n\n<template>\n  <ark.nav\n    aria-label=\"Breadcrumb\"\n    v-bind=\"attrs\"\n    data-slot=\"breadcrumbs-root\"\n    :class=\"cn('max-w-full text-sm text-muted-foreground', className)\"\n  >\n    <slot />\n  </ark.nav>\n</template>",
+      "type": "registry:component",
+      "target": "@components/ui/breadcrumbs/Breadcrumbs.vue"
+    },
+    {
+      "path": "src/components/breadcrumbs/BreadcrumbsList.vue",
+      "content": "<script setup lang=\"ts\">\nimport { ark } from '@ark-ui/vue/factory';\nimport type { HTMLArkProps } from '@ark-ui/vue/factory';\nimport { useAttrs } from 'vue';\nimport type { HTMLAttributes } from 'vue';\nimport { cn } from '@/lib/moduix/cn';\n\ndefineOptions({ inheritAttrs: false });\n\nexport interface Props extends /* @vue-ignore */ HTMLArkProps<'ol'> {\n  class?: HTMLAttributes['class'];\n}\n\nconst { class: className } = defineProps<Props>();\ndefineSlots<{ default?: () => unknown }>();\n\nconst attrs = useAttrs();\n</script>\n\n<template>\n  <ark.ol\n    v-bind=\"attrs\"\n    data-slot=\"breadcrumbs-list\"\n    :class=\"\n      cn(\n        'flex min-w-0 items-center gap-1 whitespace-nowrap [&>[data-slot=breadcrumbs-item]:last-child]:max-w-64 [&>[data-slot=breadcrumbs-item]:last-child]:flex-auto',\n        className,\n      )\n    \"\n  >\n    <slot />\n  </ark.ol>\n</template>",
+      "type": "registry:component",
+      "target": "@components/ui/breadcrumbs/BreadcrumbsList.vue"
+    },
+    {
+      "path": "src/components/breadcrumbs/BreadcrumbsItem.vue",
+      "content": "<script setup lang=\"ts\">\nimport { ark } from '@ark-ui/vue/factory';\nimport type { HTMLArkProps } from '@ark-ui/vue/factory';\nimport { useAttrs } from 'vue';\nimport type { HTMLAttributes } from 'vue';\nimport { cn } from '@/lib/moduix/cn';\n\ndefineOptions({ inheritAttrs: false });\n\nexport interface Props extends /* @vue-ignore */ HTMLArkProps<'li'> {\n  class?: HTMLAttributes['class'];\n}\n\nconst { class: className } = defineProps<Props>();\ndefineSlots<{ default?: () => unknown }>();\n\nconst attrs = useAttrs();\n</script>\n\n<template>\n  <ark.li\n    v-bind=\"attrs\"\n    data-slot=\"breadcrumbs-item\"\n    :class=\"cn('inline-flex min-w-0 items-center', className)\"\n  >\n    <slot />\n  </ark.li>\n</template>",
+      "type": "registry:component",
+      "target": "@components/ui/breadcrumbs/BreadcrumbsItem.vue"
+    },
+    {
+      "path": "src/components/breadcrumbs/BreadcrumbsLink.vue",
+      "content": "<script setup lang=\"ts\">\nimport { ark } from '@ark-ui/vue/factory';\nimport type { HTMLArkProps } from '@ark-ui/vue/factory';\nimport { useAttrs } from 'vue';\nimport type { HTMLAttributes } from 'vue';\nimport { cn } from '@/lib/moduix/cn';\n\ndefineOptions({ inheritAttrs: false });\n\nexport interface Props extends /* @vue-ignore */ HTMLArkProps<'a'> {\n  class?: HTMLAttributes['class'];\n}\n\nconst { class: className } = defineProps<Props>();\ndefineSlots<{ default?: () => unknown }>();\n\nconst attrs = useAttrs();\n</script>\n\n<template>\n  <ark.a\n    v-bind=\"attrs\"\n    data-slot=\"breadcrumbs-link\"\n    :class=\"\n      cn(\n        'block max-w-full min-w-0 truncate rounded-sm px-1 text-muted-foreground no-underline underline-offset-[0.2em] transition-[color] duration-200 ease-in-out outline-none focus-visible:ring-1 focus-visible:ring-ring motion-reduce:transition-none [@media(hover:hover)]:hover:text-foreground',\n        className,\n      )\n    \"\n  >\n    <slot />\n  </ark.a>\n</template>",
+      "type": "registry:component",
+      "target": "@components/ui/breadcrumbs/BreadcrumbsLink.vue"
+    },
+    {
+      "path": "src/components/breadcrumbs/BreadcrumbsPage.vue",
+      "content": "<script setup lang=\"ts\">\nimport { ark } from '@ark-ui/vue/factory';\nimport type { HTMLArkProps } from '@ark-ui/vue/factory';\nimport { useAttrs } from 'vue';\nimport type { HTMLAttributes } from 'vue';\nimport { cn } from '@/lib/moduix/cn';\n\ndefineOptions({ inheritAttrs: false });\n\nexport interface Props extends /* @vue-ignore */ HTMLArkProps<'span'> {\n  class?: HTMLAttributes['class'];\n}\n\nconst { class: className } = defineProps<Props>();\ndefineSlots<{ default?: () => unknown }>();\n\nconst attrs = useAttrs();\n</script>\n\n<template>\n  <ark.span\n    v-bind=\"attrs\"\n    data-slot=\"breadcrumbs-page\"\n    aria-current=\"page\"\n    :class=\"cn('block max-w-full min-w-0 truncate px-1 font-medium text-foreground', className)\"\n  >\n    <slot />\n  </ark.span>\n</template>",
+      "type": "registry:component",
+      "target": "@components/ui/breadcrumbs/BreadcrumbsPage.vue"
+    },
+    {
+      "path": "src/components/breadcrumbs/BreadcrumbsPath.vue",
+      "content": "<script setup lang=\"ts\">\nimport type { HTMLArkProps } from '@ark-ui/vue/factory';\nimport { defineComponent, useAttrs } from 'vue';\nimport type { HTMLAttributes, VNodeChild } from 'vue';\nimport BreadcrumbsItem from './BreadcrumbsItem.vue';\nimport BreadcrumbsLink from './BreadcrumbsLink.vue';\nimport BreadcrumbsList from './BreadcrumbsList.vue';\nimport BreadcrumbsPage from './BreadcrumbsPage.vue';\nimport BreadcrumbsSeparator from './BreadcrumbsSeparator.vue';\n\ndefineOptions({ inheritAttrs: false });\n\ntype BreadcrumbsPathLink = {\n  href: string;\n  label: VNodeChild;\n};\n\nexport interface Props extends /* @vue-ignore */ Omit<HTMLArkProps<'ol'>, 'asChild' | 'children'> {\n  links: readonly BreadcrumbsPathLink[];\n  page: VNodeChild;\n  separator?: VNodeChild;\n  class?: HTMLAttributes['class'];\n}\n\nconst { class: className, links, page, separator = undefined } = defineProps<Props>();\n\nconst VNodeOutlet = defineComponent((props: { value: VNodeChild }) => () => props.value, {\n  props: ['value'],\n});\n\nconst attrs = useAttrs();\n</script>\n\n<template>\n  <BreadcrumbsList v-bind=\"attrs\" :class=\"className\">\n    <template v-for=\"(link, index) in links\" :key=\"index\">\n      <BreadcrumbsItem>\n        <BreadcrumbsLink :href=\"link.href\">\n          <VNodeOutlet :value=\"link.label\" />\n        </BreadcrumbsLink>\n      </BreadcrumbsItem>\n      <BreadcrumbsSeparator v-if=\"separator == null\" />\n      <BreadcrumbsSeparator v-else>\n        <VNodeOutlet :value=\"separator\" />\n      </BreadcrumbsSeparator>\n    </template>\n    <BreadcrumbsItem>\n      <BreadcrumbsPage><VNodeOutlet :value=\"page\" /></BreadcrumbsPage>\n    </BreadcrumbsItem>\n  </BreadcrumbsList>\n</template>",
+      "type": "registry:component",
+      "target": "@components/ui/breadcrumbs/BreadcrumbsPath.vue"
+    },
+    {
+      "path": "src/components/breadcrumbs/BreadcrumbsSeparator.vue",
+      "content": "<script setup lang=\"ts\">\nimport { ark } from '@ark-ui/vue/factory';\nimport type { HTMLArkProps } from '@ark-ui/vue/factory';\nimport { useAttrs } from 'vue';\nimport type { HTMLAttributes } from 'vue';\nimport { cn } from '@/lib/moduix/cn';\nimport { ChevronRightIcon } from '@/lib/moduix/icons/ui/Icons';\n\ndefineOptions({ inheritAttrs: false });\n\nexport interface Props extends /* @vue-ignore */ HTMLArkProps<'li'> {\n  class?: HTMLAttributes['class'];\n}\n\nconst { class: className } = defineProps<Props>();\ndefineSlots<{ default?: () => unknown }>();\n\nconst attrs = useAttrs();\n</script>\n\n<template>\n  <ark.li\n    v-bind=\"attrs\"\n    data-slot=\"breadcrumbs-separator\"\n    aria-hidden=\"true\"\n    :class=\"\n      cn(\n        'inline-flex items-center text-[length:0.875em] leading-none text-muted-foreground select-none',\n        className,\n      )\n    \"\n  >\n    <slot><ChevronRightIcon class=\"size-[1em] flex-none rtl:rotate-180\" /></slot>\n  </ark.li>\n</template>",
+      "type": "registry:component",
+      "target": "@components/ui/breadcrumbs/BreadcrumbsSeparator.vue"
+    },
+    {
+      "path": "src/components/breadcrumbs/BreadcrumbsEllipsis.vue",
+      "content": "<script setup lang=\"ts\">\nimport { ark } from '@ark-ui/vue/factory';\nimport type { HTMLArkProps } from '@ark-ui/vue/factory';\nimport { useAttrs } from 'vue';\nimport type { HTMLAttributes } from 'vue';\nimport { cn } from '@/lib/moduix/cn';\n\ndefineOptions({ inheritAttrs: false });\n\nexport interface Props extends /* @vue-ignore */ HTMLArkProps<'span'> {\n  class?: HTMLAttributes['class'];\n}\n\nconst { class: className } = defineProps<Props>();\ndefineSlots<{ default?: () => unknown }>();\n\nconst attrs = useAttrs();\n</script>\n\n<template>\n  <ark.span\n    v-bind=\"attrs\"\n    data-slot=\"breadcrumbs-ellipsis\"\n    aria-hidden=\"true\"\n    :class=\"\n      cn(\n        'inline-flex min-h-4 min-w-4 items-center justify-center overflow-hidden px-1 text-ellipsis text-muted-foreground',\n        className,\n      )\n    \"\n  >\n    <slot>...</slot>\n  </ark.span>\n</template>",
+      "type": "registry:component",
+      "target": "@components/ui/breadcrumbs/BreadcrumbsEllipsis.vue"
+    },
+    {
+      "path": "src/components/breadcrumbs/index.ts",
+      "content": "import Breadcrumbs from './Breadcrumbs.vue';\nimport BreadcrumbsEllipsis from './BreadcrumbsEllipsis.vue';\nimport BreadcrumbsItem from './BreadcrumbsItem.vue';\nimport BreadcrumbsLink from './BreadcrumbsLink.vue';\nimport BreadcrumbsList from './BreadcrumbsList.vue';\nimport BreadcrumbsPage from './BreadcrumbsPage.vue';\nimport BreadcrumbsPath from './BreadcrumbsPath.vue';\nimport BreadcrumbsSeparator from './BreadcrumbsSeparator.vue';\n\nexport {\n  Breadcrumbs,\n  BreadcrumbsEllipsis,\n  BreadcrumbsItem,\n  BreadcrumbsLink,\n  BreadcrumbsList,\n  BreadcrumbsPage,\n  BreadcrumbsPath,\n  BreadcrumbsSeparator,\n};",
+      "type": "registry:component",
+      "target": "@components/ui/breadcrumbs/index.ts"
+    }
+  ],
+  "type": "registry:item"
+}

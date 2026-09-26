@@ -1,7 +1,26 @@
 import { Button } from '@moduix/solid/button';
-import { Card } from '@moduix/solid/card';
-import { Drawer } from '@moduix/solid/drawer';
-import { ScrollArea } from '@moduix/solid/scroll-area';
+import { Card, CardBody } from '@moduix/solid/card';
+import {
+  Drawer,
+  DrawerBody,
+  DrawerCloseIcon,
+  DrawerContent,
+  DrawerDescription,
+  DrawerGrabber,
+  DrawerGrabberIndicator,
+  DrawerHeader,
+  DrawerPositioner,
+  DrawerTitle,
+  DrawerTrigger,
+} from '@moduix/solid/drawer';
+import {
+  ScrollArea,
+  ScrollAreaContent,
+  ScrollAreaCorner,
+  ScrollAreaScrollbar,
+  ScrollAreaThumb,
+  ScrollAreaViewport,
+} from '@moduix/solid/scroll-area';
 import { For } from 'solid-js';
 import styles from '@/components/examples/drawer/drawer-non-modal.module.css';
 
@@ -30,42 +49,42 @@ export default function NonModalDrawerDemo() {
       snapPoints={snapPoints}
       defaultSnapPoint={snapPoints[0]}
     >
-      <Drawer.Trigger asChild={(props) => <Button {...props()}>Open non-modal drawer</Button>} />
-      <Drawer.Positioner>
-        <Drawer.Content draggable={false}>
-          <Drawer.Grabber class={styles.grabber}>
-            <Drawer.GrabberIndicator class={styles.grabberIndicator} />
-            <Drawer.Header class={styles.header}>
-              <Drawer.Title>Non-modal drawer</Drawer.Title>
-              <Drawer.CloseIcon data-no-drag />
-              <Drawer.Description>
+      <DrawerTrigger asChild={(props) => <Button {...props()}>Open non-modal drawer</Button>} />
+      <DrawerPositioner>
+        <DrawerContent draggable={false}>
+          <DrawerGrabber class={styles.grabber}>
+            <DrawerGrabberIndicator class={styles.grabberIndicator} />
+            <DrawerHeader class={styles.header}>
+              <DrawerTitle>Non-modal drawer</DrawerTitle>
+              <DrawerCloseIcon data-no-drag />
+              <DrawerDescription>
                 The page remains interactive while this drawer is open.
-              </Drawer.Description>
-            </Drawer.Header>
-          </Drawer.Grabber>
-          <Drawer.Body class={styles.body}>
+              </DrawerDescription>
+            </DrawerHeader>
+          </DrawerGrabber>
+          <DrawerBody class={styles.body}>
             <ScrollArea class={styles.scrollArea}>
-              <ScrollArea.Viewport class={styles.viewport}>
-                <ScrollArea.Content class={styles.content}>
+              <ScrollAreaViewport class={styles.viewport}>
+                <ScrollAreaContent class={styles.content}>
                   <For each={paragraphs}>
                     {(paragraph) => (
                       <Card size="sm" class={styles.card}>
-                        <Card.Body>
+                        <CardBody>
                           <p class={styles.paragraph}>{paragraph}</p>
-                        </Card.Body>
+                        </CardBody>
                       </Card>
                     )}
                   </For>
-                </ScrollArea.Content>
-              </ScrollArea.Viewport>
-              <ScrollArea.Scrollbar>
-                <ScrollArea.Thumb />
-              </ScrollArea.Scrollbar>
-              <ScrollArea.Corner />
+                </ScrollAreaContent>
+              </ScrollAreaViewport>
+              <ScrollAreaScrollbar>
+                <ScrollAreaThumb />
+              </ScrollAreaScrollbar>
+              <ScrollAreaCorner />
             </ScrollArea>
-          </Drawer.Body>
-        </Drawer.Content>
-      </Drawer.Positioner>
+          </DrawerBody>
+        </DrawerContent>
+      </DrawerPositioner>
     </Drawer>
   );
 }

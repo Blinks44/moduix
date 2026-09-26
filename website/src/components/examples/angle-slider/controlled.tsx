@@ -1,4 +1,10 @@
-import { AngleSlider } from '@moduix/react/angle-slider';
+import {
+  AngleSlider,
+  AngleSliderDial,
+  AngleSliderHiddenInput,
+  AngleSliderLabel,
+  AngleSliderMarks,
+} from '@moduix/react/angle-slider';
 import { useState } from 'react';
 import styles from '@/components/examples/angle-slider/angle-slider-controlled.module.css';
 
@@ -15,11 +21,11 @@ export default function ControlledAngleSliderDemo() {
       className={styles.root}
       onValueChange={(details) => setValue(details.value)}
     >
-      <AngleSlider.Label>Heading</AngleSlider.Label>
-      <AngleSlider.Dial>
-        <AngleSlider.Marks values={markerValues} />
-      </AngleSlider.Dial>
-      <AngleSlider.HiddenInput />
+      <AngleSliderLabel>Heading</AngleSliderLabel>
+      <AngleSliderDial>
+        <AngleSliderMarks values={markerValues} />
+      </AngleSliderDial>
+      <AngleSliderHiddenInput />
     </AngleSlider>
   );
 }

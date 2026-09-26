@@ -1,7 +1,23 @@
 import { useListCollection } from '@ark-ui/solid/collection';
 import { useFilter } from '@ark-ui/solid/locale';
 import { Button } from '@moduix/solid/button';
-import { CommandPalette } from '@moduix/solid/command-palette';
+import {
+  CommandPalette,
+  CommandPaletteCombobox,
+  CommandPaletteEmpty,
+  CommandPaletteItem,
+  CommandPaletteItemDescription,
+  CommandPaletteItemGroup,
+  CommandPaletteItemGroupLabel,
+  CommandPaletteItemIcon,
+  CommandPaletteItemLabel,
+  CommandPaletteItemMeta,
+  CommandPaletteItemText,
+  CommandPaletteList,
+  CommandPalettePanel,
+  CommandPaletteSearch,
+  CommandPaletteTrigger,
+} from '@moduix/solid/command-palette';
 import { For, createSignal } from 'solid-js';
 import styles from '@/components/examples/command-palette/command-palette-controlled-open-state.module.css';
 
@@ -62,43 +78,43 @@ export default function ControlledCommandPalette() {
         }
       }}
     >
-      <CommandPalette.Trigger
+      <CommandPaletteTrigger
         asChild={(triggerProps) => <Button {...triggerProps()}>Search actions</Button>}
       />
-      <CommandPalette.Panel class={styles.compactPalette}>
-        <CommandPalette.Combobox
+      <CommandPalettePanel class={styles.compactPalette}>
+        <CommandPaletteCombobox
           collection={collectionState.collection()}
           onInputValueChange={(details) => collectionState.filter(details.inputValue)}
         >
-          <CommandPalette.Search placeholder="Search controlled commands..." />
-          <CommandPalette.List>
-            <CommandPalette.Empty>No commands found.</CommandPalette.Empty>
+          <CommandPaletteSearch placeholder="Search controlled commands..." />
+          <CommandPaletteList>
+            <CommandPaletteEmpty>No commands found.</CommandPaletteEmpty>
             <For each={collectionState.collection().group()}>
               {([section, items]) => (
-                <CommandPalette.ItemGroup>
-                  <CommandPalette.ItemGroupLabel>{section}</CommandPalette.ItemGroupLabel>
+                <CommandPaletteItemGroup>
+                  <CommandPaletteItemGroupLabel>{section}</CommandPaletteItemGroupLabel>
                   <For each={items}>
                     {(item) => (
-                      <CommandPalette.Item item={item}>
-                        <CommandPalette.ItemIcon>{item.icon}</CommandPalette.ItemIcon>
-                        <CommandPalette.ItemText>
-                          <CommandPalette.ItemLabel>{item.label}</CommandPalette.ItemLabel>
-                          <CommandPalette.ItemDescription>
+                      <CommandPaletteItem item={item}>
+                        <CommandPaletteItemIcon>{item.icon}</CommandPaletteItemIcon>
+                        <CommandPaletteItemText>
+                          <CommandPaletteItemLabel>{item.label}</CommandPaletteItemLabel>
+                          <CommandPaletteItemDescription>
                             {item.description}
-                          </CommandPalette.ItemDescription>
-                        </CommandPalette.ItemText>
+                          </CommandPaletteItemDescription>
+                        </CommandPaletteItemText>
                         {item.shortcut ? (
-                          <CommandPalette.ItemMeta>{item.shortcut}</CommandPalette.ItemMeta>
+                          <CommandPaletteItemMeta>{item.shortcut}</CommandPaletteItemMeta>
                         ) : null}
-                      </CommandPalette.Item>
+                      </CommandPaletteItem>
                     )}
                   </For>
-                </CommandPalette.ItemGroup>
+                </CommandPaletteItemGroup>
               )}
             </For>
-          </CommandPalette.List>
-        </CommandPalette.Combobox>
-      </CommandPalette.Panel>
+          </CommandPaletteList>
+        </CommandPaletteCombobox>
+      </CommandPalettePanel>
     </CommandPalette>
   );
 }

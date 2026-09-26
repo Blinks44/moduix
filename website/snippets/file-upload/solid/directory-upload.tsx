@@ -1,4 +1,15 @@
-import { FileUpload } from '@moduix/solid/file-upload';
+import {
+  FileUpload,
+  FileUploadContext,
+  FileUploadHiddenInput,
+  FileUploadItem,
+  FileUploadItemDeleteTrigger,
+  FileUploadItemGroup,
+  FileUploadItemName,
+  FileUploadItemSizeText,
+  FileUploadLabel,
+  FileUploadTrigger,
+} from '@moduix/solid/file-upload';
 import { For } from 'solid-js';
 import styles from '@/components/examples/file-upload/file-upload-directory-upload.module.css';
 
@@ -7,24 +18,24 @@ const maxFiles = 20;
 export default function DirectoryUploadDemo() {
   return (
     <FileUpload class={styles.root} directory maxFiles={maxFiles}>
-      <FileUpload.Label>Folder</FileUpload.Label>
-      <FileUpload.Trigger>Choose folder</FileUpload.Trigger>
-      <FileUpload.ItemGroup>
-        <FileUpload.Context>
+      <FileUploadLabel>Folder</FileUploadLabel>
+      <FileUploadTrigger>Choose folder</FileUploadTrigger>
+      <FileUploadItemGroup>
+        <FileUploadContext>
           {(fileUpload) => (
             <For each={fileUpload().acceptedFiles}>
               {(file) => (
-                <FileUpload.Item file={file}>
-                  <FileUpload.ItemName>{file.webkitRelativePath || file.name}</FileUpload.ItemName>
-                  <FileUpload.ItemSizeText />
-                  <FileUpload.ItemDeleteTrigger aria-label={`Remove ${file.name}`} />
-                </FileUpload.Item>
+                <FileUploadItem file={file}>
+                  <FileUploadItemName>{file.webkitRelativePath || file.name}</FileUploadItemName>
+                  <FileUploadItemSizeText />
+                  <FileUploadItemDeleteTrigger aria-label={`Remove ${file.name}`} />
+                </FileUploadItem>
               )}
             </For>
           )}
-        </FileUpload.Context>
-      </FileUpload.ItemGroup>
-      <FileUpload.HiddenInput />
+        </FileUploadContext>
+      </FileUploadItemGroup>
+      <FileUploadHiddenInput />
     </FileUpload>
   );
 }

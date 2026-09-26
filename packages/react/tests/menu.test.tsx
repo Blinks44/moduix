@@ -1,25 +1,42 @@
 import { expect, test } from '@rstest/core';
 import { fireEvent, render, screen, waitFor } from '@testing-library/react';
 import { createRef } from 'react';
-import { Button, Menu, useMenu, useMenuContext, useMenuItemContext } from '../src';
+import {
+  Button,
+  Menu,
+  useMenu,
+  useMenuContext,
+  useMenuItemContext,
+  MenuRootProvider,
+  MenuTrigger,
+  MenuContextTrigger,
+  MenuPositioner,
+  MenuContent,
+  MenuViewport,
+  MenuArrow,
+  MenuItem,
+  MenuCheckboxItem,
+  MenuItemIndicator,
+  MenuItemText,
+} from '../src';
 
 function TestMenu() {
   return (
     <Menu defaultOpen>
-      <Menu.Trigger asChild>
+      <MenuTrigger asChild>
         <Button>Actions</Button>
-      </Menu.Trigger>
-      <Menu.Positioner>
-        <Menu.Content>
-          <Menu.Viewport>
-            <Menu.Item value="edit">Edit</Menu.Item>
-            <Menu.CheckboxItem checked={false} value="toolbar">
-              <Menu.ItemIndicator />
-              <Menu.ItemText>Show toolbar</Menu.ItemText>
-            </Menu.CheckboxItem>
-          </Menu.Viewport>
-        </Menu.Content>
-      </Menu.Positioner>
+      </MenuTrigger>
+      <MenuPositioner>
+        <MenuContent>
+          <MenuViewport>
+            <MenuItem value="edit">Edit</MenuItem>
+            <MenuCheckboxItem checked={false} value="toolbar">
+              <MenuItemIndicator />
+              <MenuItemText>Show toolbar</MenuItemText>
+            </MenuCheckboxItem>
+          </MenuViewport>
+        </MenuContent>
+      </MenuPositioner>
     </Menu>
   );
 }
@@ -27,19 +44,19 @@ function TestMenu() {
 function CheckboxMenu() {
   return (
     <Menu defaultOpen>
-      <Menu.Trigger asChild>
+      <MenuTrigger asChild>
         <Button>Actions</Button>
-      </Menu.Trigger>
-      <Menu.Positioner>
-        <Menu.Content>
-          <Menu.Viewport>
-            <Menu.CheckboxItem checked value="toolbar">
-              <Menu.ItemIndicator />
-              <Menu.ItemText>Show toolbar</Menu.ItemText>
-            </Menu.CheckboxItem>
-          </Menu.Viewport>
-        </Menu.Content>
-      </Menu.Positioner>
+      </MenuTrigger>
+      <MenuPositioner>
+        <MenuContent>
+          <MenuViewport>
+            <MenuCheckboxItem checked value="toolbar">
+              <MenuItemIndicator />
+              <MenuItemText>Show toolbar</MenuItemText>
+            </MenuCheckboxItem>
+          </MenuViewport>
+        </MenuContent>
+      </MenuPositioner>
     </Menu>
   );
 }
@@ -69,16 +86,16 @@ test('renders the controlled checked state for checkbox items', () => {
 test('preserves a custom content host with asChild', () => {
   render(
     <Menu defaultOpen>
-      <Menu.Trigger>Actions</Menu.Trigger>
-      <Menu.Positioner>
-        <Menu.Content asChild>
+      <MenuTrigger>Actions</MenuTrigger>
+      <MenuPositioner>
+        <MenuContent asChild>
           <section aria-label="Actions">
-            <Menu.Viewport>
-              <Menu.Item value="edit">Edit</Menu.Item>
-            </Menu.Viewport>
+            <MenuViewport>
+              <MenuItem value="edit">Edit</MenuItem>
+            </MenuViewport>
           </section>
-        </Menu.Content>
-      </Menu.Positioner>
+        </MenuContent>
+      </MenuPositioner>
     </Menu>,
   );
 
@@ -95,14 +112,14 @@ test('portals Positioner by default', () => {
 test('supports inline Positioner rendering', () => {
   const { container } = render(
     <Menu defaultOpen portalled={false}>
-      <Menu.Trigger>Actions</Menu.Trigger>
-      <Menu.Positioner>
-        <Menu.Content>
-          <Menu.Viewport>
-            <Menu.Item value="edit">Edit</Menu.Item>
-          </Menu.Viewport>
-        </Menu.Content>
-      </Menu.Positioner>
+      <MenuTrigger>Actions</MenuTrigger>
+      <MenuPositioner>
+        <MenuContent>
+          <MenuViewport>
+            <MenuItem value="edit">Edit</MenuItem>
+          </MenuViewport>
+        </MenuContent>
+      </MenuPositioner>
     </Menu>,
   );
 
@@ -112,17 +129,17 @@ test('supports inline Positioner rendering', () => {
 test('preserves custom context trigger styling', () => {
   render(
     <Menu defaultOpen>
-      <Menu.ContextTrigger asChild>
+      <MenuContextTrigger asChild>
         <button type="button">Open context menu</button>
-      </Menu.ContextTrigger>
-      <Menu.Positioner>
-        <Menu.Content>
-          <Menu.Arrow />
-          <Menu.Viewport>
-            <Menu.Item value="edit">Edit</Menu.Item>
-          </Menu.Viewport>
-        </Menu.Content>
-      </Menu.Positioner>
+      </MenuContextTrigger>
+      <MenuPositioner>
+        <MenuContent>
+          <MenuArrow />
+          <MenuViewport>
+            <MenuItem value="edit">Edit</MenuItem>
+          </MenuViewport>
+        </MenuContent>
+      </MenuPositioner>
     </Menu>,
   );
 
@@ -137,14 +154,14 @@ test('preserves custom context trigger styling', () => {
 test('exposes the scroll viewport as an explicit part', () => {
   render(
     <Menu defaultOpen portalled={false}>
-      <Menu.Trigger>Actions</Menu.Trigger>
-      <Menu.Positioner>
-        <Menu.Content>
-          <Menu.Viewport>
-            <Menu.Item value="edit">Edit</Menu.Item>
-          </Menu.Viewport>
-        </Menu.Content>
-      </Menu.Positioner>
+      <MenuTrigger>Actions</MenuTrigger>
+      <MenuPositioner>
+        <MenuContent>
+          <MenuViewport>
+            <MenuItem value="edit">Edit</MenuItem>
+          </MenuViewport>
+        </MenuContent>
+      </MenuPositioner>
     </Menu>,
   );
 
@@ -162,16 +179,16 @@ test('forwards refs through menu parts', () => {
 
   render(
     <Menu defaultOpen portalled={false}>
-      <Menu.Trigger ref={triggerRef}>Actions</Menu.Trigger>
-      <Menu.Positioner>
-        <Menu.Content ref={contentRef}>
-          <Menu.Viewport>
-            <Menu.Item ref={itemRef} value="edit">
+      <MenuTrigger ref={triggerRef}>Actions</MenuTrigger>
+      <MenuPositioner>
+        <MenuContent ref={contentRef}>
+          <MenuViewport>
+            <MenuItem ref={itemRef} value="edit">
               Edit
-            </Menu.Item>
-          </Menu.Viewport>
-        </Menu.Content>
-      </Menu.Positioner>
+            </MenuItem>
+          </MenuViewport>
+        </MenuContent>
+      </MenuPositioner>
     </Menu>,
   );
 
@@ -195,23 +212,23 @@ test('preserves provider and item context composition', async () => {
     const menu = useMenu({ defaultOpen: true });
 
     return (
-      <Menu.RootProvider value={menu} portalled={false}>
+      <MenuRootProvider value={menu} portalled={false}>
         <MenuState />
-        <Menu.Trigger>Actions</Menu.Trigger>
-        <Menu.Positioner>
-          <Menu.Content>
-            <Menu.Viewport>
-              <Menu.CheckboxItem checked value="toolbar">
-                <Menu.ItemIndicator />
-                <Menu.ItemText>
+        <MenuTrigger>Actions</MenuTrigger>
+        <MenuPositioner>
+          <MenuContent>
+            <MenuViewport>
+              <MenuCheckboxItem checked value="toolbar">
+                <MenuItemIndicator />
+                <MenuItemText>
                   Show toolbar
                   <ItemState />
-                </Menu.ItemText>
-              </Menu.CheckboxItem>
-            </Menu.Viewport>
-          </Menu.Content>
-        </Menu.Positioner>
-      </Menu.RootProvider>
+                </MenuItemText>
+              </MenuCheckboxItem>
+            </MenuViewport>
+          </MenuContent>
+        </MenuPositioner>
+      </MenuRootProvider>
     );
   }
 
@@ -225,14 +242,14 @@ test('reactively moves the Positioner into a portal', async () => {
   function PortalMenu({ portalled }: { portalled: boolean }) {
     return (
       <Menu defaultOpen portalled={portalled}>
-        <Menu.Trigger>Actions</Menu.Trigger>
-        <Menu.Positioner>
-          <Menu.Content>
-            <Menu.Viewport>
-              <Menu.Item value="edit">Edit</Menu.Item>
-            </Menu.Viewport>
-          </Menu.Content>
-        </Menu.Positioner>
+        <MenuTrigger>Actions</MenuTrigger>
+        <MenuPositioner>
+          <MenuContent>
+            <MenuViewport>
+              <MenuItem value="edit">Edit</MenuItem>
+            </MenuViewport>
+          </MenuContent>
+        </MenuPositioner>
       </Menu>
     );
   }
@@ -254,14 +271,14 @@ test('supports a custom portal mount', () => {
     <>
       <div ref={portalRef} data-testid="portal" />
       <Menu defaultOpen portalRef={portalRef}>
-        <Menu.Trigger>Actions</Menu.Trigger>
-        <Menu.Positioner>
-          <Menu.Content>
-            <Menu.Viewport>
-              <Menu.Item value="edit">Edit</Menu.Item>
-            </Menu.Viewport>
-          </Menu.Content>
-        </Menu.Positioner>
+        <MenuTrigger>Actions</MenuTrigger>
+        <MenuPositioner>
+          <MenuContent>
+            <MenuViewport>
+              <MenuItem value="edit">Edit</MenuItem>
+            </MenuViewport>
+          </MenuContent>
+        </MenuPositioner>
       </Menu>
     </>,
   );
@@ -272,16 +289,16 @@ test('supports a custom portal mount', () => {
 test('applies consumer classes alongside component classes', () => {
   render(
     <Menu defaultOpen portalled={false}>
-      <Menu.Trigger className="consumer-trigger">Actions</Menu.Trigger>
-      <Menu.Positioner>
-        <Menu.Content className="consumer-content">
-          <Menu.Viewport>
-            <Menu.Item className="consumer-item" value="edit">
+      <MenuTrigger className="consumer-trigger">Actions</MenuTrigger>
+      <MenuPositioner>
+        <MenuContent className="consumer-content">
+          <MenuViewport>
+            <MenuItem className="consumer-item" value="edit">
               Edit
-            </Menu.Item>
-          </Menu.Viewport>
-        </Menu.Content>
-      </Menu.Positioner>
+            </MenuItem>
+          </MenuViewport>
+        </MenuContent>
+      </MenuPositioner>
     </Menu>,
   );
 

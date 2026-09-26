@@ -1,16 +1,22 @@
-import { Pagination } from '@moduix/solid/pagination';
+import {
+  Pagination,
+  PaginationContext,
+  PaginationItems,
+  PaginationNextTrigger,
+  PaginationPrevTrigger,
+} from '@moduix/solid/pagination';
 import styles from '@/components/examples/pagination/pagination-page-range.module.css';
 
 export default function PaginationPageRangeDemo() {
   return (
     <Pagination count={200} pageSize={10}>
-      <Pagination.Context>
+      <PaginationContext>
         {(pagination) => (
           <div class={styles.stack}>
             <div class={styles.row}>
-              <Pagination.PrevTrigger />
-              <Pagination.Items />
-              <Pagination.NextTrigger />
+              <PaginationPrevTrigger />
+              <PaginationItems />
+              <PaginationNextTrigger />
             </div>
             <output>
               Showing {pagination().pageRange.start + 1}-{pagination().pageRange.end} of{' '}
@@ -18,7 +24,7 @@ export default function PaginationPageRangeDemo() {
             </output>
           </div>
         )}
-      </Pagination.Context>
+      </PaginationContext>
     </Pagination>
   );
 }

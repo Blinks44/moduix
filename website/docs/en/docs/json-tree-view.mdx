@@ -4,8 +4,8 @@ component: json-tree-view
 description: Inspect JSON and JavaScript values in an accessible, expandable tree with JsonTreeView from moduix.
 ---
 
-import JsonTreeViewBasicDemo from './_snippets/json-tree-view/basic.tsx';
-import JsonTreeViewCompactPreviewsDemo from './_snippets/json-tree-view/compact-previews.tsx';
+import JsonTreeViewBasicDemo from '@/components/examples/json-tree-view/basic.tsx';
+import JsonTreeViewCompactPreviewsDemo from '@/components/examples/json-tree-view/compact-previews.tsx';
 import jsonTreeViewSolidBasic from '../../../snippets/json-tree-view/solid/basic.tsx?raw';
 import jsonTreeViewSolidCompactPreviews from '../../../snippets/json-tree-view/solid/compact-previews.tsx?raw';
 
@@ -21,7 +21,7 @@ content.
 
 ## Basic
 
-Pass any JSON-like JavaScript value through `data`, then render `<JsonTreeView.Tree />` inside the component.
+Pass any JSON-like JavaScript value through `data`, then render `<JsonTreeViewTree />` inside the component.
 `JsonTreeView` generates the object, array, and value nodes for you. moduix styles the rows, indentation, focus
 states, and default disclosure icon.
 
@@ -44,7 +44,7 @@ configuration should be visible on the first render.
   >
     <Tab value="react">
 
-```tsx pure file="./_snippets/json-tree-view/basic.tsx"
+```tsx pure file="../../../src/components/examples/json-tree-view/basic.tsx"
 ```
 
     </Tab>
@@ -88,27 +88,27 @@ See [Quick Start](/docs/quick-start) for full package setup, registry configurat
 ## Anatomy
 
 ```text
-JsonTreeView / JsonTreeView.Root
-└─ JsonTreeView.Tree
+JsonTreeView
+└─ JsonTreeViewTree
    └─ generated JSON branches and items
 
-JsonTreeView.RootProvider
+JsonTreeViewRootProvider
 └─ same tree connected to a useJsonTreeView store
 ```
 
 | Part | Role |
 | --- | --- |
-| `JsonTreeView` / `JsonTreeView.Root` | Owns the data, generated tree collection, and Ark tree state. |
-| `JsonTreeView.RootProvider` | Connects the parts to a `useJsonTreeView` state instance created outside the tree. |
-| `JsonTreeView.Tree` | Renders the generated object, array, and value nodes. |
+| `JsonTreeView` | Owns the data, generated tree collection, and Ark tree state. |
+| `JsonTreeViewRootProvider` | Connects the parts to a `useJsonTreeView` state instance created outside the tree. |
+| `JsonTreeViewTree` | Renders the generated object, array, and value nodes. |
 
 ## Composition
 
-Keep `JsonTreeView.Tree` as the child of `JsonTreeView` or `JsonTreeView.Root`; it renders the generated JSON nodes.
+Keep `JsonTreeViewTree` as the child of `JsonTreeView` or `JsonTreeViewRootProvider`; it renders the generated JSON nodes.
 When controls outside the tree own its state, create `useJsonTreeView` from the matching framework package and pass
-the store to `JsonTreeView.RootProvider`, then render `Tree` inside it. Use controlled `expandedValue`,
+the store to `JsonTreeViewRootProvider`, then render `JsonTreeViewTree` inside it. Use controlled `expandedValue`,
 `selectedValue`, `checkedValue`, or `focusedValue` only when that state belongs to the application. Do not render
-`Root` and `RootProvider` for the same store.
+`JsonTreeView` and `JsonTreeViewRootProvider` for the same store.
 
 ## Examples
 
@@ -133,7 +133,7 @@ Users can expand a node to inspect its complete value.
   >
     <Tab value="react">
 
-```tsx pure file="./_snippets/json-tree-view/compact-previews.tsx"
+```tsx pure file="../../../src/components/examples/json-tree-view/compact-previews.tsx"
 ```
 
     </Tab>
@@ -149,17 +149,17 @@ Users can expand a node to inspect its complete value.
 
 ## Styling
 
-Use `className` in React or `class` in Solid on `Root`, `RootProvider`, or `Tree` for local layout changes. Tailwind
+Use `className` in React or `class` in Solid on `JsonTreeView`, `JsonTreeViewRootProvider`, or `JsonTreeViewTree` for local layout changes. Tailwind
 variants use utility classes and consumer classes; CSS Modules variants use their bundled styles and foundation
 tokens.
 
-`JsonTreeView.Tree` uses the `ChevronRightIcon` supplied by moduix when `arrow` is omitted. Pass your own `arrow`
+`JsonTreeViewTree` uses the `ChevronRightIcon` supplied by moduix when `arrow` is omitted. Pass your own `arrow`
 when the inspection surface needs a different disclosure icon.
 
 Generated nodes preserve Ark's `data-scope="json-tree-view"` and `data-part` attributes. moduix adds the stable
 `data-slot="json-tree-view-root"`, `json-tree-view-root-provider`, and `json-tree-view-tree` hooks.
 
-`JsonTreeView.Tree` forwards Ark's `indentGuide` prop when you opt into indentation guides. moduix does not style the
+`JsonTreeViewTree` forwards Ark's `indentGuide` prop when you opt into indentation guides. moduix does not style the
 generated `[data-part='branch-indent-guide']` elements; target that attribute with your own styles when guides are
 enabled.
 

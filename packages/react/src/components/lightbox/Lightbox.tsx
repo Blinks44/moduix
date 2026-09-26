@@ -5,6 +5,7 @@ import { ark, type HTMLArkProps } from '@ark-ui/react/factory';
 import { clsx } from 'clsx';
 import type { ComponentProps, ComponentRef, RefObject } from 'react';
 import { forwardRef, useEffect } from 'react';
+import { a11yLabels } from '@/lib/moduix/a11yLabels';
 import {
   OverlayPortal,
   OverlayPortalProvider,
@@ -12,8 +13,6 @@ import {
 } from '@/lib/moduix/overlayPortal';
 import { CloseButton } from '../close-button';
 import styles from './Lightbox.module.css';
-
-const DEFAULT_CLOSE_LABEL = 'Close image';
 
 type LightboxImageSelectDetails = {
   alt?: string;
@@ -77,7 +76,7 @@ function resolveImage(
   };
 }
 
-function LightboxRoot({
+function Lightbox({
   lazyMount = true,
   portalled,
   portalRef,
@@ -212,17 +211,17 @@ const LightboxCloseTrigger = forwardRef<
 });
 
 const LightboxCloseIcon = forwardRef<
-  ComponentRef<typeof CloseButton.Root>,
+  ComponentRef<typeof CloseButton>,
   Omit<ComponentProps<typeof DialogPrimitive.CloseTrigger>, 'asChild'>
 >(function LightboxCloseIcon(
-  { className, children, 'aria-label': ariaLabel = DEFAULT_CLOSE_LABEL, ...props },
+  { className, children, 'aria-label': ariaLabel = a11yLabels.closeImage, ...props },
   ref,
 ) {
   const dialog = useDialogContext();
 
   return (
     <DialogPrimitive.CloseTrigger asChild {...props}>
-      <CloseButton.Root
+      <CloseButton
         ref={ref}
         data-slot="lightbox-close-icon"
         data-state={dialog.open ? 'open' : 'closed'}
@@ -230,7 +229,7 @@ const LightboxCloseIcon = forwardRef<
         className={clsx(styles.closeIcon, className)}
       >
         {children}
-      </CloseButton.Root>
+      </CloseButton>
     </DialogPrimitive.CloseTrigger>
   );
 });
@@ -364,32 +363,23 @@ function LightboxBind({ onImageSelect, selector, rootRef, rootSelector }: Lightb
   return null;
 }
 
-const Lightbox = Object.assign(LightboxRoot, {
-  Root: LightboxRoot,
-  RootProvider: LightboxRootProvider,
-  Trigger: LightboxTrigger,
-  Backdrop: LightboxBackdrop,
-  Positioner: LightboxPositioner,
-  Content: LightboxContent,
-  Title: LightboxTitle,
-  Description: LightboxDescription,
-  CloseTrigger: LightboxCloseTrigger,
-  CloseIcon: LightboxCloseIcon,
-  Header: LightboxHeader,
-  Body: LightboxBody,
-  Footer: LightboxFooter,
-  Image: LightboxImage,
-  Gallery: LightboxGallery,
-  Bind: LightboxBind,
-  useLightbox: useDialog,
-  useLightboxContext: useDialogContext,
-});
-
 export {
   Lightbox,
-  LightboxBind,
-  LightboxGallery,
+  LightboxRootProvider,
+  LightboxTrigger,
+  LightboxBackdrop,
+  LightboxPositioner,
+  LightboxContent,
+  LightboxTitle,
+  LightboxDescription,
+  LightboxCloseTrigger,
+  LightboxCloseIcon,
+  LightboxHeader,
+  LightboxBody,
+  LightboxFooter,
   LightboxImage,
+  LightboxGallery,
+  LightboxBind,
   useDialog as useLightbox,
   useDialogContext as useLightboxContext,
 };

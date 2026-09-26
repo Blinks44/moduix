@@ -14,17 +14,17 @@ Rich preview popup that appears from hover or focus on a trigger, commonly a lin
 
 ## Upstream model to preserve
 
-The wrapper follows Ark UI `@ark-ui/react/hover-card`. Preserve `Root`, `RootProvider`, `Trigger`,
-`Positioner`, `Content`, `Arrow`, and `ArrowTip` as the public moduix model. Preserve Ark
-`RootProvider` compatibility so externally owned state from `@ark-ui/react/hover-card` still works.
+The wrapper follows Ark UI `@ark-ui/react/hover-card`. Preserve its root, provider, trigger,
+positioner, content, arrow, and arrow-tip behavior. Public moduix values use the flat names shown
+below, while Ark `RootProvider` state remains compatible with externally owned state.
 
 ## Current behavior contract
 
 `Root` and `RootProvider` portal `Positioner` automatically by default. Set `portalled={false}` to render it inline, or pass `portalRef` to target a custom container. The structural parts remain explicit and independently styleable.
 
-`HoverCard` is the short root form and `HoverCard.Root` is the equivalent namespace part. Root props,
-controlled state, delay props, positioning, ids, presence props, outside-interaction callbacks, and
-callback detail objects pass through Ark without remapping. The previous legacy `PreviewCard`
+`HoverCard` is the only public root value. Root props, controlled state, delay props, positioning,
+ids, presence props, outside-interaction callbacks, and callback detail objects pass through Ark
+without remapping. The previous legacy `PreviewCard`
 contract, detached handle API, `render` prop examples, `Popup`, `Viewport`, `Backdrop`, and
 high-level content wrapper are intentionally removed.
 
@@ -32,47 +32,53 @@ high-level content wrapper are intentionally removed.
 
 ```tsx
 <HoverCard>
-  <HoverCard.Trigger asChild>
+  <HoverCardTrigger asChild>
     <a href="#profile">@sarah_chen</a>
-  </HoverCard.Trigger>
-  <HoverCard.Positioner>
-    <HoverCard.Content>
-      <HoverCard.Body>Profile details</HoverCard.Body>
-    </HoverCard.Content>
-  </HoverCard.Positioner>
+  </HoverCardTrigger>
+  <HoverCardPositioner>
+    <HoverCardContent>
+      <HoverCardBody>Profile details</HoverCardBody>
+    </HoverCardContent>
+  </HoverCardPositioner>
 </HoverCard>
 ```
 
-- `HoverCard` / `HoverCard.Root`: root state and lifecycle; they do not render a DOM element.
-- `HoverCard.RootProvider`: connects parts to Ark `useHoverCard()` state; it does not render a DOM element.
-- `HoverCard.Trigger`: `data-slot="hover-card-trigger"`, default link-like styling when `asChild` is not used.
-- `HoverCard.Positioner`: `data-slot="hover-card-positioner"`, Ark positioning layer.
-- `HoverCard.Content`: `data-slot="hover-card-content"`, visible styled popup surface.
-- `HoverCard.Arrow`: `data-slot="hover-card-arrow"`, renders `HoverCard.ArrowTip` by default.
-- `HoverCard.ArrowTip`: `data-slot="hover-card-arrow-tip"`.
-- `HoverCard.Body`: `data-slot="hover-card-body"`, optional scrollable content region.
+- `HoverCard`: root state and lifecycle; it does not render a DOM element.
+- `HoverCardRootProvider`: connects parts to Ark `useHoverCard()` state; it does not render a DOM element.
+- `HoverCardTrigger`: `data-slot="hover-card-trigger"`, default link-like styling when `asChild` is not used.
+- `HoverCardPositioner`: `data-slot="hover-card-positioner"`, Ark positioning layer.
+- `HoverCardContent`: `data-slot="hover-card-content"`, visible styled popup surface.
+- `HoverCardArrow`: `data-slot="hover-card-arrow"`, renders `HoverCardArrowTip` by default.
+- `HoverCardArrowTip`: `data-slot="hover-card-arrow-tip"`.
+- `HoverCardBody`: `data-slot="hover-card-body"`, optional scrollable content region.
 
-When used, `HoverCard.Arrow` belongs inside `HoverCard.Content`, matching Ark's composition and
-allowing the popup border to render behind the arrow. Wrap long content in `HoverCard.Body` so
+When used, `HoverCardArrow` belongs inside `HoverCardContent`, matching Ark's composition and
+allowing the popup border to render behind the arrow. Wrap long content in `HoverCardBody` so
 the surface stays overflow-visible for the arrow while the body scrolls within the available
 height.
 
 ## Composition
 
 ```tsx
-import { HoverCard } from '@moduix/react/hover-card';
+import {
+  HoverCard,
+  HoverCardBody,
+  HoverCardContent,
+  HoverCardPositioner,
+  HoverCardTrigger,
+} from '@moduix/react/hover-card';
 
 export function Example() {
   return (
     <HoverCard positioning={{ placement: 'bottom-start', gutter: 8 }}>
-      <HoverCard.Trigger asChild>
+      <HoverCardTrigger asChild>
         <a href="#profile">@sarah_chen</a>
-      </HoverCard.Trigger>
-      <HoverCard.Positioner>
-        <HoverCard.Content>
-          <HoverCard.Body>Profile details</HoverCard.Body>
-        </HoverCard.Content>
-      </HoverCard.Positioner>
+      </HoverCardTrigger>
+      <HoverCardPositioner>
+        <HoverCardContent>
+          <HoverCardBody>Profile details</HoverCardBody>
+        </HoverCardContent>
+      </HoverCardPositioner>
     </HoverCard>
   );
 }
@@ -81,9 +87,9 @@ export function Example() {
 ## Upstream feature coverage
 
 Covered Ark examples: basic composition, controlled `open` with `onOpenChange(details)`,
-`RootProvider` with moduix `useHoverCard`, `openDelay`/`closeDelay`, `disabled`, `positioning`, and
+`HoverCardRootProvider` with moduix `useHoverCard`, `openDelay`/`closeDelay`, `disabled`, `positioning`, and
 multiple triggers through `Trigger value` plus `onTriggerValueChange(details)`. Moduix re-exports
-`useHoverCard` and `useHoverCardContext`, and exposes Ark `Context` as `HoverCard.Context`. Event
+`useHoverCard` and `useHoverCardContext`, and exposes Ark `Context` as `HoverCardContext`. Event
 and detail types remain available from Ark for rare type-level escape hatches.
 
 ## Accessibility and state
@@ -93,14 +99,14 @@ keyboard/focus lifecycle. Use the card only for supplementary previews: required
 remain available without it. `asChild` must receive a single semantic child that can preserve the
 trigger behavior. Styling should target Ark `data-scope="hover-card"`, `data-part`, `data-state`,
 `data-placement`, `data-side`, `data-value`, `data-current`, and moduix `data-slot` hooks. For
-advanced state reads or external state ownership, use `HoverCard.Context`, `useHoverCard`, or
+advanced state reads or external state ownership, use `HoverCardContext`, `useHoverCard`, or
 `useHoverCardContext` from `@moduix/react`.
 
 ## Defaults and styling
 
 Content motion falls back to the shared `--moduix-popup-motion-*` tokens; `--moduix-hover-card-*` motion
 variables remain the more specific override. When the available viewport height limits the popup,
-content inside `HoverCard.Body` scrolls inside the surface instead of escaping it. `Content` keeps
+content inside `HoverCardBody` scrolls inside the surface instead of escaping it. `Content` keeps
 overflow visible so an in-surface `Arrow` is not clipped.
 
 Moduix adds default visual styling to `Trigger`, `Positioner`, `Content`, `Arrow`, `ArrowTip`, and
@@ -121,11 +127,11 @@ and `--arrow-offset`. Public theme variables use the `--moduix-hover-card-*` pre
 
 ## Intentional sugar and differences from upstream
 
-`HoverCard.Arrow` renders `HoverCard.ArrowTip` when no children are passed; add it only when the popup
+`HoverCardArrow` renders `HoverCardArrowTip` when no children are passed; add it only when the popup
 needs a visual anchor. The root owns the portal boundary. Use `portalled={false}` for a hover card inside a dialog or another overlay that must keep
 its positioner in the parent layer. Dialog auto-focus can focus a hover-card trigger and open the
 card after `openDelay`; use Dialog `initialFocusEl` to choose another initial target when needed.
-`HoverCard.Context`, `useHoverCard`, and `useHoverCardContext` are moduix-owned paths to the
+`HoverCardContext`, `useHoverCard`, and `useHoverCardContext` are moduix-owned paths to the
 corresponding Ark state surfaces. No legacy `PreviewCard*` aliases are exported.
 
 ## Agent notes
@@ -144,10 +150,13 @@ content after the first open; set both props to `false` only when eager initial 
 
 ## Local changelog
 
-- 2026-09-03: Kept the Ark arrow inside `Content` for correct border layering and added
-  `HoverCard.Body` as the scroll region for constrained popup content.
+- 2026-09-21: Replaced the compound HoverCard API with flat family-prefixed exports across all
+  shipped adapters, tests, stories, registries, and documentation. No compatibility aliases remain.
 
-- 2026-08-11: Made the recommended composition arrowless and documented `HoverCard.Arrow` as an
+- 2026-09-03: Kept the Ark arrow inside `Content` for correct border layering and added
+  `HoverCardBody` as the scroll region for constrained popup content.
+
+- 2026-08-11: Made the recommended composition arrowless and documented `HoverCardArrow` as an
   explicit visual-anchor option.
 
 - 2026-08-11: Removed non-rendering root styling hooks from the documented contract, respected
@@ -157,7 +166,7 @@ content after the first open; set both props to `false` only when eager initial 
 
 - 2026-07-21: Routed shared dimensions, spacing, icon geometry, and focus-ring fallbacks through foundation tokens so density and theme presets can retune the component consistently.
 - 2026-07-16: Added shared `--moduix-popup-motion-*` fallbacks for project-wide popup content motion.
-- 2026-07-10: Exposed `HoverCard.Context`, `useHoverCard`, and `useHoverCardContext` through
+- 2026-07-10: Exposed `HoverCardContext`, `useHoverCard`, and `useHoverCardContext` through
   moduix; documented disabled state, overlay nesting, and the supplementary-content constraint.
 - 2026-07-10: Documented how Dialog initial focus can intentionally open a nested hover card or
   keep it closed until hover or focus.

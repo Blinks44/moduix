@@ -10,48 +10,48 @@ resource lists. It is the native Solid wrapper around Ark UI Solid Tree View.
 
 ## Public contract
 
-`TreeView` is the styled root and is equivalent to `TreeView.Root`. Pass a collection created by
-`createTreeCollection` or `createFileTreeCollection`, then compose `Label`, `Tree`, `Node`,
-`Branch`, and `Item` parts.
+`TreeView` is the styled root component. Pass a collection created by `createTreeCollection` or
+`createFileTreeCollection`, then compose `TreeViewLabel`, `TreeViewTree`, `TreeViewNode`,
+`TreeViewBranch`, and `TreeViewItem` parts.
 
-`TreeView.Node` keeps the recursive-renderer shortcut from the React component. Its render callback
+`TreeViewNode` keeps the recursive-renderer shortcut from the React component. Its render callback
 receives `{ node, indexPath, state }`; because Ark Solid state is reactive, read node state as
 `state().expanded`, `state().isBranch`, and so on:
 
 ```tsx
-<TreeView.Node node={node} indexPath={indexPath}>
+<TreeViewNode node={node} indexPath={indexPath}>
   {({ node: currentNode, state }) => (
-    <Show when={state().isBranch} fallback={<TreeView.Item>{currentNode.name}</TreeView.Item>}>
-      <TreeView.Branch>
-        <TreeView.BranchControl>
-          <TreeView.BranchIndicator />
-          <TreeView.BranchText>{currentNode.name}</TreeView.BranchText>
-        </TreeView.BranchControl>
-        <TreeView.BranchContent />
-      </TreeView.Branch>
+    <Show when={state().isBranch} fallback={<TreeViewItem>{currentNode.name}</TreeViewItem>}>
+      <TreeViewBranch>
+        <TreeViewBranchControl>
+          <TreeViewBranchIndicator />
+          <TreeViewBranchText>{currentNode.name}</TreeViewBranchText>
+        </TreeViewBranchControl>
+        <TreeViewBranchContent />
+      </TreeViewBranch>
     </Show>
   )}
-</TreeView.Node>
+</TreeViewNode>
 ```
 
-`RootProvider` accepts the accessor returned by `useTreeView()`. `Context`,
-`NodeContext`, `useTreeViewContext`, `useTreeViewNodeContext`, and the collection helpers are
+`TreeViewRootProvider` accepts the accessor returned by `useTreeView()`. `TreeViewContext`,
+`TreeViewNodeContext`, `useTreeViewContext`, `useTreeViewNodeContext`, and the collection helpers are
 re-exported from the component entry point and package root.
 
 ## Anatomy and styling
 
 ```text
-TreeView / TreeView.Root
-├─ TreeView.Label
-└─ TreeView.Tree
-   └─ TreeView.Node or TreeView.NodeProvider
-      ├─ TreeView.Branch
-      │  ├─ TreeView.BranchControl
-      │  ├─ TreeView.BranchContent
-      │  └─ TreeView.BranchIndentGuide
-      └─ TreeView.Item
-         ├─ TreeView.ItemText
-         └─ TreeView.ItemIndicator
+TreeView
+├─ TreeViewLabel
+└─ TreeViewTree
+   └─ TreeViewNode or TreeViewNodeProvider
+      ├─ TreeViewBranch
+      │  ├─ TreeViewBranchControl
+      │  ├─ TreeViewBranchContent
+      │  └─ TreeViewBranchIndentGuide
+      └─ TreeViewItem
+         ├─ TreeViewItemText
+         └─ TreeViewItemIndicator
 ```
 
 The wrapper adds the same `tree-view-*` `data-slot` hooks and CSS Module as the React component.
@@ -61,3 +61,8 @@ controlled and uncontrolled values, async loading, checkbox propagation, and ren
 The Solid `NodeCheckboxIndicator` wraps Ark's fragment-only indicator in a styled `span`, because
 the installed Ark Solid primitive does not accept DOM props. This keeps the public data slot and
 CSS hook available while preserving Ark's checked, indeterminate, and fallback selection.
+
+## Local changelog
+
+- 2026-09-22: Migrated TreeView to the flat public API. The root is `TreeView`, while parts,
+  contexts, and the provider use family-prefixed exports; legacy static members are removed.

@@ -22,7 +22,7 @@ import { forwardRef } from 'react';
 import { CheckIcon, ChevronRightIcon, IndeterminateIcon } from '@/lib/moduix/icons/ui';
 import styles from './TreeView.module.css';
 
-const TreeViewRoot = forwardRef(function TreeViewRoot<T extends TreeNode>(
+const TreeView = forwardRef(function TreeView<T extends TreeNode>(
   { className, ...props }: TreeViewRootProps<T>,
   ref: ForwardedRef<HTMLDivElement>,
 ) {
@@ -276,6 +276,8 @@ const TreeViewNodeRenameInput = forwardRef<
 });
 
 const TreeViewNodeProvider = TreeViewPrimitive.NodeProvider;
+const TreeViewContext = TreeViewPrimitive.Context;
+const TreeViewNodeContext = TreeViewPrimitive.NodeContext;
 
 type TreeViewNodeRenderProps<T extends TreeNode> = {
   indexPath: number[];
@@ -307,32 +309,28 @@ function TreeViewNode<T extends TreeNode>({ children, indexPath, node }: TreeVie
   );
 }
 
-const TreeView = Object.assign(TreeViewRoot, {
-  Root: TreeViewRoot,
-  RootProvider: TreeViewRootProvider,
-  Context: TreeViewPrimitive.Context,
-  NodeContext: TreeViewPrimitive.NodeContext,
-  Label: TreeViewLabel,
-  Tree: TreeViewTree,
-  Node: TreeViewNode,
-  NodeProvider: TreeViewNodeProvider,
-  Branch: TreeViewBranch,
-  BranchControl: TreeViewBranchControl,
-  BranchTrigger: TreeViewBranchTrigger,
-  BranchIndicator: TreeViewBranchIndicator,
-  BranchText: TreeViewBranchText,
-  BranchContent: TreeViewBranchContent,
-  BranchIndentGuide: TreeViewBranchIndentGuide,
-  Item: TreeViewItem,
-  ItemText: TreeViewItemText,
-  ItemIndicator: TreeViewItemIndicator,
-  NodeCheckbox: TreeViewNodeCheckbox,
-  NodeCheckboxIndicator: TreeViewNodeCheckboxIndicator,
-  NodeRenameInput: TreeViewNodeRenameInput,
-});
-
 export {
   TreeView,
+  TreeViewContext,
+  TreeViewNodeContext,
+  TreeViewNodeProvider,
+  TreeViewLabel,
+  TreeViewTree,
+  TreeViewNode,
+  TreeViewBranch,
+  TreeViewBranchControl,
+  TreeViewBranchTrigger,
+  TreeViewBranchIndicator,
+  TreeViewBranchText,
+  TreeViewBranchContent,
+  TreeViewBranchIndentGuide,
+  TreeViewItem,
+  TreeViewItemText,
+  TreeViewItemIndicator,
+  TreeViewNodeCheckbox,
+  TreeViewNodeCheckboxIndicator,
+  TreeViewNodeRenameInput,
+  TreeViewRootProvider,
   createFileTreeCollection,
   createTreeCollection,
   useTreeView,

@@ -39,13 +39,13 @@ Ark UI does not provide a dedicated table primitive. moduix builds `Table` with 
 
 Each part renders its corresponding native HTML element by default, accepts native element props and
 `className` in React or `class` in Solid, forwards its ref, and supports Ark's `asChild`. When using
-`asChild`, pass one semantic element as the child. `Table.Empty` is the exception to the usual
+`asChild`, pass one semantic element as the child. `TableEmpty` is the exception to the usual
 one-element composition: its `asChild` replaces only the generated `td`.
 
 ## Basic
 
-If the table may be wider than its container, wrap it in `Table.ScrollArea`. Then compose `Table`
-with `Table.Header`, `Table.Body`, `Table.Row`, and the matching header and cell parts. This is the
+If the table may be wider than its container, wrap it in `TableScrollArea`. Then compose `Table`
+with `TableHeader`, `TableBody`, `TableRow`, and the matching header and cell parts. This is the
 recommended setup for invoices, summaries, and admin-style read-only datasets.
 
 <ExampleFrame variant="component">
@@ -110,52 +110,52 @@ See [Quick Start](/docs/quick-start) for full package setup, registry configurat
 The normal consumer path stays close to native table markup:
 
 ```text
-Table.ScrollArea (optional)
-└─ Table / Table.Root
-   ├─ Table.ColumnGroup (optional)
-   │  └─ Table.Column
-   ├─ Table.Caption (optional)
-   ├─ Table.Header
-   │  └─ Table.Row
-   │     └─ Table.ColumnHeader
-   ├─ Table.Body
-   │  ├─ Table.Row
-   │  │  └─ Table.Cell
-   │  └─ Table.Empty (optional)
-   └─ Table.Footer (optional)
+TableScrollArea (optional)
+└─ Table
+   ├─ TableColumnGroup (optional)
+   │  └─ TableColumn
+   ├─ TableCaption (optional)
+   ├─ TableHeader
+   │  └─ TableRow
+   │     └─ TableColumnHeader
+   ├─ TableBody
+   │  ├─ TableRow
+   │  │  └─ TableCell
+   │  └─ TableEmpty (optional)
+   └─ TableFooter (optional)
 ```
 
 | Part                   | Role                                                                       |
 | ---------------------- | -------------------------------------------------------------------------- |
-| `Table` / `Table.Root` | Native `table` root. Owns typography, dividers, and state attributes.      |
-| `Table.ScrollArea`     | Optional bordered container with horizontal overflow for the table.       |
-| `Table.ColumnGroup`    | Native `colgroup` wrapper for column width distribution.                   |
-| `Table.Column`         | Native `col` wrapper. Supports `htmlWidth`.                                |
-| `Table.Caption`        | Optional table caption above or below the table via `side`.                |
-| `Table.Header`         | Native `thead` wrapper for column headers.                                 |
-| `Table.Body`           | Native `tbody` wrapper for body rows.                                      |
-| `Table.Footer`         | Native `tfoot` wrapper for summary rows.                                   |
-| `Table.Row`            | Native `tr` wrapper with divider behavior.                                 |
-| `Table.ColumnHeader`   | Native `th` wrapper. Supports `numeric`.                                   |
-| `Table.Cell`           | Native `td` wrapper. Supports `numeric`.                                   |
-| `Table.Empty`          | Convenience empty-state row and cell inside `Table.Body`.                 |
+| `Table`           | Native `table` root. Owns typography, dividers, and state attributes.      |
+| `TableScrollArea`     | Optional bordered container with horizontal overflow for the table.       |
+| `TableColumnGroup`    | Native `colgroup` wrapper for column width distribution.                   |
+| `TableColumn`         | Native `col` wrapper. Supports `htmlWidth`.                                |
+| `TableCaption`        | Optional table caption above or below the table via `side`.                |
+| `TableHeader`         | Native `thead` wrapper for column headers.                                 |
+| `TableBody`           | Native `tbody` wrapper for body rows.                                      |
+| `TableFooter`         | Native `tfoot` wrapper for summary rows.                                   |
+| `TableRow`            | Native `tr` wrapper with divider behavior.                                 |
+| `TableColumnHeader`   | Native `th` wrapper. Supports `numeric`.                                   |
+| `TableCell`           | Native `td` wrapper. Supports `numeric`.                                   |
+| `TableEmpty`          | Convenience empty-state row and cell inside `TableBody`.                 |
 
 ## Composition
 
-Use `Table.ScrollArea` when the table needs a bordered horizontal-scroll shell. Skip it when the
+Use `TableScrollArea` when the table needs a bordered horizontal-scroll shell. Skip it when the
 parent layout already owns scrolling, padding, borders, or surface styling, and keep the native
 table parts inside your own wrapper.
 
-`Table.Empty` owns a full empty row inside `Table.Body`, so its required `colSpan` must match the
-current body column count. Its `asChild` replaces only the generated `td`; compose `Table.Row` and
-`Table.Cell` directly when the row itself needs customization. `Table` owns presentation only:
+`TableEmpty` owns a full empty row inside `TableBody`, so its required `colSpan` must match the
+current body column count. Its `asChild` replaces only the generated `td`; compose `TableRow` and
+`TableCell` directly when the row itself needs customization. `Table` owns presentation only:
 sorting, filtering, selection, pagination, virtualization, and row action state belong to a
 higher-level table composition such as [Data Table](/recipes/data-table).
 
 ### Accessibility
 
 `Table` uses native table elements, so use standard HTML table attributes for the relationships in
-your data. Add `scope="col"` to column headers, use `Table.Caption` for a short accessible name or
+your data. Add `scope="col"` to column headers, use `TableCaption` for a short accessible name or
 description, and use `id` / `headers` when a complex table needs explicit header associations.
 `Table` does not add keyboard navigation, selection behavior, or focus management.
 
@@ -163,7 +163,7 @@ description, and use `id` / `headers` when a complex table needs explicit header
 
 ### Caption and Footer
 
-Use `Table.Caption side="top"` when the label reads better before the data, and `Table.Footer` for
+Use `TableCaption side="top"` when the label reads better before the data, and `TableFooter` for
 totals or summaries.
 
 <ExampleFrame variant="component">
@@ -198,7 +198,7 @@ totals or summaries.
 
 ### Column Group and Borders
 
-Use `Table.ColumnGroup` and `Table.Column` for native column widths, and `showColumnBorder` when
+Use `TableColumnGroup` and `TableColumn` for native column widths, and `showColumnBorder` when
 column separation needs to be visible.
 
 <ExampleFrame variant="component">
@@ -233,7 +233,7 @@ column separation needs to be visible.
 
 ### Empty State
 
-Use `Table.Empty` when a body would otherwise render no rows. Set `colSpan` to the current number of
+Use `TableEmpty` when a body would otherwise render no rows. Set `colSpan` to the current number of
 columns.
 
 <ExampleFrame variant="component">
@@ -268,7 +268,7 @@ columns.
 
 ### Inside Card
 
-`Table.ScrollArea` fits naturally inside `Card.Body` when the table should live on a card surface.
+`TableScrollArea` fits naturally inside `CardBody` when the table should live on a card surface.
 
 <ExampleFrame variant="component">
   <TableInsideCard />
@@ -488,7 +488,7 @@ opinionated table abstraction.
 ### With ScrollArea
 
 Use `ScrollArea` directly when the table needs styled scrollbars on both axes, fade behavior, or the
-scroll area API. `Table.ScrollArea` is a simpler bordered horizontal-overflow wrapper. Keep the
+scroll area API. `TableScrollArea` is a simpler bordered horizontal-overflow wrapper. Keep the
 `ScrollArea` structure explicit so the table stays native and lightweight.
 
 <ExampleFrame variant="component">
@@ -528,7 +528,7 @@ scroll area API. `Table.ScrollArea` is a simpler bordered horizontal-overflow wr
 
 ### Advanced Customization
 
-Use your own wrapper instead of `Table.ScrollArea` when the surrounding layout already owns the
+Use your own wrapper instead of `TableScrollArea` when the surrounding layout already owns the
 surface or scrolling behavior. This keeps the native table composition explicit while giving your
 layout full control of the shell.
 
@@ -592,14 +592,14 @@ variables below apply to CSS Modules variants.
 
 Use the part that owns the visual concern:
 
-- `className` on `Table.ScrollArea` for shell-wide border, radius, and surface overrides
+- `className` on `TableScrollArea` for shell-wide border, radius, and surface overrides
 - `className` on `Table` for table typography and width constraints
 - `data-slot="table-root"`, `table-scroll-area`, `table-column-group`, `table-column`,
   `table-caption`, `table-header`, `table-body`, `table-footer`, `table-row`,
   `table-column-header`, `table-cell`, and `table-empty` for part-level targeting
-- `data-side="top" | "bottom"` on `Table.Caption` for caption placement styling
-- `data-numeric` on `Table.ColumnHeader` and `Table.Cell` for numeric-column targeting
-- `data-empty` on the row generated by `Table.Empty` for empty-row targeting
+- `data-side="top" | "bottom"` on `TableCaption` for caption placement styling
+- `data-numeric` on `TableColumnHeader` and `TableCell` for numeric-column targeting
+- `data-empty` on the row generated by `TableEmpty` for empty-row targeting
 - `data-size`, `data-variant`, `data-striped`, `data-interactive`, `data-sticky-header`, and
   `data-show-column-border` on `Table` for root-level state styling
-- `data-sticky="start" | "end"` on `Table.ColumnHeader` and `Table.Cell` for sticky columns
+- `data-sticky="start" | "end"` on `TableColumnHeader` and `TableCell` for sticky columns

@@ -1,6 +1,18 @@
 import { expect, test } from '@rstest/core';
 import { fireEvent, render, screen } from '@testing-library/react';
-import { Button, Card } from '../src';
+import {
+  Button,
+  Card,
+  CardAction,
+  CardBackground,
+  CardBody,
+  CardDescription,
+  CardFooter,
+  CardHeader,
+  CardLink,
+  CardMedia,
+  CardTitle,
+} from '../src';
 
 test('renders the default root with stable hooks', () => {
   render(
@@ -27,19 +39,19 @@ test('renders the default root with stable hooks', () => {
 test('renders every part with its semantic default and stable hooks', () => {
   render(
     <Card>
-      <Card.Background data-testid="background" />
-      <Card.Media data-testid="media" />
-      <Card.Header data-testid="header">
-        <Card.Title data-testid="title">
-          <Card.Link data-testid="link" href="#release">
+      <CardBackground data-testid="background" />
+      <CardMedia data-testid="media" />
+      <CardHeader data-testid="header">
+        <CardTitle data-testid="title">
+          <CardLink data-testid="link" href="#release">
             Release health
-          </Card.Link>
-        </Card.Title>
-        <Card.Description data-testid="description">Production rollout</Card.Description>
-        <Card.Action data-testid="action" />
-      </Card.Header>
-      <Card.Body data-testid="body" />
-      <Card.Footer data-testid="footer" />
+          </CardLink>
+        </CardTitle>
+        <CardDescription data-testid="description">Production rollout</CardDescription>
+        <CardAction data-testid="action" />
+      </CardHeader>
+      <CardBody data-testid="body" />
+      <CardFooter data-testid="footer" />
     </Card>,
   );
 
@@ -91,9 +103,9 @@ test('forwards an HTMLElement ref through an asChild part', () => {
   };
 
   render(
-    <Card.Title asChild ref={ref}>
+    <CardTitle asChild ref={ref}>
       <h2>Release health</h2>
-    </Card.Title>,
+    </CardTitle>,
   );
 
   const heading = screen.getByRole('heading', { level: 2, name: 'Release health' });
@@ -110,11 +122,11 @@ test('forwards an HTMLElement ref through an asChild background', () => {
   };
 
   render(
-    <Card.Background asChild ref={ref}>
+    <CardBackground asChild ref={ref}>
       <picture data-testid="background">
         <img alt="" src="/forest.jpg" />
       </picture>
-    </Card.Background>,
+    </CardBackground>,
   );
 
   const background = screen.getByTestId('background');
@@ -124,19 +136,19 @@ test('forwards an HTMLElement ref through an asChild background', () => {
   expect(background).toHaveAttribute('data-slot', 'card-background');
 });
 
-test('keeps actions interactive when Card.Link covers the card', () => {
+test('keeps actions interactive when CardLink covers the card', () => {
   let acknowledgements = 0;
 
   render(
     <Card>
-      <Card.Header>
-        <Card.Title>
-          <Card.Link href="#incident">Incident response</Card.Link>
-        </Card.Title>
-        <Card.Action>
+      <CardHeader>
+        <CardTitle>
+          <CardLink href="#incident">Incident response</CardLink>
+        </CardTitle>
+        <CardAction>
           <Button onClick={() => acknowledgements++}>Acknowledge</Button>
-        </Card.Action>
-      </Card.Header>
+        </CardAction>
+      </CardHeader>
     </Card>,
   );
 

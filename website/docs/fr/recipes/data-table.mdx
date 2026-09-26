@@ -114,6 +114,9 @@ d’en-têtes et les cellules visibles dans l’anatomie de tableau moduix.
 L’exemple affiche les colonnes et les cellules visibles : il enregistre donc `columnVisibilityFeature`.
 N’ajoutez les autres fonctionnalités que lorsque le tableau en a besoin.
 
+Les blocs `<style>` de cette page servent uniquement à mettre en page les aperçus de la documentation.
+Ils ne font pas partie du code de la recette : ne les copiez pas dans votre application.
+
 <style>{`
       .data-table {
         width: min(48rem, 100%);
@@ -169,7 +172,7 @@ le getter réactif `data`. Consultez la
 
 ## Largeur des colonnes
 
-Utilisez `Table.ColumnGroup` et `Table.Column htmlWidth` pour les colonnes dont la largeur doit rester stable.
+Utilisez `TableColumnGroup` et `TableColumn htmlWidth` pour les colonnes dont la largeur doit rester stable.
 Combinez-les avec `table-layout: fixed` sur la racine du tableau. La colonne restante occupe l’espace
 disponible, tandis qu’une icône de tri qui change ne redimensionne pas sa colonne.
 
@@ -258,10 +261,10 @@ Importez les fonctions intégrées de filtrage et de tri utilisées par le table
 
 </ExampleCode>
 
-Pour un en-tête triable, affichez un vrai bouton dans `Table.ColumnHeader`. L’exemple utilise des icônes
+Pour un en-tête triable, affichez un vrai bouton dans `TableColumnHeader`. L’exemple utilise des icônes
 Lucide de taille uniforme et définit `aria-sort="none" | "ascending" | "descending"` sur les en-têtes
 triables. La colonne de sélection utilise `Checkbox` de moduix et son état indéterminé intégré pour la page
-courante. Lorsqu’aucune ligne ne correspond, utilisez `Table.Empty` avec
+courante. Lorsqu’aucune ligne ne correspond, utilisez `TableEmpty` avec
 `colSpan={table.getVisibleLeafColumns().length}`.
 
 ## Données côté serveur
@@ -343,8 +346,8 @@ chaque filtre, réponse serveur, action ou règle de sélection.
 
 ## Accessibilité
 
-Conservez les éléments natifs du tableau dans le rendu. Utilisez `Table.ColumnHeader` pour les en-têtes,
-`Table.Cell` pour les données et un `Table.Caption` court lorsque le titre voisin n’identifie pas les données.
+Conservez les éléments natifs du tableau dans le rendu. Utilisez `TableColumnHeader` pour les en-têtes,
+`TableCell` pour les données et un `TableCaption` court lorsque le titre voisin n’identifie pas les données.
 Les contrôles interactifs dans les cellules nécessitent des noms accessibles descriptifs et les en-têtes triables
 doivent exposer leur direction actuelle via `aria-sort`. Le champ de filtrage et les contrôles de sélection de
 l’exemple interactif ont des noms accessibles explicites, au lieu de dépendre du texte indicatif ou d’une icône.

@@ -1,6 +1,6 @@
 import { Button } from '@moduix/react/button';
 import type { SwapAnimation } from '@moduix/react/swap';
-import { Swap } from '@moduix/react/swap';
+import { Swap, SwapIndicator } from '@moduix/react/swap';
 import { Check as CheckIcon, Download as DownloadIcon } from 'lucide-react';
 import { useState } from 'react';
 import { PreviewMeta } from '@/components/mdx/Components';
@@ -19,12 +19,12 @@ export default function SwapAnimationPresetsDemo() {
         onClick={() => setDownloaded((value) => !value)}
       >
         <Swap animation={animation} swap={downloaded}>
-          <Swap.Indicator aria-hidden="true" type="off">
+          <SwapIndicator aria-hidden="true" type="off">
             <DownloadIcon />
-          </Swap.Indicator>
-          <Swap.Indicator aria-hidden="true" type="on">
+          </SwapIndicator>
+          <SwapIndicator aria-hidden="true" type="on">
             <CheckIcon />
-          </Swap.Indicator>
+          </SwapIndicator>
         </Swap>
       </Button>
       <PreviewMeta className={styles.controls}>

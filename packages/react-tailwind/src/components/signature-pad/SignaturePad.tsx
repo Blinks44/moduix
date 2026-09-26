@@ -18,10 +18,10 @@ type SignaturePadApi = ReturnType<typeof useSignaturePadPrimitive> & {
   [signaturePadReadOnly]: boolean;
 };
 
-const SignaturePadRoot = forwardRef<
+const SignaturePad = forwardRef<
   ComponentRef<typeof SignaturePadPrimitive.Root>,
   ComponentProps<typeof SignaturePadPrimitive.Root>
->(function SignaturePadRoot({ asChild, children, className, ...props }, ref) {
+>(function SignaturePad({ asChild, children, className, ...props }, ref) {
   const field = useFieldContext();
   const readOnly = props.readOnly ?? field?.readOnly ?? false;
 
@@ -160,7 +160,7 @@ const SignaturePadClearTrigger = forwardRef<
       {asChild ? (
         children
       ) : (
-        <CloseButton.Root
+        <CloseButton
           aria-label={ariaLabel}
           aria-labelledby={ariaLabelledBy}
           className={cn(
@@ -169,7 +169,7 @@ const SignaturePadClearTrigger = forwardRef<
           )}
         >
           {children ?? <RotateCcwIcon className="size-4" aria-hidden="true" />}
-        </CloseButton.Root>
+        </CloseButton>
       )}
     </SignaturePadPrimitive.ClearTrigger>
   );
@@ -203,17 +203,20 @@ function useSignaturePad(
   return api;
 }
 
-const SignaturePad = Object.assign(SignaturePadRoot, {
-  Root: SignaturePadRoot,
-  RootProvider: SignaturePadRootProvider,
-  Context: SignaturePadPrimitive.Context,
-  HiddenInput: SignaturePadPrimitive.HiddenInput,
-  Label: SignaturePadLabel,
-  Control: SignaturePadControl,
-  Canvas: SignaturePadCanvas,
-  Segment: SignaturePadSegment,
-  Guide: SignaturePadGuide,
-  ClearTrigger: SignaturePadClearTrigger,
-});
+const SignaturePadContext = SignaturePadPrimitive.Context;
+const SignaturePadHiddenInput = SignaturePadPrimitive.HiddenInput;
 
-export { SignaturePad, useSignaturePad, useSignaturePadContext };
+export {
+  SignaturePad,
+  SignaturePadCanvas,
+  SignaturePadClearTrigger,
+  SignaturePadContext,
+  SignaturePadControl,
+  SignaturePadGuide,
+  SignaturePadHiddenInput,
+  SignaturePadLabel,
+  SignaturePadRootProvider,
+  SignaturePadSegment,
+  useSignaturePad,
+  useSignaturePadContext,
+};

@@ -1,5 +1,10 @@
 import { Button } from '@moduix/react/button';
-import { SegmentGroup, useSegmentGroup } from '@moduix/react/segment-group';
+import {
+  SegmentGroupIndicator,
+  SegmentGroupItems,
+  SegmentGroupRootProvider,
+  useSegmentGroup,
+} from '@moduix/react/segment-group';
 import { PreviewMeta } from '@/components/mdx/Components';
 import styles from '@/components/examples/segment-group/segment-group-root-provider.module.css';
 
@@ -16,10 +21,10 @@ export default function SegmentGroupRootProviderDemo() {
   });
   return (
     <div className={styles.root}>
-      <SegmentGroup.RootProvider aria-label="Framework" value={segmentGroup}>
-        <SegmentGroup.Indicator />
-        <SegmentGroup.Items items={frameworks} />
-      </SegmentGroup.RootProvider>
+      <SegmentGroupRootProvider aria-label="Framework" value={segmentGroup}>
+        <SegmentGroupIndicator />
+        <SegmentGroupItems items={frameworks} />
+      </SegmentGroupRootProvider>
       <PreviewMeta>
         <output>Selected: {segmentGroup.value ?? 'none'}</output>
         <Button type="button" size="sm" onClick={() => segmentGroup.setValue('Solid')}>

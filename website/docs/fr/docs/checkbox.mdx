@@ -41,21 +41,41 @@ import checkboxSolidSelectAll from '../../../snippets/checkbox/solid/select-all.
 import checkboxSolidSizes from '../../../snippets/checkbox/solid/sizes.tsx?raw';
 import checkboxSolidWithField from '../../../snippets/checkbox/solid/with-field.tsx?raw';
 import checkboxSolidWithForm from '../../../snippets/checkbox/solid/with-form.tsx?raw';
-
-Utilisez `Checkbox` lorsque l’utilisateur peut sélectionner une ou plusieurs options indépendantes
-dans un formulaire, un panneau de réglages ou une liste de filtres. Utilisez `RadioGroup` lorsqu’un
-seul choix est possible, et `Switch` lorsqu’un réglage doit s’appliquer immédiatement.
+import checkboxVueBasic from '../../../snippets/checkbox/vue/basic.vue?raw';
+import checkboxVueControlled from '../../../snippets/checkbox/vue/controlled.vue?raw';
+import checkboxVueControlledGroup from '../../../snippets/checkbox/vue/controlled-group.vue?raw';
+import checkboxVueCustomIndicator from '../../../snippets/checkbox/vue/custom-indicator.vue?raw';
+import checkboxVueDefaultChecked from '../../../snippets/checkbox/vue/default-checked.vue?raw';
+import checkboxVueDisabled from '../../../snippets/checkbox/vue/disabled.vue?raw';
+import checkboxVueGroup from '../../../snippets/checkbox/vue/group.vue?raw';
+import checkboxVueGroupWithFieldset from '../../../snippets/checkbox/vue/group-with-fieldset.vue?raw';
+import checkboxVueGroupWithForm from '../../../snippets/checkbox/vue/group-with-form.vue?raw';
+import checkboxVueIndeterminate from '../../../snippets/checkbox/vue/indeterminate.vue?raw';
+import checkboxVueInvalidGroup from '../../../snippets/checkbox/vue/invalid-group.vue?raw';
+import checkboxVueMaxSelected from '../../../snippets/checkbox/vue/max-selected.vue?raw';
+import checkboxVueReadOnly from '../../../snippets/checkbox/vue/read-only.vue?raw';
+import checkboxVueRootProvider from '../../../snippets/checkbox/vue/root-provider.vue?raw';
+import checkboxVueSelectAll from '../../../snippets/checkbox/vue/select-all.vue?raw';
+import checkboxVueSizes from '../../../snippets/checkbox/vue/sizes.vue?raw';
+import checkboxVueWithField from '../../../snippets/checkbox/vue/with-field.vue?raw';
+import checkboxVueWithForm from '../../../snippets/checkbox/vue/with-form.vue?raw';
 
 ## Référence de l’API
 
 <PrimitiveReference href="https://ark-ui.com/docs/components/checkbox" />
 
+## Choisir le bon composant
+
+Utilisez `Checkbox` lorsque l’utilisateur peut sélectionner une ou plusieurs options indépendantes
+dans un formulaire, un panneau de réglages ou une liste de filtres. Utilisez `RadioGroup` lorsqu’un
+seul choix est possible, et `Switch` lorsqu’un réglage doit s’appliquer immédiatement.
+
 ## Exemple de base
 
 
-Composez une case à cocher avec les parties Ark. Laissez `Checkbox.Control` vide pour utiliser les
-icônes intégrées de moduix pour les états coché et indéterminé. Ajoutez `Checkbox.Label` pour le
-libellé visible et `Checkbox.HiddenInput` pour l’interaction et le formulaire natifs.
+Composez une case à cocher avec les parties Ark. Laissez `CheckboxControl` vide pour utiliser les
+icônes intégrées de moduix pour les états coché et indéterminé. Ajoutez `CheckboxLabel` pour le
+libellé visible et `CheckboxHiddenInput` pour l’interaction et le formulaire natifs.
 
 <ExampleFrame variant="component">
   <CheckboxBasic />
@@ -68,6 +88,7 @@ libellé visible et `Checkbox.HiddenInput` pour l’interaction et le formulaire
     values={[
       { label: 'React', value: 'react' },
       { label: 'Solid', value: 'solid' },
+      { label: 'Vue', value: 'vue' },
     ]}
     className="docs-tabs"
   >
@@ -80,6 +101,11 @@ libellé visible et `Checkbox.HiddenInput` pour l’interaction et le formulaire
     <Tab value="solid">
 
 <CodeBlockRuntime lang="tsx" code={checkboxSolidBasic} />
+
+    </Tab>
+    <Tab value="vue">
+
+<CodeBlockRuntime lang="vue" code={checkboxVueBasic} />
 
     </Tab>
   </Tabs>
@@ -111,52 +137,62 @@ Consultez le [Démarrage rapide](/docs/quick-start) pour la configuration compl�
 />
 
   </Tab>
+  <Tab label="Vue" value="vue">
+
+<ShadcnInstallOptions
+  options={[
+    { label: 'CSS Modules', command: 'shadcn@latest add @moduix-vue/checkbox' },
+    { label: 'Tailwind CSS', command: 'shadcn@latest add @moduix-vue-tailwind/checkbox' },
+  ]}
+/>
+
+  </Tab>
 </Tabs>
 
 ## Anatomie
 
 ```text
-Checkbox / Checkbox.Root
-├─ Checkbox.Control
-│  ├─ Checkbox.Indicator
-│  └─ Checkbox.Indicator[indeterminate] (facultatif)
-├─ Checkbox.Label
-└─ Checkbox.HiddenInput (explicite)
+Checkbox
+├─ CheckboxControl
+│  ├─ CheckboxIndicator
+│  └─ CheckboxIndicator[indeterminate] (facultatif)
+├─ CheckboxLabel
+└─ CheckboxHiddenInput (explicite)
 
-Checkbox.RootProvider
+CheckboxRootProvider
 └─ même arbre de parties relié à l’état fourni par useCheckbox()
 
-Checkbox.Group
-└─ Checkbox.Root[value]
-   ├─ Checkbox.Control
-   ├─ Checkbox.Label
-   └─ Checkbox.HiddenInput
+CheckboxGroup
+└─ Checkbox[value]
+   ├─ CheckboxControl
+   ├─ CheckboxLabel
+   └─ CheckboxHiddenInput
 ```
 
-| Partie                        | Rôle                                                                                  |
-| ----------------------------- | ------------------------------------------------------------------------------------- |
-| `Checkbox` / `Checkbox.Root`  | Gère l’état d’une case à cocher et rend le `label` qui l’enveloppe.                   |
-| `Checkbox.HiddenInput`        | Champ natif d’Ark ; ajoutez-le explicitement dans la racine.                          |
-| `Checkbox.RootProvider`       | Relie les parties à un état Ark créé en dehors de l’arbre rendu.                      |
-| `Checkbox.Control`            | Partie visible ; vide, elle affiche les icônes d’état intégrées.                     |
-| `Checkbox.Indicator`          | Emplacement facultatif pour une icône personnalisée. Passez `indeterminate` pour cet état. |
-| `Checkbox.Label`              | Libellé visible de la case à cocher.                                                  |
-| `Checkbox.Group`              | Gère les valeurs sélectionnées de plusieurs cases à cocher.                          |
+| Partie                        | Rôle                                                                                       |
+| ----------------------------- | ------------------------------------------------------------------------------------------ |
+| `Checkbox`                    | Gère l’état d’une case à cocher et rend le `label` qui l’enveloppe.                        |
+| `CheckboxHiddenInput`         | Champ natif d’Ark ; ajoutez-le explicitement dans la racine.                               |
+| `CheckboxRootProvider`        | Relie les parties à un état Ark créé en dehors de l’arbre rendu.                           |
+| `CheckboxControl`             | Partie visible ; vide, elle affiche les icônes d’état intégrées.                           |
+| `CheckboxIndicator`           | Emplacement facultatif pour une icône personnalisée. Passez `indeterminate` pour cet état. |
+| `CheckboxLabel`               | Libellé visible de la case à cocher.                                                       |
+| `CheckboxGroup`               | Gère les valeurs sélectionnées de plusieurs cases à cocher.                                |
 
 ## Composition
 
-`Checkbox.HiddenInput` est le champ natif d’Ark. Ajoutez-le explicitement dans `Checkbox.Root` ou
-`Checkbox.RootProvider`, même en dehors d’un formulaire : il assure le focus natif, les interactions
+`CheckboxHiddenInput` est le champ natif d’Ark. Ajoutez-le explicitement dans `Checkbox` ou
+`CheckboxRootProvider`, même en dehors d’un formulaire : il assure le focus natif, les interactions
 au clavier, l’accessibilité et la participation au formulaire. Pour une case seule, définissez
-`name` et `value` sur la racine ; pour un groupe, définissez `name` sur `Checkbox.Group` et `value`
-sur chaque `Checkbox.Root`.
+`name` et `value` sur la racine ; pour un groupe, définissez `name` sur `CheckboxGroup` et `value`
+sur chaque `Checkbox`.
 
-`Checkbox.Group` gère un tableau de valeurs sélectionnées, et chaque enfant est un `Checkbox.Root`
-avec son propre `value`. Laissez `Checkbox.Control` vide pour utiliser les icônes intégrées de
-moduix. Ajoutez `Checkbox.Indicator` dans `Checkbox.Control` uniquement pour une icône personnalisée.
+`CheckboxGroup` gère un tableau de valeurs sélectionnées, et chaque enfant est un `Checkbox`
+avec son propre `value`. Laissez `CheckboxControl` vide pour utiliser les icônes intégrées de
+moduix. Ajoutez `CheckboxIndicator` dans `CheckboxControl` uniquement pour une icône personnalisée.
 
 Lorsque l’état doit être créé en dehors de l’arbre rendu, créez-le avec `useCheckbox()` et transmettez
-le store à `Checkbox.RootProvider`. Ne rendez pas `Checkbox` ou `Checkbox.Root` pour ce même store.
+le store à `CheckboxRootProvider`. Ne rendez pas `Checkbox` ou `CheckboxRootProvider` pour ce même store.
 
 ## Exemples
 
@@ -170,7 +206,7 @@ Utilisez une case à cocher contrôlée lorsqu’une autre partie de l’interfa
 
 <ExampleCode>
 <div className="docs-reference">
-  <Tabs groupId="framework" values={[{ label: 'React', value: 'react' }, { label: 'Solid', value: 'solid' }]} className="docs-tabs">
+  <Tabs groupId="framework" values={[{ label: 'React', value: 'react' }, { label: 'Solid', value: 'solid' }, { label: 'Vue', value: 'vue' }]} className="docs-tabs">
     <Tab value="react">
 
 ```tsx pure file="../../../src/components/examples/checkbox/controlled.tsx"
@@ -180,6 +216,11 @@ Utilisez une case à cocher contrôlée lorsqu’une autre partie de l’interfa
     <Tab value="solid">
 
 <CodeBlockRuntime lang="tsx" code={checkboxSolidControlled} />
+
+    </Tab>
+    <Tab value="vue">
+
+<CodeBlockRuntime lang="vue" code={checkboxVueControlled} />
 
     </Tab>
   </Tabs>
@@ -202,7 +243,7 @@ ou des actions.
 
 <ExampleCode>
 <div className="docs-reference">
-  <Tabs groupId="framework" values={[{ label: 'React', value: 'react' }, { label: 'Solid', value: 'solid' }]} className="docs-tabs">
+  <Tabs groupId="framework" values={[{ label: 'React', value: 'react' }, { label: 'Solid', value: 'solid' }, { label: 'Vue', value: 'vue' }]} className="docs-tabs">
     <Tab value="react">
 
 ```tsx pure file="../../../src/components/examples/checkbox/controlled-group.tsx"
@@ -212,6 +253,11 @@ ou des actions.
     <Tab value="solid">
 
 <CodeBlockRuntime lang="tsx" code={checkboxSolidControlledGroup} />
+
+    </Tab>
+    <Tab value="vue">
+
+<CodeBlockRuntime lang="vue" code={checkboxVueControlledGroup} />
 
     </Tab>
   </Tabs>
@@ -229,7 +275,7 @@ les sémantiques d’accessibilité d’Ark.
 
 <ExampleCode>
 <div className="docs-reference">
-  <Tabs groupId="framework" values={[{ label: 'React', value: 'react' }, { label: 'Solid', value: 'solid' }]} className="docs-tabs">
+  <Tabs groupId="framework" values={[{ label: 'React', value: 'react' }, { label: 'Solid', value: 'solid' }, { label: 'Vue', value: 'vue' }]} className="docs-tabs">
     <Tab value="react">
 
 ```tsx pure file="../../../src/components/examples/checkbox/custom-indicator.tsx"
@@ -239,6 +285,11 @@ les sémantiques d’accessibilité d’Ark.
     <Tab value="solid">
 
 <CodeBlockRuntime lang="tsx" code={checkboxSolidCustomIndicator} />
+
+    </Tab>
+    <Tab value="vue">
+
+<CodeBlockRuntime lang="vue" code={checkboxVueCustomIndicator} />
 
     </Tab>
   </Tabs>
@@ -256,7 +307,7 @@ son état.
 
 <ExampleCode>
 <div className="docs-reference">
-  <Tabs groupId="framework" values={[{ label: 'React', value: 'react' }, { label: 'Solid', value: 'solid' }]} className="docs-tabs">
+  <Tabs groupId="framework" values={[{ label: 'React', value: 'react' }, { label: 'Solid', value: 'solid' }, { label: 'Vue', value: 'vue' }]} className="docs-tabs">
     <Tab value="react">
 
 ```tsx pure file="../../../src/components/examples/checkbox/default-checked.tsx"
@@ -266,6 +317,11 @@ son état.
     <Tab value="solid">
 
 <CodeBlockRuntime lang="tsx" code={checkboxSolidDefaultChecked} />
+
+    </Tab>
+    <Tab value="vue">
+
+<CodeBlockRuntime lang="vue" code={checkboxVueDefaultChecked} />
 
     </Tab>
   </Tabs>
@@ -282,7 +338,7 @@ Utilisez `disabled` lorsqu’une option est indisponible et ne doit pas être in
 
 <ExampleCode>
 <div className="docs-reference">
-  <Tabs groupId="framework" values={[{ label: 'React', value: 'react' }, { label: 'Solid', value: 'solid' }]} className="docs-tabs">
+  <Tabs groupId="framework" values={[{ label: 'React', value: 'react' }, { label: 'Solid', value: 'solid' }, { label: 'Vue', value: 'vue' }]} className="docs-tabs">
     <Tab value="react">
 
 ```tsx pure file="../../../src/components/examples/checkbox/disabled.tsx"
@@ -294,13 +350,18 @@ Utilisez `disabled` lorsqu’une option est indisponible et ne doit pas être in
 <CodeBlockRuntime lang="tsx" code={checkboxSolidDisabled} />
 
     </Tab>
+    <Tab value="vue">
+
+<CodeBlockRuntime lang="vue" code={checkboxVueDisabled} />
+
+    </Tab>
   </Tabs>
 </div>
 </ExampleCode>
 
 ### Groupe
 
-Utilisez `Checkbox.Group` lorsque plusieurs cases partagent un tableau de valeurs sélectionnées.
+Utilisez `CheckboxGroup` lorsque plusieurs cases partagent un tableau de valeurs sélectionnées.
 
 <ExampleFrame variant="component">
   <CheckboxGroup />
@@ -308,7 +369,7 @@ Utilisez `Checkbox.Group` lorsque plusieurs cases partagent un tableau de valeur
 
 <ExampleCode>
 <div className="docs-reference">
-  <Tabs groupId="framework" values={[{ label: 'React', value: 'react' }, { label: 'Solid', value: 'solid' }]} className="docs-tabs">
+  <Tabs groupId="framework" values={[{ label: 'React', value: 'react' }, { label: 'Solid', value: 'solid' }, { label: 'Vue', value: 'vue' }]} className="docs-tabs">
     <Tab value="react">
 
 ```tsx pure file="../../../src/components/examples/checkbox/group.tsx"
@@ -318,6 +379,11 @@ Utilisez `Checkbox.Group` lorsque plusieurs cases partagent un tableau de valeur
     <Tab value="solid">
 
 <CodeBlockRuntime lang="tsx" code={checkboxSolidGroup} />
+
+    </Tab>
+    <Tab value="vue">
+
+<CodeBlockRuntime lang="vue" code={checkboxVueGroup} />
 
     </Tab>
   </Tabs>
@@ -335,7 +401,7 @@ légende commune.
 
 <ExampleCode>
 <div className="docs-reference">
-  <Tabs groupId="framework" values={[{ label: 'React', value: 'react' }, { label: 'Solid', value: 'solid' }]} className="docs-tabs">
+  <Tabs groupId="framework" values={[{ label: 'React', value: 'react' }, { label: 'Solid', value: 'solid' }, { label: 'Vue', value: 'vue' }]} className="docs-tabs">
     <Tab value="react">
 
 ```tsx pure file="../../../src/components/examples/checkbox/group-with-fieldset.tsx"
@@ -345,6 +411,11 @@ légende commune.
     <Tab value="solid">
 
 <CodeBlockRuntime lang="tsx" code={checkboxSolidGroupWithFieldset} />
+
+    </Tab>
+    <Tab value="vue">
+
+<CodeBlockRuntime lang="vue" code={checkboxVueGroupWithFieldset} />
 
     </Tab>
   </Tabs>
@@ -358,7 +429,7 @@ légende commune.
 
 ### Groupe dans un formulaire
 
-Placez `Checkbox.Group` dans un formulaire pour récupérer toutes les valeurs sélectionnées dans
+Placez `CheckboxGroup` dans un formulaire pour récupérer toutes les valeurs sélectionnées dans
 `FormData`. Lisez-les avec `FormData.getAll(name)`.
 
 <ExampleFrame variant="component">
@@ -367,7 +438,7 @@ Placez `Checkbox.Group` dans un formulaire pour récupérer toutes les valeurs s
 
 <ExampleCode>
 <div className="docs-reference">
-  <Tabs groupId="framework" values={[{ label: 'React', value: 'react' }, { label: 'Solid', value: 'solid' }]} className="docs-tabs">
+  <Tabs groupId="framework" values={[{ label: 'React', value: 'react' }, { label: 'Solid', value: 'solid' }, { label: 'Vue', value: 'vue' }]} className="docs-tabs">
     <Tab value="react">
 
 ```tsx pure file="../../../src/components/examples/checkbox/group-with-form.tsx"
@@ -377,6 +448,11 @@ Placez `Checkbox.Group` dans un formulaire pour récupérer toutes les valeurs s
     <Tab value="solid">
 
 <CodeBlockRuntime lang="tsx" code={checkboxSolidGroupWithForm} />
+
+    </Tab>
+    <Tab value="vue">
+
+<CodeBlockRuntime lang="vue" code={checkboxVueGroupWithForm} />
 
     </Tab>
   </Tabs>
@@ -399,7 +475,7 @@ pour un contrôle « Tout sélectionner ».
 
 <ExampleCode>
 <div className="docs-reference">
-  <Tabs groupId="framework" values={[{ label: 'React', value: 'react' }, { label: 'Solid', value: 'solid' }]} className="docs-tabs">
+  <Tabs groupId="framework" values={[{ label: 'React', value: 'react' }, { label: 'Solid', value: 'solid' }, { label: 'Vue', value: 'vue' }]} className="docs-tabs">
     <Tab value="react">
 
 ```tsx pure file="../../../src/components/examples/checkbox/indeterminate.tsx"
@@ -409,6 +485,11 @@ pour un contrôle « Tout sélectionner ».
     <Tab value="solid">
 
 <CodeBlockRuntime lang="tsx" code={checkboxSolidIndeterminate} />
+
+    </Tab>
+    <Tab value="vue">
+
+<CodeBlockRuntime lang="vue" code={checkboxVueIndeterminate} />
 
     </Tab>
   </Tabs>
@@ -425,7 +506,7 @@ Définissez `invalid` sur le groupe lorsque la validation porte sur l’ensemble
 
 <ExampleCode>
 <div className="docs-reference">
-  <Tabs groupId="framework" values={[{ label: 'React', value: 'react' }, { label: 'Solid', value: 'solid' }]} className="docs-tabs">
+  <Tabs groupId="framework" values={[{ label: 'React', value: 'react' }, { label: 'Solid', value: 'solid' }, { label: 'Vue', value: 'vue' }]} className="docs-tabs">
     <Tab value="react">
 
 ```tsx pure file="../../../src/components/examples/checkbox/invalid-group.tsx"
@@ -435,6 +516,11 @@ Définissez `invalid` sur le groupe lorsque la validation porte sur l’ensemble
     <Tab value="solid">
 
 <CodeBlockRuntime lang="tsx" code={checkboxSolidInvalidGroup} />
+
+    </Tab>
+    <Tab value="vue">
+
+<CodeBlockRuntime lang="vue" code={checkboxVueInvalidGroup} />
 
     </Tab>
   </Tabs>
@@ -451,7 +537,7 @@ Utilisez `maxSelectedValues` pour limiter le nombre d’options sélectionnées 
 
 <ExampleCode>
 <div className="docs-reference">
-  <Tabs groupId="framework" values={[{ label: 'React', value: 'react' }, { label: 'Solid', value: 'solid' }]} className="docs-tabs">
+  <Tabs groupId="framework" values={[{ label: 'React', value: 'react' }, { label: 'Solid', value: 'solid' }, { label: 'Vue', value: 'vue' }]} className="docs-tabs">
     <Tab value="react">
 
 ```tsx pure file="../../../src/components/examples/checkbox/max-selected.tsx"
@@ -461,6 +547,11 @@ Utilisez `maxSelectedValues` pour limiter le nombre d’options sélectionnées 
     <Tab value="solid">
 
 <CodeBlockRuntime lang="tsx" code={checkboxSolidMaxSelected} />
+
+    </Tab>
+    <Tab value="vue">
+
+<CodeBlockRuntime lang="vue" code={checkboxVueMaxSelected} />
 
     </Tab>
   </Tabs>
@@ -477,7 +568,7 @@ Utilisez `readOnly` pour afficher une valeur sans permettre sa modification.
 
 <ExampleCode>
 <div className="docs-reference">
-  <Tabs groupId="framework" values={[{ label: 'React', value: 'react' }, { label: 'Solid', value: 'solid' }]} className="docs-tabs">
+  <Tabs groupId="framework" values={[{ label: 'React', value: 'react' }, { label: 'Solid', value: 'solid' }, { label: 'Vue', value: 'vue' }]} className="docs-tabs">
     <Tab value="react">
 
 ```tsx pure file="../../../src/components/examples/checkbox/read-only.tsx"
@@ -489,13 +580,18 @@ Utilisez `readOnly` pour afficher une valeur sans permettre sa modification.
 <CodeBlockRuntime lang="tsx" code={checkboxSolidReadOnly} />
 
     </Tab>
+    <Tab value="vue">
+
+<CodeBlockRuntime lang="vue" code={checkboxVueReadOnly} />
+
+    </Tab>
   </Tabs>
 </div>
 </ExampleCode>
 
 ### Root Provider
 
-Utilisez `Checkbox.RootProvider` lorsque l’état de la case doit vivre en dehors de l’arbre rendu.
+Utilisez `CheckboxRootProvider` lorsque l’état de la case doit vivre en dehors de l’arbre rendu.
 Importez `useCheckbox` depuis le paquet correspondant au framework.
 
 <ExampleFrame variant="component">
@@ -504,7 +600,7 @@ Importez `useCheckbox` depuis le paquet correspondant au framework.
 
 <ExampleCode>
 <div className="docs-reference">
-  <Tabs groupId="framework" values={[{ label: 'React', value: 'react' }, { label: 'Solid', value: 'solid' }]} className="docs-tabs">
+  <Tabs groupId="framework" values={[{ label: 'React', value: 'react' }, { label: 'Solid', value: 'solid' }, { label: 'Vue', value: 'vue' }]} className="docs-tabs">
     <Tab value="react">
 
 ```tsx pure file="../../../src/components/examples/checkbox/root-provider.tsx"
@@ -514,6 +610,11 @@ Importez `useCheckbox` depuis le paquet correspondant au framework.
     <Tab value="solid">
 
 <CodeBlockRuntime lang="tsx" code={checkboxSolidRootProvider} />
+
+    </Tab>
+    <Tab value="vue">
+
+<CodeBlockRuntime lang="vue" code={checkboxVueRootProvider} />
 
     </Tab>
   </Tabs>
@@ -536,7 +637,7 @@ toutes les options.
 
 <ExampleCode>
 <div className="docs-reference">
-  <Tabs groupId="framework" values={[{ label: 'React', value: 'react' }, { label: 'Solid', value: 'solid' }]} className="docs-tabs">
+  <Tabs groupId="framework" values={[{ label: 'React', value: 'react' }, { label: 'Solid', value: 'solid' }, { label: 'Vue', value: 'vue' }]} className="docs-tabs">
     <Tab value="react">
 
 ```tsx pure file="../../../src/components/examples/checkbox/select-all.tsx"
@@ -546,6 +647,11 @@ toutes les options.
     <Tab value="solid">
 
 <CodeBlockRuntime lang="tsx" code={checkboxSolidSelectAll} />
+
+    </Tab>
+    <Tab value="vue">
+
+<CodeBlockRuntime lang="vue" code={checkboxVueSelectAll} />
 
     </Tab>
   </Tabs>
@@ -567,7 +673,7 @@ Utilisez `size` pour adapter la densité de la case à cocher au formulaire ou �
 
 <ExampleCode>
 <div className="docs-reference">
-  <Tabs groupId="framework" values={[{ label: 'React', value: 'react' }, { label: 'Solid', value: 'solid' }]} className="docs-tabs">
+  <Tabs groupId="framework" values={[{ label: 'React', value: 'react' }, { label: 'Solid', value: 'solid' }, { label: 'Vue', value: 'vue' }]} className="docs-tabs">
     <Tab value="react">
 
 ```tsx pure file="../../../src/components/examples/checkbox/sizes.tsx"
@@ -577,6 +683,11 @@ Utilisez `size` pour adapter la densité de la case à cocher au formulaire ou �
     <Tab value="solid">
 
 <CodeBlockRuntime lang="tsx" code={checkboxSolidSizes} />
+
+    </Tab>
+    <Tab value="vue">
+
+<CodeBlockRuntime lang="vue" code={checkboxVueSizes} />
 
     </Tab>
   </Tabs>
@@ -594,7 +705,7 @@ d’un état de champ partagé.
 
 <ExampleCode>
 <div className="docs-reference">
-  <Tabs groupId="framework" values={[{ label: 'React', value: 'react' }, { label: 'Solid', value: 'solid' }]} className="docs-tabs">
+  <Tabs groupId="framework" values={[{ label: 'React', value: 'react' }, { label: 'Solid', value: 'solid' }, { label: 'Vue', value: 'vue' }]} className="docs-tabs">
     <Tab value="react">
 
 ```tsx pure file="../../../src/components/examples/checkbox/with-field.tsx"
@@ -604,6 +715,11 @@ d’un état de champ partagé.
     <Tab value="solid">
 
 <CodeBlockRuntime lang="tsx" code={checkboxSolidWithField} />
+
+    </Tab>
+    <Tab value="vue">
+
+<CodeBlockRuntime lang="vue" code={checkboxVueWithField} />
 
     </Tab>
   </Tabs>
@@ -617,7 +733,7 @@ d’un état de champ partagé.
 
 ### Avec un formulaire
 
-Transmettez `name` et `value` à `Checkbox.Root` et rendez `Checkbox.HiddenInput` pour inclure la
+Transmettez `name` et `value` à `Checkbox` et rendez `CheckboxHiddenInput` pour inclure la
 case à cocher dans `FormData`.
 
 <ExampleFrame variant="component">
@@ -626,7 +742,7 @@ case à cocher dans `FormData`.
 
 <ExampleCode>
 <div className="docs-reference">
-  <Tabs groupId="framework" values={[{ label: 'React', value: 'react' }, { label: 'Solid', value: 'solid' }]} className="docs-tabs">
+  <Tabs groupId="framework" values={[{ label: 'React', value: 'react' }, { label: 'Solid', value: 'solid' }, { label: 'Vue', value: 'vue' }]} className="docs-tabs">
     <Tab value="react">
 
 ```tsx pure file="../../../src/components/examples/checkbox/with-form.tsx"
@@ -636,6 +752,11 @@ case à cocher dans `FormData`.
     <Tab value="solid">
 
 <CodeBlockRuntime lang="tsx" code={checkboxSolidWithForm} />
+
+    </Tab>
+    <Tab value="vue">
+
+<CodeBlockRuntime lang="vue" code={checkboxVueWithForm} />
 
     </Tab>
   </Tabs>
@@ -662,9 +783,9 @@ approches de style.
 
 ### Points d’accroche CSS
 
-- `Checkbox.Root` expose `data-slot="checkbox-root"`, `data-size` et les attributs d’état Ark comme `data-state`, `data-active`, `data-disabled`, `data-readonly`, `data-invalid`, `data-required`, `data-hover`, `data-focus` et `data-focus-visible`.
-- `Checkbox.RootProvider` expose `data-slot="checkbox-root-provider"` et le même contrat de style que la racine.
-- `Checkbox.Control` expose `data-slot="checkbox-control"` et les attributs d’état Ark, notamment `data-state="checked" | "indeterminate" | "unchecked"` et `data-active`.
-- `Checkbox.Indicator` expose `data-slot="checkbox-indicator"` et hérite des attributs d’état de Checkbox.
-- `Checkbox.Label` expose `data-slot="checkbox-label"` et les attributs d’état de Checkbox.
-- `Checkbox.Group` expose `data-slot="checkbox-group"`.
+- `Checkbox` expose `data-slot="checkbox-root"`, `data-size` et les attributs d’état Ark comme `data-state`, `data-active`, `data-disabled`, `data-readonly`, `data-invalid`, `data-required`, `data-hover`, `data-focus` et `data-focus-visible`.
+- `CheckboxRootProvider` expose `data-slot="checkbox-root-provider"` et le même contrat de style que la racine.
+- `CheckboxControl` expose `data-slot="checkbox-control"` et les attributs d’état Ark, notamment `data-state="checked" | "indeterminate" | "unchecked"` et `data-active`.
+- `CheckboxIndicator` expose `data-slot="checkbox-indicator"` et hérite des attributs d’état de Checkbox.
+- `CheckboxLabel` expose `data-slot="checkbox-label"` et les attributs d’état de Checkbox.
+- `CheckboxGroup` expose `data-slot="checkbox-group"`.

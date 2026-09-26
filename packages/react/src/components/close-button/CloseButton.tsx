@@ -2,18 +2,19 @@ import type { HTMLArkProps } from '@ark-ui/react/factory';
 import { ark } from '@ark-ui/react/factory';
 import { clsx } from 'clsx';
 import { forwardRef, type ComponentRef } from 'react';
+import { a11yLabels } from '@/lib/moduix/a11yLabels';
 import { CloseIcon } from '@/lib/moduix/icons/ui';
 import styles from './CloseButton.module.css';
 
-type CloseButtonRootProps = HTMLArkProps<'button'> & {
+type CloseButtonProps = HTMLArkProps<'button'> & {
   'data-disabled'?: string;
   'data-part'?: string;
   'data-scope'?: string;
   'data-slot'?: string;
 };
 
-const CloseButtonRoot = forwardRef<ComponentRef<typeof ark.button>, CloseButtonRootProps>(
-  function CloseButtonRoot(
+const CloseButton = forwardRef<ComponentRef<typeof ark.button>, CloseButtonProps>(
+  function CloseButton(
     {
       asChild,
       className,
@@ -37,7 +38,7 @@ const CloseButtonRoot = forwardRef<ComponentRef<typeof ark.button>, CloseButtonR
       disabled || ariaDisabled === true || ariaDisabled === 'true' || dataDisabled !== undefined;
     const nativeDisabled = asChild ? undefined : disabled;
     const resolvedAriaDisabled = asChild && disabled ? true : ariaDisabled;
-    const handleClickCapture: CloseButtonRootProps['onClickCapture'] = (event) => {
+    const handleClickCapture: CloseButtonProps['onClickCapture'] = (event) => {
       if (isDisabled) {
         event.preventDefault();
         event.stopPropagation();
@@ -46,7 +47,7 @@ const CloseButtonRoot = forwardRef<ComponentRef<typeof ark.button>, CloseButtonR
 
       onClickCapture?.(event);
     };
-    const handleClick: CloseButtonRootProps['onClick'] = (event) => {
+    const handleClick: CloseButtonProps['onClick'] = (event) => {
       if (isDisabled) {
         event.preventDefault();
         event.stopPropagation();
@@ -69,7 +70,7 @@ const CloseButtonRoot = forwardRef<ComponentRef<typeof ark.button>, CloseButtonR
         data-disabled={dataDisabled ?? (isDisabled ? '' : undefined)}
         className={clsx(styles.root, className)}
         aria-disabled={resolvedAriaDisabled}
-        aria-label={ariaLabel ?? (ariaLabelledBy == null ? 'Close' : undefined)}
+        aria-label={ariaLabel ?? (ariaLabelledBy == null ? a11yLabels.close : undefined)}
         aria-labelledby={ariaLabelledBy}
         onClickCapture={handleClickCapture}
         onClick={handleClick}
@@ -79,9 +80,5 @@ const CloseButtonRoot = forwardRef<ComponentRef<typeof ark.button>, CloseButtonR
     );
   },
 );
-
-const CloseButton = Object.assign(CloseButtonRoot, {
-  Root: CloseButtonRoot,
-});
 
 export { CloseButton };

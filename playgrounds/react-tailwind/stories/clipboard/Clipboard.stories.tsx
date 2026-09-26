@@ -1,6 +1,17 @@
 import type { Meta, StoryObj } from '@storybook/react-vite';
 import { useState } from 'react';
-import { Clipboard } from '@/components/clipboard/Clipboard';
+import {
+  Clipboard,
+  ClipboardContext,
+  ClipboardControl,
+  ClipboardIndicator,
+  ClipboardInput,
+  ClipboardLabel,
+  ClipboardRootProvider,
+  ClipboardTrigger,
+  ClipboardValueText,
+  useClipboard,
+} from '@/components/clipboard/Clipboard';
 
 const meta = {
   title: 'Components/Clipboard',
@@ -28,14 +39,13 @@ const copiedTriggerClassName =
 export const Basic: Story = {
   render: (args) => (
     <Clipboard className={demoClassName} {...args}>
-      <Clipboard.Label>Copy this link</Clipboard.Label>
-      <Clipboard.Control>
-        <Clipboard.Input readOnly />
-        <Clipboard.Trigger>
-          <Clipboard.Indicator />
-          <Clipboard.CopyText />
-        </Clipboard.Trigger>
-      </Clipboard.Control>
+      <ClipboardLabel>Copy this link</ClipboardLabel>
+      <ClipboardControl>
+        <ClipboardInput readOnly />
+        <ClipboardTrigger>
+          <ClipboardIndicator />
+        </ClipboardTrigger>
+      </ClipboardControl>
     </Clipboard>
   ),
 };
@@ -51,14 +61,13 @@ export const Controlled: Story = {
           value={value}
           onValueChange={(details) => setValue(details.value)}
         >
-          <Clipboard.Label>Share URL</Clipboard.Label>
-          <Clipboard.Control>
-            <Clipboard.Input />
-            <Clipboard.Trigger>
-              <Clipboard.Indicator />
-              <Clipboard.CopyText />
-            </Clipboard.Trigger>
-          </Clipboard.Control>
+          <ClipboardLabel>Share URL</ClipboardLabel>
+          <ClipboardControl>
+            <ClipboardInput />
+            <ClipboardTrigger>
+              <ClipboardIndicator />
+            </ClipboardTrigger>
+          </ClipboardControl>
         </Clipboard>
         <button className={actionClassName} onClick={() => setValue('https://chakra-ui.com')}>
           Change URL
@@ -71,12 +80,12 @@ export const Controlled: Story = {
 export const WithValueText: Story = {
   render: () => (
     <Clipboard className={demoClassName} defaultValue="moduix/clipboard">
-      <Clipboard.Control>
-        <Clipboard.ValueText className={valueTextClassName} />
-        <Clipboard.Trigger aria-label="Copy package name">
-          <Clipboard.Indicator />
-        </Clipboard.Trigger>
-      </Clipboard.Control>
+      <ClipboardControl>
+        <ClipboardValueText className={valueTextClassName} />
+        <ClipboardTrigger aria-label="Copy package name">
+          <ClipboardIndicator />
+        </ClipboardTrigger>
+      </ClipboardControl>
     </Clipboard>
   ),
 };
@@ -93,12 +102,12 @@ export const StatusCallback: Story = {
           if (details.copied) setCopyCount((count) => count + 1);
         }}
       >
-        <Clipboard.Control>
-          <Clipboard.Trigger>
-            <Clipboard.Indicator />
-            <Clipboard.ValueText />
-          </Clipboard.Trigger>
-        </Clipboard.Control>
+        <ClipboardControl>
+          <ClipboardTrigger>
+            <ClipboardIndicator />
+            <ClipboardValueText />
+          </ClipboardTrigger>
+        </ClipboardControl>
         <p className={statusClassName}>Copied {copyCount} times</p>
       </Clipboard>
     );
@@ -108,33 +117,31 @@ export const StatusCallback: Story = {
 export const Timeout: Story = {
   render: () => (
     <Clipboard className={demoClassName} defaultValue="workspace-secret" timeout={5000}>
-      <Clipboard.Label>Five second copied state</Clipboard.Label>
-      <Clipboard.Control>
-        <Clipboard.Input readOnly />
-        <Clipboard.Trigger>
-          <Clipboard.Indicator />
-          <Clipboard.CopyText />
-        </Clipboard.Trigger>
-      </Clipboard.Control>
+      <ClipboardLabel>Five second copied state</ClipboardLabel>
+      <ClipboardControl>
+        <ClipboardInput readOnly />
+        <ClipboardTrigger>
+          <ClipboardIndicator />
+        </ClipboardTrigger>
+      </ClipboardControl>
     </Clipboard>
   ),
 };
 
 export const RootProvider: Story = {
   render: () => {
-    const clipboard = Clipboard.useClipboard({ defaultValue: 'https://moduix.dev/docs/clipboard' });
+    const clipboard = useClipboard({ defaultValue: 'https://moduix.dev/docs/clipboard' });
 
     return (
-      <Clipboard.RootProvider className={demoClassName} value={clipboard}>
-        <Clipboard.Label>Provider-driven clipboard</Clipboard.Label>
-        <Clipboard.Control>
-          <Clipboard.Input readOnly />
-          <Clipboard.Trigger>
-            <Clipboard.Indicator />
-            <Clipboard.CopyText />
-          </Clipboard.Trigger>
-        </Clipboard.Control>
-      </Clipboard.RootProvider>
+      <ClipboardRootProvider className={demoClassName} value={clipboard}>
+        <ClipboardLabel>Provider-driven clipboard</ClipboardLabel>
+        <ClipboardControl>
+          <ClipboardInput readOnly />
+          <ClipboardTrigger>
+            <ClipboardIndicator />
+          </ClipboardTrigger>
+        </ClipboardControl>
+      </ClipboardRootProvider>
     );
   },
 };
@@ -142,16 +149,15 @@ export const RootProvider: Story = {
 export const ContextState: Story = {
   render: () => (
     <Clipboard className={demoClassName} defaultValue="https://moduix.dev/docs/clipboard">
-      <Clipboard.Control>
-        <Clipboard.ValueText className={valueTextClassName} />
-        <Clipboard.Trigger>
-          <Clipboard.Indicator />
-          <Clipboard.CopyText />
-        </Clipboard.Trigger>
-      </Clipboard.Control>
-      <Clipboard.Context>
+      <ClipboardControl>
+        <ClipboardValueText className={valueTextClassName} />
+        <ClipboardTrigger>
+          <ClipboardIndicator />
+        </ClipboardTrigger>
+      </ClipboardControl>
+      <ClipboardContext>
         {(clipboard) => <p className={statusClassName}>Copied: {String(clipboard.copied)}</p>}
-      </Clipboard.Context>
+      </ClipboardContext>
     </Clipboard>
   ),
 };
@@ -159,14 +165,13 @@ export const ContextState: Story = {
 export const Disabled: Story = {
   render: () => (
     <Clipboard className={demoClassName} defaultValue="workspace-secret">
-      <Clipboard.Label>Disabled clipboard</Clipboard.Label>
-      <Clipboard.Control>
-        <Clipboard.Input disabled />
-        <Clipboard.Trigger disabled>
-          <Clipboard.Indicator />
-          <Clipboard.CopyText />
-        </Clipboard.Trigger>
-      </Clipboard.Control>
+      <ClipboardLabel>Disabled clipboard</ClipboardLabel>
+      <ClipboardControl>
+        <ClipboardInput disabled />
+        <ClipboardTrigger disabled>
+          <ClipboardIndicator />
+        </ClipboardTrigger>
+      </ClipboardControl>
     </Clipboard>
   ),
 };
@@ -174,21 +179,20 @@ export const Disabled: Story = {
 export const AsChildBridge: Story = {
   render: () => (
     <Clipboard className={demoClassName} defaultValue="https://moduix.dev/docs/clipboard">
-      <Clipboard.Label>Native elements through asChild</Clipboard.Label>
-      <Clipboard.Control>
-        <Clipboard.Input asChild>
+      <ClipboardLabel>Native elements through asChild</ClipboardLabel>
+      <ClipboardControl>
+        <ClipboardInput asChild>
           <input
             className="min-h-control-md min-w-0 flex-1 rounded-md border border-border bg-background px-3.5 py-1 text-md text-foreground"
             readOnly
           />
-        </Clipboard.Input>
-        <Clipboard.Trigger asChild>
+        </ClipboardInput>
+        <ClipboardTrigger asChild>
           <button className={actionClassName} type="button">
-            <Clipboard.Indicator />
-            <Clipboard.CopyText />
+            <ClipboardIndicator />
           </button>
-        </Clipboard.Trigger>
-      </Clipboard.Control>
+        </ClipboardTrigger>
+      </ClipboardControl>
     </Clipboard>
   ),
 };
@@ -196,14 +200,14 @@ export const AsChildBridge: Story = {
 export const CustomCopyText: Story = {
   render: () => (
     <Clipboard className={demoClassName} defaultValue="workspace-secret">
-      <Clipboard.Label>Override copy labels</Clipboard.Label>
-      <Clipboard.Control>
-        <Clipboard.Input readOnly />
-        <Clipboard.Trigger>
-          <Clipboard.Indicator />
-          <Clipboard.CopyText copied="Copied!">Copy secret</Clipboard.CopyText>
-        </Clipboard.Trigger>
-      </Clipboard.Control>
+      <ClipboardLabel>Override copy labels</ClipboardLabel>
+      <ClipboardControl>
+        <ClipboardInput readOnly />
+        <ClipboardTrigger>
+          <ClipboardIndicator />
+          <ClipboardIndicator copied="Copied!">Copy secret</ClipboardIndicator>
+        </ClipboardTrigger>
+      </ClipboardControl>
     </Clipboard>
   ),
 };
@@ -211,13 +215,13 @@ export const CustomCopyText: Story = {
 export const CustomStyling: Story = {
   render: () => (
     <Clipboard className={demoClassName} defaultValue="workspace-secret">
-      <Clipboard.Label>Styled copied state</Clipboard.Label>
-      <Clipboard.Control>
-        <Clipboard.Input readOnly className={copiedInputClassName} />
-        <Clipboard.Trigger className={copiedTriggerClassName} aria-label="Copy workspace secret">
-          <Clipboard.Indicator />
-        </Clipboard.Trigger>
-      </Clipboard.Control>
+      <ClipboardLabel>Styled copied state</ClipboardLabel>
+      <ClipboardControl>
+        <ClipboardInput readOnly className={copiedInputClassName} />
+        <ClipboardTrigger className={copiedTriggerClassName} aria-label="Copy workspace secret">
+          <ClipboardIndicator />
+        </ClipboardTrigger>
+      </ClipboardControl>
     </Clipboard>
   ),
 };

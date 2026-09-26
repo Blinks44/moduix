@@ -10,9 +10,9 @@ type TypesetDataProps = {
   'data-slot'?: string;
 };
 
-type TypesetRootProps = HTMLArkProps<'div'> & TypesetDataProps;
+type TypesetProps = HTMLArkProps<'div'> & TypesetDataProps;
 
-function TypesetRoot(props: TypesetRootProps) {
+function Typeset(props: TypesetProps) {
   const [local, others] = splitProps(props, [
     'asChild',
     'class',
@@ -64,9 +64,4 @@ function TypesetScroll(props: TypesetScrollProps) {
   );
 }
 
-const Typeset = Object.assign(TypesetRoot, {
-  Root: TypesetRoot,
-  Scroll: TypesetScroll,
-});
-
-export { Typeset };
+export { Typeset, TypesetScroll };

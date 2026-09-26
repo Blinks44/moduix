@@ -1,4 +1,4 @@
-import { List } from '@moduix/react/list';
+import { List, ListItem } from '@moduix/react/list';
 import type { ComponentProps } from 'react';
 import { forwardRef } from 'react';
 
@@ -12,9 +12,9 @@ export default function RootAsChildListDemo() {
   return (
     <List asChild>
       <ReleaseList>
-        <List.Item>Prepare the release notes.</List.Item>
-        <List.Item>Publish the package.</List.Item>
-        <List.Item>Announce the release.</List.Item>
+        <ListItem>Prepare the release notes.</ListItem>
+        <ListItem>Publish the package.</ListItem>
+        <ListItem>Announce the release.</ListItem>
       </ReleaseList>
     </List>
   );

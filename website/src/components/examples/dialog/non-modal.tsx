@@ -1,19 +1,27 @@
 import { Button } from '@moduix/react/button';
-import { Dialog } from '@moduix/react/dialog';
+import {
+  Dialog,
+  DialogCloseIcon,
+  DialogContent,
+  DialogDescription,
+  DialogPositioner,
+  DialogTitle,
+  DialogTrigger,
+} from '@moduix/react/dialog';
 
 export default function NonModalDialogDemo() {
   return (
     <Dialog modal={false}>
-      <Dialog.Trigger asChild>
+      <DialogTrigger asChild>
         <Button>Open non-modal dialog</Button>
-      </Dialog.Trigger>
-      <Dialog.Positioner>
-        <Dialog.Content>
-          <Dialog.Title>Non-modal dialog</Dialog.Title>
-          <Dialog.Description>The page remains interactive.</Dialog.Description>
-          <Dialog.CloseIcon />
-        </Dialog.Content>
-      </Dialog.Positioner>
+      </DialogTrigger>
+      <DialogPositioner>
+        <DialogContent>
+          <DialogTitle>Non-modal dialog</DialogTitle>
+          <DialogDescription>The page remains interactive.</DialogDescription>
+          <DialogCloseIcon />
+        </DialogContent>
+      </DialogPositioner>
     </Dialog>
   );
 }

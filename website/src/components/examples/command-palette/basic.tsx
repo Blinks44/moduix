@@ -1,7 +1,25 @@
 import { useListCollection } from '@ark-ui/react/collection';
 import { useFilter } from '@ark-ui/react/locale';
 import { Button } from '@moduix/react/button';
-import { CommandPalette } from '@moduix/react/command-palette';
+import {
+  CommandPalette,
+  CommandPaletteCombobox,
+  CommandPaletteEmpty,
+  CommandPaletteFooter,
+  CommandPaletteItem,
+  CommandPaletteItemDescription,
+  CommandPaletteItemGroup,
+  CommandPaletteItemGroupLabel,
+  CommandPaletteItemIcon,
+  CommandPaletteItemLabel,
+  CommandPaletteItemMeta,
+  CommandPaletteItemText,
+  CommandPaletteKbd,
+  CommandPaletteList,
+  CommandPalettePanel,
+  CommandPaletteSearch,
+  CommandPaletteTrigger,
+} from '@moduix/react/command-palette';
 import {
   ArrowUpRight as ArrowUpRightIcon,
   Bell as BellIcon,
@@ -92,47 +110,47 @@ export default function CommandPaletteDemo() {
         }
       }}
     >
-      <CommandPalette.Trigger asChild>
+      <CommandPaletteTrigger asChild>
         <Button>Open palette</Button>
-      </CommandPalette.Trigger>
-      <CommandPalette.Panel className={styles.palette}>
-        <CommandPalette.Combobox
+      </CommandPaletteTrigger>
+      <CommandPalettePanel className={styles.palette}>
+        <CommandPaletteCombobox
           collection={collection}
           onInputValueChange={(details) => filter(details.inputValue)}
         >
-          <CommandPalette.Search placeholder="Search commands, pages, and settings..." />
-          <CommandPalette.List>
-            <CommandPalette.Empty>No commands found.</CommandPalette.Empty>
+          <CommandPaletteSearch placeholder="Search commands, pages, and settings..." />
+          <CommandPaletteList>
+            <CommandPaletteEmpty>No commands found.</CommandPaletteEmpty>
             {collection.group().map(([section, items]) => (
-              <CommandPalette.ItemGroup key={section}>
-                <CommandPalette.ItemGroupLabel>{section}</CommandPalette.ItemGroupLabel>
+              <CommandPaletteItemGroup key={section}>
+                <CommandPaletteItemGroupLabel>{section}</CommandPaletteItemGroupLabel>
                 {items.map((item) => (
-                  <CommandPalette.Item key={item.id} item={item}>
-                    <CommandPalette.ItemIcon>{item.icon}</CommandPalette.ItemIcon>
-                    <CommandPalette.ItemText>
-                      <CommandPalette.ItemLabel>{item.label}</CommandPalette.ItemLabel>
-                      <CommandPalette.ItemDescription>
+                  <CommandPaletteItem key={item.id} item={item}>
+                    <CommandPaletteItemIcon>{item.icon}</CommandPaletteItemIcon>
+                    <CommandPaletteItemText>
+                      <CommandPaletteItemLabel>{item.label}</CommandPaletteItemLabel>
+                      <CommandPaletteItemDescription>
                         {item.description}
-                      </CommandPalette.ItemDescription>
-                    </CommandPalette.ItemText>
+                      </CommandPaletteItemDescription>
+                    </CommandPaletteItemText>
                     {item.shortcut ? (
-                      <CommandPalette.ItemMeta>{item.shortcut}</CommandPalette.ItemMeta>
+                      <CommandPaletteItemMeta>{item.shortcut}</CommandPaletteItemMeta>
                     ) : null}
-                  </CommandPalette.Item>
+                  </CommandPaletteItem>
                 ))}
-              </CommandPalette.ItemGroup>
+              </CommandPaletteItemGroup>
             ))}
-          </CommandPalette.List>
-          <CommandPalette.Footer>
+          </CommandPaletteList>
+          <CommandPaletteFooter>
             <span>
-              <CommandPalette.Kbd>Enter</CommandPalette.Kbd> run
+              <CommandPaletteKbd>Enter</CommandPaletteKbd> run
             </span>
             <span>
-              <CommandPalette.Kbd>Esc</CommandPalette.Kbd> close
+              <CommandPaletteKbd>Esc</CommandPaletteKbd> close
             </span>
-          </CommandPalette.Footer>
-        </CommandPalette.Combobox>
-      </CommandPalette.Panel>
+          </CommandPaletteFooter>
+        </CommandPaletteCombobox>
+      </CommandPalettePanel>
     </CommandPalette>
   );
 }

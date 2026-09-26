@@ -35,9 +35,9 @@ import progressCircularSolidValueText from '../../../snippets/progress-circular/
 ## Базовый пример
 
 
-Используйте `ProgressCircular.Ring`, чтобы отобразить стандартный круг с фоновой дорожкой и дугой
-прогресса. Добавьте `ProgressCircular.ValueText`, чтобы показать текущее значение. В примере
-внешний контейнер размещает текст значения в центре круга. Укажите для `Ring` атрибут `aria-label`
+Используйте `ProgressCircularRing`, чтобы отобразить стандартный круг с фоновой дорожкой и дугой
+прогресса. Добавьте `ProgressCircularValueText`, чтобы показать текущее значение. В примере
+внешний контейнер размещает текст значения в центре круга. Укажите для `ProgressCircularRing` атрибут `aria-label`
 с названием задачи, совпадающим с видимой меткой.
 
 <ExampleFrame variant="component">
@@ -105,45 +105,44 @@ import progressCircularSolidValueText from '../../../snippets/progress-circular/
 ## Анатомия
 
 ```text
-ProgressCircular / ProgressCircular.Root
-├─ ProgressCircular.Label
-├─ ProgressCircular.Circle
-│  ├─ ProgressCircular.CircleTrack
-│  └─ ProgressCircular.CircleRange
-├─ ProgressCircular.Ring
-│  └─ fixed Circle, CircleTrack, and CircleRange subtree
-├─ ProgressCircular.ValueText
-└─ ProgressCircular.View
+ProgressCircular
+├─ ProgressCircularLabel
+├─ ProgressCircularCircle
+│  ├─ ProgressCircularCircleTrack
+│  └─ ProgressCircularCircleRange
+├─ ProgressCircularRing
+│  └─ fixed ProgressCircularCircle, ProgressCircularCircleTrack, and ProgressCircularCircleRange subtree
+├─ ProgressCircularValueText
+└─ ProgressCircularView
 
-ProgressCircular.RootProvider
-└─ same part tree connected to ProgressCircular.useProgress()
+ProgressCircularRootProvider
+└─ same part tree connected to useProgress()
 ```
 
 | Часть                                         | Назначение                                                                        |
 | --------------------------------------------- | --------------------------------------------------------------------------------- |
-| `ProgressCircular` / `ProgressCircular.Root`  | Отвечает за состояние прогресса, форматирование и создаваемые идентификаторы.    |
-| `ProgressCircular.RootProvider`               | Подключает части к состоянию, созданному `ProgressCircular.useProgress()`.        |
-| `ProgressCircular.Context`                    | Передаёт текущее состояние в функцию, переданную как дочерний элемент.           |
-| `ProgressCircular.Label`                      | Добавляет видимый контекст к индикатору прогресса.                                |
-| `ProgressCircular.Ring`                       | Удобная часть, которая сама отрисовывает стандартные круг, дорожку и дугу.        |
-| `ProgressCircular.Circle`                     | SVG-элемент индикатора с ролью `progressbar` и ARIA-атрибутами значения от Ark.   |
-| `ProgressCircular.CircleTrack`               | Фоновый круг.                                                                     |
-| `ProgressCircular.CircleRange`                | Передняя дуга, отражающая текущий прогресс или неопределённое состояние.           |
-| `ProgressCircular.ValueText`                  | Показывает форматированное значение и сообщает об изменениях.                    |
-| `ProgressCircular.View`                       | Показывает содержимое в состояниях `indeterminate`, `loading` или `complete`.     |
+| `ProgressCircular`  | Отвечает за состояние прогресса, форматирование и создаваемые идентификаторы.    |
+| `ProgressCircularRootProvider`               | Подключает части к состоянию, созданному `useProgress()`.        |
+| `ProgressCircularContext`                    | Передаёт текущее состояние в функцию, переданную как дочерний элемент.           |
+| `ProgressCircularLabel`                      | Добавляет видимый контекст к индикатору прогресса.                                |
+| `ProgressCircularRing`                       | Удобная часть, которая сама отрисовывает стандартные круг, дорожку и дугу.        |
+| `ProgressCircularCircle`                     | SVG-элемент индикатора с ролью `progressbar` и ARIA-атрибутами значения от Ark.   |
+| `ProgressCircularCircleTrack`               | Фоновый круг.                                                                     |
+| `ProgressCircularCircleRange`                | Передняя дуга, отражающая текущий прогресс или неопределённое состояние.           |
+| `ProgressCircularValueText`                  | Показывает форматированное значение и сообщает об изменениях.                    |
+| `ProgressCircularView`                       | Показывает содержимое в состояниях `indeterminate`, `loading` или `complete`.     |
 
 ## Композиция
 
-`ProgressCircular` является сокращённой формой `ProgressCircular.Root`. Используйте
-`ProgressCircular.Ring`, когда достаточно стандартного круга: он объединяет `Circle`,
-`CircleTrack` и `CircleRange`, но не выводит и не центрирует `ValueText`. Если значение должно быть
+Используйте `ProgressCircularRing`, когда достаточно стандартного круга: он объединяет `ProgressCircularCircle`,
+`ProgressCircularCircleTrack` и `ProgressCircularCircleRange`, но не выводит и не центрирует `ProgressCircularValueText`. Если значение должно быть
 в центре, явно соберите композицию из метки, круга и текста значения.
 
 Используйте `defaultValue`, когда состояние прогресса принадлежит компоненту. Используйте `value`
 с `onValueChange(details)`, когда состоянием владеет приложение. Установите `defaultValue={null}`
 или `value={null}` для неопределённого прогресса. Если состояние нужно создать за пределами
-отрисованного дерева, вызовите `ProgressCircular.useProgress()` и передайте хранилище состояния в
-`ProgressCircular.RootProvider`, не создавая для того же хранилища ещё один корень.
+отрисованного дерева, вызовите `useProgress()` и передайте хранилище состояния в
+`ProgressCircularRootProvider`, не создавая для того же хранилища ещё один корень.
 
 ## Примеры
 
@@ -269,9 +268,9 @@ ProgressCircular.RootProvider
 
 ### Текст значения
 
-Используйте `Context` вместе с `translations.value(details)`, если видимому значению нужна
+Используйте `ProgressCircularContext` вместе с `translations.value(details)`, если видимому значению нужна
 формулировка, связанная с конкретной задачей. Передайте `progress.valueAsString` в качестве
-дочернего элемента `ValueText`, чтобы видимый текст совпадал с доступным текстом значения.
+дочернего элемента `ProgressCircularValueText`, чтобы видимый текст совпадал с доступным текстом значения.
 
 <ExampleFrame variant="component">
   <ValueTextProgressCircular />
@@ -305,9 +304,9 @@ ProgressCircular.RootProvider
 
 ### Расширенная настройка
 
-Используйте отдельные части круга вместо `ProgressCircular.Ring`, если нужно изменить SVG-дерево
-или способ владения состоянием. Только прямая композиция позволяет задать `CircleTrack` и
-`CircleRange` собственные классы — как в этом примере.
+Используйте отдельные части круга вместо `ProgressCircularRing`, если нужно изменить SVG-дерево
+или способ владения состоянием. Только прямая композиция позволяет задать `ProgressCircularCircleTrack` и
+`ProgressCircularCircleRange` собственные классы - как в этом примере.
 
 <ExampleFrame variant="component">
   <CirclePartsProgressCircular />
@@ -344,9 +343,9 @@ ProgressCircular.RootProvider
 
 </ExampleCode>
 
-#### RootProvider
+### Root Provider
 
-Создайте хранилище состояния через `ProgressCircular.useProgress()` и передайте его в `RootProvider`, если
+Создайте хранилище состояния через `useProgress()` и передайте его в `ProgressCircularRootProvider`, если
 другому компоненту нужно читать или изменять прогресс за пределами отрисованного дерева.
 
 <ExampleFrame variant="component">
@@ -384,9 +383,9 @@ ProgressCircular.RootProvider
 
 </ExampleCode>
 
-#### Представления состояния
+### Представления состояния
 
-Используйте `ProgressCircular.View`, если вспомогательный текст или интерфейс должны меняться
+Используйте `ProgressCircularView`, если вспомогательный текст или интерфейс должны меняться
 вместе с состоянием прогресса Ark.
 
 <ExampleFrame variant="component">
@@ -457,8 +456,8 @@ CSS Modules предоставляют переменные ниже. Для с�
   `data-slot="progress-circular-label"`, `data-slot="progress-circular-circle"`,
   `data-slot="progress-circular-circle-track"`, `data-slot="progress-circular-circle-range"`,
   `data-slot="progress-circular-value-text"` и `data-slot="progress-circular-view"`.
-- `ProgressCircular.Ring` использует те же `data-slot`, `className`, ref и переменные размера и
-  толщины `--moduix-progress-circular-*`, что и `ProgressCircular.Circle`.
+- `ProgressCircularRing` использует те же `data-slot`, `className`, ref и переменные размера и
+  толщины `--moduix-progress-circular-*`, что и `ProgressCircularCircle`.
 - Атрибуты Ark: `data-scope="progress"`, `data-part`, `data-state="indeterminate|loading|complete"`,
   `data-orientation`, `data-value` и `data-max`.
 - Переменные Ark для круга: `--size`, `--thickness`, `--radius`, `--circumference`, `--percent` и

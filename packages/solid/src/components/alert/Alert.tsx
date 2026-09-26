@@ -6,11 +6,11 @@ import styles from './Alert.module.css';
 
 type AlertStatus = 'info' | 'success' | 'warning' | 'error';
 
-type AlertRootProps = HTMLArkProps<'div'> & {
+type AlertProps = HTMLArkProps<'div'> & {
   status?: AlertStatus;
 };
 
-function AlertRoot(props: AlertRootProps) {
+function Alert(props: AlertProps) {
   const [local, others] = splitProps(props, ['class', 'role', 'status']);
 
   return (
@@ -97,13 +97,4 @@ function AlertActions(props: HTMLArkProps<'div'>) {
   );
 }
 
-const Alert = Object.assign(AlertRoot, {
-  Root: AlertRoot,
-  Indicator: AlertIndicator,
-  Content: AlertContent,
-  Title: AlertTitle,
-  Description: AlertDescription,
-  Actions: AlertActions,
-});
-
-export { Alert };
+export { Alert, AlertActions, AlertContent, AlertDescription, AlertIndicator, AlertTitle };

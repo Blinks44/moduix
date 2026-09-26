@@ -1,6 +1,6 @@
 ---
-title: История изменений
-description: Релизы moduix и ключевые изменения.
+title: Что нового
+description: Заметные изменения в moduix.
 ---
 
 import { LocalizationHero } from '@/components/changelog/localization-hero';
@@ -11,6 +11,8 @@ import { TableOfContentsHero } from '@/components/changelog/table-of-contents-he
 import { SolidReleaseHero } from '@/components/changelog/solid-release-hero';
 import { TailwindReleaseHero } from '@/components/changelog/tailwind-release-hero';
 import { ChangelogNewsItem } from '@/components/changelog/hero';
+
+# Что нового
 
 <ChangelogNewsItem>
   <TailwindReleaseHero />
@@ -52,10 +54,10 @@ React-пакетами, а реализация учитывает модель 
 
 ### Оглавление для длинных страниц
 
-Используйте `Toc.Content` для области чтения и `Toc.Nav` для списка заголовков. Активный пункт
+Используйте `TocContent` для области чтения и `TocNav` для списка заголовков. Активный пункт
 будет меняться по мере прокрутки страницы.
 
-Для иерархии используйте `Toc.Indicator` или `Toc.Rail`. Добавляйте `Toc.RootProvider`, если
+Для иерархии используйте `TocIndicator` или `TocRail`. Добавляйте `TocRootProvider`, если
 внешним элементам нужно использовать состояние оглавления.
 </ChangelogNewsItem>
 
@@ -67,11 +69,11 @@ React-пакетами, а реализация учитывает модель 
 
 ### Группы ссылок без скрытых переходов
 
-Для прямого перехода используйте `NavigationMenu.Link`. Для группы ссылок соедините
-`NavigationMenu.Trigger` и `NavigationMenu.Content`.
+Для прямого перехода используйте `NavigationMenuLink`. Для группы ссылок соедините
+`NavigationMenuTrigger` и `NavigationMenuContent`.
 
-Если несколько панелей должны анимироваться в одной области, добавьте `NavigationMenu.Viewport`.
-Ark UI отвечает за клавиатурное взаимодействие, фокус и открытый пункт. `Arrow` необязателен.
+Если несколько панелей должны анимироваться в одной области, добавьте `NavigationMenuViewport`.
+Ark UI отвечает за клавиатурное взаимодействие, фокус и открытый пункт. `NavigationMenuArrow` необязателен.
 </ChangelogNewsItem>
 
 <ChangelogNewsItem>
@@ -83,7 +85,7 @@ Ark UI отвечает за клавиатурное взаимодействи
 ### Единая оболочка для графиков
 
 TanStack по-прежнему отвечает за метки, шкалы, взаимодействия и колбэки. Соберите график с
-`Chart.Header`, `Chart.Plot` и `Chart.Legend`, чтобы получить единую структуру `figure`.
+`ChartHeader`, `ChartPlot` и `ChartLegend`, чтобы получить единую структуру `figure`.
 
 TanStack также управляет клавиатурной навигацией и жизненным циклом подсказки. Анимация moduix
 учитывает настройку «Уменьшение движения», а `motion={false}` отключает её.
@@ -95,9 +97,7 @@ TanStack также управляет клавиатурной навигаци
 Документация теперь доступна на английском, русском и французском языках. Страницы компонентов,
 примеры и рецепты переведены целиком.
 
-### Документация на трёх языках
-
-Можно прочитать руководство, скопировать пример и следовать рецепту, не переключая язык.
+### Документация на французском и русском языках
 
 Навигация, метаданные страниц, локализованные маршруты и копируемые примеры синхронизированы во всех
 трёх версиях сайта.

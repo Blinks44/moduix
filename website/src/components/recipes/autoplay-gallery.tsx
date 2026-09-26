@@ -1,4 +1,14 @@
-import { Carousel } from '@moduix/react/carousel';
+import {
+  Carousel,
+  CarouselContext,
+  CarouselControl,
+  CarouselIndicator,
+  CarouselIndicatorGroup,
+  CarouselItem,
+  CarouselItemGroup,
+  CarouselNextTrigger,
+  CarouselPrevTrigger,
+} from '@moduix/react/carousel';
 import { useEffect } from 'react';
 import styles from './autoplay-gallery.module.css';
 
@@ -62,12 +72,12 @@ export function AutoplayGallery() {
       slidesPerPage={1.12}
       spacing="var(--autoplay-gallery-spacing, var(--moduix-spacing-4))"
     >
-      <Carousel.Context>
+      <CarouselContext>
         {(api) => (
           <>
             <ResumeAutoplayWhenVisible onVisible={api.play} />
             <div className={styles.viewport}>
-              <Carousel.ItemGroup
+              <CarouselItemGroup
                 className={styles.itemGroup}
                 onTouchStart={api.pause}
                 onWheel={(event) => {
@@ -75,7 +85,7 @@ export function AutoplayGallery() {
                 }}
               >
                 {slides.map((slide, index) => (
-                  <Carousel.Item
+                  <CarouselItem
                     key={slide.id}
                     className={styles.item}
                     data-active={api.page === index ? '' : undefined}
@@ -88,30 +98,30 @@ export function AutoplayGallery() {
                       <h2 className={styles.title}>{slide.title}</h2>
                       <p className={styles.description}>{slide.description}</p>
                     </div>
-                  </Carousel.Item>
+                  </CarouselItem>
                 ))}
-              </Carousel.ItemGroup>
+              </CarouselItemGroup>
 
-              <Carousel.Control className={styles.control}>
-                <Carousel.PrevTrigger
+              <CarouselControl className={styles.control}>
+                <CarouselPrevTrigger
                   className={styles.prevTrigger}
                   onClick={() => requestAnimationFrame(api.play)}
                 />
-                <Carousel.NextTrigger
+                <CarouselNextTrigger
                   className={styles.nextTrigger}
                   onClick={() => requestAnimationFrame(api.play)}
                 />
-              </Carousel.Control>
+              </CarouselControl>
             </div>
           </>
         )}
-      </Carousel.Context>
+      </CarouselContext>
 
-      <Carousel.Context>
+      <CarouselContext>
         {(api) => (
-          <Carousel.IndicatorGroup className={styles.indicatorGroup}>
+          <CarouselIndicatorGroup className={styles.indicatorGroup}>
             {api.pageSnapPoints.map((_, index) => (
-              <Carousel.Indicator
+              <CarouselIndicator
                 key={index}
                 className={styles.indicator}
                 data-playing={api.isPlaying ? '' : undefined}
@@ -119,9 +129,9 @@ export function AutoplayGallery() {
                 onClick={() => requestAnimationFrame(api.play)}
               />
             ))}
-          </Carousel.IndicatorGroup>
+          </CarouselIndicatorGroup>
         )}
-      </Carousel.Context>
+      </CarouselContext>
     </Carousel>
   );
 }

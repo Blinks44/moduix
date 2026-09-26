@@ -1,7 +1,16 @@
 import { expect, test } from '@rstest/core';
 import { fireEvent, render, screen, waitFor } from '@testing-library/react';
 import userEvent from '@testing-library/user-event';
-import { Tabs, useTabs, useTabsContext } from '../src';
+import {
+  Tabs,
+  TabsContent,
+  TabsIndicator,
+  TabsList,
+  TabsRootProvider,
+  TabsTrigger,
+  useTabs,
+  useTabsContext,
+} from '../src';
 
 const items = [
   { value: 'overview', label: 'Overview', content: 'Overview content' },
@@ -12,22 +21,22 @@ const items = [
 function TabParts({ disabled = false }: { disabled?: boolean }) {
   return (
     <>
-      <Tabs.List>
+      <TabsList>
         {items.map((item) => (
-          <Tabs.Trigger
+          <TabsTrigger
             key={item.value}
             disabled={disabled && item.value === 'projects'}
             value={item.value}
           >
             {item.label}
-          </Tabs.Trigger>
+          </TabsTrigger>
         ))}
-        <Tabs.Indicator />
-      </Tabs.List>
+        <TabsIndicator />
+      </TabsList>
       {items.map((item) => (
-        <Tabs.Content key={item.value} value={item.value}>
+        <TabsContent key={item.value} value={item.value}>
           {item.content}
-        </Tabs.Content>
+        </TabsContent>
       ))}
     </>
   );
@@ -43,10 +52,10 @@ function ProviderTabs({
   const tabs = useTabs({ defaultValue: 'overview', orientation });
 
   return (
-    <Tabs.RootProvider value={tabs} variant={variant}>
+    <TabsRootProvider value={tabs} variant={variant}>
       <TabParts />
       <ContextOutput />
-    </Tabs.RootProvider>
+    </TabsRootProvider>
   );
 }
 
@@ -122,14 +131,14 @@ test('keeps manual activation focused until Enter selects the tab', async () => 
 test('preserves asChild and provider context composition', async () => {
   const { rerender } = render(
     <Tabs defaultValue="overview">
-      <Tabs.List>
-        <Tabs.Trigger asChild value="overview">
+      <TabsList>
+        <TabsTrigger asChild value="overview">
           <a data-testid="overview-link" href="#overview">
             Overview
           </a>
-        </Tabs.Trigger>
-      </Tabs.List>
-      <Tabs.Content value="overview">Overview content</Tabs.Content>
+        </TabsTrigger>
+      </TabsList>
+      <TabsContent value="overview">Overview content</TabsContent>
     </Tabs>,
   );
 
@@ -161,9 +170,9 @@ test('keeps owned data-variant above consumer overrides on vertical roots', () =
         <Tabs data-variant="line" defaultValue="overview" orientation="vertical">
           <TabParts />
         </Tabs>
-        <Tabs.RootProvider data-variant="line" value={tabs}>
+        <TabsRootProvider data-variant="line" value={tabs}>
           <TabParts />
-        </Tabs.RootProvider>
+        </TabsRootProvider>
       </>
     );
   }

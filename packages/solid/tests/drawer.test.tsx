@@ -1,7 +1,19 @@
 import { expect, test } from '@rstest/core';
 import { fireEvent, render, screen, waitFor } from '@solidjs/testing-library';
 import { createSignal } from 'solid-js';
-import { Button, Drawer, useDrawer, useDrawerContext } from '../src';
+import {
+  Button,
+  Drawer,
+  DrawerCloseIcon,
+  DrawerCloseTrigger,
+  DrawerContent,
+  DrawerPositioner,
+  DrawerRootProvider,
+  DrawerTitle,
+  DrawerTrigger,
+  useDrawer,
+  useDrawerContext,
+} from '../src';
 
 function DrawerStateReadout() {
   const drawer = useDrawerContext();
@@ -16,11 +28,11 @@ function DrawerStateReadout() {
 test('keeps page interaction available for a non-modal drawer', () => {
   render(() => (
     <Drawer defaultOpen modal={false} portalled={false}>
-      <Drawer.Positioner>
-        <Drawer.Content>
-          <Drawer.Title>Preferences</Drawer.Title>
-        </Drawer.Content>
-      </Drawer.Positioner>
+      <DrawerPositioner>
+        <DrawerContent>
+          <DrawerTitle>Preferences</DrawerTitle>
+        </DrawerContent>
+      </DrawerPositioner>
     </Drawer>
   ));
 
@@ -33,12 +45,12 @@ test('preserves Ark open-change detail objects', async () => {
 
   render(() => (
     <Drawer onOpenChange={(detail) => details.push(detail)}>
-      <Drawer.Trigger asChild={(props) => <Button {...props()}>Open drawer</Button>} />
-      <Drawer.Positioner>
-        <Drawer.Content>
-          <Drawer.Title>Preferences</Drawer.Title>
-        </Drawer.Content>
-      </Drawer.Positioner>
+      <DrawerTrigger asChild={(props) => <Button {...props()}>Open drawer</Button>} />
+      <DrawerPositioner>
+        <DrawerContent>
+          <DrawerTitle>Preferences</DrawerTitle>
+        </DrawerContent>
+      </DrawerPositioner>
     </Drawer>
   ));
 
@@ -50,12 +62,12 @@ test('preserves Ark open-change detail objects', async () => {
 test('starts content dragging outside the grabber by default', async () => {
   render(() => (
     <Drawer defaultOpen>
-      <Drawer.Positioner>
-        <Drawer.Content>
-          <Drawer.Title>Preferences</Drawer.Title>
+      <DrawerPositioner>
+        <DrawerContent>
+          <DrawerTitle>Preferences</DrawerTitle>
           <div data-testid="drawer-body">Body</div>
-        </Drawer.Content>
-      </Drawer.Positioner>
+        </DrawerContent>
+      </DrawerPositioner>
     </Drawer>
   ));
 
@@ -82,12 +94,12 @@ test('starts content dragging outside the grabber by default', async () => {
 test('lazily mounts, then closes on Escape and restores focus to its trigger', async () => {
   render(() => (
     <Drawer>
-      <Drawer.Trigger>Open drawer</Drawer.Trigger>
-      <Drawer.Positioner>
-        <Drawer.Content>
-          <Drawer.Title>Preferences</Drawer.Title>
-        </Drawer.Content>
-      </Drawer.Positioner>
+      <DrawerTrigger>Open drawer</DrawerTrigger>
+      <DrawerPositioner>
+        <DrawerContent>
+          <DrawerTitle>Preferences</DrawerTitle>
+        </DrawerContent>
+      </DrawerPositioner>
     </Drawer>
   ));
 
@@ -119,13 +131,13 @@ test('supports controlled open state', async () => {
           setOpen(detail.open);
         }}
       >
-        <Drawer.Trigger asChild={(props) => <Button {...props()}>Open drawer</Button>} />
-        <Drawer.Positioner>
-          <Drawer.Content>
-            <Drawer.Title>Preferences</Drawer.Title>
-            <Drawer.CloseTrigger>Close drawer</Drawer.CloseTrigger>
-          </Drawer.Content>
-        </Drawer.Positioner>
+        <DrawerTrigger asChild={(props) => <Button {...props()}>Open drawer</Button>} />
+        <DrawerPositioner>
+          <DrawerContent>
+            <DrawerTitle>Preferences</DrawerTitle>
+            <DrawerCloseTrigger>Close drawer</DrawerCloseTrigger>
+          </DrawerContent>
+        </DrawerPositioner>
       </Drawer>
     );
   }
@@ -146,13 +158,13 @@ test('opens a RootProvider drawer from external state', async () => {
     return (
       <>
         <Button onClick={() => drawer().setOpen(true)}>Open via API</Button>
-        <Drawer.RootProvider value={drawer}>
-          <Drawer.Positioner>
-            <Drawer.Content>
-              <Drawer.Title>Preferences</Drawer.Title>
-            </Drawer.Content>
-          </Drawer.Positioner>
-        </Drawer.RootProvider>
+        <DrawerRootProvider value={drawer}>
+          <DrawerPositioner>
+            <DrawerContent>
+              <DrawerTitle>Preferences</DrawerTitle>
+            </DrawerContent>
+          </DrawerPositioner>
+        </DrawerRootProvider>
       </>
     );
   }
@@ -166,13 +178,13 @@ test('opens a RootProvider drawer from external state', async () => {
 test('marks an island drawer and closes it through its accessible close icon', async () => {
   render(() => (
     <Drawer variant="island">
-      <Drawer.Trigger>Open drawer</Drawer.Trigger>
-      <Drawer.Positioner>
-        <Drawer.Content>
-          <Drawer.Title>Preferences</Drawer.Title>
-          <Drawer.CloseIcon />
-        </Drawer.Content>
-      </Drawer.Positioner>
+      <DrawerTrigger>Open drawer</DrawerTrigger>
+      <DrawerPositioner>
+        <DrawerContent>
+          <DrawerTitle>Preferences</DrawerTitle>
+          <DrawerCloseIcon />
+        </DrawerContent>
+      </DrawerPositioner>
       <DrawerStateReadout />
     </Drawer>
   ));
@@ -196,15 +208,15 @@ test('forwards refs through ordinary parts and keeps asChild composition native'
 
   render(() => (
     <Drawer defaultOpen portalled={false}>
-      <Drawer.Trigger ref={(element) => (triggerRef = element)}>Open drawer</Drawer.Trigger>
-      <Drawer.Positioner>
-        <Drawer.Content
+      <DrawerTrigger ref={(element) => (triggerRef = element)}>Open drawer</DrawerTrigger>
+      <DrawerPositioner>
+        <DrawerContent
           ref={(element) => (contentRef = element)}
           asChild={(props) => <section {...props()} />}
         >
-          <Drawer.Title>Preferences</Drawer.Title>
-        </Drawer.Content>
-      </Drawer.Positioner>
+          <DrawerTitle>Preferences</DrawerTitle>
+        </DrawerContent>
+      </DrawerPositioner>
     </Drawer>
   ));
 

@@ -35,7 +35,7 @@ import paginationSolidWithEdges from '../../../snippets/pagination/solid/with-ed
 ## Базовый пример
 
 
-Используйте `Pagination` как корневой компонент. `Pagination.Items` выводит кнопки страниц и многоточия
+Используйте `Pagination` как корневой компонент. `PaginationItems` выводит кнопки страниц и многоточия
 для текущего диапазона.
 
 <ExampleFrame variant="component">
@@ -102,34 +102,34 @@ import paginationSolidWithEdges from '../../../snippets/pagination/solid/with-ed
 ## Анатомия
 
 ```text
-Pagination / Pagination.Root
-├─ Pagination.FirstTrigger (необязательно)
-├─ Pagination.PrevTrigger
-├─ Pagination.Items (рекомендуется)
-├─ Pagination.Context (расширенный доступ к состоянию через render prop)
-│  ├─ Pagination.Item
-│  └─ Pagination.Ellipsis
-├─ Pagination.NextTrigger
-└─ Pagination.LastTrigger (необязательно)
+Pagination
+├─ PaginationFirstTrigger (необязательно)
+├─ PaginationPrevTrigger
+├─ PaginationItems (рекомендуется)
+├─ PaginationContext (расширенный доступ к состоянию через render prop)
+│  ├─ PaginationItem
+│  └─ PaginationEllipsis
+├─ PaginationNextTrigger
+└─ PaginationLastTrigger (необязательно)
 
-Pagination.RootProvider
+PaginationRootProvider
 └─ та же структура из триггеров, элементов, многоточий и контекста, подключённая к usePagination()
 ```
 
 | Часть                             | Назначение                                                            |
 | --------------------------------- | --------------------------------------------------------------------- |
 | `Pagination`                      | Корневой компонент навигации, который управляет текущей страницей и числом элементов на странице. |
-| `Pagination.RootProvider`         | Подключает части к состоянию, созданному через `Pagination.usePagination()`.                     |
-| `Pagination.Items`                | Выводит рассчитанные элементы страниц и многоточия.                                              |
-| `Pagination.Context`              | Открывает доступ к состоянию корня и методам навигации через render prop Ark UI.                  |
-| `Pagination.usePagination`        | Создаёт состояние пагинации за пределами дерева, где отображается компонент.                      |
-| `Pagination.usePaginationContext` | Даёт потомку доступ к состоянию пагинации.                                                        |
-| `Pagination.Item`                 | Интерактивный элемент страницы. Принимает объект страницы в качестве свойств.                    |
-| `Pagination.Ellipsis`             | Неинтерактивный маркер скрытой части диапазона страниц. Требует `index`.                          |
-| `Pagination.PrevTrigger`          | Переходит на предыдущую страницу и отключается, когда выбрана первая страница.                    |
-| `Pagination.NextTrigger`          | Переходит на следующую страницу и отключается, когда выбрана последняя страница.                  |
-| `Pagination.FirstTrigger`         | Переходит на первую страницу и отключается, если она уже выбрана.                                 |
-| `Pagination.LastTrigger`          | Переходит на последнюю страницу и отключается, если она уже выбрана.                              |
+| `PaginationRootProvider`         | Подключает части к состоянию, созданному через `usePagination()`.                     |
+| `PaginationItems`                | Выводит рассчитанные элементы страниц и многоточия.                                              |
+| `PaginationContext`              | Открывает доступ к состоянию корня и методам навигации через render prop Ark UI.                  |
+| `usePagination`        | Создаёт состояние пагинации за пределами дерева, где отображается компонент.                      |
+| `usePaginationContext` | Даёт потомку доступ к состоянию пагинации.                                                        |
+| `PaginationItem`                 | Интерактивный элемент страницы. Принимает объект страницы в качестве свойств.                    |
+| `PaginationEllipsis`             | Неинтерактивный маркер скрытой части диапазона страниц. Требует `index`.                          |
+| `PaginationPrevTrigger`          | Переходит на предыдущую страницу и отключается, когда выбрана первая страница.                    |
+| `PaginationNextTrigger`          | Переходит на следующую страницу и отключается, когда выбрана последняя страница.                  |
+| `PaginationFirstTrigger`         | Переходит на первую страницу и отключается, если она уже выбрана.                                 |
+| `PaginationLastTrigger`          | Переходит на последнюю страницу и отключается, если она уже выбрана.                              |
 
 ## Композиция
 
@@ -138,10 +138,10 @@ Pagination.RootProvider
 обработчики изменений. В `count` указывайте общее число элементов данных, а не страниц, и задавайте
 размер страницы, чтобы Ark мог вычислить `totalPages`.
 
-Для стандартного списка страниц используйте `Pagination.Items`. Если нужно изменить отображение
-страниц или добавить элементы управления рядом с ними, используйте `Pagination.Context`. Когда
-состояние создаётся за пределами дерева, создайте его через `Pagination.usePagination()` и передайте
-в `Pagination.RootProvider`. Для навигации по URL задайте `type="link"`, передайте `getPageUrl(details)`
+Для стандартного списка страниц используйте `PaginationItems`. Если нужно изменить отображение
+страниц или добавить элементы управления рядом с ними, используйте `PaginationContext`. Когда
+состояние создаётся за пределами дерева, создайте его через `usePagination()` и передайте
+в `PaginationRootProvider`. Для навигации по URL задайте `type="link"`, передайте `getPageUrl(details)`
 и отрисуйте семантические ссылки через `asChild`.
 
 ## Примеры
@@ -186,7 +186,7 @@ Pagination.RootProvider
 
 ### Контекст
 
-Используйте `Pagination.Context`, чтобы разместить собственные элементы управления рядом со списком
+Используйте `PaginationContext`, чтобы разместить собственные элементы управления рядом со списком
 страниц и вызывать методы навигации, например `goToFirstPage()` или `goToLastPage()`.
 
 <ExampleFrame variant="component">
@@ -375,7 +375,7 @@ Pagination.RootProvider
 
 ### Root Provider
 
-Создайте состояние через `Pagination.usePagination()` и передайте его в `Pagination.RootProvider`,
+Создайте состояние через `usePagination()` и передайте его в `PaginationRootProvider`,
 если это состояние нужно использовать за пределами дерева с пагинацией.
 
 <ExampleFrame variant="component">
@@ -453,7 +453,7 @@ Pagination.RootProvider
 
 ### Кнопки первой и последней страницы
 
-Добавьте `Pagination.FirstTrigger` и `Pagination.LastTrigger`, если пользователям нужны быстрые
+Добавьте `PaginationFirstTrigger` и `PaginationLastTrigger`, если пользователям нужны быстрые
 переходы к первой и последней странице.
 
 <ExampleFrame variant="component">
@@ -492,8 +492,8 @@ Pagination.RootProvider
 
 ### Расширенная настройка
 
-Используйте `Pagination.Context` вместо `Pagination.Items`, если кнопкам страниц или многоточиям нужно
-нестандартное содержимое. Передавайте каждый объект страницы в `Pagination.Item` без изменений, чтобы
+Используйте `PaginationContext` вместо `PaginationItems`, если кнопкам страниц или многоточиям нужно
+нестандартное содержимое. Передавайте каждый объект страницы в `PaginationItem` без изменений, чтобы
 сохранить состояние и доступность Ark.
 
 <ExampleFrame variant="component">
@@ -552,9 +552,9 @@ moduix сохраняет атрибуты состояния Ark и добав�
 
 ### Хуки стилизации
 
-- `data-scope="pagination"` и `data-part="item"` на `Pagination.Item`
-- `data-scope="pagination"` и `data-part="prev-trigger"` на `Pagination.PrevTrigger`
-- `data-scope="pagination"` и `data-part="next-trigger"` на `Pagination.NextTrigger`
+- `data-scope="pagination"` и `data-part="item"` на `PaginationItem`
+- `data-scope="pagination"` и `data-part="prev-trigger"` на `PaginationPrevTrigger`
+- `data-scope="pagination"` и `data-part="next-trigger"` на `PaginationNextTrigger`
 - `data-scope="pagination"` и `data-part="first-trigger"` или `data-part="last-trigger"` на крайних триггерах
 - `data-selected` на активном элементе страницы
 - `data-disabled` на недоступных триггерах

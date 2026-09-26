@@ -1,7 +1,7 @@
 import { expect, rs, test } from '@rstest/core';
 import { fireEvent, render, screen, waitFor } from '@testing-library/react';
 import { createRef } from 'react';
-import { Avatar, useAvatar } from '../src';
+import { Avatar, AvatarFallback, AvatarImage, AvatarRootProvider, useAvatar } from '../src';
 
 test('renders the Ark anatomy with moduix hooks and explicit fallback content', () => {
   const rootRef = createRef<HTMLDivElement>();
@@ -9,8 +9,8 @@ test('renders the Ark anatomy with moduix hooks and explicit fallback content', 
 
   render(
     <Avatar ref={rootRef} size="lg">
-      <Avatar.Fallback ref={fallbackRef}>AT</Avatar.Fallback>
-      <Avatar.Image src="/alex.jpg" alt="Alex Taylor" />
+      <AvatarFallback ref={fallbackRef}>AT</AvatarFallback>
+      <AvatarImage src="/alex.jpg" alt="Alex Taylor" />
     </Avatar>,
   );
 
@@ -36,7 +36,7 @@ test('uses md visual styling without a data-size attribute by default', () => {
 test('renders explicit fallback children', () => {
   render(
     <Avatar>
-      <Avatar.Fallback>Custom fallback</Avatar.Fallback>
+      <AvatarFallback>Custom fallback</AvatarFallback>
     </Avatar>,
   );
 
@@ -48,8 +48,8 @@ test('preserves the Ark image loading lifecycle and callback details', async () 
 
   render(
     <Avatar onStatusChange={onStatusChange}>
-      <Avatar.Fallback>AT</Avatar.Fallback>
-      <Avatar.Image src="/alex.jpg" alt="Alex Taylor" />
+      <AvatarFallback>AT</AvatarFallback>
+      <AvatarImage src="/alex.jpg" alt="Alex Taylor" />
     </Avatar>,
   );
 
@@ -78,8 +78,8 @@ test('keeps the fallback visible when the image fails', async () => {
 
   render(
     <Avatar onStatusChange={onStatusChange}>
-      <Avatar.Fallback>AT</Avatar.Fallback>
-      <Avatar.Image src="/missing.jpg" alt="Alex Taylor" />
+      <AvatarFallback>AT</AvatarFallback>
+      <AvatarImage src="/missing.jpg" alt="Alex Taylor" />
     </Avatar>,
   );
 
@@ -112,9 +112,9 @@ function ProviderAvatar() {
   const avatar = useAvatar();
 
   return (
-    <Avatar.RootProvider value={avatar} size="sm" data-testid="avatar-provider">
-      <Avatar.Fallback>AT</Avatar.Fallback>
-    </Avatar.RootProvider>
+    <AvatarRootProvider value={avatar} size="sm" data-testid="avatar-provider">
+      <AvatarFallback>AT</AvatarFallback>
+    </AvatarRootProvider>
   );
 }
 

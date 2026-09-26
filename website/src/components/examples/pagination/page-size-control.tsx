@@ -1,6 +1,24 @@
 import { createListCollection } from '@ark-ui/react/collection';
-import { Pagination } from '@moduix/react/pagination';
-import { Select } from '@moduix/react/select';
+import {
+  Pagination,
+  PaginationContext,
+  PaginationItems,
+  PaginationNextTrigger,
+  PaginationPrevTrigger,
+} from '@moduix/react/pagination';
+import {
+  Select,
+  SelectLabel,
+  SelectControl,
+  SelectTrigger,
+  SelectValueText,
+  SelectIndicator,
+  SelectPositioner,
+  SelectContent,
+  SelectItem,
+  SelectItemText,
+  SelectItemIndicator,
+} from '@moduix/react/select';
 import { PreviewMeta } from '@/components/mdx/Components';
 import styles from '@/components/examples/pagination/pagination-page-size-control.module.css';
 
@@ -28,7 +46,7 @@ const pageSizes = createListCollection({
 export default function PaginationPageSizeControlDemo() {
   return (
     <Pagination count={200} defaultPageSize={10}>
-      <Pagination.Context>
+      <PaginationContext>
         {(pagination) => (
           <div className={styles.stack}>
             <div className={styles.row}>
@@ -44,29 +62,29 @@ export default function PaginationPageSizeControlDemo() {
                   if (nextValue) pagination.setPageSize(Number(nextValue));
                 }}
               >
-                <Select.Label>Items per page</Select.Label>
-                <Select.Control>
-                  <Select.Trigger>
-                    <Select.ValueText placeholder="Page size" />
-                  </Select.Trigger>
-                  <Select.Indicator />
-                </Select.Control>
-                <Select.Positioner>
-                  <Select.Content>
+                <SelectLabel>Items per page</SelectLabel>
+                <SelectControl>
+                  <SelectTrigger>
+                    <SelectValueText placeholder="Page size" />
+                  </SelectTrigger>
+                  <SelectIndicator />
+                </SelectControl>
+                <SelectPositioner>
+                  <SelectContent>
                     {pageSizes.items.map((item) => (
-                      <Select.Item key={item.value} item={item}>
-                        <Select.ItemText>{item.label}</Select.ItemText>
-                        <Select.ItemIndicator />
-                      </Select.Item>
+                      <SelectItem key={item.value} item={item}>
+                        <SelectItemText>{item.label}</SelectItemText>
+                        <SelectItemIndicator />
+                      </SelectItem>
                     ))}
-                  </Select.Content>
-                </Select.Positioner>
+                  </SelectContent>
+                </SelectPositioner>
               </Select>
             </div>
             <div className={styles.row}>
-              <Pagination.PrevTrigger />
-              <Pagination.Items />
-              <Pagination.NextTrigger />
+              <PaginationPrevTrigger />
+              <PaginationItems />
+              <PaginationNextTrigger />
             </div>
             <PreviewMeta>
               <output>
@@ -75,7 +93,7 @@ export default function PaginationPageSizeControlDemo() {
             </PreviewMeta>
           </div>
         )}
-      </Pagination.Context>
+      </PaginationContext>
     </Pagination>
   );
 }

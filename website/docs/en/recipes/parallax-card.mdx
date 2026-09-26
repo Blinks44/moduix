@@ -8,11 +8,11 @@ import parallaxCardSolid from '../../../snippets/recipes/solid/parallax-card.tsx
 
 # Parallax card
 
-This recipe combines `Card.Background` with a small pointer handler and CSS transforms to create a
+This recipe combines `CardBackground` with a small pointer handler and CSS transforms to create a
 card with a full-bleed image and a subtle 3D tilt. It is a copy-ready application composition, not a
 `ParallaxCard` component exported by moduix.
 
-`Card.Background` places the image behind the card content. The gradient overlay and text contrast are
+`CardBackground` places the image behind the card content. The gradient overlay and text contrast are
 defined in the example CSS, so you can adjust them for the image you choose. The tilt effect is enabled
 only when the device has a fine pointer that supports hover. The card stays still when that pointer is
 unavailable or the user prefers reduced motion.
@@ -62,15 +62,15 @@ The live preview uses the React package. The source tabs show native React and S
 
 <ShadcnInstall packageName="card" itemKind="recipe" frameworks copiedSource />
 
-## Use it in a page
+## Use the recipe in your application
 
 Copy the component and CSS above into your application, then:
 
 - Replace the image URL and visible copy with your content.
-- Keep the image inside `Card.Background` decorative with `alt=""`. Use `Card.Media` when the image
+- Keep the image inside `CardBackground` decorative with `alt=""`. Use `CardMedia` when the image
   conveys information and needs alternative text.
 - Treat the tilt as a visual enhancement. The card must remain readable and usable without hover or
   motion.
-- Add a real link or button if the card has an action. Use `Card.Root asChild` when the entire card is
-  one link with no nested controls, or `Card.Link` inside `Card.Title` when the card also contains
+- Add a real link or button if the card has an action. Use `Card asChild` when the entire card is
+  one link with no nested controls, or `CardLink` inside `CardTitle` when the card also contains
   separate actions.

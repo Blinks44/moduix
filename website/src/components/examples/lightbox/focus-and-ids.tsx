@@ -1,5 +1,14 @@
 import { Button } from '@moduix/react/button';
-import { Lightbox } from '@moduix/react/lightbox';
+import {
+  LightboxTrigger,
+  LightboxBackdrop,
+  LightboxPositioner,
+  LightboxContent,
+  LightboxTitle,
+  LightboxCloseIcon,
+  LightboxImage,
+  Lightbox,
+} from '@moduix/react/lightbox';
 import { useRef, useState } from 'react';
 import { PreviewMeta } from '@/components/mdx/Components';
 import styles from '@/components/examples/lightbox/lightbox-focus-and-ids.module.css';
@@ -48,15 +57,15 @@ export default function FocusLightboxDemo() {
           title: 'lightbox-focus-title',
         }}
       >
-        <Lightbox.Trigger className={styles.button}>Open focus-managed lightbox</Lightbox.Trigger>
-        <Lightbox.Backdrop />
-        <Lightbox.Positioner>
-          <Lightbox.CloseIcon ref={closeRef} />
-          <Lightbox.Content>
-            <Lightbox.Title className={styles.status}>Mountain ridge at sunset</Lightbox.Title>
-            <Lightbox.Image src={images[0].src} alt={images[0].alt} />
-          </Lightbox.Content>
-        </Lightbox.Positioner>
+        <LightboxTrigger className={styles.button}>Open focus-managed lightbox</LightboxTrigger>
+        <LightboxBackdrop />
+        <LightboxPositioner>
+          <LightboxCloseIcon ref={closeRef} />
+          <LightboxContent>
+            <LightboxTitle className={styles.status}>Mountain ridge at sunset</LightboxTitle>
+            <LightboxImage src={images[0].src} alt={images[0].alt} />
+          </LightboxContent>
+        </LightboxPositioner>
       </Lightbox>
       <PreviewMeta>
         <output>

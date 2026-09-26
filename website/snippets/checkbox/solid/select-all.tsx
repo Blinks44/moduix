@@ -1,4 +1,10 @@
-import { Checkbox } from '@moduix/solid/checkbox';
+import {
+  Checkbox,
+  CheckboxControl,
+  CheckboxGroup,
+  CheckboxHiddenInput,
+  CheckboxLabel,
+} from '@moduix/solid/checkbox';
 import { createSignal, For } from 'solid-js';
 import styles from '@/components/examples/checkbox/checkbox-select-all.module.css';
 
@@ -20,21 +26,21 @@ export default function CheckboxSelectAllDemo() {
         checked={indeterminate() ? 'indeterminate' : allSelected()}
         onCheckedChange={(details) => setValue(details.checked === true ? allValues : [])}
       >
-        <Checkbox.Control />
-        <Checkbox.Label>Select all</Checkbox.Label>
-        <Checkbox.HiddenInput />
+        <CheckboxControl />
+        <CheckboxLabel>Select all</CheckboxLabel>
+        <CheckboxHiddenInput />
       </Checkbox>
-      <Checkbox.Group value={value} onValueChange={setValue} name="frameworks">
+      <CheckboxGroup value={value} onValueChange={setValue} name="frameworks">
         <For each={options}>
           {(option) => (
             <Checkbox value={option.value}>
-              <Checkbox.Control />
-              <Checkbox.Label>{option.label}</Checkbox.Label>
-              <Checkbox.HiddenInput />
+              <CheckboxControl />
+              <CheckboxLabel>{option.label}</CheckboxLabel>
+              <CheckboxHiddenInput />
             </Checkbox>
           )}
         </For>
-      </Checkbox.Group>
+      </CheckboxGroup>
     </div>
   );
 }

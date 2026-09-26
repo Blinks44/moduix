@@ -4,7 +4,7 @@ component: dialog
 description: Fenêtre modale pour les tâches ciblées comme les formulaires, les confirmations et les détails.
 ---
 
-import { DialogCssPropertiesPanel } from '@/components/examples/dialog/css-properties';
+import * as DialogDocs from '@/components/examples/dialog/css-properties';
 import DialogAdvancedCustomization from '@/components/examples/dialog/advanced-customization.tsx';
 import DialogAlertDialog from '@/components/examples/dialog/alert-dialog.tsx';
 import DialogBasic from '@/components/examples/dialog/basic.tsx';
@@ -46,8 +46,8 @@ attaché au bord de la fenêtre ou pouvoir être déplacé.
 
 
 Utilisez `Dialog` comme racine et composez explicitement ses parties structurelles.
-`Dialog.Backdrop` est l’arrière-plan modal, `Dialog.Positioner` positionne le dialogue et
-`Dialog.Content` contient sa surface.
+`DialogBackdrop` est l’arrière-plan modal, `DialogPositioner` positionne le dialogue et
+`DialogContent` contient sa surface.
 
 <ExampleFrame variant="component">
   <DialogBasic />
@@ -109,57 +109,57 @@ Consultez le [Démarrage rapide](/docs/quick-start) pour la configuration compl�
 ## Anatomie
 
 ```text
-Dialog / Dialog.Root
-├─ Dialog.Trigger
+Dialog
+├─ DialogTrigger
 └─ Contenu superposé (rendu automatiquement dans un portail)
-   ├─ Dialog.Backdrop (facultatif)
-   └─ Dialog.Positioner
-      └─ Dialog.Content
-         ├─ Dialog.CloseTrigger ou Dialog.CloseIcon
-         ├─ Dialog.Title
-         ├─ Dialog.Description
-         ├─ Dialog.Header (aide de mise en page moduix)
-         ├─ Dialog.Body (aide de mise en page moduix)
-         └─ Dialog.Footer (aide de mise en page moduix)
+   ├─ DialogBackdrop (facultatif)
+   └─ DialogPositioner
+      └─ DialogContent
+         ├─ DialogCloseTrigger ou DialogCloseIcon
+         ├─ DialogTitle
+         ├─ DialogDescription
+         ├─ DialogHeader (aide de mise en page moduix)
+         ├─ DialogBody (aide de mise en page moduix)
+         └─ DialogFooter (aide de mise en page moduix)
 
-Dialog.RootProvider
+DialogRootProvider
 └─ même arbre de parties relié à l’état fourni par useDialog() de moduix
 
-Dialog.Context
+DialogContext
 └─ fonction de rendu qui reçoit l’état et les méthodes actuels du dialogue
 ```
 
 | Partie                    | Rôle                                                               |
 | ------------------------ | ------------------------------------------------------------------ |
-| `Dialog` / `Dialog.Root` | Gère l’état d’ouverture, le focus et la fermeture du dialogue.      |
-| `Dialog.RootProvider`    | Relie les parties à l’état créé avec `useDialog()`.                |
-| `Dialog.Trigger`         | Ouvre le dialogue.                                                   |
-| `Dialog.Backdrop`        | Couche d’arrière-plan facultative du dialogue modal.                |
-| `Dialog.Positioner`      | Positionne le contenu du dialogue.                                  |
-| `Dialog.Content`         | Contient la surface visible du dialogue.                            |
-| `Dialog.Title`           | Donne au dialogue un titre accessible.                              |
-| `Dialog.Description`     | Ajoute un texte complémentaire accessible.                          |
-| `Dialog.CloseTrigger`    | Ferme le dialogue.                                                   |
-| `Dialog.CloseIcon`       | Aide moduix qui associe un bouton de fermeture au dialogue.          |
-| `Dialog.Header`          | Aide de mise en page moduix pour l’en-tête.                         |
-| `Dialog.Body`            | Aide de mise en page moduix pour le contenu principal.              |
-| `Dialog.Footer`          | Aide de mise en page moduix pour les actions.                       |
-| `Dialog.Context`         | Rend les enfants avec l’état et les méthodes actuels du dialogue.   |
+| `Dialog` / `DialogRootProvider` | Gère l’état d’ouverture, le focus et la fermeture du dialogue.      |
+| `DialogRootProvider`    | Relie les parties à l’état créé avec `useDialog()`.                |
+| `DialogTrigger`         | Ouvre le dialogue.                                                   |
+| `DialogBackdrop`        | Couche d’arrière-plan facultative du dialogue modal.                |
+| `DialogPositioner`      | Positionne le contenu du dialogue.                                  |
+| `DialogContent`         | Contient la surface visible du dialogue.                            |
+| `DialogTitle`           | Donne au dialogue un titre accessible.                              |
+| `DialogDescription`     | Ajoute un texte complémentaire accessible.                          |
+| `DialogCloseTrigger`    | Ferme le dialogue.                                                   |
+| `DialogCloseIcon`       | Aide moduix qui associe un bouton de fermeture au dialogue.          |
+| `DialogHeader`          | Aide de mise en page moduix pour l’en-tête.                         |
+| `DialogBody`            | Aide de mise en page moduix pour le contenu principal.              |
+| `DialogFooter`          | Aide de mise en page moduix pour les actions.                       |
+| `DialogContext`         | Rend les enfants avec l’état et les méthodes actuels du dialogue.   |
 
 Importez `useDialog()` lorsque l’état doit vivre en dehors de l’arbre rendu du dialogue. Lisez-le ou
-mettez-le à jour avec `Dialog.Context` ou `useDialogContext()` depuis le paquet correspondant.
+mettez-le à jour avec `DialogContext` ou `useDialogContext()` depuis le paquet correspondant.
 
 ## Composition
 
 Par défaut, `Dialog` gère son état d’ouverture. Utilisez `open` avec `onOpenChange(details)` lorsque
 cet état appartient à une autre partie de l’application. Si l’état doit être créé en dehors de
 l’arbre du dialogue, créez un seul store avec `useDialog()` et transmettez-le à
-`Dialog.RootProvider` ; ne rendez pas une autre racine pour ce même store.
+`DialogRootProvider` ; ne rendez pas une autre racine pour ce même store.
 
-La racine place automatiquement `Dialog.Backdrop` et `Dialog.Positioner` dans un portail. Définissez
+La racine place automatiquement `DialogBackdrop` et `DialogPositioner` dans un portail. Définissez
 `portalled={false}` pour les conserver dans l’arbre courant, ou transmettez `portalRef` pour choisir
-un conteneur personnalisé. Gardez l’arbre des parties explicite et utilisez `Dialog.Header`,
-`Dialog.Body` et `Dialog.Footer` uniquement lorsque leurs aides de mise en page conviennent à la
+un conteneur personnalisé. Gardez l’arbre des parties explicite et utilisez `DialogHeader`,
+`DialogBody` et `DialogFooter` uniquement lorsque leurs aides de mise en page conviennent à la
 composition.
 
 ## Exemples
@@ -492,7 +492,7 @@ confirmation.
 
 ### Défilement externe
 
-Laissez `Dialog.Positioner` faire défiler l’ensemble du dialogue lorsque son contenu est long et
+Laissez `DialogPositioner` faire défiler l’ensemble du dialogue lorsque son contenu est long et
 doit conserver sa hauteur naturelle.
 
 <ExampleFrame variant="component">
@@ -533,7 +533,7 @@ doit conserver sa hauteur naturelle.
 ### Root Provider
 
 Créez l’état avec `useDialog()` lorsque les contrôles se trouvent en dehors du dialogue. Reliez-le
-avec `Dialog.RootProvider`, puis lisez-le avec `Dialog.Context` ou `useDialogContext()` dans des
+avec `DialogRootProvider`, puis lisez-le avec `DialogContext` ou `useDialogContext()` dans des
 composants réutilisables.
 
 <ExampleFrame variant="component">
@@ -568,8 +568,8 @@ composants réutilisables.
 
 ### Personnalisation avancée
 
-N’utilisez pas `Header`, `Body`, `Footer` ni `CloseIcon` lorsque la mise en page personnalisée doit
-contrôler directement chaque partie du dialogue Ark.
+N’utilisez pas `DialogHeader`, `DialogBody`, `DialogFooter` ni `DialogCloseIcon` lorsque la mise en
+page personnalisée doit contrôler directement chaque partie du dialogue Ark.
 
 <ExampleFrame variant="component">
   <DialogAdvancedCustomization />
@@ -617,17 +617,7 @@ sont communs aux deux approches.
 
 ### Propriétés CSS
 
-<div className="docs-reference">
-  <Tabs
-    values={[{ label: 'CSS Variables', value: 'CSS Variables' }]}
-    className="docs-reference-tabs"
-    contentItemClassName="docs-reference-panel"
-  >
-    <Tab>
-      <DialogCssPropertiesPanel />
-    </Tab>
-  </Tabs>
-</div>
+<CssPropertiesSection properties={DialogDocs.dialogOverrideCssProperties} />
 
 ### Points d’accroche CSS
 
@@ -639,5 +629,5 @@ sont communs aux deux approches.
 - Attributs d’état : `data-state="open|closed"`, `data-has-nested`, `data-nested`, `data-current`
   et `data-value`.
 - Variables d’exécution : `--layer-index` et `--nested-layer-count`.
-- `Dialog.CloseIcon` est positionné par rapport à l’angle de `Dialog.Content`, son placement ne
-  dépend donc pas de `Dialog.Header`.
+- `DialogCloseIcon` est positionné par rapport à l’angle de `DialogContent`, son placement ne
+  dépend donc pas de `DialogHeader`.

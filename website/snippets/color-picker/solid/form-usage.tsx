@@ -1,5 +1,16 @@
 import { Button } from '@moduix/solid/button';
-import { ColorPicker, parseColor } from '@moduix/solid/color-picker';
+import {
+  ColorPicker,
+  parseColor,
+  ColorPickerHiddenInput,
+  ColorPickerLabel,
+  ColorPickerControl,
+  ColorPickerTrigger,
+  ColorPickerPositioner,
+  ColorPickerContent,
+  ColorPickerArea,
+  ColorPickerChannelInput,
+} from '@moduix/solid/color-picker';
 import { createSignal } from 'solid-js';
 
 export default function FormUsageColorPickerDemo() {
@@ -14,17 +25,17 @@ export default function FormUsageColorPickerDemo() {
   return (
     <form onSubmit={handleSubmit}>
       <ColorPicker name="accent" defaultValue={parseColor('#eb5e41')}>
-        <ColorPicker.Label>Color</ColorPicker.Label>
-        <ColorPicker.Control>
-          <ColorPicker.ChannelInput channel="hex" />
-          <ColorPicker.Trigger aria-label="Open color picker" />
-        </ColorPicker.Control>
-        <ColorPicker.Positioner>
-          <ColorPicker.Content>
-            <ColorPicker.Area />
-          </ColorPicker.Content>
-        </ColorPicker.Positioner>
-        <ColorPicker.HiddenInput />
+        <ColorPickerLabel>Color</ColorPickerLabel>
+        <ColorPickerControl>
+          <ColorPickerChannelInput channel="hex" />
+          <ColorPickerTrigger aria-label="Open color picker" />
+        </ColorPickerControl>
+        <ColorPickerPositioner>
+          <ColorPickerContent>
+            <ColorPickerArea />
+          </ColorPickerContent>
+        </ColorPickerPositioner>
+        <ColorPickerHiddenInput />
       </ColorPicker>
       <output>Submitted: {submitted()}</output>
       <Button type="submit" size="sm">

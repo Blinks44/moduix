@@ -1,16 +1,16 @@
 import { expect, rs, test } from '@rstest/core';
 import { fireEvent, render, screen } from '@testing-library/react';
 import { createRef } from 'react';
-import { Tag } from '../src';
+import { Tag, TagCloseTrigger, TagEndElement, TagLabel, TagStartElement } from '../src';
 
 test('renders the Tag anatomy with stable data hooks and a forwarded ref', () => {
   const ref = createRef<HTMLSpanElement>();
 
   render(
     <Tag ref={ref} data-testid="tag" size="sm" variant="secondary">
-      <Tag.StartElement data-testid="tag-start">+</Tag.StartElement>
-      <Tag.Label data-testid="tag-label">TypeScript</Tag.Label>
-      <Tag.EndElement data-testid="tag-end">Updated</Tag.EndElement>
+      <TagStartElement data-testid="tag-start">+</TagStartElement>
+      <TagLabel data-testid="tag-label">TypeScript</TagLabel>
+      <TagEndElement data-testid="tag-end">Updated</TagEndElement>
     </Tag>,
   );
 
@@ -31,7 +31,7 @@ test('renders the Tag anatomy with stable data hooks and a forwarded ref', () =>
 test('applies the documented root defaults', () => {
   render(
     <Tag data-testid="tag">
-      <Tag.Label>TypeScript</Tag.Label>
+      <TagLabel>TypeScript</TagLabel>
     </Tag>,
   );
 
@@ -43,7 +43,7 @@ test('applies the documented root defaults', () => {
 
 test('uses an accessible close button and prevents disabled activation', () => {
   const handleClick = rs.fn();
-  const { rerender } = render(<Tag.CloseTrigger data-testid="close" onClick={handleClick} />);
+  const { rerender } = render(<TagCloseTrigger data-testid="close" onClick={handleClick} />);
 
   const close = screen.getByTestId('close');
 
@@ -57,7 +57,7 @@ test('uses an accessible close button and prevents disabled activation', () => {
   fireEvent.click(close);
   expect(handleClick).toHaveBeenCalledTimes(1);
 
-  rerender(<Tag.CloseTrigger aria-disabled="true" onClick={handleClick} />);
+  rerender(<TagCloseTrigger aria-disabled="true" onClick={handleClick} />);
 
   const disabledClose = screen.getByRole('button', { name: 'Remove tag' });
 
@@ -70,11 +70,11 @@ test('preserves a semantic close trigger host with asChild', () => {
   const ref = createRef<HTMLButtonElement>();
 
   render(
-    <Tag.CloseTrigger ref={ref} asChild aria-label="Remove TypeScript tag">
+    <TagCloseTrigger ref={ref} asChild aria-label="Remove TypeScript tag">
       <button type="button" data-owner="consumer">
         <svg aria-hidden="true" />
       </button>
-    </Tag.CloseTrigger>,
+    </TagCloseTrigger>,
   );
 
   const close = screen.getByRole('button', { name: 'Remove TypeScript tag' });

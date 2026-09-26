@@ -1,6 +1,17 @@
 import { useListCollection } from '@ark-ui/react/collection';
 import { useFilter } from '@ark-ui/react/locale';
-import { Combobox } from '@moduix/react/combobox';
+import {
+  Combobox,
+  ComboboxContent,
+  ComboboxControl,
+  ComboboxEmpty,
+  ComboboxInput,
+  ComboboxLabel,
+  ComboboxList,
+  ComboboxOption,
+  ComboboxPositioner,
+  ComboboxTrigger,
+} from '@moduix/react/combobox';
 import { useState } from 'react';
 import styles from '@/components/examples/combobox/component-multiple.module.css';
 
@@ -28,7 +39,7 @@ export default function MultipleComboboxDemo() {
       onInputValueChange={(details) => filter(details.inputValue)}
       multiple
     >
-      <Combobox.Label>Fruits</Combobox.Label>
+      <ComboboxLabel>Fruits</ComboboxLabel>
       <div className={styles.tags}>
         {selectedItems.length === 0 ? <span className={styles.note}>None selected</span> : null}
         {selectedItems.map((item) => (
@@ -37,22 +48,22 @@ export default function MultipleComboboxDemo() {
           </span>
         ))}
       </div>
-      <Combobox.Control>
-        <Combobox.Input placeholder="Search fruits" />
-        <Combobox.Trigger aria-label="Open options" />
-      </Combobox.Control>
-      <Combobox.Positioner>
-        <Combobox.Content className={styles.content}>
-          <Combobox.Empty>No fruits found.</Combobox.Empty>
-          <Combobox.List>
+      <ComboboxControl>
+        <ComboboxInput placeholder="Search fruits" />
+        <ComboboxTrigger aria-label="Open options" />
+      </ComboboxControl>
+      <ComboboxPositioner>
+        <ComboboxContent className={styles.content}>
+          <ComboboxEmpty>No fruits found.</ComboboxEmpty>
+          <ComboboxList>
             {collection.items.map((item) => (
-              <Combobox.Option key={item.value} item={item}>
+              <ComboboxOption key={item.value} item={item}>
                 {item.label}
-              </Combobox.Option>
+              </ComboboxOption>
             ))}
-          </Combobox.List>
-        </Combobox.Content>
-      </Combobox.Positioner>
+          </ComboboxList>
+        </ComboboxContent>
+      </ComboboxPositioner>
     </Combobox>
   );
 }

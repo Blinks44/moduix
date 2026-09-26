@@ -1,5 +1,5 @@
-import { Avatar } from '@moduix/solid/avatar';
-import { Tooltip } from '@moduix/solid/tooltip';
+import { Avatar, AvatarFallback, AvatarImage } from '@moduix/solid/avatar';
+import { Tooltip, TooltipBody, TooltipTrigger } from '@moduix/solid/tooltip';
 import { For } from 'solid-js';
 import styles from './expandable-avatar-group.module.css';
 
@@ -54,7 +54,7 @@ export function ExpandableAvatarGroup() {
       <For each={members}>
         {(member) => (
           <Tooltip positioning={{ placement: 'top', gutter: 10 }} openDelay={120}>
-            <Tooltip.Trigger
+            <TooltipTrigger
               asChild={(props) => (
                 <button
                   {...props()}
@@ -65,14 +65,14 @@ export function ExpandableAvatarGroup() {
               )}
             >
               <Avatar size="lg">
-                <Avatar.Image src={member.image} alt="" />
-                <Avatar.Fallback>{member.name.slice(0, 1)}</Avatar.Fallback>
+                <AvatarImage src={member.image} alt="" />
+                <AvatarFallback>{member.name.slice(0, 1)}</AvatarFallback>
               </Avatar>
-            </Tooltip.Trigger>
-            <Tooltip.Body class={styles.tooltip}>
+            </TooltipTrigger>
+            <TooltipBody class={styles.tooltip}>
               <strong>{member.name}</strong>
               <span>{member.role}</span>
-            </Tooltip.Body>
+            </TooltipBody>
           </Tooltip>
         )}
       </For>

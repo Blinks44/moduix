@@ -1,0 +1,9 @@
+{
+  "$schema": "https://ui.shadcn.com/schema/registry-item.json",
+  "name": "theme-soft",
+  "title": "Soft theme",
+  "description": "Rounded moduix tokens with a warmer violet palette for product workflows.",
+  "registryDependencies": ["https://moduix.dev/r/foundation/theme-soft.json"],
+  "docs": "Import '@/lib/moduix/styles/style.css' once, then import '@/lib/moduix/presets/soft.css'. Put data-moduix-theme=\"soft\" on the document root.",
+  "type": "registry:theme"
+}

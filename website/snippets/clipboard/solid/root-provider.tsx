@@ -1,4 +1,12 @@
-import { Clipboard, useClipboard } from '@moduix/solid/clipboard';
+import {
+  ClipboardControl,
+  ClipboardIndicator,
+  ClipboardInput,
+  ClipboardLabel,
+  ClipboardRootProvider,
+  ClipboardTrigger,
+  useClipboard,
+} from '@moduix/solid/clipboard';
 import styles from '@/components/examples/clipboard/component-root-provider.module.css';
 
 export default function RootProviderClipboardDemo() {
@@ -8,16 +16,15 @@ export default function RootProviderClipboardDemo() {
 
   return (
     <div class={styles.stack}>
-      <Clipboard.RootProvider value={clipboard}>
-        <Clipboard.Label>Provider-driven clipboard</Clipboard.Label>
-        <Clipboard.Control>
-          <Clipboard.Input readOnly />
-          <Clipboard.Trigger>
-            <Clipboard.Indicator />
-            <Clipboard.CopyText />
-          </Clipboard.Trigger>
-        </Clipboard.Control>
-      </Clipboard.RootProvider>
+      <ClipboardRootProvider value={clipboard}>
+        <ClipboardLabel>Provider-driven clipboard</ClipboardLabel>
+        <ClipboardControl>
+          <ClipboardInput readOnly />
+          <ClipboardTrigger>
+            <ClipboardIndicator />
+          </ClipboardTrigger>
+        </ClipboardControl>
+      </ClipboardRootProvider>
       <output>Copied: {String(clipboard().copied)}</output>
     </div>
   );

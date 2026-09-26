@@ -1,14 +1,27 @@
 import { expect, test } from '@rstest/core';
 import { fireEvent, render, screen, waitFor } from '@testing-library/react';
 import { createRef, useState } from 'react';
-import { Pagination, usePagination, usePaginationContext } from '../src';
+import {
+  Pagination,
+  PaginationContext,
+  PaginationEllipsis,
+  PaginationFirstTrigger,
+  PaginationItem,
+  PaginationItems,
+  PaginationLastTrigger,
+  PaginationNextTrigger,
+  PaginationPrevTrigger,
+  PaginationRootProvider,
+  usePagination,
+  usePaginationContext,
+} from '../src';
 
 function PageItems() {
   return (
     <>
-      <Pagination.PrevTrigger />
-      <Pagination.Items />
-      <Pagination.NextTrigger />
+      <PaginationPrevTrigger />
+      <PaginationItems />
+      <PaginationNextTrigger />
     </>
   );
 }
@@ -57,11 +70,11 @@ test('uses Ark translations for the navigation landmark label', () => {
 test('renders a long range with ellipses and keeps edge trigger boundaries in sync', async () => {
   const { container } = render(
     <Pagination count={200} defaultPage={10} pageSize={10} siblingCount={1}>
-      <Pagination.FirstTrigger />
-      <Pagination.PrevTrigger />
-      <Pagination.Items />
-      <Pagination.NextTrigger />
-      <Pagination.LastTrigger />
+      <PaginationFirstTrigger />
+      <PaginationPrevTrigger />
+      <PaginationItems />
+      <PaginationNextTrigger />
+      <PaginationLastTrigger />
     </Pagination>,
   );
 
@@ -127,25 +140,25 @@ test('renders Ark link mode with generated page URLs', () => {
       type="link"
       getPageUrl={(details) => `?page=${details.page}`}
     >
-      <Pagination.PrevTrigger asChild>
+      <PaginationPrevTrigger asChild>
         <a>Previous</a>
-      </Pagination.PrevTrigger>
-      <Pagination.Context>
+      </PaginationPrevTrigger>
+      <PaginationContext>
         {(pagination) =>
           pagination.pages.map((page, index) =>
             page.type === 'page' ? (
-              <Pagination.Item key={index} asChild {...page}>
+              <PaginationItem key={index} asChild {...page}>
                 <a>{page.value}</a>
-              </Pagination.Item>
+              </PaginationItem>
             ) : (
-              <Pagination.Ellipsis key={index} index={index} />
+              <PaginationEllipsis key={index} index={index} />
             ),
           )
         }
-      </Pagination.Context>
-      <Pagination.NextTrigger asChild>
+      </PaginationContext>
+      <PaginationNextTrigger asChild>
         <a>Next</a>
-      </Pagination.NextTrigger>
+      </PaginationNextTrigger>
     </Pagination>,
   );
 
@@ -162,10 +175,10 @@ test('exposes usePagination state through RootProvider and context', async () =>
     const pagination = usePagination({ count: 30, defaultPage: 2, pageSize: 10 });
 
     return (
-      <Pagination.RootProvider value={pagination}>
+      <PaginationRootProvider value={pagination}>
         <PageItems />
         <PageValue />
-      </Pagination.RootProvider>
+      </PaginationRootProvider>
     );
   }
 

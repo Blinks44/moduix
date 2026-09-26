@@ -1,21 +1,32 @@
 import { expect, test } from '@rstest/core';
 import { fireEvent, render, screen, waitFor } from '@solidjs/testing-library';
 import { createSignal } from 'solid-js';
-import { Timer, useTimer, useTimerContext } from '../src';
+import {
+  Timer,
+  TimerActionTrigger,
+  TimerArea,
+  TimerContext,
+  TimerControl,
+  TimerItem,
+  TimerRootProvider,
+  TimerSegments,
+  TimerSeparator,
+  useTimer,
+  useTimerContext,
+} from '../src';
 
 test('renders the short root form with default segments, stable hooks, and a forwarded ref', () => {
   let ref!: HTMLDivElement;
 
   const { container } = render(() => (
     <Timer ref={(element) => (ref = element)} data-testid="timer" targetMs={60_000}>
-      <Timer.Segments />
+      <TimerSegments />
     </Timer>
   ));
 
   const root = screen.getByTestId('timer');
   const area = screen.getByRole('timer');
 
-  expect(Timer.Root).toBe(Timer);
   expect(ref).toBe(root);
   expect(root).toHaveAttribute('data-slot', 'timer-root');
   expect(area).toHaveAttribute('data-slot', 'timer-area');
@@ -32,7 +43,7 @@ test('forwards area props and refs through custom segments', () => {
 
   const { container } = render(() => (
     <Timer targetMs={60_000}>
-      <Timer.Segments
+      <TimerSegments
         ref={(element) => (ref = element)}
         aria-label="Remaining time"
         data-testid="custom-segments"
@@ -55,12 +66,12 @@ test('forwards area props and refs through custom segments', () => {
 test('preserves Ark action visibility and native keyboard semantics', async () => {
   render(() => (
     <Timer targetMs={60_000}>
-      <Timer.Segments />
-      <Timer.Control>
-        <Timer.ActionTrigger action="start">Start</Timer.ActionTrigger>
-        <Timer.ActionTrigger action="pause">Pause</Timer.ActionTrigger>
-        <Timer.ActionTrigger action="reset">Reset</Timer.ActionTrigger>
-      </Timer.Control>
+      <TimerSegments />
+      <TimerControl>
+        <TimerActionTrigger action="start">Start</TimerActionTrigger>
+        <TimerActionTrigger action="pause">Pause</TimerActionTrigger>
+        <TimerActionTrigger action="reset">Reset</TimerActionTrigger>
+      </TimerControl>
     </Timer>
   ));
 
@@ -91,12 +102,12 @@ function ProviderTimer() {
   const timer = useTimer({ targetMs: 60_000 });
 
   return (
-    <Timer.RootProvider value={timer}>
+    <TimerRootProvider value={timer}>
       <ProviderStatus />
-      <Timer.Control>
-        <Timer.ActionTrigger action="start">Start provider timer</Timer.ActionTrigger>
-      </Timer.Control>
-    </Timer.RootProvider>
+      <TimerControl>
+        <TimerActionTrigger action="start">Start provider timer</TimerActionTrigger>
+      </TimerControl>
+    </TimerRootProvider>
   );
 }
 
@@ -119,7 +130,7 @@ test('preserves semantic replacement children with asChild', () => {
     <Timer
       asChild={(props) => (
         <section {...props()} data-testid="timer-section">
-          <Timer.Segments />
+          <TimerSegments />
         </section>
       )}
       targetMs={60_000}
@@ -141,7 +152,7 @@ test('does not forward refs through native Ark Solid asChild composition', () =>
       ref={(element) => (rootRef = element)}
       asChild={(props) => (
         <section {...props()} data-testid="timer-section">
-          <Timer.Segments />
+          <TimerSegments />
         </section>
       )}
       targetMs={60_000}
@@ -152,12 +163,12 @@ test('does not forward refs through native Ark Solid asChild composition', () =>
   expect(rootRef).toBeUndefined();
 });
 
-test('keeps Timer.Context connected to the provider API', () => {
+test('keeps TimerContext connected to the provider API', () => {
   function ContextStatus() {
     return (
-      <Timer.Context>
+      <TimerContext>
         {(timer) => <output>{timer().running ? 'Running' : 'Idle'}</output>}
-      </Timer.Context>
+      </TimerContext>
     );
   }
 
@@ -170,12 +181,12 @@ test('keeps Timer.Context connected to the provider API', () => {
   expect(screen.getByRole('status')).toHaveTextContent('Idle');
 });
 
-test('keeps Timer.Segments reactive when its types change', async () => {
+test('keeps TimerSegments reactive when its types change', async () => {
   const [types, setTypes] = createSignal<Array<'minutes' | 'seconds'>>(['minutes']);
 
   const { container } = render(() => (
     <Timer targetMs={60_000}>
-      <Timer.Segments types={types()} />
+      <TimerSegments types={types()} />
     </Timer>
   ));
 
@@ -192,15 +203,15 @@ test('keeps Timer.Segments reactive when its types change', async () => {
 test('uses native utilities on every owned part and merges consumer overrides', () => {
   const { container } = render(() => (
     <Timer class="block gap-6 text-primary" targetMs={60_000}>
-      <Timer.Area class="text-lg">
-        <Timer.Item class="min-w-0" type="minutes" />
-        <Timer.Separator class="text-primary">:</Timer.Separator>
-      </Timer.Area>
-      <Timer.Control>
-        <Timer.ActionTrigger class="rounded-full bg-primary" action="start">
+      <TimerArea class="text-lg">
+        <TimerItem class="min-w-0" type="minutes" />
+        <TimerSeparator class="text-primary">:</TimerSeparator>
+      </TimerArea>
+      <TimerControl>
+        <TimerActionTrigger class="rounded-full bg-primary" action="start">
           Start
-        </Timer.ActionTrigger>
-      </Timer.Control>
+        </TimerActionTrigger>
+      </TimerControl>
     </Timer>
   ));
 

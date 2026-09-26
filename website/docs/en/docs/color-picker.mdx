@@ -1,7 +1,7 @@
 ---
 title: Color Picker
 component: color-picker
-description: An Ark UI-based color picker for choosing colors, editing color channels, and selecting swatches.
+description: An Ark UI-based color picker for choosing colors, editing color channels, and selecting swatches in React, Solid, or Vue.
 ---
 
 import * as ColorPickerDocs from '@/components/examples/color-picker/css-properties';
@@ -40,6 +40,23 @@ import colorPickerSolidSliderOnly from '../../../snippets/color-picker/solid/sli
 import colorPickerSolidSwatchOnly from '../../../snippets/color-picker/solid/swatch-only.tsx?raw';
 import colorPickerSolidSwatches from '../../../snippets/color-picker/solid/swatches.tsx?raw';
 import colorPickerSolidValueSwatch from '../../../snippets/color-picker/solid/value-swatch.tsx?raw';
+import colorPickerVueAdvancedCustomization from '../../../snippets/color-picker/vue/advanced-customization.vue?raw';
+import colorPickerVueBasic from '../../../snippets/color-picker/vue/basic.vue?raw';
+import colorPickerVueCompactTrigger from '../../../snippets/color-picker/vue/compact-trigger.vue?raw';
+import colorPickerVueControlled from '../../../snippets/color-picker/vue/controlled.vue?raw';
+import colorPickerVueDisabled from '../../../snippets/color-picker/vue/disabled.vue?raw';
+import colorPickerVueFieldState from '../../../snippets/color-picker/vue/field-state.vue?raw';
+import colorPickerVueFormUsage from '../../../snippets/color-picker/vue/form-usage.vue?raw';
+import colorPickerVueFormatViews from '../../../snippets/color-picker/vue/format-views.vue?raw';
+import colorPickerVueInline from '../../../snippets/color-picker/vue/inline.vue?raw';
+import colorPickerVueInsideDialog from '../../../snippets/color-picker/vue/inside-dialog.vue?raw';
+import colorPickerVueInputOnly from '../../../snippets/color-picker/vue/input-only.vue?raw';
+import colorPickerVueOpenControlled from '../../../snippets/color-picker/vue/open-controlled.vue?raw';
+import colorPickerVueRootProvider from '../../../snippets/color-picker/vue/root-provider.vue?raw';
+import colorPickerVueSliderOnly from '../../../snippets/color-picker/vue/slider-only.vue?raw';
+import colorPickerVueSwatchOnly from '../../../snippets/color-picker/vue/swatch-only.vue?raw';
+import colorPickerVueSwatches from '../../../snippets/color-picker/vue/swatches.vue?raw';
+import colorPickerVueValueSwatch from '../../../snippets/color-picker/vue/value-swatch.vue?raw';
 
 ## API Reference
 
@@ -53,7 +70,7 @@ to enter a known value and do not need to manipulate the color directly.
 ## Basic
 
 Start with a compact field that combines a root, one channel input, the trigger's default swatch,
-explicit popup content, and the picker's default internal parts. Add `ColorPicker.HiddenInput`
+explicit popup content, and the picker's default internal parts. Add `ColorPickerHiddenInput`
 explicitly when the color should be submitted with a form.
 
 <ExampleFrame variant="component">
@@ -67,6 +84,7 @@ explicitly when the color should be submitted with a form.
     values={[
       { label: 'React', value: 'react' },
       { label: 'Solid', value: 'solid' },
+      { label: 'Vue', value: 'vue' },
     ]}
     className="docs-tabs"
   >
@@ -79,6 +97,11 @@ explicitly when the color should be submitted with a form.
     <Tab value="solid">
 
 <CodeBlockRuntime lang="tsx" code={colorPickerSolidBasic} />
+
+    </Tab>
+    <Tab value="vue">
+
+<CodeBlockRuntime lang="vue" code={colorPickerVueBasic} />
 
     </Tab>
   </Tabs>
@@ -116,63 +139,82 @@ See [Quick Start](/docs/quick-start) for full package setup, registry configurat
 />
 
   </Tab>
+  <Tab label="Vue" value="vue">
+
+<ShadcnInstallOptions
+  options={[
+    { label: 'CSS Modules', command: 'shadcn@latest add @moduix-vue/color-picker' },
+    { label: 'Tailwind CSS', command: 'shadcn@latest add @moduix-vue-tailwind/color-picker' },
+  ]}
+/>
+
+  </Tab>
 </Tabs>
 
 ## Anatomy
 
 ```text
-ColorPicker / ColorPicker.Root
-├─ ColorPicker.Label
-├─ ColorPicker.Control
-│  ├─ ColorPicker.ChannelInput[channel]
-│  └─ ColorPicker.Trigger
-│     ├─ ColorPicker.TransparencyGrid
-│     └─ ColorPicker.ValueSwatch
+ColorPicker
+├─ ColorPickerLabel
+├─ ColorPickerControl
+│  ├─ ColorPickerChannelInput[channel]
+│  └─ ColorPickerTrigger
+│     ├─ ColorPickerTransparencyGrid
+│     └─ ColorPickerValueSwatch
 ├─ Overlay subtree (automatically portalled)
-│  └─ ColorPicker.Positioner
-│     └─ ColorPicker.Content
-│        ├─ ColorPicker.Area
-│        │  ├─ ColorPicker.AreaBackground
-│        │  └─ ColorPicker.AreaThumb
-│        ├─ ColorPicker.EyeDropperTrigger
-│        ├─ ColorPicker.ChannelSlider[channel]
-│        │  ├─ ColorPicker.TransparencyGrid
-│        │  ├─ ColorPicker.ChannelSliderTrack
-│        │  └─ ColorPicker.ChannelSliderThumb
-│        ├─ ColorPicker.SwatchGroup
-│        │  └─ ColorPicker.SwatchTrigger[value]
-│        │     └─ ColorPicker.Swatch[value]
-│        │        └─ ColorPicker.SwatchIndicator
-│        └─ ColorPicker.View[format]
-│           └─ ColorPicker.ChannelInput[channel]
-└─ ColorPicker.HiddenInput (explicit)
+│  └─ ColorPickerPositioner
+│     └─ ColorPickerContent
+│        ├─ ColorPickerArea
+│        │  ├─ ColorPickerAreaBackground
+│        │  └─ ColorPickerAreaThumb
+│        ├─ ColorPickerEyeDropperTrigger
+│        ├─ ColorPickerChannelSlider[channel]
+│        │  ├─ ColorPickerTransparencyGrid
+│        │  ├─ ColorPickerChannelSliderTrack
+│        │  └─ ColorPickerChannelSliderThumb
+│        ├─ ColorPickerSwatchGroup
+│        │  └─ ColorPickerSwatchTrigger[value]
+│        │     └─ ColorPickerSwatch[value]
+│        │        └─ ColorPickerSwatchIndicator
+│        └─ ColorPickerView[format]
+│           └─ ColorPickerChannelInput[channel]
+└─ ColorPickerHiddenInput (explicit)
 ```
 
 | Part                               | Role                                                                   |
 | ---------------------------------- | ---------------------------------------------------------------------- |
-| `ColorPicker` / `ColorPicker.Root` | Owns color value, format, popup state, and form integration.           |
-| `ColorPicker.HiddenInput` | Native Ark form control; compose explicitly as described below. |
-| `ColorPicker.Control`              | Groups visible inputs and trigger.                                     |
-| `ColorPicker.Trigger`              | Button that opens the popup and renders the current swatch by default. |
-| `ColorPicker.Content`              | Actual Ark popup content part.                                         |
-| `ColorPicker.Area`                 | Two-dimensional color interaction surface.                             |
-| `ColorPicker.ChannelSlider`        | One-dimensional channel control for hue, alpha, or other channels.     |
-| `ColorPicker.Sliders`              | Styled hue and alpha slider pair.                                      |
-| `ColorPicker.ChannelInput`         | Text or numeric input for a specific color channel.                    |
-| `ColorPicker.SwatchTrigger`        | Selectable preset color button.                                        |
-| `ColorPicker.ValueSwatch`          | Visual swatch for the current value.                                   |
+| `ColorPicker` | Owns color value, format, popup state, and form integration.           |
+| `ColorPickerHiddenInput` | Native Ark form control; compose explicitly as described below. |
+| `ColorPickerLabel` | Accessible label for the visible picker controls. |
+| `ColorPickerControl`              | Groups visible inputs and trigger.                                     |
+| `ColorPickerTrigger`              | Button that opens the popup and renders the current swatch by default. |
+| `ColorPickerPositioner` | Floating layer that positions the popup and exposes Ark positioning CSS variables. |
+| `ColorPickerContent`              | Actual Ark popup content part.                                         |
+| `ColorPickerArea`                 | Two-dimensional color interaction surface.                             |
+| `ColorPickerAreaBackground` | Background layer that captures pointer input for the color area. |
+| `ColorPickerEyeDropperTrigger` | Samples a color from the screen; rendered only where the browser supports the EyeDropper API. |
+| `ColorPickerChannelSlider`        | One-dimensional channel control for hue, alpha, or other channels.     |
+| `ColorPickerTransparencyGrid` | Checkerboard backdrop that makes alpha visible behind a trigger or channel slider. |
+| `ColorPickerSliders`              | Styled hue and alpha slider pair.                                      |
+| `ColorPickerChannelInput`         | Text or numeric input for a specific color channel.                    |
+| `ColorPickerSwatchTrigger`        | Selectable preset color button.                                        |
+| `ColorPickerSwatch` | Colored surface rendered inside a swatch trigger or value swatch. |
+| `ColorPickerSwatchIndicator` | Optional marker inside a swatch, such as a check for the selected preset. |
+| `ColorPickerValueSwatch`          | Visual swatch for the current value.                                   |
+| `ColorPickerValueText` | Read-only text of the formatted value. |
 
-`ColorPicker.RootProvider`, `parseColor`, `useColorPicker`, and `useColorPickerContext` cover the
-normal advanced state path. Import Ark-only type helpers directly when needed as an escape hatch.
+`ColorPickerRootProvider`, `parseColor`, `useColorPicker`, and `useColorPickerContext` cover the
+normal advanced state path.
 
 ## Composition
 
-Use `defaultValue` for local state. When application state owns the selected color or popup, pass `value` with `onValueChange(details)` or `open` with `onOpenChange(details)`. For state created outside the rendered tree, pass `useColorPicker()` to `ColorPicker.RootProvider`; do not render `ColorPicker` or `ColorPicker.Root` for the same store.
+Use `defaultValue` for local state. When application state owns the selected color or popup, pass `value` with `onValueChange(details)` or `open` with `onOpenChange(details)`. In Vue, bind the same state with `v-model`, `v-model:open`, and `v-model:format`. For state created outside the rendered tree, pass `useColorPicker()` to `ColorPickerRootProvider`; do not render `ColorPicker` and `ColorPickerRootProvider` for the same store.
 
-`ColorPicker.Positioner` is portalled by default. Set `portalled={false}` for an overlay inside another stacking context. To submit the color with a native form, set `name` on the root and render `ColorPicker.HiddenInput` explicitly. Parts such as `Area`, `ChannelSlider`, and `SwatchTrigger` provide default visual children; pass children only when changing their structure.
+`ColorPickerPositioner` is portalled by default. Set `portalled={false}` for an overlay inside another stacking context. To submit the color with a native form, set `name` on the root and render `ColorPickerHiddenInput` explicitly. Parts such as `ColorPickerArea`, `ColorPickerChannelSlider`, and `ColorPickerSwatchTrigger` provide default visual children; pass children only when changing their structure.
 
 In Solid, assign a ref to the element created inside the `asChild` render function. A ref on a
-ColorPicker part itself is not forwarded through that composition path.
+ColorPicker part itself is not forwarded through that composition path. In Vue, use the ordinary
+template `ref` on a part and read the rendered element through `$el`.
 
 ## Examples
 
@@ -192,6 +234,7 @@ typed channel input.
     values={[
       { label: 'React', value: 'react' },
       { label: 'Solid', value: 'solid' },
+      { label: 'Vue', value: 'vue' },
     ]}
     className="docs-tabs"
   >
@@ -206,6 +249,11 @@ typed channel input.
 <CodeBlockRuntime lang="tsx" code={colorPickerSolidSliderOnly} />
 
     </Tab>
+    <Tab value="vue">
+
+<CodeBlockRuntime lang="vue" code={colorPickerVueSliderOnly} />
+
+    </Tab>
   </Tabs>
 </div>
 
@@ -213,7 +261,7 @@ typed channel input.
 
 ### Compact Trigger
 
-Use `data-fit-content` on `ColorPicker.Trigger` when a content-sized button is more useful than a
+Use `data-fit-content` on `ColorPickerTrigger` when a content-sized button is more useful than a
 square swatch, such as when replacing a button-based color field.
 
 <ExampleFrame variant="component">
@@ -227,6 +275,7 @@ square swatch, such as when replacing a button-based color field.
     values={[
       { label: 'React', value: 'react' },
       { label: 'Solid', value: 'solid' },
+      { label: 'Vue', value: 'vue' },
     ]}
     className="docs-tabs"
   >
@@ -239,6 +288,11 @@ square swatch, such as when replacing a button-based color field.
     <Tab value="solid">
 
 <CodeBlockRuntime lang="tsx" code={colorPickerSolidCompactTrigger} />
+
+    </Tab>
+    <Tab value="vue">
+
+<CodeBlockRuntime lang="vue" code={colorPickerVueCompactTrigger} />
 
     </Tab>
   </Tabs>
@@ -266,6 +320,7 @@ Use controlled state when the selected color must stay in sync with application 
     values={[
       { label: 'React', value: 'react' },
       { label: 'Solid', value: 'solid' },
+      { label: 'Vue', value: 'vue' },
     ]}
     className="docs-tabs"
   >
@@ -278,6 +333,11 @@ Use controlled state when the selected color must stay in sync with application 
     <Tab value="solid">
 
 <CodeBlockRuntime lang="tsx" code={colorPickerSolidControlled} />
+
+    </Tab>
+    <Tab value="vue">
+
+<CodeBlockRuntime lang="vue" code={colorPickerVueControlled} />
 
     </Tab>
   </Tabs>
@@ -301,6 +361,7 @@ the current color visible.
     values={[
       { label: 'React', value: 'react' },
       { label: 'Solid', value: 'solid' },
+      { label: 'Vue', value: 'vue' },
     ]}
     className="docs-tabs"
   >
@@ -313,6 +374,11 @@ the current color visible.
     <Tab value="solid">
 
 <CodeBlockRuntime lang="tsx" code={colorPickerSolidDisabled} />
+
+    </Tab>
+    <Tab value="vue">
+
+<CodeBlockRuntime lang="vue" code={colorPickerVueDisabled} />
 
     </Tab>
   </Tabs>
@@ -336,6 +402,7 @@ field container and should expose the same state through Ark data attributes.
     values={[
       { label: 'React', value: 'react' },
       { label: 'Solid', value: 'solid' },
+      { label: 'Vue', value: 'vue' },
     ]}
     className="docs-tabs"
   >
@@ -350,6 +417,11 @@ field container and should expose the same state through Ark data attributes.
 <CodeBlockRuntime lang="tsx" code={colorPickerSolidFieldState} />
 
     </Tab>
+    <Tab value="vue">
+
+<CodeBlockRuntime lang="vue" code={colorPickerVueFieldState} />
+
+    </Tab>
   </Tabs>
 
 **Styles**
@@ -362,7 +434,7 @@ field container and should expose the same state through Ark data attributes.
 
 ### Form Usage
 
-Use `name` on `ColorPicker` and add `ColorPicker.HiddenInput` explicitly.
+Use `name` on `ColorPicker` and add `ColorPickerHiddenInput` explicitly.
 
 <ExampleFrame variant="component">
   <ColorPickerFormUsage />
@@ -375,6 +447,7 @@ Use `name` on `ColorPicker` and add `ColorPicker.HiddenInput` explicitly.
     values={[
       { label: 'React', value: 'react' },
       { label: 'Solid', value: 'solid' },
+      { label: 'Vue', value: 'vue' },
     ]}
     className="docs-tabs"
   >
@@ -389,6 +462,11 @@ Use `name` on `ColorPicker` and add `ColorPicker.HiddenInput` explicitly.
 <CodeBlockRuntime lang="tsx" code={colorPickerSolidFormUsage} />
 
     </Tab>
+    <Tab value="vue">
+
+<CodeBlockRuntime lang="vue" code={colorPickerVueFormUsage} />
+
+    </Tab>
   </Tabs>
 </div>
 
@@ -396,8 +474,8 @@ Use `name` on `ColorPicker` and add `ColorPicker.HiddenInput` explicitly.
 
 ### Format Views
 
-Use `format`, `onFormatChange`, `FormatSelect`, and `View` when users need to switch between channel
-input groups without changing the picker structure. `FormatSelect` keeps Ark's native format
+Use `format`, `onFormatChange`, `ColorPickerFormatSelect`, and `ColorPickerView` when users need to switch between channel
+input groups without changing the picker structure. `ColorPickerFormatSelect` keeps Ark's native format
 control, while its collapsed trigger is styled like the moduix Select field and consistently
 presents the RGBA, HSLA, and HSBA options. The browser controls the options popup.
 
@@ -412,6 +490,7 @@ presents the RGBA, HSLA, and HSBA options. The browser controls the options popu
     values={[
       { label: 'React', value: 'react' },
       { label: 'Solid', value: 'solid' },
+      { label: 'Vue', value: 'vue' },
     ]}
     className="docs-tabs"
   >
@@ -424,6 +503,11 @@ presents the RGBA, HSLA, and HSBA options. The browser controls the options popu
     <Tab value="solid">
 
 <CodeBlockRuntime lang="tsx" code={colorPickerSolidFormatViews} />
+
+    </Tab>
+    <Tab value="vue">
+
+<CodeBlockRuntime lang="vue" code={colorPickerVueFormatViews} />
 
     </Tab>
   </Tabs>
@@ -451,6 +535,7 @@ Use `inline` in settings panels where the color tools should stay visible withou
     values={[
       { label: 'React', value: 'react' },
       { label: 'Solid', value: 'solid' },
+      { label: 'Vue', value: 'vue' },
     ]}
     className="docs-tabs"
   >
@@ -463,6 +548,11 @@ Use `inline` in settings panels where the color tools should stay visible withou
     <Tab value="solid">
 
 <CodeBlockRuntime lang="tsx" code={colorPickerSolidInline} />
+
+    </Tab>
+    <Tab value="vue">
+
+<CodeBlockRuntime lang="vue" code={colorPickerVueInline} />
 
     </Tab>
   </Tabs>
@@ -491,6 +581,7 @@ unnecessary complexity to the interface.
     values={[
       { label: 'React', value: 'react' },
       { label: 'Solid', value: 'solid' },
+      { label: 'Vue', value: 'vue' },
     ]}
     className="docs-tabs"
   >
@@ -503,6 +594,11 @@ unnecessary complexity to the interface.
     <Tab value="solid">
 
 <CodeBlockRuntime lang="tsx" code={colorPickerSolidInputOnly} />
+
+    </Tab>
+    <Tab value="vue">
+
+<CodeBlockRuntime lang="vue" code={colorPickerVueInputOnly} />
 
     </Tab>
   </Tabs>
@@ -531,6 +627,7 @@ dialog's stacking context and stays interactive above the dialog surface.
     values={[
       { label: 'React', value: 'react' },
       { label: 'Solid', value: 'solid' },
+      { label: 'Vue', value: 'vue' },
     ]}
     className="docs-tabs"
   >
@@ -543,6 +640,11 @@ dialog's stacking context and stays interactive above the dialog surface.
     <Tab value="solid">
 
 <CodeBlockRuntime lang="tsx" code={colorPickerSolidInsideDialog} />
+
+    </Tab>
+    <Tab value="vue">
+
+<CodeBlockRuntime lang="vue" code={colorPickerVueInsideDialog} />
 
     </Tab>
   </Tabs>
@@ -570,6 +672,7 @@ Use controlled `open` state when another control or workflow owns the popup's vi
     values={[
       { label: 'React', value: 'react' },
       { label: 'Solid', value: 'solid' },
+      { label: 'Vue', value: 'vue' },
     ]}
     className="docs-tabs"
   >
@@ -584,6 +687,11 @@ Use controlled `open` state when another control or workflow owns the popup's vi
 <CodeBlockRuntime lang="tsx" code={colorPickerSolidOpenControlled} />
 
     </Tab>
+    <Tab value="vue">
+
+<CodeBlockRuntime lang="vue" code={colorPickerVueOpenControlled} />
+
+    </Tab>
   </Tabs>
 
 **Styles**
@@ -594,9 +702,9 @@ Use controlled `open` state when another control or workflow owns the popup's vi
 
 </ExampleCode>
 
-### RootProvider
+### Root Provider
 
-Use moduix `useColorPicker` with `RootProvider` when the color picker state must be created outside
+Use moduix `useColorPicker` with `ColorPickerRootProvider` when the color picker state must be created outside
 the rendered tree and shared with nearby controls.
 
 <ExampleFrame variant="component">
@@ -610,6 +718,7 @@ the rendered tree and shared with nearby controls.
     values={[
       { label: 'React', value: 'react' },
       { label: 'Solid', value: 'solid' },
+      { label: 'Vue', value: 'vue' },
     ]}
     className="docs-tabs"
   >
@@ -622,6 +731,11 @@ the rendered tree and shared with nearby controls.
     <Tab value="solid">
 
 <CodeBlockRuntime lang="tsx" code={colorPickerSolidRootProvider} />
+
+    </Tab>
+    <Tab value="vue">
+
+<CodeBlockRuntime lang="vue" code={colorPickerVueRootProvider} />
 
     </Tab>
   </Tabs>
@@ -650,6 +764,7 @@ unnecessary.
     values={[
       { label: 'React', value: 'react' },
       { label: 'Solid', value: 'solid' },
+      { label: 'Vue', value: 'vue' },
     ]}
     className="docs-tabs"
   >
@@ -662,6 +777,11 @@ unnecessary.
     <Tab value="solid">
 
 <CodeBlockRuntime lang="tsx" code={colorPickerSolidSwatchOnly} />
+
+    </Tab>
+    <Tab value="vue">
+
+<CodeBlockRuntime lang="vue" code={colorPickerVueSwatchOnly} />
 
     </Tab>
   </Tabs>
@@ -690,6 +810,7 @@ Use popup swatches when the picker should offer a curated set of colors alongsid
     values={[
       { label: 'React', value: 'react' },
       { label: 'Solid', value: 'solid' },
+      { label: 'Vue', value: 'vue' },
     ]}
     className="docs-tabs"
   >
@@ -704,6 +825,11 @@ Use popup swatches when the picker should offer a curated set of colors alongsid
 <CodeBlockRuntime lang="tsx" code={colorPickerSolidSwatches} />
 
     </Tab>
+    <Tab value="vue">
+
+<CodeBlockRuntime lang="vue" code={colorPickerVueSwatches} />
+
+    </Tab>
   </Tabs>
 </div>
 
@@ -711,7 +837,7 @@ Use popup swatches when the picker should offer a curated set of colors alongsid
 
 ### Value Swatch
 
-Use `ValueSwatch` and `ValueText` when nearby UI needs to show the selected color without opening
+Use `ColorPickerValueSwatch` and `ColorPickerValueText` when nearby UI needs to show the selected color without opening
 the full picker.
 
 <ExampleFrame variant="component">
@@ -725,6 +851,7 @@ the full picker.
     values={[
       { label: 'React', value: 'react' },
       { label: 'Solid', value: 'solid' },
+      { label: 'Vue', value: 'vue' },
     ]}
     className="docs-tabs"
   >
@@ -737,6 +864,11 @@ the full picker.
     <Tab value="solid">
 
 <CodeBlockRuntime lang="tsx" code={colorPickerSolidValueSwatch} />
+
+    </Tab>
+    <Tab value="vue">
+
+<CodeBlockRuntime lang="vue" code={colorPickerVueValueSwatch} />
 
     </Tab>
   </Tabs>
@@ -764,6 +896,7 @@ Use explicit parts and children when the default composition needs a different v
     values={[
       { label: 'React', value: 'react' },
       { label: 'Solid', value: 'solid' },
+      { label: 'Vue', value: 'vue' },
     ]}
     className="docs-tabs"
   >
@@ -778,6 +911,11 @@ Use explicit parts and children when the default composition needs a different v
 <CodeBlockRuntime lang="tsx" code={colorPickerSolidAdvancedCustomization} />
 
     </Tab>
+    <Tab value="vue">
+
+<CodeBlockRuntime lang="vue" code={colorPickerVueAdvancedCustomization} />
+
+    </Tab>
   </Tabs>
 </div>
 
@@ -785,7 +923,7 @@ Use explicit parts and children when the default composition needs a different v
 
 ## Styling
 
-Use `className` in React or `class` in Solid on exported parts. Tailwind variants use native utilities and consumer classes; CSS Modules variants use the public `--moduix-color-picker-*` CSS variables shown below. Both styling tracks expose stable `data-slot="color-picker-*"` hooks and Ark `data-scope` / `data-part` attributes.
+Use `className` in React or `class` in Solid and Vue on exported parts. Tailwind variants use native utilities and consumer classes; CSS Modules variants use the public `--moduix-color-picker-*` CSS variables shown below. Both styling tracks expose stable `data-slot="color-picker-*"` hooks and Ark `data-scope` / `data-part` attributes.
 ### CSS Properties
 
 <CssPropertiesSection properties={ColorPickerDocs.colorPickerOverrideCssProperties} />
@@ -795,16 +933,16 @@ Use `className` in React or `class` in Solid on exported parts. Tailwind variant
 Use the part that owns the visual concern:
 
 - `ColorPicker` for width, gap, shared color, and disabled opacity
-- `ColorPicker.Control`, `ChannelInput`, `Trigger`, `FormatSelect`, and `FormatTrigger` for the
+- `ColorPickerControl`, `ColorPickerChannelInput`, `ColorPickerTrigger`, `ColorPickerFormatSelect`, and `ColorPickerFormatTrigger` for the
   visible field controls
-- `ColorPicker.Positioner` and `ColorPicker.Content` for popup layering, width, padding, radius,
+- `ColorPickerPositioner` and `ColorPickerContent` for popup layering, width, padding, radius,
   shadow, and state animations
-- `ColorPicker.Area`, `AreaBackground`, and `AreaThumb` for the two-dimensional color surface
-- `ColorPicker.ChannelSlider`, `ChannelSliderTrack`, `ChannelSliderThumb`, and `Sliders` for hue,
+- `ColorPickerArea`, `ColorPickerAreaBackground`, and `ColorPickerAreaThumb` for the two-dimensional color surface
+- `ColorPickerChannelSlider`, `ColorPickerChannelSliderTrack`, `ColorPickerChannelSliderThumb`, and `ColorPickerSliders` for hue,
   alpha, and other channel sliders
-- `ColorPicker.SwatchGroup`, `SwatchTrigger`, `Swatch`, and `SwatchIndicator` for preset color
+- `ColorPickerSwatchGroup`, `ColorPickerSwatchTrigger`, `ColorPickerSwatch`, and `ColorPickerSwatchIndicator` for preset color
   grids
-- `ColorPicker.ValueSwatch`, `ValueText`, `View`, and `TransparencyGrid` for value display and
+- `ColorPickerValueSwatch`, `ColorPickerValueText`, `ColorPickerView`, and `ColorPickerTransparencyGrid` for value display and
   format-specific layouts
 
 The main state hooks are `data-state`, `data-focus`, `data-invalid`, `data-disabled`,

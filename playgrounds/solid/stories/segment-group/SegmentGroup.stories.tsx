@@ -1,7 +1,17 @@
 import { clsx } from 'clsx';
 import { createSignal } from 'solid-js';
 import type { Meta, StoryObj } from 'storybook-solidjs-vite';
-import { SegmentGroup, useSegmentGroup } from '@/components/segment-group/SegmentGroup';
+import {
+  SegmentGroup,
+  SegmentGroupIndicator,
+  SegmentGroupItem,
+  SegmentGroupItemControl,
+  SegmentGroupItemHiddenInput,
+  SegmentGroupItems,
+  SegmentGroupItemText,
+  SegmentGroupRootProvider,
+  useSegmentGroup,
+} from '@/components/segment-group/SegmentGroup';
 import styles from './SegmentGroup.stories.module.css';
 
 const meta = {
@@ -24,8 +34,8 @@ const viewItems = ['List', 'Board', 'Calendar'].map((value) => ({ value, label: 
 export const Basic: Story = {
   render: () => (
     <SegmentGroup aria-label="Framework" defaultValue="React">
-      <SegmentGroup.Indicator />
-      <SegmentGroup.Items items={frameworkItems} />
+      <SegmentGroupIndicator />
+      <SegmentGroupItems items={frameworkItems} />
     </SegmentGroup>
   ),
 };
@@ -41,8 +51,8 @@ export const Controlled: Story = {
           value={value()}
           onValueChange={(details) => setValue(details.value)}
         >
-          <SegmentGroup.Indicator />
-          <SegmentGroup.Items items={frameworkItems} />
+          <SegmentGroupIndicator />
+          <SegmentGroupItems items={frameworkItems} />
         </SegmentGroup>
         <span class={styles.hint}>Current value: {value() ?? 'none'}</span>
       </div>
@@ -56,10 +66,10 @@ export const RootProvider: Story = {
 
     return (
       <div class={styles.stack}>
-        <SegmentGroup.RootProvider aria-label="Framework" value={segmentGroup}>
-          <SegmentGroup.Indicator />
-          <SegmentGroup.Items items={frameworkItems} />
-        </SegmentGroup.RootProvider>
+        <SegmentGroupRootProvider aria-label="Framework" value={segmentGroup}>
+          <SegmentGroupIndicator />
+          <SegmentGroupItems items={frameworkItems} />
+        </SegmentGroupRootProvider>
         <button
           type="button"
           class={styles.button}
@@ -76,14 +86,14 @@ export const Disabled: Story = {
   render: () => (
     <div class={styles.stack}>
       <SegmentGroup aria-label="Framework with unavailable item" defaultValue="React">
-        <SegmentGroup.Indicator />
-        <SegmentGroup.Items
+        <SegmentGroupIndicator />
+        <SegmentGroupItems
           items={frameworkItems.map((item) => ({ ...item, disabled: item.value === 'Svelte' }))}
         />
       </SegmentGroup>
       <SegmentGroup aria-label="Disabled framework" defaultValue="React" disabled>
-        <SegmentGroup.Indicator />
-        <SegmentGroup.Items items={frameworkItems} />
+        <SegmentGroupIndicator />
+        <SegmentGroupItems items={frameworkItems} />
       </SegmentGroup>
     </div>
   ),
@@ -92,8 +102,8 @@ export const Disabled: Story = {
 export const Invalid: Story = {
   render: () => (
     <SegmentGroup aria-label="Framework" name="framework" defaultValue="React" invalid required>
-      <SegmentGroup.Indicator />
-      <SegmentGroup.Items items={frameworkItems} />
+      <SegmentGroupIndicator />
+      <SegmentGroupItems items={frameworkItems} />
     </SegmentGroup>
   ),
 };
@@ -106,8 +116,8 @@ export const Vertical: Story = {
       orientation="vertical"
       class={styles.vertical}
     >
-      <SegmentGroup.Indicator />
-      <SegmentGroup.Items items={viewItems} />
+      <SegmentGroupIndicator />
+      <SegmentGroupItems items={viewItems} />
     </SegmentGroup>
   ),
 };
@@ -115,13 +125,13 @@ export const Vertical: Story = {
 export const CustomStyling: Story = {
   render: () => (
     <SegmentGroup aria-label="Framework" defaultValue="React" class={styles.customRoot}>
-      <SegmentGroup.Indicator />
+      <SegmentGroupIndicator />
       {frameworks.map((item) => (
-        <SegmentGroup.Item value={item} class={styles.customItem}>
-          <SegmentGroup.ItemText>{item}</SegmentGroup.ItemText>
-          <SegmentGroup.ItemControl />
-          <SegmentGroup.ItemHiddenInput />
-        </SegmentGroup.Item>
+        <SegmentGroupItem value={item} class={styles.customItem}>
+          <SegmentGroupItemText>{item}</SegmentGroupItemText>
+          <SegmentGroupItemControl />
+          <SegmentGroupItemHiddenInput />
+        </SegmentGroupItem>
       ))}
     </SegmentGroup>
   ),
@@ -130,12 +140,12 @@ export const CustomStyling: Story = {
 export const AsChild: Story = {
   render: () => (
     <SegmentGroup aria-label="Billing cycle" defaultValue="Monthly">
-      <SegmentGroup.Indicator />
+      <SegmentGroupIndicator />
       {[
         ['Monthly', 'Pay monthly'],
         ['Annual', 'Save 20%'],
       ].map(([item, description]) => (
-        <SegmentGroup.Item
+        <SegmentGroupItem
           value={item}
           asChild={(props) => {
             const itemProps = props();
@@ -144,12 +154,12 @@ export const AsChild: Story = {
           }}
         >
           <>
-            <SegmentGroup.ItemText class={styles.cardTitle}>{item}</SegmentGroup.ItemText>
+            <SegmentGroupItemText class={styles.cardTitle}>{item}</SegmentGroupItemText>
             <span class={styles.cardDescription}>{description}</span>
-            <SegmentGroup.ItemControl />
-            <SegmentGroup.ItemHiddenInput />
+            <SegmentGroupItemControl />
+            <SegmentGroupItemHiddenInput />
           </>
-        </SegmentGroup.Item>
+        </SegmentGroupItem>
       ))}
     </SegmentGroup>
   ),

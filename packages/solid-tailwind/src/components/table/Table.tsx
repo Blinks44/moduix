@@ -10,7 +10,7 @@ type TableDataProps = {
   'data-slot'?: string;
 };
 
-type TableRootProps = HTMLArkProps<'table'> &
+type TableProps = HTMLArkProps<'table'> &
   TableDataProps & {
     interactive?: boolean;
     showColumnBorder?: boolean;
@@ -77,7 +77,7 @@ const tableVariants = cva(
   },
 );
 
-function TableRoot(props: TableRootProps) {
+function Table(props: TableProps) {
   const [local, others] = splitProps(props, [
     'asChild',
     'class',
@@ -400,19 +400,17 @@ function TableEmpty(props: TableEmptyProps) {
   );
 }
 
-const Table = Object.assign(TableRoot, {
-  Root: TableRoot,
-  ScrollArea: TableScrollArea,
-  Caption: TableCaption,
-  ColumnGroup: TableColumnGroup,
-  Column: TableColumn,
-  Header: TableHeader,
-  Body: TableBody,
-  Footer: TableFooter,
-  Row: TableRow,
-  ColumnHeader: TableColumnHeader,
-  Cell: TableCell,
-  Empty: TableEmpty,
-});
-
-export { Table };
+export {
+  Table,
+  TableBody,
+  TableCaption,
+  TableCell,
+  TableColumn,
+  TableColumnGroup,
+  TableColumnHeader,
+  TableEmpty,
+  TableFooter,
+  TableHeader,
+  TableRow,
+  TableScrollArea,
+};

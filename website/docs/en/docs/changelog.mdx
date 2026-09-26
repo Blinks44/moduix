@@ -1,6 +1,6 @@
 ---
-title: Changelog
-description: Product releases and major changes in moduix.
+title: What's new
+description: Notable changes in moduix.
 ---
 
 import { LocalizationHero } from '@/components/changelog/localization-hero';
@@ -11,6 +11,8 @@ import { TableOfContentsHero } from '@/components/changelog/table-of-contents-he
 import { SolidReleaseHero } from '@/components/changelog/solid-release-hero';
 import { TailwindReleaseHero } from '@/components/changelog/tailwind-release-hero';
 import { ChangelogNewsItem } from '@/components/changelog/hero';
+
+# What's new
 
 <ChangelogNewsItem>
   <TailwindReleaseHero />
@@ -51,10 +53,10 @@ section. Pass it the headings you want to track, and each entry links to its mat
 
 ### Follow readers through long pages
 
-Use `Toc.Content` for the reading area and `Toc.Nav` for the list of headings. The active entry
+Use `TocContent` for the reading area and `TocNav` for the list of headings. The active entry
 updates as the reader moves through the page.
 
-Use `Toc.Indicator` or `Toc.Rail` to show the hierarchy. Add `Toc.RootProvider` when controls outside
+Use `TocIndicator` or `TocRail` to show the hierarchy. Add `TocRootProvider` when controls outside
 the table of contents need to share its state.
 </ChangelogNewsItem>
 
@@ -66,11 +68,11 @@ Use it when the top-level navigation needs both kinds of entries.
 
 ### Group links without hiding destinations
 
-Use `NavigationMenu.Link` for a direct destination. For a group of links, combine
-`NavigationMenu.Trigger` with `NavigationMenu.Content`.
+Use `NavigationMenuLink` for a direct destination. For a group of links, combine
+`NavigationMenuTrigger` with `NavigationMenuContent`.
 
-Add `NavigationMenu.Viewport` when several panels should animate inside one shared surface. Ark UI
-handles keyboard interaction, focus, and the open value. `Arrow` is optional.
+Add `NavigationMenuViewport` when several panels should animate inside one shared surface. Ark UI
+handles keyboard interaction, focus, and the open value. `NavigationMenuArrow` is optional.
 </ChangelogNewsItem>
 
 <ChangelogNewsItem>
@@ -82,7 +84,7 @@ TanStack, then add the moduix header, legend, compact tooltip, and motion settin
 ### Charts with a consistent figure
 
 TanStack still controls the marks, scales, interactions, and callbacks. Compose the chart with
-`Chart.Header`, `Chart.Plot`, and `Chart.Legend` for a consistent figure structure.
+`ChartHeader`, `ChartPlot`, and `ChartLegend` for a consistent figure structure.
 
 TanStack also controls keyboard navigation and the tooltip lifecycle. The moduix motion preset
 respects reduced-motion preferences, and `motion={false}` disables the animation.
@@ -94,9 +96,7 @@ respects reduced-motion preferences, and `motion={false}` disables the animation
 The documentation is now available in English, Russian, and French. Component pages, examples, and
 recipes are translated throughout.
 
-### The docs now speak three languages
-
-You can read a component guide, copy an example, and follow a recipe without switching languages.
+### French and Russian documentation
 
 Navigation, page metadata, locale-aware routes, and copyable examples are kept in sync across all
 three languages.

@@ -7,7 +7,7 @@ import styles from './Container.module.css';
 type ContainerSize = 'xs' | 'sm' | 'md' | 'lg' | 'xl' | 'full';
 type ContainerGutter = 'none' | 'sm' | 'md' | 'lg';
 
-type ContainerRootProps = HTMLArkProps<'div'> & {
+type ContainerProps = HTMLArkProps<'div'> & {
   size?: ContainerSize;
   gutter?: ContainerGutter;
   'data-scope'?: string;
@@ -17,7 +17,7 @@ type ContainerRootProps = HTMLArkProps<'div'> & {
   'data-gutter'?: string;
 };
 
-function ContainerRoot(props: ContainerRootProps) {
+function Container(props: ContainerProps) {
   const [local, others] = splitProps(props, [
     'asChild',
     'class',
@@ -43,9 +43,5 @@ function ContainerRoot(props: ContainerRootProps) {
     />
   );
 }
-
-const Container = Object.assign(ContainerRoot, {
-  Root: ContainerRoot,
-});
 
 export { Container };

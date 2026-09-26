@@ -1,7 +1,7 @@
 ---
 title: Stack
 component: stack
-description: A lightweight flex layout primitive for arranging content vertically or horizontally in React or Solid.
+description: A lightweight flex layout primitive for arranging content vertically or horizontally in React, Solid, or Vue.
 ---
 
 import * as StackDocs from '@/components/examples/stack/css-properties';
@@ -21,6 +21,14 @@ import stackSolidRowLayout from '../../../snippets/stack/solid/row-layout.tsx?ra
 import stackSolidSemanticElement from '../../../snippets/stack/solid/semantic-element.tsx?raw';
 import stackSolidSeparator from '../../../snippets/stack/solid/separator.tsx?raw';
 import stackSolidWrappedItems from '../../../snippets/stack/solid/wrapped-items.tsx?raw';
+import stackVueBasic from '../../../snippets/stack/vue/basic.vue?raw';
+import stackVueFill from '../../../snippets/stack/vue/growing-child-stack.vue?raw';
+import stackVueLoadingLayout from '../../../snippets/stack/vue/loading-layout.vue?raw';
+import stackVueResponsiveDirection from '../../../snippets/stack/vue/responsive-direction.vue?raw';
+import stackVueRowLayout from '../../../snippets/stack/vue/row-layout.vue?raw';
+import stackVueSemanticElement from '../../../snippets/stack/vue/semantic-element.vue?raw';
+import stackVueSeparator from '../../../snippets/stack/vue/separator.vue?raw';
+import stackVueWrappedItems from '../../../snippets/stack/vue/wrapped-items.vue?raw';
 
 ## API Reference
 
@@ -46,6 +54,7 @@ Use `Stack` when a single flex container is enough and you only need to control 
     values={[
       { label: 'React', value: 'react' },
       { label: 'Solid', value: 'solid' },
+      { label: 'Vue', value: 'vue' },
     ]}
     className="docs-tabs"
   >
@@ -58,6 +67,11 @@ Use `Stack` when a single flex container is enough and you only need to control 
     <Tab value="solid">
 
 <CodeBlockRuntime lang="tsx" code={stackSolidBasic} />
+
+    </Tab>
+    <Tab value="vue">
+
+<CodeBlockRuntime lang="vue" code={stackVueBasic} />
 
     </Tab>
   </Tabs>
@@ -90,6 +104,16 @@ See [Quick Start](/docs/quick-start) for full package setup, registry configurat
 />
 
   </Tab>
+  <Tab label="Vue" value="vue">
+
+<ShadcnInstallOptions
+  options={[
+    { label: 'CSS Modules', command: 'shadcn@latest add @moduix-vue/stack' },
+    { label: 'Tailwind CSS', command: 'shadcn@latest add @moduix-vue-tailwind/stack' },
+  ]}
+/>
+
+  </Tab>
 </Tabs>
 
 ## Anatomy
@@ -98,20 +122,20 @@ See [Quick Start](/docs/quick-start) for full package setup, registry configurat
 a simple responsive direction switch. Keep broader layout rules in your local CSS.
 
 ```text
-Stack / Stack.Root
+Stack
 └─ root[data-scope="stack"][data-part="root"][data-slot="stack-root"]
    └─ children
 ```
 
 | Part                   | Role                                                                |
 | ---------------------- | ------------------------------------------------------------------- |
-| `Stack` / `Stack.Root` | Root flex wrapper for direction, gap, alignment, and child spacing. |
+| `Stack`                | Root flex wrapper for direction, gap, alignment, and child spacing. |
 
 ## Composition
 
-`Stack` owns no managed state and exposes one root. Use the short `<Stack>` form for regular `div` output; `Stack.Root`
-is an alias for the same root. `fill` applies to the `Stack` as a flex item, not to its children. Add `Separator`
-directly as a child when the layout needs a divider, and use `asChild` when the root should be a semantic element.
+`Stack` owns no managed state and exposes one root. Use `<Stack>` for regular `div` output. `fill` applies to the
+`Stack` as a flex item, not to its children. Add `Separator` directly as a child when the layout needs a divider,
+and use `asChild` when the root should be a semantic element.
 
 ## Examples
 
@@ -130,6 +154,7 @@ Use `fill` when a nested `Stack` should take the remaining space in a flex row.
     values={[
       { label: 'React', value: 'react' },
       { label: 'Solid', value: 'solid' },
+      { label: 'Vue', value: 'vue' },
     ]}
     className="docs-tabs"
   >
@@ -142,6 +167,11 @@ Use `fill` when a nested `Stack` should take the remaining space in a flex row.
     <Tab value="solid">
 
 <CodeBlockRuntime lang="tsx" code={stackSolidFill} />
+
+    </Tab>
+    <Tab value="vue">
+
+<CodeBlockRuntime lang="vue" code={stackVueFill} />
 
     </Tab>
   </Tabs>
@@ -164,6 +194,7 @@ Combine `Stack` and `Skeleton` for a loading layout that only needs flex composi
     values={[
       { label: 'React', value: 'react' },
       { label: 'Solid', value: 'solid' },
+      { label: 'Vue', value: 'vue' },
     ]}
     className="docs-tabs"
   >
@@ -176,6 +207,11 @@ Combine `Stack` and `Skeleton` for a loading layout that only needs flex composi
     <Tab value="solid">
 
 <CodeBlockRuntime lang="tsx" code={stackSolidLoadingLayout} />
+
+    </Tab>
+    <Tab value="vue">
+
+<CodeBlockRuntime lang="vue" code={stackVueLoadingLayout} />
 
     </Tab>
   </Tabs>
@@ -199,6 +235,7 @@ if only one responsive value is provided, Stack uses it at both breakpoints.
     values={[
       { label: 'React', value: 'react' },
       { label: 'Solid', value: 'solid' },
+      { label: 'Vue', value: 'vue' },
     ]}
     className="docs-tabs"
   >
@@ -211,6 +248,11 @@ if only one responsive value is provided, Stack uses it at both breakpoints.
     <Tab value="solid">
 
 <CodeBlockRuntime lang="tsx" code={stackSolidResponsiveDirection} />
+
+    </Tab>
+    <Tab value="vue">
+
+<CodeBlockRuntime lang="vue" code={stackVueResponsiveDirection} />
 
     </Tab>
   </Tabs>
@@ -233,6 +275,7 @@ Use `direction="row"` with alignment props for inline content.
     values={[
       { label: 'React', value: 'react' },
       { label: 'Solid', value: 'solid' },
+      { label: 'Vue', value: 'vue' },
     ]}
     className="docs-tabs"
   >
@@ -245,6 +288,11 @@ Use `direction="row"` with alignment props for inline content.
     <Tab value="solid">
 
 <CodeBlockRuntime lang="tsx" code={stackSolidRowLayout} />
+
+    </Tab>
+    <Tab value="vue">
+
+<CodeBlockRuntime lang="vue" code={stackVueRowLayout} />
 
     </Tab>
   </Tabs>
@@ -267,6 +315,7 @@ Use Ark's `asChild` when the layout wrapper should also express document structu
     values={[
       { label: 'React', value: 'react' },
       { label: 'Solid', value: 'solid' },
+      { label: 'Vue', value: 'vue' },
     ]}
     className="docs-tabs"
   >
@@ -279,6 +328,11 @@ Use Ark's `asChild` when the layout wrapper should also express document structu
     <Tab value="solid">
 
 <CodeBlockRuntime lang="tsx" code={stackSolidSemanticElement} />
+
+    </Tab>
+    <Tab value="vue">
+
+<CodeBlockRuntime lang="vue" code={stackVueSemanticElement} />
 
     </Tab>
   </Tabs>
@@ -302,6 +356,7 @@ applies to every child, including dividers.
     values={[
       { label: 'React', value: 'react' },
       { label: 'Solid', value: 'solid' },
+      { label: 'Vue', value: 'vue' },
     ]}
     className="docs-tabs"
   >
@@ -314,6 +369,11 @@ applies to every child, including dividers.
     <Tab value="solid">
 
 <CodeBlockRuntime lang="tsx" code={stackSolidSeparator} />
+
+    </Tab>
+    <Tab value="vue">
+
+<CodeBlockRuntime lang="vue" code={stackVueSeparator} />
 
     </Tab>
   </Tabs>
@@ -336,6 +396,7 @@ Use `wrap="wrap"` when items should flow onto the next line.
     values={[
       { label: 'React', value: 'react' },
       { label: 'Solid', value: 'solid' },
+      { label: 'Vue', value: 'vue' },
     ]}
     className="docs-tabs"
   >
@@ -350,6 +411,11 @@ Use `wrap="wrap"` when items should flow onto the next line.
 <CodeBlockRuntime lang="tsx" code={stackSolidWrappedItems} />
 
     </Tab>
+    <Tab value="vue">
+
+<CodeBlockRuntime lang="vue" code={stackVueWrappedItems} />
+
+    </Tab>
   </Tabs>
 </div>
 
@@ -357,7 +423,7 @@ Use `wrap="wrap"` when items should flow onto the next line.
 
 ## Styling
 
-Use `className` in React or `class` in Solid on the root for structural styles. Tailwind variants use native utility
+Use `className` in React or `class` in Solid and Vue on the root for structural styles. Tailwind variants use native utility
 classes and consumer overrides; the CSS variables below customize the CSS Modules variants. Data attributes and the
 `data-slot` hook are shared by both styling tracks.
 

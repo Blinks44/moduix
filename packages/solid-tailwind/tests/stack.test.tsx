@@ -15,14 +15,6 @@ test('renders a flex root with stable styling hooks and default utilities', () =
   expect(stack).toHaveClass('flex', 'flex-col');
 });
 
-test('exposes the same root through the namespace API', () => {
-  expect(Stack.Root).toBe(Stack);
-
-  render(() => <Stack.Root data-testid="stack-root">Content</Stack.Root>);
-
-  expect(screen.getByTestId('stack-root')).toHaveTextContent('Content');
-});
-
 test('writes flex props and reverse directions as native utilities and root styles', () => {
   render(() => (
     <Stack

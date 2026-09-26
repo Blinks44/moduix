@@ -1,28 +1,40 @@
 import { Button } from '@moduix/solid/button';
-import { Card } from '@moduix/solid/card';
-import { Checkbox } from '@moduix/solid/checkbox';
-import { Field } from '@moduix/solid/field';
+import {
+  Card,
+  CardBody,
+  CardDescription,
+  CardFooter,
+  CardHeader,
+  CardTitle,
+} from '@moduix/solid/card';
+import {
+  Checkbox,
+  CheckboxControl,
+  CheckboxHiddenInput,
+  CheckboxLabel,
+} from '@moduix/solid/checkbox';
+import { Field, FieldLabel } from '@moduix/solid/field';
 import { Input } from '@moduix/solid/input';
 import styles from './login-simple-form.module.css';
 
 export function LoginSimple({ onSubmit }: { onSubmit?: (event: SubmitEvent) => void }) {
   return (
     <Card class={styles.root}>
-      <Card.Header class={styles.header}>
-        <Card.Title>Welcome back</Card.Title>
-        <Card.Description>Sign in to continue to your workspace.</Card.Description>
-      </Card.Header>
+      <CardHeader class={styles.header}>
+        <CardTitle>Welcome back</CardTitle>
+        <CardDescription>Sign in to continue to your workspace.</CardDescription>
+      </CardHeader>
 
-      <Card.Body>
+      <CardBody>
         <form class={styles.stack} onSubmit={onSubmit}>
           <Field required>
-            <Field.Label>Email address</Field.Label>
+            <FieldLabel>Email address</FieldLabel>
             <Input name="email" type="email" autocomplete="email" placeholder="you@example.com" />
           </Field>
 
           <Field required>
             <div class={styles.passwordLabel}>
-              <Field.Label>Password</Field.Label>
+              <FieldLabel>Password</FieldLabel>
               <a class={styles.link} href="/forgot-password">
                 Forgot password?
               </a>
@@ -31,25 +43,25 @@ export function LoginSimple({ onSubmit }: { onSubmit?: (event: SubmitEvent) => v
           </Field>
 
           <Checkbox name="remember">
-            <Checkbox.HiddenInput />
-            <Checkbox.Control />
-            <Checkbox.Label>Remember me</Checkbox.Label>
+            <CheckboxHiddenInput />
+            <CheckboxControl />
+            <CheckboxLabel>Remember me</CheckboxLabel>
           </Checkbox>
 
           <Button type="submit" class={styles.submit}>
             Sign in
           </Button>
         </form>
-      </Card.Body>
+      </CardBody>
 
-      <Card.Footer class={styles.footer}>
+      <CardFooter class={styles.footer}>
         <p>
           New here?{' '}
           <a class={styles.link} href="/sign-up">
             Create an account
           </a>
         </p>
-      </Card.Footer>
+      </CardFooter>
     </Card>
   );
 }

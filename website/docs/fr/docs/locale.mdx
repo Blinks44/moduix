@@ -16,7 +16,8 @@ localisé utilisent ce contexte.
 
 <PrimitiveReference href="https://ark-ui.com/docs/utilities/locale" />
 
-Importez l’utilitaire depuis le paquet Ark UI correspondant à votre framework :
+Importez l’utilitaire depuis le paquet moduix correspondant, qui réexporte le provider de locale
+d’Ark UI :
 
 <Tabs
   groupId="framework"
@@ -29,14 +30,14 @@ Importez l’utilitaire depuis le paquet Ark UI correspondant à votre framework
   <Tab value="react">
 
 ```tsx
-import { LocaleProvider, useLocaleContext } from '@ark-ui/react/locale';
+import { LocaleProvider, useLocaleContext } from '@moduix/react/locale';
 ```
 
   </Tab>
   <Tab value="solid">
 
 ```tsx
-import { LocaleProvider, useLocaleContext } from '@ark-ui/solid/locale';
+import { LocaleProvider, useLocaleContext } from '@moduix/solid/locale';
 ```
 
   </Tab>

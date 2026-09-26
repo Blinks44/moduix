@@ -1,79 +1,109 @@
-import { Collapsible } from '@moduix/react/collapsible';
-import { Menu } from '@moduix/react/menu';
-import { Sidebar } from '@moduix/react/sidebar';
+import {
+  Collapsible,
+  CollapsibleContent,
+  CollapsibleIndicator,
+  CollapsibleTrigger,
+} from '@moduix/react/collapsible';
+import {
+  Menu,
+  MenuTrigger,
+  MenuPositioner,
+  MenuContent,
+  MenuViewport,
+  MenuItem,
+} from '@moduix/react/menu';
+import {
+  Sidebar,
+  SidebarPanel,
+  SidebarInset,
+  SidebarResizeTrigger,
+  SidebarTrigger,
+  SidebarLabel,
+  SidebarContent,
+  SidebarExpandedContent,
+  SidebarCollapsedContent,
+  SidebarGroup,
+  SidebarGroupLabel,
+  SidebarNavigationList,
+  SidebarNavigationItem,
+  SidebarNavigationButton,
+  SidebarNavigationSubList,
+  SidebarNavigationSubItem,
+  SidebarNavigationSubButton,
+} from '@moduix/react/sidebar';
 import { FolderOpen } from 'lucide-react';
 import styles from '@/components/examples/sidebar/sidebar-nested-navigation.module.css';
 
 export default function NestedNavigation() {
   return (
     <Sidebar className={styles.root}>
-      <Sidebar.Panel>
-        <Sidebar.Content>
-          <Sidebar.Group>
-            <Sidebar.GroupLabel>Workspace</Sidebar.GroupLabel>
-            <Sidebar.NavigationList>
-              <Sidebar.NavigationItem>
-                <Sidebar.ExpandedContent>
+      <SidebarPanel>
+        <SidebarContent>
+          <SidebarGroup>
+            <SidebarGroupLabel>Workspace</SidebarGroupLabel>
+            <SidebarNavigationList>
+              <SidebarNavigationItem>
+                <SidebarExpandedContent>
                   <Collapsible defaultOpen>
-                    <Collapsible.Trigger asChild>
-                      <Sidebar.NavigationButton>
+                    <CollapsibleTrigger asChild>
+                      <SidebarNavigationButton>
                         <FolderOpen />
-                        <Sidebar.Label>Projects</Sidebar.Label>
-                        <Collapsible.Indicator />
-                      </Sidebar.NavigationButton>
-                    </Collapsible.Trigger>
-                    <Collapsible.Content>
-                      <Sidebar.NavigationSubList>
-                        <Sidebar.NavigationSubItem>
-                          <Sidebar.NavigationSubButton href="/projects/website">
+                        <SidebarLabel>Projects</SidebarLabel>
+                        <CollapsibleIndicator />
+                      </SidebarNavigationButton>
+                    </CollapsibleTrigger>
+                    <CollapsibleContent>
+                      <SidebarNavigationSubList>
+                        <SidebarNavigationSubItem>
+                          <SidebarNavigationSubButton href="/projects/website">
                             Website
-                          </Sidebar.NavigationSubButton>
-                        </Sidebar.NavigationSubItem>
-                        <Sidebar.NavigationSubItem>
-                          <Sidebar.NavigationSubButton href="/projects/mobile">
+                          </SidebarNavigationSubButton>
+                        </SidebarNavigationSubItem>
+                        <SidebarNavigationSubItem>
+                          <SidebarNavigationSubButton href="/projects/mobile">
                             Mobile app
-                          </Sidebar.NavigationSubButton>
-                        </Sidebar.NavigationSubItem>
-                      </Sidebar.NavigationSubList>
-                    </Collapsible.Content>
+                          </SidebarNavigationSubButton>
+                        </SidebarNavigationSubItem>
+                      </SidebarNavigationSubList>
+                    </CollapsibleContent>
                   </Collapsible>
-                </Sidebar.ExpandedContent>
-                <Sidebar.CollapsedContent>
+                </SidebarExpandedContent>
+                <SidebarCollapsedContent>
                   <Menu positioning={{ placement: 'right-start', gutter: 8 }}>
-                    <Menu.Trigger asChild>
-                      <Sidebar.NavigationButton aria-label="Open projects" title="Projects">
+                    <MenuTrigger asChild>
+                      <SidebarNavigationButton aria-label="Open projects" title="Projects">
                         <FolderOpen />
-                      </Sidebar.NavigationButton>
-                    </Menu.Trigger>
-                    <Menu.Positioner>
-                      <Menu.Content>
-                        <Menu.Viewport>
-                          <Menu.Item asChild value="website">
+                      </SidebarNavigationButton>
+                    </MenuTrigger>
+                    <MenuPositioner>
+                      <MenuContent>
+                        <MenuViewport>
+                          <MenuItem asChild value="website">
                             <a href="/projects/website">Website</a>
-                          </Menu.Item>
-                          <Menu.Item asChild value="mobile-app">
+                          </MenuItem>
+                          <MenuItem asChild value="mobile-app">
                             <a href="/projects/mobile">Mobile app</a>
-                          </Menu.Item>
-                        </Menu.Viewport>
-                      </Menu.Content>
-                    </Menu.Positioner>
+                          </MenuItem>
+                        </MenuViewport>
+                      </MenuContent>
+                    </MenuPositioner>
                   </Menu>
-                </Sidebar.CollapsedContent>
-              </Sidebar.NavigationItem>
-            </Sidebar.NavigationList>
-          </Sidebar.Group>
-        </Sidebar.Content>
-      </Sidebar.Panel>
-      <Sidebar.ResizeTrigger />
-      <Sidebar.Trigger />
-      <Sidebar.Inset>
+                </SidebarCollapsedContent>
+              </SidebarNavigationItem>
+            </SidebarNavigationList>
+          </SidebarGroup>
+        </SidebarContent>
+      </SidebarPanel>
+      <SidebarResizeTrigger />
+      <SidebarTrigger />
+      <SidebarInset>
         <main className={styles.content}>
           <strong>Project overview</strong>
           <p className={styles.description}>
             Collapse the sidebar to open the same links in a popup menu.
           </p>
         </main>
-      </Sidebar.Inset>
+      </SidebarInset>
     </Sidebar>
   );
 }

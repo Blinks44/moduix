@@ -35,7 +35,12 @@
     "label": "Data"
   },
   { "type": "file", "name": "data-table", "label": "Data table", "tag": "table-properties" },
-  { "type": "file", "name": "file-upload-manager", "label": "File upload", "tag": "file-text" },
+  {
+    "type": "file",
+    "name": "file-upload-manager",
+    "label": "File upload manager",
+    "tag": "file-text"
+  },
   {
     "type": "section-header",
     "label": "People"
@@ -43,7 +48,7 @@
   {
     "type": "file",
     "name": "expandable-avatar-group",
-    "label": "Avatar group",
+    "label": "Expandable avatar group",
     "tag": "users-round"
   },
   {

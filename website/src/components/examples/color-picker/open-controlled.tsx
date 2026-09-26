@@ -1,5 +1,15 @@
 import { Button } from '@moduix/react/button';
-import { ColorPicker, parseColor } from '@moduix/react/color-picker';
+import {
+  ColorPicker,
+  parseColor,
+  ColorPickerLabel,
+  ColorPickerControl,
+  ColorPickerTrigger,
+  ColorPickerPositioner,
+  ColorPickerContent,
+  ColorPickerArea,
+  ColorPickerChannelInput,
+} from '@moduix/react/color-picker';
 import { useState } from 'react';
 import { PreviewMeta } from '@/components/mdx/Components';
 import styles from '@/components/examples/color-picker/color-picker-open-controlled.module.css';
@@ -14,16 +24,16 @@ export default function OpenControlledColorPickerDemo() {
         open={open}
         onOpenChange={(details) => setOpen(details.open)}
       >
-        <ColorPicker.Label>Open controlled</ColorPicker.Label>
-        <ColorPicker.Control>
-          <ColorPicker.ChannelInput channel="hex" />
-          <ColorPicker.Trigger aria-label="Open color picker" />
-        </ColorPicker.Control>
-        <ColorPicker.Positioner>
-          <ColorPicker.Content>
-            <ColorPicker.Area />
-          </ColorPicker.Content>
-        </ColorPicker.Positioner>
+        <ColorPickerLabel>Open controlled</ColorPickerLabel>
+        <ColorPickerControl>
+          <ColorPickerChannelInput channel="hex" />
+          <ColorPickerTrigger aria-label="Open color picker" />
+        </ColorPickerControl>
+        <ColorPickerPositioner>
+          <ColorPickerContent>
+            <ColorPickerArea />
+          </ColorPickerContent>
+        </ColorPickerPositioner>
       </ColorPicker>
       <PreviewMeta>
         <output>Open: {String(open)}</output>

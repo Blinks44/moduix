@@ -11,6 +11,7 @@ import { isHotKey } from '@ark-ui/solid/hotkeys';
 import { clsx } from 'clsx';
 import type { ComponentProps } from 'solid-js';
 import { children, createEffect, onCleanup, splitProps } from 'solid-js';
+import { a11yLabels } from '@/lib/moduix/a11yLabels';
 import { CheckIcon, CloseIcon } from '@/lib/moduix/icons/ui/Icons';
 import {
   OverlayPortal,
@@ -19,20 +20,17 @@ import {
 } from '@/lib/moduix/overlayPortal';
 import closeButtonStyles from '../close-button/CloseButton.module.css';
 import { Kbd } from '../kbd';
-import { ScrollArea } from '../scroll-area';
+import { ScrollArea, ScrollAreaContent, ScrollAreaViewport } from '../scroll-area';
 import styles from './CommandPalette.module.css';
 
-const DEFAULT_CLEAR_TRIGGER_LABEL = 'Clear search';
-const DEFAULT_SEARCH_INPUT_LABEL = 'Search commands';
-
-type CommandPaletteRootProps = ComponentProps<typeof DialogPrimitive.Root> & {
+type CommandPaletteProps = ComponentProps<typeof DialogPrimitive.Root> & {
   shortcut?: false | string;
 } & OverlayPortalProps;
 
 type CommandPaletteRootProviderProps = ComponentProps<typeof DialogPrimitive.RootProvider> &
   OverlayPortalProps;
 
-function CommandPaletteRoot(props: CommandPaletteRootProps) {
+function CommandPalette(props: CommandPaletteProps) {
   const [local, others] = splitProps(props, [
     'children',
     'shortcut',
@@ -299,7 +297,7 @@ function CommandPaletteSearch(props: ComponentProps<typeof ComboboxPrimitive.Inp
       <CommandPaletteInput
         aria-label={
           local['aria-label'] ??
-          (local['aria-labelledby'] == null ? DEFAULT_SEARCH_INPUT_LABEL : undefined)
+          (local['aria-labelledby'] == null ? a11yLabels.searchCommands : undefined)
         }
         aria-labelledby={local['aria-labelledby']}
         {...others}
@@ -330,7 +328,7 @@ function CommandPaletteClearTrigger(props: ComponentProps<typeof ComboboxPrimiti
           aria-label={
             local['aria-label'] ??
             (!local.asChild && local.children == null && local['aria-labelledby'] == null
-              ? DEFAULT_CLEAR_TRIGGER_LABEL
+              ? a11yLabels.clearSearch
               : undefined)
           }
           aria-labelledby={local['aria-labelledby']}
@@ -339,6 +337,7 @@ function CommandPaletteClearTrigger(props: ComponentProps<typeof ComboboxPrimiti
             (local.onClick as ((event: MouseEvent) => void) | undefined)?.(event);
 
             if (!event.defaultPrevented) {
+              event.preventDefault();
               combobox().setInputValue('');
             }
           }}
@@ -369,17 +368,17 @@ function CommandPaletteList(props: ComponentProps<typeof ComboboxPrimitive.Conte
       data-slot="command-palette-list"
     >
       <ScrollArea data-slot="command-palette-scroll-area" class={styles.scrollArea}>
-        <ScrollArea.Viewport
+        <ScrollAreaViewport
           data-slot="command-palette-scroll-viewport"
           class={styles.scrollViewport}
         >
-          <ScrollArea.Content
+          <ScrollAreaContent
             data-slot="command-palette-scroll-content"
             class={styles.scrollContent}
           >
             {local.children}
-          </ScrollArea.Content>
-        </ScrollArea.Viewport>
+          </ScrollAreaContent>
+        </ScrollAreaViewport>
       </ScrollArea>
     </ComboboxPrimitive.Content>
   );
@@ -537,45 +536,41 @@ function CommandPaletteFooter(props: HTMLArkProps<'div'>) {
   );
 }
 
-function CommandPaletteKbd(props: ComponentProps<typeof Kbd.Root>) {
+function CommandPaletteKbd(props: ComponentProps<typeof Kbd>) {
   const [local, others] = splitProps(props, ['class']);
 
-  return (
-    <Kbd.Root class={clsx(styles.kbd, local.class)} {...others} data-slot="command-palette-kbd" />
-  );
+  return <Kbd class={clsx(styles.kbd, local.class)} {...others} data-slot="command-palette-kbd" />;
 }
 
-const CommandPalette = Object.assign(CommandPaletteRoot, {
-  Root: CommandPaletteRoot,
-  RootProvider: CommandPaletteRootProvider,
-  Trigger: CommandPaletteTrigger,
-  Backdrop: CommandPaletteBackdrop,
-  Positioner: CommandPalettePositioner,
-  Content: CommandPaletteContent,
-  Panel: CommandPalettePanel,
-  Title: CommandPaletteTitle,
-  Description: CommandPaletteDescription,
-  Header: CommandPaletteHeader,
-  Body: CommandPaletteBody,
-  Combobox: CommandPaletteCombobox,
-  Control: CommandPaletteControl,
-  Input: CommandPaletteInput,
-  Search: CommandPaletteSearch,
-  ClearTrigger: CommandPaletteClearTrigger,
-  List: CommandPaletteList,
-  Empty: CommandPaletteEmpty,
-  ItemGroup: CommandPaletteItemGroup,
-  ItemGroupLabel: CommandPaletteItemGroupLabel,
-  Item: CommandPaletteItem,
-  ItemText: CommandPaletteItemText,
-  ItemIndicator: CommandPaletteItemIndicator,
-  ItemIcon: CommandPaletteItemIcon,
-  ItemLabel: CommandPaletteItemLabel,
-  ItemDescription: CommandPaletteItemDescription,
-  ItemMeta: CommandPaletteItemMeta,
-  Separator: CommandPaletteSeparator,
-  Footer: CommandPaletteFooter,
-  Kbd: CommandPaletteKbd,
-});
-
-export { CommandPalette };
+export {
+  CommandPalette,
+  CommandPaletteBackdrop,
+  CommandPaletteBody,
+  CommandPaletteClearTrigger,
+  CommandPaletteCombobox,
+  CommandPaletteContent,
+  CommandPaletteControl,
+  CommandPaletteDescription,
+  CommandPaletteEmpty,
+  CommandPaletteFooter,
+  CommandPaletteHeader,
+  CommandPaletteInput,
+  CommandPaletteItem,
+  CommandPaletteItemDescription,
+  CommandPaletteItemGroup,
+  CommandPaletteItemGroupLabel,
+  CommandPaletteItemIcon,
+  CommandPaletteItemIndicator,
+  CommandPaletteItemLabel,
+  CommandPaletteItemMeta,
+  CommandPaletteItemText,
+  CommandPaletteKbd,
+  CommandPaletteList,
+  CommandPalettePanel,
+  CommandPalettePositioner,
+  CommandPaletteRootProvider,
+  CommandPaletteSearch,
+  CommandPaletteSeparator,
+  CommandPaletteTitle,
+  CommandPaletteTrigger,
+};

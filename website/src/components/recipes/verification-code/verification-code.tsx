@@ -1,7 +1,20 @@
 import { Button } from '@moduix/react/button';
-import { Card } from '@moduix/react/card';
-import { Field } from '@moduix/react/field';
-import { PinInput } from '@moduix/react/pin-input';
+import {
+  Card,
+  CardBody,
+  CardDescription,
+  CardFooter,
+  CardHeader,
+  CardTitle,
+} from '@moduix/react/card';
+import { Field, FieldErrorText } from '@moduix/react/field';
+import {
+  PinInput,
+  PinInputHiddenInput,
+  PinInputLabel,
+  PinInputControl,
+  PinInputInputs,
+} from '@moduix/react/pin-input';
 import type { FormEventHandler } from 'react';
 import { useState } from 'react';
 import styles from './verification-code-form.module.css';
@@ -25,12 +38,12 @@ export function VerificationCode({ onSubmit }: { onSubmit?: FormEventHandler<HTM
 
   return (
     <Card className={styles.root}>
-      <Card.Header className={styles.header}>
-        <Card.Title>Verify your email</Card.Title>
-        <Card.Description>Enter the 6-digit code from your email.</Card.Description>
-      </Card.Header>
+      <CardHeader className={styles.header}>
+        <CardTitle>Verify your email</CardTitle>
+        <CardDescription>Enter the 6-digit code from your email.</CardDescription>
+      </CardHeader>
 
-      <Card.Body>
+      <CardBody>
         <form className={styles.stack} noValidate onSubmit={handleSubmit}>
           <Field className={styles.field} invalid={invalid} required>
             <PinInput
@@ -40,14 +53,14 @@ export function VerificationCode({ onSubmit }: { onSubmit?: FormEventHandler<HTM
               otp
               onValueChange={() => setInvalid(false)}
             >
-              <PinInput.Label>Verification code</PinInput.Label>
-              <PinInput.HiddenInput />
-              <PinInput.Control>
-                <PinInput.Inputs />
-              </PinInput.Control>
+              <PinInputLabel>Verification code</PinInputLabel>
+              <PinInputHiddenInput />
+              <PinInputControl>
+                <PinInputInputs />
+              </PinInputControl>
             </PinInput>
             {invalid ? (
-              <Field.ErrorText>Enter all six digits before verifying.</Field.ErrorText>
+              <FieldErrorText>Enter all six digits before verifying.</FieldErrorText>
             ) : null}
           </Field>
 
@@ -55,16 +68,16 @@ export function VerificationCode({ onSubmit }: { onSubmit?: FormEventHandler<HTM
             Verify email
           </Button>
         </form>
-      </Card.Body>
+      </CardBody>
 
-      <Card.Footer className={styles.footer}>
+      <CardFooter className={styles.footer}>
         <p>
           Wrong email?{' '}
           <a className={styles.link} href="/sign-in">
             Use a different one
           </a>
         </p>
-      </Card.Footer>
+      </CardFooter>
     </Card>
   );
 }

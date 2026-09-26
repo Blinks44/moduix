@@ -1,4 +1,12 @@
-import { Chart } from '@moduix/react/chart';
+import {
+  Chart,
+  ChartDescription,
+  ChartHeader,
+  ChartLegend,
+  ChartLegendItem,
+  ChartPlot,
+  ChartTitle,
+} from '@moduix/react/chart';
 import { cell, defineChart } from '@tanstack/charts';
 import { scaleBand } from '@tanstack/charts/scales/band';
 import { tooltip } from '@tanstack/charts/tooltip';
@@ -66,20 +74,16 @@ const definition = defineChart({
 export default function HeatmapChartDemo() {
   return (
     <Chart>
-      <Chart.Header>
-        <Chart.Title>Weekly activity</Chart.Title>
-        <Chart.Description>Session volume by day and time of day.</Chart.Description>
-      </Chart.Header>
-      <Chart.Plot
-        definition={definition}
-        height={320}
-        ariaLabel="Weekly session activity heatmap"
-      />
-      <Chart.Legend aria-label="Activity levels">
-        <Chart.LegendItem color="var(--moduix-color-chart-3)">Low</Chart.LegendItem>
-        <Chart.LegendItem color="var(--moduix-color-chart-2)">Medium</Chart.LegendItem>
-        <Chart.LegendItem color="var(--moduix-color-chart-1)">High</Chart.LegendItem>
-      </Chart.Legend>
+      <ChartHeader>
+        <ChartTitle>Weekly activity</ChartTitle>
+        <ChartDescription>Session volume by day and time of day.</ChartDescription>
+      </ChartHeader>
+      <ChartPlot definition={definition} height={320} ariaLabel="Weekly session activity heatmap" />
+      <ChartLegend aria-label="Activity levels">
+        <ChartLegendItem color="var(--moduix-color-chart-3)">Low</ChartLegendItem>
+        <ChartLegendItem color="var(--moduix-color-chart-2)">Medium</ChartLegendItem>
+        <ChartLegendItem color="var(--moduix-color-chart-1)">High</ChartLegendItem>
+      </ChartLegend>
     </Chart>
   );
 }

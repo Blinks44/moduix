@@ -1,0 +1,83 @@
+@layer moduix.components {
+  .root,
+  [data-scope='spinner'][data-part='root'] {
+    --_spinner-size: var(
+      --moduix-spinner-size,
+      var(--moduix-spinner-size-md, var(--moduix-spacing-5))
+    );
+
+    display: inline-flex;
+    width: var(--_spinner-size);
+    height: var(--_spinner-size);
+    flex: 0 0 auto;
+    align-items: center;
+    justify-content: center;
+    color: var(--moduix-spinner-color, currentColor);
+    vertical-align: middle;
+  }
+
+  .indicator,
+  [data-scope='spinner'][data-part='indicator'] {
+    display: inline-flex;
+    width: 100%;
+    height: 100%;
+    align-items: center;
+    justify-content: center;
+    animation: var(--moduix-spinner-animation, var(--moduix-animation-spin));
+  }
+
+  .ring,
+  [data-scope='spinner'][data-part='ring'] {
+    box-sizing: border-box;
+    display: block;
+    width: 100%;
+    height: 100%;
+    border: var(--moduix-spinner-ring-border-width, var(--moduix-border-width-md)) solid
+      var(--moduix-spinner-ring-track-color, color-mix(in oklab, currentColor 22%, transparent));
+    border-block-start-color: var(--moduix-spinner-color, currentColor);
+    border-radius: var(--moduix-spinner-radius, var(--moduix-radius-full));
+  }
+
+  .indicator :where(svg),
+  [data-scope='spinner'][data-part='indicator'] :where(svg) {
+    width: 100%;
+    height: 100%;
+  }
+
+  .root[data-size='xs'],
+  [data-scope='spinner'][data-part='root'][data-size='xs'] {
+    --_spinner-size: var(
+      --moduix-spinner-size,
+      var(--moduix-spinner-size-xs, var(--moduix-spacing-3))
+    );
+  }
+
+  .root[data-size='inherit'],
+  [data-scope='spinner'][data-part='root'][data-size='inherit'] {
+    --_spinner-size: 1em;
+  }
+
+  .root[data-size='sm'],
+  [data-scope='spinner'][data-part='root'][data-size='sm'] {
+    --_spinner-size: var(
+      --moduix-spinner-size,
+      var(--moduix-spinner-size-sm, var(--moduix-spacing-4))
+    );
+  }
+
+  .root[data-size='lg'],
+  [data-scope='spinner'][data-part='root'][data-size='lg'] {
+    --_spinner-size: var(
+      --moduix-spinner-size,
+      var(--moduix-spinner-size-lg, var(--moduix-spacing-7))
+    );
+  }
+
+  .root[data-size='xl'],
+  [data-scope='spinner'][data-part='root'][data-size='xl'] {
+    --_spinner-size: var(
+      --moduix-spinner-size,
+      var(--moduix-spinner-size-xl, var(--moduix-size-md))
+    );
+  }
+}

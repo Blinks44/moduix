@@ -29,8 +29,9 @@ import signaturePadSolidAdvancedCustomization from '../../../snippets/signature-
 ## Basic
 
 
-For most use cases, start with `SignaturePad.Canvas`. It provides the standard drawing surface with
-Ark's `Control`, `Segment`, `ClearTrigger`, and `Guide` parts, plus moduix's default clear icon.
+For most use cases, start with `SignaturePadCanvas`. It provides the standard drawing surface with
+Ark's `SignaturePadControl`, `SignaturePadSegment`, `SignaturePadClearTrigger`, and
+`SignaturePadGuide` parts, plus moduix's default clear icon.
 
 <ExampleFrame variant="component">
   <SignaturePadBasic />
@@ -92,48 +93,50 @@ See [Quick Start](/docs/quick-start) for full package setup, registry configurat
 ## Anatomy
 
 ```text
-SignaturePad / SignaturePad.Root
-├─ SignaturePad.Label
-├─ SignaturePad.Canvas (moduix ready-made composition)
-│  └─ SignaturePad.Control
-│     ├─ SignaturePad.Segment
-│     ├─ SignaturePad.ClearTrigger
-│     └─ SignaturePad.Guide
-└─ SignaturePad.HiddenInput value={serializedPaths} (explicit)
+SignaturePad
+├─ SignaturePadLabel
+├─ SignaturePadCanvas (moduix ready-made composition)
+│  └─ SignaturePadControl
+│     ├─ SignaturePadSegment
+│     ├─ SignaturePadClearTrigger
+│     └─ SignaturePadGuide
+└─ SignaturePadHiddenInput value={serializedPaths} (explicit)
 
-SignaturePad.RootProvider
+SignaturePadRootProvider
 └─ same part tree connected to useSignaturePad()
 ```
 
 | Part                                 | Role                                                                    |
 | ------------------------------------ | ----------------------------------------------------------------------- |
-| `SignaturePad` / `SignaturePad.Root` | Owns paths, drawing options, form name, ids, and callbacks.              |
-| `SignaturePad.HiddenInput`            | Native Ark form control that you compose explicitly.                    |
-| `SignaturePad.RootProvider`           | Renders the same part tree from state created with `useSignaturePad()`. |
-| `SignaturePad.Label`                 | Associates the visible label with the drawing area and hidden input.    |
-| `SignaturePad.Canvas`                | Ready-made drawing surface that renders the standard parts and forwards `Control` props. |
-| `SignaturePad.Control`               | Focusable pointer and touch drawing area.                               |
-| `SignaturePad.Segment`               | SVG layer for saved strokes and the current in-progress stroke.         |
-| `SignaturePad.ClearTrigger`          | Native button that clears paths.                                        |
-| `SignaturePad.Guide`                 | Non-interactive baseline inside the drawing area.                       |
+| `SignaturePad`             | Owns paths, drawing options, form name, ids, and callbacks.              |
+| `SignaturePadHiddenInput`  | Native Ark form control that you compose explicitly.                    |
+| `SignaturePadRootProvider` | Renders the same part tree from state created with `useSignaturePad()`. |
+| `SignaturePadLabel`        | Associates the visible label with the drawing area and hidden input.    |
+| `SignaturePadCanvas`       | Ready-made drawing surface that renders the standard parts and forwards `SignaturePadControl` props. |
+| `SignaturePadControl`      | Focusable pointer and touch drawing area.                               |
+| `SignaturePadSegment`      | SVG layer for saved strokes and the current in-progress stroke.         |
+| `SignaturePadClearTrigger` | Native button that clears paths.                                        |
+| `SignaturePadGuide`        | Non-interactive baseline inside the drawing area.                       |
 
 ## Composition
 
-Use `Label` and `Canvas` for the standard composition. `Canvas` uses a fixed child tree, so switch
-to `Control`, `Segment`, `ClearTrigger`, and `Guide` when the drawing structure or clear control
+Use `SignaturePadLabel` and `SignaturePadCanvas` for the standard composition. `SignaturePadCanvas`
+uses a fixed child tree, so switch to `SignaturePadControl`, `SignaturePadSegment`,
+`SignaturePadClearTrigger`, and `SignaturePadGuide` when the drawing structure or clear control
 needs to change.
 
-`SignaturePad.HiddenInput` is not rendered automatically. Add it explicitly and pass a serialized
-value, usually read from `SignaturePad.Context` or `useSignaturePadContext()`, when the signature
+`SignaturePadHiddenInput` is not rendered automatically. Add it explicitly and pass a serialized
+value, usually read from `SignaturePadContext` or `useSignaturePadContext()`, when the signature
 must be submitted by a native form.
 
 Use `defaultPaths` for local uncontrolled state. Use `paths` with `onDraw(details)` when the
-application owns the signature data. Use `RootProvider` with `useSignaturePad()` when state must be
-created outside the rendered tree or external controls need `paths`, `clear()`, or `getDataUrl()`.
+application owns the signature data. Use `SignaturePadRootProvider` with `useSignaturePad()` when
+state must be created outside the rendered tree or external controls need `paths`, `clear()`, or
+`getDataUrl()`.
 
-Unlike Ark, moduix disables `ClearTrigger` when `readOnly` comes from the root, a surrounding
-`Field`, or `useSignaturePad()`, preventing an irreversible clear while programmatic `clear()`
-stays available.
+Unlike Ark, moduix disables `SignaturePadClearTrigger` when `readOnly` comes from the root, a
+surrounding `Field`, or `useSignaturePad()`, preventing an irreversible clear while programmatic
+`clear()` stays available.
 
 ## Examples
 
@@ -255,7 +258,7 @@ messaging belongs to the same form control.
 
 ### Form Serialization
 
-Serialize the value passed to `SignaturePad.HiddenInput` in the consumer when the server needs a
+Serialize the value passed to `SignaturePadHiddenInput` in the consumer when the server needs a
 different representation. This example sends a JSON array.
 
 <ExampleFrame variant="component">
@@ -334,7 +337,7 @@ Use `onDrawEnd` to export the signature and show a preview before saving it.
 
 ### Root Provider
 
-Create state with `useSignaturePad()` and pass it to `RootProvider` when controls outside the
+Create state with `useSignaturePad()` and pass it to `SignaturePadRootProvider` when controls outside the
 rendered tree need direct access to `paths`, `clear()`, or `getDataUrl()`.
 
 <ExampleFrame variant="component">
@@ -374,7 +377,7 @@ rendered tree need direct access to `paths`, `clear()`, or `getDataUrl()`.
 
 ### Advanced Customization
 
-Use the explicit parts instead of `Canvas` when you need to control the drawing-part tree or
+Use the explicit parts instead of `SignaturePadCanvas` when you need to control the drawing-part tree or
 provide a custom clear trigger.
 
 <ExampleFrame variant="component">
@@ -430,15 +433,16 @@ adds stable `data-slot` attributes:
 
 | Part                                 | `data-slot`                   |
 | ------------------------------------ | ----------------------------- |
-| `SignaturePad` / `SignaturePad.Root` | `signature-pad-root`          |
-| `SignaturePad.RootProvider`          | `signature-pad-root-provider` |
-| `SignaturePad.Label`                 | `signature-pad-label`          |
-| `SignaturePad.Control`               | `signature-pad-control`        |
-| `SignaturePad.Segment`               | `signature-pad-segment`        |
-| `SignaturePad.Guide`                 | `signature-pad-guide`          |
-| `SignaturePad.ClearTrigger`          | `signature-pad-clear-trigger` |
+| `SignaturePad`             | `signature-pad-root`          |
+| `SignaturePadRootProvider` | `signature-pad-root-provider` |
+| `SignaturePadLabel`        | `signature-pad-label`          |
+| `SignaturePadControl`      | `signature-pad-control`        |
+| `SignaturePadSegment`      | `signature-pad-segment`        |
+| `SignaturePadGuide`        | `signature-pad-guide`          |
+| `SignaturePadClearTrigger` | `signature-pad-clear-trigger` |
 
-Ark attributes remain available for targeted styles. `Root`, `Label`, `Control`, `Segment`,
-`Guide`, `ClearTrigger`, and the internal segment paths expose `data-scope="signature-pad"` and
+Ark attributes remain available for targeted styles. `SignaturePad`, `SignaturePadLabel`,
+`SignaturePadControl`, `SignaturePadSegment`, `SignaturePadGuide`, `SignaturePadClearTrigger`, and
+the internal segment paths expose `data-scope="signature-pad"` and
 `data-part`; `data-disabled` appears on root, label, control, and guide, while `data-required`
 appears on label.

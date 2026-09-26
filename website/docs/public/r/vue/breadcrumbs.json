@@ -1,0 +1,71 @@
+{
+  "$schema": "https://ui.shadcn.com/schema/registry-item.json",
+  "name": "breadcrumbs",
+  "title": "Breadcrumbs",
+  "description": "moduix Vue Breadcrumbs component.",
+  "dependencies": ["@ark-ui/vue", "clsx"],
+  "registryDependencies": ["@moduix-vue/foundation", "@moduix-vue/icons"],
+  "files": [
+    {
+      "path": "src/components/breadcrumbs/Breadcrumbs.vue",
+      "content": "<script setup lang=\"ts\">\nimport { ark } from '@ark-ui/vue/factory';\nimport type { HTMLArkProps } from '@ark-ui/vue/factory';\nimport { clsx } from 'clsx';\nimport { useAttrs } from 'vue';\nimport type { HTMLAttributes } from 'vue';\nimport styles from './Breadcrumbs.module.css';\n\ndefineOptions({ inheritAttrs: false });\n\nexport interface Props extends /* @vue-ignore */ HTMLArkProps<'nav'> {\n  class?: HTMLAttributes['class'];\n}\n\nconst { class: className } = defineProps<Props>();\ndefineSlots<{ default?: () => unknown }>();\n\nconst attrs = useAttrs();\n</script>\n\n<template>\n  <ark.nav\n    aria-label=\"Breadcrumb\"\n    v-bind=\"attrs\"\n    data-slot=\"breadcrumbs-root\"\n    :class=\"clsx(styles.root, className)\"\n  >\n    <slot />\n  </ark.nav>\n</template>",
+      "type": "registry:component",
+      "target": "@components/ui/breadcrumbs/Breadcrumbs.vue"
+    },
+    {
+      "path": "src/components/breadcrumbs/BreadcrumbsList.vue",
+      "content": "<script setup lang=\"ts\">\nimport { ark } from '@ark-ui/vue/factory';\nimport type { HTMLArkProps } from '@ark-ui/vue/factory';\nimport { clsx } from 'clsx';\nimport { useAttrs } from 'vue';\nimport type { HTMLAttributes } from 'vue';\nimport styles from './Breadcrumbs.module.css';\n\ndefineOptions({ inheritAttrs: false });\n\nexport interface Props extends /* @vue-ignore */ HTMLArkProps<'ol'> {\n  class?: HTMLAttributes['class'];\n}\n\nconst { class: className } = defineProps<Props>();\ndefineSlots<{ default?: () => unknown }>();\n\nconst attrs = useAttrs();\n</script>\n\n<template>\n  <ark.ol v-bind=\"attrs\" data-slot=\"breadcrumbs-list\" :class=\"clsx(styles.list, className)\">\n    <slot />\n  </ark.ol>\n</template>",
+      "type": "registry:component",
+      "target": "@components/ui/breadcrumbs/BreadcrumbsList.vue"
+    },
+    {
+      "path": "src/components/breadcrumbs/BreadcrumbsItem.vue",
+      "content": "<script setup lang=\"ts\">\nimport { ark } from '@ark-ui/vue/factory';\nimport type { HTMLArkProps } from '@ark-ui/vue/factory';\nimport { clsx } from 'clsx';\nimport { useAttrs } from 'vue';\nimport type { HTMLAttributes } from 'vue';\nimport styles from './Breadcrumbs.module.css';\n\ndefineOptions({ inheritAttrs: false });\n\nexport interface Props extends /* @vue-ignore */ HTMLArkProps<'li'> {\n  class?: HTMLAttributes['class'];\n}\n\nconst { class: className } = defineProps<Props>();\ndefineSlots<{ default?: () => unknown }>();\n\nconst attrs = useAttrs();\n</script>\n\n<template>\n  <ark.li v-bind=\"attrs\" data-slot=\"breadcrumbs-item\" :class=\"clsx(styles.item, className)\">\n    <slot />\n  </ark.li>\n</template>",
+      "type": "registry:component",
+      "target": "@components/ui/breadcrumbs/BreadcrumbsItem.vue"
+    },
+    {
+      "path": "src/components/breadcrumbs/BreadcrumbsLink.vue",
+      "content": "<script setup lang=\"ts\">\nimport { ark } from '@ark-ui/vue/factory';\nimport type { HTMLArkProps } from '@ark-ui/vue/factory';\nimport { clsx } from 'clsx';\nimport { useAttrs } from 'vue';\nimport type { HTMLAttributes } from 'vue';\nimport styles from './Breadcrumbs.module.css';\n\ndefineOptions({ inheritAttrs: false });\n\nexport interface Props extends /* @vue-ignore */ HTMLArkProps<'a'> {\n  class?: HTMLAttributes['class'];\n}\n\nconst { class: className } = defineProps<Props>();\ndefineSlots<{ default?: () => unknown }>();\n\nconst attrs = useAttrs();\n</script>\n\n<template>\n  <ark.a v-bind=\"attrs\" data-slot=\"breadcrumbs-link\" :class=\"clsx(styles.link, className)\">\n    <slot />\n  </ark.a>\n</template>",
+      "type": "registry:component",
+      "target": "@components/ui/breadcrumbs/BreadcrumbsLink.vue"
+    },
+    {
+      "path": "src/components/breadcrumbs/BreadcrumbsPage.vue",
+      "content": "<script setup lang=\"ts\">\nimport { ark } from '@ark-ui/vue/factory';\nimport type { HTMLArkProps } from '@ark-ui/vue/factory';\nimport { clsx } from 'clsx';\nimport { useAttrs } from 'vue';\nimport type { HTMLAttributes } from 'vue';\nimport styles from './Breadcrumbs.module.css';\n\ndefineOptions({ inheritAttrs: false });\n\nexport interface Props extends /* @vue-ignore */ HTMLArkProps<'span'> {\n  class?: HTMLAttributes['class'];\n}\n\nconst { class: className } = defineProps<Props>();\ndefineSlots<{ default?: () => unknown }>();\n\nconst attrs = useAttrs();\n</script>\n\n<template>\n  <ark.span\n    v-bind=\"attrs\"\n    data-slot=\"breadcrumbs-page\"\n    aria-current=\"page\"\n    :class=\"clsx(styles.page, className)\"\n  >\n    <slot />\n  </ark.span>\n</template>",
+      "type": "registry:component",
+      "target": "@components/ui/breadcrumbs/BreadcrumbsPage.vue"
+    },
+    {
+      "path": "src/components/breadcrumbs/BreadcrumbsPath.vue",
+      "content": "<script setup lang=\"ts\">\nimport type { HTMLArkProps } from '@ark-ui/vue/factory';\nimport { defineComponent, useAttrs } from 'vue';\nimport type { HTMLAttributes, VNodeChild } from 'vue';\nimport BreadcrumbsItem from './BreadcrumbsItem.vue';\nimport BreadcrumbsLink from './BreadcrumbsLink.vue';\nimport BreadcrumbsList from './BreadcrumbsList.vue';\nimport BreadcrumbsPage from './BreadcrumbsPage.vue';\nimport BreadcrumbsSeparator from './BreadcrumbsSeparator.vue';\n\ndefineOptions({ inheritAttrs: false });\n\ntype BreadcrumbsPathLink = {\n  href: string;\n  label: VNodeChild;\n};\n\nexport interface Props extends /* @vue-ignore */ Omit<HTMLArkProps<'ol'>, 'asChild' | 'children'> {\n  links: readonly BreadcrumbsPathLink[];\n  page: VNodeChild;\n  separator?: VNodeChild;\n  class?: HTMLAttributes['class'];\n}\n\nconst { class: className, links, page, separator = undefined } = defineProps<Props>();\n\nconst VNodeOutlet = defineComponent((props: { value: VNodeChild }) => () => props.value, {\n  props: ['value'],\n});\n\nconst attrs = useAttrs();\n</script>\n\n<template>\n  <BreadcrumbsList v-bind=\"attrs\" :class=\"className\">\n    <template v-for=\"(link, index) in links\" :key=\"index\">\n      <BreadcrumbsItem>\n        <BreadcrumbsLink :href=\"link.href\">\n          <VNodeOutlet :value=\"link.label\" />\n        </BreadcrumbsLink>\n      </BreadcrumbsItem>\n      <BreadcrumbsSeparator v-if=\"separator == null\" />\n      <BreadcrumbsSeparator v-else>\n        <VNodeOutlet :value=\"separator\" />\n      </BreadcrumbsSeparator>\n    </template>\n    <BreadcrumbsItem>\n      <BreadcrumbsPage><VNodeOutlet :value=\"page\" /></BreadcrumbsPage>\n    </BreadcrumbsItem>\n  </BreadcrumbsList>\n</template>",
+      "type": "registry:component",
+      "target": "@components/ui/breadcrumbs/BreadcrumbsPath.vue"
+    },
+    {
+      "path": "src/components/breadcrumbs/BreadcrumbsSeparator.vue",
+      "content": "<script setup lang=\"ts\">\nimport { ark } from '@ark-ui/vue/factory';\nimport type { HTMLArkProps } from '@ark-ui/vue/factory';\nimport { clsx } from 'clsx';\nimport { useAttrs } from 'vue';\nimport type { HTMLAttributes } from 'vue';\nimport { ChevronRightIcon } from '@/lib/moduix/icons/ui/Icons';\nimport styles from './Breadcrumbs.module.css';\n\ndefineOptions({ inheritAttrs: false });\n\nexport interface Props extends /* @vue-ignore */ HTMLArkProps<'li'> {\n  class?: HTMLAttributes['class'];\n}\n\nconst { class: className } = defineProps<Props>();\ndefineSlots<{ default?: () => unknown }>();\n\nconst attrs = useAttrs();\n</script>\n\n<template>\n  <ark.li\n    v-bind=\"attrs\"\n    data-slot=\"breadcrumbs-separator\"\n    aria-hidden=\"true\"\n    :class=\"clsx(styles.separator, className)\"\n  >\n    <slot><ChevronRightIcon :class=\"styles.separatorIcon\" /></slot>\n  </ark.li>\n</template>",
+      "type": "registry:component",
+      "target": "@components/ui/breadcrumbs/BreadcrumbsSeparator.vue"
+    },
+    {
+      "path": "src/components/breadcrumbs/BreadcrumbsEllipsis.vue",
+      "content": "<script setup lang=\"ts\">\nimport { ark } from '@ark-ui/vue/factory';\nimport type { HTMLArkProps } from '@ark-ui/vue/factory';\nimport { clsx } from 'clsx';\nimport { useAttrs } from 'vue';\nimport type { HTMLAttributes } from 'vue';\nimport styles from './Breadcrumbs.module.css';\n\ndefineOptions({ inheritAttrs: false });\n\nexport interface Props extends /* @vue-ignore */ HTMLArkProps<'span'> {\n  class?: HTMLAttributes['class'];\n}\n\nconst { class: className } = defineProps<Props>();\ndefineSlots<{ default?: () => unknown }>();\n\nconst attrs = useAttrs();\n</script>\n\n<template>\n  <ark.span\n    v-bind=\"attrs\"\n    data-slot=\"breadcrumbs-ellipsis\"\n    aria-hidden=\"true\"\n    :class=\"clsx(styles.ellipsis, className)\"\n  >\n    <slot>...</slot>\n  </ark.span>\n</template>",
+      "type": "registry:component",
+      "target": "@components/ui/breadcrumbs/BreadcrumbsEllipsis.vue"
+    },
+    {
+      "path": "src/components/breadcrumbs/Breadcrumbs.module.css",
+      "content": "@layer moduix.components {\n  .root {\n    max-width: var(--moduix-breadcrumbs-max-width, 100%);\n    color: var(--moduix-breadcrumbs-color, var(--moduix-color-muted-foreground));\n    font-size: var(--moduix-breadcrumbs-font-size, var(--moduix-text-sm));\n    line-height: var(--moduix-breadcrumbs-line-height, var(--moduix-line-height-text-sm));\n  }\n\n  .list {\n    display: flex;\n    min-width: 0;\n    align-items: center;\n    gap: var(--moduix-breadcrumbs-gap, var(--moduix-spacing-1));\n    margin: 0;\n    padding: 0;\n    list-style: none;\n    white-space: nowrap;\n\n    > .item:last-child {\n      flex: 1 1 auto;\n      max-width: var(--moduix-breadcrumbs-item-max-width, 16rem);\n    }\n  }\n\n  .item {\n    display: inline-flex;\n    min-width: 0;\n    align-items: center;\n  }\n\n  .link,\n  .page {\n    display: block;\n    min-width: 0;\n    max-width: 100%;\n    padding-inline: var(--moduix-breadcrumbs-item-padding-x, var(--moduix-spacing-1));\n    white-space: nowrap;\n  }\n\n  .link,\n  .page,\n  .ellipsis {\n    overflow: hidden;\n    text-overflow: ellipsis;\n  }\n\n  .link {\n    color: var(--moduix-breadcrumbs-link-color, var(--moduix-color-muted-foreground));\n    text-decoration: var(--moduix-breadcrumbs-link-text-decoration, none);\n    text-underline-offset: var(--moduix-breadcrumbs-link-underline-offset, 0.2em);\n    border-radius: var(--moduix-breadcrumbs-link-radius, var(--moduix-radius-sm));\n    outline: none;\n    transition: color var(--moduix-breadcrumbs-link-transition, var(--moduix-transition-default));\n\n    @media (hover: hover) {\n      &:hover {\n        color: var(--moduix-breadcrumbs-link-color-hover, var(--moduix-color-foreground));\n        text-decoration: var(--moduix-breadcrumbs-link-text-decoration-hover, none);\n      }\n    }\n\n    &:focus-visible {\n      box-shadow: 0 0 0\n        var(\n          --moduix-breadcrumbs-focus-ring-width,\n          var(--moduix-focus-ring-inset-width, var(--moduix-border-width-sm))\n        )\n        var(--moduix-breadcrumbs-focus-ring-color, var(--moduix-color-ring));\n    }\n  }\n\n  .page {\n    color: var(--moduix-breadcrumbs-page-color, var(--moduix-color-foreground));\n    font-weight: var(--moduix-breadcrumbs-page-font-weight, var(--moduix-weight-medium));\n  }\n\n  .separator {\n    display: inline-flex;\n    align-items: center;\n    color: var(--moduix-breadcrumbs-separator-color, var(--moduix-color-muted-foreground));\n    font-size: var(--moduix-breadcrumbs-separator-font-size, 0.875em);\n    line-height: 1;\n    user-select: none;\n  }\n\n  .separatorIcon {\n    width: var(--moduix-breadcrumbs-separator-icon-size, 1em);\n    height: var(--moduix-breadcrumbs-separator-icon-size, 1em);\n    flex: none;\n  }\n\n  :global([dir='rtl']) .separatorIcon {\n    transform: rotate(180deg);\n  }\n\n  .ellipsis {\n    display: inline-flex;\n    align-items: center;\n    justify-content: center;\n    min-width: var(--moduix-breadcrumbs-ellipsis-size, var(--moduix-spacing-4));\n    min-height: var(--moduix-breadcrumbs-ellipsis-size, var(--moduix-spacing-4));\n    padding-inline: var(--moduix-breadcrumbs-item-padding-x, var(--moduix-spacing-1));\n    color: var(--moduix-breadcrumbs-ellipsis-color, var(--moduix-color-muted-foreground));\n  }\n}",
+      "type": "registry:file",
+      "target": "@components/ui/breadcrumbs/Breadcrumbs.module.css"
+    },
+    {
+      "path": "src/components/breadcrumbs/index.ts",
+      "content": "import Breadcrumbs from './Breadcrumbs.vue';\nimport BreadcrumbsEllipsis from './BreadcrumbsEllipsis.vue';\nimport BreadcrumbsItem from './BreadcrumbsItem.vue';\nimport BreadcrumbsLink from './BreadcrumbsLink.vue';\nimport BreadcrumbsList from './BreadcrumbsList.vue';\nimport BreadcrumbsPage from './BreadcrumbsPage.vue';\nimport BreadcrumbsPath from './BreadcrumbsPath.vue';\nimport BreadcrumbsSeparator from './BreadcrumbsSeparator.vue';\n\nexport {\n  Breadcrumbs,\n  BreadcrumbsEllipsis,\n  BreadcrumbsItem,\n  BreadcrumbsLink,\n  BreadcrumbsList,\n  BreadcrumbsPage,\n  BreadcrumbsPath,\n  BreadcrumbsSeparator,\n};",
+      "type": "registry:component",
+      "target": "@components/ui/breadcrumbs/index.ts"
+    }
+  ],
+  "type": "registry:item"
+}

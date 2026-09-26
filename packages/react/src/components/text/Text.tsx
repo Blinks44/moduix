@@ -29,7 +29,7 @@ type TextProps = HTMLArkProps<'p'> & {
   lineClamp?: number;
 };
 
-const TextRoot = forwardRef<HTMLElement, TextProps>(function TextRoot(
+const Text = forwardRef<HTMLElement, TextProps>(function Text(
   {
     as,
     asChild,
@@ -73,10 +73,6 @@ const TextRoot = forwardRef<HTMLElement, TextProps>(function TextRoot(
       style={lineClampStyle}
     />
   );
-});
-
-const Text = Object.assign(TextRoot, {
-  Root: TextRoot,
 });
 
 export { Text };

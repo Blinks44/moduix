@@ -1,6 +1,6 @@
 import { expect, test } from '@rstest/core';
 import { render, screen } from '@solidjs/testing-library';
-import { Badge } from '../src';
+import { Badge, BadgeDot, BadgeLabel } from '../src';
 
 test('protects variants, accessibility, and stable data hooks', () => {
   render(() => (
@@ -12,7 +12,7 @@ test('protects variants, accessibility, and stable data hooks', () => {
       data-slot="custom"
       data-variant="outline"
     >
-      <Badge.Dot data-testid="dot" data-part="custom" aria-hidden={false} />
+      <BadgeDot data-testid="dot" data-part="custom" aria-hidden={false} />
       Draft
     </Badge>
   ));
@@ -98,8 +98,8 @@ test('exposes composable and ref-forwarding label paths', () => {
 
   render(() => (
     <Badge>
-      <Badge.Dot />
-      <Badge.Label ref={(element) => (ref = element)}>Production ready</Badge.Label>
+      <BadgeDot />
+      <BadgeLabel ref={(element) => (ref = element)}>Production ready</BadgeLabel>
     </Badge>
   ));
 
@@ -115,8 +115,8 @@ test('exposes composable and ref-forwarding label paths', () => {
 test('preserves custom label hosts with native Ark Solid asChild composition', () => {
   render(() => (
     <Badge>
-      <Badge.Dot />
-      <Badge.Label asChild={(props) => <strong {...props()}>Production ready</strong>} />
+      <BadgeDot />
+      <BadgeLabel asChild={(props) => <strong {...props()}>Production ready</strong>} />
     </Badge>
   ));
 

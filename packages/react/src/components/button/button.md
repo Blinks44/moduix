@@ -10,7 +10,7 @@ Upstream docs:
 
 `Button` is the moduix action control built as an Ark-style factory wrapper.
 
-Ark UI does not ship a dedicated button primitive, so moduix exposes `Button.Root` on top of
+Ark UI does not ship a dedicated button primitive, so moduix exposes `Button` on top of
 `@ark-ui/react/factory` and keeps the wrapper limited to styling, `data-slot`, and `asChild`
 composition.
 
@@ -23,8 +23,7 @@ composition.
 
 ## Current behavior contract
 
-- Uses one Ark-aligned root part: `Button.Root`.
-- Keeps `Button` as a callable alias of `Button.Root`.
+- Exposes the root directly as the single `Button` value under the shared flat API.
 - Supports Ark factory root props such as `asChild`, `className`, `style`, event handlers, and
   native button attributes.
 - `variant`, `size`, and `loading` are the local root props. `variant` and `size` map to
@@ -48,7 +47,7 @@ composition.
 ## Anatomy and exported parts
 
 ```text
-Button.Root
+Button
 └─ root[data-scope="button"][data-part="root"][data-slot="button-root"]
    ├─ icon, spinner, or other visual child (optional)
    └─ text label
@@ -56,10 +55,9 @@ Button.Root
 
 Every exported root accepts `className` and receives stable hooks:
 
-| Part          | `data-slot`   | Notes                                         |
-| ------------- | ------------- | --------------------------------------------- |
-| `Button.Root` | `button-root` | Root interactive surface with moduix styling. |
-| `Button`      | alias of root | Callable alias of `Button.Root`.              |
+| Part     | `data-slot`   | Notes                                         |
+| -------- | ------------- | --------------------------------------------- |
+| `Button` | `button-root` | Root interactive surface with moduix styling. |
 
 ## Composition
 
@@ -79,7 +77,7 @@ Use `asChild` when another element should own the DOM node:
 </Button>
 ```
 
-When an Ark part such as `Dialog.Trigger` or `Menu.Trigger` composes Button as its child, Button
+When an Ark part such as `DialogTrigger` or `MenuTrigger` composes Button as its child, Button
 preserves the parent part's `data-scope`, `data-part`, handlers, and merged ref on the shared DOM
 node while retaining its recipe classes and `data-slot`.
 
@@ -113,9 +111,9 @@ equivalent labeling mechanism.
 - Disabled styling is driven by `[data-disabled]`.
 - `data-disabled` is present for native `disabled`, `aria-disabled="true"`, and `loading`.
 - `data-loading` is present when `loading={true}`.
-- `Button.Root` forwards native button attributes and event handlers. Disabled states prevent click
+- `Button` forwards native button attributes and event handlers. Disabled states prevent click
   activation.
-- `Button.Root` forwards its ref to the rendered root.
+- `Button` forwards its ref to the rendered root.
 - `aria-disabled="true"` on a non-button `asChild` target adds the disabled state and prevents click
   activation.
 - `loading={true}` forces `aria-busy` and keeps the loading indicator content fully compositional.
@@ -233,6 +231,8 @@ Primary CSS variables:
 
 ## Local changelog
 
+- 2026-09-21: Replaced the compound `Button` value surface with the shared flat API across
+  React and Solid. `Button` is now the only root value and the namespaced form is removed.
 - 2026-08-09: Guarded disabled `asChild` activation before composed child click handlers and added
   focused composition and content-resilience coverage.
 - 2026-07-29: Added `font-size` and `line-height` theme overrides for `sm` and `md` button sizes.
@@ -264,7 +264,7 @@ Primary CSS variables:
 - 2026-06-18: Restored safe `type="button"` behavior for native roots, added Ark-style
   `data-disabled`, documented ref forwarding and Chakra recipe coverage, and kept `asChild`
   free of injected button-only defaults.
-- 2026-06-17: Migrated `Button` from legacy to an Ark-style factory wrapper, added `Button.Root`
+- 2026-06-17: Migrated `Button` from legacy to an Ark-style factory wrapper, added `Button`
   plus the callable `Button` alias, and replaced `render` / `nativeButton` with `asChild`.
 - 2026-06-17: Switched disabled styling hooks to native `[disabled]` and `[aria-disabled='true']`
   for the root-only Ark surface.

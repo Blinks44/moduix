@@ -2,9 +2,10 @@ import type { HTMLArkProps } from '@ark-ui/react/factory';
 import { ark } from '@ark-ui/react/factory';
 import { clsx } from 'clsx';
 import { forwardRef } from 'react';
+import { a11yLabels } from '@/lib/moduix/a11yLabels';
 import styles from './Table.module.css';
 
-type TableRootProps = HTMLArkProps<'table'> & {
+type TableProps = HTMLArkProps<'table'> & {
   interactive?: boolean;
   showColumnBorder?: boolean;
   size?: 'sm' | 'md' | 'lg';
@@ -35,7 +36,7 @@ type TableEmptyProps = HTMLArkProps<'td'> & {
   colSpan: number;
 };
 
-const TableRoot = forwardRef<HTMLTableElement, TableRootProps>(function TableRoot(
+const Table = forwardRef<HTMLTableElement, TableProps>(function Table(
   {
     asChild,
     className,
@@ -241,7 +242,7 @@ const TableCell = forwardRef<HTMLTableCellElement, TableCellProps>(function Tabl
 });
 
 const TableEmpty = forwardRef<HTMLTableCellElement, TableEmptyProps>(function TableEmpty(
-  { asChild, children = 'No results.', className, colSpan, ...props },
+  { asChild, children = a11yLabels.noResults, className, colSpan, ...props },
   ref,
 ) {
   return (
@@ -268,19 +269,17 @@ const TableEmpty = forwardRef<HTMLTableCellElement, TableEmptyProps>(function Ta
   );
 });
 
-const Table = Object.assign(TableRoot, {
-  Root: TableRoot,
-  ScrollArea: TableScrollArea,
-  Caption: TableCaption,
-  ColumnGroup: TableColumnGroup,
-  Column: TableColumn,
-  Header: TableHeader,
-  Body: TableBody,
-  Footer: TableFooter,
-  Row: TableRow,
-  ColumnHeader: TableColumnHeader,
-  Cell: TableCell,
-  Empty: TableEmpty,
-});
-
-export { Table };
+export {
+  Table,
+  TableBody,
+  TableCaption,
+  TableCell,
+  TableColumn,
+  TableColumnGroup,
+  TableColumnHeader,
+  TableEmpty,
+  TableFooter,
+  TableHeader,
+  TableRow,
+  TableScrollArea,
+};

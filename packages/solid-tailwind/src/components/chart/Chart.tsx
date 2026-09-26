@@ -94,7 +94,7 @@ type ChartPlotProps<
     renderer?: ChartRenderer<NoInfer<TDatum>, NoInfer<TXValue>, NoInfer<TYValue>>;
   };
 
-function ChartRoot(props: HTMLArkProps<'figure'>) {
+function Chart(props: HTMLArkProps<'figure'>) {
   const [local, others] = splitProps(props, ['asChild', 'class']);
 
   return (
@@ -179,89 +179,6 @@ function ModuixTooltipBody(props: { content: Accessor<ChartTooltipContent> }) {
   );
 }
 
-function TanStackTooltipSwatch(props: { color: string }) {
-  return (
-    <span
-      aria-hidden="true"
-      class="ts-chart-tooltip__swatch"
-      style={{
-        display: 'block',
-        width: '0.55rem',
-        height: '0.55rem',
-        'border-radius': '0.15rem',
-        'box-shadow': 'inset 0 0 0 1px rgb(0 0 0/.12)',
-        background: props.color,
-      }}
-    />
-  );
-}
-
-function TanStackTooltipObjectContent(props: { content: Accessor<ChartTooltipObjectContent> }) {
-  return (
-    <>
-      <Show when={props.content().title}>
-        <div
-          class="ts-chart-tooltip__title"
-          style={{
-            display: 'flex',
-            'align-items': 'center',
-            gap: '0.4rem',
-            'font-weight': 650,
-            'margin-bottom': props.content().rows.length ? '0.3rem' : 0,
-          }}
-        >
-          <Show when={props.content().color}>
-            <TanStackTooltipSwatch color={props.content().color!} />
-          </Show>
-          {props.content().title}
-        </div>
-      </Show>
-      <Show when={props.content().rows.length}>
-        <div class="ts-chart-tooltip__rows" aria-hidden="true">
-          <For each={props.content().rows}>
-            {(row) => (
-              <div
-                class="ts-chart-tooltip__row"
-                style={{
-                  display: 'grid',
-                  'grid-template-columns': '0.55rem minmax(0,1fr) auto',
-                  'align-items': 'center',
-                  'column-gap': '0.4rem',
-                }}
-              >
-                {row.color ? <TanStackTooltipSwatch color={row.color} /> : <span />}
-                <span>{row.label}</span>
-                <span
-                  style={{
-                    'text-align': 'right',
-                    'font-variant-numeric': 'tabular-nums',
-                    'white-space': 'nowrap',
-                  }}
-                >
-                  {row.value}
-                </span>
-              </div>
-            )}
-          </For>
-        </div>
-      </Show>
-    </>
-  );
-}
-
-function TanStackTooltipBody(props: { content: Accessor<ChartTooltipContent> }) {
-  return (
-    <>
-      <Show when={typeof props.content() === 'string'}>{props.content() as string}</Show>
-      <Show when={typeof props.content() !== 'string'}>
-        <TanStackTooltipObjectContent
-          content={() => props.content() as ChartTooltipObjectContent}
-        />
-      </Show>
-    </>
-  );
-}
-
 function ChartTooltipBody<TDatum, TXValue extends ChartValue, TYValue extends ChartValue>(props: {
   render: (context: ChartTooltipBodyRenderContext<TDatum, TXValue, TYValue>) => JSX.Element;
   target: Accessor<ChartTooltipBodyTarget<TDatum, TXValue, TYValue>>;
@@ -273,7 +190,7 @@ function ChartTooltipBody<TDatum, TXValue extends ChartValue, TYValue extends Ch
     get content() {
       return props.target().content;
     },
-    defaultBody: <TanStackTooltipBody content={() => props.target().content} />,
+    defaultBody: <ModuixTooltipBody content={() => props.target().content} />,
     get pinned() {
       return props.target().pinned;
     },
@@ -315,21 +232,20 @@ function ChartPrimitive<
   > | null>(null);
 
   const getOptions = () => {
-    const {
-      class: _class,
-      motion: _motion,
-      renderTooltipBody,
-      renderer: _renderer,
-      style: _style,
-      ...others
-    } = props;
+    const [local, others] = splitProps(props, [
+      'class',
+      'motion',
+      'renderTooltipBody',
+      'renderer',
+      'style',
+    ]);
 
     return {
       ...others,
       definition: withTooltipStyles(props.definition),
       idPrefix: props.idPrefix ?? generatedId,
       renderer: resolvedRenderer(),
-      onTooltipBodyChange: renderTooltipBody ? setTooltipTarget : undefined,
+      onTooltipBodyChange: local.renderTooltipBody ? setTooltipTarget : undefined,
     };
   };
 
@@ -501,14 +417,12 @@ function ChartLegendItem(props: HTMLArkProps<'li'> & { color?: string }) {
   );
 }
 
-const Chart = Object.assign(ChartRoot, {
-  Root: ChartRoot,
-  Plot: ChartPlot,
-  Header: ChartHeader,
-  Title: ChartTitle,
-  Description: ChartDescription,
-  Legend: ChartLegend,
-  LegendItem: ChartLegendItem,
-});
-
-export { Chart };
+export {
+  Chart,
+  ChartDescription,
+  ChartHeader,
+  ChartLegend,
+  ChartLegendItem,
+  ChartPlot,
+  ChartTitle,
+};

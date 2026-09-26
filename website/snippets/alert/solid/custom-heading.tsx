@@ -1,4 +1,4 @@
-import { Alert } from '@moduix/solid/alert';
+import { Alert, AlertContent, AlertDescription, AlertTitle } from '@moduix/solid/alert';
 
 const alert = {
   title: 'Billing issue',
@@ -8,10 +8,10 @@ const alert = {
 export default function AlertHeadingDemo() {
   return (
     <Alert status="info">
-      <Alert.Content>
-        <Alert.Title asChild={(titleProps) => <h2 {...titleProps()}>{alert.title}</h2>} />
-        <Alert.Description>{alert.description}</Alert.Description>
-      </Alert.Content>
+      <AlertContent>
+        <AlertTitle asChild={(titleProps) => <h2 {...titleProps()}>{alert.title}</h2>} />
+        <AlertDescription>{alert.description}</AlertDescription>
+      </AlertContent>
     </Alert>
   );
 }

@@ -14,11 +14,11 @@ Checked 2026-08-13:
 
 ## Comparison decisions
 
-| Source    | Finding                                                                                                  | moduix decision                                                                                                                                                         |
-| --------- | -------------------------------------------------------------------------------------------------------- | ----------------------------------------------------------------------------------------------------------------------------------------------------------------------- |
-| Ark UI    | Collection state, the listbox interaction model, and native form controls define the primitive contract. | **Required correctness:** preserve Ark parts, detail objects, lifecycle, context, and native control synchronization.                                                   |
-| Chakra UI | Its explicit tree separates an `IndicatorGroup` and supports recipe variants.                            | **Intentional difference:** `Select.Field` is the concise default; explicit `Control`, `Trigger`, and visual parts remain available. Do not add a parallel variant API. |
-| shadcn/ui | A compact trigger/content path is easy to discover.                                                      | **Rejected complexity:** keep Ark-shaped collections, item objects, and callbacks instead of compatibility aliases or a second state model.                             |
+| Source    | Finding                                                                                                  | moduix decision                                                                                                                                                        |
+| --------- | -------------------------------------------------------------------------------------------------------- | ---------------------------------------------------------------------------------------------------------------------------------------------------------------------- |
+| Ark UI    | Collection state, the listbox interaction model, and native form controls define the primitive contract. | **Required correctness:** preserve Ark parts, detail objects, lifecycle, context, and native control synchronization.                                                  |
+| Chakra UI | Its explicit tree separates an `IndicatorGroup` and supports recipe variants.                            | **Intentional difference:** `SelectField` is the concise default; explicit `Control`, `Trigger`, and visual parts remain available. Do not add a parallel variant API. |
+| shadcn/ui | A compact trigger/content path is easy to discover.                                                      | **Rejected complexity:** keep Ark-shaped collections, item objects, and callbacks instead of compatibility aliases or a second state model.                            |
 
 ## Upstream model to preserve
 
@@ -28,86 +28,103 @@ explicit popup composition, native form behavior, and `RootProvider` / context h
 
 ## Current behavior contract
 
-`Root` and `RootProvider` portal `Positioner` automatically by default. Set `portalled={false}` to render it inline, or pass `portalRef` to target a custom container. The structural parts remain explicit and independently styleable.
+`Select` and `SelectRootProvider` portal `SelectPositioner` automatically by default. Set `portalled={false}` to render it inline, or pass `portalRef` to target a custom container. The structural parts remain explicit and independently styleable.
 
-- `Select` is the short root form and is equivalent to `Select.Root`.
+- `Select` is the root component value.
 - The root renders a DOM element with `data-slot="select-root"` and moduix root styling.
-- Compose `Select.HiddenSelect` explicitly inside `Root` or `RootProvider` for native submission,
+- Compose `SelectHiddenSelect` explicitly inside `Select` or `SelectRootProvider` for native submission,
   autofill, validation, and reset. Virtualized collections should provide application-owned form
   integration when rendering all native options is undesirable.
-- `Select.Field` renders the standard control, value text, and an indicator; pass `clearLabel` to add a labeled clear action or `indicator` to replace the default chevron.
-- Consumers must pass a `collection`; items render with `Select.Item item={item}`.
+- `SelectField` renders the standard control, value text, and an indicator; pass `clearLabel` to add a labeled clear action or `indicator` to replace the default chevron.
+- Consumers must pass a `collection`; items render with `SelectItem item={item}`.
 - `value` and `defaultValue` are string arrays, including single selection.
 - `onValueChange(details)` exposes Ark `details.value` and `details.items`.
-- `Select.Indicator` and `Select.ItemIndicator` render moduix default icons when children are
-  omitted. `Select.ClearTrigger` composes Ark clearing behavior with the shared
-  `CloseButton.Root` by default.
-- Keep `Select.Indicator` directly under `Select.Control`, after `Select.ClearTrigger`. This follows
+- `SelectIndicator` and `SelectItemIndicator` render moduix default icons when children are
+  omitted. `SelectClearTrigger` composes Ark clearing behavior with the shared
+  `CloseButton` by default.
+- Keep `SelectIndicator` directly under `SelectControl`, after `SelectClearTrigger`. This follows
   Ark anatomy and leaves the trigger button with phrasing-content children only.
 - While the select shows its placeholder, the trigger automatically reduces its end padding so it
   only reserves space for the indicator; selecting a value grows the padding back to make room for
   the clear action.
-- Use `Select.Context`, `Select.ItemContext`, `Select.useSelectContext`, and
-  `Select.useSelectItemContext` for advanced state reads. Import collection helpers directly from
+- Use `SelectContext`, `SelectItemContext`, `useSelectContext`, and
+  `useSelectItemContext` for advanced state reads. Import collection helpers directly from
   `@ark-ui/react/collection`.
-- Use `Select.useSelect` with `Select.RootProvider`; do not render `Select.Root` for the same state
+- Use `useSelect` with `SelectRootProvider`; do not render `Select` for the same state
   instance.
-- `Select.ItemTextContent`, `Select.ItemTextIcon`, and `Select.ItemTextLabel` are moduix span
+- `SelectItemTextContent`, `SelectItemTextIcon`, and `SelectItemTextLabel` are moduix span
   helpers for richer item text layout.
-- legacy flat aliases and compatibility APIs are intentionally removed.
-- Do not gate `Positioner` or `Content` with `Select.Context` and `select.open`;
+- No compatibility aliases or compound API are provided.
+- Do not gate `Positioner` or `Content` with `SelectContext` and `select.open`;
   Ark's `lazyMount`, `unmountOnExit`, `present`, and exit callbacks own presence.
 
 ## Anatomy and exported parts
 
 ```text
-Select / Select.Root
-├─ Select.Label
-├─ Select.Control / Select.Field
-│  ├─ Select.Trigger
-│  │  └─ Select.ValueText
-│  ├─ Select.ClearTrigger
-│  └─ Select.Indicator
+Select
+├─ SelectLabel
+├─ SelectControl / SelectField
+│  ├─ SelectTrigger
+│  │  └─ SelectValueText
+│  ├─ SelectClearTrigger
+│  └─ SelectIndicator
 ├─ Overlay subtree (automatically portalled)
-│  └─ Select.Positioner
-│     └─ Select.Content
-│        ├─ Select.List
-│        └─ Select.ItemGroup
-│           ├─ Select.ItemGroupLabel
-│           └─ Select.Item[item]
-│              ├─ Select.ItemText
-│              └─ Select.ItemIndicator
-└─ Select.HiddenSelect (explicit)
+│  └─ SelectPositioner
+│     └─ SelectContent
+│        ├─ SelectList
+│        └─ SelectItemGroup
+│           ├─ SelectItemGroupLabel
+│           └─ SelectItem[item]
+│              ├─ SelectItemText
+│              └─ SelectItemIndicator
+└─ SelectHiddenSelect (explicit)
 ```
 
-| Export                   | `data-slot`                | Notes                               |
-| ------------------------ | -------------------------- | ----------------------------------- |
-| `Select` / `Select.Root` | `select-root`              | Ark root with moduix styling.       |
-| `Select.RootProvider`    | `select-root-provider`     | RootProvider styled like root.      |
-| `Select.Label`           | `select-label`             | Ark label.                          |
-| `Select.Control`         | `select-control`           | Ark control state wrapper.          |
-| `Select.Field`           | `select-control`           | Moduix standard-control helper.     |
-| `Select.Trigger`         | `select-trigger`           | Ark trigger button.                 |
-| `Select.ValueText`       | `select-value-text`        | Placeholder or selected label text. |
-| `Select.ClearTrigger`    | `select-clear-trigger`     | Ark clear behavior + `CloseButton`. |
-| `Select.Indicator`       | `select-indicator`         | Default chevron icon.               |
-| `Select.Positioner`      | `select-positioner`        | Floating layer and CSS variables.   |
-| `Select.Content`         | `select-content`           | Popup content surface.              |
-| `Select.List`            | `select-list`              | Optional list wrapper.              |
-| `Select.ItemGroup`       | `select-item-group`        | Group wrapper.                      |
-| `Select.ItemGroupLabel`  | `select-item-group-label`  | Group label.                        |
-| `Select.Item`            | `select-item`              | Selectable collection item.         |
-| `Select.ItemText`        | `select-item-text`         | Item label text.                    |
-| `Select.ItemIndicator`   | `select-item-indicator`    | Default check icon.                 |
-| `Select.ItemTextContent` | `select-item-text-content` | Moduix span helper.                 |
-| `Select.ItemTextIcon`    | `select-item-text-icon`    | Moduix span helper.                 |
-| `Select.ItemTextLabel`   | `select-item-text-label`   | Moduix span helper.                 |
+| Export                  | `data-slot`                | Notes                               |
+| ----------------------- | -------------------------- | ----------------------------------- |
+| `Select`                | `select-root`              | Ark root with moduix styling.       |
+| `SelectRootProvider`    | `select-root-provider`     | RootProvider styled like root.      |
+| `SelectContext`         | -                          | Ark root context.                   |
+| `SelectHiddenSelect`    | -                          | Native form control.                |
+| `SelectLabel`           | `select-label`             | Ark label.                          |
+| `SelectControl`         | `select-control`           | Ark control state wrapper.          |
+| `SelectField`           | `select-control`           | Moduix standard-control helper.     |
+| `SelectTrigger`         | `select-trigger`           | Ark trigger button.                 |
+| `SelectValueText`       | `select-value-text`        | Placeholder or selected label text. |
+| `SelectClearTrigger`    | `select-clear-trigger`     | Ark clear behavior + `CloseButton`. |
+| `SelectIndicator`       | `select-indicator`         | Default chevron icon.               |
+| `SelectPositioner`      | `select-positioner`        | Floating layer and CSS variables.   |
+| `SelectContent`         | `select-content`           | Popup content surface.              |
+| `SelectList`            | `select-list`              | Optional list wrapper.              |
+| `SelectItemGroup`       | `select-item-group`        | Group wrapper.                      |
+| `SelectItemGroupLabel`  | `select-item-group-label`  | Group label.                        |
+| `SelectItem`            | `select-item`              | Selectable collection item.         |
+| `SelectItemText`        | `select-item-text`         | Item label text.                    |
+| `SelectItemIndicator`   | `select-item-indicator`    | Default check icon.                 |
+| `SelectItemContext`     | -                          | Ark item context.                   |
+| `SelectItemTextContent` | `select-item-text-content` | Moduix span helper.                 |
+| `SelectItemTextIcon`    | `select-item-text-icon`    | Moduix span helper.                 |
+| `SelectItemTextLabel`   | `select-item-text-label`   | Moduix span helper.                 |
 
 ## Composition
 
 ```tsx
 import { createListCollection } from '@ark-ui/react/collection';
-import { Select } from '@moduix/react/select';
+import {
+  Select,
+  SelectField,
+  SelectItem,
+  SelectItemIndicator,
+  SelectLabel,
+  SelectTrigger,
+  SelectValueText,
+  SelectPositioner,
+  SelectContent,
+  SelectList,
+  SelectItemGroup,
+  SelectItemGroupLabel,
+  SelectItemText,
+} from '@moduix/react/select';
 
 const fruits = createListCollection({
   items: [
@@ -119,18 +136,18 @@ const fruits = createListCollection({
 export function SelectDemo() {
   return (
     <Select collection={fruits} name="fruit">
-      <Select.Label>Choose fruit</Select.Label>
-      <Select.Field placeholder="Select an option" clearLabel="Clear selection" />
-      <Select.Positioner>
-        <Select.Content>
+      <SelectLabel>Choose fruit</SelectLabel>
+      <SelectField placeholder="Select an option" clearLabel="Clear selection" />
+      <SelectPositioner>
+        <SelectContent>
           {fruits.items.map((item) => (
-            <Select.Item key={item.value} item={item}>
-              <Select.ItemText>{item.label}</Select.ItemText>
-              <Select.ItemIndicator />
-            </Select.Item>
+            <SelectItem key={item.value} item={item}>
+              <SelectItemText>{item.label}</SelectItemText>
+              <SelectItemIndicator />
+            </SelectItem>
           ))}
-        </Select.Content>
-      </Select.Positioner>
+        </SelectContent>
+      </SelectPositioner>
     </Select>
   );
 }
@@ -144,12 +161,12 @@ export function SelectDemo() {
 - Async loading, reactive collections, and virtualized rendering are supported by Ark through
   `collection`, `useListCollection`, and `scrollToIndexFn`; add task-specific examples when
   product docs need those larger integrations.
-- Ark `Select.List` is exported for custom list and virtualization paths, but the simple content
-  path can render items directly in `Select.Content`.
+- Ark `SelectList` is exported for custom list and virtualization paths, but the simple content
+  path can render items directly in `SelectContent`.
 
 ## Accessibility and state
 
-- Add `Select.HiddenSelect` for form submission, browser autofill, native validation, and reset.
+- Add `SelectHiddenSelect` for form submission, browser autofill, native validation, and reset.
   Very large virtualized collections can instead provide application-owned form integration when
   rendering an option for every item is undesirable.
 - Forward refs to the Ark DOM part for root, trigger, control, content, and item parts.
@@ -157,11 +174,11 @@ export function SelectDemo() {
   `data-readonly`, `data-required`, `data-placeholder-shown`, `data-highlighted`, and item
   `data-state="checked" | "unchecked"`.
 - Disable trigger transitions and popup enter/exit animation when the user requests reduced motion.
-- Use Ark `Field.Root` / `Fieldset.Root` context for disabled, invalid, required, and read-only
+- Use Ark `Field` / `Fieldset` context for disabled, invalid, required, and read-only
   state.
-- Use `Select.Context`, `Select.ItemContext`, `Select.useSelectContext`, and
-  `Select.useSelectItemContext` for advanced state reads.
-- Use `Select.useSelect` with `Select.RootProvider`; do not render `Select.Root` for the same state
+- Use `SelectContext`, `SelectItemContext`, `useSelectContext`, and
+  `useSelectItemContext` for advanced state reads.
+- Use `useSelect` with `SelectRootProvider`; do not render `Select` for the same state
   instance.
 - Use `asChild` only with a single semantic container that can receive the required Ark props and
   render its children; do not use an interactive host such as `button`.
@@ -173,15 +190,15 @@ The trigger defaults to `--moduix-size-md`. Single-line popup items default to `
 - Content motion falls back to the shared `--moduix-popup-motion-*` tokens. `--moduix-select-transition` and
   closed-state variables remain the more specific override.
 - Moduix styling is applied through CSS Modules plus stable `data-slot` hooks.
-- `Select.Control` owns Ark state attributes; `Select.Trigger` renders the visible field chrome.
+- `SelectControl` owns Ark state attributes; `SelectTrigger` renders the visible field chrome.
 - The trigger keeps its focus ring while the popup is open and after keyboard focus through
-  `:focus-visible`; pointer dismissal does not leave a ring on a closed select. `Select.Indicator`
-  highlights its own area inside the trigger; `Select.ClearTrigger` does the same as a sibling
+  `:focus-visible`; pointer dismissal does not leave a ring on a closed select. `SelectIndicator`
+  highlights its own area inside the trigger; `SelectClearTrigger` does the same as a sibling
   action.
-- `Select.ClearTrigger` maps select action tokens to `CloseButton.Root`; use `asChild` with one
+- `SelectClearTrigger` maps select action tokens to `CloseButton`; use `asChild` with one
   semantic child when the clear control needs a custom host or visual treatment.
 - Trigger indicators are positioned at the logical inline end, so they follow RTL text flow.
-- `Select.Content` uses Ark `--reference-width`, `--available-width`, `--available-height`, and
+- `SelectContent` uses Ark `--reference-width`, `--available-width`, `--available-height`, and
   `--transform-origin`.
 - Open/closed animation is tied to Ark `data-state` attributes.
 - Group labels inherit the shared `--moduix-popup-group-label-*` defaults: muted `xs` text, regular
@@ -191,7 +208,7 @@ The trigger defaults to `--moduix-size-md`. Single-line popup items default to `
 ## Intentional sugar and differences from upstream
 
 - Default icons are added for indicator and item indicator. `ClearTrigger` uses the shared
-  `CloseButton.Root` without nesting buttons.
+  `CloseButton` without nesting buttons.
 - `Field` is a narrow standard-control helper; `indicator` replaces only the default chevron, while popup positioning, content, and items stay explicit.
 - `ItemTextContent`, `ItemTextIcon`, and `ItemTextLabel` are local leaf helpers only; they do not
   replace Ark item composition.
@@ -220,7 +237,7 @@ content after the first open; set both props to `false` only when eager initial 
 - 2026-09-20: Keyed the trigger auto-padding to the trigger's own `data-placeholder-shown` state
   instead of the rendered clear trigger, dropping the `:has` selector in both styling systems.
 
-- 2026-08-31: Moved the standard indicator directly under `Select.Control` to match Ark anatomy and
+- 2026-08-31: Moved the standard indicator directly under `SelectControl` to match Ark anatomy and
   preserve valid trigger-button markup.
 
 - 2026-08-12: Added reduced-motion styling and release-gate coverage for keyboard selection,
@@ -233,29 +250,29 @@ content after the first open; set both props to `false` only when eager initial 
 - 2026-07-30: Added Select tests/stories, standardized popup animation fill mode,
   and migrated docs previews to `PreviewFrame`/`PreviewMeta`.
 
-- 2026-07-22: Removed `Select.Indicators` from the public API. Indicators belong inside
-  `Select.Trigger`, while clear actions render directly under `Select.Control`.
+- 2026-07-22: Removed the indicator-group API from the public API. Indicators belong inside
+  `SelectTrigger`, while clear actions render directly under `SelectControl`.
 
 - 2026-07-22: Changed closed-trigger focus styling from Ark's pointer-inclusive `data-focus` to
   `:focus-visible`, so pointer dismissal does not leave a stale focus ring.
 
 - 2026-07-22: Standardized indicator and clear-action placement across docs and examples:
-  `Select.Indicator` stays inside `Select.Trigger`; `Select.ClearTrigger` sits directly under
-  `Select.Control` so it does not overlap the chevron.
+  `SelectIndicator` stays inside `SelectTrigger`; `SelectClearTrigger` sits directly under
+  `SelectControl` so it does not overlap the chevron.
 
 - 2026-07-21: Routed shared dimensions, spacing, icon geometry, and focus-ring fallbacks through foundation tokens so density and theme presets can retune the component consistently.
 - 2026-07-21: Normalized popup group labels to the shared regular-weight, `--moduix-spacing-1` contract.
 
 - 2026-07-21: Reduced the default trigger to `--moduix-size-md` and compacted popup items to `--moduix-size-sm`.
 
-- 2026-07-20: Removed field hover and popup-open surfaces; `Select.Field` nests the indicator in the trigger for a precise icon hover target, while clear remains a sibling action.
+- 2026-07-20: Removed field hover and popup-open surfaces; `SelectField` nests the indicator in the trigger for a precise icon hover target, while clear remains a sibling action.
 - 2026-07-19: Positioned trigger indicators with a logical inline-end property for RTL.
-- 2026-07-17: Composed the default clear action with `CloseButton.Root` and mapped select action
+- 2026-07-17: Composed the default clear action with `CloseButton` and mapped select action
   tokens to the shared close-button visual contract.
 - 2026-07-16: Added shared `--moduix-popup-motion-*` fallbacks for project-wide popup content motion.
 - 2026-07-13: Native select form controls were rendered automatically at this point in the wrapper history.
 
-- 2026-07-11: Added `Select.Field` for the standard control, including `indicator` customization, and restored moduix namespace access to Ark state hooks and contexts.
+- 2026-07-11: Added `SelectField` for the standard control, including `indicator` customization, and restored moduix namespace access to Ark state hooks and contexts.
 - 2026-07-03: Kept the trigger focus ring visible while the popup is open and documented the shared
   field/clear-action hover contract with Combobox.
 - 2026-07-03: Removed Ark context parts, state hooks, and duplicate Ark type exports from the
@@ -270,7 +287,7 @@ content after the first open; set both props to `false` only when eager initial 
   indicator-only selects no longer reserve empty clear-button space.
 - 2026-06-19: Made closed popup content inert for stacked docs previews, removed sticky group
   labels, and tightened trigger action icon alignment.
-- 2026-06-19: Realigned trigger/control styling with Ark anatomy, added `Select.Indicators` for
+- 2026-06-19: Realigned trigger/control styling with Ark anatomy, added an indicator-group API for
   clear/indicator layout, and changed highlighted item colors to accent tokens.
 - 2026-06-19: Migrated `Select` to Ark UI. Replaced legacy flat aliases with
   namespace-first Ark parts, added RootProvider/context/hook exports, rewrote stories/docs, and

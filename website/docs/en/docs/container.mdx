@@ -99,19 +99,18 @@ See [Quick Start](/docs/quick-start) for full package setup, registry configurat
 `Container` renders one root element and does not add an extra wrapper.
 
 ```text
-Container / Container.Root
+Container
 └─ children
 ```
 
-| Part                           | Role                                                     |
-| ------------------------------ | -------------------------------------------------------- |
-| `Container` / `Container.Root` | Root layout element. Centers content and controls its width and horizontal padding. |
+| Part        | Role                                                     |
+| ----------- | -------------------------------------------------------- |
+| `Container` | Root layout element. Centers content and controls its width and horizontal padding. |
 
 ## Composition
 
 `Container` has no managed state and no child parts to coordinate. Use it as the root and place the page or section
-content directly inside it. `Container.Root` is an alias for the same root when that namespace form fits the rest of
-your composition.
+content directly inside it.
 
 Use `asChild` when a semantic element should own the rendered root. Pass exactly one child: React renders that child
 as the Container root, while Solid uses the render-function form `asChild={(props) => <main {...props()} />}`. In Solid,
@@ -291,7 +290,7 @@ through utilities.
 
 ### Styling hooks
 
-- `Container` and `Container.Root` expose `data-slot="container-root"` on the root.
+- `Container` exposes `data-slot="container-root"` on the root.
 - `data-scope="container"` and `data-part="root"` follow Ark's styling conventions.
 - `data-size` selects the width preset: `xs`, `sm`, `md`, `lg`, `xl`, `full`.
 - `data-gutter` selects the gutter preset: `none`, `sm`, `md`, `lg`.

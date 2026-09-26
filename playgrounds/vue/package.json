@@ -1,0 +1,24 @@
+{
+  "name": "@moduix/playground-vue",
+  "private": true,
+  "type": "module",
+  "scripts": {
+    "build:storybook": "storybook build",
+    "storybook": "storybook dev -p 7011 --no-open",
+    "tsc:check": "vue-tsc -p tsconfig.json"
+  },
+  "devDependencies": {
+    "@ark-ui/vue": "catalog:",
+    "@internationalized/date": "catalog:",
+    "@lucide/vue": "catalog:",
+    "@storybook/vue3-vite": "catalog:",
+    "@tanstack/charts": "catalog:",
+    "@types/node": "catalog:",
+    "@vitejs/plugin-vue": "catalog:",
+    "storybook": "catalog:",
+    "typescript": "~6.0.3",
+    "vite": "catalog:",
+    "vue": "catalog:",
+    "vue-tsc": "catalog:"
+  }
+}

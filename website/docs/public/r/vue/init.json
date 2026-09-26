@@ -1,0 +1,22 @@
+{
+  "$schema": "https://ui.shadcn.com/schema/registry-item.json",
+  "extends": "none",
+  "name": "init",
+  "title": "moduix Vue init",
+  "description": "Initialize shadcn for moduix Vue and install the shared foundation files.",
+  "dependencies": ["@ark-ui/vue", "clsx"],
+  "registryDependencies": ["@moduix-vue/foundation"],
+  "type": "registry:base",
+  "config": {
+    "style": "new-york",
+    "rsc": false,
+    "tsx": true,
+    "aliases": {
+      "components": "@/components",
+      "utils": "@/lib/utils",
+      "ui": "@/components/ui",
+      "lib": "@/lib",
+      "hooks": "@/hooks"
+    }
+  }
+}

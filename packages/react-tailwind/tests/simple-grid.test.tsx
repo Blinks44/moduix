@@ -58,12 +58,6 @@ test('preserves semantic children with asChild', () => {
   expect(grid.style.gridTemplateColumns).toBe('repeat(2, minmax(0, 1fr))');
 });
 
-test('exposes the same root through the namespace API', () => {
-  const { getByTestId } = render(<SimpleGrid.Root columns={2} data-testid="grid" />);
-
-  expect(getByTestId('grid').style.gridTemplateColumns).toBe('repeat(2, minmax(0, 1fr))');
-});
-
 test('lets consumer Tailwind utilities override fixed defaults', () => {
   const { getByTestId } = render(<SimpleGrid className="block grid-cols-2" data-testid="grid" />);
   const grid = getByTestId('grid');

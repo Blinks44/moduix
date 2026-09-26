@@ -113,6 +113,9 @@ moduix table anatomy.
 The snippet renders visible columns and cells, so it registers `columnVisibilityFeature`. Add other
 features only when the table needs them.
 
+The `<style>` blocks on this page exist only to lay out the documentation previews. They are not
+part of the recipe source — do not copy them into your application.
+
 <style>{`
       .data-table {
         width: min(48rem, 100%);
@@ -168,7 +171,7 @@ getter passed to `createTable`. See the TanStack
 
 ## Column widths
 
-Use `Table.ColumnGroup` and `Table.Column htmlWidth` for columns whose width should stay stable.
+Use `TableColumnGroup` and `TableColumn htmlWidth` for columns whose width should stay stable.
 Combine them with `table-layout: fixed` on the table root. The remaining column takes the available
 space, while a changing sort icon cannot resize its column.
 
@@ -257,10 +260,10 @@ Import the individual built-in filter and sort functions that a table uses and r
 
 </ExampleCode>
 
-For a sortable header, render a real button inside `Table.ColumnHeader`. The example uses Lucide
+For a sortable header, render a real button inside `TableColumnHeader`. The example uses Lucide
 icons with a consistent size and sets `aria-sort="none" | "ascending" | "descending"` on sortable
 column headers. The selection column uses moduix `Checkbox` with the built-in indeterminate state
-for the current page. When no rows match, render `Table.Empty` with
+for the current page. When no rows match, render `TableEmpty` with
 `colSpan={table.getVisibleLeafColumns().length}`.
 
 ## Server data
@@ -342,8 +345,8 @@ response, action, or selection rule.
 
 ## Accessibility
 
-Keep the native table parts in the rendered output. Use `Table.ColumnHeader` for headers,
-`Table.Cell` for data, and a short `Table.Caption` when the surrounding heading does not identify the
+Keep the native table parts in the rendered output. Use `TableColumnHeader` for headers,
+`TableCell` for data, and a short `TableCaption` when the surrounding heading does not identify the
 data. Interactive controls inside cells need descriptive accessible names, and sortable headers
 should expose their current direction through `aria-sort`. The filter input and selection controls in
 the interactive example have explicit accessible names rather than relying on placeholder or icon

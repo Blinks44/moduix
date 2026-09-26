@@ -1,30 +1,45 @@
 import { describe, expect, it } from '@rstest/core';
 import { fireEvent, render, screen, waitFor } from '@solidjs/testing-library';
 import { ChevronDownIcon } from '@/internal/icons/ui/Icons';
-import { NavigationMenu, useNavigationMenu } from '../src';
+import {
+  NavigationMenu,
+  useNavigationMenu,
+  NavigationMenuList,
+  NavigationMenuItem,
+  NavigationMenuTrigger,
+  NavigationMenuContent,
+  NavigationMenuLink,
+  NavigationMenuItemIndicator,
+  NavigationMenuIndicator,
+  NavigationMenuArrow,
+  NavigationMenuViewportPositioner,
+  NavigationMenuViewport,
+  NavigationMenuRootProvider,
+  NavigationMenuContext,
+} from '../src';
 
 describe('NavigationMenu', () => {
   it('renders all parts and preserves children', () => {
     render(() => (
-      <NavigationMenu.Root defaultValue="products">
-        <NavigationMenu.List>
-          <NavigationMenu.Item value="products">
-            <NavigationMenu.Trigger>
+      <NavigationMenu defaultValue="products">
+        <NavigationMenuList>
+          <NavigationMenuItem value="products">
+            <NavigationMenuTrigger>
               Products
               <ChevronDownIcon data-testid="trigger-icon" />
-            </NavigationMenu.Trigger>
-            <NavigationMenu.Content>
-              <NavigationMenu.Link href="/docs">Documentation</NavigationMenu.Link>
-            </NavigationMenu.Content>
-            <NavigationMenu.ItemIndicator data-testid="item-indicator" />
-          </NavigationMenu.Item>
-        </NavigationMenu.List>
-        <NavigationMenu.Indicator data-testid="indicator" />
-        <NavigationMenu.Arrow data-testid="arrow" />
-        <NavigationMenu.ViewportPositioner>
-          <NavigationMenu.Viewport data-testid="viewport" />
-        </NavigationMenu.ViewportPositioner>
-      </NavigationMenu.Root>
+            </NavigationMenuTrigger>
+            <NavigationMenuContent>
+              <NavigationMenuLink href="/docs">Documentation</NavigationMenuLink>
+            </NavigationMenuContent>
+            <NavigationMenuItemIndicator data-testid="item-indicator" />
+          </NavigationMenuItem>
+        </NavigationMenuList>
+        <NavigationMenuIndicator data-testid="indicator" />
+        <NavigationMenuArrow data-testid="arrow" />
+        <NavigationMenuViewportPositioner>
+          <NavigationMenuViewport data-testid="viewport" />
+        </NavigationMenuViewportPositioner>
+      </NavigationMenu>
     ));
 
     expect(screen.getByRole('navigation')).toHaveAttribute('data-slot', 'navigation-menu-root');
@@ -51,18 +66,18 @@ describe('NavigationMenu', () => {
     const values: Array<string | null> = [];
 
     render(() => (
-      <NavigationMenu.Root onValueChange={(details) => values.push(details.value)}>
-        <NavigationMenu.List>
-          <NavigationMenu.Item value="products">
-            <NavigationMenu.Trigger>Products</NavigationMenu.Trigger>
-            <NavigationMenu.Content>Product links</NavigationMenu.Content>
-          </NavigationMenu.Item>
-          <NavigationMenu.Item value="company">
-            <NavigationMenu.Trigger>Company</NavigationMenu.Trigger>
-            <NavigationMenu.Content>Company links</NavigationMenu.Content>
-          </NavigationMenu.Item>
-        </NavigationMenu.List>
-      </NavigationMenu.Root>
+      <NavigationMenu onValueChange={(details) => values.push(details.value)}>
+        <NavigationMenuList>
+          <NavigationMenuItem value="products">
+            <NavigationMenuTrigger>Products</NavigationMenuTrigger>
+            <NavigationMenuContent>Product links</NavigationMenuContent>
+          </NavigationMenuItem>
+          <NavigationMenuItem value="company">
+            <NavigationMenuTrigger>Company</NavigationMenuTrigger>
+            <NavigationMenuContent>Company links</NavigationMenuContent>
+          </NavigationMenuItem>
+        </NavigationMenuList>
+      </NavigationMenu>
     ));
 
     const products = screen.getByRole('button', { name: 'Products' });
@@ -94,17 +109,17 @@ describe('NavigationMenu', () => {
       const navigationMenu = useNavigationMenu({ defaultValue: 'products' });
 
       return (
-        <NavigationMenu.RootProvider value={navigationMenu}>
-          <NavigationMenu.Context>
+        <NavigationMenuRootProvider value={navigationMenu}>
+          <NavigationMenuContext>
             {(context) => <div data-testid="context-value">{context().value || 'none'}</div>}
-          </NavigationMenu.Context>
-          <NavigationMenu.List>
-            <NavigationMenu.Item value="products">
-              <NavigationMenu.Trigger>Products</NavigationMenu.Trigger>
-              <NavigationMenu.Content>Product links</NavigationMenu.Content>
-            </NavigationMenu.Item>
-          </NavigationMenu.List>
-        </NavigationMenu.RootProvider>
+          </NavigationMenuContext>
+          <NavigationMenuList>
+            <NavigationMenuItem value="products">
+              <NavigationMenuTrigger>Products</NavigationMenuTrigger>
+              <NavigationMenuContent>Product links</NavigationMenuContent>
+            </NavigationMenuItem>
+          </NavigationMenuList>
+        </NavigationMenuRootProvider>
       );
     };
 
@@ -120,14 +135,14 @@ describe('NavigationMenu', () => {
 
   it('renders closed content safely by default', () => {
     const { container } = render(() => (
-      <NavigationMenu.Root>
-        <NavigationMenu.List>
-          <NavigationMenu.Item value="products">
-            <NavigationMenu.Trigger>Products</NavigationMenu.Trigger>
-            <NavigationMenu.Content>Product links</NavigationMenu.Content>
-          </NavigationMenu.Item>
-        </NavigationMenu.List>
-      </NavigationMenu.Root>
+      <NavigationMenu>
+        <NavigationMenuList>
+          <NavigationMenuItem value="products">
+            <NavigationMenuTrigger>Products</NavigationMenuTrigger>
+            <NavigationMenuContent>Product links</NavigationMenuContent>
+          </NavigationMenuItem>
+        </NavigationMenuList>
+      </NavigationMenu>
     ));
 
     const content = container.querySelector<HTMLElement>('[data-slot="navigation-menu-content"]');
@@ -139,17 +154,17 @@ describe('NavigationMenu', () => {
 
   it('preserves Content children without an internal wrapper', () => {
     const { container } = render(() => (
-      <NavigationMenu.Root defaultValue="products">
-        <NavigationMenu.List>
-          <NavigationMenu.Item value="products">
-            <NavigationMenu.Trigger>Products</NavigationMenu.Trigger>
-            <NavigationMenu.Content>
+      <NavigationMenu defaultValue="products">
+        <NavigationMenuList>
+          <NavigationMenuItem value="products">
+            <NavigationMenuTrigger>Products</NavigationMenuTrigger>
+            <NavigationMenuContent>
               <div data-testid="content-heading">Products</div>
-              <NavigationMenu.Link href="/docs">Documentation</NavigationMenu.Link>
-            </NavigationMenu.Content>
-          </NavigationMenu.Item>
-        </NavigationMenu.List>
-      </NavigationMenu.Root>
+              <NavigationMenuLink href="/docs">Documentation</NavigationMenuLink>
+            </NavigationMenuContent>
+          </NavigationMenuItem>
+        </NavigationMenuList>
+      </NavigationMenu>
     ));
 
     const content = container.querySelector<HTMLElement>('[data-slot="navigation-menu-content"]');
@@ -164,19 +179,19 @@ describe('NavigationMenu', () => {
     let trigger: HTMLElement | undefined;
 
     render(() => (
-      <NavigationMenu.Root ref={(element) => (root = element)}>
-        <NavigationMenu.List>
-          <NavigationMenu.Item value="products">
-            <NavigationMenu.Trigger ref={(element) => (trigger = element)}>
+      <NavigationMenu ref={(element) => (root = element)}>
+        <NavigationMenuList>
+          <NavigationMenuItem value="products">
+            <NavigationMenuTrigger ref={(element) => (trigger = element)}>
               Products
-            </NavigationMenu.Trigger>
-            <NavigationMenu.Content>Product links</NavigationMenu.Content>
-            <NavigationMenu.Link asChild={(props) => <a {...props()} href="/docs" />} current>
+            </NavigationMenuTrigger>
+            <NavigationMenuContent>Product links</NavigationMenuContent>
+            <NavigationMenuLink asChild={(props) => <a {...props()} href="/docs" />} current>
               Documentation
-            </NavigationMenu.Link>
-          </NavigationMenu.Item>
-        </NavigationMenu.List>
-      </NavigationMenu.Root>
+            </NavigationMenuLink>
+          </NavigationMenuItem>
+        </NavigationMenuList>
+      </NavigationMenu>
     ));
 
     expect(root).toBeInstanceOf(HTMLElement);
@@ -195,21 +210,21 @@ describe('NavigationMenu', () => {
     let linkRef: HTMLElement | undefined;
 
     render(() => (
-      <NavigationMenu.Root defaultValue="products">
-        <NavigationMenu.List>
-          <NavigationMenu.Item value="products">
-            <NavigationMenu.Trigger>Products</NavigationMenu.Trigger>
-            <NavigationMenu.Content>
-              <NavigationMenu.Link
+      <NavigationMenu defaultValue="products">
+        <NavigationMenuList>
+          <NavigationMenuItem value="products">
+            <NavigationMenuTrigger>Products</NavigationMenuTrigger>
+            <NavigationMenuContent>
+              <NavigationMenuLink
                 ref={(element) => (linkRef = element)}
                 asChild={(props) => <a {...props()} href="/docs" />}
               >
                 Documentation
-              </NavigationMenu.Link>
-            </NavigationMenu.Content>
-          </NavigationMenu.Item>
-        </NavigationMenu.List>
-      </NavigationMenu.Root>
+              </NavigationMenuLink>
+            </NavigationMenuContent>
+          </NavigationMenuItem>
+        </NavigationMenuList>
+      </NavigationMenu>
     ));
 
     expect(linkRef).toBeUndefined();
@@ -218,21 +233,21 @@ describe('NavigationMenu', () => {
 
   it('supports viewport motion after opening content', async () => {
     const { container } = render(() => (
-      <NavigationMenu.Root>
-        <NavigationMenu.List>
-          <NavigationMenu.Item value="products">
-            <NavigationMenu.Trigger>Products</NavigationMenu.Trigger>
-            <NavigationMenu.Content>Product links</NavigationMenu.Content>
-          </NavigationMenu.Item>
-          <NavigationMenu.Item value="docs">
-            <NavigationMenu.Trigger>Docs</NavigationMenu.Trigger>
-            <NavigationMenu.Content>Documentation</NavigationMenu.Content>
-          </NavigationMenu.Item>
-        </NavigationMenu.List>
-        <NavigationMenu.ViewportPositioner>
-          <NavigationMenu.Viewport />
-        </NavigationMenu.ViewportPositioner>
-      </NavigationMenu.Root>
+      <NavigationMenu>
+        <NavigationMenuList>
+          <NavigationMenuItem value="products">
+            <NavigationMenuTrigger>Products</NavigationMenuTrigger>
+            <NavigationMenuContent>Product links</NavigationMenuContent>
+          </NavigationMenuItem>
+          <NavigationMenuItem value="docs">
+            <NavigationMenuTrigger>Docs</NavigationMenuTrigger>
+            <NavigationMenuContent>Documentation</NavigationMenuContent>
+          </NavigationMenuItem>
+        </NavigationMenuList>
+        <NavigationMenuViewportPositioner>
+          <NavigationMenuViewport />
+        </NavigationMenuViewportPositioner>
+      </NavigationMenu>
     ));
 
     const viewport = container.querySelector('[data-slot="navigation-menu-viewport"]');

@@ -1,4 +1,4 @@
-import { Card } from '@moduix/solid/card';
+import { Card, CardBody, CardDescription, CardHeader, CardTitle } from '@moduix/solid/card';
 import { For } from 'solid-js';
 import styles from '@/components/examples/card/card-variants.module.css';
 
@@ -15,11 +15,11 @@ export default function CardVariantsDemo() {
       <For each={variants}>
         {(variant) => (
           <Card class={styles.card} variant={variant}>
-            <Card.Header>
-              <Card.Title>{variant}</Card.Title>
-              <Card.Description>{descriptions[variant]}</Card.Description>
-            </Card.Header>
-            <Card.Body>Use variants to communicate surface hierarchy.</Card.Body>
+            <CardHeader>
+              <CardTitle>{variant}</CardTitle>
+              <CardDescription>{descriptions[variant]}</CardDescription>
+            </CardHeader>
+            <CardBody>Use variants to communicate surface hierarchy.</CardBody>
           </Card>
         )}
       </For>

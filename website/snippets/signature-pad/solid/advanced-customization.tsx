@@ -1,14 +1,21 @@
-import { SignaturePad } from '@moduix/solid/signature-pad';
+import {
+  SignaturePad,
+  SignaturePadClearTrigger,
+  SignaturePadControl,
+  SignaturePadGuide,
+  SignaturePadLabel,
+  SignaturePadSegment,
+} from '@moduix/solid/signature-pad';
 
 export default function AdvancedCustomizationSignaturePadDemo() {
   return (
     <SignaturePad>
-      <SignaturePad.Label>Sign below</SignaturePad.Label>
-      <SignaturePad.Control>
-        <SignaturePad.Segment />
-        <SignaturePad.ClearTrigger aria-label="Clear signature">Clear</SignaturePad.ClearTrigger>
-        <SignaturePad.Guide />
-      </SignaturePad.Control>
+      <SignaturePadLabel>Sign below</SignaturePadLabel>
+      <SignaturePadControl>
+        <SignaturePadSegment />
+        <SignaturePadClearTrigger aria-label="Clear signature">Clear</SignaturePadClearTrigger>
+        <SignaturePadGuide />
+      </SignaturePadControl>
     </SignaturePad>
   );
 }

@@ -35,7 +35,7 @@ import paginationSolidWithEdges from '../../../snippets/pagination/solid/with-ed
 ## Exemple de base
 
 
-Utilisez `Pagination` comme composant racine. `Pagination.Items` affiche les boutons de page et les
+Utilisez `Pagination` comme composant racine. `PaginationItems` affiche les boutons de page et les
 points de suspension correspondant à la plage courante.
 
 <ExampleFrame variant="component">
@@ -102,34 +102,34 @@ Consultez le [Démarrage rapide](/docs/quick-start) pour la configuration compl�
 ## Anatomie
 
 ```text
-Pagination / Pagination.Root
-├─ Pagination.FirstTrigger (facultatif)
-├─ Pagination.PrevTrigger
-├─ Pagination.Items (recommandé)
-├─ Pagination.Context (accès avancé à l’état par fonction de rendu)
-│  ├─ Pagination.Item
-│  └─ Pagination.Ellipsis
-├─ Pagination.NextTrigger
-└─ Pagination.LastTrigger (facultatif)
+Pagination
+├─ PaginationFirstTrigger (facultatif)
+├─ PaginationPrevTrigger
+├─ PaginationItems (recommandé)
+├─ PaginationContext (accès avancé à l’état par fonction de rendu)
+│  ├─ PaginationItem
+│  └─ PaginationEllipsis
+├─ PaginationNextTrigger
+└─ PaginationLastTrigger (facultatif)
 
-Pagination.RootProvider
+PaginationRootProvider
 └─ même arborescence de déclencheurs, d’éléments, de points de suspension et de contexte, reliée à usePagination()
 ```
 
 | Partie                            | Rôle                                                                    |
 | --------------------------------- | ----------------------------------------------------------------------- |
 | `Pagination`                      | Racine de navigation qui gère la page active et le nombre d’éléments par page.                |
-| `Pagination.RootProvider`         | Relie les sous-composants à l’état créé avec `Pagination.usePagination()`.                    |
-| `Pagination.Items`                | Affiche les éléments de page et les points de suspension calculés par Ark.                    |
-| `Pagination.Context`              | Expose l’état de la racine et les méthodes de navigation via une render prop Ark UI.          |
-| `Pagination.usePagination`        | Crée l’état de pagination en dehors de l’arborescence rendue.                                 |
-| `Pagination.usePaginationContext` | Donne accès à l’état de pagination depuis un composant descendant.                             |
-| `Pagination.Item`                 | Contrôle de page interactif. Transmettez-lui l’objet de page avec `{...page}`.                 |
-| `Pagination.Ellipsis`             | Marqueur non interactif d’une partie masquée de la plage. `index` est obligatoire.            |
-| `Pagination.PrevTrigger`          | Passe à la page précédente et se désactive sur la première page.                              |
-| `Pagination.NextTrigger`          | Passe à la page suivante et se désactive sur la dernière page.                                |
-| `Pagination.FirstTrigger`         | Passe à la première page et se désactive lorsqu’elle est déjà sélectionnée.                   |
-| `Pagination.LastTrigger`          | Passe à la dernière page et se désactive lorsqu’elle est déjà sélectionnée.                   |
+| `PaginationRootProvider`         | Relie les sous-composants à l’état créé avec `usePagination()`.                    |
+| `PaginationItems`                | Affiche les éléments de page et les points de suspension calculés par Ark.                    |
+| `PaginationContext`              | Expose l’état de la racine et les méthodes de navigation via une render prop Ark UI.          |
+| `usePagination`        | Crée l’état de pagination en dehors de l’arborescence rendue.                                 |
+| `usePaginationContext` | Donne accès à l’état de pagination depuis un composant descendant.                             |
+| `PaginationItem`                 | Contrôle de page interactif. Transmettez-lui l’objet de page avec `{...page}`.                 |
+| `PaginationEllipsis`             | Marqueur non interactif d’une partie masquée de la plage. `index` est obligatoire.            |
+| `PaginationPrevTrigger`          | Passe à la page précédente et se désactive sur la première page.                              |
+| `PaginationNextTrigger`          | Passe à la page suivante et se désactive sur la dernière page.                                |
+| `PaginationFirstTrigger`         | Passe à la première page et se désactive lorsqu’elle est déjà sélectionnée.                   |
+| `PaginationLastTrigger`          | Passe à la dernière page et se désactive lorsqu’elle est déjà sélectionnée.                   |
 
 ## Composition
 
@@ -138,10 +138,10 @@ autre partie de l’application le contrôle, transmettez `page`, `pageSize` et 
 changement correspondants. Indiquez dans `count` le nombre total d’éléments, et non le nombre de pages,
 puis définissez une taille de page pour qu’Ark puisse calculer `totalPages`.
 
-Utilisez `Pagination.Items` pour la liste standard. Utilisez `Pagination.Context` lorsque les éléments
+Utilisez `PaginationItems` pour la liste standard. Utilisez `PaginationContext` lorsque les éléments
 de page ou les contrôles voisins doivent être personnalisés. Si l’état doit être créé en dehors de
-l’arborescence rendue, créez-le avec `Pagination.usePagination()` et transmettez-le à
-`Pagination.RootProvider`. Pour une navigation par URL, définissez `type="link"`, fournissez
+l’arborescence rendue, créez-le avec `usePagination()` et transmettez-le à
+`PaginationRootProvider`. Pour une navigation par URL, définissez `type="link"`, fournissez
 `getPageUrl(details)` et rendez des ancres sémantiques avec `asChild`.
 
 ## Exemples
@@ -186,7 +186,7 @@ Passez la page active avec `page` et mettez-la à jour dans `onPageChange(detail
 
 ### Contexte
 
-Utilisez `Pagination.Context` pour placer des contrôles personnalisés à côté de la liste et appeler des
+Utilisez `PaginationContext` pour placer des contrôles personnalisés à côté de la liste et appeler des
 méthodes de navigation telles que `goToFirstPage()` ou `goToLastPage()`.
 
 <ExampleFrame variant="component">
@@ -375,7 +375,7 @@ nombre d’éléments par page.
 
 ### Root Provider
 
-Créez l’état avec `Pagination.usePagination()` et transmettez-le à `Pagination.RootProvider` lorsque
+Créez l’état avec `usePagination()` et transmettez-le à `PaginationRootProvider` lorsque
 l’état est géré en dehors de l’arborescence qui affiche la pagination.
 
 <ExampleFrame variant="component">
@@ -453,7 +453,7 @@ visible avec `siblingCount`, `boundaryCount` et les propriétés liées au nombr
 
 ### Boutons de première et de dernière page
 
-Ajoutez `Pagination.FirstTrigger` et `Pagination.LastTrigger` lorsque les utilisateurs ont besoin d’un
+Ajoutez `PaginationFirstTrigger` et `PaginationLastTrigger` lorsque les utilisateurs ont besoin d’un
 accès rapide à la première et à la dernière page.
 
 <ExampleFrame variant="component">
@@ -492,9 +492,9 @@ accès rapide à la première et à la dernière page.
 
 ### Personnalisation avancée
 
-Utilisez `Pagination.Context` à la place de `Pagination.Items` lorsque les boutons de page ou les points
+Utilisez `PaginationContext` à la place de `PaginationItems` lorsque les boutons de page ou les points
 de suspension doivent afficher un contenu personnalisé. Transmettez chaque objet de page tel quel à
-`Pagination.Item` afin qu’Ark conserve son état et son comportement accessible.
+`PaginationItem` afin qu’Ark conserve son état et son comportement accessible.
 
 <ExampleFrame variant="component">
   <PaginationAdvancedCustomization />
@@ -553,9 +553,9 @@ longues s’élargissent sans être tronquées.
 
 ### Points d’accroche CSS
 
-- `data-scope="pagination"` et `data-part="item"` sur `Pagination.Item`
-- `data-scope="pagination"` et `data-part="prev-trigger"` sur `Pagination.PrevTrigger`
-- `data-scope="pagination"` et `data-part="next-trigger"` sur `Pagination.NextTrigger`
+- `data-scope="pagination"` et `data-part="item"` sur `PaginationItem`
+- `data-scope="pagination"` et `data-part="prev-trigger"` sur `PaginationPrevTrigger`
+- `data-scope="pagination"` et `data-part="next-trigger"` sur `PaginationNextTrigger`
 - `data-scope="pagination"` avec `data-part="first-trigger"` ou `data-part="last-trigger"` sur les contrôles de début et de fin
 - `data-selected` sur l’élément de page actif
 - `data-disabled` sur les déclencheurs indisponibles

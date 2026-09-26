@@ -1,16 +1,24 @@
-import { Slider } from '@moduix/solid/slider';
+import {
+  Slider,
+  SliderControl,
+  SliderLabel,
+  SliderRange,
+  SliderThumbs,
+  SliderTrack,
+  SliderValueText,
+} from '@moduix/solid/slider';
 
 export default function RangeSliderDemo() {
   return (
     <Slider defaultValue={[30, 60]}>
-      <Slider.Label>Price range</Slider.Label>
-      <Slider.Control>
-        <Slider.Track>
-          <Slider.Range />
-        </Slider.Track>
-        <Slider.Thumbs />
-      </Slider.Control>
-      <Slider.ValueText />
+      <SliderLabel>Price range</SliderLabel>
+      <SliderControl>
+        <SliderTrack>
+          <SliderRange />
+        </SliderTrack>
+        <SliderThumbs />
+      </SliderControl>
+      <SliderValueText />
     </Slider>
   );
 }

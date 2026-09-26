@@ -1,5 +1,11 @@
 import { Button } from '@moduix/react/button';
-import { ImageCropper, useImageCropper } from '@moduix/react/image-cropper';
+import {
+  ImageCropperCropArea,
+  ImageCropperImage,
+  ImageCropperRootProvider,
+  ImageCropperViewport,
+  useImageCropper,
+} from '@moduix/react/image-cropper';
 import { useState } from 'react';
 import { PreviewMeta } from '@/components/mdx/Components';
 import styles from '@/components/examples/image-cropper/image-cropper-crop-preview.module.css';
@@ -36,12 +42,12 @@ export default function CropPreviewImageCropperDemo() {
 
   return (
     <div className={styles.stack}>
-      <ImageCropper.RootProvider value={imageCropper} aria-label="Image cropper">
-        <ImageCropper.Viewport>
-          <ImageCropper.Image src={sampleImage} alt="Landscape" crossOrigin="anonymous" />
-          <ImageCropper.CropArea />
-        </ImageCropper.Viewport>
-      </ImageCropper.RootProvider>
+      <ImageCropperRootProvider value={imageCropper} aria-label="Image cropper">
+        <ImageCropperViewport>
+          <ImageCropperImage src={sampleImage} alt="Landscape" crossOrigin="anonymous" />
+          <ImageCropperCropArea />
+        </ImageCropperViewport>
+      </ImageCropperRootProvider>
       <PreviewMeta>
         <output>{status}</output>
         {preview ? (

@@ -1,9 +1,33 @@
 import { useListCollection } from '@ark-ui/solid/collection';
 import { useFilter } from '@ark-ui/solid/locale';
-import { Avatar } from '@moduix/solid/avatar';
+import { Avatar, AvatarFallback, AvatarImage } from '@moduix/solid/avatar';
 import { Button } from '@moduix/solid/button';
-import { CommandPalette } from '@moduix/solid/command-palette';
-import { Menu } from '@moduix/solid/menu';
+import {
+  CommandPalette,
+  CommandPaletteCombobox,
+  CommandPaletteEmpty,
+  CommandPaletteItem,
+  CommandPaletteItemDescription,
+  CommandPaletteItemGroup,
+  CommandPaletteItemGroupLabel,
+  CommandPaletteItemIcon,
+  CommandPaletteItemLabel,
+  CommandPaletteItemText,
+  CommandPaletteList,
+  CommandPalettePanel,
+  CommandPaletteSearch,
+  CommandPaletteTrigger,
+} from '@moduix/solid/command-palette';
+import {
+  Menu,
+  MenuTrigger,
+  MenuPositioner,
+  MenuContent,
+  MenuViewport,
+  MenuItem,
+  MenuItemGroup,
+  MenuItemGroupLabel,
+} from '@moduix/solid/menu';
 import {
   ChevronDown,
   CircleHelp,
@@ -126,7 +150,7 @@ export function AppHeader() {
         <div class={styles.actions}>
           <span class={styles.mobileNavigation}>
             <Menu positioning={{ placement: 'bottom-end', gutter: 10 }}>
-              <Menu.Trigger
+              <MenuTrigger
                 asChild={(props) => (
                   <Button
                     {...props()}
@@ -137,15 +161,15 @@ export function AppHeader() {
                 )}
               >
                 <MenuIcon />
-              </Menu.Trigger>
-              <Menu.Positioner>
-                <Menu.Content class={styles.mobileNavigationMenu}>
-                  <Menu.Viewport>
-                    <Menu.ItemGroup>
-                      <Menu.ItemGroupLabel>Navigation</Menu.ItemGroupLabel>
+              </MenuTrigger>
+              <MenuPositioner>
+                <MenuContent class={styles.mobileNavigationMenu}>
+                  <MenuViewport>
+                    <MenuItemGroup>
+                      <MenuItemGroupLabel>Navigation</MenuItemGroupLabel>
                       <For each={navigation}>
                         {(item, index) => (
-                          <Menu.Item
+                          <MenuItem
                             value={item.href}
                             asChild={(props) => (
                               <a
@@ -156,17 +180,17 @@ export function AppHeader() {
                             )}
                           >
                             {item.label}
-                          </Menu.Item>
+                          </MenuItem>
                         )}
                       </For>
-                    </Menu.ItemGroup>
-                  </Menu.Viewport>
-                </Menu.Content>
-              </Menu.Positioner>
+                    </MenuItemGroup>
+                  </MenuViewport>
+                </MenuContent>
+              </MenuPositioner>
             </Menu>
           </span>
 
-          <CommandPalette.Trigger
+          <CommandPaletteTrigger
             asChild={(props) => (
               <Button
                 {...props()}
@@ -178,10 +202,10 @@ export function AppHeader() {
             )}
           >
             <Search aria-hidden />
-          </CommandPalette.Trigger>
+          </CommandPaletteTrigger>
 
           <Menu positioning={{ placement: 'bottom-end', gutter: 10 }}>
-            <Menu.Trigger
+            <MenuTrigger
               asChild={(props) => (
                 <Button
                   {...props()}
@@ -193,24 +217,24 @@ export function AppHeader() {
               )}
             >
               <Avatar class={styles.avatar} size="sm">
-                <Avatar.Image src={account.image} alt="" />
-                <Avatar.Fallback>{account.name.slice(0, 1)}</Avatar.Fallback>
+                <AvatarImage src={account.image} alt="" />
+                <AvatarFallback>{account.name.slice(0, 1)}</AvatarFallback>
               </Avatar>
               <span class={styles.accountDetails}>
                 <strong>{account.name}</strong>
                 <span>{account.role}</span>
               </span>
               <ChevronDown class={styles.accountChevron} aria-hidden />
-            </Menu.Trigger>
-            <Menu.Positioner>
-              <Menu.Content class={styles.accountMenu}>
-                <Menu.Viewport>
-                  <Menu.ItemGroup>
-                    <Menu.ItemGroupLabel class={styles.accountSummary}>
+            </MenuTrigger>
+            <MenuPositioner>
+              <MenuContent class={styles.accountMenu}>
+                <MenuViewport>
+                  <MenuItemGroup>
+                    <MenuItemGroupLabel class={styles.accountSummary}>
                       <strong>{account.name}</strong>
                       <span>{account.email}</span>
-                    </Menu.ItemGroupLabel>
-                    <Menu.Item
+                    </MenuItemGroupLabel>
+                    <MenuItem
                       value="profile"
                       asChild={(props) => (
                         <a {...props()} class={styles.menuLink} href="#profile" />
@@ -218,8 +242,8 @@ export function AppHeader() {
                     >
                       <UserRound aria-hidden />
                       Profile
-                    </Menu.Item>
-                    <Menu.Item
+                    </MenuItem>
+                    <MenuItem
                       value="workspace-settings"
                       asChild={(props) => (
                         <a {...props()} class={styles.menuLink} href="#workspace-settings" />
@@ -227,56 +251,56 @@ export function AppHeader() {
                     >
                       <Settings aria-hidden />
                       Workspace settings
-                    </Menu.Item>
-                    <Menu.Item
+                    </MenuItem>
+                    <MenuItem
                       value="help"
                       asChild={(props) => <a {...props()} class={styles.menuLink} href="#help" />}
                     >
                       <CircleHelp aria-hidden />
                       Help and support
-                    </Menu.Item>
-                  </Menu.ItemGroup>
-                </Menu.Viewport>
-              </Menu.Content>
-            </Menu.Positioner>
+                    </MenuItem>
+                  </MenuItemGroup>
+                </MenuViewport>
+              </MenuContent>
+            </MenuPositioner>
           </Menu>
         </div>
       </header>
 
-      <CommandPalette.Panel class={styles.commandPalette}>
-        <CommandPalette.Combobox
+      <CommandPalettePanel class={styles.commandPalette}>
+        <CommandPaletteCombobox
           collection={collectionState.collection()}
           onInputValueChange={(details) => collectionState.filter(details.inputValue)}
           onSelect={(details) => {
             window.location.hash = details.itemValue;
           }}
         >
-          <CommandPalette.Search placeholder="Search workspace..." />
-          <CommandPalette.List>
-            <CommandPalette.Empty>No commands found.</CommandPalette.Empty>
+          <CommandPaletteSearch placeholder="Search workspace..." />
+          <CommandPaletteList>
+            <CommandPaletteEmpty>No commands found.</CommandPaletteEmpty>
             <For each={collectionState.collection().group()}>
               {([section, items]) => (
-                <CommandPalette.ItemGroup>
-                  <CommandPalette.ItemGroupLabel>{section}</CommandPalette.ItemGroupLabel>
+                <CommandPaletteItemGroup>
+                  <CommandPaletteItemGroupLabel>{section}</CommandPaletteItemGroupLabel>
                   <For each={items}>
                     {(item) => (
-                      <CommandPalette.Item item={item}>
-                        <CommandPalette.ItemIcon>{item.icon}</CommandPalette.ItemIcon>
-                        <CommandPalette.ItemText>
-                          <CommandPalette.ItemLabel>{item.label}</CommandPalette.ItemLabel>
-                          <CommandPalette.ItemDescription>
+                      <CommandPaletteItem item={item}>
+                        <CommandPaletteItemIcon>{item.icon}</CommandPaletteItemIcon>
+                        <CommandPaletteItemText>
+                          <CommandPaletteItemLabel>{item.label}</CommandPaletteItemLabel>
+                          <CommandPaletteItemDescription>
                             {item.description}
-                          </CommandPalette.ItemDescription>
-                        </CommandPalette.ItemText>
-                      </CommandPalette.Item>
+                          </CommandPaletteItemDescription>
+                        </CommandPaletteItemText>
+                      </CommandPaletteItem>
                     )}
                   </For>
-                </CommandPalette.ItemGroup>
+                </CommandPaletteItemGroup>
               )}
             </For>
-          </CommandPalette.List>
-        </CommandPalette.Combobox>
-      </CommandPalette.Panel>
+          </CommandPaletteList>
+        </CommandPaletteCombobox>
+      </CommandPalettePanel>
     </CommandPalette>
   );
 }

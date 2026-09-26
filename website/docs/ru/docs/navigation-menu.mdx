@@ -1,7 +1,7 @@
 ---
 title: Navigation Menu
 component: navigation-menu
-description: Навигационная панель для прямых ссылок и раскрывающихся панелей с возможностью использовать общую область `Viewport` для анимированных переходов.
+description: Навигационная панель для прямых ссылок и раскрывающихся панелей с возможностью использовать общую область `NavigationMenuViewport` для анимированных переходов.
 ---
 
 import * as NavigationMenuDocs from '@/components/examples/navigation-menu/css-properties';
@@ -32,9 +32,9 @@ import navigationMenuSolidViewport from '../../../snippets/navigation-menu/solid
 `@moduix/solid/navigation-menu`, `@moduix/react-tailwind/navigation-menu` или
 `@moduix/solid-tailwind/navigation-menu`.
 
-Используйте `NavigationMenu` вместе с `NavigationMenu.List` и `NavigationMenu.Item`. У каждого элемента
-должно быть уникальное значение `value`. Для группы ссылок поместите `NavigationMenu.Trigger` и
-`NavigationMenu.Content` в один элемент. `NavigationMenu.Link` используйте для прямых переходов из
+Используйте `NavigationMenu` вместе с `NavigationMenuList` и `NavigationMenuItem`. У каждого элемента
+должно быть уникальное значение `value`. Для группы ссылок поместите `NavigationMenuTrigger` и
+`NavigationMenuContent` в один элемент. `NavigationMenuLink` используйте для прямых переходов из
 верхнего уровня и для ссылок внутри панели.
 
 <ExampleFrame variant="component">
@@ -102,55 +102,57 @@ import navigationMenuSolidViewport from '../../../snippets/navigation-menu/solid
 ## Анатомия
 
 ```text
-NavigationMenu / NavigationMenu.Root
-├─ NavigationMenu.List
-│  ├─ NavigationMenu.Item[value]
-│  │  └─ NavigationMenu.Link
-│  └─ NavigationMenu.Item[value]
-│     ├─ NavigationMenu.Trigger
-│     ├─ NavigationMenu.ItemIndicator (необязательно)
-│     └─ NavigationMenu.Content
-│        └─ NavigationMenu.Link
-│  └─ NavigationMenu.Indicator > NavigationMenu.Arrow (необязательно)
-└─ NavigationMenu.ViewportPositioner (необязательно)
-   └─ NavigationMenu.Viewport
+NavigationMenu
+├─ NavigationMenuList
+│  ├─ NavigationMenuItem[value]
+│  │  └─ NavigationMenuLink
+│  └─ NavigationMenuItem[value]
+│     ├─ NavigationMenuTrigger
+│     ├─ NavigationMenuItemIndicator (необязательно)
+│     └─ NavigationMenuContent
+│        └─ NavigationMenuLink
+│  └─ NavigationMenuIndicator > NavigationMenuArrow (необязательно)
+└─ NavigationMenuViewportPositioner (необязательно)
+   └─ NavigationMenuViewport
 
-NavigationMenu.RootProvider
+NavigationMenuRootProvider
 └─ то же дерево частей, подключённое к хранилищу из useNavigationMenu()
 
-NavigationMenu.Context
+NavigationMenuContext
 └─ расширенный доступ к текущему состоянию навигации через функцию рендера (`render prop`)
 ```
 
 | Часть | Назначение |
 | --- | --- |
-| `NavigationMenu` / `NavigationMenu.Root` | Корневой элемент `nav`, который управляет открытым элементом, задержками, фокусом и ориентацией. |
-| `NavigationMenu.RootProvider` | Подключает части к хранилищу, созданному через `useNavigationMenu()`. |
-| `NavigationMenu.Context` | Передаёт текущее состояние навигации через функцию рендера (`render prop`). |
-| `NavigationMenu.List` | Объединяет элементы навигации верхнего уровня. |
-| `NavigationMenu.Item` | Требует уникальное значение `value` и связывает триггер, содержимое и ссылки элемента. |
-| `NavigationMenu.Trigger` | Кнопка, открывающая и закрывающая раскрывающуюся панель элемента. |
-| `NavigationMenu.Content` | Раскрывающаяся панель элемента. Может отображаться рядом с элементом или внутри общей области `Viewport`. |
-| `NavigationMenu.Link` | Ссылка на прямую страницу или ссылка внутри раскрывающейся панели. |
-| `NavigationMenu.ItemIndicator` | Необязательный визуальный маркер активного элемента. |
-| `NavigationMenu.Indicator` | Необязательный маркер активного триггера; размещайте его внутри `List`. Используйте `Arrow` с общей областью `Viewport`. |
-| `NavigationMenu.ViewportPositioner` | Размещает общую область `Viewport`. |
-| `NavigationMenu.Viewport` | Общая анимированная область для открытого содержимого. |
+| `NavigationMenu` | Корневой элемент `nav`, который управляет открытым элементом, задержками, фокусом и ориентацией. |
+| `NavigationMenuRootProvider` | Подключает части к хранилищу, созданному через `useNavigationMenu()`. |
+| `NavigationMenuContext` | Передаёт текущее состояние навигации через функцию рендера (`render prop`). |
+| `NavigationMenuList` | Объединяет элементы навигации верхнего уровня. |
+| `NavigationMenuItem` | Требует уникальное значение `value` и связывает триггер, содержимое и ссылки элемента. |
+| `NavigationMenuTrigger` | Кнопка, открывающая и закрывающая раскрывающуюся панель элемента. |
+| `NavigationMenuContent` | Раскрывающаяся панель элемента. Может отображаться рядом с элементом или внутри общей области `NavigationMenuViewport`. |
+| `NavigationMenuLink` | Ссылка на прямую страницу или ссылка внутри раскрывающейся панели. |
+| `NavigationMenuItemIndicator` | Необязательный визуальный маркер активного элемента. |
+| `NavigationMenuIndicator` | Необязательный маркер активного триггера; размещайте его внутри `NavigationMenuList`. Используйте `NavigationMenuArrow` с общей областью `NavigationMenuViewport`. |
+| `NavigationMenuViewportPositioner` | Размещает общую область `NavigationMenuViewport`. |
+| `NavigationMenuViewport` | Общая анимированная область для открытого содержимого. |
 
 ## Композиция
 
 Используйте `defaultValue` для неконтролируемого меню. Если открытым элементом управляет другая часть
 приложения, передайте `value` и `onValueChange(details)`; `details.value` содержит значение открытого
-элемента или пустую строку, если все панели закрыты. Используйте `NavigationMenu.RootProvider` вместе
-с `useNavigationMenu()`, если хранилище нужно создать вне отрисовываемого дерева. Передайте
-возвращённое хранилище в `RootProvider` и не создавайте для него ещё один корневой компонент. В React
-хранилище представлено объектом, а в Solid реактивное состояние читается через возвращаемую функцию доступа.
+элемента или пустую строку, если все панели закрыты. Если хранилище должно жить вне отрисовываемого
+дерева, создайте его через `useNavigationMenu()` и передайте в `NavigationMenuRootProvider`; не
+создавайте для него ещё один корневой компонент. В React хранилище представлено объектом, а в Solid
+реактивное состояние читается через возвращаемую функцию доступа. Если вложенному компоненту нужно
+текущее состояние, используйте `NavigationMenuContext` с render-функцией вместо хранилища.
 
-Добавляйте `ViewportPositioner` и `Viewport`, если несколько панелей должны открываться в одной
-анимированной области. Размещайте `Indicator` внутри `List`, а `Arrow` добавляйте туда только вместе
-с общей областью `Viewport`. Без общей области `Viewport` компонент `Content` отображается рядом со
-своим `Item`. Используйте `asChild` для ссылок маршрутизатора или собственных триггеров только тогда,
-когда дочерний элемент остаётся одним интерактивным элементом, способным получать фокус.
+Без общей области `NavigationMenuViewport` компонент `NavigationMenuContent` отображается рядом со
+своим элементом. Добавьте `NavigationMenuViewportPositioner` и `NavigationMenuViewport`, если несколько
+панелей должны открываться в одной анимированной области; свойство `align` позиционера
+(`"start" | "center" | "end"`, по умолчанию `"center"`) выравнивает область относительно позиции
+активного элемента. Используйте `asChild` для ссылок маршрутизатора или собственных триггеров только
+тогда, когда дочерний элемент остаётся одним интерактивным элементом, способным получать фокус.
 
 ## Примеры
 
@@ -194,11 +196,11 @@ NavigationMenu.Context
 
 </ExampleCode>
 
-### Viewport
+### Общая область Viewport
 
-Используйте общую область `Viewport`, если панели имеют разный размер, но должны анимироваться в одной
+Используйте общую область `NavigationMenuViewport`, если панели имеют разный размер, но должны анимироваться в одной
 области. В примере одна панель содержит две колонки, а у разных панелей разная ширина, поэтому при
-переключении триггеров заметно анимируются ширина и высота `Viewport`.
+переключении триггеров заметно анимируются ширина и высота `NavigationMenuViewport`.
 
 <ExampleFrame variant="component">
   <NavigationMenuViewport />
@@ -262,11 +264,11 @@ NavigationMenu.Context
 Настраивайте ту часть, которая отвечает за нужный визуальный элемент:
 
 - `NavigationMenu` отвечает за ширину корневого элемента, цвет текста и его расположение.
-- `NavigationMenu.List` отвечает за интервалы между элементами верхнего уровня и их ориентацию.
-- `NavigationMenu.Trigger` и `NavigationMenu.Link` отвечают за элементы навигации, текущее состояние и фокус.
-- `NavigationMenu.Content` отвечает за внешний вид раскрывающихся панелей и ссылок внутри них.
-- `NavigationMenu.Indicator` и `ItemIndicator` отвечают за необязательные элементы оформления активного состояния; используйте `Arrow` с общей областью `Viewport`.
-- `NavigationMenu.ViewportPositioner` и `Viewport` отвечают за общую анимированную область панели.
+- `NavigationMenuList` отвечает за интервалы между элементами верхнего уровня и их ориентацию.
+- `NavigationMenuTrigger` и `NavigationMenuLink` отвечают за элементы навигации, текущее состояние и фокус.
+- `NavigationMenuContent` отвечает за внешний вид раскрывающихся панелей и ссылок внутри них.
+- `NavigationMenuIndicator` и `NavigationMenuItemIndicator` отвечают за необязательные элементы оформления активного состояния; используйте `NavigationMenuArrow` с общей областью `NavigationMenuViewport`.
+- `NavigationMenuViewportPositioner` и `NavigationMenuViewport` отвечают за общую анимированную область панели.
 
 Основные публичные точки подключения: `data-slot="navigation-menu-root"`,
 `data-slot="navigation-menu-root-provider"`, `data-slot="navigation-menu-list"`,

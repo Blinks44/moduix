@@ -1,7 +1,32 @@
 import { createListCollection } from '@ark-ui/react/collection';
 import { expect, test } from '@rstest/core';
 import { fireEvent, render, screen } from '@testing-library/react';
-import { Select, Sidebar, useSplitterContext } from '../src';
+import {
+  Select,
+  Sidebar,
+  useSplitterContext,
+  SidebarPanel,
+  SidebarInset,
+  SidebarResizeTrigger,
+  SidebarTrigger,
+  SidebarLabel,
+  SidebarExpandedContent,
+  SidebarCollapsedContent,
+  SidebarGroup,
+  SidebarGroupHeader,
+  SidebarGroupLabel,
+  SidebarGroupAction,
+  SidebarNavigationList,
+  SidebarNavigationItem,
+  SidebarNavigationButton,
+  SidebarNavigationBadge,
+  SidebarNavigationSubList,
+  SidebarNavigationSubItem,
+  SidebarNavigationSubButton,
+  SelectTrigger,
+  SelectValueText,
+  SelectIndicator,
+} from '../src';
 
 const workspaces = createListCollection({
   items: [{ label: 'Acme Inc.', value: 'acme' }],
@@ -17,12 +42,12 @@ function DefaultSidebarConstraints() {
 test('keeps the default panel, inset, and resize ids aligned', () => {
   render(
     <Sidebar panelId="navigation" data-testid="sidebar">
-      <Sidebar.Panel data-testid="panel">
+      <SidebarPanel data-testid="panel">
         <DefaultSidebarConstraints />
-      </Sidebar.Panel>
-      <Sidebar.ResizeTrigger data-testid="resize" />
-      <Sidebar.Trigger />
-      <Sidebar.Inset data-testid="inset">Content</Sidebar.Inset>
+      </SidebarPanel>
+      <SidebarResizeTrigger data-testid="resize" />
+      <SidebarTrigger />
+      <SidebarInset data-testid="inset">Content</SidebarInset>
     </Sidebar>,
   );
 
@@ -46,10 +71,10 @@ test('keeps the default panel, inset, and resize ids aligned', () => {
 test('reverses the resize pair for a right sidebar', () => {
   render(
     <Sidebar side="right" panelId="inspector">
-      <Sidebar.Inset />
-      <Sidebar.Trigger />
-      <Sidebar.ResizeTrigger data-testid="resize" />
-      <Sidebar.Panel />
+      <SidebarInset />
+      <SidebarTrigger />
+      <SidebarResizeTrigger data-testid="resize" />
+      <SidebarPanel />
     </Sidebar>,
   );
 
@@ -62,10 +87,10 @@ test('reverses the resize pair for a right sidebar', () => {
 test('lets consumer click handlers cancel the default toggle', () => {
   render(
     <Sidebar>
-      <Sidebar.Panel />
-      <Sidebar.ResizeTrigger />
-      <Sidebar.Trigger onClick={(event) => event.preventDefault()} />
-      <Sidebar.Inset />
+      <SidebarPanel />
+      <SidebarResizeTrigger />
+      <SidebarTrigger onClick={(event) => event.preventDefault()} />
+      <SidebarInset />
     </Sidebar>,
   );
 
@@ -79,32 +104,32 @@ test('lets consumer click handlers cancel the default toggle', () => {
 test('preserves active link composition for primary and nested navigation', () => {
   render(
     <Sidebar>
-      <Sidebar.Panel>
-        <Sidebar.NavigationList>
-          <Sidebar.NavigationItem>
-            <Sidebar.NavigationButton asChild active size="sm">
+      <SidebarPanel>
+        <SidebarNavigationList>
+          <SidebarNavigationItem>
+            <SidebarNavigationButton asChild active size="sm">
               <a href="#overview">Overview</a>
-            </Sidebar.NavigationButton>
-            <Sidebar.NavigationBadge data-testid="primary-badge">12</Sidebar.NavigationBadge>
-            <Sidebar.NavigationSubList>
-              <Sidebar.NavigationSubItem>
-                <Sidebar.NavigationSubButton asChild active>
+            </SidebarNavigationButton>
+            <SidebarNavigationBadge data-testid="primary-badge">12</SidebarNavigationBadge>
+            <SidebarNavigationSubList>
+              <SidebarNavigationSubItem>
+                <SidebarNavigationSubButton asChild active>
                   <a href="#details">Details</a>
-                </Sidebar.NavigationSubButton>
-                <Sidebar.NavigationBadge data-testid="nested-badge">3</Sidebar.NavigationBadge>
-              </Sidebar.NavigationSubItem>
-              <Sidebar.NavigationSubItem>
-                <Sidebar.NavigationSubButton href="#very-long-item">
+                </SidebarNavigationSubButton>
+                <SidebarNavigationBadge data-testid="nested-badge">3</SidebarNavigationBadge>
+              </SidebarNavigationSubItem>
+              <SidebarNavigationSubItem>
+                <SidebarNavigationSubButton href="#very-long-item">
                   A very long nested navigation item
-                </Sidebar.NavigationSubButton>
-              </Sidebar.NavigationSubItem>
-            </Sidebar.NavigationSubList>
-          </Sidebar.NavigationItem>
-        </Sidebar.NavigationList>
-      </Sidebar.Panel>
-      <Sidebar.ResizeTrigger />
-      <Sidebar.Trigger />
-      <Sidebar.Inset />
+                </SidebarNavigationSubButton>
+              </SidebarNavigationSubItem>
+            </SidebarNavigationSubList>
+          </SidebarNavigationItem>
+        </SidebarNavigationList>
+      </SidebarPanel>
+      <SidebarResizeTrigger />
+      <SidebarTrigger />
+      <SidebarInset />
     </Sidebar>,
   );
 
@@ -132,26 +157,26 @@ test('preserves active link composition for primary and nested navigation', () =
 test('preserves direct Select indicator composition in a navigation button', () => {
   const { container } = render(
     <Sidebar>
-      <Sidebar.Panel>
-        <Sidebar.NavigationList>
-          <Sidebar.NavigationItem>
+      <SidebarPanel>
+        <SidebarNavigationList>
+          <SidebarNavigationItem>
             <Select collection={workspaces} defaultValue={['acme']}>
-              <Select.Trigger asChild>
-                <Sidebar.NavigationButton aria-label="Select workspace">
+              <SelectTrigger asChild>
+                <SidebarNavigationButton aria-label="Select workspace">
                   <span data-sidebar-icon>AC</span>
-                  <Sidebar.Label>
-                    <Select.ValueText placeholder="Select workspace" />
-                  </Sidebar.Label>
-                  <Select.Indicator data-testid="select-indicator" />
-                </Sidebar.NavigationButton>
-              </Select.Trigger>
+                  <SidebarLabel>
+                    <SelectValueText placeholder="Select workspace" />
+                  </SidebarLabel>
+                  <SelectIndicator data-testid="select-indicator" />
+                </SidebarNavigationButton>
+              </SelectTrigger>
             </Select>
-          </Sidebar.NavigationItem>
-        </Sidebar.NavigationList>
-      </Sidebar.Panel>
-      <Sidebar.ResizeTrigger />
-      <Sidebar.Trigger />
-      <Sidebar.Inset />
+          </SidebarNavigationItem>
+        </SidebarNavigationList>
+      </SidebarPanel>
+      <SidebarResizeTrigger />
+      <SidebarTrigger />
+      <SidebarInset />
     </Sidebar>,
   );
 
@@ -163,21 +188,21 @@ test('preserves direct Select indicator composition in a navigation button', () 
 test('marks collapsed navigation content as hidden by default', () => {
   render(
     <Sidebar>
-      <Sidebar.Panel>
-        <Sidebar.NavigationList>
-          <Sidebar.NavigationItem>
-            <Sidebar.ExpandedContent data-testid="expanded-projects">
+      <SidebarPanel>
+        <SidebarNavigationList>
+          <SidebarNavigationItem>
+            <SidebarExpandedContent data-testid="expanded-projects">
               <button type="button">Expanded projects</button>
-            </Sidebar.ExpandedContent>
-            <Sidebar.CollapsedContent data-testid="collapsed-projects">
+            </SidebarExpandedContent>
+            <SidebarCollapsedContent data-testid="collapsed-projects">
               <button type="button">Collapsed projects</button>
-            </Sidebar.CollapsedContent>
-          </Sidebar.NavigationItem>
-        </Sidebar.NavigationList>
-      </Sidebar.Panel>
-      <Sidebar.ResizeTrigger />
-      <Sidebar.Trigger />
-      <Sidebar.Inset />
+            </SidebarCollapsedContent>
+          </SidebarNavigationItem>
+        </SidebarNavigationList>
+      </SidebarPanel>
+      <SidebarResizeTrigger />
+      <SidebarTrigger />
+      <SidebarInset />
     </Sidebar>,
   );
 
@@ -196,22 +221,22 @@ test('marks collapsed navigation content as hidden by default', () => {
 test('composes an explicit group header', () => {
   render(
     <Sidebar>
-      <Sidebar.Panel>
-        <Sidebar.Group>
-          <Sidebar.GroupHeader>
-            <Sidebar.GroupLabel>Workspace</Sidebar.GroupLabel>
-            <Sidebar.GroupAction aria-label="Create workspace item">+</Sidebar.GroupAction>
-          </Sidebar.GroupHeader>
-          <Sidebar.NavigationList>
-            <Sidebar.NavigationItem>
-              <Sidebar.NavigationButton>Overview</Sidebar.NavigationButton>
-            </Sidebar.NavigationItem>
-          </Sidebar.NavigationList>
-        </Sidebar.Group>
-      </Sidebar.Panel>
-      <Sidebar.ResizeTrigger />
-      <Sidebar.Trigger />
-      <Sidebar.Inset />
+      <SidebarPanel>
+        <SidebarGroup>
+          <SidebarGroupHeader>
+            <SidebarGroupLabel>Workspace</SidebarGroupLabel>
+            <SidebarGroupAction aria-label="Create workspace item">+</SidebarGroupAction>
+          </SidebarGroupHeader>
+          <SidebarNavigationList>
+            <SidebarNavigationItem>
+              <SidebarNavigationButton>Overview</SidebarNavigationButton>
+            </SidebarNavigationItem>
+          </SidebarNavigationList>
+        </SidebarGroup>
+      </SidebarPanel>
+      <SidebarResizeTrigger />
+      <SidebarTrigger />
+      <SidebarInset />
     </Sidebar>,
   );
 
@@ -225,16 +250,16 @@ test('composes an explicit group header', () => {
 test('uses native Tailwind defaults and merges consumer utilities last', () => {
   const { container } = render(
     <Sidebar className="h-64 bg-muted">
-      <Sidebar.Panel className="p-6">
-        <Sidebar.NavigationList>
-          <Sidebar.NavigationItem>
-            <Sidebar.NavigationButton className="p-6">Overview</Sidebar.NavigationButton>
-          </Sidebar.NavigationItem>
-        </Sidebar.NavigationList>
-      </Sidebar.Panel>
-      <Sidebar.ResizeTrigger className="w-2 min-w-2" />
-      <Sidebar.Trigger className="size-8" />
-      <Sidebar.Inset />
+      <SidebarPanel className="p-6">
+        <SidebarNavigationList>
+          <SidebarNavigationItem>
+            <SidebarNavigationButton className="p-6">Overview</SidebarNavigationButton>
+          </SidebarNavigationItem>
+        </SidebarNavigationList>
+      </SidebarPanel>
+      <SidebarResizeTrigger className="w-2 min-w-2" />
+      <SidebarTrigger className="size-8" />
+      <SidebarInset />
     </Sidebar>,
   );
 

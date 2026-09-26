@@ -3,7 +3,27 @@ import { expect, test } from '@rstest/core';
 import { fireEvent, render, screen, waitFor } from '@testing-library/react';
 import userEvent from '@testing-library/user-event';
 import { createRef } from 'react';
-import { Field, Select, useSelect, useSelectContext } from '../src';
+import {
+  Field,
+  Select,
+  useSelect,
+  useSelectContext,
+  SelectLabel,
+  SelectField,
+  SelectPositioner,
+  SelectContent,
+  SelectItem,
+  SelectItemText,
+  SelectItemIndicator,
+  SelectHiddenSelect,
+  SelectRootProvider,
+  SelectControl,
+  SelectTrigger,
+  SelectValueText,
+  SelectClearTrigger,
+  SelectIndicator,
+  SelectList,
+} from '../src';
 
 const fruits = createListCollection({
   items: [
@@ -27,19 +47,19 @@ function FruitSelect({
       name="fruit"
       portalled={false}
     >
-      <Select.Label>Fruit</Select.Label>
-      <Select.Field placeholder="Select fruit" clearLabel="Clear fruit" />
-      <Select.Positioner>
-        <Select.Content>
+      <SelectLabel>Fruit</SelectLabel>
+      <SelectField placeholder="Select fruit" clearLabel="Clear fruit" />
+      <SelectPositioner>
+        <SelectContent>
           {fruits.items.map((item) => (
-            <Select.Item key={item.value} item={item}>
-              <Select.ItemText>{item.label}</Select.ItemText>
-              <Select.ItemIndicator />
-            </Select.Item>
+            <SelectItem key={item.value} item={item}>
+              <SelectItemText>{item.label}</SelectItemText>
+              <SelectItemIndicator />
+            </SelectItem>
           ))}
-        </Select.Content>
-      </Select.Positioner>
-      <Select.HiddenSelect />
+        </SelectContent>
+      </SelectPositioner>
+      <SelectHiddenSelect />
     </Select>
   );
 }
@@ -93,17 +113,17 @@ test('portals popup content by default and forwards root and field refs', () => 
   const fieldRef = createRef<HTMLDivElement>();
   const { container } = render(
     <Select ref={rootRef} collection={fruits} defaultOpen>
-      <Select.Label>Portalled fruit</Select.Label>
-      <Select.Field ref={fieldRef} placeholder="Select fruit" />
-      <Select.Positioner>
-        <Select.Content>
+      <SelectLabel>Portalled fruit</SelectLabel>
+      <SelectField ref={fieldRef} placeholder="Select fruit" />
+      <SelectPositioner>
+        <SelectContent>
           {fruits.items.map((item) => (
-            <Select.Item key={item.value} item={item}>
-              <Select.ItemText>{item.label}</Select.ItemText>
-            </Select.Item>
+            <SelectItem key={item.value} item={item}>
+              <SelectItemText>{item.label}</SelectItemText>
+            </SelectItem>
           ))}
-        </Select.Content>
-      </Select.Positioner>
+        </SelectContent>
+      </SelectPositioner>
     </Select>,
   );
 
@@ -117,9 +137,9 @@ test('portals popup content by default and forwards root and field refs', () => 
 
 test('inherits Field state in the trigger and explicit native form control', () => {
   const { container } = render(
-    <Field.Root disabled invalid required>
+    <Field disabled invalid required>
       <FruitSelect defaultValue={['apple']} />
-    </Field.Root>,
+    </Field>,
   );
 
   const trigger = screen.getByRole('combobox', { name: 'Fruit' });
@@ -163,11 +183,11 @@ test('exposes RootProvider state through the moduix context hook', () => {
     const select = useSelect({ collection: fruits, defaultValue: ['mango'] });
 
     return (
-      <Select.RootProvider value={select} portalled={false}>
-        <Select.Label>Provider fruit</Select.Label>
-        <Select.Field placeholder="Select fruit" />
+      <SelectRootProvider value={select} portalled={false}>
+        <SelectLabel>Provider fruit</SelectLabel>
+        <SelectField placeholder="Select fruit" />
         <ContextValue />
-      </Select.RootProvider>
+      </SelectRootProvider>
     );
   }
 
@@ -182,9 +202,9 @@ test('preserves native asChild composition and forwards its root ref', () => {
   const { container } = render(
     <Select ref={rootRef} asChild collection={fruits}>
       <section aria-label="Fruit selection">
-        <Select.Label>Fruit</Select.Label>
-        <Select.Field placeholder="Select fruit" />
-        <Select.HiddenSelect />
+        <SelectLabel>Fruit</SelectLabel>
+        <SelectField placeholder="Select fruit" />
+        <SelectHiddenSelect />
       </section>
     </Select>,
   );
@@ -207,24 +227,24 @@ test('lets consumer utilities replace defaults and keeps visual parts visible', 
       defaultValue={['apple']}
       portalled={false}
     >
-      <Select.Label>Styled fruit</Select.Label>
-      <Select.Control>
-        <Select.Trigger className="h-8 rounded-lg">
-          <Select.ValueText />
-        </Select.Trigger>
-        <Select.ClearTrigger className="size-5" aria-label="Clear styled fruits" />
-        <Select.Indicator className="size-6" />
-      </Select.Control>
-      <Select.Positioner>
-        <Select.Content className="p-0">
-          <Select.List>
-            <Select.Item item={fruits.items[0]} className="px-0">
-              <Select.ItemText>Apple</Select.ItemText>
-              <Select.ItemIndicator />
-            </Select.Item>
-          </Select.List>
-        </Select.Content>
-      </Select.Positioner>
+      <SelectLabel>Styled fruit</SelectLabel>
+      <SelectControl>
+        <SelectTrigger className="h-8 rounded-lg">
+          <SelectValueText />
+        </SelectTrigger>
+        <SelectClearTrigger className="size-5" aria-label="Clear styled fruits" />
+        <SelectIndicator className="size-6" />
+      </SelectControl>
+      <SelectPositioner>
+        <SelectContent className="p-0">
+          <SelectList>
+            <SelectItem item={fruits.items[0]} className="px-0">
+              <SelectItemText>Apple</SelectItemText>
+              <SelectItemIndicator />
+            </SelectItem>
+          </SelectList>
+        </SelectContent>
+      </SelectPositioner>
     </Select>,
   );
 

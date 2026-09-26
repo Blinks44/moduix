@@ -49,7 +49,7 @@ clavier. Le groupe peut autoriser une seule valeur sélectionnée ou plusieurs.
 ## Exemple de base
 
 
-Utilisez `ToggleGroup` comme racine et ajoutez un `ToggleGroup.Item` pour chaque choix. Donnez au groupe
+Utilisez `ToggleGroup` comme racine et ajoutez un `ToggleGroupItem` pour chaque choix. Donnez au groupe
 un nom accessible avec `aria-label` ou `aria-labelledby`.
 
 <ExampleFrame variant="component">
@@ -111,33 +111,33 @@ Consultez le [Démarrage rapide](/docs/quick-start) pour la configuration compl�
 ## Anatomie
 
 ```text
-ToggleGroup / ToggleGroup.Root
-├─ ToggleGroup.Context (facultatif)
-└─ ToggleGroup.Item[value]
+ToggleGroup
+├─ ToggleGroupContext (facultatif)
+└─ ToggleGroupItem[value]
 
-ToggleGroup.RootProvider
-└─ ToggleGroup.Item[value]
+ToggleGroupRootProvider
+└─ ToggleGroupItem[value]
 ```
 
-| Partie                              | Rôle                                                                                   |
-| ----------------------------------- | -------------------------------------------------------------------------------------- |
-| `ToggleGroup` / `ToggleGroup.Root`  | Partie racine qui gère les valeurs sélectionnées, le focus, l’orientation et l’état désactivé. |
-| `ToggleGroup.Item`                  | Élément interactif avec un `value` obligatoire et l’état de sélection géré par Ark.    |
-| `ToggleGroup.RootProvider`          | Relie l’arbre des éléments à l’état créé avec `useToggleGroup()`.                      |
-| `ToggleGroup.Context`               | Expose l’état actuel du groupe via une render prop.                                    |
+| Partie                    | Rôle                                                                                   |
+| ------------------------- | -------------------------------------------------------------------------------------- |
+| `ToggleGroup`             | Partie racine qui gère les valeurs sélectionnées, le focus, l’orientation et l’état désactivé. |
+| `ToggleGroupItem`         | Élément interactif avec un `value` obligatoire et l’état de sélection géré par Ark.    |
+| `ToggleGroupRootProvider` | Relie l’arbre des éléments à l’état créé avec `useToggleGroup()`.                      |
+| `ToggleGroupContext`      | Expose l’état actuel du groupe via une render prop.                                    |
 
 ## Composition
 
 Utilisez `defaultValue` pour un groupe non contrôlé, ou `value` avec `onValueChange(details)` lorsque
 la sélection est gérée par une autre partie de l’application. Les deux valeurs sont des `string[]`, en
-sélection unique comme en sélection multiple. Utilisez `ToggleGroup.RootProvider` avec
+sélection unique comme en sélection multiple. Utilisez `ToggleGroupRootProvider` avec
 `useToggleGroup()` du package correspondant lorsque l’état doit être créé en dehors de l’arbre rendu.
 React lit le store comme un objet, tandis que Solid lit son état réactif via l’accesseur retourné.
 
-Utilisez `ToggleGroup.Context` ou `useToggleGroupContext()` lorsqu’un élément personnalisé a besoin de
+Utilisez `ToggleGroupContext` ou `useToggleGroupContext()` lorsqu’un élément personnalisé a besoin de
 l’état actuel du groupe. Avec `asChild`, React reçoit un enfant qui se comporte comme un bouton, tandis
 que Solid reçoit une fonction de rendu qui retourne l’élément portant le comportement Ark. Ne rendez pas
-`ToggleGroup.Root` et `ToggleGroup.RootProvider` pour la même instance d’état.
+`ToggleGroup` et `ToggleGroupRootProvider` pour la même instance d’état.
 
 ## Exemples
 
@@ -179,7 +179,7 @@ groupe et le comportement clavier.
 ### Contexte
 
 Utilisez `useToggleGroupContext()` dans un élément personnalisé lorsque son contenu a besoin de l’état
-actuel du groupe. `ToggleGroup.Context` fournit le même état via une render prop.
+actuel du groupe. `ToggleGroupContext` fournit le même état via une render prop.
 
 <ExampleFrame variant="component">
   <ToggleGroupContext />
@@ -427,7 +427,7 @@ Définissez `orientation="vertical"` lorsque les choix doivent être disposés e
 
 ### Personnalisation avancée
 
-Utilisez `ToggleGroup.RootProvider` avec `useToggleGroup()` lorsque l’instance d’état doit être créée
+Utilisez `ToggleGroupRootProvider` avec `useToggleGroup()` lorsque l’instance d’état doit être créée
 en dehors de l’arbre rendu du groupe.
 
 <ExampleFrame variant="component">
@@ -475,7 +475,7 @@ CSS Modules exposent les tokens `--moduix-toggle-group-*`. Les éléments hérit
 
 <CssPropertiesSection properties={ToggleGroupDocs.toggleGroupOverrideCssProperties} />
 
-Le tableau couvre les propriétés du groupe. Chaque `ToggleGroup.Item` prend également en charge les
+Le tableau couvre les propriétés du groupe. Chaque `ToggleGroupItem` prend également en charge les
 [propriétés CSS de Toggle](/docs/toggle#css-properties) pour ses couleurs et ses états d’interaction.
 Définissez une propriété `--moduix-toggle-*` sur la racine pour styliser tous les éléments, ou sur un
 élément pour ne remplacer qu’un seul contrôle.

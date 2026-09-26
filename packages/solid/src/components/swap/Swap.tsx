@@ -6,7 +6,7 @@ import styles from './Swap.module.css';
 
 type SwapAnimation = 'fade' | 'scale' | 'rotate' | 'flip' | (string & {});
 
-type SwapRootProps = ComponentProps<typeof SwapPrimitive.Root> & {
+type SwapProps = ComponentProps<typeof SwapPrimitive.Root> & {
   animation?: SwapAnimation;
 };
 
@@ -14,7 +14,7 @@ type SwapRootProviderProps = ComponentProps<typeof SwapPrimitive.RootProvider> &
   animation?: SwapAnimation;
 };
 
-function SwapRoot(props: SwapRootProps) {
+function Swap(props: SwapProps) {
   const [local, others] = splitProps(props, ['animation', 'class']);
 
   return (
@@ -52,18 +52,4 @@ function SwapIndicator(props: ComponentProps<typeof SwapPrimitive.Indicator>) {
   );
 }
 
-type SwapComponent = typeof SwapRoot & {
-  Root: typeof SwapRoot;
-  RootProvider: typeof SwapRootProvider;
-  Indicator: typeof SwapIndicator;
-  useSwap: typeof useSwap;
-};
-
-const Swap: SwapComponent = Object.assign(SwapRoot, {
-  Root: SwapRoot,
-  RootProvider: SwapRootProvider,
-  Indicator: SwapIndicator,
-  useSwap,
-});
-
-export { Swap, useSwap, useSwapContext, type SwapAnimation };
+export { Swap, SwapIndicator, SwapRootProvider, useSwap, useSwapContext, type SwapAnimation };

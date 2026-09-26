@@ -25,12 +25,12 @@ import timerSolidRootProvider from '../../../snippets/timer/solid/root-provider.
 ## Basic
 
 
-`Timer.Segments` is the quickest way to render a conventional time display separated by colons. By default, it shows
+`TimerSegments` is the quickest way to render a conventional time display separated by colons. By default, it shows
 hours, minutes, and seconds. Pass `types` to choose a different set of units. Use the individual parts when you need
 unit labels, custom separators, or per-item styling.
 
-`Timer.Segments` accepts all `Timer.Area` props except `children` and `asChild`, and forwards the area ref. Because
-it creates the items and separators itself, use `Timer.Area` when you need to replace its host element or provide
+`TimerSegments` accepts all `TimerArea` props except `children` and `asChild`, and forwards the area ref. Because
+it creates the items and separators itself, use `TimerArea` when you need to replace its host element or provide
 custom children.
 
 <ExampleFrame variant="component">
@@ -93,39 +93,39 @@ See [Quick Start](/docs/quick-start) for full package setup, registry configurat
 ## Anatomy
 
 ```text
-Timer.Root
-├─ Timer.Area
-│  ├─ Timer.Item
-│  └─ Timer.Separator
-└─ Timer.Control
-   └─ Timer.ActionTrigger
+Timer
+├─ TimerArea
+│  ├─ TimerItem
+│  └─ TimerSeparator
+└─ TimerControl
+   └─ TimerActionTrigger
 
-Timer.RootProvider
+TimerRootProvider
 └─ same part tree connected to state from `useTimer()`
 
-Timer.Segments
-└─ Timer.Area with Timer.Item and Timer.Separator
+TimerSegments
+└─ TimerArea with TimerItem and TimerSeparator
 ```
 
 | Part                   | Role                                                                    |
 | ---------------------- | ----------------------------------------------------------------------- |
-| `Timer` / `Timer.Root` | Owns the Ark timer state, ids, interval, and callbacks.                 |
-| `Timer.RootProvider`   | Connects parts to timer state created with Ark `useTimer()`.            |
-| `Timer.Segments`       | Builds standard time units and separators.                              |
-| `Timer.Area`           | Groups the visible time parts.                                          |
-| `Timer.Item`           | Displays one formatted time unit such as `hours`, `minutes`, or `seconds`. |
-| `Timer.Separator`      | Displays a separator between time units.                                |
-| `Timer.Control`        | Groups action triggers.                                                 |
-| `Timer.ActionTrigger`  | Dispatches the `start`, `pause`, `resume`, `reset`, or `restart` action. |
+| `Timer` | Owns the Ark timer state, ids, interval, and callbacks.                 |
+| `TimerRootProvider`   | Connects parts to timer state created with Ark `useTimer()`.            |
+| `TimerSegments`       | Builds standard time units and separators.                              |
+| `TimerArea`           | Groups the visible time parts.                                          |
+| `TimerItem`           | Displays one formatted time unit such as `hours`, `minutes`, or `seconds`. |
+| `TimerSeparator`      | Displays a separator between time units.                                |
+| `TimerControl`        | Groups action triggers.                                                 |
+| `TimerActionTrigger`  | Dispatches the `start`, `pause`, `resume`, `reset`, or `restart` action. |
 
 ## Composition
 
-`Timer` is equivalent to `Timer.Root` and owns the timer state. `Timer.Segments` creates its own `Timer.Area`,
-`Timer.Item`, and `Timer.Separator` parts, so use the full `Timer.Area` composition when you need unit labels,
+`Timer` owns the timer state. `TimerSegments` creates its own `TimerArea`,
+`TimerItem`, and `TimerSeparator` parts, so use the full `TimerArea` composition when you need unit labels,
 custom separators, or per-item layout.
 
-Use `Timer.RootProvider` with `useTimer()` when the state must be created outside the rendered part tree. Use
-`Timer.Context` or `useTimerContext()` when other UI needs the timer state or methods. In Solid, the store and context
+Use `TimerRootProvider` with `useTimer()` when the state must be created outside the rendered part tree. Use
+`TimerContext` or `useTimerContext()` when other UI needs the timer state or methods. In Solid, the store and context
 are accessors, so read them as `timer()` and `api()`.
 
 ## Examples
@@ -351,5 +351,5 @@ available for part-specific styling.
   `timer-separator`, `timer-control`, and `timer-action-trigger`.
 - Ark anatomy attributes: `data-scope="timer"` and
   `data-part="root|area|item|separator|control|action-trigger"`.
-- `Timer.Item` exposes `data-type` and Ark's `--value` runtime variable.
+- `TimerItem` exposes `data-type` and Ark's `--value` runtime variable.
 - Ark adds `hidden` to action triggers that are unavailable in the current timer state.

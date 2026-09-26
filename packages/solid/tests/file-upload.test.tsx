@@ -1,6 +1,17 @@
 import { expect, test } from '@rstest/core';
 import { fireEvent, render, screen } from '@solidjs/testing-library';
-import { FileUpload, useFileUpload } from '../src';
+import {
+  FileUpload,
+  useFileUpload,
+  FileUploadClearTrigger,
+  FileUploadDropzone,
+  FileUploadHiddenInput,
+  FileUploadItemGroup,
+  FileUploadItems,
+  FileUploadLabel,
+  FileUploadRootProvider,
+  FileUploadTrigger,
+} from '../src';
 
 const file = new File(['moduix'], 'moduix.txt', { type: 'text/plain' });
 const imageWithoutMimeType = new File(['moduix'], 'moduix.png');
@@ -8,9 +19,9 @@ const imageWithoutMimeType = new File(['moduix'], 'moduix.png');
 test('renders a keyboard-focusable dropzone and a clearly named default clear action', () => {
   render(() => (
     <FileUpload defaultAcceptedFiles={[file]}>
-      <FileUpload.Label>Attachments</FileUpload.Label>
-      <FileUpload.Dropzone data-testid="dropzone" />
-      <FileUpload.ClearTrigger />
+      <FileUploadLabel>Attachments</FileUploadLabel>
+      <FileUploadDropzone data-testid="dropzone" />
+      <FileUploadClearTrigger />
     </FileUpload>
   ));
 
@@ -38,10 +49,10 @@ test('keeps native form, disabled, and controlled file-change contracts intact',
         maxFiles={2}
         onFileChange={(details) => changes.push(details.acceptedFiles)}
       >
-        <FileUpload.Label>Attachments</FileUpload.Label>
-        <FileUpload.Dropzone data-testid="disabled-dropzone" />
-        <FileUpload.Trigger>Choose files</FileUpload.Trigger>
-        <FileUpload.HiddenInput />
+        <FileUploadLabel>Attachments</FileUploadLabel>
+        <FileUploadDropzone data-testid="disabled-dropzone" />
+        <FileUploadTrigger>Choose files</FileUploadTrigger>
+        <FileUploadHiddenInput />
       </FileUpload>
     </form>
   ));
@@ -65,13 +76,13 @@ test('preserves RootProvider state with an explicit hidden input', () => {
     const upload = useFileUpload({ defaultAcceptedFiles: [file] });
 
     return (
-      <FileUpload.RootProvider value={upload} data-testid="provider">
-        <FileUpload.Label>Attachments</FileUpload.Label>
-        <FileUpload.ItemGroup>
-          <FileUpload.Items />
-        </FileUpload.ItemGroup>
-        <FileUpload.HiddenInput />
-      </FileUpload.RootProvider>
+      <FileUploadRootProvider value={upload} data-testid="provider">
+        <FileUploadLabel>Attachments</FileUploadLabel>
+        <FileUploadItemGroup>
+          <FileUploadItems />
+        </FileUploadItemGroup>
+        <FileUploadHiddenInput />
+      </FileUploadRootProvider>
     );
   }
 
@@ -85,10 +96,10 @@ test('preserves RootProvider state with an explicit hidden input', () => {
 test('uses a generic preview when an image filename has no image MIME type', () => {
   render(() => (
     <FileUpload defaultAcceptedFiles={[imageWithoutMimeType]}>
-      <FileUpload.Label>Attachments</FileUpload.Label>
-      <FileUpload.ItemGroup>
-        <FileUpload.Items />
-      </FileUpload.ItemGroup>
+      <FileUploadLabel>Attachments</FileUploadLabel>
+      <FileUploadItemGroup>
+        <FileUploadItems />
+      </FileUploadItemGroup>
     </FileUpload>
   ));
 
@@ -106,11 +117,9 @@ test('preserves Root asChild composition and an explicit hidden input', () => {
       asChild={(props) => <div {...props()} data-testid="custom-root" />}
       ref={(element) => (rootRef = element)}
     >
-      <FileUpload.Label>Attachments</FileUpload.Label>
-      <FileUpload.Trigger ref={(element) => (triggerRef = element)}>
-        Choose files
-      </FileUpload.Trigger>
-      <FileUpload.HiddenInput />
+      <FileUploadLabel>Attachments</FileUploadLabel>
+      <FileUploadTrigger ref={(element) => (triggerRef = element)}>Choose files</FileUploadTrigger>
+      <FileUploadHiddenInput />
     </FileUpload>
   ));
 

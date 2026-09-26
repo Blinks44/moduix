@@ -1,4 +1,12 @@
-import { Carousel } from '@moduix/solid/carousel';
+import {
+  Carousel,
+  CarouselControl,
+  CarouselIndicators,
+  CarouselItem,
+  CarouselItemGroup,
+  CarouselNextTrigger,
+  CarouselPrevTrigger,
+} from '@moduix/solid/carousel';
 import { For } from 'solid-js';
 import styles from '@/components/examples/carousel/carousel-spacing.module.css';
 
@@ -39,21 +47,21 @@ export default function SpacingCarousel() {
       slidesPerPage={1.5}
       spacing="3rem"
     >
-      <Carousel.ItemGroup class={styles.itemGroup} aria-label="Spaced gallery">
+      <CarouselItemGroup class={styles.itemGroup} aria-label="Spaced gallery">
         <For each={slides}>
           {(slide, index) => (
-            <Carousel.Item index={index()}>
+            <CarouselItem index={index()}>
               <img class={styles.image} src={slide.src} alt={slide.alt} />
-            </Carousel.Item>
+            </CarouselItem>
           )}
         </For>
-      </Carousel.ItemGroup>
+      </CarouselItemGroup>
 
-      <Carousel.Control class={styles.control}>
-        <Carousel.PrevTrigger />
-        <Carousel.Indicators />
-        <Carousel.NextTrigger />
-      </Carousel.Control>
+      <CarouselControl class={styles.control}>
+        <CarouselPrevTrigger />
+        <CarouselIndicators />
+        <CarouselNextTrigger />
+      </CarouselControl>
     </Carousel>
   );
 }

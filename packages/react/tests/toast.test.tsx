@@ -1,12 +1,19 @@
 import { expect, test } from '@rstest/core';
 import { fireEvent, render, screen, waitFor } from '@testing-library/react';
-import { Toast, Toaster, createToaster, useToastContext } from '../src';
+import {
+  Toast,
+  ToastCloseTrigger,
+  ToastTitle,
+  ToastToaster,
+  createToaster,
+  useToastContext,
+} from '../src';
 
 test('renders the default toaster content and keeps closable and action behavior', async () => {
   const toaster = createToaster({ duration: Infinity });
   let actionCount = 0;
 
-  render(<Toaster toaster={toaster} />);
+  render(<ToastToaster toaster={toaster} />);
 
   toaster.create({
     title: 'Changes saved',
@@ -31,7 +38,7 @@ test('renders the default toaster content and keeps closable and action behavior
 test('uses info for implicit and explicit info toast types', async () => {
   const toaster = createToaster({ duration: Infinity });
 
-  render(<Toaster toaster={toaster} />);
+  render(<ToastToaster toaster={toaster} />);
 
   toaster.create({ title: 'Implicit info toast' });
   expect(
@@ -49,20 +56,20 @@ test('keeps the short Toast root form and exported context hook available for cu
 
   function ContextTitle() {
     const toast = useToastContext();
-    return <Toast.Title>{toast.title}</Toast.Title>;
+    return <ToastTitle>{toast.title}</ToastTitle>;
   }
 
   render(
-    <Toaster toaster={toaster}>
+    <ToastToaster toaster={toaster}>
       {(toast) => (
         <Toast key={toast.id}>
           <ContextTitle />
-          <Toast.CloseTrigger asChild aria-label="Dismiss custom toast">
+          <ToastCloseTrigger asChild aria-label="Dismiss custom toast">
             <button type="button">Dismiss</button>
-          </Toast.CloseTrigger>
+          </ToastCloseTrigger>
         </Toast>
       )}
-    </Toaster>,
+    </ToastToaster>,
   );
 
   toaster.create({ title: 'Custom toast' });
@@ -76,7 +83,7 @@ test('keeps the short Toast root form and exported context hook available for cu
 
 test('portals by default and supports inline rendering', async () => {
   const portalledToaster = createToaster({ duration: Infinity });
-  const portalled = render(<Toaster toaster={portalledToaster} />);
+  const portalled = render(<ToastToaster toaster={portalledToaster} />);
 
   portalledToaster.create({ title: 'Portalled toast' });
   const portalledTitle = await screen.findByText('Portalled toast');
@@ -84,7 +91,7 @@ test('portals by default and supports inline rendering', async () => {
   portalled.unmount();
 
   const inlineToaster = createToaster({ duration: Infinity });
-  const inline = render(<Toaster toaster={inlineToaster} portalled={false} />);
+  const inline = render(<ToastToaster toaster={inlineToaster} portalled={false} />);
 
   inlineToaster.create({ title: 'Inline toast' });
   const inlineTitle = await screen.findByText('Inline toast');

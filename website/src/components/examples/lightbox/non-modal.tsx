@@ -1,5 +1,12 @@
 import { Button } from '@moduix/react/button';
-import { Lightbox } from '@moduix/react/lightbox';
+import {
+  LightboxTrigger,
+  LightboxPositioner,
+  LightboxContent,
+  LightboxCloseIcon,
+  LightboxImage,
+  Lightbox,
+} from '@moduix/react/lightbox';
 import { useState } from 'react';
 import { PreviewMeta } from '@/components/mdx/Components';
 import styles from '@/components/examples/lightbox/lightbox-non-modal.module.css';
@@ -34,13 +41,13 @@ export default function NonModalLightboxDemo() {
   return (
     <>
       <Lightbox modal={false}>
-        <Lightbox.Trigger className={styles.button}>Open non-modal lightbox</Lightbox.Trigger>
-        <Lightbox.Positioner>
-          <Lightbox.CloseIcon />
-          <Lightbox.Content aria-label={images[2].alt}>
-            <Lightbox.Image src={images[2].src} alt={images[2].alt} />
-          </Lightbox.Content>
-        </Lightbox.Positioner>
+        <LightboxTrigger className={styles.button}>Open non-modal lightbox</LightboxTrigger>
+        <LightboxPositioner>
+          <LightboxCloseIcon />
+          <LightboxContent aria-label={images[2].alt}>
+            <LightboxImage src={images[2].src} alt={images[2].alt} />
+          </LightboxContent>
+        </LightboxPositioner>
       </Lightbox>
       <PreviewMeta>
         <output>Background actions: {backgroundActions}</output>

@@ -8,7 +8,7 @@ import tanStackFormSolidCompleteForm from '../../../snippets/tanstack-form/solid
 
 # TanStack Form
 
-[TanStack Form](https://tanstack.com/form/latest) provides typed, headless form state with native
+[TanStack Form](https://tanstack.com/form/latest) provides typed, headless form state with
 framework-native adapters. This guide focuses on mapping that state to Moduix controls.
 
 ## Framework support
@@ -55,7 +55,7 @@ keep the required `HiddenSelect` or `HiddenInput` in the Moduix composition.
 ## Validation and reset
 
 Use field validators for local rules and form validators for schema or cross-field rules. Pass
-`!field.state.meta.isValid` to `Field invalid` and render the errors with `Field.ErrorText` after the
+`!field.state.meta.isValid` to `Field invalid` and render the errors with `FieldErrorText` after the
 chosen validation lifecycle runs.
 
 Add `noValidate` only when TanStack Form owns the visible errors. Call `form.reset()` for controlled

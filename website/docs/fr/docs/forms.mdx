@@ -95,20 +95,20 @@ interactif utilise React, car le site de documentation fonctionne avec React.
 
 Conservez les contraintes natives comme `required`, `minLength`, `pattern`, `min` et `max` lorsque
 le navigateur gère la validation. Si une bibliothèque affiche les erreurs, ajoutez `noValidate`,
-transmettez son résultat à `Field invalid` et rendez un `Field.ErrorText` clair après le cycle choisi.
+transmettez son résultat à `Field invalid` et rendez un `FieldErrorText` clair après le cycle choisi.
 
 `type="reset"` et `form.reset()` restaurent les contrôles non contrôlés. Pour les champs contrôlés,
 utilisez l’API de réinitialisation de la bibliothèque afin de synchroniser son état et les valeurs Moduix.
 
 Déplacez le focus vers le véritable élément interactif lors d’une soumission invalide : `Input`,
-`Textarea`, `Select.Trigger` ou `Combobox.Input`.
+`Textarea`, `SelectTrigger` ou `ComboboxInput`.
 
 ## Soumission et erreurs du serveur
 
 Rendez explicites les états prêt, en cours, erreur et réussite. Bloquez les requêtes en double,
 conservez les valeurs après un échec et laissez une action claire pour réessayer.
 
-Associez une erreur serveur liée à une valeur au `Field.ErrorText` correspondant. Affichez les
+Associez une erreur serveur liée à une valeur au `FieldErrorText` correspondant. Affichez les
 échecs généraux avec `role="alert"`. Les champs répétés doivent utiliser des identifiants stables
 pour conserver leurs valeurs, leur focus et leurs erreurs lorsqu’une ligne est retirée.
 

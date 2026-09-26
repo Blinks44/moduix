@@ -1,7 +1,7 @@
 ---
 title: Scroll Area
 component: scroll-area
-description: Build native scroll containers in React or Solid with package and shadcn installation options.
+description: Build scroll containers with styled scrollbars in React or Solid with package and shadcn installation options.
 ---
 
 import * as ScrollAreaDocs from '@/components/examples/scroll-area/css-properties';
@@ -27,8 +27,9 @@ import scrollAreaSolidRootProvider from '../../../snippets/scroll-area/solid/roo
 ## Basic
 
 
-Use `ScrollArea` as the root. Put `Viewport` around `Content`, add one `Scrollbar` and `Thumb` for
-each scroll axis, and add `Corner` when both axes can overflow. Give the root a bounded height or
+Use `ScrollArea` as the root. Put `ScrollAreaViewport` around `ScrollAreaContent`, add one
+`ScrollAreaScrollbar` and `ScrollAreaThumb` for
+each scroll axis, and add `ScrollAreaCorner` when both axes can overflow. Give the root a bounded height or
 block size so the content has room to scroll.
 
 <ExampleFrame variant="component">
@@ -96,37 +97,38 @@ See [Quick Start](/docs/quick-start) for full package setup, registry configurat
 ## Anatomy
 
 ```text
-ScrollArea / ScrollArea.Root
-├─ ScrollArea.Viewport
-│  └─ ScrollArea.Content
+ScrollArea
+├─ ScrollAreaViewport
+│  └─ ScrollAreaContent
 │     └─ children
-├─ ScrollArea.Scrollbar
-│  └─ ScrollArea.Thumb
-└─ ScrollArea.Corner
+├─ ScrollAreaScrollbar
+│  └─ ScrollAreaThumb
+└─ ScrollAreaCorner
 
-ScrollArea.RootProvider
+ScrollAreaRootProvider
 └─ same tree connected to a useScrollArea() store
 ```
 
 | Part                             | Role                                                               |
 | -------------------------------- | ------------------------------------------------------------------ |
-| `ScrollArea` / `ScrollArea.Root` | Root part that owns scroll state and positioning.                  |
-| `ScrollArea.RootProvider`        | Connects the parts to state created with `useScrollArea()`.        |
-| `ScrollArea.Viewport`            | Native scroll container and focus target.                          |
-| `ScrollArea.Content`             | Inner content wrapper measured by Ark UI.                          |
-| `ScrollArea.Scrollbar`           | Styled scrollbar track for one axis.                              |
-| `ScrollArea.Thumb`               | Draggable thumb inside a scrollbar.                                |
-| `ScrollArea.Corner`              | Fills the intersection when both axes overflow.                   |
+| `ScrollArea`                     | Root part that owns scroll state and positioning.                  |
+| `ScrollAreaRootProvider`        | Connects the parts to state created with `useScrollArea()`.        |
+| `ScrollAreaViewport`            | Native scroll container and focus target.                          |
+| `ScrollAreaContent`             | Inner content wrapper measured by Ark UI.                          |
+| `ScrollAreaScrollbar`           | Styled scrollbar track for one axis.                              |
+| `ScrollAreaThumb`               | Draggable thumb inside a scrollbar.                                |
+| `ScrollAreaCorner`              | Fills the intersection when both axes overflow.                   |
 
 ## Composition
 
-Each scroll axis needs its own `ScrollArea.Scrollbar` with a `ScrollArea.Thumb`. The vertical
+Each scroll axis needs its own `ScrollAreaScrollbar` with a `ScrollAreaThumb`. The vertical
 scrollbar is the default; set `orientation="horizontal"` for a horizontal axis. Keep
-`Viewport` around `Content`, and keep a complete independent tree for nested scroll areas.
+`ScrollAreaViewport` around `ScrollAreaContent`, and keep a complete independent tree for nested
+scroll areas.
 
-Use `ScrollArea.RootProvider` with `ScrollArea.useScrollArea()` when controls outside the root need
-the scrolling API. Pass the returned store to `RootProvider`, and do not render `ScrollArea` and
-`ScrollArea.RootProvider` for the same store. In Solid, read and call the store through the accessor
+Use `ScrollAreaRootProvider` with `useScrollArea()` when controls outside the root need
+the scrolling API. Pass the returned store to `ScrollAreaRootProvider`, and do not render `ScrollArea`
+and `ScrollAreaRootProvider` for the same store. In Solid, read and call the store through the accessor
 returned by `useScrollArea()`.
 
 ## Examples
@@ -329,7 +331,7 @@ measure each area independently.
 
 ### Root Provider
 
-Use `ScrollArea.useScrollArea()` with `ScrollArea.RootProvider` when external controls need access
+Use `useScrollArea()` with `ScrollAreaRootProvider` when external controls need access
 to the scrolling API.
 
 <ExampleFrame variant="component">
@@ -384,12 +386,12 @@ the structure.
   `scroll-area-viewport`, `scroll-area-content`, `scroll-area-scrollbar`, `scroll-area-thumb`, and
   `scroll-area-corner`.
 - `data-fade` is added by the `fade` prop and `data-variant="hover" | "always"` by the `variant`
-  prop on `ScrollArea` and `ScrollArea.RootProvider`.
+  prop on `ScrollArea` and `ScrollAreaRootProvider`.
 - Ark adds `data-scope="scroll-area"` and `data-part` for every part.
 - `data-overflow-x` and `data-overflow-y` are present when the measured content overflows on the
   corresponding axis.
-- `data-at-top`, `data-at-bottom`, `data-at-left`, and `data-at-right` are available on the
-  viewport.
+- `data-at-top`, `data-at-bottom`, `data-at-left`, and `data-at-right` are available on
+  `ScrollAreaViewport`.
 - `data-orientation="vertical"` and `data-orientation="horizontal"` are exposed on scrollbars
   and thumbs.
 - `data-hover` and `data-dragging` are available on scrollbar and thumb parts; `data-scrolling` is

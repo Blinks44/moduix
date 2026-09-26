@@ -1,11 +1,11 @@
-import { Field } from '@moduix/solid/field';
+import { Field, FieldLabel } from '@moduix/solid/field';
 import { Textarea } from '@moduix/solid/textarea';
 import styles from '@/components/examples/textarea/textarea-auto-resize.module.css';
 
 export default function AutoResizeTextareaDemo() {
   return (
     <Field class={styles.root}>
-      <Field.Label>Issue description</Field.Label>
+      <FieldLabel>Issue description</FieldLabel>
       <Textarea
         autoresize
         placeholder="Start typing a longer description. Height grows with content."

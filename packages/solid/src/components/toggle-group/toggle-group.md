@@ -1,29 +1,29 @@
 # ToggleGroup (Solid)
 
 `ToggleGroup` is the moduix Solid wrapper around Ark UI ToggleGroup. It preserves grouped
-two-state selection, roving focus, keyboard navigation, `RootProvider` composition, context
-access, and the React wrapper's visual variants and sizes.
+two-state selection, roving focus, keyboard navigation, `ToggleGroupRootProvider` composition,
+context access, and the React wrapper's visual variants and sizes.
 
 ## Composition
 
 ```tsx
-import { ToggleGroup } from '@moduix/solid/toggle-group';
+import { ToggleGroup, ToggleGroupItem } from '@moduix/solid/toggle-group';
 
 export function ToggleGroupDemo() {
   return (
     <ToggleGroup defaultValue={['left']} aria-label="Text alignment">
-      <ToggleGroup.Item value="left">Left</ToggleGroup.Item>
-      <ToggleGroup.Item value="center">Center</ToggleGroup.Item>
-      <ToggleGroup.Item value="right">Right</ToggleGroup.Item>
+      <ToggleGroupItem value="left">Left</ToggleGroupItem>
+      <ToggleGroupItem value="center">Center</ToggleGroupItem>
+      <ToggleGroupItem value="right">Right</ToggleGroupItem>
     </ToggleGroup>
   );
 }
 ```
 
-`ToggleGroup` is the short form of `ToggleGroup.Root`. The public parts are `Root`, `Item`,
-`RootProvider`, and `Context`. The barrel also exports `useToggleGroup`,
-`useToggleGroupContext`, `ToggleGroupRootProps`, `ToggleGroupRootProviderProps`,
-`ToggleGroupItemProps`, `ToggleVariant`, and `ToggleSize`.
+The public values are `ToggleGroup`, `ToggleGroupItem`, `ToggleGroupRootProvider`, and
+`ToggleGroupContext`. The barrel also exports `useToggleGroup`, `useToggleGroupContext`,
+`ToggleGroupRootProps`, `ToggleGroupRootProviderProps`, `ToggleGroupItemProps`, `ToggleVariant`,
+and `ToggleSize`.
 
 ## Ark Solid behavior
 
@@ -35,7 +35,7 @@ Solid Ark components use a render-function `asChild` prop:
   defaultValue={['left']}
   aria-label="Text alignment"
 >
-  <ToggleGroup.Item value="left">Left</ToggleGroup.Item>
+  <ToggleGroupItem value="left">Left</ToggleGroupItem>
 </ToggleGroup>
 ```
 

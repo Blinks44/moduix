@@ -1,7 +1,18 @@
 import { expect, test } from '@rstest/core';
 import { fireEvent, render, screen, waitFor } from '@testing-library/react';
 import { createRef } from 'react';
-import { Carousel } from '../src';
+import {
+  Carousel,
+  CarouselControl,
+  CarouselIndicator,
+  CarouselIndicatorGroup,
+  CarouselIndicators,
+  CarouselItem,
+  CarouselItemGroup,
+  CarouselNextTrigger,
+  CarouselPrevTrigger,
+  CarouselProgressText,
+} from '../src';
 
 function TestCarousel({
   dir,
@@ -12,16 +23,16 @@ function TestCarousel({
 }) {
   return (
     <Carousel aria-label="Travel gallery" dir={dir} onPageChange={onPageChange} slideCount={2}>
-      <Carousel.ItemGroup>
-        <Carousel.Item index={0}>First</Carousel.Item>
-        <Carousel.Item index={1}>Second</Carousel.Item>
-      </Carousel.ItemGroup>
-      <Carousel.Control>
-        <Carousel.PrevTrigger />
-        <Carousel.NextTrigger />
-        <Carousel.Indicators />
-      </Carousel.Control>
-      <Carousel.ProgressText />
+      <CarouselItemGroup>
+        <CarouselItem index={0}>First</CarouselItem>
+        <CarouselItem index={1}>Second</CarouselItem>
+      </CarouselItemGroup>
+      <CarouselControl>
+        <CarouselPrevTrigger />
+        <CarouselNextTrigger />
+        <CarouselIndicators />
+      </CarouselControl>
+      <CarouselProgressText />
     </Carousel>
   );
 }
@@ -57,17 +68,17 @@ test('preserves refs, asChild composition, and generated indicator styling hooks
   render(
     <Carousel asChild aria-label="Composed gallery" ref={rootRef} slideCount={2}>
       <section data-testid="composed-carousel">
-        <Carousel.ItemGroup>
-          <Carousel.Item index={0}>First</Carousel.Item>
-          <Carousel.Item index={1}>Second</Carousel.Item>
-        </Carousel.ItemGroup>
-        <Carousel.Control>
-          <Carousel.PrevTrigger asChild>
+        <CarouselItemGroup>
+          <CarouselItem index={0}>First</CarouselItem>
+          <CarouselItem index={1}>Second</CarouselItem>
+        </CarouselItemGroup>
+        <CarouselControl>
+          <CarouselPrevTrigger asChild>
             <button type="button">Back</button>
-          </Carousel.PrevTrigger>
-          <Carousel.NextTrigger />
-          <Carousel.Indicators ref={indicatorsRef} indicatorClassName="generated-indicator" />
-        </Carousel.Control>
+          </CarouselPrevTrigger>
+          <CarouselNextTrigger />
+          <CarouselIndicators ref={indicatorsRef} indicatorClassName="generated-indicator" />
+        </CarouselControl>
       </section>
     </Carousel>,
   );
@@ -86,16 +97,16 @@ test('preserves refs, asChild composition, and generated indicator styling hooks
 test('keeps component-owned visual utilities visible and lets consumers override them', () => {
   render(
     <Carousel aria-label="Styled gallery" className="gap-0" slideCount={2}>
-      <Carousel.ItemGroup>
-        <Carousel.Item index={0}>First</Carousel.Item>
-        <Carousel.Item index={1}>Second</Carousel.Item>
-      </Carousel.ItemGroup>
-      <Carousel.Control>
-        <Carousel.PrevTrigger className="size-5 bg-primary" />
-        <Carousel.NextTrigger />
-        <Carousel.Indicators />
-      </Carousel.Control>
-      <Carousel.ProgressText className="text-lg" />
+      <CarouselItemGroup>
+        <CarouselItem index={0}>First</CarouselItem>
+        <CarouselItem index={1}>Second</CarouselItem>
+      </CarouselItemGroup>
+      <CarouselControl>
+        <CarouselPrevTrigger className="size-5 bg-primary" />
+        <CarouselNextTrigger />
+        <CarouselIndicators />
+      </CarouselControl>
+      <CarouselProgressText className="text-lg" />
     </Carousel>,
   );
 
@@ -124,17 +135,17 @@ test('keeps component-owned visual utilities visible and lets consumers override
 test('lets consumers override runtime indicator sizing with state utilities', () => {
   render(
     <Carousel aria-label="Thumbnail gallery" slideCount={2}>
-      <Carousel.ItemGroup>
-        <Carousel.Item index={0}>First</Carousel.Item>
-        <Carousel.Item index={1}>Second</Carousel.Item>
-      </Carousel.ItemGroup>
-      <Carousel.IndicatorGroup>
-        <Carousel.Indicator
+      <CarouselItemGroup>
+        <CarouselItem index={0}>First</CarouselItem>
+        <CarouselItem index={1}>Second</CarouselItem>
+      </CarouselItemGroup>
+      <CarouselIndicatorGroup>
+        <CarouselIndicator
           index={0}
           className="h-12 w-20 bg-transparent data-current:h-12 data-current:w-20 data-current:bg-transparent"
         />
-        <Carousel.Indicator index={1} />
-      </Carousel.IndicatorGroup>
+        <CarouselIndicator index={1} />
+      </CarouselIndicatorGroup>
     </Carousel>,
   );
 
@@ -154,11 +165,11 @@ test('lets consumers override runtime indicator sizing with state utilities', ()
 test('keeps the active indicator narrow in vertical orientation', () => {
   render(
     <Carousel aria-label="Vertical gallery" orientation="vertical" slideCount={2}>
-      <Carousel.ItemGroup>
-        <Carousel.Item index={0}>First</Carousel.Item>
-        <Carousel.Item index={1}>Second</Carousel.Item>
-      </Carousel.ItemGroup>
-      <Carousel.Indicators />
+      <CarouselItemGroup>
+        <CarouselItem index={0}>First</CarouselItem>
+        <CarouselItem index={1}>Second</CarouselItem>
+      </CarouselItemGroup>
+      <CarouselIndicators />
     </Carousel>,
   );
 

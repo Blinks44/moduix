@@ -2,9 +2,17 @@ import { expect, test } from '@rstest/core';
 import { fireEvent, render, screen, waitFor } from '@testing-library/react';
 import type { ComponentProps } from 'react';
 import { createElement, createRef } from 'react';
-import { ImageCropper, useImageCropper } from '../src';
+import {
+  ImageCropper,
+  ImageCropperCropArea,
+  ImageCropperHandles,
+  ImageCropperImage,
+  ImageCropperRootProvider,
+  ImageCropperViewport,
+  useImageCropper,
+} from '../src';
 
-type CropAreaProps = ComponentProps<typeof ImageCropper.CropArea>;
+type CropAreaProps = ComponentProps<typeof ImageCropperCropArea>;
 
 const cropAreaDoesNotExposeCompositionProps: Extract<
   keyof CropAreaProps,
@@ -22,10 +30,10 @@ test('renders the recommended CropArea anatomy with moduix hooks', () => {
   const selectionRef = createRef<HTMLDivElement>();
   const { container } = render(
     <ImageCropper ref={rootRef} aria-label="Landscape crop">
-      <ImageCropper.Viewport>
-        <ImageCropper.Image src="/landscape.jpg" />
-        <ImageCropper.CropArea ref={selectionRef} />
-      </ImageCropper.Viewport>
+      <ImageCropperViewport>
+        <ImageCropperImage src="/landscape.jpg" />
+        <ImageCropperCropArea ref={selectionRef} />
+      </ImageCropperViewport>
     </ImageCropper>,
   );
 
@@ -36,17 +44,17 @@ test('renders the recommended CropArea anatomy with moduix hooks', () => {
   expect(selectionRef.current).toHaveAttribute('tabindex', '0');
   expect(container.querySelectorAll('[data-slot="image-cropper-grid"]')).toHaveLength(2);
   expect(container.querySelectorAll('[data-slot="image-cropper-handle"]')).toHaveLength(
-    ImageCropper.handles.length,
+    ImageCropperHandles.length,
   );
 });
 
 test('preserves Ark keyboard crop commands after the image is ready', async () => {
   const { container } = render(
     <ImageCropper aria-label="Landscape crop">
-      <ImageCropper.Viewport>
-        <ImageCropper.Image src="/landscape.jpg" />
-        <ImageCropper.CropArea />
-      </ImageCropper.Viewport>
+      <ImageCropperViewport>
+        <ImageCropperImage src="/landscape.jpg" />
+        <ImageCropperCropArea />
+      </ImageCropperViewport>
     </ImageCropper>,
   );
   const image = container.querySelector<HTMLImageElement>('[data-slot="image-cropper-image"]')!;
@@ -68,10 +76,10 @@ test('preserves Ark keyboard crop commands after the image is ready', async () =
 test('preserves fixed crop area semantics', () => {
   const { container } = render(
     <ImageCropper fixedCropArea aria-label="Avatar crop">
-      <ImageCropper.Viewport>
-        <ImageCropper.Image src="/avatar.jpg" />
-        <ImageCropper.CropArea />
-      </ImageCropper.Viewport>
+      <ImageCropperViewport>
+        <ImageCropperImage src="/avatar.jpg" />
+        <ImageCropperCropArea />
+      </ImageCropperViewport>
     </ImageCropper>,
   );
   const root = screen.getByRole('group', { name: 'Avatar crop' });
@@ -85,19 +93,19 @@ test('preserves fixed crop area semantics', () => {
   expect(viewport).toHaveAttribute('data-disabled');
   expect(
     container.querySelectorAll('[data-slot="image-cropper-handle"][data-disabled]'),
-  ).toHaveLength(ImageCropper.handles.length);
+  ).toHaveLength(ImageCropperHandles.length);
 });
 
 function ProviderImageCropper() {
   const imageCropper = useImageCropper({ aspectRatio: 16 / 9 });
 
   return (
-    <ImageCropper.RootProvider value={imageCropper} data-testid="image-cropper-provider">
-      <ImageCropper.Viewport>
-        <ImageCropper.Image src="/landscape.jpg" />
-        <ImageCropper.CropArea />
-      </ImageCropper.Viewport>
-    </ImageCropper.RootProvider>
+    <ImageCropperRootProvider value={imageCropper} data-testid="image-cropper-provider">
+      <ImageCropperViewport>
+        <ImageCropperImage src="/landscape.jpg" />
+        <ImageCropperCropArea />
+      </ImageCropperViewport>
+    </ImageCropperRootProvider>
   );
 }
 
@@ -113,15 +121,15 @@ test('supports RootProvider with the recommended CropArea anatomy', () => {
 test('does not forward unsupported CropArea composition props to Ark', () => {
   const { container } = render(
     <ImageCropper>
-      <ImageCropper.Viewport>
-        <ImageCropper.Image src="/landscape.jpg" />
-        {createElement(ImageCropper.CropArea, { asChild: true, children: <div /> } as never)}
-      </ImageCropper.Viewport>
+      <ImageCropperViewport>
+        <ImageCropperImage src="/landscape.jpg" />
+        {createElement(ImageCropperCropArea, { asChild: true, children: <div /> } as never)}
+      </ImageCropperViewport>
     </ImageCropper>,
   );
 
   expect(container.querySelector('[data-slot="image-cropper-selection"]')).toBeTruthy();
   expect(container.querySelectorAll('[data-slot="image-cropper-handle"]')).toHaveLength(
-    ImageCropper.handles.length,
+    ImageCropperHandles.length,
   );
 });

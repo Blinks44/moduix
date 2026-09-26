@@ -1,5 +1,10 @@
 import { CalendarDateTime, DateFormatter } from '@internationalized/date';
-import { DateInput } from '@moduix/react/date-input';
+import {
+  DateInput,
+  DateInputControl,
+  DateInputLabel,
+  DateInputSegments,
+} from '@moduix/react/date-input';
 import styles from '@/components/examples/date-input/date-input-time-only.module.css';
 
 const formatter = new DateFormatter('en-US', {
@@ -17,10 +22,10 @@ export default function TimeOnlyDateInputDemo() {
       formatter={formatter}
       defaultValue={[new CalendarDateTime(2026, 6, 22, 14, 30)]}
     >
-      <DateInput.Label>Start time</DateInput.Label>
-      <DateInput.Control>
-        <DateInput.Segments />
-      </DateInput.Control>
+      <DateInputLabel>Start time</DateInputLabel>
+      <DateInputControl>
+        <DateInputSegments />
+      </DateInputControl>
     </DateInput>
   );
 }

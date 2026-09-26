@@ -15,11 +15,12 @@ import {
 import { clsx } from 'clsx';
 import type { ComponentProps, ComponentRef, ForwardedRef } from 'react';
 import { forwardRef } from 'react';
+import { a11yLabels } from '@/lib/moduix/a11yLabels';
 import { CheckIcon, SearchIcon } from '@/lib/moduix/icons/ui';
 import { CloseButton } from '../close-button';
 import styles from './Listbox.module.css';
 
-const ListboxRoot = forwardRef(function ListboxRoot<T extends CollectionItem>(
+const Listbox = forwardRef(function Listbox<T extends CollectionItem>(
   { className, ...props }: ListboxRootProps<T>,
   ref: ForwardedRef<ComponentRef<typeof ListboxPrimitive.Root>>,
 ) {
@@ -86,11 +87,17 @@ function ListboxFilter({ className, children, ...props }: ComponentProps<'div'>)
 
 const ListboxClearTrigger = forwardRef<ComponentRef<typeof ark.button>, HTMLArkProps<'button'>>(
   function ListboxClearTrigger(
-    { 'aria-label': ariaLabel = 'Clear search', className, children, type = 'button', ...props },
+    {
+      'aria-label': ariaLabel = a11yLabels.clearSearch,
+      className,
+      children,
+      type = 'button',
+      ...props
+    },
     ref,
   ) {
     return (
-      <CloseButton.Root
+      <CloseButton
         ref={ref}
         type={type}
         aria-label={ariaLabel}
@@ -99,7 +106,7 @@ const ListboxClearTrigger = forwardRef<ComponentRef<typeof ark.button>, HTMLArkP
         data-slot="listbox-clear-trigger"
       >
         {children}
-      </CloseButton.Root>
+      </CloseButton>
     );
   },
 );
@@ -257,29 +264,30 @@ const ListboxItemTextLabel = forwardRef<ComponentRef<typeof ark.span>, HTMLArkPr
   },
 );
 
-const Listbox = Object.assign(ListboxRoot, {
-  Root: ListboxRoot,
-  RootProvider: ListboxRootProvider,
-  Label: ListboxLabel,
-  Input: ListboxInput,
-  Filter: ListboxFilter,
-  ClearTrigger: ListboxClearTrigger,
-  Content: ListboxContent,
-  Empty: ListboxEmpty,
-  ItemGroup: ListboxItemGroup,
-  ItemGroupLabel: ListboxItemGroupLabel,
-  Item: ListboxItem,
-  ItemText: ListboxItemText,
-  ItemIndicator: ListboxItemIndicator,
-  ValueText: ListboxValueText,
-  Context: ListboxPrimitive.Context,
-  ItemContext: ListboxPrimitive.ItemContext,
-  ItemTextContent: ListboxItemTextContent,
-  ItemTextIcon: ListboxItemTextIcon,
-  ItemTextLabel: ListboxItemTextLabel,
+const ListboxContext = ListboxPrimitive.Context;
+const ListboxItemContext = ListboxPrimitive.ItemContext;
+
+export {
+  Listbox,
+  ListboxClearTrigger,
+  ListboxContent,
+  ListboxContext,
+  ListboxEmpty,
+  ListboxFilter,
+  ListboxInput,
+  ListboxItem,
+  ListboxItemContext,
+  ListboxItemGroup,
+  ListboxItemGroupLabel,
+  ListboxItemIndicator,
+  ListboxItemText,
+  ListboxItemTextContent,
+  ListboxItemTextIcon,
+  ListboxItemTextLabel,
+  ListboxLabel,
+  ListboxRootProvider,
+  ListboxValueText,
   useListbox,
   useListboxContext,
   useListboxItemContext,
-});
-
-export { Listbox, useListbox, useListboxContext, useListboxItemContext };
+};

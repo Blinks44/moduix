@@ -1,4 +1,4 @@
-import { Marquee } from '@moduix/solid/marquee';
+import { Marquee, MarqueeContent, MarqueeItem, MarqueeViewport } from '@moduix/solid/marquee';
 import styles from '@/components/examples/marquee/marquee-speed.module.css';
 
 const partners = [
@@ -14,28 +14,28 @@ export default function SpeedMarqueeDemo() {
   return (
     <div class={styles.stack}>
       <Marquee aria-label="Slow partner logos" speed={25} class={styles.root}>
-        <Marquee.Viewport>
-          <Marquee.Content>
+        <MarqueeViewport>
+          <MarqueeContent>
             {partners.map((item) => (
-              <Marquee.Item class={styles.item}>
+              <MarqueeItem class={styles.item}>
                 <span>{item.mark}</span>
                 <span>{item.name}</span>
-              </Marquee.Item>
+              </MarqueeItem>
             ))}
-          </Marquee.Content>
-        </Marquee.Viewport>
+          </MarqueeContent>
+        </MarqueeViewport>
       </Marquee>
       <Marquee aria-label="Fast partner logos" speed={100} class={styles.root}>
-        <Marquee.Viewport>
-          <Marquee.Content>
+        <MarqueeViewport>
+          <MarqueeContent>
             {partners.map((item) => (
-              <Marquee.Item class={styles.item}>
+              <MarqueeItem class={styles.item}>
                 <span>{item.mark}</span>
                 <span>{item.name}</span>
-              </Marquee.Item>
+              </MarqueeItem>
             ))}
-          </Marquee.Content>
-        </Marquee.Viewport>
+          </MarqueeContent>
+        </MarqueeViewport>
       </Marquee>
     </div>
   );

@@ -2,7 +2,18 @@ import { expect, test } from '@rstest/core';
 import { fireEvent, render, screen, waitFor, within } from '@testing-library/react';
 import userEvent from '@testing-library/user-event';
 import { createRef } from 'react';
-import { Editable, Field, useEditable } from '../src';
+import {
+  Editable,
+  EditableArea,
+  EditableContext,
+  EditableControls,
+  EditableInput,
+  EditableLabel,
+  EditablePreview,
+  EditableRootProvider,
+  Field,
+  useEditable,
+} from '../src';
 
 function TestEditable({
   defaultValue = 'Layer name',
@@ -17,12 +28,12 @@ function TestEditable({
 }) {
   return (
     <Editable defaultValue={defaultValue} form={form} name={name} onValueCommit={onValueCommit}>
-      <Editable.Label>Name</Editable.Label>
-      <Editable.Area>
-        <Editable.Input />
-        <Editable.Preview />
-      </Editable.Area>
-      <Editable.Controls />
+      <EditableLabel>Name</EditableLabel>
+      <EditableArea>
+        <EditableInput />
+        <EditablePreview />
+      </EditableArea>
+      <EditableControls />
     </Editable>
   );
 }
@@ -79,12 +90,12 @@ test('forwards the controls ref and exposes context state', () => {
 
   render(
     <Editable defaultValue="Context value">
-      <Editable.Area>
-        <Editable.Input />
-        <Editable.Preview />
-      </Editable.Area>
-      <Editable.Controls ref={controlsRef} />
-      <Editable.Context>{(editable) => <output>{editable.value}</output>}</Editable.Context>
+      <EditableArea>
+        <EditableInput />
+        <EditablePreview />
+      </EditableArea>
+      <EditableControls ref={controlsRef} />
+      <EditableContext>{(editable) => <output>{editable.value}</output>}</EditableContext>
     </Editable>,
   );
 
@@ -96,10 +107,10 @@ test('preserves semantic hosts with asChild composition', () => {
   render(
     <Editable asChild defaultValue="Layer name">
       <section aria-label="Editable section">
-        <Editable.Area>
-          <Editable.Input />
-          <Editable.Preview />
-        </Editable.Area>
+        <EditableArea>
+          <EditableInput />
+          <EditablePreview />
+        </EditableArea>
       </section>
     </Editable>,
   );
@@ -114,21 +125,21 @@ test('keeps disabled triggers unavailable and read-only values unchanged', () =>
   render(
     <>
       <Editable disabled defaultValue="Disabled value">
-        <Editable.Label>Disabled name</Editable.Label>
-        <Editable.Area>
-          <Editable.Input />
-          <Editable.Preview />
-        </Editable.Area>
-        <Editable.Controls />
+        <EditableLabel>Disabled name</EditableLabel>
+        <EditableArea>
+          <EditableInput />
+          <EditablePreview />
+        </EditableArea>
+        <EditableControls />
       </Editable>
 
       <Editable readOnly defaultValue="Read-only value">
-        <Editable.Label>Read-only name</Editable.Label>
-        <Editable.Area>
-          <Editable.Input />
-          <Editable.Preview />
-        </Editable.Area>
-        <Editable.Controls />
+        <EditableLabel>Read-only name</EditableLabel>
+        <EditableArea>
+          <EditableInput />
+          <EditablePreview />
+        </EditableArea>
+        <EditableControls />
       </Editable>
     </>,
   );
@@ -153,12 +164,12 @@ test('inherits Field state and preserves public styling hooks', () => {
   const { container } = render(
     <Field disabled id="layer-name" invalid readOnly required>
       <Editable defaultValue="Layer name">
-        <Editable.Label>Layer name</Editable.Label>
-        <Editable.Area>
-          <Editable.Input />
-          <Editable.Preview />
-        </Editable.Area>
-        <Editable.Controls />
+        <EditableLabel>Layer name</EditableLabel>
+        <EditableArea>
+          <EditableInput />
+          <EditablePreview />
+        </EditableArea>
+        <EditableControls />
       </Editable>
     </Field>,
   );
@@ -226,14 +237,14 @@ test('commits textarea values with Ctrl or Cmd + Enter', async () => {
       defaultValue="Draft description"
       onValueCommit={(details) => commits.push(details.value)}
     >
-      <Editable.Label>Description</Editable.Label>
-      <Editable.Area>
-        <Editable.Input asChild>
+      <EditableLabel>Description</EditableLabel>
+      <EditableArea>
+        <EditableInput asChild>
           <textarea />
-        </Editable.Input>
-        <Editable.Preview />
-      </Editable.Area>
-      <Editable.Controls />
+        </EditableInput>
+        <EditablePreview />
+      </EditableArea>
+      <EditableControls />
     </Editable>,
   );
 
@@ -258,14 +269,14 @@ test('forwards the controls ref and supports RootProvider state', async () => {
         <button type="button" onClick={() => editable.edit()}>
           Edit externally
         </button>
-        <Editable.RootProvider value={editable}>
-          <Editable.Label>Provider name</Editable.Label>
-          <Editable.Area>
-            <Editable.Input />
-            <Editable.Preview />
-          </Editable.Area>
-          <Editable.Controls ref={controlsRef} />
-        </Editable.RootProvider>
+        <EditableRootProvider value={editable}>
+          <EditableLabel>Provider name</EditableLabel>
+          <EditableArea>
+            <EditableInput />
+            <EditablePreview />
+          </EditableArea>
+          <EditableControls ref={controlsRef} />
+        </EditableRootProvider>
       </>
     );
   }

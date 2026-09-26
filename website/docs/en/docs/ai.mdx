@@ -35,7 +35,10 @@ Install only the `moduix` Skill from the repository:
 
 <PackageManagerTabs command="skills add https://github.com/Blinks44/moduix --skill moduix" dlx />
 
-Run the command from the project where the agent will use moduix. In agents that support explicit invocation, use `$moduix` for moduix tasks.
+Run the command from the project where the agent will use moduix. If the CLI fails, install the
+skill manually by copying `skills/moduix/SKILL.md` from the
+[moduix repository](https://github.com/Blinks44/moduix) into your agent's skills directory. Some
+agents let you invoke a skill explicitly, for example by its `$moduix` handle.
 
 ## State how moduix is managed
 

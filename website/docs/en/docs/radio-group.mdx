@@ -37,7 +37,7 @@ import radioGroupSolidFieldset from '../../../snippets/radio-group/solid/with-fi
 ## API Reference
 
 `RadioGroup` follows the Ark UI radio-group primitive and adds moduix styling, stable `data-slot`
-attributes, and the `Option` convenience component. It is exported from
+attributes, and the `RadioGroupOption` convenience component. It is exported from
 `@moduix/react/radio-group` and `@moduix/solid/radio-group`.
 
 <PrimitiveReference href="https://ark-ui.com/docs/components/radio-group" />
@@ -51,7 +51,7 @@ that takes effect immediately.
 ## Basic
 
 
-Use `RadioGroup` as the root and give every option a value. `RadioGroup.Option` renders a labelled
+Use `RadioGroup` as the root and give every option a value. `RadioGroupOption` renders a labelled
 item with its control, text, and native input.
 
 <ExampleFrame variant="component">
@@ -113,56 +113,56 @@ See [Quick Start](/docs/quick-start) for full package setup, registry configurat
 ## Anatomy
 
 ```text
-RadioGroup / RadioGroup.Root
-├─ RadioGroup.Label
-├─ RadioGroup.Indicator (optional)
-└─ RadioGroup.Item[value]
-   ├─ RadioGroup.ItemControl
-   ├─ RadioGroup.ItemText
-   └─ RadioGroup.ItemHiddenInput (explicit)
+RadioGroup
+├─ RadioGroupLabel
+├─ RadioGroupIndicator (optional)
+└─ RadioGroupItem[value]
+   ├─ RadioGroupItemControl
+   ├─ RadioGroupItemText
+   └─ RadioGroupItemHiddenInput (explicit)
 
-RadioGroup.RootProvider
+RadioGroupRootProvider
 └─ the same item tree connected to useRadioGroup()
 
-RadioGroup.Option
-└─ Item + ItemControl + ItemText + ItemHiddenInput (fixed composition)
+RadioGroupOption
+└─ RadioGroupItem + RadioGroupItemControl + RadioGroupItemText + RadioGroupItemHiddenInput (fixed composition)
 ```
 
 | Part                         | Role                                                            |
 | ---------------------------- | --------------------------------------------------------------- |
-| `RadioGroup` / `.Root`       | Owns value state, keyboard navigation, orientation, and forms. |
-| `RadioGroup.RootProvider`    | Connects parts to state created with `useRadioGroup()`.         |
-| `RadioGroup.Label`           | Accessible label for the group.                                 |
-| `RadioGroup.Item`            | One selectable option; renders a `label` by default.            |
-| `RadioGroup.Option`          | Convenience item with a control, text, and hidden input.        |
-| `RadioGroup.ItemControl`     | Visual radio control; supports the moduix `size` prop.          |
-| `RadioGroup.ItemText`        | Visible option text.                                             |
-| `RadioGroup.ItemHiddenInput` | Native form control for explicit `Item` composition.             |
-| `RadioGroup.Indicator`       | Optional active-item indicator using Ark measurement variables.  |
+| `RadioGroup`       | Owns value state, keyboard navigation, orientation, and forms. |
+| `RadioGroupRootProvider`    | Connects parts to state created with `useRadioGroup()`.         |
+| `RadioGroupLabel`           | Accessible label for the group.                                 |
+| `RadioGroupItem`            | One selectable option; renders a `label` by default.            |
+| `RadioGroupOption`          | Convenience item with a control, text, and hidden input.        |
+| `RadioGroupItemControl`     | Visual radio control; supports the moduix `size` prop.          |
+| `RadioGroupItemText`        | Visible option text.                                             |
+| `RadioGroupItemHiddenInput` | Native form control for explicit `RadioGroupItem` composition.             |
+| `RadioGroupIndicator`       | Optional active-item indicator using Ark measurement variables.  |
 
 ## Composition
 
 Use `defaultValue` for an uncontrolled group. Use `value` with `onValueChange(details)` when another
 part of the application owns the selected value. When state must be created outside the rendered
-tree, use `RootProvider` with `useRadioGroup()` from the matching framework package. Do not render
-`RadioGroup` and `RadioGroup.RootProvider` for the same state instance. React reads the store as an
+tree, use `RadioGroupRootProvider` with `useRadioGroup()` from the matching framework package. Do not render
+`RadioGroup` and `RadioGroupRootProvider` for the same state instance. React reads the store as an
 object; Solid reads its reactive state through the returned accessor.
 
-`RadioGroup.Option` includes `ItemHiddenInput` in its fixed composition. When composing
-`RadioGroup.Item` directly, add `RadioGroup.ItemHiddenInput` yourself. Use the explicit item tree
+`RadioGroupOption` includes `RadioGroupItemHiddenInput` in its fixed composition. When composing
+`RadioGroupItem` directly, add `RadioGroupItemHiddenInput` yourself. Use the explicit item tree
 when nested parts need custom placement or when `asChild` should let another element own the item
 DOM node. In Solid, `asChild` uses a render function and the direct child must remain a semantic
 `label`.
 
-`Field.Root` provides a visible label, helper text, and error text, but it does not pass its state to
+`Field` provides a visible label, helper text, and error text, but it does not pass its state to
 the group. Pass `disabled`, `invalid`, `readOnly`, and `required` to `RadioGroup` itself.
-`Fieldset.Root` passes its Ark `disabled` and `invalid` state to nested radio groups.
+`Fieldset` passes its Ark `disabled` and `invalid` state to nested radio groups.
 
 ## Examples
 
 ### asChild
 
-Use `RadioGroup.Item asChild` when a custom card or label layout should own the item DOM node. Keep a
+Use `RadioGroupItem asChild` when a custom card or label layout should own the item DOM node. Keep a
 semantic `label` as the direct child.
 
 <ExampleFrame variant="component">
@@ -273,7 +273,7 @@ Set `disabled` on the root to make every item unavailable while keeping the sele
 
 ### Disabled Item
 
-Set `disabled` on an individual `Item` or `Option` when only that choice is unavailable.
+Set `disabled` on an individual `RadioGroupItem` or `RadioGroupOption` when only that choice is unavailable.
 
 <ExampleFrame variant="component">
   <RadioGroupDisabledItem />
@@ -306,8 +306,8 @@ Set `disabled` on an individual `Item` or `Option` when only that choice is unav
 
 ### Form
 
-Pass `name` to the root when the selected value should be submitted. `RadioGroup.Option` already
-contains the input; add `ItemHiddenInput` to every custom item.
+Pass `name` to the root when the selected value should be submitted. `RadioGroupOption` already
+contains the input; add `RadioGroupItemHiddenInput` to every custom item.
 
 <ExampleFrame variant="component">
   <RadioGroupForm />
@@ -343,9 +343,9 @@ contains the input; add `ItemHiddenInput` to every custom item.
 </div>
 </ExampleCode>
 
-### Indicator
+### RadioGroupIndicator
 
-Render `RadioGroup.Indicator` when the active item needs an additional measured highlight. Keep the
+Render `RadioGroupIndicator` when the active item needs an additional measured highlight. Keep the
 indicator and the radio items in the same positioning context so the indicator follows the item
 geometry.
 
@@ -458,7 +458,7 @@ the items in a row with an inline wrapper when the visual layout should be horiz
 
 ### Root Provider
 
-Use `RootProvider` when a `useRadioGroup()` store needs to be shared with controls outside the radio
+Use `RadioGroupRootProvider` when a `useRadioGroup()` store needs to be shared with controls outside the radio
 group tree. The example also shows how to update the selected value from outside the group.
 
 <ExampleFrame variant="component">
@@ -497,7 +497,7 @@ group tree. The example also shows how to update the selected value from outside
 
 ### Sizes
 
-Use the moduix `size` prop on `Option` or `ItemControl` when the radio control needs a different
+Use the moduix `size` prop on `RadioGroupOption` or `RadioGroupItemControl` when the radio control needs a different
 diameter. Supported values are `xs`, `sm`, `md`, `lg`, and `xl`.
 
 <ExampleFrame variant="component">
@@ -531,8 +531,8 @@ diameter. Supported values are `xs`, `sm`, `md`, `lg`, and `xl`.
 
 ### With Field
 
-Use `Field.Root` when a radio group needs a field-level label, helper text, or error message. Pass
-`invalid` to `RadioGroup` as well, because `Field.Root` does not set the group's validation state.
+Use `Field` when a radio group needs a field-level label, helper text, or error message. Pass
+`invalid` to `RadioGroup` as well, because `Field` does not set the group's validation state.
 
 <ExampleFrame variant="component">
   <RadioGroupField />
@@ -609,7 +609,7 @@ section. `Fieldset` can also provide its disabled and invalid state to the neste
 
 ### Advanced Customization
 
-Bypass `Option` and use the full `Item` tree when each nested part needs custom placement, props, or
+Bypass `RadioGroupOption` and use the full `RadioGroupItem` tree when each nested part needs custom placement, props, or
 styling.
 
 <ExampleFrame variant="component">

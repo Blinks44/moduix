@@ -1,5 +1,11 @@
 import { CalendarDate } from '@internationalized/date';
-import { DateInput } from '@moduix/react/date-input';
+import {
+  DateInput,
+  DateInputControl,
+  DateInputHiddenInput,
+  DateInputLabel,
+  DateInputSegments,
+} from '@moduix/react/date-input';
 import styles from '@/components/examples/date-input/date-input-basic.module.css';
 
 export default function DateInputDemo() {
@@ -9,11 +15,11 @@ export default function DateInputDemo() {
       defaultValue={[new CalendarDate(2026, 6, 22)]}
       name="release-date"
     >
-      <DateInput.Label>Release date</DateInput.Label>
-      <DateInput.Control>
-        <DateInput.Segments />
-      </DateInput.Control>
-      <DateInput.HiddenInput />
+      <DateInputLabel>Release date</DateInputLabel>
+      <DateInputControl>
+        <DateInputSegments />
+      </DateInputControl>
+      <DateInputHiddenInput />
     </DateInput>
   );
 }

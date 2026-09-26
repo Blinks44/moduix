@@ -1,5 +1,5 @@
 import { Button } from '@moduix/react/button';
-import { Field } from '@moduix/react/field';
+import { Field, FieldLabel } from '@moduix/react/field';
 import { Textarea } from '@moduix/react/textarea';
 import { useState } from 'react';
 import { PreviewMeta } from '@/components/mdx/Components';
@@ -17,7 +17,7 @@ export default function TextareaNativeAttributesDemo() {
       }}
     >
       <Field>
-        <Field.Label>Notes</Field.Label>
+        <FieldLabel>Notes</FieldLabel>
         <Textarea
           name="notes"
           rows={6}

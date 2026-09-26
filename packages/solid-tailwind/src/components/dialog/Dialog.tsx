@@ -18,7 +18,7 @@ type DialogRootProviderProps = ComponentProps<typeof DialogPrimitive.RootProvide
   OverlayPortalProps;
 type DialogCloseIconProps = Omit<ComponentProps<typeof DialogPrimitive.CloseTrigger>, 'asChild'>;
 
-function DialogRoot(props: DialogRootProps) {
+function Dialog(props: DialogRootProps) {
   const [local, others] = splitProps(props, [
     'children',
     'lazyMount',
@@ -176,7 +176,7 @@ function DialogCloseIcon(props: DialogCloseIconProps) {
   return (
     <DialogPrimitive.CloseTrigger
       asChild={(triggerProps) => (
-        <CloseButton.Root
+        <CloseButton
           {...triggerProps()}
           data-slot="dialog-close-icon"
           aria-label={local['aria-label'] ?? DEFAULT_CLOSE_BUTTON_LABEL}
@@ -187,7 +187,7 @@ function DialogCloseIcon(props: DialogCloseIconProps) {
           )}
         >
           {resolvedChildren()}
-        </CloseButton.Root>
+        </CloseButton>
       )}
       {...others}
     />
@@ -233,22 +233,24 @@ function DialogFooter(props: HTMLArkProps<'div'>) {
   );
 }
 
-const Dialog = Object.assign(DialogRoot, {
-  Root: DialogRoot,
-  RootProvider: DialogRootProvider,
-  Context: DialogPrimitive.Context,
-  Trigger: DialogTrigger,
-  Backdrop: DialogBackdrop,
-  Positioner: DialogPositioner,
-  Content: DialogContent,
-  Title: DialogTitle,
-  Description: DialogDescription,
-  CloseTrigger: DialogCloseTrigger,
-  CloseIcon: DialogCloseIcon,
-  Header: DialogHeader,
-  Body: DialogBody,
-  Footer: DialogFooter,
-});
+const DialogContext = DialogPrimitive.Context;
 
-export { Dialog, useDialog, useDialogContext };
+export {
+  Dialog,
+  DialogBackdrop,
+  DialogBody,
+  DialogCloseIcon,
+  DialogCloseTrigger,
+  DialogContext,
+  DialogContent,
+  DialogDescription,
+  DialogFooter,
+  DialogHeader,
+  DialogPositioner,
+  DialogRootProvider,
+  DialogTitle,
+  DialogTrigger,
+  useDialog,
+  useDialogContext,
+};
 export type { DialogRootProps, DialogRootProviderProps };

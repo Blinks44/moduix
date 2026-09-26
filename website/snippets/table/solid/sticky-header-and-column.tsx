@@ -1,4 +1,12 @@
-import { Table } from '@moduix/solid/table';
+import {
+  Table,
+  TableBody,
+  TableCell,
+  TableColumnHeader,
+  TableHeader,
+  TableRow,
+  TableScrollArea,
+} from '@moduix/solid/table';
 import styles from '@/components/examples/table/table-sticky-header-and-column.module.css';
 
 const rows = [
@@ -24,29 +32,29 @@ const rows = [
 
 export default function TableStickyHeaderAndColumnDemo() {
   return (
-    <Table.ScrollArea class={styles.scrollArea}>
+    <TableScrollArea class={styles.scrollArea}>
       <Table stickyHeader interactive class={styles.table}>
-        <Table.Header>
-          <Table.Row>
-            <Table.ColumnHeader data-sticky="start">Project</Table.ColumnHeader>
-            <Table.ColumnHeader>Owner</Table.ColumnHeader>
-            <Table.ColumnHeader>Environment</Table.ColumnHeader>
-            <Table.ColumnHeader>Updated</Table.ColumnHeader>
-            <Table.ColumnHeader numeric>Open issues</Table.ColumnHeader>
-          </Table.Row>
-        </Table.Header>
-        <Table.Body>
+        <TableHeader>
+          <TableRow>
+            <TableColumnHeader data-sticky="start">Project</TableColumnHeader>
+            <TableColumnHeader>Owner</TableColumnHeader>
+            <TableColumnHeader>Environment</TableColumnHeader>
+            <TableColumnHeader>Updated</TableColumnHeader>
+            <TableColumnHeader numeric>Open issues</TableColumnHeader>
+          </TableRow>
+        </TableHeader>
+        <TableBody>
           {Array.from({ length: 12 }, (_, index) => rows[index % rows.length]).map((row, index) => (
-            <Table.Row>
-              <Table.Cell data-sticky="start">{row.name}</Table.Cell>
-              <Table.Cell>{row.owner}</Table.Cell>
-              <Table.Cell>{row.environment}</Table.Cell>
-              <Table.Cell>{row.updated}</Table.Cell>
-              <Table.Cell numeric>{index + 1}</Table.Cell>
-            </Table.Row>
+            <TableRow>
+              <TableCell data-sticky="start">{row.name}</TableCell>
+              <TableCell>{row.owner}</TableCell>
+              <TableCell>{row.environment}</TableCell>
+              <TableCell>{row.updated}</TableCell>
+              <TableCell numeric>{index + 1}</TableCell>
+            </TableRow>
           ))}
-        </Table.Body>
+        </TableBody>
       </Table>
-    </Table.ScrollArea>
+    </TableScrollArea>
   );
 }

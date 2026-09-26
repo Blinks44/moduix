@@ -10,63 +10,71 @@ It is the native Solid wrapper around Ark UI Solid Progress.
 
 ## Public contract
 
-`ProgressLinear` is the styled root and is equivalent to `ProgressLinear.Root`. It does not
+`ProgressLinear` is the styled root component. It does not
 automatically render labels, value text, tracks, or ranges. Compose the parts explicitly:
 
 ```tsx
-import { ProgressLinear } from '@moduix/solid/progress-linear';
+import {
+  ProgressLinear,
+  ProgressLinearLabel,
+  ProgressLinearValueText,
+  ProgressLinearTrack,
+  ProgressLinearRange,
+} from '@moduix/solid/progress-linear';
 
 export function ExportProgress() {
   return (
     <ProgressLinear defaultValue={24}>
-      <ProgressLinear.Label>Export data</ProgressLinear.Label>
-      <ProgressLinear.ValueText />
-      <ProgressLinear.Track aria-label="Export data">
-        <ProgressLinear.Range />
-      </ProgressLinear.Track>
+      <ProgressLinearLabel>Export data</ProgressLinearLabel>
+      <ProgressLinearValueText />
+      <ProgressLinearTrack aria-label="Export data">
+        <ProgressLinearRange />
+      </ProgressLinearTrack>
     </ProgressLinear>
   );
 }
 ```
 
-The namespace exposes `Root`, `RootProvider`, `Context`, `Label`, `ValueText`, `Track`, `Range`,
-and `View`, together with `useProgress` and `useProgressContext` on the namespace.
+The package exports `ProgressLinear`, `ProgressLinearRootProvider`, `ProgressLinearContext`,
+`ProgressLinearLabel`, `ProgressLinearValueText`, `ProgressLinearTrack`,
+`ProgressLinearRange`, `ProgressLinearView`, `useProgress`, and `useProgressContext`
+as direct values.
 
 `defaultValue` and `value` support uncontrolled and controlled progress. Use `null` for
 indeterminate progress. `min`, `max`, `formatOptions`, `locale`, `translations`, `ids`,
 `orientation`, `onValueChange(details)`, and other Ark root props pass through unchanged.
 
-`RootProvider` accepts the accessor returned by `useProgress()`:
+`ProgressLinearRootProvider` accepts the accessor returned by `useProgress()`:
 
 ```tsx
 function ProviderProgress() {
-  const progress = ProgressLinear.useProgress({ defaultValue: 58 });
+  const progress = useProgress({ defaultValue: 58 });
 
   return (
-    <ProgressLinear.RootProvider value={progress}>
-      <ProgressLinear.Track aria-label="Team rollout">
-        <ProgressLinear.Range />
-      </ProgressLinear.Track>
-    </ProgressLinear.RootProvider>
+    <ProgressLinearRootProvider value={progress}>
+      <ProgressLinearTrack aria-label="Team rollout">
+        <ProgressLinearRange />
+      </ProgressLinearTrack>
+    </ProgressLinearRootProvider>
   );
 }
 ```
 
-`Context` and `useProgressContext()` expose accessor-based Solid state. Read values as
+`ProgressLinearContext` and `useProgressContext()` expose accessor-based Solid state. Read values as
 `state().value` and `state().valueAsString` inside a render function.
 
 ## Anatomy and styling
 
 ```text
-ProgressLinear / ProgressLinear.Root
-├─ ProgressLinear.Label
-├─ ProgressLinear.ValueText
-├─ ProgressLinear.Track
-│  └─ ProgressLinear.Range
-└─ ProgressLinear.View
+ProgressLinear
+├─ ProgressLinearLabel
+├─ ProgressLinearValueText
+├─ ProgressLinearTrack
+│  └─ ProgressLinearRange
+└─ ProgressLinearView
 
-ProgressLinear.RootProvider
-└─ same part tree connected to ProgressLinear.useProgress()
+ProgressLinearRootProvider
+└─ same part tree connected to useProgress()
 ```
 
 The wrapper adds `progress-linear-*` `data-slot` hooks and the same CSS Module as the React
@@ -78,8 +86,8 @@ inline `width`; vertical ranges use inline `height`. Set
 `--moduix-progress-linear-height` for a vertical progress bar when the default height does not fit.
 Indeterminate animation, RTL direction, and reduced-motion behavior are preserved.
 
-`Track` receives `role="progressbar"` and its ARIA value attributes from Ark. Give it an
-`aria-label` or `aria-labelledby`; the visual `Label` alone does not name the progressbar.
+`ProgressLinearTrack` receives `role="progressbar"` and its ARIA value attributes from Ark. Give it an
+`aria-label` or `aria-labelledby`; the visual `ProgressLinearLabel` alone does not name the progressbar.
 
 ## Solid-specific composition
 
@@ -90,9 +98,9 @@ Ark Solid uses a render-function `asChild` prop:
   asChild={(props) => <section {...props()} aria-label="Export status" />}
   defaultValue={70}
 >
-  <ProgressLinear.Track aria-label="Export status">
-    <ProgressLinear.Range />
-  </ProgressLinear.Track>
+  <ProgressLinearTrack aria-label="Export status">
+    <ProgressLinearRange />
+  </ProgressLinearTrack>
 </ProgressLinear>
 ```
 

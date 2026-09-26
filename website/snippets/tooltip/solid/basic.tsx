@@ -1,11 +1,11 @@
 import { Button } from '@moduix/solid/button';
-import { Tooltip } from '@moduix/solid/tooltip';
+import { Tooltip, TooltipBody, TooltipTrigger } from '@moduix/solid/tooltip';
 import { Bell as BellIcon } from 'lucide-solid';
 
 export default function TooltipDemo() {
   return (
     <Tooltip>
-      <Tooltip.Trigger
+      <TooltipTrigger
         asChild={(props) => (
           <Button {...props()} aria-label="Notifications">
             <BellIcon aria-hidden />
@@ -13,7 +13,7 @@ export default function TooltipDemo() {
           </Button>
         )}
       />
-      <Tooltip.Body>Notifications</Tooltip.Body>
+      <TooltipBody>Notifications</TooltipBody>
     </Tooltip>
   );
 }

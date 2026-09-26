@@ -1,8 +1,27 @@
 import type { Meta, StoryObj } from '@storybook/react-vite';
 import { useState, type ReactNode } from 'react';
-import { Accordion, useAccordion } from '@/components/accordion/Accordion';
+import {
+  Accordion,
+  AccordionContext,
+  AccordionItem,
+  AccordionItemBody,
+  AccordionItemContent,
+  AccordionItemContext,
+  AccordionItemIndicator,
+  AccordionItemTrigger,
+  AccordionRootProvider,
+  useAccordion,
+} from '@/components/accordion/Accordion';
 import { ChevronDownIcon } from '@/lib/moduix/icons/ui';
-import { Slider } from '../../../../packages/react-tailwind/src/components/slider';
+import {
+  Slider,
+  SliderControl,
+  SliderHiddenInput,
+  SliderLabel,
+  SliderRange,
+  SliderThumb,
+  SliderTrack,
+} from '../../../../packages/react-tailwind/src/components/slider';
 
 const meta = {
   title: 'Components/Accordion',
@@ -48,15 +67,15 @@ function FaqAccordionItems({
   iconClassName?: string;
 }) {
   return faqItems.map((item) => (
-    <Accordion.Item key={item.value} value={item.value} disabled={item.value === disabledValue}>
-      <Accordion.ItemTrigger>
+    <AccordionItem key={item.value} value={item.value} disabled={item.value === disabledValue}>
+      <AccordionItemTrigger>
         {item.title}
-        <Accordion.ItemIndicator className={iconClassName}>{icon}</Accordion.ItemIndicator>
-      </Accordion.ItemTrigger>
-      <Accordion.ItemContent>
-        <Accordion.ItemBody>{item.description}</Accordion.ItemBody>
-      </Accordion.ItemContent>
-    </Accordion.Item>
+        <AccordionItemIndicator className={iconClassName}>{icon}</AccordionItemIndicator>
+      </AccordionItemTrigger>
+      <AccordionItemContent>
+        <AccordionItemBody>{item.description}</AccordionItemBody>
+      </AccordionItemContent>
+    </AccordionItem>
   ));
 }
 
@@ -79,23 +98,23 @@ export const Collapsible: Story = {
 export const ContextState: Story = {
   render: () => (
     <Accordion defaultValue={['what-is-ark-ui']} className={demoRootClassName}>
-      <Accordion.Context>
+      <AccordionContext>
         {(context) => (
           <output className={stateClassName}>Open sections: {context.value.join(', ')}</output>
         )}
-      </Accordion.Context>
+      </AccordionContext>
       {faqItems.map((item) => (
-        <Accordion.Item key={item.value} value={item.value}>
-          <Accordion.ItemTrigger>
+        <AccordionItem key={item.value} value={item.value}>
+          <AccordionItemTrigger>
             {item.title}
-            <Accordion.ItemContext>
+            <AccordionItemContext>
               {(context) => <span>{context.expanded ? 'Open' : 'Closed'}</span>}
-            </Accordion.ItemContext>
-          </Accordion.ItemTrigger>
-          <Accordion.ItemContent>
-            <Accordion.ItemBody>{item.description}</Accordion.ItemBody>
-          </Accordion.ItemContent>
-        </Accordion.Item>
+            </AccordionItemContext>
+          </AccordionItemTrigger>
+          <AccordionItemContent>
+            <AccordionItemBody>{item.description}</AccordionItemBody>
+          </AccordionItemContent>
+        </AccordionItem>
       ))}
     </Accordion>
   ),
@@ -164,9 +183,9 @@ export const RootProvider: Story = {
     return (
       <>
         <div className={stateClassName}>Open sections: {accordion.value.join(', ')}</div>
-        <Accordion.RootProvider value={accordion} className={demoRootClassName}>
+        <AccordionRootProvider value={accordion} className={demoRootClassName}>
           <FaqAccordionItems />
-        </Accordion.RootProvider>
+        </AccordionRootProvider>
       </>
     );
   },
@@ -176,28 +195,28 @@ export const AdvancedCustomization: Story = {
   render: () => (
     <Accordion defaultValue={['what-is-ark-ui']} className={demoRootClassName}>
       {faqItems.map((item) => (
-        <Accordion.Item key={item.value} value={item.value}>
-          <Accordion.ItemTrigger>
+        <AccordionItem key={item.value} value={item.value}>
+          <AccordionItemTrigger>
             {item.title}
-            <Accordion.ItemIndicator />
-          </Accordion.ItemTrigger>
-          <Accordion.ItemContent>
-            <Accordion.ItemBody>
+            <AccordionItemIndicator />
+          </AccordionItemTrigger>
+          <AccordionItemContent>
+            <AccordionItemBody>
               <span>{item.description}</span>
               <Slider defaultValue={[40]}>
-                <Slider.Label>{item.title} priority</Slider.Label>
-                <Slider.Control>
-                  <Slider.Track>
-                    <Slider.Range />
-                  </Slider.Track>
-                  <Slider.Thumb index={0}>
-                    <Slider.HiddenInput />
-                  </Slider.Thumb>
-                </Slider.Control>
+                <SliderLabel>{item.title} priority</SliderLabel>
+                <SliderControl>
+                  <SliderTrack>
+                    <SliderRange />
+                  </SliderTrack>
+                  <SliderThumb index={0}>
+                    <SliderHiddenInput />
+                  </SliderThumb>
+                </SliderControl>
               </Slider>
-            </Accordion.ItemBody>
-          </Accordion.ItemContent>
-        </Accordion.Item>
+            </AccordionItemBody>
+          </AccordionItemContent>
+        </AccordionItem>
       ))}
     </Accordion>
   ),
@@ -206,18 +225,18 @@ export const AdvancedCustomization: Story = {
 export const ContentStress: Story = {
   render: () => (
     <Accordion defaultValue={['long-content']} className={demoRootClassName}>
-      <Accordion.Item value="long-content">
-        <Accordion.ItemTrigger>
+      <AccordionItem value="long-content">
+        <AccordionItemTrigger>
           How does Accordion behave when a heading wraps across several lines in a narrow container?
-          <Accordion.ItemIndicator />
-        </Accordion.ItemTrigger>
-        <Accordion.ItemContent>
-          <Accordion.ItemBody>
+          <AccordionItemIndicator />
+        </AccordionItemTrigger>
+        <AccordionItemContent>
+          <AccordionItemBody>
             Long headings wrap without displacing the indicator, and multiline panel content keeps
             its spacing while the container narrows.
-          </Accordion.ItemBody>
-        </Accordion.ItemContent>
-      </Accordion.Item>
+          </AccordionItemBody>
+        </AccordionItemContent>
+      </AccordionItem>
     </Accordion>
   ),
 };

@@ -13,14 +13,6 @@ test('renders a flex root with stable styling hooks', () => {
   expect(stack).toHaveAttribute('data-slot', 'stack-root');
 });
 
-test('exposes the same root through the namespace API', () => {
-  expect(Stack.Root).toBe(Stack);
-
-  render(<Stack.Root data-testid="stack-root">Content</Stack.Root>);
-
-  expect(screen.getByTestId('stack-root')).toHaveTextContent('Content');
-});
-
 test('writes flex props and reverse directions as root styles', () => {
   render(
     <Stack

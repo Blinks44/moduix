@@ -1,8 +1,19 @@
 import { Badge } from '@moduix/react/badge';
 import { Button } from '@moduix/react/button';
-import { Checkbox } from '@moduix/react/checkbox';
+import { Checkbox, CheckboxControl, CheckboxHiddenInput } from '@moduix/react/checkbox';
 import { Input } from '@moduix/react/input';
-import { Table } from '@moduix/react/table';
+import {
+  Table,
+  TableBody,
+  TableCell,
+  TableColumn,
+  TableColumnGroup,
+  TableColumnHeader,
+  TableEmpty,
+  TableHeader,
+  TableRow,
+  TableScrollArea,
+} from '@moduix/react/table';
 import {
   columnFilteringFeature,
   columnVisibilityFeature,
@@ -72,8 +83,8 @@ const columns: ColumnDef<typeof features, Payment>[] = [
         aria-label="Select all rows on this page"
         onCheckedChange={(details) => table.toggleAllPageRowsSelected(details.checked === true)}
       >
-        <Checkbox.Control />
-        <Checkbox.HiddenInput />
+        <CheckboxControl />
+        <CheckboxHiddenInput />
       </Checkbox>
     ),
     cell: ({ row }) => (
@@ -83,8 +94,8 @@ const columns: ColumnDef<typeof features, Payment>[] = [
         aria-label={`Select ${row.original.email}`}
         onCheckedChange={(details) => row.toggleSelected(details.checked === true)}
       >
-        <Checkbox.Control />
-        <Checkbox.HiddenInput />
+        <CheckboxControl />
+        <CheckboxHiddenInput />
       </Checkbox>
     ),
     enableHiding: false,
@@ -170,19 +181,19 @@ export default function InteractiveDataTableDemo() {
         </span>
       </div>
 
-      <Table.ScrollArea>
+      <TableScrollArea>
         <Table interactive className="data-table-table">
-          <Table.ColumnGroup>
-            <Table.Column htmlWidth={48} />
-            <Table.Column htmlWidth={128} />
-            <Table.Column />
-            <Table.Column htmlWidth={128} />
-          </Table.ColumnGroup>
-          <Table.Header>
+          <TableColumnGroup>
+            <TableColumn htmlWidth={48} />
+            <TableColumn htmlWidth={128} />
+            <TableColumn />
+            <TableColumn htmlWidth={128} />
+          </TableColumnGroup>
+          <TableHeader>
             {table.getHeaderGroups().map((headerGroup) => (
-              <Table.Row key={headerGroup.id}>
+              <TableRow key={headerGroup.id}>
                 {headerGroup.headers.map((header) => (
-                  <Table.ColumnHeader
+                  <TableColumnHeader
                     key={header.id}
                     colSpan={header.colSpan}
                     className={
@@ -202,17 +213,17 @@ export default function InteractiveDataTableDemo() {
                     {header.isPlaceholder
                       ? null
                       : flexRender(header.column.columnDef.header, header.getContext())}
-                  </Table.ColumnHeader>
+                  </TableColumnHeader>
                 ))}
-              </Table.Row>
+              </TableRow>
             ))}
-          </Table.Header>
-          <Table.Body>
+          </TableHeader>
+          <TableBody>
             {table.getRowModel().rows.length ? (
               table.getRowModel().rows.map((row) => (
-                <Table.Row key={row.id} data-selected={row.getIsSelected() || undefined}>
+                <TableRow key={row.id} data-selected={row.getIsSelected() || undefined}>
                   {row.getVisibleCells().map((cell) => (
-                    <Table.Cell
+                    <TableCell
                       key={cell.id}
                       className={
                         cell.column.id === 'select' ? 'data-table-selection-column' : undefined
@@ -224,16 +235,16 @@ export default function InteractiveDataTableDemo() {
                       ) : (
                         flexRender(cell.column.columnDef.cell, cell.getContext())
                       )}
-                    </Table.Cell>
+                    </TableCell>
                   ))}
-                </Table.Row>
+                </TableRow>
               ))
             ) : (
-              <Table.Empty colSpan={table.getVisibleLeafColumns().length}>No results.</Table.Empty>
+              <TableEmpty colSpan={table.getVisibleLeafColumns().length}>No results.</TableEmpty>
             )}
-          </Table.Body>
+          </TableBody>
         </Table>
-      </Table.ScrollArea>
+      </TableScrollArea>
 
       <div className="data-table-pagination">
         <span>

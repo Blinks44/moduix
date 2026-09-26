@@ -10,7 +10,7 @@ import { children, splitProps } from 'solid-js';
 import { cn } from '@/lib/moduix/cn';
 import { ChevronDownIcon } from '@/lib/moduix/icons/ui/Icons';
 
-function CollapsibleRoot(props: ComponentProps<typeof CollapsiblePrimitive.Root>) {
+function Collapsible(props: ComponentProps<typeof CollapsiblePrimitive.Root>) {
   const [local, others] = splitProps(props, ['class']);
 
   return (
@@ -96,14 +96,16 @@ function CollapsibleBody(props: HTMLArkProps<'div'>) {
   );
 }
 
-const Collapsible = Object.assign(CollapsibleRoot, {
-  Root: CollapsibleRoot,
-  RootProvider: CollapsibleRootProvider,
-  Context: CollapsiblePrimitive.Context,
-  Trigger: CollapsibleTrigger,
-  Indicator: CollapsibleIndicator,
-  Content: CollapsibleContent,
-  Body: CollapsibleBody,
-});
+const CollapsibleContext = CollapsiblePrimitive.Context;
 
-export { Collapsible, useCollapsible, useCollapsibleContext };
+export {
+  Collapsible,
+  CollapsibleBody,
+  CollapsibleContent,
+  CollapsibleContext,
+  CollapsibleIndicator,
+  CollapsibleRootProvider,
+  CollapsibleTrigger,
+  useCollapsible,
+  useCollapsibleContext,
+};

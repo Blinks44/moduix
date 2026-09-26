@@ -1,4 +1,12 @@
-import { Lightbox } from '@moduix/solid/lightbox';
+import {
+  LightboxTrigger,
+  LightboxBackdrop,
+  LightboxPositioner,
+  LightboxContent,
+  LightboxCloseIcon,
+  LightboxImage,
+  Lightbox,
+} from '@moduix/solid/lightbox';
 import styles from '@/components/examples/lightbox/lightbox-click-to-close-image.module.css';
 
 const image = {
@@ -9,14 +17,14 @@ const image = {
 export default function ClickToCloseLightboxDemo() {
   return (
     <Lightbox>
-      <Lightbox.Trigger class={styles.button}>Open click-to-close lightbox</Lightbox.Trigger>
-      <Lightbox.Backdrop />
-      <Lightbox.Positioner>
-        <Lightbox.CloseIcon />
-        <Lightbox.Content aria-label={image.alt}>
-          <Lightbox.Image src={image.src} alt={image.alt} closeOnClick />
-        </Lightbox.Content>
-      </Lightbox.Positioner>
+      <LightboxTrigger class={styles.button}>Open click-to-close lightbox</LightboxTrigger>
+      <LightboxBackdrop />
+      <LightboxPositioner>
+        <LightboxCloseIcon />
+        <LightboxContent aria-label={image.alt}>
+          <LightboxImage src={image.src} alt={image.alt} closeOnClick />
+        </LightboxContent>
+      </LightboxPositioner>
     </Lightbox>
   );
 }

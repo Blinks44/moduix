@@ -22,12 +22,20 @@ or component-index pages, read [the framework-support contract](references/frame
 
 ## Documentation contract
 
-- Document only the shipped public API. Remove stale props, examples, styling hooks, and guidance in the same task.
+- Document only the shipped public API, except for an explicitly staged adapter branch that will not
+  release until framework parity is complete. In that case, document only components already
+  implemented and exported by the staged adapter. Remove stale props, examples, styling hooks, and
+  guidance in the same task.
 - Keep package implementation, public docs, snippets, registry guidance, and supported imports aligned. Teach the recommended path before lower-level composition.
-- Use public imports from the shipped package the example documents. Current package roots are
-  `@moduix/react`, `@moduix/solid`, `@moduix/react-tailwind`, and `@moduix/solid-tailwind`; discover
-  future adapters from package exports and registries. The documentation application runs React;
-  do not silently present its live preview as a different runtime or styling variant.
+- Use the shared flat public value API in every component page and snippet. Import the family-named
+  root, family-prefixed parts, and top-level hooks directly from the component subpath. Do not show
+  `Component.Part`, `Component.Root`, namespace imports, or duplicate `<Family>Root` aliases.
+- Use public imports from the shipped or explicitly staged package the example documents. Current
+  shipped package roots are `@moduix/react`, `@moduix/solid`, `@moduix/react-tailwind`, and
+  `@moduix/solid-tailwind`. The staged Vue roots are `@moduix/vue` and `@moduix/vue-tailwind` and may
+  appear only for components already implemented in those packages. Discover later adapters from
+  package exports and registries. The documentation application runs React; do not silently present
+  its live preview as a different runtime or styling variant.
 - Keep prose and snippets consumer-facing, complete, and production-like. Do not hide required setup, callbacks, collection data, or Ark composition behind docs-only helpers.
 - Render every reader-facing package installation, dependency update, executable package, registry CLI, or skill installation command with Rspress `PackageManagerTabs`. Pass a manager-neutral command such as `install <package>` and set `dlx` for temporary executables. Do not hardcode npm, pnpm, Yarn, Bun, or Deno commands in MDX unless manager-specific behavior is the subject of the page.
 - Prefer a small local helper to repeated visible ceremony, but never a page builder, hidden DSL, or abstraction that hides the documented composition.
@@ -64,7 +72,8 @@ For a new, migrated, or substantially restructured component page, read [the com
 When adding a framework adapter to an existing component page, treat the work as a component-page
 migration: keep the existing example coverage, add native source for the new framework to every
 applicable example, simplify the explanatory structure, and update every locale. Use Accordion as
-the current page reference; use Quick Start only for shared installation and framework-selection guidance.
+the current structural and flat-API reference. Use Quick Start only for shared installation and
+framework-selection guidance.
 
 ## Runnable previews
 

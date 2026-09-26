@@ -1,11 +1,32 @@
 import { type DateValue } from '@ark-ui/react/date-picker';
-import { Field } from '@ark-ui/react/field';
-import { Fieldset } from '@ark-ui/react/fieldset';
 import { CalendarDate } from '@internationalized/date';
 import { expect, test } from '@rstest/core';
 import { fireEvent, render, screen, waitFor } from '@testing-library/react';
 import { createRef, useState } from 'react';
-import { DatePicker, useDatePicker } from '../src';
+import {
+  DatePicker,
+  Field,
+  Fieldset,
+  useDatePicker,
+  DatePickerRootProvider,
+  DatePickerContext,
+  DatePickerLabel,
+  DatePickerControl,
+  DatePickerField,
+  DatePickerRangeField,
+  DatePickerInput,
+  DatePickerTrigger,
+  DatePickerClearTrigger,
+  DatePickerPositioner,
+  DatePickerContent,
+  DatePickerView,
+  DatePickerTable,
+  DatePickerTableBody,
+  DatePickerTableRow,
+  DatePickerTableCell,
+  DatePickerTableCellTrigger,
+  DatePickerDayTable,
+} from '../src';
 
 const translations = {
   clearTrigger: 'Clear localized date',
@@ -23,21 +44,21 @@ const translations = {
 
 function DatePickerPopup() {
   return (
-    <DatePicker.Positioner>
-      <DatePicker.Content data-testid="date-picker-content">
-        <DatePicker.View view="day">
-          <DatePicker.DayTable />
-        </DatePicker.View>
-      </DatePicker.Content>
-    </DatePicker.Positioner>
+    <DatePickerPositioner>
+      <DatePickerContent data-testid="date-picker-content">
+        <DatePickerView view="day">
+          <DatePickerDayTable />
+        </DatePickerView>
+      </DatePickerContent>
+    </DatePickerPositioner>
   );
 }
 
 test('keeps Field labels and placeholders owned by Ark localization', () => {
   render(
     <DatePicker defaultValue={[new CalendarDate(2026, 6, 22)]} translations={translations}>
-      <DatePicker.Label>Localized date</DatePicker.Label>
-      <DatePicker.Field />
+      <DatePickerLabel>Localized date</DatePickerLabel>
+      <DatePickerField />
     </DatePicker>,
   );
 
@@ -53,8 +74,8 @@ test('preserves custom Field labels and native form values', () => {
   const { container } = render(
     <form>
       <DatePicker defaultValue={[new CalendarDate(2026, 6, 22)]} name="release-date">
-        <DatePicker.Label>Release date</DatePicker.Label>
-        <DatePicker.Field
+        <DatePickerLabel>Release date</DatePickerLabel>
+        <DatePickerField
           clearLabel="Remove release date"
           placeholder="YYYY-MM-DD"
           triggerLabel="Choose release date"
@@ -80,8 +101,8 @@ test('keeps convenience-field input indexes and range form values Ark-shaped', (
         defaultValue={[new CalendarDate(2026, 6, 22), new CalendarDate(2026, 6, 26)]}
         name="travel-date"
       >
-        <DatePicker.Label>Travel dates</DatePicker.Label>
-        <DatePicker.RangeField endInputProps={{ index: 0 }} startInputProps={{ index: 1 }} />
+        <DatePickerLabel>Travel dates</DatePickerLabel>
+        <DatePickerRangeField endInputProps={{ index: 0 }} startInputProps={{ index: 1 }} />
       </DatePicker>
     </form>,
   );
@@ -100,18 +121,18 @@ test('keeps convenience-field input indexes and range form values Ark-shaped', (
 test('keeps Field state on its editable input', () => {
   render(
     <>
-      <Field.Root disabled invalid readOnly>
+      <Field disabled invalid readOnly>
         <DatePicker>
-          <DatePicker.Label>Scheduled date</DatePicker.Label>
-          <DatePicker.Field />
+          <DatePickerLabel>Scheduled date</DatePickerLabel>
+          <DatePickerField />
         </DatePicker>
-      </Field.Root>
-      <Fieldset.Root invalid>
+      </Field>
+      <Fieldset invalid>
         <DatePicker>
-          <DatePicker.Label>Fieldset date</DatePicker.Label>
-          <DatePicker.Field />
+          <DatePickerLabel>Fieldset date</DatePickerLabel>
+          <DatePickerField />
         </DatePicker>
-      </Fieldset.Root>
+      </Fieldset>
     </>,
   );
 
@@ -131,8 +152,8 @@ test('preserves portalling, root refs, and Ark open-change details', async () =>
   const openStates: boolean[] = [];
   const { container } = render(
     <DatePicker ref={rootRef} onOpenChange={(details) => openStates.push(details.open)}>
-      <DatePicker.Label>Published date</DatePicker.Label>
-      <DatePicker.Field triggerLabel="Open date picker" />
+      <DatePickerLabel>Published date</DatePickerLabel>
+      <DatePickerField triggerLabel="Open date picker" />
       <DatePickerPopup />
     </DatePicker>,
   );
@@ -162,21 +183,21 @@ test('keeps controlled root values and RootProvider state consumer-owned', async
     return (
       <>
         <DatePicker value={value} onValueChange={(details) => setValue(details.value)}>
-          <DatePicker.Label>Controlled date</DatePicker.Label>
-          <DatePicker.Field />
-          <DatePicker.Context>
+          <DatePickerLabel>Controlled date</DatePickerLabel>
+          <DatePickerField />
+          <DatePickerContext>
             {(datePicker) => (
               <output data-testid="controlled-date-value">{datePicker.value[0]?.toString()}</output>
             )}
-          </DatePicker.Context>
+          </DatePickerContext>
         </DatePicker>
         <button type="button" onClick={() => setValue([new CalendarDate(2026, 6, 23)])}>
           Set controlled date
         </button>
-        <DatePicker.RootProvider value={datePicker} data-testid="provider-date-picker">
-          <DatePicker.Label>Provider date</DatePicker.Label>
-          <DatePicker.Field />
-        </DatePicker.RootProvider>
+        <DatePickerRootProvider value={datePicker} data-testid="provider-date-picker">
+          <DatePickerLabel>Provider date</DatePickerLabel>
+          <DatePickerField />
+        </DatePickerRootProvider>
         <button type="button" onClick={() => datePicker.clearValue()}>
           Clear provider date
         </button>
@@ -215,35 +236,35 @@ test('renders and selects years in a year-only picker', async () => {
       minView="year"
       maxView="year"
     >
-      <DatePicker.Label>Year</DatePicker.Label>
-      <DatePicker.Field placeholder="yyyy" />
-      <DatePicker.Positioner>
-        <DatePicker.Content>
-          <DatePicker.View view="year">
-            <DatePicker.Context>
+      <DatePickerLabel>Year</DatePickerLabel>
+      <DatePickerField placeholder="yyyy" />
+      <DatePickerPositioner>
+        <DatePickerContent>
+          <DatePickerView view="year">
+            <DatePickerContext>
               {(datePicker) => (
-                <DatePicker.Table columns={4}>
-                  <DatePicker.TableBody>
+                <DatePickerTable columns={4}>
+                  <DatePickerTableBody>
                     {datePicker.getYearsGrid({ columns: 4 }).map((years, rowIndex) => (
-                      <DatePicker.TableRow key={rowIndex}>
+                      <DatePickerTableRow key={rowIndex}>
                         {years.map((year) => (
-                          <DatePicker.TableCell
+                          <DatePickerTableCell
                             key={year.value}
                             disabled={year.disabled}
                             value={year.value}
                           >
-                            <DatePicker.TableCellTrigger>{year.label}</DatePicker.TableCellTrigger>
-                          </DatePicker.TableCell>
+                            <DatePickerTableCellTrigger>{year.label}</DatePickerTableCellTrigger>
+                          </DatePickerTableCell>
                         ))}
-                      </DatePicker.TableRow>
+                      </DatePickerTableRow>
                     ))}
-                  </DatePicker.TableBody>
-                </DatePicker.Table>
+                  </DatePickerTableBody>
+                </DatePickerTable>
               )}
-            </DatePicker.Context>
-          </DatePicker.View>
-        </DatePicker.Content>
-      </DatePicker.Positioner>
+            </DatePickerContext>
+          </DatePickerView>
+        </DatePickerContent>
+      </DatePickerPositioner>
     </DatePicker>,
   );
 
@@ -263,19 +284,19 @@ test('renders and selects years in a year-only picker', async () => {
 test('applies native utilities to the component-owned visual parts', () => {
   render(
     <DatePicker defaultOpen defaultValue={[new CalendarDate(2026, 6, 22)]}>
-      <DatePicker.Label>Release date</DatePicker.Label>
-      <DatePicker.Control>
-        <DatePicker.Input />
-        <DatePicker.ClearTrigger aria-label="Clear date" />
-        <DatePicker.Trigger aria-label="Open calendar" />
-      </DatePicker.Control>
-      <DatePicker.Positioner>
-        <DatePicker.Content>
-          <DatePicker.View view="day">
-            <DatePicker.DayTable />
-          </DatePicker.View>
-        </DatePicker.Content>
-      </DatePicker.Positioner>
+      <DatePickerLabel>Release date</DatePickerLabel>
+      <DatePickerControl>
+        <DatePickerInput />
+        <DatePickerClearTrigger aria-label="Clear date" />
+        <DatePickerTrigger aria-label="Open calendar" />
+      </DatePickerControl>
+      <DatePickerPositioner>
+        <DatePickerContent>
+          <DatePickerView view="day">
+            <DatePickerDayTable />
+          </DatePickerView>
+        </DatePickerContent>
+      </DatePickerPositioner>
     </DatePicker>,
   );
 
@@ -322,10 +343,10 @@ test('applies native utilities to the component-owned visual parts', () => {
 test('lets consumer utilities replace component defaults', () => {
   const { container } = render(
     <DatePicker className="w-full max-w-sm gap-4">
-      <DatePicker.Label>Release date</DatePicker.Label>
-      <DatePicker.Control className="w-80 gap-4">
-        <DatePicker.Input className="h-10 bg-muted ps-0 pe-0" />
-      </DatePicker.Control>
+      <DatePickerLabel>Release date</DatePickerLabel>
+      <DatePickerControl className="w-80 gap-4">
+        <DatePickerInput className="h-10 bg-muted ps-0 pe-0" />
+      </DatePickerControl>
     </DatePicker>,
   );
 

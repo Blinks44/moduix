@@ -1,7 +1,7 @@
 import { expect, test } from '@rstest/core';
 import { render, screen } from '@testing-library/react';
 import { createRef } from 'react';
-import { List } from '../src';
+import { List, ListItem } from '../src';
 
 test('updates the semantic host when as changes', () => {
   const { rerender } = render(<List as="ul">Tasks</List>);
@@ -24,7 +24,7 @@ test('renders semantic unordered-list defaults and forwards the item ref', () =>
 
   render(
     <List data-testid="list">
-      <List.Item ref={ref}>Keep the item ref on its semantic host.</List.Item>
+      <ListItem ref={ref}>Keep the item ref on its semantic host.</ListItem>
     </List>,
   );
 
@@ -57,7 +57,7 @@ test('renders semantic roots with stable hooks and native ordered-list props', (
 
   render(
     <List ref={ref} as="ol" start={3} type="A" data-testid="list">
-      <List.Item>Prepare the release notes.</List.Item>
+      <ListItem>Prepare the release notes.</ListItem>
     </List>,
   );
 
@@ -79,7 +79,7 @@ test('keeps markerless list semantics and supports custom semantic roots', () =>
   render(
     <List asChild marker="none" ref={ref}>
       <ul aria-label="Release tasks">
-        <List.Item>Publish the package.</List.Item>
+        <ListItem>Publish the package.</ListItem>
       </ul>
     </List>,
   );
@@ -97,7 +97,7 @@ test('keeps markerless list semantics and supports custom semantic roots', () =>
 test('lets consumer utilities override conflicting defaults', () => {
   render(
     <List className="gap-6 ps-0 text-lg text-primary" data-testid="list">
-      <List.Item>Ready</List.Item>
+      <ListItem>Ready</ListItem>
     </List>,
   );
 

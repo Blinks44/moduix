@@ -57,7 +57,7 @@ test('allows consumer utilities to replace selected defaults', () => {
 
 test('applies the public defaults and direct styling props', () => {
   render(() => (
-    <Separator.Root data-testid="separator" class="custom-separator" style={{ color: 'red' }} />
+    <Separator data-testid="separator" class="custom-separator" style={{ color: 'red' }} />
   ));
 
   const separator = screen.getByTestId('separator');

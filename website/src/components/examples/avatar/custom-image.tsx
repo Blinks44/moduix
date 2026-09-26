@@ -1,4 +1,4 @@
-import { Avatar, useAvatarContext } from '@moduix/react/avatar';
+import { Avatar, AvatarFallback, useAvatarContext } from '@moduix/react/avatar';
 import type { ImgHTMLAttributes } from 'react';
 import styles from '@/components/examples/avatar/avatar-custom-image.module.css';
 
@@ -25,7 +25,7 @@ function AvatarCustomImage({ alt, src }: AvatarCustomImageProps) {
 export default function AvatarCustomImageDemo() {
   return (
     <Avatar>
-      <Avatar.Fallback>AT</Avatar.Fallback>
+      <AvatarFallback>AT</AvatarFallback>
       <AvatarCustomImage src={avatarImage} alt="Alex T." />
     </Avatar>
   );

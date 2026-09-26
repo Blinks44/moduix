@@ -47,7 +47,7 @@ function BadgeLabel(props: HTMLArkProps<'span'>) {
   );
 }
 
-function BadgeRoot(props: BadgeRootProps) {
+function Badge(props: BadgeRootProps) {
   const [local, others] = splitProps(props, ['class', 'variant']);
 
   return (
@@ -77,10 +77,4 @@ function BadgeDot(props: HTMLArkProps<'span'>) {
   );
 }
 
-const Badge = Object.assign(BadgeRoot, {
-  Root: BadgeRoot,
-  Label: BadgeLabel,
-  Dot: BadgeDot,
-});
-
-export { Badge };
+export { Badge, BadgeDot, BadgeLabel };

@@ -1,5 +1,201 @@
 # @moduix/solid
 
+## 3.0.0
+
+### Major Changes
+
+### Clipboard
+
+- Remove `ClipboardCopyText`.
+  Pass `copied="Copied"` and children directly to `ClipboardIndicator` for text content; the icon defaults are unchanged.
+  This major release also aligns all four adapters on one version line: the Solid and Tailwind adapters move from their divergent versions to 3.0.0 together with `@moduix/react`, and future releases ship the same version for every adapter.
+
+### Minor Changes
+
+### AngleSlider
+
+- c7359a1: Redesign the dial as a circular track that fills from the top with a masked conic-gradient arc, a circle thumb matching the linear Slider, and the value text centered in the dial.
+  `AngleSliderDial` now renders the centered `ValueText` between `Control` children and `Thumb`; the pointer press suppresses the keyboard focus ring during and after the drag while keyboard focus keeps its ring.
+  The public `--moduix-angle-slider-*` variable set was retuned; the needle thumb, inner disc, center dot, and track/control border variables were removed.
+
+### Patch Changes
+
+- Consolidate the default accessible labels (clear triggers, close buttons, loading text, and friends) into shared internal helpers and ship them as `a11y-labels` registry items so every component entry point resolves its label imports after a shadcn install.
+- Switch every component barrel to `export * from './Component.js'` and normalize the `.js` extension in Tailwind barrels, so new component exports no longer need barrel updates in four packages.
+
+### Carousel
+
+- c7359a1: Use the ring color token for control hover and pressed border instead of a border/foreground mix.
+
+### Chart
+
+- Render the default tooltip body through the styled Moduix tooltip instead of the duplicated unstyled TanStack-style fallback, and derive machine options with `splitProps`.
+
+### CommandPalette
+
+- Call `preventDefault` on the clear-trigger click in Solid adapters before resetting the input, matching the React adapters and preventing parent handlers from also reacting to the click.
+
+### ImageCropper
+
+- Remove the `!important` overrides from the selection styles.
+  AngleSlider: Route the ring mask color through a new `--moduix-angle-slider-mask-color` variable instead of hardcoded black.
+- c7359a1: Keep component-owned `data-*` attributes applied after forwarded props in all components.
+
+  Consumer-supplied `data-*` props no longer override `data-scope`, `data-part`, `data-slot`, `data-tone`, `data-indicator-position`, `data-size`, `data-variant`, and other state hooks that styles and tests rely on.
+
+### Highlight
+
+- c7359a1: Replace arbitrary box-decoration utilities with `box-decoration-clone` in Tailwind variants and drop the no-op font reset from CSS Modules variants.
+
+### Image
+
+- Migrate the Solid adapter to `@unpic/solid` and drop the manual `@unpic/core` transform layer; the public props and generated image output are unchanged.
+
+### JsonTreeView
+
+- c7359a1: Extract the duplicated Tailwind root class string into a shared constant, map `theme()` colors to CSS variables, and gate the row hover highlight behind pointer-capable media.
+
+### Navigation Menu
+
+- c7359a1: Expose `useNavigationMenu` as a top-level export in Solid adapters, matching the React adapters.
+
+### Navigation Menu
+
+- c7359a1: Align the viewport enter/exit keyframes with the shared popup motion so reduced-motion and preset tuning follow foundation tokens, and document the `ViewportPositioner` `align` prop.
+
+### NumberInput
+
+- c7359a1: Remove dead `data-focus` styles on triggers and input, bare `data-invalid` styles on triggers, and the no-op `border-x-current` utility.
+
+### Pagination
+
+- c7359a1: Treat explicit `false` children as empty triggers so they keep the fixed icon-trigger footprint, align the text-trigger padding fallback with the item default, and drop redundant line-height utilities from Tailwind variants.
+
+### PasswordInput
+
+- c7359a1: Route Solid `defaultValue` through a single force-prop mechanism and gate hover styles behind pointer-capable media while keyboard focus highlighting stays intact.
+  Also exposes `PasswordInput`, `usePasswordInput`, and `usePasswordInputContext` as named exports from the React adapter and removes redundant line-height utilities from Tailwind variants.
+
+### Popover
+
+- c7359a1: Align the header clear-icon reserve with the CSS Modules descendant rule, theme the arrow size through the spacing token, and export `PopoverRootProps` and `PopoverRootProviderProps` types from the React adapters.
+
+### ProgressCircular
+
+- c7359a1: Move the Tailwind indeterminate ring animation to the shared `moduix-progress-circular-indeterminate` keyframes so reduced-motion and preset tuning follow foundation tokens, and use `wrap-anywhere` for label text wrapping.
+
+### ProgressLinear
+
+- c7359a1: Remove the duplicated vertical grid-template-columns declaration.
+
+### RadioGroup
+
+- c7359a1: Remove dead indicator transition declarations and tie the slide timing to the foundation duration token through Ark's `--transition-duration`, so reduced-motion and preset tuning apply to the indicator.
+
+### RatingGroup
+
+- c7359a1: Restore the keyboard focus ring with `:focus-visible`, add reduced-motion guards to Tailwind indicators, and stop consumer `data-size` props from being overridden by the root.
+
+### SegmentGroup
+
+- c7359a1: Default the shared `useSegmentGroup` hook to horizontal orientation so `RootProvider` compositions match the `Root` default, and align the Tailwind focus-ring offset with the CSS Modules track.
+
+### Select
+
+- c7359a1: Drive trigger end padding from the placeholder-shown state instead of a clear-trigger `has()` selector so the padding stays predictable with custom triggers, and render the clear trigger before the indicator in advanced customization examples.
+
+### Separator
+
+- c7359a1: Privatize the internal per-size thickness plumbing and reset Tailwind root margins; per-size theming stays on the public `--moduix-separator-thickness-*` variables.
+
+### Sidebar
+
+- c7359a1: Remove the dead `sidebar-input` and `sidebar-separator` slot hooks, guard owned data attributes in Tailwind variants, and add the missing navigation sub-button focus ring.
+
+### Signature Pad
+
+- c7359a1: Restore the 36px clear trigger default and its CSS Modules focus-ring offset in Tailwind variants, and forbid `asChild` on `Canvas` so the fixed part tree cannot silently lose children.
+
+### Signature Pad
+
+- Replace the internal symbol-based `readOnly` smuggling through the Ark context with a typed hook API that returns `readOnly` alongside the machine API; `RootProvider` reads it directly and behavior is unchanged.
+
+### Slider
+
+- c7359a1: Keep the owned read-only hook ahead of consumer props in Solid adapters.
+
+### Field, Textarea, PasswordInput
+
+- Route the Solid `defaultValue` handling through one internal helper (native `defaultValue` propagation and `select` default selection) instead of the three divergent per-component workarounds.
+- Add the missing `PopupArrowIcon` and `ScrubCursorIcon` exports plus the internal icons barrel to the Solid adapters, matching the React adapters.
+
+### List
+
+- Collapse the duplicated ordered/unordered root implementations into one `<Dynamic>` root.
+  Carousel: Render static indicator lists with `Index` instead of `For`.
+  SegmentGroup: Forward remaining props with a spread instead of restating every machine prop.
+  NumberInput, Slider, AngleSlider: Drop the no-op `value`/`defaultValue` `splitProps` hops.
+
+### Split Button
+
+- c7359a1: Fix the trigger padding specificity against size variants, forward Solid trigger refs through the trigger composition, add the overlay portal registry dependency, and share the menu popup classes with `Menu`.
+
+### Steps
+
+- c7359a1: Add the missing Next trigger hover to Tailwind variants and remove dead disabled-state defenses from prev/next triggers.
+
+### Swap
+
+- c7359a1: Keep the owned animation hook ahead of consumer props in every adapter and drop class declarations pinned by Ark inline styles.
+
+### Switch
+
+- c7359a1: Keep checked invalid borders visible in Tailwind variants, guard the owned size hook against consumer overrides, and align the width fallback geometry.
+
+### Table
+
+- c7359a1: Guard owned data hooks from consumer overrides in Tailwind variants, left-align Tailwind column headers, scope striped rows to the body, and add reduced-motion and hover guards.
+
+### Tabs
+
+- c7359a1: Tie the Tailwind indicator motion to foundation duration tokens so reduced-motion and preset tuning apply, keep the owned variant hook authoritative in every adapter, and drop the redundant vertical guard from the CSS Modules line selectors.
+
+### Tags Input
+
+- c7359a1: Hide item delete triggers in read-only state so the presentation matches the documented contract, gate the delete-trigger hover behind pointer-capable media, and align Tailwind hover and focus details with CloseButton defaults.
+
+### Toast
+
+- c7359a1: Bake the closed-state easing into Tailwind transition shorthands, add reduced-motion parity, gate the action trigger hover behind pointer-capable media, and remove the never-functional close transition and z-index hooks along with stale documented defaults.
+
+### Table of Contents
+
+- c7359a1: Keep `useToc` reactive to late props in Solid adapters, apply full root props in the React `RootProvider`, expose the nav color variable, align the link focus ring and reduced-motion behavior between tracks, and document the `autoScroll` default.
+
+### Toggle Group
+
+- c7359a1: Compose items from the exported toggle variants instead of a duplicated recipe, re-export the composition types from the React adapter, and align the unselected item color with the documented color bridge contract.
+
+### Toggle
+
+- c7359a1: Render icon sizes square by moving the base minimum height into the size variants and restore the missing focus ring in the solid-tailwind variant.
+
+### Tooltip
+
+- c7359a1: Correct the documented shadow default, drop dead arrow declarations and the positioner max-height, theme the arrow size through the spacing token, add a popup z-index fallback to the Tailwind positioner, and export root props types from the React adapters.
+
+### Tour
+
+- c7359a1: Correct the documented content transition default to the popup motion tokens, align the spotlight layer index with backdrop and content, and export root props types from the React adapters.
+
+### Tree View
+
+- c7359a1: Render the checkbox indicator inside its documented `data-slot` wrapper in React adapters, share the Tailwind row recipe between branch control and item, and gate row hover behind pointer-capable media in CSS Modules.
+
+### Typeset
+
+- c7359a1: Tokenize the mark highlight and link focus ring, and document that `TypesetScroll` is designed to live inside a `Typeset` boundary.
+
 ## 2.0.0
 
 ### Major Changes
@@ -12,7 +208,7 @@
 ### AngleSlider
 
 - c7359a1: Redesign the dial as a circular track that fills from the top with a masked conic-gradient arc, a circle thumb matching the linear Slider, and the value text centered in the dial.
-  `AngleSlider.Dial` now renders the centered `ValueText` between `Control` children and `Thumb`; the pointer press suppresses the keyboard focus ring during and after the drag while keyboard focus keeps its ring.
+  `AngleSliderDial` now renders the centered `ValueText` between `Control` children and `Thumb`; the pointer press suppresses the keyboard focus ring during and after the drag while keyboard focus keeps its ring.
   The public `--moduix-angle-slider-*` variable set was retuned; the needle thumb, inner disc, center dot, and track/control border variables were removed.
 
 ### Patch Changes
@@ -34,11 +230,11 @@
 
 ### Navigation Menu
 
-- c7359a1: Expose `useNavigationMenu` as a `NavigationMenu.useNavigationMenu` static in Solid adapters, matching the React adapters.
+- c7359a1: Expose `useNavigationMenu` from the NavigationMenu component entry point in Solid adapters, matching the React adapters.
 
 ### Navigation Menu
 
-- c7359a1: Align the viewport enter/exit keyframes with the shared popup motion so reduced-motion and preset tuning follow foundation tokens, and document the `ViewportPositioner` `align` prop.
+- c7359a1: Align the viewport enter/exit keyframes with the shared popup motion so reduced-motion and preset tuning follow foundation tokens, and document the `NavigationMenuViewportPositioner` `align` prop.
 
 ### NumberInput
 
@@ -155,7 +351,7 @@
 
 ### Typeset
 
-- c7359a1: Tokenize the mark highlight and link focus ring, and document that `Typeset.Scroll` is designed to live inside a `Typeset` or `Typeset.Root` boundary.
+- c7359a1: Tokenize the mark highlight and link focus ring, and document that `TypesetScroll` is designed to live inside a `Typeset` boundary.
 
 ## 1.1.1
 
@@ -190,7 +386,7 @@
 ### Badge
 
 - f022e4e: Keep direct children unchanged and limit built-in interaction styling to links.
-  Use `Badge.Label` explicitly for truncation; button hover and disabled presentation are now consumer-owned, and `--moduix-badge-opacity-disabled` is removed.
+  Use `BadgeLabel` explicitly for truncation; button hover and disabled presentation are now consumer-owned, and `--moduix-badge-opacity-disabled` is removed.
 
 ### Minor Changes
 
@@ -261,7 +457,7 @@
 
 ### Alert
 
-- 20bb7e9: Require `Alert.Content` to contain title, description, actions, and other message content.
+- 20bb7e9: Require `AlertContent` to contain title, description, actions, and other message content.
 
 ### Patch Changes
 

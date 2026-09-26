@@ -49,7 +49,7 @@ d’interaction et conservez le `HiddenSelect` ou `HiddenInput` requis dans la c
 
 Utilisez les validateurs de champ pour les règles locales et ceux du formulaire pour les schémas ou
 les règles entre champs. Transmettez `!field.state.meta.isValid` à `Field invalid`, puis affichez les
-erreurs avec `Field.ErrorText` après le cycle de validation choisi.
+erreurs avec `FieldErrorText` après le cycle de validation choisi.
 
 Ajoutez `noValidate` uniquement lorsque TanStack Form gère les erreurs visibles. Appelez
 `form.reset()` afin de réinitialiser ensemble l’état et les contrôles Moduix.

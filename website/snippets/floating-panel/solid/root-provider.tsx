@@ -1,5 +1,19 @@
 import { Button } from '@moduix/solid/button';
-import { FloatingPanel, useFloatingPanel } from '@moduix/solid/floating-panel';
+import {
+  FloatingPanelRootProvider,
+  FloatingPanelPositioner,
+  FloatingPanelContent,
+  FloatingPanelDragTrigger,
+  FloatingPanelHeader,
+  FloatingPanelTitle,
+  FloatingPanelControl,
+  FloatingPanelStageTrigger,
+  FloatingPanelCloseIcon,
+  FloatingPanelBody,
+  FloatingPanelResizeTriggerGroup,
+  FloatingPanelDragIndicator,
+  useFloatingPanel,
+} from '@moduix/solid/floating-panel';
 
 export default function RootProviderFloatingPanelDemo() {
   const panel = useFloatingPanel({
@@ -12,30 +26,30 @@ export default function RootProviderFloatingPanelDemo() {
 
   return (
     <>
-      <FloatingPanel.RootProvider value={panel}>
-        <FloatingPanel.Positioner>
-          <FloatingPanel.Content>
-            <FloatingPanel.DragTrigger>
-              <FloatingPanel.Header>
-                <FloatingPanel.Title>
-                  <FloatingPanel.DragIndicator />
+      <FloatingPanelRootProvider value={panel}>
+        <FloatingPanelPositioner>
+          <FloatingPanelContent>
+            <FloatingPanelDragTrigger>
+              <FloatingPanelHeader>
+                <FloatingPanelTitle>
+                  <FloatingPanelDragIndicator />
                   Root provider
-                </FloatingPanel.Title>
-                <FloatingPanel.Control>
-                  <FloatingPanel.StageTrigger stage="minimized" />
-                  <FloatingPanel.StageTrigger stage="maximized" />
-                  <FloatingPanel.StageTrigger stage="default" />
-                  <FloatingPanel.CloseIcon />
-                </FloatingPanel.Control>
-              </FloatingPanel.Header>
-            </FloatingPanel.DragTrigger>
-            <FloatingPanel.Body>
+                </FloatingPanelTitle>
+                <FloatingPanelControl>
+                  <FloatingPanelStageTrigger stage="minimized" />
+                  <FloatingPanelStageTrigger stage="maximized" />
+                  <FloatingPanelStageTrigger stage="default" />
+                  <FloatingPanelCloseIcon />
+                </FloatingPanelControl>
+              </FloatingPanelHeader>
+            </FloatingPanelDragTrigger>
+            <FloatingPanelBody>
               Ark useFloatingPanel owns the panel state outside the rendered part tree.
-            </FloatingPanel.Body>
-            <FloatingPanel.ResizeTriggerGroup />
-          </FloatingPanel.Content>
-        </FloatingPanel.Positioner>
-      </FloatingPanel.RootProvider>
+            </FloatingPanelBody>
+            <FloatingPanelResizeTriggerGroup />
+          </FloatingPanelContent>
+        </FloatingPanelPositioner>
+      </FloatingPanelRootProvider>
       <div data-preview-meta>
         <Button onClick={() => panel().setOpen(true)}>Open via API</Button>
         <Button variant="outline" onClick={() => panel().maximize()}>

@@ -1,5 +1,10 @@
 import { Button } from '@moduix/solid/button';
-import { NumberInput, useNumberInput } from '@moduix/solid/number-input';
+import {
+  NumberInputField,
+  NumberInputLabel,
+  NumberInputRootProvider,
+  useNumberInput,
+} from '@moduix/solid/number-input';
 import styles from '@/components/examples/number-input/number-input-root-provider.module.css';
 
 export default function RootProviderNumberInputDemo() {
@@ -11,10 +16,10 @@ export default function RootProviderNumberInputDemo() {
 
   return (
     <div class={styles.root}>
-      <NumberInput.RootProvider value={numberInput}>
-        <NumberInput.Label>Guests</NumberInput.Label>
-        <NumberInput.Field />
-      </NumberInput.RootProvider>
+      <NumberInputRootProvider value={numberInput}>
+        <NumberInputLabel>Guests</NumberInputLabel>
+        <NumberInputField />
+      </NumberInputRootProvider>
       <output>Value: {numberInput().value}</output>
       <Button type="button" size="sm" variant="outline" onClick={() => numberInput().setToMin()}>
         Min

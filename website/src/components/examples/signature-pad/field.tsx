@@ -1,5 +1,11 @@
-import { Field } from '@moduix/react/field';
-import { SignaturePad, useSignaturePadContext } from '@moduix/react/signature-pad';
+import { Field, FieldErrorText, FieldHelperText } from '@moduix/react/field';
+import {
+  SignaturePad,
+  SignaturePadCanvas,
+  SignaturePadHiddenInput,
+  SignaturePadLabel,
+  useSignaturePadContext,
+} from '@moduix/react/signature-pad';
 import styles from '@/components/examples/signature-pad/signature-pad-field.module.css';
 
 const signatureName = 'signature';
@@ -7,19 +13,19 @@ const signatureName = 'signature';
 function SignaturePadFormInput() {
   const signaturePad = useSignaturePadContext();
 
-  return <SignaturePad.HiddenInput value={JSON.stringify(signaturePad.paths)} />;
+  return <SignaturePadHiddenInput value={JSON.stringify(signaturePad.paths)} />;
 }
 
 export default function FieldSignaturePadDemo() {
   return (
     <Field className={styles.root} invalid required>
       <SignaturePad name={signatureName}>
-        <SignaturePad.Label>Sign below</SignaturePad.Label>
-        <SignaturePad.Canvas />
+        <SignaturePadLabel>Sign below</SignaturePadLabel>
+        <SignaturePadCanvas />
         <SignaturePadFormInput />
       </SignaturePad>
-      <Field.HelperText>Use pointer or touch input to add a signature.</Field.HelperText>
-      <Field.ErrorText>Signature is required.</Field.ErrorText>
+      <FieldHelperText>Use pointer or touch input to add a signature.</FieldHelperText>
+      <FieldErrorText>Signature is required.</FieldErrorText>
     </Field>
   );
 }

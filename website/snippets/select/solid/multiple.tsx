@@ -1,5 +1,18 @@
 import { createListCollection } from '@ark-ui/solid/collection';
-import { Select } from '@moduix/solid/select';
+import {
+  Select,
+  SelectLabel,
+  SelectControl,
+  SelectTrigger,
+  SelectValueText,
+  SelectIndicator,
+  SelectClearTrigger,
+  SelectPositioner,
+  SelectContent,
+  SelectItem,
+  SelectItemText,
+  SelectItemIndicator,
+} from '@moduix/solid/select';
 import { For } from 'solid-js';
 
 const languages = createListCollection({
@@ -16,26 +29,26 @@ const languages = createListCollection({
 export default function SelectMultipleDemo() {
   return (
     <Select collection={languages} multiple defaultValue={['javascript', 'typescript']}>
-      <Select.Label>Languages</Select.Label>
-      <Select.Control>
-        <Select.Trigger>
-          <Select.ValueText placeholder="Select languages" />
-        </Select.Trigger>
-        <Select.Indicator />
-        <Select.ClearTrigger aria-label="Clear selection" />
-      </Select.Control>
-      <Select.Positioner>
-        <Select.Content>
+      <SelectLabel>Languages</SelectLabel>
+      <SelectControl>
+        <SelectTrigger>
+          <SelectValueText placeholder="Select languages" />
+        </SelectTrigger>
+        <SelectIndicator />
+        <SelectClearTrigger aria-label="Clear selection" />
+      </SelectControl>
+      <SelectPositioner>
+        <SelectContent>
           <For each={languages.items}>
             {(item) => (
-              <Select.Item item={item}>
-                <Select.ItemText>{item.label}</Select.ItemText>
-                <Select.ItemIndicator />
-              </Select.Item>
+              <SelectItem item={item}>
+                <SelectItemText>{item.label}</SelectItemText>
+                <SelectItemIndicator />
+              </SelectItem>
             )}
           </For>
-        </Select.Content>
-      </Select.Positioner>
+        </SelectContent>
+      </SelectPositioner>
     </Select>
   );
 }

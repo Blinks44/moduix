@@ -1,4 +1,4 @@
-import { Tabs } from '@moduix/react/tabs';
+import { Tabs, TabsContent, TabsIndicator, TabsList, TabsTrigger } from '@moduix/react/tabs';
 
 const items = [
   {
@@ -23,19 +23,19 @@ const items = [
 export default function VerticalTabsDemo() {
   return (
     <Tabs defaultValue="overview" orientation="vertical">
-      <Tabs.List>
+      <TabsList>
         {items.map((item) => (
-          <Tabs.Trigger key={item.value} value={item.value}>
+          <TabsTrigger key={item.value} value={item.value}>
             {item.title}
-          </Tabs.Trigger>
+          </TabsTrigger>
         ))}
-        <Tabs.Indicator />
-      </Tabs.List>
+        <TabsIndicator />
+      </TabsList>
 
       {items.map((item) => (
-        <Tabs.Content key={item.value} value={item.value}>
+        <TabsContent key={item.value} value={item.value}>
           {item.content}
-        </Tabs.Content>
+        </TabsContent>
       ))}
     </Tabs>
   );

@@ -1,5 +1,10 @@
 import { Button } from '@moduix/solid/button';
-import { SegmentGroup, useSegmentGroup } from '@moduix/solid/segment-group';
+import {
+  SegmentGroupIndicator,
+  SegmentGroupItems,
+  SegmentGroupRootProvider,
+  useSegmentGroup,
+} from '@moduix/solid/segment-group';
 import styles from '@/components/examples/segment-group/segment-group-root-provider.module.css';
 
 const frameworks = [
@@ -16,10 +21,10 @@ export default function SegmentGroupRootProviderDemo() {
 
   return (
     <div class={styles.root}>
-      <SegmentGroup.RootProvider aria-label="Framework" value={segmentGroup}>
-        <SegmentGroup.Indicator />
-        <SegmentGroup.Items items={frameworks} />
-      </SegmentGroup.RootProvider>
+      <SegmentGroupRootProvider aria-label="Framework" value={segmentGroup}>
+        <SegmentGroupIndicator />
+        <SegmentGroupItems items={frameworks} />
+      </SegmentGroupRootProvider>
       <output>Selected: {segmentGroup().value ?? 'none'}</output>
       <Button type="button" size="sm" onClick={() => segmentGroup().setValue('Solid')}>
         Set to Solid

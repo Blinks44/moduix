@@ -1,0 +1,23 @@
+{
+  "$schema": "https://ui.shadcn.com/schema/registry-item.json",
+  "name": "stack",
+  "title": "Stack",
+  "description": "moduix Vue Tailwind Stack component.",
+  "dependencies": ["@ark-ui/vue", "class-variance-authority", "clsx", "tailwind-merge"],
+  "registryDependencies": ["@moduix-vue-tailwind/foundation", "@moduix-vue-tailwind/cn"],
+  "files": [
+    {
+      "path": "src/components/stack/Stack.vue",
+      "content": "<script setup lang=\"ts\">\nimport { ark } from '@ark-ui/vue/factory';\nimport type { HTMLArkProps } from '@ark-ui/vue/factory';\nimport { cva } from 'class-variance-authority';\nimport { computed, useAttrs } from 'vue';\nimport type { CSSProperties, HTMLAttributes, StyleValue } from 'vue';\nimport { cn } from '@/lib/moduix/cn';\n\ntype StackDirection = 'row' | 'row-reverse' | 'column' | 'column-reverse';\n\ntype ResponsiveDirection = {\n  mobile?: StackDirection;\n  desktop?: StackDirection;\n};\n\nconst stackVariants = cva('flex', {\n  variants: {\n    mobileDirection: {\n      row: 'flex-row',\n      'row-reverse': 'flex-row-reverse',\n      column: 'flex-col',\n      'column-reverse': 'flex-col-reverse',\n    },\n    desktopDirection: {\n      row: 'sm:flex-row',\n      'row-reverse': 'sm:flex-row-reverse',\n      column: 'sm:flex-col',\n      'column-reverse': 'sm:flex-col-reverse',\n    },\n    fill: {\n      true: 'flex-1',\n      false: '',\n    },\n  },\n  defaultVariants: {\n    mobileDirection: 'column',\n  },\n});\n\ndefineOptions({ inheritAttrs: false });\n\nexport interface Props extends /* @vue-ignore */ HTMLArkProps<'div'> {\n  align?: CSSProperties['alignItems'];\n  class?: HTMLAttributes['class'];\n  direction?: StackDirection | ResponsiveDirection;\n  fill?: boolean;\n  gap?: number | string;\n  justify?: CSSProperties['justifyContent'];\n  style?: StyleValue;\n  wrap?: CSSProperties['flexWrap'];\n}\n\nconst {\n  align,\n  class: className,\n  direction,\n  fill = undefined,\n  gap,\n  justify,\n  style,\n  wrap,\n} = defineProps<Props>();\ndefineSlots<{ default?: () => unknown }>();\n\nconst attrs = useAttrs();\n\nconst mobileDirection = computed(() =>\n  typeof direction === 'string' ? direction : (direction?.mobile ?? direction?.desktop),\n);\nconst desktopDirection = computed(() =>\n  typeof direction === 'string' ? direction : (direction?.desktop ?? direction?.mobile),\n);\n\nconst stackClass = computed(() =>\n  cn(\n    stackVariants({\n      mobileDirection: mobileDirection.value,\n      desktopDirection: desktopDirection.value,\n      fill,\n    }),\n    className,\n  ),\n);\n\nconst toCssLength = (value: number | string | undefined) =>\n  typeof value === 'number' ? `${value}px` : value;\n\nconst stackStyle = computed<StyleValue>(() => [\n  {\n    gap: toCssLength(gap),\n    alignItems: align,\n    justifyContent: justify,\n    flexWrap: wrap,\n  },\n  style,\n]);\n</script>\n\n<template>\n  <ark.div\n    v-bind=\"attrs\"\n    :class=\"stackClass\"\n    :style=\"stackStyle\"\n    data-scope=\"stack\"\n    data-part=\"root\"\n    data-slot=\"stack-root\"\n  >\n    <slot />\n  </ark.div>\n</template>",
+      "type": "registry:component",
+      "target": "@components/ui/stack/Stack.vue"
+    },
+    {
+      "path": "src/components/stack/index.ts",
+      "content": "export { default as Stack } from './Stack.vue';",
+      "type": "registry:component",
+      "target": "@components/ui/stack/index.ts"
+    }
+  ],
+  "type": "registry:item"
+}

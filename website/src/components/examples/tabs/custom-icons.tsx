@@ -1,4 +1,4 @@
-import { Tabs } from '@moduix/react/tabs';
+import { Tabs, TabsContent, TabsList, TabsTrigger } from '@moduix/react/tabs';
 import { Handshake as HandshakeIcon, Map as MapIcon, Gift as PresentIcon } from 'lucide-react';
 
 const items = [
@@ -24,25 +24,25 @@ const items = [
 export default function IconTabsDemo() {
   return (
     <Tabs defaultValue="overview">
-      <Tabs.List>
-        <Tabs.Trigger value="overview">
+      <TabsList>
+        <TabsTrigger value="overview">
           <HandshakeIcon />
           <span>Overview</span>
-        </Tabs.Trigger>
-        <Tabs.Trigger value="projects">
+        </TabsTrigger>
+        <TabsTrigger value="projects">
           <PresentIcon />
           <span>Projects</span>
-        </Tabs.Trigger>
-        <Tabs.Trigger value="account">
+        </TabsTrigger>
+        <TabsTrigger value="account">
           <MapIcon />
           <span>Account</span>
-        </Tabs.Trigger>
-      </Tabs.List>
+        </TabsTrigger>
+      </TabsList>
 
       {items.map((item) => (
-        <Tabs.Content key={item.value} value={item.value}>
+        <TabsContent key={item.value} value={item.value}>
           {item.content}
-        </Tabs.Content>
+        </TabsContent>
       ))}
     </Tabs>
   );

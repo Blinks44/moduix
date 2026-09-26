@@ -16,7 +16,7 @@ import nativeSelectSolidMultiple from '../../../snippets/native-select/solid/mul
 
 ## Справочник API
 
-`NativeSelect` это стилизованная обёртка над [`Field.Select` из Ark UI](https://ark-ui.com/docs/components/field).
+`NativeSelect` это стилизованная обёртка над [`FieldSelect` из Ark UI](https://ark-ui.com/docs/components/field).
 Компонент выводит настоящий HTML-элемент `<select>`, поэтому браузер по-прежнему отвечает за отображение
 опций, управление с клавиатуры, отправку формы, автозаполнение, проверку и сброс.
 
@@ -97,7 +97,7 @@ import nativeSelectSolidMultiple from '../../../snippets/native-select/solid/mul
 список, иконка скрывается.
 
 ```text
-NativeSelect / NativeSelect.Root
+NativeSelect
 └─ span[data-scope="native-select"][data-part="control"][data-slot="native-select-control"]
    ├─ select[data-scope="field"][data-part="select"][data-slot="native-select-root"]
    │  ├─ option
@@ -108,14 +108,14 @@ NativeSelect / NativeSelect.Root
 
 | Часть | Назначение |
 | ----- | ---------- |
-| `NativeSelect` / `NativeSelect.Root` | Публичный корневой компонент. Выводит нативный `<select>` и декоративный индикатор. |
+| `NativeSelect` | Публичный корневой компонент. Выводит нативный `<select>` и декоративный индикатор. |
 
 ## Композиция
 
 В React неуправляемый select строится на нативной проп `defaultValue`. В Solid передавайте нативный атрибут
 `selected` тому `<option>`, который должен быть выбран изначально: проп `defaultValue` у Solid `NativeSelect`
 не имеет эффекта. Используйте `value` вместе с `onChange`, когда текущее
-значение хранится в состоянии приложения. Оборачивайте `NativeSelect` в `Field.Root`, если метка, поясняющий
+значение хранится в состоянии приложения. Оборачивайте `NativeSelect` в `Field`, если метка, поясняющий
 текст, проверка или состояние `disabled` должны быть общими для поля и элемента управления. Части `Field`
 связывают этот контент с нативным select, а выбор опций по-прежнему остаётся под управлением браузера. При
 `multiple` или `size > 1` браузер управляет взаимодействием со списком, поэтому декоративный индикатор скрывается.
@@ -161,7 +161,7 @@ NativeSelect / NativeSelect.Root
 
 ### Поле формы
 
-Используйте `Field.Root`, когда select нужны видимая метка, поясняющий текст, сообщение об ошибке или общее
+Используйте `Field`, когда select нужны видимая метка, поясняющий текст, сообщение об ошибке или общее
 состояние поля. `Field` связывает этот контент с нативным элементом.
 
 <ExampleFrame variant="component">

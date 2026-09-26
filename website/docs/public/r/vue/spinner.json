@@ -1,0 +1,29 @@
+{
+  "$schema": "https://ui.shadcn.com/schema/registry-item.json",
+  "name": "spinner",
+  "title": "Spinner",
+  "description": "moduix Vue Spinner component.",
+  "dependencies": ["@ark-ui/vue", "clsx"],
+  "registryDependencies": ["@moduix-vue/foundation"],
+  "files": [
+    {
+      "path": "src/components/spinner/Spinner.vue",
+      "content": "<script setup lang=\"ts\">\nimport { ark } from '@ark-ui/vue/factory';\nimport type { HTMLArkProps } from '@ark-ui/vue/factory';\nimport { clsx } from 'clsx';\nimport { computed, useAttrs } from 'vue';\nimport type { HTMLAttributes } from 'vue';\nimport styles from './Spinner.module.css';\n\ndefineOptions({ inheritAttrs: false });\n\ntype SpinnerSize = 'inherit' | 'xs' | 'sm' | 'md' | 'lg' | 'xl';\n\nexport interface Props extends /* @vue-ignore */ HTMLArkProps<'span'> {\n  asChild?: boolean;\n  class?: HTMLAttributes['class'];\n  decorative?: boolean;\n  size?: SpinnerSize;\n}\n\nconst { asChild = false, class: className, decorative = false, size = 'md' } = defineProps<Props>();\n\ndefineSlots<{ default?: () => unknown }>();\n\nconst attrs = useAttrs();\nconst ariaLabel = computed(() => attrs['aria-label'] as string | undefined);\nconst ariaLabelledBy = computed(() => attrs['aria-labelledby'] as string | undefined);\nconst accessibleLabel = computed(() =>\n  decorative ? undefined : (ariaLabel.value ?? (ariaLabelledBy.value ? undefined : 'Loading')),\n);\n</script>\n\n<template>\n  <ark.span\n    v-bind=\"attrs\"\n    :as-child=\"asChild\"\n    data-scope=\"spinner\"\n    data-part=\"root\"\n    data-slot=\"spinner-root\"\n    :data-size=\"size\"\n    :role=\"decorative && !asChild ? 'presentation' : decorative ? undefined : 'status'\"\n    :aria-hidden=\"decorative && !asChild ? true : undefined\"\n    :aria-label=\"accessibleLabel\"\n    :aria-labelledby=\"decorative ? undefined : ariaLabelledBy\"\n    :class=\"clsx(styles.root, className)\"\n  >\n    <template v-if=\"asChild\">\n      <slot />\n    </template>\n    <template v-else>\n      <span\n        data-scope=\"spinner\"\n        data-part=\"indicator\"\n        data-slot=\"spinner-indicator\"\n        :class=\"styles.indicator\"\n        aria-hidden=\"true\"\n      >\n        <slot>\n          <span\n            data-scope=\"spinner\"\n            data-part=\"ring\"\n            data-slot=\"spinner-ring\"\n            :class=\"styles.ring\"\n          />\n        </slot>\n      </span>\n    </template>\n  </ark.span>\n</template>",
+      "type": "registry:component",
+      "target": "@components/ui/spinner/Spinner.vue"
+    },
+    {
+      "path": "src/components/spinner/Spinner.module.css",
+      "content": "@layer moduix.components {\n  .root,\n  [data-scope='spinner'][data-part='root'] {\n    --_spinner-size: var(\n      --moduix-spinner-size,\n      var(--moduix-spinner-size-md, var(--moduix-spacing-5))\n    );\n\n    display: inline-flex;\n    width: var(--_spinner-size);\n    height: var(--_spinner-size);\n    flex: 0 0 auto;\n    align-items: center;\n    justify-content: center;\n    color: var(--moduix-spinner-color, currentColor);\n    vertical-align: middle;\n  }\n\n  .indicator,\n  [data-scope='spinner'][data-part='indicator'] {\n    display: inline-flex;\n    width: 100%;\n    height: 100%;\n    align-items: center;\n    justify-content: center;\n    animation: var(--moduix-spinner-animation, var(--moduix-animation-spin));\n  }\n\n  .ring,\n  [data-scope='spinner'][data-part='ring'] {\n    box-sizing: border-box;\n    display: block;\n    width: 100%;\n    height: 100%;\n    border: var(--moduix-spinner-ring-border-width, var(--moduix-border-width-md)) solid\n      var(--moduix-spinner-ring-track-color, color-mix(in oklab, currentColor 22%, transparent));\n    border-block-start-color: var(--moduix-spinner-color, currentColor);\n    border-radius: var(--moduix-spinner-radius, var(--moduix-radius-full));\n  }\n\n  .indicator :where(svg),\n  [data-scope='spinner'][data-part='indicator'] :where(svg) {\n    width: 100%;\n    height: 100%;\n  }\n\n  .root[data-size='xs'],\n  [data-scope='spinner'][data-part='root'][data-size='xs'] {\n    --_spinner-size: var(\n      --moduix-spinner-size,\n      var(--moduix-spinner-size-xs, var(--moduix-spacing-3))\n    );\n  }\n\n  .root[data-size='inherit'],\n  [data-scope='spinner'][data-part='root'][data-size='inherit'] {\n    --_spinner-size: 1em;\n  }\n\n  .root[data-size='sm'],\n  [data-scope='spinner'][data-part='root'][data-size='sm'] {\n    --_spinner-size: var(\n      --moduix-spinner-size,\n      var(--moduix-spinner-size-sm, var(--moduix-spacing-4))\n    );\n  }\n\n  .root[data-size='lg'],\n  [data-scope='spinner'][data-part='root'][data-size='lg'] {\n    --_spinner-size: var(\n      --moduix-spinner-size,\n      var(--moduix-spinner-size-lg, var(--moduix-spacing-7))\n    );\n  }\n\n  .root[data-size='xl'],\n  [data-scope='spinner'][data-part='root'][data-size='xl'] {\n    --_spinner-size: var(\n      --moduix-spinner-size,\n      var(--moduix-spinner-size-xl, var(--moduix-size-md))\n    );\n  }\n}",
+      "type": "registry:file",
+      "target": "@components/ui/spinner/Spinner.module.css"
+    },
+    {
+      "path": "src/components/spinner/index.ts",
+      "content": "import Spinner from './Spinner.vue';\n\nexport { Spinner };",
+      "type": "registry:component",
+      "target": "@components/ui/spinner/index.ts"
+    }
+  ],
+  "type": "registry:item"
+}

@@ -1,0 +1,195 @@
+{
+  "name": "@moduix/vue",
+  "version": "0.0.0",
+  "private": true,
+  "description": "Private development package for the Vue implementation of moduix.",
+  "keywords": [
+    "accessible",
+    "ark-ui",
+    "component-library",
+    "components",
+    "css-modules",
+    "design-system",
+    "headless",
+    "typescript",
+    "ui",
+    "vue"
+  ],
+  "homepage": "https://moduix.dev/",
+  "bugs": {
+    "url": "https://github.com/Blinks44/moduix/issues"
+  },
+  "license": "MIT",
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/Blinks44/moduix.git",
+    "directory": "packages/vue"
+  },
+  "files": [
+    "dist/components",
+    "dist/internal",
+    "dist/locale.d.ts",
+    "dist/locale.js",
+    "dist/presets",
+    "dist/styles/animations.css",
+    "dist/styles/borders.css",
+    "dist/styles/colors.css",
+    "dist/styles/opacity.css",
+    "dist/styles/radius.css",
+    "dist/styles/reset.css",
+    "dist/styles/shadows.css",
+    "dist/styles/sizing.css",
+    "dist/styles/spacing.css",
+    "dist/styles/style.css",
+    "dist/styles/transforms.css",
+    "dist/styles/transitions.css",
+    "dist/styles/typography.css",
+    "dist/styles/z-index.css",
+    "LICENSE.md",
+    "THIRD_PARTY_NOTICES.md"
+  ],
+  "type": "module",
+  "sideEffects": [
+    "**/*.css"
+  ],
+  "exports": {
+    "./accordion": {
+      "types": "./dist/components/accordion/index.d.ts",
+      "import": "./dist/components/accordion/index.js"
+    },
+    "./collapsible": {
+      "types": "./dist/components/collapsible/index.d.ts",
+      "import": "./dist/components/collapsible/index.js"
+    },
+    "./alert": {
+      "types": "./dist/components/alert/index.d.ts",
+      "import": "./dist/components/alert/index.js"
+    },
+    "./angle-slider": {
+      "types": "./dist/components/angle-slider/index.d.ts",
+      "import": "./dist/components/angle-slider/index.js"
+    },
+    "./aspect-ratio": {
+      "types": "./dist/components/aspect-ratio/index.d.ts",
+      "import": "./dist/components/aspect-ratio/index.js"
+    },
+    "./avatar": {
+      "types": "./dist/components/avatar/index.d.ts",
+      "import": "./dist/components/avatar/index.js"
+    },
+    "./badge": {
+      "types": "./dist/components/badge/index.d.ts",
+      "import": "./dist/components/badge/index.js"
+    },
+    "./breadcrumbs": {
+      "types": "./dist/components/breadcrumbs/index.d.ts",
+      "import": "./dist/components/breadcrumbs/index.js"
+    },
+    "./button": {
+      "types": "./dist/components/button/index.d.ts",
+      "import": "./dist/components/button/index.js"
+    },
+    "./card": {
+      "types": "./dist/components/card/index.d.ts",
+      "import": "./dist/components/card/index.js"
+    },
+    "./carousel": {
+      "types": "./dist/components/carousel/index.d.ts",
+      "import": "./dist/components/carousel/index.js"
+    },
+    "./checkbox": {
+      "types": "./dist/components/checkbox/index.d.ts",
+      "import": "./dist/components/checkbox/index.js"
+    },
+    "./clipboard": {
+      "types": "./dist/components/clipboard/index.d.ts",
+      "import": "./dist/components/clipboard/index.js"
+    },
+    "./chart": {
+      "types": "./dist/components/chart/index.d.ts",
+      "import": "./dist/components/chart/index.js"
+    },
+    "./color-picker": {
+      "types": "./dist/components/color-picker/index.d.ts",
+      "import": "./dist/components/color-picker/index.js"
+    },
+    "./bleed": {
+      "types": "./dist/components/bleed/index.d.ts",
+      "import": "./dist/components/bleed/index.js"
+    },
+    "./menu": {
+      "types": "./dist/components/menu/index.d.ts",
+      "import": "./dist/components/menu/index.js"
+    },
+    "./stack": {
+      "types": "./dist/components/stack/index.d.ts",
+      "import": "./dist/components/stack/index.js"
+    },
+    "./splitter": {
+      "types": "./dist/components/splitter/index.d.ts",
+      "import": "./dist/components/splitter/index.js"
+    },
+    "./locale": {
+      "types": "./dist/locale.d.ts",
+      "import": "./dist/locale.js"
+    },
+    "./close-button": {
+      "types": "./dist/components/close-button/index.d.ts",
+      "import": "./dist/components/close-button/index.js"
+    },
+    "./spinner": {
+      "types": "./dist/components/spinner/index.d.ts",
+      "import": "./dist/components/spinner/index.js"
+    },
+    "./style.css": "./dist/styles/style.css",
+    "./reset.css": "./dist/styles/reset.css",
+    "./presets/contrast.css": "./dist/presets/contrast.css",
+    "./presets/dense.css": "./dist/presets/dense.css",
+    "./presets/soft.css": "./dist/presets/soft.css",
+    "./package.json": "./package.json"
+  },
+  "publishConfig": {
+    "access": "public"
+  },
+  "scripts": {
+    "build": "rslib",
+    "dev": "rslib --watch --no-clean",
+    "test": "rstest run --passWithNoTests",
+    "test:watch": "rstest --watch",
+    "tsc:check": "vue-tsc --noEmit"
+  },
+  "dependencies": {
+    "@lucide/vue": "catalog:",
+    "clsx": "catalog:"
+  },
+  "devDependencies": {
+    "@ark-ui/vue": "catalog:",
+    "@rsbuild/core": "catalog:",
+    "@rsbuild/plugin-vue": "catalog:",
+    "@rslib/core": "catalog:",
+    "@rstest/adapter-rslib": "catalog:",
+    "@rstest/core": "catalog:",
+    "@tanstack/charts": "catalog:",
+    "@testing-library/dom": "catalog:",
+    "@testing-library/jest-dom": "catalog:",
+    "@testing-library/vue": "catalog:",
+    "@types/node": "catalog:",
+    "@vue/language-core": "catalog:",
+    "@vue/server-renderer": "catalog:",
+    "happy-dom": "catalog:",
+    "typescript": "~6.0.3",
+    "unplugin-dts": "catalog:",
+    "vue": "catalog:",
+    "vue-tsc": "catalog:"
+  },
+  "peerDependencies": {
+    "@ark-ui/vue": "^5.37.2",
+    "@tanstack/charts": "^0.16.0",
+    "vue": "^3.5.0"
+  },
+  "peerDependenciesMeta": {
+    "@tanstack/charts": {
+      "optional": true
+    }
+  }
+}

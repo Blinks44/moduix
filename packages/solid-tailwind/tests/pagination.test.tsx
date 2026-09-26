@@ -1,14 +1,27 @@
 import { expect, test } from '@rstest/core';
 import { fireEvent, render, screen, waitFor } from '@solidjs/testing-library';
 import { createSignal, For } from 'solid-js';
-import { Pagination, usePagination, usePaginationContext } from '../src';
+import {
+  Pagination,
+  PaginationContext,
+  PaginationEllipsis,
+  PaginationFirstTrigger,
+  PaginationItem,
+  PaginationItems,
+  PaginationLastTrigger,
+  PaginationNextTrigger,
+  PaginationPrevTrigger,
+  PaginationRootProvider,
+  usePagination,
+  usePaginationContext,
+} from '../src';
 
 function PageItems() {
   return (
     <>
-      <Pagination.PrevTrigger />
-      <Pagination.Items />
-      <Pagination.NextTrigger />
+      <PaginationPrevTrigger />
+      <PaginationItems />
+      <PaginationNextTrigger />
     </>
   );
 }
@@ -57,11 +70,11 @@ test('uses Ark translations for the navigation landmark label', () => {
 test('renders a long range with ellipses and keeps edge trigger boundaries in sync', async () => {
   const { container } = render(() => (
     <Pagination count={200} defaultPage={10} pageSize={10} siblingCount={1}>
-      <Pagination.FirstTrigger />
-      <Pagination.PrevTrigger />
-      <Pagination.Items />
-      <Pagination.NextTrigger />
-      <Pagination.LastTrigger />
+      <PaginationFirstTrigger />
+      <PaginationPrevTrigger />
+      <PaginationItems />
+      <PaginationNextTrigger />
+      <PaginationLastTrigger />
     </Pagination>
   ));
 
@@ -127,19 +140,19 @@ test('renders Ark link mode with generated page URLs', () => {
       type="link"
       getPageUrl={(details) => `?page=${details.page}`}
     >
-      <Pagination.PrevTrigger
+      <PaginationPrevTrigger
         asChild={(props) => (
           <a {...props()} href="#">
             Previous
           </a>
         )}
       />
-      <Pagination.Context>
+      <PaginationContext>
         {(pagination) => (
           <For each={pagination().pages}>
             {(page, index) =>
               page.type === 'page' ? (
-                <Pagination.Item
+                <PaginationItem
                   {...page}
                   asChild={(props) => (
                     <a {...props()} href={`?page=${page.value}`}>
@@ -148,13 +161,13 @@ test('renders Ark link mode with generated page URLs', () => {
                   )}
                 />
               ) : (
-                <Pagination.Ellipsis index={index()} />
+                <PaginationEllipsis index={index()} />
               )
             }
           </For>
         )}
-      </Pagination.Context>
-      <Pagination.NextTrigger
+      </PaginationContext>
+      <PaginationNextTrigger
         asChild={(props) => (
           <a {...props()} href="#">
             Next
@@ -177,10 +190,10 @@ test('exposes usePagination state through RootProvider and context', async () =>
     const pagination = usePagination({ count: 30, defaultPage: 2, pageSize: 10 });
 
     return (
-      <Pagination.RootProvider value={pagination}>
+      <PaginationRootProvider value={pagination}>
         <PageItems />
         <PageValue />
-      </Pagination.RootProvider>
+      </PaginationRootProvider>
     );
   }
 
@@ -194,11 +207,11 @@ test('exposes usePagination state through RootProvider and context', async () =>
 test('applies Tailwind utilities to owned visual parts', () => {
   const { container } = render(() => (
     <Pagination count={200} defaultPage={10} pageSize={10} siblingCount={1}>
-      <Pagination.FirstTrigger />
-      <Pagination.PrevTrigger />
-      <Pagination.Items />
-      <Pagination.NextTrigger />
-      <Pagination.LastTrigger />
+      <PaginationFirstTrigger />
+      <PaginationPrevTrigger />
+      <PaginationItems />
+      <PaginationNextTrigger />
+      <PaginationLastTrigger />
     </Pagination>
   ));
 
@@ -231,9 +244,9 @@ test('applies Tailwind utilities to owned visual parts', () => {
 test('lets consumer Tailwind classes override conflicting defaults', () => {
   render(() => (
     <Pagination count={20} pageSize={10}>
-      <Pagination.PrevTrigger class="rounded-none px-0" />
-      <Pagination.Items />
-      <Pagination.NextTrigger />
+      <PaginationPrevTrigger class="rounded-none px-0" />
+      <PaginationItems />
+      <PaginationNextTrigger />
     </Pagination>
   ));
 

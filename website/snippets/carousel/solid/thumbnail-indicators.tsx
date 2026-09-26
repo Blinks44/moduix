@@ -1,4 +1,13 @@
-import { Carousel } from '@moduix/solid/carousel';
+import {
+  Carousel,
+  CarouselControl,
+  CarouselIndicator,
+  CarouselIndicatorGroup,
+  CarouselItem,
+  CarouselItemGroup,
+  CarouselNextTrigger,
+  CarouselPrevTrigger,
+} from '@moduix/solid/carousel';
 import { For } from 'solid-js';
 import styles from '@/components/examples/carousel/carousel-thumbnail-indicators.module.css';
 
@@ -33,30 +42,30 @@ const slides = [
 export default function ThumbnailIndicatorCarousel() {
   return (
     <Carousel class={styles.root} aria-label="Gallery with thumbnails" slideCount={slides.length}>
-      <Carousel.ItemGroup class={styles.itemGroup} aria-label="Gallery with thumbnails">
+      <CarouselItemGroup class={styles.itemGroup} aria-label="Gallery with thumbnails">
         <For each={slides}>
           {(slide, index) => (
-            <Carousel.Item index={index()}>
+            <CarouselItem index={index()}>
               <img class={styles.image} src={slide.src} alt={slide.alt} />
-            </Carousel.Item>
+            </CarouselItem>
           )}
         </For>
-      </Carousel.ItemGroup>
+      </CarouselItemGroup>
 
-      <Carousel.Control class={styles.control}>
-        <Carousel.PrevTrigger />
-        <Carousel.NextTrigger />
-      </Carousel.Control>
+      <CarouselControl class={styles.control}>
+        <CarouselPrevTrigger />
+        <CarouselNextTrigger />
+      </CarouselControl>
 
-      <Carousel.IndicatorGroup class={styles.thumbnailGroup}>
+      <CarouselIndicatorGroup class={styles.thumbnailGroup}>
         <For each={slides}>
           {(slide, index) => (
-            <Carousel.Indicator class={styles.thumbnailIndicator} index={index()}>
+            <CarouselIndicator class={styles.thumbnailIndicator} index={index()}>
               <img class={styles.thumbnailImage} src={slide.src} alt={slide.alt} />
-            </Carousel.Indicator>
+            </CarouselIndicator>
           )}
         </For>
-      </Carousel.IndicatorGroup>
+      </CarouselIndicatorGroup>
     </Carousel>
   );
 }

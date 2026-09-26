@@ -1,5 +1,5 @@
 import { Button } from '@moduix/react/button';
-import { Tooltip } from '@moduix/react/tooltip';
+import { Tooltip, TooltipBody, TooltipTrigger } from '@moduix/react/tooltip';
 import { Info as InfoIcon, Plus as PlusIcon, Share as ShareIcon } from 'lucide-react';
 import { useState } from 'react';
 import styles from '@/components/examples/tooltip/component-multiple-triggers.module.css';
@@ -35,20 +35,20 @@ export default function MultipleTriggersTooltipDemo() {
     >
       <div className={styles.tools}>
         {tooltipTools.map((tool) => (
-          <Tooltip.Trigger key={tool.id} value={tool.id} asChild aria-label={tool.label}>
+          <TooltipTrigger key={tool.id} value={tool.id} asChild aria-label={tool.label}>
             <Button variant="ghost" size="icon-md">
               <tool.icon aria-hidden />
             </Button>
-          </Tooltip.Trigger>
+          </TooltipTrigger>
         ))}
       </div>
-      <Tooltip.Body>
+      <TooltipBody>
         {activeTool ? (
           <>
             {activeTool.label} ({activeTool.shortcut})
           </>
         ) : null}
-      </Tooltip.Body>
+      </TooltipBody>
     </Tooltip>
   );
 }

@@ -1,5 +1,17 @@
 import { createListCollection } from '@ark-ui/solid/collection';
-import { Select } from '@moduix/solid/select';
+import {
+  Select,
+  SelectLabel,
+  SelectField,
+  SelectPositioner,
+  SelectContent,
+  SelectItemGroup,
+  SelectItemGroupLabel,
+  SelectItem,
+  SelectItemText,
+  SelectItemIndicator,
+  SelectHiddenSelect,
+} from '@moduix/solid/select';
 import { For } from 'solid-js';
 
 const fruits = createListCollection({
@@ -13,24 +25,24 @@ const fruits = createListCollection({
 export default function SelectDemo() {
   return (
     <Select collection={fruits}>
-      <Select.Label>Choose fruit</Select.Label>
-      <Select.Field placeholder="Select an option" clearLabel="Clear selection" />
-      <Select.Positioner>
-        <Select.Content>
-          <Select.ItemGroup>
-            <Select.ItemGroupLabel>Fruits</Select.ItemGroupLabel>
+      <SelectLabel>Choose fruit</SelectLabel>
+      <SelectField placeholder="Select an option" clearLabel="Clear selection" />
+      <SelectPositioner>
+        <SelectContent>
+          <SelectItemGroup>
+            <SelectItemGroupLabel>Fruits</SelectItemGroupLabel>
             <For each={fruits.items}>
               {(item) => (
-                <Select.Item item={item}>
-                  <Select.ItemText>{item.label}</Select.ItemText>
-                  <Select.ItemIndicator />
-                </Select.Item>
+                <SelectItem item={item}>
+                  <SelectItemText>{item.label}</SelectItemText>
+                  <SelectItemIndicator />
+                </SelectItem>
               )}
             </For>
-          </Select.ItemGroup>
-        </Select.Content>
-      </Select.Positioner>
-      <Select.HiddenSelect />
+          </SelectItemGroup>
+        </SelectContent>
+      </SelectPositioner>
+      <SelectHiddenSelect />
     </Select>
   );
 }

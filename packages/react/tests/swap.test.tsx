@@ -1,7 +1,7 @@
 import { expect, test } from '@rstest/core';
 import { fireEvent, render, screen, waitFor } from '@testing-library/react';
 import { createRef, useState } from 'react';
-import { Swap, useSwapContext } from '../src';
+import { Swap, SwapIndicator, SwapRootProvider, useSwap, useSwapContext } from '../src';
 
 function ProviderSwapValue() {
   const { swap } = useSwapContext();
@@ -12,8 +12,8 @@ function ProviderSwapValue() {
 test('uses the scale animation by default and supports named presets', () => {
   const { rerender } = render(
     <Swap swap={false} data-testid="swap">
-      <Swap.Indicator type="off">Off</Swap.Indicator>
-      <Swap.Indicator type="on">On</Swap.Indicator>
+      <SwapIndicator type="off">Off</SwapIndicator>
+      <SwapIndicator type="on">On</SwapIndicator>
     </Swap>,
   );
 
@@ -23,8 +23,8 @@ test('uses the scale animation by default and supports named presets', () => {
 
   rerender(
     <Swap animation="flip" data-testid="swap" swap>
-      <Swap.Indicator type="off">Off</Swap.Indicator>
-      <Swap.Indicator type="on">On</Swap.Indicator>
+      <SwapIndicator type="off">Off</SwapIndicator>
+      <SwapIndicator type="on">On</SwapIndicator>
     </Swap>,
   );
 
@@ -33,8 +33,8 @@ test('uses the scale animation by default and supports named presets', () => {
 
   rerender(
     <Swap animation="bounce" data-testid="swap" swap>
-      <Swap.Indicator type="off">Off</Swap.Indicator>
-      <Swap.Indicator type="on">On</Swap.Indicator>
+      <SwapIndicator type="off">Off</SwapIndicator>
+      <SwapIndicator type="on">On</SwapIndicator>
     </Swap>,
   );
 
@@ -44,8 +44,8 @@ test('uses the scale animation by default and supports named presets', () => {
 test('maps the animation prop to data-animation after consumer props', () => {
   render(
     <Swap animation="flip" data-animation="rotate" data-testid="swap" swap>
-      <Swap.Indicator type="off">Off</Swap.Indicator>
-      <Swap.Indicator type="on">On</Swap.Indicator>
+      <SwapIndicator type="off">Off</SwapIndicator>
+      <SwapIndicator type="on">On</SwapIndicator>
     </Swap>,
   );
 
@@ -62,8 +62,8 @@ test('preserves Ark lazy mounting and exit unmounting', async () => {
           Toggle
         </button>
         <Swap lazyMount swap={swap} unmountOnExit>
-          <Swap.Indicator type="off">Off</Swap.Indicator>
-          <Swap.Indicator type="on">On</Swap.Indicator>
+          <SwapIndicator type="off">Off</SwapIndicator>
+          <SwapIndicator type="on">On</SwapIndicator>
         </Swap>
       </>
     );
@@ -84,17 +84,17 @@ test('keeps root provider, context, refs, and asChild composition connected', ()
   const rootProviderRef = createRef<HTMLSpanElement>();
 
   function ProviderSwap() {
-    const swap = Swap.useSwap({ swap: true });
+    const swap = useSwap({ swap: true });
 
     return (
-      <Swap.RootProvider asChild ref={rootProviderRef} value={swap} animation="fade">
+      <SwapRootProvider asChild ref={rootProviderRef} value={swap} animation="fade">
         <button data-testid="provider-root" type="button">
-          <Swap.Indicator type="off">Off</Swap.Indicator>
-          <Swap.Indicator type="on">
+          <SwapIndicator type="off">Off</SwapIndicator>
+          <SwapIndicator type="on">
             <ProviderSwapValue />
-          </Swap.Indicator>
+          </SwapIndicator>
         </button>
-      </Swap.RootProvider>
+      </SwapRootProvider>
     );
   }
 
@@ -112,10 +112,10 @@ test('preserves asChild composition', () => {
   render(
     <Swap asChild ref={rootRef} animation="rotate" swap>
       <span data-testid="custom-root">
-        <Swap.Indicator type="off">Off</Swap.Indicator>
-        <Swap.Indicator asChild type="on">
+        <SwapIndicator type="off">Off</SwapIndicator>
+        <SwapIndicator asChild type="on">
           <output data-testid="custom-indicator">On</output>
-        </Swap.Indicator>
+        </SwapIndicator>
       </span>
     </Swap>,
   );

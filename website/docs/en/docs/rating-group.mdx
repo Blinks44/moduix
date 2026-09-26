@@ -24,17 +24,19 @@ import ratingGroupSolidForms from '../../../snippets/rating-group/solid/forms.ts
 import ratingGroupSolidHalfRating from '../../../snippets/rating-group/solid/half-rating.tsx?raw';
 import ratingGroupSolidSizes from '../../../snippets/rating-group/solid/sizes.tsx?raw';
 
-Use `RatingGroup` when people need to choose a numeric score from a row of stars or another repeated icon.
-
 ## API Reference
 
 <PrimitiveReference href="https://ark-ui.com/docs/components/rating-group" />
 
+## Choosing the right component
+
+Use `RatingGroup` when people need to choose a numeric score from a row of stars or another repeated icon.
+
 ## Basic
 
 
-Use `RatingGroup` as the root and add `RatingGroup.Label`, `RatingGroup.Control`, and
-`RatingGroup.Items` for the standard star rating. Render `RatingGroup.HiddenInput` explicitly when
+Use `RatingGroup` as the root and add `RatingGroupLabel`, `RatingGroupControl`, and
+`RatingGroupItems` for the standard star rating. Render `RatingGroupHiddenInput` explicitly when
 the value should participate in native form submission.
 
 <ExampleFrame variant="component">
@@ -94,43 +96,43 @@ See [Quick Start](/docs/quick-start) for full package setup, registry configurat
 ## Anatomy
 
 ```text
-RatingGroup / RatingGroup.Root
-├─ RatingGroup.Label
-└─ RatingGroup.Control
-   ├─ RatingGroup.Items
-   │  └─ RatingGroup.Item[index]
-   │     └─ RatingGroup.ItemIndicator
-   ├─ RatingGroup.Context
-   │  └─ RatingGroup.Item[index]
-   │     └─ RatingGroup.ItemIndicator
-   └─ RatingGroup.HiddenInput (explicit)
+RatingGroup
+├─ RatingGroupLabel
+└─ RatingGroupControl
+   ├─ RatingGroupItems
+   │  └─ RatingGroupItem[index]
+   │     └─ RatingGroupItemIndicator
+   ├─ RatingGroupContext
+   │  └─ RatingGroupItem[index]
+   │     └─ RatingGroupItemIndicator
+   └─ RatingGroupHiddenInput (explicit)
 
-RatingGroup.RootProvider
+RatingGroupRootProvider
 └─ same part tree connected to a moduix useRatingGroup() store
 ```
 
 | Part                               | Role                                                               |
 | ---------------------------------- | ------------------------------------------------------------------ |
-| `RatingGroup` / `RatingGroup.Root` | Owns rating state, keyboard navigation, focus, and form integration. |
-| `RatingGroup.HiddenInput`          | Native Ark form control that must be composed explicitly.          |
-| `RatingGroup.RootProvider`          | Connects the parts to state created with `useRatingGroup()`.       |
-| `RatingGroup.Context`               | Render-prop access to the current root state.                      |
-| `RatingGroup.ItemContext`           | Render-prop access to the current item state.                      |
-| `RatingGroup.Label`                 | Accessible label for the rating group.                             |
-| `RatingGroup.Control`               | Groups the interactive rating items.                               |
-| `RatingGroup.Items`                 | Creates one item for each value and supplies the default star.     |
-| `RatingGroup.Item`                  | One selectable rating item; requires a numeric `index`.            |
-| `RatingGroup.ItemIndicator`         | The default moduix star visual for an item.                        |
+| `RatingGroup`                    | Owns rating state, keyboard navigation, focus, and form integration. |
+| `RatingGroupHiddenInput`          | Native Ark form control that must be composed explicitly.          |
+| `RatingGroupRootProvider`          | Connects the parts to state created with `useRatingGroup()`.       |
+| `RatingGroupContext`               | Render-prop access to the current root state.                      |
+| `RatingGroupItemContext`           | Render-prop access to the current item state.                      |
+| `RatingGroupLabel`                 | Accessible label for the rating group.                             |
+| `RatingGroupControl`               | Groups the interactive rating items.                               |
+| `RatingGroupItems`                 | Creates one item for each value and supplies the default star.     |
+| `RatingGroupItem`                  | One selectable rating item; requires a numeric `index`.            |
+| `RatingGroupItemIndicator`         | The default moduix star visual for an item.                        |
 
 ## Composition
 
-Use `RatingGroup.Items` for the standard generated item tree. To replace the repeated visual, pass a
-custom `RatingGroup.ItemIndicator` as its child. `RatingGroup.HiddenInput` is independent of
-`Items`, so compose it explicitly inside the root or `RatingGroup.RootProvider`; set `name` on the
+Use `RatingGroupItems` for the standard generated item tree. To replace the repeated visual, pass a
+custom `RatingGroupItemIndicator` as its child. `RatingGroupHiddenInput` is independent of
+`Items`, so compose it explicitly inside the root or `RatingGroupRootProvider`; set `name` on the
 root when the value should be submitted by a native form.
 
-For a custom item tree, use `RatingGroup.Context` with `RatingGroup.Item`; use
-`RatingGroup.RootProvider` with `useRatingGroup()` when the store must be created outside the
+For a custom item tree, use `RatingGroupContext` with `RatingGroupItem`; use
+`RatingGroupRootProvider` with `useRatingGroup()` when the store must be created outside the
 rendered tree. React reads the store as an object, while Solid reads its reactive state through the
 returned accessor.
 
@@ -175,7 +177,7 @@ state, drives nearby UI, or must be reset by a parent.
 
 ### Custom Icon
 
-Pass a custom `RatingGroup.ItemIndicator` as the child of `RatingGroup.Items` when every item should
+Pass a custom `RatingGroupItemIndicator` as the child of `RatingGroupItems` when every item should
 use the same icon. The indicator still receives Ark-driven `data-highlighted` and `data-half`
 attributes for styling.
 
@@ -251,7 +253,7 @@ changes.
 ### Field
 
 Wrap the rating group in `Field` when helper or validation text should be associated with its
-`RatingGroup.HiddenInput`. Ark inherits `disabled`, `readOnly`, and `required` from the field;
+`RatingGroupHiddenInput`. Ark inherits `disabled`, `readOnly`, and `required` from the field;
 validation state remains owned by `Field` and application code.
 
 <ExampleFrame variant="component">
@@ -288,7 +290,7 @@ validation state remains owned by `Field` and application code.
 
 ### Forms
 
-Pass `name` and render `RatingGroup.HiddenInput` when the selected score should be included in
+Pass `name` and render `RatingGroupHiddenInput` when the selected score should be included in
 `FormData`.
 
 <ExampleFrame variant="component">
@@ -393,8 +395,8 @@ density.
 
 ### Advanced Customization
 
-Use `RatingGroup.RootProvider` with `useRatingGroup()` when the rating state must be created outside
-the rendered rating tree. Use `RatingGroup.Context` when `RatingGroup.Items` is not enough and you
+Use `RatingGroupRootProvider` with `useRatingGroup()` when the rating state must be created outside
+the rendered rating tree. Use `RatingGroupContext` when `RatingGroupItems` is not enough and you
 need to render each item yourself.
 
 <ExampleFrame variant="component">

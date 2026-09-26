@@ -17,6 +17,12 @@ import alertSolidCustomHeading from '../../../snippets/alert/solid/custom-headin
 import alertSolidError from '../../../snippets/alert/solid/error.tsx?raw';
 import alertSolidStatuses from '../../../snippets/alert/solid/statuses.tsx?raw';
 import alertSolidWithIcon from '../../../snippets/alert/solid/with-icon.tsx?raw';
+import alertVueBasic from '../../../snippets/alert/vue/basic.vue?raw';
+import alertVueCustomComposition from '../../../snippets/alert/vue/custom-composition.vue?raw';
+import alertVueCustomHeading from '../../../snippets/alert/vue/custom-heading.vue?raw';
+import alertVueError from '../../../snippets/alert/vue/error.vue?raw';
+import alertVueStatuses from '../../../snippets/alert/vue/statuses.vue?raw';
+import alertVueWithIcon from '../../../snippets/alert/vue/with-icon.vue?raw';
 
 ## API Reference
 
@@ -25,14 +31,14 @@ Ark UI does not provide a dedicated `alert` primitive. moduix builds `Alert` wit
 [composition](https://ark-ui.com/docs/guides/composition), [styling](https://ark-ui.com/docs/guides/styling), and
 [refs](https://ark-ui.com/docs/guides/ref).
 
-Import `Alert` from `@moduix/react/alert` or `@moduix/solid/alert`. The callable `Alert` export and
-`Alert.Root` render the same root part. The other public parts are `Alert.Indicator`, `Alert.Content`,
-`Alert.Title`, `Alert.Description`, and `Alert.Actions`.
+Import `Alert` from `@moduix/react/alert`, `@moduix/solid/alert`, or `@moduix/vue/alert`. `Alert` is
+the root part, and the other public parts are `AlertIndicator`, `AlertContent`, `AlertTitle`,
+`AlertDescription`, and `AlertActions`.
 
 Every part accepts the usual props for its rendered element, including `className`/`class` and Ark's
 `asChild`, and forwards refs to the rendered element. `status` defaults to `info` and controls visual
 styling only. Add `role="status"` or `role="alert"` when a dynamically added or updated message needs a
-live region. `Alert.Indicator` is hidden from assistive technology, so keep the essential meaning in the
+live region. `AlertIndicator` is hidden from assistive technology, so keep the essential meaning in the
 title or description.
 
 ## Choosing the right component
@@ -46,8 +52,8 @@ flow.
 ## Basic
 
 
-For a standard inline message, place `Alert.Title` and `Alert.Description` inside `Alert.Content`.
-Add `Alert.Indicator` when an icon helps people scan the message.
+For a standard inline message, place `AlertTitle` and `AlertDescription` inside `AlertContent`.
+Add `AlertIndicator` when an icon helps people scan the message.
 
 <ExampleFrame variant="component">
   <AlertBasic />
@@ -60,6 +66,7 @@ Add `Alert.Indicator` when an icon helps people scan the message.
     values={[
       { label: 'React', value: 'react' },
       { label: 'Solid', value: 'solid' },
+      { label: 'Vue', value: 'vue' },
     ]}
     className="docs-tabs"
   >
@@ -72,6 +79,11 @@ Add `Alert.Indicator` when an icon helps people scan the message.
     <Tab value="solid">
 
 <CodeBlockRuntime lang="tsx" code={alertSolidBasic} />
+
+    </Tab>
+    <Tab value="vue">
+
+<CodeBlockRuntime lang="vue" code={alertVueBasic} />
 
     </Tab>
   </Tabs>
@@ -104,47 +116,58 @@ See [Quick Start](/docs/quick-start) for full package setup, registry configurat
 />
 
   </Tab>
+  <Tab label="Vue" value="vue">
+
+<ShadcnInstallOptions
+  options={[
+    { label: 'CSS Modules', command: 'shadcn@latest add @moduix-vue/alert' },
+    { label: 'Tailwind CSS', command: 'shadcn@latest add @moduix-vue-tailwind/alert' },
+  ]}
+/>
+
+  </Tab>
 </Tabs>
 
 ## Anatomy
 
-Place message content inside `Alert.Content`. `Alert.Indicator` is optional and sits beside that
+Place message content inside `AlertContent`. `AlertIndicator` is optional and sits beside that
 content when it helps people scan the message.
 
 ```text
-Alert / Alert.Root
-├─ Alert.Indicator (optional)
-└─ Alert.Content
-   ├─ Alert.Title
-   ├─ Alert.Description
-   ├─ Alert.Actions (optional)
+Alert
+├─ AlertIndicator (optional)
+└─ AlertContent
+   ├─ AlertTitle
+   ├─ AlertDescription
+   ├─ AlertActions (optional)
    └─ Extra custom blocks
 ```
 
-| Part                   | Role                                                               | `data-part`   |
-| ---------------------- | ------------------------------------------------------------------ | ------------- |
-| `Alert` / `Alert.Root` | Root element. Applies status styles and automatic live-region semantics. | `root`        |
-| `Alert.Indicator`      | Optional visual cue. Child SVG icons receive a consistent size.   | `indicator`   |
-| `Alert.Content`        | Required column wrapper for message content and actions.           | `content`     |
-| `Alert.Title`          | Alert title. Renders a `p` by default.                              | `title`       |
-| `Alert.Description`    | Supporting message text.                                           | `description` |
-| `Alert.Actions`        | Optional wrapped row for actions inside `Content`.                 | `actions`     |
+| Part               | Role                                                               | `data-part`   |
+| ------------------ | ------------------------------------------------------------------ | ------------- |
+| `Alert`            | Root element. Applies status styles and automatic live-region semantics. | `root`        |
+| `AlertIndicator`   | Optional visual cue. Child SVG icons receive a consistent size.   | `indicator`   |
+| `AlertContent`     | Required column wrapper for message content and actions.           | `content`     |
+| `AlertTitle`       | Alert title. Renders a `p` by default.                              | `title`       |
+| `AlertDescription` | Supporting message text.                                           | `description` |
+| `AlertActions`     | Optional wrapped row for actions inside `Content`.                 | `actions`     |
 
 ## Composition
 
 `Alert` is presentational: the component that renders it owns visibility and dismissal state. It does
-not manage focus or keyboard behavior for buttons and links placed inside it. `Alert.Content` is
+not manage focus or keyboard behavior for buttons and links placed inside it. `AlertContent` is
 required and contains the title, description, controls, and other message content. Put controls inside
-`Alert.Actions` when they need the default wrapped action-row styling.
+`AlertActions` when they need the default wrapped action-row styling.
 
-When the title needs a different semantic element, use `Alert.Title asChild` with exactly one semantic
-child. Solid uses Ark's render-function form of `asChild` as shown in the Custom Heading example.
+When the title needs a different semantic element, use `AlertTitle asChild` with exactly one semantic
+child. Solid uses Ark's render-function form of `asChild` as shown in the Custom Heading example. Vue
+uses the `as-child` attribute with a single child element.
 
 ## Examples
 
 ### Custom Heading
 
-Use `asChild` on `Alert.Title` when the alert title needs to participate in the page's heading hierarchy.
+Use `asChild` on `AlertTitle` when the alert title needs to participate in the page's heading hierarchy.
 
 <ExampleFrame variant="component">
   <AlertCustomHeading />
@@ -157,6 +180,7 @@ Use `asChild` on `Alert.Title` when the alert title needs to participate in the 
     values={[
       { label: 'React', value: 'react' },
       { label: 'Solid', value: 'solid' },
+      { label: 'Vue', value: 'vue' },
     ]}
     className="docs-tabs"
   >
@@ -169,6 +193,11 @@ Use `asChild` on `Alert.Title` when the alert title needs to participate in the 
     <Tab value="solid">
 
 <CodeBlockRuntime lang="tsx" code={alertSolidCustomHeading} />
+
+    </Tab>
+    <Tab value="vue">
+
+<CodeBlockRuntime lang="vue" code={alertVueCustomHeading} />
 
     </Tab>
   </Tabs>
@@ -192,6 +221,7 @@ assertive announcement.
     values={[
       { label: 'React', value: 'react' },
       { label: 'Solid', value: 'solid' },
+      { label: 'Vue', value: 'vue' },
     ]}
     className="docs-tabs"
   >
@@ -206,6 +236,11 @@ assertive announcement.
 <CodeBlockRuntime lang="tsx" code={alertSolidError} />
 
     </Tab>
+    <Tab value="vue">
+
+<CodeBlockRuntime lang="vue" code={alertVueError} />
+
+    </Tab>
   </Tabs>
 </div>
 
@@ -214,7 +249,7 @@ assertive announcement.
 ### Statuses
 
 Use the four statuses to distinguish informational, successful, warning, and error messages. Add
-`Alert.Indicator` with the icon of your choice when the visual cue is useful.
+`AlertIndicator` with the icon of your choice when the visual cue is useful.
 
 <ExampleFrame variant="component">
   <AlertStatuses />
@@ -227,6 +262,7 @@ Use the four statuses to distinguish informational, successful, warning, and err
     values={[
       { label: 'React', value: 'react' },
       { label: 'Solid', value: 'solid' },
+      { label: 'Vue', value: 'vue' },
     ]}
     className="docs-tabs"
   >
@@ -241,6 +277,11 @@ Use the four statuses to distinguish informational, successful, warning, and err
 <CodeBlockRuntime lang="tsx" code={alertSolidStatuses} />
 
     </Tab>
+    <Tab value="vue">
+
+<CodeBlockRuntime lang="vue" code={alertVueStatuses} />
+
+    </Tab>
   </Tabs>
 
 **Styles**
@@ -253,7 +294,7 @@ Use the four statuses to distinguish informational, successful, warning, and err
 
 ### With Icon
 
-Place a moduix icon or custom SVG inside `Alert.Indicator`.
+Place a moduix icon or custom SVG inside `AlertIndicator`.
 
 <ExampleFrame variant="component">
   <AlertWithIcon />
@@ -266,6 +307,7 @@ Place a moduix icon or custom SVG inside `Alert.Indicator`.
     values={[
       { label: 'React', value: 'react' },
       { label: 'Solid', value: 'solid' },
+      { label: 'Vue', value: 'vue' },
     ]}
     className="docs-tabs"
   >
@@ -280,6 +322,11 @@ Place a moduix icon or custom SVG inside `Alert.Indicator`.
 <CodeBlockRuntime lang="tsx" code={alertSolidWithIcon} />
 
     </Tab>
+    <Tab value="vue">
+
+<CodeBlockRuntime lang="vue" code={alertVueWithIcon} />
+
+    </Tab>
   </Tabs>
 </div>
 
@@ -287,7 +334,7 @@ Place a moduix icon or custom SVG inside `Alert.Indicator`.
 
 ### Advanced Customization
 
-Use `Alert.Content` and `Alert.Actions` when the message needs recovery or follow-up controls. Keep
+Use `AlertContent` and `AlertActions` when the message needs recovery or follow-up controls. Keep
 dismissal state in the component that renders the alert when a local alert should be hidden.
 
 <ExampleFrame variant="component">
@@ -301,6 +348,7 @@ dismissal state in the component that renders the alert when a local alert shoul
     values={[
       { label: 'React', value: 'react' },
       { label: 'Solid', value: 'solid' },
+      { label: 'Vue', value: 'vue' },
     ]}
     className="docs-tabs"
   >
@@ -313,6 +361,11 @@ dismissal state in the component that renders the alert when a local alert shoul
     <Tab value="solid">
 
 <CodeBlockRuntime lang="tsx" code={alertSolidCustomComposition} />
+
+    </Tab>
+    <Tab value="vue">
+
+<CodeBlockRuntime lang="vue" code={alertVueCustomComposition} />
 
     </Tab>
   </Tabs>
@@ -352,4 +405,4 @@ Built-in statuses also read shared palette tokens:
 
 - Stable `data-slot` selectors: `alert-root`, `alert-indicator`, `alert-content`, `alert-title`, `alert-description`, and `alert-actions`
 - Ark-style selectors: `data-scope="alert"` with `data-part="root"`, `indicator`, `content`, `title`, `description`, or `actions`
-- `Alert.Root` writes the selected status to `data-status`
+- `Alert` writes the selected status to `data-status`

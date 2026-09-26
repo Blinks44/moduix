@@ -1,4 +1,9 @@
-import { createSplitterRegistry, Splitter } from '@moduix/solid/splitter';
+import {
+  createSplitterRegistry,
+  Splitter,
+  SplitterPanel,
+  SplitterResizeTrigger,
+} from '@moduix/solid/splitter';
 import { createSignal } from 'solid-js';
 import styles from '@/components/examples/splitter/splitter-nested.module.css';
 
@@ -35,11 +40,11 @@ export default function NestedSplitterDemo() {
       registry={registry}
       class={styles.root}
     >
-      <Splitter.Panel id="left" class={styles.panel}>
+      <SplitterPanel id="left" class={styles.panel}>
         Left
-      </Splitter.Panel>
-      <Splitter.ResizeTrigger id="left:right" aria-label="Resize panels" />
-      <Splitter.Panel id="right">
+      </SplitterPanel>
+      <SplitterResizeTrigger id="left:right" aria-label="Resize panels" />
+      <SplitterPanel id="right">
         <Splitter
           orientation="vertical"
           panels={verticalPanels}
@@ -47,15 +52,15 @@ export default function NestedSplitterDemo() {
           registry={registry}
           onResize={({ size }) => setVerticalSize(size)}
         >
-          <Splitter.Panel id="top" class={styles.panel}>
+          <SplitterPanel id="top" class={styles.panel}>
             Top
-          </Splitter.Panel>
-          <Splitter.ResizeTrigger id="top:bottom" aria-label="Resize panels" />
-          <Splitter.Panel id="bottom" class={styles.panel}>
+          </SplitterPanel>
+          <SplitterResizeTrigger id="top:bottom" aria-label="Resize panels" />
+          <SplitterPanel id="bottom" class={styles.panel}>
             Bottom
-          </Splitter.Panel>
+          </SplitterPanel>
         </Splitter>
-      </Splitter.Panel>
+      </SplitterPanel>
     </Splitter>
   );
 }

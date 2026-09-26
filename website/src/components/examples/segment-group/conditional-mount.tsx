@@ -1,5 +1,9 @@
 import { Button } from '@moduix/react/button';
-import { SegmentGroup } from '@moduix/react/segment-group';
+import {
+  SegmentGroup,
+  SegmentGroupIndicator,
+  SegmentGroupItems,
+} from '@moduix/react/segment-group';
 import { useState } from 'react';
 import { PreviewMeta } from '@/components/mdx/Components';
 import styles from '@/components/examples/segment-group/segment-group-conditional-mount.module.css';
@@ -17,8 +21,8 @@ export default function ConditionalSegmentGroupDemo() {
     <div className={styles.root}>
       {visible ? (
         <SegmentGroup aria-label="Framework" defaultValue="React">
-          <SegmentGroup.Indicator />
-          <SegmentGroup.Items items={frameworks} />
+          <SegmentGroupIndicator />
+          <SegmentGroupItems items={frameworks} />
         </SegmentGroup>
       ) : null}
       <PreviewMeta>

@@ -20,10 +20,10 @@ import tocSolidWithCollapsible from '../../../snippets/table-of-contents/solid/w
 
 ## Exemple de base
 
-`Toc` est la forme abrégée de `Toc.Root`. Passez-lui un tableau `items` contenant les titres à
+`Toc` est le composant racine de l’API plate. Passez-lui un tableau `items` contenant les titres à
 suivre. Chaque élément doit avoir une `value` correspondant à l’attribut `id` d’un titre et un
 `depth` correspondant à son niveau sémantique, par exemple `2` pour `<h2>`. Utilisez le même objet
-pour rendre `Toc.Item`, puis construisez le fragment de `Toc.Link` à partir de sa `value`.
+pour rendre `TocItem`, puis construisez le fragment de `TocLink` à partir de sa `value`.
 
 
 Sur une page classique, omettez `scrollEl` et le composant observe la fenêtre. L’aperçu ci-dessous
@@ -95,37 +95,37 @@ Consultez le [Démarrage rapide](/docs/quick-start) pour la configuration compl�
 ## Anatomie
 
 ```text
-Toc / Toc.Root
-├─ Toc.Content
-└─ Toc.Nav
-   ├─ Toc.Title
-   └─ Toc.List
-      ├─ Toc.Indicator (facultatif)
-      └─ Toc.Item[item]
-         └─ Toc.Link
-            └─ Toc.Rail (facultatif)
+Toc
+├─ TocContent
+└─ TocNav
+   ├─ TocTitle
+   └─ TocList
+      ├─ TocIndicator (facultatif)
+      └─ TocItem[item]
+         └─ TocLink
+            └─ TocRail (facultatif)
 
-Toc.RootProvider
+TocRootProvider
 └─ même arbre de parties connecté à useToc()
 ```
 
 | Partie              | Rôle                                                                    |
 | ------------------- | ----------------------------------------------------------------------- |
-| `Toc` / `Toc.Root`  | Partie racine qui gère l’état de suivi à partir de la liste d’éléments. |
-| `Toc.Content`       | Article contenant les titres dont les ID correspondent aux valeurs.     |
-| `Toc.Nav`           | Zone de navigation liée au titre du sommaire.                           |
-| `Toc.Title`         | Nom accessible et titre visible de la navigation.                       |
-| `Toc.List`          | Liste des liens vers les titres et de l’indicateur facultatif.          |
-| `Toc.Item`          | Élément associé à un titre, avec son niveau et son état actif.          |
-| `Toc.Link`          | Lien vers une section de la même page.                                  |
-| `Toc.Indicator`     | Repère discret qui suit la plage active dans la liste.                  |
-| `Toc.RootProvider`  | Relie les parties à un état de suivi créé en dehors de l’arbre.          |
-| `Toc.Rail`          | Branche SVG facultative qui relie les niveaux de titres voisins.         |
+| `Toc`              | Partie racine qui gère l’état de suivi à partir de la liste d’éléments. |
+| `TocContent`       | Article contenant les titres dont les ID correspondent aux valeurs.     |
+| `TocNav`           | Zone de navigation liée au titre du sommaire.                           |
+| `TocTitle`         | Nom accessible et titre visible de la navigation.                       |
+| `TocList`          | Liste des liens vers les titres et de l’indicateur facultatif.          |
+| `TocItem`          | Élément associé à un titre, avec son niveau et son état actif.          |
+| `TocLink`          | Lien vers une section de la même page.                                  |
+| `TocIndicator`     | Repère discret qui suit la plage active dans la liste.                  |
+| `TocRootProvider`  | Relie les parties à un état de suivi créé en dehors de l’arbre.          |
+| `TocRail`          | Branche SVG facultative qui relie les niveaux de titres voisins.         |
 
 ## Composition
 
 Passez un élément pour chaque titre suivi. `item.value`, l’attribut `id` du titre et le fragment de
-`Toc.Link` doivent être identiques, tandis que `depth` doit correspondre au niveau sémantique du
+`TocLink` doivent être identiques, tandis que `depth` doit correspondre au niveau sémantique du
 titre. Omettez `scrollEl` lorsque la fenêtre gère le défilement ; passez la zone de lecture lorsqu’elle
 possède son propre conteneur défilant.
 
@@ -133,13 +133,13 @@ Contrairement à Ark UI, `autoScroll` vaut `false` par défaut, à la fois pour 
 `useToc()`. Passez `autoScroll` pour l’activer uniquement lorsque la révélation automatique de
 l’élément de navigation actif ne peut pas faire défiler un conteneur ancêtre.
 
-Utilisez `Toc.RootProvider` avec `useToc()` uniquement lorsque des contrôles extérieurs à l’arbre
+Utilisez `TocRootProvider` avec `useToc()` uniquement lorsque des contrôles extérieurs à l’arbre
 ont besoin du même état de suivi, par exemple `activeIds` ou `scrollTo`. React expose le store comme
 un objet ; Solid donne accès à son état réactif au moyen de la fonction retournée. Utilisez
-`Toc.Context` si une composition environnante, comme `Collapsible`, a besoin des éléments actifs.
-Pour les liens d’un routeur, utilisez `Toc.Link asChild` avec un seul enfant `<a>` sémantique ; en
+`TocContext` si une composition environnante, comme `Collapsible`, a besoin des éléments actifs.
+Pour les liens d’un routeur, utilisez `TocLink asChild` avec un seul enfant `<a>` sémantique ; en
 Solid, transmettez cet enfant avec la fonction de rendu attendue par `asChild`. Choisissez
-`Toc.Indicator` pour marquer la plage active ou `Toc.Rail` pour montrer la hiérarchie de chaque
+`TocIndicator` pour marquer la plage active ou `TocRail` pour montrer la hiérarchie de chaque
 lien ; ne rendez pas les deux dans la même liste.
 
 ## Exemples
@@ -186,9 +186,9 @@ lecture.
 
 ### Rail
 
-Placez `Toc.Rail` dans chaque lien pour tracer un connecteur SVG entre les niveaux de titres voisins.
+Placez `TocRail` dans chaque lien pour tracer un connecteur SVG entre les niveaux de titres voisins.
 Transmettez les profondeurs courante, précédente et suivante depuis le même tableau `items` ordonné.
-Le rail du lien actif reprend la couleur de l’indicateur. N’ajoutez pas `Toc.Indicator` dans cette
+Le rail du lien actif reprend la couleur de l’indicateur. N’ajoutez pas `TocIndicator` dans cette
 même liste.
 
 <ExampleFrame variant="component">
@@ -229,7 +229,7 @@ même liste.
 ### Avec une navigation repliable
 
 Placez la liste de navigation dans `Collapsible` lorsque le lecteur doit pouvoir masquer le sommaire
-complet. `Toc.Context` fournit le titre de l’élément actif au bouton et à l’anneau de progression,
+complet. `TocContext` fournit le titre de l’élément actif au bouton et à l’anneau de progression,
 tandis que les liens ciblent toujours la même zone de lecture.
 
 <ExampleFrame variant="component">
@@ -283,6 +283,6 @@ les classes du consommateur pour les surcharges.
 - `data-slot="toc-root"`, `toc-root-provider`, `toc-content`, `toc-nav`, `toc-title`, `toc-list`,
   `toc-item`, `toc-link`, `toc-indicator` et `toc-rail`
 - Les attributs Ark `data-scope="toc"` et `data-part` sur les parties primitives
-- Les attributs et variables de `Toc.Item` : `data-value`, `data-depth`, `data-active`, `data-first`,
-  `data-last` et `--depth` ; `Toc.Link` expose `data-value`, `data-active` et `aria-current`
+- Les attributs et variables de `TocItem` : `data-value`, `data-depth`, `data-active`, `data-first`,
+  `data-last` et `--depth` ; `TocLink` expose `data-value`, `data-active` et `aria-current`
 - Les variables d’exécution Ark `--top`, `--left`, `--width` et `--height` sur la racine

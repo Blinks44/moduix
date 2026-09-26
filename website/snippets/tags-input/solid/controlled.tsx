@@ -1,4 +1,11 @@
-import { TagsInput } from '@moduix/solid/tags-input';
+import {
+  TagsInput,
+  TagsInputClearTrigger,
+  TagsInputControl,
+  TagsInputInput,
+  TagsInputItems,
+  TagsInputLabel,
+} from '@moduix/solid/tags-input';
 import { createSignal } from 'solid-js';
 import styles from '@/components/examples/tags-input/tags-input-controlled.module.css';
 
@@ -11,12 +18,12 @@ export default function ControlledTagsInput() {
       value={value()}
       onValueChange={(details) => setValue(details.value)}
     >
-      <TagsInput.Label>Skills</TagsInput.Label>
-      <TagsInput.Control>
-        <TagsInput.Items />
-        <TagsInput.Input placeholder="Add skill" />
-        <TagsInput.ClearTrigger aria-label="Clear skills" />
-      </TagsInput.Control>
+      <TagsInputLabel>Skills</TagsInputLabel>
+      <TagsInputControl>
+        <TagsInputItems />
+        <TagsInputInput placeholder="Add skill" />
+        <TagsInputClearTrigger aria-label="Clear skills" />
+      </TagsInputControl>
     </TagsInput>
   );
 }

@@ -20,16 +20,16 @@ Ark UI does not ship a dedicated `tag` primitive. Moduix builds this component w
 so each part supports Ark-style `asChild`, ref forwarding, `className`, `data-scope`, and
 `data-part` attributes.
 
-The public anatomy follows Chakra's Ark-aligned `Tag` recipe: `Root`, `Label`, `StartElement`,
-`EndElement`, and `CloseTrigger`. There is no provider, context, state hook, hidden input, managed
+The public anatomy follows Chakra's Ark-aligned `Tag` recipe: `Tag`, `TagLabel`, `TagStartElement`,
+`TagEndElement`, and `TagCloseTrigger`. There is no provider, context, state hook, hidden input, managed
 keyboard model, or callback details object to mirror.
 
 ## Current behavior contract
 
-- `Tag` is the short root form and is equivalent to `Tag.Root`.
+- `Tag` is the root component.
 - `Tag` accepts Ark factory `span` props plus `variant` and `size`.
-- `Tag.Label`, `Tag.StartElement`, and `Tag.EndElement` are Ark factory `span` parts.
-- `Tag.CloseTrigger` composes the shared `CloseButton` while retaining the Tag data hooks, default
+- `TagLabel`, `TagStartElement`, and `TagEndElement` are Ark factory `span` parts.
+- `TagCloseTrigger` composes the shared `CloseButton` while retaining the Tag data hooks, default
   `type="button"`, and close icon when not using `asChild`.
 - The component owns no selected or removed state. Parent widgets own list mutation and event
   handling.
@@ -37,39 +37,39 @@ keyboard model, or callback details object to mirror.
 ## Anatomy and exported parts
 
 ```text
-Tag / Tag.Root
-├─ Tag.StartElement (optional)
-├─ Tag.Label
-└─ Tag.EndElement (optional)
-   └─ Tag.CloseTrigger (optional)
+Tag
+├─ TagStartElement (optional)
+├─ TagLabel
+└─ TagEndElement (optional)
+   └─ TagCloseTrigger (optional)
 ```
 
-| Part               | Element  | Stable hooks                                                                     |
-| ------------------ | -------- | -------------------------------------------------------------------------------- |
-| `Tag` / `Tag.Root` | `span`   | `data-scope="tag"`, `data-part="root"`, `data-slot="tag-root"`                   |
-| `Tag.Label`        | `span`   | `data-scope="tag"`, `data-part="label"`, `data-slot="tag-label"`                 |
-| `Tag.StartElement` | `span`   | `data-scope="tag"`, `data-part="start-element"`, `data-slot="tag-start-element"` |
-| `Tag.EndElement`   | `span`   | `data-scope="tag"`, `data-part="end-element"`, `data-slot="tag-end-element"`     |
-| `Tag.CloseTrigger` | `button` | `data-scope="tag"`, `data-part="close-trigger"`, `data-slot="tag-close-trigger"` |
+| Part              | Element  | Stable hooks                                                                     |
+| ----------------- | -------- | -------------------------------------------------------------------------------- |
+| `Tag`             | `span`   | `data-scope="tag"`, `data-part="root"`, `data-slot="tag-root"`                   |
+| `TagLabel`        | `span`   | `data-scope="tag"`, `data-part="label"`, `data-slot="tag-label"`                 |
+| `TagStartElement` | `span`   | `data-scope="tag"`, `data-part="start-element"`, `data-slot="tag-start-element"` |
+| `TagEndElement`   | `span`   | `data-scope="tag"`, `data-part="end-element"`, `data-slot="tag-end-element"`     |
+| `TagCloseTrigger` | `button` | `data-scope="tag"`, `data-part="close-trigger"`, `data-slot="tag-close-trigger"` |
 
 ## Composition
 
 ```tsx
-import { Tag } from '@moduix/react/tag';
+import { Tag, TagCloseTrigger, TagEndElement, TagLabel } from '@moduix/react/tag';
 
 export function TagDemo() {
   return (
     <Tag variant="outline">
-      <Tag.Label>Billing</Tag.Label>
-      <Tag.EndElement>
-        <Tag.CloseTrigger aria-label="Remove Billing tag" />
-      </Tag.EndElement>
+      <TagLabel>Billing</TagLabel>
+      <TagEndElement>
+        <TagCloseTrigger aria-label="Remove Billing tag" />
+      </TagEndElement>
     </Tag>
   );
 }
 ```
 
-Use `Tag.StartElement` and `Tag.EndElement` for icons, avatars, or inline actions so `Tag.Label`
+Use `TagStartElement` and `TagEndElement` for icons, avatars, or inline actions so `TagLabel`
 can remain the truncation boundary.
 
 Use `asChild` only when the root itself needs native semantics:
@@ -77,21 +77,21 @@ Use `asChild` only when the root itself needs native semantics:
 ```tsx
 <Tag asChild>
   <button type="button">
-    <Tag.Label>Open filter</Tag.Label>
+    <TagLabel>Open filter</TagLabel>
   </button>
 </Tag>
 ```
 
 ## Upstream feature coverage
 
-- Chakra `Usage`: covered by `Tag` / `Tag.Root` plus `Tag.Label`.
-- Chakra `Icon`: covered by `Tag.StartElement` and `Tag.EndElement`.
+- Chakra `Usage`: covered by `Tag` plus `TagLabel`.
+- Chakra `Icon`: covered by `TagStartElement` and `TagEndElement`.
 - Chakra `Variants`: mapped to moduix variants `default`, `secondary`, `outline`, `ghost`, and
   `destructive`.
 - Chakra `Sizes`: mapped to moduix sizes `sm` and `md`.
-- Chakra `Closable`: covered by `Tag.CloseTrigger` inside `Tag.EndElement`.
-- Chakra `Overflow`: covered by `Tag.Label` truncation and root `max-width` support.
-- Chakra `Avatar`: supported structurally through `Tag.StartElement`; moduix does not add an avatar
+- Chakra `Closable`: covered by `TagCloseTrigger` inside `TagEndElement`.
+- Chakra `Overflow`: covered by `TagLabel` truncation and root `max-width` support.
+- Chakra `Avatar`: supported structurally through `TagStartElement`; moduix does not add an avatar
   dependency.
 - Chakra `Render as button`: covered through Ark factory `asChild`.
 - Chakra `Closed Component`: intentionally not exposed as props such as `startElement`, `endElement`,
@@ -100,24 +100,24 @@ Use `asChild` only when the root itself needs native semantics:
 ## Accessibility and state
 
 - Root renders a presentational `span` by default and has no ARIA state.
-- `Tag.CloseTrigger` renders a `button`, defaults to `type="button"`, and adds fallback
+- `TagCloseTrigger` renders a `button`, defaults to `type="button"`, and adds fallback
   `aria-label="Remove tag"` only when not using `asChild`, no children, and no `aria-labelledby`
   are provided.
-- Pass a specific accessible name to `Tag.CloseTrigger` when several tags are shown together.
-- `Tag.CloseTrigger` prevents click handlers from firing when `disabled` or `aria-disabled` is true.
+- Pass a specific accessible name to `TagCloseTrigger` when several tags are shown together.
+- `TagCloseTrigger` prevents click handlers from firing when `disabled` or `aria-disabled` is true.
 - `asChild` requires one semantic child. The child owns keyboard, focus, and click behavior.
-- `Tag.CloseTrigger asChild` requires an explicit semantic child; the default close icon is rendered
+- `TagCloseTrigger asChild` requires an explicit semantic child; the default close icon is rendered
   only by the default button host.
 
 ## Defaults and styling
 
-| Surface            | Prop         | Default                                                                      |
-| ------------------ | ------------ | ---------------------------------------------------------------------------- |
-| `Tag`              | `variant`    | `default`                                                                    |
-| `Tag`              | `size`       | `md`                                                                         |
-| `Tag.CloseTrigger` | `type`       | `button`                                                                     |
-| `Tag.CloseTrigger` | `children`   | close icon when not using `asChild`                                          |
-| `Tag.CloseTrigger` | `aria-label` | `Remove tag` when not using `asChild`, no children, and no `aria-labelledby` |
+| Surface           | Prop         | Default                                                                      |
+| ----------------- | ------------ | ---------------------------------------------------------------------------- |
+| `Tag`             | `variant`    | `default`                                                                    |
+| `Tag`             | `size`       | `md`                                                                         |
+| `TagCloseTrigger` | `type`       | `button`                                                                     |
+| `TagCloseTrigger` | `children`   | close icon when not using `asChild`                                          |
+| `TagCloseTrigger` | `aria-label` | `Remove tag` when not using `asChild`, no children, and no `aria-labelledby` |
 
 Public CSS variables live in `packages/foundation/src/styles/variables-moduix.css` and start with `--moduix-tag-*`. Variant
 colors intentionally match `Badge` so shared variant names carry the same visual meaning across
@@ -148,7 +148,7 @@ foundation tokens.
 | `--moduix-tag-destructive-border-color` | `transparent`                                | destructive root |
 | `--moduix-tag-destructive-color`        | `var(--moduix-color-destructive-foreground)` | destructive root |
 
-`Tag` writes `data-size` and `data-variant`. `Tag.CloseTrigger` uses the shared `CloseButton` CSS
+`Tag` writes `data-size` and `data-variant`. `TagCloseTrigger` uses the shared `CloseButton` CSS
 contract behind the existing `--moduix-tag-close-trigger-*` variables and retains `data-disabled` for
 disabled or `aria-disabled` states.
 
@@ -156,9 +156,9 @@ disabled or `aria-disabled` states.
 
 - moduix keeps local visual variants instead of Chakra `colorPalette` and `surface/subtle/solid`
   variants so the component matches the existing moduix token language.
-- moduix exposes explicit namespaced parts only. Flat `TagLabel` and `TagRemove` exports were removed.
-- `TagRemove` was renamed to `Tag.CloseTrigger` to match Chakra/Ark part naming.
-- `Tag.CloseTrigger` supplies the shared `CloseButton` default close icon and fallback accessible name.
+- moduix exposes flat part values directly from the component subpath.
+- `TagCloseTrigger` is the explicit close-action part and matches Chakra/Ark part naming.
+- `TagCloseTrigger` supplies the shared `CloseButton` default close icon and fallback accessible name.
 - moduix no longer re-exports helper prop/type aliases; consumers rely on the component surface
   directly.
 
@@ -175,16 +175,14 @@ disabled or `aria-disabled` states.
 - 2026-08-13: Added independent background, border, and foreground variables for every built-in
   variant while preserving component-wide color overrides.
 - 2026-07-21: Routed shared dimensions, spacing, icon geometry, and focus-ring fallbacks through foundation tokens so density and theme presets can retune the component consistently.
-- 2026-07-17: Composed `Tag.CloseTrigger` with the shared `CloseButton` and mapped the existing
+- 2026-07-17: Composed `TagCloseTrigger` with the shared `CloseButton` and mapped the existing
   `--moduix-tag-close-trigger-*` styling contract to CloseButton variables without changing Tag anatomy.
 - 2026-07-11: Updated removable-tag examples to model parent-owned removal state and use specific
   close-trigger labels; documented `asChild` as the final advanced customization path.
 - 2026-07-03: Removed public `Tag*Props`, `TagVariant`, and `TagSize` type exports to keep the
   Tag surface component-first.
-- 2026-06-21: Migrated from legacy button composition to Ark factory parts, added namespace API
-  (`Tag.Root`, `Tag.Label`, `Tag.StartElement`, `Tag.EndElement`, `Tag.CloseTrigger`), added
-  `asChild`, renamed remove styling variables to `--moduix-tag-close-trigger-*`, and removed flat legacy
-  exports.
+- 2026-09-22: Completed the flat public API migration by exporting `Tag`, `TagLabel`,
+  `TagStartElement`, `TagEndElement`, and `TagCloseTrigger` directly.
 - 2026-06-21: Aligned built-in `Tag` variant colors with `Badge` so `default`, `secondary`,
   `outline`, `ghost`, and `destructive` share the same color semantics.
 - 2026-06-27: Protected Ark/moduix data hooks from rest-prop overrides, clarified `CloseTrigger`

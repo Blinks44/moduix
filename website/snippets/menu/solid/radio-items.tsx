@@ -1,5 +1,18 @@
 import { Button } from '@moduix/solid/button';
-import { Menu } from '@moduix/solid/menu';
+import {
+  Menu,
+  MenuTrigger,
+  MenuIndicator,
+  MenuPositioner,
+  MenuContent,
+  MenuViewport,
+  MenuItemGroup,
+  MenuItemGroupLabel,
+  MenuRadioItemGroup,
+  MenuRadioItem,
+  MenuItemIndicator,
+  MenuItemText,
+} from '@moduix/solid/menu';
 import { createSignal } from 'solid-js';
 import styles from '@/components/examples/menu/menu-radio-items.module.css';
 
@@ -8,40 +21,40 @@ export default function RadioItemsMenuDemo() {
 
   return (
     <Menu closeOnSelect={false}>
-      <Menu.Trigger asChild={(props) => <Button {...props()} />}>
+      <MenuTrigger asChild={(props) => <Button {...props()} />}>
         Sort
-        <Menu.Indicator />
-      </Menu.Trigger>
-      <Menu.Positioner>
-        <Menu.Content class={styles.content}>
-          <Menu.Viewport>
-            <Menu.ItemGroup>
-              <Menu.ItemGroupLabel>Sort By</Menu.ItemGroupLabel>
-              <Menu.RadioItemGroup
+        <MenuIndicator />
+      </MenuTrigger>
+      <MenuPositioner>
+        <MenuContent class={styles.content}>
+          <MenuViewport>
+            <MenuItemGroup>
+              <MenuItemGroupLabel>Sort By</MenuItemGroupLabel>
+              <MenuRadioItemGroup
                 value={sortBy()}
                 onValueChange={(details) => setSortBy(details.value)}
               >
-                <Menu.RadioItem value="name">
-                  <Menu.ItemIndicator />
-                  <Menu.ItemText>Name</Menu.ItemText>
-                </Menu.RadioItem>
-                <Menu.RadioItem value="date">
-                  <Menu.ItemIndicator />
-                  <Menu.ItemText>Date Modified</Menu.ItemText>
-                </Menu.RadioItem>
-                <Menu.RadioItem value="size">
-                  <Menu.ItemIndicator />
-                  <Menu.ItemText>File Size</Menu.ItemText>
-                </Menu.RadioItem>
-                <Menu.RadioItem value="type">
-                  <Menu.ItemIndicator />
-                  <Menu.ItemText>File Type</Menu.ItemText>
-                </Menu.RadioItem>
-              </Menu.RadioItemGroup>
-            </Menu.ItemGroup>
-          </Menu.Viewport>
-        </Menu.Content>
-      </Menu.Positioner>
+                <MenuRadioItem value="name">
+                  <MenuItemIndicator />
+                  <MenuItemText>Name</MenuItemText>
+                </MenuRadioItem>
+                <MenuRadioItem value="date">
+                  <MenuItemIndicator />
+                  <MenuItemText>Date Modified</MenuItemText>
+                </MenuRadioItem>
+                <MenuRadioItem value="size">
+                  <MenuItemIndicator />
+                  <MenuItemText>File Size</MenuItemText>
+                </MenuRadioItem>
+                <MenuRadioItem value="type">
+                  <MenuItemIndicator />
+                  <MenuItemText>File Type</MenuItemText>
+                </MenuRadioItem>
+              </MenuRadioItemGroup>
+            </MenuItemGroup>
+          </MenuViewport>
+        </MenuContent>
+      </MenuPositioner>
     </Menu>
   );
 }

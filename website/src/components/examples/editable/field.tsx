@@ -1,19 +1,26 @@
-import { Editable } from '@moduix/react/editable';
-import { Field } from '@moduix/react/field';
+import {
+  Editable,
+  EditableArea,
+  EditableControls,
+  EditableInput,
+  EditableLabel,
+  EditablePreview,
+} from '@moduix/react/editable';
+import { Field, FieldErrorText } from '@moduix/react/field';
 import styles from '@/components/examples/editable/editable-field.module.css';
 
 export default function FieldEditableDemo() {
   return (
     <Field className={styles.root} invalid>
       <Editable defaultValue="" placeholder="Click to edit your bio" required>
-        <Editable.Label>Bio</Editable.Label>
-        <Editable.Area>
-          <Editable.Input />
-          <Editable.Preview />
-        </Editable.Area>
-        <Editable.Controls />
+        <EditableLabel>Bio</EditableLabel>
+        <EditableArea>
+          <EditableInput />
+          <EditablePreview />
+        </EditableArea>
+        <EditableControls />
       </Editable>
-      <Field.ErrorText>Bio is required.</Field.ErrorText>
+      <FieldErrorText>Bio is required.</FieldErrorText>
     </Field>
   );
 }

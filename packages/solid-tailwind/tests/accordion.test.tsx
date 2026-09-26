@@ -1,7 +1,18 @@
 import { expect, test } from '@rstest/core';
 import { fireEvent, render, screen, waitFor } from '@solidjs/testing-library';
 import { createSignal } from 'solid-js';
-import { Accordion, useAccordion, useAccordionContext, useAccordionItemContext } from '../src';
+import {
+  Accordion,
+  AccordionItem,
+  AccordionItemBody,
+  AccordionItemContent,
+  AccordionItemIndicator,
+  AccordionItemTrigger,
+  AccordionRootProvider,
+  useAccordion,
+  useAccordionContext,
+  useAccordionItemContext,
+} from '../src';
 
 const items = [
   { value: 'first', label: 'First item', content: 'First content' },
@@ -26,15 +37,15 @@ function TestAccordion(props: {
       value={props.value}
     >
       {items.map((item) => (
-        <Accordion.Item
+        <AccordionItem
           disabled={(props.disabled ?? false) && item.value === 'second'}
           value={item.value}
         >
-          <Accordion.ItemTrigger>{item.label}</Accordion.ItemTrigger>
-          <Accordion.ItemContent>
-            <Accordion.ItemBody>{item.content}</Accordion.ItemBody>
-          </Accordion.ItemContent>
-        </Accordion.Item>
+          <AccordionItemTrigger>{item.label}</AccordionItemTrigger>
+          <AccordionItemContent>
+            <AccordionItemBody>{item.content}</AccordionItemBody>
+          </AccordionItemContent>
+        </AccordionItem>
       ))}
     </Accordion>
   );
@@ -60,24 +71,24 @@ function ProviderAccordion() {
   const accordion = useAccordion({ defaultValue: ['first'] });
 
   return (
-    <Accordion.RootProvider value={accordion}>
+    <AccordionRootProvider value={accordion}>
       <AccordionRootState />
-      <Accordion.Item value="first">
-        <Accordion.ItemTrigger>
+      <AccordionItem value="first">
+        <AccordionItemTrigger>
           First item
           <AccordionItemState />
-        </Accordion.ItemTrigger>
-        <Accordion.ItemContent>
-          <Accordion.ItemBody>First content</Accordion.ItemBody>
-        </Accordion.ItemContent>
-      </Accordion.Item>
-      <Accordion.Item value="second">
-        <Accordion.ItemTrigger>Second item</Accordion.ItemTrigger>
-        <Accordion.ItemContent>
-          <Accordion.ItemBody>Second content</Accordion.ItemBody>
-        </Accordion.ItemContent>
-      </Accordion.Item>
-    </Accordion.RootProvider>
+        </AccordionItemTrigger>
+        <AccordionItemContent>
+          <AccordionItemBody>First content</AccordionItemBody>
+        </AccordionItemContent>
+      </AccordionItem>
+      <AccordionItem value="second">
+        <AccordionItemTrigger>Second item</AccordionItemTrigger>
+        <AccordionItemContent>
+          <AccordionItemBody>Second content</AccordionItemBody>
+        </AccordionItemContent>
+      </AccordionItem>
+    </AccordionRootProvider>
   );
 }
 
@@ -88,17 +99,17 @@ test('preserves Ark semantics, refs, anatomy, and moduix styling hooks', () => {
 
   render(() => (
     <Accordion ref={(element) => (rootRef = element)} defaultValue={['first']}>
-      <Accordion.Item value="first">
-        <Accordion.ItemTrigger ref={(element) => (triggerRef = element)}>
+      <AccordionItem value="first">
+        <AccordionItemTrigger ref={(element) => (triggerRef = element)}>
           First item
-          <Accordion.ItemIndicator />
-        </Accordion.ItemTrigger>
-        <Accordion.ItemContent>
-          <Accordion.ItemBody ref={(element) => (bodyRef = element)}>
+          <AccordionItemIndicator />
+        </AccordionItemTrigger>
+        <AccordionItemContent>
+          <AccordionItemBody ref={(element) => (bodyRef = element)}>
             First content
-          </Accordion.ItemBody>
-        </Accordion.ItemContent>
-      </Accordion.Item>
+          </AccordionItemBody>
+        </AccordionItemContent>
+      </AccordionItem>
     </Accordion>
   ));
 
@@ -222,12 +233,12 @@ test('preserves semantic hosts with asChild', () => {
       defaultValue={['first']}
       asChild={(props) => <section {...props()} aria-label="Frequently asked questions" />}
     >
-      <Accordion.Item value="first">
-        <Accordion.ItemTrigger>First item</Accordion.ItemTrigger>
-        <Accordion.ItemContent>
-          <Accordion.ItemBody asChild={(props) => <article {...props()}>First content</article>} />
-        </Accordion.ItemContent>
-      </Accordion.Item>
+      <AccordionItem value="first">
+        <AccordionItemTrigger>First item</AccordionItemTrigger>
+        <AccordionItemContent>
+          <AccordionItemBody asChild={(props) => <article {...props()}>First content</article>} />
+        </AccordionItemContent>
+      </AccordionItem>
     </Accordion>
   ));
 
@@ -260,12 +271,12 @@ test('keeps provider and root and item context composition connected', async () 
 test('lets consumer Tailwind classes override conflicting defaults', () => {
   render(() => (
     <Accordion defaultValue={['first']}>
-      <Accordion.Item value="first">
-        <Accordion.ItemTrigger>First item</Accordion.ItemTrigger>
-        <Accordion.ItemContent>
-          <Accordion.ItemBody class="p-0">First content</Accordion.ItemBody>
-        </Accordion.ItemContent>
-      </Accordion.Item>
+      <AccordionItem value="first">
+        <AccordionItemTrigger>First item</AccordionItemTrigger>
+        <AccordionItemContent>
+          <AccordionItemBody class="p-0">First content</AccordionItemBody>
+        </AccordionItemContent>
+      </AccordionItem>
     </Accordion>
   ));
 

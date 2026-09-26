@@ -91,7 +91,7 @@ Utilisez la collection comme source de données pour `TreeView`. Rendez
 
 </ExampleCode>
 
-`TreeView.Label` donne un nom accessible à l'arbre, tandis que `TreeView` gère le focus, la navigation
+`TreeViewLabel` donne un nom accessible à l'arbre, tandis que `TreeView` gère le focus, la navigation
 au clavier, l'ouverture et la sélection. Consultez [Tree View](/docs/tree-view) pour découvrir
 l'anatomie et le comportement complets du composant.
 
@@ -251,8 +251,8 @@ const withFile = collection.insertAfter(buttonPath, [
 ]);
 const withoutReadme = collection.remove([readmePath]);
 const renamed = collection.replace(buttonPath, {
-  value: 'src/components/Button.new.tsx',
-  label: 'Button.new.tsx',
+  value: 'src/components/ButtonRenamed.tsx',
+  label: 'ButtonRenamed.tsx',
 });
 const moved = collection.move([readmePath], srcPath);
 ```

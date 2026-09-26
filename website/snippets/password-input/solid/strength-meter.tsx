@@ -1,4 +1,11 @@
-import { PasswordInput } from '@moduix/solid/password-input';
+import {
+  PasswordInput,
+  PasswordInputControl,
+  PasswordInputIndicator,
+  PasswordInputInput,
+  PasswordInputLabel,
+  PasswordInputVisibilityTrigger,
+} from '@moduix/solid/password-input';
 import { createSignal } from 'solid-js';
 import styles from '@/components/examples/password-input/password-input-strength-meter.module.css';
 
@@ -8,17 +15,17 @@ export default function PasswordInputStrengthMeterDemo() {
 
   return (
     <PasswordInput class={styles.root}>
-      <PasswordInput.Label>Password</PasswordInput.Label>
-      <PasswordInput.Control>
-        <PasswordInput.Input
+      <PasswordInputLabel>Password</PasswordInputLabel>
+      <PasswordInputControl>
+        <PasswordInputInput
           value={password()}
           onInput={(event) => setPassword(event.currentTarget.value)}
           placeholder="Enter your password"
         />
-        <PasswordInput.VisibilityTrigger>
-          <PasswordInput.Indicator />
-        </PasswordInput.VisibilityTrigger>
-      </PasswordInput.Control>
+        <PasswordInputVisibilityTrigger>
+          <PasswordInputIndicator />
+        </PasswordInputVisibilityTrigger>
+      </PasswordInputControl>
       {strength() ? (
         <div class={styles.strengthMeter}>
           <div class={styles.strengthBar}>

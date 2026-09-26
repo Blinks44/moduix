@@ -47,7 +47,7 @@ import comboboxSolidWithTagsInput from '../../../snippets/combobox/solid/with-ta
 
 
 Создайте коллекцию Ark с помощью `useListCollection` и передайте её в `Combobox`. Структуру списка задайте явно.
-Для обычных вариантов используйте `Combobox.Option`, а если нужна нестандартная разметка, используйте `Combobox.Item`.
+Для обычных вариантов используйте `ComboboxOption`, а если нужна нестандартная разметка, используйте `ComboboxItem`.
 Колбэк `onInputValueChange` получает объект `details` от Ark.
 
 <ExampleFrame variant="component">
@@ -115,70 +115,70 @@ import comboboxSolidWithTagsInput from '../../../snippets/combobox/solid/with-ta
 ## Анатомия
 
 ```text
-Combobox / Combobox.Root[collection]
-├─ Combobox.Label
-├─ Combobox.Control
-│  ├─ Combobox.Input
-│  ├─ Combobox.ClearTrigger
-│  └─ Combobox.Trigger
+Combobox[collection]
+├─ ComboboxLabel
+├─ ComboboxControl
+│  ├─ ComboboxInput
+│  ├─ ComboboxClearTrigger
+│  └─ ComboboxTrigger
 └─ Поддерево всплывающего списка (автоматически помещается в портал)
- └─ Combobox.Positioner
-    └─ Combobox.Content
-       ├─ Combobox.Empty
-       ├─ Combobox.Status
-       ├─ Combobox.List
-       │  ├─ Combobox.Option[item]
-       │  └─ Combobox.Item[item]
-       │     ├─ Combobox.ItemText
-       │     └─ Combobox.ItemIndicator
-       └─ Combobox.ItemGroup
-          ├─ Combobox.ItemGroupLabel
-          └─ Combobox.Item
+ └─ ComboboxPositioner
+    └─ ComboboxContent
+       ├─ ComboboxEmpty
+       ├─ ComboboxStatus
+       ├─ ComboboxList
+       │  ├─ ComboboxOption[item]
+       │  └─ ComboboxItem[item]
+       │     ├─ ComboboxItemText
+       │     └─ ComboboxItemIndicator
+       └─ ComboboxItemGroup
+          ├─ ComboboxItemGroupLabel
+          └─ ComboboxItem
 ```
 
 | Часть                        | Назначение                                                         |
 | ---------------------------- | ------------------------------------------------------------------ |
-| `Combobox` / `Combobox.Root` | Управляет состоянием Combobox, фильтрацией, подсветкой и выбранными значениями. |
-| `Combobox.Control`           | Обёртка для поля ввода и кнопок действий.                          |
-| `Combobox.Input`             | Поле, в котором пользователь ищет и выбирает вариант.              |
-| `Combobox.Trigger`           | Открывает и закрывает список вариантов.                            |
-| `Combobox.ClearTrigger`      | Очищает выбранное значение и/или текст в поле.                     |
-| `Combobox.Positioner`        | Позиционирует всплывающий список.                                  |
-| `Combobox.Content`           | Контейнер содержимого списка.                                      |
-| `Combobox.Status`            | Стилизованный контейнер для сообщений приложения о загрузке, ошибке или подсказке. |
-| `Combobox.List`              | Обёртка списка вариантов.                                          |
-| `Combobox.Option`            | Готовая строка для простого варианта, с текстом и индикатором.     |
-| `Combobox.Item`              | Выбираемая строка списка.                                          |
-| `Combobox.ItemText`          | Слот текста элемента.                                               |
-| `Combobox.ItemIndicator`     | Слот индикатора выбранного состояния.                              |
-| `Combobox.Context`           | Доступ к состоянию Combobox без добавления элементов в DOM.        |
-| `Combobox.ItemContext`       | Доступ к состоянию текущего элемента без добавления элементов в DOM. |
+| `Combobox` | Управляет состоянием Combobox, фильтрацией, подсветкой и выбранными значениями. |
+| `ComboboxControl`           | Обёртка для поля ввода и кнопок действий.                          |
+| `ComboboxInput`             | Поле, в котором пользователь ищет и выбирает вариант.              |
+| `ComboboxTrigger`           | Открывает и закрывает список вариантов.                            |
+| `ComboboxClearTrigger`      | Очищает выбранное значение и/или текст в поле.                     |
+| `ComboboxPositioner`        | Позиционирует всплывающий список.                                  |
+| `ComboboxContent`           | Контейнер содержимого списка.                                      |
+| `ComboboxStatus`            | Стилизованный контейнер для сообщений приложения о загрузке, ошибке или подсказке. |
+| `ComboboxList`              | Обёртка списка вариантов.                                          |
+| `ComboboxOption`            | Готовая строка для простого варианта, с текстом и индикатором.     |
+| `ComboboxItem`              | Выбираемая строка списка.                                          |
+| `ComboboxItemText`          | Слот текста элемента.                                               |
+| `ComboboxItemIndicator`     | Слот индикатора выбранного состояния.                              |
+| `ComboboxContext`           | Доступ к состоянию Combobox без добавления элементов в DOM.        |
+| `ComboboxItemContext`       | Доступ к состоянию текущего элемента без добавления элементов в DOM. |
 
-`Combobox.RootProvider` использует ту же стилизацию корневого компонента для состояния, созданного через `useCombobox` из moduix.
-Состояние Combobox внутри дерева можно получить через `Combobox.Context` или `useComboboxContext`, а состояние элемента - через
-`Combobox.ItemContext` или `useComboboxItemContext`.
+`ComboboxRootProvider` использует ту же стилизацию корневого компонента для состояния, созданного через `useCombobox` из moduix.
+Состояние Combobox внутри дерева можно получить через `ComboboxContext` или `useComboboxContext`, а состояние элемента - через
+`ComboboxItemContext` или `useComboboxItemContext`.
 
 ## Композиция
 
 Для статических элементов используйте `createListCollection`, а для фильтрации и обновления коллекции
 используйте `useListCollection`. Для объектов задайте `itemToString` и `itemToValue`.
 
-Корневой компонент автоматически помещает `Positioner` в портал, но `Positioner` и `Content` остаются
+`Combobox` автоматически помещает `ComboboxPositioner` в портал, но `ComboboxPositioner` и `ComboboxContent` остаются
 явными частями композиции. Укажите `portalled={false}`, чтобы оставить список в текущем дереве, или передайте
-`portalRef` для конкретного контейнера. Для простых строк используйте `Combobox.Option`, а для сложных строк
-с `asChild` используйте `Combobox.Item`.
+`portalRef` для конкретного контейнера. Для простых строк используйте `ComboboxOption`, а для сложных строк
+с `asChild` используйте `ComboboxItem`.
 
 Храните `value` в состоянии приложения, если оно нужно другим частям интерфейса. Когда состояние создаётся
-за пределами дерева, передайте `useCombobox` в `Combobox.RootProvider`. В режиме множественного выбора теги
+за пределами дерева, передайте `useCombobox` в `ComboboxRootProvider`. В режиме множественного выбора теги
 и другое представление значений принадлежат приложению; если они должны находиться в одном поле, используйте
-композицию с `TagsInput`. `Combobox.Status` также отвечает только за сообщения приложения и не управляет
+композицию с `TagsInput`. `ComboboxStatus` также отвечает только за сообщения приложения и не управляет
 состоянием загрузки или ошибки.
 
 ## Примеры
 
 ### Асинхронный поиск
 
-Заменяйте элементы коллекции результатами асинхронного запроса и показывайте `Combobox.Status`, пока запрос выполняется.
+Заменяйте элементы коллекции результатами асинхронного запроса и показывайте `ComboboxStatus`, пока запрос выполняется.
 Используйте `details.reason`, чтобы отличать пользовательский ввод от программного изменения поля. Если поле пустое,
 показывайте статус `Start typing to search…`, чтобы список не оставался пустым.
 
@@ -539,7 +539,7 @@ Combobox / Combobox.Root[collection]
 ### Root Provider
 
 Создавайте состояние через `useCombobox` из moduix, когда внешним элементам управления нужны императивные методы или общее
-состояние до отображения корневого компонента. `Combobox.RootProvider` сохраняет стили корня moduix и настройки портала.
+состояние до отображения корневого компонента. `ComboboxRootProvider` сохраняет стили корня moduix и настройки портала.
 
 <ExampleFrame variant="component">
   <ComboboxRootProvider />
@@ -655,7 +655,7 @@ Combobox / Combobox.Root[collection]
 ### Расширенная настройка
 
 Используйте полную композицию элемента, если ему нужен собственный семантический элемент или макет. В этом примере
-каждый результат отображается как ссылка через `Combobox.Item asChild`.
+каждый результат отображается как ссылка через `ComboboxItem asChild`.
 
 <ExampleFrame variant="component">
   <ComboboxAdvancedCustomization />
@@ -710,7 +710,7 @@ Combobox / Combobox.Root[collection]
   `combobox-control`, `combobox-input`, `combobox-clear-trigger`, `combobox-trigger`,
   `combobox-positioner`, `combobox-content`, `combobox-empty`, `combobox-status`, `combobox-list`,
   `combobox-item-group`, `combobox-item-group-label`, `combobox-item`, `combobox-item-text` и
-  `combobox-item-indicator`. `Combobox.Option` переиспользует слоты элемента, не добавляя собственного
+  `combobox-item-indicator`. `ComboboxOption` переиспользует слоты элемента, не добавляя собственного
   отдельного хука стилизации.
 - Атрибуты состояния Ark включают `data-state="open|closed"`, `data-focus`, `data-invalid`, `data-disabled`,
   `data-highlighted`, `data-empty`, `data-placement` и `data-side`.

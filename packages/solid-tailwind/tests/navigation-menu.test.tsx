@@ -1,28 +1,43 @@
 import { expect, test } from '@rstest/core';
 import { fireEvent, render, screen, waitFor } from '@solidjs/testing-library';
-import { useNavigationMenu, useNavigationMenuContext, NavigationMenu } from '../src';
+import {
+  useNavigationMenu,
+  useNavigationMenuContext,
+  NavigationMenu,
+  NavigationMenuList,
+  NavigationMenuItem,
+  NavigationMenuLink,
+  NavigationMenuTrigger,
+  NavigationMenuContent,
+  NavigationMenuRootProvider,
+  NavigationMenuItemIndicator,
+  NavigationMenuIndicator,
+  NavigationMenuArrow,
+  NavigationMenuViewportPositioner,
+  NavigationMenuViewport,
+} from '../src';
 
 function NavigationMenuParts() {
   return (
-    <NavigationMenu.List>
-      <NavigationMenu.Item value="home">
-        <NavigationMenu.Link current href="#home">
+    <NavigationMenuList>
+      <NavigationMenuItem value="home">
+        <NavigationMenuLink current href="#home">
           Home
-        </NavigationMenu.Link>
-      </NavigationMenu.Item>
-      <NavigationMenu.Item value="products">
-        <NavigationMenu.Trigger>Products</NavigationMenu.Trigger>
-        <NavigationMenu.Content>
-          <NavigationMenu.Link href="#analytics">Analytics</NavigationMenu.Link>
-        </NavigationMenu.Content>
-      </NavigationMenu.Item>
-      <NavigationMenu.Item value="docs">
-        <NavigationMenu.Trigger>Docs</NavigationMenu.Trigger>
-        <NavigationMenu.Content>
-          <NavigationMenu.Link href="#guides">Guides</NavigationMenu.Link>
-        </NavigationMenu.Content>
-      </NavigationMenu.Item>
-    </NavigationMenu.List>
+        </NavigationMenuLink>
+      </NavigationMenuItem>
+      <NavigationMenuItem value="products">
+        <NavigationMenuTrigger>Products</NavigationMenuTrigger>
+        <NavigationMenuContent>
+          <NavigationMenuLink href="#analytics">Analytics</NavigationMenuLink>
+        </NavigationMenuContent>
+      </NavigationMenuItem>
+      <NavigationMenuItem value="docs">
+        <NavigationMenuTrigger>Docs</NavigationMenuTrigger>
+        <NavigationMenuContent>
+          <NavigationMenuLink href="#guides">Guides</NavigationMenuLink>
+        </NavigationMenuContent>
+      </NavigationMenuItem>
+    </NavigationMenuList>
   );
 }
 
@@ -30,10 +45,10 @@ function ProviderNavigationMenu() {
   const navigationMenu = useNavigationMenu({ defaultValue: 'products' });
 
   return (
-    <NavigationMenu.RootProvider value={navigationMenu}>
+    <NavigationMenuRootProvider value={navigationMenu}>
       <NavigationMenuParts />
       <ContextValue />
-    </NavigationMenu.RootProvider>
+    </NavigationMenuRootProvider>
   );
 }
 
@@ -93,25 +108,25 @@ test('starts closed by default', () => {
 
 test('renders all parts and preserves Tailwind-owned styles', () => {
   render(() => (
-    <NavigationMenu.Root defaultValue="products">
-      <NavigationMenu.List>
-        <NavigationMenu.Item value="products">
-          <NavigationMenu.Trigger>
+    <NavigationMenu defaultValue="products">
+      <NavigationMenuList>
+        <NavigationMenuItem value="products">
+          <NavigationMenuTrigger>
             Products
             <svg aria-hidden="true" data-testid="trigger-icon" />
-          </NavigationMenu.Trigger>
-          <NavigationMenu.Content>
-            <NavigationMenu.Link href="/docs">Documentation</NavigationMenu.Link>
-          </NavigationMenu.Content>
-          <NavigationMenu.ItemIndicator data-testid="item-indicator" />
-        </NavigationMenu.Item>
-      </NavigationMenu.List>
-      <NavigationMenu.Indicator data-testid="indicator" />
-      <NavigationMenu.Arrow data-testid="arrow" />
-      <NavigationMenu.ViewportPositioner>
-        <NavigationMenu.Viewport data-testid="viewport" />
-      </NavigationMenu.ViewportPositioner>
-    </NavigationMenu.Root>
+          </NavigationMenuTrigger>
+          <NavigationMenuContent>
+            <NavigationMenuLink href="/docs">Documentation</NavigationMenuLink>
+          </NavigationMenuContent>
+          <NavigationMenuItemIndicator data-testid="item-indicator" />
+        </NavigationMenuItem>
+      </NavigationMenuList>
+      <NavigationMenuIndicator data-testid="indicator" />
+      <NavigationMenuArrow data-testid="arrow" />
+      <NavigationMenuViewportPositioner>
+        <NavigationMenuViewport data-testid="viewport" />
+      </NavigationMenuViewportPositioner>
+    </NavigationMenu>
   ));
 
   expect(screen.getByTestId('trigger-icon')).toBeInTheDocument();
@@ -128,14 +143,14 @@ test('renders all parts and preserves Tailwind-owned styles', () => {
 
 test('renders closed content safely by default', () => {
   const { container } = render(() => (
-    <NavigationMenu.Root>
-      <NavigationMenu.List>
-        <NavigationMenu.Item value="products">
-          <NavigationMenu.Trigger>Products</NavigationMenu.Trigger>
-          <NavigationMenu.Content>Product links</NavigationMenu.Content>
-        </NavigationMenu.Item>
-      </NavigationMenu.List>
-    </NavigationMenu.Root>
+    <NavigationMenu>
+      <NavigationMenuList>
+        <NavigationMenuItem value="products">
+          <NavigationMenuTrigger>Products</NavigationMenuTrigger>
+          <NavigationMenuContent>Product links</NavigationMenuContent>
+        </NavigationMenuItem>
+      </NavigationMenuList>
+    </NavigationMenu>
   ));
 
   const content = container.querySelector<HTMLElement>('[data-slot="navigation-menu-content"]');
@@ -147,17 +162,17 @@ test('renders closed content safely by default', () => {
 
 test('preserves Content children without an internal wrapper', () => {
   const { container } = render(() => (
-    <NavigationMenu.Root defaultValue="products">
-      <NavigationMenu.List>
-        <NavigationMenu.Item value="products">
-          <NavigationMenu.Trigger>Products</NavigationMenu.Trigger>
-          <NavigationMenu.Content>
+    <NavigationMenu defaultValue="products">
+      <NavigationMenuList>
+        <NavigationMenuItem value="products">
+          <NavigationMenuTrigger>Products</NavigationMenuTrigger>
+          <NavigationMenuContent>
             <div data-testid="content-heading">Products</div>
-            <NavigationMenu.Link href="/docs">Documentation</NavigationMenu.Link>
-          </NavigationMenu.Content>
-        </NavigationMenu.Item>
-      </NavigationMenu.List>
-    </NavigationMenu.Root>
+            <NavigationMenuLink href="/docs">Documentation</NavigationMenuLink>
+          </NavigationMenuContent>
+        </NavigationMenuItem>
+      </NavigationMenuList>
+    </NavigationMenu>
   ));
 
   const content = container.querySelector<HTMLElement>('[data-slot="navigation-menu-content"]');
@@ -172,19 +187,19 @@ test('supports refs on regular parts and asChild composition', () => {
   let trigger: HTMLElement | undefined;
 
   render(() => (
-    <NavigationMenu.Root ref={(element) => (root = element)}>
-      <NavigationMenu.List>
-        <NavigationMenu.Item value="products">
-          <NavigationMenu.Trigger ref={(element) => (trigger = element)}>
+    <NavigationMenu ref={(element) => (root = element)}>
+      <NavigationMenuList>
+        <NavigationMenuItem value="products">
+          <NavigationMenuTrigger ref={(element) => (trigger = element)}>
             Products
-          </NavigationMenu.Trigger>
-          <NavigationMenu.Content>Product links</NavigationMenu.Content>
-          <NavigationMenu.Link asChild={(props) => <a {...props()} href="/docs" />} current>
+          </NavigationMenuTrigger>
+          <NavigationMenuContent>Product links</NavigationMenuContent>
+          <NavigationMenuLink asChild={(props) => <a {...props()} href="/docs" />} current>
             Documentation
-          </NavigationMenu.Link>
-        </NavigationMenu.Item>
-      </NavigationMenu.List>
-    </NavigationMenu.Root>
+          </NavigationMenuLink>
+        </NavigationMenuItem>
+      </NavigationMenuList>
+    </NavigationMenu>
   ));
 
   expect(root).toBeInstanceOf(HTMLElement);
@@ -203,21 +218,21 @@ test('does not forward refs through asChild composition', () => {
   let linkRef: HTMLElement | undefined;
 
   render(() => (
-    <NavigationMenu.Root defaultValue="products">
-      <NavigationMenu.List>
-        <NavigationMenu.Item value="products">
-          <NavigationMenu.Trigger>Products</NavigationMenu.Trigger>
-          <NavigationMenu.Content>
-            <NavigationMenu.Link
+    <NavigationMenu defaultValue="products">
+      <NavigationMenuList>
+        <NavigationMenuItem value="products">
+          <NavigationMenuTrigger>Products</NavigationMenuTrigger>
+          <NavigationMenuContent>
+            <NavigationMenuLink
               ref={(element) => (linkRef = element)}
               asChild={(props) => <a {...props()} href="/docs" />}
             >
               Documentation
-            </NavigationMenu.Link>
-          </NavigationMenu.Content>
-        </NavigationMenu.Item>
-      </NavigationMenu.List>
-    </NavigationMenu.Root>
+            </NavigationMenuLink>
+          </NavigationMenuContent>
+        </NavigationMenuItem>
+      </NavigationMenuList>
+    </NavigationMenu>
   ));
 
   expect(linkRef).toBeUndefined();
@@ -227,14 +242,14 @@ test('does not forward refs through asChild composition', () => {
 test('lets consumer utilities replace conflicting defaults', () => {
   render(() => (
     <NavigationMenu class="w-1/2 text-primary">
-      <NavigationMenu.List class="gap-4 p-2">
-        <NavigationMenu.Item value="products">
-          <NavigationMenu.Trigger class="min-h-0 rounded-lg px-6 text-lg">
+      <NavigationMenuList class="gap-4 p-2">
+        <NavigationMenuItem value="products">
+          <NavigationMenuTrigger class="min-h-0 rounded-lg px-6 text-lg">
             Products
-          </NavigationMenu.Trigger>
-          <NavigationMenu.Content class="max-w-md py-0">Product links</NavigationMenu.Content>
-        </NavigationMenu.Item>
-      </NavigationMenu.List>
+          </NavigationMenuTrigger>
+          <NavigationMenuContent class="max-w-md py-0">Product links</NavigationMenuContent>
+        </NavigationMenuItem>
+      </NavigationMenuList>
     </NavigationMenu>
   ));
 
@@ -255,21 +270,21 @@ test('lets consumer utilities replace conflicting defaults', () => {
 
 test('supports viewport motion after opening content', async () => {
   const { container } = render(() => (
-    <NavigationMenu.Root>
-      <NavigationMenu.List>
-        <NavigationMenu.Item value="products">
-          <NavigationMenu.Trigger>Products</NavigationMenu.Trigger>
-          <NavigationMenu.Content>Product links</NavigationMenu.Content>
-        </NavigationMenu.Item>
-        <NavigationMenu.Item value="docs">
-          <NavigationMenu.Trigger>Docs</NavigationMenu.Trigger>
-          <NavigationMenu.Content>Documentation</NavigationMenu.Content>
-        </NavigationMenu.Item>
-      </NavigationMenu.List>
-      <NavigationMenu.ViewportPositioner>
-        <NavigationMenu.Viewport />
-      </NavigationMenu.ViewportPositioner>
-    </NavigationMenu.Root>
+    <NavigationMenu>
+      <NavigationMenuList>
+        <NavigationMenuItem value="products">
+          <NavigationMenuTrigger>Products</NavigationMenuTrigger>
+          <NavigationMenuContent>Product links</NavigationMenuContent>
+        </NavigationMenuItem>
+        <NavigationMenuItem value="docs">
+          <NavigationMenuTrigger>Docs</NavigationMenuTrigger>
+          <NavigationMenuContent>Documentation</NavigationMenuContent>
+        </NavigationMenuItem>
+      </NavigationMenuList>
+      <NavigationMenuViewportPositioner>
+        <NavigationMenuViewport />
+      </NavigationMenuViewportPositioner>
+    </NavigationMenu>
   ));
 
   const viewport = container.querySelector('[data-slot="navigation-menu-viewport"]');

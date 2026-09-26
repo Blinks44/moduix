@@ -40,7 +40,7 @@ function useSegmentGroup(props?: SegmentGroupMachineProps) {
   });
 }
 
-function SegmentGroupRoot(props: ComponentProps<typeof SegmentGroupPrimitive.Root>) {
+function SegmentGroup(props: ComponentProps<typeof SegmentGroupPrimitive.Root>) {
   const [local, others] = splitProps(props, [
     'asChild',
     'children',
@@ -185,18 +185,23 @@ function SegmentGroupItems(props: { items: readonly SegmentGroupOption[] }) {
   );
 }
 
-const SegmentGroup = Object.assign(SegmentGroupRoot, {
-  Root: SegmentGroupRoot,
-  RootProvider: SegmentGroupRootProvider,
-  Context: SegmentGroupPrimitive.Context,
-  ItemContext: SegmentGroupPrimitive.ItemContext,
-  Label: SegmentGroupLabel,
-  Item: SegmentGroupItem,
-  ItemHiddenInput: SegmentGroupPrimitive.ItemHiddenInput,
-  ItemControl: SegmentGroupItemControl,
-  ItemText: SegmentGroupItemText,
-  Indicator: SegmentGroupIndicator,
-  Items: SegmentGroupItems,
-});
+const SegmentGroupContext = SegmentGroupPrimitive.Context;
+const SegmentGroupItemContext = SegmentGroupPrimitive.ItemContext;
+const SegmentGroupItemHiddenInput = SegmentGroupPrimitive.ItemHiddenInput;
 
-export { SegmentGroup, useSegmentGroup, useSegmentGroupContext, useSegmentGroupItemContext };
+export {
+  SegmentGroup,
+  SegmentGroupContext,
+  SegmentGroupIndicator,
+  SegmentGroupItem,
+  SegmentGroupItemContext,
+  SegmentGroupItemControl,
+  SegmentGroupItemHiddenInput,
+  SegmentGroupItems,
+  SegmentGroupItemText,
+  SegmentGroupLabel,
+  SegmentGroupRootProvider,
+  useSegmentGroup,
+  useSegmentGroupContext,
+  useSegmentGroupItemContext,
+};

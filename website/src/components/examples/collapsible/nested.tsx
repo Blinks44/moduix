@@ -1,4 +1,10 @@
-import { Collapsible } from '@moduix/react/collapsible';
+import {
+  Collapsible,
+  CollapsibleBody,
+  CollapsibleContent,
+  CollapsibleIndicator,
+  CollapsibleTrigger,
+} from '@moduix/react/collapsible';
 import styles from '@/components/examples/collapsible/collapsible-nested.module.css';
 
 const recoveryKeys = ['alien-bean-pasta', 'wild-irish-burrito', 'horse-battery-staple'];
@@ -6,30 +12,30 @@ const recoveryKeys = ['alien-bean-pasta', 'wild-irish-burrito', 'horse-battery-s
 export default function NestedCollapsibleDemo() {
   return (
     <Collapsible className={styles.root}>
-      <Collapsible.Trigger>
+      <CollapsibleTrigger>
         Account security
-        <Collapsible.Indicator />
-      </Collapsible.Trigger>
-      <Collapsible.Content>
-        <Collapsible.Body className={styles.nestedContent}>
+        <CollapsibleIndicator />
+      </CollapsibleTrigger>
+      <CollapsibleContent>
+        <CollapsibleBody className={styles.nestedContent}>
           <p>Security options for this account.</p>
           <Collapsible className={styles.nestedRoot}>
-            <Collapsible.Trigger>
+            <CollapsibleTrigger>
               Recovery keys
-              <Collapsible.Indicator />
-            </Collapsible.Trigger>
-            <Collapsible.Content>
-              <Collapsible.Body>
+              <CollapsibleIndicator />
+            </CollapsibleTrigger>
+            <CollapsibleContent>
+              <CollapsibleBody>
                 <ul className={styles.keysList}>
                   {recoveryKeys.map((key) => (
                     <li key={key}>{key}</li>
                   ))}
                 </ul>
-              </Collapsible.Body>
-            </Collapsible.Content>
+              </CollapsibleBody>
+            </CollapsibleContent>
           </Collapsible>
-        </Collapsible.Body>
-      </Collapsible.Content>
+        </CollapsibleBody>
+      </CollapsibleContent>
     </Collapsible>
   );
 }

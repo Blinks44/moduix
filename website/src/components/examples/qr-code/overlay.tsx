@@ -1,4 +1,4 @@
-import { QrCode } from '@moduix/react/qr-code';
+import { QrCode, QrCodeFrame, QrCodeOverlay, QrCodePattern } from '@moduix/react/qr-code';
 import styles from '@/components/examples/qr-code/component-overlay.module.css';
 
 export default function OverlayQrCodeDemo() {
@@ -9,10 +9,10 @@ export default function OverlayQrCodeDemo() {
         ecc: 'H',
       }}
     >
-      <QrCode.Frame className={styles.frame}>
-        <QrCode.Pattern />
-      </QrCode.Frame>
-      <QrCode.Overlay className={styles.overlay}>MX</QrCode.Overlay>
+      <QrCodeFrame className={styles.frame}>
+        <QrCodePattern />
+      </QrCodeFrame>
+      <QrCodeOverlay className={styles.overlay}>MX</QrCodeOverlay>
     </QrCode>
   );
 }

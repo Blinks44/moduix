@@ -16,7 +16,7 @@ type BreadcrumbsPathProps = Omit<HTMLArkProps<'ol'>, 'asChild' | 'children'> & {
   separator?: JSX.Element;
 };
 
-function BreadcrumbsRoot(props: HTMLArkProps<'nav'>) {
+function Breadcrumbs(props: HTMLArkProps<'nav'>) {
   const [local, others] = splitProps(props, ['aria-label', 'class']);
 
   return (
@@ -146,15 +146,13 @@ function BreadcrumbsEllipsis(props: HTMLArkProps<'span'>) {
   );
 }
 
-const Breadcrumbs = Object.assign(BreadcrumbsRoot, {
-  Root: BreadcrumbsRoot,
-  List: BreadcrumbsList,
-  Item: BreadcrumbsItem,
-  Link: BreadcrumbsLink,
-  Path: BreadcrumbsPath,
-  Page: BreadcrumbsPage,
-  Separator: BreadcrumbsSeparator,
-  Ellipsis: BreadcrumbsEllipsis,
-});
-
-export { Breadcrumbs };
+export {
+  Breadcrumbs,
+  BreadcrumbsEllipsis,
+  BreadcrumbsItem,
+  BreadcrumbsLink,
+  BreadcrumbsList,
+  BreadcrumbsPage,
+  BreadcrumbsPath,
+  BreadcrumbsSeparator,
+};

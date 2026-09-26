@@ -100,20 +100,19 @@ supplémentaire. Chaque segment correspondant devient un élément natif `<mark>
 sans correspondance reste du texte ordinaire dans le flux environnant.
 
 ```text
-Highlight / Highlight.Root
+Highlight
 └─ segments correspondants rendus dans des éléments <mark> successifs
 ```
 
 | Partie                         | Rôle                                                                  |
 | ------------------------------ | --------------------------------------------------------------------- |
-| `Highlight` / `Highlight.Root` | Applique les styles moduix à chaque correspondance du texte fourni.   |
+| `Highlight` | Applique les styles moduix à chaque correspondance du texte fourni.   |
 
 ## Composition
 
 `Highlight` est sans état et ne crée pas de conteneur de mise en page. Placez-le dans un conteneur
 de texte existant comme `Text`, un titre, un élément de liste ou une cellule de tableau. Contrôlez
-`query` depuis le composant parent lorsque la recherche change et utilisez la forme `Highlight.Root`
-seulement si elle rend la composition plus claire. Un tableau de chaînes exige que `matchAll` reste
+`query` depuis le composant parent lorsque la recherche change. Un tableau de chaînes exige que `matchAll` reste
 à `true` ; si chaque correspondance doit utiliser un élément différent ou un comportement interactif,
 construisez cette structure dans votre propre composant.
 

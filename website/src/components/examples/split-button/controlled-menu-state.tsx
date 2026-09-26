@@ -1,5 +1,11 @@
-import { Menu } from '@moduix/react/menu';
-import { SplitButton } from '@moduix/react/split-button';
+import { MenuItem, MenuSeparator } from '@moduix/react/menu';
+import {
+  SplitButton,
+  SplitButtonAction,
+  SplitButtonContent,
+  SplitButtonPositioner,
+  SplitButtonTrigger,
+} from '@moduix/react/split-button';
 import { useState } from 'react';
 
 export default function ControlledSplitButton() {
@@ -11,18 +17,18 @@ export default function ControlledSplitButton() {
       onOpenChange={(details) => setOpen(details.open)}
       variant="outline"
     >
-      <SplitButton.Action>Share</SplitButton.Action>
-      <SplitButton.Trigger aria-label="More share actions" />
-      <SplitButton.Positioner>
-        <SplitButton.Content>
-          <Menu.Item value="copy-link">Copy Link</Menu.Item>
-          <Menu.Item value="invite-email">Invite by Email</Menu.Item>
-          <Menu.Separator />
-          <Menu.Item value="close-menu" onSelect={() => setOpen(false)}>
+      <SplitButtonAction>Share</SplitButtonAction>
+      <SplitButtonTrigger aria-label="More share actions" />
+      <SplitButtonPositioner>
+        <SplitButtonContent>
+          <MenuItem value="copy-link">Copy Link</MenuItem>
+          <MenuItem value="invite-email">Invite by Email</MenuItem>
+          <MenuSeparator />
+          <MenuItem value="close-menu" onSelect={() => setOpen(false)}>
             Close Menu
-          </Menu.Item>
-        </SplitButton.Content>
-      </SplitButton.Positioner>
+          </MenuItem>
+        </SplitButtonContent>
+      </SplitButtonPositioner>
     </SplitButton>
   );
 }

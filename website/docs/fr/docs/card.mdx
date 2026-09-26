@@ -1,7 +1,7 @@
 ---
 title: Card
 component: card
-description: Un composant flexible pour regrouper le contenu lié à un même sujet.
+description: "Créez des cartes flexibles avec React, Solid ou Vue, en installant le package ou via shadcn."
 ---
 
 import * as CardDocs from '@/components/examples/card/css-properties';
@@ -10,7 +10,7 @@ import CardBasic from '@/components/examples/card/basic.tsx';
 import CardHeaderAction from '@/components/examples/card/header-action.tsx';
 import CardHorizontal from '@/components/examples/card/horizontal.tsx';
 import CardOverlayLink from '@/components/examples/card/overlay-link.tsx';
-import CardRootAsLink from '@/components/examples/card/root-as-link.tsx';
+import CardAsLink from '@/components/examples/card/root-as-link.tsx';
 import CardSizes from '@/components/examples/card/sizes.tsx';
 import CardVariants from '@/components/examples/card/variants.tsx';
 import CardWithAvatar from '@/components/examples/card/with-avatar.tsx';
@@ -31,6 +31,19 @@ import cardSolidWithBackground from '../../../snippets/card/solid/with-backgroun
 import cardSolidWithImage from '../../../snippets/card/solid/with-image.tsx?raw';
 import cardSolidWithinForm from '../../../snippets/card/solid/within-form.tsx?raw';
 
+import cardVueAdvancedCustomization from '../../../snippets/card/vue/advanced-customization.vue?raw';
+import cardVueBasic from '../../../snippets/card/vue/basic.vue?raw';
+import cardVueHeaderAction from '../../../snippets/card/vue/header-action.vue?raw';
+import cardVueHorizontal from '../../../snippets/card/vue/horizontal.vue?raw';
+import cardVueOverlayLink from '../../../snippets/card/vue/overlay-link.vue?raw';
+import cardVueRootAsLink from '../../../snippets/card/vue/root-as-link.vue?raw';
+import cardVueSizes from '../../../snippets/card/vue/sizes.vue?raw';
+import cardVueVariants from '../../../snippets/card/vue/variants.vue?raw';
+import cardVueWithAvatar from '../../../snippets/card/vue/with-avatar.vue?raw';
+import cardVueWithBackground from '../../../snippets/card/vue/with-background.vue?raw';
+import cardVueWithImage from '../../../snippets/card/vue/with-image.vue?raw';
+import cardVueWithinForm from '../../../snippets/card/vue/within-form.vue?raw';
+
 ## Référence de l’API
 
 Ark UI ne fournit pas de primitive Card dédiée. moduix construit Card avec la [fabrique officielle d’Ark](https://ark-ui.com/docs/guides/composition#the-ark-factory) et suit les recommandations d’Ark pour la [composition](https://ark-ui.com/docs/guides/composition), le [style](https://ark-ui.com/docs/guides/styling) et les [refs](https://ark-ui.com/docs/guides/ref).
@@ -39,11 +52,9 @@ Ark UI ne fournit pas de primitive Card dédiée. moduix construit Card avec la 
 Les mêmes exports sont disponibles depuis `@moduix/solid/card` pour Solid.
 ## Exemple de base
 
-Utilisez `<Card />` comme racine, puis ajoutez les parties nécessaires de l’espace de noms `Card`.
-
-Si vous connaissez shadcn/ui, la structure vous sera familière. moduix utilise `Card.Body` là où shadcn utilise
-`CardContent` ; les autres parties restent sous l’espace de noms `Card`.
-
+Utilisez `Card` comme racine et ajoutez uniquement les parties nécessaires. Importez chaque partie
+supplémentaire directement, comme `CardHeader` et `CardTitle`. Les mêmes noms fonctionnent avec les
+paquets npm et la source du registre shadcn.
 
 <ExampleFrame variant="component">
   <CardBasic />
@@ -56,6 +67,7 @@ Si vous connaissez shadcn/ui, la structure vous sera familière. moduix utilise 
     values={[
       { label: 'React', value: 'react' },
       { label: 'Solid', value: 'solid' },
+      { label: 'Vue', value: 'vue' },
     ]}
     className="docs-tabs"
   >
@@ -68,6 +80,11 @@ Si vous connaissez shadcn/ui, la structure vous sera familière. moduix utilise 
     <Tab value="solid">
 
 <CodeBlockRuntime lang="tsx" code={cardSolidBasic} />
+
+    </Tab>
+    <Tab value="vue">
+
+<CodeBlockRuntime lang="vue" code={cardVueBasic} />
 
     </Tab>
   </Tabs>
@@ -105,47 +122,55 @@ Consultez le [Démarrage rapide](/docs/quick-start) pour la configuration compl�
 />
 
   </Tab>
+  <Tab label="Vue" value="vue">
+
+<ShadcnInstallOptions
+  options={[
+    { label: 'CSS Modules', command: 'shadcn@latest add @moduix-vue/card' },
+    { label: 'Tailwind CSS', command: 'shadcn@latest add @moduix-vue-tailwind/card' },
+  ]}
+/>
+
+  </Tab>
 </Tabs>
 
 ## Anatomie
 
 ```text
-Card.Root
-├─ Card.Background (aide moduix facultative)
-├─ Card.Media (aide moduix facultative)
-├─ Card.Header
-│  ├─ Card.Title
-│  ├─ Card.Description
-│  └─ Card.Action (aide moduix facultative)
-├─ Card.Body
-└─ Card.Footer (facultatif)
+Card
+├─ CardBackground (aide moduix facultative)
+├─ CardMedia (aide moduix facultative)
+├─ CardHeader
+│  ├─ CardTitle
+│  ├─ CardDescription
+│  └─ CardAction (aide moduix facultative)
+├─ CardBody
+└─ CardFooter (facultatif)
 ```
-
-`Card` et `Card.Root` désignent la même racine.
 
 | Partie               | Rôle                                                                                          |
 | -------------------- | --------------------------------------------------------------------------------------------- |
-| `Card` / `Card.Root` | Conteneur racine avec les props `size`, `variant` et `asChild`.                               |
-| `Card.Background`    | Couche de fond facultative couvrant toute la carte pour un média décoratif.                  |
-| `Card.Media`         | Conteneur facultatif pour un média bord à bord, avec un arrondi uniforme des angles supérieurs. |
-| `Card.Header`        | Mise en page de l’en-tête pour le titre, la description et une éventuelle action à droite.    |
-| `Card.Body`          | Zone principale du contenu.                                                                  |
-| `Card.Footer`        | Ligne inférieure pour les actions ou les métadonnées. Elle passe à la ligne si nécessaire.   |
-| `Card.Title`         | Titre rendu en `h3` par défaut. Utilisez `asChild` pour choisir un autre niveau.              |
-| `Card.Description`   | Texte complémentaire sous le titre.                                                          |
-| `Card.Action`        | Emplacement réservé à une action dans l’en-tête.                                             |
-| `Card.Link`          | Lien dont la zone cliquable s’étend à toute la carte sans bloquer les autres contrôles.      |
+| `Card` | Conteneur racine avec les props `size`, `variant` et `asChild`.                               |
+| `CardBackground`    | Couche de fond facultative couvrant toute la carte pour un média décoratif.                  |
+| `CardMedia`         | Conteneur facultatif pour un média bord à bord, avec un arrondi uniforme des angles supérieurs. |
+| `CardHeader`        | Mise en page de l’en-tête pour le titre, la description et une éventuelle action à droite.    |
+| `CardBody`          | Zone principale du contenu.                                                                  |
+| `CardFooter`        | Ligne inférieure pour les actions ou les métadonnées. Elle passe à la ligne si nécessaire.   |
+| `CardTitle`         | Titre rendu en `h3` par défaut. Utilisez `asChild` pour choisir un autre niveau.              |
+| `CardDescription`   | Texte complémentaire sous le titre.                                                          |
+| `CardAction`        | Emplacement réservé à une action dans l’en-tête.                                             |
+| `CardLink`          | Lien dont la zone cliquable s’étend à toute la carte sans bloquer les autres contrôles.      |
 
 ## Composition
 
 Card ne gère aucun état, fonction de rappel, contexte, comportement clavier ni champ masqué. Utilisez ses parties simples pour le contenu de présentation. Utilisez `asChild` lorsqu’un élément sémantique doit porter la racine ou une autre partie ; il doit rendre exactement un enfant capable de recevoir les propriétés fusionnées. En Solid, `asChild` utilise une fonction de rendu telle que `asChild={(props) => <a {...props()} />}`.
 
-Lorsqu’une carte est entièrement un lien et ne contient aucun contrôle imbriqué, composez la racine avec `asChild`. Si la carte contient aussi des boutons ou d’autres actions, gardez `Card.Link` dans `Card.Title` et placez ces contrôles dans `Card.Action` ; la zone cliquable étendue du lien ne gênera ainsi pas les autres éléments interactifs. Utilisez `Card.Media` pour un média informatif placé en tête et `Card.Background` pour un média décoratif derrière le contenu. Donnez un `alt` vide aux images d’arrière-plan et gérez dans l’application les éventuelles superpositions ou styles assurant le contraste du texte.
+Lorsqu’une carte est entièrement un lien et ne contient aucun contrôle imbriqué, composez la racine avec `asChild`. Si la carte contient aussi des boutons ou d’autres actions, gardez `CardLink` dans `CardTitle` et placez ces contrôles dans `CardAction` ; la zone cliquable étendue du lien ne gênera ainsi pas les autres éléments interactifs. Utilisez `CardMedia` pour un média informatif placé en tête et `CardBackground` pour un média décoratif derrière le contenu. Donnez un `alt` vide aux images d’arrière-plan et gérez dans l’application les éventuelles superpositions ou styles assurant le contraste du texte.
 ## Exemples
 
 ### Action dans l’en-tête
 
-Utilisez `Card.Action` pour placer un statut compact ou un contrôle à la fin de l’en-tête.
+Utilisez `CardAction` pour placer un statut compact ou un contrôle à la fin de l’en-tête.
 
 <ExampleFrame variant="component">
   <CardHeaderAction />
@@ -158,6 +183,7 @@ Utilisez `Card.Action` pour placer un statut compact ou un contrôle à la fin d
     values={[
       { label: 'React', value: 'react' },
       { label: 'Solid', value: 'solid' },
+      { label: 'Vue', value: 'vue' },
     ]}
     className="docs-tabs"
   >
@@ -170,6 +196,11 @@ Utilisez `Card.Action` pour placer un statut compact ou un contrôle à la fin d
     <Tab value="solid">
 
 <CodeBlockRuntime lang="tsx" code={cardSolidHeaderAction} />
+
+    </Tab>
+    <Tab value="vue">
+
+<CodeBlockRuntime lang="vue" code={cardVueHeaderAction} />
 
     </Tab>
   </Tabs>
@@ -198,6 +229,7 @@ mise en page.
     values={[
       { label: 'React', value: 'react' },
       { label: 'Solid', value: 'solid' },
+      { label: 'Vue', value: 'vue' },
     ]}
     className="docs-tabs"
   >
@@ -212,6 +244,11 @@ mise en page.
 <CodeBlockRuntime lang="tsx" code={cardSolidHorizontal} />
 
     </Tab>
+    <Tab value="vue">
+
+<CodeBlockRuntime lang="vue" code={cardVueHorizontal} />
+
+    </Tab>
   </Tabs>
 
 **Styles**
@@ -224,7 +261,7 @@ mise en page.
 
 ### Lien à zone cliquable étendue
 
-Utilisez `Card.Link` lorsque la carte doit proposer une navigation et des actions distinctes.
+Utilisez `CardLink` lorsque la carte doit proposer une navigation et des actions distinctes.
 
 <ExampleFrame variant="component">
   <CardOverlayLink />
@@ -237,6 +274,7 @@ Utilisez `Card.Link` lorsque la carte doit proposer une navigation et des action
     values={[
       { label: 'React', value: 'react' },
       { label: 'Solid', value: 'solid' },
+      { label: 'Vue', value: 'vue' },
     ]}
     className="docs-tabs"
   >
@@ -249,6 +287,11 @@ Utilisez `Card.Link` lorsque la carte doit proposer une navigation et des action
     <Tab value="solid">
 
 <CodeBlockRuntime lang="tsx" code={cardSolidOverlayLink} />
+
+    </Tab>
+    <Tab value="vue">
+
+<CodeBlockRuntime lang="vue" code={cardVueOverlayLink} />
 
     </Tab>
   </Tabs>
@@ -266,7 +309,7 @@ Utilisez `Card.Link` lorsque la carte doit proposer une navigation et des action
 Utilisez `asChild` lorsque toute la carte doit être un seul lien et ne contient aucun contrôle imbriqué.
 
 <ExampleFrame variant="component">
-  <CardRootAsLink />
+  <CardAsLink />
 </ExampleFrame>
 
 <ExampleCode>
@@ -276,6 +319,7 @@ Utilisez `asChild` lorsque toute la carte doit être un seul lien et ne contient
     values={[
       { label: 'React', value: 'react' },
       { label: 'Solid', value: 'solid' },
+      { label: 'Vue', value: 'vue' },
     ]}
     className="docs-tabs"
   >
@@ -288,6 +332,11 @@ Utilisez `asChild` lorsque toute la carte doit être un seul lien et ne contient
     <Tab value="solid">
 
 <CodeBlockRuntime lang="tsx" code={cardSolidRootAsLink} />
+
+    </Tab>
+    <Tab value="vue">
+
+<CodeBlockRuntime lang="vue" code={cardVueRootAsLink} />
 
     </Tab>
   </Tabs>
@@ -315,6 +364,7 @@ Choisissez `sm`, `md` ou `lg` pour modifier l’espacement intérieur de la cart
     values={[
       { label: 'React', value: 'react' },
       { label: 'Solid', value: 'solid' },
+      { label: 'Vue', value: 'vue' },
     ]}
     className="docs-tabs"
   >
@@ -327,6 +377,11 @@ Choisissez `sm`, `md` ou `lg` pour modifier l’espacement intérieur de la cart
     <Tab value="solid">
 
 <CodeBlockRuntime lang="tsx" code={cardSolidSizes} />
+
+    </Tab>
+    <Tab value="vue">
+
+<CodeBlockRuntime lang="vue" code={cardVueSizes} />
 
     </Tab>
   </Tabs>
@@ -354,6 +409,7 @@ Utilisez les variantes pour exprimer la hiérarchie visuelle des surfaces.
     values={[
       { label: 'React', value: 'react' },
       { label: 'Solid', value: 'solid' },
+      { label: 'Vue', value: 'vue' },
     ]}
     className="docs-tabs"
   >
@@ -366,6 +422,11 @@ Utilisez les variantes pour exprimer la hiérarchie visuelle des surfaces.
     <Tab value="solid">
 
 <CodeBlockRuntime lang="tsx" code={cardSolidVariants} />
+
+    </Tab>
+    <Tab value="vue">
+
+<CodeBlockRuntime lang="vue" code={cardVueVariants} />
 
     </Tab>
   </Tabs>
@@ -393,6 +454,7 @@ Placez un avatar ou un autre élément de profil dans l’en-tête lorsque la ca
     values={[
       { label: 'React', value: 'react' },
       { label: 'Solid', value: 'solid' },
+      { label: 'Vue', value: 'vue' },
     ]}
     className="docs-tabs"
   >
@@ -407,6 +469,11 @@ Placez un avatar ou un autre élément de profil dans l’en-tête lorsque la ca
 <CodeBlockRuntime lang="tsx" code={cardSolidWithAvatar} />
 
     </Tab>
+    <Tab value="vue">
+
+<CodeBlockRuntime lang="vue" code={cardVueWithAvatar} />
+
+    </Tab>
   </Tabs>
 
 **Styles**
@@ -419,7 +486,7 @@ Placez un avatar ou un autre élément de profil dans l’en-tête lorsque la ca
 
 ### Avec une image de fond
 
-Utilisez `Card.Background` pour un média décoratif placé derrière le contenu de la carte. Ajoutez le calque et les
+Utilisez `CardBackground` pour un média décoratif placé derrière le contenu de la carte. Ajoutez le calque et les
 styles de contraste du texte dans votre application.
 
 <ExampleFrame variant="component">
@@ -433,6 +500,7 @@ styles de contraste du texte dans votre application.
     values={[
       { label: 'React', value: 'react' },
       { label: 'Solid', value: 'solid' },
+      { label: 'Vue', value: 'vue' },
     ]}
     className="docs-tabs"
   >
@@ -447,6 +515,11 @@ styles de contraste du texte dans votre application.
 <CodeBlockRuntime lang="tsx" code={cardSolidWithBackground} />
 
     </Tab>
+    <Tab value="vue">
+
+<CodeBlockRuntime lang="vue" code={cardVueWithBackground} />
+
+    </Tab>
   </Tabs>
 
 **Styles**
@@ -459,7 +532,7 @@ styles de contraste du texte dans votre application.
 
 ### Avec une image
 
-Utilisez `Card.Media` pour un média placé en tête qui doit occuper toute la largeur de la carte avec un arrondi
+Utilisez `CardMedia` pour un média placé en tête qui doit occuper toute la largeur de la carte avec un arrondi
 uniforme des angles supérieurs.
 
 <ExampleFrame variant="component">
@@ -473,6 +546,7 @@ uniforme des angles supérieurs.
     values={[
       { label: 'React', value: 'react' },
       { label: 'Solid', value: 'solid' },
+      { label: 'Vue', value: 'vue' },
     ]}
     className="docs-tabs"
   >
@@ -485,6 +559,11 @@ uniforme des angles supérieurs.
     <Tab value="solid">
 
 <CodeBlockRuntime lang="tsx" code={cardSolidWithImage} />
+
+    </Tab>
+    <Tab value="vue">
+
+<CodeBlockRuntime lang="vue" code={cardVueWithImage} />
 
     </Tab>
   </Tabs>
@@ -512,6 +591,7 @@ Faites de la racine un formulaire lorsque la carte regroupe des champs et des ac
     values={[
       { label: 'React', value: 'react' },
       { label: 'Solid', value: 'solid' },
+      { label: 'Vue', value: 'vue' },
     ]}
     className="docs-tabs"
   >
@@ -526,6 +606,11 @@ Faites de la racine un formulaire lorsque la carte regroupe des champs et des ac
 <CodeBlockRuntime lang="tsx" code={cardSolidWithinForm} />
 
     </Tab>
+    <Tab value="vue">
+
+<CodeBlockRuntime lang="vue" code={cardVueWithinForm} />
+
+    </Tab>
   </Tabs>
 
 **Styles**
@@ -538,7 +623,7 @@ Faites de la racine un formulaire lorsque la carte regroupe des champs et des ac
 
 ### Personnalisation avancée
 
-Laissez `Card.Media` de côté si vous devez contrôler entièrement la présentation du média et styliser la carte
+Laissez `CardMedia` de côté si vous devez contrôler entièrement la présentation du média et styliser la carte
 avec des points d’extension bas niveau.
 
 <ExampleFrame variant="component">
@@ -552,6 +637,7 @@ avec des points d’extension bas niveau.
     values={[
       { label: 'React', value: 'react' },
       { label: 'Solid', value: 'solid' },
+      { label: 'Vue', value: 'vue' },
     ]}
     className="docs-tabs"
   >
@@ -564,6 +650,11 @@ avec des points d’extension bas niveau.
     <Tab value="solid">
 
 <CodeBlockRuntime lang="tsx" code={cardSolidAdvancedCustomization} />
+
+    </Tab>
+    <Tab value="vue">
+
+<CodeBlockRuntime lang="vue" code={cardVueAdvancedCustomization} />
 
     </Tab>
   </Tabs>

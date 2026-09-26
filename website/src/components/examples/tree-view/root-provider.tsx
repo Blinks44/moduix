@@ -1,6 +1,17 @@
 import { Button } from '@moduix/react/button';
 import {
-  TreeView,
+  TreeViewBranch,
+  TreeViewBranchContent,
+  TreeViewBranchControl,
+  TreeViewBranchIndicator,
+  TreeViewBranchIndentGuide,
+  TreeViewBranchText,
+  TreeViewItem,
+  TreeViewItemText,
+  TreeViewLabel,
+  TreeViewNode,
+  TreeViewRootProvider,
+  TreeViewTree,
   createTreeCollection,
   type TreeViewNodeProviderProps,
   useTreeView,
@@ -38,16 +49,16 @@ const collection = createTreeCollection<FileNode>({
 
 function FileTreeNode({ node, indexPath }: TreeViewNodeProviderProps<FileNode>) {
   return (
-    <TreeView.Node node={node} indexPath={indexPath}>
+    <TreeViewNode node={node} indexPath={indexPath}>
       {({ node: currentNode, indexPath: currentIndexPath, state }) =>
         state.isBranch ? (
-          <TreeView.Branch>
-            <TreeView.BranchControl>
-              <TreeView.BranchIndicator />
-              <TreeView.BranchText>{currentNode.name}</TreeView.BranchText>
-            </TreeView.BranchControl>
-            <TreeView.BranchContent>
-              <TreeView.BranchIndentGuide />
+          <TreeViewBranch>
+            <TreeViewBranchControl>
+              <TreeViewBranchIndicator />
+              <TreeViewBranchText>{currentNode.name}</TreeViewBranchText>
+            </TreeViewBranchControl>
+            <TreeViewBranchContent>
+              <TreeViewBranchIndentGuide />
               {currentNode.children?.map((child, index) => (
                 <FileTreeNode
                   key={child.id}
@@ -55,15 +66,15 @@ function FileTreeNode({ node, indexPath }: TreeViewNodeProviderProps<FileNode>) 
                   indexPath={[...currentIndexPath, index]}
                 />
               ))}
-            </TreeView.BranchContent>
-          </TreeView.Branch>
+            </TreeViewBranchContent>
+          </TreeViewBranch>
         ) : (
-          <TreeView.Item>
-            <TreeView.ItemText>{currentNode.name}</TreeView.ItemText>
-          </TreeView.Item>
+          <TreeViewItem>
+            <TreeViewItemText>{currentNode.name}</TreeViewItemText>
+          </TreeViewItem>
         )
       }
-    </TreeView.Node>
+    </TreeViewNode>
   );
 }
 
@@ -72,14 +83,14 @@ export default function RootProviderTreeViewDemo() {
 
   return (
     <div className={styles.root}>
-      <TreeView.RootProvider value={treeView}>
-        <TreeView.Label>Project files</TreeView.Label>
-        <TreeView.Tree>
+      <TreeViewRootProvider value={treeView}>
+        <TreeViewLabel>Project files</TreeViewLabel>
+        <TreeViewTree>
           {collection.rootNode.children?.map((node, index) => (
             <FileTreeNode key={node.id} node={node} indexPath={[index]} />
           ))}
-        </TreeView.Tree>
-      </TreeView.RootProvider>
+        </TreeViewTree>
+      </TreeViewRootProvider>
       <PreviewMeta>
         <output aria-live="polite">Expanded: {treeView.expandedValue.join(', ') || 'none'}</output>
         <div className={styles.actions}>

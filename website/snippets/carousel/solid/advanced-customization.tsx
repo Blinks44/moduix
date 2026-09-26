@@ -1,5 +1,15 @@
 import { Button } from '@moduix/solid/button';
-import { Carousel } from '@moduix/solid/carousel';
+import {
+  Carousel,
+  CarouselContext,
+  CarouselControl,
+  CarouselIndicator,
+  CarouselIndicatorGroup,
+  CarouselItem,
+  CarouselItemGroup,
+  CarouselNextTrigger,
+  CarouselPrevTrigger,
+} from '@moduix/solid/carousel';
 import { For } from 'solid-js';
 import styles from '@/components/examples/carousel/carousel-advanced-customization.module.css';
 
@@ -40,28 +50,28 @@ export default function AdvancedCustomizationCarousel() {
       slidesPerPage={2}
       spacing="var(--moduix-spacing-3)"
     >
-      <Carousel.ItemGroup class={styles.itemGroup} aria-label="Advanced customization gallery">
+      <CarouselItemGroup class={styles.itemGroup} aria-label="Advanced customization gallery">
         <For each={slides}>
           {(slide, index) => (
-            <Carousel.Item index={index()}>
+            <CarouselItem index={index()}>
               <img class={styles.image} src={slide.src} alt={slide.alt} />
-            </Carousel.Item>
+            </CarouselItem>
           )}
         </For>
-      </Carousel.ItemGroup>
+      </CarouselItemGroup>
 
-      <Carousel.Context>
+      <CarouselContext>
         {(api) => (
           <>
-            <Carousel.Control class={styles.control}>
-              <Carousel.PrevTrigger />
-              <Carousel.IndicatorGroup>
+            <CarouselControl class={styles.control}>
+              <CarouselPrevTrigger />
+              <CarouselIndicatorGroup>
                 <For each={api().pageSnapPoints}>
-                  {(_, index) => <Carousel.Indicator index={index()} />}
+                  {(_, index) => <CarouselIndicator index={index()} />}
                 </For>
-              </Carousel.IndicatorGroup>
-              <Carousel.NextTrigger />
-            </Carousel.Control>
+              </CarouselIndicatorGroup>
+              <CarouselNextTrigger />
+            </CarouselControl>
 
             <div style={{ 'margin-inline': 'auto' }}>
               <Button size="sm" variant="outline" onClick={() => api().scrollToIndex(3)}>
@@ -70,7 +80,7 @@ export default function AdvancedCustomizationCarousel() {
             </div>
           </>
         )}
-      </Carousel.Context>
+      </CarouselContext>
     </Carousel>
   );
 }

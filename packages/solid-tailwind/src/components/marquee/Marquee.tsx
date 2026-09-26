@@ -27,7 +27,7 @@ const marqueeRootVariants = cva('group relative w-full overflow-hidden text-fore
   },
 });
 
-function MarqueeRoot(props: ComponentProps<typeof MarqueePrimitive.Root>) {
+function Marquee(props: ComponentProps<typeof MarqueePrimitive.Root>) {
   const [local, others] = splitProps(props, ['class', 'side']);
 
   return (
@@ -110,14 +110,16 @@ function MarqueeEdge(props: ComponentProps<typeof MarqueePrimitive.Edge>) {
   );
 }
 
-const Marquee = Object.assign(MarqueeRoot, {
-  Root: MarqueeRoot,
-  RootProvider: MarqueeRootProvider,
-  Context: MarqueePrimitive.Context,
-  Viewport: MarqueeViewport,
-  Content: MarqueeContent,
-  Item: MarqueeItem,
-  Edge: MarqueeEdge,
-});
+const MarqueeContext = MarqueePrimitive.Context;
 
-export { Marquee, useMarquee, useMarqueeContext };
+export {
+  Marquee,
+  MarqueeContext,
+  MarqueeContent,
+  MarqueeEdge,
+  MarqueeItem,
+  MarqueeRootProvider,
+  MarqueeViewport,
+  useMarquee,
+  useMarqueeContext,
+};

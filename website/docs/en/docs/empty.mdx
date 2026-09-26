@@ -22,13 +22,13 @@ Ark's guidance for [composition](https://ark-ui.com/react/docs/guides/compositio
 [styling](https://ark-ui.com/react/docs/guides/styling), and
 [refs](https://ark-ui.com/react/docs/guides/ref). Its composition also draws on Chakra UI's
 [Empty State](https://chakra-ui.com/docs/components/empty-state). Unlike Chakra UI, `moduix`
-exposes optional `Empty.Icon` and `Empty.Actions` as root-level parts alongside `Empty.Content`,
+exposes optional `EmptyIcon` and `EmptyActions` as root-level parts alongside `EmptyContent`,
 so you can arrange them in the order your screen needs.
 
 ## Basic
 
 
-Start with `<Empty />` and add its namespaced parts. Add `Empty.Icon` and `Empty.Actions` only when
+Start with `<Empty />` and add its named parts. Add `EmptyIcon` and `EmptyActions` only when
 the state benefits from a visual cue or a clear next step.
 
 <ExampleFrame variant="component">
@@ -96,30 +96,30 @@ See [Quick Start](/docs/quick-start) for full package setup, registry configurat
 ## Anatomy
 
 ```text
-Empty / Empty.Root
-├─ Empty.Icon (optional)
-├─ Empty.Content
-│  ├─ Empty.Title
-│  └─ Empty.Description
-└─ Empty.Actions (optional)
+Empty
+├─ EmptyIcon (optional)
+├─ EmptyContent
+│  ├─ EmptyTitle
+│  └─ EmptyDescription
+└─ EmptyActions (optional)
 ```
 
 | Part                   | Role                                                                                          |
 | ---------------------- | --------------------------------------------------------------------------------------------- |
-| `Empty` / `Empty.Root` | Root container for padding, border, background, and alignment.                                |
-| `Empty.Icon`           | Optional container for an icon or another small visual cue.                                   |
-| `Empty.Content`        | Groups the title and description with tighter spacing.                                        |
-| `Empty.Title`          | Main heading for the empty state.                                                             |
-| `Empty.Description`    | Supporting content below the title. It can contain paragraphs, links, or other block content. |
-| `Empty.Actions`        | Optional action row that wraps its children when needed.                                      |
+| `Empty`               | Root container for padding, border, background, and alignment.                                |
+| `EmptyIcon`           | Optional container for an icon or another small visual cue.                                   |
+| `EmptyContent`        | Groups the title and description with tighter spacing.                                        |
+| `EmptyTitle`          | Main heading for the empty state.                                                             |
+| `EmptyDescription`    | Supporting content below the title. It can contain paragraphs, links, or other block content. |
+| `EmptyActions`        | Optional action row that wraps its children when needed.                                      |
 
 ## Composition
 
-Compose `Empty` from its root-level parts. `Empty.Content` groups the title and description;
-`Empty.Icon` and `Empty.Actions` are optional siblings, so you can omit or reorder them to match
+Compose `Empty` from its root-level parts. `EmptyContent` groups the title and description;
+`EmptyIcon` and `EmptyActions` are optional siblings, so you can omit or reorder them to match
 the screen. `Empty` is presentational and does not own application state or live-region behavior.
 
-Use `asChild` on `Empty` or `Empty.Title` when the surrounding section needs a semantic container or
+Use `asChild` on `Empty` or `EmptyTitle` when the surrounding section needs a semantic container or
 a different heading level. Pass exactly one child to an `asChild` part so it can receive that part's
 props and ref in React. In Solid, assign a ref inside the `asChild` render function. Then add any
 required landmark, role, focus management, or `aria-live` behavior in the surrounding interface.
@@ -128,7 +128,7 @@ required landmark, role, focus management, or `aria-live` behavior in the surrou
 
 ### Without actions
 
-Leave out `Empty.Actions` when the state is informational and does not need an immediate action.
+Leave out `EmptyActions` when the state is informational and does not need an immediate action.
 
 <ExampleFrame variant="component">
   <EmptyWithoutActions />
@@ -207,8 +207,8 @@ The icon is optional, so a text-only empty state can stay compact.
 ### Advanced customization
 
 Use the `asChild` prop on `Empty` when the empty state needs to render as a semantic container such
-as `section`. Use it on `Empty.Title` when the heading needs a different level. Because
-`Empty.Description` renders as a `div`, it can contain paragraphs, links, and other block content.
+as `section`. Use it on `EmptyTitle` when the heading needs a different level. Because
+`EmptyDescription` renders as a `div`, it can contain paragraphs, links, and other block content.
 
 <ExampleFrame variant="component">
   <EmptyAdvancedCustomization />

@@ -1,7 +1,23 @@
 import type { JSX } from 'solid-js';
 import type { Meta, StoryObj } from 'storybook-solidjs-vite';
-import { Breadcrumbs } from '@/components/breadcrumbs/Breadcrumbs';
-import { Menu } from '@/components/menu/Menu';
+import {
+  Breadcrumbs,
+  BreadcrumbsEllipsis,
+  BreadcrumbsItem,
+  BreadcrumbsLink,
+  BreadcrumbsList,
+  BreadcrumbsPage,
+  BreadcrumbsPath,
+  BreadcrumbsSeparator,
+} from '@/components/breadcrumbs/Breadcrumbs';
+import {
+  Menu,
+  MenuTrigger,
+  MenuPositioner,
+  MenuContent,
+  MenuViewport,
+  MenuItem,
+} from '@/components/menu/Menu';
 
 const accessibilityProps = { 'aria-hidden': 'true', focusable: 'false' } as const;
 
@@ -39,7 +55,7 @@ const collapsedMenuTriggerStyle = {
 function DefaultBreadcrumbs() {
   return (
     <Breadcrumbs>
-      <Breadcrumbs.Path links={defaultLinks} page={defaultPage} />
+      <BreadcrumbsPath links={defaultLinks} page={defaultPage} />
     </Breadcrumbs>
   );
 }
@@ -64,14 +80,14 @@ export const Default: Story = {
 export const Collapsed: Story = {
   render: () => (
     <Breadcrumbs>
-      <Breadcrumbs.List>
-        <Breadcrumbs.Item>
-          <Breadcrumbs.Link href="#">Home</Breadcrumbs.Link>
-        </Breadcrumbs.Item>
-        <Breadcrumbs.Separator />
-        <Breadcrumbs.Item>
+      <BreadcrumbsList>
+        <BreadcrumbsItem>
+          <BreadcrumbsLink href="#">Home</BreadcrumbsLink>
+        </BreadcrumbsItem>
+        <BreadcrumbsSeparator />
+        <BreadcrumbsItem>
           <Menu positioning={{ placement: 'bottom-start' }}>
-            <Menu.Trigger
+            <MenuTrigger
               asChild={(props) => (
                 <button
                   {...props()}
@@ -79,14 +95,14 @@ export const Collapsed: Story = {
                   aria-label="Show hidden path items"
                   style={collapsedMenuTriggerStyle}
                 >
-                  <Breadcrumbs.Ellipsis />
+                  <BreadcrumbsEllipsis />
                 </button>
               )}
             />
-            <Menu.Positioner>
-              <Menu.Content style={collapsedMenuContentStyle}>
-                <Menu.Viewport>
-                  <Menu.Item
+            <MenuPositioner>
+              <MenuContent style={collapsedMenuContentStyle}>
+                <MenuViewport>
+                  <MenuItem
                     value="engineering"
                     asChild={(props) => (
                       <a {...props()} href="#">
@@ -94,7 +110,7 @@ export const Collapsed: Story = {
                       </a>
                     )}
                   />
-                  <Menu.Item
+                  <MenuItem
                     value="backend"
                     asChild={(props) => (
                       <a {...props()} href="#">
@@ -102,7 +118,7 @@ export const Collapsed: Story = {
                       </a>
                     )}
                   />
-                  <Menu.Item
+                  <MenuItem
                     value="golang"
                     asChild={(props) => (
                       <a {...props()} href="#">
@@ -110,20 +126,20 @@ export const Collapsed: Story = {
                       </a>
                     )}
                   />
-                </Menu.Viewport>
-              </Menu.Content>
-            </Menu.Positioner>
+                </MenuViewport>
+              </MenuContent>
+            </MenuPositioner>
           </Menu>
-        </Breadcrumbs.Item>
-        <Breadcrumbs.Separator />
-        <Breadcrumbs.Item>
-          <Breadcrumbs.Link href="#">Vacancies</Breadcrumbs.Link>
-        </Breadcrumbs.Item>
-        <Breadcrumbs.Separator />
-        <Breadcrumbs.Item>
-          <Breadcrumbs.Page>Go Developer</Breadcrumbs.Page>
-        </Breadcrumbs.Item>
-      </Breadcrumbs.List>
+        </BreadcrumbsItem>
+        <BreadcrumbsSeparator />
+        <BreadcrumbsItem>
+          <BreadcrumbsLink href="#">Vacancies</BreadcrumbsLink>
+        </BreadcrumbsItem>
+        <BreadcrumbsSeparator />
+        <BreadcrumbsItem>
+          <BreadcrumbsPage>Go Developer</BreadcrumbsPage>
+        </BreadcrumbsItem>
+      </BreadcrumbsList>
     </Breadcrumbs>
   ),
 };
@@ -131,7 +147,7 @@ export const Collapsed: Story = {
 export const CustomSeparator: Story = {
   render: () => (
     <Breadcrumbs>
-      <Breadcrumbs.Path
+      <BreadcrumbsPath
         links={defaultLinks}
         page={defaultPage}
         separator={<SeparatorMarkIcon style={{ width: '0.75rem', height: '0.25rem' }} />}
@@ -143,7 +159,7 @@ export const CustomSeparator: Story = {
 export const RightToLeft: Story = {
   render: () => (
     <Breadcrumbs dir="rtl" aria-label="مسار التنقل">
-      <Breadcrumbs.Path
+      <BreadcrumbsPath
         links={[
           { href: '#', label: 'الرئيسية' },
           { href: '#', label: 'الوظائف' },
@@ -157,31 +173,31 @@ export const RightToLeft: Story = {
 export const FrameworkLink: Story = {
   render: () => (
     <Breadcrumbs>
-      <Breadcrumbs.List>
-        <Breadcrumbs.Item>
-          <Breadcrumbs.Link
+      <BreadcrumbsList>
+        <BreadcrumbsItem>
+          <BreadcrumbsLink
             asChild={(props) => (
               <a {...props()} href="#home" data-framework-link>
                 Home
               </a>
             )}
           />
-        </Breadcrumbs.Item>
-        <Breadcrumbs.Separator />
-        <Breadcrumbs.Item>
-          <Breadcrumbs.Link
+        </BreadcrumbsItem>
+        <BreadcrumbsSeparator />
+        <BreadcrumbsItem>
+          <BreadcrumbsLink
             asChild={(props) => (
               <a {...props()} href="#vacancies" data-framework-link>
                 Vacancies
               </a>
             )}
           />
-        </Breadcrumbs.Item>
-        <Breadcrumbs.Separator />
-        <Breadcrumbs.Item>
-          <Breadcrumbs.Page>Go Developer</Breadcrumbs.Page>
-        </Breadcrumbs.Item>
-      </Breadcrumbs.List>
+        </BreadcrumbsItem>
+        <BreadcrumbsSeparator />
+        <BreadcrumbsItem>
+          <BreadcrumbsPage>Go Developer</BreadcrumbsPage>
+        </BreadcrumbsItem>
+      </BreadcrumbsList>
     </Breadcrumbs>
   ),
 };
@@ -189,7 +205,7 @@ export const FrameworkLink: Story = {
 export const LongCurrentLabel: Story = {
   render: () => (
     <Breadcrumbs>
-      <Breadcrumbs.Path
+      <BreadcrumbsPath
         links={[
           { href: '#', label: 'Home' },
           { href: '#', label: 'Vacancies' },
@@ -203,38 +219,38 @@ export const LongCurrentLabel: Story = {
 export const AdvancedCustomization: Story = {
   render: () => (
     <Breadcrumbs>
-      <Breadcrumbs.List>
-        <Breadcrumbs.Item>
-          <Breadcrumbs.Link
+      <BreadcrumbsList>
+        <BreadcrumbsItem>
+          <BreadcrumbsLink
             asChild={(props) => (
               <a {...props()} href="#home" data-framework-link>
                 Home
               </a>
             )}
           />
-        </Breadcrumbs.Item>
-        <Breadcrumbs.Separator />
-        <Breadcrumbs.Item>
-          <Breadcrumbs.Link
+        </BreadcrumbsItem>
+        <BreadcrumbsSeparator />
+        <BreadcrumbsItem>
+          <BreadcrumbsLink
             asChild={(props) => (
               <a {...props()} href="#engineering" data-framework-link>
                 Engineering
               </a>
             )}
           />
-        </Breadcrumbs.Item>
-        <Breadcrumbs.Separator>
+        </BreadcrumbsItem>
+        <BreadcrumbsSeparator>
           <SeparatorMarkIcon style={{ width: '0.75rem', height: '0.25rem' }} />
-        </Breadcrumbs.Separator>
-        <Breadcrumbs.Item>
-          <Breadcrumbs.Page>
+        </BreadcrumbsSeparator>
+        <BreadcrumbsItem>
+          <BreadcrumbsPage>
             <span title="Go lang developer to production team with cross-functional ownership and platform support">
               Go lang developer to production team with cross-functional ownership and platform
               support
             </span>
-          </Breadcrumbs.Page>
-        </Breadcrumbs.Item>
-      </Breadcrumbs.List>
+          </BreadcrumbsPage>
+        </BreadcrumbsItem>
+      </BreadcrumbsList>
     </Breadcrumbs>
   ),
 };

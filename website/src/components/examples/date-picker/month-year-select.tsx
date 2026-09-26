@@ -1,7 +1,31 @@
 import { createListCollection } from '@ark-ui/react/collection';
 import { parseDate } from '@ark-ui/react/date-picker';
-import { DatePicker } from '@moduix/react/date-picker';
-import { Select } from '@moduix/react/select';
+import {
+  DatePicker,
+  DatePickerContext,
+  DatePickerLabel,
+  DatePickerField,
+  DatePickerPositioner,
+  DatePickerContent,
+  DatePickerView,
+  DatePickerViewControl,
+  DatePickerPrevTrigger,
+  DatePickerNextTrigger,
+  DatePickerDayTable,
+} from '@moduix/react/date-picker';
+import {
+  Select,
+  SelectControl,
+  SelectTrigger,
+  SelectValueText,
+  SelectIndicator,
+  SelectPositioner,
+  SelectContent,
+  SelectList,
+  SelectItem,
+  SelectItemText,
+  SelectItemIndicator,
+} from '@moduix/react/select';
 import styles from '@/components/examples/date-picker/date-picker-month-year-select.module.css';
 
 const monthItems = [
@@ -24,12 +48,12 @@ const months = createListCollection({ items: monthItems });
 export default function MonthYearSelectDatePickerDemo() {
   return (
     <DatePicker defaultValue={[parseDate('2026-06-22')]}>
-      <DatePicker.Label>Report date</DatePicker.Label>
-      <DatePicker.Field />
-      <DatePicker.Positioner>
-        <DatePicker.Content>
-          <DatePicker.ViewControl className={styles.control}>
-            <DatePicker.Context>
+      <DatePickerLabel>Report date</DatePickerLabel>
+      <DatePickerField />
+      <DatePickerPositioner>
+        <DatePickerContent>
+          <DatePickerViewControl className={styles.control}>
+            <DatePickerContext>
               {(datePicker) => {
                 const yearItems = Array.from({ length: 12 }, (_, index) => {
                   const year = datePicker.focusedValue.year - 5 + index;
@@ -49,24 +73,24 @@ export default function MonthYearSelectDatePickerDemo() {
                           datePicker.setFocusedValue(datePicker.focusedValue.set({ month }));
                       }}
                     >
-                      <Select.Control>
-                        <Select.Trigger>
-                          <Select.ValueText />
-                        </Select.Trigger>
-                        <Select.Indicator />
-                      </Select.Control>
-                      <Select.Positioner>
-                        <Select.Content>
-                          <Select.List>
+                      <SelectControl>
+                        <SelectTrigger>
+                          <SelectValueText />
+                        </SelectTrigger>
+                        <SelectIndicator />
+                      </SelectControl>
+                      <SelectPositioner>
+                        <SelectContent>
+                          <SelectList>
                             {monthItems.map((item) => (
-                              <Select.Item key={item.value} item={item}>
-                                <Select.ItemText>{item.label}</Select.ItemText>
-                                <Select.ItemIndicator />
-                              </Select.Item>
+                              <SelectItem key={item.value} item={item}>
+                                <SelectItemText>{item.label}</SelectItemText>
+                                <SelectItemIndicator />
+                              </SelectItem>
                             ))}
-                          </Select.List>
-                        </Select.Content>
-                      </Select.Positioner>
+                          </SelectList>
+                        </SelectContent>
+                      </SelectPositioner>
                     </Select>
                     <Select
                       className={styles.yearSelect}
@@ -77,39 +101,39 @@ export default function MonthYearSelectDatePickerDemo() {
                         if (year) datePicker.setFocusedValue(datePicker.focusedValue.set({ year }));
                       }}
                     >
-                      <Select.Control>
-                        <Select.Trigger>
-                          <Select.ValueText />
-                        </Select.Trigger>
-                        <Select.Indicator />
-                      </Select.Control>
-                      <Select.Positioner>
-                        <Select.Content>
-                          <Select.List>
+                      <SelectControl>
+                        <SelectTrigger>
+                          <SelectValueText />
+                        </SelectTrigger>
+                        <SelectIndicator />
+                      </SelectControl>
+                      <SelectPositioner>
+                        <SelectContent>
+                          <SelectList>
                             {yearItems.map((item) => (
-                              <Select.Item key={item.value} item={item}>
-                                <Select.ItemText>{item.label}</Select.ItemText>
-                                <Select.ItemIndicator />
-                              </Select.Item>
+                              <SelectItem key={item.value} item={item}>
+                                <SelectItemText>{item.label}</SelectItemText>
+                                <SelectItemIndicator />
+                              </SelectItem>
                             ))}
-                          </Select.List>
-                        </Select.Content>
-                      </Select.Positioner>
+                          </SelectList>
+                        </SelectContent>
+                      </SelectPositioner>
                     </Select>
                   </div>
                 );
               }}
-            </DatePicker.Context>
+            </DatePickerContext>
             <div className={styles.nav}>
-              <DatePicker.PrevTrigger />
-              <DatePicker.NextTrigger />
+              <DatePickerPrevTrigger />
+              <DatePickerNextTrigger />
             </div>
-          </DatePicker.ViewControl>
-          <DatePicker.View view="day">
-            <DatePicker.DayTable showHeader={false} />
-          </DatePicker.View>
-        </DatePicker.Content>
-      </DatePicker.Positioner>
+          </DatePickerViewControl>
+          <DatePickerView view="day">
+            <DatePickerDayTable showHeader={false} />
+          </DatePickerView>
+        </DatePickerContent>
+      </DatePickerPositioner>
     </DatePicker>
   );
 }

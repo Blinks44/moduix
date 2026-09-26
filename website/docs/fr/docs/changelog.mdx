@@ -1,6 +1,6 @@
 ---
-title: Journal des modifications
-description: Nouveautés et changements importants de moduix.
+title: Nouveautés
+description: Changements notables de moduix.
 ---
 
 import { LocalizationHero } from '@/components/changelog/localization-hero';
@@ -11,6 +11,8 @@ import { TableOfContentsHero } from '@/components/changelog/table-of-contents-he
 import { SolidReleaseHero } from '@/components/changelog/solid-release-hero';
 import { TailwindReleaseHero } from '@/components/changelog/tailwind-release-hero';
 import { ChangelogNewsItem } from '@/components/changelog/hero';
+
+# Nouveautés
 
 <ChangelogNewsItem>
   <TailwindReleaseHero />
@@ -51,10 +53,10 @@ Indiquez les titres à suivre pour relier chaque entrée au titre correspondant.
 
 ### Un sommaire pour les pages longues
 
-Utilisez `Toc.Content` pour la zone de lecture et `Toc.Nav` pour la liste des titres. L’entrée active
+Utilisez `TocContent` pour la zone de lecture et `TocNav` pour la liste des titres. L’entrée active
 change au fil du défilement.
 
-Utilisez `Toc.Indicator` ou `Toc.Rail` pour montrer la hiérarchie. Ajoutez `Toc.RootProvider` lorsque
+Utilisez `TocIndicator` ou `TocRail` pour montrer la hiérarchie. Ajoutez `TocRootProvider` lorsque
 des contrôles externes doivent partager l’état du sommaire.
 </ChangelogNewsItem>
 
@@ -66,11 +68,11 @@ associés. C’est utile pour la navigation principale d’un site ou d’un pro
 
 ### Des groupes de liens sans masquer les destinations
 
-Utilisez `NavigationMenu.Link` pour une destination directe. Pour un groupe de liens, associez
-`NavigationMenu.Trigger` à `NavigationMenu.Content`.
+Utilisez `NavigationMenuLink` pour une destination directe. Pour un groupe de liens, associez
+`NavigationMenuTrigger` à `NavigationMenuContent`.
 
-Ajoutez `NavigationMenu.Viewport` lorsque plusieurs panneaux doivent s’animer dans une même zone.
-Ark UI gère le clavier, le focus et l’élément ouvert. `Arrow` est facultatif.
+Ajoutez `NavigationMenuViewport` lorsque plusieurs panneaux doivent s’animer dans une même zone.
+Ark UI gère le clavier, le focus et l’élément ouvert. `NavigationMenuArrow` est facultatif.
 </ChangelogNewsItem>
 
 <ChangelogNewsItem>
@@ -83,7 +85,7 @@ d’animation de moduix.
 ### Une figure cohérente pour les graphiques
 
 TanStack garde la responsabilité des marques, des échelles, des interactions et des fonctions de
-rappel. Composez le graphique avec `Chart.Header`, `Chart.Plot` et `Chart.Legend` pour obtenir une
+rappel. Composez le graphique avec `ChartHeader`, `ChartPlot` et `ChartLegend` pour obtenir une
 structure `figure` cohérente.
 
 TanStack gère aussi la navigation au clavier et le cycle de vie de l’infobulle. L’animation moduix
@@ -96,9 +98,7 @@ respecte la préférence pour la réduction des mouvements, et `motion={false}` 
 La documentation est maintenant disponible en anglais, en français et en russe. Les pages de
 composants, les exemples et les recettes sont traduits partout.
 
-### La documentation en trois langues
-
-Vous pouvez lire un guide, copier un exemple et suivre une recette sans changer de langue.
+### Documentation française et russe
 
 La navigation, les métadonnées, les routes adaptées à chaque langue et les exemples copiables restent
 alignés dans les trois langues.

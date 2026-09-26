@@ -1,7 +1,7 @@
 ---
 title: Input
 component: input
-description: A styled native single-line input built on Ark Field.Input, with native events and moduix styling.
+description: A styled native single-line input built on Ark FieldInput, with native events and moduix styling.
 ---
 
 import * as InputDocs from '@/components/examples/input/css-properties';
@@ -26,7 +26,7 @@ import inputSolidStates from '../../../snippets/input/solid/disabled-and-readonl
 
 ## API Reference
 
-`Input` is a styled wrapper around [Ark's `Field.Input`](https://ark-ui.com/docs/components/field).
+`Input` is a styled wrapper around [Ark's `FieldInput`](https://ark-ui.com/docs/components/field).
 It follows Ark's guidance for [composition](https://ark-ui.com/docs/guides/composition),
 [styling](https://ark-ui.com/docs/guides/styling), and [ref forwarding](https://ark-ui.com/docs/guides/ref).
 It renders a native single-line `<input>` and preserves browser form behavior and each framework's
@@ -115,14 +115,12 @@ See [Quick Start](/docs/quick-start) for full package setup, registry configurat
 
 ```text
 Field (optional wrapper)
-└─ Input / Input.Root
+└─ Input
 ```
 
 | Part                   | Role                                                                  |
 | ---------------------- | --------------------------------------------------------------------- |
-| `Input` / `Input.Root` | Styled version of Ark's `Field.Input` that renders a native single-line `<input>`. |
-
-`Input.Root` is an alias of `Input`; both render the same control.
+| `Input`                | Styled version of Ark's `FieldInput` that renders a native single-line `<input>`. |
 
 ## Composition
 

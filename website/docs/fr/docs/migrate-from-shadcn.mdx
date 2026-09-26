@@ -80,31 +80,31 @@ pour la migration.
 
 | Nom shadcn habituel | Utilisez dans moduix | Adaptation à prévoir |
 | --- | --- | --- |
-| Accordion | `Accordion` | Utilisez les parties nommées, comme `Accordion.Item` et `Accordion.ItemContent`. |
-| Alert Dialog | `Dialog` | Pour une confirmation critique, définissez `role="alertdialog"` sur `Dialog.Content`. |
-| Avatar | `Avatar` | Placez le contenu de repli et l’image dans `Avatar.Fallback` et `Avatar.Image`. |
-| Breadcrumb | `Breadcrumbs` | Le nom de la famille est au pluriel ; conservez les liens sémantiques et l’état de la page courante. |
-| Calendar | `DatePicker` ou `DateInput` | Utilisez `DatePicker` pour un calendrier et `DateInput` si seule la saisie de segments de date est nécessaire. |
-| Carousel | `Carousel` | Composez les contrôles, les indicateurs et le groupe d’éléments avec les parties nommées. |
-| Collapsible | `Collapsible` | Lisez `details.open` dans `onOpenChange(details)` au lieu d’attendre un booléen. |
-| Combobox | `Combobox` | Créez une collection Ark et définissez les valeurs des éléments-objets. |
-| Command | `CommandPalette` | Utilisez le composant dédié aux commandes plutôt qu’un alias de liste générique. |
-| Context Menu | `Menu.ContextTrigger` | Conservez la famille `Menu` et utilisez son déclencheur contextuel. |
-| Data Table | `Table` et la recette Data Table | Gardez le tri, le filtrage et l’état serveur dans le code de l’application. |
-| Date Picker | `DatePicker` | Utilisez la famille composée qui réunit saisie de date et calendrier. |
-| Dropdown Menu | `Menu` | Utilisez la composition habituelle avec `Menu.Trigger`. |
-| Form | `Field` et `Fieldset` | Utilisez-les pour structurer les champs ; laissez la validation et la soumission à votre bibliothèque de formulaires ou à l’application. |
-| Hover Card | `HoverCard` | Consultez la page du composant pour les parties explicites de positionnement et de fermeture. |
-| Input OTP | `PinInput` | Conservez sa configuration pour les formulaires natifs et le SSR. |
-| Progress | `ProgressLinear` ou `ProgressCircular` | Choisissez explicitement la forme visuelle souhaitée. |
-| Resizable | `Splitter` | Donnez des identifiants stables aux panneaux et gardez l’état de mise en page explicite. |
-| Select | `Select` | Utilisez une collection Ark plutôt qu’un tableau d’objets option ad hoc. |
-| Sheet | `Drawer` | Utilisez le composant de panneau latéral dont le cycle de vie est aligné sur celui de Dialog. |
-| Sidebar | `Sidebar` | Gardez la composition de la navigation produit et son comportement adaptatif dans l’application. |
-| Sonner / Toast | `Toast` et `Toaster` | L’application doit garder le contrôle du texte des notifications et du moment où elles apparaissent. |
-| Tabs | `Tabs` | Utilisez les parties composées nommées pour la même interaction d’onglets. |
-| Toggle Group | `ToggleGroup` | Utilisez les valeurs des éléments et l’état du groupe définis par le contrat Ark. |
-| Tooltip | `Tooltip` | Gardez explicites le déclencheur et le contenu rendu dans un portail. |
+| Accordion | [`Accordion`](/docs/accordion) | Utilisez les parties nommées, comme `AccordionItem` et `AccordionItemContent`. |
+| Alert Dialog | [`Dialog`](/docs/dialog) | Pour une confirmation critique, définissez `role="alertdialog"` sur `DialogContent`. |
+| Avatar | [`Avatar`](/docs/avatar) | Placez le contenu de repli et l’image dans `AvatarFallback` et `AvatarImage`. |
+| Breadcrumb | [`Breadcrumbs`](/docs/breadcrumbs) | Le nom de la famille est au pluriel ; conservez les liens sémantiques et l’état de la page courante. |
+| Calendar | [`DatePicker`](/docs/date-picker) ou [`DateInput`](/docs/date-input) | Utilisez `DatePicker` pour un calendrier et `DateInput` si seule la saisie de segments de date est nécessaire. |
+| Carousel | [`Carousel`](/docs/carousel) | Composez les contrôles, les indicateurs et le groupe d’éléments avec les parties nommées. |
+| Collapsible | [`Collapsible`](/docs/collapsible) | Lisez `details.open` dans `onOpenChange(details)` au lieu d’attendre un booléen. |
+| Combobox | [`Combobox`](/docs/combobox) | Créez une collection Ark et définissez les valeurs des éléments-objets. |
+| Command | [`CommandPalette`](/docs/command-palette) | Utilisez le composant dédié aux commandes plutôt qu’un alias de liste générique. |
+| Context Menu | [`MenuContextTrigger`](/docs/menu) | Conservez la famille `Menu` et utilisez son déclencheur contextuel. |
+| Data Table | [`Table`](/docs/table) et la [recette Data Table](/recipes/data-table) | Gardez le tri, le filtrage et l’état serveur dans le code de l’application. |
+| Date Picker | [`DatePicker`](/docs/date-picker) | Utilisez la famille composée qui réunit saisie de date et calendrier. |
+| Dropdown Menu | [`Menu`](/docs/menu) | Utilisez la composition habituelle avec `MenuTrigger`. |
+| Form | [`Field`](/docs/field) et [`Fieldset`](/docs/fieldset) | Utilisez-les pour structurer les champs ; laissez la validation et la soumission à votre bibliothèque de formulaires ou à l’application. |
+| Hover Card | [`HoverCard`](/docs/hover-card) | Consultez la page du composant pour les parties explicites de positionnement et de fermeture. |
+| Input OTP | [`PinInput`](/docs/pin-input) | Conservez sa configuration pour les formulaires natifs et le SSR. |
+| Progress | [`ProgressLinear`](/docs/progress-linear) ou [`ProgressCircular`](/docs/progress-circular) | Choisissez explicitement la forme visuelle souhaitée. |
+| Resizable | [`Splitter`](/docs/splitter) | Donnez des identifiants stables aux panneaux et gardez l’état de mise en page explicite. |
+| Select | [`Select`](/docs/select) | Utilisez une collection Ark plutôt qu’un tableau d’objets option ad hoc. |
+| Sheet | [`Drawer`](/docs/drawer) | Utilisez le composant de panneau latéral dont le cycle de vie est aligné sur celui de Dialog. |
+| Sidebar | [`Sidebar`](/docs/sidebar) | Gardez la composition de la navigation produit et son comportement adaptatif dans l’application. |
+| Sonner / Toast | [`Toast`](/docs/toast) et [`Toaster`](/docs/toast) | L’application doit garder le contrôle du texte des notifications et du moment où elles apparaissent. |
+| Tabs | [`Tabs`](/docs/tabs) | Utilisez les parties plates `TabsList` et `TabsTrigger` pour la même interaction. |
+| Toggle Group | [`ToggleGroup`](/docs/toggle-group) | Utilisez les valeurs des éléments et l’état du groupe définis par le contrat Ark. |
+| Tooltip | [`Tooltip`](/docs/tooltip) | Gardez explicites le déclencheur et le contenu rendu dans un portail. |
 
 Navigation Menu et Menubar ne nécessitent pas de remplacement forcé un pour un. Choisissez `Sidebar`,
 `Menu`, `Breadcrumbs` ou des liens ordinaires selon l’interaction attendue par votre produit.
@@ -117,64 +117,38 @@ Dans shadcn, chaque partie est généralement exportée comme un symbole local d
 import { Dialog, DialogContent, DialogTitle, DialogTrigger } from '@/components/ui/dialog';
 ```
 
-moduix regroupe toute la famille sous un même espace de noms :
-
-<Tabs groupId="framework">
-  <Tab label="React" value="react">
+moduix utilise les mêmes exports plats préfixés par le nom de la famille dans chaque framework :
 
 ```tsx
-import { Dialog } from '@moduix/react/dialog';
+import { Accordion, AccordionItem, AccordionItemContent, AccordionItemTrigger } from '@moduix/react/accordion';
 
-export function ProjectSettingsDialog() {
+export function FrequentlyAskedQuestions() {
   return (
-    <Dialog>
-      <Dialog.Trigger>Open settings</Dialog.Trigger>
-      <Dialog.Backdrop />
-      <Dialog.Positioner>
-        <Dialog.Content>
-          <Dialog.Title>Project settings</Dialog.Title>
-          <Dialog.CloseTrigger>Close</Dialog.CloseTrigger>
-        </Dialog.Content>
-      </Dialog.Positioner>
-    </Dialog>
+    <Accordion defaultValue={['first']}>
+      <AccordionItem value="first">
+        <AccordionItemTrigger>What is moduix?</AccordionItemTrigger>
+        <AccordionItemContent>A multi-framework component system.</AccordionItemContent>
+      </AccordionItem>
+    </Accordion>
   );
 }
 ```
 
-  </Tab>
-  <Tab label="Solid" value="solid">
+Avec Solid, seul le spécificateur d’import change :
 
 ```tsx
-import { Dialog } from '@moduix/solid/dialog';
-
-export function ProjectSettingsDialog() {
-  return (
-    <Dialog>
-      <Dialog.Trigger>Open settings</Dialog.Trigger>
-      <Dialog.Backdrop />
-      <Dialog.Positioner>
-        <Dialog.Content>
-          <Dialog.Title>Project settings</Dialog.Title>
-          <Dialog.CloseTrigger>Close</Dialog.CloseTrigger>
-        </Dialog.Content>
-      </Dialog.Positioner>
-    </Dialog>
-  );
-}
+import { Accordion, AccordionItem, AccordionItemContent, AccordionItemTrigger } from '@moduix/solid/accordion';
 ```
-
-  </Tab>
-</Tabs>
 
 Avec une installation qui copie le code dans le projet, gardez la composition et changez seulement
 le chemin d’import :
 
 ```tsx
-import { Dialog } from '@/components/ui/dialog';
+import { Accordion, AccordionItem, AccordionItemContent, AccordionItemTrigger } from '@/components/ui/accordion';
 ```
 
-Les parties explicites `Backdrop`, `Positioner` et `Content` montrent quels éléments gèrent le
-portail, le positionnement et la surface du dialogue. Vous pouvez les personnaliser séparément.
+Le nom de la famille désigne la racine. Chaque valeur supplémentaire est exportée directement avec
+le préfixe de la famille, sans objet d’espace de noms ni accès par notation pointée.
 
 ## Conservez votre approche actuelle des styles
 
@@ -225,58 +199,31 @@ pour connaître ses slots stables, ses variables CSS et ses propriétés `classN
 Les callbacks Ark reçoivent un objet `details`. Lisez-y la valeur nécessaire au lieu de reprendre
 tel quel un callback shadcn qui attend un argument positionnel :
 
-<Tabs groupId="framework">
-  <Tab label="React" value="react">
-
 ```tsx
 import { useState } from 'react';
-import { Dialog } from '@moduix/react/dialog';
+import { Accordion, AccordionItem, AccordionItemContent, AccordionItemTrigger } from '@moduix/react/accordion';
 
-export function ControlledDialog() {
-  const [open, setOpen] = useState(false);
+export function ControlledAccordion() {
+  const [value, setValue] = useState<string[]>([]);
 
   return (
-    <Dialog open={open} onOpenChange={(details) => setOpen(details.open)}>
-      <Dialog.Trigger>Open dialog</Dialog.Trigger>
-      <Dialog.Backdrop />
-      <Dialog.Positioner>
-        <Dialog.Content>
-          <Dialog.Title>Project settings</Dialog.Title>
-          <Dialog.CloseTrigger>Close</Dialog.CloseTrigger>
-        </Dialog.Content>
-      </Dialog.Positioner>
-    </Dialog>
+    <Accordion value={value} onValueChange={(details) => setValue(details.value)}>
+      <AccordionItem value="first">
+        <AccordionItemTrigger>What is moduix?</AccordionItemTrigger>
+        <AccordionItemContent>A multi-framework component system.</AccordionItemContent>
+      </AccordionItem>
+    </Accordion>
   );
 }
 ```
 
-  </Tab>
-  <Tab label="Solid" value="solid">
+Avec Solid, `useState` devient `createSignal` de `solid-js`, le signal se lit avec `value()` et les
+imports changent en conséquence :
 
 ```tsx
 import { createSignal } from 'solid-js';
-import { Dialog } from '@moduix/solid/dialog';
-
-export function ControlledDialog() {
-  const [open, setOpen] = createSignal(false);
-
-  return (
-    <Dialog open={open()} onOpenChange={(details) => setOpen(details.open)}>
-      <Dialog.Trigger>Open dialog</Dialog.Trigger>
-      <Dialog.Backdrop />
-      <Dialog.Positioner>
-        <Dialog.Content>
-          <Dialog.Title>Project settings</Dialog.Title>
-          <Dialog.CloseTrigger>Close</Dialog.CloseTrigger>
-        </Dialog.Content>
-      </Dialog.Positioner>
-    </Dialog>
-  );
-}
+import { Accordion, AccordionItem, AccordionItemContent, AccordionItemTrigger } from '@moduix/solid/accordion';
 ```
-
-  </Tab>
-</Tabs>
 
 Les composants qui utilisent des collections, notamment `Combobox` et `Select`, s’appuient sur un
 état de collection Ark explicite. Pour des éléments-objets, définissez avec `itemToString` et

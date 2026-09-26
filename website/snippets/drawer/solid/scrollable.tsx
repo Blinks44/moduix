@@ -1,7 +1,26 @@
 import { Button } from '@moduix/solid/button';
-import { Card } from '@moduix/solid/card';
-import { Drawer } from '@moduix/solid/drawer';
-import { ScrollArea } from '@moduix/solid/scroll-area';
+import { Card, CardBody } from '@moduix/solid/card';
+import {
+  Drawer,
+  DrawerBackdrop,
+  DrawerBody,
+  DrawerCloseIcon,
+  DrawerContent,
+  DrawerGrabber,
+  DrawerGrabberIndicator,
+  DrawerHeader,
+  DrawerPositioner,
+  DrawerTitle,
+  DrawerTrigger,
+} from '@moduix/solid/drawer';
+import {
+  ScrollArea,
+  ScrollAreaContent,
+  ScrollAreaCorner,
+  ScrollAreaScrollbar,
+  ScrollAreaThumb,
+  ScrollAreaViewport,
+} from '@moduix/solid/scroll-area';
 import { For } from 'solid-js';
 import styles from '@/components/examples/drawer/drawer-scrollable.module.css';
 
@@ -61,41 +80,41 @@ const snapPoints = [0.3, 1];
 export default function ScrollableDrawerDemo() {
   return (
     <Drawer snapPoints={snapPoints} defaultSnapPoint={snapPoints[0]}>
-      <Drawer.Trigger asChild={(props) => <Button {...props()}>Open scrollable drawer</Button>} />
-      <Drawer.Backdrop />
-      <Drawer.Positioner>
-        <Drawer.Content>
-          <Drawer.Grabber>
-            <Drawer.GrabberIndicator />
-          </Drawer.Grabber>
-          <Drawer.Header>
-            <Drawer.Title>Scrollable drawer</Drawer.Title>
-            <Drawer.CloseIcon />
-          </Drawer.Header>
-          <Drawer.Body class={styles.body}>
+      <DrawerTrigger asChild={(props) => <Button {...props()}>Open scrollable drawer</Button>} />
+      <DrawerBackdrop />
+      <DrawerPositioner>
+        <DrawerContent>
+          <DrawerGrabber>
+            <DrawerGrabberIndicator />
+          </DrawerGrabber>
+          <DrawerHeader>
+            <DrawerTitle>Scrollable drawer</DrawerTitle>
+            <DrawerCloseIcon />
+          </DrawerHeader>
+          <DrawerBody class={styles.body}>
             <ScrollArea class={styles.scrollArea}>
-              <ScrollArea.Viewport class={styles.viewport}>
-                <ScrollArea.Content class={styles.content}>
+              <ScrollAreaViewport class={styles.viewport}>
+                <ScrollAreaContent class={styles.content}>
                   <For each={scrollSections}>
                     {(section) => (
                       <Card size="sm" class={styles.card}>
-                        <Card.Body>
+                        <CardBody>
                           <strong>{section.title}</strong>
                           <p>{section.body}</p>
-                        </Card.Body>
+                        </CardBody>
                       </Card>
                     )}
                   </For>
-                </ScrollArea.Content>
-              </ScrollArea.Viewport>
-              <ScrollArea.Scrollbar>
-                <ScrollArea.Thumb />
-              </ScrollArea.Scrollbar>
-              <ScrollArea.Corner />
+                </ScrollAreaContent>
+              </ScrollAreaViewport>
+              <ScrollAreaScrollbar>
+                <ScrollAreaThumb />
+              </ScrollAreaScrollbar>
+              <ScrollAreaCorner />
             </ScrollArea>
-          </Drawer.Body>
-        </Drawer.Content>
-      </Drawer.Positioner>
+          </DrawerBody>
+        </DrawerContent>
+      </DrawerPositioner>
     </Drawer>
   );
 }

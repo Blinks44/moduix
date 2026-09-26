@@ -37,6 +37,22 @@ import carouselSolidSpacing from '../../../snippets/carousel/solid/spacing.tsx?r
 import carouselSolidThumbnailIndicators from '../../../snippets/carousel/solid/thumbnail-indicators.tsx?raw';
 import carouselSolidVariableSizes from '../../../snippets/carousel/solid/variable-sizes.tsx?raw';
 import carouselSolidVertical from '../../../snippets/carousel/solid/vertical.tsx?raw';
+import carouselVueAdvancedCustomization from '../../../snippets/carousel/vue/advanced-customization.vue?raw';
+import carouselVueAutoplay from '../../../snippets/carousel/vue/autoplay.vue?raw';
+import carouselVueBasic from '../../../snippets/carousel/vue/basic.vue?raw';
+import carouselVueCards from '../../../snippets/carousel/vue/cards.vue?raw';
+import carouselVueControlled from '../../../snippets/carousel/vue/controlled.vue?raw';
+import carouselVueDynamic from '../../../snippets/carousel/vue/dynamic.vue?raw';
+import carouselVueLoop from '../../../snippets/carousel/vue/loop.vue?raw';
+import carouselVueMouseDrag from '../../../snippets/carousel/vue/mouse-drag.vue?raw';
+import carouselVuePauseOnHover from '../../../snippets/carousel/vue/pause-on-hover.vue?raw';
+import carouselVueRootProvider from '../../../snippets/carousel/vue/root-provider.vue?raw';
+import carouselVueScrollToSlide from '../../../snippets/carousel/vue/scroll-to-slide.vue?raw';
+import carouselVueSlidesPerPage from '../../../snippets/carousel/vue/slides-per-page.vue?raw';
+import carouselVueSpacing from '../../../snippets/carousel/vue/spacing.vue?raw';
+import carouselVueThumbnailIndicators from '../../../snippets/carousel/vue/thumbnail-indicators.vue?raw';
+import carouselVueVariableSizes from '../../../snippets/carousel/vue/variable-sizes.vue?raw';
+import carouselVueVertical from '../../../snippets/carousel/vue/vertical.vue?raw';
 
 ## Справочник API
 
@@ -44,9 +60,9 @@ import carouselSolidVertical from '../../../snippets/carousel/solid/vertical.tsx
 
 ## Базовый пример
 
-Начните с `Carousel` в качестве корневого компонента. Добавьте `Carousel.ItemGroup` для ленты слайдов,
-поместите кнопки перехода в `Carousel.Control`, а стандартный пейджер выведите с помощью
-`Carousel.Indicators` и `Carousel.ProgressText`.
+Начните с `Carousel` в качестве корневого компонента. Добавьте `CarouselItemGroup` для ленты слайдов,
+поместите кнопки перехода в `CarouselControl`, а стандартный пейджер выведите с помощью
+`CarouselIndicators` и `CarouselProgressText`.
 
 
 <ExampleFrame variant="component">
@@ -60,6 +76,7 @@ import carouselSolidVertical from '../../../snippets/carousel/solid/vertical.tsx
     values={[
       { label: 'React', value: 'react' },
       { label: 'Solid', value: 'solid' },
+      { label: 'Vue', value: 'vue' },
     ]}
     className="docs-tabs"
   >
@@ -72,6 +89,11 @@ import carouselSolidVertical from '../../../snippets/carousel/solid/vertical.tsx
     <Tab value="solid">
 
 <CodeBlockRuntime lang="tsx" code={carouselSolidBasic} />
+
+    </Tab>
+    <Tab value="vue">
+
+<CodeBlockRuntime lang="vue" code={carouselVueBasic} />
 
     </Tab>
   </Tabs>
@@ -109,38 +131,48 @@ import carouselSolidVertical from '../../../snippets/carousel/solid/vertical.tsx
 />
 
   </Tab>
+  <Tab label="Vue" value="vue">
+
+<ShadcnInstallOptions
+  options={[
+    { label: 'CSS Modules', command: 'shadcn@latest add @moduix-vue/carousel' },
+    { label: 'Tailwind CSS', command: 'shadcn@latest add @moduix-vue-tailwind/carousel' },
+  ]}
+/>
+
+  </Tab>
 </Tabs>
 
 ## Анатомия
 
 ```text
-Carousel / Carousel.Root
-├─ Carousel.ItemGroup
-│  └─ Carousel.Item[index]
-├─ Carousel.Control
-│  ├─ Carousel.PrevTrigger
-│  └─ Carousel.NextTrigger
-├─ Carousel.IndicatorGroup
-│  └─ Carousel.Indicator[index]
-└─ Carousel.ProgressText
+Carousel
+├─ CarouselItemGroup
+│  └─ CarouselItem[index]
+├─ CarouselControl
+│  ├─ CarouselPrevTrigger
+│  └─ CarouselNextTrigger
+├─ CarouselIndicatorGroup
+│  └─ CarouselIndicator[index]
+└─ CarouselProgressText
 
-Carousel.RootProvider
+CarouselRootProvider
 └─ та же структура частей, подключённая к хранилищу useCarousel()
 ```
 
-| Элемент                      | Назначение                                                        |
-| ---------------------------- | ----------------------------------------------------------------- |
-| `Carousel` / `Carousel.Root` | Управляет состоянием, навигацией и коллекцией слайдов.            |
-| `Carousel.RootProvider`      | Подключает части к состоянию, созданному через `useCarousel()`.   |
-| `Carousel.Control`           | Контейнер для кнопок навигации и других элементов управления.    |
-| `Carousel.ItemGroup`         | Лента слайдов, содержащая части `Carousel.Item`.                 |
-| `Carousel.Item`              | Отдельный слайд со стабильным `index`.                            |
-| `Carousel.PrevTrigger`       | Кнопка перехода на предыдущую страницу.                          |
-| `Carousel.NextTrigger`       | Кнопка перехода на следующую страницу.                           |
-| `Carousel.Indicators`        | Компонент moduix для стандартных точек страниц.                  |
-| `Carousel.IndicatorGroup`    | Контейнер для пользовательских индикаторов страниц.              |
-| `Carousel.Indicator`         | Кнопка перехода на страницу с указанным индексом.                |
-| `Carousel.ProgressText`      | Текст с номером текущей страницы и общим числом страниц.          |
+| Элемент                   | Назначение                                                        |
+| ------------------------- | ----------------------------------------------------------------- |
+| `Carousel`                | Управляет состоянием, навигацией и коллекцией слайдов.            |
+| `CarouselRootProvider`    | Подключает части к состоянию, созданному через `useCarousel()`.   |
+| `CarouselControl`           | Контейнер для кнопок навигации и других элементов управления.    |
+| `CarouselItemGroup`         | Лента слайдов, содержащая части `CarouselItem`.                 |
+| `CarouselItem`              | Отдельный слайд со стабильным `index`.                            |
+| `CarouselPrevTrigger`       | Кнопка перехода на предыдущую страницу.                          |
+| `CarouselNextTrigger`       | Кнопка перехода на следующую страницу.                           |
+| `CarouselIndicators`        | Компонент moduix для стандартных точек страниц.                  |
+| `CarouselIndicatorGroup`    | Контейнер для пользовательских индикаторов страниц.              |
+| `CarouselIndicator`         | Кнопка перехода на страницу с указанным индексом.                |
+| `CarouselProgressText`      | Текст с номером текущей страницы и общим числом страниц.          |
 
 ## Композиция
 
@@ -149,14 +181,20 @@ Carousel.RootProvider
 маршрутизация, фильтры или другая часть приложения. Свойство `slideCount` обязательно и должно
 соответствовать отрисованным элементам при изменении коллекции.
 
-Используйте `Carousel.RootProvider` вместе с `useCarousel()`, если хранилище нужно создать вне дерева
-компонентов или разделить между границами композиции. Передайте это хранилище в `RootProvider` и не
+Используйте `CarouselRootProvider` вместе с `useCarousel()`, если хранилище нужно создать вне дерева
+компонентов или разделить между границами композиции. Передайте это хранилище в `CarouselRootProvider` и не
 отрисовывайте второй корневой `Carousel` для того же состояния.
 
-`Carousel.Indicators` читает `pageSnapPoints` из контекста и создаёт стандартные индикаторы. Для
-пользовательского содержимого индикаторов разместите `Carousel.IndicatorGroup` и `Carousel.Indicator`
-внутри `Carousel.Context`; используйте `pageSnapPoints` из API контекста, если число индикаторов должно
+`CarouselIndicators` читает `pageSnapPoints` из контекста и создаёт стандартные индикаторы. Для
+пользовательского содержимого индикаторов разместите `CarouselIndicatorGroup` и `CarouselIndicator`
+внутри `CarouselContext`; используйте `pageSnapPoints` из API контекста, если число индикаторов должно
 соответствовать рассчитанным страницам.
+
+В Solid назначайте ref на элемент, созданный внутри рендер-функции `asChild`. Ref на самой части
+Carousel не пробрасывается через этот путь композиции.
+
+Во Vue template-ref на части указывает на её отрисованный хост через `$el`, включая замещающий
+хост, созданный при использовании `asChild`.
 
 ## Примеры
 
@@ -165,7 +203,7 @@ Carousel.RootProvider
 Используйте автопрокрутку для галерей, в которых слайды переключаются сами, но оставляйте видимые
 элементы управления. В этом примере автопрокрутка останавливается при наведении указателя на карусель
 или при переходе фокуса внутрь неё. Пользователь может запустить её снова через
-`Carousel.AutoplayTrigger`.
+`CarouselAutoplayTrigger`.
 
 <ExampleFrame variant="component">
   <AutoplayCarousel />
@@ -173,7 +211,7 @@ Carousel.RootProvider
 
 <ExampleCode>
 <div className="docs-reference">
-  <Tabs groupId="framework" values={[{ label: 'React', value: 'react' }, { label: 'Solid', value: 'solid' }]} className="docs-tabs">
+  <Tabs groupId="framework" values={[{ label: 'React', value: 'react' }, { label: 'Solid', value: 'solid' }, { label: 'Vue', value: 'vue' }]} className="docs-tabs">
     <Tab value="react">
 
 ```tsx pure file="../../../src/components/examples/carousel/autoplay.tsx"
@@ -183,6 +221,11 @@ Carousel.RootProvider
     <Tab value="solid">
 
 <CodeBlockRuntime lang="tsx" code={carouselSolidAutoplay} />
+
+    </Tab>
+    <Tab value="vue">
+
+<CodeBlockRuntime lang="vue" code={carouselVueAutoplay} />
 
     </Tab>
   </Tabs>
@@ -208,7 +251,7 @@ Carousel.RootProvider
 
 <ExampleCode>
 <div className="docs-reference">
-  <Tabs groupId="framework" values={[{ label: 'React', value: 'react' }, { label: 'Solid', value: 'solid' }]} className="docs-tabs">
+  <Tabs groupId="framework" values={[{ label: 'React', value: 'react' }, { label: 'Solid', value: 'solid' }, { label: 'Vue', value: 'vue' }]} className="docs-tabs">
     <Tab value="react">
 
 ```tsx pure file="../../../src/components/examples/carousel/cards.tsx"
@@ -218,6 +261,11 @@ Carousel.RootProvider
     <Tab value="solid">
 
 <CodeBlockRuntime lang="tsx" code={carouselSolidCards} />
+
+    </Tab>
+    <Tab value="vue">
+
+<CodeBlockRuntime lang="vue" code={carouselVueCards} />
 
     </Tab>
   </Tabs>
@@ -240,7 +288,7 @@ Carousel.RootProvider
 
 <ExampleCode>
 <div className="docs-reference">
-  <Tabs groupId="framework" values={[{ label: 'React', value: 'react' }, { label: 'Solid', value: 'solid' }]} className="docs-tabs">
+  <Tabs groupId="framework" values={[{ label: 'React', value: 'react' }, { label: 'Solid', value: 'solid' }, { label: 'Vue', value: 'vue' }]} className="docs-tabs">
     <Tab value="react">
 
 ```tsx pure file="../../../src/components/examples/carousel/controlled.tsx"
@@ -250,6 +298,11 @@ Carousel.RootProvider
     <Tab value="solid">
 
 <CodeBlockRuntime lang="tsx" code={carouselSolidControlled} />
+
+    </Tab>
+    <Tab value="vue">
+
+<CodeBlockRuntime lang="vue" code={carouselVueControlled} />
 
     </Tab>
   </Tabs>
@@ -272,7 +325,7 @@ Carousel.RootProvider
 
 <ExampleCode>
 <div className="docs-reference">
-  <Tabs groupId="framework" values={[{ label: 'React', value: 'react' }, { label: 'Solid', value: 'solid' }]} className="docs-tabs">
+  <Tabs groupId="framework" values={[{ label: 'React', value: 'react' }, { label: 'Solid', value: 'solid' }, { label: 'Vue', value: 'vue' }]} className="docs-tabs">
     <Tab value="react">
 
 ```tsx pure file="../../../src/components/examples/carousel/dynamic.tsx"
@@ -282,6 +335,11 @@ Carousel.RootProvider
     <Tab value="solid">
 
 <CodeBlockRuntime lang="tsx" code={carouselSolidDynamic} />
+
+    </Tab>
+    <Tab value="vue">
+
+<CodeBlockRuntime lang="vue" code={carouselVueDynamic} />
 
     </Tab>
   </Tabs>
@@ -303,7 +361,7 @@ Carousel.RootProvider
 
 <ExampleCode>
 <div className="docs-reference">
-  <Tabs groupId="framework" values={[{ label: 'React', value: 'react' }, { label: 'Solid', value: 'solid' }]} className="docs-tabs">
+  <Tabs groupId="framework" values={[{ label: 'React', value: 'react' }, { label: 'Solid', value: 'solid' }, { label: 'Vue', value: 'vue' }]} className="docs-tabs">
     <Tab value="react">
 
 ```tsx pure file="../../../src/components/examples/carousel/loop.tsx"
@@ -313,6 +371,11 @@ Carousel.RootProvider
     <Tab value="solid">
 
 <CodeBlockRuntime lang="tsx" code={carouselSolidLoop} />
+
+    </Tab>
+    <Tab value="vue">
+
+<CodeBlockRuntime lang="vue" code={carouselVueLoop} />
 
     </Tab>
   </Tabs>
@@ -335,7 +398,7 @@ Carousel.RootProvider
 
 <ExampleCode>
 <div className="docs-reference">
-  <Tabs groupId="framework" values={[{ label: 'React', value: 'react' }, { label: 'Solid', value: 'solid' }]} className="docs-tabs">
+  <Tabs groupId="framework" values={[{ label: 'React', value: 'react' }, { label: 'Solid', value: 'solid' }, { label: 'Vue', value: 'vue' }]} className="docs-tabs">
     <Tab value="react">
 
 ```tsx pure file="../../../src/components/examples/carousel/mouse-drag.tsx"
@@ -345,6 +408,11 @@ Carousel.RootProvider
     <Tab value="solid">
 
 <CodeBlockRuntime lang="tsx" code={carouselSolidMouseDrag} />
+
+    </Tab>
+    <Tab value="vue">
+
+<CodeBlockRuntime lang="vue" code={carouselVueMouseDrag} />
 
     </Tab>
   </Tabs>
@@ -359,7 +427,7 @@ Carousel.RootProvider
 ### Пауза при наведении
 
 Используйте этот вариант, если автопрокрутка должна останавливаться, пока указатель находится над
-каруселью. В примере `Carousel.Context` вызывает `api.pause()` и `api.play()`, а фокус внутри карусели
+каруселью. В примере `CarouselContext` вызывает `api.pause()` и `api.play()`, а фокус внутри карусели
 также приостанавливает прокрутку.
 
 <ExampleFrame variant="component">
@@ -368,7 +436,7 @@ Carousel.RootProvider
 
 <ExampleCode>
 <div className="docs-reference">
-  <Tabs groupId="framework" values={[{ label: 'React', value: 'react' }, { label: 'Solid', value: 'solid' }]} className="docs-tabs">
+  <Tabs groupId="framework" values={[{ label: 'React', value: 'react' }, { label: 'Solid', value: 'solid' }, { label: 'Vue', value: 'vue' }]} className="docs-tabs">
     <Tab value="react">
 
 ```tsx pure file="../../../src/components/examples/carousel/pause-on-hover.tsx"
@@ -378,6 +446,11 @@ Carousel.RootProvider
     <Tab value="solid">
 
 <CodeBlockRuntime lang="tsx" code={carouselSolidPauseOnHover} />
+
+    </Tab>
+    <Tab value="vue">
+
+<CodeBlockRuntime lang="vue" code={carouselVuePauseOnHover} />
 
     </Tab>
   </Tabs>
@@ -391,7 +464,7 @@ Carousel.RootProvider
 
 ### Провайдер корня
 
-Используйте `Carousel.RootProvider`, когда состояние карусели нужно создать вне отрисовываемого дерева
+Используйте `CarouselRootProvider`, когда состояние карусели нужно создать вне отрисовываемого дерева
 и разделить между границами композиции.
 
 <ExampleFrame variant="component">
@@ -400,7 +473,7 @@ Carousel.RootProvider
 
 <ExampleCode>
 <div className="docs-reference">
-  <Tabs groupId="framework" values={[{ label: 'React', value: 'react' }, { label: 'Solid', value: 'solid' }]} className="docs-tabs">
+  <Tabs groupId="framework" values={[{ label: 'React', value: 'react' }, { label: 'Solid', value: 'solid' }, { label: 'Vue', value: 'vue' }]} className="docs-tabs">
     <Tab value="react">
 
 ```tsx pure file="../../../src/components/examples/carousel/root-provider.tsx"
@@ -410,6 +483,11 @@ Carousel.RootProvider
     <Tab value="solid">
 
 <CodeBlockRuntime lang="tsx" code={carouselSolidRootProvider} />
+
+    </Tab>
+    <Tab value="vue">
+
+<CodeBlockRuntime lang="vue" code={carouselVueRootProvider} />
 
     </Tab>
   </Tabs>
@@ -432,7 +510,7 @@ Carousel.RootProvider
 
 <ExampleCode>
 <div className="docs-reference">
-  <Tabs groupId="framework" values={[{ label: 'React', value: 'react' }, { label: 'Solid', value: 'solid' }]} className="docs-tabs">
+  <Tabs groupId="framework" values={[{ label: 'React', value: 'react' }, { label: 'Solid', value: 'solid' }, { label: 'Vue', value: 'vue' }]} className="docs-tabs">
     <Tab value="react">
 
 ```tsx pure file="../../../src/components/examples/carousel/scroll-to-slide.tsx"
@@ -442,6 +520,11 @@ Carousel.RootProvider
     <Tab value="solid">
 
 <CodeBlockRuntime lang="tsx" code={carouselSolidScrollToSlide} />
+
+    </Tab>
+    <Tab value="vue">
+
+<CodeBlockRuntime lang="vue" code={carouselVueScrollToSlide} />
 
     </Tab>
   </Tabs>
@@ -464,7 +547,7 @@ Carousel.RootProvider
 
 <ExampleCode>
 <div className="docs-reference">
-  <Tabs groupId="framework" values={[{ label: 'React', value: 'react' }, { label: 'Solid', value: 'solid' }]} className="docs-tabs">
+  <Tabs groupId="framework" values={[{ label: 'React', value: 'react' }, { label: 'Solid', value: 'solid' }, { label: 'Vue', value: 'vue' }]} className="docs-tabs">
     <Tab value="react">
 
 ```tsx pure file="../../../src/components/examples/carousel/slides-per-page.tsx"
@@ -474,6 +557,11 @@ Carousel.RootProvider
     <Tab value="solid">
 
 <CodeBlockRuntime lang="tsx" code={carouselSolidSlidesPerPage} />
+
+    </Tab>
+    <Tab value="vue">
+
+<CodeBlockRuntime lang="vue" code={carouselVueSlidesPerPage} />
 
     </Tab>
   </Tabs>
@@ -496,7 +584,7 @@ Carousel.RootProvider
 
 <ExampleCode>
 <div className="docs-reference">
-  <Tabs groupId="framework" values={[{ label: 'React', value: 'react' }, { label: 'Solid', value: 'solid' }]} className="docs-tabs">
+  <Tabs groupId="framework" values={[{ label: 'React', value: 'react' }, { label: 'Solid', value: 'solid' }, { label: 'Vue', value: 'vue' }]} className="docs-tabs">
     <Tab value="react">
 
 ```tsx pure file="../../../src/components/examples/carousel/spacing.tsx"
@@ -506,6 +594,11 @@ Carousel.RootProvider
     <Tab value="solid">
 
 <CodeBlockRuntime lang="tsx" code={carouselSolidSpacing} />
+
+    </Tab>
+    <Tab value="vue">
+
+<CodeBlockRuntime lang="vue" code={carouselVueSpacing} />
 
     </Tab>
   </Tabs>
@@ -528,7 +621,7 @@ Carousel.RootProvider
 
 <ExampleCode>
 <div className="docs-reference">
-  <Tabs groupId="framework" values={[{ label: 'React', value: 'react' }, { label: 'Solid', value: 'solid' }]} className="docs-tabs">
+  <Tabs groupId="framework" values={[{ label: 'React', value: 'react' }, { label: 'Solid', value: 'solid' }, { label: 'Vue', value: 'vue' }]} className="docs-tabs">
     <Tab value="react">
 
 ```tsx pure file="../../../src/components/examples/carousel/thumbnail-indicators.tsx"
@@ -538,6 +631,11 @@ Carousel.RootProvider
     <Tab value="solid">
 
 <CodeBlockRuntime lang="tsx" code={carouselSolidThumbnailIndicators} />
+
+    </Tab>
+    <Tab value="vue">
+
+<CodeBlockRuntime lang="vue" code={carouselVueThumbnailIndicators} />
 
     </Tab>
   </Tabs>
@@ -560,7 +658,7 @@ Carousel.RootProvider
 
 <ExampleCode>
 <div className="docs-reference">
-  <Tabs groupId="framework" values={[{ label: 'React', value: 'react' }, { label: 'Solid', value: 'solid' }]} className="docs-tabs">
+  <Tabs groupId="framework" values={[{ label: 'React', value: 'react' }, { label: 'Solid', value: 'solid' }, { label: 'Vue', value: 'vue' }]} className="docs-tabs">
     <Tab value="react">
 
 ```tsx pure file="../../../src/components/examples/carousel/variable-sizes.tsx"
@@ -570,6 +668,11 @@ Carousel.RootProvider
     <Tab value="solid">
 
 <CodeBlockRuntime lang="tsx" code={carouselSolidVariableSizes} />
+
+    </Tab>
+    <Tab value="vue">
+
+<CodeBlockRuntime lang="vue" code={carouselVueVariableSizes} />
 
     </Tab>
   </Tabs>
@@ -592,7 +695,7 @@ Carousel.RootProvider
 
 <ExampleCode>
 <div className="docs-reference">
-  <Tabs groupId="framework" values={[{ label: 'React', value: 'react' }, { label: 'Solid', value: 'solid' }]} className="docs-tabs">
+  <Tabs groupId="framework" values={[{ label: 'React', value: 'react' }, { label: 'Solid', value: 'solid' }, { label: 'Vue', value: 'vue' }]} className="docs-tabs">
     <Tab value="react">
 
 ```tsx pure file="../../../src/components/examples/carousel/vertical.tsx"
@@ -602,6 +705,11 @@ Carousel.RootProvider
     <Tab value="solid">
 
 <CodeBlockRuntime lang="tsx" code={carouselSolidVertical} />
+
+    </Tab>
+    <Tab value="vue">
+
+<CodeBlockRuntime lang="vue" code={carouselVueVertical} />
 
     </Tab>
   </Tabs>
@@ -615,7 +723,7 @@ Carousel.RootProvider
 
 ### Расширенная настройка
 
-Не используйте `Carousel.Indicators`, если нужно самостоятельно отрисовать `pageSnapPoints` или
+Не используйте `CarouselIndicators`, если нужно самостоятельно отрисовать `pageSnapPoints` или
 разместить элементы управления пейджером рядом с другими элементами, работающими через контекст.
 
 <ExampleFrame variant="component">
@@ -624,7 +732,7 @@ Carousel.RootProvider
 
 <ExampleCode>
 <div className="docs-reference">
-  <Tabs groupId="framework" values={[{ label: 'React', value: 'react' }, { label: 'Solid', value: 'solid' }]} className="docs-tabs">
+  <Tabs groupId="framework" values={[{ label: 'React', value: 'react' }, { label: 'Solid', value: 'solid' }, { label: 'Vue', value: 'vue' }]} className="docs-tabs">
     <Tab value="react">
 
 ```tsx pure file="../../../src/components/examples/carousel/advanced-customization.tsx"
@@ -634,6 +742,11 @@ Carousel.RootProvider
     <Tab value="solid">
 
 <CodeBlockRuntime lang="tsx" code={carouselSolidAdvancedCustomization} />
+
+    </Tab>
+    <Tab value="vue">
+
+<CodeBlockRuntime lang="vue" code={carouselVueAdvancedCustomization} />
 
     </Tab>
   </Tabs>
@@ -647,9 +760,9 @@ Carousel.RootProvider
 
 ## Стилизация
 
-Используйте `className` в React или `class` в Solid на экспортируемых частях для структурных стилей.
-Для стилей состояний предпочитайте атрибуты Ark UI, например `data-orientation`, `data-current` и
-`data-dragging`, вместе с селекторами moduix `data-slot`. Варианты Tailwind используют нативные
+Используйте `className` в React или `class` в Solid и Vue на экспортируемых частях для структурных
+стилей. Для стилей состояний предпочитайте атрибуты Ark UI, например `data-orientation`,
+`data-current` и `data-dragging`, вместе с селекторами moduix `data-slot`. Варианты Tailwind используют нативные
 utility-классы и переопределения через классы потребителя; приведённый ниже справочник CSS-свойств
 относится к пакетам CSS Modules.
 
@@ -665,6 +778,6 @@ utility-классы и переопределения через классы �
   `carousel-progress-text` - стабильные селекторы экспортируемых частей.
 - Ark UI также добавляет к отрисованным узлам `data-scope="carousel"` и имена `data-part`.
 - `data-orientation="horizontal" | "vertical"` доступен на корневом и структурных элементах.
-- `Carousel.ItemGroup` получает `data-dragging` во время перетаскивания.
-- `Carousel.Indicator` получает `data-current`, а `Carousel.Item` - `data-index` и `data-inview`.
-- `Carousel.Indicator` получает `data-readonly`, а `Carousel.AutoplayTrigger` - `data-pressed`.
+- `CarouselItemGroup` получает `data-dragging` во время перетаскивания.
+- `CarouselIndicator` получает `data-current`, а `CarouselItem` - `data-index` и `data-inview`.
+- `CarouselIndicator` получает `data-readonly`, а `CarouselAutoplayTrigger` - `data-pressed`.

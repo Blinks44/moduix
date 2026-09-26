@@ -1,9 +1,9 @@
-import { Tag } from '@moduix/solid/tag';
+import { Tag, TagLabel } from '@moduix/solid/tag';
 
 export default function TagDemo() {
   return (
     <Tag>
-      <Tag.Label>TypeScript</Tag.Label>
+      <TagLabel>TypeScript</TagLabel>
     </Tag>
   );
 }

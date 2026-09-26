@@ -1,5 +1,20 @@
 import { Button } from '@moduix/react/button';
-import { FloatingPanel } from '@moduix/react/floating-panel';
+import {
+  FloatingPanel,
+  FloatingPanelContext,
+  FloatingPanelTrigger,
+  FloatingPanelPositioner,
+  FloatingPanelContent,
+  FloatingPanelDragTrigger,
+  FloatingPanelHeader,
+  FloatingPanelTitle,
+  FloatingPanelControl,
+  FloatingPanelStageTrigger,
+  FloatingPanelCloseIcon,
+  FloatingPanelBody,
+  FloatingPanelResizeTriggerGroup,
+  FloatingPanelDragIndicator,
+} from '@moduix/react/floating-panel';
 import { PreviewMeta } from '@/components/mdx/Components';
 
 export default function ContextFloatingPanelDemo() {
@@ -10,32 +25,32 @@ export default function ContextFloatingPanelDemo() {
         height: 260,
       }}
     >
-      <FloatingPanel.Trigger asChild>
+      <FloatingPanelTrigger asChild>
         <Button>Open context panel</Button>
-      </FloatingPanel.Trigger>
-      <FloatingPanel.Positioner>
-        <FloatingPanel.Content>
-          <FloatingPanel.DragTrigger>
-            <FloatingPanel.Header>
-              <FloatingPanel.Title>
-                <FloatingPanel.DragIndicator />
+      </FloatingPanelTrigger>
+      <FloatingPanelPositioner>
+        <FloatingPanelContent>
+          <FloatingPanelDragTrigger>
+            <FloatingPanelHeader>
+              <FloatingPanelTitle>
+                <FloatingPanelDragIndicator />
                 Context state
-              </FloatingPanel.Title>
-              <FloatingPanel.Control>
-                <FloatingPanel.StageTrigger stage="minimized" />
-                <FloatingPanel.StageTrigger stage="maximized" />
-                <FloatingPanel.StageTrigger stage="default" />
-                <FloatingPanel.CloseIcon />
-              </FloatingPanel.Control>
-            </FloatingPanel.Header>
-          </FloatingPanel.DragTrigger>
-          <FloatingPanel.Body>
-            FloatingPanel.Context exposes the panel API to descendants.
-          </FloatingPanel.Body>
-          <FloatingPanel.ResizeTriggerGroup />
-        </FloatingPanel.Content>
-      </FloatingPanel.Positioner>
-      <FloatingPanel.Context>
+              </FloatingPanelTitle>
+              <FloatingPanelControl>
+                <FloatingPanelStageTrigger stage="minimized" />
+                <FloatingPanelStageTrigger stage="maximized" />
+                <FloatingPanelStageTrigger stage="default" />
+                <FloatingPanelCloseIcon />
+              </FloatingPanelControl>
+            </FloatingPanelHeader>
+          </FloatingPanelDragTrigger>
+          <FloatingPanelBody>
+            FloatingPanelContext exposes the panel API to descendants.
+          </FloatingPanelBody>
+          <FloatingPanelResizeTriggerGroup />
+        </FloatingPanelContent>
+      </FloatingPanelPositioner>
+      <FloatingPanelContext>
         {(panel) => (
           <PreviewMeta>
             <output>
@@ -43,7 +58,7 @@ export default function ContextFloatingPanelDemo() {
             </output>
           </PreviewMeta>
         )}
-      </FloatingPanel.Context>
+      </FloatingPanelContext>
     </FloatingPanel>
   );
 }

@@ -43,8 +43,8 @@ content panel and hides the other panels.
 ## Basic
 
 
-Start with `Tabs` and give each `Tabs.Trigger` and `Tabs.Content` the same `value`. Render
-`Tabs.Indicator` explicitly when you want a visual marker for the selected tab.
+Start with `Tabs` and give each `TabsTrigger` and `TabsContent` the same `value`. Render
+`TabsIndicator` explicitly when you want a visual marker for the selected tab.
 
 <ExampleFrame variant="component">
   <div className={tabsPreviewStyles.root}>
@@ -108,29 +108,29 @@ See [Quick Start](/docs/quick-start) for full package setup, registry configurat
 ## Anatomy
 
 ```text
-Tabs / Tabs.Root
-├─ Tabs.List
-│  ├─ Tabs.Trigger[value]
-│  ├─ Tabs.Trigger[value]
-│  └─ Tabs.Indicator
-└─ Tabs.Content[value]
+Tabs
+├─ TabsList
+│  ├─ TabsTrigger[value]
+│  ├─ TabsTrigger[value]
+│  └─ TabsIndicator
+└─ TabsContent[value]
 
-Tabs.RootProvider
+TabsRootProvider
 └─ same parts connected to a useTabs() store
 
-Tabs.Context
+TabsContext
 └─ render prop
 ```
 
 | Part                  | Role                                                               |
 | --------------------- | ------------------------------------------------------------------ |
-| `Tabs` / `Tabs.Root`  | Root that owns the selected value, focus, orientation, and mode.   |
-| `Tabs.RootProvider`   | Connects the parts to state created with moduix `useTabs()`.       |
-| `Tabs.Context`        | Exposes the current tab state through a render prop.              |
-| `Tabs.List`           | Groups triggers and manages focus movement between them.          |
-| `Tabs.Trigger`        | Interactive tab button, or an `asChild` host, with a required value. |
-| `Tabs.Indicator`      | Optional indicator for the selected tab.                           |
-| `Tabs.Content`        | Content panel associated with a matching trigger value.            |
+| `Tabs`                | Root that owns the selected value, focus, orientation, and mode.   |
+| `TabsRootProvider`   | Connects the parts to state created with moduix `useTabs()`.       |
+| `TabsContext`        | Exposes the current tab state through a render prop.              |
+| `TabsList`           | Groups triggers and manages focus movement between them.          |
+| `TabsTrigger`        | Interactive tab button, or an `asChild` host, with a required value. |
+| `TabsIndicator`      | Optional indicator for the selected tab.                           |
+| `TabsContent`        | Content panel associated with a matching trigger value.            |
 
 ## Composition
 
@@ -138,10 +138,10 @@ Use `defaultValue` for an uncontrolled component. When another part of the appli
 selection, pass `value` and `onValueChange(details)` and read the selected value from
 `details.value`.
 
-Use `Tabs.RootProvider` with `useTabs()` when the state must be created outside the rendered tree
-or shared with adjacent UI. Pass the store to `RootProvider` and do not render another `Tabs` root
-for the same state. Use `asChild` on `Tabs.Trigger` for a link or router component, and render
-`Tabs.Indicator` explicitly because `Tabs.List` does not add one automatically.
+Use `TabsRootProvider` with `useTabs()` when the state must be created outside the rendered tree
+or shared with adjacent UI. Pass the store to `TabsRootProvider` and do not render another `Tabs` root
+for the same state. Use `asChild` on `TabsTrigger` for a link or router component, and render
+`TabsIndicator` explicitly because `TabsList` does not add one automatically.
 
 ## Examples
 
@@ -183,7 +183,7 @@ Control the selected tab from application state when the active panel needs to c
 
 ### Custom Icons
 
-Place icons and labels directly inside `Tabs.Trigger`.
+Place icons and labels directly inside `TabsTrigger`.
 
 <ExampleFrame variant="component">
   <div className={tabsPreviewStyles.root}>
@@ -505,10 +505,10 @@ classes; the variables below customize the CSS Modules variants.
 Target the part that owns the visual concern:
 
 - `Tabs` for layout width, overall gap, orientation, and variant-level overrides
-- `Tabs.List` for list chrome, borders, background, and indicator-container spacing
-- `Tabs.Trigger` for label layout, icon spacing, selected and disabled states, and focus styling
-- `Tabs.Indicator` for custom indicator color, size, and transitions
-- `Tabs.Content` for the panel surface, padding, and focus styling
+- `TabsList` for list chrome, borders, background, and indicator-container spacing
+- `TabsTrigger` for label layout, icon spacing, selected and disabled states, and focus styling
+- `TabsIndicator` for custom indicator color, size, and transitions
+- `TabsContent` for the panel surface, padding, and focus styling
 
 The main public hooks are `data-slot="tabs-root"`, `data-slot="tabs-root-provider"`,
 `data-slot="tabs-list"`, `data-slot="tabs-trigger"`, `data-slot="tabs-indicator"`, and

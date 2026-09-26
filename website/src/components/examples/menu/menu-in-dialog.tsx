@@ -1,47 +1,66 @@
 import { Button } from '@moduix/react/button';
-import { Dialog } from '@moduix/react/dialog';
-import { Menu } from '@moduix/react/menu';
+import {
+  Dialog,
+  DialogBackdrop,
+  DialogCloseIcon,
+  DialogContent,
+  DialogDescription,
+  DialogHeader,
+  DialogPositioner,
+  DialogTitle,
+  DialogTrigger,
+} from '@moduix/react/dialog';
+import {
+  Menu,
+  MenuTrigger,
+  MenuIndicator,
+  MenuPositioner,
+  MenuContent,
+  MenuViewport,
+  MenuItem,
+  MenuSeparator,
+} from '@moduix/react/menu';
 import styles from '@/components/examples/menu/menu-menu-in-dialog.module.css';
 
 export default function MenuInDialogDemo() {
   return (
     <Dialog>
-      <Dialog.Trigger asChild>
+      <DialogTrigger asChild>
         <Button>Open dialog</Button>
-      </Dialog.Trigger>
-      <Dialog.Backdrop />
-      <Dialog.Positioner>
-        <Dialog.Content>
-          <Dialog.Header>
-            <Dialog.Title>Project settings</Dialog.Title>
-            <Dialog.CloseIcon />
-            <Dialog.Description>Choose an action without leaving the dialog.</Dialog.Description>
-          </Dialog.Header>
+      </DialogTrigger>
+      <DialogBackdrop />
+      <DialogPositioner>
+        <DialogContent>
+          <DialogHeader>
+            <DialogTitle>Project settings</DialogTitle>
+            <DialogCloseIcon />
+            <DialogDescription>Choose an action without leaving the dialog.</DialogDescription>
+          </DialogHeader>
           <div className={styles.stack}>
             <Menu portalled={false} positioning={{ strategy: 'fixed', hideWhenDetached: true }}>
-              <Menu.Trigger asChild>
+              <MenuTrigger asChild>
                 <Button variant="outline">
                   Actions
-                  <Menu.Indicator />
+                  <MenuIndicator />
                 </Button>
-              </Menu.Trigger>
-              <Menu.Positioner>
-                <Menu.Content>
-                  <Menu.Viewport>
-                    <Menu.Item value="rename">Rename project</Menu.Item>
-                    <Menu.Item value="duplicate">Duplicate project</Menu.Item>
-                    <Menu.Item value="move">Move to folder</Menu.Item>
-                    <Menu.Separator />
-                    <Menu.Item value="archive" tone="destructive">
+              </MenuTrigger>
+              <MenuPositioner>
+                <MenuContent>
+                  <MenuViewport>
+                    <MenuItem value="rename">Rename project</MenuItem>
+                    <MenuItem value="duplicate">Duplicate project</MenuItem>
+                    <MenuItem value="move">Move to folder</MenuItem>
+                    <MenuSeparator />
+                    <MenuItem value="archive" tone="destructive">
                       Archive project
-                    </Menu.Item>
-                  </Menu.Viewport>
-                </Menu.Content>
-              </Menu.Positioner>
+                    </MenuItem>
+                  </MenuViewport>
+                </MenuContent>
+              </MenuPositioner>
             </Menu>
           </div>
-        </Dialog.Content>
-      </Dialog.Positioner>
+        </DialogContent>
+      </DialogPositioner>
     </Dialog>
   );
 }

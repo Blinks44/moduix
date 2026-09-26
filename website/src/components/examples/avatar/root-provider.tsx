@@ -1,4 +1,4 @@
-import { Avatar, useAvatar } from '@moduix/react/avatar';
+import { AvatarFallback, AvatarImage, AvatarRootProvider, useAvatar } from '@moduix/react/avatar';
 import { Button } from '@moduix/react/button';
 import { useState } from 'react';
 import { PreviewMeta } from '@/components/mdx/Components';
@@ -15,10 +15,10 @@ export default function AvatarRootProviderDemo() {
 
   return (
     <div className={styles.root}>
-      <Avatar.RootProvider value={avatar}>
-        <Avatar.Fallback>AT</Avatar.Fallback>
-        <Avatar.Image src={avatarImages[imageIndex]} alt="Alex T." />
-      </Avatar.RootProvider>
+      <AvatarRootProvider value={avatar}>
+        <AvatarFallback>AT</AvatarFallback>
+        <AvatarImage src={avatarImages[imageIndex]} alt="Alex T." />
+      </AvatarRootProvider>
       <PreviewMeta>
         <output>Avatar: {imageIndex + 1}</output>
         <Button

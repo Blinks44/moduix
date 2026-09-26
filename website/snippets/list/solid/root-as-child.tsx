@@ -1,13 +1,13 @@
-import { List } from '@moduix/solid/list';
+import { List, ListItem } from '@moduix/solid/list';
 
 export default function RootAsChildListDemo() {
   return (
     <List
       asChild={(props) => (
         <ul {...props()} aria-label="Release tasks">
-          <List.Item>Prepare the release notes.</List.Item>
-          <List.Item>Publish the package.</List.Item>
-          <List.Item>Announce the release.</List.Item>
+          <ListItem>Prepare the release notes.</ListItem>
+          <ListItem>Publish the package.</ListItem>
+          <ListItem>Announce the release.</ListItem>
         </ul>
       )}
     />

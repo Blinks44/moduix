@@ -46,9 +46,10 @@ import popoverSolidWithArrow from '../../../snippets/popover/solid/with-arrow.ts
 
 ## Базовый пример
 
-
-Используйте части, показанные в примере, явно. Настройте позиционирование на корневом компоненте,
-а `asChild` используйте, если триггером должна быть ваша кнопка.
+Используйте `Popover` как корневой компонент, а остальные части импортируйте напрямую, например
+`PopoverTrigger` и `PopoverContent`. Эти плоские имена одинаковы в npm-пакетах и исходниках
+shadcn-реестра. Настройте позиционирование на корневом компоненте, а `asChild` используйте, если
+триггером должна быть ваша кнопка.
 
 <ExampleFrame variant="component">
   <PopoverBasic />
@@ -97,59 +98,57 @@ import popoverSolidWithArrow from '../../../snippets/popover/solid/with-arrow.ts
 ## Анатомия
 
 ```text
-Popover / Popover.Root
-├─ Popover.Anchor (необязательно)
-├─ Popover.Trigger
-│  └─ Popover.Indicator (необязательно)
+Popover
+├─ PopoverAnchor (необязательно)
+├─ PopoverTrigger
+│  └─ PopoverIndicator (необязательно)
 └─ Поддерево оверлея (автоматически переносится в портал)
-   └─ Popover.Positioner
-      └─ Popover.Content
-         ├─ Popover.Arrow
-         │  └─ Popover.ArrowTip
-         ├─ Popover.Header
-         │  ├─ Popover.Title
-         │  └─ Popover.Description
-         ├─ Popover.Body
-         ├─ Popover.Footer
-         └─ Popover.CloseTrigger / Popover.CloseIcon
+   └─ PopoverPositioner
+      └─ PopoverContent
+         ├─ PopoverArrow
+         │  └─ PopoverArrowTip
+         ├─ PopoverHeader
+         │  ├─ PopoverTitle
+         │  └─ PopoverDescription
+         ├─ PopoverBody
+         ├─ PopoverFooter
+         └─ PopoverCloseTrigger / PopoverCloseIcon
 
-Popover.RootProvider
+PopoverRootProvider
 └─ то же дерево частей, связанное с состоянием moduix из usePopover()
 
-Popover.Context
+PopoverContext
 └─ render prop с текущим состоянием всплывающего окна
 ```
 
 | Часть                         | Назначение                                                          |
 | ----------------------------- | ------------------------------------------------------------------- |
-| `Popover` / `Popover.Root`    | Управляет состоянием, открытием и закрытием, фокусом, закрытием при внешнем взаимодействии и позиционированием. |
-| `Popover.RootProvider`        | Подключает части к состоянию, созданному через `usePopover()`.      |
-| `Popover.Context`             | Передаёт потомкам текущее состояние через render prop.              |
-| `Popover.Anchor`              | Необязательный элемент, относительно которого выполняется позиционирование. |
-| `Popover.Trigger`             | Кнопка, открывающая и закрывающая окно; для триггера можно задать `value`. |
-| `Popover.Indicator`           | Необязательный индикатор состояния триггера.                        |
-| `Popover.Positioner`          | Плавающий слой с CSS-переменными Ark для позиционирования.          |
-| `Popover.Content`             | Видимая интерактивная область всплывающего окна.                    |
-| `Popover.Arrow` / `ArrowTip`  | Необязательная позиционируемая стрелка и её видимый наконечник.     |
-| `Popover.Title`               | Доступный заголовок, связанный с содержимым.                        |
-| `Popover.Description`         | Доступное описание, связанное с содержимым.                         |
-| `Popover.CloseTrigger`        | Низкоуровневый триггер, закрывающий окно.                            |
-| `Popover.CloseIcon`            | Вспомогательная часть moduix, объединяющая триггер закрытия Ark и кнопку с иконкой. |
-| `Popover.Header` / `Body`      | Вспомогательные обёртки moduix со стабильными слотами.              |
-| `Popover.Footer`               | Вспомогательная обёртка moduix для строки действий.                 |
-
-В коде приложения используйте короткую форму `Popover`. Явная форма `Popover.Root` пригодится,
-если имя корневой части помогает лучше понять композицию.
+| `Popover`    | Управляет состоянием, открытием и закрытием, фокусом, закрытием при внешнем взаимодействии и позиционированием. |
+| `PopoverRootProvider`        | Подключает части к состоянию, созданному через `usePopover()`.      |
+| `PopoverContext`             | Передаёт потомкам текущее состояние через render prop.              |
+| `PopoverAnchor`              | Необязательный элемент, относительно которого выполняется позиционирование. |
+| `PopoverTrigger`             | Кнопка, открывающая и закрывающая окно; для триггера можно задать `value`. |
+| `PopoverIndicator`           | Необязательный индикатор состояния триггера.                        |
+| `PopoverPositioner`          | Плавающий слой с CSS-переменными Ark для позиционирования.          |
+| `PopoverContent`             | Видимая интерактивная область всплывающего окна.                    |
+| `PopoverArrow` / `PopoverArrowTip`  | Необязательная позиционируемая стрелка и её видимый наконечник.     |
+| `PopoverTitle`               | Доступный заголовок, связанный с содержимым.                        |
+| `PopoverDescription`         | Доступное описание, связанное с содержимым.                         |
+| `PopoverCloseTrigger`        | Низкоуровневый триггер, закрывающий окно.                            |
+| `PopoverCloseIcon`            | Вспомогательная часть moduix, объединяющая триггер закрытия Ark и кнопку с иконкой. |
+| `PopoverHeader` / `PopoverBody`      | Вспомогательные обёртки moduix со стабильными слотами.              |
+| `PopoverFooter`               | Вспомогательная обёртка moduix для строки действий.                 |
 
 ## Композиция
 
-Оставляйте `Popover.Positioner` и `Popover.Content` явными, чтобы структуру оверлея было удобно
-стилизовать. `Positioner` по умолчанию размещается в портале. Установите `portalled={false}` для
+Оставляйте `PopoverPositioner` и `PopoverContent` явными, чтобы структуру оверлея было удобно
+стилизовать. `PopoverPositioner` по умолчанию размещается в портале. Установите `portalled={false}` для
 размещения в текущем DOM-дереве или передайте `portalRef` для собственного контейнера портала. При
-использовании `Popover.RootProvider` настройте `portalled` в `usePopover()` и передайте store
-провайдеру. Один и тот же store нельзя одновременно подключать через `Popover` или `Popover.Root`.
+использовании `PopoverRootProvider` настройте `portalled` в `usePopover()` и передайте store
+провайдеру. Один и тот же store нельзя одновременно подключать через `Popover` и
+`PopoverRootProvider`.
 
-Используйте `Anchor`, когда позиционирование должен определять другой элемент. Применяйте `asChild`
+Используйте `PopoverAnchor`, когда позиционирование должен определять другой элемент. Применяйте `asChild`
 с одним семантически подходящим дочерним элементом, если ваша разметка должна отрисовать триггер,
 якорь или триггер закрытия. Для вложенного Popover установите `portalled={false}` на корневой части,
 чтобы он оставался внутри родительского оверлея. Если несколько триггеров используют одно окно,
@@ -159,7 +158,7 @@ Popover.Context
 
 ### Якорный элемент
 
-Используйте `Anchor`, когда другой элемент должен задавать точку отсчёта для позиционирования.
+Используйте `PopoverAnchor`, когда другой элемент должен задавать точку отсчёта для позиционирования.
 
 <ExampleFrame variant="component">
   <PopoverAnchor />
@@ -208,7 +207,7 @@ Popover.Context
 ### Контекст
 
 Используйте `usePopoverContext()` внутри потомка, которому нужно текущее состояние окна.
-`Popover.Context` подойдёт, когда для композиции удобнее render prop.
+`PopoverContext` подойдёт, когда для композиции удобнее render prop.
 
 <ExampleFrame variant="component"><PopoverContext /></ExampleFrame>
 
@@ -373,7 +372,7 @@ Popover.Context
 
 ### Root Provider
 
-Используйте `usePopover()` вместе с `Popover.RootProvider`, когда внешние по отношению к дереву
+Используйте `usePopover()` вместе с `PopoverRootProvider`, когда внешние по отношению к дереву
 Popover элементы должны читать или изменять его состояние.
 
 <ExampleFrame variant="component"><PopoverRootProvider /></ExampleFrame>
@@ -422,8 +421,8 @@ Popover элементы должны читать или изменять ег�
 
 ### Со стрелкой
 
-Добавьте `Popover.Arrow`, если окно должно визуально указывать на элемент, относительно которого
-оно позиционируется. Обёртка по умолчанию выводит стилизованный moduix `ArrowTip`.
+Добавьте `PopoverArrow`, если окно должно визуально указывать на элемент, относительно которого
+оно позиционируется. Обёртка по умолчанию выводит стилизованный moduix `PopoverArrowTip`.
 
 <ExampleFrame variant="component"><PopoverWithArrow /></ExampleFrame>
 
@@ -490,12 +489,12 @@ Popover элементы должны читать или изменять ег�
 
 Каждая отрисованная часть принимает `className` или `class`. Части Ark сохраняют `data-scope="popover"`
 и значения `data-part`, а moduix добавляет к обёрткам стабильные `data-slot="popover-*"`. `Popover`
-и `Popover.RootProvider` предоставляют состояние, но не создают DOM-элементы. Для стилей, зависящих
+и `PopoverRootProvider` предоставляют состояние, но не создают DOM-элементы. Для стилей, зависящих
 от состояния, используйте `data-state="open|closed"`, `data-placement`, `data-side`, `data-value`,
 `data-nested`, `data-has-nested`, `data-expanded` и `data-current` для нескольких триггеров с `value`.
 
-`Positioner` предоставляет `--reference-width`, `--reference-height`, `--available-width`,
-`--available-height`, `--x`, `--y`, `--z-index` и `--transform-origin`. `Content` предоставляет
-`--layer-index` и `--nested-layer-count`, а `Arrow` предоставляет переменные измерения стрелки Ark.
+`PopoverPositioner` предоставляет `--reference-width`, `--reference-height`, `--available-width`,
+`--available-height`, `--x`, `--y`, `--z-index` и `--transform-origin`. `PopoverContent` предоставляет
+`--layer-index` и `--nested-layer-count`, а `PopoverArrow` предоставляет переменные измерения стрелки Ark.
 Содержимое переносит длинные строки без пробелов и отключает анимацию, если пользователь предпочитает
 уменьшить движение.

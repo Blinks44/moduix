@@ -2,6 +2,7 @@ import type { HTMLArkProps } from '@ark-ui/solid/factory';
 import { ark } from '@ark-ui/solid/factory';
 import { clsx } from 'clsx';
 import { splitProps } from 'solid-js';
+import { a11yLabels } from '@/lib/moduix/a11yLabels';
 import styles from './Spinner.module.css';
 
 type SpinnerProps = HTMLArkProps<'span'> & {
@@ -9,7 +10,7 @@ type SpinnerProps = HTMLArkProps<'span'> & {
   decorative?: boolean;
 };
 
-function SpinnerRoot(props: SpinnerProps) {
+function Spinner(props: SpinnerProps) {
   const [local, others] = splitProps(props, [
     'asChild',
     'children',
@@ -23,7 +24,7 @@ function SpinnerRoot(props: SpinnerProps) {
   const accessibleLabel = () =>
     decorative()
       ? undefined
-      : (local['aria-label'] ?? (local['aria-labelledby'] ? undefined : 'Loading'));
+      : (local['aria-label'] ?? (local['aria-labelledby'] ? undefined : a11yLabels.loading));
 
   return (
     <ark.span
@@ -58,9 +59,5 @@ function SpinnerRoot(props: SpinnerProps) {
     </ark.span>
   );
 }
-
-const Spinner = Object.assign(SpinnerRoot, {
-  Root: SpinnerRoot,
-});
 
 export { Spinner };

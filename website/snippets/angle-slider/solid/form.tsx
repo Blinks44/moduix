@@ -1,4 +1,10 @@
-import { AngleSlider } from '@moduix/solid/angle-slider';
+import {
+  AngleSlider,
+  AngleSliderDial,
+  AngleSliderHiddenInput,
+  AngleSliderLabel,
+  AngleSliderMarks,
+} from '@moduix/solid/angle-slider';
 import { createSignal } from 'solid-js';
 import styles from '@/components/examples/angle-slider/angle-slider-form.module.css';
 
@@ -15,11 +21,11 @@ export default function AngleSliderFormDemo() {
   return (
     <form class={styles.layout} onSubmit={handleSubmit}>
       <AngleSlider defaultValue={135} aria-label="Rotation" name="rotation" class={styles.root}>
-        <AngleSlider.Label>Rotation</AngleSlider.Label>
-        <AngleSlider.Dial>
-          <AngleSlider.Marks values={markerValues} />
-        </AngleSlider.Dial>
-        <AngleSlider.HiddenInput />
+        <AngleSliderLabel>Rotation</AngleSliderLabel>
+        <AngleSliderDial>
+          <AngleSliderMarks values={markerValues} />
+        </AngleSliderDial>
+        <AngleSliderHiddenInput />
       </AngleSlider>
       <div>
         <output>Submitted: {submitted()}</output>

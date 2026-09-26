@@ -1,36 +1,55 @@
 import { Button } from '@moduix/solid/button';
-import { ColorPicker, parseColor } from '@moduix/solid/color-picker';
-import { Dialog } from '@moduix/solid/dialog';
+import {
+  ColorPicker,
+  parseColor,
+  ColorPickerLabel,
+  ColorPickerControl,
+  ColorPickerTrigger,
+  ColorPickerPositioner,
+  ColorPickerContent,
+  ColorPickerArea,
+  ColorPickerChannelInput,
+} from '@moduix/solid/color-picker';
+import {
+  Dialog,
+  DialogBackdrop,
+  DialogCloseIcon,
+  DialogContent,
+  DialogDescription,
+  DialogPositioner,
+  DialogTitle,
+  DialogTrigger,
+} from '@moduix/solid/dialog';
 import styles from '@/components/examples/color-picker/color-picker-inside-dialog.module.css';
 
 export default function InsideDialogColorPickerDemo() {
   return (
-    <Dialog.Root>
-      <Dialog.Trigger asChild={(props) => <Button {...props()}>Open dialog</Button>} />
-      <Dialog.Backdrop />
-      <Dialog.Positioner>
-        <Dialog.Content>
-          <Dialog.CloseIcon />
-          <Dialog.Title>Choose a color</Dialog.Title>
-          <Dialog.Description>
+    <Dialog>
+      <DialogTrigger asChild={(props) => <Button {...props()}>Open dialog</Button>} />
+      <DialogBackdrop />
+      <DialogPositioner>
+        <DialogContent>
+          <DialogCloseIcon />
+          <DialogTitle>Choose a color</DialogTitle>
+          <DialogDescription>
             The color picker stays inside the dialog stacking context.
-          </Dialog.Description>
+          </DialogDescription>
           <div class={styles.dialogBody}>
             <ColorPicker portalled={false} defaultValue={parseColor('#eb5e41')}>
-              <ColorPicker.Label>Color</ColorPicker.Label>
-              <ColorPicker.Control>
-                <ColorPicker.ChannelInput channel="hex" />
-                <ColorPicker.Trigger aria-label="Open color picker" />
-              </ColorPicker.Control>
-              <ColorPicker.Positioner>
-                <ColorPicker.Content>
-                  <ColorPicker.Area />
-                </ColorPicker.Content>
-              </ColorPicker.Positioner>
+              <ColorPickerLabel>Color</ColorPickerLabel>
+              <ColorPickerControl>
+                <ColorPickerChannelInput channel="hex" />
+                <ColorPickerTrigger aria-label="Open color picker" />
+              </ColorPickerControl>
+              <ColorPickerPositioner>
+                <ColorPickerContent>
+                  <ColorPickerArea />
+                </ColorPickerContent>
+              </ColorPickerPositioner>
             </ColorPicker>
           </div>
-        </Dialog.Content>
-      </Dialog.Positioner>
-    </Dialog.Root>
+        </DialogContent>
+      </DialogPositioner>
+    </Dialog>
   );
 }

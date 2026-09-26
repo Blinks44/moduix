@@ -41,9 +41,9 @@ import floatingPanelSolidRootProvider from '../../../snippets/floating-panel/sol
 ## Базовый пример
 
 
-Явно соберите части Ark UI. `FloatingPanel.Positioner` применяет рассчитанные Ark значения позиции
-и размера, а `FloatingPanel.Content` представляет видимую поверхность окна. Заголовок становится
-областью перетаскивания, а `ResizeTriggerGroup` добавляет ручки изменения размера по краям панели.
+Явно соберите части Ark UI. `FloatingPanelPositioner` применяет рассчитанные Ark значения позиции
+и размера, а `FloatingPanelContent` представляет видимую поверхность окна. Заголовок становится
+областью перетаскивания, а `FloatingPanelResizeTriggerGroup` добавляет ручки изменения размера по краям панели.
 
 <ExampleFrame variant="component">
   <FloatingPanelBasic />
@@ -104,56 +104,56 @@ import floatingPanelSolidRootProvider from '../../../snippets/floating-panel/sol
 ## Анатомия
 
 ```text
-FloatingPanel / FloatingPanel.Root
-├─ FloatingPanel.Trigger
+FloatingPanel
+├─ FloatingPanelTrigger
 └─ Дерево оверлея (автоматически помещается в портал)
-   └─ FloatingPanel.Positioner
-      └─ FloatingPanel.Content
-         ├─ FloatingPanel.DragTrigger
-         │  └─ FloatingPanel.Header
-         │     ├─ FloatingPanel.Title
-         │     │  └─ FloatingPanel.DragIndicator (необязательно)
-         │     └─ FloatingPanel.Control
-         │        ├─ FloatingPanel.StageTrigger
-         │        └─ FloatingPanel.CloseTrigger / CloseIcon
-         ├─ FloatingPanel.Body
-         ├─ FloatingPanel.Footer
-         └─ FloatingPanel.ResizeTrigger / ResizeTriggerGroup
+   └─ FloatingPanelPositioner
+      └─ FloatingPanelContent
+         ├─ FloatingPanelDragTrigger
+         │  └─ FloatingPanelHeader
+         │     ├─ FloatingPanelTitle
+         │     │  └─ FloatingPanelDragIndicator (необязательно)
+         │     └─ FloatingPanelControl
+         │        ├─ FloatingPanelStageTrigger
+         │        └─ FloatingPanelCloseTrigger / FloatingPanelCloseIcon
+         ├─ FloatingPanelBody
+         ├─ FloatingPanelFooter
+         └─ FloatingPanelResizeTrigger / FloatingPanelResizeTriggerGroup
 ```
 
 | Часть                                      | Назначение                                                               |
 | ------------------------------------------ | ------------------------------------------------------------------------ |
-| `FloatingPanel` / `FloatingPanel.Root`     | Управляет состоянием открытия, позицией, размером, перетаскиванием и режимом окна. |
-| `FloatingPanel.Trigger`                    | Открывает панель или переключает её состояние.                           |
-| `FloatingPanel.Positioner`                 | Применяет рассчитанные Ark значения позиции, размера, трансформации и z-index. |
-| `FloatingPanel.Content`                    | Видимая поверхность плавающего окна.                                    |
-| `FloatingPanel.DragTrigger`                | Задаёт область, за которую можно перетаскивать панель, обычно заголовок.   |
-| `FloatingPanel.Header`                     | Часть Ark для заголовка и обёртка области перетаскивания.                 |
-| `FloatingPanel.Title`                      | Задаёт доступное имя панели.                                             |
-| `FloatingPanel.Control`                    | Группирует кнопки смены режима и закрытия.                               |
-| `FloatingPanel.StageTrigger`               | Переключает режимы `default`, `minimized` и `maximized`.                  |
-| `FloatingPanel.CloseTrigger` / `CloseIcon` | Закрывает панель.                                                        |
-| `FloatingPanel.Body`                       | Основная область содержимого с прокруткой.                               |
-| `FloatingPanel.Footer`                     | Необязательная нижняя область для действий или статуса.                  |
-| `FloatingPanel.ResizeTrigger`              | Ручка изменения размера для одной оси Ark.                              |
-| `FloatingPanel.ResizeTriggerGroup`         | Выводит все или выбранные ручки изменения размера.                       |
-| `FloatingPanel.RootProvider`               | Подключает части к состоянию из `FloatingPanel.useFloatingPanel()`.       |
+| `FloatingPanel`                           | Управляет состоянием открытия, позицией, размером, перетаскиванием и режимом окна. |
+| `FloatingPanelTrigger`                    | Открывает панель или переключает её состояние.                           |
+| `FloatingPanelPositioner`                 | Применяет рассчитанные Ark значения позиции, размера, трансформации и z-index. |
+| `FloatingPanelContent`                    | Видимая поверхность плавающего окна.                                    |
+| `FloatingPanelDragTrigger`                | Задаёт область, за которую можно перетаскивать панель, обычно заголовок.   |
+| `FloatingPanelHeader`                     | Часть Ark для заголовка и обёртка области перетаскивания.                 |
+| `FloatingPanelTitle`                      | Задаёт доступное имя панели.                                             |
+| `FloatingPanelControl`                    | Группирует кнопки смены режима и закрытия.                               |
+| `FloatingPanelStageTrigger`               | Переключает режимы `default`, `minimized` и `maximized`.                  |
+| `FloatingPanelCloseTrigger` / `FloatingPanelCloseIcon` | Закрывает панель.                                             |
+| `FloatingPanelBody`                       | Основная область содержимого с прокруткой.                               |
+| `FloatingPanelFooter`                     | Необязательная нижняя область для действий или статуса.                  |
+| `FloatingPanelResizeTrigger`              | Ручка изменения размера для одной оси Ark.                              |
+| `FloatingPanelResizeTriggerGroup`         | Выводит все или выбранные ручки изменения размера.                       |
+| `FloatingPanelRootProvider`               | Подключает части к состоянию из `useFloatingPanel()`.       |
 
-`FloatingPanel.DragIndicator`, `FloatingPanel.CloseIcon`, `FloatingPanel.Footer` и
-`FloatingPanel.ResizeTriggerGroup` являются вспомогательными частями moduix. Они дополняют
+`FloatingPanelDragIndicator`, `FloatingPanelCloseIcon`, `FloatingPanelFooter` и
+`FloatingPanelResizeTriggerGroup` являются вспомогательными частями moduix. Они дополняют
 структурные части Ark UI, но не заменяют их.
 
 ## Композиция
 
-Используйте `FloatingPanel` для локального состояния. Оставьте `Positioner` и `Content` явными,
-оберните заголовок в `DragTrigger` и добавьте `Title` для доступного имени. `Positioner` по умолчанию
+Используйте `FloatingPanel` для локального состояния. Оставьте `FloatingPanelPositioner` и `FloatingPanelContent` явными,
+оберните заголовок в `FloatingPanelDragTrigger` и добавьте `FloatingPanelTitle` для доступного имени. `FloatingPanelPositioner` по умолчанию
 выводится через портал. Установите `portalled={false}` или передайте `portalRef`, если панель должна
 находиться в другом контейнере.
 
 Если состояние должно находиться за пределами дерева панели, создайте его через
-`FloatingPanel.useFloatingPanel()` и передайте в `RootProvider`. Не используйте `FloatingPanel` и
-`RootProvider` для одного экземпляра состояния. `position` и `size` управляются независимо. Используйте
-`ResizeTriggerGroup axes` или отдельные `ResizeTrigger`, только если стандартный набор ручек не подходит.
+`useFloatingPanel()` и передайте в `FloatingPanelRootProvider`. Не используйте `FloatingPanel` и
+`FloatingPanelRootProvider` для одного экземпляра состояния. `position` и `size` управляются независимо. Используйте
+`FloatingPanelResizeTriggerGroup axes` или отдельные `FloatingPanelResizeTrigger`, только если стандартный набор ручек не подходит.
 Для `asChild` передавайте один семантически подходящий дочерний элемент; в Solid используется форма
 с render-функцией.
 
@@ -219,7 +219,7 @@ FloatingPanel / FloatingPanel.Root
 
 ### Контекст
 
-Используйте `FloatingPanel.Context` или `useFloatingPanelContext`, чтобы читать состояние и методы
+Используйте `FloatingPanelContext` или `useFloatingPanelContext`, чтобы читать состояние и методы
 панели внутри дерева компонентов. В Solid значение контекста является accessor-функцией.
 
 <ExampleFrame variant="component">
@@ -324,7 +324,7 @@ FloatingPanel / FloatingPanel.Root
 
 ### Закрытие по Escape
 
-`closeOnEscape` включён по умолчанию. Добавьте `autoFocus` к `Content`, чтобы Escape работал сразу
+`closeOnEscape` включён по умолчанию. Добавьте `autoFocus` к `FloatingPanelContent`, чтобы Escape работал сразу
 после открытия немодальной панели.
 
 <ExampleFrame variant="component">
@@ -376,9 +376,9 @@ FloatingPanel / FloatingPanel.Root
 </div>
 </ExampleCode>
 
-### RootProvider
+### FloatingPanelRootProvider
 
-Используйте `FloatingPanel.useFloatingPanel` вместе с `RootProvider`, если элементам управления за
+Используйте `useFloatingPanel` вместе с `FloatingPanelRootProvider`, если элементам управления за
 пределами дерева панели нужны методы `minimize`, `maximize` и `setOpen`. В Solid состояние хранилища
 читается через accessor-функцию.
 
@@ -406,7 +406,7 @@ FloatingPanel / FloatingPanel.Root
 
 ### Расширенная настройка
 
-Используйте отдельные части `ResizeTrigger`, если каждой оси изменения размера нужны свои положение
+Используйте отдельные части `FloatingPanelResizeTrigger`, если каждой оси изменения размера нужны свои положение
 или стили.
 
 <ExampleFrame variant="component">
@@ -456,7 +456,7 @@ FloatingPanel / FloatingPanel.Root
 `data-dragging`, `data-disabled`, `data-stage`, `data-topmost`, `data-behind`, `data-minimized`,
 `data-maximized`, `data-staged` и `data-axis` для стилизации состояния соответствующих частей.
 
-`Positioner` предоставляет `--width`, `--height`, `--x`, `--y`, `--reference-width`,
+`FloatingPanelPositioner` предоставляет `--width`, `--height`, `--x`, `--y`, `--reference-width`,
 `--reference-height`, `--available-width`, `--available-height`, `--z-index` и `--transform-origin`.
 Для размеров и трансформаций используйте переменные Ark, обновляемые во время работы, а не дублируйте измерения
 в коде приложения.

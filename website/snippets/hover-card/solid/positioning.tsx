@@ -1,13 +1,19 @@
-import { HoverCard } from '@moduix/solid/hover-card';
+import {
+  HoverCard,
+  HoverCardBody,
+  HoverCardContent,
+  HoverCardPositioner,
+  HoverCardTrigger,
+} from '@moduix/solid/hover-card';
 import styles from '@/components/examples/hover-card/hover-card-positioning.module.css';
 
 export default function PositioningHoverCard() {
   return (
     <HoverCard positioning={{ placement: 'right', gutter: 12 }}>
-      <HoverCard.Trigger class={styles.trigger}>Atlas workspace</HoverCard.Trigger>
-      <HoverCard.Positioner>
-        <HoverCard.Content>
-          <HoverCard.Body>
+      <HoverCardTrigger class={styles.trigger}>Atlas workspace</HoverCardTrigger>
+      <HoverCardPositioner>
+        <HoverCardContent>
+          <HoverCardBody>
             <div class={styles.preview}>
               <img
                 alt="Sunlit workspace with a laptop and plants"
@@ -21,9 +27,9 @@ export default function PositioningHoverCard() {
                 </p>
               </div>
             </div>
-          </HoverCard.Body>
-        </HoverCard.Content>
-      </HoverCard.Positioner>
+          </HoverCardBody>
+        </HoverCardContent>
+      </HoverCardPositioner>
     </HoverCard>
   );
 }

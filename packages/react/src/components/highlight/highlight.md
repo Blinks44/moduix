@@ -26,7 +26,7 @@ Preserve these upstream behaviors:
 
 ## Current behavior contract
 
-- `Highlight` is the callable root and `Highlight.Root` is the same component.
+- `Highlight` is the callable root and `Highlight` is the same component.
 - The component renders one `<mark>` per matched chunk and plain text nodes for unmatched chunks.
 - If the query does not match, the component renders only plain text with no `<mark>` output.
 - `matchAll` defaults to `false` for a string query and to `true` for a string-array query. A string
@@ -38,13 +38,13 @@ Preserve these upstream behaviors:
 ## Anatomy and exported parts
 
 ```text
-Highlight / Highlight.Root
+Highlight
 └─ repeated <mark> segments for matched ranges inside the provided text
 ```
 
-| Part                           | `data-slot`      | Notes                                                                    |
-| ------------------------------ | ---------------- | ------------------------------------------------------------------------ |
-| `Highlight` / `Highlight.Root` | `highlight-root` | Applied to every matched `<mark>` segment; no outer wrapper is rendered. |
+| Part                      | `data-slot`      | Notes                                                                    |
+| ------------------------- | ---------------- | ------------------------------------------------------------------------ |
+| `Highlight` / `Highlight` | `highlight-root` | Applied to every matched `<mark>` segment; no outer wrapper is rendered. |
 
 ## Composition
 
@@ -126,7 +126,7 @@ Public CSS variables:
 ## Intentional sugar and differences from upstream
 
 - moduix adds default highlight styling and stable `data-slot` hooks on every matched `<mark>`.
-- moduix exposes `Highlight.Root` for consistency with other root-only components in the package.
+- moduix exposes `Highlight` for consistency with other root-only components in the package.
 - moduix keeps the public API narrow and does not add a chunk-rendering API.
 
 ## Agent notes

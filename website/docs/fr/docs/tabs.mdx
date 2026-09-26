@@ -43,8 +43,8 @@ onglet affiche le panneau correspondant et masque les autres panneaux.
 ## Exemple de base
 
 
-Commencez avec `Tabs` et donnez la même valeur `value` à chaque paire `Tabs.Trigger` et
-`Tabs.Content`. Rendez `Tabs.Indicator` explicitement lorsque l’onglet sélectionné doit avoir un
+Commencez avec `Tabs` et donnez la même valeur `value` à chaque paire `TabsTrigger` et
+`TabsContent`. Rendez `TabsIndicator` explicitement lorsque l’onglet sélectionné doit avoir un
 marqueur visuel.
 
 <ExampleFrame variant="component">
@@ -109,29 +109,29 @@ Consultez le [Démarrage rapide](/docs/quick-start) pour la configuration compl�
 ## Anatomie
 
 ```text
-Tabs / Tabs.Root
-├─ Tabs.List
-│  ├─ Tabs.Trigger[value]
-│  ├─ Tabs.Trigger[value]
-│  └─ Tabs.Indicator
-└─ Tabs.Content[value]
+Tabs
+├─ TabsList
+│  ├─ TabsTrigger[value]
+│  ├─ TabsTrigger[value]
+│  └─ TabsIndicator
+└─ TabsContent[value]
 
-Tabs.RootProvider
+TabsRootProvider
 └─ mêmes parties reliées à un store useTabs()
 
-Tabs.Context
+TabsContext
 └─ render prop
 ```
 
 | Partie                | Rôle                                                               |
 | --------------------- | ------------------------------------------------------------------ |
-| `Tabs` / `Tabs.Root`  | Racine qui gère la valeur sélectionnée, le focus, l’orientation et le mode. |
-| `Tabs.RootProvider`   | Relie les parties à l’état créé avec `useTabs()` de moduix.        |
-| `Tabs.Context`        | Expose l’état courant des onglets via une render prop.             |
-| `Tabs.List`           | Regroupe les déclencheurs et gère les déplacements du focus.       |
-| `Tabs.Trigger`        | Bouton d’onglet interactif, ou hôte `asChild`, avec une valeur obligatoire. |
-| `Tabs.Indicator`      | Indicateur facultatif de l’onglet sélectionné.                     |
-| `Tabs.Content`        | Panneau associé au déclencheur qui possède la même valeur.        |
+| `Tabs`                | Racine qui gère la valeur sélectionnée, le focus, l’orientation et le mode. |
+| `TabsRootProvider`   | Relie les parties à l’état créé avec `useTabs()` de moduix.        |
+| `TabsContext`        | Expose l’état courant des onglets via une render prop.             |
+| `TabsList`           | Regroupe les déclencheurs et gère les déplacements du focus.       |
+| `TabsTrigger`        | Bouton d’onglet interactif, ou hôte `asChild`, avec une valeur obligatoire. |
+| `TabsIndicator`      | Indicateur facultatif de l’onglet sélectionné.                     |
+| `TabsContent`        | Panneau associé au déclencheur qui possède la même valeur.        |
 
 ## Composition
 
@@ -139,10 +139,10 @@ Utilisez `defaultValue` pour un composant non contrôlé. Lorsqu’une autre par
 gère la sélection, transmettez `value` et `onValueChange(details)`, puis lisez la valeur choisie
 dans `details.value`.
 
-Utilisez `Tabs.RootProvider` avec `useTabs()` lorsque l’état doit être créé en dehors de l’arbre
-rendu ou partagé avec une interface voisine. Transmettez le store à `RootProvider` et ne rendez pas
-une autre racine `Tabs` pour ce même état. Utilisez `asChild` sur `Tabs.Trigger` pour un lien ou un
-composant de routeur, et rendez `Tabs.Indicator` explicitement, car `Tabs.List` ne l’ajoute pas
+Utilisez `TabsRootProvider` avec `useTabs()` lorsque l’état doit être créé en dehors de l’arbre
+rendu ou partagé avec une interface voisine. Transmettez le store à `TabsRootProvider` et ne rendez pas
+une autre racine `Tabs` pour ce même état. Utilisez `asChild` sur `TabsTrigger` pour un lien ou un
+composant de routeur, et rendez `TabsIndicator` explicitement, car `TabsList` ne l’ajoute pas
 automatiquement.
 
 ## Exemples
@@ -186,7 +186,7 @@ d’autres éléments de l’interface.
 
 ### Icônes personnalisées
 
-Placez directement les icônes et les libellés dans `Tabs.Trigger`.
+Placez directement les icônes et les libellés dans `TabsTrigger`.
 
 <ExampleFrame variant="component">
   <div className={tabsPreviewStyles.root}>
@@ -511,10 +511,10 @@ variables ci-dessous personnalisent les variantes CSS Modules.
 Ciblez la partie qui porte la responsabilité visuelle concernée :
 
 - `Tabs` pour la largeur, l’espacement général, l’orientation et les remplacements liés à la variante
-- `Tabs.List` pour le fond, les bordures, l’habillage de la liste et l’espacement autour de l’indicateur
-- `Tabs.Trigger` pour la disposition du libellé, l’espacement de l’icône, les états sélectionné et désactivé, et le focus
-- `Tabs.Indicator` pour la couleur, la taille et les transitions de l’indicateur
-- `Tabs.Content` pour la surface, les marges internes et le focus du panneau
+- `TabsList` pour le fond, les bordures, l’habillage de la liste et l’espacement autour de l’indicateur
+- `TabsTrigger` pour la disposition du libellé, l’espacement de l’icône, les états sélectionné et désactivé, et le focus
+- `TabsIndicator` pour la couleur, la taille et les transitions de l’indicateur
+- `TabsContent` pour la surface, les marges internes et le focus du panneau
 
 Les principaux points d’accroche publics sont `data-slot="tabs-root"`,
 `data-slot="tabs-root-provider"`, `data-slot="tabs-list"`, `data-slot="tabs-trigger"`,

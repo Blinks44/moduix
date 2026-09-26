@@ -11,6 +11,7 @@ import {
 import { clsx } from 'clsx';
 import { For, children, splitProps } from 'solid-js';
 import type { ComponentProps } from 'solid-js';
+import { a11yLabels } from '@/lib/moduix/a11yLabels';
 import {
   OverlayPortal,
   OverlayPortalProvider,
@@ -19,12 +20,10 @@ import {
 import { CloseButton } from '../close-button';
 import styles from './Tour.module.css';
 
-const DEFAULT_CLOSE_BUTTON_LABEL = 'Close tour';
-
 type TourRootProps = ComponentProps<typeof TourPrimitive.Root> & OverlayPortalProps;
 type TourCloseIconProps = Omit<ComponentProps<typeof TourPrimitive.CloseTrigger>, 'asChild'>;
 
-function TourRoot(props: TourRootProps) {
+function Tour(props: TourRootProps) {
   const [local, others] = splitProps(props, [
     'children',
     'lazyMount',
@@ -185,15 +184,15 @@ function TourCloseIcon(props: TourCloseIconProps) {
   return (
     <TourPrimitive.CloseTrigger
       asChild={(triggerProps) => (
-        <CloseButton.Root
+        <CloseButton
           {...triggerProps()}
           data-slot="tour-close-icon"
-          aria-label={local['aria-label'] ?? DEFAULT_CLOSE_BUTTON_LABEL}
+          aria-label={local['aria-label'] ?? a11yLabels.closeTour}
           aria-labelledby={local['aria-labelledby']}
           class={clsx(styles.closeIcon, local.class)}
         >
           {resolvedChildren()}
-        </CloseButton.Root>
+        </CloseButton>
       )}
       {...others}
     />
@@ -241,29 +240,27 @@ function TourActionList(props: { class?: string }) {
   );
 }
 
-const Tour = Object.assign(TourRoot, {
-  Root: TourRoot,
-  Context: TourPrimitive.Context,
-  Backdrop: TourBackdrop,
-  Spotlight: TourSpotlight,
-  Positioner: TourPositioner,
-  Content: TourContent,
-  Arrow: TourArrow,
-  ArrowTip: TourArrowTip,
-  Title: TourTitle,
-  Description: TourDescription,
-  ProgressText: TourProgressText,
-  Body: TourBody,
-  CloseTrigger: TourCloseTrigger,
-  CloseIcon: TourCloseIcon,
-  Control: TourControl,
-  Actions: TourActions,
-  ActionList: TourActionList,
-  ActionTrigger: TourActionTrigger,
-});
+const TourContext = TourPrimitive.Context;
 
 export {
   Tour,
+  TourActionList,
+  TourActionTrigger,
+  TourActions,
+  TourArrow,
+  TourArrowTip,
+  TourBackdrop,
+  TourBody,
+  TourCloseIcon,
+  TourCloseTrigger,
+  TourContent,
+  TourContext,
+  TourControl,
+  TourDescription,
+  TourPositioner,
+  TourProgressText,
+  TourSpotlight,
+  TourTitle,
   useTour,
   useTourContext,
   waitForElement,

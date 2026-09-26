@@ -43,8 +43,8 @@ import tabsSolidVertical from '../../../snippets/tabs/solid/vertical.tsx?raw';
 ## Базовый пример
 
 
-Начните с `Tabs` и задайте одинаковое значение `value` для каждой пары `Tabs.Trigger` и
-`Tabs.Content`. Добавьте `Tabs.Indicator`, если выбранную вкладку нужно отметить визуально.
+Начните с `Tabs` и задайте одинаковое значение `value` для каждой пары `TabsTrigger` и
+`TabsContent`. Добавьте `TabsIndicator`, если выбранную вкладку нужно отметить визуально.
 
 <ExampleFrame variant="component">
   <div className={tabsPreviewStyles.root}>
@@ -108,29 +108,29 @@ import tabsSolidVertical from '../../../snippets/tabs/solid/vertical.tsx?raw';
 ## Анатомия
 
 ```text
-Tabs / Tabs.Root
-├─ Tabs.List
-│  ├─ Tabs.Trigger[value]
-│  ├─ Tabs.Trigger[value]
-│  └─ Tabs.Indicator
-└─ Tabs.Content[value]
+Tabs
+├─ TabsList
+│  ├─ TabsTrigger[value]
+│  ├─ TabsTrigger[value]
+│  └─ TabsIndicator
+└─ TabsContent[value]
 
-Tabs.RootProvider
+TabsRootProvider
 └─ те же части, подключённые к состоянию из useTabs()
 
-Tabs.Context
+TabsContext
 └─ render prop
 ```
 
 | Часть                 | Назначение                                                         |
 | --------------------- | ------------------------------------------------------------------ |
-| `Tabs` / `Tabs.Root`  | Корневая часть, управляющая выбранным значением, фокусом, ориентацией и режимом. |
-| `Tabs.RootProvider`   | Подключает части к состоянию, созданному с помощью `useTabs()` в moduix. |
-| `Tabs.Context`        | Передаёт текущее состояние вкладок через render prop.             |
-| `Tabs.List`           | Группирует триггеры и управляет перемещением фокуса между ними.   |
-| `Tabs.Trigger`        | Интерактивная кнопка вкладки или хост `asChild` с обязательным `value`. |
-| `Tabs.Indicator`      | Необязательный индикатор выбранной вкладки.                       |
-| `Tabs.Content`        | Панель содержимого, связанная с триггером с таким же `value`.     |
+| `Tabs`                | Корневая часть, управляющая выбранным значением, фокусом, ориентацией и режимом. |
+| `TabsRootProvider`   | Подключает части к состоянию, созданному с помощью `useTabs()` в moduix. |
+| `TabsContext`        | Передаёт текущее состояние вкладок через render prop.             |
+| `TabsList`           | Группирует триггеры и управляет перемещением фокуса между ними.   |
+| `TabsTrigger`        | Интерактивная кнопка вкладки или хост `asChild` с обязательным `value`. |
+| `TabsIndicator`      | Необязательный индикатор выбранной вкладки.                       |
+| `TabsContent`        | Панель содержимого, связанная с триггером с таким же `value`.     |
 
 ## Композиция
 
@@ -138,10 +138,10 @@ Tabs.Context
 приложения, передайте `value` и `onValueChange(details)`, а выбранное значение прочитайте из
 `details.value`.
 
-Используйте `Tabs.RootProvider` вместе с `useTabs()`, если состояние нужно создать вне дерева
-компонента или разделить с соседним интерфейсом. Передайте хранилище в `RootProvider` и не
+Используйте `TabsRootProvider` вместе с `useTabs()`, если состояние нужно создать вне дерева
+компонента или разделить с соседним интерфейсом. Передайте хранилище в `TabsRootProvider` и не
 создавайте для него ещё один корень `Tabs`. Для ссылки или компонента роутера используйте
-`asChild` на `Tabs.Trigger`, а `Tabs.Indicator` добавляйте явно: `Tabs.List` не создаёт его
+`asChild` на `TabsTrigger`, а `TabsIndicator` добавляйте явно: `TabsList` не создаёт его
 автоматически.
 
 ## Примеры
@@ -185,7 +185,7 @@ Tabs.Context
 
 ### Собственные значки
 
-Размещайте значки и подписи непосредственно внутри `Tabs.Trigger`.
+Размещайте значки и подписи непосредственно внутри `TabsTrigger`.
 
 <ExampleFrame variant="component">
   <div className={tabsPreviewStyles.root}>
@@ -509,10 +509,10 @@ Tabs.Context
 Выбирайте часть, которая отвечает за нужный визуальный аспект:
 
 - `Tabs` для ширины, общего расстояния, ориентации и переопределений на уровне варианта
-- `Tabs.List` для фона, границ, оформления списка и расстояния вокруг индикатора
-- `Tabs.Trigger` для раскладки подписи, расстояния до значка, выбранного и отключённого состояний, а также фокуса
-- `Tabs.Indicator` для цвета, размера и переходов индикатора
-- `Tabs.Content` для поверхности панели, внутренних отступов и стилей фокуса
+- `TabsList` для фона, границ, оформления списка и расстояния вокруг индикатора
+- `TabsTrigger` для раскладки подписи, расстояния до значка, выбранного и отключённого состояний, а также фокуса
+- `TabsIndicator` для цвета, размера и переходов индикатора
+- `TabsContent` для поверхности панели, внутренних отступов и стилей фокуса
 
 Основные публичные хуки: `data-slot="tabs-root"`, `data-slot="tabs-root-provider"`,
 `data-slot="tabs-list"`, `data-slot="tabs-trigger"`, `data-slot="tabs-indicator"` и

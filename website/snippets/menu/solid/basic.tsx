@@ -1,5 +1,13 @@
 import { Button } from '@moduix/solid/button';
-import { Menu } from '@moduix/solid/menu';
+import {
+  Menu,
+  MenuTrigger,
+  MenuIndicator,
+  MenuPositioner,
+  MenuContent,
+  MenuViewport,
+  MenuItem,
+} from '@moduix/solid/menu';
 import styles from '@/components/examples/menu/menu-basic.module.css';
 
 const fileItems = [
@@ -12,19 +20,19 @@ const fileItems = [
 export default function MenuDemo() {
   return (
     <Menu>
-      <Menu.Trigger asChild={(props) => <Button {...props()} />}>
+      <MenuTrigger asChild={(props) => <Button {...props()} />}>
         File
-        <Menu.Indicator />
-      </Menu.Trigger>
-      <Menu.Positioner>
-        <Menu.Content class={styles.content}>
-          <Menu.Viewport>
+        <MenuIndicator />
+      </MenuTrigger>
+      <MenuPositioner>
+        <MenuContent class={styles.content}>
+          <MenuViewport>
             {fileItems.map((item) => (
-              <Menu.Item value={item.value}>{item.label}</Menu.Item>
+              <MenuItem value={item.value}>{item.label}</MenuItem>
             ))}
-          </Menu.Viewport>
-        </Menu.Content>
-      </Menu.Positioner>
+          </MenuViewport>
+        </MenuContent>
+      </MenuPositioner>
     </Menu>
   );
 }

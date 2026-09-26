@@ -1,12 +1,12 @@
 import { expect, test } from '@rstest/core';
 import { fireEvent, render, screen } from '@testing-library/react';
 import { createRef } from 'react';
-import { Field, Textarea } from '../src';
+import { Field, Textarea, FieldLabel } from '../src';
 
 test('preserves native field state and component-owned styling hooks', () => {
   render(
     <Field disabled id="summary" invalid readOnly required>
-      <Field.Label>Summary</Field.Label>
+      <FieldLabel>Summary</FieldLabel>
       <Textarea data-part="consumer-part" data-scope="consumer-scope" data-slot="consumer-slot" />
     </Field>,
   );
@@ -27,7 +27,7 @@ test('forwards the textarea ref and preserves asChild composition', () => {
 
   render(
     <Field>
-      <Field.Label>Repository summary</Field.Label>
+      <FieldLabel>Repository summary</FieldLabel>
       <Textarea asChild ref={textareaRef}>
         <textarea name="summary" />
       </Textarea>

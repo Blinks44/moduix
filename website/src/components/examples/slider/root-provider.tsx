@@ -1,5 +1,14 @@
 import { Button } from '@moduix/react/button';
-import { Slider, useSlider } from '@moduix/react/slider';
+import {
+  SliderControl,
+  SliderLabel,
+  SliderRange,
+  SliderRootProvider,
+  SliderThumbs,
+  SliderTrack,
+  SliderValueText,
+  useSlider,
+} from '@moduix/react/slider';
 import { PreviewMeta } from '@/components/mdx/Components';
 import styles from '@/components/examples/slider/slider-root-provider.module.css';
 
@@ -9,16 +18,16 @@ export default function RootProviderSliderDemo() {
   });
   return (
     <div className={styles.stack}>
-      <Slider.RootProvider value={slider}>
-        <Slider.Label>Volume</Slider.Label>
-        <Slider.ValueText />
-        <Slider.Control>
-          <Slider.Track>
-            <Slider.Range />
-          </Slider.Track>
-          <Slider.Thumbs />
-        </Slider.Control>
-      </Slider.RootProvider>
+      <SliderRootProvider value={slider}>
+        <SliderLabel>Volume</SliderLabel>
+        <SliderValueText />
+        <SliderControl>
+          <SliderTrack>
+            <SliderRange />
+          </SliderTrack>
+          <SliderThumbs />
+        </SliderControl>
+      </SliderRootProvider>
       <PreviewMeta>
         <output>Current: {slider.value.join(', ')}</output>
         <Button onClick={() => slider.focus()} size="sm">

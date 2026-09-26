@@ -1,9 +1,4 @@
-import {
-  Switch as SwitchPrimitive,
-  SwitchContext,
-  useSwitch,
-  useSwitchContext,
-} from '@ark-ui/solid/switch';
+import { Switch as SwitchPrimitive, useSwitch, useSwitchContext } from '@ark-ui/solid/switch';
 import type { ComponentProps } from 'solid-js';
 import { children, splitProps } from 'solid-js';
 import { cn } from '@/lib/moduix/cn';
@@ -16,7 +11,7 @@ type SwitchRootProviderProps = ComponentProps<typeof SwitchPrimitive.RootProvide
   size?: SwitchSize;
 };
 
-function SwitchRoot(props: SwitchRootProps) {
+function Switch(props: SwitchRootProps) {
   const [local, others] = splitProps(props, ['asChild', 'children', 'class', 'size']);
 
   return (
@@ -99,15 +94,18 @@ function SwitchLabel(props: ComponentProps<typeof SwitchPrimitive.Label>) {
   );
 }
 
-const Switch = Object.assign(SwitchRoot, {
-  Root: SwitchRoot,
-  RootProvider: SwitchRootProvider,
-  HiddenInput: SwitchPrimitive.HiddenInput,
-  Control: SwitchControl,
-  Thumb: SwitchThumb,
-  Label: SwitchLabel,
-  Context: SwitchContext,
-});
+const SwitchContext = SwitchPrimitive.Context;
+const SwitchHiddenInput = SwitchPrimitive.HiddenInput;
 
-export { Switch, useSwitch, useSwitchContext };
+export {
+  Switch,
+  SwitchContext,
+  SwitchControl,
+  SwitchHiddenInput,
+  SwitchLabel,
+  SwitchRootProvider,
+  SwitchThumb,
+  useSwitch,
+  useSwitchContext,
+};
 export type { SwitchRootProps, SwitchRootProviderProps, SwitchSize };

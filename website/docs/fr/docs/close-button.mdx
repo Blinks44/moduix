@@ -13,6 +13,10 @@ import closeButtonSolidAsChild from '../../../snippets/close-button/solid/as-chi
 import closeButtonSolidBasic from '../../../snippets/close-button/solid/basic.tsx?raw';
 import closeButtonSolidCustomChildren from '../../../snippets/close-button/solid/custom-children.tsx?raw';
 import closeButtonSolidDisabled from '../../../snippets/close-button/solid/disabled-state.tsx?raw';
+import closeButtonVueAsChild from '../../../snippets/close-button/vue/as-child.vue?raw';
+import closeButtonVueBasic from '../../../snippets/close-button/vue/basic.vue?raw';
+import closeButtonVueCustomChildren from '../../../snippets/close-button/vue/custom-children.vue?raw';
+import closeButtonVueDisabled from '../../../snippets/close-button/vue/disabled-state.vue?raw';
 
 ## Référence de l’API
 
@@ -40,6 +44,7 @@ mais il ne gère pas lui-même l’état de la surface.
     values={[
       { label: 'React', value: 'react' },
       { label: 'Solid', value: 'solid' },
+      { label: 'Vue', value: 'vue' },
     ]}
     className="docs-tabs"
   >
@@ -52,6 +57,11 @@ mais il ne gère pas lui-même l’état de la surface.
     <Tab value="solid">
 
 <CodeBlockRuntime lang="tsx" code={closeButtonSolidBasic} />
+
+    </Tab>
+    <Tab value="vue">
+
+<CodeBlockRuntime lang="vue" code={closeButtonVueBasic} />
 
     </Tab>
   </Tabs>
@@ -71,7 +81,7 @@ Consultez le [Démarrage rapide](/docs/quick-start) pour la configuration compl�
 <Tabs groupId="framework">
   <Tab label="React" value="react">
 
-<ShadcnInstallOptions
+  <ShadcnInstallOptions
   options={[
     { label: 'CSS Modules', command: 'shadcn@latest add @moduix-react/close-button' },
     { label: 'Tailwind CSS', command: 'shadcn@latest add @moduix-react-tailwind/close-button' },
@@ -86,6 +96,16 @@ Consultez le [Démarrage rapide](/docs/quick-start) pour la configuration compl�
     { label: 'CSS Modules', command: 'shadcn@latest add @moduix-solid/close-button' },
     { label: 'Tailwind CSS', command: 'shadcn@latest add @moduix-solid-tailwind/close-button' },
   ]}
+  />
+
+  </Tab>
+  <Tab label="Vue" value="vue">
+
+<ShadcnInstallOptions
+  options={[
+    { label: 'CSS Modules', command: 'shadcn@latest add @moduix-vue/close-button' },
+    { label: 'Tailwind CSS', command: 'shadcn@latest add @moduix-vue-tailwind/close-button' },
+  ]}
 />
 
   </Tab>
@@ -96,14 +116,14 @@ Consultez le [Démarrage rapide](/docs/quick-start) pour la configuration compl�
 `CloseButton` expose une seule partie racine, suivant le modèle d’Ark.
 
 ```text
-CloseButton / CloseButton.Root
+CloseButton
 └─ root[data-scope="close-button"][data-part="root"][data-slot="close-button-root"]
    └─ CloseIcon (par défaut) | enfants personnalisés
 ```
 
-| Partie                             | Rôle                                                                          |
-| ---------------------------------- | ----------------------------------------------------------------------------- |
-| `CloseButton` / `CloseButton.Root` | Contrôle interactif de fermeture fondé sur la sémantique et l’accessibilité d’un bouton. |
+| Partie        | Rôle                                                                          |
+| ------------ | ----------------------------------------------------------------------------- |
+| `CloseButton` | Contrôle interactif de fermeture fondé sur la sémantique et l’accessibilité d’un bouton. |
 
 ## Composition
 
@@ -112,8 +132,8 @@ surface. Si un Dialog, un Drawer ou un autre panneau superposé fournit déjà u
 bouton afin que le composant parent conserve la gestion de la fermeture et du retour du focus.
 
 Utilisez `asChild` lorsqu’un bouton sémantique fourni par un autre composant doit posséder le nœud DOM. L’enfant doit
-rendre l’icône ; définissez-y `type="button"` si nécessaire, notamment dans un formulaire. Avec Solid, passez une
-fonction de rendu à `asChild` et propagez `props()` à l’enfant.
+rendre l’icône ; définissez-y `type="button"` si nécessaire, notamment dans un formulaire. En Vue, placez ce bouton
+dans le slot par défaut. Avec Solid, passez une fonction de rendu à `asChild` et propagez `props()` à l’enfant.
 
 ## Exemples
 
@@ -134,6 +154,7 @@ racine. Lorsque le nom accessible vient du libellé du bouton, rendez l’icône
     values={[
       { label: 'React', value: 'react' },
       { label: 'Solid', value: 'solid' },
+      { label: 'Vue', value: 'vue' },
     ]}
     className="docs-tabs"
   >
@@ -146,6 +167,11 @@ racine. Lorsque le nom accessible vient du libellé du bouton, rendez l’icône
     <Tab value="solid">
 
 <CodeBlockRuntime lang="tsx" code={closeButtonSolidCustomChildren} />
+
+    </Tab>
+    <Tab value="vue">
+
+<CodeBlockRuntime lang="vue" code={closeButtonVueCustomChildren} />
 
     </Tab>
   </Tabs>
@@ -174,6 +200,7 @@ lorsqu’il doit rester focusable sans pouvoir être activé.
     values={[
       { label: 'React', value: 'react' },
       { label: 'Solid', value: 'solid' },
+      { label: 'Vue', value: 'vue' },
     ]}
     className="docs-tabs"
   >
@@ -186,6 +213,11 @@ lorsqu’il doit rester focusable sans pouvoir être activé.
     <Tab value="solid">
 
 <CodeBlockRuntime lang="tsx" code={closeButtonSolidDisabled} />
+
+    </Tab>
+    <Tab value="vue">
+
+<CodeBlockRuntime lang="vue" code={closeButtonVueDisabled} />
 
     </Tab>
   </Tabs>
@@ -214,6 +246,7 @@ et les attributs `data-*` de `CloseButton`. Placez l’icône dans cet enfant et
     values={[
       { label: 'React', value: 'react' },
       { label: 'Solid', value: 'solid' },
+      { label: 'Vue', value: 'vue' },
     ]}
     className="docs-tabs"
   >
@@ -228,6 +261,11 @@ et les attributs `data-*` de `CloseButton`. Placez l’icône dans cet enfant et
 <CodeBlockRuntime lang="tsx" code={closeButtonSolidAsChild} />
 
     </Tab>
+    <Tab value="vue">
+
+<CodeBlockRuntime lang="vue" code={closeButtonVueAsChild} />
+
+    </Tab>
   </Tabs>
 
 **Styles**
@@ -240,9 +278,10 @@ et les attributs `data-*` de `CloseButton`. Placez l’icône dans cet enfant et
 
 ## Styles
 
-Utilisez `className` avec React ou `class` avec Solid sur la racine pour les styles structurels. Les variantes Tailwind
-utilisent des classes utilitaires natives et les classes de l’application ; les variables ci-dessous s’appliquent aux
-variantes CSS Modules. Les attributs d’état et les hooks `data-slot` sont communs aux deux solutions de styles.
+Utilisez `className` avec React ou `class` avec Solid et Vue sur la racine pour les styles structurels. Les variantes
+Tailwind utilisent des classes utilitaires natives et les classes de l’application ; les variables ci-dessous
+s’appliquent aux variantes CSS Modules. Les attributs d’état et les hooks `data-slot` sont communs aux deux solutions
+de styles.
 
 ### Propriétés CSS
 

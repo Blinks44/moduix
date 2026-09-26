@@ -1,5 +1,10 @@
 import { Button } from '@moduix/react/button';
-import { ImageCropper } from '@moduix/react/image-cropper';
+import {
+  ImageCropper,
+  ImageCropperCropArea,
+  ImageCropperImage,
+  ImageCropperViewport,
+} from '@moduix/react/image-cropper';
 import { ZoomIn as ZoomInIcon, ZoomOut as ZoomOutIcon } from 'lucide-react';
 import { useState } from 'react';
 import { PreviewMeta } from '@/components/mdx/Components';
@@ -23,10 +28,10 @@ export default function ControlledZoomImageCropperDemo() {
         aria-label="Image cropper"
         onZoomChange={(details) => setZoom(details.zoom)}
       >
-        <ImageCropper.Viewport>
-          <ImageCropper.Image src={sampleImage} alt="Landscape" crossOrigin="anonymous" />
-          <ImageCropper.CropArea />
-        </ImageCropper.Viewport>
+        <ImageCropperViewport>
+          <ImageCropperImage src={sampleImage} alt="Landscape" crossOrigin="anonymous" />
+          <ImageCropperCropArea />
+        </ImageCropperViewport>
       </ImageCropper>
       <PreviewMeta>
         <output>Zoom: {zoom.toFixed(1)}x</output>

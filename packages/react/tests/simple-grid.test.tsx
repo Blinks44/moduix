@@ -59,12 +59,6 @@ test('preserves semantic children with asChild', () => {
   expect(grid.style.gridTemplateColumns).toBe('repeat(2, minmax(0, 1fr))');
 });
 
-test('exposes the same root through the namespace API', () => {
-  const { getByTestId } = render(<SimpleGrid.Root columns={2} data-testid="grid" />);
-
-  expect(getByTestId('grid').style.gridTemplateColumns).toBe('repeat(2, minmax(0, 1fr))');
-});
-
 test('rejects invalid column counts', () => {
   for (const columns of [0, -1, 1.5, Number.NaN, Number.POSITIVE_INFINITY]) {
     expect(() => render(<SimpleGrid columns={columns} />)).toThrow(

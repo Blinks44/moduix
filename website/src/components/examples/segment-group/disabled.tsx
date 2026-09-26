@@ -1,4 +1,8 @@
-import { SegmentGroup } from '@moduix/react/segment-group';
+import {
+  SegmentGroup,
+  SegmentGroupIndicator,
+  SegmentGroupItems,
+} from '@moduix/react/segment-group';
 import styles from '@/components/examples/segment-group/segment-group-disabled.module.css';
 
 const frameworks = [
@@ -12,12 +16,12 @@ export default function DisabledSegmentGroupDemo() {
   return (
     <div className={styles.root}>
       <SegmentGroup aria-label="Framework with unavailable item" defaultValue="React">
-        <SegmentGroup.Indicator />
-        <SegmentGroup.Items items={frameworks} />
+        <SegmentGroupIndicator />
+        <SegmentGroupItems items={frameworks} />
       </SegmentGroup>
       <SegmentGroup aria-label="Disabled framework" defaultValue="React" disabled>
-        <SegmentGroup.Indicator />
-        <SegmentGroup.Items items={frameworks} />
+        <SegmentGroupIndicator />
+        <SegmentGroupItems items={frameworks} />
       </SegmentGroup>
     </div>
   );

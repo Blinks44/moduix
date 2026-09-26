@@ -3,10 +3,11 @@ import { ark } from '@ark-ui/solid/factory';
 import { clsx } from 'clsx';
 import type { JSX } from 'solid-js';
 import { children as resolveChildren, splitProps } from 'solid-js';
+import { a11yLabels } from '@/lib/moduix/a11yLabels';
 import { CloseIcon } from '@/lib/moduix/icons/ui/Icons';
 import styles from './CloseButton.module.css';
 
-type CloseButtonRootProps = HTMLArkProps<'button'> & {
+type CloseButtonProps = HTMLArkProps<'button'> & {
   'data-disabled'?: string;
   'data-part'?: string;
   'data-scope'?: string;
@@ -15,12 +16,12 @@ type CloseButtonRootProps = HTMLArkProps<'button'> & {
 };
 
 const ArkButton = ark.button as (
-  props: CloseButtonRootProps & {
+  props: CloseButtonProps & {
     'oncapture:click'?: (event: MouseEvent) => void;
   },
 ) => JSX.Element;
 
-function CloseButtonRoot(props: CloseButtonRootProps) {
+function CloseButton(props: CloseButtonProps) {
   const [local, others] = splitProps(props, [
     'asChild',
     'aria-disabled',
@@ -74,7 +75,9 @@ function CloseButtonRoot(props: CloseButtonRootProps) {
       data-disabled={local['data-disabled'] ?? (isDisabled() ? '' : undefined)}
       class={clsx(styles.root, local.class)}
       aria-disabled={local.asChild && local.disabled ? true : local['aria-disabled']}
-      aria-label={local['aria-label'] ?? (local['aria-labelledby'] == null ? 'Close' : undefined)}
+      aria-label={
+        local['aria-label'] ?? (local['aria-labelledby'] == null ? a11yLabels.close : undefined)
+      }
       aria-labelledby={local['aria-labelledby']}
       oncapture:click={handleClickCapture}
       onClick={handleClick}
@@ -83,9 +86,5 @@ function CloseButtonRoot(props: CloseButtonRootProps) {
     </ArkButton>
   );
 }
-
-const CloseButton = Object.assign(CloseButtonRoot, {
-  Root: CloseButtonRoot,
-});
 
 export { CloseButton };

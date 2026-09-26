@@ -1,10 +1,39 @@
 import { createListCollection } from '@ark-ui/react/collection';
 import { Button } from '@moduix/react/button';
-import { Dialog } from '@moduix/react/dialog';
-import { ProgressLinear } from '@moduix/react/progress-linear';
-import { Select } from '@moduix/react/select';
-import { Switch } from '@moduix/react/switch';
-import { Tabs } from '@moduix/react/tabs';
+import {
+  Dialog,
+  DialogBackdrop,
+  DialogCloseTrigger,
+  DialogContent,
+  DialogDescription,
+  DialogFooter,
+  DialogHeader,
+  DialogPositioner,
+  DialogTitle,
+  DialogTrigger,
+} from '@moduix/react/dialog';
+import {
+  ProgressLinear,
+  ProgressLinearLabel,
+  ProgressLinearValueText,
+  ProgressLinearTrack,
+  ProgressLinearRange,
+} from '@moduix/react/progress-linear';
+import {
+  Select,
+  SelectLabel,
+  SelectControl,
+  SelectTrigger,
+  SelectValueText,
+  SelectIndicator,
+  SelectPositioner,
+  SelectContent,
+  SelectItem,
+  SelectItemText,
+  SelectItemIndicator,
+} from '@moduix/react/select';
+import { Switch, SwitchControl, SwitchHiddenInput, SwitchLabel } from '@moduix/react/switch';
+import { Tabs, TabsContent, TabsIndicator, TabsList, TabsTrigger } from '@moduix/react/tabs';
 import { useI18n } from '@rspress/core/runtime';
 import { Link } from '@rspress/core/theme';
 import {
@@ -147,21 +176,21 @@ export function Home() {
           </Link>
         </div>
         <Tabs defaultValue="data-table" className={styles.componentTabs}>
-          <Tabs.List className={styles.componentTabsList}>
-            <Tabs.Trigger value="data-table">DataTable</Tabs.Trigger>
-            <Tabs.Trigger value="sidebar">Sidebar</Tabs.Trigger>
-            <Tabs.Indicator />
-          </Tabs.List>
+          <TabsList className={styles.componentTabsList}>
+            <TabsTrigger value="data-table">DataTable</TabsTrigger>
+            <TabsTrigger value="sidebar">Sidebar</TabsTrigger>
+            <TabsIndicator />
+          </TabsList>
 
-          <Tabs.Content value="data-table" className={styles.componentTabPanel}>
+          <TabsContent value="data-table" className={styles.componentTabPanel}>
             <DataTable />
-          </Tabs.Content>
-          <Tabs.Content
+          </TabsContent>
+          <TabsContent
             value="sidebar"
             className={`${styles.componentTabPanel} ${styles.componentTabPanelSidebar}`}
           >
             <SidebarDashboard />
-          </Tabs.Content>
+          </TabsContent>
         </Tabs>
       </section>
     </main>
@@ -191,22 +220,22 @@ function HomeShowcase() {
 
   return (
     <Tabs defaultValue="button" className={styles.showcaseTabs}>
-      <Tabs.List className={styles.showcaseTabsList}>
-        <Tabs.Trigger value="button">Button</Tabs.Trigger>
-        <Tabs.Trigger value="dialog">Dialog</Tabs.Trigger>
-        <Tabs.Trigger value="select">Select</Tabs.Trigger>
-        <Tabs.Indicator />
-      </Tabs.List>
+      <TabsList className={styles.showcaseTabsList}>
+        <TabsTrigger value="button">Button</TabsTrigger>
+        <TabsTrigger value="dialog">Dialog</TabsTrigger>
+        <TabsTrigger value="select">Select</TabsTrigger>
+        <TabsIndicator />
+      </TabsList>
 
-      <Tabs.Content value="button" className={styles.showcasePanel}>
+      <TabsContent value="button" className={styles.showcasePanel}>
         <Tabs defaultValue="actions" variant="line" className={styles.nestedTabs}>
-          <Tabs.List className={styles.nestedTabsList}>
-            <Tabs.Trigger value="actions">{t('homeShowcaseActions')}</Tabs.Trigger>
-            <Tabs.Trigger value="status">{t('homeShowcaseStatus')}</Tabs.Trigger>
-            <Tabs.Indicator />
-          </Tabs.List>
+          <TabsList className={styles.nestedTabsList}>
+            <TabsTrigger value="actions">{t('homeShowcaseActions')}</TabsTrigger>
+            <TabsTrigger value="status">{t('homeShowcaseStatus')}</TabsTrigger>
+            <TabsIndicator />
+          </TabsList>
 
-          <Tabs.Content value="actions" className={styles.nestedPanel}>
+          <TabsContent value="actions" className={styles.nestedPanel}>
             <div className={styles.previewCard}>
               <div className={styles.previewHeader}>
                 <span className={styles.eyebrow}>{t('homeReleaseControls')}</span>
@@ -228,9 +257,9 @@ function HomeShowcase() {
                 </div>
               </div>
             </div>
-          </Tabs.Content>
+          </TabsContent>
 
-          <Tabs.Content value="status" className={styles.nestedPanel}>
+          <TabsContent value="status" className={styles.nestedPanel}>
             <div className={styles.previewCard}>
               <div className={styles.previewHeader}>
                 <span className={styles.eyebrow}>{t('homeFlowHealth')}</span>
@@ -241,16 +270,16 @@ function HomeShowcase() {
                 onCheckedChange={handleAutomationChange}
                 className={styles.switchRow}
               >
-                <Switch.Control />
-                <Switch.HiddenInput />
-                <Switch.Label>{t('homeAutoReview')}</Switch.Label>
+                <SwitchControl />
+                <SwitchHiddenInput />
+                <SwitchLabel>{t('homeAutoReview')}</SwitchLabel>
               </Switch>
               <ProgressLinear value={progressValue} className={styles.heroProgress}>
-                <ProgressLinear.Label>{t('homeReleaseReadiness')}</ProgressLinear.Label>
-                <ProgressLinear.ValueText />
-                <ProgressLinear.Track>
-                  <ProgressLinear.Range />
-                </ProgressLinear.Track>
+                <ProgressLinearLabel>{t('homeReleaseReadiness')}</ProgressLinearLabel>
+                <ProgressLinearValueText />
+                <ProgressLinearTrack>
+                  <ProgressLinearRange />
+                </ProgressLinearTrack>
               </ProgressLinear>
               <div className={styles.statusRow}>
                 <span>{automationEnabled ? t('homeChecksEnabled') : t('homeManualReview')}</span>
@@ -263,11 +292,11 @@ function HomeShowcase() {
                 </Button>
               </div>
             </div>
-          </Tabs.Content>
+          </TabsContent>
         </Tabs>
-      </Tabs.Content>
+      </TabsContent>
 
-      <Tabs.Content value="dialog" className={styles.showcasePanel}>
+      <TabsContent value="dialog" className={styles.showcasePanel}>
         <div className={styles.previewCard}>
           <div className={styles.previewHeader}>
             <span className={styles.eyebrow}>{t('homeApprovalFlow')}</span>
@@ -275,28 +304,28 @@ function HomeShowcase() {
           </div>
           <p className={styles.previewText}>{t('homeDialogPreviewDescription')}</p>
           <div className={styles.buttonRow}>
-            <Dialog.Root>
-              <Dialog.Trigger asChild>
+            <Dialog>
+              <DialogTrigger asChild>
                 <Button>{t('homeReviewChanges')}</Button>
-              </Dialog.Trigger>
-              <Dialog.Backdrop />
-              <Dialog.Positioner>
-                <Dialog.Content>
-                  <Dialog.Header>
-                    <Dialog.Title>{t('homePublishRelease')}</Dialog.Title>
-                    <Dialog.Description>{t('homePublishReleaseDescription')}</Dialog.Description>
-                  </Dialog.Header>
-                  <Dialog.Footer>
-                    <Dialog.CloseTrigger asChild>
+              </DialogTrigger>
+              <DialogBackdrop />
+              <DialogPositioner>
+                <DialogContent>
+                  <DialogHeader>
+                    <DialogTitle>{t('homePublishRelease')}</DialogTitle>
+                    <DialogDescription>{t('homePublishReleaseDescription')}</DialogDescription>
+                  </DialogHeader>
+                  <DialogFooter>
+                    <DialogCloseTrigger asChild>
                       <Button variant="outline">{t('homeBack')}</Button>
-                    </Dialog.CloseTrigger>
-                    <Dialog.CloseTrigger asChild>
+                    </DialogCloseTrigger>
+                    <DialogCloseTrigger asChild>
                       <Button>{t('homeApprove')}</Button>
-                    </Dialog.CloseTrigger>
-                  </Dialog.Footer>
-                </Dialog.Content>
-              </Dialog.Positioner>
-            </Dialog.Root>
+                    </DialogCloseTrigger>
+                  </DialogFooter>
+                </DialogContent>
+              </DialogPositioner>
+            </Dialog>
             <Button variant="outline">{t('homeInspectApi')}</Button>
           </div>
           <div className={styles.miniStats}>
@@ -310,9 +339,9 @@ function HomeShowcase() {
             </div>
           </div>
         </div>
-      </Tabs.Content>
+      </TabsContent>
 
-      <Tabs.Content value="select" className={styles.showcasePanel}>
+      <TabsContent value="select" className={styles.showcasePanel}>
         <div className={styles.previewCard}>
           <div className={styles.previewHeader}>
             <span className={styles.eyebrow}>{t('homeWorkspacePicker')}</span>
@@ -324,24 +353,24 @@ function HomeShowcase() {
               value={workspaceValue}
               onValueChange={(details) => setWorkspaceValue(details.value)}
             >
-              <Select.Label>{t('homeActiveWorkspace')}</Select.Label>
-              <Select.Control>
-                <Select.Trigger>
-                  <Select.ValueText placeholder={t('homeSelectWorkspace')} />
-                </Select.Trigger>
-                <Select.Indicator />
-              </Select.Control>
+              <SelectLabel>{t('homeActiveWorkspace')}</SelectLabel>
+              <SelectControl>
+                <SelectTrigger>
+                  <SelectValueText placeholder={t('homeSelectWorkspace')} />
+                </SelectTrigger>
+                <SelectIndicator />
+              </SelectControl>
 
-              <Select.Positioner>
-                <Select.Content>
+              <SelectPositioner>
+                <SelectContent>
                   {workspaceCollection.items.map((item) => (
-                    <Select.Item key={item.value} item={item}>
-                      <Select.ItemText>{item.label}</Select.ItemText>
-                      <Select.ItemIndicator />
-                    </Select.Item>
+                    <SelectItem key={item.value} item={item}>
+                      <SelectItemText>{item.label}</SelectItemText>
+                      <SelectItemIndicator />
+                    </SelectItem>
                   ))}
-                </Select.Content>
-              </Select.Positioner>
+                </SelectContent>
+              </SelectPositioner>
             </Select>
           </div>
           <div className={styles.miniStats}>
@@ -355,7 +384,7 @@ function HomeShowcase() {
             </div>
           </div>
         </div>
-      </Tabs.Content>
+      </TabsContent>
     </Tabs>
   );
 }

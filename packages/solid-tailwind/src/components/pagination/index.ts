@@ -1,1 +1,1 @@
-export { Pagination, usePagination, usePaginationContext } from './Pagination.js';
+export * from './Pagination.js';

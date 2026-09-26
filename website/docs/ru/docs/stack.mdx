@@ -1,7 +1,7 @@
 ---
 title: Stack
 component: stack
-description: Небольшой flex-компонент для вертикальной и горизонтальной раскладки в React и Solid.
+description: Небольшой flex-компонент для вертикальной и горизонтальной раскладки в React, Solid и Vue.
 ---
 
 import * as StackDocs from '@/components/examples/stack/css-properties';
@@ -21,6 +21,14 @@ import stackSolidRowLayout from '../../../snippets/stack/solid/row-layout.tsx?ra
 import stackSolidSemanticElement from '../../../snippets/stack/solid/semantic-element.tsx?raw';
 import stackSolidSeparator from '../../../snippets/stack/solid/separator.tsx?raw';
 import stackSolidWrappedItems from '../../../snippets/stack/solid/wrapped-items.tsx?raw';
+import stackVueBasic from '../../../snippets/stack/vue/basic.vue?raw';
+import stackVueFill from '../../../snippets/stack/vue/growing-child-stack.vue?raw';
+import stackVueLoadingLayout from '../../../snippets/stack/vue/loading-layout.vue?raw';
+import stackVueResponsiveDirection from '../../../snippets/stack/vue/responsive-direction.vue?raw';
+import stackVueRowLayout from '../../../snippets/stack/vue/row-layout.vue?raw';
+import stackVueSemanticElement from '../../../snippets/stack/vue/semantic-element.vue?raw';
+import stackVueSeparator from '../../../snippets/stack/vue/separator.vue?raw';
+import stackVueWrappedItems from '../../../snippets/stack/vue/wrapped-items.vue?raw';
 
 ## Справочник API
 
@@ -48,6 +56,7 @@ import stackSolidWrappedItems from '../../../snippets/stack/solid/wrapped-items.
     values={[
       { label: 'React', value: 'react' },
       { label: 'Solid', value: 'solid' },
+      { label: 'Vue', value: 'vue' },
     ]}
     className="docs-tabs"
   >
@@ -60,6 +69,11 @@ import stackSolidWrappedItems from '../../../snippets/stack/solid/wrapped-items.
     <Tab value="solid">
 
 <CodeBlockRuntime lang="tsx" code={stackSolidBasic} />
+
+    </Tab>
+    <Tab value="vue">
+
+<CodeBlockRuntime lang="vue" code={stackVueBasic} />
 
     </Tab>
   </Tabs>
@@ -92,6 +106,16 @@ import stackSolidWrappedItems from '../../../snippets/stack/solid/wrapped-items.
 />
 
   </Tab>
+  <Tab label="Vue" value="vue">
+
+<ShadcnInstallOptions
+  options={[
+    { label: 'CSS Modules', command: 'shadcn@latest add @moduix-vue/stack' },
+    { label: 'Tailwind CSS', command: 'shadcn@latest add @moduix-vue-tailwind/stack' },
+  ]}
+/>
+
+  </Tab>
 </Tabs>
 
 ## Анатомия
@@ -101,21 +125,20 @@ import stackSolidWrappedItems from '../../../snippets/stack/solid/wrapped-items.
 раскладки задавайте в локальном CSS.
 
 ```text
-Stack / Stack.Root
+Stack
 └─ root[data-scope="stack"][data-part="root"][data-slot="stack-root"]
    └─ children
 ```
 
 | Часть                  | Назначение                                                               |
 | ---------------------- | ------------------------------------------------------------------------ |
-| `Stack` / `Stack.Root` | Корневая flex-обёртка для направления, промежутка, выравнивания и расстояния между дочерними элементами. |
+| `Stack`                | Корневая flex-обёртка для направления, промежутка, выравнивания и расстояния между дочерними элементами. |
 
 ## Композиция
 
 `Stack` не владеет управляемым состоянием и предоставляет один корневой элемент. Для обычного вывода `div` используйте
-короткую форму `<Stack>`, а `Stack.Root` является её псевдонимом. Свойство `fill` влияет на `Stack` как на flex-элемент,
-а не на его дочерние элементы. Добавляйте `Separator` напрямую, если нужен разделитель, и используйте `asChild`, когда
-корневой элемент должен иметь семантический тег.
+`<Stack>`. Свойство `fill` влияет на `Stack` как на flex-элемент, а не на его дочерние элементы. Добавляйте `Separator`
+напрямую, если нужен разделитель, и используйте `asChild`, когда корневой элемент должен иметь семантический тег.
 
 ## Примеры
 
@@ -134,6 +157,7 @@ Stack / Stack.Root
     values={[
       { label: 'React', value: 'react' },
       { label: 'Solid', value: 'solid' },
+      { label: 'Vue', value: 'vue' },
     ]}
     className="docs-tabs"
   >
@@ -146,6 +170,11 @@ Stack / Stack.Root
     <Tab value="solid">
 
 <CodeBlockRuntime lang="tsx" code={stackSolidFill} />
+
+    </Tab>
+    <Tab value="vue">
+
+<CodeBlockRuntime lang="vue" code={stackVueFill} />
 
     </Tab>
   </Tabs>
@@ -168,6 +197,7 @@ Stack / Stack.Root
     values={[
       { label: 'React', value: 'react' },
       { label: 'Solid', value: 'solid' },
+      { label: 'Vue', value: 'vue' },
     ]}
     className="docs-tabs"
   >
@@ -180,6 +210,11 @@ Stack / Stack.Root
     <Tab value="solid">
 
 <CodeBlockRuntime lang="tsx" code={stackSolidLoadingLayout} />
+
+    </Tab>
+    <Tab value="vue">
+
+<CodeBlockRuntime lang="vue" code={stackVueLoadingLayout} />
 
     </Tab>
   </Tabs>
@@ -204,6 +239,7 @@ Stack / Stack.Root
     values={[
       { label: 'React', value: 'react' },
       { label: 'Solid', value: 'solid' },
+      { label: 'Vue', value: 'vue' },
     ]}
     className="docs-tabs"
   >
@@ -216,6 +252,11 @@ Stack / Stack.Root
     <Tab value="solid">
 
 <CodeBlockRuntime lang="tsx" code={stackSolidResponsiveDirection} />
+
+    </Tab>
+    <Tab value="vue">
+
+<CodeBlockRuntime lang="vue" code={stackVueResponsiveDirection} />
 
     </Tab>
   </Tabs>
@@ -238,6 +279,7 @@ Stack / Stack.Root
     values={[
       { label: 'React', value: 'react' },
       { label: 'Solid', value: 'solid' },
+      { label: 'Vue', value: 'vue' },
     ]}
     className="docs-tabs"
   >
@@ -250,6 +292,11 @@ Stack / Stack.Root
     <Tab value="solid">
 
 <CodeBlockRuntime lang="tsx" code={stackSolidRowLayout} />
+
+    </Tab>
+    <Tab value="vue">
+
+<CodeBlockRuntime lang="vue" code={stackVueRowLayout} />
 
     </Tab>
   </Tabs>
@@ -272,6 +319,7 @@ Stack / Stack.Root
     values={[
       { label: 'React', value: 'react' },
       { label: 'Solid', value: 'solid' },
+      { label: 'Vue', value: 'vue' },
     ]}
     className="docs-tabs"
   >
@@ -284,6 +332,11 @@ Stack / Stack.Root
     <Tab value="solid">
 
 <CodeBlockRuntime lang="tsx" code={stackSolidSemanticElement} />
+
+    </Tab>
+    <Tab value="vue">
+
+<CodeBlockRuntime lang="vue" code={stackVueSemanticElement} />
 
     </Tab>
   </Tabs>
@@ -307,6 +360,7 @@ Stack / Stack.Root
     values={[
       { label: 'React', value: 'react' },
       { label: 'Solid', value: 'solid' },
+      { label: 'Vue', value: 'vue' },
     ]}
     className="docs-tabs"
   >
@@ -319,6 +373,11 @@ Stack / Stack.Root
     <Tab value="solid">
 
 <CodeBlockRuntime lang="tsx" code={stackSolidSeparator} />
+
+    </Tab>
+    <Tab value="vue">
+
+<CodeBlockRuntime lang="vue" code={stackVueSeparator} />
 
     </Tab>
   </Tabs>
@@ -341,6 +400,7 @@ Stack / Stack.Root
     values={[
       { label: 'React', value: 'react' },
       { label: 'Solid', value: 'solid' },
+      { label: 'Vue', value: 'vue' },
     ]}
     className="docs-tabs"
   >
@@ -355,6 +415,11 @@ Stack / Stack.Root
 <CodeBlockRuntime lang="tsx" code={stackSolidWrappedItems} />
 
     </Tab>
+    <Tab value="vue">
+
+<CodeBlockRuntime lang="vue" code={stackVueWrappedItems} />
+
+    </Tab>
   </Tabs>
 </div>
 
@@ -362,7 +427,7 @@ Stack / Stack.Root
 
 ## Стилизация
 
-Используйте `className` в React или `class` в Solid на корневом элементе для структурных стилей. Варианты Tailwind
+Используйте `className` в React или `class` в Solid и Vue на корневом элементе для структурных стилей. Варианты Tailwind
 используют нативные утилитарные классы и переопределения потребителя, а CSS-переменные ниже настраивают варианты
 CSS Modules. Атрибуты данных и хук `data-slot` общие для обоих вариантов стилизации.
 

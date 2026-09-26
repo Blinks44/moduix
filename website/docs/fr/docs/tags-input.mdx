@@ -52,9 +52,9 @@ dans un même contrôle de formulaire.
 ## Exemple de base
 
 
-Commencez par la racine, le libellé, le contrôle, `Items`, le champ de saisie et le déclencheur
-d’effacement. Ajoutez explicitement `TagsInput.HiddenInput` lorsque les tags doivent être envoyés avec
-un formulaire.
+Commencez par `TagsInput`, `TagsInputLabel`, `TagsInputControl`, `TagsInputItems`,
+`TagsInputInput` et `TagsInputClearTrigger`. Ajoutez explicitement `TagsInputHiddenInput` lorsque
+les tags doivent être envoyés avec un formulaire.
 
 <ExampleFrame variant="component">
   <TagsInputBasic />
@@ -121,52 +121,52 @@ Consultez le [Démarrage rapide](/docs/quick-start) pour la configuration compl�
 ## Anatomie
 
 ```text
-TagsInput / TagsInput.Root
-├─ TagsInput.Label
-├─ TagsInput.Control
-│  ├─ TagsInput.Items
-│  └─ TagsInput.Item[index, value]
-│     ├─ TagsInput.ItemPreview
-│     │  ├─ TagsInput.ItemText
-│     │  └─ TagsInput.ItemDeleteTrigger
-│     └─ TagsInput.ItemInput
-│  ├─ TagsInput.Input
-│  └─ TagsInput.ClearTrigger
-└─ TagsInput.HiddenInput (explicit)
+TagsInput
+├─ TagsInputLabel
+├─ TagsInputControl
+│  ├─ TagsInputItems
+│  └─ TagsInputItem[index, value]
+│     ├─ TagsInputItemPreview
+│     │  ├─ TagsInputItemText
+│     │  └─ TagsInputItemDeleteTrigger
+│     └─ TagsInputItemInput
+│  ├─ TagsInputInput
+│  └─ TagsInputClearTrigger
+└─ TagsInputHiddenInput (explicit)
 
-TagsInput.RootProvider
+TagsInputRootProvider
 └─ same part tree connected to a useTagsInput() store
 ```
 
 | Partie | Rôle |
 | --- | --- |
-| `TagsInput` / `TagsInput.Root` | Racine qui gère l’état, les valeurs, la saisie, la validation et l’intégration au formulaire. |
-| `TagsInput.RootProvider` | Relie les parties à l’état renvoyé par `useTagsInput()`. |
-| `TagsInput.Label` | Libellé accessible du champ de tags. |
-| `TagsInput.Control` | Conteneur visible des tags, du champ de saisie et du déclencheur d’effacement. |
-| `TagsInput.Items` | Rendu standard des tags modifiables de la racine. |
-| `TagsInput.Item` | Un tag. Transmettez `index` et `value` pour un rendu personnalisé. |
-| `TagsInput.ItemContext` | Accès par render prop à l’état de l’élément courant dans l’arbre du composant. |
-| `TagsInput.ItemPreview` | Contenu visible d’un tag hors du mode d’édition. |
-| `TagsInput.ItemText` | Texte visible du tag. |
-| `TagsInput.ItemDeleteTrigger` | Supprime un tag et fournit par défaut une petite icône de fermeture. |
-| `TagsInput.ItemInput` | Champ utilisé pour modifier un tag sur place. |
-| `TagsInput.Input` | Champ de saisie des nouveaux tags. |
-| `TagsInput.ClearTrigger` | Supprime tous les tags et utilise par défaut le style partagé du bouton de fermeture. |
-| `TagsInput.HiddenInput` | Champ natif explicite pour l’envoi du formulaire. |
-| `TagsInput.Context` | Accès render prop à l’état de la racine dans l’arbre du composant. |
+| `TagsInput` | Racine qui gère l’état, les valeurs, la saisie, la validation et l’intégration au formulaire. |
+| `TagsInputRootProvider` | Relie les parties à l’état renvoyé par `useTagsInput()`. |
+| `TagsInputLabel` | Libellé accessible du champ de tags. |
+| `TagsInputControl` | Conteneur visible des tags, du champ de saisie et du déclencheur d’effacement. |
+| `TagsInputItems` | Rendu standard des tags modifiables de la racine. |
+| `TagsInputItem` | Un tag. Transmettez `index` et `value` pour un rendu personnalisé. |
+| `TagsInputItemContext` | Accès par render prop à l’état de l’élément courant dans l’arbre du composant. |
+| `TagsInputItemPreview` | Contenu visible d’un tag hors du mode d’édition. |
+| `TagsInputItemText` | Texte visible du tag. |
+| `TagsInputItemDeleteTrigger` | Supprime un tag et fournit par défaut une petite icône de fermeture. |
+| `TagsInputItemInput` | Champ utilisé pour modifier un tag sur place. |
+| `TagsInputInput` | Champ de saisie des nouveaux tags. |
+| `TagsInputClearTrigger` | Supprime tous les tags et utilise par défaut le style partagé du bouton de fermeture. |
+| `TagsInputHiddenInput` | Champ natif explicite pour l’envoi du formulaire. |
+| `TagsInputContext` | Accès render prop à l’état de la racine dans l’arbre du composant. |
 
 ## Composition
 
-Utilisez la forme courte `<TagsInput>` pour la composition standard. Gardez `TagsInput.Items`,
-`TagsInput.Input` et `TagsInput.ClearTrigger` dans `TagsInput.Control`. Ajoutez explicitement
-`TagsInput.HiddenInput` et transmettez `name` à la racine lorsque les tags doivent être envoyés avec
+Utilisez la forme courte `<TagsInput>` pour la composition standard. Gardez `TagsInputItems`,
+`TagsInputInput` et `TagsInputClearTrigger` dans `TagsInputControl`. Ajoutez explicitement
+`TagsInputHiddenInput` et transmettez `name` à la racine lorsque les tags doivent être envoyés avec
 un formulaire. Utilisez `form` lorsque le formulaire associé se trouve en dehors de l’arbre du
 composant.
 
-Pour personnaliser le contenu ou les actions des tags, utilisez `TagsInput.Context` et associez ses
-valeurs à `TagsInput.Item` avec `index` et `value`. Gardez `TagsInput.ItemInput` dans chaque élément
-pour conserver l’édition sur place. Utilisez `TagsInput.RootProvider` avec `useTagsInput()` seulement
+Pour personnaliser le contenu ou les actions des tags, utilisez `TagsInputContext` et associez ses
+valeurs à `TagsInputItem` avec `index` et `value`. Gardez `TagsInputItemInput` dans chaque élément
+pour conserver l’édition sur place. Utilisez `TagsInputRootProvider` avec `useTagsInput()` seulement
 lorsque l’état ou des méthodes comme `addValue`, `clearValue` et `focus` doivent être utilisés en
 dehors de l’arbre du composant. En Solid, le store est un accessor : lisez `tagsInput().value` et
 appelez `tagsInput().addValue()`. Avec `Combobox`, partagez les identifiants du champ et du contrôle,
@@ -371,7 +371,7 @@ d’erreur doivent partager le câblage d’accessibilité des formulaires d’A
 
 ### Formulaire
 
-Transmettez `name` à la racine et ajoutez `TagsInput.HiddenInput` pour inclure la liste de tags dans
+Transmettez `name` à la racine et ajoutez `TagsInputHiddenInput` pour inclure la liste de tags dans
 `FormData`.
 
 <ExampleFrame variant="component">
@@ -425,9 +425,9 @@ que le contrôle doit signaler un état invalide.
 </div>
 </ExampleCode>
 
-### RootProvider
+### TagsInputRootProvider
 
-Utilisez `useTagsInput` avec `RootProvider` lorsque l’état et les méthodes impératives doivent être
+Utilisez `useTagsInput` avec `TagsInputRootProvider` lorsque l’état et les méthodes impératives doivent être
 utilisés en dehors de l’arbre rendu du champ.
 
 <ExampleFrame variant="component">
@@ -541,8 +541,8 @@ les champs avec `asChild`.
 
 ### Personnalisation avancée
 
-N’utilisez pas `Items` lorsque chaque tag nécessite un contenu ou des actions personnalisés. Reliez
-les valeurs de la racine à l’arbre complet des parties et gardez `ItemInput` dans chaque élément si
+N’utilisez pas `TagsInputItems` lorsque chaque tag nécessite un contenu ou des actions personnalisés. Reliez
+les valeurs de la racine à l’arbre complet des parties et gardez `TagsInputItemInput` dans chaque élément si
 l’édition sur place doit rester possible.
 
 <ExampleFrame variant="component">
@@ -586,7 +586,7 @@ l’édition sur place doit rester possible.
 
 ### Hooks de style
 
-- La racine et `RootProvider` exposent `data-slot="tags-input-root"` et `data-slot="tags-input-root-provider"`.
+- `TagsInput` et `TagsInputRootProvider` exposent `data-slot="tags-input-root"` et `data-slot="tags-input-root-provider"`.
 - Les parties Ark conservent `data-scope="tags-input"` et les valeurs `data-part` de l’anatomie.
 - Les états peuvent utiliser `data-disabled`, `data-readonly`, `data-invalid`, `data-focus`, `data-empty`, `data-required`, `data-value` et `data-highlighted` lorsque Ark les émet.
 - Les déclencheurs de suppression et d’effacement exposent des hooks `data-slot` stables. La suppression d’un tag utilise une petite icône ; l’effacement global reprend le style partagé du bouton de fermeture.

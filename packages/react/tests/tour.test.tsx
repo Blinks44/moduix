@@ -2,7 +2,22 @@ import type { TourStepDetails } from '@ark-ui/react/tour';
 import { describe, expect, test } from '@rstest/core';
 import { fireEvent, render, screen } from '@testing-library/react';
 import { Button } from '../src/components/button';
-import { Tour, useTour } from '../src/components/tour';
+import {
+  Tour,
+  TourBackdrop,
+  TourPositioner,
+  TourContent,
+  TourTitle,
+  TourDescription,
+  TourProgressText,
+  TourBody,
+  TourCloseIcon,
+  TourControl,
+  TourActions,
+  TourActionList,
+  TourActionTrigger,
+  useTour,
+} from '../src/components/tour';
 
 Object.defineProperty(globalThis, 'visualViewport', {
   value: {
@@ -33,20 +48,20 @@ function TourExample({ portalled }: { portalled?: boolean }) {
     <>
       <Button onClick={() => tour.start()}>Start tour</Button>
       <Tour tour={tour} portalled={portalled} lazyMount unmountOnExit>
-        <Tour.Backdrop />
-        <Tour.Positioner>
-          <Tour.Content>
-            <Tour.CloseIcon />
-            <Tour.Body>
-              <Tour.Title />
-              <Tour.Description />
-              <Tour.ProgressText />
-            </Tour.Body>
-            <Tour.Control>
-              <Tour.ActionList />
-            </Tour.Control>
-          </Tour.Content>
-        </Tour.Positioner>
+        <TourBackdrop />
+        <TourPositioner>
+          <TourContent>
+            <TourCloseIcon />
+            <TourBody>
+              <TourTitle />
+              <TourDescription />
+              <TourProgressText />
+            </TourBody>
+            <TourControl>
+              <TourActionList />
+            </TourControl>
+          </TourContent>
+        </TourPositioner>
       </Tour>
     </>
   );
@@ -59,23 +74,23 @@ function CustomActionTourExample() {
     <>
       <Button onClick={() => tour.start()}>Start custom action tour</Button>
       <Tour tour={tour} portalled={false} lazyMount unmountOnExit>
-        <Tour.Positioner>
-          <Tour.Content>
-            <Tour.Title />
-            <Tour.Description />
-            <Tour.Control>
-              <Tour.Actions>
+        <TourPositioner>
+          <TourContent>
+            <TourTitle />
+            <TourDescription />
+            <TourControl>
+              <TourActions>
                 {(actions) =>
                   actions.map((action, index) => (
-                    <Tour.ActionTrigger key={`${action.label}-${index}`} action={action} asChild>
+                    <TourActionTrigger key={`${action.label}-${index}`} action={action} asChild>
                       <button type="button">{action.label}</button>
-                    </Tour.ActionTrigger>
+                    </TourActionTrigger>
                   ))
                 }
-              </Tour.Actions>
-            </Tour.Control>
-          </Tour.Content>
-        </Tour.Positioner>
+              </TourActions>
+            </TourControl>
+          </TourContent>
+        </TourPositioner>
       </Tour>
     </>
   );

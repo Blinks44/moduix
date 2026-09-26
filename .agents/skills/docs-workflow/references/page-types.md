@@ -69,7 +69,8 @@ Read [the component-page contract](component-pages.md) for the full structure. I
 7. `Examples`
 8. `Styling`, when the public styling contract is meaningful
 
-Accordion is the current structural reference. It is not the source of truth for which frameworks or styling variants ship.
+Accordion is the current structural reference. It is not the source of truth for public value
+naming, which is flat, or for which frameworks and styling variants ship.
 
 ## Utility pages
 

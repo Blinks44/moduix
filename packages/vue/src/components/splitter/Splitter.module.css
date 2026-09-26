@@ -1,0 +1,219 @@
+@layer moduix.components {
+  .root {
+    position: relative;
+    box-sizing: border-box;
+    min-width: var(--moduix-splitter-min-width, 0);
+    min-height: var(--moduix-splitter-min-height, 0);
+    border: var(--moduix-splitter-border-width, var(--moduix-border-width-sm)) solid
+      var(--moduix-splitter-border-color, var(--moduix-color-border));
+    border-radius: var(--moduix-splitter-radius, var(--moduix-radius-md));
+    background-color: var(--moduix-splitter-bg, var(--moduix-color-card));
+    color: var(--moduix-splitter-color, var(--moduix-color-foreground));
+    box-shadow: var(--moduix-splitter-shadow, var(--moduix-shadow-sm));
+
+    &[data-dragging] {
+      cursor: col-resize;
+
+      &[data-orientation='vertical'] {
+        cursor: row-resize;
+      }
+    }
+  }
+
+  .panel {
+    box-sizing: border-box;
+    min-width: var(--moduix-splitter-panel-min-width, 0);
+    min-height: var(--moduix-splitter-panel-min-height, 12.5rem);
+    padding: var(--moduix-splitter-panel-padding, var(--moduix-spacing-4));
+    overflow: auto;
+    border: var(--moduix-splitter-panel-border-width, 0) solid
+      var(--moduix-splitter-panel-border-color, var(--moduix-color-border));
+    border-radius: var(--moduix-splitter-panel-radius, 0);
+    background-color: var(--moduix-splitter-panel-bg, var(--moduix-color-card));
+    color: var(--moduix-splitter-panel-color, var(--moduix-color-card-foreground));
+    box-shadow: var(--moduix-splitter-panel-shadow, none);
+
+    &[data-dragging] {
+      user-select: none;
+    }
+  }
+
+  .root[data-orientation='vertical'] > .panel {
+    min-height: var(--moduix-splitter-panel-min-height-vertical, 0);
+  }
+
+  .resizeTrigger {
+    position: relative;
+    z-index: 1;
+    box-sizing: border-box;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    width: var(--moduix-splitter-resize-trigger-line-size, 1px);
+    min-width: var(--moduix-splitter-resize-trigger-line-size, 1px);
+    padding: 0;
+    border: 0;
+    background-color: var(--moduix-splitter-resize-trigger-bg, transparent);
+    appearance: none;
+    cursor: col-resize;
+    outline: 0;
+    transition: opacity var(--moduix-splitter-transition, var(--moduix-transition-default));
+
+    &::before {
+      position: absolute;
+      width: var(--moduix-splitter-resize-trigger-line-thickness, 0.5px);
+      height: var(--moduix-splitter-resize-trigger-line-length, 100%);
+      border-radius: var(--moduix-splitter-resize-trigger-line-radius, var(--moduix-radius-full));
+      background-color: var(
+        --moduix-splitter-resize-trigger-line-color,
+        var(--moduix-color-border)
+      );
+      content: '';
+      transition: background-color
+        var(--moduix-splitter-transition, var(--moduix-transition-default));
+    }
+
+    &::after {
+      position: absolute;
+      z-index: 1;
+      width: var(--moduix-splitter-resize-trigger-size, var(--moduix-spacing-2-5));
+      height: 100%;
+      content: '';
+    }
+
+    &[data-orientation='vertical'] {
+      width: 100%;
+      min-width: 0;
+      height: var(--moduix-splitter-resize-trigger-line-size, 1px);
+      min-height: var(--moduix-splitter-resize-trigger-line-size, 1px);
+      cursor: row-resize;
+
+      &::before {
+        width: var(--moduix-splitter-resize-trigger-line-length, 100%);
+        height: var(--moduix-splitter-resize-trigger-line-thickness, 0.5px);
+      }
+
+      &::after {
+        width: 100%;
+        height: var(--moduix-splitter-resize-trigger-size, var(--moduix-spacing-2-5));
+      }
+    }
+
+    &[data-disabled] {
+      cursor: default;
+      opacity: var(--moduix-splitter-disabled-opacity, var(--moduix-opacity-disabled));
+    }
+  }
+
+  @media (hover: hover) {
+    .resizeTrigger:hover:not(:disabled, [data-disabled]) {
+      &::before {
+        background-color: var(
+          --moduix-splitter-resize-trigger-line-color-hover,
+          color-mix(
+            in oklab,
+            var(--moduix-splitter-resize-trigger-line-color, var(--moduix-color-border)) 72%,
+            var(--moduix-color-muted-foreground)
+          )
+        );
+      }
+    }
+  }
+
+  .resizeTrigger[data-dragging]::before {
+    background-color: var(
+      --moduix-splitter-resize-trigger-line-color-dragging,
+      color-mix(
+        in oklab,
+        var(--moduix-splitter-resize-trigger-line-color, var(--moduix-color-border)) 72%,
+        var(--moduix-color-muted-foreground)
+      )
+    );
+  }
+
+  .resizeTriggerIndicator {
+    position: absolute;
+    inset-block-start: 50%;
+    inset-inline-start: 50%;
+    z-index: 2;
+    box-sizing: border-box;
+    width: var(--moduix-splitter-resize-trigger-indicator-width, var(--moduix-spacing-1-5));
+    height: var(--moduix-splitter-resize-trigger-indicator-height, var(--moduix-size-xs));
+    border: var(
+        --moduix-splitter-resize-trigger-indicator-border-width,
+        var(--moduix-border-width-sm)
+      )
+      solid var(--moduix-splitter-resize-trigger-indicator-border-color, var(--moduix-color-border));
+    border-radius: var(
+      --moduix-splitter-resize-trigger-indicator-radius,
+      var(--moduix-radius-full)
+    );
+    background-color: var(
+      --moduix-splitter-resize-trigger-indicator-bg,
+      var(--moduix-color-background)
+    );
+    box-shadow: var(--moduix-splitter-resize-trigger-indicator-shadow, var(--moduix-shadow-sm));
+    pointer-events: none;
+    transform: translate(-50%, -50%);
+    transition:
+      background-color var(--moduix-splitter-transition, var(--moduix-transition-default)),
+      border-color var(--moduix-splitter-transition, var(--moduix-transition-default)),
+      box-shadow var(--moduix-splitter-transition, var(--moduix-transition-default)),
+      transform var(--moduix-splitter-transition, var(--moduix-transition-default));
+
+    &[data-orientation='vertical'] {
+      width: var(--moduix-splitter-resize-trigger-indicator-height, var(--moduix-size-xs));
+      height: var(--moduix-splitter-resize-trigger-indicator-width, var(--moduix-spacing-1-5));
+    }
+  }
+
+  @media (hover: hover) {
+    .resizeTrigger:hover:not(:disabled, [data-disabled]) .resizeTriggerIndicator {
+      border-color: var(
+        --moduix-splitter-resize-trigger-indicator-border-color-hover,
+        color-mix(
+          in oklab,
+          var(--moduix-splitter-resize-trigger-indicator-border-color, var(--moduix-color-border))
+            72%,
+          var(--moduix-color-muted-foreground)
+        )
+      );
+      box-shadow: var(
+        --moduix-splitter-resize-trigger-indicator-shadow-hover,
+        var(--moduix-shadow-md)
+      );
+    }
+  }
+
+  .resizeTrigger[data-dragging] .resizeTriggerIndicator {
+    border-color: var(
+      --moduix-splitter-resize-trigger-indicator-border-color-dragging,
+      var(--moduix-splitter-resize-trigger-indicator-border-color, var(--moduix-color-border))
+    );
+    background-color: var(
+      --moduix-splitter-resize-trigger-indicator-bg-dragging,
+      var(--moduix-splitter-resize-trigger-indicator-bg, var(--moduix-color-background))
+    );
+    box-shadow: var(
+      --moduix-splitter-resize-trigger-indicator-shadow-dragging,
+      var(--moduix-shadow-md)
+    );
+    transform: translate(-50%, -50%) scale(1.08);
+  }
+
+  .resizeTrigger:focus-visible:not([data-dragging]) .resizeTriggerIndicator {
+    outline: var(
+        --moduix-splitter-resize-trigger-focus-ring-width,
+        var(--moduix-focus-ring-width, var(--moduix-border-width-md))
+      )
+      solid var(--moduix-splitter-resize-trigger-focus-ring-color, var(--moduix-color-ring));
+    outline-offset: var(
+      --moduix-splitter-resize-trigger-focus-ring-offset,
+      var(--moduix-border-width-sm)
+    );
+  }
+
+  .resizeTrigger[data-disabled] .resizeTriggerIndicator {
+    visibility: hidden;
+  }
+}

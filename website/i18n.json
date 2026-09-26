@@ -1,75 +1,99 @@
 {
   "languagesText": {
-    "fr": "Langues"
+    "fr": "Langues",
+    "ru": "Языки"
   },
   "themeText": {
-    "fr": "Thème"
+    "fr": "Thème",
+    "ru": "Тема"
   },
   "versionsText": {
-    "fr": "Versions"
+    "fr": "Versions",
+    "ru": "Версии"
   },
   "menuTitle": {
-    "fr": "Menu"
+    "fr": "Menu",
+    "ru": "Меню"
   },
   "scrollToTopText": {
-    "fr": "Retour en haut"
+    "fr": "Retour en haut",
+    "ru": "Наверх"
   },
   "lastUpdatedAuthorText": {
-    "fr": "par"
+    "fr": "par",
+    "ru": "автор"
   },
   "prevPageText": {
-    "fr": "Page précédente"
+    "fr": "Page précédente",
+    "ru": "Предыдущая страница"
   },
   "sourceCodeText": {
-    "fr": "Code source"
+    "fr": "Code source",
+    "ru": "Исходный код"
   },
   "searchPlaceholderText": {
-    "fr": "Rechercher"
+    "fr": "Rechercher",
+    "ru": "Поиск"
   },
   "searchPanelCancelText": {
-    "fr": "Annuler"
+    "fr": "Annuler",
+    "ru": "Отмена"
   },
   "searchNoResultsText": {
-    "fr": "Aucun résultat correspondant"
+    "fr": "Aucun résultat correspondant",
+    "ru": "Совпадений не найдено"
   },
   "searchSuggestedQueryText": {
-    "fr": "Essayez d’autres mots-clés"
+    "fr": "Essayez d’autres mots-clés",
+    "ru": "Попробуйте другие ключевые слова"
   },
   "overview.filterNameText": {
-    "fr": "Filtrer"
+    "fr": "Filtrer",
+    "ru": "Фильтр"
   },
   "overview.filterPlaceholderText": {
-    "fr": "Rechercher dans l’API"
+    "fr": "Rechercher dans l’API",
+    "ru": "Поиск по API"
   },
   "overview.filterNoResultText": {
-    "fr": "Aucune API correspondante trouvée"
+    "fr": "Aucune API correspondante trouvée",
+    "ru": "Подходящее API не найдено"
   },
   "openInText": {
-    "fr": "Ouvrir dans {{name}}"
+    "fr": "Ouvrir dans {{name}}",
+    "ru": "Открыть в {{name}}"
   },
   "codeButtonGroupCopyButtonText": {
-    "fr": "Copier le code"
+    "fr": "Copier le code",
+    "ru": "Копировать код"
   },
   "codeButtonGroupWrapButtonText": {
-    "fr": "Activer ou désactiver le retour à la ligne du code"
+    "fr": "Activer ou désactiver le retour à la ligne du code",
+    "ru": "Переключить перенос строк кода"
   },
   "notFoundText": {
-    "fr": "PAGE INTROUVABLE"
+    "fr": "PAGE INTROUVABLE",
+    "ru": "СТРАНИЦА НЕ НАЙДЕНА"
   },
   "takeMeHomeText": {
-    "fr": "Retour à l’accueil"
+    "fr": "Retour à l’accueil",
+    "ru": "На главную"
   },
   "promptCopyText": {
-    "fr": "Copier le prompt"
+    "fr": "Copier le prompt",
+    "ru": "Копировать промпт"
   },
   "promptCopiedText": {
-    "fr": "Copié"
+    "fr": "Copié",
+    "ru": "Скопировано"
   },
   "promptExpandText": {
-    "fr": "Développer"
+    "fr": "Développer",
+    "ru": "Развернуть"
   },
   "promptCollapseText": {
-    "fr": "Réduire"
+    "fr": "Réduire",
+    "ru": "Свернуть"
   },
   "navDocs": {
     "en": "Docs",

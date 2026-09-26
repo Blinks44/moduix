@@ -28,7 +28,7 @@ import treeViewSolidRootProvider from '../../../snippets/tree-view/solid/root-pr
 
 
 Create the data collection with `createTreeCollection`, then pass it to `TreeView`.
-`TreeView.Node` gives each recursive render callback the current `node`, `indexPath`, and `state`, so
+`TreeViewNode` gives each recursive render callback the current `node`, `indexPath`, and `state`, so
 you can render a branch or a leaf while keeping the part structure explicit.
 
 <ExampleFrame variant="component">
@@ -91,49 +91,49 @@ See [Quick Start](/docs/quick-start) for full package setup, registry configurat
 ## Anatomy
 
 ```text
-TreeView / TreeView.Root
-├─ TreeView.Label
-└─ TreeView.Tree
-   └─ TreeView.Node or TreeView.NodeProvider
-      ├─ TreeView.Branch
-      │  ├─ TreeView.BranchControl
-      │  │  ├─ TreeView.BranchIndicator
-      │  │  └─ TreeView.BranchText
-      │  ├─ TreeView.BranchTrigger (optional, dedicated trigger)
-      │  └─ TreeView.BranchContent
-      │     ├─ TreeView.BranchIndentGuide
+TreeView
+├─ TreeViewLabel
+└─ TreeViewTree
+   └─ TreeViewNode or TreeViewNodeProvider
+      ├─ TreeViewBranch
+      │  ├─ TreeViewBranchControl
+      │  │  ├─ TreeViewBranchIndicator
+      │  │  └─ TreeViewBranchText
+      │  ├─ TreeViewBranchTrigger (optional, dedicated trigger)
+      │  └─ TreeViewBranchContent
+      │     ├─ TreeViewBranchIndentGuide
       │     └─ nested nodes
-      └─ TreeView.Item
-         └─ TreeView.ItemText
+      └─ TreeViewItem
+         └─ TreeViewItemText
 ```
 
 | Part                             | Role                                                                  |
 | -------------------------------- | --------------------------------------------------------------------- |
-| `TreeView` / `TreeView.Root`     | Stores the collection and manages expansion, selection, focus, checking, and renaming. |
-| `TreeView.RootProvider`          | Connects tree parts to an instance returned by `useTreeView`.        |
-| `TreeView.Label`                 | Gives the tree an accessible name.                                    |
-| `TreeView.Tree`                  | Renders the ARIA tree container.                                      |
-| `TreeView.Node`                  | A convenience provider that exposes `{ node, indexPath, state }`.    |
-| `TreeView.NodeProvider`          | The low-level Ark context boundary for custom composition.           |
-| `TreeView.Branch*`               | An expandable node, its control, indicator, text, and child content. |
-| `TreeView.Item*`                 | A leaf node and its optional selected-state indicator.               |
-| `TreeView.NodeCheckbox*`         | The checkbox control and its checked or indeterminate indicator.     |
-| `TreeView.NodeRenameInput`       | The inline input shown while a node is being renamed.                |
+| `TreeView`                  | Stores the collection and manages expansion, selection, focus, checking, and renaming. |
+| `TreeViewRootProvider`          | Connects tree parts to an instance returned by `useTreeView`.        |
+| `TreeViewLabel`                 | Gives the tree an accessible name.                                    |
+| `TreeViewTree`                  | Renders the ARIA tree container.                                      |
+| `TreeViewNode`                  | A convenience provider that exposes `{ node, indexPath, state }`.    |
+| `TreeViewNodeProvider`          | The low-level Ark context boundary for custom composition.           |
+| `TreeViewBranch*`               | An expandable node, its control, indicator, text, and child content. |
+| `TreeViewItem*`                 | A leaf node and its optional selected-state indicator.               |
+| `TreeViewNodeCheckbox*`         | The checkbox control and its checked or indeterminate indicator.     |
+| `TreeViewNodeRenameInput`       | The inline input shown while a node is being renamed.                |
 
 ## Composition
 
-Use `TreeView.Node` for recursive renderers. It supplies `node`, `indexPath`, and the current node
-`state` while you choose the `Branch` or `Item` parts. If a custom recursive component needs direct
-node context, use `TreeView.NodeProvider` instead of wrapping `Node`. When controls outside the tree
-own its state, create it with `useTreeView` and pass it to `TreeView.RootProvider`; do not render a
-second root for the same store. If a branch has a separate `BranchTrigger`, set `role="none"` on
-`BranchControl`.
+Use `TreeViewNode` for recursive renderers. It supplies `node`, `indexPath`, and the current node
+`state` while you choose the `TreeViewBranch` or `TreeViewItem` parts. If a custom recursive component needs direct
+node context, use `TreeViewNodeProvider` directly. When controls outside the tree
+own its state, create it with `useTreeView` and pass it to `TreeViewRootProvider`; do not render a
+second root for the same store. If a branch has a separate `TreeViewBranchTrigger`, set `role="none"` on
+`TreeViewBranchControl`.
 
 ## Examples
 
 ### Links
 
-Use `asChild` on `TreeView.Item` when a leaf should be one semantic element, such as a link. The
+Use `asChild` on `TreeViewItem` when a leaf should be one semantic element, such as a link. The
 child must accept the Ark props so focus and keyboard behavior stay intact.
 
 <ExampleFrame variant="component">
@@ -203,7 +203,7 @@ For a branch with a known `childrenCount`, load its children with `loadChildren`
 
 ### Checkbox tree
 
-Place `NodeCheckbox` in both branch controls and leaf items. Its default indicator already covers
+Place `TreeViewNodeCheckbox` in both branch controls and leaf items. Its default indicator already covers
 the checked and indeterminate states.
 
 <ExampleFrame variant="component">
@@ -238,7 +238,7 @@ the checked and indeterminate states.
 
 ### File icons
 
-Put decorative file and folder icons inside `BranchText` and `ItemText`. Keep `BranchIndicator`
+Put decorative file and folder icons inside `TreeViewBranchText` and `TreeViewItemText`. Keep `TreeViewBranchIndicator`
 separate so it remains the only expand and collapse affordance.
 
 <ExampleFrame variant="component">
@@ -314,7 +314,7 @@ extend a selection range. The example keeps the selected values in application s
 ### Root provider
 
 Create tree state with `useTreeView` when controls outside the tree need methods such as `expand()`
-or `collapse()`. Pass that state to `RootProvider` instead of rendering a second `TreeView.Root`.
+or `collapse()`. Pass that state to `TreeViewRootProvider` instead of rendering a second `TreeView`.
 
 <ExampleFrame variant="component">
   <RootProviderTreeView />

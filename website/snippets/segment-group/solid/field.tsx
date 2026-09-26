@@ -1,5 +1,9 @@
-import { Field } from '@moduix/solid/field';
-import { SegmentGroup } from '@moduix/solid/segment-group';
+import { Field, FieldErrorText, FieldHelperText } from '@moduix/solid/field';
+import {
+  SegmentGroup,
+  SegmentGroupIndicator,
+  SegmentGroupItems,
+} from '@moduix/solid/segment-group';
 import styles from '@/components/examples/segment-group/segment-group-field.module.css';
 
 const frameworks = [
@@ -13,11 +17,11 @@ export default function FieldSegmentGroupDemo() {
   return (
     <Field class={styles.root} invalid>
       <SegmentGroup aria-label="Framework" defaultValue="React" name="framework" required>
-        <SegmentGroup.Indicator />
-        <SegmentGroup.Items items={frameworks} />
+        <SegmentGroupIndicator />
+        <SegmentGroupItems items={frameworks} />
       </SegmentGroup>
-      <Field.HelperText>Choose the framework used by this project.</Field.HelperText>
-      <Field.ErrorText>Choose a supported framework.</Field.ErrorText>
+      <FieldHelperText>Choose the framework used by this project.</FieldHelperText>
+      <FieldErrorText>Choose a supported framework.</FieldErrorText>
     </Field>
   );
 }

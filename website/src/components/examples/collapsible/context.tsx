@@ -1,5 +1,12 @@
 import { Button } from '@moduix/react/button';
-import { Collapsible, useCollapsibleContext } from '@moduix/react/collapsible';
+import {
+  Collapsible,
+  CollapsibleBody,
+  CollapsibleContent,
+  CollapsibleIndicator,
+  CollapsibleTrigger,
+  useCollapsibleContext,
+} from '@moduix/react/collapsible';
 import styles from '@/components/examples/collapsible/collapsible-context.module.css';
 
 function CloseDetailsButton() {
@@ -15,16 +22,16 @@ function CloseDetailsButton() {
 export default function ContextCollapsibleDemo() {
   return (
     <Collapsible className={styles.root} defaultOpen>
-      <Collapsible.Trigger>
+      <CollapsibleTrigger>
         Account details
-        <Collapsible.Indicator />
-      </Collapsible.Trigger>
-      <Collapsible.Content>
-        <Collapsible.Body>
+        <CollapsibleIndicator />
+      </CollapsibleTrigger>
+      <CollapsibleContent>
+        <CollapsibleBody>
           Use the context from a descendant when that descendant needs to close the disclosure.
           <CloseDetailsButton />
-        </Collapsible.Body>
-      </Collapsible.Content>
+        </CollapsibleBody>
+      </CollapsibleContent>
     </Collapsible>
   );
 }

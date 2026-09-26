@@ -121,14 +121,14 @@ parts. The live preview uses React because the documentation application runs Re
 
 Keep native constraints such as `required`, `minLength`, `pattern`, `min`, and `max` when browser
 validation owns the flow. When a library owns visible errors, add `noValidate`, pass its result to
-`Field invalid`, and render a clear `Field.ErrorText` only after the chosen validation lifecycle has
+`Field invalid`, and render a clear `FieldErrorText` only after the chosen validation lifecycle has
 found a problem.
 
 Native `type="reset"` and `form.reset()` restore uncontrolled controls. For library-controlled
 fields, use the library's reset API so its state and the Moduix values stay synchronized.
 
-Move invalid-submit focus to the real focusable element: `Input`, `Textarea`, `Select.Trigger`, or
-`Combobox.Input`. The integration guide for each library describes whether focus is automatic or
+Move invalid-submit focus to the real focusable element: `Input`, `Textarea`, `SelectTrigger`, or
+`ComboboxInput`. The integration guide for each library describes whether focus is automatic or
 application-owned.
 
 ## Submission and server errors
@@ -137,7 +137,7 @@ Keep ready, submitting, error, and success states explicit. Prevent duplicate re
 asynchronous submission is pending, keep entered values visible after a failure, and leave a clear
 retry path.
 
-Map a server error about one value to that field's `Field.ErrorText`. Render request or permission
+Map a server error about one value to that field's `FieldErrorText`. Render request or permission
 failures that do not belong to a field as a form-level `role="alert"`. Repeated fields should use
 stable item IDs so values, focus, and errors do not move when another row is removed.
 

@@ -47,7 +47,7 @@ Use `Select` when the same predefined choice does not need an editable input.
 
 
 Create an Ark collection with `useListCollection`, pass it to `Combobox`, and keep the popup structure
-explicit. Use `Combobox.Option` for ordinary rows; use `Combobox.Item` when a row needs custom structure.
+explicit. Use `ComboboxOption` for ordinary rows; use `ComboboxItem` when a row needs custom structure.
 `onInputValueChange` receives an Ark details object.
 
 <ExampleFrame variant="component">
@@ -115,69 +115,69 @@ See [Quick Start](/docs/quick-start) for full package setup, registry configurat
 ## Anatomy
 
 ```text
-Combobox / Combobox.Root[collection]
-├─ Combobox.Label
-├─ Combobox.Control
-│  ├─ Combobox.Input
-│  ├─ Combobox.ClearTrigger
-│  └─ Combobox.Trigger
+Combobox[collection]
+├─ ComboboxLabel
+├─ ComboboxControl
+│  ├─ ComboboxInput
+│  ├─ ComboboxClearTrigger
+│  └─ ComboboxTrigger
 └─ Overlay subtree (automatically portalled)
- └─ Combobox.Positioner
-    └─ Combobox.Content
-       ├─ Combobox.Empty
-       ├─ Combobox.Status
-       ├─ Combobox.List
-       │  ├─ Combobox.Option[item]
-       │  └─ Combobox.Item[item]
-       │     ├─ Combobox.ItemText
-       │     └─ Combobox.ItemIndicator
-       └─ Combobox.ItemGroup
-          ├─ Combobox.ItemGroupLabel
-          └─ Combobox.Item
+ └─ ComboboxPositioner
+    └─ ComboboxContent
+       ├─ ComboboxEmpty
+       ├─ ComboboxStatus
+       ├─ ComboboxList
+       │  ├─ ComboboxOption[item]
+       │  └─ ComboboxItem[item]
+       │     ├─ ComboboxItemText
+       │     └─ ComboboxItemIndicator
+       └─ ComboboxItemGroup
+          ├─ ComboboxItemGroupLabel
+          └─ ComboboxItem
 ```
 
 | Part                         | Role                                                               |
 | ---------------------------- | ------------------------------------------------------------------ |
-| `Combobox` / `Combobox.Root` | Owns combobox state, filtering, highlighting, and selected values. |
-| `Combobox.Control`           | Wrapper for input and trigger controls.                            |
-| `Combobox.Input`             | Text input that drives search and selection.                       |
-| `Combobox.Trigger`           | Opens and closes the popup list.                                   |
-| `Combobox.ClearTrigger`      | Clears current value and/or input.                                 |
-| `Combobox.Positioner`        | Floating positioner for popup content.                             |
-| `Combobox.Content`           | Popup content container.                                           |
-| `Combobox.Status`            | Styled consumer-owned loading, error, or guidance message.         |
-| `Combobox.List`              | Option list wrapper.                                               |
-| `Combobox.Option`            | Convenience row for simple options with text and an indicator.     |
-| `Combobox.Item`              | Selectable option row.                                             |
-| `Combobox.ItemText`          | Text label slot inside an item.                                    |
-| `Combobox.ItemIndicator`     | Selected/highlight indicator slot for an item.                     |
-| `Combobox.Context`           | Renderless access to the current combobox state.                   |
-| `Combobox.ItemContext`       | Renderless access to the current item state.                       |
+| `Combobox` | Owns combobox state, filtering, highlighting, and selected values. |
+| `ComboboxControl`           | Wrapper for input and trigger controls.                            |
+| `ComboboxInput`             | Text input that drives search and selection.                       |
+| `ComboboxTrigger`           | Opens and closes the popup list.                                   |
+| `ComboboxClearTrigger`      | Clears current value and/or input.                                 |
+| `ComboboxPositioner`        | Floating positioner for popup content.                             |
+| `ComboboxContent`           | Popup content container.                                           |
+| `ComboboxStatus`            | Styled consumer-owned loading, error, or guidance message.         |
+| `ComboboxList`              | Option list wrapper.                                               |
+| `ComboboxOption`            | Convenience row for simple options with text and an indicator.     |
+| `ComboboxItem`              | Selectable option row.                                             |
+| `ComboboxItemText`          | Text label slot inside an item.                                    |
+| `ComboboxItemIndicator`     | Selected/highlight indicator slot for an item.                     |
+| `ComboboxContext`           | Renderless access to the current combobox state.                   |
+| `ComboboxItemContext`       | Renderless access to the current item state.                       |
 
-`Combobox.RootProvider` renders the same styled root for state created with moduix's `useCombobox`.
-Read combobox state inside the tree with `Combobox.Context` or `useComboboxContext`; use
-`Combobox.ItemContext` or `useComboboxItemContext` for item state.
+`ComboboxRootProvider` renders the same styled root for state created with moduix's `useCombobox`.
+Read combobox state inside the tree with `ComboboxContext` or `useComboboxContext`; use
+`ComboboxItemContext` or `useComboboxItemContext` for item state.
 
 ## Composition
 
 Use `createListCollection` for static items and `useListCollection` when filtering or other updates
 change the collection. For object items, provide `itemToString` and `itemToValue`.
 
-The root portals `Positioner` automatically, but `Positioner` and `Content` stay explicit in the
+`Combobox` portals `ComboboxPositioner` automatically, but `ComboboxPositioner` and `ComboboxContent` stay explicit in the
 composition. Set `portalled={false}` to keep the popup in the current tree, or pass `portalRef` for
-a specific container. Use `Combobox.Option` for simple rows and `Combobox.Item` with `asChild` for
+a specific container. Use `ComboboxOption` for simple rows and `ComboboxItem` with `asChild` for
 custom rows.
 
 Keep selection in `value` when other UI needs it. When state is created outside the rendered tree,
-pass `useCombobox` to `Combobox.RootProvider`. In multiple mode, tags and other value summaries are
-application-owned; compose with `TagsInput` when they should share one field. `Combobox.Status` is
+pass `useCombobox` to `ComboboxRootProvider`. In multiple mode, tags and other value summaries are
+application-owned; compose with `TagsInput` when they should share one field. `ComboboxStatus` is
 also an application-owned message container and does not manage loading or error state.
 
 ## Examples
 
 ### Async Search
 
-Replace collection items with async results and render `Combobox.Status` while a request is pending.
+Replace collection items with async results and render `ComboboxStatus` while a request is pending.
 Use `details.reason` to distinguish typed input from machine-driven updates. When the query is empty,
 show a `Start typing to search…` status so the popup remains informative.
 
@@ -538,7 +538,7 @@ when they must live inside the same field shell, compose `Combobox` with `TagsIn
 ### Root Provider
 
 Create the state with moduix's `useCombobox` when external controls need imperative methods or shared
-state before the root renders. `Combobox.RootProvider` preserves the moduix root styling and portal
+state before the root renders. `ComboboxRootProvider` preserves the moduix root styling and portal
 configuration.
 
 <ExampleFrame variant="component">
@@ -655,7 +655,7 @@ live inside one editable chip field.
 ### Advanced Customization
 
 Use the full item composition when a row needs a custom semantic element or layout. This example
-renders each result as a link with `Combobox.Item asChild`.
+renders each result as a link with `ComboboxItem asChild`.
 
 <ExampleFrame variant="component">
   <ComboboxAdvancedCustomization />
@@ -710,7 +710,7 @@ variants. Data attributes and `data-slot` hooks are shared by both styling track
   `combobox-input`, `combobox-clear-trigger`, `combobox-trigger`, `combobox-positioner`,
   `combobox-content`, `combobox-empty`, `combobox-status`, `combobox-list`, `combobox-item-group`,
   `combobox-item-group-label`, `combobox-item`, `combobox-item-text`, and `combobox-item-indicator`.
-  `Combobox.Option` reuses the item slots instead of adding its own styling hook.
+  `ComboboxOption` reuses the item slots instead of adding its own styling hook.
 - Ark state hooks include `data-state="open|closed"`, `data-focus`, `data-invalid`,
   `data-disabled`, `data-highlighted`, `data-empty`, `data-placement`, and `data-side`.
 - Ark positioning variables include `--reference-width`, `--available-width`,

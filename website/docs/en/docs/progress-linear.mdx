@@ -36,8 +36,8 @@ compact status indicator in a card, toolbar, or other space-constrained surface.
 ## Basic
 
 
-Compose the progress bar from the explicit `Label`, `ValueText`, `Track`, and `Range` parts. Give
-`Track` an accessible name that describes the task.
+Compose the progress bar from the explicit `ProgressLinearLabel`, `ProgressLinearValueText`, `ProgressLinearTrack`, and `ProgressLinearRange` parts. Give
+`ProgressLinearTrack` an accessible name that describes the task.
 
 <ExampleFrame variant="component">
   <ProgressLinearBasic />
@@ -99,35 +99,35 @@ See [Quick Start](/docs/quick-start) for full package setup, registry configurat
 ## Anatomy
 
 ```text
-ProgressLinear / ProgressLinear.Root
-├─ ProgressLinear.Label
-├─ ProgressLinear.ValueText
-├─ ProgressLinear.Track
-│  └─ ProgressLinear.Range
-└─ ProgressLinear.View
+ProgressLinear
+├─ ProgressLinearLabel
+├─ ProgressLinearValueText
+├─ ProgressLinearTrack
+│  └─ ProgressLinearRange
+└─ ProgressLinearView
 
-ProgressLinear.RootProvider
-└─ the same part tree connected to ProgressLinear.useProgress()
+ProgressLinearRootProvider
+└─ the same part tree connected to useProgress()
 ```
 
 | Part                                     | Role                                                                       |
 | ---------------------------------------- | -------------------------------------------------------------------------- |
-| `ProgressLinear` / `ProgressLinear.Root` | Owns progress state and passes formatting, IDs, and other props to Ark.    |
-| `ProgressLinear.RootProvider`             | Connects parts to the store returned by `ProgressLinear.useProgress()`.    |
-| `ProgressLinear.Context`                 | Provides the current progress state to a render prop.                     |
-| `ProgressLinear.Label`                   | Visible task label. It is not automatically used as `Track`'s accessible name. |
-| `ProgressLinear.ValueText`                | Displays the formatted percentage and announces changes. Use `Context` for custom text. |
-| `ProgressLinear.Track`                   | Progressbar surface. Ark adds the role and ARIA value attributes.         |
-| `ProgressLinear.Range`                   | Filled portion that reflects the current progress.                        |
-| `ProgressLinear.View`                    | Shows content only when its `state` matches the current progress state.   |
+| `ProgressLinear` | Owns progress state and passes formatting, IDs, and other props to Ark.    |
+| `ProgressLinearRootProvider`             | Connects parts to the store returned by `useProgress()`.    |
+| `ProgressLinearContext`                 | Provides the current progress state to a render prop.                     |
+| `ProgressLinearLabel`                   | Visible task label. It is not automatically used as `ProgressLinearTrack`'s accessible name. |
+| `ProgressLinearValueText`                | Displays the formatted percentage and announces changes. Use `ProgressLinearContext` for custom text. |
+| `ProgressLinearTrack`                   | Progressbar surface. Ark adds the role and ARIA value attributes.         |
+| `ProgressLinearRange`                   | Filled portion that reflects the current progress.                        |
+| `ProgressLinearView`                    | Shows content only when its `state` matches the current progress state.   |
 
 ## Composition
 
 Use `defaultValue` for uncontrolled progress. Use `value` with `onValueChange(details)` when your
 application owns the current value, and use `defaultValue={null}` or `value={null}` when progress is
-unknown. If state is created with `ProgressLinear.useProgress()`, render the parts inside
-`ProgressLinear.RootProvider` instead of `ProgressLinear` or `ProgressLinear.Root`. Use
-`ProgressLinear.View` for state-specific content and `ProgressLinear.Context` when custom visible text
+unknown. If state is created with `useProgress()`, render the parts inside
+`ProgressLinearRootProvider` instead of `ProgressLinear`. Use
+`ProgressLinearView` for state-specific content and `ProgressLinearContext` when custom visible text
 needs the current state.
 
 ## Examples
@@ -271,7 +271,7 @@ Use `min` and `max` when the progress range is different from the default range 
 
 ### State Views
 
-Use `ProgressLinear.View` when supporting text or UI should change with the Ark progress state.
+Use `ProgressLinearView` when supporting text or UI should change with the Ark progress state.
 
 <ExampleFrame variant="component">
   <ProgressLinearStateViews />
@@ -305,7 +305,7 @@ Use `ProgressLinear.View` when supporting text or UI should change with the Ark 
 
 ### Value Text
 
-Use `ProgressLinear.Context` with `translations.value(details)` when visible value text needs
+Use `ProgressLinearContext` with `translations.value(details)` when visible value text needs
 task-specific wording.
 
 <ExampleFrame variant="component">
@@ -376,8 +376,8 @@ different height.
 
 ### Advanced Customization
 
-Create the progress state with `ProgressLinear.useProgress()` in a parent component, then connect it
-to the rendered parts with `ProgressLinear.RootProvider`.
+Create the progress state with `useProgress()` in a parent component, then connect it
+to the rendered parts with `ProgressLinearRootProvider`.
 
 <ExampleFrame variant="component">
   <ProgressLinearRootProvider />

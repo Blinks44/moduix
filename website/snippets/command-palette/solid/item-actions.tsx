@@ -1,7 +1,25 @@
 import { useListCollection } from '@ark-ui/solid/collection';
 import { useFilter } from '@ark-ui/solid/locale';
 import { Button } from '@moduix/solid/button';
-import { CommandPalette } from '@moduix/solid/command-palette';
+import {
+  CommandPalette,
+  CommandPaletteCombobox,
+  CommandPaletteEmpty,
+  CommandPaletteFooter,
+  CommandPaletteItem,
+  CommandPaletteItemDescription,
+  CommandPaletteItemGroup,
+  CommandPaletteItemGroupLabel,
+  CommandPaletteItemIcon,
+  CommandPaletteItemLabel,
+  CommandPaletteItemMeta,
+  CommandPaletteItemText,
+  CommandPaletteKbd,
+  CommandPaletteList,
+  CommandPalettePanel,
+  CommandPaletteSearch,
+  CommandPaletteTrigger,
+} from '@moduix/solid/command-palette';
 import { For, createSignal } from 'solid-js';
 import styles from '@/components/examples/command-palette/command-palette-item-actions.module.css';
 
@@ -64,11 +82,11 @@ export default function CommandPaletteActionsDemo() {
           }
         }}
       >
-        <CommandPalette.Trigger
+        <CommandPaletteTrigger
           asChild={(triggerProps) => <Button {...triggerProps()}>Open actions palette</Button>}
         />
-        <CommandPalette.Panel class={styles.highlightPalette}>
-          <CommandPalette.Combobox
+        <CommandPalettePanel class={styles.highlightPalette}>
+          <CommandPaletteCombobox
             collection={collectionState.collection()}
             onInputValueChange={(details) => collectionState.filter(details.inputValue)}
             onSelect={(details) => {
@@ -76,40 +94,40 @@ export default function CommandPaletteActionsDemo() {
               selectedItem?.onSelect();
             }}
           >
-            <CommandPalette.Search placeholder="Search and run commands..." />
-            <CommandPalette.List>
-              <CommandPalette.Empty>No commands found.</CommandPalette.Empty>
+            <CommandPaletteSearch placeholder="Search and run commands..." />
+            <CommandPaletteList>
+              <CommandPaletteEmpty>No commands found.</CommandPaletteEmpty>
               <For each={collectionState.collection().group()}>
                 {([section, items]) => (
-                  <CommandPalette.ItemGroup>
-                    <CommandPalette.ItemGroupLabel>{section}</CommandPalette.ItemGroupLabel>
+                  <CommandPaletteItemGroup>
+                    <CommandPaletteItemGroupLabel>{section}</CommandPaletteItemGroupLabel>
                     <For each={items}>
                       {(item) => (
-                        <CommandPalette.Item item={item}>
-                          <CommandPalette.ItemIcon>{item.icon}</CommandPalette.ItemIcon>
-                          <CommandPalette.ItemText>
-                            <CommandPalette.ItemLabel>{item.label}</CommandPalette.ItemLabel>
-                            <CommandPalette.ItemDescription>
+                        <CommandPaletteItem item={item}>
+                          <CommandPaletteItemIcon>{item.icon}</CommandPaletteItemIcon>
+                          <CommandPaletteItemText>
+                            <CommandPaletteItemLabel>{item.label}</CommandPaletteItemLabel>
+                            <CommandPaletteItemDescription>
                               {item.description}
-                            </CommandPalette.ItemDescription>
-                          </CommandPalette.ItemText>
+                            </CommandPaletteItemDescription>
+                          </CommandPaletteItemText>
                           {item.shortcut ? (
-                            <CommandPalette.ItemMeta>{item.shortcut}</CommandPalette.ItemMeta>
+                            <CommandPaletteItemMeta>{item.shortcut}</CommandPaletteItemMeta>
                           ) : null}
-                        </CommandPalette.Item>
+                        </CommandPaletteItem>
                       )}
                     </For>
-                  </CommandPalette.ItemGroup>
+                  </CommandPaletteItemGroup>
                 )}
               </For>
-            </CommandPalette.List>
-            <CommandPalette.Footer>
+            </CommandPaletteList>
+            <CommandPaletteFooter>
               <span>
-                <CommandPalette.Kbd>Enter</CommandPalette.Kbd> run
+                <CommandPaletteKbd>Enter</CommandPaletteKbd> run
               </span>
-            </CommandPalette.Footer>
-          </CommandPalette.Combobox>
-        </CommandPalette.Panel>
+            </CommandPaletteFooter>
+          </CommandPaletteCombobox>
+        </CommandPalettePanel>
       </CommandPalette>
       <output>Last action: {lastAction()}</output>
     </>

@@ -1,4 +1,12 @@
-import { Slider } from '@moduix/react/slider';
+import {
+  Slider,
+  SliderControl,
+  SliderLabel,
+  SliderRange,
+  SliderThumbs,
+  SliderTrack,
+  SliderValueText,
+} from '@moduix/react/slider';
 import { useState } from 'react';
 import { PreviewMeta } from '@/components/mdx/Components';
 import styles from '@/components/examples/slider/slider-change-events.module.css';
@@ -14,15 +22,15 @@ export default function EventsSliderDemo() {
         onValueChangeEnd={(details) => setCommittedValue(details.value)}
       >
         <div className={styles.header}>
-          <Slider.Label>Gain</Slider.Label>
-          <Slider.ValueText />
+          <SliderLabel>Gain</SliderLabel>
+          <SliderValueText />
         </div>
-        <Slider.Control>
-          <Slider.Track>
-            <Slider.Range />
-          </Slider.Track>
-          <Slider.Thumbs />
-        </Slider.Control>
+        <SliderControl>
+          <SliderTrack>
+            <SliderRange />
+          </SliderTrack>
+          <SliderThumbs />
+        </SliderControl>
       </Slider>
       <PreviewMeta>
         <output>

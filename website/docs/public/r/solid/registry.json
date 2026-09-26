@@ -55,6 +55,34 @@
       ]
     },
     {
+      "name": "default-values",
+      "type": "registry:item",
+      "title": "moduix default values",
+      "description": "Internal defaultValue helpers for native form controls required only by registry components that forward React-style defaultValue.",
+      "dependencies": [],
+      "files": [
+        {
+          "path": "src/internal/defaultValue.ts",
+          "target": "@lib/moduix/defaultValue.ts",
+          "type": "registry:lib"
+        }
+      ]
+    },
+    {
+      "name": "a11y-labels",
+      "type": "registry:item",
+      "title": "moduix a11y labels",
+      "description": "Internal accessible label defaults required only by registry components that render text fallbacks.",
+      "dependencies": [],
+      "files": [
+        {
+          "path": "src/internal/a11yLabels.ts",
+          "target": "@lib/moduix/a11yLabels.ts",
+          "type": "registry:lib"
+        }
+      ]
+    },
+    {
       "name": "overlay-portal",
       "type": "registry:item",
       "title": "moduix overlay portal",
@@ -280,7 +308,11 @@
       "title": "Breadcrumbs",
       "description": "moduix Solid Breadcrumbs component.",
       "dependencies": ["@ark-ui/solid", "clsx"],
-      "registryDependencies": ["@moduix-solid/foundation", "@moduix-solid/icons"],
+      "registryDependencies": [
+        "@moduix-solid/a11y-labels",
+        "@moduix-solid/foundation",
+        "@moduix-solid/icons"
+      ],
       "files": [
         {
           "path": "src/components/breadcrumbs/Breadcrumbs.tsx",
@@ -405,7 +437,11 @@
       "title": "CloseButton",
       "description": "moduix Solid CloseButton component.",
       "dependencies": ["@ark-ui/solid", "clsx"],
-      "registryDependencies": ["@moduix-solid/foundation", "@moduix-solid/icons"],
+      "registryDependencies": [
+        "@moduix-solid/a11y-labels",
+        "@moduix-solid/foundation",
+        "@moduix-solid/icons"
+      ],
       "files": [
         {
           "path": "src/components/close-button/CloseButton.tsx",
@@ -481,8 +517,9 @@
       "description": "moduix Solid Combobox component.",
       "dependencies": ["@ark-ui/solid", "clsx"],
       "registryDependencies": [
-        "@moduix-solid/foundation",
+        "@moduix-solid/a11y-labels",
         "@moduix-solid/close-button",
+        "@moduix-solid/foundation",
         "@moduix-solid/icons",
         "@moduix-solid/overlay-portal"
       ],
@@ -620,8 +657,9 @@
       "description": "moduix Solid Drawer component.",
       "dependencies": ["@ark-ui/solid", "clsx"],
       "registryDependencies": [
-        "@moduix-solid/foundation",
+        "@moduix-solid/a11y-labels",
         "@moduix-solid/close-button",
+        "@moduix-solid/foundation",
         "@moduix-solid/overlay-portal"
       ],
       "files": [
@@ -698,7 +736,7 @@
       "title": "Field",
       "description": "moduix Solid Field component.",
       "dependencies": ["@ark-ui/solid", "clsx"],
-      "registryDependencies": ["@moduix-solid/foundation"],
+      "registryDependencies": ["@moduix-solid/default-values", "@moduix-solid/foundation"],
       "files": [
         {
           "path": "src/components/field/Field.tsx",
@@ -749,8 +787,9 @@
       "description": "moduix Solid FileUpload component.",
       "dependencies": ["@ark-ui/solid", "clsx"],
       "registryDependencies": [
-        "@moduix-solid/foundation",
+        "@moduix-solid/a11y-labels",
         "@moduix-solid/close-button",
+        "@moduix-solid/foundation",
         "@moduix-solid/icons"
       ],
       "files": [
@@ -828,8 +867,9 @@
       "description": "moduix Solid FloatingPanel component.",
       "dependencies": ["@ark-ui/solid", "clsx"],
       "registryDependencies": [
-        "@moduix-solid/foundation",
+        "@moduix-solid/a11y-labels",
         "@moduix-solid/close-button",
+        "@moduix-solid/foundation",
         "@moduix-solid/icons",
         "@moduix-solid/overlay-portal"
       ],
@@ -961,7 +1001,11 @@
       "title": "PasswordInput",
       "description": "moduix Solid PasswordInput component.",
       "dependencies": ["@ark-ui/solid", "clsx"],
-      "registryDependencies": ["@moduix-solid/foundation", "@moduix-solid/icons"],
+      "registryDependencies": [
+        "@moduix-solid/default-values",
+        "@moduix-solid/foundation",
+        "@moduix-solid/icons"
+      ],
       "files": [
         {
           "path": "src/components/password-input/PasswordInput.tsx",
@@ -1141,8 +1185,9 @@
       "description": "moduix Solid Popover component.",
       "dependencies": ["@ark-ui/solid", "clsx"],
       "registryDependencies": [
-        "@moduix-solid/foundation",
+        "@moduix-solid/a11y-labels",
         "@moduix-solid/close-button",
+        "@moduix-solid/foundation",
         "@moduix-solid/overlay-portal"
       ],
       "files": [
@@ -1295,8 +1340,9 @@
       "description": "moduix Solid Select component.",
       "dependencies": ["@ark-ui/solid", "clsx"],
       "registryDependencies": [
-        "@moduix-solid/foundation",
+        "@moduix-solid/a11y-labels",
         "@moduix-solid/close-button",
+        "@moduix-solid/foundation",
         "@moduix-solid/icons",
         "@moduix-solid/overlay-portal"
       ],
@@ -1378,7 +1424,7 @@
       "title": "Spinner",
       "description": "moduix Solid Spinner component.",
       "dependencies": ["@ark-ui/solid", "clsx"],
-      "registryDependencies": ["@moduix-solid/foundation"],
+      "registryDependencies": ["@moduix-solid/a11y-labels", "@moduix-solid/foundation"],
       "files": [
         {
           "path": "src/components/spinner/Spinner.tsx",
@@ -1478,7 +1524,7 @@
       "title": "Textarea",
       "description": "moduix Solid Textarea component.",
       "dependencies": ["@ark-ui/solid", "clsx"],
-      "registryDependencies": ["@moduix-solid/foundation"],
+      "registryDependencies": ["@moduix-solid/default-values", "@moduix-solid/foundation"],
       "files": [
         {
           "path": "src/components/textarea/Textarea.tsx",
@@ -1529,8 +1575,9 @@
       "description": "moduix Solid Toast component.",
       "dependencies": ["@ark-ui/solid", "clsx"],
       "registryDependencies": [
-        "@moduix-solid/foundation",
+        "@moduix-solid/a11y-labels",
         "@moduix-solid/close-button",
+        "@moduix-solid/foundation",
         "@moduix-solid/overlay-portal"
       ],
       "files": [
@@ -1708,8 +1755,9 @@
       "description": "moduix Solid Listbox component.",
       "dependencies": ["@ark-ui/solid", "clsx"],
       "registryDependencies": [
-        "@moduix-solid/foundation",
+        "@moduix-solid/a11y-labels",
         "@moduix-solid/close-button",
+        "@moduix-solid/foundation",
         "@moduix-solid/icons"
       ],
       "files": [
@@ -1787,11 +1835,12 @@
       "description": "moduix Solid Sidebar component.",
       "dependencies": ["@ark-ui/solid", "clsx"],
       "registryDependencies": [
+        "@moduix-solid/a11y-labels",
+        "@moduix-solid/icons",
         "@moduix-solid/input",
         "@moduix-solid/separator",
         "@moduix-solid/splitter",
-        "@moduix-solid/tooltip",
-        "@moduix-solid/icons"
+        "@moduix-solid/tooltip"
       ],
       "files": [
         {
@@ -1937,7 +1986,7 @@
       "title": "Table",
       "description": "moduix Solid Table component.",
       "dependencies": ["@ark-ui/solid", "clsx"],
-      "registryDependencies": ["@moduix-solid/foundation"],
+      "registryDependencies": ["@moduix-solid/a11y-labels", "@moduix-solid/foundation"],
       "files": [
         {
           "path": "src/components/table/Table.tsx",
@@ -2013,8 +2062,9 @@
       "description": "moduix Solid SplitButton component.",
       "dependencies": ["@ark-ui/solid", "clsx"],
       "registryDependencies": [
-        "@moduix-solid/foundation",
+        "@moduix-solid/a11y-labels",
         "@moduix-solid/button",
+        "@moduix-solid/foundation",
         "@moduix-solid/icons",
         "@moduix-solid/menu",
         "@moduix-solid/overlay-portal"
@@ -2094,8 +2144,9 @@
       "description": "moduix Solid CommandPalette component.",
       "dependencies": ["@ark-ui/solid", "clsx"],
       "registryDependencies": [
-        "@moduix-solid/foundation",
+        "@moduix-solid/a11y-labels",
         "@moduix-solid/close-button",
+        "@moduix-solid/foundation",
         "@moduix-solid/icons",
         "@moduix-solid/kbd",
         "@moduix-solid/overlay-portal",
@@ -2126,8 +2177,9 @@
       "description": "moduix Solid Dialog component.",
       "dependencies": ["@ark-ui/solid", "clsx"],
       "registryDependencies": [
-        "@moduix-solid/foundation",
+        "@moduix-solid/a11y-labels",
         "@moduix-solid/close-button",
+        "@moduix-solid/foundation",
         "@moduix-solid/overlay-portal"
       ],
       "files": [
@@ -2155,8 +2207,9 @@
       "description": "moduix Solid Lightbox component.",
       "dependencies": ["@ark-ui/solid", "clsx"],
       "registryDependencies": [
-        "@moduix-solid/foundation",
+        "@moduix-solid/a11y-labels",
         "@moduix-solid/close-button",
+        "@moduix-solid/foundation",
         "@moduix-solid/overlay-portal"
       ],
       "files": [
@@ -2283,7 +2336,11 @@
       "title": "Tag",
       "description": "moduix Solid Tag component.",
       "dependencies": ["@ark-ui/solid", "clsx"],
-      "registryDependencies": ["@moduix-solid/foundation", "@moduix-solid/close-button"],
+      "registryDependencies": [
+        "@moduix-solid/a11y-labels",
+        "@moduix-solid/close-button",
+        "@moduix-solid/foundation"
+      ],
       "files": [
         {
           "path": "src/components/tag/Tag.tsx",
@@ -2338,8 +2395,9 @@
       "description": "moduix Solid Tour component.",
       "dependencies": ["@ark-ui/solid", "clsx"],
       "registryDependencies": [
-        "@moduix-solid/foundation",
+        "@moduix-solid/a11y-labels",
         "@moduix-solid/close-button",
+        "@moduix-solid/foundation",
         "@moduix-solid/overlay-portal"
       ],
       "files": [

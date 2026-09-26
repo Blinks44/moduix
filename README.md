@@ -3,12 +3,13 @@
 [![npm](https://img.shields.io/npm/v/@moduix/react?logo=npm&label=npm)](https://www.npmjs.com/package/@moduix/react)
 [![License: MIT](https://img.shields.io/badge/license-MIT-green.svg)](./LICENSE.md)
 [![TypeScript](https://img.shields.io/badge/TypeScript-Ready-3178C6?logo=typescript&logoColor=white)](https://www.typescriptlang.org/)
+[![CI](https://github.com/Blinks44/moduix/actions/workflows/verify.yml/badge.svg)](https://github.com/Blinks44/moduix/actions/workflows/verify.yml)
 
 # moduix
 
 Product-minded, multi-framework components built on [Ark UI](https://ark-ui.com/), with accessible
 behavior, explicit composition, and first-class CSS Modules and Tailwind styling tracks. React and
-Solid adapters ship today; Vue and Svelte adapters are planned.
+Solid adapters ship today; the Vue adapter is in development and Svelte adapters are planned.
 
 moduix combines Ark UI primitives with considered defaults and a shadcn-inspired ownership model.
 Use the published package when you want managed updates, or add the component source
@@ -25,8 +26,10 @@ to your application through the hosted shadcn registry when you want to own it.
 | ------- | -------------------------------------------------------------- | -------------------------------------------------------------------------------- |
 | React   | [`@moduix/react`](https://www.npmjs.com/package/@moduix/react) | [`@moduix/react-tailwind`](https://www.npmjs.com/package/@moduix/react-tailwind) |
 | Solid   | [`@moduix/solid`](https://www.npmjs.com/package/@moduix/solid) | [`@moduix/solid-tailwind`](https://www.npmjs.com/package/@moduix/solid-tailwind) |
+| Vue     | `@moduix/vue` (in development)                                 | `@moduix/vue-tailwind` (in development)                                          |
 
-The package matrix grows with shipped adapters. Shared workflows and documentation are structured so Vue and Svelte can join without redefining the library around today's runtimes.
+The package matrix grows with shipped adapters. Shared workflows and documentation are structured so
+Svelte can join without redefining the library around today's runtimes.
 
 ## Why moduix
 
@@ -70,39 +73,38 @@ import '@moduix/react/reset.css';
 import '@moduix/react/style.css';
 ```
 
-Then import component subpaths and compose the parts you need:
+Then import component subpaths and compose the flat named parts you need:
 
 ```tsx
-import { Button } from '@moduix/react/button';
-import { Dialog } from '@moduix/react/dialog';
+import {
+  Accordion,
+  AccordionItem,
+  AccordionItemBody,
+  AccordionItemContent,
+  AccordionItemIndicator,
+  AccordionItemTrigger,
+} from '@moduix/react/accordion';
 
 export function Example() {
   return (
-    <Dialog>
-      <Dialog.Trigger asChild>
-        <Button>Open settings</Button>
-      </Dialog.Trigger>
-      <Dialog.Backdrop />
-      <Dialog.Positioner>
-        <Dialog.Content>
-          <Dialog.Header>
-            <Dialog.Title>Project settings</Dialog.Title>
-            <Dialog.Description>Update how this workspace behaves.</Dialog.Description>
-          </Dialog.Header>
-          <Dialog.Footer>
-            <Dialog.CloseTrigger asChild>
-              <Button variant="outline">Done</Button>
-            </Dialog.CloseTrigger>
-          </Dialog.Footer>
-        </Dialog.Content>
-      </Dialog.Positioner>
-    </Dialog>
+    <Accordion defaultValue={['first']}>
+      <AccordionItem value="first">
+        <AccordionItemTrigger>
+          What is moduix?
+          <AccordionItemIndicator />
+        </AccordionItemTrigger>
+        <AccordionItemContent>
+          <AccordionItemBody>
+            A component library built on accessible Ark UI primitives.
+          </AccordionItemBody>
+        </AccordionItemContent>
+      </AccordionItem>
+    </Accordion>
   );
 }
 ```
 
-`Dialog` is the recommended root component. `Dialog.Root` remains available when an explicit
-namespace is useful, such as in anatomy documentation or a local abstraction.
+The family name is the root component. Every additional part is a separate family-prefixed export.
 
 ### Own the source with the registry
 
@@ -167,7 +169,6 @@ Before opening a pull request, run the repository checks:
 ```bash
 pnpm run fmt:fix
 pnpm run lint:check
-pnpm run build:packages
 pnpm run tsc:check
 ```
 
@@ -179,7 +180,8 @@ Contributions are welcome, especially focused component improvements, accessibil
 reports, and documentation corrections. Keep public component behavior, local component notes,
 documentation, and registry output synchronized when a public contract changes.
 
-See [AGENTS.md](./AGENTS.md) for repository conventions.
+See [CONTRIBUTING.md](./CONTRIBUTING.md) for the full workflow, and [AGENTS.md](./AGENTS.md) for
+repository conventions. Security issues go through [SECURITY.md](./SECURITY.md).
 
 ## Acknowledgements
 

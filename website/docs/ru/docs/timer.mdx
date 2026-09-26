@@ -25,14 +25,14 @@ import timerSolidRootProvider from '../../../snippets/timer/solid/root-provider.
 ## Базовый пример
 
 
-`Timer.Segments` проще всего использовать для классического отображения времени с разделителями `:`. По умолчанию
+`TimerSegments` проще всего использовать для классического отображения времени с разделителями `:`. По умолчанию
 компонент показывает часы, минуты и секунды. Передайте `types`, чтобы выбрать другой набор единиц. Если нужны
 подписи единиц, собственные разделители или отдельная стилизация каждой части, используйте полную композицию с
-`Timer.Area`, `Timer.Item` и `Timer.Separator`.
+`TimerArea`, `TimerItem` и `TimerSeparator`.
 
-`Timer.Segments` поддерживает все свойства `Timer.Area`, кроме `children` и `asChild`, и пробрасывает ref области.
+`TimerSegments` поддерживает все свойства `TimerArea`, кроме `children` и `asChild`, и пробрасывает ref области.
 Компонент сам создаёт элементы и разделители, поэтому для замены корневого элемента или собственных дочерних
-элементов используйте `Timer.Area`.
+элементов используйте `TimerArea`.
 
 <ExampleFrame variant="component">
   <TimerBasic />
@@ -94,39 +94,39 @@ import timerSolidRootProvider from '../../../snippets/timer/solid/root-provider.
 ## Анатомия
 
 ```text
-Timer.Root
-├─ Timer.Area
-│  ├─ Timer.Item
-│  └─ Timer.Separator
-└─ Timer.Control
-   └─ Timer.ActionTrigger
+Timer
+├─ TimerArea
+│  ├─ TimerItem
+│  └─ TimerSeparator
+└─ TimerControl
+   └─ TimerActionTrigger
 
-Timer.RootProvider
+TimerRootProvider
 └─ то же дерево, подключённое к состоянию из `useTimer()`
 
-Timer.Segments
-└─ Timer.Area со стандартными элементами Timer.Item и Timer.Separator
+TimerSegments
+└─ TimerArea со стандартными элементами TimerItem и TimerSeparator
 ```
 
 | Элемент                 | Назначение                                                               |
 | ----------------------- | ------------------------------------------------------------------------ |
-| `Timer` / `Timer.Root`  | Управляет состоянием таймера Ark, его ID, интервалом и обратными вызовами. |
-| `Timer.RootProvider`    | Подключает элементы к состоянию, созданному с помощью `useTimer()`.      |
-| `Timer.Segments`        | Собирает стандартные единицы времени и разделители.                      |
-| `Timer.Area`            | Группирует отображаемые значения времени.                                |
-| `Timer.Item`            | Отображает одну отформатированную единицу времени, например `hours`, `minutes` или `seconds`. |
-| `Timer.Separator`       | Отображает разделитель между единицами времени.                          |
-| `Timer.Control`         | Группирует триггеры действий.                                             |
-| `Timer.ActionTrigger`   | Запускает действие `start`, `pause`, `resume`, `reset` или `restart`.    |
+| `Timer`  | Управляет состоянием таймера Ark, его ID, интервалом и обратными вызовами. |
+| `TimerRootProvider`    | Подключает элементы к состоянию, созданному с помощью `useTimer()`.      |
+| `TimerSegments`        | Собирает стандартные единицы времени и разделители.                      |
+| `TimerArea`            | Группирует отображаемые значения времени.                                |
+| `TimerItem`            | Отображает одну отформатированную единицу времени, например `hours`, `minutes` или `seconds`. |
+| `TimerSeparator`       | Отображает разделитель между единицами времени.                          |
+| `TimerControl`         | Группирует триггеры действий.                                             |
+| `TimerActionTrigger`   | Запускает действие `start`, `pause`, `resume`, `reset` или `restart`.    |
 
 ## Композиция
 
-`Timer` эквивалентен `Timer.Root` и управляет состоянием таймера. `Timer.Segments` сам создаёт части `Timer.Area`,
-`Timer.Item` и `Timer.Separator`, поэтому для подписей единиц, собственных разделителей или отдельной разметки
-используйте полную композицию с `Timer.Area`.
+`Timer` управляет состоянием таймера. `TimerSegments` сам создаёт части `TimerArea`,
+`TimerItem` и `TimerSeparator`, поэтому для подписей единиц, собственных разделителей или отдельной разметки
+используйте полную композицию с `TimerArea`.
 
-Используйте `Timer.RootProvider` с `useTimer()`, когда состояние нужно создать отдельно от отображаемого дерева.
-`Timer.Context` и `useTimerContext()` подходят, если другим элементам интерфейса нужны состояние или методы таймера.
+Используйте `TimerRootProvider` с `useTimer()`, когда состояние нужно создать отдельно от отображаемого дерева.
+`TimerContext` и `useTimerContext()` подходят, если другим элементам интерфейса нужны состояние или методы таймера.
 В Solid состояние и контекст читаются через реактивные функции, поэтому обращайтесь к ним как к `timer()` и
 `api()`.
 
@@ -353,5 +353,5 @@ Timer.Segments
   `timer-separator`, `timer-control` и `timer-action-trigger`.
 - Атрибуты анатомии Ark: `data-scope="timer"` и
   `data-part="root|area|item|separator|control|action-trigger"`.
-- `Timer.Item` предоставляет `data-type` и переменную CSS `--value`, которую обновляет Ark.
+- `TimerItem` предоставляет `data-type` и переменную CSS `--value`, которую обновляет Ark.
 - Ark добавляет атрибут `hidden` к триггерам действий, недоступным в текущем состоянии таймера.

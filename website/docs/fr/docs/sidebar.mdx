@@ -44,7 +44,7 @@ L’état et les callbacks exposés suivent le contrat de `Splitter`.
 Composez le panneau de navigation, la poignée de redimensionnement et la zone de contenu principale
 comme enfants directs de la racine. Les identifiants et contraintes par défaut conviennent à la mise
 en page classique avec une barre latérale à gauche. Enveloppez les boutons de navigation réduits à
-une icône dans `Sidebar.Tooltip` pour conserver leurs libellés après le repli.
+une icône dans `SidebarTooltip` pour conserver leurs libellés après le repli.
 
 <ExampleFrame variant="component">
   <SidebarBasic />
@@ -108,74 +108,74 @@ Consultez le [Démarrage rapide](/docs/quick-start) pour la configuration compl�
 ## Anatomie
 
 ```text
-Sidebar / Sidebar.Root
-├─ Sidebar.Panel[id="sidebar"]
-│  ├─ Sidebar.Header
-│  │  ├─ Sidebar.Label
-│  │  └─ Sidebar.Input
-│  ├─ Sidebar.Content
-│  │  └─ Sidebar.Group
-│  │     ├─ Sidebar.GroupHeader
-│  │     │  ├─ Sidebar.GroupLabel
-│  │     │  └─ Sidebar.GroupAction
-│  │     └─ Sidebar.NavigationList
-│  │        └─ Sidebar.NavigationItem
-│  │           ├─ Sidebar.NavigationButton
-│  │           ├─ Sidebar.NavigationBadge (facultatif)
-│  │           ├─ Sidebar.ExpandedContent
-│  │           ├─ Sidebar.CollapsedContent
-│  │           └─ Sidebar.NavigationSubList
-│  │              └─ Sidebar.NavigationSubItem
-│  │                 ├─ Sidebar.NavigationSubButton
-│  │                 └─ Sidebar.NavigationBadge (facultatif)
-│  └─ Sidebar.Footer
-│     └─ Sidebar.Separator
-├─ Sidebar.ResizeTrigger
-├─ Sidebar.Trigger
-└─ Sidebar.Inset[id="content"]
+Sidebar
+├─ SidebarPanel[id="sidebar"]
+│  ├─ SidebarHeader
+│  │  ├─ SidebarLabel
+│  │  └─ SidebarInput
+│  ├─ SidebarContent
+│  │  └─ SidebarGroup
+│  │     ├─ SidebarGroupHeader
+│  │     │  ├─ SidebarGroupLabel
+│  │     │  └─ SidebarGroupAction
+│  │     └─ SidebarNavigationList
+│  │        └─ SidebarNavigationItem
+│  │           ├─ SidebarNavigationButton
+│  │           ├─ SidebarNavigationBadge (facultatif)
+│  │           ├─ SidebarExpandedContent
+│  │           ├─ SidebarCollapsedContent
+│  │           └─ SidebarNavigationSubList
+│  │              └─ SidebarNavigationSubItem
+│  │                 ├─ SidebarNavigationSubButton
+│  │                 └─ SidebarNavigationBadge (facultatif)
+│  └─ SidebarFooter
+│     └─ SidebarSeparator
+├─ SidebarResizeTrigger
+├─ SidebarTrigger
+└─ SidebarInset[id="content"]
 ```
 
 | Partie | Rôle |
 | --- | --- |
-| `Sidebar` / `Sidebar.Root` | Racine Ark Splitter avec les réglages d’une barre à deux panneaux. |
-| `Sidebar.Panel` | Panneau de navigation repliable, avec l’identifiant `"sidebar"` par défaut. |
-| `Sidebar.Inset` | Panneau de contenu principal, avec l’identifiant `"content"` par défaut. |
-| `Sidebar.ResizeTrigger` | Ligne de poignée accessible pour le redimensionnement à la souris ou au clavier ; elle rend par défaut le `Splitter.ResizeTriggerIndicator` partagé, et des enfants personnalisés le remplacent. |
-| `Sidebar.Trigger` | Contrôle latéral pour replier ou déplier le panneau. |
-| `Sidebar.Header` | Zone supérieure qui ne défile pas. |
-| `Sidebar.Content` | Zone centrale défilante. |
-| `Sidebar.Footer` | Zone inférieure qui ne défile pas. |
-| `Sidebar.Group` | Section de navigation sémantique. |
-| `Sidebar.NavigationButton` | Bouton ou lien `asChild` avec les états active et size. |
-| `Sidebar.NavigationBadge` | Compteur facultatif placé à côté d’un bouton de navigation simple ou imbriqué. |
-| `Sidebar.ExpandedContent` | Contenu affiché lorsque le panneau est déplié. |
-| `Sidebar.CollapsedContent` | Contenu affiché lorsque le panneau est replié. |
-| `Sidebar.Tooltip` | Aide de libellé repliée avec positionnement adapté au côté. |
-| `Sidebar.NavigationSubList` | Liste de navigation imbriquée. |
+| `Sidebar` | Racine Ark Splitter avec les réglages d’une barre à deux panneaux. |
+| `SidebarPanel` | Panneau de navigation repliable, avec l’identifiant `"sidebar"` par défaut. |
+| `SidebarInset` | Panneau de contenu principal, avec l’identifiant `"content"` par défaut. |
+| `SidebarResizeTrigger` | Ligne de poignée accessible pour le redimensionnement à la souris ou au clavier ; elle rend par défaut le `SplitterResizeTriggerIndicator` partagé, et des enfants personnalisés le remplacent. |
+| `SidebarTrigger` | Contrôle latéral pour replier ou déplier le panneau. |
+| `SidebarHeader` | Zone supérieure qui ne défile pas. |
+| `SidebarContent` | Zone centrale défilante. |
+| `SidebarFooter` | Zone inférieure qui ne défile pas. |
+| `SidebarGroup` | Section de navigation sémantique. |
+| `SidebarNavigationButton` | Bouton ou lien `asChild` avec les états active et size. |
+| `SidebarNavigationBadge` | Compteur facultatif placé à côté d’un bouton de navigation simple ou imbriqué. |
+| `SidebarExpandedContent` | Contenu affiché lorsque le panneau est déplié. |
+| `SidebarCollapsedContent` | Contenu affiché lorsque le panneau est replié. |
+| `SidebarTooltip` | Aide de libellé repliée avec positionnement adapté au côté. |
+| `SidebarNavigationSubList` | Liste de navigation imbriquée. |
 
 ## Composition
 
 `Sidebar` possède l’état de mise en page du Splitter, tandis que `Collapsible`, `Menu` et
-`Sidebar.Tooltip` possèdent chacun leur propre état. Gardez `Panel`, `ResizeTrigger`, `Trigger` et
-`Inset` comme enfants directs, dans l’ordre visuel: `Panel` en premier à gauche, `Inset` en premier
-à droite. `ExpandedContent` et `CollapsedContent` ne font que changer la branche visible. Ils servent
+`SidebarTooltip` possèdent chacun leur propre état. Gardez `SidebarPanel`, `SidebarResizeTrigger`, `SidebarTrigger` et
+`SidebarInset` comme enfants directs, dans l’ordre visuel: `SidebarPanel` en premier à gauche, `SidebarInset` en premier
+à droite. `SidebarExpandedContent` et `SidebarCollapsedContent` ne font que changer la branche visible. Ils servent
 à associer des liens `Collapsible` dans la vue étendue et un `Menu` dans la barre repliée, sans
 déplacer l’état dans Sidebar. Pour conserver la largeur, contrôlez `size`, mettez-le à jour dans
 `onResize(details)` et enregistrez la valeur finale dans `onResizeEnd(details)`. Dans Solid, `asChild`
 utilise une fonction de rendu qui reçoit les props fusionnées.
-Placez `NavigationBadge` après un `NavigationButton` ou un `NavigationSubButton` simple. Le composant
+Placez `SidebarNavigationBadge` après un `SidebarNavigationButton` ou un `SidebarNavigationSubButton` simple. Le composant
 réserve l’espace nécessaire au compteur et disparaît avec les autres icônes dans la barre compacte.
 
 `useSidebar()` du package du framework correspondant expose l’état de la barre via `collapsed`, `side`
 et `state`, plus un callback `toggleSidebar()`. Dans Solid, ce sont des accessors lus comme
-`collapsed()` et compagnie. Le hook lit le contexte Splitter créé par `Sidebar`/`Sidebar.Root`, donc
+`collapsed()` et compagnie. Le hook lit le contexte Splitter créé par `Sidebar`, donc
 utilisez-le uniquement à l’intérieur de l’arborescence de la barre.
 
 ## Exemples
 
 ### Navigation imbriquée
 
-Utilisez `ExpandedContent` pour les liens imbriqués affichés dans le panneau et `CollapsedContent`
+Utilisez `SidebarExpandedContent` pour les liens imbriqués affichés dans le panneau et `SidebarCollapsedContent`
 pour les mêmes liens dans un menu contextuel. Les deux branches restent composées par l’application.
 
 <ExampleFrame variant="component">
@@ -208,7 +208,7 @@ pour les mêmes liens dans un menu contextuel. Les deux branches restent compos�
 
 ### Zone de défilement personnalisée
 
-Le défilement natif est utilisé par défaut. Placez `ScrollArea` dans `Sidebar.Content` pour ajouter
+Le défilement natif est utilisé par défaut. Placez `ScrollArea` dans `SidebarContent` pour ajouter
 une barre de défilement stylisée ou un fondu sur le bord, et faites de son viewport le seul conteneur
 de défilement.
 
@@ -309,7 +309,7 @@ propre état et sa gestion du focus.
 
 ### Barre latérale à droite
 
-Passez `side="right"` et rendez `Inset`, `Trigger`, `ResizeTrigger` et `Panel` dans cet ordre.
+Passez `side="right"` et rendez `SidebarInset`, `SidebarTrigger`, `SidebarResizeTrigger` et `SidebarPanel` dans cet ordre.
 Sidebar ajuste automatiquement la configuration des panneaux, les identifiants, le placement et la
 direction du chevron.
 
@@ -343,8 +343,8 @@ direction du chevron.
 
 ### Sélection d’un espace de travail
 
-Utilisez `Select.Trigger asChild` avec `Sidebar.NavigationButton`. Placez la valeur sélectionnée
-dans `Sidebar.Label`, gardez `Select.Indicator` comme enfant direct du trigger et marquez l’ancre
+Utilisez `SelectTrigger asChild` avec `SidebarNavigationButton`. Placez la valeur sélectionnée
+dans `SidebarLabel`, gardez `SelectIndicator` comme enfant direct du trigger et marquez l’ancre
 visuelle compacte avec `data-sidebar-icon`.
 
 <ExampleFrame variant="component">
@@ -411,9 +411,9 @@ la largeur initiale par défaut ne convient pas.
 ## Styles
 
 Chaque partie sémantique accepte `className` en React et `class` en Solid et expose un hook stable
-`data-slot="sidebar-*"`. `Sidebar.Panel` ajoute `data-state="expanded"` ou `"collapsed"`, tandis
-que les parties de mise en page exposent `data-side`. `NavigationButton` et `NavigationSubButton`
-exposent `data-active`, et `NavigationButton` expose aussi `data-size`.
+`data-slot="sidebar-*"`. `SidebarPanel` ajoute `data-state="expanded"` ou `"collapsed"`, tandis
+que les parties de mise en page exposent `data-side`. `SidebarNavigationButton` et `SidebarNavigationSubButton`
+exposent `data-active`, et `SidebarNavigationButton` expose aussi `data-size`.
 
 Lorsque la barre est repliée, les libellés et titres de groupe sortent de la mise en page visuelle
 tout en restant accessibles aux technologies d’assistance. Les listes imbriquées, champs, actions,
@@ -441,7 +441,7 @@ trigger.
 
 ### Points d’accroche CSS
 
-Les parties de la coque Sidebar exposent aussi `data-scope="sidebar"` et `data-part`. `Sidebar.Input`
-et `Sidebar.Separator` conservent les scopes de leurs primitives, tandis que les parties basées sur
+Les parties de la coque Sidebar exposent aussi `data-scope="sidebar"` et `data-part`. `SidebarInput`
+et `SidebarSeparator` conservent les scopes de leurs primitives, tandis que les parties basées sur
 Ark conservent les attributs d’état du Splitter, notamment `data-focus`, `data-dragging`,
 `data-disabled` et `data-orientation`.

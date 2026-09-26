@@ -21,9 +21,9 @@ the styles of content already on screen.
 
 ## Current behavior contract
 
-- `Typeset` renders a `div` by default. `Typeset.Root` is an alias with the same contract.
+- `Typeset` renders a `div` by default.
 - `asChild` preserves exactly one semantic container such as `article` or `section`.
-- `Typeset.Scroll` is an opt-in horizontal scroller for a wide table or another rendered block. It
+- `TypesetScroll` is an opt-in horizontal scroller for a wide table or another rendered block. It
   defaults to `tabIndex={0}` so an overflowing static block is keyboard reachable; consumers can
   pass another `tabIndex` or native ARIA props when needed. Give user-facing scrollers an
   `aria-label` or `aria-labelledby`: this also adds `role="region"` unless the consumer passes a
@@ -40,8 +40,8 @@ the styles of content already on screen.
 ## Anatomy and exported parts
 
 ```text
-Typeset / Typeset.Root  data-slot="typeset"
-└─ Typeset.Scroll       data-slot="typeset-scroll"
+Typeset                 data-slot="typeset"
+└─ TypesetScroll         data-slot="typeset-scroll"
 ```
 
 `[data-scope="typeset"][data-part="root"]` and `[data-part="scroll"]` are stable public hooks.
@@ -57,8 +57,8 @@ Typeset / Typeset.Root  data-slot="typeset"
 </Typeset>
 ```
 
-Use `Typeset.Scroll` in a renderer's table component when a table should scroll instead of compress.
-Keep it inside a `Typeset` or `Typeset.Root` boundary: the horizontal scrolling, flow spacing, and
+Use `TypesetScroll` in a renderer's table component when a table should scroll instead of compress.
+Keep it inside a `Typeset` boundary: the horizontal scrolling, flow spacing, and
 table widening for the wrapped block come from the Typeset element rules. Both parts forward refs to
 their rendered element; with `asChild`, that is the one semantic child.
 Do not put Markdown parsing, sanitization, or fixed reading width into this component.
@@ -67,7 +67,7 @@ Do not put Markdown parsing, sanitization, or fixed reading width into this comp
 
 - Container-relative type, theme-token colors, CSS presets, low-specificity element styles, and
   streaming stability are supported.
-- `Typeset.Scroll` is moduix sugar for the wide-block wrapper; the underlying table remains native.
+- `TypesetScroll` is moduix sugar for the wide-block wrapper; the underlying table remains native.
 - No shadcn builder, generic `.typeset` class, Tailwind dependency, or generated CSS file is
   required. Registry consumers own the copied TSX and CSS Module sources.
 
@@ -78,7 +78,7 @@ Do not put Markdown parsing, sanitization, or fixed reading width into this comp
   native roles and keyboard behavior.
 - Task-list checkboxes remain native controls. `details` and `summary` retain native disclosure
   behavior.
-- Refs forward to the rendered root or scroll element through the Ark factory. `Typeset.Scroll` is
+- Refs forward to the rendered root or scroll element through the Ark factory. `TypesetScroll` is
   focusable by default so its native horizontal scrolling works with a keyboard. A user-facing
   scroller needs an accessible name so assistive technology can identify its region.
 
@@ -98,7 +98,7 @@ Do not put Markdown parsing, sanitization, or fixed reading width into this comp
 
 ## Intentional sugar and differences from upstream
 
-`Typeset.Scroll` removes the repeated overflow wrapper needed for wide blocks while keeping the raw
+`TypesetScroll` removes the repeated overflow wrapper needed for wide blocks while keeping the raw
 table markup and custom renderer path available. The component exposes Ark `asChild` and data slots
 because moduix distributes a React component; the visual contract remains CSS-first rather than
 prop-driven.
@@ -112,12 +112,14 @@ prop-driven.
 
 ## Local changelog
 
+- 2026-09-22: Replaced the compound `Typeset.*` value surface with the shared flat API. `Typeset`
+  is the only root value and `TypesetScroll` is a direct named export.
 - 2026-09-14: Reworked the cascade layers: `--moduix-typeset-*` defaults moved to `base` and element
   rules moved to the shared `components` layer, replacing the previous single `moduix.components`
   layer.
 - 2026-08-14: Made named scroll regions the recommended path in stories and runnable docs, and
   added regression coverage for default and custom scroll semantics.
-- 2026-08-01: Made `Typeset.Scroll` keyboard-focusable by default, locked stable data hooks, widened
+- 2026-08-01: Made the optional scroll wrapper keyboard-focusable by default, locked stable data hooks, widened
   refs to rendered semantic elements, and made the opt-out contract cover nested Typeset parts.
 - 2026-07-22: Moved styles into the namespaced `moduix.components` cascade layer.
 - 2026-07-20: Made basic list markers explicit and expanded the recommended Basic example to cover

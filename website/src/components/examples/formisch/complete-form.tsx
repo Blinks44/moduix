@@ -2,12 +2,47 @@ import { createListCollection, useListCollection } from '@ark-ui/react/collectio
 import { useFilter } from '@ark-ui/react/locale';
 import { Field as FormischField, Form, useForm } from '@formisch/react';
 import { Button } from '@moduix/react/button';
-import { Card } from '@moduix/react/card';
-import { Checkbox } from '@moduix/react/checkbox';
-import { Combobox } from '@moduix/react/combobox';
-import { Field } from '@moduix/react/field';
+import {
+  Card,
+  CardBody,
+  CardDescription,
+  CardFooter,
+  CardHeader,
+  CardTitle,
+} from '@moduix/react/card';
+import {
+  Checkbox,
+  CheckboxControl,
+  CheckboxHiddenInput,
+  CheckboxLabel,
+} from '@moduix/react/checkbox';
+import {
+  Combobox,
+  ComboboxClearTrigger,
+  ComboboxContent,
+  ComboboxControl,
+  ComboboxEmpty,
+  ComboboxInput,
+  ComboboxList,
+  ComboboxOption,
+  ComboboxPositioner,
+  ComboboxTrigger,
+} from '@moduix/react/combobox';
+import { Field, FieldErrorText, FieldLabel, FieldRequiredIndicator } from '@moduix/react/field';
 import { Input } from '@moduix/react/input';
-import { Select } from '@moduix/react/select';
+import {
+  Select,
+  SelectControl,
+  SelectTrigger,
+  SelectValueText,
+  SelectIndicator,
+  SelectPositioner,
+  SelectContent,
+  SelectItem,
+  SelectItemText,
+  SelectItemIndicator,
+  SelectHiddenSelect,
+} from '@moduix/react/select';
 import { Textarea } from '@moduix/react/textarea';
 import * as v from 'valibot';
 import styles from './formisch-complete-form.module.css';
@@ -61,21 +96,21 @@ export default function ProjectForm() {
       }}
     >
       <Card>
-        <Card.Header>
-          <Card.Title>Create project</Card.Title>
-          <Card.Description>Share the details your team needs to get started.</Card.Description>
-        </Card.Header>
+        <CardHeader>
+          <CardTitle>Create project</CardTitle>
+          <CardDescription>Share the details your team needs to get started.</CardDescription>
+        </CardHeader>
 
-        <Card.Body className={styles.fields}>
+        <CardBody className={styles.fields}>
           <FormischField of={form} path={['name']}>
             {(field) => (
               <Field invalid={field.errors !== null} required>
-                <Field.Label>
+                <FieldLabel>
                   Project name
-                  <Field.RequiredIndicator />
-                </Field.Label>
+                  <FieldRequiredIndicator />
+                </FieldLabel>
                 <Input {...field.props} value={field.input ?? ''} />
-                <Field.ErrorText>{field.errors?.[0]}</Field.ErrorText>
+                <FieldErrorText>{field.errors?.[0]}</FieldErrorText>
               </Field>
             )}
           </FormischField>
@@ -83,10 +118,10 @@ export default function ProjectForm() {
           <FormischField of={form} path={['team']}>
             {(field) => (
               <Field invalid={field.errors !== null} required>
-                <Field.Label>
+                <FieldLabel>
                   Team
-                  <Field.RequiredIndicator />
-                </Field.Label>
+                  <FieldRequiredIndicator />
+                </FieldLabel>
                 <Select
                   collection={teams}
                   name={field.props.name}
@@ -94,25 +129,25 @@ export default function ProjectForm() {
                   onValueChange={(details) => field.onChange(details.value[0] ?? '')}
                   invalid={field.errors !== null}
                 >
-                  <Select.Control>
-                    <Select.Trigger onFocus={field.props.onFocus} onBlur={field.props.onBlur}>
-                      <Select.ValueText placeholder="Choose a team" />
-                    </Select.Trigger>
-                    <Select.Indicator />
-                  </Select.Control>
-                  <Select.Positioner>
-                    <Select.Content>
+                  <SelectControl>
+                    <SelectTrigger onFocus={field.props.onFocus} onBlur={field.props.onBlur}>
+                      <SelectValueText placeholder="Choose a team" />
+                    </SelectTrigger>
+                    <SelectIndicator />
+                  </SelectControl>
+                  <SelectPositioner>
+                    <SelectContent>
                       {teams.items.map((item) => (
-                        <Select.Item key={item.value} item={item}>
-                          <Select.ItemText>{item.label}</Select.ItemText>
-                          <Select.ItemIndicator />
-                        </Select.Item>
+                        <SelectItem key={item.value} item={item}>
+                          <SelectItemText>{item.label}</SelectItemText>
+                          <SelectItemIndicator />
+                        </SelectItem>
                       ))}
-                    </Select.Content>
-                  </Select.Positioner>
-                  <Select.HiddenSelect />
+                    </SelectContent>
+                  </SelectPositioner>
+                  <SelectHiddenSelect />
                 </Select>
-                <Field.ErrorText>{field.errors?.[0]}</Field.ErrorText>
+                <FieldErrorText>{field.errors?.[0]}</FieldErrorText>
               </Field>
             )}
           </FormischField>
@@ -120,10 +155,10 @@ export default function ProjectForm() {
           <FormischField of={form} path={['reviewer']}>
             {(field) => (
               <Field invalid={field.errors !== null} required>
-                <Field.Label>
+                <FieldLabel>
                   Reviewer
-                  <Field.RequiredIndicator />
-                </Field.Label>
+                  <FieldRequiredIndicator />
+                </FieldLabel>
                 <Combobox
                   collection={collection}
                   name={field.props.name}
@@ -132,31 +167,31 @@ export default function ProjectForm() {
                   onInputValueChange={(details) => filter(details.inputValue)}
                   invalid={field.errors !== null}
                 >
-                  <Combobox.Control>
-                    <Combobox.Input
+                  <ComboboxControl>
+                    <ComboboxInput
                       ref={field.props.ref}
                       autoFocus={field.props.autoFocus}
                       onFocus={field.props.onFocus}
                       onBlur={field.props.onBlur}
                       placeholder="Search people"
                     />
-                    <Combobox.ClearTrigger aria-label="Clear reviewer" />
-                    <Combobox.Trigger aria-label="Open reviewers" />
-                  </Combobox.Control>
-                  <Combobox.Positioner>
-                    <Combobox.Content>
-                      <Combobox.Empty>No reviewers found.</Combobox.Empty>
-                      <Combobox.List>
+                    <ComboboxClearTrigger aria-label="Clear reviewer" />
+                    <ComboboxTrigger aria-label="Open reviewers" />
+                  </ComboboxControl>
+                  <ComboboxPositioner>
+                    <ComboboxContent>
+                      <ComboboxEmpty>No reviewers found.</ComboboxEmpty>
+                      <ComboboxList>
                         {collection.items.map((item) => (
-                          <Combobox.Option key={item.value} item={item}>
+                          <ComboboxOption key={item.value} item={item}>
                             {item.label}
-                          </Combobox.Option>
+                          </ComboboxOption>
                         ))}
-                      </Combobox.List>
-                    </Combobox.Content>
-                  </Combobox.Positioner>
+                      </ComboboxList>
+                    </ComboboxContent>
+                  </ComboboxPositioner>
                 </Combobox>
-                <Field.ErrorText>{field.errors?.[0]}</Field.ErrorText>
+                <FieldErrorText>{field.errors?.[0]}</FieldErrorText>
               </Field>
             )}
           </FormischField>
@@ -164,7 +199,7 @@ export default function ProjectForm() {
           <FormischField of={form} path={['summary']}>
             {(field) => (
               <Field>
-                <Field.Label>Summary</Field.Label>
+                <FieldLabel>Summary</FieldLabel>
                 <Textarea
                   {...field.props}
                   value={field.input ?? ''}
@@ -186,21 +221,21 @@ export default function ProjectForm() {
                   onFocus={field.props.onFocus}
                   onBlur={field.props.onBlur}
                 >
-                  <Checkbox.Control />
-                  <Checkbox.Label>Send status notifications</Checkbox.Label>
-                  <Checkbox.HiddenInput />
+                  <CheckboxControl />
+                  <CheckboxLabel>Send status notifications</CheckboxLabel>
+                  <CheckboxHiddenInput />
                 </Checkbox>
-                <Field.ErrorText>{field.errors?.[0]}</Field.ErrorText>
+                <FieldErrorText>{field.errors?.[0]}</FieldErrorText>
               </Field>
             )}
           </FormischField>
-        </Card.Body>
+        </CardBody>
 
-        <Card.Footer>
+        <CardFooter>
           <Button className={styles.submit} type="submit" loading={form.isSubmitting}>
             {form.isSubmitting ? 'Creating…' : 'Create project'}
           </Button>
-        </Card.Footer>
+        </CardFooter>
       </Card>
     </Form>
   );

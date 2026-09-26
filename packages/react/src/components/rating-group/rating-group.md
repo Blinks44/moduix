@@ -13,8 +13,8 @@ Upstream docs:
 
 The wrapper follows Ark UI `@ark-ui/react/rating-group`. Preserve Ark parts, `count`,
 `allowHalf`, controlled `value`, uncontrolled `defaultValue`, `onValueChange(details)`,
-`onHoverChange(details)`, and `RootProvider`. Native form participation uses an explicit
-`RatingGroup.HiddenInput`. Normal provider/context composition
+`onHoverChange(details)`, and `RatingGroupRootProvider`. Native form participation uses an explicit
+`RatingGroupHiddenInput`. Normal provider/context composition
 uses moduix `useRatingGroup`, `useRatingGroupContext`, and `useRatingGroupItemContext` exports.
 
 Ark owns keyboard behavior, pointer hover preview, half-step selection, readonly and disabled
@@ -22,15 +22,15 @@ states, ids, localized translations, and form integration through the native for
 
 ## Current behavior contract
 
-`RatingGroup` is the styled root and short-form equivalent of `RatingGroup.Root`. It accepts Ark
-root props plus moduix `size`, which writes `data-size` and controls the default star size.
+`RatingGroup` is the styled root. It accepts Ark root props plus moduix `size`, which writes
+`data-size` and controls the default star size.
 
-`RatingGroup.Items` is the recommended generated-item renderer. It maps Ark item indexes to styled
-`RatingGroup.Item` parts with default `RatingGroup.ItemIndicator` stars. Compose the single
-`RatingGroup.HiddenInput` explicitly when native form participation is needed. Pass a custom indicator as its child to replace the repeated visual without changing
-Ark item behavior. `ItemIndicator` reads Ark item state internally; custom children should style
+`RatingGroupItems` is the recommended generated-item renderer. It maps Ark item indexes to styled
+`RatingGroupItem` parts with default `RatingGroupItemIndicator` stars. Compose the single
+`RatingGroupHiddenInput` explicitly when native form participation is needed. Pass a custom indicator as its child to replace the repeated visual without changing
+Ark item behavior. `RatingGroupItemIndicator` reads Ark item state internally; custom children should style
 themselves through its `data-highlighted` and `data-half` attributes. For a custom item tree or
-low-level item state access, use moduix `RatingGroup.Context`, `RatingGroup.ItemContext`, or the
+low-level item state access, use moduix `RatingGroupContext`, `RatingGroupItemContext`, or the
 corresponding hooks.
 
 The old `Rating` API was removed. Use `count` instead of `max`, and use
@@ -39,46 +39,52 @@ The old `Rating` API was removed. Use `count` instead of `max`, and use
 ## Anatomy and exported parts
 
 ```tsx
-RatingGroup.Root
-├─ RatingGroup.Label
-└─ RatingGroup.Control
-   ├─ RatingGroup.Items (recommended)
-   │  └─ RatingGroup.Item[index]
-   │     └─ RatingGroup.ItemIndicator (moduix visual sugar)
-   ├─ RatingGroup.Context (advanced, optional)
-   │  └─ RatingGroup.Item[index]
-   │     ├─ RatingGroup.ItemContext (optional)
-   │     └─ RatingGroup.ItemIndicator (moduix visual sugar)
-   └─ RatingGroup.HiddenInput (explicit)
+RatingGroup
+├─ RatingGroupLabel
+└─ RatingGroupControl
+   ├─ RatingGroupItems (recommended)
+   │  └─ RatingGroupItem[index]
+   │     └─ RatingGroupItemIndicator (moduix visual sugar)
+   ├─ RatingGroupContext (advanced, optional)
+   │  └─ RatingGroupItem[index]
+   │     ├─ RatingGroupItemContext (optional)
+   │     └─ RatingGroupItemIndicator (moduix visual sugar)
+   └─ RatingGroupHiddenInput (explicit)
 
-RatingGroup.RootProvider
+RatingGroupRootProvider
 └─ same part tree connected to an Ark useRatingGroup() store
 ```
 
-| Part                    | Hook                                      | Notes                                     |
-| ----------------------- | ----------------------------------------- | ----------------------------------------- |
-| `RatingGroup` / `.Root` | `data-slot="rating-group-root"`           | Ark root with moduix `size` styling.      |
-| `.RootProvider`         | `data-slot="rating-group-root-provider"`  | Connects an Ark `useRatingGroup()` store. |
-| `.Label`                | `data-slot="rating-group-label"`          | Ark label part.                           |
-| `.Control`              | `data-slot="rating-group-control"`        | Ark item container.                       |
-| `.Items`                | -                                         | Renders Ark items and default stars.      |
-| `.Item`                 | `data-slot="rating-group-item"`           | Ark item; requires numeric `index`.       |
-| `.ItemContext`          | -                                         | Render-prop access to current item state. |
-| `.Context`              | -                                         | Render-prop access to current root state. |
-| `.ItemIndicator`        | `data-slot="rating-group-item-indicator"` | Default moduix star visual.               |
+| Part                       | Hook                                      | Notes                                     |
+| -------------------------- | ----------------------------------------- | ----------------------------------------- |
+| `RatingGroup`              | `data-slot="rating-group-root"`           | Ark root with moduix `size` styling.      |
+| `RatingGroupRootProvider`  | `data-slot="rating-group-root-provider"`  | Connects an Ark `useRatingGroup()` store. |
+| `RatingGroupHiddenInput`   | -                                         | Explicit native form control.             |
+| `RatingGroupLabel`         | `data-slot="rating-group-label"`          | Ark label part.                           |
+| `RatingGroupControl`       | `data-slot="rating-group-control"`        | Ark item container.                       |
+| `RatingGroupItems`         | -                                         | Renders Ark items and default stars.      |
+| `RatingGroupItem`          | `data-slot="rating-group-item"`           | Ark item; requires numeric `index`.       |
+| `RatingGroupItemContext`   | -                                         | Render-prop access to current item state. |
+| `RatingGroupContext`       | -                                         | Render-prop access to current root state. |
+| `RatingGroupItemIndicator` | `data-slot="rating-group-item-indicator"` | Default moduix star visual.               |
 
 ## Composition
 
 ```tsx
-import { RatingGroup } from '@moduix/react/rating-group';
+import {
+  RatingGroup,
+  RatingGroupControl,
+  RatingGroupItems,
+  RatingGroupLabel,
+} from '@moduix/react/rating-group';
 
 export function ReviewRating() {
   return (
     <RatingGroup name="review" defaultValue={4}>
-      <RatingGroup.Label>Review score</RatingGroup.Label>
-      <RatingGroup.Control>
-        <RatingGroup.Items />
-      </RatingGroup.Control>
+      <RatingGroupLabel>Review score</RatingGroupLabel>
+      <RatingGroupControl>
+        <RatingGroupItems />
+      </RatingGroupControl>
     </RatingGroup>
   );
 }
@@ -86,22 +92,23 @@ export function ReviewRating() {
 
 ## Upstream feature coverage
 
-- Basic: supported through root, label, control, and `Items`.
+- Basic: supported through `RatingGroup`, `RatingGroupLabel`, `RatingGroupControl`, and
+  `RatingGroupItems`.
 - Controlled: use Ark `value` and `onValueChange(details)` with `details.value`.
-- Root Provider: `RatingGroup.RootProvider` and `useRatingGroup()` are exported from moduix for
+- Root Provider: `RatingGroupRootProvider` and `useRatingGroup()` are exported from moduix for
   state created outside the rendered tree.
 - Field: compose with moduix `Field` for labels, descriptions, and validation copy. Ark inherits
   `disabled`, `readOnly`, and `required`; `invalid` remains Field-owned state.
-- Half Rating: pass `allowHalf`; `ItemIndicator` clips the foreground star when Ark reports
-  `half`.
-- Forms: pass `name`, `form`, and `required` to the root and render `RatingGroup.HiddenInput` explicitly.
+- Half Rating: pass `allowHalf`; `RatingGroupItemIndicator` clips the foreground star when Ark
+  reports `half`.
+- Forms: pass `name`, `form`, and `required` to the root and render `RatingGroupHiddenInput` explicitly.
 - Disabled and readonly: pass Ark `disabled` or `readOnly`; style through Ark data attributes.
 
 ## Accessibility and state
 
 Ark provides the radio-like rating semantics, roving focus, keyboard support, labels, localized
-translations, required state, and native input synchronization. `Root` and `RootProvider` render
-the input independently of the chosen item tree.
+translations, required state, and native input synchronization. `RatingGroup` and
+`RatingGroupRootProvider` render the input independently of the chosen item tree.
 
 All Ark callback payloads are preserved. Do not remap `onValueChange(details)` or
 `onHoverChange(details)` to legacy raw values.
@@ -145,11 +152,11 @@ Public CSS variables:
 
 ## Intentional sugar and differences from upstream
 
-- `RatingGroup` is the short root form and also exposes `.Root`.
+- `RatingGroup` is the root component for the rating group.
 - `size` is a moduix styling prop, not an Ark behavior prop.
-- `RatingGroup.Items` is local sugar for Ark-generated items and the default star indicator.
+- `RatingGroupItems` is local sugar for Ark-generated items and the default star indicator.
   Passing an indicator as its child replaces the repeated default visual.
-- `RatingGroup.ItemIndicator` is local visual sugar for the default star icon. Ark does not expose
+- `RatingGroupItemIndicator` is local visual sugar for the default star icon. Ark does not expose
   this part. Passing children replaces the default star visual.
 - The old `Rating` name, `max` prop, raw-number callback, and legacy radio-group implementation
   are intentionally removed.
@@ -158,9 +165,9 @@ Public CSS variables:
 
 - Keep the wrapper thin. `Items` is the only generated-item shortcut; do not add item arrays,
   `max`, raw callback adapters, or old `Rating` aliases.
-- Keep `RootProvider`, contexts, state hooks, and `ItemIndicator`; do not re-export duplicate Ark
+- Keep `RatingGroupRootProvider`, contexts, state hooks, and `RatingGroupItemIndicator`; do not re-export duplicate Ark
   type aliases from the moduix barrel.
-- `RatingGroup.HiddenInput` is independent of `Items` and custom item trees; compose it explicitly.
+- `RatingGroupHiddenInput` is independent of `Items` and custom item trees; compose it explicitly.
 - If styling tokens change, update `variables-moduix.css`, docs CSS reference data, and registry output in the
   same task.
 
@@ -177,7 +184,7 @@ Public CSS variables:
 
 - 2026-07-12: Exposed `Context`, `ItemContext`, `useRatingGroup()`, `useRatingGroupContext()`, and
   `useRatingGroupItemContext()` through moduix so normal advanced composition no longer imports Ark.
-- 2026-07-11: Added `RatingGroup.Items` as the recommended generated-item path. It accepts an
+- 2026-07-11: Added `RatingGroupItems` as the recommended generated-item path. It accepts an
   optional repeated indicator child and renders the hidden input; direct Ark contexts remain the
   advanced escape hatch.
 - 2026-07-03: Simplified the public surface to the callable root, `RootProvider`, the native form input,
@@ -186,7 +193,7 @@ Public CSS variables:
 - 2026-06-20: Renamed `Rating` to `RatingGroup` and migrated from legacy radio-group composition to
   Ark UI `rating-group` parts, callbacks, provider/context hooks, the native form input, half rating, and
   Ark data attributes.
-- 2026-06-20: Documented and hardened custom `RatingGroup.ItemIndicator` children so consumers can
+- 2026-06-20: Documented and hardened custom `RatingGroupItemIndicator` children so consumers can
   replace the default star icon while preserving Ark item state.
 - 2026-06-27: Added a stable `data-slot` hook to the native form input, aligned focus ring defaults with
   the rest of the library, and tied default star clipping to Ark item state attributes.

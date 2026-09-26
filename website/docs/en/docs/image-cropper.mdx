@@ -36,8 +36,9 @@ import ImageCropperRotationFlipAndReset from '@/components/examples/image-croppe
 
 ## Basic
 
-Use `ImageCropper` with `Viewport`, `Image`, and `CropArea`. Pass the image URL to
-`ImageCropper.Image`. `CropArea` adds the selection, grid lines, and resize handles for you.
+Use `ImageCropper` with `ImageCropperViewport`, `ImageCropperImage`, and `ImageCropperCropArea`.
+Pass the image URL to `ImageCropperImage`. `ImageCropperCropArea` adds the selection, grid lines,
+and resize handles for you.
 
 <ExampleFrame variant="component">
   <ImageCropperBasic />
@@ -63,7 +64,7 @@ Use `ImageCropper` with `Viewport`, `Image`, and `CropArea`. Pass the image URL 
 </ExampleCode>
 
 If you call `getCroppedImage()` for an image from another origin, the image server must allow CORS
-and `ImageCropper.Image` must receive `crossOrigin="anonymous"`. The examples use this setup for
+and `ImageCropperImage` must receive `crossOrigin="anonymous"`. The examples use this setup for
 the Unsplash image.
 
 ## Install with shadcn
@@ -97,33 +98,34 @@ See [Quick Start](/docs/quick-start) for full package setup, registry configurat
 
 ```tsx
 <ImageCropper>
-  <ImageCropper.Viewport>
-    <ImageCropper.Image />
-    <ImageCropper.CropArea />
-  </ImageCropper.Viewport>
+  <ImageCropperViewport>
+    <ImageCropperImage />
+    <ImageCropperCropArea />
+  </ImageCropperViewport>
 </ImageCropper>
 ```
 
 | Part                                 | Role                                                                                 |
 | ------------------------------------ | ------------------------------------------------------------------------------------ |
-| `ImageCropper` / `ImageCropper.Root` | Root component that owns crop and transform state, ARIA attributes, and runtime CSS variables. |
-| `ImageCropper.RootProvider`          | Root connected to a `useImageCropper` instance created outside the component tree.   |
-| `ImageCropper.Viewport`              | Viewport that clips overflow and provides the surface for panning the image.         |
-| `ImageCropper.Image`                 | Image element that Ark transforms as the user edits the crop.                        |
-| `ImageCropper.Selection`             | Focusable crop area and keyboard target. It is removed from the tab order when `fixedCropArea` is enabled. |
-| `ImageCropper.Grid`                  | Non-interactive horizontal or vertical crop guide. Requires `axis`.                  |
-| `ImageCropper.Handle`                | Resize handle for a position from `ImageCropper.handles`. Requires `position`.       |
-| `ImageCropper.CropArea`              | Ready-made selection with both grids and every resize handle. It does not accept `children` or `asChild`. |
+| `ImageCropper`                    | Root component that owns crop and transform state, ARIA attributes, and runtime CSS variables. |
+| `ImageCropperRootProvider`          | Root connected to a `useImageCropper` instance created outside the component tree.   |
+| `ImageCropperViewport`              | Viewport that clips overflow and provides the surface for panning the image.         |
+| `ImageCropperImage`                 | Image element that Ark transforms as the user edits the crop.                        |
+| `ImageCropperSelection`             | Focusable crop area and keyboard target. It is removed from the tab order when `fixedCropArea` is enabled. |
+| `ImageCropperGrid`                  | Non-interactive horizontal or vertical crop guide. Requires `axis`.                  |
+| `ImageCropperHandle`                | Resize handle for a position from `ImageCropperHandles`. Requires `position`.       |
+| `ImageCropperCropArea`              | Ready-made selection with both grids and every resize handle. It does not accept `children` or `asChild`. |
 
 ## Composition
 
-Use `ImageCropper.CropArea` for the standard selection. It owns the two grids and all resize handles,
+Use `ImageCropperCropArea` for the standard selection. It owns the two grids and all resize handles,
 so do not pass `children` or `asChild`. Use `className`, `gridClassName`, and `handleClassName` to
 style the selection and its generated parts.
 
-Use `ImageCropper.Context` for controls inside the root. Create `useImageCropper()` and pass it to
-`ImageCropper.RootProvider` when a toolbar, preview, or form logic needs the cropper instance outside
-the component tree. For one state instance, render either `Root` or `RootProvider`.
+Use `ImageCropperContext` for controls inside the root. Create `useImageCropper()` and pass it to
+`ImageCropperRootProvider` when a toolbar, preview, or form logic needs the cropper instance outside
+the component tree. For one state instance, render either `ImageCropper` or
+`ImageCropperRootProvider`.
 
 Use controlled `zoom`, `rotation`, or `flip` with the matching change callback when another part of
 the application owns that state. Ark passes the updated value in the callback's `details` object.
@@ -376,8 +378,8 @@ Constrain the selection with `minWidth`, `minHeight`, `maxWidth`, and `maxHeight
 
 ### Root Provider
 
-Use `RootProvider` with a `useImageCropper` instance when a toolbar or workflow needs to control the
-cropper from outside its component tree.
+Use `ImageCropperRootProvider` with a `useImageCropper` instance when a toolbar or workflow needs to
+control the cropper from outside its component tree.
 
 <ExampleFrame variant="component">
   <ImageCropperRootProvider />
@@ -409,7 +411,7 @@ cropper from outside its component tree.
 
 ### Rotation, Flip, And Reset
 
-Use `ImageCropper.Context` to connect toolbar actions for zooming, rotating, flipping, and resetting
+Use `ImageCropperContext` to connect toolbar actions for zooming, rotating, flipping, and resetting
 the cropper. The example keeps rotation and flip state controlled.
 
 <ExampleFrame variant="component">
@@ -442,9 +444,9 @@ the cropper. The example keeps rotation and flip state controlled.
 
 ### Advanced Customization
 
-Replace `CropArea` with the explicit `Selection`, `Grid`, and `Handle` parts when the crop area needs
-a different structure or custom child parts. `Grid` requires an `axis`, and `Handle` requires a
-`position`.
+Replace `ImageCropperCropArea` with the explicit `ImageCropperSelection`, `ImageCropperGrid`, and
+`ImageCropperHandle` parts when the crop area needs a different structure or custom child parts.
+`ImageCropperGrid` requires an `axis`, and `ImageCropperHandle` requires a `position`.
 
 <ExampleFrame variant="component">
   <ImageCropperAdvancedCustomization />

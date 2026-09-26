@@ -8,7 +8,7 @@ import { cn } from '@/lib/moduix/cn';
 type HeadingSize = 'xs' | 'sm' | 'md' | 'lg' | 'xl' | '2xl';
 type HeadingWeight = 'regular' | 'medium' | 'semibold' | 'bold';
 type HeadingElement = 'h1' | 'h2' | 'h3' | 'h4' | 'h5' | 'h6';
-type HeadingRootProps = ComponentProps<typeof ark.h1> & {
+type HeadingProps = ComponentProps<typeof ark.h1> & {
   as?: HeadingElement;
   size?: HeadingSize;
   weight?: HeadingWeight;
@@ -56,7 +56,7 @@ const headingVariants = cva('m-0 text-foreground tracking-normal text-balance wr
   },
 });
 
-function HeadingRoot(props: HeadingRootProps) {
+function Heading(props: HeadingProps) {
   const [local, others] = splitProps(props, [
     'as',
     'asChild',
@@ -91,9 +91,5 @@ function HeadingRoot(props: HeadingRootProps) {
     />
   );
 }
-
-const Heading = Object.assign(HeadingRoot, {
-  Root: HeadingRoot,
-});
 
 export { Heading };

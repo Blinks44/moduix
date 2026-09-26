@@ -14,23 +14,23 @@ Ark UI has no dedicated visual list primitive. This component uses the Ark Solid
 
 ## Public contract
 
-- `List` and `List.Root` render an unordered list by default.
+- `List` renders an unordered list by default.
 - Use `as="ol"` to render an ordered list with native ordered-list props such as `start`, `reversed`,
   and `type`.
-- `List.Item` renders a semantic `li` and forwards native item props and refs.
+- `ListItem` renders a semantic `li` and forwards native item props and refs.
 - `gap`, `size`, `tone`, and `marker` control the moduix styling hooks.
 - `marker="none"` keeps list semantics with a default `role="list"` unless a custom role is supplied.
 - Component-owned `data-scope`, `data-part`, `data-slot`, and styling data hooks override colliding
   consumer values.
 
 ```tsx
-import { List } from '@moduix/solid/list';
+import { List, ListItem } from '@moduix/solid/list';
 
 export function Example() {
   return (
     <List>
-      <List.Item>Use semantic list markup for grouped content.</List.Item>
-      <List.Item>Keep spacing and typography on the library scale.</List.Item>
+      <ListItem>Use semantic list markup for grouped content.</ListItem>
+      <ListItem>Keep spacing and typography on the library scale.</ListItem>
     </List>
   );
 }
@@ -44,7 +44,7 @@ Use `asChild` with one semantic host and a Solid render function:
 <List
   asChild={(props) => (
     <ul {...props()} aria-label="Release tasks">
-      <List.Item>Publish the package.</List.Item>
+      <ListItem>Publish the package.</ListItem>
     </ul>
   )}
   marker="none"
@@ -69,7 +69,7 @@ identical to the React component and uses native `::marker` styling and the publ
 
 ## Differences from upstream
 
-- moduix adds `gap`, `size`, `tone`, `marker`, stable data hooks, and the `List.Root`/`List.Item`
+- moduix adds `gap`, `size`, `tone`, `marker`, stable data hooks, and the `List`/`ListItem`
   composition API.
 - Solid uses `class` and `asChild={(props) => ...}` rather than React `className` and child syntax.
 - There is no Ark state machine, context, provider, or callback API because Ark does not provide a

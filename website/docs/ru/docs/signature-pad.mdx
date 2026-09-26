@@ -29,8 +29,9 @@ import signaturePadSolidAdvancedCustomization from '../../../snippets/signature-
 ## Базовый пример
 
 
-Для большинства случаев начните с `SignaturePad.Canvas`. Он выводит стандартную область рисования
-с частями Ark `Control`, `Segment`, `ClearTrigger` и `Guide`, а также со стандартной кнопкой
+Для большинства случаев начните с `SignaturePadCanvas`. Он выводит стандартную область рисования
+с частями Ark `SignaturePadControl`, `SignaturePadSegment`, `SignaturePadClearTrigger` и
+`SignaturePadGuide`, а также со стандартной кнопкой
 очистки moduix.
 
 <ExampleFrame variant="component">
@@ -93,47 +94,48 @@ import signaturePadSolidAdvancedCustomization from '../../../snippets/signature-
 ## Анатомия
 
 ```text
-SignaturePad / SignaturePad.Root
-├─ SignaturePad.Label
-├─ SignaturePad.Canvas (готовая композиция moduix)
-│  └─ SignaturePad.Control
-│     ├─ SignaturePad.Segment
-│     ├─ SignaturePad.ClearTrigger
-│     └─ SignaturePad.Guide
-└─ SignaturePad.HiddenInput value={serializedPaths} (явно)
+SignaturePad
+├─ SignaturePadLabel
+├─ SignaturePadCanvas (готовая композиция moduix)
+│  └─ SignaturePadControl
+│     ├─ SignaturePadSegment
+│     ├─ SignaturePadClearTrigger
+│     └─ SignaturePadGuide
+└─ SignaturePadHiddenInput value={serializedPaths} (явно)
 
-SignaturePad.RootProvider
+SignaturePadRootProvider
 └─ то же дерево частей, подключённое к состоянию useSignaturePad()
 ```
 
 | Часть                                | Назначение                                                                    |
 | ------------------------------------ | ----------------------------------------------------------------------------- |
-| `SignaturePad` / `SignaturePad.Root` | Хранит пути, параметры рисования, имя поля формы, идентификаторы и колбэки.    |
-| `SignaturePad.HiddenInput`           | Нативное поле Ark, которое нужно добавлять явно.                              |
-| `SignaturePad.RootProvider`          | Выводит то же дерево частей из состояния, созданного через `useSignaturePad()`. |
-| `SignaturePad.Label`                 | Связывает видимую подпись с областью рисования и скрытым полем формы.         |
-| `SignaturePad.Canvas`                | Готовая область рисования со стандартными частями; передаёт свойства `Control`. |
-| `SignaturePad.Control`               | Область рисования указателем или касанием, доступная для фокуса.              |
-| `SignaturePad.Segment`               | SVG-слой для сохранённых штрихов и текущего незавершённого штриха.            |
-| `SignaturePad.ClearTrigger`          | Нативная кнопка очистки путей.                                                |
-| `SignaturePad.Guide`                 | Неинтерактивная линия для подписи внутри области рисования.                  |
+| `SignaturePad`             | Хранит пути, параметры рисования, имя поля формы, идентификаторы и колбэки.    |
+| `SignaturePadHiddenInput`  | Нативное поле Ark, которое нужно добавлять явно.                              |
+| `SignaturePadRootProvider` | Выводит то же дерево частей из состояния, созданного через `useSignaturePad()`. |
+| `SignaturePadLabel`        | Связывает видимую подпись с областью рисования и скрытым полем формы.         |
+| `SignaturePadCanvas`       | Готовая область рисования со стандартными частями; передаёт свойства `SignaturePadControl`. |
+| `SignaturePadControl`      | Область рисования указателем или касанием, доступная для фокуса.              |
+| `SignaturePadSegment`      | SVG-слой для сохранённых штрихов и текущего незавершённого штриха.            |
+| `SignaturePadClearTrigger` | Нативная кнопка очистки путей.                                                |
+| `SignaturePadGuide`        | Неинтерактивная линия для подписи внутри области рисования.                  |
 
 ## Композиция
 
-Для стандартной композиции используйте `Label` и `Canvas`. У `Canvas` фиксированный набор
-дочерних частей, поэтому переходите к `Control`, `Segment`, `ClearTrigger` и `Guide`, если нужно
+Для стандартной композиции используйте `SignaturePadLabel` и `SignaturePadCanvas`. У
+`SignaturePadCanvas` фиксированный набор дочерних частей, поэтому переходите к `SignaturePadControl`,
+`SignaturePadSegment`, `SignaturePadClearTrigger` и `SignaturePadGuide`, если нужно
 изменить структуру области рисования или кнопку очистки.
 
-`SignaturePad.HiddenInput` не создаётся автоматически. Добавьте его явно и передайте
-сериализованное значение, обычно полученное через `SignaturePad.Context` или
+`SignaturePadHiddenInput` не создаётся автоматически. Добавьте его явно и передайте
+сериализованное значение, обычно полученное через `SignaturePadContext` или
 `useSignaturePadContext()`, когда подпись должна отправляться нативной формой.
 
 Используйте `defaultPaths` для локального неуправляемого состояния. Используйте `paths` вместе с
-`onDraw(details)`, когда состояние подписи принадлежит приложению. Используйте `RootProvider` с
+`onDraw(details)`, когда состояние подписи принадлежит приложению. Используйте `SignaturePadRootProvider` с
 `useSignaturePad()`, когда состояние нужно создать вне выводимого дерева или внешним элементам
 нужен доступ к `paths`, `clear()` или `getDataUrl()`.
 
-В отличие от Ark, moduix отключает `ClearTrigger`, когда `readOnly` приходит из корня, окружающего
+В отличие от Ark, moduix отключает `SignaturePadClearTrigger`, когда `readOnly` приходит из корня, окружающего
 `Field` или `useSignaturePad()`, предотвращая необратимую очистку, тогда как программный `clear()`
 остаётся доступным.
 
@@ -182,7 +184,7 @@ SignaturePad.RootProvider
 ### Рисование
 
 Передайте `drawing`, если нужно изменить толщину или цвет штриха либо поведение имитации давления.
-Значение по умолчанию в рантайме — `{ size: 2, simulatePressure: false }` (на странице документации
+Значение по умолчанию в рантайме - `{ size: 2, simulatePressure: false }` (на странице документации
 Ark показано `simulatePressure: true`), поэтому имитация давления включается явно.
 
 <ExampleFrame variant="component">
@@ -257,7 +259,7 @@ Ark показано `simulatePressure: true`), поэтому имитация 
 
 ### Сериализация формы
 
-Сериализуйте в потребителе значение для `SignaturePad.HiddenInput`, когда серверу нужен другой
+Сериализуйте в потребителе значение для `SignaturePadHiddenInput`, когда серверу нужен другой
 формат. В этом примере отправляется JSON-массив.
 
 <ExampleFrame variant="component">
@@ -336,7 +338,7 @@ Ark показано `simulatePressure: true`), поэтому имитация 
 
 ### Root Provider
 
-Создайте состояние с помощью `useSignaturePad()` и передайте его в `RootProvider`, когда элементам
+Создайте состояние с помощью `useSignaturePad()` и передайте его в `SignaturePadRootProvider`, когда элементам
 вне выводимого дерева нужен прямой доступ к `paths`, `clear()` или `getDataUrl()`.
 
 <ExampleFrame variant="component">
@@ -376,7 +378,7 @@ Ark показано `simulatePressure: true`), поэтому имитация 
 
 ### Расширенная настройка
 
-Используйте отдельные части вместо `Canvas`, если нужно управлять деревом частей рисования или
+Используйте отдельные части вместо `SignaturePadCanvas`, если нужно управлять деревом частей рисования или
 предоставить собственную кнопку очистки.
 
 <ExampleFrame variant="component">
@@ -432,15 +434,16 @@ Ark показано `simulatePressure: true`), поэтому имитация 
 
 | Часть                                | `data-slot`                   |
 | ------------------------------------ | ----------------------------- |
-| `SignaturePad` / `SignaturePad.Root` | `signature-pad-root`          |
-| `SignaturePad.RootProvider`          | `signature-pad-root-provider` |
-| `SignaturePad.Label`                 | `signature-pad-label`         |
-| `SignaturePad.Control`               | `signature-pad-control`        |
-| `SignaturePad.Segment`               | `signature-pad-segment`        |
-| `SignaturePad.Guide`                 | `signature-pad-guide`          |
-| `SignaturePad.ClearTrigger`          | `signature-pad-clear-trigger` |
+| `SignaturePad`             | `signature-pad-root`          |
+| `SignaturePadRootProvider` | `signature-pad-root-provider` |
+| `SignaturePadLabel`        | `signature-pad-label`         |
+| `SignaturePadControl`      | `signature-pad-control`        |
+| `SignaturePadSegment`      | `signature-pad-segment`        |
+| `SignaturePadGuide`        | `signature-pad-guide`          |
+| `SignaturePadClearTrigger` | `signature-pad-clear-trigger` |
 
-Атрибуты Ark остаются доступны для точечной стилизации. `Root`, `Label`, `Control`, `Segment`,
-`Guide`, `ClearTrigger` и внутренние пути сегмента предоставляют `data-scope="signature-pad"` и
+Атрибуты Ark остаются доступны для точечной стилизации. `SignaturePad`, `SignaturePadLabel`,
+`SignaturePadControl`, `SignaturePadSegment`, `SignaturePadGuide`, `SignaturePadClearTrigger` и
+внутренние пути сегмента предоставляют `data-scope="signature-pad"` и
 `data-part`; атрибут `data-disabled` появляется на корне, подписи, области рисования и линии
 ориентира, а `data-required` появляется на подписи.

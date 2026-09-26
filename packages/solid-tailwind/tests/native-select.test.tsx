@@ -1,18 +1,21 @@
-import { Field } from '@ark-ui/solid/field';
 import { expect, test } from '@rstest/core';
 import { fireEvent, render, screen } from '@solidjs/testing-library';
 import { createSignal } from 'solid-js';
-import { NativeSelect } from '../src';
+import { Field, NativeSelect, FieldErrorText, FieldLabel } from '../src';
+
+test('exports only the flat NativeSelect root', () => {
+  expect(NativeSelect).not.toHaveProperty('Root');
+});
 
 test('preserves Field state and control styling hooks', () => {
   render(() => (
-    <Field.Root disabled id="framework" invalid required>
-      <Field.Label>Framework</Field.Label>
+    <Field disabled id="framework" invalid required>
+      <FieldLabel>Framework</FieldLabel>
       <NativeSelect controlProps={{ title: 'Native select control' }}>
         <option value="react">React</option>
       </NativeSelect>
-      <Field.ErrorText>Choose a framework.</Field.ErrorText>
-    </Field.Root>
+      <FieldErrorText>Choose a framework.</FieldErrorText>
+    </Field>
   ));
 
   const select = screen.getByRole('combobox', { name: 'Framework' });

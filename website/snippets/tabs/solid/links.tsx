@@ -1,4 +1,4 @@
-import { Tabs } from '@moduix/solid/tabs';
+import { Tabs, TabsContent, TabsList, TabsTrigger } from '@moduix/solid/tabs';
 
 const items = [
   {
@@ -23,9 +23,9 @@ const items = [
 export default function LinkTabsDemo() {
   return (
     <Tabs defaultValue="overview">
-      <Tabs.List>
+      <TabsList>
         {items.map((item) => (
-          <Tabs.Trigger
+          <TabsTrigger
             value={item.value}
             asChild={(props) => (
               <a {...props()} href={'#' + item.value}>
@@ -34,12 +34,12 @@ export default function LinkTabsDemo() {
             )}
           />
         ))}
-      </Tabs.List>
+      </TabsList>
 
       {items.map((item) => (
-        <Tabs.Content value={item.value}>
+        <TabsContent value={item.value}>
           <span id={item.value}>{item.content}</span>
-        </Tabs.Content>
+        </TabsContent>
       ))}
     </Tabs>
   );

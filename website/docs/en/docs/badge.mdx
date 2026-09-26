@@ -19,6 +19,13 @@ import badgeSolidLongLabels from '../../../snippets/badge/solid/long-labels.tsx?
 import badgeSolidVariants from '../../../snippets/badge/solid/variants.tsx?raw';
 import badgeSolidWithDot from '../../../snippets/badge/solid/with-dot.tsx?raw';
 import badgeSolidWithIcon from '../../../snippets/badge/solid/with-icon.tsx?raw';
+import badgeVueBasic from '../../../snippets/badge/vue/basic.vue?raw';
+import badgeVueCustomStyling from '../../../snippets/badge/vue/custom-styling.vue?raw';
+import badgeVueLink from '../../../snippets/badge/vue/link.vue?raw';
+import badgeVueLongLabels from '../../../snippets/badge/vue/long-labels.vue?raw';
+import badgeVueVariants from '../../../snippets/badge/vue/variants.vue?raw';
+import badgeVueWithDot from '../../../snippets/badge/vue/with-dot.vue?raw';
+import badgeVueWithIcon from '../../../snippets/badge/vue/with-icon.vue?raw';
 
 ## API Reference
 
@@ -35,11 +42,13 @@ for a control that lets the user select or edit a value.
 - Choose **`Badge`** for short metadata such as status, category, version, or count.
 - Choose **`Tag`** for selected values, filters, assignments, or labels that are part of the current interface state.
 
+The Vue exports are available from `@moduix/vue/badge` for CSS Modules and `@moduix/vue-tailwind/badge` for Tailwind CSS.
+
 ## Basic
 
 
 Start with a plain `<Badge>`. The component renders a presentational `span` by default. Set `variant`
-to choose `default`, `secondary`, `destructive`, `outline`, `ghost`, or `link`, and add `Badge.Dot`
+to choose `default`, `secondary`, `destructive`, `outline`, `ghost`, or `link`, and add `BadgeDot`
 only when the status benefits from a visual indicator.
 
 <ExampleFrame variant="component">
@@ -53,6 +62,7 @@ only when the status benefits from a visual indicator.
     values={[
       { label: 'React', value: 'react' },
       { label: 'Solid', value: 'solid' },
+      { label: 'Vue', value: 'vue' },
     ]}
     className="docs-tabs"
   >
@@ -65,6 +75,11 @@ only when the status benefits from a visual indicator.
     <Tab value="solid">
 
 <CodeBlockRuntime lang="tsx" code={badgeSolidBasic} />
+
+    </Tab>
+    <Tab value="vue">
+
+<CodeBlockRuntime lang="vue" code={badgeVueBasic} />
 
     </Tab>
   </Tabs>
@@ -97,36 +112,46 @@ See [Quick Start](/docs/quick-start) for full package setup, registry configurat
 />
 
   </Tab>
+  <Tab label="Vue" value="vue">
+
+<ShadcnInstallOptions
+  options={[
+    { label: 'CSS Modules', command: 'shadcn@latest add @moduix-vue/badge' },
+    { label: 'Tailwind CSS', command: 'shadcn@latest add @moduix-vue-tailwind/badge' },
+  ]}
+/>
+
+  </Tab>
 </Tabs>
 
 ## Anatomy
 
-`Badge` is the shorthand for `Badge.Root`. It keeps the public API small and exposes only the parts
-you can see.
+`Badge` is the root component. It keeps the public API small and exposes only the parts you can see.
 
 ```text
-Badge / Badge.Root
-├─ Badge.Label (optional; use explicitly for truncation)
-├─ Badge.Dot (optional)
+Badge
+├─ BadgeLabel (optional; use explicitly for truncation)
+├─ BadgeDot (optional)
 └─ svg icon (optional)
 ```
 
-| Part                   | Role                                                                                 |
-| ---------------------- | ------------------------------------------------------------------------------------ |
-| `Badge` / `Badge.Root` | Root part. Applies the variant, border, and spacing.                                |
-| `Badge.Label`          | Explicit text part. Keeps a composed label truncatable.                              |
-| `Badge.Dot`            | Optional decorative part. Renders a circular marker that inherits the text color.    |
+| Part         | Role                                                                                 |
+| ------------ | ------------------------------------------------------------------------------------ |
+| `Badge`      | Root part. Applies the variant, border, and spacing.                                |
+| `BadgeLabel` | Explicit text part. Keeps a composed label truncatable.                              |
+| `BadgeDot`   | Optional decorative part. Renders a circular marker that inherits the text color.    |
 
 ## Composition
 
-`Badge` is presentational and owns no state. Direct text remains unchanged; use `Badge.Label`
-explicitly when a constrained label must truncate or when combining text with `Badge.Dot` or an
+`Badge` is presentational and owns no state. Direct text remains unchanged; use `BadgeLabel`
+explicitly when a constrained label must truncate or when combining text with `BadgeDot` or an
 icon. For a semantic link or button, use `asChild` with exactly one child in React. In Solid, pass
-a render function to `asChild`; the rendered child keeps its native semantics. `Badge.Root` is the
-namespaced equivalent of `Badge`.
+a render function to `asChild`; the rendered child keeps its native semantics.
 
 In Solid, assign a ref to the element created inside the `asChild` render function. A ref on `Badge`
 itself is not forwarded through that composition path.
+
+In Vue, place exactly one child in the default slot when using `as-child`; the child keeps its native semantics.
 
 ## Examples
 
@@ -146,6 +171,7 @@ a small adjustment.
     values={[
       { label: 'React', value: 'react' },
       { label: 'Solid', value: 'solid' },
+      { label: 'Vue', value: 'vue' },
     ]}
     className="docs-tabs"
   >
@@ -158,6 +184,11 @@ a small adjustment.
     <Tab value="solid">
 
 <CodeBlockRuntime lang="tsx" code={badgeSolidCustomStyling} />
+
+    </Tab>
+    <Tab value="vue">
+
+<CodeBlockRuntime lang="vue" code={badgeVueCustomStyling} />
 
     </Tab>
   </Tabs>
@@ -186,6 +217,7 @@ element remains a real link and keeps its native semantics.
     values={[
       { label: 'React', value: 'react' },
       { label: 'Solid', value: 'solid' },
+      { label: 'Vue', value: 'vue' },
     ]}
     className="docs-tabs"
   >
@@ -200,6 +232,11 @@ element remains a real link and keeps its native semantics.
 <CodeBlockRuntime lang="tsx" code={badgeSolidLink} />
 
     </Tab>
+    <Tab value="vue">
+
+<CodeBlockRuntime lang="vue" code={badgeVueLink} />
+
+    </Tab>
   </Tabs>
 </div>
 
@@ -207,7 +244,7 @@ element remains a real link and keeps its native semantics.
 
 ### Long Labels
 
-Wrap a long value in `Badge.Label` to truncate it inside a constrained badge. Add `title` to expose
+Wrap a long value in `BadgeLabel` to truncate it inside a constrained badge. Add `title` to expose
 the full label on pointer hover. On touch-first interfaces, choose a label that fits the available
 space.
 
@@ -222,6 +259,7 @@ space.
     values={[
       { label: 'React', value: 'react' },
       { label: 'Solid', value: 'solid' },
+      { label: 'Vue', value: 'vue' },
     ]}
     className="docs-tabs"
   >
@@ -234,6 +272,11 @@ space.
     <Tab value="solid">
 
 <CodeBlockRuntime lang="tsx" code={badgeSolidLongLabels} />
+
+    </Tab>
+    <Tab value="vue">
+
+<CodeBlockRuntime lang="vue" code={badgeVueLongLabels} />
 
     </Tab>
   </Tabs>
@@ -261,6 +304,7 @@ Use the built-in variants for common styles.
     values={[
       { label: 'React', value: 'react' },
       { label: 'Solid', value: 'solid' },
+      { label: 'Vue', value: 'vue' },
     ]}
     className="docs-tabs"
   >
@@ -275,6 +319,11 @@ Use the built-in variants for common styles.
 <CodeBlockRuntime lang="tsx" code={badgeSolidVariants} />
 
     </Tab>
+    <Tab value="vue">
+
+<CodeBlockRuntime lang="vue" code={badgeVueVariants} />
+
+    </Tab>
   </Tabs>
 
 **Styles**
@@ -287,7 +336,7 @@ Use the built-in variants for common styles.
 
 ### With Dot
 
-Add `Badge.Dot` when the label needs a status indicator that stays visually connected to it. Keep the
+Add `BadgeDot` when the label needs a status indicator that stays visually connected to it. Keep the
 status meaning in the visible text because the dot is decorative.
 
 <ExampleFrame variant="component">
@@ -301,6 +350,7 @@ status meaning in the visible text because the dot is decorative.
     values={[
       { label: 'React', value: 'react' },
       { label: 'Solid', value: 'solid' },
+      { label: 'Vue', value: 'vue' },
     ]}
     className="docs-tabs"
   >
@@ -313,6 +363,11 @@ status meaning in the visible text because the dot is decorative.
     <Tab value="solid">
 
 <CodeBlockRuntime lang="tsx" code={badgeSolidWithDot} />
+
+    </Tab>
+    <Tab value="vue">
+
+<CodeBlockRuntime lang="vue" code={badgeVueWithDot} />
 
     </Tab>
   </Tabs>
@@ -340,6 +395,7 @@ Place a direct child SVG icon next to the label when the metadata needs another 
     values={[
       { label: 'React', value: 'react' },
       { label: 'Solid', value: 'solid' },
+      { label: 'Vue', value: 'vue' },
     ]}
     className="docs-tabs"
   >
@@ -352,6 +408,11 @@ Place a direct child SVG icon next to the label when the metadata needs another 
     <Tab value="solid">
 
 <CodeBlockRuntime lang="tsx" code={badgeSolidWithIcon} />
+
+    </Tab>
+    <Tab value="vue">
+
+<CodeBlockRuntime lang="vue" code={badgeVueWithIcon} />
 
     </Tab>
   </Tabs>
@@ -373,8 +434,8 @@ Start with a built-in variant. For a one-off size or style change, set the publi
 the variant-specific values for an individual badge. These CSS variables apply to the CSS Modules
 packages; Tailwind packages use native utilities and consumer classes instead.
 
-Use `className` in React or `class` in Solid on exported parts. The stable `data-slot` hooks and
-Ark data attributes are shared by both styling tracks.
+Use `className` in React or `class` in Solid and Vue on exported parts. The stable `data-slot` hooks and
+Ark data attributes are shared by all styling tracks.
 
 ### CSS Properties
 
@@ -383,8 +444,8 @@ Ark data attributes are shared by both styling tracks.
 ### Styling hooks
 
 - `data-slot="badge-root"`, `data-slot="badge-label"`, and `data-slot="badge-dot"` are stable selectors for styling the exported parts.
-- `Badge.Root` also exposes `data-scope="badge"` and `data-part="root"`. `Badge.Label` and `Badge.Dot` expose `data-part="label"` and `data-part="dot"`.
-- `Badge.Root` writes the selected variant to `data-variant`.
-- Focusable hosts rendered through `Badge asChild` or `Badge.Root asChild` receive the root focus-visible styling. Anchor roots also receive the variant hover and pointer-cursor styles; button-specific interaction styles remain application-owned.
+- `Badge` also exposes `data-scope="badge"` and `data-part="root"`. `BadgeLabel` and `BadgeDot` expose `data-part="label"` and `data-part="dot"`.
+- `Badge` writes the selected variant to `data-variant`.
+- Focusable hosts rendered through `Badge asChild` receive the root focus-visible styling. Anchor roots also receive the variant hover and pointer-cursor styles; button-specific interaction styles remain application-owned.
 - Direct child `svg` icons inherit `currentColor`, do not receive pointer events, and use `--moduix-badge-icon-size`.
 - Badge has no dedicated Ark primitive or behavior machine, so it does not expose Ark-managed states or runtime CSS variables.

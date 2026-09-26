@@ -1,4 +1,10 @@
-import { Alert } from '@moduix/solid/alert';
+import {
+  Alert,
+  AlertContent,
+  AlertDescription,
+  AlertIndicator,
+  AlertTitle,
+} from '@moduix/solid/alert';
 import { Info as InfoIcon } from 'lucide-solid';
 
 const alert = {
@@ -9,13 +15,13 @@ const alert = {
 export default function AlertWithIconDemo() {
   return (
     <Alert status="info">
-      <Alert.Indicator>
+      <AlertIndicator>
         <InfoIcon />
-      </Alert.Indicator>
-      <Alert.Content>
-        <Alert.Title>{alert.title}</Alert.Title>
-        <Alert.Description>{alert.description}</Alert.Description>
-      </Alert.Content>
+      </AlertIndicator>
+      <AlertContent>
+        <AlertTitle>{alert.title}</AlertTitle>
+        <AlertDescription>{alert.description}</AlertDescription>
+      </AlertContent>
     </Alert>
   );
 }

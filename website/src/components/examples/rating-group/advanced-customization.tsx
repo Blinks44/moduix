@@ -1,5 +1,13 @@
 import { Button } from '@moduix/react/button';
-import { RatingGroup, useRatingGroup } from '@moduix/react/rating-group';
+import {
+  RatingGroupContext,
+  RatingGroupControl,
+  RatingGroupItem,
+  RatingGroupItemIndicator,
+  RatingGroupLabel,
+  RatingGroupRootProvider,
+  useRatingGroup,
+} from '@moduix/react/rating-group';
 import { PreviewMeta } from '@/components/mdx/Components';
 import styles from '@/components/examples/rating-group/component-advanced-customization.module.css';
 
@@ -11,20 +19,20 @@ export default function AdvancedCustomizationRatingGroupDemo() {
 
   return (
     <div className={styles.stack}>
-      <RatingGroup.RootProvider value={ratingGroup}>
-        <RatingGroup.Label>Product quality</RatingGroup.Label>
-        <RatingGroup.Control>
-          <RatingGroup.Context>
+      <RatingGroupRootProvider value={ratingGroup}>
+        <RatingGroupLabel>Product quality</RatingGroupLabel>
+        <RatingGroupControl>
+          <RatingGroupContext>
             {({ items }) =>
               items.map((item) => (
-                <RatingGroup.Item key={item} index={item}>
-                  <RatingGroup.ItemIndicator />
-                </RatingGroup.Item>
+                <RatingGroupItem key={item} index={item}>
+                  <RatingGroupItemIndicator />
+                </RatingGroupItem>
               ))
             }
-          </RatingGroup.Context>
-        </RatingGroup.Control>
-      </RatingGroup.RootProvider>
+          </RatingGroupContext>
+        </RatingGroupControl>
+      </RatingGroupRootProvider>
       <PreviewMeta>
         <output className={styles.hint}>Current value: {ratingGroup.value}</output>
         <Button type="button" size="sm" onClick={() => ratingGroup.setValue(5)}>

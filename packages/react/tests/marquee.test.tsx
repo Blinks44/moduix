@@ -1,19 +1,29 @@
 import { expect, rs, test } from '@rstest/core';
 import { fireEvent, render, screen, waitFor } from '@testing-library/react';
 import { createRef } from 'react';
-import { LocaleProvider, Marquee, useMarquee, useMarqueeContext } from '../src';
+import {
+  LocaleProvider,
+  Marquee,
+  MarqueeContent,
+  MarqueeEdge,
+  MarqueeItem,
+  MarqueeRootProvider,
+  MarqueeViewport,
+  useMarquee,
+  useMarqueeContext,
+} from '../src';
 
 function TestMarquee({ defaultPaused, paused }: { defaultPaused?: boolean; paused?: boolean }) {
   return (
     <Marquee aria-label="Partner logos" defaultPaused={defaultPaused} paused={paused}>
-      <Marquee.Edge side="start" />
-      <Marquee.Viewport>
-        <Marquee.Content>
-          <Marquee.Item>Atlas</Marquee.Item>
-          <Marquee.Item>Beacon</Marquee.Item>
-        </Marquee.Content>
-      </Marquee.Viewport>
-      <Marquee.Edge side="end" />
+      <MarqueeEdge side="start" />
+      <MarqueeViewport>
+        <MarqueeContent>
+          <MarqueeItem>Atlas</MarqueeItem>
+          <MarqueeItem>Beacon</MarqueeItem>
+        </MarqueeContent>
+      </MarqueeViewport>
+      <MarqueeEdge side="end" />
     </Marquee>
   );
 }
@@ -48,11 +58,11 @@ test('forwards part refs and keeps cloned content out of the accessibility tree'
 
   render(
     <Marquee ref={rootRef} aria-label="Partner logos">
-      <Marquee.Viewport>
-        <Marquee.Content>
-          <Marquee.Item ref={itemRef}>Atlas</Marquee.Item>
-        </Marquee.Content>
-      </Marquee.Viewport>
+      <MarqueeViewport>
+        <MarqueeContent>
+          <MarqueeItem ref={itemRef}>Atlas</MarqueeItem>
+        </MarqueeContent>
+      </MarqueeViewport>
     </Marquee>,
   );
 
@@ -96,11 +106,11 @@ test('preserves interaction pause behavior, callback details, and context contro
 
   render(
     <Marquee aria-label="Partner logos" pauseOnInteraction onPauseChange={onPauseChange}>
-      <Marquee.Viewport>
-        <Marquee.Content>
-          <Marquee.Item>Atlas</Marquee.Item>
-        </Marquee.Content>
-      </Marquee.Viewport>
+      <MarqueeViewport>
+        <MarqueeContent>
+          <MarqueeItem>Atlas</MarqueeItem>
+        </MarqueeContent>
+      </MarqueeViewport>
       <ContextPauseControl />
     </Marquee>,
   );
@@ -148,13 +158,13 @@ function ProviderMarquee() {
   const marquee = useMarquee({ translations: { root: 'Partner logos' } });
 
   return (
-    <Marquee.RootProvider value={marquee}>
-      <Marquee.Viewport>
-        <Marquee.Content>
-          <Marquee.Item>Atlas</Marquee.Item>
-        </Marquee.Content>
-      </Marquee.Viewport>
-    </Marquee.RootProvider>
+    <MarqueeRootProvider value={marquee}>
+      <MarqueeViewport>
+        <MarqueeContent>
+          <MarqueeItem>Atlas</MarqueeItem>
+        </MarqueeContent>
+      </MarqueeViewport>
+    </MarqueeRootProvider>
   );
 }
 

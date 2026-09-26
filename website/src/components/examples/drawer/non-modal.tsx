@@ -1,7 +1,26 @@
 import { Button } from '@moduix/react/button';
-import { Card } from '@moduix/react/card';
-import { Drawer } from '@moduix/react/drawer';
-import { ScrollArea } from '@moduix/react/scroll-area';
+import { Card, CardBody } from '@moduix/react/card';
+import {
+  Drawer,
+  DrawerBody,
+  DrawerCloseIcon,
+  DrawerContent,
+  DrawerDescription,
+  DrawerGrabber,
+  DrawerGrabberIndicator,
+  DrawerHeader,
+  DrawerPositioner,
+  DrawerTitle,
+  DrawerTrigger,
+} from '@moduix/react/drawer';
+import {
+  ScrollArea,
+  ScrollAreaContent,
+  ScrollAreaCorner,
+  ScrollAreaScrollbar,
+  ScrollAreaThumb,
+  ScrollAreaViewport,
+} from '@moduix/react/scroll-area';
 import styles from '@/components/examples/drawer/drawer-non-modal.module.css';
 
 const modal = false;
@@ -28,42 +47,42 @@ export default function NonModalDrawerDemo() {
       snapPoints={snapPoints}
       defaultSnapPoint={snapPoints[0]}
     >
-      <Drawer.Trigger asChild>
+      <DrawerTrigger asChild>
         <Button>Open non-modal drawer</Button>
-      </Drawer.Trigger>
-      <Drawer.Positioner>
-        <Drawer.Content draggable={false}>
-          <Drawer.Grabber className={styles.grabber}>
-            <Drawer.GrabberIndicator className={styles.grabberIndicator} />
-            <Drawer.Header className={styles.header}>
-              <Drawer.Title>Non-modal drawer</Drawer.Title>
-              <Drawer.CloseIcon data-no-drag />
-              <Drawer.Description>
+      </DrawerTrigger>
+      <DrawerPositioner>
+        <DrawerContent draggable={false}>
+          <DrawerGrabber className={styles.grabber}>
+            <DrawerGrabberIndicator className={styles.grabberIndicator} />
+            <DrawerHeader className={styles.header}>
+              <DrawerTitle>Non-modal drawer</DrawerTitle>
+              <DrawerCloseIcon data-no-drag />
+              <DrawerDescription>
                 The page remains interactive while this drawer is open.
-              </Drawer.Description>
-            </Drawer.Header>
-          </Drawer.Grabber>
-          <Drawer.Body className={styles.body}>
+              </DrawerDescription>
+            </DrawerHeader>
+          </DrawerGrabber>
+          <DrawerBody className={styles.body}>
             <ScrollArea className={styles.scrollArea}>
-              <ScrollArea.Viewport className={styles.viewport}>
-                <ScrollArea.Content className={styles.content}>
+              <ScrollAreaViewport className={styles.viewport}>
+                <ScrollAreaContent className={styles.content}>
                   {paragraphs.map((paragraph) => (
                     <Card key={paragraph} size="sm" className={styles.card}>
-                      <Card.Body>
+                      <CardBody>
                         <p className={styles.paragraph}>{paragraph}</p>
-                      </Card.Body>
+                      </CardBody>
                     </Card>
                   ))}
-                </ScrollArea.Content>
-              </ScrollArea.Viewport>
-              <ScrollArea.Scrollbar>
-                <ScrollArea.Thumb />
-              </ScrollArea.Scrollbar>
-              <ScrollArea.Corner />
+                </ScrollAreaContent>
+              </ScrollAreaViewport>
+              <ScrollAreaScrollbar>
+                <ScrollAreaThumb />
+              </ScrollAreaScrollbar>
+              <ScrollAreaCorner />
             </ScrollArea>
-          </Drawer.Body>
-        </Drawer.Content>
-      </Drawer.Positioner>
+          </DrawerBody>
+        </DrawerContent>
+      </DrawerPositioner>
     </Drawer>
   );
 }

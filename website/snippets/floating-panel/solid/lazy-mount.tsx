@@ -1,5 +1,19 @@
 import { Button } from '@moduix/solid/button';
-import { FloatingPanel } from '@moduix/solid/floating-panel';
+import {
+  FloatingPanel,
+  FloatingPanelTrigger,
+  FloatingPanelPositioner,
+  FloatingPanelContent,
+  FloatingPanelDragTrigger,
+  FloatingPanelHeader,
+  FloatingPanelTitle,
+  FloatingPanelControl,
+  FloatingPanelStageTrigger,
+  FloatingPanelCloseIcon,
+  FloatingPanelBody,
+  FloatingPanelResizeTriggerGroup,
+  FloatingPanelDragIndicator,
+} from '@moduix/solid/floating-panel';
 import { createSignal } from 'solid-js';
 
 export default function LazyMountFloatingPanelDemo() {
@@ -16,29 +30,29 @@ export default function LazyMountFloatingPanelDemo() {
         }}
         onExitComplete={() => setExits((count) => count + 1)}
       >
-        <FloatingPanel.Trigger asChild={(props) => <Button {...props()}>Open lazy panel</Button>} />
-        <FloatingPanel.Positioner>
-          <FloatingPanel.Content>
-            <FloatingPanel.DragTrigger>
-              <FloatingPanel.Header>
-                <FloatingPanel.Title>
-                  <FloatingPanel.DragIndicator />
+        <FloatingPanelTrigger asChild={(props) => <Button {...props()}>Open lazy panel</Button>} />
+        <FloatingPanelPositioner>
+          <FloatingPanelContent>
+            <FloatingPanelDragTrigger>
+              <FloatingPanelHeader>
+                <FloatingPanelTitle>
+                  <FloatingPanelDragIndicator />
                   Lazy mounted
-                </FloatingPanel.Title>
-                <FloatingPanel.Control>
-                  <FloatingPanel.StageTrigger stage="minimized" />
-                  <FloatingPanel.StageTrigger stage="maximized" />
-                  <FloatingPanel.StageTrigger stage="default" />
-                  <FloatingPanel.CloseIcon />
-                </FloatingPanel.Control>
-              </FloatingPanel.Header>
-            </FloatingPanel.DragTrigger>
-            <FloatingPanel.Body>
+                </FloatingPanelTitle>
+                <FloatingPanelControl>
+                  <FloatingPanelStageTrigger stage="minimized" />
+                  <FloatingPanelStageTrigger stage="maximized" />
+                  <FloatingPanelStageTrigger stage="default" />
+                  <FloatingPanelCloseIcon />
+                </FloatingPanelControl>
+              </FloatingPanelHeader>
+            </FloatingPanelDragTrigger>
+            <FloatingPanelBody>
               The panel content mounts on first open and unmounts after exit.
-            </FloatingPanel.Body>
-            <FloatingPanel.ResizeTriggerGroup />
-          </FloatingPanel.Content>
-        </FloatingPanel.Positioner>
+            </FloatingPanelBody>
+            <FloatingPanelResizeTriggerGroup />
+          </FloatingPanelContent>
+        </FloatingPanelPositioner>
       </FloatingPanel>
       <div data-preview-meta>
         <output>Exit completions: {exits()}</output>

@@ -1,23 +1,33 @@
 import { Button } from '@moduix/solid/button';
-import { Popover } from '@moduix/solid/popover';
+import {
+  Popover,
+  PopoverCloseTrigger,
+  PopoverContent,
+  PopoverDescription,
+  PopoverFooter,
+  PopoverHeader,
+  PopoverPositioner,
+  PopoverTitle,
+  PopoverTrigger,
+} from '@moduix/solid/popover';
 
 export default function PositioningPopoverDemo() {
   return (
     <Popover positioning={{ placement: 'left', gutter: 12 }}>
-      <Popover.Trigger asChild={(props) => <Button {...props()}>Open on the left</Button>} />
-      <Popover.Positioner>
-        <Popover.Content>
-          <Popover.Header>
-            <Popover.Title>Left placement</Popover.Title>
-            <Popover.Description>
+      <PopoverTrigger asChild={(props) => <Button {...props()}>Open on the left</Button>} />
+      <PopoverPositioner>
+        <PopoverContent>
+          <PopoverHeader>
+            <PopoverTitle>Left placement</PopoverTitle>
+            <PopoverDescription>
               Placement and offsets belong to Root.positioning.
-            </Popover.Description>
-          </Popover.Header>
-          <Popover.Footer>
-            <Popover.CloseTrigger>Close</Popover.CloseTrigger>
-          </Popover.Footer>
-        </Popover.Content>
-      </Popover.Positioner>
+            </PopoverDescription>
+          </PopoverHeader>
+          <PopoverFooter>
+            <PopoverCloseTrigger>Close</PopoverCloseTrigger>
+          </PopoverFooter>
+        </PopoverContent>
+      </PopoverPositioner>
     </Popover>
   );
 }

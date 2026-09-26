@@ -1,0 +1,33 @@
+{
+  "$schema": "https://ui.shadcn.com/schema/registry-item.json",
+  "name": "overlay-portal",
+  "title": "moduix overlay portal",
+  "description": "Internal overlay portal helper required only by overlay registry components.",
+  "files": [
+    {
+      "path": "src/internal/overlayPortal/context.ts",
+      "content": "import type { InjectionKey } from 'vue';\n\nexport type PortalRef = HTMLElement | (() => HTMLElement | null | undefined);\n\nexport type OverlayPortalProps = {\n  portalled?: boolean;\n  portalRef?: PortalRef;\n};\n\nexport type OverlayPortalContext = {\n  portalled: () => boolean | undefined;\n  portalRef: () => PortalRef | undefined;\n};\n\nexport const OverlayPortalContextKey: InjectionKey<OverlayPortalContext> =\n  Symbol('OverlayPortalContext');\n\nexport const defaultOverlayPortalContext: OverlayPortalContext = {\n  portalled: () => undefined,\n  portalRef: () => undefined,\n};",
+      "type": "registry:lib",
+      "target": "@lib/moduix/overlayPortal/context.ts"
+    },
+    {
+      "path": "src/internal/overlayPortal/OverlayPortal.vue",
+      "content": "<script setup lang=\"ts\">\nimport { computed, inject } from 'vue';\nimport { defaultOverlayPortalContext, OverlayPortalContextKey } from './context';\n\nconst context = inject(OverlayPortalContextKey, defaultOverlayPortalContext);\n\nconst target = computed(() => {\n  const portalRef = context.portalRef();\n  return (typeof portalRef === 'function' ? portalRef() : portalRef) ?? 'body';\n});\n\nconst portalled = computed(() => context.portalled() !== false);\n</script>\n\n<template>\n  <slot v-if=\"!portalled\" />\n  <Teleport v-else :to=\"target\">\n    <slot />\n  </Teleport>\n</template>",
+      "type": "registry:lib",
+      "target": "@lib/moduix/overlayPortal/OverlayPortal.vue"
+    },
+    {
+      "path": "src/internal/overlayPortal/OverlayPortalProvider.vue",
+      "content": "<script setup lang=\"ts\">\nimport { provide } from 'vue';\nimport { OverlayPortalContextKey, type OverlayPortalProps } from './context';\n\nconst { portalled = true, portalRef } = defineProps<OverlayPortalProps>();\n\nprovide(OverlayPortalContextKey, {\n  portalled: () => portalled,\n  portalRef: () => portalRef,\n});\n</script>\n\n<template>\n  <slot />\n</template>",
+      "type": "registry:lib",
+      "target": "@lib/moduix/overlayPortal/OverlayPortalProvider.vue"
+    },
+    {
+      "path": "src/internal/overlayPortal/index.ts",
+      "content": "import OverlayPortal from './OverlayPortal.vue';\nimport OverlayPortalProvider from './OverlayPortalProvider.vue';\n\nexport { OverlayPortal, OverlayPortalProvider };\nexport type { OverlayPortalProps, PortalRef } from './context';",
+      "type": "registry:lib",
+      "target": "@lib/moduix/overlayPortal/index.ts"
+    }
+  ],
+  "type": "registry:item"
+}

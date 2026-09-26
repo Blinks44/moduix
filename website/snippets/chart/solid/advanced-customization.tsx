@@ -1,5 +1,13 @@
 import { Button } from '@moduix/solid/button';
-import { Chart } from '@moduix/solid/chart';
+import {
+  Chart,
+  ChartDescription,
+  ChartHeader,
+  ChartLegend,
+  ChartLegendItem,
+  ChartPlot,
+  ChartTitle,
+} from '@moduix/solid/chart';
 import { barY, defineChart } from '@tanstack/charts';
 import { scaleBand } from '@tanstack/charts/scales/band';
 import { scaleLinear } from '@tanstack/charts/scales/linear';
@@ -34,23 +42,21 @@ const definition = defineChart({
 
 export default function AdvancedCustomizationChartDemo() {
   return (
-    <Chart.Root
-      asChild={(props) => <section {...props()} aria-labelledby="dashboard-revenue-title" />}
-    >
-      <Chart.Header
+    <Chart asChild={(props) => <section {...props()} aria-labelledby="dashboard-revenue-title" />}>
+      <ChartHeader
         asChild={(props) => (
           <header {...props()} class={`${props().class ?? ''} ${styles.header}`.trim()} />
         )}
       >
         <div>
-          <Chart.Title asChild={(props) => <h2 {...props()} id="dashboard-revenue-title" />} />
-          <Chart.Description>Click a bar to pin its tooltip.</Chart.Description>
+          <ChartTitle asChild={(props) => <h2 {...props()} id="dashboard-revenue-title" />} />
+          <ChartDescription>Click a bar to pin its tooltip.</ChartDescription>
         </div>
-        <Chart.Legend aria-label="Revenue series">
-          <Chart.LegendItem color="var(--moduix-color-chart-1)">Revenue</Chart.LegendItem>
-        </Chart.Legend>
-      </Chart.Header>
-      <Chart.Plot
+        <ChartLegend aria-label="Revenue series">
+          <ChartLegendItem color="var(--moduix-color-chart-1)">Revenue</ChartLegendItem>
+        </ChartLegend>
+      </ChartHeader>
+      <ChartPlot
         definition={definition}
         height={320}
         ariaLabel="Monthly revenue"
@@ -65,6 +71,6 @@ export default function AdvancedCustomizationChartDemo() {
           </div>
         )}
       />
-    </Chart.Root>
+    </Chart>
   );
 }

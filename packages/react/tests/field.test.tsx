@@ -1,15 +1,26 @@
 import { expect, test } from '@rstest/core';
 import { render, screen } from '@testing-library/react';
 import { createRef } from 'react';
-import { Field, useField } from '../src';
+import {
+  Field,
+  useField,
+  FieldErrorText,
+  FieldHelperText,
+  FieldInput,
+  FieldItem,
+  FieldLabel,
+  FieldRootProvider,
+  FieldSelect,
+  FieldTextarea,
+} from '../src';
 
 test('wires labels, descriptions, errors, and field state to a native control', () => {
   render(
     <Field disabled id="email" invalid readOnly required>
-      <Field.Label>Email</Field.Label>
-      <Field.Input />
-      <Field.HelperText>Use your work email.</Field.HelperText>
-      <Field.ErrorText>Enter a valid email address.</Field.ErrorText>
+      <FieldLabel>Email</FieldLabel>
+      <FieldInput />
+      <FieldHelperText>Use your work email.</FieldHelperText>
+      <FieldErrorText>Enter a valid email address.</FieldErrorText>
     </Field>,
   );
 
@@ -29,8 +40,8 @@ test('wires labels, descriptions, errors, and field state to a native control', 
 test('renders error text only while invalid', () => {
   const { rerender } = render(
     <Field>
-      <Field.Input aria-label="Email" />
-      <Field.ErrorText>Enter a valid email address.</Field.ErrorText>
+      <FieldInput aria-label="Email" />
+      <FieldErrorText>Enter a valid email address.</FieldErrorText>
     </Field>,
   );
 
@@ -38,23 +49,23 @@ test('renders error text only while invalid', () => {
 
   rerender(
     <Field invalid>
-      <Field.Input aria-label="Email" />
-      <Field.ErrorText>Enter a valid email address.</Field.ErrorText>
+      <FieldInput aria-label="Email" />
+      <FieldErrorText>Enter a valid email address.</FieldErrorText>
     </Field>,
   );
 
   expect(screen.getByText('Enter a valid email address.')).toHaveAttribute('aria-live', 'polite');
 });
 
-test('forwards Field.Item refs and uses target for its label wiring', () => {
+test('forwards FieldItem refs and uses target for its label wiring', () => {
   const itemRef = createRef<HTMLDivElement>();
 
   render(
     <Field id="contact" target="email">
-      <Field.Item ref={itemRef} value="email">
-        <Field.Label>Email</Field.Label>
-        <Field.Input />
-      </Field.Item>
+      <FieldItem ref={itemRef} value="email">
+        <FieldLabel>Email</FieldLabel>
+        <FieldInput />
+      </FieldItem>
     </Field>,
   );
 
@@ -73,18 +84,18 @@ test('forwards refs and styling hooks for the Ark native parts', () => {
   render(
     <>
       <Field ref={rootRef}>
-        <Field.Label>Name</Field.Label>
-        <Field.Input ref={inputRef} />
+        <FieldLabel>Name</FieldLabel>
+        <FieldInput ref={inputRef} />
       </Field>
       <Field>
-        <Field.Label>Summary</Field.Label>
-        <Field.Textarea ref={textareaRef} />
+        <FieldLabel>Summary</FieldLabel>
+        <FieldTextarea ref={textareaRef} />
       </Field>
       <Field>
-        <Field.Label>Priority</Field.Label>
-        <Field.Select ref={selectRef}>
+        <FieldLabel>Priority</FieldLabel>
+        <FieldSelect ref={selectRef}>
           <option>Normal</option>
-        </Field.Select>
+        </FieldSelect>
       </Field>
     </>,
   );
@@ -100,11 +111,11 @@ test('keeps the RootProvider composition path Ark-shaped', () => {
     const field = useField({ id: 'provider-email', invalid: true });
 
     return (
-      <Field.RootProvider value={field}>
-        <Field.Label>Email</Field.Label>
-        <Field.Input />
-        <Field.ErrorText>Enter a valid email address.</Field.ErrorText>
-      </Field.RootProvider>
+      <FieldRootProvider value={field}>
+        <FieldLabel>Email</FieldLabel>
+        <FieldInput />
+        <FieldErrorText>Enter a valid email address.</FieldErrorText>
+      </FieldRootProvider>
     );
   }
 
@@ -120,8 +131,8 @@ test('preserves Ark asChild composition and forwards refs for the root', () => {
   render(
     <Field asChild ref={rootRef}>
       <section>
-        <Field.Label>Email</Field.Label>
-        <Field.Input />
+        <FieldLabel>Email</FieldLabel>
+        <FieldInput />
       </section>
     </Field>,
   );

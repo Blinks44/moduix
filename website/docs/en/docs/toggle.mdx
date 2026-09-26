@@ -43,8 +43,7 @@ Use `Toggle` when the control should behave like a button and expose whether it 
 ## Basic
 
 
-Use `Toggle` for the common case. It is shorthand for `Toggle.Root` and preserves Ark's
-pressed-state behavior.
+Use `Toggle` for the common case. It preserves Ark's pressed-state behavior.
 
 <ExampleFrame variant="component">
   <ToggleBasic />
@@ -105,24 +104,24 @@ See [Quick Start](/docs/quick-start) for full package setup, registry configurat
 ## Anatomy
 
 ```text
-Toggle / Toggle.Root
-└─ Toggle.Indicator (optional)
+Toggle
+└─ ToggleIndicator (optional)
 
-Toggle.Context (state reader, not a DOM part)
+ToggleContext (state reader, not a DOM part)
 ```
 
 | Part | Role |
 | ---- | ---- |
-| `Toggle` / `Toggle.Root` | Root part that owns pressed state, focus, disabled state, and `asChild` composition. |
-| `Toggle.Indicator` | Optional part that renders pressed content and its `fallback` when the toggle is off. |
-| `Toggle.Context` | Reads the nearest toggle state for custom descendants; it does not render a DOM part. |
+| `Toggle` | Root part that owns pressed state, focus, disabled state, and `asChild` composition. |
+| `ToggleIndicator` | Optional part that renders pressed content and its `fallback` when the toggle is off. |
+| `ToggleContext` | Reads the nearest toggle state for custom descendants; it does not render a DOM part. |
 
 ## Composition
 
-`Toggle` is shorthand for `Toggle.Root`. Use `defaultPressed` for an uncontrolled toggle, or pass
-`pressed` with `onPressedChange` when application state owns the value. Use `Toggle.Indicator` when
+Use `defaultPressed` for an uncontrolled toggle, or pass `pressed` with `onPressedChange` when
+application state owns the value. Use `ToggleIndicator` when
 the button content changes with its pressed state. For custom descendants that need the state, use
-`Toggle.Context` or `useToggleContext()` from the matching package. Use `asChild` when another button
+`ToggleContext` or `useToggleContext()` from the matching package. Use `asChild` when another button
 should host the toggle behavior. In Solid, `asChild` takes a render function; in React, it takes one
 button-like child.
 
@@ -278,7 +277,7 @@ Pass icons as regular children. Icon-only toggles need an accessible name such a
 
 ### Indicator
 
-Use `Toggle.Indicator` when pressed and unpressed states need different inline content.
+Use `ToggleIndicator` when pressed and unpressed states need different inline content.
 
 <ExampleFrame variant="component">
   <ToggleIndicator />
@@ -388,7 +387,7 @@ Set `variant` to `default`, `outline`, or `ghost` to match the surrounding surfa
 ### Advanced Customization
 
 Use the context hook when a custom descendant needs the pressed state instead of changing the
-button content with `Toggle.Indicator`.
+button content with `ToggleIndicator`.
 
 <ExampleFrame variant="component">
   <ToggleAdvancedCustomization />
@@ -445,5 +444,5 @@ variants use native utilities and consumer classes; CSS Modules variants additio
 - Ark part selectors: `data-scope="toggle"` and `data-part="root" | "indicator"`.
 - Ark state selectors: `data-state="on" | "off"`, `data-pressed`, and `data-disabled`.
 - moduix selectors: `data-variant` and `data-size`, including `icon-sm`, `icon-md`, and `icon-lg`.
-- Direct icon children and icons inside `Toggle.Indicator` are sized through
+- Direct icon children and icons inside `ToggleIndicator` are sized through
   `--moduix-toggle-icon-size` on the CSS Modules path.

@@ -7,13 +7,13 @@ import styles from './Bleed.module.css';
 type BleedAmount = 'none' | 'xs' | 'sm' | 'md' | 'lg' | 'xl';
 type BleedInline = BleedAmount | 'full';
 
-const BleedRoot = forwardRef<
+const Bleed = forwardRef<
   HTMLElement,
   HTMLArkProps<'div'> & {
     inline?: BleedInline;
     block?: BleedAmount;
   }
->(function BleedRoot({ inline = 'full', block = 'none', className, ...props }, ref) {
+>(function Bleed({ inline = 'full', block = 'none', className, ...props }, ref) {
   return (
     <ark.div
       ref={ref as ForwardedRef<HTMLDivElement>}
@@ -26,10 +26,6 @@ const BleedRoot = forwardRef<
       className={clsx(styles.root, className)}
     />
   );
-});
-
-const Bleed = Object.assign(BleedRoot, {
-  Root: BleedRoot,
 });
 
 export { Bleed };

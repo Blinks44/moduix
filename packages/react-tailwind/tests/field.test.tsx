@@ -1,15 +1,29 @@
 import { expect, test } from '@rstest/core';
 import { fireEvent, render, screen } from '@testing-library/react';
 import { createRef } from 'react';
-import { Field, useField, useFieldContext } from '../src';
+import {
+  Field,
+  useField,
+  useFieldContext,
+  FieldContext,
+  FieldErrorText,
+  FieldHelperText,
+  FieldInput,
+  FieldItem,
+  FieldLabel,
+  FieldRequiredIndicator,
+  FieldRootProvider,
+  FieldSelect,
+  FieldTextarea,
+} from '../src';
 
 test('wires labels, descriptions, errors, and field state to a native control', () => {
   render(
     <Field disabled id="email" invalid readOnly required>
-      <Field.Label>Email</Field.Label>
-      <Field.Input />
-      <Field.HelperText>Use your work email.</Field.HelperText>
-      <Field.ErrorText>Enter a valid email address.</Field.ErrorText>
+      <FieldLabel>Email</FieldLabel>
+      <FieldInput />
+      <FieldHelperText>Use your work email.</FieldHelperText>
+      <FieldErrorText>Enter a valid email address.</FieldErrorText>
     </Field>,
   );
 
@@ -29,8 +43,8 @@ test('wires labels, descriptions, errors, and field state to a native control', 
 test('renders error text only while invalid', () => {
   const { rerender } = render(
     <Field>
-      <Field.Input aria-label="Email" />
-      <Field.ErrorText>Enter a valid email address.</Field.ErrorText>
+      <FieldInput aria-label="Email" />
+      <FieldErrorText>Enter a valid email address.</FieldErrorText>
     </Field>,
   );
 
@@ -38,23 +52,23 @@ test('renders error text only while invalid', () => {
 
   rerender(
     <Field invalid>
-      <Field.Input aria-label="Email" />
-      <Field.ErrorText>Enter a valid email address.</Field.ErrorText>
+      <FieldInput aria-label="Email" />
+      <FieldErrorText>Enter a valid email address.</FieldErrorText>
     </Field>,
   );
 
   expect(screen.getByText('Enter a valid email address.')).toHaveAttribute('aria-live', 'polite');
 });
 
-test('forwards Field.Item refs and uses target for its label wiring', () => {
+test('forwards FieldItem refs and uses target for its label wiring', () => {
   const itemRef = createRef<HTMLDivElement>();
 
   render(
     <Field id="contact" target="email">
-      <Field.Item ref={itemRef} value="email">
-        <Field.Label>Email</Field.Label>
-        <Field.Input />
-      </Field.Item>
+      <FieldItem ref={itemRef} value="email">
+        <FieldLabel>Email</FieldLabel>
+        <FieldInput />
+      </FieldItem>
     </Field>,
   );
 
@@ -73,18 +87,18 @@ test('forwards refs and styling hooks for the Ark native parts', () => {
   render(
     <>
       <Field ref={rootRef}>
-        <Field.Label>Name</Field.Label>
-        <Field.Input ref={inputRef} />
+        <FieldLabel>Name</FieldLabel>
+        <FieldInput ref={inputRef} />
       </Field>
       <Field>
-        <Field.Label>Summary</Field.Label>
-        <Field.Textarea ref={textareaRef} />
+        <FieldLabel>Summary</FieldLabel>
+        <FieldTextarea ref={textareaRef} />
       </Field>
       <Field>
-        <Field.Label>Priority</Field.Label>
-        <Field.Select ref={selectRef}>
+        <FieldLabel>Priority</FieldLabel>
+        <FieldSelect ref={selectRef}>
           <option>Normal</option>
-        </Field.Select>
+        </FieldSelect>
       </Field>
     </>,
   );
@@ -100,11 +114,11 @@ test('keeps the RootProvider composition path Ark-shaped', () => {
     const field = useField({ id: 'provider-email', invalid: true });
 
     return (
-      <Field.RootProvider value={field}>
-        <Field.Label>Email</Field.Label>
-        <Field.Input />
-        <Field.ErrorText>Enter a valid email address.</Field.ErrorText>
-      </Field.RootProvider>
+      <FieldRootProvider value={field}>
+        <FieldLabel>Email</FieldLabel>
+        <FieldInput />
+        <FieldErrorText>Enter a valid email address.</FieldErrorText>
+      </FieldRootProvider>
     );
   }
 
@@ -123,9 +137,9 @@ test('exposes the field context through the hook and render prop', () => {
 
   render(
     <Field required>
-      <Field.Context>
+      <FieldContext>
         {(field) => <output>{field.required ? 'required' : 'optional'}</output>}
-      </Field.Context>
+      </FieldContext>
       <ContextValue />
     </Field>,
   );
@@ -139,8 +153,8 @@ test('preserves Ark asChild composition and forwards refs for the root', () => {
   render(
     <Field asChild ref={rootRef}>
       <section>
-        <Field.Label>Email</Field.Label>
-        <Field.Input />
+        <FieldLabel>Email</FieldLabel>
+        <FieldInput />
       </section>
     </Field>,
   );
@@ -153,8 +167,8 @@ test('preserves Ark asChild composition and forwards refs for the root', () => {
 test('keeps controlled field props reactive', () => {
   const { rerender } = render(
     <Field required={false}>
-      <Field.Input aria-label="Project key" />
-      <Field.RequiredIndicator />
+      <FieldInput aria-label="Project key" />
+      <FieldRequiredIndicator />
     </Field>,
   );
 
@@ -163,8 +177,8 @@ test('keeps controlled field props reactive', () => {
   expect(input).not.toBeRequired();
   rerender(
     <Field required>
-      <Field.Input aria-label="Project key" />
-      <Field.RequiredIndicator />
+      <FieldInput aria-label="Project key" />
+      <FieldRequiredIndicator />
     </Field>,
   );
 
@@ -175,13 +189,13 @@ test('preserves native default values and reset behavior', () => {
   render(
     <form aria-label="Project form">
       <Field>
-        <Field.Input aria-label="Project key" defaultValue="MAPS" name="project" />
+        <FieldInput aria-label="Project key" defaultValue="MAPS" name="project" />
       </Field>
       <Field>
-        <Field.Select aria-label="Priority" defaultValue="normal" name="priority">
+        <FieldSelect aria-label="Priority" defaultValue="normal" name="priority">
           <option value="low">Low</option>
           <option value="normal">Normal</option>
-        </Field.Select>
+        </FieldSelect>
       </Field>
     </form>,
   );
@@ -202,19 +216,19 @@ test('preserves native default values and reset behavior', () => {
 test('applies native utilities to component-owned parts', () => {
   const { container } = render(
     <Field required>
-      <Field.Item value="name">
-        <Field.Label>
+      <FieldItem value="name">
+        <FieldLabel>
           Name
-          <Field.RequiredIndicator>*</Field.RequiredIndicator>
-        </Field.Label>
-        <Field.Input />
-        <Field.Textarea />
-        <Field.Select>
+          <FieldRequiredIndicator>*</FieldRequiredIndicator>
+        </FieldLabel>
+        <FieldInput />
+        <FieldTextarea />
+        <FieldSelect>
           <option>Normal</option>
-        </Field.Select>
-        <Field.HelperText>Use your work email.</Field.HelperText>
-        <Field.ErrorText>Enter a valid email address.</Field.ErrorText>
-      </Field.Item>
+        </FieldSelect>
+        <FieldHelperText>Use your work email.</FieldHelperText>
+        <FieldErrorText>Enter a valid email address.</FieldErrorText>
+      </FieldItem>
     </Field>,
   );
 
@@ -269,8 +283,8 @@ test('applies native utilities to component-owned parts', () => {
 test('lets consumer utilities replace component defaults', () => {
   const { container } = render(
     <Field className="w-80 max-w-sm gap-4 text-primary">
-      <Field.Label className="gap-4 text-primary">Name</Field.Label>
-      <Field.Input className="w-80 rounded-lg bg-muted px-0 text-primary" />
+      <FieldLabel className="gap-4 text-primary">Name</FieldLabel>
+      <FieldInput className="w-80 rounded-lg bg-muted px-0 text-primary" />
     </Field>,
   );
 

@@ -1,4 +1,4 @@
-import { Marquee } from '@moduix/react/marquee';
+import { Marquee, MarqueeContent, MarqueeItem, MarqueeViewport } from '@moduix/react/marquee';
 import { useState } from 'react';
 import styles from '@/components/examples/marquee/marquee-finite-loops.module.css';
 
@@ -41,16 +41,16 @@ export default function FiniteLoopsMarqueeDemo() {
         onComplete={() => setCompleted((value) => value + 1)}
         className={styles.root}
       >
-        <Marquee.Viewport>
-          <Marquee.Content>
+        <MarqueeViewport>
+          <MarqueeContent>
             {partners.map((item) => (
-              <Marquee.Item key={item.name} className={styles.item}>
+              <MarqueeItem key={item.name} className={styles.item}>
                 <span>{item.mark}</span>
                 <span>{item.name}</span>
-              </Marquee.Item>
+              </MarqueeItem>
             ))}
-          </Marquee.Content>
-        </Marquee.Viewport>
+          </MarqueeContent>
+        </MarqueeViewport>
       </Marquee>
       <div className={styles.status}>
         <span>Loops: {loops}</span>

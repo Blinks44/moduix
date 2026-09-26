@@ -1,4 +1,12 @@
-import { Chart } from '@moduix/solid/chart';
+import {
+  Chart,
+  ChartDescription,
+  ChartHeader,
+  ChartLegend,
+  ChartLegendItem,
+  ChartPlot,
+  ChartTitle,
+} from '@moduix/solid/chart';
 import { barY, defineChart, stack } from '@tanstack/charts';
 import { scaleBand } from '@tanstack/charts/scales/band';
 import { scaleLinear } from '@tanstack/charts/scales/linear';
@@ -40,15 +48,15 @@ const definition = defineChart({
 export default function StackedBarsChartDemo() {
   return (
     <Chart>
-      <Chart.Header>
-        <Chart.Title>Quarterly revenue</Chart.Title>
-        <Chart.Description>Product and services revenue by quarter.</Chart.Description>
-      </Chart.Header>
-      <Chart.Plot definition={definition} height={320} ariaLabel="Quarterly revenue by segment" />
-      <Chart.Legend aria-label="Revenue segments">
-        <Chart.LegendItem color="var(--moduix-color-chart-1)">Product</Chart.LegendItem>
-        <Chart.LegendItem color="var(--moduix-color-chart-2)">Services</Chart.LegendItem>
-      </Chart.Legend>
+      <ChartHeader>
+        <ChartTitle>Quarterly revenue</ChartTitle>
+        <ChartDescription>Product and services revenue by quarter.</ChartDescription>
+      </ChartHeader>
+      <ChartPlot definition={definition} height={320} ariaLabel="Quarterly revenue by segment" />
+      <ChartLegend aria-label="Revenue segments">
+        <ChartLegendItem color="var(--moduix-color-chart-1)">Product</ChartLegendItem>
+        <ChartLegendItem color="var(--moduix-color-chart-2)">Services</ChartLegendItem>
+      </ChartLegend>
     </Chart>
   );
 }

@@ -1,4 +1,4 @@
-import { Tooltip } from '@moduix/react/tooltip';
+import { Tooltip, TooltipContent, TooltipPositioner, TooltipTrigger } from '@moduix/react/tooltip';
 import { useI18n } from '@rspress/core/runtime';
 import styles from './framework-support.module.css';
 
@@ -18,31 +18,31 @@ export function FrameworkSupport() {
       </div>
 
       <Tooltip openDelay={100} closeDelay={0} positioning={{ placement: 'top' }}>
-        <Tooltip.Trigger
+        <TooltipTrigger
           type="button"
           className={`${styles.upcoming} ${styles.inProgress}`}
           aria-label={t('frameworkSupportInProgress')}
         >
           <VueIcon />
           <span className={styles.progressMarker} aria-hidden="true" />
-        </Tooltip.Trigger>
-        <Tooltip.Positioner>
-          <Tooltip.Content>{t('frameworkSupportInProgress')}</Tooltip.Content>
-        </Tooltip.Positioner>
+        </TooltipTrigger>
+        <TooltipPositioner>
+          <TooltipContent>{t('frameworkSupportInProgress')}</TooltipContent>
+        </TooltipPositioner>
       </Tooltip>
 
       {plannedFrameworks.map(({ name, icon }) => (
         <Tooltip key={name} openDelay={100} closeDelay={0} positioning={{ placement: 'top' }}>
-          <Tooltip.Trigger
+          <TooltipTrigger
             type="button"
             className={styles.upcoming}
             aria-label={t('frameworkSupportPlanned')}
           >
             {icon}
-          </Tooltip.Trigger>
-          <Tooltip.Positioner>
-            <Tooltip.Content>{t('frameworkSupportPlanned')}</Tooltip.Content>
-          </Tooltip.Positioner>
+          </TooltipTrigger>
+          <TooltipPositioner>
+            <TooltipContent>{t('frameworkSupportPlanned')}</TooltipContent>
+          </TooltipPositioner>
         </Tooltip>
       ))}
     </div>

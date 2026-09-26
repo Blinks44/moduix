@@ -1,17 +1,25 @@
 import { expect, test } from '@rstest/core';
 import { fireEvent, render, screen, waitFor } from '@testing-library/react';
 import { createRef, useState } from 'react';
-import { Switch, useSwitch } from '../src';
+import {
+  Switch,
+  SwitchControl,
+  SwitchHiddenInput,
+  SwitchLabel,
+  SwitchRootProvider,
+  SwitchThumb,
+  useSwitch,
+} from '../src';
 
 function ProviderSwitch() {
   const switchApi = useSwitch({ defaultChecked: true, name: 'provider-notifications' });
 
   return (
-    <Switch.RootProvider value={switchApi}>
-      <Switch.Control />
-      <Switch.HiddenInput />
-      <Switch.Label>Provider notifications</Switch.Label>
-    </Switch.RootProvider>
+    <SwitchRootProvider value={switchApi}>
+      <SwitchControl />
+      <SwitchHiddenInput />
+      <SwitchLabel>Provider notifications</SwitchLabel>
+    </SwitchRootProvider>
   );
 }
 
@@ -19,9 +27,9 @@ test('submits through explicit Ark inputs', () => {
   const { container } = render(
     <form>
       <Switch defaultChecked name="notifications" value="email">
-        <Switch.Control />
-        <Switch.HiddenInput />
-        <Switch.Label>Email notifications</Switch.Label>
+        <SwitchControl />
+        <SwitchHiddenInput />
+        <SwitchLabel>Email notifications</SwitchLabel>
       </Switch>
       <ProviderSwitch />
     </form>,
@@ -40,9 +48,9 @@ test('preserves Ark behavior and semantic asChild composition', () => {
   render(
     <Switch asChild>
       <label>
-        <Switch.Control />
-        <Switch.HiddenInput />
-        <Switch.Label>Enable reminders</Switch.Label>
+        <SwitchControl />
+        <SwitchHiddenInput />
+        <SwitchLabel>Enable reminders</SwitchLabel>
       </label>
     </Switch>,
   );
@@ -63,11 +71,11 @@ test('forwards refs and exposes stable slots on public parts', () => {
 
   render(
     <Switch ref={rootRef} size="lg">
-      <Switch.Control ref={controlRef}>
-        <Switch.Thumb ref={thumbRef} />
-      </Switch.Control>
-      <Switch.HiddenInput />
-      <Switch.Label ref={labelRef}>Email notifications</Switch.Label>
+      <SwitchControl ref={controlRef}>
+        <SwitchThumb ref={thumbRef} />
+      </SwitchControl>
+      <SwitchHiddenInput />
+      <SwitchLabel ref={labelRef}>Email notifications</SwitchLabel>
     </Switch>,
   );
 
@@ -81,9 +89,9 @@ test('forwards refs and exposes stable slots on public parts', () => {
 test('keeps the moduix data-size attribute authoritative over consumer value', () => {
   render(
     <Switch size="lg" data-size="sm">
-      <Switch.Control />
-      <Switch.HiddenInput />
-      <Switch.Label>Authoritative size</Switch.Label>
+      <SwitchControl />
+      <SwitchHiddenInput />
+      <SwitchLabel>Authoritative size</SwitchLabel>
     </Switch>,
   );
 
@@ -96,19 +104,19 @@ test('preserves disabled, read-only, invalid, and required semantics', () => {
   render(
     <>
       <Switch disabled>
-        <Switch.Control />
-        <Switch.HiddenInput />
-        <Switch.Label>Disabled option</Switch.Label>
+        <SwitchControl />
+        <SwitchHiddenInput />
+        <SwitchLabel>Disabled option</SwitchLabel>
       </Switch>
       <Switch readOnly>
-        <Switch.Control />
-        <Switch.HiddenInput />
-        <Switch.Label>Read-only option</Switch.Label>
+        <SwitchControl />
+        <SwitchHiddenInput />
+        <SwitchLabel>Read-only option</SwitchLabel>
       </Switch>
       <Switch invalid required>
-        <Switch.Control />
-        <Switch.HiddenInput />
-        <Switch.Label>Required option</Switch.Label>
+        <SwitchControl />
+        <SwitchHiddenInput />
+        <SwitchLabel>Required option</SwitchLabel>
       </Switch>
     </>,
   );
@@ -133,9 +141,9 @@ test('keeps controlled state and invalid styling hooks Ark-shaped', async () => 
 
     return (
       <Switch invalid checked={checked} onCheckedChange={(details) => setChecked(details.checked)}>
-        <Switch.Control />
-        <Switch.HiddenInput />
-        <Switch.Label>Enable alerts</Switch.Label>
+        <SwitchControl />
+        <SwitchHiddenInput />
+        <SwitchLabel>Enable alerts</SwitchLabel>
       </Switch>
     );
   }
@@ -155,9 +163,9 @@ test('keeps controlled state and invalid styling hooks Ark-shaped', async () => 
 test('applies native utilities to component-owned visual parts', () => {
   render(
     <Switch defaultChecked>
-      <Switch.Control />
-      <Switch.Label>Notifications</Switch.Label>
-      <Switch.HiddenInput />
+      <SwitchControl />
+      <SwitchLabel>Notifications</SwitchLabel>
+      <SwitchHiddenInput />
     </Switch>,
   );
 
@@ -187,11 +195,11 @@ test('applies native utilities to component-owned visual parts', () => {
 test('lets consumer Tailwind classes override conflicting defaults', () => {
   render(
     <Switch className="gap-4" data-testid="root">
-      <Switch.Control className="w-10 rounded-md bg-background p-1">
-        <Switch.Thumb className="size-4 bg-muted-foreground" />
-      </Switch.Control>
-      <Switch.Label className="text-lg">Notifications</Switch.Label>
-      <Switch.HiddenInput />
+      <SwitchControl className="w-10 rounded-md bg-background p-1">
+        <SwitchThumb className="size-4 bg-muted-foreground" />
+      </SwitchControl>
+      <SwitchLabel className="text-lg">Notifications</SwitchLabel>
+      <SwitchHiddenInput />
     </Switch>,
   );
 

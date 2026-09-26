@@ -1,7 +1,7 @@
 ---
 title: Accordion
 component: accordion
-description: Создание доступных аккордеонов в React и Solid с установкой из пакета или через shadcn CLI.
+description: Создание доступных аккордеонов в React, Solid и Vue с установкой из пакета или через shadcn CLI.
 ---
 
 import * as AccordionDocs from '@/components/examples/accordion/css-properties';
@@ -23,6 +23,15 @@ import accordionSolidLazyMount from '../../../snippets/accordion/solid/lazy-moun
 import accordionSolidMultiple from '../../../snippets/accordion/solid/multiple.tsx?raw';
 import accordionSolidRootProvider from '../../../snippets/accordion/solid/root-provider.tsx?raw';
 import accordionSolidWithSlider from '../../../snippets/accordion/solid/with-slider.tsx?raw';
+import accordionVueBasic from '../../../snippets/accordion/vue/basic.vue?raw';
+import accordionVueCollapsible from '../../../snippets/accordion/vue/collapsible.vue?raw';
+import accordionVueControlled from '../../../snippets/accordion/vue/controlled.vue?raw';
+import accordionVueDisabledItem from '../../../snippets/accordion/vue/disabled-item.vue?raw';
+import accordionVueHorizontal from '../../../snippets/accordion/vue/horizontal.vue?raw';
+import accordionVueLazyMount from '../../../snippets/accordion/vue/lazy-mount.vue?raw';
+import accordionVueMultiple from '../../../snippets/accordion/vue/multiple.vue?raw';
+import accordionVueRootProvider from '../../../snippets/accordion/vue/root-provider.vue?raw';
+import accordionVueWithSlider from '../../../snippets/accordion/vue/with-slider.vue?raw';
 
 ## Справочник API
 
@@ -37,13 +46,14 @@ import accordionSolidWithSlider from '../../../snippets/accordion/solid/with-sli
 ## Базовый пример
 
 
-Используйте `Accordion` как корневой компонент и задайте каждому `Accordion.Item` стабильное
-значение `value`. Поместите интерактивный заголовок в `Accordion.ItemTrigger`, панель в
-`Accordion.ItemContent`, а её внутреннее содержимое в `Accordion.ItemBody`. `Accordion.ItemIndicator`
-необязателен и по умолчанию отображает иконку плюса moduix.
+Используйте `Accordion` как корневой компонент и задайте каждому элементу стабильное значение
+`value`. Поместите интерактивный заголовок в триггер элемента, панель в часть содержимого, а её
+внутреннее содержимое в тело элемента. Индикатор состояния необязателен и по умолчанию отображает
+иконку плюса moduix.
 
-`Accordion` является рекомендуемым корневым компонентом. Используйте `Accordion.Root`, если хотите
-явно обозначить корневую часть в композиции.
+React, Solid и Vue используют одинаковые плоские имена. Импортируйте `Accordion` как корневой
+компонент, а каждую дополнительную часть отдельно, например `AccordionItem` и
+`AccordionItemTrigger`. Одинаковые имена работают с npm-пакетами и исходниками из shadcn registry.
 
 <ExampleFrame variant="component">
   <AccordionBasic />
@@ -56,6 +66,7 @@ import accordionSolidWithSlider from '../../../snippets/accordion/solid/with-sli
     values={[
       { label: 'React', value: 'react' },
       { label: 'Solid', value: 'solid' },
+      { label: 'Vue', value: 'vue' },
     ]}
     className="docs-tabs"
   >
@@ -68,6 +79,11 @@ import accordionSolidWithSlider from '../../../snippets/accordion/solid/with-sli
     <Tab value="solid">
 
 <CodeBlockRuntime lang="tsx" code={accordionSolidBasic} />
+
+    </Tab>
+    <Tab value="vue">
+
+<CodeBlockRuntime lang="vue" code={accordionVueBasic} />
 
     </Tab>
   </Tabs>
@@ -105,33 +121,43 @@ import accordionSolidWithSlider from '../../../snippets/accordion/solid/with-sli
 />
 
   </Tab>
+  <Tab label="Vue" value="vue">
+
+<ShadcnInstallOptions
+  options={[
+    { label: 'CSS Modules', command: 'shadcn@latest add @moduix-vue/accordion' },
+    { label: 'Tailwind CSS', command: 'shadcn@latest add @moduix-vue-tailwind/accordion' },
+  ]}
+/>
+
+  </Tab>
 </Tabs>
 
 ## Анатомия
 
 ```text
-Accordion / Accordion.Root
-└─ Accordion.Item[value]
- ├─ Accordion.ItemTrigger
+Accordion
+└─ AccordionItem[value]
+ ├─ AccordionItemTrigger
  │  ├─ label
- │  └─ Accordion.ItemIndicator (необязательно)
- └─ Accordion.ItemContent
-    └─ Accordion.ItemBody
+ │  └─ AccordionItemIndicator (необязательно)
+ └─ AccordionItemContent
+    └─ AccordionItemBody
        └─ content
 
-Accordion.RootProvider
+AccordionRootProvider
 └─ то же дерево элементов, подключённое к состоянию из useAccordion()
 ```
 
-| Часть                          | Назначение                                                                                 |
-| ------------------------------ | ------------------------------------------------------------------------------------------- |
-| `Accordion` / `Accordion.Root` | Корневая часть, управляющая состоянием аккордеона и навигацией с клавиатуры.                |
-| `Accordion.RootProvider`       | Подключает части к состоянию, созданному с помощью `useAccordion()`.                        |
-| `Accordion.Item`               | Сворачиваемый элемент с обязательным стабильным значением `value`.                         |
-| `Accordion.ItemTrigger`        | Кнопка, открывающая и закрывающая элемент.                                                  |
-| `Accordion.ItemIndicator`      | Необязательный индикатор состояния. Если дочернее содержимое не задано, moduix показывает иконку плюса. |
-| `Accordion.ItemContent`        | Раскрывающаяся панель с анимацией на основе измерений размера Ark.                          |
-| `Accordion.ItemBody`           | Внутренняя обёртка moduix с отступами панели по умолчанию.                                  |
+| Часть                    | Назначение                                                                         |
+| ------------------------ | ---------------------------------------------------------------------------------- |
+| `Accordion`              | Корневая часть, управляющая состоянием и навигацией с клавиатуры.                  |
+| `AccordionRootProvider`  | Подключает части к состоянию, созданному с помощью `useAccordion()`.                |
+| `AccordionItem`          | Сворачиваемый элемент с обязательным стабильным значением `value`.                 |
+| `AccordionItemTrigger`   | Кнопка, открывающая и закрывающая элемент.                                          |
+| `AccordionItemIndicator` | Необязательный индикатор. Без содержимого moduix показывает иконку плюса.           |
+| `AccordionItemContent`   | Раскрывающаяся панель с анимацией на основе измерений размера Ark.                  |
+| `AccordionItemBody`      | Внутренняя обёртка moduix с отступами панели по умолчанию.                          |
 
 ## Композиция
 
@@ -139,10 +165,10 @@ Accordion.RootProvider
 приложения, передайте `value` и обработчик `onValueChange(details)`. Оба свойства используют тип
 `string[]`, даже если открыть можно только один элемент.
 
-Используйте `Accordion.RootProvider` вместе с `useAccordion()` из пакета выбранного фреймворка, если
-состояние аккордеона нужно создать вне дерева. Передайте полученное хранилище в `RootProvider` и не
-добавляйте для того же состояния `Accordion` или `Accordion.Root`. В React состояние читается как
-обычный объект, а в Solid - через реактивную функцию доступа.
+Используйте `AccordionRootProvider` вместе с `useAccordion()` из пакета выбранного фреймворка, если
+состояние аккордеона нужно создать вне дерева. Не добавляйте `Accordion` для того же состояния. В
+React состояние читается как обычный объект, в Solid - через реактивную функцию доступа, а Vue
+передаёт реактивное хранилище прямо в шаблон.
 
 ## Примеры
 
@@ -161,6 +187,7 @@ Accordion.RootProvider
     values={[
       { label: 'React', value: 'react' },
       { label: 'Solid', value: 'solid' },
+      { label: 'Vue', value: 'vue' },
     ]}
     className="docs-tabs"
   >
@@ -175,6 +202,11 @@ Accordion.RootProvider
 <CodeBlockRuntime lang="tsx" code={accordionSolidCollapsible} />
 
     </Tab>
+    <Tab value="vue">
+
+<CodeBlockRuntime lang="vue" code={accordionVueCollapsible} />
+
+    </Tab>
   </Tabs>
 
 **Стили**
@@ -187,8 +219,9 @@ Accordion.RootProvider
 
 ### Управляемое состояние
 
-Управляйте `value` через `useState` в React или `createSignal` в Solid, если открытые элементы должны
-синхронизироваться с маршрутизацией, фильтрами или другими частями интерфейса.
+Управляйте `value` через `useState` в React, `createSignal` в Solid или `ref` и `v-model` во Vue, если
+открытые элементы должны синхронизироваться с маршрутизацией, фильтрами или другими частями
+интерфейса.
 
 <ExampleFrame variant="component">
   <AccordionControlled />
@@ -201,6 +234,7 @@ Accordion.RootProvider
     values={[
       { label: 'React', value: 'react' },
       { label: 'Solid', value: 'solid' },
+      { label: 'Vue', value: 'vue' },
     ]}
     className="docs-tabs"
   >
@@ -213,6 +247,11 @@ Accordion.RootProvider
     <Tab value="solid">
 
 <CodeBlockRuntime lang="tsx" code={accordionSolidControlled} />
+
+    </Tab>
+    <Tab value="vue">
+
+<CodeBlockRuntime lang="vue" code={accordionVueControlled} />
 
     </Tab>
   </Tabs>
@@ -240,6 +279,7 @@ Accordion.RootProvider
     values={[
       { label: 'React', value: 'react' },
       { label: 'Solid', value: 'solid' },
+      { label: 'Vue', value: 'vue' },
     ]}
     className="docs-tabs"
   >
@@ -252,6 +292,11 @@ Accordion.RootProvider
     <Tab value="solid">
 
 <CodeBlockRuntime lang="tsx" code={accordionSolidDisabledItem} />
+
+    </Tab>
+    <Tab value="vue">
+
+<CodeBlockRuntime lang="vue" code={accordionVueDisabledItem} />
 
     </Tab>
   </Tabs>
@@ -280,6 +325,7 @@ Accordion.RootProvider
     values={[
       { label: 'React', value: 'react' },
       { label: 'Solid', value: 'solid' },
+      { label: 'Vue', value: 'vue' },
     ]}
     className="docs-tabs"
   >
@@ -292,6 +338,11 @@ Accordion.RootProvider
     <Tab value="solid">
 
 <CodeBlockRuntime lang="tsx" code={accordionSolidHorizontal} />
+
+    </Tab>
+    <Tab value="vue">
+
+<CodeBlockRuntime lang="vue" code={accordionVueHorizontal} />
 
     </Tab>
   </Tabs>
@@ -321,6 +372,7 @@ Accordion.RootProvider
     values={[
       { label: 'React', value: 'react' },
       { label: 'Solid', value: 'solid' },
+      { label: 'Vue', value: 'vue' },
     ]}
     className="docs-tabs"
   >
@@ -333,6 +385,11 @@ Accordion.RootProvider
     <Tab value="solid">
 
 <CodeBlockRuntime lang="tsx" code={accordionSolidLazyMount} />
+
+    </Tab>
+    <Tab value="vue">
+
+<CodeBlockRuntime lang="vue" code={accordionVueLazyMount} />
 
     </Tab>
   </Tabs>
@@ -360,6 +417,7 @@ Accordion.RootProvider
     values={[
       { label: 'React', value: 'react' },
       { label: 'Solid', value: 'solid' },
+      { label: 'Vue', value: 'vue' },
     ]}
     className="docs-tabs"
   >
@@ -374,6 +432,11 @@ Accordion.RootProvider
 <CodeBlockRuntime lang="tsx" code={accordionSolidMultiple} />
 
     </Tab>
+    <Tab value="vue">
+
+<CodeBlockRuntime lang="vue" code={accordionVueMultiple} />
+
+    </Tab>
   </Tabs>
 
 **Стили**
@@ -386,9 +449,8 @@ Accordion.RootProvider
 
 ### Root Provider
 
-Используйте `useAccordion()` из пакета выбранного фреймворка вместе с `Accordion.RootProvider`, если
-состояние нужно создать вне дерева аккордеона. Не добавляйте для него `Accordion` или
-`Accordion.Root`.
+Используйте `useAccordion()` из пакета выбранного фреймворка вместе с `AccordionRootProvider`, если
+состояние нужно создать вне дерева аккордеона. Не добавляйте `Accordion` для того же состояния.
 
 <ExampleFrame variant="component">
   <AccordionRootProvider />
@@ -401,6 +463,7 @@ Accordion.RootProvider
     values={[
       { label: 'React', value: 'react' },
       { label: 'Solid', value: 'solid' },
+      { label: 'Vue', value: 'vue' },
     ]}
     className="docs-tabs"
   >
@@ -413,6 +476,11 @@ Accordion.RootProvider
     <Tab value="solid">
 
 <CodeBlockRuntime lang="tsx" code={accordionSolidRootProvider} />
+
+    </Tab>
+    <Tab value="vue">
+
+<CodeBlockRuntime lang="vue" code={accordionVueRootProvider} />
 
     </Tab>
   </Tabs>
@@ -442,6 +510,7 @@ Accordion.RootProvider
     values={[
       { label: 'React', value: 'react' },
       { label: 'Solid', value: 'solid' },
+      { label: 'Vue', value: 'vue' },
     ]}
     className="docs-tabs"
   >
@@ -456,6 +525,11 @@ Accordion.RootProvider
 <CodeBlockRuntime lang="tsx" code={accordionSolidWithSlider} />
 
     </Tab>
+    <Tab value="vue">
+
+<CodeBlockRuntime lang="vue" code={accordionVueWithSlider} />
+
+    </Tab>
   </Tabs>
 
 **Стили**
@@ -468,13 +542,13 @@ Accordion.RootProvider
 
 ## Стилизация
 
-Для структурных стилей передавайте экспортируемым частям `className` в React или `class` в Solid.
+Для структурных стилей передавайте экспортируемым частям `className` в React или `class` в Solid и Vue.
 Состояния лучше оформлять через атрибуты данных Ark, например `data-state`, `data-disabled` и
 `data-orientation`, вместе с селекторами `data-slot` moduix. Варианты на Tailwind настраиваются
 обычными утилитами и пользовательскими классами; перечисленные ниже переменные относятся к
 вариантам с CSS Modules. Атрибуты данных и селекторы `data-slot` общие для обоих подходов.
 
-Задавайте отступы панели на `Accordion.ItemBody`, а не на `Accordion.ItemContent`, чтобы Ark мог
+Задавайте отступы панели на `AccordionItemBody`, а не на `AccordionItemContent`, чтобы Ark мог
 правильно измерять и анимировать панель.
 
 ### CSS-свойства
@@ -488,7 +562,7 @@ Accordion.RootProvider
   `accordion-item-body`.
 - Селекторы частей Ark: `data-scope="accordion"` и
   `data-part="root|item|item-trigger|item-indicator|item-content"`.
-- Дополнительный селектор moduix: `data-part="item-body"` на `Accordion.ItemBody`.
+- Дополнительный селектор moduix: `data-part="item-body"` на части тела элемента.
 - Селекторы состояния Ark: `data-state="open|closed"`, `data-disabled`, `data-focus`, `data-controls`
   и `data-orientation="horizontal|vertical"`.
 - Переменные содержимого Ark: `--height` для вертикальной анимации и `--width` для горизонтальной анимации.

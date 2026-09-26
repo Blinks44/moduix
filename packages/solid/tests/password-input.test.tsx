@@ -1,7 +1,17 @@
 import { expect, test } from '@rstest/core';
 import { fireEvent, render, screen, waitFor } from '@solidjs/testing-library';
 import { createSignal } from 'solid-js';
-import { PasswordInput, usePasswordInput } from '../src';
+import {
+  PasswordInput,
+  PasswordInputControl,
+  PasswordInputField,
+  PasswordInputIndicator,
+  PasswordInputInput,
+  PasswordInputLabel,
+  PasswordInputRootProvider,
+  PasswordInputVisibilityTrigger,
+  usePasswordInput,
+} from '../src';
 
 function ControlledPasswordInput() {
   const [visible, setVisible] = createSignal(false);
@@ -11,8 +21,8 @@ function ControlledPasswordInput() {
       visible={visible()}
       onVisibilityChange={(details) => setVisible(details.visible)}
     >
-      <PasswordInput.Label>Password</PasswordInput.Label>
-      <PasswordInput.Field />
+      <PasswordInputLabel>Password</PasswordInputLabel>
+      <PasswordInputField />
     </PasswordInput>
   );
 }
@@ -21,18 +31,18 @@ function ProviderPasswordInput() {
   const passwordInput = usePasswordInput();
 
   return (
-    <PasswordInput.RootProvider value={passwordInput}>
-      <PasswordInput.Label>Password</PasswordInput.Label>
-      <PasswordInput.Field />
-    </PasswordInput.RootProvider>
+    <PasswordInputRootProvider value={passwordInput}>
+      <PasswordInputLabel>Password</PasswordInputLabel>
+      <PasswordInputField />
+    </PasswordInputRootProvider>
   );
 }
 
 test('renders the default Field composition with Ark anatomy and moduix slots', () => {
   render(() => (
     <PasswordInput name="password" required>
-      <PasswordInput.Label>Password</PasswordInput.Label>
-      <PasswordInput.Field />
+      <PasswordInputLabel>Password</PasswordInputLabel>
+      <PasswordInputField />
     </PasswordInput>
   ));
 
@@ -60,8 +70,8 @@ test('toggles controlled visibility through Ark details', async () => {
 test('preserves disabled interaction semantics', () => {
   render(() => (
     <PasswordInput disabled>
-      <PasswordInput.Label>Password</PasswordInput.Label>
-      <PasswordInput.Field />
+      <PasswordInputLabel>Password</PasswordInputLabel>
+      <PasswordInputField />
     </PasswordInput>
   ));
 
@@ -72,8 +82,8 @@ test('preserves disabled interaction semantics', () => {
 test('preserves readonly interaction semantics', () => {
   render(() => (
     <PasswordInput readOnly>
-      <PasswordInput.Label>Password</PasswordInput.Label>
-      <PasswordInput.Field />
+      <PasswordInputLabel>Password</PasswordInputLabel>
+      <PasswordInputField />
     </PasswordInput>
   ));
 
@@ -90,13 +100,13 @@ test('uses the native input for form submission and reset', () => {
   render(() => (
     <form data-testid="form">
       <PasswordInput name="password">
-        <PasswordInput.Label>Password</PasswordInput.Label>
-        <PasswordInput.Control>
-          <PasswordInput.Input defaultValue="initial-password" />
-          <PasswordInput.VisibilityTrigger>
-            <PasswordInput.Indicator />
-          </PasswordInput.VisibilityTrigger>
-        </PasswordInput.Control>
+        <PasswordInputLabel>Password</PasswordInputLabel>
+        <PasswordInputControl>
+          <PasswordInputInput defaultValue="initial-password" />
+          <PasswordInputVisibilityTrigger>
+            <PasswordInputIndicator />
+          </PasswordInputVisibilityTrigger>
+        </PasswordInputControl>
       </PasswordInput>
     </form>
   ));
@@ -121,8 +131,8 @@ test('forwards root and Field refs to their Ark elements', () => {
 
   render(() => (
     <PasswordInput ref={(element) => (rootRef = element)}>
-      <PasswordInput.Label>Password</PasswordInput.Label>
-      <PasswordInput.Field ref={(element) => (fieldRef = element)} />
+      <PasswordInputLabel>Password</PasswordInputLabel>
+      <PasswordInputField ref={(element) => (fieldRef = element)} />
     </PasswordInput>
   ));
 
@@ -138,8 +148,8 @@ test('preserves asChild composition without forwarding the root ref through Ark 
       ref={(element) => (rootRef = element)}
       asChild={(props) => <section {...props()} aria-label="Password input" />}
     >
-      <PasswordInput.Label>Password</PasswordInput.Label>
-      <PasswordInput.Field />
+      <PasswordInputLabel>Password</PasswordInputLabel>
+      <PasswordInputField />
     </PasswordInput>
   ));
 

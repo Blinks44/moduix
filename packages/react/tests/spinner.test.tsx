@@ -3,6 +3,10 @@ import { render, screen } from '@testing-library/react';
 import { createRef } from 'react';
 import { Spinner } from '../src';
 
+test('exposes only the flat root value', () => {
+  expect(Spinner).not.toHaveProperty('Root');
+});
+
 test('renders the default status with stable styling hooks', () => {
   render(
     <Spinner

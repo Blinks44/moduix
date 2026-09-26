@@ -18,19 +18,19 @@ import {
   type OverlayPortalProps,
 } from '@/lib/moduix/overlayPortal';
 import { Kbd } from '../kbd';
-import { ScrollArea } from '../scroll-area';
+import { ScrollArea, ScrollAreaContent, ScrollAreaViewport } from '../scroll-area';
 
 const DEFAULT_CLEAR_TRIGGER_LABEL = 'Clear search';
 const DEFAULT_SEARCH_INPUT_LABEL = 'Search commands';
 
-type CommandPaletteRootProps = ComponentProps<typeof DialogPrimitive.Root> & {
+type CommandPaletteProps = ComponentProps<typeof DialogPrimitive.Root> & {
   shortcut?: false | string;
 } & OverlayPortalProps;
 
 type CommandPaletteRootProviderProps = ComponentProps<typeof DialogPrimitive.RootProvider> &
   OverlayPortalProps;
 
-function CommandPaletteRoot(props: CommandPaletteRootProps) {
+function CommandPalette(props: CommandPaletteProps) {
   const [local, others] = splitProps(props, [
     'children',
     'shortcut',
@@ -363,6 +363,7 @@ function CommandPaletteClearTrigger(props: ComponentProps<typeof ComboboxPrimiti
             (local.onClick as ((event: MouseEvent) => void) | undefined)?.(event);
 
             if (!event.defaultPrevented) {
+              event.preventDefault();
               combobox().setInputValue('');
             }
           }}
@@ -393,14 +394,14 @@ function CommandPaletteList(props: ComponentProps<typeof ComboboxPrimitive.Conte
       data-slot="command-palette-list"
     >
       <ScrollArea data-slot="command-palette-scroll-area" class="h-auto min-h-0 flex-1">
-        <ScrollArea.Viewport data-slot="command-palette-scroll-viewport" class="scroll-py-2">
-          <ScrollArea.Content
+        <ScrollAreaViewport data-slot="command-palette-scroll-viewport" class="scroll-py-2">
+          <ScrollAreaContent
             data-slot="command-palette-scroll-content"
             class="min-h-full px-3 py-3 group-data-[empty]/list:p-0"
           >
             {local.children}
-          </ScrollArea.Content>
-        </ScrollArea.Viewport>
+          </ScrollAreaContent>
+        </ScrollAreaViewport>
       </ScrollArea>
     </ComboboxPrimitive.Content>
   );
@@ -582,11 +583,11 @@ function CommandPaletteFooter(props: HTMLArkProps<'div'>) {
   );
 }
 
-function CommandPaletteKbd(props: ComponentProps<typeof Kbd.Root>) {
+function CommandPaletteKbd(props: ComponentProps<typeof Kbd>) {
   const [local, others] = splitProps(props, ['class']);
 
   return (
-    <Kbd.Root
+    <Kbd
       class={cn(
         'min-h-5 min-w-5 rounded-sm px-1 text-xs leading-4 text-muted-foreground',
         local.class,
@@ -597,37 +598,35 @@ function CommandPaletteKbd(props: ComponentProps<typeof Kbd.Root>) {
   );
 }
 
-const CommandPalette = Object.assign(CommandPaletteRoot, {
-  Root: CommandPaletteRoot,
-  RootProvider: CommandPaletteRootProvider,
-  Trigger: CommandPaletteTrigger,
-  Backdrop: CommandPaletteBackdrop,
-  Positioner: CommandPalettePositioner,
-  Content: CommandPaletteContent,
-  Panel: CommandPalettePanel,
-  Title: CommandPaletteTitle,
-  Description: CommandPaletteDescription,
-  Header: CommandPaletteHeader,
-  Body: CommandPaletteBody,
-  Combobox: CommandPaletteCombobox,
-  Control: CommandPaletteControl,
-  Input: CommandPaletteInput,
-  Search: CommandPaletteSearch,
-  ClearTrigger: CommandPaletteClearTrigger,
-  List: CommandPaletteList,
-  Empty: CommandPaletteEmpty,
-  ItemGroup: CommandPaletteItemGroup,
-  ItemGroupLabel: CommandPaletteItemGroupLabel,
-  Item: CommandPaletteItem,
-  ItemText: CommandPaletteItemText,
-  ItemIndicator: CommandPaletteItemIndicator,
-  ItemIcon: CommandPaletteItemIcon,
-  ItemLabel: CommandPaletteItemLabel,
-  ItemDescription: CommandPaletteItemDescription,
-  ItemMeta: CommandPaletteItemMeta,
-  Separator: CommandPaletteSeparator,
-  Footer: CommandPaletteFooter,
-  Kbd: CommandPaletteKbd,
-});
-
-export { CommandPalette };
+export {
+  CommandPalette,
+  CommandPaletteBackdrop,
+  CommandPaletteBody,
+  CommandPaletteClearTrigger,
+  CommandPaletteCombobox,
+  CommandPaletteContent,
+  CommandPaletteControl,
+  CommandPaletteDescription,
+  CommandPaletteEmpty,
+  CommandPaletteFooter,
+  CommandPaletteHeader,
+  CommandPaletteInput,
+  CommandPaletteItem,
+  CommandPaletteItemDescription,
+  CommandPaletteItemGroup,
+  CommandPaletteItemGroupLabel,
+  CommandPaletteItemIcon,
+  CommandPaletteItemIndicator,
+  CommandPaletteItemLabel,
+  CommandPaletteItemMeta,
+  CommandPaletteItemText,
+  CommandPaletteKbd,
+  CommandPaletteList,
+  CommandPalettePanel,
+  CommandPalettePositioner,
+  CommandPaletteRootProvider,
+  CommandPaletteSearch,
+  CommandPaletteSeparator,
+  CommandPaletteTitle,
+  CommandPaletteTrigger,
+};

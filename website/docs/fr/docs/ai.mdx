@@ -35,7 +35,10 @@ Installez uniquement le Skill `moduix` depuis le dépôt :
 
 <PackageManagerTabs command="skills add https://github.com/Blinks44/moduix --skill moduix" dlx />
 
-Exécutez la commande dans le projet où l'agent utilisera moduix. Si l'agent prend en charge l'appel explicite des skills, utilisez `$moduix` pour les tâches moduix.
+Exécutez la commande dans le projet où l'agent utilisera moduix. Si la CLI échoue, installez le skill
+manuellement en copiant `skills/moduix/SKILL.md` depuis le [dépôt moduix](https://github.com/Blinks44/moduix)
+vers le dossier de skills de votre agent. Certains agents permettent d'invoquer un skill explicitement,
+par exemple via son handle `$moduix`.
 
 ## Indiquer comment moduix est intégré
 

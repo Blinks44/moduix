@@ -4,7 +4,7 @@ import { cva } from 'class-variance-authority';
 import { splitProps } from 'solid-js';
 import { cn } from '@/lib/moduix/cn';
 
-type InputRootProps = Omit<FieldInputProps, 'size'> & {
+type InputProps = Omit<FieldInputProps, 'size'> & {
   size?: 'xs' | 'sm' | 'md' | 'lg' | 'xl';
   htmlSize?: FieldInputProps['size'];
   'data-scope'?: string;
@@ -30,7 +30,7 @@ const inputVariants = cva(
   },
 );
 
-function InputRoot(props: InputRootProps) {
+function Input(props: InputProps) {
   const [local, others] = splitProps(props, [
     'asChild',
     'class',
@@ -59,9 +59,5 @@ function InputRoot(props: InputRootProps) {
     />
   );
 }
-
-const Input = Object.assign(InputRoot, {
-  Root: InputRoot,
-});
 
 export { Input };

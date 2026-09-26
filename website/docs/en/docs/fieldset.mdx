@@ -36,8 +36,8 @@ text, and validation message.
 Import `Fieldset` from `@moduix/react/fieldset` or `@moduix/solid/fieldset` for CSS Modules, and from
 `@moduix/react-tailwind/fieldset` or `@moduix/solid-tailwind/fieldset` for Tailwind CSS.
 
-Build a group with `Fieldset`, `Fieldset.Legend`, the related controls, and optional helper or error
-text. The shorter `<Fieldset>` syntax is equivalent to `<Fieldset.Root>`.
+Build a group with `Fieldset`, `FieldsetLegend`, the related controls, and optional helper or error
+text. `Fieldset` is the root component for the group.
 
 <ExampleFrame variant="component">
   <FieldsetBasic />
@@ -104,39 +104,39 @@ See [Quick Start](/docs/quick-start) for full package setup, registry configurat
 ## Anatomy
 
 ```text
-Fieldset.Root | Fieldset.RootProvider
-├─ Fieldset.Legend
+Fieldset | FieldsetRootProvider
+├─ FieldsetLegend
 ├─ grouped controls
-├─ Fieldset.HelperText (optional)
-└─ Fieldset.ErrorText (optional)
+├─ FieldsetHelperText (optional)
+└─ FieldsetErrorText (optional)
 ```
 
 | Part                         | Role                                                                  |
 | ---------------------------- | --------------------------------------------------------------------- |
-| `Fieldset` / `Fieldset.Root` | Creates state and renders a native `fieldset`.                                             |
-| `Fieldset.RootProvider`      | Renders a native `fieldset` with state created by `useFieldset`.                             |
-| `Fieldset.Context`           | Exposes the current fieldset state to descendants without rendering an extra DOM element.    |
-| `Fieldset.Legend`            | Native `legend` that provides the accessible name for the group.                             |
-| `Fieldset.HelperText`        | Description linked to the root through `aria-describedby`.                                   |
-| `Fieldset.ErrorText`         | Validation message announced through `aria-live="polite"` and rendered only when `invalid` is `true`. |
+| `Fieldset`                   | Creates state and renders a native `fieldset`.                                                 |
+| `FieldsetRootProvider`       | Renders a native `fieldset` with state created by `useFieldset`.                               |
+| `FieldsetContext`            | Exposes the current fieldset state to descendants without rendering an extra DOM element.      |
+| `FieldsetLegend`             | Native `legend` that provides the accessible name for the group.                               |
+| `FieldsetHelperText`         | Description linked to the root through `aria-describedby`.                                     |
+| `FieldsetErrorText`          | Validation message announced through `aria-live="polite"` and rendered only when `invalid` is `true`. |
 
 ## Composition
 
-Keep one visible `Fieldset.Legend` inside the root, then place related controls and their `Field`
+Keep one visible `FieldsetLegend` inside the root, then place related controls and their `Field`
 parts inside the same composition. Set `invalid` on the root for a group-level error and on nested
 `Field` components when individual controls need their own validation state. A disabled fieldset
 passes its state to native controls and Ark-aware descendants.
 
-Use `useFieldset` with `Fieldset.RootProvider` when state must be created outside the rendered tree or
-shared with sibling controls. Use `Fieldset.Context` or `useFieldsetContext()` to read that state in a
-descendant, and do not render `Fieldset.Root` together with `Fieldset.RootProvider` for the same store.
+Use `useFieldset` with `FieldsetRootProvider` when state must be created outside the rendered tree or
+shared with sibling controls. Use `FieldsetContext` or `useFieldsetContext()` to read that state in a
+descendant, and do not render `Fieldset` together with `FieldsetRootProvider` for the same store.
 Use `asChild` with one semantic child when replacing a part's rendered element.
 
 ## Examples
 
 ### Checkbox
 
-Use the legend to name a group of related checkbox controls. Add `Checkbox.HiddenInput` to each
+Use the legend to name a group of related checkbox controls. Add `CheckboxHiddenInput` to each
 checkbox that needs native focus, form submission, and form reset behavior.
 
 <ExampleFrame variant="component">
@@ -336,7 +336,7 @@ on nested `Field` components as well when individual controls need their own inv
 
 ### Advanced Customization
 
-Use `useFieldset` with `Fieldset.RootProvider` to create fieldset state outside the JSX tree and share
+Use `useFieldset` with `FieldsetRootProvider` to create fieldset state outside the JSX tree and share
 it with sibling controls or reusable descendants.
 
 <ExampleFrame variant="component">

@@ -1,4 +1,11 @@
-import { NavigationMenu } from '@moduix/solid/navigation-menu';
+import {
+  NavigationMenu,
+  NavigationMenuList,
+  NavigationMenuItem,
+  NavigationMenuLink,
+  NavigationMenuTrigger,
+  NavigationMenuContent,
+} from '@moduix/solid/navigation-menu';
 import { ChevronDownIcon } from 'lucide-solid';
 import { createSignal } from 'solid-js';
 import styles from '@/components/examples/navigation-menu/navigation-menu-controlled-value.module.css';
@@ -12,33 +19,33 @@ export default function ControlledNavigationMenuDemo() {
         value={value()}
         onValueChange={(details) => setValue(details.value ?? undefined)}
       >
-        <NavigationMenu.List>
-          <NavigationMenu.Item value="home">
-            <NavigationMenu.Link href="#home">Home</NavigationMenu.Link>
-          </NavigationMenu.Item>
-          <NavigationMenu.Item value="products">
-            <NavigationMenu.Trigger>
+        <NavigationMenuList>
+          <NavigationMenuItem value="home">
+            <NavigationMenuLink href="#home">Home</NavigationMenuLink>
+          </NavigationMenuItem>
+          <NavigationMenuItem value="products">
+            <NavigationMenuTrigger>
               Products
               <ChevronDownIcon />
-            </NavigationMenu.Trigger>
-            <NavigationMenu.Content>
-              <NavigationMenu.Link href="#analytics">Analytics</NavigationMenu.Link>
-              <NavigationMenu.Link href="#automation">Automation</NavigationMenu.Link>
-              <NavigationMenu.Link href="#integrations">Integrations</NavigationMenu.Link>
-            </NavigationMenu.Content>
-          </NavigationMenu.Item>
-          <NavigationMenu.Item value="docs">
-            <NavigationMenu.Trigger>
+            </NavigationMenuTrigger>
+            <NavigationMenuContent>
+              <NavigationMenuLink href="#analytics">Analytics</NavigationMenuLink>
+              <NavigationMenuLink href="#automation">Automation</NavigationMenuLink>
+              <NavigationMenuLink href="#integrations">Integrations</NavigationMenuLink>
+            </NavigationMenuContent>
+          </NavigationMenuItem>
+          <NavigationMenuItem value="docs">
+            <NavigationMenuTrigger>
               Docs
               <ChevronDownIcon />
-            </NavigationMenu.Trigger>
-            <NavigationMenu.Content>
-              <NavigationMenu.Link href="#guides">Guides</NavigationMenu.Link>
-              <NavigationMenu.Link href="#api">API reference</NavigationMenu.Link>
-              <NavigationMenu.Link href="#examples">Examples</NavigationMenu.Link>
-            </NavigationMenu.Content>
-          </NavigationMenu.Item>
-        </NavigationMenu.List>
+            </NavigationMenuTrigger>
+            <NavigationMenuContent>
+              <NavigationMenuLink href="#guides">Guides</NavigationMenuLink>
+              <NavigationMenuLink href="#api">API reference</NavigationMenuLink>
+              <NavigationMenuLink href="#examples">Examples</NavigationMenuLink>
+            </NavigationMenuContent>
+          </NavigationMenuItem>
+        </NavigationMenuList>
       </NavigationMenu>
       <output>Open: {value() ?? 'none'}</output>
     </div>

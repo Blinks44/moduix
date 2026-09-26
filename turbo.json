@@ -16,17 +16,21 @@
       "cache": false,
       "persistent": true
     },
+    "moduix-docs#dev": {
+      "dependsOn": ["@moduix/react#build"],
+      "cache": false,
+      "persistent": true
+    },
+    "moduix-docs#build": {
+      "dependsOn": ["@moduix/react#build"],
+      "outputs": ["doc_build/**"]
+    },
     "deploy": {
       "dependsOn": ["build"],
       "cache": false,
       "env": ["CLOUDFLARE_API_TOKEN"]
     },
-    "storybook": {
-      "cache": false,
-      "persistent": true
-    },
     "test": {
-      "dependsOn": ["build"],
       "outputs": []
     },
     "tsc:check": {
@@ -34,7 +38,12 @@
       "outputs": []
     },
     "moduix-docs#tsc:check": {
-      "dependsOn": ["^tsc:check", "@moduix/react#build", "@moduix/solid#build"],
+      "dependsOn": [
+        "^tsc:check",
+        "@moduix/react#build",
+        "@moduix/solid#build",
+        "@moduix/vue#build"
+      ],
       "outputs": []
     }
   }

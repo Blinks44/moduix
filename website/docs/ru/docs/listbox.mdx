@@ -47,8 +47,8 @@ import listboxSolidValueText from '../../../snippets/listbox/solid/value-text.ts
 
 Интерактивный
 
-Передайте `collection`, отрисуйте `Listbox.Content` и передайте каждый элемент коллекции в
-`Listbox.Item` через `item`. Добавьте `Listbox.ItemIndicator`, если строки должны показывать
+Передайте `collection`, отрисуйте `ListboxContent` и передайте каждый элемент коллекции в
+`ListboxItem` через `item`. Добавьте `ListboxItemIndicator`, если строки должны показывать
 выбранное состояние.
 
 <ExampleFrame variant="component">
@@ -116,62 +116,62 @@ import listboxSolidValueText from '../../../snippets/listbox/solid/value-text.ts
 ## Анатомия
 
 ```text
-Listbox / Listbox.Root
-├─ Listbox.Label
-├─ Listbox.Filter
-│  ├─ Listbox.Input
-│  └─ Listbox.ClearTrigger
-├─ Listbox.Content
-│  ├─ Listbox.Empty
-│  ├─ Listbox.ItemGroup
-│  │  ├─ Listbox.ItemGroupLabel
-│  │  └─ Listbox.Item[item]
-│  │     ├─ Listbox.ItemText
-│  │     └─ Listbox.ItemIndicator
-│  └─ Listbox.Item[item]
-│     ├─ Listbox.ItemText
-│     │  └─ Listbox.ItemTextContent (необязательно)
-│     │     ├─ Listbox.ItemTextIcon (необязательно)
-│     │     └─ Listbox.ItemTextLabel (необязательно)
-│     └─ Listbox.ItemIndicator
-└─ Listbox.ValueText
+Listbox
+├─ ListboxLabel
+├─ ListboxFilter
+│  ├─ ListboxInput
+│  └─ ListboxClearTrigger
+├─ ListboxContent
+│  ├─ ListboxEmpty
+│  ├─ ListboxItemGroup
+│  │  ├─ ListboxItemGroupLabel
+│  │  └─ ListboxItem[item]
+│  │     ├─ ListboxItemText
+│  │     └─ ListboxItemIndicator
+│  └─ ListboxItem[item]
+│     ├─ ListboxItemText
+│     │  └─ ListboxItemTextContent (необязательно)
+│     │     ├─ ListboxItemTextIcon (необязательно)
+│     │     └─ ListboxItemTextLabel (необязательно)
+│     └─ ListboxItemIndicator
+└─ ListboxValueText
 
-Listbox.RootProvider
+ListboxRootProvider
 └─ то же дерево элементов, подключённое к состоянию из useListbox()
 ```
 
 | Часть                      | Назначение                                                                                   |
 | -------------------------- | -------------------------------------------------------------------------------------------- |
-| `Listbox` / `Listbox.Root` | Управляет коллекцией, выбранными значениями, подсвеченным элементом и режимом выбора.        |
-| `Listbox.RootProvider`     | Отрисовывает дерево listbox из состояния, возвращённого `useListbox`.                        |
-| `Listbox.Label`            | Подпись, задающая listbox доступное имя.                                                      |
-| `Listbox.Filter`           | Визуальная обёртка для поля фильтра с иконкой поиска по умолчанию. Размещайте перед `Listbox.Content`. |
-| `Listbox.Input`            | Поле фильтра, обычно размещаемое внутри `Filter`.                                            |
-| `Listbox.ClearTrigger`     | Кнопка сброса запроса фильтра с иконкой закрытия по умолчанию.                               |
-| `Listbox.Content`          | Фокусируемый контейнер listbox, управляющий навигацией с клавиатуры.                          |
-| `Listbox.Empty`            | Содержимое, отображаемое, когда после фильтрации не осталось элементов.                       |
-| `Listbox.ItemGroup`        | Обёртка для связанных элементов коллекции.                                                   |
-| `Listbox.ItemGroupLabel`   | Подпись группы элементов коллекции.                                                          |
-| `Listbox.Item`             | Выбираемый элемент. Передайте его элемент коллекции через `item`.                            |
-| `Listbox.ItemText`         | Текст для отображения и доступности.                                                         |
-| `Listbox.ItemTextContent`  | Необязательная обёртка для размещения иконки и текста внутри `ItemText`.                     |
-| `Listbox.ItemTextIcon`     | Необязательная обёртка для иконки внутри `ItemTextContent`.                                 |
-| `Listbox.ItemTextLabel`    | Обёртка текста внутри `ItemTextContent`, которая позволяет обрезать длинные подписи без нарушения разметки. |
-| `Listbox.ItemIndicator`    | Индикатор выбора с иконкой галочки moduix по умолчанию.                                      |
-| `Listbox.ValueText`        | Сводка выбранных значений.                                                                   |
+| `Listbox` | Управляет коллекцией, выбранными значениями, подсвеченным элементом и режимом выбора.        |
+| `ListboxRootProvider`     | Отрисовывает дерево listbox из состояния, возвращённого `useListbox`.                        |
+| `ListboxLabel`            | Подпись, задающая listbox доступное имя.                                                      |
+| `ListboxFilter`           | Визуальная обёртка для поля фильтра с иконкой поиска по умолчанию. Размещайте перед `ListboxContent`. |
+| `ListboxInput`            | Поле фильтра, обычно размещаемое внутри `ListboxFilter`.                                            |
+| `ListboxClearTrigger`     | Кнопка сброса запроса фильтра с иконкой закрытия по умолчанию.                               |
+| `ListboxContent`          | Фокусируемый контейнер listbox, управляющий навигацией с клавиатуры.                          |
+| `ListboxEmpty`            | Содержимое, отображаемое, когда после фильтрации не осталось элементов.                       |
+| `ListboxItemGroup`        | Обёртка для связанных элементов коллекции.                                                   |
+| `ListboxItemGroupLabel`   | Подпись группы элементов коллекции.                                                          |
+| `ListboxItem`             | Выбираемый элемент. Передайте его элемент коллекции через `item`.                            |
+| `ListboxItemText`         | Текст для отображения и доступности.                                                         |
+| `ListboxItemTextContent`  | Необязательная обёртка для размещения иконки и текста внутри `ListboxItemText`.                     |
+| `ListboxItemTextIcon`     | Необязательная обёртка для иконки внутри `ListboxItemTextContent`.                                 |
+| `ListboxItemTextLabel`    | Обёртка текста внутри `ListboxItemTextContent`, которая позволяет обрезать длинные подписи без нарушения разметки. |
+| `ListboxItemIndicator`    | Индикатор выбора с иконкой галочки moduix по умолчанию.                                      |
+| `ListboxValueText`        | Сводка выбранных значений.                                                                   |
 
 ## Композиция
 
 Используйте `defaultValue` для неконтролируемого выбора. Если выбранными значениями управляет другая
 часть приложения, передайте `value` и обновляйте его из `onValueChange(details.value)`. Для
 фильтрации задайте `typeahead={false}`, храните запрос в состоянии приложения и вызывайте функцию
-`filter`, возвращённую `useListCollection`, из обработчика поля. `Listbox.Filter` отвечает только за объединённый внешний
+`filter`, возвращённую `useListCollection`, из обработчика поля. `ListboxFilter` отвечает только за объединённый внешний
 вид поля поиска, поэтому обработчик очистки должен сбрасывать и запрос, и фильтр коллекции.
 
-Используйте `useListbox` из пакета выбранного фреймворка вместе с `Listbox.RootProvider`, если
-хранилище нужно создать вне отрисовываемого дерева. Передайте полученное хранилище в `RootProvider`
-и не добавляйте для него `Listbox` или `Listbox.Root`. `Listbox.Input` можно отрисовать напрямую,
-если фильтру нужен отдельный контейнер, а `Listbox.ValueText` можно разместить после `Content`,
+Используйте `useListbox` из пакета выбранного фреймворка вместе с `ListboxRootProvider`, если
+хранилище нужно создать вне отрисовываемого дерева. Передайте полученное хранилище в `ListboxRootProvider`
+и не добавляйте для него второй `Listbox`. `ListboxInput` можно отрисовать напрямую,
+если фильтру нужен отдельный контейнер, а `ListboxValueText` можно разместить после `ListboxContent`,
 чтобы показывать сводку выбранных значений.
 
 ## Примеры
@@ -274,8 +274,8 @@ Listbox.RootProvider
 
 ### Фильтрация
 
-Используйте `Listbox.Filter` вместе с `useListCollection`. Он добавляет иконку поиска и объединяет
-поле с `Content`; отключите typeahead, когда текст вводится в поле поиска.
+Используйте `ListboxFilter` вместе с `useListCollection`. Он добавляет иконку поиска и объединяет
+поле с `ListboxContent`; отключите typeahead, когда текст вводится в поле поиска.
 
 <ExampleFrame variant="component">
   <ListboxFiltering />
@@ -308,7 +308,7 @@ Listbox.RootProvider
 ### Сетка
 
 Передайте коллекцию, созданную через `createGridCollection`, чтобы включить навигацию по сетке с
-клавиатуры. Ark добавляет `data-layout="grid"` и CSS-переменную `--column-count` в `Content`.
+клавиатуры. Ark добавляет `data-layout="grid"` и CSS-переменную `--column-count` в `ListboxContent`.
 
 <ExampleFrame variant="component">
   <ListboxGrid />
@@ -340,7 +340,7 @@ Listbox.RootProvider
 
 ### Группировка
 
-Задайте `groupBy` при создании коллекции и отрисуйте `ItemGroup` с `ItemGroupLabel`.
+Задайте `groupBy` при создании коллекции и отрисуйте `ListboxItemGroup` с `ListboxItemGroupLabel`.
 
 <ExampleFrame variant="component">
   <ListboxGrouping />
@@ -437,7 +437,7 @@ Listbox.RootProvider
 
 ### Root Provider
 
-Используйте `useListbox()` из пакета выбранного фреймворка вместе с `Listbox.RootProvider`, если
+Используйте `useListbox()` из пакета выбранного фреймворка вместе с `ListboxRootProvider`, если
 внешним элементам управления нужен прямой доступ к хранилищу listbox.
 
 <ExampleFrame variant="component">
@@ -503,7 +503,7 @@ listbox.
 
 ### Отдельное поле фильтра
 
-Отрисуйте `Listbox.Input` напрямую, если поле фильтра и результаты должны оставаться отдельными
+Отрисуйте `ListboxInput` напрямую, если поле фильтра и результаты должны оставаться отдельными
 поверхностями.
 
 <ExampleFrame variant="component">
@@ -536,7 +536,7 @@ listbox.
 
 ### Текст выбранного значения
 
-Отрисуйте `Listbox.ValueText`, если сводка выбранных значений должна оставаться видимой рядом со
+Отрисуйте `ListboxValueText`, если сводка выбранных значений должна оставаться видимой рядом со
 списком.
 
 <ExampleFrame variant="component">

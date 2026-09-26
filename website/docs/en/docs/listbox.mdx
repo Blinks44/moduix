@@ -45,8 +45,8 @@ searching or entering a value.
 ## Basic
 
 
-Pass a `collection`, render `Listbox.Content`, and pass each collection item to `Listbox.Item`
-through `item`. Add `Listbox.ItemIndicator` when rows should show the selected state.
+Pass a `collection`, render `ListboxContent`, and pass each collection item to `ListboxItem`
+through `item`. Add `ListboxItemIndicator` when rows should show the selected state.
 
 <ExampleFrame variant="component">
   <ListboxBasic />
@@ -113,62 +113,62 @@ See [Quick Start](/docs/quick-start) for full package setup, registry configurat
 ## Anatomy
 
 ```text
-Listbox / Listbox.Root
-├─ Listbox.Label
-├─ Listbox.Filter
-│  ├─ Listbox.Input
-│  └─ Listbox.ClearTrigger
-├─ Listbox.Content
-│  ├─ Listbox.Empty
-│  ├─ Listbox.ItemGroup
-│  │  ├─ Listbox.ItemGroupLabel
-│  │  └─ Listbox.Item[item]
-│  │     ├─ Listbox.ItemText
-│  │     └─ Listbox.ItemIndicator
-│  └─ Listbox.Item[item]
-│     ├─ Listbox.ItemText
-│     │  └─ Listbox.ItemTextContent (optional)
-│     │     ├─ Listbox.ItemTextIcon (optional)
-│     │     └─ Listbox.ItemTextLabel (optional)
-│     └─ Listbox.ItemIndicator
-└─ Listbox.ValueText
+Listbox
+├─ ListboxLabel
+├─ ListboxFilter
+│  ├─ ListboxInput
+│  └─ ListboxClearTrigger
+├─ ListboxContent
+│  ├─ ListboxEmpty
+│  ├─ ListboxItemGroup
+│  │  ├─ ListboxItemGroupLabel
+│  │  └─ ListboxItem[item]
+│  │     ├─ ListboxItemText
+│  │     └─ ListboxItemIndicator
+│  └─ ListboxItem[item]
+│     ├─ ListboxItemText
+│     │  └─ ListboxItemTextContent (optional)
+│     │     ├─ ListboxItemTextIcon (optional)
+│     │     └─ ListboxItemTextLabel (optional)
+│     └─ ListboxItemIndicator
+└─ ListboxValueText
 
-Listbox.RootProvider
+ListboxRootProvider
 └─ same item tree connected to a useListbox() store
 ```
 
 | Part                       | Role                                                                                   |
 | -------------------------- | -------------------------------------------------------------------------------------- |
-| `Listbox` / `Listbox.Root` | Manages the collection, selected values, highlighted item, and selection mode.         |
-| `Listbox.RootProvider`     | Renders the listbox tree from state returned by `useListbox`.                          |
-| `Listbox.Label`            | Label that gives the listbox an accessible name.                                       |
-| `Listbox.Filter`           | Visual wrapper for a filter input with the default search icon. Place it before `Listbox.Content`. |
-| `Listbox.Input`            | Filter input, usually placed inside `Filter`.                                         |
-| `Listbox.ClearTrigger`     | Button for resetting the filter query, with the default close icon.                    |
-| `Listbox.Content`          | Focusable listbox container that handles keyboard navigation.                          |
-| `Listbox.Empty`            | Content shown when the filtered collection has no items.                               |
-| `Listbox.ItemGroup`        | Group wrapper for related collection items.                                            |
-| `Listbox.ItemGroupLabel`   | Label for a collection group.                                                          |
-| `Listbox.Item`             | Selectable item. Pass its collection item through `item`.                              |
-| `Listbox.ItemText`         | Text used for display and accessibility.                                               |
-| `Listbox.ItemTextContent`  | Optional wrapper for laying out an icon and text inside `ItemText`.                    |
-| `Listbox.ItemTextIcon`     | Optional icon wrapper inside `ItemTextContent`.                                       |
-| `Listbox.ItemTextLabel`    | Text wrapper inside `ItemTextContent` that can truncate long labels without breaking layout. |
-| `Listbox.ItemIndicator`    | Selection indicator with the default moduix check icon.                                |
-| `Listbox.ValueText`        | Summary of the selected values.                                                        |
+| `Listbox` | Manages the collection, selected values, highlighted item, and selection mode.         |
+| `ListboxRootProvider`     | Renders the listbox tree from state returned by `useListbox`.                          |
+| `ListboxLabel`            | Label that gives the listbox an accessible name.                                       |
+| `ListboxFilter`           | Visual wrapper for a filter input with the default search icon. Place it before `ListboxContent`. |
+| `ListboxInput`            | Filter input, usually placed inside `ListboxFilter`.                                         |
+| `ListboxClearTrigger`     | Button for resetting the filter query, with the default close icon.                    |
+| `ListboxContent`          | Focusable listbox container that handles keyboard navigation.                          |
+| `ListboxEmpty`            | Content shown when the filtered collection has no items.                               |
+| `ListboxItemGroup`        | Group wrapper for related collection items.                                            |
+| `ListboxItemGroupLabel`   | Label for a collection group.                                                          |
+| `ListboxItem`             | Selectable item. Pass its collection item through `item`.                              |
+| `ListboxItemText`         | Text used for display and accessibility.                                               |
+| `ListboxItemTextContent`  | Optional wrapper for laying out an icon and text inside `ListboxItemText`.                    |
+| `ListboxItemTextIcon`     | Optional icon wrapper inside `ListboxItemTextContent`.                                       |
+| `ListboxItemTextLabel`    | Text wrapper inside `ListboxItemTextContent` that can truncate long labels without breaking layout. |
+| `ListboxItemIndicator`    | Selection indicator with the default moduix check icon.                                |
+| `ListboxValueText`        | Summary of the selected values.                                                        |
 
 ## Composition
 
 Use `defaultValue` for uncontrolled selection. When another part of the application owns the
 selection, pass `value` and update it from `onValueChange(details.value)`. For filtering, set
 `typeahead={false}`, keep the query in application state, and call the `filter` function returned by
-`useListCollection` from the input handler. `Listbox.Filter` only provides the joined search-field appearance, so a
+`useListCollection` from the input handler. `ListboxFilter` only provides the joined search-field appearance, so a
 clear action must reset both the query and the collection filter.
 
-Use `useListbox` from the matching framework package with `Listbox.RootProvider` when the store must
-be created outside the rendered tree. Pass the returned store to `RootProvider` and do not render
-`Listbox` or `Listbox.Root` for the same store. `Listbox.Input` can be rendered directly when the
-filter needs a separate wrapper, and `Listbox.ValueText` can be placed after `Content` for a selected
+Use `useListbox` from the matching framework package with `ListboxRootProvider` when the store must
+be created outside the rendered tree. Pass the returned store to `ListboxRootProvider` and do not render
+`Listbox` for the same store. `ListboxInput` can be rendered directly when the
+filter needs a separate wrapper, and `ListboxValueText` can be placed after `ListboxContent` for a selected
 value summary.
 
 ## Examples
@@ -271,8 +271,8 @@ Use `selectionMode="extended"` when users need modifier keys to select multiple 
 
 ### Filtering
 
-Use `Listbox.Filter` with `useListCollection`. It adds the default search icon and joins the filter
-with `Content`; turn off typeahead when the input handles search.
+Use `ListboxFilter` with `useListCollection`. It adds the default search icon and joins the filter
+with `ListboxContent`; turn off typeahead when the input handles search.
 
 <ExampleFrame variant="component">
   <ListboxFiltering />
@@ -305,7 +305,7 @@ with `Content`; turn off typeahead when the input handles search.
 ### Grid
 
 Pass a collection created with `createGridCollection` to enable grid keyboard navigation. Ark adds
-`data-layout="grid"` and the `--column-count` CSS variable to `Content`.
+`data-layout="grid"` and the `--column-count` CSS variable to `ListboxContent`.
 
 <ExampleFrame variant="component">
   <ListboxGrid />
@@ -337,7 +337,7 @@ Pass a collection created with `createGridCollection` to enable grid keyboard na
 
 ### Grouping
 
-Set `groupBy` when creating the collection and render `ItemGroup` with `ItemGroupLabel`.
+Set `groupBy` when creating the collection and render `ListboxItemGroup` with `ListboxItemGroupLabel`.
 
 <ExampleFrame variant="component">
   <ListboxGrouping />
@@ -434,7 +434,7 @@ Set `selectionMode="multiple"` to toggle multiple values without modifier keys.
 
 ### Root Provider
 
-Use `useListbox()` from the matching framework package with `Listbox.RootProvider` when controls
+Use `useListbox()` from the matching framework package with `ListboxRootProvider` when controls
 outside the listbox need direct access to its store.
 
 <ExampleFrame variant="component">
@@ -499,7 +499,7 @@ Use `useListboxContext` inside a child component to add a button that updates th
 
 ### Standalone Filter Input
 
-Render `Listbox.Input` directly when the filter and results should remain separate surfaces.
+Render `ListboxInput` directly when the filter and results should remain separate surfaces.
 
 <ExampleFrame variant="component">
   <ListboxStandaloneFilterInput />
@@ -531,7 +531,7 @@ Render `Listbox.Input` directly when the filter and results should remain separa
 
 ### Value Text
 
-Render `Listbox.ValueText` when the selected-value summary should stay visible beside the list.
+Render `ListboxValueText` when the selected-value summary should stay visible beside the list.
 
 <ExampleFrame variant="component">
   <ListboxValueText />

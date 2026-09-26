@@ -46,8 +46,9 @@ d’un message d’erreur ou d’un état partagé `disabled`, `invalid`, `requi
 ## Exemple de base
 
 
-Utilisez `Field` comme conteneur d’un contrôle de formulaire. Placez `Field.Label` avant le contrôle,
-puis ajoutez un texte d’aide ou d’erreur lorsque l’utilisateur a besoin d’informations supplémentaires.
+Utilisez `Field` comme conteneur d’un contrôle de formulaire. Placez `FieldLabel` avant le contrôle,
+puis ajoutez `FieldHelperText` ou `FieldErrorText` lorsque l’utilisateur a besoin d’informations
+supplémentaires.
 
 <ExampleFrame variant="component">
   <FieldBasic />
@@ -113,44 +114,44 @@ Consultez le [Démarrage rapide](/docs/quick-start) pour la configuration compl�
 
 ## Anatomie
 
-L’espace de noms public `Field` reprend les noms de parties d’Ark UI. Utilisez les parties `Field.*`
-pour une composition Ark explicite. Pour les formulaires courants, préférez les composants moduix
-correspondants, comme `Input`, `Textarea` ou `NativeSelect`.
+L’API publique `Field` utilise des valeurs plates préfixées par le nom de la famille. Utilisez les
+parties bas niveau `Field*` pour une composition Ark explicite. Pour les formulaires courants, préférez
+les composants moduix correspondants, comme `Input`, `Textarea` ou `NativeSelect`.
 
 ```text
 Field
-├─ Field.Label
-├─ Field.Input | Field.Textarea | Field.Select | custom control
-├─ Field.HelperText
-├─ Field.ErrorText
-└─ Field.RequiredIndicator
+├─ FieldLabel
+├─ FieldInput | FieldTextarea | FieldSelect | custom control
+├─ FieldHelperText
+├─ FieldErrorText
+└─ FieldRequiredIndicator
 
-Field.RootProvider
+FieldRootProvider
 └─ même arbre de parties relié à l’état fourni par useField()
 ```
 
 | Partie                    | Rôle                                                                                           |
 | ------------------------ | ---------------------------------------------------------------------------------------------- |
-| `Field` / `Field.Root`   | Contexte racine. Il rend par défaut un `<div role="group">`.                                 |
-| `Field.RootProvider`     | Racine utilisant un état `useField()` créé en dehors de l’arbre de rendu.                      |
-| `Field.Context`          | Permet de lire l’état courant du champ sans ajouter d’élément au DOM.                          |
-| `Field.Label`            | Libellé accessible associé au contrôle courant.                                                |
-| `Field.Input`            | Champ natif de bas niveau. Pour le champ standard, préférez `Input`.                          |
-| `Field.Textarea`         | Zone de texte native de bas niveau. Pour la version standard, préférez `Textarea`.             |
-| `Field.Select`           | Select natif de bas niveau. Pour la version standard, préférez `NativeSelect`.                 |
-| `Field.HelperText`       | Texte d’aide associé au contrôle via `aria-describedby`.                                       |
-| `Field.ErrorText`        | Message d’erreur rendu lorsque la racine est dans l’état `invalid`.                           |
-| `Field.RequiredIndicator` | Marqueur visuel d’un champ obligatoire. Utilisez `fallback` pour remplacer le marqueur par défaut. |
-| `Field.Item`             | Contexte imbriqué pour un contrôle groupé identifié par `value` ; sa ref pointe vers le wrapper local. |
+| `Field`                  | Contexte racine. Il rend par défaut un `<div role="group">`.                                 |
+| `FieldRootProvider`     | Racine utilisant un état `useField()` créé en dehors de l’arbre de rendu.                      |
+| `FieldContext`          | Permet de lire l’état courant du champ sans ajouter d’élément au DOM.                          |
+| `FieldLabel`            | Libellé accessible associé au contrôle courant.                                                |
+| `FieldInput`            | Champ natif de bas niveau. Pour le champ standard, préférez `Input`.                          |
+| `FieldTextarea`         | Zone de texte native de bas niveau. Pour la version standard, préférez `Textarea`.             |
+| `FieldSelect`           | Select natif de bas niveau. Pour la version standard, préférez `NativeSelect`.                 |
+| `FieldHelperText`       | Texte d’aide associé au contrôle via `aria-describedby`.                                       |
+| `FieldErrorText`        | Message d’erreur rendu lorsque la racine est dans l’état `invalid`.                           |
+| `FieldRequiredIndicator` | Marqueur visuel d’un champ obligatoire. Utilisez `fallback` pour remplacer le marqueur par défaut. |
+| `FieldItem`             | Contexte imbriqué pour un contrôle groupé identifié par `value` ; sa ref pointe vers le wrapper local. |
 
 ## Composition
 
-Utilisez la racine pour associer un contrôle à `Field.Label`, `Field.HelperText`, `Field.ErrorText` et
-`Field.RequiredIndicator`. Les contrôles composés comme `Checkbox`, `RadioGroup` et `Select` gèrent leur
+Utilisez la racine pour associer un contrôle à `FieldLabel`, `FieldHelperText`, `FieldErrorText` et
+`FieldRequiredIndicator`. Les contrôles composés comme `Checkbox`, `RadioGroup` et `Select` gèrent leur
 propre état : transmettez `required`, `invalid`, `disabled` ou `readOnly` à leur racine lorsqu’ils en
-sont responsables. Pour plusieurs contrôles natifs, entourez chacun d’un `Field.Item value` et définissez
-`target` sur la racine. Utilisez `Field.RootProvider` avec `useField()` lorsque l’état est créé en dehors
-de l’arbre rendu ; les contrôles personnalisés peuvent lire l’état via `Field.Context` ou `useFieldContext`.
+sont responsables. Pour plusieurs contrôles natifs, entourez chacun d’un `FieldItem value` et définissez
+`target` sur la racine. Utilisez `FieldRootProvider` avec `useField()` lorsque l’état est créé en dehors
+de l’arbre rendu ; les contrôles personnalisés peuvent lire l’état via `FieldContext` ou `useFieldContext`.
 
 ## Exemples
 
@@ -285,9 +286,9 @@ la validation. Transmettez également cette prop à la racine d’un contrôle c
 
 </ExampleCode>
 
-### Cible de `Field.Item`
+### Cible de `FieldItem`
 
-Utilisez `Field.Item` avec la prop `target` de la racine lorsqu’un seul libellé doit cibler un contrôle
+Utilisez `FieldItem` avec la prop `target` de la racine lorsqu’un seul libellé doit cibler un contrôle
 à l’intérieur d’un groupe.
 
 <ExampleFrame variant="component">
@@ -418,7 +419,7 @@ Définissez `readOnly` sur la racine lorsque l’utilisateur peut copier la vale
 
 ### Root Provider
 
-Utilisez `useField` avec `Field.RootProvider` lorsque l’état du champ doit être créé en dehors de l’arbre rendu.
+Utilisez `useField` avec `FieldRootProvider` lorsque l’état du champ doit être créé en dehors de l’arbre rendu.
 
 <ExampleFrame variant="component">
   <FieldRootProvider />
@@ -530,7 +531,7 @@ les variantes CSS Modules.
 ### Points d’accroche CSS
 
 Ark ajoute `data-disabled`, `data-invalid`, `data-readonly` et `data-required` aux parties concernées.
-`Field.ErrorText` n’existe que lorsque le contexte courant du champ est invalide. L’identifiant du texte
+`FieldErrorText` n’existe que lorsque le contexte courant du champ est invalide. L’identifiant du texte
 d’aide est inclus dans `aria-describedby` du contrôle et l’identifiant du message d’erreur actif dans
 `aria-errormessage`. Chaque partie DOM conserve également un point d’accroche stable
 `data-slot="field-*"`.

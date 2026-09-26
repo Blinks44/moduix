@@ -1,7 +1,27 @@
 import { useListCollection } from '@ark-ui/react/collection';
 import { useFilter } from '@ark-ui/react/locale';
-import { Combobox, useCombobox } from '@moduix/react/combobox';
-import { TagsInput, useTagsInput } from '@moduix/react/tags-input';
+import {
+  useCombobox,
+  ComboboxContent,
+  ComboboxEmpty,
+  ComboboxInput,
+  ComboboxOption,
+  ComboboxPositioner,
+  ComboboxRootProvider,
+} from '@moduix/react/combobox';
+import {
+  TagsInputClearTrigger,
+  TagsInputControl,
+  TagsInputInput,
+  TagsInputItem,
+  TagsInputItemDeleteTrigger,
+  TagsInputItemInput,
+  TagsInputItemPreview,
+  TagsInputItemText,
+  TagsInputLabel,
+  TagsInputRootProvider,
+  useTagsInput,
+} from '@moduix/react/tags-input';
 import { useId } from 'react';
 
 const frameworkOptions = ['React', 'Solid', 'Vue', 'Svelte', 'Angular', 'Preact', 'Next.js'];
@@ -32,35 +52,35 @@ export default function ComboboxWithTagsInputDemo() {
   });
 
   return (
-    <Combobox.RootProvider value={combobox}>
-      <TagsInput.RootProvider value={tagsInput}>
-        <TagsInput.Label>Frameworks</TagsInput.Label>
-        <TagsInput.Control>
+    <ComboboxRootProvider value={combobox}>
+      <TagsInputRootProvider value={tagsInput}>
+        <TagsInputLabel>Frameworks</TagsInputLabel>
+        <TagsInputControl>
           {tagsInput.value.map((item, index) => (
-            <TagsInput.Item key={`${item}-${index}`} index={index} value={item}>
-              <TagsInput.ItemPreview>
-                <TagsInput.ItemText>{item}</TagsInput.ItemText>
-                <TagsInput.ItemDeleteTrigger aria-label={`Remove ${item}`} />
-              </TagsInput.ItemPreview>
-              <TagsInput.ItemInput />
-            </TagsInput.Item>
+            <TagsInputItem key={`${item}-${index}`} index={index} value={item}>
+              <TagsInputItemPreview>
+                <TagsInputItemText>{item}</TagsInputItemText>
+                <TagsInputItemDeleteTrigger aria-label={`Remove ${item}`} />
+              </TagsInputItemPreview>
+              <TagsInputItemInput />
+            </TagsInputItem>
           ))}
-          <Combobox.Input asChild>
-            <TagsInput.Input placeholder="Add framework" />
-          </Combobox.Input>
-          <TagsInput.ClearTrigger aria-label="Clear frameworks" />
-        </TagsInput.Control>
-      </TagsInput.RootProvider>
-      <Combobox.Positioner>
-        <Combobox.Content>
-          <Combobox.Empty>No frameworks found.</Combobox.Empty>
+          <ComboboxInput asChild>
+            <TagsInputInput placeholder="Add framework" />
+          </ComboboxInput>
+          <TagsInputClearTrigger aria-label="Clear frameworks" />
+        </TagsInputControl>
+      </TagsInputRootProvider>
+      <ComboboxPositioner>
+        <ComboboxContent>
+          <ComboboxEmpty>No frameworks found.</ComboboxEmpty>
           {collection.items.map((item) => (
-            <Combobox.Option key={item} item={item}>
+            <ComboboxOption key={item} item={item}>
               {item}
-            </Combobox.Option>
+            </ComboboxOption>
           ))}
-        </Combobox.Content>
-      </Combobox.Positioner>
-    </Combobox.RootProvider>
+        </ComboboxContent>
+      </ComboboxPositioner>
+    </ComboboxRootProvider>
   );
 }

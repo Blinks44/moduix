@@ -9,10 +9,10 @@ import type { ComponentProps, ComponentRef } from 'react';
 import { forwardRef } from 'react';
 import { cn } from '@/lib/moduix/cn';
 
-const NavigationMenuRoot = forwardRef<
+const NavigationMenu = forwardRef<
   ComponentRef<typeof NavigationMenuPrimitive.Root>,
   ComponentProps<typeof NavigationMenuPrimitive.Root>
->(function NavigationMenuRoot({ className, ...props }, ref) {
+>(function NavigationMenu({ className, ...props }, ref) {
   return (
     <NavigationMenuPrimitive.Root
       ref={ref}
@@ -212,21 +212,22 @@ const NavigationMenuViewport = forwardRef<
   );
 });
 
-const NavigationMenu = Object.assign(NavigationMenuRoot, {
-  Root: NavigationMenuRoot,
-  RootProvider: NavigationMenuRootProvider,
-  Context: NavigationMenuPrimitive.Context,
-  List: NavigationMenuList,
-  Item: NavigationMenuItem,
-  Trigger: NavigationMenuTrigger,
-  Content: NavigationMenuContent,
-  Link: NavigationMenuLink,
-  Indicator: NavigationMenuIndicator,
-  ItemIndicator: NavigationMenuItemIndicator,
-  Arrow: NavigationMenuArrow,
-  ViewportPositioner: NavigationMenuViewportPositioner,
-  Viewport: NavigationMenuViewport,
-  useNavigationMenu,
-});
+const NavigationMenuContext = NavigationMenuPrimitive.Context;
 
-export { NavigationMenu, useNavigationMenu, useNavigationMenuContext };
+export {
+  NavigationMenu,
+  NavigationMenuArrow,
+  NavigationMenuContent,
+  NavigationMenuContext,
+  NavigationMenuIndicator,
+  NavigationMenuItem,
+  NavigationMenuItemIndicator,
+  NavigationMenuLink,
+  NavigationMenuList,
+  NavigationMenuRootProvider,
+  NavigationMenuTrigger,
+  NavigationMenuViewport,
+  NavigationMenuViewportPositioner,
+  useNavigationMenu,
+  useNavigationMenuContext,
+};

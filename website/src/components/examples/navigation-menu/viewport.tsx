@@ -1,4 +1,15 @@
-import { NavigationMenu } from '@moduix/react/navigation-menu';
+import {
+  NavigationMenu,
+  NavigationMenuList,
+  NavigationMenuItem,
+  NavigationMenuTrigger,
+  NavigationMenuContent,
+  NavigationMenuLink,
+  NavigationMenuIndicator,
+  NavigationMenuArrow,
+  NavigationMenuViewportPositioner,
+  NavigationMenuViewport,
+} from '@moduix/react/navigation-menu';
 import { ChevronDownIcon } from 'lucide-react';
 import styles from '@/components/examples/navigation-menu/navigation-menu-viewport.module.css';
 
@@ -6,50 +17,50 @@ export default function ViewportNavigationMenuDemo() {
   return (
     <div className={styles.root}>
       <NavigationMenu>
-        <NavigationMenu.List>
-          <NavigationMenu.Item value="products">
-            <NavigationMenu.Trigger>
+        <NavigationMenuList>
+          <NavigationMenuItem value="products">
+            <NavigationMenuTrigger>
               Products
               <ChevronDownIcon />
-            </NavigationMenu.Trigger>
-            <NavigationMenu.Content className={styles.productsContent}>
+            </NavigationMenuTrigger>
+            <NavigationMenuContent className={styles.productsContent}>
               <div className={styles.productsLinks}>
-                <NavigationMenu.Link href="#analytics">Analytics</NavigationMenu.Link>
-                <NavigationMenu.Link href="#automation">Automation</NavigationMenu.Link>
-                <NavigationMenu.Link href="#integrations">Integrations</NavigationMenu.Link>
-                <NavigationMenu.Link href="#reports">Reports</NavigationMenu.Link>
+                <NavigationMenuLink href="#analytics">Analytics</NavigationMenuLink>
+                <NavigationMenuLink href="#automation">Automation</NavigationMenuLink>
+                <NavigationMenuLink href="#integrations">Integrations</NavigationMenuLink>
+                <NavigationMenuLink href="#reports">Reports</NavigationMenuLink>
               </div>
-            </NavigationMenu.Content>
-          </NavigationMenu.Item>
-          <NavigationMenu.Item value="company">
-            <NavigationMenu.Trigger>
+            </NavigationMenuContent>
+          </NavigationMenuItem>
+          <NavigationMenuItem value="company">
+            <NavigationMenuTrigger>
               Company
               <ChevronDownIcon />
-            </NavigationMenu.Trigger>
-            <NavigationMenu.Content className={styles.companyContent}>
-              <NavigationMenu.Link href="#about">About</NavigationMenu.Link>
-              <NavigationMenu.Link href="#careers">Careers</NavigationMenu.Link>
-              <NavigationMenu.Link href="#contact">Contact</NavigationMenu.Link>
-            </NavigationMenu.Content>
-          </NavigationMenu.Item>
-          <NavigationMenu.Item value="resources">
-            <NavigationMenu.Trigger>
+            </NavigationMenuTrigger>
+            <NavigationMenuContent className={styles.companyContent}>
+              <NavigationMenuLink href="#about">About</NavigationMenuLink>
+              <NavigationMenuLink href="#careers">Careers</NavigationMenuLink>
+              <NavigationMenuLink href="#contact">Contact</NavigationMenuLink>
+            </NavigationMenuContent>
+          </NavigationMenuItem>
+          <NavigationMenuItem value="resources">
+            <NavigationMenuTrigger>
               Resources
               <ChevronDownIcon />
-            </NavigationMenu.Trigger>
-            <NavigationMenu.Content className={styles.resourcesContent}>
-              <NavigationMenu.Link href="#blog">Blog</NavigationMenu.Link>
-              <NavigationMenu.Link href="#customers">Customer stories</NavigationMenu.Link>
-              <NavigationMenu.Link href="#support">Support</NavigationMenu.Link>
-            </NavigationMenu.Content>
-          </NavigationMenu.Item>
-          <NavigationMenu.Indicator>
-            <NavigationMenu.Arrow />
-          </NavigationMenu.Indicator>
-        </NavigationMenu.List>
-        <NavigationMenu.ViewportPositioner>
-          <NavigationMenu.Viewport />
-        </NavigationMenu.ViewportPositioner>
+            </NavigationMenuTrigger>
+            <NavigationMenuContent className={styles.resourcesContent}>
+              <NavigationMenuLink href="#blog">Blog</NavigationMenuLink>
+              <NavigationMenuLink href="#customers">Customer stories</NavigationMenuLink>
+              <NavigationMenuLink href="#support">Support</NavigationMenuLink>
+            </NavigationMenuContent>
+          </NavigationMenuItem>
+          <NavigationMenuIndicator>
+            <NavigationMenuArrow />
+          </NavigationMenuIndicator>
+        </NavigationMenuList>
+        <NavigationMenuViewportPositioner>
+          <NavigationMenuViewport />
+        </NavigationMenuViewportPositioner>
       </NavigationMenu>
     </div>
   );

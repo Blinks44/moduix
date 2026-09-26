@@ -33,7 +33,7 @@ test('keeps ARIA metadata and stable data hooks aligned with public props', () =
 
 test('applies the public defaults and direct styling props', () => {
   render(() => (
-    <Separator.Root data-testid="separator" class="custom-separator" style={{ color: 'red' }} />
+    <Separator data-testid="separator" class="custom-separator" style={{ color: 'red' }} />
   ));
 
   const separator = screen.getByTestId('separator');

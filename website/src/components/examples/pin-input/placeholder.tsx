@@ -1,12 +1,12 @@
-import { PinInput } from '@moduix/react/pin-input';
+import { PinInput, PinInputLabel, PinInputControl, PinInputInputs } from '@moduix/react/pin-input';
 
 export default function PlaceholderPinInput() {
   return (
     <PinInput count={6} placeholder="*">
-      <PinInput.Label>Verification code</PinInput.Label>
-      <PinInput.Control>
-        <PinInput.Inputs />
-      </PinInput.Control>
+      <PinInputLabel>Verification code</PinInputLabel>
+      <PinInputControl>
+        <PinInputInputs />
+      </PinInputControl>
     </PinInput>
   );
 }

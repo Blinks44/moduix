@@ -60,6 +60,20 @@
       ]
     },
     {
+      "name": "a11y-labels",
+      "type": "registry:item",
+      "title": "moduix a11y labels",
+      "description": "Internal accessible label defaults required only by registry components that render text fallbacks.",
+      "dependencies": [],
+      "files": [
+        {
+          "path": "src/internal/a11yLabels.ts",
+          "target": "@lib/moduix/a11yLabels.ts",
+          "type": "registry:lib"
+        }
+      ]
+    },
+    {
       "name": "overlay-portal",
       "type": "registry:item",
       "title": "moduix overlay portal",
@@ -285,7 +299,11 @@
       "title": "Breadcrumbs",
       "description": "moduix React Breadcrumbs component.",
       "dependencies": ["@ark-ui/react", "clsx"],
-      "registryDependencies": ["@moduix-react/foundation", "@moduix-react/icons"],
+      "registryDependencies": [
+        "@moduix-react/a11y-labels",
+        "@moduix-react/foundation",
+        "@moduix-react/icons"
+      ],
       "files": [
         {
           "path": "src/components/breadcrumbs/Breadcrumbs.tsx",
@@ -410,7 +428,11 @@
       "title": "CloseButton",
       "description": "moduix React CloseButton component.",
       "dependencies": ["@ark-ui/react", "clsx"],
-      "registryDependencies": ["@moduix-react/foundation", "@moduix-react/icons"],
+      "registryDependencies": [
+        "@moduix-react/a11y-labels",
+        "@moduix-react/foundation",
+        "@moduix-react/icons"
+      ],
       "files": [
         {
           "path": "src/components/close-button/CloseButton.tsx",
@@ -461,8 +483,9 @@
       "description": "moduix React Combobox component.",
       "dependencies": ["@ark-ui/react", "clsx"],
       "registryDependencies": [
-        "@moduix-react/foundation",
+        "@moduix-react/a11y-labels",
         "@moduix-react/close-button",
+        "@moduix-react/foundation",
         "@moduix-react/icons",
         "@moduix-react/overlay-portal"
       ],
@@ -520,12 +543,13 @@
       "description": "moduix React CommandPalette component.",
       "dependencies": ["@ark-ui/react", "clsx"],
       "registryDependencies": [
+        "@moduix-react/a11y-labels",
         "@moduix-react/close-button",
         "@moduix-react/foundation",
-        "@moduix-react/kbd",
-        "@moduix-react/scroll-area",
         "@moduix-react/icons",
-        "@moduix-react/overlay-portal"
+        "@moduix-react/kbd",
+        "@moduix-react/overlay-portal",
+        "@moduix-react/scroll-area"
       ],
       "files": [
         {
@@ -657,8 +681,9 @@
       "description": "moduix React Dialog component.",
       "dependencies": ["@ark-ui/react", "clsx"],
       "registryDependencies": [
-        "@moduix-react/foundation",
+        "@moduix-react/a11y-labels",
         "@moduix-react/close-button",
+        "@moduix-react/foundation",
         "@moduix-react/overlay-portal"
       ],
       "files": [
@@ -686,8 +711,9 @@
       "description": "moduix React Drawer component.",
       "dependencies": ["@ark-ui/react", "clsx"],
       "registryDependencies": [
-        "@moduix-react/foundation",
+        "@moduix-react/a11y-labels",
         "@moduix-react/close-button",
+        "@moduix-react/foundation",
         "@moduix-react/overlay-portal"
       ],
       "files": [
@@ -790,8 +816,9 @@
       "description": "moduix React FileUpload component.",
       "dependencies": ["@ark-ui/react", "clsx"],
       "registryDependencies": [
-        "@moduix-react/foundation",
+        "@moduix-react/a11y-labels",
         "@moduix-react/close-button",
+        "@moduix-react/foundation",
         "@moduix-react/icons"
       ],
       "files": [
@@ -844,8 +871,9 @@
       "description": "moduix React FloatingPanel component.",
       "dependencies": ["@ark-ui/react", "clsx"],
       "registryDependencies": [
-        "@moduix-react/foundation",
+        "@moduix-react/a11y-labels",
         "@moduix-react/close-button",
+        "@moduix-react/foundation",
         "@moduix-react/icons",
         "@moduix-react/overlay-portal"
       ],
@@ -1078,8 +1106,9 @@
       "description": "moduix React Lightbox component.",
       "dependencies": ["@ark-ui/react", "clsx"],
       "registryDependencies": [
-        "@moduix-react/foundation",
+        "@moduix-react/a11y-labels",
         "@moduix-react/close-button",
+        "@moduix-react/foundation",
         "@moduix-react/overlay-portal"
       ],
       "files": [
@@ -1132,8 +1161,9 @@
       "description": "moduix React Listbox component.",
       "dependencies": ["@ark-ui/react", "clsx"],
       "registryDependencies": [
-        "@moduix-react/foundation",
+        "@moduix-react/a11y-labels",
         "@moduix-react/close-button",
+        "@moduix-react/foundation",
         "@moduix-react/icons"
       ],
       "files": [
@@ -1390,6 +1420,7 @@
       "description": "moduix React Popover component.",
       "dependencies": ["@ark-ui/react", "clsx"],
       "registryDependencies": [
+        "@moduix-react/a11y-labels",
         "@moduix-react/close-button",
         "@moduix-react/foundation",
         "@moduix-react/overlay-portal"
@@ -1648,8 +1679,9 @@
       "description": "moduix React Select component.",
       "dependencies": ["@ark-ui/react", "clsx"],
       "registryDependencies": [
-        "@moduix-react/foundation",
+        "@moduix-react/a11y-labels",
         "@moduix-react/close-button",
+        "@moduix-react/foundation",
         "@moduix-react/icons",
         "@moduix-react/overlay-portal"
       ],
@@ -1798,11 +1830,12 @@
       "description": "moduix React Sidebar component.",
       "dependencies": ["@ark-ui/react", "clsx"],
       "registryDependencies": [
+        "@moduix-react/a11y-labels",
+        "@moduix-react/icons",
         "@moduix-react/input",
         "@moduix-react/separator",
         "@moduix-react/splitter",
-        "@moduix-react/tooltip",
-        "@moduix-react/icons"
+        "@moduix-react/tooltip"
       ],
       "files": [
         {
@@ -1853,7 +1886,7 @@
       "title": "Spinner",
       "description": "moduix React Spinner component.",
       "dependencies": ["@ark-ui/react", "clsx"],
-      "registryDependencies": ["@moduix-react/foundation"],
+      "registryDependencies": ["@moduix-react/a11y-labels", "@moduix-react/foundation"],
       "files": [
         {
           "path": "src/components/spinner/Spinner.tsx",
@@ -1879,10 +1912,11 @@
       "description": "moduix React SplitButton component.",
       "dependencies": ["@ark-ui/react", "clsx"],
       "registryDependencies": [
-        "@moduix-react/foundation",
+        "@moduix-react/a11y-labels",
         "@moduix-react/button",
-        "@moduix-react/menu",
+        "@moduix-react/foundation",
         "@moduix-react/icons",
+        "@moduix-react/menu",
         "@moduix-react/overlay-portal"
       ],
       "files": [
@@ -2009,7 +2043,11 @@
       "title": "Tag",
       "description": "moduix React Tag component.",
       "dependencies": ["@ark-ui/react", "clsx"],
-      "registryDependencies": ["@moduix-react/foundation", "@moduix-react/close-button"],
+      "registryDependencies": [
+        "@moduix-react/a11y-labels",
+        "@moduix-react/close-button",
+        "@moduix-react/foundation"
+      ],
       "files": [
         {
           "path": "src/components/tag/Tag.tsx",
@@ -2063,7 +2101,7 @@
       "title": "Table",
       "description": "moduix React Table component.",
       "dependencies": ["@ark-ui/react", "clsx"],
-      "registryDependencies": ["@moduix-react/foundation"],
+      "registryDependencies": ["@moduix-react/a11y-labels", "@moduix-react/foundation"],
       "files": [
         {
           "path": "src/components/table/Table.tsx",
@@ -2239,8 +2277,9 @@
       "description": "moduix React Toast component.",
       "dependencies": ["@ark-ui/react", "clsx"],
       "registryDependencies": [
-        "@moduix-react/foundation",
+        "@moduix-react/a11y-labels",
         "@moduix-react/close-button",
+        "@moduix-react/foundation",
         "@moduix-react/overlay-portal"
       ],
       "files": [
@@ -2343,6 +2382,7 @@
       "description": "moduix React Tour component.",
       "dependencies": ["@ark-ui/react", "clsx"],
       "registryDependencies": [
+        "@moduix-react/a11y-labels",
         "@moduix-react/close-button",
         "@moduix-react/foundation",
         "@moduix-react/overlay-portal"

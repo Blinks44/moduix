@@ -1,17 +1,17 @@
 import type { Meta, StoryObj } from '@storybook/react-vite';
 import type { ComponentProps } from 'react';
-import { Badge } from '@/components/badge/Badge';
+import { Badge, BadgeDot, BadgeLabel } from '@/components/badge/Badge';
 import { ChevronRightIcon } from '@/lib/moduix/icons/ui';
 import styles from './Badge.stories.module.css';
 
 const meta = {
   title: 'Components/Badge',
-  component: Badge.Root,
+  component: Badge,
   tags: ['autodocs'],
   parameters: {
     layout: 'centered',
   },
-} satisfies Meta<typeof Badge.Root>;
+} satisfies Meta<typeof Badge>;
 
 export default meta;
 
@@ -37,9 +37,9 @@ export const Variants: Story = {
     return (
       <div className={styles.row}>
         {variants.map((variant) => (
-          <Badge.Root key={variant} variant={variant}>
+          <Badge key={variant} variant={variant}>
             {variant}
-          </Badge.Root>
+          </Badge>
         ))}
       </div>
     );
@@ -50,18 +50,18 @@ export const WithDot: Story = {
   render: () => {
     return (
       <div className={styles.row}>
-        <Badge.Root variant="default">
-          <Badge.Dot />
-          <Badge.Label>Online</Badge.Label>
-        </Badge.Root>
-        <Badge.Root variant="secondary">
-          <Badge.Dot />
-          <Badge.Label>Draft</Badge.Label>
-        </Badge.Root>
-        <Badge.Root variant="destructive">
-          <Badge.Dot />
-          <Badge.Label>Failed</Badge.Label>
-        </Badge.Root>
+        <Badge variant="default">
+          <BadgeDot />
+          <BadgeLabel>Online</BadgeLabel>
+        </Badge>
+        <Badge variant="secondary">
+          <BadgeDot />
+          <BadgeLabel>Draft</BadgeLabel>
+        </Badge>
+        <Badge variant="destructive">
+          <BadgeDot />
+          <BadgeLabel>Failed</BadgeLabel>
+        </Badge>
       </div>
     );
   },
@@ -71,24 +71,24 @@ export const WithIcon: Story = {
   render: () => {
     return (
       <div className={styles.row}>
-        <Badge.Root variant="default">
-          <Badge.Label>Release</Badge.Label>
+        <Badge variant="default">
+          <BadgeLabel>Release</BadgeLabel>
           <ChevronRightIcon />
-        </Badge.Root>
-        <Badge.Root variant="secondary">
-          <Badge.Label>Details</Badge.Label>
+        </Badge>
+        <Badge variant="secondary">
+          <BadgeLabel>Details</BadgeLabel>
           <ChevronRightIcon />
-        </Badge.Root>
-        <Badge.Root variant="outline">
-          <Badge.Label>Read more</Badge.Label>
+        </Badge>
+        <Badge variant="outline">
+          <BadgeLabel>Read more</BadgeLabel>
           <ChevronRightIcon />
-        </Badge.Root>
-        <Badge.Root asChild variant="link">
+        </Badge>
+        <Badge asChild variant="link">
           <a href="#badge-link-story">
-            <Badge.Label>Styling guide</Badge.Label>
+            <BadgeLabel>Styling guide</BadgeLabel>
             <ChevronRightIcon />
           </a>
-        </Badge.Root>
+        </Badge>
       </div>
     );
   },
@@ -97,9 +97,9 @@ export const WithIcon: Story = {
 export const Link: Story = {
   render: () => {
     return (
-      <Badge.Root asChild variant="link">
+      <Badge asChild variant="link">
         <a href="#badge-link-story">Open badge composition guidance</a>
-      </Badge.Root>
+      </Badge>
     );
   },
 };
@@ -107,11 +107,11 @@ export const Link: Story = {
 export const DisabledButton: Story = {
   render: () => {
     return (
-      <Badge.Root asChild variant="secondary">
+      <Badge asChild variant="secondary">
         <button className={styles.disabledButton} disabled>
           Archived
         </button>
-      </Badge.Root>
+      </Badge>
     );
   },
 };
@@ -119,12 +119,12 @@ export const DisabledButton: Story = {
 export const TruncatedLabel: Story = {
   render: () => {
     return (
-      <Badge.Root
+      <Badge
         className={styles.constrained}
         title="Ready for stakeholder review after legal approval"
       >
-        <Badge.Label>Ready for stakeholder review after legal approval</Badge.Label>
-      </Badge.Root>
+        <BadgeLabel>Ready for stakeholder review after legal approval</BadgeLabel>
+      </Badge>
     );
   },
 };
@@ -133,13 +133,13 @@ export const CustomStyling: Story = {
   render: () => {
     return (
       <div className={styles.row}>
-        <Badge.Root className={styles.small}>Small</Badge.Root>
-        <Badge.Root>Default</Badge.Root>
-        <Badge.Root className={styles.large}>Large</Badge.Root>
-        <Badge.Root className={styles.customBadge}>
-          <Badge.Dot />
-          <Badge.Label>Priority</Badge.Label>
-        </Badge.Root>
+        <Badge className={styles.small}>Small</Badge>
+        <Badge>Default</Badge>
+        <Badge className={styles.large}>Large</Badge>
+        <Badge className={styles.customBadge}>
+          <BadgeDot />
+          <BadgeLabel>Priority</BadgeLabel>
+        </Badge>
       </div>
     );
   },

@@ -1,5 +1,19 @@
-import { Card } from '@moduix/solid/card';
-import { FileUpload } from '@moduix/solid/file-upload';
+import { Card, CardAction, CardBody, CardDescription, CardHeader } from '@moduix/solid/card';
+import {
+  FileUpload,
+  FileUploadClearTrigger,
+  FileUploadContext,
+  FileUploadDropzone,
+  FileUploadDropzoneIcon,
+  FileUploadHiddenInput,
+  FileUploadItem,
+  FileUploadItemDeleteTrigger,
+  FileUploadItemGroup,
+  FileUploadItemName,
+  FileUploadItems,
+  FileUploadLabel,
+  FileUploadTrigger,
+} from '@moduix/solid/file-upload';
 import { For, Show } from 'solid-js';
 import styles from './file-upload-manager.module.css';
 
@@ -15,39 +29,39 @@ export function FileUploadManager() {
         maxFiles={maxFiles}
         maxFileSize={maxFileSize}
       >
-        <FileUpload.HiddenInput />
+        <FileUploadHiddenInput />
         <Card class={styles.card}>
-          <Card.Header>
+          <CardHeader>
             <div>
-              <FileUpload.Label class={styles.title}>Project attachments</FileUpload.Label>
-              <Card.Description>
+              <FileUploadLabel class={styles.title}>Project attachments</FileUploadLabel>
+              <CardDescription>
                 Share briefs, documents, and reference images with your team.
-              </Card.Description>
+              </CardDescription>
             </div>
-            <FileUpload.Context>
+            <FileUploadContext>
               {(api) => (
                 <Show when={api().acceptedFiles.length}>
-                  <Card.Action>
-                    <FileUpload.ClearTrigger class={styles.clearTrigger}>
+                  <CardAction>
+                    <FileUploadClearTrigger class={styles.clearTrigger}>
                       Clear all
-                    </FileUpload.ClearTrigger>
-                  </Card.Action>
+                    </FileUploadClearTrigger>
+                  </CardAction>
                 </Show>
               )}
-            </FileUpload.Context>
-          </Card.Header>
+            </FileUploadContext>
+          </CardHeader>
 
-          <Card.Body class={styles.body}>
-            <FileUpload.Dropzone class={styles.dropzone} disableClick>
-              <FileUpload.DropzoneIcon class={styles.dropzoneIcon} />
+          <CardBody class={styles.body}>
+            <FileUploadDropzone class={styles.dropzone} disableClick>
+              <FileUploadDropzoneIcon class={styles.dropzoneIcon} />
               <div class={styles.dropzoneContent}>
                 <strong>Drop files here</strong>
                 <span>PDF, DOCX, PNG, or JPG up to 10 MB</span>
               </div>
-              <FileUpload.Trigger class={styles.trigger}>Browse files</FileUpload.Trigger>
-            </FileUpload.Dropzone>
+              <FileUploadTrigger class={styles.trigger}>Browse files</FileUploadTrigger>
+            </FileUploadDropzone>
 
-            <FileUpload.Context>
+            <FileUploadContext>
               {(api) => (
                 <div class={styles.fileList}>
                   <div class={styles.listHeader}>
@@ -61,30 +75,30 @@ export function FileUploadManager() {
                     when={api().acceptedFiles.length}
                     fallback={<p class={styles.emptyState}>No files added yet.</p>}
                   >
-                    <FileUpload.ItemGroup class={styles.items}>
-                      <FileUpload.Items />
-                    </FileUpload.ItemGroup>
+                    <FileUploadItemGroup class={styles.items}>
+                      <FileUploadItems />
+                    </FileUploadItemGroup>
                   </Show>
 
                   <Show when={api().rejectedFiles.length}>
-                    <FileUpload.ItemGroup class={styles.rejectedItems} type="rejected">
+                    <FileUploadItemGroup class={styles.rejectedItems} type="rejected">
                       <For each={api().rejectedFiles}>
                         {({ file, errors }) => (
-                          <FileUpload.Item file={file}>
-                            <FileUpload.ItemName />
+                          <FileUploadItem file={file}>
+                            <FileUploadItemName />
                             <p class={styles.error} role="alert">
                               {errors.join(', ')}
                             </p>
-                            <FileUpload.ItemDeleteTrigger aria-label={`Remove ${file.name}`} />
-                          </FileUpload.Item>
+                            <FileUploadItemDeleteTrigger aria-label={`Remove ${file.name}`} />
+                          </FileUploadItem>
                         )}
                       </For>
-                    </FileUpload.ItemGroup>
+                    </FileUploadItemGroup>
                   </Show>
                 </div>
               )}
-            </FileUpload.Context>
-          </Card.Body>
+            </FileUploadContext>
+          </CardBody>
         </Card>
       </FileUpload>
     </div>

@@ -11,10 +11,10 @@ import { forwardRef } from 'react';
 import { cn } from '@/lib/moduix/cn';
 import { CheckIcon } from '@/lib/moduix/icons/ui';
 
-const StepsRoot = forwardRef<
+const Steps = forwardRef<
   ComponentRef<typeof StepsPrimitive.Root>,
   ComponentProps<typeof StepsPrimitive.Root>
->(function StepsRoot({ className, ...props }, ref) {
+>(function Steps({ className, ...props }, ref) {
   return (
     <StepsPrimitive.Root
       ref={ref}
@@ -219,22 +219,25 @@ const StepsProgress = forwardRef<
   );
 });
 
-const Steps = Object.assign(StepsRoot, {
-  Root: StepsRoot,
-  RootProvider: StepsRootProvider,
-  Context: StepsPrimitive.Context,
-  ItemContext: StepsPrimitive.ItemContext,
-  List: StepsList,
-  Item: StepsItem,
-  Trigger: StepsTrigger,
-  Indicator: StepsIndicator,
-  Separator: StepsSeparator,
-  Content: StepsContent,
-  CompletedContent: StepsCompletedContent,
-  PrevTrigger: StepsPrevTrigger,
-  NextTrigger: StepsNextTrigger,
-  Progress: StepsProgress,
-  useSteps,
-});
+const StepsContext = StepsPrimitive.Context;
+const StepsItemContext = StepsPrimitive.ItemContext;
 
-export { Steps, useSteps, useStepsContext, useStepsItemContext };
+export {
+  Steps,
+  StepsCompletedContent,
+  StepsContext,
+  StepsContent,
+  StepsIndicator,
+  StepsItem,
+  StepsItemContext,
+  StepsList,
+  StepsNextTrigger,
+  StepsPrevTrigger,
+  StepsProgress,
+  StepsRootProvider,
+  StepsSeparator,
+  StepsTrigger,
+  useSteps,
+  useStepsContext,
+  useStepsItemContext,
+};

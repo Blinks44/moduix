@@ -8,50 +8,47 @@ attributes, and CSS hooks.
 
 ```tsx
 <HoverCard>
-  <HoverCard.Trigger
+  <HoverCardTrigger
     asChild={(props) => (
       <a {...props()} href="#profile">
         @sarah_chen
       </a>
     )}
   />
-  <HoverCard.Positioner>
-    <HoverCard.Content>
-      <HoverCard.Arrow />
-      <HoverCard.Body>Profile details</HoverCard.Body>
-    </HoverCard.Content>
-  </HoverCard.Positioner>
+  <HoverCardPositioner>
+    <HoverCardContent>
+      <HoverCardArrow />
+      <HoverCardBody>Profile details</HoverCardBody>
+    </HoverCardContent>
+  </HoverCardPositioner>
 </HoverCard>
 ```
 
-`HoverCard` and `HoverCard.Root` are equivalent roots. `Positioner` is portalled by default; use
+`HoverCard` is the only public root value. `HoverCardPositioner` is portalled by default; use
 `portalled={false}` or `portalRef` on the root to control overlay placement. `lazyMount` and
 `unmountOnExit` default to `true`. When the available viewport height limits the popup, content
-inside `HoverCard.Body` scrolls inside the surface instead of escaping it.
+inside `HoverCardBody` scrolls inside the surface instead of escaping it.
 
-When used, `HoverCard.Arrow` belongs inside `HoverCard.Content`, matching Ark's examples and
-keeping the popup border behind the arrow. `HoverCard.Content` remains overflow-visible for the
-arrow; put constrained content in `HoverCard.Body`.
+When used, `HoverCardArrow` belongs inside `HoverCardContent`, matching Ark's examples and
+keeping the popup border behind the arrow. `HoverCardContent` remains overflow-visible for the
+arrow; put constrained content in `HoverCardBody`.
 
 ## API surface
 
-The adapter exports `HoverCard`, `useHoverCard`, and `useHoverCardContext`. `HoverCard` exposes
-`Root`, `RootProvider`, `Context`, `Trigger`, `Positioner`, `Content`, `Arrow`, `ArrowTip`, and
-`Body`.
-
-`HoverCard.RootProvider` receives the accessor returned by `useHoverCard()`:
+The adapter exports `HoverCard`, all family-prefixed parts, `HoverCardContext`, `useHoverCard`, and
+`useHoverCardContext`. `HoverCardRootProvider` receives the accessor returned by `useHoverCard()`:
 
 ```tsx
 const hoverCard = useHoverCard();
 
-<HoverCard.RootProvider value={hoverCard}>
-  <HoverCard.Trigger>Profile</HoverCard.Trigger>
-  <HoverCard.Positioner>
-    <HoverCard.Content>
-      <HoverCard.Body>Profile details</HoverCard.Body>
-    </HoverCard.Content>
-  </HoverCard.Positioner>
-</HoverCard.RootProvider>;
+<HoverCardRootProvider value={hoverCard}>
+  <HoverCardTrigger>Profile</HoverCardTrigger>
+  <HoverCardPositioner>
+    <HoverCardContent>
+      <HoverCardBody>Profile details</HoverCardBody>
+    </HoverCardContent>
+  </HoverCardPositioner>
+</HoverCardRootProvider>;
 ```
 
 Ark owns hover and focus behavior, open state, dismissal, IDs, positioning, presence, and runtime

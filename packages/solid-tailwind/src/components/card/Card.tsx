@@ -4,7 +4,7 @@ import { cva } from 'class-variance-authority';
 import { splitProps } from 'solid-js';
 import { cn } from '@/lib/moduix/cn';
 
-type CardRootProps = HTMLArkProps<'div'> & {
+type CardProps = HTMLArkProps<'div'> & {
   size?: 'sm' | 'md' | 'lg';
   variant?: 'elevated' | 'outline' | 'subtle';
 };
@@ -25,7 +25,7 @@ const cardRootVariants = cva(
   },
 );
 
-function CardRoot(props: CardRootProps) {
+function Card(props: CardProps) {
   const [local, others] = splitProps(props, ['asChild', 'class', 'size', 'variant']);
 
   return (
@@ -192,17 +192,15 @@ function CardLink(props: HTMLArkProps<'a'>) {
   );
 }
 
-const Card = Object.assign(CardRoot, {
-  Root: CardRoot,
-  Header: CardHeader,
-  Body: CardBody,
-  Media: CardMedia,
-  Background: CardBackground,
-  Footer: CardFooter,
-  Title: CardTitle,
-  Description: CardDescription,
-  Action: CardAction,
-  Link: CardLink,
-});
-
-export { Card };
+export {
+  Card,
+  CardAction,
+  CardBackground,
+  CardBody,
+  CardDescription,
+  CardFooter,
+  CardHeader,
+  CardLink,
+  CardMedia,
+  CardTitle,
+};

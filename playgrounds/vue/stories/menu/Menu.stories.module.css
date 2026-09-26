@@ -1,0 +1,9 @@
+.customPopup {
+  --moduix-menu-popup-min-width: 13rem;
+  --moduix-menu-popup-bg: var(--moduix-color-background);
+  --moduix-menu-popup-border-color: var(--moduix-color-primary);
+  --moduix-menu-popup-shadow: var(--moduix-shadow-lg);
+  --moduix-menu-highlight-bg: var(--moduix-color-primary);
+  --moduix-menu-highlight-color: var(--moduix-color-primary-foreground);
+  --moduix-menu-separator-color: var(--moduix-color-primary);
+}

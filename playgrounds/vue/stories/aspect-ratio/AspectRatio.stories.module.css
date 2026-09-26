@@ -1,0 +1,41 @@
+@layer moduix.storybook {
+  .container {
+    width: 480px;
+    overflow: hidden;
+    border-radius: var(--moduix-radius-md);
+  }
+
+  .image {
+    display: block;
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+  }
+
+  .iframe {
+    display: block;
+    width: 100%;
+    height: 100%;
+    border: 0;
+  }
+
+  .fillImage {
+    position: absolute;
+    inset: 0;
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+  }
+
+  .figure {
+    margin: 0;
+  }
+
+  .migrationFrame {
+    background: var(--moduix-color-muted);
+  }
+
+  .roundedFrame {
+    border-radius: var(--moduix-radius-xl);
+  }
+}

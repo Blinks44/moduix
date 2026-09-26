@@ -44,8 +44,8 @@ même temps.
 ## Exemple de base
 
 
-Utilisez `SegmentGroup` comme racine, placez `SegmentGroup.Indicator` avant les éléments et utilisez
-`SegmentGroup.Items` lorsque chaque segment n'a besoin que d'un libellé textuel. `Items` crée pour chaque
+Utilisez `SegmentGroup` comme racine, placez `SegmentGroupIndicator` avant les éléments et utilisez
+`SegmentGroupItems` lorsque chaque segment n'a besoin que d'un libellé textuel. `SegmentGroupItems` crée pour chaque
 entrée les parties item, text et control, ainsi qu'un champ de formulaire natif synchronisé.
 
 <ExampleFrame variant="component">
@@ -108,44 +108,45 @@ Consultez le [Démarrage rapide](/docs/quick-start) pour la configuration compl�
 ## Anatomie
 
 ```text
-SegmentGroup / SegmentGroup.Root
-├─ SegmentGroup.Label (facultatif)
-├─ SegmentGroup.Indicator
-└─ SegmentGroup.Item[value]
-   ├─ SegmentGroup.ItemText
-   ├─ SegmentGroup.ItemControl
+SegmentGroup
+├─ SegmentGroupLabel (facultatif)
+├─ SegmentGroupIndicator
+└─ SegmentGroupItem[value]
+   ├─ SegmentGroupItemText
+   ├─ SegmentGroupItemControl
    └─ champ de formulaire natif
 
-SegmentGroup.RootProvider
+SegmentGroupRootProvider
 └─ même arborescence d’éléments reliée à un store moduix useSegmentGroup()
 
-SegmentGroup.Context / SegmentGroup.ItemContext
+SegmentGroupContext / SegmentGroupItemContext
 └─ accès avancé à l’état Ark via render prop
 ```
 
 | Partie                                | Rôle                                                                  |
 | ------------------------------------- | --------------------------------------------------------------------- |
-| `SegmentGroup` / `SegmentGroup.Root`  | Gère la valeur sélectionnée, la navigation au clavier et les formulaires. |
-| `SegmentGroup.ItemHiddenInput` | Champ natif d’Ark ; composition explicite décrite ci-dessous. |
-| `SegmentGroup.RootProvider`            | Relie les parties à l’état créé avec `useSegmentGroup()` de moduix.   |
-| `SegmentGroup.Context`                 | Donne un accès avancé à l’état racine via render prop.                |
-| `SegmentGroup.ItemContext`             | Donne un accès avancé à l’état de l’élément courant via render prop.  |
-| `SegmentGroup.Label`                   | Libellé accessible facultatif du groupe.                              |
-| `SegmentGroup.Indicator`               | Positionne la mise en évidence de l’élément actif avec les variables CSS d’Ark. |
-| `SegmentGroup.Items`                   | Méthode recommandée pour afficher des segments textuels standard.     |
-| `SegmentGroup.Item`                    | Segment sélectionnable ; rend un `label` par défaut.                  |
-| `SegmentGroup.ItemText`                | Libellé visible du segment.                                           |
-| `SegmentGroup.ItemControl`             | Partie Ark utilisée pour l’état de l’élément, masquée par les styles moduix. |
+| `SegmentGroup`  | Gère la valeur sélectionnée, la navigation au clavier et les formulaires. |
+| `SegmentGroupItemHiddenInput` | Champ natif d’Ark ; composition explicite décrite ci-dessous. |
+| `SegmentGroupRootProvider`            | Relie les parties à l’état créé avec `useSegmentGroup()` de moduix.   |
+| `SegmentGroupContext`                 | Donne un accès avancé à l’état racine via render prop.                |
+| `SegmentGroupItemContext`             | Donne un accès avancé à l’état de l’élément courant via render prop.  |
+| `SegmentGroupLabel`                   | Libellé accessible facultatif du groupe.                              |
+| `SegmentGroupIndicator`               | Positionne la mise en évidence de l’élément actif avec les variables CSS d’Ark. |
+| `SegmentGroupItems`                   | Méthode recommandée pour afficher des segments textuels standard.     |
+| `SegmentGroupItem`                    | Segment sélectionnable ; rend un `label` par défaut.                  |
+| `SegmentGroupItemText`                | Libellé visible du segment.                                           |
+| `SegmentGroupItemControl`             | Partie Ark utilisée pour l’état de l’élément, masquée par les styles moduix. |
 
 ## Composition
 
-Pour la composition courante, utilisez `SegmentGroup` avec `SegmentGroup.Indicator` avant
-`SegmentGroup.Items`. `Items` inclut `ItemText`, `ItemControl` et exactement un
-`ItemHiddenInput` pour chaque élément. Si vous rendez `SegmentGroup.Item` directement, composez ces
-parties vous-même et conservez exactement un `ItemHiddenInput` dans chaque élément. L'enfant direct de
+Pour la composition courante, utilisez `SegmentGroup` avec `SegmentGroupIndicator` avant
+`SegmentGroupItems`. `SegmentGroupItems` inclut `SegmentGroupItemText`, `SegmentGroupItemControl` et
+exactement un `SegmentGroupItemHiddenInput` pour chaque élément. Si vous rendez `SegmentGroupItem`
+directement, composez ces parties vous-même et conservez exactement un
+`SegmentGroupItemHiddenInput` dans chaque élément. L'enfant direct de
 `asChild` doit rester un seul `label` sémantique.
 
-Utilisez `SegmentGroup.RootProvider` avec `useSegmentGroup()` lorsque l'état doit être créé en dehors
+Utilisez `SegmentGroupRootProvider` avec `useSegmentGroup()` lorsque l'état doit être créé en dehors
 de l'arbre rendu ou contrôlé par une autre partie de l'application. React expose le store comme un
 objet, tandis que Solid lit son état réactif à travers la fonction d'accès renvoyée.
 
@@ -316,7 +317,7 @@ du champ.
 ### Soumission du formulaire
 
 Transmettez `name` à la racine pour inclure la valeur sélectionnée dans les données du formulaire
-natif. `SegmentGroup.Items` ajoute un champ de formulaire natif à chaque élément créé.
+natif. `SegmentGroupItems` ajoute un champ de formulaire natif à chaque élément créé.
 
 <ExampleFrame variant="component">
   <SegmentGroupFormSubmission />
@@ -390,7 +391,7 @@ lorsque le groupe participe à la validation native du formulaire.
 
 ### Root Provider
 
-Utilisez `useSegmentGroup()` avec `RootProvider` lorsque des contrôles situés en dehors de
+Utilisez `useSegmentGroup()` avec `SegmentGroupRootProvider` lorsque des contrôles situés en dehors de
 l’arborescence des segments doivent accéder au même état.
 
 <ExampleFrame variant="component">
@@ -470,7 +471,7 @@ une navigation verticale avec les touches fléchées.
 
 ### Personnalisation avancée
 
-Utilisez `SegmentGroup.Item asChild` à la place de `SegmentGroup.Items` lorsque la disposition
+Utilisez `SegmentGroupItem asChild` à la place de `SegmentGroupItems` lorsque la disposition
 personnalisée du libellé doit posséder le nœud DOM de l’élément.
 
 <ExampleFrame variant="component">

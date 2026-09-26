@@ -8,10 +8,10 @@ import styles from './Tabs.module.css';
 
 type TabsVariant = 'default' | 'line';
 
-const TabsRoot = forwardRef<
+const Tabs = forwardRef<
   ComponentRef<typeof TabsPrimitive.Root>,
   ComponentProps<typeof TabsPrimitive.Root> & { variant?: TabsVariant }
->(function TabsRoot({ className, orientation, variant = 'default', ...props }, ref) {
+>(function Tabs({ className, orientation, variant = 'default', ...props }, ref) {
   const resolvedVariant = orientation === 'vertical' ? 'default' : variant;
 
   return (
@@ -105,15 +105,16 @@ const TabsContent = forwardRef<
   );
 });
 
-const Tabs = Object.assign(TabsRoot, {
-  Root: TabsRoot,
-  RootProvider: TabsRootProvider,
-  Context: TabsPrimitive.Context,
-  List: TabsList,
-  Trigger: TabsTrigger,
-  Indicator: TabsIndicator,
-  Content: TabsContent,
-  useTabs,
-});
+const TabsContext = TabsPrimitive.Context;
 
-export { Tabs, useTabs, useTabsContext };
+export {
+  Tabs,
+  TabsContext,
+  TabsContent,
+  TabsIndicator,
+  TabsList,
+  TabsRootProvider,
+  TabsTrigger,
+  useTabs,
+  useTabsContext,
+};

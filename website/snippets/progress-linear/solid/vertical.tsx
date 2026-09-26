@@ -1,13 +1,19 @@
-import { ProgressLinear } from '@moduix/solid/progress-linear';
+import {
+  ProgressLinear,
+  ProgressLinearLabel,
+  ProgressLinearValueText,
+  ProgressLinearTrack,
+  ProgressLinearRange,
+} from '@moduix/solid/progress-linear';
 
 export default function VerticalProgressLinearDemo() {
   return (
     <ProgressLinear defaultValue={42} orientation="vertical">
-      <ProgressLinear.Label>Indexing files</ProgressLinear.Label>
-      <ProgressLinear.ValueText />
-      <ProgressLinear.Track aria-label="Indexing files">
-        <ProgressLinear.Range />
-      </ProgressLinear.Track>
+      <ProgressLinearLabel>Indexing files</ProgressLinearLabel>
+      <ProgressLinearValueText />
+      <ProgressLinearTrack aria-label="Indexing files">
+        <ProgressLinearRange />
+      </ProgressLinearTrack>
     </ProgressLinear>
   );
 }

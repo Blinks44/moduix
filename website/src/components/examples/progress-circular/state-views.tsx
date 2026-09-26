@@ -1,4 +1,12 @@
-import { ProgressCircular } from '@moduix/react/progress-circular';
+import {
+  ProgressCircular,
+  ProgressCircularCircle,
+  ProgressCircularCircleRange,
+  ProgressCircularCircleTrack,
+  ProgressCircularLabel,
+  ProgressCircularValueText,
+  ProgressCircularView,
+} from '@moduix/react/progress-circular';
 import styles from '@/components/examples/progress-circular/component-state-views.module.css';
 
 const progressCircularStateMessages = {
@@ -10,23 +18,23 @@ const progressCircularStateMessages = {
 export default function StateViewsProgressCircularDemo() {
   return (
     <ProgressCircular defaultValue={null}>
-      <ProgressCircular.Label>Preparing report</ProgressCircular.Label>
+      <ProgressCircularLabel>Preparing report</ProgressCircularLabel>
       <div className={styles.circleContainer}>
-        <ProgressCircular.Circle aria-label="Preparing report">
-          <ProgressCircular.CircleTrack />
-          <ProgressCircular.CircleRange />
-        </ProgressCircular.Circle>
-        <ProgressCircular.ValueText />
+        <ProgressCircularCircle aria-label="Preparing report">
+          <ProgressCircularCircleTrack />
+          <ProgressCircularCircleRange />
+        </ProgressCircularCircle>
+        <ProgressCircularValueText />
       </div>
-      <ProgressCircular.View className={styles.state} state="indeterminate">
+      <ProgressCircularView className={styles.state} state="indeterminate">
         {progressCircularStateMessages.indeterminate}
-      </ProgressCircular.View>
-      <ProgressCircular.View className={styles.state} state="loading">
+      </ProgressCircularView>
+      <ProgressCircularView className={styles.state} state="loading">
         {progressCircularStateMessages.loading}
-      </ProgressCircular.View>
-      <ProgressCircular.View className={styles.state} state="complete">
+      </ProgressCircularView>
+      <ProgressCircularView className={styles.state} state="complete">
         {progressCircularStateMessages.complete}
-      </ProgressCircular.View>
+      </ProgressCircularView>
     </ProgressCircular>
   );
 }

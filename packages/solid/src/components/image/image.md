@@ -2,7 +2,7 @@
 
 `Image` is a native Solid wrapper around `@unpic/core`. It preserves the React component's
 responsive `srcset` and `sizes` generation, CDN detection, layout modes, priority, background,
-native image attributes, and `Image.Source` picture composition without a React runtime.
+native image attributes, and `ImageSource` picture composition without a React runtime.
 
 ## Composition
 
@@ -22,11 +22,11 @@ export function HeroImage() {
 }
 ```
 
-Use `Image.Source` inside a native `<picture>` and place `Image` last as the fallback image.
-`Image` and `Image.Root` are the same component. The Solid API uses native `class` and
+Use `ImageSource` inside a native `<picture>` and place `Image` last as the fallback image.
+`Image` is the root component. The Solid API uses native `class` and
 `fetchpriority` attribute names.
 
 The wrapper adds `data-slot="image-root"` and
-`border-radius: var(--moduix-image-radius, var(--moduix-radius-md))`; `Image.Source` adds
+`border-radius: var(--moduix-image-radius, var(--moduix-radius-md))`; `ImageSource` adds
 `data-slot="image-source"`. Solid uses `@unpic/core` directly because Unpic does not publish a
 Solid adapter.

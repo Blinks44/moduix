@@ -1,37 +1,53 @@
 import { Button } from '@moduix/react/button';
-import { Card } from '@moduix/react/card';
-import { Checkbox } from '@moduix/react/checkbox';
-import { Drawer } from '@moduix/react/drawer';
+import { Card, CardBody } from '@moduix/react/card';
+import {
+  Checkbox,
+  CheckboxControl,
+  CheckboxHiddenInput,
+  CheckboxLabel,
+} from '@moduix/react/checkbox';
+import {
+  Drawer,
+  DrawerBackdrop,
+  DrawerCloseTrigger,
+  DrawerContent,
+  DrawerDescription,
+  DrawerGrabber,
+  DrawerGrabberIndicator,
+  DrawerPositioner,
+  DrawerTitle,
+  DrawerTrigger,
+} from '@moduix/react/drawer';
 import styles from '@/components/examples/drawer/drawer-advanced-customization.module.css';
 
 export default function AdvancedCustomizationDrawerDemo() {
   return (
     <Drawer swipeDirection="end">
-      <Drawer.Trigger asChild>
+      <DrawerTrigger asChild>
         <Button>Open preferences</Button>
-      </Drawer.Trigger>
-      <Drawer.Backdrop />
-      <Drawer.Positioner>
-        <Drawer.Content className={styles.content}>
-          <Drawer.Grabber>
-            <Drawer.GrabberIndicator />
-          </Drawer.Grabber>
-          <Drawer.Title>Preferences</Drawer.Title>
-          <Drawer.Description>Choose how you want notifications delivered.</Drawer.Description>
+      </DrawerTrigger>
+      <DrawerBackdrop />
+      <DrawerPositioner>
+        <DrawerContent className={styles.content}>
+          <DrawerGrabber>
+            <DrawerGrabberIndicator />
+          </DrawerGrabber>
+          <DrawerTitle>Preferences</DrawerTitle>
+          <DrawerDescription>Choose how you want notifications delivered.</DrawerDescription>
           <Card size="sm" className={styles.card}>
-            <Card.Body>
+            <CardBody>
               <Checkbox defaultChecked>
-                <Checkbox.Control />
-                <Checkbox.Label>Email notifications</Checkbox.Label>
-                <Checkbox.HiddenInput />
+                <CheckboxControl />
+                <CheckboxLabel>Email notifications</CheckboxLabel>
+                <CheckboxHiddenInput />
               </Checkbox>
-            </Card.Body>
+            </CardBody>
           </Card>
-          <Drawer.CloseTrigger asChild>
+          <DrawerCloseTrigger asChild>
             <Button variant="outline">Done</Button>
-          </Drawer.CloseTrigger>
-        </Drawer.Content>
-      </Drawer.Positioner>
+          </DrawerCloseTrigger>
+        </DrawerContent>
+      </DrawerPositioner>
     </Drawer>
   );
 }

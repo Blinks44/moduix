@@ -1,6 +1,6 @@
 import { expect, test } from '@rstest/core';
 import { render, screen } from '@solidjs/testing-library';
-import { Typeset } from '../src';
+import { Typeset, TypesetScroll } from '../src';
 
 test('renders stable data hooks without allowing consumer overrides', () => {
   render(() => (
@@ -13,7 +13,7 @@ test('renders stable data hooks without allowing consumer overrides', () => {
       >
         <p>Readable content</p>
       </Typeset>
-      <Typeset.Scroll
+      <TypesetScroll
         data-part="overridden-scroll"
         data-scope="overridden"
         data-slot="overridden-scroll"
@@ -26,7 +26,7 @@ test('renders stable data hooks without allowing consumer overrides', () => {
             </tr>
           </tbody>
         </table>
-      </Typeset.Scroll>
+      </TypesetScroll>
     </>
   ));
 
@@ -43,7 +43,7 @@ test('renders stable data hooks without allowing consumer overrides', () => {
 
 test('keeps scrollable content reachable by keyboard by default', () => {
   render(() => (
-    <Typeset.Scroll aria-label="Wide comparison table" data-testid="scroll">
+    <TypesetScroll aria-label="Wide comparison table" data-testid="scroll">
       <table>
         <tbody>
           <tr>
@@ -51,7 +51,7 @@ test('keeps scrollable content reachable by keyboard by default', () => {
           </tr>
         </tbody>
       </table>
-    </Typeset.Scroll>
+    </TypesetScroll>
   ));
 
   const scroll = screen.getByTestId('scroll');
@@ -65,15 +65,15 @@ test('keeps scrollable content reachable by keyboard by default', () => {
 test('keeps an unnamed scroller generic and preserves explicit semantics', () => {
   render(() => (
     <>
-      <Typeset.Scroll data-testid="unnamed-scroll">Wide content</Typeset.Scroll>
-      <Typeset.Scroll
+      <TypesetScroll data-testid="unnamed-scroll">Wide content</TypesetScroll>
+      <TypesetScroll
         aria-label="Custom scroller"
         data-testid="custom-scroll"
         role="group"
         tabIndex={-1}
       >
         Wide content
-      </Typeset.Scroll>
+      </TypesetScroll>
     </>
   ));
 
@@ -93,7 +93,7 @@ test('forwards refs through ordinary root and scroll paths', () => {
   render(() => (
     <>
       <Typeset ref={(element) => (rootRef = element)} data-testid="root" />
-      <Typeset.Scroll ref={(element) => (scrollRef = element)} data-testid="scroll" />
+      <TypesetScroll ref={(element) => (scrollRef = element)} data-testid="scroll" />
     </>
   ));
 
@@ -107,13 +107,13 @@ test('preserves semantic children with asChild without forwarding refs', () => {
 
   render(() => (
     <Typeset asChild={(props) => <article {...props()} />} ref={(element) => (rootRef = element)}>
-      <Typeset.Scroll
+      <TypesetScroll
         asChild={(props) => <section {...props()} />}
         aria-label="Wide comparison table"
         ref={(element) => (scrollRef = element)}
       >
         Scrollable content
-      </Typeset.Scroll>
+      </TypesetScroll>
     </Typeset>
   ));
 
@@ -126,10 +126,8 @@ test('preserves semantic children with asChild without forwarding refs', () => {
   expect(scroll).toHaveAttribute('data-slot', 'typeset-scroll');
 });
 
-test('exposes the same root through the namespace API', () => {
-  expect(Typeset.Root).toBe(Typeset);
-
-  render(() => <Typeset.Root data-testid="root">Readable content</Typeset.Root>);
+test('renders through the flat root export', () => {
+  render(() => <Typeset data-testid="root">Readable content</Typeset>);
 
   expect(screen.getByTestId('root')).toHaveTextContent('Readable content');
 });

@@ -1,7 +1,16 @@
 import { expect, test } from '@rstest/core';
 import { fireEvent, render, screen, waitFor } from '@testing-library/react';
 import { createRef, useState } from 'react';
-import { Collapsible, useCollapsible, useCollapsibleContext } from '../src';
+import {
+  Collapsible,
+  CollapsibleBody,
+  CollapsibleContent,
+  CollapsibleIndicator,
+  CollapsibleRootProvider,
+  CollapsibleTrigger,
+  useCollapsible,
+  useCollapsibleContext,
+} from '../src';
 
 function ContextCloseButton() {
   const collapsible = useCollapsibleContext();
@@ -17,20 +26,20 @@ function ProviderCollapsible() {
   const collapsible = useCollapsible({ defaultOpen: true });
 
   return (
-    <Collapsible.RootProvider value={collapsible}>
-      <Collapsible.Trigger>Provider details</Collapsible.Trigger>
-      <Collapsible.Content>
+    <CollapsibleRootProvider value={collapsible}>
+      <CollapsibleTrigger>Provider details</CollapsibleTrigger>
+      <CollapsibleContent>
         <ContextCloseButton />
-      </Collapsible.Content>
-    </Collapsible.RootProvider>
+      </CollapsibleContent>
+    </CollapsibleRootProvider>
   );
 }
 
 test('preserves Ark trigger semantics and lazy unmounting', async () => {
   render(
     <Collapsible lazyMount unmountOnExit>
-      <Collapsible.Trigger>Recovery details</Collapsible.Trigger>
-      <Collapsible.Content>Keep this safe.</Collapsible.Content>
+      <CollapsibleTrigger>Recovery details</CollapsibleTrigger>
+      <CollapsibleContent>Keep this safe.</CollapsibleContent>
     </Collapsible>,
   );
 
@@ -55,8 +64,8 @@ test('forwards the controlled callback details object', async () => {
 
     return (
       <Collapsible open={open} onOpenChange={(details) => setOpen(details.open)}>
-        <Collapsible.Trigger>Controlled details</Collapsible.Trigger>
-        <Collapsible.Content>Controlled content.</Collapsible.Content>
+        <CollapsibleTrigger>Controlled details</CollapsibleTrigger>
+        <CollapsibleContent>Controlled content.</CollapsibleContent>
         <output>Open: {String(open)}</output>
       </Collapsible>
     );
@@ -74,8 +83,8 @@ test('forwards the controlled callback details object', async () => {
 test('preserves disabled state', async () => {
   render(
     <Collapsible disabled>
-      <Collapsible.Trigger>Disabled details</Collapsible.Trigger>
-      <Collapsible.Content>Unavailable details.</Collapsible.Content>
+      <CollapsibleTrigger>Disabled details</CollapsibleTrigger>
+      <CollapsibleContent>Unavailable details.</CollapsibleContent>
     </Collapsible>,
   );
 
@@ -89,10 +98,10 @@ test('preserves disabled state', async () => {
 test('keeps interactive content inert while partially collapsed', async () => {
   render(
     <Collapsible collapsedHeight="2rem">
-      <Collapsible.Trigger>Partial details</Collapsible.Trigger>
-      <Collapsible.Content data-testid="partial-content">
+      <CollapsibleTrigger>Partial details</CollapsibleTrigger>
+      <CollapsibleContent data-testid="partial-content">
         <button type="button">Nested action</button>
-      </Collapsible.Content>
+      </CollapsibleContent>
     </Collapsible>,
   );
 
@@ -114,12 +123,12 @@ test('preserves consumer-owned trigger refs and behavior with asChild', async ()
 
   render(
     <Collapsible>
-      <Collapsible.Trigger asChild ref={triggerRef}>
+      <CollapsibleTrigger asChild ref={triggerRef}>
         <button type="button" className="consumer-trigger">
           Composed details
         </button>
-      </Collapsible.Trigger>
-      <Collapsible.Content>Composed content.</Collapsible.Content>
+      </CollapsibleTrigger>
+      <CollapsibleContent>Composed content.</CollapsibleContent>
     </Collapsible>,
   );
 
@@ -150,13 +159,13 @@ test('keeps provider and descendant context composition connected', async () => 
 test('exposes component-owned Tailwind defaults on every visual part', () => {
   render(
     <Collapsible defaultOpen data-testid="collapsible-root">
-      <Collapsible.Trigger>
+      <CollapsibleTrigger>
         Recovery details
-        <Collapsible.Indicator />
-      </Collapsible.Trigger>
-      <Collapsible.Content>
-        <Collapsible.Body>Keep this safe.</Collapsible.Body>
-      </Collapsible.Content>
+        <CollapsibleIndicator />
+      </CollapsibleTrigger>
+      <CollapsibleContent>
+        <CollapsibleBody>Keep this safe.</CollapsibleBody>
+      </CollapsibleContent>
     </Collapsible>,
   );
 
@@ -184,13 +193,13 @@ test('exposes component-owned Tailwind defaults on every visual part', () => {
 test('lets consumer Tailwind classes override conflicting defaults', () => {
   render(
     <Collapsible className="w-1/2 text-primary" data-testid="collapsible-root">
-      <Collapsible.Trigger className="gap-6 py-4 text-lg">
+      <CollapsibleTrigger className="gap-6 py-4 text-lg">
         Recovery details
-        <Collapsible.Indicator className="size-5" />
-      </Collapsible.Trigger>
-      <Collapsible.Content className="text-lg">
-        <Collapsible.Body className="gap-6 p-6">Keep this safe.</Collapsible.Body>
-      </Collapsible.Content>
+        <CollapsibleIndicator className="size-5" />
+      </CollapsibleTrigger>
+      <CollapsibleContent className="text-lg">
+        <CollapsibleBody className="gap-6 p-6">Keep this safe.</CollapsibleBody>
+      </CollapsibleContent>
     </Collapsible>,
   );
 

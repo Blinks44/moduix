@@ -9,7 +9,7 @@ import { children, splitProps } from 'solid-js';
 import { CheckIcon, CopyIcon } from '@/lib/moduix/icons/ui/Icons';
 import styles from './Clipboard.module.css';
 
-function ClipboardRoot(props: ComponentProps<typeof ClipboardPrimitive.Root>) {
+function Clipboard(props: ComponentProps<typeof ClipboardPrimitive.Root>) {
   const [local, others] = splitProps(props, ['class']);
 
   return (
@@ -119,48 +119,18 @@ function ClipboardValueText(props: ComponentProps<typeof ClipboardPrimitive.Valu
   );
 }
 
-function ClipboardCopyText(props: ComponentProps<typeof ClipboardPrimitive.Indicator>) {
-  const [local, others] = splitProps(props, ['children', 'class', 'copied']);
-  const resolvedChildren = children(() => local.children);
+const ClipboardContext = ClipboardPrimitive.Context;
 
-  return (
-    <ClipboardPrimitive.Indicator
-      class={clsx(styles.indicator, local.class)}
-      copied={local.copied === undefined ? 'Copied' : local.copied}
-      {...others}
-      data-slot="clipboard-copy-text"
-    >
-      {resolvedChildren() === undefined ? 'Copy' : resolvedChildren()}
-    </ClipboardPrimitive.Indicator>
-  );
-}
-
-type ClipboardComponent = typeof ClipboardRoot & {
-  Root: typeof ClipboardRoot;
-  RootProvider: typeof ClipboardRootProvider;
-  Context: typeof ClipboardPrimitive.Context;
-  Label: typeof ClipboardLabel;
-  Control: typeof ClipboardControl;
-  Input: typeof ClipboardInput;
-  Trigger: typeof ClipboardTrigger;
-  Indicator: typeof ClipboardIndicator;
-  CopyText: typeof ClipboardCopyText;
-  ValueText: typeof ClipboardValueText;
-  useClipboard: typeof useClipboard;
-};
-
-const Clipboard: ClipboardComponent = Object.assign(ClipboardRoot, {
-  Root: ClipboardRoot,
-  RootProvider: ClipboardRootProvider,
-  Context: ClipboardPrimitive.Context,
-  Label: ClipboardLabel,
-  Control: ClipboardControl,
-  Input: ClipboardInput,
-  Trigger: ClipboardTrigger,
-  Indicator: ClipboardIndicator,
-  CopyText: ClipboardCopyText,
-  ValueText: ClipboardValueText,
+export {
+  Clipboard,
+  ClipboardContext,
+  ClipboardControl,
+  ClipboardIndicator,
+  ClipboardInput,
+  ClipboardLabel,
+  ClipboardRootProvider,
+  ClipboardTrigger,
+  ClipboardValueText,
   useClipboard,
-});
-
-export { Clipboard, useClipboard, useClipboardContext };
+  useClipboardContext,
+};

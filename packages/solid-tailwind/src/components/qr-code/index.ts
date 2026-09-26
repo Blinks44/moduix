@@ -1,1 +1,1 @@
-export { QrCode, useQrCode, useQrCodeContext } from './QrCode.js';
+export * from './QrCode.js';

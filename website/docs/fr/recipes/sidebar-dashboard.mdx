@@ -15,7 +15,7 @@ latérale. La zone principale contient un aperçu simple avec des cartes de stat
 montrer où placer le contenu de votre application.
 
 Vous pouvez redimensionner la barre latérale en faisant glisser le séparateur ou à l’aide du clavier.
-`Sidebar.Trigger` replie et déplie le panneau, tandis que `Sidebar.Tooltip` conserve les libellés de
+`SidebarTrigger` replie et déplie le panneau, tandis que `SidebarTooltip` conserve les libellés de
 navigation lorsque la barre se réduit à une rangée d’icônes.
 
 Il s’agit d’une composition prête à copier, et non d’un composant `SidebarDashboard` exporté par
@@ -65,14 +65,15 @@ L’aperçu interactif utilise le paquet React. Les onglets de code présentent 
 
 <ShadcnInstall packageName={['button', 'card', 'collapsible', 'menu', 'sidebar']} itemKind="recipe" frameworks copiedSource dependencies={['lucide-react']} solidDependencies={['lucide-solid']} />
 
-## Adapter la recette à l’application
+## Utiliser la recette dans votre application
 
 Remplacez les ancres `#overview`, `#website` et les autres liens de démonstration par les routes de
 votre application. Si votre routeur fournit un composant de lien, utilisez-le avec
-`Sidebar.NavigationButton` ou `Sidebar.NavigationSubButton` et la prop `asChild` pour lui laisser
-gérer la navigation. Marquez la destination active avec `aria-current="page"`.
+`SidebarNavigationButton` ou `SidebarNavigationSubButton` et la prop `asChild` pour lui laisser
+gérer la navigation. Marquez la destination active avec `aria-current="page"`. Les parties `Sidebar`
+sont décrites dans la [documentation de Sidebar](/docs/sidebar).
 
-Conservez `Sidebar.Tooltip` autour des boutons de navigation afin que leurs libellés restent
+Conservez `SidebarTooltip` autour des boutons de navigation afin que leurs libellés restent
 accessibles dans la barre repliée. Utilisez `Collapsible` pour les groupes imbriqués et `Menu` pour
 les actions de l’espace de travail. Reliez le bouton `New project` au véritable parcours de création
 d’un projet, puis remplacez les statistiques et le texte de démonstration de la zone principale par

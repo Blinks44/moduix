@@ -43,7 +43,7 @@ import sidebarSolidWorkspaceSelect from '../../../snippets/sidebar/solid/workspa
 
 Соберите панель навигации, ручку изменения размера и основную область содержимого как прямых
 потомков корня. Стандартных id и ограничений достаточно для обычного макета с левой боковой
-панелью. Оборачивайте кнопки навигации только с иконками в `Sidebar.Tooltip`, чтобы подписи
+панелью. Оборачивайте кнопки навигации только с иконками в `SidebarTooltip`, чтобы подписи
 оставались доступны после сворачивания.
 
 <ExampleFrame variant="component">
@@ -108,74 +108,74 @@ import sidebarSolidWorkspaceSelect from '../../../snippets/sidebar/solid/workspa
 ## Анатомия
 
 ```text
-Sidebar / Sidebar.Root
-├─ Sidebar.Panel[id="sidebar"]
-│  ├─ Sidebar.Header
-│  │  ├─ Sidebar.Label
-│  │  └─ Sidebar.Input
-│  ├─ Sidebar.Content
-│  │  └─ Sidebar.Group
-│  │     ├─ Sidebar.GroupHeader
-│  │     │  ├─ Sidebar.GroupLabel
-│  │     │  └─ Sidebar.GroupAction
-│  │     └─ Sidebar.NavigationList
-│  │        └─ Sidebar.NavigationItem
-│  │           ├─ Sidebar.NavigationButton
-│  │           ├─ Sidebar.NavigationBadge (необязательно)
-│  │           ├─ Sidebar.ExpandedContent
-│  │           ├─ Sidebar.CollapsedContent
-│  │           └─ Sidebar.NavigationSubList
-│  │              └─ Sidebar.NavigationSubItem
-│  │                 ├─ Sidebar.NavigationSubButton
-│  │                 └─ Sidebar.NavigationBadge (необязательно)
-│  └─ Sidebar.Footer
-│     └─ Sidebar.Separator
-├─ Sidebar.ResizeTrigger
-├─ Sidebar.Trigger
-└─ Sidebar.Inset[id="content"]
+Sidebar
+├─ SidebarPanel[id="sidebar"]
+│  ├─ SidebarHeader
+│  │  ├─ SidebarLabel
+│  │  └─ SidebarInput
+│  ├─ SidebarContent
+│  │  └─ SidebarGroup
+│  │     ├─ SidebarGroupHeader
+│  │     │  ├─ SidebarGroupLabel
+│  │     │  └─ SidebarGroupAction
+│  │     └─ SidebarNavigationList
+│  │        └─ SidebarNavigationItem
+│  │           ├─ SidebarNavigationButton
+│  │           ├─ SidebarNavigationBadge (необязательно)
+│  │           ├─ SidebarExpandedContent
+│  │           ├─ SidebarCollapsedContent
+│  │           └─ SidebarNavigationSubList
+│  │              └─ SidebarNavigationSubItem
+│  │                 ├─ SidebarNavigationSubButton
+│  │                 └─ SidebarNavigationBadge (необязательно)
+│  └─ SidebarFooter
+│     └─ SidebarSeparator
+├─ SidebarResizeTrigger
+├─ SidebarTrigger
+└─ SidebarInset[id="content"]
 ```
 
 | Часть | Назначение |
 | --- | --- |
-| `Sidebar` / `Sidebar.Root` | Корень Ark Splitter с настройками для двух панелей. |
-| `Sidebar.Panel` | Сворачиваемая панель навигации с id `"sidebar"` по умолчанию. |
-| `Sidebar.Inset` | Основная область содержимого с id `"content"` по умолчанию. |
-| `Sidebar.ResizeTrigger` | Доступная линия-ручка для изменения размера мышью и клавиатурой; по умолчанию она рендерит общий `Splitter.ResizeTriggerIndicator`, а собственные children заменяют его. |
-| `Sidebar.Trigger` | Управление сворачиванием и разворачиванием панели. |
-| `Sidebar.Header` | Непрокручиваемая верхняя область. |
-| `Sidebar.Content` | Прокручиваемая центральная область. |
-| `Sidebar.Footer` | Непрокручиваемая нижняя область. |
-| `Sidebar.Group` | Семантическая секция навигации. |
-| `Sidebar.NavigationButton` | Кнопка или ссылка через `asChild` с состояниями active и size. |
-| `Sidebar.NavigationBadge` | Необязательный счётчик рядом с обычной кнопкой навигации или вложенной кнопкой. |
-| `Sidebar.ExpandedContent` | Содержимое при развернутой панели. |
-| `Sidebar.CollapsedContent` | Содержимое при свернутой панели. |
-| `Sidebar.Tooltip` | Подпись для свернутого режима с учетом стороны панели. |
-| `Sidebar.NavigationSubList` | Вложенный список навигации. |
+| `Sidebar` | Корень Ark Splitter с настройками для двух панелей. |
+| `SidebarPanel` | Сворачиваемая панель навигации с id `"sidebar"` по умолчанию. |
+| `SidebarInset` | Основная область содержимого с id `"content"` по умолчанию. |
+| `SidebarResizeTrigger` | Доступная линия-ручка для изменения размера мышью и клавиатурой; по умолчанию она рендерит общий `SplitterResizeTriggerIndicator`, а собственные children заменяют его. |
+| `SidebarTrigger` | Управление сворачиванием и разворачиванием панели. |
+| `SidebarHeader` | Непрокручиваемая верхняя область. |
+| `SidebarContent` | Прокручиваемая центральная область. |
+| `SidebarFooter` | Непрокручиваемая нижняя область. |
+| `SidebarGroup` | Семантическая секция навигации. |
+| `SidebarNavigationButton` | Кнопка или ссылка через `asChild` с состояниями active и size. |
+| `SidebarNavigationBadge` | Необязательный счётчик рядом с обычной кнопкой навигации или вложенной кнопкой. |
+| `SidebarExpandedContent` | Содержимое при развернутой панели. |
+| `SidebarCollapsedContent` | Содержимое при свернутой панели. |
+| `SidebarTooltip` | Подпись для свернутого режима с учетом стороны панели. |
+| `SidebarNavigationSubList` | Вложенный список навигации. |
 
 ## Композиция
 
 `Sidebar` владеет состоянием раскладки Splitter, а вложенные `Collapsible`, всплывающие `Menu` и
-`Sidebar.Tooltip` управляют каждый своим состоянием. Оставляйте `Panel`, `ResizeTrigger`, `Trigger`
-и `Inset` прямыми потомками и располагайте их визуально: для левой панели сначала `Panel`, для
-правой сначала `Inset`. `ExpandedContent` и `CollapsedContent` только переключают видимые ветки,
+`SidebarTooltip` управляют каждый своим состоянием. Оставляйте `SidebarPanel`, `SidebarResizeTrigger`, `SidebarTrigger`
+и `SidebarInset` прямыми потомками и располагайте их визуально: для левой панели сначала `SidebarPanel`, для
+правой сначала `SidebarInset`. `SidebarExpandedContent` и `SidebarCollapsedContent` только переключают видимые ветки,
 поэтому через них удобно сочетать обычные ссылки `Collapsible` и свернутое меню `Menu`, не перенося
 состояние в Sidebar. Для сохранения ширины управляйте `size`, обновляйте его в `onResize(details)`
 и сохраняйте итоговое значение в `onResizeEnd(details)`. В Solid `asChild` использует render-функцию,
 получающую объединенные props.
-Помещайте `NavigationBadge` после обычного `NavigationButton` или `NavigationSubButton`. Компонент
+Помещайте `SidebarNavigationBadge` после обычного `SidebarNavigationButton` или `SidebarNavigationSubButton`. Компонент
 оставляет справа место для счётчика и скрывается вместе с остальными иконками в компактном режиме.
 
 `useSidebar()` из соответствующего пакета фреймворка возвращает состояние боковой панели в виде `collapsed`,
 `side` и `state`, а также колбэк `toggleSidebar()`. В Solid это аксессоры, которые читаются как
-`collapsed()` и т. д. Хук читает контекст Splitter, созданный `Sidebar`/`Sidebar.Root`, поэтому
+`collapsed()` и т. д. Хук читает контекст Splitter, созданный `Sidebar`, поэтому
 используйте его только внутри дерева Sidebar.
 
 ## Примеры
 
 ### Вложенная навигация
 
-Используйте `ExpandedContent` для обычных вложенных ссылок, а `CollapsedContent` - для тех же
+Используйте `SidebarExpandedContent` для обычных вложенных ссылок, а `SidebarCollapsedContent` - для тех же
 ссылок во всплывающем меню. Обе ветки остаются композицией приложения.
 
 <ExampleFrame variant="component">
@@ -208,7 +208,7 @@ Sidebar / Sidebar.Root
 
 ### Собственная область прокрутки
 
-Нативная прокрутка используется по умолчанию. Поместите `ScrollArea` внутрь `Sidebar.Content`, если
+Нативная прокрутка используется по умолчанию. Поместите `ScrollArea` внутрь `SidebarContent`, если
 нужны стилизованный скроллбар или затухание у края, и оставьте его viewport единственным контейнером
 прокрутки.
 
@@ -309,7 +309,7 @@ Sidebar / Sidebar.Root
 
 ### Боковая панель справа
 
-Передайте `side="right"` и расположите `Inset`, `Trigger`, `ResizeTrigger` и `Panel` в таком
+Передайте `side="right"` и расположите `SidebarInset`, `SidebarTrigger`, `SidebarResizeTrigger` и `SidebarPanel` в таком
 порядке. Sidebar автоматически настроит панели, id триггеров, положение и направление шеврона.
 
 <ExampleFrame variant="component">
@@ -342,8 +342,8 @@ Sidebar / Sidebar.Root
 
 ### Выбор рабочего пространства
 
-Используйте `Select.Trigger asChild` вместе с `Sidebar.NavigationButton`. Поместите выбранное
-значение в `Sidebar.Label`, оставьте `Select.Indicator` прямым потомком триггера и отметьте
+Используйте `SelectTrigger asChild` вместе с `SidebarNavigationButton`. Поместите выбранное
+значение в `SidebarLabel`, оставьте `SelectIndicator` прямым потомком триггера и отметьте
 компактный визуальный якорь атрибутом `data-sidebar-icon`.
 
 <ExampleFrame variant="component">
@@ -410,9 +410,9 @@ Sidebar / Sidebar.Root
 ## Стилизация
 
 Каждая семантическая часть принимает `className` в React и `class` в Solid и предоставляет стабильный
-хук `data-slot="sidebar-*"`. `Sidebar.Panel` добавляет `data-state="expanded"` или `"collapsed"`,
-а части раскладки получают `data-side`. `NavigationButton` и `NavigationSubButton` получают
-`data-active`, а `NavigationButton` также `data-size`.
+хук `data-slot="sidebar-*"`. `SidebarPanel` добавляет `data-state="expanded"` или `"collapsed"`,
+а части раскладки получают `data-side`. `SidebarNavigationButton` и `SidebarNavigationSubButton` получают
+`data-active`, а `SidebarNavigationButton` также `data-size`.
 
 В свернутом режиме подписи и названия групп визуально скрываются, но остаются доступны ассистивным
 технологиям. Вложенные списки, поля, действия, бейджи и индикаторы скрываются, чтобы ряд иконок
@@ -439,6 +439,6 @@ Sidebar / Sidebar.Root
 
 ### Хуки стилизации
 
-Части оболочки Sidebar также предоставляют `data-scope="sidebar"` и `data-part`. `Sidebar.Input` и
-`Sidebar.Separator` сохраняют scope базовых примитивов, а части на базе Ark сохраняют атрибуты
+Части оболочки Sidebar также предоставляют `data-scope="sidebar"` и `data-part`. `SidebarInput` и
+`SidebarSeparator` сохраняют scope базовых примитивов, а части на базе Ark сохраняют атрибуты
 состояния Splitter, включая `data-focus`, `data-dragging`, `data-disabled` и `data-orientation`.

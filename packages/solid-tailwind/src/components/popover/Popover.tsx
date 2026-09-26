@@ -19,7 +19,7 @@ type PopoverRootProviderProps = ComponentProps<typeof PopoverPrimitive.RootProvi
 };
 type PopoverCloseIconProps = Omit<ComponentProps<typeof PopoverPrimitive.CloseTrigger>, 'asChild'>;
 
-function PopoverRoot(props: PopoverRootProps) {
+function Popover(props: PopoverRootProps) {
   const [local, others] = splitProps(props, [
     'children',
     'lazyMount',
@@ -209,7 +209,7 @@ function PopoverCloseIcon(props: PopoverCloseIconProps) {
   return (
     <PopoverPrimitive.CloseTrigger
       asChild={(triggerProps) => (
-        <CloseButton.Root
+        <CloseButton
           {...triggerProps()}
           data-slot="popover-close-icon"
           aria-label={local['aria-label'] ?? DEFAULT_CLOSE_BUTTON_LABEL}
@@ -220,7 +220,7 @@ function PopoverCloseIcon(props: PopoverCloseIconProps) {
           )}
         >
           {resolvedChildren()}
-        </CloseButton.Root>
+        </CloseButton>
       )}
       {...others}
     />
@@ -260,25 +260,27 @@ function PopoverFooter(props: HTMLArkProps<'div'>) {
   );
 }
 
-const Popover = Object.assign(PopoverRoot, {
-  Root: PopoverRoot,
-  RootProvider: PopoverRootProvider,
-  Context: PopoverPrimitive.Context,
-  Anchor: PopoverAnchor,
-  Trigger: PopoverTrigger,
-  Indicator: PopoverIndicator,
-  Positioner: PopoverPositioner,
-  Content: PopoverContent,
-  Arrow: PopoverArrow,
-  ArrowTip: PopoverArrowTip,
-  Title: PopoverTitle,
-  Description: PopoverDescription,
-  CloseTrigger: PopoverCloseTrigger,
-  CloseIcon: PopoverCloseIcon,
-  Header: PopoverHeader,
-  Body: PopoverBody,
-  Footer: PopoverFooter,
-});
+const PopoverContext = PopoverPrimitive.Context;
 
-export { Popover, usePopover, usePopoverContext };
+export {
+  Popover,
+  PopoverAnchor,
+  PopoverArrow,
+  PopoverArrowTip,
+  PopoverBody,
+  PopoverCloseIcon,
+  PopoverCloseTrigger,
+  PopoverContent,
+  PopoverContext,
+  PopoverDescription,
+  PopoverFooter,
+  PopoverHeader,
+  PopoverIndicator,
+  PopoverPositioner,
+  PopoverRootProvider,
+  PopoverTitle,
+  PopoverTrigger,
+  usePopover,
+  usePopoverContext,
+};
 export type { PopoverRootProps, PopoverRootProviderProps };

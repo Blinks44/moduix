@@ -1,1 +1,1 @@
-export { Chart } from './Chart.js';
+export * from './Chart.js';

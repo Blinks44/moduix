@@ -1,0 +1,23 @@
+{
+  "$schema": "https://ui.shadcn.com/schema/registry-item.json",
+  "name": "spinner",
+  "title": "Spinner",
+  "description": "moduix Vue Tailwind Spinner component.",
+  "dependencies": ["@ark-ui/vue", "class-variance-authority", "clsx", "tailwind-merge"],
+  "registryDependencies": ["@moduix-vue-tailwind/foundation", "@moduix-vue-tailwind/cn"],
+  "files": [
+    {
+      "path": "src/components/spinner/Spinner.vue",
+      "content": "<script setup lang=\"ts\">\nimport { ark } from '@ark-ui/vue/factory';\nimport type { HTMLArkProps } from '@ark-ui/vue/factory';\nimport { cva } from 'class-variance-authority';\nimport { computed, useAttrs } from 'vue';\nimport type { HTMLAttributes } from 'vue';\nimport { cn } from '@/lib/moduix/cn';\n\ndefineOptions({ inheritAttrs: false });\n\ntype SpinnerSize = 'inherit' | 'xs' | 'sm' | 'md' | 'lg' | 'xl';\n\nconst spinnerVariants = cva('inline-flex shrink-0 items-center justify-center align-middle', {\n  variants: {\n    size: {\n      inherit: 'size-[1em]',\n      xs: 'size-3',\n      sm: 'size-4',\n      md: 'size-5',\n      lg: 'size-7',\n      xl: 'size-control-md',\n    },\n  },\n  defaultVariants: {\n    size: 'md',\n  },\n});\n\nexport interface Props extends /* @vue-ignore */ HTMLArkProps<'span'> {\n  asChild?: boolean;\n  class?: HTMLAttributes['class'];\n  decorative?: boolean;\n  size?: SpinnerSize;\n}\n\nconst { asChild = false, class: className, decorative = false, size = 'md' } = defineProps<Props>();\n\ndefineSlots<{ default?: () => unknown }>();\n\nconst attrs = useAttrs();\nconst ariaLabel = computed(() => attrs['aria-label'] as string | undefined);\nconst ariaLabelledBy = computed(() => attrs['aria-labelledby'] as string | undefined);\nconst accessibleLabel = computed(() =>\n  decorative ? undefined : (ariaLabel.value ?? (ariaLabelledBy.value ? undefined : 'Loading')),\n);\n</script>\n\n<template>\n  <ark.span\n    v-bind=\"attrs\"\n    :as-child=\"asChild\"\n    data-scope=\"spinner\"\n    data-part=\"root\"\n    data-slot=\"spinner-root\"\n    :data-size=\"size\"\n    :role=\"decorative && !asChild ? 'presentation' : decorative ? undefined : 'status'\"\n    :aria-hidden=\"decorative && !asChild ? true : undefined\"\n    :aria-label=\"accessibleLabel\"\n    :aria-labelledby=\"decorative ? undefined : ariaLabelledBy\"\n    :class=\"cn(spinnerVariants({ size }), className)\"\n  >\n    <template v-if=\"asChild\">\n      <slot />\n    </template>\n    <template v-else>\n      <span\n        data-scope=\"spinner\"\n        data-part=\"indicator\"\n        data-slot=\"spinner-indicator\"\n        class=\"inline-flex size-full animate-[var(--moduix-animation-spin)] items-center justify-center motion-reduce:animate-none [&_svg]:size-full\"\n        aria-hidden=\"true\"\n      >\n        <slot>\n          <span\n            data-scope=\"spinner\"\n            data-part=\"ring\"\n            data-slot=\"spinner-ring\"\n            class=\"box-border block size-full rounded-full border-2 border-solid border-current/[22%] [border-block-start-color:currentColor]\"\n          />\n        </slot>\n      </span>\n    </template>\n  </ark.span>\n</template>",
+      "type": "registry:component",
+      "target": "@components/ui/spinner/Spinner.vue"
+    },
+    {
+      "path": "src/components/spinner/index.ts",
+      "content": "import Spinner from './Spinner.vue';\n\nexport { Spinner };",
+      "type": "registry:component",
+      "target": "@components/ui/spinner/index.ts"
+    }
+  ],
+  "type": "registry:item"
+}

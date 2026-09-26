@@ -1,4 +1,10 @@
-import { Collapsible } from '@moduix/react/collapsible';
+import {
+  Collapsible,
+  CollapsibleBody,
+  CollapsibleContent,
+  CollapsibleIndicator,
+  CollapsibleTrigger,
+} from '@moduix/react/collapsible';
 import { useState } from 'react';
 import { PreviewMeta } from '@/components/mdx/Components';
 import styles from '@/components/examples/collapsible/collapsible-controlled.module.css';
@@ -15,19 +21,19 @@ export default function ControlledCollapsibleDemo() {
         open={open}
         onOpenChange={(details) => setOpen(details.open)}
       >
-        <Collapsible.Trigger>
+        <CollapsibleTrigger>
           Recovery keys
-          <Collapsible.Indicator />
-        </Collapsible.Trigger>
-        <Collapsible.Content>
-          <Collapsible.Body>
+          <CollapsibleIndicator />
+        </CollapsibleTrigger>
+        <CollapsibleContent>
+          <CollapsibleBody>
             <ul className={styles.keysList}>
               {recoveryKeys.map((key) => (
                 <li key={key}>{key}</li>
               ))}
             </ul>
-          </Collapsible.Body>
-        </Collapsible.Content>
+          </CollapsibleBody>
+        </CollapsibleContent>
       </Collapsible>
       <PreviewMeta>
         <output>State: {open ? 'open' : 'closed'}</output>

@@ -126,7 +126,8 @@ import '@moduix/solid/style.css';
 </Tabs>
 
 Ce fichier définit les tokens partagés et la couche de base dont dépendent les styles des composants. Les styles propres
-à chaque composant sont ensuite chargés avec le composant importé.
+à chaque composant sont ensuite chargés avec le composant importé. Ainsi, `style.css` reste limité au socle global et
+les styles des composants inutilisés peuvent rester hors du bundle.
 
 Tous les tokens de design moduix utilisent l'espace de noms `--moduix-*`. Votre projet peut conserver ses propres noms
 de tokens et les associer sélectivement dans un fichier de styles chargé après `style.css` ; consultez
@@ -156,8 +157,6 @@ import '@moduix/solid/style.css';
 
 Si votre application possède déjà sa propre réinitialisation correcte, utilisez-la à la place de celle
 de moduix.
-
-Ainsi, `style.css` reste limité au socle global et les styles des composants inutilisés peuvent rester hors du bundle.
 
 Pour une base visuelle prête à l’emploi, importez l’un des préréglages facultatifs après `style.css` ; consultez
 [Thèmes](/docs/themes).
@@ -435,29 +434,15 @@ body {
 
 ## Styles
 
-moduix fonctionne avec l’approche de style déjà utilisée dans votre projet :
-
-- CSS natif avec des sélecteurs globaux, des couches de cascade et des variables CSS.
-- CSS Modules via `className` avec React ou `class` avec Solid et les props de classe des slots.
-- Classes utilitaires Tailwind CSS pour la mise en page et les modifications ponctuelles.
-- Bibliothèques CSS-in-JS qui ajoutent des classes ou transmettent des styles via vos propres composants.
-
-Avec les CSS Modules, la densité par défaut utilise `--moduix-size-md: 36px` pour les contrôles
-principaux et `--moduix-size-sm: 32px` pour les lignes des éléments contextuels. Modifier ces tokens
-met à jour les composants associés. Dans les variantes Tailwind, les dimensions sont exprimées par
-des utilitaires et se remplacent avec les classes de l’application.
-
-Les pages des composants répertorient les points de personnalisation communs et les variables
-publiques disponibles avec les CSS Modules. Les variantes Tailwind utilisent des utilitaires
-sémantiques et les classes fournies par l’application au lieu de reproduire ces variables. Consultez
-[Tokens](/docs/tokens) pour la hiérarchie complète et [Animations](/docs/animations) pour les
-réglages d’animation.
+Les classes du consommateur, les variables de composants, les tokens et le diagnostic de la cascade
+sont traités dans le guide dédié [Styles](/docs/styling). Consultez [Tokens](/docs/tokens) pour la
+hiérarchie des tokens et [Animations](/docs/animations) pour les recettes de mouvement.
 
 ## Résoudre les problèmes
 
 | Problème | Vérification |
 | --- | --- |
-| Les composants s'affichent sans styles | Vérifiez l’ordre des imports du mode de style choisi. |
+| Les composants s'affichent sans styles | Vérifiez que la feuille de styles de base est importée dans votre point d'entrée et qu'elle se charge avant les styles des composants ; consultez [Styles](/docs/styling). |
 | Le contenu masqué d’un composant reste visible | Avec CSS Modules, vérifiez que la réinitialisation de moduix ou celle de votre application est chargée. Pour l’approche Tailwind, conservez Preflight. |
 | Le bundler ne trouve pas un import de composant généré | Vérifiez l'alias `@/*` dans TypeScript et votre bundler, puis vérifiez `components.json`. |
 | Une fenêtre contextuelle apparaît sous le contenu de la page | Ajoutez `isolation: isolate` à la racine de l'application et évitez les `z-index` globaux sans rapport. |

@@ -1,5 +1,12 @@
 import { createListCollection } from '@ark-ui/react/collection';
-import { Listbox } from '@moduix/react/listbox';
+import {
+  Listbox,
+  ListboxContent,
+  ListboxItem,
+  ListboxItemIndicator,
+  ListboxItemText,
+  ListboxLabel,
+} from '@moduix/react/listbox';
 import styles from '@/components/examples/listbox/listbox-extended-selection.module.css';
 
 const frameworks = createListCollection({
@@ -34,15 +41,15 @@ const frameworks = createListCollection({
 export default function ExtendedListboxDemo() {
   return (
     <Listbox collection={frameworks} className={styles.root} selectionMode="extended">
-      <Listbox.Label>Hold Cmd or Ctrl to select multiple</Listbox.Label>
-      <Listbox.Content>
+      <ListboxLabel>Hold Cmd or Ctrl to select multiple</ListboxLabel>
+      <ListboxContent>
         {frameworks.items.map((item) => (
-          <Listbox.Item key={item.value} item={item}>
-            <Listbox.ItemText>{item.label}</Listbox.ItemText>
-            <Listbox.ItemIndicator />
-          </Listbox.Item>
+          <ListboxItem key={item.value} item={item}>
+            <ListboxItemText>{item.label}</ListboxItemText>
+            <ListboxItemIndicator />
+          </ListboxItem>
         ))}
-      </Listbox.Content>
+      </ListboxContent>
     </Listbox>
   );
 }

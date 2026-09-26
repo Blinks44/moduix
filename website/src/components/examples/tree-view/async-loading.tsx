@@ -1,4 +1,15 @@
 import {
+  TreeViewTree,
+  TreeViewLabel,
+  TreeViewItemText,
+  TreeViewItem,
+  TreeViewBranchIndentGuide,
+  TreeViewBranchContent,
+  TreeViewBranchText,
+  TreeViewBranchIndicator,
+  TreeViewBranchControl,
+  TreeViewBranch,
+  TreeViewNode,
   TreeView,
   createTreeCollection,
   type TreeViewLoadChildrenDetails,
@@ -47,18 +58,18 @@ function loadChildren({ valuePath }: TreeViewLoadChildrenDetails<FileNode>) {
 
 function FileTreeNode({ node, indexPath }: TreeViewNodeProviderProps<FileNode>) {
   return (
-    <TreeView.Node node={node} indexPath={indexPath}>
+    <TreeViewNode node={node} indexPath={indexPath}>
       {({ node: currentNode, indexPath: currentIndexPath, state }) =>
         state.isBranch ? (
-          <TreeView.Branch>
-            <TreeView.BranchControl>
-              <TreeView.BranchIndicator />
-              <TreeView.BranchText>
+          <TreeViewBranch>
+            <TreeViewBranchControl>
+              <TreeViewBranchIndicator />
+              <TreeViewBranchText>
                 {state.loading ? 'Loading…' : currentNode.name}
-              </TreeView.BranchText>
-            </TreeView.BranchControl>
-            <TreeView.BranchContent>
-              <TreeView.BranchIndentGuide />
+              </TreeViewBranchText>
+            </TreeViewBranchControl>
+            <TreeViewBranchContent>
+              <TreeViewBranchIndentGuide />
               {currentNode.children?.map((child, index) => (
                 <FileTreeNode
                   key={child.id}
@@ -66,15 +77,15 @@ function FileTreeNode({ node, indexPath }: TreeViewNodeProviderProps<FileNode>) 
                   indexPath={[...currentIndexPath, index]}
                 />
               ))}
-            </TreeView.BranchContent>
-          </TreeView.Branch>
+            </TreeViewBranchContent>
+          </TreeViewBranch>
         ) : (
-          <TreeView.Item>
-            <TreeView.ItemText>{currentNode.name}</TreeView.ItemText>
-          </TreeView.Item>
+          <TreeViewItem>
+            <TreeViewItemText>{currentNode.name}</TreeViewItemText>
+          </TreeViewItem>
         )
       }
-    </TreeView.Node>
+    </TreeViewNode>
   );
 }
 
@@ -87,12 +98,12 @@ export default function AsyncTreeViewDemo() {
       loadChildren={loadChildren}
       onLoadChildrenComplete={(details) => setCollection(details.collection)}
     >
-      <TreeView.Label>Lazy folders</TreeView.Label>
-      <TreeView.Tree>
+      <TreeViewLabel>Lazy folders</TreeViewLabel>
+      <TreeViewTree>
         {collection.rootNode.children?.map((node, index) => (
           <FileTreeNode key={node.id} node={node} indexPath={[index]} />
         ))}
-      </TreeView.Tree>
+      </TreeViewTree>
     </TreeView>
   );
 }

@@ -1,4 +1,14 @@
-import { Table } from '@moduix/react/table';
+import {
+  Table,
+  TableBody,
+  TableCell,
+  TableColumn,
+  TableColumnGroup,
+  TableColumnHeader,
+  TableHeader,
+  TableRow,
+  TableScrollArea,
+} from '@moduix/react/table';
 
 const products = [
   {
@@ -20,30 +30,30 @@ const products = [
 
 export default function TableColumnGroupAndBordersDemo() {
   return (
-    <Table.ScrollArea>
+    <TableScrollArea>
       <Table showColumnBorder>
-        <Table.ColumnGroup>
-          <Table.Column htmlWidth="42%" />
-          <Table.Column htmlWidth="28%" />
-          <Table.Column htmlWidth="30%" />
-        </Table.ColumnGroup>
-        <Table.Header>
-          <Table.Row>
-            <Table.ColumnHeader>Product</Table.ColumnHeader>
-            <Table.ColumnHeader>Category</Table.ColumnHeader>
-            <Table.ColumnHeader numeric>Price</Table.ColumnHeader>
-          </Table.Row>
-        </Table.Header>
-        <Table.Body>
+        <TableColumnGroup>
+          <TableColumn htmlWidth="42%" />
+          <TableColumn htmlWidth="28%" />
+          <TableColumn htmlWidth="30%" />
+        </TableColumnGroup>
+        <TableHeader>
+          <TableRow>
+            <TableColumnHeader>Product</TableColumnHeader>
+            <TableColumnHeader>Category</TableColumnHeader>
+            <TableColumnHeader numeric>Price</TableColumnHeader>
+          </TableRow>
+        </TableHeader>
+        <TableBody>
           {products.map((product) => (
-            <Table.Row key={product.name}>
-              <Table.Cell>{product.name}</Table.Cell>
-              <Table.Cell>{product.category}</Table.Cell>
-              <Table.Cell numeric>{product.price}</Table.Cell>
-            </Table.Row>
+            <TableRow key={product.name}>
+              <TableCell>{product.name}</TableCell>
+              <TableCell>{product.category}</TableCell>
+              <TableCell numeric>{product.price}</TableCell>
+            </TableRow>
           ))}
-        </Table.Body>
+        </TableBody>
       </Table>
-    </Table.ScrollArea>
+    </TableScrollArea>
   );
 }

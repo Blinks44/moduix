@@ -11,10 +11,10 @@ import type { ComponentProps, ComponentRef } from 'react';
 import { forwardRef } from 'react';
 import { cn } from '@/internal/cn';
 
-const SplitterRoot = forwardRef<
+const Splitter = forwardRef<
   ComponentRef<typeof SplitterPrimitive.Root>,
   ComponentProps<typeof SplitterPrimitive.Root>
->(function SplitterRoot({ className, style, ...props }, ref) {
+>(function Splitter({ className, style, ...props }, ref) {
   return (
     <SplitterPrimitive.Root
       ref={ref}
@@ -101,18 +101,16 @@ const SplitterResizeTrigger = forwardRef<
   );
 });
 
-const Splitter = Object.assign(SplitterRoot, {
-  Root: SplitterRoot,
-  RootProvider: SplitterRootProvider,
-  Context: SplitterPrimitive.Context,
-  Panel: SplitterPanel,
-  ResizeTrigger: SplitterResizeTrigger,
-  ResizeTriggerIndicator: SplitterResizeTriggerIndicator,
-});
+const SplitterContext = SplitterPrimitive.Context;
 
 export {
   createSplitterRegistry,
   Splitter,
+  SplitterContext,
+  SplitterPanel,
+  SplitterResizeTrigger,
+  SplitterResizeTriggerIndicator,
+  SplitterRootProvider,
   type SplitterPanelData,
   useSplitter,
   useSplitterContext,

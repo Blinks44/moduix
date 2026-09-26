@@ -50,7 +50,7 @@ import toggleGroupSolidVertical from '../../../snippets/toggle-group/solid/verti
 
 Интерактивный
 
-Используйте `ToggleGroup` как корневой компонент и добавьте по одному `ToggleGroup.Item` на каждый
+Используйте `ToggleGroup` как корневой компонент и добавьте по одному `ToggleGroupItem` на каждый
 вариант. Задайте группе доступное имя через `aria-label` или `aria-labelledby`.
 
 <ExampleFrame variant="component">
@@ -112,33 +112,33 @@ import toggleGroupSolidVertical from '../../../snippets/toggle-group/solid/verti
 ## Анатомия
 
 ```text
-ToggleGroup / ToggleGroup.Root
-├─ ToggleGroup.Context (необязательно)
-└─ ToggleGroup.Item[value]
+ToggleGroup
+├─ ToggleGroupContext (необязательно)
+└─ ToggleGroupItem[value]
 
-ToggleGroup.RootProvider
-└─ ToggleGroup.Item[value]
+ToggleGroupRootProvider
+└─ ToggleGroupItem[value]
 ```
 
-| Часть                               | Назначение                                                                            |
-| ----------------------------------- | ------------------------------------------------------------------------------------- |
-| `ToggleGroup` / `ToggleGroup.Root`  | Корневая часть, управляющая выбранными значениями, фокусом, ориентацией и отключённым состоянием. |
-| `ToggleGroup.Item`                  | Интерактивный элемент с обязательным `value` и состоянием выбора, которым управляет Ark. |
-| `ToggleGroup.RootProvider`          | Подключает дерево элементов к состоянию, созданному с помощью `useToggleGroup()`.     |
-| `ToggleGroup.Context`               | Передаёт текущее состояние группы через render prop.                                  |
+| Часть                     | Назначение                                                                            |
+| ------------------------ | ------------------------------------------------------------------------------------- |
+| `ToggleGroup`            | Корневая часть, управляющая выбранными значениями, фокусом, ориентацией и отключённым состоянием. |
+| `ToggleGroupItem`        | Интерактивный элемент с обязательным `value` и состоянием выбора, которым управляет Ark. |
+| `ToggleGroupRootProvider` | Подключает дерево элементов к состоянию, созданному с помощью `useToggleGroup()`.     |
+| `ToggleGroupContext`     | Передаёт текущее состояние группы через render prop.                                  |
 
 ## Композиция
 
 Используйте `defaultValue` для неконтролируемой группы, а `value` вместе с `onValueChange(details)`,
 если состояние выбора хранится в другой части приложения. Оба свойства имеют тип `string[]` в режимах
-одиночного и множественного выбора. Используйте `ToggleGroup.RootProvider` с `useToggleGroup()` из
+одиночного и множественного выбора. Используйте `ToggleGroupRootProvider` с `useToggleGroup()` из
 пакета нужного фреймворка, если состояние нужно создать вне дерева. В React хранилище читается как
 объект, а в Solid его реактивное состояние доступно через возвращаемую функцию.
 
-Используйте `ToggleGroup.Context` или `useToggleGroupContext()`, если пользовательскому элементу нужно
+Используйте `ToggleGroupContext` или `useToggleGroupContext()`, если пользовательскому элементу нужно
 текущее состояние группы. При использовании `asChild` React получает одного потомка, который ведёт себя
 как кнопка, а Solid получает render function, возвращающую элемент с поведением Ark. Не используйте
-`ToggleGroup.Root` и `ToggleGroup.RootProvider` одновременно для одного экземпляра состояния.
+`ToggleGroup` и `ToggleGroupRootProvider` одновременно для одного экземпляра состояния.
 
 ## Примеры
 
@@ -180,7 +180,7 @@ ToggleGroup.RootProvider
 ### Контекст
 
 Используйте `useToggleGroupContext()` в пользовательском элементе, если его содержимому нужно текущее
-состояние группы. `ToggleGroup.Context` предоставляет то же состояние через render prop.
+состояние группы. `ToggleGroupContext` предоставляет то же состояние через render prop.
 
 <ExampleFrame variant="component">
   <ToggleGroupContext />
@@ -427,7 +427,7 @@ ToggleGroup.RootProvider
 
 ### Расширенная настройка
 
-Используйте `ToggleGroup.RootProvider` с `useToggleGroup()`, если экземпляр состояния нужно создать
+Используйте `ToggleGroupRootProvider` с `useToggleGroup()`, если экземпляр состояния нужно создать
 вне дерева отрисованной группы.
 
 <ExampleFrame variant="component">
@@ -475,7 +475,7 @@ ToggleGroup.RootProvider
 
 <CssPropertiesSection properties={ToggleGroupDocs.toggleGroupOverrideCssProperties} />
 
-В таблице перечислены свойства уровня группы. Каждый `ToggleGroup.Item` также поддерживает [CSS-свойства
+В таблице перечислены свойства уровня группы. Каждый `ToggleGroupItem` также поддерживает [CSS-свойства
 Toggle](/docs/toggle#css-properties) для цветов и состояний взаимодействия. Задайте свойство
 `--moduix-toggle-*` на корневом компоненте, чтобы оформить все элементы, или на элементе, чтобы изменить
 оформление только одного элемента.

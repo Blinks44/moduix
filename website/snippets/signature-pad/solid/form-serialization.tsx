@@ -1,12 +1,18 @@
 import { Button } from '@moduix/solid/button';
-import { SignaturePad, useSignaturePadContext } from '@moduix/solid/signature-pad';
+import {
+  SignaturePad,
+  SignaturePadCanvas,
+  SignaturePadHiddenInput,
+  SignaturePadLabel,
+  useSignaturePadContext,
+} from '@moduix/solid/signature-pad';
 import { createSignal } from 'solid-js';
 import styles from '@/components/examples/signature-pad/signature-pad-form-serialization.module.css';
 
 function SignaturePadFormInput() {
   const signaturePad = useSignaturePadContext();
 
-  return <SignaturePad.HiddenInput value={JSON.stringify(signaturePad().paths)} />;
+  return <SignaturePadHiddenInput value={JSON.stringify(signaturePad().paths)} />;
 }
 
 export default function FormSerializationSignaturePadDemo() {
@@ -20,8 +26,8 @@ export default function FormSerializationSignaturePadDemo() {
   return (
     <form class={styles.root} onSubmit={handleSubmit}>
       <SignaturePad name="signature">
-        <SignaturePad.Label>Sign below</SignaturePad.Label>
-        <SignaturePad.Canvas />
+        <SignaturePadLabel>Sign below</SignaturePadLabel>
+        <SignaturePadCanvas />
         <SignaturePadFormInput />
       </SignaturePad>
       <div>

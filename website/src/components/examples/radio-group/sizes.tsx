@@ -1,13 +1,13 @@
-import { RadioGroup } from '@moduix/react/radio-group';
+import { RadioGroup, RadioGroupLabel, RadioGroupOption } from '@moduix/react/radio-group';
 
 export default function RadioGroupSizesDemo() {
   return (
     <RadioGroup defaultValue="md">
-      <RadioGroup.Label>Control Size</RadioGroup.Label>
+      <RadioGroupLabel>Control Size</RadioGroupLabel>
       {(['xs', 'sm', 'md', 'lg', 'xl'] as const).map((size) => (
-        <RadioGroup.Option key={size} value={size} size={size}>
+        <RadioGroupOption key={size} value={size} size={size}>
           {size.toUpperCase()}
-        </RadioGroup.Option>
+        </RadioGroupOption>
       ))}
     </RadioGroup>
   );

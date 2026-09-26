@@ -1,5 +1,11 @@
 import { CalendarDate } from '@internationalized/date';
-import { DateInput } from '@moduix/react/date-input';
+import {
+  DateInput,
+  DateInputControl,
+  DateInputHiddenInput,
+  DateInputLabel,
+  DateInputSegments,
+} from '@moduix/react/date-input';
 import styles from '@/components/examples/date-input/date-input-disabled-and-read-only.module.css';
 
 export default function DisabledReadOnlyDateInputDemo() {
@@ -11,11 +17,11 @@ export default function DisabledReadOnlyDateInputDemo() {
         name="disabled-date"
         defaultValue={[new CalendarDate(2026, 6, 22)]}
       >
-        <DateInput.Label>Disabled date</DateInput.Label>
-        <DateInput.HiddenInput name="disabled-date" />
-        <DateInput.Control>
-          <DateInput.Segments />
-        </DateInput.Control>
+        <DateInputLabel>Disabled date</DateInputLabel>
+        <DateInputHiddenInput name="disabled-date" />
+        <DateInputControl>
+          <DateInputSegments />
+        </DateInputControl>
       </DateInput>
 
       <DateInput
@@ -24,11 +30,11 @@ export default function DisabledReadOnlyDateInputDemo() {
         name="read-only-date"
         defaultValue={[new CalendarDate(2026, 6, 22)]}
       >
-        <DateInput.Label>Read-only date</DateInput.Label>
-        <DateInput.HiddenInput name="read-only-date" />
-        <DateInput.Control>
-          <DateInput.Segments />
-        </DateInput.Control>
+        <DateInputLabel>Read-only date</DateInputLabel>
+        <DateInputHiddenInput name="read-only-date" />
+        <DateInputControl>
+          <DateInputSegments />
+        </DateInputControl>
       </DateInput>
     </div>
   );

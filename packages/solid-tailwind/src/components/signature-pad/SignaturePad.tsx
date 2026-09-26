@@ -18,7 +18,7 @@ type SignaturePadApi = ReturnType<typeof useSignaturePadPrimitive> & {
 };
 type SignaturePadHookProps = Parameters<typeof useSignaturePadPrimitive>[0];
 
-function SignaturePadRoot(props: ComponentProps<typeof SignaturePadPrimitive.Root>) {
+function SignaturePad(props: ComponentProps<typeof SignaturePadPrimitive.Root>) {
   const [local, others] = splitProps(props, ['asChild', 'children', 'class']);
   const field = useFieldContext();
 
@@ -161,7 +161,7 @@ function SignaturePadClearTrigger(
         const resolvedProps = triggerProps();
 
         return (
-          <CloseButton.Root
+          <CloseButton
             {...resolvedProps}
             aria-label={local['aria-label']}
             aria-labelledby={local['aria-labelledby']}
@@ -172,7 +172,7 @@ function SignaturePadClearTrigger(
             )}
           >
             {resolvedChildren() ?? <RotateCcwIcon class="size-4" aria-hidden="true" />}
-          </CloseButton.Root>
+          </CloseButton>
         );
       }}
       class={triggerClass}
@@ -200,31 +200,33 @@ function SignaturePadCanvas(props: SignaturePadCanvasProps) {
   );
 }
 
-const SignaturePad = Object.assign(SignaturePadRoot, {
-  Root: SignaturePadRoot,
-  RootProvider: SignaturePadRootProvider,
-  Context: SignaturePadPrimitive.Context,
-  HiddenInput: SignaturePadPrimitive.HiddenInput,
-  Label: SignaturePadLabel,
-  Control: SignaturePadControl,
-  Canvas: SignaturePadCanvas,
-  Segment: SignaturePadSegment,
-  Guide: SignaturePadGuide,
-  ClearTrigger: SignaturePadClearTrigger,
-});
-
 function useSignaturePad(props?: SignaturePadHookProps) {
   const field = useFieldContext();
   const signaturePad = useSignaturePadPrimitive(props);
-  const api: SignaturePadApi = Object.assign(signaturePad, {
-    [signaturePadReadOnly]: () => {
-      const machineProps = typeof props === 'function' ? props() : props;
+  const api: SignaturePadApi = () => signaturePad();
+  api[signaturePadReadOnly] = () => {
+    const machineProps = typeof props === 'function' ? props() : props;
 
-      return machineProps?.readOnly ?? field?.().readOnly ?? false;
-    },
-  });
+    return machineProps?.readOnly ?? field?.().readOnly ?? false;
+  };
 
   return api;
 }
 
-export { SignaturePad, useSignaturePad, useSignaturePadContext };
+const SignaturePadContext = SignaturePadPrimitive.Context;
+const SignaturePadHiddenInput = SignaturePadPrimitive.HiddenInput;
+
+export {
+  SignaturePad,
+  SignaturePadCanvas,
+  SignaturePadClearTrigger,
+  SignaturePadContext,
+  SignaturePadControl,
+  SignaturePadGuide,
+  SignaturePadHiddenInput,
+  SignaturePadLabel,
+  SignaturePadRootProvider,
+  SignaturePadSegment,
+  useSignaturePad,
+  useSignaturePadContext,
+};

@@ -146,9 +146,9 @@ test('prevents activation for native and aria-disabled buttons', async () => {
   expect(clickCount).toBe(0);
 });
 
-test('supports the namespaced root and preserves composed data hooks', () => {
+test('preserves composed data hooks', () => {
   render(() => (
-    <CloseButton.Root
+    <CloseButton
       aria-label="Delete item"
       data-scope="accordion"
       data-part="trigger"

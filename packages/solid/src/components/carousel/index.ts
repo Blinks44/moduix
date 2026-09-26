@@ -1,1 +1,1 @@
-export { Carousel, useCarousel, useCarouselContext } from './Carousel.js';
+export * from './Carousel.js';

@@ -1,5 +1,13 @@
 import { Button } from '@moduix/react/button';
-import { ScrollArea } from '@moduix/react/scroll-area';
+import {
+  ScrollAreaContent,
+  ScrollAreaCorner,
+  ScrollAreaRootProvider,
+  ScrollAreaScrollbar,
+  ScrollAreaThumb,
+  ScrollAreaViewport,
+  useScrollArea,
+} from '@moduix/react/scroll-area';
 import { useState } from 'react';
 import { PreviewMeta } from '@/components/mdx/Components';
 import styles from '@/components/examples/scroll-area/scroll-area-root-provider.module.css';
@@ -7,14 +15,14 @@ import styles from '@/components/examples/scroll-area/scroll-area-root-provider.
 const items = Array.from({ length: 12 }, (_, index) => `Activity item ${index + 1}`);
 
 export default function RootProviderScrollAreaDemo() {
-  const scrollArea = ScrollArea.useScrollArea();
+  const scrollArea = useScrollArea();
   const [edge, setEdge] = useState('top');
 
   return (
     <div className={styles.root}>
-      <ScrollArea.RootProvider value={scrollArea} className={styles.scrollArea}>
-        <ScrollArea.Viewport>
-          <ScrollArea.Content>
+      <ScrollAreaRootProvider value={scrollArea} className={styles.scrollArea}>
+        <ScrollAreaViewport>
+          <ScrollAreaContent>
             <div className={styles.content}>
               {items.map((item) => (
                 <div key={item} className={styles.item}>
@@ -22,13 +30,13 @@ export default function RootProviderScrollAreaDemo() {
                 </div>
               ))}
             </div>
-          </ScrollArea.Content>
-        </ScrollArea.Viewport>
-        <ScrollArea.Scrollbar>
-          <ScrollArea.Thumb />
-        </ScrollArea.Scrollbar>
-        <ScrollArea.Corner />
-      </ScrollArea.RootProvider>
+          </ScrollAreaContent>
+        </ScrollAreaViewport>
+        <ScrollAreaScrollbar>
+          <ScrollAreaThumb />
+        </ScrollAreaScrollbar>
+        <ScrollAreaCorner />
+      </ScrollAreaRootProvider>
       <PreviewMeta>
         <output>Current edge: {edge}</output>
         <Button

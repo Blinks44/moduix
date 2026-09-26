@@ -55,7 +55,8 @@ Apply these rules when writing or reviewing Rstest test projects.
 - For Vue: use `@rsbuild/plugin-vue` plugin and `@testing-library/vue` for component testing
 - Create a `rstest.setup.ts` with `expect.extend(jestDomMatchers)` and `afterEach(() => cleanup())` for Testing Library
 - Add the setup file to `setupFiles` in config
-- For SSR testing, use `testEnvironment: 'node'` and test with `react-dom/server` or framework-specific SSR APIs
+- For SSR testing, use `testEnvironment: 'node'` and the framework's server renderer. Vue SFC tests
+  use `@vue/server-renderer`; declare it directly when a package imports it in tests.
 
 ## Mocking
 

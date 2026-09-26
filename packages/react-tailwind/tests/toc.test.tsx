@@ -1,7 +1,20 @@
 import { expect, rs, test } from '@rstest/core';
 import { fireEvent, render, screen, waitFor } from '@testing-library/react';
 import { createRef, useRef } from 'react';
-import { Toc, useToc, useTocContext } from '../src';
+import {
+  Toc,
+  TocContent,
+  TocIndicator,
+  TocItem,
+  TocLink,
+  TocList,
+  TocNav,
+  TocRail,
+  TocRootProvider,
+  TocTitle,
+  useToc,
+  useTocContext,
+} from '../src';
 
 const items = [
   { value: 'introduction', depth: 2 },
@@ -22,24 +35,24 @@ function RootProviderExample() {
       <button type="button" onClick={() => toc.setActiveIds(['configuration'])}>
         Set active section
       </button>
-      <Toc.RootProvider value={toc}>
-        <Toc.Content>
+      <TocRootProvider value={toc}>
+        <TocContent>
           <h2 id="introduction">Introduction</h2>
           <h3 id="configuration">Configuration</h3>
-        </Toc.Content>
-        <Toc.Nav>
-          <Toc.Title>On this page</Toc.Title>
-          <Toc.List>
-            <Toc.Indicator />
+        </TocContent>
+        <TocNav>
+          <TocTitle>On this page</TocTitle>
+          <TocList>
+            <TocIndicator />
             {items.map((item) => (
-              <Toc.Item key={item.value} item={item}>
-                <Toc.Link href={`#${item.value}`}>{item.value}</Toc.Link>
-              </Toc.Item>
+              <TocItem key={item.value} item={item}>
+                <TocLink href={`#${item.value}`}>{item.value}</TocLink>
+              </TocItem>
             ))}
-          </Toc.List>
-        </Toc.Nav>
+          </TocList>
+        </TocNav>
         <ActiveSection />
-      </Toc.RootProvider>
+      </TocRootProvider>
     </>
   );
 }
@@ -49,22 +62,22 @@ function ScrollableToc() {
 
   return (
     <Toc items={items} scrollEl={() => scrollRef.current}>
-      <Toc.Content>
+      <TocContent>
         <div ref={scrollRef} aria-label="Reader">
           <h2 id="introduction">Introduction</h2>
           <h3 id="configuration">Configuration</h3>
         </div>
-      </Toc.Content>
-      <Toc.Nav>
-        <Toc.Title>On this page</Toc.Title>
-        <Toc.List>
+      </TocContent>
+      <TocNav>
+        <TocTitle>On this page</TocTitle>
+        <TocList>
           {items.map((item) => (
-            <Toc.Item key={item.value} item={item}>
-              <Toc.Link href={`#${item.value}`}>{item.value}</Toc.Link>
-            </Toc.Item>
+            <TocItem key={item.value} item={item}>
+              <TocLink href={`#${item.value}`}>{item.value}</TocLink>
+            </TocItem>
           ))}
-        </Toc.List>
-      </Toc.Nav>
+        </TocList>
+      </TocNav>
     </Toc>
   );
 }
@@ -72,26 +85,26 @@ function ScrollableToc() {
 test('preserves Ark navigation semantics, active item state, and visible Tailwind parts', () => {
   const { container } = render(
     <Toc items={items} defaultActiveIds={['introduction']}>
-      <Toc.Content>
+      <TocContent>
         <h2 id="introduction">Introduction</h2>
         <h3 id="configuration">Configuration</h3>
-      </Toc.Content>
-      <Toc.Nav>
-        <Toc.Title>On this page</Toc.Title>
-        <Toc.List>
-          <Toc.Indicator />
+      </TocContent>
+      <TocNav>
+        <TocTitle>On this page</TocTitle>
+        <TocList>
+          <TocIndicator />
           {items.map((item) => (
-            <Toc.Item key={item.value} item={item}>
-              <Toc.Link href={`#${item.value}`}>
+            <TocItem key={item.value} item={item}>
+              <TocLink href={`#${item.value}`}>
                 {item.value === 'configuration' && (
-                  <Toc.Rail depth={item.depth} previousDepth={2} nextDepth={2} />
+                  <TocRail depth={item.depth} previousDepth={2} nextDepth={2} />
                 )}
                 {item.value}
-              </Toc.Link>
-            </Toc.Item>
+              </TocLink>
+            </TocItem>
           ))}
-        </Toc.List>
-      </Toc.Nav>
+        </TocList>
+      </TocNav>
     </Toc>,
   );
 
@@ -169,9 +182,9 @@ test('supports Ark navigation placement and scrolls the supplied reading pane', 
 
   render(
     <Toc items={items}>
-      <Toc.Nav placement="left">
-        <Toc.Title>Left navigation</Toc.Title>
-      </Toc.Nav>
+      <TocNav placement="left">
+        <TocTitle>Left navigation</TocTitle>
+      </TocNav>
     </Toc>,
   );
 
@@ -188,9 +201,9 @@ test('forwards refs through ordinary parts and preserves semantic asChild compos
   render(
     <Toc ref={rootRef} items={items} asChild>
       <section aria-label="Table of contents">
-        <Toc.Content ref={contentRef}>
+        <TocContent ref={contentRef}>
           <h2 id="introduction">Introduction</h2>
-        </Toc.Content>
+        </TocContent>
       </section>
     </Toc>,
   );
@@ -208,9 +221,9 @@ test('forwards refs on the ordinary root path', () => {
 
   render(
     <Toc ref={rootRef} items={items}>
-      <Toc.Content>
+      <TocContent>
         <h2 id="introduction">Introduction</h2>
-      </Toc.Content>
+      </TocContent>
     </Toc>,
   );
 
@@ -220,9 +233,9 @@ test('forwards refs on the ordinary root path', () => {
 test('lets consumer Tailwind classes override conflicting defaults', () => {
   render(
     <Toc className="w-auto" items={items}>
-      <Toc.Nav className="p-0">
-        <Toc.Title>On this page</Toc.Title>
-      </Toc.Nav>
+      <TocNav className="p-0">
+        <TocTitle>On this page</TocTitle>
+      </TocNav>
     </Toc>,
   );
 

@@ -7,10 +7,10 @@ import { cn } from '@/lib/moduix/cn';
 
 type FieldItemProps = ComponentProps<'div'> & ComponentProps<typeof FieldPrimitive.Item>;
 
-const FieldRoot = forwardRef<
+const Field = forwardRef<
   ComponentRef<typeof FieldPrimitive.Root>,
   ComponentProps<typeof FieldPrimitive.Root>
->(function FieldRoot({ className, ...props }, ref) {
+>(function Field({ className, ...props }, ref) {
   return (
     <FieldPrimitive.Root
       ref={ref}
@@ -164,18 +164,20 @@ const FieldRequiredIndicator = forwardRef<
   );
 });
 
-const Field = Object.assign(FieldRoot, {
-  Root: FieldRoot,
-  RootProvider: FieldRootProvider,
-  Item: FieldItem,
-  Label: FieldLabel,
-  Input: FieldInput,
-  Textarea: FieldTextarea,
-  Select: FieldSelect,
-  HelperText: FieldHelperText,
-  ErrorText: FieldErrorText,
-  RequiredIndicator: FieldRequiredIndicator,
-  Context: FieldPrimitive.Context,
-});
+const FieldContext = FieldPrimitive.Context;
 
-export { Field, useField, useFieldContext };
+export {
+  Field,
+  FieldContext,
+  FieldErrorText,
+  FieldHelperText,
+  FieldInput,
+  FieldItem,
+  FieldLabel,
+  FieldRequiredIndicator,
+  FieldRootProvider,
+  FieldSelect,
+  FieldTextarea,
+  useField,
+  useFieldContext,
+};

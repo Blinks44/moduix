@@ -27,7 +27,7 @@ type SpinnerProps = HTMLArkProps<'span'> & {
   decorative?: boolean;
 };
 
-const SpinnerRoot = forwardRef<HTMLSpanElement, SpinnerProps>(function SpinnerRoot(
+const Spinner = forwardRef<HTMLSpanElement, SpinnerProps>(function Spinner(
   {
     asChild,
     children,
@@ -81,10 +81,6 @@ const SpinnerRoot = forwardRef<HTMLSpanElement, SpinnerProps>(function SpinnerRo
       )}
     </ark.span>
   );
-});
-
-const Spinner = Object.assign(SpinnerRoot, {
-  Root: SpinnerRoot,
 });
 
 export { Spinner };

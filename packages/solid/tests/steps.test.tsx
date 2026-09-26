@@ -1,7 +1,20 @@
 import { expect, test } from '@rstest/core';
 import { fireEvent, render, screen, waitFor } from '@solidjs/testing-library';
 import { createSignal } from 'solid-js';
-import { Steps } from '../src';
+import {
+  Steps,
+  StepsCompletedContent,
+  StepsContent,
+  StepsIndicator,
+  StepsItem,
+  StepsList,
+  StepsNextTrigger,
+  StepsPrevTrigger,
+  StepsRootProvider,
+  StepsSeparator,
+  StepsTrigger,
+  useSteps,
+} from '../src';
 
 const items = [
   { title: 'Account', content: 'Account content' },
@@ -24,23 +37,23 @@ function TestSteps(props: {
       isStepValid={props.isStepValid}
       onStepInvalid={props.onStepInvalid}
     >
-      <Steps.List>
+      <StepsList>
         {items.map((item, index) => (
-          <Steps.Item index={index}>
-            <Steps.Trigger>
-              <Steps.Indicator />
+          <StepsItem index={index}>
+            <StepsTrigger>
+              <StepsIndicator />
               {item.title}
-            </Steps.Trigger>
-            <Steps.Separator />
-          </Steps.Item>
+            </StepsTrigger>
+            <StepsSeparator />
+          </StepsItem>
         ))}
-      </Steps.List>
+      </StepsList>
       {items.map((item, index) => (
-        <Steps.Content index={index}>{item.content}</Steps.Content>
+        <StepsContent index={index}>{item.content}</StepsContent>
       ))}
-      <Steps.CompletedContent>Complete</Steps.CompletedContent>
-      <Steps.PrevTrigger>Back</Steps.PrevTrigger>
-      <Steps.NextTrigger>Next</Steps.NextTrigger>
+      <StepsCompletedContent>Complete</StepsCompletedContent>
+      <StepsPrevTrigger>Back</StepsPrevTrigger>
+      <StepsNextTrigger>Next</StepsNextTrigger>
     </Steps>
   );
 }
@@ -57,7 +70,7 @@ function ControlledSteps() {
 }
 
 function RootProviderSteps() {
-  const steps = Steps.useSteps({ count: items.length });
+  const steps = useSteps({ count: items.length });
 
   return (
     <>
@@ -65,15 +78,15 @@ function RootProviderSteps() {
         Advance externally
       </button>
       <output>Current step: {steps().value + 1}</output>
-      <Steps.RootProvider value={steps}>
-        <Steps.List>
+      <StepsRootProvider value={steps}>
+        <StepsList>
           {items.map((item, index) => (
-            <Steps.Item index={index}>
-              <Steps.Trigger>{item.title}</Steps.Trigger>
-            </Steps.Item>
+            <StepsItem index={index}>
+              <StepsTrigger>{item.title}</StepsTrigger>
+            </StepsItem>
           ))}
-        </Steps.List>
-      </Steps.RootProvider>
+        </StepsList>
+      </StepsRootProvider>
     </>
   );
 }

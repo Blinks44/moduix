@@ -1,6 +1,17 @@
 import { useListCollection } from '@ark-ui/react/collection';
 import { useFilter } from '@ark-ui/react/locale';
-import { Combobox } from '@moduix/react/combobox';
+import {
+  Combobox,
+  ComboboxContent,
+  ComboboxControl,
+  ComboboxEmpty,
+  ComboboxInput,
+  ComboboxLabel,
+  ComboboxList,
+  ComboboxOption,
+  ComboboxPositioner,
+  ComboboxTrigger,
+} from '@moduix/react/combobox';
 import styles from '@/components/examples/combobox/component-limit-results.module.css';
 
 const cities = [
@@ -31,23 +42,23 @@ export default function LimitComboboxDemo() {
 
   return (
     <Combobox collection={collection} onInputValueChange={(details) => filter(details.inputValue)}>
-      <Combobox.Label>City</Combobox.Label>
-      <Combobox.Control>
-        <Combobox.Input placeholder="e.g. San" />
-        <Combobox.Trigger aria-label="Open options" />
-      </Combobox.Control>
-      <Combobox.Positioner>
-        <Combobox.Content className={styles.content}>
-          <Combobox.Empty>No cities found.</Combobox.Empty>
-          <Combobox.List>
+      <ComboboxLabel>City</ComboboxLabel>
+      <ComboboxControl>
+        <ComboboxInput placeholder="e.g. San" />
+        <ComboboxTrigger aria-label="Open options" />
+      </ComboboxControl>
+      <ComboboxPositioner>
+        <ComboboxContent className={styles.content}>
+          <ComboboxEmpty>No cities found.</ComboboxEmpty>
+          <ComboboxList>
             {collection.items.map((item) => (
-              <Combobox.Option key={item.value} item={item}>
+              <ComboboxOption key={item.value} item={item}>
                 {item.label}
-              </Combobox.Option>
+              </ComboboxOption>
             ))}
-          </Combobox.List>
-        </Combobox.Content>
-      </Combobox.Positioner>
+          </ComboboxList>
+        </ComboboxContent>
+      </ComboboxPositioner>
     </Combobox>
   );
 }

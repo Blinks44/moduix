@@ -1,5 +1,5 @@
 import { Input } from '@moduix/react/input';
-import { QrCode } from '@moduix/react/qr-code';
+import { QrCode, QrCodeFrame, QrCodePattern } from '@moduix/react/qr-code';
 import { useState } from 'react';
 import { PreviewMeta } from '@/components/mdx/Components';
 import styles from '@/components/examples/qr-code/component-input.module.css';
@@ -16,9 +16,9 @@ export default function InputQrCodeDemo() {
         className={styles.input}
       />
       <QrCode value={value}>
-        <QrCode.Frame role="img" aria-label="QR code for the entered content">
-          <QrCode.Pattern />
-        </QrCode.Frame>
+        <QrCodeFrame role="img" aria-label="QR code for the entered content">
+          <QrCodePattern />
+        </QrCodeFrame>
       </QrCode>
       <PreviewMeta>
         <output>Encoded content: {value || 'empty'}</output>

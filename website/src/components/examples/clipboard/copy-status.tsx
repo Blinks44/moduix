@@ -1,4 +1,10 @@
-import { Clipboard } from '@moduix/react/clipboard';
+import {
+  Clipboard,
+  ClipboardControl,
+  ClipboardIndicator,
+  ClipboardTrigger,
+  ClipboardValueText,
+} from '@moduix/react/clipboard';
 import { useState } from 'react';
 import { PreviewMeta } from '@/components/mdx/Components';
 import styles from '@/components/examples/clipboard/component-copy-status.module.css';
@@ -17,12 +23,12 @@ export default function ClipboardStatusDemo() {
           }
         }}
       >
-        <Clipboard.Control>
-          <Clipboard.Trigger>
-            <Clipboard.Indicator />
-            <Clipboard.ValueText />
-          </Clipboard.Trigger>
-        </Clipboard.Control>
+        <ClipboardControl>
+          <ClipboardTrigger>
+            <ClipboardIndicator />
+            <ClipboardValueText />
+          </ClipboardTrigger>
+        </ClipboardControl>
       </Clipboard>
       <PreviewMeta>
         <output>Copied {copyCount} times</output>

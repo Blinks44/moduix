@@ -21,7 +21,7 @@ import textareaSolidNativeAttributes from '../../../snippets/textarea/solid/nati
 ## Référence de l’API
 
 Ark UI ne fournit pas de primitive `Textarea` autonome. Dans moduix, le composant s’appuie sur
-[`Field.Textarea` d’Ark UI](https://ark-ui.com/docs/components/field) et conserve l’API native de
+[`FieldTextarea` d’Ark UI](https://ark-ui.com/docs/components/field) et conserve l’API native de
 `textarea`. Il prend en charge `autoresize` et `asChild`, transfère la ref vers l’élément natif et
 hérite de l’état de `Field`.
 
@@ -126,7 +126,7 @@ ni champ masqué, ni libellé ou compteur de caractères.
 Utilisez `defaultValue` pour une zone de texte non contrôlée. Lorsque l’application gère la valeur,
 utilisez `value` avec le gestionnaire natif `onChange` et le mécanisme d’état du framework utilisé.
 
-Placez `Textarea` dans `Field`, avec `Field.Label`, `Field.HelperText` et `Field.ErrorText`, lorsque
+Placez `Textarea` dans `Field`, avec `FieldLabel`, `FieldHelperText` et `FieldErrorText`, lorsque
 le contrôle doit fournir un libellé, un texte complémentaire ou une validation. En dehors de `Field`,
 donnez-lui un nom accessible avec un `<label>` natif ou `aria-label`.
 

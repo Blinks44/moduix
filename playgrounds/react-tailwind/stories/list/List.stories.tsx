@@ -2,7 +2,7 @@ import type { Meta, StoryObj } from '@storybook/react-vite';
 import { clsx } from 'clsx';
 import type { ComponentProps } from 'react';
 import { forwardRef } from 'react';
-import { List } from '@/components/list/List';
+import { List, ListItem } from '@/components/list/List';
 
 const defaultItems = [
   'Use semantic list markup for grouped content.',
@@ -56,7 +56,7 @@ export const Basic: Story = {
   render: (args) => (
     <List className={listClassName} {...args}>
       {defaultItems.map((item) => (
-        <List.Item key={item}>{item}</List.Item>
+        <ListItem key={item}>{item}</ListItem>
       ))}
     </List>
   ),
@@ -65,9 +65,9 @@ export const Basic: Story = {
 export const Ordered: Story = {
   render: () => (
     <List as="ol" start={3} className={listClassName}>
-      <List.Item>Prepare the release notes.</List.Item>
-      <List.Item>Publish the package.</List.Item>
-      <List.Item>Announce the release.</List.Item>
+      <ListItem>Prepare the release notes.</ListItem>
+      <ListItem>Publish the package.</ListItem>
+      <ListItem>Announce the release.</ListItem>
     </List>
   ),
 };
@@ -76,9 +76,9 @@ export const OrderedType: Story = {
   name: 'Ordered Type',
   render: () => (
     <List as="ol" type="A" className={listClassName}>
-      <List.Item>Draft the rollout checklist.</List.Item>
-      <List.Item>Coordinate the release window.</List.Item>
-      <List.Item>Confirm the post-release review.</List.Item>
+      <ListItem>Draft the rollout checklist.</ListItem>
+      <ListItem>Coordinate the release window.</ListItem>
+      <ListItem>Confirm the post-release review.</ListItem>
     </List>
   ),
 };
@@ -86,9 +86,9 @@ export const OrderedType: Story = {
 export const Markerless: Story = {
   render: () => (
     <List marker="none" className={listClassName}>
-      <List.Item>Semantics stay intact without visible markers.</List.Item>
-      <List.Item>Useful for grouped metadata or key-value blocks.</List.Item>
-      <List.Item>Spacing and text tokens still come from the root.</List.Item>
+      <ListItem>Semantics stay intact without visible markers.</ListItem>
+      <ListItem>Useful for grouped metadata or key-value blocks.</ListItem>
+      <ListItem>Spacing and text tokens still come from the root.</ListItem>
     </List>
   ),
 };
@@ -96,9 +96,9 @@ export const Markerless: Story = {
 export const Row: Story = {
   render: () => (
     <List marker="none" className={rowListClassName}>
-      <List.Item>Semantic HTML</List.Item>
-      <List.Item>Responsive spacing</List.Item>
-      <List.Item>Composable styling</List.Item>
+      <ListItem>Semantic HTML</ListItem>
+      <ListItem>Responsive spacing</ListItem>
+      <ListItem>Composable styling</ListItem>
     </List>
   ),
 };
@@ -107,18 +107,18 @@ export const Sizes: Story = {
   render: () => (
     <div className={stackClassName}>
       <List size="xs">
-        <List.Item>Compact supporting content.</List.Item>
-        <List.Item>Still uses native list semantics and markers.</List.Item>
+        <ListItem>Compact supporting content.</ListItem>
+        <ListItem>Still uses native list semantics and markers.</ListItem>
       </List>
       <List size="md">
-        <List.Item>Default body content for a release summary.</List.Item>
-        <List.Item>
+        <ListItem>Default body content for a release summary.</ListItem>
+        <ListItem>
           Items can wrap across multiple lines without losing their marker alignment.
-        </List.Item>
+        </ListItem>
       </List>
       <List size="xl">
-        <List.Item>Large, high-emphasis content.</List.Item>
-        <List.Item>Use this scale sparingly for short, scannable statements.</List.Item>
+        <ListItem>Large, high-emphasis content.</ListItem>
+        <ListItem>Use this scale sparingly for short, scannable statements.</ListItem>
       </List>
     </div>
   ),
@@ -128,16 +128,16 @@ export const Tones: Story = {
   render: () => (
     <div className={stackClassName}>
       <List tone="muted">
-        <List.Item>Muted list tone</List.Item>
+        <ListItem>Muted list tone</ListItem>
       </List>
       <List tone="subtle">
-        <List.Item>Subtle list tone</List.Item>
+        <ListItem>Subtle list tone</ListItem>
       </List>
       <List tone="primary">
-        <List.Item>Primary list tone</List.Item>
+        <ListItem>Primary list tone</ListItem>
       </List>
       <List tone="destructive">
-        <List.Item>Destructive list tone</List.Item>
+        <ListItem>Destructive list tone</ListItem>
       </List>
     </div>
   ),
@@ -149,7 +149,7 @@ export const NativeItems: Story = {
     <List className={listClassName}>
       <li>Use native li elements when a wrapper component is unnecessary.</li>
       <li>The root still controls spacing, marker style, size, and tone.</li>
-      <li>Reach for List.Item when you want the stable item slot.</li>
+      <li>Reach for ListItem when you want the stable item slot.</li>
     </List>
   ),
 };
@@ -158,15 +158,15 @@ export const CustomItemComposition: Story = {
   name: 'Advanced Customization',
   render: () => (
     <List className={accentListClassName}>
-      <List.Item asChild>
+      <ListItem asChild>
         <AccentListItem>Native markers stay available for per-item styling.</AccentListItem>
-      </List.Item>
-      <List.Item asChild>
+      </ListItem>
+      <ListItem asChild>
         <AccentListItem>Root utilities still control spacing and indentation.</AccentListItem>
-      </List.Item>
-      <List.Item asChild>
+      </ListItem>
+      <ListItem asChild>
         <AccentListItem>asChild keeps the semantic li contract for a custom item.</AccentListItem>
-      </List.Item>
+      </ListItem>
     </List>
   ),
 };
@@ -176,9 +176,9 @@ export const CustomRootComposition: Story = {
   render: () => (
     <List asChild>
       <ReleaseList className={listClassName}>
-        <List.Item>Prepare the release notes.</List.Item>
-        <List.Item>Publish the package.</List.Item>
-        <List.Item>Announce the release.</List.Item>
+        <ListItem>Prepare the release notes.</ListItem>
+        <ListItem>Publish the package.</ListItem>
+        <ListItem>Announce the release.</ListItem>
       </ReleaseList>
     </List>
   ),

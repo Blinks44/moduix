@@ -1,5 +1,5 @@
 import { Button } from '@moduix/react/button';
-import { SignaturePad } from '@moduix/react/signature-pad';
+import { SignaturePad, SignaturePadCanvas, SignaturePadLabel } from '@moduix/react/signature-pad';
 import { useState } from 'react';
 import { PreviewMeta } from '@/components/mdx/Components';
 import styles from '@/components/examples/signature-pad/signature-pad-controlled.module.css';
@@ -13,8 +13,8 @@ export default function ControlledSignaturePadDemo() {
   return (
     <div className={styles.root}>
       <SignaturePad paths={paths} onDraw={(details) => setPaths(details.paths)}>
-        <SignaturePad.Label>Sign below</SignaturePad.Label>
-        <SignaturePad.Canvas />
+        <SignaturePadLabel>Sign below</SignaturePadLabel>
+        <SignaturePadCanvas />
       </SignaturePad>
       <PreviewMeta>
         <output>Paths: {paths.length}</output>

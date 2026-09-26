@@ -1,5 +1,14 @@
 import { Button } from '@moduix/react/button';
-import { Slider } from '@moduix/react/slider';
+import {
+  Slider,
+  SliderControl,
+  SliderHiddenInput,
+  SliderLabel,
+  SliderRange,
+  SliderThumb,
+  SliderTrack,
+  SliderValueText,
+} from '@moduix/react/slider';
 import type { FormEvent } from 'react';
 import { useState } from 'react';
 import { PreviewMeta } from '@/components/mdx/Components';
@@ -21,17 +30,17 @@ export default function SliderFormDemo() {
     >
       <Slider defaultValue={[40]} name="volume">
         <div className={styles.header}>
-          <Slider.Label>Volume</Slider.Label>
-          <Slider.ValueText />
+          <SliderLabel>Volume</SliderLabel>
+          <SliderValueText />
         </div>
-        <Slider.Control>
-          <Slider.Track>
-            <Slider.Range />
-          </Slider.Track>
-          <Slider.Thumb index={0} aria-label="Volume">
-            <Slider.HiddenInput />
-          </Slider.Thumb>
-        </Slider.Control>
+        <SliderControl>
+          <SliderTrack>
+            <SliderRange />
+          </SliderTrack>
+          <SliderThumb index={0} aria-label="Volume">
+            <SliderHiddenInput />
+          </SliderThumb>
+        </SliderControl>
       </Slider>
       <PreviewMeta>
         <output>Submitted: {submitted}</output>

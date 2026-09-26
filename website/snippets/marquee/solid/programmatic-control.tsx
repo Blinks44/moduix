@@ -1,5 +1,11 @@
 import { Button } from '@moduix/solid/button';
-import { Marquee, useMarquee } from '@moduix/solid/marquee';
+import {
+  MarqueeContent,
+  MarqueeItem,
+  MarqueeRootProvider,
+  MarqueeViewport,
+  useMarquee,
+} from '@moduix/solid/marquee';
 import { createSignal } from 'solid-js';
 import styles from '@/components/examples/marquee/marquee-programmatic-control.module.css';
 
@@ -37,18 +43,18 @@ export default function ProgrammaticMarqueeDemo() {
 
   return (
     <div class={styles.stack}>
-      <Marquee.RootProvider value={marquee} class={styles.root}>
-        <Marquee.Viewport>
-          <Marquee.Content>
+      <MarqueeRootProvider value={marquee} class={styles.root}>
+        <MarqueeViewport>
+          <MarqueeContent>
             {partners.map((item) => (
-              <Marquee.Item class={styles.item}>
+              <MarqueeItem class={styles.item}>
                 <span>{item.mark}</span>
                 <span>{item.name}</span>
-              </Marquee.Item>
+              </MarqueeItem>
             ))}
-          </Marquee.Content>
-        </Marquee.Viewport>
-      </Marquee.RootProvider>
+          </MarqueeContent>
+        </MarqueeViewport>
+      </MarqueeRootProvider>
       <div>
         <output>Playback: {status()}</output>
         <Button size="sm" variant="outline" onClick={handlePause}>

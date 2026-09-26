@@ -1,7 +1,18 @@
 import { afterEach, expect, test } from '@rstest/core';
 import { fireEvent, render, screen, waitFor } from '@solidjs/testing-library';
 import { createSignal } from 'solid-js';
-import { Clipboard, useClipboardContext } from '../src';
+import {
+  Clipboard,
+  ClipboardContext,
+  ClipboardControl,
+  ClipboardIndicator,
+  ClipboardInput,
+  ClipboardLabel,
+  ClipboardRootProvider,
+  ClipboardTrigger,
+  useClipboard,
+  useClipboardContext,
+} from '../src';
 
 const clipboardDescriptor = Object.getOwnPropertyDescriptor(navigator, 'clipboard');
 
@@ -14,18 +25,18 @@ afterEach(() => {
 });
 
 function ProviderClipboard() {
-  const clipboard = Clipboard.useClipboard({ defaultValue: 'provider-value' });
+  const clipboard = useClipboard({ defaultValue: 'provider-value' });
 
   return (
-    <Clipboard.RootProvider value={clipboard}>
-      <Clipboard.Label>Provider value</Clipboard.Label>
-      <Clipboard.Control>
-        <Clipboard.Input asChild={(props) => <input {...props()} readOnly />} />
-        <Clipboard.Trigger asChild={(props) => <button {...props()} type="button" />}>
+    <ClipboardRootProvider value={clipboard}>
+      <ClipboardLabel>Provider value</ClipboardLabel>
+      <ClipboardControl>
+        <ClipboardInput asChild={(props) => <input {...props()} readOnly />} />
+        <ClipboardTrigger asChild={(props) => <button {...props()} type="button" />}>
           Copy provider value
-        </Clipboard.Trigger>
-      </Clipboard.Control>
-    </Clipboard.RootProvider>
+        </ClipboardTrigger>
+      </ClipboardControl>
+    </ClipboardRootProvider>
   );
 }
 
@@ -35,11 +46,11 @@ test('keeps controlled value changes Ark-shaped', async () => {
 
     return (
       <Clipboard value={value()} onValueChange={(details) => setValue(details.value)}>
-        <Clipboard.Label>Share URL</Clipboard.Label>
-        <Clipboard.Control>
-          <Clipboard.Input />
-          <Clipboard.Trigger aria-label="Copy share URL" />
-        </Clipboard.Control>
+        <ClipboardLabel>Share URL</ClipboardLabel>
+        <ClipboardControl>
+          <ClipboardInput />
+          <ClipboardTrigger aria-label="Copy share URL" />
+        </ClipboardControl>
       </Clipboard>
     );
   }
@@ -71,9 +82,9 @@ test('does not forward refs through native Ark Solid asChild composition', () =>
       ref={(element) => (rootRef = element)}
       asChild={(props) => <section {...props()} aria-label="Clipboard" />}
     >
-      <Clipboard.Control>
-        <Clipboard.Trigger />
-      </Clipboard.Control>
+      <ClipboardControl>
+        <ClipboardTrigger />
+      </ClipboardControl>
     </Clipboard>
   ));
 
@@ -95,28 +106,26 @@ test('forwards refs and renders the default copy affordance', async () => {
       ref={(element) => (rootRef = element)}
       defaultValue="https://moduix.dev/docs/clipboard"
     >
-      <Clipboard.Label>Copy this link</Clipboard.Label>
-      <Clipboard.Control>
-        <Clipboard.Input ref={(element) => (inputRef = element)} readOnly />
-        <Clipboard.Trigger ref={(element) => (triggerRef = element)}>
-          <Clipboard.Indicator />
-          <Clipboard.CopyText />
-        </Clipboard.Trigger>
-      </Clipboard.Control>
+      <ClipboardLabel>Copy this link</ClipboardLabel>
+      <ClipboardControl>
+        <ClipboardInput ref={(element) => (inputRef = element)} readOnly />
+        <ClipboardTrigger ref={(element) => (triggerRef = element)}>
+          <ClipboardIndicator />
+        </ClipboardTrigger>
+      </ClipboardControl>
     </Clipboard>
   ));
 
   expect(rootRef).toHaveAttribute('data-slot', 'clipboard-root');
   expect(inputRef).toBe(screen.getByRole('textbox', { name: 'Copy this link' }));
   expect(triggerRef).toBe(screen.getByRole('button', { name: 'Copy to clipboard' }));
-  expect(screen.getByText('Copy')).toHaveAttribute('data-slot', 'clipboard-copy-text');
   expect(
     container.querySelector('[data-slot="clipboard-indicator-idle-icon"]'),
   ).toBeInTheDocument();
 
   fireEvent.click(triggerRef);
 
-  await waitFor(() => expect(screen.getByText('Copied')).toBeInTheDocument());
+  await waitFor(() => expect(triggerRef).toHaveAttribute('data-copied'));
   expect(
     container.querySelector('[data-slot="clipboard-indicator-idle-icon"]'),
   ).not.toBeInTheDocument();
@@ -134,9 +143,9 @@ test('exposes the Ark clipboard state through context', () => {
 
   render(() => (
     <Clipboard defaultValue="context-value">
-      <Clipboard.Context>
+      <ClipboardContext>
         {(clipboard) => <span>{`render:${clipboard().value}`}</span>}
-      </Clipboard.Context>
+      </ClipboardContext>
       <ClipboardStatus />
     </Clipboard>
   ));
@@ -148,11 +157,11 @@ test('exposes the Ark clipboard state through context', () => {
 test('preserves native disabled semantics on the input and trigger', () => {
   render(() => (
     <Clipboard defaultValue="disabled-value">
-      <Clipboard.Label>Disabled value</Clipboard.Label>
-      <Clipboard.Control>
-        <Clipboard.Input disabled />
-        <Clipboard.Trigger disabled>Copy</Clipboard.Trigger>
-      </Clipboard.Control>
+      <ClipboardLabel>Disabled value</ClipboardLabel>
+      <ClipboardControl>
+        <ClipboardInput disabled />
+        <ClipboardTrigger disabled>Copy</ClipboardTrigger>
+      </ClipboardControl>
     </Clipboard>
   ));
 
@@ -168,9 +177,9 @@ test('clears copied state after the configured timeout', async () => {
 
   render(() => (
     <Clipboard defaultValue="workspace-secret" timeout={1}>
-      <Clipboard.Control>
-        <Clipboard.Trigger>Copy secret</Clipboard.Trigger>
-      </Clipboard.Control>
+      <ClipboardControl>
+        <ClipboardTrigger>Copy secret</ClipboardTrigger>
+      </ClipboardControl>
     </Clipboard>
   ));
 
@@ -184,13 +193,13 @@ test('clears copied state after the configured timeout', async () => {
 test('applies native utilities to the component-owned parts', () => {
   const { container } = render(() => (
     <Clipboard>
-      <Clipboard.Label>Copy link</Clipboard.Label>
-      <Clipboard.Control>
-        <Clipboard.Input />
-        <Clipboard.Trigger>
-          <Clipboard.Indicator />
-        </Clipboard.Trigger>
-      </Clipboard.Control>
+      <ClipboardLabel>Copy link</ClipboardLabel>
+      <ClipboardControl>
+        <ClipboardInput />
+        <ClipboardTrigger>
+          <ClipboardIndicator />
+        </ClipboardTrigger>
+      </ClipboardControl>
     </Clipboard>
   ));
 
@@ -233,10 +242,10 @@ test('applies native utilities to the component-owned parts', () => {
 test('lets consumer Tailwind classes override conflicting defaults', () => {
   const { container } = render(() => (
     <Clipboard class="gap-4 text-primary">
-      <Clipboard.Control class="gap-5">
-        <Clipboard.Input class="bg-muted px-0" />
-        <Clipboard.Trigger class="rounded-lg bg-muted px-2" />
-      </Clipboard.Control>
+      <ClipboardControl class="gap-5">
+        <ClipboardInput class="bg-muted px-0" />
+        <ClipboardTrigger class="rounded-lg bg-muted px-2" />
+      </ClipboardControl>
     </Clipboard>
   ));
 

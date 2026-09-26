@@ -12,10 +12,28 @@ Own the public component contract across every shipped framework and styling ada
 | React   | `packages/react` | `packages/react-tailwind` |
 | Solid   | `packages/solid` | `packages/solid-tailwind` |
 
-Vue and Svelte adapters are planned but are not shipped contracts yet. When a new adapter becomes public, add its package and playground rows to this matrix; the rest of this workflow should continue to operate on the discovered shipped set.
+Vue is scaffolded and in development (`packages/vue`, `packages/vue-tailwind`, `playgrounds/vue`,
+`playgrounds/vue-tailwind`) but is not a shipped contract yet; Svelte adapters are planned. When a
+new adapter becomes public, mark its package and playground rows as shipped here; the rest of this
+workflow should continue to operate on the discovered shipped set.
 
 Use framework-native code in every package. Share tokens, animations, reset, and presets through
 `packages/foundation`; do not create a shared component runtime or generate framework source.
+
+## Public value naming
+
+Use one flat public component API across every framework and styling track:
+
+- the family name is the root component: `Accordion`, not `Accordion.Root` or `AccordionRoot`;
+- every additional part uses the family prefix: `AccordionItem`, `AccordionItemTrigger`,
+  `AccordionRootProvider`, and `AccordionContext`;
+- hooks remain top-level functions such as `useAccordion` and `useAccordionContext`;
+- preserve existing clear public type names unless a separate type migration is explicitly required.
+
+Do not build compound components with `Object.assign`, export namespace objects, or retain duplicate
+compatibility aliases. Framework-native implementation details may differ, but package imports,
+registry source, tests, stories, snippets, anatomy tables, and prose must use the same flat names.
+The flat shape is the established contract, not an in-progress compatibility migration.
 
 ## Start with an impact check
 
@@ -31,7 +49,7 @@ tests, playground stories, exports, local markdown, and registry items.
 
 ## Contract to preserve
 
-Keep public names, parts, props, defaults, controlled state, callbacks, refs, DOM anatomy, ARIA,
+Keep flat public names, parts, props, defaults, controlled state, callbacks, refs, DOM anatomy, ARIA,
 keyboard behavior, focus management, native form behavior, Ark state/data attributes, visual defaults,
 and lifecycle equivalent wherever the frameworks support the same contract. Keep framework peers
 within the same styling track equivalent. CSS Modules and Tailwind may intentionally expose different
@@ -40,8 +58,8 @@ styling mechanisms: detailed component variables for CSS Modules and utility/cla
 Treat the shipped public behavior, component-local contract docs, and Ark UI behavior as the product
 contract. An existing implementation can provide evidence, but it is not framework-neutral source
 code to copy mechanically. Translate the contract into each adapter's native primitives and syntax.
-Use framework-specific convention or migration skills when they exist, preserve intentional framework
-differences, and verify current Ark APIs instead of emulating missing primitives.
+Use framework-specific convention skills when they exist, preserve intentional framework differences,
+and verify current Ark APIs instead of emulating missing primitives.
 
 ## Synchronization surfaces
 
@@ -57,6 +75,8 @@ For each affected existing variant, update only the surfaces the change reaches:
 
 Never edit `website/docs/public/r` by hand. When a registry source changes, run
 `pnpm run build:registry` and keep only the generated artifacts belonging to the source changes.
+When an active plan reserves shared generation for an integration owner, defer that command and
+report it explicitly instead of mutating concurrent work.
 
 ## Stories and tests
 
@@ -64,9 +84,9 @@ The configured playgrounds are a comparison matrix, not independent catalogs. Fo
 exists in multiple variants, keep story names, scenario data, states, and demo styling aligned;
 adapt only framework syntax and the styling mechanism.
 
-Port tests assertion-for-assertion by behavior. Do not weaken a React assertion to make Solid pass,
-or omit a Tailwind override test because the CSS Modules version does not need it. Add
-variant-specific coverage only for a real variant-specific contract.
+Port tests assertion-for-assertion by behavior. Do not weaken one established adapter's assertion
+to make another adapter pass, or omit a Tailwind override test because the CSS Modules version does
+not need it. Add variant-specific coverage only for a real variant-specific contract.
 
 ## Completion
 

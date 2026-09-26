@@ -4,7 +4,7 @@ import type { ComponentRef } from 'react';
 import { forwardRef } from 'react';
 import { cn } from '@/lib/moduix/cn';
 
-const EmptyRoot = forwardRef<ComponentRef<typeof ark.div>, HTMLArkProps<'div'>>(function EmptyRoot(
+const Empty = forwardRef<ComponentRef<typeof ark.div>, HTMLArkProps<'div'>>(function Empty(
   { className, ...props },
   ref,
 ) {
@@ -109,13 +109,4 @@ const EmptyActions = forwardRef<ComponentRef<typeof ark.div>, HTMLArkProps<'div'
   },
 );
 
-const Empty = Object.assign(EmptyRoot, {
-  Root: EmptyRoot,
-  Icon: EmptyIcon,
-  Content: EmptyContent,
-  Title: EmptyTitle,
-  Description: EmptyDescription,
-  Actions: EmptyActions,
-});
-
-export { Empty };
+export { Empty, EmptyActions, EmptyContent, EmptyDescription, EmptyIcon, EmptyTitle };

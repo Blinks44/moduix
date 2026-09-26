@@ -1,4 +1,11 @@
-import { Editable } from '@moduix/solid/editable';
+import {
+  Editable,
+  EditableArea,
+  EditableControls,
+  EditableInput,
+  EditableLabel,
+  EditablePreview,
+} from '@moduix/solid/editable';
 import { createSignal } from 'solid-js';
 
 export default function ControlledEditableDemo() {
@@ -6,12 +13,12 @@ export default function ControlledEditableDemo() {
 
   return (
     <Editable value={value()} onValueChange={(details) => setValue(details.value)}>
-      <Editable.Label>Controlled value</Editable.Label>
-      <Editable.Area>
-        <Editable.Input />
-        <Editable.Preview />
-      </Editable.Area>
-      <Editable.Controls />
+      <EditableLabel>Controlled value</EditableLabel>
+      <EditableArea>
+        <EditableInput />
+        <EditablePreview />
+      </EditableArea>
+      <EditableControls />
     </Editable>
   );
 }

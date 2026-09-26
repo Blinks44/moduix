@@ -198,7 +198,7 @@ export const clipboardOverrideCssProperties: CssPropertyInput[] = [
   [
     '--moduix-clipboard-value-text-color',
     'currentColor',
-    'Controls value text color when using `Clipboard.ValueText`.',
+    'Controls value text color when using `ClipboardValueText`.',
   ],
   ['--moduix-clipboard-value-text-font-size', 'inherit', 'Controls value text font size.'],
   ['--moduix-clipboard-value-text-font-weight', 'inherit', 'Controls value text font weight.'],

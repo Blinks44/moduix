@@ -1,4 +1,15 @@
-import { Steps } from '@moduix/solid/steps';
+import {
+  Steps,
+  StepsCompletedContent,
+  StepsContent,
+  StepsIndicator,
+  StepsItem,
+  StepsList,
+  StepsNextTrigger,
+  StepsPrevTrigger,
+  StepsSeparator,
+  StepsTrigger,
+} from '@moduix/solid/steps';
 import styles from '@/components/examples/steps/steps-custom-composition.module.css';
 
 const items = [
@@ -19,35 +30,35 @@ const items = [
 export default function StepsCustomCompositionDemo() {
   return (
     <Steps class={styles.root} count={items.length} defaultStep={1} linear={false}>
-      <Steps.List>
+      <StepsList>
         {items.map((item, index) => (
-          <Steps.Item index={index}>
-            <Steps.Trigger
+          <StepsItem index={index}>
+            <StepsTrigger
               asChild={(props) => (
                 <a {...props()} href={`#step-${index + 1}`}>
-                  <Steps.Indicator />
+                  <StepsIndicator />
                   <span>
                     <strong>{item.title}</strong>
                   </span>
                 </a>
               )}
             />
-            <Steps.Separator />
-          </Steps.Item>
+            <StepsSeparator />
+          </StepsItem>
         ))}
-      </Steps.List>
+      </StepsList>
 
       {items.map((item, index) => (
-        <Steps.Content index={index}>
+        <StepsContent index={index}>
           {item.title} - {item.description}
-        </Steps.Content>
+        </StepsContent>
       ))}
 
-      <Steps.CompletedContent>Steps complete. The workspace is ready.</Steps.CompletedContent>
+      <StepsCompletedContent>Steps complete. The workspace is ready.</StepsCompletedContent>
 
       <div class={styles.actions}>
-        <Steps.PrevTrigger>Back</Steps.PrevTrigger>
-        <Steps.NextTrigger>Next</Steps.NextTrigger>
+        <StepsPrevTrigger>Back</StepsPrevTrigger>
+        <StepsNextTrigger>Next</StepsNextTrigger>
       </div>
     </Steps>
   );

@@ -20,7 +20,7 @@ const useToc = (props: UseTocProps) => useTocPrimitive(mergeProps({ autoScroll: 
 
 const useTocContext = useTocContextPrimitive;
 
-function TocRoot(props: ComponentProps<typeof TocPrimitive.Root>) {
+function Toc(props: ComponentProps<typeof TocPrimitive.Root>) {
   const [local, others] = splitProps(props, ['autoScroll', 'class']);
 
   return (
@@ -237,32 +237,20 @@ function TocRail(props: TocRailProps) {
   );
 }
 
-type TocComponent = typeof TocRoot & {
-  Root: typeof TocRoot;
-  RootProvider: typeof TocRootProvider;
-  Context: typeof TocPrimitive.Context;
-  Content: typeof TocContent;
-  Nav: typeof TocNav;
-  Title: typeof TocTitle;
-  List: typeof TocList;
-  Item: typeof TocItem;
-  Link: typeof TocLink;
-  Indicator: typeof TocIndicator;
-  Rail: typeof TocRail;
+const TocContext = TocPrimitive.Context;
+
+export {
+  Toc,
+  TocContext,
+  TocContent,
+  TocIndicator,
+  TocItem,
+  TocLink,
+  TocList,
+  TocNav,
+  TocRail,
+  TocRootProvider,
+  TocTitle,
+  useToc,
+  useTocContext,
 };
-
-const Toc: TocComponent = Object.assign(TocRoot, {
-  Root: TocRoot,
-  RootProvider: TocRootProvider,
-  Context: TocPrimitive.Context,
-  Content: TocContent,
-  Nav: TocNav,
-  Title: TocTitle,
-  List: TocList,
-  Item: TocItem,
-  Link: TocLink,
-  Indicator: TocIndicator,
-  Rail: TocRail,
-});
-
-export { Toc, useToc, useTocContext };

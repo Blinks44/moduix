@@ -27,11 +27,11 @@ const alertVariants = cva(
   },
 );
 
-type AlertRootProps = HTMLArkProps<'div'> & {
+type AlertProps = HTMLArkProps<'div'> & {
   status?: AlertStatus;
 };
 
-const AlertRoot = forwardRef<ComponentRef<typeof ark.div>, AlertRootProps>(function AlertRoot(
+const Alert = forwardRef<ComponentRef<typeof ark.div>, AlertProps>(function Alert(
   { children, className, role, status = 'info', ...props },
   ref,
 ) {
@@ -134,13 +134,4 @@ const AlertActions = forwardRef<ComponentRef<typeof ark.div>, HTMLArkProps<'div'
   },
 );
 
-const Alert = Object.assign(AlertRoot, {
-  Root: AlertRoot,
-  Indicator: AlertIndicator,
-  Content: AlertContent,
-  Title: AlertTitle,
-  Description: AlertDescription,
-  Actions: AlertActions,
-});
-
-export { Alert };
+export { Alert, AlertActions, AlertContent, AlertDescription, AlertIndicator, AlertTitle };

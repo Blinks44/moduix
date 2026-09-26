@@ -41,7 +41,7 @@ type FloatingPanelCloseIconProps = Omit<
   'asChild'
 >;
 
-function FloatingPanelRoot(props: FloatingPanelRootProps) {
+function FloatingPanel(props: FloatingPanelRootProps) {
   const [local, others] = splitProps(props, [
     'children',
     'closeOnEscape',
@@ -251,7 +251,7 @@ function FloatingPanelCloseIcon(props: FloatingPanelCloseIconProps) {
   return (
     <FloatingPanelPrimitive.CloseTrigger
       asChild={(triggerProps) => (
-        <CloseButton.Root
+        <CloseButton
           {...triggerProps()}
           data-slot="floating-panel-close-icon"
           aria-label={local['aria-label'] ?? DEFAULT_CLOSE_BUTTON_LABEL}
@@ -262,7 +262,7 @@ function FloatingPanelCloseIcon(props: FloatingPanelCloseIconProps) {
           )}
         >
           {resolvedChildren()}
-        </CloseButton.Root>
+        </CloseButton>
       )}
       {...others}
     />
@@ -353,51 +353,29 @@ function FloatingPanelDragIndicator(props: ComponentProps<'span'>) {
   );
 }
 
-type FloatingPanelComponent = typeof FloatingPanelRoot & {
-  Context: typeof FloatingPanelPrimitive.Context;
-  Root: typeof FloatingPanelRoot;
-  RootProvider: typeof FloatingPanelRootProvider;
-  Trigger: typeof FloatingPanelTrigger;
-  Positioner: typeof FloatingPanelPositioner;
-  Content: typeof FloatingPanelContent;
-  DragTrigger: typeof FloatingPanelDragTrigger;
-  Header: typeof FloatingPanelHeader;
-  Title: typeof FloatingPanelTitle;
-  Control: typeof FloatingPanelControl;
-  StageTrigger: typeof FloatingPanelStageTrigger;
-  CloseTrigger: typeof FloatingPanelCloseTrigger;
-  CloseIcon: typeof FloatingPanelCloseIcon;
-  Body: typeof FloatingPanelBody;
-  Footer: typeof FloatingPanelFooter;
-  ResizeTrigger: typeof FloatingPanelResizeTrigger;
-  ResizeTriggerGroup: typeof FloatingPanelResizeTriggerGroup;
-  DragIndicator: typeof FloatingPanelDragIndicator;
-  useFloatingPanel: typeof useFloatingPanel;
-  useFloatingPanelContext: typeof useFloatingPanelContext;
-};
+const FloatingPanelContext = FloatingPanelPrimitive.Context;
 
-const FloatingPanel: FloatingPanelComponent = Object.assign(FloatingPanelRoot, {
-  Context: FloatingPanelPrimitive.Context,
-  Root: FloatingPanelRoot,
-  RootProvider: FloatingPanelRootProvider,
-  Trigger: FloatingPanelTrigger,
-  Positioner: FloatingPanelPositioner,
-  Content: FloatingPanelContent,
-  DragTrigger: FloatingPanelDragTrigger,
-  Header: FloatingPanelHeader,
-  Title: FloatingPanelTitle,
-  Control: FloatingPanelControl,
-  StageTrigger: FloatingPanelStageTrigger,
-  CloseTrigger: FloatingPanelCloseTrigger,
-  CloseIcon: FloatingPanelCloseIcon,
-  Body: FloatingPanelBody,
-  Footer: FloatingPanelFooter,
-  ResizeTrigger: FloatingPanelResizeTrigger,
-  ResizeTriggerGroup: FloatingPanelResizeTriggerGroup,
-  DragIndicator: FloatingPanelDragIndicator,
+export {
+  FloatingPanel,
+  FloatingPanelContext,
+  FloatingPanelRootProvider,
+  FloatingPanelTrigger,
+  FloatingPanelPositioner,
+  FloatingPanelContent,
+  FloatingPanelDragTrigger,
+  FloatingPanelHeader,
+  FloatingPanelTitle,
+  FloatingPanelControl,
+  FloatingPanelStageTrigger,
+  FloatingPanelCloseTrigger,
+  FloatingPanelCloseIcon,
+  FloatingPanelBody,
+  FloatingPanelFooter,
+  FloatingPanelResizeTrigger,
+  FloatingPanelResizeTriggerGroup,
+  FloatingPanelDragIndicator,
+  resizeTriggerAxes,
   useFloatingPanel,
   useFloatingPanelContext,
-});
-
-export { FloatingPanel, resizeTriggerAxes, useFloatingPanel, useFloatingPanelContext };
+};
 export type { FloatingPanelRootProps, FloatingPanelRootProviderProps };
