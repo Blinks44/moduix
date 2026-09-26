@@ -265,7 +265,7 @@ export const RootProvider: Story = {
   render: renderStory(
     `
       <div :class="styles.providerLayout">
-        <button type="button" :class="styles.providerButton" @click="focusCombobox">Focus combobox</button>
+        <button type="button" @click="focusCombobox">Focus combobox</button>
         <ComboboxRootProvider :value="combobox">
           <ComboboxLabel>Job title</ComboboxLabel>
           <ComboboxControl>

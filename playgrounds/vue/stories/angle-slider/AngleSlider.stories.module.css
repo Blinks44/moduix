@@ -59,7 +59,6 @@
     outline-offset: 2px;
   }
 }
-
 .form {
   display: grid;
   gap: var(--moduix-spacing-3);

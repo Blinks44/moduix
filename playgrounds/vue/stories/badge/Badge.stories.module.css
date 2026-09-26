@@ -38,7 +38,6 @@
   --moduix-badge-line-height: var(--moduix-line-height-text-sm);
   --moduix-badge-padding-x: 1rem;
 }
-
 .disabledButton {
   cursor: not-allowed;
   opacity: var(--moduix-opacity-disabled);
