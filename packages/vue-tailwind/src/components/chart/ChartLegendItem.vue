@@ -2,7 +2,7 @@
 import { ark } from '@ark-ui/vue/factory';
 import type { HTMLArkProps } from '@ark-ui/vue/factory';
 import { useAttrs } from 'vue';
-import type { HTMLAttributes } from 'vue';
+import type { HTMLAttributes, StyleValue } from 'vue';
 import { cn } from '@/lib/moduix/cn';
 
 defineOptions({ inheritAttrs: false });
@@ -11,6 +11,7 @@ export interface Props extends /* @vue-ignore */ HTMLArkProps<'li'> {
   class?: HTMLAttributes['class'];
   asChild?: boolean;
   color?: string;
+  style?: StyleValue;
 }
 
 const { class: className, asChild, color, style } = defineProps<Props>();

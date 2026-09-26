@@ -122,9 +122,9 @@ test('preserves composed click handlers while enabled', async () => {
   render(Harness);
 
   const button = screen.getByRole('button', { name: 'Dismiss notification' });
-  const click = new MouseEvent('click', { bubbles: true, cancelable: true });
 
-  expect(button.dispatchEvent(click)).toBe(true);
+  await new Promise<void>((resolve) => setTimeout(resolve, 0));
+  await fireEvent.click(button);
 
   expect(calls).toEqual(['close capture', 'button click', 'close click']);
 });

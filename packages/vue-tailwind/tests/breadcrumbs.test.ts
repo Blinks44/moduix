@@ -108,7 +108,14 @@ test('preserves consumer labels and native listeners while keeping owned ARIA at
               h(BreadcrumbsList, null, {
                 default: () => [
                   h(BreadcrumbsItem, null, {
-                    default: () => h(BreadcrumbsPage, { 'aria-current': 'step' }, 'Current'),
+                    default: () =>
+                      h(
+                        BreadcrumbsPage,
+                        { 'aria-current': 'step' },
+                        {
+                          default: () => 'Current',
+                        },
+                      ),
                   }),
                   h(BreadcrumbsSeparator, { 'aria-hidden': 'false' }),
                   h(BreadcrumbsEllipsis, { 'aria-hidden': 'false' }, { default: () => 'More' }),

@@ -153,3 +153,7 @@ Use this skill for JS/TS Vue work in this repo.
   controlled state through a parent harness that writes emitted values back into its ref. Test
   relevant omitted Boolean defaults, fallthrough listeners, scoped slots, ordinary refs through
   `$el`, and `asChild` separately rather than weakening an established behavior assertion.
+- When a test exercises capture and bubble listeners on the same newly mounted host, wait one
+  macrotask before dispatching the synthetic event. Vue runtime-dom timestamps event invokers by
+  millisecond, so a same-tick test event can skip the later invoker even though normal user input
+  works. Keep this as test timing and do not change the component listener contract to mask it.

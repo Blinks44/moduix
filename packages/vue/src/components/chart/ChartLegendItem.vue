@@ -11,6 +11,7 @@ defineOptions({ inheritAttrs: false });
 export interface Props extends /* @vue-ignore */ HTMLArkProps<'li'> {
   class?: HTMLAttributes['class'];
   color?: string;
+  style?: StyleValue;
 }
 
 const { class: className, color, style } = defineProps<Props>();
