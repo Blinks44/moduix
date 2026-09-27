@@ -1,0 +1,137 @@
+.stack {
+  display: grid;
+  gap: var(--moduix-spacing-3);
+}
+
+.hint {
+  color: var(--moduix-color-muted-foreground);
+  font-size: var(--moduix-text-sm);
+  line-height: var(--moduix-line-height-text-sm);
+}
+
+.presets {
+  display: flex;
+  flex-wrap: wrap;
+  gap: var(--moduix-spacing-2);
+  margin-bottom: var(--moduix-spacing-3);
+}
+
+.selectedDates {
+  box-sizing: border-box;
+  display: flex;
+  width: 100%;
+  min-height: var(--moduix-date-picker-control-height, var(--moduix-size-md));
+  flex-wrap: wrap;
+  align-items: center;
+  gap: var(--moduix-spacing-1);
+  border: var(--moduix-date-picker-border-width, var(--moduix-border-width-sm)) solid
+    var(--moduix-date-picker-border-color, var(--moduix-color-border));
+  border-radius: var(--moduix-date-picker-radius, var(--moduix-radius-md));
+  padding-block: var(--moduix-spacing-1);
+  padding-inline: var(--moduix-date-picker-input-padding-x-start, var(--moduix-spacing-3-5))
+    var(--moduix-date-picker-input-padding-x-end, 4.25rem);
+  background: var(--moduix-date-picker-bg, var(--moduix-color-background));
+}
+
+.multipleRoot {
+  --moduix-date-picker-width: 20rem;
+}
+
+.selectedDate,
+.selectedDatesPlaceholder {
+  display: inline-flex;
+  min-width: 0;
+  align-items: center;
+  gap: var(--moduix-spacing-1);
+  border-radius: var(--moduix-radius-sm);
+  font-size: var(--moduix-text-sm);
+  line-height: var(--moduix-line-height-text-sm);
+}
+
+.selectedDate {
+  padding: 0.125rem 0.375rem;
+  background: var(--moduix-color-muted);
+  color: var(--moduix-color-foreground);
+}
+
+.selectedDatesPlaceholder {
+  color: var(--moduix-date-picker-placeholder-color, var(--moduix-color-muted-foreground));
+}
+
+.selectedDateRemove {
+  display: inline-flex;
+  width: 1rem;
+  height: 1rem;
+  align-items: center;
+  justify-content: center;
+  border: 0;
+  border-radius: var(--moduix-radius-sm);
+  padding: 0;
+  background: transparent;
+  color: var(--moduix-color-muted-foreground);
+  cursor: pointer;
+}
+
+.selectedDateRemove:hover {
+  background: var(--moduix-color-accent);
+  color: var(--moduix-color-accent-foreground);
+}
+
+.monthYearControl {
+  display: grid;
+  grid-template-columns: minmax(0, 1fr) auto;
+  align-items: center;
+  gap: var(--moduix-spacing-2);
+}
+
+.monthYearSelects,
+.monthYearNav {
+  align-items: center;
+  gap: var(--moduix-spacing-1);
+}
+
+.monthYearSelects {
+  display: grid;
+  min-width: 0;
+  grid-template-columns: minmax(0, 1fr) minmax(4.5rem, 0.7fr);
+}
+
+.monthYearNav {
+  display: inline-flex;
+}
+
+.monthSelect,
+.yearSelect {
+  --moduix-select-width: 100%;
+  --moduix-select-control-height: var(--moduix-date-picker-select-height, var(--moduix-size-sm));
+  min-width: 0;
+}
+
+.multipleMonths {
+  display: flex;
+  gap: var(--moduix-spacing-3);
+  overflow-x: auto;
+}
+
+.multipleMonthsContent {
+  --moduix-date-picker-content-width: max-content;
+  --moduix-date-picker-content-max-width: calc(100vw - 2rem);
+}
+
+.multipleMonthsTable {
+  width: max-content;
+  flex: 0 0 auto;
+}
+
+.customRoot {
+  --moduix-date-picker-bg: var(--moduix-color-muted);
+  --moduix-date-picker-border-color: var(--moduix-color-primary);
+  --moduix-date-picker-focus-ring-color: var(--moduix-color-primary);
+  --moduix-date-picker-table-cell-selected-bg: var(--moduix-color-primary);
+  --moduix-date-picker-table-cell-selected-color: var(--moduix-color-primary-foreground);
+  --moduix-date-picker-table-cell-range-bg: color-mix(
+    in oklab,
+    var(--moduix-color-primary) 12%,
+    transparent
+  );
+}

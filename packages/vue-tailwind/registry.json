@@ -138,6 +138,240 @@
       ]
     },
     {
+      "name": "date-picker",
+      "type": "registry:item",
+      "title": "DatePicker",
+      "description": "moduix Vue Tailwind DatePicker component.",
+      "dependencies": ["@ark-ui/vue", "clsx", "tailwind-merge"],
+      "registryDependencies": [
+        "@moduix-vue-tailwind/foundation",
+        "@moduix-vue-tailwind/cn",
+        "@moduix-vue-tailwind/icons"
+      ],
+      "files": [
+        {
+          "path": "src/components/date-picker/DatePicker.vue",
+          "target": "@components/ui/date-picker/DatePicker.vue",
+          "type": "registry:component"
+        },
+        {
+          "path": "src/components/date-picker/DatePickerClearTrigger.vue",
+          "target": "@components/ui/date-picker/DatePickerClearTrigger.vue",
+          "type": "registry:component"
+        },
+        {
+          "path": "src/components/date-picker/DatePickerContent.vue",
+          "target": "@components/ui/date-picker/DatePickerContent.vue",
+          "type": "registry:component"
+        },
+        {
+          "path": "src/components/date-picker/DatePickerContext.vue",
+          "target": "@components/ui/date-picker/DatePickerContext.vue",
+          "type": "registry:component"
+        },
+        {
+          "path": "src/components/date-picker/DatePickerControl.vue",
+          "target": "@components/ui/date-picker/DatePickerControl.vue",
+          "type": "registry:component"
+        },
+        {
+          "path": "src/components/date-picker/DatePickerDayTable.vue",
+          "target": "@components/ui/date-picker/DatePickerDayTable.vue",
+          "type": "registry:component"
+        },
+        {
+          "path": "src/components/date-picker/DatePickerField.vue",
+          "target": "@components/ui/date-picker/DatePickerField.vue",
+          "type": "registry:component"
+        },
+        {
+          "path": "src/components/date-picker/DatePickerInput.vue",
+          "target": "@components/ui/date-picker/DatePickerInput.vue",
+          "type": "registry:component"
+        },
+        {
+          "path": "src/components/date-picker/DatePickerLabel.vue",
+          "target": "@components/ui/date-picker/DatePickerLabel.vue",
+          "type": "registry:component"
+        },
+        {
+          "path": "src/components/date-picker/DatePickerMonthSelect.vue",
+          "target": "@components/ui/date-picker/DatePickerMonthSelect.vue",
+          "type": "registry:component"
+        },
+        {
+          "path": "src/components/date-picker/DatePickerNextTrigger.vue",
+          "target": "@components/ui/date-picker/DatePickerNextTrigger.vue",
+          "type": "registry:component"
+        },
+        {
+          "path": "src/components/date-picker/DatePickerPositioner.vue",
+          "target": "@components/ui/date-picker/DatePickerPositioner.vue",
+          "type": "registry:component"
+        },
+        {
+          "path": "src/components/date-picker/DatePickerPresetTrigger.vue",
+          "target": "@components/ui/date-picker/DatePickerPresetTrigger.vue",
+          "type": "registry:component"
+        },
+        {
+          "path": "src/components/date-picker/DatePickerPrevTrigger.vue",
+          "target": "@components/ui/date-picker/DatePickerPrevTrigger.vue",
+          "type": "registry:component"
+        },
+        {
+          "path": "src/components/date-picker/DatePickerRangeField.vue",
+          "target": "@components/ui/date-picker/DatePickerRangeField.vue",
+          "type": "registry:component"
+        },
+        {
+          "path": "src/components/date-picker/DatePickerRangeText.vue",
+          "target": "@components/ui/date-picker/DatePickerRangeText.vue",
+          "type": "registry:component"
+        },
+        {
+          "path": "src/components/date-picker/DatePickerRootProvider.vue",
+          "target": "@components/ui/date-picker/DatePickerRootProvider.vue",
+          "type": "registry:component"
+        },
+        {
+          "path": "src/components/date-picker/DatePickerTable.vue",
+          "target": "@components/ui/date-picker/DatePickerTable.vue",
+          "type": "registry:component"
+        },
+        {
+          "path": "src/components/date-picker/DatePickerTableBody.vue",
+          "target": "@components/ui/date-picker/DatePickerTableBody.vue",
+          "type": "registry:component"
+        },
+        {
+          "path": "src/components/date-picker/DatePickerTableCell.vue",
+          "target": "@components/ui/date-picker/DatePickerTableCell.vue",
+          "type": "registry:component"
+        },
+        {
+          "path": "src/components/date-picker/DatePickerTableCellTrigger.vue",
+          "target": "@components/ui/date-picker/DatePickerTableCellTrigger.vue",
+          "type": "registry:component"
+        },
+        {
+          "path": "src/components/date-picker/DatePickerTableHead.vue",
+          "target": "@components/ui/date-picker/DatePickerTableHead.vue",
+          "type": "registry:component"
+        },
+        {
+          "path": "src/components/date-picker/DatePickerTableHeader.vue",
+          "target": "@components/ui/date-picker/DatePickerTableHeader.vue",
+          "type": "registry:component"
+        },
+        {
+          "path": "src/components/date-picker/DatePickerTableRow.vue",
+          "target": "@components/ui/date-picker/DatePickerTableRow.vue",
+          "type": "registry:component"
+        },
+        {
+          "path": "src/components/date-picker/DatePickerTrigger.vue",
+          "target": "@components/ui/date-picker/DatePickerTrigger.vue",
+          "type": "registry:component"
+        },
+        {
+          "path": "src/components/date-picker/DatePickerValueText.vue",
+          "target": "@components/ui/date-picker/DatePickerValueText.vue",
+          "type": "registry:component"
+        },
+        {
+          "path": "src/components/date-picker/DatePickerView.vue",
+          "target": "@components/ui/date-picker/DatePickerView.vue",
+          "type": "registry:component"
+        },
+        {
+          "path": "src/components/date-picker/DatePickerViewControl.vue",
+          "target": "@components/ui/date-picker/DatePickerViewControl.vue",
+          "type": "registry:component"
+        },
+        {
+          "path": "src/components/date-picker/DatePickerViewTrigger.vue",
+          "target": "@components/ui/date-picker/DatePickerViewTrigger.vue",
+          "type": "registry:component"
+        },
+        {
+          "path": "src/components/date-picker/DatePickerWeekNumberCell.vue",
+          "target": "@components/ui/date-picker/DatePickerWeekNumberCell.vue",
+          "type": "registry:component"
+        },
+        {
+          "path": "src/components/date-picker/DatePickerWeekNumberHeaderCell.vue",
+          "target": "@components/ui/date-picker/DatePickerWeekNumberHeaderCell.vue",
+          "type": "registry:component"
+        },
+        {
+          "path": "src/components/date-picker/DatePickerYearSelect.vue",
+          "target": "@components/ui/date-picker/DatePickerYearSelect.vue",
+          "type": "registry:component"
+        },
+        {
+          "path": "src/components/date-picker/index.ts",
+          "target": "@components/ui/date-picker/index.ts",
+          "type": "registry:component"
+        }
+      ]
+    },
+    {
+      "name": "date-input",
+      "type": "registry:item",
+      "title": "DateInput",
+      "description": "moduix Vue Tailwind DateInput component.",
+      "dependencies": ["@ark-ui/vue", "clsx", "tailwind-merge"],
+      "registryDependencies": ["@moduix-vue-tailwind/foundation", "@moduix-vue-tailwind/cn"],
+      "files": [
+        {
+          "path": "src/components/date-input/DateInput.vue",
+          "target": "@components/ui/date-input/DateInput.vue",
+          "type": "registry:component"
+        },
+        {
+          "path": "src/components/date-input/DateInputRootProvider.vue",
+          "target": "@components/ui/date-input/DateInputRootProvider.vue",
+          "type": "registry:component"
+        },
+        {
+          "path": "src/components/date-input/DateInputLabel.vue",
+          "target": "@components/ui/date-input/DateInputLabel.vue",
+          "type": "registry:component"
+        },
+        {
+          "path": "src/components/date-input/DateInputControl.vue",
+          "target": "@components/ui/date-input/DateInputControl.vue",
+          "type": "registry:component"
+        },
+        {
+          "path": "src/components/date-input/DateInputSegmentGroup.vue",
+          "target": "@components/ui/date-input/DateInputSegmentGroup.vue",
+          "type": "registry:component"
+        },
+        {
+          "path": "src/components/date-input/DateInputSegment.vue",
+          "target": "@components/ui/date-input/DateInputSegment.vue",
+          "type": "registry:component"
+        },
+        {
+          "path": "src/components/date-input/DateInputSegments.vue",
+          "target": "@components/ui/date-input/DateInputSegments.vue",
+          "type": "registry:component"
+        },
+        {
+          "path": "src/components/date-input/DateInputSeparator.vue",
+          "target": "@components/ui/date-input/DateInputSeparator.vue",
+          "type": "registry:component"
+        },
+        {
+          "path": "src/components/date-input/index.ts",
+          "target": "@components/ui/date-input/index.ts",
+          "type": "registry:component"
+        }
+      ]
+    },
+    {
       "name": "switch",
       "type": "registry:item",
       "title": "Switch",
@@ -1154,6 +1388,126 @@
         {
           "path": "src/components/dialog/index.ts",
           "target": "@components/ui/dialog/index.ts",
+          "type": "registry:component"
+        }
+      ]
+    },
+    {
+      "name": "drawer",
+      "type": "registry:item",
+      "title": "Drawer",
+      "description": "moduix Vue Tailwind Drawer component.",
+      "dependencies": ["@ark-ui/vue", "clsx", "tailwind-merge"],
+      "registryDependencies": [
+        "@moduix-vue-tailwind/foundation",
+        "@moduix-vue-tailwind/cn",
+        "@moduix-vue-tailwind/close-button",
+        "@moduix-vue-tailwind/overlay-portal"
+      ],
+      "files": [
+        {
+          "path": "src/components/drawer/Drawer.vue",
+          "target": "@components/ui/drawer/Drawer.vue",
+          "type": "registry:component"
+        },
+        {
+          "path": "src/components/drawer/DrawerRootProvider.vue",
+          "target": "@components/ui/drawer/DrawerRootProvider.vue",
+          "type": "registry:component"
+        },
+        {
+          "path": "src/components/drawer/DrawerTrigger.vue",
+          "target": "@components/ui/drawer/DrawerTrigger.vue",
+          "type": "registry:component"
+        },
+        {
+          "path": "src/components/drawer/DrawerBackdrop.vue",
+          "target": "@components/ui/drawer/DrawerBackdrop.vue",
+          "type": "registry:component"
+        },
+        {
+          "path": "src/components/drawer/DrawerPositioner.vue",
+          "target": "@components/ui/drawer/DrawerPositioner.vue",
+          "type": "registry:component"
+        },
+        {
+          "path": "src/components/drawer/DrawerContent.vue",
+          "target": "@components/ui/drawer/DrawerContent.vue",
+          "type": "registry:component"
+        },
+        {
+          "path": "src/components/drawer/DrawerGrabber.vue",
+          "target": "@components/ui/drawer/DrawerGrabber.vue",
+          "type": "registry:component"
+        },
+        {
+          "path": "src/components/drawer/DrawerGrabberIndicator.vue",
+          "target": "@components/ui/drawer/DrawerGrabberIndicator.vue",
+          "type": "registry:component"
+        },
+        {
+          "path": "src/components/drawer/DrawerTitle.vue",
+          "target": "@components/ui/drawer/DrawerTitle.vue",
+          "type": "registry:component"
+        },
+        {
+          "path": "src/components/drawer/DrawerDescription.vue",
+          "target": "@components/ui/drawer/DrawerDescription.vue",
+          "type": "registry:component"
+        },
+        {
+          "path": "src/components/drawer/DrawerCloseTrigger.vue",
+          "target": "@components/ui/drawer/DrawerCloseTrigger.vue",
+          "type": "registry:component"
+        },
+        {
+          "path": "src/components/drawer/DrawerCloseIcon.vue",
+          "target": "@components/ui/drawer/DrawerCloseIcon.vue",
+          "type": "registry:component"
+        },
+        {
+          "path": "src/components/drawer/DrawerSwipeArea.vue",
+          "target": "@components/ui/drawer/DrawerSwipeArea.vue",
+          "type": "registry:component"
+        },
+        {
+          "path": "src/components/drawer/DrawerIndent.vue",
+          "target": "@components/ui/drawer/DrawerIndent.vue",
+          "type": "registry:component"
+        },
+        {
+          "path": "src/components/drawer/DrawerIndentBackground.vue",
+          "target": "@components/ui/drawer/DrawerIndentBackground.vue",
+          "type": "registry:component"
+        },
+        {
+          "path": "src/components/drawer/DrawerHeader.vue",
+          "target": "@components/ui/drawer/DrawerHeader.vue",
+          "type": "registry:component"
+        },
+        {
+          "path": "src/components/drawer/DrawerBody.vue",
+          "target": "@components/ui/drawer/DrawerBody.vue",
+          "type": "registry:component"
+        },
+        {
+          "path": "src/components/drawer/DrawerFooter.vue",
+          "target": "@components/ui/drawer/DrawerFooter.vue",
+          "type": "registry:component"
+        },
+        {
+          "path": "src/components/drawer/DrawerContext.vue",
+          "target": "@components/ui/drawer/DrawerContext.vue",
+          "type": "registry:component"
+        },
+        {
+          "path": "src/components/drawer/context.ts",
+          "target": "@components/ui/drawer/context.ts",
+          "type": "registry:component"
+        },
+        {
+          "path": "src/components/drawer/index.ts",
+          "target": "@components/ui/drawer/index.ts",
           "type": "registry:component"
         }
       ]

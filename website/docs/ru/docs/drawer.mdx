@@ -1,7 +1,7 @@
 ---
 title: Drawer
 component: drawer
-description: Доступная панель от края экрана для навигации, форм, нижних панелей, точек привязки и сценариев со свайпами в React и Solid.
+description: Доступная панель от края экрана для навигации, форм, нижних панелей, точек привязки и сценариев со свайпами в React, Solid и Vue.
 ---
 
 import * as DrawerDocs from '@/components/examples/drawer/css-properties';
@@ -33,6 +33,20 @@ import drawerSolidRootProvider from '../../../snippets/drawer/solid/root-provide
 import drawerSolidScrollable from '../../../snippets/drawer/solid/scrollable.tsx?raw';
 import drawerSolidSnapPoints from '../../../snippets/drawer/solid/snap-points.tsx?raw';
 import drawerSolidSwipeDirection from '../../../snippets/drawer/solid/swipe-direction.tsx?raw';
+import drawerVueAdvancedCustomization from '../../../snippets/drawer/vue/advanced-customization.vue?raw';
+import drawerVueBasic from '../../../snippets/drawer/vue/basic.vue?raw';
+import drawerVueControlled from '../../../snippets/drawer/vue/controlled.vue?raw';
+import drawerVueDragControls from '../../../snippets/drawer/vue/drag-controls.vue?raw';
+import drawerVueFloatingGrabber from '../../../snippets/drawer/vue/floating-grabber.vue?raw';
+import drawerVueIndentBackground from '../../../snippets/drawer/vue/indent-background.vue?raw';
+import drawerVueIsland from '../../../snippets/drawer/vue/island.vue?raw';
+import drawerVueMultipleTriggers from '../../../snippets/drawer/vue/multiple-triggers.vue?raw';
+import drawerVueNested from '../../../snippets/drawer/vue/nested.vue?raw';
+import drawerVueNonModal from '../../../snippets/drawer/vue/non-modal.vue?raw';
+import drawerVueRootProvider from '../../../snippets/drawer/vue/root-provider.vue?raw';
+import drawerVueScrollable from '../../../snippets/drawer/vue/scrollable.vue?raw';
+import drawerVueSnapPoints from '../../../snippets/drawer/vue/snap-points.vue?raw';
+import drawerVueSwipeDirection from '../../../snippets/drawer/vue/swipe-direction.vue?raw';
 
 ## Справочник API
 
@@ -63,6 +77,7 @@ import drawerSolidSwipeDirection from '../../../snippets/drawer/solid/swipe-dire
     values={[
       { label: 'React', value: 'react' },
       { label: 'Solid', value: 'solid' },
+      { label: 'Vue', value: 'vue' },
     ]}
     className="docs-tabs"
   >
@@ -75,6 +90,11 @@ import drawerSolidSwipeDirection from '../../../snippets/drawer/solid/swipe-dire
     <Tab value="solid">
 
 <CodeBlockRuntime lang="tsx" code={drawerSolidBasic} />
+
+    </Tab>
+    <Tab value="vue">
+
+<CodeBlockRuntime lang="vue" code={drawerVueBasic} />
 
     </Tab>
   </Tabs>
@@ -108,6 +128,16 @@ import drawerSolidSwipeDirection from '../../../snippets/drawer/solid/swipe-dire
   options={[
     { label: 'CSS Modules', command: 'shadcn@latest add @moduix-solid/drawer' },
     { label: 'Tailwind CSS', command: 'shadcn@latest add @moduix-solid-tailwind/drawer' },
+  ]}
+/>
+
+  </Tab>
+  <Tab label="Vue" value="vue">
+
+<ShadcnInstallOptions
+  options={[
+    { label: 'CSS Modules', command: 'shadcn@latest add @moduix-vue/drawer' },
+    { label: 'Tailwind CSS', command: 'shadcn@latest add @moduix-vue-tailwind/drawer' },
   ]}
 />
 
@@ -185,7 +215,7 @@ DrawerRootProvider
 
 <ExampleCode>
 <div className="docs-reference">
-  <Tabs groupId="framework" values={[{ label: 'React', value: 'react' }, { label: 'Solid', value: 'solid' }]} className="docs-tabs">
+  <Tabs groupId="framework" values={[{ label: 'React', value: 'react' }, { label: 'Solid', value: 'solid' }, { label: 'Vue', value: 'vue' }]} className="docs-tabs">
     <Tab value="react">
 
 ```tsx pure file="../../../src/components/examples/drawer/controlled.tsx"
@@ -195,6 +225,11 @@ DrawerRootProvider
     <Tab value="solid">
 
 <CodeBlockRuntime lang="tsx" code={drawerSolidControlled} />
+
+    </Tab>
+    <Tab value="vue">
+
+<CodeBlockRuntime lang="vue" code={drawerVueControlled} />
 
     </Tab>
   </Tabs>
@@ -229,6 +264,11 @@ DrawerRootProvider
 <CodeBlockRuntime lang="tsx" code={drawerSolidDragControls} />
 
     </Tab>
+    <Tab value="vue">
+
+<CodeBlockRuntime lang="vue" code={drawerVueDragControls} />
+
+    </Tab>
   </Tabs>
 
 **Styles**
@@ -259,6 +299,11 @@ DrawerRootProvider
     <Tab value="solid">
 
 <CodeBlockRuntime lang="tsx" code={drawerSolidFloatingGrabber} />
+
+    </Tab>
+    <Tab value="vue">
+
+<CodeBlockRuntime lang="vue" code={drawerVueFloatingGrabber} />
 
     </Tab>
   </Tabs>
@@ -293,6 +338,11 @@ DrawerRootProvider
 <CodeBlockRuntime lang="tsx" code={drawerSolidIndentBackground} />
 
     </Tab>
+    <Tab value="vue">
+
+<CodeBlockRuntime lang="vue" code={drawerVueIndentBackground} />
+
+    </Tab>
   </Tabs>
 
 **Styles**
@@ -325,6 +375,11 @@ DrawerRootProvider
 <CodeBlockRuntime lang="tsx" code={drawerSolidIsland} />
 
     </Tab>
+    <Tab value="vue">
+
+<CodeBlockRuntime lang="vue" code={drawerVueIsland} />
+
+    </Tab>
   </Tabs>
 
 **Styles**
@@ -355,6 +410,11 @@ DrawerRootProvider
     <Tab value="solid">
 
 <CodeBlockRuntime lang="tsx" code={drawerSolidMultipleTriggers} />
+
+    </Tab>
+    <Tab value="vue">
+
+<CodeBlockRuntime lang="vue" code={drawerVueMultipleTriggers} />
 
     </Tab>
   </Tabs>
@@ -390,6 +450,11 @@ DrawerRootProvider
 <CodeBlockRuntime lang="tsx" code={drawerSolidNested} />
 
     </Tab>
+    <Tab value="vue">
+
+<CodeBlockRuntime lang="vue" code={drawerVueNested} />
+
+    </Tab>
   </Tabs>
 
 **Styles**
@@ -420,6 +485,11 @@ DrawerRootProvider
     <Tab value="solid">
 
 <CodeBlockRuntime lang="tsx" code={drawerSolidNonModal} />
+
+    </Tab>
+    <Tab value="vue">
+
+<CodeBlockRuntime lang="vue" code={drawerVueNonModal} />
 
     </Tab>
   </Tabs>
@@ -454,6 +524,11 @@ DrawerRootProvider
 <CodeBlockRuntime lang="tsx" code={drawerSolidRootProvider} />
 
     </Tab>
+    <Tab value="vue">
+
+<CodeBlockRuntime lang="vue" code={drawerVueRootProvider} />
+
+    </Tab>
   </Tabs>
 
 **Styles**
@@ -484,6 +559,11 @@ DrawerRootProvider
     <Tab value="solid">
 
 <CodeBlockRuntime lang="tsx" code={drawerSolidScrollable} />
+
+    </Tab>
+    <Tab value="vue">
+
+<CodeBlockRuntime lang="vue" code={drawerVueScrollable} />
 
     </Tab>
   </Tabs>
@@ -518,6 +598,11 @@ DrawerRootProvider
 <CodeBlockRuntime lang="tsx" code={drawerSolidSnapPoints} />
 
     </Tab>
+    <Tab value="vue">
+
+<CodeBlockRuntime lang="vue" code={drawerVueSnapPoints} />
+
+    </Tab>
   </Tabs>
 
 **Styles**
@@ -550,6 +635,11 @@ DrawerRootProvider
 <CodeBlockRuntime lang="tsx" code={drawerSolidSwipeDirection} />
 
     </Tab>
+    <Tab value="vue">
+
+<CodeBlockRuntime lang="vue" code={drawerVueSwipeDirection} />
+
+    </Tab>
   </Tabs>
 
 **Styles**
@@ -580,6 +670,11 @@ DrawerRootProvider
     <Tab value="solid">
 
 <CodeBlockRuntime lang="tsx" code={drawerSolidAdvancedCustomization} />
+
+    </Tab>
+    <Tab value="vue">
+
+<CodeBlockRuntime lang="vue" code={drawerVueAdvancedCustomization} />
 
     </Tab>
   </Tabs>

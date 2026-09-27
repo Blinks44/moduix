@@ -49,9 +49,17 @@
     "**/*.css"
   ],
   "exports": {
+    "./date-picker": {
+      "types": "./dist/components/date-picker/index.d.ts",
+      "import": "./dist/components/date-picker/index.js"
+    },
     "./accordion": {
       "types": "./dist/components/accordion/index.d.ts",
       "import": "./dist/components/accordion/index.js"
+    },
+    "./date-input": {
+      "types": "./dist/components/date-input/index.d.ts",
+      "import": "./dist/components/date-input/index.js"
     },
     "./switch": {
       "types": "./dist/components/switch/index.d.ts",
@@ -76,6 +84,10 @@
     "./dialog": {
       "types": "./dist/components/dialog/index.d.ts",
       "import": "./dist/components/dialog/index.js"
+    },
+    "./drawer": {
+      "types": "./dist/components/drawer/index.d.ts",
+      "import": "./dist/components/drawer/index.js"
     },
     "./field": {
       "types": "./dist/components/field/index.d.ts",
@@ -223,6 +235,7 @@
   },
   "devDependencies": {
     "@ark-ui/vue": "catalog:",
+    "@internationalized/date": "catalog:",
     "@rsbuild/core": "catalog:",
     "@rsbuild/plugin-vue": "catalog:",
     "@rslib/core": "catalog:",

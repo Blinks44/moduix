@@ -1,12 +1,15 @@
 // Internal test barrel. The package intentionally exposes component subpaths only.
 
 export * from './components/accordion';
+export * from './components/date-picker';
+export * from './components/date-input';
 export * from './components/switch';
 export * from './components/select';
 export * from './components/native-select';
 export * from './components/rating-group';
 export * from './components/collapsible';
 export * from './components/dialog';
+export * from './components/drawer';
 export * from './components/field';
 export * from './components/alert';
 export * from './components/angle-slider';

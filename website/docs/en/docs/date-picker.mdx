@@ -43,6 +43,25 @@ import datePickerSolidRootProvider from '../../../snippets/date-picker/solid/roo
 import datePickerSolidSelectToday from '../../../snippets/date-picker/solid/select-today.tsx?raw';
 import datePickerSolidWithTime from '../../../snippets/date-picker/solid/with-time.tsx?raw';
 import datePickerSolidYearPicker from '../../../snippets/date-picker/solid/year-picker.tsx?raw';
+import datePickerVueAdvancedCustomization from '../../../snippets/date-picker/vue/advanced-customization.vue?raw';
+import datePickerVueBasic from '../../../snippets/date-picker/vue/basic.vue?raw';
+import datePickerVueControlled from '../../../snippets/date-picker/vue/controlled.vue?raw';
+import datePickerVueDefaultView from '../../../snippets/date-picker/vue/default-view-and-fixed-weeks.vue?raw';
+import datePickerVueFieldState from '../../../snippets/date-picker/vue/field-state.vue?raw';
+import datePickerVueForm from '../../../snippets/date-picker/vue/form.vue?raw';
+import datePickerVueInline from '../../../snippets/date-picker/vue/inline-and-week-numbers.vue?raw';
+import datePickerVueLocale from '../../../snippets/date-picker/vue/locale-and-format.vue?raw';
+import datePickerVueMinMax from '../../../snippets/date-picker/vue/min-max-and-unavailable.vue?raw';
+import datePickerVueMonthPicker from '../../../snippets/date-picker/vue/month-picker.vue?raw';
+import datePickerVueMonthYearSelect from '../../../snippets/date-picker/vue/month-year-select.vue?raw';
+import datePickerVueMultiple from '../../../snippets/date-picker/vue/multiple.vue?raw';
+import datePickerVueMultipleMonths from '../../../snippets/date-picker/vue/multiple-months.vue?raw';
+import datePickerVuePresets from '../../../snippets/date-picker/vue/presets.vue?raw';
+import datePickerVueRange from '../../../snippets/date-picker/vue/range.vue?raw';
+import datePickerVueRootProvider from '../../../snippets/date-picker/vue/root-provider.vue?raw';
+import datePickerVueSelectToday from '../../../snippets/date-picker/vue/select-today.vue?raw';
+import datePickerVueWithTime from '../../../snippets/date-picker/vue/with-time.vue?raw';
+import datePickerVueYearPicker from '../../../snippets/date-picker/vue/year-picker.vue?raw';
 
 ## API Reference
 
@@ -71,7 +90,7 @@ calendar should float.
     groupId="framework"
     values={[
       { label: 'React', value: 'react' },
-      { label: 'Solid', value: 'solid' },
+      { label: 'Solid', value: 'solid' }, { label: 'Vue', value: 'vue' },
     ]}
     className="docs-tabs"
   >
@@ -84,6 +103,11 @@ calendar should float.
     <Tab value="solid">
 
 <CodeBlockRuntime lang="tsx" code={datePickerSolidBasic} />
+
+    </Tab>
+    <Tab value="vue">
+
+<CodeBlockRuntime lang="vue" code={datePickerVueBasic} />
 
     </Tab>
   </Tabs>
@@ -112,6 +136,16 @@ See [Quick Start](/docs/quick-start) for full package setup, registry configurat
   options={[
     { label: 'CSS Modules', command: 'shadcn@latest add @moduix-solid/date-picker' },
     { label: 'Tailwind CSS', command: 'shadcn@latest add @moduix-solid-tailwind/date-picker' },
+  ]}
+/>
+
+  </Tab>
+  <Tab label="Vue" value="vue">
+
+<ShadcnInstallOptions
+  options={[
+    { label: 'CSS Modules', command: 'shadcn@latest add @moduix-vue/date-picker' },
+    { label: 'Tailwind CSS', command: 'shadcn@latest add @moduix-vue-tailwind/date-picker' },
   ]}
 />
 
@@ -209,7 +243,7 @@ Control the selected `DateValue[]` by updating it with `details.value`.
 
 <ExampleCode>
 <div className="docs-reference">
-  <Tabs groupId="framework" values={[{ label: 'React', value: 'react' }, { label: 'Solid', value: 'solid' }]} className="docs-tabs">
+  <Tabs groupId="framework" values={[{ label: 'React', value: 'react' }, { label: 'Solid', value: 'solid' }, { label: 'Vue', value: 'vue' }]} className="docs-tabs">
     <Tab value="react">
 
 ```tsx pure file="../../../src/components/examples/date-picker/controlled.tsx"
@@ -219,6 +253,11 @@ Control the selected `DateValue[]` by updating it with `details.value`.
     <Tab value="solid">
 
 <CodeBlockRuntime lang="tsx" code={datePickerSolidControlled} />
+
+    </Tab>
+    <Tab value="vue">
+
+<CodeBlockRuntime lang="vue" code={datePickerVueControlled} />
 
     </Tab>
   </Tabs>
@@ -242,7 +281,7 @@ six-row height while users navigate between months.
 
 <ExampleCode>
 <div className="docs-reference">
-  <Tabs groupId="framework" values={[{ label: 'React', value: 'react' }, { label: 'Solid', value: 'solid' }]} className="docs-tabs">
+  <Tabs groupId="framework" values={[{ label: 'React', value: 'react' }, { label: 'Solid', value: 'solid' }, { label: 'Vue', value: 'vue' }]} className="docs-tabs">
     <Tab value="react">
 
 ```tsx pure file="../../../src/components/examples/date-picker/default-view-and-fixed-weeks.tsx"
@@ -252,6 +291,11 @@ six-row height while users navigate between months.
     <Tab value="solid">
 
 <CodeBlockRuntime lang="tsx" code={datePickerSolidDefaultView} />
+
+    </Tab>
+    <Tab value="vue">
+
+<CodeBlockRuntime lang="vue" code={datePickerVueDefaultView} />
 
     </Tab>
   </Tabs>
@@ -270,7 +314,7 @@ the root when you are not composing it through `Field`.
 
 <ExampleCode>
 <div className="docs-reference">
-  <Tabs groupId="framework" values={[{ label: 'React', value: 'react' }, { label: 'Solid', value: 'solid' }]} className="docs-tabs">
+  <Tabs groupId="framework" values={[{ label: 'React', value: 'react' }, { label: 'Solid', value: 'solid' }, { label: 'Vue', value: 'vue' }]} className="docs-tabs">
     <Tab value="react">
 
 ```tsx pure file="../../../src/components/examples/date-picker/field-state.tsx"
@@ -280,6 +324,11 @@ the root when you are not composing it through `Field`.
     <Tab value="solid">
 
 <CodeBlockRuntime lang="tsx" code={datePickerSolidFieldState} />
+
+    </Tab>
+    <Tab value="vue">
+
+<CodeBlockRuntime lang="vue" code={datePickerVueFieldState} />
 
     </Tab>
   </Tabs>
@@ -303,7 +352,7 @@ the locale-aware placeholder and translated action labels unless you override th
 
 <ExampleCode>
 <div className="docs-reference">
-  <Tabs groupId="framework" values={[{ label: 'React', value: 'react' }, { label: 'Solid', value: 'solid' }]} className="docs-tabs">
+  <Tabs groupId="framework" values={[{ label: 'React', value: 'react' }, { label: 'Solid', value: 'solid' }, { label: 'Vue', value: 'vue' }]} className="docs-tabs">
     <Tab value="react">
 
 ```tsx pure file="../../../src/components/examples/date-picker/form.tsx"
@@ -313,6 +362,11 @@ the locale-aware placeholder and translated action labels unless you override th
     <Tab value="solid">
 
 <CodeBlockRuntime lang="tsx" code={datePickerSolidForm} />
+
+    </Tab>
+    <Tab value="vue">
+
+<CodeBlockRuntime lang="vue" code={datePickerVueForm} />
 
     </Tab>
   </Tabs>
@@ -336,7 +390,7 @@ Set `inline` when the calendar should stay in the document flow. An inline calen
 
 <ExampleCode>
 <div className="docs-reference">
-  <Tabs groupId="framework" values={[{ label: 'React', value: 'react' }, { label: 'Solid', value: 'solid' }]} className="docs-tabs">
+  <Tabs groupId="framework" values={[{ label: 'React', value: 'react' }, { label: 'Solid', value: 'solid' }, { label: 'Vue', value: 'vue' }]} className="docs-tabs">
     <Tab value="react">
 
 ```tsx pure file="../../../src/components/examples/date-picker/inline-and-week-numbers.tsx"
@@ -346,6 +400,11 @@ Set `inline` when the calendar should stay in the document flow. An inline calen
     <Tab value="solid">
 
 <CodeBlockRuntime lang="tsx" code={datePickerSolidInline} />
+
+    </Tab>
+    <Tab value="vue">
+
+<CodeBlockRuntime lang="vue" code={datePickerVueInline} />
 
     </Tab>
   </Tabs>
@@ -368,7 +427,7 @@ Set `inline` when the calendar should stay in the document flow. An inline calen
 
 <ExampleCode>
 <div className="docs-reference">
-  <Tabs groupId="framework" values={[{ label: 'React', value: 'react' }, { label: 'Solid', value: 'solid' }]} className="docs-tabs">
+  <Tabs groupId="framework" values={[{ label: 'React', value: 'react' }, { label: 'Solid', value: 'solid' }, { label: 'Vue', value: 'vue' }]} className="docs-tabs">
     <Tab value="react">
 
 ```tsx pure file="../../../src/components/examples/date-picker/locale-and-format.tsx"
@@ -378,6 +437,11 @@ Set `inline` when the calendar should stay in the document flow. An inline calen
     <Tab value="solid">
 
 <CodeBlockRuntime lang="tsx" code={datePickerSolidLocale} />
+
+    </Tab>
+    <Tab value="vue">
+
+<CodeBlockRuntime lang="vue" code={datePickerVueLocale} />
 
     </Tab>
   </Tabs>
@@ -396,7 +460,7 @@ and calendar cells.
 
 <ExampleCode>
 <div className="docs-reference">
-  <Tabs groupId="framework" values={[{ label: 'React', value: 'react' }, { label: 'Solid', value: 'solid' }]} className="docs-tabs">
+  <Tabs groupId="framework" values={[{ label: 'React', value: 'react' }, { label: 'Solid', value: 'solid' }, { label: 'Vue', value: 'vue' }]} className="docs-tabs">
     <Tab value="react">
 
 ```tsx pure file="../../../src/components/examples/date-picker/min-max-and-unavailable.tsx"
@@ -406,6 +470,11 @@ and calendar cells.
     <Tab value="solid">
 
 <CodeBlockRuntime lang="tsx" code={datePickerSolidMinMax} />
+
+    </Tab>
+    <Tab value="vue">
+
+<CodeBlockRuntime lang="vue" code={datePickerVueMinMax} />
 
     </Tab>
   </Tabs>
@@ -424,7 +493,7 @@ date. Use `DatePickerContext` when a custom select needs to update the focused d
 
 <ExampleCode>
 <div className="docs-reference">
-  <Tabs groupId="framework" values={[{ label: 'React', value: 'react' }, { label: 'Solid', value: 'solid' }]} className="docs-tabs">
+  <Tabs groupId="framework" values={[{ label: 'React', value: 'react' }, { label: 'Solid', value: 'solid' }, { label: 'Vue', value: 'vue' }]} className="docs-tabs">
     <Tab value="react">
 
 ```tsx pure file="../../../src/components/examples/date-picker/month-year-select.tsx"
@@ -434,6 +503,11 @@ date. Use `DatePickerContext` when a custom select needs to update the focused d
     <Tab value="solid">
 
 <CodeBlockRuntime lang="tsx" code={datePickerSolidMonthYearSelect} />
+
+    </Tab>
+    <Tab value="vue">
+
+<CodeBlockRuntime lang="vue" code={datePickerVueMonthYearSelect} />
 
     </Tab>
   </Tabs>
@@ -457,7 +531,7 @@ and `parse` when the input should accept a month and year string.
 
 <ExampleCode>
 <div className="docs-reference">
-  <Tabs groupId="framework" values={[{ label: 'React', value: 'react' }, { label: 'Solid', value: 'solid' }]} className="docs-tabs">
+  <Tabs groupId="framework" values={[{ label: 'React', value: 'react' }, { label: 'Solid', value: 'solid' }, { label: 'Vue', value: 'vue' }]} className="docs-tabs">
     <Tab value="react">
 
 ```tsx pure file="../../../src/components/examples/date-picker/month-picker.tsx"
@@ -467,6 +541,11 @@ and `parse` when the input should accept a month and year string.
     <Tab value="solid">
 
 <CodeBlockRuntime lang="tsx" code={datePickerSolidMonthPicker} />
+
+    </Tab>
+    <Tab value="vue">
+
+<CodeBlockRuntime lang="vue" code={datePickerVueMonthPicker} />
 
     </Tab>
   </Tabs>
@@ -486,7 +565,7 @@ Use `selectionMode="multiple"` and optionally cap the number of selections with
 
 <ExampleCode>
 <div className="docs-reference">
-  <Tabs groupId="framework" values={[{ label: 'React', value: 'react' }, { label: 'Solid', value: 'solid' }]} className="docs-tabs">
+  <Tabs groupId="framework" values={[{ label: 'React', value: 'react' }, { label: 'Solid', value: 'solid' }, { label: 'Vue', value: 'vue' }]} className="docs-tabs">
     <Tab value="react">
 
 ```tsx pure file="../../../src/components/examples/date-picker/multiple.tsx"
@@ -496,6 +575,11 @@ Use `selectionMode="multiple"` and optionally cap the number of selections with
     <Tab value="solid">
 
 <CodeBlockRuntime lang="tsx" code={datePickerSolidMultiple} />
+
+    </Tab>
+    <Tab value="vue">
+
+<CodeBlockRuntime lang="vue" code={datePickerVueMultiple} />
 
     </Tab>
   </Tabs>
@@ -518,7 +602,7 @@ Set `numOfMonths` when users need to see more than one month while choosing date
 
 <ExampleCode>
 <div className="docs-reference">
-  <Tabs groupId="framework" values={[{ label: 'React', value: 'react' }, { label: 'Solid', value: 'solid' }]} className="docs-tabs">
+  <Tabs groupId="framework" values={[{ label: 'React', value: 'react' }, { label: 'Solid', value: 'solid' }, { label: 'Vue', value: 'vue' }]} className="docs-tabs">
     <Tab value="react">
 
 ```tsx pure file="../../../src/components/examples/date-picker/multiple-months.tsx"
@@ -528,6 +612,11 @@ Set `numOfMonths` when users need to see more than one month while choosing date
     <Tab value="solid">
 
 <CodeBlockRuntime lang="tsx" code={datePickerSolidMultipleMonths} />
+
+    </Tab>
+    <Tab value="vue">
+
+<CodeBlockRuntime lang="vue" code={datePickerVueMultipleMonths} />
 
     </Tab>
   </Tabs>
@@ -551,7 +640,7 @@ Set `numOfMonths` when users need to see more than one month while choosing date
 
 <ExampleCode>
 <div className="docs-reference">
-  <Tabs groupId="framework" values={[{ label: 'React', value: 'react' }, { label: 'Solid', value: 'solid' }]} className="docs-tabs">
+  <Tabs groupId="framework" values={[{ label: 'React', value: 'react' }, { label: 'Solid', value: 'solid' }, { label: 'Vue', value: 'vue' }]} className="docs-tabs">
     <Tab value="react">
 
 ```tsx pure file="../../../src/components/examples/date-picker/presets.tsx"
@@ -561,6 +650,11 @@ Set `numOfMonths` when users need to see more than one month while choosing date
     <Tab value="solid">
 
 <CodeBlockRuntime lang="tsx" code={datePickerSolidPresets} />
+
+    </Tab>
+    <Tab value="vue">
+
+<CodeBlockRuntime lang="vue" code={datePickerVuePresets} />
 
     </Tab>
   </Tabs>
@@ -584,7 +678,7 @@ the range, and input formatting. A range uses two indexed inputs, one for each d
 
 <ExampleCode>
 <div className="docs-reference">
-  <Tabs groupId="framework" values={[{ label: 'React', value: 'react' }, { label: 'Solid', value: 'solid' }]} className="docs-tabs">
+  <Tabs groupId="framework" values={[{ label: 'React', value: 'react' }, { label: 'Solid', value: 'solid' }, { label: 'Vue', value: 'vue' }]} className="docs-tabs">
     <Tab value="react">
 
 ```tsx pure file="../../../src/components/examples/date-picker/range.tsx"
@@ -594,6 +688,11 @@ the range, and input formatting. A range uses two indexed inputs, one for each d
     <Tab value="solid">
 
 <CodeBlockRuntime lang="tsx" code={datePickerSolidRange} />
+
+    </Tab>
+    <Tab value="vue">
+
+<CodeBlockRuntime lang="vue" code={datePickerVueRange} />
 
     </Tab>
   </Tabs>
@@ -612,7 +711,7 @@ calendar state must be shared with controls outside the root tree.
 
 <ExampleCode>
 <div className="docs-reference">
-  <Tabs groupId="framework" values={[{ label: 'React', value: 'react' }, { label: 'Solid', value: 'solid' }]} className="docs-tabs">
+  <Tabs groupId="framework" values={[{ label: 'React', value: 'react' }, { label: 'Solid', value: 'solid' }, { label: 'Vue', value: 'vue' }]} className="docs-tabs">
     <Tab value="react">
 
 ```tsx pure file="../../../src/components/examples/date-picker/root-provider.tsx"
@@ -622,6 +721,11 @@ calendar state must be shared with controls outside the root tree.
     <Tab value="solid">
 
 <CodeBlockRuntime lang="tsx" code={datePickerSolidRootProvider} />
+
+    </Tab>
+    <Tab value="vue">
+
+<CodeBlockRuntime lang="vue" code={datePickerVueRootProvider} />
 
     </Tab>
   </Tabs>
@@ -644,7 +748,7 @@ Use `DatePickerContext` when a nearby control needs to call helpers such as `sel
 
 <ExampleCode>
 <div className="docs-reference">
-  <Tabs groupId="framework" values={[{ label: 'React', value: 'react' }, { label: 'Solid', value: 'solid' }]} className="docs-tabs">
+  <Tabs groupId="framework" values={[{ label: 'React', value: 'react' }, { label: 'Solid', value: 'solid' }, { label: 'Vue', value: 'vue' }]} className="docs-tabs">
     <Tab value="react">
 
 ```tsx pure file="../../../src/components/examples/date-picker/select-today.tsx"
@@ -654,6 +758,11 @@ Use `DatePickerContext` when a nearby control needs to call helpers such as `sel
     <Tab value="solid">
 
 <CodeBlockRuntime lang="tsx" code={datePickerSolidSelectToday} />
+
+    </Tab>
+    <Tab value="vue">
+
+<CodeBlockRuntime lang="vue" code={datePickerVueSelectToday} />
 
     </Tab>
   </Tabs>
@@ -677,7 +786,7 @@ a `DateInput` configured for minute input so both controls edit the same value.
 
 <ExampleCode>
 <div className="docs-reference">
-  <Tabs groupId="framework" values={[{ label: 'React', value: 'react' }, { label: 'Solid', value: 'solid' }]} className="docs-tabs">
+  <Tabs groupId="framework" values={[{ label: 'React', value: 'react' }, { label: 'Solid', value: 'solid' }, { label: 'Vue', value: 'vue' }]} className="docs-tabs">
     <Tab value="react">
 
 ```tsx pure file="../../../src/components/examples/date-picker/with-time.tsx"
@@ -687,6 +796,11 @@ a `DateInput` configured for minute input so both controls edit the same value.
     <Tab value="solid">
 
 <CodeBlockRuntime lang="tsx" code={datePickerSolidWithTime} />
+
+    </Tab>
+    <Tab value="vue">
+
+<CodeBlockRuntime lang="vue" code={datePickerVueWithTime} />
 
     </Tab>
   </Tabs>
@@ -710,7 +824,7 @@ Use `DatePickerRangeText` in the header because the year view has no higher view
 
 <ExampleCode>
 <div className="docs-reference">
-  <Tabs groupId="framework" values={[{ label: 'React', value: 'react' }, { label: 'Solid', value: 'solid' }]} className="docs-tabs">
+  <Tabs groupId="framework" values={[{ label: 'React', value: 'react' }, { label: 'Solid', value: 'solid' }, { label: 'Vue', value: 'vue' }]} className="docs-tabs">
     <Tab value="react">
 
 ```tsx pure file="../../../src/components/examples/date-picker/year-picker.tsx"
@@ -720,6 +834,11 @@ Use `DatePickerRangeText` in the header because the year view has no higher view
     <Tab value="solid">
 
 <CodeBlockRuntime lang="tsx" code={datePickerSolidYearPicker} />
+
+    </Tab>
+    <Tab value="vue">
+
+<CodeBlockRuntime lang="vue" code={datePickerVueYearPicker} />
 
     </Tab>
   </Tabs>
@@ -738,7 +857,7 @@ Use the full Ark composition when the calendar grid needs custom rendering. This
 
 <ExampleCode>
 <div className="docs-reference">
-  <Tabs groupId="framework" values={[{ label: 'React', value: 'react' }, { label: 'Solid', value: 'solid' }]} className="docs-tabs">
+  <Tabs groupId="framework" values={[{ label: 'React', value: 'react' }, { label: 'Solid', value: 'solid' }, { label: 'Vue', value: 'vue' }]} className="docs-tabs">
     <Tab value="react">
 
 ```tsx pure file="../../../src/components/examples/date-picker/advanced-customization.tsx"
@@ -750,6 +869,11 @@ Use the full Ark composition when the calendar grid needs custom rendering. This
 <CodeBlockRuntime lang="tsx" code={datePickerSolidAdvancedCustomization} />
 
     </Tab>
+    <Tab value="vue">
+
+<CodeBlockRuntime lang="vue" code={datePickerVueAdvancedCustomization} />
+
+    </Tab>
   </Tabs>
 </div>
 
@@ -757,7 +881,7 @@ Use the full Ark composition when the calendar grid needs custom rendering. This
 
 ## Styling
 
-Use `className` in React or `class` in Solid on exported parts for structural styles. Tailwind
+Use `className` in React, `class` in Solid, or `class` in Vue on exported parts for structural styles. Tailwind
 variants use native utilities and consumer classes; CSS Modules variants expose the variables
 below. Both styling tracks share Ark state attributes and moduix `data-slot` hooks.
 

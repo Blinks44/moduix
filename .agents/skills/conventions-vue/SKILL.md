@@ -53,6 +53,10 @@ Use this skill for JS/TS Vue work in this repo.
   render, `computed`, and watcher scopes so updates track.
 - Use `computed` for derived values instead of manual `watch` where a computed expression is
   clearer.
+- Keep opaque Ark values that contain class instances or private fields in `shallowRef` when local
+  state owns them. Vue's deep ref conversion can proxy and unwrap those objects, breaking their
+  type identity and private-field access; replace the whole value when the Ark contract treats it
+  as an atomic value.
 - Context uses `provide`/`inject` with a typed `InjectionKey` symbol declared in a plain `.ts`
   module next to the components. Expose context values as getter functions or refs, not
   setup-time snapshots, so consumer reads stay reactive.

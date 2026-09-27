@@ -654,6 +654,9 @@ importers:
       '@ark-ui/vue':
         specifier: 'catalog:'
         version: 5.39.2(vue@3.5.43(typescript@6.0.3))
+      '@internationalized/date':
+        specifier: 'catalog:'
+        version: 3.12.4
       '@rsbuild/core':
         specifier: 'catalog:'
         version: 2.2.6
@@ -724,6 +727,9 @@ importers:
       '@ark-ui/vue':
         specifier: 'catalog:'
         version: 5.39.2(vue@3.5.43(typescript@6.0.3))
+      '@internationalized/date':
+        specifier: 'catalog:'
+        version: 3.12.4
       '@rsbuild/core':
         specifier: 'catalog:'
         version: 2.2.6

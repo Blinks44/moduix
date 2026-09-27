@@ -1,7 +1,7 @@
 ---
 title: Date Input
 component: date-input
-description: Build accessible segmented date inputs in React or Solid with CSS Modules or Tailwind, including locale-aware editing and native form submission.
+description: Build accessible segmented date inputs in React, Solid, or Vue with CSS Modules or Tailwind, including locale-aware editing and native form submission.
 ---
 
 import * as DateInputDocs from '@/components/examples/date-input/css-properties';
@@ -31,6 +31,19 @@ import dateInputSolidRange from '../../../snippets/date-input/solid/range.tsx?ra
 import dateInputSolidRightToLeft from '../../../snippets/date-input/solid/right-to-left.tsx?raw';
 import dateInputSolidRootProvider from '../../../snippets/date-input/solid/root-provider.tsx?raw';
 import dateInputSolidTimeOnly from '../../../snippets/date-input/solid/time-only.tsx?raw';
+import dateInputVueAdvancedCustomization from '../../../snippets/date-input/vue/advanced-customization.vue?raw';
+import dateInputVueBasic from '../../../snippets/date-input/vue/basic.vue?raw';
+import dateInputVueControlled from '../../../snippets/date-input/vue/controlled.vue?raw';
+import dateInputVueDisabledAndReadOnly from '../../../snippets/date-input/vue/disabled-and-read-only.vue?raw';
+import dateInputVueFieldState from '../../../snippets/date-input/vue/field-state.vue?raw';
+import dateInputVueGranularity from '../../../snippets/date-input/vue/granularity.vue?raw';
+import dateInputVueLeadingZeros from '../../../snippets/date-input/vue/leading-zeros.vue?raw';
+import dateInputVueLocale from '../../../snippets/date-input/vue/locale.vue?raw';
+import dateInputVueMinMaxAndUnavailableDates from '../../../snippets/date-input/vue/min-max-and-unavailable-dates.vue?raw';
+import dateInputVueRange from '../../../snippets/date-input/vue/range.vue?raw';
+import dateInputVueRightToLeft from '../../../snippets/date-input/vue/right-to-left.vue?raw';
+import dateInputVueRootProvider from '../../../snippets/date-input/vue/root-provider.vue?raw';
+import dateInputVueTimeOnly from '../../../snippets/date-input/vue/time-only.vue?raw';
 
 ## API Reference
 
@@ -59,6 +72,7 @@ import dateInputSolidTimeOnly from '../../../snippets/date-input/solid/time-only
     values={[
       { label: 'React', value: 'react' },
       { label: 'Solid', value: 'solid' },
+      { label: 'Vue', value: 'vue' },
     ]}
     className="docs-tabs"
   >
@@ -71,6 +85,11 @@ import dateInputSolidTimeOnly from '../../../snippets/date-input/solid/time-only
     <Tab value="solid">
 
 <CodeBlockRuntime lang="tsx" code={dateInputSolidBasic} />
+
+    </Tab>
+    <Tab value="vue">
+
+<CodeBlockRuntime lang="vue" code={dateInputVueBasic} />
 
     </Tab>
   </Tabs>
@@ -104,6 +123,16 @@ See [Quick Start](/docs/quick-start) for full package setup, registry configurat
   options={[
     { label: 'CSS Modules', command: 'shadcn@latest add @moduix-solid/date-input' },
     { label: 'Tailwind CSS', command: 'shadcn@latest add @moduix-solid-tailwind/date-input' },
+  ]}
+/>
+
+  </Tab>
+  <Tab label="Vue" value="vue">
+
+<ShadcnInstallOptions
+  options={[
+    { label: 'CSS Modules', command: 'shadcn@latest add @moduix-vue/date-input' },
+    { label: 'Tailwind CSS', command: 'shadcn@latest add @moduix-vue-tailwind/date-input' },
   ]}
 />
 
@@ -148,7 +177,8 @@ DateInputRootProvider
 
 Use `DateInput` with `DateInputControl` and `DateInputSegments` for the standard field. Keep the
 state uncontrolled with `defaultValue`, control it with `value` and `onValueChange(details)`, or
-create it with `useDateInput()` and connect the parts through `DateInputRootProvider`. Values use
+create it with `useDateInput()` and connect the parts through `DateInputRootProvider`. In Vue, use
+`v-model` for the controlled value. Values use
 the `DateInputDateValue[]` shape from `@internationalized/date`, not strings.
 
 `DateInputHiddenInput` is explicit because the root does not add native inputs. Render one hidden
@@ -173,6 +203,7 @@ Pass the selected date array to `value` and update it from `details.value` in `o
     values={[
       { label: 'React', value: 'react' },
       { label: 'Solid', value: 'solid' },
+      { label: 'Vue', value: 'vue' },
     ]}
     className="docs-tabs"
   >
@@ -185,6 +216,11 @@ Pass the selected date array to `value` and update it from `details.value` in `o
     <Tab value="solid">
 
 <CodeBlockRuntime lang="tsx" code={dateInputSolidControlled} />
+
+    </Tab>
+    <Tab value="vue">
+
+<CodeBlockRuntime lang="vue" code={dateInputVueControlled} />
 
     </Tab>
   </Tabs>
@@ -213,6 +249,7 @@ editable.
     values={[
       { label: 'React', value: 'react' },
       { label: 'Solid', value: 'solid' },
+      { label: 'Vue', value: 'vue' },
     ]}
     className="docs-tabs"
   >
@@ -225,6 +262,11 @@ editable.
     <Tab value="solid">
 
 <CodeBlockRuntime lang="tsx" code={dateInputSolidDisabledAndReadOnly} />
+
+    </Tab>
+    <Tab value="vue">
+
+<CodeBlockRuntime lang="vue" code={dateInputVueDisabledAndReadOnly} />
 
     </Tab>
   </Tabs>
@@ -253,6 +295,7 @@ Wrap `DateInput` in `Field` to provide surrounding form text. Pass `required`, `
     values={[
       { label: 'React', value: 'react' },
       { label: 'Solid', value: 'solid' },
+      { label: 'Vue', value: 'vue' },
     ]}
     className="docs-tabs"
   >
@@ -265,6 +308,11 @@ Wrap `DateInput` in `Field` to provide surrounding form text. Pass `required`, `
     <Tab value="solid">
 
 <CodeBlockRuntime lang="tsx" code={dateInputSolidFieldState} />
+
+    </Tab>
+    <Tab value="vue">
+
+<CodeBlockRuntime lang="vue" code={dateInputVueFieldState} />
 
     </Tab>
   </Tabs>
@@ -292,6 +340,7 @@ Set `granularity` to include time segments in the input.
     values={[
       { label: 'React', value: 'react' },
       { label: 'Solid', value: 'solid' },
+      { label: 'Vue', value: 'vue' },
     ]}
     className="docs-tabs"
   >
@@ -304,6 +353,11 @@ Set `granularity` to include time segments in the input.
     <Tab value="solid">
 
 <CodeBlockRuntime lang="tsx" code={dateInputSolidGranularity} />
+
+    </Tab>
+    <Tab value="vue">
+
+<CodeBlockRuntime lang="vue" code={dateInputVueGranularity} />
 
     </Tab>
   </Tabs>
@@ -331,6 +385,7 @@ Set `shouldForceLeadingZeros={false}` when numeric segments should not include l
     values={[
       { label: 'React', value: 'react' },
       { label: 'Solid', value: 'solid' },
+      { label: 'Vue', value: 'vue' },
     ]}
     className="docs-tabs"
   >
@@ -343,6 +398,11 @@ Set `shouldForceLeadingZeros={false}` when numeric segments should not include l
     <Tab value="solid">
 
 <CodeBlockRuntime lang="tsx" code={dateInputSolidLeadingZeros} />
+
+    </Tab>
+    <Tab value="vue">
+
+<CodeBlockRuntime lang="vue" code={dateInputVueLeadingZeros} />
 
     </Tab>
   </Tabs>
@@ -371,6 +431,7 @@ should follow regional conventions.
     values={[
       { label: 'React', value: 'react' },
       { label: 'Solid', value: 'solid' },
+      { label: 'Vue', value: 'vue' },
     ]}
     className="docs-tabs"
   >
@@ -383,6 +444,11 @@ should follow regional conventions.
     <Tab value="solid">
 
 <CodeBlockRuntime lang="tsx" code={dateInputSolidLocale} />
+
+    </Tab>
+    <Tab value="vue">
+
+<CodeBlockRuntime lang="vue" code={dateInputVueLocale} />
 
     </Tab>
   </Tabs>
@@ -410,6 +476,7 @@ Use `min`, `max`, and `isDateUnavailable` to mark entered dates outside business
     values={[
       { label: 'React', value: 'react' },
       { label: 'Solid', value: 'solid' },
+      { label: 'Vue', value: 'vue' },
     ]}
     className="docs-tabs"
   >
@@ -422,6 +489,11 @@ Use `min`, `max`, and `isDateUnavailable` to mark entered dates outside business
     <Tab value="solid">
 
 <CodeBlockRuntime lang="tsx" code={dateInputSolidMinMaxAndUnavailableDates} />
+
+    </Tab>
+    <Tab value="vue">
+
+<CodeBlockRuntime lang="vue" code={dateInputVueMinMaxAndUnavailableDates} />
 
     </Tab>
   </Tabs>
@@ -450,6 +522,7 @@ Use `selectionMode="range"`, pass `index` to each segment group, and add matchin
     values={[
       { label: 'React', value: 'react' },
       { label: 'Solid', value: 'solid' },
+      { label: 'Vue', value: 'vue' },
     ]}
     className="docs-tabs"
   >
@@ -462,6 +535,11 @@ Use `selectionMode="range"`, pass `index` to each segment group, and add matchin
     <Tab value="solid">
 
 <CodeBlockRuntime lang="tsx" code={dateInputSolidRange} />
+
+    </Tab>
+    <Tab value="vue">
+
+<CodeBlockRuntime lang="vue" code={dateInputVueRange} />
 
     </Tab>
   </Tabs>
@@ -489,6 +567,7 @@ Set `dir="rtl"` with an RTL locale to keep the locale's segment order and direct
     values={[
       { label: 'React', value: 'react' },
       { label: 'Solid', value: 'solid' },
+      { label: 'Vue', value: 'vue' },
     ]}
     className="docs-tabs"
   >
@@ -503,6 +582,11 @@ Set `dir="rtl"` with an RTL locale to keep the locale's segment order and direct
 <CodeBlockRuntime lang="tsx" code={dateInputSolidRightToLeft} />
 
     </Tab>
+    <Tab value="vue">
+
+<CodeBlockRuntime lang="vue" code={dateInputVueRightToLeft} />
+
+    </Tab>
   </Tabs>
 
 **Styles**
@@ -515,8 +599,8 @@ Set `dir="rtl"` with an RTL locale to keep the locale's segment order and direct
 
 ### Root Provider
 
-Use `useDateInput()` from `@moduix/react` or `@moduix/solid` with `DateInputRootProvider` when
-state actions need to be available outside the rendered root tree.
+Use `useDateInput()` from `@moduix/react`, `@moduix/solid`, or `@moduix/vue` with
+`DateInputRootProvider` when state actions need to be available outside the rendered root tree.
 
 <ExampleFrame variant="component">
   <DateInputRootProvider />
@@ -529,6 +613,7 @@ state actions need to be available outside the rendered root tree.
     values={[
       { label: 'React', value: 'react' },
       { label: 'Solid', value: 'solid' },
+      { label: 'Vue', value: 'vue' },
     ]}
     className="docs-tabs"
   >
@@ -541,6 +626,11 @@ state actions need to be available outside the rendered root tree.
     <Tab value="solid">
 
 <CodeBlockRuntime lang="tsx" code={dateInputSolidRootProvider} />
+
+    </Tab>
+    <Tab value="vue">
+
+<CodeBlockRuntime lang="vue" code={dateInputVueRootProvider} />
 
     </Tab>
   </Tabs>
@@ -569,6 +659,7 @@ of the value users edit.
     values={[
       { label: 'React', value: 'react' },
       { label: 'Solid', value: 'solid' },
+      { label: 'Vue', value: 'vue' },
     ]}
     className="docs-tabs"
   >
@@ -581,6 +672,11 @@ of the value users edit.
     <Tab value="solid">
 
 <CodeBlockRuntime lang="tsx" code={dateInputSolidTimeOnly} />
+
+    </Tab>
+    <Tab value="vue">
+
+<CodeBlockRuntime lang="vue" code={dateInputVueTimeOnly} />
 
     </Tab>
   </Tabs>
@@ -609,6 +705,7 @@ Use the full segment composition when rendering needs to vary based on Ark segme
     values={[
       { label: 'React', value: 'react' },
       { label: 'Solid', value: 'solid' },
+      { label: 'Vue', value: 'vue' },
     ]}
     className="docs-tabs"
   >
@@ -623,6 +720,11 @@ Use the full segment composition when rendering needs to vary based on Ark segme
 <CodeBlockRuntime lang="tsx" code={dateInputSolidAdvancedCustomization} />
 
     </Tab>
+    <Tab value="vue">
+
+<CodeBlockRuntime lang="vue" code={dateInputVueAdvancedCustomization} />
+
+    </Tab>
   </Tabs>
 
 **Styles**
@@ -635,7 +737,7 @@ Use the full segment composition when rendering needs to vary based on Ark segme
 
 ## Styling
 
-Use `className` in React or `class` in Solid on exported parts for structural styles. Tailwind
+Use `className` in React or `class` in Solid and Vue on exported parts for structural styles. Tailwind
 variants use native utilities and consumer classes. CSS Modules variants also expose the component
 variables below. Data attributes and `data-slot` hooks are shared by both styling tracks.
 
