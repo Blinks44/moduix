@@ -1,17 +1,18 @@
 <script setup lang="ts">
-import { Field, FieldHelperText, FieldLabel, FieldSelect } from '@moduix/vue/field';
+import { Field, FieldHelperText, FieldLabel } from '@moduix/vue/field';
+import { NativeSelect } from '@moduix/vue/native-select';
 import styles from '@/components/examples/field/field-native-select.module.css';
 </script>
 
 <template>
   <Field :class="styles.root" required>
     <FieldLabel>Priority</FieldLabel>
-    <FieldSelect name="priority">
+    <NativeSelect name="priority">
       <option value="" disabled>Select priority</option>
       <option value="low">Low</option>
       <option value="normal">Normal</option>
       <option value="high">High</option>
-    </FieldSelect>
+    </NativeSelect>
     <FieldHelperText>Used for triage queues.</FieldHelperText>
   </Field>
 </template>

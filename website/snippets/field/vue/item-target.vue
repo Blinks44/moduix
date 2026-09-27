@@ -1,6 +1,7 @@
 <script setup lang="ts">
-import { Field, FieldHelperText, FieldItem, FieldLabel, FieldSelect } from '@moduix/vue/field';
+import { Field, FieldHelperText, FieldItem, FieldLabel } from '@moduix/vue/field';
 import { Input } from '@moduix/vue/input';
+import { NativeSelect } from '@moduix/vue/native-select';
 import styles from '@/components/examples/field/field-item-target.module.css';
 </script>
 
@@ -9,11 +10,11 @@ import styles from '@/components/examples/field/field-item-target.module.css';
     <FieldLabel>Amount</FieldLabel>
     <div :class="styles.inlineControls">
       <FieldItem value="currency">
-        <FieldSelect aria-label="Currency" default-value="USD">
+        <NativeSelect aria-label="Currency" default-value="USD">
           <option value="USD">USD</option>
           <option value="EUR">EUR</option>
           <option value="GBP">GBP</option>
-        </FieldSelect>
+        </NativeSelect>
       </FieldItem>
       <FieldItem value="amount">
         <Input input-mode="decimal" placeholder="0.00" />

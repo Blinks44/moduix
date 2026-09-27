@@ -19,10 +19,10 @@ import {
   FieldLabel,
   FieldRequiredIndicator,
   FieldRootProvider,
-  FieldSelect,
   FieldTextarea,
   useField,
 } from '@/components/field';
+import { NativeSelect } from '@/components/native-select';
 
 const meta = {
   title: 'Components/Field',
@@ -54,8 +54,8 @@ const storyComponents = {
   FieldLabel,
   FieldRequiredIndicator,
   FieldRootProvider,
-  FieldSelect,
   FieldTextarea,
+  NativeSelect,
 } as Record<string, Component>;
 
 function renderStory(template: string, setup?: () => Record<string, unknown>) {
@@ -118,12 +118,12 @@ export const Select: Story = {
   render: renderStory(`
     <Field required>
       <FieldLabel>Priority</FieldLabel>
-      <FieldSelect name="priority" default-value="">
+      <NativeSelect name="priority" default-value="">
         <option value="" disabled>Select priority</option>
         <option value="low">Low</option>
         <option value="normal">Normal</option>
         <option value="high">High</option>
-      </FieldSelect>
+      </NativeSelect>
     </Field>
   `),
 };
@@ -195,10 +195,10 @@ export const ItemTarget: Story = {
     <Field target="amount">
       <FieldLabel>Amount</FieldLabel>
       <FieldItem value="currency">
-        <FieldSelect aria-label="Currency" default-value="USD">
+        <NativeSelect aria-label="Currency" default-value="USD">
           <option value="USD">USD</option>
           <option value="EUR">EUR</option>
-        </FieldSelect>
+        </NativeSelect>
       </FieldItem>
       <FieldItem value="amount"><FieldInput input-mode="decimal" placeholder="0.00" /></FieldItem>
     </Field>
