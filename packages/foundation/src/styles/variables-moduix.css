@@ -905,11 +905,11 @@
   --moduix-date-picker-content-closed-scale: initial; /* var(--moduix-scale-popup) */
   --moduix-date-picker-content-color: initial; /* var(--moduix-color-popover-foreground) */
   --moduix-date-picker-content-max-width: initial; /* calc(100vw - 2rem) */
-  --moduix-date-picker-content-min-width: initial; /* 18.75rem */
+  --moduix-date-picker-content-min-width: initial; /* 20rem */
   --moduix-date-picker-content-padding: initial; /* var(--moduix-spacing-3) */
   --moduix-date-picker-content-radius: initial; /* var(--moduix-radius-md) */
   --moduix-date-picker-content-shadow: initial; /* var(--moduix-shadow-lg) */
-  --moduix-date-picker-content-width: initial; /* 18.75rem */
+  --moduix-date-picker-content-width: initial; /* 20rem */
   --moduix-date-picker-control-height: initial; /* var(--moduix-size-md) */
   --moduix-date-picker-disabled-opacity: initial; /* var(--moduix-opacity-disabled) */
   --moduix-date-picker-focus-ring-color: initial; /* var(--moduix-color-ring) */

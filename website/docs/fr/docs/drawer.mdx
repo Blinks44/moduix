@@ -199,8 +199,9 @@ store. Les panneaux imbriqués utilisent des stores et des arborescences
 
 Regroupez dans `DrawerStack` les surfaces qui doivent se déplacer ensemble, puis associez
 `DrawerIndentBackground` et `DrawerIndent`. Utilisez `asChild` pour un hôte personnalisé du trigger
-ou de la fermeture : React reçoit un seul enfant pouvant recevoir le focus, tandis que Solid utilise
-une fonction de rendu qui diffuse `props()` sur l'enfant. Les callbacks Ark reçoivent des objets de
+ou de la fermeture : React reçoit un seul enfant pouvant recevoir le focus, Solid utilise
+une fonction de rendu qui diffuse `props()` sur l'enfant, et Vue utilise l'attribut `as-child`
+avec un seul élément enfant. Les callbacks Ark reçoivent des objets de
 détails, comme `details.open`, `details.snapPoint` et `details.value`.
 
 ## Exemples
@@ -252,7 +253,7 @@ Ajoutez `data-no-drag` aux zones interactives qui ne doivent pas lancer un dépl
 
 <ExampleCode>
 <div className="docs-reference">
-  <Tabs groupId="framework" values={[{ label: 'React', value: 'react' }, { label: 'Solid', value: 'solid' }]} className="docs-tabs">
+  <Tabs groupId="framework" values={[{ label: 'React', value: 'react' }, { label: 'Solid', value: 'solid' }, { label: 'Vue', value: 'vue' }]} className="docs-tabs">
     <Tab value="react">
 
 ```tsx pure file="../../../src/components/examples/drawer/drag-controls.tsx"
@@ -289,7 +290,7 @@ distinct. Le style de cet exemple laisse un espace de 10px entre la poignée et 
 
 <ExampleCode>
 <div className="docs-reference">
-  <Tabs groupId="framework" values={[{ label: 'React', value: 'react' }, { label: 'Solid', value: 'solid' }]} className="docs-tabs">
+  <Tabs groupId="framework" values={[{ label: 'React', value: 'react' }, { label: 'Solid', value: 'solid' }, { label: 'Vue', value: 'vue' }]} className="docs-tabs">
     <Tab value="react">
 
 ```tsx pure file="../../../src/components/examples/drawer/floating-grabber.tsx"
@@ -326,7 +327,7 @@ distinct. Le style de cet exemple laisse un espace de 10px entre la poignée et 
 
 <ExampleCode>
 <div className="docs-reference">
-  <Tabs groupId="framework" values={[{ label: 'React', value: 'react' }, { label: 'Solid', value: 'solid' }]} className="docs-tabs">
+  <Tabs groupId="framework" values={[{ label: 'React', value: 'react' }, { label: 'Solid', value: 'solid' }, { label: 'Vue', value: 'vue' }]} className="docs-tabs">
     <Tab value="react">
 
 ```tsx pure file="../../../src/components/examples/drawer/indent-background.tsx"
@@ -363,7 +364,7 @@ l'intérieur de la fenêtre avec un retrait, plutôt que de dépasser visuelleme
 
 <ExampleCode>
 <div className="docs-reference">
-  <Tabs groupId="framework" values={[{ label: 'React', value: 'react' }, { label: 'Solid', value: 'solid' }]} className="docs-tabs">
+  <Tabs groupId="framework" values={[{ label: 'React', value: 'react' }, { label: 'Solid', value: 'solid' }, { label: 'Vue', value: 'vue' }]} className="docs-tabs">
     <Tab value="react">
 
 ```tsx pure file="../../../src/components/examples/drawer/island.tsx"
@@ -400,7 +401,7 @@ indique quel trigger est actif.
 
 <ExampleCode>
 <div className="docs-reference">
-  <Tabs groupId="framework" values={[{ label: 'React', value: 'react' }, { label: 'Solid', value: 'solid' }]} className="docs-tabs">
+  <Tabs groupId="framework" values={[{ label: 'React', value: 'react' }, { label: 'Solid', value: 'solid' }, { label: 'Vue', value: 'vue' }]} className="docs-tabs">
     <Tab value="react">
 
 ```tsx pure file="../../../src/components/examples/drawer/multiple-triggers.tsx"
@@ -438,7 +439,7 @@ de vie du focus.
 
 <ExampleCode>
 <div className="docs-reference">
-  <Tabs groupId="framework" values={[{ label: 'React', value: 'react' }, { label: 'Solid', value: 'solid' }]} className="docs-tabs">
+  <Tabs groupId="framework" values={[{ label: 'React', value: 'react' }, { label: 'Solid', value: 'solid' }, { label: 'Vue', value: 'vue' }]} className="docs-tabs">
     <Tab value="react">
 
 ```tsx pure file="../../../src/components/examples/drawer/nested.tsx"
@@ -475,7 +476,7 @@ Cet exemple garde le déplacement sur la poignée et confie le contenu long à `
 
 <ExampleCode>
 <div className="docs-reference">
-  <Tabs groupId="framework" values={[{ label: 'React', value: 'react' }, { label: 'Solid', value: 'solid' }]} className="docs-tabs">
+  <Tabs groupId="framework" values={[{ label: 'React', value: 'react' }, { label: 'Solid', value: 'solid' }, { label: 'Vue', value: 'vue' }]} className="docs-tabs">
     <Tab value="react">
 
 ```tsx pure file="../../../src/components/examples/drawer/non-modal.tsx"
@@ -512,7 +513,7 @@ doivent l'ouvrir ou modifier ses points d'ancrage.
 
 <ExampleCode>
 <div className="docs-reference">
-  <Tabs groupId="framework" values={[{ label: 'React', value: 'react' }, { label: 'Solid', value: 'solid' }]} className="docs-tabs">
+  <Tabs groupId="framework" values={[{ label: 'React', value: 'react' }, { label: 'Solid', value: 'solid' }, { label: 'Vue', value: 'vue' }]} className="docs-tabs">
     <Tab value="react">
 
 ```tsx pure file="../../../src/components/examples/drawer/root-provider.tsx"
@@ -549,7 +550,7 @@ d'une zone de défilement dédiée tandis que la poignée et l'en-tête restent 
 
 <ExampleCode>
 <div className="docs-reference">
-  <Tabs groupId="framework" values={[{ label: 'React', value: 'react' }, { label: 'Solid', value: 'solid' }]} className="docs-tabs">
+  <Tabs groupId="framework" values={[{ label: 'React', value: 'react' }, { label: 'Solid', value: 'solid' }, { label: 'Vue', value: 'vue' }]} className="docs-tabs">
     <Tab value="react">
 
 ```tsx pure file="../../../src/components/examples/drawer/scrollable.tsx"
@@ -586,7 +587,7 @@ Définissez des positions intermédiaires sur la racine et choisissez la positio
 
 <ExampleCode>
 <div className="docs-reference">
-  <Tabs groupId="framework" values={[{ label: 'React', value: 'react' }, { label: 'Solid', value: 'solid' }]} className="docs-tabs">
+  <Tabs groupId="framework" values={[{ label: 'React', value: 'react' }, { label: 'Solid', value: 'solid' }, { label: 'Vue', value: 'vue' }]} className="docs-tabs">
     <Tab value="react">
 
 ```tsx pure file="../../../src/components/examples/drawer/snap-points.tsx"
@@ -623,7 +624,7 @@ fonctionne en LTR et en RTL. Utilisez `up` pour un panneau supérieur et `down` 
 
 <ExampleCode>
 <div className="docs-reference">
-  <Tabs groupId="framework" values={[{ label: 'React', value: 'react' }, { label: 'Solid', value: 'solid' }]} className="docs-tabs">
+  <Tabs groupId="framework" values={[{ label: 'React', value: 'react' }, { label: 'Solid', value: 'solid' }, { label: 'Vue', value: 'vue' }]} className="docs-tabs">
     <Tab value="react">
 
 ```tsx pure file="../../../src/components/examples/drawer/swipe-direction.tsx"
@@ -660,7 +661,7 @@ personnalisée a besoin de toute l'anatomie bas niveau de Drawer.
 
 <ExampleCode>
 <div className="docs-reference">
-  <Tabs groupId="framework" values={[{ label: 'React', value: 'react' }, { label: 'Solid', value: 'solid' }]} className="docs-tabs">
+  <Tabs groupId="framework" values={[{ label: 'React', value: 'react' }, { label: 'Solid', value: 'solid' }, { label: 'Vue', value: 'vue' }]} className="docs-tabs">
     <Tab value="react">
 
 ```tsx pure file="../../../src/components/examples/drawer/advanced-customization.tsx"
@@ -688,7 +689,7 @@ personnalisée a besoin de toute l'anatomie bas niveau de Drawer.
 
 ## Styles
 
-Utilisez `className` dans React ou `class` dans Solid sur les parties exportées pour les styles
+Utilisez `className` dans React ou `class` dans Solid et Vue sur les parties exportées pour les styles
 structurels. Pour les styles liés à l'état, préférez les attributs de données d'Ark tels que
 `data-state`, `data-swipe-direction` et `data-dragging`, avec les sélecteurs `data-slot` de moduix.
 Les variantes Tailwind utilisent des utilitaires natifs et les classes du consommateur ; les

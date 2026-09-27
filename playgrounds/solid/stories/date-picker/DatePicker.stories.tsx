@@ -1,4 +1,3 @@
-import { createListCollection } from '@ark-ui/solid/collection';
 import { parseDate, type DateValue } from '@ark-ui/solid/date-picker';
 import { today } from '@internationalized/date';
 import { createSignal } from 'solid-js';
@@ -32,47 +31,12 @@ import {
   DatePickerTableCell,
   DatePickerTableCellTrigger,
   DatePickerDayTable,
+  DatePickerMonthSelect,
   DatePickerPresetTrigger,
+  DatePickerYearSelect,
 } from '@/components/date-picker/DatePicker';
 import { Field, FieldErrorText } from '@/components/field';
-import {
-  Select,
-  SelectPositioner,
-  SelectContent,
-  SelectList,
-  SelectItem,
-  SelectItemText,
-  SelectItemIndicator,
-  SelectControl,
-  SelectTrigger,
-  SelectValueText,
-  SelectIndicator,
-} from '@/components/select/Select';
 import storyStyles from './DatePicker.stories.module.css';
-
-type DatePickerSelectItem = {
-  label: string;
-  value: string;
-};
-
-const monthSelectItems: DatePickerSelectItem[] = [
-  { label: 'January', value: '1' },
-  { label: 'February', value: '2' },
-  { label: 'March', value: '3' },
-  { label: 'April', value: '4' },
-  { label: 'May', value: '5' },
-  { label: 'June', value: '6' },
-  { label: 'July', value: '7' },
-  { label: 'August', value: '8' },
-  { label: 'September', value: '9' },
-  { label: 'October', value: '10' },
-  { label: 'November', value: '11' },
-  { label: 'December', value: '12' },
-];
-
-const monthSelectCollection = createListCollection<DatePickerSelectItem>({
-  items: monthSelectItems,
-});
 
 const meta = {
   title: 'Components/DatePicker',
@@ -329,75 +293,12 @@ function MultipleMonthsDatePickerContent() {
   );
 }
 
-function DatePickerSelectContent(props: { items: DatePickerSelectItem[] }) {
-  return (
-    <SelectPositioner>
-      <SelectContent>
-        <SelectList>
-          {props.items.map((item) => (
-            <SelectItem item={item}>
-              <SelectItemText>{item.label}</SelectItemText>
-              <SelectItemIndicator />
-            </SelectItem>
-          ))}
-        </SelectList>
-      </SelectContent>
-    </SelectPositioner>
-  );
-}
-
-function DatePickerSelectControl() {
-  return (
-    <SelectControl>
-      <SelectTrigger>
-        <SelectValueText />
-      </SelectTrigger>
-      <SelectIndicator />
-    </SelectControl>
-  );
-}
-
 function MonthYearPickerSelects() {
   return (
-    <DatePickerContext>
-      {(datePicker) => {
-        const focusedYear = datePicker().focusedValue.year;
-        const yearItems = Array.from({ length: 12 }, (_, index) => {
-          const year = focusedYear - 5 + index;
-          return { label: String(year), value: String(year) };
-        });
-        const yearCollection = createListCollection<DatePickerSelectItem>({ items: yearItems });
-
-        return (
-          <div class={storyStyles.monthYearSelects}>
-            <Select
-              class={storyStyles.monthSelect}
-              collection={monthSelectCollection}
-              value={[String(datePicker().focusedValue.month)]}
-              onValueChange={(details) => {
-                const month = Number(details.value[0]);
-                if (month) datePicker().setFocusedValue(datePicker().focusedValue.set({ month }));
-              }}
-            >
-              <DatePickerSelectControl />
-              <DatePickerSelectContent items={monthSelectItems} />
-            </Select>
-            <Select
-              class={storyStyles.yearSelect}
-              collection={yearCollection}
-              value={[String(datePicker().focusedValue.year)]}
-              onValueChange={(details) => {
-                const year = Number(details.value[0]);
-                if (year) datePicker().setFocusedValue(datePicker().focusedValue.set({ year }));
-              }}
-            >
-              <DatePickerSelectControl />
-              <DatePickerSelectContent items={yearItems} />
-            </Select>
-          </div>
-        );
-      }}
-    </DatePickerContext>
+    <div class={storyStyles.monthYearSelects}>
+      <DatePickerMonthSelect class={storyStyles.monthSelect} />
+      <DatePickerYearSelect class={storyStyles.yearSelect} />
+    </div>
   );
 }
 

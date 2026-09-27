@@ -187,7 +187,7 @@ export const WithFieldValidation: Story = {
   render: renderStory(
     `
     <div class="grid gap-2">
-      <DateInput required invalid name="deadline" :default-value="[new CalendarDate(2026, 6, 22)]">
+      <DateInput required invalid name="deadline">
         <DateInputLabel>Deadline</DateInputLabel>
         <DateInputControl>
           <DateInputSegments />
@@ -197,7 +197,6 @@ export const WithFieldValidation: Story = {
       <span class="text-sm leading-5 text-destructive">Enter a valid deadline.</span>
     </div>
   `,
-    () => ({ CalendarDate }),
   ),
 };
 

@@ -237,7 +237,8 @@ personnalisé ou `inline` pour garder `DatePickerContent` dans le flux normal du
 
 ### État contrôlé
 
-Contrôlez le `DateValue[]` sélectionné en le mettant à jour avec `details.value`.
+Contrôlez le `DateValue[]` sélectionné en le mettant à jour avec `details.value`. En Vue, utilisez
+`v-model` pour la valeur contrôlée.
 
 <ExampleFrame variant="component">
   <DatePickerControlled />
@@ -487,8 +488,8 @@ Utilisez `min`, `max` et `isDateUnavailable` pour des règles de validation qui 
 ### Sélecteurs de mois et d’année
 
 Utilisez `DatePickerMonthSelect` et `DatePickerYearSelect` pour des sélecteurs natifs liés à la
-date ciblée. Utilisez `DatePickerContext` si un sélecteur personnalisé doit modifier lui-même la
-date ciblée.
+date ciblée. Utilisez `DatePickerContext` uniquement pour composer un autre en-tête ou une autre
+mise en page de calendrier personnalisée.
 
 <ExampleFrame variant="component">
   <DatePickerMonthYearSelect />

@@ -236,7 +236,8 @@ DatePickerRootProvider
 
 ### Управляемое состояние
 
-Управляйте выбранным `DateValue[]`, обновляя его через `details.value`.
+Управляйте выбранным `DateValue[]`, обновляя его через `details.value`. В Vue для управляемого
+значения используйте `v-model`.
 
 <ExampleFrame variant="component">
   <DatePickerControlled />
@@ -486,8 +487,8 @@ DatePickerRootProvider
 ### Выбор месяца и года
 
 Используйте `DatePickerMonthSelect` и `DatePickerYearSelect` для нативных списков, связанных с
-активной датой. Если список должен менять активную дату самостоятельно, используйте
-`DatePickerContext`.
+активной датой. Используйте `DatePickerContext` только для другой собственной компоновки
+заголовка или календаря.
 
 <ExampleFrame variant="component">
   <DatePickerMonthYearSelect />

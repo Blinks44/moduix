@@ -15,7 +15,7 @@ const { class: className } = defineProps<Props>();
 defineSlots<{ default?: () => unknown }>();
 const attrs = useAttrs();
 const indentBackgroundClass =
-  'pointer-events-none absolute inset-0 bg-foreground opacity-0 transition-opacity duration-[450ms] ease-spring data-active:opacity-[calc(1-var(--drawer-swipe-progress,0))] motion-reduce:[transition-duration:1ms]';
+  'pointer-events-none absolute inset-0 bg-[var(--moduix-drawer-indent-background-bg,var(--moduix-color-foreground))] [opacity:var(--moduix-drawer-indent-background-opacity,0)] [transition:opacity_var(--moduix-drawer-indent-transition,var(--moduix-transition-spring))] data-active:[opacity:calc(var(--moduix-drawer-indent-background-opacity-active,1)*(1-var(--drawer-swipe-progress,0)))] motion-reduce:[transition-duration:1ms]';
 </script>
 
 <template>

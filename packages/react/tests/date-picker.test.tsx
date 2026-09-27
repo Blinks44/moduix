@@ -22,6 +22,8 @@ import {
   DatePickerTableCell,
   DatePickerTableCellTrigger,
   DatePickerDayTable,
+  DatePickerMonthSelect,
+  DatePickerYearSelect,
 } from '../src';
 
 const translations = {
@@ -37,6 +39,23 @@ const translations = {
   viewTrigger: () => 'Change view',
   yearSelect: 'Year',
 };
+
+test('renders Ark month and year primitives as native selects', () => {
+  render(
+    <DatePicker defaultValue={[new CalendarDate(2026, 6, 22)]}>
+      <DatePickerMonthSelect aria-label="Month" />
+      <DatePickerYearSelect aria-label="Year" />
+    </DatePicker>,
+  );
+
+  const monthSelect = screen.getByRole('combobox', { name: 'Month' });
+  const yearSelect = screen.getByRole('combobox', { name: 'Year' });
+
+  expect(monthSelect.tagName).toBe('SELECT');
+  expect(monthSelect.querySelectorAll('option')).toHaveLength(12);
+  expect(yearSelect.tagName).toBe('SELECT');
+  expect(yearSelect.querySelector('option[value="2026"]')).not.toBeNull();
+});
 
 function DatePickerPopup() {
   return (

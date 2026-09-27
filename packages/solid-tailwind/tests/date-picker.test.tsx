@@ -26,6 +26,8 @@ import {
   DatePickerTableCell,
   DatePickerTableCellTrigger,
   DatePickerDayTable,
+  DatePickerMonthSelect,
+  DatePickerYearSelect,
 } from '../src';
 
 const translations = {
@@ -41,6 +43,30 @@ const translations = {
   viewTrigger: () => 'Change view',
   yearSelect: 'Year',
 };
+
+test('renders Ark month and year primitives as native selects', () => {
+  render(() => (
+    <DatePicker defaultValue={[new CalendarDate(2026, 6, 22)]}>
+      <DatePickerMonthSelect aria-label="Month" />
+      <DatePickerYearSelect aria-label="Year" />
+    </DatePicker>
+  ));
+
+  const monthSelect = screen.getByRole('combobox', { name: 'Month' });
+  const yearSelect = screen.getByRole('combobox', { name: 'Year' });
+
+  expect(monthSelect.tagName).toBe('SELECT');
+  expect(monthSelect).toHaveClass('appearance-none');
+  expect(monthSelect).toHaveClass(
+    '[font-family:inherit]',
+    '[font-size:var(--moduix-date-picker-select-font-size,var(--moduix-text-sm))]',
+    '[line-height:var(--moduix-date-picker-select-line-height,var(--moduix-line-height-text-sm))]',
+  );
+  expect(monthSelect.querySelectorAll('option')).toHaveLength(12);
+  expect(yearSelect.tagName).toBe('SELECT');
+  expect(yearSelect).toHaveClass('appearance-none');
+  expect(yearSelect.querySelector('option[value="2026"]')).not.toBeNull();
+});
 
 function DatePickerPopup() {
   return (
@@ -339,7 +365,7 @@ test('applies native utilities to the component-owned visual parts', () => {
     'text-muted-foreground',
   );
   expect(document.querySelector('[data-slot="date-picker-content"]')).toHaveClass(
-    'w-75',
+    'w-80',
     'rounded-md',
     'border-border',
     'bg-popover',

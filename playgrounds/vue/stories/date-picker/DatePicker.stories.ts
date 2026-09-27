@@ -194,8 +194,8 @@ const MultipleMonthsDatePickerContent = defineComponent({
     <DatePickerContent :class="styles.multipleMonthsContent">
       <DatePickerViewControl><DatePickerPrevTrigger /><DatePickerRangeText /><DatePickerNextTrigger /></DatePickerViewControl>
       <div :class="styles.multipleMonths">
-        <DatePickerDayTable :class="styles.multipleMonthsTable" />
-        <DatePickerContext v-slot="context"><DatePickerDayTable :class="styles.multipleMonthsTable" :offset="context.getOffset({ months: 1 })" /></DatePickerContext>
+        <DatePickerDayTable :class="styles.multipleMonthsTable" :show-header="false" />
+        <DatePickerContext v-slot="context"><DatePickerDayTable :class="styles.multipleMonthsTable" :show-header="false" :offset="context.getOffset({ months: 1 })" /></DatePickerContext>
       </div>
     </DatePickerContent>
   `,
@@ -269,7 +269,7 @@ export const MultipleMonths: Story = {
 export const MonthAndYearSelect: Story = {
   render: renderStory(
     `
-    <DatePicker :default-value="[date]"><DatePickerLabel>Report date</DatePickerLabel><DatePickerField /><DatePickerPositioner><DatePickerContent><DatePickerViewControl :class="styles.monthYearControl"><div :class="styles.monthYearSelects"><DatePickerMonthSelect /><DatePickerYearSelect /></div><div :class="styles.monthYearNav"><DatePickerPrevTrigger /><DatePickerNextTrigger /></div></DatePickerViewControl><DatePickerView view="day"><DatePickerDayTable :show-header="false" /></DatePickerView></DatePickerContent></DatePickerPositioner></DatePicker>
+    <DatePicker :default-value="[date]"><DatePickerLabel>Report date</DatePickerLabel><DatePickerField /><DatePickerPositioner><DatePickerContent><DatePickerViewControl :class="styles.monthYearControl"><div :class="styles.monthYearSelects"><DatePickerMonthSelect :class="styles.monthSelect" /><DatePickerYearSelect :class="styles.yearSelect" /></div><div :class="styles.monthYearNav"><DatePickerPrevTrigger /><DatePickerNextTrigger /></div></DatePickerViewControl><DatePickerView view="day"><DatePickerDayTable :show-header="false" /></DatePickerView></DatePickerContent></DatePickerPositioner></DatePicker>
   `,
     () => ({ date: parseDate('2026-06-22') }),
   ),

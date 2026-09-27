@@ -9,6 +9,7 @@ import { CalendarIcon } from '@/lib/moduix/icons/ui';
 defineOptions({ inheritAttrs: false });
 
 export interface Props extends /* @vue-ignore */ DatePickerTriggerProps {
+  asChild?: boolean;
   class?: HTMLAttributes['class'];
 }
 

@@ -9,6 +9,7 @@ import { ChevronRightIcon } from '@/lib/moduix/icons/ui';
 defineOptions({ inheritAttrs: false });
 
 export interface Props extends /* @vue-ignore */ DatePickerNextTriggerProps {
+  asChild?: boolean;
   class?: HTMLAttributes['class'];
 }
 

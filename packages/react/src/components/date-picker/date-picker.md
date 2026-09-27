@@ -222,8 +222,8 @@ moduix `useDatePicker()`; do not also render `DatePicker` for the same state ins
 Render every view between `minView` and `maxView` whenever the composition exposes a
 `DatePickerViewTrigger`; for a single-panel picker, set both bounds to that panel.
 
-The default root and popup width is `18.75rem` (300px), while range fields use `24rem` (384px) so both
-inputs have enough room for their values and shared action icons. Override `--moduix-date-picker-width`
+The default root width is `18.75rem` (300px), and the default popup width is `20rem` (320px), while range
+fields use `24rem` (384px) so both inputs have enough room for their values and shared action icons. Override `--moduix-date-picker-width`
 for the field and `--moduix-date-picker-content-width` for wider popup compositions such as two visible months.
 For portalled popups, set popup sizing variables on `DatePickerContent` or another element inside
 the overlay subtree because variables on `DatePicker` do not inherit across the portal boundary.
@@ -317,9 +317,8 @@ The calendar and clear actions use logical inline-end positioning, so they follo
 - `DatePickerPrevTrigger` and `DatePickerNextTrigger` render chevron icons when children are
   omitted.
 - `DatePickerViewTrigger` renders `DatePickerRangeText` plus a chevron when children are omitted.
-- Docs may show a custom month/year header built with the moduix `Select` and
-  `DatePickerContext`. Keep the exported `DatePickerMonthSelect` / `DatePickerYearSelect`
-  native Ark parts available; the custom select header is composition, not replacement wrapper API.
+- Use the exported `DatePickerMonthSelect` / `DatePickerYearSelect` for the native month/year
+  header. Use `DatePickerContext` only when composing a different custom header or calendar layout.
 
 ## Agent notes
 
@@ -370,7 +369,6 @@ content after the first open; set both props to `false` only when eager initial 
   non-Ark focus styling, avoided double disabled/read-only opacity, expanded docs examples, and
   synchronized the docs CSS variable table with the full theme contract.
 - 2026-06-22: Restored two-month popup composition, switched presets to range inputs, added muted
-  preset trigger surface variables, and documented custom month/year header composition with
-  moduix `Select`.
+  preset trigger surface variables, and documented the Ark-backed month/year select composition.
 - 2026-06-22: Added the Ark-backed `DatePicker` wrapper, CSS module, stories, local docs, public
   exports, docs page, and registry metadata.

@@ -22,7 +22,17 @@ import {
     <DatePickerPositioner
       ><DatePickerContent>
         <DatePickerViewControl
-          ><DatePickerMonthSelect /><DatePickerYearSelect /><DatePickerPrevTrigger /><DatePickerNextTrigger
+          ><div
+            style="
+              display: grid;
+              grid-template-columns: minmax(7rem, 1fr) minmax(6.25rem, 1fr);
+              gap: 0.25rem;
+              min-width: 0;
+            "
+          >
+            <DatePickerMonthSelect /><DatePickerYearSelect />
+          </div>
+          <DatePickerPrevTrigger /><DatePickerNextTrigger
         /></DatePickerViewControl>
         <DatePickerView view="day"><DatePickerDayTable /></DatePickerView> </DatePickerContent
     ></DatePickerPositioner>

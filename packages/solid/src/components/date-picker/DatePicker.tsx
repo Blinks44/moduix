@@ -549,26 +549,48 @@ function DatePickerDayTable(props: DatePickerDayTableProps) {
 }
 
 function DatePickerMonthSelect(props: ComponentProps<typeof DatePickerPrimitive.MonthSelect>) {
-  const [local, others] = splitProps(props, ['class']);
+  const [local, others] = splitProps(props, ['class', 'multiple', 'size']);
 
   return (
-    <DatePickerPrimitive.MonthSelect
-      class={clsx(styles.select, local.class)}
-      {...others}
-      data-slot="date-picker-month-select"
-    />
+    <span class={styles.selectControl} data-slot="date-picker-month-select-control">
+      <DatePickerPrimitive.MonthSelect
+        {...others}
+        multiple={local.multiple}
+        size={local.size}
+        class={clsx(styles.select, local.class)}
+        data-slot="date-picker-month-select"
+      />
+      <span
+        aria-hidden="true"
+        class={styles.selectIndicator}
+        data-slot="date-picker-month-select-indicator"
+      >
+        <ChevronDownIcon />
+      </span>
+    </span>
   );
 }
 
 function DatePickerYearSelect(props: ComponentProps<typeof DatePickerPrimitive.YearSelect>) {
-  const [local, others] = splitProps(props, ['class']);
+  const [local, others] = splitProps(props, ['class', 'multiple', 'size']);
 
   return (
-    <DatePickerPrimitive.YearSelect
-      class={clsx(styles.select, local.class)}
-      {...others}
-      data-slot="date-picker-year-select"
-    />
+    <span class={styles.selectControl} data-slot="date-picker-year-select-control">
+      <DatePickerPrimitive.YearSelect
+        {...others}
+        multiple={local.multiple}
+        size={local.size}
+        class={clsx(styles.select, local.class)}
+        data-slot="date-picker-year-select"
+      />
+      <span
+        aria-hidden="true"
+        class={styles.selectIndicator}
+        data-slot="date-picker-year-select-indicator"
+      >
+        <ChevronDownIcon />
+      </span>
+    </span>
   );
 }
 

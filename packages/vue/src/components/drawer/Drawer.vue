@@ -59,8 +59,8 @@ provide(DrawerVariantContextKey, {
 });
 
 const resolvedSnapPoints = computed(() => snapPoints ?? (variant === 'island' ? [1] : undefined));
-const resolvedDefaultSnapPoint = computed(
-  () => defaultSnapPoint ?? (variant === 'island' ? 1 : undefined),
+const resolvedDefaultSnapPoint = computed(() =>
+  defaultSnapPoint !== undefined ? defaultSnapPoint : variant === 'island' ? 1 : undefined,
 );
 </script>
 

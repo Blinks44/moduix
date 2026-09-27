@@ -23,6 +23,7 @@
     box-sizing: border-box;
     display: inline-flex;
     align-items: center;
+    gap: var(--moduix-spacing-1);
     width: var(--moduix-date-input-control-width, 100%);
     min-height: var(--moduix-date-input-control-height, var(--moduix-size-md));
     border: var(--moduix-date-input-border-width, var(--moduix-border-width-sm))

@@ -591,28 +591,50 @@ const DatePickerDayTable = forwardRef<
 const DatePickerMonthSelect = forwardRef<
   ComponentRef<typeof DatePickerPrimitive.MonthSelect>,
   ComponentProps<typeof DatePickerPrimitive.MonthSelect>
->(function DatePickerMonthSelect({ className, ...props }, ref) {
+>(function DatePickerMonthSelect({ className, multiple, size, ...props }, ref) {
   return (
-    <DatePickerPrimitive.MonthSelect
-      ref={ref}
-      className={clsx(styles.select, className)}
-      {...props}
-      data-slot="date-picker-month-select"
-    />
+    <span className={styles.selectControl} data-slot="date-picker-month-select-control">
+      <DatePickerPrimitive.MonthSelect
+        ref={ref}
+        {...props}
+        multiple={multiple}
+        size={size}
+        className={clsx(styles.select, className)}
+        data-slot="date-picker-month-select"
+      />
+      <span
+        aria-hidden="true"
+        className={styles.selectIndicator}
+        data-slot="date-picker-month-select-indicator"
+      >
+        <ChevronDownIcon />
+      </span>
+    </span>
   );
 });
 
 const DatePickerYearSelect = forwardRef<
   ComponentRef<typeof DatePickerPrimitive.YearSelect>,
   ComponentProps<typeof DatePickerPrimitive.YearSelect>
->(function DatePickerYearSelect({ className, ...props }, ref) {
+>(function DatePickerYearSelect({ className, multiple, size, ...props }, ref) {
   return (
-    <DatePickerPrimitive.YearSelect
-      ref={ref}
-      className={clsx(styles.select, className)}
-      {...props}
-      data-slot="date-picker-year-select"
-    />
+    <span className={styles.selectControl} data-slot="date-picker-year-select-control">
+      <DatePickerPrimitive.YearSelect
+        ref={ref}
+        {...props}
+        multiple={multiple}
+        size={size}
+        className={clsx(styles.select, className)}
+        data-slot="date-picker-year-select"
+      />
+      <span
+        aria-hidden="true"
+        className={styles.selectIndicator}
+        data-slot="date-picker-year-select-indicator"
+      >
+        <ChevronDownIcon />
+      </span>
+    </span>
   );
 });
 

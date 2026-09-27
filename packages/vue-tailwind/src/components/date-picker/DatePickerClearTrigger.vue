@@ -43,7 +43,12 @@ const clearAttrs = computed(() => {
       v-else
       :aria-label="ariaLabel"
       :aria-labelledby="ariaLabelledBy"
-      :class="cn('size-control-xs [&>svg]:size-4', className)"
+      :class="
+        cn(
+          'size-control-xs focus-visible:outline-1 focus-visible:-outline-offset-1 [&>svg]:size-4',
+          className,
+        )
+      "
     >
       <slot />
     </CloseButton>

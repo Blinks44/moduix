@@ -75,17 +75,20 @@ test('preserves drawer behavior and Vue composition', async () => {
   expect(trigger).toHaveFocus();
 });
 
-test('keeps non-modal drawers interactive and renders inline', () => {
+test('keeps non-modal drawers interactive and renders inline', async () => {
   const Harness = defineComponent({
     components: drawerComponents,
     template:
-      '<div data-testid="host"><Drawer default-open :modal="false" :portalled="false"><DrawerPositioner><DrawerContent><DrawerTitle>Preferences</DrawerTitle></DrawerContent></DrawerPositioner></Drawer></div>',
+      '<div data-testid="host"><Drawer default-open :modal="false" :portalled="false"><DrawerPositioner><DrawerContent><DrawerTitle>Preferences</DrawerTitle><DrawerCloseTrigger>Close drawer</DrawerCloseTrigger></DrawerContent></DrawerPositioner></Drawer></div>',
   });
   render(Harness);
   expect(within(screen.getByTestId('host')).getByRole('dialog')).toHaveStyle({
     pointerEvents: 'auto',
   });
   expect(screen.getByRole('dialog').parentElement).toHaveStyle({ pointerEvents: 'none' });
+
+  await fireEvent.click(screen.getByRole('button', { name: 'Close drawer' }));
+  await waitFor(() => expect(screen.queryByRole('dialog')).not.toBeInTheDocument());
 });
 
 test('supports portalRef, context, RootProvider, refs, and asChild', async () => {
@@ -106,6 +109,48 @@ test('supports portalRef, context, RootProvider, refs, and asChild', async () =>
   );
   expect(screen.getByText('Open: true')).toBeInTheDocument();
   expect(contentRef.value?.$el).toBe(screen.getByRole('dialog'));
+});
+
+test('starts content dragging outside the grabber by default', async () => {
+  const Harness = defineComponent({
+    components: drawerComponents,
+    template:
+      '<Drawer default-open><DrawerPositioner><DrawerContent><DrawerTitle>Preferences</DrawerTitle><div data-testid="drawer-body">Body</div></DrawerContent></DrawerPositioner></Drawer>',
+  });
+  render(Harness);
+
+  const content = await screen.findByRole('dialog');
+  const body = screen.getByTestId('drawer-body');
+
+  await fireEvent.pointerDown(body, {
+    button: 0,
+    clientX: 100,
+    clientY: 100,
+    pointerId: 1,
+    pointerType: 'touch',
+  });
+  await fireEvent.pointerMove(body, {
+    clientX: 100,
+    clientY: 160,
+    pointerId: 1,
+    pointerType: 'touch',
+  });
+
+  await waitFor(() => expect(content).toHaveAttribute('data-dragging'));
+});
+
+test('forwards a ref through native asChild composition', () => {
+  const contentRef = ref<ComponentPublicInstance>();
+  const Harness = defineComponent({
+    components: drawerComponents,
+    setup: () => ({ contentRef }),
+    template:
+      '<Drawer default-open :portalled="false"><DrawerPositioner><DrawerContent ref="contentRef" as-child><section><DrawerTitle>Preferences</DrawerTitle></section></DrawerContent></DrawerPositioner></Drawer>',
+  });
+  render(Harness);
+
+  expect(contentRef.value?.$el).toBe(screen.getByRole('dialog'));
+  expect(contentRef.value?.$el).toHaveProperty('tagName', 'SECTION');
 });
 
 test('forwards refs through every public part and supports asChild', () => {
@@ -170,6 +215,26 @@ test('lets consumer Tailwind utilities win', () => {
     'bg-primary',
   );
   expect(document.querySelector('[data-slot="drawer-backdrop"]')).toHaveClass('fixed', 'inset-0');
+});
+
+test('marks an island drawer and closes it through its accessible close icon', async () => {
+  const Harness = defineComponent({
+    components: drawerComponents,
+    template:
+      '<Drawer variant="island"><DrawerTrigger as-child><button type="button">Open drawer</button></DrawerTrigger><DrawerPositioner><DrawerContent><DrawerTitle>Preferences</DrawerTitle><DrawerCloseIcon /></DrawerContent></DrawerPositioner><DrawerContext v-slot="drawer"><output data-testid="drawer-state">{{ drawer.swipeDirection }}:{{ drawer.snapPoints.join(",") }}:{{ String(drawer.snapPoint) }}</output></DrawerContext></Drawer>',
+  });
+  render(Harness);
+  const trigger = screen.getByRole('button', { name: 'Open drawer' });
+  trigger.focus();
+  await fireEvent.click(trigger);
+
+  expect(await screen.findByRole('dialog')).toHaveAttribute('data-variant', 'island');
+  expect(screen.getByTestId('drawer-state')).toHaveTextContent('down:1:1');
+  expect(screen.getByRole('dialog').parentElement).toHaveAttribute('data-swipe-direction', 'down');
+  await fireEvent.click(screen.getByRole('button', { name: 'Close drawer' }));
+
+  await waitFor(() => expect(screen.queryByRole('dialog')).not.toBeInTheDocument());
+  expect(trigger).toHaveFocus();
 });
 
 test('renders and hydrates the public anatomy through Vue SSR', async () => {

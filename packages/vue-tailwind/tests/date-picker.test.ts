@@ -11,7 +11,9 @@ import {
   DatePickerDayTable,
   DatePickerField,
   DatePickerLabel,
+  DatePickerMonthSelect,
   DatePickerPositioner,
+  DatePickerPresetTrigger,
   DatePickerRangeField,
   DatePickerRootProvider,
   DatePickerTable,
@@ -19,7 +21,9 @@ import {
   DatePickerTableCell,
   DatePickerTableCellTrigger,
   DatePickerTableRow,
+  DatePickerTrigger,
   DatePickerView,
+  DatePickerYearSelect,
   Field,
   Fieldset,
   useDatePicker,
@@ -32,7 +36,9 @@ const datePickerComponents = {
   DatePickerDayTable,
   DatePickerField,
   DatePickerLabel,
+  DatePickerMonthSelect,
   DatePickerPositioner,
+  DatePickerPresetTrigger,
   DatePickerRangeField,
   DatePickerRootProvider,
   DatePickerTable,
@@ -40,7 +46,9 @@ const datePickerComponents = {
   DatePickerTableCell,
   DatePickerTableCellTrigger,
   DatePickerTableRow,
+  DatePickerTrigger,
   DatePickerView,
+  DatePickerYearSelect,
   Field,
   Fieldset,
 };
@@ -60,6 +68,36 @@ const translations = {
 };
 
 const date = (value: string) => parseDate(value);
+
+test('renders Ark month and year primitives as native selects', () => {
+  render(
+    defineComponent({
+      components: datePickerComponents,
+      template: `
+        <DatePicker :default-value="[date]">
+          <DatePickerMonthSelect aria-label="Month" />
+          <DatePickerYearSelect aria-label="Year" />
+        </DatePicker>
+      `,
+      setup: () => ({ date: date('2026-06-22') }),
+    }),
+  );
+
+  const monthSelect = screen.getByRole('combobox', { name: 'Month' });
+  const yearSelect = screen.getByRole('combobox', { name: 'Year' });
+
+  expect(monthSelect.tagName).toBe('SELECT');
+  expect(monthSelect).toHaveClass('appearance-none');
+  expect(monthSelect).toHaveClass(
+    '[font-family:inherit]',
+    '[font-size:var(--moduix-date-picker-select-font-size,var(--moduix-text-sm))]',
+    '[line-height:var(--moduix-date-picker-select-line-height,var(--moduix-line-height-text-sm))]',
+  );
+  expect(monthSelect.querySelectorAll('option')).toHaveLength(12);
+  expect(yearSelect.tagName).toBe('SELECT');
+  expect(yearSelect).toHaveClass('appearance-none');
+  expect(yearSelect.querySelector('option[value="2026"]')).not.toBeNull();
+});
 
 const DatePickerPopup = defineComponent({
   components: datePickerComponents,
@@ -124,6 +162,32 @@ test('preserves native form values and range input indexes', () => {
     ['travel-date', '06/22/2026'],
     ['travel-date', '06/26/2026'],
   ]);
+});
+
+test('applies date range presets through the Ark trigger', async () => {
+  const Harness = defineComponent({
+    components: datePickerComponents,
+    template: `
+      <DatePicker selection-mode="range" default-open>
+        <DatePickerRangeField />
+        <DatePickerPositioner>
+          <DatePickerContent>
+            <DatePickerPresetTrigger value="last7Days">Last 7 days</DatePickerPresetTrigger>
+          </DatePickerContent>
+        </DatePickerPositioner>
+      </DatePicker>
+    `,
+  });
+
+  render(Harness);
+  await fireEvent.click(screen.getByRole('button', { name: /select/ }));
+
+  await waitFor(() => {
+    expect(screen.getAllByRole('textbox').map((input) => input.getAttribute('value'))).toEqual([
+      expect.stringMatching(/^\d{2}\/\d{2}\/\d{4}$/),
+      expect.stringMatching(/^\d{2}\/\d{2}\/\d{4}$/),
+    ]);
+  });
 });
 
 test('inherits Field and Fieldset state on the editable input', () => {
@@ -227,6 +291,64 @@ test('keeps controlled values, context, and RootProvider state consumer-owned', 
   );
 });
 
+test('renders and selects years in a year-only picker', async () => {
+  const Harness = defineComponent({
+    components: datePickerComponents,
+    setup: () => ({ date: date('2026-01-01') }),
+    template: `
+      <DatePicker
+        :default-value="[date]"
+        default-open
+        default-view="year"
+        :format="(value) => String(value.year)"
+        min-view="year"
+        max-view="year"
+      >
+        <DatePickerLabel>Year</DatePickerLabel>
+        <DatePickerField placeholder="yyyy" />
+        <DatePickerPositioner>
+          <DatePickerContent>
+            <DatePickerView view="year">
+              <DatePickerContext v-slot="datePicker">
+                <DatePickerTable :columns="4">
+                  <DatePickerTableBody>
+                    <DatePickerTableRow
+                      v-for="(years, rowIndex) in datePicker.getYearsGrid({ columns: 4 })"
+                      :key="rowIndex"
+                    >
+                      <DatePickerTableCell
+                        v-for="year in years"
+                        :key="year.value"
+                        :disabled="year.disabled"
+                        :value="year.value"
+                      >
+                        <DatePickerTableCellTrigger>{{ year.label }}</DatePickerTableCellTrigger>
+                      </DatePickerTableCell>
+                    </DatePickerTableRow>
+                  </DatePickerTableBody>
+                </DatePickerTable>
+              </DatePickerContext>
+            </DatePickerView>
+          </DatePickerContent>
+        </DatePickerPositioner>
+      </DatePicker>
+    `,
+  });
+
+  render(Harness);
+  const input = screen.getByRole('textbox', { name: 'Year' });
+  expect(input).toHaveValue('2026');
+  expect(screen.getByRole('button', { name: '2020' })).toBeVisible();
+
+  const years = screen.getAllByRole('button', { name: /^\d{4}$/ });
+  expect(years.length).toBeGreaterThan(0);
+
+  await fireEvent.click(years[0]);
+  await waitFor(() => {
+    expect(input).toHaveValue('2020');
+  });
+});
+
 test('preserves semantic hosts and refs through Ark asChild', () => {
   const rootRef = ref<ComponentPublicInstance>();
   const Harness = defineComponent({
@@ -245,6 +367,18 @@ test('preserves semantic hosts and refs through Ark asChild', () => {
   expect(root.tagName).toBe('SECTION');
   expect(root).toHaveAttribute('data-slot', 'date-picker-root');
   expect(rootRef.value?.$el).toBe(root);
+});
+
+test('composes styled trigger parts through asChild', () => {
+  const Harness = defineComponent({
+    components: datePickerComponents,
+    template:
+      '<DatePicker><DatePickerTrigger as-child><button type="button">Open calendar</button></DatePickerTrigger></DatePicker>',
+  });
+  render(Harness);
+  const trigger = screen.getByRole('button', { name: 'Open calendar' });
+  expect(trigger).toHaveAttribute('data-slot', 'date-picker-trigger');
+  expect(trigger.className).toBe('');
 });
 
 test('renders a stable public anatomy through SSR and hydration', async () => {

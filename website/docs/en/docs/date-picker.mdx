@@ -235,7 +235,8 @@ The root portals the popup automatically. Use `portalled={false}` for the curren
 
 ### Controlled
 
-Control the selected `DateValue[]` by updating it with `details.value`.
+Control the selected `DateValue[]` by updating it with `details.value`. In Vue, use `v-model` for
+the controlled value.
 
 <ExampleFrame variant="component">
   <DatePickerControlled />
@@ -485,7 +486,7 @@ and calendar cells.
 ### Month and year selects
 
 Use `DatePickerMonthSelect` and `DatePickerYearSelect` for native selects linked to the focused
-date. Use `DatePickerContext` when a custom select needs to update the focused date itself.
+date. Use `DatePickerContext` only when composing a different custom header or calendar layout.
 
 <ExampleFrame variant="component">
   <DatePickerMonthYearSelect />

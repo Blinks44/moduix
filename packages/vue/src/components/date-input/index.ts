@@ -45,6 +45,7 @@ export type {
   DateInputRootProps,
   DateInputRootProviderBaseProps,
   DateInputRootProviderProps,
+  DateInputSegmentBaseProps,
   DateInputSegmentContextProps,
   DateInputSegmentGroupBaseProps,
   DateInputSegmentGroupProps,

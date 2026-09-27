@@ -249,7 +249,7 @@ const DrawerCloseIcon = forwardRef<
         data-slot="drawer-close-icon"
         aria-label={ariaLabel}
         className={cn(
-          'absolute end-4 top-4 z-2 size-7 rounded-md bg-transparent text-muted-foreground transition-[background-color,color,opacity] duration-200 ease-in-out select-none focus-visible:outline-1 focus-visible:-outline-offset-1 focus-visible:outline-ring motion-reduce:transition-none [&>svg]:size-3 [&>svg]:shrink-0 [@media(hover:hover)]:[&:not([data-disabled]):hover]:bg-accent [@media(hover:hover)]:[&:not([data-disabled]):hover]:text-popover-foreground',
+          'size-7 rounded-md bg-transparent text-muted-foreground transition-[background-color,color,opacity] duration-200 ease-in-out select-none focus-visible:outline-1 focus-visible:-outline-offset-1 focus-visible:outline-ring motion-reduce:transition-none [&>svg]:size-3 [&>svg]:shrink-0 [@media(hover:hover)]:[&:not([data-disabled]):hover]:bg-accent [@media(hover:hover)]:[&:not([data-disabled]):hover]:text-popover-foreground',
           className,
         )}
       >
@@ -284,7 +284,7 @@ const DrawerIndent = forwardRef<
     <DrawerPrimitive.Indent
       ref={ref}
       className={cn(
-        'relative origin-top [translate:0_0] [scale:1] transition-[transform,border-radius] duration-[450ms] ease-spring data-active:[translate:0_calc(8px*(1-var(--drawer-swipe-progress,0)))] data-active:[scale:calc(0.97+(1-0.97)*var(--drawer-swipe-progress,0))] data-active:rounded-t-lg data-active:rounded-b-none motion-reduce:[transition-duration:1ms]',
+        'relative origin-top [transform:translateY(0)_scale(1)] [transition:transform_var(--moduix-drawer-indent-transition,var(--moduix-transition-spring)),border-radius_var(--moduix-drawer-indent-transition,var(--moduix-transition-spring))] data-active:[transform:translateY(calc(var(--moduix-drawer-indent-translate-y-active,var(--moduix-spacing-2))*(1-var(--drawer-swipe-progress,0))))_scale(calc(var(--moduix-drawer-indent-scale-active,0.97)+(1-var(--moduix-drawer-indent-scale-active,0.97))*var(--drawer-swipe-progress,0)))] data-active:[border-radius:var(--moduix-drawer-indent-radius-active,var(--moduix-radius-lg))_var(--moduix-drawer-indent-radius-active,var(--moduix-radius-lg))_0_0] motion-reduce:[transition-duration:1ms]',
         className,
       )}
       {...props}
@@ -301,7 +301,7 @@ const DrawerIndentBackground = forwardRef<
     <DrawerPrimitive.IndentBackground
       ref={ref}
       className={cn(
-        'pointer-events-none absolute inset-0 bg-foreground opacity-0 transition-opacity duration-[450ms] ease-spring data-active:opacity-[calc(1-var(--drawer-swipe-progress,0))] motion-reduce:[transition-duration:1ms]',
+        'pointer-events-none absolute inset-0 bg-[var(--moduix-drawer-indent-background-bg,var(--moduix-color-foreground))] [opacity:var(--moduix-drawer-indent-background-opacity,0)] [transition:opacity_var(--moduix-drawer-indent-transition,var(--moduix-transition-spring))] data-active:[opacity:calc(var(--moduix-drawer-indent-background-opacity-active,1)*(1-var(--drawer-swipe-progress,0)))] motion-reduce:[transition-duration:1ms]',
         className,
       )}
       {...props}

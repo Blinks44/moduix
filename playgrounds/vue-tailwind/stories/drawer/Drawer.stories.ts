@@ -71,7 +71,11 @@ const drawerComponents = {
 };
 const DrawerSurface = defineComponent({
   components: drawerComponents,
-  props: { title: String, description: String, draggable: Boolean },
+  props: {
+    title: String,
+    description: String,
+    draggable: { type: Boolean, default: undefined },
+  },
   template:
     '<DrawerBackdrop /><DrawerPositioner><DrawerContent :draggable="draggable"><DrawerGrabber><DrawerGrabberIndicator /></DrawerGrabber><DrawerHeader><DrawerTitle>{{ title }}</DrawerTitle><DrawerCloseIcon /><DrawerDescription v-if="description">{{ description }}</DrawerDescription></DrawerHeader><slot /></DrawerContent></DrawerPositioner>',
 });

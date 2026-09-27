@@ -49,12 +49,12 @@ const styles = {
     'inline-flex min-w-0 items-center gap-1 rounded-sm bg-muted px-1.5 py-0.5 text-sm leading-5 text-foreground',
   selectedDateRemove:
     'inline-flex size-4 items-center justify-center rounded-sm border-0 bg-transparent p-0 text-muted-foreground hover:bg-accent hover:text-accent-foreground',
-  multipleRoot: '[--moduix-date-picker-width:20rem]',
+  multipleRoot: 'w-80',
   monthYearControl: 'grid grid-cols-[minmax(0,1fr)_auto] items-center gap-2',
   monthYearSelects:
-    'grid min-w-0 grid-cols-[minmax(0,1fr)_minmax(4.5rem,0.7fr)] items-center gap-1',
+    'grid min-w-0 grid-cols-[minmax(7rem,1fr)_minmax(6.25rem,1fr)] items-center gap-1',
   monthYearNav: 'inline-flex items-center gap-1',
-  multipleMonthsContent: 'max-w-[calc(100vw-2rem)]',
+  multipleMonthsContent: 'w-max max-w-[calc(100vw-2rem)]',
   multipleMonths: 'flex gap-3 overflow-x-auto',
   multipleMonthsTable: 'w-max shrink-0',
   customRoot:
@@ -215,8 +215,8 @@ const MultipleMonthsDatePickerContent = defineComponent({
     <DatePickerContent :class="styles.multipleMonthsContent">
       <DatePickerViewControl><DatePickerPrevTrigger /><DatePickerRangeText /><DatePickerNextTrigger /></DatePickerViewControl>
       <div :class="styles.multipleMonths">
-        <DatePickerDayTable :class="styles.multipleMonthsTable" />
-        <DatePickerContext v-slot="context"><DatePickerDayTable :class="styles.multipleMonthsTable" :offset="context.getOffset({ months: 1 })" /></DatePickerContext>
+        <DatePickerDayTable :class="styles.multipleMonthsTable" :show-header="false" />
+        <DatePickerContext v-slot="context"><DatePickerDayTable :class="styles.multipleMonthsTable" :show-header="false" :offset="context.getOffset({ months: 1 })" /></DatePickerContext>
       </div>
     </DatePickerContent>
   `,
@@ -290,7 +290,7 @@ export const MultipleMonths: Story = {
 export const MonthAndYearSelect: Story = {
   render: renderStory(
     `
-    <DatePicker :default-value="[date]"><DatePickerLabel>Report date</DatePickerLabel><DatePickerField /><DatePickerPositioner><DatePickerContent><DatePickerViewControl :class="styles.monthYearControl"><div :class="styles.monthYearSelects"><DatePickerMonthSelect /><DatePickerYearSelect /></div><div :class="styles.monthYearNav"><DatePickerPrevTrigger /><DatePickerNextTrigger /></div></DatePickerViewControl><DatePickerView view="day"><DatePickerDayTable :show-header="false" /></DatePickerView></DatePickerContent></DatePickerPositioner></DatePicker>
+    <DatePicker :default-value="[date]"><DatePickerLabel>Report date</DatePickerLabel><DatePickerField /><DatePickerPositioner><DatePickerContent><DatePickerViewControl :class="styles.monthYearControl"><div :class="styles.monthYearSelects"><DatePickerMonthSelect class="w-full min-w-0" /><DatePickerYearSelect class="w-full min-w-0" /></div><div :class="styles.monthYearNav"><DatePickerPrevTrigger /><DatePickerNextTrigger /></div></DatePickerViewControl><DatePickerView view="day"><DatePickerDayTable :show-header="false" /></DatePickerView></DatePickerContent></DatePickerPositioner></DatePicker>
   `,
     () => ({ date: parseDate('2026-06-22') }),
   ),

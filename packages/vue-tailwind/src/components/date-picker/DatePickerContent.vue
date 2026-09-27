@@ -22,7 +22,7 @@ const attrs = useAttrs();
     v-bind="attrs"
     :class="
       cn(
-        'z-[calc(60+var(--layer-index,0))] w-75 max-w-[min(calc(100vw-2rem),var(--available-width))] min-w-[min(18.75rem,var(--available-width))] origin-[var(--transform-origin)] rounded-md border border-border bg-popover p-3 text-popover-foreground shadow-lg outline-0 data-inline:min-w-72 data-inline:shadow-none data-[state=closed]:pointer-events-none data-[state=closed]:animate-moduix-menu-closed data-[state=open]:animate-moduix-menu-open motion-reduce:[animation-delay:0ms] motion-reduce:[animation-duration:1ms]',
+        'z-[calc(60+var(--layer-index,0))] w-80 max-w-[min(calc(100vw-2rem),var(--available-width))] min-w-[min(20rem,var(--available-width))] origin-[var(--transform-origin)] rounded-md border border-border bg-popover p-3 text-popover-foreground shadow-lg outline-0 data-inline:min-w-72 data-inline:shadow-none data-[state=closed]:pointer-events-none data-[state=closed]:animate-moduix-menu-closed data-[state=open]:animate-moduix-menu-open motion-reduce:[animation-delay:0ms] motion-reduce:[animation-duration:1ms]',
         props.class,
       )
     "

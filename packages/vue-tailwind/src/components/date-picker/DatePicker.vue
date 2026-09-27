@@ -42,6 +42,8 @@ defineSlots<{ default?: () => unknown }>();
 const attrs = useAttrs();
 const field = useFieldContext();
 const fieldset = useFieldsetContext();
+const rootClasses =
+  'group/date-picker inline-flex w-75 max-w-full flex-col items-start gap-1 text-foreground has-[input[data-index="1"]]:w-96 data-disabled:opacity-50 data-readonly:opacity-50';
 
 const resolvedDisabled = computed(() => {
   const value = disabled ?? unref(field)?.disabled ?? unref(fieldset)?.disabled;
@@ -66,12 +68,7 @@ provide(OverlayPortalContextKey, {
 <template>
   <ArkDatePickerRoot
     v-bind="attrs"
-    :class="
-      cn(
-        'group/date-picker inline-flex w-75 max-w-full flex-col items-start gap-1 text-foreground has-[input[data-index=\'1\']]:w-96 data-disabled:opacity-50 data-readonly:opacity-50',
-        className,
-      )
-    "
+    :class="cn(rootClasses, className)"
     :disabled="resolvedDisabled"
     :invalid="resolvedInvalid"
     :lazy-mount="lazyMount"

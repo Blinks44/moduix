@@ -1,8 +1,6 @@
-import { createListCollection } from '@ark-ui/react/collection';
 import { parseDate } from '@ark-ui/react/date-picker';
 import {
   DatePicker,
-  DatePickerContext,
   DatePickerLabel,
   DatePickerField,
   DatePickerPositioner,
@@ -12,38 +10,10 @@ import {
   DatePickerPrevTrigger,
   DatePickerNextTrigger,
   DatePickerDayTable,
+  DatePickerMonthSelect,
+  DatePickerYearSelect,
 } from '@moduix/react/date-picker';
-import {
-  Select,
-  SelectControl,
-  SelectTrigger,
-  SelectValueText,
-  SelectIndicator,
-  SelectPositioner,
-  SelectContent,
-  SelectList,
-  SelectItem,
-  SelectItemText,
-  SelectItemIndicator,
-} from '@moduix/react/select';
 import styles from '@/components/examples/date-picker/date-picker-month-year-select.module.css';
-
-const monthItems = [
-  { label: 'January', value: '1' },
-  { label: 'February', value: '2' },
-  { label: 'March', value: '3' },
-  { label: 'April', value: '4' },
-  { label: 'May', value: '5' },
-  { label: 'June', value: '6' },
-  { label: 'July', value: '7' },
-  { label: 'August', value: '8' },
-  { label: 'September', value: '9' },
-  { label: 'October', value: '10' },
-  { label: 'November', value: '11' },
-  { label: 'December', value: '12' },
-];
-
-const months = createListCollection({ items: monthItems });
 
 export default function MonthYearSelectDatePickerDemo() {
   return (
@@ -53,77 +23,10 @@ export default function MonthYearSelectDatePickerDemo() {
       <DatePickerPositioner>
         <DatePickerContent>
           <DatePickerViewControl className={styles.control}>
-            <DatePickerContext>
-              {(datePicker) => {
-                const yearItems = Array.from({ length: 12 }, (_, index) => {
-                  const year = datePicker.focusedValue.year - 5 + index;
-                  return { label: String(year), value: String(year) };
-                });
-                const years = createListCollection({ items: yearItems });
-
-                return (
-                  <div className={styles.selects}>
-                    <Select
-                      className={styles.monthSelect}
-                      collection={months}
-                      value={[String(datePicker.focusedValue.month)]}
-                      onValueChange={(details) => {
-                        const month = Number(details.value[0]);
-                        if (month)
-                          datePicker.setFocusedValue(datePicker.focusedValue.set({ month }));
-                      }}
-                    >
-                      <SelectControl>
-                        <SelectTrigger>
-                          <SelectValueText />
-                        </SelectTrigger>
-                        <SelectIndicator />
-                      </SelectControl>
-                      <SelectPositioner>
-                        <SelectContent>
-                          <SelectList>
-                            {monthItems.map((item) => (
-                              <SelectItem key={item.value} item={item}>
-                                <SelectItemText>{item.label}</SelectItemText>
-                                <SelectItemIndicator />
-                              </SelectItem>
-                            ))}
-                          </SelectList>
-                        </SelectContent>
-                      </SelectPositioner>
-                    </Select>
-                    <Select
-                      className={styles.yearSelect}
-                      collection={years}
-                      value={[String(datePicker.focusedValue.year)]}
-                      onValueChange={(details) => {
-                        const year = Number(details.value[0]);
-                        if (year) datePicker.setFocusedValue(datePicker.focusedValue.set({ year }));
-                      }}
-                    >
-                      <SelectControl>
-                        <SelectTrigger>
-                          <SelectValueText />
-                        </SelectTrigger>
-                        <SelectIndicator />
-                      </SelectControl>
-                      <SelectPositioner>
-                        <SelectContent>
-                          <SelectList>
-                            {yearItems.map((item) => (
-                              <SelectItem key={item.value} item={item}>
-                                <SelectItemText>{item.label}</SelectItemText>
-                                <SelectItemIndicator />
-                              </SelectItem>
-                            ))}
-                          </SelectList>
-                        </SelectContent>
-                      </SelectPositioner>
-                    </Select>
-                  </div>
-                );
-              }}
-            </DatePickerContext>
+            <div className={styles.selects}>
+              <DatePickerMonthSelect className={styles.monthSelect} />
+              <DatePickerYearSelect className={styles.yearSelect} />
+            </div>
             <div className={styles.nav}>
               <DatePickerPrevTrigger />
               <DatePickerNextTrigger />

@@ -93,7 +93,7 @@
 .monthYearSelects {
   display: grid;
   min-width: 0;
-  grid-template-columns: minmax(0, 1fr) minmax(4.5rem, 0.7fr);
+  grid-template-columns: minmax(7rem, 1fr) minmax(6.25rem, 1fr);
 }
 
 .monthYearNav {
@@ -103,7 +103,6 @@
 .monthSelect,
 .yearSelect {
   --moduix-select-width: 100%;
-  --moduix-select-control-height: var(--moduix-date-picker-select-height, var(--moduix-size-sm));
   min-width: 0;
 }
 
