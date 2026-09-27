@@ -2,7 +2,7 @@
 import { FieldRootProvider as ArkFieldRootProvider } from '@ark-ui/vue/field';
 import type { FieldRootProviderProps as ArkFieldRootProviderProps } from '@ark-ui/vue/field';
 import { clsx } from 'clsx';
-import { computed, useAttrs } from 'vue';
+import { useAttrs } from 'vue';
 import type { HTMLAttributes } from 'vue';
 import styles from './Field.module.css';
 
@@ -13,20 +13,17 @@ export interface Props extends /* @vue-ignore */ ArkFieldRootProviderProps {
   value: ArkFieldRootProviderProps['value'];
 }
 
-const props = defineProps<Props>();
+const { class: className, value } = defineProps<Props>();
 defineSlots<{ default?: () => unknown }>();
 
 const attrs = useAttrs();
-const forwardedProps = computed(() =>
-  Object.fromEntries(Object.entries(props).filter(([, value]) => value !== undefined)),
-);
 </script>
 
 <template>
   <ArkFieldRootProvider
-    v-bind="{ ...attrs, ...forwardedProps }"
-    :class="clsx(styles.root, props.class)"
-    :value="props.value"
+    v-bind="attrs"
+    :class="clsx(styles.root, className)"
+    :value="value"
     data-slot="field-root-provider"
   >
     <slot />

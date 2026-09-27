@@ -1,7 +1,7 @@
 <script setup lang="ts">
 import { FieldInput as ArkFieldInput } from '@ark-ui/vue/field';
 import { clsx } from 'clsx';
-import { computed, useAttrs } from 'vue';
+import { useAttrs } from 'vue';
 import type { HTMLAttributes, InputHTMLAttributes } from 'vue';
 import styles from './Field.module.css';
 
@@ -25,17 +25,15 @@ const emit = defineEmits<Emits>();
 defineSlots<{ default?: () => unknown }>();
 
 const attrs = useAttrs();
-const forwardedProps = computed(() =>
-  Object.fromEntries(
-    Object.entries(props as Record<string, unknown>).filter(([, value]) => value !== undefined),
-  ),
-);
 </script>
 
 <template>
   <ArkFieldInput
-    v-bind="{ ...attrs, ...forwardedProps }"
+    v-bind="attrs"
+    :as-child="props.asChild ?? false"
     :class="clsx(styles.control, props.class)"
+    :default-value="props.defaultValue"
+    :model-value="props.modelValue"
     data-slot="field-input"
     @update:model-value="emit('update:modelValue', $event)"
   >

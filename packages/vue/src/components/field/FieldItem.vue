@@ -2,7 +2,7 @@
 import { FieldItem as ArkFieldItem } from '@ark-ui/vue/field';
 import type { FieldItemProps as ArkFieldItemProps } from '@ark-ui/vue/field';
 import { clsx } from 'clsx';
-import { computed, ref, useAttrs } from 'vue';
+import { ref, useAttrs } from 'vue';
 import type { HTMLAttributes } from 'vue';
 import styles from './Field.module.css';
 
@@ -14,25 +14,20 @@ export interface Props
   value: ArkFieldItemProps['value'];
 }
 
-const props = defineProps<Props>();
+const { class: className, value } = defineProps<Props>();
 defineSlots<{ default?: () => unknown }>();
 
 const attrs = useAttrs();
 const itemElement = ref<HTMLDivElement>();
 defineExpose({ $el: itemElement });
-const forwardedProps = computed(() =>
-  Object.fromEntries(
-    Object.entries(props).filter(([key, value]) => key !== 'value' && value !== undefined),
-  ),
-);
 </script>
 
 <template>
-  <ArkFieldItem :value="props.value">
+  <ArkFieldItem :value="value">
     <div
       ref="itemElement"
-      v-bind="{ ...attrs, ...forwardedProps }"
-      :class="clsx(styles.item, props.class)"
+      v-bind="attrs"
+      :class="clsx(styles.item, className)"
       data-slot="field-item"
     >
       <slot />

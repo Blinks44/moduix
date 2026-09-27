@@ -115,15 +115,14 @@ test('opens and closes from the shortcut while ignoring editable targets and rep
   );
 });
 
-test.skip('forwards selection details, respects closeOnSelect, and clears without losing focus', async () => {
-  const onSelect = rs.fn();
+test('clears the search without losing focus', async () => {
   const Harness = defineComponent({
     components: commandPaletteComponents,
     setup() {
-      return { collection: commands, itemValue: commands.items[0], onSelect };
+      return { collection: commands, itemValue: commands.items[0] };
     },
     template:
-      '<CommandPalette default-open aria-label="Command palette" :portalled="false"><CommandPalettePanel><CommandPaletteCombobox :collection="collection" :close-on-select="false" @select="onSelect"><CommandPaletteSearch /><CommandPaletteList><CommandPaletteItem :item="itemValue">Open settings</CommandPaletteItem></CommandPaletteList></CommandPaletteCombobox></CommandPalettePanel></CommandPalette>',
+      '<CommandPalette default-open aria-label="Command palette" :portalled="false"><CommandPalettePanel><CommandPaletteCombobox :collection="collection"><CommandPaletteSearch /><CommandPaletteList><CommandPaletteItem :item="itemValue">Open settings</CommandPaletteItem></CommandPaletteList></CommandPaletteCombobox></CommandPalettePanel></CommandPalette>',
   });
 
   render(Harness);
@@ -135,8 +134,22 @@ test.skip('forwards selection details, respects closeOnSelect, and clears withou
   await fireEvent.click(clear);
   await waitFor(() => expect(search).toHaveValue(''));
   expect(search).toHaveFocus();
+});
 
-  await fireEvent.click(screen.getByRole('option', { name: 'Open settings' }));
+// Ark Vue 5.39.2 does not emit Combobox `select` details for this interaction.
+test.skip('forwards selection details and respects closeOnSelect', async () => {
+  const onSelect = rs.fn();
+  const Harness = defineComponent({
+    components: commandPaletteComponents,
+    setup() {
+      return { collection: commands, itemValue: commands.items[0], onSelect };
+    },
+    template:
+      '<CommandPalette default-open aria-label="Command palette" :portalled="false"><CommandPalettePanel><CommandPaletteCombobox :collection="collection" :close-on-select="false" @select="onSelect"><CommandPaletteSearch /><CommandPaletteList><CommandPaletteItem :item="itemValue">Open settings</CommandPaletteItem></CommandPaletteList></CommandPaletteCombobox></CommandPalettePanel></CommandPalette>',
+  });
+
+  render(Harness);
+  await fireEvent.click(await screen.findByRole('option', { name: 'Open settings' }));
   await waitFor(() =>
     expect(onSelect).toHaveBeenCalledWith(
       expect.objectContaining({ itemValue: 'settings', value: ['settings'] }),
@@ -180,6 +193,24 @@ test('supports controlled open state and RootProvider state', async () => {
   render(RootProviderHarness);
   await fireEvent.click(screen.getByRole('button', { name: 'Open through provider' }));
   expect(await screen.findByRole('dialog', { name: 'Provider palette' })).toBeInTheDocument();
+});
+
+test('reacts to combobox prop updates after mount', async () => {
+  const Harness = defineComponent({
+    components: commandPaletteComponents,
+    setup() {
+      const comboboxOpen = ref(true);
+      return { collection: commands, comboboxOpen };
+    },
+    template:
+      '<CommandPalette default-open aria-label="Command palette" :portalled="false"><CommandPalettePanel><button type="button" @click="comboboxOpen = false">Close results</button><CommandPaletteCombobox :collection="collection" :open="comboboxOpen"><CommandPaletteSearch /><CommandPaletteList /></CommandPaletteCombobox></CommandPalettePanel></CommandPalette>',
+  });
+
+  render(Harness);
+  const search = await screen.findByRole('combobox', { name: 'Search commands' });
+  expect(search).toHaveAttribute('aria-expanded', 'true');
+  await fireEvent.click(screen.getByRole('button', { name: 'Close results' }));
+  await waitFor(() => expect(search).toHaveAttribute('aria-expanded', 'false'));
 });
 
 test('renders and hydrates the public anatomy through Vue SSR', async () => {

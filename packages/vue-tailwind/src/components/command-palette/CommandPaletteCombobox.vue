@@ -45,24 +45,25 @@ const props = withDefaults(defineProps<Props<T>>(), {
   open: undefined,
   selectionBehavior: undefined,
 });
-const {
-  class: className,
-  closeOnSelect = true,
-  disableLayer = true,
-  inputBehavior = 'autohighlight',
-  open = true,
-  selectionBehavior = 'preserve',
-} = props;
 const emit = defineEmits<Emits<T>>();
 defineSlots<{ default?: () => unknown }>();
 
 const attrs = useAttrs();
 const dialog = useDialogContext();
+const className = computed(() => props.class);
+const closeOnSelect = computed(() => props.closeOnSelect ?? true);
+const disableLayer = computed(() => props.disableLayer ?? true);
+const inputBehavior = computed(() => props.inputBehavior ?? 'autohighlight');
+const open = computed(() => props.open ?? true);
+const selectionBehavior = computed(() => props.selectionBehavior ?? 'preserve');
 const rootProps = computed(() => {
   const {
     class: _class,
     closeOnSelect: _closeOnSelect,
     disableLayer: _disableLayer,
+    inputBehavior: _inputBehavior,
+    open: _open,
+    selectionBehavior: _selectionBehavior,
     ...rest
   } = props;
   return rest;
@@ -76,7 +77,7 @@ const arkProps = computed(() => {
 type SelectDetails = ComboboxRootEmits<T>['select'][0];
 const handleSelect = (details: SelectDetails) => {
   emit('select', details);
-  if (closeOnSelect) {
+  if (closeOnSelect.value) {
     dialog.value.setOpen(false);
   }
 };

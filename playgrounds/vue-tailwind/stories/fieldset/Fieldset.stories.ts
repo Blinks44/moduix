@@ -27,6 +27,7 @@ import {
 const meta = {
   title: 'Components/Fieldset',
   component: Fieldset,
+  tags: ['autodocs'],
   parameters: { layout: 'centered' },
 } satisfies Meta<typeof Fieldset>;
 

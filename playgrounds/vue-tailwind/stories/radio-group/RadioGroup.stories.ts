@@ -19,6 +19,7 @@ import {
 const meta = {
   title: 'Components/RadioGroup',
   component: RadioGroup,
+  tags: ['autodocs'],
   parameters: { layout: 'centered' },
 } satisfies Meta<typeof RadioGroup>;
 

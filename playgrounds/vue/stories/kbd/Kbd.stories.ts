@@ -6,6 +6,7 @@ import styles from './Kbd.stories.module.css';
 const meta = {
   title: 'Components/Kbd',
   component: Kbd,
+  tags: ['autodocs'],
   parameters: {
     layout: 'centered',
   },

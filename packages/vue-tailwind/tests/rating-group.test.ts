@@ -304,8 +304,14 @@ test('applies native utilities and lets consumer classes win', () => {
   expect(root).toHaveClass('gap-3', 'text-primary');
   expect(root).not.toHaveClass('gap-1', 'text-muted-foreground');
   expect(control).toHaveClass('gap-3');
-  expect(item).toHaveClass('outline-none');
-  expect(item).not.toHaveClass('focus-visible:outline-ring');
+  expect(item).toHaveClass(
+    'outline-1',
+    '-outline-offset-1',
+    'outline-transparent',
+    'focus-visible:outline-1',
+    'focus-visible:outline-offset-1',
+    'focus-visible:outline-ring',
+  );
   expect(indicator).toHaveClass('size-7', 'text-secondary');
   expect(backgroundIcon).toHaveClass('absolute', 'inset-0', 'size-full', 'fill-transparent');
 });

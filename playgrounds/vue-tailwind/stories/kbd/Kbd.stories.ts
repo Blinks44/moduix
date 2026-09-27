@@ -5,6 +5,7 @@ import { Kbd, KbdGroup } from '@/components/kbd';
 const meta = {
   title: 'Components/Kbd',
   component: Kbd,
+  tags: ['autodocs'],
   parameters: {
     layout: 'centered',
   },

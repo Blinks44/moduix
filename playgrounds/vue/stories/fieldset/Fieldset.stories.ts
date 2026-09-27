@@ -28,6 +28,7 @@ import styles from './Fieldset.stories.module.css';
 const meta = {
   title: 'Components/Fieldset',
   component: Fieldset,
+  tags: ['autodocs'],
   parameters: { layout: 'centered' },
 } satisfies Meta<typeof Fieldset>;
 

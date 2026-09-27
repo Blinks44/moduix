@@ -1,0 +1,29 @@
+{
+  "$schema": "https://ui.shadcn.com/schema/registry-item.json",
+  "name": "container",
+  "title": "Container",
+  "description": "moduix Vue Container component.",
+  "dependencies": ["@ark-ui/vue", "clsx"],
+  "registryDependencies": ["@moduix-vue/foundation"],
+  "files": [
+    {
+      "path": "src/components/container/Container.vue",
+      "content": "<script setup lang=\"ts\">\nimport { ark } from '@ark-ui/vue/factory';\nimport type { HTMLArkProps } from '@ark-ui/vue/factory';\nimport { clsx } from 'clsx';\nimport { useAttrs } from 'vue';\nimport type { HTMLAttributes } from 'vue';\nimport styles from './Container.module.css';\n\ntype ContainerSize = 'xs' | 'sm' | 'md' | 'lg' | 'xl' | 'full';\ntype ContainerGutter = 'none' | 'sm' | 'md' | 'lg';\n\ndefineOptions({ inheritAttrs: false });\n\nexport interface Props extends /* @vue-ignore */ HTMLArkProps<'div'> {\n  class?: HTMLAttributes['class'];\n  gutter?: ContainerGutter;\n  size?: ContainerSize;\n}\n\nconst { class: className, gutter = 'md', size = 'lg' } = defineProps<Props>();\ndefineSlots<{ default?: () => unknown }>();\n\nconst attrs = useAttrs();\n</script>\n\n<template>\n  <ark.div\n    v-bind=\"attrs\"\n    :class=\"clsx(styles.root, className)\"\n    data-scope=\"container\"\n    data-part=\"root\"\n    data-slot=\"container-root\"\n    :data-size=\"size\"\n    :data-gutter=\"gutter\"\n  >\n    <slot />\n  </ark.div>\n</template>",
+      "type": "registry:component",
+      "target": "@components/ui/container/Container.vue"
+    },
+    {
+      "path": "src/components/container/Container.module.css",
+      "content": "@layer moduix.components {\n  .root {\n    --_container-gutter: var(\n      --moduix-container-gutter-md,\n      clamp(var(--moduix-spacing-4), 4vw, var(--moduix-spacing-8))\n    );\n    --_container-max-width: var(--moduix-container-max-width-lg, 72rem);\n\n    box-sizing: border-box;\n    display: block;\n    width: 100%;\n    max-width: calc(var(--_container-max-width) + (var(--_container-gutter) * 2));\n    min-width: 0;\n    margin-inline: auto;\n    padding-inline: var(--_container-gutter);\n\n    &[data-size='xs'] {\n      --_container-max-width: var(--moduix-container-max-width-xs, 40rem);\n    }\n\n    &[data-size='sm'] {\n      --_container-max-width: var(--moduix-container-max-width-sm, 48rem);\n    }\n\n    &[data-size='md'] {\n      --_container-max-width: var(--moduix-container-max-width-md, 64rem);\n    }\n\n    &[data-size='xl'] {\n      --_container-max-width: var(--moduix-container-max-width-xl, 90rem);\n    }\n\n    &[data-size='full'] {\n      max-width: none;\n    }\n\n    &[data-gutter='none'] {\n      --_container-gutter: 0px;\n    }\n\n    &[data-gutter='sm'] {\n      --_container-gutter: var(\n        --moduix-container-gutter-sm,\n        clamp(var(--moduix-spacing-3), 3vw, var(--moduix-spacing-6))\n      );\n    }\n\n    &[data-gutter='lg'] {\n      --_container-gutter: var(\n        --moduix-container-gutter-lg,\n        clamp(var(--moduix-spacing-6), 5vw, 3rem)\n      );\n    }\n  }\n}",
+      "type": "registry:file",
+      "target": "@components/ui/container/Container.module.css"
+    },
+    {
+      "path": "src/components/container/index.ts",
+      "content": "export { default as Container } from './Container.vue';",
+      "type": "registry:component",
+      "target": "@components/ui/container/index.ts"
+    }
+  ],
+  "type": "registry:item"
+}

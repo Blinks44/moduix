@@ -138,6 +138,888 @@
       ]
     },
     {
+      "name": "switch",
+      "type": "registry:item",
+      "title": "Switch",
+      "description": "moduix Vue Tailwind Switch component.",
+      "dependencies": ["@ark-ui/vue", "clsx", "tailwind-merge"],
+      "registryDependencies": ["@moduix-vue-tailwind/foundation", "@moduix-vue-tailwind/cn"],
+      "files": [
+        {
+          "path": "src/components/switch/Switch.vue",
+          "target": "@components/ui/switch/Switch.vue",
+          "type": "registry:component"
+        },
+        {
+          "path": "src/components/switch/SwitchRootProvider.vue",
+          "target": "@components/ui/switch/SwitchRootProvider.vue",
+          "type": "registry:component"
+        },
+        {
+          "path": "src/components/switch/SwitchControl.vue",
+          "target": "@components/ui/switch/SwitchControl.vue",
+          "type": "registry:component"
+        },
+        {
+          "path": "src/components/switch/SwitchThumb.vue",
+          "target": "@components/ui/switch/SwitchThumb.vue",
+          "type": "registry:component"
+        },
+        {
+          "path": "src/components/switch/SwitchLabel.vue",
+          "target": "@components/ui/switch/SwitchLabel.vue",
+          "type": "registry:component"
+        },
+        {
+          "path": "src/components/switch/index.ts",
+          "target": "@components/ui/switch/index.ts",
+          "type": "registry:component"
+        }
+      ]
+    },
+    {
+      "name": "select",
+      "type": "registry:item",
+      "title": "Select",
+      "description": "moduix Vue Tailwind Select component.",
+      "dependencies": ["@ark-ui/vue", "clsx", "tailwind-merge"],
+      "registryDependencies": [
+        "@moduix-vue-tailwind/foundation",
+        "@moduix-vue-tailwind/cn",
+        "@moduix-vue-tailwind/icons",
+        "@moduix-vue-tailwind/close-button",
+        "@moduix-vue-tailwind/overlay-portal"
+      ],
+      "files": [
+        {
+          "path": "src/components/select/Select.vue",
+          "target": "@components/ui/select/Select.vue",
+          "type": "registry:component"
+        },
+        {
+          "path": "src/components/select/SelectRootProvider.vue",
+          "target": "@components/ui/select/SelectRootProvider.vue",
+          "type": "registry:component"
+        },
+        {
+          "path": "src/components/select/SelectLabel.vue",
+          "target": "@components/ui/select/SelectLabel.vue",
+          "type": "registry:component"
+        },
+        {
+          "path": "src/components/select/SelectControl.vue",
+          "target": "@components/ui/select/SelectControl.vue",
+          "type": "registry:component"
+        },
+        {
+          "path": "src/components/select/SelectField.vue",
+          "target": "@components/ui/select/SelectField.vue",
+          "type": "registry:component"
+        },
+        {
+          "path": "src/components/select/SelectTrigger.vue",
+          "target": "@components/ui/select/SelectTrigger.vue",
+          "type": "registry:component"
+        },
+        {
+          "path": "src/components/select/SelectValueText.vue",
+          "target": "@components/ui/select/SelectValueText.vue",
+          "type": "registry:component"
+        },
+        {
+          "path": "src/components/select/SelectClearTrigger.vue",
+          "target": "@components/ui/select/SelectClearTrigger.vue",
+          "type": "registry:component"
+        },
+        {
+          "path": "src/components/select/SelectIndicator.vue",
+          "target": "@components/ui/select/SelectIndicator.vue",
+          "type": "registry:component"
+        },
+        {
+          "path": "src/components/select/SelectPositioner.vue",
+          "target": "@components/ui/select/SelectPositioner.vue",
+          "type": "registry:component"
+        },
+        {
+          "path": "src/components/select/SelectContent.vue",
+          "target": "@components/ui/select/SelectContent.vue",
+          "type": "registry:component"
+        },
+        {
+          "path": "src/components/select/SelectList.vue",
+          "target": "@components/ui/select/SelectList.vue",
+          "type": "registry:component"
+        },
+        {
+          "path": "src/components/select/SelectItemGroup.vue",
+          "target": "@components/ui/select/SelectItemGroup.vue",
+          "type": "registry:component"
+        },
+        {
+          "path": "src/components/select/SelectItemGroupLabel.vue",
+          "target": "@components/ui/select/SelectItemGroupLabel.vue",
+          "type": "registry:component"
+        },
+        {
+          "path": "src/components/select/SelectItem.vue",
+          "target": "@components/ui/select/SelectItem.vue",
+          "type": "registry:component"
+        },
+        {
+          "path": "src/components/select/SelectItemText.vue",
+          "target": "@components/ui/select/SelectItemText.vue",
+          "type": "registry:component"
+        },
+        {
+          "path": "src/components/select/SelectItemIndicator.vue",
+          "target": "@components/ui/select/SelectItemIndicator.vue",
+          "type": "registry:component"
+        },
+        {
+          "path": "src/components/select/SelectItemTextContent.vue",
+          "target": "@components/ui/select/SelectItemTextContent.vue",
+          "type": "registry:component"
+        },
+        {
+          "path": "src/components/select/SelectItemTextIcon.vue",
+          "target": "@components/ui/select/SelectItemTextIcon.vue",
+          "type": "registry:component"
+        },
+        {
+          "path": "src/components/select/SelectItemTextLabel.vue",
+          "target": "@components/ui/select/SelectItemTextLabel.vue",
+          "type": "registry:component"
+        },
+        {
+          "path": "src/components/select/SelectContext.vue",
+          "target": "@components/ui/select/SelectContext.vue",
+          "type": "registry:component"
+        },
+        {
+          "path": "src/components/select/SelectItemContext.vue",
+          "target": "@components/ui/select/SelectItemContext.vue",
+          "type": "registry:component"
+        },
+        {
+          "path": "src/components/select/SelectHiddenSelect.vue",
+          "target": "@components/ui/select/SelectHiddenSelect.vue",
+          "type": "registry:component"
+        },
+        {
+          "path": "src/components/select/index.ts",
+          "target": "@components/ui/select/index.ts",
+          "type": "registry:component"
+        }
+      ]
+    },
+    {
+      "name": "native-select",
+      "type": "registry:item",
+      "title": "Native Select",
+      "description": "moduix Vue Tailwind Native Select component.",
+      "dependencies": ["@ark-ui/vue", "clsx", "tailwind-merge"],
+      "registryDependencies": [
+        "@moduix-vue-tailwind/foundation",
+        "@moduix-vue-tailwind/cn",
+        "@moduix-vue-tailwind/icons"
+      ],
+      "files": [
+        {
+          "path": "src/components/native-select/NativeSelect.vue",
+          "target": "@components/ui/native-select/NativeSelect.vue",
+          "type": "registry:component"
+        },
+        {
+          "path": "src/components/native-select/index.ts",
+          "target": "@components/ui/native-select/index.ts",
+          "type": "registry:component"
+        }
+      ]
+    },
+    {
+      "name": "radio-group",
+      "type": "registry:item",
+      "title": "RadioGroup",
+      "description": "moduix Vue Tailwind RadioGroup component.",
+      "dependencies": ["@ark-ui/vue", "clsx", "tailwind-merge"],
+      "registryDependencies": ["@moduix-vue-tailwind/foundation", "@moduix-vue-tailwind/cn"],
+      "files": [
+        {
+          "path": "src/components/radio-group/RadioGroup.vue",
+          "target": "@components/ui/radio-group/RadioGroup.vue",
+          "type": "registry:component"
+        },
+        {
+          "path": "src/components/radio-group/RadioGroupRootProvider.vue",
+          "target": "@components/ui/radio-group/RadioGroupRootProvider.vue",
+          "type": "registry:component"
+        },
+        {
+          "path": "src/components/radio-group/RadioGroupLabel.vue",
+          "target": "@components/ui/radio-group/RadioGroupLabel.vue",
+          "type": "registry:component"
+        },
+        {
+          "path": "src/components/radio-group/RadioGroupItem.vue",
+          "target": "@components/ui/radio-group/RadioGroupItem.vue",
+          "type": "registry:component"
+        },
+        {
+          "path": "src/components/radio-group/RadioGroupOption.vue",
+          "target": "@components/ui/radio-group/RadioGroupOption.vue",
+          "type": "registry:component"
+        },
+        {
+          "path": "src/components/radio-group/RadioGroupItemControl.vue",
+          "target": "@components/ui/radio-group/RadioGroupItemControl.vue",
+          "type": "registry:component"
+        },
+        {
+          "path": "src/components/radio-group/RadioGroupItemText.vue",
+          "target": "@components/ui/radio-group/RadioGroupItemText.vue",
+          "type": "registry:component"
+        },
+        {
+          "path": "src/components/radio-group/RadioGroupItemHiddenInput.vue",
+          "target": "@components/ui/radio-group/RadioGroupItemHiddenInput.vue",
+          "type": "registry:component"
+        },
+        {
+          "path": "src/components/radio-group/RadioGroupIndicator.vue",
+          "target": "@components/ui/radio-group/RadioGroupIndicator.vue",
+          "type": "registry:component"
+        },
+        {
+          "path": "src/components/radio-group/RadioGroupContext.vue",
+          "target": "@components/ui/radio-group/RadioGroupContext.vue",
+          "type": "registry:component"
+        },
+        {
+          "path": "src/components/radio-group/RadioGroupItemContext.vue",
+          "target": "@components/ui/radio-group/RadioGroupItemContext.vue",
+          "type": "registry:component"
+        },
+        {
+          "path": "src/components/radio-group/radio-group.types.ts",
+          "target": "@components/ui/radio-group/radio-group.types.ts",
+          "type": "registry:file"
+        },
+        {
+          "path": "src/components/radio-group/index.ts",
+          "target": "@components/ui/radio-group/index.ts",
+          "type": "registry:component"
+        }
+      ]
+    },
+    {
+      "name": "rating-group",
+      "type": "registry:item",
+      "title": "RatingGroup",
+      "description": "moduix Vue Tailwind RatingGroup component.",
+      "dependencies": ["@ark-ui/vue", "clsx", "tailwind-merge"],
+      "registryDependencies": [
+        "@moduix-vue-tailwind/foundation",
+        "@moduix-vue-tailwind/cn",
+        "@moduix-vue-tailwind/icons"
+      ],
+      "files": [
+        {
+          "path": "src/components/rating-group/RatingGroup.vue",
+          "target": "@components/ui/rating-group/RatingGroup.vue",
+          "type": "registry:component"
+        },
+        {
+          "path": "src/components/rating-group/RatingGroupRootProvider.vue",
+          "target": "@components/ui/rating-group/RatingGroupRootProvider.vue",
+          "type": "registry:component"
+        },
+        {
+          "path": "src/components/rating-group/RatingGroupLabel.vue",
+          "target": "@components/ui/rating-group/RatingGroupLabel.vue",
+          "type": "registry:component"
+        },
+        {
+          "path": "src/components/rating-group/RatingGroupControl.vue",
+          "target": "@components/ui/rating-group/RatingGroupControl.vue",
+          "type": "registry:component"
+        },
+        {
+          "path": "src/components/rating-group/RatingGroupItem.vue",
+          "target": "@components/ui/rating-group/RatingGroupItem.vue",
+          "type": "registry:component"
+        },
+        {
+          "path": "src/components/rating-group/RatingGroupItemIndicator.vue",
+          "target": "@components/ui/rating-group/RatingGroupItemIndicator.vue",
+          "type": "registry:component"
+        },
+        {
+          "path": "src/components/rating-group/RatingGroupItems.vue",
+          "target": "@components/ui/rating-group/RatingGroupItems.vue",
+          "type": "registry:component"
+        },
+        {
+          "path": "src/components/rating-group/index.ts",
+          "target": "@components/ui/rating-group/index.ts",
+          "type": "registry:component"
+        }
+      ]
+    },
+    {
+      "name": "fieldset",
+      "type": "registry:item",
+      "title": "Fieldset",
+      "description": "moduix Vue Tailwind Fieldset component.",
+      "dependencies": ["@ark-ui/vue", "clsx", "tailwind-merge"],
+      "registryDependencies": ["@moduix-vue-tailwind/foundation", "@moduix-vue-tailwind/cn"],
+      "files": [
+        {
+          "path": "src/components/fieldset/Fieldset.vue",
+          "target": "@components/ui/fieldset/Fieldset.vue",
+          "type": "registry:component"
+        },
+        {
+          "path": "src/components/fieldset/FieldsetRootProvider.vue",
+          "target": "@components/ui/fieldset/FieldsetRootProvider.vue",
+          "type": "registry:component"
+        },
+        {
+          "path": "src/components/fieldset/FieldsetLegend.vue",
+          "target": "@components/ui/fieldset/FieldsetLegend.vue",
+          "type": "registry:component"
+        },
+        {
+          "path": "src/components/fieldset/FieldsetHelperText.vue",
+          "target": "@components/ui/fieldset/FieldsetHelperText.vue",
+          "type": "registry:component"
+        },
+        {
+          "path": "src/components/fieldset/FieldsetErrorText.vue",
+          "target": "@components/ui/fieldset/FieldsetErrorText.vue",
+          "type": "registry:component"
+        },
+        {
+          "path": "src/components/fieldset/index.ts",
+          "target": "@components/ui/fieldset/index.ts",
+          "type": "registry:component"
+        }
+      ]
+    },
+    {
+      "name": "input",
+      "type": "registry:item",
+      "title": "Input",
+      "description": "moduix Vue Tailwind Input component.",
+      "dependencies": ["@ark-ui/vue", "class-variance-authority", "clsx", "tailwind-merge"],
+      "registryDependencies": ["@moduix-vue-tailwind/foundation", "@moduix-vue-tailwind/cn"],
+      "files": [
+        {
+          "path": "src/components/input/Input.vue",
+          "target": "@components/ui/input/Input.vue",
+          "type": "registry:component"
+        },
+        {
+          "path": "src/components/input/index.ts",
+          "target": "@components/ui/input/index.ts",
+          "type": "registry:component"
+        }
+      ]
+    },
+    {
+      "name": "kbd",
+      "type": "registry:item",
+      "title": "Kbd",
+      "description": "moduix Vue Tailwind Kbd component.",
+      "dependencies": ["@ark-ui/vue", "clsx", "tailwind-merge"],
+      "registryDependencies": ["@moduix-vue-tailwind/foundation", "@moduix-vue-tailwind/cn"],
+      "files": [
+        {
+          "path": "src/components/kbd/Kbd.vue",
+          "target": "@components/ui/kbd/Kbd.vue",
+          "type": "registry:component"
+        },
+        {
+          "path": "src/components/kbd/KbdGroup.vue",
+          "target": "@components/ui/kbd/KbdGroup.vue",
+          "type": "registry:component"
+        },
+        {
+          "path": "src/components/kbd/index.ts",
+          "target": "@components/ui/kbd/index.ts",
+          "type": "registry:component"
+        }
+      ]
+    },
+    {
+      "name": "textarea",
+      "type": "registry:item",
+      "title": "Textarea",
+      "description": "moduix Vue Tailwind Textarea component.",
+      "dependencies": ["@ark-ui/vue", "clsx", "tailwind-merge"],
+      "registryDependencies": ["@moduix-vue-tailwind/foundation", "@moduix-vue-tailwind/cn"],
+      "files": [
+        {
+          "path": "src/components/textarea/Textarea.vue",
+          "target": "@components/ui/textarea/Textarea.vue",
+          "type": "registry:component"
+        },
+        {
+          "path": "src/components/textarea/index.ts",
+          "target": "@components/ui/textarea/index.ts",
+          "type": "registry:component"
+        }
+      ]
+    },
+    {
+      "name": "combobox",
+      "type": "registry:item",
+      "title": "Combobox",
+      "description": "moduix Vue Tailwind Combobox component.",
+      "dependencies": ["@ark-ui/vue", "clsx", "tailwind-merge"],
+      "registryDependencies": [
+        "@moduix-vue-tailwind/foundation",
+        "@moduix-vue-tailwind/cn",
+        "@moduix-vue-tailwind/icons",
+        "@moduix-vue-tailwind/close-button",
+        "@moduix-vue-tailwind/overlay-portal"
+      ],
+      "files": [
+        {
+          "path": "src/components/combobox/Combobox.vue",
+          "target": "@components/ui/combobox/Combobox.vue",
+          "type": "registry:component"
+        },
+        {
+          "path": "src/components/combobox/ComboboxRootProvider.vue",
+          "target": "@components/ui/combobox/ComboboxRootProvider.vue",
+          "type": "registry:component"
+        },
+        {
+          "path": "src/components/combobox/ComboboxLabel.vue",
+          "target": "@components/ui/combobox/ComboboxLabel.vue",
+          "type": "registry:component"
+        },
+        {
+          "path": "src/components/combobox/ComboboxControl.vue",
+          "target": "@components/ui/combobox/ComboboxControl.vue",
+          "type": "registry:component"
+        },
+        {
+          "path": "src/components/combobox/ComboboxInput.vue",
+          "target": "@components/ui/combobox/ComboboxInput.vue",
+          "type": "registry:component"
+        },
+        {
+          "path": "src/components/combobox/ComboboxClearTrigger.vue",
+          "target": "@components/ui/combobox/ComboboxClearTrigger.vue",
+          "type": "registry:component"
+        },
+        {
+          "path": "src/components/combobox/ComboboxTrigger.vue",
+          "target": "@components/ui/combobox/ComboboxTrigger.vue",
+          "type": "registry:component"
+        },
+        {
+          "path": "src/components/combobox/ComboboxPositioner.vue",
+          "target": "@components/ui/combobox/ComboboxPositioner.vue",
+          "type": "registry:component"
+        },
+        {
+          "path": "src/components/combobox/ComboboxContent.vue",
+          "target": "@components/ui/combobox/ComboboxContent.vue",
+          "type": "registry:component"
+        },
+        {
+          "path": "src/components/combobox/ComboboxEmpty.vue",
+          "target": "@components/ui/combobox/ComboboxEmpty.vue",
+          "type": "registry:component"
+        },
+        {
+          "path": "src/components/combobox/ComboboxStatus.vue",
+          "target": "@components/ui/combobox/ComboboxStatus.vue",
+          "type": "registry:component"
+        },
+        {
+          "path": "src/components/combobox/ComboboxList.vue",
+          "target": "@components/ui/combobox/ComboboxList.vue",
+          "type": "registry:component"
+        },
+        {
+          "path": "src/components/combobox/ComboboxItemGroup.vue",
+          "target": "@components/ui/combobox/ComboboxItemGroup.vue",
+          "type": "registry:component"
+        },
+        {
+          "path": "src/components/combobox/ComboboxItemGroupLabel.vue",
+          "target": "@components/ui/combobox/ComboboxItemGroupLabel.vue",
+          "type": "registry:component"
+        },
+        {
+          "path": "src/components/combobox/ComboboxItem.vue",
+          "target": "@components/ui/combobox/ComboboxItem.vue",
+          "type": "registry:component"
+        },
+        {
+          "path": "src/components/combobox/ComboboxItemText.vue",
+          "target": "@components/ui/combobox/ComboboxItemText.vue",
+          "type": "registry:component"
+        },
+        {
+          "path": "src/components/combobox/ComboboxItemIndicator.vue",
+          "target": "@components/ui/combobox/ComboboxItemIndicator.vue",
+          "type": "registry:component"
+        },
+        {
+          "path": "src/components/combobox/ComboboxOption.vue",
+          "target": "@components/ui/combobox/ComboboxOption.vue",
+          "type": "registry:component"
+        },
+        {
+          "path": "src/components/combobox/ComboboxContext.vue",
+          "target": "@components/ui/combobox/ComboboxContext.vue",
+          "type": "registry:component"
+        },
+        {
+          "path": "src/components/combobox/ComboboxItemContext.vue",
+          "target": "@components/ui/combobox/ComboboxItemContext.vue",
+          "type": "registry:component"
+        },
+        {
+          "path": "src/components/combobox/index.ts",
+          "target": "@components/ui/combobox/index.ts",
+          "type": "registry:component"
+        }
+      ]
+    },
+    {
+      "name": "command-palette",
+      "type": "registry:item",
+      "title": "CommandPalette",
+      "description": "moduix Vue Tailwind CommandPalette component.",
+      "dependencies": ["@ark-ui/vue", "clsx", "tailwind-merge"],
+      "registryDependencies": [
+        "@moduix-vue-tailwind/foundation",
+        "@moduix-vue-tailwind/icons",
+        "@moduix-vue-tailwind/close-button",
+        "@moduix-vue-tailwind/kbd",
+        "@moduix-vue-tailwind/overlay-portal",
+        "@moduix-vue-tailwind/scroll-area"
+      ],
+      "files": [
+        {
+          "path": "src/components/command-palette/CommandPalette.vue",
+          "target": "@components/ui/command-palette/CommandPalette.vue",
+          "type": "registry:component"
+        },
+        {
+          "path": "src/components/command-palette/CommandPaletteRootProvider.vue",
+          "target": "@components/ui/command-palette/CommandPaletteRootProvider.vue",
+          "type": "registry:component"
+        },
+        {
+          "path": "src/components/command-palette/CommandPaletteTrigger.vue",
+          "target": "@components/ui/command-palette/CommandPaletteTrigger.vue",
+          "type": "registry:component"
+        },
+        {
+          "path": "src/components/command-palette/CommandPaletteBackdrop.vue",
+          "target": "@components/ui/command-palette/CommandPaletteBackdrop.vue",
+          "type": "registry:component"
+        },
+        {
+          "path": "src/components/command-palette/CommandPalettePositioner.vue",
+          "target": "@components/ui/command-palette/CommandPalettePositioner.vue",
+          "type": "registry:component"
+        },
+        {
+          "path": "src/components/command-palette/CommandPaletteContent.vue",
+          "target": "@components/ui/command-palette/CommandPaletteContent.vue",
+          "type": "registry:component"
+        },
+        {
+          "path": "src/components/command-palette/CommandPalettePanel.vue",
+          "target": "@components/ui/command-palette/CommandPalettePanel.vue",
+          "type": "registry:component"
+        },
+        {
+          "path": "src/components/command-palette/CommandPaletteTitle.vue",
+          "target": "@components/ui/command-palette/CommandPaletteTitle.vue",
+          "type": "registry:component"
+        },
+        {
+          "path": "src/components/command-palette/CommandPaletteDescription.vue",
+          "target": "@components/ui/command-palette/CommandPaletteDescription.vue",
+          "type": "registry:component"
+        },
+        {
+          "path": "src/components/command-palette/CommandPaletteHeader.vue",
+          "target": "@components/ui/command-palette/CommandPaletteHeader.vue",
+          "type": "registry:component"
+        },
+        {
+          "path": "src/components/command-palette/CommandPaletteBody.vue",
+          "target": "@components/ui/command-palette/CommandPaletteBody.vue",
+          "type": "registry:component"
+        },
+        {
+          "path": "src/components/command-palette/CommandPaletteCombobox.vue",
+          "target": "@components/ui/command-palette/CommandPaletteCombobox.vue",
+          "type": "registry:component"
+        },
+        {
+          "path": "src/components/command-palette/CommandPaletteControl.vue",
+          "target": "@components/ui/command-palette/CommandPaletteControl.vue",
+          "type": "registry:component"
+        },
+        {
+          "path": "src/components/command-palette/CommandPaletteInput.vue",
+          "target": "@components/ui/command-palette/CommandPaletteInput.vue",
+          "type": "registry:component"
+        },
+        {
+          "path": "src/components/command-palette/CommandPaletteSearch.vue",
+          "target": "@components/ui/command-palette/CommandPaletteSearch.vue",
+          "type": "registry:component"
+        },
+        {
+          "path": "src/components/command-palette/CommandPaletteClearTrigger.vue",
+          "target": "@components/ui/command-palette/CommandPaletteClearTrigger.vue",
+          "type": "registry:component"
+        },
+        {
+          "path": "src/components/command-palette/CommandPaletteList.vue",
+          "target": "@components/ui/command-palette/CommandPaletteList.vue",
+          "type": "registry:component"
+        },
+        {
+          "path": "src/components/command-palette/CommandPaletteEmpty.vue",
+          "target": "@components/ui/command-palette/CommandPaletteEmpty.vue",
+          "type": "registry:component"
+        },
+        {
+          "path": "src/components/command-palette/CommandPaletteItemGroup.vue",
+          "target": "@components/ui/command-palette/CommandPaletteItemGroup.vue",
+          "type": "registry:component"
+        },
+        {
+          "path": "src/components/command-palette/CommandPaletteItemGroupLabel.vue",
+          "target": "@components/ui/command-palette/CommandPaletteItemGroupLabel.vue",
+          "type": "registry:component"
+        },
+        {
+          "path": "src/components/command-palette/CommandPaletteItem.vue",
+          "target": "@components/ui/command-palette/CommandPaletteItem.vue",
+          "type": "registry:component"
+        },
+        {
+          "path": "src/components/command-palette/CommandPaletteItemText.vue",
+          "target": "@components/ui/command-palette/CommandPaletteItemText.vue",
+          "type": "registry:component"
+        },
+        {
+          "path": "src/components/command-palette/CommandPaletteItemIndicator.vue",
+          "target": "@components/ui/command-palette/CommandPaletteItemIndicator.vue",
+          "type": "registry:component"
+        },
+        {
+          "path": "src/components/command-palette/CommandPaletteItemIcon.vue",
+          "target": "@components/ui/command-palette/CommandPaletteItemIcon.vue",
+          "type": "registry:component"
+        },
+        {
+          "path": "src/components/command-palette/CommandPaletteItemLabel.vue",
+          "target": "@components/ui/command-palette/CommandPaletteItemLabel.vue",
+          "type": "registry:component"
+        },
+        {
+          "path": "src/components/command-palette/CommandPaletteItemDescription.vue",
+          "target": "@components/ui/command-palette/CommandPaletteItemDescription.vue",
+          "type": "registry:component"
+        },
+        {
+          "path": "src/components/command-palette/CommandPaletteItemMeta.vue",
+          "target": "@components/ui/command-palette/CommandPaletteItemMeta.vue",
+          "type": "registry:component"
+        },
+        {
+          "path": "src/components/command-palette/CommandPaletteSeparator.vue",
+          "target": "@components/ui/command-palette/CommandPaletteSeparator.vue",
+          "type": "registry:component"
+        },
+        {
+          "path": "src/components/command-palette/CommandPaletteFooter.vue",
+          "target": "@components/ui/command-palette/CommandPaletteFooter.vue",
+          "type": "registry:component"
+        },
+        {
+          "path": "src/components/command-palette/CommandPaletteKbd.vue",
+          "target": "@components/ui/command-palette/CommandPaletteKbd.vue",
+          "type": "registry:component"
+        },
+        {
+          "path": "src/components/command-palette/index.ts",
+          "target": "@components/ui/command-palette/index.ts",
+          "type": "registry:component"
+        }
+      ]
+    },
+    {
+      "name": "tags-input",
+      "type": "registry:item",
+      "title": "Tags Input",
+      "description": "moduix Vue Tailwind Tags Input component.",
+      "dependencies": ["@ark-ui/vue", "clsx", "tailwind-merge"],
+      "registryDependencies": [
+        "@moduix-vue-tailwind/foundation",
+        "@moduix-vue-tailwind/cn",
+        "@moduix-vue-tailwind/icons",
+        "@moduix-vue-tailwind/close-button"
+      ],
+      "files": [
+        {
+          "path": "src/components/tags-input/TagsInput.vue",
+          "target": "@components/ui/tags-input/TagsInput.vue",
+          "type": "registry:component"
+        },
+        {
+          "path": "src/components/tags-input/TagsInputRootProvider.vue",
+          "target": "@components/ui/tags-input/TagsInputRootProvider.vue",
+          "type": "registry:component"
+        },
+        {
+          "path": "src/components/tags-input/TagsInputLabel.vue",
+          "target": "@components/ui/tags-input/TagsInputLabel.vue",
+          "type": "registry:component"
+        },
+        {
+          "path": "src/components/tags-input/TagsInputControl.vue",
+          "target": "@components/ui/tags-input/TagsInputControl.vue",
+          "type": "registry:component"
+        },
+        {
+          "path": "src/components/tags-input/TagsInputItems.vue",
+          "target": "@components/ui/tags-input/TagsInputItems.vue",
+          "type": "registry:component"
+        },
+        {
+          "path": "src/components/tags-input/TagsInputItem.vue",
+          "target": "@components/ui/tags-input/TagsInputItem.vue",
+          "type": "registry:component"
+        },
+        {
+          "path": "src/components/tags-input/TagsInputItemPreview.vue",
+          "target": "@components/ui/tags-input/TagsInputItemPreview.vue",
+          "type": "registry:component"
+        },
+        {
+          "path": "src/components/tags-input/TagsInputItemText.vue",
+          "target": "@components/ui/tags-input/TagsInputItemText.vue",
+          "type": "registry:component"
+        },
+        {
+          "path": "src/components/tags-input/TagsInputItemDeleteTrigger.vue",
+          "target": "@components/ui/tags-input/TagsInputItemDeleteTrigger.vue",
+          "type": "registry:component"
+        },
+        {
+          "path": "src/components/tags-input/TagsInputItemInput.vue",
+          "target": "@components/ui/tags-input/TagsInputItemInput.vue",
+          "type": "registry:component"
+        },
+        {
+          "path": "src/components/tags-input/TagsInputInput.vue",
+          "target": "@components/ui/tags-input/TagsInputInput.vue",
+          "type": "registry:component"
+        },
+        {
+          "path": "src/components/tags-input/TagsInputClearTrigger.vue",
+          "target": "@components/ui/tags-input/TagsInputClearTrigger.vue",
+          "type": "registry:component"
+        },
+        {
+          "path": "src/components/tags-input/TagsInputHiddenInput.vue",
+          "target": "@components/ui/tags-input/TagsInputHiddenInput.vue",
+          "type": "registry:component"
+        },
+        {
+          "path": "src/components/tags-input/index.ts",
+          "target": "@components/ui/tags-input/index.ts",
+          "type": "registry:component"
+        }
+      ]
+    },
+    {
+      "name": "scroll-area",
+      "type": "registry:item",
+      "title": "Scroll Area",
+      "description": "moduix Vue Tailwind Scroll Area component.",
+      "dependencies": ["@ark-ui/vue", "clsx", "tailwind-merge"],
+      "registryDependencies": ["@moduix-vue-tailwind/foundation", "@moduix-vue-tailwind/cn"],
+      "files": [
+        {
+          "path": "src/components/scroll-area/ScrollArea.vue",
+          "target": "@components/ui/scroll-area/ScrollArea.vue",
+          "type": "registry:component"
+        },
+        {
+          "path": "src/components/scroll-area/ScrollAreaRootProvider.vue",
+          "target": "@components/ui/scroll-area/ScrollAreaRootProvider.vue",
+          "type": "registry:component"
+        },
+        {
+          "path": "src/components/scroll-area/ScrollAreaViewport.vue",
+          "target": "@components/ui/scroll-area/ScrollAreaViewport.vue",
+          "type": "registry:component"
+        },
+        {
+          "path": "src/components/scroll-area/ScrollAreaContent.vue",
+          "target": "@components/ui/scroll-area/ScrollAreaContent.vue",
+          "type": "registry:component"
+        },
+        {
+          "path": "src/components/scroll-area/ScrollAreaScrollbar.vue",
+          "target": "@components/ui/scroll-area/ScrollAreaScrollbar.vue",
+          "type": "registry:component"
+        },
+        {
+          "path": "src/components/scroll-area/ScrollAreaThumb.vue",
+          "target": "@components/ui/scroll-area/ScrollAreaThumb.vue",
+          "type": "registry:component"
+        },
+        {
+          "path": "src/components/scroll-area/ScrollAreaCorner.vue",
+          "target": "@components/ui/scroll-area/ScrollAreaCorner.vue",
+          "type": "registry:component"
+        },
+        {
+          "path": "src/components/scroll-area/index.ts",
+          "target": "@components/ui/scroll-area/index.ts",
+          "type": "registry:component"
+        }
+      ]
+    },
+    {
+      "name": "container",
+      "type": "registry:item",
+      "title": "Container",
+      "description": "moduix Vue Tailwind Container component.",
+      "dependencies": ["@ark-ui/vue", "class-variance-authority", "clsx", "tailwind-merge"],
+      "registryDependencies": ["@moduix-vue-tailwind/foundation", "@moduix-vue-tailwind/cn"],
+      "files": [
+        {
+          "path": "src/components/container/Container.vue",
+          "target": "@components/ui/container/Container.vue",
+          "type": "registry:component"
+        },
+        {
+          "path": "src/components/container/index.ts",
+          "target": "@components/ui/container/index.ts",
+          "type": "registry:component"
+        }
+      ]
+    },
+    {
       "name": "collapsible",
       "type": "registry:item",
       "title": "Collapsible",
@@ -182,6 +1064,161 @@
         {
           "path": "src/components/collapsible/index.ts",
           "target": "@components/ui/collapsible/index.ts",
+          "type": "registry:component"
+        }
+      ]
+    },
+    {
+      "name": "dialog",
+      "type": "registry:item",
+      "title": "Dialog",
+      "description": "moduix Vue Tailwind Dialog component.",
+      "dependencies": ["@ark-ui/vue", "clsx", "tailwind-merge"],
+      "registryDependencies": [
+        "@moduix-vue-tailwind/foundation",
+        "@moduix-vue-tailwind/cn",
+        "@moduix-vue-tailwind/close-button",
+        "@moduix-vue-tailwind/overlay-portal"
+      ],
+      "files": [
+        {
+          "path": "src/components/dialog/Dialog.vue",
+          "target": "@components/ui/dialog/Dialog.vue",
+          "type": "registry:component"
+        },
+        {
+          "path": "src/components/dialog/DialogRootProvider.vue",
+          "target": "@components/ui/dialog/DialogRootProvider.vue",
+          "type": "registry:component"
+        },
+        {
+          "path": "src/components/dialog/DialogTrigger.vue",
+          "target": "@components/ui/dialog/DialogTrigger.vue",
+          "type": "registry:component"
+        },
+        {
+          "path": "src/components/dialog/DialogBackdrop.vue",
+          "target": "@components/ui/dialog/DialogBackdrop.vue",
+          "type": "registry:component"
+        },
+        {
+          "path": "src/components/dialog/DialogPositioner.vue",
+          "target": "@components/ui/dialog/DialogPositioner.vue",
+          "type": "registry:component"
+        },
+        {
+          "path": "src/components/dialog/DialogContent.vue",
+          "target": "@components/ui/dialog/DialogContent.vue",
+          "type": "registry:component"
+        },
+        {
+          "path": "src/components/dialog/DialogTitle.vue",
+          "target": "@components/ui/dialog/DialogTitle.vue",
+          "type": "registry:component"
+        },
+        {
+          "path": "src/components/dialog/DialogDescription.vue",
+          "target": "@components/ui/dialog/DialogDescription.vue",
+          "type": "registry:component"
+        },
+        {
+          "path": "src/components/dialog/DialogCloseTrigger.vue",
+          "target": "@components/ui/dialog/DialogCloseTrigger.vue",
+          "type": "registry:component"
+        },
+        {
+          "path": "src/components/dialog/DialogCloseIcon.vue",
+          "target": "@components/ui/dialog/DialogCloseIcon.vue",
+          "type": "registry:component"
+        },
+        {
+          "path": "src/components/dialog/DialogHeader.vue",
+          "target": "@components/ui/dialog/DialogHeader.vue",
+          "type": "registry:component"
+        },
+        {
+          "path": "src/components/dialog/DialogBody.vue",
+          "target": "@components/ui/dialog/DialogBody.vue",
+          "type": "registry:component"
+        },
+        {
+          "path": "src/components/dialog/DialogFooter.vue",
+          "target": "@components/ui/dialog/DialogFooter.vue",
+          "type": "registry:component"
+        },
+        {
+          "path": "src/components/dialog/DialogContext.vue",
+          "target": "@components/ui/dialog/DialogContext.vue",
+          "type": "registry:component"
+        },
+        {
+          "path": "src/components/dialog/index.ts",
+          "target": "@components/ui/dialog/index.ts",
+          "type": "registry:component"
+        }
+      ]
+    },
+    {
+      "name": "field",
+      "type": "registry:item",
+      "title": "Field",
+      "description": "moduix Vue Tailwind Field component.",
+      "dependencies": ["@ark-ui/vue", "clsx", "tailwind-merge"],
+      "registryDependencies": ["@moduix-vue-tailwind/foundation", "@moduix-vue-tailwind/cn"],
+      "files": [
+        {
+          "path": "src/components/field/Field.vue",
+          "target": "@components/ui/field/Field.vue",
+          "type": "registry:component"
+        },
+        {
+          "path": "src/components/field/FieldRootProvider.vue",
+          "target": "@components/ui/field/FieldRootProvider.vue",
+          "type": "registry:component"
+        },
+        {
+          "path": "src/components/field/FieldItem.vue",
+          "target": "@components/ui/field/FieldItem.vue",
+          "type": "registry:component"
+        },
+        {
+          "path": "src/components/field/FieldLabel.vue",
+          "target": "@components/ui/field/FieldLabel.vue",
+          "type": "registry:component"
+        },
+        {
+          "path": "src/components/field/FieldInput.vue",
+          "target": "@components/ui/field/FieldInput.vue",
+          "type": "registry:component"
+        },
+        {
+          "path": "src/components/field/FieldTextarea.vue",
+          "target": "@components/ui/field/FieldTextarea.vue",
+          "type": "registry:component"
+        },
+        {
+          "path": "src/components/field/FieldSelect.vue",
+          "target": "@components/ui/field/FieldSelect.vue",
+          "type": "registry:component"
+        },
+        {
+          "path": "src/components/field/FieldHelperText.vue",
+          "target": "@components/ui/field/FieldHelperText.vue",
+          "type": "registry:component"
+        },
+        {
+          "path": "src/components/field/FieldErrorText.vue",
+          "target": "@components/ui/field/FieldErrorText.vue",
+          "type": "registry:component"
+        },
+        {
+          "path": "src/components/field/FieldRequiredIndicator.vue",
+          "target": "@components/ui/field/FieldRequiredIndicator.vue",
+          "type": "registry:component"
+        },
+        {
+          "path": "src/components/field/index.ts",
+          "target": "@components/ui/field/index.ts",
           "type": "registry:component"
         }
       ]

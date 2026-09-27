@@ -2,7 +2,7 @@
 import { FieldLabel as ArkFieldLabel } from '@ark-ui/vue/field';
 import type { FieldLabelProps as ArkFieldLabelProps } from '@ark-ui/vue/field';
 import { clsx } from 'clsx';
-import { computed, useAttrs } from 'vue';
+import { useAttrs } from 'vue';
 import type { HTMLAttributes } from 'vue';
 import styles from './Field.module.css';
 
@@ -12,21 +12,14 @@ export interface Props extends /* @vue-ignore */ ArkFieldLabelProps {
   class?: HTMLAttributes['class'];
 }
 
-const props = defineProps<Props>();
+const { class: className } = defineProps<Props>();
 defineSlots<{ default?: () => unknown }>();
 
 const attrs = useAttrs();
-const forwardedProps = computed(() =>
-  Object.fromEntries(Object.entries(props).filter(([, value]) => value !== undefined)),
-);
 </script>
 
 <template>
-  <ArkFieldLabel
-    v-bind="{ ...attrs, ...forwardedProps }"
-    :class="clsx(styles.label, props.class)"
-    data-slot="field-label"
-  >
+  <ArkFieldLabel v-bind="attrs" :class="clsx(styles.label, className)" data-slot="field-label">
     <slot />
   </ArkFieldLabel>
 </template>

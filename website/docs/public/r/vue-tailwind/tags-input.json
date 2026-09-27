@@ -1,0 +1,100 @@
+{
+  "$schema": "https://ui.shadcn.com/schema/registry-item.json",
+  "name": "tags-input",
+  "title": "Tags Input",
+  "description": "moduix Vue Tailwind Tags Input component.",
+  "dependencies": ["@ark-ui/vue", "clsx", "tailwind-merge"],
+  "registryDependencies": [
+    "@moduix-vue-tailwind/foundation",
+    "@moduix-vue-tailwind/cn",
+    "@moduix-vue-tailwind/icons",
+    "@moduix-vue-tailwind/close-button"
+  ],
+  "files": [
+    {
+      "path": "src/components/tags-input/TagsInput.vue",
+      "content": "<script setup lang=\"ts\">\nimport { TagsInputRoot as ArkTagsInputRoot } from '@ark-ui/vue/tags-input';\nimport type { TagsInputRootEmits, TagsInputRootProps } from '@ark-ui/vue/tags-input';\nimport { useAttrs } from 'vue';\nimport type { HTMLAttributes } from 'vue';\nimport { cn } from '@/lib/moduix/cn';\n\ndefineOptions({ inheritAttrs: false });\n\nexport interface Props extends /* @vue-ignore */ TagsInputRootProps {\n  class?: HTMLAttributes['class'];\n}\n\nexport interface Emits extends /* @vue-ignore */ TagsInputRootEmits {}\n\nconst { class: className } = defineProps<Props>();\ndefineEmits<Emits>();\ndefineSlots<{ default?: () => unknown }>();\n\nconst attrs = useAttrs();\nconst rootClass = 'flex w-full max-w-96 flex-col gap-1 text-foreground data-disabled:opacity-50';\n</script>\n\n<template>\n  <ArkTagsInputRoot v-bind=\"attrs\" :class=\"cn(rootClass, className)\" data-slot=\"tags-input-root\">\n    <slot />\n  </ArkTagsInputRoot>\n</template>",
+      "type": "registry:component",
+      "target": "@components/ui/tags-input/TagsInput.vue"
+    },
+    {
+      "path": "src/components/tags-input/TagsInputRootProvider.vue",
+      "content": "<script setup lang=\"ts\">\nimport { TagsInputRootProvider as ArkTagsInputRootProvider } from '@ark-ui/vue/tags-input';\nimport type { TagsInputRootProviderProps } from '@ark-ui/vue/tags-input';\nimport { useAttrs } from 'vue';\nimport type { HTMLAttributes } from 'vue';\nimport { cn } from '@/lib/moduix/cn';\n\ndefineOptions({ inheritAttrs: false });\n\nexport interface Props extends /* @vue-ignore */ TagsInputRootProviderProps {\n  class?: HTMLAttributes['class'];\n  value: TagsInputRootProviderProps['value'];\n}\n\nconst { class: className, value } = defineProps<Props>();\ndefineSlots<{ default?: () => unknown }>();\n\nconst attrs = useAttrs();\nconst rootClass = 'flex w-full max-w-96 flex-col gap-1 text-foreground data-disabled:opacity-50';\n</script>\n\n<template>\n  <ArkTagsInputRootProvider\n    v-bind=\"attrs\"\n    :class=\"cn(rootClass, className)\"\n    :value=\"value\"\n    data-slot=\"tags-input-root-provider\"\n  >\n    <slot />\n  </ArkTagsInputRootProvider>\n</template>",
+      "type": "registry:component",
+      "target": "@components/ui/tags-input/TagsInputRootProvider.vue"
+    },
+    {
+      "path": "src/components/tags-input/TagsInputLabel.vue",
+      "content": "<script setup lang=\"ts\">\nimport { TagsInputLabel as ArkTagsInputLabel } from '@ark-ui/vue/tags-input';\nimport type { TagsInputLabelProps } from '@ark-ui/vue/tags-input';\nimport { useAttrs } from 'vue';\nimport type { HTMLAttributes } from 'vue';\nimport { cn } from '@/lib/moduix/cn';\n\ndefineOptions({ inheritAttrs: false });\n\nexport interface Props extends /* @vue-ignore */ TagsInputLabelProps {\n  class?: HTMLAttributes['class'];\n}\n\nconst { class: className } = defineProps<Props>();\ndefineSlots<{ default?: () => unknown }>();\n\nconst attrs = useAttrs();\n</script>\n\n<template>\n  <ArkTagsInputLabel\n    v-bind=\"attrs\"\n    :class=\"\n      cn(\n        'inline-flex items-center gap-1 text-sm leading-5 font-medium text-foreground data-disabled:opacity-50',\n        className,\n      )\n    \"\n    data-slot=\"tags-input-label\"\n  >\n    <slot />\n  </ArkTagsInputLabel>\n</template>",
+      "type": "registry:component",
+      "target": "@components/ui/tags-input/TagsInputLabel.vue"
+    },
+    {
+      "path": "src/components/tags-input/TagsInputControl.vue",
+      "content": "<script setup lang=\"ts\">\nimport { TagsInputControl as ArkTagsInputControl } from '@ark-ui/vue/tags-input';\nimport type { TagsInputControlProps } from '@ark-ui/vue/tags-input';\nimport { useAttrs } from 'vue';\nimport type { HTMLAttributes } from 'vue';\nimport { cn } from '@/lib/moduix/cn';\n\ndefineOptions({ inheritAttrs: false });\n\nexport interface Props extends /* @vue-ignore */ TagsInputControlProps {\n  class?: HTMLAttributes['class'];\n}\n\nconst { class: className } = defineProps<Props>();\ndefineSlots<{ default?: () => unknown }>();\n\nconst attrs = useAttrs();\nconst controlClass =\n  'group flex min-h-control-md w-full flex-wrap items-center gap-1 rounded-md border border-border bg-background px-2 py-[0.3125rem] text-foreground outline-1 -outline-offset-1 outline-transparent transition-[border-color,outline-color,background-color,opacity] duration-200 ease-in-out data-disabled:pointer-events-none data-focus:outline-ring data-invalid:border-destructive data-invalid:data-focus:outline-destructive data-readonly:bg-background data-readonly:text-foreground motion-reduce:transition-none';\n</script>\n\n<template>\n  <ArkTagsInputControl\n    v-bind=\"attrs\"\n    :class=\"cn(controlClass, className)\"\n    data-slot=\"tags-input-control\"\n  >\n    <slot />\n  </ArkTagsInputControl>\n</template>",
+      "type": "registry:component",
+      "target": "@components/ui/tags-input/TagsInputControl.vue"
+    },
+    {
+      "path": "src/components/tags-input/TagsInputItems.vue",
+      "content": "<script setup lang=\"ts\">\nimport { useTagsInputContext } from '@ark-ui/vue/tags-input';\nimport TagsInputItem from './TagsInputItem.vue';\nimport TagsInputItemDeleteTrigger from './TagsInputItemDeleteTrigger.vue';\nimport TagsInputItemInput from './TagsInputItemInput.vue';\nimport TagsInputItemPreview from './TagsInputItemPreview.vue';\nimport TagsInputItemText from './TagsInputItemText.vue';\n\nconst tagsInput = useTagsInputContext();\n</script>\n\n<template>\n  <TagsInputItem\n    v-for=\"(value, index) in tagsInput.value\"\n    :key=\"`${value}-${index}`\"\n    :index=\"index\"\n    :value=\"value\"\n  >\n    <TagsInputItemPreview>\n      <TagsInputItemText>{{ value }}</TagsInputItemText>\n      <TagsInputItemDeleteTrigger />\n    </TagsInputItemPreview>\n    <TagsInputItemInput />\n  </TagsInputItem>\n</template>",
+      "type": "registry:component",
+      "target": "@components/ui/tags-input/TagsInputItems.vue"
+    },
+    {
+      "path": "src/components/tags-input/TagsInputItem.vue",
+      "content": "<script setup lang=\"ts\">\nimport { TagsInputItem as ArkTagsInputItem } from '@ark-ui/vue/tags-input';\nimport type { TagsInputItemProps } from '@ark-ui/vue/tags-input';\nimport { useAttrs } from 'vue';\nimport type { HTMLAttributes } from 'vue';\nimport { cn } from '@/lib/moduix/cn';\n\ndefineOptions({ inheritAttrs: false });\n\nexport interface Props extends /* @vue-ignore */ TagsInputItemProps {\n  class?: HTMLAttributes['class'];\n  index: TagsInputItemProps['index'];\n  value: TagsInputItemProps['value'];\n}\n\nconst { class: className, index, value } = defineProps<Props>();\ndefineSlots<{ default?: () => unknown }>();\n\nconst attrs = useAttrs();\n</script>\n\n<template>\n  <ArkTagsInputItem\n    v-bind=\"attrs\"\n    :class=\"cn('contents', className)\"\n    :index=\"index\"\n    :value=\"value\"\n    data-slot=\"tags-input-item\"\n  >\n    <slot />\n  </ArkTagsInputItem>\n</template>",
+      "type": "registry:component",
+      "target": "@components/ui/tags-input/TagsInputItem.vue"
+    },
+    {
+      "path": "src/components/tags-input/TagsInputItemPreview.vue",
+      "content": "<script setup lang=\"ts\">\nimport { TagsInputItemPreview as ArkTagsInputItemPreview } from '@ark-ui/vue/tags-input';\nimport type { TagsInputItemPreviewProps } from '@ark-ui/vue/tags-input';\nimport { useAttrs } from 'vue';\nimport type { HTMLAttributes } from 'vue';\nimport { cn } from '@/lib/moduix/cn';\n\ndefineOptions({ inheritAttrs: false });\n\nexport interface Props extends /* @vue-ignore */ TagsInputItemPreviewProps {\n  class?: HTMLAttributes['class'];\n}\n\nconst { class: className } = defineProps<Props>();\ndefineSlots<{ default?: () => unknown }>();\n\nconst attrs = useAttrs();\nconst itemPreviewClass =\n  'inline-flex min-h-control-xs max-w-full min-w-0 items-center gap-1 rounded-full border border-transparent bg-secondary px-2 py-0.5 text-xs leading-4 font-medium text-secondary-foreground transition-[border-color,background-color,color,box-shadow] duration-200 ease-in-out data-disabled:opacity-50 data-highlighted:ring-1 data-highlighted:ring-ring motion-reduce:transition-none';\n</script>\n\n<template>\n  <ArkTagsInputItemPreview\n    v-bind=\"attrs\"\n    :class=\"cn(itemPreviewClass, className)\"\n    data-slot=\"tags-input-item-preview\"\n  >\n    <slot />\n  </ArkTagsInputItemPreview>\n</template>",
+      "type": "registry:component",
+      "target": "@components/ui/tags-input/TagsInputItemPreview.vue"
+    },
+    {
+      "path": "src/components/tags-input/TagsInputItemText.vue",
+      "content": "<script setup lang=\"ts\">\nimport { TagsInputItemText as ArkTagsInputItemText } from '@ark-ui/vue/tags-input';\nimport type { TagsInputItemTextProps } from '@ark-ui/vue/tags-input';\nimport { useAttrs } from 'vue';\nimport type { HTMLAttributes } from 'vue';\nimport { cn } from '@/lib/moduix/cn';\n\ndefineOptions({ inheritAttrs: false });\n\nexport interface Props extends /* @vue-ignore */ TagsInputItemTextProps {\n  class?: HTMLAttributes['class'];\n}\n\nconst { class: className } = defineProps<Props>();\ndefineSlots<{ default?: () => unknown }>();\n\nconst attrs = useAttrs();\n</script>\n\n<template>\n  <ArkTagsInputItemText\n    v-bind=\"attrs\"\n    :class=\"cn('min-w-0 truncate', className)\"\n    data-slot=\"tags-input-item-text\"\n  >\n    <slot />\n  </ArkTagsInputItemText>\n</template>",
+      "type": "registry:component",
+      "target": "@components/ui/tags-input/TagsInputItemText.vue"
+    },
+    {
+      "path": "src/components/tags-input/TagsInputItemDeleteTrigger.vue",
+      "content": "<script setup lang=\"ts\">\nimport { TagsInputItemDeleteTrigger as ArkTagsInputItemDeleteTrigger } from '@ark-ui/vue/tags-input';\nimport type { TagsInputItemDeleteTriggerProps } from '@ark-ui/vue/tags-input';\nimport { useAttrs } from 'vue';\nimport type { HTMLAttributes } from 'vue';\nimport { cn } from '@/lib/moduix/cn';\nimport { CloseIcon } from '@/lib/moduix/icons/ui';\n\ndefineOptions({ inheritAttrs: false });\n\nexport interface Props extends /* @vue-ignore */ TagsInputItemDeleteTriggerProps {\n  class?: HTMLAttributes['class'];\n}\n\nconst { class: className } = defineProps<Props>();\ndefineSlots<{ default?: () => unknown }>();\n\nconst attrs = useAttrs();\nconst deleteTriggerClass =\n  'inline-flex size-4 shrink-0 cursor-pointer items-center justify-center rounded-full border-0 bg-transparent p-0 text-inherit outline-0 transition-[background-color,color,opacity,box-shadow] duration-200 ease-in-out group-data-readonly:hidden focus-visible:ring-1 focus-visible:ring-ring disabled:pointer-events-none disabled:cursor-default disabled:opacity-50 data-disabled:pointer-events-none data-disabled:cursor-default data-disabled:opacity-50 motion-reduce:transition-none [&>svg]:pointer-events-none [&>svg]:size-2.5 [&>svg]:shrink-0 [@media(hover:hover)]:hover:bg-current/12';\n</script>\n\n<template>\n  <ArkTagsInputItemDeleteTrigger\n    v-bind=\"attrs\"\n    :class=\"cn(deleteTriggerClass, className)\"\n    data-slot=\"tags-input-item-delete-trigger\"\n  >\n    <slot><CloseIcon /></slot>\n  </ArkTagsInputItemDeleteTrigger>\n</template>",
+      "type": "registry:component",
+      "target": "@components/ui/tags-input/TagsInputItemDeleteTrigger.vue"
+    },
+    {
+      "path": "src/components/tags-input/TagsInputItemInput.vue",
+      "content": "<script setup lang=\"ts\">\nimport { TagsInputItemInput as ArkTagsInputItemInput } from '@ark-ui/vue/tags-input';\nimport type { TagsInputItemInputProps } from '@ark-ui/vue/tags-input';\nimport { useAttrs } from 'vue';\nimport type { HTMLAttributes } from 'vue';\nimport { cn } from '@/lib/moduix/cn';\n\ndefineOptions({ inheritAttrs: false });\n\nexport interface Props extends /* @vue-ignore */ TagsInputItemInputProps {\n  class?: HTMLAttributes['class'];\n}\n\nconst props = defineProps<Props>();\ndefineSlots<{ default?: () => unknown }>();\n\nconst attrs = useAttrs();\n</script>\n\n<template>\n  <ArkTagsInputItemInput\n    v-bind=\"attrs\"\n    :class=\"\n      cn(\n        'h-control-xs min-w-28 shrink grow-0 basis-28 border-0 bg-transparent px-1 text-sm leading-5 text-inherit outline-0 placeholder:text-muted-foreground read-only:cursor-default data-readonly:cursor-default',\n        props.class,\n      )\n    \"\n    data-slot=\"tags-input-item-input\"\n  />\n</template>",
+      "type": "registry:component",
+      "target": "@components/ui/tags-input/TagsInputItemInput.vue"
+    },
+    {
+      "path": "src/components/tags-input/TagsInputInput.vue",
+      "content": "<script setup lang=\"ts\">\nimport { TagsInputInput as ArkTagsInputInput } from '@ark-ui/vue/tags-input';\nimport type { TagsInputInputProps } from '@ark-ui/vue/tags-input';\nimport { useAttrs } from 'vue';\nimport type { HTMLAttributes } from 'vue';\nimport { cn } from '@/lib/moduix/cn';\n\ndefineOptions({ inheritAttrs: false });\n\nexport interface Props extends /* @vue-ignore */ TagsInputInputProps {\n  class?: HTMLAttributes['class'];\n}\n\nconst props = defineProps<Props>();\ndefineSlots<{ default?: () => unknown }>();\n\nconst attrs = useAttrs();\n</script>\n\n<template>\n  <ArkTagsInputInput\n    v-bind=\"attrs\"\n    :class=\"\n      cn(\n        'h-control-xs min-w-28 shrink grow basis-28 border-0 bg-transparent px-1 text-sm leading-5 text-inherit outline-0 placeholder:text-muted-foreground read-only:cursor-default data-readonly:hidden data-readonly:cursor-default',\n        props.class,\n      )\n    \"\n    data-slot=\"tags-input-input\"\n  />\n</template>",
+      "type": "registry:component",
+      "target": "@components/ui/tags-input/TagsInputInput.vue"
+    },
+    {
+      "path": "src/components/tags-input/TagsInputClearTrigger.vue",
+      "content": "<script setup lang=\"ts\">\nimport { TagsInputClearTrigger as ArkTagsInputClearTrigger } from '@ark-ui/vue/tags-input';\nimport type { TagsInputClearTriggerProps } from '@ark-ui/vue/tags-input';\nimport { useTagsInputContext } from '@ark-ui/vue/tags-input';\nimport { computed, useAttrs } from 'vue';\nimport type { HTMLAttributes } from 'vue';\nimport { cn } from '@/lib/moduix/cn';\nimport { CloseIcon } from '@/lib/moduix/icons/ui';\nimport CloseButton from '../close-button/CloseButton.vue';\n\ndefineOptions({ inheritAttrs: false });\n\nexport interface Props extends /* @vue-ignore */ TagsInputClearTriggerProps {\n  ariaLabel?: string;\n  ariaLabelledby?: string;\n  asChild?: boolean;\n  class?: HTMLAttributes['class'];\n}\n\nconst { ariaLabel, ariaLabelledby, asChild = false, class: className } = defineProps<Props>();\ndefineSlots<{ default?: () => unknown }>();\n\nconst attrs = useAttrs();\nconst tagsInput = useTagsInputContext();\nconst clearTriggerLabel = computed(() => tagsInput.value.getClearTriggerProps()['aria-label']);\nconst triggerClass = 'ms-auto shrink-0 self-center data-readonly:hidden';\nconst defaultTriggerClass =\n  'ms-auto size-control-xs shrink-0 self-center focus-visible:outline-1 data-readonly:hidden motion-reduce:transition-none [&>svg]:size-3';\n</script>\n\n<template>\n  <ArkTagsInputClearTrigger\n    v-if=\"asChild\"\n    v-bind=\"attrs\"\n    as-child\n    :aria-label=\"ariaLabel\"\n    :aria-labelledby=\"ariaLabelledby\"\n    :class=\"cn(triggerClass, className)\"\n    data-slot=\"tags-input-clear-trigger\"\n  >\n    <slot />\n  </ArkTagsInputClearTrigger>\n  <ArkTagsInputClearTrigger\n    v-else\n    v-bind=\"attrs\"\n    as-child\n    :class=\"cn(defaultTriggerClass, className)\"\n    data-slot=\"tags-input-clear-trigger\"\n  >\n    <CloseButton\n      :aria-label=\"ariaLabel ?? clearTriggerLabel\"\n      :aria-labelledby=\"ariaLabelledby\"\n      data-part=\"clear-trigger\"\n      data-scope=\"tags-input\"\n      data-slot=\"tags-input-clear-trigger\"\n    >\n      <slot><CloseIcon /></slot>\n    </CloseButton>\n  </ArkTagsInputClearTrigger>\n</template>",
+      "type": "registry:component",
+      "target": "@components/ui/tags-input/TagsInputClearTrigger.vue"
+    },
+    {
+      "path": "src/components/tags-input/TagsInputHiddenInput.vue",
+      "content": "<script setup lang=\"ts\">\nimport { TagsInputHiddenInput as ArkTagsInputHiddenInput } from '@ark-ui/vue/tags-input';\nimport type { TagsInputHiddenInputProps } from '@ark-ui/vue/tags-input';\nimport { useAttrs } from 'vue';\n\ndefineOptions({ inheritAttrs: false });\n\nexport interface Props extends /* @vue-ignore */ TagsInputHiddenInputProps {}\n\ndefineProps<Props>();\ndefineSlots<{ default?: () => unknown }>();\n\nconst attrs = useAttrs();\n</script>\n\n<template>\n  <ArkTagsInputHiddenInput v-bind=\"attrs\"><slot /></ArkTagsInputHiddenInput>\n</template>",
+      "type": "registry:component",
+      "target": "@components/ui/tags-input/TagsInputHiddenInput.vue"
+    },
+    {
+      "path": "src/components/tags-input/index.ts",
+      "content": "import {\n  TagsInputContext,\n  TagsInputItemContext,\n  useTagsInput,\n  useTagsInputContext,\n  useTagsInputItemContext,\n} from '@ark-ui/vue/tags-input';\nimport TagsInput from './TagsInput.vue';\nimport TagsInputClearTrigger from './TagsInputClearTrigger.vue';\nimport TagsInputControl from './TagsInputControl.vue';\nimport TagsInputHiddenInput from './TagsInputHiddenInput.vue';\nimport TagsInputInput from './TagsInputInput.vue';\nimport TagsInputItem from './TagsInputItem.vue';\nimport TagsInputItemDeleteTrigger from './TagsInputItemDeleteTrigger.vue';\nimport TagsInputItemInput from './TagsInputItemInput.vue';\nimport TagsInputItemPreview from './TagsInputItemPreview.vue';\nimport TagsInputItems from './TagsInputItems.vue';\nimport TagsInputItemText from './TagsInputItemText.vue';\nimport TagsInputLabel from './TagsInputLabel.vue';\nimport TagsInputRootProvider from './TagsInputRootProvider.vue';\n\nexport {\n  TagsInput,\n  TagsInputClearTrigger,\n  TagsInputContext,\n  TagsInputControl,\n  TagsInputHiddenInput,\n  TagsInputInput,\n  TagsInputItem,\n  TagsInputItemContext,\n  TagsInputItemDeleteTrigger,\n  TagsInputItemInput,\n  TagsInputItemPreview,\n  TagsInputItemText,\n  TagsInputItems,\n  TagsInputLabel,\n  TagsInputRootProvider,\n  useTagsInput,\n  useTagsInputContext,\n  useTagsInputItemContext,\n};\n\nexport type {\n  TagsInputClearTriggerBaseProps,\n  TagsInputClearTriggerProps,\n  TagsInputContextProps,\n  TagsInputControlBaseProps,\n  TagsInputControlProps,\n  TagsInputFocusOutsideEvent,\n  TagsInputHiddenInputBaseProps,\n  TagsInputHiddenInputProps,\n  TagsInputInputBaseProps,\n  TagsInputInputProps,\n  TagsInputInteractOutsideEvent,\n  TagsInputItemBaseProps,\n  TagsInputItemContextProps,\n  TagsInputItemDeleteTriggerBaseProps,\n  TagsInputItemDeleteTriggerProps,\n  TagsInputItemInputBaseProps,\n  TagsInputItemInputProps,\n  TagsInputItemPreviewBaseProps,\n  TagsInputItemPreviewProps,\n  TagsInputItemProps,\n  TagsInputItemTextBaseProps,\n  TagsInputItemTextProps,\n  TagsInputPointerDownOutsideEvent,\n  TagsInputRootBaseProps,\n  TagsInputRootEmits,\n  TagsInputRootProps,\n  TagsInputRootProviderBaseProps,\n  TagsInputRootProviderProps,\n  TagsInputValueChangeDetails,\n  TagsInputHighlightChangeDetails,\n  TagsInputInputValueChangeDetails,\n  TagsInputValidityChangeDetails,\n  UseTagsInputContext,\n  UseTagsInputItemContext,\n  UseTagsInputProps,\n  UseTagsInputReturn,\n} from '@ark-ui/vue/tags-input';",
+      "type": "registry:component",
+      "target": "@components/ui/tags-input/index.ts"
+    }
+  ],
+  "type": "registry:item"
+}

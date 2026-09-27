@@ -1,7 +1,7 @@
 import { createListCollection } from '@ark-ui/vue/collection';
 import { expect, rs, test } from '@rstest/core';
 import { fireEvent, render, screen, waitFor } from '@testing-library/vue';
-import { defineComponent } from 'vue';
+import { defineComponent, ref } from 'vue';
 import type { Component } from 'vue';
 import {
   CommandPalette,
@@ -70,6 +70,7 @@ test('opens and closes from the shortcut while ignoring editable targets and rep
   );
 });
 
+// Ark Vue 5.39.2 does not emit Combobox `select` details for this interaction.
 test.skip('forwards selection details and keeps the palette open when closeOnSelect is false', async () => {
   const onSelect = rs.fn();
   const Harness = defineComponent({
@@ -142,6 +143,24 @@ test('uses dialog title and description semantics', async () => {
   expect(
     await screen.findByRole('dialog', { name: 'Command palette' }),
   ).toHaveAccessibleDescription('Select a command to continue.');
+});
+
+test('reacts to combobox prop updates after mount', async () => {
+  const Harness = defineComponent({
+    components: commandPaletteComponents,
+    setup() {
+      const comboboxOpen = ref(true);
+      return { collection: commands, comboboxOpen };
+    },
+    template:
+      '<CommandPalette default-open aria-label="Command palette" :portalled="false"><CommandPalettePanel><button type="button" @click="comboboxOpen = false">Close results</button><CommandPaletteCombobox :collection="collection" :open="comboboxOpen"><CommandPaletteSearch /><CommandPaletteList /></CommandPaletteCombobox></CommandPalettePanel></CommandPalette>',
+  });
+
+  render(Harness);
+  const search = await screen.findByRole('combobox', { name: 'Search commands' });
+  expect(search).toHaveAttribute('aria-expanded', 'true');
+  await fireEvent.click(screen.getByRole('button', { name: 'Close results' }));
+  await waitFor(() => expect(search).toHaveAttribute('aria-expanded', 'false'));
 });
 
 test.skip('closes after selection by default (blocked by the Ark Vue select emit gap)', async () => {

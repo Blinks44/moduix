@@ -1,0 +1,161 @@
+{
+  "$schema": "https://ui.shadcn.com/schema/registry-item.json",
+  "name": "select",
+  "title": "Select",
+  "description": "moduix Vue Tailwind Select component.",
+  "dependencies": ["@ark-ui/vue", "clsx", "tailwind-merge"],
+  "registryDependencies": [
+    "@moduix-vue-tailwind/foundation",
+    "@moduix-vue-tailwind/cn",
+    "@moduix-vue-tailwind/icons",
+    "@moduix-vue-tailwind/close-button",
+    "@moduix-vue-tailwind/overlay-portal"
+  ],
+  "files": [
+    {
+      "path": "src/components/select/Select.vue",
+      "content": "<script lang=\"ts\">\nimport type { CollectionItem } from '@ark-ui/vue/collection';\nimport type { SelectRootEmits, SelectRootProps } from '@ark-ui/vue/select';\nimport type { HTMLAttributes } from 'vue';\nimport type { PortalRef } from '@/lib/moduix/overlayPortal/context';\n\nexport interface Props<T extends CollectionItem> extends /* @vue-ignore */ SelectRootProps<T> {\n  class?: HTMLAttributes['class'];\n  collection: SelectRootProps<T>['collection'];\n  lazyMount?: boolean;\n  portalled?: boolean;\n  portalRef?: PortalRef;\n  unmountOnExit?: boolean;\n}\n\nexport interface Emits<T extends CollectionItem> extends /* @vue-ignore */ SelectRootEmits<T> {}\n</script>\n\n<script setup lang=\"ts\" generic=\"T extends CollectionItem\">\nimport { SelectRoot as ArkSelectRoot } from '@ark-ui/vue/select';\nimport { provide, useAttrs } from 'vue';\nimport { cn } from '@/lib/moduix/cn';\nimport { OverlayPortalContextKey } from '@/lib/moduix/overlayPortal/context';\n\ndefineOptions({ inheritAttrs: false });\n\nconst {\n  class: className,\n  collection,\n  lazyMount = true,\n  portalled = true,\n  portalRef,\n  unmountOnExit = true,\n} = defineProps<Props<T>>();\ndefineEmits<Emits<T>>();\ndefineSlots<{ default?: () => unknown }>();\n\nconst attrs = useAttrs();\n\nprovide(OverlayPortalContextKey, {\n  portalled: () => portalled,\n  portalRef: () => portalRef,\n});\n\nconst rootClass = 'flex w-56 max-w-full min-w-0 flex-col gap-1.5 text-foreground';\n</script>\n\n<template>\n  <ArkSelectRoot\n    v-bind=\"attrs\"\n    :class=\"cn(rootClass, className)\"\n    :collection=\"collection\"\n    :lazy-mount=\"lazyMount\"\n    :unmount-on-exit=\"unmountOnExit\"\n    data-slot=\"select-root\"\n  >\n    <slot />\n  </ArkSelectRoot>\n</template>",
+      "type": "registry:component",
+      "target": "@components/ui/select/Select.vue"
+    },
+    {
+      "path": "src/components/select/SelectRootProvider.vue",
+      "content": "<script lang=\"ts\">\nimport type { CollectionItem } from '@ark-ui/vue/collection';\nimport type { SelectRootProviderEmits, SelectRootProviderProps } from '@ark-ui/vue/select';\nimport type { HTMLAttributes } from 'vue';\nimport type { PortalRef } from '@/lib/moduix/overlayPortal/context';\n\nexport interface Props<T extends CollectionItem>\n  extends /* @vue-ignore */ SelectRootProviderProps<T> {\n  class?: HTMLAttributes['class'];\n  lazyMount?: boolean;\n  portalled?: boolean;\n  portalRef?: PortalRef;\n  unmountOnExit?: boolean;\n  value: SelectRootProviderProps<T>['value'];\n}\n\nexport interface Emits extends /* @vue-ignore */ SelectRootProviderEmits {}\n</script>\n\n<script setup lang=\"ts\" generic=\"T extends CollectionItem\">\nimport { SelectRootProvider as ArkSelectRootProvider } from '@ark-ui/vue/select';\nimport { provide, useAttrs } from 'vue';\nimport { cn } from '@/lib/moduix/cn';\nimport { OverlayPortalContextKey } from '@/lib/moduix/overlayPortal/context';\n\ndefineOptions({ inheritAttrs: false });\n\nconst {\n  class: className,\n  lazyMount = true,\n  portalled = true,\n  portalRef,\n  unmountOnExit = true,\n  value,\n} = defineProps<Props<T>>();\ndefineEmits<Emits>();\ndefineSlots<{ default?: () => unknown }>();\n\nconst attrs = useAttrs();\n\nprovide(OverlayPortalContextKey, {\n  portalled: () => portalled,\n  portalRef: () => portalRef,\n});\n\nconst rootClass = 'flex w-56 max-w-full min-w-0 flex-col gap-1.5 text-foreground';\n</script>\n\n<template>\n  <ArkSelectRootProvider\n    v-bind=\"attrs\"\n    :class=\"cn(rootClass, className)\"\n    :lazy-mount=\"lazyMount\"\n    :unmount-on-exit=\"unmountOnExit\"\n    :value=\"value\"\n    data-slot=\"select-root-provider\"\n  >\n    <slot />\n  </ArkSelectRootProvider>\n</template>",
+      "type": "registry:component",
+      "target": "@components/ui/select/SelectRootProvider.vue"
+    },
+    {
+      "path": "src/components/select/SelectLabel.vue",
+      "content": "<script setup lang=\"ts\">\nimport { SelectLabel as ArkSelectLabel } from '@ark-ui/vue/select';\nimport type { SelectLabelProps } from '@ark-ui/vue/select';\nimport { useAttrs } from 'vue';\nimport type { HTMLAttributes } from 'vue';\nimport { cn } from '@/lib/moduix/cn';\n\ndefineOptions({ inheritAttrs: false });\n\nexport interface Props extends /* @vue-ignore */ SelectLabelProps {\n  class?: HTMLAttributes['class'];\n}\n\nconst { class: className } = defineProps<Props>();\ndefineSlots<{ default?: () => unknown }>();\n\nconst attrs = useAttrs();\n</script>\n\n<template>\n  <ArkSelectLabel\n    v-bind=\"attrs\"\n    :class=\"\n      cn(\n        'inline-flex items-center text-sm font-medium text-foreground select-none data-disabled:opacity-50',\n        className,\n      )\n    \"\n    data-slot=\"select-label\"\n  >\n    <slot />\n  </ArkSelectLabel>\n</template>",
+      "type": "registry:component",
+      "target": "@components/ui/select/SelectLabel.vue"
+    },
+    {
+      "path": "src/components/select/SelectControl.vue",
+      "content": "<script setup lang=\"ts\">\nimport { SelectControl as ArkSelectControl } from '@ark-ui/vue/select';\nimport type { SelectControlProps } from '@ark-ui/vue/select';\nimport { useAttrs } from 'vue';\nimport type { HTMLAttributes } from 'vue';\nimport { cn } from '@/lib/moduix/cn';\n\ndefineOptions({ inheritAttrs: false });\n\nexport interface Props extends /* @vue-ignore */ SelectControlProps {\n  class?: HTMLAttributes['class'];\n}\n\nconst { class: className } = defineProps<Props>();\ndefineSlots<{ default?: () => unknown }>();\n\nconst attrs = useAttrs();\n</script>\n\n<template>\n  <ArkSelectControl\n    v-bind=\"attrs\"\n    :class=\"\n      cn(\n        'group/select-control relative flex w-full min-w-0 items-center text-foreground data-disabled:opacity-50',\n        className,\n      )\n    \"\n    data-slot=\"select-control\"\n  >\n    <slot />\n  </ArkSelectControl>\n</template>",
+      "type": "registry:component",
+      "target": "@components/ui/select/SelectControl.vue"
+    },
+    {
+      "path": "src/components/select/SelectField.vue",
+      "content": "<script setup lang=\"ts\">\nimport type { SelectControlProps, SelectValueTextProps } from '@ark-ui/vue/select';\nimport { defineComponent, useAttrs } from 'vue';\nimport type { HTMLAttributes, VNodeChild } from 'vue';\nimport SelectClearTrigger from './SelectClearTrigger.vue';\nimport SelectControl from './SelectControl.vue';\nimport SelectIndicator from './SelectIndicator.vue';\nimport SelectTrigger from './SelectTrigger.vue';\nimport SelectValueText from './SelectValueText.vue';\n\ndefineOptions({ inheritAttrs: false });\n\nexport interface Props extends /* @vue-ignore */ Omit<SelectControlProps, 'asChild' | 'children'> {\n  class?: HTMLAttributes['class'];\n  clearLabel?: string;\n  indicator?: VNodeChild;\n  placeholder?: SelectValueTextProps['placeholder'];\n}\n\nconst { class: className, clearLabel, indicator = undefined, placeholder } = defineProps<Props>();\n\nconst VNodeOutlet = defineComponent((props: { value: VNodeChild }) => () => props.value, {\n  props: ['value'],\n});\n\nconst attrs = useAttrs();\n</script>\n\n<template>\n  <SelectControl v-bind=\"attrs\" :class=\"className\">\n    <SelectTrigger>\n      <SelectValueText :placeholder=\"placeholder\" />\n    </SelectTrigger>\n    <SelectClearTrigger v-if=\"clearLabel\" :aria-label=\"clearLabel\" />\n    <SelectIndicator v-if=\"indicator === undefined\" />\n    <SelectIndicator v-else><VNodeOutlet :value=\"indicator\" /></SelectIndicator>\n  </SelectControl>\n</template>",
+      "type": "registry:component",
+      "target": "@components/ui/select/SelectField.vue"
+    },
+    {
+      "path": "src/components/select/SelectTrigger.vue",
+      "content": "<script setup lang=\"ts\">\nimport { SelectTrigger as ArkSelectTrigger } from '@ark-ui/vue/select';\nimport type { SelectTriggerProps } from '@ark-ui/vue/select';\nimport { useAttrs } from 'vue';\nimport type { HTMLAttributes } from 'vue';\nimport { cn } from '@/lib/moduix/cn';\n\ndefineOptions({ inheritAttrs: false });\n\nexport interface Props extends /* @vue-ignore */ SelectTriggerProps {\n  asChild?: boolean;\n  class?: HTMLAttributes['class'];\n}\n\nconst { asChild = false, class: className } = defineProps<Props>();\ndefineSlots<{ default?: () => unknown }>();\n\nconst attrs = useAttrs();\n</script>\n\n<template>\n  <ArkSelectTrigger\n    v-bind=\"attrs\"\n    :as-child=\"asChild\"\n    :class=\"\n      cn(\n        !asChild &&\n          'peer/select-trigger relative inline-flex h-control-md w-full min-w-0 cursor-pointer items-center justify-start rounded-md border border-border bg-background px-3.5 pe-[2.875rem] text-start text-inherit outline-1 -outline-offset-1 outline-transparent transition-[background-color,border-color,outline-color] duration-200 ease-in-out select-none [font:inherit] not-data-[placeholder-shown]:pe-[4.25rem] group-data-invalid/select-control:border-destructive group-data-invalid/select-control:outline-destructive focus-visible:border-ring focus-visible:outline-ring disabled:cursor-default data-disabled:cursor-default data-placeholder-shown:text-muted-foreground data-[state=open]:border-ring data-[state=open]:outline-ring motion-reduce:transition-none',\n        className,\n      )\n    \"\n    data-slot=\"select-trigger\"\n  >\n    <slot />\n  </ArkSelectTrigger>\n</template>",
+      "type": "registry:component",
+      "target": "@components/ui/select/SelectTrigger.vue"
+    },
+    {
+      "path": "src/components/select/SelectValueText.vue",
+      "content": "<script setup lang=\"ts\">\nimport { SelectValueText as ArkSelectValueText } from '@ark-ui/vue/select';\nimport type { SelectValueTextProps } from '@ark-ui/vue/select';\nimport { useAttrs } from 'vue';\nimport type { HTMLAttributes } from 'vue';\nimport { cn } from '@/lib/moduix/cn';\n\ndefineOptions({ inheritAttrs: false });\n\nexport interface Props extends /* @vue-ignore */ SelectValueTextProps {\n  class?: HTMLAttributes['class'];\n}\n\nconst { class: className } = defineProps<Props>();\nconst attrs = useAttrs();\n</script>\n\n<template>\n  <ArkSelectValueText\n    v-if=\"!$slots.default\"\n    v-bind=\"attrs\"\n    :class=\"cn('min-w-0 flex-1 overflow-hidden text-ellipsis whitespace-nowrap', className)\"\n    data-slot=\"select-value-text\"\n  />\n  <ArkSelectValueText\n    v-else\n    v-bind=\"attrs\"\n    :class=\"cn('min-w-0 flex-1 overflow-hidden text-ellipsis whitespace-nowrap', className)\"\n    data-slot=\"select-value-text\"\n    ><slot\n  /></ArkSelectValueText>\n</template>",
+      "type": "registry:component",
+      "target": "@components/ui/select/SelectValueText.vue"
+    },
+    {
+      "path": "src/components/select/SelectClearTrigger.vue",
+      "content": "<script setup lang=\"ts\">\nimport { SelectClearTrigger as ArkSelectClearTrigger } from '@ark-ui/vue/select';\nimport type { SelectClearTriggerProps } from '@ark-ui/vue/select';\nimport { useAttrs } from 'vue';\nimport type { HTMLAttributes } from 'vue';\nimport { cn } from '@/lib/moduix/cn';\nimport CloseButton from '../close-button/CloseButton.vue';\n\ndefineOptions({ inheritAttrs: false });\n\nexport interface Props extends /* @vue-ignore */ SelectClearTriggerProps {\n  ariaLabel?: string;\n  ariaLabelledby?: string;\n  asChild?: boolean;\n  class?: HTMLAttributes['class'];\n}\n\nconst { ariaLabel, ariaLabelledby, asChild = false, class: className } = defineProps<Props>();\ndefineSlots<{ default?: () => unknown }>();\n\nconst attrs = useAttrs();\nconst clearClass =\n  'pointer-events-auto absolute inset-y-0 end-[2.125rem] my-auto size-control-xs transition-[background-color,color,opacity] duration-200 ease-in-out focus-visible:outline-1 focus-visible:outline-offset-1 motion-reduce:transition-none [&>svg]:size-4';\n</script>\n\n<template>\n  <ArkSelectClearTrigger\n    v-if=\"asChild\"\n    v-bind=\"attrs\"\n    as-child\n    :aria-label=\"ariaLabel\"\n    :aria-labelledby=\"ariaLabelledby\"\n    :class=\"cn(clearClass, className)\"\n    data-slot=\"select-clear-trigger\"\n  >\n    <slot />\n  </ArkSelectClearTrigger>\n  <ArkSelectClearTrigger\n    v-else\n    v-bind=\"attrs\"\n    as-child\n    :class=\"cn(clearClass, className)\"\n    data-slot=\"select-clear-trigger\"\n  >\n    <CloseButton\n      :aria-label=\"ariaLabel ?? (ariaLabelledby == null ? 'Clear selection' : undefined)\"\n      :aria-labelledby=\"ariaLabelledby\"\n    >\n      <slot />\n    </CloseButton>\n  </ArkSelectClearTrigger>\n</template>",
+      "type": "registry:component",
+      "target": "@components/ui/select/SelectClearTrigger.vue"
+    },
+    {
+      "path": "src/components/select/SelectIndicator.vue",
+      "content": "<script setup lang=\"ts\">\nimport { SelectIndicator as ArkSelectIndicator } from '@ark-ui/vue/select';\nimport type { SelectIndicatorProps } from '@ark-ui/vue/select';\nimport { useAttrs } from 'vue';\nimport type { HTMLAttributes } from 'vue';\nimport { cn } from '@/lib/moduix/cn';\nimport { ChevronUpDownIcon } from '@/lib/moduix/icons/ui';\n\ndefineOptions({ inheritAttrs: false });\n\nexport interface Props extends /* @vue-ignore */ SelectIndicatorProps {\n  class?: HTMLAttributes['class'];\n}\n\nconst { class: className } = defineProps<Props>();\ndefineSlots<{ default?: () => unknown }>();\n\nconst attrs = useAttrs();\n</script>\n\n<template>\n  <ArkSelectIndicator\n    v-bind=\"attrs\"\n    :class=\"\n      cn(\n        'pointer-events-none inline-flex size-control-xs shrink-0 items-center justify-center rounded-sm bg-transparent leading-none text-muted-foreground transition-[background-color,color,opacity] duration-200 ease-in-out peer-[:not([disabled]):not([data-disabled]):hover]/select-trigger:bg-muted peer-[:not([disabled]):not([data-disabled]):hover]/select-trigger:text-foreground motion-reduce:transition-none [&:is([data-slot=select-control]>*)]:absolute [&:is([data-slot=select-control]>*)]:end-2 [&:is([data-slot=select-control]>*)]:top-1/2 [&:is([data-slot=select-control]>*)]:-translate-y-1/2 [&>svg]:block [&>svg]:size-4',\n        className,\n      )\n    \"\n    data-slot=\"select-indicator\"\n  >\n    <slot><ChevronUpDownIcon /></slot>\n  </ArkSelectIndicator>\n</template>",
+      "type": "registry:component",
+      "target": "@components/ui/select/SelectIndicator.vue"
+    },
+    {
+      "path": "src/components/select/SelectPositioner.vue",
+      "content": "<script setup lang=\"ts\">\nimport { SelectPositioner as ArkSelectPositioner } from '@ark-ui/vue/select';\nimport type { SelectPositionerProps } from '@ark-ui/vue/select';\nimport { useAttrs } from 'vue';\nimport type { HTMLAttributes } from 'vue';\nimport { cn } from '@/lib/moduix/cn';\nimport OverlayPortal from '@/lib/moduix/overlayPortal/OverlayPortal.vue';\n\ndefineOptions({ inheritAttrs: false });\n\nexport interface Props extends /* @vue-ignore */ SelectPositionerProps {\n  class?: HTMLAttributes['class'];\n}\n\nconst { class: className } = defineProps<Props>();\ndefineSlots<{ default?: () => unknown }>();\n\nconst attrs = useAttrs();\n</script>\n\n<template>\n  <OverlayPortal>\n    <ArkSelectPositioner\n      v-bind=\"attrs\"\n      :class=\"cn('z-[var(--z-index)] outline-0', className)\"\n      data-slot=\"select-positioner\"\n    >\n      <slot />\n    </ArkSelectPositioner>\n  </OverlayPortal>\n</template>",
+      "type": "registry:component",
+      "target": "@components/ui/select/SelectPositioner.vue"
+    },
+    {
+      "path": "src/components/select/SelectContent.vue",
+      "content": "<script setup lang=\"ts\">\nimport { SelectContent as ArkSelectContent } from '@ark-ui/vue/select';\nimport type { SelectContentProps } from '@ark-ui/vue/select';\nimport { useAttrs } from 'vue';\nimport type { HTMLAttributes } from 'vue';\nimport { cn } from '@/lib/moduix/cn';\n\ndefineOptions({ inheritAttrs: false });\n\nexport interface Props extends /* @vue-ignore */ SelectContentProps {\n  class?: HTMLAttributes['class'];\n}\n\nconst { class: className } = defineProps<Props>();\ndefineSlots<{ default?: () => unknown }>();\n\nconst attrs = useAttrs();\n</script>\n\n<template>\n  <ArkSelectContent\n    v-bind=\"attrs\"\n    :class=\"\n      cn(\n        'z-[calc(var(--moduix-z-popup)+var(--layer-index,0))] flex max-h-[min(24rem,var(--available-height))] max-w-[var(--available-width)] min-w-[var(--reference-width)] origin-[var(--transform-origin)] scroll-py-1 flex-col overflow-auto overscroll-contain rounded-md border border-border bg-popover py-1 text-popover-foreground shadow-lg outline-0 data-[state=closed]:pointer-events-none data-[state=closed]:animate-moduix-menu-closed data-[state=open]:animate-moduix-menu-open motion-reduce:animate-none',\n        className,\n      )\n    \"\n    data-slot=\"select-content\"\n  >\n    <slot />\n  </ArkSelectContent>\n</template>",
+      "type": "registry:component",
+      "target": "@components/ui/select/SelectContent.vue"
+    },
+    {
+      "path": "src/components/select/SelectList.vue",
+      "content": "<script setup lang=\"ts\">\nimport { SelectList as ArkSelectList } from '@ark-ui/vue/select';\nimport type { SelectListProps } from '@ark-ui/vue/select';\nimport { useAttrs } from 'vue';\nimport type { HTMLAttributes } from 'vue';\nimport { cn } from '@/lib/moduix/cn';\n\ndefineOptions({ inheritAttrs: false });\n\nexport interface Props extends /* @vue-ignore */ SelectListProps {\n  class?: HTMLAttributes['class'];\n}\n\nconst { class: className } = defineProps<Props>();\ndefineSlots<{ default?: () => unknown }>();\n\nconst attrs = useAttrs();\n</script>\n\n<template>\n  <ArkSelectList\n    v-bind=\"attrs\"\n    :class=\"\n      cn(\n        'flex min-h-0 scroll-py-1 flex-col overflow-y-auto overscroll-contain outline-0',\n        className,\n      )\n    \"\n    data-slot=\"select-list\"\n  >\n    <slot />\n  </ArkSelectList>\n</template>",
+      "type": "registry:component",
+      "target": "@components/ui/select/SelectList.vue"
+    },
+    {
+      "path": "src/components/select/SelectItemGroup.vue",
+      "content": "<script setup lang=\"ts\">\nimport { SelectItemGroup as ArkSelectItemGroup } from '@ark-ui/vue/select';\nimport type { SelectItemGroupProps } from '@ark-ui/vue/select';\nimport { useAttrs } from 'vue';\nimport type { HTMLAttributes } from 'vue';\nimport { cn } from '@/lib/moduix/cn';\n\ndefineOptions({ inheritAttrs: false });\n\nexport interface Props extends /* @vue-ignore */ SelectItemGroupProps {\n  class?: HTMLAttributes['class'];\n}\n\nconst { class: className } = defineProps<Props>();\ndefineSlots<{ default?: () => unknown }>();\n\nconst attrs = useAttrs();\n</script>\n\n<template>\n  <ArkSelectItemGroup\n    v-bind=\"attrs\"\n    :class=\"cn('flex flex-col [&+&]:mt-2', className)\"\n    data-slot=\"select-item-group\"\n  >\n    <slot />\n  </ArkSelectItemGroup>\n</template>",
+      "type": "registry:component",
+      "target": "@components/ui/select/SelectItemGroup.vue"
+    },
+    {
+      "path": "src/components/select/SelectItemGroupLabel.vue",
+      "content": "<script setup lang=\"ts\">\nimport { SelectItemGroupLabel as ArkSelectItemGroupLabel } from '@ark-ui/vue/select';\nimport type { SelectItemGroupLabelProps } from '@ark-ui/vue/select';\nimport { useAttrs } from 'vue';\nimport type { HTMLAttributes } from 'vue';\nimport { cn } from '@/lib/moduix/cn';\n\ndefineOptions({ inheritAttrs: false });\n\nexport interface Props extends /* @vue-ignore */ SelectItemGroupLabelProps {\n  class?: HTMLAttributes['class'];\n}\n\nconst { class: className } = defineProps<Props>();\ndefineSlots<{ default?: () => unknown }>();\n\nconst attrs = useAttrs();\n</script>\n\n<template>\n  <ArkSelectItemGroupLabel\n    v-bind=\"attrs\"\n    :class=\"cn('px-2.5 py-1 text-xs font-normal text-muted-foreground', className)\"\n    data-slot=\"select-item-group-label\"\n  >\n    <slot />\n  </ArkSelectItemGroupLabel>\n</template>",
+      "type": "registry:component",
+      "target": "@components/ui/select/SelectItemGroupLabel.vue"
+    },
+    {
+      "path": "src/components/select/SelectItem.vue",
+      "content": "<script lang=\"ts\">\nimport type { CollectionItem } from '@ark-ui/vue/collection';\nimport type { SelectItemProps } from '@ark-ui/vue/select';\nimport type { HTMLAttributes } from 'vue';\n\nexport interface Props<T extends CollectionItem>\n  extends /* @vue-ignore */ Omit<SelectItemProps, 'item'> {\n  class?: HTMLAttributes['class'];\n  item: T;\n}\n</script>\n\n<script setup lang=\"ts\" generic=\"T extends CollectionItem\">\nimport { SelectItem as ArkSelectItem } from '@ark-ui/vue/select';\nimport { useAttrs } from 'vue';\nimport { cn } from '@/lib/moduix/cn';\n\ndefineOptions({ inheritAttrs: false });\n\nconst { class: className, item } = defineProps<Props<T>>();\ndefineSlots<{ default?: () => unknown }>();\n\nconst attrs = useAttrs();\n</script>\n\n<template>\n  <ArkSelectItem\n    v-bind=\"attrs\"\n    :class=\"\n      cn(\n        'relative mx-1 flex min-h-control-sm w-[calc(100%-0.5rem)] cursor-default items-center justify-between gap-2 rounded-sm bg-transparent px-3 py-1 text-sm text-popover-foreground outline-0 select-none data-disabled:pointer-events-none data-disabled:text-muted-foreground data-disabled:opacity-50 data-highlighted:bg-accent data-highlighted:text-accent-foreground',\n        className,\n      )\n    \"\n    :item=\"item\"\n    data-slot=\"select-item\"\n  >\n    <slot />\n  </ArkSelectItem>\n</template>",
+      "type": "registry:component",
+      "target": "@components/ui/select/SelectItem.vue"
+    },
+    {
+      "path": "src/components/select/SelectItemText.vue",
+      "content": "<script setup lang=\"ts\">\nimport { SelectItemText as ArkSelectItemText } from '@ark-ui/vue/select';\nimport type { SelectItemTextProps } from '@ark-ui/vue/select';\nimport { useAttrs } from 'vue';\nimport type { HTMLAttributes } from 'vue';\nimport { cn } from '@/lib/moduix/cn';\n\ndefineOptions({ inheritAttrs: false });\n\nexport interface Props extends /* @vue-ignore */ SelectItemTextProps {\n  class?: HTMLAttributes['class'];\n}\n\nconst { class: className } = defineProps<Props>();\ndefineSlots<{ default?: () => unknown }>();\n\nconst attrs = useAttrs();\n</script>\n\n<template>\n  <ArkSelectItemText\n    v-bind=\"attrs\"\n    :class=\"cn('min-w-0 flex-1 overflow-hidden text-ellipsis whitespace-nowrap', className)\"\n    data-slot=\"select-item-text\"\n  >\n    <slot />\n  </ArkSelectItemText>\n</template>",
+      "type": "registry:component",
+      "target": "@components/ui/select/SelectItemText.vue"
+    },
+    {
+      "path": "src/components/select/SelectItemIndicator.vue",
+      "content": "<script setup lang=\"ts\">\nimport { SelectItemIndicator as ArkSelectItemIndicator } from '@ark-ui/vue/select';\nimport type { SelectItemIndicatorProps } from '@ark-ui/vue/select';\nimport { useAttrs } from 'vue';\nimport type { HTMLAttributes } from 'vue';\nimport { cn } from '@/lib/moduix/cn';\nimport { CheckIcon } from '@/lib/moduix/icons/ui';\n\ndefineOptions({ inheritAttrs: false });\n\nexport interface Props extends /* @vue-ignore */ SelectItemIndicatorProps {\n  class?: HTMLAttributes['class'];\n}\n\nconst { class: className } = defineProps<Props>();\ndefineSlots<{ default?: () => unknown }>();\n\nconst attrs = useAttrs();\n</script>\n\n<template>\n  <ArkSelectItemIndicator\n    v-bind=\"attrs\"\n    :class=\"\n      cn('inline-flex size-3.5 shrink-0 items-center justify-center [&>svg]:size-3', className)\n    \"\n    data-slot=\"select-item-indicator\"\n  >\n    <slot><CheckIcon /></slot>\n  </ArkSelectItemIndicator>\n</template>",
+      "type": "registry:component",
+      "target": "@components/ui/select/SelectItemIndicator.vue"
+    },
+    {
+      "path": "src/components/select/SelectItemTextContent.vue",
+      "content": "<script setup lang=\"ts\">\nimport { ark } from '@ark-ui/vue/factory';\nimport type { HTMLArkProps } from '@ark-ui/vue/factory';\nimport { useAttrs } from 'vue';\nimport type { HTMLAttributes } from 'vue';\nimport { cn } from '@/lib/moduix/cn';\n\ndefineOptions({ inheritAttrs: false });\n\nexport interface Props extends /* @vue-ignore */ HTMLArkProps<'span'> {\n  class?: HTMLAttributes['class'];\n}\n\nconst { class: className } = defineProps<Props>();\ndefineSlots<{ default?: () => unknown }>();\n\nconst attrs = useAttrs();\n</script>\n\n<template>\n  <ark.span\n    v-bind=\"attrs\"\n    :class=\"cn('inline-flex max-w-full min-w-0 items-center gap-2 align-top', className)\"\n    data-slot=\"select-item-text-content\"\n  >\n    <slot />\n  </ark.span>\n</template>",
+      "type": "registry:component",
+      "target": "@components/ui/select/SelectItemTextContent.vue"
+    },
+    {
+      "path": "src/components/select/SelectItemTextIcon.vue",
+      "content": "<script setup lang=\"ts\">\nimport { ark } from '@ark-ui/vue/factory';\nimport type { HTMLArkProps } from '@ark-ui/vue/factory';\nimport { useAttrs } from 'vue';\nimport type { HTMLAttributes } from 'vue';\nimport { cn } from '@/lib/moduix/cn';\n\ndefineOptions({ inheritAttrs: false });\n\nexport interface Props extends /* @vue-ignore */ HTMLArkProps<'span'> {\n  class?: HTMLAttributes['class'];\n}\n\nconst { class: className } = defineProps<Props>();\ndefineSlots<{ default?: () => unknown }>();\n\nconst attrs = useAttrs();\n</script>\n\n<template>\n  <ark.span\n    v-bind=\"attrs\"\n    :class=\"cn('inline-flex size-4 shrink-0 items-center justify-center', className)\"\n    data-slot=\"select-item-text-icon\"\n  >\n    <slot />\n  </ark.span>\n</template>",
+      "type": "registry:component",
+      "target": "@components/ui/select/SelectItemTextIcon.vue"
+    },
+    {
+      "path": "src/components/select/SelectItemTextLabel.vue",
+      "content": "<script setup lang=\"ts\">\nimport { ark } from '@ark-ui/vue/factory';\nimport type { HTMLArkProps } from '@ark-ui/vue/factory';\nimport { useAttrs } from 'vue';\nimport type { HTMLAttributes } from 'vue';\nimport { cn } from '@/lib/moduix/cn';\n\ndefineOptions({ inheritAttrs: false });\n\nexport interface Props extends /* @vue-ignore */ HTMLArkProps<'span'> {\n  class?: HTMLAttributes['class'];\n}\n\nconst { class: className } = defineProps<Props>();\ndefineSlots<{ default?: () => unknown }>();\n\nconst attrs = useAttrs();\n</script>\n\n<template>\n  <ark.span\n    v-bind=\"attrs\"\n    :class=\"cn('min-w-0 overflow-hidden text-ellipsis whitespace-nowrap', className)\"\n    data-slot=\"select-item-text-label\"\n  >\n    <slot />\n  </ark.span>\n</template>",
+      "type": "registry:component",
+      "target": "@components/ui/select/SelectItemTextLabel.vue"
+    },
+    {
+      "path": "src/components/select/SelectContext.vue",
+      "content": "<script setup lang=\"ts\">\nimport type { CollectionItem } from '@ark-ui/vue/collection';\nimport { SelectContext as ArkSelectContext, type UseSelectContext } from '@ark-ui/vue/select';\nimport type { UnwrapRef } from 'vue';\n\ndefineSlots<{ default: (context: UnwrapRef<UseSelectContext<CollectionItem>>) => unknown }>();\n</script>\n\n<template>\n  <ArkSelectContext v-slot=\"context\">\n    <slot v-bind=\"context\" />\n  </ArkSelectContext>\n</template>",
+      "type": "registry:component",
+      "target": "@components/ui/select/SelectContext.vue"
+    },
+    {
+      "path": "src/components/select/SelectItemContext.vue",
+      "content": "<script setup lang=\"ts\">\nimport {\n  SelectItemContext as ArkSelectItemContext,\n  useSelectItemContext,\n} from '@ark-ui/vue/select';\nimport type { UnwrapRef } from 'vue';\n\ndefineSlots<{\n  default: (context: UnwrapRef<ReturnType<typeof useSelectItemContext>>) => unknown;\n}>();\n</script>\n\n<template>\n  <ArkSelectItemContext v-slot=\"context\">\n    <slot v-bind=\"context\" />\n  </ArkSelectItemContext>\n</template>",
+      "type": "registry:component",
+      "target": "@components/ui/select/SelectItemContext.vue"
+    },
+    {
+      "path": "src/components/select/SelectHiddenSelect.vue",
+      "content": "<script setup lang=\"ts\">\nimport { SelectHiddenSelect as ArkSelectHiddenSelect } from '@ark-ui/vue/select';\nimport type { SelectHiddenSelectProps } from '@ark-ui/vue/select';\nimport { useAttrs } from 'vue';\n\ndefineOptions({ inheritAttrs: false });\n\nexport interface Props extends /* @vue-ignore */ SelectHiddenSelectProps {}\n\ndefineProps<Props>();\nconst attrs = useAttrs();\n</script>\n\n<template>\n  <ArkSelectHiddenSelect v-bind=\"attrs\" />\n</template>",
+      "type": "registry:component",
+      "target": "@components/ui/select/SelectHiddenSelect.vue"
+    },
+    {
+      "path": "src/components/select/index.ts",
+      "content": "import { useSelect, useSelectContext, useSelectItemContext } from '@ark-ui/vue/select';\nimport Select from './Select.vue';\nimport SelectClearTrigger from './SelectClearTrigger.vue';\nimport SelectContent from './SelectContent.vue';\nimport SelectContext from './SelectContext.vue';\nimport SelectControl from './SelectControl.vue';\nimport SelectField from './SelectField.vue';\nimport SelectHiddenSelect from './SelectHiddenSelect.vue';\nimport SelectIndicator from './SelectIndicator.vue';\nimport SelectItem from './SelectItem.vue';\nimport SelectItemContext from './SelectItemContext.vue';\nimport SelectItemGroup from './SelectItemGroup.vue';\nimport SelectItemGroupLabel from './SelectItemGroupLabel.vue';\nimport SelectItemIndicator from './SelectItemIndicator.vue';\nimport SelectItemText from './SelectItemText.vue';\nimport SelectItemTextContent from './SelectItemTextContent.vue';\nimport SelectItemTextIcon from './SelectItemTextIcon.vue';\nimport SelectItemTextLabel from './SelectItemTextLabel.vue';\nimport SelectLabel from './SelectLabel.vue';\nimport SelectList from './SelectList.vue';\nimport SelectPositioner from './SelectPositioner.vue';\nimport SelectRootProvider from './SelectRootProvider.vue';\nimport SelectTrigger from './SelectTrigger.vue';\nimport SelectValueText from './SelectValueText.vue';\n\nexport {\n  Select,\n  SelectClearTrigger,\n  SelectContent,\n  SelectContext,\n  SelectControl,\n  SelectField,\n  SelectHiddenSelect,\n  SelectIndicator,\n  SelectItem,\n  SelectItemContext,\n  SelectItemGroup,\n  SelectItemGroupLabel,\n  SelectItemIndicator,\n  SelectItemText,\n  SelectItemTextContent,\n  SelectItemTextIcon,\n  SelectItemTextLabel,\n  SelectLabel,\n  SelectList,\n  SelectPositioner,\n  SelectRootProvider,\n  SelectTrigger,\n  SelectValueText,\n  useSelect,\n  useSelectContext,\n  useSelectItemContext,\n};\n\nexport type {\n  CollectionItem,\n  SelectClearTriggerProps,\n  SelectContentProps,\n  SelectContextProps,\n  SelectControlProps,\n  SelectFocusOutsideEvent,\n  SelectHighlightChangeDetails,\n  SelectHiddenSelectProps,\n  SelectIndicatorProps,\n  SelectInteractOutsideEvent,\n  SelectItemContextProps,\n  SelectItemGroupLabelProps,\n  SelectItemGroupProps,\n  SelectItemIndicatorProps,\n  SelectItemProps,\n  SelectItemTextProps,\n  SelectLabelProps,\n  SelectListProps,\n  SelectOpenChangeDetails,\n  SelectPointerDownOutsideEvent,\n  SelectPositionerProps,\n  SelectRootEmits,\n  SelectRootProps,\n  SelectRootProviderEmits,\n  SelectRootProviderProps,\n  SelectTriggerProps,\n  SelectValueChangeDetails,\n  SelectValueTextProps,\n  UseSelectContext,\n  UseSelectProps,\n  UseSelectReturn,\n} from '@ark-ui/vue/select';\n\nexport type { PortalRef } from '@/lib/moduix/overlayPortal/context';",
+      "type": "registry:component",
+      "target": "@components/ui/select/index.ts"
+    }
+  ],
+  "type": "registry:item"
+}

@@ -1,8 +1,7 @@
 <script setup lang="ts">
 import { FieldItem as ArkFieldItem } from '@ark-ui/vue/field';
 import type { FieldItemProps as ArkFieldItemProps } from '@ark-ui/vue/field';
-import { computed, useAttrs } from 'vue';
-import { ref } from 'vue';
+import { ref, useAttrs } from 'vue';
 import type { HTMLAttributes } from 'vue';
 import { cn } from '@/lib/moduix/cn';
 
@@ -14,25 +13,20 @@ export interface Props
   value: ArkFieldItemProps['value'];
 }
 
-const props = defineProps<Props>();
+const { class: className, value } = defineProps<Props>();
 defineSlots<{ default?: () => unknown }>();
 
 const attrs = useAttrs();
 const itemElement = ref<HTMLDivElement>();
 defineExpose({ $el: itemElement });
-const forwardedProps = computed(() =>
-  Object.fromEntries(
-    Object.entries(props).filter(([key, value]) => key !== 'value' && value !== undefined),
-  ),
-);
 </script>
 
 <template>
-  <ArkFieldItem :value="props.value">
+  <ArkFieldItem :value="value">
     <div
       ref="itemElement"
-      v-bind="{ ...attrs, ...forwardedProps }"
-      :class="cn('grid gap-1', props.class)"
+      v-bind="attrs"
+      :class="cn('grid gap-1', className)"
       data-slot="field-item"
     >
       <slot />

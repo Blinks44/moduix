@@ -1,0 +1,47 @@
+{
+  "$schema": "https://ui.shadcn.com/schema/registry-item.json",
+  "name": "fieldset",
+  "title": "Fieldset",
+  "description": "moduix Vue Tailwind Fieldset component.",
+  "dependencies": ["@ark-ui/vue", "clsx", "tailwind-merge"],
+  "registryDependencies": ["@moduix-vue-tailwind/foundation", "@moduix-vue-tailwind/cn"],
+  "files": [
+    {
+      "path": "src/components/fieldset/Fieldset.vue",
+      "content": "<script setup lang=\"ts\">\nimport { FieldsetRoot as ArkFieldsetRoot } from '@ark-ui/vue/fieldset';\nimport type { FieldsetRootProps } from '@ark-ui/vue/fieldset';\nimport { useAttrs } from 'vue';\nimport type { HTMLAttributes } from 'vue';\nimport { cn } from '@/lib/moduix/cn';\n\ndefineOptions({ inheritAttrs: false });\n\nexport interface Props extends /* @vue-ignore */ FieldsetRootProps {\n  class?: HTMLAttributes['class'];\n}\n\nconst { class: className } = defineProps<Props>();\ndefineSlots<{ default?: () => unknown }>();\n\nconst attrs = useAttrs();\nconst rootClass =\n  'flex w-full max-w-none min-w-0 flex-col gap-4 border-transparent data-disabled:opacity-50 data-invalid:border-destructive';\n</script>\n\n<template>\n  <ArkFieldsetRoot v-bind=\"attrs\" :class=\"cn(rootClass, className)\" data-slot=\"fieldset-root\">\n    <slot />\n  </ArkFieldsetRoot>\n</template>",
+      "type": "registry:component",
+      "target": "@components/ui/fieldset/Fieldset.vue"
+    },
+    {
+      "path": "src/components/fieldset/FieldsetRootProvider.vue",
+      "content": "<script setup lang=\"ts\">\nimport { FieldsetRootProvider as ArkFieldsetRootProvider } from '@ark-ui/vue/fieldset';\nimport type { FieldsetRootProviderProps } from '@ark-ui/vue/fieldset';\nimport { useAttrs } from 'vue';\nimport type { HTMLAttributes } from 'vue';\nimport { cn } from '@/lib/moduix/cn';\n\ndefineOptions({ inheritAttrs: false });\n\nexport interface Props extends /* @vue-ignore */ FieldsetRootProviderProps {\n  class?: HTMLAttributes['class'];\n  value: FieldsetRootProviderProps['value'];\n}\n\nconst { class: className, value } = defineProps<Props>();\ndefineSlots<{ default?: () => unknown }>();\n\nconst attrs = useAttrs();\nconst rootClass =\n  'flex w-full max-w-none min-w-0 flex-col gap-4 border-transparent data-disabled:opacity-50 data-invalid:border-destructive';\n</script>\n\n<template>\n  <ArkFieldsetRootProvider\n    v-bind=\"attrs\"\n    :class=\"cn(rootClass, className)\"\n    :value=\"value\"\n    data-slot=\"fieldset-root-provider\"\n  >\n    <slot />\n  </ArkFieldsetRootProvider>\n</template>",
+      "type": "registry:component",
+      "target": "@components/ui/fieldset/FieldsetRootProvider.vue"
+    },
+    {
+      "path": "src/components/fieldset/FieldsetLegend.vue",
+      "content": "<script setup lang=\"ts\">\nimport { FieldsetLegend as ArkFieldsetLegend } from '@ark-ui/vue/fieldset';\nimport type { FieldsetLegendProps } from '@ark-ui/vue/fieldset';\nimport { useAttrs } from 'vue';\nimport type { HTMLAttributes } from 'vue';\nimport { cn } from '@/lib/moduix/cn';\n\ndefineOptions({ inheritAttrs: false });\n\nexport interface Props extends /* @vue-ignore */ FieldsetLegendProps {\n  class?: HTMLAttributes['class'];\n}\n\nconst { class: className } = defineProps<Props>();\ndefineSlots<{ default?: () => unknown }>();\n\nconst attrs = useAttrs();\n</script>\n\n<template>\n  <ArkFieldsetLegend\n    v-bind=\"attrs\"\n    :class=\"\n      cn(\n        'inline-block max-w-full pb-3 text-lg font-semibold wrap-anywhere text-foreground',\n        className,\n      )\n    \"\n    data-slot=\"fieldset-legend\"\n  >\n    <slot />\n  </ArkFieldsetLegend>\n</template>",
+      "type": "registry:component",
+      "target": "@components/ui/fieldset/FieldsetLegend.vue"
+    },
+    {
+      "path": "src/components/fieldset/FieldsetHelperText.vue",
+      "content": "<script setup lang=\"ts\">\nimport { FieldsetHelperText as ArkFieldsetHelperText } from '@ark-ui/vue/fieldset';\nimport type { FieldsetHelperTextProps } from '@ark-ui/vue/fieldset';\nimport { useAttrs } from 'vue';\nimport type { HTMLAttributes } from 'vue';\nimport { cn } from '@/lib/moduix/cn';\n\ndefineOptions({ inheritAttrs: false });\n\nexport interface Props extends /* @vue-ignore */ FieldsetHelperTextProps {\n  class?: HTMLAttributes['class'];\n}\n\nconst { class: className } = defineProps<Props>();\ndefineSlots<{ default?: () => unknown }>();\n\nconst attrs = useAttrs();\n</script>\n\n<template>\n  <ArkFieldsetHelperText\n    v-bind=\"attrs\"\n    :class=\"cn('text-sm wrap-anywhere text-muted-foreground', className)\"\n    data-slot=\"fieldset-helper-text\"\n  >\n    <slot />\n  </ArkFieldsetHelperText>\n</template>",
+      "type": "registry:component",
+      "target": "@components/ui/fieldset/FieldsetHelperText.vue"
+    },
+    {
+      "path": "src/components/fieldset/FieldsetErrorText.vue",
+      "content": "<script setup lang=\"ts\">\nimport { FieldsetErrorText as ArkFieldsetErrorText } from '@ark-ui/vue/fieldset';\nimport type { FieldsetErrorTextProps } from '@ark-ui/vue/fieldset';\nimport { useAttrs } from 'vue';\nimport type { HTMLAttributes } from 'vue';\nimport { cn } from '@/lib/moduix/cn';\n\ndefineOptions({ inheritAttrs: false });\n\nexport interface Props extends /* @vue-ignore */ FieldsetErrorTextProps {\n  class?: HTMLAttributes['class'];\n}\n\nconst { class: className } = defineProps<Props>();\ndefineSlots<{ default?: () => unknown }>();\n\nconst attrs = useAttrs();\n</script>\n\n<template>\n  <ArkFieldsetErrorText\n    v-bind=\"attrs\"\n    :class=\"cn('text-sm font-medium wrap-anywhere text-destructive', className)\"\n    data-slot=\"fieldset-error-text\"\n  >\n    <slot />\n  </ArkFieldsetErrorText>\n</template>",
+      "type": "registry:component",
+      "target": "@components/ui/fieldset/FieldsetErrorText.vue"
+    },
+    {
+      "path": "src/components/fieldset/index.ts",
+      "content": "import { FieldsetContext, useFieldset, useFieldsetContext } from '@ark-ui/vue/fieldset';\nimport Fieldset from './Fieldset.vue';\nimport FieldsetErrorText from './FieldsetErrorText.vue';\nimport FieldsetHelperText from './FieldsetHelperText.vue';\nimport FieldsetLegend from './FieldsetLegend.vue';\nimport FieldsetRootProvider from './FieldsetRootProvider.vue';\n\nexport {\n  Fieldset,\n  FieldsetContext,\n  FieldsetErrorText,\n  FieldsetHelperText,\n  FieldsetLegend,\n  FieldsetRootProvider,\n  useFieldset,\n  useFieldsetContext,\n};\n\nexport type {\n  FieldsetContextProps,\n  FieldsetErrorTextProps,\n  FieldsetHelperTextProps,\n  FieldsetLegendProps,\n  FieldsetRootProps,\n  FieldsetRootProviderProps,\n  UseFieldsetContext,\n  UseFieldsetProps,\n  UseFieldsetReturn,\n} from '@ark-ui/vue/fieldset';",
+      "type": "registry:component",
+      "target": "@components/ui/fieldset/index.ts"
+    }
+  ],
+  "type": "registry:item"
+}

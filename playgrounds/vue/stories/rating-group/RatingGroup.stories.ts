@@ -21,6 +21,7 @@ import styles from './RatingGroup.stories.module.css';
 const meta = {
   title: 'Components/RatingGroup',
   component: RatingGroup,
+  tags: ['autodocs'],
   parameters: { layout: 'centered' },
 } satisfies Meta<typeof RatingGroup>;
 

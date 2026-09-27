@@ -56,7 +56,6 @@
     color: inherit;
     line-height: 0;
     cursor: pointer;
-    outline: none;
     transition:
       color var(--moduix-rating-group-transition, var(--moduix-transition-default)),
       opacity var(--moduix-rating-group-transition, var(--moduix-transition-default));
@@ -68,6 +67,15 @@
 
     &[data-disabled] {
       pointer-events: none;
+    }
+
+    &:focus-visible {
+      outline: var(
+          --moduix-rating-group-focus-ring-width,
+          var(--moduix-focus-ring-inset-width, var(--moduix-border-width-sm))
+        )
+        solid var(--moduix-rating-group-focus-ring-color, var(--moduix-color-ring));
+      outline-offset: var(--moduix-rating-group-focus-ring-offset, var(--moduix-border-width-sm));
     }
   }
 

@@ -8,7 +8,7 @@ import styles from './RatingGroup.module.css';
 
 defineOptions({ inheritAttrs: false });
 
-export interface RatingGroupItemIndicatorProps extends HTMLAttributes {
+export interface RatingGroupItemIndicatorProps extends /* @vue-ignore */ HTMLAttributes {
   class?: HTMLAttributes['class'];
 }
 

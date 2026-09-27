@@ -20,6 +20,7 @@ import styles from './RadioGroup.stories.module.css';
 const meta = {
   title: 'Components/RadioGroup',
   component: RadioGroup,
+  tags: ['autodocs'],
   parameters: { layout: 'centered' },
 } satisfies Meta<typeof RadioGroup>;
 

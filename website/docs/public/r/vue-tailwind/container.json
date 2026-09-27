@@ -1,0 +1,23 @@
+{
+  "$schema": "https://ui.shadcn.com/schema/registry-item.json",
+  "name": "container",
+  "title": "Container",
+  "description": "moduix Vue Tailwind Container component.",
+  "dependencies": ["@ark-ui/vue", "class-variance-authority", "clsx", "tailwind-merge"],
+  "registryDependencies": ["@moduix-vue-tailwind/foundation", "@moduix-vue-tailwind/cn"],
+  "files": [
+    {
+      "path": "src/components/container/Container.vue",
+      "content": "<script setup lang=\"ts\">\nimport { ark } from '@ark-ui/vue/factory';\nimport type { HTMLArkProps } from '@ark-ui/vue/factory';\nimport { cva } from 'class-variance-authority';\nimport { useAttrs } from 'vue';\nimport type { HTMLAttributes } from 'vue';\nimport { cn } from '@/lib/moduix/cn';\n\ntype ContainerSize = 'xs' | 'sm' | 'md' | 'lg' | 'xl' | 'full';\ntype ContainerGutter = 'none' | 'sm' | 'md' | 'lg';\n\nconst containerVariants = cva('w-full min-w-0 mx-auto', {\n  variants: {\n    size: {\n      xs: 'max-w-[calc(40rem_+_(clamp(1rem,4vw,2rem)*2))]',\n      sm: 'max-w-[calc(48rem_+_(clamp(1rem,4vw,2rem)*2))]',\n      md: 'max-w-[calc(64rem_+_(clamp(1rem,4vw,2rem)*2))]',\n      lg: 'max-w-[calc(72rem_+_(clamp(1rem,4vw,2rem)*2))]',\n      xl: 'max-w-[calc(90rem_+_(clamp(1rem,4vw,2rem)*2))]',\n      full: 'max-w-none',\n    },\n    gutter: {\n      none: 'px-0',\n      sm: 'px-[clamp(0.75rem,3vw,1.5rem)]',\n      md: 'px-[clamp(1rem,4vw,2rem)]',\n      lg: 'px-[clamp(1.5rem,5vw,3rem)]',\n    },\n  },\n  compoundVariants: [\n    { size: 'xs', gutter: 'none', class: 'max-w-[40rem]' },\n    { size: 'xs', gutter: 'sm', class: 'max-w-[calc(40rem_+_(clamp(0.75rem,3vw,1.5rem)*2))]' },\n    { size: 'xs', gutter: 'lg', class: 'max-w-[calc(40rem_+_(clamp(1.5rem,5vw,3rem)*2))]' },\n    { size: 'sm', gutter: 'none', class: 'max-w-[48rem]' },\n    { size: 'sm', gutter: 'sm', class: 'max-w-[calc(48rem_+_(clamp(0.75rem,3vw,1.5rem)*2))]' },\n    { size: 'sm', gutter: 'lg', class: 'max-w-[calc(48rem_+_(clamp(1.5rem,5vw,3rem)*2))]' },\n    { size: 'md', gutter: 'none', class: 'max-w-[64rem]' },\n    { size: 'md', gutter: 'sm', class: 'max-w-[calc(64rem_+_(clamp(0.75rem,3vw,1.5rem)*2))]' },\n    { size: 'md', gutter: 'lg', class: 'max-w-[calc(64rem_+_(clamp(1.5rem,5vw,3rem)*2))]' },\n    { size: 'lg', gutter: 'none', class: 'max-w-[72rem]' },\n    { size: 'lg', gutter: 'sm', class: 'max-w-[calc(72rem_+_(clamp(0.75rem,3vw,1.5rem)*2))]' },\n    { size: 'lg', gutter: 'lg', class: 'max-w-[calc(72rem_+_(clamp(1.5rem,5vw,3rem)*2))]' },\n    { size: 'xl', gutter: 'none', class: 'max-w-[90rem]' },\n    { size: 'xl', gutter: 'sm', class: 'max-w-[calc(90rem_+_(clamp(0.75rem,3vw,1.5rem)*2))]' },\n    { size: 'xl', gutter: 'lg', class: 'max-w-[calc(90rem_+_(clamp(1.5rem,5vw,3rem)*2))]' },\n  ],\n  defaultVariants: {\n    size: 'lg',\n    gutter: 'md',\n  },\n});\n\ndefineOptions({ inheritAttrs: false });\n\nexport interface Props extends /* @vue-ignore */ HTMLArkProps<'div'> {\n  class?: HTMLAttributes['class'];\n  gutter?: ContainerGutter;\n  size?: ContainerSize;\n}\n\nconst { class: className, gutter = 'md', size = 'lg' } = defineProps<Props>();\ndefineSlots<{ default?: () => unknown }>();\n\nconst attrs = useAttrs();\n</script>\n\n<template>\n  <ark.div\n    v-bind=\"attrs\"\n    :class=\"cn(containerVariants({ size, gutter }), className)\"\n    data-scope=\"container\"\n    data-part=\"root\"\n    data-slot=\"container-root\"\n    :data-size=\"size\"\n    :data-gutter=\"gutter\"\n  >\n    <slot />\n  </ark.div>\n</template>",
+      "type": "registry:component",
+      "target": "@components/ui/container/Container.vue"
+    },
+    {
+      "path": "src/components/container/index.ts",
+      "content": "export { default as Container } from './Container.vue';",
+      "type": "registry:component",
+      "target": "@components/ui/container/index.ts"
+    }
+  ],
+  "type": "registry:item"
+}

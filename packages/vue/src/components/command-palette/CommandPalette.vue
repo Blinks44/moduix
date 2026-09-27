@@ -11,7 +11,6 @@ defineOptions({ inheritAttrs: false });
 
 export interface Props extends /* @vue-ignore */ DialogRootProps {
   ariaLabel?: DialogRootProps['aria-label'];
-  'aria-label'?: DialogRootProps['aria-label'];
   closeOnEscape?: DialogRootProps['closeOnEscape'];
   closeOnInteractOutside?: DialogRootProps['closeOnInteractOutside'];
   defaultOpen?: DialogRootProps['defaultOpen'];

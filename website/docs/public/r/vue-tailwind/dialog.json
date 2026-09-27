@@ -1,0 +1,106 @@
+{
+  "$schema": "https://ui.shadcn.com/schema/registry-item.json",
+  "name": "dialog",
+  "title": "Dialog",
+  "description": "moduix Vue Tailwind Dialog component.",
+  "dependencies": ["@ark-ui/vue", "clsx", "tailwind-merge"],
+  "registryDependencies": [
+    "@moduix-vue-tailwind/foundation",
+    "@moduix-vue-tailwind/cn",
+    "@moduix-vue-tailwind/close-button",
+    "@moduix-vue-tailwind/overlay-portal"
+  ],
+  "files": [
+    {
+      "path": "src/components/dialog/Dialog.vue",
+      "content": "<script setup lang=\"ts\">\nimport { DialogRoot as ArkDialogRoot } from '@ark-ui/vue/dialog';\nimport type { DialogRootEmits, DialogRootProps } from '@ark-ui/vue/dialog';\nimport { useAttrs } from 'vue';\nimport type { PortalRef } from '../../internal/overlayPortal/context';\nimport OverlayPortalProvider from '../../internal/overlayPortal/OverlayPortalProvider.vue';\n\ndefineOptions({ inheritAttrs: false });\n\nexport interface Props extends /* @vue-ignore */ DialogRootProps {\n  lazyMount?: boolean;\n  portalled?: boolean;\n  portalRef?: PortalRef;\n  unmountOnExit?: boolean;\n}\n\nexport interface Emits extends /* @vue-ignore */ DialogRootEmits {}\n\nconst {\n  lazyMount = true,\n  portalled = true,\n  portalRef,\n  unmountOnExit = true,\n} = defineProps<Props>();\ndefineEmits<Emits>();\ndefineSlots<{ default?: () => unknown }>();\nconst attrs = useAttrs();\n</script>\n\n<template>\n  <OverlayPortalProvider :portalled=\"portalled\" :portal-ref=\"portalRef\">\n    <ArkDialogRoot v-bind=\"attrs\" :lazy-mount=\"lazyMount\" :unmount-on-exit=\"unmountOnExit\">\n      <slot />\n    </ArkDialogRoot>\n  </OverlayPortalProvider>\n</template>",
+      "type": "registry:component",
+      "target": "@components/ui/dialog/Dialog.vue"
+    },
+    {
+      "path": "src/components/dialog/DialogRootProvider.vue",
+      "content": "<script setup lang=\"ts\">\nimport { DialogRootProvider as ArkDialogRootProvider } from '@ark-ui/vue/dialog';\nimport type { DialogRootProviderEmits, DialogRootProviderProps } from '@ark-ui/vue/dialog';\nimport { useAttrs } from 'vue';\nimport type { PortalRef } from '../../internal/overlayPortal/context';\nimport OverlayPortalProvider from '../../internal/overlayPortal/OverlayPortalProvider.vue';\n\ndefineOptions({ inheritAttrs: false });\n\nexport interface Props extends /* @vue-ignore */ DialogRootProviderProps {\n  lazyMount?: boolean;\n  portalled?: boolean;\n  portalRef?: PortalRef;\n  unmountOnExit?: boolean;\n  value: DialogRootProviderProps['value'];\n}\n\nexport interface Emits extends /* @vue-ignore */ DialogRootProviderEmits {}\n\nconst {\n  lazyMount = true,\n  portalled = true,\n  portalRef,\n  unmountOnExit = true,\n  value,\n} = defineProps<Props>();\ndefineEmits<Emits>();\ndefineSlots<{ default?: () => unknown }>();\nconst attrs = useAttrs();\n</script>\n\n<template>\n  <OverlayPortalProvider :portalled=\"portalled\" :portal-ref=\"portalRef\">\n    <ArkDialogRootProvider\n      v-bind=\"attrs\"\n      :lazy-mount=\"lazyMount\"\n      :unmount-on-exit=\"unmountOnExit\"\n      :value=\"value\"\n    >\n      <slot />\n    </ArkDialogRootProvider>\n  </OverlayPortalProvider>\n</template>",
+      "type": "registry:component",
+      "target": "@components/ui/dialog/DialogRootProvider.vue"
+    },
+    {
+      "path": "src/components/dialog/DialogTrigger.vue",
+      "content": "<script setup lang=\"ts\">\nimport { DialogTrigger as ArkDialogTrigger } from '@ark-ui/vue/dialog';\nimport type { DialogTriggerProps } from '@ark-ui/vue/dialog';\nimport { useAttrs } from 'vue';\nimport type { HTMLAttributes } from 'vue';\nimport { cn } from '@/lib/moduix/cn';\n\ndefineOptions({ inheritAttrs: false });\n\ninterface Props extends /* @vue-ignore */ DialogTriggerProps {\n  asChild?: boolean;\n  class?: HTMLAttributes['class'];\n}\n\nconst { asChild = false, class: className } = defineProps<Props>();\ndefineSlots<{ default?: () => unknown }>();\nconst attrs = useAttrs();\n</script>\n\n<template>\n  <ArkDialogTrigger\n    v-bind=\"attrs\"\n    :as-child=\"asChild\"\n    :class=\"\n      cn(\n        !asChild &&\n          'inline-flex min-h-control-md cursor-pointer items-center justify-center rounded-md border border-border bg-background px-3.5 py-1 text-md leading-6 text-foreground transition-[background-color,border-color,color] duration-200 ease-in-out select-none focus-visible:outline-1 focus-visible:-outline-offset-1 focus-visible:outline-ring disabled:pointer-events-none disabled:opacity-50 data-disabled:pointer-events-none data-disabled:opacity-50 motion-reduce:transition-none [@media(hover:hover)]:hover:bg-accent',\n        className,\n      )\n    \"\n    data-slot=\"dialog-trigger\"\n  >\n    <slot />\n  </ArkDialogTrigger>\n</template>",
+      "type": "registry:component",
+      "target": "@components/ui/dialog/DialogTrigger.vue"
+    },
+    {
+      "path": "src/components/dialog/DialogBackdrop.vue",
+      "content": "<script setup lang=\"ts\">\nimport { DialogBackdrop as ArkDialogBackdrop } from '@ark-ui/vue/dialog';\nimport type { DialogBackdropProps } from '@ark-ui/vue/dialog';\nimport { useForwardExpose } from '@ark-ui/vue/utils';\nimport { useAttrs } from 'vue';\nimport type { HTMLAttributes } from 'vue';\nimport { cn } from '@/lib/moduix/cn';\nimport OverlayPortal from '../../internal/overlayPortal/OverlayPortal.vue';\n\ndefineOptions({ inheritAttrs: false });\n\ninterface Props extends /* @vue-ignore */ DialogBackdropProps {\n  class?: HTMLAttributes['class'];\n}\n\nconst { class: className } = defineProps<Props>();\ndefineSlots<{ default?: () => unknown }>();\nconst attrs = useAttrs();\nconst { forwardRef } = useForwardExpose();\n</script>\n\n<template>\n  <OverlayPortal>\n    <ArkDialogBackdrop\n      :ref=\"forwardRef\"\n      v-bind=\"attrs\"\n      :class=\"\n        cn(\n          'fixed inset-0 z-[calc(40+var(--layer-index,0))] bg-overlay backdrop-blur-[4px] data-[state=closed]:animate-[moduix-fade-out_200ms_ease-in-out_forwards] data-[state=open]:animate-[moduix-fade-in_200ms_ease-in-out] motion-reduce:animate-none',\n          className,\n        )\n      \"\n      data-slot=\"dialog-backdrop\"\n    >\n      <slot />\n    </ArkDialogBackdrop>\n  </OverlayPortal>\n</template>",
+      "type": "registry:component",
+      "target": "@components/ui/dialog/DialogBackdrop.vue"
+    },
+    {
+      "path": "src/components/dialog/DialogPositioner.vue",
+      "content": "<script setup lang=\"ts\">\nimport { DialogPositioner as ArkDialogPositioner } from '@ark-ui/vue/dialog';\nimport type { DialogPositionerProps } from '@ark-ui/vue/dialog';\nimport { useForwardExpose } from '@ark-ui/vue/utils';\nimport { useAttrs } from 'vue';\nimport type { HTMLAttributes } from 'vue';\nimport { cn } from '@/lib/moduix/cn';\nimport OverlayPortal from '../../internal/overlayPortal/OverlayPortal.vue';\n\ndefineOptions({ inheritAttrs: false });\n\ninterface Props extends /* @vue-ignore */ DialogPositionerProps {\n  class?: HTMLAttributes['class'];\n}\n\nconst { class: className } = defineProps<Props>();\ndefineSlots<{ default?: () => unknown }>();\nconst attrs = useAttrs();\nconst { forwardRef } = useForwardExpose();\n</script>\n\n<template>\n  <OverlayPortal>\n    <ArkDialogPositioner\n      :ref=\"forwardRef\"\n      v-bind=\"attrs\"\n      :class=\"\n        cn(\n          'fixed inset-0 z-[calc(50+var(--layer-index,0))] grid [scrollbar-gutter:stable_both-edges] place-items-center overflow-y-auto overscroll-contain p-4',\n          className,\n        )\n      \"\n      data-slot=\"dialog-positioner\"\n    >\n      <slot />\n    </ArkDialogPositioner>\n  </OverlayPortal>\n</template>",
+      "type": "registry:component",
+      "target": "@components/ui/dialog/DialogPositioner.vue"
+    },
+    {
+      "path": "src/components/dialog/DialogContent.vue",
+      "content": "<script setup lang=\"ts\">\nimport { DialogContent as ArkDialogContent } from '@ark-ui/vue/dialog';\nimport type { DialogContentProps } from '@ark-ui/vue/dialog';\nimport { useAttrs } from 'vue';\nimport type { HTMLAttributes } from 'vue';\nimport { cn } from '@/lib/moduix/cn';\n\ndefineOptions({ inheritAttrs: false });\n\ninterface Props extends /* @vue-ignore */ DialogContentProps {\n  class?: HTMLAttributes['class'];\n}\n\nconst { class: className } = defineProps<Props>();\ndefineSlots<{ default?: () => unknown }>();\nconst attrs = useAttrs();\n</script>\n\n<template>\n  <ArkDialogContent\n    v-bind=\"attrs\"\n    :class=\"\n      cn(\n        `relative max-h-[calc(100dvh-2rem)] w-[min(28rem,calc(100vw-2rem))] max-w-full origin-top rounded-lg border border-border bg-popover p-6 text-popover-foreground shadow-lg outline-0 transition-[scale,translate] duration-200 ease-in-out after:pointer-events-none after:absolute after:inset-0 after:z-1 after:rounded-[inherit] after:bg-black/5 after:opacity-0 after:transition-opacity after:duration-200 after:ease-in-out after:content-[''] data-[has-nested]:[translate:0_calc(2.5rem*var(--nested-layer-count,0))] data-[has-nested]:[scale:calc(1-0.05*var(--nested-layer-count,0))] data-[has-nested]:after:opacity-100 data-[state=closed]:animate-moduix-menu-closed data-[state=open]:animate-moduix-menu-open motion-reduce:animate-none motion-reduce:transition-none`,\n        className,\n      )\n    \"\n    data-slot=\"dialog-content\"\n  >\n    <slot />\n  </ArkDialogContent>\n</template>",
+      "type": "registry:component",
+      "target": "@components/ui/dialog/DialogContent.vue"
+    },
+    {
+      "path": "src/components/dialog/DialogTitle.vue",
+      "content": "<script setup lang=\"ts\">\nimport { DialogTitle as ArkDialogTitle } from '@ark-ui/vue/dialog';\nimport type { DialogTitleProps } from '@ark-ui/vue/dialog';\nimport { useAttrs } from 'vue';\nimport type { HTMLAttributes } from 'vue';\nimport { cn } from '@/lib/moduix/cn';\n\ndefineOptions({ inheritAttrs: false });\n\ninterface Props extends /* @vue-ignore */ DialogTitleProps {\n  class?: HTMLAttributes['class'];\n}\n\nconst { class: className } = defineProps<Props>();\ndefineSlots<{ default?: () => unknown }>();\nconst attrs = useAttrs();\n</script>\n\n<template>\n  <ArkDialogTitle\n    v-bind=\"attrs\"\n    :class=\"cn('text-lg font-semibold text-popover-foreground', className)\"\n    data-slot=\"dialog-title\"\n  >\n    <slot />\n  </ArkDialogTitle>\n</template>",
+      "type": "registry:component",
+      "target": "@components/ui/dialog/DialogTitle.vue"
+    },
+    {
+      "path": "src/components/dialog/DialogDescription.vue",
+      "content": "<script setup lang=\"ts\">\nimport { DialogDescription as ArkDialogDescription } from '@ark-ui/vue/dialog';\nimport type { DialogDescriptionProps } from '@ark-ui/vue/dialog';\nimport { useAttrs } from 'vue';\nimport type { HTMLAttributes } from 'vue';\nimport { cn } from '@/lib/moduix/cn';\n\ndefineOptions({ inheritAttrs: false });\n\ninterface Props extends /* @vue-ignore */ DialogDescriptionProps {\n  class?: HTMLAttributes['class'];\n}\n\nconst { class: className } = defineProps<Props>();\ndefineSlots<{ default?: () => unknown }>();\nconst attrs = useAttrs();\n</script>\n\n<template>\n  <ArkDialogDescription\n    v-bind=\"attrs\"\n    :class=\"cn('text-md text-muted-foreground', className)\"\n    data-slot=\"dialog-description\"\n  >\n    <slot />\n  </ArkDialogDescription>\n</template>",
+      "type": "registry:component",
+      "target": "@components/ui/dialog/DialogDescription.vue"
+    },
+    {
+      "path": "src/components/dialog/DialogCloseTrigger.vue",
+      "content": "<script setup lang=\"ts\">\nimport { DialogCloseTrigger as ArkDialogCloseTrigger } from '@ark-ui/vue/dialog';\nimport type { DialogCloseTriggerProps } from '@ark-ui/vue/dialog';\nimport { useAttrs } from 'vue';\nimport type { HTMLAttributes } from 'vue';\nimport { cn } from '@/lib/moduix/cn';\n\ndefineOptions({ inheritAttrs: false });\n\ninterface Props extends /* @vue-ignore */ DialogCloseTriggerProps {\n  asChild?: boolean;\n  class?: HTMLAttributes['class'];\n}\n\nconst { asChild = false, class: className } = defineProps<Props>();\ndefineSlots<{ default?: () => unknown }>();\nconst attrs = useAttrs();\n</script>\n\n<template>\n  <ArkDialogCloseTrigger\n    v-bind=\"attrs\"\n    :as-child=\"asChild\"\n    :class=\"\n      cn(\n        !asChild &&\n          'inline-flex min-h-control-md cursor-pointer items-center justify-center rounded-md border border-border bg-background px-3.5 py-1 text-md leading-6 text-foreground transition-[background-color,border-color,color] duration-200 ease-in-out select-none focus-visible:outline-1 focus-visible:-outline-offset-1 focus-visible:outline-ring disabled:pointer-events-none disabled:opacity-50 data-disabled:pointer-events-none data-disabled:opacity-50 motion-reduce:transition-none [@media(hover:hover)]:hover:bg-accent',\n        className,\n      )\n    \"\n    data-slot=\"dialog-close-trigger\"\n  >\n    <slot />\n  </ArkDialogCloseTrigger>\n</template>",
+      "type": "registry:component",
+      "target": "@components/ui/dialog/DialogCloseTrigger.vue"
+    },
+    {
+      "path": "src/components/dialog/DialogCloseIcon.vue",
+      "content": "<script setup lang=\"ts\">\nimport { DialogCloseTrigger as ArkDialogCloseTrigger } from '@ark-ui/vue/dialog';\nimport type { DialogCloseTriggerProps } from '@ark-ui/vue/dialog';\nimport { computed, useAttrs } from 'vue';\nimport type { HTMLAttributes } from 'vue';\nimport { cn } from '@/lib/moduix/cn';\nimport CloseButton from '../close-button/CloseButton.vue';\n\ndefineOptions({ inheritAttrs: false });\n\ninterface Props extends /* @vue-ignore */ Omit<DialogCloseTriggerProps, 'asChild'> {\n  class?: HTMLAttributes['class'];\n}\n\nconst { class: className } = defineProps<Props>();\ndefineSlots<{ default?: () => unknown }>();\nconst attrs = useAttrs();\nconst closeLabel = computed(() => (attrs['aria-label'] as string | undefined) ?? 'Close dialog');\n</script>\n\n<template>\n  <ArkDialogCloseTrigger v-bind=\"attrs\" as-child>\n    <CloseButton\n      :aria-label=\"closeLabel\"\n      :class=\"\n        cn(\n          'absolute end-4 top-4 z-2 size-7 rounded-md bg-transparent text-muted-foreground transition-[background-color,color,opacity] duration-200 ease-in-out select-none focus-visible:outline-1 focus-visible:-outline-offset-1 focus-visible:outline-ring motion-reduce:transition-none [&>svg]:size-3 [&>svg]:shrink-0 [@media(hover:hover)]:[&:not([data-disabled]):hover]:bg-accent [@media(hover:hover)]:[&:not([data-disabled]):hover]:text-popover-foreground',\n          className,\n        )\n      \"\n      data-slot=\"dialog-close-icon\"\n    >\n      <slot v-if=\"$slots.default\" />\n    </CloseButton>\n  </ArkDialogCloseTrigger>\n</template>",
+      "type": "registry:component",
+      "target": "@components/ui/dialog/DialogCloseIcon.vue"
+    },
+    {
+      "path": "src/components/dialog/DialogHeader.vue",
+      "content": "<script setup lang=\"ts\">\nimport { ark } from '@ark-ui/vue/factory';\nimport type { HTMLArkProps } from '@ark-ui/vue/factory';\nimport { useAttrs } from 'vue';\nimport type { HTMLAttributes } from 'vue';\nimport { cn } from '@/lib/moduix/cn';\n\ndefineOptions({ inheritAttrs: false });\n\ninterface Props extends /* @vue-ignore */ HTMLArkProps<'div'> {\n  class?: HTMLAttributes['class'];\n}\n\nconst { class: className } = defineProps<Props>();\ndefineSlots<{ default?: () => unknown }>();\nconst attrs = useAttrs();\n</script>\n\n<template>\n  <ark.div\n    v-bind=\"attrs\"\n    :class=\"\n      cn(\n        `grid grid-cols-[minmax(0,1fr)_auto] items-start gap-1 [&>[data-slot='dialog-close-trigger']]:col-start-2 [&>[data-slot='dialog-close-trigger']]:justify-self-end [&>[data-slot='dialog-description']]:col-span-2 [&>[data-slot='dialog-title']]:col-start-1`,\n        className,\n      )\n    \"\n    data-slot=\"dialog-header\"\n  >\n    <slot />\n  </ark.div>\n</template>",
+      "type": "registry:component",
+      "target": "@components/ui/dialog/DialogHeader.vue"
+    },
+    {
+      "path": "src/components/dialog/DialogBody.vue",
+      "content": "<script setup lang=\"ts\">\nimport { ark } from '@ark-ui/vue/factory';\nimport type { HTMLArkProps } from '@ark-ui/vue/factory';\nimport { useAttrs } from 'vue';\nimport type { HTMLAttributes } from 'vue';\nimport { cn } from '@/lib/moduix/cn';\n\ndefineOptions({ inheritAttrs: false });\n\ninterface Props extends /* @vue-ignore */ HTMLArkProps<'div'> {\n  class?: HTMLAttributes['class'];\n}\n\nconst { class: className } = defineProps<Props>();\ndefineSlots<{ default?: () => unknown }>();\nconst attrs = useAttrs();\n</script>\n\n<template>\n  <ark.div\n    v-bind=\"attrs\"\n    :class=\"cn('mt-4 text-md text-muted-foreground', className)\"\n    data-slot=\"dialog-body\"\n  >\n    <slot />\n  </ark.div>\n</template>",
+      "type": "registry:component",
+      "target": "@components/ui/dialog/DialogBody.vue"
+    },
+    {
+      "path": "src/components/dialog/DialogFooter.vue",
+      "content": "<script setup lang=\"ts\">\nimport { ark } from '@ark-ui/vue/factory';\nimport type { HTMLArkProps } from '@ark-ui/vue/factory';\nimport { useAttrs } from 'vue';\nimport type { HTMLAttributes } from 'vue';\nimport { cn } from '@/lib/moduix/cn';\n\ndefineOptions({ inheritAttrs: false });\n\ninterface Props extends /* @vue-ignore */ HTMLArkProps<'div'> {\n  class?: HTMLAttributes['class'];\n}\n\nconst { class: className } = defineProps<Props>();\ndefineSlots<{ default?: () => unknown }>();\nconst attrs = useAttrs();\n</script>\n\n<template>\n  <ark.div\n    v-bind=\"attrs\"\n    :class=\"cn('mt-6 flex justify-end gap-2', className)\"\n    data-slot=\"dialog-footer\"\n  >\n    <slot />\n  </ark.div>\n</template>",
+      "type": "registry:component",
+      "target": "@components/ui/dialog/DialogFooter.vue"
+    },
+    {
+      "path": "src/components/dialog/DialogContext.vue",
+      "content": "<script setup lang=\"ts\">\nimport { DialogContext as ArkDialogContext, type UseDialogContext } from '@ark-ui/vue/dialog';\nimport type { UnwrapRef } from 'vue';\n\ndefineSlots<{ default: (context: UnwrapRef<UseDialogContext>) => unknown }>();\n</script>\n\n<template>\n  <ArkDialogContext v-slot=\"context\">\n    <slot v-bind=\"context\" />\n  </ArkDialogContext>\n</template>",
+      "type": "registry:component",
+      "target": "@components/ui/dialog/DialogContext.vue"
+    },
+    {
+      "path": "src/components/dialog/index.ts",
+      "content": "import { useDialog, useDialogContext } from '@ark-ui/vue/dialog';\nimport Dialog from './Dialog.vue';\nimport DialogBackdrop from './DialogBackdrop.vue';\nimport DialogBody from './DialogBody.vue';\nimport DialogCloseIcon from './DialogCloseIcon.vue';\nimport DialogCloseTrigger from './DialogCloseTrigger.vue';\nimport DialogContent from './DialogContent.vue';\nimport DialogContext from './DialogContext.vue';\nimport DialogDescription from './DialogDescription.vue';\nimport DialogFooter from './DialogFooter.vue';\nimport DialogHeader from './DialogHeader.vue';\nimport DialogPositioner from './DialogPositioner.vue';\nimport DialogRootProvider from './DialogRootProvider.vue';\nimport DialogTitle from './DialogTitle.vue';\nimport DialogTrigger from './DialogTrigger.vue';\n\nexport {\n  Dialog,\n  DialogBackdrop,\n  DialogBody,\n  DialogCloseIcon,\n  DialogCloseTrigger,\n  DialogContent,\n  DialogContext,\n  DialogDescription,\n  DialogFooter,\n  DialogHeader,\n  DialogPositioner,\n  DialogRootProvider,\n  DialogTitle,\n  DialogTrigger,\n  useDialog,\n  useDialogContext,\n};\n\nexport type {\n  DialogBackdropProps,\n  DialogCloseTriggerProps,\n  DialogContentProps,\n  DialogContextProps,\n  DialogDescriptionProps,\n  DialogFocusOutsideEvent,\n  DialogInteractOutsideEvent,\n  DialogOpenChangeDetails,\n  DialogPointerDownOutsideEvent,\n  DialogPositionerProps,\n  DialogRootEmits,\n  DialogRootProps,\n  DialogRootProviderEmits,\n  DialogRootProviderProps,\n  DialogTitleProps,\n  DialogTriggerProps,\n  DialogTriggerValueChangeDetails,\n  UseDialogContext,\n  UseDialogProps,\n  UseDialogReturn,\n} from '@ark-ui/vue/dialog';",
+      "type": "registry:component",
+      "target": "@components/ui/dialog/index.ts"
+    }
+  ],
+  "type": "registry:item"
+}

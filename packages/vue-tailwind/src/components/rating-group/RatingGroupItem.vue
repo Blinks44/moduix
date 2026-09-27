@@ -23,7 +23,7 @@ const attrs = useAttrs();
     v-bind="attrs"
     :class="
       cn(
-        'inline-flex cursor-pointer items-center justify-center rounded-sm leading-none text-inherit transition-[color,opacity] duration-200 ease-in-out outline-none data-disabled:pointer-events-none data-disabled:cursor-default data-readonly:cursor-default motion-reduce:transition-none',
+        'inline-flex cursor-pointer items-center justify-center rounded-sm leading-none text-inherit outline-1 -outline-offset-1 outline-transparent transition-[color,opacity] duration-200 ease-in-out focus-visible:outline-1 focus-visible:outline-offset-1 focus-visible:outline-ring data-disabled:pointer-events-none data-disabled:cursor-default data-readonly:cursor-default motion-reduce:transition-none',
         className,
       )
     "

@@ -10,7 +10,6 @@ defineOptions({ inheritAttrs: false });
 
 export interface Props extends /* @vue-ignore */ DialogRootProps {
   ariaLabel?: DialogRootProps['aria-label'];
-  'aria-label'?: DialogRootProps['aria-label'];
   closeOnEscape?: DialogRootProps['closeOnEscape'];
   closeOnInteractOutside?: DialogRootProps['closeOnInteractOutside'];
   defaultOpen?: DialogRootProps['defaultOpen'];
@@ -78,10 +77,7 @@ const unmountOnExit = computed(() => props.unmountOnExit ?? true);
 const dialogProps = computed<UseDialogProps>(() => ({
   ...attrs,
   ...props,
-  'aria-label':
-    props.ariaLabel ??
-    props['aria-label'] ??
-    (attrs['aria-label'] as DialogRootProps['aria-label']),
+  'aria-label': props.ariaLabel ?? (attrs['aria-label'] as DialogRootProps['aria-label']),
 }));
 const dialog = useDialog(dialogProps, emit);
 

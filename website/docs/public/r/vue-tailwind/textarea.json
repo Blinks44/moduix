@@ -1,0 +1,23 @@
+{
+  "$schema": "https://ui.shadcn.com/schema/registry-item.json",
+  "name": "textarea",
+  "title": "Textarea",
+  "description": "moduix Vue Tailwind Textarea component.",
+  "dependencies": ["@ark-ui/vue", "clsx", "tailwind-merge"],
+  "registryDependencies": ["@moduix-vue-tailwind/foundation", "@moduix-vue-tailwind/cn"],
+  "files": [
+    {
+      "path": "src/components/textarea/Textarea.vue",
+      "content": "<script setup lang=\"ts\">\nimport { FieldTextarea as ArkFieldTextarea } from '@ark-ui/vue/field';\nimport type { FieldTextareaProps } from '@ark-ui/vue/field';\nimport { useAttrs } from 'vue';\nimport type { HTMLAttributes } from 'vue';\nimport { cn } from '@/lib/moduix/cn';\n\ndefineOptions({ inheritAttrs: false });\n\nexport interface Props extends /* @vue-ignore */ Omit<FieldTextareaProps, 'autoresize' | 'class'> {\n  autoresize?: FieldTextareaProps['autoresize'];\n  class?: HTMLAttributes['class'];\n}\n\nexport interface Emits {\n  'update:modelValue': [value: FieldTextareaProps['modelValue']];\n}\n\nconst props = defineProps<Props>();\nconst emit = defineEmits<Emits>();\ndefineSlots<{ default?: () => unknown }>();\n\nconst attrs = useAttrs();\n</script>\n\n<template>\n  <ArkFieldTextarea\n    v-bind=\"attrs\"\n    :autoresize=\"props.autoresize\"\n    :class=\"\n      cn(\n        'min-h-24 w-full max-w-none resize-y rounded-md border border-border bg-background px-3.5 py-2 text-md leading-6 text-foreground outline-1 -outline-offset-1 outline-transparent transition-[border-color,outline-color,opacity] duration-200 ease-in-out placeholder:text-muted-foreground focus-visible:outline-ring disabled:pointer-events-none disabled:opacity-50 aria-invalid:border-destructive aria-invalid:focus-visible:outline-destructive data-autoresize:overflow-y-hidden data-disabled:pointer-events-none data-disabled:opacity-50 data-invalid:border-destructive data-invalid:focus-visible:outline-destructive motion-reduce:transition-none',\n        props.class,\n      )\n    \"\n    data-scope=\"field\"\n    data-part=\"textarea\"\n    data-slot=\"textarea-root\"\n    :data-autoresize=\"props.autoresize ? '' : undefined\"\n    @update:model-value=\"emit('update:modelValue', $event)\"\n  >\n    <slot />\n  </ArkFieldTextarea>\n</template>",
+      "type": "registry:component",
+      "target": "@components/ui/textarea/Textarea.vue"
+    },
+    {
+      "path": "src/components/textarea/index.ts",
+      "content": "import Textarea from './Textarea.vue';\n\nexport { Textarea };\n\nexport type { FieldTextareaProps } from '@ark-ui/vue/field';",
+      "type": "registry:component",
+      "target": "@components/ui/textarea/index.ts"
+    }
+  ],
+  "type": "registry:item"
+}

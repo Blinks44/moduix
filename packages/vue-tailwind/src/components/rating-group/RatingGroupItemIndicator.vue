@@ -7,7 +7,7 @@ import { RatingStarIcon } from '@/lib/moduix/icons/ui';
 
 defineOptions({ inheritAttrs: false });
 
-export interface RatingGroupItemIndicatorProps extends HTMLAttributes {
+export interface RatingGroupItemIndicatorProps extends /* @vue-ignore */ HTMLAttributes {
   class?: HTMLAttributes['class'];
 }
 
