@@ -33,12 +33,26 @@ import radioGroupSolidRootProvider from '../../../snippets/radio-group/solid/roo
 import radioGroupSolidSizes from '../../../snippets/radio-group/solid/sizes.tsx?raw';
 import radioGroupSolidField from '../../../snippets/radio-group/solid/with-field.tsx?raw';
 import radioGroupSolidFieldset from '../../../snippets/radio-group/solid/with-fieldset.tsx?raw';
+import radioGroupVueAdvancedCustomization from '../../../snippets/radio-group/vue/advanced-customization.vue?raw';
+import radioGroupVueAsChild from '../../../snippets/radio-group/vue/aschild.vue?raw';
+import radioGroupVueBasic from '../../../snippets/radio-group/vue/basic.vue?raw';
+import radioGroupVueControlled from '../../../snippets/radio-group/vue/controlled.vue?raw';
+import radioGroupVueDisabled from '../../../snippets/radio-group/vue/disabled.vue?raw';
+import radioGroupVueDisabledItem from '../../../snippets/radio-group/vue/item-disabled.vue?raw';
+import radioGroupVueForm from '../../../snippets/radio-group/vue/form.vue?raw';
+import radioGroupVueIndicator from '../../../snippets/radio-group/vue/indicator.vue?raw';
+import radioGroupVueInitialValue from '../../../snippets/radio-group/vue/initial-value.vue?raw';
+import radioGroupVueOrientation from '../../../snippets/radio-group/vue/orientation.vue?raw';
+import radioGroupVueRootProvider from '../../../snippets/radio-group/vue/root-provider.vue?raw';
+import radioGroupVueSizes from '../../../snippets/radio-group/vue/sizes.vue?raw';
+import radioGroupVueField from '../../../snippets/radio-group/vue/with-field.vue?raw';
+import radioGroupVueFieldset from '../../../snippets/radio-group/vue/with-fieldset.vue?raw';
 
 ## Справочник API
 
 `RadioGroup` следует примитиву radio-group из Ark UI и добавляет стили moduix, стабильные атрибуты
 `data-slot` и вспомогательный компонент `RadioGroupOption`. Компонент экспортируется из
-`@moduix/react/radio-group` и `@moduix/solid/radio-group`.
+`@moduix/react/radio-group`, `@moduix/solid/radio-group` и `@moduix/vue/radio-group`.
 
 <PrimitiveReference href="https://ark-ui.com/docs/components/radio-group" />
 
@@ -65,6 +79,7 @@ import radioGroupSolidFieldset from '../../../snippets/radio-group/solid/with-fi
     values={[
       { label: 'React', value: 'react' },
       { label: 'Solid', value: 'solid' },
+      { label: 'Vue', value: 'vue' },
     ]}
     className="docs-tabs"
   >
@@ -77,6 +92,11 @@ import radioGroupSolidFieldset from '../../../snippets/radio-group/solid/with-fi
     <Tab value="solid">
 
 <CodeBlockRuntime lang="tsx" code={radioGroupSolidBasic} />
+
+    </Tab>
+    <Tab value="vue">
+
+<CodeBlockRuntime lang="vue" code={radioGroupVueBasic} />
 
     </Tab>
   </Tabs>
@@ -104,6 +124,16 @@ import radioGroupSolidFieldset from '../../../snippets/radio-group/solid/with-fi
   options={[
     { label: 'CSS Modules', command: 'shadcn@latest add @moduix-solid/radio-group' },
     { label: 'Tailwind CSS', command: 'shadcn@latest add @moduix-solid-tailwind/radio-group' },
+  ]}
+/>
+
+  </Tab>
+  <Tab label="Vue" value="vue">
+
+<ShadcnInstallOptions
+  options={[
+    { label: 'CSS Modules', command: 'shadcn@latest add @moduix-vue/radio-group' },
+    { label: 'Tailwind CSS', command: 'shadcn@latest add @moduix-vue-tailwind/radio-group' },
   ]}
 />
 
@@ -146,13 +176,14 @@ RadioGroupOption
 приложения, используйте `value` и `onValueChange(details)`. Когда состояние нужно создать вне дерева
 группы, используйте `RadioGroupRootProvider` с `useRadioGroup()` из соответствующего пакета. Не используйте
 `RadioGroup` и `RadioGroupRootProvider` для одного экземпляра состояния одновременно. В React
-состояние читается как объект, а в Solid реактивное состояние читается через возвращённый accessor.
+состояние читается как объект, в Solid — через возвращённый accessor, а Vue передаёт реактивное хранилище
+непосредственно в шаблон.
 
 `RadioGroupOption` уже содержит `RadioGroupItemHiddenInput` в фиксированной композиции. При прямой композиции
 `RadioGroupItem` добавьте `RadioGroupItemHiddenInput` самостоятельно. Используйте явное дерево
 частей, когда вложенным частям нужны собственное размещение или свойства, либо когда `asChild` должен
-передать DOM-узел варианта другому элементу. В Solid `asChild` принимает render-функцию, а её прямым
-дочерним элементом должен оставаться семантический `label`.
+передать DOM-узел варианта другому элементу. В Solid `asChild` принимает render-функцию, а в Vue используется
+`as-child`; в обоих случаях прямым дочерним элементом должен оставаться семантический `label`.
 
 `Field` предоставляет видимую подпись, вспомогательный текст и сообщение об ошибке, но не
 передаёт своё состояние в `RadioGroup`. Передавайте `disabled`, `invalid`, `readOnly` и `required`
@@ -176,6 +207,7 @@ RadioGroupOption
     values={[
       { label: 'React', value: 'react' },
       { label: 'Solid', value: 'solid' },
+      { label: 'Vue', value: 'vue' },
     ]}
     className="docs-tabs"
   >
@@ -190,6 +222,11 @@ RadioGroupOption
 <CodeBlockRuntime lang="tsx" code={radioGroupSolidAsChild} />
 
     </Tab>
+    <Tab value="vue">
+
+<CodeBlockRuntime lang="vue" code={radioGroupVueAsChild} />
+
+    </Tab>
   </Tabs>
 
 **Стили**
@@ -201,7 +238,7 @@ RadioGroupOption
 
 ### Управляемое состояние
 
-Управляйте `value` через `useState` в React или `createSignal` в Solid, когда выбранное значение
+Управляйте `value` через `useState` в React, `createSignal` в Solid или `ref` и `v-model` в Vue, когда выбранное значение
 должно синхронизироваться с маршрутизацией, фильтрами или другими частями интерфейса.
 
 <ExampleFrame variant="component">
@@ -215,6 +252,7 @@ RadioGroupOption
     values={[
       { label: 'React', value: 'react' },
       { label: 'Solid', value: 'solid' },
+      { label: 'Vue', value: 'vue' },
     ]}
     className="docs-tabs"
   >
@@ -227,6 +265,11 @@ RadioGroupOption
     <Tab value="solid">
 
 <CodeBlockRuntime lang="tsx" code={radioGroupSolidControlled} />
+
+    </Tab>
+    <Tab value="vue">
+
+<CodeBlockRuntime lang="vue" code={radioGroupVueControlled} />
 
     </Tab>
   </Tabs>
@@ -254,6 +297,7 @@ RadioGroupOption
     values={[
       { label: 'React', value: 'react' },
       { label: 'Solid', value: 'solid' },
+      { label: 'Vue', value: 'vue' },
     ]}
     className="docs-tabs"
   >
@@ -266,6 +310,11 @@ RadioGroupOption
     <Tab value="solid">
 
 <CodeBlockRuntime lang="tsx" code={radioGroupSolidDisabled} />
+
+    </Tab>
+    <Tab value="vue">
+
+<CodeBlockRuntime lang="vue" code={radioGroupVueDisabled} />
 
     </Tab>
   </Tabs>
@@ -288,6 +337,7 @@ RadioGroupOption
     values={[
       { label: 'React', value: 'react' },
       { label: 'Solid', value: 'solid' },
+      { label: 'Vue', value: 'vue' },
     ]}
     className="docs-tabs"
   >
@@ -300,6 +350,11 @@ RadioGroupOption
     <Tab value="solid">
 
 <CodeBlockRuntime lang="tsx" code={radioGroupSolidDisabledItem} />
+
+    </Tab>
+    <Tab value="vue">
+
+<CodeBlockRuntime lang="vue" code={radioGroupVueDisabledItem} />
 
     </Tab>
   </Tabs>
@@ -323,6 +378,7 @@ RadioGroupOption
     values={[
       { label: 'React', value: 'react' },
       { label: 'Solid', value: 'solid' },
+      { label: 'Vue', value: 'vue' },
     ]}
     className="docs-tabs"
   >
@@ -335,6 +391,11 @@ RadioGroupOption
     <Tab value="solid">
 
 <CodeBlockRuntime lang="tsx" code={radioGroupSolidForm} />
+
+    </Tab>
+    <Tab value="vue">
+
+<CodeBlockRuntime lang="vue" code={radioGroupVueForm} />
 
     </Tab>
   </Tabs>
@@ -363,6 +424,7 @@ RadioGroupOption
     values={[
       { label: 'React', value: 'react' },
       { label: 'Solid', value: 'solid' },
+      { label: 'Vue', value: 'vue' },
     ]}
     className="docs-tabs"
   >
@@ -375,6 +437,11 @@ RadioGroupOption
     <Tab value="solid">
 
 <CodeBlockRuntime lang="tsx" code={radioGroupSolidIndicator} />
+
+    </Tab>
+    <Tab value="vue">
+
+<CodeBlockRuntime lang="vue" code={radioGroupVueIndicator} />
 
     </Tab>
   </Tabs>
@@ -402,6 +469,7 @@ RadioGroupOption
     values={[
       { label: 'React', value: 'react' },
       { label: 'Solid', value: 'solid' },
+      { label: 'Vue', value: 'vue' },
     ]}
     className="docs-tabs"
   >
@@ -414,6 +482,11 @@ RadioGroupOption
     <Tab value="solid">
 
 <CodeBlockRuntime lang="tsx" code={radioGroupSolidInitialValue} />
+
+    </Tab>
+    <Tab value="vue">
+
+<CodeBlockRuntime lang="vue" code={radioGroupVueInitialValue} />
 
     </Tab>
   </Tabs>
@@ -436,6 +509,7 @@ RadioGroupOption
     values={[
       { label: 'React', value: 'react' },
       { label: 'Solid', value: 'solid' },
+      { label: 'Vue', value: 'vue' },
     ]}
     className="docs-tabs"
   >
@@ -448,6 +522,11 @@ RadioGroupOption
     <Tab value="solid">
 
 <CodeBlockRuntime lang="tsx" code={radioGroupSolidOrientation} />
+
+    </Tab>
+    <Tab value="vue">
+
+<CodeBlockRuntime lang="vue" code={radioGroupVueOrientation} />
 
     </Tab>
   </Tabs>
@@ -475,6 +554,7 @@ RadioGroupOption
     values={[
       { label: 'React', value: 'react' },
       { label: 'Solid', value: 'solid' },
+      { label: 'Vue', value: 'vue' },
     ]}
     className="docs-tabs"
   >
@@ -487,6 +567,11 @@ RadioGroupOption
     <Tab value="solid">
 
 <CodeBlockRuntime lang="tsx" code={radioGroupSolidRootProvider} />
+
+    </Tab>
+    <Tab value="vue">
+
+<CodeBlockRuntime lang="vue" code={radioGroupVueRootProvider} />
 
     </Tab>
   </Tabs>
@@ -514,6 +599,7 @@ RadioGroupOption
     values={[
       { label: 'React', value: 'react' },
       { label: 'Solid', value: 'solid' },
+      { label: 'Vue', value: 'vue' },
     ]}
     className="docs-tabs"
   >
@@ -526,6 +612,11 @@ RadioGroupOption
     <Tab value="solid">
 
 <CodeBlockRuntime lang="tsx" code={radioGroupSolidSizes} />
+
+    </Tab>
+    <Tab value="vue">
+
+<CodeBlockRuntime lang="vue" code={radioGroupVueSizes} />
 
     </Tab>
   </Tabs>
@@ -549,6 +640,7 @@ RadioGroupOption
     values={[
       { label: 'React', value: 'react' },
       { label: 'Solid', value: 'solid' },
+      { label: 'Vue', value: 'vue' },
     ]}
     className="docs-tabs"
   >
@@ -561,6 +653,11 @@ RadioGroupOption
     <Tab value="solid">
 
 <CodeBlockRuntime lang="tsx" code={radioGroupSolidField} />
+
+    </Tab>
+    <Tab value="vue">
+
+<CodeBlockRuntime lang="vue" code={radioGroupVueField} />
 
     </Tab>
   </Tabs>
@@ -588,6 +685,7 @@ RadioGroupOption
     values={[
       { label: 'React', value: 'react' },
       { label: 'Solid', value: 'solid' },
+      { label: 'Vue', value: 'vue' },
     ]}
     className="docs-tabs"
   >
@@ -600,6 +698,11 @@ RadioGroupOption
     <Tab value="solid">
 
 <CodeBlockRuntime lang="tsx" code={radioGroupSolidFieldset} />
+
+    </Tab>
+    <Tab value="vue">
+
+<CodeBlockRuntime lang="vue" code={radioGroupVueFieldset} />
 
     </Tab>
   </Tabs>
@@ -627,6 +730,7 @@ RadioGroupOption
     values={[
       { label: 'React', value: 'react' },
       { label: 'Solid', value: 'solid' },
+      { label: 'Vue', value: 'vue' },
     ]}
     className="docs-tabs"
   >
@@ -639,6 +743,11 @@ RadioGroupOption
     <Tab value="solid">
 
 <CodeBlockRuntime lang="tsx" code={radioGroupSolidAdvancedCustomization} />
+
+    </Tab>
+    <Tab value="vue">
+
+<CodeBlockRuntime lang="vue" code={radioGroupVueAdvancedCustomization} />
 
     </Tab>
   </Tabs>

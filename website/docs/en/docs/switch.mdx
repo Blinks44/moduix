@@ -1,7 +1,7 @@
 ---
 title: Switch
 component: switch
-description: A composable Ark UI switch for turning an immediate boolean setting on or off.
+description: A composable Ark UI switch for React, Solid, or Vue that turns an immediate boolean setting on or off.
 ---
 
 import * as SwitchDocs from '@/components/examples/switch/css-properties';
@@ -27,6 +27,17 @@ import switchSolidInitialChecked from '../../../snippets/switch/solid/initial-ch
 import switchSolidReadOnly from '../../../snippets/switch/solid/read-only.tsx?raw';
 import switchSolidRootProvider from '../../../snippets/switch/solid/root-provider.tsx?raw';
 import switchSolidSizes from '../../../snippets/switch/solid/sizes.tsx?raw';
+import switchVueAdvancedCustomization from '../../../snippets/switch/vue/advanced-customization.vue?raw';
+import switchVueAsChild from '../../../snippets/switch/vue/as-child.vue?raw';
+import switchVueBasic from '../../../snippets/switch/vue/basic.vue?raw';
+import switchVueContext from '../../../snippets/switch/vue/context.vue?raw';
+import switchVueControlled from '../../../snippets/switch/vue/controlled.vue?raw';
+import switchVueDisabled from '../../../snippets/switch/vue/disabled.vue?raw';
+import switchVueFormIntegration from '../../../snippets/switch/vue/form-integration.vue?raw';
+import switchVueInitialChecked from '../../../snippets/switch/vue/initial-checked.vue?raw';
+import switchVueReadOnly from '../../../snippets/switch/vue/read-only.vue?raw';
+import switchVueRootProvider from '../../../snippets/switch/vue/root-provider.vue?raw';
+import switchVueSizes from '../../../snippets/switch/vue/sizes.vue?raw';
 
 ## API Reference
 
@@ -59,6 +70,7 @@ interaction and form behavior. The control receives a default thumb when it has 
     values={[
       { label: 'React', value: 'react' },
       { label: 'Solid', value: 'solid' },
+      { label: 'Vue', value: 'vue' },
     ]}
     className="docs-tabs"
   >
@@ -71,6 +83,11 @@ interaction and form behavior. The control receives a default thumb when it has 
     <Tab value="solid">
 
 <CodeBlockRuntime lang="tsx" code={switchSolidBasic} />
+
+    </Tab>
+    <Tab value="vue">
+
+<CodeBlockRuntime lang="vue" code={switchVueBasic} />
 
     </Tab>
   </Tabs>
@@ -103,6 +120,16 @@ See [Quick Start](/docs/quick-start) for full package setup, registry configurat
 />
 
   </Tab>
+  <Tab label="Vue" value="vue">
+
+<ShadcnInstallOptions
+  options={[
+    { label: 'CSS Modules', command: 'shadcn@latest add @moduix-vue/switch' },
+    { label: 'Tailwind CSS', command: 'shadcn@latest add @moduix-vue-tailwind/switch' },
+  ]}
+/>
+
+  </Tab>
 </Tabs>
 
 ## Anatomy
@@ -125,8 +152,10 @@ Switch
 | `SwitchLabel`                 | Ark-connected label text.                                            |
 
 `Switch` is the root component. `SwitchContext`, `useSwitchContext`, and `useSwitch` are exported
-from `@moduix/react` alongside the component.
+from `@moduix/react` alongside the component. The Vue exports are available from
+`@moduix/vue` and `@moduix/vue/switch`.
 The matching Solid exports are available from `@moduix/solid` and `@moduix/solid/switch`.
+The Vue exports are available from `@moduix/vue` and `@moduix/vue/switch`.
 
 ## Composition
 
@@ -175,6 +204,11 @@ Use `asChild` when you need a custom root element while Ark continues to manage 
 <CodeBlockRuntime lang="tsx" code={switchSolidAsChild} />
 
     </Tab>
+    <Tab value="vue">
+
+<CodeBlockRuntime lang="vue" code={switchVueAsChild} />
+
+    </Tab>
   </Tabs>
 
 **Styles**
@@ -187,7 +221,7 @@ Use `asChild` when you need a custom root element while Ark continues to manage 
 
 ### Context
 
-Use `useSwitchContext` from `@moduix/react` when nearby UI needs to read the current switch state.
+Use `useSwitchContext` from the matching framework package when nearby UI needs to read the current switch state.
 
 <ExampleFrame variant="component">
   <SwitchContext />
@@ -212,6 +246,11 @@ Use `useSwitchContext` from `@moduix/react` when nearby UI needs to read the cur
     <Tab value="solid">
 
 <CodeBlockRuntime lang="tsx" code={switchSolidContext} />
+
+    </Tab>
+    <Tab value="vue">
+
+<CodeBlockRuntime lang="vue" code={switchVueContext} />
 
     </Tab>
   </Tabs>
@@ -246,6 +285,11 @@ Use controlled mode when the switch needs to stay in sync with other UI or appli
     <Tab value="solid">
 
 <CodeBlockRuntime lang="tsx" code={switchSolidControlled} />
+
+    </Tab>
+    <Tab value="vue">
+
+<CodeBlockRuntime lang="vue" code={switchVueControlled} />
 
     </Tab>
   </Tabs>
@@ -285,6 +329,11 @@ Use `disabled` to prevent interaction while keeping the current visual state.
     <Tab value="solid">
 
 <CodeBlockRuntime lang="tsx" code={switchSolidDisabled} />
+
+    </Tab>
+    <Tab value="vue">
+
+<CodeBlockRuntime lang="vue" code={switchVueDisabled} />
 
     </Tab>
   </Tabs>
@@ -327,6 +376,11 @@ error after the form is submitted while the switch is still off.
 <CodeBlockRuntime lang="tsx" code={switchSolidFormIntegration} />
 
     </Tab>
+    <Tab value="vue">
+
+<CodeBlockRuntime lang="vue" code={switchVueFormIntegration} />
+
+    </Tab>
   </Tabs>
 
 **Styles**
@@ -366,6 +420,11 @@ Use `defaultChecked` when the switch should start enabled and manage its own sta
 <CodeBlockRuntime lang="tsx" code={switchSolidInitialChecked} />
 
     </Tab>
+    <Tab value="vue">
+
+<CodeBlockRuntime lang="vue" code={switchVueInitialChecked} />
+
+    </Tab>
   </Tabs>
 </div>
 
@@ -400,6 +459,11 @@ Use `readOnly` when the current state should remain visible but users must not b
 <CodeBlockRuntime lang="tsx" code={switchSolidReadOnly} />
 
     </Tab>
+    <Tab value="vue">
+
+<CodeBlockRuntime lang="vue" code={switchVueReadOnly} />
+
+    </Tab>
   </Tabs>
 
 **Styles**
@@ -412,8 +476,8 @@ Use `readOnly` when the current state should remain visible but users must not b
 
 ### Root Provider
 
-Import `useSwitch` from `@moduix/react` and pair it with `SwitchRootProvider` when you need to create
-and control the state outside the rendered switch tree.
+Import `useSwitch` from the matching framework package and pair it with `SwitchRootProvider` when
+you need to create and control the state outside the rendered switch tree.
 
 <ExampleFrame variant="component">
   <SwitchRootProvider />
@@ -438,6 +502,11 @@ and control the state outside the rendered switch tree.
     <Tab value="solid">
 
 <CodeBlockRuntime lang="tsx" code={switchSolidRootProvider} />
+
+    </Tab>
+    <Tab value="vue">
+
+<CodeBlockRuntime lang="vue" code={switchVueRootProvider} />
 
     </Tab>
   </Tabs>
@@ -479,6 +548,11 @@ Use moduix `size` to match different form densities without changing the Ark par
 <CodeBlockRuntime lang="tsx" code={switchSolidSizes} />
 
     </Tab>
+    <Tab value="vue">
+
+<CodeBlockRuntime lang="vue" code={switchVueSizes} />
+
+    </Tab>
   </Tabs>
 
 **Styles**
@@ -518,6 +592,11 @@ Add `SwitchThumb` explicitly when the thumb needs custom content or styling.
 <CodeBlockRuntime lang="tsx" code={switchSolidAdvancedCustomization} />
 
     </Tab>
+    <Tab value="vue">
+
+<CodeBlockRuntime lang="vue" code={switchVueAdvancedCustomization} />
+
+    </Tab>
   </Tabs>
 </div>
 
@@ -525,7 +604,7 @@ Add `SwitchThumb` explicitly when the thumb needs custom content or styling.
 
 ## Styling
 
-Style `Switch` with `className` in React or `class` in Solid, public `data-slot` hooks, Ark state
+Style `Switch` with `className` in React or `class` in Solid and Vue, public `data-slot` hooks, Ark state
 attributes, and the public `--moduix-switch-*` CSS variables shown below. Tailwind variants use
 utilities and consumer classes; the variables below apply to CSS Modules, while data attributes are
 shared by both approaches.

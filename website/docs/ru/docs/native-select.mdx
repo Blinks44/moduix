@@ -1,7 +1,7 @@
 ---
 title: Native Select
 component: native-select
-description: Стилизованный нативный `<select>` для простых списков опций, где выбором управляет браузер.
+description: Стилизованный нативный `<select>` для простых списков опций в React, Solid и Vue, где выбором управляет браузер.
 ---
 
 import * as NativeSelectDocs from '@/components/examples/native-select/css-properties';
@@ -13,6 +13,10 @@ import nativeSelectSolidBasic from '../../../snippets/native-select/solid/basic.
 import nativeSelectSolidControlled from '../../../snippets/native-select/solid/controlled.tsx?raw';
 import nativeSelectSolidField from '../../../snippets/native-select/solid/field-integration.tsx?raw';
 import nativeSelectSolidMultiple from '../../../snippets/native-select/solid/multiple-selection.tsx?raw';
+import nativeSelectVueBasic from '../../../snippets/native-select/vue/basic.vue?raw';
+import nativeSelectVueControlled from '../../../snippets/native-select/vue/controlled.vue?raw';
+import nativeSelectVueField from '../../../snippets/native-select/vue/field-integration.vue?raw';
+import nativeSelectVueMultiple from '../../../snippets/native-select/vue/multiple-selection.vue?raw';
 
 ## Справочник API
 
@@ -44,6 +48,7 @@ import nativeSelectSolidMultiple from '../../../snippets/native-select/solid/mul
     values={[
       { label: 'React', value: 'react' },
       { label: 'Solid', value: 'solid' },
+      { label: 'Vue', value: 'vue' },
     ]}
     className="docs-tabs"
   >
@@ -56,6 +61,11 @@ import nativeSelectSolidMultiple from '../../../snippets/native-select/solid/mul
     <Tab value="solid">
 
 <CodeBlockRuntime lang="tsx" code={nativeSelectSolidBasic} />
+
+    </Tab>
+    <Tab value="vue">
+
+<CodeBlockRuntime lang="vue" code={nativeSelectVueBasic} />
 
     </Tab>
   </Tabs>
@@ -88,6 +98,16 @@ import nativeSelectSolidMultiple from '../../../snippets/native-select/solid/mul
 />
 
   </Tab>
+  <Tab label="Vue" value="vue">
+
+<ShadcnInstallOptions
+  options={[
+    { label: 'CSS Modules', command: 'shadcn@latest add @moduix-vue/native-select' },
+    { label: 'Tailwind CSS', command: 'shadcn@latest add @moduix-vue-tailwind/native-select' },
+  ]}
+/>
+
+  </Tab>
 </Tabs>
 
 ## Анатомия
@@ -112,15 +132,14 @@ NativeSelect
 
 ## Композиция
 
-В React неуправляемый select строится на нативной проп `defaultValue`. В Solid передавайте нативный атрибут
-`selected` тому `<option>`, который должен быть выбран изначально: проп `defaultValue` у Solid `NativeSelect`
-не имеет эффекта. Используйте `value` вместе с `onChange`, когда текущее
-значение хранится в состоянии приложения. Оборачивайте `NativeSelect` в `Field`, если метка, поясняющий
-текст, проверка или состояние `disabled` должны быть общими для поля и элемента управления. Части `Field`
-связывают этот контент с нативным select, а выбор опций по-прежнему остаётся под управлением браузера. При
-`multiple` или `size > 1` браузер управляет взаимодействием со списком, поэтому декоративный индикатор скрывается.
-`asChild` может заменить выводимый select, но дочерним элементом должен оставаться один семантический HTML-элемент
-`<select>`.
+В React неуправляемый select строится на нативной проп `defaultValue`. В Solid и Vue передавайте нативный атрибут
+`selected` тому `<option>`, который должен быть выбран изначально: проп `defaultValue` у `NativeSelect` в Solid и
+Vue не имеет эффекта. Используйте `value` вместе с `onChange` в React и Solid или `v-model` в Vue, когда текущее
+значение хранится в состоянии приложения. Оборачивайте `NativeSelect` в `Field`, если метка, поясняющий текст,
+проверка или состояние `disabled` должны быть общими для поля и элемента управления. Части `Field` связывают этот
+контент с нативным select, а выбор опций по-прежнему остаётся под управлением браузера. При `multiple` или
+`size > 1` браузер управляет взаимодействием со списком, поэтому декоративный индикатор скрывается. `asChild` может
+заменить выводимый select, но дочерним элементом должен оставаться один семантический HTML-элемент `<select>`.
 
 ## Примеры
 
@@ -140,6 +159,7 @@ NativeSelect
     values={[
       { label: 'React', value: 'react' },
       { label: 'Solid', value: 'solid' },
+      { label: 'Vue', value: 'vue' },
     ]}
     className="docs-tabs"
   >
@@ -152,6 +172,11 @@ NativeSelect
     <Tab value="solid">
 
 <CodeBlockRuntime lang="tsx" code={nativeSelectSolidControlled} />
+
+    </Tab>
+    <Tab value="vue">
+
+<CodeBlockRuntime lang="vue" code={nativeSelectVueControlled} />
 
     </Tab>
   </Tabs>
@@ -175,6 +200,7 @@ NativeSelect
     values={[
       { label: 'React', value: 'react' },
       { label: 'Solid', value: 'solid' },
+      { label: 'Vue', value: 'vue' },
     ]}
     className="docs-tabs"
   >
@@ -187,6 +213,11 @@ NativeSelect
     <Tab value="solid">
 
 <CodeBlockRuntime lang="tsx" code={nativeSelectSolidField} />
+
+    </Tab>
+    <Tab value="vue">
+
+<CodeBlockRuntime lang="vue" code={nativeSelectVueField} />
 
     </Tab>
   </Tabs>
@@ -215,6 +246,7 @@ NativeSelect
     values={[
       { label: 'React', value: 'react' },
       { label: 'Solid', value: 'solid' },
+      { label: 'Vue', value: 'vue' },
     ]}
     className="docs-tabs"
   >
@@ -227,6 +259,11 @@ NativeSelect
     <Tab value="solid">
 
 <CodeBlockRuntime lang="tsx" code={nativeSelectSolidMultiple} />
+
+    </Tab>
+    <Tab value="vue">
+
+<CodeBlockRuntime lang="vue" code={nativeSelectVueMultiple} />
 
     </Tab>
   </Tabs>
@@ -259,7 +296,7 @@ NativeSelect
 
 ### Хуки стилизации
 
-- В React используйте `className`, а в Solid `class` на самом select. Для внешнего контейнера `<span>` используйте
+- В React используйте `className`, а в Solid и Vue `class` на самом select. Для внешнего контейнера `<span>` используйте
   `controlProps.className` или `controlProps.class`.
 - Передавайте в `controlProps.style` переменные `--moduix-select-*`, связанные с индикатором, если их должны
   унаследовать и `<select>`, и индикатор.

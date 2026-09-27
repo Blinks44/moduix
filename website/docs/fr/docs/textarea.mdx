@@ -17,6 +17,12 @@ import textareaSolidControlled from '../../../snippets/textarea/solid/controlled
 import textareaSolidDisabledAndReadonly from '../../../snippets/textarea/solid/disabled-and-readonly.tsx?raw';
 import textareaSolidFieldValidation from '../../../snippets/textarea/solid/field-validation.tsx?raw';
 import textareaSolidNativeAttributes from '../../../snippets/textarea/solid/native-attributes.tsx?raw';
+import textareaVueAutoResize from '../../../snippets/textarea/vue/auto-resize.vue?raw';
+import textareaVueBasic from '../../../snippets/textarea/vue/basic.vue?raw';
+import textareaVueControlled from '../../../snippets/textarea/vue/controlled.vue?raw';
+import textareaVueDisabledAndReadonly from '../../../snippets/textarea/vue/disabled-and-readonly.vue?raw';
+import textareaVueFieldValidation from '../../../snippets/textarea/vue/field-validation.vue?raw';
+import textareaVueNativeAttributes from '../../../snippets/textarea/vue/native-attributes.vue?raw';
 
 ## Référence de l’API
 
@@ -42,7 +48,6 @@ Placez `Textarea` dans `Field` lorsqu’il faut fournir au champ un libellé acc
 complémentaire. C’est la configuration recommandée pour les commentaires, notes, descriptions de
 tâches et contenus similaires.
 
-
 <ExampleFrame variant="component">
   <TextareaBasic />
 </ExampleFrame>
@@ -54,12 +59,14 @@ tâches et contenus similaires.
     values={[
       { label: 'React', value: 'react' },
       { label: 'Solid', value: 'solid' },
+      { label: 'Vue', value: 'vue' },
     ]}
     className="docs-tabs"
   >
     <Tab value="react">
 
 ```tsx pure file="../../../src/components/examples/textarea/basic.tsx"
+
 ```
 
     </Tab>
@@ -68,12 +75,20 @@ tâches et contenus similaires.
 <CodeBlockRuntime lang="tsx" code={textareaSolidBasic} />
 
     </Tab>
+    <Tab value="vue">
+
+<CodeBlockRuntime lang="vue" code={textareaVueBasic} />
+
+    </Tab>
+
   </Tabs>
 
 **Styles**
 
 ```css file="../../../src/components/examples/textarea/textarea-basic.module.css"
+
 ```
+
 </div>
 
 </ExampleCode>
@@ -103,6 +118,16 @@ Consultez le [Démarrage rapide](/docs/quick-start) pour la configuration compl�
 />
 
   </Tab>
+  <Tab label="Vue" value="vue">
+
+<ShadcnInstallOptions
+  options={[
+    { label: 'CSS Modules', command: 'shadcn@latest add @moduix-vue/textarea' },
+    { label: 'Tailwind CSS', command: 'shadcn@latest add @moduix-vue-tailwind/textarea' },
+  ]}
+/>
+
+  </Tab>
 </Tabs>
 
 ## Anatomie
@@ -114,8 +139,8 @@ Field (optional wrapper)
 └─ Textarea
 ```
 
-| Partie    | Rôle                                                              |
-| --------- | ----------------------------------------------------------------- |
+| Partie     | Rôle                                                                  |
+| ---------- | --------------------------------------------------------------------- |
 | `Textarea` | Élément `textarea` natif avec les styles moduix et l’état de `Field`. |
 
 `Textarea` n’exporte ni conteneur supplémentaire, ni sous-composant, ni provider ou hook de contexte,
@@ -124,7 +149,8 @@ ni champ masqué, ni libellé ou compteur de caractères.
 ## Composition
 
 Utilisez `defaultValue` pour une zone de texte non contrôlée. Lorsque l’application gère la valeur,
-utilisez `value` avec le gestionnaire natif `onChange` et le mécanisme d’état du framework utilisé.
+utilisez `value` avec le gestionnaire natif `onChange` dans React et Solid, ou `v-model` dans Vue,
+avec le mécanisme d’état du framework utilisé.
 
 Placez `Textarea` dans `Field`, avec `FieldLabel`, `FieldHelperText` et `FieldErrorText`, lorsque
 le contrôle doit fournir un libellé, un texte complémentaire ou une validation. En dehors de `Field`,
@@ -153,12 +179,14 @@ redimensionnement manuel lorsque cette option est active.
     values={[
       { label: 'React', value: 'react' },
       { label: 'Solid', value: 'solid' },
+      { label: 'Vue', value: 'vue' },
     ]}
     className="docs-tabs"
   >
     <Tab value="react">
 
 ```tsx pure file="../../../src/components/examples/textarea/auto-resize.tsx"
+
 ```
 
     </Tab>
@@ -167,12 +195,20 @@ redimensionnement manuel lorsque cette option est active.
 <CodeBlockRuntime lang="tsx" code={textareaSolidAutoResize} />
 
     </Tab>
+    <Tab value="vue">
+
+<CodeBlockRuntime lang="vue" code={textareaVueAutoResize} />
+
+    </Tab>
+
   </Tabs>
 
 **Styles**
 
 ```css file="../../../src/components/examples/textarea/textarea-auto-resize.module.css"
+
 ```
+
 </div>
 
 </ExampleCode>
@@ -192,12 +228,14 @@ Utilisez `value` et le gestionnaire natif `onChange` lorsque l’état de l’ap
     values={[
       { label: 'React', value: 'react' },
       { label: 'Solid', value: 'solid' },
+      { label: 'Vue', value: 'vue' },
     ]}
     className="docs-tabs"
   >
     <Tab value="react">
 
 ```tsx pure file="../../../src/components/examples/textarea/controlled.tsx"
+
 ```
 
     </Tab>
@@ -206,12 +244,20 @@ Utilisez `value` et le gestionnaire natif `onChange` lorsque l’état de l’ap
 <CodeBlockRuntime lang="tsx" code={textareaSolidControlled} />
 
     </Tab>
+    <Tab value="vue">
+
+<CodeBlockRuntime lang="vue" code={textareaVueControlled} />
+
+    </Tab>
+
   </Tabs>
 
 **Styles**
 
 ```css file="../../../src/components/examples/textarea/textarea-controlled.module.css"
+
 ```
+
 </div>
 
 </ExampleCode>
@@ -232,12 +278,14 @@ lorsqu’il peut lire et sélectionner la valeur, mais pas la modifier.
     values={[
       { label: 'React', value: 'react' },
       { label: 'Solid', value: 'solid' },
+      { label: 'Vue', value: 'vue' },
     ]}
     className="docs-tabs"
   >
     <Tab value="react">
 
 ```tsx pure file="../../../src/components/examples/textarea/disabled-and-readonly.tsx"
+
 ```
 
     </Tab>
@@ -246,12 +294,20 @@ lorsqu’il peut lire et sélectionner la valeur, mais pas la modifier.
 <CodeBlockRuntime lang="tsx" code={textareaSolidDisabledAndReadonly} />
 
     </Tab>
+    <Tab value="vue">
+
+<CodeBlockRuntime lang="vue" code={textareaVueDisabledAndReadonly} />
+
+    </Tab>
+
   </Tabs>
 
 **Styles**
 
 ```css file="../../../src/components/examples/textarea/textarea-disabled-and-readonly.module.css"
+
 ```
+
 </div>
 
 </ExampleCode>
@@ -272,12 +328,14 @@ la relie à son message d’erreur.
     values={[
       { label: 'React', value: 'react' },
       { label: 'Solid', value: 'solid' },
+      { label: 'Vue', value: 'vue' },
     ]}
     className="docs-tabs"
   >
     <Tab value="react">
 
 ```tsx pure file="../../../src/components/examples/textarea/field-validation.tsx"
+
 ```
 
     </Tab>
@@ -286,12 +344,20 @@ la relie à son message d’erreur.
 <CodeBlockRuntime lang="tsx" code={textareaSolidFieldValidation} />
 
     </Tab>
+    <Tab value="vue">
+
+<CodeBlockRuntime lang="vue" code={textareaVueFieldValidation} />
+
+    </Tab>
+
   </Tabs>
 
 **Styles**
 
 ```css file="../../../src/components/examples/textarea/textarea-field-validation.module.css"
+
 ```
+
 </div>
 
 </ExampleCode>
@@ -313,12 +379,14 @@ comportement du navigateur. Cet exemple soumet également le formulaire et lit l
     values={[
       { label: 'React', value: 'react' },
       { label: 'Solid', value: 'solid' },
+      { label: 'Vue', value: 'vue' },
     ]}
     className="docs-tabs"
   >
     <Tab value="react">
 
 ```tsx pure file="../../../src/components/examples/textarea/native-attributes.tsx"
+
 ```
 
     </Tab>
@@ -327,30 +395,44 @@ comportement du navigateur. Cet exemple soumet également le formulaire et lit l
 <CodeBlockRuntime lang="tsx" code={textareaSolidNativeAttributes} />
 
     </Tab>
+    <Tab value="vue">
+
+<CodeBlockRuntime lang="vue" code={textareaVueNativeAttributes} />
+
+    </Tab>
+
   </Tabs>
 
 **Styles**
 
 ```css file="../../../src/components/examples/textarea/textarea-native-attributes.module.css"
+
 ```
+
 </div>
 
 </ExampleCode>
 
 ## Styles
 
-Dans React, personnalisez le contrôle avec `className` ; dans Solid, utilisez `class`, avec
+Dans React, personnalisez le contrôle avec `className` ; dans Solid et Vue, utilisez `class`, avec
 `data-slot="textarea-root"`. Les variantes Tailwind utilisent les utilitaires natifs et les classes
 du consommateur. Les variables publiques `--moduix-textarea-*` ci-dessous concernent les variantes CSS Modules.
 
 ### Propriétés CSS
 
 <div className="docs-reference">
-<Tabs
+  <Tabs
     values={[{ label: 'Variables CSS', value: 'CSS Variables' }]}
     className="docs-reference-tabs"
     contentItemClassName="docs-reference-panel"
-> <Tab> <TextareaDocs.TextareaCssPropertiesPanel /> </Tab> </Tabs>
+  >
+    {' '}
+    <Tab>
+      {' '}
+      <TextareaDocs.TextareaCssPropertiesPanel />{' '}
+    </Tab>{' '}
+  </Tabs>
 </div>
 
 ### Points d’accroche CSS

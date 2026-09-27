@@ -1,7 +1,7 @@
 ---
 title: Native Select
 component: native-select
-description: Un élément `<select>` natif stylisé pour les listes d’options simples, dont la sélection est gérée par le navigateur.
+description: Un élément `<select>` natif stylisé pour les listes d’options simples en React, Solid ou Vue, dont la sélection est gérée par le navigateur.
 ---
 
 import * as NativeSelectDocs from '@/components/examples/native-select/css-properties';
@@ -13,6 +13,10 @@ import nativeSelectSolidBasic from '../../../snippets/native-select/solid/basic.
 import nativeSelectSolidControlled from '../../../snippets/native-select/solid/controlled.tsx?raw';
 import nativeSelectSolidField from '../../../snippets/native-select/solid/field-integration.tsx?raw';
 import nativeSelectSolidMultiple from '../../../snippets/native-select/solid/multiple-selection.tsx?raw';
+import nativeSelectVueBasic from '../../../snippets/native-select/vue/basic.vue?raw';
+import nativeSelectVueControlled from '../../../snippets/native-select/vue/controlled.vue?raw';
+import nativeSelectVueField from '../../../snippets/native-select/vue/field-integration.vue?raw';
+import nativeSelectVueMultiple from '../../../snippets/native-select/vue/multiple-selection.vue?raw';
 
 ## Référence de l’API
 
@@ -44,6 +48,7 @@ Ajoutez des éléments natifs `option` ou `optgroup` comme enfants et passez les
     values={[
       { label: 'React', value: 'react' },
       { label: 'Solid', value: 'solid' },
+      { label: 'Vue', value: 'vue' },
     ]}
     className="docs-tabs"
   >
@@ -56,6 +61,11 @@ Ajoutez des éléments natifs `option` ou `optgroup` comme enfants et passez les
     <Tab value="solid">
 
 <CodeBlockRuntime lang="tsx" code={nativeSelectSolidBasic} />
+
+    </Tab>
+    <Tab value="vue">
+
+<CodeBlockRuntime lang="vue" code={nativeSelectVueBasic} />
 
     </Tab>
   </Tabs>
@@ -88,6 +98,16 @@ Consultez le [Démarrage rapide](/docs/quick-start) pour la configuration compl�
 />
 
   </Tab>
+  <Tab label="Vue" value="vue">
+
+<ShadcnInstallOptions
+  options={[
+    { label: 'CSS Modules', command: 'shadcn@latest add @moduix-vue/native-select' },
+    { label: 'Tailwind CSS', command: 'shadcn@latest add @moduix-vue-tailwind/native-select' },
+  ]}
+/>
+
+  </Tab>
 </Tabs>
 
 ## Anatomie
@@ -111,14 +131,14 @@ NativeSelect
 
 ## Composition
 
-En React, construisez un select non contrôlé avec la prop native `defaultValue`. En Solid, transmettez
+En React, construisez un select non contrôlé avec la prop native `defaultValue`. En Solid et en Vue, transmettez
 l’attribut natif `selected` à l’`<option>` qui doit être présélectionnée : une prop `defaultValue` sur le
-`NativeSelect` Solid n’a aucun effet. Utilisez `value` avec `onChange` lorsque l’état de l’application
-possède la valeur courante. Placez `NativeSelect` dans `Field` lorsque le libellé, le texte associé, la validation ou
-l’état `disabled` doivent être partagés avec le contrôle. Les éléments de `Field` relient ce contenu au select natif, tandis
-que le navigateur continue de gérer la sélection des options. Avec `multiple` ou `size > 1`, le navigateur gère l’interaction
-avec la liste et l’indicateur décoratif est masqué. `asChild` peut remplacer le select rendu, mais l’enfant doit rester un seul
-élément HTML `<select>` sémantique.
+`NativeSelect` Solid ou Vue n’a aucun effet. Utilisez `value` avec `onChange` en React et en Solid, ou `v-model` en Vue,
+lorsque l’état de l’application possède la valeur courante. Placez `NativeSelect` dans `Field` lorsque le libellé, le texte
+associé, la validation ou l’état `disabled` doivent être partagés avec le contrôle. Les éléments de `Field` relient ce
+contenu au select natif, tandis que le navigateur continue de gérer la sélection des options. Avec `multiple` ou
+`size > 1`, le navigateur gère l’interaction avec la liste et l’indicateur décoratif est masqué. `asChild` peut remplacer
+le select rendu, mais l’enfant doit rester un seul élément HTML `<select>` sémantique.
 
 ## Exemples
 
@@ -138,6 +158,7 @@ natif et transmettez-la via `value`.
     values={[
       { label: 'React', value: 'react' },
       { label: 'Solid', value: 'solid' },
+      { label: 'Vue', value: 'vue' },
     ]}
     className="docs-tabs"
   >
@@ -150,6 +171,11 @@ natif et transmettez-la via `value`.
     <Tab value="solid">
 
 <CodeBlockRuntime lang="tsx" code={nativeSelectSolidControlled} />
+
+    </Tab>
+    <Tab value="vue">
+
+<CodeBlockRuntime lang="vue" code={nativeSelectVueControlled} />
 
     </Tab>
   </Tabs>
@@ -173,6 +199,7 @@ de champ partagé. `Field` relie ces éléments au contrôle natif.
     values={[
       { label: 'React', value: 'react' },
       { label: 'Solid', value: 'solid' },
+      { label: 'Vue', value: 'vue' },
     ]}
     className="docs-tabs"
   >
@@ -185,6 +212,11 @@ de champ partagé. `Field` relie ces éléments au contrôle natif.
     <Tab value="solid">
 
 <CodeBlockRuntime lang="tsx" code={nativeSelectSolidField} />
+
+    </Tab>
+    <Tab value="vue">
+
+<CodeBlockRuntime lang="vue" code={nativeSelectVueField} />
 
     </Tab>
   </Tabs>
@@ -213,6 +245,7 @@ les options sélectionnées et les interactions au clavier.
     values={[
       { label: 'React', value: 'react' },
       { label: 'Solid', value: 'solid' },
+      { label: 'Vue', value: 'vue' },
     ]}
     className="docs-tabs"
   >
@@ -225,6 +258,11 @@ les options sélectionnées et les interactions au clavier.
     <Tab value="solid">
 
 <CodeBlockRuntime lang="tsx" code={nativeSelectSolidMultiple} />
+
+    </Tab>
+    <Tab value="vue">
+
+<CodeBlockRuntime lang="vue" code={nativeSelectVueMultiple} />
 
     </Tab>
   </Tabs>
@@ -258,8 +296,8 @@ l’indicateur suivent l’échelle commune de 4 px.
 
 ### Points d’accroche CSS
 
-- En React, utilisez `className` sur le select et, en Solid, `class`. Utilisez `controlProps.className` ou `controlProps.class`
-  pour le conteneur externe `<span>`.
+- En React, utilisez `className` sur le select et, en Solid ou en Vue, `class`. Utilisez `controlProps.className` ou
+  `controlProps.class` pour le conteneur externe `<span>`.
 - Placez dans `controlProps.style` les variables `--moduix-select-*` liées à l’indicateur lorsqu’elles doivent être héritées à
   la fois par l’élément `<select>` et par l’indicateur.
 - `data-scope="field"` et `data-part="select"` préservent le contrat de styles d’Ark Field.

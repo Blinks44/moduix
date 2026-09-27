@@ -33,12 +33,26 @@ import radioGroupSolidRootProvider from '../../../snippets/radio-group/solid/roo
 import radioGroupSolidSizes from '../../../snippets/radio-group/solid/sizes.tsx?raw';
 import radioGroupSolidField from '../../../snippets/radio-group/solid/with-field.tsx?raw';
 import radioGroupSolidFieldset from '../../../snippets/radio-group/solid/with-fieldset.tsx?raw';
+import radioGroupVueAdvancedCustomization from '../../../snippets/radio-group/vue/advanced-customization.vue?raw';
+import radioGroupVueAsChild from '../../../snippets/radio-group/vue/aschild.vue?raw';
+import radioGroupVueBasic from '../../../snippets/radio-group/vue/basic.vue?raw';
+import radioGroupVueControlled from '../../../snippets/radio-group/vue/controlled.vue?raw';
+import radioGroupVueDisabled from '../../../snippets/radio-group/vue/disabled.vue?raw';
+import radioGroupVueDisabledItem from '../../../snippets/radio-group/vue/item-disabled.vue?raw';
+import radioGroupVueForm from '../../../snippets/radio-group/vue/form.vue?raw';
+import radioGroupVueIndicator from '../../../snippets/radio-group/vue/indicator.vue?raw';
+import radioGroupVueInitialValue from '../../../snippets/radio-group/vue/initial-value.vue?raw';
+import radioGroupVueOrientation from '../../../snippets/radio-group/vue/orientation.vue?raw';
+import radioGroupVueRootProvider from '../../../snippets/radio-group/vue/root-provider.vue?raw';
+import radioGroupVueSizes from '../../../snippets/radio-group/vue/sizes.vue?raw';
+import radioGroupVueField from '../../../snippets/radio-group/vue/with-field.vue?raw';
+import radioGroupVueFieldset from '../../../snippets/radio-group/vue/with-fieldset.vue?raw';
 
 ## Référence de l’API
 
 `RadioGroup` suit la primitive radio-group d’Ark UI et ajoute les styles moduix, des attributs
 `data-slot` stables et le composant pratique `RadioGroupOption`. Il est exporté depuis
-`@moduix/react/radio-group` et `@moduix/solid/radio-group`.
+`@moduix/react/radio-group`, `@moduix/solid/radio-group` et `@moduix/vue/radio-group`.
 
 <PrimitiveReference href="https://ark-ui.com/docs/components/radio-group" />
 
@@ -65,6 +79,7 @@ un élément libellé avec son contrôle, son texte et son champ natif.
     values={[
       { label: 'React', value: 'react' },
       { label: 'Solid', value: 'solid' },
+      { label: 'Vue', value: 'vue' },
     ]}
     className="docs-tabs"
   >
@@ -77,6 +92,11 @@ un élément libellé avec son contrôle, son texte et son champ natif.
     <Tab value="solid">
 
 <CodeBlockRuntime lang="tsx" code={radioGroupSolidBasic} />
+
+    </Tab>
+    <Tab value="vue">
+
+<CodeBlockRuntime lang="vue" code={radioGroupVueBasic} />
 
     </Tab>
   </Tabs>
@@ -104,6 +124,16 @@ Consultez le [Démarrage rapide](/docs/quick-start) pour la configuration compl�
   options={[
     { label: 'CSS Modules', command: 'shadcn@latest add @moduix-solid/radio-group' },
     { label: 'Tailwind CSS', command: 'shadcn@latest add @moduix-solid-tailwind/radio-group' },
+  ]}
+/>
+
+  </Tab>
+  <Tab label="Vue" value="vue">
+
+<ShadcnInstallOptions
+  options={[
+    { label: 'CSS Modules', command: 'shadcn@latest add @moduix-vue/radio-group' },
+    { label: 'Tailwind CSS', command: 'shadcn@latest add @moduix-vue-tailwind/radio-group' },
   ]}
 />
 
@@ -146,13 +176,14 @@ Utilisez `defaultValue` pour un groupe non contrôlé. Utilisez `value` avec `on
 lorsqu’une autre partie de l’application possède la valeur sélectionnée. Lorsque l’état doit être
 créé en dehors de l’arbre rendu, utilisez `RadioGroupRootProvider` avec `useRadioGroup()` depuis le package du
 framework correspondant. Ne rendez pas `RadioGroup` et `RadioGroupRootProvider` pour la même instance
-d’état. React lit le store comme un objet ; Solid lit son état réactif via l’accessor retourné.
+d’état. React lit le store comme un objet ; Solid lit son état réactif via l’accessor retourné ; Vue expose le store
+réactif directement dans le template.
 
 `RadioGroupOption` inclut `RadioGroupItemHiddenInput` dans sa composition fixe. Avec une composition directe de
 `RadioGroupItem`, ajoutez vous-même `RadioGroupItemHiddenInput`. Utilisez l’arbre explicite lorsque
 les parties imbriquées doivent être placées ou configurées séparément, ou lorsque `asChild` doit
 laisser un autre élément posséder le nœud DOM de l’option. Dans Solid, `asChild` utilise une fonction
-de rendu et son enfant direct doit rester un `label` sémantique.
+de rendu ; dans Vue, utilisez `as-child`. Dans les deux cas, l’enfant direct doit rester un `label` sémantique.
 
 `Field` fournit un libellé visible, un texte d’aide et un message d’erreur, mais ne transmet pas
 son état à `RadioGroup`. Passez `disabled`, `invalid`, `readOnly` et `required` directement au groupe.
@@ -176,6 +207,7 @@ nœud DOM de l’option. Gardez un `label` sémantique comme enfant direct.
     values={[
       { label: 'React', value: 'react' },
       { label: 'Solid', value: 'solid' },
+      { label: 'Vue', value: 'vue' },
     ]}
     className="docs-tabs"
   >
@@ -190,6 +222,11 @@ nœud DOM de l’option. Gardez un `label` sémantique comme enfant direct.
 <CodeBlockRuntime lang="tsx" code={radioGroupSolidAsChild} />
 
     </Tab>
+    <Tab value="vue">
+
+<CodeBlockRuntime lang="vue" code={radioGroupVueAsChild} />
+
+    </Tab>
   </Tabs>
 
 **Styles**
@@ -201,7 +238,7 @@ nœud DOM de l’option. Gardez un `label` sémantique comme enfant direct.
 
 ### État contrôlé
 
-Gérez `value` avec `useState` dans React ou `createSignal` dans Solid lorsque la valeur sélectionnée
+Gérez `value` avec `useState` dans React, `createSignal` dans Solid ou `ref` et `v-model` dans Vue lorsque la valeur sélectionnée
 doit rester synchronisée avec le routage, les filtres ou l’interface environnante.
 
 <ExampleFrame variant="component">
@@ -215,6 +252,7 @@ doit rester synchronisée avec le routage, les filtres ou l’interface environn
     values={[
       { label: 'React', value: 'react' },
       { label: 'Solid', value: 'solid' },
+      { label: 'Vue', value: 'vue' },
     ]}
     className="docs-tabs"
   >
@@ -227,6 +265,11 @@ doit rester synchronisée avec le routage, les filtres ou l’interface environn
     <Tab value="solid">
 
 <CodeBlockRuntime lang="tsx" code={radioGroupSolidControlled} />
+
+    </Tab>
+    <Tab value="vue">
+
+<CodeBlockRuntime lang="vue" code={radioGroupVueControlled} />
 
     </Tab>
   </Tabs>
@@ -254,6 +297,7 @@ valeur sélectionnée visible.
     values={[
       { label: 'React', value: 'react' },
       { label: 'Solid', value: 'solid' },
+      { label: 'Vue', value: 'vue' },
     ]}
     className="docs-tabs"
   >
@@ -266,6 +310,11 @@ valeur sélectionnée visible.
     <Tab value="solid">
 
 <CodeBlockRuntime lang="tsx" code={radioGroupSolidDisabled} />
+
+    </Tab>
+    <Tab value="vue">
+
+<CodeBlockRuntime lang="vue" code={radioGroupVueDisabled} />
 
     </Tab>
   </Tabs>
@@ -288,6 +337,7 @@ indisponible.
     values={[
       { label: 'React', value: 'react' },
       { label: 'Solid', value: 'solid' },
+      { label: 'Vue', value: 'vue' },
     ]}
     className="docs-tabs"
   >
@@ -300,6 +350,11 @@ indisponible.
     <Tab value="solid">
 
 <CodeBlockRuntime lang="tsx" code={radioGroupSolidDisabledItem} />
+
+    </Tab>
+    <Tab value="vue">
+
+<CodeBlockRuntime lang="vue" code={radioGroupVueDisabledItem} />
 
     </Tab>
   </Tabs>
@@ -322,6 +377,7 @@ Passez `name` à la racine lorsque la valeur sélectionnée doit être envoyée 
     values={[
       { label: 'React', value: 'react' },
       { label: 'Solid', value: 'solid' },
+      { label: 'Vue', value: 'vue' },
     ]}
     className="docs-tabs"
   >
@@ -334,6 +390,11 @@ Passez `name` à la racine lorsque la valeur sélectionnée doit être envoyée 
     <Tab value="solid">
 
 <CodeBlockRuntime lang="tsx" code={radioGroupSolidForm} />
+
+    </Tab>
+    <Tab value="vue">
+
+<CodeBlockRuntime lang="vue" code={radioGroupVueForm} />
 
     </Tab>
   </Tabs>
@@ -362,6 +423,7 @@ qu’il suive la géométrie des options.
     values={[
       { label: 'React', value: 'react' },
       { label: 'Solid', value: 'solid' },
+      { label: 'Vue', value: 'vue' },
     ]}
     className="docs-tabs"
   >
@@ -374,6 +436,11 @@ qu’il suive la géométrie des options.
     <Tab value="solid">
 
 <CodeBlockRuntime lang="tsx" code={radioGroupSolidIndicator} />
+
+    </Tab>
+    <Tab value="vue">
+
+<CodeBlockRuntime lang="vue" code={radioGroupVueIndicator} />
 
     </Tab>
   </Tabs>
@@ -401,6 +468,7 @@ gérer seul les changements suivants.
     values={[
       { label: 'React', value: 'react' },
       { label: 'Solid', value: 'solid' },
+      { label: 'Vue', value: 'vue' },
     ]}
     className="docs-tabs"
   >
@@ -413,6 +481,11 @@ gérer seul les changements suivants.
     <Tab value="solid">
 
 <CodeBlockRuntime lang="tsx" code={radioGroupSolidInitialValue} />
+
+    </Tab>
+    <Tab value="vue">
+
+<CodeBlockRuntime lang="vue" code={radioGroupVueInitialValue} />
 
     </Tab>
   </Tabs>
@@ -435,6 +508,7 @@ horizontal. Placez les options dans un conteneur en ligne pour obtenir la même 
     values={[
       { label: 'React', value: 'react' },
       { label: 'Solid', value: 'solid' },
+      { label: 'Vue', value: 'vue' },
     ]}
     className="docs-tabs"
   >
@@ -447,6 +521,11 @@ horizontal. Placez les options dans un conteneur en ligne pour obtenir la même 
     <Tab value="solid">
 
 <CodeBlockRuntime lang="tsx" code={radioGroupSolidOrientation} />
+
+    </Tab>
+    <Tab value="vue">
+
+<CodeBlockRuntime lang="vue" code={radioGroupVueOrientation} />
 
     </Tab>
   </Tabs>
@@ -475,6 +554,7 @@ l’extérieur du groupe.
     values={[
       { label: 'React', value: 'react' },
       { label: 'Solid', value: 'solid' },
+      { label: 'Vue', value: 'vue' },
     ]}
     className="docs-tabs"
   >
@@ -487,6 +567,11 @@ l’extérieur du groupe.
     <Tab value="solid">
 
 <CodeBlockRuntime lang="tsx" code={radioGroupSolidRootProvider} />
+
+    </Tab>
+    <Tab value="vue">
+
+<CodeBlockRuntime lang="vue" code={radioGroupVueRootProvider} />
 
     </Tab>
   </Tabs>
@@ -514,6 +599,7 @@ diamètre différent. Les valeurs prises en charge sont `xs`, `sm`, `md`, `lg` e
     values={[
       { label: 'React', value: 'react' },
       { label: 'Solid', value: 'solid' },
+      { label: 'Vue', value: 'vue' },
     ]}
     className="docs-tabs"
   >
@@ -526,6 +612,11 @@ diamètre différent. Les valeurs prises en charge sont `xs`, `sm`, `md`, `lg` e
     <Tab value="solid">
 
 <CodeBlockRuntime lang="tsx" code={radioGroupSolidSizes} />
+
+    </Tab>
+    <Tab value="vue">
+
+<CodeBlockRuntime lang="vue" code={radioGroupVueSizes} />
 
     </Tab>
   </Tabs>
@@ -549,6 +640,7 @@ l’état de validation du groupe.
     values={[
       { label: 'React', value: 'react' },
       { label: 'Solid', value: 'solid' },
+      { label: 'Vue', value: 'vue' },
     ]}
     className="docs-tabs"
   >
@@ -561,6 +653,11 @@ l’état de validation du groupe.
     <Tab value="solid">
 
 <CodeBlockRuntime lang="tsx" code={radioGroupSolidField} />
+
+    </Tab>
+    <Tab value="vue">
+
+<CodeBlockRuntime lang="vue" code={radioGroupVueField} />
 
     </Tab>
   </Tabs>
@@ -589,6 +686,7 @@ imbriqué.
     values={[
       { label: 'React', value: 'react' },
       { label: 'Solid', value: 'solid' },
+      { label: 'Vue', value: 'vue' },
     ]}
     className="docs-tabs"
   >
@@ -601,6 +699,11 @@ imbriqué.
     <Tab value="solid">
 
 <CodeBlockRuntime lang="tsx" code={radioGroupSolidFieldset} />
+
+    </Tab>
+    <Tab value="vue">
+
+<CodeBlockRuntime lang="vue" code={radioGroupVueFieldset} />
 
     </Tab>
   </Tabs>
@@ -628,6 +731,7 @@ son propre placement, ses propres props ou son propre style.
     values={[
       { label: 'React', value: 'react' },
       { label: 'Solid', value: 'solid' },
+      { label: 'Vue', value: 'vue' },
     ]}
     className="docs-tabs"
   >
@@ -642,13 +746,18 @@ son propre placement, ses propres props ou son propre style.
 <CodeBlockRuntime lang="tsx" code={radioGroupSolidAdvancedCustomization} />
 
     </Tab>
+    <Tab value="vue">
+
+<CodeBlockRuntime lang="vue" code={radioGroupVueAdvancedCustomization} />
+
+    </Tab>
   </Tabs>
 </div>
 </ExampleCode>
 
 ## Styles
 
-Utilisez `className` dans React ou `class` dans Solid sur les parties exportées pour les styles
+Utilisez `className` dans React ou `class` dans Solid et Vue sur les parties exportées pour les styles
 structurels. Pour les styles liés à l’état, préférez les attributs de données Ark comme `data-state`,
 `data-disabled` et `data-orientation`, avec les sélecteurs `data-slot` de moduix. Les variantes
 Tailwind utilisent les utilitaires natifs et les classes du consommateur ; les variables ci-dessous

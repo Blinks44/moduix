@@ -1,7 +1,7 @@
 ---
 title: Rating Group
 component: rating-group
-description: A star rating control built on the Ark UI rating-group primitive.
+description: A star rating control built on the Ark UI rating-group primitive for React, Solid, and Vue.
 ---
 
 import * as RatingGroupDocs from '@/components/examples/rating-group/css-properties';
@@ -23,6 +23,15 @@ import ratingGroupSolidField from '../../../snippets/rating-group/solid/field.ts
 import ratingGroupSolidForms from '../../../snippets/rating-group/solid/forms.tsx?raw';
 import ratingGroupSolidHalfRating from '../../../snippets/rating-group/solid/half-rating.tsx?raw';
 import ratingGroupSolidSizes from '../../../snippets/rating-group/solid/sizes.tsx?raw';
+import ratingGroupVueAdvancedCustomization from '../../../snippets/rating-group/vue/advanced-customization.vue?raw';
+import ratingGroupVueBasic from '../../../snippets/rating-group/vue/basic.vue?raw';
+import ratingGroupVueControlled from '../../../snippets/rating-group/vue/controlled.vue?raw';
+import ratingGroupVueCustomIcon from '../../../snippets/rating-group/vue/custom-icon.vue?raw';
+import ratingGroupVueDisabledAndReadonly from '../../../snippets/rating-group/vue/disabled-and-readonly.vue?raw';
+import ratingGroupVueField from '../../../snippets/rating-group/vue/field.vue?raw';
+import ratingGroupVueForms from '../../../snippets/rating-group/vue/forms.vue?raw';
+import ratingGroupVueHalfRating from '../../../snippets/rating-group/vue/half-rating.vue?raw';
+import ratingGroupVueSizes from '../../../snippets/rating-group/vue/sizes.vue?raw';
 
 ## API Reference
 
@@ -47,7 +56,7 @@ the value should participate in native form submission.
 <div className="docs-reference">
   <Tabs
     groupId="framework"
-    values={[{ label: 'React', value: 'react' }, { label: 'Solid', value: 'solid' }]}
+    values={[{ label: 'React', value: 'react' }, { label: 'Solid', value: 'solid' }, { label: 'Vue', value: 'vue' }]}
     className="docs-tabs"
   >
     <Tab value="react">
@@ -59,6 +68,11 @@ the value should participate in native form submission.
     <Tab value="solid">
 
 <CodeBlockRuntime lang="tsx" code={ratingGroupSolidBasic} />
+
+    </Tab>
+    <Tab value="vue">
+
+<CodeBlockRuntime lang="vue" code={ratingGroupVueBasic} />
 
     </Tab>
   </Tabs>
@@ -87,6 +101,16 @@ See [Quick Start](/docs/quick-start) for full package setup, registry configurat
   options={[
     { label: 'CSS Modules', command: 'shadcn@latest add @moduix-solid/rating-group' },
     { label: 'Tailwind CSS', command: 'shadcn@latest add @moduix-solid-tailwind/rating-group' },
+  ]}
+/>
+
+  </Tab>
+  <Tab label="Vue" value="vue">
+
+<ShadcnInstallOptions
+  options={[
+    { label: 'CSS Modules', command: 'shadcn@latest add @moduix-vue/rating-group' },
+    { label: 'Tailwind CSS', command: 'shadcn@latest add @moduix-vue-tailwind/rating-group' },
   ]}
 />
 
@@ -133,15 +157,15 @@ root when the value should be submitted by a native form.
 
 For a custom item tree, use `RatingGroupContext` with `RatingGroupItem`; use
 `RatingGroupRootProvider` with `useRatingGroup()` when the store must be created outside the
-rendered tree. React reads the store as an object, while Solid reads its reactive state through the
-returned accessor.
+rendered tree. React reads the store as an object, Solid reads its reactive state through the
+returned accessor, and Vue exposes the reactive store directly to the template.
 
 ## Examples
 
 ### Controlled
 
-Manage `value` with `useState` in React or `createSignal` in Solid when the score depends on other
-state, drives nearby UI, or must be reset by a parent.
+Manage `value` with `useState` in React, `createSignal` in Solid, or `ref` and `v-model` in Vue when
+the score depends on other state, drives nearby UI, or must be reset by a parent.
 
 <ExampleFrame variant="component">
   <RatingGroupControlled />
@@ -151,7 +175,7 @@ state, drives nearby UI, or must be reset by a parent.
 <div className="docs-reference">
   <Tabs
     groupId="framework"
-    values={[{ label: 'React', value: 'react' }, { label: 'Solid', value: 'solid' }]}
+    values={[{ label: 'React', value: 'react' }, { label: 'Solid', value: 'solid' }, { label: 'Vue', value: 'vue' }]}
     className="docs-tabs"
   >
     <Tab value="react">
@@ -163,6 +187,11 @@ state, drives nearby UI, or must be reset by a parent.
     <Tab value="solid">
 
 <CodeBlockRuntime lang="tsx" code={ratingGroupSolidControlled} />
+
+    </Tab>
+    <Tab value="vue">
+
+<CodeBlockRuntime lang="vue" code={ratingGroupVueControlled} />
 
     </Tab>
   </Tabs>
@@ -189,7 +218,7 @@ attributes for styling.
 <div className="docs-reference">
   <Tabs
     groupId="framework"
-    values={[{ label: 'React', value: 'react' }, { label: 'Solid', value: 'solid' }]}
+    values={[{ label: 'React', value: 'react' }, { label: 'Solid', value: 'solid' }, { label: 'Vue', value: 'vue' }]}
     className="docs-tabs"
   >
     <Tab value="react">
@@ -201,6 +230,11 @@ attributes for styling.
     <Tab value="solid">
 
 <CodeBlockRuntime lang="tsx" code={ratingGroupSolidCustomIcon} />
+
+    </Tab>
+    <Tab value="vue">
+
+<CodeBlockRuntime lang="vue" code={ratingGroupVueCustomIcon} />
 
     </Tab>
   </Tabs>
@@ -226,7 +260,7 @@ changes.
 <div className="docs-reference">
   <Tabs
     groupId="framework"
-    values={[{ label: 'React', value: 'react' }, { label: 'Solid', value: 'solid' }]}
+    values={[{ label: 'React', value: 'react' }, { label: 'Solid', value: 'solid' }, { label: 'Vue', value: 'vue' }]}
     className="docs-tabs"
   >
     <Tab value="react">
@@ -238,6 +272,11 @@ changes.
     <Tab value="solid">
 
 <CodeBlockRuntime lang="tsx" code={ratingGroupSolidDisabledAndReadonly} />
+
+    </Tab>
+    <Tab value="vue">
+
+<CodeBlockRuntime lang="vue" code={ratingGroupVueDisabledAndReadonly} />
 
     </Tab>
   </Tabs>
@@ -264,7 +303,7 @@ validation state remains owned by `Field` and application code.
 <div className="docs-reference">
   <Tabs
     groupId="framework"
-    values={[{ label: 'React', value: 'react' }, { label: 'Solid', value: 'solid' }]}
+    values={[{ label: 'React', value: 'react' }, { label: 'Solid', value: 'solid' }, { label: 'Vue', value: 'vue' }]}
     className="docs-tabs"
   >
     <Tab value="react">
@@ -276,6 +315,11 @@ validation state remains owned by `Field` and application code.
     <Tab value="solid">
 
 <CodeBlockRuntime lang="tsx" code={ratingGroupSolidField} />
+
+    </Tab>
+    <Tab value="vue">
+
+<CodeBlockRuntime lang="vue" code={ratingGroupVueField} />
 
     </Tab>
   </Tabs>
@@ -301,7 +345,7 @@ Pass `name` and render `RatingGroupHiddenInput` when the selected score should b
 <div className="docs-reference">
   <Tabs
     groupId="framework"
-    values={[{ label: 'React', value: 'react' }, { label: 'Solid', value: 'solid' }]}
+    values={[{ label: 'React', value: 'react' }, { label: 'Solid', value: 'solid' }, { label: 'Vue', value: 'vue' }]}
     className="docs-tabs"
   >
     <Tab value="react">
@@ -313,6 +357,11 @@ Pass `name` and render `RatingGroupHiddenInput` when the selected score should b
     <Tab value="solid">
 
 <CodeBlockRuntime lang="tsx" code={ratingGroupSolidForms} />
+
+    </Tab>
+    <Tab value="vue">
+
+<CodeBlockRuntime lang="vue" code={ratingGroupVueForms} />
 
     </Tab>
   </Tabs>
@@ -337,7 +386,7 @@ Set `allowHalf` to enable half-step selection and rendering.
 <div className="docs-reference">
   <Tabs
     groupId="framework"
-    values={[{ label: 'React', value: 'react' }, { label: 'Solid', value: 'solid' }]}
+    values={[{ label: 'React', value: 'react' }, { label: 'Solid', value: 'solid' }, { label: 'Vue', value: 'vue' }]}
     className="docs-tabs"
   >
     <Tab value="react">
@@ -349,6 +398,11 @@ Set `allowHalf` to enable half-step selection and rendering.
     <Tab value="solid">
 
 <CodeBlockRuntime lang="tsx" code={ratingGroupSolidHalfRating} />
+
+    </Tab>
+    <Tab value="vue">
+
+<CodeBlockRuntime lang="vue" code={ratingGroupVueHalfRating} />
 
     </Tab>
   </Tabs>
@@ -369,7 +423,7 @@ density.
 <div className="docs-reference">
   <Tabs
     groupId="framework"
-    values={[{ label: 'React', value: 'react' }, { label: 'Solid', value: 'solid' }]}
+    values={[{ label: 'React', value: 'react' }, { label: 'Solid', value: 'solid' }, { label: 'Vue', value: 'vue' }]}
     className="docs-tabs"
   >
     <Tab value="react">
@@ -381,6 +435,11 @@ density.
     <Tab value="solid">
 
 <CodeBlockRuntime lang="tsx" code={ratingGroupSolidSizes} />
+
+    </Tab>
+    <Tab value="vue">
+
+<CodeBlockRuntime lang="vue" code={ratingGroupVueSizes} />
 
     </Tab>
   </Tabs>
@@ -407,7 +466,7 @@ need to render each item yourself.
 <div className="docs-reference">
   <Tabs
     groupId="framework"
-    values={[{ label: 'React', value: 'react' }, { label: 'Solid', value: 'solid' }]}
+    values={[{ label: 'React', value: 'react' }, { label: 'Solid', value: 'solid' }, { label: 'Vue', value: 'vue' }]}
     className="docs-tabs"
   >
     <Tab value="react">
@@ -419,6 +478,11 @@ need to render each item yourself.
     <Tab value="solid">
 
 <CodeBlockRuntime lang="tsx" code={ratingGroupSolidAdvancedCustomization} />
+
+    </Tab>
+    <Tab value="vue">
+
+<CodeBlockRuntime lang="vue" code={ratingGroupVueAdvancedCustomization} />
 
     </Tab>
   </Tabs>
@@ -433,7 +497,7 @@ need to render each item yourself.
 
 ## Styling
 
-Use `className` in React or `class` in Solid on exported parts for structural styles. Ark also exposes
+Use `className` in React or `class` in Solid and Vue on exported parts for structural styles. Ark also exposes
 `data-scope="rating-group"` and `data-part` attributes. For state-based styles, use data attributes such as `data-disabled`, `data-readonly`, `data-checked`,
 `data-highlighted`, and `data-half`, together with moduix `data-slot` hooks. Tailwind variants use
 native utilities and consumer classes; the CSS Modules variants also expose the registered

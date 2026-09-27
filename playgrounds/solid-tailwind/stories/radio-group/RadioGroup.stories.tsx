@@ -193,7 +193,7 @@ export const AsChild: Story = {
     <RadioGroup defaultValue="React">
       <RadioGroupLabel>Framework</RadioGroupLabel>
       {frameworks.map((item) => (
-        <RadioGroupItem value={item} asChild={(props) => <label class={cardClass} {...props()} />}>
+        <RadioGroupItem value={item} class={cardClass} asChild={(props) => <label {...props()} />}>
           <>
             <RadioGroupItemControl />
             <RadioGroupItemText>{item}</RadioGroupItemText>

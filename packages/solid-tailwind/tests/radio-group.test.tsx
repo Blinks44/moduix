@@ -74,6 +74,7 @@ test('keeps asChild composition semantic with an explicit item input', () => {
   render(() => (
     <RadioGroup defaultValue="React">
       <RadioGroupItem
+        class="grid w-56"
         asChild={(props) => <label data-testid="custom-item" {...props()} />}
         value="React"
       >
@@ -88,6 +89,8 @@ test('keeps asChild composition semantic with an explicit item input', () => {
 
   const item = screen.getByTestId('custom-item');
   expect(item.tagName).toBe('LABEL');
+  expect(item).toHaveClass('grid', 'w-56');
+  expect(item).not.toHaveClass('inline-flex');
   expect(item.querySelectorAll('input[type="radio"]')).toHaveLength(1);
 });
 

@@ -53,6 +53,22 @@
       "types": "./dist/components/accordion/index.d.ts",
       "import": "./dist/components/accordion/index.js"
     },
+    "./switch": {
+      "types": "./dist/components/switch/index.d.ts",
+      "import": "./dist/components/switch/index.js"
+    },
+    "./select": {
+      "types": "./dist/components/select/index.d.ts",
+      "import": "./dist/components/select/index.js"
+    },
+    "./native-select": {
+      "types": "./dist/components/native-select/index.d.ts",
+      "import": "./dist/components/native-select/index.js"
+    },
+    "./rating-group": {
+      "types": "./dist/components/rating-group/index.d.ts",
+      "import": "./dist/components/rating-group/index.js"
+    },
     "./collapsible": {
       "types": "./dist/components/collapsible/index.d.ts",
       "import": "./dist/components/collapsible/index.js"
@@ -101,6 +117,10 @@
       "types": "./dist/components/input/index.d.ts",
       "import": "./dist/components/input/index.js"
     },
+    "./textarea": {
+      "types": "./dist/components/textarea/index.d.ts",
+      "import": "./dist/components/textarea/index.js"
+    },
     "./card": {
       "types": "./dist/components/card/index.d.ts",
       "import": "./dist/components/card/index.js"
@@ -112,6 +132,10 @@
     "./checkbox": {
       "types": "./dist/components/checkbox/index.d.ts",
       "import": "./dist/components/checkbox/index.js"
+    },
+    "./radio-group": {
+      "types": "./dist/components/radio-group/index.d.ts",
+      "import": "./dist/components/radio-group/index.js"
     },
     "./fieldset": {
       "types": "./dist/components/fieldset/index.d.ts",

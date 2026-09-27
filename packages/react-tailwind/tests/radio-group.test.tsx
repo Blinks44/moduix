@@ -75,7 +75,7 @@ test('submits through explicit Ark item inputs', async () => {
 test('keeps asChild composition semantic with an explicit item input', () => {
   render(
     <RadioGroup defaultValue="React">
-      <RadioGroupItem asChild value="React">
+      <RadioGroupItem className="grid w-56" asChild value="React">
         <label data-testid="custom-item">
           <RadioGroupItemControl />
           <RadioGroupItemHiddenInput />
@@ -87,6 +87,8 @@ test('keeps asChild composition semantic with an explicit item input', () => {
 
   const item = screen.getByTestId('custom-item');
   expect(item.tagName).toBe('LABEL');
+  expect(item).toHaveClass('grid', 'w-56');
+  expect(item).not.toHaveClass('inline-flex');
   expect(item.querySelectorAll('input[type="radio"]')).toHaveLength(1);
 });
 
