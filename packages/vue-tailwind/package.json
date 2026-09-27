@@ -57,6 +57,14 @@
       "types": "./dist/components/accordion/index.d.ts",
       "import": "./dist/components/accordion/index.js"
     },
+    "./editable": {
+      "types": "./dist/components/editable/index.d.ts",
+      "import": "./dist/components/editable/index.js"
+    },
+    "./empty": {
+      "types": "./dist/components/empty/index.d.ts",
+      "import": "./dist/components/empty/index.js"
+    },
     "./date-input": {
       "types": "./dist/components/date-input/index.d.ts",
       "import": "./dist/components/date-input/index.js"

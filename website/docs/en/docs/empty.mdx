@@ -13,6 +13,10 @@ import emptySolidAdvancedCustomization from '../../../snippets/empty/solid/advan
 import emptySolidBasic from '../../../snippets/empty/solid/basic.tsx?raw';
 import emptySolidWithoutActions from '../../../snippets/empty/solid/without-actions.tsx?raw';
 import emptySolidWithoutIcon from '../../../snippets/empty/solid/without-icon.tsx?raw';
+import emptyVueAdvancedCustomization from '../../../snippets/empty/vue/advanced-customization.vue?raw';
+import emptyVueBasic from '../../../snippets/empty/vue/basic.vue?raw';
+import emptyVueWithoutActions from '../../../snippets/empty/vue/without-actions.vue?raw';
+import emptyVueWithoutIcon from '../../../snippets/empty/vue/without-icon.vue?raw';
 
 ## API Reference
 
@@ -42,6 +46,7 @@ the state benefits from a visual cue or a clear next step.
     values={[
       { label: 'React', value: 'react' },
       { label: 'Solid', value: 'solid' },
+      { label: 'Vue', value: 'vue' },
     ]}
     className="docs-tabs"
   >
@@ -54,6 +59,11 @@ the state benefits from a visual cue or a clear next step.
     <Tab value="solid">
 
 <CodeBlockRuntime lang="tsx" code={emptySolidBasic} />
+
+    </Tab>
+    <Tab value="vue">
+
+<CodeBlockRuntime lang="vue" code={emptyVueBasic} />
 
     </Tab>
   </Tabs>
@@ -91,6 +101,16 @@ See [Quick Start](/docs/quick-start) for full package setup, registry configurat
 />
 
   </Tab>
+  <Tab label="Vue" value="vue">
+
+<ShadcnInstallOptions
+  options={[
+    { label: 'CSS Modules', command: 'shadcn@latest add @moduix-vue/empty' },
+    { label: 'Tailwind CSS', command: 'shadcn@latest add @moduix-vue-tailwind/empty' },
+  ]}
+/>
+
+  </Tab>
 </Tabs>
 
 ## Anatomy
@@ -121,7 +141,7 @@ the screen. `Empty` is presentational and does not own application state or live
 
 Use `asChild` on `Empty` or `EmptyTitle` when the surrounding section needs a semantic container or
 a different heading level. Pass exactly one child to an `asChild` part so it can receive that part's
-props and ref in React. In Solid, assign a ref inside the `asChild` render function. Then add any
+props and ref. In Vue, a component ref exposes the rendered host through `$el`. Then add any
 required landmark, role, focus management, or `aria-live` behavior in the surrounding interface.
 
 ## Examples
@@ -141,6 +161,7 @@ Leave out `EmptyActions` when the state is informational and does not need an im
     values={[
       { label: 'React', value: 'react' },
       { label: 'Solid', value: 'solid' },
+      { label: 'Vue', value: 'vue' },
     ]}
     className="docs-tabs"
   >
@@ -153,6 +174,11 @@ Leave out `EmptyActions` when the state is informational and does not need an im
     <Tab value="solid">
 
 <CodeBlockRuntime lang="tsx" code={emptySolidWithoutActions} />
+
+    </Tab>
+    <Tab value="vue">
+
+<CodeBlockRuntime lang="vue" code={emptyVueWithoutActions} />
 
     </Tab>
   </Tabs>
@@ -180,6 +206,7 @@ The icon is optional, so a text-only empty state can stay compact.
     values={[
       { label: 'React', value: 'react' },
       { label: 'Solid', value: 'solid' },
+      { label: 'Vue', value: 'vue' },
     ]}
     className="docs-tabs"
   >
@@ -192,6 +219,11 @@ The icon is optional, so a text-only empty state can stay compact.
     <Tab value="solid">
 
 <CodeBlockRuntime lang="tsx" code={emptySolidWithoutIcon} />
+
+    </Tab>
+    <Tab value="vue">
+
+<CodeBlockRuntime lang="vue" code={emptyVueWithoutIcon} />
 
     </Tab>
   </Tabs>
@@ -221,6 +253,7 @@ as `section`. Use it on `EmptyTitle` when the heading needs a different level. B
     values={[
       { label: 'React', value: 'react' },
       { label: 'Solid', value: 'solid' },
+      { label: 'Vue', value: 'vue' },
     ]}
     className="docs-tabs"
   >
@@ -233,6 +266,11 @@ as `section`. Use it on `EmptyTitle` when the heading needs a different level. B
     <Tab value="solid">
 
 <CodeBlockRuntime lang="tsx" code={emptySolidAdvancedCustomization} />
+
+    </Tab>
+    <Tab value="vue">
+
+<CodeBlockRuntime lang="vue" code={emptyVueAdvancedCustomization} />
 
     </Tab>
   </Tabs>

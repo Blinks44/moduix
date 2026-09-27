@@ -1,0 +1,25 @@
+.empty,
+.customEmpty {
+  width: min(28rem, calc(100vw - var(--moduix-spacing-8)));
+}
+
+.customEmpty {
+  --moduix-empty-bg: color-mix(in oklab, var(--moduix-color-primary) 8%, var(--moduix-color-card));
+  --moduix-empty-border-color: color-mix(
+    in oklab,
+    var(--moduix-color-primary) 28%,
+    var(--moduix-color-border)
+  );
+  --moduix-empty-icon-bg: color-mix(
+    in oklab,
+    var(--moduix-color-primary) 14%,
+    var(--moduix-color-background)
+  );
+  --moduix-empty-icon-color: var(--moduix-color-primary);
+  --moduix-empty-icon-radius: var(--moduix-radius-lg);
+  --moduix-empty-shadow: var(--moduix-shadow-md);
+}
+
+.customIcon {
+  --moduix-empty-icon-size: 1.75rem;
+}

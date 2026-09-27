@@ -1,7 +1,7 @@
 ---
 title: Editable
 component: editable
-description: Build accessible inline editors in React and Solid with package and shadcn installation options.
+description: Build accessible inline editors in React, Solid, and Vue with package and shadcn installation options.
 ---
 
 import * as EditableDocs from '@/components/examples/editable/css-properties';
@@ -23,6 +23,15 @@ import editableSolidGuides from '../../../snippets/editable/solid/guides.tsx?raw
 import editableSolidRootProvider from '../../../snippets/editable/solid/root-provider.tsx?raw';
 import editableSolidStates from '../../../snippets/editable/solid/disabled-and-read-only.tsx?raw';
 import editableSolidTextarea from '../../../snippets/editable/solid/textarea.tsx?raw';
+import editableVueAdvancedCustomization from '../../../snippets/editable/vue/advanced-customization.vue?raw';
+import editableVueBasic from '../../../snippets/editable/vue/basic.vue?raw';
+import editableVueControlled from '../../../snippets/editable/vue/controlled.vue?raw';
+import editableVueField from '../../../snippets/editable/vue/field.vue?raw';
+import editableVueForm from '../../../snippets/editable/vue/form.vue?raw';
+import editableVueGuides from '../../../snippets/editable/vue/guides.vue?raw';
+import editableVueRootProvider from '../../../snippets/editable/vue/root-provider.vue?raw';
+import editableVueStates from '../../../snippets/editable/vue/disabled-and-read-only.vue?raw';
+import editableVueTextarea from '../../../snippets/editable/vue/textarea.vue?raw';
 
 ## API Reference
 
@@ -54,6 +63,7 @@ with a double-click, which helps prevent accidental changes.
     values={[
       { label: 'React', value: 'react' },
       { label: 'Solid', value: 'solid' },
+      { label: 'Vue', value: 'vue' },
     ]}
     className="docs-tabs"
   >
@@ -66,6 +76,11 @@ with a double-click, which helps prevent accidental changes.
     <Tab value="solid">
 
 <CodeBlockRuntime lang="tsx" code={editableSolidBasic} />
+
+    </Tab>
+    <Tab value="vue">
+
+<CodeBlockRuntime lang="vue" code={editableVueBasic} />
 
     </Tab>
   </Tabs>
@@ -94,6 +109,16 @@ See [Quick Start](/docs/quick-start) for full package setup, registry configurat
   options={[
     { label: 'CSS Modules', command: 'shadcn@latest add @moduix-solid/editable' },
     { label: 'Tailwind CSS', command: 'shadcn@latest add @moduix-solid-tailwind/editable' },
+  ]}
+/>
+
+  </Tab>
+  <Tab label="Vue" value="vue">
+
+<ShadcnInstallOptions
+  options={[
+    { label: 'CSS Modules', command: 'shadcn@latest add @moduix-vue/editable' },
+    { label: 'Tailwind CSS', command: 'shadcn@latest add @moduix-vue-tailwind/editable' },
   ]}
 />
 
@@ -157,6 +182,7 @@ Use `value` and `onValueChange` when application state should be the source of t
     values={[
       { label: 'React', value: 'react' },
       { label: 'Solid', value: 'solid' },
+      { label: 'Vue', value: 'vue' },
     ]}
     className="docs-tabs"
   >
@@ -169,6 +195,11 @@ Use `value` and `onValueChange` when application state should be the source of t
     <Tab value="solid">
 
 <CodeBlockRuntime lang="tsx" code={editableSolidControlled} />
+
+    </Tab>
+    <Tab value="vue">
+
+<CodeBlockRuntime lang="vue" code={editableVueControlled} />
 
     </Tab>
   </Tabs>
@@ -192,6 +223,7 @@ should remain visible but must not be editable.
     values={[
       { label: 'React', value: 'react' },
       { label: 'Solid', value: 'solid' },
+      { label: 'Vue', value: 'vue' },
     ]}
     className="docs-tabs"
   >
@@ -204,6 +236,11 @@ should remain visible but must not be editable.
     <Tab value="solid">
 
 <CodeBlockRuntime lang="tsx" code={editableSolidStates} />
+
+    </Tab>
+    <Tab value="vue">
+
+<CodeBlockRuntime lang="vue" code={editableVueStates} />
 
     </Tab>
   </Tabs>
@@ -231,6 +268,7 @@ Wrap `Editable` in `Field` when validation state or an error message should appe
     values={[
       { label: 'React', value: 'react' },
       { label: 'Solid', value: 'solid' },
+      { label: 'Vue', value: 'vue' },
     ]}
     className="docs-tabs"
   >
@@ -243,6 +281,11 @@ Wrap `Editable` in `Field` when validation state or an error message should appe
     <Tab value="solid">
 
 <CodeBlockRuntime lang="tsx" code={editableSolidField} />
+
+    </Tab>
+    <Tab value="vue">
+
+<CodeBlockRuntime lang="vue" code={editableVueField} />
 
     </Tab>
   </Tabs>
@@ -270,6 +313,7 @@ Pass `name` to include the current value in a native form submission.
     values={[
       { label: 'React', value: 'react' },
       { label: 'Solid', value: 'solid' },
+      { label: 'Vue', value: 'vue' },
     ]}
     className="docs-tabs"
   >
@@ -282,6 +326,11 @@ Pass `name` to include the current value in a native form submission.
     <Tab value="solid">
 
 <CodeBlockRuntime lang="tsx" code={editableSolidForm} />
+
+    </Tab>
+    <Tab value="vue">
+
+<CodeBlockRuntime lang="vue" code={editableVueForm} />
 
     </Tab>
   </Tabs>
@@ -311,6 +360,7 @@ mode-specific placeholders, and localized control labels. This example sets `act
     values={[
       { label: 'React', value: 'react' },
       { label: 'Solid', value: 'solid' },
+      { label: 'Vue', value: 'vue' },
     ]}
     className="docs-tabs"
   >
@@ -323,6 +373,11 @@ mode-specific placeholders, and localized control labels. This example sets `act
     <Tab value="solid">
 
 <CodeBlockRuntime lang="tsx" code={editableSolidGuides} />
+
+    </Tab>
+    <Tab value="vue">
+
+<CodeBlockRuntime lang="vue" code={editableVueGuides} />
 
     </Tab>
   </Tabs>
@@ -348,6 +403,7 @@ state instance.
     values={[
       { label: 'React', value: 'react' },
       { label: 'Solid', value: 'solid' },
+      { label: 'Vue', value: 'vue' },
     ]}
     className="docs-tabs"
   >
@@ -360,6 +416,11 @@ state instance.
     <Tab value="solid">
 
 <CodeBlockRuntime lang="tsx" code={editableSolidRootProvider} />
+
+    </Tab>
+    <Tab value="vue">
+
+<CodeBlockRuntime lang="vue" code={editableVueRootProvider} />
 
     </Tab>
   </Tabs>
@@ -388,6 +449,7 @@ textarea size and aligns the controls so the copied snippet works as-is.
     values={[
       { label: 'React', value: 'react' },
       { label: 'Solid', value: 'solid' },
+      { label: 'Vue', value: 'vue' },
     ]}
     className="docs-tabs"
   >
@@ -400,6 +462,11 @@ textarea size and aligns the controls so the copied snippet works as-is.
     <Tab value="solid">
 
 <CodeBlockRuntime lang="tsx" code={editableSolidTextarea} />
+
+    </Tab>
+    <Tab value="vue">
+
+<CodeBlockRuntime lang="vue" code={editableVueTextarea} />
 
     </Tab>
   </Tabs>
@@ -428,6 +495,7 @@ This example skips `EditableControls` and shows keyboard instructions while edit
     values={[
       { label: 'React', value: 'react' },
       { label: 'Solid', value: 'solid' },
+      { label: 'Vue', value: 'vue' },
     ]}
     className="docs-tabs"
   >
@@ -440,6 +508,11 @@ This example skips `EditableControls` and shows keyboard instructions while edit
     <Tab value="solid">
 
 <CodeBlockRuntime lang="tsx" code={editableSolidAdvancedCustomization} />
+
+    </Tab>
+    <Tab value="vue">
+
+<CodeBlockRuntime lang="vue" code={editableVueAdvancedCustomization} />
 
     </Tab>
   </Tabs>

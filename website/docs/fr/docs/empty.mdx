@@ -13,6 +13,10 @@ import emptySolidAdvancedCustomization from '../../../snippets/empty/solid/advan
 import emptySolidBasic from '../../../snippets/empty/solid/basic.tsx?raw';
 import emptySolidWithoutActions from '../../../snippets/empty/solid/without-actions.tsx?raw';
 import emptySolidWithoutIcon from '../../../snippets/empty/solid/without-icon.tsx?raw';
+import emptyVueAdvancedCustomization from '../../../snippets/empty/vue/advanced-customization.vue?raw';
+import emptyVueBasic from '../../../snippets/empty/vue/basic.vue?raw';
+import emptyVueWithoutActions from '../../../snippets/empty/vue/without-actions.vue?raw';
+import emptyVueWithoutIcon from '../../../snippets/empty/vue/without-icon.vue?raw';
 
 ## Référence de l’API
 
@@ -42,6 +46,7 @@ Commencez par `<Empty />` et ajoutez les parties du composant dont vous avez bes
     values={[
       { label: 'React', value: 'react' },
       { label: 'Solid', value: 'solid' },
+      { label: 'Vue', value: 'vue' },
     ]}
     className="docs-tabs"
   >
@@ -54,6 +59,11 @@ Commencez par `<Empty />` et ajoutez les parties du composant dont vous avez bes
     <Tab value="solid">
 
 <CodeBlockRuntime lang="tsx" code={emptySolidBasic} />
+
+    </Tab>
+    <Tab value="vue">
+
+<CodeBlockRuntime lang="vue" code={emptyVueBasic} />
 
     </Tab>
   </Tabs>
@@ -91,6 +101,16 @@ Consultez le [Démarrage rapide](/docs/quick-start) pour la configuration compl�
 />
 
   </Tab>
+  <Tab label="Vue" value="vue">
+
+<ShadcnInstallOptions
+  options={[
+    { label: 'CSS Modules', command: 'shadcn@latest add @moduix-vue/empty' },
+    { label: 'Tailwind CSS', command: 'shadcn@latest add @moduix-vue-tailwind/empty' },
+  ]}
+/>
+
+  </Tab>
 </Tabs>
 
 ## Anatomie
@@ -122,8 +142,9 @@ uniquement présentatif et ne gère ni l’état de l’application ni le compor
 
 Utilisez `asChild` sur `Empty` ou `EmptyTitle` lorsque la section qui l’accueille nécessite un
 conteneur sémantique ou un autre niveau de titre. Passez un seul enfant à une partie `asChild` pour
-qu’elle puisse lui transmettre ses propriétés et sa référence. Ajoutez la région, le rôle, la gestion
-du focus ou le comportement `aria-live` nécessaires dans l’interface environnante.
+qu’elle puisse lui transmettre ses propriétés et sa référence. En Vue, la référence du composant
+expose l’élément rendu via `$el`. Ajoutez la région, le rôle, la gestion du focus ou le comportement
+`aria-live` nécessaires dans l’interface environnante.
 
 ## Exemples
 
@@ -142,6 +163,7 @@ N’ajoutez pas `EmptyActions` lorsque l’état est informatif et ne nécessite
     values={[
       { label: 'React', value: 'react' },
       { label: 'Solid', value: 'solid' },
+      { label: 'Vue', value: 'vue' },
     ]}
     className="docs-tabs"
   >
@@ -154,6 +176,11 @@ N’ajoutez pas `EmptyActions` lorsque l’état est informatif et ne nécessite
     <Tab value="solid">
 
 <CodeBlockRuntime lang="tsx" code={emptySolidWithoutActions} />
+
+    </Tab>
+    <Tab value="vue">
+
+<CodeBlockRuntime lang="vue" code={emptyVueWithoutActions} />
 
     </Tab>
   </Tabs>
@@ -181,6 +208,7 @@ L’icône est facultative : un état vide composé uniquement de texte peut don
     values={[
       { label: 'React', value: 'react' },
       { label: 'Solid', value: 'solid' },
+      { label: 'Vue', value: 'vue' },
     ]}
     className="docs-tabs"
   >
@@ -193,6 +221,11 @@ L’icône est facultative : un état vide composé uniquement de texte peut don
     <Tab value="solid">
 
 <CodeBlockRuntime lang="tsx" code={emptySolidWithoutIcon} />
+
+    </Tab>
+    <Tab value="vue">
+
+<CodeBlockRuntime lang="vue" code={emptyVueWithoutIcon} />
 
     </Tab>
   </Tabs>
@@ -223,6 +256,7 @@ et d’autres éléments de type bloc.
     values={[
       { label: 'React', value: 'react' },
       { label: 'Solid', value: 'solid' },
+      { label: 'Vue', value: 'vue' },
     ]}
     className="docs-tabs"
   >
@@ -235,6 +269,11 @@ et d’autres éléments de type bloc.
     <Tab value="solid">
 
 <CodeBlockRuntime lang="tsx" code={emptySolidAdvancedCustomization} />
+
+    </Tab>
+    <Tab value="vue">
+
+<CodeBlockRuntime lang="vue" code={emptyVueAdvancedCustomization} />
 
     </Tab>
   </Tabs>

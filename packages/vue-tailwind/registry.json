@@ -138,6 +138,80 @@
       ]
     },
     {
+      "name": "editable",
+      "type": "registry:item",
+      "title": "Editable",
+      "description": "moduix Vue Tailwind Editable component.",
+      "dependencies": ["@ark-ui/vue", "clsx", "tailwind-merge"],
+      "registryDependencies": [
+        "@moduix-vue-tailwind/foundation",
+        "@moduix-vue-tailwind/cn",
+        "@moduix-vue-tailwind/icons"
+      ],
+      "files": [
+        {
+          "path": "src/components/editable/Editable.vue",
+          "target": "@components/ui/editable/Editable.vue",
+          "type": "registry:component"
+        },
+        {
+          "path": "src/components/editable/EditableRootProvider.vue",
+          "target": "@components/ui/editable/EditableRootProvider.vue",
+          "type": "registry:component"
+        },
+        {
+          "path": "src/components/editable/EditableLabel.vue",
+          "target": "@components/ui/editable/EditableLabel.vue",
+          "type": "registry:component"
+        },
+        {
+          "path": "src/components/editable/EditableArea.vue",
+          "target": "@components/ui/editable/EditableArea.vue",
+          "type": "registry:component"
+        },
+        {
+          "path": "src/components/editable/EditableInput.vue",
+          "target": "@components/ui/editable/EditableInput.vue",
+          "type": "registry:component"
+        },
+        {
+          "path": "src/components/editable/EditablePreview.vue",
+          "target": "@components/ui/editable/EditablePreview.vue",
+          "type": "registry:component"
+        },
+        {
+          "path": "src/components/editable/EditableControl.vue",
+          "target": "@components/ui/editable/EditableControl.vue",
+          "type": "registry:component"
+        },
+        {
+          "path": "src/components/editable/EditableControls.vue",
+          "target": "@components/ui/editable/EditableControls.vue",
+          "type": "registry:component"
+        },
+        {
+          "path": "src/components/editable/EditableEditTrigger.vue",
+          "target": "@components/ui/editable/EditableEditTrigger.vue",
+          "type": "registry:component"
+        },
+        {
+          "path": "src/components/editable/EditableSubmitTrigger.vue",
+          "target": "@components/ui/editable/EditableSubmitTrigger.vue",
+          "type": "registry:component"
+        },
+        {
+          "path": "src/components/editable/EditableCancelTrigger.vue",
+          "target": "@components/ui/editable/EditableCancelTrigger.vue",
+          "type": "registry:component"
+        },
+        {
+          "path": "src/components/editable/index.ts",
+          "target": "@components/ui/editable/index.ts",
+          "type": "registry:component"
+        }
+      ]
+    },
+    {
       "name": "date-picker",
       "type": "registry:item",
       "title": "DatePicker",
@@ -2549,6 +2623,51 @@
         {
           "path": "src/components/color-picker/index.ts",
           "target": "@components/ui/color-picker/index.ts",
+          "type": "registry:component"
+        }
+      ]
+    },
+    {
+      "name": "empty",
+      "type": "registry:item",
+      "title": "Empty",
+      "description": "Composable empty-state surface for no-results, no-data, and first-run screens.",
+      "dependencies": ["@ark-ui/vue", "clsx", "tailwind-merge"],
+      "registryDependencies": ["@moduix-vue-tailwind/foundation", "@moduix-vue-tailwind/cn"],
+      "files": [
+        {
+          "path": "src/components/empty/Empty.vue",
+          "target": "@components/ui/empty/Empty.vue",
+          "type": "registry:component"
+        },
+        {
+          "path": "src/components/empty/EmptyIcon.vue",
+          "target": "@components/ui/empty/EmptyIcon.vue",
+          "type": "registry:component"
+        },
+        {
+          "path": "src/components/empty/EmptyContent.vue",
+          "target": "@components/ui/empty/EmptyContent.vue",
+          "type": "registry:component"
+        },
+        {
+          "path": "src/components/empty/EmptyTitle.vue",
+          "target": "@components/ui/empty/EmptyTitle.vue",
+          "type": "registry:component"
+        },
+        {
+          "path": "src/components/empty/EmptyDescription.vue",
+          "target": "@components/ui/empty/EmptyDescription.vue",
+          "type": "registry:component"
+        },
+        {
+          "path": "src/components/empty/EmptyActions.vue",
+          "target": "@components/ui/empty/EmptyActions.vue",
+          "type": "registry:component"
+        },
+        {
+          "path": "src/components/empty/index.ts",
+          "target": "@components/ui/empty/index.ts",
           "type": "registry:component"
         }
       ]

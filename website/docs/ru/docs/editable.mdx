@@ -1,7 +1,7 @@
 ---
 title: Editable
 component: editable
-description: Доступное редактирование текста в React и Solid с установкой из пакета или через shadcn CLI.
+description: Доступное редактирование текста в React, Solid и Vue с установкой из пакета или через shadcn CLI.
 ---
 
 import * as EditableDocs from '@/components/examples/editable/css-properties';
@@ -23,6 +23,15 @@ import editableSolidGuides from '../../../snippets/editable/solid/guides.tsx?raw
 import editableSolidRootProvider from '../../../snippets/editable/solid/root-provider.tsx?raw';
 import editableSolidStates from '../../../snippets/editable/solid/disabled-and-read-only.tsx?raw';
 import editableSolidTextarea from '../../../snippets/editable/solid/textarea.tsx?raw';
+import editableVueAdvancedCustomization from '../../../snippets/editable/vue/advanced-customization.vue?raw';
+import editableVueBasic from '../../../snippets/editable/vue/basic.vue?raw';
+import editableVueControlled from '../../../snippets/editable/vue/controlled.vue?raw';
+import editableVueField from '../../../snippets/editable/vue/field.vue?raw';
+import editableVueForm from '../../../snippets/editable/vue/form.vue?raw';
+import editableVueGuides from '../../../snippets/editable/vue/guides.vue?raw';
+import editableVueRootProvider from '../../../snippets/editable/vue/root-provider.vue?raw';
+import editableVueStates from '../../../snippets/editable/vue/disabled-and-read-only.vue?raw';
+import editableVueTextarea from '../../../snippets/editable/vue/textarea.vue?raw';
 
 ## Справочник API
 
@@ -55,6 +64,7 @@ import editableSolidTextarea from '../../../snippets/editable/solid/textarea.tsx
     values={[
       { label: 'React', value: 'react' },
       { label: 'Solid', value: 'solid' },
+      { label: 'Vue', value: 'vue' },
     ]}
     className="docs-tabs"
   >
@@ -67,6 +77,11 @@ import editableSolidTextarea from '../../../snippets/editable/solid/textarea.tsx
     <Tab value="solid">
 
 <CodeBlockRuntime lang="tsx" code={editableSolidBasic} />
+
+    </Tab>
+    <Tab value="vue">
+
+<CodeBlockRuntime lang="vue" code={editableVueBasic} />
 
     </Tab>
   </Tabs>
@@ -95,6 +110,16 @@ import editableSolidTextarea from '../../../snippets/editable/solid/textarea.tsx
   options={[
     { label: 'CSS Modules', command: 'shadcn@latest add @moduix-solid/editable' },
     { label: 'Tailwind CSS', command: 'shadcn@latest add @moduix-solid-tailwind/editable' },
+  ]}
+/>
+
+  </Tab>
+  <Tab label="Vue" value="vue">
+
+<ShadcnInstallOptions
+  options={[
+    { label: 'CSS Modules', command: 'shadcn@latest add @moduix-vue/editable' },
+    { label: 'Tailwind CSS', command: 'shadcn@latest add @moduix-vue-tailwind/editable' },
   ]}
 />
 
@@ -158,6 +183,7 @@ EditableRootProvider
     values={[
       { label: 'React', value: 'react' },
       { label: 'Solid', value: 'solid' },
+      { label: 'Vue', value: 'vue' },
     ]}
     className="docs-tabs"
   >
@@ -170,6 +196,11 @@ EditableRootProvider
     <Tab value="solid">
 
 <CodeBlockRuntime lang="tsx" code={editableSolidControlled} />
+
+    </Tab>
+    <Tab value="vue">
+
+<CodeBlockRuntime lang="vue" code={editableVueControlled} />
 
     </Tab>
   </Tabs>
@@ -193,6 +224,7 @@ EditableRootProvider
     values={[
       { label: 'React', value: 'react' },
       { label: 'Solid', value: 'solid' },
+      { label: 'Vue', value: 'vue' },
     ]}
     className="docs-tabs"
   >
@@ -205,6 +237,11 @@ EditableRootProvider
     <Tab value="solid">
 
 <CodeBlockRuntime lang="tsx" code={editableSolidStates} />
+
+    </Tab>
+    <Tab value="vue">
+
+<CodeBlockRuntime lang="vue" code={editableVueStates} />
 
     </Tab>
   </Tabs>
@@ -233,6 +270,7 @@ EditableRootProvider
     values={[
       { label: 'React', value: 'react' },
       { label: 'Solid', value: 'solid' },
+      { label: 'Vue', value: 'vue' },
     ]}
     className="docs-tabs"
   >
@@ -245,6 +283,11 @@ EditableRootProvider
     <Tab value="solid">
 
 <CodeBlockRuntime lang="tsx" code={editableSolidField} />
+
+    </Tab>
+    <Tab value="vue">
+
+<CodeBlockRuntime lang="vue" code={editableVueField} />
 
     </Tab>
   </Tabs>
@@ -272,6 +315,7 @@ EditableRootProvider
     values={[
       { label: 'React', value: 'react' },
       { label: 'Solid', value: 'solid' },
+      { label: 'Vue', value: 'vue' },
     ]}
     className="docs-tabs"
   >
@@ -284,6 +328,11 @@ EditableRootProvider
     <Tab value="solid">
 
 <CodeBlockRuntime lang="tsx" code={editableSolidForm} />
+
+    </Tab>
+    <Tab value="vue">
+
+<CodeBlockRuntime lang="vue" code={editableVueForm} />
 
     </Tab>
   </Tabs>
@@ -314,6 +363,7 @@ EditableRootProvider
     values={[
       { label: 'React', value: 'react' },
       { label: 'Solid', value: 'solid' },
+      { label: 'Vue', value: 'vue' },
     ]}
     className="docs-tabs"
   >
@@ -326,6 +376,11 @@ EditableRootProvider
     <Tab value="solid">
 
 <CodeBlockRuntime lang="tsx" code={editableSolidGuides} />
+
+    </Tab>
+    <Tab value="vue">
+
+<CodeBlockRuntime lang="vue" code={editableVueGuides} />
 
     </Tab>
   </Tabs>
@@ -351,6 +406,7 @@ EditableRootProvider
     values={[
       { label: 'React', value: 'react' },
       { label: 'Solid', value: 'solid' },
+      { label: 'Vue', value: 'vue' },
     ]}
     className="docs-tabs"
   >
@@ -363,6 +419,11 @@ EditableRootProvider
     <Tab value="solid">
 
 <CodeBlockRuntime lang="tsx" code={editableSolidRootProvider} />
+
+    </Tab>
+    <Tab value="vue">
+
+<CodeBlockRuntime lang="vue" code={editableVueRootProvider} />
 
     </Tab>
   </Tabs>
@@ -391,6 +452,7 @@ EditableRootProvider
     values={[
       { label: 'React', value: 'react' },
       { label: 'Solid', value: 'solid' },
+      { label: 'Vue', value: 'vue' },
     ]}
     className="docs-tabs"
   >
@@ -403,6 +465,11 @@ EditableRootProvider
     <Tab value="solid">
 
 <CodeBlockRuntime lang="tsx" code={editableSolidTextarea} />
+
+    </Tab>
+    <Tab value="vue">
+
+<CodeBlockRuntime lang="vue" code={editableVueTextarea} />
 
     </Tab>
   </Tabs>
@@ -432,6 +499,7 @@ EditableRootProvider
     values={[
       { label: 'React', value: 'react' },
       { label: 'Solid', value: 'solid' },
+      { label: 'Vue', value: 'vue' },
     ]}
     className="docs-tabs"
   >
@@ -444,6 +512,11 @@ EditableRootProvider
     <Tab value="solid">
 
 <CodeBlockRuntime lang="tsx" code={editableSolidAdvancedCustomization} />
+
+    </Tab>
+    <Tab value="vue">
+
+<CodeBlockRuntime lang="vue" code={editableVueAdvancedCustomization} />
 
     </Tab>
   </Tabs>

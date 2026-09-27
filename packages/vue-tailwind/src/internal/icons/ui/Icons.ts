@@ -7,6 +7,7 @@ import {
   ChevronUp as LucideChevronUpIcon,
   ChevronsUpDown as LucideChevronUpDownIcon,
   Minus as LucideMinusIcon,
+  Pencil as LucidePencilIcon,
   Plus as LucidePlusIcon,
   X as LucideCloseIcon,
 } from '@lucide/vue';
@@ -138,7 +139,8 @@ export { Grip as GripIcon } from '@lucide/vue';
 export { ListRestart as RestartIcon } from '@lucide/vue';
 export { Maximize2 as MaximizeIcon } from '@lucide/vue';
 export { Pause as PauseIcon } from '@lucide/vue';
-export { Pencil as PencilIcon } from '@lucide/vue';
+export const PencilIcon: FunctionalComponent<IconProps> = (props) =>
+  h(LucidePencilIcon, { ...accessibilityProps, strokeWidth: 3, ...props });
 export { Play as PlayIcon } from '@lucide/vue';
 export { Star as RatingStarIcon } from '@lucide/vue';
 export { RotateCcw as RotateCcwIcon } from '@lucide/vue';
