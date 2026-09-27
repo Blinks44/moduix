@@ -47,7 +47,7 @@ and accessible labels. Do not translate dates to strings or local callback shape
 
 ## Anatomy and exported parts
 
-```tsx
+```text
 DatePicker
 ├─ DatePickerLabel
 ├─ DatePickerControl
