@@ -70,6 +70,9 @@ Use this skill for JS/TS Vue work in this repo.
   `clsx`; in `packages/vue-tailwind` merge it last with the local `cn` helper. Do not also leave
   `class` inside an object passed through `v-bind`, which would apply the consumer class twice.
   Preserve `style`, ids, ARIA, data attributes, and native listeners through the remaining attrs.
+  For special native attributes, keep the browser's canonical spelling when Vue does not normalize
+  a kebab-case variant; for example, use `crossorigin` on images used with canvas rather than
+  `cross-origin`.
 - Preserve every accepted Vue `StyleValue` form when a wrapper consumes `style`. Merge wrapper-owned
   inline values through a style array and put them last, so consumer styles remain intact while
   required wrapper values retain precedence.
