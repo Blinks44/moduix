@@ -59,8 +59,7 @@ test('preserves Ark semantics, refs, and stable styling hooks', () => {
     setup() {
       return { collection: fruits, items: fruits.items, rootRef };
     },
-    template:
-      '<Listbox ref="rootRef" :collection="collection" :default-value="[&quot;apple&quot;]"><ListboxLabel>Fruit</ListboxLabel><ListboxContent><ListboxItem v-for="item in items" :key="item.value" :item="item"><ListboxItemText>{{ item.label }}</ListboxItemText><ListboxItemIndicator /></ListboxItem></ListboxContent></Listbox>',
+    template: `<Listbox ref="rootRef" :collection="collection" :default-value="['apple']"><ListboxLabel>Fruit</ListboxLabel><ListboxContent><ListboxItem v-for="item in items" :key="item.value" :item="item"><ListboxItemText>{{ item.label }}</ListboxItemText><ListboxItemIndicator /></ListboxItem></ListboxContent></Listbox>`,
   });
 
   render(Harness);
@@ -82,8 +81,7 @@ test('supports controlled values through v-model', async () => {
       const value = ref<string[]>(['mango']);
       return { collection: fruits, items: fruits.items, value };
     },
-    template:
-      '<div><Listbox v-model="value" :collection="collection"><ListboxLabel>Controlled fruit</ListboxLabel><ListboxContent><ListboxItem v-for="item in items" :key="item.value" :item="item"><ListboxItemText>{{ item.label }}</ListboxItemText></ListboxItem></ListboxContent></Listbox><button type="button" @click="value = [&quot;apple&quot;]">Set apple</button></div>',
+    template: `<div><Listbox v-model="value" :collection="collection"><ListboxLabel>Controlled fruit</ListboxLabel><ListboxContent><ListboxItem v-for="item in items" :key="item.value" :item="item"><ListboxItemText>{{ item.label }}</ListboxItemText></ListboxItem></ListboxContent></Listbox><button type="button" @click="value = ['apple']">Set apple</button></div>`,
   });
 
   render(Harness);
@@ -132,8 +130,7 @@ test('connects provider hooks and scoped context slots', () => {
         listbox: useListbox({ collection: fruits, defaultValue: ['mango'] }),
       };
     },
-    template:
-      '<ListboxRootProvider :value="listbox"><ListboxContext v-slot="context"><span>{{ context.value.join(&quot;,&quot;) }}</span></ListboxContext><ListboxContent><ListboxItem v-for="item in items" :key="item.value" :item="item"><ListboxItemContext v-slot="context"><ListboxItemText>{{ context.selected ? item.label + &quot; selected&quot; : item.label }}</ListboxItemText></ListboxItemContext></ListboxItem></ListboxContent><ContextValue /></ListboxRootProvider>',
+    template: `<ListboxRootProvider :value="listbox"><ListboxContext v-slot="context"><span>{{ context.value.join(',') }}</span></ListboxContext><ListboxContent><ListboxItem v-for="item in items" :key="item.value" :item="item"><ListboxItemContext v-slot="context"><ListboxItemText>{{ context.selected ? item.label + ' selected' : item.label }}</ListboxItemText></ListboxItemContext></ListboxItem></ListboxContent><ContextValue /></ListboxRootProvider>`,
   });
 
   render(Harness);
@@ -157,8 +154,7 @@ test('shows the selected value when ValueText has no consumer slot', () => {
       setup() {
         return { collection: fruits };
       },
-      template:
-        '<Listbox :collection="collection" :default-value="[&quot;apple&quot;]"><ListboxContent /><ListboxValueText /></Listbox>',
+      template: `<Listbox :collection="collection" :default-value="['apple']"><ListboxContent /><ListboxValueText /></Listbox>`,
     }),
   );
 
