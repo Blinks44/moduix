@@ -140,6 +140,10 @@
         var(--moduix-listbox-filter-input-padding-x, var(--moduix-spacing-2))
     );
     background-color: var(--moduix-listbox-bg, var(--moduix-color-background));
+
+    &:focus-visible {
+      outline-color: transparent;
+    }
   }
 
   .clearTrigger {

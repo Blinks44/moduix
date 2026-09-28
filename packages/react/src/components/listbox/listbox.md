@@ -170,8 +170,9 @@ and `--moduix-spacing-1` block padding. Listbox-specific variables still take pr
 - Default root width is `16rem` through `--moduix-listbox-width`.
 - `ListboxFilter` has a default search icon. When placed immediately before `ListboxContent`, the
   content provides the visible boundary and divider between the input and results.
-- `ListboxInput` and `ListboxContent` show the shared focus ring on keyboard focus, including
-  when the input is composed inside `ListboxFilter`.
+- `ListboxContent` shows the shared focus ring on keyboard focus. A standalone `ListboxInput`
+  retains its focus ring, while an input composed inside `ListboxFilter` keeps only the caret
+  visible.
 - `ListboxContent` has a `14rem` default max height and scrolls long lists without blocking page scroll
   chaining.
 - `ListboxInput` is optional and only needed for filtering scenarios. Its default border matches

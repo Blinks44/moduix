@@ -11,6 +11,9 @@ import NavigationMenuViewport from '@/components/examples/navigation-menu/viewpo
 import navigationMenuSolidBasic from '../../../snippets/navigation-menu/solid/basic.tsx?raw';
 import navigationMenuSolidControlledValue from '../../../snippets/navigation-menu/solid/controlled-value.tsx?raw';
 import navigationMenuSolidViewport from '../../../snippets/navigation-menu/solid/viewport.tsx?raw';
+import navigationMenuVueBasic from '../../../snippets/navigation-menu/vue/basic.vue?raw';
+import navigationMenuVueControlledValue from '../../../snippets/navigation-menu/vue/controlled-value.vue?raw';
+import navigationMenuVueViewport from '../../../snippets/navigation-menu/vue/viewport.vue?raw';
 
 ## API Reference
 
@@ -29,8 +32,9 @@ related destinations.
 
 
 Import it from the matching package subpath: `@moduix/react/navigation-menu`,
-`@moduix/solid/navigation-menu`, `@moduix/react-tailwind/navigation-menu`, or
-`@moduix/solid-tailwind/navigation-menu`.
+`@moduix/solid/navigation-menu`, `@moduix/vue/navigation-menu`,
+`@moduix/react-tailwind/navigation-menu`, `@moduix/solid-tailwind/navigation-menu`, or
+`@moduix/vue-tailwind/navigation-menu`.
 
 Use `NavigationMenu` with `NavigationMenuList` and `NavigationMenuItem`. Give every item a unique
 `value`. For a group of links, place `NavigationMenuTrigger` and `NavigationMenuContent` inside
@@ -48,6 +52,7 @@ panel.
     values={[
       { label: 'React', value: 'react' },
       { label: 'Solid', value: 'solid' },
+      { label: 'Vue', value: 'vue' },
     ]}
     className="docs-tabs"
   >
@@ -60,6 +65,11 @@ panel.
     <Tab value="solid">
 
 <CodeBlockRuntime lang="tsx" code={navigationMenuSolidBasic} />
+
+    </Tab>
+    <Tab value="vue">
+
+<CodeBlockRuntime lang="vue" code={navigationMenuVueBasic} />
 
     </Tab>
   </Tabs>
@@ -93,6 +103,16 @@ See [Quick Start](/docs/quick-start) for full package setup, registry configurat
   options={[
     { label: 'CSS Modules', command: 'shadcn@latest add @moduix-solid/navigation-menu' },
     { label: 'Tailwind CSS', command: 'shadcn@latest add @moduix-solid-tailwind/navigation-menu' },
+  ]}
+/>
+
+  </Tab>
+  <Tab label="Vue" value="vue">
+
+<ShadcnInstallOptions
+  options={[
+    { label: 'CSS Modules', command: 'shadcn@latest add @moduix-vue/navigation-menu' },
+    { label: 'Tailwind CSS', command: 'shadcn@latest add @moduix-vue-tailwind/navigation-menu' },
   ]}
 />
 
@@ -140,12 +160,13 @@ NavigationMenuContext
 ## Composition
 
 Use `defaultValue` for an uncontrolled menu. When another part of the application owns the open
-item, pass `value` with `onValueChange(details)`; `details.value` is the open item's value or an
-empty string when all panels are closed. Create the store with `useNavigationMenu()` and pass it
-to `NavigationMenuRootProvider` when it must live outside the rendered tree; do not render another
-root for that store. React reads the store as an object; Solid reads its reactive state through
-the returned accessor. Use `NavigationMenuContext` when a descendant needs the current state
-through a render prop instead of a store.
+item, pass `value` with `onValueChange(details)` or use Vue's `v-model:value`; `details.value` is the
+open item's value or an empty string when all panels are closed. Create the store with
+`useNavigationMenu()` and pass it to `NavigationMenuRootProvider` when it must live outside the
+rendered tree; do not render another root for that store. React reads the store as an object; Solid
+reads its reactive state through the returned accessor; Vue exposes the reactive store through refs
+and template bindings. Use `NavigationMenuContext` when a descendant needs the current state through
+a render prop instead of a store.
 
 Without a shared viewport, `NavigationMenuContent` renders beside its item. Add
 `NavigationMenuViewportPositioner` and `NavigationMenuViewport` when several panels should share one
@@ -157,8 +178,8 @@ triggers only when the child remains one interactive, focusable element.
 
 ### Controlled Value
 
-Control the open value from React state or Solid signals when the active panel also needs to drive
-nearby application UI. The output below shows the value of the currently open item.
+Control the open value from React state, Solid signals, or a Vue ref when the active panel also needs
+to drive nearby application UI. The output below shows the value of the currently open item.
 
 <ExampleFrame variant="component">
   <NavigationMenuControlledValue />
@@ -171,6 +192,7 @@ nearby application UI. The output below shows the value of the currently open it
     values={[
       { label: 'React', value: 'react' },
       { label: 'Solid', value: 'solid' },
+      { label: 'Vue', value: 'vue' },
     ]}
     className="docs-tabs"
   >
@@ -183,6 +205,11 @@ nearby application UI. The output below shows the value of the currently open it
     <Tab value="solid">
 
 <CodeBlockRuntime lang="tsx" code={navigationMenuSolidControlledValue} />
+
+    </Tab>
+    <Tab value="vue">
+
+<CodeBlockRuntime lang="vue" code={navigationMenuVueControlledValue} />
 
     </Tab>
   </Tabs>
@@ -212,6 +239,7 @@ animates the viewport's measured width and height.
     values={[
       { label: 'React', value: 'react' },
       { label: 'Solid', value: 'solid' },
+      { label: 'Vue', value: 'vue' },
     ]}
     className="docs-tabs"
   >
@@ -226,6 +254,11 @@ animates the viewport's measured width and height.
 <CodeBlockRuntime lang="tsx" code={navigationMenuSolidViewport} />
 
     </Tab>
+    <Tab value="vue">
+
+<CodeBlockRuntime lang="vue" code={navigationMenuVueViewport} />
+
+    </Tab>
   </Tabs>
 
 **Styles**
@@ -238,7 +271,7 @@ animates the viewport's measured width and height.
 
 ## Styling
 
-Use `className` in React or `class` in Solid on exported parts for structural styles. For state-based
+Use `className` in React, `class` in Solid, or `class` in Vue on exported parts for structural styles. For state-based
 styles, prefer Ark data attributes such as `data-state`, `data-current`, and `data-orientation`,
 together with moduix `data-slot` selectors. Tailwind variants use native utilities and consumer
 classes; the variables below customize the CSS Modules variants. Data attributes and `data-slot`

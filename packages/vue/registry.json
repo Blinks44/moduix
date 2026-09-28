@@ -30,7 +30,7 @@
       "title": "Clipboard",
       "description": "moduix Vue Clipboard component.",
       "dependencies": ["@ark-ui/vue", "clsx"],
-      "registryDependencies": ["@moduix-vue/foundation", "@moduix-vue/icons"],
+      "registryDependencies": ["@moduix-vue/foundation"],
       "files": [
         {
           "path": "src/components/clipboard/Clipboard.vue",
@@ -135,6 +135,176 @@
         {
           "path": "src/components/accordion/index.ts",
           "target": "@components/ui/accordion/index.ts",
+          "type": "registry:component"
+        }
+      ]
+    },
+    {
+      "name": "listbox",
+      "type": "registry:item",
+      "title": "Listbox",
+      "description": "moduix Vue Listbox component.",
+      "dependencies": ["@ark-ui/vue", "clsx"],
+      "registryDependencies": [
+        "@moduix-vue/a11y-labels",
+        "@moduix-vue/close-button",
+        "@moduix-vue/foundation",
+        "@moduix-vue/icons"
+      ],
+      "files": [
+        {
+          "path": "src/components/listbox/Listbox.vue",
+          "target": "@components/ui/listbox/Listbox.vue",
+          "type": "registry:component"
+        },
+        {
+          "path": "src/components/listbox/ListboxRootProvider.vue",
+          "target": "@components/ui/listbox/ListboxRootProvider.vue",
+          "type": "registry:component"
+        },
+        {
+          "path": "src/components/listbox/ListboxLabel.vue",
+          "target": "@components/ui/listbox/ListboxLabel.vue",
+          "type": "registry:component"
+        },
+        {
+          "path": "src/components/listbox/ListboxInput.vue",
+          "target": "@components/ui/listbox/ListboxInput.vue",
+          "type": "registry:component"
+        },
+        {
+          "path": "src/components/listbox/ListboxFilter.vue",
+          "target": "@components/ui/listbox/ListboxFilter.vue",
+          "type": "registry:component"
+        },
+        {
+          "path": "src/components/listbox/ListboxClearTrigger.vue",
+          "target": "@components/ui/listbox/ListboxClearTrigger.vue",
+          "type": "registry:component"
+        },
+        {
+          "path": "src/components/listbox/ListboxContent.vue",
+          "target": "@components/ui/listbox/ListboxContent.vue",
+          "type": "registry:component"
+        },
+        {
+          "path": "src/components/listbox/ListboxEmpty.vue",
+          "target": "@components/ui/listbox/ListboxEmpty.vue",
+          "type": "registry:component"
+        },
+        {
+          "path": "src/components/listbox/ListboxItemGroup.vue",
+          "target": "@components/ui/listbox/ListboxItemGroup.vue",
+          "type": "registry:component"
+        },
+        {
+          "path": "src/components/listbox/ListboxItemGroupLabel.vue",
+          "target": "@components/ui/listbox/ListboxItemGroupLabel.vue",
+          "type": "registry:component"
+        },
+        {
+          "path": "src/components/listbox/ListboxItem.vue",
+          "target": "@components/ui/listbox/ListboxItem.vue",
+          "type": "registry:component"
+        },
+        {
+          "path": "src/components/listbox/ListboxItemText.vue",
+          "target": "@components/ui/listbox/ListboxItemText.vue",
+          "type": "registry:component"
+        },
+        {
+          "path": "src/components/listbox/ListboxItemTextContent.vue",
+          "target": "@components/ui/listbox/ListboxItemTextContent.vue",
+          "type": "registry:component"
+        },
+        {
+          "path": "src/components/listbox/ListboxItemTextIcon.vue",
+          "target": "@components/ui/listbox/ListboxItemTextIcon.vue",
+          "type": "registry:component"
+        },
+        {
+          "path": "src/components/listbox/ListboxItemTextLabel.vue",
+          "target": "@components/ui/listbox/ListboxItemTextLabel.vue",
+          "type": "registry:component"
+        },
+        {
+          "path": "src/components/listbox/ListboxItemIndicator.vue",
+          "target": "@components/ui/listbox/ListboxItemIndicator.vue",
+          "type": "registry:component"
+        },
+        {
+          "path": "src/components/listbox/ListboxValueText.vue",
+          "target": "@components/ui/listbox/ListboxValueText.vue",
+          "type": "registry:component"
+        },
+        {
+          "path": "src/components/listbox/ListboxContext.vue",
+          "target": "@components/ui/listbox/ListboxContext.vue",
+          "type": "registry:component"
+        },
+        {
+          "path": "src/components/listbox/ListboxItemContext.vue",
+          "target": "@components/ui/listbox/ListboxItemContext.vue",
+          "type": "registry:component"
+        },
+        {
+          "path": "src/components/listbox/Listbox.module.css",
+          "target": "@components/ui/listbox/Listbox.module.css",
+          "type": "registry:file"
+        },
+        {
+          "path": "src/components/listbox/index.ts",
+          "target": "@components/ui/listbox/index.ts",
+          "type": "registry:component"
+        }
+      ]
+    },
+    {
+      "name": "marquee",
+      "type": "registry:item",
+      "title": "Marquee",
+      "description": "moduix Vue Marquee component.",
+      "dependencies": ["@ark-ui/vue", "clsx"],
+      "registryDependencies": ["@moduix-vue/foundation"],
+      "files": [
+        {
+          "path": "src/components/marquee/Marquee.vue",
+          "target": "@components/ui/marquee/Marquee.vue",
+          "type": "registry:component"
+        },
+        {
+          "path": "src/components/marquee/MarqueeRootProvider.vue",
+          "target": "@components/ui/marquee/MarqueeRootProvider.vue",
+          "type": "registry:component"
+        },
+        {
+          "path": "src/components/marquee/MarqueeViewport.vue",
+          "target": "@components/ui/marquee/MarqueeViewport.vue",
+          "type": "registry:component"
+        },
+        {
+          "path": "src/components/marquee/MarqueeContent.vue",
+          "target": "@components/ui/marquee/MarqueeContent.vue",
+          "type": "registry:component"
+        },
+        {
+          "path": "src/components/marquee/MarqueeItem.vue",
+          "target": "@components/ui/marquee/MarqueeItem.vue",
+          "type": "registry:component"
+        },
+        {
+          "path": "src/components/marquee/MarqueeEdge.vue",
+          "target": "@components/ui/marquee/MarqueeEdge.vue",
+          "type": "registry:component"
+        },
+        {
+          "path": "src/components/marquee/Marquee.module.css",
+          "target": "@components/ui/marquee/Marquee.module.css",
+          "type": "registry:file"
+        },
+        {
+          "path": "src/components/marquee/index.ts",
+          "target": "@components/ui/marquee/index.ts",
           "type": "registry:component"
         }
       ]
@@ -245,6 +415,86 @@
         {
           "path": "src/components/lightbox/index.ts",
           "target": "@components/ui/lightbox/index.ts",
+          "type": "registry:component"
+        }
+      ]
+    },
+    {
+      "name": "navigation-menu",
+      "type": "registry:item",
+      "title": "NavigationMenu",
+      "description": "moduix Vue NavigationMenu component.",
+      "dependencies": ["@ark-ui/vue", "clsx"],
+      "registryDependencies": ["@moduix-vue/foundation"],
+      "files": [
+        {
+          "path": "src/components/navigation-menu/NavigationMenu.vue",
+          "target": "@components/ui/navigation-menu/NavigationMenu.vue",
+          "type": "registry:component"
+        },
+        {
+          "path": "src/components/navigation-menu/NavigationMenuRootProvider.vue",
+          "target": "@components/ui/navigation-menu/NavigationMenuRootProvider.vue",
+          "type": "registry:component"
+        },
+        {
+          "path": "src/components/navigation-menu/NavigationMenuList.vue",
+          "target": "@components/ui/navigation-menu/NavigationMenuList.vue",
+          "type": "registry:component"
+        },
+        {
+          "path": "src/components/navigation-menu/NavigationMenuItem.vue",
+          "target": "@components/ui/navigation-menu/NavigationMenuItem.vue",
+          "type": "registry:component"
+        },
+        {
+          "path": "src/components/navigation-menu/NavigationMenuTrigger.vue",
+          "target": "@components/ui/navigation-menu/NavigationMenuTrigger.vue",
+          "type": "registry:component"
+        },
+        {
+          "path": "src/components/navigation-menu/NavigationMenuContent.vue",
+          "target": "@components/ui/navigation-menu/NavigationMenuContent.vue",
+          "type": "registry:component"
+        },
+        {
+          "path": "src/components/navigation-menu/NavigationMenuLink.vue",
+          "target": "@components/ui/navigation-menu/NavigationMenuLink.vue",
+          "type": "registry:component"
+        },
+        {
+          "path": "src/components/navigation-menu/NavigationMenuIndicator.vue",
+          "target": "@components/ui/navigation-menu/NavigationMenuIndicator.vue",
+          "type": "registry:component"
+        },
+        {
+          "path": "src/components/navigation-menu/NavigationMenuItemIndicator.vue",
+          "target": "@components/ui/navigation-menu/NavigationMenuItemIndicator.vue",
+          "type": "registry:component"
+        },
+        {
+          "path": "src/components/navigation-menu/NavigationMenuArrow.vue",
+          "target": "@components/ui/navigation-menu/NavigationMenuArrow.vue",
+          "type": "registry:component"
+        },
+        {
+          "path": "src/components/navigation-menu/NavigationMenuViewportPositioner.vue",
+          "target": "@components/ui/navigation-menu/NavigationMenuViewportPositioner.vue",
+          "type": "registry:component"
+        },
+        {
+          "path": "src/components/navigation-menu/NavigationMenuViewport.vue",
+          "target": "@components/ui/navigation-menu/NavigationMenuViewport.vue",
+          "type": "registry:component"
+        },
+        {
+          "path": "src/components/navigation-menu/NavigationMenu.module.css",
+          "target": "@components/ui/navigation-menu/NavigationMenu.module.css",
+          "type": "registry:file"
+        },
+        {
+          "path": "src/components/navigation-menu/index.ts",
+          "target": "@components/ui/navigation-menu/index.ts",
           "type": "registry:component"
         }
       ]

@@ -11,6 +11,9 @@ import NavigationMenuViewport from '@/components/examples/navigation-menu/viewpo
 import navigationMenuSolidBasic from '../../../snippets/navigation-menu/solid/basic.tsx?raw';
 import navigationMenuSolidControlledValue from '../../../snippets/navigation-menu/solid/controlled-value.tsx?raw';
 import navigationMenuSolidViewport from '../../../snippets/navigation-menu/solid/viewport.tsx?raw';
+import navigationMenuVueBasic from '../../../snippets/navigation-menu/vue/basic.vue?raw';
+import navigationMenuVueControlledValue from '../../../snippets/navigation-menu/vue/controlled-value.vue?raw';
+import navigationMenuVueViewport from '../../../snippets/navigation-menu/vue/viewport.vue?raw';
 
 ## Référence de l’API
 
@@ -29,8 +32,9 @@ Utilisez `NavigationMenu` pour la navigation principale d’un site ou d’un pr
 
 
 Importez-le depuis le sous-chemin du package adapté : `@moduix/react/navigation-menu`,
-`@moduix/solid/navigation-menu`, `@moduix/react-tailwind/navigation-menu` ou
-`@moduix/solid-tailwind/navigation-menu`.
+`@moduix/solid/navigation-menu`, `@moduix/vue/navigation-menu`,
+`@moduix/react-tailwind/navigation-menu`, `@moduix/solid-tailwind/navigation-menu` ou
+`@moduix/vue-tailwind/navigation-menu`.
 
 Utilisez `NavigationMenu` avec `NavigationMenuList` et `NavigationMenuItem`. Attribuez une valeur
 `value` unique à chaque élément. Pour un groupe de liens, placez `NavigationMenuTrigger` et
@@ -48,6 +52,7 @@ directes du premier niveau et pour les liens à l’intérieur d’un panneau.
     values={[
       { label: 'React', value: 'react' },
       { label: 'Solid', value: 'solid' },
+      { label: 'Vue', value: 'vue' },
     ]}
     className="docs-tabs"
   >
@@ -60,6 +65,11 @@ directes du premier niveau et pour les liens à l’intérieur d’un panneau.
     <Tab value="solid">
 
 <CodeBlockRuntime lang="tsx" code={navigationMenuSolidBasic} />
+
+    </Tab>
+    <Tab value="vue">
+
+<CodeBlockRuntime lang="vue" code={navigationMenuVueBasic} />
 
     </Tab>
   </Tabs>
@@ -93,6 +103,16 @@ Consultez le [Démarrage rapide](/docs/quick-start) pour la configuration compl�
   options={[
     { label: 'CSS Modules', command: 'shadcn@latest add @moduix-solid/navigation-menu' },
     { label: 'Tailwind CSS', command: 'shadcn@latest add @moduix-solid-tailwind/navigation-menu' },
+  ]}
+/>
+
+  </Tab>
+  <Tab label="Vue" value="vue">
+
+<ShadcnInstallOptions
+  options={[
+    { label: 'CSS Modules', command: 'shadcn@latest add @moduix-vue/navigation-menu' },
+    { label: 'Tailwind CSS', command: 'shadcn@latest add @moduix-vue-tailwind/navigation-menu' },
   ]}
 />
 
@@ -144,8 +164,10 @@ l’élément ouvert, transmettez `value` avec `onValueChange(details)` ; `detai
 de l’élément ouvert ou une chaîne vide lorsque tous les panneaux sont fermés. Créez le store avec
 `useNavigationMenu()` et transmettez-le à `NavigationMenuRootProvider` lorsqu’il doit vivre en dehors de
 l’arbre rendu ; ne rendez pas une autre racine pour ce même store. React lit le store comme un objet,
-tandis que Solid lit son état réactif via la fonction retournée. Utilisez `NavigationMenuContext`
-lorsqu’un descendant a besoin de l’état courant via une fonction de rendu plutôt que via le store.
+tandis que Solid lit son état réactif via la fonction retournée, et Vue expose son état réactif via des
+refs et des liaisons de template. Dans Vue, utilisez `v-model:value` pour contrôler la valeur. Utilisez
+`NavigationMenuContext` lorsqu’un descendant a besoin de l’état courant via une fonction de rendu plutôt
+que via le store.
 
 Sans zone `NavigationMenuViewport` partagée, `NavigationMenuContent` s’affiche à côté de son élément.
 Ajoutez `NavigationMenuViewportPositioner` et `NavigationMenuViewport` lorsque plusieurs panneaux doivent
@@ -158,8 +180,9 @@ interactif pouvant recevoir le focus.
 
 ### Valeur contrôlée
 
-Contrôlez la valeur ouverte avec un état React ou un signal Solid lorsque le panneau actif doit également
-piloter une partie voisine de l’interface. La sortie sous l’exemple affiche la valeur de l’élément ouvert.
+Contrôlez la valeur ouverte avec un état React, un signal Solid ou une ref Vue lorsque le panneau actif
+doit également piloter une partie voisine de l’interface. La sortie sous l’exemple affiche la valeur de
+l’élément ouvert.
 
 <ExampleFrame variant="component">
   <NavigationMenuControlledValue />
@@ -172,6 +195,7 @@ piloter une partie voisine de l’interface. La sortie sous l’exemple affiche 
     values={[
       { label: 'React', value: 'react' },
       { label: 'Solid', value: 'solid' },
+      { label: 'Vue', value: 'vue' },
     ]}
     className="docs-tabs"
   >
@@ -184,6 +208,11 @@ piloter une partie voisine de l’interface. La sortie sous l’exemple affiche 
     <Tab value="solid">
 
 <CodeBlockRuntime lang="tsx" code={navigationMenuSolidControlledValue} />
+
+    </Tab>
+    <Tab value="vue">
+
+<CodeBlockRuntime lang="vue" code={navigationMenuVueControlledValue} />
 
     </Tab>
   </Tabs>
@@ -214,6 +243,7 @@ lors du passage d’un déclencheur à l’autre.
     values={[
       { label: 'React', value: 'react' },
       { label: 'Solid', value: 'solid' },
+      { label: 'Vue', value: 'vue' },
     ]}
     className="docs-tabs"
   >
@@ -228,6 +258,11 @@ lors du passage d’un déclencheur à l’autre.
 <CodeBlockRuntime lang="tsx" code={navigationMenuSolidViewport} />
 
     </Tab>
+    <Tab value="vue">
+
+<CodeBlockRuntime lang="vue" code={navigationMenuVueViewport} />
+
+    </Tab>
   </Tabs>
 
 **Styles**
@@ -240,7 +275,7 @@ lors du passage d’un déclencheur à l’autre.
 
 ## Styles
 
-Utilisez `className` dans React ou `class` dans Solid sur les parties exportées pour les styles
+Utilisez `className` dans React, `class` dans Solid ou `class` dans Vue sur les parties exportées pour les styles
 structurels. Pour les styles liés à l’état, privilégiez les attributs de données Ark comme `data-state`,
 `data-current` et `data-orientation`, avec les sélecteurs moduix `data-slot`. Les variantes Tailwind
 utilisent des utilitaires natifs et les classes du consommateur ; les variables ci-dessous personnalisent

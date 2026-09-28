@@ -1,0 +1,25 @@
+<script setup lang="ts">
+import { ListboxLabel as ArkListboxLabel } from '@ark-ui/vue/listbox';
+import type { ListboxLabelProps } from '@ark-ui/vue/listbox';
+import { clsx } from 'clsx';
+import { useAttrs } from 'vue';
+import type { HTMLAttributes } from 'vue';
+import styles from './Listbox.module.css';
+
+defineOptions({ inheritAttrs: false });
+
+export interface Props extends /* @vue-ignore */ ListboxLabelProps {
+  class?: HTMLAttributes['class'];
+}
+
+const { class: className } = defineProps<Props>();
+defineSlots<{ default?: () => unknown }>();
+
+const attrs = useAttrs();
+</script>
+
+<template>
+  <ArkListboxLabel v-bind="attrs" :class="clsx(styles.label, className)" data-slot="listbox-label">
+    <slot />
+  </ArkListboxLabel>
+</template>

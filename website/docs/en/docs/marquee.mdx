@@ -25,6 +25,16 @@ import marqueeSolidReverse from '../../../snippets/marquee/solid/reverse.tsx?raw
 import marqueeSolidRtl from '../../../snippets/marquee/solid/rtl.tsx?raw';
 import marqueeSolidSpeed from '../../../snippets/marquee/solid/speed.tsx?raw';
 import marqueeSolidVertical from '../../../snippets/marquee/solid/vertical.tsx?raw';
+import marqueeVueAutoFill from '../../../snippets/marquee/vue/auto-fill.vue?raw';
+import marqueeVueBasic from '../../../snippets/marquee/vue/basic.vue?raw';
+import marqueeVueEdges from '../../../snippets/marquee/vue/edges.vue?raw';
+import marqueeVueFiniteLoops from '../../../snippets/marquee/vue/finite-loops.vue?raw';
+import marqueeVuePauseOnInteraction from '../../../snippets/marquee/vue/pause-on-interaction.vue?raw';
+import marqueeVueProgrammaticControl from '../../../snippets/marquee/vue/programmatic-control.vue?raw';
+import marqueeVueReverse from '../../../snippets/marquee/vue/reverse.vue?raw';
+import marqueeVueRtl from '../../../snippets/marquee/vue/rtl.vue?raw';
+import marqueeVueSpeed from '../../../snippets/marquee/vue/speed.vue?raw';
+import marqueeVueVertical from '../../../snippets/marquee/vue/vertical.vue?raw';
 
 ## API Reference
 
@@ -49,6 +59,7 @@ frame. The example styles its items and limits the root width separately.
     values={[
       { label: 'React', value: 'react' },
       { label: 'Solid', value: 'solid' },
+      { label: 'Vue', value: 'vue' },
     ]}
     className="docs-tabs"
   >
@@ -61,6 +72,11 @@ frame. The example styles its items and limits the root width separately.
     <Tab value="solid">
 
 <CodeBlockRuntime lang="tsx" code={marqueeSolidBasic} />
+
+    </Tab>
+    <Tab value="vue">
+
+<CodeBlockRuntime lang="vue" code={marqueeVueBasic} />
 
     </Tab>
   </Tabs>
@@ -94,6 +110,16 @@ See [Quick Start](/docs/quick-start) for full package setup, registry configurat
   options={[
     { label: 'CSS Modules', command: 'shadcn@latest add @moduix-solid/marquee' },
     { label: 'Tailwind CSS', command: 'shadcn@latest add @moduix-solid-tailwind/marquee' },
+  ]}
+/>
+
+  </Tab>
+  <Tab label="Vue" value="vue">
+
+<ShadcnInstallOptions
+  options={[
+    { label: 'CSS Modules', command: 'shadcn@latest add @moduix-vue/marquee' },
+    { label: 'Tailwind CSS', command: 'shadcn@latest add @moduix-vue-tailwind/marquee' },
   ]}
 />
 
@@ -153,6 +179,7 @@ between duplicated content instances.
     values={[
       { label: 'React', value: 'react' },
       { label: 'Solid', value: 'solid' },
+      { label: 'Vue', value: 'vue' },
     ]}
     className="docs-tabs"
   >
@@ -165,6 +192,11 @@ between duplicated content instances.
     <Tab value="solid">
 
 <CodeBlockRuntime lang="tsx" code={marqueeSolidAutoFill} />
+
+    </Tab>
+    <Tab value="vue">
+
+<CodeBlockRuntime lang="vue" code={marqueeVueAutoFill} />
 
     </Tab>
   </Tabs>
@@ -193,6 +225,7 @@ decorative and does not receive pointer events.
     values={[
       { label: 'React', value: 'react' },
       { label: 'Solid', value: 'solid' },
+      { label: 'Vue', value: 'vue' },
     ]}
     className="docs-tabs"
   >
@@ -205,6 +238,11 @@ decorative and does not receive pointer events.
     <Tab value="solid">
 
 <CodeBlockRuntime lang="tsx" code={marqueeSolidEdges} />
+
+    </Tab>
+    <Tab value="vue">
+
+<CodeBlockRuntime lang="vue" code={marqueeVueEdges} />
 
     </Tab>
   </Tabs>
@@ -233,6 +271,7 @@ after the final loop.
     values={[
       { label: 'React', value: 'react' },
       { label: 'Solid', value: 'solid' },
+      { label: 'Vue', value: 'vue' },
     ]}
     className="docs-tabs"
   >
@@ -245,6 +284,11 @@ after the final loop.
     <Tab value="solid">
 
 <CodeBlockRuntime lang="tsx" code={marqueeSolidFiniteLoops} />
+
+    </Tab>
+    <Tab value="vue">
+
+<CodeBlockRuntime lang="vue" code={marqueeVueFiniteLoops} />
 
     </Tab>
   </Tabs>
@@ -277,6 +321,7 @@ and resume controls), and never put critical information only inside a marquee.
     values={[
       { label: 'React', value: 'react' },
       { label: 'Solid', value: 'solid' },
+      { label: 'Vue', value: 'vue' },
     ]}
     className="docs-tabs"
   >
@@ -289,6 +334,11 @@ and resume controls), and never put critical information only inside a marquee.
     <Tab value="solid">
 
 <CodeBlockRuntime lang="tsx" code={marqueeSolidPauseOnInteraction} />
+
+    </Tab>
+    <Tab value="vue">
+
+<CodeBlockRuntime lang="vue" code={marqueeVuePauseOnInteraction} />
 
     </Tab>
   </Tabs>
@@ -317,6 +367,7 @@ or restart playback.
     values={[
       { label: 'React', value: 'react' },
       { label: 'Solid', value: 'solid' },
+      { label: 'Vue', value: 'vue' },
     ]}
     className="docs-tabs"
   >
@@ -329,6 +380,11 @@ or restart playback.
     <Tab value="solid">
 
 <CodeBlockRuntime lang="tsx" code={marqueeSolidProgrammaticControl} />
+
+    </Tab>
+    <Tab value="vue">
+
+<CodeBlockRuntime lang="vue" code={marqueeVueProgrammaticControl} />
 
     </Tab>
   </Tabs>
@@ -357,6 +413,7 @@ orientation.
     values={[
       { label: 'React', value: 'react' },
       { label: 'Solid', value: 'solid' },
+      { label: 'Vue', value: 'vue' },
     ]}
     className="docs-tabs"
   >
@@ -369,6 +426,11 @@ orientation.
     <Tab value="solid">
 
 <CodeBlockRuntime lang="tsx" code={marqueeSolidReverse} />
+
+    </Tab>
+    <Tab value="vue">
+
+<CodeBlockRuntime lang="vue" code={marqueeVueReverse} />
 
     </Tab>
   </Tabs>
@@ -397,6 +459,7 @@ the configured direction.
     values={[
       { label: 'React', value: 'react' },
       { label: 'Solid', value: 'solid' },
+      { label: 'Vue', value: 'vue' },
     ]}
     className="docs-tabs"
   >
@@ -409,6 +472,11 @@ the configured direction.
     <Tab value="solid">
 
 <CodeBlockRuntime lang="tsx" code={marqueeSolidRtl} />
+
+    </Tab>
+    <Tab value="vue">
+
+<CodeBlockRuntime lang="vue" code={marqueeVueRtl} />
 
     </Tab>
   </Tabs>
@@ -436,6 +504,7 @@ Control motion with `speed`, measured in pixels per second. Lower values are eas
     values={[
       { label: 'React', value: 'react' },
       { label: 'Solid', value: 'solid' },
+      { label: 'Vue', value: 'vue' },
     ]}
     className="docs-tabs"
   >
@@ -448,6 +517,11 @@ Control motion with `speed`, measured in pixels per second. Lower values are eas
     <Tab value="solid">
 
 <CodeBlockRuntime lang="tsx" code={marqueeSolidSpeed} />
+
+    </Tab>
+    <Tab value="vue">
+
+<CodeBlockRuntime lang="vue" code={marqueeVueSpeed} />
 
     </Tab>
   </Tabs>
@@ -476,6 +550,7 @@ Set `side="top"` or `side="bottom"` for vertical marquees. The root uses
     values={[
       { label: 'React', value: 'react' },
       { label: 'Solid', value: 'solid' },
+      { label: 'Vue', value: 'vue' },
     ]}
     className="docs-tabs"
   >
@@ -488,6 +563,11 @@ Set `side="top"` or `side="bottom"` for vertical marquees. The root uses
     <Tab value="solid">
 
 <CodeBlockRuntime lang="tsx" code={marqueeSolidVertical} />
+
+    </Tab>
+    <Tab value="vue">
+
+<CodeBlockRuntime lang="vue" code={marqueeVueVertical} />
 
     </Tab>
   </Tabs>
@@ -506,10 +586,11 @@ Marquee includes the keyframes required to animate its content. Use Ark state at
 behavioral styles and pick the customization model of your registry variant:
 
 - CSS Modules variants: use `--moduix-marquee-*` variables for dimensions, color, spacing, and
-  edge fades, and `className` for layout and item styles. The `--marquee-edge-color` and
+  edge fades, and `className` (React) or `class` (Solid and Vue) for layout and item styles. The
+  `--marquee-edge-color` and
   `--marquee-edge-size` aliases stay Chakra-compatible; `--moduix-marquee-edge-*` take precedence
   over them.
-- Tailwind variants: use `className` (React) or `class` (Solid) with Tailwind utilities for the
+- Tailwind variants: use `className` (React) or `class` (Solid and Vue) with Tailwind utilities for the
   same aspects. Marquee exposes no CSS-variable API in Tailwind packages.
 
 `Marquee` is transparent by default and adds no border, background, padding, or radius. Add a framed

@@ -11,6 +11,9 @@ import NavigationMenuViewport from '@/components/examples/navigation-menu/viewpo
 import navigationMenuSolidBasic from '../../../snippets/navigation-menu/solid/basic.tsx?raw';
 import navigationMenuSolidControlledValue from '../../../snippets/navigation-menu/solid/controlled-value.tsx?raw';
 import navigationMenuSolidViewport from '../../../snippets/navigation-menu/solid/viewport.tsx?raw';
+import navigationMenuVueBasic from '../../../snippets/navigation-menu/vue/basic.vue?raw';
+import navigationMenuVueControlledValue from '../../../snippets/navigation-menu/vue/controlled-value.vue?raw';
+import navigationMenuVueViewport from '../../../snippets/navigation-menu/vue/viewport.vue?raw';
 
 ## Справочник API
 
@@ -29,8 +32,9 @@ import navigationMenuSolidViewport from '../../../snippets/navigation-menu/solid
 
 
 Импортируйте компонент из подпути подходящего пакета: `@moduix/react/navigation-menu`,
-`@moduix/solid/navigation-menu`, `@moduix/react-tailwind/navigation-menu` или
-`@moduix/solid-tailwind/navigation-menu`.
+`@moduix/solid/navigation-menu`, `@moduix/vue/navigation-menu`,
+`@moduix/react-tailwind/navigation-menu`, `@moduix/solid-tailwind/navigation-menu` или
+`@moduix/vue-tailwind/navigation-menu`.
 
 Используйте `NavigationMenu` вместе с `NavigationMenuList` и `NavigationMenuItem`. У каждого элемента
 должно быть уникальное значение `value`. Для группы ссылок поместите `NavigationMenuTrigger` и
@@ -48,6 +52,7 @@ import navigationMenuSolidViewport from '../../../snippets/navigation-menu/solid
     values={[
       { label: 'React', value: 'react' },
       { label: 'Solid', value: 'solid' },
+      { label: 'Vue', value: 'vue' },
     ]}
     className="docs-tabs"
   >
@@ -60,6 +65,11 @@ import navigationMenuSolidViewport from '../../../snippets/navigation-menu/solid
     <Tab value="solid">
 
 <CodeBlockRuntime lang="tsx" code={navigationMenuSolidBasic} />
+
+    </Tab>
+    <Tab value="vue">
+
+<CodeBlockRuntime lang="vue" code={navigationMenuVueBasic} />
 
     </Tab>
   </Tabs>
@@ -93,6 +103,16 @@ import navigationMenuSolidViewport from '../../../snippets/navigation-menu/solid
   options={[
     { label: 'CSS Modules', command: 'shadcn@latest add @moduix-solid/navigation-menu' },
     { label: 'Tailwind CSS', command: 'shadcn@latest add @moduix-solid-tailwind/navigation-menu' },
+  ]}
+/>
+
+  </Tab>
+  <Tab label="Vue" value="vue">
+
+<ShadcnInstallOptions
+  options={[
+    { label: 'CSS Modules', command: 'shadcn@latest add @moduix-vue/navigation-menu' },
+    { label: 'Tailwind CSS', command: 'shadcn@latest add @moduix-vue-tailwind/navigation-menu' },
   ]}
 />
 
@@ -143,9 +163,10 @@ NavigationMenuContext
 приложения, передайте `value` и `onValueChange(details)`; `details.value` содержит значение открытого
 элемента или пустую строку, если все панели закрыты. Если хранилище должно жить вне отрисовываемого
 дерева, создайте его через `useNavigationMenu()` и передайте в `NavigationMenuRootProvider`; не
-создавайте для него ещё один корневой компонент. В React хранилище представлено объектом, а в Solid
-реактивное состояние читается через возвращаемую функцию доступа. Если вложенному компоненту нужно
-текущее состояние, используйте `NavigationMenuContext` с render-функцией вместо хранилища.
+создавайте для него ещё один корневой компонент. В React хранилище представлено объектом, в Solid
+реактивное состояние читается через возвращаемую функцию доступа, а во Vue — через refs и привязки
+шаблона. Для управляемого значения во Vue используйте `v-model:value`. Если вложенному компоненту
+нужно текущее состояние, используйте `NavigationMenuContext` с render-функцией вместо хранилища.
 
 Без общей области `NavigationMenuViewport` компонент `NavigationMenuContent` отображается рядом со
 своим элементом. Добавьте `NavigationMenuViewportPositioner` и `NavigationMenuViewport`, если несколько
@@ -158,8 +179,8 @@ NavigationMenuContext
 
 ### Управляемое значение
 
-Управляйте открытым значением через состояние React или сигналы Solid, если активная панель должна
-менять соседнюю часть интерфейса. Под примером показано значение текущего открытого элемента.
+Управляйте открытым значением через состояние React, сигналы Solid или ref во Vue, если активная
+панель должна менять соседнюю часть интерфейса. Под примером показано значение текущего открытого элемента.
 
 <ExampleFrame variant="component">
   <NavigationMenuControlledValue />
@@ -172,6 +193,7 @@ NavigationMenuContext
     values={[
       { label: 'React', value: 'react' },
       { label: 'Solid', value: 'solid' },
+      { label: 'Vue', value: 'vue' },
     ]}
     className="docs-tabs"
   >
@@ -184,6 +206,11 @@ NavigationMenuContext
     <Tab value="solid">
 
 <CodeBlockRuntime lang="tsx" code={navigationMenuSolidControlledValue} />
+
+    </Tab>
+    <Tab value="vue">
+
+<CodeBlockRuntime lang="vue" code={navigationMenuVueControlledValue} />
 
     </Tab>
   </Tabs>
@@ -213,6 +240,7 @@ NavigationMenuContext
     values={[
       { label: 'React', value: 'react' },
       { label: 'Solid', value: 'solid' },
+      { label: 'Vue', value: 'vue' },
     ]}
     className="docs-tabs"
   >
@@ -227,6 +255,11 @@ NavigationMenuContext
 <CodeBlockRuntime lang="tsx" code={navigationMenuSolidViewport} />
 
     </Tab>
+    <Tab value="vue">
+
+<CodeBlockRuntime lang="vue" code={navigationMenuVueViewport} />
+
+    </Tab>
   </Tabs>
 
 **Стили**
@@ -239,7 +272,7 @@ NavigationMenuContext
 
 ## Стилизация
 
-Используйте `className` в React или `class` в Solid на экспортируемых частях для структурных стилей. Для
+Используйте `className` в React, `class` в Solid или `class` во Vue на экспортируемых частях для структурных стилей. Для
 стилей, зависящих от состояния, используйте атрибуты данных Ark, например `data-state`, `data-current`
 и `data-orientation`, вместе с селекторами moduix `data-slot`. Варианты Tailwind используют нативные
 утилиты и классы потребителя, а переменные ниже настраивают варианты CSS Modules. Атрибуты данных и

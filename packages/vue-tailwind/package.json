@@ -57,6 +57,18 @@
       "types": "./dist/components/accordion/index.d.ts",
       "import": "./dist/components/accordion/index.js"
     },
+    "./listbox": {
+      "types": "./dist/components/listbox/index.d.ts",
+      "import": "./dist/components/listbox/index.js"
+    },
+    "./navigation-menu": {
+      "types": "./dist/components/navigation-menu/index.d.ts",
+      "import": "./dist/components/navigation-menu/index.js"
+    },
+    "./marquee": {
+      "types": "./dist/components/marquee/index.d.ts",
+      "import": "./dist/components/marquee/index.js"
+    },
     "./lightbox": {
       "types": "./dist/components/lightbox/index.d.ts",
       "import": "./dist/components/lightbox/index.js"

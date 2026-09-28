@@ -31,6 +31,19 @@ import listboxSolidRootProvider from '../../../snippets/listbox/solid/root-provi
 import listboxSolidSelectAll from '../../../snippets/listbox/solid/select-all.tsx?raw';
 import listboxSolidStandaloneFilterInput from '../../../snippets/listbox/solid/standalone-filter-input.tsx?raw';
 import listboxSolidValueText from '../../../snippets/listbox/solid/value-text.tsx?raw';
+import listboxVueBasic from '../../../snippets/listbox/vue/basic.vue?raw';
+import listboxVueControlled from '../../../snippets/listbox/vue/controlled.vue?raw';
+import listboxVueDisabledItem from '../../../snippets/listbox/vue/disabled-item.vue?raw';
+import listboxVueExtendedSelection from '../../../snippets/listbox/vue/extended-selection.vue?raw';
+import listboxVueFiltering from '../../../snippets/listbox/vue/filtering.vue?raw';
+import listboxVueGrid from '../../../snippets/listbox/vue/grid.vue?raw';
+import listboxVueGrouping from '../../../snippets/listbox/vue/grouping.vue?raw';
+import listboxVueHorizontal from '../../../snippets/listbox/vue/horizontal.vue?raw';
+import listboxVueMultiple from '../../../snippets/listbox/vue/multiple.vue?raw';
+import listboxVueRootProvider from '../../../snippets/listbox/vue/root-provider.vue?raw';
+import listboxVueSelectAll from '../../../snippets/listbox/vue/select-all.vue?raw';
+import listboxVueStandaloneFilterInput from '../../../snippets/listbox/vue/standalone-filter-input.vue?raw';
+import listboxVueValueText from '../../../snippets/listbox/vue/value-text.vue?raw';
 
 ## API Reference
 
@@ -59,6 +72,7 @@ through `item`. Add `ListboxItemIndicator` when rows should show the selected st
     values={[
       { label: 'React', value: 'react' },
       { label: 'Solid', value: 'solid' },
+      { label: 'Vue', value: 'vue' },
     ]}
     className="docs-tabs"
   >
@@ -71,6 +85,11 @@ through `item`. Add `ListboxItemIndicator` when rows should show the selected st
     <Tab value="solid">
 
 <CodeBlockRuntime lang="tsx" code={listboxSolidBasic} />
+
+    </Tab>
+    <Tab value="vue">
+
+<CodeBlockRuntime lang="vue" code={listboxVueBasic} />
 
     </Tab>
   </Tabs>
@@ -104,6 +123,16 @@ See [Quick Start](/docs/quick-start) for full package setup, registry configurat
   options={[
     { label: 'CSS Modules', command: 'shadcn@latest add @moduix-solid/listbox' },
     { label: 'Tailwind CSS', command: 'shadcn@latest add @moduix-solid-tailwind/listbox' },
+  ]}
+/>
+
+  </Tab>
+  <Tab label="Vue" value="vue">
+
+<ShadcnInstallOptions
+  options={[
+    { label: 'CSS Modules', command: 'shadcn@latest add @moduix-vue/listbox' },
+    { label: 'Tailwind CSS', command: 'shadcn@latest add @moduix-vue-tailwind/listbox' },
   ]}
 />
 
@@ -183,7 +212,7 @@ Keep the selected string array in application state and update it from `details.
 
 <ExampleCode>
 <div className="docs-reference">
-  <Tabs groupId="framework" values={[{ label: 'React', value: 'react' }, { label: 'Solid', value: 'solid' }]} className="docs-tabs">
+  <Tabs groupId="framework" values={[{ label: 'React', value: 'react' }, { label: 'Solid', value: 'solid' }, { label: 'Vue', value: 'vue' }]} className="docs-tabs">
     <Tab value="react">
 
 ```tsx pure file="../../../src/components/examples/listbox/controlled.tsx"
@@ -193,6 +222,11 @@ Keep the selected string array in application state and update it from `details.
     <Tab value="solid">
 
 <CodeBlockRuntime lang="tsx" code={listboxSolidControlled} />
+
+    </Tab>
+    <Tab value="vue">
+
+<CodeBlockRuntime lang="vue" code={listboxVueControlled} />
 
     </Tab>
   </Tabs>
@@ -215,7 +249,7 @@ Disable an individual item with its collection item's `disabled` field.
 
 <ExampleCode>
 <div className="docs-reference">
-  <Tabs groupId="framework" values={[{ label: 'React', value: 'react' }, { label: 'Solid', value: 'solid' }]} className="docs-tabs">
+  <Tabs groupId="framework" values={[{ label: 'React', value: 'react' }, { label: 'Solid', value: 'solid' }, { label: 'Vue', value: 'vue' }]} className="docs-tabs">
     <Tab value="react">
 
 ```tsx pure file="../../../src/components/examples/listbox/disabled-item.tsx"
@@ -225,6 +259,11 @@ Disable an individual item with its collection item's `disabled` field.
     <Tab value="solid">
 
 <CodeBlockRuntime lang="tsx" code={listboxSolidDisabledItem} />
+
+    </Tab>
+    <Tab value="vue">
+
+<CodeBlockRuntime lang="vue" code={listboxVueDisabledItem} />
 
     </Tab>
   </Tabs>
@@ -247,7 +286,7 @@ Use `selectionMode="extended"` when users need modifier keys to select multiple 
 
 <ExampleCode>
 <div className="docs-reference">
-  <Tabs groupId="framework" values={[{ label: 'React', value: 'react' }, { label: 'Solid', value: 'solid' }]} className="docs-tabs">
+  <Tabs groupId="framework" values={[{ label: 'React', value: 'react' }, { label: 'Solid', value: 'solid' }, { label: 'Vue', value: 'vue' }]} className="docs-tabs">
     <Tab value="react">
 
 ```tsx pure file="../../../src/components/examples/listbox/extended-selection.tsx"
@@ -257,6 +296,11 @@ Use `selectionMode="extended"` when users need modifier keys to select multiple 
     <Tab value="solid">
 
 <CodeBlockRuntime lang="tsx" code={listboxSolidExtendedSelection} />
+
+    </Tab>
+    <Tab value="vue">
+
+<CodeBlockRuntime lang="vue" code={listboxVueExtendedSelection} />
 
     </Tab>
   </Tabs>
@@ -280,7 +324,7 @@ with `ListboxContent`; turn off typeahead when the input handles search.
 
 <ExampleCode>
 <div className="docs-reference">
-  <Tabs groupId="framework" values={[{ label: 'React', value: 'react' }, { label: 'Solid', value: 'solid' }]} className="docs-tabs">
+  <Tabs groupId="framework" values={[{ label: 'React', value: 'react' }, { label: 'Solid', value: 'solid' }, { label: 'Vue', value: 'vue' }]} className="docs-tabs">
     <Tab value="react">
 
 ```tsx pure file="../../../src/components/examples/listbox/filtering.tsx"
@@ -290,6 +334,11 @@ with `ListboxContent`; turn off typeahead when the input handles search.
     <Tab value="solid">
 
 <CodeBlockRuntime lang="tsx" code={listboxSolidFiltering} />
+
+    </Tab>
+    <Tab value="vue">
+
+<CodeBlockRuntime lang="vue" code={listboxVueFiltering} />
 
     </Tab>
   </Tabs>
@@ -313,7 +362,7 @@ Pass a collection created with `createGridCollection` to enable grid keyboard na
 
 <ExampleCode>
 <div className="docs-reference">
-  <Tabs groupId="framework" values={[{ label: 'React', value: 'react' }, { label: 'Solid', value: 'solid' }]} className="docs-tabs">
+  <Tabs groupId="framework" values={[{ label: 'React', value: 'react' }, { label: 'Solid', value: 'solid' }, { label: 'Vue', value: 'vue' }]} className="docs-tabs">
     <Tab value="react">
 
 ```tsx pure file="../../../src/components/examples/listbox/grid.tsx"
@@ -323,6 +372,11 @@ Pass a collection created with `createGridCollection` to enable grid keyboard na
     <Tab value="solid">
 
 <CodeBlockRuntime lang="tsx" code={listboxSolidGrid} />
+
+    </Tab>
+    <Tab value="vue">
+
+<CodeBlockRuntime lang="vue" code={listboxVueGrid} />
 
     </Tab>
   </Tabs>
@@ -345,7 +399,7 @@ Set `groupBy` when creating the collection and render `ListboxItemGroup` with `L
 
 <ExampleCode>
 <div className="docs-reference">
-  <Tabs groupId="framework" values={[{ label: 'React', value: 'react' }, { label: 'Solid', value: 'solid' }]} className="docs-tabs">
+  <Tabs groupId="framework" values={[{ label: 'React', value: 'react' }, { label: 'Solid', value: 'solid' }, { label: 'Vue', value: 'vue' }]} className="docs-tabs">
     <Tab value="react">
 
 ```tsx pure file="../../../src/components/examples/listbox/grouping.tsx"
@@ -355,6 +409,11 @@ Set `groupBy` when creating the collection and render `ListboxItemGroup` with `L
     <Tab value="solid">
 
 <CodeBlockRuntime lang="tsx" code={listboxSolidGrouping} />
+
+    </Tab>
+    <Tab value="vue">
+
+<CodeBlockRuntime lang="vue" code={listboxVueGrouping} />
 
     </Tab>
   </Tabs>
@@ -378,7 +437,7 @@ navigation.
 
 <ExampleCode>
 <div className="docs-reference">
-  <Tabs groupId="framework" values={[{ label: 'React', value: 'react' }, { label: 'Solid', value: 'solid' }]} className="docs-tabs">
+  <Tabs groupId="framework" values={[{ label: 'React', value: 'react' }, { label: 'Solid', value: 'solid' }, { label: 'Vue', value: 'vue' }]} className="docs-tabs">
     <Tab value="react">
 
 ```tsx pure file="../../../src/components/examples/listbox/horizontal.tsx"
@@ -388,6 +447,11 @@ navigation.
     <Tab value="solid">
 
 <CodeBlockRuntime lang="tsx" code={listboxSolidHorizontal} />
+
+    </Tab>
+    <Tab value="vue">
+
+<CodeBlockRuntime lang="vue" code={listboxVueHorizontal} />
 
     </Tab>
   </Tabs>
@@ -410,7 +474,7 @@ Set `selectionMode="multiple"` to toggle multiple values without modifier keys.
 
 <ExampleCode>
 <div className="docs-reference">
-  <Tabs groupId="framework" values={[{ label: 'React', value: 'react' }, { label: 'Solid', value: 'solid' }]} className="docs-tabs">
+  <Tabs groupId="framework" values={[{ label: 'React', value: 'react' }, { label: 'Solid', value: 'solid' }, { label: 'Vue', value: 'vue' }]} className="docs-tabs">
     <Tab value="react">
 
 ```tsx pure file="../../../src/components/examples/listbox/multiple.tsx"
@@ -420,6 +484,11 @@ Set `selectionMode="multiple"` to toggle multiple values without modifier keys.
     <Tab value="solid">
 
 <CodeBlockRuntime lang="tsx" code={listboxSolidMultiple} />
+
+    </Tab>
+    <Tab value="vue">
+
+<CodeBlockRuntime lang="vue" code={listboxVueMultiple} />
 
     </Tab>
   </Tabs>
@@ -443,7 +512,7 @@ outside the listbox need direct access to its store.
 
 <ExampleCode>
 <div className="docs-reference">
-  <Tabs groupId="framework" values={[{ label: 'React', value: 'react' }, { label: 'Solid', value: 'solid' }]} className="docs-tabs">
+  <Tabs groupId="framework" values={[{ label: 'React', value: 'react' }, { label: 'Solid', value: 'solid' }, { label: 'Vue', value: 'vue' }]} className="docs-tabs">
     <Tab value="react">
 
 ```tsx pure file="../../../src/components/examples/listbox/root-provider.tsx"
@@ -453,6 +522,11 @@ outside the listbox need direct access to its store.
     <Tab value="solid">
 
 <CodeBlockRuntime lang="tsx" code={listboxSolidRootProvider} />
+
+    </Tab>
+    <Tab value="vue">
+
+<CodeBlockRuntime lang="vue" code={listboxVueRootProvider} />
 
     </Tab>
   </Tabs>
@@ -475,7 +549,7 @@ Use `useListboxContext` inside a child component to add a button that updates th
 
 <ExampleCode>
 <div className="docs-reference">
-  <Tabs groupId="framework" values={[{ label: 'React', value: 'react' }, { label: 'Solid', value: 'solid' }]} className="docs-tabs">
+  <Tabs groupId="framework" values={[{ label: 'React', value: 'react' }, { label: 'Solid', value: 'solid' }, { label: 'Vue', value: 'vue' }]} className="docs-tabs">
     <Tab value="react">
 
 ```tsx pure file="../../../src/components/examples/listbox/select-all.tsx"
@@ -485,6 +559,11 @@ Use `useListboxContext` inside a child component to add a button that updates th
     <Tab value="solid">
 
 <CodeBlockRuntime lang="tsx" code={listboxSolidSelectAll} />
+
+    </Tab>
+    <Tab value="vue">
+
+<CodeBlockRuntime lang="vue" code={listboxVueSelectAll} />
 
     </Tab>
   </Tabs>
@@ -507,7 +586,7 @@ Render `ListboxInput` directly when the filter and results should remain separat
 
 <ExampleCode>
 <div className="docs-reference">
-  <Tabs groupId="framework" values={[{ label: 'React', value: 'react' }, { label: 'Solid', value: 'solid' }]} className="docs-tabs">
+  <Tabs groupId="framework" values={[{ label: 'React', value: 'react' }, { label: 'Solid', value: 'solid' }, { label: 'Vue', value: 'vue' }]} className="docs-tabs">
     <Tab value="react">
 
 ```tsx pure file="../../../src/components/examples/listbox/standalone-filter-input.tsx"
@@ -517,6 +596,11 @@ Render `ListboxInput` directly when the filter and results should remain separat
     <Tab value="solid">
 
 <CodeBlockRuntime lang="tsx" code={listboxSolidStandaloneFilterInput} />
+
+    </Tab>
+    <Tab value="vue">
+
+<CodeBlockRuntime lang="vue" code={listboxVueStandaloneFilterInput} />
 
     </Tab>
   </Tabs>
@@ -539,7 +623,7 @@ Render `ListboxValueText` when the selected-value summary should stay visible be
 
 <ExampleCode>
 <div className="docs-reference">
-  <Tabs groupId="framework" values={[{ label: 'React', value: 'react' }, { label: 'Solid', value: 'solid' }]} className="docs-tabs">
+  <Tabs groupId="framework" values={[{ label: 'React', value: 'react' }, { label: 'Solid', value: 'solid' }, { label: 'Vue', value: 'vue' }]} className="docs-tabs">
     <Tab value="react">
 
 ```tsx pure file="../../../src/components/examples/listbox/value-text.tsx"
@@ -549,6 +633,11 @@ Render `ListboxValueText` when the selected-value summary should stay visible be
     <Tab value="solid">
 
 <CodeBlockRuntime lang="tsx" code={listboxSolidValueText} />
+
+    </Tab>
+    <Tab value="vue">
+
+<CodeBlockRuntime lang="vue" code={listboxVueValueText} />
 
     </Tab>
   </Tabs>
@@ -563,7 +652,7 @@ Render `ListboxValueText` when the selected-value summary should stay visible be
 
 ## Styling
 
-Style Listbox through `className` in React or `class` in Solid on exported parts. Tailwind variants
+Style Listbox through `className` in React or `class` in Solid and Vue on exported parts. Tailwind variants
 use native utilities and consumer classes, while CSS Modules variants use the public
 `--moduix-listbox-*` CSS variables.
 
