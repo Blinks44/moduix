@@ -146,6 +146,7 @@
       "description": "moduix Vue FloatingPanel component.",
       "dependencies": ["@ark-ui/vue", "clsx"],
       "registryDependencies": [
+        "@moduix-vue/a11y-labels",
         "@moduix-vue/close-button",
         "@moduix-vue/foundation",
         "@moduix-vue/icons",
@@ -336,6 +337,7 @@
       "description": "moduix Vue FileUpload component.",
       "dependencies": ["@ark-ui/vue", "clsx"],
       "registryDependencies": [
+        "@moduix-vue/a11y-labels",
         "@moduix-vue/foundation",
         "@moduix-vue/icons",
         "@moduix-vue/close-button"
@@ -3101,6 +3103,20 @@
         {
           "path": "src/internal/icons/ui/Icons.ts",
           "target": "@lib/moduix/icons/ui/Icons.ts",
+          "type": "registry:lib"
+        }
+      ]
+    },
+    {
+      "name": "a11y-labels",
+      "type": "registry:item",
+      "title": "moduix a11y labels",
+      "description": "Internal accessible label defaults required only by registry components that render text fallbacks.",
+      "dependencies": [],
+      "files": [
+        {
+          "path": "src/internal/a11yLabels.ts",
+          "target": "@lib/moduix/a11yLabels.ts",
           "type": "registry:lib"
         }
       ]

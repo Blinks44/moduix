@@ -138,6 +138,550 @@
       ]
     },
     {
+      "name": "floating-panel",
+      "type": "registry:item",
+      "title": "FloatingPanel",
+      "description": "moduix Vue Tailwind FloatingPanel component.",
+      "dependencies": ["@ark-ui/vue", "clsx", "tailwind-merge"],
+      "registryDependencies": [
+        "@moduix-vue-tailwind/close-button",
+        "@moduix-vue-tailwind/cn",
+        "@moduix-vue-tailwind/foundation",
+        "@moduix-vue-tailwind/icons",
+        "@moduix-vue-tailwind/overlay-portal"
+      ],
+      "files": [
+        {
+          "path": "src/components/floating-panel/FloatingPanel.vue",
+          "target": "@components/ui/floating-panel/FloatingPanel.vue",
+          "type": "registry:component"
+        },
+        {
+          "path": "src/components/floating-panel/FloatingPanelRootProvider.vue",
+          "target": "@components/ui/floating-panel/FloatingPanelRootProvider.vue",
+          "type": "registry:component"
+        },
+        {
+          "path": "src/components/floating-panel/FloatingPanelTrigger.vue",
+          "target": "@components/ui/floating-panel/FloatingPanelTrigger.vue",
+          "type": "registry:component"
+        },
+        {
+          "path": "src/components/floating-panel/FloatingPanelPositioner.vue",
+          "target": "@components/ui/floating-panel/FloatingPanelPositioner.vue",
+          "type": "registry:component"
+        },
+        {
+          "path": "src/components/floating-panel/FloatingPanelContent.vue",
+          "target": "@components/ui/floating-panel/FloatingPanelContent.vue",
+          "type": "registry:component"
+        },
+        {
+          "path": "src/components/floating-panel/FloatingPanelDragTrigger.vue",
+          "target": "@components/ui/floating-panel/FloatingPanelDragTrigger.vue",
+          "type": "registry:component"
+        },
+        {
+          "path": "src/components/floating-panel/FloatingPanelHeader.vue",
+          "target": "@components/ui/floating-panel/FloatingPanelHeader.vue",
+          "type": "registry:component"
+        },
+        {
+          "path": "src/components/floating-panel/FloatingPanelTitle.vue",
+          "target": "@components/ui/floating-panel/FloatingPanelTitle.vue",
+          "type": "registry:component"
+        },
+        {
+          "path": "src/components/floating-panel/FloatingPanelControl.vue",
+          "target": "@components/ui/floating-panel/FloatingPanelControl.vue",
+          "type": "registry:component"
+        },
+        {
+          "path": "src/components/floating-panel/FloatingPanelStageTrigger.vue",
+          "target": "@components/ui/floating-panel/FloatingPanelStageTrigger.vue",
+          "type": "registry:component"
+        },
+        {
+          "path": "src/components/floating-panel/FloatingPanelCloseTrigger.vue",
+          "target": "@components/ui/floating-panel/FloatingPanelCloseTrigger.vue",
+          "type": "registry:component"
+        },
+        {
+          "path": "src/components/floating-panel/FloatingPanelCloseIcon.vue",
+          "target": "@components/ui/floating-panel/FloatingPanelCloseIcon.vue",
+          "type": "registry:component"
+        },
+        {
+          "path": "src/components/floating-panel/FloatingPanelBody.vue",
+          "target": "@components/ui/floating-panel/FloatingPanelBody.vue",
+          "type": "registry:component"
+        },
+        {
+          "path": "src/components/floating-panel/FloatingPanelFooter.vue",
+          "target": "@components/ui/floating-panel/FloatingPanelFooter.vue",
+          "type": "registry:component"
+        },
+        {
+          "path": "src/components/floating-panel/FloatingPanelResizeTrigger.vue",
+          "target": "@components/ui/floating-panel/FloatingPanelResizeTrigger.vue",
+          "type": "registry:component"
+        },
+        {
+          "path": "src/components/floating-panel/FloatingPanelResizeTriggerGroup.vue",
+          "target": "@components/ui/floating-panel/FloatingPanelResizeTriggerGroup.vue",
+          "type": "registry:component"
+        },
+        {
+          "path": "src/components/floating-panel/FloatingPanelDragIndicator.vue",
+          "target": "@components/ui/floating-panel/FloatingPanelDragIndicator.vue",
+          "type": "registry:component"
+        },
+        {
+          "path": "src/components/floating-panel/floating-panel.types.ts",
+          "target": "@components/ui/floating-panel/floating-panel.types.ts",
+          "type": "registry:file"
+        },
+        {
+          "path": "src/components/floating-panel/index.ts",
+          "target": "@components/ui/floating-panel/index.ts",
+          "type": "registry:component"
+        }
+      ]
+    },
+    {
+      "name": "editable",
+      "type": "registry:item",
+      "title": "Editable",
+      "description": "moduix Vue Tailwind Editable component.",
+      "dependencies": ["@ark-ui/vue", "clsx", "tailwind-merge"],
+      "registryDependencies": [
+        "@moduix-vue-tailwind/foundation",
+        "@moduix-vue-tailwind/cn",
+        "@moduix-vue-tailwind/icons"
+      ],
+      "files": [
+        {
+          "path": "src/components/editable/Editable.vue",
+          "target": "@components/ui/editable/Editable.vue",
+          "type": "registry:component"
+        },
+        {
+          "path": "src/components/editable/EditableRootProvider.vue",
+          "target": "@components/ui/editable/EditableRootProvider.vue",
+          "type": "registry:component"
+        },
+        {
+          "path": "src/components/editable/EditableLabel.vue",
+          "target": "@components/ui/editable/EditableLabel.vue",
+          "type": "registry:component"
+        },
+        {
+          "path": "src/components/editable/EditableArea.vue",
+          "target": "@components/ui/editable/EditableArea.vue",
+          "type": "registry:component"
+        },
+        {
+          "path": "src/components/editable/EditableInput.vue",
+          "target": "@components/ui/editable/EditableInput.vue",
+          "type": "registry:component"
+        },
+        {
+          "path": "src/components/editable/EditablePreview.vue",
+          "target": "@components/ui/editable/EditablePreview.vue",
+          "type": "registry:component"
+        },
+        {
+          "path": "src/components/editable/EditableControl.vue",
+          "target": "@components/ui/editable/EditableControl.vue",
+          "type": "registry:component"
+        },
+        {
+          "path": "src/components/editable/EditableControls.vue",
+          "target": "@components/ui/editable/EditableControls.vue",
+          "type": "registry:component"
+        },
+        {
+          "path": "src/components/editable/EditableEditTrigger.vue",
+          "target": "@components/ui/editable/EditableEditTrigger.vue",
+          "type": "registry:component"
+        },
+        {
+          "path": "src/components/editable/EditableSubmitTrigger.vue",
+          "target": "@components/ui/editable/EditableSubmitTrigger.vue",
+          "type": "registry:component"
+        },
+        {
+          "path": "src/components/editable/EditableCancelTrigger.vue",
+          "target": "@components/ui/editable/EditableCancelTrigger.vue",
+          "type": "registry:component"
+        },
+        {
+          "path": "src/components/editable/index.ts",
+          "target": "@components/ui/editable/index.ts",
+          "type": "registry:component"
+        }
+      ]
+    },
+    {
+      "name": "file-upload",
+      "type": "registry:item",
+      "title": "FileUpload",
+      "description": "moduix Vue Tailwind FileUpload component.",
+      "dependencies": ["@ark-ui/vue", "clsx", "tailwind-merge"],
+      "registryDependencies": [
+        "@moduix-vue-tailwind/foundation",
+        "@moduix-vue-tailwind/cn",
+        "@moduix-vue-tailwind/icons",
+        "@moduix-vue-tailwind/close-button"
+      ],
+      "files": [
+        {
+          "path": "src/components/file-upload/FileUpload.vue",
+          "target": "@components/ui/file-upload/FileUpload.vue",
+          "type": "registry:component"
+        },
+        {
+          "path": "src/components/file-upload/FileUploadRootProvider.vue",
+          "target": "@components/ui/file-upload/FileUploadRootProvider.vue",
+          "type": "registry:component"
+        },
+        {
+          "path": "src/components/file-upload/FileUploadLabel.vue",
+          "target": "@components/ui/file-upload/FileUploadLabel.vue",
+          "type": "registry:component"
+        },
+        {
+          "path": "src/components/file-upload/FileUploadDropzone.vue",
+          "target": "@components/ui/file-upload/FileUploadDropzone.vue",
+          "type": "registry:component"
+        },
+        {
+          "path": "src/components/file-upload/FileUploadDropzoneIcon.vue",
+          "target": "@components/ui/file-upload/FileUploadDropzoneIcon.vue",
+          "type": "registry:component"
+        },
+        {
+          "path": "src/components/file-upload/FileUploadTrigger.vue",
+          "target": "@components/ui/file-upload/FileUploadTrigger.vue",
+          "type": "registry:component"
+        },
+        {
+          "path": "src/components/file-upload/FileUploadItemGroup.vue",
+          "target": "@components/ui/file-upload/FileUploadItemGroup.vue",
+          "type": "registry:component"
+        },
+        {
+          "path": "src/components/file-upload/FileUploadItem.vue",
+          "target": "@components/ui/file-upload/FileUploadItem.vue",
+          "type": "registry:component"
+        },
+        {
+          "path": "src/components/file-upload/FileUploadItemPreview.vue",
+          "target": "@components/ui/file-upload/FileUploadItemPreview.vue",
+          "type": "registry:component"
+        },
+        {
+          "path": "src/components/file-upload/FileUploadItemPreviewImage.vue",
+          "target": "@components/ui/file-upload/FileUploadItemPreviewImage.vue",
+          "type": "registry:component"
+        },
+        {
+          "path": "src/components/file-upload/FileUploadItemPreviewIcon.vue",
+          "target": "@components/ui/file-upload/FileUploadItemPreviewIcon.vue",
+          "type": "registry:component"
+        },
+        {
+          "path": "src/components/file-upload/FileUploadItemName.vue",
+          "target": "@components/ui/file-upload/FileUploadItemName.vue",
+          "type": "registry:component"
+        },
+        {
+          "path": "src/components/file-upload/FileUploadItemSizeText.vue",
+          "target": "@components/ui/file-upload/FileUploadItemSizeText.vue",
+          "type": "registry:component"
+        },
+        {
+          "path": "src/components/file-upload/FileUploadItemMetadata.vue",
+          "target": "@components/ui/file-upload/FileUploadItemMetadata.vue",
+          "type": "registry:component"
+        },
+        {
+          "path": "src/components/file-upload/FileUploadItemDeleteTrigger.vue",
+          "target": "@components/ui/file-upload/FileUploadItemDeleteTrigger.vue",
+          "type": "registry:component"
+        },
+        {
+          "path": "src/components/file-upload/FileUploadItems.vue",
+          "target": "@components/ui/file-upload/FileUploadItems.vue",
+          "type": "registry:component"
+        },
+        {
+          "path": "src/components/file-upload/FileUploadClearTrigger.vue",
+          "target": "@components/ui/file-upload/FileUploadClearTrigger.vue",
+          "type": "registry:component"
+        },
+        {
+          "path": "src/components/file-upload/index.ts",
+          "target": "@components/ui/file-upload/index.ts",
+          "type": "registry:component"
+        }
+      ]
+    },
+    {
+      "name": "heading",
+      "type": "registry:item",
+      "title": "Heading",
+      "description": "moduix Vue Tailwind Heading component.",
+      "dependencies": ["@ark-ui/vue", "class-variance-authority", "clsx", "tailwind-merge"],
+      "registryDependencies": ["@moduix-vue-tailwind/foundation", "@moduix-vue-tailwind/cn"],
+      "files": [
+        {
+          "path": "src/components/heading/Heading.vue",
+          "target": "@components/ui/heading/Heading.vue",
+          "type": "registry:component"
+        },
+        {
+          "path": "src/components/heading/index.ts",
+          "target": "@components/ui/heading/index.ts",
+          "type": "registry:component"
+        }
+      ]
+    },
+    {
+      "name": "date-picker",
+      "type": "registry:item",
+      "title": "DatePicker",
+      "description": "moduix Vue Tailwind DatePicker component.",
+      "dependencies": ["@ark-ui/vue", "clsx", "tailwind-merge"],
+      "registryDependencies": [
+        "@moduix-vue-tailwind/foundation",
+        "@moduix-vue-tailwind/cn",
+        "@moduix-vue-tailwind/icons"
+      ],
+      "files": [
+        {
+          "path": "src/components/date-picker/DatePicker.vue",
+          "target": "@components/ui/date-picker/DatePicker.vue",
+          "type": "registry:component"
+        },
+        {
+          "path": "src/components/date-picker/DatePickerClearTrigger.vue",
+          "target": "@components/ui/date-picker/DatePickerClearTrigger.vue",
+          "type": "registry:component"
+        },
+        {
+          "path": "src/components/date-picker/DatePickerContent.vue",
+          "target": "@components/ui/date-picker/DatePickerContent.vue",
+          "type": "registry:component"
+        },
+        {
+          "path": "src/components/date-picker/DatePickerContext.vue",
+          "target": "@components/ui/date-picker/DatePickerContext.vue",
+          "type": "registry:component"
+        },
+        {
+          "path": "src/components/date-picker/DatePickerControl.vue",
+          "target": "@components/ui/date-picker/DatePickerControl.vue",
+          "type": "registry:component"
+        },
+        {
+          "path": "src/components/date-picker/DatePickerDayTable.vue",
+          "target": "@components/ui/date-picker/DatePickerDayTable.vue",
+          "type": "registry:component"
+        },
+        {
+          "path": "src/components/date-picker/DatePickerField.vue",
+          "target": "@components/ui/date-picker/DatePickerField.vue",
+          "type": "registry:component"
+        },
+        {
+          "path": "src/components/date-picker/DatePickerInput.vue",
+          "target": "@components/ui/date-picker/DatePickerInput.vue",
+          "type": "registry:component"
+        },
+        {
+          "path": "src/components/date-picker/DatePickerLabel.vue",
+          "target": "@components/ui/date-picker/DatePickerLabel.vue",
+          "type": "registry:component"
+        },
+        {
+          "path": "src/components/date-picker/DatePickerMonthSelect.vue",
+          "target": "@components/ui/date-picker/DatePickerMonthSelect.vue",
+          "type": "registry:component"
+        },
+        {
+          "path": "src/components/date-picker/DatePickerNextTrigger.vue",
+          "target": "@components/ui/date-picker/DatePickerNextTrigger.vue",
+          "type": "registry:component"
+        },
+        {
+          "path": "src/components/date-picker/DatePickerPositioner.vue",
+          "target": "@components/ui/date-picker/DatePickerPositioner.vue",
+          "type": "registry:component"
+        },
+        {
+          "path": "src/components/date-picker/DatePickerPresetTrigger.vue",
+          "target": "@components/ui/date-picker/DatePickerPresetTrigger.vue",
+          "type": "registry:component"
+        },
+        {
+          "path": "src/components/date-picker/DatePickerPrevTrigger.vue",
+          "target": "@components/ui/date-picker/DatePickerPrevTrigger.vue",
+          "type": "registry:component"
+        },
+        {
+          "path": "src/components/date-picker/DatePickerRangeField.vue",
+          "target": "@components/ui/date-picker/DatePickerRangeField.vue",
+          "type": "registry:component"
+        },
+        {
+          "path": "src/components/date-picker/DatePickerRangeText.vue",
+          "target": "@components/ui/date-picker/DatePickerRangeText.vue",
+          "type": "registry:component"
+        },
+        {
+          "path": "src/components/date-picker/DatePickerRootProvider.vue",
+          "target": "@components/ui/date-picker/DatePickerRootProvider.vue",
+          "type": "registry:component"
+        },
+        {
+          "path": "src/components/date-picker/DatePickerTable.vue",
+          "target": "@components/ui/date-picker/DatePickerTable.vue",
+          "type": "registry:component"
+        },
+        {
+          "path": "src/components/date-picker/DatePickerTableBody.vue",
+          "target": "@components/ui/date-picker/DatePickerTableBody.vue",
+          "type": "registry:component"
+        },
+        {
+          "path": "src/components/date-picker/DatePickerTableCell.vue",
+          "target": "@components/ui/date-picker/DatePickerTableCell.vue",
+          "type": "registry:component"
+        },
+        {
+          "path": "src/components/date-picker/DatePickerTableCellTrigger.vue",
+          "target": "@components/ui/date-picker/DatePickerTableCellTrigger.vue",
+          "type": "registry:component"
+        },
+        {
+          "path": "src/components/date-picker/DatePickerTableHead.vue",
+          "target": "@components/ui/date-picker/DatePickerTableHead.vue",
+          "type": "registry:component"
+        },
+        {
+          "path": "src/components/date-picker/DatePickerTableHeader.vue",
+          "target": "@components/ui/date-picker/DatePickerTableHeader.vue",
+          "type": "registry:component"
+        },
+        {
+          "path": "src/components/date-picker/DatePickerTableRow.vue",
+          "target": "@components/ui/date-picker/DatePickerTableRow.vue",
+          "type": "registry:component"
+        },
+        {
+          "path": "src/components/date-picker/DatePickerTrigger.vue",
+          "target": "@components/ui/date-picker/DatePickerTrigger.vue",
+          "type": "registry:component"
+        },
+        {
+          "path": "src/components/date-picker/DatePickerValueText.vue",
+          "target": "@components/ui/date-picker/DatePickerValueText.vue",
+          "type": "registry:component"
+        },
+        {
+          "path": "src/components/date-picker/DatePickerView.vue",
+          "target": "@components/ui/date-picker/DatePickerView.vue",
+          "type": "registry:component"
+        },
+        {
+          "path": "src/components/date-picker/DatePickerViewControl.vue",
+          "target": "@components/ui/date-picker/DatePickerViewControl.vue",
+          "type": "registry:component"
+        },
+        {
+          "path": "src/components/date-picker/DatePickerViewTrigger.vue",
+          "target": "@components/ui/date-picker/DatePickerViewTrigger.vue",
+          "type": "registry:component"
+        },
+        {
+          "path": "src/components/date-picker/DatePickerWeekNumberCell.vue",
+          "target": "@components/ui/date-picker/DatePickerWeekNumberCell.vue",
+          "type": "registry:component"
+        },
+        {
+          "path": "src/components/date-picker/DatePickerWeekNumberHeaderCell.vue",
+          "target": "@components/ui/date-picker/DatePickerWeekNumberHeaderCell.vue",
+          "type": "registry:component"
+        },
+        {
+          "path": "src/components/date-picker/DatePickerYearSelect.vue",
+          "target": "@components/ui/date-picker/DatePickerYearSelect.vue",
+          "type": "registry:component"
+        },
+        {
+          "path": "src/components/date-picker/index.ts",
+          "target": "@components/ui/date-picker/index.ts",
+          "type": "registry:component"
+        }
+      ]
+    },
+    {
+      "name": "date-input",
+      "type": "registry:item",
+      "title": "DateInput",
+      "description": "moduix Vue Tailwind DateInput component.",
+      "dependencies": ["@ark-ui/vue", "clsx", "tailwind-merge"],
+      "registryDependencies": ["@moduix-vue-tailwind/foundation", "@moduix-vue-tailwind/cn"],
+      "files": [
+        {
+          "path": "src/components/date-input/DateInput.vue",
+          "target": "@components/ui/date-input/DateInput.vue",
+          "type": "registry:component"
+        },
+        {
+          "path": "src/components/date-input/DateInputRootProvider.vue",
+          "target": "@components/ui/date-input/DateInputRootProvider.vue",
+          "type": "registry:component"
+        },
+        {
+          "path": "src/components/date-input/DateInputLabel.vue",
+          "target": "@components/ui/date-input/DateInputLabel.vue",
+          "type": "registry:component"
+        },
+        {
+          "path": "src/components/date-input/DateInputControl.vue",
+          "target": "@components/ui/date-input/DateInputControl.vue",
+          "type": "registry:component"
+        },
+        {
+          "path": "src/components/date-input/DateInputSegmentGroup.vue",
+          "target": "@components/ui/date-input/DateInputSegmentGroup.vue",
+          "type": "registry:component"
+        },
+        {
+          "path": "src/components/date-input/DateInputSegment.vue",
+          "target": "@components/ui/date-input/DateInputSegment.vue",
+          "type": "registry:component"
+        },
+        {
+          "path": "src/components/date-input/DateInputSegments.vue",
+          "target": "@components/ui/date-input/DateInputSegments.vue",
+          "type": "registry:component"
+        },
+        {
+          "path": "src/components/date-input/DateInputSeparator.vue",
+          "target": "@components/ui/date-input/DateInputSeparator.vue",
+          "type": "registry:component"
+        },
+        {
+          "path": "src/components/date-input/index.ts",
+          "target": "@components/ui/date-input/index.ts",
+          "type": "registry:component"
+        }
+      ]
+    },
+    {
       "name": "switch",
       "type": "registry:item",
       "title": "Switch",
@@ -1154,6 +1698,126 @@
         {
           "path": "src/components/dialog/index.ts",
           "target": "@components/ui/dialog/index.ts",
+          "type": "registry:component"
+        }
+      ]
+    },
+    {
+      "name": "drawer",
+      "type": "registry:item",
+      "title": "Drawer",
+      "description": "moduix Vue Tailwind Drawer component.",
+      "dependencies": ["@ark-ui/vue", "clsx", "tailwind-merge"],
+      "registryDependencies": [
+        "@moduix-vue-tailwind/foundation",
+        "@moduix-vue-tailwind/cn",
+        "@moduix-vue-tailwind/close-button",
+        "@moduix-vue-tailwind/overlay-portal"
+      ],
+      "files": [
+        {
+          "path": "src/components/drawer/Drawer.vue",
+          "target": "@components/ui/drawer/Drawer.vue",
+          "type": "registry:component"
+        },
+        {
+          "path": "src/components/drawer/DrawerRootProvider.vue",
+          "target": "@components/ui/drawer/DrawerRootProvider.vue",
+          "type": "registry:component"
+        },
+        {
+          "path": "src/components/drawer/DrawerTrigger.vue",
+          "target": "@components/ui/drawer/DrawerTrigger.vue",
+          "type": "registry:component"
+        },
+        {
+          "path": "src/components/drawer/DrawerBackdrop.vue",
+          "target": "@components/ui/drawer/DrawerBackdrop.vue",
+          "type": "registry:component"
+        },
+        {
+          "path": "src/components/drawer/DrawerPositioner.vue",
+          "target": "@components/ui/drawer/DrawerPositioner.vue",
+          "type": "registry:component"
+        },
+        {
+          "path": "src/components/drawer/DrawerContent.vue",
+          "target": "@components/ui/drawer/DrawerContent.vue",
+          "type": "registry:component"
+        },
+        {
+          "path": "src/components/drawer/DrawerGrabber.vue",
+          "target": "@components/ui/drawer/DrawerGrabber.vue",
+          "type": "registry:component"
+        },
+        {
+          "path": "src/components/drawer/DrawerGrabberIndicator.vue",
+          "target": "@components/ui/drawer/DrawerGrabberIndicator.vue",
+          "type": "registry:component"
+        },
+        {
+          "path": "src/components/drawer/DrawerTitle.vue",
+          "target": "@components/ui/drawer/DrawerTitle.vue",
+          "type": "registry:component"
+        },
+        {
+          "path": "src/components/drawer/DrawerDescription.vue",
+          "target": "@components/ui/drawer/DrawerDescription.vue",
+          "type": "registry:component"
+        },
+        {
+          "path": "src/components/drawer/DrawerCloseTrigger.vue",
+          "target": "@components/ui/drawer/DrawerCloseTrigger.vue",
+          "type": "registry:component"
+        },
+        {
+          "path": "src/components/drawer/DrawerCloseIcon.vue",
+          "target": "@components/ui/drawer/DrawerCloseIcon.vue",
+          "type": "registry:component"
+        },
+        {
+          "path": "src/components/drawer/DrawerSwipeArea.vue",
+          "target": "@components/ui/drawer/DrawerSwipeArea.vue",
+          "type": "registry:component"
+        },
+        {
+          "path": "src/components/drawer/DrawerIndent.vue",
+          "target": "@components/ui/drawer/DrawerIndent.vue",
+          "type": "registry:component"
+        },
+        {
+          "path": "src/components/drawer/DrawerIndentBackground.vue",
+          "target": "@components/ui/drawer/DrawerIndentBackground.vue",
+          "type": "registry:component"
+        },
+        {
+          "path": "src/components/drawer/DrawerHeader.vue",
+          "target": "@components/ui/drawer/DrawerHeader.vue",
+          "type": "registry:component"
+        },
+        {
+          "path": "src/components/drawer/DrawerBody.vue",
+          "target": "@components/ui/drawer/DrawerBody.vue",
+          "type": "registry:component"
+        },
+        {
+          "path": "src/components/drawer/DrawerFooter.vue",
+          "target": "@components/ui/drawer/DrawerFooter.vue",
+          "type": "registry:component"
+        },
+        {
+          "path": "src/components/drawer/DrawerContext.vue",
+          "target": "@components/ui/drawer/DrawerContext.vue",
+          "type": "registry:component"
+        },
+        {
+          "path": "src/components/drawer/context.ts",
+          "target": "@components/ui/drawer/context.ts",
+          "type": "registry:component"
+        },
+        {
+          "path": "src/components/drawer/index.ts",
+          "target": "@components/ui/drawer/index.ts",
           "type": "registry:component"
         }
       ]
@@ -2195,6 +2859,51 @@
         {
           "path": "src/components/color-picker/index.ts",
           "target": "@components/ui/color-picker/index.ts",
+          "type": "registry:component"
+        }
+      ]
+    },
+    {
+      "name": "empty",
+      "type": "registry:item",
+      "title": "Empty",
+      "description": "Composable empty-state surface for no-results, no-data, and first-run screens.",
+      "dependencies": ["@ark-ui/vue", "clsx", "tailwind-merge"],
+      "registryDependencies": ["@moduix-vue-tailwind/foundation", "@moduix-vue-tailwind/cn"],
+      "files": [
+        {
+          "path": "src/components/empty/Empty.vue",
+          "target": "@components/ui/empty/Empty.vue",
+          "type": "registry:component"
+        },
+        {
+          "path": "src/components/empty/EmptyIcon.vue",
+          "target": "@components/ui/empty/EmptyIcon.vue",
+          "type": "registry:component"
+        },
+        {
+          "path": "src/components/empty/EmptyContent.vue",
+          "target": "@components/ui/empty/EmptyContent.vue",
+          "type": "registry:component"
+        },
+        {
+          "path": "src/components/empty/EmptyTitle.vue",
+          "target": "@components/ui/empty/EmptyTitle.vue",
+          "type": "registry:component"
+        },
+        {
+          "path": "src/components/empty/EmptyDescription.vue",
+          "target": "@components/ui/empty/EmptyDescription.vue",
+          "type": "registry:component"
+        },
+        {
+          "path": "src/components/empty/EmptyActions.vue",
+          "target": "@components/ui/empty/EmptyActions.vue",
+          "type": "registry:component"
+        },
+        {
+          "path": "src/components/empty/index.ts",
+          "target": "@components/ui/empty/index.ts",
           "type": "registry:component"
         }
       ]

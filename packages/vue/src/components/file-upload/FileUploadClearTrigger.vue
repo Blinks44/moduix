@@ -5,6 +5,7 @@ import { clsx } from 'clsx';
 import { computed, useAttrs } from 'vue';
 import type { HTMLAttributes } from 'vue';
 import { CloseIcon } from '@/internal/icons/ui/Icons';
+import { a11yLabels } from '@/lib/moduix/a11yLabels';
 import CloseButton from '../close-button/CloseButton.vue';
 import styles from './FileUpload.module.css';
 
@@ -22,7 +23,7 @@ defineSlots<{ default?: () => unknown }>();
 
 const attrs = useAttrs();
 const clearLabel = computed(
-  () => ariaLabel ?? (ariaLabelledby == null ? 'Clear files' : undefined),
+  () => ariaLabel ?? (ariaLabelledby == null ? a11yLabels.clearFiles : undefined),
 );
 </script>
 
@@ -46,7 +47,7 @@ const clearLabel = computed(
     data-slot="file-upload-clear-trigger"
   >
     <CloseButton
-      :aria-label="ariaLabel ?? (ariaLabelledby == null ? 'Clear files' : undefined)"
+      :aria-label="clearLabel"
       :aria-labelledby="ariaLabelledby"
       data-part="root"
       data-scope="close-button"
