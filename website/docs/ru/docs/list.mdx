@@ -19,6 +19,13 @@ import listSolidNativeItems from '../../../snippets/list/solid/native-items.tsx?
 import listSolidOrdered from '../../../snippets/list/solid/ordered.tsx?raw';
 import listSolidRootAsChild from '../../../snippets/list/solid/root-as-child.tsx?raw';
 import listSolidTone from '../../../snippets/list/solid/tone.tsx?raw';
+import listVueBasic from '../../../snippets/list/vue/basic.vue?raw';
+import listVueCustomComposition from '../../../snippets/list/vue/custom-composition.vue?raw';
+import listVueMarkerless from '../../../snippets/list/vue/markerless.vue?raw';
+import listVueNativeItems from '../../../snippets/list/vue/native-items.vue?raw';
+import listVueOrdered from '../../../snippets/list/vue/ordered.vue?raw';
+import listVueRootAsChild from '../../../snippets/list/vue/root-as-child.vue?raw';
+import listVueTone from '../../../snippets/list/vue/tone.vue?raw';
 
 ## Справочник API
 
@@ -55,6 +62,7 @@ import listSolidTone from '../../../snippets/list/solid/tone.tsx?raw';
     values={[
       { label: 'React', value: 'react' },
       { label: 'Solid', value: 'solid' },
+      { label: 'Vue', value: 'vue' },
     ]}
     className="docs-tabs"
   >
@@ -67,6 +75,11 @@ import listSolidTone from '../../../snippets/list/solid/tone.tsx?raw';
     <Tab value="solid">
 
 <CodeBlockRuntime lang="tsx" code={listSolidBasic} />
+
+    </Tab>
+    <Tab value="vue">
+
+<CodeBlockRuntime lang="vue" code={listVueBasic} />
 
     </Tab>
   </Tabs>
@@ -98,6 +111,16 @@ import listSolidTone from '../../../snippets/list/solid/tone.tsx?raw';
 />
 
   </Tab>
+  <Tab label="Vue" value="vue">
+
+<ShadcnInstallOptions
+  options={[
+    { label: 'CSS Modules', command: 'shadcn@latest add @moduix-vue/list' },
+    { label: 'Tailwind CSS', command: 'shadcn@latest add @moduix-vue-tailwind/list' },
+  ]}
+/>
+
+  </Tab>
 </Tabs>
 
 ## Анатомия
@@ -119,16 +142,16 @@ List
 Используйте `ListItem`, если нужны его стабильный слот, `className`/`class` или `asChild`; в остальных случаях
 достаточно обычного `li`. Используйте `asChild`, только когда компонент приложения отрисовывает один семантический
 `ul`, `ol` или `li` и передаёт полученные props и ref. В Solid для этого используется вариант `asChild` с
-render-функцией. У `List` нет машины состояний и callback-обработчиков, поэтому выбор с клавиатуры относится к
-`Listbox`.
+render-функцией, а в Vue — семантический элемент в слоте компонента. У `List` нет машины состояний и callback-
+обработчиков, поэтому выбор с клавиатуры относится к `Listbox`.
 
 ## Примеры
 
 ### Пользовательский корень
 
 Используйте `List asChild`, когда компонент приложения должен сам отрисовать семантический элемент списка. В React
-он должен передать полученные props и ref одному `<ul>` или `<ol>`, а в Solid нужно использовать вариант с
-render-функцией.
+он должен передать полученные props и ref одному `<ul>` или `<ol>`, в Solid нужно использовать вариант с
+render-функцией, а в Vue — передать один семантический дочерний элемент.
 
 <ExampleFrame variant="component">
   <ListRootAsChild />
@@ -141,6 +164,7 @@ render-функцией.
     values={[
       { label: 'React', value: 'react' },
       { label: 'Solid', value: 'solid' },
+      { label: 'Vue', value: 'vue' },
     ]}
     className="docs-tabs"
   >
@@ -153,6 +177,11 @@ render-функцией.
     <Tab value="solid">
 
 <CodeBlockRuntime lang="tsx" code={listSolidRootAsChild} />
+
+    </Tab>
+    <Tab value="vue">
+
+<CodeBlockRuntime lang="vue" code={listVueRootAsChild} />
 
     </Tab>
   </Tabs>
@@ -175,6 +204,7 @@ render-функцией.
     values={[
       { label: 'React', value: 'react' },
       { label: 'Solid', value: 'solid' },
+      { label: 'Vue', value: 'vue' },
     ]}
     className="docs-tabs"
   >
@@ -187,6 +217,11 @@ render-функцией.
     <Tab value="solid">
 
 <CodeBlockRuntime lang="tsx" code={listSolidMarkerless} />
+
+    </Tab>
+    <Tab value="vue">
+
+<CodeBlockRuntime lang="vue" code={listVueMarkerless} />
 
     </Tab>
   </Tabs>
@@ -208,6 +243,7 @@ render-функцией.
     values={[
       { label: 'React', value: 'react' },
       { label: 'Solid', value: 'solid' },
+      { label: 'Vue', value: 'vue' },
     ]}
     className="docs-tabs"
   >
@@ -220,6 +256,11 @@ render-функцией.
     <Tab value="solid">
 
 <CodeBlockRuntime lang="tsx" code={listSolidNativeItems} />
+
+    </Tab>
+    <Tab value="vue">
+
+<CodeBlockRuntime lang="vue" code={listVueNativeItems} />
 
     </Tab>
   </Tabs>
@@ -242,6 +283,7 @@ render-функцией.
     values={[
       { label: 'React', value: 'react' },
       { label: 'Solid', value: 'solid' },
+      { label: 'Vue', value: 'vue' },
     ]}
     className="docs-tabs"
   >
@@ -254,6 +296,11 @@ render-функцией.
     <Tab value="solid">
 
 <CodeBlockRuntime lang="tsx" code={listSolidOrdered} />
+
+    </Tab>
+    <Tab value="vue">
+
+<CodeBlockRuntime lang="vue" code={listVueOrdered} />
 
     </Tab>
   </Tabs>
@@ -275,6 +322,7 @@ render-функцией.
     values={[
       { label: 'React', value: 'react' },
       { label: 'Solid', value: 'solid' },
+      { label: 'Vue', value: 'vue' },
     ]}
     className="docs-tabs"
   >
@@ -287,6 +335,11 @@ render-функцией.
     <Tab value="solid">
 
 <CodeBlockRuntime lang="tsx" code={listSolidTone} />
+
+    </Tab>
+    <Tab value="vue">
+
+<CodeBlockRuntime lang="vue" code={listVueTone} />
 
     </Tab>
   </Tabs>
@@ -315,6 +368,7 @@ render-функцией.
     values={[
       { label: 'React', value: 'react' },
       { label: 'Solid', value: 'solid' },
+      { label: 'Vue', value: 'vue' },
     ]}
     className="docs-tabs"
   >
@@ -329,6 +383,11 @@ render-функцией.
 <CodeBlockRuntime lang="tsx" code={listSolidCustomComposition} />
 
     </Tab>
+    <Tab value="vue">
+
+<CodeBlockRuntime lang="vue" code={listVueCustomComposition} />
+
+    </Tab>
   </Tabs>
 
 **Styles**
@@ -340,7 +399,7 @@ render-функцией.
 
 ## Стилизация
 
-Стилизуйте `List` с помощью свойства класса (`className` в React и `class` в Solid), экспортируемых атрибутов
+Стилизуйте `List` с помощью свойства класса (`className` в React и `class` в Solid и Vue), экспортируемых атрибутов
 `data-*` в стиле Ark, нативного `li::marker` и публичных CSS-переменных `--moduix-list-*`, перечисленных ниже.
 Ниже приведён полный список переменных публичного CSS API.
 

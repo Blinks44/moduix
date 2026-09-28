@@ -1,6 +1,8 @@
 // Internal test barrel. The package intentionally exposes component subpaths only.
 
 export * from './components/accordion';
+export * from './components/lightbox';
+export * from './components/list';
 export * from './components/image-cropper';
 export * from './components/image';
 export * from './components/hover-card';
@@ -27,6 +29,7 @@ export * from './components/breadcrumbs';
 export * from './components/button';
 export * from './components/kbd';
 export * from './components/input';
+export * from './components/input-group';
 export * from './components/textarea';
 export * from './components/card';
 export * from './components/carousel';

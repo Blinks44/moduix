@@ -140,6 +140,146 @@
       ]
     },
     {
+      "name": "lightbox",
+      "type": "registry:item",
+      "title": "Lightbox",
+      "description": "moduix Vue Lightbox component.",
+      "dependencies": ["@ark-ui/vue", "clsx"],
+      "registryDependencies": [
+        "@moduix-vue/a11y-labels",
+        "@moduix-vue/close-button",
+        "@moduix-vue/foundation",
+        "@moduix-vue/overlay-portal"
+      ],
+      "files": [
+        {
+          "path": "src/components/lightbox/Lightbox.vue",
+          "target": "@components/ui/lightbox/Lightbox.vue",
+          "type": "registry:component"
+        },
+        {
+          "path": "src/components/lightbox/LightboxRootProvider.vue",
+          "target": "@components/ui/lightbox/LightboxRootProvider.vue",
+          "type": "registry:component"
+        },
+        {
+          "path": "src/components/lightbox/LightboxTrigger.vue",
+          "target": "@components/ui/lightbox/LightboxTrigger.vue",
+          "type": "registry:component"
+        },
+        {
+          "path": "src/components/lightbox/LightboxBackdrop.vue",
+          "target": "@components/ui/lightbox/LightboxBackdrop.vue",
+          "type": "registry:component"
+        },
+        {
+          "path": "src/components/lightbox/LightboxPositioner.vue",
+          "target": "@components/ui/lightbox/LightboxPositioner.vue",
+          "type": "registry:component"
+        },
+        {
+          "path": "src/components/lightbox/LightboxContent.vue",
+          "target": "@components/ui/lightbox/LightboxContent.vue",
+          "type": "registry:component"
+        },
+        {
+          "path": "src/components/lightbox/LightboxTitle.vue",
+          "target": "@components/ui/lightbox/LightboxTitle.vue",
+          "type": "registry:component"
+        },
+        {
+          "path": "src/components/lightbox/LightboxDescription.vue",
+          "target": "@components/ui/lightbox/LightboxDescription.vue",
+          "type": "registry:component"
+        },
+        {
+          "path": "src/components/lightbox/LightboxCloseTrigger.vue",
+          "target": "@components/ui/lightbox/LightboxCloseTrigger.vue",
+          "type": "registry:component"
+        },
+        {
+          "path": "src/components/lightbox/LightboxCloseIcon.vue",
+          "target": "@components/ui/lightbox/LightboxCloseIcon.vue",
+          "type": "registry:component"
+        },
+        {
+          "path": "src/components/lightbox/LightboxHeader.vue",
+          "target": "@components/ui/lightbox/LightboxHeader.vue",
+          "type": "registry:component"
+        },
+        {
+          "path": "src/components/lightbox/LightboxBody.vue",
+          "target": "@components/ui/lightbox/LightboxBody.vue",
+          "type": "registry:component"
+        },
+        {
+          "path": "src/components/lightbox/LightboxFooter.vue",
+          "target": "@components/ui/lightbox/LightboxFooter.vue",
+          "type": "registry:component"
+        },
+        {
+          "path": "src/components/lightbox/LightboxImage.vue",
+          "target": "@components/ui/lightbox/LightboxImage.vue",
+          "type": "registry:component"
+        },
+        {
+          "path": "src/components/lightbox/LightboxGallery.vue",
+          "target": "@components/ui/lightbox/LightboxGallery.vue",
+          "type": "registry:component"
+        },
+        {
+          "path": "src/components/lightbox/LightboxBind.vue",
+          "target": "@components/ui/lightbox/LightboxBind.vue",
+          "type": "registry:component"
+        },
+        {
+          "path": "src/components/lightbox/lightbox.ts",
+          "target": "@components/ui/lightbox/lightbox.ts",
+          "type": "registry:file"
+        },
+        {
+          "path": "src/components/lightbox/Lightbox.module.css",
+          "target": "@components/ui/lightbox/Lightbox.module.css",
+          "type": "registry:file"
+        },
+        {
+          "path": "src/components/lightbox/index.ts",
+          "target": "@components/ui/lightbox/index.ts",
+          "type": "registry:component"
+        }
+      ]
+    },
+    {
+      "name": "list",
+      "type": "registry:item",
+      "title": "List",
+      "description": "moduix Vue List component.",
+      "dependencies": ["@ark-ui/vue", "clsx"],
+      "registryDependencies": ["@moduix-vue/foundation"],
+      "files": [
+        {
+          "path": "src/components/list/List.vue",
+          "target": "@components/ui/list/List.vue",
+          "type": "registry:component"
+        },
+        {
+          "path": "src/components/list/ListItem.vue",
+          "target": "@components/ui/list/ListItem.vue",
+          "type": "registry:component"
+        },
+        {
+          "path": "src/components/list/List.module.css",
+          "target": "@components/ui/list/List.module.css",
+          "type": "registry:file"
+        },
+        {
+          "path": "src/components/list/index.ts",
+          "target": "@components/ui/list/index.ts",
+          "type": "registry:component"
+        }
+      ]
+    },
+    {
       "name": "hover-card",
       "type": "registry:item",
       "title": "HoverCard",
@@ -1241,6 +1381,56 @@
         {
           "path": "src/components/input/index.ts",
           "target": "@components/ui/input/index.ts",
+          "type": "registry:component"
+        }
+      ]
+    },
+    {
+      "name": "input-group",
+      "type": "registry:item",
+      "title": "InputGroup",
+      "description": "moduix Vue InputGroup component.",
+      "dependencies": ["@ark-ui/vue", "clsx"],
+      "registryDependencies": ["@moduix-vue/foundation", "@moduix-vue/button", "@moduix-vue/input"],
+      "files": [
+        {
+          "path": "src/components/input-group/InputGroup.vue",
+          "target": "@components/ui/input-group/InputGroup.vue",
+          "type": "registry:component"
+        },
+        {
+          "path": "src/components/input-group/InputGroupAddon.vue",
+          "target": "@components/ui/input-group/InputGroupAddon.vue",
+          "type": "registry:component"
+        },
+        {
+          "path": "src/components/input-group/InputGroupButton.vue",
+          "target": "@components/ui/input-group/InputGroupButton.vue",
+          "type": "registry:component"
+        },
+        {
+          "path": "src/components/input-group/InputGroupInput.vue",
+          "target": "@components/ui/input-group/InputGroupInput.vue",
+          "type": "registry:component"
+        },
+        {
+          "path": "src/components/input-group/InputGroupText.vue",
+          "target": "@components/ui/input-group/InputGroupText.vue",
+          "type": "registry:component"
+        },
+        {
+          "path": "src/components/input-group/context.ts",
+          "target": "@components/ui/input-group/context.ts",
+          "type": "registry:component"
+        },
+        {
+          "path": "src/components/input-group/InputGroup.module.css",
+          "target": "@components/ui/input-group/InputGroup.module.css",
+          "type": "registry:file"
+        },
+        {
+          "path": "src/components/input-group/index.ts",
+          "target": "@components/ui/input-group/index.ts",
           "type": "registry:component"
         }
       ]

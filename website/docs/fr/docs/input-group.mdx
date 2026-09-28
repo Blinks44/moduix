@@ -1,7 +1,7 @@
 ---
 title: Input Group
 component: input-group
-description: Créez des champs de saisie avec préfixes, suffixes et actions en ligne en React ou Solid, installés par paquet ou avec la CLI shadcn.
+description: Créez des champs de saisie avec préfixes, suffixes et actions en ligne en React, Solid ou Vue, installés par paquet ou avec la CLI shadcn.
 ---
 
 import * as InputGroupDocs from '@/components/examples/input-group/css-properties';
@@ -19,6 +19,13 @@ import inputGroupSolidFieldState from '../../../snippets/input-group/solid/field
 import inputGroupSolidPrefixAndSuffix from '../../../snippets/input-group/solid/prefix-and-suffix.tsx?raw';
 import inputGroupSolidSizes from '../../../snippets/input-group/solid/sizes.tsx?raw';
 import inputGroupSolidWithAction from '../../../snippets/input-group/solid/with-action.tsx?raw';
+import inputGroupVueAsChild from '../../../snippets/input-group/vue/as-child.vue?raw';
+import inputGroupVueBasic from '../../../snippets/input-group/vue/basic.vue?raw';
+import inputGroupVueDisabled from '../../../snippets/input-group/vue/disabled.vue?raw';
+import inputGroupVueFieldState from '../../../snippets/input-group/vue/field-state.vue?raw';
+import inputGroupVuePrefixAndSuffix from '../../../snippets/input-group/vue/prefix-and-suffix.vue?raw';
+import inputGroupVueSizes from '../../../snippets/input-group/vue/sizes.vue?raw';
+import inputGroupVueWithAction from '../../../snippets/input-group/vue/with-action.vue?raw';
 
 ## Référence de l’API
 
@@ -53,6 +60,7 @@ Utilisez `InputGroup` comme racine et composez un seul `InputGroupInput` avec le
     values={[
       { label: 'React', value: 'react' },
       { label: 'Solid', value: 'solid' },
+      { label: 'Vue', value: 'vue' },
     ]}
     className="docs-tabs"
   >
@@ -65,6 +73,11 @@ Utilisez `InputGroup` comme racine et composez un seul `InputGroupInput` avec le
     <Tab value="solid">
 
 <CodeBlockRuntime lang="tsx" code={inputGroupSolidBasic} />
+
+    </Tab>
+    <Tab value="vue">
+
+<CodeBlockRuntime lang="vue" code={inputGroupVueBasic} />
 
     </Tab>
   </Tabs>
@@ -102,6 +115,16 @@ Consultez le [Démarrage rapide](/docs/quick-start) pour la configuration compl�
 />
 
   </Tab>
+  <Tab label="Vue" value="vue">
+
+<ShadcnInstallOptions
+  options={[
+    { label: 'CSS Modules', command: 'shadcn@latest add @moduix-vue/input-group' },
+    { label: 'Tailwind CSS', command: 'shadcn@latest add @moduix-vue-tailwind/input-group' },
+  ]}
+/>
+
+  </Tab>
 </Tabs>
 
 ## Anatomie
@@ -129,7 +152,7 @@ comportement du formulaire, l’état de validation et la `ref` ; les props cont
 se placent donc sur ce champ, tandis que le libellé et les messages de validation vont dans `Field`.
 La taille de la racine est héritée par `InputGroupInput` et `InputGroupButton` ; les boutons ont
 par défaut `type="button"` et n’héritent pas de `disabled` depuis `Field`. En React, utilisez
-`onChange` pour un champ contrôlé ; en Solid, utilisez `onInput`.
+`onChange` pour un champ contrôlé ; en Solid, utilisez `onInput` ; en Vue, utilisez `v-model`.
 
 Utilisez `InputGroupAddon` et `InputGroupText` pour du contenu intégré non interactif, et `InputGroupButton` pour les actions. La
 racine, `InputGroupAddon` et `InputGroupText` prennent en charge `asChild` avec un seul enfant sémantique qui accepte les
@@ -153,6 +176,7 @@ indisponibles.
     values={[
       { label: 'React', value: 'react' },
       { label: 'Solid', value: 'solid' },
+      { label: 'Vue', value: 'vue' },
     ]}
     className="docs-tabs"
   >
@@ -165,6 +189,11 @@ indisponibles.
     <Tab value="solid">
 
 <CodeBlockRuntime lang="tsx" code={inputGroupSolidDisabled} />
+
+    </Tab>
+    <Tab value="vue">
+
+<CodeBlockRuntime lang="vue" code={inputGroupVueDisabled} />
 
     </Tab>
   </Tabs>
@@ -193,6 +222,7 @@ ARIA nécessaires à `InputGroupInput`, puis le groupe reflète cet état.
     values={[
       { label: 'React', value: 'react' },
       { label: 'Solid', value: 'solid' },
+      { label: 'Vue', value: 'vue' },
     ]}
     className="docs-tabs"
   >
@@ -205,6 +235,11 @@ ARIA nécessaires à `InputGroupInput`, puis le groupe reflète cet état.
     <Tab value="solid">
 
 <CodeBlockRuntime lang="tsx" code={inputGroupSolidFieldState} />
+
+    </Tab>
+    <Tab value="vue">
+
+<CodeBlockRuntime lang="vue" code={inputGroupVueFieldState} />
 
     </Tab>
   </Tabs>
@@ -232,6 +267,7 @@ Utilisez `InputGroupAddon` pour un préfixe ou un suffixe avec fond et `InputGro
     values={[
       { label: 'React', value: 'react' },
       { label: 'Solid', value: 'solid' },
+      { label: 'Vue', value: 'vue' },
     ]}
     className="docs-tabs"
   >
@@ -244,6 +280,11 @@ Utilisez `InputGroupAddon` pour un préfixe ou un suffixe avec fond et `InputGro
     <Tab value="solid">
 
 <CodeBlockRuntime lang="tsx" code={inputGroupSolidPrefixAndSuffix} />
+
+    </Tab>
+    <Tab value="vue">
+
+<CodeBlockRuntime lang="vue" code={inputGroupVuePrefixAndSuffix} />
 
     </Tab>
   </Tabs>
@@ -272,6 +313,7 @@ restent alignés.
     values={[
       { label: 'React', value: 'react' },
       { label: 'Solid', value: 'solid' },
+      { label: 'Vue', value: 'vue' },
     ]}
     className="docs-tabs"
   >
@@ -284,6 +326,11 @@ restent alignés.
     <Tab value="solid">
 
 <CodeBlockRuntime lang="tsx" code={inputGroupSolidSizes} />
+
+    </Tab>
+    <Tab value="vue">
+
+<CodeBlockRuntime lang="vue" code={inputGroupVueSizes} />
 
     </Tab>
   </Tabs>
@@ -312,6 +359,7 @@ est contrôlé et `Send` ne devient disponible qu’après la saisie d’une val
     values={[
       { label: 'React', value: 'react' },
       { label: 'Solid', value: 'solid' },
+      { label: 'Vue', value: 'vue' },
     ]}
     className="docs-tabs"
   >
@@ -324,6 +372,11 @@ est contrôlé et `Send` ne devient disponible qu’après la saisie d’une val
     <Tab value="solid">
 
 <CodeBlockRuntime lang="tsx" code={inputGroupSolidWithAction} />
+
+    </Tab>
+    <Tab value="vue">
+
+<CodeBlockRuntime lang="vue" code={inputGroupVueWithAction} />
 
     </Tab>
   </Tabs>
@@ -353,6 +406,7 @@ conteneur de mise en page sémantique.
     values={[
       { label: 'React', value: 'react' },
       { label: 'Solid', value: 'solid' },
+      { label: 'Vue', value: 'vue' },
     ]}
     className="docs-tabs"
   >
@@ -367,6 +421,11 @@ conteneur de mise en page sémantique.
 <CodeBlockRuntime lang="tsx" code={inputGroupSolidAsChild} />
 
     </Tab>
+    <Tab value="vue">
+
+<CodeBlockRuntime lang="vue" code={inputGroupVueAsChild} />
+
+    </Tab>
   </Tabs>
 
 **Styles**
@@ -379,7 +438,7 @@ conteneur de mise en page sémantique.
 
 ## Styles
 
-Utilisez `className` en React ou `class` en Solid sur les parties exportées pour appliquer les styles
+Utilisez `className` en React ou `class` en Solid et Vue sur les parties exportées pour appliquer les styles
 structurels. Pour les styles liés à l’état, privilégiez les attributs de données Ark comme
 `data-invalid`, `data-disabled` et `data-readonly`, ainsi que les sélecteurs `data-slot` de moduix.
 Les variantes Tailwind se personnalisent avec des utilitaires et des classes supplémentaires ; les
@@ -401,5 +460,5 @@ sélecteurs `data-slot` sont communs aux deux approches.
 - les états imbriqués `data-invalid`, `aria-invalid="true"`, `data-disabled`/`:disabled` et `data-readonly`/`:read-only` sont reflétés sur la racine via `:has(...)`
 
 Les hooks `data-slot`, `data-scope`, `data-part` et `data-size` gérés par le composant restent
-stables même si vous fournissez vos propres propriétés. `className` en React et `class` en Solid
+stables même si vous fournissez vos propres propriétés. `className` en React et `class` en Solid et Vue
 s’ajoutent toujours aux styles du composant.

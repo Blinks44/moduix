@@ -1,0 +1,25 @@
+.list,
+.stack {
+  width: min(32rem, calc(100vw - var(--moduix-spacing-8)));
+}
+
+.rowList {
+  flex-flow: row wrap;
+  width: min(32rem, calc(100vw - var(--moduix-spacing-8)));
+}
+
+.stack {
+  display: flex;
+  flex-direction: column;
+  gap: var(--moduix-spacing-6);
+}
+
+.accentList {
+  width: min(32rem, calc(100vw - var(--moduix-spacing-8)));
+  --moduix-list-padding-x: var(--moduix-spacing-6);
+}
+
+.accentItem::marker {
+  color: var(--moduix-color-primary);
+  font-weight: var(--moduix-weight-semibold);
+}

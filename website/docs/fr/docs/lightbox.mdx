@@ -1,7 +1,7 @@
 ---
 title: Lightbox
 component: lightbox
-description: Créez une visionneuse d’images modale avec navigation de galerie et état contrôlé en React ou Solid.
+description: Créez une visionneuse d’images modale avec navigation de galerie et état contrôlé en React, Solid ou Vue.
 ---
 
 import * as LightboxDocs from '@/components/examples/lightbox/css-properties';
@@ -25,6 +25,16 @@ import lightboxSolidGallery from '../../../snippets/lightbox/solid/gallery.tsx?r
 import lightboxSolidMultipleTriggers from '../../../snippets/lightbox/solid/multiple-triggers.tsx?raw';
 import lightboxSolidNonModal from '../../../snippets/lightbox/solid/non-modal.tsx?raw';
 import lightboxSolidRootProviderAndContext from '../../../snippets/lightbox/solid/root-provider-and-context.tsx?raw';
+import lightboxVueAdvancedCustomization from '../../../snippets/lightbox/vue/advanced-customization.vue?raw';
+import lightboxVueBasic from '../../../snippets/lightbox/vue/basic.vue?raw';
+import lightboxVueBindCmsContent from '../../../snippets/lightbox/vue/bind-cms-content.vue?raw';
+import lightboxVueClickToCloseImage from '../../../snippets/lightbox/vue/click-to-close-image.vue?raw';
+import lightboxVueControlled from '../../../snippets/lightbox/vue/controlled.vue?raw';
+import lightboxVueFocusAndIds from '../../../snippets/lightbox/vue/focus-and-ids.vue?raw';
+import lightboxVueGallery from '../../../snippets/lightbox/vue/gallery.vue?raw';
+import lightboxVueMultipleTriggers from '../../../snippets/lightbox/vue/multiple-triggers.vue?raw';
+import lightboxVueNonModal from '../../../snippets/lightbox/vue/non-modal.vue?raw';
+import lightboxVueRootProviderAndContext from '../../../snippets/lightbox/vue/root-provider-and-context.vue?raw';
 
 ## Référence de l’API
 
@@ -60,6 +70,7 @@ seul élément sémantique comme déclencheur.
     values={[
       { label: 'React', value: 'react' },
       { label: 'Solid', value: 'solid' },
+      { label: 'Vue', value: 'vue' },
     ]}
     className="docs-tabs"
   >
@@ -72,6 +83,11 @@ seul élément sémantique comme déclencheur.
     <Tab value="solid">
 
 <CodeBlockRuntime lang="tsx" code={lightboxSolidBasic} />
+
+    </Tab>
+    <Tab value="vue">
+
+<CodeBlockRuntime lang="vue" code={lightboxVueBasic} />
 
     </Tab>
   </Tabs>
@@ -105,6 +121,16 @@ Consultez le [Démarrage rapide](/docs/quick-start) pour la configuration compl�
   options={[
     { label: 'CSS Modules', command: 'shadcn@latest add @moduix-solid/lightbox' },
     { label: 'Tailwind CSS', command: 'shadcn@latest add @moduix-solid-tailwind/lightbox' },
+  ]}
+/>
+
+  </Tab>
+  <Tab label="Vue" value="vue">
+
+<ShadcnInstallOptions
+  options={[
+    { label: 'CSS Modules', command: 'shadcn@latest add @moduix-vue/lightbox' },
+    { label: 'Tailwind CSS', command: 'shadcn@latest add @moduix-vue-tailwind/lightbox' },
   ]}
 />
 
@@ -159,7 +185,7 @@ défaut. Utilisez `portalled={false}` pour les laisser en place ou `portalRef` p
 conteneur. Placez `LightboxCloseIcon` à côté de `LightboxContent`, dans `LightboxPositioner`,
 lorsqu’il doit rester ancré à la fenêtre et ne pas suivre les transformations du contenu.
 Avec `asChild`, fournissez un seul élément sémantique. En Solid, `asChild` est une fonction de rendu qui
-reçoit les props de cet élément.
+reçoit les props de cet élément ; en Vue, utilisez le booléen `as-child` et placez l’élément dans le slot.
 
 Pour les galeries, gardez l’image sélectionnée et la page de `Carousel` dans l’état de l’application.
 Passez la clé de l’image à `LightboxTrigger value` et mettez cet état à jour depuis
@@ -192,6 +218,7 @@ au clavier. Pour un tableau d’images structuré, utilisez la composition `Ligh
     values={[
       { label: 'React', value: 'react' },
       { label: 'Solid', value: 'solid' },
+      { label: 'Vue', value: 'vue' },
     ]}
     className="docs-tabs"
   >
@@ -204,6 +231,11 @@ au clavier. Pour un tableau d’images structuré, utilisez la composition `Ligh
     <Tab value="solid">
 
 <CodeBlockRuntime lang="tsx" code={lightboxSolidBindCmsContent} />
+
+    </Tab>
+    <Tab value="vue">
+
+<CodeBlockRuntime lang="vue" code={lightboxVueBindCmsContent} />
 
     </Tab>
   </Tabs>
@@ -232,6 +264,7 @@ fermeture reste disponible et conserve la sémantique de fermeture d’Ark UI.
     values={[
       { label: 'React', value: 'react' },
       { label: 'Solid', value: 'solid' },
+      { label: 'Vue', value: 'vue' },
     ]}
     className="docs-tabs"
   >
@@ -244,6 +277,11 @@ fermeture reste disponible et conserve la sémantique de fermeture d’Ark UI.
     <Tab value="solid">
 
 <CodeBlockRuntime lang="tsx" code={lightboxSolidClickToCloseImage} />
+
+    </Tab>
+    <Tab value="vue">
+
+<CodeBlockRuntime lang="vue" code={lightboxVueClickToCloseImage} />
 
     </Tab>
   </Tabs>
@@ -259,7 +297,7 @@ fermeture reste disponible et conserve la sémantique de fermeture d’Ark UI.
 ### État contrôlé
 
 Utilisez le callback `onOpenChange(details)` d’Ark lorsque l’état de la Lightbox doit rester synchronisé
-avec l’état de l’application en React ou en Solid.
+avec l’état de l’application en React ou en Solid. En Vue, utilisez `v-model:open`.
 
 <ExampleFrame variant="component">
   <LightboxControlled />
@@ -272,6 +310,7 @@ avec l’état de l’application en React ou en Solid.
     values={[
       { label: 'React', value: 'react' },
       { label: 'Solid', value: 'solid' },
+      { label: 'Vue', value: 'vue' },
     ]}
     className="docs-tabs"
   >
@@ -284,6 +323,11 @@ avec l’état de l’application en React ou en Solid.
     <Tab value="solid">
 
 <CodeBlockRuntime lang="tsx" code={lightboxSolidControlled} />
+
+    </Tab>
+    <Tab value="vue">
+
+<CodeBlockRuntime lang="vue" code={lightboxVueControlled} />
 
     </Tab>
   </Tabs>
@@ -313,6 +357,7 @@ est mise en évidence après la fermeture afin de rendre le passage du focus vis
     values={[
       { label: 'React', value: 'react' },
       { label: 'Solid', value: 'solid' },
+      { label: 'Vue', value: 'vue' },
     ]}
     className="docs-tabs"
   >
@@ -325,6 +370,11 @@ est mise en évidence après la fermeture afin de rendre le passage du focus vis
     <Tab value="solid">
 
 <CodeBlockRuntime lang="tsx" code={lightboxSolidFocusAndIds} />
+
+    </Tab>
+    <Tab value="vue">
+
+<CodeBlockRuntime lang="vue" code={lightboxVueFocusAndIds} />
 
     </Tab>
   </Tabs>
@@ -340,7 +390,7 @@ est mise en évidence après la fermeture afin de rendre le passage du focus vis
 ### Galerie
 
 Si un CMS ou une API fournit un tableau d’images structuré, conservez l’image sélectionnée et la page
-actuelle de `Carousel` dans l’état React ou Solid, puis placez `Carousel` dans `LightboxGallery`.
+actuelle de `Carousel` dans l’état React, Solid ou Vue, puis placez `Carousel` dans `LightboxGallery`.
 Utilisez `LightboxTrigger.value` pour choisir la diapositive initiale et synchronisez la page de
 `Carousel` pendant la navigation.
 
@@ -355,6 +405,7 @@ Utilisez `LightboxTrigger.value` pour choisir la diapositive initiale et synchro
     values={[
       { label: 'React', value: 'react' },
       { label: 'Solid', value: 'solid' },
+      { label: 'Vue', value: 'vue' },
     ]}
     className="docs-tabs"
   >
@@ -367,6 +418,11 @@ Utilisez `LightboxTrigger.value` pour choisir la diapositive initiale et synchro
     <Tab value="solid">
 
 <CodeBlockRuntime lang="tsx" code={lightboxSolidGallery} />
+
+    </Tab>
+    <Tab value="vue">
+
+<CodeBlockRuntime lang="vue" code={lightboxVueGallery} />
 
     </Tab>
   </Tabs>
@@ -395,6 +451,7 @@ Le composant ne maintient pas de registre d’images caché.
     values={[
       { label: 'React', value: 'react' },
       { label: 'Solid', value: 'solid' },
+      { label: 'Vue', value: 'vue' },
     ]}
     className="docs-tabs"
   >
@@ -407,6 +464,11 @@ Le composant ne maintient pas de registre d’images caché.
     <Tab value="solid">
 
 <CodeBlockRuntime lang="tsx" code={lightboxSolidMultipleTriggers} />
+
+    </Tab>
+    <Tab value="vue">
+
+<CodeBlockRuntime lang="vue" code={lightboxVueMultipleTriggers} />
 
     </Tab>
   </Tabs>
@@ -436,6 +498,7 @@ arrière-plan restent accessibles pendant l’affichage de l’image.
     values={[
       { label: 'React', value: 'react' },
       { label: 'Solid', value: 'solid' },
+      { label: 'Vue', value: 'vue' },
     ]}
     className="docs-tabs"
   >
@@ -448,6 +511,11 @@ arrière-plan restent accessibles pendant l’affichage de l’image.
     <Tab value="solid">
 
 <CodeBlockRuntime lang="tsx" code={lightboxSolidNonModal} />
+
+    </Tab>
+    <Tab value="vue">
+
+<CodeBlockRuntime lang="vue" code={lightboxVueNonModal} />
 
     </Tab>
   </Tabs>
@@ -477,6 +545,7 @@ Dans un composant enfant, lisez l’état avec `useLightboxContext()`. Le bouton
     values={[
       { label: 'React', value: 'react' },
       { label: 'Solid', value: 'solid' },
+      { label: 'Vue', value: 'vue' },
     ]}
     className="docs-tabs"
   >
@@ -489,6 +558,11 @@ Dans un composant enfant, lisez l’état avec `useLightboxContext()`. Le bouton
     <Tab value="solid">
 
 <CodeBlockRuntime lang="tsx" code={lightboxSolidRootProviderAndContext} />
+
+    </Tab>
+    <Tab value="vue">
+
+<CodeBlockRuntime lang="vue" code={lightboxVueRootProviderAndContext} />
 
     </Tab>
   </Tabs>
@@ -517,6 +591,7 @@ et des remplacements de tokens. `LightboxBackdrop`, `LightboxPositioner` et `Lig
     values={[
       { label: 'React', value: 'react' },
       { label: 'Solid', value: 'solid' },
+      { label: 'Vue', value: 'vue' },
     ]}
     className="docs-tabs"
   >
@@ -529,6 +604,11 @@ et des remplacements de tokens. `LightboxBackdrop`, `LightboxPositioner` et `Lig
     <Tab value="solid">
 
 <CodeBlockRuntime lang="tsx" code={lightboxSolidAdvancedCustomization} />
+
+    </Tab>
+    <Tab value="vue">
+
+<CodeBlockRuntime lang="vue" code={lightboxVueAdvancedCustomization} />
 
     </Tab>
   </Tabs>

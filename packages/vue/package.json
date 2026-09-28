@@ -61,6 +61,14 @@
       "types": "./dist/components/accordion/index.d.ts",
       "import": "./dist/components/accordion/index.js"
     },
+    "./lightbox": {
+      "types": "./dist/components/lightbox/index.d.ts",
+      "import": "./dist/components/lightbox/index.js"
+    },
+    "./list": {
+      "types": "./dist/components/list/index.d.ts",
+      "import": "./dist/components/list/index.js"
+    },
     "./image-cropper": {
       "types": "./dist/components/image-cropper/index.d.ts",
       "import": "./dist/components/image-cropper/index.js"
@@ -156,6 +164,10 @@
     "./input": {
       "types": "./dist/components/input/index.d.ts",
       "import": "./dist/components/input/index.js"
+    },
+    "./input-group": {
+      "types": "./dist/components/input-group/index.d.ts",
+      "import": "./dist/components/input-group/index.js"
     },
     "./textarea": {
       "types": "./dist/components/textarea/index.d.ts",

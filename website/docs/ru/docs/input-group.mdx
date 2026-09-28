@@ -1,7 +1,7 @@
 ---
 title: Input Group
 component: input-group
-description: Создавайте поля ввода с префиксами, суффиксами и действиями внутри поля в React и Solid с установкой из пакета или через shadcn CLI.
+description: Создавайте поля ввода с префиксами, суффиксами и действиями внутри поля в React, Solid или Vue с установкой из пакета или через shadcn CLI.
 ---
 
 import * as InputGroupDocs from '@/components/examples/input-group/css-properties';
@@ -19,6 +19,13 @@ import inputGroupSolidFieldState from '../../../snippets/input-group/solid/field
 import inputGroupSolidPrefixAndSuffix from '../../../snippets/input-group/solid/prefix-and-suffix.tsx?raw';
 import inputGroupSolidSizes from '../../../snippets/input-group/solid/sizes.tsx?raw';
 import inputGroupSolidWithAction from '../../../snippets/input-group/solid/with-action.tsx?raw';
+import inputGroupVueAsChild from '../../../snippets/input-group/vue/as-child.vue?raw';
+import inputGroupVueBasic from '../../../snippets/input-group/vue/basic.vue?raw';
+import inputGroupVueDisabled from '../../../snippets/input-group/vue/disabled.vue?raw';
+import inputGroupVueFieldState from '../../../snippets/input-group/vue/field-state.vue?raw';
+import inputGroupVuePrefixAndSuffix from '../../../snippets/input-group/vue/prefix-and-suffix.vue?raw';
+import inputGroupVueSizes from '../../../snippets/input-group/vue/sizes.vue?raw';
+import inputGroupVueWithAction from '../../../snippets/input-group/vue/with-action.vue?raw';
 
 ## Справочник API
 
@@ -54,6 +61,7 @@ import inputGroupSolidWithAction from '../../../snippets/input-group/solid/with-
     values={[
       { label: 'React', value: 'react' },
       { label: 'Solid', value: 'solid' },
+      { label: 'Vue', value: 'vue' },
     ]}
     className="docs-tabs"
   >
@@ -66,6 +74,11 @@ import inputGroupSolidWithAction from '../../../snippets/input-group/solid/with-
     <Tab value="solid">
 
 <CodeBlockRuntime lang="tsx" code={inputGroupSolidBasic} />
+
+    </Tab>
+    <Tab value="vue">
+
+<CodeBlockRuntime lang="vue" code={inputGroupVueBasic} />
 
     </Tab>
   </Tabs>
@@ -103,6 +116,16 @@ import inputGroupSolidWithAction from '../../../snippets/input-group/solid/with-
 />
 
   </Tab>
+  <Tab label="Vue" value="vue">
+
+<ShadcnInstallOptions
+  options={[
+    { label: 'CSS Modules', command: 'shadcn@latest add @moduix-vue/input-group' },
+    { label: 'Tailwind CSS', command: 'shadcn@latest add @moduix-vue-tailwind/input-group' },
+  ]}
+/>
+
+  </Tab>
 </Tabs>
 
 ## Анатомия
@@ -130,7 +153,7 @@ InputGroup
 задавайте на нём, а метку и сообщения валидации размещайте в `Field`. Размер корневого элемента
 наследуют `InputGroupInput` и `InputGroupButton`; для кнопок по умолчанию используется
 `type="button"`, но состояние `disabled` от `Field` они не наследуют. В React для управляемого
-поля используйте `onChange`, а в Solid - `onInput`.
+поля используйте `onChange`, в Solid - `onInput`, а в Vue - `v-model`.
 
 Используйте `InputGroupAddon` и `InputGroupText` для неинтерактивного содержимого, а `InputGroupButton` - для действий. Корень,
 `InputGroupAddon` и `InputGroupText` поддерживают `asChild` с одним семантическим дочерним элементом, принимающим
@@ -155,6 +178,7 @@ InputGroup
     values={[
       { label: 'React', value: 'react' },
       { label: 'Solid', value: 'solid' },
+      { label: 'Vue', value: 'vue' },
     ]}
     className="docs-tabs"
   >
@@ -167,6 +191,11 @@ InputGroup
     <Tab value="solid">
 
 <CodeBlockRuntime lang="tsx" code={inputGroupSolidDisabled} />
+
+    </Tab>
+    <Tab value="vue">
+
+<CodeBlockRuntime lang="vue" code={inputGroupVueDisabled} />
 
     </Tab>
   </Tabs>
@@ -195,6 +224,7 @@ ARIA-атрибуты в `InputGroupInput`, а группа отразит со�
     values={[
       { label: 'React', value: 'react' },
       { label: 'Solid', value: 'solid' },
+      { label: 'Vue', value: 'vue' },
     ]}
     className="docs-tabs"
   >
@@ -207,6 +237,11 @@ ARIA-атрибуты в `InputGroupInput`, а группа отразит со�
     <Tab value="solid">
 
 <CodeBlockRuntime lang="tsx" code={inputGroupSolidFieldState} />
+
+    </Tab>
+    <Tab value="vue">
+
+<CodeBlockRuntime lang="vue" code={inputGroupVueFieldState} />
 
     </Tab>
   </Tabs>
@@ -234,6 +269,7 @@ ARIA-атрибуты в `InputGroupInput`, а группа отразит со�
     values={[
       { label: 'React', value: 'react' },
       { label: 'Solid', value: 'solid' },
+      { label: 'Vue', value: 'vue' },
     ]}
     className="docs-tabs"
   >
@@ -246,6 +282,11 @@ ARIA-атрибуты в `InputGroupInput`, а группа отразит со�
     <Tab value="solid">
 
 <CodeBlockRuntime lang="tsx" code={inputGroupSolidPrefixAndSuffix} />
+
+    </Tab>
+    <Tab value="vue">
+
+<CodeBlockRuntime lang="vue" code={inputGroupVuePrefixAndSuffix} />
 
     </Tab>
   </Tabs>
@@ -273,6 +314,7 @@ ARIA-атрибуты в `InputGroupInput`, а группа отразит со�
     values={[
       { label: 'React', value: 'react' },
       { label: 'Solid', value: 'solid' },
+      { label: 'Vue', value: 'vue' },
     ]}
     className="docs-tabs"
   >
@@ -285,6 +327,11 @@ ARIA-атрибуты в `InputGroupInput`, а группа отразит со�
     <Tab value="solid">
 
 <CodeBlockRuntime lang="tsx" code={inputGroupSolidSizes} />
+
+    </Tab>
+    <Tab value="vue">
+
+<CodeBlockRuntime lang="vue" code={inputGroupVueSizes} />
 
     </Tab>
   </Tabs>
@@ -313,6 +360,7 @@ ARIA-атрибуты в `InputGroupInput`, а группа отразит со�
     values={[
       { label: 'React', value: 'react' },
       { label: 'Solid', value: 'solid' },
+      { label: 'Vue', value: 'vue' },
     ]}
     className="docs-tabs"
   >
@@ -325,6 +373,11 @@ ARIA-атрибуты в `InputGroupInput`, а группа отразит со�
     <Tab value="solid">
 
 <CodeBlockRuntime lang="tsx" code={inputGroupSolidWithAction} />
+
+    </Tab>
+    <Tab value="vue">
+
+<CodeBlockRuntime lang="vue" code={inputGroupVueWithAction} />
 
     </Tab>
   </Tabs>
@@ -353,6 +406,7 @@ ARIA-атрибуты в `InputGroupInput`, а группа отразит со�
     values={[
       { label: 'React', value: 'react' },
       { label: 'Solid', value: 'solid' },
+      { label: 'Vue', value: 'vue' },
     ]}
     className="docs-tabs"
   >
@@ -367,6 +421,11 @@ ARIA-атрибуты в `InputGroupInput`, а группа отразит со�
 <CodeBlockRuntime lang="tsx" code={inputGroupSolidAsChild} />
 
     </Tab>
+    <Tab value="vue">
+
+<CodeBlockRuntime lang="vue" code={inputGroupVueAsChild} />
+
+    </Tab>
   </Tabs>
 
 **Стили**
@@ -379,7 +438,7 @@ ARIA-атрибуты в `InputGroupInput`, а группа отразит со�
 
 ## Стилизация
 
-Для структурных стилей передавайте экспортируемым частям `className` в React или `class` в Solid.
+Для структурных стилей передавайте экспортируемым частям `className` в React или `class` в Solid и Vue.
 Состояния лучше оформлять через атрибуты данных Ark, например `data-invalid`, `data-disabled` и
 `data-readonly`, вместе с селекторами `data-slot` moduix. Варианты на Tailwind настраиваются
 обычными утилитами и пользовательскими классами; перечисленные ниже переменные относятся к
@@ -401,4 +460,4 @@ ARIA-атрибуты в `InputGroupInput`, а группа отразит со�
 
 Слоты и атрибуты `data-slot`, `data-scope`, `data-part` и `data-size`, которыми управляет
 компонент, остаются неизменными, даже если вы передаёте собственные свойства. `className` в React
-и `class` в Solid объединяются со стилями компонента.
+и `class` в Solid и Vue объединяются со стилями компонента.

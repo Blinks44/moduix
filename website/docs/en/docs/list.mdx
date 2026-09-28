@@ -19,6 +19,13 @@ import listSolidNativeItems from '../../../snippets/list/solid/native-items.tsx?
 import listSolidOrdered from '../../../snippets/list/solid/ordered.tsx?raw';
 import listSolidRootAsChild from '../../../snippets/list/solid/root-as-child.tsx?raw';
 import listSolidTone from '../../../snippets/list/solid/tone.tsx?raw';
+import listVueBasic from '../../../snippets/list/vue/basic.vue?raw';
+import listVueCustomComposition from '../../../snippets/list/vue/custom-composition.vue?raw';
+import listVueMarkerless from '../../../snippets/list/vue/markerless.vue?raw';
+import listVueNativeItems from '../../../snippets/list/vue/native-items.vue?raw';
+import listVueOrdered from '../../../snippets/list/vue/ordered.vue?raw';
+import listVueRootAsChild from '../../../snippets/list/vue/root-as-child.vue?raw';
+import listVueTone from '../../../snippets/list/vue/tone.vue?raw';
 
 ## API Reference
 
@@ -55,6 +62,7 @@ typography, tone, and markers. Leave `marker` unset for semantic defaults, or se
     values={[
       { label: 'React', value: 'react' },
       { label: 'Solid', value: 'solid' },
+      { label: 'Vue', value: 'vue' },
     ]}
     className="docs-tabs"
   >
@@ -67,6 +75,11 @@ typography, tone, and markers. Leave `marker` unset for semantic defaults, or se
     <Tab value="solid">
 
 <CodeBlockRuntime lang="tsx" code={listSolidBasic} />
+
+    </Tab>
+    <Tab value="vue">
+
+<CodeBlockRuntime lang="vue" code={listVueBasic} />
 
     </Tab>
   </Tabs>
@@ -98,6 +111,16 @@ See [Quick Start](/docs/quick-start) for full package setup, registry configurat
 />
 
   </Tab>
+  <Tab label="Vue" value="vue">
+
+<ShadcnInstallOptions
+  options={[
+    { label: 'CSS Modules', command: 'shadcn@latest add @moduix-vue/list' },
+    { label: 'Tailwind CSS', command: 'shadcn@latest add @moduix-vue-tailwind/list' },
+  ]}
+/>
+
+  </Tab>
 </Tabs>
 
 ## Anatomy
@@ -118,15 +141,16 @@ Use `List` for the root. Its direct children should be `ListItem` or native `li`
 because root spacing and marker styling target direct list items. Use `ListItem` when you need its stable
 slot, `className`/`class`, or `asChild`; native `li` is enough otherwise. Use `asChild` only when an application
 component owns one semantic `ul`, `ol`, or `li` and forwards the received props and ref. In Solid, pass the
-render function form of `asChild`. `List` has no state machine or callbacks, so keyboard selection belongs to
-`Listbox`.
+render function form of `asChild`; in Vue, pass the semantic element as the component slot. `List` has no state
+machine or callbacks, so keyboard selection belongs to `Listbox`.
 
 ## Examples
 
 ### Custom Root
 
 Use `List asChild` when a component from your application must render the semantic list element. It must
-forward the received props and ref to one `<ul>` or `<ol>` in React, or use the render-function form in Solid.
+forward the received props and ref to one `<ul>` or `<ol>` in React, use the render-function form in Solid, or pass
+one semantic child in Vue.
 
 <ExampleFrame variant="component">
   <ListRootAsChild />
@@ -139,6 +163,7 @@ forward the received props and ref to one `<ul>` or `<ol>` in React, or use the 
     values={[
       { label: 'React', value: 'react' },
       { label: 'Solid', value: 'solid' },
+      { label: 'Vue', value: 'vue' },
     ]}
     className="docs-tabs"
   >
@@ -151,6 +176,11 @@ forward the received props and ref to one `<ul>` or `<ol>` in React, or use the 
     <Tab value="solid">
 
 <CodeBlockRuntime lang="tsx" code={listSolidRootAsChild} />
+
+    </Tab>
+    <Tab value="vue">
+
+<CodeBlockRuntime lang="vue" code={listVueRootAsChild} />
 
     </Tab>
   </Tabs>
@@ -173,6 +203,7 @@ in this mode unless you provide another `role`.
     values={[
       { label: 'React', value: 'react' },
       { label: 'Solid', value: 'solid' },
+      { label: 'Vue', value: 'vue' },
     ]}
     className="docs-tabs"
   >
@@ -185,6 +216,11 @@ in this mode unless you provide another `role`.
     <Tab value="solid">
 
 <CodeBlockRuntime lang="tsx" code={listSolidMarkerless} />
+
+    </Tab>
+    <Tab value="vue">
+
+<CodeBlockRuntime lang="vue" code={listVueMarkerless} />
 
     </Tab>
   </Tabs>
@@ -206,6 +242,7 @@ Use native `li` elements when you do not need the exported `ListItem` part.
     values={[
       { label: 'React', value: 'react' },
       { label: 'Solid', value: 'solid' },
+      { label: 'Vue', value: 'vue' },
     ]}
     className="docs-tabs"
   >
@@ -218,6 +255,11 @@ Use native `li` elements when you do not need the exported `ListItem` part.
     <Tab value="solid">
 
 <CodeBlockRuntime lang="tsx" code={listSolidNativeItems} />
+
+    </Tab>
+    <Tab value="vue">
+
+<CodeBlockRuntime lang="vue" code={listVueNativeItems} />
 
     </Tab>
   </Tabs>
@@ -240,6 +282,7 @@ as `start`, `reversed`, and `type` are forwarded to the ordered-list root.
     values={[
       { label: 'React', value: 'react' },
       { label: 'Solid', value: 'solid' },
+      { label: 'Vue', value: 'vue' },
     ]}
     className="docs-tabs"
   >
@@ -252,6 +295,11 @@ as `start`, `reversed`, and `type` are forwarded to the ordered-list root.
     <Tab value="solid">
 
 <CodeBlockRuntime lang="tsx" code={listSolidOrdered} />
+
+    </Tab>
+    <Tab value="vue">
+
+<CodeBlockRuntime lang="vue" code={listVueOrdered} />
 
     </Tab>
   </Tabs>
@@ -273,6 +321,7 @@ Use `tone` to apply a semantic text and marker color to the list.
     values={[
       { label: 'React', value: 'react' },
       { label: 'Solid', value: 'solid' },
+      { label: 'Vue', value: 'vue' },
     ]}
     className="docs-tabs"
   >
@@ -285,6 +334,11 @@ Use `tone` to apply a semantic text and marker color to the list.
     <Tab value="solid">
 
 <CodeBlockRuntime lang="tsx" code={listSolidTone} />
+
+    </Tab>
+    <Tab value="vue">
+
+<CodeBlockRuntime lang="vue" code={listVueTone} />
 
     </Tab>
   </Tabs>
@@ -312,6 +366,7 @@ props and ref and preserve the semantic `<li>` element. In other cases, use `Lis
     values={[
       { label: 'React', value: 'react' },
       { label: 'Solid', value: 'solid' },
+      { label: 'Vue', value: 'vue' },
     ]}
     className="docs-tabs"
   >
@@ -326,6 +381,11 @@ props and ref and preserve the semantic `<li>` element. In other cases, use `Lis
 <CodeBlockRuntime lang="tsx" code={listSolidCustomComposition} />
 
     </Tab>
+    <Tab value="vue">
+
+<CodeBlockRuntime lang="vue" code={listVueCustomComposition} />
+
+    </Tab>
   </Tabs>
 
 **Styles**
@@ -337,7 +397,7 @@ props and ref and preserve the semantic `<li>` element. In other cases, use `Lis
 
 ## Styling
 
-Style `List` with the framework's class prop (`className` in React and `class` in Solid), the exported Ark-style
+Style `List` with the framework's class prop (`className` in React and `class` in Solid and Vue), the exported Ark-style
 `data-*` attributes, native `li::marker`, and the public `--moduix-list-*` CSS variables shown below. This list
 covers the public CSS API.
 

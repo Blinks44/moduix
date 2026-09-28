@@ -1,7 +1,7 @@
 ---
 title: Lightbox
 component: lightbox
-description: Модальный просмотрщик изображений с навигацией по галерее и управляемым состоянием в React и Solid.
+description: Модальный просмотрщик изображений с навигацией по галерее и управляемым состоянием в React, Solid и Vue.
 ---
 
 import * as LightboxDocs from '@/components/examples/lightbox/css-properties';
@@ -25,6 +25,16 @@ import lightboxSolidGallery from '../../../snippets/lightbox/solid/gallery.tsx?r
 import lightboxSolidMultipleTriggers from '../../../snippets/lightbox/solid/multiple-triggers.tsx?raw';
 import lightboxSolidNonModal from '../../../snippets/lightbox/solid/non-modal.tsx?raw';
 import lightboxSolidRootProviderAndContext from '../../../snippets/lightbox/solid/root-provider-and-context.tsx?raw';
+import lightboxVueAdvancedCustomization from '../../../snippets/lightbox/vue/advanced-customization.vue?raw';
+import lightboxVueBasic from '../../../snippets/lightbox/vue/basic.vue?raw';
+import lightboxVueBindCmsContent from '../../../snippets/lightbox/vue/bind-cms-content.vue?raw';
+import lightboxVueClickToCloseImage from '../../../snippets/lightbox/vue/click-to-close-image.vue?raw';
+import lightboxVueControlled from '../../../snippets/lightbox/vue/controlled.vue?raw';
+import lightboxVueFocusAndIds from '../../../snippets/lightbox/vue/focus-and-ids.vue?raw';
+import lightboxVueGallery from '../../../snippets/lightbox/vue/gallery.vue?raw';
+import lightboxVueMultipleTriggers from '../../../snippets/lightbox/vue/multiple-triggers.vue?raw';
+import lightboxVueNonModal from '../../../snippets/lightbox/vue/non-modal.vue?raw';
+import lightboxVueRootProviderAndContext from '../../../snippets/lightbox/vue/root-provider-and-context.vue?raw';
 
 ## Справочник API
 
@@ -60,6 +70,7 @@ import lightboxSolidRootProviderAndContext from '../../../snippets/lightbox/soli
     values={[
       { label: 'React', value: 'react' },
       { label: 'Solid', value: 'solid' },
+      { label: 'Vue', value: 'vue' },
     ]}
     className="docs-tabs"
   >
@@ -72,6 +83,11 @@ import lightboxSolidRootProviderAndContext from '../../../snippets/lightbox/soli
     <Tab value="solid">
 
 <CodeBlockRuntime lang="tsx" code={lightboxSolidBasic} />
+
+    </Tab>
+    <Tab value="vue">
+
+<CodeBlockRuntime lang="vue" code={lightboxVueBasic} />
 
     </Tab>
   </Tabs>
@@ -105,6 +121,16 @@ import lightboxSolidRootProviderAndContext from '../../../snippets/lightbox/soli
   options={[
     { label: 'CSS Modules', command: 'shadcn@latest add @moduix-solid/lightbox' },
     { label: 'Tailwind CSS', command: 'shadcn@latest add @moduix-solid-tailwind/lightbox' },
+  ]}
+/>
+
+  </Tab>
+  <Tab label="Vue" value="vue">
+
+<ShadcnInstallOptions
+  options={[
+    { label: 'CSS Modules', command: 'shadcn@latest add @moduix-vue/lightbox' },
+    { label: 'Tailwind CSS', command: 'shadcn@latest add @moduix-vue-tailwind/lightbox' },
   ]}
 />
 
@@ -157,7 +183,8 @@ LightboxRootProvider
 По умолчанию части окна выводятся через портал. Используйте `portalled={false}`, чтобы оставить их
 на месте, или `portalRef`, чтобы выбрать контейнер. Размещайте `LightboxCloseIcon` рядом с `LightboxContent` внутри
 `LightboxPositioner`, если кнопку нужно закрепить относительно окна, а не перемещать вместе с содержимым.
-Для `asChild` передавайте один семантический элемент. В Solid это render-функция, получающая его props.
+Для `asChild` передавайте один семантический элемент. В Solid это render-функция, получающая его props,
+а во Vue — булев prop `as-child` и элемент в слоте.
 
 В галереях храните выбранное изображение и страницу `Carousel` в состоянии приложения. Передавайте
 ключ изображения в `LightboxTrigger value` и обновляйте состояние из `onTriggerValueChange(details)`
@@ -190,6 +217,7 @@ Lightbox, но не создаёт его подложку, содержимое
     values={[
       { label: 'React', value: 'react' },
       { label: 'Solid', value: 'solid' },
+      { label: 'Vue', value: 'vue' },
     ]}
     className="docs-tabs"
   >
@@ -202,6 +230,11 @@ Lightbox, но не создаёт его подложку, содержимое
     <Tab value="solid">
 
 <CodeBlockRuntime lang="tsx" code={lightboxSolidBindCmsContent} />
+
+    </Tab>
+    <Tab value="vue">
+
+<CodeBlockRuntime lang="vue" code={lightboxVueBindCmsContent} />
 
     </Tab>
   </Tabs>
@@ -230,6 +263,7 @@ Lightbox, но не создаёт его подложку, содержимое
     values={[
       { label: 'React', value: 'react' },
       { label: 'Solid', value: 'solid' },
+      { label: 'Vue', value: 'vue' },
     ]}
     className="docs-tabs"
   >
@@ -242,6 +276,11 @@ Lightbox, но не создаёт его подложку, содержимое
     <Tab value="solid">
 
 <CodeBlockRuntime lang="tsx" code={lightboxSolidClickToCloseImage} />
+
+    </Tab>
+    <Tab value="vue">
+
+<CodeBlockRuntime lang="vue" code={lightboxVueClickToCloseImage} />
 
     </Tab>
   </Tabs>
@@ -257,7 +296,7 @@ Lightbox, но не создаёт его подложку, содержимое
 ### Управляемое состояние
 
 Используйте callback `onOpenChange(details)` из Ark UI, если состояние Lightbox нужно синхронизировать
-с состоянием приложения на React или Solid.
+с состоянием приложения на React или Solid. Во Vue используйте `v-model:open`.
 
 <ExampleFrame variant="component">
   <LightboxControlled />
@@ -270,6 +309,7 @@ Lightbox, но не создаёт его подложку, содержимое
     values={[
       { label: 'React', value: 'react' },
       { label: 'Solid', value: 'solid' },
+      { label: 'Vue', value: 'vue' },
     ]}
     className="docs-tabs"
   >
@@ -282,6 +322,11 @@ Lightbox, но не создаёт его подложку, содержимое
     <Tab value="solid">
 
 <CodeBlockRuntime lang="tsx" code={lightboxSolidControlled} />
+
+    </Tab>
+    <Tab value="vue">
+
+<CodeBlockRuntime lang="vue" code={lightboxVueControlled} />
 
     </Tab>
   </Tabs>
@@ -311,6 +356,7 @@ Lightbox, но не создаёт его подложку, содержимое
     values={[
       { label: 'React', value: 'react' },
       { label: 'Solid', value: 'solid' },
+      { label: 'Vue', value: 'vue' },
     ]}
     className="docs-tabs"
   >
@@ -323,6 +369,11 @@ Lightbox, но не создаёт его подложку, содержимое
     <Tab value="solid">
 
 <CodeBlockRuntime lang="tsx" code={lightboxSolidFocusAndIds} />
+
+    </Tab>
+    <Tab value="vue">
+
+<CodeBlockRuntime lang="vue" code={lightboxVueFocusAndIds} />
 
     </Tab>
   </Tabs>
@@ -338,7 +389,7 @@ Lightbox, но не создаёт его подложку, содержимое
 ### Галерея
 
 Если CMS или API возвращает структурированный массив изображений, храните выбранное изображение и
-текущую страницу `Carousel` в состоянии React или Solid, а сам `Carousel` поместите внутрь
+текущую страницу `Carousel` в состоянии React, Solid или Vue, а сам `Carousel` поместите внутрь
 `LightboxGallery`. Используйте `LightboxTrigger.value`, чтобы выбрать начальный слайд, и
 синхронизируйте страницу `Carousel` во время навигации.
 
@@ -353,6 +404,7 @@ Lightbox, но не создаёт его подложку, содержимое
     values={[
       { label: 'React', value: 'react' },
       { label: 'Solid', value: 'solid' },
+      { label: 'Vue', value: 'vue' },
     ]}
     className="docs-tabs"
   >
@@ -365,6 +417,11 @@ Lightbox, но не создаёт его подложку, содержимое
     <Tab value="solid">
 
 <CodeBlockRuntime lang="tsx" code={lightboxSolidGallery} />
+
+    </Tab>
+    <Tab value="vue">
+
+<CodeBlockRuntime lang="vue" code={lightboxVueGallery} />
 
     </Tab>
   </Tabs>
@@ -393,6 +450,7 @@ Lightbox, но не создаёт его подложку, содержимое
     values={[
       { label: 'React', value: 'react' },
       { label: 'Solid', value: 'solid' },
+      { label: 'Vue', value: 'vue' },
     ]}
     className="docs-tabs"
   >
@@ -405,6 +463,11 @@ Lightbox, но не создаёт его подложку, содержимое
     <Tab value="solid">
 
 <CodeBlockRuntime lang="tsx" code={lightboxSolidMultipleTriggers} />
+
+    </Tab>
+    <Tab value="vue">
+
+<CodeBlockRuntime lang="vue" code={lightboxVueMultipleTriggers} />
 
     </Tab>
   </Tabs>
@@ -434,6 +497,7 @@ Lightbox, но не создаёт его подложку, содержимое
     values={[
       { label: 'React', value: 'react' },
       { label: 'Solid', value: 'solid' },
+      { label: 'Vue', value: 'vue' },
     ]}
     className="docs-tabs"
   >
@@ -446,6 +510,11 @@ Lightbox, но не создаёт его подложку, содержимое
     <Tab value="solid">
 
 <CodeBlockRuntime lang="tsx" code={lightboxSolidNonModal} />
+
+    </Tab>
+    <Tab value="vue">
+
+<CodeBlockRuntime lang="vue" code={lightboxVueNonModal} />
 
     </Tab>
   </Tabs>
@@ -475,6 +544,7 @@ Lightbox, но не создаёт его подложку, содержимое
     values={[
       { label: 'React', value: 'react' },
       { label: 'Solid', value: 'solid' },
+      { label: 'Vue', value: 'vue' },
     ]}
     className="docs-tabs"
   >
@@ -487,6 +557,11 @@ Lightbox, но не создаёт его подложку, содержимое
     <Tab value="solid">
 
 <CodeBlockRuntime lang="tsx" code={lightboxSolidRootProviderAndContext} />
+
+    </Tab>
+    <Tab value="vue">
+
+<CodeBlockRuntime lang="vue" code={lightboxVueRootProviderAndContext} />
 
     </Tab>
   </Tabs>
@@ -515,6 +590,7 @@ Lightbox, но не создаёт его подложку, содержимое
     values={[
       { label: 'React', value: 'react' },
       { label: 'Solid', value: 'solid' },
+      { label: 'Vue', value: 'vue' },
     ]}
     className="docs-tabs"
   >
@@ -527,6 +603,11 @@ Lightbox, но не создаёт его подложку, содержимое
     <Tab value="solid">
 
 <CodeBlockRuntime lang="tsx" code={lightboxSolidAdvancedCustomization} />
+
+    </Tab>
+    <Tab value="vue">
+
+<CodeBlockRuntime lang="vue" code={lightboxVueAdvancedCustomization} />
 
     </Tab>
   </Tabs>

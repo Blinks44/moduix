@@ -6,7 +6,7 @@ contracts themselves are described in [AGENTS.md](./AGENTS.md) and the shipped p
 ## Prerequisites
 
 - Node.js 24 or newer (the repository declares `devEngines.runtime`, so pnpm can fetch it)
-- pnpm 12.4.1 (pinned through `packageManager`; enable Corepack with `corepack enable`)
+- pnpm 12.6.0 (pinned through `packageManager`; enable Corepack with `corepack enable`)
 
 ```bash
 pnpm install
