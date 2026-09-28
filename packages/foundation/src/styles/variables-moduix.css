@@ -1389,7 +1389,7 @@
   --moduix-floating-panel-footer-justify: initial; /* flex-end */
   --moduix-floating-panel-footer-line-height: initial; /* var(--moduix-line-height-text-xs) */
   --moduix-floating-panel-footer-padding-x: initial; /* var(--moduix-spacing-3) */
-  --moduix-floating-panel-footer-padding-y: initial; /* var(--moduix-spacing-2) */
+  --moduix-floating-panel-footer-padding-y: initial; /* var(--moduix-spacing-1) */
   --moduix-floating-panel-header-bg: initial; /* var(--moduix-color-muted) */
   --moduix-floating-panel-header-border-color: initial; /* var(--moduix-floating-panel-border-color, var(--moduix-color-border)) */
   --moduix-floating-panel-header-border-width: initial; /* var(--moduix-border-width-sm) */

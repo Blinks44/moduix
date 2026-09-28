@@ -108,10 +108,7 @@ export const Basic: Story = {
   render: () => (
     <FloatingPanel defaultSize={DEFAULT_SIZE}>
       <FloatingPanelTrigger asChild={(props) => <Button {...props()}>Open panel</Button>} />
-      <FloatingPanelSurface
-        title="Inspector"
-        footer={<span class={statusClass}>Last synced just now</span>}
-      >
+      <FloatingPanelSurface title="Inspector" footer="Last synced just now">
         <div class={bodyStackClass}>
           <p>Drag the header to move this panel and resize it from any edge.</p>
           <div class={metricGridClass}>

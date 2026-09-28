@@ -117,10 +117,7 @@ export const Basic: Story = {
       <FloatingPanelTrigger asChild>
         <Button>Open panel</Button>
       </FloatingPanelTrigger>
-      <FloatingPanelSurface
-        title="Inspector"
-        footer={<span className={statusClassName}>Last synced just now</span>}
-      >
+      <FloatingPanelSurface title="Inspector" footer="Last synced just now">
         <div className={bodyStackClassName}>
           <p>Drag the header to move this panel and resize it from any edge.</p>
           <div className={metricGridClassName}>

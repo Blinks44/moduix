@@ -1,7 +1,7 @@
 ---
 title: Heading
 component: heading
-description: A semantic heading component with Ark factory composition and moduix typography tokens.
+description: A semantic heading component with Ark factory composition and moduix typography tokens for React, Solid, and Vue.
 ---
 
 import * as HeadingDocs from '@/components/examples/heading/css-properties';
@@ -17,6 +17,12 @@ import headingSolidSemanticLevelAndVisualSize from '../../../snippets/heading/so
 import headingSolidVisualSizes from '../../../snippets/heading/solid/visual-sizes.tsx?raw';
 import headingSolidWeights from '../../../snippets/heading/solid/weights.tsx?raw';
 import headingSolidCustomHost from '../../../snippets/heading/solid/custom-host.tsx?raw';
+import headingVueBasic from '../../../snippets/heading/vue/basic.vue?raw';
+import headingVueLevels from '../../../snippets/heading/vue/heading-levels.vue?raw';
+import headingVueSemanticLevelAndVisualSize from '../../../snippets/heading/vue/semantic-level-and-visual-size.vue?raw';
+import headingVueVisualSizes from '../../../snippets/heading/vue/visual-sizes.vue?raw';
+import headingVueWeights from '../../../snippets/heading/vue/weights.vue?raw';
+import headingVueCustomHost from '../../../snippets/heading/vue/custom-host.vue?raw';
 
 ## API Reference
 
@@ -43,6 +49,7 @@ should differ from the semantic level.
     values={[
       { label: 'React', value: 'react' },
       { label: 'Solid', value: 'solid' },
+      { label: 'Vue', value: 'vue' },
     ]}
     className="docs-tabs"
   >
@@ -55,6 +62,11 @@ should differ from the semantic level.
     <Tab value="solid">
 
 <CodeBlockRuntime lang="tsx" code={headingSolidBasic} />
+
+    </Tab>
+    <Tab value="vue">
+
+<CodeBlockRuntime lang="vue" code={headingVueBasic} />
 
     </Tab>
   </Tabs>
@@ -83,6 +95,16 @@ See [Quick Start](/docs/quick-start) for full package setup, registry configurat
   options={[
     { label: 'CSS Modules', command: 'shadcn@latest add @moduix-solid/heading' },
     { label: 'Tailwind CSS', command: 'shadcn@latest add @moduix-solid-tailwind/heading' },
+  ]}
+/>
+
+  </Tab>
+  <Tab label="Vue" value="vue">
+
+<ShadcnInstallOptions
+  options={[
+    { label: 'CSS Modules', command: 'shadcn@latest add @moduix-vue/heading' },
+    { label: 'Tailwind CSS', command: 'shadcn@latest add @moduix-vue-tailwind/heading' },
   ]}
 />
 
@@ -128,6 +150,7 @@ heading element.
     values={[
       { label: 'React', value: 'react' },
       { label: 'Solid', value: 'solid' },
+      { label: 'Vue', value: 'vue' },
     ]}
     className="docs-tabs"
   >
@@ -140,6 +163,11 @@ heading element.
     <Tab value="solid">
 
 <CodeBlockRuntime lang="tsx" code={headingSolidLevels} />
+
+    </Tab>
+    <Tab value="vue">
+
+<CodeBlockRuntime lang="vue" code={headingVueLevels} />
 
     </Tab>
   </Tabs>
@@ -163,6 +191,7 @@ for the visual size.
     values={[
       { label: 'React', value: 'react' },
       { label: 'Solid', value: 'solid' },
+      { label: 'Vue', value: 'vue' },
     ]}
     className="docs-tabs"
   >
@@ -175,6 +204,11 @@ for the visual size.
     <Tab value="solid">
 
 <CodeBlockRuntime lang="tsx" code={headingSolidSemanticLevelAndVisualSize} />
+
+    </Tab>
+    <Tab value="vue">
+
+<CodeBlockRuntime lang="vue" code={headingVueSemanticLevelAndVisualSize} />
 
     </Tab>
   </Tabs>
@@ -197,6 +231,7 @@ Use `size` when multiple headings share one semantic level but need different vi
     values={[
       { label: 'React', value: 'react' },
       { label: 'Solid', value: 'solid' },
+      { label: 'Vue', value: 'vue' },
     ]}
     className="docs-tabs"
   >
@@ -209,6 +244,11 @@ Use `size` when multiple headings share one semantic level but need different vi
     <Tab value="solid">
 
 <CodeBlockRuntime lang="tsx" code={headingSolidVisualSizes} />
+
+    </Tab>
+    <Tab value="vue">
+
+<CodeBlockRuntime lang="vue" code={headingVueVisualSizes} />
 
     </Tab>
   </Tabs>
@@ -231,6 +271,7 @@ Use `weight` to choose one of the built-in font-weight presets.
     values={[
       { label: 'React', value: 'react' },
       { label: 'Solid', value: 'solid' },
+      { label: 'Vue', value: 'vue' },
     ]}
     className="docs-tabs"
   >
@@ -243,6 +284,11 @@ Use `weight` to choose one of the built-in font-weight presets.
     <Tab value="solid">
 
 <CodeBlockRuntime lang="tsx" code={headingSolidWeights} />
+
+    </Tab>
+    <Tab value="vue">
+
+<CodeBlockRuntime lang="vue" code={headingVueWeights} />
 
     </Tab>
   </Tabs>
@@ -266,6 +312,7 @@ Use `asChild` when another semantic heading element must own the rendered DOM no
     values={[
       { label: 'React', value: 'react' },
       { label: 'Solid', value: 'solid' },
+      { label: 'Vue', value: 'vue' },
     ]}
     className="docs-tabs"
   >
@@ -280,6 +327,11 @@ Use `asChild` when another semantic heading element must own the rendered DOM no
 <CodeBlockRuntime lang="tsx" code={headingSolidCustomHost} />
 
     </Tab>
+    <Tab value="vue">
+
+<CodeBlockRuntime lang="vue" code={headingVueCustomHost} />
+
+    </Tab>
   </Tabs>
 </div>
 
@@ -287,7 +339,7 @@ Use `asChild` when another semantic heading element must own the rendered DOM no
 
 ## Styling
 
-Style `Heading` through `className` in React or `class` in Solid, root data attributes, and the public
+Style `Heading` through `className` in React or `class` in Solid and Vue, root data attributes, and the public
 `--moduix-heading-*` variables listed in the CSS reference below. The CSS Modules packages expose
 these variables; the Tailwind packages use native utility classes and consumer class overrides.
 

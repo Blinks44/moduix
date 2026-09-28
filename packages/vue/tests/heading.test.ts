@@ -1,0 +1,153 @@
+import { expect, test } from '@rstest/core';
+import { render, screen } from '@testing-library/vue';
+import { renderToString } from '@vue/server-renderer';
+import { createSSRApp, defineComponent, nextTick, ref } from 'vue';
+import type { ComponentPublicInstance } from 'vue';
+import { Heading } from '../src';
+
+test('exposes only the flat root value', () => {
+  expect('Root' in Heading).toBe(false);
+});
+
+test('renders an h1 with the default styling hooks and forwarded ref', () => {
+  const rootRef = ref<ComponentPublicInstance | null>(null);
+  const Harness = defineComponent({
+    components: { Heading },
+    setup() {
+      return { rootRef };
+    },
+    template: `
+      <Heading ref="rootRef" data-testid="heading">
+        Build reliable interfaces
+      </Heading>
+    `,
+  });
+
+  render(Harness);
+
+  const heading = screen.getByRole('heading', { name: 'Build reliable interfaces', level: 1 });
+
+  expect(rootRef.value?.$el).toBe(heading);
+  expect(heading).toHaveAttribute('data-scope', 'heading');
+  expect(heading).toHaveAttribute('data-part', 'root');
+  expect(heading).toHaveAttribute('data-slot', 'heading-root');
+  expect(heading).toHaveAttribute('data-weight', 'semibold');
+  expect(heading).not.toHaveAttribute('data-size');
+});
+
+test('renders every supported semantic level', () => {
+  const levels = [
+    ['h1', 1],
+    ['h2', 2],
+    ['h3', 3],
+    ['h4', 4],
+    ['h5', 5],
+    ['h6', 6],
+  ] as const;
+
+  for (const [as, level] of levels) {
+    const { unmount } = render({
+      components: { Heading },
+      template: `<Heading as="${as}">${as}</Heading>`,
+    });
+
+    expect(screen.getByRole('heading', { name: as, level })).toHaveAttribute(
+      'data-weight',
+      'semibold',
+    );
+
+    unmount();
+  }
+});
+
+test('keeps explicit visual props separate from heading semantics', () => {
+  render({
+    components: { Heading },
+    template: '<Heading as="h3" size="2xl" weight="bold">Section title</Heading>',
+  });
+
+  const heading = screen.getByRole('heading', { name: 'Section title', level: 3 });
+
+  expect(heading).toHaveAttribute('data-size', '2xl');
+  expect(heading).toHaveAttribute('data-weight', 'bold');
+});
+
+test('preserves component-owned styling hooks when data attributes collide', () => {
+  render({
+    components: { Heading },
+    template: `
+      <Heading
+        data-testid="heading"
+        data-scope="custom-scope"
+        data-part="custom-part"
+        data-slot="custom-slot"
+        data-size="xs"
+        data-weight="bold"
+      >
+        Page title
+      </Heading>
+    `,
+  });
+
+  const heading = screen.getByTestId('heading');
+
+  expect(heading).toHaveAttribute('data-scope', 'heading');
+  expect(heading).toHaveAttribute('data-part', 'root');
+  expect(heading).toHaveAttribute('data-slot', 'heading-root');
+  expect(heading).not.toHaveAttribute('data-size');
+  expect(heading).toHaveAttribute('data-weight', 'semibold');
+});
+
+test('forwards props and refs through a semantic asChild host', () => {
+  const rootRef = ref<ComponentPublicInstance | null>(null);
+  const Harness = defineComponent({
+    components: { Heading },
+    setup() {
+      return { rootRef };
+    },
+    template: `
+      <Heading ref="rootRef" as-child size="xl" weight="medium" class="custom-heading">
+        <h2>Factory-composed heading</h2>
+      </Heading>
+    `,
+  });
+
+  render(Harness);
+
+  const heading = screen.getByRole('heading', { name: 'Factory-composed heading', level: 2 });
+
+  expect(rootRef.value?.$el).toBe(heading);
+  expect(heading).toHaveClass('custom-heading');
+  expect(heading).toHaveAttribute('data-size', 'xl');
+  expect(heading).toHaveAttribute('data-weight', 'medium');
+  expect(heading).toHaveAttribute('data-part', 'root');
+});
+
+test('renders and hydrates a semantic asChild host without changing its element', async () => {
+  const App = defineComponent({
+    components: { Heading },
+    template: `
+      <Heading as-child size="xl" class="hydrated-heading">
+        <h2>Hydrated heading</h2>
+      </Heading>
+    `,
+  });
+
+  const html = await renderToString(createSSRApp(App));
+  expect(html).toContain('<h2');
+  expect(html).toContain('data-slot="heading-root"');
+
+  const host = document.createElement('div');
+  host.innerHTML = html;
+  document.body.append(host);
+  const app = createSSRApp(App);
+  app.mount(host);
+  await nextTick();
+
+  expect(host.querySelectorAll('h2')).toHaveLength(1);
+  expect(host.querySelector('h2')).toHaveClass('hydrated-heading');
+  expect(host.querySelector('h2')).toHaveAttribute('data-size', 'xl');
+
+  app.unmount();
+  host.remove();
+});

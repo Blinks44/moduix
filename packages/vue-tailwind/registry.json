@@ -138,6 +138,117 @@
       ]
     },
     {
+      "name": "floating-panel",
+      "type": "registry:item",
+      "title": "FloatingPanel",
+      "description": "moduix Vue Tailwind FloatingPanel component.",
+      "dependencies": ["@ark-ui/vue", "clsx", "tailwind-merge"],
+      "registryDependencies": [
+        "@moduix-vue-tailwind/close-button",
+        "@moduix-vue-tailwind/cn",
+        "@moduix-vue-tailwind/foundation",
+        "@moduix-vue-tailwind/icons",
+        "@moduix-vue-tailwind/overlay-portal"
+      ],
+      "files": [
+        {
+          "path": "src/components/floating-panel/FloatingPanel.vue",
+          "target": "@components/ui/floating-panel/FloatingPanel.vue",
+          "type": "registry:component"
+        },
+        {
+          "path": "src/components/floating-panel/FloatingPanelRootProvider.vue",
+          "target": "@components/ui/floating-panel/FloatingPanelRootProvider.vue",
+          "type": "registry:component"
+        },
+        {
+          "path": "src/components/floating-panel/FloatingPanelTrigger.vue",
+          "target": "@components/ui/floating-panel/FloatingPanelTrigger.vue",
+          "type": "registry:component"
+        },
+        {
+          "path": "src/components/floating-panel/FloatingPanelPositioner.vue",
+          "target": "@components/ui/floating-panel/FloatingPanelPositioner.vue",
+          "type": "registry:component"
+        },
+        {
+          "path": "src/components/floating-panel/FloatingPanelContent.vue",
+          "target": "@components/ui/floating-panel/FloatingPanelContent.vue",
+          "type": "registry:component"
+        },
+        {
+          "path": "src/components/floating-panel/FloatingPanelDragTrigger.vue",
+          "target": "@components/ui/floating-panel/FloatingPanelDragTrigger.vue",
+          "type": "registry:component"
+        },
+        {
+          "path": "src/components/floating-panel/FloatingPanelHeader.vue",
+          "target": "@components/ui/floating-panel/FloatingPanelHeader.vue",
+          "type": "registry:component"
+        },
+        {
+          "path": "src/components/floating-panel/FloatingPanelTitle.vue",
+          "target": "@components/ui/floating-panel/FloatingPanelTitle.vue",
+          "type": "registry:component"
+        },
+        {
+          "path": "src/components/floating-panel/FloatingPanelControl.vue",
+          "target": "@components/ui/floating-panel/FloatingPanelControl.vue",
+          "type": "registry:component"
+        },
+        {
+          "path": "src/components/floating-panel/FloatingPanelStageTrigger.vue",
+          "target": "@components/ui/floating-panel/FloatingPanelStageTrigger.vue",
+          "type": "registry:component"
+        },
+        {
+          "path": "src/components/floating-panel/FloatingPanelCloseTrigger.vue",
+          "target": "@components/ui/floating-panel/FloatingPanelCloseTrigger.vue",
+          "type": "registry:component"
+        },
+        {
+          "path": "src/components/floating-panel/FloatingPanelCloseIcon.vue",
+          "target": "@components/ui/floating-panel/FloatingPanelCloseIcon.vue",
+          "type": "registry:component"
+        },
+        {
+          "path": "src/components/floating-panel/FloatingPanelBody.vue",
+          "target": "@components/ui/floating-panel/FloatingPanelBody.vue",
+          "type": "registry:component"
+        },
+        {
+          "path": "src/components/floating-panel/FloatingPanelFooter.vue",
+          "target": "@components/ui/floating-panel/FloatingPanelFooter.vue",
+          "type": "registry:component"
+        },
+        {
+          "path": "src/components/floating-panel/FloatingPanelResizeTrigger.vue",
+          "target": "@components/ui/floating-panel/FloatingPanelResizeTrigger.vue",
+          "type": "registry:component"
+        },
+        {
+          "path": "src/components/floating-panel/FloatingPanelResizeTriggerGroup.vue",
+          "target": "@components/ui/floating-panel/FloatingPanelResizeTriggerGroup.vue",
+          "type": "registry:component"
+        },
+        {
+          "path": "src/components/floating-panel/FloatingPanelDragIndicator.vue",
+          "target": "@components/ui/floating-panel/FloatingPanelDragIndicator.vue",
+          "type": "registry:component"
+        },
+        {
+          "path": "src/components/floating-panel/floating-panel.types.ts",
+          "target": "@components/ui/floating-panel/floating-panel.types.ts",
+          "type": "registry:file"
+        },
+        {
+          "path": "src/components/floating-panel/index.ts",
+          "target": "@components/ui/floating-panel/index.ts",
+          "type": "registry:component"
+        }
+      ]
+    },
+    {
       "name": "editable",
       "type": "registry:item",
       "title": "Editable",
@@ -207,6 +318,131 @@
         {
           "path": "src/components/editable/index.ts",
           "target": "@components/ui/editable/index.ts",
+          "type": "registry:component"
+        }
+      ]
+    },
+    {
+      "name": "file-upload",
+      "type": "registry:item",
+      "title": "FileUpload",
+      "description": "moduix Vue Tailwind FileUpload component.",
+      "dependencies": ["@ark-ui/vue", "clsx", "tailwind-merge"],
+      "registryDependencies": [
+        "@moduix-vue-tailwind/foundation",
+        "@moduix-vue-tailwind/cn",
+        "@moduix-vue-tailwind/icons",
+        "@moduix-vue-tailwind/close-button"
+      ],
+      "files": [
+        {
+          "path": "src/components/file-upload/FileUpload.vue",
+          "target": "@components/ui/file-upload/FileUpload.vue",
+          "type": "registry:component"
+        },
+        {
+          "path": "src/components/file-upload/FileUploadRootProvider.vue",
+          "target": "@components/ui/file-upload/FileUploadRootProvider.vue",
+          "type": "registry:component"
+        },
+        {
+          "path": "src/components/file-upload/FileUploadLabel.vue",
+          "target": "@components/ui/file-upload/FileUploadLabel.vue",
+          "type": "registry:component"
+        },
+        {
+          "path": "src/components/file-upload/FileUploadDropzone.vue",
+          "target": "@components/ui/file-upload/FileUploadDropzone.vue",
+          "type": "registry:component"
+        },
+        {
+          "path": "src/components/file-upload/FileUploadDropzoneIcon.vue",
+          "target": "@components/ui/file-upload/FileUploadDropzoneIcon.vue",
+          "type": "registry:component"
+        },
+        {
+          "path": "src/components/file-upload/FileUploadTrigger.vue",
+          "target": "@components/ui/file-upload/FileUploadTrigger.vue",
+          "type": "registry:component"
+        },
+        {
+          "path": "src/components/file-upload/FileUploadItemGroup.vue",
+          "target": "@components/ui/file-upload/FileUploadItemGroup.vue",
+          "type": "registry:component"
+        },
+        {
+          "path": "src/components/file-upload/FileUploadItem.vue",
+          "target": "@components/ui/file-upload/FileUploadItem.vue",
+          "type": "registry:component"
+        },
+        {
+          "path": "src/components/file-upload/FileUploadItemPreview.vue",
+          "target": "@components/ui/file-upload/FileUploadItemPreview.vue",
+          "type": "registry:component"
+        },
+        {
+          "path": "src/components/file-upload/FileUploadItemPreviewImage.vue",
+          "target": "@components/ui/file-upload/FileUploadItemPreviewImage.vue",
+          "type": "registry:component"
+        },
+        {
+          "path": "src/components/file-upload/FileUploadItemPreviewIcon.vue",
+          "target": "@components/ui/file-upload/FileUploadItemPreviewIcon.vue",
+          "type": "registry:component"
+        },
+        {
+          "path": "src/components/file-upload/FileUploadItemName.vue",
+          "target": "@components/ui/file-upload/FileUploadItemName.vue",
+          "type": "registry:component"
+        },
+        {
+          "path": "src/components/file-upload/FileUploadItemSizeText.vue",
+          "target": "@components/ui/file-upload/FileUploadItemSizeText.vue",
+          "type": "registry:component"
+        },
+        {
+          "path": "src/components/file-upload/FileUploadItemMetadata.vue",
+          "target": "@components/ui/file-upload/FileUploadItemMetadata.vue",
+          "type": "registry:component"
+        },
+        {
+          "path": "src/components/file-upload/FileUploadItemDeleteTrigger.vue",
+          "target": "@components/ui/file-upload/FileUploadItemDeleteTrigger.vue",
+          "type": "registry:component"
+        },
+        {
+          "path": "src/components/file-upload/FileUploadItems.vue",
+          "target": "@components/ui/file-upload/FileUploadItems.vue",
+          "type": "registry:component"
+        },
+        {
+          "path": "src/components/file-upload/FileUploadClearTrigger.vue",
+          "target": "@components/ui/file-upload/FileUploadClearTrigger.vue",
+          "type": "registry:component"
+        },
+        {
+          "path": "src/components/file-upload/index.ts",
+          "target": "@components/ui/file-upload/index.ts",
+          "type": "registry:component"
+        }
+      ]
+    },
+    {
+      "name": "heading",
+      "type": "registry:item",
+      "title": "Heading",
+      "description": "moduix Vue Tailwind Heading component.",
+      "dependencies": ["@ark-ui/vue", "class-variance-authority", "clsx", "tailwind-merge"],
+      "registryDependencies": ["@moduix-vue-tailwind/foundation", "@moduix-vue-tailwind/cn"],
+      "files": [
+        {
+          "path": "src/components/heading/Heading.vue",
+          "target": "@components/ui/heading/Heading.vue",
+          "type": "registry:component"
+        },
+        {
+          "path": "src/components/heading/index.ts",
+          "target": "@components/ui/heading/index.ts",
           "type": "registry:component"
         }
       ]

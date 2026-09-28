@@ -237,5 +237,5 @@ test('keeps visual utilities on empty owned parts', () => {
   );
   expect(screen.getByTestId('drag-indicator')).toHaveClass('inline-flex', 'flex-none');
   expect(screen.getByTestId('body')).toHaveClass('p-4', 'text-sm');
-  expect(screen.getByTestId('footer')).toHaveClass('border-t', 'px-3', 'py-2', 'text-xs');
+  expect(screen.getByTestId('footer')).toHaveClass('border-t', 'px-3', 'py-1', 'text-xs');
 });

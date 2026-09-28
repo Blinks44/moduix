@@ -51,6 +51,9 @@ Use this skill for JS/TS Vue work in this repo.
   forms into one `mergeProps` call that keeps template order.
 - Never snapshot reactive values outside reactive scopes; read prop and context properties inside
   render, `computed`, and watcher scopes so updates track.
+- Create browser-constructed values in `<script setup>` or another setup scope and expose them to
+  the template explicitly. Runtime template expressions resolve the component context; do not rely
+  on unexposed browser globals such as `new File(...)` directly in a template.
 - Use `computed` for derived values instead of manual `watch` where a computed expression is
   clearer.
 - Keep opaque Ark values that contain class instances or private fields in `shallowRef` when local
@@ -85,6 +88,10 @@ Use this skill for JS/TS Vue work in this repo.
   slot with `defineSlots`, including the exact scoped payload exposed by an Ark context part. Use
   the default slot for ordinary component content and add named slots only when the public contract
   has a distinct role.
+- When an Ark part uses its own fallback based on `slots.default?.()`, do not unconditionally
+  render an empty wrapper `<slot />`: Vue still supplies a truthy slot function and Ark can treat
+  its empty VNode output as consumer content. Use a conditional slot branch so Ark receives no
+  default slot when the consumer omitted it.
 - Preserve generic collection item types with the SFC `generic` attribute when the Ark component is
   generic. Carry the item type through props, emits, scoped slots, hooks, and exported declarations;
   do not erase it to `any` or a broad record to simplify the export barrel.

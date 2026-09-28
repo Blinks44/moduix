@@ -57,6 +57,14 @@
       "types": "./dist/components/accordion/index.d.ts",
       "import": "./dist/components/accordion/index.js"
     },
+    "./floating-panel": {
+      "types": "./dist/components/floating-panel/index.d.ts",
+      "import": "./dist/components/floating-panel/index.js"
+    },
+    "./heading": {
+      "types": "./dist/components/heading/index.d.ts",
+      "import": "./dist/components/heading/index.js"
+    },
     "./editable": {
       "types": "./dist/components/editable/index.d.ts",
       "import": "./dist/components/editable/index.js"
@@ -216,6 +224,10 @@
     "./close-button": {
       "types": "./dist/components/close-button/index.d.ts",
       "import": "./dist/components/close-button/index.js"
+    },
+    "./file-upload": {
+      "types": "./dist/components/file-upload/index.d.ts",
+      "import": "./dist/components/file-upload/index.js"
     },
     "./spinner": {
       "types": "./dist/components/spinner/index.d.ts",

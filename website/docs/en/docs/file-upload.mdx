@@ -37,16 +37,32 @@ import fileUploadSolidRejectedFiles from '../../../snippets/file-upload/solid/re
 import fileUploadSolidRootProviderAndPaste from '../../../snippets/file-upload/solid/root-provider-and-paste.tsx?raw';
 import fileUploadSolidTransformFiles from '../../../snippets/file-upload/solid/transform-files.tsx?raw';
 import fileUploadSolidWithField from '../../../snippets/file-upload/solid/with-field.tsx?raw';
+import fileUploadVueAcceptedFileTypes from '../../../snippets/file-upload/vue/accepted-file-types.vue?raw';
+import fileUploadVueAdvancedCustomization from '../../../snippets/file-upload/vue/advanced-customization.vue?raw';
+import fileUploadVueBasic from '../../../snippets/file-upload/vue/basic.vue?raw';
+import fileUploadVueClearTrigger from '../../../snippets/file-upload/vue/clear-trigger.vue?raw';
+import fileUploadVueControlled from '../../../snippets/file-upload/vue/controlled.vue?raw';
+import fileUploadVueDirectoryUpload from '../../../snippets/file-upload/vue/directory-upload.vue?raw';
+import fileUploadVueDropzone from '../../../snippets/file-upload/vue/dropzone.vue?raw';
+import fileUploadVueErrorHandling from '../../../snippets/file-upload/vue/error-handling.vue?raw';
+import fileUploadVueFilePreviews from '../../../snippets/file-upload/vue/file-previews.vue?raw';
+import fileUploadVueFormUsage from '../../../snippets/file-upload/vue/form-usage.vue?raw';
+import fileUploadVueInitialFiles from '../../../snippets/file-upload/vue/initial-files.vue?raw';
+import fileUploadVueMediaCapture from '../../../snippets/file-upload/vue/media-capture.vue?raw';
+import fileUploadVueRejectedFiles from '../../../snippets/file-upload/vue/rejected-files.vue?raw';
+import fileUploadVueRootProviderAndPaste from '../../../snippets/file-upload/vue/root-provider-and-paste.vue?raw';
+import fileUploadVueTransformFiles from '../../../snippets/file-upload/vue/transform-files.vue?raw';
+import fileUploadVueWithField from '../../../snippets/file-upload/vue/with-field.vue?raw';
 
 ## API Reference
 
 <PrimitiveReference href="https://ark-ui.com/docs/components/file-upload" />
 
-`FileUpload` is available from `@moduix/react/file-upload`. `FileUpload`, `useFileUpload`, and
+`FileUpload` is available from `@moduix/react/file-upload` and `@moduix/vue/file-upload`. `FileUpload`, `useFileUpload`, and
 `useFileUploadContext` are also exported from `@moduix/react`.
 
-The same component is available from `@moduix/solid/file-upload`, `@moduix/react-tailwind/file-upload`, and
-`@moduix/solid-tailwind/file-upload`. The four package variants expose the same component parts and state model.
+The same component is available from `@moduix/solid/file-upload`, `@moduix/react-tailwind/file-upload`,
+`@moduix/solid-tailwind/file-upload`, and `@moduix/vue-tailwind/file-upload`. The six package variants expose the same component parts and state model.
 Choose the package that matches your framework and styling path.
 
 ## Choosing the right component
@@ -73,6 +89,7 @@ generic file preview.
     values={[
       { label: 'React', value: 'react' },
       { label: 'Solid', value: 'solid' },
+      { label: 'Vue', value: 'vue' },
     ]}
     className="docs-tabs"
   >
@@ -85,6 +102,11 @@ generic file preview.
     <Tab value="solid">
 
 <CodeBlockRuntime lang="tsx" code={fileUploadSolidBasic} />
+
+    </Tab>
+    <Tab value="vue">
+
+<CodeBlockRuntime lang="vue" code={fileUploadVueBasic} />
 
     </Tab>
   </Tabs>
@@ -108,6 +130,16 @@ See [Quick Start](/docs/quick-start) for full package setup, registry configurat
   options={[
     { label: 'CSS Modules', command: 'shadcn@latest add @moduix-react/file-upload' },
     { label: 'Tailwind CSS', command: 'shadcn@latest add @moduix-react-tailwind/file-upload' },
+  ]}
+/>
+
+  </Tab>
+  <Tab label="Vue" value="vue">
+
+<ShadcnInstallOptions
+  options={[
+    { label: 'CSS Modules', command: 'shadcn@latest add @moduix-vue/file-upload' },
+    { label: 'Tailwind CSS', command: 'shadcn@latest add @moduix-vue-tailwind/file-upload' },
   ]}
 />
 
@@ -200,6 +232,7 @@ Use `accept` to restrict both the native file picker and drop validation. Pass M
     values={[
       { label: 'React', value: 'react' },
       { label: 'Solid', value: 'solid' },
+      { label: 'Vue', value: 'vue' },
     ]}
     className="docs-tabs"
   >
@@ -212,6 +245,11 @@ Use `accept` to restrict both the native file picker and drop validation. Pass M
     <Tab value="solid">
 
 <CodeBlockRuntime lang="tsx" code={fileUploadSolidAcceptedFileTypes} />
+
+    </Tab>
+    <Tab value="vue">
+
+<CodeBlockRuntime lang="vue" code={fileUploadVueAcceptedFileTypes} />
 
     </Tab>
   </Tabs>
@@ -239,6 +277,7 @@ Use `FileUploadClearTrigger` to remove all accepted files at once.
     values={[
       { label: 'React', value: 'react' },
       { label: 'Solid', value: 'solid' },
+      { label: 'Vue', value: 'vue' },
     ]}
     className="docs-tabs"
   >
@@ -251,6 +290,11 @@ Use `FileUploadClearTrigger` to remove all accepted files at once.
     <Tab value="solid">
 
 <CodeBlockRuntime lang="tsx" code={fileUploadSolidClearTrigger} />
+
+    </Tab>
+    <Tab value="vue">
+
+<CodeBlockRuntime lang="vue" code={fileUploadVueClearTrigger} />
 
     </Tab>
   </Tabs>
@@ -279,6 +323,7 @@ value from `onFileChange(details)`.
     values={[
       { label: 'React', value: 'react' },
       { label: 'Solid', value: 'solid' },
+      { label: 'Vue', value: 'vue' },
     ]}
     className="docs-tabs"
   >
@@ -291,6 +336,11 @@ value from `onFileChange(details)`.
     <Tab value="solid">
 
 <CodeBlockRuntime lang="tsx" code={fileUploadSolidControlled} />
+
+    </Tab>
+    <Tab value="vue">
+
+<CodeBlockRuntime lang="vue" code={fileUploadVueControlled} />
 
     </Tab>
   </Tabs>
@@ -319,6 +369,7 @@ Use `directory` to let users select a folder. Supported browsers expose each fil
     values={[
       { label: 'React', value: 'react' },
       { label: 'Solid', value: 'solid' },
+      { label: 'Vue', value: 'vue' },
     ]}
     className="docs-tabs"
   >
@@ -331,6 +382,11 @@ Use `directory` to let users select a folder. Supported browsers expose each fil
     <Tab value="solid">
 
 <CodeBlockRuntime lang="tsx" code={fileUploadSolidDirectoryUpload} />
+
+    </Tab>
+    <Tab value="vue">
+
+<CodeBlockRuntime lang="vue" code={fileUploadVueDirectoryUpload} />
 
     </Tab>
   </Tabs>
@@ -358,6 +414,7 @@ Use `FileUploadDropzone` for drag-and-drop uploads. Keep a nested `FileUploadTri
     values={[
       { label: 'React', value: 'react' },
       { label: 'Solid', value: 'solid' },
+      { label: 'Vue', value: 'vue' },
     ]}
     className="docs-tabs"
   >
@@ -370,6 +427,11 @@ Use `FileUploadDropzone` for drag-and-drop uploads. Keep a nested `FileUploadTri
     <Tab value="solid">
 
 <CodeBlockRuntime lang="tsx" code={fileUploadSolidDropzone} />
+
+    </Tab>
+    <Tab value="vue">
+
+<CodeBlockRuntime lang="vue" code={fileUploadVueDropzone} />
 
     </Tab>
   </Tabs>
@@ -398,6 +460,7 @@ Use `onFileReject(details)` to show application-specific feedback. Keep built-in
     values={[
       { label: 'React', value: 'react' },
       { label: 'Solid', value: 'solid' },
+      { label: 'Vue', value: 'vue' },
     ]}
     className="docs-tabs"
   >
@@ -410,6 +473,11 @@ Use `onFileReject(details)` to show application-specific feedback. Keep built-in
     <Tab value="solid">
 
 <CodeBlockRuntime lang="tsx" code={fileUploadSolidErrorHandling} />
+
+    </Tab>
+    <Tab value="vue">
+
+<CodeBlockRuntime lang="vue" code={fileUploadVueErrorHandling} />
 
     </Tab>
   </Tabs>
@@ -439,6 +507,7 @@ the same layouts with your own files.
     values={[
       { label: 'React', value: 'react' },
       { label: 'Solid', value: 'solid' },
+      { label: 'Vue', value: 'vue' },
     ]}
     className="docs-tabs"
   >
@@ -451,6 +520,11 @@ the same layouts with your own files.
     <Tab value="solid">
 
 <CodeBlockRuntime lang="tsx" code={fileUploadSolidFilePreviews} />
+
+    </Tab>
+    <Tab value="vue">
+
+<CodeBlockRuntime lang="vue" code={fileUploadVueFilePreviews} />
 
     </Tab>
   </Tabs>
@@ -478,6 +552,7 @@ Pass `name` to the root and render `FileUploadHiddenInput`; native form submissi
     values={[
       { label: 'React', value: 'react' },
       { label: 'Solid', value: 'solid' },
+      { label: 'Vue', value: 'vue' },
     ]}
     className="docs-tabs"
   >
@@ -490,6 +565,11 @@ Pass `name` to the root and render `FileUploadHiddenInput`; native form submissi
     <Tab value="solid">
 
 <CodeBlockRuntime lang="tsx" code={fileUploadSolidFormUsage} />
+
+    </Tab>
+    <Tab value="vue">
+
+<CodeBlockRuntime lang="vue" code={fileUploadVueFormUsage} />
 
     </Tab>
   </Tabs>
@@ -517,6 +597,7 @@ Use `defaultAcceptedFiles` to preload files and then let the component manage th
     values={[
       { label: 'React', value: 'react' },
       { label: 'Solid', value: 'solid' },
+      { label: 'Vue', value: 'vue' },
     ]}
     className="docs-tabs"
   >
@@ -529,6 +610,11 @@ Use `defaultAcceptedFiles` to preload files and then let the component manage th
     <Tab value="solid">
 
 <CodeBlockRuntime lang="tsx" code={fileUploadSolidInitialFiles} />
+
+    </Tab>
+    <Tab value="vue">
+
+<CodeBlockRuntime lang="vue" code={fileUploadVueInitialFiles} />
 
     </Tab>
   </Tabs>
@@ -558,6 +644,7 @@ the camera will open.
     values={[
       { label: 'React', value: 'react' },
       { label: 'Solid', value: 'solid' },
+      { label: 'Vue', value: 'vue' },
     ]}
     className="docs-tabs"
   >
@@ -570,6 +657,11 @@ the camera will open.
     <Tab value="solid">
 
 <CodeBlockRuntime lang="tsx" code={fileUploadSolidMediaCapture} />
+
+    </Tab>
+    <Tab value="vue">
+
+<CodeBlockRuntime lang="vue" code={fileUploadVueMediaCapture} />
 
     </Tab>
   </Tabs>
@@ -597,6 +689,7 @@ Render `rejectedFiles` in a separate `FileUploadItemGroup type="rejected"` when 
     values={[
       { label: 'React', value: 'react' },
       { label: 'Solid', value: 'solid' },
+      { label: 'Vue', value: 'vue' },
     ]}
     className="docs-tabs"
   >
@@ -609,6 +702,11 @@ Render `rejectedFiles` in a separate `FileUploadItemGroup type="rejected"` when 
     <Tab value="solid">
 
 <CodeBlockRuntime lang="tsx" code={fileUploadSolidRejectedFiles} />
+
+    </Tab>
+    <Tab value="vue">
+
+<CodeBlockRuntime lang="vue" code={fileUploadVueRejectedFiles} />
 
     </Tab>
   </Tabs>
@@ -637,6 +735,7 @@ example, `setClipboardFiles` forwards files pasted into a text area to the uploa
     values={[
       { label: 'React', value: 'react' },
       { label: 'Solid', value: 'solid' },
+      { label: 'Vue', value: 'vue' },
     ]}
     className="docs-tabs"
   >
@@ -649,6 +748,11 @@ example, `setClipboardFiles` forwards files pasted into a text area to the uploa
     <Tab value="solid">
 
 <CodeBlockRuntime lang="tsx" code={fileUploadSolidRootProviderAndPaste} />
+
+    </Tab>
+    <Tab value="vue">
+
+<CodeBlockRuntime lang="vue" code={fileUploadVueRootProviderAndPaste} />
 
     </Tab>
   </Tabs>
@@ -676,6 +780,7 @@ Use `transformFiles(files)` to process files asynchronously before adding them t
     values={[
       { label: 'React', value: 'react' },
       { label: 'Solid', value: 'solid' },
+      { label: 'Vue', value: 'vue' },
     ]}
     className="docs-tabs"
   >
@@ -688,6 +793,11 @@ Use `transformFiles(files)` to process files asynchronously before adding them t
     <Tab value="solid">
 
 <CodeBlockRuntime lang="tsx" code={fileUploadSolidTransformFiles} />
+
+    </Tab>
+    <Tab value="vue">
+
+<CodeBlockRuntime lang="vue" code={fileUploadVueTransformFiles} />
 
     </Tab>
   </Tabs>
@@ -715,6 +825,7 @@ Wrap the upload in `Field` when helper text, an error message, required state, o
     values={[
       { label: 'React', value: 'react' },
       { label: 'Solid', value: 'solid' },
+      { label: 'Vue', value: 'vue' },
     ]}
     className="docs-tabs"
   >
@@ -727,6 +838,11 @@ Wrap the upload in `Field` when helper text, an error message, required state, o
     <Tab value="solid">
 
 <CodeBlockRuntime lang="tsx" code={fileUploadSolidWithField} />
+
+    </Tab>
+    <Tab value="vue">
+
+<CodeBlockRuntime lang="vue" code={fileUploadVueWithField} />
 
     </Tab>
   </Tabs>
@@ -756,6 +872,7 @@ for each file.
     values={[
       { label: 'React', value: 'react' },
       { label: 'Solid', value: 'solid' },
+      { label: 'Vue', value: 'vue' },
     ]}
     className="docs-tabs"
   >
@@ -768,6 +885,11 @@ for each file.
     <Tab value="solid">
 
 <CodeBlockRuntime lang="tsx" code={fileUploadSolidAdvancedCustomization} />
+
+    </Tab>
+    <Tab value="vue">
+
+<CodeBlockRuntime lang="vue" code={fileUploadVueAdvancedCustomization} />
 
     </Tab>
   </Tabs>

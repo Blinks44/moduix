@@ -27,6 +27,17 @@ import floatingPanelSolidControlledSize from '../../../snippets/floating-panel/s
 import floatingPanelSolidEscapeDismiss from '../../../snippets/floating-panel/solid/escape-dismiss.tsx?raw';
 import floatingPanelSolidLazyMount from '../../../snippets/floating-panel/solid/lazy-mount.tsx?raw';
 import floatingPanelSolidRootProvider from '../../../snippets/floating-panel/solid/root-provider.tsx?raw';
+import floatingPanelVueAdvancedCustomization from '../../../snippets/floating-panel/vue/advanced-customization.vue?raw';
+import floatingPanelVueAnchorPosition from '../../../snippets/floating-panel/vue/anchor-position.vue?raw';
+import floatingPanelVueBasic from '../../../snippets/floating-panel/vue/basic.vue?raw';
+import floatingPanelVueBoundary from '../../../snippets/floating-panel/vue/boundary.vue?raw';
+import floatingPanelVueContext from '../../../snippets/floating-panel/vue/context.vue?raw';
+import floatingPanelVueControlledOpen from '../../../snippets/floating-panel/vue/controlled-open.vue?raw';
+import floatingPanelVueControlledPosition from '../../../snippets/floating-panel/vue/controlled-position.vue?raw';
+import floatingPanelVueControlledSize from '../../../snippets/floating-panel/vue/controlled-size.vue?raw';
+import floatingPanelVueEscapeDismiss from '../../../snippets/floating-panel/vue/escape-dismiss.vue?raw';
+import floatingPanelVueLazyMount from '../../../snippets/floating-panel/vue/lazy-mount.vue?raw';
+import floatingPanelVueRootProvider from '../../../snippets/floating-panel/vue/root-provider.vue?raw';
 
 ## API Reference
 
@@ -45,6 +56,9 @@ Keep the Ark UI parts explicit. `FloatingPanelPositioner` applies the position a
 by Ark, while `FloatingPanelContent` is the visible window surface. The header acts as the drag
 handle, and `FloatingPanelResizeTriggerGroup` adds the resize handles around the panel.
 
+React, Solid, and Vue use the same flat component names. In Vue, compose the parts with slots and
+use `v-model` when the open, position, or size state is controlled.
+
 <ExampleFrame variant="component">
   <FloatingPanelBasic />
 </ExampleFrame>
@@ -56,6 +70,7 @@ handle, and `FloatingPanelResizeTriggerGroup` adds the resize handles around the
     values={[
       { label: 'React', value: 'react' },
       { label: 'Solid', value: 'solid' },
+      { label: 'Vue', value: 'vue' },
     ]}
     className="docs-tabs"
   >
@@ -68,6 +83,12 @@ handle, and `FloatingPanelResizeTriggerGroup` adds the resize handles around the
     <Tab value="solid">
 
 <CodeBlockRuntime lang="tsx" code={floatingPanelSolidBasic} />
+
+    </Tab>
+
+    <Tab value="vue">
+
+<CodeBlockRuntime lang="vue" code={floatingPanelVueBasic} />
 
     </Tab>
   </Tabs>
@@ -99,9 +120,18 @@ See [Quick Start](/docs/quick-start) for full package setup, registry configurat
 />
 
   </Tab>
-</Tabs>
 
-## Anatomy
+  <Tab label="Vue" value="vue">
+
+<ShadcnInstallOptions
+  options={[
+    { label: 'CSS Modules', command: 'shadcn@latest add @moduix-vue/floating-panel' },
+    { label: 'Tailwind CSS', command: 'shadcn@latest add @moduix-vue-tailwind/floating-panel' },
+  ]}
+/>
+
+  </Tab>
+</Tabs>
 
 ```text
 FloatingPanel
@@ -153,7 +183,8 @@ When state must live outside the panel tree, create it with `useFloatingPanel()`
 pass it to `FloatingPanelRootProvider`. Do not render `FloatingPanel` and `FloatingPanelRootProvider` for the same state
 instance. `position` and `size` are controlled independently. Use `FloatingPanelResizeTriggerGroup axes` or
 individual `FloatingPanelResizeTrigger` parts only when the default set of handles is not appropriate. With
-`asChild`, pass one semantic child; Solid uses the render-function form of this prop.
+`asChild`, pass one semantic child. Vue uses the child slot, while Solid uses the render-function
+form of this prop.
 
 ## Examples
 
@@ -167,7 +198,7 @@ Use `getAnchorPosition` to calculate the panel's initial position from the trigg
 
 <ExampleCode>
 <div className="docs-reference">
-  <Tabs groupId="framework" values={[{ label: 'React', value: 'react' }, { label: 'Solid', value: 'solid' }]} className="docs-tabs">
+  <Tabs groupId="framework" values={[{ label: 'React', value: 'react' }, { label: 'Solid', value: 'solid' }, { label: 'Vue', value: 'vue' }]} className="docs-tabs">
     <Tab value="react">
 
 ```tsx pure file="../../../src/components/examples/floating-panel/anchor-position.tsx"
@@ -177,6 +208,12 @@ Use `getAnchorPosition` to calculate the panel's initial position from the trigg
     <Tab value="solid">
 
 <CodeBlockRuntime lang="tsx" code={floatingPanelSolidAnchorPosition} />
+
+    </Tab>
+
+    <Tab value="vue">
+
+<CodeBlockRuntime lang="vue" code={floatingPanelVueAnchorPosition} />
 
     </Tab>
   </Tabs>
@@ -194,7 +231,7 @@ it is being dragged.
 
 <ExampleCode>
 <div className="docs-reference">
-  <Tabs groupId="framework" values={[{ label: 'React', value: 'react' }, { label: 'Solid', value: 'solid' }]} className="docs-tabs">
+  <Tabs groupId="framework" values={[{ label: 'React', value: 'react' }, { label: 'Solid', value: 'solid' }, { label: 'Vue', value: 'vue' }]} className="docs-tabs">
     <Tab value="react">
 
 ```tsx pure file="../../../src/components/examples/floating-panel/boundary.tsx"
@@ -204,6 +241,12 @@ it is being dragged.
     <Tab value="solid">
 
 <CodeBlockRuntime lang="tsx" code={floatingPanelSolidBoundary} />
+
+    </Tab>
+
+    <Tab value="vue">
+
+<CodeBlockRuntime lang="vue" code={floatingPanelVueBoundary} />
 
     </Tab>
   </Tabs>
@@ -218,7 +261,8 @@ it is being dragged.
 ### Context
 
 Use `FloatingPanelContext` or `useFloatingPanelContext` to read panel state and methods inside the
-component tree. In Solid, the context value is an accessor.
+component tree. Vue receives the context value through its scoped slot, while Solid exposes it as
+an accessor.
 
 <ExampleFrame variant="component">
   <FloatingPanelContext />
@@ -226,7 +270,7 @@ component tree. In Solid, the context value is an accessor.
 
 <ExampleCode>
 <div className="docs-reference">
-  <Tabs groupId="framework" values={[{ label: 'React', value: 'react' }, { label: 'Solid', value: 'solid' }]} className="docs-tabs">
+  <Tabs groupId="framework" values={[{ label: 'React', value: 'react' }, { label: 'Solid', value: 'solid' }, { label: 'Vue', value: 'vue' }]} className="docs-tabs">
     <Tab value="react">
 
 ```tsx pure file="../../../src/components/examples/floating-panel/context.tsx"
@@ -236,6 +280,12 @@ component tree. In Solid, the context value is an accessor.
     <Tab value="solid">
 
 <CodeBlockRuntime lang="tsx" code={floatingPanelSolidContext} />
+
+    </Tab>
+
+    <Tab value="vue">
+
+<CodeBlockRuntime lang="vue" code={floatingPanelVueContext} />
 
     </Tab>
   </Tabs>
@@ -252,7 +302,7 @@ Use `open` with `onOpenChange` when application state should control the panel's
 
 <ExampleCode>
 <div className="docs-reference">
-  <Tabs groupId="framework" values={[{ label: 'React', value: 'react' }, { label: 'Solid', value: 'solid' }]} className="docs-tabs">
+  <Tabs groupId="framework" values={[{ label: 'React', value: 'react' }, { label: 'Solid', value: 'solid' }, { label: 'Vue', value: 'vue' }]} className="docs-tabs">
     <Tab value="react">
 
 ```tsx pure file="../../../src/components/examples/floating-panel/controlled-open.tsx"
@@ -262,6 +312,12 @@ Use `open` with `onOpenChange` when application state should control the panel's
     <Tab value="solid">
 
 <CodeBlockRuntime lang="tsx" code={floatingPanelSolidControlledOpen} />
+
+    </Tab>
+
+    <Tab value="vue">
+
+<CodeBlockRuntime lang="vue" code={floatingPanelVueControlledOpen} />
 
     </Tab>
   </Tabs>
@@ -278,7 +334,7 @@ Control `position` when another part of the application needs the panel's curren
 
 <ExampleCode>
 <div className="docs-reference">
-  <Tabs groupId="framework" values={[{ label: 'React', value: 'react' }, { label: 'Solid', value: 'solid' }]} className="docs-tabs">
+  <Tabs groupId="framework" values={[{ label: 'React', value: 'react' }, { label: 'Solid', value: 'solid' }, { label: 'Vue', value: 'vue' }]} className="docs-tabs">
     <Tab value="react">
 
 ```tsx pure file="../../../src/components/examples/floating-panel/controlled-position.tsx"
@@ -288,6 +344,12 @@ Control `position` when another part of the application needs the panel's curren
     <Tab value="solid">
 
 <CodeBlockRuntime lang="tsx" code={floatingPanelSolidControlledPosition} />
+
+    </Tab>
+
+    <Tab value="vue">
+
+<CodeBlockRuntime lang="vue" code={floatingPanelVueControlledPosition} />
 
     </Tab>
   </Tabs>
@@ -304,7 +366,7 @@ Control `size` when the surrounding UI needs to store or display the panel's cur
 
 <ExampleCode>
 <div className="docs-reference">
-  <Tabs groupId="framework" values={[{ label: 'React', value: 'react' }, { label: 'Solid', value: 'solid' }]} className="docs-tabs">
+  <Tabs groupId="framework" values={[{ label: 'React', value: 'react' }, { label: 'Solid', value: 'solid' }, { label: 'Vue', value: 'vue' }]} className="docs-tabs">
     <Tab value="react">
 
 ```tsx pure file="../../../src/components/examples/floating-panel/controlled-size.tsx"
@@ -314,6 +376,12 @@ Control `size` when the surrounding UI needs to store or display the panel's cur
     <Tab value="solid">
 
 <CodeBlockRuntime lang="tsx" code={floatingPanelSolidControlledSize} />
+
+    </Tab>
+
+    <Tab value="vue">
+
+<CodeBlockRuntime lang="vue" code={floatingPanelVueControlledSize} />
 
     </Tab>
   </Tabs>
@@ -331,7 +399,7 @@ immediately after the non-modal panel opens.
 
 <ExampleCode>
 <div className="docs-reference">
-  <Tabs groupId="framework" values={[{ label: 'React', value: 'react' }, { label: 'Solid', value: 'solid' }]} className="docs-tabs">
+  <Tabs groupId="framework" values={[{ label: 'React', value: 'react' }, { label: 'Solid', value: 'solid' }, { label: 'Vue', value: 'vue' }]} className="docs-tabs">
     <Tab value="react">
 
 ```tsx pure file="../../../src/components/examples/floating-panel/escape-dismiss.tsx"
@@ -341,6 +409,12 @@ immediately after the non-modal panel opens.
     <Tab value="solid">
 
 <CodeBlockRuntime lang="tsx" code={floatingPanelSolidEscapeDismiss} />
+
+    </Tab>
+
+    <Tab value="vue">
+
+<CodeBlockRuntime lang="vue" code={floatingPanelVueEscapeDismiss} />
 
     </Tab>
   </Tabs>
@@ -358,7 +432,7 @@ exit animation.
 
 <ExampleCode>
 <div className="docs-reference">
-  <Tabs groupId="framework" values={[{ label: 'React', value: 'react' }, { label: 'Solid', value: 'solid' }]} className="docs-tabs">
+  <Tabs groupId="framework" values={[{ label: 'React', value: 'react' }, { label: 'Solid', value: 'solid' }, { label: 'Vue', value: 'vue' }]} className="docs-tabs">
     <Tab value="react">
 
 ```tsx pure file="../../../src/components/examples/floating-panel/lazy-mount.tsx"
@@ -368,6 +442,12 @@ exit animation.
     <Tab value="solid">
 
 <CodeBlockRuntime lang="tsx" code={floatingPanelSolidLazyMount} />
+
+    </Tab>
+
+    <Tab value="vue">
+
+<CodeBlockRuntime lang="vue" code={floatingPanelVueLazyMount} />
 
     </Tab>
   </Tabs>
@@ -385,7 +465,7 @@ methods such as `minimize`, `maximize`, and `setOpen`. The Solid store is read t
 
 <ExampleCode>
 <div className="docs-reference">
-  <Tabs groupId="framework" values={[{ label: 'React', value: 'react' }, { label: 'Solid', value: 'solid' }]} className="docs-tabs">
+  <Tabs groupId="framework" values={[{ label: 'React', value: 'react' }, { label: 'Solid', value: 'solid' }, { label: 'Vue', value: 'vue' }]} className="docs-tabs">
     <Tab value="react">
 
 ```tsx pure file="../../../src/components/examples/floating-panel/root-provider.tsx"
@@ -395,6 +475,12 @@ methods such as `minimize`, `maximize`, and `setOpen`. The Solid store is read t
     <Tab value="solid">
 
 <CodeBlockRuntime lang="tsx" code={floatingPanelSolidRootProvider} />
+
+    </Tab>
+
+    <Tab value="vue">
+
+<CodeBlockRuntime lang="vue" code={floatingPanelVueRootProvider} />
 
     </Tab>
   </Tabs>
@@ -411,7 +497,7 @@ Use individual `FloatingPanelResizeTrigger` parts when each resize axis needs it
 
 <ExampleCode>
 <div className="docs-reference">
-  <Tabs groupId="framework" values={[{ label: 'React', value: 'react' }, { label: 'Solid', value: 'solid' }]} className="docs-tabs">
+  <Tabs groupId="framework" values={[{ label: 'React', value: 'react' }, { label: 'Solid', value: 'solid' }, { label: 'Vue', value: 'vue' }]} className="docs-tabs">
     <Tab value="react">
 
 ```tsx pure file="../../../src/components/examples/floating-panel/advanced-customization.tsx"
@@ -421,6 +507,12 @@ Use individual `FloatingPanelResizeTrigger` parts when each resize axis needs it
     <Tab value="solid">
 
 <CodeBlockRuntime lang="tsx" code={floatingPanelSolidAdvancedCustomization} />
+
+    </Tab>
+
+    <Tab value="vue">
+
+<CodeBlockRuntime lang="vue" code={floatingPanelVueAdvancedCustomization} />
 
     </Tab>
   </Tabs>

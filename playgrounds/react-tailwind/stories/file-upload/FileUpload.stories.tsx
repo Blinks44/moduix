@@ -42,7 +42,8 @@ const initialFiles = [
 ];
 
 const isImageFile = (file: File) => file.type.startsWith('image/');
-const simpleDemoClassName = 'border border-border rounded-lg p-4 bg-muted/32';
+const simpleDemoClassName =
+  'border border-border rounded-lg p-4 bg-[color-mix(in_oklab,var(--color-muted)_32%,var(--color-background))]';
 const stackClassName = 'grid w-full max-w-md gap-3';
 const dropzoneContentClassName = 'grid justify-items-center gap-1';
 const dropzoneTitleClassName = 'text-sm font-medium leading-5 text-foreground';
