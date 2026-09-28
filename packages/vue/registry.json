@@ -140,6 +140,131 @@
       ]
     },
     {
+      "name": "hover-card",
+      "type": "registry:item",
+      "title": "HoverCard",
+      "description": "moduix Vue HoverCard component.",
+      "dependencies": ["@ark-ui/vue", "clsx"],
+      "registryDependencies": ["@moduix-vue/foundation", "@moduix-vue/overlay-portal"],
+      "files": [
+        {
+          "path": "src/components/hover-card/HoverCard.vue",
+          "target": "@components/ui/hover-card/HoverCard.vue",
+          "type": "registry:component"
+        },
+        {
+          "path": "src/components/hover-card/HoverCardRootProvider.vue",
+          "target": "@components/ui/hover-card/HoverCardRootProvider.vue",
+          "type": "registry:component"
+        },
+        {
+          "path": "src/components/hover-card/HoverCardTrigger.vue",
+          "target": "@components/ui/hover-card/HoverCardTrigger.vue",
+          "type": "registry:component"
+        },
+        {
+          "path": "src/components/hover-card/HoverCardPositioner.vue",
+          "target": "@components/ui/hover-card/HoverCardPositioner.vue",
+          "type": "registry:component"
+        },
+        {
+          "path": "src/components/hover-card/HoverCardContent.vue",
+          "target": "@components/ui/hover-card/HoverCardContent.vue",
+          "type": "registry:component"
+        },
+        {
+          "path": "src/components/hover-card/HoverCardArrow.vue",
+          "target": "@components/ui/hover-card/HoverCardArrow.vue",
+          "type": "registry:component"
+        },
+        {
+          "path": "src/components/hover-card/HoverCardArrowTip.vue",
+          "target": "@components/ui/hover-card/HoverCardArrowTip.vue",
+          "type": "registry:component"
+        },
+        {
+          "path": "src/components/hover-card/HoverCardBody.vue",
+          "target": "@components/ui/hover-card/HoverCardBody.vue",
+          "type": "registry:component"
+        },
+        {
+          "path": "src/components/hover-card/HoverCardContext.vue",
+          "target": "@components/ui/hover-card/HoverCardContext.vue",
+          "type": "registry:component"
+        },
+        {
+          "path": "src/components/hover-card/HoverCard.module.css",
+          "target": "@components/ui/hover-card/HoverCard.module.css",
+          "type": "registry:file"
+        },
+        {
+          "path": "src/components/hover-card/index.ts",
+          "target": "@components/ui/hover-card/index.ts",
+          "type": "registry:component"
+        }
+      ]
+    },
+    {
+      "name": "image-cropper",
+      "type": "registry:item",
+      "title": "ImageCropper",
+      "description": "moduix Vue ImageCropper component.",
+      "dependencies": ["@ark-ui/vue", "clsx"],
+      "registryDependencies": ["@moduix-vue/foundation"],
+      "files": [
+        {
+          "path": "src/components/image-cropper/ImageCropper.vue",
+          "target": "@components/ui/image-cropper/ImageCropper.vue",
+          "type": "registry:component"
+        },
+        {
+          "path": "src/components/image-cropper/ImageCropperRootProvider.vue",
+          "target": "@components/ui/image-cropper/ImageCropperRootProvider.vue",
+          "type": "registry:component"
+        },
+        {
+          "path": "src/components/image-cropper/ImageCropperViewport.vue",
+          "target": "@components/ui/image-cropper/ImageCropperViewport.vue",
+          "type": "registry:component"
+        },
+        {
+          "path": "src/components/image-cropper/ImageCropperImage.vue",
+          "target": "@components/ui/image-cropper/ImageCropperImage.vue",
+          "type": "registry:component"
+        },
+        {
+          "path": "src/components/image-cropper/ImageCropperSelection.vue",
+          "target": "@components/ui/image-cropper/ImageCropperSelection.vue",
+          "type": "registry:component"
+        },
+        {
+          "path": "src/components/image-cropper/ImageCropperGrid.vue",
+          "target": "@components/ui/image-cropper/ImageCropperGrid.vue",
+          "type": "registry:component"
+        },
+        {
+          "path": "src/components/image-cropper/ImageCropperHandle.vue",
+          "target": "@components/ui/image-cropper/ImageCropperHandle.vue",
+          "type": "registry:component"
+        },
+        {
+          "path": "src/components/image-cropper/ImageCropperCropArea.vue",
+          "target": "@components/ui/image-cropper/ImageCropperCropArea.vue",
+          "type": "registry:component"
+        },
+        {
+          "path": "src/components/image-cropper/ImageCropper.module.css",
+          "target": "@components/ui/image-cropper/ImageCropper.module.css",
+          "type": "registry:file"
+        },
+        {
+          "path": "src/components/image-cropper/index.ts",
+          "target": "@components/ui/image-cropper/index.ts",
+          "type": "registry:component"
+        }
+      ]
+    },
+    {
       "name": "floating-panel",
       "type": "registry:item",
       "title": "FloatingPanel",
@@ -2495,6 +2620,36 @@
         {
           "path": "src/components/carousel/index.ts",
           "target": "@components/ui/carousel/index.ts",
+          "type": "registry:component"
+        }
+      ]
+    },
+    {
+      "name": "image",
+      "type": "registry:item",
+      "title": "Image",
+      "description": "moduix Vue Image component.",
+      "dependencies": ["@unpic/core", "clsx"],
+      "registryDependencies": ["@moduix-vue/foundation"],
+      "files": [
+        {
+          "path": "src/components/image/Image.vue",
+          "target": "@components/ui/image/Image.vue",
+          "type": "registry:component"
+        },
+        {
+          "path": "src/components/image/ImageSource.vue",
+          "target": "@components/ui/image/ImageSource.vue",
+          "type": "registry:component"
+        },
+        {
+          "path": "src/components/image/Image.module.css",
+          "target": "@components/ui/image/Image.module.css",
+          "type": "registry:file"
+        },
+        {
+          "path": "src/components/image/index.ts",
+          "target": "@components/ui/image/index.ts",
           "type": "registry:component"
         }
       ]

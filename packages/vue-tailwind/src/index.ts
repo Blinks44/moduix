@@ -1,6 +1,9 @@
 // Internal test barrel. The package intentionally exposes component subpaths only.
 
 export * from './components/accordion';
+export * from './components/image-cropper';
+export * from './components/image';
+export * from './components/hover-card';
 export * from './components/floating-panel';
 export * from './components/heading';
 export * from './components/empty';

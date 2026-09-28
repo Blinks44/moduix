@@ -61,6 +61,14 @@
       "types": "./dist/components/accordion/index.d.ts",
       "import": "./dist/components/accordion/index.js"
     },
+    "./image-cropper": {
+      "types": "./dist/components/image-cropper/index.d.ts",
+      "import": "./dist/components/image-cropper/index.js"
+    },
+    "./hover-card": {
+      "types": "./dist/components/hover-card/index.d.ts",
+      "import": "./dist/components/hover-card/index.js"
+    },
     "./floating-panel": {
       "types": "./dist/components/floating-panel/index.d.ts",
       "import": "./dist/components/floating-panel/index.js"
@@ -156,6 +164,10 @@
     "./card": {
       "types": "./dist/components/card/index.d.ts",
       "import": "./dist/components/card/index.js"
+    },
+    "./image": {
+      "types": "./dist/components/image/index.d.ts",
+      "import": "./dist/components/image/index.js"
     },
     "./carousel": {
       "types": "./dist/components/carousel/index.d.ts",
@@ -256,6 +268,7 @@
   },
   "dependencies": {
     "@lucide/vue": "catalog:",
+    "@unpic/core": "catalog:",
     "clsx": "catalog:"
   },
   "devDependencies": {

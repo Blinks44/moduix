@@ -25,6 +25,16 @@ import hoverCardSolidMultipleTriggers from '../../../snippets/hover-card/solid/m
 import hoverCardSolidPositioning from '../../../snippets/hover-card/solid/positioning.tsx?raw';
 import hoverCardSolidRootProvider from '../../../snippets/hover-card/solid/root-provider.tsx?raw';
 import hoverCardSolidWithArrow from '../../../snippets/hover-card/solid/with-arrow.tsx?raw';
+import hoverCardVueBasic from '../../../snippets/hover-card/vue/basic.vue?raw';
+import hoverCardVueContext from '../../../snippets/hover-card/vue/context.vue?raw';
+import hoverCardVueControlled from '../../../snippets/hover-card/vue/controlled.vue?raw';
+import hoverCardVueDelay from '../../../snippets/hover-card/vue/delay.vue?raw';
+import hoverCardVueDialog from '../../../snippets/hover-card/vue/dialog.vue?raw';
+import hoverCardVueDisabled from '../../../snippets/hover-card/vue/disabled.vue?raw';
+import hoverCardVueMultipleTriggers from '../../../snippets/hover-card/vue/multiple-triggers.vue?raw';
+import hoverCardVuePositioning from '../../../snippets/hover-card/vue/positioning.vue?raw';
+import hoverCardVueRootProvider from '../../../snippets/hover-card/vue/root-provider.vue?raw';
+import hoverCardVueWithArrow from '../../../snippets/hover-card/vue/with-arrow.vue?raw';
 
 ## API Reference
 
@@ -56,6 +66,7 @@ available height while `HoverCardContent` stays overflow-visible for an optional
     values={[
       { label: 'React', value: 'react' },
       { label: 'Solid', value: 'solid' },
+      { label: 'Vue', value: 'vue' },
     ]}
     className="docs-tabs"
   >
@@ -68,6 +79,11 @@ available height while `HoverCardContent` stays overflow-visible for an optional
     <Tab value="solid">
 
 <CodeBlockRuntime lang="tsx" code={hoverCardSolidBasic} />
+
+    </Tab>
+    <Tab value="vue">
+
+<CodeBlockRuntime lang="vue" code={hoverCardVueBasic} />
 
     </Tab>
   </Tabs>
@@ -101,6 +117,16 @@ See [Quick Start](/docs/quick-start) for full package setup, registry configurat
   options={[
     { label: 'CSS Modules', command: 'shadcn@latest add @moduix-solid/hover-card' },
     { label: 'Tailwind CSS', command: 'shadcn@latest add @moduix-solid-tailwind/hover-card' },
+  ]}
+/>
+
+  </Tab>
+  <Tab label="Vue" value="vue">
+
+<ShadcnInstallOptions
+  options={[
+    { label: 'CSS Modules', command: 'shadcn@latest add @moduix-vue/hover-card' },
+    { label: 'Tailwind CSS', command: 'shadcn@latest add @moduix-vue-tailwind/hover-card' },
   ]}
 />
 
@@ -143,7 +169,7 @@ HoverCardRootProvider
 `HoverCard` owns the state and portals `HoverCardPositioner` by default. Set `portalled={false}`
 inside another overlay, or pass `portalRef` for a custom container. Use `HoverCardRootProvider`
 with `useHoverCard()` when state belongs outside the card tree; React reads the store as an object,
-while Solid reads it through its accessor.
+while Solid reads it through its accessor, and Vue exposes the reactive store directly to the template.
 
 Keep `HoverCardArrow` inside `HoverCardContent` and wrap long previews in `HoverCardBody`:
 `Content` stays overflow-visible for the arrow, while `Body` provides the scroll region. Use
@@ -169,6 +195,7 @@ structure.
     values={[
       { label: 'React', value: 'react' },
       { label: 'Solid', value: 'solid' },
+      { label: 'Vue', value: 'vue' },
     ]}
     className="docs-tabs"
   >
@@ -181,6 +208,11 @@ structure.
     <Tab value="solid">
 
 <CodeBlockRuntime lang="tsx" code={hoverCardSolidContext} />
+
+    </Tab>
+    <Tab value="vue">
+
+<CodeBlockRuntime lang="vue" code={hoverCardVueContext} />
 
     </Tab>
   </Tabs>
@@ -208,6 +240,7 @@ Control whether the card is open with `open` and `onOpenChange(details)`.
     values={[
       { label: 'React', value: 'react' },
       { label: 'Solid', value: 'solid' },
+      { label: 'Vue', value: 'vue' },
     ]}
     className="docs-tabs"
   >
@@ -220,6 +253,11 @@ Control whether the card is open with `open` and `onOpenChange(details)`.
     <Tab value="solid">
 
 <CodeBlockRuntime lang="tsx" code={hoverCardSolidControlled} />
+
+    </Tab>
+    <Tab value="vue">
+
+<CodeBlockRuntime lang="vue" code={hoverCardVueControlled} />
 
     </Tab>
   </Tabs>
@@ -247,6 +285,7 @@ Set `openDelay` and `closeDelay` on the root to adjust hover and focus timing.
     values={[
       { label: 'React', value: 'react' },
       { label: 'Solid', value: 'solid' },
+      { label: 'Vue', value: 'vue' },
     ]}
     className="docs-tabs"
   >
@@ -259,6 +298,11 @@ Set `openDelay` and `closeDelay` on the root to adjust hover and focus timing.
     <Tab value="solid">
 
 <CodeBlockRuntime lang="tsx" code={hoverCardSolidDelay} />
+
+    </Tab>
+    <Tab value="vue">
+
+<CodeBlockRuntime lang="vue" code={hoverCardVueDelay} />
 
     </Tab>
   </Tabs>
@@ -288,6 +332,7 @@ dialog's initial focus can land on the Hover Card trigger and open the card afte
     values={[
       { label: 'React', value: 'react' },
       { label: 'Solid', value: 'solid' },
+      { label: 'Vue', value: 'vue' },
     ]}
     className="docs-tabs"
   >
@@ -300,6 +345,11 @@ dialog's initial focus can land on the Hover Card trigger and open the card afte
     <Tab value="solid">
 
 <CodeBlockRuntime lang="tsx" code={hoverCardSolidDialog} />
+
+    </Tab>
+    <Tab value="vue">
+
+<CodeBlockRuntime lang="vue" code={hoverCardVueDialog} />
 
     </Tab>
   </Tabs>
@@ -327,6 +377,7 @@ Set `disabled` to prevent the card from opening while keeping the trigger visibl
     values={[
       { label: 'React', value: 'react' },
       { label: 'Solid', value: 'solid' },
+      { label: 'Vue', value: 'vue' },
     ]}
     className="docs-tabs"
   >
@@ -339,6 +390,11 @@ Set `disabled` to prevent the card from opening while keeping the trigger visibl
     <Tab value="solid">
 
 <CodeBlockRuntime lang="tsx" code={hoverCardSolidDisabled} />
+
+    </Tab>
+    <Tab value="vue">
+
+<CodeBlockRuntime lang="vue" code={hoverCardVueDisabled} />
 
     </Tab>
   </Tabs>
@@ -367,6 +423,7 @@ across several triggers.
     values={[
       { label: 'React', value: 'react' },
       { label: 'Solid', value: 'solid' },
+      { label: 'Vue', value: 'vue' },
     ]}
     className="docs-tabs"
   >
@@ -379,6 +436,11 @@ across several triggers.
     <Tab value="solid">
 
 <CodeBlockRuntime lang="tsx" code={hoverCardSolidMultipleTriggers} />
+
+    </Tab>
+    <Tab value="vue">
+
+<CodeBlockRuntime lang="vue" code={hoverCardVueMultipleTriggers} />
 
     </Tab>
   </Tabs>
@@ -406,6 +468,7 @@ Pass Ark positioning options through the `positioning` prop.
     values={[
       { label: 'React', value: 'react' },
       { label: 'Solid', value: 'solid' },
+      { label: 'Vue', value: 'vue' },
     ]}
     className="docs-tabs"
   >
@@ -418,6 +481,11 @@ Pass Ark positioning options through the `positioning` prop.
     <Tab value="solid">
 
 <CodeBlockRuntime lang="tsx" code={hoverCardSolidPositioning} />
+
+    </Tab>
+    <Tab value="vue">
+
+<CodeBlockRuntime lang="vue" code={hoverCardVuePositioning} />
 
     </Tab>
   </Tabs>
@@ -446,6 +514,7 @@ need to read or update its state.
     values={[
       { label: 'React', value: 'react' },
       { label: 'Solid', value: 'solid' },
+      { label: 'Vue', value: 'vue' },
     ]}
     className="docs-tabs"
   >
@@ -458,6 +527,11 @@ need to read or update its state.
     <Tab value="solid">
 
 <CodeBlockRuntime lang="tsx" code={hoverCardSolidRootProvider} />
+
+    </Tab>
+    <Tab value="vue">
+
+<CodeBlockRuntime lang="vue" code={hoverCardVueRootProvider} />
 
     </Tab>
   </Tabs>
@@ -487,6 +561,7 @@ trigger. The wrapper renders `HoverCardArrowTip` by default; keep the preview in
     values={[
       { label: 'React', value: 'react' },
       { label: 'Solid', value: 'solid' },
+      { label: 'Vue', value: 'vue' },
     ]}
     className="docs-tabs"
   >
@@ -501,6 +576,11 @@ trigger. The wrapper renders `HoverCardArrowTip` by default; keep the preview in
 <CodeBlockRuntime lang="tsx" code={hoverCardSolidWithArrow} />
 
     </Tab>
+    <Tab value="vue">
+
+<CodeBlockRuntime lang="vue" code={hoverCardVueWithArrow} />
+
+    </Tab>
   </Tabs>
 
 **Styles**
@@ -513,7 +593,7 @@ trigger. The wrapper renders `HoverCardArrowTip` by default; keep the preview in
 
 ## Styling
 
-Use `className` in React or `class` in Solid on exported parts for structural styles. Tailwind
+Use `className` in React or `class` in Solid and Vue on exported parts for structural styles. Tailwind
 variants use native utilities and consumer classes; the variables below customize the CSS Modules
 variants. Data attributes and `data-slot` hooks are shared by both styling tracks.
 

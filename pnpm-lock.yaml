@@ -647,6 +647,9 @@ importers:
       '@lucide/vue':
         specifier: 'catalog:'
         version: 1.47.0(vue@3.5.43(typescript@6.0.3))
+      '@unpic/core':
+        specifier: 'catalog:'
+        version: 1.0.3
       clsx:
         specifier: 'catalog:'
         version: 2.1.1
@@ -714,6 +717,9 @@ importers:
       '@lucide/vue':
         specifier: 'catalog:'
         version: 1.47.0(vue@3.5.43(typescript@6.0.3))
+      '@unpic/core':
+        specifier: 'catalog:'
+        version: 1.0.3
       class-variance-authority:
         specifier: 'catalog:'
         version: 0.7.1

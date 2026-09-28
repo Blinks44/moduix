@@ -25,6 +25,16 @@ import hoverCardSolidMultipleTriggers from '../../../snippets/hover-card/solid/m
 import hoverCardSolidPositioning from '../../../snippets/hover-card/solid/positioning.tsx?raw';
 import hoverCardSolidRootProvider from '../../../snippets/hover-card/solid/root-provider.tsx?raw';
 import hoverCardSolidWithArrow from '../../../snippets/hover-card/solid/with-arrow.tsx?raw';
+import hoverCardVueBasic from '../../../snippets/hover-card/vue/basic.vue?raw';
+import hoverCardVueContext from '../../../snippets/hover-card/vue/context.vue?raw';
+import hoverCardVueControlled from '../../../snippets/hover-card/vue/controlled.vue?raw';
+import hoverCardVueDelay from '../../../snippets/hover-card/vue/delay.vue?raw';
+import hoverCardVueDialog from '../../../snippets/hover-card/vue/dialog.vue?raw';
+import hoverCardVueDisabled from '../../../snippets/hover-card/vue/disabled.vue?raw';
+import hoverCardVueMultipleTriggers from '../../../snippets/hover-card/vue/multiple-triggers.vue?raw';
+import hoverCardVuePositioning from '../../../snippets/hover-card/vue/positioning.vue?raw';
+import hoverCardVueRootProvider from '../../../snippets/hover-card/vue/root-provider.vue?raw';
+import hoverCardVueWithArrow from '../../../snippets/hover-card/vue/with-arrow.vue?raw';
 
 ## Справочник API
 
@@ -56,6 +66,7 @@ import hoverCardSolidWithArrow from '../../../snippets/hover-card/solid/with-arr
     values={[
       { label: 'React', value: 'react' },
       { label: 'Solid', value: 'solid' },
+      { label: 'Vue', value: 'vue' },
     ]}
     className="docs-tabs"
   >
@@ -68,6 +79,11 @@ import hoverCardSolidWithArrow from '../../../snippets/hover-card/solid/with-arr
     <Tab value="solid">
 
 <CodeBlockRuntime lang="tsx" code={hoverCardSolidBasic} />
+
+    </Tab>
+    <Tab value="vue">
+
+<CodeBlockRuntime lang="vue" code={hoverCardVueBasic} />
 
     </Tab>
   </Tabs>
@@ -101,6 +117,16 @@ import hoverCardSolidWithArrow from '../../../snippets/hover-card/solid/with-arr
   options={[
     { label: 'CSS Modules', command: 'shadcn@latest add @moduix-solid/hover-card' },
     { label: 'Tailwind CSS', command: 'shadcn@latest add @moduix-solid-tailwind/hover-card' },
+  ]}
+/>
+
+  </Tab>
+  <Tab label="Vue" value="vue">
+
+<ShadcnInstallOptions
+  options={[
+    { label: 'CSS Modules', command: 'shadcn@latest add @moduix-vue/hover-card' },
+    { label: 'Tailwind CSS', command: 'shadcn@latest add @moduix-vue-tailwind/hover-card' },
   ]}
 />
 
@@ -144,7 +170,8 @@ HoverCardRootProvider
 `HoverCard` управляет состоянием и по умолчанию выводит `HoverCardPositioner` через портал.
 Передайте `portalled={false}` внутри другого слоя или укажите `portalRef` для собственного
 контейнера. Используйте `HoverCardRootProvider` с `useHoverCard()`, если состояние должно жить
-за пределами дерева карточки: React читает его как объект, а Solid через accessor.
+за пределами дерева карточки: React читает его как объект, Solid через accessor, а Vue напрямую
+предоставляет реактивное состояние шаблону.
 
 Оставляйте `HoverCardArrow` внутри `HoverCardContent`, а длинный предпросмотр помещайте в
 `HoverCardBody`: `Content` сохраняет видимость стрелки, а `Body` становится областью прокрутки.
@@ -170,6 +197,7 @@ HoverCardRootProvider
     values={[
       { label: 'React', value: 'react' },
       { label: 'Solid', value: 'solid' },
+      { label: 'Vue', value: 'vue' },
     ]}
     className="docs-tabs"
   >
@@ -182,6 +210,11 @@ HoverCardRootProvider
     <Tab value="solid">
 
 <CodeBlockRuntime lang="tsx" code={hoverCardSolidContext} />
+
+    </Tab>
+    <Tab value="vue">
+
+<CodeBlockRuntime lang="vue" code={hoverCardVueContext} />
 
     </Tab>
   </Tabs>
@@ -209,6 +242,7 @@ HoverCardRootProvider
     values={[
       { label: 'React', value: 'react' },
       { label: 'Solid', value: 'solid' },
+      { label: 'Vue', value: 'vue' },
     ]}
     className="docs-tabs"
   >
@@ -221,6 +255,11 @@ HoverCardRootProvider
     <Tab value="solid">
 
 <CodeBlockRuntime lang="tsx" code={hoverCardSolidControlled} />
+
+    </Tab>
+    <Tab value="vue">
+
+<CodeBlockRuntime lang="vue" code={hoverCardVueControlled} />
 
     </Tab>
   </Tabs>
@@ -248,6 +287,7 @@ HoverCardRootProvider
     values={[
       { label: 'React', value: 'react' },
       { label: 'Solid', value: 'solid' },
+      { label: 'Vue', value: 'vue' },
     ]}
     className="docs-tabs"
   >
@@ -260,6 +300,11 @@ HoverCardRootProvider
     <Tab value="solid">
 
 <CodeBlockRuntime lang="tsx" code={hoverCardSolidDelay} />
+
+    </Tab>
+    <Tab value="vue">
+
+<CodeBlockRuntime lang="vue" code={hoverCardVueDelay} />
 
     </Tab>
   </Tabs>
@@ -290,6 +335,7 @@ HoverCardRootProvider
     values={[
       { label: 'React', value: 'react' },
       { label: 'Solid', value: 'solid' },
+      { label: 'Vue', value: 'vue' },
     ]}
     className="docs-tabs"
   >
@@ -302,6 +348,11 @@ HoverCardRootProvider
     <Tab value="solid">
 
 <CodeBlockRuntime lang="tsx" code={hoverCardSolidDialog} />
+
+    </Tab>
+    <Tab value="vue">
+
+<CodeBlockRuntime lang="vue" code={hoverCardVueDialog} />
 
     </Tab>
   </Tabs>
@@ -330,6 +381,7 @@ HoverCardRootProvider
     values={[
       { label: 'React', value: 'react' },
       { label: 'Solid', value: 'solid' },
+      { label: 'Vue', value: 'vue' },
     ]}
     className="docs-tabs"
   >
@@ -342,6 +394,11 @@ HoverCardRootProvider
     <Tab value="solid">
 
 <CodeBlockRuntime lang="tsx" code={hoverCardSolidDisabled} />
+
+    </Tab>
+    <Tab value="vue">
+
+<CodeBlockRuntime lang="vue" code={hoverCardVueDisabled} />
 
     </Tab>
   </Tabs>
@@ -370,6 +427,7 @@ HoverCardRootProvider
     values={[
       { label: 'React', value: 'react' },
       { label: 'Solid', value: 'solid' },
+      { label: 'Vue', value: 'vue' },
     ]}
     className="docs-tabs"
   >
@@ -382,6 +440,11 @@ HoverCardRootProvider
     <Tab value="solid">
 
 <CodeBlockRuntime lang="tsx" code={hoverCardSolidMultipleTriggers} />
+
+    </Tab>
+    <Tab value="vue">
+
+<CodeBlockRuntime lang="vue" code={hoverCardVueMultipleTriggers} />
 
     </Tab>
   </Tabs>
@@ -409,6 +472,7 @@ HoverCardRootProvider
     values={[
       { label: 'React', value: 'react' },
       { label: 'Solid', value: 'solid' },
+      { label: 'Vue', value: 'vue' },
     ]}
     className="docs-tabs"
   >
@@ -421,6 +485,11 @@ HoverCardRootProvider
     <Tab value="solid">
 
 <CodeBlockRuntime lang="tsx" code={hoverCardSolidPositioning} />
+
+    </Tab>
+    <Tab value="vue">
+
+<CodeBlockRuntime lang="vue" code={hoverCardVuePositioning} />
 
     </Tab>
   </Tabs>
@@ -449,6 +518,7 @@ HoverCardRootProvider
     values={[
       { label: 'React', value: 'react' },
       { label: 'Solid', value: 'solid' },
+      { label: 'Vue', value: 'vue' },
     ]}
     className="docs-tabs"
   >
@@ -461,6 +531,11 @@ HoverCardRootProvider
     <Tab value="solid">
 
 <CodeBlockRuntime lang="tsx" code={hoverCardSolidRootProvider} />
+
+    </Tab>
+    <Tab value="vue">
+
+<CodeBlockRuntime lang="vue" code={hoverCardVueRootProvider} />
 
     </Tab>
   </Tabs>
@@ -491,6 +566,7 @@ HoverCardRootProvider
     values={[
       { label: 'React', value: 'react' },
       { label: 'Solid', value: 'solid' },
+      { label: 'Vue', value: 'vue' },
     ]}
     className="docs-tabs"
   >
@@ -505,6 +581,11 @@ HoverCardRootProvider
 <CodeBlockRuntime lang="tsx" code={hoverCardSolidWithArrow} />
 
     </Tab>
+    <Tab value="vue">
+
+<CodeBlockRuntime lang="vue" code={hoverCardVueWithArrow} />
+
+    </Tab>
   </Tabs>
 
 **Стили**
@@ -517,7 +598,7 @@ HoverCardRootProvider
 
 ## Стилизация
 
-Для структурных стилей используйте `className` в React или `class` в Solid на экспортируемых
+Для структурных стилей используйте `className` в React или `class` в Solid и Vue на экспортируемых
 частях. Варианты Tailwind используют нативные utility-классы и классы потребителя, а переменные
 ниже настраивают варианты CSS Modules. Атрибуты состояния и хуки `data-slot` общие для обоих
 вариантов стилизации.

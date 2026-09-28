@@ -13,10 +13,14 @@ import imageSolidArtDirection from '../../../snippets/image/solid/art-direction.
 import imageSolidBasic from '../../../snippets/image/solid/basic.tsx?raw';
 import imageSolidFixed from '../../../snippets/image/solid/fixed.tsx?raw';
 import imageSolidFullWidth from '../../../snippets/image/solid/full-width.tsx?raw';
+import imageVueArtDirection from '../../../snippets/image/vue/art-direction.vue?raw';
+import imageVueBasic from '../../../snippets/image/vue/basic.vue?raw';
+import imageVueFixed from '../../../snippets/image/vue/fixed.vue?raw';
+import imageVueFullWidth from '../../../snippets/image/vue/full-width.vue?raw';
 
 ## API Reference
 
-`Image` provides a thin moduix wrapper around the [Unpic image API](https://unpic.pics/img/react/).
+`Image` provides a thin moduix wrapper around the [Unpic image API](https://unpic.pics/img/).
 Ark UI does not provide a dedicated image primitive, so `Image` uses native `<img>` and `<picture>`
 composition instead of an Ark part. See Ark's [Composition guide](https://ark-ui.com/docs/guides/composition)
 for more on its native-element model.
@@ -39,6 +43,7 @@ The browser reserves space for the image before it loads.
     values={[
       { label: 'React', value: 'react' },
       { label: 'Solid', value: 'solid' },
+      { label: 'Vue', value: 'vue' },
     ]}
     className="docs-tabs"
   >
@@ -51,6 +56,11 @@ The browser reserves space for the image before it loads.
     <Tab value="solid">
 
 <CodeBlockRuntime lang="tsx" code={imageSolidBasic} />
+
+    </Tab>
+    <Tab value="vue">
+
+<CodeBlockRuntime lang="vue" code={imageVueBasic} />
 
     </Tab>
   </Tabs>
@@ -79,6 +89,16 @@ See [Quick Start](/docs/quick-start) for full package setup, registry configurat
   options={[
     { label: 'CSS Modules', command: 'shadcn@latest add @moduix-solid/image' },
     { label: 'Tailwind CSS', command: 'shadcn@latest add @moduix-solid-tailwind/image' },
+  ]}
+/>
+
+  </Tab>
+  <Tab label="Vue" value="vue">
+
+<ShadcnInstallOptions
+  options={[
+    { label: 'CSS Modules', command: 'shadcn@latest add @moduix-vue/image' },
+    { label: 'Tailwind CSS', command: 'shadcn@latest add @moduix-vue-tailwind/image' },
   ]}
 />
 
@@ -127,6 +147,7 @@ browsers that do not support AVIF. `ImageSource` must stay inside a native `<pic
     values={[
       { label: 'React', value: 'react' },
       { label: 'Solid', value: 'solid' },
+      { label: 'Vue', value: 'vue' },
     ]}
     className="docs-tabs"
   >
@@ -139,6 +160,11 @@ browsers that do not support AVIF. `ImageSource` must stay inside a native `<pic
     <Tab value="solid">
 
 <CodeBlockRuntime lang="tsx" code={imageSolidArtDirection} />
+
+    </Tab>
+    <Tab value="vue">
+
+<CodeBlockRuntime lang="vue" code={imageVueArtDirection} />
 
     </Tab>
   </Tabs>
@@ -167,6 +193,7 @@ has enough room, since fixed images do not shrink to fit a narrower container.
     values={[
       { label: 'React', value: 'react' },
       { label: 'Solid', value: 'solid' },
+      { label: 'Vue', value: 'vue' },
     ]}
     className="docs-tabs"
   >
@@ -179,6 +206,11 @@ has enough room, since fixed images do not shrink to fit a narrower container.
     <Tab value="solid">
 
 <CodeBlockRuntime lang="tsx" code={imageSolidFixed} />
+
+    </Tab>
+    <Tab value="vue">
+
+<CodeBlockRuntime lang="vue" code={imageVueFixed} />
 
     </Tab>
   </Tabs>
@@ -202,6 +234,7 @@ Supply `height` when the crop height must remain fixed.
     values={[
       { label: 'React', value: 'react' },
       { label: 'Solid', value: 'solid' },
+      { label: 'Vue', value: 'vue' },
     ]}
     className="docs-tabs"
   >
@@ -216,6 +249,11 @@ Supply `height` when the crop height must remain fixed.
 <CodeBlockRuntime lang="tsx" code={imageSolidFullWidth} />
 
     </Tab>
+    <Tab value="vue">
+
+<CodeBlockRuntime lang="vue" code={imageVueFullWidth} />
+
+    </Tab>
   </Tabs>
 </div>
 
@@ -223,7 +261,7 @@ Supply `height` when the crop height must remain fixed.
 
 ## Styling
 
-Use `className` in React or `class` in Solid on `Image` for local visual styles. `ImageSource`
+Use `className` in React or `class` in Solid and Vue on `Image` for local visual styles. `ImageSource`
 configures `srcset`, `media`, and `type`; style the fallback `Image` rather than the native `<source>`.
 Tailwind variants use native utilities and consumer classes. The `--moduix-image-radius` variable
 customizes the CSS Modules variants, while `data-slot` hooks are shared by both styling tracks.
@@ -236,4 +274,4 @@ customizes the CSS Modules variants, while `data-slot` hooks are shared by both 
 
 - `data-slot="image-root"` targets the rendered `<img>` for styling.
 - `data-slot="image-source"` targets the source node inside a native `<picture>`.
-- `className` in React and `class` in Solid are the recommended ways to apply local styles.
+- `className` in React and `class` in Solid and Vue are the recommended ways to apply local styles.

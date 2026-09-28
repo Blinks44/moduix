@@ -25,6 +25,16 @@ import hoverCardSolidMultipleTriggers from '../../../snippets/hover-card/solid/m
 import hoverCardSolidPositioning from '../../../snippets/hover-card/solid/positioning.tsx?raw';
 import hoverCardSolidRootProvider from '../../../snippets/hover-card/solid/root-provider.tsx?raw';
 import hoverCardSolidWithArrow from '../../../snippets/hover-card/solid/with-arrow.tsx?raw';
+import hoverCardVueBasic from '../../../snippets/hover-card/vue/basic.vue?raw';
+import hoverCardVueContext from '../../../snippets/hover-card/vue/context.vue?raw';
+import hoverCardVueControlled from '../../../snippets/hover-card/vue/controlled.vue?raw';
+import hoverCardVueDelay from '../../../snippets/hover-card/vue/delay.vue?raw';
+import hoverCardVueDialog from '../../../snippets/hover-card/vue/dialog.vue?raw';
+import hoverCardVueDisabled from '../../../snippets/hover-card/vue/disabled.vue?raw';
+import hoverCardVueMultipleTriggers from '../../../snippets/hover-card/vue/multiple-triggers.vue?raw';
+import hoverCardVuePositioning from '../../../snippets/hover-card/vue/positioning.vue?raw';
+import hoverCardVueRootProvider from '../../../snippets/hover-card/vue/root-provider.vue?raw';
+import hoverCardVueWithArrow from '../../../snippets/hover-card/vue/with-arrow.vue?raw';
 
 ## Référence de l’API
 
@@ -57,6 +67,7 @@ une flèche facultative.
     values={[
       { label: 'React', value: 'react' },
       { label: 'Solid', value: 'solid' },
+      { label: 'Vue', value: 'vue' },
     ]}
     className="docs-tabs"
   >
@@ -69,6 +80,11 @@ une flèche facultative.
     <Tab value="solid">
 
 <CodeBlockRuntime lang="tsx" code={hoverCardSolidBasic} />
+
+    </Tab>
+    <Tab value="vue">
+
+<CodeBlockRuntime lang="vue" code={hoverCardVueBasic} />
 
     </Tab>
   </Tabs>
@@ -102,6 +118,16 @@ Consultez le [Démarrage rapide](/docs/quick-start) pour la configuration compl�
   options={[
     { label: 'CSS Modules', command: 'shadcn@latest add @moduix-solid/hover-card' },
     { label: 'Tailwind CSS', command: 'shadcn@latest add @moduix-solid-tailwind/hover-card' },
+  ]}
+/>
+
+  </Tab>
+  <Tab label="Vue" value="vue">
+
+<ShadcnInstallOptions
+  options={[
+    { label: 'CSS Modules', command: 'shadcn@latest add @moduix-vue/hover-card' },
+    { label: 'Tailwind CSS', command: 'shadcn@latest add @moduix-vue-tailwind/hover-card' },
   ]}
 />
 
@@ -146,7 +172,7 @@ le nom de la famille dans le code de l’application.
 `portalled={false}` dans une autre fenêtre flottante, ou passez `portalRef` pour choisir un conteneur
 personnalisé. Utilisez `HoverCardRootProvider` avec `useHoverCard()` lorsque l’état doit vivre en
 dehors de l’arborescence de la carte : React lit le store comme un objet, tandis que Solid le lit
-via son accessor.
+via son accessor, et Vue expose directement l’état réactif dans le template.
 
 Gardez `HoverCardArrow` dans `HoverCardContent` et placez les aperçus longs dans
 `HoverCardBody` : `Content` laisse la flèche visible et `Body` devient la région défilable. Utilisez
@@ -172,6 +198,7 @@ structure visible.
     values={[
       { label: 'React', value: 'react' },
       { label: 'Solid', value: 'solid' },
+      { label: 'Vue', value: 'vue' },
     ]}
     className="docs-tabs"
   >
@@ -184,6 +211,11 @@ structure visible.
     <Tab value="solid">
 
 <CodeBlockRuntime lang="tsx" code={hoverCardSolidContext} />
+
+    </Tab>
+    <Tab value="vue">
+
+<CodeBlockRuntime lang="vue" code={hoverCardVueContext} />
 
     </Tab>
   </Tabs>
@@ -211,6 +243,7 @@ Contrôlez l’ouverture de la carte avec `open` et `onOpenChange(details)`.
     values={[
       { label: 'React', value: 'react' },
       { label: 'Solid', value: 'solid' },
+      { label: 'Vue', value: 'vue' },
     ]}
     className="docs-tabs"
   >
@@ -223,6 +256,11 @@ Contrôlez l’ouverture de la carte avec `open` et `onOpenChange(details)`.
     <Tab value="solid">
 
 <CodeBlockRuntime lang="tsx" code={hoverCardSolidControlled} />
+
+    </Tab>
+    <Tab value="vue">
+
+<CodeBlockRuntime lang="vue" code={hoverCardVueControlled} />
 
     </Tab>
   </Tabs>
@@ -250,6 +288,7 @@ Ajustez les délais d’ouverture et de fermeture avec `openDelay` et `closeDela
     values={[
       { label: 'React', value: 'react' },
       { label: 'Solid', value: 'solid' },
+      { label: 'Vue', value: 'vue' },
     ]}
     className="docs-tabs"
   >
@@ -262,6 +301,11 @@ Ajustez les délais d’ouverture et de fermeture avec `openDelay` et `closeDela
     <Tab value="solid">
 
 <CodeBlockRuntime lang="tsx" code={hoverCardSolidDelay} />
+
+    </Tab>
+    <Tab value="vue">
+
+<CodeBlockRuntime lang="vue" code={hoverCardVueDelay} />
 
     </Tab>
   </Tabs>
@@ -292,6 +336,7 @@ fermé jusqu’au survol ou à la réception du focus.
     values={[
       { label: 'React', value: 'react' },
       { label: 'Solid', value: 'solid' },
+      { label: 'Vue', value: 'vue' },
     ]}
     className="docs-tabs"
   >
@@ -304,6 +349,11 @@ fermé jusqu’au survol ou à la réception du focus.
     <Tab value="solid">
 
 <CodeBlockRuntime lang="tsx" code={hoverCardSolidDialog} />
+
+    </Tab>
+    <Tab value="vue">
+
+<CodeBlockRuntime lang="vue" code={hoverCardVueDialog} />
 
     </Tab>
   </Tabs>
@@ -332,6 +382,7 @@ déclencheur.
     values={[
       { label: 'React', value: 'react' },
       { label: 'Solid', value: 'solid' },
+      { label: 'Vue', value: 'vue' },
     ]}
     className="docs-tabs"
   >
@@ -344,6 +395,11 @@ déclencheur.
     <Tab value="solid">
 
 <CodeBlockRuntime lang="tsx" code={hoverCardSolidDisabled} />
+
+    </Tab>
+    <Tab value="vue">
+
+<CodeBlockRuntime lang="vue" code={hoverCardVueDisabled} />
 
     </Tab>
   </Tabs>
@@ -372,6 +428,7 @@ un même contenu entre plusieurs déclencheurs.
     values={[
       { label: 'React', value: 'react' },
       { label: 'Solid', value: 'solid' },
+      { label: 'Vue', value: 'vue' },
     ]}
     className="docs-tabs"
   >
@@ -384,6 +441,11 @@ un même contenu entre plusieurs déclencheurs.
     <Tab value="solid">
 
 <CodeBlockRuntime lang="tsx" code={hoverCardSolidMultipleTriggers} />
+
+    </Tab>
+    <Tab value="vue">
+
+<CodeBlockRuntime lang="vue" code={hoverCardVueMultipleTriggers} />
 
     </Tab>
   </Tabs>
@@ -411,6 +473,7 @@ Transmettez les options de positionnement d’Ark via la propriété `positionin
     values={[
       { label: 'React', value: 'react' },
       { label: 'Solid', value: 'solid' },
+      { label: 'Vue', value: 'vue' },
     ]}
     className="docs-tabs"
   >
@@ -423,6 +486,11 @@ Transmettez les options de positionnement d’Ark via la propriété `positionin
     <Tab value="solid">
 
 <CodeBlockRuntime lang="tsx" code={hoverCardSolidPositioning} />
+
+    </Tab>
+    <Tab value="vue">
+
+<CodeBlockRuntime lang="vue" code={hoverCardVuePositioning} />
 
     </Tab>
   </Tabs>
@@ -451,6 +519,7 @@ de l’interface situés en dehors de l’arborescence de la carte doivent lire 
     values={[
       { label: 'React', value: 'react' },
       { label: 'Solid', value: 'solid' },
+      { label: 'Vue', value: 'vue' },
     ]}
     className="docs-tabs"
   >
@@ -463,6 +532,11 @@ de l’interface situés en dehors de l’arborescence de la carte doivent lire 
     <Tab value="solid">
 
 <CodeBlockRuntime lang="tsx" code={hoverCardSolidRootProvider} />
+
+    </Tab>
+    <Tab value="vue">
+
+<CodeBlockRuntime lang="vue" code={hoverCardVueRootProvider} />
 
     </Tab>
   </Tabs>
@@ -493,6 +567,7 @@ permettant au contenu de défiler.
     values={[
       { label: 'React', value: 'react' },
       { label: 'Solid', value: 'solid' },
+      { label: 'Vue', value: 'vue' },
     ]}
     className="docs-tabs"
   >
@@ -507,6 +582,11 @@ permettant au contenu de défiler.
 <CodeBlockRuntime lang="tsx" code={hoverCardSolidWithArrow} />
 
     </Tab>
+    <Tab value="vue">
+
+<CodeBlockRuntime lang="vue" code={hoverCardVueWithArrow} />
+
+    </Tab>
   </Tabs>
 
 **Styles**
@@ -519,7 +599,7 @@ permettant au contenu de défiler.
 
 ## Styles
 
-Utilisez `className` en React ou `class` en Solid sur les parties exportées pour les styles
+Utilisez `className` en React ou `class` en Solid et Vue sur les parties exportées pour les styles
 structurels. Les variantes Tailwind utilisent les utilitaires natifs et les classes du consommateur ;
 les variables ci-dessous personnalisent les variantes CSS Modules. Les attributs d’état et les hooks
 `data-slot` sont communs aux deux modes de style.

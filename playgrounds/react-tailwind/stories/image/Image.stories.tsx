@@ -69,7 +69,7 @@ export const Unstyled: Story = {
 
 export const FullWidth: Story = {
   render: () => (
-    <div className="w-full max-w-[46rem]">
+    <div className="w-[min(46rem,calc(100vw-var(--moduix-spacing-8)))]">
       <Image
         src={architectureImage}
         alt="Sunlit modern office interior"

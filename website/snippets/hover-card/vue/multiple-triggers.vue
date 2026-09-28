@@ -1,0 +1,63 @@
+<script setup lang="ts">
+import {
+  HoverCard,
+  HoverCardBody,
+  HoverCardContent,
+  HoverCardPositioner,
+  HoverCardTrigger,
+} from '@moduix/vue/hover-card';
+import { ref } from 'vue';
+import styles from '@/components/examples/hover-card/hover-card-multiple-triggers.module.css';
+
+const profiles = [
+  {
+    id: 'sarah',
+    name: 'Design systems that scale',
+    username: '@sarah_chen',
+    description: 'A practical guide to building clear, consistent product experiences.',
+  },
+  {
+    id: 'alex',
+    name: 'Make room for better ideas',
+    username: '@alex_r',
+    description: 'A guide to calmer, more collaborative product work.',
+  },
+];
+
+const activeProfile = ref(profiles[0]);
+</script>
+
+<template>
+  <HoverCard
+    @trigger-value-change="
+      activeProfile = profiles.find((profile) => profile.id === $event.value) ?? profiles[0]
+    "
+  >
+    <p>
+      Reviewed by
+      <template v-for="(profile, index) in profiles" :key="profile.id">
+        <HoverCardTrigger :value="profile.id" :class="styles.trigger">
+          {{ profile.username }}
+        </HoverCardTrigger>
+        <template v-if="index < profiles.length - 1"> and </template>
+      </template>
+    </p>
+    <HoverCardPositioner>
+      <HoverCardContent>
+        <HoverCardBody>
+          <div :class="styles.preview">
+            <img
+              alt="Sunlit workspace with a laptop and plants"
+              src="https://images.unsplash.com/photo-1497366811353-6870744d04b2?auto=format&fit=crop&w=640&q=80"
+              :class="styles.image"
+            />
+            <div :class="styles.details">
+              <strong>{{ activeProfile.name }}</strong>
+              <p :class="styles.description">{{ activeProfile.description }}</p>
+            </div>
+          </div>
+        </HoverCardBody>
+      </HoverCardContent>
+    </HoverCardPositioner>
+  </HoverCard>
+</template>

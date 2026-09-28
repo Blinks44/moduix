@@ -17,6 +17,18 @@ import imageCropperSolidInitialCrop from '../../../snippets/image-cropper/solid/
 import imageCropperSolidMinAndMaxSize from '../../../snippets/image-cropper/solid/min-and-max-size.tsx?raw';
 import imageCropperSolidRootProvider from '../../../snippets/image-cropper/solid/root-provider.tsx?raw';
 import imageCropperSolidRotationFlipAndReset from '../../../snippets/image-cropper/solid/rotation-flip-and-reset.tsx?raw';
+import imageCropperVueAdvancedCustomization from '../../../snippets/image-cropper/vue/advanced-customization.vue?raw';
+import imageCropperVueAspectRatio from '../../../snippets/image-cropper/vue/aspect-ratio.vue?raw';
+import imageCropperVueBasic from '../../../snippets/image-cropper/vue/basic.vue?raw';
+import imageCropperVueCircleCrop from '../../../snippets/image-cropper/vue/circle-crop.vue?raw';
+import imageCropperVueControlledZoom from '../../../snippets/image-cropper/vue/controlled-zoom.vue?raw';
+import imageCropperVueCropPreview from '../../../snippets/image-cropper/vue/crop-preview.vue?raw';
+import imageCropperVueEvents from '../../../snippets/image-cropper/vue/events.vue?raw';
+import imageCropperVueFixedCropArea from '../../../snippets/image-cropper/vue/fixed-crop-area.vue?raw';
+import imageCropperVueInitialCrop from '../../../snippets/image-cropper/vue/initial-crop.vue?raw';
+import imageCropperVueMinAndMaxSize from '../../../snippets/image-cropper/vue/min-and-max-size.vue?raw';
+import imageCropperVueRootProvider from '../../../snippets/image-cropper/vue/root-provider.vue?raw';
+import imageCropperVueRotationFlipAndReset from '../../../snippets/image-cropper/vue/rotation-flip-and-reset.vue?raw';
 import ImageCropperAdvancedCustomization from '@/components/examples/image-cropper/advanced-customization.tsx';
 import ImageCropperAspectRatio from '@/components/examples/image-cropper/aspect-ratio.tsx';
 import ImageCropperBasic from '@/components/examples/image-cropper/basic.tsx';
@@ -47,7 +59,7 @@ redimensionnement.
 
 <ExampleCode>
 <div className="docs-reference">
-  <Tabs groupId="framework" values={[{ label: 'React', value: 'react' }, { label: 'Solid', value: 'solid' }]} className="docs-tabs">
+  <Tabs groupId="framework" values={[{ label: 'React', value: 'react' }, { label: 'Solid', value: 'solid' }, { label: 'Vue', value: 'vue' }]} className="docs-tabs">
     <Tab value="react">
 
 ```tsx pure file="../../../src/components/examples/image-cropper/basic.tsx"
@@ -57,6 +69,11 @@ redimensionnement.
     <Tab value="solid">
 
 <CodeBlockRuntime lang="tsx" code={imageCropperSolidBasic} />
+
+    </Tab>
+    <Tab value="vue">
+
+<CodeBlockRuntime lang="vue" code={imageCropperVueBasic} />
 
     </Tab>
   </Tabs>
@@ -89,6 +106,16 @@ Consultez le [Démarrage rapide](/docs/quick-start) pour la configuration compl�
   options={[
     { label: 'CSS Modules', command: 'shadcn@latest add @moduix-solid/image-cropper' },
     { label: 'Tailwind CSS', command: 'shadcn@latest add @moduix-solid-tailwind/image-cropper' },
+  ]}
+/>
+
+  </Tab>
+  <Tab label="Vue" value="vue">
+
+<ShadcnInstallOptions
+  options={[
+    { label: 'CSS Modules', command: 'shadcn@latest add @moduix-vue/image-cropper' },
+    { label: 'Tailwind CSS', command: 'shadcn@latest add @moduix-vue-tailwind/image-cropper' },
   ]}
 />
 
@@ -137,7 +164,7 @@ géré ailleurs dans l’application. Ark transmet la nouvelle valeur dans l’o
 ### Rapport d’aspect
 
 Définissez `aspectRatio` pour conserver un rapport largeur-hauteur précis. Modifiez-le depuis l’état
-React lorsque l’utilisateur choisit un format de sortie.
+React, Solid ou Vue lorsque l’utilisateur choisit un format de sortie.
 
 <ExampleFrame variant="component">
   <ImageCropperAspectRatio />
@@ -145,7 +172,7 @@ React lorsque l’utilisateur choisit un format de sortie.
 
 <ExampleCode>
 <div className="docs-reference">
-  <Tabs groupId="framework" values={[{ label: 'React', value: 'react' }, { label: 'Solid', value: 'solid' }]} className="docs-tabs">
+  <Tabs groupId="framework" values={[{ label: 'React', value: 'react' }, { label: 'Solid', value: 'solid' }, { label: 'Vue', value: 'vue' }]} className="docs-tabs">
     <Tab value="react">
 
 ```tsx pure file="../../../src/components/examples/image-cropper/aspect-ratio.tsx"
@@ -155,6 +182,11 @@ React lorsque l’utilisateur choisit un format de sortie.
     <Tab value="solid">
 
 <CodeBlockRuntime lang="tsx" code={imageCropperSolidAspectRatio} />
+
+    </Tab>
+    <Tab value="vue">
+
+<CodeBlockRuntime lang="vue" code={imageCropperVueAspectRatio} />
 
     </Tab>
   </Tabs>
@@ -177,7 +209,7 @@ Utilisez `cropShape="circle"` avec `aspectRatio={1}` pour les avatars et les ima
 
 <ExampleCode>
 <div className="docs-reference">
-  <Tabs groupId="framework" values={[{ label: 'React', value: 'react' }, { label: 'Solid', value: 'solid' }]} className="docs-tabs">
+  <Tabs groupId="framework" values={[{ label: 'React', value: 'react' }, { label: 'Solid', value: 'solid' }, { label: 'Vue', value: 'vue' }]} className="docs-tabs">
     <Tab value="react">
 
 ```tsx pure file="../../../src/components/examples/image-cropper/circle-crop.tsx"
@@ -187,6 +219,11 @@ Utilisez `cropShape="circle"` avec `aspectRatio={1}` pour les avatars et les ima
     <Tab value="solid">
 
 <CodeBlockRuntime lang="tsx" code={imageCropperSolidCircleCrop} />
+
+    </Tab>
+    <Tab value="vue">
+
+<CodeBlockRuntime lang="vue" code={imageCropperVueCircleCrop} />
 
     </Tab>
   </Tabs>
@@ -206,7 +243,7 @@ l’interface doivent modifier ou afficher le niveau de zoom. Limitez la plage a
 
 <ExampleCode>
 <div className="docs-reference">
-  <Tabs groupId="framework" values={[{ label: 'React', value: 'react' }, { label: 'Solid', value: 'solid' }]} className="docs-tabs">
+  <Tabs groupId="framework" values={[{ label: 'React', value: 'react' }, { label: 'Solid', value: 'solid' }, { label: 'Vue', value: 'vue' }]} className="docs-tabs">
     <Tab value="react">
 
 ```tsx pure file="../../../src/components/examples/image-cropper/controlled-zoom.tsx"
@@ -216,6 +253,11 @@ l’interface doivent modifier ou afficher le niveau de zoom. Limitez la plage a
     <Tab value="solid">
 
 <CodeBlockRuntime lang="tsx" code={imageCropperSolidControlledZoom} />
+
+    </Tab>
+    <Tab value="vue">
+
+<CodeBlockRuntime lang="vue" code={imageCropperVueControlledZoom} />
 
     </Tab>
   </Tabs>
@@ -241,7 +283,7 @@ et des données de transformation.
 
 <ExampleCode>
 <div className="docs-reference">
-  <Tabs groupId="framework" values={[{ label: 'React', value: 'react' }, { label: 'Solid', value: 'solid' }]} className="docs-tabs">
+  <Tabs groupId="framework" values={[{ label: 'React', value: 'react' }, { label: 'Solid', value: 'solid' }, { label: 'Vue', value: 'vue' }]} className="docs-tabs">
     <Tab value="react">
 
 ```tsx pure file="../../../src/components/examples/image-cropper/crop-preview.tsx"
@@ -251,6 +293,11 @@ et des données de transformation.
     <Tab value="solid">
 
 <CodeBlockRuntime lang="tsx" code={imageCropperSolidCropPreview} />
+
+    </Tab>
+    <Tab value="vue">
+
+<CodeBlockRuntime lang="vue" code={imageCropperVueCropPreview} />
 
     </Tab>
   </Tabs>
@@ -274,7 +321,7 @@ les synchroniser avec d’autres éléments de l’interface.
 
 <ExampleCode>
 <div className="docs-reference">
-  <Tabs groupId="framework" values={[{ label: 'React', value: 'react' }, { label: 'Solid', value: 'solid' }]} className="docs-tabs">
+  <Tabs groupId="framework" values={[{ label: 'React', value: 'react' }, { label: 'Solid', value: 'solid' }, { label: 'Vue', value: 'vue' }]} className="docs-tabs">
     <Tab value="react">
 
 ```tsx pure file="../../../src/components/examples/image-cropper/events.tsx"
@@ -284,6 +331,11 @@ les synchroniser avec d’autres éléments de l’interface.
     <Tab value="solid">
 
 <CodeBlockRuntime lang="tsx" code={imageCropperSolidEvents} />
+
+    </Tab>
+    <Tab value="vue">
+
+<CodeBlockRuntime lang="vue" code={imageCropperVueEvents} />
 
     </Tab>
   </Tabs>
@@ -307,7 +359,7 @@ l’utilisateur déplace l’image derrière elle.
 
 <ExampleCode>
 <div className="docs-reference">
-  <Tabs groupId="framework" values={[{ label: 'React', value: 'react' }, { label: 'Solid', value: 'solid' }]} className="docs-tabs">
+  <Tabs groupId="framework" values={[{ label: 'React', value: 'react' }, { label: 'Solid', value: 'solid' }, { label: 'Vue', value: 'vue' }]} className="docs-tabs">
     <Tab value="react">
 
 ```tsx pure file="../../../src/components/examples/image-cropper/fixed-crop-area.tsx"
@@ -317,6 +369,11 @@ l’utilisateur déplace l’image derrière elle.
     <Tab value="solid">
 
 <CodeBlockRuntime lang="tsx" code={imageCropperSolidFixedCropArea} />
+
+    </Tab>
+    <Tab value="vue">
+
+<CodeBlockRuntime lang="vue" code={imageCropperVueFixedCropArea} />
 
     </Tab>
   </Tabs>
@@ -335,7 +392,7 @@ en coordonnées de la zone d’affichage et en pixels.
 
 <ExampleCode>
 <div className="docs-reference">
-  <Tabs groupId="framework" values={[{ label: 'React', value: 'react' }, { label: 'Solid', value: 'solid' }]} className="docs-tabs">
+  <Tabs groupId="framework" values={[{ label: 'React', value: 'react' }, { label: 'Solid', value: 'solid' }, { label: 'Vue', value: 'vue' }]} className="docs-tabs">
     <Tab value="react">
 
 ```tsx pure file="../../../src/components/examples/image-cropper/initial-crop.tsx"
@@ -345,6 +402,11 @@ en coordonnées de la zone d’affichage et en pixels.
     <Tab value="solid">
 
 <CodeBlockRuntime lang="tsx" code={imageCropperSolidInitialCrop} />
+
+    </Tab>
+    <Tab value="vue">
+
+<CodeBlockRuntime lang="vue" code={imageCropperVueInitialCrop} />
 
     </Tab>
   </Tabs>
@@ -362,7 +424,7 @@ Limitez la taille de la zone avec `minWidth`, `minHeight`, `maxWidth` et `maxHei
 
 <ExampleCode>
 <div className="docs-reference">
-  <Tabs groupId="framework" values={[{ label: 'React', value: 'react' }, { label: 'Solid', value: 'solid' }]} className="docs-tabs">
+  <Tabs groupId="framework" values={[{ label: 'React', value: 'react' }, { label: 'Solid', value: 'solid' }, { label: 'Vue', value: 'vue' }]} className="docs-tabs">
     <Tab value="react">
 
 ```tsx pure file="../../../src/components/examples/image-cropper/min-and-max-size.tsx"
@@ -372,6 +434,11 @@ Limitez la taille de la zone avec `minWidth`, `minHeight`, `maxWidth` et `maxHei
     <Tab value="solid">
 
 <CodeBlockRuntime lang="tsx" code={imageCropperSolidMinAndMaxSize} />
+
+    </Tab>
+    <Tab value="vue">
+
+<CodeBlockRuntime lang="vue" code={imageCropperVueMinAndMaxSize} />
 
     </Tab>
   </Tabs>
@@ -390,7 +457,7 @@ ou un autre élément de l’interface doit piloter le recadrage en dehors de so
 
 <ExampleCode>
 <div className="docs-reference">
-  <Tabs groupId="framework" values={[{ label: 'React', value: 'react' }, { label: 'Solid', value: 'solid' }]} className="docs-tabs">
+  <Tabs groupId="framework" values={[{ label: 'React', value: 'react' }, { label: 'Solid', value: 'solid' }, { label: 'Vue', value: 'vue' }]} className="docs-tabs">
     <Tab value="react">
 
 ```tsx pure file="../../../src/components/examples/image-cropper/root-provider.tsx"
@@ -400,6 +467,11 @@ ou un autre élément de l’interface doit piloter le recadrage en dehors de so
     <Tab value="solid">
 
 <CodeBlockRuntime lang="tsx" code={imageCropperSolidRootProvider} />
+
+    </Tab>
+    <Tab value="vue">
+
+<CodeBlockRuntime lang="vue" code={imageCropperVueRootProvider} />
 
     </Tab>
   </Tabs>
@@ -416,7 +488,7 @@ ou un autre élément de l’interface doit piloter le recadrage en dehors de so
 
 Utilisez `ImageCropperContext` pour relier une barre d’outils aux actions de zoom, de rotation, de
 retournement et de réinitialisation. Dans cet exemple, la rotation et le retournement sont contrôlés
-depuis l’état React.
+depuis l’état React, Solid ou Vue.
 
 <ExampleFrame variant="component">
   <ImageCropperRotationFlipAndReset />
@@ -424,7 +496,7 @@ depuis l’état React.
 
 <ExampleCode>
 <div className="docs-reference">
-  <Tabs groupId="framework" values={[{ label: 'React', value: 'react' }, { label: 'Solid', value: 'solid' }]} className="docs-tabs">
+  <Tabs groupId="framework" values={[{ label: 'React', value: 'react' }, { label: 'Solid', value: 'solid' }, { label: 'Vue', value: 'vue' }]} className="docs-tabs">
     <Tab value="react">
 
 ```tsx pure file="../../../src/components/examples/image-cropper/rotation-flip-and-reset.tsx"
@@ -434,6 +506,11 @@ depuis l’état React.
     <Tab value="solid">
 
 <CodeBlockRuntime lang="tsx" code={imageCropperSolidRotationFlipAndReset} />
+
+    </Tab>
+    <Tab value="vue">
+
+<CodeBlockRuntime lang="vue" code={imageCropperVueRotationFlipAndReset} />
 
     </Tab>
   </Tabs>
@@ -458,7 +535,7 @@ enfants personnalisés. `ImageCropperGrid` requiert `axis` et `ImageCropperHandl
 
 <ExampleCode>
 <div className="docs-reference">
-  <Tabs groupId="framework" values={[{ label: 'React', value: 'react' }, { label: 'Solid', value: 'solid' }]} className="docs-tabs">
+  <Tabs groupId="framework" values={[{ label: 'React', value: 'react' }, { label: 'Solid', value: 'solid' }, { label: 'Vue', value: 'vue' }]} className="docs-tabs">
     <Tab value="react">
 
 ```tsx pure file="../../../src/components/examples/image-cropper/advanced-customization.tsx"
@@ -470,6 +547,11 @@ enfants personnalisés. `ImageCropperGrid` requiert `axis` et `ImageCropperHandl
 <CodeBlockRuntime lang="tsx" code={imageCropperSolidAdvancedCustomization} />
 
     </Tab>
+    <Tab value="vue">
+
+<CodeBlockRuntime lang="vue" code={imageCropperVueAdvancedCustomization} />
+
+    </Tab>
   </Tabs>
 </div>
 
@@ -477,7 +559,7 @@ enfants personnalisés. `ImageCropperGrid` requiert `axis` et `ImageCropperHandl
 
 ## Styles
 
-Pour les styles structurels, utilisez `className` en React ou `class` en Solid sur les parties
+Pour les styles structurels, utilisez `className` en React, `class` en Solid ou `class` en Vue sur les parties
 exportées. Les variantes Tailwind utilisent les utilitaires natifs et les classes de l’application ;
 les variantes CSS Modules se configurent avec les propriétés du composant ci-dessous. Les hooks
 `data-slot` et les attributs d’état Ark sont communs aux deux approches.
