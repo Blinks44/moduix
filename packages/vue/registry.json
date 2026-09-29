@@ -140,6 +140,71 @@
       ]
     },
     {
+      "name": "pagination",
+      "type": "registry:item",
+      "title": "Pagination",
+      "description": "moduix Vue Pagination component.",
+      "dependencies": ["@ark-ui/vue", "clsx"],
+      "registryDependencies": ["@moduix-vue/foundation", "@moduix-vue/icons"],
+      "files": [
+        {
+          "path": "src/components/pagination/Pagination.vue",
+          "target": "@components/ui/pagination/Pagination.vue",
+          "type": "registry:component"
+        },
+        {
+          "path": "src/components/pagination/PaginationRootProvider.vue",
+          "target": "@components/ui/pagination/PaginationRootProvider.vue",
+          "type": "registry:component"
+        },
+        {
+          "path": "src/components/pagination/PaginationItem.vue",
+          "target": "@components/ui/pagination/PaginationItem.vue",
+          "type": "registry:component"
+        },
+        {
+          "path": "src/components/pagination/PaginationEllipsis.vue",
+          "target": "@components/ui/pagination/PaginationEllipsis.vue",
+          "type": "registry:component"
+        },
+        {
+          "path": "src/components/pagination/PaginationFirstTrigger.vue",
+          "target": "@components/ui/pagination/PaginationFirstTrigger.vue",
+          "type": "registry:component"
+        },
+        {
+          "path": "src/components/pagination/PaginationPrevTrigger.vue",
+          "target": "@components/ui/pagination/PaginationPrevTrigger.vue",
+          "type": "registry:component"
+        },
+        {
+          "path": "src/components/pagination/PaginationNextTrigger.vue",
+          "target": "@components/ui/pagination/PaginationNextTrigger.vue",
+          "type": "registry:component"
+        },
+        {
+          "path": "src/components/pagination/PaginationLastTrigger.vue",
+          "target": "@components/ui/pagination/PaginationLastTrigger.vue",
+          "type": "registry:component"
+        },
+        {
+          "path": "src/components/pagination/PaginationItems.vue",
+          "target": "@components/ui/pagination/PaginationItems.vue",
+          "type": "registry:component"
+        },
+        {
+          "path": "src/components/pagination/Pagination.module.css",
+          "target": "@components/ui/pagination/Pagination.module.css",
+          "type": "registry:file"
+        },
+        {
+          "path": "src/components/pagination/index.ts",
+          "target": "@components/ui/pagination/index.ts",
+          "type": "registry:component"
+        }
+      ]
+    },
+    {
       "name": "listbox",
       "type": "registry:item",
       "title": "Listbox",
@@ -1506,6 +1571,76 @@
         {
           "path": "src/components/radio-group/index.ts",
           "target": "@components/ui/radio-group/index.ts",
+          "type": "registry:component"
+        }
+      ]
+    },
+    {
+      "name": "number-input",
+      "type": "registry:item",
+      "title": "NumberInput",
+      "description": "moduix Vue NumberInput component.",
+      "dependencies": ["@ark-ui/vue", "clsx"],
+      "registryDependencies": ["@moduix-vue/foundation", "@moduix-vue/icons"],
+      "files": [
+        {
+          "path": "src/components/number-input/NumberInput.vue",
+          "target": "@components/ui/number-input/NumberInput.vue",
+          "type": "registry:component"
+        },
+        {
+          "path": "src/components/number-input/NumberInputRootProvider.vue",
+          "target": "@components/ui/number-input/NumberInputRootProvider.vue",
+          "type": "registry:component"
+        },
+        {
+          "path": "src/components/number-input/NumberInputLabel.vue",
+          "target": "@components/ui/number-input/NumberInputLabel.vue",
+          "type": "registry:component"
+        },
+        {
+          "path": "src/components/number-input/NumberInputScrubber.vue",
+          "target": "@components/ui/number-input/NumberInputScrubber.vue",
+          "type": "registry:component"
+        },
+        {
+          "path": "src/components/number-input/NumberInputControl.vue",
+          "target": "@components/ui/number-input/NumberInputControl.vue",
+          "type": "registry:component"
+        },
+        {
+          "path": "src/components/number-input/NumberInputDecrementTrigger.vue",
+          "target": "@components/ui/number-input/NumberInputDecrementTrigger.vue",
+          "type": "registry:component"
+        },
+        {
+          "path": "src/components/number-input/NumberInputInput.vue",
+          "target": "@components/ui/number-input/NumberInputInput.vue",
+          "type": "registry:component"
+        },
+        {
+          "path": "src/components/number-input/NumberInputIncrementTrigger.vue",
+          "target": "@components/ui/number-input/NumberInputIncrementTrigger.vue",
+          "type": "registry:component"
+        },
+        {
+          "path": "src/components/number-input/NumberInputValueText.vue",
+          "target": "@components/ui/number-input/NumberInputValueText.vue",
+          "type": "registry:component"
+        },
+        {
+          "path": "src/components/number-input/NumberInputField.vue",
+          "target": "@components/ui/number-input/NumberInputField.vue",
+          "type": "registry:component"
+        },
+        {
+          "path": "src/components/number-input/NumberInput.module.css",
+          "target": "@components/ui/number-input/NumberInput.module.css",
+          "type": "registry:file"
+        },
+        {
+          "path": "src/components/number-input/index.ts",
+          "target": "@components/ui/number-input/index.ts",
           "type": "registry:component"
         }
       ]
@@ -3741,6 +3876,71 @@
           "path": "src/internal/overlayPortal/index.ts",
           "target": "@lib/moduix/overlayPortal/index.ts",
           "type": "registry:lib"
+        }
+      ]
+    },
+    {
+      "name": "password-input",
+      "type": "registry:item",
+      "title": "PasswordInput",
+      "description": "moduix Vue PasswordInput component.",
+      "dependencies": ["@ark-ui/vue", "clsx"],
+      "registryDependencies": ["@moduix-vue/foundation", "@moduix-vue/icons"],
+      "files": [
+        {
+          "path": "src/components/password-input/PasswordInput.vue",
+          "target": "@components/ui/password-input/PasswordInput.vue",
+          "type": "registry:component"
+        },
+        {
+          "path": "src/components/password-input/PasswordInputRootProvider.vue",
+          "target": "@components/ui/password-input/PasswordInputRootProvider.vue",
+          "type": "registry:component"
+        },
+        {
+          "path": "src/components/password-input/PasswordInputContext.vue",
+          "target": "@components/ui/password-input/PasswordInputContext.vue",
+          "type": "registry:component"
+        },
+        {
+          "path": "src/components/password-input/PasswordInputLabel.vue",
+          "target": "@components/ui/password-input/PasswordInputLabel.vue",
+          "type": "registry:component"
+        },
+        {
+          "path": "src/components/password-input/PasswordInputField.vue",
+          "target": "@components/ui/password-input/PasswordInputField.vue",
+          "type": "registry:component"
+        },
+        {
+          "path": "src/components/password-input/PasswordInputControl.vue",
+          "target": "@components/ui/password-input/PasswordInputControl.vue",
+          "type": "registry:component"
+        },
+        {
+          "path": "src/components/password-input/PasswordInputInput.vue",
+          "target": "@components/ui/password-input/PasswordInputInput.vue",
+          "type": "registry:component"
+        },
+        {
+          "path": "src/components/password-input/PasswordInputVisibilityTrigger.vue",
+          "target": "@components/ui/password-input/PasswordInputVisibilityTrigger.vue",
+          "type": "registry:component"
+        },
+        {
+          "path": "src/components/password-input/PasswordInputIndicator.vue",
+          "target": "@components/ui/password-input/PasswordInputIndicator.vue",
+          "type": "registry:component"
+        },
+        {
+          "path": "src/components/password-input/PasswordInput.module.css",
+          "target": "@components/ui/password-input/PasswordInput.module.css",
+          "type": "registry:file"
+        },
+        {
+          "path": "src/components/password-input/index.ts",
+          "target": "@components/ui/password-input/index.ts",
+          "type": "registry:component"
         }
       ]
     },

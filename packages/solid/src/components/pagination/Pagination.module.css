@@ -93,10 +93,10 @@
   .iconTrigger {
     width: var(--moduix-pagination-item-size, var(--moduix-size-md));
     padding-inline: 0;
+  }
 
-    &:dir(rtl) svg {
-      transform: scaleX(-1);
-    }
+  :global([dir='rtl']) .iconTrigger svg {
+    transform: scaleX(-1);
   }
 
   .ellipsis {

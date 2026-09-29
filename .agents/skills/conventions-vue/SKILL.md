@@ -109,8 +109,11 @@ Use this skill for JS/TS Vue work in this repo.
 - For a transparent Ark event surface, extend the exported Ark Vue emits interface through
   `/* @vue-ignore */` and pass it to `defineEmits`; inherited listeners then remain typed but fall
   through to Ark at runtime. Declare only moduix-owned or intercepted events as local emit members.
-  A runtime-declared emit consumes its listener from attrs, so explicitly forward or re-emit it
-  once. Never both forward and re-emit the same event.
+  When explicitly forwarding an Ark event, verify the compiled runtime `emits` option contains
+  that event; an imported Ark emits interface did not provide an extractable runtime declaration in
+  the NumberInput wrapper, so its forwarded event names and payloads had to be concrete local
+  members. A runtime-declared emit consumes its listener from attrs, so explicitly forward or
+  re-emit it once. Never both forward and re-emit the same event.
 - Keep Ark-owned `modelValue` and `update:modelValue` on the Ark surface. Do not add `defineModel`
   merely to proxy an existing Ark model, because doing so consumes the prop and event at the
   wrapper boundary. Use `defineModel` only for a genuinely moduix-owned model contract.

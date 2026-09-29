@@ -27,6 +27,17 @@ import paginationSolidPageRange from '../../../snippets/pagination/solid/page-ra
 import paginationSolidPageSizeControl from '../../../snippets/pagination/solid/page-size-control.tsx?raw';
 import paginationSolidRootProvider from '../../../snippets/pagination/solid/root-provider.tsx?raw';
 import paginationSolidWithEdges from '../../../snippets/pagination/solid/with-edges.tsx?raw';
+import paginationVueAdvancedCustomization from '../../../snippets/pagination/vue/advanced-customization.vue?raw';
+import paginationVueBasic from '../../../snippets/pagination/vue/basic.vue?raw';
+import paginationVueContext from '../../../snippets/pagination/vue/context.vue?raw';
+import paginationVueControlled from '../../../snippets/pagination/vue/controlled.vue?raw';
+import paginationVueCustomized from '../../../snippets/pagination/vue/customized.vue?raw';
+import paginationVueDataSlicing from '../../../snippets/pagination/vue/data-slicing.vue?raw';
+import paginationVueLink from '../../../snippets/pagination/vue/link.vue?raw';
+import paginationVuePageRange from '../../../snippets/pagination/vue/page-range.vue?raw';
+import paginationVuePageSizeControl from '../../../snippets/pagination/vue/page-size-control.vue?raw';
+import paginationVueRootProvider from '../../../snippets/pagination/vue/root-provider.vue?raw';
+import paginationVueWithEdges from '../../../snippets/pagination/vue/with-edges.vue?raw';
 
 ## API Reference
 
@@ -49,6 +60,7 @@ the current page range.
     values={[
       { label: 'React', value: 'react' },
       { label: 'Solid', value: 'solid' },
+      { label: 'Vue', value: 'vue' },
     ]}
     className="docs-tabs"
   >
@@ -61,6 +73,11 @@ the current page range.
     <Tab value="solid">
 
 <CodeBlockRuntime lang="tsx" code={paginationSolidBasic} />
+
+    </Tab>
+    <Tab value="vue">
+
+<CodeBlockRuntime lang="vue" code={paginationVueBasic} />
 
     </Tab>
   </Tabs>
@@ -94,6 +111,16 @@ See [Quick Start](/docs/quick-start) for full package setup, registry configurat
   options={[
     { label: 'CSS Modules', command: 'shadcn@latest add @moduix-solid/pagination' },
     { label: 'Tailwind CSS', command: 'shadcn@latest add @moduix-solid-tailwind/pagination' },
+  ]}
+/>
+
+  </Tab>
+  <Tab label="Vue" value="vue">
+
+<ShadcnInstallOptions
+  options={[
+    { label: 'CSS Modules', command: 'shadcn@latest add @moduix-vue/pagination' },
+    { label: 'Tailwind CSS', command: 'shadcn@latest add @moduix-vue-tailwind/pagination' },
   ]}
 />
 
@@ -144,6 +171,9 @@ nearby controls need custom rendering. If state must be created outside the rend
 with `usePagination()` and pass it to `PaginationRootProvider`. For URL navigation, set
 `type="link"`, provide `getPageUrl(details)`, and render semantic anchors with `asChild`.
 
+In Vue, use `v-model:page` and `v-model:page-size` for controlled state. The `pageChange` and
+`pageSizeChange` events are exposed as `@page-change` and `@page-size-change`.
+
 ## Examples
 
 ### Controlled
@@ -161,6 +191,7 @@ Pass the active page with `page` and update it in `onPageChange(details)`.
     values={[
       { label: 'React', value: 'react' },
       { label: 'Solid', value: 'solid' },
+      { label: 'Vue', value: 'vue' },
     ]}
     className="docs-tabs"
   >
@@ -173,6 +204,11 @@ Pass the active page with `page` and update it in `onPageChange(details)`.
     <Tab value="solid">
 
 <CodeBlockRuntime lang="tsx" code={paginationSolidControlled} />
+
+    </Tab>
+    <Tab value="vue">
+
+<CodeBlockRuntime lang="vue" code={paginationVueControlled} />
 
     </Tab>
   </Tabs>
@@ -201,6 +237,7 @@ Use `PaginationContext` to place custom controls next to the page list and call 
     values={[
       { label: 'React', value: 'react' },
       { label: 'Solid', value: 'solid' },
+      { label: 'Vue', value: 'vue' },
     ]}
     className="docs-tabs"
   >
@@ -213,6 +250,11 @@ Use `PaginationContext` to place custom controls next to the page list and call 
     <Tab value="solid">
 
 <CodeBlockRuntime lang="tsx" code={paginationSolidContext} />
+
+    </Tab>
+    <Tab value="vue">
+
+<CodeBlockRuntime lang="vue" code={paginationVueContext} />
 
     </Tab>
   </Tabs>
@@ -236,6 +278,7 @@ belongs to the current page.
     values={[
       { label: 'React', value: 'react' },
       { label: 'Solid', value: 'solid' },
+      { label: 'Vue', value: 'vue' },
     ]}
     className="docs-tabs"
   >
@@ -248,6 +291,11 @@ belongs to the current page.
     <Tab value="solid">
 
 <CodeBlockRuntime lang="tsx" code={paginationSolidDataSlicing} />
+
+    </Tab>
+    <Tab value="vue">
+
+<CodeBlockRuntime lang="vue" code={paginationVueDataSlicing} />
 
     </Tab>
   </Tabs>
@@ -276,6 +324,7 @@ navigate to a real URL.
     values={[
       { label: 'React', value: 'react' },
       { label: 'Solid', value: 'solid' },
+      { label: 'Vue', value: 'vue' },
     ]}
     className="docs-tabs"
   >
@@ -288,6 +337,11 @@ navigate to a real URL.
     <Tab value="solid">
 
 <CodeBlockRuntime lang="tsx" code={paginationSolidLink} />
+
+    </Tab>
+    <Tab value="vue">
+
+<CodeBlockRuntime lang="vue" code={paginationVueLink} />
 
     </Tab>
   </Tabs>
@@ -315,6 +369,7 @@ Use `pagination.pageRange` to show which items are visible on the current page.
     values={[
       { label: 'React', value: 'react' },
       { label: 'Solid', value: 'solid' },
+      { label: 'Vue', value: 'vue' },
     ]}
     className="docs-tabs"
   >
@@ -327,6 +382,11 @@ Use `pagination.pageRange` to show which items are visible on the current page.
     <Tab value="solid">
 
 <CodeBlockRuntime lang="tsx" code={paginationSolidPageRange} />
+
+    </Tab>
+    <Tab value="vue">
+
+<CodeBlockRuntime lang="vue" code={paginationVuePageRange} />
 
     </Tab>
   </Tabs>
@@ -355,6 +415,7 @@ items per page.
     values={[
       { label: 'React', value: 'react' },
       { label: 'Solid', value: 'solid' },
+      { label: 'Vue', value: 'vue' },
     ]}
     className="docs-tabs"
   >
@@ -367,6 +428,11 @@ items per page.
     <Tab value="solid">
 
 <CodeBlockRuntime lang="tsx" code={paginationSolidPageSizeControl} />
+
+    </Tab>
+    <Tab value="vue">
+
+<CodeBlockRuntime lang="vue" code={paginationVuePageSizeControl} />
 
     </Tab>
   </Tabs>
@@ -395,6 +461,7 @@ state owner lives outside the rendered pagination tree.
     values={[
       { label: 'React', value: 'react' },
       { label: 'Solid', value: 'solid' },
+      { label: 'Vue', value: 'vue' },
     ]}
     className="docs-tabs"
   >
@@ -407,6 +474,11 @@ state owner lives outside the rendered pagination tree.
     <Tab value="solid">
 
 <CodeBlockRuntime lang="tsx" code={paginationSolidRootProvider} />
+
+    </Tab>
+    <Tab value="vue">
+
+<CodeBlockRuntime lang="vue" code={paginationVueRootProvider} />
 
     </Tab>
   </Tabs>
@@ -435,6 +507,7 @@ Use `translations` to customize accessible labels. Adjust the visible page windo
     values={[
       { label: 'React', value: 'react' },
       { label: 'Solid', value: 'solid' },
+      { label: 'Vue', value: 'vue' },
     ]}
     className="docs-tabs"
   >
@@ -447,6 +520,11 @@ Use `translations` to customize accessible labels. Adjust the visible page windo
     <Tab value="solid">
 
 <CodeBlockRuntime lang="tsx" code={paginationSolidCustomized} />
+
+    </Tab>
+    <Tab value="vue">
+
+<CodeBlockRuntime lang="vue" code={paginationVueCustomized} />
 
     </Tab>
   </Tabs>
@@ -475,6 +553,7 @@ and last page.
     values={[
       { label: 'React', value: 'react' },
       { label: 'Solid', value: 'solid' },
+      { label: 'Vue', value: 'vue' },
     ]}
     className="docs-tabs"
   >
@@ -487,6 +566,11 @@ and last page.
     <Tab value="solid">
 
 <CodeBlockRuntime lang="tsx" code={paginationSolidWithEdges} />
+
+    </Tab>
+    <Tab value="vue">
+
+<CodeBlockRuntime lang="vue" code={paginationVueWithEdges} />
 
     </Tab>
   </Tabs>
@@ -516,6 +600,7 @@ accessibility behavior.
     values={[
       { label: 'React', value: 'react' },
       { label: 'Solid', value: 'solid' },
+      { label: 'Vue', value: 'vue' },
     ]}
     className="docs-tabs"
   >
@@ -528,6 +613,11 @@ accessibility behavior.
     <Tab value="solid">
 
 <CodeBlockRuntime lang="tsx" code={paginationSolidAdvancedCustomization} />
+
+    </Tab>
+    <Tab value="vue">
+
+<CodeBlockRuntime lang="vue" code={paginationVueAdvancedCustomization} />
 
     </Tab>
   </Tabs>

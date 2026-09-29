@@ -57,6 +57,14 @@
       "types": "./dist/components/accordion/index.d.ts",
       "import": "./dist/components/accordion/index.js"
     },
+    "./pagination": {
+      "types": "./dist/components/pagination/index.d.ts",
+      "import": "./dist/components/pagination/index.js"
+    },
+    "./password-input": {
+      "types": "./dist/components/password-input/index.d.ts",
+      "import": "./dist/components/password-input/index.js"
+    },
     "./listbox": {
       "types": "./dist/components/listbox/index.d.ts",
       "import": "./dist/components/listbox/index.js"
@@ -116,6 +124,10 @@
     "./native-select": {
       "types": "./dist/components/native-select/index.d.ts",
       "import": "./dist/components/native-select/index.js"
+    },
+    "./number-input": {
+      "types": "./dist/components/number-input/index.d.ts",
+      "import": "./dist/components/number-input/index.js"
     },
     "./rating-group": {
       "types": "./dist/components/rating-group/index.d.ts",
