@@ -33,6 +33,20 @@ import popoverSolidPlacement from '../../../snippets/popover/solid/placement.tsx
 import popoverSolidRootProvider from '../../../snippets/popover/solid/root-provider.tsx?raw';
 import popoverSolidSameWidth from '../../../snippets/popover/solid/same-width.tsx?raw';
 import popoverSolidWithArrow from '../../../snippets/popover/solid/with-arrow.tsx?raw';
+import popoverVueAdvancedCustomization from '../../../snippets/popover/vue/advanced-customization.vue?raw';
+import popoverVueAnchor from '../../../snippets/popover/vue/anchor.vue?raw';
+import popoverVueBasic from '../../../snippets/popover/vue/basic.vue?raw';
+import popoverVueCloseBehavior from '../../../snippets/popover/vue/close-behavior.vue?raw';
+import popoverVueContext from '../../../snippets/popover/vue/context.vue?raw';
+import popoverVueControlled from '../../../snippets/popover/vue/controlled.vue?raw';
+import popoverVueLazyMount from '../../../snippets/popover/vue/lazy-mount.vue?raw';
+import popoverVueModal from '../../../snippets/popover/vue/modal.vue?raw';
+import popoverVueMultipleTriggers from '../../../snippets/popover/vue/multiple-triggers.vue?raw';
+import popoverVueNested from '../../../snippets/popover/vue/nested.vue?raw';
+import popoverVuePlacement from '../../../snippets/popover/vue/placement.vue?raw';
+import popoverVueRootProvider from '../../../snippets/popover/vue/root-provider.vue?raw';
+import popoverVueSameWidth from '../../../snippets/popover/vue/same-width.vue?raw';
+import popoverVueWithArrow from '../../../snippets/popover/vue/with-arrow.vue?raw';
 
 ## API Reference
 
@@ -44,7 +58,6 @@ Use `Popover` for compact interactive content that opens from a trigger. Use `To
 non-interactive hints. Use `Dialog` for larger workflows that need the user's full attention.
 
 ## Basic
-
 
 Use `Popover` as the root and import each additional part directly, such as `PopoverTrigger` and
 `PopoverContent`. The same flat names work with npm packages and shadcn registry source. Set
@@ -61,6 +74,7 @@ positioning on the root and use `asChild` when your own button should render the
     values={[
       { label: 'React', value: 'react' },
       { label: 'Solid', value: 'solid' },
+      { label: 'Vue', value: 'vue' },
     ]}
     className="docs-tabs"
   >
@@ -75,6 +89,7 @@ positioning on the root and use `asChild` when your own button should render the
 <CodeBlockRuntime lang="tsx" code={popoverSolidBasic} />
 
     </Tab>
+<Tab value="vue"><CodeBlockRuntime lang="vue" code={popoverVueBasic} /></Tab>
   </Tabs>
 
 </div>
@@ -105,6 +120,14 @@ See [Quick Start](/docs/quick-start) for full package setup, registry configurat
   ]}
 />
 
+  </Tab>
+  <Tab label="Vue" value="vue">
+<ShadcnInstallOptions
+  options={[
+    { label: 'CSS Modules', command: 'shadcn@latest add @moduix-vue/popover' },
+    { label: 'Tailwind CSS', command: 'shadcn@latest add @moduix-vue-tailwind/popover' },
+  ]}
+/>
   </Tab>
 </Tabs>
 
@@ -183,6 +206,7 @@ Use `PopoverAnchor` when a different element should provide the positioning refe
     values={[
       { label: 'React', value: 'react' },
       { label: 'Solid', value: 'solid' },
+      { label: 'Vue', value: 'vue' },
     ]}
     className="docs-tabs"
   >
@@ -197,6 +221,7 @@ Use `PopoverAnchor` when a different element should provide the positioning refe
 <CodeBlockRuntime lang="tsx" code={popoverSolidAnchor} />
 
     </Tab>
+<Tab value="vue"><CodeBlockRuntime lang="vue" code={popoverVueAnchor} /></Tab>
   </Tabs>
 
 **Styles**
@@ -223,6 +248,7 @@ close action.
     values={[
       { label: 'React', value: 'react' },
       { label: 'Solid', value: 'solid' },
+      { label: 'Vue', value: 'vue' },
     ]}
     className="docs-tabs"
   >
@@ -237,6 +263,7 @@ close action.
 <CodeBlockRuntime lang="tsx" code={popoverSolidCloseBehavior} />
 
     </Tab>
+<Tab value="vue"><CodeBlockRuntime lang="vue" code={popoverVueCloseBehavior} /></Tab>
   </Tabs>
 </div>
 
@@ -258,6 +285,7 @@ Use `usePopoverContext()` inside a descendant that needs the current popover sta
     values={[
       { label: 'React', value: 'react' },
       { label: 'Solid', value: 'solid' },
+      { label: 'Vue', value: 'vue' },
     ]}
     className="docs-tabs"
   >
@@ -272,6 +300,7 @@ Use `usePopoverContext()` inside a descendant that needs the current popover sta
 <CodeBlockRuntime lang="tsx" code={popoverSolidContext} />
 
     </Tab>
+<Tab value="vue"><CodeBlockRuntime lang="vue" code={popoverVueContext} /></Tab>
   </Tabs>
 </div>
 
@@ -293,6 +322,7 @@ popover with the rest of the application.
     values={[
       { label: 'React', value: 'react' },
       { label: 'Solid', value: 'solid' },
+      { label: 'Vue', value: 'vue' },
     ]}
     className="docs-tabs"
   >
@@ -307,6 +337,7 @@ popover with the rest of the application.
 <CodeBlockRuntime lang="tsx" code={popoverSolidControlled} />
 
     </Tab>
+<Tab value="vue"><CodeBlockRuntime lang="vue" code={popoverVueControlled} /></Tab>
   </Tabs>
 
 **Styles**
@@ -333,6 +364,7 @@ in use.
     values={[
       { label: 'React', value: 'react' },
       { label: 'Solid', value: 'solid' },
+      { label: 'Vue', value: 'vue' },
     ]}
     className="docs-tabs"
   >
@@ -347,6 +379,7 @@ in use.
 <CodeBlockRuntime lang="tsx" code={popoverSolidLazyMount} />
 
     </Tab>
+<Tab value="vue"><CodeBlockRuntime lang="vue" code={popoverVueLazyMount} /></Tab>
   </Tabs>
 </div>
 
@@ -369,6 +402,7 @@ target.
     values={[
       { label: 'React', value: 'react' },
       { label: 'Solid', value: 'solid' },
+      { label: 'Vue', value: 'vue' },
     ]}
     className="docs-tabs"
   >
@@ -383,6 +417,7 @@ target.
 <CodeBlockRuntime lang="tsx" code={popoverSolidModal} />
 
     </Tab>
+<Tab value="vue"><CodeBlockRuntime lang="vue" code={popoverVueModal} /></Tab>
   </Tabs>
 
 **Styles**
@@ -409,6 +444,7 @@ the active value.
     values={[
       { label: 'React', value: 'react' },
       { label: 'Solid', value: 'solid' },
+      { label: 'Vue', value: 'vue' },
     ]}
     className="docs-tabs"
   >
@@ -423,6 +459,7 @@ the active value.
 <CodeBlockRuntime lang="tsx" code={popoverSolidMultipleTriggers} />
 
     </Tab>
+<Tab value="vue"><CodeBlockRuntime lang="vue" code={popoverVueMultipleTriggers} /></Tab>
   </Tabs>
 
 **Styles**
@@ -449,6 +486,7 @@ stays inside the parent overlay and participates in its layer structure.
     values={[
       { label: 'React', value: 'react' },
       { label: 'Solid', value: 'solid' },
+      { label: 'Vue', value: 'vue' },
     ]}
     className="docs-tabs"
   >
@@ -463,6 +501,7 @@ stays inside the parent overlay and participates in its layer structure.
 <CodeBlockRuntime lang="tsx" code={popoverSolidNested} />
 
     </Tab>
+<Tab value="vue"><CodeBlockRuntime lang="vue" code={popoverVueNested} /></Tab>
   </Tabs>
 
 **Styles**
@@ -488,6 +527,7 @@ Pass Ark positioning options through the root's `positioning` prop.
     values={[
       { label: 'React', value: 'react' },
       { label: 'Solid', value: 'solid' },
+      { label: 'Vue', value: 'vue' },
     ]}
     className="docs-tabs"
   >
@@ -502,6 +542,7 @@ Pass Ark positioning options through the root's `positioning` prop.
 <CodeBlockRuntime lang="tsx" code={popoverSolidPlacement} />
 
     </Tab>
+<Tab value="vue"><CodeBlockRuntime lang="vue" code={popoverVuePlacement} /></Tab>
   </Tabs>
 </div>
 
@@ -523,6 +564,7 @@ or update its state.
     values={[
       { label: 'React', value: 'react' },
       { label: 'Solid', value: 'solid' },
+      { label: 'Vue', value: 'vue' },
     ]}
     className="docs-tabs"
   >
@@ -537,6 +579,7 @@ or update its state.
 <CodeBlockRuntime lang="tsx" code={popoverSolidRootProvider} />
 
     </Tab>
+<Tab value="vue"><CodeBlockRuntime lang="vue" code={popoverVueRootProvider} /></Tab>
   </Tabs>
 
 **Styles**
@@ -562,6 +605,7 @@ Set `positioning.sameWidth` when the content should match its trigger width.
     values={[
       { label: 'React', value: 'react' },
       { label: 'Solid', value: 'solid' },
+      { label: 'Vue', value: 'vue' },
     ]}
     className="docs-tabs"
   >
@@ -576,6 +620,7 @@ Set `positioning.sameWidth` when the content should match its trigger width.
 <CodeBlockRuntime lang="tsx" code={popoverSolidSameWidth} />
 
     </Tab>
+<Tab value="vue"><CodeBlockRuntime lang="vue" code={popoverVueSameWidth} /></Tab>
   </Tabs>
 
 **Styles**
@@ -602,6 +647,7 @@ renders the default moduix-styled `PopoverArrowTip`.
     values={[
       { label: 'React', value: 'react' },
       { label: 'Solid', value: 'solid' },
+      { label: 'Vue', value: 'vue' },
     ]}
     className="docs-tabs"
   >
@@ -616,6 +662,7 @@ renders the default moduix-styled `PopoverArrowTip`.
 <CodeBlockRuntime lang="tsx" code={popoverSolidWithArrow} />
 
     </Tab>
+<Tab value="vue"><CodeBlockRuntime lang="vue" code={popoverVueWithArrow} /></Tab>
   </Tabs>
 </div>
 
@@ -638,6 +685,7 @@ need a visual pointer.
     values={[
       { label: 'React', value: 'react' },
       { label: 'Solid', value: 'solid' },
+      { label: 'Vue', value: 'vue' },
     ]}
     className="docs-tabs"
   >
@@ -652,6 +700,7 @@ need a visual pointer.
 <CodeBlockRuntime lang="tsx" code={popoverSolidAdvancedCustomization} />
 
     </Tab>
+<Tab value="vue"><CodeBlockRuntime lang="vue" code={popoverVueAdvancedCustomization} /></Tab>
   </Tabs>
 
 **Styles**
@@ -664,7 +713,7 @@ need a visual pointer.
 
 ## Styling
 
-Use `className` in React or `class` in Solid on exported parts for structural styles. Tailwind
+Use `className` in React or `class` in Solid and Vue on exported parts for structural styles. Tailwind
 variants use native utilities and consumer classes. The CSS variables below customize the CSS
 Modules variants, while Ark data attributes and moduix `data-slot` hooks are shared by both styling
 tracks.

@@ -23,6 +23,15 @@ import progressLinearSolidStateViews from '../../../snippets/progress-linear/sol
 import progressLinearSolidValueText from '../../../snippets/progress-linear/solid/value-text.tsx?raw';
 import progressLinearSolidVertical from '../../../snippets/progress-linear/solid/vertical.tsx?raw';
 import progressLinearSolidRootProvider from '../../../snippets/progress-linear/solid/root-provider.tsx?raw';
+import progressLinearVueBasic from '../../../snippets/progress-linear/vue/basic.vue?raw';
+import progressLinearVueControlled from '../../../snippets/progress-linear/vue/controlled.vue?raw';
+import progressLinearVueIndeterminate from '../../../snippets/progress-linear/vue/indeterminate.vue?raw';
+import progressLinearVueInitialValue from '../../../snippets/progress-linear/vue/initial-value.vue?raw';
+import progressLinearVueMinMax from '../../../snippets/progress-linear/vue/min-max.vue?raw';
+import progressLinearVueStateViews from '../../../snippets/progress-linear/vue/state-views.vue?raw';
+import progressLinearVueValueText from '../../../snippets/progress-linear/vue/value-text.vue?raw';
+import progressLinearVueVertical from '../../../snippets/progress-linear/vue/vertical.vue?raw';
+import progressLinearVueRootProvider from '../../../snippets/progress-linear/vue/root-provider.vue?raw';
 
 ## Справочник API
 
@@ -39,6 +48,7 @@ import progressLinearSolidRootProvider from '../../../snippets/progress-linear/s
 
 Соберите индикатор из явных частей `ProgressLinearLabel`, `ProgressLinearValueText`, `ProgressLinearTrack` и `ProgressLinearRange`. Задайте для `ProgressLinearTrack`
 доступное имя, которое описывает задачу.
+React, Solid и Vue используют одинаковые плоские имена частей; во Vue применяются нативные `class`, слоты и `v-model`, когда они нужны.
 
 <ExampleFrame variant="component">
   <ProgressLinearBasic />
@@ -51,6 +61,7 @@ import progressLinearSolidRootProvider from '../../../snippets/progress-linear/s
     values={[
       { label: 'React', value: 'react' },
       { label: 'Solid', value: 'solid' },
+      { label: 'Vue', value: 'vue' },
     ]}
     className="docs-tabs"
   >
@@ -63,6 +74,11 @@ import progressLinearSolidRootProvider from '../../../snippets/progress-linear/s
     <Tab value="solid">
 
 <CodeBlockRuntime lang="tsx" code={progressLinearSolidBasic} />
+
+    </Tab>
+    <Tab value="vue">
+
+<CodeBlockRuntime lang="vue" code={progressLinearVueBasic} />
 
     </Tab>
   </Tabs>
@@ -91,6 +107,16 @@ import progressLinearSolidRootProvider from '../../../snippets/progress-linear/s
   options={[
     { label: 'CSS Modules', command: 'shadcn@latest add @moduix-solid/progress-linear' },
     { label: 'Tailwind CSS', command: 'shadcn@latest add @moduix-solid-tailwind/progress-linear' },
+  ]}
+/>
+
+  </Tab>
+  <Tab label="Vue" value="vue">
+
+<ShadcnInstallOptions
+  options={[
+    { label: 'CSS Modules', command: 'shadcn@latest add @moduix-vue/progress-linear' },
+    { label: 'Tailwind CSS', command: 'shadcn@latest add @moduix-vue-tailwind/progress-linear' },
   ]}
 />
 
@@ -128,9 +154,10 @@ ProgressLinearRootProvider
 `onValueChange(details)`, если приложение хранит текущее значение. Используйте `defaultValue={null}`
 или `value={null}`, когда прогресс неизвестен. Если состояние создано через
 `useProgress()`, отрисовывайте части внутри `ProgressLinearRootProvider`, а не внутри
-`ProgressLinear` или `ProgressLinear`. Используйте `ProgressLinearView` для содержимого,
+`ProgressLinear`. Используйте `ProgressLinearView` для содержимого,
 зависящего от состояния, а `ProgressLinearContext` для собственного текста, которому нужно текущее
 состояние.
+Во Vue для того же управляемого значения используйте `v-model`.
 
 ## Примеры
 
@@ -150,6 +177,7 @@ ProgressLinearRootProvider
     values={[
       { label: 'React', value: 'react' },
       { label: 'Solid', value: 'solid' },
+      { label: 'Vue', value: 'vue' },
     ]}
     className="docs-tabs"
   >
@@ -162,6 +190,11 @@ ProgressLinearRootProvider
     <Tab value="solid">
 
 <CodeBlockRuntime lang="tsx" code={progressLinearSolidControlled} />
+
+    </Tab>
+    <Tab value="vue">
+
+<CodeBlockRuntime lang="vue" code={progressLinearVueControlled} />
 
     </Tab>
   </Tabs>
@@ -185,6 +218,7 @@ ProgressLinearRootProvider
     values={[
       { label: 'React', value: 'react' },
       { label: 'Solid', value: 'solid' },
+      { label: 'Vue', value: 'vue' },
     ]}
     className="docs-tabs"
   >
@@ -197,6 +231,11 @@ ProgressLinearRootProvider
     <Tab value="solid">
 
 <CodeBlockRuntime lang="tsx" code={progressLinearSolidIndeterminate} />
+
+    </Tab>
+    <Tab value="vue">
+
+<CodeBlockRuntime lang="vue" code={progressLinearVueIndeterminate} />
 
     </Tab>
   </Tabs>
@@ -219,6 +258,7 @@ ProgressLinearRootProvider
     values={[
       { label: 'React', value: 'react' },
       { label: 'Solid', value: 'solid' },
+      { label: 'Vue', value: 'vue' },
     ]}
     className="docs-tabs"
   >
@@ -231,6 +271,11 @@ ProgressLinearRootProvider
     <Tab value="solid">
 
 <CodeBlockRuntime lang="tsx" code={progressLinearSolidInitialValue} />
+
+    </Tab>
+    <Tab value="vue">
+
+<CodeBlockRuntime lang="vue" code={progressLinearVueInitialValue} />
 
     </Tab>
   </Tabs>
@@ -254,6 +299,7 @@ ProgressLinearRootProvider
     values={[
       { label: 'React', value: 'react' },
       { label: 'Solid', value: 'solid' },
+      { label: 'Vue', value: 'vue' },
     ]}
     className="docs-tabs"
   >
@@ -266,6 +312,11 @@ ProgressLinearRootProvider
     <Tab value="solid">
 
 <CodeBlockRuntime lang="tsx" code={progressLinearSolidMinMax} />
+
+    </Tab>
+    <Tab value="vue">
+
+<CodeBlockRuntime lang="vue" code={progressLinearVueMinMax} />
 
     </Tab>
   </Tabs>
@@ -289,6 +340,7 @@ ProgressLinearRootProvider
     values={[
       { label: 'React', value: 'react' },
       { label: 'Solid', value: 'solid' },
+      { label: 'Vue', value: 'vue' },
     ]}
     className="docs-tabs"
   >
@@ -301,6 +353,11 @@ ProgressLinearRootProvider
     <Tab value="solid">
 
 <CodeBlockRuntime lang="tsx" code={progressLinearSolidStateViews} />
+
+    </Tab>
+    <Tab value="vue">
+
+<CodeBlockRuntime lang="vue" code={progressLinearVueStateViews} />
 
     </Tab>
   </Tabs>
@@ -324,6 +381,7 @@ ProgressLinearRootProvider
     values={[
       { label: 'React', value: 'react' },
       { label: 'Solid', value: 'solid' },
+      { label: 'Vue', value: 'vue' },
     ]}
     className="docs-tabs"
   >
@@ -336,6 +394,11 @@ ProgressLinearRootProvider
     <Tab value="solid">
 
 <CodeBlockRuntime lang="tsx" code={progressLinearSolidValueText} />
+
+    </Tab>
+    <Tab value="vue">
+
+<CodeBlockRuntime lang="vue" code={progressLinearVueValueText} />
 
     </Tab>
   </Tabs>
@@ -360,6 +423,7 @@ ProgressLinearRootProvider
     values={[
       { label: 'React', value: 'react' },
       { label: 'Solid', value: 'solid' },
+      { label: 'Vue', value: 'vue' },
     ]}
     className="docs-tabs"
   >
@@ -372,6 +436,11 @@ ProgressLinearRootProvider
     <Tab value="solid">
 
 <CodeBlockRuntime lang="tsx" code={progressLinearSolidVertical} />
+
+    </Tab>
+    <Tab value="vue">
+
+<CodeBlockRuntime lang="vue" code={progressLinearVueVertical} />
 
     </Tab>
   </Tabs>
@@ -395,6 +464,7 @@ ProgressLinearRootProvider
     values={[
       { label: 'React', value: 'react' },
       { label: 'Solid', value: 'solid' },
+      { label: 'Vue', value: 'vue' },
     ]}
     className="docs-tabs"
   >
@@ -409,6 +479,11 @@ ProgressLinearRootProvider
 <CodeBlockRuntime lang="tsx" code={progressLinearSolidRootProvider} />
 
     </Tab>
+    <Tab value="vue">
+
+<CodeBlockRuntime lang="vue" code={progressLinearVueRootProvider} />
+
+    </Tab>
   </Tabs>
 </div>
 
@@ -416,7 +491,7 @@ ProgressLinearRootProvider
 
 ## Стилизация
 
-Используйте `className` в React или `class` в Solid на экспортируемых частях для структурной
+Используйте `className` в React или `class` в Solid и Vue на экспортируемых частях для структурной
 стилизации. Для стилей, зависящих от состояния, используйте атрибуты данных Ark и хуки `data-slot`
 moduix. Варианты Tailwind используют нативные утилиты и классы потребителя, а переменные ниже
 настраивают варианты CSS Modules.
@@ -435,8 +510,8 @@ moduix. Варианты Tailwind используют нативные утил
   >
     <Tab>
       <ProgressLinearDocs.ProgressLinearCssPropertiesPanel />
-    </Tab>
-  </Tabs>
+  </Tab>
+</Tabs>
 </div>
 
 ### Хуки стилизации

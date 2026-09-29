@@ -57,6 +57,10 @@
       "types": "./dist/components/accordion/index.d.ts",
       "import": "./dist/components/accordion/index.js"
     },
+    "./pin-input": {
+      "types": "./dist/components/pin-input/index.d.ts",
+      "import": "./dist/components/pin-input/index.js"
+    },
     "./pagination": {
       "types": "./dist/components/pagination/index.d.ts",
       "import": "./dist/components/pagination/index.js"
@@ -92,6 +96,10 @@
     "./hover-card": {
       "types": "./dist/components/hover-card/index.d.ts",
       "import": "./dist/components/hover-card/index.js"
+    },
+    "./popover": {
+      "types": "./dist/components/popover/index.d.ts",
+      "import": "./dist/components/popover/index.js"
     },
     "./floating-panel": {
       "types": "./dist/components/floating-panel/index.d.ts",
@@ -280,6 +288,14 @@
     "./spinner": {
       "types": "./dist/components/spinner/index.d.ts",
       "import": "./dist/components/spinner/index.js"
+    },
+    "./progress-linear": {
+      "types": "./dist/components/progress-linear/index.d.ts",
+      "import": "./dist/components/progress-linear/index.js"
+    },
+    "./progress-circular": {
+      "types": "./dist/components/progress-circular/index.d.ts",
+      "import": "./dist/components/progress-circular/index.js"
     },
     "./style.css": "./dist/styles/style.css",
     "./presets/*": "./dist/presets/*",

@@ -21,6 +21,14 @@ import progressCircularSolidMinMax from '../../../snippets/progress-circular/sol
 import progressCircularSolidRootProvider from '../../../snippets/progress-circular/solid/root-provider.tsx?raw';
 import progressCircularSolidStateViews from '../../../snippets/progress-circular/solid/state-views.tsx?raw';
 import progressCircularSolidValueText from '../../../snippets/progress-circular/solid/value-text.tsx?raw';
+import progressCircularVueBasic from '../../../snippets/progress-circular/vue/basic.vue?raw';
+import progressCircularVueCircleParts from '../../../snippets/progress-circular/vue/circle-parts.vue?raw';
+import progressCircularVueControlled from '../../../snippets/progress-circular/vue/controlled.vue?raw';
+import progressCircularVueIndeterminate from '../../../snippets/progress-circular/vue/indeterminate.vue?raw';
+import progressCircularVueMinMax from '../../../snippets/progress-circular/vue/min-max.vue?raw';
+import progressCircularVueRootProvider from '../../../snippets/progress-circular/vue/root-provider.vue?raw';
+import progressCircularVueStateViews from '../../../snippets/progress-circular/vue/state-views.vue?raw';
+import progressCircularVueValueText from '../../../snippets/progress-circular/vue/value-text.vue?raw';
 
 ## Référence de l’API
 
@@ -51,6 +59,7 @@ identifie la tâche et correspond au libellé visible.
     values={[
       { label: 'React', value: 'react' },
       { label: 'Solid', value: 'solid' },
+      { label: 'Vue', value: 'vue' },
     ]}
     className="docs-tabs"
   >
@@ -63,6 +72,11 @@ identifie la tâche et correspond au libellé visible.
     <Tab value="solid">
 
 <CodeBlockRuntime lang="tsx" code={progressCircularSolidBasic} />
+
+    </Tab>
+    <Tab value="vue">
+
+<CodeBlockRuntime lang="vue" code={progressCircularVueBasic} />
 
     </Tab>
   </Tabs>
@@ -96,6 +110,16 @@ Consultez le [Démarrage rapide](/docs/quick-start) pour la configuration compl�
   options={[
     { label: 'CSS Modules', command: 'shadcn@latest add @moduix-solid/progress-circular' },
     { label: 'Tailwind CSS', command: 'shadcn@latest add @moduix-solid-tailwind/progress-circular' },
+  ]}
+/>
+
+  </Tab>
+  <Tab label="Vue" value="vue">
+
+<ShadcnInstallOptions
+  options={[
+    { label: 'CSS Modules', command: 'shadcn@latest add @moduix-vue/progress-circular' },
+    { label: 'Tailwind CSS', command: 'shadcn@latest add @moduix-vue-tailwind/progress-circular' },
   ]}
 />
 
@@ -163,6 +187,7 @@ un autre contrôle ou une tâche externe.
     values={[
       { label: 'React', value: 'react' },
       { label: 'Solid', value: 'solid' },
+      { label: 'Vue', value: 'vue' },
     ]}
     className="docs-tabs"
   >
@@ -175,6 +200,11 @@ un autre contrôle ou une tâche externe.
     <Tab value="solid">
 
 <CodeBlockRuntime lang="tsx" code={progressCircularSolidControlled} />
+
+    </Tab>
+    <Tab value="vue">
+
+<CodeBlockRuntime lang="vue" code={progressCircularVueControlled} />
 
     </Tab>
   </Tabs>
@@ -203,6 +233,7 @@ progression ne peut pas encore être mesurée.
     values={[
       { label: 'React', value: 'react' },
       { label: 'Solid', value: 'solid' },
+      { label: 'Vue', value: 'vue' },
     ]}
     className="docs-tabs"
   >
@@ -215,6 +246,11 @@ progression ne peut pas encore être mesurée.
     <Tab value="solid">
 
 <CodeBlockRuntime lang="tsx" code={progressCircularSolidIndeterminate} />
+
+    </Tab>
+    <Tab value="vue">
+
+<CodeBlockRuntime lang="vue" code={progressCircularVueIndeterminate} />
 
     </Tab>
   </Tabs>
@@ -243,6 +279,7 @@ Utilisez `min` et `max` pour représenter des valeurs dans une plage autre que l
     values={[
       { label: 'React', value: 'react' },
       { label: 'Solid', value: 'solid' },
+      { label: 'Vue', value: 'vue' },
     ]}
     className="docs-tabs"
   >
@@ -255,6 +292,11 @@ Utilisez `min` et `max` pour représenter des valeurs dans une plage autre que l
     <Tab value="solid">
 
 <CodeBlockRuntime lang="tsx" code={progressCircularSolidMinMax} />
+
+    </Tab>
+    <Tab value="vue">
+
+<CodeBlockRuntime lang="vue" code={progressCircularVueMinMax} />
 
     </Tab>
   </Tabs>
@@ -284,6 +326,7 @@ afin que le texte visible corresponde à la chaîne de valeur accessible.
     values={[
       { label: 'React', value: 'react' },
       { label: 'Solid', value: 'solid' },
+      { label: 'Vue', value: 'vue' },
     ]}
     className="docs-tabs"
   >
@@ -296,6 +339,11 @@ afin que le texte visible corresponde à la chaîne de valeur accessible.
     <Tab value="solid">
 
 <CodeBlockRuntime lang="tsx" code={progressCircularSolidValueText} />
+
+    </Tab>
+    <Tab value="vue">
+
+<CodeBlockRuntime lang="vue" code={progressCircularVueValueText} />
 
     </Tab>
   </Tabs>
@@ -320,6 +368,7 @@ permet de donner à `ProgressCircularCircleTrack` et `ProgressCircularCircleRang
     values={[
       { label: 'React', value: 'react' },
       { label: 'Solid', value: 'solid' },
+      { label: 'Vue', value: 'vue' },
     ]}
     className="docs-tabs"
   >
@@ -332,6 +381,11 @@ permet de donner à `ProgressCircularCircleTrack` et `ProgressCircularCircleRang
     <Tab value="solid">
 
 <CodeBlockRuntime lang="tsx" code={progressCircularSolidCircleParts} />
+
+    </Tab>
+    <Tab value="vue">
+
+<CodeBlockRuntime lang="vue" code={progressCircularVueCircleParts} />
 
     </Tab>
   </Tabs>
@@ -360,6 +414,7 @@ composant doit lire ou mettre à jour la progression en dehors de l’arbre rend
     values={[
       { label: 'React', value: 'react' },
       { label: 'Solid', value: 'solid' },
+      { label: 'Vue', value: 'vue' },
     ]}
     className="docs-tabs"
   >
@@ -372,6 +427,11 @@ composant doit lire ou mettre à jour la progression en dehors de l’arbre rend
     <Tab value="solid">
 
 <CodeBlockRuntime lang="tsx" code={progressCircularSolidRootProvider} />
+
+    </Tab>
+    <Tab value="vue">
+
+<CodeBlockRuntime lang="vue" code={progressCircularVueRootProvider} />
 
     </Tab>
   </Tabs>
@@ -400,6 +460,7 @@ l’état de progression Ark.
     values={[
       { label: 'React', value: 'react' },
       { label: 'Solid', value: 'solid' },
+      { label: 'Vue', value: 'vue' },
     ]}
     className="docs-tabs"
   >
@@ -414,6 +475,11 @@ l’état de progression Ark.
 <CodeBlockRuntime lang="tsx" code={progressCircularSolidStateViews} />
 
     </Tab>
+    <Tab value="vue">
+
+<CodeBlockRuntime lang="vue" code={progressCircularVueStateViews} />
+
+    </Tab>
   </Tabs>
 
 **Styles**
@@ -426,7 +492,7 @@ l’état de progression Ark.
 
 ## Styles
 
-Utilisez `className` en React et `class` en Solid sur les parties exportées pour la structure et
+Utilisez `className` en React et `class` en Solid et Vue sur les parties exportées pour la structure et
 l’apparence. Les variantes Tailwind utilisent des classes utilitaires natives et les classes du
 consommateur. Les variantes CSS Modules exposent les variables CSS ci-dessous. Pour les styles liés
 à l’état, utilisez les attributs de données Ark, les variables SVG Ark et les points d’accroche
@@ -458,7 +524,7 @@ statique visible.
   `data-slot="progress-circular-label"`, `data-slot="progress-circular-circle"`,
   `data-slot="progress-circular-circle-track"`, `data-slot="progress-circular-circle-range"`,
   `data-slot="progress-circular-value-text"` et `data-slot="progress-circular-view"`.
-- `ProgressCircularRing` utilise les mêmes `data-slot`, `className`, ref et variables de taille et
+- `ProgressCircularRing` utilise les mêmes `data-slot`, `className`/`class`, ref et variables de taille et
   d’épaisseur `--moduix-progress-circular-*` que `ProgressCircularCircle`.
 - Attributs Ark : `data-scope="progress"`, `data-part`, `data-state="indeterminate|loading|complete"`,
   `data-orientation`, `data-value` et `data-max`.

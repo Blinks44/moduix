@@ -33,6 +33,20 @@ import popoverSolidPlacement from '../../../snippets/popover/solid/placement.tsx
 import popoverSolidRootProvider from '../../../snippets/popover/solid/root-provider.tsx?raw';
 import popoverSolidSameWidth from '../../../snippets/popover/solid/same-width.tsx?raw';
 import popoverSolidWithArrow from '../../../snippets/popover/solid/with-arrow.tsx?raw';
+import popoverVueAdvancedCustomization from '../../../snippets/popover/vue/advanced-customization.vue?raw';
+import popoverVueAnchor from '../../../snippets/popover/vue/anchor.vue?raw';
+import popoverVueBasic from '../../../snippets/popover/vue/basic.vue?raw';
+import popoverVueCloseBehavior from '../../../snippets/popover/vue/close-behavior.vue?raw';
+import popoverVueContext from '../../../snippets/popover/vue/context.vue?raw';
+import popoverVueControlled from '../../../snippets/popover/vue/controlled.vue?raw';
+import popoverVueLazyMount from '../../../snippets/popover/vue/lazy-mount.vue?raw';
+import popoverVueModal from '../../../snippets/popover/vue/modal.vue?raw';
+import popoverVueMultipleTriggers from '../../../snippets/popover/vue/multiple-triggers.vue?raw';
+import popoverVueNested from '../../../snippets/popover/vue/nested.vue?raw';
+import popoverVuePlacement from '../../../snippets/popover/vue/placement.vue?raw';
+import popoverVueRootProvider from '../../../snippets/popover/vue/root-provider.vue?raw';
+import popoverVueSameWidth from '../../../snippets/popover/vue/same-width.vue?raw';
+import popoverVueWithArrow from '../../../snippets/popover/vue/with-arrow.vue?raw';
 
 ## Référence de l’API
 
@@ -46,7 +60,6 @@ requièrent toute l’attention de l’utilisateur.
 
 ## Exemple de base
 
-
 Utilisez `Popover` comme racine et importez directement chaque partie supplémentaire, par exemple
 `PopoverTrigger` et `PopoverContent`. Ces noms plats sont identiques dans les paquets npm et les
 sources du registre shadcn. Configurez le positionnement sur la racine et utilisez `asChild` lorsque
@@ -58,7 +71,7 @@ votre propre bouton doit servir de déclencheur.
 
 <ExampleCode>
 <div className="docs-reference">
-<Tabs groupId="framework" values={[{ label: 'React', value: 'react' }, { label: 'Solid', value: 'solid' }]} className="docs-tabs">
+<Tabs groupId="framework" values={[{ label: 'React', value: 'react' }, { label: 'Solid', value: 'solid' }, { label: 'Vue', value: 'vue' }]} className="docs-tabs">
 <Tab value="react">
 
 ```tsx pure file="../../../src/components/examples/popover/basic.tsx"
@@ -66,6 +79,7 @@ votre propre bouton doit servir de déclencheur.
 
 </Tab>
 <Tab value="solid"><CodeBlockRuntime lang="tsx" code={popoverSolidBasic} /></Tab>
+<Tab value="vue"><CodeBlockRuntime lang="vue" code={popoverVueBasic} /></Tab>
 </Tabs>
 </div>
 
@@ -89,6 +103,14 @@ Consultez le [Démarrage rapide](/docs/quick-start) pour la configuration compl�
   options={[
     { label: 'CSS Modules', command: 'shadcn@latest add @moduix-solid/popover' },
     { label: 'Tailwind CSS', command: 'shadcn@latest add @moduix-solid-tailwind/popover' },
+  ]}
+/>
+  </Tab>
+  <Tab label="Vue" value="vue">
+<ShadcnInstallOptions
+  options={[
+    { label: 'CSS Modules', command: 'shadcn@latest add @moduix-vue/popover' },
+    { label: 'Tailwind CSS', command: 'shadcn@latest add @moduix-vue-tailwind/popover' },
   ]}
 />
   </Tab>
@@ -167,7 +189,7 @@ Utilisez `PopoverAnchor` lorsqu’un autre élément doit fournir la référence
 
 <ExampleCode>
 <div className="docs-reference">
-<Tabs groupId="framework" values={[{ label: 'React', value: 'react' }, { label: 'Solid', value: 'solid' }]} className="docs-tabs">
+<Tabs groupId="framework" values={[{ label: 'React', value: 'react' }, { label: 'Solid', value: 'solid' }, { label: 'Vue', value: 'vue' }]} className="docs-tabs">
 <Tab value="react">
 
 ```tsx pure file="../../../src/components/examples/popover/anchor.tsx"
@@ -175,6 +197,7 @@ Utilisez `PopoverAnchor` lorsqu’un autre élément doit fournir la référence
 
 </Tab>
 <Tab value="solid"><CodeBlockRuntime lang="tsx" code={popoverSolidAnchor} /></Tab>
+<Tab value="vue"><CodeBlockRuntime lang="vue" code={popoverVueAnchor} /></Tab>
 </Tabs>
 **Styles**
 ```css file="../../../src/components/examples/popover/popover-anchor.module.css"
@@ -192,7 +215,7 @@ parcours prévoit une action de fermeture explicite.
 
 <ExampleCode>
 <div className="docs-reference">
-<Tabs groupId="framework" values={[{ label: 'React', value: 'react' }, { label: 'Solid', value: 'solid' }]} className="docs-tabs">
+<Tabs groupId="framework" values={[{ label: 'React', value: 'react' }, { label: 'Solid', value: 'solid' }, { label: 'Vue', value: 'vue' }]} className="docs-tabs">
 <Tab value="react">
 
 ```tsx pure file="../../../src/components/examples/popover/close-behavior.tsx"
@@ -200,6 +223,7 @@ parcours prévoit une action de fermeture explicite.
 
 </Tab>
 <Tab value="solid"><CodeBlockRuntime lang="tsx" code={popoverSolidCloseBehavior} /></Tab>
+<Tab value="vue"><CodeBlockRuntime lang="vue" code={popoverVueCloseBehavior} /></Tab>
 </Tabs>
 </div>
 
@@ -214,7 +238,7 @@ Utilisez `PopoverContext` lorsqu’une fonction de rendu rend la composition plu
 
 <ExampleCode>
 <div className="docs-reference">
-<Tabs groupId="framework" values={[{ label: 'React', value: 'react' }, { label: 'Solid', value: 'solid' }]} className="docs-tabs">
+<Tabs groupId="framework" values={[{ label: 'React', value: 'react' }, { label: 'Solid', value: 'solid' }, { label: 'Vue', value: 'vue' }]} className="docs-tabs">
 <Tab value="react">
 
 ```tsx pure file="../../../src/components/examples/popover/context.tsx"
@@ -222,6 +246,7 @@ Utilisez `PopoverContext` lorsqu’une fonction de rendu rend la composition plu
 
 </Tab>
 <Tab value="solid"><CodeBlockRuntime lang="tsx" code={popoverSolidContext} /></Tab>
+<Tab value="vue"><CodeBlockRuntime lang="vue" code={popoverVueContext} /></Tab>
 </Tabs>
 </div>
 
@@ -236,7 +261,7 @@ synchroniser la fenêtre avec le reste de l’application.
 
 <ExampleCode>
 <div className="docs-reference">
-<Tabs groupId="framework" values={[{ label: 'React', value: 'react' }, { label: 'Solid', value: 'solid' }]} className="docs-tabs">
+<Tabs groupId="framework" values={[{ label: 'React', value: 'react' }, { label: 'Solid', value: 'solid' }, { label: 'Vue', value: 'vue' }]} className="docs-tabs">
 <Tab value="react">
 
 ```tsx pure file="../../../src/components/examples/popover/controlled.tsx"
@@ -244,6 +269,7 @@ synchroniser la fenêtre avec le reste de l’application.
 
 </Tab>
 <Tab value="solid"><CodeBlockRuntime lang="tsx" code={popoverSolidControlled} /></Tab>
+<Tab value="vue"><CodeBlockRuntime lang="vue" code={popoverVueControlled} /></Tab>
 </Tabs>
 **Styles**
 ```css file="../../../src/components/examples/popover/popover-controlled.module.css"
@@ -261,7 +287,7 @@ l’utilisation de la fenêtre.
 
 <ExampleCode>
 <div className="docs-reference">
-<Tabs groupId="framework" values={[{ label: 'React', value: 'react' }, { label: 'Solid', value: 'solid' }]} className="docs-tabs">
+<Tabs groupId="framework" values={[{ label: 'React', value: 'react' }, { label: 'Solid', value: 'solid' }, { label: 'Vue', value: 'vue' }]} className="docs-tabs">
 <Tab value="react">
 
 ```tsx pure file="../../../src/components/examples/popover/lazy-mount.tsx"
@@ -269,6 +295,7 @@ l’utilisation de la fenêtre.
 
 </Tab>
 <Tab value="solid"><CodeBlockRuntime lang="tsx" code={popoverSolidLazyMount} /></Tab>
+<Tab value="vue"><CodeBlockRuntime lang="vue" code={popoverVueLazyMount} /></Tab>
 </Tabs>
 </div>
 
@@ -284,7 +311,7 @@ choisir la première cible du focus.
 
 <ExampleCode>
 <div className="docs-reference">
-<Tabs groupId="framework" values={[{ label: 'React', value: 'react' }, { label: 'Solid', value: 'solid' }]} className="docs-tabs">
+<Tabs groupId="framework" values={[{ label: 'React', value: 'react' }, { label: 'Solid', value: 'solid' }, { label: 'Vue', value: 'vue' }]} className="docs-tabs">
 <Tab value="react">
 
 ```tsx pure file="../../../src/components/examples/popover/modal.tsx"
@@ -292,6 +319,7 @@ choisir la première cible du focus.
 
 </Tab>
 <Tab value="solid"><CodeBlockRuntime lang="tsx" code={popoverSolidModal} /></Tab>
+<Tab value="vue"><CodeBlockRuntime lang="vue" code={popoverVueModal} /></Tab>
 </Tabs>
 **Styles**
 ```css file="../../../src/components/examples/popover/popover-modal.module.css"
@@ -309,7 +337,7 @@ et en réagissant à la valeur active.
 
 <ExampleCode>
 <div className="docs-reference">
-<Tabs groupId="framework" values={[{ label: 'React', value: 'react' }, { label: 'Solid', value: 'solid' }]} className="docs-tabs">
+<Tabs groupId="framework" values={[{ label: 'React', value: 'react' }, { label: 'Solid', value: 'solid' }, { label: 'Vue', value: 'vue' }]} className="docs-tabs">
 <Tab value="react">
 
 ```tsx pure file="../../../src/components/examples/popover/multiple-triggers.tsx"
@@ -317,6 +345,7 @@ et en réagissant à la valeur active.
 
 </Tab>
 <Tab value="solid"><CodeBlockRuntime lang="tsx" code={popoverSolidMultipleTriggers} /></Tab>
+<Tab value="vue"><CodeBlockRuntime lang="vue" code={popoverVueMultipleTriggers} /></Tab>
 </Tabs>
 **Styles**
 ```css file="../../../src/components/examples/popover/popover-multiple-triggers.module.css"
@@ -335,7 +364,7 @@ calques.
 
 <ExampleCode>
 <div className="docs-reference">
-<Tabs groupId="framework" values={[{ label: 'React', value: 'react' }, { label: 'Solid', value: 'solid' }]} className="docs-tabs">
+<Tabs groupId="framework" values={[{ label: 'React', value: 'react' }, { label: 'Solid', value: 'solid' }, { label: 'Vue', value: 'vue' }]} className="docs-tabs">
 <Tab value="react">
 
 ```tsx pure file="../../../src/components/examples/popover/nested.tsx"
@@ -343,6 +372,7 @@ calques.
 
 </Tab>
 <Tab value="solid"><CodeBlockRuntime lang="tsx" code={popoverSolidNested} /></Tab>
+<Tab value="vue"><CodeBlockRuntime lang="vue" code={popoverVueNested} /></Tab>
 </Tabs>
 **Styles**
 ```css file="../../../src/components/examples/popover/popover-nested.module.css"
@@ -359,7 +389,7 @@ Transmettez les options de positionnement d’Ark via la propriété `positionin
 
 <ExampleCode>
 <div className="docs-reference">
-<Tabs groupId="framework" values={[{ label: 'React', value: 'react' }, { label: 'Solid', value: 'solid' }]} className="docs-tabs">
+<Tabs groupId="framework" values={[{ label: 'React', value: 'react' }, { label: 'Solid', value: 'solid' }, { label: 'Vue', value: 'vue' }]} className="docs-tabs">
 <Tab value="react">
 
 ```tsx pure file="../../../src/components/examples/popover/placement.tsx"
@@ -367,6 +397,7 @@ Transmettez les options de positionnement d’Ark via la propriété `positionin
 
 </Tab>
 <Tab value="solid"><CodeBlockRuntime lang="tsx" code={popoverSolidPlacement} /></Tab>
+<Tab value="vue"><CodeBlockRuntime lang="vue" code={popoverVuePlacement} /></Tab>
 </Tabs>
 </div>
 
@@ -381,7 +412,7 @@ l’arborescence du Popover doivent lire ou modifier son état.
 
 <ExampleCode>
 <div className="docs-reference">
-<Tabs groupId="framework" values={[{ label: 'React', value: 'react' }, { label: 'Solid', value: 'solid' }]} className="docs-tabs">
+<Tabs groupId="framework" values={[{ label: 'React', value: 'react' }, { label: 'Solid', value: 'solid' }, { label: 'Vue', value: 'vue' }]} className="docs-tabs">
 <Tab value="react">
 
 ```tsx pure file="../../../src/components/examples/popover/root-provider.tsx"
@@ -389,6 +420,7 @@ l’arborescence du Popover doivent lire ou modifier son état.
 
 </Tab>
 <Tab value="solid"><CodeBlockRuntime lang="tsx" code={popoverSolidRootProvider} /></Tab>
+<Tab value="vue"><CodeBlockRuntime lang="vue" code={popoverVueRootProvider} /></Tab>
 </Tabs>
 **Styles**
 ```css file="../../../src/components/examples/popover/popover-root-provider.module.css"
@@ -405,7 +437,7 @@ Définissez `positioning.sameWidth` lorsque le contenu doit avoir la même large
 
 <ExampleCode>
 <div className="docs-reference">
-<Tabs groupId="framework" values={[{ label: 'React', value: 'react' }, { label: 'Solid', value: 'solid' }]} className="docs-tabs">
+<Tabs groupId="framework" values={[{ label: 'React', value: 'react' }, { label: 'Solid', value: 'solid' }, { label: 'Vue', value: 'vue' }]} className="docs-tabs">
 <Tab value="react">
 
 ```tsx pure file="../../../src/components/examples/popover/same-width.tsx"
@@ -413,6 +445,7 @@ Définissez `positioning.sameWidth` lorsque le contenu doit avoir la même large
 
 </Tab>
 <Tab value="solid"><CodeBlockRuntime lang="tsx" code={popoverSolidSameWidth} /></Tab>
+<Tab value="vue"><CodeBlockRuntime lang="vue" code={popoverVueSameWidth} /></Tab>
 </Tabs>
 **Styles**
 ```css file="../../../src/components/examples/popover/popover-same-width.module.css"
@@ -430,7 +463,7 @@ L’enveloppe rend par défaut l’élément `PopoverArrowTip` stylisé par modu
 
 <ExampleCode>
 <div className="docs-reference">
-<Tabs groupId="framework" values={[{ label: 'React', value: 'react' }, { label: 'Solid', value: 'solid' }]} className="docs-tabs">
+<Tabs groupId="framework" values={[{ label: 'React', value: 'react' }, { label: 'Solid', value: 'solid' }, { label: 'Vue', value: 'vue' }]} className="docs-tabs">
 <Tab value="react">
 
 ```tsx pure file="../../../src/components/examples/popover/with-arrow.tsx"
@@ -438,6 +471,7 @@ L’enveloppe rend par défaut l’élément `PopoverArrowTip` stylisé par modu
 
 </Tab>
 <Tab value="solid"><CodeBlockRuntime lang="tsx" code={popoverSolidWithArrow} /></Tab>
+<Tab value="vue"><CodeBlockRuntime lang="vue" code={popoverVueWithArrow} /></Tab>
 </Tabs>
 </div>
 
@@ -453,7 +487,7 @@ donc l’omettre lorsque le panneau n’a pas besoin d’un repère visuel.
 
 <ExampleCode>
 <div className="docs-reference">
-<Tabs groupId="framework" values={[{ label: 'React', value: 'react' }, { label: 'Solid', value: 'solid' }]} className="docs-tabs">
+<Tabs groupId="framework" values={[{ label: 'React', value: 'react' }, { label: 'Solid', value: 'solid' }, { label: 'Vue', value: 'vue' }]} className="docs-tabs">
 <Tab value="react">
 
 ```tsx pure file="../../../src/components/examples/popover/advanced-customization.tsx"
@@ -461,6 +495,7 @@ donc l’omettre lorsque le panneau n’a pas besoin d’un repère visuel.
 
 </Tab>
 <Tab value="solid"><CodeBlockRuntime lang="tsx" code={popoverSolidAdvancedCustomization} /></Tab>
+<Tab value="vue"><CodeBlockRuntime lang="vue" code={popoverVueAdvancedCustomization} /></Tab>
 </Tabs>
 **Styles**
 ```css file="../../../src/components/examples/popover/popover-advanced-customization.module.css"
@@ -471,7 +506,7 @@ donc l’omettre lorsque le panneau n’a pas besoin d’un repère visuel.
 
 ## Styles
 
-Utilisez `className` en React ou `class` en Solid sur les parties exportées pour les styles
+Utilisez `className` en React, ou `class` en Solid et Vue, sur les parties exportées pour les styles
 structurels. Les variantes Tailwind utilisent des utilitaires natifs et les classes du consommateur.
 Les variables CSS ci-dessous personnalisent les variantes CSS Modules ; les attributs de données Ark
 et les hooks `data-slot` de moduix sont partagés par les deux pistes de style.

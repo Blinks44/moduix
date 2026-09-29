@@ -23,6 +23,15 @@ import pinInputSolidMasking from '../../../snippets/pin-input/solid/masking.tsx?
 import pinInputSolidOtpMode from '../../../snippets/pin-input/solid/otp-mode.tsx?raw';
 import pinInputSolidPlaceholder from '../../../snippets/pin-input/solid/placeholder.tsx?raw';
 import pinInputSolidRootProvider from '../../../snippets/pin-input/solid/root-provider.tsx?raw';
+import pinInputVueBasic from '../../../snippets/pin-input/vue/basic.vue?raw';
+import pinInputVueBlurOnComplete from '../../../snippets/pin-input/vue/blur-on-complete.vue?raw';
+import pinInputVueChangeEvents from '../../../snippets/pin-input/vue/change-events.vue?raw';
+import pinInputVueField from '../../../snippets/pin-input/vue/field.vue?raw';
+import pinInputVueGroupedLayout from '../../../snippets/pin-input/vue/grouped-layout.vue?raw';
+import pinInputVueMasking from '../../../snippets/pin-input/vue/masking.vue?raw';
+import pinInputVueOtpMode from '../../../snippets/pin-input/vue/otp-mode.vue?raw';
+import pinInputVuePlaceholder from '../../../snippets/pin-input/vue/placeholder.vue?raw';
+import pinInputVueRootProvider from '../../../snippets/pin-input/vue/root-provider.vue?raw';
 
 ## Справочник API
 
@@ -53,6 +62,7 @@ import pinInputSolidRootProvider from '../../../snippets/pin-input/solid/root-pr
     values={[
       { label: 'React', value: 'react' },
       { label: 'Solid', value: 'solid' },
+      { label: 'Vue', value: 'vue' },
     ]}
     className="docs-tabs"
   >
@@ -65,6 +75,11 @@ import pinInputSolidRootProvider from '../../../snippets/pin-input/solid/root-pr
     <Tab value="solid">
 
 <CodeBlockRuntime lang="tsx" code={pinInputSolidBasic} />
+
+    </Tab>
+    <Tab value="vue">
+
+<CodeBlockRuntime lang="vue" code={pinInputVueBasic} />
 
     </Tab>
   </Tabs>
@@ -93,6 +108,16 @@ import pinInputSolidRootProvider from '../../../snippets/pin-input/solid/root-pr
   options={[
     { label: 'CSS Modules', command: 'shadcn@latest add @moduix-solid/pin-input' },
     { label: 'Tailwind CSS', command: 'shadcn@latest add @moduix-solid-tailwind/pin-input' },
+  ]}
+/>
+
+  </Tab>
+  <Tab label="Vue" value="vue">
+
+<ShadcnInstallOptions
+  options={[
+    { label: 'CSS Modules', command: 'shadcn@latest add @moduix-vue/pin-input' },
+    { label: 'Tailwind CSS', command: 'shadcn@latest add @moduix-vue-tailwind/pin-input' },
   ]}
 />
 
@@ -137,8 +162,8 @@ PinInputRootProvider
 `PinInputInputs` создаёт по одной индексированной ячейке для каждого элемента контекста Ark. Используйте явные
 части `PinInputInput` с непрерывными индексами от нуля и `PinInputSeparator`, если код нужно разделить на группы. Значения
 представлены массивом строк. Используйте `PinInputRootProvider` с `usePinInput`, когда состоянием или императивными
-методами нужно управлять за пределами дерева компонентов. В React передаётся объект состояния, а в Solid
-реактивный accessor.
+методами нужно управлять за пределами дерева компонентов. В React передаётся объект состояния, в Solid —
+реактивный accessor, а Vue предоставляет реактивное состояние непосредственно шаблону.
 
 Ark управляет переводом фокуса, распределением вставленного текста, редактированием с клавиатуры и
 автозаполнением одноразовых кодов; добавьте `PinInputLabel`, чтобы у группы было доступное имя.
@@ -159,7 +184,7 @@ Ark управляет переводом фокуса, распределени
 <div className="docs-reference">
   <Tabs
     groupId="framework"
-    values={[{ label: 'React', value: 'react' }, { label: 'Solid', value: 'solid' }]}
+    values={[{ label: 'React', value: 'react' }, { label: 'Solid', value: 'solid' }, { label: 'Vue', value: 'vue' }]}
     className="docs-tabs"
   >
     <Tab value="react">
@@ -171,6 +196,11 @@ Ark управляет переводом фокуса, распределени
     <Tab value="solid">
 
 <CodeBlockRuntime lang="tsx" code={pinInputSolidBlurOnComplete} />
+
+    </Tab>
+    <Tab value="vue">
+
+<CodeBlockRuntime lang="vue" code={pinInputVueBlurOnComplete} />
 
     </Tab>
   </Tabs>
@@ -190,7 +220,7 @@ Ark управляет переводом фокуса, распределени
 <div className="docs-reference">
   <Tabs
     groupId="framework"
-    values={[{ label: 'React', value: 'react' }, { label: 'Solid', value: 'solid' }]}
+    values={[{ label: 'React', value: 'react' }, { label: 'Solid', value: 'solid' }, { label: 'Vue', value: 'vue' }]}
     className="docs-tabs"
   >
     <Tab value="react">
@@ -202,6 +232,11 @@ Ark управляет переводом фокуса, распределени
     <Tab value="solid">
 
 <CodeBlockRuntime lang="tsx" code={pinInputSolidChangeEvents} />
+
+    </Tab>
+    <Tab value="vue">
+
+<CodeBlockRuntime lang="vue" code={pinInputVueChangeEvents} />
 
     </Tab>
   </Tabs>
@@ -227,7 +262,7 @@ Ark управляет переводом фокуса, распределени
 <div className="docs-reference">
   <Tabs
     groupId="framework"
-    values={[{ label: 'React', value: 'react' }, { label: 'Solid', value: 'solid' }]}
+    values={[{ label: 'React', value: 'react' }, { label: 'Solid', value: 'solid' }, { label: 'Vue', value: 'vue' }]}
     className="docs-tabs"
   >
     <Tab value="react">
@@ -239,6 +274,11 @@ Ark управляет переводом фокуса, распределени
     <Tab value="solid">
 
 <CodeBlockRuntime lang="tsx" code={pinInputSolidField} />
+
+    </Tab>
+    <Tab value="vue">
+
+<CodeBlockRuntime lang="vue" code={pinInputVueField} />
 
     </Tab>
   </Tabs>
@@ -264,7 +304,7 @@ Ark управляет переводом фокуса, распределени
 <div className="docs-reference">
   <Tabs
     groupId="framework"
-    values={[{ label: 'React', value: 'react' }, { label: 'Solid', value: 'solid' }]}
+    values={[{ label: 'React', value: 'react' }, { label: 'Solid', value: 'solid' }, { label: 'Vue', value: 'vue' }]}
     className="docs-tabs"
   >
     <Tab value="react">
@@ -276,6 +316,11 @@ Ark управляет переводом фокуса, распределени
     <Tab value="solid">
 
 <CodeBlockRuntime lang="tsx" code={pinInputSolidGroupedLayout} />
+
+    </Tab>
+    <Tab value="vue">
+
+<CodeBlockRuntime lang="vue" code={pinInputVueGroupedLayout} />
 
     </Tab>
   </Tabs>
@@ -295,7 +340,7 @@ Ark управляет переводом фокуса, распределени
 <div className="docs-reference">
   <Tabs
     groupId="framework"
-    values={[{ label: 'React', value: 'react' }, { label: 'Solid', value: 'solid' }]}
+    values={[{ label: 'React', value: 'react' }, { label: 'Solid', value: 'solid' }, { label: 'Vue', value: 'vue' }]}
     className="docs-tabs"
   >
     <Tab value="react">
@@ -307,6 +352,11 @@ Ark управляет переводом фокуса, распределени
     <Tab value="solid">
 
 <CodeBlockRuntime lang="tsx" code={pinInputSolidMasking} />
+
+    </Tab>
+    <Tab value="vue">
+
+<CodeBlockRuntime lang="vue" code={pinInputVueMasking} />
 
     </Tab>
   </Tabs>
@@ -327,7 +377,7 @@ Ark управляет переводом фокуса, распределени
 <div className="docs-reference">
   <Tabs
     groupId="framework"
-    values={[{ label: 'React', value: 'react' }, { label: 'Solid', value: 'solid' }]}
+    values={[{ label: 'React', value: 'react' }, { label: 'Solid', value: 'solid' }, { label: 'Vue', value: 'vue' }]}
     className="docs-tabs"
   >
     <Tab value="react">
@@ -339,6 +389,11 @@ Ark управляет переводом фокуса, распределени
     <Tab value="solid">
 
 <CodeBlockRuntime lang="tsx" code={pinInputSolidOtpMode} />
+
+    </Tab>
+    <Tab value="vue">
+
+<CodeBlockRuntime lang="vue" code={pinInputVueOtpMode} />
 
     </Tab>
   </Tabs>
@@ -359,7 +414,7 @@ Ark управляет переводом фокуса, распределени
 <div className="docs-reference">
   <Tabs
     groupId="framework"
-    values={[{ label: 'React', value: 'react' }, { label: 'Solid', value: 'solid' }]}
+    values={[{ label: 'React', value: 'react' }, { label: 'Solid', value: 'solid' }, { label: 'Vue', value: 'vue' }]}
     className="docs-tabs"
   >
     <Tab value="react">
@@ -371,6 +426,11 @@ Ark управляет переводом фокуса, распределени
     <Tab value="solid">
 
 <CodeBlockRuntime lang="tsx" code={pinInputSolidPlaceholder} />
+
+    </Tab>
+    <Tab value="vue">
+
+<CodeBlockRuntime lang="vue" code={pinInputVuePlaceholder} />
 
     </Tab>
   </Tabs>
@@ -391,7 +451,7 @@ Ark управляет переводом фокуса, распределени
 <div className="docs-reference">
   <Tabs
     groupId="framework"
-    values={[{ label: 'React', value: 'react' }, { label: 'Solid', value: 'solid' }]}
+    values={[{ label: 'React', value: 'react' }, { label: 'Solid', value: 'solid' }, { label: 'Vue', value: 'vue' }]}
     className="docs-tabs"
   >
     <Tab value="react">
@@ -403,6 +463,11 @@ Ark управляет переводом фокуса, распределени
     <Tab value="solid">
 
 <CodeBlockRuntime lang="tsx" code={pinInputSolidRootProvider} />
+
+    </Tab>
+    <Tab value="vue">
+
+<CodeBlockRuntime lang="vue" code={pinInputVueRootProvider} />
 
     </Tab>
   </Tabs>

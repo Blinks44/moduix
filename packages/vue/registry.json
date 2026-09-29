@@ -140,6 +140,121 @@
       ]
     },
     {
+      "name": "progress-linear",
+      "type": "registry:item",
+      "title": "ProgressLinear",
+      "description": "moduix Vue ProgressLinear component.",
+      "dependencies": ["@ark-ui/vue", "clsx"],
+      "registryDependencies": ["@moduix-vue/foundation"],
+      "files": [
+        {
+          "path": "src/components/progress-linear/ProgressLinear.vue",
+          "target": "@components/ui/progress-linear/ProgressLinear.vue",
+          "type": "registry:component"
+        },
+        {
+          "path": "src/components/progress-linear/ProgressLinearRootProvider.vue",
+          "target": "@components/ui/progress-linear/ProgressLinearRootProvider.vue",
+          "type": "registry:component"
+        },
+        {
+          "path": "src/components/progress-linear/ProgressLinearLabel.vue",
+          "target": "@components/ui/progress-linear/ProgressLinearLabel.vue",
+          "type": "registry:component"
+        },
+        {
+          "path": "src/components/progress-linear/ProgressLinearValueText.vue",
+          "target": "@components/ui/progress-linear/ProgressLinearValueText.vue",
+          "type": "registry:component"
+        },
+        {
+          "path": "src/components/progress-linear/ProgressLinearTrack.vue",
+          "target": "@components/ui/progress-linear/ProgressLinearTrack.vue",
+          "type": "registry:component"
+        },
+        {
+          "path": "src/components/progress-linear/ProgressLinearRange.vue",
+          "target": "@components/ui/progress-linear/ProgressLinearRange.vue",
+          "type": "registry:component"
+        },
+        {
+          "path": "src/components/progress-linear/ProgressLinearView.vue",
+          "target": "@components/ui/progress-linear/ProgressLinearView.vue",
+          "type": "registry:component"
+        },
+        {
+          "path": "src/components/progress-linear/ProgressLinear.module.css",
+          "target": "@components/ui/progress-linear/ProgressLinear.module.css",
+          "type": "registry:file"
+        },
+        {
+          "path": "src/components/progress-linear/index.ts",
+          "target": "@components/ui/progress-linear/index.ts",
+          "type": "registry:component"
+        }
+      ]
+    },
+    {
+      "name": "pin-input",
+      "type": "registry:item",
+      "title": "PinInput",
+      "description": "moduix Vue PinInput component.",
+      "dependencies": ["@ark-ui/vue", "clsx"],
+      "registryDependencies": ["@moduix-vue/foundation", "@moduix-vue/icons"],
+      "files": [
+        {
+          "path": "src/components/pin-input/PinInput.vue",
+          "target": "@components/ui/pin-input/PinInput.vue",
+          "type": "registry:component"
+        },
+        {
+          "path": "src/components/pin-input/PinInputRootProvider.vue",
+          "target": "@components/ui/pin-input/PinInputRootProvider.vue",
+          "type": "registry:component"
+        },
+        {
+          "path": "src/components/pin-input/PinInputLabel.vue",
+          "target": "@components/ui/pin-input/PinInputLabel.vue",
+          "type": "registry:component"
+        },
+        {
+          "path": "src/components/pin-input/PinInputControl.vue",
+          "target": "@components/ui/pin-input/PinInputControl.vue",
+          "type": "registry:component"
+        },
+        {
+          "path": "src/components/pin-input/PinInputInput.vue",
+          "target": "@components/ui/pin-input/PinInputInput.vue",
+          "type": "registry:component"
+        },
+        {
+          "path": "src/components/pin-input/PinInputInputs.vue",
+          "target": "@components/ui/pin-input/PinInputInputs.vue",
+          "type": "registry:component"
+        },
+        {
+          "path": "src/components/pin-input/PinInputSeparator.vue",
+          "target": "@components/ui/pin-input/PinInputSeparator.vue",
+          "type": "registry:component"
+        },
+        {
+          "path": "src/components/pin-input/PinInput.module.css",
+          "target": "@components/ui/pin-input/PinInput.module.css",
+          "type": "registry:file"
+        },
+        {
+          "path": "src/components/pin-input/usePinInput.ts",
+          "target": "@components/ui/pin-input/usePinInput.ts",
+          "type": "registry:file"
+        },
+        {
+          "path": "src/components/pin-input/index.ts",
+          "target": "@components/ui/pin-input/index.ts",
+          "type": "registry:component"
+        }
+      ]
+    },
+    {
       "name": "pagination",
       "type": "registry:item",
       "title": "Pagination",
@@ -655,6 +770,116 @@
         {
           "path": "src/components/hover-card/index.ts",
           "target": "@components/ui/hover-card/index.ts",
+          "type": "registry:component"
+        }
+      ]
+    },
+    {
+      "name": "popover",
+      "type": "registry:item",
+      "title": "Popover",
+      "description": "moduix Vue Popover component.",
+      "dependencies": ["@ark-ui/vue", "clsx"],
+      "registryDependencies": [
+        "@moduix-vue/a11y-labels",
+        "@moduix-vue/close-button",
+        "@moduix-vue/foundation",
+        "@moduix-vue/overlay-portal"
+      ],
+      "files": [
+        {
+          "path": "src/components/popover/Popover.vue",
+          "target": "@components/ui/popover/Popover.vue",
+          "type": "registry:component"
+        },
+        {
+          "path": "src/components/popover/PopoverRootProvider.vue",
+          "target": "@components/ui/popover/PopoverRootProvider.vue",
+          "type": "registry:component"
+        },
+        {
+          "path": "src/components/popover/PopoverAnchor.vue",
+          "target": "@components/ui/popover/PopoverAnchor.vue",
+          "type": "registry:component"
+        },
+        {
+          "path": "src/components/popover/PopoverArrow.vue",
+          "target": "@components/ui/popover/PopoverArrow.vue",
+          "type": "registry:component"
+        },
+        {
+          "path": "src/components/popover/PopoverArrowTip.vue",
+          "target": "@components/ui/popover/PopoverArrowTip.vue",
+          "type": "registry:component"
+        },
+        {
+          "path": "src/components/popover/PopoverBody.vue",
+          "target": "@components/ui/popover/PopoverBody.vue",
+          "type": "registry:component"
+        },
+        {
+          "path": "src/components/popover/PopoverCloseIcon.vue",
+          "target": "@components/ui/popover/PopoverCloseIcon.vue",
+          "type": "registry:component"
+        },
+        {
+          "path": "src/components/popover/PopoverCloseTrigger.vue",
+          "target": "@components/ui/popover/PopoverCloseTrigger.vue",
+          "type": "registry:component"
+        },
+        {
+          "path": "src/components/popover/PopoverContent.vue",
+          "target": "@components/ui/popover/PopoverContent.vue",
+          "type": "registry:component"
+        },
+        {
+          "path": "src/components/popover/PopoverContext.vue",
+          "target": "@components/ui/popover/PopoverContext.vue",
+          "type": "registry:component"
+        },
+        {
+          "path": "src/components/popover/PopoverDescription.vue",
+          "target": "@components/ui/popover/PopoverDescription.vue",
+          "type": "registry:component"
+        },
+        {
+          "path": "src/components/popover/PopoverFooter.vue",
+          "target": "@components/ui/popover/PopoverFooter.vue",
+          "type": "registry:component"
+        },
+        {
+          "path": "src/components/popover/PopoverHeader.vue",
+          "target": "@components/ui/popover/PopoverHeader.vue",
+          "type": "registry:component"
+        },
+        {
+          "path": "src/components/popover/PopoverIndicator.vue",
+          "target": "@components/ui/popover/PopoverIndicator.vue",
+          "type": "registry:component"
+        },
+        {
+          "path": "src/components/popover/PopoverPositioner.vue",
+          "target": "@components/ui/popover/PopoverPositioner.vue",
+          "type": "registry:component"
+        },
+        {
+          "path": "src/components/popover/PopoverTitle.vue",
+          "target": "@components/ui/popover/PopoverTitle.vue",
+          "type": "registry:component"
+        },
+        {
+          "path": "src/components/popover/PopoverTrigger.vue",
+          "target": "@components/ui/popover/PopoverTrigger.vue",
+          "type": "registry:component"
+        },
+        {
+          "path": "src/components/popover/Popover.module.css",
+          "target": "@components/ui/popover/Popover.module.css",
+          "type": "registry:file"
+        },
+        {
+          "path": "src/components/popover/index.ts",
+          "target": "@components/ui/popover/index.ts",
           "type": "registry:component"
         }
       ]
@@ -3803,6 +4028,76 @@
         {
           "path": "src/components/empty/index.ts",
           "target": "@components/ui/empty/index.ts",
+          "type": "registry:component"
+        }
+      ]
+    },
+    {
+      "name": "progress-circular",
+      "type": "registry:item",
+      "title": "ProgressCircular",
+      "description": "moduix Vue ProgressCircular component.",
+      "dependencies": ["@ark-ui/vue", "clsx"],
+      "registryDependencies": ["@moduix-vue/foundation"],
+      "files": [
+        {
+          "path": "src/components/progress-circular/ProgressCircular.vue",
+          "target": "@components/ui/progress-circular/ProgressCircular.vue",
+          "type": "registry:component"
+        },
+        {
+          "path": "src/components/progress-circular/ProgressCircularRootProvider.vue",
+          "target": "@components/ui/progress-circular/ProgressCircularRootProvider.vue",
+          "type": "registry:component"
+        },
+        {
+          "path": "src/components/progress-circular/ProgressCircularContext.vue",
+          "target": "@components/ui/progress-circular/ProgressCircularContext.vue",
+          "type": "registry:component"
+        },
+        {
+          "path": "src/components/progress-circular/ProgressCircularLabel.vue",
+          "target": "@components/ui/progress-circular/ProgressCircularLabel.vue",
+          "type": "registry:component"
+        },
+        {
+          "path": "src/components/progress-circular/ProgressCircularRing.vue",
+          "target": "@components/ui/progress-circular/ProgressCircularRing.vue",
+          "type": "registry:component"
+        },
+        {
+          "path": "src/components/progress-circular/ProgressCircularCircle.vue",
+          "target": "@components/ui/progress-circular/ProgressCircularCircle.vue",
+          "type": "registry:component"
+        },
+        {
+          "path": "src/components/progress-circular/ProgressCircularCircleTrack.vue",
+          "target": "@components/ui/progress-circular/ProgressCircularCircleTrack.vue",
+          "type": "registry:component"
+        },
+        {
+          "path": "src/components/progress-circular/ProgressCircularCircleRange.vue",
+          "target": "@components/ui/progress-circular/ProgressCircularCircleRange.vue",
+          "type": "registry:component"
+        },
+        {
+          "path": "src/components/progress-circular/ProgressCircularValueText.vue",
+          "target": "@components/ui/progress-circular/ProgressCircularValueText.vue",
+          "type": "registry:component"
+        },
+        {
+          "path": "src/components/progress-circular/ProgressCircularView.vue",
+          "target": "@components/ui/progress-circular/ProgressCircularView.vue",
+          "type": "registry:component"
+        },
+        {
+          "path": "src/components/progress-circular/ProgressCircular.module.css",
+          "target": "@components/ui/progress-circular/ProgressCircular.module.css",
+          "type": "registry:file"
+        },
+        {
+          "path": "src/components/progress-circular/index.ts",
+          "target": "@components/ui/progress-circular/index.ts",
           "type": "registry:component"
         }
       ]

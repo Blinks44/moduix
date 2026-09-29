@@ -21,6 +21,14 @@ import progressCircularSolidMinMax from '../../../snippets/progress-circular/sol
 import progressCircularSolidRootProvider from '../../../snippets/progress-circular/solid/root-provider.tsx?raw';
 import progressCircularSolidStateViews from '../../../snippets/progress-circular/solid/state-views.tsx?raw';
 import progressCircularSolidValueText from '../../../snippets/progress-circular/solid/value-text.tsx?raw';
+import progressCircularVueBasic from '../../../snippets/progress-circular/vue/basic.vue?raw';
+import progressCircularVueCircleParts from '../../../snippets/progress-circular/vue/circle-parts.vue?raw';
+import progressCircularVueControlled from '../../../snippets/progress-circular/vue/controlled.vue?raw';
+import progressCircularVueIndeterminate from '../../../snippets/progress-circular/vue/indeterminate.vue?raw';
+import progressCircularVueMinMax from '../../../snippets/progress-circular/vue/min-max.vue?raw';
+import progressCircularVueRootProvider from '../../../snippets/progress-circular/vue/root-provider.vue?raw';
+import progressCircularVueStateViews from '../../../snippets/progress-circular/vue/state-views.vue?raw';
+import progressCircularVueValueText from '../../../snippets/progress-circular/vue/value-text.vue?raw';
 
 ## API Reference
 
@@ -50,6 +58,7 @@ visible label.
     values={[
       { label: 'React', value: 'react' },
       { label: 'Solid', value: 'solid' },
+      { label: 'Vue', value: 'vue' },
     ]}
     className="docs-tabs"
   >
@@ -62,6 +71,11 @@ visible label.
     <Tab value="solid">
 
 <CodeBlockRuntime lang="tsx" code={progressCircularSolidBasic} />
+
+    </Tab>
+    <Tab value="vue">
+
+<CodeBlockRuntime lang="vue" code={progressCircularVueBasic} />
 
     </Tab>
   </Tabs>
@@ -95,6 +109,16 @@ See [Quick Start](/docs/quick-start) for full package setup, registry configurat
   options={[
     { label: 'CSS Modules', command: 'shadcn@latest add @moduix-solid/progress-circular' },
     { label: 'Tailwind CSS', command: 'shadcn@latest add @moduix-solid-tailwind/progress-circular' },
+  ]}
+/>
+
+  </Tab>
+  <Tab label="Vue" value="vue">
+
+<ShadcnInstallOptions
+  options={[
+    { label: 'CSS Modules', command: 'shadcn@latest add @moduix-vue/progress-circular' },
+    { label: 'Tailwind CSS', command: 'shadcn@latest add @moduix-vue-tailwind/progress-circular' },
   ]}
 />
 
@@ -162,6 +186,7 @@ an external task.
     values={[
       { label: 'React', value: 'react' },
       { label: 'Solid', value: 'solid' },
+      { label: 'Vue', value: 'vue' },
     ]}
     className="docs-tabs"
   >
@@ -174,6 +199,11 @@ an external task.
     <Tab value="solid">
 
 <CodeBlockRuntime lang="tsx" code={progressCircularSolidControlled} />
+
+    </Tab>
+    <Tab value="vue">
+
+<CodeBlockRuntime lang="vue" code={progressCircularVueControlled} />
 
     </Tab>
   </Tabs>
@@ -202,6 +232,7 @@ measured yet.
     values={[
       { label: 'React', value: 'react' },
       { label: 'Solid', value: 'solid' },
+      { label: 'Vue', value: 'vue' },
     ]}
     className="docs-tabs"
   >
@@ -214,6 +245,11 @@ measured yet.
     <Tab value="solid">
 
 <CodeBlockRuntime lang="tsx" code={progressCircularSolidIndeterminate} />
+
+    </Tab>
+    <Tab value="vue">
+
+<CodeBlockRuntime lang="vue" code={progressCircularVueIndeterminate} />
 
     </Tab>
   </Tabs>
@@ -241,6 +277,7 @@ Use `min` and `max` to map values to a range other than the default `0` to `100`
     values={[
       { label: 'React', value: 'react' },
       { label: 'Solid', value: 'solid' },
+      { label: 'Vue', value: 'vue' },
     ]}
     className="docs-tabs"
   >
@@ -253,6 +290,11 @@ Use `min` and `max` to map values to a range other than the default `0` to `100`
     <Tab value="solid">
 
 <CodeBlockRuntime lang="tsx" code={progressCircularSolidMinMax} />
+
+    </Tab>
+    <Tab value="vue">
+
+<CodeBlockRuntime lang="vue" code={progressCircularVueMinMax} />
 
     </Tab>
   </Tabs>
@@ -282,6 +324,7 @@ value string.
     values={[
       { label: 'React', value: 'react' },
       { label: 'Solid', value: 'solid' },
+      { label: 'Vue', value: 'vue' },
     ]}
     className="docs-tabs"
   >
@@ -294,6 +337,11 @@ value string.
     <Tab value="solid">
 
 <CodeBlockRuntime lang="tsx" code={progressCircularSolidValueText} />
+
+    </Tab>
+    <Tab value="vue">
+
+<CodeBlockRuntime lang="vue" code={progressCircularVueValueText} />
 
     </Tab>
   </Tabs>
@@ -318,6 +366,7 @@ give `ProgressCircularCircleTrack` and `ProgressCircularCircleRange` their own c
     values={[
       { label: 'React', value: 'react' },
       { label: 'Solid', value: 'solid' },
+      { label: 'Vue', value: 'vue' },
     ]}
     className="docs-tabs"
   >
@@ -330,6 +379,11 @@ give `ProgressCircularCircleTrack` and `ProgressCircularCircleRange` their own c
     <Tab value="solid">
 
 <CodeBlockRuntime lang="tsx" code={progressCircularSolidCircleParts} />
+
+    </Tab>
+    <Tab value="vue">
+
+<CodeBlockRuntime lang="vue" code={progressCircularVueCircleParts} />
 
     </Tab>
   </Tabs>
@@ -358,6 +412,7 @@ component needs to read or update progress outside the rendered tree.
     values={[
       { label: 'React', value: 'react' },
       { label: 'Solid', value: 'solid' },
+      { label: 'Vue', value: 'vue' },
     ]}
     className="docs-tabs"
   >
@@ -370,6 +425,11 @@ component needs to read or update progress outside the rendered tree.
     <Tab value="solid">
 
 <CodeBlockRuntime lang="tsx" code={progressCircularSolidRootProvider} />
+
+    </Tab>
+    <Tab value="vue">
+
+<CodeBlockRuntime lang="vue" code={progressCircularVueRootProvider} />
 
     </Tab>
   </Tabs>
@@ -397,6 +457,7 @@ Use `ProgressCircularView` when supporting text or UI should change with the Ark
     values={[
       { label: 'React', value: 'react' },
       { label: 'Solid', value: 'solid' },
+      { label: 'Vue', value: 'vue' },
     ]}
     className="docs-tabs"
   >
@@ -411,6 +472,11 @@ Use `ProgressCircularView` when supporting text or UI should change with the Ark
 <CodeBlockRuntime lang="tsx" code={progressCircularSolidStateViews} />
 
     </Tab>
+    <Tab value="vue">
+
+<CodeBlockRuntime lang="vue" code={progressCircularVueStateViews} />
+
+    </Tab>
   </Tabs>
 
 **Styles**
@@ -423,7 +489,7 @@ Use `ProgressCircularView` when supporting text or UI should change with the Ark
 
 ## Styling
 
-Use `className` in React and `class` in Solid on exported parts for structural styling. Tailwind
+Use `className` in React and `class` in Solid and Vue on exported parts for structural styling. Tailwind
 variants use native utility classes and consumer class overrides. CSS Modules variants expose the
 CSS variables below. For state-based styles, use Ark data attributes, Ark SVG variables, and moduix
 `data-slot` hooks.
@@ -453,7 +519,7 @@ to keep a visible static cue.
   `data-slot="progress-circular-label"`, `data-slot="progress-circular-circle"`,
   `data-slot="progress-circular-circle-track"`, `data-slot="progress-circular-circle-range"`,
   `data-slot="progress-circular-value-text"`, and `data-slot="progress-circular-view"`.
-- `ProgressCircularRing` shares `ProgressCircularCircle`'s `data-slot`, `className`, ref, and
+- `ProgressCircularRing` shares `ProgressCircularCircle`'s `data-slot`, `className`/`class`, ref, and
   `--moduix-progress-circular-*` size and thickness variables.
 - Ark hooks: `data-scope="progress"`, `data-part`, `data-state="indeterminate|loading|complete"`,
   `data-orientation`, `data-value`, and `data-max`.

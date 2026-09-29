@@ -21,6 +21,14 @@ import progressCircularSolidMinMax from '../../../snippets/progress-circular/sol
 import progressCircularSolidRootProvider from '../../../snippets/progress-circular/solid/root-provider.tsx?raw';
 import progressCircularSolidStateViews from '../../../snippets/progress-circular/solid/state-views.tsx?raw';
 import progressCircularSolidValueText from '../../../snippets/progress-circular/solid/value-text.tsx?raw';
+import progressCircularVueBasic from '../../../snippets/progress-circular/vue/basic.vue?raw';
+import progressCircularVueCircleParts from '../../../snippets/progress-circular/vue/circle-parts.vue?raw';
+import progressCircularVueControlled from '../../../snippets/progress-circular/vue/controlled.vue?raw';
+import progressCircularVueIndeterminate from '../../../snippets/progress-circular/vue/indeterminate.vue?raw';
+import progressCircularVueMinMax from '../../../snippets/progress-circular/vue/min-max.vue?raw';
+import progressCircularVueRootProvider from '../../../snippets/progress-circular/vue/root-provider.vue?raw';
+import progressCircularVueStateViews from '../../../snippets/progress-circular/vue/state-views.vue?raw';
+import progressCircularVueValueText from '../../../snippets/progress-circular/vue/value-text.vue?raw';
 
 ## Справочник API
 
@@ -51,6 +59,7 @@ import progressCircularSolidValueText from '../../../snippets/progress-circular/
     values={[
       { label: 'React', value: 'react' },
       { label: 'Solid', value: 'solid' },
+      { label: 'Vue', value: 'vue' },
     ]}
     className="docs-tabs"
   >
@@ -63,6 +72,11 @@ import progressCircularSolidValueText from '../../../snippets/progress-circular/
     <Tab value="solid">
 
 <CodeBlockRuntime lang="tsx" code={progressCircularSolidBasic} />
+
+    </Tab>
+    <Tab value="vue">
+
+<CodeBlockRuntime lang="vue" code={progressCircularVueBasic} />
 
     </Tab>
   </Tabs>
@@ -96,6 +110,16 @@ import progressCircularSolidValueText from '../../../snippets/progress-circular/
   options={[
     { label: 'CSS Modules', command: 'shadcn@latest add @moduix-solid/progress-circular' },
     { label: 'Tailwind CSS', command: 'shadcn@latest add @moduix-solid-tailwind/progress-circular' },
+  ]}
+/>
+
+  </Tab>
+  <Tab label="Vue" value="vue">
+
+<ShadcnInstallOptions
+  options={[
+    { label: 'CSS Modules', command: 'shadcn@latest add @moduix-vue/progress-circular' },
+    { label: 'Tailwind CSS', command: 'shadcn@latest add @moduix-vue-tailwind/progress-circular' },
   ]}
 />
 
@@ -162,6 +186,7 @@ ProgressCircularRootProvider
     values={[
       { label: 'React', value: 'react' },
       { label: 'Solid', value: 'solid' },
+      { label: 'Vue', value: 'vue' },
     ]}
     className="docs-tabs"
   >
@@ -174,6 +199,11 @@ ProgressCircularRootProvider
     <Tab value="solid">
 
 <CodeBlockRuntime lang="tsx" code={progressCircularSolidControlled} />
+
+    </Tab>
+    <Tab value="vue">
+
+<CodeBlockRuntime lang="vue" code={progressCircularVueControlled} />
 
     </Tab>
   </Tabs>
@@ -202,6 +232,7 @@ ProgressCircularRootProvider
     values={[
       { label: 'React', value: 'react' },
       { label: 'Solid', value: 'solid' },
+      { label: 'Vue', value: 'vue' },
     ]}
     className="docs-tabs"
   >
@@ -214,6 +245,11 @@ ProgressCircularRootProvider
     <Tab value="solid">
 
 <CodeBlockRuntime lang="tsx" code={progressCircularSolidIndeterminate} />
+
+    </Tab>
+    <Tab value="vue">
+
+<CodeBlockRuntime lang="vue" code={progressCircularVueIndeterminate} />
 
     </Tab>
   </Tabs>
@@ -242,6 +278,7 @@ ProgressCircularRootProvider
     values={[
       { label: 'React', value: 'react' },
       { label: 'Solid', value: 'solid' },
+      { label: 'Vue', value: 'vue' },
     ]}
     className="docs-tabs"
   >
@@ -254,6 +291,11 @@ ProgressCircularRootProvider
     <Tab value="solid">
 
 <CodeBlockRuntime lang="tsx" code={progressCircularSolidMinMax} />
+
+    </Tab>
+    <Tab value="vue">
+
+<CodeBlockRuntime lang="vue" code={progressCircularVueMinMax} />
 
     </Tab>
   </Tabs>
@@ -283,6 +325,7 @@ ProgressCircularRootProvider
     values={[
       { label: 'React', value: 'react' },
       { label: 'Solid', value: 'solid' },
+      { label: 'Vue', value: 'vue' },
     ]}
     className="docs-tabs"
   >
@@ -295,6 +338,11 @@ ProgressCircularRootProvider
     <Tab value="solid">
 
 <CodeBlockRuntime lang="tsx" code={progressCircularSolidValueText} />
+
+    </Tab>
+    <Tab value="vue">
+
+<CodeBlockRuntime lang="vue" code={progressCircularVueValueText} />
 
     </Tab>
   </Tabs>
@@ -319,6 +367,7 @@ ProgressCircularRootProvider
     values={[
       { label: 'React', value: 'react' },
       { label: 'Solid', value: 'solid' },
+      { label: 'Vue', value: 'vue' },
     ]}
     className="docs-tabs"
   >
@@ -331,6 +380,11 @@ ProgressCircularRootProvider
     <Tab value="solid">
 
 <CodeBlockRuntime lang="tsx" code={progressCircularSolidCircleParts} />
+
+    </Tab>
+    <Tab value="vue">
+
+<CodeBlockRuntime lang="vue" code={progressCircularVueCircleParts} />
 
     </Tab>
   </Tabs>
@@ -359,6 +413,7 @@ ProgressCircularRootProvider
     values={[
       { label: 'React', value: 'react' },
       { label: 'Solid', value: 'solid' },
+      { label: 'Vue', value: 'vue' },
     ]}
     className="docs-tabs"
   >
@@ -371,6 +426,11 @@ ProgressCircularRootProvider
     <Tab value="solid">
 
 <CodeBlockRuntime lang="tsx" code={progressCircularSolidRootProvider} />
+
+    </Tab>
+    <Tab value="vue">
+
+<CodeBlockRuntime lang="vue" code={progressCircularVueRootProvider} />
 
     </Tab>
   </Tabs>
@@ -399,6 +459,7 @@ ProgressCircularRootProvider
     values={[
       { label: 'React', value: 'react' },
       { label: 'Solid', value: 'solid' },
+      { label: 'Vue', value: 'vue' },
     ]}
     className="docs-tabs"
   >
@@ -413,6 +474,11 @@ ProgressCircularRootProvider
 <CodeBlockRuntime lang="tsx" code={progressCircularSolidStateViews} />
 
     </Tab>
+    <Tab value="vue">
+
+<CodeBlockRuntime lang="vue" code={progressCircularVueStateViews} />
+
+    </Tab>
   </Tabs>
 
 **Стили**
@@ -425,7 +491,7 @@ ProgressCircularRootProvider
 
 ## Стилизация
 
-Используйте `className` в React и `class` в Solid на экспортируемых частях для структурной
+Используйте `className` в React и `class` в Solid и Vue на экспортируемых частях для структурной
 стилизации. Варианты Tailwind используют нативные утилитарные классы и пользовательские классы. Варианты с
 CSS Modules предоставляют переменные ниже. Для стилей, зависящих от состояния, используйте
 атрибуты данных Ark, SVG-переменные Ark и хуки `data-slot` moduix.
@@ -456,7 +522,7 @@ CSS Modules предоставляют переменные ниже. Для с�
   `data-slot="progress-circular-label"`, `data-slot="progress-circular-circle"`,
   `data-slot="progress-circular-circle-track"`, `data-slot="progress-circular-circle-range"`,
   `data-slot="progress-circular-value-text"` и `data-slot="progress-circular-view"`.
-- `ProgressCircularRing` использует те же `data-slot`, `className`, ref и переменные размера и
+- `ProgressCircularRing` использует те же `data-slot`, `className`/`class`, ref и переменные размера и
   толщины `--moduix-progress-circular-*`, что и `ProgressCircularCircle`.
 - Атрибуты Ark: `data-scope="progress"`, `data-part`, `data-state="indeterminate|loading|complete"`,
   `data-orientation`, `data-value` и `data-max`.
