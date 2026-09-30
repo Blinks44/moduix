@@ -24,6 +24,16 @@ import splitButtonSolidSizes from '../../../snippets/split-button/solid/sizes.ts
 import splitButtonSolidVariants from '../../../snippets/split-button/solid/variants.tsx?raw';
 import splitButtonSolidWithIcons from '../../../snippets/split-button/solid/with-icons.tsx?raw';
 
+import splitButtonVueBasic from '../../../snippets/split-button/vue/basic.vue?raw';
+import splitButtonVueControlledMenuState from '../../../snippets/split-button/vue/controlled-menu-state.vue?raw';
+import splitButtonVueDisabledAction from '../../../snippets/split-button/vue/disabled-action.vue?raw';
+import splitButtonVueLinkAction from '../../../snippets/split-button/vue/link-action.vue?raw';
+import splitButtonVueMenuComposition from '../../../snippets/split-button/vue/menu-composition.vue?raw';
+import splitButtonVuePositioning from '../../../snippets/split-button/vue/positioning.vue?raw';
+import splitButtonVueSizes from '../../../snippets/split-button/vue/sizes.vue?raw';
+import splitButtonVueVariants from '../../../snippets/split-button/vue/variants.vue?raw';
+import splitButtonVueWithIcons from '../../../snippets/split-button/vue/with-icons.vue?raw';
+
 ## Référence de l’API
 
 Ark UI ne propose pas de primitive dédiée aux split buttons. moduix compose ce composant avec la
@@ -54,6 +64,7 @@ L’action principale suit le même contrat `onClick` que `Button`.
     values={[
       { label: 'React', value: 'react' },
       { label: 'Solid', value: 'solid' },
+      { label: 'Vue', value: 'vue' },
     ]}
     className="docs-tabs"
   >
@@ -66,6 +77,11 @@ L’action principale suit le même contrat `onClick` que `Button`.
     <Tab value="solid">
 
 <CodeBlockRuntime lang="tsx" code={splitButtonSolidBasic} />
+
+    </Tab>
+    <Tab value="vue">
+
+<CodeBlockRuntime lang="vue" code={splitButtonVueBasic} />
 
     </Tab>
   </Tabs>
@@ -99,6 +115,16 @@ Consultez le [Démarrage rapide](/docs/quick-start) pour la configuration compl�
   options={[
     { label: 'CSS Modules', command: 'shadcn@latest add @moduix-solid/split-button' },
     { label: 'Tailwind CSS', command: 'shadcn@latest add @moduix-solid-tailwind/split-button' },
+  ]}
+/>
+
+  </Tab>
+  <Tab label="Vue" value="vue">
+
+<ShadcnInstallOptions
+  options={[
+    { label: 'CSS Modules', command: 'shadcn@latest add @moduix-vue/split-button' },
+    { label: 'Tailwind CSS', command: 'shadcn@latest add @moduix-vue-tailwind/split-button' },
   ]}
 />
 
@@ -142,6 +168,10 @@ qu’une nouvelle enveloppe d’état propre à SplitButton. Utilisez `SplitButt
 personnalisé du déclencheur passe par `children`, afin que le déclencheur Ark et le Button moduix restent sur un seul
 élément.
 
+Dans Vue, utilisez `@click` pour l’action principale, `@open-change` ou `v-model:open` pour l’état du menu, et le slot par défaut pour le contenu du déclencheur.
+
+`SplitButtonPositioner` enveloppe un portail : le `$el` de sa référence de composant Vue pointe donc vers le nœud d’ancrage du portail. L’élément positionné porte l’attribut `data-slot="split-button-positioner"`.
+
 ## Exemples
 
 ### État contrôlé du menu
@@ -160,6 +190,7 @@ parent.
     values={[
       { label: 'React', value: 'react' },
       { label: 'Solid', value: 'solid' },
+      { label: 'Vue', value: 'vue' },
     ]}
     className="docs-tabs"
   >
@@ -172,6 +203,11 @@ parent.
     <Tab value="solid">
 
 <CodeBlockRuntime lang="tsx" code={splitButtonSolidControlledMenuState} />
+
+    </Tab>
+    <Tab value="vue">
+
+<CodeBlockRuntime lang="vue" code={splitButtonVueControlledMenuState} />
 
     </Tab>
   </Tabs>
@@ -195,6 +231,7 @@ solution utile.
     values={[
       { label: 'React', value: 'react' },
       { label: 'Solid', value: 'solid' },
+      { label: 'Vue', value: 'vue' },
     ]}
     className="docs-tabs"
   >
@@ -207,6 +244,11 @@ solution utile.
     <Tab value="solid">
 
 <CodeBlockRuntime lang="tsx" code={splitButtonSolidDisabledAction} />
+
+    </Tab>
+    <Tab value="vue">
+
+<CodeBlockRuntime lang="vue" code={splitButtonVueDisabledAction} />
 
     </Tab>
   </Tabs>
@@ -229,6 +271,7 @@ Utilisez `asChild` sur `SplitButtonAction` lorsque l’action principale doit ê
     values={[
       { label: 'React', value: 'react' },
       { label: 'Solid', value: 'solid' },
+      { label: 'Vue', value: 'vue' },
     ]}
     className="docs-tabs"
   >
@@ -241,6 +284,11 @@ Utilisez `asChild` sur `SplitButtonAction` lorsque l’action principale doit ê
     <Tab value="solid">
 
 <CodeBlockRuntime lang="tsx" code={splitButtonSolidLinkAction} />
+
+    </Tab>
+    <Tab value="vue">
+
+<CodeBlockRuntime lang="vue" code={splitButtonVueLinkAction} />
 
     </Tab>
   </Tabs>
@@ -264,6 +312,7 @@ parties structurelles explicites.
     values={[
       { label: 'React', value: 'react' },
       { label: 'Solid', value: 'solid' },
+      { label: 'Vue', value: 'vue' },
     ]}
     className="docs-tabs"
   >
@@ -276,6 +325,11 @@ parties structurelles explicites.
     <Tab value="solid">
 
 <CodeBlockRuntime lang="tsx" code={splitButtonSolidPositioning} />
+
+    </Tab>
+    <Tab value="vue">
+
+<CodeBlockRuntime lang="vue" code={splitButtonVuePositioning} />
 
     </Tab>
   </Tabs>
@@ -298,6 +352,7 @@ Utilisez la propriété racine `size` lorsque les deux boutons doivent être red
     values={[
       { label: 'React', value: 'react' },
       { label: 'Solid', value: 'solid' },
+      { label: 'Vue', value: 'vue' },
     ]}
     className="docs-tabs"
   >
@@ -310,6 +365,11 @@ Utilisez la propriété racine `size` lorsque les deux boutons doivent être red
     <Tab value="solid">
 
 <CodeBlockRuntime lang="tsx" code={splitButtonSolidSizes} />
+
+    </Tab>
+    <Tab value="vue">
+
+<CodeBlockRuntime lang="vue" code={splitButtonVueSizes} />
 
     </Tab>
   </Tabs>
@@ -337,6 +397,7 @@ Utilisez la propriété racine `variant` lorsque les deux boutons doivent partag
     values={[
       { label: 'React', value: 'react' },
       { label: 'Solid', value: 'solid' },
+      { label: 'Vue', value: 'vue' },
     ]}
     className="docs-tabs"
   >
@@ -349,6 +410,11 @@ Utilisez la propriété racine `variant` lorsque les deux boutons doivent partag
     <Tab value="solid">
 
 <CodeBlockRuntime lang="tsx" code={splitButtonSolidVariants} />
+
+    </Tab>
+    <Tab value="vue">
+
+<CodeBlockRuntime lang="vue" code={splitButtonVueVariants} />
 
     </Tab>
   </Tabs>
@@ -376,6 +442,7 @@ Ajoutez une icône à l’action principale lorsqu’elle clarifie l’action sa
     values={[
       { label: 'React', value: 'react' },
       { label: 'Solid', value: 'solid' },
+      { label: 'Vue', value: 'vue' },
     ]}
     className="docs-tabs"
   >
@@ -388,6 +455,11 @@ Ajoutez une icône à l’action principale lorsqu’elle clarifie l’action sa
     <Tab value="solid">
 
 <CodeBlockRuntime lang="tsx" code={splitButtonSolidWithIcons} />
+
+    </Tab>
+    <Tab value="vue">
+
+<CodeBlockRuntime lang="vue" code={splitButtonVueWithIcons} />
 
     </Tab>
   </Tabs>
@@ -411,6 +483,7 @@ groupes, des séparateurs ou des éléments regroupés.
     values={[
       { label: 'React', value: 'react' },
       { label: 'Solid', value: 'solid' },
+      { label: 'Vue', value: 'vue' },
     ]}
     className="docs-tabs"
   >
@@ -425,6 +498,11 @@ groupes, des séparateurs ou des éléments regroupés.
 <CodeBlockRuntime lang="tsx" code={splitButtonSolidMenuComposition} />
 
     </Tab>
+    <Tab value="vue">
+
+<CodeBlockRuntime lang="vue" code={splitButtonVueMenuComposition} />
+
+    </Tab>
   </Tabs>
 </div>
 
@@ -432,7 +510,7 @@ groupes, des séparateurs ou des éléments regroupés.
 
 ## Styles
 
-Utilisez `className` en React ou `class` en Solid sur les parties exportées pour appliquer les styles structurels.
+Utilisez `className` en React ou `class` en Solid et Vue sur les parties exportées pour appliquer les styles structurels.
 Les variantes Tailwind se personnalisent avec des utilitaires et des classes supplémentaires ; les variables
 ci-dessous concernent les variantes CSS Modules. Les attributs de données et les hooks `data-slot` sont communs
 aux deux modes de style.

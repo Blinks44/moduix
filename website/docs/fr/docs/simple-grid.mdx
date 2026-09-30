@@ -1,7 +1,7 @@
 ---
 title: Simple Grid
 component: simple-grid
-description: Créez des grilles réactives à colonnes égales en React ou Solid avec une installation par paquet ou shadcn.
+description: Créez des grilles adaptatives à colonnes égales en React, Solid ou Vue avec une installation par paquet ou shadcn.
 ---
 
 import SimpleGridBasic from '@/components/examples/simple-grid/basic.tsx';
@@ -10,6 +10,9 @@ import SimpleGridMediaGallery from '@/components/examples/simple-grid/media-gall
 import simpleGridSolidBasic from '../../../snippets/simple-grid/solid/basic.tsx?raw';
 import simpleGridSolidFixedColumns from '../../../snippets/simple-grid/solid/fixed-columns.tsx?raw';
 import simpleGridSolidMediaGallery from '../../../snippets/simple-grid/solid/media-gallery.tsx?raw';
+import simpleGridVueBasic from '../../../snippets/simple-grid/vue/basic.vue?raw';
+import simpleGridVueFixedColumns from '../../../snippets/simple-grid/vue/fixed-columns.vue?raw';
+import simpleGridVueMediaGallery from '../../../snippets/simple-grid/vue/media-gallery.vue?raw';
 
 ## Référence de l’API
 
@@ -43,6 +46,7 @@ directs de la grille. Si un enfant contient du contenu qui ne peut pas être cou
     values={[
       { label: 'React', value: 'react' },
       { label: 'Solid', value: 'solid' },
+      { label: 'Vue', value: 'vue' },
     ]}
     className="docs-tabs"
   >
@@ -55,6 +59,11 @@ directs de la grille. Si un enfant contient du contenu qui ne peut pas être cou
     <Tab value="solid">
 
 <CodeBlockRuntime lang="tsx" code={simpleGridSolidBasic} />
+
+    </Tab>
+    <Tab value="vue">
+
+<CodeBlockRuntime lang="vue" code={simpleGridVueBasic} />
 
     </Tab>
   </Tabs>
@@ -92,6 +101,16 @@ Consultez le [Démarrage rapide](/docs/quick-start) pour la configuration compl�
 />
 
   </Tab>
+  <Tab label="Vue" value="vue">
+
+<ShadcnInstallOptions
+  options={[
+    { label: 'CSS Modules', command: 'shadcn@latest add @moduix-vue/simple-grid' },
+    { label: 'Tailwind CSS', command: 'shadcn@latest add @moduix-vue-tailwind/simple-grid' },
+  ]}
+/>
+
+  </Tab>
 </Tabs>
 
 ## Anatomie
@@ -116,8 +135,9 @@ est prioritaire.
 
 Utilisez `asChild` lorsque la racine de la grille doit être un élément sémantique comme `ul`, `section`
 ou `nav`. Cette option attend exactement un élément enfant, qui devient la racine rendue. En React,
-transmettez `asChild` comme booléen ; en Solid, utilisez sa forme fonctionnelle pour renvoyer cet
-élément. Pour des zones de grille nommées, des pistes de tailles différentes ou des éléments qui
+transmettez `asChild` comme booléen ; en Vue, utilisez `as-child` avec un seul élément dans le slot
+par défaut ; en Solid, utilisez sa forme fonctionnelle pour renvoyer cet élément.
+Pour des zones de grille nommées, des pistes de tailles différentes ou des éléments qui
 s’étendent sur plusieurs pistes, ne transmettez aucune propriété de mise en page et définissez le
 modèle dans votre CSS ; cela fonctionne dans les variantes Tailwind, tandis que les packages CSS
 Modules imposent de redéfinir `grid-template-columns` par instance via la prop `style`, car la
@@ -141,6 +161,7 @@ compacte de métriques.
     values={[
       { label: 'React', value: 'react' },
       { label: 'Solid', value: 'solid' },
+      { label: 'Vue', value: 'vue' },
     ]}
     className="docs-tabs"
   >
@@ -153,6 +174,11 @@ compacte de métriques.
     <Tab value="solid">
 
 <CodeBlockRuntime lang="tsx" code={simpleGridSolidFixedColumns} />
+
+    </Tab>
+    <Tab value="vue">
+
+<CodeBlockRuntime lang="vue" code={simpleGridVueFixedColumns} />
 
     </Tab>
   </Tabs>
@@ -181,6 +207,7 @@ la racine devient un `ul` et chaque image reste dans un élément `li` direct.
     values={[
       { label: 'React', value: 'react' },
       { label: 'Solid', value: 'solid' },
+      { label: 'Vue', value: 'vue' },
     ]}
     className="docs-tabs"
   >
@@ -193,6 +220,11 @@ la racine devient un `ul` et chaque image reste dans un élément `li` direct.
     <Tab value="solid">
 
 <CodeBlockRuntime lang="tsx" code={simpleGridSolidMediaGallery} />
+
+    </Tab>
+    <Tab value="vue">
+
+<CodeBlockRuntime lang="vue" code={simpleGridVueMediaGallery} />
 
     </Tab>
   </Tabs>
@@ -208,14 +240,14 @@ la racine devient un `ul` et chaque image reste dans un élément `li` direct.
 ## Styles
 
 `SimpleGrid` ne définit aucune variable CSS propre au composant. Ses propriétés de mise en page sont
-écrites dans les styles inline de la racine rendue. Dans les variantes Tailwind, la racine n’a aucun
-`grid-template-columns` inline : omettez `columns` et `minChildWidth` et laissez votre feuille de
-style ou les utilitaires `grid-cols-*` gérer le modèle. Dans les packages CSS Modules, la racine
+écrites dans les styles inline de la racine rendue. Dans les variantes Tailwind, si vous omettez
+`columns` et `minChildWidth`, `grid-template-columns` n’est pas ajouté aux styles inline : votre feuille
+de style ou les utilitaires `grid-cols-*` peuvent alors gérer le modèle. Dans les packages CSS Modules, la racine
 écrit toujours un `grid-template-columns` inline (le fallback à une colonne) et les styles inline
 l’emportent sur toute classe de l’application : transmettez donc les modèles personnalisés par
 instance via la prop `style`.
 
-Utilisez `className` en React ou `class` en Solid pour les styles structurels. Les variantes Tailwind
+Utilisez `className` en React ou `class` en Solid et en Vue pour les styles structurels. Les variantes Tailwind
 utilisent les utilitaires natifs et les classes de l’application ; les attributs de données et le hook
 `data-slot` sont communs aux deux approches de style.
 

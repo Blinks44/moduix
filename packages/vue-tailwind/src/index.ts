@@ -1,5 +1,7 @@
 // Internal test barrel. The package intentionally exposes component subpaths only.
 
+export * from './components/simple-grid';
+export * from './components/text';
 export * from './components/accordion';
 export * from './components/qr-code';
 export * from './components/pin-input';
@@ -67,3 +69,5 @@ export * from './components/sidebar';
 export * from './components/progress-linear';
 export * from './components/progress-circular';
 export * from './components/signature-pad';
+export * from './components/skeleton';
+export * from './components/split-button';

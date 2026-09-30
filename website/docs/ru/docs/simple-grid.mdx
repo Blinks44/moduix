@@ -1,7 +1,7 @@
 ---
 title: Simple Grid
 component: simple-grid
-description: Адаптивная сетка с равными колонками для React и Solid с установкой через пакет или shadcn.
+description: Адаптивная сетка с равными колонками для React, Solid и Vue с установкой через пакет или shadcn.
 ---
 
 import SimpleGridBasic from '@/components/examples/simple-grid/basic.tsx';
@@ -10,6 +10,9 @@ import SimpleGridMediaGallery from '@/components/examples/simple-grid/media-gall
 import simpleGridSolidBasic from '../../../snippets/simple-grid/solid/basic.tsx?raw';
 import simpleGridSolidFixedColumns from '../../../snippets/simple-grid/solid/fixed-columns.tsx?raw';
 import simpleGridSolidMediaGallery from '../../../snippets/simple-grid/solid/media-gallery.tsx?raw';
+import simpleGridVueBasic from '../../../snippets/simple-grid/vue/basic.vue?raw';
+import simpleGridVueFixedColumns from '../../../snippets/simple-grid/vue/fixed-columns.vue?raw';
+import simpleGridVueMediaGallery from '../../../snippets/simple-grid/vue/media-gallery.vue?raw';
 
 ## Справочник API
 
@@ -42,6 +45,7 @@ import simpleGridSolidMediaGallery from '../../../snippets/simple-grid/solid/med
     values={[
       { label: 'React', value: 'react' },
       { label: 'Solid', value: 'solid' },
+      { label: 'Vue', value: 'vue' },
     ]}
     className="docs-tabs"
   >
@@ -56,9 +60,14 @@ import simpleGridSolidMediaGallery from '../../../snippets/simple-grid/solid/med
 <CodeBlockRuntime lang="tsx" code={simpleGridSolidBasic} />
 
     </Tab>
+    <Tab value="vue">
+
+<CodeBlockRuntime lang="vue" code={simpleGridVueBasic} />
+
+    </Tab>
   </Tabs>
 
-**Styles**
+**Стили**
 
 ```css file="../../../src/components/examples/simple-grid/simple-grid-basic.module.css"
 ```
@@ -91,6 +100,16 @@ import simpleGridSolidMediaGallery from '../../../snippets/simple-grid/solid/med
 />
 
   </Tab>
+  <Tab label="Vue" value="vue">
+
+<ShadcnInstallOptions
+  options={[
+    { label: 'CSS Modules', command: 'shadcn@latest add @moduix-vue/simple-grid' },
+    { label: 'Tailwind CSS', command: 'shadcn@latest add @moduix-vue-tailwind/simple-grid' },
+  ]}
+/>
+
+  </Tab>
 </Tabs>
 
 ## Анатомия
@@ -115,8 +134,9 @@ SimpleGrid
 
 Используйте `asChild`, когда корневым элементом сетки должен быть семантический тег, например `ul`,
 `section` или `nav`. Он требует ровно одного дочернего элемента, который становится отрендеренным
-корнем. В React передавайте `asChild` как boolean, а в Solid используйте форму с функцией-рендерером,
-которая возвращает этот элемент. Для именованных областей, колонок разной ширины или элементов,
+корнем. В React передавайте `asChild` как логическое значение, в Vue используйте `as-child` с одним
+элементом в слоте по умолчанию, а в Solid — функцию, возвращающую этот элемент.
+Для именованных областей, колонок разной ширины или элементов,
 занимающих несколько колонок, не передавайте свойства раскладки и задайте шаблон сетки в своём CSS;
 это работает в вариантах Tailwind, а в пакетах с CSS Modules `grid-template-columns` для каждого
 экземпляра задаётся через свойство `style`, потому что корень всегда записывает fallback на одну
@@ -140,6 +160,7 @@ SimpleGrid
     values={[
       { label: 'React', value: 'react' },
       { label: 'Solid', value: 'solid' },
+      { label: 'Vue', value: 'vue' },
     ]}
     className="docs-tabs"
   >
@@ -152,6 +173,11 @@ SimpleGrid
     <Tab value="solid">
 
 <CodeBlockRuntime lang="tsx" code={simpleGridSolidFixedColumns} />
+
+    </Tab>
+    <Tab value="vue">
+
+<CodeBlockRuntime lang="vue" code={simpleGridVueFixedColumns} />
 
     </Tab>
   </Tabs>
@@ -180,6 +206,7 @@ SimpleGrid
     values={[
       { label: 'React', value: 'react' },
       { label: 'Solid', value: 'solid' },
+      { label: 'Vue', value: 'vue' },
     ]}
     className="docs-tabs"
   >
@@ -194,9 +221,14 @@ SimpleGrid
 <CodeBlockRuntime lang="tsx" code={simpleGridSolidMediaGallery} />
 
     </Tab>
+    <Tab value="vue">
+
+<CodeBlockRuntime lang="vue" code={simpleGridVueMediaGallery} />
+
+    </Tab>
   </Tabs>
 
-**Styles**
+**Стили**
 
 ```css file="../../../src/components/examples/simple-grid/simple-grid-media-gallery.module.css"
 ```
@@ -207,13 +239,13 @@ SimpleGrid
 ## Стилизация
 
 `SimpleGrid` не определяет собственных CSS-переменных. Свойства раскладки записываются в inline-стили
-корневого элемента. В вариантах Tailwind у корня нет inline-`grid-template-columns`, поэтому можно не
-передавать `columns` и `minChildWidth` и оставить шаблон таблице стилей или utility-классам
+корневого элемента. В вариантах Tailwind, если не передавать `columns` и `minChildWidth`,
+`grid-template-columns` не добавляется в inline-стили, поэтому шаблон можно задать в CSS или классами
 `grid-cols-*`. В пакетах с CSS Modules корень всегда записывает inline-`grid-template-columns`
-(fallback на одну колонку), а inline-стили важнее любого класса приложения, так что передавайте
+(значение по умолчанию — одна колонка), а inline-стили важнее любого класса приложения, так что передавайте
 собственные шаблоны для конкретного экземпляра через свойство `style`.
 
-Используйте `className` в React и `class` в Solid для структурной стилизации. Варианты Tailwind
+Используйте `className` в React и `class` в Solid и Vue для структурной стилизации. Варианты Tailwind
 используют обычные utility-классы и классы приложения; атрибуты данных и хук `data-slot` общие для
 обоих вариантов стилизации.
 

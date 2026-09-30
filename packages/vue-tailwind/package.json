@@ -49,6 +49,22 @@
     "**/*.css"
   ],
   "exports": {
+    "./text": {
+      "types": "./dist/components/text/index.d.ts",
+      "import": "./dist/components/text/index.js"
+    },
+    "./split-button": {
+      "types": "./dist/components/split-button/index.d.ts",
+      "import": "./dist/components/split-button/index.js"
+    },
+    "./simple-grid": {
+      "types": "./dist/components/simple-grid/index.d.ts",
+      "import": "./dist/components/simple-grid/index.js"
+    },
+    "./skeleton": {
+      "types": "./dist/components/skeleton/index.d.ts",
+      "import": "./dist/components/skeleton/index.js"
+    },
     "./date-picker": {
       "types": "./dist/components/date-picker/index.d.ts",
       "import": "./dist/components/date-picker/index.js"

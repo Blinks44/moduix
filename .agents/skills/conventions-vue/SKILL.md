@@ -86,6 +86,11 @@ Use this skill for JS/TS Vue work in this repo.
   package components or documentation snippets. Plain `.ts` files such as Storybook runtime
   stories use the same normal CSS Module import. Do not add generated CSS typings only to improve
   IDE completion.
+- When a family composes another styled component, preserve the base-before-override CSS order
+  across its separate SFC modules. If the family root imports its overrides before a sibling part
+  reaches the base component, explicitly import that base stylesheet before the family stylesheet
+  in the root. Verify computed styles in the built browser output; class presence and equal
+  selector specificity do not prove the cascade order.
 - Redeclare required Ark props as local fields and forward them explicitly. This gives `vue-tsc` a
   complete child binding without assertions and keeps requiredness visible in generated
   declarations. Leave optional Ark props, especially optional Booleans with upstream defaults, in

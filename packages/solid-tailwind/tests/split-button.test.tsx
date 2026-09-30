@@ -185,8 +185,10 @@ test('keeps component-owned utilities visible and lets consumers replace conflic
 
   const action = screen.getByRole('button', { name: 'Save' });
   const trigger = screen.getByRole('button', { name: 'More actions' });
+  const pressReset = "motion-safe:[&:not([data-variant='link']):active]:[translate:none]";
 
   expect(action).toHaveClass('inline-flex', 'items-center', 'rounded-md');
+  expect(action).toHaveClass(pressReset);
   expect(action).not.toHaveClass('rounded-e-none', 'px-4', 'text-sm');
   expect(trigger).toHaveClass(
     'relative',
@@ -194,6 +196,7 @@ test('keeps component-owned utilities visible and lets consumers replace conflic
     'rounded-s-none',
     'before:absolute',
     'before:w-px',
+    pressReset,
   );
   expect(trigger).toHaveClass('px-0');
   expect(trigger).not.toHaveClass('px-3.5', 'px-5');

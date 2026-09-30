@@ -1,7 +1,7 @@
 ---
 title: Simple Grid
 component: simple-grid
-description: Build responsive equal-column grids in React or Solid with package and shadcn installation options.
+description: Build responsive equal-column grids in React, Solid, or Vue with package and shadcn installation options.
 ---
 
 import SimpleGridBasic from '@/components/examples/simple-grid/basic.tsx';
@@ -10,6 +10,9 @@ import SimpleGridMediaGallery from '@/components/examples/simple-grid/media-gall
 import simpleGridSolidBasic from '../../../snippets/simple-grid/solid/basic.tsx?raw';
 import simpleGridSolidFixedColumns from '../../../snippets/simple-grid/solid/fixed-columns.tsx?raw';
 import simpleGridSolidMediaGallery from '../../../snippets/simple-grid/solid/media-gallery.tsx?raw';
+import simpleGridVueBasic from '../../../snippets/simple-grid/vue/basic.vue?raw';
+import simpleGridVueFixedColumns from '../../../snippets/simple-grid/vue/fixed-columns.vue?raw';
+import simpleGridVueMediaGallery from '../../../snippets/simple-grid/vue/media-gallery.vue?raw';
 
 ## API Reference
 
@@ -41,6 +44,7 @@ child contains unbreakable content, add `min-width: 0` or an appropriate overflo
     values={[
       { label: 'React', value: 'react' },
       { label: 'Solid', value: 'solid' },
+      { label: 'Vue', value: 'vue' },
     ]}
     className="docs-tabs"
   >
@@ -53,6 +57,11 @@ child contains unbreakable content, add `min-width: 0` or an appropriate overflo
     <Tab value="solid">
 
 <CodeBlockRuntime lang="tsx" code={simpleGridSolidBasic} />
+
+    </Tab>
+    <Tab value="vue">
+
+<CodeBlockRuntime lang="vue" code={simpleGridVueBasic} />
 
     </Tab>
   </Tabs>
@@ -90,6 +99,16 @@ See [Quick Start](/docs/quick-start) for full package setup, registry configurat
 />
 
   </Tab>
+  <Tab label="Vue" value="vue">
+
+<ShadcnInstallOptions
+  options={[
+    { label: 'CSS Modules', command: 'shadcn@latest add @moduix-vue/simple-grid' },
+    { label: 'Tailwind CSS', command: 'shadcn@latest add @moduix-vue-tailwind/simple-grid' },
+  ]}
+/>
+
+  </Tab>
 </Tabs>
 
 ## Anatomy
@@ -113,7 +132,8 @@ Use `<SimpleGrid>` as the root. Choose either `minChildWidth` for an intrinsic c
 
 Use `asChild` when the grid root should be a semantic element such as `ul`, `section`, or `nav`.
 It requires exactly one element child, which becomes the rendered root. In React, pass `asChild` as
-a boolean; in Solid, use its render-function form to return that element. For named grid areas,
+a boolean; in Vue, use `as-child` with a single default-slot element; in Solid, use its render-function
+form to return that element. For named grid areas,
 unequal tracks, or items that span tracks, omit both layout props and define the grid template in
 your own CSS; this works in the Tailwind variants, while the CSS Modules packages override
 `grid-template-columns` per instance through the `style` prop because the root always writes an
@@ -136,6 +156,7 @@ Use `columns` when the number of equal columns should stay fixed, such as in a c
     values={[
       { label: 'React', value: 'react' },
       { label: 'Solid', value: 'solid' },
+      { label: 'Vue', value: 'vue' },
     ]}
     className="docs-tabs"
   >
@@ -148,6 +169,11 @@ Use `columns` when the number of equal columns should stay fixed, such as in a c
     <Tab value="solid">
 
 <CodeBlockRuntime lang="tsx" code={simpleGridSolidFixedColumns} />
+
+    </Tab>
+    <Tab value="vue">
+
+<CodeBlockRuntime lang="vue" code={simpleGridVueFixedColumns} />
 
     </Tab>
   </Tabs>
@@ -176,6 +202,7 @@ Use `asChild` when the grid itself should carry list semantics. This example ren
     values={[
       { label: 'React', value: 'react' },
       { label: 'Solid', value: 'solid' },
+      { label: 'Vue', value: 'vue' },
     ]}
     className="docs-tabs"
   >
@@ -188,6 +215,11 @@ Use `asChild` when the grid itself should carry list semantics. This example ren
     <Tab value="solid">
 
 <CodeBlockRuntime lang="tsx" code={simpleGridSolidMediaGallery} />
+
+    </Tab>
+    <Tab value="vue">
+
+<CodeBlockRuntime lang="vue" code={simpleGridVueMediaGallery} />
 
     </Tab>
   </Tabs>
@@ -203,13 +235,13 @@ Use `asChild` when the grid itself should carry list semantics. This example ren
 ## Styling
 
 `SimpleGrid` does not define component-specific CSS variables. Its layout props are written as
-inline styles on the rendered root. In the Tailwind variants, the root has no inline
-`grid-template-columns`, so you can omit `columns` and `minChildWidth` and let your stylesheet or
-`grid-cols-*` utilities own the template. In the CSS Modules packages, the root always writes an
+inline styles on the rendered root. In the Tailwind variants, omitting `columns` and `minChildWidth`
+leaves `grid-template-columns` out of the inline styles, so your stylesheet or `grid-cols-*` utilities
+can own the template. In the CSS Modules packages, the root always writes an
 inline `grid-template-columns` (the one-column fallback), and inline styles beat any consumer class,
 so pass custom templates per instance through the `style` prop.
 
-Use `className` in React or `class` in Solid for structural styles. Tailwind variants use native
+Use `className` in React or `class` in Solid and Vue for structural styles. Tailwind variants use native
 utility classes and consumer class overrides; the data attributes and `data-slot` hook are shared by
 both styling tracks.
 

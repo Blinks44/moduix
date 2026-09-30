@@ -4,6 +4,123 @@
   "homepage": "https://moduix.dev",
   "items": [
     {
+      "name": "text",
+      "type": "registry:item",
+      "title": "Text",
+      "description": "moduix Vue Tailwind Text component.",
+      "dependencies": ["@ark-ui/vue", "class-variance-authority", "clsx", "tailwind-merge"],
+      "registryDependencies": ["@moduix-vue-tailwind/foundation", "@moduix-vue-tailwind/cn"],
+      "files": [
+        {
+          "path": "src/components/text/Text.vue",
+          "target": "@components/ui/text/Text.vue",
+          "type": "registry:component"
+        },
+        {
+          "path": "src/components/text/index.ts",
+          "target": "@components/ui/text/index.ts",
+          "type": "registry:component"
+        }
+      ]
+    },
+    {
+      "name": "split-button",
+      "type": "registry:item",
+      "title": "SplitButton",
+      "description": "moduix Vue SplitButton component.",
+      "dependencies": ["@ark-ui/vue", "class-variance-authority"],
+      "registryDependencies": [
+        "@moduix-vue-tailwind/foundation",
+        "@moduix-vue-tailwind/button",
+        "@moduix-vue-tailwind/menu",
+        "@moduix-vue-tailwind/icons",
+        "@moduix-vue-tailwind/overlay-portal",
+        "@moduix-vue-tailwind/cn"
+      ],
+      "files": [
+        {
+          "path": "src/components/split-button/SplitButton.vue",
+          "target": "@components/ui/split-button/SplitButton.vue",
+          "type": "registry:component"
+        },
+        {
+          "path": "src/components/split-button/SplitButtonAction.vue",
+          "target": "@components/ui/split-button/SplitButtonAction.vue",
+          "type": "registry:component"
+        },
+        {
+          "path": "src/components/split-button/SplitButtonTrigger.vue",
+          "target": "@components/ui/split-button/SplitButtonTrigger.vue",
+          "type": "registry:component"
+        },
+        {
+          "path": "src/components/split-button/SplitButtonPositioner.vue",
+          "target": "@components/ui/split-button/SplitButtonPositioner.vue",
+          "type": "registry:component"
+        },
+        {
+          "path": "src/components/split-button/SplitButtonContent.vue",
+          "target": "@components/ui/split-button/SplitButtonContent.vue",
+          "type": "registry:component"
+        },
+        {
+          "path": "src/components/split-button/context.ts",
+          "target": "@components/ui/split-button/context.ts",
+          "type": "registry:component"
+        },
+        {
+          "path": "src/components/split-button/index.ts",
+          "target": "@components/ui/split-button/index.ts",
+          "type": "registry:component"
+        },
+        {
+          "path": "src/components/split-button/SplitButton.variants.ts",
+          "target": "@components/ui/split-button/SplitButton.variants.ts",
+          "type": "registry:component"
+        }
+      ]
+    },
+    {
+      "name": "simple-grid",
+      "type": "registry:item",
+      "title": "SimpleGrid",
+      "description": "moduix Vue Tailwind SimpleGrid component.",
+      "dependencies": ["@ark-ui/vue", "clsx", "tailwind-merge"],
+      "registryDependencies": ["@moduix-vue-tailwind/foundation", "@moduix-vue-tailwind/cn"],
+      "files": [
+        {
+          "path": "src/components/simple-grid/SimpleGrid.vue",
+          "target": "@components/ui/simple-grid/SimpleGrid.vue",
+          "type": "registry:component"
+        },
+        {
+          "path": "src/components/simple-grid/index.ts",
+          "target": "@components/ui/simple-grid/index.ts",
+          "type": "registry:component"
+        }
+      ]
+    },
+    {
+      "name": "skeleton",
+      "type": "registry:item",
+      "title": "Skeleton",
+      "description": "moduix Vue Tailwind Skeleton component.",
+      "dependencies": ["@ark-ui/vue", "clsx", "tailwind-merge"],
+      "registryDependencies": ["@moduix-vue-tailwind/foundation", "@moduix-vue-tailwind/cn"],
+      "files": [
+        {
+          "path": "src/components/skeleton/Skeleton.vue",
+          "target": "@components/ui/skeleton/Skeleton.vue",
+          "type": "registry:component"
+        },
+        {
+          "path": "src/components/skeleton/index.ts",
+          "target": "@components/ui/skeleton/index.ts",
+          "type": "registry:component"
+        }
+      ]
+    },
+    {
       "name": "init",
       "type": "registry:base",
       "title": "moduix Vue Tailwind init",

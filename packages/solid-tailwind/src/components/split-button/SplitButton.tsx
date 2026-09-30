@@ -47,7 +47,7 @@ type SplitButtonContentProps = ComponentProps<typeof MenuPrimitive.Content>;
 type SplitButtonPositionerProps = ComponentProps<typeof MenuPrimitive.Positioner>;
 
 const splitButtonTriggerVariants = cva(
-  "relative min-w-0 -ms-[calc(var(--moduix-button-border-width,var(--moduix-border-width-sm))*-1)] rounded-s-none before:pointer-events-none before:absolute before:inset-y-1.5 before:start-0 before:w-px before:bg-current before:opacity-[0.16] before:content-['']",
+  "relative min-w-0 ms-[calc(var(--moduix-button-border-width,var(--moduix-border-width-sm))*-1)] rounded-s-none motion-safe:[&:not([data-variant='link']):active]:[translate:none] before:pointer-events-none before:absolute before:inset-y-1.5 before:start-0 before:w-px before:bg-current before:opacity-[0.16] before:content-['']",
   {
     variants: {
       size: {
@@ -137,7 +137,10 @@ function SplitButtonAction(props: SplitButtonActionProps) {
       data-slot="split-button-action"
       size={local.size ?? context.size()}
       variant={local.variant ?? context.variant()}
-      class={cn('rounded-e-none', local.class)}
+      class={cn(
+        "rounded-e-none motion-safe:[&:not([data-variant='link']):active]:[translate:none]",
+        local.class,
+      )}
     />
   );
 }

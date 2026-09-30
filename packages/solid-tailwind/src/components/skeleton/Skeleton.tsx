@@ -73,7 +73,7 @@ function Skeleton(props: SkeletonProps) {
         'block w-full overflow-hidden rounded-md',
         loading() &&
           cn(
-            'pointer-events-none h-4 bg-muted-foreground/18 text-transparent select-none before:invisible after:invisible [&_*]:invisible',
+            'pointer-events-none h-4 bg-[color-mix(in_oklab,var(--color-muted-foreground)_18%,var(--color-background))] text-transparent select-none before:invisible after:invisible [&_*]:invisible',
             variant() === 'none'
               ? 'animate-none'
               : 'animate-[moduix-pulse_2.5s_ease-in-out_infinite]',

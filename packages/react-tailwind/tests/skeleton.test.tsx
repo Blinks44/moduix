@@ -95,7 +95,7 @@ test('applies the empty visual root utilities', () => {
     'overflow-hidden',
     'rounded-md',
     'h-4',
-    'bg-muted-foreground/18',
+    'bg-[color-mix(in_oklab,var(--color-muted-foreground)_18%,var(--color-background))]',
     'animate-[moduix-pulse_2.5s_ease-in-out_infinite]',
   );
 });
@@ -107,5 +107,10 @@ test('lets consumer utilities override loading defaults', () => {
   const skeleton = getByTestId('skeleton');
 
   expect(skeleton).toHaveClass('h-8', 'w-1/2', 'rounded-lg', 'bg-primary', 'animate-none');
-  expect(skeleton).not.toHaveClass('h-4', 'w-full', 'rounded-md', 'bg-muted-foreground/18');
+  expect(skeleton).not.toHaveClass(
+    'h-4',
+    'w-full',
+    'rounded-md',
+    'bg-[color-mix(in_oklab,var(--color-muted-foreground)_18%,var(--color-background))]',
+  );
 });

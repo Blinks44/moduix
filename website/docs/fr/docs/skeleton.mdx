@@ -1,7 +1,7 @@
 ---
 title: Skeleton
 component: skeleton
-description: Un espace réservé pour le chargement de textes, cartes, médias et sections personnalisées en React et Solid.
+description: Un espace réservé pour le chargement de textes, cartes, médias et sections personnalisées en React, Solid et Vue.
 ---
 
 import * as SkeletonDocs from '@/components/examples/skeleton/css-properties';
@@ -19,6 +19,13 @@ import skeletonSolidLoadedContent from '../../../snippets/skeleton/solid/loaded-
 import skeletonSolidMediaObject from '../../../snippets/skeleton/solid/media-object.tsx?raw';
 import skeletonSolidResponsiveLayout from '../../../snippets/skeleton/solid/responsive-layout.tsx?raw';
 import skeletonSolidVariants from '../../../snippets/skeleton/solid/variants.tsx?raw';
+import skeletonVueBasic from '../../../snippets/skeleton/vue/basic.vue?raw';
+import skeletonVueCard from '../../../snippets/skeleton/vue/card.vue?raw';
+import skeletonVueCustomHost from '../../../snippets/skeleton/vue/custom-host.vue?raw';
+import skeletonVueLoadedContent from '../../../snippets/skeleton/vue/loaded-content.vue?raw';
+import skeletonVueMediaObject from '../../../snippets/skeleton/vue/media-object.vue?raw';
+import skeletonVueResponsiveLayout from '../../../snippets/skeleton/vue/responsive-layout.vue?raw';
+import skeletonVueVariants from '../../../snippets/skeleton/vue/variants.vue?raw';
 
 ## Référence de l’API
 
@@ -45,6 +52,7 @@ pour l’installation des packages, la configuration du registre et le choix du 
     values={[
       { label: 'React', value: 'react' },
       { label: 'Solid', value: 'solid' },
+      { label: 'Vue', value: 'vue' },
     ]}
     className="docs-tabs"
   >
@@ -57,6 +65,11 @@ pour l’installation des packages, la configuration du registre et le choix du 
     <Tab value="solid">
 
 <CodeBlockRuntime lang="tsx" code={skeletonSolidBasic} />
+
+    </Tab>
+    <Tab value="vue">
+
+<CodeBlockRuntime lang="vue" code={skeletonVueBasic} />
 
     </Tab>
   </Tabs>
@@ -94,6 +107,16 @@ Consultez le [Démarrage rapide](/docs/quick-start) pour la configuration compl�
 />
 
   </Tab>
+  <Tab label="Vue" value="vue">
+
+<ShadcnInstallOptions
+  options={[
+    { label: 'CSS Modules', command: 'shadcn@latest add @moduix-vue/skeleton' },
+    { label: 'Tailwind CSS', command: 'shadcn@latest add @moduix-vue-tailwind/skeleton' },
+  ]}
+/>
+
+  </Tab>
 </Tabs>
 
 ## Anatomie
@@ -112,14 +135,14 @@ Skeleton
 ## Composition
 
 `Skeleton` ne gère pas l’état de chargement. La zone de données ou de page qui porte la requête transmet `loading`
-et doit porter `aria-busy` ; l’espace réservé est décoratif. Définissez `loading={false}` pour afficher les enfants
+et doit porter `aria-busy` ; l’espace réservé est décoratif. Définissez `loading={false}` (`:loading="false"` en Vue) pour afficher les enfants
 dans le même élément racine.
 
 `Skeleton` ne comporte qu’une seule partie visuelle : composez les cartes, les objets média et les mises en page
-responsives dans votre propre conteneur. `Stack` est exporté depuis chaque package, de sorte que les exemples
-ci-dessous pourraient l’utiliser dans les deux variantes ; les exemples Tailwind utilisent simplement les
-utilitaires flex et grid natifs. Utilisez `asChild` uniquement lorsqu’un autre élément
-sémantique doit devenir la racine ; en Solid, `asChild` reçoit une fonction de rendu.
+responsives dans un conteneur de votre choix. `Stack` est disponible dans les deux variantes de style ;
+avec Tailwind, vous pouvez aussi utiliser les utilitaires flex et grid natifs. Utilisez `asChild` uniquement
+lorsqu’un autre élément sémantique doit devenir la racine. En Solid, `asChild` reçoit une fonction de rendu ;
+en Vue, utilisez `as-child` avec un seul élément sémantique dans le slot par défaut.
 
 ## Exemples
 
@@ -138,6 +161,7 @@ Utilisez un grand bloc et des lignes de texte plus courtes pour préserver la mi
     values={[
       { label: 'React', value: 'react' },
       { label: 'Solid', value: 'solid' },
+      { label: 'Vue', value: 'vue' },
     ]}
     className="docs-tabs"
   >
@@ -150,6 +174,11 @@ Utilisez un grand bloc et des lignes de texte plus courtes pour préserver la mi
     <Tab value="solid">
 
 <CodeBlockRuntime lang="tsx" code={skeletonSolidCard} />
+
+    </Tab>
+    <Tab value="vue">
+
+<CodeBlockRuntime lang="vue" code={skeletonVueCard} />
 
     </Tab>
   </Tabs>
@@ -177,6 +206,7 @@ Utilisez `loading` pour conserver le même élément racine lors du remplacement
     values={[
       { label: 'React', value: 'react' },
       { label: 'Solid', value: 'solid' },
+      { label: 'Vue', value: 'vue' },
     ]}
     className="docs-tabs"
   >
@@ -189,6 +219,11 @@ Utilisez `loading` pour conserver le même élément racine lors du remplacement
     <Tab value="solid">
 
 <CodeBlockRuntime lang="tsx" code={skeletonSolidLoadedContent} />
+
+    </Tab>
+    <Tab value="vue">
+
+<CodeBlockRuntime lang="vue" code={skeletonVueLoadedContent} />
 
     </Tab>
   </Tabs>
@@ -216,6 +251,7 @@ Utilisez `boxSize` avec un rayon complet pour l’espace réservé d’un avatar
     values={[
       { label: 'React', value: 'react' },
       { label: 'Solid', value: 'solid' },
+      { label: 'Vue', value: 'vue' },
     ]}
     className="docs-tabs"
   >
@@ -228,6 +264,11 @@ Utilisez `boxSize` avec un rayon complet pour l’espace réservé d’un avatar
     <Tab value="solid">
 
 <CodeBlockRuntime lang="tsx" code={skeletonSolidMediaObject} />
+
+    </Tab>
+    <Tab value="vue">
+
+<CodeBlockRuntime lang="vue" code={skeletonVueMediaObject} />
 
     </Tab>
   </Tabs>
@@ -255,6 +296,7 @@ Laissez la logique de mise en page responsive dans le conteneur et utilisez chaq
     values={[
       { label: 'React', value: 'react' },
       { label: 'Solid', value: 'solid' },
+      { label: 'Vue', value: 'vue' },
     ]}
     className="docs-tabs"
   >
@@ -267,6 +309,11 @@ Laissez la logique de mise en page responsive dans le conteneur et utilisez chaq
     <Tab value="solid">
 
 <CodeBlockRuntime lang="tsx" code={skeletonSolidResponsiveLayout} />
+
+    </Tab>
+    <Tab value="vue">
+
+<CodeBlockRuntime lang="vue" code={skeletonVueResponsiveLayout} />
 
     </Tab>
   </Tabs>
@@ -294,6 +341,7 @@ Utilisez `variant` pour choisir un espace réservé animé par pulsation ou stat
     values={[
       { label: 'React', value: 'react' },
       { label: 'Solid', value: 'solid' },
+      { label: 'Vue', value: 'vue' },
     ]}
     className="docs-tabs"
   >
@@ -306,6 +354,11 @@ Utilisez `variant` pour choisir un espace réservé animé par pulsation ou stat
     <Tab value="solid">
 
 <CodeBlockRuntime lang="tsx" code={skeletonSolidVariants} />
+
+    </Tab>
+    <Tab value="vue">
+
+<CodeBlockRuntime lang="vue" code={skeletonVueVariants} />
 
     </Tab>
   </Tabs>
@@ -333,6 +386,7 @@ Utilisez `asChild` pour qu’un élément sémantique tel que `section` devienne
     values={[
       { label: 'React', value: 'react' },
       { label: 'Solid', value: 'solid' },
+      { label: 'Vue', value: 'vue' },
     ]}
     className="docs-tabs"
   >
@@ -347,6 +401,11 @@ Utilisez `asChild` pour qu’un élément sémantique tel que `section` devienne
 <CodeBlockRuntime lang="tsx" code={skeletonSolidCustomHost} />
 
     </Tab>
+    <Tab value="vue">
+
+<CodeBlockRuntime lang="vue" code={skeletonVueCustomHost} />
+
+    </Tab>
   </Tabs>
 
 **Styles**
@@ -359,7 +418,7 @@ Utilisez `asChild` pour qu’un élément sémantique tel que `section` devienne
 
 ## Styles
 
-Utilisez `className` en React ou `class` en Solid pour les styles structurels et les classes utilitaires de votre
+Utilisez `className` en React ou `class` en Solid ou Vue pour les styles structurels et les classes utilitaires de votre
 application. Les variantes Tailwind utilisent les utilitaires natifs et les classes du consommateur ; les variantes
 CSS Modules exposent les variables ci-dessous. Les attributs d’état et les hooks `data-slot` sont communs aux deux
 modes de style.
