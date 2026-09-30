@@ -21,6 +21,14 @@ import sidebarSolidNestedNavigationAndAccountMenu from '../../../snippets/sideba
 import sidebarSolidPersistedLayout from '../../../snippets/sidebar/solid/persisted-layout.tsx?raw';
 import sidebarSolidRightSidebar from '../../../snippets/sidebar/solid/right-sidebar.tsx?raw';
 import sidebarSolidWorkspaceSelect from '../../../snippets/sidebar/solid/workspace-select.tsx?raw';
+import sidebarVueBasic from '../../../snippets/sidebar/vue/basic.vue?raw';
+import sidebarVueCustomScrollArea from '../../../snippets/sidebar/vue/custom-scroll-area.vue?raw';
+import sidebarVueCustomSizes from '../../../snippets/sidebar/vue/custom-sizes.vue?raw';
+import sidebarVueNestedNavigation from '../../../snippets/sidebar/vue/nested-navigation.vue?raw';
+import sidebarVueNestedNavigationAndAccountMenu from '../../../snippets/sidebar/vue/nested-navigation-and-account-menu.vue?raw';
+import sidebarVuePersistedLayout from '../../../snippets/sidebar/vue/persisted-layout.vue?raw';
+import sidebarVueRightSidebar from '../../../snippets/sidebar/vue/right-sidebar.vue?raw';
+import sidebarVueWorkspaceSelect from '../../../snippets/sidebar/vue/workspace-select.vue?raw';
 
 ## Référence de l’API
 
@@ -54,7 +62,7 @@ une icône dans `SidebarTooltip` pour conserver leurs libellés après le repli.
 <div className="docs-reference">
   <Tabs
     groupId="framework"
-    values={[{ label: 'React', value: 'react' }, { label: 'Solid', value: 'solid' }]}
+    values={[{ label: 'React', value: 'react' }, { label: 'Solid', value: 'solid' }, { label: 'Vue', value: 'vue' }]}
     className="docs-tabs"
   >
     <Tab value="react">
@@ -66,6 +74,11 @@ une icône dans `SidebarTooltip` pour conserver leurs libellés après le repli.
     <Tab value="solid">
 
 <CodeBlockRuntime lang="tsx" code={sidebarSolidBasic} />
+
+    </Tab>
+    <Tab value="vue">
+
+<CodeBlockRuntime lang="vue" code={sidebarVueBasic} />
 
     </Tab>
   </Tabs>
@@ -99,6 +112,16 @@ Consultez le [Démarrage rapide](/docs/quick-start) pour la configuration compl�
   options={[
     { label: 'CSS Modules', command: 'shadcn@latest add @moduix-solid/sidebar' },
     { label: 'Tailwind CSS', command: 'shadcn@latest add @moduix-solid-tailwind/sidebar' },
+  ]}
+/>
+
+  </Tab>
+  <Tab label="Vue" value="vue">
+
+<ShadcnInstallOptions
+  options={[
+    { label: 'CSS Modules', command: 'shadcn@latest add @moduix-vue/sidebar' },
+    { label: 'Tailwind CSS', command: 'shadcn@latest add @moduix-vue-tailwind/sidebar' },
   ]}
 />
 
@@ -163,6 +186,8 @@ Sidebar
 déplacer l’état dans Sidebar. Pour conserver la largeur, contrôlez `size`, mettez-le à jour dans
 `onResize(details)` et enregistrez la valeur finale dans `onResizeEnd(details)`. Dans Solid, `asChild`
 utilise une fonction de rendu qui reçoit les props fusionnées.
+Dans Vue, utilisez `as-child` avec un seul élément dans le slot par défaut et une référence de template pour accéder à l’instance du composant.
+Pour contrôler les dimensions, utilisez `v-model:size` ou gérez `@resize` ; enregistrez la valeur finale avec `@resize-end`.
 Placez `SidebarNavigationBadge` après un `SidebarNavigationButton` ou un `SidebarNavigationSubButton` simple. Le composant
 réserve l’espace nécessaire au compteur et disparaît avec les autres icônes dans la barre compacte.
 
@@ -170,6 +195,11 @@ réserve l’espace nécessaire au compteur et disparaît avec les autres icône
 et `state`, plus un callback `toggleSidebar()`. Dans Solid, ce sont des accessors lus comme
 `collapsed()` et compagnie. Le hook lit le contexte Splitter créé par `Sidebar`, donc
 utilisez-le uniquement à l’intérieur de l’arborescence de la barre.
+Dans Vue, les valeurs d’état sont des refs : lisez `collapsed.value`, `side.value` et
+`state.value` dans le script ; Vue accède automatiquement à leur valeur dans les templates.
+
+Avec Ark Vue 5.39.2 / Zag 1.43.3, le premier repli en mode contrôlé peut mettre à jour `size`
+sans émettre `@collapse`. Le modèle et `useSidebar().collapsed` reflètent toutefois le nouvel état.
 
 ## Exemples
 
@@ -184,7 +214,7 @@ pour les mêmes liens dans un menu contextuel. Les deux branches restent compos�
 
 <ExampleCode>
 <div className="docs-reference">
-  <Tabs groupId="framework" values={[{ label: 'React', value: 'react' }, { label: 'Solid', value: 'solid' }]} className="docs-tabs">
+  <Tabs groupId="framework" values={[{ label: 'React', value: 'react' }, { label: 'Solid', value: 'solid' }, { label: 'Vue', value: 'vue' }]} className="docs-tabs">
     <Tab value="react">
 
 ```tsx pure file="../../../src/components/examples/sidebar/nested-navigation.tsx"
@@ -194,6 +224,11 @@ pour les mêmes liens dans un menu contextuel. Les deux branches restent compos�
     <Tab value="solid">
 
 <CodeBlockRuntime lang="tsx" code={sidebarSolidNestedNavigation} />
+
+    </Tab>
+    <Tab value="vue">
+
+<CodeBlockRuntime lang="vue" code={sidebarVueNestedNavigation} />
 
     </Tab>
   </Tabs>
@@ -218,7 +253,7 @@ de défilement.
 
 <ExampleCode>
 <div className="docs-reference">
-  <Tabs groupId="framework" values={[{ label: 'React', value: 'react' }, { label: 'Solid', value: 'solid' }]} className="docs-tabs">
+  <Tabs groupId="framework" values={[{ label: 'React', value: 'react' }, { label: 'Solid', value: 'solid' }, { label: 'Vue', value: 'vue' }]} className="docs-tabs">
     <Tab value="react">
 
 ```tsx pure file="../../../src/components/examples/sidebar/custom-scroll-area.tsx"
@@ -228,6 +263,11 @@ de défilement.
     <Tab value="solid">
 
 <CodeBlockRuntime lang="tsx" code={sidebarSolidCustomScrollArea} />
+
+    </Tab>
+    <Tab value="vue">
+
+<CodeBlockRuntime lang="vue" code={sidebarVueCustomScrollArea} />
 
     </Tab>
   </Tabs>
@@ -251,7 +291,7 @@ Conservez la largeur de la barre latérale dans l’état de l’application ou 
 
 <ExampleCode>
 <div className="docs-reference">
-  <Tabs groupId="framework" values={[{ label: 'React', value: 'react' }, { label: 'Solid', value: 'solid' }]} className="docs-tabs">
+  <Tabs groupId="framework" values={[{ label: 'React', value: 'react' }, { label: 'Solid', value: 'solid' }, { label: 'Vue', value: 'vue' }]} className="docs-tabs">
     <Tab value="react">
 
 ```tsx pure file="../../../src/components/examples/sidebar/persisted-layout.tsx"
@@ -261,6 +301,11 @@ Conservez la largeur de la barre latérale dans l’état de l’application ou 
     <Tab value="solid">
 
 <CodeBlockRuntime lang="tsx" code={sidebarSolidPersistedLayout} />
+
+    </Tab>
+    <Tab value="vue">
+
+<CodeBlockRuntime lang="vue" code={sidebarVuePersistedLayout} />
 
     </Tab>
   </Tabs>
@@ -285,7 +330,7 @@ propre état et sa gestion du focus.
 
 <ExampleCode>
 <div className="docs-reference">
-  <Tabs groupId="framework" values={[{ label: 'React', value: 'react' }, { label: 'Solid', value: 'solid' }]} className="docs-tabs">
+  <Tabs groupId="framework" values={[{ label: 'React', value: 'react' }, { label: 'Solid', value: 'solid' }, { label: 'Vue', value: 'vue' }]} className="docs-tabs">
     <Tab value="react">
 
 ```tsx pure file="../../../src/components/examples/sidebar/nested-navigation-and-account-menu.tsx"
@@ -295,6 +340,11 @@ propre état et sa gestion du focus.
     <Tab value="solid">
 
 <CodeBlockRuntime lang="tsx" code={sidebarSolidNestedNavigationAndAccountMenu} />
+
+    </Tab>
+    <Tab value="vue">
+
+<CodeBlockRuntime lang="vue" code={sidebarVueNestedNavigationAndAccountMenu} />
 
     </Tab>
   </Tabs>
@@ -319,7 +369,7 @@ direction du chevron.
 
 <ExampleCode>
 <div className="docs-reference">
-  <Tabs groupId="framework" values={[{ label: 'React', value: 'react' }, { label: 'Solid', value: 'solid' }]} className="docs-tabs">
+  <Tabs groupId="framework" values={[{ label: 'React', value: 'react' }, { label: 'Solid', value: 'solid' }, { label: 'Vue', value: 'vue' }]} className="docs-tabs">
     <Tab value="react">
 
 ```tsx pure file="../../../src/components/examples/sidebar/right-sidebar.tsx"
@@ -329,6 +379,11 @@ direction du chevron.
     <Tab value="solid">
 
 <CodeBlockRuntime lang="tsx" code={sidebarSolidRightSidebar} />
+
+    </Tab>
+    <Tab value="vue">
+
+<CodeBlockRuntime lang="vue" code={sidebarVueRightSidebar} />
 
     </Tab>
   </Tabs>
@@ -353,7 +408,7 @@ visuelle compacte avec `data-sidebar-icon`.
 
 <ExampleCode>
 <div className="docs-reference">
-  <Tabs groupId="framework" values={[{ label: 'React', value: 'react' }, { label: 'Solid', value: 'solid' }]} className="docs-tabs">
+  <Tabs groupId="framework" values={[{ label: 'React', value: 'react' }, { label: 'Solid', value: 'solid' }, { label: 'Vue', value: 'vue' }]} className="docs-tabs">
     <Tab value="react">
 
 ```tsx pure file="../../../src/components/examples/sidebar/workspace-select.tsx"
@@ -363,6 +418,11 @@ visuelle compacte avec `data-sidebar-icon`.
     <Tab value="solid">
 
 <CodeBlockRuntime lang="tsx" code={sidebarSolidWorkspaceSelect} />
+
+    </Tab>
+    <Tab value="vue">
+
+<CodeBlockRuntime lang="vue" code={sidebarVueWorkspaceSelect} />
 
     </Tab>
   </Tabs>
@@ -386,7 +446,7 @@ la largeur initiale par défaut ne convient pas.
 
 <ExampleCode>
 <div className="docs-reference">
-  <Tabs groupId="framework" values={[{ label: 'React', value: 'react' }, { label: 'Solid', value: 'solid' }]} className="docs-tabs">
+  <Tabs groupId="framework" values={[{ label: 'React', value: 'react' }, { label: 'Solid', value: 'solid' }, { label: 'Vue', value: 'vue' }]} className="docs-tabs">
     <Tab value="react">
 
 ```tsx pure file="../../../src/components/examples/sidebar/custom-sizes.tsx"
@@ -396,6 +456,11 @@ la largeur initiale par défaut ne convient pas.
     <Tab value="solid">
 
 <CodeBlockRuntime lang="tsx" code={sidebarSolidCustomSizes} />
+
+    </Tab>
+    <Tab value="vue">
+
+<CodeBlockRuntime lang="vue" code={sidebarVueCustomSizes} />
 
     </Tab>
   </Tabs>
@@ -410,7 +475,7 @@ la largeur initiale par défaut ne convient pas.
 
 ## Styles
 
-Chaque partie sémantique accepte `className` en React et `class` en Solid et expose un hook stable
+Chaque partie sémantique accepte `className` en React et `class` en Solid et Vue et expose un hook stable
 `data-slot="sidebar-*"`. `SidebarPanel` ajoute `data-state="expanded"` ou `"collapsed"`, tandis
 que les parties de mise en page exposent `data-side`. `SidebarNavigationButton` et `SidebarNavigationSubButton`
 exposent `data-active`, et `SidebarNavigationButton` expose aussi `data-size`.

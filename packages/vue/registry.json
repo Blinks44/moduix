@@ -3240,6 +3240,80 @@
       ]
     },
     {
+      "name": "signature-pad",
+      "type": "registry:item",
+      "title": "SignaturePad",
+      "description": "moduix Vue SignaturePad component.",
+      "dependencies": ["@ark-ui/vue", "clsx"],
+      "registryDependencies": [
+        "@moduix-vue/foundation",
+        "@moduix-vue/icons",
+        "@moduix-vue/close-button"
+      ],
+      "files": [
+        {
+          "path": "src/components/signature-pad/SignaturePad.vue",
+          "target": "@components/ui/signature-pad/SignaturePad.vue",
+          "type": "registry:component"
+        },
+        {
+          "path": "src/components/signature-pad/SignaturePadRootProvider.vue",
+          "target": "@components/ui/signature-pad/SignaturePadRootProvider.vue",
+          "type": "registry:component"
+        },
+        {
+          "path": "src/components/signature-pad/SignaturePadLabel.vue",
+          "target": "@components/ui/signature-pad/SignaturePadLabel.vue",
+          "type": "registry:component"
+        },
+        {
+          "path": "src/components/signature-pad/SignaturePadCanvas.vue",
+          "target": "@components/ui/signature-pad/SignaturePadCanvas.vue",
+          "type": "registry:component"
+        },
+        {
+          "path": "src/components/signature-pad/SignaturePadControl.vue",
+          "target": "@components/ui/signature-pad/SignaturePadControl.vue",
+          "type": "registry:component"
+        },
+        {
+          "path": "src/components/signature-pad/SignaturePadSegment.vue",
+          "target": "@components/ui/signature-pad/SignaturePadSegment.vue",
+          "type": "registry:component"
+        },
+        {
+          "path": "src/components/signature-pad/SignaturePadClearTrigger.vue",
+          "target": "@components/ui/signature-pad/SignaturePadClearTrigger.vue",
+          "type": "registry:component"
+        },
+        {
+          "path": "src/components/signature-pad/SignaturePadGuide.vue",
+          "target": "@components/ui/signature-pad/SignaturePadGuide.vue",
+          "type": "registry:component"
+        },
+        {
+          "path": "src/components/signature-pad/context.ts",
+          "target": "@components/ui/signature-pad/context.ts",
+          "type": "registry:lib"
+        },
+        {
+          "path": "src/components/signature-pad/useSignaturePad.ts",
+          "target": "@components/ui/signature-pad/useSignaturePad.ts",
+          "type": "registry:lib"
+        },
+        {
+          "path": "src/components/signature-pad/SignaturePad.module.css",
+          "target": "@components/ui/signature-pad/SignaturePad.module.css",
+          "type": "registry:file"
+        },
+        {
+          "path": "src/components/signature-pad/index.ts",
+          "target": "@components/ui/signature-pad/index.ts",
+          "type": "registry:component"
+        }
+      ]
+    },
+    {
       "name": "slider",
       "type": "registry:item",
       "title": "Slider",
@@ -3315,6 +3389,31 @@
         {
           "path": "src/components/slider/index.ts",
           "target": "@components/ui/slider/index.ts",
+          "type": "registry:component"
+        }
+      ]
+    },
+    {
+      "name": "separator",
+      "type": "registry:item",
+      "title": "Separator",
+      "description": "moduix Vue Separator component.",
+      "dependencies": ["@ark-ui/vue", "clsx"],
+      "registryDependencies": ["@moduix-vue/foundation"],
+      "files": [
+        {
+          "path": "src/components/separator/Separator.vue",
+          "target": "@components/ui/separator/Separator.vue",
+          "type": "registry:component"
+        },
+        {
+          "path": "src/components/separator/Separator.module.css",
+          "target": "@components/ui/separator/Separator.module.css",
+          "type": "registry:file"
+        },
+        {
+          "path": "src/components/separator/index.ts",
+          "target": "@components/ui/separator/index.ts",
           "type": "registry:component"
         }
       ]
@@ -3944,6 +4043,164 @@
         {
           "path": "src/components/splitter/index.ts",
           "target": "@components/ui/splitter/index.ts",
+          "type": "registry:component"
+        }
+      ]
+    },
+    {
+      "name": "sidebar",
+      "type": "registry:item",
+      "title": "Sidebar",
+      "description": "moduix Vue Sidebar component.",
+      "dependencies": ["@ark-ui/vue", "clsx"],
+      "registryDependencies": [
+        "@moduix-vue/foundation",
+        "@moduix-vue/icons",
+        "@moduix-vue/a11y-labels",
+        "@moduix-vue/input",
+        "@moduix-vue/separator",
+        "@moduix-vue/splitter",
+        "@moduix-vue/overlay-portal"
+      ],
+      "files": [
+        {
+          "path": "src/components/sidebar/Sidebar.vue",
+          "target": "@components/ui/sidebar/Sidebar.vue",
+          "type": "registry:component"
+        },
+        {
+          "path": "src/components/sidebar/SidebarPanel.vue",
+          "target": "@components/ui/sidebar/SidebarPanel.vue",
+          "type": "registry:component"
+        },
+        {
+          "path": "src/components/sidebar/SidebarInset.vue",
+          "target": "@components/ui/sidebar/SidebarInset.vue",
+          "type": "registry:component"
+        },
+        {
+          "path": "src/components/sidebar/SidebarResizeTrigger.vue",
+          "target": "@components/ui/sidebar/SidebarResizeTrigger.vue",
+          "type": "registry:component"
+        },
+        {
+          "path": "src/components/sidebar/SidebarTrigger.vue",
+          "target": "@components/ui/sidebar/SidebarTrigger.vue",
+          "type": "registry:component"
+        },
+        {
+          "path": "src/components/sidebar/SidebarLabel.vue",
+          "target": "@components/ui/sidebar/SidebarLabel.vue",
+          "type": "registry:component"
+        },
+        {
+          "path": "src/components/sidebar/SidebarHeader.vue",
+          "target": "@components/ui/sidebar/SidebarHeader.vue",
+          "type": "registry:component"
+        },
+        {
+          "path": "src/components/sidebar/SidebarContent.vue",
+          "target": "@components/ui/sidebar/SidebarContent.vue",
+          "type": "registry:component"
+        },
+        {
+          "path": "src/components/sidebar/SidebarExpandedContent.vue",
+          "target": "@components/ui/sidebar/SidebarExpandedContent.vue",
+          "type": "registry:component"
+        },
+        {
+          "path": "src/components/sidebar/SidebarCollapsedContent.vue",
+          "target": "@components/ui/sidebar/SidebarCollapsedContent.vue",
+          "type": "registry:component"
+        },
+        {
+          "path": "src/components/sidebar/SidebarFooter.vue",
+          "target": "@components/ui/sidebar/SidebarFooter.vue",
+          "type": "registry:component"
+        },
+        {
+          "path": "src/components/sidebar/SidebarGroup.vue",
+          "target": "@components/ui/sidebar/SidebarGroup.vue",
+          "type": "registry:component"
+        },
+        {
+          "path": "src/components/sidebar/SidebarGroupHeader.vue",
+          "target": "@components/ui/sidebar/SidebarGroupHeader.vue",
+          "type": "registry:component"
+        },
+        {
+          "path": "src/components/sidebar/SidebarGroupLabel.vue",
+          "target": "@components/ui/sidebar/SidebarGroupLabel.vue",
+          "type": "registry:component"
+        },
+        {
+          "path": "src/components/sidebar/SidebarGroupAction.vue",
+          "target": "@components/ui/sidebar/SidebarGroupAction.vue",
+          "type": "registry:component"
+        },
+        {
+          "path": "src/components/sidebar/SidebarInput.vue",
+          "target": "@components/ui/sidebar/SidebarInput.vue",
+          "type": "registry:component"
+        },
+        {
+          "path": "src/components/sidebar/SidebarSeparator.vue",
+          "target": "@components/ui/sidebar/SidebarSeparator.vue",
+          "type": "registry:component"
+        },
+        {
+          "path": "src/components/sidebar/SidebarNavigationList.vue",
+          "target": "@components/ui/sidebar/SidebarNavigationList.vue",
+          "type": "registry:component"
+        },
+        {
+          "path": "src/components/sidebar/SidebarNavigationItem.vue",
+          "target": "@components/ui/sidebar/SidebarNavigationItem.vue",
+          "type": "registry:component"
+        },
+        {
+          "path": "src/components/sidebar/SidebarNavigationButton.vue",
+          "target": "@components/ui/sidebar/SidebarNavigationButton.vue",
+          "type": "registry:component"
+        },
+        {
+          "path": "src/components/sidebar/SidebarNavigationBadge.vue",
+          "target": "@components/ui/sidebar/SidebarNavigationBadge.vue",
+          "type": "registry:component"
+        },
+        {
+          "path": "src/components/sidebar/SidebarNavigationSubList.vue",
+          "target": "@components/ui/sidebar/SidebarNavigationSubList.vue",
+          "type": "registry:component"
+        },
+        {
+          "path": "src/components/sidebar/SidebarNavigationSubItem.vue",
+          "target": "@components/ui/sidebar/SidebarNavigationSubItem.vue",
+          "type": "registry:component"
+        },
+        {
+          "path": "src/components/sidebar/SidebarNavigationSubButton.vue",
+          "target": "@components/ui/sidebar/SidebarNavigationSubButton.vue",
+          "type": "registry:component"
+        },
+        {
+          "path": "src/components/sidebar/SidebarTooltip.vue",
+          "target": "@components/ui/sidebar/SidebarTooltip.vue",
+          "type": "registry:component"
+        },
+        {
+          "path": "src/components/sidebar/context.ts",
+          "target": "@components/ui/sidebar/context.ts",
+          "type": "registry:component"
+        },
+        {
+          "path": "src/components/sidebar/Sidebar.module.css",
+          "target": "@components/ui/sidebar/Sidebar.module.css",
+          "type": "registry:file"
+        },
+        {
+          "path": "src/components/sidebar/index.ts",
+          "target": "@components/ui/sidebar/index.ts",
           "type": "registry:component"
         }
       ]

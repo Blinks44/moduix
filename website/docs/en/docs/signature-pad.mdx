@@ -21,6 +21,14 @@ import signaturePadSolidFormSerialization from '../../../snippets/signature-pad/
 import signaturePadSolidImagePreview from '../../../snippets/signature-pad/solid/image-preview.tsx?raw';
 import signaturePadSolidRootProvider from '../../../snippets/signature-pad/solid/root-provider.tsx?raw';
 import signaturePadSolidAdvancedCustomization from '../../../snippets/signature-pad/solid/advanced-customization.tsx?raw';
+import signaturePadVueBasic from '../../../snippets/signature-pad/vue/basic.vue?raw';
+import signaturePadVueControlled from '../../../snippets/signature-pad/vue/controlled.vue?raw';
+import signaturePadVueDrawing from '../../../snippets/signature-pad/vue/drawing.vue?raw';
+import signaturePadVueField from '../../../snippets/signature-pad/vue/field.vue?raw';
+import signaturePadVueFormSerialization from '../../../snippets/signature-pad/vue/form-serialization.vue?raw';
+import signaturePadVueImagePreview from '../../../snippets/signature-pad/vue/image-preview.vue?raw';
+import signaturePadVueRootProvider from '../../../snippets/signature-pad/vue/root-provider.vue?raw';
+import signaturePadVueAdvancedCustomization from '../../../snippets/signature-pad/vue/advanced-customization.vue?raw';
 
 ## API Reference
 
@@ -44,6 +52,7 @@ Ark's `SignaturePadControl`, `SignaturePadSegment`, `SignaturePadClearTrigger`, 
     values={[
       { label: 'React', value: 'react' },
       { label: 'Solid', value: 'solid' },
+      { label: 'Vue', value: 'vue' },
     ]}
     className="docs-tabs"
   >
@@ -56,6 +65,11 @@ Ark's `SignaturePadControl`, `SignaturePadSegment`, `SignaturePadClearTrigger`, 
     <Tab value="solid">
 
 <CodeBlockRuntime lang="tsx" code={signaturePadSolidBasic} />
+
+    </Tab>
+    <Tab value="vue">
+
+<CodeBlockRuntime lang="vue" code={signaturePadVueBasic} />
 
     </Tab>
   </Tabs>
@@ -84,6 +98,16 @@ See [Quick Start](/docs/quick-start) for full package setup, registry configurat
   options={[
     { label: 'CSS Modules', command: 'shadcn@latest add @moduix-solid/signature-pad' },
     { label: 'Tailwind CSS', command: 'shadcn@latest add @moduix-solid-tailwind/signature-pad' },
+  ]}
+/>
+
+  </Tab>
+  <Tab label="Vue" value="vue">
+
+<ShadcnInstallOptions
+  options={[
+    { label: 'CSS Modules', command: 'shadcn@latest add @moduix-vue/signature-pad' },
+    { label: 'Tailwind CSS', command: 'shadcn@latest add @moduix-vue-tailwind/signature-pad' },
   ]}
 />
 
@@ -132,7 +156,11 @@ must be submitted by a native form.
 Use `defaultPaths` for local uncontrolled state. Use `paths` with `onDraw(details)` when the
 application owns the signature data. Use `SignaturePadRootProvider` with `useSignaturePad()` when
 state must be created outside the rendered tree or external controls need `paths`, `clear()`, or
-`getDataUrl()`.
+`getDataUrl()`. In Vue, control the paths with `v-model:paths` and listen to
+`@draw` or `@draw-end` for drawing details.
+
+With Ark Vue 5.39.2, `drawEnd.paths` can contain the previous value in controlled mode.
+`v-model:paths` receives the committed paths.
 
 Unlike Ark, moduix disables `SignaturePadClearTrigger` when `readOnly` comes from the root, a
 surrounding `Field`, or `useSignaturePad()`, preventing an irreversible clear while programmatic
@@ -156,6 +184,7 @@ controls or autosave logic.
     values={[
       { label: 'React', value: 'react' },
       { label: 'Solid', value: 'solid' },
+      { label: 'Vue', value: 'vue' },
     ]}
     className="docs-tabs"
   >
@@ -168,6 +197,11 @@ controls or autosave logic.
     <Tab value="solid">
 
 <CodeBlockRuntime lang="tsx" code={signaturePadSolidControlled} />
+
+    </Tab>
+    <Tab value="vue">
+
+<CodeBlockRuntime lang="vue" code={signaturePadVueControlled} />
 
     </Tab>
   </Tabs>
@@ -197,6 +231,7 @@ page shows `simulatePressure: true`), so pressure simulation is opt-in.
     values={[
       { label: 'React', value: 'react' },
       { label: 'Solid', value: 'solid' },
+      { label: 'Vue', value: 'vue' },
     ]}
     className="docs-tabs"
   >
@@ -209,6 +244,11 @@ page shows `simulatePressure: true`), so pressure simulation is opt-in.
     <Tab value="solid">
 
 <CodeBlockRuntime lang="tsx" code={signaturePadSolidDrawing} />
+
+    </Tab>
+    <Tab value="vue">
+
+<CodeBlockRuntime lang="vue" code={signaturePadVueDrawing} />
 
     </Tab>
   </Tabs>
@@ -232,6 +272,7 @@ messaging belongs to the same form control.
     values={[
       { label: 'React', value: 'react' },
       { label: 'Solid', value: 'solid' },
+      { label: 'Vue', value: 'vue' },
     ]}
     className="docs-tabs"
   >
@@ -244,6 +285,11 @@ messaging belongs to the same form control.
     <Tab value="solid">
 
 <CodeBlockRuntime lang="tsx" code={signaturePadSolidField} />
+
+    </Tab>
+    <Tab value="vue">
+
+<CodeBlockRuntime lang="vue" code={signaturePadVueField} />
 
     </Tab>
   </Tabs>
@@ -272,6 +318,7 @@ different representation. This example sends a JSON array.
     values={[
       { label: 'React', value: 'react' },
       { label: 'Solid', value: 'solid' },
+      { label: 'Vue', value: 'vue' },
     ]}
     className="docs-tabs"
   >
@@ -284,6 +331,11 @@ different representation. This example sends a JSON array.
     <Tab value="solid">
 
 <CodeBlockRuntime lang="tsx" code={signaturePadSolidFormSerialization} />
+
+    </Tab>
+    <Tab value="vue">
+
+<CodeBlockRuntime lang="vue" code={signaturePadVueFormSerialization} />
 
     </Tab>
   </Tabs>
@@ -311,6 +363,7 @@ Use `onDrawEnd` to export the signature and show a preview before saving it.
     values={[
       { label: 'React', value: 'react' },
       { label: 'Solid', value: 'solid' },
+      { label: 'Vue', value: 'vue' },
     ]}
     className="docs-tabs"
   >
@@ -323,6 +376,11 @@ Use `onDrawEnd` to export the signature and show a preview before saving it.
     <Tab value="solid">
 
 <CodeBlockRuntime lang="tsx" code={signaturePadSolidImagePreview} />
+
+    </Tab>
+    <Tab value="vue">
+
+<CodeBlockRuntime lang="vue" code={signaturePadVueImagePreview} />
 
     </Tab>
   </Tabs>
@@ -351,6 +409,7 @@ rendered tree need direct access to `paths`, `clear()`, or `getDataUrl()`.
     values={[
       { label: 'React', value: 'react' },
       { label: 'Solid', value: 'solid' },
+      { label: 'Vue', value: 'vue' },
     ]}
     className="docs-tabs"
   >
@@ -363,6 +422,11 @@ rendered tree need direct access to `paths`, `clear()`, or `getDataUrl()`.
     <Tab value="solid">
 
 <CodeBlockRuntime lang="tsx" code={signaturePadSolidRootProvider} />
+
+    </Tab>
+    <Tab value="vue">
+
+<CodeBlockRuntime lang="vue" code={signaturePadVueRootProvider} />
 
     </Tab>
   </Tabs>
@@ -391,6 +455,7 @@ provide a custom clear trigger.
     values={[
       { label: 'React', value: 'react' },
       { label: 'Solid', value: 'solid' },
+      { label: 'Vue', value: 'vue' },
     ]}
     className="docs-tabs"
   >
@@ -403,6 +468,11 @@ provide a custom clear trigger.
     <Tab value="solid">
 
 <CodeBlockRuntime lang="tsx" code={signaturePadSolidAdvancedCustomization} />
+
+    </Tab>
+    <Tab value="vue">
+
+<CodeBlockRuntime lang="vue" code={signaturePadVueAdvancedCustomization} />
 
     </Tab>
   </Tabs>
@@ -428,7 +498,7 @@ provide a custom clear trigger.
 
 ### Styling hooks
 
-Use `className` in React or `class` in Solid on any exported part for local styling. moduix also
+Use `className` in React or `class` in Solid and Vue on any exported part for local styling. moduix also
 adds stable `data-slot` attributes:
 
 | Part                                 | `data-slot`                   |

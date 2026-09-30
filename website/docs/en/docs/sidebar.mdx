@@ -21,6 +21,14 @@ import sidebarSolidNestedNavigationAndAccountMenu from '../../../snippets/sideba
 import sidebarSolidPersistedLayout from '../../../snippets/sidebar/solid/persisted-layout.tsx?raw';
 import sidebarSolidRightSidebar from '../../../snippets/sidebar/solid/right-sidebar.tsx?raw';
 import sidebarSolidWorkspaceSelect from '../../../snippets/sidebar/solid/workspace-select.tsx?raw';
+import sidebarVueBasic from '../../../snippets/sidebar/vue/basic.vue?raw';
+import sidebarVueCustomScrollArea from '../../../snippets/sidebar/vue/custom-scroll-area.vue?raw';
+import sidebarVueCustomSizes from '../../../snippets/sidebar/vue/custom-sizes.vue?raw';
+import sidebarVueNestedNavigation from '../../../snippets/sidebar/vue/nested-navigation.vue?raw';
+import sidebarVueNestedNavigationAndAccountMenu from '../../../snippets/sidebar/vue/nested-navigation-and-account-menu.vue?raw';
+import sidebarVuePersistedLayout from '../../../snippets/sidebar/vue/persisted-layout.vue?raw';
+import sidebarVueRightSidebar from '../../../snippets/sidebar/vue/right-sidebar.vue?raw';
+import sidebarVueWorkspaceSelect from '../../../snippets/sidebar/vue/workspace-select.vue?raw';
 
 ## API Reference
 
@@ -53,7 +61,7 @@ buttons in `SidebarTooltip` so their labels remain available after collapse.
 <div className="docs-reference">
   <Tabs
     groupId="framework"
-    values={[{ label: 'React', value: 'react' }, { label: 'Solid', value: 'solid' }]}
+    values={[{ label: 'React', value: 'react' }, { label: 'Solid', value: 'solid' }, { label: 'Vue', value: 'vue' }]}
     className="docs-tabs"
   >
     <Tab value="react">
@@ -65,6 +73,11 @@ buttons in `SidebarTooltip` so their labels remain available after collapse.
     <Tab value="solid">
 
 <CodeBlockRuntime lang="tsx" code={sidebarSolidBasic} />
+
+    </Tab>
+    <Tab value="vue">
+
+<CodeBlockRuntime lang="vue" code={sidebarVueBasic} />
 
     </Tab>
   </Tabs>
@@ -98,6 +111,16 @@ See [Quick Start](/docs/quick-start) for full package setup, registry configurat
   options={[
     { label: 'CSS Modules', command: 'shadcn@latest add @moduix-solid/sidebar' },
     { label: 'Tailwind CSS', command: 'shadcn@latest add @moduix-solid-tailwind/sidebar' },
+  ]}
+/>
+
+  </Tab>
+  <Tab label="Vue" value="vue">
+
+<ShadcnInstallOptions
+  options={[
+    { label: 'CSS Modules', command: 'shadcn@latest add @moduix-vue/sidebar' },
+    { label: 'Tailwind CSS', command: 'shadcn@latest add @moduix-vue-tailwind/sidebar' },
   ]}
 />
 
@@ -161,6 +184,8 @@ a right sidebar. `SidebarExpandedContent` and `SidebarCollapsedContent` only swi
 use them to pair inline `Collapsible` links with a collapsed `Menu` without moving state into
 Sidebar. For a persisted width, control `size`, update it from `onResize(details)`, and save it from
 `onResizeEnd(details)`. In Solid, `asChild` uses a render function that receives the merged props.
+In Vue, use `as-child` with a single element in the default slot and a template ref to access the component instance.
+For controlled sizes, use `v-model:size` or handle `@resize`; persist the final value with `@resize-end`.
 Place `SidebarNavigationBadge` after a simple `SidebarNavigationButton` or `SidebarNavigationSubButton`; it reserves
 trailing space for the counter and hides with the other trailing affordances in the compact rail.
 
@@ -168,6 +193,11 @@ trailing space for the counter and hides with the other trailing affordances in 
 and `state`, plus a `toggleSidebar()` callback. In Solid these are accessors read as
 `collapsed()` and friends. It reads the Splitter context created by `Sidebar`, so
 use it only inside the sidebar tree.
+In Vue, the state values are refs: read `collapsed.value`, `side.value`, and `state.value`
+in script; templates unwrap them automatically.
+
+With Ark Vue 5.39.2 / Zag 1.43.3, the first controlled collapse can update `size` without
+emitting `@collapse`. The model and `useSidebar().collapsed` still reflect the new state.
 
 ## Examples
 
@@ -182,7 +212,7 @@ menu. Both branches remain application-owned compositions.
 
 <ExampleCode>
 <div className="docs-reference">
-  <Tabs groupId="framework" values={[{ label: 'React', value: 'react' }, { label: 'Solid', value: 'solid' }]} className="docs-tabs">
+  <Tabs groupId="framework" values={[{ label: 'React', value: 'react' }, { label: 'Solid', value: 'solid' }, { label: 'Vue', value: 'vue' }]} className="docs-tabs">
     <Tab value="react">
 
 ```tsx pure file="../../../src/components/examples/sidebar/nested-navigation.tsx"
@@ -192,6 +222,11 @@ menu. Both branches remain application-owned compositions.
     <Tab value="solid">
 
 <CodeBlockRuntime lang="tsx" code={sidebarSolidNestedNavigation} />
+
+    </Tab>
+    <Tab value="vue">
+
+<CodeBlockRuntime lang="vue" code={sidebarVueNestedNavigation} />
 
     </Tab>
   </Tabs>
@@ -215,7 +250,7 @@ styled scrollbar or edge fade, and make its viewport the only scroll container.
 
 <ExampleCode>
 <div className="docs-reference">
-  <Tabs groupId="framework" values={[{ label: 'React', value: 'react' }, { label: 'Solid', value: 'solid' }]} className="docs-tabs">
+  <Tabs groupId="framework" values={[{ label: 'React', value: 'react' }, { label: 'Solid', value: 'solid' }, { label: 'Vue', value: 'vue' }]} className="docs-tabs">
     <Tab value="react">
 
 ```tsx pure file="../../../src/components/examples/sidebar/custom-scroll-area.tsx"
@@ -225,6 +260,11 @@ styled scrollbar or edge fade, and make its viewport the only scroll container.
     <Tab value="solid">
 
 <CodeBlockRuntime lang="tsx" code={sidebarSolidCustomScrollArea} />
+
+    </Tab>
+    <Tab value="vue">
+
+<CodeBlockRuntime lang="vue" code={sidebarVueCustomScrollArea} />
 
     </Tab>
   </Tabs>
@@ -248,7 +288,7 @@ the final value from `onResizeEnd(details)`.
 
 <ExampleCode>
 <div className="docs-reference">
-  <Tabs groupId="framework" values={[{ label: 'React', value: 'react' }, { label: 'Solid', value: 'solid' }]} className="docs-tabs">
+  <Tabs groupId="framework" values={[{ label: 'React', value: 'react' }, { label: 'Solid', value: 'solid' }, { label: 'Vue', value: 'vue' }]} className="docs-tabs">
     <Tab value="react">
 
 ```tsx pure file="../../../src/components/examples/sidebar/persisted-layout.tsx"
@@ -258,6 +298,11 @@ the final value from `onResizeEnd(details)`.
     <Tab value="solid">
 
 <CodeBlockRuntime lang="tsx" code={sidebarSolidPersistedLayout} />
+
+    </Tab>
+    <Tab value="vue">
+
+<CodeBlockRuntime lang="vue" code={sidebarVuePersistedLayout} />
 
     </Tab>
   </Tabs>
@@ -281,7 +326,7 @@ inside one application shell. Each nested primitive keeps its own state and focu
 
 <ExampleCode>
 <div className="docs-reference">
-  <Tabs groupId="framework" values={[{ label: 'React', value: 'react' }, { label: 'Solid', value: 'solid' }]} className="docs-tabs">
+  <Tabs groupId="framework" values={[{ label: 'React', value: 'react' }, { label: 'Solid', value: 'solid' }, { label: 'Vue', value: 'vue' }]} className="docs-tabs">
     <Tab value="react">
 
 ```tsx pure file="../../../src/components/examples/sidebar/nested-navigation-and-account-menu.tsx"
@@ -291,6 +336,11 @@ inside one application shell. Each nested primitive keeps its own state and focu
     <Tab value="solid">
 
 <CodeBlockRuntime lang="tsx" code={sidebarSolidNestedNavigationAndAccountMenu} />
+
+    </Tab>
+    <Tab value="vue">
+
+<CodeBlockRuntime lang="vue" code={sidebarVueNestedNavigationAndAccountMenu} />
 
     </Tab>
   </Tabs>
@@ -314,7 +364,7 @@ Sidebar adjusts panel setup, trigger ids, placement, and chevron direction autom
 
 <ExampleCode>
 <div className="docs-reference">
-  <Tabs groupId="framework" values={[{ label: 'React', value: 'react' }, { label: 'Solid', value: 'solid' }]} className="docs-tabs">
+  <Tabs groupId="framework" values={[{ label: 'React', value: 'react' }, { label: 'Solid', value: 'solid' }, { label: 'Vue', value: 'vue' }]} className="docs-tabs">
     <Tab value="react">
 
 ```tsx pure file="../../../src/components/examples/sidebar/right-sidebar.tsx"
@@ -324,6 +374,11 @@ Sidebar adjusts panel setup, trigger ids, placement, and chevron direction autom
     <Tab value="solid">
 
 <CodeBlockRuntime lang="tsx" code={sidebarSolidRightSidebar} />
+
+    </Tab>
+    <Tab value="vue">
+
+<CodeBlockRuntime lang="vue" code={sidebarVueRightSidebar} />
 
     </Tab>
   </Tabs>
@@ -348,7 +403,7 @@ visual anchor with `data-sidebar-icon`.
 
 <ExampleCode>
 <div className="docs-reference">
-  <Tabs groupId="framework" values={[{ label: 'React', value: 'react' }, { label: 'Solid', value: 'solid' }]} className="docs-tabs">
+  <Tabs groupId="framework" values={[{ label: 'React', value: 'react' }, { label: 'Solid', value: 'solid' }, { label: 'Vue', value: 'vue' }]} className="docs-tabs">
     <Tab value="react">
 
 ```tsx pure file="../../../src/components/examples/sidebar/workspace-select.tsx"
@@ -358,6 +413,11 @@ visual anchor with `data-sidebar-icon`.
     <Tab value="solid">
 
 <CodeBlockRuntime lang="tsx" code={sidebarSolidWorkspaceSelect} />
+
+    </Tab>
+    <Tab value="vue">
+
+<CodeBlockRuntime lang="vue" code={sidebarVueWorkspaceSelect} />
 
     </Tab>
   </Tabs>
@@ -381,7 +441,7 @@ a different starting point.
 
 <ExampleCode>
 <div className="docs-reference">
-  <Tabs groupId="framework" values={[{ label: 'React', value: 'react' }, { label: 'Solid', value: 'solid' }]} className="docs-tabs">
+  <Tabs groupId="framework" values={[{ label: 'React', value: 'react' }, { label: 'Solid', value: 'solid' }, { label: 'Vue', value: 'vue' }]} className="docs-tabs">
     <Tab value="react">
 
 ```tsx pure file="../../../src/components/examples/sidebar/custom-sizes.tsx"
@@ -391,6 +451,11 @@ a different starting point.
     <Tab value="solid">
 
 <CodeBlockRuntime lang="tsx" code={sidebarSolidCustomSizes} />
+
+    </Tab>
+    <Tab value="vue">
+
+<CodeBlockRuntime lang="vue" code={sidebarVueCustomSizes} />
 
     </Tab>
   </Tabs>
@@ -405,7 +470,7 @@ a different starting point.
 
 ## Styling
 
-Every semantic part accepts `className` in React and `class` in Solid and exposes a stable
+Every semantic part accepts `className` in React and `class` in Solid and Vue and exposes a stable
 `data-slot="sidebar-*"` hook. `SidebarPanel` adds `data-state="expanded"` or `"collapsed"`, and
 layout parts expose `data-side`. `SidebarNavigationButton` and `SidebarNavigationSubButton` expose
 `data-active`; `SidebarNavigationButton` also exposes `data-size`.

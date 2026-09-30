@@ -1,0 +1,39 @@
+@layer storybook {
+  .preview {
+    display: grid;
+    gap: var(--moduix-spacing-4);
+    justify-items: center;
+  }
+
+  .states {
+    display: grid;
+    gap: var(--moduix-spacing-6);
+  }
+
+  .preview img {
+    display: block;
+    width: 17.5rem;
+    max-width: 100%;
+    height: auto;
+  }
+
+  .status {
+    color: var(--moduix-color-muted-foreground);
+    font-size: var(--moduix-text-sm);
+    line-height: var(--moduix-line-height-text-sm);
+  }
+
+  .field {
+    align-items: center;
+    width: auto;
+  }
+
+  .custom {
+    --moduix-signature-pad-stroke-color: var(--moduix-color-primary);
+    --moduix-signature-pad-guide-color: color-mix(
+      in srgb,
+      var(--moduix-color-primary) 45%,
+      transparent
+    );
+  }
+}

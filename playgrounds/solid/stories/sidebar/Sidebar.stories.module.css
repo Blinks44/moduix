@@ -115,18 +115,18 @@
   flex: 1;
   text-align: start;
 
-  & strong,
-  & span {
+  & > strong,
+  & > span {
     overflow: hidden;
     text-overflow: ellipsis;
     white-space: nowrap;
   }
 
-  & strong {
+  & > strong {
     font-weight: var(--moduix-weight-medium);
   }
 
-  & span {
+  & > span {
     color: var(--moduix-color-muted-foreground);
     font-size: var(--moduix-text-xs);
   }

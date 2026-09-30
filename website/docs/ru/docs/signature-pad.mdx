@@ -21,6 +21,14 @@ import signaturePadSolidFormSerialization from '../../../snippets/signature-pad/
 import signaturePadSolidImagePreview from '../../../snippets/signature-pad/solid/image-preview.tsx?raw';
 import signaturePadSolidRootProvider from '../../../snippets/signature-pad/solid/root-provider.tsx?raw';
 import signaturePadSolidAdvancedCustomization from '../../../snippets/signature-pad/solid/advanced-customization.tsx?raw';
+import signaturePadVueBasic from '../../../snippets/signature-pad/vue/basic.vue?raw';
+import signaturePadVueControlled from '../../../snippets/signature-pad/vue/controlled.vue?raw';
+import signaturePadVueDrawing from '../../../snippets/signature-pad/vue/drawing.vue?raw';
+import signaturePadVueField from '../../../snippets/signature-pad/vue/field.vue?raw';
+import signaturePadVueFormSerialization from '../../../snippets/signature-pad/vue/form-serialization.vue?raw';
+import signaturePadVueImagePreview from '../../../snippets/signature-pad/vue/image-preview.vue?raw';
+import signaturePadVueRootProvider from '../../../snippets/signature-pad/vue/root-provider.vue?raw';
+import signaturePadVueAdvancedCustomization from '../../../snippets/signature-pad/vue/advanced-customization.vue?raw';
 
 ## Справочник API
 
@@ -45,6 +53,7 @@ import signaturePadSolidAdvancedCustomization from '../../../snippets/signature-
     values={[
       { label: 'React', value: 'react' },
       { label: 'Solid', value: 'solid' },
+      { label: 'Vue', value: 'vue' },
     ]}
     className="docs-tabs"
   >
@@ -57,6 +66,11 @@ import signaturePadSolidAdvancedCustomization from '../../../snippets/signature-
     <Tab value="solid">
 
 <CodeBlockRuntime lang="tsx" code={signaturePadSolidBasic} />
+
+    </Tab>
+    <Tab value="vue">
+
+<CodeBlockRuntime lang="vue" code={signaturePadVueBasic} />
 
     </Tab>
   </Tabs>
@@ -85,6 +99,16 @@ import signaturePadSolidAdvancedCustomization from '../../../snippets/signature-
   options={[
     { label: 'CSS Modules', command: 'shadcn@latest add @moduix-solid/signature-pad' },
     { label: 'Tailwind CSS', command: 'shadcn@latest add @moduix-solid-tailwind/signature-pad' },
+  ]}
+/>
+
+  </Tab>
+  <Tab label="Vue" value="vue">
+
+<ShadcnInstallOptions
+  options={[
+    { label: 'CSS Modules', command: 'shadcn@latest add @moduix-vue/signature-pad' },
+    { label: 'Tailwind CSS', command: 'shadcn@latest add @moduix-vue-tailwind/signature-pad' },
   ]}
 />
 
@@ -133,7 +157,11 @@ SignaturePadRootProvider
 Используйте `defaultPaths` для локального неуправляемого состояния. Используйте `paths` вместе с
 `onDraw(details)`, когда состояние подписи принадлежит приложению. Используйте `SignaturePadRootProvider` с
 `useSignaturePad()`, когда состояние нужно создать вне выводимого дерева или внешним элементам
-нужен доступ к `paths`, `clear()` или `getDataUrl()`.
+нужен доступ к `paths`, `clear()` или `getDataUrl()`. В Vue управляйте путями через
+`v-model:paths` и получайте сведения о рисовании в обработчиках `@draw` или `@draw-end`.
+
+В Ark Vue 5.39.2 значение `drawEnd.paths` в управляемом режиме может содержать предыдущие пути.
+`v-model:paths` получает завершённые штрихи.
 
 В отличие от Ark, moduix отключает `SignaturePadClearTrigger`, когда `readOnly` приходит из корня, окружающего
 `Field` или `useSignaturePad()`, предотвращая необратимую очистку, тогда как программный `clear()`
@@ -157,6 +185,7 @@ SignaturePadRootProvider
     values={[
       { label: 'React', value: 'react' },
       { label: 'Solid', value: 'solid' },
+      { label: 'Vue', value: 'vue' },
     ]}
     className="docs-tabs"
   >
@@ -169,6 +198,11 @@ SignaturePadRootProvider
     <Tab value="solid">
 
 <CodeBlockRuntime lang="tsx" code={signaturePadSolidControlled} />
+
+    </Tab>
+    <Tab value="vue">
+
+<CodeBlockRuntime lang="vue" code={signaturePadVueControlled} />
 
     </Tab>
   </Tabs>
@@ -198,6 +232,7 @@ Ark показано `simulatePressure: true`), поэтому имитация 
     values={[
       { label: 'React', value: 'react' },
       { label: 'Solid', value: 'solid' },
+      { label: 'Vue', value: 'vue' },
     ]}
     className="docs-tabs"
   >
@@ -210,6 +245,11 @@ Ark показано `simulatePressure: true`), поэтому имитация 
     <Tab value="solid">
 
 <CodeBlockRuntime lang="tsx" code={signaturePadSolidDrawing} />
+
+    </Tab>
+    <Tab value="vue">
+
+<CodeBlockRuntime lang="vue" code={signaturePadVueDrawing} />
 
     </Tab>
   </Tabs>
@@ -233,6 +273,7 @@ Ark показано `simulatePressure: true`), поэтому имитация 
     values={[
       { label: 'React', value: 'react' },
       { label: 'Solid', value: 'solid' },
+      { label: 'Vue', value: 'vue' },
     ]}
     className="docs-tabs"
   >
@@ -245,6 +286,11 @@ Ark показано `simulatePressure: true`), поэтому имитация 
     <Tab value="solid">
 
 <CodeBlockRuntime lang="tsx" code={signaturePadSolidField} />
+
+    </Tab>
+    <Tab value="vue">
+
+<CodeBlockRuntime lang="vue" code={signaturePadVueField} />
 
     </Tab>
   </Tabs>
@@ -273,6 +319,7 @@ Ark показано `simulatePressure: true`), поэтому имитация 
     values={[
       { label: 'React', value: 'react' },
       { label: 'Solid', value: 'solid' },
+      { label: 'Vue', value: 'vue' },
     ]}
     className="docs-tabs"
   >
@@ -285,6 +332,11 @@ Ark показано `simulatePressure: true`), поэтому имитация 
     <Tab value="solid">
 
 <CodeBlockRuntime lang="tsx" code={signaturePadSolidFormSerialization} />
+
+    </Tab>
+    <Tab value="vue">
+
+<CodeBlockRuntime lang="vue" code={signaturePadVueFormSerialization} />
 
     </Tab>
   </Tabs>
@@ -312,6 +364,7 @@ Ark показано `simulatePressure: true`), поэтому имитация 
     values={[
       { label: 'React', value: 'react' },
       { label: 'Solid', value: 'solid' },
+      { label: 'Vue', value: 'vue' },
     ]}
     className="docs-tabs"
   >
@@ -324,6 +377,11 @@ Ark показано `simulatePressure: true`), поэтому имитация 
     <Tab value="solid">
 
 <CodeBlockRuntime lang="tsx" code={signaturePadSolidImagePreview} />
+
+    </Tab>
+    <Tab value="vue">
+
+<CodeBlockRuntime lang="vue" code={signaturePadVueImagePreview} />
 
     </Tab>
   </Tabs>
@@ -352,6 +410,7 @@ Ark показано `simulatePressure: true`), поэтому имитация 
     values={[
       { label: 'React', value: 'react' },
       { label: 'Solid', value: 'solid' },
+      { label: 'Vue', value: 'vue' },
     ]}
     className="docs-tabs"
   >
@@ -364,6 +423,11 @@ Ark показано `simulatePressure: true`), поэтому имитация 
     <Tab value="solid">
 
 <CodeBlockRuntime lang="tsx" code={signaturePadSolidRootProvider} />
+
+    </Tab>
+    <Tab value="vue">
+
+<CodeBlockRuntime lang="vue" code={signaturePadVueRootProvider} />
 
     </Tab>
   </Tabs>
@@ -392,6 +456,7 @@ Ark показано `simulatePressure: true`), поэтому имитация 
     values={[
       { label: 'React', value: 'react' },
       { label: 'Solid', value: 'solid' },
+      { label: 'Vue', value: 'vue' },
     ]}
     className="docs-tabs"
   >
@@ -404,6 +469,11 @@ Ark показано `simulatePressure: true`), поэтому имитация 
     <Tab value="solid">
 
 <CodeBlockRuntime lang="tsx" code={signaturePadSolidAdvancedCustomization} />
+
+    </Tab>
+    <Tab value="vue">
+
+<CodeBlockRuntime lang="vue" code={signaturePadVueAdvancedCustomization} />
 
     </Tab>
   </Tabs>
@@ -429,7 +499,7 @@ Ark показано `simulatePressure: true`), поэтому имитация 
 
 ### Хуки стилизации
 
-Используйте `className` в React или `class` в Solid на любой экспортируемой части для локальной
+Используйте `className` в React или `class` в Solid и Vue на любой экспортируемой части для локальной
 стилизации. moduix также добавляет стабильные атрибуты `data-slot`:
 
 | Часть                                | `data-slot`                   |

@@ -177,6 +177,10 @@
       "types": "./dist/components/slider/index.d.ts",
       "import": "./dist/components/slider/index.js"
     },
+    "./separator": {
+      "types": "./dist/components/separator/index.d.ts",
+      "import": "./dist/components/separator/index.js"
+    },
     "./aspect-ratio": {
       "types": "./dist/components/aspect-ratio/index.d.ts",
       "import": "./dist/components/aspect-ratio/index.js"
@@ -289,6 +293,10 @@
       "types": "./dist/components/splitter/index.d.ts",
       "import": "./dist/components/splitter/index.js"
     },
+    "./sidebar": {
+      "types": "./dist/components/sidebar/index.d.ts",
+      "import": "./dist/components/sidebar/index.js"
+    },
     "./locale": {
       "types": "./dist/locale.d.ts",
       "import": "./dist/locale.js"
@@ -312,6 +320,10 @@
     "./progress-circular": {
       "types": "./dist/components/progress-circular/index.d.ts",
       "import": "./dist/components/progress-circular/index.js"
+    },
+    "./signature-pad": {
+      "types": "./dist/components/signature-pad/index.d.ts",
+      "import": "./dist/components/signature-pad/index.js"
     },
     "./style.css": "./dist/styles/style.css",
     "./reset.css": "./dist/styles/reset.css",

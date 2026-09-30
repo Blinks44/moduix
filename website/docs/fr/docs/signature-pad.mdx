@@ -21,6 +21,14 @@ import signaturePadSolidFormSerialization from '../../../snippets/signature-pad/
 import signaturePadSolidImagePreview from '../../../snippets/signature-pad/solid/image-preview.tsx?raw';
 import signaturePadSolidRootProvider from '../../../snippets/signature-pad/solid/root-provider.tsx?raw';
 import signaturePadSolidAdvancedCustomization from '../../../snippets/signature-pad/solid/advanced-customization.tsx?raw';
+import signaturePadVueBasic from '../../../snippets/signature-pad/vue/basic.vue?raw';
+import signaturePadVueControlled from '../../../snippets/signature-pad/vue/controlled.vue?raw';
+import signaturePadVueDrawing from '../../../snippets/signature-pad/vue/drawing.vue?raw';
+import signaturePadVueField from '../../../snippets/signature-pad/vue/field.vue?raw';
+import signaturePadVueFormSerialization from '../../../snippets/signature-pad/vue/form-serialization.vue?raw';
+import signaturePadVueImagePreview from '../../../snippets/signature-pad/vue/image-preview.vue?raw';
+import signaturePadVueRootProvider from '../../../snippets/signature-pad/vue/root-provider.vue?raw';
+import signaturePadVueAdvancedCustomization from '../../../snippets/signature-pad/vue/advanced-customization.vue?raw';
 
 ## Référence de l’API
 
@@ -45,6 +53,7 @@ d’effacement par défaut de moduix.
     values={[
       { label: 'React', value: 'react' },
       { label: 'Solid', value: 'solid' },
+      { label: 'Vue', value: 'vue' },
     ]}
     className="docs-tabs"
   >
@@ -57,6 +66,11 @@ d’effacement par défaut de moduix.
     <Tab value="solid">
 
 <CodeBlockRuntime lang="tsx" code={signaturePadSolidBasic} />
+
+    </Tab>
+    <Tab value="vue">
+
+<CodeBlockRuntime lang="vue" code={signaturePadVueBasic} />
 
     </Tab>
   </Tabs>
@@ -85,6 +99,16 @@ Consultez le [Démarrage rapide](/docs/quick-start) pour la configuration compl�
   options={[
     { label: 'CSS Modules', command: 'shadcn@latest add @moduix-solid/signature-pad' },
     { label: 'Tailwind CSS', command: 'shadcn@latest add @moduix-solid-tailwind/signature-pad' },
+  ]}
+/>
+
+  </Tab>
+  <Tab label="Vue" value="vue">
+
+<ShadcnInstallOptions
+  options={[
+    { label: 'CSS Modules', command: 'shadcn@latest add @moduix-vue/signature-pad' },
+    { label: 'Tailwind CSS', command: 'shadcn@latest add @moduix-vue-tailwind/signature-pad' },
   ]}
 />
 
@@ -134,6 +158,11 @@ Utilisez `defaultPaths` pour un état local non contrôlé. Utilisez `paths` ave
 `onDraw(details)` lorsque l’application possède les données de la signature. Utilisez
 `SignaturePadRootProvider` avec `useSignaturePad()` lorsque l’état doit être créé en dehors de l’arborescence
 rendue ou que des contrôles externes doivent accéder à `paths`, `clear()` ou `getDataUrl()`.
+Dans Vue, contrôlez les tracés avec `v-model:paths` et utilisez `@draw` ou `@draw-end`
+pour recevoir les détails du dessin.
+
+Avec Ark Vue 5.39.2, `drawEnd.paths` peut contenir la valeur précédente en mode contrôlé.
+`v-model:paths` reçoit les tracés terminés.
 
 Contrairement à Ark, moduix désactive `SignaturePadClearTrigger` lorsque `readOnly` provient de la racine, d’un
 `Field` englobant ou de `useSignaturePad()`, ce qui empêche un effacement irréversible tandis que
@@ -157,6 +186,7 @@ coordonner avec des contrôles de réinitialisation ou une logique d’enregistr
     values={[
       { label: 'React', value: 'react' },
       { label: 'Solid', value: 'solid' },
+      { label: 'Vue', value: 'vue' },
     ]}
     className="docs-tabs"
   >
@@ -169,6 +199,11 @@ coordonner avec des contrôles de réinitialisation ou une logique d’enregistr
     <Tab value="solid">
 
 <CodeBlockRuntime lang="tsx" code={signaturePadSolidControlled} />
+
+    </Tab>
+    <Tab value="vue">
+
+<CodeBlockRuntime lang="vue" code={signaturePadVueControlled} />
 
     </Tab>
   </Tabs>
@@ -199,6 +234,7 @@ doivent différer des valeurs par défaut. La valeur par défaut à l’exécuti
     values={[
       { label: 'React', value: 'react' },
       { label: 'Solid', value: 'solid' },
+      { label: 'Vue', value: 'vue' },
     ]}
     className="docs-tabs"
   >
@@ -211,6 +247,11 @@ doivent différer des valeurs par défaut. La valeur par défaut à l’exécuti
     <Tab value="solid">
 
 <CodeBlockRuntime lang="tsx" code={signaturePadSolidDrawing} />
+
+    </Tab>
+    <Tab value="vue">
+
+<CodeBlockRuntime lang="vue" code={signaturePadVueDrawing} />
 
     </Tab>
   </Tabs>
@@ -234,6 +275,7 @@ obligatoire ou le message de validation concernent un même contrôle de formula
     values={[
       { label: 'React', value: 'react' },
       { label: 'Solid', value: 'solid' },
+      { label: 'Vue', value: 'vue' },
     ]}
     className="docs-tabs"
   >
@@ -246,6 +288,11 @@ obligatoire ou le message de validation concernent un même contrôle de formula
     <Tab value="solid">
 
 <CodeBlockRuntime lang="tsx" code={signaturePadSolidField} />
+
+    </Tab>
+    <Tab value="vue">
+
+<CodeBlockRuntime lang="vue" code={signaturePadVueField} />
 
     </Tab>
   </Tabs>
@@ -274,6 +321,7 @@ attend un autre format. Cet exemple envoie un tableau JSON.
     values={[
       { label: 'React', value: 'react' },
       { label: 'Solid', value: 'solid' },
+      { label: 'Vue', value: 'vue' },
     ]}
     className="docs-tabs"
   >
@@ -286,6 +334,11 @@ attend un autre format. Cet exemple envoie un tableau JSON.
     <Tab value="solid">
 
 <CodeBlockRuntime lang="tsx" code={signaturePadSolidFormSerialization} />
+
+    </Tab>
+    <Tab value="vue">
+
+<CodeBlockRuntime lang="vue" code={signaturePadVueFormSerialization} />
 
     </Tab>
   </Tabs>
@@ -313,6 +366,7 @@ Utilisez `onDrawEnd` pour exporter la signature et l’afficher avant son enregi
     values={[
       { label: 'React', value: 'react' },
       { label: 'Solid', value: 'solid' },
+      { label: 'Vue', value: 'vue' },
     ]}
     className="docs-tabs"
   >
@@ -325,6 +379,11 @@ Utilisez `onDrawEnd` pour exporter la signature et l’afficher avant son enregi
     <Tab value="solid">
 
 <CodeBlockRuntime lang="tsx" code={signaturePadSolidImagePreview} />
+
+    </Tab>
+    <Tab value="vue">
+
+<CodeBlockRuntime lang="vue" code={signaturePadVueImagePreview} />
 
     </Tab>
   </Tabs>
@@ -354,6 +413,7 @@ situés en dehors de l’arborescence rendue doivent accéder directement à `pa
     values={[
       { label: 'React', value: 'react' },
       { label: 'Solid', value: 'solid' },
+      { label: 'Vue', value: 'vue' },
     ]}
     className="docs-tabs"
   >
@@ -366,6 +426,11 @@ situés en dehors de l’arborescence rendue doivent accéder directement à `pa
     <Tab value="solid">
 
 <CodeBlockRuntime lang="tsx" code={signaturePadSolidRootProvider} />
+
+    </Tab>
+    <Tab value="vue">
+
+<CodeBlockRuntime lang="vue" code={signaturePadVueRootProvider} />
 
     </Tab>
   </Tabs>
@@ -394,6 +459,7 @@ des parties de dessin ou fournir votre propre bouton d’effacement.
     values={[
       { label: 'React', value: 'react' },
       { label: 'Solid', value: 'solid' },
+      { label: 'Vue', value: 'vue' },
     ]}
     className="docs-tabs"
   >
@@ -406,6 +472,11 @@ des parties de dessin ou fournir votre propre bouton d’effacement.
     <Tab value="solid">
 
 <CodeBlockRuntime lang="tsx" code={signaturePadSolidAdvancedCustomization} />
+
+    </Tab>
+    <Tab value="vue">
+
+<CodeBlockRuntime lang="vue" code={signaturePadVueAdvancedCustomization} />
 
     </Tab>
   </Tabs>
@@ -431,7 +502,7 @@ des parties de dessin ou fournir votre propre bouton d’effacement.
 
 ### Points d’accroche CSS
 
-Utilisez `className` dans React ou `class` dans Solid sur toute partie exportée pour appliquer des
+Utilisez `className` dans React ou `class` dans Solid et Vue sur toute partie exportée pour appliquer des
 styles locaux. moduix ajoute également des attributs `data-slot` stables :
 
 | Partie                               | `data-slot`                   |
